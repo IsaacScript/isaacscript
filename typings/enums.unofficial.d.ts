@@ -27,15 +27,22 @@ declare const enum SlotVariant {
 
 // EntityType.ENTITY_LASER (7)
 declare const enum LaserVariant {
-  LASER_THICK_RED = 1, // Brimstone
-  LASER_THIN_RED = 2, // Technology
+  // Brimstone
+  LASER_THICK_RED = 1,
+  // Technology
+  LASER_THIN_RED = 2,
   LASER_SHOOP_DA_WHOOP = 3,
-  LASER_PRIDE = 4, // Looks like a squiggly line
-  LASER_LIGHT_BEAM = 5, // Angel lasers
-  LASER_GIANT_RED = 6, // Mega Blast
+  // Looks like a squiggly line
+  LASER_PRIDE = 4,
+  // Angel lasers
+  LASER_LIGHT_BEAM = 5,
+  // Mega Blast
+  LASER_GIANT_RED = 6,
   LASER_TRACTOR_BEAM = 7,
-  LASER_LIGHT_RING = 8, // ?? (looks like a thinner Angel laser)
-  LASER_BRIMTECH = 9, // Brimstone + Technology
+  // Looks like a thinner Angel laser, used for Circle of Protection
+  LASER_LIGHT_RING = 8,
+  // Brimstone + Technology
+  LASER_BRIMTECH = 9,
 }
 
 // GridEntityType.GRID_POOP (14)
@@ -49,9 +56,7 @@ declare const enum PoopVariant {
   POOP_WHITE = 6,
 }
 
-/**
- * The grid entity ID used for the `gridspawn` console command
- */
+// The grid entity ID used for the `gridspawn` console command
 declare const enum GridEntityRoomType {
   ROCK = 1000,
   BOMB_ROCK = 1001,
@@ -116,45 +121,70 @@ declare const enum FadeoutTarget {
   // 5 and higher result in a black screen
 }
 
-// These enums loop after 31, so 32 = DPAD_LEFT, 63 = DPAD_LEFT, and so on
-// There appears to be no input key for joystick movement
+/**
+ * These enums loop after 31, so 32 = DPAD_LEFT, 63 = DPAD_LEFT, and so on.
+ * There appears to be no input key for joystick movement.
+ */
 declare const enum Controller {
   DPAD_LEFT = 0,
   DPAD_RIGHT = 1,
   DPAD_UP = 2,
   DPAD_DOWN = 3,
-  CPAD_DOWN = 4, // A, X and B on Xbox, Playstation and Nintendo respectively
-  CPAD_RIGHT = 5, // B, O and A on Xbox, Playstation and Nintendo respectively
-  CPAD_LEFT = 6, // X, □ and Y on Xbox, Playstation and Nintendo respectively
-  CPAD_UP = 7, // Y, Δ and X on Xbox, Playstation and Nintendo respectively
-  BUTTON_LB = 8, // Left shoulder
-  BUTTON_LT = 9, // Left trigger
-  BUTTON_LS = 10, // Left stick
-  BUTTON_RB = 11, // Right shoulder
-  BUTTON_RT = 12, // Right trigger
-  BUTTON_RS = 13, // Right stick
-  SELECT = 14, // Select, Share and - on Xbox, Playstation and Nintendo respectively
-  START = 15, // Start, Options and + on Xbox, Playstation and Nintendo respectively
+  // A, X and B on Xbox, Playstation and Nintendo respectively
+  CPAD_DOWN = 4,
+  // B, O and A on Xbox, Playstation and Nintendo respectively
+  CPAD_RIGHT = 5,
+  // X, □ and Y on Xbox, Playstation and Nintendo respectively
+  CPAD_LEFT = 6,
+  // Y, Δ and X on Xbox, Playstation and Nintendo respectively
+  CPAD_UP = 7,
+  // Left shoulder
+  BUTTON_LB = 8,
+  // Left trigger
+  BUTTON_LT = 9,
+  // Left stick
+  BUTTON_LS = 10,
+  // Right shoulder
+  BUTTON_RB = 11,
+  // Right trigger
+  BUTTON_RT = 12,
+  // Right stick
+  BUTTON_RS = 13,
+  // Select, Share and - on Xbox, Playstation and Nintendo respectively
+  SELECT = 14,
+  // Start, Options and + on Xbox, Playstation and Nintendo respectively
+  START = 15,
 }
 
 declare const enum LineCheckMode {
-  MODE_NORMAL = 0, // Stopped by pits and rocks (e.g. like a Gaper's behavior)
-  MODE_ECONOMIC = 1, // Same as MODE_NORMAL, but less resource-intensive
-  MODE_EXPLOSION = 2, // Only blocked by walls and metal blocks
+  // Stopped by pits and rocks (e.g. like a Gaper's behavior)
+  MODE_NORMAL = 0,
+  // Same as MODE_NORMAL, but less resource-intensive
+  MODE_ECONOMIC = 1,
+  // Only blocked by walls and metal blocks
+  MODE_EXPLOSION = 2,
   // Not blocked by pits; used by enemies that shoot projectiles at you, such as Hosts
   MODE_PROJECTILE = 3,
 }
 
 declare const enum ProjectilesMode {
   ONE_PROJECTILE = 0,
-  TWO_PROJECTILES = 1, // Uses params.Spread
-  THREE_PROJECTILES = 2, // Uses params.Spread
-  THREE_PROJECTILES_SPREAD = 3, // Uses params.Spread
-  FOUR_PROJECTILES = 4, // Uses params.Spread
-  FIVE_PROJECTILES = 5, // Uses params.Spread
-  FOUR_PROJECTILES_PLUS_PATTERN = 6, // Uses velocity.X as speed
-  FOUR_PROJECTILES_X_PATTERN = 7, // Uses velocity.X as speed
-  EIGHT_PROJECTILES_STAR_PATTERN = 8, // Uses velocity.X as speed
+  // Uses params.Spread
+  TWO_PROJECTILES = 1,
+  // Uses params.Spread
+  THREE_PROJECTILES = 2,
+  // Uses params.Spread
+  THREE_PROJECTILES_SPREAD = 3,
+  // Uses params.Spread
+  FOUR_PROJECTILES = 4,
+  // Uses params.Spread
+  FIVE_PROJECTILES = 5,
+  // Uses velocity.X as speed
+  FOUR_PROJECTILES_PLUS_PATTERN = 6,
+  // Uses velocity.X as speed
+  FOUR_PROJECTILES_X_PATTERN = 7,
+  // Uses velocity.X as speed
+  EIGHT_PROJECTILES_STAR_PATTERN = 8,
   // Uses velocity.X as speed
   // Uses velocity.y as N
   // Use params.FireDirectionLimit and params.DotProductLimit to fire in an arc only
@@ -192,39 +222,39 @@ declare const enum Ending {
 declare const enum ChampionColorIdx {
   // No champion
   REGULAR = -1,
-  // ×2.5 amount of HP.
+  // 2.5x amount of HP
   VIVID_RED = 0,
-  // Increased movement speed.
+  // Increased movement speed
   DARK_YELLOW = 1,
-  // Leaves green creep as it walks.
+  // Leaves green creep as it walks
   STRONG_LIME_GREEN = 2,
-  // Attacks cause you to drop coins (like Greed or a Hanger).
+  // Attacks cause you to drop coins (like Greed or a Hanger)
   VIVID_ORANGE = 3,
-  // Decreased speed.
+  // Decreased speed
   VIVID_BLUE = 4,
-  // Explodes when killed.
+  // Explodes when killed
   DARK_CYAN = 5,
-  // Invincible until all other enemies are killed.
+  // Invincible until all other enemies are killed
   WHITE = 6,
-  // 2/3 health, decreased speed.
+  // 2/3 health, decreased speed
   DARK_GRAY = 7,
-  // Tears become spectral tears, and it can move past environmental obstacles.
+  // Tears become spectral tears, and it can move past environmental obstacles
   TRANSPARENT_WHITE = 8,
   // Fades in and out of visibility
   BLACK = 9,
-  // Periodically shoots short-ranged blood shots.
+  // Periodically shoots short-ranged blood shots
   PURE_MAGENTA = 10,
-  // Pulls Isaac and his shots towards itself.
+  // Pulls the player (and tears) towards itself
   MOSTLY_PURE_VIOLET = 11,
-  // Collapses into a flesh pile upon death and regenerates if not finished off.
+  // Collapses into a flesh pile upon death and regenerates if not finished off
   DARK_RED = 12,
-  // Releases blood shots in 8 directions when killed.
-  VEYRY_LIGHT_BLUE = 13,
-  // The enemy blends into the background and briefly becomes visible when damaged.
+  // Releases blood shots in 8 directions when killed
+  VERY_LIGHT_BLUE = 13,
+  // The enemy blends into the background and briefly becomes visible when damaged
   CAMOUFLAGE = 14,
-  // Splits into two copies of itself upon death.
+  // Splits into two copies of itself upon death
   PULSING_STRONG_LIME = 15,
-  // Repels Isaac's shots when it pulses.
+  // Repels Isaac's shots when it pulses
   PULSING_DARK_GRAY,
   // Has 1-2 Eternal Flies circling it. Spawns another fly upon death.
   LIGHT_WHITE = 17,
@@ -241,7 +271,6 @@ declare const enum ChampionColorIdx {
   // Produces a The Necronomicon effect upon death. Deals two full hearts of damage.
   SKULL = 23,
 }
-
 
 declare const enum BossIDs {
   MONSTRO = 1,

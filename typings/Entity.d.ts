@@ -1,4 +1,15 @@
-type EntityVariantForAC = EffectVariant | PickupVariant | BombVariant | FamiliarVariant | TearVariant | ProjectileVariant | PlayerVariant | LaserVariant; // Not actually limited to those, but give autocompletion
+// In TypeScript mods, users will not actually be limited to these variants
+// (e.g. "Variant: EntityVariantForAC" is the same as "Variant: int")
+// However, specifying this helps autocompletion
+type EntityVariantForAC =
+  | EffectVariant
+  | PickupVariant
+  | BombVariant
+  | FamiliarVariant
+  | TearVariant
+  | ProjectileVariant
+  | PlayerVariant
+  | LaserVariant;
 
 declare class Entity {
   GetData(): Record<string, unknown>;
@@ -84,7 +95,7 @@ declare class Entity {
   Position: Vector;
   Velocity: Vector;
   readonly Type: EntityType;
-  Variant: EntityVariantForAC
+  Variant: EntityVariantForAC;
   SubType: int;
   SpawnerType: EntityType;
   SpawnerVariant: EntityVariantForAC;
