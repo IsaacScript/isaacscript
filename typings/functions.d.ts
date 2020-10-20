@@ -3,4 +3,4 @@ declare function RandomVector(): Vector;
 declare function Game(): Game;
 declare function SFXManager(): SFXManager;
 declare function MusicManager(): MusicManager;
-declare function GetPtrHash(object: any): int;
+declare function GetPtrHash(entity: Entity): int;

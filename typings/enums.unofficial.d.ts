@@ -239,7 +239,7 @@ declare const enum ChampionColorIdx {
   // Increased health. All enemies in the room that are not champions will turn yellow while the crowned enemy is alive. The affected enemies will drop batteries like yellow champions upon dying.
   CROWN = 22,
   // Produces a The Necronomicon effect upon death. Deals two full hearts of damage.
-  SKULL = 23
+  SKULL = 23,
 }
 
 
@@ -315,5 +315,5 @@ declare const enum BossIDs {
   SISTERS_VIS = 68,
   BIG_HORN = 69,
   DELIRIUM = 70,
-  THE_MATRIARCH = 72
+  THE_MATRIARCH = 72,
 }
