@@ -8,3 +8,4 @@ These are TypeScript definitions for [The Binding of Isaac: Afterbirth+](https:/
 
 * convert int --> EntityType, CollectibleType, etc.
 * add JSDoc comments for everything from the official docs
+* add unofficial BossID enum
