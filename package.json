@@ -8,21 +8,17 @@
     "afterbirth",
     "repentance"
   ],
-  "homepage": "https://github.com/Zamiell/isaac-typescript-definitions#readme",
+  "homepage": "https://github.com/IsaacScript/isaac-typescript-definitions#readme",
   "bugs": {
-    "url": "https://github.com/Zamiell/isaac-typescript-definitions/issues"
+    "url": "https://github.com/IsaacScript/isaac-typescript-definitions/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Zamiell/isaac-typescript-definitions.git"
+    "url": "git+https://github.com/IsaacScript/isaac-typescript-definitions.git"
   },
   "license": "GPL-3.0",
   "author": "Zamiell",
-  "main": "index.js",
   "types": "typings/index.d.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "dependencies": {
     "lua-types": "^2.8.0"
   },
