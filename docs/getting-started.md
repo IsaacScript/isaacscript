@@ -60,7 +60,7 @@ cinst vscode -y
 
 (This is short form of `choco install vscode -y`. The `-y` flag automaticaly answers "yes" to the "Are you sure" message.)
 
-VSCode is the recommended editor to use in conjunction with `isaacscript`, but feel free to use something else (like [WebStorm](https://www.jetbrains.com/webstorm/)) if you like it better.
+VSCode is the recommended editor to use in conjunction with `isaacscript`, but feel free to use something else (like [WebStorm](https://www.jetbrains.com/webstorm/)) if you want.
 
 <br />
 
@@ -85,7 +85,7 @@ Install `isaacscript` by pasting in the following command:
 npm install isaacscript -g
 ```
 
-(The "-g" flag means to install it globally, instead of installing it to the current working directory.)
+(`npm` is the package manager for Node.js. The "-g" flag means to install it globally, instead of installing it to the current working directory.)
 
 <br />
 
@@ -100,7 +100,7 @@ mkdir C:\Repositories\revelations
 cd C:\Repositories\revelations
 ```
 
-Note that your project directory should **not** be a subdirectory of the "Binding of Isaac Afterbirth+ Mods" directory! This is because `isaacscript` will syncronize / clone your mod there for you automatically.
+Note that your project directory should **not** be a subdirectory of the `Binding of Isaac Afterbirth+ Mods` directory! This is because `isaacscript` will syncronize / clone your mod there automatically.
 
 <br />
 
@@ -134,28 +134,49 @@ By default, `isaacscript` creates the main file for your project at `src/main.ts
 
 <br />
 
-### 11) Confirm That Auto-Refresh Works
+### 11) Confirm That Auto-Mod-Reloading Works
 
-`isaacscript` communicates with a helper mod called `isaacscript-watcher` in order to automatically tell the game that it should run the `luamod` console command. (This command will reload a mod that you are working on without the need to quit and re-enter the game.)
+The moment that you save a TypeScript file, `isaacscript` will detect that something has changed, and it will automatically perform the following steps:
 
-`isaacscript` will automatically install `isaacscript-watcher`, so you don't have to do anything.
+- `isaacscript` will re-compile your TypeScript project using `tstl`, the TypeScriptToLua tool.
+- `tstl` will spit out a file called `main.lua` in your project's `mod` folder. (e.g. `C:\Repositories\revelations\mod\main.lua`)
+- `isaacscript` will copy this file to the `Binding of Isaac Afterbirth+ Mods` directory. (e.g. `C:\Users\james\Documents\My Games\Binding of Isaac Afterbirth+ Mods\revelations\main.lua`)
+- If you have the game open and are in a run, `isaacscript` will then send a message to a helper mod called `isaacscript-watcher`.
+- `isaacscript-watcher` will run the `luamod` console command corresponding to your project. (e.g. `luamod revelations`)
+- After the `luamod` command is executed, your mod has been reloaded - it is now ready to test!
+- If compilation failed for any reason, then you will be able to see the errors on both the `isaacscript` window and in-game. (The `isaacscript-watcher` mod will draw them on the screen for you.)
 
-Test to see that it works:
+Note that `isaacscript` will automatically install the `isaacscript-watcher` helper mod for you, so you don't have to do anything. Just test to see that it works:
 
 1. Make sure that `isaacscript` is running in a shell.
-2. Go into a run.
-3. Add something new to your `main.ts` file:
+2. In-game, go into a run.
+3. In VSCode, add something new to your `main.ts` file, like:
 
 ```typescript
 Isaac.ConsoleOutput("hello world");
 ```
 
-As soon as you hit "save" in VSCode, `isaacscript` will automatically compile it for you, and move the resulting `main.lua` file into your real mod folder. Then, you should see a message appear on the screen that your mod was reloaded.
+4. Hit save.
 
 <br />
 
-### 12) Start Coding
+### 12) Confirm That File Cloning Works
+
+`isaacscript` automatically creates a special subdirectory called `mod` in your project directory. `isaacscript` will automatically sync the contents of this directory with the deployed folder in `Binding of Isaac Afterbirth+ Mods`.
+
+For example:
+- Say that you have a project directory of: `C:\Repositories\revelations\`
+- Then, inside your project mod folder, you make some new subdirectories: `C:\Repositories\revelations\mod\resources\gfx\items\collectibles\`
+  - (This is the directory that you are supposed to put graphics files in for new, modded items.)
+- Next, you put a new file in that directory: `C:\Repositories\revelations\mod\resources\gfx\items\collectibles\collectibles_new_item.png`
+- Now, `isaacscript` automatically copies the `collectibles_new_item.png` file to: `C:\Users\james\Documents\My Games\Binding of Isaac Afterbirth+ Mods\revelations\resources\gfx\items\collectibles\collectibles_new_item.png`
+
+For now, just put something in your mod folder and confirm that `isaacscript` copies it over for you!
+
+<br />
+
+### 13) Start Coding
 
 That's it! Now, start coding.
 
-If you've never programmed anything in JavaScript before, then read the next page.
+See the next page for some basic JavaScript tips.

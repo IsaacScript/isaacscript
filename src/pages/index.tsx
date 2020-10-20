@@ -18,10 +18,7 @@ const features: Feature[] = [
         description: (
             <>
                 <li>Code fearlessly without having to worry about making a typo.</li>
-                <li>
-                    Enjoy mouseover documentation so that you never have to open the Isaac documentation ever again.
-                    Good riddance.
-                </li>
+                <li>Mouseover any function call to see exactly what it does, saving you from opening the docs.</li>
             </>
         ),
     },

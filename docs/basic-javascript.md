@@ -2,7 +2,7 @@
 title: Basic JavaScript/TypeScript
 ---
 
-If you have never programmed anything in JavaScript before, then before plunging into creating a mod, it might be a good idea to first set aside an hour or so and follow a basic JavaScript tutorial. As they say, you have to learn to walk before you can learn to run. There are plenty of online resources out there - just use Google and find something you like.
+If you have never programmed anything in JavaScript before, then it might be a good idea to follow a basic JavaScript tutorial before you start working on a mod. As they say, you have to learn to walk before you can learn to run. There are plenty of online resources out there - just use Google and find something you like. Teaching you how to program well in JavaScript is beyond the scope of this article.
 
 TypeScript is 99% the same as JavaScript. It is a "superset" language, meaning that TypeScript just adds some extra things on top of JavaScript.
 
@@ -21,7 +21,7 @@ end
 
 ```typescript
 // In TypeScript, you have to put parenthesis around all the conditions of an if statement
-// In TypeScript, you should always use "==" instead of "==="
+// In TypeScript, you should always use "===" (strict equals) instead of "==" (normal equals)
 if (entity.SpawnerEntity === null) {
   // "null" instead of "nil"
   // This entity was not spawned by anything in particular
@@ -58,7 +58,8 @@ In Lua, you generally type `local` before everything to stop it from being turne
 
 In TypeScript, this isn't necessary. There are no globals variables, unless we explicitly create one.
 
-Furthermore, in TypeScript, there are two kinds of variable declarations: `let` and `const`. (Don't ever use `var`, which is only used in ancient JavaScript code.)
+Furthermore, in TypeScript, there are two kinds of variable declarations: `let` and `const`.<br />
+(Don't ever use `var`, which is only used in ancient JavaScript code.)
 
 ```lua
 -- Lua code
@@ -75,8 +76,7 @@ end
 const poop = "poop"; // We use "const" because this value never changes
 let fart = "fart"; // We use "let" because we have to modify it later
 fart += " modified"; // We use the "+=" operator instead of ".." to concatenate a string
-function getPoop() {
-  // No local here
+function getPoop() { // No local here
   return "poop";
 }
 ```
