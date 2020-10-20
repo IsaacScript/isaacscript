@@ -118,9 +118,9 @@ const Revelations = RegisterMod("Revelations", 1);
 
 // Below, we mark "player" as a "EntityPlayer" type (by using a colon)
 // The "EntityPlayer" type is automatically provided by the
-// "isaac-typescript-defintions" package, and corresponds to the "EntityPlayer"
+// "isaac-typescript-definitions" package, and corresponds to the "EntityPlayer"
 // in the official docs
-// The "isaac-typescript-defintions" package is automatically imported by
+// The "isaac-typescript-definitions" package is automatically imported by
 // IsaacScript when you create a new project
 function PostPlayerInit(player: EntityPlayer) {
   // Now, TypeScript has full knowledge of all the legal methods for "player"
@@ -137,7 +137,7 @@ Revelations.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, PostPlayerInit);
 
 ### Splitting Your Code Into Multiple Files: `require()` --> `import`
 
-In Lua, you split your code into multiple files by using `reqire()`. In TypeScript, this is done with `import`. (Don't ever use `require()`, which is only used in older JavaScript code.)
+In Lua, you split your code into multiple files by using `require()`. In TypeScript, this is done with `import`. (Don't ever use `require()`, which is only used in older JavaScript code.)
 
 ```lua
 -- main.lua
@@ -171,6 +171,7 @@ Revelations.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, PostPlayerInit.Main);
 ```
 
 ```typescript
+// PostPlayerInit.ts
 export function Main(player: EntityPlayer) {
   player.AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false)
 }

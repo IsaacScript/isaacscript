@@ -32,13 +32,17 @@
     "allusersprofile",
     "benchviz",
     "bffs",
+    "brainer",
     "choco",
     "cinst",
+    "else's",
     "isaacconfig",
     "isaacscript",
     "isaactearsiconfull",
     "luamod",
     "mkdir",
+    "modder",
+    "postplayerinit",
     "tstl"
   ],
 }
