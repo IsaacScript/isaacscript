@@ -1,0 +1,201 @@
+[
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\blocal\\b",
+        "replace": "const",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\bif\\b",
+        "replace": "if (",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\belse\\b",
+        "replace": "} else {",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\belseif\\b",
+        "replace": "} else if (",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\bfor\\b",
+        "replace": "for (",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\bfor \\( i = 1, (\\d+) do\\b",
+        "replace": "for (let i = 0; i < $1; i++) {",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\bthen\\b",
+        "replace": ") {",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\bdo\\b",
+        "replace": ") {",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\bend\\b",
+        "replace": "}",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "==",
+        "replace": "===",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "~=",
+        "replace": "!==",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\band\\b",
+        "replace": "&&",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\bor\\b",
+        "replace": "||",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\bnot\\b",
+        "replace": "!",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\bnil\\b",
+        "replace": "null",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\.\\.",
+        "replace": "+",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": ":",
+        "replace": ".",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "--",
+        "replace": "//",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\btostring\\((.+?)\\)",
+        "replace": "$1.toString()",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\s+#(\\w+)\\b",
+        "replace": "$1.length",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  }
+]
