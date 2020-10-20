@@ -38,23 +38,16 @@ const features: Feature[] = [
 ];
 
 const exampleSource = `
-const Revelations = RegisterMod("Revelations", 1);
-
-function PostPlayerInit(player: EntityPlayer) {
-  player.AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false);
-}
-
-Revelations.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, PostPlayerInit);
+const deadEntities = Isaac.GetRoomEntities().filter((entity) => entity.IsDead())
 `.trim();
 
 const exampleOutput = `
-local Revelations = RegisterMod("Revelations", 1)
-
-local function PostPlayerInit(player)
-  player:AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false)
+local deadEntities = {}
+for _, entity in ipairs(Isaac.GetRoomEntities()) do
+   if entity:IsDead() then
+      table.insert(deadEntities, entity)
+   end
 end
-
-Revelations:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, PostPlayerInit);
 `.trim();
 
 function Feature({ title, description, img }: Feature) {
