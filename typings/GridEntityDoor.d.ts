@@ -25,7 +25,7 @@ declare class GridEntityDoor extends GridEntity {
   ExtraVisible: boolean;
   Busted: boolean;
   PreviousState: int;
-  PreviousVariant: int;
+  PreviousVariant: DoorVariant;
   OpenAnimation: string;
   CloseAnimation: string;
   LockedAnimation: string;

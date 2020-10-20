@@ -1,3 +1,5 @@
+type EntityVariantForAC = EffectVariant | PickupVariant | BombVariant | FamiliarVariant | TearVariant | ProjectileVariant | PlayerVariant | LaserVariant; // Not actually limited to those, but give autocompletion
+
 declare class Entity {
   GetData(): Record<string, unknown>;
   Update(): void;
@@ -33,10 +35,10 @@ declare class Entity {
   IsActiveEnemy(includeDead: boolean): boolean;
   IsVulnerableEnemy(): boolean;
   IsFlying(): boolean;
-  AddEntityFlags(entityFlags: int): void;
-  ClearEntityFlags(entityFlags: int): void;
-  GetEntityFlags(): int;
-  HasEntityFlags(entityFlags: int): boolean;
+  AddEntityFlags(entityFlags: EntityFlag): void;
+  ClearEntityFlags(entityFlags: EntityFlag): void;
+  GetEntityFlags(): EntityFlag;
+  HasEntityFlags(entityFlags: EntityFlag): boolean;
   HasFullHealth(): boolean;
   AddHealth(hitPoints: float): void;
   AddPoison(source: EntityRef, duration: int, damage: float): void;
@@ -60,7 +62,7 @@ declare class Entity {
   IsInvincible(): boolean;
   CanShutDoors(): boolean;
   IsBoss(): boolean;
-  GetBossID(): int;
+  GetBossID(): BossIDs;
   GetLastParent(): Entity;
   GetLastChild(): Entity;
   HasCommonParentWithEntity(other: Entity): boolean;
@@ -81,11 +83,11 @@ declare class Entity {
   Friction: float;
   Position: Vector;
   Velocity: Vector;
-  readonly Type: int;
-  Variant: int;
+  readonly Type: EntityType;
+  Variant: EntityVariantForAC
   SubType: int;
-  SpawnerType: int;
-  SpawnerVariant: int;
+  SpawnerType: EntityType;
+  SpawnerVariant: EntityVariantForAC;
   readonly SplatColor: Readonly<Color>;
   Visible: boolean;
   readonly PositionOffset: Readonly<Vector>;

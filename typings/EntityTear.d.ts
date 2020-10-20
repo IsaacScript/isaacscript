@@ -2,7 +2,7 @@ declare class EntityTear extends Entity {
   SetKnockbackMultiplier(multiplier: float): void;
   SetWaitFrames(value: int): void;
   SetDeadEyeIntensity(intensity: float): void;
-  ChangeVariant(newVariant: int): void;
+  ChangeVariant(newVariant: TearVariant): void;
   SetParentOffset(offset: Vector): void;
   ResetSpriteScale(): void;
 
@@ -10,7 +10,7 @@ declare class EntityTear extends Entity {
   FallingSpeed: float;
   FallingAcceleration: float;
   Scale: float;
-  TearFlags: int;
+  TearFlags: TearFlags;
   readonly TearIndex: int;
   Rotation: float;
   HomingFriction: float;

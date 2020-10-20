@@ -1,8 +1,8 @@
 declare class TearParams {
-  TearVariant: int;
+  TearVariant: TearVariant;
   BombVariant: int;
   TearColor: Color;
-  TearFlags: int;
+  TearFlags: TearFlags;
   TearDamage: float;
   TearScale: float;
   TearHeight: float;

@@ -3,8 +3,8 @@ declare class Game {
   Render(): void;
   IsPaused(): boolean;
   Spawn(
-    entityType: int,
-    variant: int,
+    entityType: EntityType,
+    variant: EntityVariantForAC,
     position: Vector,
     velocity: Vector,
     spawner: Entity | null,
@@ -24,14 +24,14 @@ declare class Game {
     radius: float,
     lineCheck: boolean,
     source: Entity,
-    tearFlags: int,
-    damageFlags: int,
+    tearFlags: TearFlags,
+    damageFlags: DamageFlag,
     damageSource: boolean,
   ): void;
   BombExplosionEffects(
     position: Vector,
     damage: float,
-    tearFlags: int,
+    tearFlags: TearFlags,
     color: Color,
     source: Entity,
     radiusMult: float,
@@ -41,7 +41,7 @@ declare class Game {
   BombTearflagEffects(
     position: Vector,
     radius: float,
-    tearFlags: int,
+    tearFlags: TearFlags,
     source: Entity,
   ): void;
   Fart(
@@ -61,7 +61,7 @@ declare class Game {
   RerollEnemy(entity: Entity): boolean;
   SpawnParticles(
     position: Vector,
-    effectVariant: int,
+    effectVariant: EffectVariant,
     numParticles: int,
     speed: float,
     color: Color,
@@ -115,9 +115,9 @@ declare class Game {
   ClearDonationModAngel(): void;
   SetLastLevelWithDamage(levelStage: LevelStage): void;
   GetLastLevelWithDamage(): LevelStage;
-  AddEncounteredBoss(entityType: int, variant: int): void;
+  AddEncounteredBoss(entityType: EntityType, variant: EntityVariantForAC): void;
   GetNumEncounteredBosses(): int;
-  HasEncounteredBoss(entityType: int, variant: int): boolean;
+  HasEncounteredBoss(entityType: EntityType, variant: EntityVariantForAC): boolean;
   GetGreedWavesNum(): int;
   GetGreedBossWaveNum(): int;
   SetLastLevelWithoutHalfHp(levelStage: LevelStage): void;

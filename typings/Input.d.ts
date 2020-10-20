@@ -1,10 +1,10 @@
 declare namespace Input {
-  function IsButtonTriggered(button: int, controllerID: int): boolean;
-  function IsButtonPressed(button: int, controllerID: int): boolean;
-  function GetButtonValue(button: int, controllerID: int): float;
-  function IsActionTriggered(action: int, controllerID: int): boolean;
-  function IsActionPressed(action: int, controllerID: int): boolean;
-  function GetActionValue(action: int, controllerID: int): float;
-  function IsMouseBtnPressed(button: int): boolean;
+  function IsButtonTriggered(button: Keyboard, controllerID: int): boolean;
+  function IsButtonPressed(button: Keyboard, controllerID: int): boolean;
+  function GetButtonValue(button: Keyboard, controllerID: int): float;
+  function IsActionTriggered(action: ButtonAction, controllerID: int): boolean;
+  function IsActionPressed(action: ButtonAction, controllerID: int): boolean;
+  function GetActionValue(action: ButtonAction, controllerID: int): float;
+  function IsMouseBtnPressed(button: Mouse): boolean;
   function GetMousePosition(gameCoords: boolean): Vector;
 }

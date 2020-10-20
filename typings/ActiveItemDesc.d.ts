@@ -1,5 +1,5 @@
 declare class ActiveItemDesc {
-  Item: int;
+  Item: CollectibleType;
   Charge: int;
   BatteryCharge: int;
   Lock: boolean;

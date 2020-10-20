@@ -1,23 +1,23 @@
 declare class EntityNPC extends Entity {
   Morph(
-    entityType: int,
-    variant: int,
+    entityType: EntityType,
+    variant: EntityVariantForAC,
     subType: int,
-    championColorIdx: int,
+    championColorIdx: ChampionColorIdx,
   ): boolean;
   KillUnique(): void;
   IsBoss(): boolean;
   GetPlayerTarget(): Entity;
   CalcTargetPosition(distanceLimit: float): Vector;
   GetBossColorIdx(): int;
-  GetChampionColorIdx(): int;
+  GetChampionColorIdx(): ChampionColorIdx;
   ResetPathFinderTarget(): void;
   CanBeDamagedFromVelocity(velocity: Vector): boolean;
   CanReroll(): boolean;
   IsChampion(): boolean;
   MakeChampion(seed: int): void;
   PlaySound(
-    soundEffect: int,
+    soundEffect: SoundEffect,
     volume: float,
     frameDelay: int,
     loop: boolean,
@@ -42,10 +42,10 @@ declare class EntityNPC extends Entity {
     verticalAnim: string,
     speedThreshold: float,
   ): void;
-  QueryNPCsType(entityType: int, variant: int): EntityList;
+  QueryNPCsType(entityType: EntityNPC, variant: EntityVariantForAC): EntityList;
   QueryNPCsSpawnerType(
-    spawnerType: int,
-    entityType: int,
+    spawnerType: EntityType,
+    entityType: EntityType,
     onlyEnemies: boolean,
   ): EntityList;
   QueryNPCsGroup(groupIdx: int): EntityList;

@@ -2,10 +2,10 @@
 declare function EntityRef(entity: Entity): EntityRef;
 
 declare class EntityRef {
-  Type: int;
-  Variant: int;
-  SpawnerType: int;
-  SpawnerVariant: int;
+  Type: EntityType;
+  Variant: EntityVariantForAC;
+  SpawnerType: EntityType;
+  SpawnerVariant: EntityVariantForAC;
   Position: Vector;
   IsCharmed: boolean;
   IsFriendly: boolean;

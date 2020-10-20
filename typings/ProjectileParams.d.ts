@@ -20,9 +20,9 @@ declare class ProjectileParams {
   FireDirectionLimit: Vector;
   DotProductLimit: float;
   WiggleFrameOffset: int;
-  ChangeFlags: int;
+  ChangeFlags: ProjectileFlags;
   ChangeVelocity: float;
   ChangeTimeout: int;
   DepthOffset: float;
-  Variant: int;
+  Variant: ProjectileVariant;
 }

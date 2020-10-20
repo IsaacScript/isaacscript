@@ -1,14 +1,16 @@
+type GridEntityVariantForAC = DoorVariant | PoopVariant | PlateVariant; // @TODO: add custom enums for other grid types
+
 declare class GridEntity {
-  SetType(gridEntityType: int): void;
-  SetVariant(variant: int): void;
+  SetType(gridEntityType: GridEntityType): void;
+  SetVariant(variant: GridEntityVariantForAC): void;
   Init(seed: int): void;
   PostInit(): void;
   Update(): void;
   Render(offset: Vector): void;
   Hurt(damage: int): boolean;
   Destroy(immediate: boolean): boolean;
-  GetType(): int;
-  GetVariant(): int;
+  GetType(): GridEntityType;
+  GetVariant(): GridEntityVariantForAC;
   GetGridIndex(): int;
   GetSaveState(): GridEntityDesc;
   ToDoor(): GridEntityDoor;

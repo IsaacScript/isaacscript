@@ -1,18 +1,18 @@
 declare class TemporaryEffects {
-  AddCollectibleEffect(collectibleType: int, addCostume: boolean): void;
-  AddTrinketEffect(trinketType: int, addCostume: boolean): void;
+  AddCollectibleEffect(collectibleType: CollectibleType, addCostume: boolean): void;
+  AddTrinketEffect(trinketType: TrinketType, addCostume: boolean): void;
   AddNullEffect(nullItemID: NullItemID, addCostume: boolean): void;
-  RemoveCollectibleEffect(collectibleType: int): void;
-  RemoveTrinketEffect(trinketType: int): void;
+  RemoveCollectibleEffect(collectibleType: CollectibleType): void;
+  RemoveTrinketEffect(trinketType: TrinketType): void;
   RemoveNullEffect(nullItemID: NullItemID): void;
-  HasCollectibleEffect(collectibleType: int): boolean;
-  HasTrinketEffect(trinketType: int): boolean;
+  HasCollectibleEffect(collectibleType: CollectibleType): boolean;
+  HasTrinketEffect(trinketType: TrinketType): boolean;
   HasNullEffect(nullItemID: NullItemID): boolean;
-  GetCollectibleEffect(collectibleType: int): Readonly<TemporaryEffect>;
-  GetTrinketEffect(trinketType: int): Readonly<TemporaryEffect>;
+  GetCollectibleEffect(collectibleType: CollectibleType): Readonly<TemporaryEffect>;
+  GetTrinketEffect(trinketType: TrinketType): Readonly<TemporaryEffect>;
   GetNullEffect(nullItemID: NullItemID): Readonly<TemporaryEffect>;
-  GetCollectibleEffectNum(collectibleType: int): int;
-  GetTrinketEffectNum(trinketType: int): int;
+  GetCollectibleEffectNum(collectibleType: CollectibleType): int;
+  GetTrinketEffectNum(trinketType: TrinketType): int;
   GetNullEffectNum(nullItemID: NullItemID): int;
   ClearEffects(): void;
   GetEffectsList(): Readonly<EffectList>;

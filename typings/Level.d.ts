@@ -32,7 +32,7 @@ declare class Level {
   ChangeRoom(roomIndex: int): void;
   ForceHorsemanBoss(seed: int): boolean;
   GetStage(): LevelStage;
-  GetCurses(): int;
+  GetCurses(): LevelCurse;
   IsAltStage(): boolean;
   GetStageType(): StageType;
   HasBossChallenge(): boolean;

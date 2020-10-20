@@ -7,7 +7,7 @@ declare class EntityKnife extends Entity {
   SetPathFollowSpeed(speed: float): void;
   Reset(): void;
 
-  TearFlags: int;
+  TearFlags: TearFlags;
   Rotation: float;
   RotationOffset: float;
   Scale: float;

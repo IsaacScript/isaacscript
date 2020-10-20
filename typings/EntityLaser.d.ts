@@ -20,7 +20,7 @@ declare class EntityLaser extends Entity {
 
   /** @noSelf */
   static ShootAngle(
-    variant: int,
+    variant: LaserVariant,
     sourcePos: Vector,
     angleDegrees: float,
     timeout: int,
@@ -36,7 +36,7 @@ declare class EntityLaser extends Entity {
     margin: float,
   ): Vector;
 
-  TearFlags: int;
+  TearFlags: TearFlags;
   Angle: float;
   Radius: float;
   ParentOffset: Vector;

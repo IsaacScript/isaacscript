@@ -1,11 +1,11 @@
 declare class EntityEffect extends Entity {
   SetTimeout(timeout: int): void;
   FollowParent(parent: Entity): void;
-  SetDamageSource(entityType: int): void;
+  SetDamageSource(entityType: EntityType): void;
   SetRadii(min: float, max: float): void;
 
   /** @noSelf */
-  static IsPlayerCreep(variant: int): boolean;
+  static IsPlayerCreep(variant: EntityVariantForAC): boolean;
 
   Rotation: float;
   Scale: float;
@@ -19,5 +19,5 @@ declare class EntityEffect extends Entity {
   LifeSpan: int;
   IsFollowing: boolean;
   ParentOffset: Vector;
-  DamageSource: int;
+  DamageSource: EntityType;
 }

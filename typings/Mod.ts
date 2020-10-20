@@ -1,19 +1,19 @@
 interface CallbackParameters {
   [ModCallbacks.MC_NPC_UPDATE]: [
     callback: (entityNPC: EntityNPC) => void,
-    entityType?: int,
+    entityType?: EntityType,
   ];
   [ModCallbacks.MC_POST_UPDATE]: [callback: () => void];
   [ModCallbacks.MC_POST_RENDER]: [callback: () => void];
   [ModCallbacks.MC_USE_ITEM]: [
-    callback: (collectibleType: int, rng: RNG) => boolean,
-    collectibleType?: int,
+    callback: (collectibleType: CollectibleType, rng: RNG) => boolean,
+    collectibleType?: CollectibleType,
   ];
   [ModCallbacks.MC_POST_PEFFECT_UPDATE]: [
     callback: (entityPlayer: EntityPlayer) => void,
     playerType?: PlayerType,
   ];
-  [ModCallbacks.MC_USE_CARD]: [callback: (card: int) => void, card?: int];
+  [ModCallbacks.MC_USE_CARD]: [callback: (card: Card) => void, card?: Card];
   [ModCallbacks.MC_FAMILIAR_UPDATE]: [
     callback: (entityFamiliar: EntityFamiliar) => void,
     familiarVariant?: FamiliarVariant,
@@ -31,20 +31,20 @@ interface CallbackParameters {
     playerVariant?: PlayerVariant,
   ];
   [ModCallbacks.MC_USE_PILL]: [
-    callback: (pillEffect: int) => void,
-    pillEffect?: int,
+    callback: (pillEffect: PillEffect) => void,
+    pillEffect?: PillEffect,
   ];
   [ModCallbacks.MC_ENTITY_TAKE_DMG]: [
     callback: (
       tookDamage: Entity,
       damageAmount: float,
-      damageFlags: int,
+      damageFlags: DamageFlag,
       damageSource: EntityRef,
       damageCountdownFrames: int,
     ) => boolean,
-    entityType?: int,
+    entityType?: EntityType,
   ];
-  [ModCallbacks.MC_POST_CURSE_EVAL]: [callback: (curses: int) => int];
+  [ModCallbacks.MC_POST_CURSE_EVAL]: [callback: (curses: LevelCurse) => LevelCurse];
   [ModCallbacks.MC_INPUT_ACTION]: [
     callback: (
       entityPlayer: EntityPlayer,
@@ -63,11 +63,11 @@ interface CallbackParameters {
   [ModCallbacks.MC_GET_CARD]: [
     callback: (
       rng: RNG,
-      card: int,
+      card: Card,
       includePlayingCards: boolean,
       includeRunes: boolean,
       onlyRunes: boolean,
-    ) => int | null,
+    ) => Card | null,
   ];
   [ModCallbacks.MC_GET_SHADER_PARAMS]: [
     callback: (shaderName: string) => Record<string, unknown>,
@@ -76,19 +76,19 @@ interface CallbackParameters {
     callback: (command: string, parameters: string) => void,
   ];
   [ModCallbacks.MC_PRE_USE_ITEM]: [
-    callback: (collectibleType: int, rng: RNG) => boolean,
-    collectibleType?: int,
+    callback: (collectibleType: CollectibleType, rng: RNG) => boolean,
+    collectibleType?: CollectibleType,
   ];
   [ModCallbacks.MC_PRE_ENTITY_SPAWN]: [
     callback: (
-      entityType: int,
-      variant: int,
+      entityType: EntityType,
+      variant: EntityVariantForAC,
       subType: int,
       position: Vector,
       velocity: Vector,
       spawner: Entity,
       initSeed: int,
-    ) => [int, int, int, int] | null,
+    ) => [EntityType, EntityVariantForAC, int, int] | null,
   ];
   [ModCallbacks.MC_POST_FAMILIAR_RENDER]: [
     callback: (entityFamiliar: EntityFamiliar, renderOffset: Vector) => void,
@@ -104,15 +104,15 @@ interface CallbackParameters {
   ];
   [ModCallbacks.MC_POST_NPC_INIT]: [
     callback: (entityNPC: EntityNPC) => void,
-    entityType?: int,
+    entityType?: EntityType,
   ];
   [ModCallbacks.MC_POST_NPC_RENDER]: [
     callback: (entityNPC: EntityNPC, renderOffset: Vector) => void,
-    entityType?: int,
+    entityType?: EntityType,
   ];
   [ModCallbacks.MC_POST_NPC_DEATH]: [
     callback: (entityNPC: EntityNPC) => void,
-    entityType?: int,
+    entityType?: EntityType,
   ];
   [ModCallbacks.MC_PRE_NPC_COLLISION]: [
     callback: (
@@ -120,7 +120,7 @@ interface CallbackParameters {
       collider: Entity,
       low: boolean,
     ) => boolean | null,
-    entityType?: int,
+    entityType?: EntityType,
   ];
   [ModCallbacks.MC_POST_PLAYER_UPDATE]: [
     callback: (entityPlayer: EntityPlayer) => void,
@@ -140,22 +140,22 @@ interface CallbackParameters {
   ];
   [ModCallbacks.MC_POST_PICKUP_INIT]: [
     callback: (entityPickup: EntityPickup) => void,
-    pickupVariant?: int,
+    pickupVariant?: PickupVariant,
   ];
   [ModCallbacks.MC_POST_PICKUP_UPDATE]: [
     callback: (entityPickup: EntityPickup) => void,
-    pickupVariant?: int,
+    pickupVariant?: PickupVariant,
   ];
   [ModCallbacks.MC_POST_PICKUP_RENDER]: [
     callback: (entityPickup: EntityPickup, renderOffset: Vector) => void,
-    pickupVariant?: int,
+    pickupVariant?: PickupVariant,
   ];
   [ModCallbacks.MC_POST_PICKUP_SELECTION]: [
     callback: (
       entityPickup: EntityPickup,
-      variant: int,
+      variant: PickupVariant,
       subType: int,
-    ) => [int, int] | null,
+    ) => [PickupVariant, int] | null,
   ];
   [ModCallbacks.MC_PRE_PICKUP_COLLISION]: [
     callback: (
@@ -163,19 +163,19 @@ interface CallbackParameters {
       collider: Entity,
       low: boolean,
     ) => boolean | null,
-    pickupVariant?: int,
+    pickupVariant?: PickupVariant,
   ];
   [ModCallbacks.MC_POST_TEAR_INIT]: [
     callback: (entityTear: EntityTear) => void,
-    tearVariant?: int,
+    tearVariant?: TearVariant,
   ];
   [ModCallbacks.MC_POST_TEAR_UPDATE]: [
     callback: (entityTear: EntityTear) => void,
-    tearVariant?: int,
+    tearVariant?: TearVariant,
   ];
   [ModCallbacks.MC_POST_TEAR_RENDER]: [
     callback: (entityTear: EntityTear, renderOffset: Vector) => void,
-    tearVariant?: int,
+    tearVariant?: TearVariant,
   ];
   [ModCallbacks.MC_PRE_TEAR_COLLISION]: [
     callback: (
@@ -183,22 +183,22 @@ interface CallbackParameters {
       collider: Entity,
       low: boolean,
     ) => boolean | null,
-    tearVariant?: int,
+    tearVariant?: TearVariant,
   ];
   [ModCallbacks.MC_POST_PROJECTILE_INIT]: [
     callback: (entityProjectile: EntityProjectile) => void,
-    projectileVariant?: int,
+    projectileVariant?: ProjectileVariant,
   ];
   [ModCallbacks.MC_POST_PROJECTILE_UPDATE]: [
     callback: (entityProjectile: EntityProjectile) => void,
-    projectileVariant?: int,
+    projectileVariant?: ProjectileVariant,
   ];
   [ModCallbacks.MC_POST_PROJECTILE_RENDER]: [
     callback: (
       entityProjectile: EntityProjectile,
       renderOffset: Vector,
     ) => void,
-    projectileVariant?: int,
+    projectileVariant?: ProjectileVariant,
   ];
   [ModCallbacks.MC_PRE_PROJECTILE_COLLISION]: [
     callback: (
@@ -206,19 +206,19 @@ interface CallbackParameters {
       collider: Entity,
       low: boolean,
     ) => boolean | null,
-    projectileVariant?: int,
+    projectileVariant?: ProjectileVariant,
   ];
   [ModCallbacks.MC_POST_LASER_INIT]: [
     callback: (entityLaser: EntityLaser) => void,
-    laserVariant?: int,
+    laserVariant?: LaserVariant,
   ];
   [ModCallbacks.MC_POST_LASER_UPDATE]: [
     callback: (entityLaser: EntityLaser) => void,
-    laserVariant?: int,
+    laserVariant?: LaserVariant,
   ];
   [ModCallbacks.MC_POST_LASER_RENDER]: [
     callback: (entityLaser: EntityLaser, renderOffset: Vector) => void,
-    laserVariant?: int,
+    laserVariant?: LaserVariant,
   ];
   [ModCallbacks.MC_POST_KNIFE_INIT]: [
     callback: (entityKnife: EntityKnife) => void,
@@ -242,27 +242,27 @@ interface CallbackParameters {
   ];
   [ModCallbacks.MC_POST_EFFECT_INIT]: [
     callback: (entityEffect: EntityEffect) => void,
-    effectVariant?: int,
+    effectVariant?: EffectVariant,
   ];
   [ModCallbacks.MC_POST_EFFECT_UPDATE]: [
     callback: (entityEffect: EntityEffect) => void,
-    effectVariant?: int,
+    effectVariant?: EffectVariant,
   ];
   [ModCallbacks.MC_POST_EFFECT_RENDER]: [
     callback: (entityEffect: EntityEffect, renderOffset: Vector) => void,
-    effectVariant?: int,
+    effectVariant?: EffectVariant,
   ];
   [ModCallbacks.MC_POST_BOMB_INIT]: [
     callback: (entityBomb: EntityBomb) => void,
-    bombVariant?: int,
+    bombVariant?: BombVariant,
   ];
   [ModCallbacks.MC_POST_BOMB_UPDATE]: [
     callback: (entityBomb: EntityBomb) => void,
-    bombVariant?: int,
+    bombVariant?: BombVariant,
   ];
   [ModCallbacks.MC_POST_BOMB_RENDER]: [
     callback: (entityBomb: EntityBomb, renderOffset: Vector) => void,
-    bombVariant?: int,
+    bombVariant?: BombVariant,
   ];
   [ModCallbacks.MC_PRE_BOMB_COLLISION]: [
     callback: (
@@ -270,7 +270,7 @@ interface CallbackParameters {
       collider: Entity,
       low: boolean,
     ) => boolean | null,
-    bombVariant?: int,
+    bombVariant?: BombVariant,
   ];
   [ModCallbacks.MC_POST_FIRE_TEAR]: [
     callback: (entityTear: EntityTear) => void,
@@ -280,46 +280,46 @@ interface CallbackParameters {
       itemPoolType: ItemPoolType,
       decrease: boolean,
       seed: int,
-    ) => int | null,
+    ) => CollectibleType | null,
   ];
   [ModCallbacks.MC_POST_GET_COLLECTIBLE]: [
     callback: (
-      collectibleType: int,
+      collectibleType: CollectibleType,
       itemPoolType: ItemPoolType,
       decrease: boolean,
       seed: int,
-    ) => int | null,
+    ) => CollectibleType | null,
   ];
-  [ModCallbacks.MC_GET_PILL_COLOR]: [callback: (seed: int) => int | null];
+  [ModCallbacks.MC_GET_PILL_COLOR]: [callback: (seed: int) => PillColor | null];
   [ModCallbacks.MC_GET_PILL_EFFECT]: [
-    callback: (pillEffect: int, pillColor: int) => int | null,
+    callback: (pillEffect: PillEffect, pillColor: PillColor) => PillEffect | null,
   ];
   [ModCallbacks.MC_GET_TRINKET]: [
-    callback: (trinketType: int, rng: RNG) => int | null,
+    callback: (trinketType: TrinketType, rng: RNG) => TrinketType | null,
   ];
   [ModCallbacks.MC_POST_ENTITY_REMOVE]: [
     callback: (entity: Entity) => void,
-    entityType?: int,
+    entityType?: EntityType,
   ];
   [ModCallbacks.MC_POST_ENTITY_KILL]: [
     callback: (entity: Entity) => void,
-    entityType?: int,
+    entityType?: EntityType,
   ];
   [ModCallbacks.MC_PRE_NPC_UPDATE]: [
     callback: (entityNPC: EntityNPC) => boolean,
-    entityType?: int,
+    entityType?: EntityType,
   ];
   [ModCallbacks.MC_PRE_SPAWN_CLEAN_AWARD]: [
     callback: (rng: RNG, spawnPosition: Vector) => boolean,
   ];
   [ModCallbacks.MC_PRE_ROOM_ENTITY_SPAWN]: [
     callback: (
-      entityType: int,
-      variant: int,
+      entityType: EntityType,
+      variant: EntityVariantForAC,
       subType: int,
       gridIndex: int,
       seed: int,
-    ) => [int, int, int] | null,
+    ) => [EntityType, EntityVariantForAC, int] | null,
   ];
 }
 
