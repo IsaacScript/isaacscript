@@ -28,4 +28,17 @@
     "editor.formatOnSave": true,
     "editor.tabSize": 2,
   },
+  "cSpell.words": [
+    "allusersprofile",
+    "benchviz",
+    "bffs",
+    "choco",
+    "cinst",
+    "isaacconfig",
+    "isaacscript",
+    "isaactearsiconfull",
+    "luamod",
+    "mkdir",
+    "tstl"
+  ],
 }

@@ -32,7 +32,7 @@ In order to program in TypeScript, we need [Node.js](https://nodejs.org/en/), a 
 cinst nodejs -y
 ```
 
-(This is short form of `choco install nodejs -y`. The `-y` flag automaticaly answers "yes" to the "Are you sure" message.)
+(This is short form of `choco install nodejs -y`. The `-y` flag automatically answers "yes" to the "Are you sure" message.)
 
 <br />
 
@@ -46,7 +46,7 @@ If you don't have it installed already, install it by pasting in the following c
 cinst git -y
 ```
 
-(This is short form of `choco install git -y`. The `-y` flag automaticaly answers "yes" to the "Are you sure" message.)
+(This is short form of `choco install git -y`. The `-y` flag automatically answers "yes" to the "Are you sure" message.)
 
 <br />
 
@@ -58,7 +58,7 @@ cinst git -y
 cinst vscode -y
 ```
 
-(This is short form of `choco install vscode -y`. The `-y` flag automaticaly answers "yes" to the "Are you sure" message.)
+(This is short form of `choco install vscode -y`. The `-y` flag automatically answers "yes" to the "Are you sure" message.)
 
 VSCode is the recommended editor to use in conjunction with `isaacscript`, but feel free to use something else (like [WebStorm](https://www.jetbrains.com/webstorm/)) if you want.
 
@@ -100,7 +100,7 @@ mkdir C:\Repositories\revelations
 cd C:\Repositories\revelations
 ```
 
-Note that your project directory should **not** be a subdirectory of the `Binding of Isaac Afterbirth+ Mods` directory! This is because `isaacscript` will syncronize / clone your mod there automatically.
+Note that your project directory should **not** be a subdirectory of the `Binding of Isaac Afterbirth+ Mods` directory! This is because `isaacscript` will synchronize / clone your mod there automatically.
 
 <br />
 
@@ -114,7 +114,7 @@ isaacscript
 
 After the initial setup, `isaacscript` will continue to run, monitoring for changes in your project. (If you want to cancel it, you can press `Ctrl + C` to return to your shell.)
 
-If you run `isaacscript` again in the future, it will remember your settings, which are stored in the `isaacconfig.json` file in your project directory.
+If you run `isaacscript` again in the future, it will remember your settings, which are stored in the `isaacscript.json` file in your project directory.
 
 <br />
 
@@ -144,7 +144,7 @@ The moment that you save a TypeScript file, `isaacscript` will detect that somet
 - If you have the game open and are in a run, `isaacscript` will then send a message to a helper mod called `isaacscript-watcher`.
 - `isaacscript-watcher` will run the `luamod` console command corresponding to your project. (e.g. `luamod revelations`)
 - After the `luamod` command is executed, your mod has been reloaded - it is now ready to test!
-- If compilation failed for any reason, then you will be able to see the errors on both the `isaacscript` window and in-game. (The `isaacscript-watcher` mod will draw them on the screen for you.)
+- If compilation failed for any reason, then you will be able to see the errors on both the `isaacscript` console window and in-game. (The `isaacscript-watcher` mod will draw it on the screen for you.)
 
 Note that `isaacscript` will automatically install the `isaacscript-watcher` helper mod for you, so you don't have to do anything. Just test to see that it works:
 
@@ -156,7 +156,8 @@ Note that `isaacscript` will automatically install the `isaacscript-watcher` hel
 Isaac.ConsoleOutput("hello world");
 ```
 
-4. Hit save.
+4. Save the file in VSCode.
+5. In game, press <code>`</code> to open the console and see if the new message is there.
 
 <br />
 
@@ -179,4 +180,4 @@ For now, just put something in your mod folder and confirm that `isaacscript` co
 
 That's it! Now, start coding.
 
-See the next page for some basic JavaScript tips.
+See the next page for the basic anatomy of a project directory.
