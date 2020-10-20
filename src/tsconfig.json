@@ -1,0 +1,13 @@
+{
+    "extends": "@ark120202/typescript-config/web/es2017.json",
+    "include": ["**/*"],
+    "compilerOptions": {
+        "target": "es2019",
+        "lib": ["es2019", "dom", "dom.iterable", "webworker"],
+        "jsx": "react",
+        "isolatedModules": true,
+        // TODO:
+        "skipLibCheck": true,
+        "types": ["node", "webpack-env"]
+    }
+}

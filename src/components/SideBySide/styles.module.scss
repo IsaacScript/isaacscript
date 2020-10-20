@@ -1,0 +1,22 @@
+.sideBySide {
+    display: flex;
+
+    @media screen and (max-width: 996px) {
+        flex-flow: column;
+    }
+
+    @media screen and (min-width: 997px) {
+        > :first-child {
+            padding-right: 5px;
+        }
+
+        > :last-child {
+            padding-left: 5px;
+        }
+    }
+
+    > div {
+        flex: 1 1 auto;
+        overflow: auto;
+    }
+}

@@ -1,0 +1,102 @@
+// Reset Infima styles
+:global .monaco-editor {
+    .button {
+        background-color: inherit;
+        border: inherit;
+        box-sizing: inherit;
+        color: inherit;
+        cursor: inherit;
+        display: inherit;
+        font-size: inherit;
+        font-weight: inherit;
+        line-height: inherit;
+        outline: inherit;
+        padding: inherit;
+        text-align: inherit;
+        text-decoration: inherit;
+        transition: inherit;
+        user-select: inherit;
+        vertical-align: inherit;
+        white-space: inherit;
+    }
+
+    .contents {
+        list-style-type: inherit;
+        font-size: inherit;
+        margin-bottom: inherit;
+        padding-bottom: inherit;
+        padding-top: inherit;
+    }
+}
+
+$navbar-height: 50px;
+
+.navbar {
+    border-bottom: 1px var(--monaco-accent) solid;
+    width: 100%;
+    height: $navbar-height;
+    padding-left: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.navbarVersion {
+    line-height: 1.25;
+    font-size: 14px;
+    font-family: monospace;
+}
+
+.content {
+    width: 100%;
+    height: calc(100vh - #{$navbar-height} - 60px);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.contentPane {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-flow: column;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--monaco-background);
+}
+
+$output-height: 180px;
+
+.outputEditor {
+    height: calc(100% - #{$output-height});
+}
+
+.outputControls {
+    position: absolute;
+    top: 1em;
+    right: 2em;
+    display: flex;
+    flex-flow: column;
+
+    > *:not(:last-child) {
+        margin-bottom: 5px;
+    }
+}
+
+.editorOutput {
+    border-top: 1px var(--monaco-accent) solid;
+    height: $output-height;
+    font-family: Menlo, Monaco, "Lucida Console", "Courier New", monospace;
+    display: flex;
+}
+
+.editorOutputLineNumbers {
+    width: 40px;
+    height: 100%;
+    border-right: 1px var(--monaco-accent) solid;
+    padding-top: 6px;
+    padding-left: 10px;
+}
+
+.editorOutputTerminal {
+    width: 100%;
+    overflow-y: auto;
+}
