@@ -1177,8 +1177,10 @@ declare const enum PlayerForm {
   PLAYERFORM_BOOK_WORM = 10,
   PLAYERFORM_ADULTHOOD = 11,
   PLAYERFORM_SPIDERBABY = 12,
-  PLAYERFORM_STOMPY = 13, // Not defined in "enums.lua"
-  NUM_PLAYER_FORMS = 14, // Equal to 13 in "enums.lua"
+  /** This is a custom enum value that is not defined in the vanilla "enums.lua". */
+  PLAYERFORM_STOMPY = 13,
+  /** This is equal to 13 in the vanilla "enums.lua". */
+  NUM_PLAYER_FORMS = 14,
 }
 
 declare enum PillColor {

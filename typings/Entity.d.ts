@@ -1,6 +1,8 @@
-// In TypeScript mods, users will not actually be limited to these variants
-// (e.g. "Variant: EntityVariantForAC" is the same as "Variant: int")
-// However, specifying this helps autocompletion
+/**
+ * EntityVariantForAC is a composition of multiple different kinds of variants for the purposes of
+ * aiding autocompletion. Note that this type does not actually provide any type safety. (e.g.
+ * "Variant: EntityVariantForAC" is the same as "Variant: int")
+ */
 type EntityVariantForAC =
   | EffectVariant
   | PickupVariant

@@ -74,7 +74,7 @@ module.exports = {
     "no-underscore-dangle": [
       "error",
       {
-        allow: ["__add", "__sub", "__mul", "__div", "__unm"],
+        allow: ["__add", "__sub", "__mul", "__div", "__unm", "__len"],
         allowAfterThis: false,
         allowAfterSuper: false,
         enforceInMethodNames: true,

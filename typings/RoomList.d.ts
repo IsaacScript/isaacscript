@@ -1,4 +1,5 @@
-// This does not exist in the API docs but is used in Level.GetRooms()
+// This class does not exist in the API docs, but it is used in Level.GetRooms()
+
 declare class RoomList {
   Get(idx: int): RoomDescriptor;
 

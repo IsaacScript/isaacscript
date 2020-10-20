@@ -1,5 +1,5 @@
 declare class EntityList {
-  __len(): int; // eslint-disable-line no-underscore-dangle
+  __len(): int;
   Get(idx: int): Entity;
 
   readonly Size: int;
