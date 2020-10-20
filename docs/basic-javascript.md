@@ -10,7 +10,7 @@ In general, JavaScript/TypeScript is pretty similar to Lua. Here are some differ
 
 <br />
 
-### `nil` --> `null`
+### Convert `nil` --> `null`
 
 ```lua
 -- Lua code
@@ -20,8 +20,10 @@ end
 ```
 
 ```typescript
-// In TypeScript, you have to put parenthesis around all the conditions of an if statement
-// In TypeScript, you should always use "===" (strict equals) instead of "==" (normal equals)
+// In TypeScript, you have to put parenthesis around all the conditions of an if
+// statement
+// In TypeScript, you should always use "===" (strict equals) instead of "=="
+// (normal equals)
 if (entity.SpawnerEntity === null) {
   // "null" instead of "nil"
   // This entity was not spawned by anything in particular
@@ -52,14 +54,14 @@ Game().GetPlayer(0).AddMaxHearts(2);
 
 <br />
 
-### `local` --> `const` and `let`
+### Convert `local` --> `const` and `let`
 
 In Lua, you generally type `local` before everything to stop it from being turned into a global.
 
 In TypeScript, this isn't necessary. There are no globals variables, unless we explicitly create one.
 
 Furthermore, in TypeScript, there are two kinds of variable declarations: `let` and `const`.<br />
-(Don't ever use `var`, which is only used in ancient JavaScript code.)
+(Don't ever use `var`, which is only used in older JavaScript code.)
 
 ```lua
 -- Lua code
@@ -75,7 +77,8 @@ end
 // TypeScript code
 const poop = "poop"; // We use "const" because this value never changes
 let fart = "fart"; // We use "let" because we have to modify it later
-fart += " modified"; // We use the "+=" operator instead of ".." to concatenate a string
+// We use the "+=" operator instead of ".." to concatenate a string
+fart += " modified";
 function getPoop() { // No local here
   return "poop";
 }
@@ -114,14 +117,16 @@ Revelations.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, PostPlayerInit);
 const Revelations = RegisterMod("Revelations", 1);
 
 // Below, we mark "player" as a "EntityPlayer" type (by using a colon)
-// The "EntityPlayer" type is automatically provided by the "isaac-typescript-defintions"
-// package, and corresponds to the "EntityPlayer" in the official docs
-// The "isaac-typescript-defintions" package is automatically imported by IsaacScript when
-// you create a new project
+// The "EntityPlayer" type is automatically provided by the
+// "isaac-typescript-defintions" package, and corresponds to the "EntityPlayer"
+// in the official docs
+// The "isaac-typescript-defintions" package is automatically imported by
+// IsaacScript when you create a new project
 function PostPlayerInit(player: EntityPlayer) {
   // Now, TypeScript has full knowledge of all the legal methods for "player"
   // Our editor can now tab-complete everything
-  // And if we make a typo on "AddCollectible", the editor will immediately tell us
+  // And if we make a typo on "AddCollectible",
+  // the editor will immediately tell us
   player.AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false);
 }
 
@@ -130,7 +135,50 @@ Revelations.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, PostPlayerInit);
 
 <br />
 
-### Global Variables
+### Splitting Your Code Into Multiple Files: `require()` --> `import`
+
+In Lua, you split your code into multiple files by using `reqire()`. In TypeScript, this is done with `import`. (Don't ever use `require()`, which is only used in older JavaScript code.)
+
+```lua
+-- main.lua
+local PostPlayerInit = require("revelations.postplayerinit")
+-- (the text in "require()" must be lowercase in order for mods to work on
+-- Linux, even if the files on the file system are not actually lowercase)
+
+local Revelations = RegisterMod("Revelations", 1)
+Revelations:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, PostGameStarted.Main);
+```
+
+```lua
+-- PostPlayerInit.lua
+local PostPlayerInit = {}
+
+function PostPlayerInit:Main(player)
+  player:AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false)
+end
+
+return PostPlayerInit
+```
+
+```typescript
+// main.ts
+import * as PostPlayerInit from './PostPlayerInit';
+// (we don't have to worry about the lowercase Linux hack since we are bundling
+// all of our code into one "main.lua" file)
+
+const Revelations = RegisterMod("Revelations", 1);
+Revelations.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, PostPlayerInit.Main);
+```
+
+```typescript
+export function Main(player: EntityPlayer) {
+  player.AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false)
+}
+```
+
+<br />
+
+### Using Global Variables
 
 Sometimes, your mod might need to use a global variable exported by someone else's mod. For example, maybe you need to use the `InfinityTrueCoopInterface` global variable from the True Co-op Mod.
 
@@ -187,9 +235,10 @@ declare class TrueCoop() {
   AddCharacter(playerData: TrueCoopPlayerData)
 }
 
-// We also have to specify what the True Coop mod expects to be passed for this method
-// This (partially) matches the documentation near the top of the "main.lua" file for the
-// True Coop Mod
+// We also have to specify what the True Coop mod expects to be passed for this
+// method
+// This (partially) matches the documentation near the top of the "main.lua"
+// file for the True Coop Mod
 interface TrueCoopPlayerData {
   Name: string;
   Type: PlayerType;

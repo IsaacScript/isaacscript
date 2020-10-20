@@ -1,0 +1,31 @@
+// These are Visual Studio Code settings that should apply to this particular repository
+{
+  "editor.rulers": [80],
+  "editor.tabSize": 2,
+
+  // Linux line endings are used in this project
+  "files.eol": "\n",
+
+  // Automatically removing all trailing whitespace when saving a file
+  "files.trimTrailingWhitespace": true,
+
+  // Automatically run the formatter when a TypeScript or JavaScript file is saved
+  "[typescript]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true,
+      "source.organizeImports": true,
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+  },
+  "[javascript]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true,
+      "source.organizeImports": true,
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+  },
+}
