@@ -19,7 +19,7 @@ But we don't have to suffer anymore. The `isaacscript` framework allows us to pr
 ### <img src="/images/items/dead_eye.png" className="icon" /> Better API Accuracy
 
 - The Isaac documentation is wrong in a lot of places. Some functions are not implemented and some functions make the game crash.
-- The developers have never bothered to patch these things, but the `isaacscript` framework fixes everything for you.
+- Don't bother waiting for a patch - the `isaacscript` framework fixes everything for you.
 
 ### <img src="/images/items/clockwork_assembly.png" className="icon" /> Automatic Mod Reloading
 
