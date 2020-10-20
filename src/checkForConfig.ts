@@ -7,10 +7,10 @@ import {
   CONFIG_FILE_PATH,
   CWD,
   MOD_DIRECTORY_PATH,
+  PROJECT_NAME,
 } from "./constants";
 import * as misc from "./misc";
 
-const projectName = path.basename(CWD);
 let modDir: string;
 let modTargetPath: string;
 let saveSlot: number;
@@ -54,7 +54,7 @@ async function promptNewConfig() {
 async function checkProjectName() {
   console.log(
     `From the directory you are in, it looks like the name of your mod project is: ${chalk.green(
-      projectName,
+      PROJECT_NAME,
     )}`,
   );
   const response = await prompts({
@@ -128,7 +128,7 @@ async function checkModSubdirectory() {
     process.exit(1);
   }
 
-  modTargetPath = path.join(modDir, projectName);
+  modTargetPath = path.join(modDir, PROJECT_NAME);
   if (misc.exists(modTargetPath)) {
     console.error(
       `Error: The target mod path of "${chalk.green(

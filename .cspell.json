@@ -10,6 +10,7 @@
         "isaacconfig",
         "isaacscript",
         "isaacscriptrc",
+        "luamod",
         "mingw",
         "syncer",
         "tstl",

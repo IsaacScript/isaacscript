@@ -8,4 +8,4 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 "$DIR/build.sh"
 cd "$DIR"
-FORCE_COLOR=true node "$DIR/dist/isaacscript.js" $@ # Pass arguments into the program, if any
+node "$DIR/dist/src/isaacscript.js"

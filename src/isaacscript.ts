@@ -12,10 +12,10 @@ import checkForTemplateFiles from "./checkForTemplateFiles";
 import checkForWindowsTerminalBugs from "./checkForWindowsTerminalBugs";
 import Config from "./Config";
 import * as configFile from "./configFile";
-import { CWD, MOD_SOURCE_PATH, TSCONFIG_PATH } from "./constants";
+import { CWD, MOD_SOURCE_PATH, PROJECT_NAME, TSCONFIG_PATH } from "./constants";
 import copyWatcherMod from "./copyWatcherMod";
 import * as misc from "./misc";
-import * as notifyGame from "./notifyGame";
+import notifyGame from "./notifyGame";
 
 async function main(): Promise<void> {
   // ASCII banner
@@ -43,7 +43,7 @@ async function main(): Promise<void> {
   copyWatcherMod(config);
 
   // Subprocess #1 - The mod directory syncer
-  spawnDirectorySyncer(config);
+  spawnModDirectorySyncer(config);
 
   // Subprocess #2 - tstl --watch (to automatically convert TypeScript to Lua)
   spawnTSTLWatcher(config);
@@ -60,14 +60,14 @@ async function main(): Promise<void> {
   console.log("");
 }
 
-function spawnDirectorySyncer(config: Config) {
-  const directorySyncerPath = path.join("dist", "directorySyncer");
-  const childProcess = fork(directorySyncerPath, [
+function spawnModDirectorySyncer(config: Config) {
+  const modDirectorySyncerPath = path.join(__dirname, "modDirectorySyncer");
+  const childProcess = fork(modDirectorySyncerPath, [
     MOD_SOURCE_PATH,
     config.modTargetPath,
   ]);
   childProcess.on("message", (msg: string) => {
-    notifyGame.msg(`${msg}`, config);
+    notifyGame("msg", msg, config);
   });
 }
 
@@ -78,7 +78,19 @@ function spawnTSTLWatcher(config: Config) {
 
   ls.stdout.on("data", (data: Buffer[]) => {
     const msg = data.toString().trim();
-    notifyGame.msg(`${msg}`, config);
+    if (msg.includes("Starting compilation in watch mode...")) {
+      const newMsg = "IsaacScript is now watching for changes.";
+      notifyGame("msg", newMsg, config);
+    } else if (
+      msg.includes("File change detected. Starting incremental compilation...")
+    ) {
+      const newMsg = "TypeScript change detected. Compiling...";
+      notifyGame("msg", newMsg, config);
+    } else if (msg.includes("Found 0 errors. Watching for file changes.")) {
+      notifyGame("command", `luamod ${PROJECT_NAME}`, config);
+    } else {
+      notifyGame("msg", msg, config);
+    }
   });
 
   ls.stderr.on("data", (data: Buffer[]) => {
@@ -87,7 +99,7 @@ function spawnTSTLWatcher(config: Config) {
       return;
     }
     console.error("Error:", msg);
-    notifyGame.msg(`Error: ${msg}`, config);
+    notifyGame("msg", `Error: ${msg}`, config);
   });
 
   ls.on("close", (code) => {

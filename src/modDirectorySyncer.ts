@@ -1,5 +1,6 @@
 import * as chokidar from "chokidar";
 import path from "path";
+import { MAIN_LUA_SOURCE_PATH } from "./constants";
 import * as misc from "./misc";
 
 if (process.argv.length !== 4) {
@@ -36,17 +37,27 @@ watcher
 
 function add(filePath: string) {
   misc.copy(filePath, getTargetPath(filePath));
-  send(`New file: ${filePath}`);
+  if (filePath === MAIN_LUA_SOURCE_PATH) {
+    // We don't need to report if the "main.lua" file changes,
+    // since we have a dedicated message for that
+    return;
+  }
+  send(`Copied new file: ${filePath}`);
 }
 
 function addDir(dirPath: string) {
   misc.copy(dirPath, getTargetPath(dirPath));
-  send(`New directory: ${dirPath}`);
+  send(`Copied new directory: ${dirPath}`);
 }
 
 function change(filePath: string) {
   misc.copy(filePath, getTargetPath(filePath));
-  send(`Changed file: ${filePath}`);
+  if (filePath === MAIN_LUA_SOURCE_PATH) {
+    // We don't need to report if the "main.lua" file changes,
+    // since we have a dedicated message for that
+    return;
+  }
+  send(`Copied changed file: ${filePath}`);
 }
 
 function unlink(filePath: string) {
@@ -60,7 +71,7 @@ function unlinkDir(dirPath: string) {
 }
 
 function error(err: Error) {
-  console.error("directorySyncer - Error:", err);
+  console.error("modDirectorySyncer - Error:", err);
   send(`Error: ${err.message}`);
 }
 

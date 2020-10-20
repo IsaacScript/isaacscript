@@ -13,7 +13,7 @@
   "license": "GPL-3.0",
   "author": "Zamiell",
   "bin": {
-    "isaacscript": "./dist/isaacscript.js"
+    "isaacscript": "./dist/src/isaacscript.js"
   },
   "dependencies": {
     "@btmills/prettier": "git+ssh://git@github.com/btmills/prettier.git",
