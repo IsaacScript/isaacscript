@@ -1,0 +1,27 @@
+{
+  // We extend the recommended tsconfig for Node 12
+  // https://www.npmjs.com/package/@tsconfig/node12
+  "extends": "@tsconfig/node12/tsconfig.json",
+
+  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
+  "compilerOptions": {
+    // "outDir" specifies the output directory
+    // By default, it will put the compiled ".js" next to the respective ".ts" file,
+    // which will clutter the "src" directory
+    "outDir": "./dist",
+
+    // We want the compiler to be as strict as possible to catch all the things
+    // By default, these flags are false
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+
+    // We need to import the "package.json" file to see what version we are running
+    // By default, this is false
+    "resolveJsonModule": true,
+  },
+
+  "include": [
+    "./src/**/*.ts",
+  ],
+}
