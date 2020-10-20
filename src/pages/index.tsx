@@ -38,14 +38,14 @@ const features: Feature[] = [
 ];
 
 const exampleSource = `
-const deadEntities = Isaac.GetRoomEntities().filter((entity) => entity.IsDead())
+const deadEnts = Isaac.GetRoomEntities().filter((ent) => ent.IsDead())
 `.trim();
 
 const exampleOutput = `
-local deadEntities = {}
-for _, entity in ipairs(Isaac.GetRoomEntities()) do
-   if entity:IsDead() then
-      table.insert(deadEntities, entity)
+local deadEnts = {}
+for _, ent in ipairs(Isaac.GetRoomEntities()) do
+   if ent:IsDead() then
+      table.insert(deadEnts, ent)
    end
 end
 `.trim();
