@@ -24,7 +24,7 @@
 
   "tstl": {
     "luaTarget": "5.3",
-    "luaBundle": "./dist/main.lua",
+    "luaBundle": "./mod/main.lua",
     "luaBundleEntry": "./src/main.ts",
   },
 }

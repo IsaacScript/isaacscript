@@ -12,6 +12,7 @@
         "isaacscriptrc",
         "luamod",
         "mingw",
+        "subprocesses",
         "syncer",
         "tstl",
         "turnbull",

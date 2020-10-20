@@ -3,7 +3,6 @@
 import chalk from "chalk";
 import { fork, spawn } from "child_process";
 import figlet from "figlet";
-import * as JSONC from "jsonc-parser";
 import path from "path";
 import updateNotifier from "update-notifier";
 import pkg from "../package.json";
@@ -12,9 +11,9 @@ import checkForTemplateFiles from "./checkForTemplateFiles";
 import checkForWindowsTerminalBugs from "./checkForWindowsTerminalBugs";
 import Config from "./Config";
 import * as configFile from "./configFile";
-import { CWD, MOD_SOURCE_PATH, PROJECT_NAME, TSCONFIG_PATH } from "./constants";
+import { CWD, MOD_SOURCE_PATH, PROJECT_NAME } from "./constants";
 import copyWatcherMod from "./copyWatcherMod";
-import * as file from "./file";
+import getTSConfigInclude from "./getTSConfigInclude";
 import notifyGame from "./notifyGame";
 
 async function main(): Promise<void> {
@@ -58,6 +57,7 @@ async function main(): Promise<void> {
   );
   console.log(`2) the source mod directory: ${chalk.green(MOD_SOURCE_PATH)}`);
   console.log("");
+  // (the process will now continue indefinitely for as long as the subprocesses exist)
 }
 
 function spawnModDirectorySyncer(config: Config) {
@@ -106,36 +106,6 @@ function spawnTSTLWatcher(config: Config) {
     console.error("tstl exited abruptly with code:", code);
     process.exit(1);
   });
-}
-
-function getTSConfigInclude(): string {
-  const tsConfigRaw = file.read(TSCONFIG_PATH);
-  let tsConfig: Record<string, Array<string>>;
-  try {
-    tsConfig = JSONC.parse(tsConfigRaw) as Record<string, Array<string>>;
-  } catch (err) {
-    console.error(`Failed to parse "${chalk.green(TSCONFIG_PATH)}":`, err);
-    process.exit(1);
-  }
-
-  if (!Object.prototype.hasOwnProperty.call(tsConfig, "include")) {
-    console.error(
-      `Your "${chalk.green(
-        TSCONFIG_PATH,
-      )}" file does not have an include directive, which is surely a mistake. Delete the file and re-run isaacscript.`,
-    );
-    process.exit(1);
-  }
-  if (tsConfig.include.length === 0) {
-    console.error(
-      `Your "${chalk.green(
-        TSCONFIG_PATH,
-      )}" file has an empty include directive, which is surely a mistake. Delete the file and re-run isaacscript.`,
-    );
-    process.exit(1);
-  }
-
-  return tsConfig.include[0];
 }
 
 main().catch((err) => {

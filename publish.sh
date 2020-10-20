@@ -7,4 +7,5 @@ set -e # Exit on any errors
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 "$DIR/build.sh"
-node "$DIR/dist/src/main.js"
+cd "$DIR"
+npm publish --access public

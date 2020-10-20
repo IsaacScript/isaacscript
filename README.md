@@ -1,10 +1,5 @@
-# isaacscript
+# IsaacScript
 
-## TODO
+IsaacScript is a tool to help you create *Binding of Isaac: Afterbirth+* mods using [TypeScript](https://www.typescriptlang.org/).
 
-* automatically npm install
-* check to see if the update checker works
-* automatically make metadata.xml
-* automatically add main.lua to mod (from compiled stock main.ts)
-* automatically add LICENSE to mod
-* test it from fresh windows 10
+Please visit the [official website](https://isaacscript.github.io/) for more information.

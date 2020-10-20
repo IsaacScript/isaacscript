@@ -1,12 +1,7 @@
 {
-  "name": "racing_plus_rebalanced",
+  "name": "MOD_NAME",
   "version": "0.0.1",
   "description": "A mod for The Binding of Isaac: Afterbirth+",
-  "main": "main.js",
-  "scripts": {
-    "build": "tstl --listFiles ",
-    "watch": "tstl --watch"
-  },
   "keywords": [
     "isaac",
     "mod",
@@ -16,7 +11,6 @@
   ],
   "license": "GPL-3.0",
   "devDependencies": {
-    "@types/isaac-typescript-definitions": "git+ssh://git@github.com/Zamiell/isaac-typescript-definitions",
-    "isaacscript": "^1.0.0"
+    "isaacscript": "^0.0.1"
   }
 }

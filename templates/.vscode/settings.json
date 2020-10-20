@@ -10,11 +10,6 @@
   // Automatically removing all trailing whitespace when saving a file
   "files.trimTrailingWhitespace": true,
 
-  // Configure glob patterns for excluding files and folders in full text searches and quick open
-  "search.exclude": {
-    "**/dist/**/*.js": true,
-  },
-
   // By default, VSCode will not automatically fill-in function arguments
   "typescript.suggest.completeFunctionCalls": true,
 

@@ -1,6 +1,6 @@
 {
   "name": "isaacscript",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A command line tool for managing Isaac mods written in TypeScript",
   "homepage": "https://github.com/Zamiell/isaacscript#readme",
   "bugs": {
@@ -13,13 +13,11 @@
   "license": "GPL-3.0",
   "author": "Zamiell",
   "bin": {
-    "isaacscript": "./dist/src/isaacscript.js"
+    "isaacscript": "./dist/src/main.js"
   },
   "dependencies": {
     "@btmills/prettier": "git+ssh://git@github.com/btmills/prettier.git",
-    "@types/fs-extra": "^9.0.2",
-    "@types/prompts": "^2.0.9",
-    "@typescript-eslint/eslint-plugin": "^4.4.1",
+    "@typescript-eslint/eslint-plugin": "^4.5.0",
     "chalk": "^4.1.0",
     "chokidar": "^3.4.3",
     "eslint": "^7.11.0",
@@ -28,16 +26,19 @@
     "eslint-plugin-import": "^2.22.1",
     "figlet": "^1.5.0",
     "fs-extra": "^9.0.1",
+    "isaac-typescript-definitions": "git+ssh://git@github.com/IsaacScript/isaac-typescript-definitions.git",
     "jsonc-parser": "^2.3.1",
     "prompts": "^2.3.2",
     "typescript": "^4.0.3",
-    "typescript-to-lua": "^0.35.0",
+    "typescript-to-lua": "^0.36.0",
     "update-notifier": "^5.0.0"
   },
   "devDependencies": {
     "@tsconfig/node12": "^1.0.7",
     "@types/figlet": "^1.2.0",
-    "@types/node": "^14.11.10",
+    "@types/fs-extra": "^9.0.2",
+    "@types/node": "^14.14.0",
+    "@types/prompts": "^2.0.9",
     "@types/update-notifier": "^5.0.0"
   }
 }

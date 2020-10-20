@@ -26,7 +26,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = __importDefault(require("chalk"));
 const child_process_1 = require("child_process");
 const figlet_1 = __importDefault(require("figlet"));
-const JSONC = __importStar(require("jsonc-parser"));
 const path_1 = __importDefault(require("path"));
 const update_notifier_1 = __importDefault(require("update-notifier"));
 const package_json_1 = __importDefault(require("../package.json"));
@@ -36,7 +35,7 @@ const checkForWindowsTerminalBugs_1 = __importDefault(require("./checkForWindows
 const configFile = __importStar(require("./configFile"));
 const constants_1 = require("./constants");
 const copyWatcherMod_1 = __importDefault(require("./copyWatcherMod"));
-const file = __importStar(require("./file"));
+const getTSConfigInclude_1 = __importDefault(require("./getTSConfigInclude"));
 const notifyGame_1 = __importDefault(require("./notifyGame"));
 async function main() {
     // ASCII banner
@@ -60,12 +59,13 @@ async function main() {
     // Subprocess #2 - tstl --watch (to automatically convert TypeScript to Lua)
     spawnTSTLWatcher(config);
     // Read the "tsconfig.json" file
-    const tsConfigInclude = getTSConfigInclude();
+    const tsConfigInclude = getTSConfigInclude_1.default();
     const resolvedIncludePath = path_1.default.resolve(constants_1.CWD, tsConfigInclude);
     console.log("Automatically monitoring the following for changes:");
     console.log(`1) your TypeScript code:     ${chalk_1.default.green(resolvedIncludePath)}`);
     console.log(`2) the source mod directory: ${chalk_1.default.green(constants_1.MOD_SOURCE_PATH)}`);
     console.log("");
+    // (the process will now continue indefinitely for as long as the subprocesses exist)
 }
 function spawnModDirectorySyncer(config) {
     const modDirectorySyncerPath = path_1.default.join(__dirname, "modDirectorySyncer");
@@ -110,26 +110,6 @@ function spawnTSTLWatcher(config) {
         console.error("tstl exited abruptly with code:", code);
         process.exit(1);
     });
-}
-function getTSConfigInclude() {
-    const tsConfigRaw = file.read(constants_1.TSCONFIG_PATH);
-    let tsConfig;
-    try {
-        tsConfig = JSONC.parse(tsConfigRaw);
-    }
-    catch (err) {
-        console.error(`Failed to parse "${chalk_1.default.green(constants_1.TSCONFIG_PATH)}":`, err);
-        process.exit(1);
-    }
-    if (!Object.prototype.hasOwnProperty.call(tsConfig, "include")) {
-        console.error(`Your "${chalk_1.default.green(constants_1.TSCONFIG_PATH)}" file does not have an include directive, which is surely a mistake. Delete the file and re-run isaacscript.`);
-        process.exit(1);
-    }
-    if (tsConfig.include.length === 0) {
-        console.error(`Your "${chalk_1.default.green(constants_1.TSCONFIG_PATH)}" file has an empty include directive, which is surely a mistake. Delete the file and re-run isaacscript.`);
-        process.exit(1);
-    }
-    return tsConfig.include[0];
 }
 main().catch((err) => {
     console.error("IsaacScript failed:", err);
