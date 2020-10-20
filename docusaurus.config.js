@@ -43,4 +43,11 @@ module.exports = {
         ],
     ],
     plugins: [require.resolve("./docusaurus-plugin")],
+
+    // Deployment settings
+    // https://v2.docusaurus.io/docs/deployment
+    url: 'https://isaacscript.github.io',
+    baseUrl: '/',
+    projectName: 'IsaacScript.github.io',
+    organizationName: 'IsaacScript',
 };
