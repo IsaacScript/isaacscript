@@ -1,3 +1,5 @@
+// This class is unused because "ItemConfig.GetCostumes()" is broken
+
 declare class ItemConfigCostume {
   ID: int;
   Anm2Path: string;
