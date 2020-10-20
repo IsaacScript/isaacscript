@@ -3,7 +3,7 @@ import { execSync } from "child_process";
 import fs from "fs";
 import prompts from "prompts";
 import { BASH_PROFILE_PATH, WINDOWS_CODE_PAGE } from "./constants";
-import * as misc from "./misc";
+import * as file from "./file";
 
 // By default, Git Bash for Windows uses MINGW64
 // This will not work correctly with the prompts library (or any other NodeJS input library)
@@ -97,8 +97,8 @@ async function checkForWindowsBugColor() {
 function applyFixesToBashProfile() {
   // Check to see if the Bash profile has data
   let bashProfileContents: string;
-  if (misc.exists(BASH_PROFILE_PATH)) {
-    bashProfileContents = misc.read(BASH_PROFILE_PATH);
+  if (file.exists(BASH_PROFILE_PATH)) {
+    bashProfileContents = file.read(BASH_PROFILE_PATH);
   } else {
     bashProfileContents = "";
   }

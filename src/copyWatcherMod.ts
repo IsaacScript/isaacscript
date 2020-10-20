@@ -1,7 +1,7 @@
 import path from "path";
 import Config from "./Config";
 import { WATCHER_MOD_NAME, WATCHER_MOD_SOURCE_PATH } from "./constants";
-import * as misc from "./misc";
+import * as file from "./file";
 
 export default function copyWatcherMod(config: Config): void {
   // Delete and re-copy the watcher mod every time IsaacScript starts
@@ -11,8 +11,8 @@ export default function copyWatcherMod(config: Config): void {
     "..",
     WATCHER_MOD_NAME,
   );
-  if (misc.exists(watcherModPath)) {
-    misc.deleteDir(watcherModPath);
+  if (file.exists(watcherModPath)) {
+    file.deleteDir(watcherModPath);
   }
-  misc.copy(WATCHER_MOD_SOURCE_PATH, watcherModPath);
+  file.copy(WATCHER_MOD_SOURCE_PATH, watcherModPath);
 }

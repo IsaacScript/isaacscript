@@ -1,7 +1,7 @@
 import * as chokidar from "chokidar";
 import path from "path";
 import { MAIN_LUA_SOURCE_PATH } from "./constants";
-import * as misc from "./misc";
+import * as file from "./file";
 
 if (process.argv.length !== 4) {
   throw new Error(
@@ -13,13 +13,13 @@ const modSourcePath = process.argv[2];
 const modTargetPath = process.argv[3];
 
 // First, copy the existing directory fresh
-if (!misc.exists(modSourcePath)) {
-  misc.makeDir(modSourcePath);
+if (!file.exists(modSourcePath)) {
+  file.makeDir(modSourcePath);
 }
-if (misc.exists(modTargetPath)) {
-  misc.deleteDir(modTargetPath);
+if (file.exists(modTargetPath)) {
+  file.deleteDir(modTargetPath);
 }
-misc.copy(modSourcePath, modTargetPath);
+file.copy(modSourcePath, modTargetPath);
 
 // Second, watch for changes
 const watcher = chokidar.watch(modSourcePath, {
@@ -36,7 +36,7 @@ watcher
   .on("error", error);
 
 function add(filePath: string) {
-  misc.copy(filePath, getTargetPath(filePath));
+  file.copy(filePath, getTargetPath(filePath));
   if (filePath === MAIN_LUA_SOURCE_PATH) {
     // We don't need to report if the "main.lua" file changes,
     // since we have a dedicated message for that
@@ -46,12 +46,12 @@ function add(filePath: string) {
 }
 
 function addDir(dirPath: string) {
-  misc.copy(dirPath, getTargetPath(dirPath));
+  file.copy(dirPath, getTargetPath(dirPath));
   send(`Copied new directory: ${dirPath}`);
 }
 
 function change(filePath: string) {
-  misc.copy(filePath, getTargetPath(filePath));
+  file.copy(filePath, getTargetPath(filePath));
   if (filePath === MAIN_LUA_SOURCE_PATH) {
     // We don't need to report if the "main.lua" file changes,
     // since we have a dedicated message for that
@@ -61,12 +61,12 @@ function change(filePath: string) {
 }
 
 function unlink(filePath: string) {
-  misc.deleteFile(getTargetPath(filePath));
+  file.deleteFile(getTargetPath(filePath));
   send(`Deleted file: ${filePath}`);
 }
 
 function unlinkDir(dirPath: string) {
-  misc.deleteDir(getTargetPath(dirPath));
+  file.deleteDir(getTargetPath(dirPath));
   send(`Deleted directory: ${dirPath}`);
 }
 

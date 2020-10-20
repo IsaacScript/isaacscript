@@ -2,10 +2,10 @@ import chalk from "chalk";
 import * as JSONC from "jsonc-parser";
 import Config from "./Config";
 import { CONFIG_FILE_PATH } from "./constants";
-import * as misc from "./misc";
+import * as file from "./file";
 
 export function read(): Config {
-  const configRaw = misc.read(CONFIG_FILE_PATH);
+  const configRaw = file.read(CONFIG_FILE_PATH);
   let config: Config;
   try {
     config = JSONC.parse(configRaw) as Config;
@@ -19,5 +19,5 @@ export function read(): Config {
 
 export function write(config: Config): void {
   const configContents = JSON.stringify(config, null, 2);
-  misc.write(CONFIG_FILE_PATH, configContents);
+  file.write(CONFIG_FILE_PATH, configContents);
 }

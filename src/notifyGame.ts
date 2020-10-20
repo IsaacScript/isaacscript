@@ -3,7 +3,7 @@ import * as JSONC from "jsonc-parser";
 import path from "path";
 import Config from "./Config";
 import { PROJECT_NAME, WATCHER_MOD_NAME } from "./constants";
-import * as misc from "./misc";
+import * as file from "./file";
 
 type SaveDatMessageTypes = "command" | "msg";
 interface SaveDatMessage {
@@ -28,8 +28,8 @@ export default function notifyGame(
     `save${config.saveSlot}.dat`,
   );
   let saveDat: SaveDatMessage[];
-  if (misc.exists(saveDatPath)) {
-    const saveDatRaw = misc.read(saveDatPath);
+  if (file.exists(saveDatPath)) {
+    const saveDatRaw = file.read(saveDatPath);
     try {
       saveDat = JSONC.parse(saveDatRaw) as SaveDatMessage[];
     } catch (err) {
@@ -63,5 +63,5 @@ export default function notifyGame(
 
   // Write it back to the file
   const saveDatRaw = JSON.stringify(saveDat, null, 2);
-  misc.write(saveDatPath, saveDatRaw);
+  file.write(saveDatPath, saveDatRaw);
 }

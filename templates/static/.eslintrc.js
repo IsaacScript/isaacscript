@@ -21,7 +21,7 @@ module.exports = {
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
 
     // We use Prettier to automatically format TypeScript files
-    // Disable any rules that conflict with Prettier
+    // Disable any ESLint rules that conflict with Prettier
     // https://github.com/prettier/eslint-config-prettier
     "prettier",
     "prettier/@typescript-eslint",
@@ -111,7 +111,7 @@ module.exports = {
     "no-underscore-dangle": [
       "error",
       {
-        allow: ["__add", "__sub", "__mul", "__div", "__unm"],
+        allow: ["__add", "__sub", "__mul", "__div", "__unm", "__len"],
         allowAfterThis: false,
         allowAfterSuper: false,
         enforceInMethodNames: true,

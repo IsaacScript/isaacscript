@@ -9,14 +9,14 @@ import {
   MOD_DIRECTORY_PATH,
   PROJECT_NAME,
 } from "./constants";
-import * as misc from "./misc";
+import * as file from "./file";
 
 let modDir: string;
 let modTargetPath: string;
 let saveSlot: number;
 
 export default async function checkForConfig(): Promise<void> {
-  if (misc.exists(CONFIG_FILE_PATH)) {
+  if (file.exists(CONFIG_FILE_PATH)) {
     return;
   }
 
@@ -72,7 +72,7 @@ async function checkProjectName() {
 }
 
 async function getModDirectory() {
-  if (misc.exists(MOD_DIRECTORY_PATH)) {
+  if (file.exists(MOD_DIRECTORY_PATH)) {
     modDir = MOD_DIRECTORY_PATH;
     return;
   }
@@ -94,7 +94,7 @@ async function getModDirectory() {
     process.exit(1);
   }
 
-  if (!misc.exists(response.modDirectory)) {
+  if (!file.exists(response.modDirectory)) {
     console.error(
       `Error: The directory of "${chalk.green(
         response.modDirectory,
@@ -103,7 +103,7 @@ async function getModDirectory() {
     process.exit(1);
   }
 
-  if (!misc.isDir(response.modDirectory)) {
+  if (!file.isDir(response.modDirectory)) {
     console.error(
       `Error: The path of "${chalk.green(
         response.modDirectory,
@@ -116,7 +116,7 @@ async function getModDirectory() {
 }
 
 async function checkModSubdirectory() {
-  if (misc.isSubDirOf(CWD, modDir)) {
+  if (file.isSubDirOf(CWD, modDir)) {
     console.error(
       `Error: The mod project directory of "${chalk.green(
         CWD,
@@ -129,7 +129,7 @@ async function checkModSubdirectory() {
   }
 
   modTargetPath = path.join(modDir, PROJECT_NAME);
-  if (misc.exists(modTargetPath)) {
+  if (file.exists(modTargetPath)) {
     console.error(
       `Error: The target mod path of "${chalk.green(
         modTargetPath,
@@ -150,7 +150,7 @@ async function checkModSubdirectory() {
       process.exit(1);
     }
 
-    misc.deleteDir(modTargetPath);
+    file.deleteDir(modTargetPath);
   }
 }
 

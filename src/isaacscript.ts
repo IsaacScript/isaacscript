@@ -14,7 +14,7 @@ import Config from "./Config";
 import * as configFile from "./configFile";
 import { CWD, MOD_SOURCE_PATH, PROJECT_NAME, TSCONFIG_PATH } from "./constants";
 import copyWatcherMod from "./copyWatcherMod";
-import * as misc from "./misc";
+import * as file from "./file";
 import notifyGame from "./notifyGame";
 
 async function main(): Promise<void> {
@@ -109,7 +109,7 @@ function spawnTSTLWatcher(config: Config) {
 }
 
 function getTSConfigInclude(): string {
-  const tsConfigRaw = misc.read(TSCONFIG_PATH);
+  const tsConfigRaw = file.read(TSCONFIG_PATH);
   let tsConfig: Record<string, Array<string>>;
   try {
     tsConfig = JSONC.parse(tsConfigRaw) as Record<string, Array<string>>;

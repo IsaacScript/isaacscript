@@ -1,3 +1,5 @@
+// Helper functions for the "fs" library
+
 import chalk from "chalk";
 import fs from "fs-extra";
 import path from "path";
@@ -79,6 +81,21 @@ export function isDir(dirPath: string): boolean {
   }
 
   return pathIsDir;
+}
+
+export function isFile(dirPath: string): boolean {
+  let pathIsFile: boolean;
+  try {
+    pathIsFile = fs.lstatSync(dirPath).isFile();
+  } catch (err) {
+    console.error(
+      `Failed to check to see if "${chalk.green(dirPath)}" is a file:`,
+      err,
+    );
+    process.exit(1);
+  }
+
+  return pathIsFile;
 }
 
 export function isSubDirOf(dir: string, parent: string): boolean {

@@ -17,7 +17,6 @@
   },
   "dependencies": {
     "@btmills/prettier": "git+ssh://git@github.com/btmills/prettier.git",
-    "@types/chokidar": "^2.1.3",
     "@types/fs-extra": "^9.0.2",
     "@types/prompts": "^2.0.9",
     "@typescript-eslint/eslint-plugin": "^4.4.1",
