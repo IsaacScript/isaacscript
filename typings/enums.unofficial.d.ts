@@ -187,3 +187,133 @@ declare const enum Ending {
   THE_VOID = 22,
   GREEDIER = 23,
 }
+
+// Champion variants
+declare const enum ChampionColorIdx {
+  // No champion
+  REGULAR = -1,
+  // ×2.5 amount of HP.
+  VIVID_RED = 0,
+  // Increased movement speed.
+  DARK_YELLOW = 1,
+  // Leaves green creep as it walks.
+  STRONG_LIME_GREEN = 2,
+  // Attacks cause you to drop coins (like Greed or a Hanger).
+  VIVID_ORANGE = 3,
+  // Decreased speed.
+  VIVID_BLUE = 4,
+  // Explodes when killed.
+  DARK_CYAN = 5,
+  // Invincible until all other enemies are killed.
+  WHITE = 6,
+  // 2/3 health, decreased speed.
+  DARK_GRAY = 7,
+  // Tears become spectral tears, and it can move past environmental obstacles.
+  TRANSPARENT_WHITE = 8,
+  // Fades in and out of visibility
+  BLACK = 9,
+  // Periodically shoots short-ranged blood shots.
+  PURE_MAGENTA = 10,
+  // Pulls Isaac and his shots towards itself.
+  MOSTLY_PURE_VIOLET = 11,
+  // Collapses into a flesh pile upon death and regenerates if not finished off.
+  DARK_RED = 12,
+  // Releases blood shots in 8 directions when killed.
+  VEYRY_LIGHT_BLUE = 13,
+  // The enemy blends into the background and briefly becomes visible when damaged.
+  CAMOUFLAGE = 14,
+  // Splits into two copies of itself upon death.
+  PULSING_STRONG_LIME = 15,
+  // Repels Isaac's shots when it pulses.
+  PULSING_DARK_GRAY,
+  // Has 1-2 Eternal Flies circling it. Spawns another fly upon death.
+  LIGHT_WHITE = 17,
+  // Decreased health, increased speed. Smaller and more difficult to hit.
+  SMALL = 18,
+  // Increased health, slightly decreased speed. Larger and easier to hit. Deals two full hearts of damage.
+  LARGE = 19,
+  // All other enemies in the room regenerate health at the rate of 20 HP per second while this enemy is alive.
+  PULSING_VIVID_RED = 20,
+  // Spawns an Attack Fly on hit. After each hit, there is a delay until the next hit results in another Attack Fly. A single Pulsating enemy can have up to 5 Attack Flies at once.
+  PULSATING = 21,
+  // Increased health. All enemies in the room that are not champions will turn yellow while the crowned enemy is alive. The affected enemies will drop batteries like yellow champions upon dying.
+  CROWN = 22,
+  // Produces a The Necronomicon effect upon death. Deals two full hearts of damage.
+  SKULL = 23
+}
+
+
+declare const enum BossIDs {
+  MONSTRO = 1,
+  LARRY_JR = 2,
+  CHUB = 3,
+  GURDY = 4,
+  MONSTRO_II = 5,
+  MOM = 6,
+  SCOLEX = 7,
+  MOMS_HEART = 8,
+  FAMINE = 9,
+  PESTILENCE = 10,
+  WAR = 11,
+  DEATH = 12,
+  DUKE_OF_FLIES = 13,
+  PEEP = 14,
+  LOKI = 15,
+  BLASTOCYST = 16,
+  GEMINI = 17,
+  FISTULA = 18,
+  GISH = 19,
+  STEVEN = 20,
+  CHAD = 21,
+  HEADLESS_HORSEMAN = 22,
+  THE_FALLEN = 23,
+  SATAN = 24,
+  IT_LIVES = 25,
+  THE_HOLLOW = 26,
+  THE_CARRION_QUEEN = 27,
+  GURDY_JR = 28,
+  THE_HUSK = 29,
+  THE_BLOAT = 30,
+  LOKII = 31,
+  THE_BLIGHTED_OVUM = 32,
+  TERATOMA = 33,
+  THE_WIDOW = 34,
+  MASK_OF_INFAMY = 35,
+  THE_WRETCHED = 36,
+  PIN = 37,
+  CONQUEST = 38,
+  ISAAC = 39,
+  // Also known as "???"
+  BLUE_BABY = 40,
+  DADDY_LONG_LEGS = 41,
+  TRIACHNID = 42,
+  THE_HAUNT = 43,
+  DINGLE = 44,
+  MEGA_MAW = 45,
+  MEGA_MAW_II = 46,
+  MEGA_FATTY = 47,
+  MEGA_FATTY_II = 48,
+  MEGA_GURDY = 49,
+  DARK_ONE = 50,
+  DARK_ONE_II = 51,
+  POLYCEPHALUS = 52,
+  MEGA_FRED = 53,
+  THE_LAMB = 54,
+  MEGA_SATAN = 55,
+  GURGLINGS = 56,
+  THE_STAIN = 57,
+  BROWNIE = 58,
+  THE_FORSAKEN = 59,
+  LITTLE_HORN = 60,
+  RAG_MAN = 61,
+  ULTRA_GREED = 62,
+  HUSH = 63,
+  DANGLE = 64,
+  TURDLING = 65,
+  THE_FRAIL = 66,
+  RAG_MEGA = 67,
+  SISTERS_VIS = 68,
+  BIG_HORN = 69,
+  DELIRIUM = 70,
+  THE_MATRIARCH = 72
+}
