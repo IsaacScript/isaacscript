@@ -164,7 +164,7 @@ enum CollectibleTypeCustom {
 // Elsewhere in the code:
 if (
   player.HasCollectible(CollectibleTypeCustom.COLLECTIBLE_MY_CUSTOM_ITEM)
-  and player.HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS)
+  && player.HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS)
 ) {
   // Handle the specific synergy with My Custom Item + Epic Fetus
   // etc.
