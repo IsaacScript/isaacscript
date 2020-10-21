@@ -59,7 +59,9 @@ function addOrChange(filePath, verb) {
     if (filePath === constants_1.MAIN_LUA_SOURCE_PATH) {
         const mainLua = file.read(constants_1.MAIN_LUA_SOURCE_PATH).trim();
         if (mainLua === "") {
-            return;
+            setTimeout(() => {
+                addOrChange(filePath, verb);
+            }, 10);
         }
     }
     file.copy(filePath, getTargetPath(filePath));

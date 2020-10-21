@@ -43,7 +43,9 @@ function addOrChange(filePath: string, verb: string) {
   if (filePath === MAIN_LUA_SOURCE_PATH) {
     const mainLua = file.read(MAIN_LUA_SOURCE_PATH).trim();
     if (mainLua === "") {
-      return;
+      setTimeout(() => {
+        addOrChange(filePath, verb);
+      }, 10);
     }
   }
 

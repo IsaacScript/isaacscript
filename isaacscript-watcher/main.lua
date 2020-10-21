@@ -139,6 +139,7 @@ function IsaacScriptWatcher:LoadSuccessful()
         pushMessageArray(modName .. " - Successfully compiled & reloaded!")
       end
     elseif entry.type == "msg" then
+      Isaac.DebugString(MOD_NAME .. " - " .. entry.data)
       pushMessageArray(entry.data)
     end
   end
