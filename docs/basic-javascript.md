@@ -10,33 +10,39 @@ In general, JavaScript/TypeScript is pretty similar to Lua. I won't go over all 
 
 <br />
 
+### Comments
+
+```lua
+-- This is a single-line comment in Lua
+
+--[[
+
+This is a multi-line comment in Lua.
+It's very long.
+And wordy.
+
+--]]
+```
+
+```typescript
+// This is a single-line comment in TypeScript
+
+/*
+
+This is a multi-line comment in TypeScript.
+It's very long.
+And wordy.
+
+*/
+```
+
+<br />
+
 ### Semi-Colons
 
 Unlike Lua, TypeScript code should have semi-colons after every line. But don't bother typing them yourself - just hit `Ctrl + s` and the editor will automatically insert them for you. That's [Prettier](https://prettier.io/) doing its job.
 
 (In fact, you should always hit `Ctrl + s` periodically as you code, so that the code is constantly formatting itself. This saves you the tedium of aligning things, breaking up long if statements, and so forth. If it isn't auto-formatting, then you probably need to add a bracket somewhere so that the code can properly compile.)
-
-<br />
-
-### Convert `nil` --> `null`
-
-```lua
--- Lua code
-if entity.SpawnerEntity == nil then
-  -- This entity was not spawned by anything in particular
-end
-```
-
-```typescript
-// In TypeScript, you have to put parenthesis around all the conditions of an if
-// statement
-// In TypeScript, you should always use "===" (strict equals) instead of "=="
-// (normal equals)
-if (entity.SpawnerEntity === null) {
-  // "null" instead of "nil"
-  // This entity was not spawned by anything in particular
-}
-```
 
 <br />
 
@@ -62,7 +68,55 @@ Game().GetPlayer(0).AddMaxHearts(2);
 
 <br />
 
-### Convert `local` --> `const` and `let`
+### `if` statements
+
+In TypeScript, you have to put parentheses around the conditions of an if statement.
+
+Also, the operators are a bit different:
+
+* `and` --> `&&`
+* `or` --> `||`
+* `==` --> `===`
+* `~=` --> `!==`
+* `..` --> `+`
+
+For example:
+
+```lua
+-- Lua code
+if x == 1 and y ~= 0 then
+  -- Do something
+end
+```
+
+```typescript
+// TypeScript code
+if (x == 1 && y !== 0) {
+  // Do something
+}
+```
+
+<br />
+
+### `nil` --> `null`
+
+```lua
+-- Lua code
+if entity.SpawnerEntity == nil then
+  -- This entity was not spawned by anything in particular
+end
+```
+
+```typescript
+
+if (entity.SpawnerEntity === null) {
+  // This entity was not spawned by anything in particular
+}
+```
+
+<br />
+
+### `local` --> `const` and `let`
 
 In Lua, you generally type `local` before everything to stop it from being turned into a global.
 
@@ -76,6 +130,7 @@ Furthermore, in TypeScript, there are two kinds of variable declarations: `let` 
 local poop = "poop"
 local fart = "fart"
 fart = fart .. " modified" -- fart is now equal to "fart modified"
+
 local function getPoop()
   return "poop"
 end
@@ -87,6 +142,7 @@ const poop = "poop"; // We use "const" because this value never changes
 let fart = "fart"; // We use "let" because we have to modify it later
 // We use the "+=" operator instead of ".." to concatenate a string
 fart += " modified";
+
 function getPoop() { // No local here
   return "poop";
 }
@@ -161,18 +217,20 @@ In order to more closely match the API, the TypeScript API definitions use `int`
 AddCollectible(collectibleType: int, charge: int, addConsumables: boolean): void;
 ```
 
-If you want, you can use the `int` and `float` types in your own code too (instead of just using `number`, like you would in other typical TypeScript code). But if you do, be aware that `int` and `float` are simply aliases for `number`, so they don't provide any actual type safety.
+If you want, you can use the `int` and `float` types in your own code too (instead of just using `number`, like you would in other typical TypeScript code). But if you do use `int` and `float`, be aware that they are simply aliases for `number`, so they don't provide any actual type safety.
 
 In other words, it is possible to do this, so beware:
 
 ```typescript
 // Give the player a Sad Onion
 player.AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false)
+
 // Find out how many Sad Onions they have
 let numSadOnions = player.GetCollectibleNum(CollectibleType.COLLECTIBLE_SAD_ONION)
 // numSadOnions is now an "int" with a value of "1"
+
 numSadOnions += 0.5
-// numSadOnions is still an "int", but it has a value of "1.5"
+// numSadOnions is still an "int", but now it has a value of "1.5"
 // This is a bug and TypeScript won't catch this for you!
 ```
 
@@ -192,7 +250,6 @@ if (
   and player:HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS)
 ) then
   -- Handle the specific synergy with My Custom Item + Epic Fetus
-  -- etc.
 end
 ```
 
@@ -210,7 +267,6 @@ if (
   && player.HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS)
 ) {
   // Handle the specific synergy with My Custom Item + Epic Fetus
-  // etc.
 }
 ```
 
@@ -338,7 +394,7 @@ interface TrueCoopPlayerData {
 
 ### Exporting Global Variables
 
-In Lua, the correct way to allow other people to interact with your mod is to use `require()` (to avoid prevent polluting the global namespace):
+In Lua, the correct way to allow other people to interact with your mod is to use `require()` (to avoid polluting the global namespace):
 
 ```lua
 -- A Lua file in your mod, located at: "mod/revelations/exports.lua"
@@ -363,19 +419,21 @@ However, `isaacscript` combines all of your code into one giant `main.lua` file,
 declare global {
   let RevelationsVersion: string;
 }
-RevelationsVersion = '2.1';
+RevelationsVersion = '2.1'; // "RevelationsVersion" is now a global variable
 ```
 
 Building on this example, you can also expose both variables and methods:
 
 ```typescript
 class Exports() {
-  IncreaseStrength(amount: int)
+  IncreaseStrength(amount: int) {
+    // [code here, etc.]
+  }
 }
 const exports = new Exports()
 
 declare global {
   let RevelationsExports: string;
 }
-RevelationsExports = exports;
+RevelationsExports = exports; // "RevelationsExports" is now a global variable
 ```
