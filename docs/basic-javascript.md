@@ -2,11 +2,19 @@
 title: Basic JavaScript/TypeScript
 ---
 
-If you have never programmed anything in JavaScript before, then it might be a good idea to follow a basic JavaScript tutorial before you start working on a mod. As they say, you have to learn to walk before you can learn to run. There are plenty of online resources out there - just use Google and find something you like. Teaching you how to program well in JavaScript is beyond the scope of this article.
+If you have never programmed anything in JavaScript before, then it might be a good idea to follow a basic JavaScript tutorial before you start working on a mod. As they say, you have to learn to walk before you can learn to run. There are plenty of online resources out there - just use Google and find something you like. Teaching you all the ins and outs of JavaScript is beyond the scope of this article.
 
 TypeScript is 99% the same as JavaScript. It is a "superset" language, meaning that TypeScript just adds some extra things on top of JavaScript.
 
-In general, JavaScript/TypeScript is pretty similar to Lua. Here are some differences, in no particular order.
+In general, JavaScript/TypeScript is pretty similar to Lua. I won't go over all of the differences, but here are some of the more important ones (in no particular order).
+
+<br />
+
+### Semi-Colons
+
+Unlike Lua, TypeScript code should have semi-colons after every line. But don't bother typing them yourself - just hit `Ctrl + s` and the editor will automatically insert them for you. That's [Prettier](https://prettier.io/) doing its job.
+
+(In fact, you should always hit `Ctrl + s` periodically as you code, so that the code is constantly formatting itself. This saves you the tedium of aligning things, breaking up long if statements, and so forth. If it isn't auto-formatting, then you probably need to add a bracket somewhere so that the code can properly compile.)
 
 <br />
 
@@ -206,13 +214,13 @@ if (
 }
 ```
 
-Don't worry - due to how the transpiler works, your enum will be local to your own project and will not pollute the global namespace.
+Note that you don't have to worry about polluting the global namespace: due to how the transpiler works, your enum will be local to your own project.
 
 <br />
 
 ### Splitting Your Code Into Multiple Files: `require()` --> `import`
 
-In Lua, you split your code into multiple files by using `require()`. In TypeScript, this is done with `import`. (Don't ever use `require()`, which is only used in older JavaScript code.)
+In Lua, you split your code into multiple files by using `require()`. In TypeScript, this is done with `import`. (Don't ever use the JavaScript/TypeScript version of `require()`, which is only used in older JavaScript code.)
 
 ```lua
 -- main.lua
