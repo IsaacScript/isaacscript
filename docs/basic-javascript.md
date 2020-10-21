@@ -241,7 +241,7 @@ numSadOnions += 0.5
 In your Lua mods, you may have extended the game's built-in enums. For example:
 
 ```lua
--- At the top of your mod:
+-- At the top of your Lua mod:
 CollectibleType.COLLECTIBLE_MY_CUSTOM_ITEM = Isaac.GetItemIdByName("My Custom Item")
 
 -- Elsewhere in the code:
@@ -256,7 +256,7 @@ end
 In TypeScript, you cannot extend existing enums for safety reasons. Instead, create your own enum:
 
 ```typescript
-// At the top of your mod:
+// At the top of your TypeScript mod:
 enum CollectibleTypeCustom {
   COLLECTIBLE_MY_CUSTOM_ITEM = Isaac.GetItemIdByName("My Custom Item")
 }
@@ -301,16 +301,16 @@ return PostPlayerInit
 
 ```typescript
 // main.ts
-import * as PostPlayerInit from './PostPlayerInit';
+import * as postPlayerInit from './postPlayerInit';
 // (we don't have to worry about the lowercase Linux hack since we are bundling
 // all of our code into one "main.lua" file)
 
 const Revelations = RegisterMod("Revelations", 1);
-Revelations.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, PostPlayerInit.Main);
+Revelations.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit.Main);
 ```
 
 ```typescript
-// PostPlayerInit.ts
+// postPlayerInit.ts
 export function Main(player: EntityPlayer) {
   player.AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false)
 }
