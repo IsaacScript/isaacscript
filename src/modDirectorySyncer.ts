@@ -28,16 +28,20 @@ const watcher = chokidar.watch(modSourcePath, {
 });
 
 watcher
-  .on("add", add)
+  .on("add", (filePath: string) => {
+    addOrChange(filePath, "Added");
+  })
   .on("addDir", addDir)
-  .on("change", change)
+  .on("change", (filePath: string) => {
+    addOrChange(filePath, "Changed");
+  })
   .on("unlink", unlink)
   .on("unlinkDir", unlinkDir)
   .on("error", error);
 
-function add(filePath: string) {
+function addOrChange(filePath: string, verb: string) {
   if (filePath === MAIN_LUA_SOURCE_PATH) {
-    const mainLua = file.read(MAIN_LUA_SOURCE_PATH);
+    const mainLua = file.read(MAIN_LUA_SOURCE_PATH).trim();
     if (mainLua === "") {
       return;
     }
@@ -49,22 +53,12 @@ function add(filePath: string) {
     // since we have a dedicated message for that
     return;
   }
-  send(`Copied new file: ${filePath}`);
+  send(`${verb} new file: ${filePath}`);
 }
 
 function addDir(dirPath: string) {
   file.copy(dirPath, getTargetPath(dirPath));
   send(`Copied new directory: ${dirPath}`);
-}
-
-function change(filePath: string) {
-  file.copy(filePath, getTargetPath(filePath));
-  if (filePath === MAIN_LUA_SOURCE_PATH) {
-    // We don't need to report if the "main.lua" file changes,
-    // since we have a dedicated message for that
-    return;
-  }
-  send(`Copied changed file: ${filePath}`);
 }
 
 function unlink(filePath: string) {
