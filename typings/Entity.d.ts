@@ -115,7 +115,7 @@ declare class Entity {
   HitPoints: float;
   readonly Index: int;
   readonly TargetPosition: Readonly<Vector>;
-  GridCollisionClass: GridCollisionClass;
+  GridCollisionClass: EntityGridCollisionClass;
   EntityCollisionClass: EntityCollisionClass;
   CollisionDamage: float;
   readonly SpawnGridIndex: int;
