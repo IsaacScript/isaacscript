@@ -135,6 +135,46 @@ Revelations.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, PostPlayerInit);
 
 <br />
 
+### Extending Enums --> Custom Enums
+
+In your Lua mods, you may have extended the game's built-in enums. For example:
+
+```lua
+-- At the top of your mod:
+CollectibleType.COLLECTIBLE_MY_CUSTOM_ITEM = Isaac.GetItemIdByName("My Custom Item")
+
+-- Elsewhere in the code:
+if (
+  player:HasCollectible(CollectibleType.COLLECTIBLE_MY_CUSTOM_ITEM)
+  and player:HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS)
+) then
+  -- Handle the specific synergy with My Custom Item + Epic Fetus
+  -- etc.
+end
+```
+
+In TypeScript, you cannot extend existing enums for safety reasons. Instead, create your own enum:
+
+```typescript
+// At the top of your mod:
+enum CollectibleTypeCustom {
+  COLLECTIBLE_MY_CUSTOM_ITEM = Isaac.GetItemIdByName("My Custom Item")
+}
+
+// Elsewhere in the code:
+if (
+  player.HasCollectible(CollectibleTypeCustom.COLLECTIBLE_MY_CUSTOM_ITEM)
+  and player.HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS)
+) {
+  // Handle the specific synergy with My Custom Item + Epic Fetus
+  // etc.
+}
+```
+
+Don't worry - due to how the transpiler works, your enum will be local to your own project and will not pollute the global namespace.
+
+<br />
+
 ### Splitting Your Code Into Multiple Files: `require()` --> `import`
 
 In Lua, you split your code into multiple files by using `require()`. In TypeScript, this is done with `import`. (Don't ever use `require()`, which is only used in older JavaScript code.)

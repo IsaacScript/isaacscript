@@ -43,6 +43,7 @@
     "mkdir",
     "modder",
     "postplayerinit",
+    "transpiler",
     "tstl"
   ],
 }
