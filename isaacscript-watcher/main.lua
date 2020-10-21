@@ -5,6 +5,7 @@ local json = require("json")
 local IsaacScriptWatcher = RegisterMod("IsaacScript Watcher", 1)
 
 -- Constants
+local MOD_NAME = "isaacscript-watcher"
 local FRAMES_BEFORE_FADE = 3 * 60 -- 3 seconds
 
 -- Mod variables
@@ -113,7 +114,9 @@ function IsaacScriptWatcher:LoadSaveDat()
     -- Sometimes loading can fail if the file is currently being being written to,
     -- so give up for now and try again on the next frame
     Isaac.DebugString(
-      "Failed to load the TypeScript Watcher \"save.dat\" on frame: " .. tostring(isaacFrameCount)
+      MOD_NAME
+      .. " - Failed to load the TypeScript Watcher \"save.dat\" on frame: "
+      .. tostring(isaacFrameCount)
     )
     loadOnNextFrame = true
     return
@@ -128,7 +131,7 @@ function IsaacScriptWatcher:LoadSuccessful()
   for _, entry in ipairs(saveData) do
     -- Entry is e.g. { type: "command", data: "luamod revelations" }
     if entry.type == "command" then
-      Isaac.DebugString("Executing command: " .. entry.data)
+      Isaac.DebugString(MOD_NAME .. " - Executing command: " .. entry.data)
       Isaac.ExecuteCommand(entry.data)
       local prefix = "luamod "
       if strHasPrefix(entry.data, prefix) then

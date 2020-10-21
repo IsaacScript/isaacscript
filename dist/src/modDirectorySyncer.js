@@ -52,6 +52,12 @@ watcher
     .on("unlinkDir", unlinkDir)
     .on("error", error);
 function add(filePath) {
+    if (filePath === constants_1.MAIN_LUA_SOURCE_PATH) {
+        const mainLua = file.read(constants_1.MAIN_LUA_SOURCE_PATH);
+        if (mainLua === "") {
+            return;
+        }
+    }
     file.copy(filePath, getTargetPath(filePath));
     if (filePath === constants_1.MAIN_LUA_SOURCE_PATH) {
         // We don't need to report if the "main.lua" file changes,
