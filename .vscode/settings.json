@@ -43,6 +43,7 @@
     "luamod",
     "mkdir",
     "modder",
+    "pcall",
     "postplayerinit",
     "transpiler",
     "tstl"

@@ -25,7 +25,7 @@ But we don't have to suffer anymore. The `isaacscript` framework allows us to pr
 
 - Never close and reopen your game again when working on your mods.
 - Never type the `luamod` console command again.
-- If you use disgusting hacks to get around bugs with `luamod` and `require()`, throw them in the trash - they aren't needed here.
+- If you use disgusting hacks with `pcall` to get around bugs with `luamod` and `require()`, throw them in the trash - they aren't needed here.
 
 ### <img src="/images/items/humbling_bundle.png" className="icon" /> Extra Enums
 
