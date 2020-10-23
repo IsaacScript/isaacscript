@@ -57,7 +57,7 @@ declare class Room {
   GetCenterPos(): Vector;
   SpawnGridEntity(
     gridIndex: int,
-    gridEntityType: GridEntityType,
+    gridEntityType: GridEntityType | int,
     variant: GridEntityVariantForAC,
     seed: int,
     varData: int,
@@ -71,8 +71,8 @@ declare class Room {
   GetEntities(): EntityList;
   GetAliveEnemiesCount(): int;
   GetAliveBossesCount(): int;
-  GetBossID(): BossIDs;
-  GetSecondBossID(): BossIDs;
+  GetBossID(): BossIDs | int;
+  GetSecondBossID(): BossIDs | int;
   TryPlaceLadder(
     playerPos: Vector,
     playerVelocity: Vector,
@@ -101,7 +101,7 @@ declare class Room {
   GetRenderSurfaceTopLeft(): Readonly<Vector>;
   GetRenderScrollOffset(): Readonly<Vector>;
   HasWaterPits(): boolean;
-  GetSeededCollectible(seed: int): CollectibleType;
+  GetSeededCollectible(seed: int): CollectibleType | int;
   GetShopLevel(): int;
   SetShockwaveParam(shockwaveID: int, shockwaveParams: ShockwaveParams): void;
   GetNextShockwaveId(): int;

@@ -1,5 +1,5 @@
 declare class GridEntityDesc {
-  Type: GridEntityType;
+  Type: GridEntityType | int;
   Variant: GridEntityVariantForAC;
   State: int;
   SpawnCount: int;

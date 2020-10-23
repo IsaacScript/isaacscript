@@ -2,7 +2,7 @@ declare class Seeds {
   SetStartSeed(startSeed: string): void;
   ClearStartSeed(): void;
   IsCustomRun(): boolean;
-  Restart(challenge: Challenge): void;
+  Restart(challenge: Challenge | int): void;
   Reset(): void;
   IsInitialized(): boolean;
   GetStartSeed(): int;

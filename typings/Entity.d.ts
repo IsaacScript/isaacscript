@@ -11,7 +11,8 @@ type EntityVariantForAC =
   | TearVariant
   | ProjectileVariant
   | PlayerVariant
-  | LaserVariant;
+  | LaserVariant
+  | int;
 
 declare class Entity {
   GetData(): Record<string, unknown>;
@@ -75,7 +76,7 @@ declare class Entity {
   IsInvincible(): boolean;
   CanShutDoors(): boolean;
   IsBoss(): boolean;
-  GetBossID(): BossIDs;
+  GetBossID(): BossIDs | int;
   GetLastParent(): Entity;
   GetLastChild(): Entity;
   HasCommonParentWithEntity(other: Entity): boolean;
@@ -96,10 +97,10 @@ declare class Entity {
   Friction: float;
   Position: Vector;
   Velocity: Vector;
-  readonly Type: EntityType;
-  Variant: EntityVariantForAC;
+  readonly Type: EntityType | int;
+  Variant: EntityVariantForAC
   SubType: int;
-  SpawnerType: EntityType;
+  SpawnerType: EntityType | int;
   SpawnerVariant: EntityVariantForAC;
   readonly SplatColor: Readonly<Color>;
   Visible: boolean;

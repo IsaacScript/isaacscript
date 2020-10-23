@@ -67,13 +67,13 @@ declare class EntityPlayer extends Entity {
   FlushQueueItem(): boolean;
   IsItemQueueEmpty(): boolean;
   AddCollectible(
-    collectibleType: CollectibleType,
+    collectibleType: CollectibleType | int,
     charge: int,
     addConsumables: boolean,
   ): void;
   GetCollectibleCount(): int;
-  AddTrinket(trinketType: TrinketType): void;
-  TryRemoveTrinket(trinketType: TrinketType): boolean;
+  AddTrinket(trinketType: TrinketType | int): void;
+  TryRemoveTrinket(trinketType: TrinketType | int): boolean;
   DropTrinket(dropPos: Vector, replaceTick: boolean): void;
   GetMaxTrinkets(): int;
   GetMaxPoketItems(): int;
@@ -83,7 +83,7 @@ declare class EntityPlayer extends Entity {
   DonateLuck(luck: int): void;
   CanPickBlackHearts(): boolean;
   CanPickGoldenHearts(): boolean;
-  GetActiveItem(): CollectibleType;
+  GetActiveItem(): CollectibleType | int;
   GetActiveCharge(): int;
   GetBatteryCharge(): int;
   GetActiveSubCharge(): int;
@@ -92,18 +92,18 @@ declare class EntityPlayer extends Entity {
   NeedsCharge(): boolean;
   FullCharge(): boolean;
   // GetPocketItem(slotID: int): Readonly<PlayerPocketItem>; // PlayerPocketItem is not implemented
-  AddCard(card: Card): void;
-  AddPill(pillColor: PillColor): void;
-  GetCard(slotID: SlotId): Card;
-  GetPill(slotID: SlotId): PillColor;
-  SetCard(slotID: SlotId, card: Card): void;
-  SetPill(slotID: SlotId, pillColor: PillColor): void;
-  HasCollectible(collectibleType: CollectibleType): boolean;
-  GetCollectibleNum(collectibleType: CollectibleType): int;
-  HasTrinket(trinketType: TrinketType): boolean;
+  AddCard(card: Card | int): void;
+  AddPill(pillColor: PillColor | int): void;
+  GetCard(slotID: SlotId): Card | int;
+  GetPill(slotID: SlotId): PillColor | int;
+  SetCard(slotID: SlotId, card: Card | int): void;
+  SetPill(slotID: SlotId, pillColor: PillColor | int): void;
+  HasCollectible(collectibleType: CollectibleType | int): boolean;
+  GetCollectibleNum(collectibleType: CollectibleType | int): int;
+  HasTrinket(trinketType: TrinketType | int): boolean;
   HasPlayerForm(playerForm: PlayerForm): boolean;
   CanAddCollectible(): boolean;
-  TryHoldTrinket(trinketType: TrinketType): boolean;
+  TryHoldTrinket(trinketType: TrinketType | int): boolean;
   SetFullHearts(): void;
   AddCacheFlags(cacheFlags: CacheFlag): void;
   EvaluateItems(): void;
@@ -123,7 +123,7 @@ declare class EntityPlayer extends Entity {
   GetSmoothBodyRotation(): float;
   GetTearPoisonDamage(): float;
   GetBombFlags(): TearFlags;
-  GetBombVariant(tearFlags: TearFlags, forceSmallBomb: boolean): BombVariant;
+  GetBombVariant(tearFlags: TearFlags, forceSmallBomb: boolean): BombVariant | int;
   GetTearHitParams(
     weaponType: WeaponType,
     damageScale: float,
@@ -147,7 +147,7 @@ declare class EntityPlayer extends Entity {
   GetNumBlueSpiders(): int;
   GetItemState(): int;
   UseActiveItem(
-    collectibleType: CollectibleType,
+    collectibleType: CollectibleType | int,
     showAnim: boolean,
     keepActiveItem: boolean,
     allowNonMainPlayer: boolean,
@@ -164,23 +164,23 @@ declare class EntityPlayer extends Entity {
   IsHeldItemVisible(): boolean;
   Revive(): void;
   TryRemoveCollectibleCostume(
-    collectibleType: CollectibleType,
+    collectibleType: CollectibleType | int,
     keepPersistent: boolean,
   ): void;
-  TryRemoveTrinketCostume(trinketType: TrinketType): void;
+  TryRemoveTrinketCostume(trinketType: TrinketType | int): void;
   TryRemoveNullCostume(nullItemID: NullItemID): void;
   AnimateCollectible(
-    collectibleType: CollectibleType,
+    collectibleType: CollectibleType | int,
     playerAnimationName: PlayerAnimationName,
     collectibleAnimationName: CollectibleAnimationName,
   ): void;
   AnimateTrinket(
-    trinketType: TrinketType,
+    trinketType: TrinketType | int,
     animName: string,
     spriteAnimName: string,
   ): void;
-  AnimateCard(card: Card, animName: string): void;
-  AnimatePill(pillColor: PillColor, animName: string): void;
+  AnimateCard(card: Card | int, animName: string): void;
+  AnimatePill(pillColor: PillColor | int, animName: string): void;
   AnimateTrapdoor(): void;
   AnimateLightTravel(): void;
   AnimateAppear(): void;
@@ -198,8 +198,8 @@ declare class EntityPlayer extends Entity {
   ResetDamageCooldown(): void;
   SetMinDamageCooldown(damageCooldown: int): void;
   AreControlsEnabled(): boolean;
-  UseCard(card: Card): void;
-  UsePill(pillEffect: PillEffect, pillColor: PillColor): void;
+  UseCard(card: Card | int): void;
+  UsePill(pillEffect: PillEffect | int, pillColor: PillColor | int): void;
   HasInvincibility(): boolean;
   SetShootingCooldown(cooldown: int): void;
   SetTargetTrapDoor(trapDoor: GridEntity): void;
@@ -234,14 +234,14 @@ declare class EntityPlayer extends Entity {
     cantOverwrite: boolean,
     subType: int,
   ): EntityKnife;
-  GetBabySkin(): BabySubType;
+  GetBabySkin(): BabySubType | int;
   CanShoot(): boolean;
   IsP2Appearing(): boolean;
   IsFullSpriteRendering(): boolean;
-  GetCollectibleRNG(collectibleType: CollectibleType): RNG;
-  GetTrinketRNG(trinketType: TrinketType): RNG;
-  GetPillRNG(pillEffect: PillEffect): RNG;
-  GetCardRNG(card: Card): RNG;
+  GetCollectibleRNG(collectibleType: CollectibleType | int): RNG;
+  GetTrinketRNG(trinketType: TrinketType | int): RNG;
+  GetPillRNG(pillEffect: PillEffect | int): RNG;
+  GetCardRNG(card: Card | int): RNG;
   AddDeadEyeCharge(): void;
   ClearDeadEyeCharge(): void;
   GetZodiacEffect(): ZodiacCollectibles;
@@ -266,7 +266,7 @@ declare class EntityPlayer extends Entity {
   InitBabySkin(): void;
   CanTurnHead(): boolean;
   CheckFamiliar(
-    familiarVariant: FamiliarVariant,
+    familiarVariant: FamiliarVariant | int,
     targetCount: int,
     rng: RNG,
   ): void;
@@ -320,7 +320,7 @@ declare class EntityPlayer extends Entity {
   LaserColor: Color;
   CanFly: boolean;
   Luck: float;
-  BabySkin: BabySubType;
+  BabySkin: BabySubType | int;
   QueuedItem: QueueItemData;
   ItemHoldCooldown: int;
   SecondaryActiveItem: ItemConfigItem;

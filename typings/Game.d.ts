@@ -3,7 +3,7 @@ declare class Game {
   Render(): void;
   IsPaused(): boolean;
   Spawn(
-    entityType: EntityType,
+    entityType: EntityType | int,
     variant: EntityVariantForAC,
     position: Vector,
     velocity: Vector,
@@ -61,7 +61,7 @@ declare class Game {
   RerollEnemy(entity: Entity): boolean;
   SpawnParticles(
     position: Vector,
-    effectVariant: EffectVariant,
+    effectVariant: EffectVariant | int,
     numParticles: int,
     speed: float,
     color: Color,
@@ -115,9 +115,9 @@ declare class Game {
   ClearDonationModAngel(): void;
   SetLastLevelWithDamage(levelStage: LevelStage): void;
   GetLastLevelWithDamage(): LevelStage;
-  AddEncounteredBoss(entityType: EntityType, variant: EntityVariantForAC): void;
+  AddEncounteredBoss(entityType: EntityType | int, variant: EntityVariantForAC): void;
   GetNumEncounteredBosses(): int;
-  HasEncounteredBoss(entityType: EntityType, variant: EntityVariantForAC): boolean;
+  HasEncounteredBoss(entityType: EntityType | int, variant: EntityVariantForAC): boolean;
   GetGreedWavesNum(): int;
   GetGreedBossWaveNum(): int;
   SetLastLevelWithoutHalfHp(levelStage: LevelStage): void;
@@ -150,7 +150,7 @@ declare class Game {
   BossRushParTime: int;
   BlueWombParTime: int;
   readonly ScreenShakeOffset: Readonly<Vector>;
-  Challenge: Challenge;
+  Challenge: Challenge | int;
   readonly Difficulty: Difficulty;
   TimeCounter: int;
 }

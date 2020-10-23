@@ -7,7 +7,7 @@ declare global {
     function GetPlayer(playerID: int): EntityPlayer;
     function GetFrameCount(): int;
     function Spawn(
-      entityType: EntityType,
+      entityType: EntityType | int,
       entityVariant: EntityVariantForAC,
       entitySubType: int,
       position: Vector,
@@ -15,7 +15,7 @@ declare global {
       spawner: Entity | null,
     ): Entity;
     function GridSpawn(
-      gridEntityType: GridEntityType,
+      gridEntityType: GridEntityType | int,
       variant: GridEntityVariantForAC,
       position: Vector,
       forced: boolean,
@@ -44,20 +44,20 @@ declare global {
     function GetRandomPosition(): Vector;
     function GetFreeNearPosition(position: Vector, step: float): Vector;
     function Explode(position: Vector, source: Entity, damage: float): void;
-    function AddPillEffectToPool(pillEffect: PillEffect): PillColor;
+    function AddPillEffectToPool(pillEffect: PillEffect | int): PillColor | int;
     function GetRoomEntities(): Entity[];
-    function GetChallenge(): Challenge;
+    function GetChallenge(): Challenge | int;
     function GetEntityVariantByName(entityName: string): EntityVariantForAC;
-    function GetItemIdByName(entityName: string): CollectibleType;
+    function GetItemIdByName(entityName: string): CollectibleType | int;
     function GetPlayerTypeByName(playerName: string): PlayerVariant;
-    function GetCardIdByName(cardName: string): Card;
-    function GetPillEffectByName(pillName: string): PillEffect;
-    function GetTrinketIdByName(trinketName: string): TrinketType;
-    function GetChallengeIdByName(challengeName: string): Challenge;
+    function GetCardIdByName(cardName: string): Card | int;
+    function GetPillEffectByName(pillName: string): PillEffect | int;
+    function GetTrinketIdByName(trinketName: string): TrinketType | int;
+    function GetChallengeIdByName(challengeName: string): Challenge | int;
     function GetCostumeIdByPath(path: string): int;
-    function GetCurseIdByName(curseName: string): LevelCurse;
-    function GetSoundIdByName(soundName: string): SoundEffect;
-    function GetMusicIdByName(musicName: string): Music;
+    function GetCurseIdByName(curseName: string): LevelCurse | int;
+    function GetSoundIdByName(soundName: string): SoundEffect | int;
+    function GetMusicIdByName(musicName: string): Music | int;
     function GetTime(): int;
     function ExecuteCommand(command: string): string;
     function ConsoleOutput(text: string): void;
@@ -68,7 +68,7 @@ declare global {
       partitions: int,
     ): Entity[];
     function FindByType(
-      entityType: EntityType,
+      entityType: EntityType | int,
       variant: EntityVariantForAC,
       subType: int,
       cache: boolean,
@@ -76,7 +76,7 @@ declare global {
     ): Entity[];
     function CountEntities(
       spawner: Entity | null,
-      entityType: EntityType,
+      entityType: EntityType | int,
       variant: EntityVariantForAC,
       subType: int,
     ): int;

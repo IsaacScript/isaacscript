@@ -1,18 +1,18 @@
 declare class ItemPool {
-  GetCollectible(itemPoolType: ItemPoolType, decrease: boolean, seed: int): CollectibleType;
-  RemoveCollectible(collectibleType: CollectibleType): boolean;
-  RemoveTrinket(trinketType: TrinketType): boolean;
+  GetCollectible(itemPoolType: ItemPoolType, decrease: boolean, seed: int): CollectibleType | int;
+  RemoveCollectible(collectibleType: CollectibleType | int): boolean;
+  RemoveTrinket(trinketType: TrinketType | int): boolean;
   ResetTrinkets(): void;
-  GetTrinket(): TrinketType;
-  GetCard(seed: int, playing: boolean, rune: boolean, onlyRunes: boolean): Card;
-  GetPill(seed: int): PillColor;
-  GetPillEffect(pillColor: PillColor): PillEffect;
-  IdentifyPill(pillColor: PillColor): void;
-  IsPillIdentified(pillColor: PillColor): boolean;
-  ForceAddPillEffect(pillEffect: PillEffect): PillColor;
+  GetTrinket(): TrinketType | int;
+  GetCard(seed: int, playing: boolean, rune: boolean, onlyRunes: boolean): Card | int;
+  GetPill(seed: int): PillColor | int;
+  GetPillEffect(pillColor: PillColor | int): PillEffect | int;
+  IdentifyPill(pillColor: PillColor | int): void;
+  IsPillIdentified(pillColor: PillColor | int): boolean;
+  ForceAddPillEffect(pillEffect: PillEffect | int): PillColor | int;
   GetLastPool(): ItemPoolType;
   GetPoolForRoom(roomType: RoomType, seed: int): ItemPoolType;
   ResetRoomBlacklist(): void;
-  AddRoomBlacklist(collectibleType: CollectibleType): void;
+  AddRoomBlacklist(collectibleType: CollectibleType | int): void;
   AddBibleUpgrade(add: int, itemPoolType: ItemPoolType): void;
 }

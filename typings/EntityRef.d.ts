@@ -2,9 +2,9 @@
 declare function EntityRef(entity: Entity): EntityRef;
 
 declare class EntityRef {
-  Type: EntityType;
+  Type: EntityType | int;
   Variant: EntityVariantForAC;
-  SpawnerType: EntityType;
+  SpawnerType: EntityType | int;
   SpawnerVariant: EntityVariantForAC;
   Position: Vector;
   IsCharmed: boolean;

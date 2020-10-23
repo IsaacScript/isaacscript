@@ -1,7 +1,7 @@
 declare class EntityEffect extends Entity {
   SetTimeout(timeout: int): void;
   FollowParent(parent: Entity): void;
-  SetDamageSource(entityType: EntityType): void;
+  SetDamageSource(entityType: EntityType | int): void;
   SetRadii(min: float, max: float): void;
 
   /** @noSelf */
@@ -19,5 +19,5 @@ declare class EntityEffect extends Entity {
   LifeSpan: int;
   IsFollowing: boolean;
   ParentOffset: Vector;
-  DamageSource: EntityType;
+  DamageSource: EntityType | int;
 }

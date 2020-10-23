@@ -1,17 +1,17 @@
 declare class SFXManager {
   Play(
-    soundEffect: SoundEffect,
+    soundEffect: SoundEffect | int,
     volume: float,
     frameDelay: int,
     loop: boolean,
     pitch: float,
   ): void;
-  AdjustVolume(soundEffect: SoundEffect, volume: float): void;
-  AdjustPitch(soundEffect: SoundEffect, pitch: float): void;
-  Stop(soundEffect: SoundEffect): void;
+  AdjustVolume(soundEffect: SoundEffect | int, volume: float): void;
+  AdjustPitch(soundEffect: SoundEffect | int, pitch: float): void;
+  Stop(soundEffect: SoundEffect | int): void;
   StopLoopingSounds(): void;
-  Preload(soundEffect: SoundEffect): void;
-  IsPlaying(soundEffect: SoundEffect): boolean;
-  SetAmbientSound(soundEffect: SoundEffect, volume: float, pitch: float): void;
-  GetAmbientSoundVolume(soundEffect: SoundEffect): float;
+  Preload(soundEffect: SoundEffect | int): void;
+  IsPlaying(soundEffect: SoundEffect | int): boolean;
+  SetAmbientSound(soundEffect: SoundEffect | int, volume: float, pitch: float): void;
+  GetAmbientSoundVolume(soundEffect: SoundEffect | int): float;
 }

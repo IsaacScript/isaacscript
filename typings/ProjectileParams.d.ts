@@ -24,5 +24,5 @@ declare class ProjectileParams {
   ChangeVelocity: float;
   ChangeTimeout: int;
   DepthOffset: float;
-  Variant: ProjectileVariant;
+  Variant: ProjectileVariant | int;
 }

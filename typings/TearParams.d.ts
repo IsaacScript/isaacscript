@@ -1,5 +1,5 @@
 declare class TearParams {
-  TearVariant: TearVariant;
+  TearVariant: TearVariant | int;
   BombVariant: int;
   TearColor: Color;
   TearFlags: TearFlags;

@@ -32,7 +32,7 @@ declare class Level {
   ChangeRoom(roomIndex: int): void;
   ForceHorsemanBoss(seed: int): boolean;
   GetStage(): LevelStage;
-  GetCurses(): LevelCurse;
+  GetCurses(): LevelCurse | int;
   IsAltStage(): boolean;
   GetStageType(): StageType;
   HasBossChallenge(): boolean;
@@ -48,9 +48,9 @@ declare class Level {
   GetHeartPicked(): boolean;
   GetCanSeeEverything(): boolean;
   SetCanSeeEverything(value: boolean): void;
-  AddCurse(levelCurse: LevelCurse, showName: boolean): void;
+  AddCurse(levelCurse: LevelCurse | int, showName: boolean): void;
   RemoveCurses(): void;
-  RemoveCurse(levelCurse: LevelCurse): void;
+  RemoveCurse(levelCurse: LevelCurse | int): void;
   GetDungeonPlacementSeed(): int;
   GetDevilAngelRoomRNG(): RNG;
   CanSpawnDevilRoom(): boolean;

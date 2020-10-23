@@ -1,8 +1,8 @@
 declare class MusicManager {
-  Play(music: Music, volume: float): void;
-  Fadein(music: Music, volume: float): void;
-  Crossfade(music: Music): void;
-  Queue(music: Music): void;
+  Play(music: Music | int, volume: float): void;
+  Fadein(music: Music | int, volume: float): void;
+  Crossfade(music: Music | int): void;
+  Queue(music: Music | int): void;
   Fadeout(): void;
   Pause(): void;
   Resume(): void;
@@ -16,6 +16,6 @@ declare class MusicManager {
   ResetPitch(): void;
   VolumeSlide(targetVolume: float): void;
   UpdateVolume(): void;
-  GetCurrentMusicID(): Music;
-  GetQueuedMusicID(): Music;
+  GetCurrentMusicID(): Music | int;
+  GetQueuedMusicID(): Music | int;
 }

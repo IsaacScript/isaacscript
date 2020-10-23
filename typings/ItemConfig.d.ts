@@ -1,9 +1,9 @@
 declare class ItemConfig {
-  GetCollectible(collectibleType: CollectibleType): Readonly<ItemConfigItem>;
-  GetTrinket(trinketType: TrinketType): Readonly<ItemConfigItem>;
+  GetCollectible(collectibleType: CollectibleType | int): Readonly<ItemConfigItem>;
+  GetTrinket(trinketType: TrinketType | int): Readonly<ItemConfigItem>;
   GetNullItem(nullItemID: NullItemID): Readonly<ItemConfigItem>;
-  GetCard(card: Card): Readonly<ItemConfigCard>;
-  GetPillEffect(pillEffect: PillEffect): Readonly<ItemConfigPillEffect>;
+  GetCard(card: Card | int): Readonly<ItemConfigCard>;
+  GetPillEffect(pillEffect: PillEffect | int): Readonly<ItemConfigPillEffect>;
   GetCollectibles(): Readonly<ItemConfigList>;
   GetTrinkets(): Readonly<ItemConfigList>;
   GetNullItems(): Readonly<ItemConfigList>;

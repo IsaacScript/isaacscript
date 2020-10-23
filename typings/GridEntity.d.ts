@@ -3,7 +3,7 @@
  * of aiding autocompletion. Note that this type does not actually provide any type safety. (e.g.
  * "Variant: GridEntityVariantForAC" is the same as "Variant: int")
  */
-type GridEntityVariantForAC = DoorVariant | PoopVariant | PlateVariant;
+type GridEntityVariantForAC = DoorVariant | PoopVariant | PlateVariant | int;
 
 declare class GridEntity {
   SetType(gridEntityType: GridEntityType): void;
@@ -14,7 +14,7 @@ declare class GridEntity {
   Render(offset: Vector): void;
   Hurt(damage: int): boolean;
   Destroy(immediate: boolean): boolean;
-  GetType(): GridEntityType;
+  GetType(): GridEntityType | int;
   GetVariant(): GridEntityVariantForAC;
   GetGridIndex(): int;
   GetSaveState(): GridEntityDesc;

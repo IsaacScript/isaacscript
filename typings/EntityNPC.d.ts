@@ -1,6 +1,6 @@
 declare class EntityNPC extends Entity {
   Morph(
-    entityType: EntityType,
+    entityType: EntityType | int,
     variant: EntityVariantForAC,
     subType: int,
     championColorIdx: ChampionColorIdx,
@@ -17,7 +17,7 @@ declare class EntityNPC extends Entity {
   IsChampion(): boolean;
   MakeChampion(seed: int): void;
   PlaySound(
-    soundEffect: SoundEffect,
+    soundEffect: SoundEffect | int,
     volume: float,
     frameDelay: int,
     loop: boolean,
@@ -44,8 +44,8 @@ declare class EntityNPC extends Entity {
   ): void;
   QueryNPCsType(entityType: EntityNPC, variant: EntityVariantForAC): EntityList;
   QueryNPCsSpawnerType(
-    spawnerType: EntityType,
-    entityType: EntityType,
+    spawnerType: EntityType | int,
+    entityType: EntityType | int,
     onlyEnemies: boolean,
   ): EntityList;
   QueryNPCsGroup(groupIdx: int): EntityList;
