@@ -111,6 +111,8 @@ This is the configuration file for [npm](https://www.npmjs.com/), the Node packa
 
 Normally, you should not need to touch this file. If you decide to add a new dependency (e.g. `npm install lodash --save`), then npm would automatically edit the `package.json` file accordingly.
 
+Note that normally, a TypeScript project would have "devDependencies" of TypeScript, ESLint, and so forth. However, in the IsaacScript framework, all you have to do is depend on `isaacscript`, and `isaacscript` in turn depends on everything you need. This makes things a little bit simpler for the end-user.
+
 <br />
 
 ### `package-lock.json`

@@ -33,9 +33,13 @@
     "benchviz",
     "bffs",
     "brainer",
+    "browserslist",
     "choco",
     "cinst",
+    "clsx",
     "else's",
+    "fengari",
+    "fengari web",
     "isaacconfig",
     "isaacscript",
     "isaactearsiconfull",
@@ -46,6 +50,7 @@
     "pcall",
     "postplayerinit",
     "transpiler",
-    "tstl"
+    "tstl",
+    "web"
   ],
 }
