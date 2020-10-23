@@ -24,10 +24,12 @@ def error(message, exception=None):
 
 
 # Check to make sure that the project compiles
+'''
 os.chdir(DIR)
 RETURN_CODE = subprocess.call(["build.sh"])
 if RETURN_CODE != 0:
     error("Failed to build the project.")
+'''
 
 # Increment the version in the "package.json" file
 # http://stackoverflow.com/questions/17140886/how-to-search-and-replace-text-in-a-file-using-python
