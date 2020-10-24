@@ -85,8 +85,6 @@ function parseArgs(argv: Record<string, unknown>) {
       }
     }
   });
-
-  process.exit(1);
 }
 
 function spawnModDirectorySyncer(config: Config) {

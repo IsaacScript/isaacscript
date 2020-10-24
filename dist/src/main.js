@@ -84,12 +84,11 @@ function parseArgs(argv) {
                 break;
             }
             default: {
-                console.log(`error: the flag of "${key} is invalid`);
+                console.log(`error: the flag of "${key}" is invalid`);
                 process.exit(1);
             }
         }
     });
-    process.exit(1);
 }
 function spawnModDirectorySyncer(config) {
     const modDirectorySyncerPath = path_1.default.join(__dirname, "modDirectorySyncer");

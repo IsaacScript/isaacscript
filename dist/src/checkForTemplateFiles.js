@@ -28,6 +28,7 @@ const path_1 = __importDefault(require("path"));
 const package_json_1 = __importDefault(require("../package.json"));
 const constants_1 = require("./constants");
 const file = __importStar(require("./file"));
+const misc = __importStar(require("./misc"));
 // If an important file does not exist in the project directory,
 // copy it over from the templates directory
 function checkForTemplateFiles() {
@@ -59,8 +60,13 @@ function checkForTemplateFiles() {
         file.makeDir(constants_1.TS_SOURCE_PATH);
     }
     if (!file.exists(constants_1.MAIN_TS_PATH)) {
+        // Convert snake_case and kebab-case to camelCase
+        // (kebab-case in particular will make the example TypeScript file fail to compile)
+        const camelCaseProjectName = misc.snakeToCamel(constants_1.PROJECT_NAME);
         const template = file.read(constants_1.MAIN_TS_TEMPLATE_PATH);
-        const mainTS = template.replace(/MOD_NAME/g, constants_1.PROJECT_NAME);
+        const mainTS = template
+            .replace(/MOD_NAME initialized/g, `${constants_1.PROJECT_NAME} initialized`)
+            .replace(/MOD_NAME/g, camelCaseProjectName);
         file.write(constants_1.MAIN_TS_PATH, mainTS);
     }
     // "mod/metadata.xml"

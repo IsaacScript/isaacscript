@@ -21,6 +21,7 @@ import {
   VSCODE_DIR_TEMPLATE_PATH,
 } from "./constants";
 import * as file from "./file";
+import * as misc from "./misc";
 
 // If an important file does not exist in the project directory,
 // copy it over from the templates directory
@@ -56,8 +57,13 @@ export default function checkForTemplateFiles(): void {
     file.makeDir(TS_SOURCE_PATH);
   }
   if (!file.exists(MAIN_TS_PATH)) {
+    // Convert snake_case and kebab-case to camelCase
+    // (kebab-case in particular will make the example TypeScript file fail to compile)
+    const camelCaseProjectName = misc.snakeToCamel(PROJECT_NAME);
     const template = file.read(MAIN_TS_TEMPLATE_PATH);
-    const mainTS = template.replace(/MOD_NAME/g, PROJECT_NAME);
+    const mainTS = template
+      .replace(/MOD_NAME initialized/g, `${PROJECT_NAME} initialized`)
+      .replace(/MOD_NAME/g, camelCaseProjectName);
     file.write(MAIN_TS_PATH, mainTS);
   }
 
