@@ -18,4 +18,4 @@ rm -rf "$HOME/AppData/Roaming/npm/node_modules/isaacscript" # Previous link from
 
 # Compile
 npx tsc
-npm i . -g
+npm install . --global

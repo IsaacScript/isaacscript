@@ -5,6 +5,7 @@ import { fork, spawn } from "child_process";
 import figlet from "figlet";
 import path from "path";
 import updateNotifier from "update-notifier";
+import yargs from "yargs";
 import pkg from "../package.json";
 import checkForConfig from "./checkForConfig";
 import checkForTemplateFiles from "./checkForTemplateFiles";
@@ -17,6 +18,10 @@ import getTSConfigInclude from "./getTSConfigInclude";
 import notifyGame from "./notifyGame";
 
 async function main(): Promise<void> {
+  // Get command line arguments
+  const argv = yargs(process.argv.slice(2)).argv;
+  parseArgs(argv);
+
   // ASCII banner
   console.log(chalk.green(figlet.textSync("IsaacScript")));
 
@@ -58,6 +63,30 @@ async function main(): Promise<void> {
   console.log(`2) the source mod directory: ${chalk.green(MOD_SOURCE_PATH)}`);
   console.log("");
   // (the process will now continue indefinitely for as long as the subprocesses exist)
+}
+
+function parseArgs(argv: Record<string, unknown>) {
+  Object.keys(argv).forEach((key) => {
+    switch (key) {
+      case "_":
+      case "$0": {
+        break;
+      }
+
+      case "version": {
+        console.log(pkg.version);
+        process.exit(0);
+        break;
+      }
+
+      default: {
+        console.log(`error: the flag of "${key}" is invalid`);
+        process.exit(1);
+      }
+    }
+  });
+
+  process.exit(1);
 }
 
 function spawnModDirectorySyncer(config: Config) {

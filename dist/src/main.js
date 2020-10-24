@@ -28,6 +28,7 @@ const child_process_1 = require("child_process");
 const figlet_1 = __importDefault(require("figlet"));
 const path_1 = __importDefault(require("path"));
 const update_notifier_1 = __importDefault(require("update-notifier"));
+const yargs_1 = __importDefault(require("yargs"));
 const package_json_1 = __importDefault(require("../package.json"));
 const checkForConfig_1 = __importDefault(require("./checkForConfig"));
 const checkForTemplateFiles_1 = __importDefault(require("./checkForTemplateFiles"));
@@ -38,6 +39,9 @@ const copyWatcherMod_1 = __importDefault(require("./copyWatcherMod"));
 const getTSConfigInclude_1 = __importDefault(require("./getTSConfigInclude"));
 const notifyGame_1 = __importDefault(require("./notifyGame"));
 async function main() {
+    // Get command line arguments
+    const argv = yargs_1.default(process.argv.slice(2)).argv;
+    parseArgs(argv);
     // ASCII banner
     console.log(chalk_1.default.green(figlet_1.default.textSync("IsaacScript")));
     // Validate the platform
@@ -66,6 +70,26 @@ async function main() {
     console.log(`2) the source mod directory: ${chalk_1.default.green(constants_1.MOD_SOURCE_PATH)}`);
     console.log("");
     // (the process will now continue indefinitely for as long as the subprocesses exist)
+}
+function parseArgs(argv) {
+    Object.keys(argv).forEach((key) => {
+        switch (key) {
+            case "_":
+            case "$0": {
+                break;
+            }
+            case "version": {
+                console.log(package_json_1.default.version);
+                process.exit(0);
+                break;
+            }
+            default: {
+                console.log(`error: the flag of "${key} is invalid`);
+                process.exit(1);
+            }
+        }
+    });
+    process.exit(1);
 }
 function spawnModDirectorySyncer(config) {
     const modDirectorySyncerPath = path_1.default.join(__dirname, "modDirectorySyncer");
