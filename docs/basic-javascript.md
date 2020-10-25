@@ -337,9 +337,7 @@ end
 
 ```typescript
 // TypeScript code
-declare global {
-  const InfinityTrueCoopInterface: null | unknown;
-}
+declare const InfinityTrueCoopInterface: null | unknown;
 if (InfinityTrueCoopInterface !== null) {
   // The user has the True Coop mod enabled, so now do something
 }
@@ -347,9 +345,14 @@ if (InfinityTrueCoopInterface !== null) {
 
 <br />
 
-#### Option 2 - A Separate File
+#### Option 2 - A Declaration File
 
-A much better way is to make a file that corresponds to the variable / table. From the root of your project, create the `src/types/InfinityTrueCoopInterface.d.ts` file, and put the following in it:
+If you need to check for `InfinityTrueCoopInterface !== null` in more than one place in your mod, then option 1 is bad, because you would be [need to repeat yourself before each check](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself). Instead, make a TypeScript definition file that corresponds to the variable / table.
+
+For example, to declare `InfinityTrueCoopInterface`, starting from the root of your project:
+* Create the `src/types` directory.
+* Create the `src/types/InfinityTrueCoopInterface.d.ts` file.
+* Put the following in it:
 
 ```typescript
 declare const InfinityTrueCoopInterface: null | unknown;
@@ -416,9 +419,7 @@ Revelations:IncreaseStrength(1)
 However, `isaacscript` combines all of your code into one giant `main.lua` file, so this approach won't work. Instead, expose functionality by exporting a global variable. For example:
 
 ```typescript
-declare global {
-  let RevelationsVersion: string;
-}
+declare let RevelationsVersion: string;
 RevelationsVersion = '2.1'; // "RevelationsVersion" is now a global variable
 ```
 
@@ -432,8 +433,6 @@ class Exports() {
 }
 const exports = new Exports()
 
-declare global {
-  let RevelationsExports: string;
-}
+declare let RevelationsExports: Exports;
 RevelationsExports = exports; // "RevelationsExports" is now a global variable
 ```
