@@ -1,8 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 
-// From: https://hisk.io/javascript-snake-to-camel/
-export function snakeToCamel(str: string): string {
-  return str.replace(/([-_][a-z])/g, (group) =>
-    group.toUpperCase().replace("-", "").replace("_", ""),
-  );
+import moment from "moment";
+
+export function getTime(): string {
+  return moment().format("h:mm:ss A"); // e.g. "1:23:45 AM"
 }

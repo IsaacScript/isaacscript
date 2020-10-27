@@ -31,17 +31,17 @@ const update_notifier_1 = __importDefault(require("update-notifier"));
 const yargs_1 = __importDefault(require("yargs"));
 const package_json_1 = __importDefault(require("../package.json"));
 const checkForConfig_1 = __importDefault(require("./checkForConfig"));
-const checkForTemplateFiles_1 = __importDefault(require("./checkForTemplateFiles"));
 const checkForWindowsTerminalBugs_1 = __importDefault(require("./checkForWindowsTerminalBugs"));
 const configFile = __importStar(require("./configFile"));
 const constants_1 = require("./constants");
 const copyWatcherMod_1 = __importDefault(require("./copyWatcherMod"));
 const getTSConfigInclude_1 = __importDefault(require("./getTSConfigInclude"));
-const notifyGame_1 = __importDefault(require("./notifyGame"));
+const notifyGame = __importStar(require("./notifyGame"));
+const parseArgs_1 = __importDefault(require("./parseArgs"));
 async function main() {
     // Get command line arguments
     const argv = yargs_1.default(process.argv.slice(2)).argv;
-    parseArgs(argv);
+    parseArgs_1.default(argv);
     // ASCII banner
     console.log(chalk_1.default.green(figlet_1.default.textSync("IsaacScript")));
     // Validate the platform
@@ -54,8 +54,7 @@ async function main() {
     update_notifier_1.default({ pkg: package_json_1.default }).notify();
     // Do some pre-flight checks
     await checkForWindowsTerminalBugs_1.default();
-    await checkForConfig_1.default();
-    checkForTemplateFiles_1.default();
+    checkForConfig_1.default();
     const config = configFile.read();
     copyWatcherMod_1.default(config);
     // Subprocess #1 - The mod directory syncer
@@ -71,25 +70,6 @@ async function main() {
     console.log("");
     // (the process will now continue indefinitely for as long as the subprocesses exist)
 }
-function parseArgs(argv) {
-    Object.keys(argv).forEach((key) => {
-        switch (key) {
-            case "_":
-            case "$0": {
-                break;
-            }
-            case "version": {
-                console.log(package_json_1.default.version);
-                process.exit(0);
-                break;
-            }
-            default: {
-                console.log(`error: the flag of "${key}" is invalid`);
-                process.exit(1);
-            }
-        }
-    });
-}
 function spawnModDirectorySyncer(config) {
     const modDirectorySyncerPath = path_1.default.join(__dirname, "modDirectorySyncer");
     const childProcess = child_process_1.fork(modDirectorySyncerPath, [
@@ -97,7 +77,7 @@ function spawnModDirectorySyncer(config) {
         config.modTargetPath,
     ]);
     childProcess.on("message", (msg) => {
-        notifyGame_1.default("msg", msg, config);
+        notifyGame.msg(msg, config, true);
     });
 }
 function spawnTSTLWatcher(config) {
@@ -108,17 +88,20 @@ function spawnTSTLWatcher(config) {
         const msg = data.toString().trim();
         if (msg.includes("Starting compilation in watch mode...")) {
             const newMsg = "IsaacScript is now watching for changes.";
-            notifyGame_1.default("msg", newMsg, config);
+            notifyGame.msg(newMsg, config, true);
         }
         else if (msg.includes("File change detected. Starting incremental compilation...")) {
             const newMsg = "TypeScript change detected. Compiling...";
-            notifyGame_1.default("msg", newMsg, config);
+            notifyGame.msg(newMsg, config, true);
         }
         else if (msg.includes("Found 0 errors. Watching for file changes.")) {
-            notifyGame_1.default("command", `luamod ${constants_1.PROJECT_NAME}`, config);
+            notifyGame.command(`luamod ${constants_1.CURRENT_DIRECTORY_NAME}`, config);
+            notifyGame.command("restart", config);
+            const newMsg = `${constants_1.CURRENT_DIRECTORY_NAME} - Successfully compiled & reloaded!`;
+            notifyGame.msg(newMsg, config, true);
         }
         else {
-            notifyGame_1.default("msg", msg, config);
+            notifyGame.msg(msg, config, false);
         }
     });
     ls.stderr.on("data", (data) => {
@@ -127,7 +110,7 @@ function spawnTSTLWatcher(config) {
             return;
         }
         console.error("Error:", msg);
-        notifyGame_1.default("msg", `Error: ${msg}`, config);
+        notifyGame.msg(`Error: ${msg}`, config, true);
     });
     ls.on("close", (code) => {
         console.error("tstl exited abruptly with code:", code);

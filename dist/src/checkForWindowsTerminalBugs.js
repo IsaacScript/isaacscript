@@ -122,6 +122,6 @@ function applyFixesToBashProfile() {
         process.exit(1);
     }
     console.log(chalk_1.default.green("Complete!"), `I have added the terminal fixes to "${constants_1.BASH_PROFILE_PATH}".`);
-    console.log(chalk_1.default.red("Please close and re-open your terminal, then run isaacscript again."));
+    console.log(chalk_1.default.red("Please close and re-open your terminal, then run this program again."));
     process.exit(0);
 }

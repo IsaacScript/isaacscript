@@ -11,14 +11,11 @@ local FRAMES_BEFORE_FADE = 3 * 60 -- 3 seconds
 -- Mod variables
 local saveData = {} -- An array of message objects
 local loadOnNextFrame = false
+local restartFrame = 0
 local messageArray = {}
 local frameOfLastMsg = 0
 local font = Font()
 font:Load("font/pftempestasevencondensed.fnt")
-
-local function strHasPrefix(str, prefix)
-  return string.sub(str, 1, string.len(prefix)) == prefix
-end
 
 local function pushMessageArray(msg)
   frameOfLastMsg = Isaac.GetFrameCount()
@@ -36,6 +33,7 @@ function IsaacScriptWatcher:PostRender()
   IsaacScriptWatcher:RenderText()
   IsaacScriptWatcher:LoadSaveDat()
   IsaacScriptWatcher:CheckInput()
+  IsaacScriptWatcher:CheckRestart()
 end
 
 function IsaacScriptWatcher:RenderText()
@@ -105,7 +103,7 @@ function IsaacScriptWatcher:LoadSaveDat()
 
   -- Check to see if there a "save.dat" file for this save slot
   if not Isaac.HasModData(IsaacScriptWatcher) then
-    IsaacScriptWatcher:Save()
+    IsaacScriptWatcher:ClearSaveDat()
     return
   end
 
@@ -123,27 +121,31 @@ function IsaacScriptWatcher:LoadSaveDat()
   end
 
   if #saveData > 0 then
-    IsaacScriptWatcher:LoadSuccessful()
+    local saveDatContents = saveData
+    IsaacScriptWatcher:ClearSaveDat()
+    IsaacScriptWatcher:LoadSuccessful(saveDatContents)
   end
 end
 
-function IsaacScriptWatcher:LoadSuccessful()
-  for _, entry in ipairs(saveData) do
+function IsaacScriptWatcher:LoadSuccessful(saveDatContents)
+  for _, entry in ipairs(saveDatContents) do
     -- Entry is e.g. { type: "command", data: "luamod revelations" }
     if entry.type == "command" then
-      Isaac.DebugString(MOD_NAME .. " - Executing command: " .. entry.data)
-      Isaac.ExecuteCommand(entry.data)
-      local prefix = "luamod "
-      if strHasPrefix(entry.data, prefix) then
-        local modName = string.sub(entry.data, string.len(prefix) + 1)
-        pushMessageArray(modName .. " - Successfully compiled & reloaded!")
+      if entry.data == "restart" then
+        -- If we restart on the first frame that a run is loading, then the game can crash
+        restartFrame = Isaac.GetFrameCount() + 1
+      else
+        Isaac.DebugString(MOD_NAME .. " - Executing command: " .. entry.data)
+        Isaac.ExecuteCommand(entry.data)
       end
     elseif entry.type == "msg" then
       Isaac.DebugString(MOD_NAME .. " - " .. entry.data)
       pushMessageArray(entry.data)
     end
   end
+end
 
+function IsaacScriptWatcher:ClearSaveDat()
   saveData = {}
   IsaacScriptWatcher:Save()
 end
@@ -164,14 +166,14 @@ function IsaacScriptWatcher:CheckInput()
   end
 end
 
-function IsaacScriptWatcher:ExecuteCmd(cmd)
-  if cmd == "isaacscriptwatcher" then
-    IsaacScriptWatcher:Debug()
+function IsaacScriptWatcher:CheckRestart()
+  if restartFrame == 0 or restartFrame < Isaac.GetFrameCount() then
+    return
   end
-end
+  restartFrame = 0
 
-function IsaacScriptWatcher:Debug()
+  Isaac.DebugString(MOD_NAME .. " - Restarting the run.")
+  Isaac.ExecuteCommand("restart")
 end
 
 IsaacScriptWatcher:AddCallback(ModCallbacks.MC_POST_RENDER, IsaacScriptWatcher.PostRender)
-IsaacScriptWatcher:AddCallback(ModCallbacks.MC_EXECUTE_CMD, IsaacScriptWatcher.ExecuteCmd)

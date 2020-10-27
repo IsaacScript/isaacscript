@@ -22,12 +22,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.command = exports.msg = void 0;
 const chalk_1 = __importDefault(require("chalk"));
 const JSONC = __importStar(require("jsonc-parser"));
 const path_1 = __importDefault(require("path"));
 const constants_1 = require("./constants");
 const file = __importStar(require("./file"));
-function notifyGame(type, data, config) {
+const misc = __importStar(require("./misc"));
+function msg(data, config, addTime) {
+    notify("msg", data, config, addTime);
+}
+exports.msg = msg;
+function command(data, config) {
+    notify("command", data, config, false);
+}
+exports.command = command;
+function notify(type, data, config, addTime) {
     if (data === "Terminate batch job (Y/N)?") {
         return;
     }
@@ -56,20 +66,21 @@ function notifyGame(type, data, config) {
             type,
             data,
         });
-        console.log(`Successfully compiled "${constants_1.PROJECT_NAME}".`);
     }
     else if (type === "msg") {
-        const newData = data.replace(/\r\n/g, "\n"); // Replace Windows newlines with Unix newlines
-        for (const line of newData.split("\n")) {
+        const prefix = addTime ? `${misc.getTime()} - ` : "";
+        // Replace Windows newlines with Unix newlines
+        const newData = `${prefix}${data}`.replace(/\r\n/g, "\n");
+        const lines = newData.split("\n");
+        for (const line of lines) {
             saveDat.push({
                 type,
                 data: line,
             });
-            console.log(data);
+            console.log(newData);
         }
     }
     // Write it back to the file
     const saveDatRaw = JSON.stringify(saveDat, null, 2);
     file.write(saveDatPath, saveDatRaw);
 }
-exports.default = notifyGame;

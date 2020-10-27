@@ -2,8 +2,9 @@ import chalk from "chalk";
 import * as JSONC from "jsonc-parser";
 import path from "path";
 import Config from "./Config";
-import { PROJECT_NAME, WATCHER_MOD_NAME } from "./constants";
+import { WATCHER_MOD_NAME } from "./constants";
 import * as file from "./file";
+import * as misc from "./misc";
 
 type SaveDatMessageTypes = "command" | "msg";
 interface SaveDatMessage {
@@ -11,10 +12,19 @@ interface SaveDatMessage {
   data: string;
 }
 
-export default function notifyGame(
+export function msg(data: string, config: Config, addTime: boolean): void {
+  notify("msg", data, config, addTime);
+}
+
+export function command(data: string, config: Config): void {
+  notify("command", data, config, false);
+}
+
+function notify(
   type: SaveDatMessageTypes,
   data: string,
   config: Config,
+  addTime: boolean,
 ): void {
   if (data === "Terminate batch job (Y/N)?") {
     return;
@@ -49,15 +59,17 @@ export default function notifyGame(
       type,
       data,
     });
-    console.log(`Successfully compiled "${PROJECT_NAME}".`);
   } else if (type === "msg") {
-    const newData = data.replace(/\r\n/g, "\n"); // Replace Windows newlines with Unix newlines
-    for (const line of newData.split("\n")) {
+    const prefix = addTime ? `${misc.getTime()} - ` : "";
+    // Replace Windows newlines with Unix newlines
+    const newData = `${prefix}${data}`.replace(/\r\n/g, "\n");
+    const lines = newData.split("\n");
+    for (const line of lines) {
       saveDat.push({
         type,
         data: line,
       });
-      console.log(data);
+      console.log(newData);
     }
   }
 

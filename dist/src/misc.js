@@ -1,9 +1,12 @@
 "use strict";
 /* eslint-disable import/prefer-default-export */
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.snakeToCamel = void 0;
-// From: https://hisk.io/javascript-snake-to-camel/
-function snakeToCamel(str) {
-    return str.replace(/([-_][a-z])/g, (group) => group.toUpperCase().replace("-", "").replace("_", ""));
+exports.getTime = void 0;
+const moment_1 = __importDefault(require("moment"));
+function getTime() {
+    return moment_1.default().format("h:mm:ss A"); // e.g. "1:23:45 AM"
 }
-exports.snakeToCamel = snakeToCamel;
+exports.getTime = getTime;

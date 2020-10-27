@@ -1,4 +1,5 @@
 "use strict";
+/* eslint-disable import/prefer-default-export */
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
@@ -22,7 +23,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.write = exports.read = void 0;
+exports.read = void 0;
 const chalk_1 = __importDefault(require("chalk"));
 const JSONC = __importStar(require("jsonc-parser"));
 const constants_1 = require("./constants");
@@ -40,8 +41,3 @@ function read() {
     return config;
 }
 exports.read = read;
-function write(config) {
-    const configContents = JSON.stringify(config, null, 2);
-    file.write(constants_1.CONFIG_FILE_PATH, configContents);
-}
-exports.write = write;

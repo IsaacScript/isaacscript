@@ -135,7 +135,7 @@ function applyFixesToBashProfile() {
   );
   console.log(
     chalk.red(
-      "Please close and re-open your terminal, then run isaacscript again.",
+      "Please close and re-open your terminal, then run this program again.",
     ),
   );
   process.exit(0);

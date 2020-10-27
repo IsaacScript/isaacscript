@@ -26,12 +26,24 @@ const path_1 = __importDefault(require("path"));
 const constants_1 = require("./constants");
 const file = __importStar(require("./file"));
 function copyWatcherMod(config) {
+    // Check to see if this mod was disabled
+    const watcherModPath = path_1.default.join(config.modTargetPath, "..", constants_1.WATCHER_MOD_NAME);
+    const disableItPath = path_1.default.join(watcherModPath, constants_1.DISABLE_IT_FILE);
+    const watcherModDisabled = file.exists(disableItPath);
     // Delete and re-copy the watcher mod every time IsaacScript starts
     // This ensures that it is always the latest version
-    const watcherModPath = path_1.default.join(config.modTargetPath, "..", constants_1.WATCHER_MOD_NAME);
     if (file.exists(watcherModPath)) {
         file.deleteDir(watcherModPath);
     }
     file.copy(constants_1.WATCHER_MOD_SOURCE_PATH, watcherModPath);
+    if (watcherModDisabled) {
+        // Since we deleted the directory, the "disable.it" file was deleted
+        // Restore it
+        file.write(disableItPath, "");
+    }
+    // If we copied a new version of the watcher mod into place,
+    // but the user currently has the game open, then the old version will stay loaded
+    // However, if the watcher mod reloads itself, the game will crash,
+    // so there is no automated solution for this
 }
 exports.default = copyWatcherMod;

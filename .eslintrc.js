@@ -27,6 +27,10 @@ module.exports = {
     "prettier/@typescript-eslint",
   ],
 
+  // Don't bother linting the template files (for inserting into a new IsaacScript project)
+  // or the compiled output
+  ignorePatterns: ["templates/**", "dist/**"],
+
   parserOptions: {
     // ESLint needs to know about the project's TypeScript settings in order for TypeScript-specific
     // things to lint correctly

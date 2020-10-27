@@ -1,3 +1,5 @@
+/* eslint-disable import/prefer-default-export */
+
 import chalk from "chalk";
 import * as JSONC from "jsonc-parser";
 import Config from "./Config";
@@ -15,9 +17,4 @@ export function read(): Config {
   }
 
   return config;
-}
-
-export function write(config: Config): void {
-  const configContents = JSON.stringify(config, null, 2);
-  file.write(CONFIG_FILE_PATH, configContents);
 }
