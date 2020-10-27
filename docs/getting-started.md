@@ -157,7 +157,7 @@ Isaac.ConsoleOutput("hello world");
 
 ### 12) Tutorial: Confirm That File Cloning Works
 
-`isaacscript` automatically creates a special subdirectory called `mod` in your project directory. `isaacscript` will automatically sync the contents of this directory with the deployed folder in `Binding of Isaac Afterbirth+ Mods`.
+`isaacscript` will automatically sync the contents of the `mod` directory in your project to the corresponding folder in `Binding of Isaac Afterbirth+ Mods`.
 
 For example:
 - Say that you have a project directory of: `C:\Repositories\revelations\`
