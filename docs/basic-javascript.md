@@ -42,7 +42,7 @@ And wordy.
 
 Unlike Lua, TypeScript code should have semi-colons after every line. But don't bother typing them yourself - just hit `Ctrl + s` and the editor will automatically insert them for you. That's [Prettier](https://prettier.io/) doing its job.
 
-(In fact, you should always hit `Ctrl + s` periodically as you code, so that the code is constantly formatting itself. This saves you the tedium of aligning things, breaking up long if statements, and so forth. If it isn't auto-formatting, then you probably need to add a bracket somewhere so that the code can properly compile.)
+(In fact, you should always hit `Ctrl + s` periodically as you code, so that the code is constantly formatting itself. This saves you the tedium of aligning things, breaking up long if statements, and so forth. If the file is not auto-formatting itself, then you probably need to add a bracket somewhere so that the code can properly compile.)
 
 <br />
 
@@ -91,7 +91,7 @@ end
 
 ```typescript
 // TypeScript code
-if (x == 1 && y !== 0) {
+if (x === 1 && y !== 0) {
   // Do something
 }
 ```
@@ -141,7 +141,7 @@ end
 const poop = "poop"; // We use "const" because this value never changes
 let fart = "fart"; // We use "let" because we have to modify it later
 // We use the "+=" operator instead of ".." to concatenate a string
-fart += " modified";
+fart += " modified"; // fart is now equal to "fart modified"
 
 function getPoop() { // No local here
   return "poop";
@@ -184,8 +184,8 @@ const Revelations = RegisterMod("Revelations", 1);
 // The "EntityPlayer" type is automatically provided by the
 // "isaac-typescript-definitions" package, and corresponds to the "EntityPlayer"
 // in the official docs
-// The "isaac-typescript-definitions" package is automatically imported by
-// IsaacScript when you create a new project
+// The "isaac-typescript-definitions" package is automatically imported in any
+// IsaacScript project
 function PostPlayerInit(player: EntityPlayer) {
   // Now, TypeScript has full knowledge of all the legal methods for "player"
   // Our editor can now tab-complete everything
@@ -331,7 +331,7 @@ You can add the global declaration right before the code:
 ```lua
 -- Lua code
 if InfinityTrueCoopInterface ~= nil then
-  -- The user has the True Coop mod enabled, so now do something
+  -- The user has the True Co-op mod enabled, so now do something
 end
 ```
 
@@ -339,7 +339,7 @@ end
 // TypeScript code
 declare const InfinityTrueCoopInterface: null | unknown;
 if (InfinityTrueCoopInterface !== null) {
-  // The user has the True Coop mod enabled, so now do something
+  // The user has the True Co-op mod enabled, so now do something
 }
 ```
 
@@ -364,9 +364,9 @@ Now, your other TypeScript files will see it as a global variable without you ha
 
 #### More Complicated Declarations
 
-The `InfinityTrueCoopInterface` allows other mods to add new characters with the `AddCharacter` method. What if your mod creates a new character and you want to add it to the True Coop Mod? If you try calling `InfinityTrueCoopInterface.AddCharacter()`, TypeScript will say that it doesn't exist.
+The `InfinityTrueCoopInterface` allows other mods to add new characters with the `AddCharacter` method. What if your mod creates a new character and you want to add it to the True Co-op Mod? If you try calling `InfinityTrueCoopInterface.AddCharacter()`, TypeScript will throw and error and say that it doesn't exist.
 
-The solution is to add that method to the definition file. We need to flesh out the `src/types/InfinityTrueCoopInterface.d.ts` file a bit:
+The solution is to add the `AddCharacter()` method to the definition file. We need to flesh out the `src/types/InfinityTrueCoopInterface.d.ts` file a bit:
 
 ```typescript
 // The global variable exists and it is a Lua table of type TrueCoop,
@@ -378,10 +378,10 @@ declare class TrueCoop() {
   AddCharacter(playerData: TrueCoopPlayerData)
 }
 
-// We also have to specify what the True Coop mod expects to be passed for this
+// We also have to specify what the True Co-op mod expects to be passed for this
 // method
 // This (partially) matches the documentation near the top of the "main.lua"
-// file for the True Coop Mod
+// file for the True Co-op Mod
 interface TrueCoopPlayerData {
   Name: string;
   Type: PlayerType;
