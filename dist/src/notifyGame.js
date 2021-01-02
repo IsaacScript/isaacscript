@@ -42,7 +42,7 @@ function notify(type, data, config, addTime) {
         return;
     }
     // Read the existing "save#.dat" file
-    const saveDatPath = path_1.default.join(config.modTargetPath, "..", constants_1.WATCHER_MOD_NAME, `save${config.saveSlot}.dat`);
+    const saveDatPath = path_1.default.join(config.modDirectory, "..", constants_1.WATCHER_MOD_NAME, `save${config.saveSlot}.dat`);
     let saveDat;
     if (file.exists(saveDatPath)) {
         const saveDatRaw = file.read(saveDatPath);

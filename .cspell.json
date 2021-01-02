@@ -5,6 +5,7 @@
         "en_US"
     ],
     "words": [
+        "backticks",
         "btmills",
         "chcp",
         "chdir",
@@ -13,6 +14,7 @@
         "isaacscriptrc",
         "luamod",
         "mingw",
+        "plusplus",
         "subprocesses",
         "syncer",
         "tstl",

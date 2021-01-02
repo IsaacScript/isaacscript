@@ -32,7 +32,7 @@ function notify(
 
   // Read the existing "save#.dat" file
   const saveDatPath = path.join(
-    config.modTargetPath,
+    config.modDirectory,
     "..",
     WATCHER_MOD_NAME,
     `save${config.saveSlot}.dat`,

@@ -1,3 +1,4 @@
+// The configuration file for TypeScript
 {
   // We extend the recommended tsconfig for Node 12
   // https://www.npmjs.com/package/@tsconfig/node12

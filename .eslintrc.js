@@ -43,6 +43,12 @@ module.exports = {
   // (listed in alphabetical order)
   rules: {
     // Documentation:
+    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/array-type.md
+    // Not defined in parent configs
+    // Prefer the "[]string" syntax over "Array<string>"
+    "@typescript-eslint/array-type": ["error", { default: "array-simple" }],
+
+    // Documentation:
     // https://eslint.org/docs/rules/lines-between-class-members
     // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/lines-between-class-members.md
     // Defined at:
@@ -62,6 +68,19 @@ module.exports = {
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/variables.js#L42
     // This allows code to be structured in a more logical order
     "@typescript-eslint/no-use-before-define": ["off"],
+
+    // Documentation:
+    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/quotes.md
+    // Defined at:
+    // https://github.com/prettier/eslint-config-prettier/blob/master/%40typescript-eslint.js
+    // In order to forbid unnecessary backticks, we must re-enable the "@typescript-eslint/quotes"
+    // rule as specified in the eslint-config-prettier documentation:
+    // https://github.com/prettier/eslint-config-prettier#enforce-backticks
+    "@typescript-eslint/quotes": [
+      "error",
+      "double",
+      { avoidEscape: true, allowTemplateLiterals: false },
+    ],
 
     // Documentation:
     // https://eslint.org/docs/rules/no-console

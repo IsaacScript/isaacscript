@@ -74,7 +74,7 @@ function spawnModDirectorySyncer(config) {
     const modDirectorySyncerPath = path_1.default.join(__dirname, "modDirectorySyncer");
     const childProcess = child_process_1.fork(modDirectorySyncerPath, [
         constants_1.MOD_SOURCE_PATH,
-        config.modTargetPath,
+        config.modDirectory,
     ]);
     childProcess.on("message", (msg) => {
         notifyGame.msg(msg, config, true);
