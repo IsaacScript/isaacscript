@@ -160,6 +160,7 @@ declare class EntityPlayer extends Entity {
   GetActiveWeaponEntity(): Entity;
   GetTractorBeam(): Entity;
   CanPickupItem(): boolean;
+  /* Is the player holding up an item (card/collectible/etc)? */
   IsHoldingItem(): boolean;
   IsHeldItemVisible(): boolean;
   Revive(): void;
