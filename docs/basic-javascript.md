@@ -397,26 +397,14 @@ interface TrueCoopPlayerData {
 
 ### Exporting Global Variables
 
-In Lua, the correct way to allow other people to interact with your mod is to use `require()` (to avoid polluting the global namespace):
-
-```lua
--- A Lua file in your mod, located at: "mod/revelations/exports.lua"
-local MyModExports = {}
-
-function Revelations:IncreaseStrength(character)
-  -- [code here, etc.]
-end
-
-return MyModExports
-```
+In Lua, some mods export functionality by using a global variable:
 
 ```lua
 -- A Lua file in someone else's mod
-local Revelations = require("revelations.exports")
-Revelations:IncreaseStrength(1)
+RevelationsVersion = "2.1" -- "RevelationsVersion" is now a global variable
 ```
 
-However, `isaacscript` combines all of your code into one giant `main.lua` file, so this approach won't work. Instead, expose functionality by exporting a global variable. For example:
+In TypeScript:
 
 ```typescript
 declare let RevelationsVersion: string;
