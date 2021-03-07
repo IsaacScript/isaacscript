@@ -79,6 +79,20 @@ module.exports = {
     ],
 
     // Documentation:
+    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/triple-slash-reference.md
+    // Defined at:
+    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/src/configs/recommended.ts
+    // ark120202, the author of TypeScriptToLua, recommends using triple-slash directives
+    "@typescript-eslint/triple-slash-reference": "off",
+
+    // Documentation:
+    // https://github.com/eslint/eslint/blob/master/docs/rules/no-bitwise.md
+    // Defined at:
+    // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
+    // Isaac enums use bitwise operators (e.g. "EntityFlag")
+    "no-bitwise": "off",
+
+    // Documentation:
     // https://eslint.org/docs/rules/no-console
     // Defined at:
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/errors.js
@@ -99,6 +113,22 @@ module.exports = {
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
     // "for..of" loops are necessary to write efficient code in some situations
     "no-restricted-syntax": "off",
+
+    // Documentation:
+    // https://eslint.org/docs/rules/no-underscore-dangle
+    // Defined at:
+    // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
+    // We keep the Airbnb specification but allow calling functions that overload Lua operators:
+    // https://moddingofisaac.com/docs/class_vector.html
+    "no-underscore-dangle": [
+      "error",
+      {
+        allow: ["__add", "__sub", "__mul", "__div", "__unm", "__len"],
+        allowAfterThis: false,
+        allowAfterSuper: false,
+        enforceInMethodNames: true,
+      },
+    ],
 
     // Documentation:
     // https://eslint.org/docs/rules/prefer-destructuring
