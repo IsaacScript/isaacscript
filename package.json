@@ -1,10 +1,11 @@
 {
   "name": "eslint-config-isaacscript",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "an ESLint config for IsaacScript projects",
   "license": "GPL-3.0",
   "author": "Zamiell",
   "dependencies": {
-    "eslint-config-airbnb-typescript": "^12.3.1"
+    "eslint-config-airbnb-typescript": "^12.3.1",
+    "eslint-config-prettier": "^8.1.0"
   }
 }
