@@ -23,9 +23,11 @@ module.exports = {
     // We use Prettier to automatically format TypeScript files
     // We want to run Prettier as an ESLint rule so that we can detect non-formatted files in CI
     // https://github.com/prettier/eslint-plugin-prettier
+    // https://silvenon.com/blog/integrating-and-enforcing-prettier-and-eslint
     "plugin:prettier/recommended",
 
     // Disable any ESLint rules that conflict with Prettier
+    // (otherwise, we will have unfixable ESLint errors)
     // https://github.com/prettier/eslint-config-prettier
     "prettier",
   ],
