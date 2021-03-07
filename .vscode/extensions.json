@@ -1,0 +1,11 @@
+// These are Visual Studio Code extensions that are intended to be used with this particular
+// repository
+// https://go.microsoft.com/fwlink/?LinkId=827846
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint", // The JavaScript linter
+    "esbenp.prettier-vscode", // The JavaScript auto-formatter
+    "ms-python.python", // The Python linter
+    "streetsidesoftware.code-spell-checker", // A spell-checker extension based on cspell is used
+  ]
+}

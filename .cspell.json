@@ -1,0 +1,16 @@
+{
+    "version": "0.1",
+    "language": "en",
+    "dictionaries": [
+        "en_US"
+    ],
+    "words": [
+        "backticks",
+        "config",
+        "eslint",
+        "isaacscript",
+        "plusplus",
+        "turnbull",
+        "zamiell"
+    ]
+}

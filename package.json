@@ -1,0 +1,7 @@
+{
+  "name": "isaacscript-eslint-config",
+  "version": "1.0.3",
+  "description": "an ESLint config for IsaacScript projects",
+  "license": "GPL-3.0",
+  "author": "Zamiell"
+}
