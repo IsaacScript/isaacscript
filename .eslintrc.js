@@ -90,6 +90,14 @@ module.exports = {
     "no-console": "off",
 
     // Documentation:
+    // https://eslint.org/docs/rules/no-plusplus
+    // Defined at:
+    // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
+    // Airbnb disallows these because it can lead to errors with minified code;
+    // we don't have to worry about this in for loops though
+    "no-plusplus": ["error", { allowForLoopAfterthoughts: true }],
+
+    // Documentation:
     // https://eslint.org/docs/rules/no-restricted-syntax
     // Defined at:
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js

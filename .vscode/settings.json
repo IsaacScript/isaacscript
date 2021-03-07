@@ -1,5 +1,9 @@
 // These are Visual Studio Code settings that should apply to this particular repository
 {
+  // ----------------
+  // Vanilla settings
+  // ----------------
+
   // This matches the Airbnb JavaScript style guide
   "editor.rulers": [100],
   "editor.tabSize": 2,
@@ -17,6 +21,20 @@
 
   // By default, VSCode will not automatically fill-in function arguments
   "typescript.suggest.completeFunctionCalls": true,
+
+  // ------------------
+  // Extension settings
+  // ------------------
+
+  // Use "black" to automatically format Python files
+  // https://github.com/psf/black
+  "python.formatting.provider": "black",
+  "python.linting.pylintEnabled": true,
+  "python.linting.enabled": true,
+
+  // -----------------
+  // Language settings
+  // -----------------
 
   // Automatically run the formatter when a TypeScript or JavaScript file is saved
   "[typescript]": {
@@ -36,5 +54,11 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
     "editor.tabSize": 2,
+  },
+
+  // Automatically run the formatter when a Python file is saved
+  "[python]": {
+    "editor.formatOnSave": true,
+    "editor.tabSize": 4,
   },
 }
