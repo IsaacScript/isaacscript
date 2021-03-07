@@ -41,6 +41,15 @@ parser.add_argument(
 )
 args = parser.parse_args()
 
+# Update the dependencies to the latest versions
+os.chdir(DIR)
+completed_process = subprocess.run(
+    ["npx", "npm-check-updates", "--upgrade", "--packageFile", "package.json"],
+    shell=True,
+)
+if completed_process.returncode != 0:
+    error("Failed to update package.json dependencies to the latest versions.")
+
 if not args.skip_increment:
     # Increment the version in the "package.json" file
     # http://stackoverflow.com/questions/17140886/how-to-search-and-replace-text-in-a-file-using-python

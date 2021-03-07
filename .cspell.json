@@ -6,11 +6,13 @@
     ],
     "words": [
         "backticks",
+        "chdir",
         "config",
         "eslint",
         "isaacscript",
         "plusplus",
         "turnbull",
+        "winpty",
         "zamiell"
     ]
 }
