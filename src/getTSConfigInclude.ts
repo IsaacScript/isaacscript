@@ -5,9 +5,9 @@ import * as file from "./file";
 
 export default function getTSConfigInclude(): string {
   const tsConfigRaw = file.read(TSCONFIG_PATH);
-  let tsConfig: Record<string, Array<string>>;
+  let tsConfig: Record<string, string[]>;
   try {
-    tsConfig = JSONC.parse(tsConfigRaw) as Record<string, Array<string>>;
+    tsConfig = JSONC.parse(tsConfigRaw) as Record<string, string[]>;
   } catch (err) {
     console.error(`Failed to parse "${chalk.green(TSCONFIG_PATH)}":`, err);
     process.exit(1);
