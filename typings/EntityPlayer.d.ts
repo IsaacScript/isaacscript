@@ -78,7 +78,7 @@ declare class EntityPlayer extends Entity {
   GetMaxTrinkets(): int;
   GetMaxPoketItems(): int;
   DropPoketItem(pocketNum: int, position: Vector): void;
-  RemoveCollectible(collectibleType: CollectibleType): void;
+  RemoveCollectible(collectibleType: CollectibleType | int): void;
   ClearTemporaryEffects(): void;
   DonateLuck(luck: int): void;
   CanPickBlackHearts(): boolean;
@@ -123,7 +123,10 @@ declare class EntityPlayer extends Entity {
   GetSmoothBodyRotation(): float;
   GetTearPoisonDamage(): float;
   GetBombFlags(): TearFlags;
-  GetBombVariant(tearFlags: TearFlags, forceSmallBomb: boolean): BombVariant | int;
+  GetBombVariant(
+    tearFlags: TearFlags,
+    forceSmallBomb: boolean,
+  ): BombVariant | int;
   GetTearHitParams(
     weaponType: WeaponType,
     damageScale: float,

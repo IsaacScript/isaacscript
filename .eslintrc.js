@@ -24,7 +24,6 @@ module.exports = {
     // Disable any rules that conflict with Prettier
     // https://github.com/prettier/eslint-config-prettier
     "prettier",
-    "prettier/@typescript-eslint",
   ],
 
   parserOptions: {
