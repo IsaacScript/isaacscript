@@ -13,6 +13,8 @@
 
     // We want the compiler to be as strict as possible to catch all the things
     // By default, these flags are false
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -20,6 +22,9 @@
     // We need to import the "package.json" file to see what version we are running
     // By default, this is false
     "resolveJsonModule": true,
+
+    // The TypeScript definitions are used in the exported functions
+    "types": ["isaac-typescript-definitions"],
   },
 
   "include": [
