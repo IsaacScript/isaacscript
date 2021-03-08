@@ -19,42 +19,40 @@
     "**/dist/**/*.js": true,
   },
 
+  // -----------------------
+  // JavaScript / TypeScript
+  // -----------------------
+
   // By default, VSCode will not automatically fill-in function arguments
+  "javascript.suggest.completeFunctionCalls": true,
   "typescript.suggest.completeFunctionCalls": true,
 
-  // ------------------
-  // Extension settings
-  // ------------------
+  // Automatically run the formatter when a JavaScript or TypeScript file is saved
+  // "Organize Imports" must be before ESLint because it will delete trailing commas
+  "[javascript]": {
+    "editor.codeActionsOnSave": [
+      "source.organizeImports",
+      "source.fixAll.eslint",
+    ],
+    "editor.tabSize": 2,
+  },
+  "[typescript]": {
+    "editor.codeActionsOnSave": [
+      "source.organizeImports",
+      "source.fixAll.eslint",
+    ],
+    "editor.tabSize": 2,
+  },
+
+  // ------
+  // Python
+  // ------
 
   // Use "black" to automatically format Python files
   // https://github.com/psf/black
   "python.formatting.provider": "black",
   "python.linting.pylintEnabled": true,
   "python.linting.enabled": true,
-
-  // -----------------
-  // Language settings
-  // -----------------
-
-  // Automatically run the formatter when a TypeScript or JavaScript file is saved
-  "[typescript]": {
-    "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": true,
-      "source.organizeImports": true,
-    },
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true,
-    "editor.tabSize": 2,
-  },
-  "[javascript]": {
-    "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": true,
-      "source.organizeImports": true,
-    },
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true,
-    "editor.tabSize": 2,
-  },
 
   // Automatically run the formatter when a Python file is saved
   "[python]": {

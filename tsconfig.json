@@ -1,8 +1,8 @@
 // The configuration file for TypeScript
 {
-  // We extend the recommended tsconfig for Node 12
-  // https://www.npmjs.com/package/@tsconfig/node12
-  "extends": "@tsconfig/node12/tsconfig.json",
+  // We extend the recommended tsconfig for Node 14
+  // https://www.npmjs.com/package/@tsconfig/node14
+  "extends": "@tsconfig/node14/tsconfig.json",
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
