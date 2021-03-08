@@ -1,13 +1,13 @@
 {
   "name": "isaacscript-lint",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "an ESLint config for IsaacScript projects",
   "license": "GPL-3.0",
   "author": "Zamiell",
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^4.16.1",
     "eslint": "^7.21.0",
-    "eslint-config-isaacscript": "^1.0.8",
+    "eslint-config-isaacscript": "^1.0.9",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.3.1"
   }
