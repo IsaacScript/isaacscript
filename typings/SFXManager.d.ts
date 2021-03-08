@@ -12,6 +12,10 @@ declare class SFXManager {
   StopLoopingSounds(): void;
   Preload(soundEffect: SoundEffect | int): void;
   IsPlaying(soundEffect: SoundEffect | int): boolean;
-  SetAmbientSound(soundEffect: SoundEffect | int, volume: float, pitch: float): void;
+  SetAmbientSound(
+    soundEffect: SoundEffect | int,
+    volume: float,
+    pitch: float,
+  ): void;
   GetAmbientSoundVolume(soundEffect: SoundEffect | int): float;
 }

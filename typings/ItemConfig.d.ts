@@ -1,5 +1,7 @@
 declare class ItemConfig {
-  GetCollectible(collectibleType: CollectibleType | int): Readonly<ItemConfigItem>;
+  GetCollectible(
+    collectibleType: CollectibleType | int,
+  ): Readonly<ItemConfigItem>;
   GetTrinket(trinketType: TrinketType | int): Readonly<ItemConfigItem>;
   GetNullItem(nullItemID: NullItemID): Readonly<ItemConfigItem>;
   GetCard(card: Card | int): Readonly<ItemConfigCard>;

@@ -1,4 +1,4 @@
-import Mod from "./Mod";
+export {};
 
 declare global {
   /** @noSelf */

@@ -1,7 +1,7 @@
 /**
- * EntityVariantForAC is a composition of multiple different kinds of variants for the purposes of
- * aiding autocompletion. Note that this type does not actually provide any type safety. (e.g.
- * "Variant: EntityVariantForAC" is the same as "Variant: int")
+ * EntityVariantForAC (all classes) is a composition of multiple different kinds of variants for the
+ * purposes of aiding autocompletion. Note that this type does not actually provide any type safety.
+ * (e.g. "Variant: EntityVariantForAC" is the same as "Variant: int")
  */
 type EntityVariantForAC =
   | EffectVariant
@@ -98,7 +98,7 @@ declare class Entity {
   Position: Vector;
   Velocity: Vector;
   readonly Type: EntityType | int;
-  Variant: EntityVariantForAC
+  Variant: EntityVariantForAC;
   SubType: int;
   SpawnerType: EntityType | int;
   SpawnerVariant: EntityVariantForAC;

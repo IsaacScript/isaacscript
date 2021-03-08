@@ -1,5 +1,10 @@
 declare class EntityPickup extends Entity {
-  Morph(entityType: EntityType | int, variant: EntityVariantForAC, subType: int, keepPrice: boolean): void;
+  Morph(
+    entityType: EntityType | int,
+    variant: EntityVariantForAC,
+    subType: int,
+    keepPrice: boolean,
+  ): void;
   IsShopItem(): boolean;
   GetCoinValue(): int;
   PlayDropSound(): void;

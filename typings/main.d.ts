@@ -1,6 +1,6 @@
 // Functions from the "resources/scripts/main.lua" file
 
-import Mod from "./Mod";
+export {};
 
 /** @noSelf */
 declare global {

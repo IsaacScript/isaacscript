@@ -115,9 +115,15 @@ declare class Game {
   ClearDonationModAngel(): void;
   SetLastLevelWithDamage(levelStage: LevelStage): void;
   GetLastLevelWithDamage(): LevelStage;
-  AddEncounteredBoss(entityType: EntityType | int, variant: EntityVariantForAC): void;
+  AddEncounteredBoss(
+    entityType: EntityType | int,
+    variant: EntityVariantForAC,
+  ): void;
   GetNumEncounteredBosses(): int;
-  HasEncounteredBoss(entityType: EntityType | int, variant: EntityVariantForAC): boolean;
+  HasEncounteredBoss(
+    entityType: EntityType | int,
+    variant: EntityVariantForAC,
+  ): boolean;
   GetGreedWavesNum(): int;
   GetGreedBossWaveNum(): int;
   SetLastLevelWithoutHalfHp(levelStage: LevelStage): void;

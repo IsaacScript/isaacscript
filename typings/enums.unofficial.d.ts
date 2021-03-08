@@ -61,7 +61,7 @@ declare const enum PoopVariant {
  * For FamiliarVariant.BLUE_FLY (43)
  * This is analogous to the LocustSubtypes enum.
  */
- declare const enum BlueFlySubType {
+declare const enum BlueFlySubType {
   BLUEFLY_NORMAL = 0,
   BLUEFLY_RED = 1,
   BLUEFLY_GREEN = 2,

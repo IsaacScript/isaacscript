@@ -13,7 +13,10 @@ interface CallbackParameters {
     callback: (entityPlayer: EntityPlayer) => void,
     playerType?: PlayerType,
   ];
-  [ModCallbacks.MC_USE_CARD]: [callback: (card: Card | int) => void, card?: Card | int];
+  [ModCallbacks.MC_USE_CARD]: [
+    callback: (card: Card | int) => void,
+    card?: Card | int,
+  ];
   [ModCallbacks.MC_FAMILIAR_UPDATE]: [
     callback: (entityFamiliar: EntityFamiliar) => void,
     familiarVariant?: FamiliarVariant | int,
@@ -44,7 +47,9 @@ interface CallbackParameters {
     ) => boolean,
     entityType?: EntityType | int,
   ];
-  [ModCallbacks.MC_POST_CURSE_EVAL]: [callback: (curses: LevelCurse | int) => LevelCurse | int];
+  [ModCallbacks.MC_POST_CURSE_EVAL]: [
+    callback: (curses: LevelCurse | int) => LevelCurse | int,
+  ];
   [ModCallbacks.MC_INPUT_ACTION]: [
     callback: (
       entityPlayer: EntityPlayer,
@@ -290,12 +295,20 @@ interface CallbackParameters {
       seed: int,
     ) => CollectibleType | int | null,
   ];
-  [ModCallbacks.MC_GET_PILL_COLOR]: [callback: (seed: int) => PillColor | int | null];
+  [ModCallbacks.MC_GET_PILL_COLOR]: [
+    callback: (seed: int) => PillColor | int | null,
+  ];
   [ModCallbacks.MC_GET_PILL_EFFECT]: [
-    callback: (pillEffect: PillEffect | int, pillColor: PillColor | int) => PillEffect | int | null,
+    callback: (
+      pillEffect: PillEffect | int,
+      pillColor: PillColor | int,
+    ) => PillEffect | int | null,
   ];
   [ModCallbacks.MC_GET_TRINKET]: [
-    callback: (trinketType: TrinketType | int, rng: RNG) => TrinketType | int | null,
+    callback: (
+      trinketType: TrinketType | int,
+      rng: RNG,
+    ) => TrinketType | int | null,
   ];
   [ModCallbacks.MC_POST_ENTITY_REMOVE]: [
     callback: (entity: Entity) => void,
@@ -323,7 +336,7 @@ interface CallbackParameters {
   ];
 }
 
-export default interface Mod {
+declare class Mod {
   Name: string;
   AddCallback<T extends keyof CallbackParameters>(
     callbackID: T,
