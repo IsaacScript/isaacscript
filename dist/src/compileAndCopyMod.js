@@ -35,14 +35,12 @@ function compile() {
     try {
         spawnSyncReturns = child_process_1.spawnSync("npx", ["tstl"], {
             shell: true,
-            stdio: "pipe",
         });
     }
     catch (err) {
         console.error(`Failed to run the "${chalk_1.default.green("npx tstl")}" command:`, err);
         process.exit(1);
     }
-    console.log(spawnSyncReturns.output);
     if (spawnSyncReturns.status !== 0) {
         console.error(`Failed to run the "${chalk_1.default.green("npx tstl")}" command.`);
         process.exit(1);
