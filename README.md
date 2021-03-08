@@ -1,3 +1,5 @@
+[![npm version](https://img.shields.io/npm/v/isaacscript.svg)](https://www.npmjs.com/package/isaacscript)
+
 # IsaacScript
 
 IsaacScript is a tool to help you create *Binding of Isaac: Afterbirth+* mods using [TypeScript](https://www.typescriptlang.org/).
