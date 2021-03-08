@@ -1,1 +1,1 @@
-export default function parseArgs(argv: Record<string, unknown>): void;
+export default function parseArgs(): boolean;

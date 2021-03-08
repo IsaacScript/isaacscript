@@ -1,5 +1,4 @@
 "use strict";
-/* eslint-disable import/prefer-default-export */
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
@@ -29,6 +28,12 @@ const JSONC = __importStar(require("jsonc-parser"));
 const constants_1 = require("./constants");
 const file = __importStar(require("./file"));
 function read() {
+    if (!file.exists(constants_1.CONFIG_FILE_PATH)) {
+        console.error(chalk_1.default.red(`An "${constants_1.CONFIG_FILE_NAME}" was not found in the current directory.`));
+        console.error("IsaacScript needs this file in order to run.");
+        console.error(`Use the "${chalk_1.default.green("npx create-isaacscript-mod")}" command to create a new project (with an "${chalk_1.default.green(constants_1.CONFIG_FILE_NAME)}" file). Then, go into that directory and run "${chalk_1.default.green("npx isaacscript")}".`);
+        process.exit(1);
+    }
     const configRaw = file.read(constants_1.CONFIG_FILE_PATH);
     let config;
     try {
@@ -36,6 +41,14 @@ function read() {
     }
     catch (err) {
         console.error(`Failed to parse "${chalk_1.default.green(constants_1.CONFIG_FILE_PATH)}":`, err);
+        process.exit(1);
+    }
+    if (config.modTargetPath === undefined) {
+        console.error('The IsaacScript config file is missing a "modTargetPath" value. Please add it.');
+        process.exit(1);
+    }
+    if (config.saveSlot === undefined) {
+        console.error('The IsaacScript config file is missing a "saveSlot" value. Please add it.');
         process.exit(1);
     }
     return config;

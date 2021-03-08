@@ -5,10 +5,9 @@ import { fork, spawn } from "child_process";
 import figlet from "figlet";
 import path from "path";
 import updateNotifier from "update-notifier";
-import yargs from "yargs";
 import pkg from "../package.json";
-import checkForConfig from "./checkForConfig";
 import checkForWindowsTerminalBugs from "./checkForWindowsTerminalBugs";
+import compileAndCopyMod from "./compileAndCopyMod";
 import Config from "./Config";
 import * as configFile from "./configFile";
 import { CURRENT_DIRECTORY_NAME, CWD, MOD_SOURCE_PATH } from "./constants";
@@ -18,13 +17,6 @@ import * as notifyGame from "./notifyGame";
 import parseArgs from "./parseArgs";
 
 async function main(): Promise<void> {
-  // Get command line arguments
-  const argv = yargs(process.argv.slice(2)).argv;
-  parseArgs(argv);
-
-  // ASCII banner
-  console.log(chalk.green(figlet.textSync("IsaacScript")));
-
   // Validate the platform
   if (process.platform !== "win32") {
     console.error(
@@ -33,16 +25,33 @@ async function main(): Promise<void> {
     console.error(
       "If you use another operating system and you want to use IsaacScript, contact Zamiel and let him know.",
     );
+    console.error(
+      "(Since the program is written in TypeScript, porting to a new operating system should be easy, but is untested.)",
+    );
     process.exit(1);
   }
+
+  // Get command line arguments
+  const copyOnly = parseArgs();
+
+  // ASCII banner
+  console.log(chalk.green(figlet.textSync("IsaacScript")));
 
   // Check for a new version
   updateNotifier({ pkg }).notify();
 
   // Do some pre-flight checks
   await checkForWindowsTerminalBugs();
-  checkForConfig();
   const config = configFile.read();
+
+  // The user might have specified a flag to only copy the mod and then exit
+  // (as opposed to running forever)
+  if (copyOnly) {
+    compileAndCopyMod(MOD_SOURCE_PATH, config.modTargetPath);
+    process.exit(0);
+  }
+
+  // Prepare the watcher mod
   copyWatcherMod(config);
 
   // Subprocess #1 - The mod directory syncer
@@ -68,7 +77,7 @@ function spawnModDirectorySyncer(config: Config) {
   const modDirectorySyncerPath = path.join(__dirname, "modDirectorySyncer");
   const childProcess = fork(modDirectorySyncerPath, [
     MOD_SOURCE_PATH,
-    config.modDirectory,
+    config.modTargetPath,
   ]);
   childProcess.on("message", (msg: string) => {
     notifyGame.msg(msg, config, true);
@@ -76,11 +85,11 @@ function spawnModDirectorySyncer(config: Config) {
 }
 
 function spawnTSTLWatcher(config: Config) {
-  const ls = spawn("npx", ["tstl", "--watch", "--preserveWatchOutput"], {
+  const tstl = spawn("npx", ["tstl", "--watch", "--preserveWatchOutput"], {
     shell: true,
   });
 
-  ls.stdout.on("data", (data: Buffer[]) => {
+  tstl.stdout.on("data", (data: Buffer[]) => {
     const msg = data.toString().trim();
     if (msg.includes("Starting compilation in watch mode...")) {
       const newMsg = "IsaacScript is now watching for changes.";
@@ -100,7 +109,7 @@ function spawnTSTLWatcher(config: Config) {
     }
   });
 
-  ls.stderr.on("data", (data: Buffer[]) => {
+  tstl.stderr.on("data", (data: Buffer[]) => {
     const msg = data.toString().trim();
     if (msg === "^C") {
       return;
@@ -109,7 +118,7 @@ function spawnTSTLWatcher(config: Config) {
     notifyGame.msg(`Error: ${msg}`, config, true);
   });
 
-  ls.on("close", (code) => {
+  tstl.on("close", (code) => {
     console.error("tstl exited abruptly with code:", code);
     process.exit(1);
   });

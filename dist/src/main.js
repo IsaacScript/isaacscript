@@ -28,10 +28,9 @@ const child_process_1 = require("child_process");
 const figlet_1 = __importDefault(require("figlet"));
 const path_1 = __importDefault(require("path"));
 const update_notifier_1 = __importDefault(require("update-notifier"));
-const yargs_1 = __importDefault(require("yargs"));
 const package_json_1 = __importDefault(require("../package.json"));
-const checkForConfig_1 = __importDefault(require("./checkForConfig"));
 const checkForWindowsTerminalBugs_1 = __importDefault(require("./checkForWindowsTerminalBugs"));
+const compileAndCopyMod_1 = __importDefault(require("./compileAndCopyMod"));
 const configFile = __importStar(require("./configFile"));
 const constants_1 = require("./constants");
 const copyWatcherMod_1 = __importDefault(require("./copyWatcherMod"));
@@ -39,23 +38,29 @@ const getTSConfigInclude_1 = __importDefault(require("./getTSConfigInclude"));
 const notifyGame = __importStar(require("./notifyGame"));
 const parseArgs_1 = __importDefault(require("./parseArgs"));
 async function main() {
-    // Get command line arguments
-    const argv = yargs_1.default(process.argv.slice(2)).argv;
-    parseArgs_1.default(argv);
-    // ASCII banner
-    console.log(chalk_1.default.green(figlet_1.default.textSync("IsaacScript")));
     // Validate the platform
     if (process.platform !== "win32") {
         console.error(`IsaacScript is only supported on ${chalk_1.default.green("Windows")}.`);
         console.error("If you use another operating system and you want to use IsaacScript, contact Zamiel and let him know.");
+        console.error("(Since the program is written in TypeScript, porting to a new operating system should be easy, but is untested.)");
         process.exit(1);
     }
+    // Get command line arguments
+    const copyOnly = parseArgs_1.default();
+    // ASCII banner
+    console.log(chalk_1.default.green(figlet_1.default.textSync("IsaacScript")));
     // Check for a new version
     update_notifier_1.default({ pkg: package_json_1.default }).notify();
     // Do some pre-flight checks
     await checkForWindowsTerminalBugs_1.default();
-    checkForConfig_1.default();
     const config = configFile.read();
+    // The user might have specified a flag to only copy the mod and then exit
+    // (as opposed to running forever)
+    if (copyOnly) {
+        compileAndCopyMod_1.default(constants_1.MOD_SOURCE_PATH, config.modTargetPath);
+        process.exit(0);
+    }
+    // Prepare the watcher mod
     copyWatcherMod_1.default(config);
     // Subprocess #1 - The mod directory syncer
     spawnModDirectorySyncer(config);
@@ -74,17 +79,17 @@ function spawnModDirectorySyncer(config) {
     const modDirectorySyncerPath = path_1.default.join(__dirname, "modDirectorySyncer");
     const childProcess = child_process_1.fork(modDirectorySyncerPath, [
         constants_1.MOD_SOURCE_PATH,
-        config.modDirectory,
+        config.modTargetPath,
     ]);
     childProcess.on("message", (msg) => {
         notifyGame.msg(msg, config, true);
     });
 }
 function spawnTSTLWatcher(config) {
-    const ls = child_process_1.spawn("npx", ["tstl", "--watch", "--preserveWatchOutput"], {
+    const tstl = child_process_1.spawn("npx", ["tstl", "--watch", "--preserveWatchOutput"], {
         shell: true,
     });
-    ls.stdout.on("data", (data) => {
+    tstl.stdout.on("data", (data) => {
         const msg = data.toString().trim();
         if (msg.includes("Starting compilation in watch mode...")) {
             const newMsg = "IsaacScript is now watching for changes.";
@@ -104,7 +109,7 @@ function spawnTSTLWatcher(config) {
             notifyGame.msg(msg, config, false);
         }
     });
-    ls.stderr.on("data", (data) => {
+    tstl.stderr.on("data", (data) => {
         const msg = data.toString().trim();
         if (msg === "^C") {
             return;
@@ -112,7 +117,7 @@ function spawnTSTLWatcher(config) {
         console.error("Error:", msg);
         notifyGame.msg(`Error: ${msg}`, config, true);
     });
-    ls.on("close", (code) => {
+    tstl.on("close", (code) => {
         console.error("tstl exited abruptly with code:", code);
         process.exit(1);
     });

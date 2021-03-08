@@ -1,23 +1,16 @@
-import pkg from "../package.json";
+import yargs from "yargs";
 
-export default function parseArgs(argv: Record<string, unknown>): void {
-  Object.keys(argv).forEach((key) => {
-    switch (key) {
-      case "_":
-      case "$0": {
-        break;
-      }
+export default function parseArgs(): boolean {
+  const argv = yargs(process.argv.slice(2))
+    .alias("h", "help") // By default, only "--help" is enabled
+    .alias("v", "version") // By default, only "--version" is enabled
 
-      case "version": {
-        console.log(pkg.version);
-        process.exit(0);
-        break;
-      }
+    .boolean("copy")
+    .alias("c", "copy")
+    .describe("c", "compile & copy the mod, then exit").argv;
 
-      default: {
-        console.error(`Error: The flag of "${key}" is invalid.`);
-        process.exit(1);
-      }
-    }
-  });
+  // TODO: How do I make it exit if a user passes an invalid flag?
+  // https://stackoverflow.com/questions/66535902/how-do-i-make-yargs-exit-if-it-is-passed-an-invalid-flag
+
+  return argv.copy ?? false;
 }

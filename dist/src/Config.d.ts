@@ -1,4 +1,4 @@
 export default interface Config {
-    modDirectory: string;
+    modTargetPath: string;
     saveSlot: number;
 }

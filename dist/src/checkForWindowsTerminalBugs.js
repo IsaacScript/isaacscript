@@ -23,11 +23,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = __importDefault(require("chalk"));
-const child_process_1 = require("child_process");
 const fs_1 = __importDefault(require("fs"));
 const prompts_1 = __importDefault(require("prompts"));
 const constants_1 = require("./constants");
 const file = __importStar(require("./file"));
+const misc = __importStar(require("./misc"));
 // By default, Git Bash for Windows uses MINGW64
 // This will not work correctly with the prompts library (or any other NodeJS input library)
 // Try to detect this and warn the end-user
@@ -41,14 +41,7 @@ async function checkForWindowsTerminalBugs() {
 exports.default = checkForWindowsTerminalBugs;
 async function checkForCodePage() {
     const chcpPath = "C:\\Windows\\System32\\chcp.com";
-    let stdout;
-    try {
-        stdout = child_process_1.execSync(`"${chcpPath}"`).toString().trim();
-    }
-    catch (err) {
-        console.error(`Failed to run "${chalk_1.default.green(chcpPath)}":`, err);
-        process.exit(1);
-    }
+    const stdout = misc.execScript(chcpPath);
     const match = /^Active code page: (\d+)$/.exec(stdout);
     if (match === null) {
         console.error(`Failed to parse the results of "${chalk_1.default.green(chcpPath)}":`, stdout);

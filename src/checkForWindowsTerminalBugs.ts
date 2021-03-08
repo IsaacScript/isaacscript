@@ -1,9 +1,9 @@
 import chalk from "chalk";
-import { execSync } from "child_process";
 import fs from "fs";
 import prompts from "prompts";
 import { BASH_PROFILE_PATH, WINDOWS_CODE_PAGE } from "./constants";
 import * as file from "./file";
+import * as misc from "./misc";
 
 // By default, Git Bash for Windows uses MINGW64
 // This will not work correctly with the prompts library (or any other NodeJS input library)
@@ -19,14 +19,7 @@ export default async function checkForWindowsTerminalBugs(): Promise<void> {
 
 async function checkForCodePage() {
   const chcpPath = "C:\\Windows\\System32\\chcp.com";
-  let stdout: string;
-  try {
-    stdout = execSync(`"${chcpPath}"`).toString().trim();
-  } catch (err) {
-    console.error(`Failed to run "${chalk.green(chcpPath)}":`, err);
-    process.exit(1);
-  }
-
+  const stdout = misc.execScript(chcpPath);
   const match = /^Active code page: (\d+)$/.exec(stdout);
   if (match === null) {
     console.error(

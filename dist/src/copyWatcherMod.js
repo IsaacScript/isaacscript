@@ -27,7 +27,7 @@ const constants_1 = require("./constants");
 const file = __importStar(require("./file"));
 function copyWatcherMod(config) {
     // Check to see if this mod was disabled
-    const watcherModPath = path_1.default.join(config.modDirectory, "..", constants_1.WATCHER_MOD_NAME);
+    const watcherModPath = path_1.default.join(config.modTargetPath, "..", constants_1.WATCHER_MOD_NAME);
     const disableItPath = path_1.default.join(watcherModPath, constants_1.DISABLE_IT_FILE);
     const watcherModDisabled = file.exists(disableItPath);
     // Delete and re-copy the watcher mod every time IsaacScript starts

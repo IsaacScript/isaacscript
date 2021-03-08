@@ -3,24 +3,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const package_json_1 = __importDefault(require("../package.json"));
-function parseArgs(argv) {
-    Object.keys(argv).forEach((key) => {
-        switch (key) {
-            case "_":
-            case "$0": {
-                break;
-            }
-            case "version": {
-                console.log(package_json_1.default.version);
-                process.exit(0);
-                break;
-            }
-            default: {
-                console.error(`Error: The flag of "${key}" is invalid.`);
-                process.exit(1);
-            }
-        }
-    });
+const yargs_1 = __importDefault(require("yargs"));
+function parseArgs() {
+    const argv = yargs_1.default(process.argv.slice(2))
+        .alias("h", "help") // By default, only "--help" is enabled
+        .alias("v", "version") // By default, only "--version" is enabled
+        .boolean("copy")
+        .alias("c", "copy")
+        .describe("c", "compile & copy the mod, then exit").argv;
+    // TODO: How do I make it exit if a user passes an invalid flag?
+    // https://stackoverflow.com/questions/66535902/how-do-i-make-yargs-exit-if-it-is-passed-an-invalid-flag
+    return argv.copy ?? false;
 }
 exports.default = parseArgs;

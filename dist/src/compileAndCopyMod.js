@@ -18,20 +18,21 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const chalk_1 = __importDefault(require("chalk"));
-const constants_1 = require("./constants");
 const file = __importStar(require("./file"));
-function checkForConfig() {
-    if (file.exists(constants_1.CONFIG_FILE_PATH)) {
-        return;
-    }
-    console.error(chalk_1.default.red(`An "${constants_1.CONFIG_FILE_NAME}" was not found in the current directory.`));
-    console.error("IsaacScript needs this file in order to run.");
-    console.error(`Use the "${chalk_1.default.green("npx create-isaacscript-mod")}" command to create a new project (with an "${chalk_1.default.green(constants_1.CONFIG_FILE_NAME)}" file). Then, go into that directory and run "${chalk_1.default.green("npx isaacscript")}".`);
-    process.exit(1);
+const misc = __importStar(require("./misc"));
+function compileAndCopyMod(modSourcePath, modTargetPath) {
+    compile();
+    console.log("ZZ", modSourcePath, modTargetPath);
+    copyMod(modSourcePath, modTargetPath);
 }
-exports.default = checkForConfig;
+exports.default = compileAndCopyMod;
+function compile() {
+    misc.execCommand("npx tstl");
+    console.log("Mod compiled successfully!");
+}
+function copyMod(modSourcePath, modTargetPath) {
+    file.deleteDir(modTargetPath);
+    file.copy(modSourcePath, modTargetPath);
+    console.log("Mod copied successfully!");
+}

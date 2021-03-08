@@ -9,7 +9,11 @@ import * as file from "./file";
 
 export default function copyWatcherMod(config: Config): void {
   // Check to see if this mod was disabled
-  const watcherModPath = path.join(config.modDirectory, "..", WATCHER_MOD_NAME);
+  const watcherModPath = path.join(
+    config.modTargetPath,
+    "..",
+    WATCHER_MOD_NAME,
+  );
   const disableItPath = path.join(watcherModPath, DISABLE_IT_FILE);
   const watcherModDisabled = file.exists(disableItPath);
 
