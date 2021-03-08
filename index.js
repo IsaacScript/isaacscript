@@ -106,6 +106,13 @@ module.exports = {
     "no-console": "off",
 
     // Documentation:
+    // https://eslint.org/docs/rules/no-continue
+    // Defined at:
+    // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
+    // Proper use of continues can reduce indentation for long blocks of code
+    "no-continue": "off",
+
+    // Documentation:
     // https://eslint.org/docs/rules/no-plusplus
     // Defined at:
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
