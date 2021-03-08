@@ -25,6 +25,10 @@
 
     // The TypeScript definitions are used in the exported functions
     "types": ["isaac-typescript-definitions"],
+
+    // We need to generate declaration files so that IsaacScript projects can consume our exported
+    // functions
+    "declaration": true,
   },
 
   "include": [

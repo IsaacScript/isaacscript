@@ -1,0 +1,13 @@
+export declare const BASH_PROFILE_PATH: string;
+export declare const MOD_DIRECTORY_PATH: string;
+export declare const CWD: string;
+export declare const CURRENT_DIRECTORY_NAME: string;
+export declare const CONFIG_FILE_NAME = "isaacscript.json";
+export declare const CONFIG_FILE_PATH: string;
+export declare const TSCONFIG_PATH: string;
+export declare const MOD_SOURCE_PATH: string;
+export declare const MAIN_LUA_SOURCE_PATH: string;
+export declare const WATCHER_MOD_NAME = "isaacscript-watcher";
+export declare const WATCHER_MOD_SOURCE_PATH: string;
+export declare const WINDOWS_CODE_PAGE = "65001";
+export declare const DISABLE_IT_FILE = "disable.it";

@@ -14,6 +14,7 @@
   "author": "Zamiell",
   "main": "./dist/src/exports/exports.js",
   "exports": "./dist/src/exports/exports.js",
+  "types": "./src/exports/exports.d.ts",
   "bin": {
     "isaacscript": "./dist/src/main.js"
   },
