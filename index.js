@@ -95,8 +95,7 @@ module.exports = {
     // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/prefer-default-export.md
     // Defined at:
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/imports.js
-    // It is common to export a single function with the intention of expanding the file in the
-    // future
+    // Unlike JavaScript, Lua modules are tables and do not have a default export
     "import/prefer-default-export": "off",
 
     // Documentation:
@@ -119,6 +118,13 @@ module.exports = {
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
     // Proper use of continues can reduce indentation for long blocks of code
     "no-continue": "off",
+
+    // Documentation:
+    // https://eslint.org/docs/rules/no-param-reassign
+    // Defined at:
+    // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+    // The Isaac API callback functions expect you to modify the provided object
+    "no-param-reassign": "off",
 
     // Documentation:
     // https://eslint.org/docs/rules/no-plusplus
