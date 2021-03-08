@@ -2,6 +2,9 @@
 
 /// <reference path="basic.d.ts" />
 /// <reference path="enums.d.ts" />
+/// <reference path="enums.variants.d.ts" />
+/// <reference path="enums.subtypes.d.ts" />
+/// <reference path="enums.flags.d.ts" />
 /// <reference path="enums.unofficial.d.ts" />
 /// <reference path="functions.d.ts" />
 /// <reference path="main.d.ts" />

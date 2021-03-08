@@ -10,7 +10,7 @@ declare const enum PlayerVariant {
   COOP_BABY = 1,
 }
 
-/* For EntityType.ENTITY_SLOT (6) */
+/** For EntityType.ENTITY_SLOT (6) */
 declare const enum SlotVariant {
   SLOT_MACHINE = 1,
   BLOOD_DONATION_MACHINE = 2,
@@ -26,7 +26,7 @@ declare const enum SlotVariant {
   MOMS_DRESSING_TABLE = 12,
 }
 
-/* For EntityType.ENTITY_LASER (7) */
+/** For EntityType.ENTITY_LASER (7) */
 declare const enum LaserVariant {
   /** Used for Brimstone. */
   LASER_THICK_RED = 1,
@@ -55,6 +55,19 @@ declare const enum PoopVariant {
   POOP_RAINBOW = 4,
   POOP_BLACK = 5,
   POOP_WHITE = 6,
+}
+
+/**
+ * For FamiliarVariant.BLUE_FLY (43)
+ * This is analogous to the LocustSubtypes enum.
+ */
+ declare const enum BlueFlySubType {
+  BLUEFLY_NORMAL = 0,
+  BLUEFLY_RED = 1,
+  BLUEFLY_GREEN = 2,
+  BLUEFLY_YELLOW = 3,
+  BLUEFLY_BLACK = 4,
+  BLUEFLY_WHITE = 5,
 }
 
 /** Used for the `gridspawn` console command. */
