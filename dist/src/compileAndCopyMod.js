@@ -18,17 +18,35 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const chalk_1 = __importDefault(require("chalk"));
+const child_process_1 = require("child_process");
 const file = __importStar(require("./file"));
-const misc = __importStar(require("./misc"));
 function compileAndCopyMod(modSourcePath, modTargetPath) {
     compile();
-    console.log("ZZ", modSourcePath, modTargetPath);
     copyMod(modSourcePath, modTargetPath);
 }
 exports.default = compileAndCopyMod;
 function compile() {
-    misc.execCommand("npx tstl");
+    let spawnSyncReturns;
+    try {
+        spawnSyncReturns = child_process_1.spawnSync("npx", ["tstl"], {
+            shell: true,
+            stdio: "pipe",
+        });
+    }
+    catch (err) {
+        console.error(`Failed to run the "${chalk_1.default.green("npx tstl")}" command:`, err);
+        process.exit(1);
+    }
+    console.log(spawnSyncReturns.output);
+    if (spawnSyncReturns.status !== 0) {
+        console.error(`Failed to run the "${chalk_1.default.green("npx tstl")}" command.`);
+        process.exit(1);
+    }
     console.log("Mod compiled successfully!");
 }
 function copyMod(modSourcePath, modTargetPath) {
