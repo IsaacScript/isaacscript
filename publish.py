@@ -41,6 +41,16 @@ parser.add_argument(
 )
 args = parser.parse_args()
 
+# Update the dependencies to the latest versions
+# Update the dependencies to the latest versions
+os.chdir(DIR)
+completed_process = subprocess.run(
+    ["npx", "npm-check-updates", "--upgrade", "--packageFile", "package.json"],
+    shell=True,
+)
+if completed_process.returncode != 0:
+    error("Failed to update package.json dependencies to the latest versions.")
+
 # Check to make sure that the project compiles
 os.chdir(DIR)
 completed_process = subprocess.run(["npx", "tsc"], shell=True)
