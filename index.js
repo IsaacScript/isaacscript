@@ -92,6 +92,14 @@ module.exports = {
     "@typescript-eslint/triple-slash-reference": "off",
 
     // Documentation:
+    // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/prefer-default-export.md
+    // Defined at:
+    // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/imports.js
+    // It is common to export a single function with the intention of expanding the file in the
+    // future
+    "import/prefer-default-export": "off",
+
+    // Documentation:
     // https://github.com/eslint/eslint/blob/master/docs/rules/no-bitwise.md
     // Defined at:
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
