@@ -327,6 +327,6 @@ declare class EntityPlayer extends Entity {
   BabySkin: BabySubType | int;
   QueuedItem: QueueItemData;
   ItemHoldCooldown: int;
-  SecondaryActiveItem: ItemConfigItem;
+  SecondaryActiveItem: ActiveItemDesc;
   HeadFrameDelay: int;
 }
