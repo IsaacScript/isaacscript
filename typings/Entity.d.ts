@@ -83,16 +83,16 @@ declare class Entity {
   IsFrame(frame: int, offset: int): boolean;
   GetDropRNG(): RNG;
   GetSprite(): Sprite;
-  ToPlayer(): EntityPlayer;
-  ToEffect(): EntityEffect;
-  ToNPC(): EntityNPC;
-  ToPickup(): EntityPickup;
-  ToFamiliar(): EntityFamiliar;
-  ToBomb(): EntityBomb;
-  ToKnife(): EntityKnife;
-  ToLaser(): EntityLaser;
-  ToTear(): EntityTear;
-  ToProjectile(): EntityProjectile;
+  ToPlayer(): EntityPlayer | null;
+  ToEffect(): EntityEffect | null;
+  ToNPC(): EntityNPC | null;
+  ToPickup(): EntityPickup | null;
+  ToFamiliar(): EntityFamiliar | null;
+  ToBomb(): EntityBomb | null;
+  ToKnife(): EntityKnife | null;
+  ToLaser(): EntityLaser | null;
+  ToTear(): EntityTear | null;
+  ToProjectile(): EntityProjectile | null;
 
   Friction: float;
   Position: Vector;
