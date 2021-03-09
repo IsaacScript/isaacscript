@@ -44,7 +44,7 @@ interface CallbackParameters {
       damageFlags: DamageFlag,
       damageSource: EntityRef,
       damageCountdownFrames: int,
-    ) => boolean,
+    ) => boolean | null,
     entityType?: EntityType | int,
   ];
   [ModCallbacks.MC_POST_CURSE_EVAL]: [
