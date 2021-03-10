@@ -49,7 +49,7 @@ declare global {
     function GetChallenge(): Challenge | int;
     function GetEntityVariantByName(entityName: string): EntityVariantForAC;
     function GetItemIdByName(entityName: string): CollectibleType | int;
-    function GetPlayerTypeByName(playerName: string): PlayerVariant;
+    function GetPlayerTypeByName(playerName: string): PlayerVariant | int;
     function GetCardIdByName(cardName: string): Card | int;
     function GetPillEffectByName(pillName: string): PillEffect | int;
     function GetTrinketIdByName(trinketName: string): TrinketType | int;
