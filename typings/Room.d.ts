@@ -30,8 +30,8 @@ declare class Room {
     ignoreCrushable: boolean,
   ): boolean;
   GetLaserTarget(position: Vector, direction: Vector): Vector;
-  GetGridEntity(index: int): GridEntity;
-  GetGridEntityFromPos(position: Vector): GridEntity;
+  GetGridEntity(index: int): GridEntity | null;
+  GetGridEntityFromPos(position: Vector): GridEntity | null;
   GetGridWidth(): int;
   GetGridHeight(): int;
   GetGridSize(): int;
