@@ -44,7 +44,7 @@ declare class Sprite {
   readonly Offset: Readonly<Vector>;
   readonly Scale: Readonly<Vector>;
   Rotation: float;
-  readonly Color: Readonly<Color>;
+  Color: Color;
   FlipX: boolean;
   FlipY: boolean;
   PlaybackSpeed: float;
