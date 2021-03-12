@@ -5,7 +5,7 @@ declare class Room {
   IsInitialized(): boolean;
   GetGridCollision(gridIndex: int): GridCollisionClass;
   GetGridCollisionAtPos(position: Vector): GridCollisionClass;
-  GetDoor(doorSlot: DoorSlot): GridEntityDoor;
+  GetDoor(doorSlot: DoorSlot): GridEntityDoor | null;
   GetDoorSlotPosition(doorSlot: DoorSlot): Vector;
   IsDoorSlotAllowed(doorSlot: DoorSlot): boolean;
   RemoveDoor(doorSlot: DoorSlot): void;
