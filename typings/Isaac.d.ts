@@ -43,7 +43,11 @@ declare global {
     function GetTextWidth(str: string): int;
     function GetRandomPosition(): Vector;
     function GetFreeNearPosition(position: Vector, step: float): Vector;
-    function Explode(position: Vector, source: Entity, damage: float): void;
+    function Explode(
+      position: Vector,
+      source: Entity | null,
+      damage: float,
+    ): void;
     function AddPillEffectToPool(pillEffect: PillEffect | int): PillColor | int;
     function GetRoomEntities(): Entity[];
     function GetChallenge(): Challenge | int;
