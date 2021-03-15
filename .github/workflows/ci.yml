@@ -1,0 +1,56 @@
+name: Build & Lint & Deploy
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build_lint_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '15.x'
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        id: deploy_cache
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install node modules
+        run: npm ci
+
+      # Use Docusaurus to build the website (e.g. convert the Markdown files to HTML)
+      - name: Build
+        run: ./build.sh
+
+      # Use cspell to spell check every Markdown file
+      # https://github.com/streetsidesoftware/cspell
+      - name: Spell check
+        run: ./spell-check/spell-check.sh
+
+      # Perform some additional checks using remark
+      # https://github.com/remarkjs/remark
+      - name: Lint
+        run: ./lint.sh
+
+      # Deploy it to production
+      # https://isaacscript.github.io
+      - name: Deploy
+        if: github.event_name != 'pull_request'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build

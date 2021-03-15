@@ -8,8 +8,6 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd "$DIR"
 
-git add -A
-git commit -m 'updates'
-git push
-
-GIT_USER=Zamiell USE_SSH=true DEPLOYMENT_BRANCH=main npx docusaurus deploy
+# We set to quiet to output only warnings and errors
+# We set to frail to exit with 1 on warnings (for CI)
+npx remark --quiet --frail docs

@@ -46,7 +46,7 @@ Enjoy all the benefits of a strongly typed language over the shit-show that is L
 - Never make a typo on a variable name again. Or a function name. Or an import. You get the point.
 - Split code up into separate files without risking something breaking when you rename something.
 - Your editor shows you the **exact** variables and functions that you can use.
-- Tab-complete _everything_ you type, making programming a breeze.
+- Tab-complete **everything** you type, making programming a breeze.
 - Use the <code>Ctrl + .</code> hotkey to automatically import whatever the cursor is over. No more manually typing "require()" over and over.
 - Use the <code>F12</code> hotkey (for "Go to Definition") to automatically jump around in your code. After using this hotkey for a while, it becomes invaluable!
 - Use the <code>Shift + Alt + F12</code> hotkey (for "Find All References") to automatically find all places where a function is used. This makes refactoring easy as pie.

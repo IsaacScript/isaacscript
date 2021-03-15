@@ -74,11 +74,11 @@ In TypeScript, you have to put parentheses around the conditions of an if statem
 
 Also, the operators are a bit different:
 
-* `and` --> `&&`
-* `or` --> `||`
-* `==` --> `===`
-* `~=` --> `!==`
-* `..` --> `+`
+- `and` --> `&&`
+- `or` --> `||`
+- `==` --> `===`
+- `~=` --> `!==`
+- `..` --> `+`
 
 For example:
 
@@ -207,7 +207,7 @@ TypeScript works the same way as Lua. There is only one kind of number type: `nu
 
 However, the official Isaac API documentation uses integers and floats. For example, this is the entry for the `EntityPlayer:AddCollectible()` function:
 
-```
+```c++
 AddCollectible (CollectibleType Type, integer Charge, boolean AddConsumables)
 ```
 
@@ -350,9 +350,9 @@ if (InfinityTrueCoopInterface !== null) {
 If you need to check for `InfinityTrueCoopInterface !== null` in more than one place in your mod, then option 1 is bad, because you would be [need to repeat yourself before each check](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself). Instead, make a TypeScript definition file that corresponds to the variable / table.
 
 For example, to declare `InfinityTrueCoopInterface`, starting from the root of your project:
-* Create the `src/types` directory.
-* Create the `src/types/InfinityTrueCoopInterface.d.ts` file.
-* Put the following in it:
+- Create the `src/types` directory.
+- Create the `src/types/InfinityTrueCoopInterface.d.ts` file.
+- Put the following in it:
 
 ```typescript
 declare const InfinityTrueCoopInterface: null | unknown;

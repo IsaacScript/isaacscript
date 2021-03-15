@@ -1,3 +1,10 @@
 {
-    "docs": ["features", "right-for-me", "getting-started", "directory-structure", "basic-javascript"]
+    "docs": [
+        "features",
+        "right-for-me",
+        "getting-started",
+        "directory-structure",
+        "basic-javascript",
+        "function-signatures"
+    ]
 }

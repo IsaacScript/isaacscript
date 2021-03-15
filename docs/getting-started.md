@@ -16,7 +16,7 @@ Open a [Command Prompt as an administrator](https://www.howtogeek.com/194041/how
 
 [Chocolatey](https://chocolatey.org/install) is a package manager for Windows. If you don't have it installed already, install it by pasting in the following command:
 
-```
+```batch
 @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
 ```
 
@@ -28,7 +28,7 @@ Open a [Command Prompt as an administrator](https://www.howtogeek.com/194041/how
 
 In order to program in TypeScript, we need [Node.js](https://nodejs.org/en/), a JavaScript runtime. If you don't have it installed already, install it by pasting in the following command:
 
-```
+```batch
 cinst nodejs -y
 ```
 
@@ -42,7 +42,7 @@ cinst nodejs -y
 
 If you don't have it installed already, install it by pasting in the following command:
 
-```
+```batch
 cinst git -y
 ```
 
@@ -54,7 +54,7 @@ cinst git -y
 
 [Visual Studio Code](https://code.visualstudio.com/) (or VSCode, for short) is the best editor for TypeScript. If you don't have it installed already, install it by pasting in the following command:
 
-```
+```batch
 cinst vscode -y
 ```
 
@@ -83,7 +83,7 @@ Make a new directory for your new mod / project. And then navigate to it.
 
 For example, in a Windows Command Prompt:
 
-```
+```batch
 mkdir C:\Repositories\revelations
 cd C:\Repositories\revelations
 ```
@@ -96,7 +96,7 @@ Note that your project directory should **not** be a subdirectory of the `Bindin
 
 Once you are inside your project directory, you can initialize the project with the `create-isaacscript-mod` helper program:
 
-```
+```bash
 npx create-isaacscript-mod
 ```
 
@@ -120,7 +120,7 @@ Finally, start by opening up the main file for your project, which is located at
 
 Start `isaacscript` in your project directory:
 
-```
+```bash
 npx isaacscript
 ```
 
@@ -143,15 +143,15 @@ The moment that you save a TypeScript file, `isaacscript` will detect that somet
 Note that `isaacscript` will automatically install the `isaacscript-watcher` helper mod for you, so you don't have to do anything. Just test to see that it works:
 
 1. Make sure that `isaacscript` is running in a shell.
-2. In-game, go into a run.
-3. In VSCode, add something new to your `main.ts` file, like:
+1. In-game, go into a run.
+1. In VSCode, add something new to your `main.ts` file, like:
 
 ```typescript
 Isaac.ConsoleOutput("hello world");
 ```
 
-4. Save the file in VSCode.
-5. In game, press <code>`</code> to open the console and see if the new message is there.
+1. Save the file in VSCode.
+1. In game, press <code>`</code> to open the console and see if the new message is there.
 
 <br />
 
