@@ -3,11 +3,10 @@ name: Build & Lint & Deploy
 on:
   push:
     branches:
-      - source
+      - main
   pull_request:
     branches:
       - main
-      - source
 
 jobs:
   build_lint_deploy:

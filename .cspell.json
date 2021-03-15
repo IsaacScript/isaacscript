@@ -17,6 +17,7 @@
         "mkdir",
         "modder",
         "pcall",
+        "peaceiris",
         "peffect",
         "postplayerinit",
         "transpiler",
