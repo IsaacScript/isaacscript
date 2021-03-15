@@ -1,6 +1,6 @@
 interface CallbackParameters {
   [ModCallbacks.MC_NPC_UPDATE]: [
-    callback: (entityNPC: EntityNPC) => void,
+    callback: (npc: EntityNPC) => void,
     entityType?: EntityType | int,
   ];
   [ModCallbacks.MC_POST_UPDATE]: [callback: () => void];
@@ -10,7 +10,7 @@ interface CallbackParameters {
     collectibleType?: CollectibleType | int,
   ];
   [ModCallbacks.MC_POST_PEFFECT_UPDATE]: [
-    callback: (entityPlayer: EntityPlayer) => void,
+    callback: (player: EntityPlayer) => void,
     playerType?: PlayerType,
   ];
   [ModCallbacks.MC_USE_CARD]: [
@@ -18,19 +18,19 @@ interface CallbackParameters {
     card?: Card | int,
   ];
   [ModCallbacks.MC_FAMILIAR_UPDATE]: [
-    callback: (entityFamiliar: EntityFamiliar) => void,
+    callback: (familiar: EntityFamiliar) => void,
     familiarVariant?: FamiliarVariant | int,
   ];
   [ModCallbacks.MC_FAMILIAR_INIT]: [
-    callback: (entityFamiliar: EntityFamiliar) => void,
+    callback: (familiar: EntityFamiliar) => void,
     familiarVariant?: FamiliarVariant | int,
   ];
   [ModCallbacks.MC_EVALUATE_CACHE]: [
-    callback: (entityPlayer: EntityPlayer, cacheFlag: CacheFlag) => void,
+    callback: (player: EntityPlayer, cacheFlag: CacheFlag) => void,
     cacheFlag?: CacheFlag,
   ];
   [ModCallbacks.MC_POST_PLAYER_INIT]: [
-    callback: (entityPlayer: EntityPlayer) => void,
+    callback: (player: EntityPlayer) => void,
     playerVariant?: PlayerVariant,
   ];
   [ModCallbacks.MC_USE_PILL]: [
@@ -52,7 +52,7 @@ interface CallbackParameters {
   ];
   [ModCallbacks.MC_INPUT_ACTION]: [
     callback: (
-      entityPlayer: EntityPlayer,
+      player: EntityPlayer,
       inputHook: InputHook,
       buttonAction: ButtonAction,
     ) => boolean | float | null,
@@ -101,185 +101,180 @@ interface CallbackParameters {
   ];
   [ModCallbacks.MC_PRE_FAMILIAR_COLLISION]: [
     callback: (
-      entityFamiliar: EntityFamiliar,
+      familiar: EntityFamiliar,
       collider: Entity,
       low: boolean,
     ) => boolean | null,
     familiarVariant?: FamiliarVariant | int,
   ];
   [ModCallbacks.MC_POST_NPC_INIT]: [
-    callback: (entityNPC: EntityNPC) => void,
+    callback: (npc: EntityNPC) => void,
     entityType?: EntityType | int,
   ];
   [ModCallbacks.MC_POST_NPC_RENDER]: [
-    callback: (entityNPC: EntityNPC, renderOffset: Vector) => void,
+    callback: (npc: EntityNPC, renderOffset: Vector) => void,
     entityType?: EntityType | int,
   ];
   [ModCallbacks.MC_POST_NPC_DEATH]: [
-    callback: (entityNPC: EntityNPC) => void,
+    callback: (npc: EntityNPC) => void,
     entityType?: EntityType | int,
   ];
   [ModCallbacks.MC_PRE_NPC_COLLISION]: [
     callback: (
-      entityNPC: EntityNPC,
+      npc: EntityNPC,
       collider: Entity,
       low: boolean,
     ) => boolean | null,
     entityType?: EntityType | int,
   ];
   [ModCallbacks.MC_POST_PLAYER_UPDATE]: [
-    callback: (entityPlayer: EntityPlayer) => void,
+    callback: (player: EntityPlayer) => void,
     playerVariant?: PlayerVariant,
   ];
   [ModCallbacks.MC_POST_PLAYER_RENDER]: [
-    callback: (entityPlayer: EntityPlayer, renderOffset: Vector) => void,
+    callback: (player: EntityPlayer, renderOffset: Vector) => void,
     playerVariant?: PlayerVariant,
   ];
   [ModCallbacks.MC_PRE_PLAYER_COLLISION]: [
     callback: (
-      entityPlayer: EntityPlayer,
+      player: EntityPlayer,
       collider: Entity,
       low: boolean,
     ) => boolean | null,
     playerVariant?: PlayerVariant,
   ];
   [ModCallbacks.MC_POST_PICKUP_INIT]: [
-    callback: (entityPickup: EntityPickup) => void,
+    callback: (pickup: EntityPickup) => void,
     pickupVariant?: PickupVariant | int,
   ];
   [ModCallbacks.MC_POST_PICKUP_UPDATE]: [
-    callback: (entityPickup: EntityPickup) => void,
+    callback: (pickup: EntityPickup) => void,
     pickupVariant?: PickupVariant | int,
   ];
   [ModCallbacks.MC_POST_PICKUP_RENDER]: [
-    callback: (entityPickup: EntityPickup, renderOffset: Vector) => void,
+    callback: (pickup: EntityPickup, renderOffset: Vector) => void,
     pickupVariant?: PickupVariant | int,
   ];
   [ModCallbacks.MC_POST_PICKUP_SELECTION]: [
     callback: (
-      entityPickup: EntityPickup,
+      pickup: EntityPickup,
       variant: PickupVariant | int,
       subType: int,
     ) => [PickupVariant | int, int] | null,
   ];
   [ModCallbacks.MC_PRE_PICKUP_COLLISION]: [
     callback: (
-      entityPickup: EntityPickup,
+      pickup: EntityPickup,
       collider: Entity,
       low: boolean,
     ) => boolean | null,
     pickupVariant?: PickupVariant | int,
   ];
   [ModCallbacks.MC_POST_TEAR_INIT]: [
-    callback: (entityTear: EntityTear) => void,
+    callback: (tear: EntityTear) => void,
     tearVariant?: TearVariant | int,
   ];
   [ModCallbacks.MC_POST_TEAR_UPDATE]: [
-    callback: (entityTear: EntityTear) => void,
+    callback: (tear: EntityTear) => void,
     tearVariant?: TearVariant | int,
   ];
   [ModCallbacks.MC_POST_TEAR_RENDER]: [
-    callback: (entityTear: EntityTear, renderOffset: Vector) => void,
+    callback: (tear: EntityTear, renderOffset: Vector) => void,
     tearVariant?: TearVariant | int,
   ];
   [ModCallbacks.MC_PRE_TEAR_COLLISION]: [
     callback: (
-      entityTear: EntityTear,
+      tear: EntityTear,
       collider: Entity,
       low: boolean,
     ) => boolean | null,
     tearVariant?: TearVariant | int,
   ];
   [ModCallbacks.MC_POST_PROJECTILE_INIT]: [
-    callback: (entityProjectile: EntityProjectile) => void,
+    callback: (projectile: EntityProjectile) => void,
     projectileVariant?: ProjectileVariant | int,
   ];
   [ModCallbacks.MC_POST_PROJECTILE_UPDATE]: [
-    callback: (entityProjectile: EntityProjectile) => void,
+    callback: (projectile: EntityProjectile) => void,
     projectileVariant?: ProjectileVariant | int,
   ];
   [ModCallbacks.MC_POST_PROJECTILE_RENDER]: [
-    callback: (
-      entityProjectile: EntityProjectile,
-      renderOffset: Vector,
-    ) => void,
+    callback: (projectile: EntityProjectile, renderOffset: Vector) => void,
     projectileVariant?: ProjectileVariant | int,
   ];
   [ModCallbacks.MC_PRE_PROJECTILE_COLLISION]: [
     callback: (
-      entityProjectile: EntityProjectile,
+      projectile: EntityProjectile,
       collider: Entity,
       low: boolean,
     ) => boolean | null,
     projectileVariant?: ProjectileVariant | int,
   ];
   [ModCallbacks.MC_POST_LASER_INIT]: [
-    callback: (entityLaser: EntityLaser) => void,
+    callback: (laser: EntityLaser) => void,
     laserVariant?: LaserVariant | int,
   ];
   [ModCallbacks.MC_POST_LASER_UPDATE]: [
-    callback: (entityLaser: EntityLaser) => void,
+    callback: (laser: EntityLaser) => void,
     laserVariant?: LaserVariant | int,
   ];
   [ModCallbacks.MC_POST_LASER_RENDER]: [
-    callback: (entityLaser: EntityLaser, renderOffset: Vector) => void,
+    callback: (laser: EntityLaser, renderOffset: Vector) => void,
     laserVariant?: LaserVariant | int,
   ];
   [ModCallbacks.MC_POST_KNIFE_INIT]: [
-    callback: (entityKnife: EntityKnife) => void,
+    callback: (knife: EntityKnife) => void,
     knifeSubType?: int,
   ];
   [ModCallbacks.MC_POST_KNIFE_UPDATE]: [
-    callback: (entityKnife: EntityKnife) => void,
+    callback: (knife: EntityKnife) => void,
     knifeSubType?: int,
   ];
   [ModCallbacks.MC_POST_KNIFE_RENDER]: [
-    callback: (entityKnife: EntityKnife, renderOffset: Vector) => void,
+    callback: (knife: EntityKnife, renderOffset: Vector) => void,
     knifeSubType?: int,
   ];
   [ModCallbacks.MC_PRE_KNIFE_COLLISION]: [
     callback: (
-      entityKnife: EntityKnife,
+      knife: EntityKnife,
       collider: Entity,
       low: boolean,
     ) => boolean | null,
     knifeSubType?: int,
   ];
   [ModCallbacks.MC_POST_EFFECT_INIT]: [
-    callback: (entityEffect: EntityEffect) => void,
+    callback: (effect: EntityEffect) => void,
     effectVariant?: EffectVariant | int,
   ];
   [ModCallbacks.MC_POST_EFFECT_UPDATE]: [
-    callback: (entityEffect: EntityEffect) => void,
+    callback: (effect: EntityEffect) => void,
     effectVariant?: EffectVariant | int,
   ];
   [ModCallbacks.MC_POST_EFFECT_RENDER]: [
-    callback: (entityEffect: EntityEffect, renderOffset: Vector) => void,
+    callback: (effect: EntityEffect, renderOffset: Vector) => void,
     effectVariant?: EffectVariant | int,
   ];
   [ModCallbacks.MC_POST_BOMB_INIT]: [
-    callback: (entityBomb: EntityBomb) => void,
+    callback: (bomb: EntityBomb) => void,
     bombVariant?: BombVariant | int,
   ];
   [ModCallbacks.MC_POST_BOMB_UPDATE]: [
-    callback: (entityBomb: EntityBomb) => void,
+    callback: (bomb: EntityBomb) => void,
     bombVariant?: BombVariant | int,
   ];
   [ModCallbacks.MC_POST_BOMB_RENDER]: [
-    callback: (entityBomb: EntityBomb, renderOffset: Vector) => void,
+    callback: (bomb: EntityBomb, renderOffset: Vector) => void,
     bombVariant?: BombVariant | int,
   ];
   [ModCallbacks.MC_PRE_BOMB_COLLISION]: [
     callback: (
-      entityBomb: EntityBomb,
+      bomb: EntityBomb,
       collider: Entity,
       low: boolean,
     ) => boolean | null,
     bombVariant?: BombVariant | int,
   ];
-  [ModCallbacks.MC_POST_FIRE_TEAR]: [
-    callback: (entityTear: EntityTear) => void,
-  ];
+  [ModCallbacks.MC_POST_FIRE_TEAR]: [callback: (tear: EntityTear) => void];
   [ModCallbacks.MC_PRE_GET_COLLECTIBLE]: [
     callback: (
       itemPoolType: ItemPoolType,
@@ -319,7 +314,7 @@ interface CallbackParameters {
     entityType?: EntityType | int,
   ];
   [ModCallbacks.MC_PRE_NPC_UPDATE]: [
-    callback: (entityNPC: EntityNPC) => boolean,
+    callback: (npc: EntityNPC) => boolean,
     entityType?: EntityType | int,
   ];
   [ModCallbacks.MC_PRE_SPAWN_CLEAN_AWARD]: [
