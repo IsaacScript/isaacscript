@@ -120,9 +120,9 @@ declare class Entity {
   EntityCollisionClass: EntityCollisionClass;
   CollisionDamage: float;
   readonly SpawnGridIndex: int;
-  Parent: Entity;
-  Child: Entity;
-  Target: Entity;
+  Parent: Entity | null;
+  Child: Entity | null;
+  Target: Entity | null;
   SpawnerEntity: Entity | null;
   readonly FrameCount: int;
   readonly InitSeed: int;
