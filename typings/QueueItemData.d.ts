@@ -1,5 +1,5 @@
 declare class QueueItemData {
-  Item: ItemConfigItem;
+  Item: ItemConfigItem | null;
   Charge: int;
   Touched: boolean;
 }
