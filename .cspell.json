@@ -1,0 +1,25 @@
+{
+    "version": "0.1",
+    "language": "en",
+    "dictionaries": [
+        "en_US"
+    ],
+    "words": [
+        "allusersprofile",
+        "bffs",
+        "brainer",
+        "choco",
+        "cinst",
+        "else's",
+        "eval",
+        "isaacscript",
+        "luamod",
+        "mkdir",
+        "modder",
+        "pcall",
+        "peffect",
+        "postplayerinit",
+        "transpiler",
+        "tstl"
+    ]
+}
