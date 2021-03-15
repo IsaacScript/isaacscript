@@ -107,7 +107,7 @@ declare class Entity {
   readonly PositionOffset: Readonly<Vector>;
   RenderZOffset: int;
   FlipX: boolean;
-  readonly SpriteOffset: Readonly<Vector>;
+  SpriteOffset: Vector;
   SpriteScale: Vector;
   SpriteRotation: float;
   SizeMulti: Vector;
