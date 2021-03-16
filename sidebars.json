@@ -5,6 +5,7 @@
         "getting-started",
         "directory-structure",
         "basic-javascript",
+        "gotchas",
         "function-signatures"
     ]
 }

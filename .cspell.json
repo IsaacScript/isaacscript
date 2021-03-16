@@ -20,6 +20,7 @@
         "peaceiris",
         "peffect",
         "postplayerinit",
+        "setmetatable",
         "transpiler",
         "tstl"
     ]
