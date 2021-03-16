@@ -30,13 +30,14 @@ const path_1 = __importDefault(require("path"));
 const update_notifier_1 = __importDefault(require("update-notifier"));
 const package_json_1 = __importDefault(require("../package.json"));
 const checkForWindowsTerminalBugs_1 = __importDefault(require("./checkForWindowsTerminalBugs"));
-const compileAndCopyMod_1 = __importDefault(require("./compileAndCopyMod"));
+const compileAndCopy = __importStar(require("./compileAndCopy"));
 const configFile = __importStar(require("./configFile"));
 const constants_1 = require("./constants");
 const copyWatcherMod_1 = __importDefault(require("./copyWatcherMod"));
 const getTSConfigInclude_1 = __importDefault(require("./getTSConfigInclude"));
 const notifyGame = __importStar(require("./notifyGame"));
 const parseArgs_1 = __importDefault(require("./parseArgs"));
+const publish = __importStar(require("./publish"));
 async function main() {
     // Validate the platform
     if (process.platform !== "win32") {
@@ -46,18 +47,24 @@ async function main() {
         process.exit(1);
     }
     // Get command line arguments
-    const copyOnly = parseArgs_1.default();
+    const argv = parseArgs_1.default();
     // ASCII banner
     console.log(chalk_1.default.green(figlet_1.default.textSync("IsaacScript")));
     // Check for a new version
     update_notifier_1.default({ pkg: package_json_1.default }).notify();
-    // Do some pre-flight checks
+    // Pre-flight checks
     await checkForWindowsTerminalBugs_1.default();
     const config = configFile.read();
     // The user might have specified a flag to only copy the mod and then exit
     // (as opposed to running forever)
-    if (copyOnly) {
-        compileAndCopyMod_1.default(constants_1.MOD_SOURCE_PATH, config.modTargetPath);
+    if (argv.copy === true) {
+        compileAndCopy.main(constants_1.MOD_SOURCE_PATH, config.modTargetPath);
+        process.exit(0);
+    }
+    // The user might want to publish a new version of the mod
+    if (argv.publish === true) {
+        const skip = argv.skip === true;
+        publish.main(constants_1.MOD_SOURCE_PATH, config.modTargetPath, skip);
         process.exit(0);
     }
     // Prepare the watcher mod

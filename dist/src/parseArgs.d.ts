@@ -1,1 +1,1 @@
-export default function parseArgs(): boolean;
+export default function parseArgs(): Record<string, unknown>;

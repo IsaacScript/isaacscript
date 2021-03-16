@@ -7,7 +7,7 @@ import path from "path";
 import updateNotifier from "update-notifier";
 import pkg from "../package.json";
 import checkForWindowsTerminalBugs from "./checkForWindowsTerminalBugs";
-import compileAndCopyMod from "./compileAndCopyMod";
+import * as compileAndCopy from "./compileAndCopy";
 import Config from "./Config";
 import * as configFile from "./configFile";
 import { CURRENT_DIRECTORY_NAME, CWD, MOD_SOURCE_PATH } from "./constants";
@@ -15,6 +15,7 @@ import copyWatcherMod from "./copyWatcherMod";
 import getTSConfigInclude from "./getTSConfigInclude";
 import * as notifyGame from "./notifyGame";
 import parseArgs from "./parseArgs";
+import * as publish from "./publish";
 
 async function main(): Promise<void> {
   // Validate the platform
@@ -32,7 +33,7 @@ async function main(): Promise<void> {
   }
 
   // Get command line arguments
-  const copyOnly = parseArgs();
+  const argv = parseArgs();
 
   // ASCII banner
   console.log(chalk.green(figlet.textSync("IsaacScript")));
@@ -40,14 +41,21 @@ async function main(): Promise<void> {
   // Check for a new version
   updateNotifier({ pkg }).notify();
 
-  // Do some pre-flight checks
+  // Pre-flight checks
   await checkForWindowsTerminalBugs();
   const config = configFile.read();
 
   // The user might have specified a flag to only copy the mod and then exit
   // (as opposed to running forever)
-  if (copyOnly) {
-    compileAndCopyMod(MOD_SOURCE_PATH, config.modTargetPath);
+  if (argv.copy === true) {
+    compileAndCopy.main(MOD_SOURCE_PATH, config.modTargetPath);
+    process.exit(0);
+  }
+
+  // The user might want to publish a new version of the mod
+  if (argv.publish === true) {
+    const skip = argv.skip === true;
+    publish.main(MOD_SOURCE_PATH, config.modTargetPath, skip);
     process.exit(0);
   }
 
