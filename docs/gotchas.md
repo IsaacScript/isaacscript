@@ -11,10 +11,12 @@ This page lists several "gotchas" - i.e. things that might be weird about IsaacS
 Due to [limitations in TypeScriptToLua](https://typescripttolua.github.io/docs/advanced/writing-declarations/#operator-overloads), operator overloads will not work directly. The workaround for this is to call the methods directly.
 
 ```lua
+-- Lua code
 local vector = Vector(1, 1) * 5 + 2
 ```
 
 ```typescript
+// TypeScript code
 const vector = Vector(1, 1).__mul(5).__add(2)
 ```
 

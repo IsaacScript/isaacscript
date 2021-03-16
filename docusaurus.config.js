@@ -1,7 +1,6 @@
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
     title: "IsaacScript",
-    // TODO: Remove
     tagline: "",
     url: "https://isaacscript.github.io",
     baseUrl: "/",
@@ -16,7 +15,7 @@ module.exports = {
             items: [
                 { to: "docs/features", label: "Docs", position: "left" },
                 { href: "https://discord.gg/isaac", label: "Discord", position: "right" },
-                { href: "https://github.com/IsaacScript/IsaacScript", label: "GitHub", position: "right" },
+                { href: "https://github.com/IsaacScript/isaacscript", label: "GitHub", position: "right" },
             ],
         },
         prism: {
@@ -31,7 +30,7 @@ module.exports = {
             {
                 docs: {
                     sidebarPath: require.resolve("./sidebars.json"),
-                    editUrl: "https://github.com/IsaacScript/IsaacScript.github.io/edit/source/",
+                    editUrl: "https://github.com/IsaacScript/isaacscript.github.io/edit/main/",
                 },
                 theme: {
                     customCss: require.resolve("./src/custom.scss"),
