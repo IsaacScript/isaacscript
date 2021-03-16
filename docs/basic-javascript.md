@@ -2,11 +2,9 @@
 title: Basic JavaScript/TypeScript
 ---
 
-If you have never programmed anything in JavaScript before, then it might be a good idea to follow a basic JavaScript tutorial before you start working on a mod. As they say, you have to learn to walk before you can learn to run. There are plenty of online resources out there - just use Google and find something you like. Teaching you all the ins and outs of JavaScript is beyond the scope of this article.
+This page shows off some of the differences between Lua and TypeScript. Below, you can compare Lua code side by side with the equivalent TypeScript code. For experienced coders, reading through this page will probably be enough to get you started.
 
-TypeScript is 99% the same as JavaScript. It is a "superset" language, meaning that TypeScript just adds some extra things on top of JavaScript.
-
-In general, JavaScript/TypeScript is pretty similar to Lua. I won't go over all of the differences, but here are some of the more important ones (in no particular order).
+With that said, this page isn't meant to cover everything about TypeScript. If you still have questions, we recommend reading the [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html) or just searching [Stack Overflow](https://stackoverflow.com/).
 
 <br />
 
