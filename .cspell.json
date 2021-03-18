@@ -5,16 +5,13 @@
         "en_US"
     ],
     "words": [
-        "backticks",
-        "chcp",
-        "chdir",
-        "figlet",
+        "gofmt",
+        "gofmt's",
         "isaacscript",
-        "mingw",
-        "plusplus",
-        "tstl",
-        "turnbull",
-        "zamiel",
+        "prettier's",
+        "rossum",
+        "rustfmt",
+        "tiamtowtdi",
         "zamiell"
     ]
 }
