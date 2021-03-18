@@ -51,6 +51,7 @@ declare global {
     function AddPillEffectToPool(pillEffect: PillEffect | int): PillColor | int;
     function GetRoomEntities(): Entity[];
     function GetChallenge(): Challenge | int;
+    function GetEntityTypeByName(entityName: string): EntityType | int;
     function GetEntityVariantByName(entityName: string): EntityVariantForAC;
     function GetItemIdByName(entityName: string): CollectibleType | int;
     function GetPlayerTypeByName(playerName: string): PlayerVariant | int;
