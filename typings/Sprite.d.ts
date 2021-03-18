@@ -41,8 +41,8 @@ declare class Sprite {
   GetTexel(samplePos: Vector, renderPos: Vector, alphaThreshold: float): Color;
   GetDefaultAnimation(): string;
 
-  readonly Offset: Readonly<Vector>;
-  readonly Scale: Readonly<Vector>;
+  Offset: Vector;
+  Scale: Vector;
   Rotation: float;
   Color: Color;
   FlipX: boolean;
