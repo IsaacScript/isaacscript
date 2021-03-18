@@ -38,6 +38,7 @@ function updateDeps() {
     "--packageFile",
     "package.json",
   ]);
+
   console.log("NPM dependencies updated successfully.");
 }
 
@@ -83,16 +84,21 @@ function getVersionFromPackageJSON() {
 
 function bumpVersionInPackageJSON(version: string): string {
   // Get the patch version (i.e. the third number)
-  const matches = version.match(/(\d+\.\d+\.)(\d+)/g);
-  if (!matches) {
+  const matches = /(\d+\.\d+\.)(\d+)/.exec(version);
+  if (matches === null) {
     console.error(`Failed to parse the version of: ${version}`);
     process.exit(1);
   }
 
   const versionPrefix = matches[1];
+  if (versionPrefix === undefined) {
+    console.error(`Failed to parse the first part of the version: ${version}`);
+    process.exit(1);
+  }
+
   const patchVersionString = matches[2];
-  if (versionPrefix === undefined || patchVersionString === undefined) {
-    console.error(`Failed to parse the version of: ${version}`);
+  if (patchVersionString === undefined) {
+    console.error(`Failed to parse the second part of the version: ${version}`);
     process.exit(1);
   }
 
@@ -112,6 +118,8 @@ function bumpVersionInPackageJSON(version: string): string {
   );
   file.write(PACKAGE_JSON_PATH, newPackageJSON);
 
+  console.log(`Bumped the version to: ${incrementedVersion}`);
+
   return incrementedVersion;
 }
 
@@ -122,6 +130,10 @@ function writeVersionToConstantsTS(version: string) {
     `const VERSION = "${version}"`,
   );
   file.write(CONSTANTS_TS_PATH, newConstantsTS);
+
+  console.log(
+    `The version of ${version} was written to the ${CONSTANTS_TS_PATH} file.`,
+  );
 }
 
 function writeVersionToMetadataXML(version: string) {
@@ -131,10 +143,18 @@ function writeVersionToMetadataXML(version: string) {
     `<version>${version}</version>`,
   );
   file.write(METADATA_XML_PATH, newMetadataXML);
+
+  console.log(
+    `The version of ${version} was written to the ${METADATA_XML_PATH} file.`,
+  );
 }
 
 function writeVersionToVersionTXT(version: string) {
   file.write(VERSION_TXT_PATH, version);
+
+  console.log(
+    `The version of ${version} was written to the ${VERSION_TXT_PATH} file.`,
+  );
 }
 
 function gitCommitIfChanges(version: string) {
@@ -153,12 +173,23 @@ function gitCommitIfChanges(version: string) {
     return;
   }
 
+  const commitMessage = `v${version}`;
   misc.execCommand("git", ["add", "-A"]);
-  misc.execCommand("git", ["commit", "-m", version]);
+  misc.execCommand("git", ["commit", "-m", commitMessage]);
   misc.execCommand("git", ["push"]);
+
+  console.log(
+    `Committed and pushed to the git repository with a message of: ${commitMessage}`,
+  );
 }
 
 function openModUploader(modTargetPath: string) {
+  console.log(
+    "Opening the mod uploader tool from Nicalis. Close it when you are finished uploading the mod...",
+  );
+
   misc.execScript(MOD_UPLOADER_PATH, modTargetPath);
   // (this will block until the user closes the mod uploader tool)
+
+  console.log("Mod uploader tool closed.");
 }

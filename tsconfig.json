@@ -19,6 +19,11 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
 
+    // "newLine" specifies the end of line sequence
+    // By default, it is "crlf" on Windows; we want to always use "lf" in order to match the code
+    // base and reduce the file size of the output
+    "newLine": "lf",
+
     // We need to import the "package.json" file to see what version we are running
     // By default, this is false
     "resolveJsonModule": true,
