@@ -6,14 +6,14 @@ local IsaacScriptWatcher = RegisterMod("IsaacScript Watcher", 1)
 
 -- Constants
 local MOD_NAME = "isaacscript-watcher"
-local FRAMES_BEFORE_FADE = 3 * 60 -- 3 seconds
+local FRAMES_BEFORE_TEXT_FADE = 3 * 60 -- 3 seconds
 
 -- Mod variables
 local saveData = {} -- An array of message objects
-local loadOnNextFrame = false
 local restartFrame = 0
 local messageArray = {}
 local frameOfLastMsg = 0
+local game = Game()
 local font = Font()
 font:Load("font/pftempestasevencondensed.fnt")
 
@@ -30,6 +30,11 @@ end
 
 -- ModCallbacks.MC_POST_RENDER (2)
 function IsaacScriptWatcher:PostRender()
+  -- Don't do anything while the gade is fading in to prevent crashes
+  if game:GetFrameCount() < 1 then
+    return
+  end
+
   IsaacScriptWatcher:RenderText()
   IsaacScriptWatcher:LoadSaveDat()
   IsaacScriptWatcher:CheckInput()
@@ -50,10 +55,10 @@ function IsaacScriptWatcher:RenderText()
   -- The text will slowly fade out
   local elapsedFrames = Isaac.GetFrameCount() - frameOfLastMsg
   local alpha
-  if elapsedFrames <= FRAMES_BEFORE_FADE then
+  if elapsedFrames <= FRAMES_BEFORE_TEXT_FADE then
     alpha = 1
   else
-    local fadeFrames = elapsedFrames - FRAMES_BEFORE_FADE
+    local fadeFrames = elapsedFrames - FRAMES_BEFORE_TEXT_FADE
     alpha = 1 - (0.02 * fadeFrames)
   end
   if alpha <= 0 then
@@ -97,7 +102,7 @@ function IsaacScriptWatcher:LoadSaveDat()
   local isaacFrameCount = Isaac.GetFrameCount()
 
   -- Read the "save.dat" file every third second, since file reads are expensive
-  if isaacFrameCount % 20 ~= 0 and not loadOnNextFrame then
+  if isaacFrameCount % 20 ~= 0 then
     return
   end
 
@@ -110,13 +115,12 @@ function IsaacScriptWatcher:LoadSaveDat()
   -- The server will write JSON data for us to the "save#.dat" file in the mod subdirectory
   if not pcall(IsaacScriptWatcher.Load) then
     -- Sometimes loading can fail if the file is currently being being written to,
-    -- so give up for now and try again on the next frame
+    -- so give up for now and try again on the next interval
     Isaac.DebugString(
       MOD_NAME
       .. " - Failed to load the TypeScript Watcher \"save.dat\" on frame: "
       .. tostring(isaacFrameCount)
     )
-    loadOnNextFrame = true
     return
   end
 
@@ -161,6 +165,7 @@ function IsaacScriptWatcher:Load()
 end
 
 function IsaacScriptWatcher:CheckInput()
+  -- Manually show the log when the user presses the "I" key on the keyboard
   if Input.IsButtonPressed(Keyboard.KEY_I, 0) then
     frameOfLastMsg = Isaac.GetFrameCount()
   end
