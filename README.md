@@ -32,19 +32,19 @@ ESLint is the industry standard tool for linting in JavaScript and TypeScript. A
 
 [Prettier](https://prettier.io/) was released in 2017 and it has quickly become very widespread. (It could probably be considered the industry standard in 2021, but I'm not sure.) Prettier works by completely rebuilding your code from scratch using the [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree), which allows it to make much better transformations than pure ESLint can.
 
-Because of the advantages of Prettier, we use it on top of the Airbnb config, and prefer Prettier's changes if there are any conflicts. Instead of running two different tools, we run Prettier inside of ESLint as a plugin with `[eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier)`. Then, any ESLint rules that conflict with prettier are turned off with `[eslint-config-prettier](https://github.com/prettier/eslint-config-prettier)`.
+Because of the advantages of Prettier, we use it on top of the Airbnb config, and prefer Prettier's changes if there are any conflicts. Instead of running two different tools, we run Prettier inside of ESLint as a plugin with [`eslint-plugin-prettier`](https://github.com/prettier/eslint-plugin-prettier). Then, any ESLint rules that conflict with prettier are turned off with [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier).
 
-Finally, some specific Airbnb rules are disabled, since they don't make much sense in IsaacScript projects. You can see the specific exclusions in the [index.js](https://github.com/IsaacScript/eslint-config-isaacscript/blob/main/index.js) file of the `[eslint-config-isaacscript](https://github.com/IsaacScript/eslint-config-isaacscript)` repository.
+Finally, some specific Airbnb rules are disabled, since they don't make much sense in IsaacScript projects. You can see the specific exclusions in the [index.js](https://github.com/IsaacScript/eslint-config-isaacscript/blob/main/index.js) file of the [`eslint-config-isaacscript`](https://github.com/IsaacScript/eslint-config-isaacscript) repository.
 
 <br />
 
 ## Package Documentation
 
-- `[eslint](https://github.com/eslint/eslint)` is used, as explained above.
-- `[eslint-config-isaacscript](https://github.com/IsaacScript/eslint-config-isaacscript)` contains the ESLint configuration.
-  - It uses `[eslint-config-airbnb-typescript](https://github.com/iamturns/eslint-config-airbnb-typescript)` as a base, which is the Airbnb ESLint config for TypeScript.
-- `eslint-config-airbnb-typescript` requires the `[eslint-plugin-import](https://github.com/benmosher/eslint-plugin-import)` and the `[@typescript-eslint/eslint-plugin](https://github.com/typescript-eslint/typescript-eslint)` packages to be installed. (They are peer dependencies and must be manually included.)
-- `[eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier)` is used, as explained above.
-- `[prettier-plugin-organize-imports](https://github.com/simonhaenisch/prettier-plugin-organize-imports)` is used because Prettier will not organize imports automatically.
+- [`eslint`](https://github.com/eslint/eslint) is used, as explained above.
+- [`eslint-config-isaacscript`](https://github.com/IsaacScript/eslint-config-isaacscript) contains the ESLint configuration.
+  - It uses [`eslint-config-airbnb-typescript`](https://github.com/iamturns/eslint-config-airbnb-typescript) as a base, which is the Airbnb ESLint config for TypeScript.
+- `eslint-config-airbnb-typescript` requires the [`eslint-plugin-import`](https://github.com/benmosher/eslint-plugin-import) and the [`@typescript-eslint/eslint-plugin`](https://github.com/typescript-eslint/typescript-eslint) packages to be installed. (They are peer dependencies and must be manually included.)
+- [`eslint-plugin-prettier`](https://github.com/prettier/eslint-plugin-prettier) is used, as explained above.
+- [`prettier-plugin-organize-imports`](https://github.com/simonhaenisch/prettier-plugin-organize-imports) is used because Prettier will not organize imports automatically.
 
 <br />
