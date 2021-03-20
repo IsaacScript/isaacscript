@@ -12,7 +12,7 @@ declare class EntityLaser extends Entity {
   // GetSamples(): Readonly<HomingLaserSampleList>; // HomingLaser is not implemented
   // GetNonOptimizedSamples(): Readonly<HomingLaserSampleList>; // HomingLaser is not implemented
   SetOneHit(value: boolean): void;
-  // SetHomingType(laserHomingType: LaserHomingType): void; // LaserHomingType  is not implemented
+  // SetHomingType(laserHomingType: LaserHomingType): void; // LaserHomingType is not implemented
   SetMaxDistance(distance: float): void;
   IsCircleLaser(): boolean;
   SetBlackHpDropChance(chance: float): void;
