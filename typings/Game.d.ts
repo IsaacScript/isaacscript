@@ -70,7 +70,7 @@ declare class Game {
   GetFont(): Font;
   GetLevel(): Level;
   GetRoom(): Room;
-  GetPlayer(index: int): EntityPlayer;
+  GetPlayer(index: int): EntityPlayer | null;
   GetNearestPlayer(position: Vector): EntityPlayer;
   GetRandomPlayer(position: Vector, radius: float): EntityPlayer;
   GetNumPlayers(): int;

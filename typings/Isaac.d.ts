@@ -4,7 +4,7 @@ declare global {
   /** @noSelf */
   namespace Isaac {
     function DebugString(msg: string): Mod;
-    function GetPlayer(playerID: int): EntityPlayer;
+    function GetPlayer(playerID: int): EntityPlayer | null;
     function GetFrameCount(): int;
     function Spawn(
       entityType: EntityType | int,
