@@ -34,7 +34,7 @@ Historically, the the most popular style guide is the world is the [Airbnb JavaS
 
 ESLint is the industry standard tool for linting in JavaScript and TypeScript. Airbnb helpfully provides an ESLint configuration with most of their style recommendations. ESLint can function in a way similar to `gofmt` by configuring your text editor to do `eslint --fix` on save. However, this has a lot of limitations. It can't automatically fix everything and leaves a lot up to the end user to fix.
 
-[Prettier](https://prettier.io/) was released in 2017 and it has quickly become very widespread. (It could probably be considered the industry standard in 2021, but I'm not sure.) Prettier works by completely rebuilding your code from scratch using the [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree), which allows it to make much better transformations than pure ESLint can.
+[Prettier](https://prettier.io/) was released in 2017 and it has quickly become very widespread. (It could *probably* also be considered to be industry standard in 2021.) Prettier works by completely rebuilding your code from scratch using the [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree), which allows it to make much better transformations than pure ESLint can.
 
 Because of the advantages of Prettier, we use it on top of the Airbnb config, and prefer Prettier's changes if there are any conflicts. Instead of running two different tools, we run Prettier inside of ESLint as a plugin with [`eslint-plugin-prettier`](https://github.com/prettier/eslint-plugin-prettier). Then, any ESLint rules that conflict with prettier are turned off with [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier).
 
