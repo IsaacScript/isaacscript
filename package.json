@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-isaacscript",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "an ESLint config for IsaacScript projects",
   "repository": {
     "type": "git",
