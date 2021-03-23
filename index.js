@@ -74,7 +74,7 @@ module.exports = {
     // Documentation:
     // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/quotes.md
     // Defined at:
-    // https://github.com/prettier/eslint-config-prettier/blob/master/%40typescript-eslint.js
+    // https://github.com/prettier/eslint-config-prettier/blob/main/%40typescript-eslint.js
     // In order to forbid unnecessary backticks, we must re-enable the "@typescript-eslint/quotes"
     // rule as specified in the eslint-config-prettier documentation:
     // https://github.com/prettier/eslint-config-prettier#enforce-backticks
@@ -83,6 +83,13 @@ module.exports = {
       "double",
       { avoidEscape: true, allowTemplateLiterals: false },
     ],
+
+    // Documentation:
+    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/restrict-template-expressions.md
+    // Defined at:
+    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/src/configs/recommended-requiring-type-checking.ts
+    // This rule disallows booleans in template expressions, which transpile just fine to Lua
+    "@typescript-eslint/restrict-template-expressions": "off",
 
     // Documentation:
     // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/triple-slash-reference.md
