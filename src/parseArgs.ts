@@ -17,7 +17,9 @@ export default function parseArgs(): Record<string, unknown> {
 
     .boolean("skip")
     .alias("s", "skip")
-    .describe("s", "if publishing, skip incrementing the version number").argv;
+    .describe("s", "if publishing, skip incrementing the version number")
+
+    .argv; // prettier-ignore
 
   return argv;
 }
