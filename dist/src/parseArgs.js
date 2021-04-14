@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const yargs_1 = __importDefault(require("yargs"));
 function parseArgs() {
-    const argv = yargs_1.default(process.argv.slice(2))
+    const yargsObject = yargs_1.default(process.argv.slice(2))
         .strict()
         .alias("h", "help") // By default, only "--help" is enabled
         .alias("v", "version") // By default, only "--version" is enabled
@@ -17,7 +17,7 @@ function parseArgs() {
         .describe("p", "bump the version number & launch the Nicalis mod uploader")
         .boolean("skip")
         .alias("s", "skip")
-        .describe("s", "if publishing, skip incrementing the version number").argv;
-    return argv;
+        .describe("s", "if publishing, skip incrementing the version number");
+    return yargsObject.argv;
 }
 exports.default = parseArgs;
