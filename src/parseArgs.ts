@@ -1,7 +1,7 @@
 import yargs from "yargs";
 
 export default function parseArgs(): Record<string, unknown> {
-  const argv = yargs(process.argv.slice(2))
+  const yargsObject = yargs(process.argv.slice(2))
     .strict()
 
     .alias("h", "help") // By default, only "--help" is enabled
@@ -17,9 +17,7 @@ export default function parseArgs(): Record<string, unknown> {
 
     .boolean("skip")
     .alias("s", "skip")
-    .describe("s", "if publishing, skip incrementing the version number")
+    .describe("s", "if publishing, skip incrementing the version number");
 
-    .argv; // prettier-ignore
-
-  return argv;
+  return yargsObject.argv;
 }
