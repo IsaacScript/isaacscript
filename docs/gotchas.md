@@ -37,11 +37,62 @@ vector = vector.__add(Vector(1, 1));
 
 <br />
 
+### Using JSON
+
+In the Binding of Isaac, mods are allowed to write save data to the "save1.dat", "save2.dat", and "save3.dat" files (for save slot 1, save slot 2, and save slot 3 respectively). This is accomplished via the `Isaac.SaveModData()` function.
+
+Any non-trivial mod will need to save many different variables. Since the `Isaac.SaveModData()` function takes a string instead of a Lua table, it is standard practice to convert a Lua table to a string using JSON. Lua functions to accomplish this are provided with the game in the `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\resources\scripts\json.lua` file. All you have to do is require the file:
+
+```lua
+-- Lua code
+local json = require("json")
+
+-- Register the mod
+local Revelations = RegisterMod("Revelations", 1)
+
+-- Define default values for the save data
+local RevelationsSaveData = {
+  currentHP = 3,
+  currentNumFamiliars = 4,
+  currentCharge = 10,
+}
+
+local function saveModData()
+  local encodedData = json.encode(RevelationsSaveData)
+  Isaac.SaveModData(Revelations, encodedData)
+end
+```
+
+In TypeScript, we can directly call the Lua code in the same way. Note that IsaacScript automatically includes type definitions for the `json.lua` file, so you don't have to worry about that part.
+
+```typescript
+// TypeScript code
+import * as json from "json";
+
+// Register the mod
+const Revelations = RegisterMod("Revelations", 1);
+
+// Define default values for the save data
+const RevelationsSaveData = {
+  currentHP = 3,
+  currentNumFamiliars = 4,
+  currentCharge = 10,
+}
+
+function saveModData() {
+  const encodedData = json.encode(RevelationsSaveData)
+  Isaac.SaveModData(Revelations, encodedData)
+}
+```
+
+<br />
+
 ### No Blank Mod Classes
 
 You cannot instantiate a blank mod object/class:
 
 ```typescript
+// TypeScript code
 const Revelations = RegisterMod("Revelations", 1) // "Revelations" has the type "Mod"
 
 class Foo {
@@ -64,6 +115,7 @@ function __TS__New(target, ...)
 Instead, do something like the following:
 
 ```typescript
+// TypeScript code
 const Revelations = RegisterMod("Revelations", 1) // "Revelations" has the type "Mod"
 
 class Foo {

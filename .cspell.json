@@ -27,6 +27,7 @@
         "postplayerinit",
         "retext",
         "setmetatable",
+        "steamapps",
         "transpiler",
         "tstl"
     ]
