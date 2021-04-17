@@ -2,9 +2,15 @@
 title: Getting Started
 ---
 
-`isaacscript` is currently only supported on Windows, although that may change in the future.
+`isaacscript` is currently only supported on Windows.
+
+Choose one:
+- [Instructions for Beginners](#instructions-for-beginners) (detailed)
+- [Instructions for Experts](#instructions-for-experts) (summary)
 
 <br />
+
+## Instructions for Beginners
 
 ### 1) Open a Command Prompt
 
@@ -20,11 +26,11 @@ Open a [Command Prompt as an administrator](https://www.howtogeek.com/194041/how
 @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
 ```
 
-(Installing Chocolatey is optional, but it makes everything easier. Everyone should probably have Chocolatey installed on their computer.)
+(Installing Chocolatey is optional, but it makes everything easier. It is the defacto way to automatically install programs, so everyone should probably have Chocolatey installed on their computer.)
 
 <br />
 
-### 3) Install NodeJS
+### 3) Install Node.js
 
 In order to program in TypeScript, we need [Node.js](https://nodejs.org/en/), a JavaScript runtime. If you don't have it installed already, install it by pasting in the following command:
 
@@ -128,50 +134,22 @@ The program will run forever, monitoring for changes in your project. (If you wa
 
 <br />
 
-### 11) Tutorial: Confirm That Auto-Mod-Reloading Works
+### 11) Start Coding
 
-The moment that you save a TypeScript file, `isaacscript` will detect that something has changed, and it will automatically perform the following steps:
-
-- `isaacscript` will re-compile your TypeScript project using `tstl`, the TypeScriptToLua tool.
-- `tstl` will spit out a file called `main.lua` in your project's `mod` folder. (e.g. `C:\Repositories\revelations\mod\main.lua`)
-- `isaacscript` will copy this file to the `Binding of Isaac Afterbirth+ Mods` directory. (e.g. `C:\Users\[YourUsername]\Documents\My Games\Binding of Isaac Afterbirth+ Mods\revelations\main.lua`)
-- If you have the game open and are in a run, `isaacscript` will then send a message to a helper mod called `isaacscript-watcher`.
-- `isaacscript-watcher` will run the `luamod` console command corresponding to your project. (e.g. `luamod revelations`)
-- After the `luamod` command is executed, your mod has been reloaded - it is now ready to test!
-- If compilation failed for any reason, then you will be able to see the errors on both the `isaacscript` console window and in-game. (The `isaacscript-watcher` mod will draw it on the screen for you.)
-
-Note that `isaacscript` will automatically install the `isaacscript-watcher` helper mod for you, so you don't have to do anything. Just test to see that it works:
-
-1. Make sure that `isaacscript` is running in a shell.
-1. In-game, go into a run.
-1. In VSCode, add something new to your `main.ts` file, like:
-
-```typescript
-Isaac.ConsoleOutput("hello world");
-```
-
-1. Save the file in VSCode.
-1. In game, press <code>`</code> to open the console and see if the new message is there.
+That's it! Now, start coding by editing the `src/main.ts` file.
 
 <br />
 
-### 12) Tutorial: Confirm That File Cloning Works
+## Instructions for Experts
 
-`isaacscript` will automatically sync the contents of the `mod` directory in your project to the corresponding folder in `Binding of Isaac Afterbirth+ Mods`.
+- Install [Node.js](https://nodejs.org/en/).
+- Create a directory for your new mod project.
+- In a shell, navigate to the directory.
+- Invoke the helper program to bootstrap the installation of TypeScript, the Isaac API definitions, and so forth:
+  - `npx create-isaacscript-mod`
+- Invoke `isaacscript`, which will run forever, monitoring for changes in your project:
+  - `npx isaacscript`
+- Start coding by editing the `src/main.ts` file.
+  - I recommend using [Visual Studio Code](https://code.visualstudio.com/) as the text editor / IDE to write TypeScript with.
 
-For example:
-- Say that you have a project directory of: `C:\Repositories\revelations\`
-- Then, inside your project mod folder, you make some new subdirectories: `C:\Repositories\revelations\mod\resources\gfx\items\collectibles\`
-  - (This is the directory that you are supposed to put graphics files in for new, modded items.)
-- Next, you put a new file in that directory: `C:\Repositories\revelations\mod\resources\gfx\items\collectibles\collectibles_new_item.png`
-- Now, `isaacscript` automatically copies the `collectibles_new_item.png` file to: `C:\Users\[YourUsername]\Documents\My Games\Binding of Isaac Afterbirth+ Mods\revelations\resources\gfx\items\collectibles\collectibles_new_item.png`
-
-For now, just put something in your mod folder and confirm that `isaacscript` copies it over for you!
-
-<br />
-
-### 13) Start Coding
-
-That's it! Now, start coding.
-
-See the next page for the basic anatomy of a project directory.
+See the next page for a short demonstration of what the IsaacScript program is doing in the background.

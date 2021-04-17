@@ -2,7 +2,7 @@
 title: Gotchas
 ---
 
-This page lists several "gotchas" - i.e. things that might be weird about IsaacScript.
+This page lists several "gotchas" or things that might be weird about IsaacScript.
 
 <br />
 
@@ -39,7 +39,7 @@ vector = vector.__add(Vector(1, 1));
 
 ### Using JSON
 
-In the Binding of Isaac, mods are allowed to write save data to the "save1.dat", "save2.dat", and "save3.dat" files (for save slot 1, save slot 2, and save slot 3 respectively). This is accomplished via the `Isaac.SaveModData()` function.
+Isaac mods are allowed to write save data to the "save1.dat", "save2.dat", and "save3.dat" files (for save slot 1, save slot 2, and save slot 3 respectively). This is accomplished via the `Isaac.SaveModData()` function.
 
 Any non-trivial mod will need to save many different variables. Since the `Isaac.SaveModData()` function takes a string instead of a Lua table, it is standard practice to convert a Lua table to a string using JSON. Lua functions to accomplish this are provided with the game in the `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\resources\scripts\json.lua` file. All you have to do is require the file:
 
@@ -84,6 +84,14 @@ function saveModData() {
   Isaac.SaveModData(Revelations, encodedData)
 }
 ```
+
+<br />
+
+### NPM Dependencies
+
+Currently, TypeScriptToLua does not support installing dependencies from NPM. See [this issue](https://github.com/TypeScriptToLua/TypeScriptToLua/issues/432), which should hopefully be resolved soon. This means that it will be cumbersome to write Isaac-specific libraries for people to use.
+
+In the meantime, the `create-isaacscript-mod` tool manually bundles [some initialization code](https://github.com/IsaacScript/create-isaacscript-mod/blob/main/templates/static/isaacScriptInit.ts) in all new projects.
 
 <br />
 
