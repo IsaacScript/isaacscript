@@ -50,7 +50,7 @@ Leave it in place and ignore it.
 More info:
 
 - `node_modules` is generated when you type `npm install` in a directory with a `package.json` file in it.
-- `create-isaacscript-mod` automatically creates a `package.json` file for you and does an `npm install` when you start a new project.`
+- `create-isaacscript-mod` automatically creates a `package.json` file for you and does an `npm install` when you start a new project.
 - This directory will contain a lot of files and is usually 150+ megabytes in size.
 - `node_modules` are always excluded from being tracked in a Git repository.
   - There will already be an entry for `node_modules` in the `.gitignore` file installed by `isaacscript`.

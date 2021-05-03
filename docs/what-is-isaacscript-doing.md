@@ -45,7 +45,7 @@ Isaac.ConsoleOutput("hello world");
 For example:
 - Say that you have a project directory of: `C:\Repositories\revelations\`
 - Then, inside your project mod folder, you make some new subdirectories: `C:\Repositories\revelations\mod\resources\gfx\items\collectibles\`
-  - (This is the directory that you are supposed to put graphics files in for new, modded items.)
+  - (This is the directory that you are supposed to put graphics files in for new modded items.)
 - Next, you put a new file in that directory: `C:\Repositories\revelations\mod\resources\gfx\items\collectibles\collectibles_new_item.png`
 - Now, `isaacscript` automatically copies the `collectibles_new_item.png` file to: `C:\Users\[YourUsername]\Documents\My Games\Binding of Isaac Afterbirth+ Mods\revelations\resources\gfx\items\collectibles\collectibles_new_item.png`
 
