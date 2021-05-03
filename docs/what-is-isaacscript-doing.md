@@ -5,7 +5,7 @@ title: What is IsaacScript Doing?
 The `isaacscript` program will run forever, monitoring for changes in your project. In summary, it will:
 
 1. automatically recompile your TypeScript and refresh your mod in-game
-2. automatically copy over any files in the `mod` directory
+1. automatically copy over any files in the `mod` directory
 
 As a new user, confirm that each of these functions are working so that you can get familiar with the program.
 
