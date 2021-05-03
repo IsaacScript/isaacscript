@@ -2,9 +2,9 @@
 title: Basic JavaScript/TypeScript
 ---
 
-This page shows off some of the differences between Lua and TypeScript. Below, you can compare Lua code side by side with the equivalent TypeScript code. For experienced coders, reading through this page will probably be enough to get you started.
+This page shows off some of the differences between Lua and TypeScript. Below, you can compare Lua code side by side with the equivalent TypeScript code. If you have coded a mod in Lua before, reading through this page will probably be enough to get you started.
 
-With that said, this page isn't meant to cover everything about TypeScript. If you still have questions, we recommend reading the [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html) or just searching [Stack Overflow](https://stackoverflow.com/).
+With that said, this page isn't meant to cover *everything* about TypeScript. If you still have questions, we recommend reading the [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html), searching [Stack Overflow](https://stackoverflow.com/), or asking for help in [the Isaac Discord](https://discord.gg/isaac).
 
 <br />
 
