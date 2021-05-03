@@ -118,7 +118,7 @@ If you don't have VSCode open already, then launch it from the start menu.
 
 Once open, select `File` --> `Open Folder`, and open your project directory.
 
-Finally, start by opening up the main file for your project, which is located at `src/main.ts`.
+Finally, in the left file explorer pane, double click on the `src/main.ts` file to open it. This is the main file for your mod, which includes some "hello world" style code.
 
 <br />
 
