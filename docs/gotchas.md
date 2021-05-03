@@ -6,6 +6,81 @@ This page lists several "gotchas" or things that might be weird about IsaacScrip
 
 <br />
 
+### Extending Enums --> Custom Enums
+
+In your Lua mods, you may have extended the game's built-in enums. For example:
+
+```lua
+-- At the top of your Lua mod:
+CollectibleType.COLLECTIBLE_MY_CUSTOM_ITEM = Isaac.GetItemIdByName("My Custom Item")
+
+-- Elsewhere in the code:
+if (
+  player:HasCollectible(CollectibleType.COLLECTIBLE_MY_CUSTOM_ITEM)
+  and player:HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS)
+) then
+  -- Handle the specific synergy with My Custom Item + Epic Fetus
+end
+```
+
+In TypeScript, you cannot extend existing enums for safety reasons. Instead, create your own enum:
+
+```typescript
+// At the top of your TypeScript mod:
+enum CollectibleTypeCustom {
+  COLLECTIBLE_MY_CUSTOM_ITEM = Isaac.GetItemIdByName("My Custom Item")
+}
+
+// Elsewhere in the code:
+if (
+  player.HasCollectible(CollectibleTypeCustom.COLLECTIBLE_MY_CUSTOM_ITEM)
+  && player.HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS)
+) {
+  // Handle the specific synergy with My Custom Item + Epic Fetus
+}
+```
+
+Note that you don't have to worry about polluting the global namespace: due to how the transpiler works, your enum will be local to your own project.
+
+<br />
+
+### `int` and `float`
+
+In Lua, there is only one type of number. (The programming language doesn't differentiate between integers, floats, etc.)
+
+TypeScript works the same way as Lua. There is only one kind of number type: `number`.
+
+However, the official Isaac API documentation uses integers and floats. For example, this is the entry for the `EntityPlayer:AddCollectible()` function:
+
+```c++
+AddCollectible (CollectibleType Type, integer Charge, boolean AddConsumables)
+```
+
+In order to more closely match the API, the TypeScript API definitions use `int` and `float` types. Thus, the above function is declared like this:
+
+```typescript
+AddCollectible(collectibleType: int, charge: int, addConsumables: boolean): void;
+```
+
+If you want, you can use the `int` and `float` types in your own code too (instead of just using `number`, like you would in other typical TypeScript code). But if you do use `int` and `float`, be aware that they are simply aliases for `number`, so they don't provide any actual type safety.
+
+In other words, it is possible to do this, so beware:
+
+```typescript
+// Give the player a Sad Onion
+player.AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false)
+
+// Find out how many Sad Onions they have
+let numSadOnions = player.GetCollectibleNum(CollectibleType.COLLECTIBLE_SAD_ONION)
+// numSadOnions is now an "int" with a value of "1"
+
+numSadOnions += 0.5
+// numSadOnions is still an "int", but now it has a value of "1.5"
+// This is a bug and TypeScript won't catch this for you!
+```
+
+<br />
+
 ### No Operator Overloading / Vector Addition
 
 Due to [limitations in TypeScriptToLua](https://typescripttolua.github.io/docs/advanced/writing-declarations/#operator-overloads), operator overloads will not work directly. The workaround for this is to call the methods directly.

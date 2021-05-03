@@ -8,6 +8,10 @@ With that said, this page isn't meant to cover everything about TypeScript. If y
 
 <br />
 
+## Level 1 - Basic
+
+<br />
+
 ### Comments
 
 ```lua
@@ -38,9 +42,21 @@ And wordy.
 
 ### Semi-Colons
 
-Unlike Lua, TypeScript code should have semi-colons after every line. But don't bother typing them yourself - just hit `Ctrl + s` and the editor will automatically insert them for you. That's [Prettier](https://prettier.io/) doing its job.
+Unlike Lua, TypeScript code should have semi-colons after every line.
 
-(In fact, you should always hit `Ctrl + s` periodically as you code, so that the code is constantly formatting itself. This saves you the tedium of aligning things, breaking up long if statements, and so forth. If the file is not auto-formatting itself, then you probably need to add a bracket somewhere so that the code can properly compile.)
+```lua
+-- Lua code
+Isaac.DebugString("hello world")
+```
+
+```typescript
+// TypeScript code
+Isaac.DebugString("hello world");
+```
+
+But don't bother typing the semi-colons yourself - just hit `Ctrl + s` and the editor will automatically insert them for you. That's [Prettier](https://prettier.io/) doing its job.
+
+(In fact, you should always hit `Ctrl + s` periodically as you code, so that the code is constantly formatting itself. This frees you from the tedium of aligning things, breaking up long if statements, and so forth. If the file is not auto-formatting itself, then you probably need to add a bracket somewhere so that the code can properly compile.)
 
 <br />
 
@@ -52,21 +68,21 @@ In TypeScript, you just call everything with a period. Easy.
 
 ```lua
 -- Lua code
-Isaac.ConsoleOutput("hello world")
+Isaac.DebugString("hello world")
 Game():GetPlayer(0):AddMaxHearts(2)
 ```
 
 ```typescript
 // TypeScript code
-// This line is the exact same thing as in Lua (not counting the semi-colon)
-Isaac.ConsoleOutput("hello world");
+// This line is the same thing as in Lua
+Isaac.DebugString("hello world");
 // This line is also the same thing, but with periods instead of colons
 Game().GetPlayer(0).AddMaxHearts(2);
 ```
 
 <br />
 
-### `if` statements
+### `if` Statements and Operators
 
 In TypeScript, you have to put parentheses around the conditions of an if statement.
 
@@ -185,7 +201,7 @@ const Revelations = RegisterMod("Revelations", 1);
 // The "isaac-typescript-definitions" package is automatically imported in any
 // IsaacScript project
 function PostPlayerInit(player: EntityPlayer) {
-  // Now, TypeScript has full knowledge of all the legal methods for "player"
+  // Now, TypeScript has knowledge of all the legal methods for "player"
   // Our editor can now tab-complete everything
   // And if we make a typo on "AddCollectible",
   // the editor will immediately tell us
@@ -197,78 +213,7 @@ Revelations.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, PostPlayerInit);
 
 <br />
 
-### `int` and `float`
-
-In Lua, there is only one type of number. (The programming language doesn't differentiate between integers, floats, etc.)
-
-TypeScript works the same way as Lua. There is only one kind of number type: `number`.
-
-However, the official Isaac API documentation uses integers and floats. For example, this is the entry for the `EntityPlayer:AddCollectible()` function:
-
-```c++
-AddCollectible (CollectibleType Type, integer Charge, boolean AddConsumables)
-```
-
-In order to more closely match the API, the TypeScript API definitions use `int` and `float` types. Thus, the above function is declared like this:
-
-```typescript
-AddCollectible(collectibleType: int, charge: int, addConsumables: boolean): void;
-```
-
-If you want, you can use the `int` and `float` types in your own code too (instead of just using `number`, like you would in other typical TypeScript code). But if you do use `int` and `float`, be aware that they are simply aliases for `number`, so they don't provide any actual type safety.
-
-In other words, it is possible to do this, so beware:
-
-```typescript
-// Give the player a Sad Onion
-player.AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false)
-
-// Find out how many Sad Onions they have
-let numSadOnions = player.GetCollectibleNum(CollectibleType.COLLECTIBLE_SAD_ONION)
-// numSadOnions is now an "int" with a value of "1"
-
-numSadOnions += 0.5
-// numSadOnions is still an "int", but now it has a value of "1.5"
-// This is a bug and TypeScript won't catch this for you!
-```
-
-<br />
-
-### Extending Enums --> Custom Enums
-
-In your Lua mods, you may have extended the game's built-in enums. For example:
-
-```lua
--- At the top of your Lua mod:
-CollectibleType.COLLECTIBLE_MY_CUSTOM_ITEM = Isaac.GetItemIdByName("My Custom Item")
-
--- Elsewhere in the code:
-if (
-  player:HasCollectible(CollectibleType.COLLECTIBLE_MY_CUSTOM_ITEM)
-  and player:HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS)
-) then
-  -- Handle the specific synergy with My Custom Item + Epic Fetus
-end
-```
-
-In TypeScript, you cannot extend existing enums for safety reasons. Instead, create your own enum:
-
-```typescript
-// At the top of your TypeScript mod:
-enum CollectibleTypeCustom {
-  COLLECTIBLE_MY_CUSTOM_ITEM = Isaac.GetItemIdByName("My Custom Item")
-}
-
-// Elsewhere in the code:
-if (
-  player.HasCollectible(CollectibleTypeCustom.COLLECTIBLE_MY_CUSTOM_ITEM)
-  && player.HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS)
-) {
-  // Handle the specific synergy with My Custom Item + Epic Fetus
-}
-```
-
-Note that you don't have to worry about polluting the global namespace: due to how the transpiler works, your enum will be local to your own project.
+## Level 2 - Advanced
 
 <br />
 
@@ -316,7 +261,7 @@ export function Main(player: EntityPlayer) {
 
 <br />
 
-### Importing Other Global Variables
+### Importing Global Variables
 
 Sometimes, your mod might need to use a global variable exported by someone else's mod. For example, maybe you need to use the `InfinityTrueCoopInterface` global variable from the True Co-op Mod.
 
