@@ -16,6 +16,7 @@
         "else's",
         "eval",
         "fengari",
+        "ipairs",
         "isaacscript",
         "isaactearsiconfull",
         "luamod",
@@ -28,6 +29,7 @@
         "retext",
         "setmetatable",
         "steamapps",
+        "tostring",
         "transpiler",
         "tstl"
     ]

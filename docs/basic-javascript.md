@@ -82,6 +82,74 @@ Game().GetPlayer(0).AddMaxHearts(2);
 
 <br />
 
+### Variables: `local` --> `const` and `let`
+
+In Lua, you generally type `local` before declaring a variable to stop it from being turned into a global.
+
+In TypeScript, this isn't necessary. There are no globals variables, unless we explicitly create one.
+
+Furthermore, in TypeScript, there are two kinds of variable declarations: `let` and `const`.<br />
+(Don't ever use `var`, which is only used in older JavaScript code.)
+
+```lua
+-- Lua code
+local poop = "poop"
+local numFarts = 1
+numFarts = numFarts + 1 -- numFarts is now equal to 2
+```
+
+```typescript
+// TypeScript code
+const poop = "poop"; // We use "const" because this value never changes
+let numFarts = 1; // We use "let" because we have to modify it later
+numFarts = numFarts + 1 // numFarts is now equal to 2
+```
+
+<br />
+
+### Functions
+
+```lua
+-- Lua code
+function getNumPoops() -- This is a global function
+  return 2
+end
+
+local function getNumFarts() -- This is a local function
+  return 3
+end
+```
+
+```typescript
+// TypeScript code
+function getNumPoops() { // All functions in TypeScript are local by default
+  return 2;
+}
+```
+
+### Anonymous Functions
+
+For very small functions, it is common to type them as anonymous functions.
+
+```lua
+-- Lua code
+Revelations:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
+  Isaac.DebugString("Arrived on a new floor.")
+end);
+```
+
+```typescript
+// Typescript code
+Revelations.AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, () => {
+  Isaac.DebugString("Arrived on a new floor.");
+});
+// (If this syntax looks confusing,
+// google "JavaScript arrow functions" to start to get familiar with them.
+// But of course, you don't have to use arrow functions if you don't want to.)
+```
+
+<br />
+
 ### `if` Statements and Operators
 
 In TypeScript, you have to put parentheses around the conditions of an if statement.
@@ -112,6 +180,46 @@ if (x === 1 && y !== 0) {
 
 <br />
 
+### `for` Statements
+
+```lua
+-- Lua code
+local gapers = Isaac.FindByType(EntityType.ENTITY_GAPER, -1, -1, false, false)
+
+-- The typical way to iterate over an array is with "ipairs"
+-- Here, the "i" variable is unused
+for i, gaper in ipairs(gapers) do
+  gaper:Remove()
+end
+```
+
+```typescript
+// Typescript code
+const gapers = Isaac.FindByType(EntityType.ENTITY_GAPER, -1, -1, false, false)
+
+// A "for of" loop is the simplest way to iterate over an array
+for (const gaper of gapers) {
+  gaper.Remove();
+}
+
+// Or, you could use the "entries" method if you needed the index number
+for (const [i, gaper] of gapers.entries()) {
+  gaper.Remove();
+}
+
+// For experienced coders, using the "forEach" method is recommended over a "for of" loop
+gapers.forEach((gaper) => {
+  gaper.Remove();
+})
+
+// Or, if you need the index number, change it to use two arguments
+gapers.forEach((gaper, i) => {
+  gaper.Remove();
+})
+```
+
+<br />
+
 ### `nil` --> `null`
 
 ```lua
@@ -122,7 +230,7 @@ end
 ```
 
 ```typescript
-
+// TypeScript code
 if (entity.SpawnerEntity === null) {
   // This entity was not spawned by anything in particular
 }
@@ -130,36 +238,65 @@ if (entity.SpawnerEntity === null) {
 
 <br />
 
-### `local` --> `const` and `let`
+### Assignment Operators and String Concatenation
 
-In Lua, you generally type `local` before everything to stop it from being turned into a global.
-
-In TypeScript, this isn't necessary. There are no globals variables, unless we explicitly create one.
-
-Furthermore, in TypeScript, there are two kinds of variable declarations: `let` and `const`.<br />
-(Don't ever use `var`, which is only used in older JavaScript code.)
+Lua does not have assignment operators, because it is a shit language.
 
 ```lua
 -- Lua code
-local poop = "poop"
-local fart = "fart"
-fart = fart .. " modified" -- fart is now equal to "fart modified"
-
-local function getPoop()
-  return "poop"
-end
+local numFarts = 1
+numFarts = numFarts + 1 -- numFarts is now equal to 2
 ```
 
 ```typescript
 // TypeScript code
-const poop = "poop"; // We use "const" because this value never changes
-let fart = "fart"; // We use "let" because we have to modify it later
-// We use the "+=" operator instead of ".." to concatenate a string
-fart += " modified"; // fart is now equal to "fart modified"
+let numFarts = 1;
+numFarts += 1; // numFarts is now equal to 2
+```
 
-function getPoop() { // No local here
-  return "poop";
-}
+Also, the way to concatenate strings is different:
+
+```lua
+-- Lua code
+local poopString = "poop"
+poopString = poopString .. " modified" -- poopString is now equal to "poop modified"
+```
+
+```typescript
+// TypeScript code
+let poopString = "poop";
+poopString += " modified"; // poopString is now equal to "poop modified"
+// (TypeScript uses the same operator for adding numbers and concatenating strings.)
+```
+
+<br />
+
+### String Conversion
+
+```lua
+-- Lua code
+local numPoops = 3
+local numPoopsString = tostring(numPoops)
+```
+
+```typescript
+// TypeScript code
+const numPoops = 3
+const numPoopsString = numPoops.toString()
+```
+
+However, in TypeScript, you probably won't need to convert variables like this very often. Most of the time, you can use string templates, which are very convenient.
+
+```lua
+-- Lua code
+Isaac.DebugString("The current number of poops is: " .. tostring(numPoops))
+```
+
+```typescript
+// TypeScript code
+// String templates are denoted by the ` character
+// Variables that are numbers will automatically be converted to strings
+Isaac.DebugString(`The current number of poops is: ${numPoops}`)
 ```
 
 <br />
@@ -210,6 +347,8 @@ function PostPlayerInit(player: EntityPlayer) {
 
 Revelations.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, PostPlayerInit);
 ```
+
+When coding in TypeScript, you will need to add the type for every function argument. (That way, the compiler can catch all of the bugs.)
 
 <br />
 
