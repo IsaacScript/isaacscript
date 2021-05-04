@@ -524,7 +524,7 @@ In Lua, some mods export functionality by using a global variable:
 RevelationsVersion = "2.1" -- "RevelationsVersion" is now a global variable
 ```
 
-In TypeScript:
+In TypeScript, you just have to declare it beforehand:
 
 ```typescript
 declare let RevelationsVersion: string;
@@ -536,7 +536,7 @@ Building on this example, you can also expose both variables and methods:
 ```typescript
 class Exports() {
   IncreaseStrength(amount: int) {
-    // [code here, etc.]
+    // [more code here]
   }
 }
 const exports = new Exports()
@@ -569,7 +569,7 @@ for (const [itemID, price] of itemPrices.entries()) {
 }
 ```
 
-With a map, you can use all of the handy methods [shown here on the left side](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map).
+With a map, you can use all of the handy methods [shown in the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) (listed on the left side).
 
 ```lua
 -- Lua code
