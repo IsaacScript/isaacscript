@@ -127,7 +127,7 @@ function getNumPoops() { // All functions in TypeScript are local by default
 
 ### Anonymous Functions
 
-For very small functions, it is common to type them as anonymous functions.
+For very small functions, it is common to type them anonymously (i.e. without a name).
 
 ```lua
 -- Lua code
@@ -185,7 +185,7 @@ In Lua, the typical way to iterate over an array is with `ipairs`.
 -- Lua code
 local gapers = Isaac.FindByType(EntityType.ENTITY_GAPER, -1, -1, false, false)
 
--- Here, the "i" variable is unused
+-- The "i" variable is unused
 for i, gaper in ipairs(gapers) do
   gaper:Remove()
 end
@@ -202,7 +202,7 @@ for (const gaper of gapers) {
   gaper.Remove();
 }
 
-// Or, you could use the "entries" method if you needed the index number
+// Or, use the "entries" method if you need the array index too
 for (const [i, gaper] of gapers.entries()) {
   gaper.Remove();
 }
@@ -213,11 +213,13 @@ gapers.forEach((gaper) => {
   gaper.Remove();
 })
 
-// Or, if you need the index number, change it to use two arguments
+// Or, change it to use two arguments if you need the array index
 gapers.forEach((gaper, i) => {
   gaper.Remove();
 })
 ```
+
+<br />
 
 ### `for` Statements for Key/Value Tables
 
