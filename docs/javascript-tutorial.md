@@ -1,5 +1,5 @@
 ---
-title: Basic JavaScript/TypeScript
+title: JavaScript/TypeScript Tutorial
 ---
 
 This page shows off some of the differences between Lua and TypeScript. Below, you can compare Lua code side by side with the equivalent TypeScript code. If you have coded a mod in Lua before, reading through this page will probably be enough to get you started.
