@@ -390,7 +390,7 @@ When coding in TypeScript, you will need to add the type for every function argu
 
 ### Splitting Your Code Into Multiple Files: `require()` --> `import`
 
-In Lua, you split your code into multiple files by using `require()`. In TypeScript, this is done with `import`. (Don't ever use the JavaScript/TypeScript version of `require()`, which is only used in older JavaScript code.)
+In Lua, you split your code into multiple files by using `require()`.
 
 ```lua
 -- main.lua
@@ -412,6 +412,9 @@ end
 
 return PostPlayerInit
 ```
+
+In TypeScript, this is accomplished with `import`.<br />
+(Don't ever use the JavaScript/TypeScript version of `require()`, which is only used in older JavaScript code.)
 
 ```typescript
 // main.ts
