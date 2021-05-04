@@ -256,12 +256,12 @@ for (const [itemID, price] of itemPrices.entries()) {
   // Do something with "itemID" and "price"
 }
 
-// Or, if you just need the itemID, you would use the "keys()" method
+// Or, if you just need the item ID, you would use the "keys()" method
 for (const itemID of itemPrices.keys()) {
   // Do something with "itemID"
 }
 
-// Or, if you just need the prices, you would use the "values()" method
+// Or, if you just need the price, you would use the "values()" method
 for (const price of itemPrices.values()) {
   // Do something with "price"
 }
