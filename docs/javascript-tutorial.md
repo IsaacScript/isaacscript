@@ -289,7 +289,7 @@ if (entity.SpawnerEntity === null) {
 
 ### Assignment Operators and String Concatenation
 
-Lua does not have assignment operators, because it is a shit language.
+Lua does not have assignment operators, because it is a terrible language.
 
 ```lua
 -- Lua code
