@@ -149,7 +149,7 @@ Revelations.AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, () => {
 
 ### `if` Statements and Operators
 
-In TypeScript, you have to put parentheses around the conditions of an if statement.
+In TypeScript, you have to put parentheses around the conditions of an `if` statement.
 
 Also, the operators are a bit different:
 
@@ -177,18 +177,21 @@ if (x === 1 && y !== 0) {
 
 <br />
 
-### `for` Statements
+### `for` Statements for Arrays
+
+In Lua, the typical way to iterate over an array is with `ipairs`.
 
 ```lua
 -- Lua code
 local gapers = Isaac.FindByType(EntityType.ENTITY_GAPER, -1, -1, false, false)
 
--- The typical way to iterate over an array is with "ipairs"
 -- Here, the "i" variable is unused
 for i, gaper in ipairs(gapers) do
   gaper:Remove()
 end
 ```
+
+In TypeScript, you have a few different options.
 
 ```typescript
 // Typescript code
@@ -204,7 +207,8 @@ for (const [i, gaper] of gapers.entries()) {
   gaper.Remove();
 }
 
-// For experienced coders, using the "forEach" method is recommended over a "for of" loop
+// For experienced coders,
+// using the "forEach" method is recommended over a "for of" loop
 gapers.forEach((gaper) => {
   gaper.Remove();
 })
@@ -213,6 +217,48 @@ gapers.forEach((gaper) => {
 gapers.forEach((gaper, i) => {
   gaper.Remove();
 })
+```
+
+### `for` Statements for Key/Value Tables
+
+In Lua, the typical way to iterate over a table is with `pairs`.
+
+```lua
+-- Lua code
+local itemPrices = {
+  CollectibleType.COLLECTIBLE_SAD_ONION = 30,
+  CollectibleType.COLLECTIBLE_INNER_EYE = 40,
+  CollectibleType.COLLECTIBLE_SPOON_BENDER = 25,
+}
+
+for itemID, price in pairs(itemPrices) do
+  -- Do something with "itemID" and "price"
+end
+```
+
+In TypeScript, you have a few different options.
+
+```typescript
+// TypeScript code
+const itemPrices = {
+  CollectibleType.COLLECTIBLE_SAD_ONION = 30,
+  CollectibleType.COLLECTIBLE_INNER_EYE = 40,
+  CollectibleType.COLLECTIBLE_SPOON_BENDER = 25,
+}
+
+for (const [itemID, price] of itemPrices.entries()) {
+  // Do something with "itemID" and "price"
+}
+
+// Or, if you just need the itemID, you would use the "keys()" method
+for (const itemID of itemPrices.keys()) {
+  // Do something with "itemID"
+}
+
+// Or, if you just need the prices, you would use the "values()" method
+for (const price of itemPrices.values()) {
+  // Do something with "price"
+}
 ```
 
 <br />
@@ -350,6 +396,22 @@ When coding in TypeScript, you will need to add the type for every function argu
 <br />
 
 ## Level 2 - Advanced
+
+<br />
+
+### Maps
+
+First, see the previous example with the "itemPrices" object.
+
+Notice that in this example, "itemPrices" is an anonymous object. This isn't very specific. What it *really* represents is a map of specific item IDs to prices. Unlike Lua, TypeScript has a `Map` datatype. So, this example would be better written like this:
+
+```typescript
+const itemPrices = new Map([
+  CollectibleType.COLLECTIBLE_SAD_ONION = 30,
+  CollectibleType.COLLECTIBLE_INNER_EYE = 40,
+  CollectibleType.COLLECTIBLE_SPOON_BENDER = 25,
+])
+```
 
 <br />
 
