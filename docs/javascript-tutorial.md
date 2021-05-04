@@ -357,48 +357,30 @@ The main thing that TypeScript adds to JavaScript is type annotations. Here's a 
 
 ```lua
 -- Lua code
-local Revelations = RegisterMod("Revelations", 1)
-
 local function PostPlayerInit(player)
   player:AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false)
 end
-
-Revelations:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, PostPlayerInit);
 ```
 
 ```javascript
 // JavaScript code
-const Revelations = RegisterMod("Revelations", 1);
-
 function PostPlayerInit(player) {
   player.AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false);
 }
-
-Revelations.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, PostPlayerInit);
 ```
 
 ```typescript
 // TypeScript code
-const Revelations = RegisterMod("Revelations", 1);
-
-// Below, we mark "player" as a "EntityPlayer" type (by using a colon)
-// The "EntityPlayer" type is automatically provided by the
-// "isaac-typescript-definitions" package, and corresponds to the "EntityPlayer"
-// in the official docs
-// The "isaac-typescript-definitions" package is automatically imported in any
-// IsaacScript project
 function PostPlayerInit(player: EntityPlayer) {
-  // Now, TypeScript has knowledge of all the legal methods for "player"
-  // Our editor can now tab-complete everything
-  // And if we make a typo on "AddCollectible",
-  // the editor will immediately tell us
   player.AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false);
 }
-
-Revelations.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, PostPlayerInit);
 ```
 
-When coding in TypeScript, you will need to add the type for every function argument. (That way, the compiler can catch all of the bugs.)
+In the TypeScript code snippet, you can see that we marked "player" as the "EntityPlayer" type by using a colon. The "EntityPlayer" type is automatically provided by the `isaac-typescript-definitions` package, and corresponds to the "EntityPlayer" in the official docs. (The `isaac-typescript-definitions` package is automatically imported in any IsaacScript project.)
+
+Once the type has been annotated, your editor will know about all of the legal methods for the "player" variable. You can now tab-complete everything. And if you make a typo on the "AddCollectible" method, the editor will immediately tell us by drawing a squiggly line underneath it.
+
+When coding in TypeScript, you will need to add the type for every function argument. That way, the compiler can catch all of the bugs.
 
 <br />
 
