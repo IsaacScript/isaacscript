@@ -28,7 +28,7 @@ In TypeScript, you cannot extend existing enums for safety reasons. Instead, cre
 ```typescript
 // At the top of your TypeScript mod:
 enum CollectibleTypeCustom {
-  COLLECTIBLE_MY_CUSTOM_ITEM = Isaac.GetItemIdByName("My Custom Item")
+  COLLECTIBLE_MY_CUSTOM_ITEM = Isaac.GetItemIdByName("My Custom Item"),
 }
 
 // Elsewhere in the code:

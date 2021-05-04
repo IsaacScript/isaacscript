@@ -225,10 +225,12 @@ In Lua, the typical way to iterate over a table is with `pairs`.
 
 ```lua
 -- Lua code
+-- Define a table of item prices
+-- (we must put "[]" around the item IDs since the table keys are numbers)
 local itemPrices = {
-  CollectibleType.COLLECTIBLE_SAD_ONION = 30,
-  CollectibleType.COLLECTIBLE_INNER_EYE = 40,
-  CollectibleType.COLLECTIBLE_SPOON_BENDER = 25,
+  [CollectibleType.COLLECTIBLE_SAD_ONION] = 30,
+  [CollectibleType.COLLECTIBLE_INNER_EYE] = 40,
+  [CollectibleType.COLLECTIBLE_SPOON_BENDER] = 25,
 }
 
 for itemID, price in pairs(itemPrices) do
@@ -240,10 +242,12 @@ In TypeScript, you have a few different options.
 
 ```typescript
 // TypeScript code
+// Define an anonymous object containing item prices
+// (object keys that are numbers are automatically converted to strings)
 const itemPrices = {
-  CollectibleType.COLLECTIBLE_SAD_ONION = 30,
-  CollectibleType.COLLECTIBLE_INNER_EYE = 40,
-  CollectibleType.COLLECTIBLE_SPOON_BENDER = 25,
+  CollectibleType.COLLECTIBLE_SAD_ONION = 15,
+  CollectibleType.COLLECTIBLE_INNER_EYE = 15,
+  CollectibleType.COLLECTIBLE_SPOON_BENDER = 7,
 }
 
 for (const [itemID, price] of itemPrices.entries()) {
@@ -399,22 +403,6 @@ When coding in TypeScript, you will need to add the type for every function argu
 
 <br />
 
-### Maps
-
-First, see the previous example with the "itemPrices" object.
-
-Notice that in this example, "itemPrices" is an anonymous object. This isn't very specific. What it *really* represents is a map of specific item IDs to prices. Unlike Lua, TypeScript has a `Map` datatype. So, this example would be better written like this:
-
-```typescript
-const itemPrices = new Map([
-  CollectibleType.COLLECTIBLE_SAD_ONION = 30,
-  CollectibleType.COLLECTIBLE_INNER_EYE = 40,
-  CollectibleType.COLLECTIBLE_SPOON_BENDER = 25,
-])
-```
-
-<br />
-
 ### Splitting Your Code Into Multiple Files: `require()` --> `import`
 
 In Lua, you split your code into multiple files by using `require()`. In TypeScript, this is done with `import`. (Don't ever use the JavaScript/TypeScript version of `require()`, which is only used in older JavaScript code.)
@@ -564,4 +552,81 @@ const exports = new Exports()
 
 declare let RevelationsExports: Exports;
 RevelationsExports = exports; // "RevelationsExports" is now a global variable
+```
+
+<br />
+
+### Maps
+
+First, see the previous section on [`for` Statements for Key/Value Tables](#for-statements-for-keyvalue-tables). In that section, we defined "itemPrices" as an anonymous object, which is roughly equivalent to a Lua table.
+
+In TypeScript, you typically want to avoid using anonymous objects because they are not very specific. Let's see if we can do better.
+
+In this example, what "itemPrices" *really* represents is a map of specific item IDs to prices. Unlike Lua, TypeScript has a `Map` data type. So, the example would be better written like this:
+
+```typescript
+// itemPrices has a type of "Map<CollectibleType, number>",
+// which is safer than an object where anything goes
+const itemPrices = new Map([
+  CollectibleType.COLLECTIBLE_SAD_ONION = 15,
+  CollectibleType.COLLECTIBLE_INNER_EYE = 15,
+  CollectibleType.COLLECTIBLE_SPOON_BENDER = 7,
+])
+
+for (const [itemID, price] of itemPrices.entries()) {
+  // Do something with "itemID" and "price"
+}
+```
+
+With a map, you can use all of the handy methods [shown here on the left side](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map).
+
+```lua
+-- Lua code
+local function pickingUpItem(player, pickingUpItemID)
+  local price = itemPrices[pickingUpItemID]
+  if price ~= nil then
+    player:AddCoins(price * -1)
+  end
+end
+```
+
+```typescript
+// TypeScript code
+function pickingUpItem(player: EntityPlayer, pickingUpItemID: number) {
+  const price = itemPrices.get(pickingUpItemID)
+  if (price !=== undefined) {
+    player.AddCoins(price * -1)
+  }
+}
+```
+
+(You could also use `price !== null` instead of `price !== undefined`, which would transpile to the same thing. But comparing to undefined is more correct, since that is how you would write normal TypeScript code.)
+
+<br />
+
+### Enums
+
+First, see the previous section on [Maps](#maps). In that section, we defined "itemPrices" as a map with a type of "Map<CollectibleType, number>".
+
+Say that in our mod, items can only be sold for three different prices:
+- 7 (on sale)
+- 15 (normal)
+- 30 (double)
+
+This means that we can get even more specific with our map definition by using an `enum`. Unlike Lua, TypeScript has an built-in `enum` data type.
+
+```typescript
+enum ItemPrice {
+  Normal = 15,
+  Sale = 7,
+  Double = 30,
+}
+
+// itemPrices has a type of "Map<CollectibleType, ItemPrice>",
+// which is even safer than before!
+const itemPrices = new Map([
+  CollectibleType.COLLECTIBLE_SAD_ONION = ItemPrice.Normal,
+  CollectibleType.COLLECTIBLE_INNER_EYE = ItemPrice.Normal,
+  CollectibleType.COLLECTIBLE_SPOON_BENDER = ItemPrice.Sale,
+])
 ```
