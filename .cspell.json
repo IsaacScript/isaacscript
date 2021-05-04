@@ -19,6 +19,7 @@
         "ipairs",
         "isaacscript",
         "isaactearsiconfull",
+        "keyvalue",
         "luamod",
         "mkdir",
         "modder",
