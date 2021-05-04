@@ -141,10 +141,9 @@ end);
 Revelations.AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, () => {
   Isaac.DebugString("Arrived on a new floor.");
 });
-// (If this syntax looks confusing,
-// google "JavaScript arrow functions" to start to get familiar with them.
-// But of course, you don't have to use arrow functions if you don't want to.)
 ```
+
+(If this syntax looks confusing, google "JavaScript arrow functions" in order to get more familiar with them. But of course, you don't have to use arrow functions if you don't want to.)
 
 <br />
 
