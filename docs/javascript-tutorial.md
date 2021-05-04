@@ -315,8 +315,9 @@ poopString = poopString .. " modified" -- poopString is now equal to "poop modif
 // TypeScript code
 let poopString = "poop";
 poopString += " modified"; // poopString is now equal to "poop modified"
-// (TypeScript uses the same operator for adding numbers and concatenating strings.)
 ```
+
+(TypeScript uses the same operator for adding numbers and concatenating strings.)
 
 <br />
 
