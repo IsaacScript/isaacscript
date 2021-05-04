@@ -479,24 +479,27 @@ Now, your other TypeScript files will see it as a global variable without you ha
 
 <br />
 
-#### More Complicated Declarations
+### Importing Complicated Global Variables
 
-The `InfinityTrueCoopInterface` allows other mods to add new characters with the `AddCharacter` method. What if your mod creates a new character and you want to add it to the True Co-op Mod? If you try calling `InfinityTrueCoopInterface.AddCharacter()`, TypeScript will throw and error and say that it doesn't exist.
+First, see the previous section on [importing global variables](#importing-global-variables).
 
-The solution is to add the `AddCharacter()` method to the definition file. We need to flesh out the `src/types/InfinityTrueCoopInterface.d.ts` file a bit:
+In the True Co-op Mod, the exported global variable of `InfinityTrueCoopInterface` allows other mods to add new characters with the `AddCharacter` method. What if your mod creates a new character and you want to add it to the True Co-op Mod? If you try calling `InfinityTrueCoopInterface.AddCharacter()`, TypeScript will throw and error and say that it doesn't exist.
+
+The solution is to add the `AddCharacter()` method to our definition file. We need to flesh out the `src/types/InfinityTrueCoopInterface.d.ts` file a bit:
 
 ```typescript
 // The global variable exists and it is a Lua table of type TrueCoop,
 // which we will immediately define below
 declare const InfinityTrueCoopInterface: TrueCoop;
 
-// We declare a TrueCoop class that only has one method
+// We declare a TrueCoop class that has as many methods as we need
+// (but for now we will only add one)
 declare class TrueCoop() {
   AddCharacter(playerData: TrueCoopPlayerData)
 }
 
-// We also have to specify what the True Co-op mod expects to be passed for this
-// method
+// We also have to specify what the True Co-op mod expects to be passed for the
+// first argument of the "AddCharacter" method
 // This (partially) matches the documentation near the top of the "main.lua"
 // file for the True Co-op Mod
 interface TrueCoopPlayerData {
