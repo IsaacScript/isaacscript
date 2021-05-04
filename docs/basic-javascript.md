@@ -223,7 +223,7 @@ gapers.forEach((gaper, i) => {
 
 ### `for` Statements for Key/Value Tables
 
-In Lua, the typical way to iterate over a table is with `pairs`.
+In Lua, the typical way to iterate over a key/value table is with `pairs`.
 
 ```lua
 -- Lua code
