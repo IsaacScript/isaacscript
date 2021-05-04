@@ -384,7 +384,7 @@ When coding in TypeScript, you will need to add the type for every function argu
 
 <br />
 
-## Level 2 - Advanced
+## Level 2 - Intermediate
 
 <br />
 
