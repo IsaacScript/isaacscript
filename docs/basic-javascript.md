@@ -74,9 +74,7 @@ Game():GetPlayer(0):AddMaxHearts(2)
 
 ```typescript
 // TypeScript code
-// This line is the same thing as in Lua
 Isaac.DebugString("hello world");
-// This line is also the same thing, but with periods instead of colons
 Game().GetPlayer(0).AddMaxHearts(2);
 ```
 
