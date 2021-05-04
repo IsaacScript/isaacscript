@@ -613,7 +613,7 @@ Say that in our mod, items can only be sold for three different prices:
 - 15 (normal)
 - 30 (double)
 
-This means that we can get even more specific with our map definition by using an `enum`. Unlike Lua, TypeScript has an built-in `enum` data type.
+This means that we can get even more specific with our map definition by using an `enum`. Unlike Lua, TypeScript has a built-in `enum` data type.
 
 ```typescript
 enum ItemPrice {
