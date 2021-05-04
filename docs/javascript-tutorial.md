@@ -574,6 +574,8 @@ With a map, you can use all of the handy methods [shown in the MDN docs](https:/
 ```lua
 -- Lua code
 local function pickingUpItem(player, pickingUpItemID)
+  -- If the player picked up a new item,
+  -- subtract the price of that item from their coin amount
   local price = itemPrices[pickingUpItemID]
   if price ~= nil then
     player:AddCoins(price * -1)
@@ -584,6 +586,8 @@ end
 ```typescript
 // TypeScript code
 function pickingUpItem(player: EntityPlayer, pickingUpItemID: number) {
+  // If the player picked up a new item,
+  // subtract the price of that item from their coin amount
   const price = itemPrices.get(pickingUpItemID)
   if (price !=== undefined) {
     player.AddCoins(price * -1)
