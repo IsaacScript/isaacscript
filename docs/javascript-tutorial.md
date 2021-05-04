@@ -569,7 +569,7 @@ for (const [itemID, price] of itemPrices.entries()) {
 }
 ```
 
-With a map, you can use all of the handy methods [shown in the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) (listed on the left side).
+With a map, you can use all of the handy methods [shown in the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) (listed on the left side). Here's an example of using the `get()` method to emulate checking for a value in a Lua table:
 
 ```lua
 -- Lua code
@@ -601,20 +601,20 @@ function pickingUpItem(player: EntityPlayer, pickingUpItemID: number) {
 
 ### Enums
 
-First, see the previous section on [Maps](#maps). In that section, we defined "itemPrices" as a map with a type of "Map<CollectibleType, number>".
+First, see the previous section on [Maps](#maps). In that section, we defined "itemPrices" as a map with a type of `Map<CollectibleType, number>`.
 
-Say that in our mod, items can only be sold for three different prices:
-- 7 (on sale)
-- 15 (normal)
-- 30 (double)
+Imagine that in our mod, items can only be sold for three different prices:
+- 15 coins (normal)
+- 30 coins (double)
+- 7 coins (on sale)
 
 This means that we can get even more specific with our map definition by using an `enum`. Unlike Lua, TypeScript has a built-in `enum` data type.
 
 ```typescript
 enum ItemPrice {
   Normal = 15,
-  Sale = 7,
   Double = 30,
+  Sale = 7,
 }
 
 // itemPrices has a type of "Map<CollectibleType, ItemPrice>",

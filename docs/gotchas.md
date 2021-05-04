@@ -48,7 +48,7 @@ Note that you don't have to worry about polluting the global namespace: due to h
 
 In Lua, there is only one type of number. (The programming language doesn't differentiate between integers, floats, etc.)
 
-TypeScript works the same way as Lua. There is only one kind of number type: `number`.
+TypeScript works the same way as Lua. There is only one type of number: `number`.
 
 However, the official Isaac API documentation uses integers and floats. For example, this is the entry for the `EntityPlayer:AddCollectible()` function:
 
@@ -99,7 +99,8 @@ If you are converting Lua code, make sure to account for order of operations:
 
 ```lua
 -- Lua code
-local vector = Vector(1, 1) + Vector(3, 3) * 6 -- Multiplication happens before addition
+local vector = Vector(1, 1) + Vector(3, 3) * 6
+-- (multiplication happens before addition)
 ```
 
 ```typescript
@@ -110,13 +111,23 @@ vector = vector.__mul(6);
 vector = vector.__add(Vector(1, 1));
 ```
 
+Note that if you really need to, you can restore operator overloading for Vectors by creating a [branded type](https://medium.com/@KevinBGreene/surviving-the-typescript-ecosystem-branding-and-type-tagging-6cf6e516523d) with something along the lines of:
+
+```typescript
+type Vector = number & { __intBrand: any };
+```
+
+But this is **not recommend** because it destroys type-safety.
+
 <br />
 
 ### Using JSON
 
-Isaac mods are allowed to write save data to the "save1.dat", "save2.dat", and "save3.dat" files (for save slot 1, save slot 2, and save slot 3 respectively). This is accomplished via the `Isaac.SaveModData()` function.
+Isaac mods are allowed to write save data to the "save1.dat", "save2.dat", and "save3.dat" files (for save slot 1, save slot 2, and save slot 3, respectively). This is accomplished via the `Isaac.SaveModData()` function.
 
-Any non-trivial mod will need to save many different variables. Since the `Isaac.SaveModData()` function takes a string instead of a Lua table, it is standard practice to convert a Lua table to a string using JSON. Lua functions to accomplish this are provided with the game in the `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\resources\scripts\json.lua` file. All you have to do is require the file:
+Any non-trivial mod will need to save many different variables. Since the `Isaac.SaveModData()` function takes a string instead of a Lua table, it is standard practice to convert a Lua table to a string using JSON.
+
+Handily, Lua functions to accomplish this are provided with the game in the `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\resources\scripts\json.lua` file. All you have to do is require the file:
 
 ```lua
 -- Lua code
@@ -164,9 +175,11 @@ function saveModData() {
 
 ### NPM Dependencies
 
-Currently, TypeScriptToLua does not support installing dependencies from NPM. See [this issue](https://github.com/TypeScriptToLua/TypeScriptToLua/issues/432), which should hopefully be resolved soon. This means that it will be cumbersome to write Isaac-specific libraries for people to use.
+By default, IsaacScript mods use the TypeScriptToLua `luabundle` option to pack everything together into a single "main.lua" file. Currently, TypeScriptToLua does not support installing dependencies from NPM if you use `luabundle`. See [this issue](https://github.com/TypeScriptToLua/TypeScriptToLua/issues/432), which should hopefully be resolved soon. This means that for now, it will be cumbersome to write Isaac-specific libraries for people to use.
 
-In the meantime, the `create-isaacscript-mod` tool manually bundles [some initialization code](https://github.com/IsaacScript/create-isaacscript-mod/blob/main/templates/static/isaacScriptInit.ts) in all new projects.
+In the meantime, the `create-isaacscript-mod` tool manually bundles [some initialization code](https://github.com/IsaacScript/create-isaacscript-mod/blob/main/templates/static/isaacScriptInit.ts) for new projects.
+
+In Repentance (the latest DLC), the developers will hopefully fix the in-game `luamod` console command such that it will work properly with multi-file mods. When this bug is fixed, IsaacScript will switch away from using `luabundle` and then NPM dependencies will work as you would expect.
 
 <br />
 
@@ -179,7 +192,8 @@ You cannot instantiate a blank mod object/class:
 const Revelations = RegisterMod("Revelations", 1) // "Revelations" has the type "Mod"
 
 class Foo {
-  // We might not want to define a type of "Mod | null", so what if we use a blank class?
+  // We might not want to define a type of "Mod | null",
+  // so what if we use a blank class?
   modObject = Mod();
 }
 const foo = new Foo();
@@ -195,7 +209,7 @@ function __TS__New(target, ...)
     local instance = setmetatable({}, target.prototype) -- Error on this line
 ```
 
-Instead, do something like the following:
+To fix this problem, do something like the following:
 
 ```typescript
 // TypeScript code
