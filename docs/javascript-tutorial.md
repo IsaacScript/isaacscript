@@ -4,8 +4,6 @@ title: JavaScript/TypeScript Tutorial
 
 This page shows off some of the differences between Lua and TypeScript. Below, you can compare Lua code side by side with the equivalent TypeScript code. If you have coded a mod in Lua before, reading through this page will probably be enough to get you started.
 
-With that said, this page isn't meant to cover *everything* about TypeScript. If you still have questions, we recommend reading the [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html), searching [Stack Overflow](https://stackoverflow.com/), or asking for help in [the Isaac Discord](https://discord.gg/isaac).
-
 <br />
 
 ## Level 1 - Basic
@@ -172,6 +170,46 @@ end
 // TypeScript code
 if (x === 1 && y !== 0) {
   // Do something
+}
+```
+
+<br />
+
+### `for` Statements for Counting
+
+In Lua, basic `for` loops look like this:
+
+```lua
+-- Lua code
+for i = 1, 10 do
+  -- "i" will iterate upwards from 1 to 10
+end
+```
+
+In TypeScript, you use the more-standard C-style syntax:
+
+```typescript
+// TypeScript code
+for (let i = 1; i <= 10; i++) {
+  // "i" will iterate upwards from 1 to 10
+}
+```
+
+In Lua, you count downwards like this:
+
+```lua
+-- Lua code
+for i = 10, 1, -1 do
+  -- "i" will iterate downwards from 10 to 1
+end
+```
+
+Similarly, in TypeScript, you change the third part of the `for` loop:
+
+```typescript
+// TypeScript code
+for (let i = 10; i >= 1; i--) {
+  // "i" will iterate upwards from 1 to 10
 }
 ```
 
