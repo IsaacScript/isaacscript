@@ -10,7 +10,7 @@ Let's say that in our example mod, we want to add a few more custom items, so th
 
 ## 1) src/main.ts
 
-We don't want to have any logic in the "main.ts" file. This purple of this file is to simply register the mod and glue together all of the callbacks.
+We don't want to have any logic in the "main.ts" file. This purpose of this file is to simply register the mod and glue together all of the callbacks.
 
 ```typescript
 // Define imports
