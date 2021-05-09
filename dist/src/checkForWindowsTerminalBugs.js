@@ -41,8 +41,10 @@ async function checkForWindowsTerminalBugs() {
 exports.default = checkForWindowsTerminalBugs;
 async function checkForCodePage() {
     const chcpPath = "C:\\Windows\\System32\\chcp.com";
-    const stdout = misc.execScript(chcpPath);
-    const match = /^Active code page: (\d+)$/.exec(stdout);
+    const stdout = misc.execScript(chcpPath).trim();
+    // The output of "chcp" will be different depending on the language of the Windows installation,
+    // so we only parse the final number
+    const match = /(\d+)$/.exec(stdout);
     if (match === null) {
         console.error(`Failed to parse the results of "${chalk_1.default.green(chcpPath)}":`, stdout);
         process.exit(1);
