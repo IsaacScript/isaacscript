@@ -2,7 +2,7 @@
 title: Converting Lua Code
 ---
 
-Sometimes, you might want to convert an old mod written in Lua to TypeScript. There are 2 ways to do this.
+Sometimes, you might want to convert an old mod written in Lua to TypeScript. There are two ways to do this.
 
 <br />
 
