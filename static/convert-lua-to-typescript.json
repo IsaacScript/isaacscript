@@ -1,0 +1,222 @@
+[
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\blocal\\b",
+        "replace": "let",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\bif\\b",
+        "replace": "if (",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\belse\\b",
+        "replace": "} else {",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\belseif\\b",
+        "replace": "} else if (",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\bfor _, (\\w+) in ipairs(\\w+) do\\b",
+        "replace": "for (let $1 of $2) {",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\bfor i = 1, (\\d+) do\\b",
+        "replace": "for (let i = 0; i < $1; i++) {",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\bthen\\b",
+        "replace": ") {",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\bdo\\b",
+        "replace": ") {",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\bend\\b",
+        "replace": "}",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "==",
+        "replace": "===",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "~=",
+        "replace": "!==",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\band\\b",
+        "replace": "&&",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\bor\\b",
+        "replace": "||",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\bnot\\b",
+        "replace": "!",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\bnil\\b",
+        "replace": "null",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\.\\.",
+        "replace": "+",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": ":",
+        "replace": ".",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "--",
+        "replace": "//",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\btostring\\((.+?)\\)",
+        "replace": "$1",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\s+#(\\w+)\\b",
+        "replace": "$1.length",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\bfunction (\\w+)\\.(\\w+)\\(\\)",
+        "replace": "function $1.$2() {",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  },
+  {
+    "command": "ssmacro.replace",
+    "args": {
+        "find": "\\bfunction\\(\\)",
+        "replace": "() => {",
+        "all": true,
+        "reg": true,
+        "flag": "gm"
+    }
+  }
+]
