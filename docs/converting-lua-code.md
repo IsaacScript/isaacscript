@@ -16,6 +16,8 @@ Hazzard993 wrote [a tool to automatically convert Lua to TypeScript](https://git
 
 If you want more fine-grained control over converting your code, then you can do it manually with a macro. Here's a quick tutorial to convert code using a simple macro.
 
+<br />
+
 ### 1) Install the ssmacro Extension
 
 [ssmacro](https://marketplace.visualstudio.com/items?itemName=joekon.ssmacro) is a popular VSCode extension that allows you to make macros.
