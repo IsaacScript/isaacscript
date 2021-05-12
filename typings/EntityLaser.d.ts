@@ -1,25 +1,32 @@
 declare class EntityLaser extends Entity {
-  SetTimeout(value: int): void;
+  static CalculateEndPoint(
+    this: void,
+    start: Vector,
+    dir: Vector,
+    positionOffset: Vector,
+    parent: Entity,
+    margin: float,
+  ): Vector;
+  GetEndPoint(): Readonly<Vector>;
+  // GetNonOptimizedSamples(): Readonly<HomingLaserSampleList>; // HomingLaser is not implemented
+  GetRenderZ(): int;
+  // GetSamples(): Readonly<HomingLaserSampleList>; // HomingLaser is not implemented
+  IsCircleLaser(): boolean;
+  IsSampleLaser(): boolean;
   SetActiveRotation(
     delay: int,
     angleDegrees: float,
     rotationSpeed: float,
     timeoutComplete: boolean,
   ): void;
-  GetRenderZ(): int;
-  GetEndPoint(): Readonly<Vector>;
-  IsSampleLaser(): boolean;
-  // GetSamples(): Readonly<HomingLaserSampleList>; // HomingLaser is not implemented
-  // GetNonOptimizedSamples(): Readonly<HomingLaserSampleList>; // HomingLaser is not implemented
-  SetOneHit(value: boolean): void;
+  SetBlackHpDropChance(chance: float): void;
   // SetHomingType(laserHomingType: LaserHomingType): void; // LaserHomingType is not implemented
   SetMaxDistance(distance: float): void;
-  IsCircleLaser(): boolean;
-  SetBlackHpDropChance(chance: float): void;
   SetMultidimensionalTouched(value: boolean): void;
-
-  /** @noSelf */
+  SetOneHit(value: boolean): void;
+  SetTimeout(value: int): void;
   static ShootAngle(
+    this: void,
     variant: LaserVariant | int,
     sourcePos: Vector,
     angleDegrees: float,
@@ -27,39 +34,31 @@ declare class EntityLaser extends Entity {
     posOffset: Vector,
     source: Entity,
   ): EntityLaser;
-  /** @noSelf */
-  static CalculateEndPoint(
-    start: Vector,
-    dir: Vector,
-    positionOffset: Vector,
-    parent: Entity,
-    margin: float,
-  ): Vector;
 
-  TearFlags: TearFlags;
   Angle: float;
-  Radius: float;
-  ParentOffset: Vector;
-  StartAngleDegrees: float;
   AngleDegrees: float;
-  LastAngleDegrees: float;
-  Timeout: int;
-  FirstUpdate: boolean;
-  SampleLaser: boolean;
-  Shrink: boolean;
-  LaserLength: float;
-  // HomingLaser: HomingLaser; // HomingLaser is not implemented
-  CurveStrength: float;
-  IsActiveRotating: boolean;
-  RotationDelay: int;
-  RotationDegrees: float;
-  RotationSpd: float;
-  MaxDistance: float;
-  // HomingType: LaserHomingType; // LaserHomingType is not implemented
-  EndPoint: Vector;
-  DisableFollowParent: boolean;
-  BounceLaser: Entity;
   BlackHpDropChance: float;
-  OneHit: boolean;
+  BounceLaser: Entity;
+  CurveStrength: float;
+  DisableFollowParent: boolean;
+  EndPoint: Vector;
+  FirstUpdate: boolean;
   GridHit: boolean;
+  // HomingLaser: HomingLaser; // HomingLaser is not implemented
+  // HomingType: LaserHomingType; // LaserHomingType is not implemented
+  IsActiveRotating: boolean;
+  LaserLength: float;
+  LastAngleDegrees: float;
+  MaxDistance: float;
+  OneHit: boolean;
+  ParentOffset: Vector;
+  Radius: float;
+  RotationDegrees: float;
+  RotationDelay: int;
+  RotationSpd: float;
+  // SampleLaser: boolean; // Should use IsSampleLaser() instead
+  Shrink: boolean;
+  StartAngleDegrees: float;
+  TearFlags: TearFlags;
+  Timeout: int;
 }

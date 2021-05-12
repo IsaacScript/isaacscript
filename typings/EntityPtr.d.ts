@@ -1,5 +1,4 @@
-/** @noSelf */
-declare function EntityPtr(entity: Entity): EntityPtr;
+declare function EntityPtr(this: void, entity: Entity): EntityPtr;
 
 declare class EntityPtr {
   SetReference(ref: Entity): void;

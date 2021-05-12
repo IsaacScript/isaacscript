@@ -1,33 +1,33 @@
 declare class GridEntityDoor extends GridEntity {
-  SetRoomTypes(currentRoomType: RoomType, targetRoomType: RoomType): void;
-  Open(): void;
-  Close(force: boolean): void;
   Bar(): void;
-  SpawnDust(): void;
   CanBlowOpen(): boolean;
-  TryBlowOpen(fromExplosion: boolean): boolean;
-  TryUnlock(force: boolean): boolean;
-  IsOpen(): boolean;
-  IsKeyFamiliarTarget(): boolean;
-  SetLocked(locked: boolean): void;
-  IsLocked(): boolean;
+  Close(force: boolean): void;
+  GetSpriteOffset(): Readonly<Vector>;
   IsBusted(): boolean;
+  IsKeyFamiliarTarget(): boolean;
+  IsLocked(): boolean;
+  IsOpen(): boolean;
   IsRoomType(roomType: RoomType): boolean;
   IsTargetRoomArcade(): boolean;
-  GetSpriteOffset(): Readonly<Vector>;
+  Open(): void;
+  SetLocked(locked: boolean): void;
+  SetRoomTypes(currentRoomType: RoomType, targetRoomType: RoomType): void;
+  SpawnDust(): void;
+  TryBlowOpen(fromExplosion: boolean): boolean;
+  TryUnlock(force: boolean): boolean;
 
-  Direction: Direction;
-  TargetRoomIndex: int;
-  Slot: DoorSlot;
+  Busted: boolean;
+  CloseAnimation: string;
   CurrentRoomType: RoomType;
-  TargetRoomType: RoomType;
+  Direction: Direction;
   ExtraSprite: Sprite;
   ExtraVisible: boolean;
-  Busted: boolean;
-  // PreviousState: State; // State is not implemented
-  PreviousVariant: DoorVariant;
-  OpenAnimation: string;
-  CloseAnimation: string;
   LockedAnimation: string;
+  OpenAnimation: string;
   OpenLockedAnimation: string;
+  // PreviousState: State; // State is not implemented (it is userdata and not an int)
+  PreviousVariant: DoorVariant;
+  Slot: DoorSlot;
+  TargetRoomIndex: int;
+  TargetRoomType: RoomType;
 }

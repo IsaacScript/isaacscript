@@ -1,11 +1,11 @@
 declare class GridEntityRock extends GridEntity {
-  GetSprite(): Readonly<Sprite>;
-  GetRubbleAnim(): string;
-  SetBigRockFrame(frame: int): void;
   GetBigRockFrame(): int;
+  GetRubbleAnim(): string;
+  GetSprite(): Readonly<Sprite>;
+  SetBigRockFrame(frame: int): void;
   UpdateAnimFrame(): void;
 
   Anim: string;
-  RubbleAnim: string;
   FrameCnt: int;
+  RubbleAnim: string;
 }

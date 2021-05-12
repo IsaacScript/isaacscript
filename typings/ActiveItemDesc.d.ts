@@ -1,6 +1,6 @@
 declare class ActiveItemDesc {
-  Item: CollectibleType | int;
-  Charge: int;
   BatteryCharge: int;
+  Charge: int;
+  Item: CollectibleType | int;
   Lock: boolean;
 }

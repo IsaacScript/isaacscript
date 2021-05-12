@@ -1,5 +1,5 @@
 declare class TemporaryEffect {
-  Item: ItemConfigItem;
-  Count: int;
   Cooldown: int;
+  Count: int;
+  Item: ItemConfigItem;
 }

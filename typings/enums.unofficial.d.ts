@@ -376,3 +376,49 @@ declare const enum BossIDs {
   DELIRIUM = 70,
   THE_MATRIARCH = 72,
 }
+
+/** Matches the IDs in the "backdrops.xml" file. */
+declare const enum Backdrop {
+  BASEMENT = 1,
+  CELLAR = 2,
+  BURNING_BASEMENT = 3,
+  CAVES = 4,
+  CATACOMBS = 5,
+  DROWNED_CAVES = 6,
+  DEPTHS = 7,
+  NECROPOLIS = 8,
+  DANK_DEPTHS = 9,
+  WOMB = 10,
+  UTERO = 11,
+  SCARRED_WOMB = 12,
+  BLUE_WOMB = 13,
+  SHEOL = 14,
+  CATHEDRAL = 15,
+  DARK_ROOM = 16,
+  CHEST = 17,
+  MEGA_SATAN = 18,
+  LIBRARY = 19,
+  SHOP = 20,
+  ISAACS_ROOM = 21,
+  BARREN_ROOM = 22,
+  SECRET_ROOM = 23,
+  DICE_ROOM = 24,
+  ARCADE = 25,
+  ERROR_ROOM = 26,
+  BLUE_SECRET = 27,
+  ULTRA_GREED_SHOP = 28,
+  NUM_BACKDROPS = 29,
+}
+
+declare const enum Dimension {
+  CURRENT = -1,
+  MAIN = 0,
+  SECONDARY = 1 /** Used by the mirror sequence and the escape sequence */,
+  DEATH_CERTIFICATE = 2,
+}
+
+declare const enum ActiveSlot {
+  SLOT_NONE = -1,
+  SLOT_PRIMARY = 0,
+  SLOT_SECONDARY = 1,
+}

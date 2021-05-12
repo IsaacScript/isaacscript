@@ -1,51 +1,56 @@
-/** @noSelf */
-declare function Sprite(): Sprite;
+declare function Sprite(this: void): Sprite;
 
 declare class Sprite {
+  GetDefaultAnimation(): string;
+  GetDefaultAnimationName(): Readonly<string>;
+  GetFilename(): string;
+  GetFrame(): int;
+  GetLayerCount(): int;
+  GetOverlayFrame(): int;
+  GetTexel(samplePos: Vector, renderPos: Vector, alphaThreshold: float): Color;
+  IsEventTriggered(eventName: string): boolean;
   IsFinished(animationName: string): boolean;
+  IsLoaded(): boolean;
+  IsOverlayFinished(animationName: string): boolean;
+  IsOverlayPlaying(animationName: string): boolean;
+  IsPlaying(animationName: string): boolean;
+  Load(filename: string, loadGraphics: boolean): void;
+  LoadGraphics(): void;
   Play(animationName: string, force: boolean): void;
-  SetFrame(animationName: string, frameNum: int): void;
-  Reset(): void;
-  Update(): void;
+  PlayOverlay(animationName: string, force: boolean): void;
+  PlayRandom(seed: int): void;
+  Reload(): void;
+  RemoveOverlay(): void;
   Render(
     position: Vector,
     topLeftClamp: Vector,
     bottomRightClamp: Vector,
   ): void;
-  RenderLayer(layerID: int, position: Vector): void;
-  Load(filename: string, loadGraphics: boolean): void;
-  Reload(): void;
+  RenderLayer(
+    layerID: int,
+    position: Vector,
+    topLeftClamp?: Vector, // Default is Vector.Zero
+    bottomRightClamp?: Vector, // Default is Vector.Zero
+  ): void;
   ReplaceSpritesheet(layerID: int, pngFilename: string): void;
-  LoadGraphics(): void;
-  IsLoaded(): boolean;
-  GetFilename(): string;
-  PlayRandom(seed: int): void;
-  Stop(): void;
+  Reset(): void;
   SetAnimation(animationName: string): boolean;
-  GetFrame(): int;
+  SetFrame(frameNum: int): void;
+  SetFrame(animationName: string, frameNum: int): void;
   SetLastFrame(): void;
-  IsPlaying(animationName: string): boolean;
   SetLayerFrame(layerID: int, frameNum: int): void;
-  PlayOverlay(animationName: string, force: boolean): void;
   SetOverlayAnimation(animationName: string): boolean;
-  SetOverlayRenderPriority(renderFirst: boolean): void;
   SetOverlayFrame(animationName: string, frameNum: int): void;
-  GetOverlayFrame(): int;
-  RemoveOverlay(): void;
-  IsOverlayPlaying(animationName: string): boolean;
-  IsOverlayFinished(animationName: string): boolean;
-  IsEventTriggered(eventName: string): boolean;
+  SetOverlayRenderPriority(renderFirst: boolean): void;
+  Stop(): void;
+  Update(): void;
   WasEventTriggered(eventName: string): boolean;
-  GetLayerCount(): int;
-  GetDefaultAnimationName(): Readonly<string>;
-  GetTexel(samplePos: Vector, renderPos: Vector, alphaThreshold: float): Color;
-  GetDefaultAnimation(): string;
 
-  Offset: Vector;
-  Scale: Vector;
-  Rotation: float;
-  Color: Color;
   FlipX: boolean;
   FlipY: boolean;
+  Color: Color;
+  Offset: Vector;
   PlaybackSpeed: float;
+  Rotation: float;
+  Scale: Vector;
 }

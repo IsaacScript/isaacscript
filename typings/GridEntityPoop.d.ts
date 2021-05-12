@@ -1,9 +1,9 @@
 declare class GridEntityPoop extends GridEntity {
-  RespawnRedPoop(): void;
   ReduceSpawnRate(): void;
+  RespawnRedPoop(): void;
 
+  ReducedSpawnRate: boolean;
   ReviveTimer: int;
   StateAnimation: string;
   UnderPlayer: boolean;
-  ReducedSpawnRate: boolean;
 }

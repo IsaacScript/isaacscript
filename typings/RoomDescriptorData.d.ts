@@ -1,16 +1,18 @@
+// This is "RoomConfig::Room" in the docs
+
 declare class RoomDescriptorData {
-  StageID: int;
-  // Spawns: Spawns // Spawns is not implemented
-  Type: int;
   Difficulty: int;
-  Subtype: int;
-  Variant: int;
+  Doors: int;
+  Height: int;
+  InitialWeight: int;
   Name: string;
   Shape: RoomShape;
   SpawnCount: int;
-  Height: int;
-  InitialWeight: int;
-  Doors: int;
+  // Spawns: Spawns // Spawns is not implemented
+  StageID: int;
+  Subtype: int;
+  Type: int;
+  Variant: int;
   Weight: int;
   Width: int;
 }

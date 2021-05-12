@@ -1,21 +1,42 @@
+declare function MusicManager(this: void): MusicManager;
+
 declare class MusicManager {
-  Play(music: Music | int, volume: float): void;
-  Fadein(music: Music | int, volume: float): void;
-  Crossfade(music: Music | int): void;
-  Queue(music: Music | int): void;
-  Fadeout(): void;
-  Pause(): void;
-  Resume(): void;
-  EnableLayer(): void;
-  DisableLayer(): void;
-  IsLayerEnabled(): boolean;
-  Enable(): void;
+  Crossfade(
+    music: Music | int,
+    fadeRate?: float, // Default is 0.08
+  ): void;
   Disable(): void;
-  IsEnabled(): boolean;
-  PitchSlide(targetPitch: float): void;
-  ResetPitch(): void;
-  VolumeSlide(targetVolume: float): void;
-  UpdateVolume(): void;
+  DisableLayer(
+    layerID?: int, // Default is 0
+  ): void;
+  Enable(): void;
+  EnableLayer(
+    layerID?: int, // Default is 0
+    instant?: boolean, // Default is false
+  ): void;
+  Fadein(
+    music: Music | int,
+    volume?: float, // Default is 1
+    fadeRate?: float, // Default is 0.08
+  ): void;
+  Fadeout(
+    fadeRate?: float, // Default is 0.08
+  ): void;
   GetCurrentMusicID(): Music | int;
   GetQueuedMusicID(): Music | int;
+  IsEnabled(): boolean;
+  IsLayerEnabled(
+    layerID?: int, // Default is 0
+  ): boolean;
+  Pause(): void;
+  PitchSlide(targetPitch: float): void;
+  Play(music: Music | int, volume: float): void;
+  Queue(music: Music | int): void;
+  ResetPitch(): void;
+  Resume(): void;
+  UpdateVolume(): void;
+  VolumeSlide(
+    targetVolume: float,
+    fadeRate?: float, // Default is 0.08
+  ): void;
 }

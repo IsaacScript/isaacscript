@@ -1,7 +1,124 @@
 declare class Game {
-  Update(): void;
-  Render(): void;
+  AddDevilRoomDeal(): void;
+  AddEncounteredBoss(
+    entityType: EntityType | int,
+    variant: EntityVariantForAC,
+  ): void;
+  AddPixelation(duration: int): void;
+  AddStageWithoutDamage(): void;
+  AddStageWithoutHeartsPicked(): void;
+  AddTreasureRoomsVisited(): void;
+  BombDamage(
+    position: Vector,
+    damage: float,
+    radius: float,
+    lineCheck?: boolean, // Default is true
+    source?: Entity, // Default is nil
+    tearFlags?: TearFlags, // Default is TearFlags.TEAR_NORMAL
+    damageFlags?: DamageFlag, // Default is DamageFlag.DAMAGE_EXPLOSION
+    damageSource?: boolean, // Default is false
+  ): void;
+  BombExplosionEffects(
+    position: Vector,
+    damage: float,
+    tearFlags?: TearFlags, // Default is TearFlags.TEAR_NORMAL
+    color?: Color, // Default is Color.Default
+    source?: Entity, // Default is nil
+    radiusMult?: float, // Default is 1
+    lineCheck?: boolean, // Default is true
+    damageSource?: boolean, // Default is false
+    damageFlags?: DamageFlag, // Default is DamageFlag.DAMAGE_EXPLOSION
+  ): void;
+  BombTearflagEffects(
+    position: Vector,
+    radius: float,
+    tearFlags: TearFlags,
+    source?: Entity, // Default is nil
+    radiusMult?: float, // Default is 1
+  ): void;
+  ButterBeanFart(
+    position: Vector,
+    radius: float,
+    source: Entity,
+    showEffect: boolean,
+  ): void;
+  ChangeRoom(
+    roomIndex: int,
+    dimension?: Dimension, // Default is Dimension.CURRENT
+  ): void;
+  CharmFart(position: Vector, radius: float, source: Entity): void;
+  ClearDonationModAngel(): void;
+  ClearDonationModGreed(): void;
+  ClearStagesWithoutDamage(): void;
+  ClearStagesWithoutHeartsPicked(): void;
+  Darken(darkness: float, timeout: int): void;
+  DonateAngel(donate: int): void;
+  DonateGreed(donate: int): void;
+  End(ending: Ending): void;
+  Fadein(speed: float): void;
+  Fadeout(speed: float, fadeoutTarget: FadeoutTarget): void;
+  Fart(
+    position: Vector,
+    radius?: float, // Default is 85
+    source?: Entity, // Default is nil
+    fartScale?: float, // Default is 1
+    fartSubType?: int, // Default is 0
+    fartColor?: Color, // Default is Color.Default
+  ): void;
+  FinishChallenge(): void;
+  // GetAmbush(): Ambush; // Ambush is not implemented
+  GetDarknessModifier(): float;
+  GetDevilRoomDeals(): int;
+  GetDonationModAngel(): int;
+  GetDonationModGreed(): int;
+  GetFont(): Font;
+  GetFrameCount(): int;
+  GetGreedBossWaveNum(): int;
+  GetGreedWavesNum(): int;
+  // GetItemOverlay(): ItemOverlay; // ItemOverlay is not implemented
+  GetItemPool(): ItemPool;
+  GetLastDevilRoomStage(): LevelStage;
+  GetLastLevelWithDamage(): LevelStage;
+  GetLastLevelWithoutHalfHp(): LevelStage;
+  GetLevel(): Level;
+  GetNearestPlayer(position: Vector): EntityPlayer;
+  GetNumEncounteredBosses(): int;
+  GetNumPlayers(): int;
+  GetPlayer(index: int): EntityPlayer | null;
+  GetRandomPlayer(position: Vector, radius: float): EntityPlayer;
+  GetRoom(): Room;
+  GetScreenShakeCountdown(): Readonly<int>;
+  GetSeeds(): Seeds;
+  GetStagesWithoutDamage(): int;
+  GetStagesWithoutHeartsPicked(): int;
+  GetStateFlag(gameStateFlag: GameStateFlag): boolean;
+  GetTargetDarkness(): float;
+  GetTreasureRoomVisitCount(): int;
+  GetVictoryLap(): int;
+  HasEncounteredBoss(
+    entityType: EntityType | int,
+    variant: EntityVariantForAC,
+  ): boolean;
+  HasHallucination(): int;
+  IsGreedMode(): boolean;
   IsPaused(): boolean;
+  MoveToRandomRoom(IAmErrorRoom: boolean, seed: int): void;
+  NextVictoryLap(): void;
+  Render(): void;
+  RerollEnemy(entity: Entity): boolean;
+  RerollLevelCollectibles(): void;
+  RerollLevelPickups(seed: int): void;
+  SetLastDevilRoomStage(levelStage: LevelStage): void;
+  SetLastLevelWithDamage(levelStage: LevelStage): void;
+  SetLastLevelWithoutHalfHp(levelStage: LevelStage): void;
+  SetStateFlag(gameStateFlag: GameStateFlag, val: boolean): void;
+  ShakeScreen(timeout: int): void;
+  ShowFortune(): void;
+  ShowHallucination(
+    frameCount: int,
+    hallucinationBackdrop?: Backdrop, // Default is BackdropType.NUM_BACKDROPS
+  ): void;
+  ShowRule(): void;
   Spawn(
     entityType: EntityType | int,
     variant: EntityVariantForAC,
@@ -18,145 +135,37 @@ declare class Game {
     spawner: Entity,
   ): EntityNPC;
   */
-  BombDamage(
-    position: Vector,
-    damage: float,
-    radius: float,
-    lineCheck: boolean,
-    source: Entity,
-    tearFlags: TearFlags,
-    damageFlags: DamageFlag,
-    damageSource: boolean,
-  ): void;
-  BombExplosionEffects(
-    position: Vector,
-    damage: float,
-    tearFlags: TearFlags,
-    color: Color,
-    source: Entity,
-    radiusMult: float,
-    lineCheck: boolean,
-    damageSource: boolean,
-  ): void;
-  BombTearflagEffects(
-    position: Vector,
-    radius: float,
-    tearFlags: TearFlags,
-    source: Entity,
-  ): void;
-  Fart(
-    position: Vector,
-    radius: float,
-    source: Entity,
-    fartScale: float,
-    fartSubType: int,
-  ): void;
-  CharmFart(position: Vector, radius: float, source: Entity): void;
-  ButterBeanFart(
-    position: Vector,
-    radius: float,
-    source: Entity,
-    showEffect: boolean,
-  ): void;
-  RerollEnemy(entity: Entity): boolean;
   SpawnParticles(
     position: Vector,
     effectVariant: EffectVariant | int,
     numParticles: int,
     speed: float,
-    color: Color,
-    height: float,
+    color?: Color, // Default is Color.Default
+    height?: float, // Default is 100000
+    subType?: int, // Default is 0
   ): void;
-  GetFont(): Font;
-  GetLevel(): Level;
-  GetRoom(): Room;
-  GetPlayer(index: int): EntityPlayer | null;
-  GetNearestPlayer(position: Vector): EntityPlayer;
-  GetRandomPlayer(position: Vector, radius: float): EntityPlayer;
-  GetNumPlayers(): int;
-  // GetItemHistory(): History; // History is not implemented
-  GetItemPool(): ItemPool;
-  // GetItemOverlay(): ItemOverlay; // ItemOverlay is not implemented
-  GetSeeds(): Seeds;
-  End(ending: Ending): void;
-  ShowFortune(): void;
-  ShowRule(): void;
   StartRoomTransition(
     roomIndex: int,
     direction: Direction,
-    roomTransition: RoomTransition,
+    roomTransition?: RoomTransition, // Default is RoomTransitionAnim.WALK
+    player?: EntityPlayer, // Default is nil
+    dimension?: Dimension, // Default is Dimension.CURRENT
   ): void;
-  ChangeRoom(roomIndex: int): void;
   StartStageTransition(
     sameStage: boolean,
     stageTransition: StageTransition,
   ): void;
-  MoveToRandomRoom(IAmErrorRoom: boolean, seed: int): void;
-  GetFrameCount(): int;
-  GetStateFlag(gameStateFlag: GameStateFlag): boolean;
-  SetStateFlag(gameStateFlag: GameStateFlag, val: boolean): void;
-  SetLastDevilRoomStage(levelStage: LevelStage): void;
-  GetLastDevilRoomStage(): LevelStage;
-  AddTreasureRoomsVisited(): void;
-  GetTreasureRoomVisitCount(): int;
-  AddStageWithoutHeartsPicked(): void;
-  ClearStagesWithoutHeartsPicked(): void;
-  GetStagesWithoutHeartsPicked(): int;
-  AddStageWithoutDamage(): void;
-  ClearStagesWithoutDamage(): void;
-  GetStagesWithoutDamage(): int;
-  AddDevilRoomDeal(): void;
-  DonateGreed(donate: int): void;
-  DonateAngel(donate: int): void;
-  GetDevilRoomDeals(): int;
-  GetDonationModGreed(): int;
-  GetDonationModAngel(): int;
-  ClearDonationModGreed(): void;
-  ClearDonationModAngel(): void;
-  SetLastLevelWithDamage(levelStage: LevelStage): void;
-  GetLastLevelWithDamage(): LevelStage;
-  AddEncounteredBoss(
-    entityType: EntityType | int,
-    variant: EntityVariantForAC,
+  Update(): void;
+  UpdateStrangeAttractor(
+    position: Vector,
+    force?: float, // Default is 10
+    radius?: float, // Default is 250
   ): void;
-  GetNumEncounteredBosses(): int;
-  HasEncounteredBoss(
-    entityType: EntityType | int,
-    variant: EntityVariantForAC,
-  ): boolean;
-  GetGreedWavesNum(): int;
-  GetGreedBossWaveNum(): int;
-  SetLastLevelWithoutHalfHp(levelStage: LevelStage): void;
-  GetLastLevelWithoutHalfHp(): LevelStage;
-  ShakeScreen(timeout: int): void;
-  GetScreenShakeCountdown(): Readonly<int>;
-  Darken(darkness: float, timeout: int): void;
-  GetDarknessModifier(): float;
-  GetTargetDarkness(): float;
-  GetVictoryLap(): int;
-  NextVictoryLap(): void;
-  IsGreedMode(): boolean;
-  RerollLevelCollectibles(): void;
-  RerollLevelPickups(seed: int): void;
-  FinishChallenge(): void;
-  AddPixelation(duration: int): void;
-  // Using ShowHallucination() will immediately crash the game
-  /*
-  ShowHallucination(
-    frameCount: int,
-    hallucinationBackdrop: HallucinationBackdrop,
-  ): void; // HallucinationBackdrop is not implemented
-  */
-  HasHallucination(): int;
-  UpdateStrangeAttractor(position: Vector): void;
-  // GetAmbush(): Ambush; // Ambush is not implemented
-  Fadein(speed: float): void;
-  Fadeout(speed: float, fadeoutTarget: FadeoutTarget): void;
 
-  BossRushParTime: int;
   BlueWombParTime: int;
-  readonly ScreenShakeOffset: Readonly<Vector>;
+  BossRushParTime: int;
   Challenge: Challenge | int;
   readonly Difficulty: Difficulty;
+  readonly ScreenShakeOffset: Readonly<Vector>;
   TimeCounter: int;
 }

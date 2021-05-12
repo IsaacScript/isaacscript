@@ -1,60 +1,122 @@
 declare class Room {
-  // GetBackdropType(): Backdrop; // Backdrop is not implemented
-  Update(): void;
-  Render(): void;
-  IsInitialized(): boolean;
-  GetGridCollision(gridIndex: int): GridCollisionClass;
-  GetGridCollisionAtPos(position: Vector): GridCollisionClass;
-  GetDoor(doorSlot: DoorSlot): GridEntityDoor | null;
-  GetDoorSlotPosition(doorSlot: DoorSlot): Vector;
-  IsDoorSlotAllowed(doorSlot: DoorSlot): boolean;
-  RemoveDoor(doorSlot: DoorSlot): void;
-  KeepDoorsClosed(): void;
-  GetType(): RoomType;
-  GetDecorationSeed(): int;
-  GetSpawnSeed(): int;
-  GetAwardSeed(): int;
-  GetRoomShape(): RoomShape;
-  GetRoomConfigStage(): int;
-  GetGridPath(index: int): int;
-  GetGridPathFromPos(index: int): int;
-  SetGridPath(index: int, value: int): boolean;
-  DamageGrid(index: int, damage: int): boolean;
-  DestroyGrid(index: int, immediate: boolean): boolean;
+  /**
+   * @param position
+   * @param initialStep
+   * @param avoidActiveEntities
+   * @param allowPits
+   * @return 2 values:
+   * 1) boolean: true if there are no obstructions between Pos1 and Pos2, false otherwise
+   * 2) Vector: first hit position from Pos1 to Pos2 (returns Pos2 if the line didn't hit anything)
+   */
   CheckLine(
     position1: Vector,
     position2: Vector,
     lineCheckMode: LineCheckMode,
-    gridPathThreshold: int,
-    ignoreWalls: boolean,
-    ignoreCrushable: boolean,
-  ): boolean;
-  GetLaserTarget(position: Vector, direction: Vector): Vector;
-  GetGridEntity(index: int): GridEntity | null;
-  GetGridEntityFromPos(position: Vector): GridEntity | null;
-  GetGridWidth(): int;
-  GetGridHeight(): int;
-  GetGridSize(): int;
-  IsClear(): boolean;
-  SetClear(clear: boolean): void;
+    gridPathThreshold?: int, // Default is 0
+    ignoreWalls?: boolean, // Default is false
+    ignoreCrushable?: boolean, // Default is false
+  ): [boolean, Vector];
+  DamageGrid(index: int, damage: int): boolean;
+  DestroyGrid(index: int, immediate: boolean): boolean;
+  EmitBloodFromWalls(duration: int, count: int): void;
   FindFreePickupSpawnPosition(
     position: Vector,
-    initialStep: float,
-    avoidActiveEntities: boolean,
+    initialStep?: float, // Default is 0
+    avoidActiveEntities?: boolean, // Default is false
+    allowPits?: boolean, // Default is false
   ): Vector;
   FindFreeTilePosition(position: Vector, distanceThreshold: float): Vector;
-  GetGridIndex(position: Vector): int;
+  GetAliveBossesCount(): int;
+  GetAliveEnemiesCount(): int;
+  GetAwardSeed(): int;
+  GetBackdropType(): Backdrop;
+  GetBossID(): BossIDs | int;
+  GetBottomRightPos(): Vector;
+  GetBrokenWatchState(): int;
+  GetCenterPos(): Vector;
   GetClampedGridIndex(position: Vector): int;
-  GetGridPosition(gridIndex: int): Vector;
   GetClampedPosition(position: Vector, margin: float): Vector;
-  IsPositionInRoom(position: Vector, margin: float): boolean;
-  ScreenWrapPosition(position: Vector, margin: float): Vector;
-  IsLShapedRoom(): boolean;
+  GetDecorationSeed(): int;
+  GetDeliriumDistance(): int;
+  GetDevilRoomChance(): float;
+  GetDoor(doorSlot: DoorSlot): GridEntityDoor | null;
+  GetDoorSlotPosition(doorSlot: DoorSlot): Vector;
+  GetDungeonRockIdx(): int;
+  GetEntities(): EntityList;
+  GetFrameCount(): int;
+  GetGridCollision(gridIndex: int): GridCollisionClass;
+  GetGridCollisionAtPos(position: Vector): GridCollisionClass;
+  GetGridEntity(index: int): GridEntity | null;
+  GetGridEntityFromPos(position: Vector): GridEntity | null;
+  GetGridHeight(): int;
+  GetGridIndex(position: Vector): int;
+  GetGridPath(index: int): int;
+  GetGridPathFromPos(index: int): int;
+  GetGridPosition(gridIndex: int): Vector;
+  GetGridSize(): int;
+  GetGridWidth(): int;
+  GetLaserTarget(position: Vector, direction: Vector): Vector;
+  GetLightingAlpha(): float;
   // GetLRoomAreaDesc(): LRoomAreaDesc; // LRoomAreaDesc is not implemented
   // GetLRoomTileDesc(): LRoomTileDesc; // LRoomTileDesc is not implemented
+  GetNextShockwaveId(): int;
+  GetRandomPosition(margin: float): Vector;
+  GetRandomTileIndex(seed: int): int;
+  GetRedHeartDamage(): boolean;
+  GetRenderScrollOffset(): Readonly<Vector>;
+  GetRenderSurfaceTopLeft(): Readonly<Vector>;
+  GetRoomConfigStage(): int;
+  GetRoomShape(): RoomShape;
+  GetSecondBossID(): BossIDs | int;
+  GetSeededCollectible(seed: int): CollectibleType | int;
+  GetShopLevel(): int;
+  GetSpawnSeed(): int;
+  GetTintedRockIdx(): int;
   GetTopLeftPos(): Vector;
-  GetBottomRightPos(): Vector;
-  GetCenterPos(): Vector;
+  GetType(): RoomType;
+  HasSlowDown(): boolean;
+  HasTriggerPressurePlates(): boolean;
+  HasWater(): boolean;
+  HasWaterPits(): boolean;
+  IsAmbushActive(): boolean;
+  IsAmbushDone(): boolean;
+  IsClear(): boolean;
+  IsCurrentRoomLastBoss(): boolean;
+  IsDoorSlotAllowed(doorSlot: DoorSlot): boolean;
+  IsFirstEnemyDead(): boolean;
+  IsFirstVisit(): boolean;
+  IsInitialized(): boolean;
+  IsLShapedRoom(): boolean;
+  IsPositionInRoom(position: Vector, margin: float): boolean;
+  IsSacrificeDone(): boolean;
+  KeepDoorsClosed(): void;
+  MamaMegaExplossion(): void;
+  PlayMusic(): void;
+  RemoveDoor(doorSlot: DoorSlot): void;
+  RemoveGridEntity(
+    gridIndex: int,
+    pathTrail: int,
+    keepDecoration: boolean,
+  ): void;
+  Render(): void;
+  RespawnEnemies(): void;
+  ScreenWrapPosition(position: Vector, margin: float): Vector;
+  SetAmbushDone(value: boolean): void;
+  SetBrokenWatchState(state: int): void;
+  SetCardAgainstHumanity(): void;
+  SetClear(clear: boolean): void;
+  SetFirstEnemyDead(value: boolean): void;
+  SetFloorColor(floorColor: Color): void;
+  SetGridPath(index: int, value: int): boolean;
+  SetRedHeartDamage(): void;
+  SetSacrificeDone(done: boolean): void;
+  SetShockwaveParam(shockwaveID: int, shockwaveParams: ShockwaveParams): void;
+  SetSlowDown(duration: int): void;
+  SetWallColor(wallColor: Color): void;
+  ShopReshuffle(keepCollectibleIdx: boolean, reselectSaleItem: boolean): void;
+  ShopRestockFull(): void;
+  ShopRestockPartial(): void;
+  SpawnClearAward(): void;
   SpawnGridEntity(
     gridIndex: int,
     gridEntityType: GridEntityType | int,
@@ -62,70 +124,18 @@ declare class Room {
     seed: int,
     varData: int,
   ): boolean;
-  RemoveGridEntity(
-    gridIndex: int,
-    pathTrail: int,
-    keepDecoration: boolean,
-  ): void;
-  GetFrameCount(): int;
-  GetEntities(): EntityList;
-  GetAliveEnemiesCount(): int;
-  GetAliveBossesCount(): int;
-  GetBossID(): BossIDs | int;
-  GetSecondBossID(): BossIDs | int;
+  TryMakeBridge(pit: GridEntity): boolean;
   TryPlaceLadder(
     playerPos: Vector,
     playerVelocity: Vector,
     ladder: Entity,
   ): void;
-  SetSacrificeDone(done: boolean): void;
-  IsSacrificeDone(): boolean;
-  IsAmbushDone(): boolean;
-  SetAmbushDone(value: boolean): void;
-  IsAmbushActive(): boolean;
-  ShopRestockPartial(): void;
-  ShopRestockFull(): void;
-  ShopReshuffle(keepCollectibleIdx: boolean, reselectSaleItem: boolean): void;
-  TrySpawnDevilRoomDoor(animate: boolean): boolean;
-  GetDevilRoomChance(): float;
-  TrySpawnBossRushDoor(ignoreTime: boolean): boolean;
-  TrySpawnMegaSatanRoomDoor(): boolean;
   TrySpawnBlueWombDoor(firstTime: boolean, ignoreTime: boolean): boolean;
+  TrySpawnBossRushDoor(ignoreTime: boolean): boolean;
+  TrySpawnDevilRoomDoor(animate: boolean): boolean;
+  TrySpawnMegaSatanRoomDoor(): boolean;
   TrySpawnTheVoidDoor(): boolean;
-  PlayMusic(): void;
-  SetRedHeartDamage(): void;
-  GetRedHeartDamage(): boolean;
-  GetBrokenWatchState(): int;
-  SetBrokenWatchState(state: int): void;
-  IsFirstVisit(): boolean;
-  GetRenderSurfaceTopLeft(): Readonly<Vector>;
-  GetRenderScrollOffset(): Readonly<Vector>;
-  HasWaterPits(): boolean;
-  GetSeededCollectible(seed: int): CollectibleType | int;
-  GetShopLevel(): int;
-  SetShockwaveParam(shockwaveID: int, shockwaveParams: ShockwaveParams): void;
-  GetNextShockwaveId(): int;
-  SetCardAgainstHumanity(): void;
-  EmitBloodFromWalls(duration: int, count: int): void;
-  SpawnClearAward(): void;
-  GetLightingAlpha(): float;
-  TryMakeBridge(pit: GridEntity): boolean;
-  GetDungeonRockIdx(): int;
-  GetTintedRockIdx(): int;
-  HasSlowDown(): boolean;
-  SetSlowDown(duration: int): void;
-  GetRandomPosition(margin: float): Vector;
-  GetRandomTileIndex(seed: int): int;
-  RespawnEnemies(): void;
-  HasWater(): boolean;
-  HasTriggerPressurePlates(): boolean;
-  IsCurrentRoomLastBoss(): boolean;
-  IsFirstEnemyDead(): boolean;
-  SetFirstEnemyDead(value: boolean): void;
-  MamaMegaExplossion(): void;
-  GetDeliriumDistance(): int;
   TurnGold(): void;
-  SetFloorColor(floorColor: Color): void;
-  SetWallColor(wallColor: Color): void;
+  Update(): void;
   WorldToScreenPosition(worldPos: Vector): Vector;
 }

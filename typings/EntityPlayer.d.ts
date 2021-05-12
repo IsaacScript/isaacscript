@@ -21,312 +21,451 @@ type ZodiacCollectibles =
   | CollectibleType.COLLECTIBLE_VIRGO;
 
 declare class EntityPlayer extends Entity {
-  RenderGlow(position: Vector): void;
-  RenderBody(position: Vector): void;
-  RenderHead(position: Vector): void;
-  RenderTop(position: Vector): void;
-  GetName(): string;
-  AddMaxHearts(maxHearts: int, ignoreKeeper: boolean): void;
-  HasFullHearts(): boolean;
-  HasFullHeartsAndSoulHearts(): boolean;
-  AddHearts(hearts: int): void;
-  AddEternalHearts(eternalHearts: int): void;
-  AddSoulHearts(soulHearts: int): void;
   AddBlackHearts(blackHearts: int): void;
-  RemoveBlackHeart(blackHeart: int): void;
-  IsBlackHeart(heart: int): boolean;
-  AddJarHearts(hearts: int): void;
-  GetJarHearts(): int;
-  AddJarFlies(flies: int): void;
-  GetJarFlies(): int;
-  AddCoins(amount: int): void;
-  AddBombs(amount: int): void;
-  AddKeys(amount: int): void;
-  AddGoldenKey(): void;
-  RemoveGoldenKey(): void;
-  AddGoldenBomb(): void;
-  RemoveGoldenBomb(): void;
-  AddGoldenHearts(hearts: int): void;
-  AddBlueSpider(position: Vector): Entity;
-  ThrowBlueSpider(position: Vector, target: Vector): Entity;
-  RemoveBlueSpider(): void;
   AddBlueFlies(amount: int, position: Vector, target: Entity | null): Entity;
-  RemoveBlueFly(): void;
-  AddPrettyFly(): void;
-  TryUseKey(): boolean;
-  AddCostume(itemConfigItem: ItemConfigItem, itemStateOnly: boolean): void;
-  AddNullCostume(nullItemID: NullItemID): void;
-  RemoveCostume(itemConfigItem: ItemConfigItem): void;
-  RemoveSkinCostume(): void;
-  ClearCostumes(): void;
-  QueueItem(
-    itemConfigItem: ItemConfigItem,
-    charge: int,
-    touched: boolean,
-  ): void;
-  FlushQueueItem(): boolean;
-  IsItemQueueEmpty(): boolean;
+  AddBlueSpider(position: Vector): Entity;
+  AddBombs(amount: int): void;
+  AddBoneHearts(hearts: int): void;
+  AddCacheFlags(cacheFlags: CacheFlag): void;
+  AddCard(card: Card | int): void;
+  AddCoins(amount: int): void;
+  /**
+   * @param collectibleType
+   * @param charge
+   * @param addConsumables
+   * @param activeSlot Sets the active slot this collectible should be added to.
+   * @param varData Sets the variable data for this collectible (this is used to store extra data
+   * for some active items like the number of uses for Jar of Wisps).
+   */
   AddCollectible(
     collectibleType: CollectibleType | int,
-    charge: int,
-    addConsumables: boolean,
+    charge?: int, // Default is 0
+    addConsumables?: boolean, // Default is true
+    activeSlot?: ActiveSlot, // Default is ActiveSlot.SLOT_PRIMARY
+    varData?: int, // Default is 0
   ): void;
-  GetCollectibleCount(): int;
-  AddTrinket(trinketType: TrinketType | int): void;
-  TryRemoveTrinket(trinketType: TrinketType | int): boolean;
-  DropTrinket(dropPos: Vector, replaceTick: boolean): void;
-  GetMaxTrinkets(): int;
-  GetMaxPoketItems(): int;
-  DropPoketItem(pocketNum: int, position: Vector): void;
-  RemoveCollectible(collectibleType: CollectibleType | int): void;
-  ClearTemporaryEffects(): void;
-  DonateLuck(luck: int): void;
-  CanPickBlackHearts(): boolean;
-  CanPickGoldenHearts(): boolean;
-  GetActiveItem(): CollectibleType | int;
-  GetActiveCharge(): int;
-  GetBatteryCharge(): int;
-  GetActiveSubCharge(): int;
-  SetActiveCharge(charge: int): void;
-  DischargeActiveItem(): void;
-  NeedsCharge(): boolean;
-  FullCharge(): boolean;
-  // GetPocketItem(slotID: int): Readonly<PlayerPocketItem>; // PlayerPocketItem is not implemented
-  AddCard(card: Card | int): void;
+  AddControlsCooldown(cooldown: int): void;
+  AddCostume(itemConfigItem: ItemConfigItem, itemStateOnly: boolean): void;
+  AddDeadEyeCharge(): void;
+  AddDollarBillEffect(): void;
+  AddEternalHearts(eternalHearts: int): void;
+  AddGoldenBomb(): void;
+  AddGoldenHearts(hearts: int): void;
+  AddGoldenKey(): void;
+  AddHearts(hearts: int): void;
+  AddJarFlies(flies: int): void;
+  AddJarHearts(hearts: int): void;
+  AddKeys(amount: int): void;
+  AddMaxHearts(maxHearts: int, ignoreKeeper: boolean): void;
+  AddNullCostume(nullItemID: NullItemID): void;
   AddPill(pillColor: PillColor | int): void;
-  GetCard(slotID: SlotId): Card | int;
-  GetPill(slotID: SlotId): PillColor | int;
-  SetCard(slotID: SlotId, card: Card | int): void;
-  SetPill(slotID: SlotId, pillColor: PillColor | int): void;
-  HasCollectible(collectibleType: CollectibleType | int): boolean;
-  GetCollectibleNum(collectibleType: CollectibleType | int): int;
-  HasTrinket(trinketType: TrinketType | int): boolean;
-  HasPlayerForm(playerForm: PlayerForm): boolean;
-  CanAddCollectible(): boolean;
-  TryHoldTrinket(trinketType: TrinketType | int): boolean;
-  SetFullHearts(): void;
-  AddCacheFlags(cacheFlags: CacheFlag): void;
-  EvaluateItems(): void;
-  RespawnFamiliars(): void;
-  GetNPCTarget(): Entity;
-  GetMovementDirection(): Direction;
-  GetFireDirection(): Direction;
-  GetHeadDirection(): Direction;
-  GetAimDirection(): Readonly<Vector>;
-  GetMovementVector(): Readonly<Vector>;
-  GetRecentMovementVector(): Readonly<Vector>;
-  GetMovementJoystick(): Vector;
-  GetShootingJoystick(): Vector;
+  AddPlayerFormCostume(playerForm: PlayerForm): void;
+  AddPrettyFly(): void;
+  AddSoulHearts(soulHearts: int): void;
+  AddTrinket(
+    trinketType: TrinketType | int,
+    addConsumables?: boolean, // Default is true
+  ): void;
+  AnimateAppear(): void;
+  AnimateCard(
+    card: Card | int,
+    playerAnimationName?: string, // Default is "Pickup"
+  ): void;
+  AnimateCollectible(
+    collectibleType: CollectibleType | int,
+    playerAnimationName?: PlayerAnimationName, // Default is "Pickup"
+    spriteAnimationName?: CollectibleAnimationName, // Default is "PlayerPickupSparkle"
+  ): void;
+  AnimateHappy(): void;
+  AnimateLightTravel(): void;
+  AnimatePill(
+    pillColor: PillColor | int,
+    playerAnimationName?: string, // Default is "Pickup"
+  ): void;
+  AnimatePitfallIn(): void;
+  AnimatePitfallOut(): void;
+  AnimateSad(): void;
+  AnimateTeleport(up: boolean): void;
+  AnimateTrapdoor(): void;
+  AnimateTrinket(
+    trinketType: TrinketType | int,
+    playerAnimationName?: string, // Default is "Pickup"
+    spriteAnimationName?: string, // Default is "PlayerPickupSparkle"
+  ): void;
+  AreControlsEnabled(): boolean;
   AreOpposingShootDirectionsPressed(): boolean;
-  GetLastDirection(): Readonly<Vector>;
-  GetVelocityBeforeUpdate(): Readonly<Vector>;
-  GetSmoothBodyRotation(): float;
-  GetTearPoisonDamage(): float;
+  CanAddCollectible(
+    collectibleType?: CollectibleType, // Default is CollectibleType.COLLECTIBLE_NULL
+  ): boolean;
+  CanPickBlackHearts(): boolean;
+  CanPickBoneHearts(): boolean;
+  CanPickGoldenHearts(): boolean;
+  CanPickRedHearts(): boolean;
+  CanPickSoulHearts(): boolean;
+  CanPickupItem(): boolean;
+  CanShoot(): boolean;
+  CanTurnHead(): boolean;
+  /**
+   * @param familiarVariant
+   * @param targetCount
+   * @param rng
+   * @param sourceItem The item this type of familiar was created by.
+   * @param familiarSubType The subtype of the familiar to check (-1 matches any subtype).
+   */
+  CheckFamiliar(
+    familiarVariant: FamiliarVariant | int,
+    targetCount: int,
+    rng: RNG,
+    sourceItem?: ItemConfigItem, // Default is nil
+    familiarSubType?: int, // Default is -1
+  ): void;
+  ClearCostumes(): void;
+  ClearDeadEyeCharge(): void;
+  ClearTemporaryEffects(): void;
+  DischargeActiveItem(
+    activeSlot?: ActiveSlot, // Default is ActiveSlot.SLOT_PRIMARY
+  ): void;
+  DonateLuck(luck: int): void;
+  DoZitEffect(direction: Vector): void;
+  DropPocketItem(pocketNum: int, position: Vector): void;
+  DropTrinket(dropPos: Vector, replaceTick: boolean): void;
+  EvaluateItems(): void;
+  FireBomb(
+    position: Vector,
+    velocity: Vector,
+    source?: Entity, // Default is nil
+  ): EntityBomb;
+  FireBrimstone(
+    direction: Vector,
+    source?: Entity, // Default is nil
+    damageMultiplier?: float, // Default is 1
+  ): EntityLaser;
+  FireDelayedBrimstone(angle: float, parent: Entity): EntityLaser;
+  FireKnife(
+    parent: Entity,
+    rotationOffset?: float, // Default is 0
+    cantOverwrite?: boolean, // Default is false
+    subType?: int, // Default is 0
+    variant?: int, // Default is 0
+  ): EntityKnife;
+  FireTear(
+    position: Vector,
+    velocity: Vector,
+    canBeEye?: boolean, // Default is true
+    noTractorBeam?: boolean, // Default is false
+    canTriggerStreakEnd?: boolean, // Default is true
+    source?: Entity, // Default is nil
+    damageMultiplier?: float, // Default is 1
+  ): EntityTear;
+  FireTechLaser(
+    position: Vector,
+    laserOffset: LaserOffset,
+    direction: Vector,
+    leftEye: boolean,
+    oneHit?: boolean, // Default is false
+    source?: Entity, // Default is nil
+    damageMultiplier?: float, // Default is 1
+  ): EntityLaser;
+  FireTechXLaser(
+    position: Vector,
+    direction: Vector,
+    radius: float,
+    source?: Entity, // Default is nil
+    damageMultiplier?: float, // Default is 1
+  ): EntityLaser;
+  FlushQueueItem(): boolean;
+  /**
+   * @param activeSlot
+   * @param force If set, items will always be charged even if they normally cannot be recharged by
+   * batteries.
+   */
+  FullCharge(
+    activeSlot?: ActiveSlot, // Default is ActiveSlot.SLOT_PRIMARY
+    force?: boolean,
+  ): boolean;
+  GetActiveCharge(
+    activeSlot?: ActiveSlot, // Default is ActiveSlot.SLOT_PRIMARY
+  ): int;
+  GetActiveItem(
+    activeSlot?: ActiveSlot, // Default is ActiveSlot.SLOT_PRIMARY
+  ): CollectibleType | int;
+  GetActiveSubCharge(
+    activeSlot?: ActiveSlot, // Default is ActiveSlot.SLOT_PRIMARY
+  ): int;
+  GetActiveWeaponEntity(): Entity;
+  GetAimDirection(): Readonly<Vector>;
+  GetBabySkin(): BabySubType | int;
+  GetBatteryCharge(
+    activeSlot?: ActiveSlot, // Default is ActiveSlot.SLOT_PRIMARY
+  ): int;
+  GetBlackHearts(): int;
   GetBombFlags(): TearFlags;
   GetBombVariant(
     tearFlags: TearFlags,
     forceSmallBomb: boolean,
   ): BombVariant | int;
-  GetTearHitParams(
-    weaponType: WeaponType,
-    damageScale: float,
-    tearDisplacement: int,
-  ): TearParams;
-  GetHearts(): int;
-  GetMaxHearts(): int;
-  GetSoulHearts(): int;
-  GetBlackHearts(): int;
+  GetBoneHearts(): int;
+  GetCard(slotID: SlotId): Card | int;
+  GetCardRNG(card: Card | int): RNG;
+  GetCollectibleCount(): int;
+  /**
+   * @param collectibleType
+   * @param ignoreModifiers If set to true, only counts collectibles the player actually owns and
+   * ignores effects granted by items like Zodiac, 3 Dollar Bill and Lemegeton.
+   */
+  GetCollectibleNum(
+    collectibleType: CollectibleType | int,
+    ignoreModifiers?: boolean, // Default is false
+  ): int;
+  GetCollectibleRNG(collectibleType: CollectibleType | int): RNG;
+  GetCostumeNullPos(
+    nullFrameName: string,
+    headScale: boolean,
+    direction: Vector,
+  ): Vector;
+  GetDamageCooldown(): int;
+  GetEffectiveMaxHearts(): int;
+  GetEffects(): TemporaryEffects;
   GetEternalHearts(): int;
   GetExtraLives(): int;
-  GetNumBombs(): int;
-  GetNumKeys(): int;
-  HasGoldenKey(): boolean;
-  HasGoldenBomb(): boolean;
+  GetFireDirection(): Direction;
+  GetFlyingOffset(): Vector;
   GetGoldenHearts(): int;
-  GetNumCoins(): int;
-  GetPlayerType(): PlayerType | int;
-  GetTrinket(trinketIndex: 0 | 1): int;
+  GetGreedDonationBreakChance(): float;
+  GetHeadDirection(): Direction;
+  GetHeartLimit(): int;
+  GetHearts(): int;
+  GetItemState(): int;
+  GetJarFlies(): int;
+  GetJarHearts(): int;
+  GetLaserOffset(laserOffset: LaserOffset, direction: Vector): Vector;
+  GetLastActionTriggers(): int;
+  GetLastDamageFlags(): DamageFlag;
+  GetLastDamageSource(): Readonly<EntityRef>;
+  GetLastDirection(): Readonly<Vector>;
+  GetMaxHearts(): int;
+  GetMaxPocketItems(): int;
+  GetMaxTrinkets(): int;
+  GetMovementDirection(): Direction;
+  GetMovementInput(): Vector;
+  GetMovementJoystick(): Vector;
+  GetMovementVector(): Readonly<Vector>;
+  GetMultiShotParams(
+    // TODO check to see if MultiShotParams is implemented
+    weaponType?: WeaponType, // Default is WeaponType.WEAPON_TEARS
+  ): int; // MultiShotParams // MultiShotParams is not implemented
+  GetMultiShotPositionVelocity(
+    // TODO check to see if MultiShotParams is implemented
+    loopIndex: int,
+    weaponType: WeaponType,
+    shotDirection: Vector,
+    shotSpeed: float,
+    multiShotParams: int, // MultiShotParams, // MultiShotParams is not implemented
+  ): PosVel;
+  GetName(): string;
+  GetNPCTarget(): Entity;
   GetNumBlueFlies(): int;
   GetNumBlueSpiders(): int;
-  GetItemState(): int;
+  GetNumBombs(): int;
+  GetNumCoins(): int;
+  GetNumKeys(): int;
+  GetPill(slotID: SlotId): PillColor | int;
+  GetPillRNG(pillEffect: PillEffect | int): RNG;
+  GetPlayerType(): PlayerType | int;
+  // GetPocketItem(slotID: int): Readonly<PlayerPocketItem>; // PlayerPocketItem is not implemented
+  GetRecentMovementVector(): Readonly<Vector>;
+  GetShootingInput(): Vector;
+  GetShootingJoystick(): Vector;
+  GetSmoothBodyRotation(): float;
+  GetSoulHearts(): int;
+  GetSubPlayer(): EntityPlayer;
+  GetTearHitParams(
+    weaponType: WeaponType,
+    damageScale?: float, // Default is 1
+    tearDisplacement?: int, // Default is 1
+    source?: Entity, // Default is nil
+  ): TearParams;
+  GetTearMovementInheritance(shotDirection: Vector): Vector;
+  GetTearPoisonDamage(): float;
+  GetTearRangeModifier(): int;
+  GetTotalDamageTaken(): int;
+  GetTractorBeam(): Entity;
+  GetTrinket(trinketIndex: 0 | 1): int;
+  GetTrinketMultiplier(): int;
+  GetTrinketRNG(trinketType: TrinketType | int): RNG;
+  GetVelocityBeforeUpdate(): Readonly<Vector>;
+  GetZodiacEffect(): ZodiacCollectibles;
+  /**
+   * @param collectibleType
+   * @param ignoreModifiers If set to true, only counts collectibles the player actually owns and
+   * ignores effects granted by items like Zodiac, 3 Dollar Bill and Lemegeton.
+   */
+  HasCollectible(
+    collectibleType: CollectibleType | int,
+    ignoreModifiers?: boolean, // Default is false
+  ): boolean;
+  HasFullHearts(): boolean;
+  HasFullHeartsAndSoulHearts(): boolean;
+  HasGoldenBomb(): boolean;
+  HasGoldenKey(): boolean;
+  HasInvincibility(
+    damageFlag?: DamageFlag, // Default is 0
+  ): boolean;
+  HasPlayerForm(playerForm: PlayerForm): boolean;
+  HasTimedItem(): boolean;
+  /**
+   * @param trinketType
+   * @param ignoreModifiers If set to true, only counts trinkets the player actually holds and
+   * ignores effects granted by other items.
+   */
+  HasTrinket(
+    trinketType: TrinketType | int,
+    ignoreModifiers?: boolean, // Default is false
+  ): boolean;
+  HasWeaponType(weaponType: WeaponType): boolean;
+  InitBabySkin(): void;
+  IsBlackHeart(heart: int): boolean;
+  IsBoneHeart(heartSlot: int): boolean;
+  IsExtraAnimationFinished(): boolean;
+  IsFullSpriteRendering(): boolean;
+  IsHeldItemVisible(): boolean;
+  /* Is the player holding up an item (card/collectible/etc)? */
+  IsHoldingItem(): boolean;
+  IsItemQueueEmpty(): boolean;
+  IsP2Appearing(): boolean;
+  IsPosInSpotLight(position: Vector): boolean;
+  IsSubPlayer(): boolean;
+  NeedsCharge(
+    activeSlot?: ActiveSlot, // Default is ActiveSlot.SLOT_PRIMARY
+  ): boolean;
+  PlayExtraAnimation(animation: string): void;
+  QueueExtraAnimation(animation: string): void;
+  QueueItem(
+    itemConfigItem: ItemConfigItem,
+    charge?: int, // Default is 0
+    touched?: boolean, // Default is false
+    golden?: boolean, // Default is false
+    varData?: int, // Default is false
+  ): void;
+  RemoveBlackHeart(blackHeart: int): void;
+  RemoveBlueFly(): void;
+  RemoveBlueSpider(): void;
+  /**
+   * @param collectibleType
+   * @param ignoreModifiers Ignores collectible effects granted by other items (i.e. Void).
+   * @param activeSlot Sets the active slot this collectible should be removed from.
+   * @param removeFromPlayerForm If successfully removed and part of a transformation, decrease that
+   * transformation's counter by 1.
+   */
+  RemoveCollectible(
+    collectibleType: CollectibleType | int,
+    ignoreModifiers?: boolean, // Default is false
+    activeSlot?: ActiveSlot, // Default is ActiveSlot.SLOT_PRIMARY
+    removeFromPlayerForm?: boolean, // Default is true
+  ): void;
+  RemoveCostume(itemConfigItem: ItemConfigItem): void;
+  RemoveGoldenKey(): void;
+  RemoveGoldenBomb(): void;
+  RemoveSkinCostume(): void;
+  RenderBody(position: Vector): void;
+  RenderGlow(position: Vector): void;
+  RenderHead(position: Vector): void;
+  RenderTop(position: Vector): void;
+  ReplaceCostumeSprite(
+    itemConfigItem: ItemConfigItem,
+    spritePath: string,
+    spriteID: int,
+  ): void;
+  ResetDamageCooldown(): void;
+  ResetItemState(): void;
+  RespawnFamiliars(): void;
+  Revive(): void;
+  SetActiveCharge(
+    charge: int,
+    activeSlot?: ActiveSlot, // Default is ActiveSlot.SLOT_PRIMARY
+  ): void;
+  SetCard(slotID: SlotId, card: Card | int): void;
+  SetFullHearts(): void;
+  SetMinDamageCooldown(damageCooldown: int): void;
+  SetPill(slotID: SlotId, pillColor: PillColor | int): void;
+  SetShootingCooldown(cooldown: int): void;
+  SetTargetTrapDoor(trapDoor: GridEntity): void;
+  ShootRedCandle(direction: Vector): void;
+  SpawnMawOfVoid(timeout: int): EntityLaser;
+  StopExtraAnimation(): void;
+  SwapActiveItems(): void;
+  ThrowBlueSpider(position: Vector, target: Vector): Entity;
+  TryHoldTrinket(trinketType: TrinketType | int): boolean;
+  TryRemoveCollectibleCostume(
+    collectibleType: CollectibleType | int,
+    keepPersistent: boolean,
+  ): void;
+  TryRemoveNullCostume(nullItemID: NullItemID): void;
+  TryRemoveTrinket(trinketType: TrinketType | int): boolean;
+  TryRemoveTrinketCostume(trinketType: TrinketType | int): void;
+  TryUseKey(): boolean;
+  UpdateCanShoot(): void;
+  /**
+   * @param collectibleType
+   * @param useFlag
+   * @param activeSlot The active slot this item was used from
+   * (set to ActiveSlot.SLOT_NONE if this item wasn't triggered by any active slot).
+   */
+  UseActiveItem(
+    collectibleType: CollectibleType | int,
+    useFlag?: int, // Default is 0 // TODO set to UseFlags
+    activeSlot?: ActiveSlot, // Default is ActiveSlot.SLOT_PRIMARY
+  ): void;
+  /**
+   * @param collectibleType
+   * @param showAnim
+   * @param keepActiveItem
+   * @param allowNonMainPlayer
+   * @param toAddCostume
+   * @param activeSlot The active slot this item was used from
+   * (set to ActiveSlot.SLOT_NONE if this item wasn't triggered by any active slot).
+   */
   UseActiveItem(
     collectibleType: CollectibleType | int,
     showAnim: boolean,
     keepActiveItem: boolean,
     allowNonMainPlayer: boolean,
     toAddCostume: boolean,
+    activeSlot?: ActiveSlot, // Default is ActiveSlot.SLOT_PRIMARY
   ): void;
-  GetTearRangeModifier(): int;
-  GetTrinketMultiplier(): int;
-  GetEffects(): TemporaryEffects;
-  HasWeaponType(weaponType: WeaponType): boolean;
-  GetActiveWeaponEntity(): Entity;
-  GetTractorBeam(): Entity;
-  CanPickupItem(): boolean;
-  /* Is the player holding up an item (card/collectible/etc)? */
-  IsHoldingItem(): boolean;
-  IsHeldItemVisible(): boolean;
-  Revive(): void;
-  TryRemoveCollectibleCostume(
-    collectibleType: CollectibleType | int,
-    keepPersistent: boolean,
+  UseCard(
+    card: Card | int,
+    useFlag?: int, // Default is 0 // TODO set to UseFlags
   ): void;
-  TryRemoveTrinketCostume(trinketType: TrinketType | int): void;
-  TryRemoveNullCostume(nullItemID: NullItemID): void;
-  AnimateCollectible(
-    collectibleType: CollectibleType | int,
-    playerAnimationName: PlayerAnimationName,
-    collectibleAnimationName: CollectibleAnimationName,
+  UsePill(
+    pillEffect: PillEffect | int,
+    pillColor: PillColor | int,
+    useFlag?: int, // Default is 0 // TODO set to UseFlags
   ): void;
-  AnimateTrinket(
-    trinketType: TrinketType | int,
-    animName: string,
-    spriteAnimName: string,
-  ): void;
-  AnimateCard(card: Card | int, animName: string): void;
-  AnimatePill(pillColor: PillColor | int, animName: string): void;
-  AnimateTrapdoor(): void;
-  AnimateLightTravel(): void;
-  AnimateAppear(): void;
-  AnimateTeleport(up: boolean): void;
-  AnimateHappy(): void;
-  AnimateSad(): void;
-  AnimatePitfallIn(): void;
-  AnimatePitfallOut(): void;
-  IsExtraAnimationFinished(): boolean;
-  StopExtraAnimation(): void;
-  AddControlsCooldown(cooldown: int): void;
-  PlayExtraAnimation(animation: string): void;
-  QueueExtraAnimation(animation: string): void;
-  GetDamageCooldown(): int;
-  ResetDamageCooldown(): void;
-  SetMinDamageCooldown(damageCooldown: int): void;
-  AreControlsEnabled(): boolean;
-  UseCard(card: Card | int): void;
-  UsePill(pillEffect: PillEffect | int, pillColor: PillColor | int): void;
-  HasInvincibility(): boolean;
-  SetShootingCooldown(cooldown: int): void;
-  SetTargetTrapDoor(trapDoor: GridEntity): void;
-  FireDelayedBrimstone(angle: float, parent: Entity): EntityLaser;
-  GetLastDamageSource(): Readonly<EntityRef>;
-  GetLastDamageFlags(): DamageFlag;
-  GetTotalDamageTaken(): int;
-  FireTear(
-    position: Vector,
-    velocity: Vector,
-    canBeEye: boolean,
-    noTractorBeam: boolean,
-    canTriggerStreakEnd: boolean,
-  ): EntityTear;
-  FireBomb(position: Vector, velocity: Vector): EntityBomb;
-  FireBrimstone(direction: Vector): EntityLaser;
-  FireTechLaser(
-    position: Vector,
-    laserOffset: LaserOffset,
-    direction: Vector,
-    leftEye: boolean,
-    oneHit: boolean,
-  ): EntityLaser;
-  FireTechXLaser(
-    position: Vector,
-    direction: Vector,
-    radius: float,
-  ): EntityLaser;
-  FireKnife(
-    parent: Entity,
-    rotationOffset: float,
-    cantOverwrite: boolean,
-    subType: int,
-  ): EntityKnife;
-  GetBabySkin(): BabySubType | int;
-  CanShoot(): boolean;
-  IsP2Appearing(): boolean;
-  IsFullSpriteRendering(): boolean;
-  GetCollectibleRNG(collectibleType: CollectibleType | int): RNG;
-  GetTrinketRNG(trinketType: TrinketType | int): RNG;
-  GetPillRNG(pillEffect: PillEffect | int): RNG;
-  GetCardRNG(card: Card | int): RNG;
-  AddDeadEyeCharge(): void;
-  ClearDeadEyeCharge(): void;
-  GetZodiacEffect(): ZodiacCollectibles;
-  IsPosInSpotLight(position: Vector): boolean;
-  // GetMultiShotParams(): MultiShotParams // MultiShotParams is not implemented
-  /*
-  GetMultiShotPositionVelocity (
-    loopIndex: int,
-    weaponType: WeaponType ,
-    shotDirection: Vector,
-    shotSpeed: float,
-    multiShotParams: MultiShotParams, // MultiShotParams is not implemented
-  ): PosVel
-  */
-  GetFlyingOffset(): Vector;
   WillPlayerRevive(): boolean;
-  GetLastActionTriggers(): int;
-  GetGreedDonationBreakChance(): float;
-  GetMovementInput(): Vector;
-  GetShootingInput(): Vector;
-  HasTimedItem(): boolean;
-  InitBabySkin(): void;
-  CanTurnHead(): boolean;
-  CheckFamiliar(
-    familiarVariant: FamiliarVariant | int,
-    targetCount: int,
-    rng: RNG,
-  ): void;
-  UpdateCanShoot(): void;
-  GetLaserOffset(laserOffset: LaserOffset, direction: Vector): Vector;
-  GetTearMovementInheritance(shotDirection: Vector): Vector;
-  GetCostumeNullPos(
-    nullFrameName: string,
-    headScale: boolean,
-    direction: Vector,
-  ): Vector;
-  ReplaceCostumeSprite(
-    itemConfigItem: ItemConfigItem,
-    spritePath: string,
-    spriteID: int,
-  ): void;
-  AddPlayerFormCostume(playerForm: PlayerForm): void;
-  ResetItemState(): void;
-  SpawnMawOfVoid(timeout: int): EntityLaser;
-  AddDollarBillEffect(): void;
-  ShootRedCandle(direction: Vector): void;
-  DoZitEffect(direction: Vector): void;
-  SwapActiveItems(): void;
-  AddBoneHearts(hearts: int): void;
-  GetBoneHearts(): int;
-  IsBoneHeart(heartSlot: int): boolean;
-  GetEffectiveMaxHearts(): int;
-  GetHeartLimit(): int;
-  CanPickRedHearts(): boolean;
-  CanPickSoulHearts(): boolean;
-  CanPickBoneHearts(): boolean;
-  IsSubPlayer(): boolean;
-  GetSubPlayer(): EntityPlayer;
 
-  readonly TearsOffset: Readonly<Vector>;
-  ControlsEnabled: boolean;
-  ControlsCooldown: int;
-  // readonly FriendBallEnemy: Readonly<EntityDesc>; // EntityDesc is not implemented
-  SpriteScale: Vector;
-  readonly ControllerIndex: int;
-  FireDelay: int;
-  MaxFireDelay: int;
-  ShotSpeed: float;
-  Damage: float;
-  TearHeight: float;
-  TearFallingSpeed: float;
-  TearFallingAcceleration: float;
-  MoveSpeed: float;
-  TearFlags: TearFlags;
-  TearColor: Color;
-  LaserColor: Color;
-  CanFly: boolean;
-  Luck: float;
   BabySkin: BabySubType | int;
-  QueuedItem: QueueItemData;
-  ItemHoldCooldown: int;
-  SecondaryActiveItem: ActiveItemDesc;
+  CanFly: boolean;
+  readonly ControllerIndex: int;
+  ControlsCooldown: int;
+  ControlsEnabled: boolean;
+  Damage: float;
+  FireDelay: int;
+  // readonly FriendBallEnemy: Readonly<EntityDesc>; // EntityDesc is not implemented
   HeadFrameDelay: int;
+  ItemHoldCooldown: int;
+  LaserColor: Color;
+  Luck: float;
+  MaxFireDelay: int;
+  MoveSpeed: float;
+  QueuedItem: QueueItemData;
+  SecondaryActiveItem: ActiveItemDesc;
+  ShotSpeed: float;
+  SpriteScale: Vector;
+  TearColor: Color;
+  TearFallingAcceleration: float;
+  TearFallingSpeed: float;
+  TearFlags: TearFlags;
+  TearHeight: float;
+  readonly TearsOffset: Readonly<Vector>;
 }

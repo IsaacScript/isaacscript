@@ -2,36 +2,60 @@ declare class EntityFamiliar extends Entity {
   AddCoins(value: int): void;
   AddHearts(hearts: int): void;
   AddKeys(keys: int): void;
-  PickEnemyTarget(maxDistance: float, frameInterval: int): void;
+  AddToDelayed(): void;
+  AddToFollowers(): void;
+  AddToOrbit(layer: int): void;
+  FireProjectile(direction: Vector): EntityTear;
   FollowParent(): void;
   FollowPosition(position: Vector): void;
+  static GetOrbitDistance(this: void, layer: int): Vector;
   GetOrbitPosition(position: Vector): Vector;
-  Shoot(): void;
-  FireProjectile(direction: Vector): EntityTear;
-  PlayChargeAnim(direction: Direction): void;
-  PlayShootAnim(direction: Direction): void;
-  PlayFloatAnim(direction: Direction): void;
   MoveDelayed(numFrames: int): void;
   MoveDiagonally(speed: float): void;
+  /**
+   * @param maxDistance
+   * @param frameInterval
+   * @param flags
+   * A combination of the following flags (none of these are set by default):
+   * 1: Allow switching to a better target even if we already have one
+   * 2: Don't prioritize enemies that are close to our owner
+   * 4: Prioritize enemies with higher HP
+   * 8: Prioritize enemies with lower HP
+   * 16: Give lower priority to our current target
+   * (this makes us more likely to switch between targets)
+   * @param coneDir
+   * If ~= Vector.Zero, searches for targets in a cone pointing in this direction.
+   * @param coneAngle
+   * If ConeDir ~= Vector.Zero, sets the half angle of the search cone in degrees
+   * (45 results in a search angle of 90 degrees).
+   */
+  PickEnemyTarget(
+    maxDistance: float,
+    frameInterval?: int, // Default is 13
+    flags?: int, // Default is 0
+    coneDir?: Vector, // Default is Vector.Zero
+    coneAngle?: float, // Default is 15
+  ): void;
+  PlayChargeAnim(direction: Direction): void;
+  PlayFloatAnim(direction: Direction): void;
+  PlayShootAnim(direction: Direction): void;
   RecalculateOrbitOffset(layer: int, add: boolean): int;
-  AddToFollowers(): void;
-  AddToDelayed(): void;
-  AddToOrbit(layer: int): void;
-  RemoveFromFollowers(): void;
   RemoveFromDelayed(): void;
+  RemoveFromFollowers(): void;
   RemoveFromOrbit(): void;
+  Shoot(): void;
 
-  Player: EntityPlayer;
   Coins: int;
-  Hearts: int;
-  Keys: int;
   FireCooldown: int;
   HeadFrameDelay: int;
-  MoveDirection: Direction;
-  ShootDirection: Direction;
+  Hearts: int;
+  Keys: int;
   LastDirection: Direction;
+  MoveDirection: Direction;
   OrbitAngleOffset: float;
   OrbitDistance: Vector;
-  State: int;
+  Player: EntityPlayer;
   RoomClearCount: int;
+  ShootDirection: Direction;
+  State: int;
 }

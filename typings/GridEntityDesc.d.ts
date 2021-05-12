@@ -1,10 +1,10 @@
 declare class GridEntityDesc {
-  Type: GridEntityType | int;
-  Variant: GridEntityVariantForAC;
-  State: int;
+  Initialized: boolean;
   SpawnCount: int;
   SpawnSeed: int;
+  State: int;
+  Type: GridEntityType | int;
   VarData: int;
-  Initialized: boolean;
   VariableSeed: int;
+  Variant: GridEntityVariantForAC;
 }

@@ -1,9 +1,14 @@
-/** @noSelf */
-declare function KColor(r: float, g: float, b: float, a: float): KColor;
+declare function KColor(
+  this: void,
+  r: float,
+  g: float,
+  b: float,
+  a: float,
+): KColor;
 
 declare class KColor {
-  R: float;
-  G: float;
-  B: float;
-  A: float;
+  Alpha: float;
+  Blue: float;
+  Green: float;
+  Red: float;
 }

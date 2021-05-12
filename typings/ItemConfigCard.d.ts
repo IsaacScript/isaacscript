@@ -1,8 +1,8 @@
 declare class ItemConfigCard {
-  ID: int;
   AchievementID: int;
-  Name: string;
   Description: string;
-  HudAnim: string;
   GreedModeAllowed: boolean;
+  HudAnim: string;
+  ID: int;
+  Name: string;
 }

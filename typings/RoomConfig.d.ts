@@ -1,16 +1,18 @@
+// This is "RoomConfig::Room" in the docs
+
 declare class RoomConfig {
+  Difficulty: Difficulty;
+  // Doors: IntList; // IntList is not implemented
+  Height: int;
+  InitialWeight: float;
+  Name: string;
+  Shape: RoomShape;
+  SpawnCount: int;
+  // Spawns: SpawnList; // SpawnList is not implemented
   StageID: int;
+  Subtype: int;
   Type: RoomType;
   Variant: int;
-  Subtype: int;
-  Name: string;
-  Difficulty: Difficulty;
-  InitialWeight: float;
   Weight: float;
-  // Doors: IntList; // IntList is not implemented
-  // Spawns: SpawnList; // SpawnList is not implemented
-  SpawnCount: int;
   Width: int;
-  Height: int;
-  Shape: RoomShape;
 }

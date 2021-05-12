@@ -1,10 +1,9 @@
-/** @noSelf */
-declare function RNG(): RNG;
+declare function RNG(this: void): RNG;
 
 declare class RNG {
   GetSeed(): int;
-  SetSeed(seed: int, shiftIdx: int): void;
-  RandomInt(max: int): int;
-  RandomFloat(): float;
   Next(): int;
+  RandomFloat(): float;
+  RandomInt(max: int): int;
+  SetSeed(seed: int, shiftIdx: int): void;
 }

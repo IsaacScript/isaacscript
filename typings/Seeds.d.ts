@@ -1,37 +1,29 @@
 declare class Seeds {
-  SetStartSeed(startSeed: string): void;
+  AddSeedEffect(seedEffect: SeedEffect): void;
+  CanAddSeedEffect(seedEffect: SeedEffect): boolean;
+  ClearSeedEffects(): void;
   ClearStartSeed(): void;
-  IsCustomRun(): boolean;
-  Restart(challenge: Challenge | int): void;
-  Reset(): void;
-  IsInitialized(): boolean;
+  CountSeedEffects(): int;
+  static CountUnlockedSeedEffects(this: void): int;
+  ForgetStageSeed(levelStage: LevelStage): void;
+  GetNextSeed(): int;
+  GetPlayerInitSeed(): int;
+  static GetSeedEffect(this: void, str: string): SeedEffect;
+  GetStageSeed(levelStage: LevelStage): int;
   GetStartSeed(): int;
   GetStartSeedString(): string;
-  GetNextSeed(): int;
-  GetStageSeed(levelStage: LevelStage): int;
-  GetPlayerInitSeed(): int;
-  ForgetStageSeed(levelStage: LevelStage): void;
   HasSeedEffect(seedEffect: SeedEffect): boolean;
-  AddSeedEffect(seedEffect: SeedEffect): void;
-  RemoveSeedEffect(seedEffect: SeedEffect): void;
-  RemoveBlockingSeedEffects(seedEffect: SeedEffect): void;
-  ClearSeedEffects(): void;
-  CanAddSeedEffect(seedEffect: SeedEffect): boolean;
-  CountSeedEffects(): int;
+  static InitSeedInfo(this: void): void;
+  IsCustomRun(): boolean;
+  IsInitialized(): boolean;
   IsSeedComboBanned(seedEffect1: SeedEffect, seedEffect2: SeedEffect): boolean;
-
-  /** @noSelf */
-  static String2Seed(str: string): int;
-  /** @noSelf */
-  static Seed2String(seed: int): string;
-  /** @noSelf */
-  static IsStringValidSeed(str: string): boolean;
-  /** @noSelf */
-  static GetSeedEffect(str: string): SeedEffect;
-  /** @noSelf */
-  static IsSpecialSeed(str: string): boolean;
-  /** @noSelf */
-  static InitSeedInfo(): void;
-  /** @noSelf */
-  static CountUnlockedSeedEffects(): int;
+  static IsSpecialSeed(this: void, str: string): boolean;
+  static IsStringValidSeed(this: void, str: string): boolean;
+  RemoveBlockingSeedEffects(seedEffect: SeedEffect): void;
+  RemoveSeedEffect(seedEffect: SeedEffect): void;
+  Reset(): void;
+  Restart(challenge: Challenge | int): void;
+  static Seed2String(this: void, seed: int): string;
+  SetStartSeed(startSeed: string): void;
+  static String2Seed(this: void, str: string): int;
 }

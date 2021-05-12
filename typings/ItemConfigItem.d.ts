@@ -1,26 +1,26 @@
 declare class ItemConfigItem {
   IsCollectible(): boolean;
-  IsTrinket(): boolean;
   IsNull(): boolean;
+  IsTrinket(): boolean;
 
-  Type: ItemType;
-  ID: int;
-  Name: string;
-  Description: string;
-  GfxFileName: string;
   AchievementID: int;
-  CacheFlags: CacheFlag;
-  AddMaxHearts: int;
-  AddHearts: int;
-  AddSoulHearts: int;
   AddBlackHearts: int;
   AddBombs: int;
-  AddKeys: int;
   AddCoins: int;
+  AddHearts: int;
+  AddKeys: int;
+  AddMaxHearts: int;
+  AddSoulHearts: int;
+  CacheFlags: CacheFlag;
+  readonly Costume: Readonly<ItemConfigCostume>;
+  Description: string;
+  DevilPrice: int;
+  Discharged: boolean;
+  GfxFileName: string;
+  ID: int;
   MaxCharges: int;
   MaxCooldown: int;
+  Name: string;
   Special: boolean;
-  DevilPrice: int;
-  readonly Costume: Readonly<ItemConfigCostume>;
-  Discharged: boolean;
+  Type: ItemType;
 }

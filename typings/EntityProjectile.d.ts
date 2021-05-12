@@ -1,23 +1,23 @@
 declare class EntityProjectile extends Entity {
-  AddHeight(value: float): void;
-  AddFallingSpeed(value: float): void;
-  AddFallingAccel(value: float): void;
   AddChangeFlags(flags: int): void;
-  AddScale(value: float): void;
+  AddFallingAccel(value: float): void;
+  AddFallingSpeed(value: float): void;
+  AddHeight(value: float): void;
   AddProjectileFlags(flags: ProjectileFlags): void;
+  AddScale(value: float): void;
 
-  Height: float;
-  FallingSpeed: float;
-  FallingAccel: float;
-  HomingStrength: float;
-  CurvingStrength: float;
   Acceleration: float;
-  WiggleFrameOffset: int;
   ChangeFlags: ProjectileFlags;
-  ChangeVelocity: float;
   ChangeTimeout: int;
-  Scale: float;
-  ProjectileFlags: ProjectileFlags;
-  DepthOffset: float;
+  ChangeVelocity: float;
+  CurvingStrength: float;
   Damage: float;
+  DepthOffset: float;
+  FallingAccel: float;
+  FallingSpeed: float;
+  Height: float;
+  HomingStrength: float;
+  ProjectileFlags: ProjectileFlags;
+  Scale: float;
+  WiggleFrameOffset: int;
 }

@@ -1,26 +1,26 @@
 declare class RoomDescriptor {
-  GridIndex: int;
-  SafeGridIndex: int;
-  ListIndex: int;
-  Data: RoomDescriptorData;
-  OverrideData: RoomDescriptorData;
   // AllowedDoors: DoorSet; // DoorSet is not implemented
-  DisplayFlags: int;
-  VisitedCount: int;
+  AwardSeed: int;
+  ChallengeDone: boolean;
   Clear: boolean;
   ClearCount: int;
+  Data: RoomDescriptorData;
+  DecorationSeed: int;
+  DeliriumDistance: int;
+  DisplayFlags: int;
+  GridIndex: int;
+  HasWater: boolean;
+  ListIndex: int;
+  NoReward: boolean;
+  OverrideData: RoomDescriptorData;
+  PitsCount: int;
+  PoopCount: int;
   PressurePlatesTriggered: boolean;
   SacrificeDone: boolean;
-  ChallengeDone: boolean;
-  SurpriseMiniboss: boolean;
-  HasWater: boolean;
-  NoReward: boolean;
-  PoopCount: int;
-  PitsCount: int;
-  DecorationSeed: int;
-  SpawnSeed: int;
-  AwardSeed: int;
-  ShopItemIdx: int;
+  SafeGridIndex: int;
   ShopItemDiscountIdx: int;
-  DeliriumDistance: int;
+  ShopItemIdx: int;
+  SpawnSeed: int;
+  SurpriseMiniboss: boolean;
+  VisitedCount: int;
 }

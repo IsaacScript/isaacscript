@@ -1,28 +1,27 @@
-/** @noSelf */
-declare function ProjectileParams(): ProjectileParams;
+declare function ProjectileParams(this: void): ProjectileParams;
 
 declare class ProjectileParams {
+  Acceleration: float;
+  BulletFlags: int;
+  ChangeFlags: ProjectileFlags;
+  ChangeTimeout: int;
+  ChangeVelocity: float;
+  CircleAngle: float;
+  CurvingStrength: float;
+  DepthOffset: float;
+  DotProductLimit: float;
+  FallingAccelModifier: float;
+  FallingSpeedModifier: float;
+  FireDirectionLimit: Vector;
   GridCollision: boolean;
   HeightModifier: float;
-  FallingSpeedModifier: float;
-  FallingAccelModifier: float;
-  VelocityMulti: float;
-  Scale: float;
-  CircleAngle: float;
   HomingStrength: float;
-  CurvingStrength: float;
-  Acceleration: float;
-  Spread: float;
   Color: Color;
-  BulletFlags: int;
   PositionOffset: Vector;
+  Scale: float;
+  Spread: float;
   TargetPosition: Vector;
-  FireDirectionLimit: Vector;
-  DotProductLimit: float;
-  WiggleFrameOffset: int;
-  ChangeFlags: ProjectileFlags;
-  ChangeVelocity: float;
-  ChangeTimeout: int;
-  DepthOffset: float;
   Variant: ProjectileVariant | int;
+  VelocityMulti: float;
+  WiggleFrameOffset: int;
 }

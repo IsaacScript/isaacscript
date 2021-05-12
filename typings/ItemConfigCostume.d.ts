@@ -1,12 +1,12 @@
 // This class is unused because "ItemConfig.GetCostumes()" is broken
 
 declare class ItemConfigCostume {
-  ID: int;
   Anm2Path: string;
-  Priority: int;
   HasOverlay: boolean;
-  IsFlying: boolean;
   HasSkinAlt: boolean;
-  SkinColor: Color;
+  ID: int;
+  IsFlying: boolean;
   OverwriteColor: boolean;
+  Priority: int;
+  SkinColor: Color;
 }

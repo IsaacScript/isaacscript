@@ -1,13 +1,12 @@
-/** @noSelf */
-declare function EntityRef(entity: Entity): EntityRef;
+declare function EntityRef(this: void, entity: Entity): EntityRef;
 
 declare class EntityRef {
-  Type: EntityType | int;
-  Variant: EntityVariantForAC;
-  SpawnerType: EntityType | int;
-  SpawnerVariant: EntityVariantForAC;
-  Position: Vector;
+  Entity: Entity;
   IsCharmed: boolean;
   IsFriendly: boolean;
-  Entity: Entity;
+  Position: Vector;
+  SpawnerType: EntityType | int;
+  SpawnerVariant: EntityVariantForAC;
+  Type: EntityType | int;
+  Variant: EntityVariantForAC;
 }

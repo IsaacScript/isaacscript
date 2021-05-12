@@ -6,31 +6,31 @@
 type GridEntityVariantForAC = DoorVariant | PoopVariant | PlateVariant | int;
 
 declare class GridEntity {
-  SetType(gridEntityType: GridEntityType): void;
-  SetVariant(variant: GridEntityVariantForAC): void;
-  Init(seed: int): void;
-  PostInit(): void;
-  Update(): void;
-  Render(offset: Vector): void;
-  Hurt(damage: int): boolean;
   Destroy(immediate: boolean): boolean;
-  GetType(): GridEntityType | int;
-  GetVariant(): GridEntityVariantForAC;
   GetGridIndex(): int;
   GetSaveState(): GridEntityDesc;
+  GetType(): GridEntityType | int;
+  GetVariant(): GridEntityVariantForAC;
+  Hurt(damage: int): boolean;
+  Init(seed: int): void;
+  PostInit(): void;
+  Render(offset: Vector): void;
+  SetType(gridEntityType: GridEntityType): void;
+  SetVariant(variant: GridEntityVariantForAC): void;
   ToDoor(): GridEntityDoor;
   ToPit(): GridEntityPit;
   ToPoop(): GridEntityPoop;
-  ToRock(): GridEntityRock;
   ToPressurePlate(): GridEntityPressurePlate;
+  ToRock(): GridEntityRock;
   ToSpikes(): GridEntitySpikes;
   ToTNT(): GridEntityTNT;
+  Update(): void;
 
+  CollisionClass: GridCollisionClass;
+  // Desc: GridEntityDesc; // Should use GetSaveState() instead
   readonly Position: Readonly<Vector>;
+  RNG: RNG;
+  Sprite: Sprite;
   State: int;
   VarData: int;
-  // Desc: GridEntityDesc; // Should use GetSaveState() instead
-  RNG: RNG;
-  CollisionClass: GridCollisionClass;
-  Sprite: Sprite;
 }

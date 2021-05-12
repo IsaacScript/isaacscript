@@ -15,24 +15,57 @@ type EntityVariantForAC =
   | int;
 
 declare class Entity {
+  AddBurn(source: EntityRef, duration: int, damage: float): void;
+  AddCharmed(duration: int): void;
+  AddConfusion(source: EntityRef, duration: int, ignoreBosses: boolean): void;
+  AddEntityFlags(entityFlags: EntityFlag): void;
+  AddFear(source: EntityRef, duration: int): void;
+  AddFreeze(source: EntityRef, duration: int): void;
+  AddHealth(hitPoints: float): void;
+  AddMidasFreeze(source: EntityRef, duration: int): void;
+  AddPoison(source: EntityRef, duration: int, damage: float): void;
+  AddShrink(source: EntityRef, duration: int): void;
+  AddSlowing(
+    source: EntityRef,
+    duration: int,
+    slowValue: float,
+    slowColor: Color,
+  ): void;
+  AddVelocity(velocity: Vector): void;
+  BloodExplode(): void;
+  CanShutDoors(): boolean;
+  ClearEntityFlags(entityFlags: EntityFlag): void;
+  CollidesWithGrid(): boolean;
+  Die(): void;
+  Exists(): boolean;
+  GetBossID(): BossIDs | int;
+  GetColor(): Readonly<Color>;
   GetData(): Record<string, unknown>;
-  Update(): void;
+  GetDropRNG(): RNG;
+  GetEntityFlags(): EntityFlag;
+  GetLastChild(): Entity;
+  GetLastParent(): Entity;
+  GetSprite(): Sprite;
+  HasCommonParentWithEntity(other: Entity): boolean;
+  HasEntityFlags(entityFlags: EntityFlag): boolean;
+  HasFullHealth(): boolean;
+  HasMortalDamage(): boolean;
+  IsActiveEnemy(includeDead: boolean): boolean;
+  IsBoss(): boolean;
+  IsDead(): boolean;
+  IsEnemy(): boolean;
+  IsFlying(): boolean;
+  IsFrame(frame: int, offset: int): boolean;
+  IsInvincible(): boolean;
+  IsVisible(): boolean;
+  IsVulnerableEnemy(): boolean;
+  Kill(): void;
+  MultiplyFriction(value: float): void;
+  PostRender(): void;
+  Remove(): void;
+  RemoveStatusEffects(): void;
   Render(offset: Vector): void;
   RenderShadowLayer(offset: Vector): boolean;
-  PostRender(): void;
-  TakeDamage(
-    damage: float,
-    damageFlags: int,
-    source: EntityRef,
-    damageCountdown: int,
-  ): boolean;
-  HasMortalDamage(): boolean;
-  Kill(): void;
-  Die(): void;
-  Remove(): void;
-  BloodExplode(): void;
-  AddVelocity(velocity: Vector): void;
-  MultiplyFriction(value: float): void;
   SetColor(
     color: Color,
     duration: int,
@@ -40,93 +73,60 @@ declare class Entity {
     fadeout: boolean,
     share: boolean,
   ): void;
-  GetColor(): Readonly<Color>;
+  SetSize(size: float, sizeMulti: Vector, numGridCollisionPoints: int): void;
   SetSpriteFrame(animationName: string, frameNum: int): void;
   SetSpriteOverlayFrame(animationName: string, frameNum: int): void;
-  SetSize(size: float, sizeMulti: Vector, numGridCollisionPoints: int): void;
-  CollidesWithGrid(): boolean;
-  IsEnemy(): boolean;
-  IsActiveEnemy(includeDead: boolean): boolean;
-  IsVulnerableEnemy(): boolean;
-  IsFlying(): boolean;
-  AddEntityFlags(entityFlags: EntityFlag): void;
-  ClearEntityFlags(entityFlags: EntityFlag): void;
-  GetEntityFlags(): EntityFlag;
-  HasEntityFlags(entityFlags: EntityFlag): boolean;
-  HasFullHealth(): boolean;
-  AddHealth(hitPoints: float): void;
-  AddPoison(source: EntityRef, duration: int, damage: float): void;
-  AddFreeze(source: EntityRef, duration: int): void;
-  AddSlowing(
+  TakeDamage(
+    damage: float,
+    damageFlags: int,
     source: EntityRef,
-    duration: int,
-    slowValue: float,
-    slowColor: Color,
-  ): void;
-  AddCharmed(duration: int): void;
-  AddConfusion(source: EntityRef, duration: int, ignoreBosses: boolean): void;
-  AddMidasFreeze(source: EntityRef, duration: int): void;
-  AddFear(source: EntityRef, duration: int): void;
-  AddBurn(source: EntityRef, duration: int, damage: float): void;
-  AddShrink(source: EntityRef, duration: int): void;
-  RemoveStatusEffects(): void;
-  Exists(): boolean;
-  IsDead(): boolean;
-  IsVisible(): boolean;
-  IsInvincible(): boolean;
-  CanShutDoors(): boolean;
-  IsBoss(): boolean;
-  GetBossID(): BossIDs | int;
-  GetLastParent(): Entity;
-  GetLastChild(): Entity;
-  HasCommonParentWithEntity(other: Entity): boolean;
-  IsFrame(frame: int, offset: int): boolean;
-  GetDropRNG(): RNG;
-  GetSprite(): Sprite;
-  ToPlayer(): EntityPlayer | null;
-  ToEffect(): EntityEffect | null;
-  ToNPC(): EntityNPC | null;
-  ToPickup(): EntityPickup | null;
-  ToFamiliar(): EntityFamiliar | null;
+    damageCountdown: int,
+  ): boolean;
   ToBomb(): EntityBomb | null;
+  ToEffect(): EntityEffect | null;
+  ToFamiliar(): EntityFamiliar | null;
   ToKnife(): EntityKnife | null;
   ToLaser(): EntityLaser | null;
-  ToTear(): EntityTear | null;
+  ToNPC(): EntityNPC | null;
+  ToPickup(): EntityPickup | null;
+  ToPlayer(): EntityPlayer | null;
   ToProjectile(): EntityProjectile | null;
+  ToTear(): EntityTear | null;
+  Update(): void;
 
-  Friction: float;
-  Position: Vector;
-  Velocity: Vector;
-  readonly Type: EntityType | int;
-  Variant: EntityVariantForAC;
-  SubType: int;
-  SpawnerType: EntityType | int;
-  SpawnerVariant: EntityVariantForAC;
-  readonly SplatColor: Readonly<Color>;
-  Visible: boolean;
-  readonly PositionOffset: Readonly<Vector>;
-  RenderZOffset: int;
+  Child: Entity | null;
+  CollisionDamage: float;
+  DepthOffset: float;
+  readonly DropSeed: int;
+  EntityCollisionClass: EntityCollisionClass;
   FlipX: boolean;
-  SpriteOffset: Vector;
-  SpriteScale: Vector;
-  SpriteRotation: float;
-  SizeMulti: Vector;
-  Mass: float;
-  MaxHitPoints: float;
+  readonly FrameCount: int;
+  Friction: float;
+  GridCollisionClass: EntityGridCollisionClass;
   HitPoints: float;
   readonly Index: int;
-  readonly TargetPosition: Readonly<Vector>;
-  GridCollisionClass: EntityGridCollisionClass;
-  EntityCollisionClass: EntityCollisionClass;
-  CollisionDamage: float;
-  readonly SpawnGridIndex: int;
-  Parent: Entity | null;
-  Child: Entity | null;
-  Target: Entity | null;
-  SpawnerEntity: Entity | null;
-  readonly FrameCount: int;
   readonly InitSeed: int;
-  readonly DropSeed: int;
-  DepthOffset: float;
+  Mass: float;
+  MaxHitPoints: float;
+  Parent: Entity | null;
+  Position: Vector;
+  readonly PositionOffset: Readonly<Vector>;
+  RenderZOffset: int;
+  SizeMulti: Vector;
+  SpawnerEntity: Entity | null;
+  SpawnerType: EntityType | int;
+  SpawnerVariant: EntityVariantForAC;
+  readonly SpawnGridIndex: int;
+  readonly SplatColor: Readonly<Color>;
+  SpriteOffset: Vector;
+  SpriteRotation: float;
+  SpriteScale: Vector;
+  SubType: int;
+  Target: Entity | null;
+  readonly TargetPosition: Readonly<Vector>;
+  readonly Type: EntityType | int;
+  Variant: EntityVariantForAC;
+  Velocity: Vector;
+  Visible: boolean;
   Size: float;
 }
