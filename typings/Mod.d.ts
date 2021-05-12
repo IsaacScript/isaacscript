@@ -331,15 +331,17 @@ interface CallbackParameters {
   ];
 }
 
+// From "main.lua"
 declare class Mod {
-  Name: string;
   AddCallback<T extends keyof CallbackParameters>(
     callbackID: T,
     ...args: CallbackParameters[T]
   ): void;
-  RemoveCallback(callbackID: ModCallbacks, callback: () => void): void;
-  SaveData(data: string): void;
-  LoadData(): string;
   HasData(): boolean;
+  LoadData(): string;
+  RemoveCallback(callbackID: ModCallbacks, callback: () => void): void;
   RemoveData(): void;
+  SaveData(data: string): void;
+
+  Name: string;
 }

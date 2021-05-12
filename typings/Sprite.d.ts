@@ -46,9 +46,9 @@ declare class Sprite {
   Update(): void;
   WasEventTriggered(eventName: string): boolean;
 
+  Color: Color;
   FlipX: boolean;
   FlipY: boolean;
-  Color: Color;
   Offset: Vector;
   PlaybackSpeed: float;
   Rotation: float;

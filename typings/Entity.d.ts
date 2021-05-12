@@ -1,7 +1,7 @@
 /**
  * EntityVariantForAC (all classes) is a composition of multiple different kinds of variants for the
- * purposes of aiding autocompletion. Note that this type does not actually provide any type safety.
- * (e.g. "Variant: EntityVariantForAC" is the same as "Variant: int")
+ * purposes of aiding auto-completion. Note that this type does not actually provide any type
+ * safety. (e.g. "Variant: EntityVariantForAC" is the same as "Variant: int".)
  */
 type EntityVariantForAC =
   | EffectVariant
@@ -112,11 +112,12 @@ declare class Entity {
   Position: Vector;
   readonly PositionOffset: Readonly<Vector>;
   RenderZOffset: int;
+  Size: float;
   SizeMulti: Vector;
+  readonly SpawnGridIndex: int;
   SpawnerEntity: Entity | null;
   SpawnerType: EntityType | int;
   SpawnerVariant: EntityVariantForAC;
-  readonly SpawnGridIndex: int;
   readonly SplatColor: Readonly<Color>;
   SpriteOffset: Vector;
   SpriteRotation: float;
@@ -128,5 +129,4 @@ declare class Entity {
   Variant: EntityVariantForAC;
   Velocity: Vector;
   Visible: boolean;
-  Size: float;
 }

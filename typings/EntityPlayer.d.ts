@@ -125,8 +125,8 @@ declare class EntityPlayer extends Entity {
   DischargeActiveItem(
     activeSlot?: ActiveSlot, // Default is ActiveSlot.SLOT_PRIMARY
   ): void;
-  DonateLuck(luck: int): void;
   DoZitEffect(direction: Vector): void;
+  DonateLuck(luck: int): void;
   DropPocketItem(pocketNum: int, position: Vector): void;
   DropTrinket(dropPos: Vector, replaceTick: boolean): void;
   EvaluateItems(): void;
@@ -262,8 +262,8 @@ declare class EntityPlayer extends Entity {
     shotSpeed: float,
     multiShotParams: int, // MultiShotParams, // MultiShotParams is not implemented
   ): PosVel;
-  GetName(): string;
   GetNPCTarget(): Entity;
+  GetName(): string;
   GetNumBlueFlies(): int;
   GetNumBlueSpiders(): int;
   GetNumBombs(): int;
@@ -364,8 +364,8 @@ declare class EntityPlayer extends Entity {
     removeFromPlayerForm?: boolean, // Default is true
   ): void;
   RemoveCostume(itemConfigItem: ItemConfigItem): void;
-  RemoveGoldenKey(): void;
   RemoveGoldenBomb(): void;
+  RemoveGoldenKey(): void;
   RemoveSkinCostume(): void;
   RenderBody(position: Vector): void;
   RenderGlow(position: Vector): void;

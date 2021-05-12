@@ -7,6 +7,7 @@ declare class ProjectileParams {
   ChangeTimeout: int;
   ChangeVelocity: float;
   CircleAngle: float;
+  Color: Color;
   CurvingStrength: float;
   DepthOffset: float;
   DotProductLimit: float;
@@ -16,7 +17,6 @@ declare class ProjectileParams {
   GridCollision: boolean;
   HeightModifier: float;
   HomingStrength: float;
-  Color: Color;
   PositionOffset: Vector;
   Scale: float;
   Spread: float;

@@ -10,7 +10,6 @@ declare class EntityEffect extends Entity {
   FallingSpeed: float;
   IsFollowing: boolean;
   LifeSpan: int;
-  m_Height: float;
   MaxRadius: float;
   MinRadius: float;
   ParentOffset: Vector;
@@ -18,4 +17,5 @@ declare class EntityEffect extends Entity {
   Scale: float;
   State: int;
   Timeout: int;
+  m_Height: float;
 }

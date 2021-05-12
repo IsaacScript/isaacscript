@@ -14,4 +14,16 @@ module.exports = {
     // linted but not included in the actual project output
     project: "./tsconfig.eslint.json",
   },
+
+  rules: {
+    "@typescript-eslint/member-ordering": [
+      "warn",
+      {
+        default: {
+          memberTypes: ["instance-method", "instance-field"],
+          order: "alphabetically",
+        },
+      },
+    ],
+  },
 };
