@@ -1,7 +1,10 @@
 declare class EntityKnife extends Entity {
+  AddTearFlags(flags: BitSet128): void;
+  ClearTearFlags(flags: BitSet128): void;
   GetKnifeDistance(): float;
   GetKnifeVelocity(): float;
   GetRenderZ(): int;
+  HasTearFlags(flags: BitSet128): boolean;
   IsFlying(): boolean;
   Reset(): void;
   SetPathFollowSpeed(speed: float): void;
@@ -15,5 +18,5 @@ declare class EntityKnife extends Entity {
   Rotation: float;
   RotationOffset: float;
   Scale: float;
-  TearFlags: TearFlags;
+  TearFlags: BitSet128;
 }

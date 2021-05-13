@@ -13,11 +13,17 @@ declare global {
     function ConsoleOutput(text: string): void;
     function CountBosses(): int;
     function CountEnemies(): int;
+    /**
+     * @param spawner
+     * @param entityType Default is EntityType.ENTITY_NULL.
+     * @param variant Specifying -1 will return all variants. Default is -1.
+     * @param subType Specifying -1 will return all subtypes. Default is -1.
+     */
     function CountEntities(
       spawner: Entity | null,
-      entityType?: EntityType | int, // Default is EntityType.ENTITY_NULL
-      variant?: EntityVariantForAC, // Default is Dimension.CURRENT
-      subType?: int, // Default is Dimension.CURRENT
+      entityType?: EntityType | int,
+      variant?: EntityVariantForAC,
+      subType?: int,
     ): int;
     function DebugString(msg: string): Mod;
     function ExecuteCommand(command: string): string;
@@ -33,10 +39,15 @@ declare global {
       cache: boolean,
       ignoreFriendly: boolean,
     ): Entity[];
+    /**
+     * @param position
+     * @param radius
+     * @param partitions Default is 0xFFFFFFFF.
+     */
     function FindInRadius(
       position: Vector,
       radius: float,
-      partitions?: int, // Default is 0xFFFFFFFF
+      partitions?: int,
     ): Entity[];
     function GetCardIdByName(cardName: string): Card | int;
     function GetChallenge(): Challenge | int;
@@ -52,9 +63,13 @@ declare global {
     function GetMusicIdByName(musicName: string): Music | int;
     function GetPillEffectByName(pillName: string): PillEffect | int;
     function GetPlayer(playerID?: int): EntityPlayer | null;
+    /**
+     * @param playerName
+     * @param tainted Default is false.
+     */
     function GetPlayerTypeByName(
       playerName: string,
-      tainted?: boolean, // Default is false
+      tainted?: boolean,
     ): PlayerVariant | int;
     function GetRandomPosition(): Vector;
     function GetRoomEntities(): Entity[];

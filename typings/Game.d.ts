@@ -8,33 +8,61 @@ declare class Game {
   AddStageWithoutDamage(): void;
   AddStageWithoutHeartsPicked(): void;
   AddTreasureRoomsVisited(): void;
+  /**
+   * @param position
+   * @param damage
+   * @param radius
+   * @param lineCheck Default is true.
+   * @param source Default is nil.
+   * @param tearFlags Default is TearFlags.TEAR_NORMAL.
+   * @param damageFlags Default is DamageFlag.DAMAGE_EXPLOSION.
+   * @param damageSource Default is false.
+   */
   BombDamage(
     position: Vector,
     damage: float,
     radius: float,
-    lineCheck?: boolean, // Default is true
-    source?: Entity, // Default is nil
-    tearFlags?: TearFlags, // Default is TearFlags.TEAR_NORMAL
-    damageFlags?: DamageFlag, // Default is DamageFlag.DAMAGE_EXPLOSION
-    damageSource?: boolean, // Default is false
+    lineCheck?: boolean,
+    source?: Entity,
+    tearFlags?: BitSet128,
+    damageFlags?: DamageFlag,
+    damageSource?: boolean,
   ): void;
+  /**
+   * @param position
+   * @param damage
+   * @param tearFlags Default is TearFlags.TEAR_NORMAL.
+   * @param color Default is Color.Default.
+   * @param source Default is nil.
+   * @param radiusMult Default is 1.
+   * @param lineCheck Default is true.
+   * @param damageSource Default is false.
+   * @param damageFlags Default is DamageFlag.DAMAGE_EXPLOSION.
+   */
   BombExplosionEffects(
     position: Vector,
     damage: float,
-    tearFlags?: TearFlags, // Default is TearFlags.TEAR_NORMAL
-    color?: Color, // Default is Color.Default
-    source?: Entity, // Default is nil
-    radiusMult?: float, // Default is 1
-    lineCheck?: boolean, // Default is true
-    damageSource?: boolean, // Default is false
-    damageFlags?: DamageFlag, // Default is DamageFlag.DAMAGE_EXPLOSION
+    tearFlags?: BitSet128,
+    color?: Color,
+    source?: Entity,
+    radiusMult?: float,
+    lineCheck?: boolean,
+    damageSource?: boolean,
+    damageFlags?: DamageFlag,
   ): void;
+  /**
+   * @param position
+   * @param radius
+   * @param tearFlags
+   * @param source Default is nil.
+   * @param radiusMult Default is 1.
+   */
   BombTearflagEffects(
     position: Vector,
     radius: float,
-    tearFlags: TearFlags,
-    source?: Entity, // Default is nil
-    radiusMult?: float, // Default is 1
+    tearFlags: BitSet128,
+    source?: Entity,
+    radiusMult?: float,
   ): void;
   ButterBeanFart(
     position: Vector,
@@ -42,10 +70,11 @@ declare class Game {
     source: Entity,
     showEffect: boolean,
   ): void;
-  ChangeRoom(
-    roomIndex: int,
-    dimension?: Dimension, // Default is Dimension.CURRENT
-  ): void;
+  /**
+   * @param roomIndex
+   * @param dimension Default is Dimension.CURRENT.
+   */
+  ChangeRoom(roomIndex: int, dimension?: Dimension): void;
   CharmFart(position: Vector, radius: float, source: Entity): void;
   ClearDonationModAngel(): void;
   ClearDonationModGreed(): void;
@@ -57,13 +86,21 @@ declare class Game {
   End(ending: Ending): void;
   Fadein(speed: float): void;
   Fadeout(speed: float, fadeoutTarget: FadeoutTarget): void;
+  /**
+   * @param position
+   * @param radius Default is 85.
+   * @param source Default is nil.
+   * @param fartScale Default is 1.
+   * @param fartSubType Default is 0
+   * @param fartColor Default is Color.Default.
+   */
   Fart(
     position: Vector,
-    radius?: float, // Default is 85
-    source?: Entity, // Default is nil
-    fartScale?: float, // Default is 1
-    fartSubType?: int, // Default is 0
-    fartColor?: Color, // Default is Color.Default
+    radius?: float,
+    source?: Entity,
+    fartScale?: float,
+    fartSubType?: int,
+    fartColor?: Color,
   ): void;
   FinishChallenge(): void;
   // GetAmbush(): Ambush; // Ambush is not implemented
@@ -76,6 +113,7 @@ declare class Game {
   GetGreedBossWaveNum(): int;
   GetGreedWavesNum(): int;
   // GetItemOverlay(): ItemOverlay; // ItemOverlay is not implemented
+  GetHUD(): HUD;
   GetItemPool(): ItemPool;
   GetLastDevilRoomStage(): LevelStage;
   GetLastLevelWithDamage(): LevelStage;
@@ -114,10 +152,11 @@ declare class Game {
   SetStateFlag(gameStateFlag: GameStateFlag, val: boolean): void;
   ShakeScreen(timeout: int): void;
   ShowFortune(): void;
-  ShowHallucination(
-    frameCount: int,
-    hallucinationBackdrop?: Backdrop, // Default is BackdropType.NUM_BACKDROPS
-  ): void;
+  /**
+   * @param frameCount
+   * @param hallucinationBackdrop Default is BackdropType.NUM_BACKDROPS.
+   */
+  ShowHallucination(frameCount: int, hallucinationBackdrop?: Backdrop): void;
   ShowRule(): void;
   Spawn(
     entityType: EntityType | int,
@@ -135,32 +174,49 @@ declare class Game {
     spawner: Entity,
   ): EntityNPC;
   */
+  /**
+   * @param position
+   * @param effectVariant
+   * @param numParticles
+   * @param speed
+   * @param color Default is Color.Default.
+   * @param height Default is 100000.
+   * @param subType Default is 0.
+   */
   SpawnParticles(
     position: Vector,
     effectVariant: EffectVariant | int,
     numParticles: int,
     speed: float,
-    color?: Color, // Default is Color.Default
-    height?: float, // Default is 100000
-    subType?: int, // Default is 0
+    color?: Color,
+    height?: float,
+    subType?: int,
   ): void;
+  /**
+   * @param roomIndex
+   * @param direction
+   * @param roomTransition Default is RoomTransitionAnim.WALK.
+   * @param player Default is nil.
+   * @param dimension Default is Dimension.CURRENT.
+   */
   StartRoomTransition(
     roomIndex: int,
     direction: Direction,
-    roomTransition?: RoomTransition, // Default is RoomTransitionAnim.WALK
-    player?: EntityPlayer, // Default is nil
-    dimension?: Dimension, // Default is Dimension.CURRENT
+    roomTransition?: RoomTransition,
+    player?: EntityPlayer,
+    dimension?: Dimension,
   ): void;
   StartStageTransition(
     sameStage: boolean,
     stageTransition: StageTransition,
   ): void;
   Update(): void;
-  UpdateStrangeAttractor(
-    position: Vector,
-    force?: float, // Default is 10
-    radius?: float, // Default is 250
-  ): void;
+  /**
+   * @param position
+   * @param force Default is 10.
+   * @param radius Default is 250.
+   */
+  UpdateStrangeAttractor(position: Vector, force?: float, radius?: float): void;
 
   BlueWombParTime: int;
   BossRushParTime: int;

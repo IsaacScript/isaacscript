@@ -1,5 +1,8 @@
 declare class EntityTear extends Entity {
+  AddTearFlags(flags: BitSet128): void;
   ChangeVariant(newVariant: TearVariant | int): void;
+  ClearTearFlags(flags: BitSet128): void;
+  HasTearFlags(flags: BitSet128): boolean;
   ResetSpriteScale(): void;
   SetDeadEyeIntensity(intensity: float): void;
   SetKnockbackMultiplier(multiplier: float): void;
@@ -23,7 +26,7 @@ declare class EntityTear extends Entity {
   StickDiff: Vector;
   StickTarget: Entity;
   StickTimer: int;
-  TearFlags: TearFlags;
+  TearFlags: BitSet128;
   readonly TearIndex: int;
   WaitFrames: int;
 }

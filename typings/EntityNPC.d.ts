@@ -29,13 +29,15 @@ declare class EntityNPC extends Entity {
   /**
    * @param seed
    * @param championColorIdx The type of champion to turn this enemy into
-   * (ChampionColorIdx.REGULAR results in a random champion type)
-   * @param init Set to true when called while initializing the enemy, false otherwise
+   * (ChampionColorIdx.REGULAR results in a random champion type.)
+   * Default is ChampionColorIdx.REGULAR.
+   * @param init Set to true when called while initializing the enemy, false otherwise.
+   * Default is false.
    */
   MakeChampion(
     seed: int,
-    championColorIdx?: ChampionColorIdx, // Default is ChampionColorIdx.REGULAR
-    init?: boolean, // Default is false
+    championColorIdx?: ChampionColorIdx,
+    init?: boolean,
   ): void;
   MakeSplat(size: float): EntityEffect;
   Morph(

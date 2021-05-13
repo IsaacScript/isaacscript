@@ -8,7 +8,11 @@ type GridEntityVariantForAC = DoorVariant | PoopVariant | PlateVariant | int;
 declare class GridEntity {
   Destroy(immediate: boolean): boolean;
   GetGridIndex(): int;
+  /** The RNG returned is a reference (i.e. not a copy). */
+  GetRNG(): RNG;
   GetSaveState(): GridEntityDesc;
+  /** The Sprite returned is a reference (i.e. not a copy). */
+  GetSprite(): Sprite;
   GetType(): GridEntityType | int;
   GetVariant(): GridEntityVariantForAC;
   Hurt(damage: int): boolean;
@@ -29,8 +33,6 @@ declare class GridEntity {
   CollisionClass: GridCollisionClass;
   // Desc: GridEntityDesc; // Should use GetSaveState() instead
   readonly Position: Readonly<Vector>;
-  RNG: RNG;
-  Sprite: Sprite;
   State: int;
   VarData: int;
 }

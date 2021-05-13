@@ -421,4 +421,6 @@ declare const enum ActiveSlot {
   SLOT_NONE = -1,
   SLOT_PRIMARY = 0,
   SLOT_SECONDARY = 1,
+  SLOT_POCKET = 2,
+  SLOT_POCKET2 = 3,
 }

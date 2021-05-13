@@ -253,3 +253,34 @@ declare enum LevelStateFlag {
   STATE_MAMA_MEGA_USED = 14,
   NUM_STATE_FLAGS = 15,
 }
+
+declare enum UseFlag {
+  /** Don't play use animations. */
+  USE_NOANIM = 1,
+  /** Don't add costume. */
+  USE_NOCOSTUME = 1 << 1,
+  /** Effect was triggered by an active item owned by the player. */
+  USE_OWNED = 1 << 2,
+  /** Allow the effect to trigger on non-main players (i.e. coop babies). */
+  USE_ALLOWNONMAIN = 1 << 3,
+  /** D4 only: Reroll the player's active item. */
+  USE_REMOVEACTIVE = 1 << 4,
+  /** Effect was triggered a second time by Car Battery (or Tarot Cloth for cards). */
+  USE_CARBATTERY = 1 << 5,
+  /** Effect was triggered by Void. */
+  USE_VOID = 1 << 6,
+  /** Effect was mimicked by an active item (Blank Card, Placebo). */
+  USE_MIMIC = 1 << 7,
+  /** Never play announcer voice. */
+  USE_NOANNOUNCER = 1 << 8,
+  /**
+   * This allows an item to spawn wisps when called from another item usage as the wisps generator
+   * checks for NOANIM, so usually you want to use this with NOANIM call.
+   */
+  USE_ALLOWWISPSPAWN = 1 << 9,
+  /**
+   * If set, forces UseActiveItem to use the CustomVarData argument instead of the active item's
+   * stored VarData.
+   */
+  USE_CUSTOMVARDATA = 1 << 10,
+}

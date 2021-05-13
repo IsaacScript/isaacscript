@@ -22,200 +22,343 @@ type ZodiacCollectibles =
 
 declare class EntityPlayer extends Entity {
   AddBlackHearts(blackHearts: int): void;
+  /** This adds Tainted Bethany's blood charges. */
+  AddBloodCharge(num: int): void;
   AddBlueFlies(amount: int, position: Vector, target: Entity | null): Entity;
   AddBlueSpider(position: Vector): Entity;
   AddBombs(amount: int): void;
   AddBoneHearts(hearts: int): void;
+  AddBrokenHearts(hearts: int): void;
   AddCacheFlags(cacheFlags: CacheFlag): void;
   AddCard(card: Card | int): void;
   AddCoins(amount: int): void;
   /**
    * @param collectibleType
-   * @param charge
-   * @param addConsumables
+   * @param charge Default is 0.
+   * @param addConsumables Default is true.
    * @param activeSlot Sets the active slot this collectible should be added to.
+   * Default is ActiveSlot.SLOT_PRIMARY.
    * @param varData Sets the variable data for this collectible (this is used to store extra data
    * for some active items like the number of uses for Jar of Wisps).
+   * Default is 0.
    */
   AddCollectible(
     collectibleType: CollectibleType | int,
-    charge?: int, // Default is 0
-    addConsumables?: boolean, // Default is true
-    activeSlot?: ActiveSlot, // Default is ActiveSlot.SLOT_PRIMARY
-    varData?: int, // Default is 0
+    charge?: int,
+    addConsumables?: boolean,
+    activeSlot?: ActiveSlot,
+    varData?: int,
   ): void;
   AddControlsCooldown(cooldown: int): void;
   AddCostume(itemConfigItem: ItemConfigItem, itemStateOnly: boolean): void;
+  /**
+   * Disables all item effects similarly to the abandoned mineshaft in Mines II.
+   * This also temporarily removes consumables and pocket items.
+   */
+  AddCurseMistEffect(): void;
   AddDeadEyeCharge(): void;
   AddDollarBillEffect(): void;
   AddEternalHearts(eternalHearts: int): void;
+  /**
+   * Spawns a friendly dip from Dirty Mind.
+   * @param subType
+   * @param position
+   */
+  AddFriendlyDip(subType: int, position: Vector): EntityFamiliar;
+  /**
+   * Turns the given number of bombs into giga bombs.
+   * This does not actually increase the number of bombs held. To actually add bombs, AddBombs()
+   * should be called first.
+   * @param num
+   */
+  AddGigaBombs(num: int): void;
   AddGoldenBomb(): void;
   AddGoldenHearts(hearts: int): void;
   AddGoldenKey(): void;
   AddHearts(hearts: int): void;
+  /**
+   * Spawns a Lemegeton wisp.
+   * @param subType The ID of the passive item to mimic.
+   * @param position
+   * @param adjustOrbitLayer Default is false.
+   */
+  AddItemWisp(
+    subType: int,
+    position: Vector,
+    adjustOrbitLayer?: boolean,
+  ): EntityFamiliar;
   AddJarFlies(flies: int): void;
   AddJarHearts(hearts: int): void;
   AddKeys(amount: int): void;
   AddMaxHearts(maxHearts: int, ignoreKeeper: boolean): void;
+  /**
+   * Spawns a mini Isaac from Giant Cell.
+   * @param position
+   * @param playAnim If false, skips the appear animation for the familiars.
+   */
+  AddMinisaac(position: Vector, playAnim?: boolean): EntityFamiliar;
   AddNullCostume(nullItemID: NullItemID): void;
   AddPill(pillColor: PillColor | int): void;
   AddPlayerFormCostume(playerForm: PlayerForm): void;
   AddPrettyFly(): void;
+  /**
+   * @param hearts The number of hearts to add x2, even though rotten hearts are only worth half a
+   * heart. (For example, AddRottenHearts(4) will add 2 rotten hearts.)
+   */
+  AddRottenHearts(hearts: int): void;
+  /** This adds Bethany's soul heart charges. */
+  AddSoulCharge(num: int): void;
   AddSoulHearts(soulHearts: int): void;
-  AddTrinket(
-    trinketType: TrinketType | int,
-    addConsumables?: boolean, // Default is true
-  ): void;
+  /**
+   * Spawns a defensive fly from The Swarm.
+   * @param position
+   */
+  AddSwarmFlyOrbital(position: Vector): EntityFamiliar;
+  /**
+   * @param trinketType
+   * @param addConsumables Default is true
+   */
+  AddTrinket(trinketType: TrinketType | int, addConsumables?: boolean): void;
+  /**
+   * Spawns a Book of Virtues wisp.
+   * @param subType The ID of the active item to spawn a wisp from. Wisps with a special ID (for
+   * example "s0" in wisps.xml) can be spawned with the subtype 0x10000 + X where X is the number
+   * after the "s".
+   * @param position
+   * @param adjustOrbitLayer If true, allows wisps to spawn outside of their usual orbit if their
+   * assigned orbit is full. Default is false.
+   * @param dontUpdate If true, the spawned wisp will not update immediately. This allows certain
+   * properties to be set on the first frame before the wisp is fully initialized. Default is false.
+   */
+  AddWisp(
+    subType: int,
+    position: Vector,
+    adjustOrbitLayer?: boolean,
+    dontUpdate?: boolean,
+  ): EntityFamiliar;
   AnimateAppear(): void;
-  AnimateCard(
-    card: Card | int,
-    playerAnimationName?: string, // Default is "Pickup"
-  ): void;
+  /**
+   * @param card
+   * @param playerAnimationName Default is "Pickup".
+   */
+  AnimateCard(card: Card | int, playerAnimationName?: string): void;
+  /**
+   *
+   * @param collectibleType
+   * @param playerAnimationName Default is "Pickup".
+   * @param spriteAnimationName Default is "PlayerPickupSparkle".
+   */
   AnimateCollectible(
     collectibleType: CollectibleType | int,
-    playerAnimationName?: PlayerAnimationName, // Default is "Pickup"
-    spriteAnimationName?: CollectibleAnimationName, // Default is "PlayerPickupSparkle"
+    playerAnimationName?: PlayerAnimationName,
+    spriteAnimationName?: CollectibleAnimationName,
   ): void;
   AnimateHappy(): void;
   AnimateLightTravel(): void;
-  AnimatePill(
-    pillColor: PillColor | int,
-    playerAnimationName?: string, // Default is "Pickup"
-  ): void;
+  /**
+   * @param pillColor
+   * @param playerAnimationName Default is "Pickup".
+   */
+  AnimatePill(pillColor: PillColor | int, playerAnimationName?: string): void;
   AnimatePitfallIn(): void;
   AnimatePitfallOut(): void;
   AnimateSad(): void;
   AnimateTeleport(up: boolean): void;
   AnimateTrapdoor(): void;
+  /**
+   * @param trinketType
+   * @param playerAnimationName Default is "Pickup".
+   * @param spriteAnimationName Default is "PlayerPickupSparkle".
+   */
   AnimateTrinket(
     trinketType: TrinketType | int,
-    playerAnimationName?: string, // Default is "Pickup"
-    spriteAnimationName?: string, // Default is "PlayerPickupSparkle"
+    playerAnimationName?: string,
+    spriteAnimationName?: string,
   ): void;
   AreControlsEnabled(): boolean;
   AreOpposingShootDirectionsPressed(): boolean;
-  CanAddCollectible(
-    collectibleType?: CollectibleType, // Default is CollectibleType.COLLECTIBLE_NULL
-  ): boolean;
+  /**
+   * @param collectibleType Default is CollectibleType.COLLECTIBLE_NULL.
+   */
+  CanAddCollectible(collectibleType?: CollectibleType): boolean;
+  /** Returns true if the player can pick up black hearts, false otherwise. */
   CanPickBlackHearts(): boolean;
+  /** Returns true if the player can pick up bone hearts, false otherwise. */
   CanPickBoneHearts(): boolean;
+  /** Returns true if the player can pick up golden hearts, false otherwise. */
   CanPickGoldenHearts(): boolean;
+  /** Returns true if the player can pick up red hearts, false otherwise. */
   CanPickRedHearts(): boolean;
+  /** Returns true if the player can pick up rotten hearts, false otherwise. */
+  CanPickRottenHearts(): boolean;
+  /** Returns true if the player can pick up soul hearts, false otherwise. */
   CanPickSoulHearts(): boolean;
   CanPickupItem(): boolean;
   CanShoot(): boolean;
   CanTurnHead(): boolean;
   /**
+   * This will attempt to merge forms when called on characters like Jacob and Esau.
+   * This currently does not work correctly when changing from/to certain characters.
+   * (i.e. Tainted Isaac)
+   * @param type
+   */
+  ChangePlayerType(type: PlayerType): void;
+  /**
    * @param familiarVariant
    * @param targetCount
    * @param rng
-   * @param sourceItem The item this type of familiar was created by.
-   * @param familiarSubType The subtype of the familiar to check (-1 matches any subtype).
+   * @param sourceItem The item this type of familiar was created by. Default is nil.
+   * @param familiarSubType The subtype of the familiar to check (-1 matches any subtype). Default
+   * is -1.
    */
   CheckFamiliar(
     familiarVariant: FamiliarVariant | int,
     targetCount: int,
     rng: RNG,
-    sourceItem?: ItemConfigItem, // Default is nil
-    familiarSubType?: int, // Default is -1
+    sourceItem?: ItemConfigItem,
+    familiarSubType?: int,
   ): void;
   ClearCostumes(): void;
   ClearDeadEyeCharge(): void;
   ClearTemporaryEffects(): void;
-  DischargeActiveItem(
-    activeSlot?: ActiveSlot, // Default is ActiveSlot.SLOT_PRIMARY
-  ): void;
+  /**
+   * @param activeSlot Default is ActiveSlot.SLOT_PRIMARY.
+   */
+  DischargeActiveItem(activeSlot?: ActiveSlot): void;
   DoZitEffect(direction: Vector): void;
   DonateLuck(luck: int): void;
   DropPocketItem(pocketNum: int, position: Vector): void;
   DropTrinket(dropPos: Vector, replaceTick: boolean): void;
   EvaluateItems(): void;
-  FireBomb(
-    position: Vector,
-    velocity: Vector,
-    source?: Entity, // Default is nil
-  ): EntityBomb;
+  /**
+   * @param position
+   * @param velocity
+   * @param source Default is nil.
+   */
+  FireBomb(position: Vector, velocity: Vector, source?: Entity): EntityBomb;
+  /**
+   * @param direction
+   * @param source Default is nil.
+   * @param damageMultiplier Default is 1.
+   */
   FireBrimstone(
     direction: Vector,
-    source?: Entity, // Default is nil
-    damageMultiplier?: float, // Default is 1
+    source?: Entity,
+    damageMultiplier?: float,
   ): EntityLaser;
   FireDelayedBrimstone(angle: float, parent: Entity): EntityLaser;
+  /**
+   * @param parent
+   * @param rotationOffset Default is 0.
+   * @param cantOverwrite Default is false.
+   * @param subType Default is 0.
+   * @param variant Default is 0.
+   */
   FireKnife(
     parent: Entity,
-    rotationOffset?: float, // Default is 0
-    cantOverwrite?: boolean, // Default is false
-    subType?: int, // Default is 0
-    variant?: int, // Default is 0
+    rotationOffset?: float,
+    cantOverwrite?: boolean,
+    subType?: int,
+    variant?: int,
   ): EntityKnife;
+  /**
+   * @param position
+   * @param velocity
+   * @param canBeEye Default is true.
+   * @param noTractorBeam Default is false.
+   * @param canTriggerStreakEnd Default is true.
+   * @param source Default is nil.
+   * @param damageMultiplier Default is 1.
+   */
   FireTear(
     position: Vector,
     velocity: Vector,
-    canBeEye?: boolean, // Default is true
-    noTractorBeam?: boolean, // Default is false
-    canTriggerStreakEnd?: boolean, // Default is true
-    source?: Entity, // Default is nil
-    damageMultiplier?: float, // Default is 1
+    canBeEye?: boolean,
+    noTractorBeam?: boolean,
+    canTriggerStreakEnd?: boolean,
+    source?: Entity,
+    damageMultiplier?: float,
   ): EntityTear;
+  /**
+   * @param position
+   * @param laserOffset
+   * @param direction
+   * @param leftEye
+   * @param oneHit Default is false.
+   * @param source Default is nil.
+   * @param damageMultiplier Default is 1.
+   */
   FireTechLaser(
     position: Vector,
     laserOffset: LaserOffset,
     direction: Vector,
     leftEye: boolean,
-    oneHit?: boolean, // Default is false
-    source?: Entity, // Default is nil
-    damageMultiplier?: float, // Default is 1
+    oneHit?: boolean,
+    source?: Entity,
+    damageMultiplier?: float,
   ): EntityLaser;
+  /**
+   * @param position
+   * @param direction
+   * @param radius
+   * @param source Default is nil.
+   * @param damageMultiplier Default is 1.
+   */
   FireTechXLaser(
     position: Vector,
     direction: Vector,
     radius: float,
-    source?: Entity, // Default is nil
-    damageMultiplier?: float, // Default is 1
+    source?: Entity,
+    damageMultiplier?: float,
   ): EntityLaser;
   FlushQueueItem(): boolean;
   /**
-   * @param activeSlot
+   * @param activeSlot Default is ActiveSlot.SLOT_PRIMARY.
    * @param force If set, items will always be charged even if they normally cannot be recharged by
    * batteries.
    */
-  FullCharge(
-    activeSlot?: ActiveSlot, // Default is ActiveSlot.SLOT_PRIMARY
-    force?: boolean,
-  ): boolean;
-  GetActiveCharge(
-    activeSlot?: ActiveSlot, // Default is ActiveSlot.SLOT_PRIMARY
-  ): int;
-  GetActiveItem(
-    activeSlot?: ActiveSlot, // Default is ActiveSlot.SLOT_PRIMARY
-  ): CollectibleType | int;
-  GetActiveSubCharge(
-    activeSlot?: ActiveSlot, // Default is ActiveSlot.SLOT_PRIMARY
-  ): int;
+  FullCharge(activeSlot?: ActiveSlot, force?: boolean): boolean;
+  /**
+   * @param activeSlot Default is ActiveSlot.SLOT_PRIMARY.
+   */
+  GetActiveCharge(activeSlot?: ActiveSlot): int;
+  /**
+   *
+   * @param activeSlot Default is ActiveSlot.SLOT_PRIMARY.
+   */
+  GetActiveItem(activeSlot?: ActiveSlot): CollectibleType | int;
+  /**
+   * @param activeSlot Default is ActiveSlot.SLOT_PRIMARY.
+   */
+  GetActiveSubCharge(activeSlot?: ActiveSlot): int;
   GetActiveWeaponEntity(): Entity;
   GetAimDirection(): Readonly<Vector>;
   GetBabySkin(): BabySubType | int;
-  GetBatteryCharge(
-    activeSlot?: ActiveSlot, // Default is ActiveSlot.SLOT_PRIMARY
-  ): int;
+  /**
+   * @param activeSlot Default is ActiveSlot.SLOT_PRIMARY.
+   */
+  GetBatteryCharge(activeSlot?: ActiveSlot): int;
   GetBlackHearts(): int;
-  GetBombFlags(): TearFlags;
+  /** This gets Tainted Bethany's blood charges. */
+  GetBloodCharge(): int;
+  GetBombFlags(): BitSet128;
   GetBombVariant(
-    tearFlags: TearFlags,
+    tearFlags: BitSet128,
     forceSmallBomb: boolean,
   ): BombVariant | int;
   GetBoneHearts(): int;
+  GetBrokenHearts(): int;
   GetCard(slotID: SlotId): Card | int;
   GetCardRNG(card: Card | int): RNG;
   GetCollectibleCount(): int;
   /**
    * @param collectibleType
    * @param ignoreModifiers If set to true, only counts collectibles the player actually owns and
-   * ignores effects granted by items like Zodiac, 3 Dollar Bill and Lemegeton.
+   * ignores effects granted by items like Zodiac, 3 Dollar Bill and Lemegeton. Default is false.
    */
   GetCollectibleNum(
     collectibleType: CollectibleType | int,
-    ignoreModifiers?: boolean, // Default is false
+    ignoreModifiers?: boolean,
   ): int;
   GetCollectibleRNG(collectibleType: CollectibleType | int): RNG;
   GetCostumeNullPos(
@@ -224,7 +367,11 @@ declare class EntityPlayer extends Entity {
     direction: Vector,
   ): Vector;
   GetDamageCooldown(): int;
+  /** This returns the number of blood charges when called on Tainted Bethany, 0 otherwise. */
+  GetEffectiveBloodCharge(): int;
   GetEffectiveMaxHearts(): int;
+  /** This returns the number of soul charges when called on Bethany, 0 otherwise. */
+  GetEffectiveSoulCharge(): int;
   GetEffects(): TemporaryEffects;
   GetEternalHearts(): int;
   GetExtraLives(): int;
@@ -243,16 +390,30 @@ declare class EntityPlayer extends Entity {
   GetLastDamageFlags(): DamageFlag;
   GetLastDamageSource(): Readonly<EntityRef>;
   GetLastDirection(): Readonly<Vector>;
+  /**
+   * When called on Jacob or Esau, returns Jacob.
+   * When called on Tainted Forgotten or Tainted Forgotten's Soul, returns Tainted Forgotten.
+   * When called on any other character, returns that character.
+   */
+  GetMainTwin(): EntityPlayer;
   GetMaxHearts(): int;
   GetMaxPocketItems(): int;
   GetMaxTrinkets(): int;
+  /**
+   * Returns the current passive item mimicked by Modeling Clay
+   * (or COLLECTIBLE_NULL if no effect is being mimicked).
+   */
+  GetModelingClayEffect(): CollectibleType;
   GetMovementDirection(): Direction;
   GetMovementInput(): Vector;
   GetMovementJoystick(): Vector;
   GetMovementVector(): Readonly<Vector>;
+  /**
+   * @param weaponType Default is WeaponType.WEAPON_TEARS.
+   */
   GetMultiShotParams(
     // TODO check to see if MultiShotParams is implemented
-    weaponType?: WeaponType, // Default is WeaponType.WEAPON_TEARS
+    weaponType?: WeaponType,
   ): int; // MultiShotParams // MultiShotParams is not implemented
   GetMultiShotPositionVelocity(
     // TODO check to see if MultiShotParams is implemented
@@ -268,22 +429,45 @@ declare class EntityPlayer extends Entity {
   GetNumBlueSpiders(): int;
   GetNumBombs(): int;
   GetNumCoins(): int;
+  /** Returns the number of giga bombs held. */
+  GetNumGigaBombs(): int;
   GetNumKeys(): int;
+  /**
+   * When called on Jacob, returns Esau.
+   * When called on Esau, returns Jacob.
+   * When called on Tainted Forgotten, returns Tainted Forgotten's Soul.
+   * When called on Tainted Forgotten's Soul, returns Tainted Forgotten.
+   * When called on any other character, returns nil.
+   */
+  GetOtherTwin(): EntityPlayer;
   GetPill(slotID: SlotId): PillColor | int;
   GetPillRNG(pillEffect: PillEffect | int): RNG;
   GetPlayerType(): PlayerType | int;
   // GetPocketItem(slotID: int): Readonly<PlayerPocketItem>; // PlayerPocketItem is not implemented
   GetRecentMovementVector(): Readonly<Vector>;
+  /**
+   * This returns the actual number of rotten hearts.
+   * (For example, this returns 2 if the player has 2 rotten hearts.)
+   */
+  GetRottenHearts(): int;
   GetShootingInput(): Vector;
   GetShootingJoystick(): Vector;
   GetSmoothBodyRotation(): float;
+  /** This gets Bethany's soul heart charges. */
+  GetSoulCharge(): int;
   GetSoulHearts(): int;
   GetSubPlayer(): EntityPlayer;
+  /**
+   * @param weaponType
+   * @param damageScale Default is 1.
+   * @param tearDisplacement Default is 1.
+   * @param source Default is nil.
+   */
   GetTearHitParams(
     weaponType: WeaponType,
-    damageScale?: float, // Default is 1
-    tearDisplacement?: int, // Default is 1
-    source?: Entity, // Default is nil
+    damageScale?: float,
+    tearDisplacement?: int,
+    source?: Entity,
   ): TearParams;
   GetTearMovementInheritance(shotDirection: Vector): Vector;
   GetTearPoisonDamage(): float;
@@ -298,34 +482,39 @@ declare class EntityPlayer extends Entity {
   /**
    * @param collectibleType
    * @param ignoreModifiers If set to true, only counts collectibles the player actually owns and
-   * ignores effects granted by items like Zodiac, 3 Dollar Bill and Lemegeton.
+   * ignores effects granted by items like Zodiac, 3 Dollar Bill and Lemegeton. Default is false.
    */
   HasCollectible(
     collectibleType: CollectibleType | int,
-    ignoreModifiers?: boolean, // Default is false
+    ignoreModifiers?: boolean,
   ): boolean;
+  /** Returns true if the player's item effects are currently being disabled. */
+  HasCurseMistEffect(): boolean;
   HasFullHearts(): boolean;
   HasFullHeartsAndSoulHearts(): boolean;
   HasGoldenBomb(): boolean;
   HasGoldenKey(): boolean;
-  HasInvincibility(
-    damageFlag?: DamageFlag, // Default is 0
-  ): boolean;
+  /**
+   * @param damageFlag Default is 0.
+   */
+  HasInvincibility(damageFlag?: DamageFlag): boolean;
   HasPlayerForm(playerForm: PlayerForm): boolean;
   HasTimedItem(): boolean;
   /**
    * @param trinketType
    * @param ignoreModifiers If set to true, only counts trinkets the player actually holds and
-   * ignores effects granted by other items.
+   * ignores effects granted by other items. Default is false.
    */
   HasTrinket(
     trinketType: TrinketType | int,
-    ignoreModifiers?: boolean, // Default is false
+    ignoreModifiers?: boolean,
   ): boolean;
   HasWeaponType(weaponType: WeaponType): boolean;
   InitBabySkin(): void;
   IsBlackHeart(heart: int): boolean;
   IsBoneHeart(heartSlot: int): boolean;
+  /** Returns true if the player is a co-op ghost. */
+  IsCoopGhost(): boolean;
   IsExtraAnimationFinished(): boolean;
   IsFullSpriteRendering(): boolean;
   IsHeldItemVisible(): boolean;
@@ -335,17 +524,25 @@ declare class EntityPlayer extends Entity {
   IsP2Appearing(): boolean;
   IsPosInSpotLight(position: Vector): boolean;
   IsSubPlayer(): boolean;
-  NeedsCharge(
-    activeSlot?: ActiveSlot, // Default is ActiveSlot.SLOT_PRIMARY
-  ): boolean;
+  /**
+   * @param activeSlot Default is ActiveSlot.SLOT_PRIMARY.
+   */
+  NeedsCharge(activeSlot?: ActiveSlot): boolean;
   PlayExtraAnimation(animation: string): void;
   QueueExtraAnimation(animation: string): void;
+  /**
+   * @param itemConfigItem
+   * @param charge Default is 0.
+   * @param touched Default is false.
+   * @param golden Default is false.
+   * @param varData Default is false.
+   */
   QueueItem(
     itemConfigItem: ItemConfigItem,
-    charge?: int, // Default is 0
-    touched?: boolean, // Default is false
-    golden?: boolean, // Default is false
-    varData?: int, // Default is false
+    charge?: int,
+    touched?: boolean,
+    golden?: boolean,
+    varData?: int,
   ): void;
   RemoveBlackHeart(blackHeart: int): void;
   RemoveBlueFly(): void;
@@ -353,17 +550,24 @@ declare class EntityPlayer extends Entity {
   /**
    * @param collectibleType
    * @param ignoreModifiers Ignores collectible effects granted by other items (i.e. Void).
+   * Default is false.
    * @param activeSlot Sets the active slot this collectible should be removed from.
+   * Default is ActiveSlot.SLOT_PRIMARY.
    * @param removeFromPlayerForm If successfully removed and part of a transformation, decrease that
-   * transformation's counter by 1.
+   * transformation's counter by 1. Default is true.
    */
   RemoveCollectible(
     collectibleType: CollectibleType | int,
-    ignoreModifiers?: boolean, // Default is false
-    activeSlot?: ActiveSlot, // Default is ActiveSlot.SLOT_PRIMARY
-    removeFromPlayerForm?: boolean, // Default is true
+    ignoreModifiers?: boolean,
+    activeSlot?: ActiveSlot,
+    removeFromPlayerForm?: boolean,
   ): void;
   RemoveCostume(itemConfigItem: ItemConfigItem): void;
+  /**
+   * Re-enables item effects removed by AddCurseMistEffect().
+   * Also attempts to restore consumables and pocket items removed by AddCurseMistEffect().
+   */
+  RemoveCurseMistEffect(): void;
   RemoveGoldenBomb(): void;
   RemoveGoldenKey(): void;
   RemoveSkinCostume(): void;
@@ -380,21 +584,72 @@ declare class EntityPlayer extends Entity {
   ResetItemState(): void;
   RespawnFamiliars(): void;
   Revive(): void;
-  SetActiveCharge(
-    charge: int,
-    activeSlot?: ActiveSlot, // Default is ActiveSlot.SLOT_PRIMARY
-  ): void;
+  /**
+   * @param charge
+   * @param activeSlot Default is ActiveSlot.SLOT_PRIMARY.
+   */
+  SetActiveCharge(charge: int, activeSlot?: ActiveSlot): void;
+  /**
+   * This sets Tainted Bethany's blood charges.
+   * @param num
+   */
+  SetBloodCharge(num: int): void;
   SetCard(slotID: SlotId, card: Card | int): void;
   SetFullHearts(): void;
   SetMinDamageCooldown(damageCooldown: int): void;
   SetPill(slotID: SlotId, pillColor: PillColor | int): void;
+  /**
+   * Sets the player's pocket active item to the given active item.
+   * Items added to SLOT_POCKET2 will always be removed upon being used.
+   * @param collectibleType
+   * @param slot Can be either SLOT_POCKET or SLOT_POCKET2. Default is SLOT_POCKET.
+   * @param keepInPools If true, the item will not be removed from the item pools. Default is false.
+   */
+  SetPocketActiveItem(
+    collectibleType: CollectibleType,
+    slot?: ActiveSlot,
+    keepInPools?: boolean,
+  ): void;
   SetShootingCooldown(cooldown: int): void;
+  /**
+   * This sets Bethany's soul heart charges.
+   * @param num
+   */
+  SetSoulCharge(num: int): void;
   SetTargetTrapDoor(trapDoor: GridEntity): void;
   ShootRedCandle(direction: Vector): void;
   SpawnMawOfVoid(timeout: int): EntityLaser;
   StopExtraAnimation(): void;
   SwapActiveItems(): void;
   ThrowBlueSpider(position: Vector, target: Vector): Entity;
+  /**
+   * Spawns a friendly dip from Dirty Mind and throws it towards the specified target.
+   * @param subType
+   * @param position
+   * @param target If Vector.Zero, throws the spawned dip in a random direction. Default is
+   * Vector.Zero.
+   */
+  ThrowFriendlyDip(
+    subType: int,
+    position: Vector,
+    target?: Vector,
+  ): EntityFamiliar;
+  /**
+   * If holding an entity, throws it in the specified direction and returns it, otherwise returns
+   * nil.
+   * @param velocity
+   */
+  ThrowHeldEntity(velocity: Vector): Entity;
+  /**
+   * Triggers the extra effect granted by Book of Virtues for the given active item.
+   * @param collectibleType Default is CollectibleType.COLLECTIBLE_NULL.
+   */
+  TriggerBookOfVirtues(collectibleType?: CollectibleType): void;
+  /**
+   * Attempts to pick up the given entity, returns true on success.
+   * Currently only works with some entity types (mainly bombs and enemies).
+   */
+  TryHoldEntity(entity: Entity): boolean;
   TryHoldTrinket(trinketType: TrinketType | int): boolean;
   TryRemoveCollectibleCostume(
     collectibleType: CollectibleType | int,
@@ -407,14 +662,15 @@ declare class EntityPlayer extends Entity {
   UpdateCanShoot(): void;
   /**
    * @param collectibleType
-   * @param useFlag
-   * @param activeSlot The active slot this item was used from
-   * (set to ActiveSlot.SLOT_NONE if this item wasn't triggered by any active slot).
+   * @param useFlag Default is 0.
+   * @param activeSlot The active slot this item was used from.
+   * (Set to ActiveSlot.SLOT_NONE if this item wasn't triggered by any active slot.)
+   * Default is ActiveSlot.SLOT_PRIMARY.
    */
   UseActiveItem(
     collectibleType: CollectibleType | int,
-    useFlag?: int, // Default is 0 // TODO set to UseFlags
-    activeSlot?: ActiveSlot, // Default is ActiveSlot.SLOT_PRIMARY
+    useFlag?: UseFlag,
+    activeSlot?: ActiveSlot,
   ): void;
   /**
    * @param collectibleType
@@ -422,8 +678,9 @@ declare class EntityPlayer extends Entity {
    * @param keepActiveItem
    * @param allowNonMainPlayer
    * @param toAddCostume
-   * @param activeSlot The active slot this item was used from
-   * (set to ActiveSlot.SLOT_NONE if this item wasn't triggered by any active slot).
+   * @param activeSlot The active slot this item was used from.
+   * (Set to ActiveSlot.SLOT_NONE if this item wasn't triggered by any active slot.)
+   * Default is ActiveSlot.SLOT_PRIMARY.
    */
   UseActiveItem(
     collectibleType: CollectibleType | int,
@@ -431,16 +688,22 @@ declare class EntityPlayer extends Entity {
     keepActiveItem: boolean,
     allowNonMainPlayer: boolean,
     toAddCostume: boolean,
-    activeSlot?: ActiveSlot, // Default is ActiveSlot.SLOT_PRIMARY
+    activeSlot?: ActiveSlot,
   ): void;
-  UseCard(
-    card: Card | int,
-    useFlag?: int, // Default is 0 // TODO set to UseFlags
-  ): void;
+  /**
+   * @param card
+   * @param useFlag Default is 0.
+   */
+  UseCard(card: Card | int, useFlag?: UseFlag): void;
+  /**
+   * @param pillEffect
+   * @param pillColor
+   * @param useFlag Default is 0.
+   */
   UsePill(
     pillEffect: PillEffect | int,
     pillColor: PillColor | int,
-    useFlag?: int, // Default is 0 // TODO set to UseFlags
+    useFlag?: UseFlag,
   ): void;
   WillPlayerRevive(): boolean;
 
@@ -465,7 +728,7 @@ declare class EntityPlayer extends Entity {
   TearColor: Color;
   TearFallingAcceleration: float;
   TearFallingSpeed: float;
-  TearFlags: TearFlags;
+  TearFlags: BitSet128;
   TearHeight: float;
   readonly TearsOffset: Readonly<Vector>;
 }

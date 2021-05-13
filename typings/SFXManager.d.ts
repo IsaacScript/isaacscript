@@ -5,13 +5,21 @@ declare class SFXManager {
   AdjustVolume(soundEffect: SoundEffect | int, volume: float): void;
   GetAmbientSoundVolume(soundEffect: SoundEffect | int): float;
   IsPlaying(soundEffect: SoundEffect | int): boolean;
+  /**
+   * @param soundEffect
+   * @param volume Default is 1.
+   * @param frameDelay Default is 2.
+   * @param loop Default is false.
+   * @param pitch Default is 1.
+   * @param pan Default is 0.
+   */
   Play(
     soundEffect: SoundEffect | int,
-    volume?: float, // Default is 1
-    frameDelay?: int, // Default is 2
-    loop?: boolean, // Default is false
-    pitch?: float, // Default is 1
-    pan?: float, // Default is 0
+    volume?: float,
+    frameDelay?: int,
+    loop?: boolean,
+    pitch?: float,
+    pan?: float,
   ): void;
   Preload(soundEffect: SoundEffect | int): void;
   SetAmbientSound(

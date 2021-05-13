@@ -1,9 +1,11 @@
 declare class Room {
   /**
-   * @param position
-   * @param initialStep
-   * @param avoidActiveEntities
-   * @param allowPits
+   * @param position1
+   * @param position2
+   * @param lineCheckMode
+   * @param gridPathThreshold Default is 0.
+   * @param ignoreWalls Default is false.
+   * @param ignoreCrushable Default is false.
    * @return 2 values:
    * 1) boolean: true if there are no obstructions between Pos1 and Pos2, false otherwise
    * 2) Vector: first hit position from Pos1 to Pos2 (returns Pos2 if the line didn't hit anything)
@@ -12,18 +14,24 @@ declare class Room {
     position1: Vector,
     position2: Vector,
     lineCheckMode: LineCheckMode,
-    gridPathThreshold?: int, // Default is 0
-    ignoreWalls?: boolean, // Default is false
-    ignoreCrushable?: boolean, // Default is false
+    gridPathThreshold?: int,
+    ignoreWalls?: boolean,
+    ignoreCrushable?: boolean,
   ): [boolean, Vector];
   DamageGrid(index: int, damage: int): boolean;
   DestroyGrid(index: int, immediate: boolean): boolean;
   EmitBloodFromWalls(duration: int, count: int): void;
+  /**
+   * @param position
+   * @param initialStep Default is 0.
+   * @param avoidActiveEntities Default is false.
+   * @param allowPits Default is false.
+   */
   FindFreePickupSpawnPosition(
     position: Vector,
-    initialStep?: float, // Default is 0
-    avoidActiveEntities?: boolean, // Default is false
-    allowPits?: boolean, // Default is false
+    initialStep?: float,
+    avoidActiveEntities?: boolean,
+    allowPits?: boolean,
   ): Vector;
   FindFreeTilePosition(position: Vector, distanceThreshold: float): Vector;
   GetAliveBossesCount(): int;

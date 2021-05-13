@@ -5,6 +5,8 @@ declare class EntityProjectile extends Entity {
   AddHeight(value: float): void;
   AddProjectileFlags(flags: ProjectileFlags): void;
   AddScale(value: float): void;
+  ClearProjectileFlags(flags: int): void;
+  HasProjectileFlags(flags: int): void;
 
   Acceleration: float;
   ChangeFlags: ProjectileFlags;

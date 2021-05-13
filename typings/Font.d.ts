@@ -1,14 +1,32 @@
 declare function Font(this: void): Font;
 
 declare class Font {
+  /**
+   * @param str
+   * @param positionX
+   * @param positionY
+   * @param renderColor
+   * @param boxWidth Default is 0.
+   * @param center Default is false.
+   */
   DrawString(
     str: string,
     positionX: float,
     positionY: float,
     renderColor: KColor,
-    boxWidth?: int, // Default is 0
-    center?: boolean, // Default is false
+    boxWidth?: int,
+    center?: boolean,
   ): void;
+  /**
+   * @param str
+   * @param positionX
+   * @param positionY
+   * @param scaleX
+   * @param scaleY
+   * @param renderColor
+   * @param boxWidth Default is 0.
+   * @param center Default is false.
+   */
   DrawStringScaled(
     str: string,
     positionX: float,
@@ -16,8 +34,8 @@ declare class Font {
     scaleX: float,
     scaleY: float,
     renderColor: KColor,
-    boxWidth?: int, // Default is 0
-    center?: boolean, // Default is false
+    boxWidth?: int,
+    center?: boolean,
   ): void;
   DrawStringScaledUTF8(
     str: string,
@@ -29,13 +47,21 @@ declare class Font {
     boxWidth: int,
     center: boolean,
   ): void;
+  /**
+   * @param str
+   * @param positionX
+   * @param positionY
+   * @param renderColor
+   * @param boxWidth Default is 0.
+   * @param center Default is false.
+   */
   DrawStringUTF8(
     str: string,
     positionX: float,
     positionY: float,
     renderColor: KColor,
-    boxWidth?: int, // Default is 0
-    center?: boolean, // Default is false
+    boxWidth?: int,
+    center?: boolean,
   ): void;
   GetBaselineHeight(): int;
   GetCharacterWidth(character: string): int;

@@ -6,7 +6,14 @@ interface CallbackParameters {
   [ModCallbacks.MC_POST_UPDATE]: [callback: () => void];
   [ModCallbacks.MC_POST_RENDER]: [callback: () => void];
   [ModCallbacks.MC_USE_ITEM]: [
-    callback: (collectibleType: CollectibleType | int, rng: RNG) => boolean,
+    callback: (
+      collectibleType: CollectibleType | int,
+      rng: RNG,
+      player: EntityPlayer,
+      useFlags: int,
+      activeSlot: int,
+      customVarData: int,
+    ) => boolean | { Discharge: boolean; Remove: boolean; ShowAnim: boolean },
     collectibleType?: CollectibleType | int,
   ];
   [ModCallbacks.MC_POST_PEFFECT_UPDATE]: [
@@ -14,7 +21,7 @@ interface CallbackParameters {
     playerType?: PlayerType,
   ];
   [ModCallbacks.MC_USE_CARD]: [
-    callback: (card: Card | int) => void,
+    callback: (card: Card | int, player: EntityPlayer, useFlags: int) => void,
     card?: Card | int,
   ];
   [ModCallbacks.MC_FAMILIAR_UPDATE]: [
@@ -34,7 +41,11 @@ interface CallbackParameters {
     playerVariant?: PlayerVariant,
   ];
   [ModCallbacks.MC_USE_PILL]: [
-    callback: (pillEffect: PillEffect | int) => void,
+    callback: (
+      pillEffect: PillEffect | int,
+      player: EntityPlayer,
+      useFlags: int,
+    ) => void,
     pillEffect?: PillEffect | int,
   ];
   [ModCallbacks.MC_ENTITY_TAKE_DMG]: [
@@ -81,7 +92,14 @@ interface CallbackParameters {
     callback: (command: string, parameters: string) => void,
   ];
   [ModCallbacks.MC_PRE_USE_ITEM]: [
-    callback: (collectibleType: CollectibleType | int, rng: RNG) => boolean,
+    callback: (
+      collectibleType: CollectibleType | int,
+      rng: RNG,
+      player: EntityPlayer,
+      useFlags: int,
+      activeSlot: int,
+      customVarData: int,
+    ) => boolean,
     collectibleType?: CollectibleType | int,
   ];
   [ModCallbacks.MC_PRE_ENTITY_SPAWN]: [

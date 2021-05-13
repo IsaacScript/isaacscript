@@ -7,10 +7,11 @@ declare class Level {
   CanOpenChallengeRoom(roomIndex: int): boolean;
   CanSpawnDevilRoom(): boolean;
   CanStageHaveCurseOfLabyrinth(levelStage: LevelStage): boolean;
-  ChangeRoom(
-    roomIndex: int,
-    dimension?: Dimension, // Default is Dimension.CURRENT
-  ): void;
+  /**
+   * @param roomIndex
+   * @param dimension Default is Dimension.CURRENT.
+   */
+  ChangeRoom(roomIndex: int, dimension?: Dimension): void;
   DisableDevilRoom(): void;
   ForceHorsemanBoss(seed: int): boolean;
   GetAbsoluteStage(): LevelStage;
@@ -37,10 +38,11 @@ declare class Level {
   GetNonCompleteRoomIndex(): int;
   GetPreviousRoomIndex(): int;
   GetRandomRoomIndex(IAmErrorRoom: boolean, seed: int): int;
-  GetRoomByIdx(
-    roomIdx: int,
-    dimension?: Dimension, // Default is Dimension.CURRENT
-  ): RoomDescriptor;
+  /**
+   * @param roomIdx
+   * @param dimension Default is Dimension.CURRENT.
+   */
+  GetRoomByIdx(roomIdx: int, dimension?: Dimension): RoomDescriptor;
   GetRoomCount(): int;
   GetRooms(): RoomList;
   GetStage(): LevelStage;
@@ -56,15 +58,14 @@ declare class Level {
    * @param roomType
    * @param visited
    * @param rng
-   * @param ignoreGroup
-   * If set to true, includes rooms that do not have the same group ID as the current room
-   * (currently unused).
+   * @param ignoreGroup If set to true, includes rooms that do not have the same group ID as the
+   * current room. Default is false.
    */
   QueryRoomTypeIndex(
     roomType: RoomType,
     visited: boolean,
     rng: RNG,
-    ignoreGroup?: boolean, // Default is false
+    ignoreGroup?: boolean,
   ): int;
   RemoveCompassEffect(): void;
   RemoveCurse(levelCurse: LevelCurse | int): void;

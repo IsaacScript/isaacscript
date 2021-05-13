@@ -1,4 +1,6 @@
 declare class EntityLaser extends Entity {
+  AddTearFlags(flags: BitSet128): void;
+  ClearTearFlags(flags: BitSet128): void;
   static CalculateEndPoint(
     this: void,
     start: Vector,
@@ -11,6 +13,7 @@ declare class EntityLaser extends Entity {
   // GetNonOptimizedSamples(): Readonly<HomingLaserSampleList>; // HomingLaser is not implemented
   GetRenderZ(): int;
   // GetSamples(): Readonly<HomingLaserSampleList>; // HomingLaser is not implemented
+  HasTearFlags(flags: BitSet128): boolean;
   IsCircleLaser(): boolean;
   IsSampleLaser(): boolean;
   SetActiveRotation(
@@ -59,6 +62,6 @@ declare class EntityLaser extends Entity {
   // SampleLaser: boolean; // Should use IsSampleLaser() instead
   Shrink: boolean;
   StartAngleDegrees: float;
-  TearFlags: TearFlags;
+  TearFlags: BitSet128;
   Timeout: int;
 }

@@ -2,10 +2,10 @@
  * @param r
  * @param g
  * @param b
- * @param a Default is 1
- * @param ro Default is 0, range is 0-1 (not 0-255)
- * @param go Default is 0, range is 0-1 (not 0-255)
- * @param bo Default is 0, range is 0-1 (not 0-255)
+ * @param a Default is 1.
+ * @param ro Default is 0, range is 0-1.
+ * @param go Default is 0, range is 0-1.
+ * @param bo Default is 0, range is 0-1.
  */
 declare function Color(
   this: void,
@@ -33,6 +33,7 @@ declare class Color {
   A: float;
   B: float;
   BO: float;
+  Default: Color;
   G: float;
   GO: float;
   R: float;

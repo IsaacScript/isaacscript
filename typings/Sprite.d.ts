@@ -26,11 +26,17 @@ declare class Sprite {
     topLeftClamp: Vector,
     bottomRightClamp: Vector,
   ): void;
+  /**
+   * @param layerID
+   * @param position
+   * @param topLeftClamp Default is Vector.Zero.
+   * @param bottomRightClamp Default is Vector.Zero.
+   */
   RenderLayer(
     layerID: int,
     position: Vector,
-    topLeftClamp?: Vector, // Default is Vector.Zero
-    bottomRightClamp?: Vector, // Default is Vector.Zero
+    topLeftClamp?: Vector,
+    bottomRightClamp?: Vector,
   ): void;
   ReplaceSpritesheet(layerID: int, pngFilename: string): void;
   Reset(): void;

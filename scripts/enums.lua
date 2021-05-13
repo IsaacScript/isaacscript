@@ -1,32 +1,32 @@
 ModCallbacks = {
 	MC_NPC_UPDATE = 0,			-- Callback is a method that takes (EntityNPC). Called after an NPC is updated. When adding callback, specify an EntityType so it is only called for entities of that type.
-	MC_POST_UPDATE = 1,			-- Callback is a method with no arguments. Called after game update. 
+	MC_POST_UPDATE = 1,			-- Callback is a method with no arguments. Called after game update.
 	MC_POST_RENDER = 2,			-- Callback is a method with no arguments. Called after game render.
-	MC_USE_ITEM = 3,			-- Callback is a method that takes (CollectibleType, RNG). Return true to show the "use item" animation, otherwise false. Called when a custom active item is used, after discharging it. When adding callback, specify a CollectibleType to only respond to one custom active. The item RNG allows for the item's random events to be seeded. 
+	MC_USE_ITEM = 3,			-- Callback is a method that takes (CollectibleType, RNG). Return true to show the "use item" animation, otherwise false. Called when a custom active item is used, after discharging it. When adding callback, specify a CollectibleType to only respond to one custom active. The item RNG allows for the item's random events to be seeded.
 	MC_POST_PEFFECT_UPDATE = 4,	-- Callback is a method that takes (EntityPlayer). Called for each player, each frame, after the player evaluates the effects of items that must be constantly evaluated.
 	MC_USE_CARD = 5,			-- Callback is a method that takes (Card). Called when a custom card is used. When adding callback, specify a Card ID to only respond to one card type.
 	MC_FAMILIAR_UPDATE = 6,		-- Callback is a method that takes (Entity_Familiar). Called every frame for each custom familiar. When adding callback, specify a Variant to restrict calls to a specific familiar.
 	MC_FAMILIAR_INIT = 7,		-- Callback is a method that takes (Entity_Familiar). Called just after a custom familiar is initialized. When adding callback, specify a Variant to restrict calls to a specific familiar.
-	
-	-- Callback is a method that takes (EntityPlayer, CacheFlag). 
-	-- Called one or more times when a player's stats must be re-evaluated, such as after picking up an item, using certain pills, manually calling EvaluateItems on EntityPlayer. 
+
+	-- Callback is a method that takes (EntityPlayer, CacheFlag).
+	-- Called one or more times when a player's stats must be re-evaluated, such as after picking up an item, using certain pills, manually calling EvaluateItems on EntityPlayer.
 	-- Use this to let custom items change the player's stats, familiars, flying, weapons, etc.
 	-- Items tell the game which stats they affect using cache values in items.xml. Then the callback should respond to the CacheFlag by setting the corresponding player stat.
 	-- Other items' stat modifiers, multipliers, etc are applied before this callback is called.
 	MC_EVALUATE_CACHE = 8,
-	
+
 	MC_POST_PLAYER_INIT = 9,	-- Callback is a method that takes (EntityPlayer). Called after the player is initialized.
 	MC_USE_PILL = 10,			-- Callback is a method that takes (PillEffect). Called when a custom pill is used. When adding callback, specify a PillEffect ID to only respond to one pill effect.
-	
-	-- Callback is a method that takes (TookDamage : Entity, DamageAmount : number, DamageFlag : number (bit flags from DamageFlag enumeration), DamageSource : EntityRef, DamageCountdownFrames : number). 
-	-- Return true or nil if the entity or player should sustain the damage, otherwise false to ignore it. 
+
+	-- Callback is a method that takes (TookDamage : Entity, DamageAmount : number, DamageFlag : number (bit flags from DamageFlag enumeration), DamageSource : EntityRef, DamageCountdownFrames : number).
+	-- Return true or nil if the entity or player should sustain the damage, otherwise false to ignore it.
 	-- If the entity is an EntityPlayer, the DamageAmount is the integer number of half-hearts of damage that the player will take. Otherwise, DamageAmount is a number of hit points.
 	-- Called before new damage is applied. A DAMAGE_COUNTDOWN flag means the entity will ignore any other DAMAGE_COUNTDOWN hits for the duration specified.
 	-- When adding callback, specify an EntityType to respond to only damage taken by that entity type.
 	MC_ENTITY_TAKE_DMG = 11,
 	MC_POST_CURSE_EVAL = 12, -- Callback is a method that takes (integer Curses). Curses is a bitmask containing current curses. Called after Level applied it's curses. Returns the new curse bitmask. Use Isaac.GetCurseIdByName to get a custom curse
-	
-	-- Callback that takes (Entity, InputHook, ButtonAction). It is called when game/game entities wants to read action input. 
+
+	-- Callback that takes (Entity, InputHook, ButtonAction). It is called when game/game entities wants to read action input.
 	-- Entity can be nil if the input is read not from an entity Class. InputHook and ButtonActions are enumerations. Return nil if you don't want to overwrite the input or value otherwise.
 	-- Return value can be bool if it's a Is__ hook or float if it's an Get__Value hook. Float values should be in range of 0.0 and 1.0
 	MC_INPUT_ACTION = 13,
@@ -35,11 +35,11 @@ ModCallbacks = {
 	MC_POST_GAME_END = 16, -- (bool) - Gameover
 	MC_PRE_GAME_EXIT = 17, -- (bool) - ShouldSave
 	MC_POST_NEW_LEVEL = 18, -- This triggers after new room!
-	MC_POST_NEW_ROOM = 19, 
+	MC_POST_NEW_ROOM = 19,
 	MC_GET_CARD = 20, -- (RNG& rng, integer CurrentCard, bool Playing, bool Runes, bool OnlyRunes) - This is used for Card Pools. Because not all cards have the same chance to spawn, use RNG for seeded random and return your card id (if you don't want to change the current card, return CurrentCard or nil). If desired Playing (can include playing cards), Runes (can include runes), OnlyRunes (only return runes) filter can be used to make your selection.
 	MC_GET_SHADER_PARAMS = 21, -- (string shaderName) - returns a table containing a key -> value pair for custom shader parameters
 	MC_EXECUTE_CMD = 22, -- (string cmd, string params) - returns a string separated by \n (newline) per output line
-	
+
 	MC_PRE_USE_ITEM = 23, -- (CollectibleType ItemId, RNG& ItemRng) - return true if the item can't be used / processed inside the script, other values or no value will continue the routine
 	MC_PRE_ENTITY_SPAWN = 24, -- (EntityType Type, integer Variant, integer SubType, const Vector2 Position, const Vector2 Velocity, const Entity Spawner, integer Seed), optional return - an array table with new values { Type, Variant, Subtype, Seed }
 	MC_POST_FAMILIAR_RENDER = 25, -- (EntityFamiliar Fam, Vector Offset)
@@ -311,7 +311,7 @@ EntityType = {
 	ENTITY_FISTULOID = 308,
 	ENTITY_GUSH = 309,
 	ENTITY_LEPER = 310,
-	
+
 	-- Afterbirth bosses
 	ENTITY_STAIN = 401,
 	ENTITY_BROWNIE = 402,
@@ -335,10 +335,10 @@ GridEntityType = {
 	GRID_NULL = 0,
 	GRID_DECORATION = 1,
 	GRID_ROCK = 2,
-	GRID_ROCKB = 3,	
-	GRID_ROCKT = 4,	
-	GRID_ROCK_BOMB = 5,	
-	GRID_ROCK_ALT = 6,	
+	GRID_ROCKB = 3,
+	GRID_ROCKT = 4,
+	GRID_ROCK_BOMB = 5,
+	GRID_ROCK_ALT = 6,
 	GRID_PIT = 7,
 	GRID_SPIKES = 8,
 	GRID_SPIKES_ONOFF = 9,
@@ -413,18 +413,18 @@ EffectVariant = {
 	RED_CANDLE_FLAME = 52,
 	PLAYER_CREEP_GREEN = 53,
 	PLAYER_CREEP_HOLYWATER_TRAIL = 54,
-	SPIKE = 55,			
-	CREEP_BROWN = 56,	
+	SPIKE = 55,
+	CREEP_BROWN = 56,
 	PULLING_EFFECT = 57,
-	POOP_PARTICLE = 58,	
-	DUST_CLOUD = 59,	
+	POOP_PARTICLE = 58,
+	DUST_CLOUD = 59,
 	BOOMERANG = 60,
 	SHOCKWAVE = 61,
 	ROCK_EXPLOSION = 62,
-	WORM = 63, 
+	WORM = 63,
 	BEETLE = 64,
 	WISP = 65,
-	EMBER_PARTICLE = 66, 
+	EMBER_PARTICLE = 66,
 	SHOCKWAVE_DIRECTIONAL = 67,
 	WALL_BUG = 68,
 	BUTTERFLY = 69,
@@ -433,7 +433,7 @@ EffectVariant = {
 	CRACKWAVE = 72,
 	SHOCKWAVE_RANDOM = 73,
 	ISAACS_CARPET = 74,
-	BAR_PARTICLE = 75, 
+	BAR_PARTICLE = 75,
 	DICE_FLOOR = 76,
 	LARGE_BLOOD_EXPLOSION = 77,
 	PLAYER_CREEP_LEMON_PARTY = 78,
@@ -625,17 +625,17 @@ CacheFlag = {
 NpcState = {
 	STATE_INIT = 0,
 	STATE_APPEAR = 1,
-	STATE_APPEAR_CUSTOM = 2, 
+	STATE_APPEAR_CUSTOM = 2,
 	STATE_IDLE = 3,
 	STATE_MOVE = 4,
 	STATE_SUICIDE = 5,
 	STATE_JUMP = 6,
 	STATE_STOMP = 7,
 	STATE_ATTACK = 8,
-	STATE_ATTACK2 = 9,	
+	STATE_ATTACK2 = 9,
 	STATE_ATTACK3 = 10,
 	STATE_ATTACK4 = 11,
-	STATE_SUMMON = 12,	
+	STATE_SUMMON = 12,
 	STATE_SUMMON2 = 13,
 	STATE_SUMMON3 = 14,
 	STATE_SPECIAL = 15,
@@ -652,7 +652,7 @@ EntityGridCollisionClass = {
 	GRIDCOLL_GROUND = 5,	-- collide with all grid entities (rocks, pits, ..), correct position
 	GRIDCOLL_NOPITS = 6		-- collide with all grid entities except pits and correct position
 }
-	
+
 EntityCollisionClass = {
 	ENTCOLL_NONE = 0,			-- no collision with other entities
 	ENTCOLL_PLAYERONLY = 1,		-- collide with player only
@@ -702,7 +702,7 @@ EntityFlag = {
 	FLAG_PERSISTENT = 1<<37					-- Entity persists between rooms
 	--[[
 		[Warning]
-		Be careful with FLAG_DONT_OVERWRITE. Do not set it for all entities while 
+		Be careful with FLAG_DONT_OVERWRITE. Do not set it for all entities while
 		they all exist otherwise it may result in an undefined behaviour.
 	--]]
 }
@@ -732,7 +732,7 @@ DamageFlag = {
 	DAMAGE_FAKE = 1<<21,		-- fake damage that should trigger player's damage effects.
 	DAMAGE_BOOGER = 1<<22,		-- damage from booger tear
 }
-	
+
 SortingLayer = {
 	SORTING_BACKGROUND = 0,			-- Background level, behind grid entities (creep, pitfalls)
 	SORTING_DOOR = 1,				-- Used by door Xray animation
@@ -848,7 +848,7 @@ FamiliarVariant = {
 	BROWN_NUGGET_POOTER = 115,
 	BLOODSHOT_EYE = 116,
 	MOMS_RAZOR = 117,
-	
+
 	-- Booster Pack #1
 	ANGRY_FLY = 118,
 	BUDDY_IN_A_BOX = 119,
@@ -860,7 +860,7 @@ FamiliarVariant = {
 	-- Booster Pack #3
 	LIL_HARBINGERS = 122,
 	ANGELIC_PRISM = 123,
-	
+
 	-- Booster Pack #5
 	MYSTERY_EGG = 124,
 	LIL_SPEWER = 125,
@@ -2202,7 +2202,7 @@ CollectibleType = {
 	COLLECTIBLE_MOMS_RAZOR = 508,
 	COLLECTIBLE_BLOODSHOT_EYE = 509,
 	COLLECTIBLE_DELIRIOUS = 510,
-	
+
 	-- Booster Pack #1
 	COLLECTIBLE_ANGRY_FLY = 511,
 	COLLECTIBLE_BLACK_HOLE = 512,
@@ -2221,7 +2221,7 @@ CollectibleType = {
 	COLLECTIBLE_MOVING_BOX = 523,
 	COLLECTIBLE_TECHNOLOGY_ZERO = 524,
 	COLLECTIBLE_LEPROCY = 525,
-	
+
 	-- Booster Pack #3
 	COLLECTIBLE_LIL_HARBINGERS = 526,
 	COLLECTIBLE_MR_ME = 527,
@@ -2234,7 +2234,7 @@ CollectibleType = {
 	COLLECTIBLE_LACHRYPHAGY = 532,
 	COLLECTIBLE_TRISAGION = 533,
 	COLLECTIBLE_SCHOOLBAG = 534,
-	
+
 	-- Booster Pack #5
 	COLLECTIBLE_BLANKET = 535,
 	COLLECTIBLE_SACRIFICIAL_ALTAR = 536,
@@ -2380,7 +2380,7 @@ TrinketType = {
 	TRINKET_LOCUST_OF_CONQUEST = 117,
 	TRINKET_BAT_WING = 118,
 	TRINKET_STEM_CELL = 119,
-	
+
 	-- Booster pack #1
 	TRINKET_HAIRPIN = 120,
 	TRINKET_WOODEN_CROSS = 121,
@@ -2388,18 +2388,18 @@ TrinketType = {
 
 	-- Booster pack #2
 	TRINKET_FILIGREE_FEATHERS = 123,
-	
+
 	-- Booster pack #3
 	TRINKET_DOOR_STOP = 124,
-	
+
 	-- Booster pack #4
 	TRINKET_EXTENSION_CORD = 125,
-	
+
 	-- Booster pack #5
 	TRINKET_ROTTEN_PENNY = 126,
 	TRINKET_BABY_BENDER = 127,
 	TRINKET_FINGER_BONE = 128,
-	
+
 	NUM_TRINKETS = 129
 }
 PillEffect = {
@@ -2507,12 +2507,12 @@ Card = {
 	CARD_DICE_SHARD = 49,
 	CARD_EMERGENCY_CONTACT = 50,
 	CARD_HOLY = 51,
-	
+
 	-- Booster Pack #1
 	CARD_HUGE_GROWTH = 52,
 	CARD_ANCIENT_RECALL = 53,
 	CARD_ERA_WALK = 54,
-	
+
 	NUM_CARDS = 55
 }
 
@@ -2620,7 +2620,7 @@ TearFlags = {
 	TEAR_ABSORB = 1 << 57, -- Lachryphagy
 	TEAR_LASERSHOT = 1 << 58, -- Trisagion, generates a laser on top of the tear
 	TEAR_HYDROBOUNCE = 1 << 59, -- Flat Stone
-	
+
 	TEAR_LUDOVICO = 1 << 60 -- Used as a weapon for Ludovico Technique
 }
 
@@ -2652,17 +2652,17 @@ ButtonAction = {
 	ACTION_MENULT = 24,
 	ACTION_MENURT = 25,
 	ACTION_MENUTAB = 26,
-	
+
 	ACTION_CONSOLE = 28 -- USE ONLY FOR HOOKING! To check the input use IsButtonTriggered with desired key
 }
 
 Keyboard = {
 	KEY_SPACE = 32,
-	KEY_APOSTROPHE = 39,  
-	KEY_COMMA = 44, 
-	KEY_MINUS = 45, 
-	KEY_PERIOD = 46,  
-	KEY_SLASH = 47, 
+	KEY_APOSTROPHE = 39,
+	KEY_COMMA = 44,
+	KEY_MINUS = 45,
+	KEY_PERIOD = 46,
+	KEY_SLASH = 47,
 	KEY_0 = 48,
 	KEY_1 = 49,
 	KEY_2 = 50,
@@ -2673,8 +2673,8 @@ Keyboard = {
 	KEY_7 = 55,
 	KEY_8 = 56,
 	KEY_9 = 57,
-	KEY_SEMICOLON = 59,  
-	KEY_EQUAL = 61,  
+	KEY_SEMICOLON = 59,
+	KEY_EQUAL = 61,
 	KEY_A = 65,
 	KEY_B = 66,
 	KEY_C = 67,
@@ -2701,12 +2701,12 @@ Keyboard = {
 	KEY_X = 88,
 	KEY_Y = 89,
 	KEY_Z = 90,
-	KEY_LEFT_BRACKET = 91, 
-	KEY_BACKSLASH = 92, 
-	KEY_RIGHT_BRACKET = 93,  
-	KEY_GRAVE_ACCENT = 96,  
-	KEY_WORLD_1 = 161, 
-	KEY_WORLD_2 = 162, 
+	KEY_LEFT_BRACKET = 91,
+	KEY_BACKSLASH = 92,
+	KEY_RIGHT_BRACKET = 93,
+	KEY_GRAVE_ACCENT = 96,
+	KEY_WORLD_1 = 161,
+	KEY_WORLD_2 = 162,
 	KEY_ESCAPE = 256,
 	KEY_ENTER = 257,
 	KEY_TAB = 258,
@@ -2882,7 +2882,7 @@ GridRooms = {
 	ROOM_MEGA_SATAN_IDX = -7,
 	ROOM_BLUE_WOOM_IDX = -8,
 	ROOM_THE_VOID_IDX = -9,
-	
+
 	NUM_OFF_GRID_ROOMS = 9,
 	MAX_ROOMS = 137
 }

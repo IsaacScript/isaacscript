@@ -14,8 +14,8 @@ declare class EntityFamiliar extends Entity {
   MoveDiagonally(speed: float): void;
   /**
    * @param maxDistance
-   * @param frameInterval
-   * @param flags
+   * @param frameInterval Default is 13.
+   * @param flags Default is 0.
    * A combination of the following flags (none of these are set by default):
    * 1: Allow switching to a better target even if we already have one
    * 2: Don't prioritize enemies that are close to our owner
@@ -23,18 +23,18 @@ declare class EntityFamiliar extends Entity {
    * 8: Prioritize enemies with lower HP
    * 16: Give lower priority to our current target
    * (this makes us more likely to switch between targets)
-   * @param coneDir
+   * @param coneDir Default is Vector.Zero.
    * If ~= Vector.Zero, searches for targets in a cone pointing in this direction.
-   * @param coneAngle
+   * @param coneAngle Default is 15.
    * If ConeDir ~= Vector.Zero, sets the half angle of the search cone in degrees
    * (45 results in a search angle of 90 degrees).
    */
   PickEnemyTarget(
     maxDistance: float,
-    frameInterval?: int, // Default is 13
-    flags?: int, // Default is 0
-    coneDir?: Vector, // Default is Vector.Zero
-    coneAngle?: float, // Default is 15
+    frameInterval?: int,
+    flags?: int,
+    coneDir?: Vector,
+    coneAngle?: float,
   ): void;
   PlayChargeAnim(direction: Direction): void;
   PlayFloatAnim(direction: Direction): void;

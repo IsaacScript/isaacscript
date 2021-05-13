@@ -11,6 +11,7 @@
 /// <reference path="main.d.ts" />
 
 /// <reference path="ActiveItemDesc.d.ts" />
+/// <reference path="BitSet128.d.ts" />
 /// <reference path="CardConfigList.d.ts" />
 /// <reference path="Color.d.ts" />
 /// <reference path="CostumeConfigList.d.ts" />
@@ -40,6 +41,7 @@
 /// <reference path="GridEntityRock.d.ts" />
 /// <reference path="GridEntitySpikes.d.ts" />
 /// <reference path="GridEntityTNT.d.ts" />
+/// <reference path="HUD.d.ts" />
 /// <reference path="Input.d.ts" />
 /// <reference path="Isaac.d.ts" />
 /// <reference path="ItemConfig.d.ts" />

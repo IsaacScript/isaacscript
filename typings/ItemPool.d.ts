@@ -8,20 +8,33 @@ declare class ItemPool {
     rune: boolean,
     onlyRunes: boolean,
   ): Card | int;
+  /**
+   * @param itemPoolType
+   * @param decrease Default is false.
+   * @param seed Default is Random().
+   * @param defaultItem Default is CollectibleType.COLLECTIBLE_NULL.
+   */
   GetCollectible(
     itemPoolType: ItemPoolType,
-    decrease?: boolean, // Default is false
-    seed?: int, // Default is Random()
-    defaultItem?: CollectibleType, // Default is CollectibleType.COLLECTIBLE_NULL
+    decrease?: boolean,
+    seed?: int,
+    defaultItem?: CollectibleType,
   ): CollectibleType | int;
   GetLastPool(): ItemPoolType;
   GetPill(seed: int): PillColor | int;
+  /**
+   * @param pillColor
+   * @param player Default is nil.
+   */
   GetPillEffect(
     pillColor: PillColor | int,
-    player?: EntityPlayer, // Default is nil
+    player?: EntityPlayer,
   ): PillEffect | int;
   GetPoolForRoom(roomType: RoomType, seed: int): ItemPoolType;
-  GetTrinket(dontAdvanceRNG?: boolean): TrinketType | int; // Default is false
+  /**
+   * @param dontAdvanceRNG Default is false.
+   */
+  GetTrinket(dontAdvanceRNG?: boolean): TrinketType | int;
   IdentifyPill(pillColor: PillColor | int): void;
   IsPillIdentified(pillColor: PillColor | int): boolean;
   RemoveCollectible(collectibleType: CollectibleType | int): boolean;
