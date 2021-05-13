@@ -17,8 +17,6 @@ The [IsaacScript](https://isaacscript.github.io/) framework automatically uses t
   - test Game.ShowHallucination
   - CostumeConfigList is bugged and always returns a list of size 0 / GetCostumes(): Readonly<CostumeConfigList>;
 - report to Kil:
-  - IsFlying: boolean; // Should use IsFlying() instead
   - SampleLaser: boolean; // Should use IsSampleLaser() instead
   - CanShutDoors: boolean; // Should use CanShutDoors() instead
   - Desc: GridEntityDesc; // Should use GetSaveState() instead
-

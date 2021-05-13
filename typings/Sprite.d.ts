@@ -1,6 +1,7 @@
 declare function Sprite(this: void): Sprite;
 
 declare class Sprite {
+  GetAnimation(): string;
   GetDefaultAnimation(): string;
   GetDefaultAnimationName(): Readonly<string>;
   GetFilename(): string;
