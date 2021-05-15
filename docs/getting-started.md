@@ -94,7 +94,7 @@ mkdir C:\Repositories\revelations
 cd C:\Repositories\revelations
 ```
 
-Note that your project directory should **not** be a subdirectory of the `Binding of Isaac Afterbirth+ Mods` directory! This is because `isaacscript` will synchronize / clone your mod there automatically.
+Note that your project directory should **not** be a subdirectory of the `mods` directory! This is because `isaacscript` will synchronize / clone your mod there automatically.
 
 <br />
 

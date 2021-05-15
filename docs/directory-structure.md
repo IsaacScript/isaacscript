@@ -28,7 +28,7 @@ Leave this directory in place and ignore it, unless you want to customize the se
 
 ### `project/mod`
 
-This is the source mod directory. Any files that you put here will be automatically transferred over to the mirrored directory in `Binding of Isaac Afterbirth+ Mods`.
+This is the source mod directory. Any files that you put here will be automatically transferred over to the mirrored directory in `mods`.
 
 For example,
 ```batch
@@ -36,7 +36,7 @@ C:\Repositories\revelations\mod\image.png
 ```
 will be copied to:
 ```batch
-C:\Users\[YourUsername]\Documents\My Games\Binding of Isaac Afterbirth+ Mods\revelations\image.png
+C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\mods\revelations\image.png
 ```
 
 <br />
