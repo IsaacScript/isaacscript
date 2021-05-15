@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-isaacscript",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "an ESLint config for IsaacScript projects",
   "repository": {
     "type": "git",
@@ -10,6 +10,6 @@
   "author": "Zamiell",
   "dependencies": {
     "eslint-config-airbnb-typescript": "^12.3.1",
-    "eslint-config-prettier": "^8.1.0"
+    "eslint-config-prettier": "^8.3.0"
   }
 }
