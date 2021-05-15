@@ -1,32 +1,32 @@
 ModCallbacks = {
 	MC_NPC_UPDATE = 0,			-- Callback is a method that takes (EntityNPC). Called after an NPC is updated. When adding callback, specify an EntityType so it is only called for entities of that type.
-	MC_POST_UPDATE = 1,			-- Callback is a method with no arguments. Called after game update.
+	MC_POST_UPDATE = 1,			-- Callback is a method with no arguments. Called after game update. 
 	MC_POST_RENDER = 2,			-- Callback is a method with no arguments. Called after game render.
-	MC_USE_ITEM = 3,			-- Callback is a method that takes (CollectibleType, RNG). Return true to show the "use item" animation, otherwise false. Called when a custom active item is used, after discharging it. When adding callback, specify a CollectibleType to only respond to one custom active. The item RNG allows for the item's random events to be seeded.
+	MC_USE_ITEM = 3,			-- Callback is a method that takes (CollectibleType, RNG). Return true to show the "use item" animation, otherwise false. Called when a custom active item is used, after discharging it. When adding callback, specify a CollectibleType to only respond to one custom active. The item RNG allows for the item's random events to be seeded. 
 	MC_POST_PEFFECT_UPDATE = 4,	-- Callback is a method that takes (EntityPlayer). Called for each player, each frame, after the player evaluates the effects of items that must be constantly evaluated.
 	MC_USE_CARD = 5,			-- Callback is a method that takes (Card). Called when a custom card is used. When adding callback, specify a Card ID to only respond to one card type.
 	MC_FAMILIAR_UPDATE = 6,		-- Callback is a method that takes (Entity_Familiar). Called every frame for each custom familiar. When adding callback, specify a Variant to restrict calls to a specific familiar.
 	MC_FAMILIAR_INIT = 7,		-- Callback is a method that takes (Entity_Familiar). Called just after a custom familiar is initialized. When adding callback, specify a Variant to restrict calls to a specific familiar.
-
-	-- Callback is a method that takes (EntityPlayer, CacheFlag).
-	-- Called one or more times when a player's stats must be re-evaluated, such as after picking up an item, using certain pills, manually calling EvaluateItems on EntityPlayer.
+	
+	-- Callback is a method that takes (EntityPlayer, CacheFlag). 
+	-- Called one or more times when a player's stats must be re-evaluated, such as after picking up an item, using certain pills, manually calling EvaluateItems on EntityPlayer. 
 	-- Use this to let custom items change the player's stats, familiars, flying, weapons, etc.
 	-- Items tell the game which stats they affect using cache values in items.xml. Then the callback should respond to the CacheFlag by setting the corresponding player stat.
 	-- Other items' stat modifiers, multipliers, etc are applied before this callback is called.
 	MC_EVALUATE_CACHE = 8,
-
+	
 	MC_POST_PLAYER_INIT = 9,	-- Callback is a method that takes (EntityPlayer). Called after the player is initialized.
 	MC_USE_PILL = 10,			-- Callback is a method that takes (PillEffect). Called when a custom pill is used. When adding callback, specify a PillEffect ID to only respond to one pill effect.
-
-	-- Callback is a method that takes (TookDamage : Entity, DamageAmount : number, DamageFlag : number (bit flags from DamageFlag enumeration), DamageSource : EntityRef, DamageCountdownFrames : number).
-	-- Return true or nil if the entity or player should sustain the damage, otherwise false to ignore it.
+	
+	-- Callback is a method that takes (TookDamage : Entity, DamageAmount : number, DamageFlag : number (bit flags from DamageFlag enumeration), DamageSource : EntityRef, DamageCountdownFrames : number). 
+	-- Return true or nil if the entity or player should sustain the damage, otherwise false to ignore it. 
 	-- If the entity is an EntityPlayer, the DamageAmount is the integer number of half-hearts of damage that the player will take. Otherwise, DamageAmount is a number of hit points.
 	-- Called before new damage is applied. A DAMAGE_COUNTDOWN flag means the entity will ignore any other DAMAGE_COUNTDOWN hits for the duration specified.
 	-- When adding callback, specify an EntityType to respond to only damage taken by that entity type.
 	MC_ENTITY_TAKE_DMG = 11,
 	MC_POST_CURSE_EVAL = 12, -- Callback is a method that takes (integer Curses). Curses is a bitmask containing current curses. Called after Level applied it's curses. Returns the new curse bitmask. Use Isaac.GetCurseIdByName to get a custom curse
-
-	-- Callback that takes (Entity, InputHook, ButtonAction). It is called when game/game entities wants to read action input.
+	
+	-- Callback that takes (Entity, InputHook, ButtonAction). It is called when game/game entities wants to read action input. 
 	-- Entity can be nil if the input is read not from an entity Class. InputHook and ButtonActions are enumerations. Return nil if you don't want to overwrite the input or value otherwise.
 	-- Return value can be bool if it's a Is__ hook or float if it's an Get__Value hook. Float values should be in range of 0.0 and 1.0
 	MC_INPUT_ACTION = 13,
@@ -35,11 +35,11 @@ ModCallbacks = {
 	MC_POST_GAME_END = 16, -- (bool) - Gameover
 	MC_PRE_GAME_EXIT = 17, -- (bool) - ShouldSave
 	MC_POST_NEW_LEVEL = 18, -- This triggers after new room!
-	MC_POST_NEW_ROOM = 19,
+	MC_POST_NEW_ROOM = 19, 
 	MC_GET_CARD = 20, -- (RNG& rng, integer CurrentCard, bool Playing, bool Runes, bool OnlyRunes) - This is used for Card Pools. Because not all cards have the same chance to spawn, use RNG for seeded random and return your card id (if you don't want to change the current card, return CurrentCard or nil). If desired Playing (can include playing cards), Runes (can include runes), OnlyRunes (only return runes) filter can be used to make your selection.
 	MC_GET_SHADER_PARAMS = 21, -- (string shaderName) - returns a table containing a key -> value pair for custom shader parameters
 	MC_EXECUTE_CMD = 22, -- (string cmd, string params) - returns a string separated by \n (newline) per output line
-
+	
 	MC_PRE_USE_ITEM = 23, -- (CollectibleType ItemId, RNG& ItemRng) - return true if the item can't be used / processed inside the script, other values or no value will continue the routine
 	MC_PRE_ENTITY_SPAWN = 24, -- (EntityType Type, integer Variant, integer SubType, const Vector2 Position, const Vector2 Velocity, const Entity Spawner, integer Seed), optional return - an array table with new values { Type, Variant, Subtype, Seed }
 	MC_POST_FAMILIAR_RENDER = 25, -- (EntityFamiliar Fam, Vector Offset)
@@ -311,7 +311,7 @@ EntityType = {
 	ENTITY_FISTULOID = 308,
 	ENTITY_GUSH = 309,
 	ENTITY_LEPER = 310,
-
+	
 	-- Afterbirth bosses
 	ENTITY_STAIN = 401,
 	ENTITY_BROWNIE = 402,
@@ -326,7 +326,131 @@ EntityType = {
 	ENTITY_BIG_HORN = 411,
 	ENTITY_DELIRIUM = 412,
 	ENTITY_MATRIARCH = 413,
-
+	
+	-- Repentance
+	ENTITY_BONE_WORM = 801,
+	ENTITY_BLOOD_PUPPY = 802,
+	
+	ENTITY_QUAKE_GRIMACE = 804,
+	ENTITY_BISHOP = 805,
+	ENTITY_BUBBLES = 806,
+	ENTITY_WRAITH = 807,
+	ENTITY_WILLO = 808,
+	ENTITY_BOMB_GRIMACE = 809,
+	ENTITY_SMALL_LEECH = 810,
+	ENTITY_DEEP_GAPER = 811,
+	ENTITY_SUB_HORF = 812,
+	ENTITY_BLURB = 813,
+	ENTITY_STRIDER = 814,
+	ENTITY_FISSURE = 815,
+	ENTITY_POLTY = 816,
+	ENTITY_PREY = 817,
+	ENTITY_ROCK_SPIDER = 818,
+	ENTITY_FLY_BOMB = 819,
+	ENTITY_DANNY = 820,
+	ENTITY_BLASTER = 821,
+	ENTITY_BOUNCER = 822,
+	ENTITY_QUAKEY = 823,
+	ENTITY_GYRO = 824,
+	ENTITY_FIRE_WORM = 825,
+	ENTITY_HARDY = 826,
+	ENTITY_FACELESS = 827,
+	ENTITY_NECRO = 828,
+	ENTITY_MOLE = 829,
+	ENTITY_BIG_BONY = 830,
+	ENTITY_GUTTED_FATTY = 831,
+	ENTITY_EXORCIST = 832,
+	ENTITY_CANDLER = 833,
+	ENTITY_WHIPPER = 834,
+	ENTITY_PEEPER_FATTY = 835,
+	ENTITY_VIS_VERSA = 836,
+	ENTITY_HENRY = 837,
+	ENTITY_WILLO_L2 = 838,
+	
+	ENTITY_PON = 840,
+	ENTITY_REVENANT = 841,
+	
+	
+	ENTITY_BOMBGAGGER = 844,
+	ENTITY_GAPER_L2 = 850,
+	ENTITY_TWITCHY = 851,
+	ENTITY_SPIKEBALL = 852,
+	ENTITY_SMALL_MAGGOT = 853,
+	ENTITY_ADULT_LEECH = 854,
+	ENTITY_CHARGER_L2 = 855,
+	ENTITY_GASBAG = 856,
+	ENTITY_COHORT = 857,
+	
+	ENTITY_FLOATING_HOST = 859,
+	ENTITY_UNBORN = 860,
+	ENTITY_PUSTULE = 861,
+	ENTITY_CYST = 862,
+	ENTITY_MORNINGSTAR = 863,
+	ENTITY_MOCKULUS = 864,
+	ENTITY_EVIS = 865,
+	ENTITY_DARK_ESAU = 866,
+	ENTITY_MOTHERS_SHADOW = 867,
+	ENTITY_ARMYFLY = 868,
+	ENTITY_MIGRAINE = 869,
+	ENTITY_DRIP = 870,
+	ENTITY_SPLURT = 871,
+	ENTITY_CLOGGY = 872,
+	ENTITY_FLY_TRAP = 873,
+	ENTITY_FARTIGAN = 874,
+	ENTITY_POOT_MINE = 875,
+	ENTITY_DUMP = 876,
+	ENTITY_GRUDGE = 877,
+	ENTITY_BUTT_SLICKER = 878,
+	ENTITY_BLOATY = 879,
+	ENTITY_FLESH_MAIDEN = 880,
+	ENTITY_NEEDLE = 881,
+	ENTITY_DUST = 882,
+	ENTITY_BABY_BEGOTTEN = 883,
+	ENTITY_SWARM_SPIDER = 884,
+	ENTITY_CULTIST = 885,
+	ENTITY_VIS_FATTY = 886,
+	ENTITY_DUSTY_DEATHS_HEAD = 887,
+	ENTITY_SHADY = 888,
+	ENTITY_CLICKETY_CLACK = 889,
+	ENTITY_MAZE_ROAMER = 890,
+	ENTITY_GOAT = 891,
+	ENTITY_POOFER = 892,
+	ENTITY_BALL_AND_CHAIN = 893,
+	
+	ENTITY_REAP_CREEP = 900,
+	ENTITY_LIL_BLUB = 901,
+	ENTITY_RAINMAKER = 902,
+	ENTITY_VISAGE = 903,
+	ENTITY_SIREN = 904,
+	ENTITY_HERETIC = 905,
+	ENTITY_HORNFEL = 906,
+	ENTITY_GIDEON = 907,
+	ENTITY_BABY_PLUM = 908,
+	ENTITY_SCOURGE = 909,
+	ENTITY_CHIMERA = 910,
+	ENTITY_ROTGUT = 911,
+	ENTITY_MOTHER = 912,
+	ENTITY_MIN_MIN = 913,
+	ENTITY_CLOG = 914,
+	ENTITY_SINGE = 915,
+	ENTITY_BUMBINO = 916,
+	ENTITY_COLOSTOMIA = 917,
+	ENTITY_TURDLET = 918,
+	ENTITY_RAGLICH = 919, -- currently unused
+	ENTITY_HORNY_BOYS = 920,
+	ENTITY_CLUTCH = 921, -- currently unused
+	ENTITY_CADAVRA = 922, -- currently unused
+	ENTITY_DOGMA = 950,
+	ENTITY_BEAST = 951,
+	ENTITY_GENERIC_PROP = 960,
+	ENTITY_FROZEN_ENEMY = 963,
+	ENTITY_DUMMY = 964,
+	ENTITY_MINECART = 965,
+	ENTITY_SIREN_HELPER = 966,
+	ENTITY_HORNFEL_DOOR = 967,
+	ENTITY_TRIGGER_OUTPUT = 969,
+	ENTITY_ENVIRONMENT = 970,
+	
 	ENTITY_EFFECT = 1000, -- 1000 special effects
 	ENTITY_TEXT = 9001
 }
@@ -335,10 +459,10 @@ GridEntityType = {
 	GRID_NULL = 0,
 	GRID_DECORATION = 1,
 	GRID_ROCK = 2,
-	GRID_ROCKB = 3,
-	GRID_ROCKT = 4,
-	GRID_ROCK_BOMB = 5,
-	GRID_ROCK_ALT = 6,
+	GRID_ROCKB = 3,	
+	GRID_ROCKT = 4,	
+	GRID_ROCK_BOMB = 5,	
+	GRID_ROCK_ALT = 6,	
 	GRID_PIT = 7,
 	GRID_SPIKES = 8,
 	GRID_SPIKES_ONOFF = 9,
@@ -354,7 +478,14 @@ GridEntityType = {
 	GRID_GRAVITY = 19,
 	GRID_PRESSURE_PLATE = 20,
 	GRID_STATUE = 21,
-	GRID_ROCK_SS = 22
+	GRID_ROCK_SS = 22,
+	
+	-- Repentance
+	GRID_TELEPORTER = 23,
+	GRID_PILLAR = 24,
+	GRID_ROCK_SPIKED = 25,
+	GRID_ROCK_ALT2 = 26, -- special skull in Depths 2
+	GRID_ROCK_GOLD = 27,
 }
 
 EffectVariant = {
@@ -372,7 +503,8 @@ EffectVariant = {
 	BULLET_POOF = 11,
 	TEAR_POOF_A = 12,
 	TEAR_POOF_B = 13,
-	CROSS_POOF = 14,
+	RIPPLE_POOF = 14,
+		CROSS_POOF = 14, -- AB+ backwards compatibility
 	POOF01 = 15,
 	POOF02 = 16,
 	POOF04 = 17,
@@ -413,18 +545,18 @@ EffectVariant = {
 	RED_CANDLE_FLAME = 52,
 	PLAYER_CREEP_GREEN = 53,
 	PLAYER_CREEP_HOLYWATER_TRAIL = 54,
-	SPIKE = 55,
-	CREEP_BROWN = 56,
+	SPIKE = 55,			
+	CREEP_BROWN = 56,	
 	PULLING_EFFECT = 57,
-	POOP_PARTICLE = 58,
-	DUST_CLOUD = 59,
+	POOP_PARTICLE = 58,	
+	DUST_CLOUD = 59,	
 	BOOMERANG = 60,
 	SHOCKWAVE = 61,
 	ROCK_EXPLOSION = 62,
-	WORM = 63,
+	WORM = 63, 
 	BEETLE = 64,
 	WISP = 65,
-	EMBER_PARTICLE = 66,
+	EMBER_PARTICLE = 66, 
 	SHOCKWAVE_DIRECTIONAL = 67,
 	WALL_BUG = 68,
 	BUTTERFLY = 69,
@@ -433,7 +565,7 @@ EffectVariant = {
 	CRACKWAVE = 72,
 	SHOCKWAVE_RANDOM = 73,
 	ISAACS_CARPET = 74,
-	BAR_PARTICLE = 75,
+	BAR_PARTICLE = 75, 
 	DICE_FLOOR = 76,
 	LARGE_BLOOD_EXPLOSION = 77,
 	PLAYER_CREEP_LEMON_PARTY = 78,
@@ -475,7 +607,91 @@ EffectVariant = {
 	FORGOTTEN_CHAIN = 114,
 	BROKEN_SHOVEL_SHADOW = 115,
 	DIRT_PATCH = 116,
-	FORGOTTEN_SOUL = 117
+	FORGOTTEN_SOUL = 117,
+	SMALL_ROCKET = 118,
+	
+	-- Repentance
+	TIMER = 119,
+	SPAWNER = 120,
+	LIGHT = 121,
+	BIG_HORN_HOLE_HELPER = 122,
+	HALO = 123,
+	TAR_BUBBLE = 124,
+	BIG_HORN_HAND = 125,
+	TECH_DOT = 126,
+	MAMA_MEGA_EXPLOSION = 127,
+	OPTION_LINE = 128, -- unused
+
+	LEECH_EXPLOSION = 130,
+	MAGGOT_EXPLOSION = 131,
+	BIG_SPLASH = 132,
+	WATER_RIPPLE = 133,
+	PEDESTAL_RIPPLE = 134,
+	RAIN_DROP = 135,
+	GRID_ENTITY_PROJECTILE_HELPER = 136,
+	WORMWOOD_HOLE = 137,
+	MIST = 138,
+	TRAPDOOR_COVER = 139,
+	BACKDROP_DECORATION = 140,
+	SMOKE_CLOUD = 141,
+	WHIRLPOOL = 142,
+	FARTWAVE = 143,
+	ENEMY_GHOST = 144,
+	ROCK_POOF = 145,
+	DIRT_PILE = 146,
+	FIRE_JET = 147,
+	FIRE_WAVE = 148,
+	BIG_ROCK_EXPLOSION = 149,
+	BIG_CRACKWAVE = 150,
+	BIG_ATTRACT = 151,
+	HORNFEL_ROOM_CONTROLLER = 152,
+	OCCULT_TARGET = 153,
+	DOOR_OUTLINE = 154,
+	CREEP_SLIPPERY_BROWN_GROWING = 155,
+	TALL_LADDER = 156,
+	WILLO_SPAWNER = 157,
+	TADPOLE = 158,
+	LIL_GHOST = 159,
+	BISHOP_SHIELD = 160,
+	PORTAL_TELEPORT = 161,
+	HERETIC_PENTAGRAM = 162,
+	CHAIN_GIB = 163,
+	SIREN_RING = 164,
+	CHARM_EFFECT = 165,
+	SPRITE_TRAIL = 166,
+	CHAIN_LIGHTNING = 167,
+	COLOSTOMIA_PUDDLE = 168,
+	CREEP_STATIC = 169,
+	DOGMA_DEBRIS = 170,
+	DOGMA_BLACKHOLE = 171,
+	DOGMA_ORB = 172,
+	CRACKED_ORB_POOF = 173,
+	SHOP_SPIKES = 174,
+	KINETI_BEAM = 175,
+	CLEAVER_SLASH = 176,
+	REVERSE_EXPLOSION = 177,
+	URN_OF_SOULS = 178,
+	ENEMY_SOUL = 179,
+	RIFT = 180,
+	LAVA_SPAWNER = 181,
+	BIG_KNIFE = 182,
+	MOTHER_SHOCKWAVE = 183,
+	WORM_FRIEND_SNARE = 184,
+	REDEMPTION = 185,
+	HUNGRY_SOUL = 186,
+	EXPLOSION_WAVE = 187,
+	DIVINE_INTERVENTION = 188,
+	PURGATORY = 189,
+	MOTHER_TRACER = 190,
+	PICKUP_GHOST = 191,
+	FISSURE_SPAWNER = 192,
+	ANIMA_CHAIN = 193,
+	DARK_SNARE = 194,
+	CREEP_LIQUID_POOP = 195,
+	GROUND_GLOW = 196,
+	DEAD_BIRD = 197,
+	GENERIC_TRACER = 198,
+	ULTRA_DEATH_SCYTHE = 199,
 }
 
 PickupVariant = {
@@ -484,11 +700,17 @@ PickupVariant = {
 	PICKUP_COIN = 20,
 	PICKUP_KEY = 30,
 	PICKUP_BOMB = 40,
+	PICKUP_THROWABLEBOMB = 41,
+	PICKUP_POOP = 42,
 	PICKUP_CHEST = 50,
 	PICKUP_BOMBCHEST = 51,
 	PICKUP_SPIKEDCHEST = 52,
 	PICKUP_ETERNALCHEST = 53,
 	PICKUP_MIMICCHEST = 54,
+	PICKUP_OLDCHEST = 55,
+	PICKUP_WOODENCHEST = 56,
+	PICKUP_MEGACHEST = 57,
+	PICKUP_HAUNTEDCHEST = 58,
 	PICKUP_LOCKEDCHEST = 60,
 	PICKUP_GRAB_BAG = 69,
 	PICKUP_PILL = 70,
@@ -500,7 +722,8 @@ PickupVariant = {
 	PICKUP_TRINKET = 350,
 	PICKUP_REDCHEST = 360,
 	PICKUP_TROPHY = 370,
-	PICKUP_BED = 380
+	PICKUP_BED = 380,
+	PICKUP_MOMSCHEST = 390,
 }
 
 HeartSubType = {
@@ -514,7 +737,8 @@ HeartSubType = {
 	HEART_HALF_SOUL = 8,
 	HEART_SCARED = 9,
 	HEART_BLENDED = 10,
-	HEART_BONE = 11
+	HEART_BONE = 11,
+	HEART_ROTTEN = 12,
 }
 
 CoinSubType = {
@@ -523,34 +747,63 @@ CoinSubType = {
 	COIN_DIME = 3,
 	COIN_DOUBLEPACK = 4,
 	COIN_LUCKYPENNY = 5,
-	COIN_STICKYNICKEL = 6
+	COIN_STICKYNICKEL = 6,
+	COIN_GOLDEN = 7,
 }
 
 KeySubType = {
 	KEY_NORMAL = 1,
 	KEY_GOLDEN = 2,
 	KEY_DOUBLEPACK = 3,
-	KEY_CHARGED = 4
+	KEY_CHARGED = 4,
+}
+
+BatterySubType = {
+	BATTERY_NORMAL = 1,
+	BATTERY_MICRO = 2,
+	BATTERY_MEGA = 3,
+	BATTERY_GOLDEN = 4,
+}
+
+SackSubType = {
+	SACK_NORMAL = 1,
+	SACK_BLACK = 2,
 }
 
 ChestSubType = {
 	CHEST_OPENED = 0,
 	CHEST_CLOSED = 1
 }
+
 BombSubType = {
 	BOMB_NORMAL = 1,
 	BOMB_DOUBLEPACK = 2,
 	BOMB_TROLL = 3,
 	BOMB_GOLDEN = 4,
-	BOMB_SUPERTROLL = 5
+	BOMB_SUPERTROLL = 5,
+	BOMB_GOLDENTROLL = 6,
+	BOMB_GIGA = 7,
+}
+
+BedSubType = {
+	BED_ISAAC = 0,
+	BED_MOM = 1,
 }
 
 PickupPrice = {
 	PRICE_ONE_HEART = -1,
 	PRICE_TWO_HEARTS = -2,
 	PRICE_THREE_SOULHEARTS = -3,
-	PRICE_FREE = -1000
-};
+	PRICE_ONE_HEART_AND_TWO_SOULHEARTS = -4,
+	PRICE_SPIKES = -5,
+	PRICE_SOUL = -6,
+	PRICE_FREE = -1000,
+}
+
+PoopPickupSubType = {
+	POOP_SMALL = 0,
+	POOP_BIG = 1,
+}
 
 Challenge = {
 	CHALLENGE_NULL = 0,
@@ -589,8 +842,22 @@ Challenge = {
 	CHALLENGE_POKEY_MANS = 33,
 	CHALLENGE_ULTRA_HARD = 34,
 	CHALLENGE_PONG = 35,
-	NUM_CHALLENGES = 36
+	--NUM_CHALLENGES = 36
+	
+	-- Repentance
+	CHALLENGE_SCAT_MAN = 36,
+	CHALLENGE_BLOODY_MARY = 37,
+	CHALLENGE_BAPTISM_BY_FIRE = 38,
+	CHALLENGE_ISAACS_AWAKENING = 39,
+	CHALLENGE_SEEING_DOUBLE = 40,
+	CHALLENGE_PICA_RUN = 41,
+	CHALLENGE_HOT_POTATO = 42,
+	CHALLENGE_CANTRIPPED = 43,
+	CHALLENGE_RED_REDEMPTION = 44,
+	CHALLENGE_DELETE_THIS = 45,
+	NUM_CHALLENGES = 46
 }
+
 BombVariant = {
     BOMB_NORMAL = 0,
     BOMB_BIG = 1,
@@ -604,38 +871,52 @@ BombVariant = {
     BOMB_BUTT = 9,
     BOMB_MR_MEGA = 10,
     BOMB_BOBBY = 11,
-    BOMB_GLITTER = 12
+    BOMB_GLITTER = 12,
+	BOMB_THROWABLE = 13,
+	BOMB_SMALL = 14,
+	BOMB_BRIMSTONE = 15,
+	BOMB_SAD_BLOOD = 16,
+	BOMB_GIGA = 17,
+	BOMB_GOLDENTROLL = 18,
+	BOMB_ROCKET = 19,
+	BOMB_ROCKET_GIGA = 20,
 }
 
 CacheFlag = {
-	CACHE_DAMAGE = 1,
-	CACHE_FIREDELAY = 2,
-	CACHE_SHOTSPEED = 4,
-	CACHE_RANGE = 8,
-	CACHE_SPEED = 16,
-	CACHE_TEARFLAG = 32,
-	CACHE_TEARCOLOR = 64,
-	CACHE_FLYING = 128,
-	CACHE_WEAPON = 256,
-	CACHE_FAMILIARS = 512,
-	CACHE_LUCK = 1024,
-	CACHE_ALL = 0xFFFFFFFF
+	CACHE_DAMAGE = 0x1,
+	CACHE_FIREDELAY = 0x2,
+	CACHE_SHOTSPEED = 0x4,
+	CACHE_RANGE = 0x8,
+	CACHE_SPEED = 0x10,
+	CACHE_TEARFLAG = 0x20,
+	CACHE_TEARCOLOR = 0x40,
+	CACHE_FLYING = 0x80,
+	CACHE_WEAPON = 0x100,
+	CACHE_FAMILIARS = 0x200,
+	CACHE_LUCK = 0x400,
+	CACHE_SIZE = 0x800, -- invalidates player size
+	CACHE_COLOR = 0x1000, -- invalidates player color
+	CACHE_PICKUP_VISION = 0x2000, -- invalidates effects that predict pickup drops (i.e. Guppy's Eye)
+	
+	CACHE_ALL = 0xFFFF,
+
+	CACHE_TWIN_SYNC = 0x80000000, -- special cache flag used when syncing Jacob and Esau's speed
 }
 
 NpcState = {
 	STATE_INIT = 0,
 	STATE_APPEAR = 1,
-	STATE_APPEAR_CUSTOM = 2,
+	STATE_APPEAR_CUSTOM = 2, 
 	STATE_IDLE = 3,
 	STATE_MOVE = 4,
 	STATE_SUICIDE = 5,
 	STATE_JUMP = 6,
 	STATE_STOMP = 7,
 	STATE_ATTACK = 8,
-	STATE_ATTACK2 = 9,
+	STATE_ATTACK2 = 9,	
 	STATE_ATTACK3 = 10,
 	STATE_ATTACK4 = 11,
-	STATE_SUMMON = 12,
+	STATE_SUMMON = 12,	
 	STATE_SUMMON2 = 13,
 	STATE_SUMMON3 = 14,
 	STATE_SPECIAL = 15,
@@ -650,9 +931,10 @@ EntityGridCollisionClass = {
 	GRIDCOLL_WALLS = 3,		-- only collide with walls
 	GRIDCOLL_BULLET = 4,	-- detect collision with solids (no pits), don't correct position
 	GRIDCOLL_GROUND = 5,	-- collide with all grid entities (rocks, pits, ..), correct position
-	GRIDCOLL_NOPITS = 6		-- collide with all grid entities except pits and correct position
+	GRIDCOLL_NOPITS = 6,	-- collide with all grid entities except pits and correct position
+	GRIDCOLL_PITSONLY = 7,	-- moving inside a pit, collide with everything else, correct position
 }
-
+	
 EntityCollisionClass = {
 	ENTCOLL_NONE = 0,			-- no collision with other entities
 	ENTCOLL_PLAYERONLY = 1,		-- collide with player only
@@ -681,7 +963,12 @@ EntityFlag = {
 	FLAG_NO_BLOOD_SPLASH = 1<<16,
 	FLAG_NO_REMOVE_ON_TEX_RENDER = 1<<17,	-- for FLAG_RENDER_FLOOR and FLAG_RENDER_WALL
 	FLAG_NO_DEATH_TRIGGER = 1<<18,
-	FLAG_NO_SPIKE_DAMAGE = 1<<19,
+	
+	-- NOTE: Those next flags share the same bit but have a different meaning depending on entity type
+	FLAG_NO_SPIKE_DAMAGE = 1<<19,			-- EntityNPC: shouldn't take any damage from spikes
+	FLAG_LASER_POP = 1<<19,					-- EntityTear: Pop tear fired by a laser, should decelerate very quickly for the first few frames
+	FLAG_ITEM_SHOULD_DUPLICATE = 1<<19,		-- EntityPickup: item pedestal affected by Damocles, will be duplicated at the end of the current frame
+	
 	FLAG_BOSSDEATH_TRIGGERED = 1<<20,
 	FLAG_DONT_OVERWRITE = 1<<21,			-- Used in entityfactory to not remove this entity if there is no space left for new entity
 	FLAG_SPAWN_STICKY_SPIDERS = 1<<22,		-- Used by Sticky bombs to generate spiders on death
@@ -699,12 +986,30 @@ EntityFlag = {
 	FLAG_BLEED_OUT = 1<<34,					-- Used for Mom's Razor
 	FLAG_HIDE_HP_BAR = 1<<35,				-- Added for Ultra Greed so his HP can be hidden after he "dies" since his entity sticks around
 	FLAG_NO_DAMAGE_BLINK = 1<<36,			-- Player was given a short period of invulnerability by something other than damage, don't blink
-	FLAG_PERSISTENT = 1<<37					-- Entity persists between rooms
-	--[[
-		[Warning]
-		Be careful with FLAG_DONT_OVERWRITE. Do not set it for all entities while
-		they all exist otherwise it may result in an undefined behaviour.
-	--]]
+	FLAG_PERSISTENT = 1<<37,				-- Entity persists between rooms
+	
+	FLAG_BACKDROP_DETAIL = 1<<38,			-- Was spawned as a backdrop decoration, should be deleted if the current backdrop changes (due to Delirium)
+	FLAG_AMBUSH = 1<<39,					-- Enemy was spawned by some sort of ambush (Greed Mode, challenge rooms), don't collide with the player for a few frames
+	FLAG_GLITCH = 1<<40,					-- Glitched out, has different effects depending on the entity
+	FLAG_SPIN = 1<<41,						-- Used by Spin to Win, causes a familiar to rapidly spin around its owner
+	FLAG_NO_REWARD = 1<<42,					-- Doesn't spawn any kind of reward on death
+	FLAG_REDUCE_GIBS = 1<<43,				-- Spawn less gibs on death
+	FLAG_TRANSITION_UPDATE = 1<<44,			-- Updates during room/stage transitions
+	FLAG_NO_PLAYER_CONTROL = 1<<45,			-- Cannot be controlled by players
+	FLAG_NO_QUERY = 1<<46,					-- Hide from query results
+	FLAG_KNOCKED_BACK = 1<<47,				-- Strong knockback: Forcefy moved in a specified direction for a short duration
+	FLAG_APPLY_IMPACT_DAMAGE = 1<<48,		-- Inflicts damage upon colliding with enemies, takes damage when colliding with walls
+	FLAG_ICE_FROZEN = 1<<49,				-- Frozen solid
+	FLAG_ICE = 1<<50,						-- Flagged to become frozen on death
+	FLAG_MAGNETIZED = 1<<51,				-- Magnetized: Attracts nearby enemies, projectiles and pickups
+	FLAG_BAITED = 1<<52,					-- Baited: Is targeted by nearby enemies
+	FLAG_KILLSWITCH = 1<<53,				-- Killed by a killswitch
+	FLAG_WEAKNESS = 1<<54,					-- Weakness effect from Reverse Strength
+	FLAG_EXTRA_GORE = 1<<55,				-- Spawns more gibs on death
+	FLAG_BRIMSTONE_MARKED = 1<<56,			-- Marked by Azazel B, takes extra damage from Brimstone attacks
+	FLAG_HELD = 1<<57,						-- Picked up by a player
+	FLAG_THROWN = 1<<58,					-- Thrown by a player
+	FLAG_FRIENDLY_BALL = 1<<59,				-- Used to detect enemies spawned by Friendly Ball
 }
 
 DamageFlag = {
@@ -731,6 +1036,16 @@ DamageFlag = {
 	DAMAGE_CHEST = 1<<20,		-- damage comes from spiked chest
 	DAMAGE_FAKE = 1<<21,		-- fake damage that should trigger player's damage effects.
 	DAMAGE_BOOGER = 1<<22,		-- damage from booger tear
+	DAMAGE_SPAWN_BLACK_HEART = 1<<23,	-- should drop a black heart if damage is lethal
+	DAMAGE_CRUSH = 1<<24,				-- damage comes from a strong impact (Mom's foot, rock spikes, rock tears)
+	DAMAGE_NO_MODIFIERS = 1<<25,		-- ignore damage modifiers (such as doubled damage from the Womb and later floors or reduced damage from the Wafer)
+	DAMAGE_SPAWN_RED_HEART = 1<<26,		-- should drop a red heart if damage is lethal
+	DAMAGE_SPAWN_COIN = 1<<27,			-- should drop a coin if damage is lethal
+	DAMAGE_NO_PENALTIES = 1<<28,		-- damage shouldn't apply any penalties (such as devil deal chance)
+	DAMAGE_SPAWN_TEMP_HEART = 1<<29,	-- should drop a half red heart that quickly despawns if damage is lethal
+	DAMAGE_IGNORE_ARMOR = 1<<30,		-- damage ignores boss armor
+	DAMAGE_SPAWN_CARD = 1<<31,			-- should drop a card if damage is lethal
+	DAMAGE_SPAWN_RUNE = 1<<32,			-- should drop a rune if damage is lethal
 }
 
 SortingLayer = {
@@ -738,6 +1053,7 @@ SortingLayer = {
 	SORTING_DOOR = 1,				-- Used by door Xray animation
 	SORTING_NORMAL = 2				-- Uses Y position to determine Z sorting
 }
+
 FamiliarVariant = {
 	FAMILIAR_NULL = 0,
 	BROTHER_BOBBY = 1,
@@ -848,19 +1164,19 @@ FamiliarVariant = {
 	BROWN_NUGGET_POOTER = 115,
 	BLOODSHOT_EYE = 116,
 	MOMS_RAZOR = 117,
-
+	
 	-- Booster Pack #1
 	ANGRY_FLY = 118,
 	BUDDY_IN_A_BOX = 119,
 	SPRINKLER = 120,
-
+	
 	-- Booster Pack #2
-	LEPROCY = 121,
+	LEPROSY = 121,
 
 	-- Booster Pack #3
 	LIL_HARBINGERS = 122,
 	ANGELIC_PRISM = 123,
-
+	
 	-- Booster Pack #5
 	MYSTERY_EGG = 124,
 	LIL_SPEWER = 125,
@@ -868,8 +1184,57 @@ FamiliarVariant = {
 	POINTY_RIB = 127,
 	BONE_ORBITAL = 128,
 	HALLOWED_GROUND = 129,
-	JAW_BONE = 130
+	JAW_BONE = 130,
+	
+	-- Repentance
+	INTRUDER = 200,
+	DIP = 201,
+	DAMOCLES = 202,
+	BLOOD_OATH = 203,
+	PSY_FLY = 204,
+	MENORAH = 205,
+	WISP = 206,
+	PEEPER_2 = 207,
+	BOILED_BABY = 208,
+	FREEZER_BABY = 209,
+	BIRD_CAGE = 210,
+	LOST_SOUL = 211,
+	LIL_DUMPY = 212,
+	KNIFE_PIECE_1 = 213,
+	KNIFE_PIECE_2 = 214,
+	
+	TINYTOMA = 216,
+	TINYTOMA_2 = 217,
+	BOT_FLY = 218,
+	
+	SIREN_MINION = 220,
+	PASCHAL_CANDLE = 221,
+	STITCHES = 222,
+	KNIFE_FULL = 223,
+	BABY_PLUM = 224,
+	FRUITY_PLUM = 225,
+	SPIN_TO_WIN = 226,
+	
+	MINISAAC = 228,
+	SWARM_FLY_ORBITAL = 229,
+	LIL_ABADDON = 230,
+	ABYSS_LOCUST = 231,
+	LIL_PORTAL = 232,
+	WORM_FRIEND = 233,
+	BONE_SPUR = 234,
+	TWISTED_BABY = 235,
+	STAR_OF_BETHLEHEM = 236,
+	ITEM_WISP = 237,
+	BLOOD_BABY = 238,
+	CUBE_BABY = 239,
+	UMBILICAL_BABY = 240,
+	BLOOD_PUPPY = 241,
+	VANISHING_TWIN = 242,
+	DECAP_ATTACK = 243,
+	
+	FORGOTTEN_BODY = 900,
 }
+
 LocustSubtypes = {
 	LOCUST_OF_WRATH = 1,
 	LOCUST_OF_PESTILENCE = 2,
@@ -877,6 +1242,7 @@ LocustSubtypes = {
 	LOCUST_OF_DEATH = 4,
 	LOCUST_OF_CONQUEST = 5
 }
+
 ItemType = {
 	ITEM_NULL = 0,
 	ITEM_PASSIVE = 1,
@@ -884,6 +1250,7 @@ ItemType = {
 	ITEM_ACTIVE = 3,
 	ITEM_FAMILIAR = 4
 }
+
 NullItemID = {
 	ID_NULL = - 1,
 	ID_EXPLOSIVE_DIARRHEA = 0,
@@ -926,8 +1293,92 @@ NullItemID = {
 	ID_BOOKWORM = 37,
 	ID_ADULTHOOD = 38,
 	ID_SPIDERBABY = 39,
-	NUM_NULLITEMS = 40
+	ID_BATWING_WINGS = 40,
+	ID_HUGE_GROWTH = 41,
+	ID_ERA_WALK = 42,
+	ID_SACRIFICIAL_ALTAR = 43,
+	ID_FORGOTTEN = 44,
+	
+	-- Repentance
+	ID_BRIMSTONE2 = 45,
+	ID_HOLY_CARD = 46,
+	ID_KEEPER = 47,
+
+	ID_SPIN_TO_WIN = 50,
+	ID_BETHANY = 51,
+	ID_JACOB = 52,
+	ID_ESAU = 53,
+	ID_BLOOD_OATH = 54,
+	ID_INTRUDER = 55,
+	ID_SOL = 56,
+	ID_IT_HURTS = 57,
+	ID_MARS = 58,
+	ID_TOOTH_AND_NAIL = 59,
+	ID_REVERSE_MAGICIAN = 60,
+	ID_REVERSE_HIGH_PRIESTESS = 61,
+	ID_REVERSE_EMPRESS = 62,
+	ID_REVERSE_CHARIOT = 63,
+	ID_REVERSE_STRENGTH = 64,
+	ID_REVERSE_HANGED_MAN = 65,
+	ID_REVERSE_SUN = 66,
+	ID_REVERSE_DEVIL = 67,
+	ID_REVERSE_CHARIOT_ALT = 68,
+	ID_REVERSE_TEMPERANCE = 69,
+	ID_REVERSE_STARS = 70,
+	ID_WAVY_CAP_1 = 71,
+	ID_WAVY_CAP_2 = 72,
+	ID_WAVY_CAP_3 = 73,
+	ID_LUNA = 74,
+	ID_JUPITER_BODY = 75,
+	ID_JUPITER_BODY_ANGEL = 76,
+	ID_JUPITER_BODY_PONY = 77,
+	ID_JUPITER_BODY_WHITEPONY = 78,
+	ID_ISAAC_B = 79,
+	ID_MAGDALENE_B = 80,
+	ID_CAIN_B = 81,
+	ID_JUDAS_B = 82,
+	ID_BLUEBABY_B = 83,
+	ID_EVE_B = 84,
+	ID_SAMSON_B = 85,
+	ID_AZAZEL_B = 86,
+	ID_LAZARUS_B = 87,
+	ID_EDEN_B = 88,
+	ID_LOST_B = 89,
+	ID_LILITH_B = 90,
+	ID_KEEPER_B = 91,
+	ID_APOLLYON_B = 92,
+	ID_FORGOTTEN_B = 93,
+	ID_BETHANY_B = 94,
+	ID_JACOB_B = 95,
+	ID_AZAZELS_RAGE_1 = 96,
+	ID_AZAZELS_RAGE_2 = 97,
+	ID_AZAZELS_RAGE_3 = 98,
+	ID_AZAZELS_RAGE_4 = 99,
+	ID_ESAU_JR = 100,
+	ID_SPIRIT_SHACKLES_SOUL = 101,
+	ID_SPIRIT_SHACKLES_DISABLED = 102,
+	ID_BERSERK_SAMSON = 103,
+	ID_LAZARUS2_B = 104,
+	ID_SOUL_B = 105,
+	ID_FORGOTTEN_BOMB = 106,
+	ID_EXTRA_BIG_FAN = 107,
+	ID_JACOB2_B = 108,
+	ID_JACOBS_CURSE = 109,
+	ID_BLOODY_BABYLON = 110,
+	ID_DARK_ARTS = 111,
+	ID_LOST_CURSE = 112,
+	ID_LAZARUS_SOUL_REVIVE = 113,
+	ID_SOUL_MAGDALENE = 114,
+	ID_SOUL_BLUEBABY = 115,
+	ID_MIRROR_DEATH = 116,
+	ID_HEMOPTYSIS = 117,
+	ID_I_FOUND_HORSE_PILLS = 118,
+	ID_HORSE_PUBERTY = 119,
+	ID_SOUL_FORGOTTEN = 120,
+	ID_SOUL_JACOB = 121,
+	NUM_NULLITEMS = 122
 }
+
 WeaponType = {
 	WEAPON_TEARS = 1,
 	WEAPON_BRIMSTONE = 2,
@@ -939,21 +1390,14 @@ WeaponType = {
 	WEAPON_LUDOVICO_TECHNIQUE = 8,
 	WEAPON_TECH_X = 9,
 	WEAPON_BONE = 10,
-	NUM_WEAPON_TYPES = 11
+	WEAPON_NOTCHED_AXE = 11,		-- Notched Axe
+	WEAPON_URN_OF_SOULS = 12,		-- Urn of Souls
+	WEAPON_SPIRIT_SWORD = 13,		-- Spirit Sword
+	WEAPON_FETUS = 14,				-- (currently unused)
+	WEAPON_UMBILICAL_WHIP = 15,		-- Fetus whip
+	NUM_WEAPON_TYPES = 16
 }
 
-PlayerItemState = {
-	ITEMSTATE_NORMAL = 0,
-	ITEMSTATE_CANDLE = 1,
-	ITEMSTATE_SHOOP_DA_WHOOP = 2,
-	ITEMSTATE_BOBS_ROTTEN_HEAD = 3,
-	ITEMSTATE_DOCTORS_REMOTE = 4,
-	ITEMSTATE_PONY = 5,
-	ITEMSTATE_NOTCHEDAXE = 6,
-	ITEMSTATE_BOOMERANG = 7,
-	ITEMSTATE_CANNON = 8,
-	ITEMSTATE_FRIENDBALL = 9
-}
 PlayerSpriteLayer = {
 	SPRITE_GLOW = 0,
 	SPRITE_BODY = 1,
@@ -968,8 +1412,11 @@ PlayerSpriteLayer = {
 	SPRITE_HEAD5 = 10,
 	SPRITE_TOP0 = 11,
 	SPRITE_EXTRA = 12,
-	NUM_SPRITE_LAYERS = 13
+	SPRITE_GHOST = 13,
+	SPRITE_BACK = 14,
+	NUM_SPRITE_LAYERS = 15
 }
+
 BabySubType = {
 	BABY_UNASSIGNED = - 1,
 	BABY_SPIDER = 0,
@@ -1031,8 +1478,24 @@ BabySubType = {
 	BABY_APOLLYON = 56,
 	BABY_BONE = 57,
 	BABY_BOUND = 58,
-	BABY_BASIC = 59
+	--BABY_BASIC = 59
+	
+	-- Repentance
+	BABY_FOUND_SOUL = 59,
+	BABY_LOST_WHITE = 60,
+	BABY_LOST_BLACK = 61,
+	BABY_LOST_BLUE = 62,
+	BABY_LOST_GREY = 63,
+	BABY_WISP = 64,
+	BABY_DOUBLE = 65,
+	BABY_GLOWING = 66,
+	BABY_ILLUSION = 67,
+	BABY_HOPE = 68,
+	BABY_SOLOMON_A = 69,
+	BABY_SOLOMON_B = 70,
+	BABY_BASIC = 71
 }
+
 LaserOffset = {
 	LASER_TECH1_OFFSET = 0,
 	LASER_TECH2_OFFSET = 1,
@@ -1042,6 +1505,7 @@ LaserOffset = {
 	LASER_MOMS_EYE_OFFSET = 5,
 	LASER_TRACTOR_BEAM_OFFSET = 6
 }
+
 ActionTriggers = {
 	ACTIONTRIGGER_NONE = 0,
 	ACTIONTRIGGER_BOMBPLACED = 1,
@@ -1051,6 +1515,7 @@ ActionTriggers = {
 	ACTIONTRIGGER_ITEMACTIVATED = 1 << 4,
 	ACTIONTRIGGER_ITEMSDROPPED = 1 << 5
 }
+
 GridCollisionClass = {
 	COLLISION_NONE = 0,
 	COLLISION_PIT = 1,
@@ -1060,13 +1525,12 @@ GridCollisionClass = {
 	COLLISION_WALL_EXCEPT_PLAYER = 5
 }
 
-
 Direction = {
 	NO_DIRECTION = -1,
-  LEFT = 0,
-  UP = 1,
-  RIGHT = 2,
-  DOWN = 3
+	LEFT = 0,
+	UP = 1,
+	RIGHT = 2,
+	DOWN = 3
 }
 
 LevelStage = {
@@ -1083,21 +1547,29 @@ LevelStage = {
 	STAGE5 = 10,
 	STAGE6 = 11,
 	STAGE7 = 12,
-	NUM_STAGES = 13,
+	STAGE8 = 13, -- Home
+	NUM_STAGES = 14,
+	
 	STAGE1_GREED = 1,
 	STAGE2_GREED = 2,
 	STAGE3_GREED = 3,
 	STAGE4_GREED = 4,
 	STAGE5_GREED = 5,
 	STAGE6_GREED = 6,
-	STAGE7_GREED = 7
+	STAGE7_GREED = 7,
+	
+	NUM_BACKWARDS_STAGES = 7, -- Save stages up to Mausoleum II for the Ascent (7 stages)
 }
+
 StageType = {
 	STAGETYPE_ORIGINAL = 0,
 	STAGETYPE_WOTL = 1,
 	STAGETYPE_AFTERBIRTH = 2,
-	STAGETYPE_GREEDMODE = 3
+	STAGETYPE_GREEDMODE = 3, -- deprecated, Greed Mode no longer has its own stages
+	STAGETYPE_REPENTANCE = 4,
+	STAGETYPE_REPENTANCE_B = 5,
 }
+
 RoomType = {
 	ROOM_NULL = 0,
 	ROOM_DEFAULT = 1,
@@ -1123,8 +1595,18 @@ RoomType = {
 	ROOM_DICE = 21,
 	ROOM_BLACK_MARKET = 22,
 	ROOM_GREED_EXIT = 23,
-	NUM_ROOMTYPES = 24
+	--NUM_ROOMTYPES = 24
+	
+	-- Repentance
+	ROOM_PLANETARIUM = 24,
+	ROOM_TELEPORTER = 25,		-- Mausoleum teleporter entrance, currently unused
+	ROOM_TELEPORTER_EXIT = 26,	-- Mausoleum teleporter exit, currently unused
+	ROOM_SECRET_EXIT,			-- Trapdoor room to the alt path floors
+	ROOM_BLUE,					-- Blue Womb rooms spawned by Blue Key
+	ROOM_ULTRASECRET = 29,		-- Red secret rooms
+	NUM_ROOMTYPES = 30
 }
+
 RoomShape = {
 	ROOMSHAPE_1x1 = 1,
 	ROOMSHAPE_IH = 2,
@@ -1140,6 +1622,7 @@ RoomShape = {
 	ROOMSHAPE_LBR = 12,
 	NUM_ROOMSHAPES = 13
 }
+
 DoorSlot = {
 	NO_DOOR_SLOT = - 1,
 	LEFT0 = 0,
@@ -1152,6 +1635,7 @@ DoorSlot = {
 	DOWN1 = 7,
 	NUM_DOOR_SLOTS = 8
 }
+
 LevelCurse = {
 	CURSE_NONE = 0,
 	CURSE_OF_DARKNESS = 1,
@@ -1161,10 +1645,13 @@ LevelCurse = {
 	CURSE_OF_THE_CURSED = 1 << 4,
 	CURSE_OF_MAZE = 1 << 5,
 	CURSE_OF_BLIND = 1 << 6,
-	NUM_CURSES = 8
+	CURSE_OF_GIANT = 1 << 7, -- Less rooms, all rooms are large and generated by merging existing rooms together (currently unused)
+	NUM_CURSES = 9
 }
 
 PlayerType = {
+	PLAYER_POSSESSOR = -1,
+	
 	PLAYER_ISAAC = 0,
 	PLAYER_MAGDALENA = 1,
 	PLAYER_CAIN = 2,
@@ -1183,8 +1670,35 @@ PlayerType = {
 	PLAYER_APOLLYON = 15,
 	PLAYER_THEFORGOTTEN = 16,
 	PLAYER_THESOUL = 17,
-	NUM_PLAYER_TYPES = 18
+	--NUM_PLAYER_TYPES = 18
+	
+	-- Repentance
+	PLAYER_BETHANY = 18,
+	PLAYER_JACOB = 19,
+	PLAYER_ESAU = 20,
+	PLAYER_ISAAC_B = 21,
+	PLAYER_MAGDALENA_B = 22,
+	PLAYER_CAIN_B = 23,
+	PLAYER_JUDAS_B = 24,
+	PLAYER_XXX_B = 25,
+	PLAYER_EVE_B = 26,
+	PLAYER_SAMSON_B = 27,
+	PLAYER_AZAZEL_B = 28,
+	PLAYER_LAZARUS_B = 29,
+	PLAYER_EDEN_B = 30,
+	PLAYER_THELOST_B = 31,
+	PLAYER_LILITH_B = 32,
+	PLAYER_KEEPER_B = 33,
+	PLAYER_APOLLYON_B = 34,
+	PLAYER_THEFORGOTTEN_B = 35,
+	PLAYER_BETHANY_B = 36,
+	PLAYER_JACOB_B = 37,
+	PLAYER_LAZARUS2_B = 38,
+	PLAYER_JACOB2_B = 39,
+	PLAYER_THESOUL_B = 40,
+	NUM_PLAYER_TYPES = 41
 }
+
 PlayerForm = {
 	PLAYERFORM_GUPPY = 0,
 	PLAYERFORM_LORD_OF_THE_FLIES = 1,
@@ -1199,7 +1713,9 @@ PlayerForm = {
 	PLAYERFORM_BOOK_WORM = 10,
 	PLAYERFORM_ADULTHOOD = 11,
 	PLAYERFORM_SPIDERBABY = 12,
-	NUM_PLAYER_FORMS = 13
+	PLAYERFORM_STOMPY = 13,
+	PLAYERFORM_FLIGHT = 14, -- AB+, unused
+	NUM_PLAYER_FORMS = 15
 }
 
 PillColor = {
@@ -1217,8 +1733,15 @@ PillColor = {
 	PILL_BLACK_YELLOW = 11,
 	PILL_WHITE_BLACK = 12,
 	PILL_WHITE_YELLOW = 13,
-	NUM_PILLS = 14
+	--NUM_PILLS = 14
+	
+	NUM_STANDARD_PILLS = 14,
+	PILL_GOLD = 14,
+	NUM_PILLS = 15,
+	PILL_GIANT_FLAG = 0x800,
+	PILL_COLOR_MASK = 0x7ff,
 }
+
 Music = {
 	MUSIC_NULL = 0,
 	MUSIC_BASEMENT = 1,
@@ -1239,6 +1762,7 @@ Music = {
 	MUSIC_DANK_DEPTHS = 16,
 	MUSIC_SCARRED_WOMB = 17,
 	MUSIC_BLUE_WOMB = 18,
+	MUSIC_UTERO = 19,
 	MUSIC_MOM_BOSS = 20,
 	MUSIC_MOMS_HEART_BOSS = 21,
 	MUSIC_ISAAC_BOSS = 22,
@@ -1250,15 +1774,38 @@ Music = {
 	MUSIC_ULTRAGREED_BOSS = 28,
 	MUSIC_LIBRARY_ROOM = 30,
 	MUSIC_SECRET_ROOM = 31,
+	MUSIC_SECRET_ROOM2 = 32,
 	MUSIC_DEVIL_ROOM = 33,
 	MUSIC_ANGEL_ROOM = 34,
 	MUSIC_SHOP_ROOM = 35,
 	MUSIC_ARCADE_ROOM = 36,
 	MUSIC_BOSS_OVER = 37,
 	MUSIC_CHALLENGE_FIGHT = 38,
+	MUSIC_BOSS_RUSH = 39,
+	MUSIC_JINGLE_BOSS_RUSH_OUTRO = 40,
+	MUSIC_BOSS3 = 41,
+	MUSIC_JINGLE_BOSS_OVER3 = 42,
+	MUSIC_MOTHER_BOSS = 43,
+	MUSIC_DOGMA_BOSS = 44,
+	MUSIC_BEAST_BOSS = 45,
+	MUSIC_JINGLE_MOTHER_OVER = 47,
+	MUSIC_JINGLE_DOGMA_OVER = 48,
+	MUSIC_JINGLE_BEAST_OVER = 49,
+	MUSIC_PLANETARIUM = 50,
+	MUSIC_SECRET_ROOM_ALT_ALT = 51,
+	MUSIC_BOSS_OVER_TWISTED = 52,
 	MUSIC_CREDITS = 60,
 	MUSIC_TITLE = 61,
 	MUSIC_TITLE_AFTERBIRTH = 62,
+	MUSIC_TITLE_REPENTANCE = 63,
+	MUSIC_JINGLE_GAME_START_ALT = 64,
+	MUSIC_JINGLE_NIGHTMARE_ALT = 65,
+	MUSIC_MOTHERS_SHADOW_INTRO = 66,
+	MUSIC_DOGMA_INTRO = 67,
+	MUSIC_STRANGE_DOOR_JINGLE = 68,
+	MUSIC_DARK_CLOSET = 69,
+	MUSIC_CREDITS_ALT = 70,
+	MUSIC_CREDITS_ALT_FINAL = 71,
 	MUSIC_JINGLE_BOSS = 81,
 	MUSIC_JINGLE_BOSS_OVER = 83,
 	MUSIC_JINGLE_HOLYROOM_FIND = 84,
@@ -1279,8 +1826,24 @@ Music = {
 	MUSIC_EPILOGUE_VOICEOVER = 101,
 	MUSIC_VOID = 102,
 	MUSIC_VOID_BOSS = 103,
-	NUM_MUSIC = 104
+	MUSIC_DOWNPOUR = 104,
+	MUSIC_MINES = 105,
+	MUSIC_MAUSOLEUM = 106,
+	MUSIC_CORPSE = 107,
+	MUSIC_DROSS = 108,
+	MUSIC_ASHPIT = 109,
+	MUSIC_GEHENNA = 110,
+	MUSIC_MORTIS = 111, -- unused
+	MUSIC_ISAACS_HOUSE = 112,
+	MUSIC_FINAL_VOICEOVER = 113,
+	MUSIC_DOWNPOUR_REVERSE = 114,
+	MUSIC_DROSS_REVERSE = 115,
+	MUSIC_MINESHAFT_AMBIENT = 116,
+	MUSIC_MINESHAFT_ESCAPE = 117,
+	MUSIC_REVERSE_GENESIS = 118,
+	NUM_MUSIC = 119
 }
+
 SoundEffect = {
 	SOUND_NULL = 0,
 	SOUND_1UP = 1,
@@ -1288,21 +1851,27 @@ SoundEffect = {
 	SOUND_BLOBBY_WIGGLE = 3,
 	SOUND_INSECT_SWARM_LOOP = 4,
 	SOUND_BLOOD_LASER = 5,
+	SOUND_BLOOD_LASER_SMALL = 6, -- new
 	SOUND_BLOOD_LASER_LARGE = 7,
 	SOUND_BOOK_PAGE_TURN_12 = 8,
 	SOUND_BOSS_BUG_HISS = 9,
+	SOUND_BLOOD_LASER_LARGER = 10, -- new
 	SOUND_BOSS_GURGLE_ROAR = 11,
 	SOUND_BOSS_LITE_GURGLE = 12,
 	SOUND_BOSS_LITE_HISS = 13,
 	SOUND_BOSS_LITE_ROAR = 14,
 	SOUND_BOSS_LITE_SLOPPY_ROAR = 15,
 	SOUND_BOSS_SPIT_BLOB_BARF = 16,
+	SOUND_PAPER_IN = 17, -- new
+	SOUND_PAPER_OUT = 18, -- new
 	SOUND_CHEST_DROP = 21,
 	SOUND_CHEST_OPEN = 22,
 	SOUND_CHOIR_UNLOCK = 23,
 	SOUND_COIN_SLOT = 24,
 	SOUND_CUTE_GRUNT = 25,
+	SOUND_DEATH_BURST_BONE = 27, -- new
 	SOUND_DEATH_BURST_LARGE = 28,
+	SOUND_DEATH_REVERSE = 29, -- new
 	SOUND_DEATH_BURST_SMALL = 30,
 	SOUND_DEATH_CARD = 33,
 	SOUND_DEVIL_CARD = 34,
@@ -1313,9 +1882,15 @@ SoundEffect = {
 	SOUND_FETUS_LAND = 40,
 	SOUND_FIREDEATH_HISS = 43,
 	SOUND_FLOATY_BABY_ROAR = 44,
+	SOUND_COIN_INSERT = 45, -- new
+	SOUND_METAL_DOOR_CLOSE = 46, -- new
+	SOUND_METAL_DOOR_OPEN = 47, -- new
 	SOUND_FORESTBOSS_STOMPS = 48,
+	SOUND_SCYTHE_BREAK = 49, -- new
+	SOUND_STONE_WALKER = 50, -- new
 	SOUND_GASCAN_POUR = 51,
 	SOUND_HELLBOSS_GROUNDPOUND = 52,
+	SOUND_GLASS_BREAK = 53, -- new
 	SOUND_HOLY = 54,
 	SOUND_ISAAC_HURT_GRUNT = 55,
 	SOUND_CHILD_HAPPY_ROAR_SHORT = 56,
@@ -1327,8 +1902,13 @@ SoundEffect = {
 	SOUND_MAGGOT_ENTER_GROUND = 66,
 	SOUND_MEAT_FEET_SLOW0 = 68,
 	SOUND_MEAT_IMPACTS = 69,
+	SOUND_MEAT_IMPACTS_OLD = 70,
 	SOUND_MEAT_JUMPS = 72,
 	SOUND_MEATY_DEATHS = 77,
+	SOUND_POT_BREAK_2 = 78, -- new
+	SOUND_MUSHROOM_POOF_2 = 79, -- new
+	SOUND_BLACK_POOF = 80, -- new
+	SOUND_STATIC = 81, -- new
 	SOUND_MOM_VOX_DEATH = 82,
 	SOUND_MOM_VOX_EVILLAUGH = 84,
 	SOUND_MOM_VOX_FILTERED_DEATH_1 = 85,
@@ -1354,6 +1934,9 @@ SoundEffect = {
 	SOUND_POWERUP3 = 130,
 	SOUND_POWERUP_SPEWER = 132,
 	SOUND_REDLIGHTNING_ZAP = 133,
+	SOUND_REDLIGHTNING_ZAP_WEAK = 134,	 -- new
+	SOUND_REDLIGHTNING_ZAP_STRONG = 135, -- new
+	SOUND_REDLIGHTNING_ZAP_BURST = 136, -- new
 	SOUND_ROCK_CRUMBLE = 137,
 	SOUND_POT_BREAK = 138,
 	SOUND_MUSHROOM_POOF = 139,
@@ -1368,17 +1951,27 @@ SoundEffect = {
 	SOUND_VAMP_GULP = 157,
 	SOUND_WHEEZY_COUGH = 158,
 	SOUND_SPIDER_COUGH = 159,
+	SOUND_PORTAL_OPEN = 160,
+	SOUND_PORTAL_LOOP = 161,
+	SOUND_PORTAL_SPAWN = 162,
+	SOUND_TAR_LOOP = 163,
 	SOUND_ZOMBIE_WALKER_KID = 165,
 	SOUND_ANIMAL_SQUISH = 166,
 	SOUND_ANGRY_GURGLE = 167,
 	SOUND_BAND_AID_PICK_UP = 169,
 	SOUND_BATTERYCHARGE = 170,
 	SOUND_BEEP = 171,
+	SOUND_LIGHTBOLT = 172, -- new
+	SOUND_LIGHTBOLT_CHARGE = 173, -- new
+	SOUND_BLOODBANK_TOUCHED = 174,
 	SOUND_BLOODBANK_SPAWN = 175,
 	SOUND_BLOODSHOOT = 178,
 	SOUND_BOIL_HATCH = 181,
 	SOUND_BOSS1_EXPLOSIONS = 182,
+	SOUND_EXPLOSION_WEAK = 183, -- new
+	SOUND_EXPLOSION_STRONG = 184, -- new
 	SOUND_BOSS2_BUBBLES = 185,
+	SOUND_EXPLOSION_DEBRIS = 186, -- new
 	SOUND_BOSS2INTRO_ERRORBUZZ = 187,
 	SOUND_CASTLEPORTCULLIS = 190,
 	SOUND_CHARACTER_SELECT_LEFT = 194,
@@ -1386,6 +1979,7 @@ SoundEffect = {
 	SOUND_DERP = 197,
 	SOUND_DIMEDROP = 198,
 	SOUND_DIMEPICKUP = 199,
+	SOUND_LUCKYPICKUP = 200,
 	SOUND_FETUS_FEET = 201,
 	SOUND_GOLDENKEY = 204,
 	SOUND_GOOATTACH0 = 205,
@@ -1428,6 +2022,27 @@ SoundEffect = {
 	SOUND_THUMBSUP = 268,
 	SOUND_FIRE_BURN = 269,
 	SOUND_HAPPY_RAINBOW = 270,
+	SOUND_LASERRING = 271,			-- new (ab)
+	SOUND_LASERRING_WEAK = 272,		-- new (ab)
+	SOUND_LASERRING_STRONG = 273,	-- new (ab)
+	SOUND_CASH_REGISTER = 274,		-- new (ab+)
+
+	SOUND_ANGEL_WING = 275,
+	SOUND_ANGEL_BEAM = 276,
+	SOUND_HOLY_MANTLE = 277,
+
+	SOUND_MEGA_BLAST_START = 278,
+	SOUND_MEGA_BLAST_LOOP = 279,
+	SOUND_MEGA_BLAST_END = 280,
+
+	SOUND_BLOOD_LASER_LOOP = 281,
+	
+	SOUND_MENU_SCROLL = 282,
+	SOUND_MENU_NOTE_APPEAR = 283,
+	SOUND_MENU_NOTE_HIDE = 284,
+	SOUND_MENU_CHARACTER_SELECT = 285,
+	SOUND_SUMMON_POOF = 286,
+
 	SOUND_BOO_MAD = 300,
 	SOUND_FART_GURG = 301,
 	SOUND_FAT_GRUNT = 302,
@@ -1452,6 +2067,7 @@ SoundEffect = {
 	SOUND_HEARTBEAT = 321,
 	SOUND_HEARTBEAT_FASTER = 322,
 	SOUND_HEARTBEAT_FASTEST = 323,
+
 	SOUND_48_HR_ENERGY = 324,
 	SOUND_ALGIZ = 325,
 	SOUND_AMNESIA = 326,
@@ -1527,6 +2143,7 @@ SoundEffect = {
 	SOUND_FLUSH = 396,
 	SOUND_WATER_DROP = 397,
 	SOUND_WET_FEET = 398,
+
 	SOUND_ADDICTED = 399,
 	SOUND_DICE_SHARD = 400,
 	SOUND_EMERGENCY = 401,
@@ -1540,7 +2157,7 @@ SoundEffect = {
 	SOUND_RELAX = 409,
 	SOUND_RETRO = 410,
 	SOUND_SMALL = 411,
-	SOUND_QQQ = 412,
+	SOUND_QQQ = 412, -- ??? pill
 	SOUND_DANGLE_WHISTLE = 413,
 	SOUND_LITTLE_HORN_COUGH = 414,
 	SOUND_LITTLE_HORN_GRUNT_1 = 415,
@@ -1599,8 +2216,389 @@ SoundEffect = {
 	SOUND_UNHOLY = 468,
 	SOUND_BUTTON_PRESS = 469,
 	SOUND_GOLDENBOMB = 470,
-	NUM_SOUND_EFFECTS = 471
+	SOUND_CANDLE_LIGHT = 471,
+	SOUND_THUNDER = 472,
+	SOUND_WATER_FLOW_LOOP = 473,
+	SOUND_BOSS2_DIVE = 474,
+	SOUND_BOSS2INTRO_PIPES_TURNON = 475,
+	SOUND_WATER_FLOW_LARGE = 476,
+	SOUND_DEMON_HIT = 477,
+	SOUND_PUNCH = 478,
+	SOUND_FLUTE = 479,
+	SOUND_LAVA_LOOP = 480,
+	SOUND_WOOD_PLANK_BREAK = 481,
+	SOUND_BULLET_SHOT = 482,
+	SOUND_FLAME_BURST = 483,
+	SOUND_INFLATE = 484,
+	SOUND_CLAP = 485,
+	SOUND_BOSS2INTRO_WATER_EXPLOSION = 486,
+	SOUND_STONE_IMPACT = 487,
+	SOUND_BOSS2_WATERTHRASHING = 488,
+	SOUND_FART_MEGA = 489,
+	SOUND_MATCHSTICK = 490,
+	SOUND_FORTUNE_COOKIE = 491,
+	SOUND_BULB_FLASH = 492,
+	SOUND_BATTERYDISCHARGE = 493,
+	SOUND_WHIP = 494,
+	SOUND_WHIP_HIT = 495,
+	SOUND_FREEZE = 496,
+	SOUND_ROTTEN_HEART = 497,
+	SOUND_FREEZE_SHATTER = 498,
+	SOUND_BONE_BOUNCE = 499,
+	SOUND_BONE_BREAK = 500,
+	SOUND_BISHOP_HIT = 501,
+	SOUND_PORTAL_LOOP = 502, -- unused
+	SOUND_CHAIN_LOOP = 503,
+	SOUND_CHAIN_BREAK = 504,
+	SOUND_MINECART_LOOP = 505,
+	SOUND_TOOTH_AND_NAIL = 506,
+	SOUND_TOOTH_AND_NAIL_TICK = 507,
+
+	SOUND_STATIC_BUILDUP = 508,
+
+	SOUND_THREAD_SNAP= 509,
+	SOUND_BIG_LEECH = 510,
+
+	SOUND_REVERSE_EXPLOSION = 511,
+		
+	SOUND_REVERSE_FOOL = 512,
+	SOUND_REVERSE_MAGICIAN = 513,
+	SOUND_REVERSE_HIGH_PRIESTESS = 514,
+	SOUND_REVERSE_EMPRESS = 515,
+	SOUND_REVERSE_EMPEROR = 516,
+	SOUND_REVERSE_HIEROPHANT = 517,
+	SOUND_REVERSE_LOVERS = 518,
+	SOUND_REVERSE_CHARIOT = 519,
+	SOUND_REVERSE_JUSTICE = 520,
+	SOUND_REVERSE_HERMIT = 521,
+	SOUND_REVERSE_WHEEL_OF_FORTUNE = 522,
+	SOUND_REVERSE_STRENGTH = 523,
+	SOUND_REVERSE_HANGED_MAN = 524,
+	SOUND_REVERSE_DEATH = 525,
+	SOUND_REVERSE_TEMPERANCE = 526,
+	SOUND_REVERSE_DEVIL = 527,
+	SOUND_REVERSE_TOWER = 528,
+	SOUND_REVERSE_STARS = 529,
+	SOUND_REVERSE_MOON = 530,
+	SOUND_REVERSE_SUN = 531,
+	SOUND_REVERSE_JUDGEMENT = 532,
+	SOUND_REVERSE_WORLD = 533,
+
+	SOUND_FLAMETHROWER_START = 534,
+	SOUND_FLAMETHROWER_LOOP = 535,
+	SOUND_FLAMETHROWER_END = 536,
+	SOUND_ROCKET_LAUNCH = 537,
+	SOUND_SWORD_SPIN = 538,
+	SOUND_BABY_BRIM = 539,
+	SOUND_KNIFE_PULL = 540,
+
+	SOUND_DOGMA_APPEAR_SCREAM = 541,
+	SOUND_DOGMA_DEATH = 542,
+	SOUND_DOGMA_BLACKHOLE_CHARGE = 543,
+	SOUND_DOGMA_BLACKHOLE_SHOOT = 544,
+	SOUND_DOGMA_BLACKHOLE_OPEN = 545,
+	SOUND_DOGMA_BLACKHOLE_CLOSE = 546,
+	SOUND_DOGMA_BRIMSTONE_CHARGE = 547,
+	SOUND_DOGMA_BRIMSTONE_SHOOT = 548,
+	SOUND_DOGMA_GODHEAD = 549,
+	SOUND_DOGMA_JACOBS = 550,
+	SOUND_DOGMA_JACOBS_ZAP = 551,
+	SOUND_DOGMA_SCREAM = 552,
+	SOUND_DOGMA_PREACHER = 553,
+	SOUND_DOGMA_RING_START = 554,
+	SOUND_DOGMA_RING_LOOP = 555,
+	SOUND_DOGMA_FEATHER_SPRAY = 556,
+	SOUND_DOGMA_JACOBS_DOT = 557,
+	SOUND_DOGMA_BLACKHOLE_LOOP = 558,
+
+	SOUND_DOGMA_ANGEL_TRANSFORM = 559,
+	SOUND_DOGMA_ANGEL_TRANSFORM_END = 560,
+	SOUND_DOGMA_LIGHT_APPEAR = 561,
+	SOUND_DOGMA_LIGHT_BALL_THROW = 562,
+	SOUND_DOGMA_LIGHT_RAY_CHARGE = 563,
+	SOUND_DOGMA_LIGHT_RAY_FIRE = 564,
+	SOUND_DOGMA_SPIN_ATTACK = 565,
+	SOUND_DOGMA_WING_FLAP = 566,
+	SOUND_DOGMA_TV_BREAK = 567,
+
+	SOUND_DIVINE_INTERVENTION = 568,
+
+	SOUND_MENU_FLIP_LIGHT = 569,
+	SOUND_MENU_FLIP_DARK = 570,
+	SOUND_MENU_RIP = 571,
+	SOUND_URN_OPEN = 572,
+	SOUND_URN_CLOSE = 573,
+	SOUND_RECALL = 574,
+
+	SOUND_LARYNX_SCREAM_LO = 575,
+	SOUND_LARYNX_SCREAM_MED = 576,
+	SOUND_LARYNX_SCREAM_HI = 577,
+
+	SOUND_GROUND_TREMOR = 578,
+
+	SOUND_SOUL_PICKUP = 579,
+	SOUND_BALL_AND_CHAIN_LOOP = 580,
+	SOUND_BALL_AND_CHAIN_HIT = 581,
+	SOUND_LAZARUS_FLIP_DEAD = 582,
+	SOUND_LAZARUS_FLIP_ALIVE = 583,
+
+	SOUND_RECALL_FINISH = 584,
+	SOUND_ROCKET_LAUNCH_SHORT = 585,
+	SOUND_ROCKET_LAUNCH_TINY = 586,
+	SOUND_ROCKET_EXPLOSION = 587,
+	SOUND_JELLY_BOUNCE = 588,
+	SOUND_POOP_LASER = 589,
+	SOUND_POISON_WARN = 590,
+	SOUND_POISON_HURT = 591,
+	SOUND_BERSERK_START = 592,
+	SOUND_BERSERK_TICK = 593,
+	SOUND_BERSERK_END = 594,
+	SOUND_EDEN_GLITCH = 595,
+
+	SOUND_RAILROAD_TRACK_RAISE = 596,
+	SOUND_RAILROAD_TRACK_RAISE_FAR = 597,
+
+	SOUND_MOM_AND_DAD_1 = 598,
+	SOUND_MOM_AND_DAD_2 = 599,
+	SOUND_MOM_AND_DAD_3 = 600,
+	SOUND_MOM_AND_DAD_4 = 601,
+
+	SOUND_THUMBSUP_AMPLIFIED = 602,
+	SOUND_THUMBSDOWN_AMPLIFIED = 603,
+	SOUND_POWERUP_SPEWER_AMPLIFIED = 604,
+	SOUND_POOPITEM_THROW = 605,
+	SOUND_POOPITEM_STORE = 606,
+	SOUND_POOPITEM_HOLD = 607,
+	SOUND_MIRROR_ENTER = 608,
+	SOUND_MIRROR_EXIT = 609,
+	SOUND_MIRROR_BREAK = 610,
+	
+	SOUND_ANIMA_TRAP = 611,
+	SOUND_ANIMA_RATTLE = 612,
+	SOUND_ANIMA_BREAK = 613,
+
+	SOUND_VAMP_DOUBLE = 614,
+	SOUND_FLASHBACK = 615,
+	SOUND_DARK_ESAU_OPEN = 616,
+	SOUND_DARK_ESAU_DEATH_OPEN = 617,
+	
+	SOUND_MOTHER_DEATH1 = 618,
+	SOUND_MOTHER_DEATH2 = 619,
+	SOUND_MOTHER_FISTPOUND1 = 620,
+	SOUND_MOTHER_FISTPOUND2 = 621,
+	SOUND_MOTHER_FISTPOUND3 = 622,
+	SOUND_MOTHER_FISTULA = 623,
+	SOUND_MOTHER_APPEAR1 = 624,
+	SOUND_MOTHER_APPEAR2 = 625,
+	SOUND_MOTHER_KNIFE_START = 626,
+	SOUND_MOTHER_KNIFE_THROW = 627,
+	SOUND_MOTHER_SUMMON_ISAACS_START = 628,
+	SOUND_MOTHER_SUMMON_ISAACS_END = 629,
+	SOUND_MOTHER_HAND_BOIL_START = 630,
+	SOUND_MOTHER_GRUNT1 = 631,
+	SOUND_MOTHER_GRUNT5 = 632,
+	SOUND_MOTHER_GRUNT6 = 633,
+	SOUND_MOTHER_GRUNT7 = 634,
+	SOUND_MOTHER_LAUGH = 635,
+	SOUND_MOTHER_SPIN_START = 636,
+	SOUND_MOTHER_WALL_SHOT_START = 637,
+	SOUND_MOTHER_MISC = 638,
+	SOUND_MOTHER_SHOOT = 639,
+	SOUND_MOTHER_SUCTION = 640,
+	SOUND_MOTHER_ISAAC_RISE = 641,
+	SOUND_MOTHER_ISAAC_HIT = 642,
+	SOUND_MOTHER_WRIST_SWELL = 643,
+	SOUND_MOTHER_WRIST_EXPLODE = 644,
+	SOUND_MOTHER_DEATH_MELT = 645,
+	SOUND_MOTHER_ANGER_SHAKE = 646,
+	SOUND_MOTHER_CHARGE1 = 647,
+	SOUND_MOTHER_CHARGE2 = 648,
+	SOUND_MOTHER_LAND_SMASH = 649,
+
+	SOUND_ISAAC_ROAR = 650,
+
+	SOUND_FAMINE_APPEAR = 651,
+	SOUND_FAMINE_DEATH_1 = 652,
+	SOUND_FAMINE_DEATH_2 = 653,
+	SOUND_FAMINE_DASH_START = 654,
+	SOUND_FAMINE_DASH = 655,
+	SOUND_FAMINE_SHOOT = 656,
+	SOUND_FAMINE_BURST = 657,
+	SOUND_FAMINE_GURGLE = 658,
+
+	SOUND_PESTILENCE_MAGGOT_START = 659,
+	SOUND_PESTILENCE_MAGGOT_SHOOT = 660,
+	SOUND_PESTILENCE_MAGGOT_RETURN = 661,
+	SOUND_PESTILENCE_BODY_SHOOT = 662,
+	SOUND_PESTILENCE_HEAD_DEATH = 663,
+	SOUND_PESTILENCE_DEATH = 664,
+	SOUND_PESTILENCE_COUGH = 665,
+	SOUND_PESTILENCE_BARF = 666,
+	SOUND_PESTILENCE_APPEAR = 667,
+	SOUND_PESTILENCE_HEAD_EXPLODE = 668,
+	SOUND_PESTILENCE_MAGGOT_ENTER = 669,
+	SOUND_PESTILENCE_MAGGOT_POPOUT = 670,
+	SOUND_PESTILENCE_MAGGOT_SHOOT2 = 671,
+	SOUND_PESTILENCE_NECK_PUKE = 672,
+	SOUND_PESTILENCE_PUKE_START = 673,
+
+	SOUND_WAR_APPEAR = 674,
+	SOUND_WAR_APPEAR_LAVA = 675,
+	SOUND_WAR_BOMB_TOSS = 676,
+	SOUND_WAR_DASH_START = 677,
+	SOUND_WAR_DASH = 678,
+	SOUND_WAR_HORSE_DEATH = 679,
+	SOUND_WAR_DEATH = 680,
+	SOUND_WAR_FIRE_SCREEM = 681,
+	SOUND_WAR_GRAB_PLAYER = 682,
+	SOUND_WAR_BOMB_HOLD = 683,
+	SOUND_WAR_BOMB_PULL_OUT = 684,
+	SOUND_WAR_CHASE = 685,
+	SOUND_WAR_BOMB_TICK = 686,
+	SOUND_WAR_FLAME = 687,
+	SOUND_WAR_LAVA_SPLASH = 688,
+	SOUND_WAR_LAVA_DASH = 689,
+
+	SOUND_DEATH_DIES = 690,
+	SOUND_DEATH_DESTROY_SKULLS = 691,
+	SOUND_DEATH_GROWL = 692,
+	SOUND_DEATH_SWIPE_START = 693,
+	SOUND_DEATH_SWIPE = 694,
+	SOUND_DEATH_SUMMON_SCYTHES = 695,
+	SOUND_DEATH_SUMMON_SKULLS = 696,
+
+	SOUND_BEAST_DEATH = 697,
+	SOUND_BEAST_LASER = 698,
+	SOUND_BEAST_BACKGROUND_DIVE = 699,
+	SOUND_BEAST_FIRE_RING = 700,
+	SOUND_BEAST_GHOST_DASH = 701,
+	SOUND_BEAST_GHOST_RISE = 702,
+	SOUND_BEAST_LAVA_BALL_SPLASH = 703,
+	SOUND_BEAST_LAVA_RISE = 704,
+	SOUND_BEAST_SUCTION_LOOP = 705,
+	SOUND_BEAST_FIRE_BARF = 706,
+	SOUND_BEAST_GHOST_ROAR = 707,
+	SOUND_BEAST_INTRO_SCREAM = 708,
+	SOUND_BEAST_SUCTION_END = 709,
+	SOUND_BEAST_SUCTION_START = 710,
+	SOUND_BEAST_SPIT = 711,
+	SOUND_BEAST_SURFACE_GROWL = 712,
+	SOUND_BEAST_SWITCH_SIDES = 713,
+
+	SOUND_MOTHERSHADOW_APPEAR = 714,
+	SOUND_MOTHERSHADOW_CHARGE_UP = 715,
+	SOUND_MOTHERSHADOW_DASH = 716,
+	SOUND_MOTHERSHADOW_END = 717,
+	SOUND_MOTHERSHADOW_INTRO = 718,
+
+	SOUND_BUMBINO_DEATH = 719,
+	SOUND_BUMBINO_DIZZY = 720,
+	SOUND_BUMBINO_HIT_WALL = 721,
+	SOUND_BUMBINO_MISC = 722,
+	SOUND_BUMBINO_PUNCH = 723,
+	SOUND_BUMBINO_RAM = 724,
+	SOUND_BUMBINO_SLAM = 725,
+	SOUND_BUMBINO_SNAP_OUT = 726,
+
+	SOUND_SIREN_SCREAM = 727,
+	SOUND_SIREN_SING = 728,
+
+	SOUND_DEATH_SKULL_SUMMON_LOOP = 729,
+	SOUND_DEATH_SKULL_SUMMON_END = 730,
+
+	SOUND_BEAST_DEATH_2 = 731,
+	SOUND_BEAST_ANGELIC_BLAST = 732,
+
+	SOUND_ANCIENT_RECALL = 733,
+	SOUND_ERA_WALK = 734,
+	SOUND_HUGE_GROWTH = 735,
+	SOUND_RUNE_SHARD = 736,
+	SOUND_SHOT_SPEED_DOWN = 737,
+	SOUND_SHOT_SPEED_UP = 738,
+	SOUND_EXPERIMENTAL_PILL = 739,
+	SOUND_CRACKED_KEY = 740,
+	SOUND_QUEEN_OF_HEARTS = 741,
+	SOUND_WILD_CARD = 742,
+	SOUND_SOUL_OF_ISAAC = 743,
+	SOUND_SOUL_OF_MAGDALENE = 744,
+	SOUND_SOUL_OF_CAIN = 745,
+	SOUND_SOUL_OF_JUDAS = 746,
+	SOUND_SOUL_OF_XXX = 747,
+	SOUND_SOUL_OF_EVE = 748,
+	SOUND_SOUL_OF_SAMSON = 749,
+	SOUND_SOUL_OF_AZAZEL = 750,
+	SOUND_SOUL_OF_LAZARUS = 751,
+	SOUND_SOUL_OF_EDEN = 752,
+	SOUND_SOUL_OF_THE_LOST = 753,
+	SOUND_SOUL_OF_LILITH = 754,
+	SOUND_SOUL_OF_THE_KEEPER = 755,
+	SOUND_SOUL_OF_APOLLYON = 756,
+	SOUND_SOUL_OF_THE_FORGOTTEN = 757,
+	SOUND_SOUL_OF_BETHANY = 758,
+	SOUND_SOUL_OF_JACOB_AND_ESAU = 759,
+	SOUND_MEGA_BAD_GAS = 760,
+	SOUND_MEGA_BAD_TRIP = 761,
+	SOUND_MEGA_BALLS_OF_STEEL = 762,
+	SOUND_MEGA_BOMBS_ARE_KEY = 763,
+	SOUND_MEGA_EXPLOSIVE_DIARRHEA = 764,
+	SOUND_MEGA_FULL_HEALTH = 765,
+	SOUND_MEGA_HEALTH_UP = 766,
+	SOUND_MEGA_HEALTH_DOWN = 767,
+	SOUND_MEGA_I_FOUND_PILLS = 768,
+	SOUND_MEGA_PUBERTY = 769,
+	SOUND_MEGA_PRETTY_FLY = 770,
+	SOUND_MEGA_RANGE_DOWN = 771,
+	SOUND_MEGA_RANGE_UP = 772,
+	SOUND_MEGA_SPEED_DOWN = 773,
+	SOUND_MEGA_SPEED_UP = 774,
+	SOUND_MEGA_TEARS_DOWN = 775,
+	SOUND_MEGA_TEARS_UP = 776,
+	SOUND_MEGA_LUCK_DOWN = 777,
+	SOUND_MEGA_LUCK_UP = 778,
+	SOUND_MEGA_TELEPILLS = 779,
+	SOUND_MEGA_48_HR_ENERGY = 780,
+	SOUND_MEGA_HEMATEMESIS = 781,
+	SOUND_MEGA_PARALYSIS = 782,
+	SOUND_MEGA_I_CAN_SEE_FOREVER = 783,
+	SOUND_MEGA_PHEROMONES = 784,
+	SOUND_MEGA_AMNESIA = 785,
+	SOUND_MEGA_LEMON_PARTY = 786,
+	SOUND_MEGA_ARE_YOU_A_WIZARD = 787,
+	SOUND_MEGA_PERCS = 788,
+	SOUND_MEGA_ADDICTED = 789,
+	SOUND_MEGA_RELAX = 790,
+	SOUND_MEGA_TRIPLE_QUESTION_MARK = 791,
+	SOUND_MEGA_ONE_MAKES_YOU_LARGER = 792,
+	SOUND_MEGA_ONE_MAKES_YOU_SMALL = 793,
+	SOUND_MEGA_INFESTED = 794,
+	SOUND_MEGA_INFESTED_1 = 795,
+	SOUND_MEGA_POWER_PILL = 796,
+	SOUND_MEGA_RETRO_VISION = 797,
+	SOUND_MEGA_FRIENDS_TIL_THE_END = 798,
+	SOUND_MEGA_EXLAX = 799,
+	SOUND_MEGA_SOMETHINGS_WRONG = 800,
+	SOUND_MEGA_IM_DROWSY = 801,
+	SOUND_MEGA_IM_EXCITED = 802,
+	SOUND_MEGA_GULP = 803,
+	SOUND_MEGA_HORF = 804,
+	SOUND_MEGA_SUNSHINE = 805,
+	SOUND_MEGA_VURP = 806,
+	SOUND_MEGA_SHOT_SPEED_DOWN = 807,
+	SOUND_MEGA_SHOT_SPEED_UP = 808,
+	SOUND_MEGA_EXPERIMENTAL_PILL = 809,
+
+	SOUND_SIREN_LUNGE = 810,
+	SOUND_SIREN_MINION_SMOKE = 811,
+	SOUND_SIREN_SCREAM_ATTACK = 812,
+	SOUND_SIREN_SING_STAB = 813,
+
+	SOUND_BEAST_LAVABALL_RISE = 814,
+	SOUND_BEAST_GROWL = 815,
+	SOUND_BEAST_GRUMBLE = 816,
+	
+	NUM_SOUND_EFFECTS = 817
 }
+
 DoorState = {
 	STATE_INIT = 0,
 	STATE_CLOSED = 1,
@@ -1608,6 +2606,7 @@ DoorState = {
 	STATE_ONE_CHAIN = 3,
 	STATE_HALF_CRACKED = 4
 }
+
 DoorVariant = {
 	DOOR_UNSPECIFIED = 0,
 	DOOR_LOCKED = 1,
@@ -1619,12 +2618,14 @@ DoorVariant = {
 	DOOR_HIDDEN = 7,
 	DOOR_UNLOCKED = 8
 }
+
 Difficulty = {
 	DIFFICULTY_NORMAL = 0,
 	DIFFICULTY_HARD = 1,
 	DIFFICULTY_GREED = 2,
 	DIFFICULTY_GREEDIER = 3
 }
+
 LevelStateFlag = {
 	STATE_BUM_KILLED = 0,
 	STATE_EVIL_BUM_KILLED = 1,
@@ -1641,13 +2642,25 @@ LevelStateFlag = {
 	STATE_GREED_MONSTRO_SPAWNED = 12,
 	STATE_ITEM_DUNGEON_FOUND = 13,
 	STATE_MAMA_MEGA_USED = 14,
-	NUM_STATE_FLAGS = 15
+	--NUM_STATE_FLAGS = 15
+
+	STATE_WOODEN_CROSS_REMOVED = 15,
+	STATE_SHOVEL_QUEST_TRIGGERED = 16,
+	STATE_SATANIC_BIBLE_USED = 17,
+	STATE_SOL_EFFECT = 18,
+	STATE_LEVEL_START_TRIGGERED = 19,
+	STATE_LUNA_EFFECT = 20,
+	STATE_VOID_DOOR_DISABLED = 21,
+	STATE_MINESHAFT_ESCAPE = 22,
+	STATE_MIRROR_BROKEN = 23,
+	NUM_STATE_FLAGS = 24
 }
+
 GameStateFlag = {
 	STATE_FAMINE_SPAWNED = 0,
-	STATE_PESTILENCE_SPAWNED = 1,
-	STATE_WAR_SPAWNED = 2,
-	STATE_DEATH_SPAWNED = 3,
+		STATE_PESTILENCE_SPAWNED = 1, -- obsolete
+		STATE_WAR_SPAWNED = 2,        -- obsolete
+		STATE_DEATH_SPAWNED = 3,      -- obsolete
 	STATE_BOSSPOOL_SWITCHED = 4,
 	STATE_DEVILROOM_SPAWNED = 5,
 	STATE_DEVILROOM_VISITED = 6,
@@ -1664,45 +2677,54 @@ GameStateFlag = {
 	STATE_DONATION_SLOT_BROKEN = 17,
 	STATE_DONATION_SLOT_JAMMED = 18,
 	STATE_HEAVEN_PATH = 19,
-	STATE_REBIRTH_BOSS_SWITCHED = 20,
-	STATE_HAUNT_SELECTED = 21,
-	STATE_ADVERSARY_SELECTED = 22,
-	STATE_MR_FRED_SELECTED = 23,
-	STATE_MAMA_GURDY_SELECTED = 24,
+		STATE_REBIRTH_BOSS_SWITCHED = 20, -- obsolete
+		STATE_HAUNT_SELECTED = 21,        -- obsolete
+		STATE_ADVERSARY_SELECTED = 22,    -- obsolete
+		STATE_MR_FRED_SELECTED = 23,      -- obsolete
+		STATE_MAMA_GURDY_SELECTED = 24,   -- obsolete
 	STATE_URIEL_SPAWNED = 25,
 	STATE_GABRIEL_SPAWNED = 26,
 	STATE_FALLEN_SPAWNED = 27,
-	STATE_HEADLESS_HORSEMAN_SPAWNED = 28,
+		STATE_HEADLESS_HORSEMAN_SPAWNED = 28, -- obsolete
 	STATE_KRAMPUS_SPAWNED = 29,
 	STATE_DONATION_SLOT_BLOWN = 30,
 	STATE_SHOPKEEPER_KILLED = 31,
 	STATE_ULTRAPRIDE_SPAWNED = 32,
 	STATE_BOSSRUSH_DONE = 33,
 	STATE_GREED_SLOT_JAMMED = 34,
-	STATE_AFTERBIRTH_BOSS_SWITCHED = 35,
-	STATE_BROWNIE_SELECTED = 36,
+		STATE_AFTERBIRTH_BOSS_SWITCHED = 35, -- obsolete
+		STATE_BROWNIE_SELECTED = 36,         -- obsolete
 	STATE_SUPERBUM_APPEARED = 37,
 	STATE_BOSSRUSH_DOOR_SPAWNED = 38,
 	STATE_BLUEWOMB_DOOR_SPAWNED = 39,
 	STATE_BLUEWOMB_DONE = 40,
 	STATE_HEART_BOMB_COIN_PICKED = 41,
-	STATE_ABPLUS_BOSS_SWITCHED = 42,
-	STATE_SISTERS_VIS_SELECTED = 43,
-	NUM_STATE_FLAGS = 44
+		STATE_ABPLUS_BOSS_SWITCHED = 42, -- obsolete
+		STATE_SISTERS_VIS_SELECTED = 43, -- obsolete
+	STATE_MAX_COINS_OBTAINED = 43,		-- set when reaching 99 coins, used to check for the Golden Razor achievement
+	
+	STATE_SECRET_PATH = 44,				-- set when entering a trapdoor that leads to the alternate path
+	STATE_PERFECTION_SPAWNED = 45,		-- set when Perfection has dropped from a boss
+	STATE_MAUSOLEUM_HEART_KILLED = 46,	-- set when Mom's Heart has been killed in the Mausoleum
+	STATE_BACKWARDS_PATH_INIT = 47,		-- set when entering Mausoleum/Gehenna II through the photo door, causes Dad's Note to spawn instead of the Mom boss room
+	STATE_BACKWARDS_PATH = 48,			-- set during the Ascent
+	
+	NUM_STATE_FLAGS = 49
 }
+
 CollectibleType = {
 	COLLECTIBLE_NULL = 0,
 	COLLECTIBLE_SAD_ONION = 1,
 	COLLECTIBLE_INNER_EYE = 2,
 	COLLECTIBLE_SPOON_BENDER = 3,
-	COLLECTIBLE_MAXS_HEAD = 4,
+	COLLECTIBLE_CRICKETS_HEAD = 4,
 	COLLECTIBLE_MY_REFLECTION = 5,
 	COLLECTIBLE_NUMBER_ONE = 6,
-	COLLECTIBLE_BLOOD_MARTYR = 7,
+	COLLECTIBLE_BLOOD_OF_THE_MARTYR = 7,
 	COLLECTIBLE_BROTHER_BOBBY = 8,
 	COLLECTIBLE_SKATOLE = 9,
 	COLLECTIBLE_HALO_OF_FLIES = 10,
-	COLLECTIBLE_ONE_UP = 11,
+	COLLECTIBLE_1UP = 11,
 	COLLECTIBLE_MAGIC_MUSHROOM = 12,
 	COLLECTIBLE_VIRUS = 13,
 	COLLECTIBLE_ROID_RAGE = 14,
@@ -1734,7 +2756,7 @@ CollectibleType = {
 	COLLECTIBLE_KAMIKAZE = 40,
 	COLLECTIBLE_MOMS_PAD = 41,
 	COLLECTIBLE_BOBS_ROTTEN_HEAD = 42,
-	COLLECTIBLE_PILLS_HERE = 43,
+	-- 43
 	COLLECTIBLE_TELEPORT = 44,
 	COLLECTIBLE_YUM_HEART = 45,
 	COLLECTIBLE_LUCKY_FOOT = 46,
@@ -1750,9 +2772,9 @@ CollectibleType = {
 	COLLECTIBLE_LEMON_MISHAP = 56,
 	COLLECTIBLE_DISTANT_ADMIRATION = 57,
 	COLLECTIBLE_BOOK_OF_SHADOWS = 58,
-	COLLECTIBLE_059 = 59,
+	-- 59
 	COLLECTIBLE_LADDER = 60,
-	COLLECTIBLE_TAROT_CARD = 61,
+	-- 61
 	COLLECTIBLE_CHARM_VAMPIRE = 62,
 	COLLECTIBLE_BATTERY = 63,
 	COLLECTIBLE_STEAM_SALE = 64,
@@ -1769,13 +2791,13 @@ CollectibleType = {
 	COLLECTIBLE_PHD = 75,
 	COLLECTIBLE_XRAY_VISION = 76,
 	COLLECTIBLE_MY_LITTLE_UNICORN = 77,
-	COLLECTIBLE_BOOK_REVELATIONS = 78,
+	COLLECTIBLE_BOOK_OF_REVELATIONS = 78,
 	COLLECTIBLE_MARK = 79,
 	COLLECTIBLE_PACT = 80,
 	COLLECTIBLE_DEAD_CAT = 81,
 	COLLECTIBLE_LORD_OF_THE_PIT = 82,
 	COLLECTIBLE_THE_NAIL = 83,
-	COLLECTIBLE_WE_NEED_GO_DEEPER = 84,
+	COLLECTIBLE_WE_NEED_TO_GO_DEEPER = 84,
 	COLLECTIBLE_DECK_OF_CARDS = 85,
 	COLLECTIBLE_MONSTROS_TOOTH = 86,
 	COLLECTIBLE_LOKIS_HORNS = 87,
@@ -1793,26 +2815,26 @@ CollectibleType = {
 	COLLECTIBLE_LITTLE_GISH = 99,
 	COLLECTIBLE_LITTLE_STEVEN = 100,
 	COLLECTIBLE_HALO = 101,
-	COLLECTIBLE_MOMS_BOTTLE_PILLS = 102,
+	COLLECTIBLE_MOMS_BOTTLE_OF_PILLS = 102,
 	COLLECTIBLE_COMMON_COLD = 103,
 	COLLECTIBLE_PARASITE = 104,
 	COLLECTIBLE_D6 = 105,
 	COLLECTIBLE_MR_MEGA = 106,
 	COLLECTIBLE_PINKING_SHEARS = 107,
 	COLLECTIBLE_WAFER = 108,
-	COLLECTIBLE_MONEY_IS_POWER = 109,
+	COLLECTIBLE_MONEY_EQUALS_POWER = 109,
 	COLLECTIBLE_MOMS_CONTACTS = 110,
 	COLLECTIBLE_BEAN = 111,
 	COLLECTIBLE_GUARDIAN_ANGEL = 112,
 	COLLECTIBLE_DEMON_BABY = 113,
 	COLLECTIBLE_MOMS_KNIFE = 114,
 	COLLECTIBLE_OUIJA_BOARD = 115,
-	COLLECTIBLE_NINE_VOLT = 116,
+	COLLECTIBLE_9_VOLT = 116,
 	COLLECTIBLE_DEAD_BIRD = 117,
 	COLLECTIBLE_BRIMSTONE = 118,
 	COLLECTIBLE_BLOOD_BAG = 119,
-	COLLECTIBLE_ODD_MUSHROOM_RATE = 120,
-	COLLECTIBLE_ODD_MUSHROOM_DAMAGE = 121,
+	COLLECTIBLE_ODD_MUSHROOM_THIN = 120,
+	COLLECTIBLE_ODD_MUSHROOM_LARGE = 121,
 	COLLECTIBLE_WHORE_OF_BABYLON = 122,
 	COLLECTIBLE_MONSTER_MANUAL = 123,
 	COLLECTIBLE_DEAD_SEA_SCROLLS = 124,
@@ -1820,7 +2842,7 @@ CollectibleType = {
 	COLLECTIBLE_RAZOR_BLADE = 126,
 	COLLECTIBLE_FORGET_ME_NOW = 127,
 	COLLECTIBLE_FOREVER_ALONE = 128,
-	COLLECTIBLE_BUCKET_LARD = 129,
+	COLLECTIBLE_BUCKET_OF_LARD = 129,
 	COLLECTIBLE_PONY = 130,
 	COLLECTIBLE_BOMB_BAG = 131,
 	COLLECTIBLE_LUMP_OF_COAL = 132,
@@ -1850,13 +2872,13 @@ CollectibleType = {
 	COLLECTIBLE_HABIT = 156,
 	COLLECTIBLE_BLOODY_LUST = 157,
 	COLLECTIBLE_CRYSTAL_BALL = 158,
-	COLLECTIBLE_SPIRIT_NIGHT = 159,
+	COLLECTIBLE_SPIRIT_OF_THE_NIGHT = 159,
 	COLLECTIBLE_CRACK_THE_SKY = 160,
 	COLLECTIBLE_ANKH = 161,
 	COLLECTIBLE_CELTIC_CROSS = 162,
 	COLLECTIBLE_GHOST_BABY = 163,
 	COLLECTIBLE_CANDLE = 164,
-	COLLECTIBLE_CAT_NINE_TAILS = 165,
+	COLLECTIBLE_CAT_O_NINE_TAILS = 165,
 	COLLECTIBLE_D20 = 166,
 	COLLECTIBLE_HARLEQUIN_BABY = 167,
 	COLLECTIBLE_EPIC_FETUS = 168,
@@ -1926,7 +2948,7 @@ CollectibleType = {
 	COLLECTIBLE_STOP_WATCH = 232,
 	COLLECTIBLE_TINY_PLANET = 233,
 	COLLECTIBLE_INFESTATION_2 = 234,
-	COLLECTIBLE_235 = 235,
+	-- 235
 	COLLECTIBLE_E_COLI = 236,
 	COLLECTIBLE_DEATHS_TOUCH = 237,
 	COLLECTIBLE_KEY_PIECE_1 = 238,
@@ -1954,7 +2976,7 @@ CollectibleType = {
 	COLLECTIBLE_BLACK_CANDLE = 260,
 	COLLECTIBLE_PROPTOSIS = 261,
 	COLLECTIBLE_MISSING_PAGE_2 = 262,
-	COLLECTIBLE_263 = 263,
+	COLLECTIBLE_CLEAR_RUNE = 263,
 	COLLECTIBLE_SMART_FLY = 264,
 	COLLECTIBLE_DRY_BABY = 265,
 	COLLECTIBLE_JUICY_SACK = 266,
@@ -2011,7 +3033,7 @@ CollectibleType = {
 	COLLECTIBLE_MYSTERIOUS_LIQUID = 317,
 	COLLECTIBLE_GEMINI = 318,
 	COLLECTIBLE_CAINS_OTHER_EYE = 319,
-	COLLECTIBLE_BLUEBABYS_ONLY_FRIEND = 320,
+	COLLECTIBLE_BLUE_BABYS_ONLY_FRIEND = 320,
 	COLLECTIBLE_SAMSONS_CHAINS = 321,
 	COLLECTIBLE_MONGO_BABY = 322,
 	COLLECTIBLE_ISAACS_TEARS = 323,
@@ -2090,7 +3112,7 @@ CollectibleType = {
 	COLLECTIBLE_VENTRICLE_RAZOR = 396,
 	COLLECTIBLE_TRACTOR_BEAM = 397,
 	COLLECTIBLE_GODS_FLESH = 398,
-	COLLECTIBLE_MAW_OF_VOID = 399,
+	COLLECTIBLE_MAW_OF_THE_VOID = 399,
 	COLLECTIBLE_SPEAR_OF_DESTINY = 400,
 	COLLECTIBLE_EXPLOSIVO = 401,
 	COLLECTIBLE_CHAOS = 402,
@@ -2132,8 +3154,8 @@ CollectibleType = {
 	COLLECTIBLE_BINKY = 438,
 	COLLECTIBLE_MOMS_BOX = 439,
 	COLLECTIBLE_KIDNEY_STONE = 440,
-	COLLECTIBLE_MEGA_SATANS_BREATH = 441,
-	COLLECTIBLE_DARK_PRINCESS_CROWN = 442,
+	COLLECTIBLE_MEGA_BLAST = 441,
+	COLLECTIBLE_DARK_PRINCES_CROWN = 442,
 	COLLECTIBLE_APPLE = 443,
 	COLLECTIBLE_LEAD_PENCIL = 444,
 	COLLECTIBLE_DOG_TOOTH = 445,
@@ -2147,7 +3169,7 @@ CollectibleType = {
 	COLLECTIBLE_COMPOUND_FRACTURE = 453,
 	COLLECTIBLE_POLYDACTYLY = 454,
 	COLLECTIBLE_DADS_LOST_COIN = 455,
-	COLLECTIBLE_MOLDY_BREAD = 456,
+	COLLECTIBLE_MIDNIGHT_SNACK = 456,
 	COLLECTIBLE_CONE_HEAD = 457,
 	COLLECTIBLE_BELLY_BUTTON = 458,
 	COLLECTIBLE_SINUS_INFECTION = 459,
@@ -2165,7 +3187,7 @@ CollectibleType = {
 	COLLECTIBLE_LIL_MONSTRO = 471,
 	COLLECTIBLE_KING_BABY = 472,
 	COLLECTIBLE_BIG_CHUBBY = 473,
-	COLLECTIBLE_TONSIL = 474,
+	COLLECTIBLE_BROKEN_GLASS_CANNON = 474,
 	COLLECTIBLE_PLAN_C = 475,
 	COLLECTIBLE_D1 = 476,
 	COLLECTIBLE_VOID = 477,
@@ -2180,11 +3202,11 @@ CollectibleType = {
 	COLLECTIBLE_DULL_RAZOR = 486,
 	COLLECTIBLE_POTATO_PEELER = 487,
 	COLLECTIBLE_METRONOME = 488,
-	COLLECTIBLE_DINF = 489,
+	COLLECTIBLE_D_INFINITY = 489,
 	COLLECTIBLE_EDENS_SOUL = 490,
 	COLLECTIBLE_ACID_BABY = 491,
 	COLLECTIBLE_YO_LISTEN = 492,
-	COLLECTIBLE_ADDERLINE = 493,
+	COLLECTIBLE_ADRENALINE = 493,
 	COLLECTIBLE_JACOBS_LADDER = 494,
 	COLLECTIBLE_GHOST_PEPPER = 495,
 	COLLECTIBLE_EUTHANASIA = 496,
@@ -2202,7 +3224,7 @@ CollectibleType = {
 	COLLECTIBLE_MOMS_RAZOR = 508,
 	COLLECTIBLE_BLOODSHOT_EYE = 509,
 	COLLECTIBLE_DELIRIOUS = 510,
-
+	
 	-- Booster Pack #1
 	COLLECTIBLE_ANGRY_FLY = 511,
 	COLLECTIBLE_BLACK_HOLE = 512,
@@ -2220,21 +3242,21 @@ CollectibleType = {
 	COLLECTIBLE_TELEKINESIS = 522,
 	COLLECTIBLE_MOVING_BOX = 523,
 	COLLECTIBLE_TECHNOLOGY_ZERO = 524,
-	COLLECTIBLE_LEPROCY = 525,
-
+	COLLECTIBLE_LEPROSY = 525,
+	
 	-- Booster Pack #3
-	COLLECTIBLE_LIL_HARBINGERS = 526,
+	COLLECTIBLE_7_SEALS = 526,
 	COLLECTIBLE_MR_ME = 527,
 	COLLECTIBLE_ANGELIC_PRISM = 528,
 	COLLECTIBLE_POP = 529,
 
 	-- Booster Pack #4
-	COLLECTIBLE_DEATH_LIST = 530,
+	COLLECTIBLE_DEATHS_LIST = 530,
 	COLLECTIBLE_HAEMOLACRIA = 531,
 	COLLECTIBLE_LACHRYPHAGY = 532,
 	COLLECTIBLE_TRISAGION = 533,
 	COLLECTIBLE_SCHOOLBAG = 534,
-
+	
 	-- Booster Pack #5
 	COLLECTIBLE_BLANKET = 535,
 	COLLECTIBLE_SACRIFICIAL_ALTAR = 536,
@@ -2253,12 +3275,194 @@ CollectibleType = {
 	COLLECTIBLE_JAW_BONE = 548,
 	COLLECTIBLE_BRITTLE_BONES = 549,
 
-	COLLECTIBLE_BROKEN_SHOVEL = 550,
+	COLLECTIBLE_BROKEN_SHOVEL_1 = 550,
 	COLLECTIBLE_BROKEN_SHOVEL_2 = 551,
 	COLLECTIBLE_MOMS_SHOVEL = 552,
 
-	NUM_COLLECTIBLES = 553
+	--NUM_COLLECTIBLES = 553
+	
+	-- Repentance
+	COLLECTIBLE_MUCORMYCOSIS = 553,
+	COLLECTIBLE_2SPOOKY = 554,
+	COLLECTIBLE_GOLDEN_RAZOR = 555,
+	COLLECTIBLE_SULFUR = 556,
+	COLLECTIBLE_FORTUNE_COOKIE = 557,
+	COLLECTIBLE_EYE_SORE = 558,
+	COLLECTIBLE_120_VOLT = 559,
+	COLLECTIBLE_IT_HURTS = 560,
+	COLLECTIBLE_ALMOND_MILK = 561,
+	COLLECTIBLE_ROCK_BOTTOM = 562,
+	COLLECTIBLE_NANCY_BOMBS = 563,
+	COLLECTIBLE_BAR_OF_SOAP = 564,
+	COLLECTIBLE_BLOOD_PUPPY = 565,
+	COLLECTIBLE_DREAM_CATCHER = 566,
+	COLLECTIBLE_PASCHAL_CANDLE = 567,
+	COLLECTIBLE_DIVINE_INTERVENTION = 568,
+	COLLECTIBLE_BLOOD_OATH = 569,
+	COLLECTIBLE_PLAYDOUGH_COOKIE = 570,
+	COLLECTIBLE_SOCKS = 571,
+	COLLECTIBLE_EYE_OF_THE_OCCULT = 572,
+	COLLECTIBLE_IMMACULATE_HEART = 573,
+	COLLECTIBLE_MONSTRANCE = 574,
+	COLLECTIBLE_INTRUDER = 575,
+	COLLECTIBLE_DIRTY_MIND = 576,
+	COLLECTIBLE_DAMOCLES = 577,
+	COLLECTIBLE_FREE_LEMONADE = 578,
+	COLLECTIBLE_SPIRIT_SWORD = 579,
+	COLLECTIBLE_RED_KEY = 580,
+	COLLECTIBLE_PSY_FLY = 581,
+	COLLECTIBLE_WAVY_CAP = 582,
+	COLLECTIBLE_ROCKET_IN_A_JAR = 583,
+	COLLECTIBLE_BOOK_OF_VIRTUES = 584,
+	COLLECTIBLE_ALABASTER_BOX = 585,
+	COLLECTIBLE_STAIRWAY = 586,
+	-- 587
+	COLLECTIBLE_SOL = 588,
+	COLLECTIBLE_LUNA = 589,
+	COLLECTIBLE_MERCURIUS = 590,
+	COLLECTIBLE_VENUS = 591,
+	COLLECTIBLE_TERRA = 592,
+	COLLECTIBLE_MARS = 593,
+	COLLECTIBLE_JUPITER = 594,
+	COLLECTIBLE_SATURNUS = 595,
+	COLLECTIBLE_URANUS = 596,
+	COLLECTIBLE_NEPTUNUS = 597,
+	COLLECTIBLE_PLUTO = 598,
+	COLLECTIBLE_VOODOO_HEAD = 599,
+	COLLECTIBLE_EYE_DROPS = 600,
+	COLLECTIBLE_ACT_OF_CONTRITION = 601,
+	COLLECTIBLE_MEMBER_CARD = 602,
+	COLLECTIBLE_BATTERY_PACK = 603,
+	COLLECTIBLE_MOMS_BRACELET = 604,
+	COLLECTIBLE_SCOOPER = 605,
+	COLLECTIBLE_OCULAR_RIFT = 606,
+	COLLECTIBLE_BOILED_BABY = 607,
+	COLLECTIBLE_FREEZER_BABY = 608,
+	COLLECTIBLE_ETERNAL_D6 = 609,
+	COLLECTIBLE_BIRD_CAGE = 610,
+	COLLECTIBLE_LARYNX = 611,
+	COLLECTIBLE_LOST_SOUL = 612,
+	-- 613
+	COLLECTIBLE_BLOOD_BOMBS = 614,
+	COLLECTIBLE_LIL_DUMPY = 615,
+	COLLECTIBLE_BIRDS_EYE = 616,
+	COLLECTIBLE_LODESTONE = 617,
+	COLLECTIBLE_ROTTEN_TOMATO = 618,
+	COLLECTIBLE_BIRTHRIGHT = 619,
+	-- 620
+	COLLECTIBLE_RED_STEW = 621,
+	COLLECTIBLE_GENESIS = 622,
+	COLLECTIBLE_SHARP_KEY = 623,
+	COLLECTIBLE_BOOSTER_PACK = 624,
+	COLLECTIBLE_MEGA_MUSH = 625,
+	COLLECTIBLE_KNIFE_PIECE_1 = 626,
+	COLLECTIBLE_KNIFE_PIECE_2 = 627,
+	COLLECTIBLE_DEATH_CERTIFICATE = 628,
+	COLLECTIBLE_BOT_FLY = 629,
+	-- 630
+	COLLECTIBLE_MEAT_CLEAVER = 631,
+	COLLECTIBLE_EVIL_CHARM = 632,
+	COLLECTIBLE_DOGMA = 633,
+	COLLECTIBLE_PURGATORY = 634,
+	COLLECTIBLE_STITCHES = 635,
+	COLLECTIBLE_R_KEY = 636,
+	COLLECTIBLE_KNOCKOUT_DROPS = 637,
+	COLLECTIBLE_ERASER = 638,
+	COLLECTIBLE_YUCK_HEART = 639,
+	COLLECTIBLE_URN_OF_SOULS = 640,
+	COLLECTIBLE_AKELDAMA = 641,
+	COLLECTIBLE_MAGIC_SKIN = 642,
+	COLLECTIBLE_REVELATION = 643,
+	COLLECTIBLE_CONSOLATION_PRIZE = 644,
+	COLLECTIBLE_TINYTOMA = 645,
+	COLLECTIBLE_BRIMSTONE_BOMBS = 646,
+	COLLECTIBLE_4_5_VOLT = 647,
+	-- 648
+	COLLECTIBLE_FRUITY_PLUM = 649,
+	COLLECTIBLE_PLUM_FLUTE = 650,
+	COLLECTIBLE_STAR_OF_BETHLEHEM = 651,
+	COLLECTIBLE_CUBE_BABY = 652,
+	COLLECTIBLE_VADE_RETRO = 653,
+	COLLECTIBLE_FALSE_PHD = 654,
+	COLLECTIBLE_SPIN_TO_WIN = 655,
+	COLLECTIBLE_DAMOCLES_PASSIVE = 656,
+	COLLECTIBLE_VASCULITIS = 657,
+	COLLECTIBLE_GIANT_CELL = 658,
+	COLLECTIBLE_TROPICAMIDE = 659,
+	COLLECTIBLE_CARD_READING = 660,
+	COLLECTIBLE_QUINTS = 661,
+	-- 662
+	COLLECTIBLE_TOOTH_AND_NAIL = 663,
+	COLLECTIBLE_BINGE_EATER = 664,
+	COLLECTIBLE_GUPPYS_EYE = 665,
+	-- 666
+	COLLECTIBLE_STRAW_MAN = 667, 
+	COLLECTIBLE_DADS_NOTE = 668,
+	COLLECTIBLE_SAUSAGE = 669,
+	COLLECTIBLE_OPTIONS = 670,
+	COLLECTIBLE_CANDY_HEART = 671,
+	COLLECTIBLE_POUND_OF_FLESH = 672,
+	COLLECTIBLE_REDEMPTION = 673,
+	COLLECTIBLE_SPIRIT_SHACKLES = 674,
+	COLLECTIBLE_CRACKED_ORB = 675,
+	COLLECTIBLE_EMPTY_HEART = 676,
+	COLLECTIBLE_ASTRAL_PROJECTION = 677,
+	COLLECTIBLE_C_SECTION = 678,
+	COLLECTIBLE_LIL_ABADDON = 679,
+	COLLECTIBLE_MONTEZUMAS_REVENGE = 680,
+	COLLECTIBLE_LIL_PORTAL = 681,
+	COLLECTIBLE_WORM_FRIEND = 682,
+	COLLECTIBLE_BONE_SPURS = 683,
+	COLLECTIBLE_HUNGRY_SOUL = 684,
+	COLLECTIBLE_JAR_OF_WISPS = 685,
+	COLLECTIBLE_SOUL_LOCKET = 686,
+	COLLECTIBLE_FRIEND_FINDER = 687,
+	COLLECTIBLE_INNER_CHILD = 688,
+	COLLECTIBLE_GLITCHED_CROWN = 689,
+	COLLECTIBLE_JELLY_BELLY = 690,
+	COLLECTIBLE_SACRED_ORB = 691,
+	COLLECTIBLE_SANGUINE_BOND = 692,
+	COLLECTIBLE_SWARM = 693,
+	COLLECTIBLE_HEARTBREAK = 694,
+	COLLECTIBLE_BLOODY_GUST = 695,
+	COLLECTIBLE_SALVATION = 696,
+	COLLECTIBLE_VANISHING_TWIN = 697,
+	COLLECTIBLE_TWISTED_PAIR = 698,
+	COLLECTIBLE_AZAZELS_RAGE = 699,
+	COLLECTIBLE_ECHO_CHAMBER = 700,
+	COLLECTIBLE_ISAACS_TOMB = 701,
+	COLLECTIBLE_VENGEFUL_SPIRIT = 702,
+	COLLECTIBLE_ESAU_JR = 703,
+	COLLECTIBLE_BERSERK = 704,
+	COLLECTIBLE_DARK_ARTS = 705,
+	COLLECTIBLE_ABYSS = 706,
+	COLLECTIBLE_SUPPER = 707,
+	COLLECTIBLE_STAPLER = 708,
+	COLLECTIBLE_SUPLEX = 709,
+	COLLECTIBLE_BAG_OF_CRAFTING = 710,
+	COLLECTIBLE_FLIP = 711,
+	COLLECTIBLE_LEMEGETON = 712,
+	COLLECTIBLE_SUMPTORIUM = 713,
+	COLLECTIBLE_RECALL = 714,
+	COLLECTIBLE_HOLD = 715,
+	COLLECTIBLE_KEEPERS_SACK = 716,
+	COLLECTIBLE_KEEPERS_KIN = 717,
+	-- 718
+	COLLECTIBLE_KEEPERS_BOX = 719,
+	COLLECTIBLE_EVERYTHING_JAR = 720,
+	COLLECTIBLE_TMTRAINER = 721,
+	COLLECTIBLE_ANIMA_SOLA = 722,
+	COLLECTIBLE_SPINDOWN_DICE = 723,
+	COLLECTIBLE_HYPERCOAGULATION = 724,
+	COLLECTIBLE_IBS = 725,
+	COLLECTIBLE_HEMOPTYSIS = 726,
+	COLLECTIBLE_GHOST_BOMBS = 727,
+	COLLECTIBLE_GELLO = 728,
+	COLLECTIBLE_DECAP_ATTACK = 729,
+	
+	NUM_COLLECTIBLES = 730
 }
+
 TrinketType = {
 	TRINKET_NULL = 0,
 	TRINKET_SWALLOWED_PENNY = 1,
@@ -2380,7 +3584,7 @@ TrinketType = {
 	TRINKET_LOCUST_OF_CONQUEST = 117,
 	TRINKET_BAT_WING = 118,
 	TRINKET_STEM_CELL = 119,
-
+	
 	-- Booster pack #1
 	TRINKET_HAIRPIN = 120,
 	TRINKET_WOODEN_CROSS = 121,
@@ -2388,20 +3592,89 @@ TrinketType = {
 
 	-- Booster pack #2
 	TRINKET_FILIGREE_FEATHERS = 123,
-
+	
 	-- Booster pack #3
 	TRINKET_DOOR_STOP = 124,
-
+	
 	-- Booster pack #4
 	TRINKET_EXTENSION_CORD = 125,
-
+	
 	-- Booster pack #5
 	TRINKET_ROTTEN_PENNY = 126,
 	TRINKET_BABY_BENDER = 127,
 	TRINKET_FINGER_BONE = 128,
-
-	NUM_TRINKETS = 129
+	
+	--NUM_TRINKETS = 129
+	
+	-- Repentance
+	TRINKET_JAW_BREAKER = 129,
+	TRINKET_CHEWED_PEN = 130,
+	TRINKET_BLESSED_PENNY = 131,
+	TRINKET_BROKEN_SYRINGE = 132,
+	TRINKET_FIRECRACKER = 133,
+	TRINKET_GIANT_BEAN = 134,
+	TRINKET_LIGHTER = 135,
+	TRINKET_BROKEN_PADLOCK = 136,
+	TRINKET_MYOSOTIS = 137,
+	TRINKET_M = 138,
+	TRINKET_TEARDROP_CHARM = 139,
+	TRINKET_APPLE_OF_SODOM = 140,
+	TRINKET_FORGOTTEN_LULLABY = 141,
+	TRINKET_BETHS_FAITH = 142,
+	TRINKET_OLD_CAPACITOR = 143,
+	TRINKET_BRAIN_WORM = 144,
+	TRINKET_PERFECTION = 145,
+	TRINKET_DEVILS_CROWN = 146,
+	TRINKET_CHARGED_PENNY = 147,
+	TRINKET_FRIENDSHIP_NECKLACE = 148,
+	TRINKET_PANIC_BUTTON = 149,
+	TRINKET_BLUE_KEY = 150,
+	TRINKET_FLAT_FILE = 151,
+	TRINKET_TELESCOPE_LENS = 152,
+	TRINKET_MOMS_LOCK = 153,
+	TRINKET_DICE_BAG = 154,
+	TRINKET_HOLY_CROWN = 155,
+	TRINKET_MOTHERS_KISS = 156,
+	TRINKET_TORN_CARD = 157,
+	TRINKET_TORN_POCKET = 158,
+	TRINKET_GILDED_KEY = 159,
+	TRINKET_LUCKY_SACK = 160,
+	TRINKET_WICKED_CROWN = 161,
+	TRINKET_AZAZELS_STUMP = 162,
+	TRINKET_DINGLE_BERRY = 163,
+	TRINKET_RING_CAP = 164,
+	TRINKET_NUH_UH = 165,
+	TRINKET_MODELING_CLAY = 166,
+	TRINKET_POLISHED_BONE = 167,
+	TRINKET_HOLLOW_HEART = 168,
+	TRINKET_KIDS_DRAWING = 169,
+	TRINKET_CRYSTAL_KEY = 170,
+	TRINKET_KEEPERS_BARGAIN = 171,
+	TRINKET_CURSED_PENNY = 172,
+	TRINKET_YOUR_SOUL = 173,
+	TRINKET_NUMBER_MAGNET = 174,
+	TRINKET_STRANGE_KEY = 175,
+	TRINKET_LIL_CLOT = 176,
+	TRINKET_TEMPORARY_TATTOO = 177,
+	TRINKET_SWALLOWED_M80 = 178,
+	TRINKET_RC_REMOTE = 179,
+	TRINKET_FOUND_SOUL = 180,
+	TRINKET_EXPANSION_PACK = 181,
+	TRINKET_BETHS_ESSENCE = 182,
+	TRINKET_THE_TWINS = 183,
+	TRINKET_ADOPTION_PAPERS = 184,
+	TRINKET_CRICKET_LEG = 185,
+	TRINKET_APOLLYONS_BEST_FRIEND = 186,
+	TRINKET_BROKEN_GLASSES = 187,
+	TRINKET_ICE_CUBE = 188,
+	TRINKET_SIGIL_OF_BAPHOMET = 189,
+	NUM_TRINKETS = 190,
+	
+	-- Golden trinkets
+	TRINKET_GOLDEN_FLAG = 0x8000,
+	TRINKET_ID_MASK = 0x7fff,
 }
+
 PillEffect = {
 	PILLEFFECT_NULL = - 1,
 	PILLEFFECT_BAD_GAS = 0,
@@ -2451,8 +3724,14 @@ PillEffect = {
 	PILLEFFECT_HORF = 44,
 	PILLEFFECT_SUNSHINE = 45,
 	PILLEFFECT_VURP = 46,
-	NUM_PILL_EFFECTS = 47
+	--NUM_PILL_EFFECTS = 47
+
+	PILLEFFECT_SHOT_SPEED_DOWN = 47,
+	PILLEFFECT_SHOT_SPEED_UP = 48,
+	PILLEFFECT_EXPERIMENTAL = 49,
+	NUM_PILL_EFFECTS = 50
 }
+
 Card = {
 	CARD_RANDOM = - 1,
 	CARD_NULL = 0,
@@ -2507,13 +3786,59 @@ Card = {
 	CARD_DICE_SHARD = 49,
 	CARD_EMERGENCY_CONTACT = 50,
 	CARD_HOLY = 51,
-
+	
 	-- Booster Pack #1
 	CARD_HUGE_GROWTH = 52,
 	CARD_ANCIENT_RECALL = 53,
 	CARD_ERA_WALK = 54,
-
-	NUM_CARDS = 55
+	
+	--NUM_CARDS = 55
+	
+	-- Repentance
+	RUNE_SHARD = 55,
+	CARD_REVERSE_FOOL = 56,
+	CARD_REVERSE_MAGICIAN = 57,
+	CARD_REVERSE_HIGH_PRIESTESS = 58,
+	CARD_REVERSE_EMPRESS = 59,
+	CARD_REVERSE_EMPEROR = 60,
+	CARD_REVERSE_HIEROPHANT = 61,
+	CARD_REVERSE_LOVERS = 62,
+	CARD_REVERSE_CHARIOT = 63,
+	CARD_REVERSE_JUSTICE = 64,
+	CARD_REVERSE_HERMIT = 65,
+	CARD_REVERSE_WHEEL_OF_FORTUNE = 66,
+	CARD_REVERSE_STRENGTH = 67,
+	CARD_REVERSE_HANGED_MAN = 68,
+	CARD_REVERSE_DEATH = 69,
+	CARD_REVERSE_TEMPERANCE = 70,
+	CARD_REVERSE_DEVIL = 71,
+	CARD_REVERSE_TOWER = 72,
+	CARD_REVERSE_STARS = 73,
+	CARD_REVERSE_MOON = 74,
+	CARD_REVERSE_SUN = 75,
+	CARD_REVERSE_JUDGEMENT = 76,
+	CARD_REVERSE_WORLD = 77,
+	CARD_CRACKED_KEY = 78,
+	CARD_QUEEN_OF_HEARTS = 79,
+	CARD_WILD = 80,
+	CARD_SOUL_ISAAC = 81,
+	CARD_SOUL_MAGDALENE = 82,
+	CARD_SOUL_CAIN = 83,
+	CARD_SOUL_JUDAS = 84,
+	CARD_SOUL_BLUEBABY = 85,
+	CARD_SOUL_EVE = 86,
+	CARD_SOUL_SAMSON = 87,
+	CARD_SOUL_AZAZEL = 88,
+	CARD_SOUL_LAZARUS = 89,
+	CARD_SOUL_EDEN = 90,
+	CARD_SOUL_LOST = 91,
+	CARD_SOUL_LILITH = 92,
+	CARD_SOUL_KEEPER = 93,
+	CARD_SOUL_APOLLYON = 94,
+	CARD_SOUL_FORGOTTEN = 95,
+	CARD_SOUL_BETHANY = 96,
+	CARD_SOUL_JACOB = 97,
+	NUM_CARDS = 98
 }
 
 TearVariant = {
@@ -2555,73 +3880,127 @@ TearVariant = {
 	BALLOON = 35,
 	HUNGRY = 36,
 	BALLOON_BRIMSTONE = 37,
-	BALLOON_BOMB = 38
+	BALLOON_BOMB = 38,
+	
+	-- Repentance
+	FIST = 39,
+	GRIDENT = 40,
+	ICE = 41,
+	ROCK = 42,
+	KEY = 43,
+	KEY_BLOOD = 44,
+	ERASER = 45,
+	FIRE = 46,
+	SWORD_BEAM = 47,
+	SPORE = 48,
+	TECH_SWORD_BEAM = 49,
 }
 
-TearFlags = {
-	TEAR_NORMAL = 0,			-- Normal Tear
-	TEAR_SPECTRAL = 1,			-- Ouija board type tear (goes thru obstacles)
-	TEAR_PIERCING = 1 << 1,		-- Cupid's arrow type tear (goes thru enemy)
-	TEAR_HOMING = 1 << 2,		-- Spoon bender type tear (homes to enemy)
-	TEAR_SLOW = 1 << 3,			-- Spider bite type tear (slows on contact)
-	TEAR_POISON = 1 << 4,		-- Common cold type tear (poisons on contact)
-	TEAR_FREEZE = 1 << 5,		-- Mom's contact type tear (freezes on contact)
-	TEAR_SPLIT = 1 << 6,		-- Parasite type tear (splits on collision)
-	TEAR_GROW = 1 << 7,			-- Lump of coal type tear (grows by range)
-	TEAR_BOMBERANG = 1 << 8,	-- My reflection type tear (returns back)
-	TEAR_PERSISTENT = 1 << 9,	-- Polyphemus type tear (Damages the entity and if the damage is more then enemy hp it continues with less damage)
-	TEAR_WIGGLE = 1 << 10,		-- Wiggle worm type tear (wiggles)
-	TEAR_MIGAN = 1 << 11,	-- Migan type tear (creates fly on hit)
-	TEAR_EXPLOSIVE = 1 << 12,	-- IPECAC type tear (explodes on hit)
-	TEAR_CHARM = 1 << 13,		-- Mom's Eyeshadow tear
-	TEAR_CONFUSION = 1 << 14,	-- Iron Bar tear
-	TEAR_HP_DROP = 1 << 15,	-- These tears cause enemy to drop hearts if killed (33% chance)
-	TEAR_ORBIT = 1 << 16,		-- Used for Little Planet (orbit arounds the player)
-	TEAR_WAIT = 1 << 17,		-- Anti gravity type tear (floats in place for some time before finally moving) (unset after first update)
-	TEAR_QUADSPLIT = 1 << 18,	-- Splits into 4 smaller tears if it hits the ground
-	TEAR_BOUNCE = 1 << 19,		-- Bounce off of enemies, walls, rocks (Higher priority than PERSISTENT & PIERCING)
-	TEAR_FEAR = 1 << 20,		-- Mom's Perfume type tear of fear (fear on contact)
-	TEAR_SHRINK = 1 << 21,		-- Proptosis tears start large and shrink
-	TEAR_BURN = 1 << 22,		-- Fire Mind tears cause Burn effect on enemies
-	TEAR_ATTRACTOR = 1 << 23,	-- Attracts enemies and pickups
-	TEAR_KNOCKBACK = 1 << 24,	-- Tear impact pushes enemies back further
-	TEAR_PULSE = 1 << 25,		-- Makes the tear pulse
-	TEAR_SPIRAL = 1 << 26,		-- Makes the tear path spiral
-	TEAR_FLAT = 1 << 27,		-- Makes the tear oval in the direction of travel
-	TEAR_SAD_BOMB = 1 << 28,	-- Used by Bombs (Sad Bomb)
-	TEAR_BUTT_BOMB = 1 << 29,	-- Used by Bombs (Butt Bomb)
-	TEAR_GLITTER_BOMB = 1 << 30, -- Used by Bombs (Glitter Bomb)
-	TEAR_SQUARE = 1 << 31,		-- Used for Hook Worm
-	TEAR_GLOW = 1 << 32,	-- Used for GodHead (they will have a glow around them)
-	TEAR_GISH = 1 << 33,	-- Used for Gish player tears (to color enemy black on slowing)
-	TEAR_SCATTER_BOMB = 1 << 34, -- Used for Scatter bombs
-	TEAR_STICKY = 1 << 35, -- Used for Sticky bombs and Explosivo tears
-	TEAR_CONTINUUM = 1 << 36, -- Tears loop around the screen
-	TEAR_LIGHT_FROM_HEAVEN = 1 << 37, -- Create damaging light beam on hit
-	TEAR_COIN_DROP = 1 << 38, -- Used by Bumbo, spawns a coin when tear hits
-	TEAR_BLACK_HP_DROP = 1 << 39, -- Enemy drops a black hp when dies
-	TEAR_TRACTOR_BEAM = 1 << 40, -- Tear with this flag will follow parent player's beam
-	TEAR_GODS_FLESH = 1 << 41, -- God's flesh flag to minimize enemies
-	TEAR_GREED_COIN = 1 << 42, -- Greed coin tears that has a chance to generate a coin when hit
-	TEAR_MYSTERIOUS_LIQUID_CREEP = 1 << 43, -- Greed coin tears that has a chance to generate a coin when hit
-	TEAR_BIG_SPIRAL = 1 << 44, -- Ouroboros Worm, big radius oscilating tears
-	TEAR_PERMANENT_CONFUSION = 1 << 45, -- Glaucoma tears, permanently confuses enemies
-	TEAR_BOOGER = 1 << 46, -- Booger tears, stick and do damage over time
-	TEAR_EGG = 1 << 47, -- Egg tears, leave creep and spawns spiders or flies
-	TEAR_ACID = 1 << 48, -- Sulfuric Acid tears, can break grid entities
-	TEAR_BONE = 1 << 49, -- Bone tears, splits in 2
-	TEAR_BELIAL = 1 << 50, -- Belial tears, piecing tears gets double damage + homing
-	TEAR_MIDAS = 1 << 51, -- Midas touch tears
-	TEAR_NEEDLE = 1 << 52, -- Needle tears
-	TEAR_JACOBS = 1 << 53, -- Jacobs ladder tears
-	TEAR_HORN = 1 << 54, -- Little Horn tears
-	TEAR_LASER = 1 << 55, -- Technology Zero
-	TEAR_POP = 1 << 56, -- Pop!
-	TEAR_ABSORB = 1 << 57, -- Lachryphagy
-	TEAR_LASERSHOT = 1 << 58, -- Trisagion, generates a laser on top of the tear
-	TEAR_HYDROBOUNCE = 1 << 59, -- Flat Stone
+local function TEARFLAG(x)
+	return x >= 64 and BitSet128(0,1<<x) or BitSet128(1<<x,0)
+end
 
-	TEAR_LUDOVICO = 1 << 60 -- Used as a weapon for Ludovico Technique
+TearFlags = {
+	TEAR_NORMAL = BitSet128(0,0),
+	TEAR_SPECTRAL = TEARFLAG(0),					-- Ouija board type tear (goes thru obstacles)
+	TEAR_PIERCING = TEARFLAG(1),					-- Cupid's arrow type tear (goes thru enemy)
+	TEAR_HOMING = TEARFLAG(2),						-- Spoon bender type tear (homes to enemy)
+	TEAR_SLOW = TEARFLAG(3),						-- Spider bite type tear (slows on contact)
+	TEAR_POISON = TEARFLAG(4),						-- Common cold type tear (poisons on contact)
+	TEAR_FREEZE = TEARFLAG(5),						-- Mom's contact type tear (freezes on contact)
+	TEAR_SPLIT = TEARFLAG(6),						-- Parasite type tear (splits on collision)
+	TEAR_GROW = TEARFLAG(7),						-- Lump of coal type tear (grows by range)
+	TEAR_BOOMERANG = TEARFLAG(8),					-- My reflection type tear (returns back)
+	TEAR_PERSISTENT = TEARFLAG(9),					-- Polyphemus type tear (Damages the entity and if the damage is more then enemy hp it continues with less damage)
+	TEAR_WIGGLE = TEARFLAG(10),						-- Wiggle worm type tear (wiggles)
+	TEAR_MULLIGAN = TEARFLAG(11),					-- Mulligan type tear (creates fly on hit)
+	TEAR_EXPLOSIVE = TEARFLAG(12),					-- IPECAC type tear (explodes on hit)
+	TEAR_CHARM = TEARFLAG(13),						-- Mom's Eyeshadow tear
+	TEAR_CONFUSION = TEARFLAG(14),					-- Iron Bar tear
+	TEAR_HP_DROP = TEARFLAG(15),					-- These tears cause enemy to drop hearts if killed (33% chance)
+	TEAR_ORBIT = TEARFLAG(16),						-- Used for Little Planet (orbit arounds the player)
+	TEAR_WAIT = TEARFLAG(17),						-- Anti gravity type tear (floats in place for some time before finally moving) (unset after first update)
+	TEAR_QUADSPLIT = TEARFLAG(18),					-- Splits into 4 smaller tears if it hits the ground
+	TEAR_BOUNCE = TEARFLAG(19),						-- Bounce off of enemies, walls, rocks (Higher priority than PERSISTENT & PIERCING)
+	TEAR_FEAR = TEARFLAG(20),						-- Mom's Perfume type tear of fear (fear on contact)
+	TEAR_SHRINK = TEARFLAG(21),						-- Proptosis tears start large and shrink
+	TEAR_BURN = TEARFLAG(22),						-- Fire Mind tears cause Burn effect on enemies
+	TEAR_ATTRACTOR = TEARFLAG(23),					-- Attracts enemies and pickups
+	TEAR_KNOCKBACK = TEARFLAG(24),					-- Tear impact pushes enemies back further
+	TEAR_PULSE = TEARFLAG(25),						-- Makes the tear pulse
+	TEAR_SPIRAL = TEARFLAG(26),						-- Makes the tear path spiral
+	TEAR_FLAT = TEARFLAG(27),						-- Makes the tear oval in the direction of travel
+	TEAR_SAD_BOMB = TEARFLAG(28),					-- Used by Bombs (Sad Bomb)
+	TEAR_BUTT_BOMB = TEARFLAG(29),					-- Used by Bombs (Butt Bomb)
+	TEAR_SQUARE = TEARFLAG(30),						-- Used for Hook Worm
+	TEAR_GLOW = TEARFLAG(31),						-- Used for GodHead (they will have a glow around them)
+	TEAR_GISH = TEARFLAG(32),						-- Used for Gish player tears (to color enemy black on slowing)
+	TEAR_MYSTERIOUS_LIQUID_CREEP = TEARFLAG(33),	-- Mysterious Liquid tears spawn damaging green creep when hit
+	TEAR_SHIELDED = TEARFLAG(34),					-- Lost Contact tears, block enemy projectiles
+	TEAR_GLITTER_BOMB = TEARFLAG(35),				-- Used by Bombs (Glitter Bomb)
+	TEAR_SCATTER_BOMB = TEARFLAG(36),				-- Used for Scatter bombs
+	TEAR_STICKY = TEARFLAG(37),						-- Used for Sticky bombs and Explosivo tears
+	TEAR_CONTINUUM = TEARFLAG(38),					-- Tears loop around the screen
+	TEAR_LIGHT_FROM_HEAVEN = TEARFLAG(39),			-- Create damaging light beam on hit
+	TEAR_COIN_DROP = TEARFLAG(40),					-- Used by Bumbo, spawns a coin when tear hits
+	TEAR_BLACK_HP_DROP = TEARFLAG(41),				-- Enemy drops a black hp when dies
+	TEAR_TRACTOR_BEAM = TEARFLAG(42),				-- Tear with this flag will follow parent player's beam
+	TEAR_GODS_FLESH = TEARFLAG(43),					-- God's flesh flag to minimize enemies
+	TEAR_GREED_COIN = TEARFLAG(44),					-- Greed coin tears that has a chance to generate a coin when hit
+	TEAR_CROSS_BOMB = TEARFLAG(45),					-- Bomber Boy
+	TEAR_BIG_SPIRAL = TEARFLAG(46),					-- Ouroboros Worm, big radius oscilating tears
+	TEAR_PERMANENT_CONFUSION = TEARFLAG(47),		-- Glaucoma tears, permanently confuses enemies
+	TEAR_BOOGER = TEARFLAG(48),						-- Booger tears, stick and do damage over time
+	TEAR_EGG = TEARFLAG(49),						-- Egg tears, leave creep and spawns spiders or flies
+	TEAR_ACID = TEARFLAG(50),						-- Sulfuric Acid tears, can break grid entities
+	TEAR_BONE = TEARFLAG(51),						-- Bone tears, splits in 2
+	TEAR_BELIAL = TEARFLAG(52),						-- Belial tears, piecing tears gets double damage + homing
+	TEAR_MIDAS = TEARFLAG(53),						-- Midas touch tears
+	TEAR_NEEDLE = TEARFLAG(54),						-- Needle tears
+	TEAR_JACOBS = TEARFLAG(55),						-- Jacobs ladder tears
+	TEAR_HORN = TEARFLAG(56),						-- Little Horn tears
+	TEAR_LASER = TEARFLAG(57),						-- Technology Zero
+	TEAR_POP = TEARFLAG(58),						-- Pop!
+	TEAR_ABSORB = TEARFLAG(59),						-- Hungry Tears
+	TEAR_LASERSHOT = TEARFLAG(60),					-- Trisagion, generates a laser on top of the tear
+	TEAR_HYDROBOUNCE = TEARFLAG(61),				-- Flat Stone
+	TEAR_BURSTSPLIT = TEARFLAG(62),					-- Haemolacria
+	TEAR_CREEP_TRAIL = TEARFLAG(63),				-- Bob's Bladder
+	TEAR_PUNCH = TEARFLAG(64),						-- Knockout Drops
+	TEAR_ICE = TEARFLAG(65),						-- Uranus
+	TEAR_MAGNETIZE = TEARFLAG(66),					-- Lodestone
+	TEAR_BAIT = TEARFLAG(67),						-- Rotten Tomato
+	TEAR_OCCULT = TEARFLAG(68),						-- Eye of the Occult
+	TEAR_ORBIT_ADVANCED = TEARFLAG(69),				-- Orbiting tears with a more narrow and stable orbit (used by Saturnus and Immaculate Heart)
+	TEAR_ROCK = TEARFLAG(70),						-- Rock tears, chance to break rocks, deal extra damage to rock type enemies
+	TEAR_TURN_HORIZONTAL = TEARFLAG(71),			-- Brain Worm, tears turn and go horizontally when moving past an enemy
+	TEAR_BLOOD_BOMB = TEARFLAG(72),					-- Blood Bombs, leave blood creep on the ground
+	TEAR_ECOLI = TEARFLAG(73),						-- E. Coli tears, turn enemies into poop
+	TEAR_COIN_DROP_DEATH = TEARFLAG(74),			-- Killed enemies have a chance to drop a random coin (Reverse Hanged Man)
+	TEAR_BRIMSTONE_BOMB = TEARFLAG(75),				-- Brimstone Bombs, explosion creates a brimstone cross
+	TEAR_RIFT = TEARFLAG(76),						-- Rift tears, creates a black hole on impact
+	TEAR_SPORE = TEARFLAG(77),						-- Spore tears, stick to enemies and multiply on enemy death
+	TEAR_GHOST_BOMB = TEARFLAG(78),					-- Ghost bombs
+	TEAR_CARD_DROP_DEATH = TEARFLAG(79),			-- Killed enemies will drop a random tarot card
+	TEAR_RUNE_DROP_DEATH = TEARFLAG(80),			-- Killed enemies will drop a random rune
+	TEAR_TELEPORT = TEARFLAG(81),					-- Hit enemies will teleport to a different part of the room
+	
+	TEAR_EFFECT_COUNT = 82,
+	
+	-- Reserved flags - cannot be randomly picked
+	TEAR_REROLL_ROCK_WISP = TEARFLAG(115),			
+	TEAR_MOM_STOMP_WISP = TEARFLAG(116),			
+	TEAR_ENEMY_TO_WISP = TEARFLAG(117),				
+	TEAR_REROLL_ENEMY = TEARFLAG(118),				-- D10 Wisps, chance to reroll enemy on hit
+	TEAR_GIGA_BOMB = TEARFLAG(119),					-- Causes giant explosions that create holes in the ground (for Giga Bombs)
+	TEAR_EXTRA_GORE = TEARFLAG(120),				-- Causes enemies to explode into more gibs on death (for Donkey Jawbone)
+	TEAR_RAINBOW = TEARFLAG(121),					-- Causes lasers to visually cycle between rainbow colors
+	TEAR_DETONATE = TEARFLAG(122),					-- Can be detonated by Remote Detonator
+	TEAR_CHAIN = TEARFLAG(123),						-- Akeldama tears, stick to each other and form a chain that can be swung around
+	TEAR_DARK_MATTER = TEARFLAG(124),				-- Used to identify Dark Matter tears
+	TEAR_GOLDEN_BOMB = TEARFLAG(125),				-- Used to identify bombs dropped while having a golden bomb
+	TEAR_FAST_BOMB = TEARFLAG(126),					-- Used to identify bombs dropped while having Fast Bombs
+	TEAR_LUDOVICO = TEARFLAG(127),					-- Used as a weapon for Ludovico Technique
 }
 
 ButtonAction = {
@@ -2652,17 +4031,17 @@ ButtonAction = {
 	ACTION_MENULT = 24,
 	ACTION_MENURT = 25,
 	ACTION_MENUTAB = 26,
-
+	
 	ACTION_CONSOLE = 28 -- USE ONLY FOR HOOKING! To check the input use IsButtonTriggered with desired key
 }
 
 Keyboard = {
 	KEY_SPACE = 32,
-	KEY_APOSTROPHE = 39,
-	KEY_COMMA = 44,
-	KEY_MINUS = 45,
-	KEY_PERIOD = 46,
-	KEY_SLASH = 47,
+	KEY_APOSTROPHE = 39,  
+	KEY_COMMA = 44, 
+	KEY_MINUS = 45, 
+	KEY_PERIOD = 46,  
+	KEY_SLASH = 47, 
 	KEY_0 = 48,
 	KEY_1 = 49,
 	KEY_2 = 50,
@@ -2673,8 +4052,8 @@ Keyboard = {
 	KEY_7 = 55,
 	KEY_8 = 56,
 	KEY_9 = 57,
-	KEY_SEMICOLON = 59,
-	KEY_EQUAL = 61,
+	KEY_SEMICOLON = 59,  
+	KEY_EQUAL = 61,  
 	KEY_A = 65,
 	KEY_B = 66,
 	KEY_C = 67,
@@ -2701,12 +4080,12 @@ Keyboard = {
 	KEY_X = 88,
 	KEY_Y = 89,
 	KEY_Z = 90,
-	KEY_LEFT_BRACKET = 91,
-	KEY_BACKSLASH = 92,
-	KEY_RIGHT_BRACKET = 93,
-	KEY_GRAVE_ACCENT = 96,
-	KEY_WORLD_1 = 161,
-	KEY_WORLD_2 = 162,
+	KEY_LEFT_BRACKET = 91, 
+	KEY_BACKSLASH = 92, 
+	KEY_RIGHT_BRACKET = 93,  
+	KEY_GRAVE_ACCENT = 96,  
+	KEY_WORLD_1 = 161, 
+	KEY_WORLD_2 = 162, 
 	KEY_ESCAPE = 256,
 	KEY_ENTER = 257,
 	KEY_TAB = 258,
@@ -2868,11 +4247,14 @@ SeedEffect = {
 	SEED_SHOOT_IN_MOVEMENT_DIRECTION = 74,
 	SEED_SHOOT_OPPOSITE_MOVEMENT_DIRECTION = 75,
 	SEED_AXIS_ALIGNED_CONTROLS = 76,
-	NUM_SEEDS = 77
+	SEED_SUPER_HOT = 77,
+	SEED_RETRO_VISION = 78,
+	NUM_SEEDS = 79
 }
 
 GridRooms = {
-	MAX_GRID_ROOMS = 128,
+	NO_ROOM_IDX = -99999,
+	
 	ROOM_DEVIL_IDX = -1,
 	ROOM_ERROR_IDX = -2,
 	ROOM_DEBUG_IDX = -3,
@@ -2883,8 +4265,23 @@ GridRooms = {
 	ROOM_BLUE_WOOM_IDX = -8,
 	ROOM_THE_VOID_IDX = -9,
 
-	NUM_OFF_GRID_ROOMS = 9,
-	MAX_ROOMS = 137
+	ROOM_SECRET_EXIT_IDX = -10,
+	ROOM_GIDEON_DUNGEON_IDX = -11,
+	ROOM_GENESIS_IDX = -12,
+	ROOM_SECRET_SHOP_IDX = -13,
+	ROOM_ROTGUT_DUNGEON1_IDX = -14,
+	ROOM_ROTGUT_DUNGEON2_IDX = -15,
+	ROOM_BLUE_ROOM_IDX = -16,
+	ROOM_EXTRA_BOSS_IDX = -17,
+	ROOM_ANGEL_SHOP_IDX = -18,
+	NUM_OFF_GRID_ROOMS = 18,
+	
+	MAX_GRID_ROOMS = 507,
+	MAX_ROOMS = 525,
+	
+	-- Not real room indices, doors that point to those indices have special behavior
+	ROOM_MIRROR_IDX = -100,
+	ROOM_MINESHAFT_IDX = -101,
 }
 
 ItemPoolType = {
@@ -2896,26 +4293,31 @@ ItemPoolType = {
 	POOL_ANGEL = 4,
 	POOL_SECRET = 5,
 	POOL_LIBRARY = 6,
-	POOL_CHALLENGE = 7,
+	POOL_SHELL_GAME = 7, -- unused (for now)
 	POOL_GOLDEN_CHEST = 8,
 	POOL_RED_CHEST = 9,
 	POOL_BEGGAR = 10,
 	POOL_DEMON_BEGGAR = 11,
 	POOL_CURSE = 12,
 	POOL_KEY_MASTER = 13,
-	POOL_BOSSRUSH = 14,
-	POOL_DUNGEON = 15,
-	POOL_GREED_TREASURE = 16,
+	POOL_BATTERY_BUM = 14,
+	POOL_MOMS_CHEST = 15,
+	POOL_GREED_TREASUREL = 16,
 	POOL_GREED_BOSS = 17,
 	POOL_GREED_SHOP = 18,
 	POOL_GREED_DEVIL = 19,
 	POOL_GREED_ANGEL = 20,
 	POOL_GREED_CURSE = 21,
 	POOL_GREED_SECRET = 22,
-	POOL_GREED_LIBRARY = 23,
-	POOL_GREED_GOLDEN_CHEST = 24,
+	POOL_CRANE_GAME = 23,
+	POOL_24 = 24, -- unused
 	POOL_BOMB_BUM = 25,
-	NUM_ITEMPOOLS = 26
+	POOL_PLANETARIUM = 26,
+	POOL_OLD_CHEST = 27,
+	POOL_BABY_SHOP = 28,
+	POOL_WOODEN_CHEST = 29,
+	POOL_ROTTEN_BEGGAR = 30,
+	NUM_ITEMPOOLS = 31
 }
 
 ProjectileVariant = {
@@ -2926,7 +4328,16 @@ ProjectileVariant = {
 	PROJECTILE_TEAR = 4,
 	PROJECTILE_CORN = 5,
 	PROJECTILE_HUSH = 6,
-	PROJECTILE_COIN = 7
+	PROJECTILE_COIN = 7,
+	PROJECTILE_GRID = 8,	-- rocks thrown by Polties
+	PROJECTILE_ROCK = 9,	-- stone shot
+	PROJECTILE_RING = 10,	-- unused
+	PROJECTILE_MEAT = 11,	-- globin shot
+	PROJECTILE_FCUK = 12,	-- steven shot
+	PROJECTILE_WING = 13,	-- feather shot (from Dogma)
+	PROJECTILE_LAVA = 14,	-- lava ball (from Beast boss fight)
+	PROJECTILE_HEAD = 15,	-- dead gaper flung by Mother
+	PROJECTILE_PEEP = 16,	-- eye shot
 }
 
 ProjectileFlags = {
@@ -2964,7 +4375,31 @@ ProjectileFlags = {
 	CANT_HIT_PLAYER = 1 << 31,
 	-- "Change" flags will change the bullet's behavior after a timeout.
 	CHANGE_FLAGS_AFTER_TIMEOUT = 1 << 32, -- change m_ProjectileFlags to m_TimeoutProjectileFlags.
-	CHANGE_VELOCITY_AFTER_TIMEOUT = 1 << 33
+	CHANGE_VELOCITY_AFTER_TIMEOUT = 1 << 33,
+	STASIS = 1 << 34,
+	FIRE_WAVE = 1 << 35,
+	FIRE_WAVE_X = 1 << 36,
+	ACCELERATE_EX = 1 << 37,
+	BURST8 = 1 << 38,
+	FIRE_SPAWN = 1 << 39,
+	ANTI_GRAVITY = 1 << 40,
+	TRACTOR_BEAM = 1 << 41,
+	BOUNCE = 1 << 42,
+	BOUNCE_FLOOR = 1 << 43,
+	SHIELDED = 1 << 44,
+	BLUE_FIRE_SPAWN = 1 << 45,
+	LASER_SHOT = 1 << 46,
+	GODHEAD = 1 << 47,
+	SMART_PERFECT = 1 << 48,
+	BURSTSPLIT = 1 << 49,
+	WIGGLE_ROTGUT = 1 << 50,
+	FREEZE = 1 << 51,
+	ACCELERATE_TO_POSITION = 1 << 52,
+	BROCCOLI = 1 << 53,
+	BACKSPLIT = 1 << 54,
+	SIDEWAVE = 1 << 55,
+	ORBIT_PARENT = 1 << 56,
+	FADEOUT = 1 << 57,
 }
 
 EntityPartition = {
@@ -2975,4 +4410,237 @@ EntityPartition = {
 	PICKUP = 1<<4,
 	PLAYER = 1<<5,
 	EFFECT = 1<<6
-};
+}
+
+ChampionColor = {
+	RED = 0, -- 33% more life, full heart
+	YELLOW = 1, -- 33% faster, lil battery
+	GREEN = 2, -- trail of green creep, pill
+	ORANGE = 3, -- greed shot (drop coins when hit), 1-3 coins
+	BLUE = 4, -- half speed, 3 blue flies
+	BLACK = 5, -- explodes on death, bomb
+	WHITE = 6, -- must be killed last, half eternal heart
+	GREY = 7, -- 33% health half speed, key
+	TRANSPARENT = 8, -- spectral, locked chest
+	FLICKER = 9, -- partly invisible, red chest
+	PINK = 10, -- random shots, no drop
+	PURPLE = 11, -- pull player/tears, trinket
+	DARK_RED = 12, -- regenerate, double heart
+	LIGHT_BLUE = 13, -- spread shot on death, half heart
+
+	CAMO = 14, -- camo kid like color, drops a rune when killed
+	PULSE_GREEN = 15, -- when killed creates 2 mobs of same kind
+	PULSE_GREY = 16, -- shots reflected while in gray state, drops random pickup
+	FLY_PROTECTED = 17, -- has halo of fly like shopkeeper, spawns 2 attack flies on death
+	TINY = 18, -- 33% less hp, half size, speed +33%, 20% chance of small pill
+	GIANT = 19, -- double size, 50% more hp, does 2 hearts of damage, 10% slower, 20% chance of large pill
+	
+	PULSE_RED = 20, -- heals all enemies in the room including himself by 30hp every second  - spawns a red heart when killed
+	SIZE_PULSE = 21, -- spawns flies when hit, one attack fly for each time it takes damage - spawns 4-6 blue flies when killed
+	KING = 22, -- turns all enemies in the room into yellow champions and has tripple HP - spawns 2-3 random pickups when killed
+	DEATH = 23, -- does 2 hearts of damage when touched - does death effect when killed 
+
+	BROWN = 24, -- constantly poops
+	RAINBOW = 25, -- many champion effects combined, drops one of everything
+}
+
+ActiveSlot = {
+	SLOT_PRIMARY = 0, -- main slot
+	SLOT_SECONDARY = 1, -- schoolbag slot
+	SLOT_POCKET = 2, -- permanent card/pill slot (tainted alts)
+	SLOT_POCKET2 = 3, -- single use card/pill slot (Dice Bag)
+}
+
+UseFlag = {
+	USE_NOANIM = 1,				-- Don't play use animations
+	USE_NOCOSTUME = 1 << 1,		-- Don't add costume
+	USE_OWNED = 1 << 2,			-- Effect was triggered by an active item owned by the player
+	USE_ALLOWNONMAIN = 1 << 3,	-- Allow the effect to trigger on non-main players (i.e. coop babies)
+	USE_REMOVEACTIVE = 1 << 4,	-- D4 only: Reroll the player's active item
+
+	USE_CARBATTERY = 1 << 5,	-- Effect was triggered a second time by Car Battery (or Tarot Cloth for cards)
+	USE_VOID = 1 << 6,			-- Effect was triggered by Void
+
+	USE_MIMIC = 1 << 7,			-- Effect was mimicked by an active item (Blank Card, Placebo)
+	USE_NOANNOUNCER = 1 << 8,	-- Never play announcer voice
+	
+	USE_ALLOWWISPSPAWN = 1 << 9, -- This allows an item to spawn wisps when called from another item usage as the wisps generator checks for NOANIM, so usually you want to use this with NOANIM call
+	USE_CUSTOMVARDATA = 1 << 10, -- If set, forces UseActiveItem to use the CustomVarData argument instead of the active item's stored VarData
+}
+
+RoomTransitionAnim = {
+	WALK = 0, -- mostly when using doors
+	FADE = 1, -- fadein/fadout used for Mom's Hand
+	PIXELATION = 2, -- fade+pixelation effect used for secret item dungeon
+	TELEPORT = 3,
+	MAZE = 4, -- for curse of the maze
+	ANKH = 5,
+	DEAD_CAT = 6,
+	ONE_UP = 7,
+	COLLAR = 8,
+	JUDAS_SHADOW = 9,
+	LAZARUS = 10,
+	WOMB_TELEPORT = 11, -- for Ventricle razor teleport
+	GLOWING_HOURGLASS = 12, -- for glowing hourglass teleport
+	D7 = 13,
+	MISSING_POSTER = 14,
+	BOSS_FORCED = 15, -- No transition, goes directly to boss intro (for backwardass challenge)
+	PORTAL_TELEPORT = 16, -- for card reading teleport
+	FORGOTTEN_TELEPORT = 17, -- for the Forgotten's birthright
+	FADE_MIRROR = 18,
+	MINECART = 19,
+	DEATH_CERTIFICATE = 20,
+}
+
+BackdropType = {
+	BACKDROP_NULL = 0,
+	BASEMENT = 1,
+	CELLAR = 2,
+	BURNT_BASEMENT = 3,
+	CAVES = 4,
+	CATACOMBS = 5,
+	FLOODED_CAVES = 6,
+	DEPTHS = 7,
+	NECROPOLIS = 8,
+	DANK_DEPTHS = 9,
+	WOMB = 10,
+	UTERO = 11,
+	SCARRED_WOMB = 12,
+	BLUE_WOMB = 13,
+	SHEOL = 14,
+	CATHEDRAL = 15,
+	DARKROOM = 16,
+	CHEST = 17,
+	MEGA_SATAN = 18,
+	LIBRARY = 19,
+	SHOP = 20,
+	ISAAC = 21,
+	BARREN = 22,
+	SECRET = 23,
+	DICE = 24,
+	ARCADE = 25,
+	ERROR_ROOM = 26,
+	BLUE_WOMB_PASS = 27,
+	GREED_SHOP = 28,
+	DUNGEON = 29,
+	SACRIFICE = 30,
+	DOWNPOUR = 31,
+	MINES = 32,
+	MAUSOLEUM = 33,
+	CORPSE = 34,
+	PLANETARIUM = 35,
+	DOWNPOUR_ENTRANCE = 36,
+	MINES_ENTRANCE = 37,
+	MAUSOLEUM_ENTRANCE = 38,
+	CORPSE_ENTRANCE = 39,
+	MAUSOLEUM2 = 40,
+	MAUSOLEUM3 = 41,
+	MAUSOLEUM4 = 42,
+	CORPSE2 = 43,
+	CORPSE3 = 44,
+	DROSS = 45,
+	ASHPIT = 46,
+	GEHENNA = 47,
+	MORTIS = 48,
+	ISAACS_BEDROOM = 49,
+	HALLWAY = 50,
+	MOMS_BEDROOM = 51,
+	CLOSET = 52,
+	CLOSET_B = 53,
+	DOGMA = 54,
+	DUNGEON_GIDEON = 55,
+	DUNGEON_ROTGUT = 56,
+	DUNGEON_BEAST = 57,
+	MINES_SHAFT = 58,
+	ASHPIT_SHAFT = 59,
+	DARK_CLOSET = 60,
+	NUM_BACKDROPS = 61
+}
+
+local function AddEnumToNamespace(namespace, enums)
+	for k,v in pairs(enums) do
+		rawset(namespace, k, v)
+	end
+end
+
+AddEnumToNamespace(ItemConfig, {
+	-- ItemConfig.CHARGE_*
+	CHARGE_NORMAL = 0,
+	CHARGE_TIMED = 1,
+	CHARGE_SPECIAL = 2,
+	
+	-- ItemConfig.TAG_*
+	TAG_DEAD = 1,					-- Dead things (for the Parasite unlock)
+	TAG_SYRINGE = 1<<1,				-- Syringes (for Little Baggy and the Spun! transformation)
+	TAG_MOM = 1<<2,					-- Mom's things (for Mom's Contact and the Yes Mother? transformation)
+	TAG_TECH = 1<<3,				-- Technology items (for the Technology Zero unlock)
+	TAG_BATTERY = 1<<4,				-- Battery items (for the Jumper Cables unlock)
+	TAG_GUPPY = 1<<5,				-- Guppy items (Guppy transformation)
+	TAG_FLY = 1<<6,					-- Fly items (Beelzebub transformation)
+	TAG_BOB = 1<<7,					-- Bob items (Bob transformation)
+	TAG_MUSHROOM = 1<<8,			-- Mushroom items (Fun Guy transformation)
+	TAG_BABY = 1<<9,				-- Baby items (Conjoined transformation)
+	TAG_ANGEL = 1<<10,				-- Angel items (Seraphim transformation)
+	TAG_DEVIL = 1<<11,				-- Devil items (Leviathan transformation)
+	TAG_POOP = 1<<12,				-- Poop items (Oh Shit transformation)
+	TAG_BOOK = 1<<13,				-- Book items (Book Worm transformat)
+	TAG_SPIDER = 1<<14,				-- Spider items (Spider Baby transformation)
+	TAG_QUEST = 1<<15,				-- Quest item (cannot be rerolled or randomly obtained)
+	TAG_MONSTER_MANUAL = 1<<16,		-- Can be spawned by Monster Manual
+	TAG_NO_GREED = 1<<17,			-- Cannot appear in Greed Mode
+	TAG_FOOD = 1<<18,				-- Food item (for Binge Eater)
+	TAG_TEARS_UP = 1<<19,			-- Tears up item (for Lachryphagy unlock detection)
+	TAG_OFFENSIVE = 1<<20,			-- Whitelisted item for Lost B
+	TAG_NO_KEEPER = 1<<21,			-- Blacklisted item for Keeper/Keeper B
+	TAG_NO_LOST_BR = 1<<22,			-- Blacklisted item for Lost's Birthright
+	TAG_STARS = 1<<23,				-- Star themed items (for the Planetarium unlock)
+	TAG_SUMMONABLE = 1<<24,			-- Summonable items (for Bethany B)
+	TAG_NO_CANTRIP = 1<<25,			-- Can't be obtained in Cantripped challenge
+	TAG_WISP = 1<<26,				-- Active items that have wisps attached to them (automatically set)
+	TAG_UNIQUE_FAMILIAR = 1<<27,	-- Unique familiars that cannot be duplicated
+	
+	-- ItemConfig.CARDTYPE_*
+	CARDTYPE_TAROT = 0,				-- Tarot cards
+	CARDTYPE_SUIT = 1,				-- Standard playing cards (twos, aces and Joker, does not include Suicide King, Rules Card or Queen of Hearts)
+	CARDTYPE_RUNE = 2,				-- Runes
+	CARDTYPE_SPECIAL	= 3,		-- Special cards (anything that doesn't fall in the above categories excludes non-cards such as Dice Shard, see below)
+	CARDTYPE_SPECIAL_OBJECT = 4,	-- Special pocket items that do not qualify as "cards"
+	CARDTYPE_TAROT_REVERSE = 5, 	-- Reversed tarot cards
+})
+
+-- The following enums are DEPRECATED and are only left in for AB+ backwards compatibility
+-- Do not use them!
+
+FamiliarVariant.LEPROCY = 121
+
+CollectibleType.COLLECTIBLE_MAXS_HEAD = 4
+CollectibleType.COLLECTIBLE_BLOOD_MARTYR = 7
+CollectibleType.COLLECTIBLE_ONE_UP = 11
+CollectibleType.COLLECTIBLE_PILLS_HERE = 43
+CollectibleType.COLLECTIBLE_059 = 59
+CollectibleType.COLLECTIBLE_TAROT_CARD = 61
+CollectibleType.COLLECTIBLE_BOOK_REVELATIONS = 78
+CollectibleType.COLLECTIBLE_WE_NEED_GO_DEEPER = 84
+CollectibleType.COLLECTIBLE_MOMS_BOTTLE_PILLS = 102
+CollectibleType.COLLECTIBLE_MONEY_IS_POWER = 109
+CollectibleType.COLLECTIBLE_NINE_VOLT = 116
+CollectibleType.COLLECTIBLE_ODD_MUSHROOM_RATE = 120
+CollectibleType.COLLECTIBLE_ODD_MUSHROOM_DAMAGE = 121
+CollectibleType.COLLECTIBLE_BUCKET_LARD = 129
+CollectibleType.COLLECTIBLE_SPIRIT_NIGHT = 159
+CollectibleType.COLLECTIBLE_CAT_NINE_TAILS = 165
+CollectibleType.COLLECTIBLE_235 = 235
+CollectibleType.COLLECTIBLE_BLUEBABYS_ONLY_FRIEND = 320
+CollectibleType.COLLECTIBLE_MAW_OF_VOID = 399
+CollectibleType.COLLECTIBLE_MEGA_SATANS_BREATH = 441
+CollectibleType.COLLECTIBLE_DARK_PRINCESS_CROWN = 442
+CollectibleType.COLLECTIBLE_MOLDY_BREAD = 456
+CollectibleType.COLLECTIBLE_TONSIL = 474
+CollectibleType.COLLECTIBLE_DINF = 489
+CollectibleType.COLLECTIBLE_ADDERLINE = 493
+CollectibleType.COLLECTIBLE_LEPROCY = 525
+CollectibleType.COLLECTIBLE_LIL_HARBINGERS = 526
+CollectibleType.COLLECTIBLE_DEATH_LIST = 530
+CollectibleType.COLLECTIBLE_BROKEN_SHOVEL = 550
+	
+TearFlags.TEAR_MIGAN = TearFlags.TEAR_MULLIGAN
