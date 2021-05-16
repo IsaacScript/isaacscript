@@ -602,7 +602,7 @@ declare class EntityPlayer extends Entity {
    * Sets the player's pocket active item to the given active item.
    * Items added to SLOT_POCKET2 will always be removed upon being used.
    * @param collectibleType
-   * @param slot Can be either SLOT_POCKET or SLOT_POCKET2. Default is SLOT_POCKET.
+   * @param slot Can be either ActiveSlot.SLOT_POCKET or ActiveSlot.SLOT_POCKET2. Default is ActiveSlot.SLOT_POCKET.
    * @param keepInPools If true, the item will not be removed from the item pools. Default is false.
    */
   SetPocketActiveItem(
