@@ -12,5 +12,11 @@ module.exports = {
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/imports.js
     // Deno must use the ".ts" extension in every import
     "import/extensions": "off",
+
+    // The "no-unsafe-*" rules do not work with Deno
+    // https://github.com/typescript-eslint/typescript-eslint/issues/3395
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-unsafe-call": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
   },
 };

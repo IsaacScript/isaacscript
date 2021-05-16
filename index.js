@@ -9,6 +9,7 @@ module.exports = {
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules
     // The TypeScript config extends it:
     // https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js
+    // This includes the "parser" declaration of "@typescript-eslint/parser"
     "airbnb-typescript/base",
 
     // We extend the Airbnb rules with the "recommended" and "recommended-requiring-type-checking"
