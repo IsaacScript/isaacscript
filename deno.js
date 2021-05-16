@@ -15,8 +15,10 @@ module.exports = {
 
     // The "no-unsafe-*" rules do not work with Deno
     // https://github.com/typescript-eslint/typescript-eslint/issues/3395
+    "@typescript-eslint/no-unsafe-argument": "off",
     "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/no-unsafe-call": "off",
     "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/no-unsafe-return": "off",
   },
 };
