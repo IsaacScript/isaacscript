@@ -1,0 +1,49 @@
+// These are Visual Studio Code settings that should apply to this particular repository
+{
+  // ----------------
+  // Vanilla settings
+  // ----------------
+
+  // This matches the Airbnb JavaScript style guide
+  "editor.rulers": [100],
+  "editor.tabSize": 2,
+
+  "files.associations": {
+    "*.anm2": "xml", // anm2 files are just XML files
+  },
+
+  // Linux line endings are used in this project
+  "files.eol": "\n",
+
+  // Automatically removing all trailing whitespace when saving a file
+  "files.trimTrailingWhitespace": true,
+
+  // Configure glob patterns for excluding files and folders in full text searches and quick open
+  "search.exclude": {
+    "**/mod/main.lua": true,
+    "**/*.png": true,
+    "**/*.wav": true,
+  },
+
+  // -----------------
+  // Language settings
+  // -----------------
+
+  // By default, VSCode will not automatically fill-in function arguments
+  "javascript.suggest.completeFunctionCalls": true,
+  "typescript.suggest.completeFunctionCalls": true,
+
+  // Automatically run the formatter when a JavaScript or TypeScript file is saved
+  "[javascript]": {
+    "editor.codeActionsOnSave": [
+      "source.fixAll.eslint",
+    ],
+    "editor.tabSize": 2,
+  },
+  "[typescript]": {
+    "editor.codeActionsOnSave": [
+      "source.fixAll.eslint",
+    ],
+    "editor.tabSize": 2,
+  },
+}

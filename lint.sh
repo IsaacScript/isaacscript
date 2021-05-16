@@ -7,5 +7,5 @@ set -e # Exit on any errors
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd "$DIR"
-npx eslint .
+npx eslint "$DIR/modules/**/*.ts"
 echo "Success!"

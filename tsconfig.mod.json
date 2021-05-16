@@ -1,0 +1,26 @@
+// The configuration file for TypeScript
+{
+  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
+  "compilerOptions": {
+    // Recommended as per TypeScriptToLua
+    // https://typescripttolua.github.io/docs/getting-started/
+    "target": "ESNext",
+    "lib": ["ESNext"],
+    "moduleResolution": "Node",
+    "types": ["isaac-typescript-definitions"],
+
+    // We want the compiler to be as strict as possible to catch all the things
+    // By default, these flags are false
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+
+    // "newLine" specifies the end of line sequence
+    // By default, it is "crlf" on Windows
+    // We want to always use "lf" to be consistent with all platforms and reduce the file size of
+    // the output
+    "newLine": "lf",
+  },
+}

@@ -1,9 +1,11 @@
 // A special TypeScript configuration file, used by ESLint only
 {
   "extends": "./tsconfig.json",
+
+  // A list of the TypeScript files to compile
   "include": [
-    // These must match the base the "include" setting in the base "tsconfig.json" file
-    "./src/**/*.ts",
+    // This must match the "include" setting in the "tsconfig.json" file
+    "./modules/**/*.ts",
 
     // These are ESLint-only inclusions
     "./.eslintrc.js",
