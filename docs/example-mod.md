@@ -23,7 +23,7 @@ In a Windows command prompt:
 ```batch
 mkdir C:\Repositories\green-candle
 cd C:\Repositories\green-candle
-npx create-isaacscript-mod --use-current-dir --save-slot=1 --vscode
+npx isaacscript init --use-current-dir --save-slot=1 --vscode
 npx isaacscript
 ```
 

@@ -98,17 +98,17 @@ Note that your project directory should **not** be a subdirectory of the `mods` 
 
 <br />
 
-### 8) Initialize a New Project With `create-isaacscript-mod`
+### 8) Initialize a New Project
 
-Once you are inside your project directory, you can initialize the project with the `create-isaacscript-mod` helper program:
+Once you are inside your project directory, you can initialize the project:
 
 ```bash
-npx create-isaacscript-mod
+npx isaacscript init
 ```
 
-(This command downloads and executes the NPM package of `create-isaacscript-mod`.)
+(This command downloads and executes the NPM package of `isaacscript`.)
 
-This program will ask you some questions and then populate your new directory with TypeScript and some other files that you will need.
+The program will ask you some questions and then populate your new directory with TypeScript and some other files that you will need.
 
 <br />
 
@@ -144,9 +144,9 @@ That's it! Now, start coding by editing the `src/main.ts` file.
 
 - Install [Node.js](https://nodejs.org/en/).
 - Create a directory for your new mod project.
-- In a shell, navigate to the directory.
-- Invoke the helper program to bootstrap the installation of TypeScript, the Isaac API definitions, and so forth:
-  - `npx create-isaacscript-mod`
+- In a shell, navigate to your project directory.
+- Bootstrap the installation of TypeScript, the Isaac API definitions, and so forth:
+  - `npx isaacscript init`
 - Invoke `isaacscript`, which will run forever, monitoring for changes in your project:
   - `npx isaacscript`
 - Start coding by editing the `src/main.ts` file.

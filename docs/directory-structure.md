@@ -2,7 +2,7 @@
 title: Project Directory Structure
 ---
 
-When you use the `create-isaacscript-mod` tool, it will automatically load a directory with some files for you.
+When you use the `isaacscript init`, it will automatically load a directory with some files for you.
 
 **You do not need to know what all of these files are for**, so if you want to dive into coding your mod, skip reading this page.
 
@@ -50,7 +50,7 @@ Leave it in place and ignore it.
 More info:
 
 - `node_modules` is generated when you type `npm install` in a directory with a `package.json` file in it.
-- `create-isaacscript-mod` automatically creates a `package.json` file for you and does an `npm install` when you start a new project.
+- `isaacscript init` automatically creates a `package.json` file for you and does an `npm install` when you start a new project.
 - This directory will contain a lot of files and is usually 150+ megabytes in size.
 - `node_modules` are always excluded from being tracked in a Git repository.
   - There will already be an entry for `node_modules` in the `.gitignore` file installed by `isaacscript`.
@@ -61,7 +61,7 @@ More info:
 
 This is the TypeScript source directory. All of the TypeScript files for your mod should live in here.
 
-`create-isaacscript-mod` will automatically create a `main.ts` file for you in this directory.
+`isaacscript init` will automatically create a `main.ts` file for you in this directory.
 
 <br />
 
@@ -97,7 +97,7 @@ This is the configuration file for `isaacscript`.
 
 ### `LICENCE`
 
-This is the licence for your project. By default, `create-isaacscript-mod` installs a [GNU General Public License v3](https://www.gnu.org/licenses/gpl-3.0.en.html), because all code projects should include a license in them.
+This is the licence for your project. By default, `isaacscript init` installs a [GNU General Public License v3](https://www.gnu.org/licenses/gpl-3.0.en.html), because all code projects should include a license in them.
 
 Feel free to change this to something else if you don't like GPLv3.
 

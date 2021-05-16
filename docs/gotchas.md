@@ -175,11 +175,9 @@ function saveModData() {
 
 ### NPM Dependencies
 
-By default, IsaacScript mods use the TypeScriptToLua `luabundle` option to pack everything together into a single "main.lua" file. Currently, TypeScriptToLua does not support installing dependencies from NPM if you use `luabundle`. See [this issue](https://github.com/TypeScriptToLua/TypeScriptToLua/issues/432), which should hopefully be resolved soon. This means that for now, it will be cumbersome to write Isaac-specific libraries for people to use.
+Currently, TypeScriptToLua does not support installing dependencies from NPM; see [this issue](https://github.com/TypeScriptToLua/TypeScriptToLua/issues/432). This means that for now, it will be cumbersome to write Isaac-specific libraries for people to use.
 
-In the meantime, the `create-isaacscript-mod` tool manually bundles [some initialization code](https://github.com/IsaacScript/create-isaacscript-mod/blob/main/templates/static/isaacScriptInit.ts) for new projects.
-
-In Repentance (the latest DLC), the developers will hopefully fix the in-game `luamod` console command such that it will work properly with multi-file mods. When this bug is fixed, IsaacScript will switch away from using `luabundle` and then NPM dependencies will work as you would expect.
+In the meantime, the `isaacscript init` tool manually bundles [some initialization code](https://github.com/IsaacScript/isaacscript/blob/main/templates/static/isaacScriptInit.ts) for new projects.
 
 <br />
 
