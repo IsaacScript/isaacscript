@@ -68,8 +68,8 @@ declare class Level {
     ignoreGroup?: boolean,
   ): int;
   RemoveCompassEffect(): void;
-  RemoveCurse(levelCurse: LevelCurse | int): void;
-  RemoveCurses(): void;
+  /** This is currently bugged and maps internally to "RemoveCurse()". The old "RemoveCurses()" is not currently accessible. */
+  RemoveCurses(levelCurse: LevelCurse | int): void;
   SetCanSeeEverything(value: boolean): void;
   SetHeartPicked(): void;
   SetNextStage(): void;
