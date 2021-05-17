@@ -38,6 +38,6 @@
 
   // A list of the TypeScript files to compile
   "include": [
-    "./modules/**/*.ts",
+    "./src/**/*.ts",
   ],
 }

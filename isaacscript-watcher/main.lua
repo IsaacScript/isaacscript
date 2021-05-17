@@ -6,16 +6,22 @@ local IsaacScriptWatcher = RegisterMod("IsaacScript Watcher", 1)
 
 -- Constants
 local MOD_NAME = "isaacscript-watcher"
+local FRAMES_BEFORE_DISCONNECTED = 2 * 60 -- 2 seconds
 local FRAMES_BEFORE_TEXT_FADE = 3 * 60 -- 3 seconds
+local EMOJI_EYES_POS = Vector(10, 190)
 
 -- Mod variables
+local isFirstLoad = true
 local saveData = {} -- An array of message objects
 local restartFrame = 0
 local messageArray = {}
 local frameOfLastMsg = 0
+local frameOfLastSuccessfulLoad = 0
 local game = Game()
 local font = Font()
 font:Load("font/pftempestasevencondensed.fnt")
+local connected = false
+local emojiEyesSprite = nil
 
 local function pushMessageArray(msg)
   frameOfLastMsg = Isaac.GetFrameCount()
@@ -35,10 +41,35 @@ function IsaacScriptWatcher:PostRender()
     return
   end
 
+  IsaacScriptWatcher:RenderSprite()
   IsaacScriptWatcher:RenderText()
   IsaacScriptWatcher:LoadSaveDat()
   IsaacScriptWatcher:CheckInput()
   IsaacScriptWatcher:CheckRestart()
+end
+
+function IsaacScriptWatcher:RenderSprite()
+  -- Determine if IsaacScript is connected or not
+  local frameCount = Isaac.GetFrameCount()
+  connected = frameCount - frameOfLastSuccessfulLoad <= FRAMES_BEFORE_DISCONNECTED
+
+  -- Set the sprite
+  if connected then
+    if emojiEyesSprite == nil then
+      emojiEyesSprite = Sprite()
+      emojiEyesSprite:Load("gfx/emoji-eyes.anm2", true)
+      emojiEyesSprite:SetFrame("Default", 0)
+    end
+  else
+    if emojiEyesSprite ~= nil then
+      emojiEyesSprite = nil
+    end
+  end
+
+  -- Render it
+  if emojiEyesSprite ~= nil then
+    emojiEyesSprite:RenderLayer(0, EMOJI_EYES_POS)
+  end
 end
 
 function IsaacScriptWatcher:RenderText()
@@ -106,6 +137,11 @@ function IsaacScriptWatcher:LoadSaveDat()
     return
   end
 
+  -- If we just loaded up the game, ignore existing stuff in the save.dat file,
+  -- since it might be old and not apply
+  local ignoreExistingData = isFirstLoad
+  isFirstLoad = false
+
   -- Check to see if there a "save.dat" file for this save slot
   if not Isaac.HasModData(IsaacScriptWatcher) then
     IsaacScriptWatcher:ClearSaveDat()
@@ -127,11 +163,15 @@ function IsaacScriptWatcher:LoadSaveDat()
   if #saveData > 0 then
     local saveDatContents = saveData
     IsaacScriptWatcher:ClearSaveDat()
-    IsaacScriptWatcher:LoadSuccessful(saveDatContents)
+    if not ignoreExistingData then
+      IsaacScriptWatcher:LoadSuccessful(saveDatContents)
+    end
   end
 end
 
 function IsaacScriptWatcher:LoadSuccessful(saveDatContents)
+  frameOfLastSuccessfulLoad = Isaac.GetFrameCount()
+
   for _, entry in ipairs(saveDatContents) do
     -- Entry is e.g. { type: "command", data: "luamod revelations" }
     if entry.type == "command" then
