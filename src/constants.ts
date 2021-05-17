@@ -9,19 +9,15 @@ const homeDir = os.homedir();
 export const BASH_PROFILE_PATH = path.join(homeDir, ".bash_profile");
 export const CURRENT_DIRECTORY_NAME = path.basename(cwd);
 export const CWD = cwd;
-export const DEFAULT_GAME_PATH = path.join(
+export const DEFAULT_MODS_PATH = path.join(
   "C:",
   "Program Files (x86)",
   "Steam",
   "steamapps",
   "common",
   "The Binding of Isaac Rebirth",
+  "mods",
 );
-export const DEFAULT_ISAAC_NG_PATH = path.join(
-  DEFAULT_GAME_PATH,
-  "isaac-ng.exe",
-);
-export const DEFAULT_MODS_PATH = path.join(DEFAULT_GAME_PATH, "mods");
 export const DISABLE_IT_FILE = "disable.it";
 export const STEAM_REGISTRY_KEY = "\\Software\\Valve\\Steam";
 export const WINDOWS_CODE_PAGE = "65001";
