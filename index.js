@@ -143,6 +143,13 @@ module.exports = {
     "no-plusplus": ["error", { allowForLoopAfterthoughts: true }],
 
     // Documentation:
+    // https://eslint.org/docs/rules/no-restricted-globals
+    // Defined at:
+    // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/variables.js
+    // print is used with Lua mods
+    "no-restricted-globals": "off",
+
+    // Documentation:
     // https://eslint.org/docs/rules/no-restricted-syntax
     // Defined at:
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
