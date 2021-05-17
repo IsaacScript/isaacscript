@@ -115,7 +115,7 @@ function postGameEnd(isGameOver: boolean): void {}
 ### MC_PRE_GAME_EXIT (16)
 
 ```typescript
-function postGameExit(shouldSave: boolean): void {}
+function preGameExit(shouldSave: boolean): void {}
 ```
 
 ### MC_POST_NEW_LEVEL (17)
