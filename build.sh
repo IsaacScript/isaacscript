@@ -19,4 +19,5 @@ rm -rf "$HOME/AppData/Roaming/npm/node_modules/$PROJECT_NAME" # Previous link fr
 
 # Compile
 npx tsc
+touch "$DIR/dist/.npmignore"
 npm install . --global
