@@ -43,6 +43,7 @@ function startPublish(
   writeVersionToVersionTXT(version);
   compileAndCopy(modSourcePath, modTargetPath);
   gitCommitIfChanges(version);
+  purgeRoomXMLs(modTargetPath);
   openModUploader(modTargetPath);
 
   console.log(`\nPublished version ${version} successfully.`);
@@ -198,6 +199,21 @@ function gitCommitIfChanges(version: string) {
   console.log(
     `Committed and pushed to the git repository with a message of: ${commitMessage}`,
   );
+}
+
+function purgeRoomXMLs(modTargetPath: string) {
+  const roomsPath = path.join(modTargetPath, "resources", "rooms");
+  if (!file.exists(roomsPath) || !file.isDir(roomsPath)) {
+    return;
+  }
+
+  const roomFileList = file.getDirList(roomsPath);
+  roomFileList.forEach((fileName: string) => {
+    if (path.extname(fileName) === ".xml") {
+      const roomFilePath = path.join(roomsPath, fileName);
+      file.deleteFile(roomFilePath);
+    }
+  });
 }
 
 function openModUploader(modTargetPath: string) {
