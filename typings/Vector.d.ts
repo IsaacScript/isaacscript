@@ -23,8 +23,8 @@ declare class Vector {
   __sub(right: Vector): Vector;
   __unm(right: Vector): Vector;
 
-  One: Vector;
+  static One: Vector;
   X: float;
   Y: float;
-  Zero: Vector;
+  static Zero: Vector;
 }
