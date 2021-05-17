@@ -81,7 +81,7 @@ declare class EntityNPC extends Entity {
   ProjectileCooldown: int;
   ProjectileDelay: int;
   Scale: float;
-  State: int;
+  State: NpcState;
   StateFrame: int;
   V1: Vector;
   V2: Vector;
