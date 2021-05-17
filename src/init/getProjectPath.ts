@@ -6,6 +6,7 @@ import {
   CWD,
   ILLEGAL_CHARACTERS_FOR_WINDOWS_FILENAMES,
 } from "../constants";
+import { hasWhiteSpace } from "../misc";
 
 export default async function getProjectPath(
   argv: Record<string, unknown>,
@@ -67,7 +68,7 @@ async function getNewProjectName(): Promise<[string, string, boolean]> {
     console.error("Error: The response was not a string.");
     process.exit(1);
   }
-  const projectName = response2.projectName;
+  const projectName = response2.projectName.trim();
   const projectPath = path.join(CWD, projectName);
 
   return [projectName, projectPath, true];
@@ -86,6 +87,13 @@ function validateProjectName(projectName: string) {
       );
       return false;
     }
+  }
+
+  if (hasWhiteSpace(projectName)) {
+    console.error(
+      'Error: The project name has whitespace in it, which is not allowed. Use kebab-case for your project name. (e.g. "green-candle")',
+    );
+    return false;
   }
 
   return true;

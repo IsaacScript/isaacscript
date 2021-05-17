@@ -24,24 +24,25 @@ export default async function getModsDir(): Promise<string> {
     console.error("Error: The response was not a string.");
     process.exit(1);
   }
+  const modsDir = response.modsDir.trim();
 
-  if (!file.exists(response.modsDir)) {
+  if (!file.exists(modsDir)) {
     console.error(
       `Error: The directory of "${chalk.green(
-        response.modsDir,
+        modsDir,
       )}" does not exist. Exiting.`,
     );
     process.exit(1);
   }
 
-  if (!file.isDir(response.modsDir)) {
+  if (!file.isDir(modsDir)) {
     console.error(
       `Error: The path of "${chalk.green(
-        response.modsDir,
+        modsDir,
       )}" is not a directory. Exiting.`,
     );
     process.exit(1);
   }
 
-  return response.modsDir;
+  return modsDir;
 }

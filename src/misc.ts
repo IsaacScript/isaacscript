@@ -67,6 +67,11 @@ export function getTime(): string {
   return moment().format("h:mm:ss A"); // e.g. "1:23:45 AM"
 }
 
+// From: https://stackoverflow.com/questions/1731190/check-if-a-string-has-white-space
+export function hasWhiteSpace(s: string): boolean {
+  return /\s/g.test(s);
+}
+
 // parseIntSafe is a more reliable version of parseInt
 // By default, "parseInt('1a')" will return "1", which is unexpected
 // This returns either an integer or NaN
