@@ -9,6 +9,8 @@
         "btmills",
         "chcp",
         "chdir",
+        "hkcu",
+        "hkey",
         "isaacconfig",
         "isaacscript",
         "isaacscriptrc",

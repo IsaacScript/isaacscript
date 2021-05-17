@@ -1,11 +1,11 @@
 import chalk from "chalk";
+import path from "path";
 import { Config } from "../Config";
 import * as configFile from "../configFile";
 import {
   CONSTANTS_TS_PATH,
   METADATA_XML_PATH,
   MOD_SOURCE_PATH,
-  MOD_UPLOADER_PATH,
   PACKAGE_JSON_PATH,
   VERSION_TXT_PATH,
 } from "../constants";
@@ -23,7 +23,8 @@ export default function publish(
   }
 
   const skip = argv.skip === true;
-  startPublish(MOD_SOURCE_PATH, config.modTargetPath, skip);
+  const modTargetPath = path.join(config.modsDirectory, config.projectName);
+  startPublish(MOD_SOURCE_PATH, modTargetPath, skip);
 }
 
 function startPublish(
@@ -204,7 +205,14 @@ function openModUploader(modTargetPath: string) {
     "Opening the mod uploader tool from Nicalis. Close it when you are finished uploading the mod...",
   );
 
-  execExe(MOD_UPLOADER_PATH, modTargetPath);
+  const modUploaderPath = path.join(
+    modTargetPath,
+    "..",
+    "tools",
+    "ModUploader",
+    "ModUploader.exe",
+  );
+  execExe(modUploaderPath, modTargetPath);
   // (this will block until the user closes the mod uploader tool)
 
   console.log("Mod uploader tool closed.");

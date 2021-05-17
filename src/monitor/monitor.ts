@@ -43,9 +43,10 @@ export default function monitor(config: Config | null): void {
 
 function spawnModDirectorySyncer(config: Config) {
   const modDirectorySyncerPath = path.join(__dirname, "modDirectorySyncer");
+  const modTargetPath = path.join(config.modsDirectory, config.projectName);
   const directorySycner = fork(modDirectorySyncerPath, [
     MOD_SOURCE_PATH,
-    config.modTargetPath,
+    modTargetPath,
   ]);
 
   directorySycner.on("message", (msg: string) => {

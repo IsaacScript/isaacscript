@@ -11,17 +11,14 @@ export default async function getProjectPath(
   argv: Record<string, unknown>,
 ): Promise<[string, boolean]> {
   let projectName = getProjectNameFromCommandLineArgument(argv);
-
   let projectPath: string;
   let createNewDir: boolean;
   if (argv.useCurrentDir) {
     // The "--use-current-dir" command-line flag was specified,
     // so there is no need to prompt the user
-    [projectName, projectPath, createNewDir] = [
-      CURRENT_DIRECTORY_NAME,
-      CWD,
-      false,
-    ];
+    projectName = CURRENT_DIRECTORY_NAME;
+    projectPath = CWD;
+    createNewDir = false;
   } else if (projectName !== null) {
     // The project name was specified on the command-line
     projectPath = path.join(CWD, projectName);

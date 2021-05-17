@@ -4,7 +4,12 @@ import path from "path";
 const cwd = process.cwd();
 // https://stackoverflow.com/questions/9080085/node-js-find-home-directory-in-platform-agnostic-way
 const homeDir = os.homedir();
-const gamePath = path.join(
+
+// Miscellaneous
+export const BASH_PROFILE_PATH = path.join(homeDir, ".bash_profile");
+export const CURRENT_DIRECTORY_NAME = path.basename(cwd);
+export const CWD = cwd;
+export const DEFAULT_GAME_PATH = path.join(
   "C:",
   "Program Files (x86)",
   "Steam",
@@ -12,20 +17,13 @@ const gamePath = path.join(
   "common",
   "The Binding of Isaac Rebirth",
 );
-
-// Miscellaneous
-export const BASH_PROFILE_PATH = path.join(homeDir, ".bash_profile");
-export const CURRENT_DIRECTORY_NAME = path.basename(cwd);
-export const CWD = cwd;
-export const MOD_DATA_PATH = path.join(gamePath, "data");
-export const DISABLE_IT_FILE = "disable.it";
-export const MODS_DIRECTORY_PATH = path.join(gamePath, "mods");
-export const MOD_UPLOADER_PATH = path.join(
-  gamePath,
-  "tools",
-  "ModUploader",
-  "ModUploader.exe",
+export const DEFAULT_ISAAC_NG_PATH = path.join(
+  DEFAULT_GAME_PATH,
+  "isaac-ng.exe",
 );
+export const DEFAULT_MODS_PATH = path.join(DEFAULT_GAME_PATH, "mods");
+export const DISABLE_IT_FILE = "disable.it";
+export const STEAM_REGISTRY_KEY = "\\Software\\Valve\\Steam";
 export const WINDOWS_CODE_PAGE = "65001";
 
 // isaacscript

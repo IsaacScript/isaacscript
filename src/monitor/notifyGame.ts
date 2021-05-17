@@ -2,7 +2,7 @@ import chalk from "chalk";
 import * as JSONC from "jsonc-parser";
 import path from "path";
 import { Config } from "../Config";
-import { MOD_DATA_PATH, WATCHER_MOD_NAME } from "../constants";
+import { WATCHER_MOD_NAME } from "../constants";
 import * as file from "../file";
 import { ensureAllCases, getTime } from "../misc";
 
@@ -35,14 +35,15 @@ function notify(
   }
 
   // Check to see if the data directory exists
-  const watcherModDataDirPath = path.join(MOD_DATA_PATH, WATCHER_MOD_NAME);
-  if (!file.exists(watcherModDataDirPath)) {
-    file.makeDir(watcherModDataDirPath);
+  const modDataPath = path.join(config.modsDirectory, "..", "data");
+  const watcherModDataPath = path.join(modDataPath, WATCHER_MOD_NAME);
+  if (!file.exists(watcherModDataPath)) {
+    file.makeDir(watcherModDataPath);
   }
 
   // Read the existing "save#.dat" file
   const saveDatPath = path.join(
-    watcherModDataDirPath,
+    watcherModDataPath,
     `save${config.saveSlot}.dat`,
   );
   const saveDat = readSaveDat(saveDatPath);

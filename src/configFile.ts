@@ -21,16 +21,23 @@ export function read(): Config | null {
     process.exit(1);
   }
 
-  if (config.modTargetPath === undefined) {
+  if (config.projectName === undefined) {
     console.error(
-      'The IsaacScript config file is missing a "modTargetPath" value. Please add it.',
+      'The IsaacScript config file is missing a "projectName" value. This should be equal to the directory name of your project. Please add it.',
+    );
+    process.exit(1);
+  }
+
+  if (config.modsDirectory === undefined) {
+    console.error(
+      'The IsaacScript config file is missing a "modsDirectory" value. This should be equal to the directory where mods live on your system. Please add it.',
     );
     process.exit(1);
   }
 
   if (config.saveSlot === undefined) {
     console.error(
-      'The IsaacScript config file is missing a "saveSlot" value. Please add it.',
+      'The IsaacScript config file is missing a "saveSlot" value. This should be equal to the save slot that you test your mods on. Please add it.',
     );
     process.exit(1);
   }

@@ -1,4 +1,5 @@
 export interface Config {
-  modTargetPath: string;
+  projectName: string;
+  modsDirectory: string; // The "mods" directory that lives next to the "isaac-ng.exe" programs
   saveSlot: number;
 }

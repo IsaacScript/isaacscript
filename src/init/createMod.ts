@@ -22,7 +22,7 @@ export default function createMod(
   projectName: string,
   projectPath: string,
   createNewDir: boolean,
-  modTargetPath: string,
+  modsDirectory: string,
   saveSlot: number,
 ): void {
   if (createNewDir) {
@@ -37,7 +37,7 @@ export default function createMod(
 
   copyStaticFiles(projectPath);
   copyDynamicFiles(projectName, projectPath);
-  makeConfigFile(projectPath, modTargetPath, saveSlot);
+  makeConfigFile(projectName, projectPath, modsDirectory, saveSlot);
   installNodeModules(projectPath);
 }
 
@@ -153,13 +153,15 @@ function copyDynamicFiles(projectName: string, projectPath: string) {
 }
 
 function makeConfigFile(
+  projectName: string,
   projectPath: string,
-  modTargetPath: string,
+  modsDirectory: string,
   saveSlot: number,
 ) {
   const configFilePath = path.join(projectPath, CONFIG_FILE_NAME);
   const configObject: Config = {
-    modTargetPath,
+    projectName,
+    modsDirectory,
     saveSlot,
   };
   const configContents = JSON.stringify(configObject, null, 2);

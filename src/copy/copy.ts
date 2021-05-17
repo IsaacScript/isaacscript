@@ -1,3 +1,4 @@
+import path from "path";
 import { Config } from "../Config";
 import * as configFile from "../configFile";
 import { MOD_SOURCE_PATH } from "../constants";
@@ -10,7 +11,8 @@ export default function copy(config: Config | null): void {
     return;
   }
 
-  compileAndCopy(MOD_SOURCE_PATH, config.modTargetPath);
+  const modTargetPath = path.join(config.modsDirectory, config.projectName);
+  compileAndCopy(MOD_SOURCE_PATH, modTargetPath);
 }
 
 export function compileAndCopy(
