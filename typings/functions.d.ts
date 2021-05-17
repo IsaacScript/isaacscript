@@ -1,4 +1,4 @@
-declare function Game(): Game;
-declare function GetPtrHash(entity: Entity): int;
-declare function Random(): int;
-declare function RandomVector(): Vector;
+declare function Game(this: void): Game;
+declare function GetPtrHash(this: void, entity: Entity): int;
+declare function Random(this: void): int;
+declare function RandomVector(this: void): Vector;
