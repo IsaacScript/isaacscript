@@ -2,6 +2,7 @@ declare class ItemConfigItem {
   IsCollectible(): boolean;
   IsNull(): boolean;
   IsTrinket(): boolean;
+  HasTags(Tags:int): boolean;
 
   AchievementID: int;
   AddBlackHearts: int;
@@ -12,16 +13,25 @@ declare class ItemConfigItem {
   AddMaxHearts: int;
   AddSoulHearts: int;
   CacheFlags: CacheFlag;
+  PassiveCache: boolean;
+  PersistentEffect: boolean;
+  ClearEffectsOnRemove: boolean;
   readonly Costume: Readonly<ItemConfigCostume>;
+  AddCostumeOnPickup: boolean;
   Description: string;
   DevilPrice: int;
+  ShopPrice: int;
   Discharged: boolean;
   GfxFileName: string;
   ID: int;
+  InitCharge: int;
+  ChargeType: int;
   MaxCharges: int;
   MaxCooldown: int;
   Name: string;
+  Tags: int;
   Quality: int;
   Special: boolean;
+  Hidden: boolean;
   Type: ItemType;
 }
