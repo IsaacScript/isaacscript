@@ -11,7 +11,6 @@ local FRAMES_BEFORE_TEXT_FADE = 3 * 60 -- 3 seconds
 local EMOJI_EYES_POS = Vector(10, 190)
 
 -- Mod variables
-local isFirstLoad = true
 local saveData = {} -- An array of message objects
 local restartFrame = 0
 local messageArray = {}
@@ -22,6 +21,10 @@ local font = Font()
 font:Load("font/pftempestasevencondensed.fnt")
 local connected = false
 local emojiEyesSprite = nil
+
+-- On mod initialization, nuke the "save#.dat" folder to get rid of old messages that might be left
+-- there from IsaacScript
+IsaacScriptWatcher:SaveData("")
 
 local function pushMessageArray(msg)
   frameOfLastMsg = Isaac.GetFrameCount()
@@ -137,11 +140,6 @@ function IsaacScriptWatcher:LoadSaveDat()
     return
   end
 
-  -- If we just loaded up the game, ignore existing stuff in the save.dat file,
-  -- since it might be old and not apply
-  local ignoreExistingData = isFirstLoad
-  isFirstLoad = false
-
   -- Check to see if there a "save.dat" file for this save slot
   if not Isaac.HasModData(IsaacScriptWatcher) then
     IsaacScriptWatcher:ClearSaveDat()
@@ -163,9 +161,7 @@ function IsaacScriptWatcher:LoadSaveDat()
   if #saveData > 0 then
     local saveDatContents = saveData
     IsaacScriptWatcher:ClearSaveDat()
-    if not ignoreExistingData then
-      IsaacScriptWatcher:LoadSuccessful(saveDatContents)
-    end
+    IsaacScriptWatcher:LoadSuccessful(saveDatContents)
   end
 end
 
@@ -196,7 +192,7 @@ end
 
 function IsaacScriptWatcher:Save()
   local saveDataJSON = json.encode(saveData)
-  Isaac.SaveModData(IsaacScriptWatcher, saveDataJSON)
+  IsaacScriptWatcher:SaveData(saveDataJSON)
 end
 
 function IsaacScriptWatcher:Load()
