@@ -89,21 +89,17 @@ Right now, if players pick up your item, it won't actually do anything. This is 
 
 Open `C:\Repositories\green-candle\src\main.ts`, which contains the TypeScript code that will be transpiled to the "main.lua" file and read by the game.
 
-The bootstrapper created a skeleton of a mod for us. As you can see on line 13, it calls the `Isaac.DebugString()` function when the `MC_POST_GAME_STARTED` callback is fired.
+The bootstrapper created a skeleton of a mod for us. As you can see, it calls the `Isaac.DebugString()` function when the `MC_POST_GAME_STARTED` callback is fired.
 
 (`Isaac` is a global class provided by the game with helpful methods on it. `Isaac.DebugString()` simply writes something to the log.txt file, which is located at `C:\Users\james\Documents\My Games\Binding of Isaac Repentance\log.txt`.)
 
-The `MC_POST_GAME_STARTED` callback is useful for initializing things at the start of every run or making the player start with some novel ability. For our purposes, we don't need it, so we can remove lines 11 through 17.
+The `MC_POST_GAME_STARTED` callback is useful for initializing things at the start of every run or making the player start with some novel ability. For our purposes, we don't need it, so we can remove all of the lines relating to that.
 
-Besides that, we can see that the bootstrapper created an `isaacScriptInit()` function for us. This is good to keep at the top of our mod, because it fixes a bug in error messages.
-
-Let's start by fixing the capitalization on line 9:
+Let's start by fixing the capitalization:
 
 ```typescript
 const greenCandle = RegisterMod("Green Candle", 1);
 ```
-
-And fixing the capitalization on line 20:
 
 ```typescript
 Isaac.DebugString("The Green Candle mod is initialized.");
@@ -267,12 +263,6 @@ Notice here that we use Lua's `math.random()` function, which is available to us
 The mod is now complete. It looks like the following:
 
 ```typescript
-// Define imports
-import isaacScriptInit from "./isaacScriptInit";
-
-// Initialize some IsaacScript-specific functions
-isaacScriptInit();
-
 // Register the mod
 // (which will make it show up in the list of mods on the mod screen in the main menu)
 const greenCandle = RegisterMod("greenCandle", 1);

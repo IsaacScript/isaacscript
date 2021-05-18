@@ -15,10 +15,6 @@ We don't want to have any logic in the "main.ts" file. This purpose of this file
 ```typescript
 // Define imports
 import * as postUpdate from "./callbacks/postUpdate";
-import isaacScriptInit from "./isaacScriptInit";
-
-// Initialize some IsaacScript-specific functions
-isaacScriptInit();
 
 // Register the mod
 // (which will make it show up in the list of mods on the mod screen in the main menu)
