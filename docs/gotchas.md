@@ -103,7 +103,7 @@ Under the hood, Lua converts the first code snippet to the second code snippet a
 
 In TypeScript, we unfortunately cannot code in the first way due to [limitations in TypeScriptToLua](https://typescripttolua.github.io/docs/advanced/writing-declarations/#operator-overloads). Since operator overloads will not work directly, we can instead just call the methods directly (like in the first code snippet above).
 
-Here's a example:
+Here's an example:
 
 ```lua
 -- Lua code
