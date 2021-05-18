@@ -21,6 +21,7 @@ declare class ItemConfigItem {
   MaxCharges: int;
   MaxCooldown: int;
   Name: string;
+  Quality: int;
   Special: boolean;
   Type: ItemType;
 }
