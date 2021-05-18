@@ -1,6 +1,5 @@
 /// <reference types="lua-types/5.3" />
 
-/// <reference path="basic.d.ts" />
 /// <reference path="enums.d.ts" />
 /// <reference path="enums.flags.d.ts" />
 /// <reference path="enums.subtypes.d.ts" />
@@ -9,6 +8,7 @@
 /// <reference path="functions.d.ts" />
 /// <reference path="json.d.ts" />
 /// <reference path="main.d.ts" />
+/// <reference path="primitives.d.ts" />
 
 /// <reference path="ActiveItemDesc.d.ts" />
 /// <reference path="BitSet128.d.ts" />

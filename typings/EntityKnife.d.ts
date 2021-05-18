@@ -11,7 +11,6 @@ declare class EntityKnife extends Entity {
   Shoot(charge: float, range: float): void;
 
   Charge: float;
-  // IsFlying: boolean; // Should use IsFlying() instead
   MaxDistance: float;
   PathFollowSpeed: float;
   PathOffset: float;

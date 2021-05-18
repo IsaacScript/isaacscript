@@ -27,4 +27,11 @@ declare class Vector {
   X: float;
   Y: float;
   static Zero: Vector;
+
+  // Helper functions for adding and so forth so that you don't have to type the double underscore
+  // https://typescripttolua.github.io/docs/advanced/language-extensions/#operator-map-types
+  add: LuaAdditionMethod<Vector, Vector>;
+  div: LuaDivisionMethod<Vector, Vector>;
+  mul: LuaMultiplicationMethod<Vector, Vector>;
+  sub: LuaSubtractionMethod<Vector, Vector>;
 }
