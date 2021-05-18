@@ -50,6 +50,19 @@ declare const enum LaserVariant {
   BRIMTECH = 9,
 }
 
+/** For EntityType.ENTITY_FIREPLACE (33) */
+declare const enum FireplaceVariant {
+  NORMAL = 0,
+  RED = 1,
+  BLUE = 2,
+  PURPLE = 3,
+  WHITE = 4,
+  MOVEABLE = 10,
+  COAL = 11,
+  MOVEABLE_BLUE = 12,
+  MOVEABLE_PURPLE = 13,
+}
+
 /** For GridEntityType.GRID_POOP (14) */
 declare const enum PoopVariant {
   NORMAL = 0,
@@ -59,19 +72,6 @@ declare const enum PoopVariant {
   RAINBOW = 4,
   BLACK = 5,
   WHITE = 6,
-}
-
-/**
- * For FamiliarVariant.BLUE_FLY (43)
- * This is analogous to the LocustSubtypes enum.
- */
-declare const enum BlueFlySubType {
-  NORMAL = 0,
-  RED = 1,
-  GREEN = 2,
-  YELLOW = 3,
-  BLACK = 4,
-  WHITE = 5,
 }
 
 /** Used for the `gridspawn` console command. */
@@ -107,22 +107,6 @@ declare const enum PlateVariant {
   PRESSURE_PLATE_ROOM_CLEAR = 0,
   GIFT_PLATE = 1,
   GREED_PLATE = 2,
-}
-
-declare const enum RoomTransition {
-  NONE = 0,
-  DEFAULT = 1,
-  STAGE = 2,
-  TELEPORT = 3,
-  ANKH = 5,
-  DEAD_CAT = 6,
-  ONE_UP = 7,
-  GUPPYS_COLLAR = 8,
-  JUDAS_SHADOW = 9,
-  LAZARUS_RAGS = 10,
-  GLOWING_HOURGLASS = 12,
-  D7 = 13,
-  MISSING_POSTER = 14,
 }
 
 declare const enum StageTransition {
@@ -238,73 +222,6 @@ declare const enum Ending {
   GREEDIER = 23,
 }
 
-/** These are the types of possible champions that can spawn. */
-declare const enum ChampionColorIdx {
-  /** No champion. */
-  REGULAR = -1,
-  /** 2.5x amount of HP. */
-  VIVID_RED = 0,
-  /** Increased movement speed. */
-  DARK_YELLOW = 1,
-  /** Leaves green creep as it walks. */
-  STRONG_LIME_GREEN = 2,
-  /** Attacks cause you to drop coins (like Greed or a Hanger). */
-  VIVID_ORANGE = 3,
-  /** Decreased speed. */
-  VIVID_BLUE = 4,
-  /** Explodes when killed. */
-  DARK_CYAN = 5,
-  /** Invincible until all other enemies are killed. */
-  WHITE = 6,
-  /** 2/3 health, decreased speed. */
-  DARK_GRAY = 7,
-  /** Tears become spectral tears, and it can move past environmental obstacles. */
-  TRANSPARENT_WHITE = 8,
-  /** Fades in and out of visibility. */
-  BLACK = 9,
-  /** Periodically shoots short-ranged blood shots. */
-  PURE_MAGENTA = 10,
-  /** Pulls the player (and tears) towards itself. */
-  MOSTLY_PURE_VIOLET = 11,
-  /** Collapses into a flesh pile upon death and regenerates if not finished off. */
-  DARK_RED = 12,
-  /** Releases blood shots in 8 directions when killed. */
-  VERY_LIGHT_BLUE = 13,
-  /** The enemy blends into the background and briefly becomes visible when damaged. */
-  CAMOUFLAGE = 14,
-  /** Splits into two copies of itself upon death. */
-  PULSING_STRONG_LIME = 15,
-  /** Repels Isaac's shots when it pulses. */
-  PULSING_DARK_GRAY,
-  /** Has 1-2 Eternal Flies circling it. Spawns another fly upon death. */
-  LIGHT_WHITE = 17,
-  /** Decreased health, increased speed. Smaller and more difficult to hit. */
-  SMALL = 18,
-  /**
-   * Increased health, slightly decreased speed. Larger and easier to hit. Deals two full hearts of
-   * damage.
-   */
-  LARGE = 19,
-  /**
-   * All other enemies in the room regenerate health at the rate of 20 HP per second while this
-   * enemy is alive.
-   */
-  PULSING_VIVID_RED = 20,
-  /**
-   * Spawns an Attack Fly on hit. After each hit, there is a delay until the next hit results in
-   * another Attack Fly. A single Pulsating enemy can have up to 5 Attack Flies at once.
-   */
-  PULSATING = 21,
-  /**
-   * Increased health. All enemies in the room that are not champions will turn yellow while the
-   * crowned enemy is alive. The affected enemies will drop batteries like yellow champions upon
-   * dying.
-   */
-  CROWN = 22,
-  /** Produces a The Necronomicon effect upon death. Deals two full hearts of damage. */
-  SKULL = 23,
-}
-
 /** Matches the IDs in the "specialrooms.stb" file. */
 declare const enum BossIDs {
   MONSTRO = 1,
@@ -381,54 +298,10 @@ declare const enum BossIDs {
   THE_MATRIARCH = 72,
 }
 
-/** Matches the IDs in the "backdrops.xml" file. */
-declare const enum Backdrop {
-  BASEMENT = 1,
-  CELLAR = 2,
-  BURNING_BASEMENT = 3,
-  CAVES = 4,
-  CATACOMBS = 5,
-  DROWNED_CAVES = 6,
-  DEPTHS = 7,
-  NECROPOLIS = 8,
-  DANK_DEPTHS = 9,
-  WOMB = 10,
-  UTERO = 11,
-  SCARRED_WOMB = 12,
-  BLUE_WOMB = 13,
-  SHEOL = 14,
-  CATHEDRAL = 15,
-  DARK_ROOM = 16,
-  CHEST = 17,
-  MEGA_SATAN = 18,
-  LIBRARY = 19,
-  SHOP = 20,
-  ISAACS_ROOM = 21,
-  BARREN_ROOM = 22,
-  SECRET_ROOM = 23,
-  DICE_ROOM = 24,
-  ARCADE = 25,
-  ERROR_ROOM = 26,
-  BLUE_SECRET = 27,
-  ULTRA_GREED_SHOP = 28,
-  NUM_BACKDROPS = 29,
-}
-
 declare const enum Dimension {
   CURRENT = -1,
   MAIN = 0,
-  SECONDARY = 1 /** Used by the mirror sequence and the escape sequence */,
+  /** Used by the mirror sequence and the escape sequence */
+  SECONDARY = 1,
   DEATH_CERTIFICATE = 2,
-}
-
-declare const enum FireplaceVariant {
-  NORMAL = 0,
-  RED = 1,
-  BLUE = 2,
-  PURPLE = 3,
-  WHITE = 4,
-  MOVEABLE = 10,
-  COAL = 11,
-  MOVEABLE_BLUE = 12,
-  MOVEABLE_PURPLE = 13,
 }

@@ -127,10 +127,15 @@ declare enum BabySubType {
 
 /** For FamiliarVariant.BLUE_FLY (43) */
 declare enum LocustSubtypes {
+  /** Red (explosive) */
   LOCUST_OF_WRATH = 1,
+  /** Green (poison) */
   LOCUST_OF_PESTILENCE = 2,
+  /** Yellow (slowing) */
   LOCUST_OF_FAMINE = 3,
+  /** Black (double-damage) */
   LOCUST_OF_DEATH = 4,
+  /** White */
   LOCUST_OF_CONQUEST = 5,
 }
 
@@ -169,26 +174,6 @@ declare enum KeySubType {
   KEY_CHARGED = 4,
 }
 
-/** For PickupVariant.PICKUP_LIL_BATTERY (90) */
-declare enum BatterySubType {
-  BATTERY_NORMAL = 1,
-  BATTERY_MICRO = 2,
-  BATTERY_MEGA = 3,
-  BATTERY_GOLDEN = 4,
-}
-
-/** For PickupVariant.PICKUP_GRAB_BAG (69) */
-declare enum SackSubType {
-  SACK_NORMAL = 1,
-  SACK_BLACK = 2,
-}
-
-/** For PickupVariant.PICKUP_CHEST (50) */
-declare enum ChestSubType {
-  CHEST_OPENED = 0,
-  CHEST_CLOSED = 1,
-}
-
 /** For PickupVariant.PICKUP_BOMB (40) */
 declare enum BombSubType {
   BOMB_NORMAL = 1,
@@ -200,16 +185,30 @@ declare enum BombSubType {
   BOMB_GIGA = 7,
 }
 
-/** For PickupVariant.PICKUP_BED (380) */
-declare enum BedSubType {
-  BED_ISAAC = 0,
-  BED_MOM = 1,
-}
-
 /** For PickupVariant.PICKUP_POOP (42) */
 declare enum PoopPickupSubType {
   POOP_SMALL = 0,
   POOP_BIG = 1,
+}
+
+/** For PickupVariant.PICKUP_CHEST (50) */
+declare enum ChestSubType {
+  CHEST_OPENED = 0,
+  CHEST_CLOSED = 1,
+}
+
+/** For PickupVariant.PICKUP_GRAB_BAG (69) */
+declare enum SackSubType {
+  SACK_NORMAL = 1,
+  SACK_BLACK = 2,
+}
+
+/** For PickupVariant.PICKUP_LIL_BATTERY (90) */
+declare enum BatterySubType {
+  BATTERY_NORMAL = 1,
+  BATTERY_MICRO = 2,
+  BATTERY_MEGA = 3,
+  BATTERY_GOLDEN = 4,
 }
 
 /** For PickupVariant.PICKUP_COLLECTIBLE (100) */
@@ -1234,4 +1233,10 @@ declare enum TrinketType {
   NUM_TRINKETS = 190,
   TRINKET_GOLDEN_FLAG = 0x8000,
   TRINKET_ID_MASK = 0x7fff,
+}
+
+/** For PickupVariant.PICKUP_BED (380) */
+declare enum BedSubType {
+  BED_ISAAC = 0,
+  BED_MOM = 1,
 }

@@ -21,22 +21,22 @@ declare class EntityNPC extends Entity {
   ): void;
   GetAliveEnemyCount(): int;
   GetBossColorIdx(): int;
-  GetChampionColorIdx(): ChampionColorIdx;
+  GetChampionColorIdx(): ChampionColor;
   GetPlayerTarget(): Entity;
   IsBoss(): boolean;
   IsChampion(): boolean;
   KillUnique(): void;
   /**
    * @param seed
-   * @param championColorIdx The type of champion to turn this enemy into
-   * (ChampionColorIdx.REGULAR results in a random champion type.)
-   * Default is ChampionColorIdx.REGULAR.
+   * @param championColor The type of champion to turn this enemy into.
+   * (-1 results in a random champion type.)
+   * Default is -1.
    * @param init Set to true when called while initializing the enemy, false otherwise.
    * Default is false.
    */
   MakeChampion(
     seed: int,
-    championColorIdx?: ChampionColorIdx,
+    championColorIdx?: ChampionColor,
     init?: boolean,
   ): void;
   MakeSplat(size: float): EntityEffect;
@@ -44,7 +44,7 @@ declare class EntityNPC extends Entity {
     entityType: EntityType | int,
     variant: EntityVariantForAC,
     subType: int,
-    championColorIdx: ChampionColorIdx,
+    championColorIdx: ChampionColor,
   ): boolean;
   PlaySound(
     soundEffect: SoundEffect | int,

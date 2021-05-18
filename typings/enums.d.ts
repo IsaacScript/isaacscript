@@ -421,9 +421,12 @@ declare enum GridEntityType {
   GRID_NULL = 0,
   GRID_DECORATION = 1,
   GRID_ROCK = 2,
+  /** A block. */
   GRID_ROCKB = 3,
+  /** A tinted rock. */
   GRID_ROCKT = 4,
   GRID_ROCK_BOMB = 5,
+  /** A pot, mushroom, or skull, depending on the stage and room type. */
   GRID_ROCK_ALT = 6,
   GRID_PIT = 7,
   GRID_SPIKES = 8,
@@ -440,10 +443,12 @@ declare enum GridEntityType {
   GRID_GRAVITY = 19,
   GRID_PRESSURE_PLATE = 20,
   GRID_STATUE = 21,
+  /** A super tinted rock that yields double rewards. */
   GRID_ROCK_SS = 22,
   GRID_TELEPORTER = 23,
   GRID_PILLAR = 24,
   GRID_ROCK_SPIKED = 25,
+  /** A tinted skull (that always drops a Fool card). */
   GRID_ROCK_ALT2 = 26,
   GRID_ROCK_GOLD = 27,
 }
@@ -2118,39 +2123,97 @@ declare enum EntityPartition {
 }
 
 declare enum ChampionColor {
+  /** 33% more life. Drops a red heart. */
   RED = 0,
+  /** 33% increased movement speed. Drops a Lil Battery. */
   YELLOW = 1,
+  /** Leaves green creep as it walks. Drops a pill. */
   GREEN = 2,
+  /** Greed shot (causing dropped coins on hit). Drops 1-3 coins. */
   ORANGE = 3,
+  /** Half speed. Spawns 3 blue flies on death. */
   BLUE = 4,
+  /** Explodes on death. Drops a bomb. */
   BLACK = 5,
+  /** Invincible until all other enemies are killed. Drops an eternal heart. */
   WHITE = 6,
+  /** 33% health, half speed. Drops a key. */
   GREY = 7,
+  /** Spectral projectiles and can move past environmental obstacles. Drops a locked chest. */
   TRANSPARENT = 8,
+  /** Fades in and out of visibility. Drops a red chest. */
   FLICKER = 9,
+  /** Random projectiles. No drop. */
   PINK = 10,
+  /** Pulls the player (and tears) towards itself. Drops a trinket. */
   PURPLE = 11,
+  /**
+   * Collapses into a flesh pile upon death and regenerates if not finished off.
+   * Drops a double heart.
+   */
   DARK_RED = 12,
+  /** Releases blood shots in 8 directions when killed. Drops a half red heart. */
   LIGHT_BLUE = 13,
+  /**
+   * The enemy blends into the background and briefly becomes visible when damaged.
+   * Drops a rune.
+   */
   CAMO = 14,
+  /** Splits into two copies of itself upon death. */
   PULSE_GREEN = 15,
+  /** Repels Isaac's tears while in the gray state. Drops a random pickup. */
   PULSE_GREY = 16,
+  /** Has 1-2 Eternal Flies circling it. Spawns two attack flies on death. */
   FLY_PROTECTED = 17,
+  /** Half size, 33% less HP, 33% faster. 20% chance to drop a pill. */
   TINY = 18,
+  /** Double size, 50% more HP, does 2 hearts of damage, 10% slower. 20% chance to drop a pill. */
   GIANT = 19,
+  /** Heals all enemies in the room (including itself) for 30 HP per second. Drops a heart. */
   PULSE_RED = 20,
+  /**
+   * Spawns an Attack Fly on hit. After each hit, there is a delay until the next hit results in
+   * another Attack Fly. A single Pulsating enemy can have up to 5 Attack Flies at once.
+   * Spawns 4-6 blue flies on death.
+   */
   SIZE_PULSE = 21,
+  /**
+   * 3x HP. All enemies in the room that are not champions will turn yellow while the crowned enemy
+   * is alive. The affected enemies will drop batteries like yellow champions upon dying.
+   * Drops 2-3 random pickups.
+   */
   KING = 22,
+  /**
+   * Does 2 hearts of damage when touched. Produces a Necronomicon effect upon death.
+   * Deals two full hearts of damage.
+   */
   DEATH = 23,
+  /** Constantly poops. */
   BROWN = 24,
+  /** Many champion effects combined, drops one of everything. */
   RAINBOW = 25,
 }
 
+declare enum ActiveSlot {
+  /** The main slot for active items, in the top-left-hand corner. */
+  SLOT_PRIMARY = 0,
+  /** The SchoolBag slot, to the top-left of the active item. */
+  SLOT_SECONDARY = 1,
+  /** The permanent card/pill slot. (Several Tainted characters use this slot.) */
+  SLOT_POCKET = 2,
+  /** A single use card/pill slot (used by Dice Bag). */
+  SLOT_POCKET2 = 3,
+}
+
 declare enum RoomTransitionAnim {
+  /** Mostly when using doors. */
   WALK = 0,
+  /** The fade-in / fade-out used for Mom's Hand. */
   FADE = 1,
+  /** The fade + pixelation effect used for secret item dungeon. */
   PIXELATION = 2,
   TELEPORT = 3,
+  /** For Curse of the Maze. */
   MAZE = 4,
   ANKH = 5,
   DEAD_CAT = 6,
@@ -2158,12 +2221,17 @@ declare enum RoomTransitionAnim {
   COLLAR = 8,
   JUDAS_SHADOW = 9,
   LAZARUS = 10,
+  /** For the Ventricle Razor teleport. */
   WOMB_TELEPORT = 11,
+  /** For the Glowing Hour Glass teleport. */
   GLOWING_HOURGLASS = 12,
   D7 = 13,
   MISSING_POSTER = 14,
+  /** No transition; goes directly to the boss intro cutscene (for the Backasswards challenge). */
   BOSS_FORCED = 15,
+  /** For a Card Reading teleport. */
   PORTAL_TELEPORT = 16,
+  /** For the Forgotten's Birthright effect. */
   FORGOTTEN_TELEPORT = 17,
   FADE_MIRROR = 18,
   MINECART = 19,
