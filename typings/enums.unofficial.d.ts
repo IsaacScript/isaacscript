@@ -4,6 +4,10 @@
 // https://www.typescriptlang.org/docs/handbook/enums.html
 // Alternatively, we could create new global enums, but that would pollute the global namespace
 
+// Some of the official enums repeat themselves inside of the properties
+// e.g. "CollectibleType.COLLECTIBLE_SAD_ONION" is better written as "CollectibleType.SAD_ONION"
+// As a standard, enums in this file do not use any unnecessary prefixes
+
 /** For EntityType.ENTITY_PLAYER (1) */
 declare const enum PlayerVariant {
   PLAYER = 0,
@@ -29,32 +33,32 @@ declare const enum SlotVariant {
 /** For EntityType.ENTITY_LASER (7) */
 declare const enum LaserVariant {
   /** Used for Brimstone. */
-  LASER_THICK_RED = 1,
+  THICK_RED = 1,
   /** Used for Technology. */
-  LASER_THIN_RED = 2,
-  LASER_SHOOP_DA_WHOOP = 3,
+  THIN_RED = 2,
+  SHOOP_DA_WHOOP = 3,
   /** Looks like a squiggly line. */
-  LASER_PRIDE = 4,
+  PRIDE = 4,
   /** Used for Angel lasers. */
-  LASER_LIGHT_BEAM = 5,
+  LIGHT_BEAM = 5,
   /** Used for Mega Blast. */
-  LASER_GIANT_RED = 6,
-  LASER_TRACTOR_BEAM = 7,
+  GIANT_RED = 6,
+  TRACTOR_BEAM = 7,
   /** Used for Circle of Protection; looks like a thinner Angel laser. */
-  LASER_LIGHT_RING = 8,
+  LIGHT_RING = 8,
   /** Used for Brimstone + Technology. */
-  LASER_BRIMTECH = 9,
+  BRIMTECH = 9,
 }
 
 /** For GridEntityType.GRID_POOP (14) */
 declare const enum PoopVariant {
-  POOP_NORMAL = 0,
-  POOP_RED = 1,
-  POOP_CORN = 2,
-  POOP_GOLDEN = 3,
-  POOP_RAINBOW = 4,
-  POOP_BLACK = 5,
-  POOP_WHITE = 6,
+  NORMAL = 0,
+  RED = 1,
+  CORN = 2,
+  GOLDEN = 3,
+  RAINBOW = 4,
+  BLACK = 5,
+  WHITE = 6,
 }
 
 /**
@@ -62,12 +66,12 @@ declare const enum PoopVariant {
  * This is analogous to the LocustSubtypes enum.
  */
 declare const enum BlueFlySubType {
-  BLUEFLY_NORMAL = 0,
-  BLUEFLY_RED = 1,
-  BLUEFLY_GREEN = 2,
-  BLUEFLY_YELLOW = 3,
-  BLUEFLY_BLACK = 4,
-  BLUEFLY_WHITE = 5,
+  NORMAL = 0,
+  RED = 1,
+  GREEN = 2,
+  YELLOW = 3,
+  BLACK = 4,
+  WHITE = 5,
 }
 
 /** Used for the `gridspawn` console command. */
@@ -106,32 +110,32 @@ declare const enum PlateVariant {
 }
 
 declare const enum RoomTransition {
-  TRANSITION_NONE = 0,
-  TRANSITION_DEFAULT = 1,
-  TRANSITION_STAGE = 2,
-  TRANSITION_TELEPORT = 3,
-  TRANSITION_ANKH = 5,
-  TRANSITION_DEAD_CAT = 6,
-  TRANSITION_1UP = 7,
-  TRANSITION_GUPPYS_COLLAR = 8,
-  TRANSITION_JUDAS_SHADOW = 9,
-  TRANSITION_LAZARUS_RAGS = 10,
-  TRANSITION_GLOWING_HOURGLASS = 12,
-  TRANSITION_D7 = 13,
-  TRANSITION_MISSING_POSTER = 14,
+  NONE = 0,
+  DEFAULT = 1,
+  STAGE = 2,
+  TELEPORT = 3,
+  ANKH = 5,
+  DEAD_CAT = 6,
+  ONE_UP = 7,
+  GUPPYS_COLLAR = 8,
+  JUDAS_SHADOW = 9,
+  LAZARUS_RAGS = 10,
+  GLOWING_HOURGLASS = 12,
+  D7 = 13,
+  MISSING_POSTER = 14,
 }
 
 declare const enum StageTransition {
-  TRANSITION_DISAPPEAR = 0,
-  TRANSITION_NONE = 1,
+  DISAPPEAR = 0,
+  NONE = 1,
 }
 
 declare const enum FadeoutTarget {
-  FADEOUT_FILE_SELECT = 0,
-  FADEOUT_MAIN_MENU = 1,
-  FADEOUT_TITLE_SCREEN = 2,
-  FADEOUT_RESTART_RUN = 3,
-  FADEOUT_RESTART_RUN_LAP = 4,
+  FILE_SELECT = 0,
+  MAIN_MENU = 1,
+  TITLE_SCREEN = 2,
+  RESTART_RUN = 3,
+  RESTART_RUN_LAP = 4,
   // 5 and higher results in a black screen
 }
 
@@ -172,13 +176,13 @@ declare const enum Controller {
 
 declare const enum LineCheckMode {
   /** Stopped by pits and rocks (e.g. like a Gaper's behavior). */
-  MODE_NORMAL = 0,
+  NORMAL = 0,
   /** Same as MODE_NORMAL, but less resource-intensive. */
-  MODE_ECONOMIC = 1,
+  ECONOMIC = 1,
   /** Only blocked by walls and metal blocks. */
-  MODE_EXPLOSION = 2,
+  EXPLOSION = 2,
   /** Not blocked by pits. Used by enemies that shoot projectiles at you, such as Hosts. */
-  MODE_PROJECTILE = 3,
+  PROJECTILE = 3,
 }
 
 declare const enum ProjectilesMode {
@@ -417,22 +421,14 @@ declare const enum Dimension {
   DEATH_CERTIFICATE = 2,
 }
 
-declare const enum ActiveSlot {
-  SLOT_NONE = -1,
-  SLOT_PRIMARY = 0,
-  SLOT_SECONDARY = 1,
-  SLOT_POCKET = 2,
-  SLOT_POCKET2 = 3,
-}
-
 declare const enum FireplaceVariant {
-  FIREPLACE_NORMAL = 0,
-  FIREPLACE_RED = 1,
-  FIREPLACE_BLUE = 2,
-  FIREPLACE_PURPLE = 3,
-  FIREPLACE_WHITE = 4,
-  FIREPLACE_MOVEABLE = 10,
+  NORMAL = 0,
+  RED = 1,
+  BLUE = 2,
+  PURPLE = 3,
+  WHITE = 4,
+  MOVEABLE = 10,
   COAL = 11,
-  FIREPLACE_MOVEABLE_BLUE = 12,
-  FIREPLACE_MOVEABLE_PURPLE = 13,
+  MOVEABLE_BLUE = 12,
+  MOVEABLE_PURPLE = 13,
 }
