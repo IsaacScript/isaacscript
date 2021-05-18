@@ -1,9 +1,9 @@
 declare class ItemConfigItem {
+  HasTags(tags: int): boolean;
   IsCollectible(): boolean;
   IsNull(): boolean;
   IsTrinket(): boolean;
-  HasTags(Tags:int): boolean;
-
+  
   AchievementID: int;
   AddBlackHearts: int;
   AddBombs: int;
