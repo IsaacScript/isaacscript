@@ -3,35 +3,35 @@ declare class ItemConfigItem {
   IsCollectible(): boolean;
   IsNull(): boolean;
   IsTrinket(): boolean;
-  
+
   AchievementID: int;
   AddBlackHearts: int;
   AddBombs: int;
   AddCoins: int;
+  AddCostumeOnPickup: boolean;
   AddHearts: int;
   AddKeys: int;
   AddMaxHearts: int;
   AddSoulHearts: int;
   CacheFlags: CacheFlag;
-  PassiveCache: boolean;
-  PersistentEffect: boolean;
+  ChargeType: int;
   ClearEffectsOnRemove: boolean;
   readonly Costume: Readonly<ItemConfigCostume>;
-  AddCostumeOnPickup: boolean;
   Description: string;
   DevilPrice: int;
-  ShopPrice: int;
   Discharged: boolean;
   GfxFileName: string;
+  Hidden: boolean;
   ID: int;
   InitCharge: int;
-  ChargeType: int;
   MaxCharges: int;
   MaxCooldown: int;
   Name: string;
-  Tags: int;
+  PassiveCache: boolean;
+  PersistentEffect: boolean;
   Quality: int;
+  ShopPrice: int;
   Special: boolean;
-  Hidden: boolean;
+  Tags: int;
   Type: ItemType;
 }
