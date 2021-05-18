@@ -15,10 +15,12 @@ import { ensureAllCases } from "./misc";
 import monitor from "./monitor/monitor";
 import parseArgs from "./parseArgs";
 import publish from "./publish/publish";
+import validateNodeVersion from "./validateNodeVersion";
 import { validateOS } from "./validateOS";
 
 async function main(): Promise<void> {
   sourceMapSupport.install();
+  validateNodeVersion();
   validateOS();
 
   // Get command line arguments
