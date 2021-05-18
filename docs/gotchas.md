@@ -81,9 +81,29 @@ numSadOnions += 0.5
 
 <br />
 
-### No Operator Overloading / Vector Addition
+### Vector Operators
 
-Due to [limitations in TypeScriptToLua](https://typescripttolua.github.io/docs/advanced/writing-declarations/#operator-overloads), operator overloads will not work directly. The workaround for this is to call the methods directly.
+In Isaac modding, working with Vectors is common. For example, you might want to double the speed of an enemy projectile. Doing this in Lua is simple:
+
+```lua
+-- Lua code
+-- Double the speed of the projectile
+projectile.Velocity = projectile.Velocity * 2
+```
+
+This code is the actually the same as writing:
+
+```lua
+-- Lua code
+-- Double the speed of the projectile
+projectile.Velocity = projectile.Velocity:__mul(2)
+```
+
+Under the hood, Lua converts the first code snippet to the second code snippet automatically. This is because it understands that `__mul` is a special operator method. Most people write code in the first way instead of the second way, because it is more convenient.
+
+In TypeScript, we unfortunately cannot code in the first way due to [limitations in TypeScriptToLua](https://typescripttolua.github.io/docs/advanced/writing-declarations/#operator-overloads). Since operator overloads will not work directly, we can instead just call the methods directly (like in the first code snippet above).
+
+Here's a example:
 
 ```lua
 -- Lua code
@@ -93,6 +113,13 @@ local vector = Vector(1, 1) * 5 + 2
 ```typescript
 // TypeScript code
 const vector = Vector(1, 1).__mul(5).__add(2)
+```
+
+If you want, you can also use the convenience methods of "add", "mul", and so forth, which will transpile to the same thing. For example:
+
+```typescript
+// TypeScript code
+const vector = Vector(1, 1).mul(5).add(2)
 ```
 
 If you are converting Lua code, make sure to account for order of operations:
@@ -118,6 +145,48 @@ type Vector = number & { __intBrand: any };
 ```
 
 But this is **not recommend** because it destroys type-safety.
+
+<br />
+
+### Using TearFlags / BitSet128
+
+First, see the section above on [vector operators](#vector-operators), which explains that you can't use Lua's operator overloading functionality in TypeScript.
+
+In the Repentance DLC, TearFlags were changed from an integer to a new `BitSet128` object. (This is because Lua can only handle 64-bit numbers, and the data type of TearFlags had to change to a 128-bit integer because of all of the new tear effects that were introduced.)
+
+Previously, in Afterbirth+ code, you would add spectral tears to the player like so:
+
+```typescript
+const player = Isaac.GetPlayer(0);
+player.TearFlags |= TearFlags.TEAR_SPECTRAL;
+```
+
+Now, since TearFlags are a `BitSet128` object, we can't directly use bitwise operators anymore. Instead, use the provided [convenience methods](https://github.com/IsaacScript/isaac-typescript-definitions/blob/main/typings/BitSet128.d.ts) like so:
+
+```typescript
+const player = Isaac.GetPlayer(0);
+player.TearFlags = player.TearFlags.bor(TearFlags.TEAR_SPECTRAL);
+```
+
+(`bor` stands for "binary OR".)
+
+As a reminder, remember that to remove a tear flag, you need to use a [bitwise AND with a bitwise NOT](https://stackoverflow.com/questions/3920307/how-can-i-remove-a-flag-in-c). In Afterbirth+, that would look like this:
+
+```typescript
+// Remove spectral tears from the player
+const player = Isaac.GetPlayer(0);
+player.TearFlags &= ~TearFlags.TEAR_SPECTRAL;
+```
+
+But now in Repentance, it looks like this:
+
+```typescript
+// Remove spectral tears from the player
+const player = Isaac.GetPlayer(0);
+player.TearFlags = player.TearFlags.band(~TearFlags.TEAR_SPECTRAL);
+```
+
+(`band` stands for "binary AND".)
 
 <br />
 
