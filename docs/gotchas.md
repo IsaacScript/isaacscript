@@ -246,7 +246,7 @@ function saveModData() {
 
 Currently, TypeScriptToLua does not support installing dependencies from NPM; see [this issue](https://github.com/TypeScriptToLua/TypeScriptToLua/issues/432). This means that for now, it will be cumbersome to write Isaac-specific libraries for people to use.
 
-In the meantime, the `isaacscript init` tool manually bundles [some initialization code](https://github.com/IsaacScript/isaacscript/blob/main/templates/static/isaacScriptInit.ts) for new projects.
+Hopefully, this feature will be ready soon.
 
 <br />
 
