@@ -424,3 +424,15 @@ declare const enum ActiveSlot {
   SLOT_POCKET = 2,
   SLOT_POCKET2 = 3,
 }
+
+declare const enum FireplaceVariant {
+  FIREPLACE_NORMAL = 0,
+  FIREPLACE_RED = 1,
+  FIREPLACE_BLUE = 2,
+  FIREPLACE_PURPLE = 3,
+  FIREPLACE_WHITE = 4,
+  FIREPLACE_MOVEABLE = 10,
+  COAL = 11,
+  FIREPLACE_MOVEABLE_BLUE = 12,
+  FIREPLACE_MOVEABLE_PURPLE = 13,
+}
