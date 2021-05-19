@@ -47,23 +47,32 @@ function init() {
     .on("error", error);
 }
 
-function addOrChange(filePath: string, verb: string) {
+function addOrChange(filePath: string, verb: string, retries = 0) {
+  // Before copying, perform specific checks for the "main.lua" file
   if (filePath === MAIN_LUA_SOURCE_PATH) {
+    // If the main.lua was blank, that usually means that the chokidar library was too fast and got
+    // an event for the file changing before tstl finished writing to the file
     const mainLua = file.read(MAIN_LUA_SOURCE_PATH).trim();
     if (mainLua === "") {
-      setTimeout(() => {
-        addOrChange(filePath, verb);
-      }, 10);
+      if (retries < 5) {
+        // Ignore this event and try again in 0.1 seconds
+        retries += 1;
+        setTimeout(() => {
+          addOrChange(filePath, verb, retries);
+        }, 100);
+
+        return;
+      }
     }
   }
 
   file.copy(filePath, getTargetPath(filePath));
-  if (filePath === MAIN_LUA_SOURCE_PATH) {
+
+  if (filePath !== MAIN_LUA_SOURCE_PATH) {
     // We don't need to report if the "main.lua" file changes,
     // since we have a dedicated message for that
-    return;
+    send(`${verb} new file: ${filePath}`);
   }
-  send(`${verb} new file: ${filePath}`);
 }
 
 function addDir(dirPath: string) {
