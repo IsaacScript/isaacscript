@@ -28,6 +28,11 @@ async function main(): Promise<void> {
 
   // ASCII banner
   console.log(chalk.green(figlet.textSync("IsaacScript")));
+  const bannerLength = 55;
+  const version = `v${pkg.version}`;
+  const leftPaddingAmount = Math.floor((bannerLength + version.length) / 2);
+  console.log(version.padStart(leftPaddingAmount));
+  console.log();
 
   // Check for a new version
   updateNotifier({ pkg }).notify();
