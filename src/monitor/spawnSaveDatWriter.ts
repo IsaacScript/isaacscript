@@ -2,7 +2,7 @@ import { ChildProcess, fork } from "child_process";
 import path from "path";
 import { Config } from "../Config";
 import { WATCHER_MOD_NAME } from "../constants";
-import { SaveDatWriterMsg } from "./saveDatWriter/types";
+import { SaveDatMessage } from "./saveDatWriter/types";
 
 let saveDatWriter: ChildProcess | null = null;
 
@@ -33,7 +33,7 @@ export function spawnSaveDatWriter(config: Config): void {
   });
 }
 
-export function sendMsgToSaveDatWriter(msg: SaveDatWriterMsg): void {
+export function sendMsgToSaveDatWriter(msg: SaveDatMessage): void {
   if (saveDatWriter !== null) {
     saveDatWriter.send(msg);
   }

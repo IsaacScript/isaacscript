@@ -2,8 +2,8 @@ import chalk from "chalk";
 import * as JSONC from "jsonc-parser";
 import path from "path";
 import * as file from "../../file";
-import { ensureAllCases, getTime } from "../../misc";
-import { SaveDatMessage, SaveDatMessageType, SaveDatWriterMsg } from "./types";
+import { ensureAllCases } from "../../misc";
+import { SaveDatMessage, SaveDatMessageType } from "./types";
 
 let saveDatPath: string;
 let saveDatFileName: string;
@@ -28,15 +28,14 @@ function init() {
   }
 
   // Listen for messages from the parent process
-  process.on("message", (msg: SaveDatWriterMsg) => {
-    onMessage(msg.type, msg.data, msg.addTime);
+  process.on("message", (msg: SaveDatMessage) => {
+    onMessage(msg.type, msg.data);
   });
 }
 
 function onMessage(
   type: SaveDatMessageType,
   data: string,
-  addTime: boolean, // Whether or not to prefix the message with a timestamp
   numRetries = 0,
 ): void {
   if (data === "Terminate batch job (Y/N)?") {
@@ -44,8 +43,8 @@ function onMessage(
   }
 
   const saveDat = readSaveDatFromDisk();
-  addMessageToSaveDat(type, saveDat, data, addTime); // Mutates saveDat
-  writeSaveDatToDisk(type, data, addTime, numRetries, saveDat);
+  addMessageToSaveDat(type, saveDat, data); // Mutates saveDat
+  writeSaveDatToDisk(type, data, numRetries, saveDat);
 }
 
 function readSaveDatFromDisk() {
@@ -72,7 +71,6 @@ function addMessageToSaveDat(
   type: SaveDatMessageType,
   saveDat: SaveDatMessage[],
   data: string,
-  addTime: boolean,
 ) {
   switch (type) {
     case "command":
@@ -86,16 +84,12 @@ function addMessageToSaveDat(
     }
 
     case "msg": {
-      const prefix = addTime ? `${getTime()} - ` : "";
-      // Replace Windows newlines with Unix newlines
-      const newData = `${prefix}${data}`.replace(/\r\n/g, "\n");
-      const lines = newData.split("\n");
+      const lines = data.split("\n");
       for (const line of lines) {
         saveDat.push({
           type,
           data: line,
         });
-        console.log(newData);
       }
 
       break;
@@ -111,7 +105,6 @@ function addMessageToSaveDat(
 function writeSaveDatToDisk(
   type: SaveDatMessageType,
   data: string,
-  addTime: boolean,
   numRetries = 0,
   saveDat: SaveDatMessage[],
 ) {
@@ -132,7 +125,7 @@ function writeSaveDatToDisk(
       `Writing to "${saveDatFileName}" failed. (The number of retries so far is ${numRetries}.) Trying again in 0.1 seconds...`,
     );
     setTimeout(() => {
-      onMessage(type, data, addTime, numRetries + 1);
+      onMessage(type, data, numRetries + 1);
     }, 100);
   }
 }
