@@ -134,3 +134,7 @@ export function write(filePath: string, data: string): void {
     process.exit(1);
   }
 }
+
+export function writeTry(filePath: string, data: string): void {
+  fs.writeFileSync(filePath, data);
+}

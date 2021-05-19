@@ -7,6 +7,7 @@ import { CURRENT_DIRECTORY_NAME, CWD, MOD_SOURCE_PATH } from "../constants";
 import copyWatcherMod from "./copyWatcherMod";
 import getTSConfigInclude from "./getTSConfigInclude";
 import * as notifyGame from "./notifyGame";
+import { spawnSaveDatWriter } from "./spawnSaveDatWriter";
 
 export default function monitor(config: Config | null): void {
   if (config === null) {
@@ -17,15 +18,18 @@ export default function monitor(config: Config | null): void {
   // Prepare the watcher mod
   copyWatcherMod(config);
 
-  // Subprocess #1 - The mod directory syncer
+  // Subprocess #1 - The "save#.dat" file writer
+  spawnSaveDatWriter(config);
+
+  // Subprocess #2 - The mod directory syncer
   spawnModDirectorySyncer(config);
 
-  // Subprocess #2 - tstl --watch (to automatically convert TypeScript to Lua)
-  spawnTSTLWatcher(config);
+  // Subprocess #3 - tstl --watch (to automatically convert TypeScript to Lua)
+  spawnTSTLWatcher();
 
   // Also, start constantly pinging the watcher mod
   setInterval(() => {
-    notifyGame.ping(config);
+    notifyGame.ping();
   }, 1000); // Every second
 
   // Read the "tsconfig.json" file
@@ -42,29 +46,33 @@ export default function monitor(config: Config | null): void {
 }
 
 function spawnModDirectorySyncer(config: Config) {
-  const modDirectorySyncerPath = path.join(__dirname, "modDirectorySyncer");
+  const processName = "modDirectorySyncer";
+  const processDescription = "Directory syncer";
+  const processPath = path.join(__dirname, processName, processName);
   const modTargetPath = path.join(config.modsDirectory, config.projectName);
-  const directorySycner = fork(modDirectorySyncerPath, [
-    MOD_SOURCE_PATH,
-    modTargetPath,
-  ]);
+  const directorySycner = fork(processPath, [MOD_SOURCE_PATH, modTargetPath]);
 
   directorySycner.on("message", (msg: string) => {
-    notifyGame.msg(msg, config, true);
+    notifyGame.msg(msg, true);
   });
 
   directorySycner.on("close", (code: number | null) => {
-    console.error(`Directory syncer subprocess closed with code: ${code}`);
+    console.error(
+      `Error: ${processDescription} subprocess closed with code: ${code}`,
+    );
     process.exit(1);
   });
 
   directorySycner.on("exit", (code: number | null) => {
-    console.error(`Directory syncer subprocess exited with code: ${code}`);
+    console.error(
+      `Error: ${processDescription} subprocess exited with code: ${code}`,
+    );
     process.exit(1);
   });
 }
 
-function spawnTSTLWatcher(config: Config) {
+function spawnTSTLWatcher() {
+  const processDescription = "tstl";
   const tstl = spawn("npx", ["tstl", "--watch", "--preserveWatchOutput"], {
     shell: true,
   });
@@ -73,19 +81,19 @@ function spawnTSTLWatcher(config: Config) {
     const msg = data.toString().trim();
     if (msg.includes("Starting compilation in watch mode...")) {
       const newMsg = "IsaacScript is now watching for changes.";
-      notifyGame.msg(newMsg, config, true);
+      notifyGame.msg(newMsg, true);
     } else if (
       msg.includes("File change detected. Starting incremental compilation...")
     ) {
       const newMsg = "TypeScript change detected. Compiling...";
-      notifyGame.msg(newMsg, config, true);
+      notifyGame.msg(newMsg, true);
     } else if (msg.includes("Found 0 errors. Watching for file changes.")) {
-      notifyGame.command(`luamod ${CURRENT_DIRECTORY_NAME}`, config);
-      notifyGame.command("restart", config);
+      notifyGame.command(`luamod ${CURRENT_DIRECTORY_NAME}`);
+      notifyGame.command("restart");
       const newMsg = `${CURRENT_DIRECTORY_NAME} - Successfully compiled & reloaded!`;
-      notifyGame.msg(newMsg, config, true);
+      notifyGame.msg(newMsg, true);
     } else {
-      notifyGame.msg(msg, config, false);
+      notifyGame.msg(msg, false);
     }
   });
 
@@ -95,16 +103,20 @@ function spawnTSTLWatcher(config: Config) {
       return;
     }
     console.error("Error:", msg);
-    notifyGame.msg(`Error: ${msg}`, config, true);
+    notifyGame.msg(`Error: ${msg}`, true);
   });
 
   tstl.on("close", (code) => {
-    console.error(`tstl exited with code: ${code}`);
+    console.error(
+      `Error: ${processDescription} subprocess exited with code: ${code}`,
+    );
     process.exit(1);
   });
 
   tstl.on("exit", (code) => {
-    console.error(`tstl exited with code: ${code}`);
+    console.error(
+      `Error: ${processDescription} subprocess exited with code: ${code}`,
+    );
     process.exit(1);
   });
 }

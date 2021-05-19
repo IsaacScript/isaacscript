@@ -1,9 +1,3 @@
-// Define imports
-import isaacScriptInit from "./isaacScriptInit";
-
-// Initialize some IsaacScript-specific functions
-isaacScriptInit();
-
 // Register the mod
 // (which will make it show up in the list of mods on the mod screen in the main menu)
 const MOD_NAME = RegisterMod("MOD_NAME", 1);

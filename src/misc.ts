@@ -98,6 +98,12 @@ export function parseIntSafe(input: string): number {
   return parseInt(trimmedInput, 10);
 }
 
+export function sleep(milliseconds: number): Promise<() => void> {
+  return new Promise((resolve) => {
+    setTimeout(resolve, milliseconds);
+  });
+}
+
 // Convert snake_case and kebab-case to camelCase
 // From: https://hisk.io/javascript-snake-to-camel/
 export function snakeKebabToCamel(str: string): string {

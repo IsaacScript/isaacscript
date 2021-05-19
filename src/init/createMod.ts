@@ -13,7 +13,6 @@ import {
   README_MD,
   README_MD_TEMPLATES_PATH,
   TEMPLATES_STATIC_DIR,
-  TEMPLATES_VSCODE_DIR,
 } from "../constants";
 import * as file from "../file";
 import { execShell, snakeKebabToCamel } from "../misc";
@@ -46,26 +45,6 @@ function copyStaticFiles(projectPath: string) {
   const staticFileList = file.getDirList(TEMPLATES_STATIC_DIR);
   staticFileList.forEach((fileName: string) => {
     const templateFilePath = path.join(TEMPLATES_STATIC_DIR, fileName);
-    let thisFilePath = path.join(projectPath, fileName);
-
-    // Skip directories
-    if (file.isDir(templateFilePath)) {
-      return;
-    }
-
-    // As an exception, the "isaacScriptInit.ts" file goes into the "src" subdirectory
-    if (fileName === "isaacScriptInit.ts") {
-      thisFilePath = path.join(projectPath, "src", fileName);
-    }
-
-    if (!file.exists(thisFilePath)) {
-      file.copy(templateFilePath, thisFilePath);
-    }
-  });
-
-  const vsCodeFileList = file.getDirList(TEMPLATES_VSCODE_DIR);
-  vsCodeFileList.forEach((fileName: string) => {
-    const templateFilePath = path.join(TEMPLATES_VSCODE_DIR, fileName);
     const thisFilePath = path.join(projectPath, fileName);
     if (!file.exists(thisFilePath)) {
       file.copy(templateFilePath, thisFilePath);
