@@ -242,6 +242,34 @@ function saveModData() {
 
 <br />
 
+### Iterating Over Enums
+
+Sometimes, you must want to iterate over an enum. For example, the following Lua code is a pretty good way to detect if the player is pressing any particular button on the keyboard:
+
+```lua
+-- Lua code
+for keyName, keyCode in pairs(Keyboard) do
+  if Input.IsButtonPressed(keyCode, 0) then
+    Isaac.DebugString("Player pressed: " .. keyName)
+  end
+end
+```
+
+In TypeScript, it would be exactly like iterating over any other object:
+
+```typescript
+// TypeScript code
+for (const [keyName, keyCode] in Object.entries(Keyboard)) {
+  if (Input.IsButtonPressed(keyCode, 0)) {
+    Isaac.DebugString(`Player pressed: ${keyName}`)
+  }
+}
+```
+
+However, remember that iterating over enums **will not happen in order**. This is because Lua's `pairs()` function returns table entries in a random order. If you need to get the contents of a Lua enum in order, then you will have to re-create that data as an array.
+
+<br />
+
 ### NPM Dependencies
 
 Currently, TypeScriptToLua does not support installing dependencies from NPM; see [this issue](https://github.com/TypeScriptToLua/TypeScriptToLua/issues/432). This means that for now, it will be cumbersome to write Isaac-specific libraries for people to use.
