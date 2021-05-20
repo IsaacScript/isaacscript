@@ -4,10 +4,11 @@ title: What is IsaacScript Doing?
 
 The `isaacscript` program will run forever, monitoring for changes in your project. In summary, it will:
 
-1. automatically recompile your TypeScript and refresh your mod in-game
+1. automatically recompile your TypeScript
 1. automatically copy over any files in the `mod` directory
+1. automatically refresh your mod in-game (with the `luamod` console command)
 
-As a new user, confirm that each of these functions are working so that you can get familiar with the program.
+As a new user, you might want to confirm that each of these functions is working properly as a way to get familiar with the program.
 
 <br />
 
@@ -30,11 +31,12 @@ Note that `isaacscript` will automatically install the `isaacscript-watcher` hel
 1. In VSCode, add something new to your `main.ts` file, like:
 
 ```typescript
-Isaac.ConsoleOutput("hello world");
+print("hello world");
 ```
 
-1. Save the file in VSCode.
-1. In game, press <code>`</code> to open the console and see if the new message is there.
+1. In VSCode, save the file.
+1. In game, you should see text appear on the screen .
+1. In game, press <code>`</code> to open the console and see if your "hello world" message is printed there.
 
 <br />
 

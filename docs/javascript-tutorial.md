@@ -204,7 +204,7 @@ for i = 10, 1, -1 do
 end
 ```
 
-Similarly, in TypeScript, you change the third part of the `for` loop:
+In TypeScript, that would be:
 
 ```typescript
 // TypeScript code
@@ -223,8 +223,8 @@ In Lua, the typical way to iterate over an array is with `ipairs`.
 -- Lua code
 local gapers = Isaac.FindByType(EntityType.ENTITY_GAPER, -1, -1, false, false)
 
--- The "i" variable is unused
 for i, gaper in ipairs(gapers) do
+  print(i)
   gaper:Remove()
 end
 ```
@@ -242,19 +242,9 @@ for (const gaper of gapers) {
 
 // Or, use the "entries" method if you need the array index too
 for (const [i, gaper] of gapers.entries()) {
+  print(i)
   gaper.Remove();
 }
-
-// For experienced coders,
-// using the "forEach" method is recommended over a "for of" loop
-gapers.forEach((gaper) => {
-  gaper.Remove();
-})
-
-// Or, change it to use two arguments if you need the array index
-gapers.forEach((gaper, i) => {
-  gaper.Remove();
-})
 ```
 
 <br />
@@ -373,7 +363,7 @@ const numPoops = 3
 const numPoopsString = numPoops.toString()
 ```
 
-However, in TypeScript, you probably won't need to convert variables like this very often. Most of the time, you can use string templates, which are very convenient.
+However, in TypeScript, you probably won't need to convert variables like this very often. Most of the time, you can use string templates, which are very convenient. They are denoted by the <code>`</code> character and will automatically convert any variable to a string.
 
 ```lua
 -- Lua code
@@ -382,9 +372,20 @@ Isaac.DebugString("The current number of poops is: " .. tostring(numPoops))
 
 ```typescript
 // TypeScript code
-// String templates are denoted by the ` character
-// Variables that are numbers will automatically be converted to strings
 Isaac.DebugString(`The current number of poops is: ${numPoops}`)
+```
+
+Or, a slightly more complicated example:
+
+```lua
+-- Lua code
+Isaac.DebugString("Entity found: " .. tostring(entity.Type) .. "."
+                  .. tostring(entity.Variant) .. "." .. tostring(entity.SubType))
+```
+
+```typescript
+// TypeScript code
+Isaac.DebugString(`Entity found: ${entity.Type}.${entity.Variant}.${entity.SubType}`)
 ```
 
 <br />
@@ -416,7 +417,7 @@ function PostPlayerInit(player: EntityPlayer) {
 
 In the TypeScript code snippet, you can see that we marked "player" as the "EntityPlayer" type by using a colon. The "EntityPlayer" type is automatically provided by the `isaac-typescript-definitions` package, and corresponds to the "EntityPlayer" in the official docs. (The `isaac-typescript-definitions` package is automatically imported in any IsaacScript project.)
 
-Once the type has been annotated, your editor will know about all of the legal methods for the "player" variable. You can now tab-complete everything. And if you make a typo on the "AddCollectible" method, the editor will immediately tell us by drawing a squiggly line underneath it.
+Once the type has been annotated, your editor will know about all of the legal methods for the "player" variable. If you make a typo on the "AddCollectible" method, the editor will immediately tell us by drawing a squiggly line underneath it.
 
 When coding in TypeScript, you will need to add the type for every function argument. That way, the compiler can catch all of the bugs.
 
@@ -432,23 +433,21 @@ In Lua, you split your code into multiple files by using `require()`.
 
 ```lua
 -- main.lua
-local PostPlayerInit = require("revelations.postplayerinit")
--- (the text in "require()" must be lowercase in order for mods to work on
--- Linux, even if the files on the file system are not actually lowercase)
+local postPlayerInit = require("revelations.postPlayerInit")
 
 local Revelations = RegisterMod("Revelations", 1)
-Revelations:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, PostGameStarted.Main);
+Revelations:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit.Main);
 ```
 
 ```lua
--- PostPlayerInit.lua
-local PostPlayerInit = {}
+-- postPlayerInit.lua
+local postPlayerInit = {}
 
-function PostPlayerInit:Main(player)
+function postPlayerInit:Main(player)
   player:AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false)
 end
 
-return PostPlayerInit
+return postPlayerInit
 ```
 
 In TypeScript, this is accomplished with `import`.<br />
@@ -457,8 +456,6 @@ In TypeScript, this is accomplished with `import`.<br />
 ```typescript
 // main.ts
 import * as postPlayerInit from './postPlayerInit';
-// (we don't have to worry about the lowercase Linux hack since we are bundling
-// all of our code into one "main.lua" file)
 
 const Revelations = RegisterMod("Revelations", 1);
 Revelations.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit.Main);
@@ -475,7 +472,7 @@ export function Main(player: EntityPlayer) {
 
 ### Importing Global Variables
 
-Sometimes, your mod might need to use a global variable exported by someone else's mod. For example, maybe you need to use the `InfinityTrueCoopInterface` global variable from the True Co-op Mod.
+Sometimes, your mod might need to use a global variable exported by someone else's mod. For example, you might need to use the `InfinityTrueCoopInterface` global variable from the True Co-op Mod.
 
 <br />
 
@@ -597,9 +594,9 @@ In this example, what "itemPrices" *really* represents is a map of specific item
 // itemPrices has a type of "Map<CollectibleType, number>",
 // which is safer than an object where anything goes
 const itemPrices = new Map([
-  CollectibleType.COLLECTIBLE_SAD_ONION = 15,
-  CollectibleType.COLLECTIBLE_INNER_EYE = 15,
-  CollectibleType.COLLECTIBLE_SPOON_BENDER = 7,
+  [CollectibleType.COLLECTIBLE_SAD_ONION, 15],
+  [CollectibleType.COLLECTIBLE_INNER_EYE, 15],
+  [CollectibleType.COLLECTIBLE_SPOON_BENDER, 7],
 ])
 
 for (const [itemID, price] of itemPrices.entries()) {

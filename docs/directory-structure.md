@@ -107,9 +107,11 @@ Feel free to change this to something else if you don't like GPLv3.
 
 This is the configuration file for [npm](https://www.npmjs.com/), the Node package manager. It contains a description of your project and a list of all of the dependencies.
 
-In general, you should not need to touch this file. If you decide to add a new dependency (e.g. `npm install lodash --save`), then `npm` would automatically edit the `package.json` file accordingly. (Beware of adding dependencies, since [it will break any TSTL build that uses "luaBundle"](gotchas.md#npm-dependencies).)
+In general, you should not need to touch this file. If you decide to add a new dependency (e.g. `npm install lodash --save`), then `npm` would automatically edit the `package.json` file accordingly. (Beware of adding dependencies, since [it will break tstl](gotchas.md#npm-dependencies).)
 
-Note that normally, a TypeScript project would have "devDependencies" of TypeScript, ESLint, and so forth. However, in the IsaacScript framework, all you have to do is depend on `isaacscript`, and `isaacscript` in turn depends on everything you need. This makes things a little bit simpler for you, the end-user.
+Note that normally, a TypeScript project would have "devDependencies" of TypeScript, ESLint, and so forth. However, in the IsaacScript framework, all you have to do is depend on `isaacscript`, and `isaacscript` in turn depends on everything you need. This makes things a little bit simpler for you.
+
+(If for whatever reason you want more granularity in your dependencies, then you can instead change your package.json file to depend on `typescript`, `typescript-to-lua`, `isaac-typescript-definitions`, and so on.)
 
 <br />
 
