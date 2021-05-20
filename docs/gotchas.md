@@ -248,6 +248,7 @@ Sometimes, you might want to iterate over an enum. For example, the following Lu
 
 ```lua
 -- Lua code
+-- "Keyboard" is an enum provided by the game
 for keyName, keyCode in pairs(Keyboard) do
   if Input.IsButtonPressed(keyCode, 0) then
     Isaac.DebugString("Player pressed: " .. keyName)
@@ -259,14 +260,51 @@ In TypeScript, it would be exactly like iterating over any other object:
 
 ```typescript
 // TypeScript code
-for (const [keyName, keyCode] in Object.entries(Keyboard)) {
+// "Keyboard" is an enum provided by the game
+for (const [keyName, keyCode] of Object.entries(Keyboard)) {
   if (Input.IsButtonPressed(keyCode, 0)) {
     Isaac.DebugString(`Player pressed: ${keyName}`);
   }
 }
 ```
 
-However, remember that iterating over enums **will not happen in order**. This is because Lua's `pairs()` function returns table entries in a random order. If you need to get the contents of a Lua enum in order, then you will have to re-create that data as an array.
+One important thing to note about this is that iterating over enums **will not happen in order**. This is because Lua's `pairs()` function is designed to return table entries in a random order. If you need to get the contents of a Lua enum in order, then you will have to re-create that data as an array.
+
+Furthermore, it is important that in the previous example, we are iterating over a "normal" enum provided by the game. You **will not be able to iterate over your own enums** in this way because of how TypeScriptToLua transpiles them. In order to increase performance, TypeScriptToLua creates a double mapping of key to value and value to key. For example:
+
+```typescript
+enum TestEnum {
+  ONE = 1,
+  TWO = 2,
+  THREE = 3,
+}
+```
+
+Will transpile to:
+
+```lua
+local TestEnum = TestEnum or ({})
+TestEnum.ONE = 1
+TestEnum[TestEnum.ONE] = "ONE"
+TestEnum.TWO = 2
+TestEnum[TestEnum.TWO] = "TWO"
+TestEnum.THREE = 3
+TestEnum[TestEnum.THREE] = "THREE"
+```
+
+This means that if you want to iterate over your own enums in a way similar to the previous example, you have to use some type-checking:
+
+```typescript
+for (const [key, value] of Object.entries(TestEnum)) {
+  if (type(key) !== "string") {
+    // Ignore the reverse mappings created by TypeScriptToLua
+    continue;
+  }
+
+  Isaac.DebugString(`Key: ${key}`);
+  Isaac.DebugString(`Value: ${value}`);
+}
+```
 
 <br />
 
