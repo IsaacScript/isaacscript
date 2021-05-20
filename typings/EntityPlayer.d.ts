@@ -411,18 +411,19 @@ declare class EntityPlayer extends Entity {
   /**
    * @param weaponType Default is WeaponType.WEAPON_TEARS.
    */
+  // MultiShotParams is not implemented
+  /*
   GetMultiShotParams(
-    // TODO check to see if MultiShotParams is implemented
     weaponType?: WeaponType,
-  ): int; // MultiShotParams // MultiShotParams is not implemented
+  ): MultiShotParams;
   GetMultiShotPositionVelocity(
-    // TODO check to see if MultiShotParams is implemented
     loopIndex: int,
     weaponType: WeaponType,
     shotDirection: Vector,
     shotSpeed: float,
-    multiShotParams: int, // MultiShotParams, // MultiShotParams is not implemented
+    multiShotParams: MultiShotParams, // MultiShotParams is not implemented
   ): PosVel;
+  */
   GetNPCTarget(): Entity;
   GetName(): string;
   GetNumBlueFlies(): int;
