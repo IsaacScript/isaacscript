@@ -244,7 +244,7 @@ function saveModData() {
 
 ### Iterating Over Enums
 
-Sometimes, you must want to iterate over an enum. For example, the following Lua code is a pretty good way to detect if the player is pressing any particular button on the keyboard:
+Sometimes, you might want to iterate over an enum. For example, the following Lua code is a pretty good way to detect if the player is pressing any particular button on the keyboard:
 
 ```lua
 -- Lua code
