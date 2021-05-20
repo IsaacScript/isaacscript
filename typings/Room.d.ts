@@ -37,7 +37,7 @@ declare class Room {
   GetAliveBossesCount(): int;
   GetAliveEnemiesCount(): int;
   GetAwardSeed(): int;
-  GetBackdropType(): Backdrop;
+  GetBackdropType(): BackdropType;
   GetBossID(): BossIDs | int;
   GetBottomRightPos(): Vector;
   GetBrokenWatchState(): int;

@@ -20,3 +20,6 @@ The [IsaacScript](https://isaacscript.github.io/) framework automatically uses t
   - SampleLaser: boolean; // Should use IsSampleLaser() instead
   - CanShutDoors: boolean; // Should use CanShutDoors() instead
   - Desc: GridEntityDesc; // Should use GetSaveState() instead
+
+- search for all "default is"
+- search for all "//"

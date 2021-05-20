@@ -156,7 +156,10 @@ declare class Game {
    * @param frameCount
    * @param hallucinationBackdrop Default is BackdropType.NUM_BACKDROPS.
    */
-  ShowHallucination(frameCount: int, hallucinationBackdrop?: Backdrop): void;
+  ShowHallucination(
+    frameCount: int,
+    hallucinationBackdropType?: BackdropType,
+  ): void;
   ShowRule(): void;
   Spawn(
     entityType: EntityType | int,
@@ -202,7 +205,7 @@ declare class Game {
   StartRoomTransition(
     roomIndex: int,
     direction: Direction,
-    roomTransition?: RoomTransition,
+    roomTransitionAnim?: RoomTransitionAnim,
     player?: EntityPlayer,
     dimension?: Dimension,
   ): void;
