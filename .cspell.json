@@ -47,6 +47,7 @@
         "tostring",
         "transpiled",
         "transpiler",
+        "transpiles",
         "tstl"
     ]
 }
