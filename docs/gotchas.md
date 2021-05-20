@@ -261,7 +261,7 @@ In TypeScript, it would be exactly like iterating over any other object:
 // TypeScript code
 for (const [keyName, keyCode] in Object.entries(Keyboard)) {
   if (Input.IsButtonPressed(keyCode, 0)) {
-    Isaac.DebugString(`Player pressed: ${keyName}`)
+    Isaac.DebugString(`Player pressed: ${keyName}`);
   }
 }
 ```
