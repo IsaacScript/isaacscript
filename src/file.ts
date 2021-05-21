@@ -5,7 +5,9 @@ import path from "path";
 export function copy(srcPath: string, dstPath: string): void {
   try {
     // "copySync()" is a "fs-extra" method for copying directories recursively
-    fs.copySync(srcPath, dstPath);
+    fs.copySync(srcPath, dstPath, {
+      recursive: true,
+    });
   } catch (err) {
     console.error(
       `Failed to copy directory "${chalk.green(srcPath)}" to "${chalk.green(

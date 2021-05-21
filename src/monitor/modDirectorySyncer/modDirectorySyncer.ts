@@ -36,7 +36,7 @@ function init() {
 
   watcher
     .on("add", (filePath: string) => {
-      addOrChange(filePath, "Added");
+      addOrChange(filePath, "Added new");
     })
     .on("addDir", addDir)
     .on("change", (filePath: string) => {
@@ -71,7 +71,7 @@ function addOrChange(filePath: string, verb: string, retries = 0) {
   if (filePath !== MAIN_LUA_SOURCE_PATH) {
     // We don't need to report if the "main.lua" file changes,
     // since we have a dedicated message for that
-    send(`${verb} new file: ${filePath}`);
+    send(`${verb} file: ${filePath}`);
   }
 }
 
