@@ -44,10 +44,9 @@ async function main(): Promise<void> {
   await handleCommands(argv, config);
 }
 
-async function handleCommands(
-  argv: Record<string, unknown>,
-  config: Config | null,
-) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function handleCommands(argv: any, config: Config | null) {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   const positionalArgs = argv._ as string[];
   let command: Command;
   if (positionalArgs.length > 0) {

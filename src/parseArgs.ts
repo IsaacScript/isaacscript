@@ -1,6 +1,7 @@
 import yargs from "yargs";
 
-export default function parseArgs(): Record<string, unknown> {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export default function parseArgs() {
   const yargsObject = yargs(process.argv.slice(2))
     .strict()
     .usage("usage: isaacscript <command> [options]")
