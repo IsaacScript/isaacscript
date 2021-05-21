@@ -37,23 +37,25 @@ function init() {
 
   watcher
     .on("add", (filePath: string, stats: fs.Stats) => {
-      // Sometimes chokidar receives an event when the file is in the process of being written to
-      // If this is the case, the size of the file will be 0, so we can ignore it
-      if (stats.size !== 0) {
-        addOrChange(filePath, "Added new");
-      }
+      onAddOrChange(filePath, stats, "Added new");
     })
     .on("addDir", addDir)
     .on("change", (filePath: string, stats: fs.Stats) => {
-      // Sometimes chokidar receives an event when the file is in the process of being written to
-      // If this is the case, the size of the file will be 0, so we can ignore it
-      if (stats.size !== 0) {
-        addOrChange(filePath, "Changed");
-      }
+      onAddOrChange(filePath, stats, "Changed");
     })
     .on("unlink", unlink)
     .on("unlinkDir", unlinkDir)
     .on("error", error);
+}
+
+function onAddOrChange(filePath: string, stats: fs.Stats, verb: string) {
+  // Sometimes chokidar receives an event when the file is in the process of being written to
+  // If this is the case, the size of the file will be 0, so we can ignore it
+  if (stats.size === 0) {
+    console.log(`Skipping file "${filePath}" because it has a size of 0.`);
+  } else {
+    addOrChange(filePath, verb);
+  }
 }
 
 function addOrChange(filePath: string, verb: string) {
