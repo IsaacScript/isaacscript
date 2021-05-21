@@ -29,11 +29,11 @@ declare class Level {
   GetLastBossRoomListIndex(): int;
   GetLastRoomDesc(): Readonly<RoomDescriptor>;
   GetName(
-    levelStage: LevelStage,
-    stageType: StageType,
-    curses: int,
-    infiniteLevel: int,
-    dyslexia: boolean,
+    levelStage?: LevelStage,
+    stageType?: StageType,
+    curses?: int,
+    infiniteLevel?: int,
+    dyslexia?: boolean,
   ): string;
   GetNonCompleteRoomIndex(): int;
   GetPreviousRoomIndex(): int;
