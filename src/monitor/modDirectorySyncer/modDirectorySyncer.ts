@@ -1,4 +1,5 @@
 import * as chokidar from "chokidar";
+import fs from "fs";
 import path from "path";
 import { MAIN_LUA_SOURCE_PATH } from "../../constants";
 import * as file from "../../file";
@@ -35,37 +36,27 @@ function init() {
   });
 
   watcher
-    .on("add", (filePath: string) => {
-      addOrChange(filePath, "Added new");
+    .on("add", (filePath: string, stats: fs.Stats) => {
+      // Sometimes chokidar receives an event when the file is in the process of being written to
+      // If this is the case, the size of the file will be 0, so we can ignore it
+      if (stats.size !== 0) {
+        addOrChange(filePath, "Added new");
+      }
     })
     .on("addDir", addDir)
-    .on("change", (filePath: string) => {
-      addOrChange(filePath, "Changed");
+    .on("change", (filePath: string, stats: fs.Stats) => {
+      // Sometimes chokidar receives an event when the file is in the process of being written to
+      // If this is the case, the size of the file will be 0, so we can ignore it
+      if (stats.size !== 0) {
+        addOrChange(filePath, "Changed");
+      }
     })
     .on("unlink", unlink)
     .on("unlinkDir", unlinkDir)
     .on("error", error);
 }
 
-function addOrChange(filePath: string, verb: string, retries = 0) {
-  // Before copying, perform specific checks for the "main.lua" file
-  if (filePath === MAIN_LUA_SOURCE_PATH) {
-    // If the main.lua was blank, that usually means that the chokidar library was too fast and got
-    // an event for the file changing before tstl finished writing to the file
-    const mainLua = file.read(MAIN_LUA_SOURCE_PATH).trim();
-    if (mainLua === "") {
-      if (retries < 5) {
-        // Ignore this event and try again in 0.1 seconds
-        retries += 1;
-        setTimeout(() => {
-          addOrChange(filePath, verb, retries);
-        }, 100);
-
-        return;
-      }
-    }
-  }
-
+function addOrChange(filePath: string, verb: string) {
   file.copy(filePath, getTargetPath(filePath));
 
   if (filePath !== MAIN_LUA_SOURCE_PATH) {
