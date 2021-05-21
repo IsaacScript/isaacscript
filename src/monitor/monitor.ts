@@ -88,10 +88,16 @@ function spawnTSTLWatcher() {
       const newMsg = "TypeScript change detected. Compiling...";
       notifyGame.msg(newMsg, true);
     } else if (msg.includes("Found 0 errors. Watching for file changes.")) {
-      notifyGame.command(`luamod ${CURRENT_DIRECTORY_NAME}`);
-      notifyGame.command("restart");
-      const newMsg = `${CURRENT_DIRECTORY_NAME} - Successfully compiled & reloaded!`;
-      notifyGame.msg(newMsg, true);
+      // Since a different process is in charge of copying over the compiled main.lua file,
+      // there is a race condition where we can execute a "luamod" command before the file is
+      // finished copying
+      // Delay a little bit in order to mitigate this
+      setTimeout(() => {
+        notifyGame.command(`luamod ${CURRENT_DIRECTORY_NAME}`);
+        notifyGame.command("restart");
+        const newMsg = `${CURRENT_DIRECTORY_NAME} - Successfully compiled & reloaded!`;
+        notifyGame.msg(newMsg, true);
+      }, 100); // 0.1 seconds
     } else {
       notifyGame.msg(msg, false);
     }
