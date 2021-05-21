@@ -1,9 +1,10 @@
 import chalk from "chalk";
-import { fork, spawn } from "child_process";
+import { ChildProcessWithoutNullStreams, fork, spawn } from "child_process";
 import path from "path";
 import { Config } from "../Config";
 import * as configFile from "../configFile";
 import { CURRENT_DIRECTORY_NAME, CWD, MOD_SOURCE_PATH } from "../constants";
+import * as file from "../file";
 import copyWatcherMod from "./copyWatcherMod";
 import getTSConfigInclude from "./getTSConfigInclude";
 import * as notifyGame from "./notifyGame";
@@ -72,10 +73,29 @@ function spawnModDirectorySyncer(config: Config) {
 }
 
 function spawnTSTLWatcher() {
+  // Fix the bug where tstl cannot be invoked if IsaacScript is specified as a local path in a mod's
+  // package.json file
   const processDescription = "tstl";
-  const tstl = spawn("npx", ["tstl", "--watch", "--preserveWatchOutput"], {
-    shell: true,
-  });
+  let tstl: ChildProcessWithoutNullStreams;
+  if (runningFromLocalPath()) {
+    const tstlPath = path.join(
+      CWD,
+      "..",
+      "isaacscript",
+      "node_modules",
+      "typescript-to-lua",
+      "dist",
+      "tstl.js",
+    );
+    tstl = spawn("node", [tstlPath, "--watch", "--preserveWatchOutput"], {
+      shell: true,
+      cwd: CWD,
+    });
+  } else {
+    tstl = spawn("npx", ["tstl", "--watch", "--preserveWatchOutput"], {
+      shell: true,
+    });
+  }
 
   tstl.stdout.on("data", (data: Buffer[]) => {
     const msg = data.toString().trim();
@@ -125,4 +145,11 @@ function spawnTSTLWatcher() {
     );
     process.exit(1);
   });
+}
+
+// Returns whether or not IsaacScript is a local path in "package.json"
+// e.g. "isaacscript": "../isaacscript"
+function runningFromLocalPath() {
+  const tstlDirPath = path.join(CWD, "node_modules", "typescript-to-lua");
+  return !file.exists(tstlDirPath);
 }
