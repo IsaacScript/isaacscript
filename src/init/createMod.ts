@@ -13,6 +13,8 @@ import {
   README_MD,
   README_MD_TEMPLATES_PATH,
   TEMPLATES_STATIC_DIR,
+  TEMPLATES_VSCODE_DIR,
+  VSCODE,
 } from "../constants";
 import * as file from "../file";
 import { execShell, snakeKebabToCamel } from "../misc";
@@ -45,9 +47,19 @@ function copyStaticFiles(projectPath: string) {
   const staticFileList = file.getDirList(TEMPLATES_STATIC_DIR);
   staticFileList.forEach((fileName: string) => {
     const templateFilePath = path.join(TEMPLATES_STATIC_DIR, fileName);
-    const thisFilePath = path.join(projectPath, fileName);
-    if (!file.exists(thisFilePath)) {
-      file.copy(templateFilePath, thisFilePath);
+    const destinationFilePath = path.join(projectPath, fileName);
+    if (!file.exists(destinationFilePath)) {
+      file.copy(templateFilePath, destinationFilePath);
+    }
+  });
+
+  // Also copy the files in the ".vscode" directory
+  const vsCodeFileList = file.getDirList(TEMPLATES_VSCODE_DIR);
+  vsCodeFileList.forEach((fileName: string) => {
+    const templateFilePath = path.join(TEMPLATES_VSCODE_DIR, fileName);
+    const destinationFilePath = path.join(projectPath, VSCODE, fileName);
+    if (!file.exists(destinationFilePath)) {
+      file.copy(templateFilePath, destinationFilePath);
     }
   });
 }

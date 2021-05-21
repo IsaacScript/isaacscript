@@ -34,7 +34,8 @@ export const TEMPLATES_DIR = path.join(REPO_ROOT, "file-templates");
 
 // isaacscript/file-templates/static
 export const TEMPLATES_STATIC_DIR = path.join(TEMPLATES_DIR, "static");
-export const TEMPLATES_VSCODE_DIR = path.join(TEMPLATES_STATIC_DIR, ".vscode");
+export const VSCODE = ".vscode";
+export const TEMPLATES_VSCODE_DIR = path.join(TEMPLATES_STATIC_DIR, VSCODE);
 
 // isaacscript/file-templates/dynamic
 export const TEMPLATES_DYNAMIC_DIR = path.join(TEMPLATES_DIR, "dynamic");
