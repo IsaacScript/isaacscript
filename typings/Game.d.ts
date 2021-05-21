@@ -196,6 +196,8 @@ declare class Game {
     subType?: int,
   ): void;
   /**
+   * You have to set Level.LeaveDoor to an appropriate value before using this function. Otherwise,
+   * you will be sent to the wrong room. (For teleports, set it to -1.)
    * @param roomIndex
    * @param direction
    * @param roomTransition Default is RoomTransitionAnim.WALK.
