@@ -48,11 +48,23 @@ function init() {
     .on("error", error);
 }
 
-function onAddOrChange(filePath: string, stats: fs.Stats, verb: string) {
-  // Sometimes chokidar receives an event when the file is in the process of being written to
-  // If this is the case, the size of the file will be 0, so we can ignore it
-  if (stats.size === 0) {
-    console.log(`Skipping file "${filePath}" because it has a size of 0.`);
+function onAddOrChange(
+  filePath: string,
+  stats: fs.Stats,
+  verb: string,
+  checkNewStats = false,
+) {
+  if (checkNewStats) {
+    stats = fs.statSync(filePath);
+  }
+
+  if (stats.size === 0 && !checkNewStats) {
+    // Sometimes chokidar receives an event when the file is in the process of being written to
+    // If this is the case, the size of the file will be 0
+    // Try to copy the file again after a short delay
+    setTimeout(() => {
+      onAddOrChange(filePath, stats, verb, true);
+    }, 100);
   } else {
     addOrChange(filePath, verb);
   }
