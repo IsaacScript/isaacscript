@@ -2,7 +2,7 @@
 title: Building an Example Mod
 ---
 
-This is a tutorial that shows off how to code a simple mod with IsaacScript. Our goal will be to create a new passive item in the game called the *Green Candle*.
+This is a tutorial that shows off how to code a simple mod with IsaacScript. Our goal will be to create a new passive item in the game called the _Green Candle_.
 
 <br />
 
@@ -67,7 +67,7 @@ Notice that this file is in the same format as the "real" items.xml file located
 
 Even though the item exists in the game, it is not yet present in any of the item pools. This means that players will never randomly discover your item as they play the game.
 
-So, let's add the item to the *Treasure Room* pool. Make a blank file at `C:\Repositories\green-candle\mod\content\itempools.xml` and add the following to it:
+So, let's add the item to the _Treasure Room_ pool. Make a blank file at `C:\Repositories\green-candle\mod\content\itempools.xml` and add the following to it:
 
 ```xml
 <ItemPools>
@@ -179,7 +179,7 @@ function checkApplyGreenCandleEffect() {
   for (let i = 1; i <= numPlayers; i++) {
     const player = Isaac.GetPlayer(i);
     if (player !== null && player.HasCollectible(greenCandleItemID)) {
-      applyGreenCandleEffect(player)
+      applyGreenCandleEffect(player);
     }
   }
 }
@@ -223,7 +223,7 @@ function applyGreenCandleEffect(player: EntityPlayer) {
       // The source is the player
       // The duration is 100 frames
       // The damage is equal to the player's damage stat
-      entity.AddPoison(player, 100, player.Damage)
+      entity.AddPoison(player, 100, player.Damage);
       // (this shows an error in the IDE because AddPoison expects an EntityRef)
     }
   }
@@ -233,7 +233,7 @@ function applyGreenCandleEffect(player: EntityPlayer) {
 TypeScript saves the day, telling us that we actually need to feed the function an entity reference. This is accomplished by simply casting the player as an `EntityRef`. (The "EntityRef()" function is a global.)
 
 ```typescript
-entity.AddPoison(EntityRef(player), 100, player.Damage)
+entity.AddPoison(EntityRef(player), 100, player.Damage);
 ```
 
 <br />

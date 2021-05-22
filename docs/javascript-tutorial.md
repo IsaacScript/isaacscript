@@ -98,7 +98,7 @@ numFarts = numFarts + 1 -- numFarts is now equal to 2
 // TypeScript code
 const poop = "poop"; // We use "const" because this value never changes
 let numFarts = 1; // We use "let" because we have to modify it later
-numFarts = numFarts + 1 // numFarts is now equal to 2
+numFarts = numFarts + 1; // numFarts is now equal to 2
 ```
 
 <br />
@@ -118,7 +118,8 @@ end
 
 ```typescript
 // TypeScript code
-function getNumPoops() { // All functions in TypeScript are local by default
+// All functions in TypeScript are local by default
+function getNumPoops() {
   return 2;
 }
 ```
@@ -233,7 +234,7 @@ In TypeScript, you have a few different options.
 
 ```typescript
 // Typescript code
-const gapers = Isaac.FindByType(EntityType.ENTITY_GAPER, -1, -1, false, false)
+const gapers = Isaac.FindByType(EntityType.ENTITY_GAPER, -1, -1, false, false);
 
 // A "for of" loop is the simplest way to iterate over an array
 for (const gaper of gapers) {
@@ -242,7 +243,7 @@ for (const gaper of gapers) {
 
 // Or, use the "entries" method if you need the array index too
 for (const [i, gaper] of gapers.entries()) {
-  print(i)
+  print(i);
   gaper.Remove();
 }
 ```
@@ -359,8 +360,8 @@ local numPoopsString = tostring(numPoops)
 
 ```typescript
 // TypeScript code
-const numPoops = 3
-const numPoopsString = numPoops.toString()
+const numPoops = 3;
+const numPoopsString = numPoops.toString();
 ```
 
 However, in TypeScript, you probably won't need to convert variables like this very often. Most of the time, you can use string templates, which are very convenient. They are denoted by the <code>`</code> character and will automatically convert any variable to a string.
@@ -372,7 +373,7 @@ Isaac.DebugString("The current number of poops is: " .. tostring(numPoops))
 
 ```typescript
 // TypeScript code
-Isaac.DebugString(`The current number of poops is: ${numPoops}`)
+Isaac.DebugString(`The current number of poops is: ${numPoops}`);
 ```
 
 Or, a slightly more complicated example:
@@ -385,7 +386,7 @@ Isaac.DebugString("Entity found: " .. tostring(entity.Type) .. "."
 
 ```typescript
 // TypeScript code
-Isaac.DebugString(`Entity found: ${entity.Type}.${entity.Variant}.${entity.SubType}`)
+Isaac.DebugString(`Entity found: ${entity.Type}.${entity.Variant}.${entity.SubType}`);
 ```
 
 <br />
@@ -455,7 +456,7 @@ In TypeScript, this is accomplished with `import`.<br />
 
 ```typescript
 // main.ts
-import * as postPlayerInit from './postPlayerInit';
+import * as postPlayerInit from "./postPlayerInit";
 
 const Revelations = RegisterMod("Revelations", 1);
 Revelations.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit.Main);
@@ -464,7 +465,7 @@ Revelations.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit.Main);
 ```typescript
 // postPlayerInit.ts
 export function Main(player: EntityPlayer) {
-  player.AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false)
+  player.AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false);
 }
 ```
 
@@ -502,6 +503,7 @@ if (InfinityTrueCoopInterface !== null) {
 If you need to check for `InfinityTrueCoopInterface !== null` in more than one place in your mod, then option 1 is bad, because you would be [need to repeat yourself before each check](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself). Instead, make a TypeScript definition file that corresponds to the variable / table.
 
 For example, to declare `InfinityTrueCoopInterface`, starting from the root of your project:
+
 - Create the `src/types` directory.
 - Create the `src/types/InfinityTrueCoopInterface.d.ts` file.
 - Put the following in it:
@@ -563,7 +565,7 @@ In TypeScript, you just have to declare it beforehand:
 
 ```typescript
 declare let RevelationsVersion: string;
-RevelationsVersion = '2.1'; // "RevelationsVersion" is now a global variable
+RevelationsVersion = "2.1"; // "RevelationsVersion" is now a global variable
 ```
 
 Building on this example, you can also expose both variables and methods:
@@ -588,7 +590,7 @@ First, see the previous section on [`for` Statements for Key/Value Tables](#for-
 
 In TypeScript, you typically want to avoid using anonymous objects because they are not very specific. Let's see if we can do better.
 
-In this example, what "itemPrices" *really* represents is a map of specific item IDs to prices. Unlike Lua, TypeScript has a `Map` data type. So, the example would be better written like this:
+In this example, what "itemPrices" _really_ represents is a map of specific item IDs to prices. Unlike Lua, TypeScript has a `Map` data type. So, the example would be better written like this:
 
 ```typescript
 // itemPrices has a type of "Map<CollectibleType, number>",
@@ -597,7 +599,7 @@ const itemPrices = new Map([
   [CollectibleType.COLLECTIBLE_SAD_ONION, 15],
   [CollectibleType.COLLECTIBLE_INNER_EYE, 15],
   [CollectibleType.COLLECTIBLE_SPOON_BENDER, 7],
-])
+]);
 
 for (const [itemID, price] of itemPrices.entries()) {
   // Do something with "itemID" and "price"
@@ -639,6 +641,7 @@ function pickingUpItem(player: EntityPlayer, pickingUpItemID: number) {
 First, see the previous section on [Maps](#maps). In that section, we defined "itemPrices" as a map with a type of `Map<CollectibleType, number>`.
 
 Imagine that in our mod, items can only be sold for three different prices:
+
 - 15 coins (normal)
 - 30 coins (double)
 - 7 coins (on sale)
@@ -655,8 +658,8 @@ enum ItemPrice {
 // itemPrices has a type of "Map<CollectibleType, ItemPrice>",
 // which is even safer than before!
 const itemPrices = new Map([
-  CollectibleType.COLLECTIBLE_SAD_ONION = ItemPrice.Normal,
-  CollectibleType.COLLECTIBLE_INNER_EYE = ItemPrice.Normal,
-  CollectibleType.COLLECTIBLE_SPOON_BENDER = ItemPrice.Sale,
-])
+  (CollectibleType.COLLECTIBLE_SAD_ONION = ItemPrice.Normal),
+  (CollectibleType.COLLECTIBLE_INNER_EYE = ItemPrice.Normal),
+  (CollectibleType.COLLECTIBLE_SPOON_BENDER = ItemPrice.Sale),
+]);
 ```
