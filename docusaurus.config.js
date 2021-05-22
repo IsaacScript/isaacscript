@@ -14,7 +14,7 @@ module.exports = {
             logo: { src: "images/isaactearsiconfull.gif" },
             items: [
                 { to: "docs/features", label: "Docs", position: "left" },
-                { href: "https://discord.gg/vu3pFATz", label: "Discord", position: "right" },
+                { href: "https://discord.gg/KapmKQ2gUD", label: "Discord", position: "right" },
                 { href: "https://github.com/IsaacScript/isaacscript", label: "GitHub", position: "right" },
                 { href: "https://wofsauge.github.io/IsaacDocs/rep/", label: "API Docs", position: "right" },
             ],
