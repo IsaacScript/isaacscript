@@ -19,6 +19,7 @@ export const DEFAULT_MODS_PATH = path.join(
   "mods",
 );
 export const DISABLE_IT_FILE = "disable.it";
+export const FILE_SYNCED_MESSAGE = "File synced:";
 export const STEAM_REGISTRY_KEY = "\\Software\\Valve\\Steam";
 export const WINDOWS_CODE_PAGE = "65001";
 
@@ -71,7 +72,8 @@ export const CONSTANTS_TS_PATH = path.join(CWD, "src", "constants.ts");
 
 // project/mod
 export const MOD_SOURCE_PATH = path.join(CWD, "mod");
-export const MAIN_LUA_SOURCE_PATH = path.join(MOD_SOURCE_PATH, "main.lua");
+export const MAIN_LUA = "main.lua";
+export const MAIN_LUA_SOURCE_PATH = path.join(MOD_SOURCE_PATH, MAIN_LUA);
 export const METADATA_XML_PATH = path.join(MOD_SOURCE_PATH, "metadata.xml");
 export const VERSION_TXT_PATH = path.join(MOD_SOURCE_PATH, "version.txt");
 

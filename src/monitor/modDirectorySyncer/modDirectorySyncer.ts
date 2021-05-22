@@ -1,4 +1,5 @@
 import syncDirectory from "sync-directory2";
+import { FILE_SYNCED_MESSAGE } from "../../constants";
 
 let modSourcePath: string;
 let modTargetPath: string;
@@ -30,7 +31,7 @@ function init() {
 function afterSync(params: { type: string; relativePath: string }) {
   const secondsPassed = (new Date().getTime() - timeInvoked.getTime()) / 1000;
   if (secondsPassed > 1) {
-    send(`File synced: ${params.relativePath}`);
+    send(`${FILE_SYNCED_MESSAGE} ${params.relativePath}`);
   }
 }
 

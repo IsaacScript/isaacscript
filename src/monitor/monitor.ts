@@ -3,7 +3,13 @@ import { ChildProcessWithoutNullStreams, fork, spawn } from "child_process";
 import path from "path";
 import { Config } from "../Config";
 import * as configFile from "../configFile";
-import { CURRENT_DIRECTORY_NAME, CWD, MOD_SOURCE_PATH } from "../constants";
+import {
+  CURRENT_DIRECTORY_NAME,
+  CWD,
+  FILE_SYNCED_MESSAGE,
+  MAIN_LUA,
+  MOD_SOURCE_PATH,
+} from "../constants";
 import * as file from "../file";
 import copyWatcherMod from "./copyWatcherMod";
 import getTSConfigInclude from "./getTSConfigInclude";
@@ -55,6 +61,14 @@ function spawnModDirectorySyncer(config: Config) {
 
   directorySycner.on("message", (msg: string) => {
     notifyGame.msg(msg, true);
+
+    // If the "main.lua" file was successfully copied over, we also have to tell isaacscript-watcher
+    // to reload the mod
+    if (msg === `${FILE_SYNCED_MESSAGE} \\${MAIN_LUA}`) {
+      notifyGame.command(`luamod ${CURRENT_DIRECTORY_NAME}`);
+      notifyGame.command("restart");
+      notifyGame.msg("Reloaded the mod.", true);
+    }
   });
 
   directorySycner.on("close", (code: number | null) => {
@@ -108,16 +122,8 @@ function spawnTSTLWatcher() {
       const newMsg = "TypeScript change detected. Compiling...";
       notifyGame.msg(newMsg, true);
     } else if (msg.includes("Found 0 errors. Watching for file changes.")) {
-      // Since a different process is in charge of copying over the compiled main.lua file,
-      // there is a race condition where we can execute a "luamod" command before the file is
-      // finished copying
-      // Delay a little bit in order to mitigate this
-      setTimeout(() => {
-        notifyGame.command(`luamod ${CURRENT_DIRECTORY_NAME}`);
-        notifyGame.command("restart");
-        const newMsg = `${CURRENT_DIRECTORY_NAME} - Successfully compiled & reloaded!`;
-        notifyGame.msg(newMsg, true);
-      }, 100); // 0.1 seconds
+      const newMsg = "Compilation successful.";
+      notifyGame.msg(newMsg, true);
     } else {
       notifyGame.msg(msg, false);
     }
