@@ -224,6 +224,7 @@ function openModUploader(modTargetPath: string) {
   const modUploaderPath = path.join(
     modTargetPath,
     "..",
+    "..",
     "tools",
     "ModUploader",
     "ModUploader.exe",
