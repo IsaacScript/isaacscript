@@ -33,7 +33,6 @@ function startPublish(
   skip: boolean,
 ): void {
   updateDeps();
-  runPreReleaseScript(modSourcePath);
   let version = getVersionFromPackageJSON();
   if (!skip) {
     version = bumpVersionInPackageJSON(version);
@@ -42,6 +41,7 @@ function startPublish(
   writeVersionToMetadataXML(version);
   writeVersionToVersionTXT(version);
   compileAndCopy(modSourcePath, modTargetPath);
+  runPreReleaseScript(modSourcePath);
   gitCommitIfChanges(version);
   purgeRoomXMLs(modTargetPath);
   openModUploader(modTargetPath);
