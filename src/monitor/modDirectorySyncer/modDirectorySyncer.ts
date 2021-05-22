@@ -1,4 +1,4 @@
-import syncDirectory from "sync-directory";
+import syncDirectory from "sync-directory2";
 
 let modSourcePath: string;
 let modTargetPath: string;
