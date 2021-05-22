@@ -278,7 +278,7 @@ const itemPrices = {
   [CollectibleType.COLLECTIBLE_SAD_ONION]: 15,
   [CollectibleType.COLLECTIBLE_INNER_EYE]: 15,
   [CollectibleType.COLLECTIBLE_SPOON_BENDER]: 7,
-}
+};
 
 for (const [itemID, price] of Object.entries(itemPrices)) {
   // Do something with "itemID" and "price"
@@ -608,5 +608,5 @@ const itemPrices = {
   [CollectibleType.COLLECTIBLE_SAD_ONION]: ItemPrice.Normal,
   [CollectibleType.COLLECTIBLE_INNER_EYE]: ItemPrice.Normal,
   [CollectibleType.COLLECTIBLE_SPOON_BENDER]: ItemPrice.Sale,
-}
+};
 ```
