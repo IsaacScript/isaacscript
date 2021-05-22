@@ -33,8 +33,8 @@ enum CollectibleTypeCustom {
 
 // Elsewhere in the code:
 if (
-  player.HasCollectible(CollectibleTypeCustom.COLLECTIBLE_MY_CUSTOM_ITEM)
-  && player.HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS)
+  player.HasCollectible(CollectibleTypeCustom.COLLECTIBLE_MY_CUSTOM_ITEM) &&
+  player.HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS)
 ) {
   // Handle the specific synergy with My Custom Item + Epic Fetus
 }
@@ -68,13 +68,13 @@ In other words, it is possible to do this, so beware:
 
 ```typescript
 // Give the player a Sad Onion
-player.AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false)
+player.AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false);
 
 // Find out how many Sad Onions they have
-let numSadOnions = player.GetCollectibleNum(CollectibleType.COLLECTIBLE_SAD_ONION)
+let numSadOnions = player.GetCollectibleNum(CollectibleType.COLLECTIBLE_SAD_ONION);
 // numSadOnions is now an "int" with a value of "1"
 
-numSadOnions += 0.5
+numSadOnions += 0.5;
 // numSadOnions is still an "int", but now it has a value of "1.5"
 // This is a bug and TypeScript won't catch this for you!
 ```
@@ -112,14 +112,14 @@ local vector = Vector(1, 1) * 5 + 2
 
 ```typescript
 // TypeScript code
-const vector = Vector(1, 1).__mul(5).__add(2)
+const vector = Vector(1, 1).__mul(5).__add(2);
 ```
 
 If you want, you can also use the convenience methods of "add", "mul", and so forth, which will transpile to the same thing. For example:
 
 ```typescript
 // TypeScript code
-const vector = Vector(1, 1).mul(5).add(2)
+const vector = Vector(1, 1).mul(5).add(2);
 ```
 
 If you are converting Lua code, make sure to account for order of operations:
@@ -232,11 +232,11 @@ const RevelationsSaveData = {
   currentHP = 3,
   currentNumFamiliars = 4,
   currentCharge = 10,
-}
+};
 
 function saveModData() {
-  const encodedData = json.encode(RevelationsSaveData)
-  Isaac.SaveModData(Revelations, encodedData)
+  const encodedData = json.encode(RevelationsSaveData);
+  Isaac.SaveModData(Revelations, encodedData);
 }
 ```
 
@@ -322,7 +322,7 @@ You cannot instantiate a blank mod object/class:
 
 ```typescript
 // TypeScript code
-const Revelations = RegisterMod("Revelations", 1) // "Revelations" has the type "Mod"
+const Revelations = RegisterMod("Revelations", 1); // "Revelations" has the type "Mod"
 
 class Foo {
   // We might not want to define a type of "Mod | null",
@@ -346,7 +346,7 @@ To fix this problem, do something like the following:
 
 ```typescript
 // TypeScript code
-const Revelations = RegisterMod("Revelations", 1) // "Revelations" has the type "Mod"
+const Revelations = RegisterMod("Revelations", 1); // "Revelations" has the type "Mod"
 
 class Foo {
   modObject: Mod | null = null;
