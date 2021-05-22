@@ -33,7 +33,7 @@ function startPublish(
   skip: boolean,
 ): void {
   updateDeps();
-
+  runPreReleaseScript(modSourcePath);
   let version = getVersionFromPackageJSON();
   if (!skip) {
     version = bumpVersionInPackageJSON(version);
@@ -58,6 +58,20 @@ function updateDeps() {
   ]);
 
   console.log("NPM dependencies updated successfully.");
+}
+
+function runPreReleaseScript(modSourcePath: string) {
+  const projectRoot = path.join(modSourcePath, "..");
+  const preReleaseScriptPath = path.join(
+    projectRoot,
+    "scripts",
+    "pre-release.py",
+  );
+  if (!file.exists(preReleaseScriptPath)) {
+    return;
+  }
+
+  execExe(preReleaseScriptPath, projectRoot);
 }
 
 function getVersionFromPackageJSON() {
@@ -142,6 +156,10 @@ function bumpVersionInPackageJSON(version: string): string {
 }
 
 function writeVersionToConstantsTS(version: string) {
+  if (file.exists(CONSTANTS_TS_PATH)) {
+    return;
+  }
+
   const constantsTS = file.read(CONSTANTS_TS_PATH);
   const newConstantsTS = constantsTS.replace(
     /const VERSION = ".+"/,
