@@ -274,24 +274,23 @@ In TypeScript, you have a few different options.
 ```typescript
 // TypeScript code
 // Define an anonymous object containing item prices
-// (object keys that are numbers are automatically converted to strings)
 const itemPrices = {
-  CollectibleType.COLLECTIBLE_SAD_ONION = 15,
-  CollectibleType.COLLECTIBLE_INNER_EYE = 15,
-  CollectibleType.COLLECTIBLE_SPOON_BENDER = 7,
+  [CollectibleType.COLLECTIBLE_SAD_ONION]: 15,
+  [CollectibleType.COLLECTIBLE_INNER_EYE]: 15,
+  [CollectibleType.COLLECTIBLE_SPOON_BENDER]: 7,
 }
 
-for (const [itemID, price] of itemPrices.entries()) {
+for (const [itemID, price] of Object.entries(itemPrices)) {
   // Do something with "itemID" and "price"
 }
 
 // Or, if you just need the item ID, you would use the "keys()" method
-for (const itemID of itemPrices.keys()) {
+for (const itemID of Object.keys(itemPrices)) {
   // Do something with "itemID"
 }
 
 // Or, if you just need the price, you would use the "values()" method
-for (const price of itemPrices.values()) {
+for (const price of Object.values(itemPrices)) {
   // Do something with "price"
 }
 ```
@@ -584,61 +583,9 @@ RevelationsExports = exports; // "RevelationsExports" is now a global variable
 
 <br />
 
-### Maps
-
-First, see the previous section on [`for` Statements for Key/Value Tables](#for-statements-for-keyvalue-tables). In that section, we defined "itemPrices" as an anonymous object, which is roughly equivalent to a Lua table.
-
-In TypeScript, you typically want to avoid using anonymous objects because they are not very specific. Let's see if we can do better.
-
-In this example, what "itemPrices" _really_ represents is a map of specific item IDs to prices. Unlike Lua, TypeScript has a `Map` data type. So, the example would be better written like this:
-
-```typescript
-// itemPrices has a type of "Map<CollectibleType, number>",
-// which is safer than an object where anything goes
-const itemPrices = new Map([
-  [CollectibleType.COLLECTIBLE_SAD_ONION, 15],
-  [CollectibleType.COLLECTIBLE_INNER_EYE, 15],
-  [CollectibleType.COLLECTIBLE_SPOON_BENDER, 7],
-]);
-
-for (const [itemID, price] of itemPrices.entries()) {
-  // Do something with "itemID" and "price"
-}
-```
-
-With a map, you can use all of the handy methods [shown in the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) (listed on the left side). Here's an example of using the `get()` method to emulate checking for a value in a Lua table:
-
-```lua
--- Lua code
-local function pickingUpItem(player, pickingUpItemID)
-  -- If the player picked up a new item,
-  -- subtract the price of that item from their coin amount
-  local price = itemPrices[pickingUpItemID]
-  if price ~= nil then
-    player:AddCoins(price * -1)
-  end
-end
-```
-
-```typescript
-// TypeScript code
-function pickingUpItem(player: EntityPlayer, pickingUpItemID: number) {
-  // If the player picked up a new item,
-  // subtract the price of that item from their coin amount
-  const price = itemPrices.get(pickingUpItemID)
-  if (price !=== undefined) {
-    player.AddCoins(price * -1)
-  }
-}
-```
-
-(You could also use `price !== null` instead of `price !== undefined`, which would transpile to the same thing. But comparing to undefined is more correct, since that is how you would write normal TypeScript code.)
-
-<br />
-
 ### Enums
 
-First, see the previous section on [Maps](#maps). In that section, we defined "itemPrices" as a map with a type of `Map<CollectibleType, number>`.
+In the previous [`for` loop section](#for-statements-for-keyvalue-tables), we defined a mapping of items to prices.
 
 Imagine that in our mod, items can only be sold for three different prices:
 
@@ -657,9 +604,9 @@ enum ItemPrice {
 
 // itemPrices has a type of "Map<CollectibleType, ItemPrice>",
 // which is even safer than before!
-const itemPrices = new Map([
-  (CollectibleType.COLLECTIBLE_SAD_ONION = ItemPrice.Normal),
-  (CollectibleType.COLLECTIBLE_INNER_EYE = ItemPrice.Normal),
-  (CollectibleType.COLLECTIBLE_SPOON_BENDER = ItemPrice.Sale),
-]);
+const itemPrices = {
+  [CollectibleType.COLLECTIBLE_SAD_ONION]: ItemPrice.Normal,
+  [CollectibleType.COLLECTIBLE_INNER_EYE]: ItemPrice.Normal,
+  [CollectibleType.COLLECTIBLE_SPOON_BENDER]: ItemPrice.Sale,
+}
 ```

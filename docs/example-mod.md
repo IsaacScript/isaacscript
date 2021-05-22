@@ -2,7 +2,7 @@
 title: Building an Example Mod
 ---
 
-This is a tutorial that shows off how to code a simple mod with IsaacScript. Our goal will be to create a new passive item in the game called the _Green Candle_.
+This is a tutorial that shows off how to code a simple mod with IsaacScript. Our goal will be to create a new passive item in the game called the *Green Candle*.
 
 <br />
 
@@ -67,7 +67,7 @@ Notice that this file is in the same format as the "real" items.xml file located
 
 Even though the item exists in the game, it is not yet present in any of the item pools. This means that players will never randomly discover your item as they play the game.
 
-So, let's add the item to the _Treasure Room_ pool. Make a blank file at `C:\Repositories\green-candle\mod\content\itempools.xml` and add the following to it:
+So, let's add the item to the Treasure Room pool. Make a blank file at `C:\Repositories\green-candle\mod\content\itempools.xml` and add the following to it:
 
 ```xml
 <ItemPools>
