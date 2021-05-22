@@ -1,6 +1,6 @@
 import * as d3 from "d3";
 import React, { useEffect, useRef } from "react";
-import pako from "pako";
+import * as zlib from "zlib";
 import { BenchmarkResult, MemoryBenchmarkCategory } from "./benchmark-types";
 import { joinOnProperty, JoinResult } from "./util";
 import { barComparisonGraph } from "./visualizations/bar-comparison-graph";
@@ -117,7 +117,7 @@ export default function Benchmark() {
 }
 
 function decodeBenchmarkData(encodedData: string) {
-    const results = JSON.parse(pako.inflate(atob(encodedData)).toString());
+    const results = JSON.parse(zlib.inflateSync(Buffer.from(encodedData, "base64")).toString());
 
     const dataMaster = results.old as BenchmarkResult[];
     const dataCommit = results.new as BenchmarkResult[];

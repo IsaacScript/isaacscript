@@ -43,7 +43,6 @@ module.exports = {
         ],
     ],
     plugins: [require.resolve("./docusaurus-plugin")],
-    scripts: ['/js/hotkey.js'],
 
     // Deployment settings
     // https://v2.docusaurus.io/docs/deployment

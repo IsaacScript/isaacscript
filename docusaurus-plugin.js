@@ -10,6 +10,7 @@ const resolve = (query) => path.resolve(__dirname, query);
 module.exports = () => ({
     configureWebpack: (config, isServer) => {
         return {
+            node: { fs: "empty" },
             resolveLoader: {
                 // Don't generate worker files in server build, because it overrides client files
                 alias: isServer ? { "worker-loader": require.resolve("null-loader") } : {},
