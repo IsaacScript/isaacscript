@@ -14,6 +14,7 @@ export function spawnSaveDatWriter(config: Config): void {
   const watcherModDataPath = path.join(modDataPath, WATCHER_MOD_NAME);
   const saveDatFileName = `save${config.saveSlot}.dat`;
   const saveDatPath = path.join(watcherModDataPath, saveDatFileName);
+
   saveDatWriter = fork(processPath, [saveDatPath], {
     stdio: ["pipe", "pipe", "pipe", "ipc"],
   });

@@ -18,7 +18,7 @@ local frameOfLastMsg = 0
 local frameOfLastSuccessfulLoad = 0
 local game = Game()
 local font = Font()
-font:Load("font/pftempestasevencondensed.fnt")
+font:Load("font/pftempestasevencondensed.fnt") -- A vanilla font good for this kind of text
 local connected = false
 local emojiEyesSprite = nil
 

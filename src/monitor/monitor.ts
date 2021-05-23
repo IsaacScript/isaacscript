@@ -60,14 +60,14 @@ function spawnModDirectorySyncer(config: Config) {
   const directorySycner = fork(processPath, [MOD_SOURCE_PATH, modTargetPath]);
 
   directorySycner.on("message", (msg: string) => {
-    notifyGame.msg(msg, true);
+    notifyGame.msg(msg);
 
     // If the "main.lua" file was successfully copied over, we also have to tell isaacscript-watcher
     // to reload the mod
     if (msg === `${FILE_SYNCED_MESSAGE} \\${MAIN_LUA}`) {
       notifyGame.command(`luamod ${CURRENT_DIRECTORY_NAME}`);
       notifyGame.command("restart");
-      notifyGame.msg("Reloaded the mod.", true);
+      notifyGame.msg("Reloaded the mod.");
     }
   });
 
@@ -115,27 +115,27 @@ function spawnTSTLWatcher() {
     const msg = data.toString().trim();
     if (msg.includes("Starting compilation in watch mode...")) {
       const newMsg = "IsaacScript is now watching for changes.";
-      notifyGame.msg(newMsg, true);
+      notifyGame.msg(newMsg);
     } else if (
       msg.includes("File change detected. Starting incremental compilation...")
     ) {
       const newMsg = "TypeScript change detected. Compiling...";
-      notifyGame.msg(newMsg, true);
+      notifyGame.msg(newMsg);
     } else if (msg.includes("Found 0 errors. Watching for file changes.")) {
       const newMsg = "Compilation successful.";
-      notifyGame.msg(newMsg, true);
+      notifyGame.msg(newMsg);
     } else {
-      notifyGame.msg(msg, false);
+      notifyGame.msg(msg);
     }
   });
 
   tstl.stderr.on("data", (data: Buffer[]) => {
     const msg = data.toString().trim();
     if (msg === "^C") {
+      // Hide the line that appears when you cancel the program with Ctrl + c
       return;
     }
-    console.error("Error:", msg);
-    notifyGame.msg(`Error: ${msg}`, true);
+    notifyGame.msg(`Error: ${msg}`);
   });
 
   tstl.on("close", (code) => {
