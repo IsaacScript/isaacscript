@@ -23,18 +23,23 @@ export default function publish(
   }
 
   const skip = argv.skip === true;
+  const setVersion = argv.setversion as number | undefined;
   const modTargetPath = path.join(config.modsDirectory, config.projectName);
-  startPublish(MOD_SOURCE_PATH, modTargetPath, skip);
+  startPublish(MOD_SOURCE_PATH, modTargetPath, skip, setVersion);
 }
 
 function startPublish(
   modSourcePath: string,
   modTargetPath: string,
   skip: boolean,
+  setVersion: number | undefined,
 ): void {
   updateDeps();
-  let version = getVersionFromPackageJSON();
-  if (!skip) {
+  let version =
+    setVersion === undefined
+      ? getVersionFromPackageJSON()
+      : setVersion.toString();
+  if (!skip && setVersion === undefined) {
     version = bumpVersionInPackageJSON(version);
   }
   writeVersionToConstantsTS(version);

@@ -35,11 +35,18 @@ export default function parseArgs() {
       "publish",
       "Bump the version & launch the mod uploader.",
       (builder) => {
-        return builder.option("skip", {
-          alias: "s",
-          type: "boolean",
-          description: "skip incrementing the version number",
-        });
+        return builder
+          .option("skip", {
+            alias: "s",
+            type: "boolean",
+            description: "skip incrementing the version number",
+          })
+          .option("setversion", {
+            alias: "t",
+            type: "number",
+            description:
+              "specify the version number instead of incrementing it",
+          });
       },
     )
 
