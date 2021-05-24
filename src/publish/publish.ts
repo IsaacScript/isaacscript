@@ -79,12 +79,13 @@ function runPreReleaseScript(modSourcePath: string) {
   const preReleaseScriptPath = path.join(
     projectRoot,
     "scripts",
-    "pre-release.py",
+    "pre_release.py",
   );
   if (!file.exists(preReleaseScriptPath)) {
     return;
   }
 
+  console.log('Running the "pre_release.py" script.');
   execExe(preReleaseScriptPath, projectRoot);
 }
 
