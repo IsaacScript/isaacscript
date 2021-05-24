@@ -5,6 +5,8 @@ import * as file from "../../file";
 import { ensureAllCases } from "../../misc";
 import { SaveDatMessage, SaveDatMessageType } from "./types";
 
+const MAX_MESSAGES = 100;
+
 let saveDatPath: string;
 let saveDatFileName: string;
 
@@ -43,6 +45,17 @@ function onMessage(
   }
 
   const saveDat = readSaveDatFromDisk();
+  if (saveDat.length > MAX_MESSAGES) {
+    // If IsaacScript is running and
+    // 1) the game is not open
+    // 2) or the game is open but the IsaacScript Watcher mod is disabled
+    // then this process will continue to write to the "save#.dat" file,
+    // which can cause it to grow arbitrarily large
+    // (since there is no-one on the other side removing the messages)
+    // If there is N messages already in the queue,
+    // assume that no-one is listening and stop adding any more messages
+    return;
+  }
   addMessageToSaveDat(type, saveDat, data); // Mutates saveDat
   writeSaveDatToDisk(type, data, numRetries, saveDat);
 }
