@@ -23,7 +23,7 @@ export function msg(data: string): void {
 }
 
 function printMsgToStandardOut(data: string) {
-  if (data === "Compilation successful.") {
+  if (data.match(/Compilation successful./g)) {
     data = chalk.green(data);
   } else if (data.match(/Found \d+ errors./g)) {
     data = chalk.red(data);
