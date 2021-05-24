@@ -49,6 +49,8 @@ function startPublish(
     setVersion === undefined ? getVersionFromPackageJSON() : setVersion;
   if (!skip && setVersion === undefined) {
     version = bumpVersionInPackageJSON(version);
+  } else if (setVersion !== undefined) {
+    writeVersionInPackageJSON(version);
   }
 
   writeVersionToConstantsTS(version);
@@ -165,13 +167,27 @@ function bumpVersionInPackageJSON(version: string): string {
   );
   file.write(PACKAGE_JSON_PATH, newPackageJSON);
 
-  console.log(`Bumped the version to: ${incrementedVersion}`);
+  console.log(`Bumped the version in "package.json" to: ${incrementedVersion}`);
 
   return incrementedVersion;
 }
 
+function writeVersionInPackageJSON(version: string) {
+  const packageJSON = file.read(PACKAGE_JSON_PATH);
+  const newPackageJSON = packageJSON.replace(
+    /"version": ".+",/,
+    `"version": "${version}",`,
+  );
+  file.write(PACKAGE_JSON_PATH, newPackageJSON);
+
+  console.log(`Set the version in "package.json" to: ${version}`);
+}
+
 function writeVersionToConstantsTS(version: string) {
-  if (file.exists(CONSTANTS_TS_PATH)) {
+  if (!file.exists(CONSTANTS_TS_PATH)) {
+    console.log(
+      'Skipping writing the version to "constants.ts" since it was not found.',
+    );
     return;
   }
 
@@ -221,6 +237,7 @@ function gitCommitIfChanges(version: string) {
   );
   if (exitCode === 0) {
     // There are no changes
+    console.log("There are no changes to commit.");
     return;
   }
 
