@@ -12,8 +12,9 @@ However, for large mods, there are often other tasks that need to be performed b
 - Bump the version in the "mod/metadata.xml" file.
 - Bump the version in the "mod/version.txt" file.
 - Compile the TypeScript.
+- Run the Python script located at "scripts/publish_pre_copy.py" (if it exists).
 - Copy everything from the source mod directory to the destination mod directory (i.e. "project/mod" --> "mods/project").
-- Run the Python script located at "scripts/pre-release.py" (if it exists).
+- Run the Python script located at "scripts/publish_post_copy.py" (if it exists).
 - Commit all changes in Git and push.
 - Open the "ModUploader.exe" file with a working directory of the destination mod directory.
   - (Unfortunately, there isn't a way to publish a mod via the command-line.)
