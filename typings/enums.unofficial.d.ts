@@ -1,4 +1,4 @@
-// Unofficial enums contributed by the community
+// These are unofficial enums contributed by the community
 // We have to use const enums here instead of normal enums because the corresponding Lua globals do
 // not exist
 // https://www.typescriptlang.org/docs/handbook/enums.html

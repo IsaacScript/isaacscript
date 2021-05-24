@@ -1,10 +1,11 @@
-type PlayerAnimationName = "Pickup" | "LiftItem" | "HideItem" | "UseItem";
 type CollectibleAnimationName =
   | "Idle"
   | "Empty"
   | "ShopIdle"
   | "PlayerPickup"
   | "PlayerPickupSparkle";
+type ControllerIndex = 0 | 1 | 2 | 3;
+type PlayerAnimationName = "Pickup" | "LiftItem" | "HideItem" | "UseItem";
 type SlotId = 0 | 1;
 type ZodiacCollectibles =
   | CollectibleType.COLLECTIBLE_CANCER
@@ -710,7 +711,7 @@ declare class EntityPlayer extends Entity {
 
   BabySkin: BabySubType | int;
   CanFly: boolean;
-  readonly ControllerIndex: int;
+  readonly ControllerIndex: ControllerIndex;
   ControlsCooldown: int;
   ControlsEnabled: boolean;
   Damage: float;
