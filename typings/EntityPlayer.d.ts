@@ -665,7 +665,7 @@ declare class EntityPlayer extends Entity {
    * @param collectibleType
    * @param useFlag Default is 0.
    * @param activeSlot The active slot this item was used from.
-   * (Set to ActiveSlot.SLOT_NONE if this item wasn't triggered by any active slot.)
+   * (Set to -1 if this item wasn't triggered by any active slot.)
    * Default is ActiveSlot.SLOT_PRIMARY.
    */
   UseActiveItem(
@@ -680,7 +680,7 @@ declare class EntityPlayer extends Entity {
    * @param allowNonMainPlayer
    * @param toAddCostume
    * @param activeSlot The active slot this item was used from.
-   * (Set to ActiveSlot.SLOT_NONE if this item wasn't triggered by any active slot.)
+   * (Set to -1 if this item wasn't triggered by any active slot.)
    * Default is ActiveSlot.SLOT_PRIMARY.
    */
   UseActiveItem(
