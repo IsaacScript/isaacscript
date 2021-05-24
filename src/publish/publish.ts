@@ -7,8 +7,8 @@ import {
   METADATA_XML_PATH,
   MOD_SOURCE_PATH,
   PACKAGE_JSON_PATH,
-  PRE_RELEASE_PY,
-  PRE_RELEASE_PY_PATH,
+  PUBLISH_POST_COPY_PY_PATH,
+  PUBLISH_PRE_COPY_PY_PATH,
   VERSION_TXT_PATH,
 } from "../constants";
 import { compileAndCopy } from "../copy/copy";
@@ -58,8 +58,9 @@ function startPublish(
   writeVersionToConstantsTS(version);
   writeVersionToMetadataXML(version);
   writeVersionToVersionTXT(version);
+  runReleaseScriptPreCopy();
   compileAndCopy(modSourcePath, modTargetPath);
-  runPreReleaseScript();
+  runReleaseScriptPostCopy();
   gitCommitIfChanges(version);
   purgeRoomXMLs(modTargetPath);
   openModUploader(modTargetPath);
@@ -76,15 +77,6 @@ function updateDeps() {
   ]);
 
   console.log("NPM dependencies updated successfully.");
-}
-
-function runPreReleaseScript() {
-  if (!file.exists(PRE_RELEASE_PY_PATH)) {
-    return;
-  }
-
-  console.log(`Running the "${PRE_RELEASE_PY}" script.`);
-  execShell("python", [PRE_RELEASE_PY_PATH]);
 }
 
 function getVersionFromPackageJSON() {
@@ -214,6 +206,24 @@ function writeVersionToVersionTXT(version: string) {
   file.write(VERSION_TXT_PATH, version);
 
   console.log(`The version of ${version} was written to: ${VERSION_TXT_PATH}`);
+}
+
+function runReleaseScriptPreCopy() {
+  if (!file.exists(PUBLISH_PRE_COPY_PY_PATH)) {
+    return;
+  }
+
+  console.log(`Running the "${PUBLISH_PRE_COPY_PY_PATH}" script.`);
+  execShell("python", [PUBLISH_PRE_COPY_PY_PATH]);
+}
+
+function runReleaseScriptPostCopy() {
+  if (!file.exists(PUBLISH_POST_COPY_PY_PATH)) {
+    return;
+  }
+
+  console.log(`Running the "${PUBLISH_POST_COPY_PY_PATH}" script.`);
+  execShell("python", [PUBLISH_POST_COPY_PY_PATH]);
 }
 
 function gitCommitIfChanges(version: string) {

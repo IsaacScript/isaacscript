@@ -78,8 +78,18 @@ export const METADATA_XML_PATH = path.join(MOD_SOURCE_PATH, "metadata.xml");
 export const VERSION_TXT_PATH = path.join(MOD_SOURCE_PATH, "version.txt");
 
 // project/scripts
-export const PRE_RELEASE_PY = "pre_release.py";
-export const PRE_RELEASE_PY_PATH = path.join(CWD, "scripts", PRE_RELEASE_PY);
+export const PUBLISH_PRE_COPY_PY = "publish_pre_copy.py";
+export const PUBLISH_PRE_COPY_PY_PATH = path.join(
+  CWD,
+  "scripts",
+  PUBLISH_PRE_COPY_PY,
+);
+export const PUBLISH_POST_COPY_PY = "publish_post_copy.py";
+export const PUBLISH_POST_COPY_PY_PATH = path.join(
+  CWD,
+  "scripts",
+  PUBLISH_POST_COPY_PY,
+);
 
 // From: https://gist.github.com/doctaphred/d01d05291546186941e1b7ddc02034d3
 export const ILLEGAL_CHARACTERS_FOR_WINDOWS_FILENAMES = [
