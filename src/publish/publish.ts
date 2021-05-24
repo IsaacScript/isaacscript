@@ -7,6 +7,8 @@ import {
   METADATA_XML_PATH,
   MOD_SOURCE_PATH,
   PACKAGE_JSON_PATH,
+  PRE_RELEASE_PY,
+  PRE_RELEASE_PY_PATH,
   VERSION_TXT_PATH,
 } from "../constants";
 import { compileAndCopy } from "../copy/copy";
@@ -57,7 +59,7 @@ function startPublish(
   writeVersionToMetadataXML(version);
   writeVersionToVersionTXT(version);
   compileAndCopy(modSourcePath, modTargetPath);
-  runPreReleaseScript(modSourcePath);
+  runPreReleaseScript();
   gitCommitIfChanges(version);
   purgeRoomXMLs(modTargetPath);
   openModUploader(modTargetPath);
@@ -76,19 +78,13 @@ function updateDeps() {
   console.log("NPM dependencies updated successfully.");
 }
 
-function runPreReleaseScript(modSourcePath: string) {
-  const projectRoot = path.join(modSourcePath, "..");
-  const preReleaseScriptPath = path.join(
-    projectRoot,
-    "scripts",
-    "pre_release.py",
-  );
-  if (!file.exists(preReleaseScriptPath)) {
+function runPreReleaseScript() {
+  if (!file.exists(PRE_RELEASE_PY_PATH)) {
     return;
   }
 
-  console.log('Running the "pre_release.py" script.');
-  execExe(preReleaseScriptPath, projectRoot);
+  console.log(`Running the "${PRE_RELEASE_PY}" script.`);
+  execShell("python", [PRE_RELEASE_PY_PATH]);
 }
 
 function getVersionFromPackageJSON() {
@@ -167,7 +163,9 @@ function bumpVersionInPackageJSON(version: string): string {
   );
   file.write(PACKAGE_JSON_PATH, newPackageJSON);
 
-  console.log(`Bumped the version in "package.json" to: ${incrementedVersion}`);
+  console.log(
+    `The version of ${incrementedVersion} was written to: ${PACKAGE_JSON_PATH}`,
+  );
 
   return incrementedVersion;
 }
@@ -180,7 +178,7 @@ function writeVersionInPackageJSON(version: string) {
   );
   file.write(PACKAGE_JSON_PATH, newPackageJSON);
 
-  console.log(`Set the version in "package.json" to: ${version}`);
+  console.log(`The version of ${version} was written to: ${PACKAGE_JSON_PATH}`);
 }
 
 function writeVersionToConstantsTS(version: string) {
@@ -198,9 +196,7 @@ function writeVersionToConstantsTS(version: string) {
   );
   file.write(CONSTANTS_TS_PATH, newConstantsTS);
 
-  console.log(
-    `The version of ${version} was written to the ${CONSTANTS_TS_PATH} file.`,
-  );
+  console.log(`The version of ${version} was written to: ${CONSTANTS_TS_PATH}`);
 }
 
 function writeVersionToMetadataXML(version: string) {
@@ -211,17 +207,13 @@ function writeVersionToMetadataXML(version: string) {
   );
   file.write(METADATA_XML_PATH, newMetadataXML);
 
-  console.log(
-    `The version of ${version} was written to the ${METADATA_XML_PATH} file.`,
-  );
+  console.log(`The version of ${version} was written to: ${METADATA_XML_PATH}`);
 }
 
 function writeVersionToVersionTXT(version: string) {
   file.write(VERSION_TXT_PATH, version);
 
-  console.log(
-    `The version of ${version} was written to the ${VERSION_TXT_PATH} file.`,
-  );
+  console.log(`The version of ${version} was written to: ${VERSION_TXT_PATH}`);
 }
 
 function gitCommitIfChanges(version: string) {

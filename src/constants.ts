@@ -77,6 +77,10 @@ export const MAIN_LUA_SOURCE_PATH = path.join(MOD_SOURCE_PATH, MAIN_LUA);
 export const METADATA_XML_PATH = path.join(MOD_SOURCE_PATH, "metadata.xml");
 export const VERSION_TXT_PATH = path.join(MOD_SOURCE_PATH, "version.txt");
 
+// project/scripts
+export const PRE_RELEASE_PY = "pre_release.py";
+export const PRE_RELEASE_PY_PATH = path.join(CWD, "scripts", PRE_RELEASE_PY);
+
 // From: https://gist.github.com/doctaphred/d01d05291546186941e1b7ddc02034d3
 export const ILLEGAL_CHARACTERS_FOR_WINDOWS_FILENAMES = [
   "<",
