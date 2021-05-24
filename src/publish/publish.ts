@@ -23,8 +23,17 @@ export default function publish(
   }
 
   const skip = argv.skip === true;
-  const setVersion = argv.setversion as number | undefined;
+  const setVersion = argv.setversion as string | undefined;
   const modTargetPath = path.join(config.modsDirectory, config.projectName);
+
+  // Check to see that the version specified matches semantic versioning
+  if (setVersion !== undefined && !/^\d+\.\d+\.\d+$/.exec(setVersion)) {
+    console.error(
+      `The version of "${setVersion}" does not match the semantic versioning format.`,
+    );
+    process.exit(1);
+  }
+
   startPublish(MOD_SOURCE_PATH, modTargetPath, skip, setVersion);
 }
 
@@ -32,16 +41,16 @@ function startPublish(
   modSourcePath: string,
   modTargetPath: string,
   skip: boolean,
-  setVersion: number | undefined,
+  setVersion: string | undefined,
 ): void {
   updateDeps();
+
   let version =
-    setVersion === undefined
-      ? getVersionFromPackageJSON()
-      : setVersion.toString();
+    setVersion === undefined ? getVersionFromPackageJSON() : setVersion;
   if (!skip && setVersion === undefined) {
     version = bumpVersionInPackageJSON(version);
   }
+
   writeVersionToConstantsTS(version);
   writeVersionToMetadataXML(version);
   writeVersionToVersionTXT(version);

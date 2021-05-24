@@ -43,7 +43,7 @@ export default function parseArgs() {
           })
           .option("setversion", {
             alias: "t",
-            type: "number",
+            type: "string",
             description:
               "specify the version number instead of incrementing it",
           });
