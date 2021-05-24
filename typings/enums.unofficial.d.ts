@@ -74,6 +74,98 @@ declare const enum PoopVariant {
   WHITE = 6,
 }
 
+/**
+ * Matches the ItemConfig.CHARGE_* members of the ItemConfig class.
+ * In IsaacScript, we reimplement this as an enum, since it is cleaner.
+ */
+declare const enum ItemConfigChargeType {
+  NORMAL = 0,
+  TIMED = 1,
+  SPECIAL = 2,
+}
+
+/**
+ * Matches the ItemConfig.TAG_* members of the ItemConfig class.
+ * In IsaacScript, we reimplement this as an enum, since it is cleaner.
+ */
+declare const enum ItemConfigTag {
+  /** Dead things (for the Parasite unlock) */
+  DEAD = 1,
+  /** Syringes (for Little Baggy and the Spun! transformation) */
+  SYRINGE = 1 << 1,
+  /** Mom's things (for Mom's Contact and the Yes Mother? transformation) */
+  MOM = 1 << 2,
+  /** Technology items (for the Technology Zero unlock) */
+  TECH = 1 << 3,
+  /** Battery items (for the Jumper Cables unlock) */
+  BATTERY = 1 << 4,
+  /** -- Guppy items (Guppy transformation) */
+  GUPPY = 1 << 5,
+  /** Fly items (Beelzebub transformation) */
+  FLY = 1 << 6,
+  /** Bob items (Bob transformation) */
+  BOB = 1 << 7,
+  /** Mushroom items (Fun Guy transformation) */
+  MUSHROOM = 1 << 8,
+  /** Baby items (Conjoined transformation) */
+  BABY = 1 << 9,
+  /** Angel items (Seraphim transformation) */
+  ANGEL = 1 << 10,
+  /** Devil items (Leviathan transformation) */
+  DEVIL = 1 << 11,
+  /** Poop items (Oh Shit transformation) */
+  POOP = 1 << 12,
+  /** Book items (Book Worm transformation) */
+  BOOK = 1 << 13,
+  /** Spider items (Spider Baby transformation) */
+  SPIDER = 1 << 14,
+  /** Quest item (cannot be rerolled or randomly obtained) */
+  QUEST = 1 << 15,
+  /** Can be spawned by Monster Manual */
+  MONSTER_MANUAL = 1 << 16,
+  /** Cannot appear in Greed Mode */
+  NO_GREED = 1 << 17,
+  /** Food item (for Binge Eater) */
+  FOOD = 1 << 18,
+  /** Tears up item (for Lachryphagy unlock detection) */
+  TEARS_UP = 1 << 19,
+  /** Whitelisted item for Tainted Lost */
+  OFFENSIVE = 1 << 20,
+  /** Blacklisted item for Keeper & Tainted Keeper */
+  NO_KEEPER = 1 << 21,
+  /** Blacklisted item for The Lost's Birthright */
+  NO_LOST_BR = 1 << 22,
+  /** Star themed items (for the Planetarium unlock) */
+  STARS = 1 << 23,
+  /** Summonable items (for Tainted Bethany) */
+  SUMMONABLE = 1 << 24,
+  /** Can't be obtained in Cantripped challenge */
+  NO_CANTRIP = 1 << 25,
+  /** Active items that have wisps attached to them (automatically set) */
+  WISP = 1 << 26,
+  /** Unique familiars that cannot be duplicated */
+  UNIQUE_FAMILIAR = 1 << 27,
+}
+
+/**
+ * Matches the ItemConfig.TAG_* members of the ItemConfig class.
+ * In IsaacScript, we reimplement this as an enum, since it is cleaner.
+ */
+declare const enum ItemConfigCardType {
+  TAROT = 0,
+  /** Standard playing cards (twos, aces and Joker, does not include Suicide King, Rules Card or Queen of Hearts) */
+  CARDTYPE_SUIT = 1,
+  CARDTYPE_RUNE = 2,
+  /**
+   * Anything that doesn't fall in the earlier categories.
+   * This excludes non-cards such as Dice Shard, which are located in subsequent enums.
+   */
+  CARDTYPE_SPECIAL = 3,
+  /** Special pocket items that do not qualify as "cards" */
+  CARDTYPE_SPECIAL_OBJECT = 4,
+  CARDTYPE_TAROT_REVERSE = 5,
+}
+
 /** Used for the `gridspawn` console command. */
 declare const enum GridEntityRoomType {
   ROCK = 1000,

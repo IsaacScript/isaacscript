@@ -16,7 +16,18 @@ declare class ItemConfig {
 
   // The static methods in this class are weird and can only be called by a global variable
   // e.g. ItemConfig.Config.IsValidCollectible(1)
-  // However, IsValidCollectible() is bugged for modded items,
-  // so it is deliberately not implemented here
-  // ShouldAddCostumeOnPickup() is near-useless and is deliberately not implemented here
+
+  /**
+   * This method does not work properly for modded items, so it should never be used.
+   * Instead, use "GetCollectible(collectibleType) !== null".
+   */
+  static IsValidCollectible(): never;
+  static ShouldAddCostumeOnPickup(): boolean;
+
+  // In the "enums.lua" file, the ItemConfig class is extended with many members:
+  // - ItemConfig.CHARGE_*
+  // - ItemConfig.TAG_*
+  // - ItemConfig.CARDTYPE_*
+  // In IsaacScript, these are instead implemented as enums, since it is cleaner
+  // See ItemConfigChargeType, ItemConfigTag, and ItemConfigCardType respectively
 }

@@ -1,5 +1,5 @@
 declare class ItemConfigItem {
-  HasTags(tags: int): boolean;
+  HasTags(tags: ItemConfigTag): boolean;
   IsCollectible(): boolean;
   IsNull(): boolean;
   IsTrinket(): boolean;
@@ -14,7 +14,7 @@ declare class ItemConfigItem {
   AddMaxHearts: int;
   AddSoulHearts: int;
   CacheFlags: CacheFlag;
-  ChargeType: int;
+  ChargeType: ItemConfigChargeType;
   ClearEffectsOnRemove: boolean;
   readonly Costume: Readonly<ItemConfigCostume>;
   Description: string;
