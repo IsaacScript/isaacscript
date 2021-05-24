@@ -336,7 +336,7 @@ interface CallbackParameters {
     entityType?: EntityType | int,
   ];
   [ModCallbacks.MC_PRE_SPAWN_CLEAN_AWARD]: [
-    callback: (rng: RNG, spawnPosition: Vector) => boolean,
+    callback: (rng: RNG, spawnPosition: Vector) => boolean | null,
   ];
   [ModCallbacks.MC_PRE_ROOM_ENTITY_SPAWN]: [
     callback: (
