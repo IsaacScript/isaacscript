@@ -18,4 +18,4 @@ However, for large mods, there are often other tasks that need to be performed b
 - Open the "ModUploader.exe" file with a working directory of the destination mod directory.
   - (Unfortunately, there isn't a way to publish a mod via the command-line.)
 
-Furthermore, see `publish --help` for additional flags that may be passed.
+Furthermore, run `npx isaacscript publish --help` for additional flags that may be passed to the `publish` command.
