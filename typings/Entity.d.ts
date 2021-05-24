@@ -66,12 +66,20 @@ declare class Entity {
   RemoveStatusEffects(): void;
   Render(offset: Vector): void;
   RenderShadowLayer(offset: Vector): boolean;
+  /**
+   *
+   * @param color
+   * @param duration
+   * @param priority
+   * @param fadeout Default value is false.
+   * @param share Default value is false.
+   */
   SetColor(
     color: Color,
     duration: int,
     priority: int,
-    fadeout: boolean,
-    share: boolean,
+    fadeout?: boolean,
+    share?: boolean,
   ): void;
   SetSize(size: float, sizeMulti: Vector, numGridCollisionPoints: int): void;
   SetSpriteFrame(animationName: string, frameNum: int): void;

@@ -28,6 +28,13 @@ declare class Level {
   GetHeartPicked(): boolean;
   GetLastBossRoomListIndex(): int;
   GetLastRoomDesc(): Readonly<RoomDescriptor>;
+  /**
+   * @param levelStage Default value is the current stage.
+   * @param stageType Default value is the current stage type.
+   * @param curses Default value is the current curses.
+   * @param infiniteLevel Default value is the current infinite level setting.
+   * @param dyslexia Default value is the current dyslexia setting.
+   */
   GetName(
     levelStage?: LevelStage,
     stageType?: StageType,
