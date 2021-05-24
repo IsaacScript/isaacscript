@@ -7,7 +7,7 @@ export function msg(data: string): void {
   let formattedData = data.trim();
 
   // Add a time prefix
-  formattedData = `${getTime()}${data}`;
+  formattedData = `${getTime()} ${data}`;
 
   // Replace Windows newlines with Unix newlines
   formattedData = formattedData.replace(/\r\n/g, "\n");
