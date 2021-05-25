@@ -342,9 +342,19 @@ declare class EntityPlayer extends Entity {
   GetBlackHearts(): int;
   /** This gets Tainted Bethany's blood charges. */
   GetBloodCharge(): int;
-  GetBombFlags(): BitSet128;
+  /**
+   * There is no separate BombFlags enum, so bombs use tear flags.
+   * Be aware that this really takes a BitSet128 instead of an integer.
+   * However, all of the TearFlags enums values use BitSet128 constructors.
+   */
+  GetBombFlags(): TearFlags;
+  /**
+   * There is no separate BombFlags enum, so bombs use tear flags.
+   * Be aware that this really takes a BitSet128 instead of an integer.
+   * However, all of the TearFlags enums values use BitSet128 constructors.
+   */
   GetBombVariant(
-    tearFlags: BitSet128,
+    tearFlags: TearFlags,
     forceSmallBomb: boolean,
   ): BombVariant | int;
   GetBoneHearts(): int;
@@ -730,7 +740,11 @@ declare class EntityPlayer extends Entity {
   TearColor: Color;
   TearFallingAcceleration: float;
   TearFallingSpeed: float;
-  TearFlags: BitSet128;
+  /**
+   * Be aware that this is really a BitSet128 instead of an integer.
+   * However, all of the TearFlags enums values use BitSet128 constructors.
+   */
+  TearFlags: TearFlags;
   TearHeight: float;
   readonly TearsOffset: Readonly<Vector>;
 }

@@ -51,6 +51,7 @@ declare global {
     ): Entity[];
     function GetCardIdByName(cardName: string): Card | int;
     function GetChallenge(): Challenge | int;
+    /** Returns -1 if the challenge does not exist. */
     function GetChallengeIdByName(challengeName: string): Challenge | int;
     function GetCostumeIdByPath(path: string): int;
     function GetCurseIdByName(curseName: string): LevelCurse | int;

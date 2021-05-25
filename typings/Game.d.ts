@@ -9,6 +9,9 @@ declare class Game {
   AddStageWithoutHeartsPicked(): void;
   AddTreasureRoomsVisited(): void;
   /**
+   * There is no separate BombFlags enum, so bombs use tear flags.
+   * Be aware that this really takes a BitSet128 instead of an integer.
+   * However, all of the TearFlags enums values use BitSet128 constructors.
    * @param position
    * @param damage
    * @param radius
@@ -24,11 +27,14 @@ declare class Game {
     radius: float,
     lineCheck?: boolean,
     source?: Entity,
-    tearFlags?: BitSet128,
+    tearFlags?: TearFlags,
     damageFlags?: DamageFlag,
     damageSource?: boolean,
   ): void;
   /**
+   * There is no separate BombFlags enum, so bombs use tear flags.
+   * Be aware that this really takes a BitSet128 instead of an integer.
+   * However, all of the TearFlags enums values use BitSet128 constructors.
    * @param position
    * @param damage
    * @param tearFlags Default is TearFlags.TEAR_NORMAL.
@@ -42,7 +48,7 @@ declare class Game {
   BombExplosionEffects(
     position: Vector,
     damage: float,
-    tearFlags?: BitSet128,
+    tearFlags?: TearFlags,
     color?: Color,
     source?: Entity,
     radiusMult?: float,
@@ -51,6 +57,9 @@ declare class Game {
     damageFlags?: DamageFlag,
   ): void;
   /**
+   * There is no separate BombFlags enum, so bombs use tear flags.
+   * Be aware that this really takes a BitSet128 instead of an integer.
+   * However, all of the TearFlags enums values use BitSet128 constructors.
    * @param position
    * @param radius
    * @param tearFlags
@@ -60,7 +69,7 @@ declare class Game {
   BombTearflagEffects(
     position: Vector,
     radius: float,
-    tearFlags: BitSet128,
+    tearFlags: TearFlags,
     source?: Entity,
     radiusMult?: float,
   ): void;

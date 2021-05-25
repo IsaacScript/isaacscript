@@ -1,6 +1,14 @@
 declare class EntityLaser extends Entity {
-  AddTearFlags(flags: BitSet128): void;
-  ClearTearFlags(flags: BitSet128): void;
+  /**
+   * Be aware that this really takes a BitSet128 instead of an integer.
+   * However, all of the TearFlags enums values use BitSet128 constructors.
+   */
+  AddTearFlags(flags: TearFlags): void;
+  /**
+   * Be aware that this really takes a BitSet128 instead of an integer.
+   * However, all of the TearFlags enums values use BitSet128 constructors.
+   */
+  ClearTearFlags(flags: TearFlags): void;
   static CalculateEndPoint(
     this: void,
     start: Vector,
@@ -13,7 +21,11 @@ declare class EntityLaser extends Entity {
   // GetNonOptimizedSamples(): Readonly<HomingLaserSampleList>; // HomingLaser is not implemented
   GetRenderZ(): int;
   // GetSamples(): Readonly<HomingLaserSampleList>; // HomingLaser is not implemented
-  HasTearFlags(flags: BitSet128): boolean;
+  /**
+   * Be aware that this really takes a BitSet128 instead of an integer.
+   * However, all of the TearFlags enums values use BitSet128 constructors.
+   */
+  HasTearFlags(flags: TearFlags): boolean;
   IsCircleLaser(): boolean;
   IsSampleLaser(): boolean;
   SetActiveRotation(
@@ -62,6 +74,10 @@ declare class EntityLaser extends Entity {
   // SampleLaser: boolean; // Should use IsSampleLaser() instead
   Shrink: boolean;
   StartAngleDegrees: float;
-  TearFlags: BitSet128;
+  /**
+   * Be aware that this is really a BitSet128 instead of an integer.
+   * However, all of the TearFlags enums values use BitSet128 constructors.
+   */
+  TearFlags: TearFlags;
   Timeout: int;
 }

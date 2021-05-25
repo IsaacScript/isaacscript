@@ -1,10 +1,22 @@
 declare class EntityKnife extends Entity {
-  AddTearFlags(flags: BitSet128): void;
-  ClearTearFlags(flags: BitSet128): void;
+  /**
+   * Be aware that this really takes a BitSet128 instead of an integer.
+   * However, all of the TearFlags enums values use BitSet128 constructors.
+   */
+  AddTearFlags(flags: TearFlags): void;
+  /**
+   * Be aware that this really takes a BitSet128 instead of an integer.
+   * However, all of the TearFlags enums values use BitSet128 constructors.
+   */
+  ClearTearFlags(flags: TearFlags): void;
   GetKnifeDistance(): float;
   GetKnifeVelocity(): float;
   GetRenderZ(): int;
-  HasTearFlags(flags: BitSet128): boolean;
+  /**
+   * Be aware that this really takes a BitSet128 instead of an integer.
+   * However, all of the TearFlags enums values use BitSet128 constructors.
+   */
+  HasTearFlags(flags: TearFlags): boolean;
   IsFlying(): boolean;
   Reset(): void;
   SetPathFollowSpeed(speed: float): void;
@@ -17,5 +29,9 @@ declare class EntityKnife extends Entity {
   Rotation: float;
   RotationOffset: float;
   Scale: float;
-  TearFlags: BitSet128;
+  /**
+   * Be aware that this is really a BitSet128 instead of an integer.
+   * However, all of the TearFlags enums values use BitSet128 constructors.
+   */
+  TearFlags: TearFlags;
 }

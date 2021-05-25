@@ -1,11 +1,27 @@
 declare class EntityBomb extends Entity {
-  AddTearFlags(flags: BitSet128): void;
-  ClearTearFlags(flags: BitSet128): void;
-  HasTearFlags(flags: BitSet128): boolean;
+  /**
+   * Be aware that this really takes a BitSet128 instead of an integer.
+   * However, all of the TearFlags enums values use BitSet128 constructors.
+   */
+  AddTearFlags(flags: TearFlags): void;
+  /**
+   * Be aware that this really takes a BitSet128 instead of an integer.
+   * However, all of the TearFlags enums values use BitSet128 constructors.
+   */
+  ClearTearFlags(flags: TearFlags): void;
+  /**
+   * Be aware that this really takes a BitSet128 instead of an integer.
+   * However, all of the TearFlags enums values use BitSet128 constructors.
+   */
+  HasTearFlags(flags: TearFlags): boolean;
   SetExplosionCountdown(countdown: int): void;
 
   ExplosionDamage: float;
-  Flags: BitSet128;
+  /**
+   * Be aware that this is really a BitSet128 instead of an integer.
+   * However, all of the TearFlags enums values use BitSet128 constructors.
+   */
+  Flags: TearFlags;
   IsFetus: boolean;
   RadiusMultiplier: float;
 }

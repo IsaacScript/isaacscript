@@ -1,8 +1,20 @@
 declare class EntityTear extends Entity {
-  AddTearFlags(flags: BitSet128): void;
+  /**
+   * Be aware that this really takes a BitSet128 instead of an integer.
+   * However, all of the TearFlags enums values use BitSet128 constructors.
+   */
+  AddTearFlags(flags: TearFlags): void;
   ChangeVariant(newVariant: TearVariant | int): void;
-  ClearTearFlags(flags: BitSet128): void;
-  HasTearFlags(flags: BitSet128): boolean;
+  /**
+   * Be aware that this really takes a BitSet128 instead of an integer.
+   * However, all of the TearFlags enums values use BitSet128 constructors.
+   */
+  ClearTearFlags(flags: TearFlags): void;
+  /**
+   * Be aware that this really takes a BitSet128 instead of an integer.
+   * However, all of the TearFlags enums values use BitSet128 constructors.
+   */
+  HasTearFlags(flags: TearFlags): boolean;
   ResetSpriteScale(): void;
   SetDeadEyeIntensity(intensity: float): void;
   SetKnockbackMultiplier(multiplier: float): void;
@@ -26,7 +38,11 @@ declare class EntityTear extends Entity {
   StickDiff: Vector;
   StickTarget: Entity;
   StickTimer: int;
-  TearFlags: BitSet128;
+  /**
+   * Be aware that this is really a BitSet128 instead of an integer.
+   * However, all of the TearFlags enums values use BitSet128 constructors.
+   */
+  TearFlags: TearFlags;
   readonly TearIndex: int;
   WaitFrames: int;
 }
