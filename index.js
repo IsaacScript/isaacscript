@@ -194,5 +194,12 @@ module.exports = {
     // Object destructuring is disgustingly verbose in TypeScript
     // e.g. "const foo: string = bar.foo;" vs "const { foo }: { foo: string } = bar;"
     "prefer-destructuring": "off",
+
+    // Documentation:
+    // https://github.com/prettier/eslint-plugin-prettier
+    // Defined at:
+    // https://github.com/prettier/eslint-plugin-prettier/blob/master/eslint-plugin-prettier.js
+    // Change prettier to a warning instead of an error
+    "prettier/prettier": ["warn"],
   },
 };
