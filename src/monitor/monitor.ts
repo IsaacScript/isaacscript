@@ -64,7 +64,8 @@ function spawnModDirectorySyncer(config: Config) {
 
     // If the "main.lua" file was successfully copied over, we also have to tell isaacscript-watcher
     // to reload the mod
-    if (msg === `${FILE_SYNCED_MESSAGE} \\${MAIN_LUA}`) {
+    // Look for something like: "File synced: \main.lua"
+    if (msg === `${FILE_SYNCED_MESSAGE} ${path.sep}${MAIN_LUA}`) {
       notifyGame.command(`luamod ${CURRENT_DIRECTORY_NAME}`);
       notifyGame.command("restart");
       notifyGame.msg("Reloaded the mod.");
