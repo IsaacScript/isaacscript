@@ -1,4 +1,5 @@
 import chalk from "chalk";
+import path from "path";
 import prompts from "prompts";
 import {
   DEFAULT_MODS_PATH_LINUX,
@@ -56,7 +57,12 @@ function getDefaultModsPath(platform: string) {
     }
 
     case "linux": {
-      return DEFAULT_MODS_PATH_LINUX;
+      const homePath = process.env.HOME;
+      if (homePath === undefined || homePath === "") {
+        return "";
+      }
+
+      return path.join(homePath, DEFAULT_MODS_PATH_LINUX);
     }
 
     default: {
