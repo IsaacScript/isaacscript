@@ -9,9 +9,18 @@ const homeDir = os.homedir();
 export const BASH_PROFILE_PATH = path.join(homeDir, ".bash_profile");
 export const CURRENT_DIRECTORY_NAME = path.basename(cwd);
 export const CWD = cwd;
-export const DEFAULT_MODS_PATH = path.join(
+export const DEFAULT_MODS_PATH_WINDOWS = path.join(
   "C:",
   "Program Files (x86)",
+  "Steam",
+  "steamapps",
+  "common",
+  "The Binding of Isaac Rebirth",
+  "mods",
+);
+export const DEFAULT_MODS_PATH_LINUX = path.join(
+  ".local",
+  "share",
   "Steam",
   "steamapps",
   "common",
@@ -21,6 +30,7 @@ export const DEFAULT_MODS_PATH = path.join(
 export const DISABLE_IT_FILE = "disable.it";
 export const FILE_SYNCED_MESSAGE = "File synced:";
 export const STEAM_REGISTRY_KEY = "\\Software\\Valve\\Steam";
+export const VALID_PLATFORMS = ["win32", "linux"];
 export const WINDOWS_CODE_PAGE = "65001";
 
 // isaacscript

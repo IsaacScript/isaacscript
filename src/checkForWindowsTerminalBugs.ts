@@ -9,6 +9,10 @@ import { execExe } from "./misc";
 // This will not work correctly with the prompts library (or any other NodeJS input library)
 // Try to detect this and warn the end-user
 export default async function checkForWindowsTerminalBugs(): Promise<void> {
+  if (process.platform !== "win32") {
+    return;
+  }
+
   if (process.env.SHELL !== "C:\\Program Files\\Git\\usr\\bin\\bash.exe") {
     return;
   }

@@ -1,17 +1,19 @@
 import chalk from "chalk";
 import prompts from "prompts";
-import { DEFAULT_MODS_PATH } from "../constants";
+import {
+  DEFAULT_MODS_PATH_LINUX,
+  DEFAULT_MODS_PATH_WINDOWS,
+} from "../constants";
 import * as file from "../file";
 
 export default async function getModsDir(): Promise<string> {
-  if (file.exists(DEFAULT_MODS_PATH) && file.isDir(DEFAULT_MODS_PATH)) {
-    return DEFAULT_MODS_PATH;
+  const defaultModsPath = getDefaultModsPath(process.platform);
+  if (file.exists(defaultModsPath) && file.isDir(defaultModsPath)) {
+    return defaultModsPath;
   }
 
   console.error(
-    `Failed to find your mods directory at "${chalk.green(
-      DEFAULT_MODS_PATH,
-    )}".`,
+    `Failed to find your mods directory at: ${chalk.green(defaultModsPath)}`,
   );
   const response = await prompts({
     type: "text",
@@ -45,4 +47,26 @@ export default async function getModsDir(): Promise<string> {
   }
 
   return modsDir;
+}
+
+function getDefaultModsPath(platform: string) {
+  switch (platform) {
+    case "win32": {
+      return DEFAULT_MODS_PATH_WINDOWS;
+    }
+
+    case "linux": {
+      return DEFAULT_MODS_PATH_LINUX;
+    }
+
+    default: {
+      console.error(
+        `There does not exist a default mod path for the platform of: ${chalk.green(
+          platform,
+        )}`,
+      );
+      process.exit(1);
+      return "";
+    }
+  }
 }
