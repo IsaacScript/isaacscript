@@ -1,5 +1,6 @@
 import chalk from "chalk";
-import { VALID_PLATFORMS } from "./constants";
+
+const VALID_PLATFORMS = ["win32", "linux"];
 
 export function validateOS(): void {
   if (VALID_PLATFORMS.includes(process.platform)) {

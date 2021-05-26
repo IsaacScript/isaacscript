@@ -1,42 +1,17 @@
-import os from "os";
 import path from "path";
 
 const cwd = process.cwd();
-// https://stackoverflow.com/questions/9080085/node-js-find-home-directory-in-platform-agnostic-way
-const homeDir = os.homedir();
 
 // Miscellaneous
-export const BASH_PROFILE_PATH = path.join(homeDir, ".bash_profile");
 export const CURRENT_DIRECTORY_NAME = path.basename(cwd);
 export const CWD = cwd;
-export const DEFAULT_MODS_PATH_WINDOWS = path.join(
-  "C:",
-  "Program Files (x86)",
-  "Steam",
-  "steamapps",
-  "common",
-  "The Binding of Isaac Rebirth",
-  "mods",
-);
-export const DEFAULT_MODS_PATH_LINUX = path.join(
-  ".local",
-  "share",
-  "Steam",
-  "steamapps",
-  "common",
-  "The Binding of Isaac Rebirth",
-  "mods",
-);
-export const DISABLE_IT_FILE = "disable.it";
 export const FILE_SYNCED_MESSAGE = "File synced:";
-export const STEAM_REGISTRY_KEY = "\\Software\\Valve\\Steam";
-export const VALID_PLATFORMS = ["win32", "linux"];
-export const WINDOWS_CODE_PAGE = "65001";
 
 // isaacscript
 export const REPO_ROOT = path.join(__dirname, "..", "..");
 
 // isaacscript/isaacscript-watcher
+export const DISABLE_IT_FILE = "disable.it";
 export const WATCHER_MOD_NAME = "isaacscript-watcher";
 export const WATCHER_MOD_SOURCE_PATH = path.join(REPO_ROOT, WATCHER_MOD_NAME);
 
@@ -100,16 +75,3 @@ export const PUBLISH_POST_COPY_PY_PATH = path.join(
   "scripts",
   PUBLISH_POST_COPY_PY,
 );
-
-// From: https://gist.github.com/doctaphred/d01d05291546186941e1b7ddc02034d3
-export const ILLEGAL_CHARACTERS_FOR_WINDOWS_FILENAMES = [
-  "<",
-  ">",
-  ":",
-  '"',
-  "/",
-  "\\",
-  "|",
-  "?",
-  "*",
-];

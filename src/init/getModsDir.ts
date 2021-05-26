@@ -1,11 +1,33 @@
 import chalk from "chalk";
+import os from "os";
 import path from "path";
 import prompts from "prompts";
-import {
-  DEFAULT_MODS_PATH_LINUX,
-  DEFAULT_MODS_PATH_WINDOWS,
-} from "../constants";
 import * as file from "../file";
+
+// https://stackoverflow.com/questions/9080085/node-js-find-home-directory-in-platform-agnostic-way
+const homeDir = os.homedir();
+
+const DEFAULT_MODS_PATH_WINDOWS = path.join(
+  "C:",
+  "Program Files (x86)",
+  "Steam",
+  "steamapps",
+  "common",
+  "The Binding of Isaac Rebirth",
+  "mods",
+);
+
+// This is a subdirectory of $HOME
+const DEFAULT_MODS_PATH_LINUX = path.join(
+  homeDir,
+  ".local",
+  "share",
+  "Steam",
+  "steamapps",
+  "common",
+  "The Binding of Isaac Rebirth",
+  "mods",
+);
 
 export default async function getModsDir(): Promise<string> {
   const defaultModsPath = getDefaultModsPath(process.platform);
@@ -57,12 +79,7 @@ function getDefaultModsPath(platform: string) {
     }
 
     case "linux": {
-      const homePath = process.env.HOME;
-      if (homePath === undefined || homePath === "") {
-        return "";
-      }
-
-      return path.join(homePath, DEFAULT_MODS_PATH_LINUX);
+      return DEFAULT_MODS_PATH_LINUX;
     }
 
     default: {

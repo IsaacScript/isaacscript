@@ -1,12 +1,21 @@
 import chalk from "chalk";
 import path from "path";
 import prompts from "prompts";
-import {
-  CURRENT_DIRECTORY_NAME,
-  CWD,
-  ILLEGAL_CHARACTERS_FOR_WINDOWS_FILENAMES,
-} from "../constants";
+import { CURRENT_DIRECTORY_NAME, CWD } from "../constants";
 import { hasWhiteSpace } from "../misc";
+
+// From: https://gist.github.com/doctaphred/d01d05291546186941e1b7ddc02034d3
+const ILLEGAL_CHARACTERS_FOR_WINDOWS_FILENAMES = [
+  "<",
+  ">",
+  ":",
+  '"',
+  "/",
+  "\\",
+  "|",
+  "?",
+  "*",
+];
 
 export default async function getProjectPath(
   argv: Record<string, unknown>,
@@ -80,12 +89,14 @@ function validateProjectName(projectName: string) {
     return false;
   }
 
-  for (const character of ILLEGAL_CHARACTERS_FOR_WINDOWS_FILENAMES) {
-    if (projectName.includes(character)) {
-      console.error(
-        `Error: The "${character}" character is not allowed in a Windows file name.`,
-      );
-      return false;
+  if (process.platform === "win32") {
+    for (const character of ILLEGAL_CHARACTERS_FOR_WINDOWS_FILENAMES) {
+      if (projectName.includes(character)) {
+        console.error(
+          `Error: The "${character}" character is not allowed in a Windows file name.`,
+        );
+        return false;
+      }
     }
   }
 

@@ -1,9 +1,16 @@
 import chalk from "chalk";
 import fs from "fs";
+import os from "os";
+import path from "path";
 import prompts from "prompts";
-import { BASH_PROFILE_PATH, WINDOWS_CODE_PAGE } from "./constants";
 import * as file from "./file";
 import { execExe } from "./misc";
+
+// https://stackoverflow.com/questions/9080085/node-js-find-home-directory-in-platform-agnostic-way
+const homeDir = os.homedir();
+
+const BASH_PROFILE_PATH = path.join(homeDir, ".bash_profile");
+const WINDOWS_CODE_PAGE = "65001";
 
 // By default, Git Bash for Windows uses MINGW64
 // This will not work correctly with the prompts library (or any other NodeJS input library)
