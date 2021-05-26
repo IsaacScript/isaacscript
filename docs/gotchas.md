@@ -316,6 +316,38 @@ Hopefully, this feature will be ready soon.
 
 <br />
 
+### Throwing Errors
+
+Normally, in TypeScript programs, you would handle errors with `throw new Error("foo")`. For example:
+
+```typescript
+const player = Isaac.GetPlayer() // The type of player is "EntityPlayer | null"
+if (player === null) {
+  throw new Error("Failed to get the player!")
+}
+player.AddSoulHearts(1) // The type of player is now "EntityPlayer"
+```
+
+However, in Isaac mods, this code won't work. It will error with something along the lines of the following:
+
+```
+[Foo] Error in "foo" call: ...n\The Binding of Isaac Rebirth/mods/foo/main.lua:100: attempt to index a nil value (global 'debug')
+```
+
+This is because TypeScriptToLua transpiles `throw` to a function that uses Lua's `debug` library, and Isaac does not have access to `debug` for sandboxing reasons. But not to worry, because instead we can simply use Lua's `error()` function. For example:
+
+```typescript
+const player = Isaac.GetPlayer() // The type of player is "EntityPlayer | null"
+if (player === null) {
+  error("Failed to get the player!")
+}
+player.AddSoulHearts(1) // The type of player is now "EntityPlayer"
+```
+
+(TypeScript is smart enough to know that `error()` can constrain the type of player in the same way that `throw` normally would.)
+
+<br />
+
 ### No Blank Mod Classes
 
 You cannot instantiate a blank mod object/class:

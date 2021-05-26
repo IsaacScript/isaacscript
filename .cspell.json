@@ -40,6 +40,7 @@
         "peffect",
         "postplayerinit",
         "retext",
+        "sandboxing",
         "setmetatable",
         "ssmacro",
         "steamapps",
