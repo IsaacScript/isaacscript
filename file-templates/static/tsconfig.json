@@ -1,8 +1,8 @@
 // The configuration file for TypeScript
 {
   // We extend the standard IsaacScript config
-  // https://github.com/IsaacScript/isaacscript/blob/main/tsconfig.mod.json
-  "extends": "isaacscript/tsconfig.mod.json",
+  // https://github.com/IsaacScript/isaacscript-tsconfig/blob/main/tsconfig.mod.json
+  "extends": "isaacscript-tsconfig/tsconfig.mod.json",
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
