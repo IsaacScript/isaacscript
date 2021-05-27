@@ -201,6 +201,10 @@ function IsaacScriptWatcher:Load()
 end
 
 function IsaacScriptWatcher:CheckInput()
+  if game:IsPaused() then
+    return
+  end
+
   -- Manually show the log when the user presses the "I" key on the keyboard
   if Input.IsButtonPressed(Keyboard.KEY_I, 0) then
     frameOfLastMsg = Isaac.GetFrameCount()
