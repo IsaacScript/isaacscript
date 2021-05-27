@@ -108,7 +108,7 @@ function IsaacScriptWatcher:RenderText()
   for i, msg in ipairs(messageArray) do
     local color = white
 
-    local hasSuccess = string.match(msg, "Successfully compiled")
+    local hasSuccess = string.match(msg, "Compilation successful.")
     if hasSuccess ~= nil then
       color = green
     end
