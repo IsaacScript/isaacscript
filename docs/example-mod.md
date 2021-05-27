@@ -95,7 +95,7 @@ The bootstrapper created a skeleton of a mod for us. As you can see, it calls th
 
 The `MC_POST_GAME_STARTED` callback is useful for initializing things at the start of every run or making the player start with some novel ability. For our purposes, we don't need it, so we can remove all of the lines relating to that.
 
-Let's start by fixing the capitalization:
+After we have deleted the lines relating to the `MC_POST_GAME_STARTED` callback, we can fix some of the capitalization:
 
 ```typescript
 const greenCandle = RegisterMod("Green Candle", 1);
