@@ -91,7 +91,7 @@ Open `C:\Repositories\green-candle\src\main.ts`, which contains the TypeScript c
 
 The bootstrapper created a skeleton of a mod for us. As you can see, it calls the `Isaac.DebugString()` function when the `MC_POST_GAME_STARTED` callback is fired.
 
-(`Isaac` is a global class provided by the game with helpful methods on it. `Isaac.DebugString()` simply writes something to the log.txt file, which is located at `C:\Users\james\Documents\My Games\Binding of Isaac Repentance\log.txt`.)
+(`Isaac` is a global class provided by the game with helpful methods on it. `Isaac.DebugString()` simply writes something to the log.txt file, which is located at `C:\Users\[username]\Documents\My Games\Binding of Isaac Repentance\log.txt`.)
 
 The `MC_POST_GAME_STARTED` callback is useful for initializing things at the start of every run or making the player start with some novel ability. For our purposes, we don't need it, so we can remove all of the lines relating to that.
 
