@@ -332,7 +332,7 @@ interface CallbackParameters {
     entityType?: EntityType | int,
   ];
   [ModCallbacks.MC_PRE_NPC_UPDATE]: [
-    callback: (npc: EntityNPC) => boolean,
+    callback: (npc: EntityNPC) => boolean | null,
     entityType?: EntityType | int,
   ];
   [ModCallbacks.MC_PRE_SPAWN_CLEAN_AWARD]: [
