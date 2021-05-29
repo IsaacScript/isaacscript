@@ -33,7 +33,9 @@ declare class Entity {
   ): void;
   AddVelocity(velocity: Vector): void;
   BloodExplode(): void;
-  CanShutDoors(): boolean;
+  // CanShutDoors is deliberately not implemented here because it conflicts with
+  // EntityNPC.CanShutDoors
+  // CanShutDoors(): boolean;
   ClearEntityFlags(entityFlags: EntityFlag): void;
   CollidesWithGrid(): boolean;
   Die(): void;

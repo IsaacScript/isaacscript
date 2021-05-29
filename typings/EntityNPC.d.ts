@@ -70,7 +70,9 @@ declare class EntityNPC extends Entity {
     yOffset: float,
   ): void;
 
-  // CanShutDoors: boolean; // Should use CanShutDoors() instead
+  // EntityNPC.CanShutDoors conflicts with Entity.CanShutDoors(),
+  // but the latter is deliberately not implemented so that we can use the property in EntityNPC
+  CanShutDoors: boolean;
   readonly ChildNPC: Readonly<EntityNPC>;
   EntityRef: Entity;
   GroupIdx: int;
