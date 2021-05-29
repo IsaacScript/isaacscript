@@ -78,6 +78,7 @@ declare class Game {
     radius: float,
     source: Entity,
     showEffect: boolean,
+    doSuperKnockback: boolean,
   ): void;
   /**
    * @param roomIndex
