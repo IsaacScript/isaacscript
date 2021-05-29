@@ -74,6 +74,12 @@ declare const enum PoopVariant {
   WHITE = 6,
 }
 
+/** For GridEntityType.GRID_TRAPDOOR (17)  */
+declare const enum TrapdoorState {
+  CLOSED = 0,
+  OPEN = 1,
+}
+
 /**
  * Matches the ItemConfig.CHARGE_* members of the ItemConfig class.
  * In IsaacScript, we reimplement this as an enum, since it is cleaner.
