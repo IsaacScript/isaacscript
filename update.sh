@@ -7,4 +7,4 @@ set -e # Exit on any errors
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd "$DIR"
-npx npm-check-updates --upgrade --packageFile "$DIR/package.json"
+npx npm-check-updates --upgrade --packageFile "$DIR/package.json" --reject typescript
