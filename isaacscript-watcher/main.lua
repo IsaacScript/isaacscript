@@ -80,6 +80,10 @@ function IsaacScriptWatcher:RenderText()
     return
   end
 
+  if game:IsPaused() then
+    return
+  end
+
   -- Local variables
   local x = 60
   local y = 90
@@ -222,3 +226,7 @@ function IsaacScriptWatcher:CheckRestart()
 end
 
 IsaacScriptWatcher:AddCallback(ModCallbacks.MC_POST_RENDER, IsaacScriptWatcher.PostRender)
+
+local initMessage = "IsaacScript Watcher initialized."
+Isaac.DebugString(initMessage)
+pushMessageArray(initMessage)
