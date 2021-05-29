@@ -17,7 +17,7 @@ declare class Room {
     gridPathThreshold?: int,
     ignoreWalls?: boolean,
     ignoreCrushable?: boolean,
-  ): [boolean, Vector];
+  ): [boolean, Vector | null];
   DamageGrid(index: int, damage: int): boolean;
   DestroyGrid(index: int, immediate: boolean): boolean;
   EmitBloodFromWalls(duration: int, count: int): void;
