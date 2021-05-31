@@ -85,18 +85,8 @@ globals = {
   "Vector",
   "WeaponType",
 
-  -- Racing+ global variables
-  "RacingPlusGlobals",
-  "RacingPlusSchoolbag",
-  "RacingPlusSpeedrun",
-  "RacingPlusData",
-
-  -- Other mods
-  "SinglePlayerCoopBabies", -- The Babies Mod
-  "RacingPlusRebalancedVersion",
-  "VanillaStreakText",
-  "InfinityTrueCoopInterface", -- The True Co-op Mod
-  "MinimapAPI",
+  -- Global variables
+  "ModConfigMenu",
 }
 
 max_line_length = 100

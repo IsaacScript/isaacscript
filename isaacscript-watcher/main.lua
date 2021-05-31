@@ -84,6 +84,12 @@ function IsaacScriptWatcher:RenderText()
     return
   end
 
+  if ModConfigMenu ~= nil then
+    if ModConfigMenu.IsVisible then
+      return
+    end
+  end
+
   -- Local variables
   local x = 60
   local y = 90

@@ -21,8 +21,8 @@ export function msg(data: string): void {
       data: formattedLine,
     });
 
-    // We also print the message to standard out so that the end-user can choose between reading tstl
-    // errors from the IsaacScript terminal window or from looking at the in-game output
+    // We also print the message to standard out so that the end-user can choose between reading
+    // tstl errors from the IsaacScript terminal window or from looking at the in-game output
     printMsgToStandardOut(formattedLine);
   }
 }
