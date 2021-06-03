@@ -28,6 +28,14 @@ export function execShell(
   allowFailure = false,
   cwd = CWD,
 ): [number | null, string] {
+  // On Windows, "spawnSync()" will not account for spaces in the command and/or arguments
+  // Thus, wrap everything in a double quote
+  // This will cause commands that use double quotes to fail
+  command = `"${command}"`;
+  for (let i = 0; i < args.length; i++) {
+    args[i] = `"${args[i]}"`;
+  }
+
   const commandDescription = `${command} ${args.join(" ")}`;
 
   let spawnSyncReturns: SpawnSyncReturns<Buffer>;
