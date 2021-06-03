@@ -57,6 +57,8 @@ export function execShell(
         commandDescription,
       )}" command with an exit code of ${exitStatus}.`,
     );
+    console.error("The output was as follows:");
+    console.error(stdout);
     process.exit(1);
   }
 
