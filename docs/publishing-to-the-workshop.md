@@ -35,3 +35,16 @@ In order for `steamcmd.exe` to work, you must create a file called `metadata.vdf
   "contentfolder" "C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\mods\[your mod name]"
 }
 ```
+
+<br />
+
+### `.env`
+
+In order for `steamcmd.exe` to work, it needs your Steam username and password. Create a file called `.env` in the root of your project that contains the following:
+
+```bash
+STEAM_USERNAME="[your username]"
+STEAM_PASSWORD="[your password]"
+```
+
+Make sure that there is an entry for the `.env` file in your `.gitignore`, because you (obviously) don't want to upload this to GitHub/GitLab. (This entry will be there by defeault for mods created with `isaacscript init`.)
