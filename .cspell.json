@@ -44,6 +44,7 @@
         "setmetatable",
         "ssmacro",
         "steamapps",
+        "steamcmd",
         "stonies",
         "tostring",
         "transpiled",
