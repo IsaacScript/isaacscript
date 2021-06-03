@@ -28,10 +28,9 @@ export function execShell(
   allowFailure = false,
   cwd = CWD,
 ): [number | null, string] {
-  // On Windows, "spawnSync()" will not account for spaces in the command and/or arguments
+  // On Windows, "spawnSync()" will not account for spaces in arguments
   // Thus, wrap everything in a double quote
-  // This will cause commands that use double quotes to fail
-  command = `"${command}"`;
+  // This will cause arguments that naturally have double quotes to fail
   for (let i = 0; i < args.length; i++) {
     args[i] = `"${args[i]}"`;
   }
