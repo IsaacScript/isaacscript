@@ -3,6 +3,7 @@ import path from "path";
 import { Config } from "../Config";
 import * as configFile from "../configFile";
 import {
+  CONFIG_FILE_NAME,
   CONSTANTS_TS_PATH,
   METADATA_XML_PATH,
   MOD_SOURCE_PATH,
@@ -13,7 +14,7 @@ import {
 } from "../constants";
 import { compileAndCopy } from "../copy/copy";
 import * as file from "../file";
-import { execExe, execShell, parseIntSafe } from "../misc";
+import { execShell, parseIntSafe } from "../misc";
 
 export default function publish(
   argv: Record<string, unknown>,
@@ -28,15 +29,22 @@ export default function publish(
   const setVersion = argv.setversion as string | undefined;
   const modTargetPath = path.join(config.modsDirectory, config.projectName);
 
-  // Check to see that the version specified matches semantic versioning
   if (setVersion !== undefined && !/^\d+\.\d+\.\d+$/.exec(setVersion)) {
     console.error(
-      `The version of "${setVersion}" does not match the semantic versioning format.`,
+      chalk.red(
+        `The version of "${setVersion}" does not match the semantic versioning format.`,
+      ),
     );
     process.exit(1);
   }
 
-  startPublish(MOD_SOURCE_PATH, modTargetPath, skip, setVersion);
+  startPublish(
+    MOD_SOURCE_PATH,
+    modTargetPath,
+    skip,
+    setVersion,
+    config.steamCmdPath,
+  );
 }
 
 function startPublish(
@@ -44,6 +52,7 @@ function startPublish(
   modTargetPath: string,
   skip: boolean,
   setVersion: string | undefined,
+  steamCmdPath: string | undefined,
 ): void {
   updateDeps();
 
@@ -63,7 +72,7 @@ function startPublish(
   runReleaseScriptPostCopy();
   gitCommitIfChanges(version);
   purgeRoomXMLs(modTargetPath);
-  openModUploader(modTargetPath);
+  uploadMod(modTargetPath, steamCmdPath);
 
   console.log(`\nPublished version ${version} successfully.`);
 }
@@ -268,21 +277,70 @@ function purgeRoomXMLs(modTargetPath: string) {
   });
 }
 
-function openModUploader(modTargetPath: string) {
-  console.log(
-    "Opening the mod uploader tool from Nicalis. Close it when you are finished uploading the mod...",
-  );
+function uploadMod(modTargetPath: string, steamCmdPath: string | undefined) {
+  if (steamCmdPath === undefined) {
+    console.error(
+      `In order for IsaacScript to automatically upload a mod, it needs to know the path to the "steamcmd.exe" program on your computer. Add a "${chalk.green(
+        steamCmdPath,
+      )}" property to your "${chalk.green(CONFIG_FILE_NAME)}" and try again.`,
+    );
+    process.exit(1);
+  }
 
-  const modUploaderPath = path.join(
-    modTargetPath,
-    "..",
-    "..",
-    "tools",
-    "ModUploader",
-    "ModUploader.exe",
-  );
-  execExe(modUploaderPath, modTargetPath);
-  // (this will block until the user closes the mod uploader tool)
+  if (!file.exists(steamCmdPath)) {
+    console.error(
+      chalk.red(
+        `The path provided for "steamCmdPath" is "${steamCmdPath}", but that does not exist.`,
+      ),
+    );
+    process.exit(1);
+  }
 
-  console.log("Mod uploader tool closed.");
+  const metadataVDFPath = path.join(modTargetPath, "metadata.vdf");
+  if (!file.exists(metadataVDFPath)) {
+    console.error(
+      chalk.red(
+        'A "metadata.vdf" file was not found in your mod directory. You must create this file in order for "steamcmd.exe" to work. Please see the IsaacScript docs:',
+      ),
+    );
+    console.error(
+      chalk.red(
+        "https://isaacscript.github.io/docs/publishing-to-the-workshop/#metadatavdf",
+      ),
+    );
+    process.exit(1);
+  }
+
+  const usernameVar = "STEAM_USERNAME";
+  const username = process.env[usernameVar];
+  if (username === undefined || username === "") {
+    console.error(
+      chalk.red(
+        `Failed to read the "${usernameVar}" environment variable from the ".env" file.`,
+      ),
+    );
+    process.exit(1);
+  }
+
+  const passwordVar = "STEAM_PASSWORD";
+  const password = process.env[passwordVar];
+  if (password === undefined || password === "") {
+    console.error(
+      chalk.red(
+        `Failed to read the "${passwordVar}" environment variable from the ".env" file.`,
+      ),
+    );
+    process.exit(1);
+  }
+
+  execShell(steamCmdPath, [
+    "+login",
+    username,
+    password,
+    "+workshop_build_item",
+    metadataVDFPath,
+    "+quit",
+  ]);
+
+  console.log("Mod uploaded successfully.");
 }

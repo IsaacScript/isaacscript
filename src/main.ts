@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 
 import chalk from "chalk";
+import * as dotenv from "dotenv";
 import figlet from "figlet";
+import path from "path";
 import sourceMapSupport from "source-map-support";
 import updateNotifier from "update-notifier";
 import pkg from "../package.json";
@@ -22,6 +24,10 @@ async function main(): Promise<void> {
   sourceMapSupport.install();
   validateNodeVersion();
   validateOS();
+
+  // Load environment variables from the ".env" file
+  const envFile = path.join(__dirname, ".env");
+  dotenv.config({ path: envFile });
 
   // Get command line arguments
   const argv = parseArgs();

@@ -75,7 +75,7 @@ function getFileStats(filePath: string): fs.Stats {
     fileStats = fs.lstatSync(filePath);
   } catch (err) {
     console.error(
-      `Failed to get the file info for "${chalk.green(filePath)}":`,
+      `Failed to get the file stats for "${chalk.green(filePath)}":`,
       err,
     );
     process.exit(1);
