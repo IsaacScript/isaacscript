@@ -11,6 +11,7 @@ import checkForWindowsTerminalBugs from "./checkForWindowsTerminalBugs";
 import Command, { DEFAULT_COMMAND } from "./Command";
 import { Config } from "./Config";
 import * as configFile from "./configFile";
+import { CWD } from "./constants";
 import copy from "./copy/copy";
 import init from "./init/init";
 import { ensureAllCases } from "./misc";
@@ -26,7 +27,7 @@ async function main(): Promise<void> {
   validateOS();
 
   // Load environment variables from the ".env" file
-  const envFile = path.join(__dirname, ".env");
+  const envFile = path.join(CWD, ".env");
   dotenv.config({ path: envFile });
 
   // Get command line arguments

@@ -281,8 +281,10 @@ function uploadMod(modTargetPath: string, steamCmdPath: string | undefined) {
   if (steamCmdPath === undefined) {
     console.error(
       `In order for IsaacScript to automatically upload a mod, it needs to know the path to the "steamcmd.exe" program on your computer. Add a "${chalk.green(
-        steamCmdPath,
-      )}" property to your "${chalk.green(CONFIG_FILE_NAME)}" and try again.`,
+        "steamCmdPath",
+      )}" property to your "${chalk.green(
+        CONFIG_FILE_NAME,
+      )}" file and try again.`,
     );
     process.exit(1);
   }
@@ -316,7 +318,12 @@ function uploadMod(modTargetPath: string, steamCmdPath: string | undefined) {
   if (username === undefined || username === "") {
     console.error(
       chalk.red(
-        `Failed to read the "${usernameVar}" environment variable from the ".env" file.`,
+        `Failed to read the "${usernameVar}" environment variable from the ".env" file. Please see the IsaacScript docs:`,
+      ),
+    );
+    console.error(
+      chalk.red(
+        "https://isaacscript.github.io/docs/publishing-to-the-workshop/#env",
       ),
     );
     process.exit(1);
@@ -327,7 +334,12 @@ function uploadMod(modTargetPath: string, steamCmdPath: string | undefined) {
   if (password === undefined || password === "") {
     console.error(
       chalk.red(
-        `Failed to read the "${passwordVar}" environment variable from the ".env" file.`,
+        `Failed to read the "${passwordVar}" environment variable from the ".env" file. Please see the IsaacScript docs:`,
+      ),
+    );
+    console.error(
+      chalk.red(
+        "https://isaacscript.github.io/docs/publishing-to-the-workshop/#env",
       ),
     );
     process.exit(1);
