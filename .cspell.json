@@ -14,6 +14,7 @@
         "choco",
         "cinst",
         "clsx",
+        "contentfolder",
         "decap",
         "else's",
         "eval",
@@ -39,6 +40,7 @@
         "peaceiris",
         "peffect",
         "postplayerinit",
+        "publishedfileid",
         "retext",
         "sandboxing",
         "setmetatable",
@@ -50,6 +52,7 @@
         "transpiled",
         "transpiler",
         "transpiles",
-        "tstl"
+        "tstl",
+        "workshopitem"
     ]
 }
