@@ -47,4 +47,4 @@ STEAM_USERNAME="[your username]"
 STEAM_PASSWORD="[your password]"
 ```
 
-Make sure that there is an entry for the `.env` file in your `.gitignore`, because you (obviously) don't want to upload this to GitHub/GitLab. (This entry will be there by defeault for mods created with `isaacscript init`.)
+Make sure that there is an entry for the `.env` file in your `.gitignore`, because you (obviously) don't want to upload this to GitHub/GitLab. (This entry will be there by default for mods created with `isaacscript init`.)
