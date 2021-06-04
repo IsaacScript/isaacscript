@@ -210,7 +210,7 @@ In TypeScript, that would be:
 ```typescript
 // TypeScript code
 for (let i = 10; i >= 1; i--) {
-  // "i" will iterate upwards from 1 to 10
+  // "i" will iterate downwards from 1 to 10
 }
 ```
 
