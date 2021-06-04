@@ -32,12 +32,19 @@ declare global {
       source: Entity | null,
       damage: float,
     ): void;
+    /**
+     * @param entityType
+     * @param variant Default is -1.
+     * @param subType Default is -1.
+     * @param cache Default is false.
+     * @param ignoreFriendly Default is false.
+     */
     function FindByType(
       entityType: EntityType | int,
-      variant: EntityVariantForAC,
-      subType: int,
-      cache: boolean,
-      ignoreFriendly: boolean,
+      variant?: EntityVariantForAC,
+      subType?: int,
+      cache?: boolean,
+      ignoreFriendly?: boolean,
     ): Entity[];
     /**
      * @param position
