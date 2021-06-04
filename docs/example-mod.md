@@ -33,7 +33,7 @@ At this point, the skeleton for our mod is in place, and IsaacScript is running 
 
 ## 2) Create the Image for the Item
 
-First, we will set up the image for how the item will appear in-game. We'll use this image: ![Green Candle](/images/items/green_candle.png)
+First, we will set up the image for how the item will appear in-game. We will use this image: ![Green Candle](/images/items/green_candle.png)
 
 Most images for a mod should be placed in a "resources" subdirectory. (This corresponds to how things are organized in `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\resources`.)
 
