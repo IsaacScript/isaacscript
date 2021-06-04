@@ -2,11 +2,13 @@
 title: Getting Started
 ---
 
-`isaacscript` will currently work on Windows and Linux. The instructions below are for Windows. (Adjust them as needed if you are on Linux.)
+`isaacscript` will currently work on Windows and Linux.
 
 Choose one:
 - [Instructions for Beginners](#instructions-for-beginners) (detailed)
 - [Instructions for Experts](#instructions-for-experts) (summary)
+
+(For Linux users, choose the "Instructions for Experts".)
 
 <br />
 
