@@ -606,8 +606,7 @@ enum ItemPrice {
   Sale = 7,
 }
 
-// itemPrices has a type of "Map<CollectibleType, ItemPrice>",
-// which is even safer than before!
+// itemPrices now only has values of ItemPrice, which is even safer than before!
 const itemPrices = {
   [CollectibleType.COLLECTIBLE_SAD_ONION]: ItemPrice.Normal,
   [CollectibleType.COLLECTIBLE_INNER_EYE]: ItemPrice.Normal,
