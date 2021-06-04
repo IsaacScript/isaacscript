@@ -164,7 +164,7 @@ To start with, we get a variable for the current game by invoking `Game()`, whic
 function checkApplyGreenCandleEffect() {
   const game = Game();
   const numPlayers = game.GetNumPlayers();
-  for (let i = 1; i <= numPlayers; i++) {
+  for (let i = 0; i < numPlayers; i++) {
     // TODO - Check if the player has Green Candle
   }
 }
@@ -176,7 +176,7 @@ The `Isaac.GetPlayer()` method allows us to get a specific player object. Once w
 function checkApplyGreenCandleEffect() {
   const game = Game();
   const numPlayers = game.GetNumPlayers();
-  for (let i = 1; i <= numPlayers; i++) {
+  for (let i = 0; i < numPlayers; i++) {
     const player = Isaac.GetPlayer(i);
     if (player !== null && player.HasCollectible(greenCandleItemID)) {
       applyGreenCandleEffect(player);
@@ -278,7 +278,7 @@ function postUpdate() {
 function checkApplyGreenCandleEffect() {
   const game = Game();
   const numPlayers = game.GetNumPlayers();
-  for (let i = 1; i <= numPlayers; i++) {
+  for (let i = 0; i < numPlayers; i++) {
     const player = Isaac.GetPlayer(i);
     if (player !== null && player.HasCollectible(greenCandleItemID)) {
       applyGreenCandleEffect(player);
