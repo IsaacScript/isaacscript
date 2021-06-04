@@ -26,6 +26,8 @@ The moment that you save a TypeScript file, `isaacscript` will detect that somet
 
 Note that `isaacscript` will automatically install the `isaacscript-watcher` helper mod for you, so you don't have to do anything. Just test to see that it works:
 
+<!-- lint disable list-item-content-indent -->
+
 1. Make sure that `isaacscript` is running in a shell.
 2. In-game, go into a run.
 3. In VSCode, add something new to your `main.ts` file, like:
@@ -37,6 +39,8 @@ print("hello world");
 4. In VSCode, save the file.
 5. In game, you should see text appear on the screen. (i.e. something along the lines of "Compilation successful!")
 6. In game, press <code>`</code> to open the console and see if your "hello world" message is printed there.
+
+<!-- lint enable list-item-content-indent -->
 
 <br />
 
