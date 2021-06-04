@@ -440,14 +440,14 @@ In Lua, you split your code into multiple files by using `require()`.
 local postPlayerInit = require("revelations.postPlayerInit")
 
 local Revelations = RegisterMod("Revelations", 1)
-Revelations:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit.Main);
+Revelations:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit.main);
 ```
 
 ```lua
 -- postPlayerInit.lua
 local postPlayerInit = {}
 
-function postPlayerInit:Main(player)
+function postPlayerInit:main(player)
   player:AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false)
 end
 
@@ -462,12 +462,12 @@ In TypeScript, this is accomplished with `import`.<br />
 import * as postPlayerInit from "./postPlayerInit";
 
 const Revelations = RegisterMod("Revelations", 1);
-Revelations.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit.Main);
+Revelations.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit.main);
 ```
 
 ```typescript
 // postPlayerInit.ts
-export function Main(player: EntityPlayer) {
+export function main(player: EntityPlayer) {
   player.AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false);
 }
 ```
