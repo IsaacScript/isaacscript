@@ -9,14 +9,6 @@ declare class EntityLaser extends Entity {
    * However, all of the TearFlags enums values use BitSet128 constructors.
    */
   ClearTearFlags(flags: TearFlags): void;
-  static CalculateEndPoint(
-    this: void,
-    start: Vector,
-    dir: Vector,
-    positionOffset: Vector,
-    parent: Entity,
-    margin: float,
-  ): Vector;
   GetEndPoint(): Readonly<Vector>;
   // GetNonOptimizedSamples(): Readonly<HomingLaserSampleList>; // HomingLaser is not implemented
   GetRenderZ(): int;
@@ -40,15 +32,6 @@ declare class EntityLaser extends Entity {
   SetMultidimensionalTouched(value: boolean): void;
   SetOneHit(value: boolean): void;
   SetTimeout(value: int): void;
-  static ShootAngle(
-    this: void,
-    variant: LaserVariant | int,
-    sourcePos: Vector,
-    angleDegrees: float,
-    timeout: int,
-    posOffset: Vector,
-    source: Entity,
-  ): EntityLaser;
 
   Angle: float;
   AngleDegrees: float;
@@ -80,4 +63,22 @@ declare class EntityLaser extends Entity {
    */
   TearFlags: TearFlags;
   Timeout: int;
+
+  static CalculateEndPoint(
+    this: void,
+    start: Vector,
+    dir: Vector,
+    positionOffset: Vector,
+    parent: Entity,
+    margin: float,
+  ): Vector;
+  static ShootAngle(
+    this: void,
+    variant: LaserVariant | int,
+    sourcePos: Vector,
+    angleDegrees: float,
+    timeout: int,
+    posOffset: Vector,
+    source: Entity,
+  ): EntityLaser;
 }

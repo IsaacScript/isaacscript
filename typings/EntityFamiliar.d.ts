@@ -8,7 +8,6 @@ declare class EntityFamiliar extends Entity {
   FireProjectile(direction: Vector): EntityTear;
   FollowParent(): void;
   FollowPosition(position: Vector): void;
-  static GetOrbitDistance(this: void, layer: int): Vector;
   GetOrbitPosition(position: Vector): Vector;
   MoveDelayed(numFrames: int): void;
   MoveDiagonally(speed: float): void;
@@ -58,4 +57,6 @@ declare class EntityFamiliar extends Entity {
   RoomClearCount: int;
   ShootDirection: Direction;
   State: int;
+
+  static GetOrbitDistance(this: void, layer: int): Vector;
 }

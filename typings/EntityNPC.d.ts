@@ -61,14 +61,6 @@ declare class EntityNPC extends Entity {
   ): EntityList;
   QueryNPCsType(entityType: EntityNPC, variant: EntityVariantForAC): EntityList;
   ResetPathFinderTarget(): void;
-  static ThrowSpider(
-    this: void,
-    position: Vector,
-    spawner: Entity,
-    targetPos: Vector,
-    big: boolean,
-    yOffset: float,
-  ): void;
 
   // EntityNPC.CanShutDoors conflicts with Entity.CanShutDoors(),
   // but the latter is deliberately not implemented so that we can use the property in EntityNPC
@@ -87,4 +79,13 @@ declare class EntityNPC extends Entity {
   StateFrame: int;
   V1: Vector;
   V2: Vector;
+
+  static ThrowSpider(
+    this: void,
+    position: Vector,
+    spawner: Entity,
+    targetPos: Vector,
+    big: boolean,
+    yOffset: float,
+  ): void;
 }

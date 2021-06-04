@@ -1,6 +1,5 @@
 declare class EntityEffect extends Entity {
   FollowParent(parent: Entity): void;
-  static IsPlayerCreep(this: void, variant: EntityVariantForAC): boolean;
   SetDamageSource(entityType: EntityType | int): void;
   SetRadii(min: float, max: float): void;
   SetTimeout(timeout: int): void;
@@ -18,4 +17,6 @@ declare class EntityEffect extends Entity {
   State: int;
   Timeout: int;
   m_Height: float;
+
+  static IsPlayerCreep(this: void, variant: EntityVariantForAC): boolean;
 }

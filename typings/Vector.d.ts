@@ -7,7 +7,6 @@ declare class Vector {
   Distance(secondVector: Vector): float;
   DistanceSquared(secondVector: Vector): float;
   Dot(secondVector: Vector): float;
-  static FromAngle(this: void, angleDegrees: float): Vector;
   GetAngleDegrees(): float;
   Length(): float;
   LengthSquared(): float;
@@ -23,9 +22,11 @@ declare class Vector {
   __sub(right: Vector): Vector;
   __unm(right: Vector): Vector;
 
-  static One: Vector;
   X: float;
   Y: float;
+
+  static FromAngle(this: void, angleDegrees: float): Vector;
+  static One: Vector;
   static Zero: Vector;
 
   // Helper functions for adding and so forth so that you don't have to type the double underscore
