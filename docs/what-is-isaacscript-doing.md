@@ -35,7 +35,7 @@ print("hello world");
 ```
 
 1. In VSCode, save the file.
-1. In game, you should see text appear on the screen .
+1. In game, you should see text appear on the screen. (i.e. something along the lines of "Compilation successful!")
 1. In game, press <code>`</code> to open the console and see if your "hello world" message is printed there.
 
 <br />
