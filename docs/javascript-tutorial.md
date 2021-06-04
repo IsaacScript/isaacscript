@@ -315,7 +315,7 @@ if (entity.SpawnerEntity === null) {
 
 <br />
 
-### Assignment Operators and String Concatenation
+### Assignment Operators
 
 Lua does not have assignment operators, because it is a terrible language.
 
@@ -331,7 +331,11 @@ let numFarts = 1;
 numFarts += 1; // numFarts is now equal to 2
 ```
 
-Also, the way to concatenate strings is different:
+<br />
+
+### String Concatenation
+
+The way to concatenate strings is different:
 
 ```lua
 -- Lua code
