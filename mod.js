@@ -9,13 +9,6 @@ module.exports = {
   // (listed in alphabetical order)
   rules: {
     // Documentation:
-    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/restrict-template-expressions.md
-    // Defined at:
-    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/src/configs/recommended-requiring-type-checking.ts
-    // This rule disallows booleans in template expressions, which transpile just fine to Lua
-    "@typescript-eslint/restrict-template-expressions": "off",
-
-    // Documentation:
     // https://github.com/eslint/eslint/blob/master/docs/rules/no-bitwise.md
     // Defined at:
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js

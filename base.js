@@ -86,6 +86,14 @@ module.exports = {
     ],
 
     // Documentation:
+    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/restrict-template-expressions.md
+    // Defined at:
+    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/src/configs/recommended-requiring-type-checking.ts
+    // This rule disallows booleans and nulls in template expressions
+    // However, it is common use-case of template strings as a means to coerce everything to a string
+    "@typescript-eslint/restrict-template-expressions": "off",
+
+    // Documentation:
     // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/prefer-default-export.md
     // Defined at:
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/imports.js
