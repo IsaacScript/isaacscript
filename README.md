@@ -12,7 +12,7 @@ Please see the [IsaacScript webpage](https://isaacscript.github.io/) for more in
 
 In the 90's, the most popular scripting language in the world was [Perl](https://www.perl.org/), invented by [Larry Wall](https://en.wikipedia.org/wiki/Larry_Wall). One of Larry's slogans was that "There Is Always More Than One Way To Do It", abbreviated as the TIAMTOWTDI principle. In Perl, there were many different ways to do even the most basic thing, like adding an element to an array. This resulted in a Perl ecosystem where programs often looked nothing like each other, where everyone had different coding styles, and where everything was hard to read and comprehend.
 
-One of the key insights of [Guido van Rossum](https://en.wikipedia.org/wiki/Guido_van_Rossum), the creator of the [Python](https://www.python.org/) programming language, was that [code is read much more often than it is written](https://www.python.org/dev/peps/pep-0008/). Python was designed to be concise, clean, and readable. It had standard ways of doing things and recommended that everyone follow the [PEP-8 coding standard](https://www.python.org/dev/peps/pep-0008/). And so, in the 90s, there was a massive movement away from Perl and towards Python. Now, it is the [most popular programming language in the world](https://pypl.github.io/PYPL.html).
+One of the key insights of [Guido van Rossum](https://en.wikipedia.org/wiki/Guido_van_Rossum), the creator of the [Python](https://www.python.org/) programming language, was that [code is read much more often than it is written](https://www.python.org/dev/peps/pep-0008/). Python was designed to be concise, clean, and readable. It had standard ways of doing things and recommended that everyone follow the [PEP-8 coding standard](https://www.python.org/dev/peps/pep-0008/). And so, in the 90s, there was a massive movement away from Perl and towards Python. Now, Python is the [most popular programming language in the world](https://pypl.github.io/PYPL.html).
 
 [Go](https://golang.org/), the programming language designed at Google in 2009, took this concept a step further. They included a code formatter inside of the language itself, called `gofmt` (which is short for "Go formatter"). When you are coding a Go program, it will automatically format all of the code as soon as you save the file. This can be surprising and disturbing for newcomers: "Why does gofmt make my code ugly?!"
 
@@ -36,9 +36,9 @@ ESLint is the industry standard tool for linting in JavaScript and TypeScript. A
 
 [Prettier](https://prettier.io/) was released in 2017 and it has quickly become very widespread. (It could *probably* also be considered to be industry standard in 2021.) Prettier works by completely rebuilding your code from scratch using the [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree), which allows it to make much better transformations than pure ESLint can.
 
-Because of the advantages of Prettier, we use it on top of the Airbnb config, and prefer Prettier's changes if there are any conflicts. Instead of running two different tools, we run Prettier inside of ESLint as a plugin with [`eslint-plugin-prettier`](https://github.com/prettier/eslint-plugin-prettier). Then, any ESLint rules that conflict with prettier are turned off with [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier).
+Because of the advantages of Prettier, we use it on top of the Airbnb config, and prefer Prettier's changes if there are any conflicts. Instead of running two different tools, we run Prettier inside of ESLint as a plugin with [`eslint-plugin-prettier`](https://github.com/prettier/eslint-plugin-prettier). Then, any ESLint rules that conflict with Prettier are turned off with [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier).
 
-Finally, some specific Airbnb rules are disabled, since they don't make much sense in IsaacScript projects. You can see the specific exclusions in the [index.js](https://github.com/IsaacScript/eslint-config-isaacscript/blob/main/index.js) file of the [`eslint-config-isaacscript`](https://github.com/IsaacScript/eslint-config-isaacscript) repository.
+Finally, some specific Airbnb rules are disabled, since they don't make much sense in IsaacScript projects. You can see the specific exclusions in the [base.js](https://github.com/IsaacScript/eslint-config-isaacscript/blob/main/index.js) and [mod.js](https://github.com/IsaacScript/eslint-config-isaacscript/blob/main/mod.js) files of the [`eslint-config-isaacscript`](https://github.com/IsaacScript/eslint-config-isaacscript) repository.
 
 <br />
 
@@ -49,6 +49,6 @@ Finally, some specific Airbnb rules are disabled, since they don't make much sen
   - It uses [`eslint-config-airbnb-typescript`](https://github.com/iamturns/eslint-config-airbnb-typescript) as a base, which is the Airbnb ESLint config for TypeScript.
 - `eslint-config-airbnb-typescript` requires the [`eslint-plugin-import`](https://github.com/benmosher/eslint-plugin-import) and the [`@typescript-eslint/eslint-plugin`](https://github.com/typescript-eslint/typescript-eslint) packages to be installed. (They are peer dependencies and must be manually included.)
 - [`eslint-plugin-prettier`](https://github.com/prettier/eslint-plugin-prettier) is used, as explained above.
-- [`prettier-plugin-organize-imports`](https://github.com/simonhaenisch/prettier-plugin-organize-imports) is used because Prettier will not organize imports automatically.
+- [`prettier-plugin-organize-imports`](https://github.com/simonhaenisch/prettier-plugin-organize-imports) is used because Prettier will not organize imports automatically. (It has no configuration and is automatically applied to Prettier if it is installed.)
 
 <br />
