@@ -1,7 +1,7 @@
 // This is a shared configuration file for ESLint
 // https://eslint.org/docs/user-guide/configuring
 module.exports = {
-  // Mod configs extend the base configuration:
+  // The mod config extends the base configuration:
   // https://github.com/IsaacScript/eslint-config-isaacscript/blob/main/base.js
   extends: [
     "./base",
