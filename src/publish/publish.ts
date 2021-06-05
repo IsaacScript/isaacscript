@@ -345,6 +345,8 @@ function uploadMod(modTargetPath: string, steamCmdPath: string | undefined) {
     process.exit(1);
   }
 
+  console.log("Uploading the mod to the Steam Workshop...");
+
   execShell(steamCmdPath, [
     "+login",
     username,
