@@ -86,38 +86,17 @@ module.exports = {
     ],
 
     // Documentation:
-    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/restrict-template-expressions.md
-    // Defined at:
-    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/src/configs/recommended-requiring-type-checking.ts
-    // This rule disallows booleans in template expressions, which transpile just fine to Lua
-    "@typescript-eslint/restrict-template-expressions": "off",
-
-    // Documentation:
-    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/triple-slash-reference.md
-    // Defined at:
-    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/src/configs/recommended.ts
-    // ark120202, the author of TypeScriptToLua, recommends using triple-slash directives
-    "@typescript-eslint/triple-slash-reference": "off",
-
-    // Documentation:
     // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/prefer-default-export.md
     // Defined at:
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/imports.js
-    // Unlike JavaScript, Lua modules are tables and do not have a default export
+    // It is common to only export one thing with the intention of adding more exports later
     "import/prefer-default-export": "off",
-
-    // Documentation:
-    // https://github.com/eslint/eslint/blob/master/docs/rules/no-bitwise.md
-    // Defined at:
-    // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
-    // Isaac enums use bitwise operators (e.g. "EntityFlag")
-    "no-bitwise": "off",
 
     // Documentation:
     // https://eslint.org/docs/rules/no-console
     // Defined at:
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/errors.js
-    // As a command-line program, it is normal to write to standard out and standard error
+    // Command-line programs commonly write to standard out and standard error
     "no-console": "off",
 
     // Documentation:
@@ -128,26 +107,12 @@ module.exports = {
     "no-continue": "off",
 
     // Documentation:
-    // https://eslint.org/docs/rules/no-param-reassign
-    // Defined at:
-    // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
-    // The Isaac API callback functions expect you to modify the provided object
-    "no-param-reassign": "off",
-
-    // Documentation:
     // https://eslint.org/docs/rules/no-plusplus
     // Defined at:
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
     // Airbnb disallows these because it can lead to errors with minified code;
     // we don't have to worry about this in for loops though
     "no-plusplus": ["error", { allowForLoopAfterthoughts: true }],
-
-    // Documentation:
-    // https://eslint.org/docs/rules/no-restricted-globals
-    // Defined at:
-    // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/variables.js
-    // print is used with Lua mods
-    "no-restricted-globals": "off",
 
     // Documentation:
     // https://eslint.org/docs/rules/no-restricted-syntax
@@ -167,22 +132,6 @@ module.exports = {
       {
         selector: 'WithStatement',
         message: '`with` is disallowed in strict mode because it makes code impossible to predict and optimize.',
-      },
-    ],
-
-    // Documentation:
-    // https://eslint.org/docs/rules/no-underscore-dangle
-    // Defined at:
-    // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
-    // We keep the Airbnb specification but allow calling functions that overload Lua operators:
-    // https://moddingofisaac.com/docs/class_vector.html
-    "no-underscore-dangle": [
-      "error",
-      {
-        allow: ["__add", "__sub", "__mul", "__div", "__unm", "__len"],
-        allowAfterThis: false,
-        allowAfterSuper: false,
-        enforceInMethodNames: true,
       },
     ],
 
