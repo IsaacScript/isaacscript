@@ -28,13 +28,15 @@ export function msg(data: string): void {
 }
 
 function printMsgToStandardOut(data: string) {
+  let coloredData = data;
+
   if (data.match(/Compilation successful./g)) {
-    data = chalk.green(data);
+    coloredData = chalk.green(data);
   } else if (data.match(/error/g)) {
-    data = chalk.red(data);
+    coloredData = chalk.red(data);
   }
 
-  console.log(data);
+  console.log(coloredData);
 }
 
 export function command(data: string): void {

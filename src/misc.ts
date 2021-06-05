@@ -32,7 +32,7 @@ export function execShell(
   // Thus, wrap everything in a double quote
   // This will cause arguments that naturally have double quotes to fail
   for (let i = 0; i < args.length; i++) {
-    args[i] = `"${args[i]}"`;
+    args[i] = `"${args[i]}"`; // eslint-disable-line no-param-reassign
   }
 
   const commandDescription = `${command} ${args.join(" ")}`;

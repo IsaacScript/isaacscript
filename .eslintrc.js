@@ -3,8 +3,8 @@
 module.exports = {
   extends: [
     // The linter base is the shared IsaacScript config
-    // https://github.com/IsaacScript/eslint-config-isaacscript/blob/main/index.js
-    "eslint-config-isaacscript",
+    // https://github.com/IsaacScript/eslint-config-isaacscript/blob/main/base.js
+    "eslint-config-isaacscript/base",
   ],
 
   // Don't bother linting the template files (for inserting into a new IsaacScript project)
