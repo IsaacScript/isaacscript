@@ -13,7 +13,7 @@ declare class GridEntityDoor extends GridEntity {
   SetLocked(locked: boolean): void;
   SetRoomTypes(currentRoomType: RoomType, targetRoomType: RoomType): void;
   SpawnDust(): void;
-  TryBlowOpen(fromExplosion: boolean): boolean;
+  TryBlowOpen(fromExplosion: boolean, source: Entity): boolean;
   TryUnlock(player: EntityPlayer, force: boolean): boolean;
 
   Busted: boolean;
