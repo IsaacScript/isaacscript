@@ -72,7 +72,19 @@ VSCode is the recommended editor to use in conjunction with `isaacscript`, but f
 
 <br />
 
-### 6) Open a New Shell
+### 6) Install VSCode Extensions
+
+Install some VSCode extensions by pasting in the following commands:
+
+```batch
+code --install-extension dbaeumer.vscode-eslint
+code --install-extension ark120202.vscode-typescript-to-lua
+code --install-extension streetsidesoftware.code-spell-checker
+```
+
+<br />
+
+### 7) Open a New Shell
 
 Close the administrative shell and start either:
 
@@ -85,7 +97,7 @@ Either one is fine, depending on what you like better.
 
 <br />
 
-### 7) Create and Navigate to Your Project Directory
+### 8) Create and Navigate to Your Project Directory
 
 Make a new directory for your new mod / project. And then navigate to it.
 
@@ -100,7 +112,7 @@ Note that your project directory should **not** be a subdirectory of the `mods` 
 
 <br />
 
-### 8) Initialize a New Project
+### 9) Initialize a New Project
 
 Once you are inside your project directory, you can initialize the project:
 
@@ -114,7 +126,7 @@ The program will ask you some questions and then populate your new directory wit
 
 <br />
 
-### 9) Open VSCode
+### 10) Open VSCode
 
 If you don't have VSCode open already, then launch it from the start menu.
 
@@ -124,7 +136,7 @@ Finally, in the left file explorer pane, double click on the `src/main.ts` file 
 
 <br />
 
-### 10) Run `isaacscript`
+### 11) Run `isaacscript`
 
 Start `isaacscript` in your project directory:
 
@@ -136,7 +148,7 @@ The program will run forever, monitoring for changes in your project. (If you wa
 
 <br />
 
-### 11) Start Coding
+### 12) Start Coding
 
 That's it! Now, start coding by editing the `src/main.ts` file.
 
