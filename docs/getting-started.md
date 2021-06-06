@@ -82,6 +82,8 @@ code --install-extension ark120202.vscode-typescript-to-lua
 code --install-extension streetsidesoftware.code-spell-checker
 ```
 
+(The ESLint extension shows coding errors. The TypeScriptToLua extension helps diagnose things that won't transpile properly. And the spell checker extension does what it says on the box.)
+
 <br />
 
 ### 7) Open a New Shell
