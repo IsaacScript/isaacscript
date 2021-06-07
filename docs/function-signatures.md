@@ -27,7 +27,14 @@ function postRender(): void {}
 ### MC_USE_ITEM (3)
 
 ```typescript
-function useItem(collectibleType: CollectibleType | int, rng: RNG): boolean {}
+function useItem(
+  collectibleType: CollectibleType | int,
+  rng: RNG,
+  player: EntityPlayer,
+  useFlags: int,
+  activeSlot: int,
+  customVarData: int,
+): boolean {}
 ```
 
 ### MC_POST_PEFFECT_UPDATE (4)
