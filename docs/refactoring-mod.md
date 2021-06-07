@@ -67,7 +67,7 @@ import { CollectibleTypeCustom } from "../constants";
 export function checkApplyEffect(): void {
   const game = Game();
   const numPlayers = game.GetNumPlayers();
-  for (let i = 1; i <= numPlayers; i++) {
+  for (let i = 0; i < numPlayers; i++) {
     const player = Isaac.GetPlayer(i);
     if (player !== null && player.HasCollectible(CollectibleTypeCustom.COLLECTIBLE_GREEN_CANDLE)) {
       applyEffect(player);
