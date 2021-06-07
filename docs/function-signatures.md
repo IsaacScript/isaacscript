@@ -46,7 +46,11 @@ function postPEffectUpdate(player: EntityPlayer): void {}
 ### MC_USE_CARD (5)
 
 ```typescript
-function useCard(card: Card | int): void {}
+function useCard(
+  card: Card | int,
+  player: EntityPlayer,
+  useFlags: int,
+): void {}
 ```
 
 ### MC_FAMILIAR_UPDATE (6)
@@ -76,7 +80,11 @@ function postPlayerInit(player: EntityPlayer): void {}
 ### MC_USE_PILL (10)
 
 ```typescript
-function usePill(pillEffect: PillEffect | int): void {}
+function usePill(
+  pillEffect: PillEffect | int,
+  player: EntityPlayer,
+  useFlags: int,
+): void {}
 ```
 
 ### MC_ENTITY_TAKE_DMG (11)
