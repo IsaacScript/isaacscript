@@ -622,7 +622,7 @@ In the previous [enums](#enums) section, we defined "itemPrices" as an anonymous
 
 Anonymous objects are good for cases where you won't use variables to access the data. But this isn't the case for "itemPrices". Here, we are only specifying the prices for *some* of the collectibles in the game. If a collectible isn't in the list, we'll probably want to ignore it, or give it a default value, or something along those lines.
 
-In this example, what "itemPrices" *really* represents is a *map* of specific item IDs to prices. Unlike Lua, TypeScript has a `Map` data type. So, the example would be better written like this:
+In this example, what "itemPrices" *really* represents is a *map* of a specific item ID to a price. Unlike Lua, TypeScript has a `Map` data type. So, the example would be better written like this:
 
 ```typescript
 // itemPrices has a type of "Map<CollectibleType, number>",
