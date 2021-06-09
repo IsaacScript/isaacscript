@@ -392,6 +392,8 @@ Isaac.DebugString("Entity found: " .. tostring(entity.Type) .. "."
 Isaac.DebugString(`Entity found: ${entity.Type}.${entity.Variant}.${entity.SubType}`);
 ```
 
+Look at how compact and easier to read the TypeScript version is!
+
 <br />
 
 ### TypeScript Type Annotations
