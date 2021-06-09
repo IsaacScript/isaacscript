@@ -402,7 +402,7 @@ The main thing that TypeScript adds to JavaScript is type annotations. Here's a 
 
 ```lua
 -- Lua code
-local function PostPlayerInit(player)
+function PostPlayerInit(player)
   player:AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false)
 end
 ```
@@ -643,7 +643,7 @@ With a map, you can use all of the handy methods [shown in the MDN docs](https:/
 
 ```lua
 -- Lua code
-local function pickingUpItem(player, pickingUpItemID)
+function pickingUpItem(player, pickingUpItemID)
   -- If the player picked up a new item,
   -- subtract the price of that item from their coin amount
   local price = itemPrices[pickingUpItemID]
