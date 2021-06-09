@@ -23,7 +23,7 @@ const features: Feature[] = [
         ),
     },
     {
-        img: "/images/typescripttolua.png",
+        img: "/images/typescript-to-lua.png",
         title: "Powered by TypeScriptToLua",
         description: (
             <>

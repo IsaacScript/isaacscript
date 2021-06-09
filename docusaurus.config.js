@@ -11,7 +11,7 @@ module.exports = {
         },
         navbar: {
             title: "IsaacScript",
-            logo: { src: "images/isaactearsiconfull.gif" },
+            logo: { src: "images/isaacscript-logo.png" },
             items: [
                 { to: "docs/features", label: "Docs", position: "left" },
                 { href: "https://discord.gg/KapmKQ2gUD", label: "Discord", position: "right" },
