@@ -1,4 +1,4 @@
 declare module "json" {
-  let encode: (this: void, data: unknown) => string;
-  let decode: (this: void, data: string) => unknown;
+  function encode(this: void, data: unknown): string;
+  function decode(this: void, data: string): unknown;
 }
