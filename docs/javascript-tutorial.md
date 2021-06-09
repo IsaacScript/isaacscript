@@ -13,7 +13,7 @@ This page shows off some of the differences between Lua and TypeScript. Below, y
 ### Comments
 
 ```lua
--- This is a single-line comment in Lua
+-- This is a single-line comment in Lua.
 
 --[[
 
@@ -25,7 +25,7 @@ And wordy.
 ```
 
 ```typescript
-// This is a single-line comment in TypeScript
+// This is a single-line comment in TypeScript.
 
 /*
 
