@@ -613,3 +613,56 @@ const itemPrices = {
   [CollectibleType.COLLECTIBLE_SPOON_BENDER]: ItemPrice.Sale,
 };
 ```
+
+<br />
+
+### Maps
+
+In the previous [enums](#enums) section, we defined "itemPrices" as an anonymous object, which is roughly equivalent to a Lua table.
+
+Anonymous objects are good for cases where you won't use variables to access the data. But this isn't the case for "itemPrices". Here, we are only specifying the prices for _some_ of the collectibles in the game. If a collectible isn't in the list, we'll probably want to ignore it, or give it a default value, or something along those lines.
+
+In this example, what "itemPrices" _really_ represents is a _map_ of specific item IDs to prices. Unlike Lua, TypeScript has a `Map` data type. So, the example would be better written like this:
+
+```typescript
+// itemPrices has a type of "Map<CollectibleType, number>",
+// which makes much more sense than an anonymous object
+const itemPrices = new Map([
+  [CollectibleType.COLLECTIBLE_SAD_ONION, 15],
+  [CollectibleType.COLLECTIBLE_INNER_EYE, 15],
+  [CollectibleType.COLLECTIBLE_SPOON_BENDER, 7],
+]);
+for (const [itemID, price] of itemPrices) {
+  // Do something with "itemID" and "price"
+}
+```
+
+With a map, you can use all of the handy methods [shown in the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) (listed on the left side). Here's an example of using the `get()` method to emulate checking for a value in a Lua table:
+
+```lua
+-- Lua code
+local function pickingUpItem(player, pickingUpItemID)
+  -- If the player picked up a new item,
+  -- subtract the price of that item from their coin amount
+  local price = itemPrices[pickingUpItemID]
+  if price ~= nil then
+    player:AddCoins(price * -1)
+  end
+end
+```
+
+```typescript
+// TypeScript code
+function pickingUpItem(player: EntityPlayer, pickingUpItemID: number) {
+  // If the player picked up a new item,
+  // subtract the price of that item from their coin amount
+  const price = itemPrices.get(pickingUpItemID)
+  if (price !== undefined) {
+    player.AddCoins(price * -1)
+  }
+}
+```
+
+(You could also use `price !== null` instead of `price !== undefined`, which would transpile to the same thing. But comparing to undefined is more correct, since that is how you would write normal TypeScript code.)
+
+<br />
