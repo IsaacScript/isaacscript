@@ -353,7 +353,7 @@ poopString += " modified"; // poopString is now equal to "poop modified"
 
 <br />
 
-### String Conversion
+### String Conversion & String Templates
 
 ```lua
 -- Lua code
