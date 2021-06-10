@@ -1,6 +1,9 @@
 import chalk from "chalk";
 
-// IsaacScript requires Node to be at least 14.14,
+const REQUIRED_MAJOR_VERSION = 16;
+
+// IsaacScript requires Node to be at least v16.0.0
+// (I tested on Node v15.0.0, and ),
 // since that is the version that added the "fs.rmSync()" function
 export default function validateNodeVersion(): void {
   const { version } = process;
@@ -12,21 +15,33 @@ export default function validateNodeVersion(): void {
   }
 
   const majorVersionString = match[1];
-  const minorVersionString = match[2];
-  const patchVersionString = match[3];
-
   const majorVersion = parseInt(majorVersionString, 10);
-  const minorVersion = parseInt(minorVersionString, 10);
-
-  if (Number.isNaN(majorVersion) || Number.isNaN(minorVersion)) {
-    console.error(`Failed to parse your NodeJS version of: ${version}`);
+  if (Number.isNaN(majorVersion)) {
+    console.error(
+      `Failed to parse the major version number from: ${majorVersionString}`,
+    );
     process.exit(1);
   }
 
-  if (majorVersion >= 15) {
-    return;
+  const minorVersionString = match[2];
+  const minorVersion = parseInt(minorVersionString, 10);
+  if (Number.isNaN(minorVersion)) {
+    console.error(
+      `Failed to parse the minor version number from: ${minorVersionString}`,
+    );
+    process.exit(1);
   }
-  if (majorVersion === 14 && minorVersion >= 14) {
+
+  const patchVersionString = match[3];
+  const patchVersion = parseInt(patchVersionString, 10);
+  if (Number.isNaN(patchVersion)) {
+    console.error(
+      `Failed to parse the patch version number from: ${patchVersionString}`,
+    );
+    process.exit(1);
+  }
+
+  if (majorVersion >= REQUIRED_MAJOR_VERSION) {
     return;
   }
 
@@ -37,7 +52,7 @@ export default function validateNodeVersion(): void {
   );
   console.error(
     `IsaacScript requires a Node.js version of ${chalk.red(
-      "14.14.0",
+      "16.0.0",
     )} or greater.`,
   );
   console.error(
