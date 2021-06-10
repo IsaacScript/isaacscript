@@ -313,6 +313,8 @@ if (entity.SpawnerEntity === null) {
 }
 ```
 
+Note that `undefined` also transpiles to `nil` (in addition to `null`).
+
 <br />
 
 ### Assignment Operators
