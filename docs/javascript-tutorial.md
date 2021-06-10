@@ -241,9 +241,9 @@ for (const gaper of gapers) {
   gaper.Remove();
 }
 
-// Or, use the "entries" method if you need the array index too
-for (const [i, gaper] of gapers.entries()) {
-  print(i);
+// Or, use a "normal" for loop if you need the array index too
+for (let i = 0; i < gaper.length; i++) {
+  const gaper = gapers[i];
   gaper.Remove();
 }
 ```
