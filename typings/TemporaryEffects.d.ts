@@ -14,7 +14,11 @@ declare class TemporaryEffects {
    * @param addCostume
    * @param count Default is 1.
    */
-  AddNullEffect(nullItemID: NullItemID, addCostume: boolean, count?: int): void;
+  AddNullEffect(
+    nullItemID: NullItemID | int,
+    addCostume: boolean,
+    count?: int,
+  ): void;
   /**
    * @param trinketType
    * @param addCostume
@@ -31,12 +35,12 @@ declare class TemporaryEffects {
   ): Readonly<TemporaryEffect>;
   GetCollectibleEffectNum(collectibleType: CollectibleType | int): int;
   GetEffectsList(): Readonly<EffectList>;
-  GetNullEffect(nullItemID: NullItemID): Readonly<TemporaryEffect>;
-  GetNullEffectNum(nullItemID: NullItemID): int;
+  GetNullEffect(nullItemID: NullItemID | int): Readonly<TemporaryEffect>;
+  GetNullEffectNum(nullItemID: NullItemID | int): int;
   GetTrinketEffect(trinketType: TrinketType | int): Readonly<TemporaryEffect>;
   GetTrinketEffectNum(trinketType: TrinketType | int): int;
   HasCollectibleEffect(collectibleType: CollectibleType | int): boolean;
-  HasNullEffect(nullItemID: NullItemID): boolean;
+  HasNullEffect(nullItemID: NullItemID | int): boolean;
   HasTrinketEffect(trinketType: TrinketType | int): boolean;
   /**
    * @param collectibleType
@@ -50,7 +54,7 @@ declare class TemporaryEffects {
    * @param nullItemID
    * @param count Use -1 to remove all instances. Default is 1.
    */
-  RemoveNullEffect(nullItemID: NullItemID, count?: int): void;
+  RemoveNullEffect(nullItemID: NullItemID | int, count?: int): void;
   /**
    * @param trinketType
    * @param count Use -1 to remove all instances. Default is 1.

@@ -7,7 +7,7 @@ declare class ItemConfig {
   GetCollectibles(): Readonly<ItemConfigList>;
   // CostumeConfigList is bugged and always returns a list of size 0
   // GetCostumes(): Readonly<CostumeConfigList>;
-  GetNullItem(nullItemID: NullItemID): Readonly<ItemConfigItem>;
+  GetNullItem(nullItemID: NullItemID | int): Readonly<ItemConfigItem>;
   GetNullItems(): Readonly<ItemConfigList>;
   GetPillEffect(pillEffect: PillEffect | int): Readonly<ItemConfigPillEffect>;
   GetPillEffects(): Readonly<PillConfigList>;

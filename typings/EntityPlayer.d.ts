@@ -98,7 +98,7 @@ declare class EntityPlayer extends Entity {
    * @param playAnim If false, skips the appear animation for the familiars.
    */
   AddMinisaac(position: Vector, playAnim?: boolean): EntityFamiliar;
-  AddNullCostume(nullItemID: NullItemID): void;
+  AddNullCostume(nullItemID: NullItemID | int): void;
   AddPill(pillColor: PillColor | int): void;
   AddPlayerFormCostume(playerForm: PlayerForm): void;
   AddPrettyFly(): void;
@@ -667,7 +667,7 @@ declare class EntityPlayer extends Entity {
     collectibleType: CollectibleType | int,
     keepPersistent: boolean,
   ): void;
-  TryRemoveNullCostume(nullItemID: NullItemID): void;
+  TryRemoveNullCostume(nullItemID: NullItemID | int): void;
   TryRemoveTrinket(trinketType: TrinketType | int): boolean;
   TryRemoveTrinketCostume(trinketType: TrinketType | int): void;
   TryUseKey(): boolean;
