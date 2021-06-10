@@ -72,21 +72,7 @@ VSCode is the recommended editor to use in conjunction with `isaacscript`, but f
 
 <br />
 
-### 6) Install VSCode Extensions
-
-Install some VSCode extensions by pasting in the following commands:
-
-```batch
-code --install-extension dbaeumer.vscode-eslint
-code --install-extension ark120202.vscode-typescript-to-lua
-code --install-extension streetsidesoftware.code-spell-checker
-```
-
-(The ESLint extension shows coding errors. The TypeScriptToLua extension helps diagnose things that won't transpile properly. And the spell checker extension does what it says on the box.)
-
-<br />
-
-### 7) Open a New Shell
+### 6) Open a New Shell
 
 Close the administrative shell and start either:
 
@@ -99,7 +85,7 @@ Either one is fine, depending on what you like better.
 
 <br />
 
-### 8) Create and Navigate to Your Project Directory
+### 7) Create and Navigate to Your Project Directory
 
 Make a new directory for your new mod / project. And then navigate to it.
 
@@ -114,7 +100,7 @@ Note that your project directory should **not** be a subdirectory of the `mods` 
 
 <br />
 
-### 9) Initialize a New Project
+### 8) Initialize a New Project
 
 Once you are inside your project directory, you can initialize the project:
 
@@ -124,23 +110,15 @@ npx isaacscript init
 
 (This command downloads and executes the NPM package of `isaacscript`.)
 
-The program will ask you some questions and then populate your new directory with TypeScript and some other files that you will need.
+The program will ask you some questions and then populate your new directory with TypeScript and other some other dependencies. 
+
+At the end, it will ask you if it should launch VSCode for you. Answer yes.
 
 <br />
 
-### 10) Open VSCode
+### 9) Run `isaacscript`
 
-If you don't have VSCode open already, then launch it from the start menu.
-
-Once open, select `File` --> `Open Folder`, and open your project directory.
-
-Finally, in the left file explorer pane, double click on the `src/main.ts` file to open it. This is the main file for your mod, which includes some "hello world" style code.
-
-<br />
-
-### 11) Run `isaacscript`
-
-Start `isaacscript` in your project directory:
+Back in your command prompt, start `isaacscript`:
 
 ```bash
 npx isaacscript
@@ -150,7 +128,7 @@ The program will run forever, monitoring for changes in your project. (If you wa
 
 <br />
 
-### 12) Start Coding
+### 10) Start Coding
 
 That's it! Now, start coding by editing the `src/main.ts` file.
 
