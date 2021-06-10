@@ -1,4 +1,5 @@
 import chalk from "chalk";
+import commandExists from "command-exists";
 import path from "path";
 import { CWD } from "../constants";
 import checkIfProjectPathExists from "./checkIfProjectPathExists";
@@ -7,6 +8,7 @@ import checkModTargetDirectory from "./checkModTargetDirectory";
 import createMod from "./createMod";
 import getModsDir from "./getModsDir";
 import getProjectPath from "./getProjectPath";
+import installVSCodeExtensions from "./installVSCodeExtensions";
 import promptSaveSlot from "./promptSaveSlot";
 import promptVSCode from "./promptVSCode";
 
@@ -26,7 +28,15 @@ export default async function init(
   createMod(projectName, projectPath, createNewDir, modsDirectory, saveSlot);
   console.log(`Successfully created mod: ${chalk.green(projectName)}`);
 
-  await promptVSCode(projectPath, argv);
+  const VSCodeExists = commandExists.sync("code");
+  if (VSCodeExists) {
+    installVSCodeExtensions(projectPath);
+    await promptVSCode(projectPath, argv);
+  } else {
+    console.log(
+      'VSCode does not seem to be installed. (The "code" command is not in the path.) Skipping VSCode-related things.',
+    );
+  }
 
   // Finished
   let commandsToType = "";

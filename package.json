@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "chalk": "^4.1.1",
+    "command-exists": "^1.2.9",
     "dotenv": "^10.0.0",
     "figlet": "^1.5.0",
     "fs-extra": "^10.0.0",
@@ -35,6 +36,7 @@
   },
   "devDependencies": {
     "@tsconfig/node16": "^1.0.1",
+    "@types/command-exists": "^1.2.0",
     "@types/figlet": "^1.5.1",
     "@types/fs-extra": "^9.0.11",
     "@types/node": "^15.12.2",
