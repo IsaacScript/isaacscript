@@ -38,7 +38,7 @@ module.exports = {
     // We keep the Airbnb specification but allow calling functions that overload Lua operators:
     // https://moddingofisaac.com/docs/class_vector.html
     "no-underscore-dangle": [
-      "error",
+      "warn",
       {
         allow: ["__add", "__sub", "__mul", "__div", "__unm", "__len"],
         allowAfterThis: false,

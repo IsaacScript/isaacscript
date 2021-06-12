@@ -40,7 +40,7 @@ module.exports = {
     // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/array-type.md
     // Not defined in parent configs
     // Prefer the "[]string" syntax over "Array<string>"
-    "@typescript-eslint/array-type": ["error", { default: "array-simple" }],
+    "@typescript-eslint/array-type": ["warn", { default: "array-simple" }],
 
     // Documentation:
     // https://eslint.org/docs/rules/lines-between-class-members
@@ -50,7 +50,7 @@ module.exports = {
     // Airbnb has "exceptAfterSingleLine" turned off by default
     // A list of single-line variable declarations at the top of a class is common in TypeScript
     "@typescript-eslint/lines-between-class-members": [
-      "error",
+      "warn",
       "always",
       { exceptAfterSingleLine: true },
     ],
@@ -80,7 +80,7 @@ module.exports = {
     // rule as specified in the eslint-config-prettier documentation:
     // https://github.com/prettier/eslint-config-prettier#enforce-backticks
     "@typescript-eslint/quotes": [
-      "error",
+      "warn",
       "double",
       { avoidEscape: true, allowTemplateLiterals: false },
     ],
@@ -120,7 +120,7 @@ module.exports = {
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
     // Airbnb disallows these because it can lead to errors with minified code;
     // we don't have to worry about this in for loops though
-    "no-plusplus": ["error", { allowForLoopAfterthoughts: true }],
+    "no-plusplus": ["warn", { allowForLoopAfterthoughts: true }],
 
     // Documentation:
     // https://eslint.org/docs/rules/no-restricted-syntax
@@ -128,7 +128,7 @@ module.exports = {
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
     // "for..of" loops are necessary to write efficient code in some situations
     'no-restricted-syntax': [
-      'error',
+      'warn',
       {
         selector: 'ForInStatement',
         message: 'for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array.',
