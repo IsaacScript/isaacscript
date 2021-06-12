@@ -1,4 +1,4 @@
-declare function EntityRef(this: void, entity: Entity): EntityRef;
+declare function EntityRef(this: void, entity: Entity | null): EntityRef;
 
 declare class EntityRef {
   Entity: Entity;
