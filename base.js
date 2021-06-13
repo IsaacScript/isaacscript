@@ -94,6 +94,23 @@ module.exports = {
     "@typescript-eslint/restrict-template-expressions": "off",
 
     // Documentation:
+    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/restrict-template-expressions.md
+    // Not defined
+    // This rule prevents bugs when refactoring a boolean to a number
+    "@typescript-eslint/strict-boolean-expressions": [
+      "warn",
+      {
+        allowString: false,
+        allowNumber: false,
+        allowNullableObject: false,
+        allowNullableBoolean: false,
+        allowNullableString: false,
+        allowNullableNumber: false,
+        allowAny: false,
+      },
+    ],
+
+    // Documentation:
     // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/prefer-default-export.md
     // Defined at:
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/imports.js
