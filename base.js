@@ -31,6 +31,10 @@ module.exports = {
     // (otherwise, we will have unfixable ESLint errors)
     // https://github.com/prettier/eslint-config-prettier
     "prettier",
+
+    // This provides a version of the "eqeqeq" rule that the "--fix" flag can fix
+    // https://github.com/Zamiell/eslint-plugin-eqeqeq-fix
+    "plugin:eqeqeq-fix/recommended",
   ],
 
   // We modify the linting rules from the base for some specific things

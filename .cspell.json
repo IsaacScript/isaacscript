@@ -9,6 +9,7 @@
         "chdir",
         "config",
         "deno",
+        "eqeqeq",
         "eslint",
         "isaacscript",
         "plusplus",
