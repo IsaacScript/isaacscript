@@ -359,6 +359,7 @@ declare class EntityPlayer extends Entity {
   ): BombVariant | int;
   GetBoneHearts(): int;
   GetBrokenHearts(): int;
+  /** Returns 0 if there is no card. */
   GetCard(slotID: SlotId): Card | int;
   GetCardRNG(card: Card | int): RNG;
   GetCollectibleCount(): int;
@@ -452,6 +453,7 @@ declare class EntityPlayer extends Entity {
    * When called on any other character, returns nil.
    */
   GetOtherTwin(): EntityPlayer;
+  /** Returns 0 if there is no pill. */
   GetPill(slotID: SlotId): PillColor | int;
   GetPillRNG(pillEffect: PillEffect | int): RNG;
   GetPlayerType(): PlayerType | int;
