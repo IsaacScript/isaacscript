@@ -42,7 +42,7 @@ module.exports = {
   rules: {
     // Documentation:
     // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/array-type.md
-    // Not defined in parent configs
+    // Not defined in the parent configs
     // Prefer the "[]string" syntax over "Array<string>"
     "@typescript-eslint/array-type": ["warn", { default: "array-simple" }],
 
@@ -60,13 +60,10 @@ module.exports = {
     ],
 
     // Documentation:
-    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-unused-vars.md
-    // https://eslint.org/docs/rules/no-unused-vars
-    // Defined at:
-    // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/variables.js
-    // TypeScript itself does not allow unused variables when used with the "noUnusedLocals"
-    // compiler flag, which is what this project uses, so this is a duplicate warning
-    "@typescript-eslint/no-unused-vars": "off",
+    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-unnecessary-boolean-literal-compare.md
+    // Not defined in the parent configs
+    // This prevents useless code after refactoring variables to pure booleans
+    "@typescript-eslint/no-unnecessary-boolean-literal-compare": "warn",
 
     // Documentation:
     // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-use-before-define.md
@@ -99,7 +96,7 @@ module.exports = {
 
     // Documentation:
     // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/restrict-template-expressions.md
-    // Not defined
+    // Not defined in the parent configs
     // This rule prevents bugs when refactoring a boolean to a number
     "@typescript-eslint/strict-boolean-expressions": [
       "warn",
