@@ -3,9 +3,7 @@
 module.exports = {
   // The mod config extends the base configuration:
   // https://github.com/IsaacScript/eslint-config-isaacscript/blob/main/base.js
-  extends: [
-    "./base",
-  ],
+  extends: ["./base"],
 
   // We modify the linting rules from the base for some specific things
   // (listed in alphabetical order)

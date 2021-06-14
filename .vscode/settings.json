@@ -13,4 +13,16 @@
 
   // Automatically removing all trailing whitespace when saving a file
   "files.trimTrailingWhitespace": true,
+
+  // ----------
+  // JavaScript
+  // ----------
+
+  // Automatically run the formatter when a JavaScript file is saved
+  "[javascript]": {
+    "editor.codeActionsOnSave": [
+      "source.fixAll.eslint",
+    ],
+    "editor.tabSize": 2,
+  },
 }
