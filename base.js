@@ -21,6 +21,14 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
 
+    // Find unused "eslint-disable" comments
+    // https://github.com/mysticatea/eslint-plugin-eslint-comments
+    "plugin:eslint-comments/recommended",
+
+    // This provides a version of the "eqeqeq" rule that the "--fix" flag can fix
+    // https://github.com/Zamiell/eslint-plugin-eqeqeq-fix
+    "plugin:eqeqeq-fix/recommended",
+
     // We use Prettier to automatically format TypeScript files
     // We want to run Prettier as an ESLint rule so that we can detect non-formatted files in CI
     // https://github.com/prettier/eslint-plugin-prettier
@@ -31,10 +39,6 @@ module.exports = {
     // (otherwise, we will have unfixable ESLint errors)
     // https://github.com/prettier/eslint-config-prettier
     "prettier",
-
-    // This provides a version of the "eqeqeq" rule that the "--fix" flag can fix
-    // https://github.com/Zamiell/eslint-plugin-eqeqeq-fix
-    "plugin:eqeqeq-fix/recommended",
   ],
 
   // We modify the linting rules from the base for some specific things
@@ -57,6 +61,37 @@ module.exports = {
       "warn",
       "always",
       { exceptAfterSingleLine: true },
+    ],
+
+    // Documentation:
+    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/naming-convention.md
+    // Defined at:
+    // https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js
+    // Modify the Airbnb config to allow for a leading underscore,
+    // which signifies that it is temporarily not being used
+    "@typescript-eslint/naming-convention": [
+      "warn",
+      // Allow camelCase variables (23.2), PascalCase variables (23.8),
+      // and UPPER_CASE variables (23.10)
+      {
+        selector: "variable",
+        format: ["camelCase", "PascalCase", "UPPER_CASE"],
+        leadingUnderscore: "allow",
+      },
+      // Allow camelCase functions (23.2), and PascalCase functions (23.8)
+      {
+        selector: "function",
+        format: ["camelCase", "PascalCase"],
+        leadingUnderscore: "allow",
+      },
+      // Airbnb recommends PascalCase for classes (23.3),
+      // and although Airbnb does not make TypeScript recommendations,
+      // we are assuming this rule would similarly apply to anything "type like",
+      // including interfaces, type aliases, and enums
+      {
+        selector: "typeLike",
+        format: ["PascalCase"],
+      },
     ],
 
     // Documentation:
@@ -116,6 +151,46 @@ module.exports = {
         allowNullableString: false,
         allowNullableNumber: false,
         allowAny: false,
+      },
+    ],
+
+    // Documentation:
+    // https://github.com/mysticatea/eslint-plugin-eslint-comments/blob/master/docs/rules/disable-enable-pair.md
+    // Defined at:
+    // https://github.com/mysticatea/eslint-plugin-eslint-comments/blob/master/lib/configs/recommended.js
+    // By default, it does not allow "eslint-disable" comments for a whole file,
+    // which is standard practice
+    "eslint-comments/disable-enable-pair": [
+      "warn",
+      {
+        allowWholeFile: true,
+      },
+    ],
+
+    // Documentation:
+    // https://github.com/mysticatea/eslint-plugin-eslint-comments/blob/master/docs/rules/no-unlimited-disable.md
+    // Defined at:
+    // https://github.com/mysticatea/eslint-plugin-eslint-comments/blob/master/lib/configs/recommended.js
+    // If a line breaks two or more ESLint rules,
+    // then it is useful to use a single "eslint-disable" comment
+    "eslint-comments/no-unlimited-disable": "off",
+
+    // Documentation:
+    // https://github.com/mysticatea/eslint-plugin-eslint-comments/blob/master/docs/rules/no-unused-disable.md
+    // Not defined in parent configs
+    // This can help clean up unnecessary comments
+    "eslint-comments/no-unused-disable": "warn",
+
+    // Documentation:
+    // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-unused-modules.md
+    // Not defined in parent configs
+    // This helps to find dead code that should be deleted
+    "import/no-unused-modules": [
+      "error",
+      {
+        missingExports: true,
+        unusedExports: true,
+        ignoreExports: ["src/**/*.d.ts"],
       },
     ],
 
