@@ -23,7 +23,8 @@ module.exports = {
 
     // Find unused "eslint-disable" comments
     // https://github.com/mysticatea/eslint-plugin-eslint-comments
-    "plugin:eslint-comments/recommended",
+    // (commented out for now)
+    // "plugin:eslint-comments/recommended",
 
     // This provides a version of the "eqeqeq" rule that the "--fix" flag can fix
     // https://github.com/Zamiell/eslint-plugin-eqeqeq-fix
@@ -154,6 +155,7 @@ module.exports = {
       },
     ],
 
+    /*
     // Documentation:
     // https://github.com/mysticatea/eslint-plugin-eslint-comments/blob/master/docs/rules/disable-enable-pair.md
     // Defined at:
@@ -180,6 +182,7 @@ module.exports = {
     // Not defined in parent configs
     // This can help clean up unnecessary comments
     "eslint-comments/no-unused-disable": "warn",
+    */
 
     // Documentation:
     // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-unused-modules.md
@@ -190,7 +193,7 @@ module.exports = {
       {
         missingExports: true,
         unusedExports: true,
-        ignoreExports: ["src/**/*.d.ts"],
+        ignoreExports: ["src/**/*.d.ts", ".eslintrc.js"],
       },
     ],
 
