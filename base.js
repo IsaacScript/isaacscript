@@ -182,19 +182,6 @@ module.exports = {
     "eslint-comments/no-unused-disable": "warn",
 
     // Documentation:
-    // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-unused-modules.md
-    // Not defined in parent configs
-    // This helps to find dead code that should be deleted
-    "import/no-unused-modules": [
-      "error",
-      {
-        missingExports: true,
-        unusedExports: true,
-        ignoreExports: ["src/**/*.d.ts", ".eslintrc.js", "src/main.ts"],
-      },
-    ],
-
-    // Documentation:
     // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/prefer-default-export.md
     // Defined at:
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/imports.js
