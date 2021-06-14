@@ -486,6 +486,7 @@ declare class EntityPlayer extends Entity {
   GetTearRangeModifier(): int;
   GetTotalDamageTaken(): int;
   GetTractorBeam(): Entity;
+  /** Returns 0 if there is no trinket. */
   GetTrinket(trinketIndex: 0 | 1): int;
   GetTrinketMultiplier(): int;
   GetTrinketRNG(trinketType: TrinketType | int): RNG;
