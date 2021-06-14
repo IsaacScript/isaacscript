@@ -190,7 +190,7 @@ module.exports = {
       {
         missingExports: true,
         unusedExports: true,
-        ignoreExports: ["src/**/*.d.ts", ".eslintrc.js"],
+        ignoreExports: ["src/**/*.d.ts", ".eslintrc.js", "src/main.ts"],
       },
     ],
 
