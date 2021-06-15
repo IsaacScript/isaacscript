@@ -14,6 +14,8 @@ declare global {
     function CountBosses(): int;
     function CountEnemies(): int;
     /**
+     * This function is currently bugged (i.e. in Repentance v820) and should not be used.
+     * In the meantime, use "FindByType()" as a workaround.
      * @param spawner
      * @param entityType Default is EntityType.ENTITY_NULL.
      * @param variant Specifying -1 will return all variants. Default is -1.
@@ -24,7 +26,7 @@ declare global {
       entityType?: EntityType | int,
       variant?: EntityVariantForAC,
       subType?: int,
-    ): int;
+    ): never;
     function DebugString(msg: string): Mod;
     function ExecuteCommand(command: string): string;
     function Explode(
