@@ -21,7 +21,8 @@ declare class ItemConfig {
    * This method does not work properly for modded items, so it should never be used.
    * Instead, use "GetCollectible(collectibleType) !== null".
    */
-  static IsValidCollectible(): never;
+  static IsValidCollectible(fakeArg: never): boolean;
+
   static ShouldAddCostumeOnPickup(): boolean;
 
   // In the "enums.lua" file, the ItemConfig class is extended with many members:

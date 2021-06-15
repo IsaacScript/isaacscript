@@ -22,11 +22,11 @@ declare global {
      * @param subType Specifying -1 will return all subtypes. Default is -1.
      */
     function CountEntities(
-      spawner: Entity | null,
+      spawner: never, // Entity | null,
       entityType?: EntityType | int,
       variant?: EntityVariantForAC,
       subType?: int,
-    ): never;
+    ): int;
     function DebugString(msg: string): Mod;
     function ExecuteCommand(command: string): string;
     function Explode(
