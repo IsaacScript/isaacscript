@@ -85,6 +85,7 @@ declare global {
     function GetRoomEntities(): Entity[];
     function GetSoundIdByName(soundName: string): SoundEffect | int;
     function GetTextWidth(str: string): int;
+    /** Returns the current time in milliseconds since the program was launched. (This is simply a mapping to "os.clock()".) */
     function GetTime(): int;
     function GetTrinketIdByName(trinketName: string): TrinketType | int;
     function GridSpawn(
