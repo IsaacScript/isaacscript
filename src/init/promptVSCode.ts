@@ -7,7 +7,7 @@ export default async function promptVSCode(
   projectPath: string,
   argv: Record<string, unknown>,
 ): Promise<void> {
-  if (argv.vscode) {
+  if (argv.vscode !== undefined) {
     // They supplied the "--vscode" command-line flag,
     // so there is no need to prompt the user
     openVSCode(projectPath);

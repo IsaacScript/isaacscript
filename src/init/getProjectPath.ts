@@ -23,7 +23,7 @@ export default async function getProjectPath(
   let projectName = getProjectNameFromCommandLineArgument(argv);
   let projectPath: string;
   let createNewDir: boolean;
-  if (argv.useCurrentDir) {
+  if (argv.useCurrentDir !== undefined) {
     // The "--use-current-dir" command-line flag was specified,
     // so there is no need to prompt the user
     projectName = CURRENT_DIRECTORY_NAME;

@@ -29,7 +29,7 @@ export default function publish(
   const setVersion = argv.setversion as string | undefined;
   const modTargetPath = path.join(config.modsDirectory, config.projectName);
 
-  if (setVersion !== undefined && !/^\d+\.\d+\.\d+$/.exec(setVersion)) {
+  if (setVersion !== undefined && /^\d+\.\d+\.\d+$/.exec(setVersion) === null) {
     console.error(
       chalk.red(
         `The version of "${setVersion}" does not match the semantic versioning format.`,

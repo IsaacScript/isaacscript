@@ -40,10 +40,6 @@ function onMessage(
   data: string,
   numRetries = 0,
 ): void {
-  if (data === "Terminate batch job (Y/N)?") {
-    return;
-  }
-
   const saveDat = readSaveDatFromDisk();
   if (saveDat.length > MAX_MESSAGES) {
     // If IsaacScript is running and

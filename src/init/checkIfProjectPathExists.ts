@@ -19,7 +19,7 @@ export default async function checkIfProjectPathExists(
       name: "delete",
       message: "Do you want me to delete it?",
     });
-    if (!response.delete) {
+    if (!response.delete) { // eslint-disable-line
       console.error("Ok then. Good-bye.");
       process.exit(1);
     }

@@ -13,8 +13,13 @@ export function msg(data: string): void {
       continue;
     }
 
+    // Ignore the final message from tstl upon exiting the program
+    if (trimmedLine === "Terminate batch job (Y/N)?") {
+      return;
+    }
+
     // Add a time prefix
-    const formattedLine = `[${getTime()}] ${line}`;
+    const formattedLine = `[${getTime()}] ${trimmedLine}`;
 
     sendMsgToSaveDatWriter({
       type: "msg",
@@ -30,9 +35,9 @@ export function msg(data: string): void {
 function printMsgToStandardOut(data: string) {
   let coloredData = data;
 
-  if (data.match(/Compilation successful./g)) {
+  if (data.match(/Compilation successful./g) !== null) {
     coloredData = chalk.green(data);
-  } else if (data.match(/error/g)) {
+  } else if (data.match(/error/g) !== null) {
     coloredData = chalk.red(data);
   }
 
