@@ -254,7 +254,7 @@ function shouldApplyGreenCandleEffectToEntity(entity: Entity) {
 }
 ```
 
-Notice here that we use Lua's `math.random()` function, which is available to use in TypeScript thanks to the underlying TypeScriptToLua library that is currently loaded. (If you don't like using Lua libraries for whatever reason, you could also use the equivalent JavaScript version, which is `Math.floor(Math.random() * 10) + 1`. It would transpile to the same thing.)
+Notice here that we use Lua's `math.random()` function, which is available to use in TypeScript thanks to the underlying TypeScriptToLua library that is currently loaded. (If you don't like using Lua libraries for whatever reason, you could also use the equivalent JavaScript version, which is `Math.floor(Math.random() * 500) + 1`. It would transpile to the same thing.)
 
 <br />
 
