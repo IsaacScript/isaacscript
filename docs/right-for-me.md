@@ -3,15 +3,14 @@ title: Is IsaacScript Right for Me?
 hide_table_of_contents: true
 ---
 
-Coding in TypeScript is a bit more complicated than coding in Lua. And it requires more tooling to be installed. This means that `isaacscript` isn't right for everyone. Whether or not you should use the framework depends on several factors.
+Coding in TypeScript is a bit more involved than coding in Lua, since it requires more tooling to be installed. This means that `isaacscript` isn't right for everyone. Whether or not you should use the framework depends on several factors.
 
 <br />
 
-### Are you a beginner, intermediate, or expert Isaac modder?
+### Are you good with computers? Have you programmed anything before?
 
-- Beginner - ❌ - If you want to code an Isaac mod for the first time, do it in Lua. Keep it simple, stupid!
-- Intermediate - ✔️ - If you have already made a few mods, then you are ready for all of the advantages `isaacscript` brings.
-- Expert - ✔️ - Using `isaacscript` is a no-brainer.
+- No - ❌ - `isaacscript` is a command-line program. If you don't know what that is, then this might not be the right tool for you.
+- Yes - ✔️ - Even if you aren't a wiz with a command prompt, using `isaacscript` is pretty darn easy.
 
 ### How much time are you spending on coding Isaac mods?
 
@@ -25,14 +24,20 @@ Coding in TypeScript is a bit more complicated than coding in Lua. And it requir
 
 - A tiny mod - ❌ - Tiny mods are less likely to have bugs or typos.
 - A medium mod - ✔️ - If your mod is big enough to be split into two or more files, then using `isaacscript` will be helpful. And if you will update the mod in the future (with new features or bug fixes), then using `isaacscript` will help you maintain the project.
-- A big mod - ✔️ - Using `isaacscript` is a no-brainer.
+- A big mod - ✔️ -  `isaacscript` allows you to glue everything together in a provably-correct way, which is invaluable for big mods.
 
-### Do you have experience in JavaScript (or TypeScript)?
+### How good at you at coding? (Trick question - it doesn't matter.)
 
-- No, I've only coded in Lua - ❌ - Lua is pretty similar to JavaScript. But if you don't want to spend any time to learn a new language, then stick with Lua!
-- No, but I have coded in other languages - ✔️ - JavaScript is one of the easiest languages to learn (alongside Python). Getting started is a breeze.
-- Yes, I have experience in JavaScript - ✔️ - TypeScript is 99% the same as JavaScript. (It is a "superset" language.)
-- Yes, I have experience in TypeScript - ✔️ - You're golden.
+- Beginner - ✔️ - Beginners need someone to hold their hand and tell them when they have made a typo. The TypeScript compiler is exactly that - a helpful friend that looks out for you.
+- Intermediate - ✔️ - `isaacscript` helps you focus on *coding*. Spend less time referencing the API docs.
+- Expert - ✔️ - You probably already know how invaluable type-safety is. Enjoy the power of TypeScript's generics and robust ecosystem.
+
+### Do you have experience in TypeScript? (Trick question - it doesn't matter.)
+
+- Yes, I have experience in TypeScript - ✔️ - The choice is obvious.
+- No, but I know JavaScript - ✔️ - TypeScript is 99% the same as JavaScript. (It is a "superset" language.)
+- No, but I know Lua - ✔️-  On the one hand, if you already know Lua and are comfortable with it, then it might not be worth the time and effort to learn something new. On the other hand, once you've learned one language, learning another is pretty easy. It's **totally worth it** to spend an hour to learn TypeScript in order to get all of the fantastic benefits that it provides over Lua.
+- No, but I know [other language here] - ✔️ - Isaac mods are programmed in either TypeScript or Lua. If you don't know either, then start with TypeScript from the get-go. You'll thank me later.
 
 <br />
 
