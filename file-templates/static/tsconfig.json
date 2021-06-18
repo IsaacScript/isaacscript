@@ -8,6 +8,9 @@
   "compilerOptions": {
     // Specifies the root folder within your source files
     "rootDir": "./src",
+
+    // Specifies the directory of the output
+    "outDir": "./mod"
   },
 
   // A list of the TypeScript files to compile
@@ -18,7 +21,7 @@
   // TypeScriptToLua settings
   "tstl": {
     "luaTarget": "5.3",
-    "luaBundle": "./mod/main.lua", // Will bundle all output Lua files into a single file
+    "luaBundle": "main.lua", // Will bundle all output Lua files into a single file
     "luaBundleEntry": "./src/main.ts",
   },
 }
