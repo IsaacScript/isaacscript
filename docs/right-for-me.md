@@ -24,7 +24,7 @@ Coding in TypeScript is a bit more involved than coding in Lua, since it require
 
 - A tiny mod - ❌ - Tiny mods are less likely to have bugs or typos.
 - A medium mod - ✔️ - If your mod is big enough to be split into two or more files, then using `isaacscript` will be helpful. And if you will update the mod in the future (with new features or bug fixes), then using `isaacscript` will help you maintain the project.
-- A big mod - ✔️ -  `isaacscript` allows you to glue everything together in a provably-correct way, which is invaluable for big mods.
+- A big mod - ✔️ -  `isaacscript` allows you to glue everything together in a provably-correct way.
 
 ### How good at you at coding? (Trick question - it doesn't matter.)
 
