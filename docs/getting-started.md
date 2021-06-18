@@ -110,7 +110,7 @@ npx isaacscript init
 
 (This command downloads and executes the NPM package of `isaacscript`.)
 
-The program will ask you some questions and then populate your new directory with TypeScript and other some other dependencies. 
+The program will ask you some questions and then populate your new directory with TypeScript and other some other dependencies.
 
 At the end, it will ask you if it should launch VSCode for you. Answer yes.
 
