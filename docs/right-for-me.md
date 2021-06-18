@@ -37,7 +37,7 @@ Coding in TypeScript is a bit more involved than coding in Lua, since it require
 - Yes, I have experience in TypeScript - ✔️ - The choice is obvious.
 - No, but I know JavaScript - ✔️ - TypeScript is 99% the same as JavaScript. (It is a "superset" language.)
 - No, but I know Lua - ✔️-  On one hand, if you already know Lua and are comfortable with it, then it might not be worth the time and effort to learn something new. On the other hand, once you've learned one language, learning another is pretty easy. It is **totally worth it** to spend an hour to learn TypeScript in order to get all of the fantastic benefits that it provides over Lua.
-- No, but I know [other language here] - ✔️ - Isaac mods are programmed in either TypeScript or Lua. If you don't know either, then start with TypeScript from the get-go. You'll thank me later.
+- No, but I know some other language - ✔️ - Isaac mods are programmed in either TypeScript or Lua. If you don't know either, then start with TypeScript from the get-go. You'll thank me later.
 
 <br />
 
