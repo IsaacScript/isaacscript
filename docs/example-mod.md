@@ -87,7 +87,7 @@ Now, the item will sometimes randomly appear for players when they enter a Treas
 
 Right now, if players pick up your item, it won't actually do anything. This is where the coding part comes in.
 
-Mods affect the game by putting code inside of *callbacks*. There are [72 different callbacks](https://isaacscript.github.io/docs/function-signatures) to choose from, so you have to choose the right one dependong on what you want to do.
+Mods affect the game by putting code inside of *callbacks*. There are [72 different callbacks](https://isaacscript.github.io/docs/function-signatures) to choose from, so you have to choose the right one depending on what you want to do.
 
 Open `C:\Repositories\green-candle\src\main.ts`, which contains the TypeScript code that will be transpiled to the "main.lua" file and read by the game.
 
