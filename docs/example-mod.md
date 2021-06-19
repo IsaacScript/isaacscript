@@ -85,7 +85,9 @@ Now, the item will sometimes randomly appear for players when they enter a Treas
 
 ## 5) Start Coding the Effect
 
-Right now, if players pick up your item, it won't actually do anything. This is where the Lua code comes in.
+Right now, if players pick up your item, it won't actually do anything. This is where the coding part comes in.
+
+Mods affect the game by putting code inside of *callbacks*. There are [72 different callbacks](https://isaacscript.github.io/docs/function-signatures) to choose from, so you have to choose the right one dependong on what you want to do.
 
 Open `C:\Repositories\green-candle\src\main.ts`, which contains the TypeScript code that will be transpiled to the "main.lua" file and read by the game.
 
@@ -93,7 +95,7 @@ The bootstrapper created a skeleton of a mod for us. As you can see, it calls th
 
 (`Isaac` is a global class provided by the game with helpful methods on it. `Isaac.DebugString()` simply writes something to the log.txt file, which is located at `C:\Users\[username]\Documents\My Games\Binding of Isaac Repentance\log.txt`.)
 
-The `MC_POST_GAME_STARTED` callback is useful for initializing things at the start of every run or making the player start with some novel ability. For our purposes, we don't need it, so we can remove all of the lines relating to that.
+The `MC_POST_GAME_STARTED` callback is useful for initializing things at the start of every run or making the player start with a particular item. For our purposes, we don't need it, so we can remove all of the lines relating to that.
 
 After we have deleted the lines relating to the `MC_POST_GAME_STARTED` callback, we can fix some of the capitalization:
 
@@ -125,7 +127,11 @@ Put this below the line that registers the mod.
 
 ## 7) Add a New Callback
 
-We want the Green Candle to have a random chance to poison every enemy in the room on every frame. So, we need code to run on every frame, and that means we need to use the `MC_POST_UPDATE` callback.
+As we discussed above, when adding new code, you have to put it in the right callback for what you want to do.
+
+For our purposes, we want the Green Candle to have a random chance to poison every enemy in the room on every frame. So, that means that the code should run on every frame, and that means we need to use the `MC_POST_UPDATE` callback, which runs 30 times a second.
+
+(The game update loop runs at 30 times per second and the game render loop runs at 60 times per second. Since our code is gameplay-related, we should put it in the `MC_POST_UPDATE` callback. On the other hand, if we were drawing a sprite, then we would use the `MC_POST_RENDER` callback.)
 
 Add the following code:
 
@@ -242,9 +248,11 @@ entity.AddPoison(EntityRef(player), 100, player.Damage);
 
 Now, let's fill in the `shouldApplyGreenCandleEffectToEntity()` function.
 
-First, we also need to check to see if the entity is supposed to be damaged by using the `IsVulnerableEnemy()` method.
+Some enemies, like Stonies, are supposed to be invincible, so it would be a bug in our mod if the poison effect applied to them. So, we have to find a way to detect invincible enemies.
 
-(Some enemies, like Stonies, are supposed to be invincible, so it would be a bug in our mod if the poison effect actually applied to them.)
+By looking through [the API docs](https://wofsauge.github.io/IsaacDocs/), we eventually find that there is `IsVulnerableEnemy()` method. This sounds like what we need.
+
+Furthermore, we want the random chance for the Green Candle to work to be around 1 in 500. We can accomplish that with the `math.random()` function.
 
 ```typescript
 function shouldApplyGreenCandleEffectToEntity(entity: Entity) {
@@ -254,7 +262,7 @@ function shouldApplyGreenCandleEffectToEntity(entity: Entity) {
 }
 ```
 
-Notice here that we use Lua's `math.random()` function, which is available to use in TypeScript thanks to the underlying TypeScriptToLua library that is currently loaded. (If you don't like using Lua libraries for whatever reason, you could also use the equivalent JavaScript version, which is `Math.floor(Math.random() * 500) + 1`. It would transpile to the same thing.)
+As a side note, notice that this uses Lua's `math.random()` function, which is available to use in TypeScript thanks to the underlying TypeScriptToLua library that is currently loaded. (If you don't like using Lua libraries for whatever reason, you could also use the equivalent JavaScript version, which is `Math.floor(Math.random() * 500) + 1`. It would transpile to the same thing.)
 
 <br />
 
