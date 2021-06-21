@@ -69,9 +69,9 @@ function startPublish(
   writeVersionToVersionTXT(version);
   runReleaseScriptPreCopy();
   compileAndCopy(modSourcePath, modTargetPath);
+  purgeRoomXMLs(modTargetPath);
   runReleaseScriptPostCopy();
   gitCommitIfChanges(version);
-  purgeRoomXMLs(modTargetPath);
   uploadMod(modTargetPath, steamCmdPath);
 
   console.log(`\nPublished version ${version} successfully.`);
