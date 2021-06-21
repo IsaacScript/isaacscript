@@ -206,7 +206,15 @@ function IsaacScriptWatcher:Save()
 end
 
 function IsaacScriptWatcher:Load()
+  -- Read the "save#.dat" file into a string
   local saveDataJSON = Isaac.LoadModData(IsaacScriptWatcher)
+
+  -- Handle the case of a 0 byte file
+  if saveDataJSON == "" then
+    saveDataJSON = "{}"
+  end
+
+  -- Convert a JSON string to a Lua table
   saveData = json.decode(saveDataJSON)
 end
 
