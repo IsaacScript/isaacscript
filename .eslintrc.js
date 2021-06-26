@@ -11,7 +11,7 @@ module.exports = {
     browser: true,
   },
 
-  ignorePatterns: ["./.docusaurus/**", "./build/**"],
+  ignorePatterns: ["docusaurus/**", "build/**"],
 
   parserOptions: {
     // ESLint needs to know about the project's TypeScript settings in order for TypeScript-specific
