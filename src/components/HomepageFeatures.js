@@ -1,3 +1,4 @@
+import useBaseUrl from "@docusaurus/useBaseUrl";
 import clsx from "clsx";
 import React from "react";
 import styles from "./HomepageFeatures.module.css";
@@ -5,7 +6,7 @@ import styles from "./HomepageFeatures.module.css";
 const FeatureList = [
   {
     title: "The Entire Isaac API, Strongly Typed",
-    img: "../../static/img/items/magic_mushroom.png",
+    img: "img/items/magic_mushroom.png",
     description: (
       <>
         <li>Code fearlessly without having to worry about making a typo.</li>
@@ -18,7 +19,7 @@ const FeatureList = [
   },
   {
     title: "Powered by TypeScriptToLua",
-    img: "../../static/img/typescript-to-lua.png",
+    img: "img/typescript-to-lua.png",
     description: (
       <>
         <li>
@@ -44,7 +45,7 @@ function Feature({ title, img, description }) {
   return (
     <div className={clsx("col col--6")}>
       <div className="text--center">
-        <img src={img} style={imgStyle} alt={title} />
+        <img src={useBaseUrl(img)} style={imgStyle} alt={title} />
       </div>
       <div className="padding-horiz--md">
         <h3 className="text--center">{title}</h3>
