@@ -1,6 +1,6 @@
 {
   "name": "isaacscript",
-  "version": "1.0.167",
+  "version": "1.0.168",
   "description": "A command line tool for managing Isaac mods written in TypeScript",
   "homepage": "https://isaacscript.github.io/",
   "bugs": {
@@ -21,7 +21,7 @@
     "dotenv": "^10.0.0",
     "figlet": "^1.5.0",
     "fs-extra": "^10.0.0",
-    "isaac-typescript-definitions": "^1.0.72",
+    "isaac-typescript-definitions": "^1.0.73",
     "isaacscript-lint": "^1.0.34",
     "isaacscript-tsconfig": "^1.1.2",
     "jsonc-parser": "^3.0.0",
