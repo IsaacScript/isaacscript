@@ -1,6 +1,5 @@
 // Constants
-const MAX_LEVEL = 23;
-const FIRST_DOC_PAGE_TITLE = "Features";
+const FIRST_DOC_PAGE_TITLE = "Features | IsaacScript";
 
 // Variables
 const keyMap = new Map();
@@ -95,13 +94,7 @@ function isOnLandingPage() {
 }
 
 function isOnFirstDocPage() {
-  const headerElements = document.getElementsByClassName(
-    "docTitle_node_modules-@docusaurus-theme-classic-lib-next-theme-DocItem-"
-  );
-  return (
-    headerElements.length >= 1 &&
-    headerElements[0].textContent === FIRST_DOC_PAGE_TITLE
-  );
+  return document.title === FIRST_DOC_PAGE_TITLE;
 }
 
 function clickOnFirstLargeButton() {
