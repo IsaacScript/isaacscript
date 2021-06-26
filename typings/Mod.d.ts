@@ -16,7 +16,7 @@ interface CallbackParameters {
     ) =>
       | boolean
       | { Discharge: boolean; Remove: boolean; ShowAnim: boolean }
-      | undefined,
+      | void,
     collectibleType?: CollectibleType | int,
   ];
   [ModCallbacks.MC_POST_PEFFECT_UPDATE]: [
@@ -58,7 +58,7 @@ interface CallbackParameters {
       damageFlags: DamageFlag,
       damageSource: EntityRef,
       damageCountdownFrames: int,
-    ) => boolean | undefined,
+    ) => boolean | void,
     entityType?: EntityType | int,
   ];
   [ModCallbacks.MC_POST_CURSE_EVAL]: [
@@ -69,7 +69,7 @@ interface CallbackParameters {
       player: EntityPlayer,
       inputHook: InputHook,
       buttonAction: ButtonAction,
-    ) => boolean | float | undefined,
+    ) => boolean | float | void,
     inputHook?: InputHook,
   ];
   [ModCallbacks.MC_POST_GAME_STARTED]: [
@@ -86,7 +86,7 @@ interface CallbackParameters {
       includePlayingCards: boolean,
       includeRunes: boolean,
       onlyRunes: boolean,
-    ) => Card | int | undefined,
+    ) => Card | int | void,
   ];
   [ModCallbacks.MC_GET_SHADER_PARAMS]: [
     callback: (shaderName: string) => Record<string, unknown>,
@@ -102,7 +102,7 @@ interface CallbackParameters {
       useFlags: int,
       activeSlot: int,
       customVarData: int,
-    ) => boolean | undefined,
+    ) => boolean | void,
     collectibleType?: CollectibleType | int,
   ];
   [ModCallbacks.MC_PRE_ENTITY_SPAWN]: [
@@ -114,7 +114,7 @@ interface CallbackParameters {
       velocity: Vector,
       spawner: Entity,
       initSeed: int,
-    ) => [EntityType | int, EntityVariantForAC, int, int] | undefined,
+    ) => [EntityType | int, EntityVariantForAC, int, int] | void,
   ];
   [ModCallbacks.MC_POST_FAMILIAR_RENDER]: [
     callback: (entityFamiliar: EntityFamiliar, renderOffset: Vector) => void,
@@ -125,7 +125,7 @@ interface CallbackParameters {
       familiar: EntityFamiliar,
       collider: Entity,
       low: boolean,
-    ) => boolean | undefined,
+    ) => boolean | void,
     familiarVariant?: FamiliarVariant | int,
   ];
   [ModCallbacks.MC_POST_NPC_INIT]: [
@@ -145,7 +145,7 @@ interface CallbackParameters {
       npc: EntityNPC,
       collider: Entity,
       low: boolean,
-    ) => boolean | undefined,
+    ) => boolean | void,
     entityType?: EntityType | int,
   ];
   [ModCallbacks.MC_POST_PLAYER_UPDATE]: [
@@ -161,7 +161,7 @@ interface CallbackParameters {
       player: EntityPlayer,
       collider: Entity,
       low: boolean,
-    ) => boolean | undefined,
+    ) => boolean | void,
     playerVariant?: PlayerVariant,
   ];
   [ModCallbacks.MC_POST_PICKUP_INIT]: [
@@ -181,14 +181,14 @@ interface CallbackParameters {
       pickup: EntityPickup,
       variant: PickupVariant | int,
       subType: int,
-    ) => [PickupVariant | int, int] | undefined,
+    ) => [PickupVariant | int, int] | void,
   ];
   [ModCallbacks.MC_PRE_PICKUP_COLLISION]: [
     callback: (
       pickup: EntityPickup,
       collider: Entity,
       low: boolean,
-    ) => boolean | undefined,
+    ) => boolean | void,
     pickupVariant?: PickupVariant | int,
   ];
   [ModCallbacks.MC_POST_TEAR_INIT]: [
@@ -208,7 +208,7 @@ interface CallbackParameters {
       tear: EntityTear,
       collider: Entity,
       low: boolean,
-    ) => boolean | undefined,
+    ) => boolean | void,
     tearVariant?: TearVariant | int,
   ];
   [ModCallbacks.MC_POST_PROJECTILE_INIT]: [
@@ -228,7 +228,7 @@ interface CallbackParameters {
       projectile: EntityProjectile,
       collider: Entity,
       low: boolean,
-    ) => boolean | undefined,
+    ) => boolean | void,
     projectileVariant?: ProjectileVariant | int,
   ];
   [ModCallbacks.MC_POST_LASER_INIT]: [
@@ -260,7 +260,7 @@ interface CallbackParameters {
       knife: EntityKnife,
       collider: Entity,
       low: boolean,
-    ) => boolean | undefined,
+    ) => boolean | void,
     knifeSubType?: int,
   ];
   [ModCallbacks.MC_POST_EFFECT_INIT]: [
@@ -292,7 +292,7 @@ interface CallbackParameters {
       bomb: EntityBomb,
       collider: Entity,
       low: boolean,
-    ) => boolean | undefined,
+    ) => boolean | void,
     bombVariant?: BombVariant | int,
   ];
   [ModCallbacks.MC_POST_FIRE_TEAR]: [callback: (tear: EntityTear) => void];
@@ -301,7 +301,7 @@ interface CallbackParameters {
       itemPoolType: ItemPoolType,
       decrease: boolean,
       seed: int,
-    ) => CollectibleType | int | undefined,
+    ) => CollectibleType | int | void,
   ];
   [ModCallbacks.MC_POST_GET_COLLECTIBLE]: [
     callback: (
@@ -309,22 +309,22 @@ interface CallbackParameters {
       itemPoolType: ItemPoolType,
       decrease: boolean,
       seed: int,
-    ) => CollectibleType | int | undefined,
+    ) => CollectibleType | int | void,
   ];
   [ModCallbacks.MC_GET_PILL_COLOR]: [
-    callback: (seed: int) => PillColor | int | undefined,
+    callback: (seed: int) => PillColor | int | void,
   ];
   [ModCallbacks.MC_GET_PILL_EFFECT]: [
     callback: (
       pillEffect: PillEffect | int,
       pillColor: PillColor | int,
-    ) => PillEffect | int | undefined,
+    ) => PillEffect | int | void,
   ];
   [ModCallbacks.MC_GET_TRINKET]: [
     callback: (
       trinketType: TrinketType | int,
       rng: RNG,
-    ) => TrinketType | int | undefined,
+    ) => TrinketType | int | void,
   ];
   [ModCallbacks.MC_POST_ENTITY_REMOVE]: [
     callback: (entity: Entity) => void,
@@ -335,11 +335,11 @@ interface CallbackParameters {
     entityType?: EntityType | int,
   ];
   [ModCallbacks.MC_PRE_NPC_UPDATE]: [
-    callback: (npc: EntityNPC) => boolean | undefined,
+    callback: (npc: EntityNPC) => boolean | void,
     entityType?: EntityType | int,
   ];
   [ModCallbacks.MC_PRE_SPAWN_CLEAN_AWARD]: [
-    callback: (rng: RNG, spawnPosition: Vector) => boolean | undefined,
+    callback: (rng: RNG, spawnPosition: Vector) => boolean | void,
   ];
   [ModCallbacks.MC_PRE_ROOM_ENTITY_SPAWN]: [
     callback: (
@@ -348,7 +348,7 @@ interface CallbackParameters {
       subType: int,
       gridIndex: int,
       seed: int,
-    ) => [EntityType | int, EntityVariantForAC, int] | undefined,
+    ) => [EntityType | int, EntityVariantForAC, int] | void,
   ];
 }
 
