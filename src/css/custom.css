@@ -40,3 +40,8 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
   margin-left: 0.5em;
   margin-right: 0.5em;
 }
+
+.features-icon {
+  position: relative;
+  top: 1em;
+}

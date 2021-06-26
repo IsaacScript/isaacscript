@@ -7,39 +7,39 @@ They say that every programming language has some pros and some cons. However, a
 
 But we don't have to suffer anymore. The `isaacscript` framework allows us to program Isaac mods in TypeScript. And once you start, you will never go back. Here's a short list of features:
 
-### <img src="/img/items/magic_mushroom.png" className="icon" /> The Entire Isaac API, Strongly Typed
+### <img src="/img/items/magic_mushroom.png" className="features-icon" /> The Entire Isaac API, Strongly Typed
 
 - Code fearlessly without having to worry about making a typo or having to look at the docs.
 
-### <img src="/img/items/marked.png" className="icon" /> Mouseover Documentation
+### <img src="/img/items/marked.png" className="features-icon" /> Mouseover Documentation
 
 - Mouseover API calls to see what they do and what parameters they expect.
 - Hopefully, you will never have to open the Isaac documentation ever again. Good riddance.
 
-### <img src="/img/items/dead_eye.png" className="icon" /> Better API Accuracy
+### <img src="/img/items/dead_eye.png" className="features-icon" /> Better API Accuracy
 
 - The Isaac documentation is wrong in a lot of places. Some functions are not implemented and some functions make the game crash.
 - Don't bother waiting for a patch - the `isaacscript` framework fixes everything for you.
 
-### <img src="/img/items/clockwork_assembly.png" className="icon" /> Automatic Mod Reloading
+### <img src="/img/items/clockwork_assembly.png" className="features-icon" /> Automatic Mod Reloading
 
 - Never close and reopen your game again when working on your mods.
 - Never type the `luamod` console command again.
 - If you use `include()` to get around bugs with `luamod` and `require()`, don't bother - that isn't needed here.
 
-### <img src="/img/items/humbling_bundle.png" className="icon" /> Extra Enums
+### <img src="/img/items/humbling_bundle.png" className="features-icon" /> Extra Enums
 
 - Seamlessly utilize [community-contributed enums](https://github.com/IsaacScript/isaac-typescript-definitions/blob/main/typings/enums.unofficial.d.ts) for things that the developers forgot to include in the "enums.lua" file.
 
-### <img src="/img/items/pencil.png" className="icon" /> Automatic Formatting
+### <img src="/img/items/pencil.png" className="features-icon" /> Automatic Formatting
 
 - Never waste time formatting a file again. Automatic file formatting with [Prettier](https://prettier.io/) comes running out-of-the-box.
 
-### <img src="/img/items/spider_mod.png" className="icon" /> Automatic Linting
+### <img src="/img/items/spider_mod.png" className="features-icon" /> Automatic Linting
 
 - Squash all the bugs and ensure code consistency with the world's best linter, [ESLint](https://eslint.org/). It comes running out-of-the-box.
 
-### <img src="/img/items/bffs.png" className="icon" /> TypeScript
+### <img src="/img/items/bffs.png" className="features-icon" /> TypeScript
 
 Enjoy all the benefits of a strongly typed language over the shit-show that is Lua:
 
