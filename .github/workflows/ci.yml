@@ -36,14 +36,7 @@ jobs:
       - name: Build
         run: ./build.sh
 
-      # Use cspell to spell check every Markdown file
-      # https://github.com/streetsidesoftware/cspell
-      - name: Spell check
-        run: ./spell-check/spell-check.sh
-
-      # Perform some additional checks using remark and ESLint
-      # https://github.com/remarkjs/remark
-      # https://eslint.org/
+      # See "lint.sh" for more details on the various checks that are performed
       - name: Lint
         run: ./lint.sh
 
