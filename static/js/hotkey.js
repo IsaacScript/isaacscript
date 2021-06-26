@@ -69,25 +69,6 @@ keyMap.set("ArrowRight", () => {
   }
 });
 
-// Go to a specific level
-keyMap.set("l", () => {
-  const levelString = window.prompt("Enter the level that you want to go to:");
-  if (levelString === null || levelString === "") {
-    return;
-  }
-
-  const level = parseIntSafe(levelString);
-  if (Number.isNaN(level)) {
-    return;
-  }
-
-  if (level < 1 || level > MAX_LEVEL) {
-    return;
-  }
-
-  window.location = `/docs/level-${level}`;
-});
-
 function isOnLandingPage() {
   const titles = document.getElementsByClassName("hero__title");
   return titles.length >= 1;
@@ -102,30 +83,4 @@ function clickOnFirstLargeButton() {
   if (largeButtons.length >= 1) {
     largeButtons[0].click();
   }
-}
-
-// parseIntSafe is a more reliable version of parseInt
-// By default, "parseInt('1a')" will return "1", which is unexpected
-// This returns either an integer or NaN
-function parseIntSafe(input) {
-  // Remove all leading and trailing whitespace
-  let trimmedInput = input.trim();
-
-  const isNegativeNumber = trimmedInput.startsWith("-");
-  if (isNegativeNumber) {
-    // Remove the leading minus sign before we match the regular expression
-    trimmedInput = trimmedInput.substring(1);
-  }
-
-  if (/^\d+$/.exec(trimmedInput) === null) {
-    // "\d" matches any digit (same as "[0-9]")
-    return NaN;
-  }
-
-  if (isNegativeNumber) {
-    // Add the leading minus sign back
-    trimmedInput = `-${trimmedInput}`;
-  }
-
-  return parseInt(trimmedInput, 10);
 }
