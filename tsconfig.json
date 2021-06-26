@@ -1,0 +1,48 @@
+// The configuration file for TypeScript
+{
+  // We extend the recommended tsconfig for Node 16
+  // https://www.npmjs.com/package/@tsconfig/node16
+  "extends": "@tsconfig/node16/tsconfig.json",
+
+  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
+  "compilerOptions": {
+    // We want the compiler to be as strict as possible to catch all the things
+    // By default, these flags are false
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+
+    // "newLine" specifies the end of line sequence
+    // By default, it is "crlf" on Windows
+    // We want to always use "lf" to be consistent with all platforms and reduce the file size of
+    // the output
+    "newLine": "lf",
+
+    // We need to import the "package.json" file to see what version we are running
+    // By default, this is false
+    "resolveJsonModule": true,
+
+    // "outDir" specifies the output directory
+    // By default, it will put the compiled ".js" next to the respective ".ts" file,
+    // which will clutter the "src" directory
+    "outDir": "./dist",
+
+    // "sourceMap" creates source map files for emitted JavaScript files.
+    // By default, it is false.
+    // We want to be able to see the TypeScript line numbers in error messages to help with
+    // debugging
+    "sourceMap": true,
+  },
+
+  // A list of the TypeScript files to compile
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.js",
+    "./static/**/*.js",
+    "./babel.config.js",
+    "./docusaurus.config.js",
+    "./sidebars.js",
+  ],
+}

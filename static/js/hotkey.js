@@ -5,7 +5,7 @@ const FIRST_DOC_PAGE_TITLE = "Features";
 // Variables
 const keyMap = new Map();
 
-document.onkeydown = function(e) {
+document.onkeydown = (e) => {
   // Debugging
   // console.log("Key pressed:", e.key);
 
@@ -15,7 +15,8 @@ document.onkeydown = function(e) {
   }
 
   // Do not do anything if we have the search box focused
-  const searchInputElements = document.getElementsByClassName("DocSearch-Input");
+  const searchInputElements =
+    document.getElementsByClassName("DocSearch-Input");
   for (const searchInputElement of searchInputElements) {
     if (document.activeElement === searchInputElement) {
       return;
@@ -26,13 +27,12 @@ document.onkeydown = function(e) {
   if (keyFunction !== undefined) {
     keyFunction();
   }
-}
+};
 
 // Click on the first button
 keyMap.set("Enter", () => {
   if (isOnLandingPage()) {
     clickOnFirstLargeButton();
-    return;
   }
 });
 
@@ -95,8 +95,13 @@ function isOnLandingPage() {
 }
 
 function isOnFirstDocPage() {
-  const headerElements = document.getElementsByClassName("docTitle_node_modules-@docusaurus-theme-classic-lib-next-theme-DocItem-");
-  return headerElements.length >= 1 && headerElements[0].textContent === FIRST_DOC_PAGE_TITLE;
+  const headerElements = document.getElementsByClassName(
+    "docTitle_node_modules-@docusaurus-theme-classic-lib-next-theme-DocItem-"
+  );
+  return (
+    headerElements.length >= 1 &&
+    headerElements[0].textContent === FIRST_DOC_PAGE_TITLE
+  );
 }
 
 function clickOnFirstLargeButton() {

@@ -41,8 +41,9 @@ jobs:
       - name: Spell check
         run: ./spell-check/spell-check.sh
 
-      # Perform some additional checks using remark
+      # Perform some additional checks using remark and ESLint
       # https://github.com/remarkjs/remark
+      # https://eslint.org/
       - name: Lint
         run: ./lint.sh
 
