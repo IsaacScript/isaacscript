@@ -241,7 +241,8 @@ module.exports = {
           "`with` is disallowed in strict mode because it makes code impossible to predict and optimize.",
       },
       {
-        selector: "CallExpression[callee.name='push'][arguments.length=0]",
+        selector:
+          "CallExpression[callee.property.name='push'][arguments.length=0]",
         message: "push must always be called with at least one argument.",
       },
     ],
