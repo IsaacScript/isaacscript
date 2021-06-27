@@ -85,6 +85,11 @@ declare const enum PoopVariant {
   RAINBOW = 4,
   BLACK = 5,
   WHITE = 6,
+  GIGA_TOP_LEFT = 7,
+  GIGA_TOP_RIGHT = 8,
+  GIGA_BOTTOM_LEFT = 9,
+  GIGA_BOTTOM_RIGHT = 10,
+  CHARMING = 11,
 }
 
 /** For GridEntityType.GRID_TRAPDOOR (17)  */
@@ -199,7 +204,9 @@ declare const enum GridEntityRoomType {
   GOLDEN_POOP = 1496,
   BLACK_POOP = 1497,
   HOLY_POOP = 1498,
+  GIGA_POOP = 1499,
   POOP = 1500,
+  CHARMING_POOP = 1501,
   BLOCK = 1900,
   SPIKES = 1930,
   RETRACTING_SPIKES = 1931,
@@ -331,6 +338,9 @@ declare const enum Ending {
   GREED_MODE = 21,
   THE_VOID = 22,
   GREEDIER = 23,
+  MOTHER = 24,
+  DOGMA = 25,
+  BEAST = 26,
 }
 
 /** Matches the IDs in the "specialrooms.stb" file. */
@@ -381,12 +391,12 @@ declare const enum BossIDs {
   THE_HAUNT = 43,
   DINGLE = 44,
   MEGA_MAW = 45,
-  MEGA_MAW_II = 46,
+  MEGA_MAW_II = 46, // The Gate
   MEGA_FATTY = 47,
-  MEGA_FATTY_II = 48,
+  MEGA_FATTY_II = 48, // The Cage
   MEGA_GURDY = 49,
   DARK_ONE = 50,
-  DARK_ONE_II = 51,
+  DARK_ONE_II = 51, // The Adversary
   POLYCEPHALUS = 52,
   MEGA_FRED = 53,
   THE_LAMB = 54,
@@ -407,6 +417,33 @@ declare const enum BossIDs {
   BIG_HORN = 69,
   DELIRIUM = 70,
   THE_MATRIARCH = 72,
+  THE_PILE = 73,
+  REAP_CREEP = 74,
+  BEELZEBLUB = 75,
+  WORMWOOD = 76,
+  RAINMAKER = 77,
+  THE_VISAGE = 78,
+  THE_SIREN = 79,
+  TUFF_TWINS = 80,
+  THE_HERETIC = 81,
+  HORNFEL = 82,
+  GREAT_GIDEON = 83,
+  BABY_PLUM = 84,
+  THE_SCOURGE = 85,
+  CHIMERA = 86,
+  ROTGUT = 87,
+  MOTHER = 88,
+  MAUSOLEUM_MOM = 89,
+  MAUSOLEUM_MOMS_HEART = 90,
+  MIN_MIN = 91,
+  CLOG = 92,
+  SINGE = 93,
+  BUMBINO = 94,
+  COLOSTOMIA = 95,
+  THE_SHELL = 96,
+  TURDLET = 97,
+  HORNY_BOYS = 101,
+  // POSSESSOR = 102, // This boss is currently unfinished
 }
 
 declare const enum Dimension {
