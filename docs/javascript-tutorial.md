@@ -425,7 +425,7 @@ function PostPlayerInit(player: EntityPlayer) {
 
 In the TypeScript code snippet, you can see that we marked "player" as the "EntityPlayer" type by using a colon. The "EntityPlayer" type is automatically provided by the `isaac-typescript-definitions` package, and corresponds to the "EntityPlayer" in the official docs. (The `isaac-typescript-definitions` package is automatically imported in any IsaacScript project.)
 
-Once the type has been annotated, your editor will know about all of the legal methods for the "player" variable. If you make a typo on the "AddCollectible" method, the editor will immediately tell us by drawing a squiggly line underneath it.
+Once the type has been annotated, your editor will know about all of the legal methods for the "player" variable. If you make a typo on the "AddCollectible" method, the editor will immediately tell you by drawing a squiggly line underneath it.
 
 When coding in TypeScript, you will need to add the type for every function argument. That way, the compiler can catch all of the bugs.
 
