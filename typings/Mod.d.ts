@@ -62,7 +62,7 @@ interface CallbackParameters {
     entityType?: EntityType | int,
   ];
   [ModCallbacks.MC_POST_CURSE_EVAL]: [
-    callback: (curses: LevelCurse | int) => LevelCurse | int,
+    callback: (curses: LevelCurse | int) => LevelCurse | int | undefined,
   ];
   [ModCallbacks.MC_INPUT_ACTION]: [
     callback: (
