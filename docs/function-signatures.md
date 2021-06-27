@@ -34,7 +34,7 @@ function useItem(
   useFlags: int,
   activeSlot: int,
   customVarData: int,
-): boolean {}
+): boolean | { Discharge: boolean; Remove: boolean; ShowAnim: boolean } | void;
 ```
 
 ### MC_POST_PEFFECT_UPDATE (4)
@@ -46,11 +46,7 @@ function postPEffectUpdate(player: EntityPlayer): void {}
 ### MC_USE_CARD (5)
 
 ```typescript
-function useCard(
-  card: Card | int,
-  player: EntityPlayer,
-  useFlags: int,
-): void {}
+function useCard(card: Card | int, player: EntityPlayer, useFlags: int): void {}
 ```
 
 ### MC_FAMILIAR_UPDATE (6)
@@ -96,13 +92,13 @@ function entityTakeDmg(
   damageFlags: DamageFlag,
   damageSource: EntityRef,
   damageCountdownFrames: int,
-): boolean | null {}
+): boolean | void {}
 ```
 
 ### MC_POST_CURSE_EVAL (12)
 
 ```typescript
-function postCurseEval(curses: LevelCurse | int): LevelCurse | int {}
+function postCurseEval(curses: LevelCurse | int): LevelCurse | int | void {}
 ```
 
 ### MC_INPUT_ACTION (13)
@@ -112,7 +108,7 @@ function inputAction(
   player: EntityPlayer,
   inputHook: InputHook,
   buttonAction: ButtonAction,
-): boolean | float | null {}
+): boolean | float | void {}
 ```
 
 ### MC_POST_GAME_STARTED (14)
@@ -154,7 +150,7 @@ function getCard(
   includePlayingCards: boolean,
   includeRunes: boolean,
   onlyRunes: boolean,
-): Card | int | null {}
+): Card | int | void {}
 ```
 
 ### MC_GET_SHADER_PARAMS (21)
@@ -175,7 +171,7 @@ function executeCmd(command: string, parameters: string): void {}
 function preUseItem(
   collectibleType: CollectibleType | int,
   rng: RNG,
-): boolean {}
+): boolean | void {}
 ```
 
 ### MC_PRE_ENTITY_SPAWN (24)
@@ -189,7 +185,7 @@ function preEntitySpawn(
   velocity: Vector,
   spawner: Entity,
   initSeed: int,
-): [EntityType | int, int, int, int] | null {}
+): [EntityType | int, int, int, int] | void {}
 ```
 
 ### MC_POST_FAMILIAR_RENDER (25)
@@ -208,7 +204,7 @@ function preFamiliarCollision(
   familiar: EntityFamiliar,
   collider: Entity,
   low: boolean,
-): boolean | null {}
+): boolean | void {}
 ```
 
 ### MC_POST_NPC_INIT (27)
@@ -236,7 +232,7 @@ function preNPCCollision(
   npc: EntityNPC,
   collider: Entity,
   low: boolean,
-): boolean | null {}
+): boolean | void {}
 ```
 
 ### MC_POST_PLAYER_UPDATE (31)
@@ -258,7 +254,7 @@ function prePlayerCollision(
   player: EntityPlayer,
   collider: Entity,
   low: boolean,
-): boolean | null {}
+): boolean | void {}
 ```
 
 ### MC_POST_PICKUP_INIT (34)
@@ -286,7 +282,7 @@ function postPickupSelection(
   pickup: EntityPickup,
   variant: PickupVariant | int,
   subType: int,
-): [PickupVariant | int, int] | null {}
+): [PickupVariant | int, int] | void {}
 ```
 
 ### MC_PRE_PICKUP_COLLISION (38)
@@ -296,7 +292,7 @@ function prePickupCollision(
   pickup: EntityPickup,
   collider: Entity,
   low: boolean,
-): boolean | null {}
+): boolean | void {}
 ```
 
 ### MC_POST_TEAR_INIT (39)
@@ -324,7 +320,7 @@ function preTearCollision(
   tear: EntityTear,
   collider: Entity,
   low: boolean,
-): boolean | null {}
+): boolean | void {}
 ```
 
 ### MC_POST_PROJECTILE_INIT (43)
@@ -355,7 +351,7 @@ function preProjectileCollision(
   projectile: EntityProjectile,
   collider: Entity,
   low: boolean,
-): boolean | null {}
+): boolean | void {}
 ```
 
 ### MC_POST_LASER_INIT (47)
@@ -401,7 +397,7 @@ function preKnifeCollision(
   knife: EntityKnife,
   collider: Entity,
   low: boolean,
-): boolean | null {}
+): boolean | void {}
 ```
 
 ### MC_POST_EFFECT_INIT (54)
@@ -447,7 +443,7 @@ function preBombCollision(
   bomb: EntityBomb,
   collider: Entity,
   low: boolean,
-): boolean | null {}
+): boolean | void {}
 ```
 
 ### MC_POST_FIRE_TEAR (61)
@@ -463,7 +459,7 @@ function preGetCollectible(
   itemPoolType: ItemPoolType,
   decrease: boolean,
   seed: int,
-): CollectibleType | int | null {}
+): CollectibleType | int | void {}
 ```
 
 ### MC_POST_GET_COLLECTIBLE (63)
@@ -474,13 +470,13 @@ function postGetCollectible(
   itemPoolType: ItemPoolType,
   decrease: boolean,
   seed: int,
-): CollectibleType | int | null {}
+): CollectibleType | int | void {}
 ```
 
 ### MC_GET_PILL_COLOR (64)
 
 ```typescript
-function getPillColor(seed: int): PillColor | int | null {}
+function getPillColor(seed: int): PillColor | int | void {}
 ```
 
 ### MC_GET_PILL_EFFECT (65)
@@ -489,7 +485,7 @@ function getPillColor(seed: int): PillColor | int | null {}
 function getPillEffect(
   pillEffect: PillEffect | int,
   pillColor: PillColor | int,
-): PillEffect | int | null {}
+): PillEffect | int | void {}
 ```
 
 ### MC_GET_TRINKET (66)
@@ -498,7 +494,7 @@ function getPillEffect(
 function getTrinket(
   trinketType: TrinketType | int,
   rng: RNG,
-): TrinketType | int | null {}
+): TrinketType | int | void {}
 ```
 
 ### MC_POST_ENTITY_REMOVE (67)
@@ -516,7 +512,7 @@ function postEntityKill(entity: Entity): void {}
 ### MC_PRE_NPC_UPDATE (69)
 
 ```typescript
-function preNPCUpdate(entity: Entity): boolean {}
+function preNPCUpdate(entity: Entity): boolean | void {}
 ```
 
 ### MC_PRE_SPAWN_CLEAN_AWARD (70)
@@ -534,5 +530,5 @@ function preRoomEntitySpawn(
   subType: int,
   gridIndex: int,
   seed: int,
-): [EntityType | int, int, int] | null {}
+): [EntityType | int, int, int] | void {}
 ```
