@@ -512,7 +512,7 @@ If you need to check for `InfinityTrueCoopInterface !== null` in more than one p
 For example, to declare `InfinityTrueCoopInterface`, starting from the root of your project:
 
 - Create the `src/types` directory.
-- Create the `src/types/InfinityTrueCoopInterface.d.ts` file.
+- Create the `src/types/InfinityTrueCoopInterface.d.ts` file. (A `d.ts` file is a TypeScript *declaration* file.)
 - Put the following in it:
 
 ```typescript
