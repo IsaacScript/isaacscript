@@ -72,9 +72,16 @@ declare global {
     function GetItemIdByName(entityName: string): CollectibleType | int;
     function GetMusicIdByName(musicName: string): Music | int;
     function GetPillEffectByName(pillName: string): PillEffect | int;
-    /** With no argument, it returns the 0th player. We assume that the 0th player always exists. */
+    /**
+     * With no argument, it returns the 0th player.
+     * For the purposes of this definition, we assume that the 0th player always exists.
+     * However, if called in the menu, this function will return nil, so beware.
+     */
     function GetPlayer(): EntityPlayer;
-    /** We assume that the 0th player always exists. */
+    /**
+     * For the purposes of this definition, we assume that the 0th player always exists.
+     * However, if called in the menu, this function will return nil, so beware.
+     */
     function GetPlayer(playerID: 0): EntityPlayer;
     /**
      * Before using the EntityPlayer object, you should check to see if it is equal to null and
