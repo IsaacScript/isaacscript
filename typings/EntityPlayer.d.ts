@@ -671,6 +671,7 @@ declare class EntityPlayer extends Entity {
     keepPersistent: boolean,
   ): void;
   TryRemoveNullCostume(nullItemID: NullItemID | int): void;
+  /** If you feed this function 0, the game will crash. */
   TryRemoveTrinket(trinketType: TrinketType | int): boolean;
   TryRemoveTrinketCostume(trinketType: TrinketType | int): void;
   TryUseKey(): boolean;
