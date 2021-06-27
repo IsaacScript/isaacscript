@@ -1,6 +1,6 @@
 {
   "name": "isaacscript-lint",
-  "version": "1.0.34",
+  "version": "1.0.35",
   "description": "An updatable linting dependency container for IsaacScript projects.",
   "repository": {
     "type": "git",
@@ -9,13 +9,16 @@
   "license": "GPL-3.0",
   "author": "Zamiell",
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.27.0",
-    "eslint": "^7.28.0",
-    "eslint-config-isaacscript": "^1.0.32",
+    "@typescript-eslint/eslint-plugin": "^4.28.0",
+    "eslint": "^7.29.0",
+    "eslint-config-isaacscript": "^1.0.33",
     "eslint-plugin-eqeqeq-fix": "^1.0.3",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-prettier": "^3.4.0",
-    "prettier-plugin-organize-imports": "^2.1.0"
+    "prettier-plugin-organize-imports": "^2.2.0"
+  },
+  "devDependencies": {
+    "eslint-plugin-only-warn": "^1.0.2"
   }
 }
