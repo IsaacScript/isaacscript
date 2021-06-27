@@ -442,8 +442,15 @@ declare const enum BossIDs {
   COLOSTOMIA = 95,
   THE_SHELL = 96,
   TURDLET = 97,
+  /** This boss is currently unfinished and there are no boss rooms for it. */
+  RAGLICH = 98,
+  /** Dogma does not have its own boss rooms; it appears in a normal room. */
+  DOGMA = 99,
+  /** The Beast does not have its own boss rooms; it appears in a crawlspace. */
+  BEAST = 100,
   HORNY_BOYS = 101,
-  // POSSESSOR = 102, // This boss is currently unfinished
+  /** This boss is currently unfinished and there are no boss rooms for it. */
+  POSSESSOR = 102,
 }
 
 declare const enum Dimension {
