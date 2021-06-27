@@ -41,6 +41,13 @@ module.exports = {
     "prettier",
   ],
 
+  plugins: [
+    // Use the "eslint-plugin-only-warn" plugin to change errors to warnings for all rules
+    // This allows us to more easily distinguish between errors from the TypeScript compiler and
+    // suggestions from ESLint
+    "only-warn",
+  ],
+
   // We modify the linting rules from the base for some specific things
   // (listed in alphabetical order)
   rules: {
@@ -134,7 +141,7 @@ module.exports = {
     // Defined at:
     // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/src/configs/recommended-requiring-type-checking.ts
     // This rule disallows booleans and nulls in template expressions
-    // However, it is common use-case of template strings as a means to coerce everything to a string
+    // However, a common use-case of template strings is to coerce everything to a string
     "@typescript-eslint/restrict-template-expressions": "off",
 
     // Documentation:
@@ -242,12 +249,5 @@ module.exports = {
     // Object destructuring is disgustingly verbose in TypeScript
     // e.g. "const foo: string = bar.foo;" vs "const { foo }: { foo: string } = bar;"
     "prefer-destructuring": "off",
-
-    // Documentation:
-    // https://github.com/prettier/eslint-plugin-prettier
-    // Defined at:
-    // https://github.com/prettier/eslint-plugin-prettier/blob/master/eslint-plugin-prettier.js
-    // Change prettier to a warning instead of an error
-    "prettier/prettier": ["warn"],
   },
 };
