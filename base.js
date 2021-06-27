@@ -221,7 +221,8 @@ module.exports = {
     // https://eslint.org/docs/rules/no-restricted-syntax
     // Defined at:
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
-    // "for..of" loops are necessary to write efficient code in some situations
+    // We move the selector for "for..of" loops, since they are commonly used
+    // We add a selector for "empty" invocations of the "array.push()" method
     "no-restricted-syntax": [
       "warn",
       {
@@ -238,6 +239,10 @@ module.exports = {
         selector: "WithStatement",
         message:
           "`with` is disallowed in strict mode because it makes code impossible to predict and optimize.",
+      },
+      {
+        selector: "CallExpression[callee.name='push'][arguments.length=0]",
+        message: "push must always be called with at least one argument.",
       },
     ],
 
