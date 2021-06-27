@@ -116,6 +116,7 @@ declare class EntityPlayer extends Entity {
    */
   AddSwarmFlyOrbital(position: Vector): EntityFamiliar;
   /**
+   * If you provide an argument of 0 or an otherwise invalid trinket ID, the game will crash.
    * @param trinketType
    * @param addConsumables Default is true
    */
@@ -671,7 +672,7 @@ declare class EntityPlayer extends Entity {
     keepPersistent: boolean,
   ): void;
   TryRemoveNullCostume(nullItemID: NullItemID | int): void;
-  /** If you feed this function 0, the game will crash. */
+  /** If you provide an argument of 0 or an otherwise invalid trinket ID, the game will crash. */
   TryRemoveTrinket(trinketType: TrinketType | int): boolean;
   TryRemoveTrinketCostume(trinketType: TrinketType | int): void;
   TryUseKey(): boolean;
