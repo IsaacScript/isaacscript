@@ -12,7 +12,7 @@ Most modders will have already done this, but just in case you haven't, you shou
 
 (Messages like `WARNING: could not return filename for entry 35a142c2bed2d0cf` are normal.)
 
-Doing this allows you to see all of the vanilla assets and how the directory structure is laid out.
+After running the unpacker, you can find all of the vanilla assets in the `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\resources\` directory and the `resources-dlc3\` directory. (The latter contains only Repentance files.) Study the layout of the files in these two directories so that you can get familiar with where particular files need to live.
 
 <br />
 
@@ -89,13 +89,15 @@ Now, the item will sometimes randomly appear for players when they enter a Treas
 
 Right now, if players pick up your item, it won't actually do anything. This is where the coding part comes in.
 
-Mods affect the game by putting code inside of *callbacks*. There are [72 different callbacks](https://isaacscript.github.io/docs/function-signatures) to choose from, so you have to choose the right one depending on what you want to do.
+Mods affect the game by putting code inside of *callbacks*. Each callback fires when a particular event happens in the game. There are [72 different callbacks](https://isaacscript.github.io/docs/function-signatures) to choose from, so you have to choose the right one depending on what you want to do. For example, the most basic callback is the `MC_POST_GAME_STARTED`, which fires once at the beginning of a new run.
 
-Open `C:\Repositories\green-candle\src\main.ts`, which contains the TypeScript code that will be transpiled to the "main.lua" file and read by the game.
+First, go through [the official docs](https://wofsauge.github.io/IsaacDocs/rep/enums/ModCallbacks.html) and read what all of the callbacks do so that you can get familiar with them.
+
+Next, open `C:\Repositories\green-candle\src\main.ts` in VSCode, which contains the TypeScript code that will be transpiled to the "main.lua" file and read by the game.
 
 The bootstrapper created a skeleton of a mod for us. As you can see, it calls the `Isaac.DebugString()` function when the `MC_POST_GAME_STARTED` callback is fired.
 
-(`Isaac` is a global class provided by the game with helpful methods on it. `Isaac.DebugString()` simply writes something to the log.txt file, which is located at `C:\Users\[username]\Documents\My Games\Binding of Isaac Repentance\log.txt`.)
+(`Isaac` is a global class provided by the game with helpful general-purpose methods on it. `Isaac.DebugString()` simply writes something to the log.txt file, which is located at `C:\Users\[username]\Documents\My Games\Binding of Isaac Repentance\log.txt`.)
 
 The `MC_POST_GAME_STARTED` callback is useful for initializing things at the start of every run or making the player start with a particular item. For our purposes, we don't need it, so we can remove all of the lines relating to that.
 
@@ -133,7 +135,7 @@ As we discussed above, when adding new code, you have to put it in the right cal
 
 For our purposes, we want the Green Candle to have a random chance to poison every enemy in the room on every frame. So, that means that the code should run on every frame, and that means we need to use the `MC_POST_UPDATE` callback, which runs 30 times a second.
 
-(The game update loop runs at 30 times per second and the game render loop runs at 60 times per second. Since our code is gameplay-related, we should put it in the `MC_POST_UPDATE` callback. On the other hand, if we were drawing a sprite, then we would use the `MC_POST_RENDER` callback.)
+(The game update loop runs at 30 times per second and the game render loop runs at 60 times per second. Since our code is gameplay-related, we should put it in the `MC_POST_UPDATE` callback. On the other hand, if we were drawing a sprite on the screen, then we would use the `MC_POST_RENDER` callback.)
 
 Add the following code:
 
