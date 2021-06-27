@@ -385,13 +385,19 @@ Or, a slightly more complicated example:
 
 ```lua
 -- Lua code
-Isaac.DebugString("Entity found: " .. tostring(entity.Type) .. "."
-                  .. tostring(entity.Variant) .. "." .. tostring(entity.SubType))
+Isaac.DebugString(
+  "Entity found: "
+  .. tostring(entity.Type) .. "."
+  .. tostring(entity.Variant) .. "."
+  .. tostring(entity.SubType)
+)
 ```
 
 ```typescript
 // TypeScript code
-Isaac.DebugString(`Entity found: ${entity.Type}.${entity.Variant}.${entity.SubType}`);
+Isaac.DebugString(
+  `Entity found: ${entity.Type}.${entity.Variant}.${entity.SubType}`,
+);
 ```
 
 Look at how compact and easier to read the TypeScript version is!
@@ -512,7 +518,7 @@ If you need to check for `InfinityTrueCoopInterface !== null` in more than one p
 For example, to declare `InfinityTrueCoopInterface`, starting from the root of your project:
 
 - Create the `src/types` directory.
-- Create the `src/types/InfinityTrueCoopInterface.d.ts` file. (A `d.ts` file is a TypeScript *declaration* file.)
+- Create the `src/types/InfinityTrueCoopInterface.d.ts` file. (A `d.ts` file is a TypeScript _declaration_ file.)
 - Put the following in it:
 
 ```typescript
@@ -624,9 +630,9 @@ const itemPrices = {
 
 In the previous [enums](#enums) section, we defined "itemPrices" as an anonymous object, which is roughly equivalent to a Lua table.
 
-Anonymous objects are good for cases where you won't use variables to access the data. But this isn't the case for "itemPrices". Here, we are only specifying the prices for *some* of the collectibles in the game. If a collectible isn't in the list, we'll probably want to ignore it, or give it a default value, or something along those lines.
+Anonymous objects are good for cases where you won't use variables to access the data. But this isn't the case for "itemPrices". Here, we are only specifying the prices for _some_ of the collectibles in the game. If a collectible isn't in the list, we'll probably want to ignore it, or give it a default value, or something along those lines.
 
-In this example, what "itemPrices" *really* represents is a *map* of a specific item ID to a price. Unlike Lua, TypeScript has a `Map` data type. So, the example would be better written like this:
+In this example, what "itemPrices" _really_ represents is a _map_ of a specific item ID to a price. Unlike Lua, TypeScript has a `Map` data type. So, the example would be better written like this:
 
 ```typescript
 // itemPrices has a type of "Map<CollectibleType, number>",
@@ -660,9 +666,9 @@ end
 function pickingUpItem(player: EntityPlayer, pickingUpItemID: number) {
   // If the player picked up a new item,
   // subtract the price of that item from their coin amount
-  const price = itemPrices.get(pickingUpItemID)
+  const price = itemPrices.get(pickingUpItemID);
   if (price !== undefined) {
-    player.AddCoins(price * -1)
+    player.AddCoins(price * -1);
   }
 }
 ```

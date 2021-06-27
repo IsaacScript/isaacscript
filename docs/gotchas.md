@@ -71,7 +71,9 @@ In other words, it is possible to do this, so beware:
 player.AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false);
 
 // Find out how many Sad Onions they have
-let numSadOnions = player.GetCollectibleNum(CollectibleType.COLLECTIBLE_SAD_ONION);
+let numSadOnions = player.GetCollectibleNum(
+  CollectibleType.COLLECTIBLE_SAD_ONION,
+);
 // numSadOnions is now an "int" with a value of "1"
 
 numSadOnions += 0.5;
@@ -318,11 +320,11 @@ Hopefully, this feature will be ready soon.
 Normally, in TypeScript programs, you would handle errors with `throw new Error("foo")`. For example:
 
 ```typescript
-const player = Isaac.GetPlayer() // The type of player is "EntityPlayer | null"
+const player = Isaac.GetPlayer(); // The type of player is "EntityPlayer | null"
 if (player === null) {
-  throw new Error("Failed to get the player!")
+  throw new Error("Failed to get the player!");
 }
-player.AddSoulHearts(1) // The type of player is now "EntityPlayer"
+player.AddSoulHearts(1); // The type of player is now "EntityPlayer"
 ```
 
 However, in Isaac mods, this code won't work. It will error with something along the lines of the following:
@@ -332,11 +334,11 @@ However, in Isaac mods, this code won't work. It will error with something along
 This is because TypeScriptToLua transpiles `throw` to a function that uses Lua's `debug` library, and Isaac does not have access to `debug` for sandboxing reasons. But not to worry, because instead we can simply use Lua's `error()` function. For example:
 
 ```typescript
-const player = Isaac.GetPlayer() // The type of player is "EntityPlayer | null"
+const player = Isaac.GetPlayer(); // The type of player is "EntityPlayer | null"
 if (player === null) {
-  error("Failed to get the player!")
+  error("Failed to get the player!");
 }
-player.AddSoulHearts(1) // The type of player is now "EntityPlayer"
+player.AddSoulHearts(1); // The type of player is now "EntityPlayer"
 ```
 
 (TypeScript is smart enough to know that `error()` can constrain the type of player in the same way that `throw` normally would.)

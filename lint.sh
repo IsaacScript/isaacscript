@@ -17,5 +17,7 @@ npx eslint .
 npx remark --quiet --frail docs
 
 # Step 3 - cspell
-npx cspell --no-progress "src/**/*.ts"
-npx cspell --no-progress "docs/**/*.md"
+npx cspell --no-progress --no-summary "src/**/*.ts"
+npx cspell --no-progress --no-summary "docs/**/*.md"
+
+echo Success!

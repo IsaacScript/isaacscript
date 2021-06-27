@@ -49,6 +49,7 @@ print("hello world");
 `isaacscript` will automatically sync the contents of the `mod` directory in your project to the corresponding folder in `mods`.
 
 For example:
+
 - Say that you have a project directory of: `C:\Repositories\revelations\`
 - Then, inside your project mod folder, you make some new subdirectories: `C:\Repositories\revelations\mod\resources\gfx\items\collectibles\`
   - (This is the directory that you are supposed to put graphics files in for new modded items.)

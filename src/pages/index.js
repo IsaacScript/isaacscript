@@ -25,7 +25,7 @@ function HomepageHeader() {
           <Link
             className={clsx(
               "button button--outline button--secondary button--lg landing-button",
-              styles.getStarted
+              styles.getStarted,
             )}
             to={useBaseUrl("docs/features")}
           >
@@ -35,7 +35,7 @@ function HomepageHeader() {
           <Link
             className={clsx(
               "button button--outline button--secondary button--lg landing-button",
-              styles.getStarted
+              styles.getStarted,
             )}
             to={useBaseUrl("docs/getting-started")}
           >

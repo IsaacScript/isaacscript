@@ -24,19 +24,19 @@ Coding in TypeScript is a bit more involved than coding in Lua, since it require
 
 - A tiny mod - ❌ - Tiny mods are less likely to have bugs or typos.
 - A medium mod - ✔️ - If your mod is big enough to be split into two or more files, then using `isaacscript` will be helpful. And if you will update the mod in the future (with new features or bug fixes), then using `isaacscript` will help you maintain the project.
-- A big mod - ✔️ -  `isaacscript` allows you to glue everything together in a provably-correct way.
+- A big mod - ✔️ - `isaacscript` allows you to glue everything together in a provably-correct way.
 
 ### How good at you at coding? (Trick question - it doesn't matter.)
 
 - Beginner - ✔️ - Beginners need someone to hold their hand and tell them when they have made a typo. The TypeScript compiler is exactly that - a helpful friend that looks out for you.
-- Intermediate - ✔️ - `isaacscript` helps you focus on *coding*. Spend less time referencing the API docs.
+- Intermediate - ✔️ - `isaacscript` helps you focus on _coding_. Spend less time referencing the API docs.
 - Expert - ✔️ - You probably already know how invaluable type-safety is. Enjoy the power of TypeScript's generics and robust ecosystem.
 
 ### Do you have experience in TypeScript? (Trick question - it doesn't matter.)
 
 - Yes, I know TypeScript - ✔️ - The choice is obvious.
 - No, but I know JavaScript - ✔️ - TypeScript is 99% the same as JavaScript. (It is a "superset" language.)
-- No, but I know Lua - ✔️-  On one hand, if you already know Lua and are comfortable with it, then it might not be worth the time and effort to learn something new. On the other hand, once you've learned one language, learning another is pretty easy. It is **totally worth it** to spend an hour or two to learn TypeScript in order to get all of the other fantastic benefits that it provides over Lua.
+- No, but I know Lua - ✔️- On one hand, if you already know Lua and are comfortable with it, then it might not be worth the time and effort to learn something new. On the other hand, once you've learned one language, learning another is pretty easy. It is **totally worth it** to spend an hour or two to learn TypeScript in order to get all of the other fantastic benefits that it provides over Lua.
 - No, but I know some other language - ✔️ - Isaac mods are programmed in either TypeScript or Lua. If you don't know either, then start with TypeScript from the get-go. You'll thank me later.
 
 <br />

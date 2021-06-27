@@ -2,7 +2,7 @@
 title: Building an Example Mod
 ---
 
-This is a tutorial that shows off how to code a simple mod with IsaacScript. Our goal will be to create a new passive item in the game called the *Green Candle*.
+This is a tutorial that shows off how to code a simple mod with IsaacScript. Our goal will be to create a new passive item in the game called the _Green Candle_.
 
 <br />
 
@@ -89,7 +89,7 @@ Now, the item will sometimes randomly appear for players when they enter a Treas
 
 Right now, if players pick up your item, it won't actually do anything. This is where the coding part comes in.
 
-Mods affect the game by putting code inside of *callbacks*. Each callback fires when a particular event happens in the game. There are [72 different callbacks](https://isaacscript.github.io/docs/function-signatures) to choose from, so you have to choose the right one depending on what you want to do. For example, the most basic callback is the `MC_POST_GAME_STARTED`, which fires once at the beginning of a new run.
+Mods affect the game by putting code inside of _callbacks_. Each callback fires when a particular event happens in the game. There are [72 different callbacks](https://isaacscript.github.io/docs/function-signatures) to choose from, so you have to choose the right one depending on what you want to do. For example, the most basic callback is the `MC_POST_GAME_STARTED`, which fires once at the beginning of a new run.
 
 First, go through [the official docs](https://wofsauge.github.io/IsaacDocs/rep/enums/ModCallbacks.html) and read what all of the callbacks do so that you can get familiar with them.
 

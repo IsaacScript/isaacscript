@@ -35,6 +35,7 @@ module.exports = {
     ],
 
     // Disable some rules that are enabled by the presets above
+    ["remark-lint-emphasis-marker", false],
     ["remark-lint-heading-style", false],
     ["remark-lint-list-item-indent", false],
     ["remark-lint-list-item-spacing", false],

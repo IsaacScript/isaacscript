@@ -5,6 +5,7 @@ title: Getting Started
 `isaacscript` will currently work on Windows and Linux.
 
 Choose one:
+
 - [Instructions for Beginners](#instructions-for-beginners) (detailed)
 - [Instructions for Experts](#instructions-for-experts) (summary)
 

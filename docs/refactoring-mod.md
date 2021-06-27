@@ -69,7 +69,10 @@ export function checkApplyEffect(): void {
   const numPlayers = game.GetNumPlayers();
   for (let i = 0; i < numPlayers; i++) {
     const player = Isaac.GetPlayer(i);
-    if (player !== null && player.HasCollectible(CollectibleTypeCustom.COLLECTIBLE_GREEN_CANDLE)) {
+    if (
+      player !== null &&
+      player.HasCollectible(CollectibleTypeCustom.COLLECTIBLE_GREEN_CANDLE)
+    ) {
       applyEffect(player);
     }
   }
