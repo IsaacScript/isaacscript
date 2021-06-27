@@ -7,8 +7,9 @@ local IsaacScriptWatcher = RegisterMod("IsaacScript Watcher", 1)
 -- Constants
 local MOD_NAME = "isaacscript-watcher"
 local FRAMES_BEFORE_DISCONNECTED = 2 * 60 -- 2 seconds
-local FRAMES_BEFORE_TEXT_FADE = 3 * 60 -- 3 seconds
-local EMOJI_EYES_POS = Vector(10, 190)
+local FRAMES_BEFORE_TEXT_FADE = 2 * 60 -- 2 seconds
+local EMOJI_EYES_BOTTOM_RIGHT_OFFSET = Vector(-20, -70)
+-- (offset it enough so that it does not overlap with a pocket active + 2 pocket items)
 
 -- Mod variables
 local saveData = {} -- An array of message objects
@@ -71,7 +72,8 @@ function IsaacScriptWatcher:RenderSprite()
 
   -- Render it
   if emojiEyesSprite ~= nil then
-    emojiEyesSprite:RenderLayer(0, EMOJI_EYES_POS)
+    local position = IsaacScriptWatcher:GetBottomRightCorner() + EMOJI_EYES_BOTTOM_RIGHT_OFFSET
+    emojiEyesSprite:RenderLayer(0, position)
   end
 end
 
@@ -237,6 +239,22 @@ function IsaacScriptWatcher:CheckRestart()
 
   Isaac.DebugString(MOD_NAME .. " - Restarting the run.")
   Isaac.ExecuteCommand("restart")
+end
+
+-- Kilburn's function (pinned in the Isaac Discord server)
+-- (originally called "GetScreenSize()")
+function IsaacScriptWatcher:GetBottomRightCorner()
+  local room = game:GetRoom()
+  local pos = (
+    room:WorldToScreenPosition(Vector.Zero)
+    - room:GetRenderScrollOffset()
+    - Game().ScreenShakeOffset
+  )
+
+  local rx = pos.X + 60 * 26 / 40
+  local ry = pos.Y + 140 * (26 / 40)
+
+  return Vector(rx * 2 + 13 * 26, ry * 2 + 7 * 26)
 end
 
 IsaacScriptWatcher:AddCallback(ModCallbacks.MC_POST_RENDER, IsaacScriptWatcher.PostRender)
