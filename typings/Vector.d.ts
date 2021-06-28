@@ -16,11 +16,20 @@ declare class Vector {
   Resize(newLength: float): void;
   Resized(newLength: float): Vector;
   Rotated(angleDegrees: float): Vector;
-  __add(right: Vector): Vector;
-  __div(modifier: float): Vector;
-  __mul(modifier: float): Vector;
-  __sub(right: Vector): Vector;
-  __unm(right: Vector): Vector;
+
+  /** Use the "add()" method instead to avoid crashes. */
+  __add(right: never): Vector;
+  /** Use the "div()" method instead to avoid crashes. */
+  __div(modifier: never): Vector;
+  /** Use the "mul()" method instead to avoid crashes. */
+  __mul(modifier: never): Vector;
+  /** Use the "sub()" method instead to avoid crashes. */
+  __sub(right: never): Vector;
+  /**
+   * This method can cause the game to crash, so it is forbidden.
+   * Compose negative vectors manually instead.
+   */
+  __unm(right: never): Vector;
 
   X: float;
   Y: float;
@@ -29,10 +38,12 @@ declare class Vector {
   static One: Vector;
   static Zero: Vector;
 
-  // Helper functions for adding and so forth so that you don't have to type the double underscore
+  // Helper functions for adding and so forth
   // https://typescripttolua.github.io/docs/advanced/language-extensions/#operator-map-types
   add: LuaAdditionMethod<Vector, Vector>;
+  // Vector multiplication was extended to allow Vectors in Repentance
+  // However, the developers forgot to apply this new functionality to division
   div: LuaDivisionMethod<Vector, Vector>;
-  mul: LuaMultiplicationMethod<Vector, Vector>;
+  mul: LuaMultiplicationMethod<number | Vector, Vector>;
   sub: LuaSubtractionMethod<Vector, Vector>;
 }

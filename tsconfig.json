@@ -1,21 +1,14 @@
+// The configuration file for TypeScript
 {
+  // We extend the standard IsaacScript compiler flags
+  // https://github.com/IsaacScript/isaacscript-tsconfig/blob/main/tsconfig.common.json
+  "extends": "isaacscript-tsconfig/tsconfig.common.json",
+
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    // "outDir" specifies the output directory
-    // By default, it will put the compiled ".js" next to the respective ".ts" file
-    "outDir": "./dist",
-
     // "target" specifies the ECMAScript target version
     // By default, it is "ES3"
     "target": "ESNext",
-
-    // We want the compiler to be as strict as possible to catch all the things
-    // By default, these flags are false
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
 
     // We use TypeScript definitions for the Lua standard library
     // https://github.com/TypeScriptToLua/lua-types
@@ -26,6 +19,7 @@
     "moduleResolution": "Node",
   },
 
+  // A list of the TypeScript files to compile
   "include": [
     "./typings/**/*.ts",
   ],
