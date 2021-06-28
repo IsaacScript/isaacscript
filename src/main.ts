@@ -21,6 +21,11 @@ import publish from "./publish/publish";
 import validateNodeVersion from "./validateNodeVersion";
 import { validateOS } from "./validateOS";
 
+main().catch((err) => {
+  console.error("IsaacScript failed:", err);
+  process.exit(1);
+});
+
 async function main(): Promise<void> {
   sourceMapSupport.install();
   validateNodeVersion();
@@ -93,8 +98,3 @@ async function handleCommands(argv: any, config: Config | null) {
     process.exit(0);
   }
 }
-
-main().catch((err) => {
-  console.error("IsaacScript failed:", err);
-  process.exit(1);
-});
