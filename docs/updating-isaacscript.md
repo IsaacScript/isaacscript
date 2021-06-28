@@ -19,3 +19,5 @@ Then, install the new modules with:
 ```bash
 npm install
 ```
+
+For reference, the latest version of IsaacScript can always be found [on the NPM page](https://www.npmjs.com/package/isaacscript).
