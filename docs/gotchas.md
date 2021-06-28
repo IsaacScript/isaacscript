@@ -103,7 +103,7 @@ projectile.Velocity = projectile.Velocity:__mul(2)
 
 Under the hood, Lua converts the first code snippet to the second code snippet automatically. This is because it understands that `__mul` is a special operator method. Most people write code in the first way instead of the second way, because it is more convenient.
 
-In TypeScript, we unfortunately cannot code in the first way due to [limitations in TypeScriptToLua](https://typescripttolua.github.io/docs/advanced/writing-declarations/#operator-overloads). Since operator overloads will not work, we can instead just call the methods directly.
+In TypeScript, we unfortunately cannot code in the first way due to [limitations in TypeScriptToLua](https://typescripttolua.github.io/docs/advanced/writing-declarations/#operator-overloads). Since operator overloads will not work, we instead call the convenience methods `add`, `sub`, `mul`, and `div`.
 
 Here's an example:
 
@@ -111,13 +111,6 @@ Here's an example:
 -- Lua code
 local vector = Vector(1, 1) * 5 + 2
 ```
-
-```typescript
-// TypeScript code
-const vector = Vector(1, 1).__mul(5).__add(2);
-```
-
-If you want, you can also use the convenience methods of "add", "mul", and so forth, which will transpile to the same thing. For example:
 
 ```typescript
 // TypeScript code
@@ -134,7 +127,7 @@ local vector = Vector(1, 1) + Vector(3, 3) * 6
 
 ```typescript
 // TypeScript code
-let vector = Vector(3, 3).__mul(6).__add(Vector(1, 1);
+let vector = Vector(3, 3).mul(6).add(Vector(1, 1);
 ```
 
 Note that if you really need to, you can restore operator overloading for Vectors by creating a [branded type](https://medium.com/@KevinBGreene/surviving-the-typescript-ecosystem-branding-and-type-tagging-6cf6e516523d) with something along the lines of:

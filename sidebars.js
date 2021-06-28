@@ -24,17 +24,18 @@ module.exports = {
     {
       type: "category",
       label: "Tutorials",
-      items: ["javascript-tutorial", "example-mod", "refactoring-mod"],
+      items: [
+        "javascript-tutorial",
+        "example-mod",
+        "refactoring-mod",
+        "converting-lua-code",
+        "updating-isaacscript",
+      ],
     },
     {
       type: "category",
       label: "Other",
-      items: [
-        "converting-lua-code",
-        "publishing-to-the-workshop",
-        "gotchas",
-        "function-signatures",
-      ],
+      items: ["publishing-to-the-workshop", "gotchas", "function-signatures"],
     },
   ],
 };
