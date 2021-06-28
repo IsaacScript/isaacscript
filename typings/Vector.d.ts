@@ -42,8 +42,8 @@ declare class Vector {
   // https://typescripttolua.github.io/docs/advanced/language-extensions/#operator-map-types
   add: LuaAdditionMethod<Vector, Vector>;
   // Vector multiplication was extended to allow Vectors in Repentance
-  // However, the developers forgot to apply this new functionality to division
-  div: LuaDivisionMethod<Vector, Vector>;
+  // However, this functionality does not apply to division
+  div: LuaDivisionMethod<number, Vector>;
   mul: LuaMultiplicationMethod<number | Vector, Vector>;
   sub: LuaSubtractionMethod<Vector, Vector>;
 }
