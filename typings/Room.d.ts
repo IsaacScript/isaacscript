@@ -50,7 +50,11 @@ declare class Room {
   GetDoor(doorSlot: DoorSlot): GridEntityDoor | null;
   GetDoorSlotPosition(doorSlot: DoorSlot): Vector;
   GetDungeonRockIdx(): int;
-  GetEntities(): EntityList;
+  /**
+   * Using this method can cause the game to crash, so it is forbidden.
+   * Use "Isaac.GetRoomEntities()" instead.
+   */
+  GetEntities(fakeArg: never): EntityList;
   GetFrameCount(): int;
   GetGridCollision(gridIndex: int): GridCollisionClass;
   GetGridCollisionAtPos(position: Vector): GridCollisionClass;

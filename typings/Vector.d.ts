@@ -17,19 +17,16 @@ declare class Vector {
   Resized(newLength: float): Vector;
   Rotated(angleDegrees: float): Vector;
 
-  /** Use the "add()" method instead to avoid crashes. */
+  /** Use the "add()" method instead. */
   __add(right: never): Vector;
-  /** Use the "div()" method instead to avoid crashes. */
+  /** Use the "div()" method instead. */
   __div(modifier: never): Vector;
-  /** Use the "mul()" method instead to avoid crashes. */
+  /** Use the "mul()" method instead. */
   __mul(modifier: never): Vector;
-  /** Use the "sub()" method instead to avoid crashes. */
+  /** Use the "sub()" method instead. */
   __sub(right: never): Vector;
-  /**
-   * This method can cause the game to crash, so it is forbidden.
-   * Compose negative vectors manually instead.
-   */
-  __unm(right: never): Vector;
+  // Not implemented since it can cause the game to crash
+  // __unm(right: never): Vector;
 
   X: float;
   Y: float;
