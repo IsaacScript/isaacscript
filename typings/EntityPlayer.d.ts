@@ -739,7 +739,7 @@ declare class EntityPlayer extends Entity {
   MaxFireDelay: int;
   MoveSpeed: float;
   QueuedItem: QueueItemData;
-  SecondaryActiveItem: ActiveItemDesc;
+  SecondaryActiveItem: ActiveItemDesc | null;
   ShotSpeed: float;
   SpriteScale: Vector;
   TearColor: Color;
