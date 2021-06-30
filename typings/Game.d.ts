@@ -125,7 +125,8 @@ declare class Game {
   // GetItemOverlay(): ItemOverlay; // ItemOverlay is not implemented
   GetHUD(): HUD;
   GetItemPool(): ItemPool;
-  GetLastDevilRoomStage(): LevelStage;
+  /** This function is bugged and returns useless userdata. */
+  GetLastDevilRoomStage(fakeArg: never): LevelStage;
   GetLastLevelWithDamage(): LevelStage;
   GetLastLevelWithoutHalfHp(): LevelStage;
   GetLevel(): Level;
