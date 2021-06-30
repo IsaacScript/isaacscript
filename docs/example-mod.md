@@ -18,18 +18,23 @@ After running the unpacker, you can find all of the vanilla assets in the `C:\Pr
 
 ## 1) Initializing the Project
 
-For this tutorial, we will be using `C:\Repositories\green-candle` as the directory for our mod.
+First, make sure that you have already read the [Getting Started](getting-started.md) section of the IsaacScript docs and have a rough understanding of how IsaacScript works.
 
-In a Windows command prompt:
+For this tutorial, we will be using `C:\Repositories\green-candle` as the directory for our mod. So, in a Windows command prompt, create that directory, change into that directory, and initialize a new IsaacScript project
 
 ```batch
 mkdir C:\Repositories\green-candle
 cd C:\Repositories\green-candle
 npx isaacscript init --use-current-dir --save-slot=1 --vscode
+```
+
+At this point, the skeleton for our mod is in place. Now, start IsaacScript and let it run in the background:
+
+```batch
 npx isaacscript
 ```
 
-At this point, the skeleton for our mod is in place, and IsaacScript is running in the background. We can now begin working.
+We can now begin working.
 
 <br />
 
