@@ -69,7 +69,7 @@ async function handleCommands(argv: any, config: Config | null) {
 
   switch (command) {
     case "monitor": {
-      monitor(config);
+      monitor(argv, config);
       break;
     }
 

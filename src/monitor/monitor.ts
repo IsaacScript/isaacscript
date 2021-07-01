@@ -15,15 +15,30 @@ import copyWatcherMod from "./copyWatcherMod";
 import getTSConfigInclude from "./getTSConfigInclude";
 import * as notifyGame from "./notifyGame";
 import { spawnSaveDatWriter } from "./spawnSaveDatWriter";
+import touchSaveDatFiles from "./touchSaveDatFiles";
 
-export default function monitor(config: Config | null): void {
+export default function monitor(
+  argv: Record<string, unknown>,
+  config: Config | null,
+): void {
   if (config === null) {
     configFile.errorNotExist();
     return;
   }
 
+  // If they specified some command-line flags, override the values found in the config file
+  if (argv.modsDirectory !== undefined) {
+    config.modsDirectory = argv.modsDirectory as string; // eslint-disable-line no-param-reassign
+  }
+  if (argv.saveSlot !== undefined) {
+    config.saveSlot = argv.saveSlot as number; // eslint-disable-line no-param-reassign
+  }
+
   // Prepare the watcher mod
   copyWatcherMod(config);
+
+  // Ensure that the "save#.dat" file exists
+  touchSaveDatFiles(config);
 
   // Subprocess #1 - The "save#.dat" file writer
   spawnSaveDatWriter(config);

@@ -10,8 +10,8 @@ export function spawnSaveDatWriter(config: Config): void {
   const processName = "saveDatWriter";
   const processDescription = "Save.dat writer";
   const processPath = path.join(__dirname, processName, processName);
-  const modDataPath = path.join(config.modsDirectory, "..", "data");
-  const watcherModDataPath = path.join(modDataPath, WATCHER_MOD_NAME);
+  const modsDataPath = path.join(config.modsDirectory, "..", "data");
+  const watcherModDataPath = path.join(modsDataPath, WATCHER_MOD_NAME);
   const saveDatFileName = `save${config.saveSlot}.dat`;
   const saveDatPath = path.join(watcherModDataPath, saveDatFileName);
 

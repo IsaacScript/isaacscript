@@ -18,7 +18,7 @@ export default async function init(
   // Prompt the end-user for some information
   const [projectPath, createNewDir] = await getProjectPath(argv);
   await checkIfProjectPathExists(projectPath);
-  const modsDirectory = await getModsDir();
+  const modsDirectory = await getModsDir(argv);
   checkModSubdirectory(projectPath, modsDirectory);
   const projectName = path.basename(projectPath);
   await checkModTargetDirectory(modsDirectory, projectName);

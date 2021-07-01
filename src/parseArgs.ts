@@ -7,7 +7,24 @@ export default function parseArgs() {
     .usage("usage: isaacscript <command> [options]")
     .scriptName("isaacscript")
 
-    .command("monitor", "Monitor a project for changes. (default)")
+    .command(
+      "monitor",
+      "Monitor a project for changes. (default)",
+      (builder) => {
+        return builder
+          .option("mods-directory", {
+            alias: "m",
+            type: "string",
+            description: "The directory where Isaac mods live on your system",
+          })
+          .option("save-slot", {
+            alias: "s",
+            type: "number",
+            choices: [1, 2, 3],
+            description: "The save slot in-game that you use",
+          });
+      },
+    )
 
     .command("init [name]", "Initialize a new IsaacScript mod.", (builder) => {
       return builder
@@ -16,11 +33,16 @@ export default function parseArgs() {
           type: "boolean",
           description: "Use the current directory as the root for the project",
         })
+        .option("mods-directory", {
+          alias: "m",
+          type: "string",
+          description: "The directory where Isaac mods live on your system",
+        })
         .option("save-slot", {
           alias: "s",
           type: "number",
           choices: [1, 2, 3],
-          description: "The save slot in-game that you use",
+          description: "The in-game save slot that you use",
         })
         .option("vscode", {
           alias: "c",

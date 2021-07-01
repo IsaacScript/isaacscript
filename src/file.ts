@@ -125,6 +125,16 @@ export function read(filePath: string): string {
   return fileContents;
 }
 
+export function touch(filePath: string): void {
+  try {
+    const fileHandle = fs.openSync(filePath, "w");
+    fs.closeSync(fileHandle);
+  } catch (err) {
+    console.error(`Failed to touch the "${chalk.green(filePath)}" file:`, err);
+    process.exit(1);
+  }
+}
+
 export function write(filePath: string, data: string): void {
   try {
     fs.writeFileSync(filePath, data);
