@@ -89,6 +89,7 @@ declare global {
      */
     function GetPlayer(playerID: int): EntityPlayer | null;
     /**
+     * If the specified character does not exist, it returns -1.
      * @param playerName
      * @param tainted Default is false.
      */
