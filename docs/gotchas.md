@@ -260,7 +260,7 @@ for (const [keyName, keyCode] of Object.entries(Keyboard)) {
 }
 ```
 
-One important thing to note about this is that iterating over enums **will not happen in order**. This is because Lua's `pairs()` function is designed to return table entries in a random order. If you need to get the contents of a Lua enum in order, then you will have to re-create that data as an array.
+One important thing to note about this is that iterating over enums **will not happen in order**. This is because `Object.entries()` (and the other related functions) transpile to use Lua's `pairs()` function, and that is designed to return table entries in a random order. If you need to get the contents of a Lua enum in order, then either sort the keys before you iterate over them, or re-create the data as an array.
 
 Furthermore, it is important that in the previous example, we are iterating over a "normal" enum provided by the game. You **will not be able to iterate over your own enums** in this way because of how TypeScriptToLua transpiles them. In order to increase performance, TypeScriptToLua creates a double mapping of key to value and value to key. For example:
 
