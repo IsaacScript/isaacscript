@@ -2,7 +2,7 @@
 title: Project Directory Structure
 ---
 
-When you use the `isaacscript init`, it will automatically load a directory with some files for you.
+When you use `isaacscript init`, it will automatically load a directory with some files for you.
 
 **You do not need to know what all of these files are for**, so if you want to dive into coding your mod, skip reading this page.
 
