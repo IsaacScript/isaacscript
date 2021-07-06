@@ -320,7 +320,7 @@ Hopefully, this feature will be ready soon.
 Normally, in TypeScript programs, you would handle errors with `throw new Error("foo")`. For example:
 
 ```typescript
-const player = Isaac.GetPlayer(); // The type of player is "EntityPlayer | null"
+const player = Isaac.GetPlayer(1); // The type of player is "EntityPlayer | null"
 if (player === null) {
   throw new Error("Failed to get the player!");
 }
@@ -334,7 +334,7 @@ However, in Isaac mods, this code won't work. It will error with something along
 This is because TypeScriptToLua transpiles `throw` to a function that uses Lua's `debug` library, and Isaac does not have access to `debug` for sandboxing reasons. But not to worry, because instead we can simply use Lua's `error()` function. For example:
 
 ```typescript
-const player = Isaac.GetPlayer(); // The type of player is "EntityPlayer | null"
+const player = Isaac.GetPlayer(1); // The type of player is "EntityPlayer | null"
 if (player === null) {
   error("Failed to get the player!");
 }
