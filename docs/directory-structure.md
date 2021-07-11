@@ -86,6 +86,12 @@ Normally, you should not need to touch this file, but you can edit it if you nee
 
 <br />
 
+### `.gitattributes`
+
+This contains specific Git attributes that should be applied to this Git repository, if present. By default, it prevent Windows systems from cloning the repository with "\r\n" line endings.
+
+<br />
+
 ### `.gitignore`
 
 This contains a list of files that should not be added to a Git repository, if present. If you have a private file that you don't want to be committed to a repository, you can edit this file and add it.
