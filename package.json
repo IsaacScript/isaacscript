@@ -28,19 +28,19 @@
     "prompts": "^2.4.1",
     "source-map-support": "^0.5.19",
     "sync-directory2": "^2.2.22",
-    "typescript": "^4.3.4",
+    "typescript": "^4.3.5",
     "typescript-to-lua": "^0.40.1",
     "update-notifier": "^5.1.0",
     "yargs": "^17.0.1"
   },
   "devDependencies": {
     "@types/command-exists": "^1.2.0",
-    "@types/figlet": "^1.5.1",
-    "@types/fs-extra": "^9.0.11",
-    "@types/node": "^15.14.0",
-    "@types/prompts": "^2.0.13",
-    "@types/source-map-support": "^0.5.3",
-    "@types/update-notifier": "^5.0.0",
-    "@types/yargs": "^17.0.0"
+    "@types/figlet": "^1.5.4",
+    "@types/fs-extra": "^9.0.12",
+    "@types/node": "^16.3.1",
+    "@types/prompts": "^2.0.14",
+    "@types/source-map-support": "^0.5.4",
+    "@types/update-notifier": "^5.0.1",
+    "@types/yargs": "^17.0.2"
   }
 }
