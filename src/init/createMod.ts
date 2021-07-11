@@ -30,16 +30,18 @@ export default function createMod(
     file.makeDir(projectPath);
   }
 
-  // Make subdirectories
-  for (const subdirectory of [".vscode", "mod", "src"]) {
-    const srcPath = path.join(projectPath, subdirectory);
-    file.makeDir(srcPath);
-  }
-
+  makeSubdirectories(projectPath);
   copyStaticFiles(projectPath);
   copyDynamicFiles(projectName, projectPath);
   makeConfigFile(projectName, projectPath, modsDirectory, saveSlot);
   installNodeModules(projectPath);
+}
+
+function makeSubdirectories(projectPath: string) {
+  for (const subdirectory of [".vscode", "mod", "src"]) {
+    const srcPath = path.join(projectPath, subdirectory);
+    file.makeDir(srcPath);
+  }
 }
 
 // Copy static files, like ".eslintrc.js", "tsconfig.json", etc.
