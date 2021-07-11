@@ -1,3 +1,5 @@
+/* eslint-disable import/no-unused-modules */
+
 import chalk from "chalk";
 import * as JSONC from "jsonc-parser";
 import path from "path";
