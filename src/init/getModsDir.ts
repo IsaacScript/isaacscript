@@ -32,8 +32,8 @@ const DEFAULT_MODS_PATH_LINUX = path.join(
 export default async function getModsDir(
   argv: Record<string, unknown>,
 ): Promise<string> {
-  if (argv.saveSlot !== undefined) {
-    // They specified the "--save-slot" command-line flag,
+  if (argv.modsDirectory !== undefined) {
+    // They specified the "--mods-directory" command-line flag,
     // so there is no need to prompt the user for it
     return argv.modsDirectory as string;
   }
