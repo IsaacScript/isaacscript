@@ -62,7 +62,7 @@ interface CallbackParameters {
     entityType?: EntityType | int,
   ];
   [ModCallbacks.MC_POST_CURSE_EVAL]: [
-    callback: (curses: LevelCurse | int) => LevelCurse | int | undefined,
+    callback: (curses: LevelCurse | int) => LevelCurse | int | void,
   ];
   [ModCallbacks.MC_INPUT_ACTION]: [
     callback: (
@@ -89,7 +89,7 @@ interface CallbackParameters {
     ) => Card | int | void,
   ];
   [ModCallbacks.MC_GET_SHADER_PARAMS]: [
-    callback: (shaderName: string) => Record<string, unknown>,
+    callback: (shaderName: string) => Record<string, unknown> | void,
   ];
   [ModCallbacks.MC_EXECUTE_CMD]: [
     callback: (command: string, parameters: string) => void,
