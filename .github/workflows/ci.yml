@@ -3,8 +3,6 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  compile:
-
   lint:
     runs-on: ubuntu-latest
     steps:
