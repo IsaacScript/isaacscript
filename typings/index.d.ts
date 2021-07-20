@@ -77,3 +77,5 @@
 /// <reference path="TemporaryEffects.d.ts" />
 /// <reference path="Vector.d.ts" />
 /// <reference path="VectorList.d.ts" />
+
+/// <reference path="mods/EID.d.ts" />
