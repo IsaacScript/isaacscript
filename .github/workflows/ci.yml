@@ -3,7 +3,7 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  lint:
+  build_and_lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
@@ -27,12 +27,15 @@ jobs:
         if: steps.node-cache.outputs.cache-hit != 'true'
         run: npm ci
 
-      - name: Perform automated checks on the repository
+      - name: Test to see if the project compiles
+        name: ./build.sh
+
+      - name: Perform automated checks
         run: ./lint.sh
 
   discord:
     name: Discord Failure Notification
-    needs: [lint]
+    needs: [build_and_lint]
     if: always() # This is needed to always run this job, even if the other jobs fail
     runs-on: ubuntu-latest
     steps:
