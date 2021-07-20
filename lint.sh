@@ -14,5 +14,6 @@ if (($NODE_VERSION < 16)); then
 fi
 
 cd "$DIR"
-npx eslint .
+npx eslint --max-warnings 0 base.js
+npx eslint --max-warnings 0 mod.js
 echo "Success!"
