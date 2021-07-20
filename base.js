@@ -200,6 +200,19 @@ module.exports = {
     "import/prefer-default-export": "off",
 
     // Documentation:
+    // https://github.com/gajus/eslint-plugin-jsdoc#eslint-plugin-jsdoc-rules-check-tag-names
+    // Defined at:
+    // https://github.com/gajus/eslint-plugin-jsdoc/blob/master/src/index.js
+    // Allow the use of TypeScriptToLua compiler annotations as documented here:
+    // https://typescripttolua.github.io/docs/advanced/compiler-annotations
+    "jsdoc/check-tag-names": [
+      "warn",
+      {
+        definedTags: ["noResolution", "noSelf"],
+      },
+    ],
+
+    // Documentation:
     // https://eslint.org/docs/rules/no-console
     // Defined at:
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/errors.js
