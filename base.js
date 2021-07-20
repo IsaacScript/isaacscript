@@ -213,6 +213,13 @@ module.exports = {
     ],
 
     // Documentation:
+    // https://github.com/gajus/eslint-plugin-jsdoc#eslint-plugin-jsdoc-rules-require-jsdoc
+    // Defined at:
+    // https://github.com/gajus/eslint-plugin-jsdoc/blob/master/src/index.js
+    // Do not require JSDoc comments for every function, as that is excessive
+    "jsdoc/require-jsdoc": "off",
+
+    // Documentation:
     // https://eslint.org/docs/rules/no-console
     // Defined at:
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/errors.js
