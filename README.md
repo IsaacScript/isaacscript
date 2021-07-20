@@ -38,7 +38,7 @@ ESLint is the industry standard tool for linting in JavaScript and TypeScript. A
 
 Because of the advantages of Prettier, we use it on top of the Airbnb config, and prefer Prettier's changes if there are any conflicts. Instead of running two different tools, we run Prettier inside of ESLint as a plugin with [`eslint-plugin-prettier`](https://github.com/prettier/eslint-plugin-prettier). Then, any ESLint rules that conflict with Prettier are turned off with [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier).
 
-Finally, some specific Airbnb rules are disabled, since they don't make much sense in IsaacScript projects. You can see the specific exclusions in the [base.js](https://github.com/IsaacScript/eslint-config-isaacscript/blob/main/index.js) and [mod.js](https://github.com/IsaacScript/eslint-config-isaacscript/blob/main/mod.js) files of the [`eslint-config-isaacscript`](https://github.com/IsaacScript/eslint-config-isaacscript) repository.
+Finally, some specific Airbnb rules are disabled, since they don't make much sense in IsaacScript projects. You can see the specific exclusions in the [base.js](https://github.com/IsaacScript/eslint-config-isaacscript/blob/main/base.js) and [mod.js](https://github.com/IsaacScript/eslint-config-isaacscript/blob/main/mod.js) files of the [`eslint-config-isaacscript`](https://github.com/IsaacScript/eslint-config-isaacscript) repository.
 
 <br />
 
