@@ -27,7 +27,7 @@ jobs:
         if: steps.node-cache.outputs.cache-hit != 'true'
         run: npm ci
 
-      - name: Perform automated checks on the repository
+      - name: Perform automated checks
         run: ./lint.sh
 
   discord:
