@@ -25,6 +25,10 @@ module.exports = {
     // https://github.com/mysticatea/eslint-plugin-eslint-comments
     "plugin:eslint-comments/recommended",
 
+    // Lint JSDoc style comments
+    // https://github.com/gajus/eslint-plugin-jsdoc
+    "plugin:jsdoc/recommended",
+
     // This provides a version of the "eqeqeq" rule that the "--fix" flag can fix
     // https://github.com/Zamiell/eslint-plugin-eqeqeq-fix
     "plugin:eqeqeq-fix/recommended",
@@ -42,9 +46,9 @@ module.exports = {
   ],
 
   plugins: [
-    // Use the "eslint-plugin-only-warn" plugin to change errors to warnings for all rules
-    // This allows us to more easily distinguish between errors from the TypeScript compiler and
-    // suggestions from ESLint
+    // Use the "eslint-plugin-only-warn" plugin to change all errors to warnings
+    // This allows the end-user to more easily distinguish between errors from the TypeScript
+    // compiler (which show up in red) and ESLint rule violations (which show up in yellow)
     "only-warn",
   ],
 
