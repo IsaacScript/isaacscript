@@ -16,6 +16,7 @@ declare global {
     /**
      * This function is currently bugged (i.e. in Repentance v820) and should not be used.
      * In the meantime, use "FindByType()" as a workaround.
+     *
      * @param spawner
      * @param entityType Default is EntityType.ENTITY_NULL.
      * @param variant Specifying -1 will return all variants. Default is -1.
@@ -90,6 +91,7 @@ declare global {
     function GetPlayer(playerID: int): EntityPlayer | null;
     /**
      * If the specified character does not exist, it returns -1.
+     *
      * @param playerName
      * @param tainted Default is false.
      */

@@ -6,9 +6,9 @@ declare class Room {
    * @param gridPathThreshold Default is 0.
    * @param ignoreWalls Default is false.
    * @param ignoreCrushable Default is false.
-   * @return 2 values:
+   * @returns 2 values:
    * 1) boolean: true if there are no obstructions between Pos1 and Pos2, false otherwise
-   * 2) Vector: first hit position from Pos1 to Pos2 (returns Pos2 if the line didn't hit anything)
+   * 2) Vector: first hit position from pos1 to pos2 (returns pos2 if the line didn't hit anything)
    */
   CheckLine(
     position1: Vector,

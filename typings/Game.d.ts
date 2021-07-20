@@ -12,6 +12,7 @@ declare class Game {
    * There is no separate BombFlags enum, so bombs use tear flags.
    * Be aware that this really takes a BitSet128 instead of an integer.
    * However, all of the TearFlags enums values use BitSet128 constructors.
+   *
    * @param position
    * @param damage
    * @param radius
@@ -35,6 +36,7 @@ declare class Game {
    * There is no separate BombFlags enum, so bombs use tear flags.
    * Be aware that this really takes a BitSet128 instead of an integer.
    * However, all of the TearFlags enums values use BitSet128 constructors.
+   *
    * @param position
    * @param damage
    * @param tearFlags Default is TearFlags.TEAR_NORMAL.
@@ -60,6 +62,7 @@ declare class Game {
    * There is no separate BombFlags enum, so bombs use tear flags.
    * Be aware that this really takes a BitSet128 instead of an integer.
    * However, all of the TearFlags enums values use BitSet128 constructors.
+   *
    * @param position
    * @param radius
    * @param tearFlags
@@ -209,6 +212,7 @@ declare class Game {
   /**
    * You have to set Level.LeaveDoor to an appropriate value before using this function. Otherwise,
    * you will be sent to the wrong room. (For teleports, set it to -1.)
+   *
    * @param roomIndex
    * @param direction
    * @param roomTransition Default is RoomTransitionAnim.WALK.

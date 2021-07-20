@@ -62,6 +62,7 @@ declare class EntityPlayer extends Entity {
   AddEternalHearts(eternalHearts: int): void;
   /**
    * Spawns a friendly dip from Dirty Mind.
+   *
    * @param subType
    * @param position
    */
@@ -70,6 +71,7 @@ declare class EntityPlayer extends Entity {
    * Turns the given number of bombs into giga bombs.
    * This does not actually increase the number of bombs held. To actually add bombs, AddBombs()
    * should be called first.
+   *
    * @param num
    */
   AddGigaBombs(num: int): void;
@@ -79,6 +81,7 @@ declare class EntityPlayer extends Entity {
   AddHearts(hearts: int): void;
   /**
    * Spawns a Lemegeton wisp.
+   *
    * @param subType The ID of the passive item to mimic.
    * @param position
    * @param adjustOrbitLayer Default is false.
@@ -94,6 +97,7 @@ declare class EntityPlayer extends Entity {
   AddMaxHearts(maxHearts: int, ignoreKeeper: boolean): void;
   /**
    * Spawns a mini Isaac from Giant Cell.
+   *
    * @param position
    * @param playAnim If false, skips the appear animation for the familiars.
    */
@@ -112,17 +116,20 @@ declare class EntityPlayer extends Entity {
   AddSoulHearts(soulHearts: int): void;
   /**
    * Spawns a defensive fly from The Swarm.
+   *
    * @param position
    */
   AddSwarmFlyOrbital(position: Vector): EntityFamiliar;
   /**
    * If you provide an argument of 0 or an otherwise invalid trinket ID, the game will crash.
+   *
    * @param trinketType
    * @param addConsumables Default is true
    */
   AddTrinket(trinketType: TrinketType | int, addConsumables?: boolean): void;
   /**
    * Spawns a Book of Virtues wisp.
+   *
    * @param subType The ID of the active item to spawn a wisp from. Wisps with a special ID (for
    * example "s0" in wisps.xml) can be spawned with the subtype 0x10000 + X where X is the number
    * after the "s".
@@ -202,6 +209,7 @@ declare class EntityPlayer extends Entity {
    * This will attempt to merge forms when called on characters like Jacob and Esau.
    * This currently does not work correctly when changing from/to certain characters.
    * (i.e. Tainted Isaac)
+   *
    * @param type
    */
   ChangePlayerType(type: PlayerType): void;
@@ -607,6 +615,7 @@ declare class EntityPlayer extends Entity {
   SetActiveCharge(charge: int, activeSlot?: ActiveSlot): void;
   /**
    * This sets Tainted Bethany's blood charges.
+   *
    * @param num
    */
   SetBloodCharge(num: int): void;
@@ -617,6 +626,7 @@ declare class EntityPlayer extends Entity {
   /**
    * Sets the player's pocket active item to the given active item.
    * Items added to SLOT_POCKET2 will always be removed upon being used.
+   *
    * @param collectibleType
    * @param slot Can be either ActiveSlot.SLOT_POCKET or ActiveSlot.SLOT_POCKET2. Default is ActiveSlot.SLOT_POCKET.
    * @param keepInPools If true, the item will not be removed from the item pools. Default is false.
@@ -629,6 +639,7 @@ declare class EntityPlayer extends Entity {
   SetShootingCooldown(cooldown: int): void;
   /**
    * This sets Bethany's soul heart charges.
+   *
    * @param num
    */
   SetSoulCharge(num: int): void;
@@ -640,6 +651,7 @@ declare class EntityPlayer extends Entity {
   ThrowBlueSpider(position: Vector, target: Vector): Entity;
   /**
    * Spawns a friendly dip from Dirty Mind and throws it towards the specified target.
+   *
    * @param subType
    * @param position
    * @param target If Vector.Zero, throws the spawned dip in a random direction. Default is
@@ -653,11 +665,13 @@ declare class EntityPlayer extends Entity {
   /**
    * If holding an entity, throws it in the specified direction and returns it, otherwise returns
    * nil.
+   *
    * @param velocity
    */
   ThrowHeldEntity(velocity: Vector): Entity;
   /**
    * Triggers the extra effect granted by Book of Virtues for the given active item.
+   *
    * @param collectibleType Default is CollectibleType.COLLECTIBLE_NULL.
    */
   TriggerBookOfVirtues(collectibleType?: CollectibleType): void;
