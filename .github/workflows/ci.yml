@@ -19,11 +19,12 @@ jobs:
           key: node-modules-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - if: steps.node-cache.outputs.cache-hit != 'true'
         run: npm install
+      - run: ./build.sh
       - run: ./lint.sh
 
   discord:
     name: Discord Failure Notification
-    needs: [lint]
+    needs: [build_and_lint]
     if: always() # This is needed to always run this job, even if the other jobs fail
     runs-on: ubuntu-latest
     steps:
