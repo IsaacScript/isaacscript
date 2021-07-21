@@ -331,7 +331,7 @@ However, in Isaac mods, this code won't work. It will error with something along
 
 `[Foo] Error in "foo" call: ...n\The Binding of Isaac Rebirth/mods/foo/main.lua:100: attempt to index a nil value (global 'debug')`
 
-This is because TypeScriptToLua transpiles `throw` to a function that uses Lua's `debug` library, and Isaac does not have access to `debug` for sandboxing reasons. But not to worry, because instead we can simply use Lua's `error()` function. For example:
+This is because TypeScriptToLua transpiles `throw` to a function that uses Lua's `debug` library, and Isaac does not normally have access to `debug` for sandboxing reasons. But not to worry, because instead we can simply use Lua's `error()` function. For example:
 
 ```typescript
 const player = Isaac.GetPlayer(1); // The type of player is "EntityPlayer | null"
