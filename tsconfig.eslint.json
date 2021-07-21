@@ -9,8 +9,8 @@
     "babel.config.js",
     "docusaurus.config.js",
     "sidebars.js",
-    "src/**/*.ts",
     "src/**/*.js",
+    "src/**/*.ts",
     "static/**/*.js",
 
     // These are ESLint-only inclusions
