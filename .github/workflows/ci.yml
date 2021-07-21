@@ -28,7 +28,7 @@ jobs:
         run: npm ci
 
       - name: Test to see if the project compiles
-        name: ./build.sh
+        run: ./build.sh
 
       - name: Perform automated checks
         run: ./lint.sh
