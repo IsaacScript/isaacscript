@@ -309,9 +309,9 @@ for (const [key, value] of Object.entries(TestEnum)) {
 
 ### NPM Dependencies
 
-Currently, TypeScriptToLua does not support installing dependencies from NPM; see [this issue](https://github.com/TypeScriptToLua/TypeScriptToLua/issues/432). This means that for now, it will be cumbersome to write Isaac-specific libraries for people to use.
+Beware of using run-of-the-mill JavaScript or TypeScript libraries, such as [Underscore](https://underscorejs.org/), as they might not transpile properly to Lua. You're on your own here.
 
-Hopefully, this feature will be ready soon.
+On the other hand, if you want to share IsaacScript code with others, good news: TypeScriptToLua allows [using and creating npm packages containing .lua files](https://typescripttolua.github.io/docs/external-lua-code). Check out the TypeScriptToLua docs for more details.
 
 <br />
 
