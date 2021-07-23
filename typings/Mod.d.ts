@@ -66,7 +66,7 @@ interface CallbackParameters {
   ];
   [ModCallbacks.MC_INPUT_ACTION]: [
     callback: (
-      player: EntityPlayer,
+      entity: Entity | null,
       inputHook: InputHook,
       buttonAction: ButtonAction,
     ) => boolean | float | void,
