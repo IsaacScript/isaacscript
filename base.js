@@ -220,6 +220,20 @@ module.exports = {
     "jsdoc/require-jsdoc": "off",
 
     // Documentation:
+    // https://github.com/gajus/eslint-plugin-jsdoc#eslint-plugin-jsdoc-rules-require-param
+    // Defined at:
+    // https://github.com/gajus/eslint-plugin-jsdoc/blob/master/src/index.js
+    // Do not require parameters for every function, as that is excessive when using TypeScript
+    "jsdoc/require-param": "off",
+
+    // Documentation:
+    // https://github.com/gajus/eslint-plugin-jsdoc#eslint-plugin-jsdoc-rules-require-returns
+    // Defined at:
+    // https://github.com/gajus/eslint-plugin-jsdoc/blob/master/src/index.js
+    // Do not require return listing for every function, as that is excessive when using TypeScript
+    "jsdoc/require-returns": "off",
+
+    // Documentation:
     // https://eslint.org/docs/rules/no-console
     // Defined at:
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/errors.js
