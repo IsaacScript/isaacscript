@@ -80,7 +80,7 @@ declare const enum FireplaceVariant {
 declare const enum RotgutVariant {
   PHASE_1_HEAD = 0,
   PHASE_2_MAGGOT = 1,
-  PHASE_3_HEART = 3,
+  PHASE_3_HEART = 2,
 }
 
 /** For EntityType.ENTITY_MOTHER (912) */
