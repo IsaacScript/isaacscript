@@ -5,6 +5,7 @@ export class Config {
 
   /** The save slot that you test your mod on. */
   saveSlot = 1;
+
   /** The path to "steamcmd.exe". This is optional and only needed for automating publishing. */
   steamCmdPath?: string;
 }
