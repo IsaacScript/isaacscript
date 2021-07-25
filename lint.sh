@@ -13,6 +13,8 @@ if (($NODE_VERSION < 16)); then
   exit 1
 fi
 
+# Since all ESLint errors are set to warnings,
+# we set max warnings to 0 so that warnings will fail in CI
 cd "$DIR"
-npx eslint "$DIR/src"
+npx eslint --max-warnings 0 "$DIR/src"
 echo "Success!"
