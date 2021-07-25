@@ -52,12 +52,15 @@ export default function monitor(
   // Read the "tsconfig.json" file
   const tsConfigInclude = getTSConfigInclude();
   const resolvedIncludePath = path.resolve(CWD, tsConfigInclude);
+  const modTargetPath = path.join(config.modsDirectory, CURRENT_DIRECTORY_NAME);
 
   console.log("Automatically monitoring the following for changes:");
   console.log(
     `1) your TypeScript code:     ${chalk.green(resolvedIncludePath)}`,
   );
   console.log(`2) the source mod directory: ${chalk.green(MOD_SOURCE_PATH)}`);
+  console.log("");
+  console.log(`Copying files to:            ${chalk.green(modTargetPath)}`);
   console.log("");
   // (the process will now continue indefinitely for as long as the subprocesses exist)
 }
