@@ -1,7 +1,8 @@
 import chalk from "chalk";
 import path from "path";
 import prompts from "prompts";
-import * as file from "../file";
+import * as file from "../../file";
+import { error } from "../../misc";
 
 export default async function checkModTargetDirectory(
   modsDirectory: string,
@@ -28,8 +29,7 @@ export default async function checkModTargetDirectory(
     initial: true,
   });
   if (response.deleteDirectory === false) {
-    console.error("Ok then. You delete it yourself. Good bye.");
-    process.exit(1);
+    error("Ok then. You delete it yourself. Good bye.");
   }
 
   file.deleteDir(modTargetPath);

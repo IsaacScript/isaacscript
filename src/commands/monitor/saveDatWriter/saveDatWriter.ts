@@ -3,8 +3,8 @@
 import chalk from "chalk";
 import * as JSONC from "jsonc-parser";
 import path from "path";
-import * as file from "../../file";
-import { ensureAllCases } from "../../misc";
+import * as file from "../../../file";
+import { ensureAllCases, error } from "../../../misc";
 import { SaveDatMessage, SaveDatMessageType } from "./types";
 
 const MAX_MESSAGES = 100;
@@ -65,8 +65,7 @@ function readSaveDatFromDisk() {
     try {
       saveDat = JSONC.parse(saveDatRaw) as SaveDatMessage[];
     } catch (err) {
-      console.error(`Failed to parse "${chalk.green(saveDatPath)}":`, err);
-      process.exit(1);
+      error(`Failed to parse "${chalk.green(saveDatPath)}":`, err);
     }
   } else {
     saveDat = [];

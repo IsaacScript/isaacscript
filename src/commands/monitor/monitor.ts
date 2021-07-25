@@ -1,16 +1,16 @@
 import chalk from "chalk";
 import { ChildProcessWithoutNullStreams, fork, spawn } from "child_process";
 import path from "path";
-import { Config } from "../Config";
-import * as configFile from "../configFile";
 import {
   CURRENT_DIRECTORY_NAME,
   CWD,
   FILE_SYNCED_MESSAGE,
   MAIN_LUA,
   MOD_SOURCE_PATH,
-} from "../constants";
-import * as file from "../file";
+} from "../../constants";
+import * as file from "../../file";
+import { error } from "../../misc";
+import { Config } from "../../types/Config";
 import copyWatcherMod from "./copyWatcherMod";
 import getTSConfigInclude from "./getTSConfigInclude";
 import * as notifyGame from "./notifyGame";
@@ -19,13 +19,8 @@ import touchSaveDatFiles from "./touchSaveDatFiles";
 
 export default function monitor(
   argv: Record<string, unknown>,
-  config: Config | null,
+  config: Config,
 ): void {
-  if (config === null) {
-    configFile.errorNotExist();
-    return;
-  }
-
   // If they specified some command-line flags, override the values found in the config file
   if (argv.modsDirectory !== undefined) {
     config.modsDirectory = argv.modsDirectory as string; // eslint-disable-line no-param-reassign
@@ -71,7 +66,7 @@ function spawnModDirectorySyncer(config: Config) {
   const processName = "modDirectorySyncer";
   const processDescription = "Directory syncer";
   const processPath = path.join(__dirname, processName, processName);
-  const modTargetPath = path.join(config.modsDirectory, config.projectName);
+  const modTargetPath = path.join(config.modsDirectory, CURRENT_DIRECTORY_NAME);
   const directorySycner = fork(processPath, [MOD_SOURCE_PATH, modTargetPath]);
 
   directorySycner.on("message", (msg: string) => {
@@ -88,17 +83,11 @@ function spawnModDirectorySyncer(config: Config) {
   });
 
   directorySycner.on("close", (code: number | null) => {
-    console.error(
-      `Error: ${processDescription} subprocess closed with code: ${code}`,
-    );
-    process.exit(1);
+    error(`Error: ${processDescription} subprocess closed with code: ${code}`);
   });
 
   directorySycner.on("exit", (code: number | null) => {
-    console.error(
-      `Error: ${processDescription} subprocess exited with code: ${code}`,
-    );
-    process.exit(1);
+    error(`Error: ${processDescription} subprocess exited with code: ${code}`);
   });
 }
 
@@ -155,17 +144,11 @@ function spawnTSTLWatcher() {
   });
 
   tstl.on("close", (code) => {
-    console.error(
-      `Error: ${processDescription} subprocess exited with code: ${code}`,
-    );
-    process.exit(1);
+    error(`Error: ${processDescription} subprocess exited with code: ${code}`);
   });
 
   tstl.on("exit", (code) => {
-    console.error(
-      `Error: ${processDescription} subprocess exited with code: ${code}`,
-    );
-    process.exit(1);
+    error(`Error: ${processDescription} subprocess exited with code: ${code}`);
   });
 }
 

@@ -1,7 +1,7 @@
 import path from "path";
 import prompts from "prompts";
-import { MAIN_TS } from "../constants";
-import { execShell } from "../misc";
+import { MAIN_TS } from "../../constants";
+import { execShell } from "../../misc";
 
 export default async function promptVSCode(
   projectPath: string,

@@ -1,10 +1,11 @@
 import path from "path";
-import { Config } from "../Config";
-import * as file from "../file";
+import { CURRENT_DIRECTORY_NAME } from "../../constants";
+import * as file from "../../file";
+import { Config } from "../../types/Config";
 
 export default function touchSaveDatFiles(config: Config): void {
   const modsDataPath = path.join(config.modsDirectory, "..", "data");
-  const modDataPath = path.join(modsDataPath, config.projectName);
+  const modDataPath = path.join(modsDataPath, CURRENT_DIRECTORY_NAME);
   if (!file.exists(modDataPath)) {
     file.makeDir(modDataPath);
   }

@@ -1,7 +1,6 @@
 import path from "path";
-import { Config } from "../Config";
+import * as configFile from "../../configFile";
 import {
-  CONFIG_FILE_NAME,
   GITIGNORE,
   GITIGNORE_TEMPLATE_PATH,
   MAIN_TS,
@@ -15,9 +14,9 @@ import {
   TEMPLATES_STATIC_DIR,
   TEMPLATES_VSCODE_DIR,
   VSCODE,
-} from "../constants";
-import * as file from "../file";
-import { execShell, snakeKebabToCamel } from "../misc";
+} from "../../constants";
+import * as file from "../../file";
+import { execShell, snakeKebabToCamel } from "../../misc";
 
 export default function createMod(
   projectName: string,
@@ -33,7 +32,10 @@ export default function createMod(
   makeSubdirectories(projectPath);
   copyStaticFiles(projectPath);
   copyDynamicFiles(projectName, projectPath);
-  makeConfigFile(projectName, projectPath, modsDirectory, saveSlot);
+
+  const config = configFile.createObject(modsDirectory, saveSlot);
+  configFile.createFile(projectPath, config);
+
   installNodeModules(projectPath);
 }
 
@@ -73,6 +75,8 @@ function copyDynamicFiles(projectName: string, projectPath: string) {
     const fileName = GITIGNORE;
     const templatePath = GITIGNORE_TEMPLATE_PATH;
     const template = file.read(templatePath);
+
+    // Prepend a header with the project name
     let separatorLine = "# ";
     for (let i = 0; i < projectName.length; i++) {
       separatorLine += "-";
@@ -80,6 +84,7 @@ function copyDynamicFiles(projectName: string, projectPath: string) {
     separatorLine += "\n";
     const gitignoreHeader = `${separatorLine}# ${projectName}\n${separatorLine}\n`;
     const gitignore = gitignoreHeader + template;
+
     const destinationPath = path.join(projectPath, `.${fileName}`); // We need to prepend a period
     file.write(destinationPath, gitignore);
   }
@@ -143,22 +148,6 @@ function copyDynamicFiles(projectName: string, projectPath: string) {
     const destinationPath = path.join(srcPath, fileName);
     file.write(destinationPath, mainTS);
   }
-}
-
-function makeConfigFile(
-  projectName: string,
-  projectPath: string,
-  modsDirectory: string,
-  saveSlot: number,
-) {
-  const configFilePath = path.join(projectPath, CONFIG_FILE_NAME);
-  const configObject: Config = {
-    projectName,
-    modsDirectory,
-    saveSlot,
-  };
-  const configContents = JSON.stringify(configObject, null, 2);
-  file.write(configFilePath, configContents);
 }
 
 function installNodeModules(projectPath: string) {

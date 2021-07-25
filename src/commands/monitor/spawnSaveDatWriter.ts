@@ -1,7 +1,8 @@
 import { ChildProcess, fork } from "child_process";
 import path from "path";
-import { Config } from "../Config";
-import { WATCHER_MOD_NAME } from "../constants";
+import { WATCHER_MOD_NAME } from "../../constants";
+import { error } from "../../misc";
+import { Config } from "../../types/Config";
 import { SaveDatMessage } from "./saveDatWriter/types";
 
 let saveDatWriter: ChildProcess | null = null;
@@ -20,17 +21,11 @@ export function spawnSaveDatWriter(config: Config): void {
   });
 
   saveDatWriter.on("close", (code: number | null) => {
-    console.error(
-      `Error: ${processDescription} subprocess closed with code: ${code}`,
-    );
-    process.exit(1);
+    error(`Error: ${processDescription} subprocess closed with code: ${code}`);
   });
 
   saveDatWriter.on("exit", (code: number | null) => {
-    console.error(
-      `Error: ${processDescription} subprocess exited with code: ${code}`,
-    );
-    process.exit(1);
+    error(`Error: ${processDescription} subprocess exited with code: ${code}`);
   });
 }
 

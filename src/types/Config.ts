@@ -1,10 +1,10 @@
-export interface Config {
-  /** The name of your project directory. */
-  projectName: string;
+export class Config {
   /** The "mods" directory that lives next to the "isaac-ng.exe" program. */
-  modsDirectory: string;
+  modsDirectory =
+    "C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\mods";
+
   /** The save slot that you test your mod on. */
-  saveSlot: number;
+  saveSlot = 1;
   /** The path to "steamcmd.exe". This is optional and only needed for automating publishing. */
   steamCmdPath?: string;
 }

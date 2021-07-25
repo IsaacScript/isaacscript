@@ -1,8 +1,8 @@
 import chalk from "chalk";
 import path from "path";
 import prompts from "prompts";
-import { CURRENT_DIRECTORY_NAME, CWD } from "../constants";
-import { hasWhiteSpace } from "../misc";
+import { CURRENT_DIRECTORY_NAME, CWD } from "../../constants";
+import { error, hasWhiteSpace } from "../../misc";
 
 // From: https://gist.github.com/doctaphred/d01d05291546186941e1b7ddc02034d3
 const ILLEGAL_CHARACTERS_FOR_WINDOWS_FILENAMES = [
@@ -74,8 +74,7 @@ async function getNewProjectName(): Promise<[string, string, boolean]> {
   });
 
   if (typeof response2.projectName !== "string") {
-    console.error("Error: The response was not a string.");
-    process.exit(1);
+    error("Error: The response was not a string.");
   }
   const projectName = response2.projectName.trim();
   const projectPath = path.join(CWD, projectName);

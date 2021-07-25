@@ -1,7 +1,7 @@
 /* eslint-disable import/no-unused-modules */
 
 import syncDirectory from "sync-directory2";
-import { FILE_SYNCED_MESSAGE } from "../../constants";
+import { FILE_SYNCED_MESSAGE } from "../../../constants";
 
 let modSourcePath: string;
 let modTargetPath: string;

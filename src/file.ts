@@ -1,6 +1,7 @@
 import chalk from "chalk";
 import fs from "fs-extra";
 import path from "path";
+import { error } from "./misc";
 
 export function copy(srcPath: string, dstPath: string): void {
   try {
@@ -9,13 +10,12 @@ export function copy(srcPath: string, dstPath: string): void {
       recursive: true,
     });
   } catch (err) {
-    console.error(
+    error(
       `Failed to copy directory "${chalk.green(srcPath)}" to "${chalk.green(
         dstPath,
       )}":`,
       err,
     );
-    process.exit(1);
   }
 }
 
@@ -25,8 +25,7 @@ export function deleteDir(dirPath: string): void {
       recursive: true,
     });
   } catch (err) {
-    console.error(`Failed to delete directory "${chalk.green(dirPath)}":`, err);
-    process.exit(1);
+    error(`Failed to delete directory "${chalk.green(dirPath)}":`, err);
   }
 }
 
@@ -34,8 +33,7 @@ export function deleteFile(filePath: string): void {
   try {
     fs.rmSync(filePath);
   } catch (err) {
-    console.error(`Failed to delete file "${chalk.green(filePath)}":`, err);
-    process.exit(1);
+    error(`Failed to delete file "${chalk.green(filePath)}":`, err);
   }
 }
 
@@ -44,11 +42,7 @@ export function exists(filePath: string): boolean {
   try {
     pathExists = fs.existsSync(filePath);
   } catch (err) {
-    console.error(
-      `Failed to check to see if "${chalk.green(filePath)}" exists:`,
-      err,
-    );
-    process.exit(1);
+    error(`Failed to check to see if "${chalk.green(filePath)}" exists:`, err);
   }
 
   return pathExists;
@@ -59,11 +53,10 @@ export function getDirList(dirPath: string): string[] {
   try {
     fileList = fs.readdirSync(dirPath);
   } catch (err) {
-    console.error(
+    error(
       `Failed to get the files in the "${chalk.green(dirPath)}" directory:`,
       err,
     );
-    process.exit(1);
   }
 
   return fileList;
@@ -74,11 +67,7 @@ function getFileStats(filePath: string): fs.Stats {
   try {
     fileStats = fs.lstatSync(filePath);
   } catch (err) {
-    console.error(
-      `Failed to get the file stats for "${chalk.green(filePath)}":`,
-      err,
-    );
-    process.exit(1);
+    error(`Failed to get the file stats for "${chalk.green(filePath)}":`, err);
   }
 
   return fileStats;
@@ -105,11 +94,7 @@ export function makeDir(dirPath: string): void {
   try {
     fs.mkdirSync(dirPath);
   } catch (err) {
-    console.error(
-      `Failed to create the "${chalk.green(dirPath)}" directory:`,
-      err,
-    );
-    process.exit(1);
+    error(`Failed to create the "${chalk.green(dirPath)}" directory:`, err);
   }
 }
 
@@ -118,8 +103,7 @@ export function read(filePath: string): string {
   try {
     fileContents = fs.readFileSync(filePath, "utf8");
   } catch (err) {
-    console.error(`Failed to read the "${chalk.green(filePath)}" file:`, err);
-    process.exit(1);
+    error(`Failed to read the "${chalk.green(filePath)}" file:`, err);
   }
 
   return fileContents;
@@ -130,8 +114,7 @@ export function touch(filePath: string): void {
     const fileHandle = fs.openSync(filePath, "w");
     fs.closeSync(fileHandle);
   } catch (err) {
-    console.error(`Failed to touch the "${chalk.green(filePath)}" file:`, err);
-    process.exit(1);
+    error(`Failed to touch the "${chalk.green(filePath)}" file:`, err);
   }
 }
 
@@ -139,11 +122,7 @@ export function write(filePath: string, data: string): void {
   try {
     fs.writeFileSync(filePath, data);
   } catch (err) {
-    console.error(
-      `Failed to write to the "${chalk.green(filePath)}" file:`,
-      err,
-    );
-    process.exit(1);
+    error(`Failed to write to the "${chalk.green(filePath)}" file:`, err);
   }
 }
 

@@ -8,22 +8,22 @@ import sourceMapSupport from "source-map-support";
 import updateNotifier from "update-notifier";
 import pkg from "../package.json";
 import checkForWindowsTerminalBugs from "./checkForWindowsTerminalBugs";
-import Command, { DEFAULT_COMMAND } from "./Command";
-import { Config } from "./Config";
+import copy from "./commands/copy/copy";
+import init from "./commands/init/init";
+import monitor from "./commands/monitor/monitor";
+import publish from "./commands/publish/publish";
 import * as configFile from "./configFile";
 import { CWD } from "./constants";
-import copy from "./copy/copy";
-import init from "./init/init";
-import { ensureAllCases } from "./misc";
-import monitor from "./monitor/monitor";
+import { ensureAllCases, error } from "./misc";
 import parseArgs from "./parseArgs";
-import publish from "./publish/publish";
+import Command, { DEFAULT_COMMAND } from "./types/Command";
+import { Config } from "./types/Config";
+import validateInIsaacScriptProject from "./validateInIsaacScriptProject";
 import validateNodeVersion from "./validateNodeVersion";
 import { validateOS } from "./validateOS";
 
 main().catch((err) => {
-  console.error("IsaacScript failed:", err);
-  process.exit(1);
+  error("IsaacScript failed:", err);
 });
 
 async function main(): Promise<void> {
@@ -51,13 +51,12 @@ async function main(): Promise<void> {
 
   // Pre-flight checks
   await checkForWindowsTerminalBugs();
-  const config = configFile.read();
 
-  await handleCommands(argv, config);
+  await handleCommands(argv);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function handleCommands(argv: any, config: Config | null) {
+async function handleCommands(argv: any) {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   const positionalArgs = argv._ as string[];
   let command: Command;
@@ -65,6 +64,12 @@ async function handleCommands(argv: any, config: Config | null) {
     command = positionalArgs[0] as Command;
   } else {
     command = DEFAULT_COMMAND;
+  }
+
+  let config = new Config();
+  if (command !== "init") {
+    validateInIsaacScriptProject();
+    config = await configFile.get(argv);
   }
 
   switch (command) {

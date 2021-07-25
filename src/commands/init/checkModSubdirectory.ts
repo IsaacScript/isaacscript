@@ -1,6 +1,6 @@
 import chalk from "chalk";
-import { CWD } from "../constants";
-import * as file from "../file";
+import { CWD } from "../../constants";
+import * as file from "../../file";
 
 export default function checkModSubdirectory(
   projectPath: string,

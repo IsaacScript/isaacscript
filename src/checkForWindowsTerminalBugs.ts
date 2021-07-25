@@ -4,7 +4,7 @@ import os from "os";
 import path from "path";
 import prompts from "prompts";
 import * as file from "./file";
-import { execExe } from "./misc";
+import { error, execExe } from "./misc";
 
 // https://stackoverflow.com/questions/9080085/node-js-find-home-directory-in-platform-agnostic-way
 const homeDir = os.homedir();
@@ -35,11 +35,7 @@ async function checkForCodePage() {
   // so we only parse the final number
   const match = /(\d+)$/.exec(stdout);
   if (match === null) {
-    console.error(
-      `Failed to parse the results of "${chalk.green(chcpPath)}":`,
-      stdout,
-    );
-    process.exit(1);
+    error(`Failed to parse the results of "${chalk.green(chcpPath)}":`, stdout);
   }
 
   const activeCodePage = match[1].trim();
@@ -62,8 +58,7 @@ async function checkForCodePage() {
     initial: true,
   });
   if (response.fixCodePage === false) {
-    console.error("Ok then. Good-bye.");
-    process.exit(1);
+    error("Ok then. Good-bye.");
   }
 
   applyFixesToBashProfile();
@@ -93,8 +88,7 @@ async function checkForWindowsBugColor() {
     initial: true,
   });
   if (response.fixColors === false) {
-    console.error("Ok then. Good-bye.");
-    process.exit(1);
+    error("Ok then. Good-bye.");
   }
 
   applyFixesToBashProfile();
@@ -131,8 +125,7 @@ function applyFixesToBashProfile() {
   try {
     fs.appendFileSync(BASH_PROFILE_PATH, newText);
   } catch (err) {
-    console.error(`Failed to append text to "${BASH_PROFILE_PATH}":`, err);
-    process.exit(1);
+    error(`Failed to append text to "${BASH_PROFILE_PATH}":`, err);
   }
 
   console.log(

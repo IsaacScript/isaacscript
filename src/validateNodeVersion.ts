@@ -1,4 +1,5 @@
 import chalk from "chalk";
+import { error } from "./misc";
 
 const REQUIRED_MAJOR_VERSION = 16;
 
@@ -10,35 +11,31 @@ export default function validateNodeVersion(): void {
 
   const match = /^v(\d+)\.(\d+)\.(\d)+$/g.exec(version);
   if (match === null) {
-    console.error(`Failed to parse your NodeJS version of: ${version}`);
-    process.exit(1);
+    error(`Failed to parse your NodeJS version of: ${version}`);
   }
 
   const majorVersionString = match[1];
   const majorVersion = parseInt(majorVersionString, 10);
   if (Number.isNaN(majorVersion)) {
-    console.error(
+    error(
       `Failed to parse the major version number from: ${majorVersionString}`,
     );
-    process.exit(1);
   }
 
   const minorVersionString = match[2];
   const minorVersion = parseInt(minorVersionString, 10);
   if (Number.isNaN(minorVersion)) {
-    console.error(
+    error(
       `Failed to parse the minor version number from: ${minorVersionString}`,
     );
-    process.exit(1);
   }
 
   const patchVersionString = match[3];
   const patchVersion = parseInt(patchVersionString, 10);
   if (Number.isNaN(patchVersion)) {
-    console.error(
+    error(
       `Failed to parse the patch version number from: ${patchVersionString}`,
     );
-    process.exit(1);
   }
 
   if (majorVersion >= REQUIRED_MAJOR_VERSION) {

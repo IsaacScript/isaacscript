@@ -1,4 +1,5 @@
 import prompts from "prompts";
+import { error } from "../../misc";
 
 export default async function promptSaveSlot(
   argv: Record<string, unknown>,
@@ -21,8 +22,7 @@ export default async function promptSaveSlot(
     response.saveSlot !== 2 &&
     response.saveSlot !== 3
   ) {
-    console.error("Error: You must choose a number between 1 and 3.");
-    process.exit(1);
+    error("Error: You must choose a number between 1 and 3.");
   }
 
   return response.saveSlot as number;

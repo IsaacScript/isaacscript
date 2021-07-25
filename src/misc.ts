@@ -7,6 +7,12 @@ import { CWD } from "./constants";
 // the linter to complain if a case was not predicted
 export const ensureAllCases = (obj: never): never => obj;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function error(...args: any[]): never {
+  console.error(...args);
+  process.exit(1);
+}
+
 export function execExe(path: string, cwd = CWD): string {
   let stdout: string;
   try {
@@ -15,8 +21,7 @@ export function execExe(path: string, cwd = CWD): string {
     });
     stdout = buffer.toString().trim();
   } catch (err) {
-    console.error(`Failed to run "${chalk.green(path)}":`, err);
-    process.exit(1);
+    error(`Failed to run "${chalk.green(path)}":`, err);
   }
 
   return stdout;
@@ -44,11 +49,10 @@ export function execShell(
       cwd,
     });
   } catch (err) {
-    console.error(
+    error(
       `Failed to run the "${chalk.green(commandDescription)}" command:`,
       err,
     );
-    process.exit(1);
   }
 
   const exitStatus = spawnSyncReturns.status;

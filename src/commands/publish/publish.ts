@@ -1,41 +1,35 @@
 import chalk from "chalk";
 import path from "path";
-import { Config } from "../Config";
-import * as configFile from "../configFile";
 import {
   CONFIG_FILE_NAME,
   CONSTANTS_TS_PATH,
+  CURRENT_DIRECTORY_NAME,
   METADATA_XML_PATH,
   MOD_SOURCE_PATH,
   PACKAGE_JSON_PATH,
   PUBLISH_POST_COPY_PY_PATH,
   PUBLISH_PRE_COPY_PY_PATH,
   VERSION_TXT_PATH,
-} from "../constants";
+} from "../../constants";
+import * as file from "../../file";
+import { error, execShell, parseIntSafe } from "../../misc";
+import { Config } from "../../types/Config";
 import { compileAndCopy } from "../copy/copy";
-import * as file from "../file";
-import { execShell, parseIntSafe } from "../misc";
 
 export default function publish(
   argv: Record<string, unknown>,
-  config: Config | null,
+  config: Config,
 ): void {
-  if (config === null) {
-    configFile.errorNotExist();
-    return;
-  }
-
   const skip = argv.skip === true;
   const setVersion = argv.setversion as string | undefined;
-  const modTargetPath = path.join(config.modsDirectory, config.projectName);
+  const modTargetPath = path.join(config.modsDirectory, CURRENT_DIRECTORY_NAME);
 
   if (setVersion !== undefined && /^\d+\.\d+\.\d+$/.exec(setVersion) === null) {
-    console.error(
+    error(
       chalk.red(
         `The version of "${setVersion}" does not match the semantic versioning format.`,
       ),
     );
-    process.exit(1);
   }
 
   startPublish(
@@ -90,12 +84,11 @@ function updateDeps() {
 
 function getVersionFromPackageJSON() {
   if (!file.exists(PACKAGE_JSON_PATH)) {
-    console.error(
+    error(
       chalk.red(
         `A "${PACKAGE_JSON_PATH}" was not found in the current directory.`,
       ),
     );
-    process.exit(1);
   }
 
   const packageJSONRaw = file.read(PACKAGE_JSON_PATH);
@@ -103,26 +96,23 @@ function getVersionFromPackageJSON() {
   try {
     packageJSON = JSON.parse(packageJSONRaw) as Record<string, unknown>;
   } catch (err) {
-    console.error(`Failed to parse "${chalk.green(PACKAGE_JSON_PATH)}":`, err);
-    process.exit(1);
+    error(`Failed to parse "${chalk.green(PACKAGE_JSON_PATH)}":`, err);
   }
 
   if (!Object.prototype.hasOwnProperty.call(packageJSON, "version")) {
-    console.error(
+    error(
       `The "${chalk.green(
         PACKAGE_JSON_PATH,
       )}" file does not have a "version" field.`,
     );
-    process.exit(1);
   }
 
   if (typeof packageJSON.version !== "string") {
-    console.error(
+    error(
       `The "${chalk.green(
         PACKAGE_JSON_PATH,
       )}" file has a "version" field that is not a string.`,
     );
-    process.exit(1);
   }
 
   return packageJSON.version;
@@ -132,26 +122,22 @@ function bumpVersionInPackageJSON(version: string): string {
   // Get the patch version (i.e. the third number)
   const matches = /(\d+\.\d+\.)(\d+)/.exec(version);
   if (matches === null) {
-    console.error(`Failed to parse the version of: ${version}`);
-    process.exit(1);
+    error(`Failed to parse the version of: ${version}`);
   }
 
   const versionPrefix = matches[1];
   if (versionPrefix === undefined) {
-    console.error(`Failed to parse the first part of the version: ${version}`);
-    process.exit(1);
+    error(`Failed to parse the first part of the version: ${version}`);
   }
 
   const patchVersionString = matches[2];
   if (patchVersionString === undefined) {
-    console.error(`Failed to parse the second part of the version: ${version}`);
-    process.exit(1);
+    error(`Failed to parse the second part of the version: ${version}`);
   }
 
   const patchVersion = parseIntSafe(patchVersionString);
   if (Number.isNaN(patchVersion)) {
-    console.error(`Failed to convert "${patchVersionString}" to a number.`);
-    process.exit(1);
+    error(`Failed to convert "${patchVersionString}" to a number.`);
   }
 
   const incrementedPatchVersion = patchVersion + 1;
@@ -279,23 +265,21 @@ function purgeRoomXMLs(modTargetPath: string) {
 
 function uploadMod(modTargetPath: string, steamCmdPath: string | undefined) {
   if (steamCmdPath === undefined) {
-    console.error(
+    error(
       `In order for IsaacScript to automatically upload a mod, it needs to know the path to the "steamcmd.exe" program on your computer. Add a "${chalk.green(
         "steamCmdPath",
       )}" property to your "${chalk.green(
         CONFIG_FILE_NAME,
       )}" file and try again.`,
     );
-    process.exit(1);
   }
 
   if (!file.exists(steamCmdPath)) {
-    console.error(
+    error(
       chalk.red(
         `The path provided for "steamCmdPath" is "${steamCmdPath}", but that does not exist.`,
       ),
     );
-    process.exit(1);
   }
 
   const metadataVDFPath = path.join(modTargetPath, "metadata.vdf");
@@ -305,12 +289,7 @@ function uploadMod(modTargetPath: string, steamCmdPath: string | undefined) {
         'A "metadata.vdf" file was not found in your mod directory. You must create this file in order for "steamcmd.exe" to work. Please see the IsaacScript docs:',
       ),
     );
-    console.error(
-      chalk.red(
-        "https://isaacscript.github.io/docs/publishing-to-the-workshop/#metadatavdf",
-      ),
-    );
-    process.exit(1);
+    error(getIsaacScriptDocs());
   }
 
   const usernameVar = "STEAM_USERNAME";
@@ -321,12 +300,7 @@ function uploadMod(modTargetPath: string, steamCmdPath: string | undefined) {
         `Failed to read the "${usernameVar}" environment variable from the ".env" file. Please see the IsaacScript docs:`,
       ),
     );
-    console.error(
-      chalk.red(
-        "https://isaacscript.github.io/docs/publishing-to-the-workshop/#env",
-      ),
-    );
-    process.exit(1);
+    error(getIsaacScriptDocs());
   }
 
   const passwordVar = "STEAM_PASSWORD";
@@ -337,12 +311,7 @@ function uploadMod(modTargetPath: string, steamCmdPath: string | undefined) {
         `Failed to read the "${passwordVar}" environment variable from the ".env" file. Please see the IsaacScript docs:`,
       ),
     );
-    console.error(
-      chalk.red(
-        "https://isaacscript.github.io/docs/publishing-to-the-workshop/#env",
-      ),
-    );
-    process.exit(1);
+    error(getIsaacScriptDocs());
   }
 
   console.log("Uploading the mod to the Steam Workshop...");
@@ -357,4 +326,10 @@ function uploadMod(modTargetPath: string, steamCmdPath: string | undefined) {
   ]);
 
   console.log("Mod uploaded successfully.");
+}
+
+function getIsaacScriptDocs() {
+  return chalk.red(
+    "https://isaacscript.github.io/docs/publishing-to-the-workshop/#metadatavdf",
+  );
 }

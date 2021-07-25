@@ -1,8 +1,8 @@
 import chalk from "chalk";
 import * as JSONC from "jsonc-parser";
 import path from "path";
-import * as file from "../file";
-import { execShell } from "../misc";
+import * as file from "../../file";
+import { error, execShell } from "../../misc";
 
 export default function installVSCodeExtensions(projectPath: string): void {
   const extensions = getExtensionsFromJSON(projectPath);
@@ -32,11 +32,10 @@ function getExtensionsFromJSON(projectPath: string) {
   try {
     extensionsJSON = JSONC.parse(extensionsJSONRaw) as ExtensionsJSON;
   } catch (err) {
-    console.error(
+    error(
       `Failed to parse the "${chalk.green(extensionsJSONPath)}" file:`,
       err,
     );
-    process.exit(1);
   }
 
   return extensionsJSON.recommendations;

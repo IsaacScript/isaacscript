@@ -1,17 +1,11 @@
 import path from "path";
-import { Config } from "../Config";
-import * as configFile from "../configFile";
-import { MOD_SOURCE_PATH } from "../constants";
-import * as file from "../file";
-import { execShell } from "../misc";
+import { CURRENT_DIRECTORY_NAME, MOD_SOURCE_PATH } from "../../constants";
+import * as file from "../../file";
+import { execShell } from "../../misc";
+import { Config } from "../../types/Config";
 
-export default function copy(config: Config | null): void {
-  if (config === null) {
-    configFile.errorNotExist();
-    return;
-  }
-
-  const modTargetPath = path.join(config.modsDirectory, config.projectName);
+export default function copy(config: Config): void {
+  const modTargetPath = path.join(config.modsDirectory, CURRENT_DIRECTORY_NAME);
   compileAndCopy(MOD_SOURCE_PATH, modTargetPath);
 }
 

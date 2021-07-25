@@ -1,7 +1,8 @@
 import chalk from "chalk";
 import prompts from "prompts";
-import { CWD } from "../constants";
-import * as file from "../file";
+import { CWD } from "../../constants";
+import * as file from "../../file";
+import { error } from "../../misc";
 
 export default async function checkIfProjectPathExists(
   projectPath: string,
@@ -20,8 +21,7 @@ export default async function checkIfProjectPathExists(
       message: "Do you want me to delete it?",
     });
     if (!response.delete) { // eslint-disable-line
-      console.error("Ok then. Good-bye.");
-      process.exit(1);
+      error("Ok then. Good-bye.");
     }
 
     if (fileType === "directory") {

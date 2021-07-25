@@ -2,7 +2,8 @@ import chalk from "chalk";
 import os from "os";
 import path from "path";
 import prompts from "prompts";
-import * as file from "../file";
+import * as file from "../../file";
+import { error } from "../../misc";
 
 // https://stackoverflow.com/questions/9080085/node-js-find-home-directory-in-platform-agnostic-way
 const homeDir = os.homedir();
@@ -54,27 +55,24 @@ export default async function getModsDir(
   });
 
   if (typeof response.modsDir !== "string") {
-    console.error("Error: The response was not a string.");
-    process.exit(1);
+    error("Error: The response was not a string.");
   }
   const modsDir = response.modsDir.trim();
 
   if (!file.exists(modsDir)) {
-    console.error(
+    error(
       `Error: The directory of "${chalk.green(
         modsDir,
       )}" does not exist. Exiting.`,
     );
-    process.exit(1);
   }
 
   if (!file.isDir(modsDir)) {
-    console.error(
+    error(
       `Error: The path of "${chalk.green(
         modsDir,
       )}" is not a directory. Exiting.`,
     );
-    process.exit(1);
   }
 
   return modsDir;
@@ -91,12 +89,11 @@ function getDefaultModsPath(platform: string) {
     }
 
     default: {
-      console.error(
+      error(
         `There does not exist a default mod path for the platform of: ${chalk.green(
           platform,
         )}`,
       );
-      process.exit(1);
       return "";
     }
   }

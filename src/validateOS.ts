@@ -18,6 +18,5 @@ export function validateOS(): void {
   console.error(
     "(Since the program is written in TypeScript, porting to a new operating system should be easy, but is untested.)",
   );
-
   process.exit(1);
 }
