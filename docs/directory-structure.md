@@ -14,7 +14,7 @@ When you use `isaacscript init`, it will automatically load a directory with som
 
 This is the root directory of your project. It won't actually be called `project`; it will instead be named after your mod.
 
-If you want to track your project in [Git](https://git-scm.com/), this directory will be the root of the Git repository. (`isaacscript` does not automatically initialize a Git repository; you have to do that on your own with `git init` or `git clone`.)
+If you want to track your project in [Git](https://git-scm.com/), this directory should be the root of the Git repository. (`isaacscript` does not automatically initialize a Git repository; you have to do that on your own with `git init` or `git clone`.)
 
 <br />
 
@@ -100,7 +100,7 @@ This contains a list of files that should not be added to a Git repository, if p
 
 ### `isaacscript.json`
 
-This is the configuration file for `isaacscript`.
+This is the configuration file for `isaacscript`. It contains only per-user settings. Thus, it should not be commited to a Git repostiory. You can see the format of the file in [the IsaacScript source code](https://github.com/IsaacScript/isaacscript/blob/main/src/types/Config.ts).
 
 <br />
 
