@@ -16,7 +16,7 @@ fi
 cd "$DIR"
 
 # Step 1 - ESLint
-npx eslint .
+npx eslint --max-warnings 0 .
 
 # Step 2 - Remark
 # We set to quiet to output only warnings and errors
