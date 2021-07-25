@@ -100,7 +100,7 @@ This contains a list of files that should not be added to a Git repository, if p
 
 ### `isaacscript.json`
 
-This is the configuration file for `isaacscript`. It contains only per-user settings. Thus, it should not be commited to a Git repostiory. You can see the format of the file in [the IsaacScript source code](https://github.com/IsaacScript/isaacscript/blob/main/src/types/Config.ts).
+This is the configuration file for `isaacscript`. It contains only per-user settings. Thus, it should not be committed to a Git repository. You can see the format of the file in [the IsaacScript source code](https://github.com/IsaacScript/isaacscript/blob/main/src/types/Config.ts).
 
 <br />
 
