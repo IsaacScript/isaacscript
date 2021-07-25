@@ -2,7 +2,6 @@ import chalk from "chalk";
 import path from "path";
 import { CWD } from "./constants";
 import * as file from "./file";
-import { error } from "./misc";
 
 // Validate that we are in a directory that looks like an IsaacScript project
 export default function validateInIsaacScriptProject(): void {
@@ -16,9 +15,18 @@ export default function validateInIsaacScriptProject(): void {
 }
 
 function errorNotExists(dirName: string) {
-  error(
+  console.error(
     chalk.red(
-      `It looks like the current working directory is not an IsaacScript project. (There is no "${dirName}" subdirectory here.) Exiting...`,
+      `It looks like the current working directory is not an IsaacScript project. (There is no "${dirName}" subdirectory here.)`,
     ),
   );
+  console.error(
+    `Did you mean to create a new IsaacScript project with "${chalk.green(
+      "npx isaacscript init",
+    )}"?`,
+  );
+  console.error(
+    "If not, then change the current working directory to an IsaacScript project.",
+  );
+  process.exit(1);
 }
