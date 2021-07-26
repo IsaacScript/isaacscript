@@ -103,7 +103,7 @@ declare const enum AngelVariant {
 /** For EntityType.ENTITY_THE_LAMB (273) */
 declare const enum LambVariant {
   LAMB = 0,
-  BODY = 1,
+  BODY = 10,
 }
 
 /** For EntityType.ENTITY_ROTGUT (911) */
