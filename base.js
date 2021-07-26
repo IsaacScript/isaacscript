@@ -241,6 +241,13 @@ module.exports = {
     "jsdoc/require-returns": "off",
 
     // Documentation:
+    // https://github.com/gajus/eslint-plugin-jsdoc#eslint-plugin-jsdoc-rules-require-returns-type
+    // Defined at:
+    // https://github.com/gajus/eslint-plugin-jsdoc/blob/master/src/index.js
+    // Since we are using TypeScript, requiring parameter types would be superfluous
+    "jsdoc/require-returns-type": "off",
+
+    // Documentation:
     // https://eslint.org/docs/rules/no-console
     // Defined at:
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/errors.js
