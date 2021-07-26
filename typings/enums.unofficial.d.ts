@@ -76,9 +76,15 @@ declare const enum FireplaceVariant {
   MOVEABLE_PURPLE = 13,
 }
 
+/** For EntityType.ENTITY_FALLEN (81) */
+declare const enum FallenVariant {
+  FALLEN = 0,
+  KRAMPUS = 1,
+}
+
 /** For EntityType.ENTITY_THE_HAUNT (260) */
 declare const enum HauntVariant {
-  BOSS = 0,
+  HAUNT = 0,
   LIL_HAUNT = 10,
 }
 
