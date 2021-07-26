@@ -88,6 +88,12 @@ declare const enum HauntVariant {
   LIL_HAUNT = 10,
 }
 
+/** For EntityType.ENTITY_DINGLE (261) */
+declare const enum DingleVariant {
+  DINGLE = 0,
+  DANGLE = 1,
+}
+
 /** For EntityType.ENTITY_URIEL (271) and EntityType.ENTITY_GABRIEL (272) */
 declare const enum AngelVariant {
   NORMAL = 0,
