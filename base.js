@@ -227,6 +227,13 @@ module.exports = {
     "jsdoc/require-param": "off",
 
     // Documentation:
+    // https://github.com/gajus/eslint-plugin-jsdoc#eslint-plugin-jsdoc-rules-require-param-type
+    // Defined at:
+    // https://github.com/gajus/eslint-plugin-jsdoc/blob/master/src/index.js
+    // Since we are using TypeScript, requiring parameter types would be superfluous
+    "jsdoc/require-param-type": "off",
+
+    // Documentation:
     // https://github.com/gajus/eslint-plugin-jsdoc#eslint-plugin-jsdoc-rules-require-returns
     // Defined at:
     // https://github.com/gajus/eslint-plugin-jsdoc/blob/master/src/index.js
