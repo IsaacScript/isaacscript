@@ -82,6 +82,12 @@ declare const enum HauntVariant {
   LIL_HAUNT = 10,
 }
 
+/** For EntityType.ENTITY_URIEL (271) and EntityType.ENTITY_GABRIEL (272) */
+declare const enum AngelVariant {
+  NORMAL = 0,
+  FALLEN = 1,
+}
+
 /** For EntityType.ENTITY_ROTGUT (911) */
 declare const enum RotgutVariant {
   PHASE_1_HEAD = 0,
