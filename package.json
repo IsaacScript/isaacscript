@@ -10,6 +10,7 @@
   "author": "Zamiell",
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^4.28.5",
+    "cspell": "^5.6.6",
     "eslint": "^7.31.0",
     "eslint-config-isaacscript": "^1.0.41",
     "eslint-plugin-eqeqeq-fix": "^1.0.3",
