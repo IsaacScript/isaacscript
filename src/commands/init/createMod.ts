@@ -5,6 +5,8 @@ import {
   GITIGNORE_TEMPLATE_PATH,
   MAIN_TS,
   MAIN_TS_TEMPLATE_PATH,
+  METADATA_VDF,
+  METADATA_VDF_TEMPLATE_PATH,
   METADATA_XML,
   METADATA_XML_TEMPLATE_PATH,
   PACKAGE_JSON,
@@ -12,8 +14,6 @@ import {
   README_MD,
   README_MD_TEMPLATES_PATH,
   TEMPLATES_STATIC_DIR,
-  TEMPLATES_VSCODE_DIR,
-  VSCODE,
 } from "../../constants";
 import * as file from "../../file";
 import { execShell, snakeKebabToCamel } from "../../misc";
@@ -29,18 +29,19 @@ export default function createMod(
     file.makeDir(projectPath);
   }
 
-  makeSubdirectories(projectPath);
-  copyStaticFiles(projectPath);
-  copyDynamicFiles(projectName, projectPath);
-
   const config = configFile.createObject(modsDirectory, saveSlot);
   configFile.createFile(projectPath, config);
+  const targetModDirectory = path.join(config.modsDirectory, projectName);
+
+  makeSubdirectories(projectPath);
+  copyStaticFiles(projectPath);
+  copyDynamicFiles(projectName, projectPath, targetModDirectory);
 
   installNodeModules(projectPath);
 }
 
 function makeSubdirectories(projectPath: string) {
-  for (const subdirectory of [".vscode", "mod", "src"]) {
+  for (const subdirectory of ["mod", "src"]) {
     const srcPath = path.join(projectPath, subdirectory);
     file.makeDir(srcPath);
   }
@@ -56,20 +57,14 @@ function copyStaticFiles(projectPath: string) {
       file.copy(templateFilePath, destinationFilePath);
     }
   });
-
-  // Also copy the files in the ".vscode" directory
-  const vsCodeFileList = file.getDirList(TEMPLATES_VSCODE_DIR);
-  vsCodeFileList.forEach((fileName: string) => {
-    const templateFilePath = path.join(TEMPLATES_VSCODE_DIR, fileName);
-    const destinationFilePath = path.join(projectPath, VSCODE, fileName);
-    if (!file.exists(destinationFilePath)) {
-      file.copy(templateFilePath, destinationFilePath);
-    }
-  });
 }
 
 // Copy files that need to have text replaced inside of them
-function copyDynamicFiles(projectName: string, projectPath: string) {
+function copyDynamicFiles(
+  projectName: string,
+  projectPath: string,
+  targetModDirectory: string,
+) {
   // ".gitignore"
   {
     const fileName = GITIGNORE;
@@ -131,6 +126,17 @@ function copyDynamicFiles(projectName: string, projectPath: string) {
     const modPath = path.join(projectPath, "mod");
     const destinationPath = path.join(modPath, fileName);
     file.write(destinationPath, metadataXML);
+  }
+
+  // "mod/metadata.vdf"
+  {
+    const fileName = METADATA_VDF;
+    const templatePath = METADATA_VDF_TEMPLATE_PATH;
+    const template = file.read(templatePath);
+    const metadataVDF = template.replace(/MOD_TARGET_DIR/g, targetModDirectory);
+    const modPath = path.join(projectPath, "mod");
+    const destinationPath = path.join(modPath, fileName);
+    file.write(destinationPath, metadataVDF);
   }
 
   // "src/main.ts"

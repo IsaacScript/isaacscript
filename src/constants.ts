@@ -20,8 +20,6 @@ const TEMPLATES_DIR = path.join(REPO_ROOT, "file-templates");
 
 // isaacscript/file-templates/static
 export const TEMPLATES_STATIC_DIR = path.join(TEMPLATES_DIR, "static");
-export const VSCODE = ".vscode";
-export const TEMPLATES_VSCODE_DIR = path.join(TEMPLATES_STATIC_DIR, VSCODE);
 
 // isaacscript/file-templates/dynamic
 const TEMPLATES_DYNAMIC_DIR = path.join(TEMPLATES_DIR, "dynamic");
@@ -36,6 +34,11 @@ export const METADATA_XML = "metadata.xml";
 export const METADATA_XML_TEMPLATE_PATH = path.join(
   TEMPLATES_DYNAMIC_DIR,
   METADATA_XML,
+);
+export const METADATA_VDF = "metadata.vdf";
+export const METADATA_VDF_TEMPLATE_PATH = path.join(
+  TEMPLATES_DYNAMIC_DIR,
+  METADATA_VDF,
 );
 export const PACKAGE_JSON = "package.json";
 export const PACKAGE_JSON_TEMPLATE_PATH = path.join(

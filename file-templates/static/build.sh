@@ -6,12 +6,8 @@ set -e # Exit on any errors
 # https://stackoverflow.com/questions/59895/getting-the-source-directory-of-a-bash-script-from-within
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+# Convert the TypeScript to a single Lua file
 cd "$DIR"
+npx tstl
 
-PACKAGE_JSON="$DIR/package.json"
-OLD_HASH=$(md5sum "$PACKAGE_JSON")
-npx npm-check-updates --upgrade --packageFile "$PACKAGE_JSON"
-NEW_HASH=$(md5SUM "$PACKAGE_JSON")
-if [[ $OLD_HASH != $NEW_HASH ]]; then
-  npm install
-fi
+echo "Success!"
