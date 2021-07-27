@@ -171,7 +171,7 @@ This is the file used by the "ModUploader" tool to upload your mod to the Steam 
 
 ### `mod/metadata.vdf`
 
-This is a file used by IsaacScript to automatically upload your Mod to the Steam Workshop. For this to work, you must edit the file and fill in your mod ID. (The mod ID can be found by looking in the "metadata.xml" file after uploading the mod to the Steam Workshop for the first time.)
+This is a file used by IsaacScript to automatically upload your mod to the Steam Workshop. For this to work, you must edit the file and fill in your mod ID. (The mod ID can be found by looking in the "metadata.xml" file after uploading the mod to the Steam Workshop for the first time.)
 
 <br />
 
