@@ -1,9 +1,6 @@
 declare class Game {
   AddDevilRoomDeal(): void;
-  AddEncounteredBoss(
-    entityType: EntityType | int,
-    variant: EntityVariantForAC,
-  ): void;
+  AddEncounteredBoss(entityType: EntityType | int, variant: int): void;
   AddPixelation(duration: int): void;
   AddStageWithoutDamage(): void;
   AddStageWithoutHeartsPicked(): void;
@@ -147,10 +144,7 @@ declare class Game {
   GetTargetDarkness(): float;
   GetTreasureRoomVisitCount(): int;
   GetVictoryLap(): int;
-  HasEncounteredBoss(
-    entityType: EntityType | int,
-    variant: EntityVariantForAC,
-  ): boolean;
+  HasEncounteredBoss(entityType: EntityType | int, variant: int): boolean;
   HasHallucination(): int;
   IsGreedMode(): boolean;
   IsPaused(): boolean;
@@ -177,7 +171,7 @@ declare class Game {
   ShowRule(): void;
   Spawn(
     entityType: EntityType | int,
-    variant: EntityVariantForAC,
+    variant: int,
     position: Vector,
     velocity: Vector,
     spawner: Entity | null,

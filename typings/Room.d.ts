@@ -132,7 +132,7 @@ declare class Room {
   SpawnGridEntity(
     gridIndex: int,
     gridEntityType: GridEntityType | int,
-    variant: GridEntityVariantForAC,
+    variant: int,
     seed: int,
     varData: int,
   ): boolean;

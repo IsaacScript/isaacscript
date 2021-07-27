@@ -108,13 +108,13 @@ interface CallbackParameters {
   [ModCallbacks.MC_PRE_ENTITY_SPAWN]: [
     callback: (
       entityType: EntityType | int,
-      variant: EntityVariantForAC,
+      variant: int,
       subType: int,
       position: Vector,
       velocity: Vector,
       spawner: Entity,
       initSeed: int,
-    ) => [EntityType | int, EntityVariantForAC, int, int] | void,
+    ) => [EntityType | int, int, int, int] | void,
   ];
   [ModCallbacks.MC_POST_FAMILIAR_RENDER]: [
     callback: (entityFamiliar: EntityFamiliar, renderOffset: Vector) => void,
@@ -344,11 +344,11 @@ interface CallbackParameters {
   [ModCallbacks.MC_PRE_ROOM_ENTITY_SPAWN]: [
     callback: (
       entityType: EntityType | int,
-      variant: EntityVariantForAC,
+      variant: int,
       subType: int,
       gridIndex: int,
       seed: int,
-    ) => [EntityType | int, EntityVariantForAC, int] | void,
+    ) => [EntityType | int, int, int] | void,
   ];
 }
 

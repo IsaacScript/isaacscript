@@ -42,7 +42,7 @@ declare class EntityNPC extends Entity {
   MakeSplat(size: float): EntityEffect;
   Morph(
     entityType: EntityType | int,
-    variant: EntityVariantForAC,
+    variant: int,
     subType: int,
     championColorIdx: ChampionColor,
   ): boolean;
@@ -59,7 +59,7 @@ declare class EntityNPC extends Entity {
     entityType: EntityType | int,
     onlyEnemies: boolean,
   ): EntityList;
-  QueryNPCsType(entityType: EntityNPC, variant: EntityVariantForAC): EntityList;
+  QueryNPCsType(entityType: EntityNPC, variant: int): EntityList;
   ResetPathFinderTarget(): void;
 
   // EntityNPC.CanShutDoors conflicts with Entity.CanShutDoors(),

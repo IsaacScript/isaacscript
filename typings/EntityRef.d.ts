@@ -6,7 +6,7 @@ declare class EntityRef {
   IsFriendly: boolean;
   Position: Vector;
   SpawnerType: EntityType | int;
-  SpawnerVariant: EntityVariantForAC;
+  SpawnerVariant: int;
   Type: EntityType | int;
-  Variant: EntityVariantForAC;
+  Variant: int;
 }

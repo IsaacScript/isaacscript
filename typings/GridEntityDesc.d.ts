@@ -6,5 +6,5 @@ declare class GridEntityDesc {
   Type: GridEntityType | int;
   VarData: int;
   VariableSeed: int;
-  Variant: GridEntityVariantForAC;
+  Variant: int;
 }

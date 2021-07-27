@@ -15,7 +15,7 @@ declare class EntityPickup extends Entity {
    */
   Morph(
     entityType: EntityType | int,
-    variant: EntityVariantForAC,
+    variant: int,
     subType: int,
     keepPrice?: boolean,
     keepSeed?: boolean,

@@ -1,19 +1,3 @@
-/**
- * EntityVariantForAC (all classes) is a composition of multiple different kinds of variants for the
- * purposes of aiding auto-completion. Note that this type does not actually provide any type
- * safety. (e.g. "Variant: EntityVariantForAC" is the same as "Variant: int".)
- */
-type EntityVariantForAC =
-  | EffectVariant
-  | PickupVariant
-  | BombVariant
-  | FamiliarVariant
-  | TearVariant
-  | ProjectileVariant
-  | PlayerVariant
-  | LaserVariant
-  | int;
-
 declare class Entity {
   AddBurn(source: EntityRef, duration: int, damage: float): void;
   AddCharmed(source: EntityRef, duration: int): void;
@@ -127,7 +111,7 @@ declare class Entity {
   readonly SpawnGridIndex: int;
   SpawnerEntity: Entity | null;
   SpawnerType: EntityType | int;
-  SpawnerVariant: EntityVariantForAC;
+  SpawnerVariant: int;
   readonly SplatColor: Readonly<Color>;
   SpriteOffset: Vector;
   SpriteRotation: float;
@@ -136,7 +120,7 @@ declare class Entity {
   Target: Entity | null;
   readonly TargetPosition: Readonly<Vector>;
   readonly Type: EntityType | int;
-  Variant: EntityVariantForAC;
+  Variant: int;
   Velocity: Vector;
   Visible: boolean;
 }

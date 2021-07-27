@@ -25,7 +25,7 @@ declare global {
     function CountEntities(
       spawner: never, // Entity | null,
       entityType?: EntityType | int,
-      variant?: EntityVariantForAC,
+      variant?: int,
       subType?: int,
     ): int;
     function DebugString(msg: string): Mod;
@@ -44,7 +44,7 @@ declare global {
      */
     function FindByType(
       entityType: EntityType | int,
-      variant?: EntityVariantForAC,
+      variant?: int,
       subType?: int,
       cache?: boolean,
       ignoreFriendly?: boolean,
@@ -66,7 +66,7 @@ declare global {
     function GetCostumeIdByPath(path: string): int;
     function GetCurseIdByName(curseName: string): LevelCurse | int;
     function GetEntityTypeByName(entityName: string): EntityType | int;
-    function GetEntityVariantByName(entityName: string): EntityVariantForAC;
+    function GetEntityVariantByName(entityName: string): int;
     function GetFrameCount(): int;
     function GetFreeNearPosition(position: Vector, step: float): Vector;
     function GetItemConfig(): ItemConfig;
@@ -111,7 +111,7 @@ declare global {
     function GetTrinketIdByName(trinketName: string): TrinketType | int;
     function GridSpawn(
       gridEntityType: GridEntityType | int,
-      variant: GridEntityVariantForAC,
+      variant: int,
       position: Vector,
       forced: boolean,
     ): GridEntity;
@@ -149,7 +149,7 @@ declare global {
     function ScreenToWorldDistance(position: Vector): Vector;
     function Spawn(
       entityType: EntityType | int,
-      entityVariant: EntityVariantForAC,
+      entityVariant: int,
       entitySubType: int,
       position: Vector,
       velocity: Vector,

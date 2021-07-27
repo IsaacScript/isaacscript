@@ -18,5 +18,5 @@ declare class EntityEffect extends Entity {
   Timeout: int;
   m_Height: float;
 
-  static IsPlayerCreep(this: void, variant: EntityVariantForAC): boolean;
+  static IsPlayerCreep(this: void, variant: int): boolean;
 }
