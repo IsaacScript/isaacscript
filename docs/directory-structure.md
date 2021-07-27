@@ -18,11 +18,34 @@ If you want to track your project in [Git](https://git-scm.com/), this directory
 
 <br />
 
+### `project/.github`
+
+This directory contains the file for GitHub Actions (i.e. [continuous integration](https://en.wikipedia.org/wiki/Continuous_integration)).
+
+(If you do not use GitHub, feel free to delete this directory.)
+
+If you want to be alerted via Discord if a commit fails CI, then perform the following steps:
+
+1. In your Discord server, right click on the intended channel and select "Edit Channel".
+1. Select "Integrations" from the menu on the left-hand-side.
+1. Click on "View Webhooks".
+1. Click on "New Webhook".
+1. Name the bot "GitHub" and give it a profile picture of the GitHub icon.
+1. Click on "Copy Webhook URL".
+1. On the main page of your GitHub repository, select "Settings" from the top menu.
+1. Select "Secrets" from the menu on the left-hand-side.
+1. Click on "New repository secret".
+1. Name the secret `DISCORD_WEBHOOK`.
+1. Paste in the URL from earlier as the "Value".
+1. Click on "Add secret".
+
+<br />
+
 ### `project/.vscode`
 
 This directory contains some stock settings that are recommended for VSCode to work properly with IsaacScript projects.
 
-Leave this directory in place and ignore it, unless you want to customize the settings. (If you do not use VSCode, feel free to delete this directory.)
+Ignore this directory, unless you want to customize the settings. (If you do not use VSCode, feel free to delete this directory.)
 
 <br />
 
