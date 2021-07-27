@@ -101,6 +101,14 @@ If VSCode incorrectly reports that a file is misspelled, you can right-click on 
 
 <br />
 
+### `.env_template`
+
+This is a template for a `.env` file; you are intended to copy it to `.env` and then fill in the values.
+
+The `.env` file is only needed if IsaacScript is publishing your mod to the Steam Workshop.
+
+<br />
+
 ### `.eslintrc.js`
 
 This is the configuration file for [ESLint](https://eslint.org/), the TypeScript linter.
@@ -121,9 +129,23 @@ This contains a list of files that should not be added to a Git repository, if p
 
 <br />
 
+### `build.sh`
+
+This is a helper script to compile the project. (It is also used in CI.)
+
+<br />
+
 ### `isaacscript.json`
 
 This is the configuration file for `isaacscript`. It contains only per-user settings. Thus, it should not be committed to a Git repository. You can see the format of the file in [the IsaacScript source code](https://github.com/IsaacScript/isaacscript/blob/main/src/types/Config.ts).
+
+<br />
+
+### `lint.sh`
+
+This is a helper script to lint and spell-check the project. (It is also used in CI.)
+
+<br />
 
 <br />
 
@@ -155,9 +177,21 @@ You are not supposed to edit this file; just leave it in place so that `npm` can
 
 <br />
 
+### `publish.sh`
+
+This is a helper script to invoke `npx isaacscript publish`.
+
+<br />
+
 ### `README.md`
 
 This is the README file for your project, which should contain a brief description of your mod. It uses [Markdown](https://guides.github.com/features/mastering-markdown/), which is the standard format for README files.
+
+<br />
+
+### `run.sh`
+
+This is a helper script to invoke `npx isaacscript`.
 
 <br />
 
@@ -166,3 +200,9 @@ This is the README file for your project, which should contain a brief descripti
 These are the configuration files for the [TypeScript](https://www.typescriptlang.org/) programming language. The main one is `tsconfig.json`. `tsconfig.eslint.json` extends the main one to make ESLint work properly.
 
 Normally, you should not need to touch these files. However, you can edit `tsconfig.json` if you need to add or remove a particular compiler flag.
+
+<br />
+
+### `update.sh`
+
+This is a helper script to update the project dependencies.
