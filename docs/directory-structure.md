@@ -157,6 +157,24 @@ Feel free to change this to something else if you don't like GPLv3.
 
 <br />
 
+### `mod/main.lua`
+
+This is the transpiled Lua output of your TypeScript source code. All TypeScript code is combined into one big Lua file. There is no need to commit this file to a Git repository, so it is included in the ".gitignore" file by default.
+
+<br />
+
+### `mod/metadata.xml`
+
+This is the file used by the "ModUploader" tool to upload your mod to the Steam Workshop. It contains a description of your mod and other metadata. IsaacScript creates a basic one for you, but when you upload your mod to the Steam Workshop for the first time, more information will be added (like the ID of the mod).
+
+<br />
+
+### `mod/metadata.vdf`
+
+This is a file used by IsaacScript to automatically upload your Mod to the Steam Workshop. For this to work, you must edit the file and fill in your mod ID. (The mod ID can be found by looking in the "metadata.xml" file after uploading the mod to the Steam Workshop for the first time.)
+
+<br />
+
 ### `package.json`
 
 This is the configuration file for [npm](https://www.npmjs.com/), the Node package manager. It contains a description of your project and a list of all of the dependencies.
