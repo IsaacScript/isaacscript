@@ -101,7 +101,10 @@ declare interface CustomStage {
   /** Sets the boss music used by the stage. */
   SetBossMusic(musicID: int, clearedMusicID: int): void;
 
-  /** Sets the paths to the "spot" graphic, the patch of ground underneath the boss and player sprites in the pre-boss cutscene. */
+  /**
+   * Sets the paths to the "spot" graphic,
+   * the patch of ground underneath the boss and player sprites in the pre-boss cutscene.
+   */
   SetSpots(bossSpot: string | null, playerSpot: string | null): void;
 
   /** Sets the available bosses for the stage. */
@@ -113,8 +116,8 @@ declare interface CustomStage {
   /**
    * Indicates that this stage overrides alt rock effects.
    *
-   * @param rooms If present, only overrides rock alt effects for the specified {@link RoomType RoomTypes}.
-   * If absent, overrides alt rocks everywhere.
+   * @param rooms If present, only overrides rock alt effects for the specified
+   * {@link RoomType RoomTypes}. If absent, overrides alt rocks everywhere.
    *
    * DOES NOT add any new effects on its own.
    */
@@ -139,7 +142,8 @@ declare interface GridGfx {
    *
    * Alt Pits are used where water pits would be.
    *
-   * @param hasExtraFrames Controls for situations where the base game would not normally tile pits specially.
+   * @param hasExtraFrames Controls for situations where the base game would not normally tile pits
+   * specially.
    */
   SetPits(
     filename: string,

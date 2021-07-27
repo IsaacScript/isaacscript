@@ -56,7 +56,10 @@ declare global {
     function RoomsList(name: string, ...layouts: unknown[]): RoomsList;
     function GridGfx(): GridGfx;
 
-    /** Stores a function and its params in a table indexed by `ID` and sorted by `priority`, where low priority is at the start. */
+    /**
+     * Stores a function and its params in a table indexed by `ID` and sorted by `priority`,
+     * where low priority is at the start.
+     */
     function AddCallback<T extends keyof StageAPICallbackParameters>(
       modID: string,
       id: T,
@@ -75,9 +78,11 @@ declare global {
     ): void;
 
     /**
-     * Convenience function that assembles filenames and packages them in a {@link Backdrop} for you.
+     * Convenience function that assembles filenames and packages them in a {@link Backdrop} for
+     * you.
      *
-     * @param prefix the path to the directory containing the backdrop spritesheets, as well as any shared prefix.
+     * @param prefix the path to the directory containing the backdrop spritesheets,
+     * as well as any shared prefix.
      *
      *  Ex: "gfx/backdrop/revel1/glacier/main_"
      * @param suffix Generally the file extension, i.e. `".png"`.

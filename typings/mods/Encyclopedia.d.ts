@@ -105,12 +105,16 @@ declare class EncyclopediaObj {
 }
 
 /**
- * Contains Encyclopedia's custom item pool system. It uses custom item pools in order to allow better compatibility with modded pools. The same as the ItemPoolType enum, but every pool is 1 value higher, "to handle table indices better".
+ * Contains Encyclopedia's custom item pool system.
+ * It uses custom item pools in order to allow better compatibility with modded pools.
+ * The same as the ItemPoolType enum, but every pool is 1 value higher,
+ * "to handle table indices better".
  */
 declare type EncyclopediaItemPools = Record<string, number>;
 
 /**
- * A description for an item. Each object in the array is a category, containing a header and as many paragraphs as are needed.
+ * A description for an item. Each object in the array is a category,
+ * containing a header and as many paragraphs as are needed.
  */
 declare type WikiDescription = [
   {

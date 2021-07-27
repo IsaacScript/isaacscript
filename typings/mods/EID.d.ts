@@ -81,7 +81,8 @@ declare class ExternalItemDescriptions {
    * Adds Description object modifiers.
    * Used for altering descriptions. Examples: Spindown dice, Tarot Cloth, etc.
    *
-   * @param condition A function that returns `true` if `callback` should be called on the given description string.
+   * @param condition A function that returns `true` if `callback` should be called on the given
+   * description string.
    * @param callback A function that returns a modified version of the given description string.
    */
   addDescriptionModifier(
@@ -182,7 +183,8 @@ declare class ExternalItemDescriptions {
   copyKColor(colorObj: KColor): KColor;
 
   /**
-   * Tries to read special markup used to generate icons for all Collectibles/Trinkets and the default Cards/Pills.
+   * Tries to read special markup used to generate icons for all collectibles/trinkets and the
+   * default cards/pills.
    *
    * @returns An `EIDInlineIcon` Object or `null` if no parsing was possible.
    */
@@ -203,9 +205,11 @@ declare class ExternalItemDescriptions {
   displayPermanentText(descriptionObject: EIDDescriptionObj): void;
 
   /**
-   * Filters a given string and looks for `KColor` markup. Splits the text into subsections limited by them.
+   * Filters a given string and looks for `KColor` markup.
+   * Splits the text into subsections limited by them.
    *
-   * @returns An array of tables containing subsections of the text, their respective `KColor`, and the width of the subsection.
+   * @returns An array of tables containing subsections of the text, their respective `KColor`,
+   * and the width of the subsection.
    */
   filterColorMarkup(
     text: string,
@@ -245,12 +249,14 @@ declare class ExternalItemDescriptions {
   /**
    * Gets a `KColor` from a Markup-string (example Input: `"{{ColorText}}"`).
    *
-   * @returns The `KColor` object and a `boolean` value indicating if the given string was a color markup or not.
+   * @returns The `KColor` object and a `boolean` value indicating if the given string was a color
+   * markup or not.
    */
   getColor(str: string, baseKColor: KColor): LuaMultiReturn<[KColor, boolean]>;
 
   /**
-   * Returns the description data table in the current language related to a given id, variant and subtype.
+   * Returns the description data table in the current language related to a given id, variant and
+   * subtype.
    *
    * Falls back to English if it doesn't exist.
    */
@@ -292,7 +298,8 @@ declare class ExternalItemDescriptions {
   /**
    * Fetches description table from the legacy mod descriptions if they exist.
    *
-   * @returns ["", "", description], ["", name, description], or `null` (if there is no legacy description).
+   * @returns ["", "", description], ["", name, description],
+   * or `null` (if there is no legacy description).
    */
   getLegacyModDescription(
     Type: int,
@@ -428,7 +435,8 @@ declare class ExternalItemDescriptions {
   ): void;
 
   /**
-   * Renders a given string using the EID custom font. This will also apply any markup and render icons.
+   * Renders a given string using the EID custom font.
+   * This will also apply any markup and render icons.
    *
    * Needs to be called in a render callback.
    *
@@ -451,12 +459,14 @@ declare class ExternalItemDescriptions {
    *
    * Result: `"{{Crafting8}}{{Crafting7}}{{Crafting6}}{{Crafting5}}{{Crafting4}}{{Crafting3}}{{Crafting2}}{{Crafting1}}"`.
    *
-   * Prefer {@link EID.tableToCraftingIconsMerged tableToCraftingIconsMerged()}, due to improved render performance.
+   * Prefer {@link EID.tableToCraftingIconsMerged tableToCraftingIconsMerged()},
+   * due to improved render performance.
    */
   tableToCraftingIconsFull(craftTable: int[]): string;
 
   /**
-   * Converts a given table into a string containing the crafting icons of the table, which are also grouped to reduce render lag.
+   * Converts a given table into a string containing the crafting icons of the table,
+   * which are also grouped to reduce render lag.
    *
    * Example input: `{1,1,1,2,2,3,3,3}`.
    *
