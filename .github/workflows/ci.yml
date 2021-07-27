@@ -28,7 +28,7 @@ jobs:
         run: npm ci
 
       - name: Perform automated checks
-        run: ./lint.sh
+        run: bash lint.sh
 
   discord:
     name: Discord Failure Notification
