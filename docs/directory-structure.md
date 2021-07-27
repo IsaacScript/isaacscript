@@ -129,6 +129,14 @@ This contains a list of files that should not be added to a Git repository, if p
 
 <br />
 
+### `.prettierrc.js`
+
+This is the configuration file for Prettier (which is invoked as an ESLint plugin).
+
+If you need to modify a specific aspect of Prettier, you can edit this file.
+
+<br />
+
 ### `build.sh`
 
 This is a helper script to compile the project. (It is also used in CI.)
