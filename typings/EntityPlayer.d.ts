@@ -36,7 +36,8 @@ declare class EntityPlayer extends Entity {
   /**
    * @param collectibleType
    * @param charge Default is 0.
-   * @param addConsumables Default is true.
+   * @param firstTimePickingUp Setting this to false will not spawn or add consumables for the item
+   * and will not cause it to count towards transformations. Default is true.
    * @param activeSlot Sets the active slot this collectible should be added to.
    * Default is ActiveSlot.SLOT_PRIMARY.
    * @param varData Sets the variable data for this collectible (this is used to store extra data
@@ -46,7 +47,7 @@ declare class EntityPlayer extends Entity {
   AddCollectible(
     collectibleType: CollectibleType | int,
     charge?: int,
-    addConsumables?: boolean,
+    firstTimePickingUp?: boolean,
     activeSlot?: ActiveSlot,
     varData?: int,
   ): void;
@@ -124,9 +125,13 @@ declare class EntityPlayer extends Entity {
    * If you provide an argument of 0 or an otherwise invalid trinket ID, the game will crash.
    *
    * @param trinketType
-   * @param addConsumables Default is true
+   * @param firstTimePickingUp Setting this to false will not spawn or add consumables for the item
+   * and will not cause it to count towards transformations. Default is true.
    */
-  AddTrinket(trinketType: TrinketType | int, addConsumables?: boolean): void;
+  AddTrinket(
+    trinketType: TrinketType | int,
+    firstTimePickingUp?: boolean,
+  ): void;
   /**
    * Spawns a Book of Virtues wisp.
    *
