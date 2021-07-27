@@ -53,7 +53,7 @@ If you want to be alerted via Discord if a commit fails CI, then perform the fol
 
 This directory contains some stock settings that are recommended for VSCode to work properly with IsaacScript projects.
 
-Ignore this directory, unless you want to customize the settings. (If you do not use VSCode, feel free to delete this directory.)
+If you do not use VSCode, feel free to delete this directory.
 
 <br />
 
@@ -85,7 +85,7 @@ More info:
 
 - `node_modules` is generated when you type `npm install` in a directory with a `package.json` file in it.
 - `isaacscript init` automatically creates a `package.json` file for you and does an `npm install` when you start a new project.
-- This directory will contain a lot of files and is usually 150+ megabytes in size.
+- This directory will contain a lot of files and is usually 100+ megabytes in size.
 - `node_modules` are always excluded from being tracked in a Git repository.
   - There will already be an entry for `node_modules` in the `.gitignore` file installed by `isaacscript`.
 
@@ -121,13 +121,13 @@ The `.env` file is only needed if IsaacScript is publishing your mod to the Stea
 
 This is the configuration file for [ESLint](https://eslint.org/), the TypeScript linter.
 
-Normally, you should not need to touch this file, but you can edit it if you need to disable a specific linting rule.
+You can edit this file if you need to disable a specific linting rule.
 
 <br />
 
 ### `.gitattributes`
 
-This contains specific Git attributes that should be applied to this Git repository, if present. By default, it prevent Windows systems from cloning the repository with "\r\n" line endings.
+This contains specific Git attributes that should be applied to this Git repository, if present. By default, it prevent Windows systems from cloning the repository with "\r\n" line endings (since "\n" line endings should always be used for consistency).
 
 <br />
 
@@ -141,7 +141,7 @@ This contains a list of files that should not be added to a Git repository, if p
 
 This is the configuration file for Prettier (which is invoked as an ESLint plugin).
 
-If you need to modify a specific aspect of Prettier, you can edit this file.
+If you need to modify a specific option of Prettier, you can edit this file.
 
 <br />
 
@@ -195,11 +195,9 @@ This is a file used by IsaacScript to automatically upload your mod to the Steam
 
 This is the configuration file for [npm](https://www.npmjs.com/), the Node package manager. It contains a description of your project and a list of all of the dependencies.
 
-In general, you should not need to touch this file. If you decide to add a new dependency (e.g. `npm install lodash --save`), then `npm` would automatically edit the `package.json` file accordingly. (Beware of adding dependencies, since [it will break tstl](gotchas.md#npm-dependencies).)
+If you decide to add a new dependency (e.g. `npm install lodash --save`), then `npm` would automatically edit the `package.json` file accordingly. (Beware of adding dependencies, since [it will likely not work properly](gotchas.md#npm-dependencies).)
 
-Note that normally, a TypeScript project would have "devDependencies" of TypeScript, ESLint, and so forth. However, in the IsaacScript framework, all you have to do is depend on `isaacscript`, and `isaacscript` in turn depends on everything you need. This makes things a little bit simpler for you.
-
-(If for whatever reason you want more granularity in your dependencies, then you can instead change your package.json file to depend on `typescript`, `typescript-to-lua`, `isaac-typescript-definitions`, and so on.)
+Note that normally, a TypeScript project would have "devDependencies" of TypeScript, ESLint, and so forth. However, in an IsaacScript project, all you have to do is depend on `isaacscript`, and `isaacscript` in turn depends on everything you need. This makes things a little bit simpler for you.
 
 <br />
 
@@ -233,10 +231,10 @@ This is a helper script to invoke `npx isaacscript`.
 
 These are the configuration files for the [TypeScript](https://www.typescriptlang.org/) programming language. The main one is `tsconfig.json`. `tsconfig.eslint.json` extends the main one to make ESLint work properly.
 
-Normally, you should not need to touch these files. However, you can edit `tsconfig.json` if you need to add or remove a particular compiler flag.
+Edit `tsconfig.json` if you need to add or remove a particular compiler flag.
 
 <br />
 
 ### `update.sh`
 
-This is a helper script to update the project dependencies.
+This is a helper script to automatically update the project dependencies.
