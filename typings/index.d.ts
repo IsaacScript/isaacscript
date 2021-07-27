@@ -81,3 +81,5 @@
 /// <reference path="mods/EID.d.ts" />
 /// <reference path="mods/MusicModCallback.d.ts" />
 /// <reference path="mods/StageAPI.d.ts" />
+/// <reference path="mods/StageAPI_Interfaces.d.ts" />
+/// <reference path="mods/StageAPI_unofficial.d.ts" />
