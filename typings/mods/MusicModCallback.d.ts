@@ -1,4 +1,5 @@
 declare const MMC: MusicModCallback;
+
 declare class MusicModCallback {
   /**
    * Adds a callback to be triggered whenever a track is about to play. Used for changing music.
@@ -25,11 +26,13 @@ declare class MusicModCallback {
       | null,
     ...tracks: Music[]
   ): void;
+
   /**
    * @returns The ID of the intended boss room entry music for this room (e.g. Satan, Mom).
    * If not in a boss room, it will simply return one of the two generic themes.
    */
   GetBossTrack(): Music;
+
   /**
    * @returns Either the ID of the current room's music, or a LuaMultiReturn containing the current
    * jingle's ID and the current room's track ID.
@@ -40,20 +43,24 @@ declare class MusicModCallback {
   GetMusicTrack(): LuaMultiReturn<
     [currentRoomMusicOrJingle: Music, currentRoomMusic?: Music]
   >;
+
   GetStageTrack(): Music;
   InCustomStage(): boolean;
+
   /**
    * @returns A table that behaves identically to the MusicManager class, except that it will call
    * all mod callbacks. Useful if you want to allow others to change the music of your custom room
    * or stage with Music API.
    */
   Manager(): MusicManager;
+
   /**
    * This will remove all callbacks associated with the mod.
    *
    * @param mod The mod object that you created with RegisterMod.
    */
   RemoveMusicCallback(mod: Mod): void;
+
   /**
    * True if music layers are disabled in favour of a mod that does not allow them.
    * False by default.
@@ -62,10 +69,12 @@ declare class MusicModCallback {
    * true.
    */
   DisableMusicLayers: boolean;
+
   /**
    * This variable is true if the mod has fully loaded. False otherwise.
    */
   Initialised: boolean; // cspell:disable-line
+
   /**
    * The current version of the API. You can check that the right version is installed with your
    * mod, as there is a slight possibility that future versions will not be backwards compatible.

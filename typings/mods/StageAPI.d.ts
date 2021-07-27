@@ -45,12 +45,14 @@ declare global {
       StageOverrideStage?: StageOverrideStage,
       noSetReplaces?: boolean,
     ): CustomStage;
+
     function RoomGfx(
       Backdrop: Backdrop,
       GridGfx: GridGfx | null,
       shadingName: string,
       shadingPrefix: string,
     ): RoomGfx;
+
     function RoomsList(name: string, ...layouts: unknown[]): RoomsList;
     function GridGfx(): GridGfx;
 
@@ -61,14 +63,17 @@ declare global {
       priority: int,
       ...args: StageAPICallbackParameters[T]
     ): void;
+
     /** Unregisters all mod callbacks, should be used when a mod loads, useful for `luamod`. */
     function UnregisterCallbacks(modID: Mod): void;
+
     /** Teleports the player(s) to a specified stage */
     function GotoCustomStage(
       CustomStage: CustomStage,
       playTransition?: boolean,
       noForgetSeed?: boolean,
     ): void;
+
     /**
      * Convenience function that assembles filenames and packages them in a {@link Backdrop} for you.
      *

@@ -79,6 +79,7 @@
 /// <reference path="VectorList.d.ts" />
 
 /// <reference path="mods/EID.d.ts" />
+/// <reference path="mods/Encyclopedia.d.ts" />
 /// <reference path="mods/MusicModCallback.d.ts" />
 /// <reference path="mods/StageAPI.d.ts" />
 /// <reference path="mods/StageAPI_Interfaces.d.ts" />
