@@ -76,6 +76,12 @@ declare const enum FireplaceVariant {
   MOVEABLE_PURPLE = 13,
 }
 
+/** For EntityType.ENTITY_MOM (45) */
+declare const enum MomVariant {
+  MOM = 0,
+  STOMP = 10,
+}
+
 /** For EntityType.ENTITY_FALLEN (81) */
 declare const enum FallenVariant {
   FALLEN = 0,
@@ -120,7 +126,7 @@ declare const enum MotherVariant {
   BALL = 100,
 }
 
-/** For EntityType.ENTITY_MOTHER (951) */
+/** For EntityType.ENTITY_BEAST (951) */
 declare const enum BeastVariant {
   BEAST = 0,
   STALACTITE = 1,
