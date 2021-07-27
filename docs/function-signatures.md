@@ -179,7 +179,7 @@ function preUseItem(
 ```typescript
 function preEntitySpawn(
   entityType: EntityType | int,
-  variant: EntityVariantForAC,
+  variant: int,
   subType: int,
   position: Vector,
   velocity: Vector,
@@ -526,7 +526,7 @@ function preSpawnClearAward(rng: RNG, spawnPosition: Vector): void {}
 ```typescript
 function preRoomEntitySpawn(
   entityType: EntityType | int,
-  variant: EntityVariantForAC,
+  variant: int,
   subType: int,
   gridIndex: int,
   seed: int,
