@@ -40,11 +40,6 @@ In order for `steamcmd.exe` to work, you must create a file called `metadata.vdf
 
 ### `.env`
 
-In order for `steamcmd.exe` to work, it needs your Steam username and password. Create a file called `.env` in the root of your project that contains the following:
+In order for `steamcmd.exe` to work, it needs your Steam username and password. Copy the `.env_template` file in the root of your project to `.env`and fill in the values.
 
-```bash
-STEAM_USERNAME="[your username]"
-STEAM_PASSWORD="[your password]"
-```
-
-Make sure that there is an entry for the `.env` file in your `.gitignore`, because you (obviously) don't want to upload this to GitHub/GitLab. (This entry will be there by default for mods created with `isaacscript init`.)
+Make sure that there is an entry for the `.env` file in your `.gitignore`, because you (obviously) don't want to upload this to GitHub/GitLab. (This entry will exist by default for mods created with `isaacscript init`.)
