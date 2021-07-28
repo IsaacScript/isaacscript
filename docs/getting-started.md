@@ -146,5 +146,3 @@ That's it! Now, start coding by editing the `src/main.ts` file.
   - `npx isaacscript`
 - Start coding by editing the `src/main.ts` file.
   - I recommend using [Visual Studio Code](https://code.visualstudio.com/) as the text editor / IDE to write TypeScript with.
-
-See the next page for a short demonstration of what the IsaacScript program is doing in the background.
