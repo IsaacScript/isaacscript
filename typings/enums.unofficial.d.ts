@@ -128,10 +128,10 @@ declare const enum MotherVariant {
 
 /** For EntityType.ENTITY_DOGMA (950) */
 declare const enum DogmaVariant {
-  DOGMA = 0,
+  DOGMA_PHASE_1 = 0,
   TV = 1,
-  ANGEL = 2,
-  ANGEL_BABY = 10,
+  ANGEL_PHASE_2 = 2,
+  ANGEL_BABY_UNUSED = 10,
 }
 
 /** For EntityType.ENTITY_BEAST (951) */
