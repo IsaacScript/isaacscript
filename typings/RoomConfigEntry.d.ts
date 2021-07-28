@@ -1,6 +1,6 @@
 declare class RoomConfigEntry {
   Subtype: int;
-  Type: RoomType;
+  Type: EntityType;
   Variant: int;
   Weight: int;
 }
