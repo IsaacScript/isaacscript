@@ -12,6 +12,11 @@ module.exports = {
   organizationName: "IsaacScript",
   projectName: "IsaacScript.github.io",
   themeConfig: {
+    algolia: {
+      apiKey: "210ae7b73b3bbdd54c425ea1ecb7aa3c",
+      indexName: "isaacscript",
+      contextualSearch: false, // Only useful for versioned sites, e.g. docs for v1, v2
+    },
     colorMode: {
       defaultMode: "dark",
     },
