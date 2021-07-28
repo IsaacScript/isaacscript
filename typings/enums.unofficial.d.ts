@@ -126,6 +126,14 @@ declare const enum MotherVariant {
   BALL = 100,
 }
 
+/** For EntityType.ENTITY_DOGMA (950) */
+declare const enum DogmaVariant {
+  DOGMA = 0,
+  TV = 1,
+  ANGEL = 2,
+  ANGEL_BABY = 10,
+}
+
 /** For EntityType.ENTITY_BEAST (951) */
 declare const enum BeastVariant {
   BEAST = 0,
