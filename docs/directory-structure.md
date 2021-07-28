@@ -8,7 +8,7 @@ When you use `isaacscript init`, it will automatically load a directory with som
 project/
 ├── src/ (TypeScript source code)
 |   └── main.ts
-├── mod/ (what will exist in the "real" mod directory)
+└── mod/ (what will exist in the "real" mod directory)
     ├── main.lua
     └── metadata.xml
 ```
