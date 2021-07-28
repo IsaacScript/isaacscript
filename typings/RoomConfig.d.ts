@@ -1,3 +1,5 @@
+// This is "RoomConfig::Room" in the docs
+
 declare class RoomConfig {
   /**
    * This is not the same thing as the Difficulty enum.
