@@ -6,9 +6,9 @@ This is a tutorial that shows off how to code a simple mod with IsaacScript. Our
 
 <br />
 
-## 0) Unpack the Games Resources
+## 0) Extract the Game's Resources
 
-Most modders will have already done this, but just in case you haven't, you should run the game's unpacker. This is located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\tools\ResourceExtractor\ResourceExtractor.exe`
+Most modders will have already done this, but just in case you haven't, you should run the game's resource extrator. (This is also referred to as the unpacker.) The extractor is located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\tools\ResourceExtractor\ResourceExtractor.exe`
 
 (Messages like `WARNING: could not return filename for entry 35a142c2bed2d0cf` are normal.)
 
