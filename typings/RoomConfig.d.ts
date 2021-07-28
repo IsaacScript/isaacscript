@@ -1,14 +1,16 @@
-// This is "RoomConfig::Room" in the docs
-
 declare class RoomConfig {
-  Difficulty: Difficulty;
-  // Doors: IntList; // IntList is not implemented
+  /**
+   * This is not the same thing as the Difficulty enum.
+   * Each room has an arbitrarily set difficulty of 0, 1, 2, 5, or 10.
+   */
+  Difficulty: int;
+  Doors: int;
   Height: int;
   InitialWeight: float;
   Name: string;
   Shape: RoomShape;
   SpawnCount: int;
-  // Spawns: SpawnList; // SpawnList is not implemented
+  Spawns: SpawnList;
   StageID: int;
   Subtype: int;
   Type: RoomType;
