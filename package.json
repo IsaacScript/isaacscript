@@ -1,6 +1,6 @@
 {
   "name": "isaacscript-common",
-  "version": "1.0.36",
+  "version": "1.0.37",
   "description": "Helper functions for IsaacScript mods",
   "keywords": [
     "isaac",
@@ -18,12 +18,12 @@
   },
   "license": "GPL-3.0",
   "author": "Zamiell",
+  "main": "./dist/index",
   "types": "dist/common.d.ts",
   "files": [
     "dist/**/*.lua",
     "dist/**/*.d.ts"
   ],
-  "main": "./dist/index",
   "dependencies": {
     "isaac-typescript-definitions": "^1.0.99"
   },
