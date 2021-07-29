@@ -7,6 +7,3 @@ set -e # Exit on any errors
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 npx typedoc --out "$DIR/docs" "$DIR/src/index.ts"
-
-# TEST
-ls -l "$DIR/docs"
