@@ -13,7 +13,7 @@ npx typedoc "$DIR/src/index.ts"
 
 # Force push the "docs" directory to the "gh-pages" branch of the repository
 # From: https://roelofjanelsinga.com/articles/how-to-set-up-automatically-deploy-website-github-pages/
-set -euxo pipefail
-git fetch -p origin
-GIT_COMMIT=$(git subtree split --prefix docs main -b gh-pages)
-git push origin $GIT_COMMIT:refs/heads/gh-pages --force
+#set -euxo pipefail
+#git fetch -p origin
+#GIT_COMMIT=$(git subtree split --prefix docs main -b gh-pages)
+#git push origin $GIT_COMMIT:refs/heads/gh-pages --force
