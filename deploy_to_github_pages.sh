@@ -13,16 +13,5 @@ REPO="$(basename "$DIR")"
 cd "$DIR"
 
 # Generate the docs
-git checkout main
 npx typedoc "$DIR/src/index.ts"
-TMP_DIR="/tmp/$REPO"
-rm -rf "$TMP_DIR"
-mv "$DIR/docs" "$TMP_DIR"
-git checkout gh-pages
-rm -rf assets *.html
-mv "$TMP_DIR/*" .
-rmdir "$TMP_DIR"
-git add -A
-git commit -m "updating docs"
-git push
-git checkout main
+git push origin `git subtree split --prefix docs main`:gh-pages --force
