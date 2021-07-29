@@ -4,11 +4,11 @@
   "description": "A command line tool for managing Isaac mods written in TypeScript",
   "homepage": "https://isaacscript.github.io/",
   "bugs": {
-    "url": "https://github.com/IsaacScript/IsaacScript/issues"
+    "url": "https://github.com/IsaacScript/isaacscript/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/IsaacScript/IsaacScript.git"
+    "url": "git+https://github.com/IsaacScript/isaacscript.git"
   },
   "license": "GPL-3.0",
   "author": "Zamiell",
