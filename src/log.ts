@@ -7,7 +7,7 @@ import {
 import { hasFlag } from "./flags";
 
 /** Helper function to avoid typing out `Isaac.DebugString()`. */
-export default function log(msg: string): void {
+export function log(msg: string): void {
   Isaac.DebugString(msg);
 }
 
