@@ -12,6 +12,8 @@ REPO="$(basename "$DIR")"
 
 cd "$DIR"
 
-# Generate the docs
+# Generate the documentation, which will create the "docs" directory
 npx typedoc "$DIR/src/index.ts"
+
+# Force push the "docs" directory to the "gh-pages" branch of the repository
 git push origin `git subtree split --prefix docs main`:gh-pages --force
