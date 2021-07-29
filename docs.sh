@@ -12,4 +12,4 @@ cd "$DIR"
 npx typedoc "$DIR/src/index.ts"
 
 # Force push the "docs" directory to the "gh-pages" branch of the repository
-git push origin `git subtree split --prefix docs main`:gh-pages --force
+git push --set-upstream origin `git subtree split --prefix docs main`:gh-pages --force
