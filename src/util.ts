@@ -97,6 +97,63 @@ export function getHUDOffsetVector(): Vector {
 }
 
 /**
+ * Returns the slot number corresponding to where a trinket can be safely inserted.
+ *
+ * Example:
+ * ```
+ * const player = Isaac.GetPlayer();
+ * const trinketSlot = getOpenTrinketSlotNum(player);
+ * if (trinketSlot !== null) {
+ *   // They have one or more open trinket slots
+ *   player.AddTrinket(TrinketType.TRINKET_SWALLOWED_PENNY);
+ * }
+ * ```
+ */
+export function getOpenTrinketSlot(player: EntityPlayer): int | null {
+  const maxTrinkets = player.GetMaxTrinkets();
+  const trinket0 = player.GetTrinket(0);
+  const trinket1 = player.GetTrinket(1);
+
+  if (maxTrinkets === 1) {
+    return trinket0 === TrinketType.TRINKET_NULL ? 0 : null;
+  }
+
+  if (maxTrinkets === 2) {
+    if (trinket0 === TrinketType.TRINKET_NULL) {
+      return 0;
+    }
+    return trinket1 === TrinketType.TRINKET_NULL ? 1 : null;
+  }
+
+  error(`The player has ${maxTrinkets} trinket slots, which is not supported.`);
+  return null;
+}
+
+/**
+ * Helper function to get all the NPCs in the room. Due to bugs with `Isaac.FindInRadius()`,
+ * this function uses `Isaac.GetRoomEntities()`, which is more expensive but also more robust.
+ *
+ * Example:
+ * ```
+ * // Remove all of the enemies in the room
+ * for (const npc of getRoomNPCs()) {
+ *   npc.Remove();
+ * }
+ * ```
+ */
+export function getRoomNPCs(): EntityNPC[] {
+  const npcs: EntityNPC[] = [];
+  for (const entity of Isaac.GetRoomEntities()) {
+    const npc = entity.ToNPC();
+    if (npc !== null) {
+      npcs.push(npc);
+    }
+  }
+
+  return npcs;
+}
+
+/**
  * Helper function to initialize an RNG object.
  *
  * Example:
