@@ -6,9 +6,12 @@ set -e # Exit on any errors
 # https://stackoverflow.com/questions/59895/getting-the-source-directory-of-a-bash-script-from-within
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-# Convert the TypeScript to a single Lua file
 cd "$DIR"
+
+# Convert the TypeScript to Lua files and TypeScript definition files
 npx tstl
-npx typedoc "$DIR/src/index.ts"
+
+# Update the documentation, if necessary
+"$DIR/deploy_to_github_pages.sh"
 
 echo "Success!"
