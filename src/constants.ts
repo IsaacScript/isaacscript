@@ -5,6 +5,10 @@ export const EXCLUDED_CHARACTERS = [
 
 export const MAX_DAMAGE_FLAG_SHIFT = 32;
 export const MAX_ENTITY_FLAG_SHIFT = 59;
+
+/** In a 2x2 room, there can be 8 doors. */
+export const MAX_NUM_DOORS = 8;
+
 export const MAX_PROJECTILE_FLAG_SHIFT = 57;
 export const MAX_USE_FLAG_SHIFT = 10;
 
