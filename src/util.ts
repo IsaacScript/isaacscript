@@ -18,7 +18,7 @@ export function arrayEquals<T>(array1: T[], array2: T[]): boolean {
 
 /**
  * Helper function for quickly switching to a new room without playing a particular animation.
- * Always use this helper function over invoking `Game().ChangeRoom()` directory to ensure that you
+ * Always use this helper function over invoking `Game().ChangeRoom()` directly to ensure that you
  * do not forget to set the LeaveDoor property.
  */
 export function changeRoom(roomIndex: int): void {
