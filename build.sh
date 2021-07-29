@@ -11,7 +11,4 @@ cd "$DIR"
 # Convert the TypeScript to Lua files and TypeScript definition files
 npx tstl
 
-# Generate the documentation, which will create the "docs" directory
-npx typedoc "$DIR/src/index.ts"
-
 echo "Success!"
