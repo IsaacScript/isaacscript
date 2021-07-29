@@ -33,5 +33,5 @@ declare class EntityKnife extends Entity {
    * Be aware that this is really a BitSet128 instead of an integer.
    * However, all of the TearFlags enums values use BitSet128 constructors.
    */
-  TearFlags: TearFlags;
+  TearFlags: int;
 }

@@ -361,7 +361,7 @@ declare class EntityPlayer extends Entity {
    * Be aware that this really takes a BitSet128 instead of an integer.
    * However, all of the TearFlags enums values use BitSet128 constructors.
    */
-  GetBombFlags(): TearFlags;
+  GetBombFlags(): int;
   /**
    * There is no separate BombFlags enum, so bombs use tear flags.
    * Be aware that this really takes a BitSet128 instead of an integer.
@@ -768,7 +768,7 @@ declare class EntityPlayer extends Entity {
    * Be aware that this is really a BitSet128 instead of an integer.
    * However, all of the TearFlags enums values use BitSet128 constructors.
    */
-  TearFlags: TearFlags;
+  TearFlags: int;
   TearHeight: float;
   readonly TearsOffset: Readonly<Vector>;
 }

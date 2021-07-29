@@ -25,7 +25,7 @@ declare class Game {
     radius: float,
     lineCheck?: boolean,
     source?: Entity,
-    tearFlags?: TearFlags,
+    tearFlags?: int,
     damageFlags?: DamageFlag,
     damageSource?: boolean,
   ): void;
@@ -47,7 +47,7 @@ declare class Game {
   BombExplosionEffects(
     position: Vector,
     damage: float,
-    tearFlags?: TearFlags,
+    tearFlags?: int,
     color?: Color,
     source?: Entity,
     radiusMult?: float,
@@ -69,7 +69,7 @@ declare class Game {
   BombTearflagEffects(
     position: Vector,
     radius: float,
-    tearFlags: TearFlags,
+    tearFlags: int,
     source?: Entity,
     radiusMult?: float,
   ): void;
