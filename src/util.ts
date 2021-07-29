@@ -1,4 +1,5 @@
 import { RECOMMENDED_SHIFT_IDX } from "./constants";
+import { game } from "./game";
 
 /** Helper function for determining if two arrays contain the exact same elements. */
 export function arrayEquals<T>(array1: T[], array2: T[]): boolean {
@@ -13,6 +14,21 @@ export function arrayEquals<T>(array1: T[], array2: T[]): boolean {
   }
 
   return true;
+}
+
+/**
+ * Helper function for quickly switching to a new room without playing a particular animation.
+ * Always use this helper function over invoking `Game().ChangeRoom()` directory to ensure that you
+ * do not forget to set the LeaveDoor property.
+ */
+export function changeRoom(roomIndex: int): void {
+  const level = game.GetLevel();
+
+  // LeaveDoor must be set before every ChangeRoom() invocation or else the function can send you to
+  // the wrong room
+  level.LeaveDoor = -1;
+
+  game.ChangeRoom(roomIndex);
 }
 
 /**
