@@ -1,6 +1,10 @@
 import { NUM_INPUTS } from "./constants";
 
-/** Iterates over all 4 inputs to see if a particular button is pressed (i.e. held down). */
+/**
+ * Iterates over all 4 inputs to see if a particular button is pressed (i.e. held down).
+ *
+ * @category Input
+ */
 export function isActionPressedOnAnyInput(buttonAction: ButtonAction): boolean {
   for (let i = 0; i < NUM_INPUTS; i++) {
     if (Input.IsActionPressed(buttonAction, i)) {
@@ -14,6 +18,8 @@ export function isActionPressedOnAnyInput(buttonAction: ButtonAction): boolean {
 /**
  * Iterates over all 4 inputs to see if a particular button is triggered
  * (i.e. held down and then released).
+ *
+ * @category Input
  */
 export function isActionTriggeredOnAnyInput(
   buttonAction: ButtonAction,

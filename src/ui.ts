@@ -9,6 +9,7 @@ import { game } from "./game";
  * @returns If the user does not have Mod Config Menu enabled, or does not have this option set,
  * then this function will return `Vector.Zero.` Otherwise, it will return a Vector that represents
  * a HUD offset that should be added to the position of a UI element.
+ * @category UI
  */
 export function getHUDOffsetVector(): Vector {
   const defaultVector = Vector.Zero;
@@ -51,6 +52,8 @@ export function getHUDOffsetVector(): Vector {
  *
  * This function is taken from Alphabirth:
  * https://steamcommunity.com/sharedfiles/filedetails/?id=848056541
+ *
+ * @category UI
  */
 export function getScreenCenterPosition(): Vector {
   const room = game.GetRoom();

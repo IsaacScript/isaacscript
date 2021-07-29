@@ -1,7 +1,11 @@
 import { RECOMMENDED_SHIFT_IDX } from "./constants";
 import { game } from "./game";
 
-/** Helper function for determining if two arrays contain the exact same elements. */
+/**
+ * Helper function for determining if two arrays contain the exact same elements.
+ *
+ * @category Utility
+ */
 export function arrayEquals<T>(array1: T[], array2: T[]): boolean {
   if (array1.length !== array2.length) {
     return false;
@@ -20,6 +24,8 @@ export function arrayEquals<T>(array1: T[], array2: T[]): boolean {
  * Helper function for quickly switching to a new room without playing a particular animation.
  * Always use this helper function over invoking `Game().ChangeRoom()` directly to ensure that you
  * do not forget to set the LeaveDoor property.
+ *
+ * @category Utility
  */
 export function changeRoom(roomIndex: int): void {
   const level = game.GetLevel();
@@ -65,47 +71,18 @@ export function changeRoom(roomIndex: int): void {
  *   }
  * }
  * ```
+ *
+ * @category Utility
  */
 export const ensureAllCases = (obj: never): never => obj;
-
-/**
- * Returns the slot number corresponding to where a trinket can be safely inserted.
- *
- * Example:
- * ```
- * const player = Isaac.GetPlayer();
- * const trinketSlot = getOpenTrinketSlotNum(player);
- * if (trinketSlot !== null) {
- *   // They have one or more open trinket slots
- *   player.AddTrinket(TrinketType.TRINKET_SWALLOWED_PENNY);
- * }
- * ```
- */
-export function getOpenTrinketSlot(player: EntityPlayer): int | null {
-  const maxTrinkets = player.GetMaxTrinkets();
-  const trinket0 = player.GetTrinket(0);
-  const trinket1 = player.GetTrinket(1);
-
-  if (maxTrinkets === 1) {
-    return trinket0 === TrinketType.TRINKET_NULL ? 0 : null;
-  }
-
-  if (maxTrinkets === 2) {
-    if (trinket0 === TrinketType.TRINKET_NULL) {
-      return 0;
-    }
-    return trinket1 === TrinketType.TRINKET_NULL ? 1 : null;
-  }
-
-  error(`The player has ${maxTrinkets} trinket slots, which is not supported.`);
-  return null;
-}
 
 /**
  * Helper function to get the room index of the current room. Use this instead of calling
  * `Game().GetLevel().GetCurrentRoomIndex()` directly to avoid bugs with big rooms.
  * (Big rooms can return the specific 1x1 quadrant that the player is in, which can break data
  * structures that use the room index as an index.)
+ *
+ * @category Utility
  */
 export function getRoomIndex(): int {
   const level = game.GetLevel();
@@ -132,6 +109,7 @@ export function getRoomIndex(): int {
  * @param seed The seed to initialize it with.
  * (If you aren't initializing it with a seed, then don't use this function and instead simply call
  * the `RNG()` constructor.)
+ * @category Utility
  */
 export function initRNG(seed: int): RNG {
   const rng = RNG();

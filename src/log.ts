@@ -6,24 +6,38 @@ import {
 } from "./constants";
 import { hasFlag } from "./flags";
 
-/** Helper function to avoid typing out `Isaac.DebugString()`. */
+/**
+ * Helper function to avoid typing out `Isaac.DebugString()`.
+ *
+ * @category Log
+ */
 export function log(msg: string): void {
   Isaac.DebugString(msg);
 }
 
 /**
  * Helper function for printing out every damage flag that is turned on. Helpful when debugging.
+ *
+ * @category Log
  */
 export function logAllDamageFlags(flags: int): void {
   logAllFlags(flags, MAX_DAMAGE_FLAG_SHIFT);
 }
 
-/** Helper function for printing out every entity flag that is turned on. Helpful when debugging. */
+/**
+ * Helper function for printing out every entity flag that is turned on. Helpful when debugging.
+ *
+ * @category Log
+ */
 export function logAllEntityFlags(flags: int): void {
   logAllFlags(flags, MAX_ENTITY_FLAG_SHIFT);
 }
 
-/** Helper function for printing out every flag that is turned on. Helpful when debugging. */
+/**
+ * Helper function for printing out every flag that is turned on. Helpful when debugging.
+ *
+ * @category Log
+ */
 export function logAllFlags(flags: int, maxShift: int): void {
   log("Logging all flags:");
   for (let i = 0; i <= maxShift; i++) {
@@ -35,6 +49,8 @@ export function logAllFlags(flags: int, maxShift: int): void {
 
 /**
  * Helper function for printing out every projectile flag that is turned on. Helpful when debugging.
+ *
+ * @category Log
  */
 export function logAllProjectileFlags(flags: int): void {
   logAllFlags(flags, MAX_PROJECTILE_FLAG_SHIFT);
@@ -42,6 +58,8 @@ export function logAllProjectileFlags(flags: int): void {
 
 /**
  * Helper function for printing out every use flag that is turned on. Helpful when debugging.
+ *
+ * @category Log
  */
 export function logAllUseFlags(flags: int): void {
   logAllFlags(flags, MAX_USE_FLAG_SHIFT);
