@@ -20,7 +20,7 @@ rm -rf "$TMP_DIR"
 mv "$DIR/docs" "$TMP_DIR"
 git checkout gh-pages
 rm -rf *
-cp -R "$TMP_DIR/*" .
+mv "$TMP_DIR/*" .
 git add -A
 git commit -m "updating docs"
 git push
