@@ -33,9 +33,6 @@ jobs:
       - name: Perform automated checks
         run: bash lint.sh
 
-      - name: Deploy the docs to GitHub Pages
-        run: bash docs.sh
-
   discord:
     name: Discord Failure Notification
     needs: [build_and_lint]
