@@ -6,4 +6,4 @@ set -e # Exit on any errors
 # https://stackoverflow.com/questions/59895/getting-the-source-directory-of-a-bash-script-from-within
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-npx typedoc --out "$DIR/docs" --theme "$DIR/node_modules/typedoc-default-themes-dark/bin/default" "$DIR/src/index.ts"
+npx typedoc --out "$DIR/docs" "$DIR/src/index.ts"
