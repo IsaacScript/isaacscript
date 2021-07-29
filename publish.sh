@@ -10,5 +10,3 @@ cd "$DIR"
 
 pip install publish-npm --upgrade --quiet
 publish-npm "$@"
-
-"$DIR/deploy_to_github_pages.sh"
