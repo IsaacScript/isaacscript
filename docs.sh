@@ -12,4 +12,5 @@ cd "$DIR"
 npx typedoc "$DIR/src/index.ts"
 
 # Force push the "docs" directory to the "gh-pages" branch of the repository
-git push --set-upstream origin `git subtree split --prefix docs main`:gh-pages --force
+git fetch # Needed to prevent "error: unable to delete 'gh-pages': remote ref does not exist" in CI
+git push origin `git subtree split --prefix docs main`:gh-pages --force
