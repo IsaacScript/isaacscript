@@ -11,7 +11,7 @@ cd "$DIR"
 # Convert the TypeScript to Lua files and TypeScript definition files
 npx tstl
 
-# Update the documentation, if necessary
-"$DIR/deploy_to_github_pages.sh"
+# Generate the documentation, which will create the "docs" directory
+npx typedoc "$DIR/src/index.ts"
 
 echo "Success!"

@@ -84,19 +84,36 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/IsaacScript/isaacscript-common/blob/1692b67/src/flags.ts#L1">flags.ts:1</a></li>
+									<li>Defined in <a href="https://github.com/IsaacScript/isaacscript-common/blob/3821a5f/src/flags.ts#L15">flags.ts:15</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Helper function to add a bit flag to an existing set of bit flags.</p>
+								</div>
+								<p>Example:</p>
+								<pre><code><span style="color: #008000">// Give the player spectral tears</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">player</span><span style="color: #000000"> = </span><span style="color: #001080">Isaac</span><span style="color: #000000">.</span><span style="color: #795E26">GetPlayer</span><span style="color: #000000">();</span>
+<span style="color: #001080">player</span><span style="color: #000000">.</span><span style="color: #001080">TearFlags</span><span style="color: #000000"> = </span><span style="color: #795E26">addFlag</span><span style="color: #000000">(</span><span style="color: #001080">player</span><span style="color: #000000">.</span><span style="color: #001080">TearFlags</span><span style="color: #000000">, </span><span style="color: #001080">TearFlags</span><span style="color: #000000">.</span><span style="color: #0070C1">TEAR_SPECTRAL</span><span style="color: #000000">);</span>
+</code></pre>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>flags: <span class="tsd-signature-type">int</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The existing set of bit flags.</p>
+									</div>
 								</li>
 								<li>
 									<h5>flag: <span class="tsd-signature-type">int</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The bit flag to add.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">int</span></h4>
+							<p>The combined bit flags.</p>
 						</li>
 					</ul>
 				</section>
@@ -110,16 +127,34 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/IsaacScript/isaacscript-common/blob/1692b67/src/flags.ts#L5">flags.ts:5</a></li>
+									<li>Defined in <a href="https://github.com/IsaacScript/isaacscript-common/blob/3821a5f/src/flags.ts#L34">flags.ts:34</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Helper function to check to see if a particular bit flag is set to true on an existing set of bit
+									flags.</p>
+								</div>
+								<p>Example:</p>
+								<pre><code><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">player</span><span style="color: #000000"> = </span><span style="color: #001080">Isaac</span><span style="color: #000000">.</span><span style="color: #795E26">GetPlayer</span><span style="color: #000000">();</span>
+<span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #795E26">hasFlag</span><span style="color: #000000">(</span><span style="color: #001080">player</span><span style="color: #000000">.</span><span style="color: #001080">TearFlags</span><span style="color: #000000">, </span><span style="color: #001080">TearFlags</span><span style="color: #000000">.</span><span style="color: #0070C1">TEAR_SPECTRAL</span><span style="color: #000000">) {</span>
+<span style="color: #000000">  </span><span style="color: #008000">// The player currently has spectral tears</span>
+<span style="color: #000000">}</span>
+</code></pre>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>flags: <span class="tsd-signature-type">int</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The existing set of bit flags.</p>
+									</div>
 								</li>
 								<li>
 									<h5>flag: <span class="tsd-signature-type">int</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The bit flag to check for.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -136,19 +171,36 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/IsaacScript/isaacscript-common/blob/1692b67/src/flags.ts#L9">flags.ts:9</a></li>
+									<li>Defined in <a href="https://github.com/IsaacScript/isaacscript-common/blob/3821a5f/src/flags.ts#L52">flags.ts:52</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Helper function to remove a bit flag from an existing set of bit flags.</p>
+								</div>
+								<p>Example:</p>
+								<pre><code><span style="color: #008000">// Remove spectral tears from the player, if present</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">player</span><span style="color: #000000"> = </span><span style="color: #001080">Isaac</span><span style="color: #000000">.</span><span style="color: #795E26">GetPlayer</span><span style="color: #000000">();</span>
+<span style="color: #001080">player</span><span style="color: #000000">.</span><span style="color: #001080">TearFlags</span><span style="color: #000000"> = </span><span style="color: #795E26">removeFlag</span><span style="color: #000000">(</span><span style="color: #001080">player</span><span style="color: #000000">.</span><span style="color: #001080">TearFlags</span><span style="color: #000000">, </span><span style="color: #001080">TearFlags</span><span style="color: #000000">.</span><span style="color: #0070C1">TEAR_SPECTRAL</span><span style="color: #000000">);</span>
+</code></pre>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>flags: <span class="tsd-signature-type">int</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The existing set of bit flags.</p>
+									</div>
 								</li>
 								<li>
 									<h5>flag: <span class="tsd-signature-type">int</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The bit flag to remove.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">int</span></h4>
+							<p>The combined bit flags.</p>
 						</li>
 					</ul>
 				</section>

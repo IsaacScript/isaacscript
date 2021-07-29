@@ -8,6 +8,7 @@
         "getmetatable",
         "isaacscript",
         "tstl",
+        "typedoc",
         "zamiell"
     ]
 }

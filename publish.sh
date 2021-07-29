@@ -7,5 +7,8 @@ set -e # Exit on any errors
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd "$DIR"
+
 pip install publish-npm --upgrade --quiet
 publish-npm "$@"
+
+"$DIR/deploy_to_github_pages.sh"
