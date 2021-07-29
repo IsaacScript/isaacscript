@@ -208,7 +208,11 @@ module.exports = {
     "jsdoc/check-tag-names": [
       "warn",
       {
-        definedTags: ["noResolution", "noSelf"],
+        definedTags: [
+          "category", // Used in TypeDoc
+          "noResolution", // Used in TypeScriptToLua as a compiler annotation
+          "noSelf", // Used in TypeScriptToLua as a compiler annotation
+        ],
       },
     ],
 
