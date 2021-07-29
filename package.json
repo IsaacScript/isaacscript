@@ -20,9 +20,10 @@
   "author": "Zamiell",
   "types": "dist/common.d.ts",
   "files": [
-    "*.lua",
-    "*.d.ts"
+    "dist/**/*.lua",
+    "dist/**/*.d.ts"
   ],
+  "main": "./dist/index",
   "dependencies": {
     "isaac-typescript-definitions": "^1.0.99"
   },

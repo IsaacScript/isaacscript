@@ -10,11 +10,7 @@
     "rootDir": "./src",
 
     // Specifies the directory of the output
-    // An empty string is equal to the root directory
-    // We must specify this or the type definition files will be placed next to the source files
-    // (due to a bug in TSTL, this *must* be in the root folder of the repository for end-users to
-    // import the contents of this library properly)
-    "outDir": "",
+    "outDir": "./dist",
 
     // Needed since this is a Lua library
     "declaration": true,
