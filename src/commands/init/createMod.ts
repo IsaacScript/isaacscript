@@ -36,7 +36,7 @@ export default function createMod(
   makeSubdirectories(projectPath);
   copyStaticFiles(projectPath);
   copyDynamicFiles(projectName, projectPath, targetModDirectory);
-
+  updateNodeModules(projectPath);
   installNodeModules(projectPath);
 }
 
@@ -86,23 +86,11 @@ function copyDynamicFiles(
 
   // "package.json"
   {
-    // Get the latest released version of IsaacScript
-    const [, isaacScriptVersion] = execShell("npm", [
-      "view",
-      "isaacscript",
-      "version",
-    ]);
-
     // Modify and copy the file
     const fileName = PACKAGE_JSON;
     const templatePath = PACKAGE_JSON_TEMPLATE_PATH;
     const template = file.read(templatePath);
-    const packageJSON = template
-      .replace(/MOD_NAME/g, projectName)
-      .replace(
-        /"isaacscript": "\^0.0.1"/g,
-        `"isaacscript": "^${isaacScriptVersion}"`,
-      );
+    const packageJSON = template.replace(/MOD_NAME/g, projectName);
     const destinationPath = path.join(projectPath, fileName);
     file.write(destinationPath, packageJSON);
   }
@@ -154,6 +142,16 @@ function copyDynamicFiles(
     const destinationPath = path.join(srcPath, fileName);
     file.write(destinationPath, mainTS);
   }
+}
+
+function updateNodeModules(projectPath: string) {
+  console.log("Updating node modules...");
+  execShell(
+    "npx",
+    ["npm-check-updates", "--upgrade", "--packageFile", "package.json"],
+    false,
+    projectPath,
+  );
 }
 
 function installNodeModules(projectPath: string) {
