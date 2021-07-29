@@ -200,9 +200,10 @@ If you decide to add a new dependency (e.g. `npm install lodash --save`), then `
 
 IsaacScript projects start with 3 dependencies by default:
 
-1. `isaacscript` - Provides `typescript` and `typescript-to-lua`.
-1. `isaacscript-common` - Provides some optional helper functions that you can use in your mod, as well as some other optional features. See [the dedicated page](isaacscript-common.md) for more info.
-1. `isaacscript-lint` - Provides `eslint` and all of the linting-related packages that `eslint` uses, including the official IsaacScript linting rule-set. It also includes `isaacscript-tsconfig` to allow for a shared, more-streamlined `tsconfig.json` file for end-users.
+1. `isaac-typescript-definitions` - Provides the types for all the Isaac API classes, like `EntityPlayer` and so forth.
+1. `isaacscript` - Provides the main program that monitors your project. It also includes `typescript` and `typescript-to-lua`.
+1. `isaacscript-common` - Provides optional code that you can use in your mod. See the [isaacscript-common page](isaacscript-common.md) for more info.
+1. `isaacscript-lint` - Provides `eslint` and all of the linting-related packages that `eslint` uses, including the official IsaacScript linting rule-set. It also includes `isaacscript-tsconfig` to allow for a streamlined `tsconfig.json` file for end-users.
 
 <br />
 
