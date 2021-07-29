@@ -75,6 +75,14 @@ export default async function getModsDir(
     );
   }
 
+  if (path.basename(modsDir) !== "mods") {
+    error(
+      `Error: You entered a path of "${chalk.green(
+        modsDir,
+      )}", but you need to input a directory with a name of "mods" at the end. Exiting.`,
+    );
+  }
+
   return modsDir;
 }
 
