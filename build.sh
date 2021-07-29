@@ -8,6 +8,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # Convert the TypeScript to a single Lua file
 cd "$DIR"
+rm -rf "$DIR/dist"
 npx tstl
 
 echo "Success!"
