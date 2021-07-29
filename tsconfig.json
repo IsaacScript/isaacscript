@@ -1,0 +1,29 @@
+// The configuration file for TypeScript
+{
+  // We extend the standard IsaacScript config
+  // https://github.com/IsaacScript/isaacscript-tsconfig/blob/main/tsconfig.mod.json
+  "extends": "isaacscript-tsconfig/tsconfig.mod.json",
+
+  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
+  "compilerOptions": {
+    // Specifies the root folder within your source files
+    "rootDir": "./src",
+
+    // Specifies the directory of the output
+    "outDir": "./dist",
+
+    // Needed since this is a Lua library
+    "declaration": true,
+  },
+
+  // A list of the TypeScript files to compile
+  "include": [
+    "./src/**/*.ts",
+  ],
+
+  // TypeScriptToLua settings
+  "tstl": {
+    "luaTarget": "5.3",
+    "buildMode": "library",
+  },
+}
