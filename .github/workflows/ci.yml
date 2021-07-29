@@ -34,7 +34,7 @@ jobs:
         run: bash lint.sh
 
       - name: Create the docs locally in CI
-        run: npx typedoc --out docs src/index.ts
+        run: bash docs.sh
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4
