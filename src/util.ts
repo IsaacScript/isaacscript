@@ -18,6 +18,13 @@ export function arrayEquals<T>(array1: T[], array2: T[]): boolean {
 /**
  * Helper function to initialize an RNG object.
  *
+ * Example:
+ * ```
+ * const startSeed = Game():GetSeeds():GetStartSeed();
+ * const rng = initRNG(startSeed);
+ * const fiftyFiftyChance = rng.RandomInt(2) === 0;
+ * ```
+ *
  * @param seed The seed to initialize it with.
  * (If you aren't initializing it with a seed, then don't use this function and instead simply call
  * the `RNG()` constructor.)
