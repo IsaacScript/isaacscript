@@ -1,3 +1,15 @@
+# ------------------
+# isaacscript-common
+# ------------------
+
+index.d.ts
+index.lua
+
+# --------------------------------------------------------------
+# GitHub Node.gitignore template
+# https://github.com/github/gitignore/blob/master/Node.gitignore
+# --------------------------------------------------------------
+
 # Logs
 logs
 *.log
