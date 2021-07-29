@@ -140,48 +140,6 @@ But this is **not recommend** because it destroys type-safety.
 
 <br />
 
-### Using TearFlags / BitSet128
-
-First, see the section above on [vector operators](#vector-operators), which explains that you can't use Lua's operator overloading functionality in TypeScript.
-
-In the Repentance DLC, TearFlags were changed from an integer to a new `BitSet128` object. (This is because Lua can only handle 64-bit numbers, and the data type of TearFlags had to change to a 128-bit integer because of all of the new tear effects that were introduced.)
-
-Previously, in Afterbirth+ code, you would add spectral tears to the player like so:
-
-```typescript
-const player = Isaac.GetPlayer(0);
-player.TearFlags |= TearFlags.TEAR_SPECTRAL;
-```
-
-Now, since TearFlags are a `BitSet128` object, we can't directly use bitwise operators anymore. Instead, use the provided [convenience methods](https://github.com/IsaacScript/isaac-typescript-definitions/blob/main/typings/BitSet128.d.ts) like so:
-
-```typescript
-const player = Isaac.GetPlayer(0);
-player.TearFlags = player.TearFlags.bor(TearFlags.TEAR_SPECTRAL);
-```
-
-(`bor` stands for "binary OR".)
-
-As a reminder, remember that to remove a tear flag, you need to use a [bitwise AND with a bitwise NOT](https://stackoverflow.com/questions/3920307/how-can-i-remove-a-flag-in-c). In Afterbirth+, that would look like this:
-
-```typescript
-// Remove spectral tears from the player
-const player = Isaac.GetPlayer(0);
-player.TearFlags &= ~TearFlags.TEAR_SPECTRAL;
-```
-
-But now in Repentance, it looks like this:
-
-```typescript
-// Remove spectral tears from the player
-const player = Isaac.GetPlayer(0);
-player.TearFlags = player.TearFlags.band(~TearFlags.TEAR_SPECTRAL);
-```
-
-(`band` stands for "binary AND".)
-
-<br />
-
 ### Using JSON
 
 Isaac mods are allowed to write save data to the "save1.dat", "save2.dat", and "save3.dat" files (for save slot 1, save slot 2, and save slot 3, respectively). This is accomplished via the `Isaac.SaveModData()` function.

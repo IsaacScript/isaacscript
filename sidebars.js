@@ -21,6 +21,7 @@ module.exports = {
         "updating-isaacscript",
       ],
     },
+    "isaacscript-common",
     {
       type: "category",
       label: "Other",

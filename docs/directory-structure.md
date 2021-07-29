@@ -196,9 +196,13 @@ This is a file used by IsaacScript to automatically upload your mod to the Steam
 
 This is the configuration file for [npm](https://www.npmjs.com/), the Node package manager. It contains a description of your project and a list of all of the dependencies.
 
-If you decide to add a new dependency (e.g. `npm install lodash --save`), then `npm` would automatically edit the `package.json` file accordingly. (Beware of adding dependencies, since [it will likely not work properly](gotchas.md#npm-dependencies).)
+If you decide to add a new dependency (e.g. `npm install lodash --save`), then `npm` would automatically edit the `package.json` file accordingly. (Beware of adding JavaScript/TypeScript dependencies, since [it will not work properly](gotchas.md#npm-dependencies).)
 
-Note that normally, a TypeScript project would have "devDependencies" of TypeScript, ESLint, and so forth. However, in an IsaacScript project, all you have to do is depend on `isaacscript`, and `isaacscript` in turn depends on everything you need. This makes things a little bit simpler for you.
+IsaacScript projects start with 3 dependencies by default:
+
+1. `isaacscript` - Provides `typescript` and `typescript-to-lua`.
+1. `isaacscript-common` - Provides some optional helper functions that you can use in your mod, as well as some other optional features. See [the dedicated page](isaacscript-common.md) for more info.
+1. `isaacscript-lint` - Provides `eslint` and all of the linting-related packages that `eslint` uses, including the official IsaacScript linting rule-set. It also includes `isaacscript-tsconfig` to allow for a shared, more-streamlined `tsconfig.json` file for end-users.
 
 <br />
 
