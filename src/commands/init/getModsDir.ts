@@ -8,6 +8,8 @@ import { error } from "../../misc";
 // https://stackoverflow.com/questions/9080085/node-js-find-home-directory-in-platform-agnostic-way
 const homeDir = os.homedir();
 
+const MODS = "mods";
+
 const DEFAULT_MODS_PATH_WINDOWS = path.join(
   "C:",
   "Program Files (x86)",
@@ -15,7 +17,7 @@ const DEFAULT_MODS_PATH_WINDOWS = path.join(
   "steamapps",
   "common",
   "The Binding of Isaac Rebirth",
-  "mods",
+  MODS,
 );
 
 // This is a subdirectory of $HOME
@@ -27,7 +29,7 @@ const DEFAULT_MODS_PATH_LINUX = path.join(
   "steamapps",
   "common",
   "The Binding of Isaac Rebirth",
-  "mods",
+  MODS,
 );
 
 export default async function getModsDir(
@@ -50,8 +52,7 @@ export default async function getModsDir(
   const response = await prompts({
     type: "text",
     name: "modsDir",
-    message:
-      'Enter the full path to the "mods" directory on your system, which should be next to your "isaac-ng.exe" program:',
+    message: `Enter the full path to the "${MODS}" directory on your system, which should be next to your "isaac-ng.exe" program:`,
   });
 
   if (typeof response.modsDir !== "string") {
@@ -75,11 +76,11 @@ export default async function getModsDir(
     );
   }
 
-  if (path.basename(modsDir) !== "mods") {
+  if (path.basename(modsDir) !== MODS) {
     error(
       `Error: You entered a path of "${chalk.green(
         modsDir,
-      )}", but you need to input a directory with a name of "mods" at the end. Exiting.`,
+      )}", but you need to input a directory with a name of "${MODS}" at the end. Exiting.`,
     );
   }
 
