@@ -13,7 +13,7 @@
  * @returns The combined bit flags.
  */
 export function addFlag(flags: int, flag: int): int {
-  return flags | flag; // eslint-disable-line no-bitwise
+  return flags | flag;
 }
 
 /**
@@ -32,7 +32,7 @@ export function addFlag(flags: int, flag: int): int {
  * @param flag The bit flag to check for.
  */
 export function hasFlag(flags: int, flag: int): boolean {
-  return (flags & flag) === flag; // eslint-disable-line no-bitwise
+  return (flags & flag) === flag;
 }
 
 /**
@@ -50,5 +50,5 @@ export function hasFlag(flags: int, flag: int): boolean {
  * @returns The combined bit flags.
  */
 export function removeFlag(flags: int, flag: int): int {
-  return flags & ~flag; // eslint-disable-line no-bitwise
+  return flags & ~flag;
 }

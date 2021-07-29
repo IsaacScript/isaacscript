@@ -5,5 +5,10 @@
  */
 export const RECOMMENDED_SHIFT_IDX = 35;
 
+export const MAX_DAMAGE_FLAG_SHIFT = 32;
+export const MAX_ENTITY_FLAG_SHIFT = 59;
+export const MAX_PROJECTILE_FLAG_SHIFT = 57;
+export const MAX_USE_FLAG_SHIFT = 10;
+
 /** The game can only handle up to four different players. */
 export const NUM_INPUTS = 4;
