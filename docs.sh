@@ -10,6 +10,7 @@ cd "$DIR"
 
 # Generate the documentation, which will create the "docs" directory
 npx typedoc "$DIR/src/index.ts"
+ls -l "$DIR/docs" # TEST
 
 # Force push the "docs" directory to the "gh-pages" branch of the repository
 # From: https://roelofjanelsinga.com/articles/how-to-set-up-automatically-deploy-website-github-pages/
