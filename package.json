@@ -18,7 +18,7 @@
   },
   "license": "GPL-3.0",
   "author": "Zamiell",
-  "types": "dist/**/*.d.ts",
+  "types": "dist/common.d.ts",
   "files": [
     "dist/**/*.lua",
     "dist/**/*.d.ts"
