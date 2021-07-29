@@ -69,50 +69,6 @@ export function changeRoom(roomIndex: int): void {
 export const ensureAllCases = (obj: never): never => obj;
 
 /**
- * In the options menu, players have the ability to set a HUD offset. However, mods do not have
- * access to this value. To get around this, Mod Config Menu provides a separate HUD offset setting
- * on the first page of the menu. This is intended to be set by end-users to match their vanilla HUD
- * offset setting so that mods can render UI elements to the screen in the correct position.
- *
- * @returns If the user does not have Mod Config Menu enabled, or does not have this option set,
- * then this function will return `Vector.Zero.` Otherwise, it will return a Vector that represents
- * a HUD offset that should be added to the position of a UI element.
- */
-export function getHUDOffsetVector(): Vector {
-  const defaultVector = Vector.Zero;
-
-  // In Mod Config Menu, players can set a Hud Offset
-  if (
-    ModConfigMenu === undefined ||
-    ModConfigMenu.Config === undefined ||
-    ModConfigMenu.Config.General === undefined
-  ) {
-    return defaultVector;
-  }
-
-  const hudOffset = ModConfigMenu.Config.General.HudOffset;
-  if (hudOffset === undefined) {
-    return defaultVector;
-  }
-
-  // Expected values are integers between 1 and 10
-  if (type(hudOffset) !== "number" || hudOffset < 1 || hudOffset > 10) {
-    return defaultVector;
-  }
-
-  const x = hudOffset * 2;
-  let y = hudOffset;
-  if (y >= 4) {
-    y += 1;
-  }
-  if (y >= 9) {
-    y += 1;
-  }
-
-  return Vector(x, y);
-}
-
-/**
  * Returns the slot number corresponding to where a trinket can be safely inserted.
  *
  * Example:
@@ -143,6 +99,24 @@ export function getOpenTrinketSlot(player: EntityPlayer): int | null {
 
   error(`The player has ${maxTrinkets} trinket slots, which is not supported.`);
   return null;
+}
+
+/**
+ * Helper function to get the room index of the current room. Use this instead of calling
+ * `Game().GetLevel().GetCurrentRoomIndex()` directly to avoid bugs with big rooms.
+ * (Big rooms can return the specific 1x1 quadrant that the player is in, which can break data
+ * structures that use the room index as an index.)
+ */
+export function getRoomIndex(): int {
+  const level = game.GetLevel();
+
+  const roomIndex = level.GetCurrentRoomDesc().SafeGridIndex;
+  if (roomIndex < 0) {
+    // SafeGridIndex is always -1 for rooms outside the grid
+    return level.GetCurrentRoomIndex();
+  }
+
+  return roomIndex;
 }
 
 /**
