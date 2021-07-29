@@ -16,6 +16,43 @@ export function arrayEquals<T>(array1: T[], array2: T[]): boolean {
 }
 
 /**
+ * Helper function to get type safety on a switch statement.
+ * Very useful to be future-safe against people adding values to a type or an enums.
+ *
+ * Example:
+ * ```
+ * enum Situations {
+ *   Situation1,
+ *   Situation2,
+ *   Situation3,
+ *   // Situation4, // If we uncomment this line, the program will no longer compile
+ * }
+ *
+ * function doThingBasedOnSituation(situation: Situation) {
+ *   switch (situation) {
+ *     case Situation1: {
+ *       return 41;
+ *     }
+ *
+ *     case Situation2: {
+ *       return 68;
+ *     }
+ *
+ *     case Situation3: {
+ *       return 12;
+ *     }
+ *
+ *     default: {
+ *       ensureAllCases(situation);
+ *       return 0;
+ *     }
+ *   }
+ * }
+ * ```
+ */
+export const ensureAllCases = (obj: never): never => obj;
+
+/**
  * Helper function to initialize an RNG object.
  *
  * Example:
