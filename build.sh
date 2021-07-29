@@ -12,7 +12,7 @@ cd "$DIR"
 npx tstl
 
 # Generate the documentation
-rm -rf "$DIR/docs"
-npx typedoc --out "$DIR/docs" "$DIR/src/index.ts"
+# rm -rf "$DIR/docs"
+# npx typedoc --out "$DIR/docs" "$DIR/src/index.ts"
 
 echo "Success!"
