@@ -11,6 +11,7 @@
  * @param flags The existing set of bit flags.
  * @param flag The bit flag to add.
  * @returns The combined bit flags.
+ * @category Flags
  */
 export function addFlag(flags: int, flag: int): int {
   return flags | flag;
@@ -30,6 +31,7 @@ export function addFlag(flags: int, flag: int): int {
  *
  * @param flags The existing set of bit flags.
  * @param flag The bit flag to check for.
+ * @category Flags
  */
 export function hasFlag(flags: int, flag: int): boolean {
   return (flags & flag) === flag;
@@ -48,6 +50,7 @@ export function hasFlag(flags: int, flag: int): boolean {
  * @param flags The existing set of bit flags.
  * @param flag The bit flag to remove.
  * @returns The combined bit flags.
+ * @category Flags
  */
 export function removeFlag(flags: int, flag: int): int {
   return flags & ~flag;

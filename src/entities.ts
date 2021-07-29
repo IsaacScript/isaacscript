@@ -1,6 +1,9 @@
 import { MAX_NUM_DOORS } from "./constants";
 import { game } from "./game";
 
+/**
+ * @category Entities
+ */
 export function getDoors(): GridEntityDoor[] {
   const room = game.GetRoom();
 
@@ -15,6 +18,9 @@ export function getDoors(): GridEntityDoor[] {
   return doors;
 }
 
+/**
+ * @category Entities
+ */
 export function getGridEntities(): GridEntity[] {
   const room = game.GetRoom();
 
@@ -40,6 +46,8 @@ export function getGridEntities(): GridEntity[] {
  *   npc.Remove();
  * }
  * ```
+ *
+ * @category Entities
  */
 export function getRoomNPCs(): EntityNPC[] {
   const npcs: EntityNPC[] = [];

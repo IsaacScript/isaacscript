@@ -28,7 +28,7 @@
     "isaac-typescript-definitions": "^1.0.101"
   },
   "devDependencies": {
-    "isaacscript-lint": "^1.0.47",
+    "isaacscript-lint": "^1.0.48",
     "typedoc": "^0.21.4",
     "typescript": "^4.3.5",
     "typescript-to-lua": "^0.41.0"
