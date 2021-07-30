@@ -352,7 +352,7 @@ interface CallbackParameters {
   ];
 }
 
-// From "main.lua"
+/** The Mod class is defined in the "scripts/main.lua" file. */
 declare class Mod {
   AddCallback<T extends keyof CallbackParameters>(
     callbackID: T,
