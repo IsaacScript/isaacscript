@@ -1,5 +1,5 @@
 # isaacscript-common
 
-This repository contains helper functions for IsaacScript mods. You can browse the function documentation by navigating the list of exports on the right-hand-side of the screen.
+This repository contains helper functions and extra features for IsaacScript mods. You can browse the documentation [here](https://isaacscript.github.io/isaacscript-common/index.html).
 
 For more information about IsaacScript, see the [official website](https://isaacscript.github.io/).
