@@ -200,3 +200,19 @@ export function onSetSeed(): boolean {
 
   return challenge === Challenge.CHALLENGE_NULL && customRun;
 }
+
+/**
+ * @returns 1 if n is positive, -1 if n is negative, or 0 if n is 0.
+ * @category Utility
+ */
+export function sign(n: number): int {
+  if (n > 0) {
+    return 1;
+  }
+
+  if (n < 0) {
+    return -1;
+  }
+
+  return 0;
+}
