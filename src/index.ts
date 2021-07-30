@@ -3,6 +3,7 @@ export * from "./flags";
 export * from "./gridEntities";
 export * from "./input";
 export * from "./log";
+export * from "./math";
 export * from "./player";
 export * from "./tears";
 export * from "./ui";
