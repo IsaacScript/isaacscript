@@ -86,7 +86,7 @@ export const ensureAllCases = (obj: never): never => obj;
  *
  * @category Utility
  */
-export function getRandom(x: int, y: int, seed: int): int {
+export function getRandomInt(x: int, y: int, seed: int): int {
   const rng = initRNG(seed);
 
   return rng.RandomInt(y - x + 1) + x;
