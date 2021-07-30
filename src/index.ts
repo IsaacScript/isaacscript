@@ -5,6 +5,7 @@ export * from "./input";
 export * from "./log";
 export * from "./math";
 export { default as ModCallbacksCustom } from "./ModCallbacksCustom";
+export { default as ModUpgraded } from "./ModUpgraded";
 export { default as PickingUpItem } from "./PickingUpItem";
 export * from "./player";
 export { saveDataManager } from "./saveDataManager";
