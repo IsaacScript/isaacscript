@@ -1,3 +1,4 @@
+import { SCREEN_SIZE_BETWEEN_RENDER_SURFACES } from "./constants";
 import { game } from "./game";
 
 /**
@@ -45,36 +46,35 @@ export function getHUDOffsetVector(): Vector {
   return Vector(x, y);
 }
 
-/**
- * Helper function for getting the middle of the screen.
- * Usually, `Isaac.WorldToRenderPosition(Game().GetRoom().GetCenterPos())` will correspond with
- * this, but that method will fail in a non-1x1 room.
- *
- * This function is taken from Alphabirth:
- * https://steamcommunity.com/sharedfiles/filedetails/?id=848056541
- *
- * @category UI
- */
-export function getScreenCenterPosition(): Vector {
+export function getScreenTopLeft(): Vector {
+  return Vector.Zero;
+}
+
+export function getScreenTopRight(): Vector {
+  const bottomRight = getScreenBottomRight();
+  return Vector(bottomRight.X, 0);
+}
+
+export function getScreenBottomLeft(): Vector {
+  const bottomRight = getScreenBottomRight();
+  return Vector(0, bottomRight.Y);
+}
+
+export function getScreenBottomRight(): Vector {
   const room = game.GetRoom();
-  const shape = room.GetRoomShape();
-  const centerPos = room.GetCenterPos();
-  const topLeftPos = room.GetTopLeftPos();
-  const centerOffset = centerPos.sub(topLeftPos);
-  const pos = centerPos;
 
-  if (centerOffset.X > 260) {
-    pos.X -= 260;
-  }
-  if (shape === RoomShape.ROOMSHAPE_LBL || shape === RoomShape.ROOMSHAPE_LTL) {
-    pos.X -= 260;
-  }
-  if (centerOffset.Y > 140) {
-    pos.Y -= 140;
-  }
-  if (shape === RoomShape.ROOMSHAPE_LTR || shape === RoomShape.ROOMSHAPE_LTL) {
-    pos.Y -= 140;
-  }
+  // First, get the offset from (0, 0) that the top-left wall text is drawn at
+  const renderSurfaceTopLeft = room.GetRenderSurfaceTopLeft();
 
-  return Isaac.WorldToRenderPosition(pos);
+  // Multiply it by 2 because the bottom-right-hand-corner will be offset in an identical way
+  // (technically, the bottom right room render surface is not set identically,
+  // but for a 1x1 room it would be, and the camera is consistent across all room shapes)
+  const doubleRenderSurfaceTopLeft = renderSurfaceTopLeft.mul(2);
+
+  return doubleRenderSurfaceTopLeft.add(SCREEN_SIZE_BETWEEN_RENDER_SURFACES);
+}
+
+export function getScreenCenter(): Vector {
+  const bottomRight = getScreenBottomRight();
+  return bottomRight.div(2);
 }

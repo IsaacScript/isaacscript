@@ -1,4 +1,4 @@
-import PickingUpItem from "../types/PickingUpItem";
+import PickingUpItem from "./PickingUpItem";
 
 const subscriptions: Array<
   [

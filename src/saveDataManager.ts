@@ -1,4 +1,4 @@
-import SaveData from "./types/SaveData";
+import SaveData from "./SaveData";
 import { deepCopy } from "./util";
 
 /** Indexed by subscriber name. */

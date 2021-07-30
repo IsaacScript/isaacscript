@@ -23,3 +23,9 @@ export const NUM_INPUTS = 4;
  * https://www.jstatsoft.org/article/view/v008i14/xorshift.pdf
  */
 export const RECOMMENDED_SHIFT_IDX = 35;
+
+const GRID_ENTITIES_BETWEEN_RENDER_SURFACES = Vector(17, 11); // 17 on the x axis, 11 on the y axis
+const GRID_ENTITY_RENDER_SIZE = Vector(26, 26);
+export const SCREEN_SIZE_BETWEEN_RENDER_SURFACES = GRID_ENTITY_RENDER_SIZE.mul(
+  GRID_ENTITIES_BETWEEN_RENDER_SURFACES,
+);
