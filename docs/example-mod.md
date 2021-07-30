@@ -108,11 +108,11 @@ The `MC_POST_GAME_STARTED` callback is useful for initializing things at the sta
 
 After we have deleted the lines relating to the `MC_POST_GAME_STARTED` callback, we can fix some of the capitalization:
 
-```typescript
+```ts
 const greenCandle = RegisterMod("Green Candle", 1);
 ```
 
-```typescript
+```ts
 Isaac.DebugString("The Green Candle mod is initialized.");
 ```
 
@@ -126,7 +126,7 @@ The item ID that the Green Candle gets will depend on how many other custom modd
 
 In order to do this, we need to use the `Isaac.GetItemIdByName()` method:
 
-```typescript
+```ts
 const greenCandleItemID = Isaac.GetItemIdByName("Green Candle");
 ```
 
@@ -144,7 +144,7 @@ For our purposes, we want the Green Candle to have a random chance to poison eve
 
 Add the following code:
 
-```typescript
+```ts
 function postUpdate() {
   Isaac.DebugString("A game frame just passed!");
 }
@@ -161,7 +161,7 @@ Now, we can run the mod and confirm that this code makes tons of messages in the
 
 Let's get rid of the `Isaac.DebugString()` call and set up a new function for applying the green candle effect:
 
-```typescript
+```ts
 function postUpdate() {
   checkApplyGreenCandleEffect();
 }
@@ -175,7 +175,7 @@ Since Isaac is a co-op game, it is possible that up to 4 players could all have 
 
 To start with, we get a variable for the current game by invoking `Game()`, which is a global variable provided for us, similar to the `Isaac` class. Once we have the game object, we can use the `GetNumPlayers()` method:
 
-```typescript
+```ts
 function checkApplyGreenCandleEffect() {
   const game = Game();
   const numPlayers = game.GetNumPlayers();
@@ -187,7 +187,7 @@ function checkApplyGreenCandleEffect() {
 
 The `Isaac.GetPlayer()` method allows us to get a specific player object. Once we have that, we can check to see if they have the Green Candle by using the `HasCollectible()` method:
 
-```typescript
+```ts
 function checkApplyGreenCandleEffect() {
   const game = Game();
   const numPlayers = game.GetNumPlayers();
@@ -210,7 +210,7 @@ function applyGreenCandleEffect(player: EntityPlayer) {
 
 Every enemy in the room should have a chance of being poisoned. So, we need to loop over all enemies in the room with `Isaac.GetRoomEntities()`.
 
-```typescript
+```ts
 function applyGreenCandleEffect(player: EntityPlayer) {
   for (const entity of Isaac.GetRoomEntities()) {
     if (shouldApplyGreenCandleEffectToEntity(entity)) {
@@ -231,7 +231,7 @@ function shouldApplyGreenCandleEffectToEntity(entity: Entity) {
 
 Adding the poison is done with the `AddPoison` method. However, notice that your IDE will give you an error if you try to supply the player as the source:
 
-```typescript
+```ts
 function applyGreenCandleEffect(player: EntityPlayer) {
   for (const entity of Isaac.GetRoomEntities()) {
     if (shouldApplyGreenCandleEffectToEntity(entity)) {
@@ -247,7 +247,7 @@ function applyGreenCandleEffect(player: EntityPlayer) {
 
 TypeScript saves the day, telling us that we actually need to feed the function an entity reference. This is accomplished by simply casting the player as an `EntityRef`. (The "EntityRef()" function is a global.)
 
-```typescript
+```ts
 entity.AddPoison(EntityRef(player), 100, player.Damage);
 ```
 
@@ -263,7 +263,7 @@ By looking through [the API docs](https://wofsauge.github.io/IsaacDocs/), we eve
 
 Furthermore, we want the random chance for the Green Candle to work to be around 1 in 500. We can accomplish that with the `math.random()` function.
 
-```typescript
+```ts
 function shouldApplyGreenCandleEffectToEntity(entity: Entity) {
   // "math.random(500)" generates a random number between 1 and 500
   // This is a 1 / 500 chance, or 0.2%
@@ -279,7 +279,7 @@ As a side note, notice that this uses Lua's `math.random()` function, which is a
 
 The mod is now complete. It looks like the following:
 
-```typescript
+```ts
 // Register the mod
 // (which will make it show up in the list of mods on the mod screen in the main menu)
 const greenCandle = RegisterMod("greenCandle", 1);

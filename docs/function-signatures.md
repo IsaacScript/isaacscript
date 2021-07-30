@@ -12,25 +12,25 @@ For reference, this is a handy list of all possible callback functions.
 
 ### MC_NPC_UPDATE (0)
 
-```typescript
+```ts
 function NPCUpdate(npc: EntityNPC): void {}
 ```
 
 ### MC_POST_UPDATE (1)
 
-```typescript
+```ts
 function postUpdate(): void {}
 ```
 
 ### MC_POST_RENDER (2)
 
-```typescript
+```ts
 function postRender(): void {}
 ```
 
 ### MC_USE_ITEM (3)
 
-```typescript
+```ts
 function useItem(
   collectibleType: CollectibleType | int,
   rng: RNG,
@@ -43,43 +43,43 @@ function useItem(
 
 ### MC_POST_PEFFECT_UPDATE (4)
 
-```typescript
+```ts
 function postPEffectUpdate(player: EntityPlayer): void {}
 ```
 
 ### MC_USE_CARD (5)
 
-```typescript
+```ts
 function useCard(card: Card | int, player: EntityPlayer, useFlags: int): void {}
 ```
 
 ### MC_FAMILIAR_UPDATE (6)
 
-```typescript
+```ts
 function familiarUpdate(familiar: EntityFamiliar): void {}
 ```
 
 ### MC_FAMILIAR_INIT (7)
 
-```typescript
+```ts
 function familiarInit(familiar: EntityFamiliar): void {}
 ```
 
 ### MC_EVALUATE_CACHE (8)
 
-```typescript
+```ts
 function evaluateCache(player: EntityPlayer, cacheFlag: CacheFlag): void {}
 ```
 
 ### MC_POST_PLAYER_INIT (9)
 
-```typescript
+```ts
 function postPlayerInit(player: EntityPlayer): void {}
 ```
 
 ### MC_USE_PILL (10)
 
-```typescript
+```ts
 function usePill(
   pillEffect: PillEffect | int,
   player: EntityPlayer,
@@ -89,7 +89,7 @@ function usePill(
 
 ### MC_ENTITY_TAKE_DMG (11)
 
-```typescript
+```ts
 function entityTakeDmg(
   tookDamage: Entity,
   damageAmount: float,
@@ -101,13 +101,13 @@ function entityTakeDmg(
 
 ### MC_POST_CURSE_EVAL (12)
 
-```typescript
+```ts
 function postCurseEval(curses: LevelCurse | int): LevelCurse | int | void {}
 ```
 
 ### MC_INPUT_ACTION (13)
 
-```typescript
+```ts
 function inputAction(
   entity: Entity | null,
   inputHook: InputHook,
@@ -117,37 +117,37 @@ function inputAction(
 
 ### MC_POST_GAME_STARTED (14)
 
-```typescript
+```ts
 function postGameStarted(isContinued: boolean): void {}
 ```
 
 ### MC_POST_GAME_END (15)
 
-```typescript
+```ts
 function postGameEnd(isGameOver: boolean): void {}
 ```
 
 ### MC_PRE_GAME_EXIT (16)
 
-```typescript
+```ts
 function preGameExit(shouldSave: boolean): void {}
 ```
 
 ### MC_POST_NEW_LEVEL (17)
 
-```typescript
+```ts
 function postNewLevel(): void {}
 ```
 
 ### MC_POST_NEW_ROOM (18)
 
-```typescript
+```ts
 function postNewRoom(): void {}
 ```
 
 ### MC_GET_CARD (20)
 
-```typescript
+```ts
 function getCard(
   rng: RNG,
   card: Card | int,
@@ -159,19 +159,19 @@ function getCard(
 
 ### MC_GET_SHADER_PARAMS (21)
 
-```typescript
+```ts
 function getShaderParams(shaderName: string): Record<string, unknown> {}
 ```
 
 ### MC_EXECUTE_CMD (22)
 
-```typescript
+```ts
 function executeCmd(command: string, parameters: string): void {}
 ```
 
 ### MC_PRE_USE_ITEM (23)
 
-```typescript
+```ts
 function preUseItem(
   collectibleType: CollectibleType | int,
   rng: RNG,
@@ -180,7 +180,7 @@ function preUseItem(
 
 ### MC_PRE_ENTITY_SPAWN (24)
 
-```typescript
+```ts
 function preEntitySpawn(
   entityType: EntityType | int,
   variant: int,
@@ -194,7 +194,7 @@ function preEntitySpawn(
 
 ### MC_POST_FAMILIAR_RENDER (25)
 
-```typescript
+```ts
 function postFamiliarRender(
   entityFamiliar: EntityFamiliar,
   renderOffset: Vector,
@@ -203,7 +203,7 @@ function postFamiliarRender(
 
 ### MC_PRE_FAMILIAR_COLLISION (26)
 
-```typescript
+```ts
 function preFamiliarCollision(
   familiar: EntityFamiliar,
   collider: Entity,
@@ -213,25 +213,25 @@ function preFamiliarCollision(
 
 ### MC_POST_NPC_INIT (27)
 
-```typescript
+```ts
 function postNPCInit(npc: EntityNPC): void {}
 ```
 
 ### MC_POST_NPC_RENDER (28)
 
-```typescript
+```ts
 function postNPCRender(npc: EntityNPC, renderOffset: Vector): void {}
 ```
 
 ### MC_POST_NPC_DEATH (29)
 
-```typescript
+```ts
 function postNPCDeath(npc: EntityNPC): void {}
 ```
 
 ### MC_PRE_NPC_COLLISION (30)
 
-```typescript
+```ts
 function preNPCCollision(
   npc: EntityNPC,
   collider: Entity,
@@ -241,19 +241,19 @@ function preNPCCollision(
 
 ### MC_POST_PLAYER_UPDATE (31)
 
-```typescript
+```ts
 function postPlayerUpdate(player: EntityPlayer): void {}
 ```
 
 ### MC_POST_PLAYER_RENDER (32)
 
-```typescript
+```ts
 function postPlayerRender(player: EntityPlayer, renderOffset: Vector): void {}
 ```
 
 ### MC_PRE_PLAYER_COLLISION (33)
 
-```typescript
+```ts
 function prePlayerCollision(
   player: EntityPlayer,
   collider: Entity,
@@ -263,25 +263,25 @@ function prePlayerCollision(
 
 ### MC_POST_PICKUP_INIT (34)
 
-```typescript
+```ts
 function postPickupInit(pickup: EntityPickup): void {}
 ```
 
 ### MC_POST_PICKUP_UPDATE (35)
 
-```typescript
+```ts
 function postPickupUpdate(pickup: EntityPickup): void {}
 ```
 
 ### MC_POST_PICKUP_RENDER (36)
 
-```typescript
+```ts
 function postPickupRender(pickup: EntityPickup, renderOffset: Vector): void {}
 ```
 
 ### MC_POST_PICKUP_SELECTION (37)
 
-```typescript
+```ts
 function postPickupSelection(
   pickup: EntityPickup,
   variant: PickupVariant | int,
@@ -291,7 +291,7 @@ function postPickupSelection(
 
 ### MC_PRE_PICKUP_COLLISION (38)
 
-```typescript
+```ts
 function prePickupCollision(
   pickup: EntityPickup,
   collider: Entity,
@@ -301,25 +301,25 @@ function prePickupCollision(
 
 ### MC_POST_TEAR_INIT (39)
 
-```typescript
+```ts
 function postTearInit(tear: EntityTear): void {}
 ```
 
 ### MC_POST_TEAR_UPDATE (40)
 
-```typescript
+```ts
 function postTearUpdate(tear: EntityTear): void {}
 ```
 
 ### MC_POST_TEAR_RENDER (41)
 
-```typescript
+```ts
 function postTearRender(tear: EntityTear, renderOffset: Vector): void {}
 ```
 
 ### MC_PRE_TEAR_COLLISION (42)
 
-```typescript
+```ts
 function preTearCollision(
   tear: EntityTear,
   collider: Entity,
@@ -329,19 +329,19 @@ function preTearCollision(
 
 ### MC_POST_PROJECTILE_INIT (43)
 
-```typescript
+```ts
 function postProjectileInit(projectile: EntityProjectile): void {}
 ```
 
 ### MC_POST_PROJECTILE_UPDATE (44)
 
-```typescript
+```ts
 function postProjectileUpdate(projectile: EntityProjectile): void {}
 ```
 
 ### MC_POST_PROJECTILE_RENDER (45)
 
-```typescript
+```ts
 function postProjectileRender(
   projectile: EntityProjectile,
   renderOffset: Vector,
@@ -350,7 +350,7 @@ function postProjectileRender(
 
 ### MC_PRE_PROJECTILE_COLLISION (46)
 
-```typescript
+```ts
 function preProjectileCollision(
   projectile: EntityProjectile,
   collider: Entity,
@@ -360,43 +360,43 @@ function preProjectileCollision(
 
 ### MC_POST_LASER_INIT (47)
 
-```typescript
+```ts
 function postLaserInit(laser: EntityLaser): void {}
 ```
 
 ### MC_POST_LASER_UPDATE (48)
 
-```typescript
+```ts
 function postLaserUpdate(laser: EntityLaser): void {}
 ```
 
 ### MC_POST_LASER_RENDER (49)
 
-```typescript
+```ts
 function postLaserRender(laser: EntityLaser, renderOffset: Vector): void {}
 ```
 
 ### MC_POST_KNIFE_INIT (50)
 
-```typescript
+```ts
 function postKnifeInit(knife: EntityKnife): void {}
 ```
 
 ### MC_POST_KNIFE_UPDATE (51)
 
-```typescript
+```ts
 function postKnifeUpdate(knife: EntityKnife): void {}
 ```
 
 ### MC_POST_KNIFE_RENDER (52)
 
-```typescript
+```ts
 function postKnifeRender(knife: EntityKnife, renderOffset: Vector): void {}
 ```
 
 ### MC_PRE_KNIFE_COLLISION (53)
 
-```typescript
+```ts
 function preKnifeCollision(
   knife: EntityKnife,
   collider: Entity,
@@ -406,43 +406,43 @@ function preKnifeCollision(
 
 ### MC_POST_EFFECT_INIT (54)
 
-```typescript
+```ts
 function postEffectInit(effect: EntityEffect): void {}
 ```
 
 ### MC_POST_EFFECT_UPDATE (55)
 
-```typescript
+```ts
 function postEffectUpdate(effect: EntityEffect): void {}
 ```
 
 ### MC_POST_EFFECT_RENDER (56)
 
-```typescript
+```ts
 function postEffectRender(effect: EntityEffect, renderOffset: Vector): void {}
 ```
 
 ### MC_POST_BOMB_INIT (57)
 
-```typescript
+```ts
 function postBombInit(bomb: EntityBomb): void {}
 ```
 
 ### MC_POST_BOMB_UPDATE (58)
 
-```typescript
+```ts
 function postBombUpdate(bomb: EntityBomb): void {}
 ```
 
 ### MC_POST_BOMB_RENDER (59)
 
-```typescript
+```ts
 function postBombRender(bomb: EntityBomb, renderOffset: Vector): void {}
 ```
 
 ### MC_PRE_BOMB_COLLISION (60)
 
-```typescript
+```ts
 function preBombCollision(
   bomb: EntityBomb,
   collider: Entity,
@@ -452,13 +452,13 @@ function preBombCollision(
 
 ### MC_POST_FIRE_TEAR (61)
 
-```typescript
+```ts
 function postFireTear(tear: EntityTear): void {}
 ```
 
 ### MC_PRE_GET_COLLECTIBLE (62)
 
-```typescript
+```ts
 function preGetCollectible(
   itemPoolType: ItemPoolType,
   decrease: boolean,
@@ -468,7 +468,7 @@ function preGetCollectible(
 
 ### MC_POST_GET_COLLECTIBLE (63)
 
-```typescript
+```ts
 function postGetCollectible(
   collectibleType: CollectibleType | int,
   itemPoolType: ItemPoolType,
@@ -479,13 +479,13 @@ function postGetCollectible(
 
 ### MC_GET_PILL_COLOR (64)
 
-```typescript
+```ts
 function getPillColor(seed: int): PillColor | int | void {}
 ```
 
 ### MC_GET_PILL_EFFECT (65)
 
-```typescript
+```ts
 function getPillEffect(
   pillEffect: PillEffect | int,
   pillColor: PillColor | int,
@@ -494,7 +494,7 @@ function getPillEffect(
 
 ### MC_GET_TRINKET (66)
 
-```typescript
+```ts
 function getTrinket(
   trinketType: TrinketType | int,
   rng: RNG,
@@ -503,31 +503,31 @@ function getTrinket(
 
 ### MC_POST_ENTITY_REMOVE (67)
 
-```typescript
+```ts
 function postEntityRemove(entity: Entity): void {}
 ```
 
 ### MC_POST_ENTITY_KILL (68)
 
-```typescript
+```ts
 function postEntityKill(entity: Entity): void {}
 ```
 
 ### MC_PRE_NPC_UPDATE (69)
 
-```typescript
+```ts
 function preNPCUpdate(entity: Entity): boolean | void {}
 ```
 
 ### MC_PRE_SPAWN_CLEAN_AWARD (70)
 
-```typescript
+```ts
 function preSpawnClearAward(rng: RNG, spawnPosition: Vector): void {}
 ```
 
 ### MC_PRE_ROOM_ENTITY_SPAWN (71)
 
-```typescript
+```ts
 function preRoomEntitySpawn(
   entityType: EntityType | int,
   variant: int,

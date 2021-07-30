@@ -24,7 +24,7 @@ And wordy.
 --]]
 ```
 
-```typescript
+```ts
 // This is a single-line comment in TypeScript.
 
 /*
@@ -47,7 +47,7 @@ Unlike Lua, TypeScript code should have semi-colons after every line.
 Isaac.DebugString("hello world")
 ```
 
-```typescript
+```ts
 // TypeScript code
 Isaac.DebugString("hello world");
 ```
@@ -70,7 +70,7 @@ Isaac.DebugString("hello world")
 Game():GetPlayer(0):AddMaxHearts(2)
 ```
 
-```typescript
+```ts
 // TypeScript code
 Isaac.DebugString("hello world");
 Game().GetPlayer(0).AddMaxHearts(2);
@@ -94,7 +94,7 @@ local numFarts = 1
 numFarts = numFarts + 1 -- numFarts is now equal to 2
 ```
 
-```typescript
+```ts
 // TypeScript code
 const poop = "poop"; // We use "const" because this value never changes
 let numFarts = 1; // We use "let" because we have to modify it later
@@ -116,7 +116,7 @@ local function getNumFarts() -- This is a local function
 end
 ```
 
-```typescript
+```ts
 // TypeScript code
 // All functions in TypeScript are local by default
 function getNumPoops() {
@@ -135,7 +135,7 @@ Revelations:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
 end);
 ```
 
-```typescript
+```ts
 // Typescript code
 Revelations.AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, () => {
   Isaac.DebugString("Arrived on a new floor.");
@@ -167,7 +167,7 @@ if x == 1 and y ~= 0 then
 end
 ```
 
-```typescript
+```ts
 // TypeScript code
 if (x === 1 && y !== 0) {
   // Do something
@@ -189,7 +189,7 @@ end
 
 In TypeScript, you use the more-standard C-style syntax:
 
-```typescript
+```ts
 // TypeScript code
 for (let i = 1; i <= 10; i++) {
   // "i" will iterate upwards from 1 to 10
@@ -207,7 +207,7 @@ end
 
 In TypeScript, that would be:
 
-```typescript
+```ts
 // TypeScript code
 for (let i = 10; i >= 1; i--) {
   // "i" will iterate downwards from 1 to 10
@@ -232,7 +232,7 @@ end
 
 In TypeScript, you have a few different options.
 
-```typescript
+```ts
 // Typescript code
 const gapers = Isaac.FindByType(EntityType.ENTITY_GAPER, -1, -1, false, false);
 
@@ -271,7 +271,7 @@ end
 
 In TypeScript, you have a few different options.
 
-```typescript
+```ts
 // TypeScript code
 // Define an anonymous object containing item prices
 const itemPrices = {
@@ -306,7 +306,7 @@ if entity.SpawnerEntity == nil then
 end
 ```
 
-```typescript
+```ts
 // TypeScript code
 if (entity.SpawnerEntity === null) {
   // This entity was not spawned by anything in particular
@@ -327,7 +327,7 @@ local numFarts = 1
 numFarts = numFarts + 1 -- numFarts is now equal to 2
 ```
 
-```typescript
+```ts
 // TypeScript code
 let numFarts = 1;
 numFarts += 1; // numFarts is now equal to 2
@@ -345,7 +345,7 @@ local poopString = "poop"
 poopString = poopString .. " modified" -- poopString is now equal to "poop modified"
 ```
 
-```typescript
+```ts
 // TypeScript code
 let poopString = "poop";
 poopString += " modified"; // poopString is now equal to "poop modified"
@@ -363,7 +363,7 @@ local numPoops = 3
 local numPoopsString = tostring(numPoops)
 ```
 
-```typescript
+```ts
 // TypeScript code
 const numPoops = 3;
 const numPoopsString = numPoops.toString();
@@ -376,7 +376,7 @@ However, in TypeScript, you probably won't need to convert variables like this v
 Isaac.DebugString("The current number of poops is: " .. tostring(numPoops))
 ```
 
-```typescript
+```ts
 // TypeScript code
 Isaac.DebugString(`The current number of poops is: ${numPoops}`);
 ```
@@ -393,7 +393,7 @@ Isaac.DebugString(
 )
 ```
 
-```typescript
+```ts
 // TypeScript code
 Isaac.DebugString(
   `Entity found: ${entity.Type}.${entity.Variant}.${entity.SubType}`,
@@ -422,7 +422,7 @@ function PostPlayerInit(player) {
 }
 ```
 
-```typescript
+```ts
 // TypeScript code
 function PostPlayerInit(player: EntityPlayer) {
   player.AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false);
@@ -467,7 +467,7 @@ return postPlayerInit
 In TypeScript, this is accomplished with `import`.<br />
 (Don't ever use the JavaScript/TypeScript version of `require()`, which is only used in older JavaScript code.)
 
-```typescript
+```ts
 // main.ts
 import * as postPlayerInit from "./postPlayerInit";
 
@@ -475,7 +475,7 @@ const Revelations = RegisterMod("Revelations", 1);
 Revelations.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit.main);
 ```
 
-```typescript
+```ts
 // postPlayerInit.ts
 export function main(player: EntityPlayer) {
   player.AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false);
@@ -501,7 +501,7 @@ if InfinityTrueCoopInterface ~= nil then
 end
 ```
 
-```typescript
+```ts
 // TypeScript code
 declare const InfinityTrueCoopInterface: null | unknown;
 if (InfinityTrueCoopInterface !== null) {
@@ -521,7 +521,7 @@ For example, to declare `InfinityTrueCoopInterface`, starting from the root of y
 - Create the `src/types/InfinityTrueCoopInterface.d.ts` file. (A `d.ts` file is a TypeScript _declaration_ file.)
 - Put the following in it:
 
-```typescript
+```ts
 declare const InfinityTrueCoopInterface: null | unknown;
 ```
 
@@ -537,7 +537,7 @@ In the True Co-op Mod, the exported global variable of `InfinityTrueCoopInterfac
 
 The solution is to add the `AddCharacter()` method to our definition file. We need to flesh out the `src/types/InfinityTrueCoopInterface.d.ts` file a bit:
 
-```typescript
+```ts
 // The global variable exists and it is a Lua table of type TrueCoop,
 // which we will immediately define below
 declare const InfinityTrueCoopInterface: TrueCoop;
@@ -576,14 +576,14 @@ RevelationsVersion = "2.1" -- "RevelationsVersion" is now a global variable
 
 In TypeScript, you just have to declare it beforehand:
 
-```typescript
+```ts
 declare let RevelationsVersion: string;
 RevelationsVersion = "2.1"; // "RevelationsVersion" is now a global variable
 ```
 
 Building on this example, you can also expose both variables and methods:
 
-```typescript
+```ts
 class Exports() {
   IncreaseStrength(amount: int) {
     // [more code here]
@@ -609,7 +609,7 @@ Imagine that in our mod, items can only be sold for three different prices:
 
 This means that we can get even more specific with our item prices definition by using an `enum`. Unlike Lua, TypeScript has a built-in `enum` data type.
 
-```typescript
+```ts
 enum ItemPrice {
   Normal = 15,
   Double = 30,
@@ -634,7 +634,7 @@ Anonymous objects are good for cases where you won't use variables to access the
 
 In this example, what "itemPrices" _really_ represents is a _map_ of a specific item ID to a price. Unlike Lua, TypeScript has a `Map` data type. So, the example would be better written like this:
 
-```typescript
+```ts
 // itemPrices has a type of "Map<CollectibleType, number>",
 // which makes much more sense than an anonymous object
 const itemPrices = new Map([
@@ -661,7 +661,7 @@ function pickingUpItem(player, pickingUpItemID)
 end
 ```
 
-```typescript
+```ts
 // TypeScript code
 function pickingUpItem(player: EntityPlayer, pickingUpItemID: number) {
   // If the player picked up a new item,

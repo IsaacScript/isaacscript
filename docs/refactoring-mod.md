@@ -12,7 +12,7 @@ Let's say that in our example mod, we want to add a few more custom items, so th
 
 We don't want to have any logic in the "main.ts" file. This purpose of this file is to simply register the mod and glue together all of the callbacks.
 
-```typescript
+```ts
 // Define imports
 import * as postUpdate from "./callbacks/postUpdate";
 
@@ -34,7 +34,7 @@ Isaac.DebugString("The Green Candle mod is initialized.");
 
 Before, we had a `greenCandleItemID` variable. This is a constant and will never change, so it belongs in its own "constants.ts" file. Furthermore, instead of having individual variables for every item ID, we can put them all in a "CollectibleTypeCustom" enum, which helps us stay more organized.
 
-```typescript
+```ts
 export enum CollectibleTypeCustom {
   COLLECTIBLE_GREEN_CANDLE = Isaac.GetItemIdByName("Green Candle"),
 }
@@ -46,7 +46,7 @@ export enum CollectibleTypeCustom {
 
 Each callback can have its own dedicated file in the "callbacks" directory. Here's the code for "postUpdate.ts":
 
-```typescript
+```ts
 import * as greenCandle from "../items/greenCandle";
 
 export function main(): void {
@@ -61,7 +61,7 @@ export function main(): void {
 
 Each item can have its own dedicated file in the "items" directory.
 
-```typescript
+```ts
 import { CollectibleTypeCustom } from "../constants";
 
 export function checkApplyEffect(): void {
@@ -97,7 +97,7 @@ function shouldApplyEffectToEntity(entity: Entity) {
 
 Now, our project looks like this:
 
-```typescript
+```ts
 src/
 ├── main.ts
 ├── constants.ts

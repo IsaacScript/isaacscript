@@ -25,7 +25,7 @@ end
 
 In TypeScript, you cannot extend existing enums for safety reasons. Instead, create your own enum:
 
-```typescript
+```ts
 // At the top of your TypeScript mod:
 enum CollectibleTypeCustom {
   COLLECTIBLE_MY_CUSTOM_ITEM = Isaac.GetItemIdByName("My Custom Item"),
@@ -58,7 +58,7 @@ AddCollectible (CollectibleType Type, integer Charge, boolean AddConsumables)
 
 In order to more closely match the API, the TypeScript API definitions use `int` and `float` types. Thus, the above function is declared like this:
 
-```typescript
+```ts
 AddCollectible(collectibleType: int, charge: int, addConsumables: boolean): void;
 ```
 
@@ -66,7 +66,7 @@ If you want, you can use the `int` and `float` types in your own code too (inste
 
 In other words, it is possible to do this, so beware:
 
-```typescript
+```ts
 // Give the player a Sad Onion
 player.AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false);
 
@@ -112,7 +112,7 @@ Here's an example:
 local vector = Vector(1, 1) * 5 + 2
 ```
 
-```typescript
+```ts
 // TypeScript code
 const vector = Vector(1, 1).mul(5).add(2);
 ```
@@ -125,14 +125,14 @@ local vector = Vector(1, 1) + Vector(3, 3) * 6
 -- (multiplication happens before addition)
 ```
 
-```typescript
+```ts
 // TypeScript code
 let vector = Vector(3, 3).mul(6).add(Vector(1, 1);
 ```
 
 Note that if you really need to, you can restore operator overloading for Vectors by creating a [branded type](https://medium.com/@KevinBGreene/surviving-the-typescript-ecosystem-branding-and-type-tagging-6cf6e516523d) with something along the lines of:
 
-```typescript
+```ts
 type Vector = number & { __intBrand: any };
 ```
 
@@ -170,7 +170,7 @@ end
 
 In TypeScript, we can directly call the Lua code in the same way. Note that IsaacScript automatically includes type definitions for the `json.lua` file, so you don't have to worry about that part.
 
-```typescript
+```ts
 // TypeScript code
 import * as json from "json";
 
@@ -208,7 +208,7 @@ end
 
 In TypeScript, it would be exactly like iterating over any other object:
 
-```typescript
+```ts
 // TypeScript code
 // "Keyboard" is an enum provided by the game
 for (const [keyName, keyCode] of Object.entries(Keyboard)) {
@@ -222,7 +222,7 @@ One important thing to note about this is that iterating over enums **will not h
 
 Furthermore, it is important that in the previous example, we are iterating over a "normal" enum provided by the game. You **will not be able to iterate over your own enums** in this way because of how TypeScriptToLua transpiles them. TypeScriptToLua creates a double mapping of key to value and value to key. For example:
 
-```typescript
+```ts
 enum TestEnum {
   ONE = 1,
   TWO = 2,
@@ -251,7 +251,7 @@ Isaac.DebugString(`currentTestValue = ${currentTestValue} - ${TestEnum[currentTe
 
 However, this means that if you want to iterate over your own enums in a way similar to the previous example, you have to use some type-checking:
 
-```typescript
+```ts
 for (const [key, value] of Object.entries(TestEnum)) {
   if (type(key) !== "string") {
     // Ignore the reverse mappings created by TypeScriptToLua
@@ -277,7 +277,7 @@ On the other hand, if you want to split IsaacScript code between repositories or
 
 Normally, in TypeScript programs, you would handle errors with `throw new Error("foo")`. For example:
 
-```typescript
+```ts
 const player = Isaac.GetPlayer(1); // The type of player is "EntityPlayer | null"
 if (player === null) {
   throw new Error("Failed to get the player!");
@@ -291,7 +291,7 @@ However, in Isaac mods, this code won't work. It will error with something along
 
 This is because TypeScriptToLua transpiles `throw` to a function that uses Lua's `debug` library, and Isaac does not normally have access to `debug` for sandboxing reasons. But not to worry, because instead we can simply use Lua's `error()` function. For example:
 
-```typescript
+```ts
 const player = Isaac.GetPlayer(1); // The type of player is "EntityPlayer | null"
 if (player === null) {
   error("Failed to get the player!");
@@ -307,7 +307,7 @@ player.AddSoulHearts(1); // The type of player is now "EntityPlayer"
 
 You cannot instantiate a blank mod object/class:
 
-```typescript
+```ts
 // TypeScript code
 const Revelations = RegisterMod("Revelations", 1); // "Revelations" has the type "Mod"
 
@@ -331,7 +331,7 @@ function __TS__New(target, ...)
 
 To fix this problem, do something like the following:
 
-```typescript
+```ts
 // TypeScript code
 const Revelations = RegisterMod("Revelations", 1); // "Revelations" has the type "Mod"
 

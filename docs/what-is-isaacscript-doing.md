@@ -32,7 +32,7 @@ Note that `isaacscript` will automatically install the `isaacscript-watcher` hel
 2. In-game, go into a run.
 3. In VSCode, add something new to your `main.ts` file, like:
 
-```typescript
+```ts
 print("hello world");
 ```
 
