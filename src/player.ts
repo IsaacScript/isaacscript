@@ -116,3 +116,20 @@ export function getPlayers(performExclusions = false): EntityPlayer[] {
 
   return players;
 }
+
+/**
+ * Returns the total number of collectibles amongst all players. For example, if player 1 has 1 Sad
+ * Onion and player 2 has 2 Sad Onions, then this function would return 3.
+ *
+ * @category Player
+ */
+export function getTotalPlayerCollectibles(
+  collectibleType: CollectibleType,
+): int {
+  let numCollectibles = 0;
+  for (const player of getPlayers()) {
+    numCollectibles += player.GetCollectibleNum(collectibleType);
+  }
+
+  return numCollectibles;
+}

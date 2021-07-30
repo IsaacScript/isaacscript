@@ -1,5 +1,6 @@
 export * from "./entities";
 export * from "./flags";
+export * from "./gridEntities";
 export * from "./input";
 export * from "./log";
 export * from "./player";

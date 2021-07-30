@@ -1,4 +1,4 @@
-import { RECOMMENDED_SHIFT_IDX } from "./constants";
+import { BEAST_ROOM_SUB_TYPE, RECOMMENDED_SHIFT_IDX } from "./constants";
 import { game } from "./game";
 
 /**
@@ -97,6 +97,43 @@ export function getRoomIndex(): int {
 }
 
 /**
+ * Converts a room X and Y coordinate to a position. For example, the coordinates of 0, 0 are
+ * equal to `Vector(80, 160)`.
+ *
+ * @category Utility
+ */
+export function gridToPos(x: int, y: int): Vector {
+  const room = game.GetRoom();
+
+  x += 1;
+  y += 1;
+
+  const gridIndex = y * room.GetGridWidth() + x;
+
+  return room.GetGridPosition(gridIndex);
+}
+
+/**
+ * Helper function for determining whether the current room is a crawlspace. Use this function over
+ * comparing to `GridRooms.ROOM_DUNGEON_IDX` directly since there is a special case of the player
+ * being in The Beast room.
+ *
+ * @category Utility
+ */
+export function inCrawlspace(): boolean {
+  const level = game.GetLevel();
+  const roomDesc = level.GetCurrentRoomDesc();
+  const roomData = roomDesc.Data;
+  const roomSubType = roomData.Subtype;
+  const roomIndex = getRoomIndex();
+
+  return (
+    roomIndex === GridRooms.ROOM_DUNGEON_IDX &&
+    roomSubType !== BEAST_ROOM_SUB_TYPE
+  );
+}
+
+/**
  * Helper function to initialize an RNG object.
  *
  * Example:
@@ -118,4 +155,32 @@ export function initRNG(seed: int): RNG {
   rng.SetSeed(seed, RECOMMENDED_SHIFT_IDX);
 
   return rng;
+}
+
+/**
+ * @category Utility
+ */
+export function isAntibirthStage(): boolean {
+  const level = game.GetLevel();
+  const stageType = level.GetStageType();
+
+  return (
+    stageType === StageType.STAGETYPE_REPENTANCE ||
+    stageType === StageType.STAGETYPE_REPENTANCE_B
+  );
+}
+
+/**
+ * Whether or not the player is playing on a set seed, meaning that they entered in a specific seed
+ * by pressing tab on the character selection screen. When the player resets the game on a set seed,
+ * the game will not switch to a different seed.
+ *
+ * @category Utility
+ */
+export function onSetSeed(): boolean {
+  const seeds = game.GetSeeds();
+  const customRun = seeds.IsCustomRun();
+  const challenge = Isaac.GetChallenge();
+
+  return challenge === Challenge.CHALLENGE_NULL && customRun;
 }

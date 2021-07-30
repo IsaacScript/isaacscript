@@ -1,3 +1,5 @@
+export const BEAST_ROOM_SUB_TYPE = 4;
+
 export const EXCLUDED_CHARACTERS = [
   PlayerType.PLAYER_ESAU, // 20
   PlayerType.PLAYER_THESOUL_B, // 40
