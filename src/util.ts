@@ -39,7 +39,7 @@ export function changeRoom(roomIndex: int): void {
 
 /**
  * Helper function to get type safety on a switch statement.
- * Very useful to be future-safe against people adding values to a type or an enums.
+ * Very useful to be future-safe against people adding values to a type or an enum.
  *
  * Example:
  * ```
