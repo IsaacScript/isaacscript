@@ -1,22 +1,3 @@
-/** copy recursively copies a table so that none of the nested references remain. */
-export function copy(table: LuaTable): void {
-  const newTable = new LuaTable();
-  for (const [key, value] of pairs(table)) {
-    const valueType = type(value);
-
-    let newValue: unknown;
-    if (valueType === "table") {
-      // Recursively handle child tables
-      newValue = copy(value as LuaTable);
-    } else {
-      // Base case - copy the value
-      newValue = value;
-    }
-
-    newTable.set(key, newValue);
-  }
-}
-
 /**
  * merge takes the values from a new table and merges them into an old table.
  * It will only copy over values that are present in the old table.

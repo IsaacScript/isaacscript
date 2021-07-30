@@ -37,6 +37,27 @@ export function changeRoom(roomIndex: int): void {
   game.ChangeRoom(roomIndex);
 }
 
+/** deepCopy recursively copies a table so that none of the nested references remain. */
+export function deepCopy(table: LuaTable): LuaTable {
+  const newTable = new LuaTable();
+  for (const [key, value] of pairs(table)) {
+    const valueType = type(value);
+
+    let newValue: unknown;
+    if (valueType === "table") {
+      // Recursively handle child tables
+      newValue = deepCopy(value as LuaTable);
+    } else {
+      // Base case - copy the value
+      newValue = value;
+    }
+
+    newTable.set(key, newValue);
+  }
+
+  return newTable;
+}
+
 /**
  * Helper function to get type safety on a switch statement.
  * Very useful to be future-safe against people adding values to a type or an enum.
@@ -75,6 +96,11 @@ export function changeRoom(roomIndex: int): void {
  * @category Utility
  */
 export const ensureAllCases = (obj: never): never => obj;
+
+export function getAngleDifference(angle1: float, angle2: float): float {
+  const subtractedAngle = angle1 - angle2;
+  return ((subtractedAngle + 180) % 360) - 180;
+}
 
 /**
  * This returns a random number between x and y, inclusive.
@@ -191,6 +217,14 @@ export function isRepentanceStage(): boolean {
  */
 export function lerp(a: number, b: number, pos: float): number {
   return a + (b - a) * pos;
+}
+
+export function lerpAngleDegrees(
+  aStart: number,
+  aEnd: number,
+  percent: float,
+): number {
+  return aStart + getAngleDifference(aStart, aEnd) * percent;
 }
 
 /**

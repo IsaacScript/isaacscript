@@ -1,5 +1,5 @@
-import * as tableUtils from "./tableUtils";
 import SaveData from "./types/SaveData";
+import { deepCopy } from "./util";
 
 /** Indexed by subscriber name. */
 const saveDataMap = new Map<string, SaveData>();
@@ -83,7 +83,7 @@ export function saveDataManager(key: string, saveData: SaveData): void {
   // Also, make a copy of the initial save data so that we can use it to restore the default values
   // later on
   const saveDataTable = saveData as LuaTable;
-  const saveDataTableCopy = tableUtils.copy(saveDataTable);
+  const saveDataTableCopy = deepCopy(saveDataTable);
   const saveDataCopy = saveDataTableCopy as unknown as SaveData;
   saveDataDefaultsMap.set(key, saveDataCopy);
 }
@@ -127,9 +127,7 @@ function restoreDefaults(childTableName: keyof SaveData) {
 
     // Make a new copy of the default child table
     const childTableDefaultsTable = childTableDefaults as unknown as LuaTable;
-    const childTableDefaultsTableCopy = tableUtils.copy(
-      childTableDefaultsTable,
-    );
+    const childTableDefaultsTableCopy = deepCopy(childTableDefaultsTable);
     const childTableDefaultsCopy =
       childTableDefaultsTableCopy as unknown as Record<string, unknown>;
 
