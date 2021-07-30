@@ -16,38 +16,35 @@ export function init(mod: Mod): void {
 /**
  * This is the entry point to the save data manager, a system which provides two major features:
  *
- * 1. automatic resetting of data on a new run, on a new level, or on a new room (as desired)
- * 2. automatic saving and loading of all data to the "save#.dat" file
+ * 1. automatic resetting of variables on a new run, on a new level, or on a new room (as desired)
+ * 2. automatic saving and loading of all tracked data to the "save#.dat" file
  *
  * The save data manager never exposes any data, ensuring that all of the files in your mod have
  * variables that are properly scoped.
- *
- * To use it, simply define an object that roughly matches the format of `SaveData`, and feed it to
- * the `saveDataManager.init()` function.
  *
  * Example:
  * ```
  * // in file: feature1.ts
  * import { saveDataManager } from "isaacscript-common";
  *
- * // Declare local variables to this file or feature
+ * // Declare local variables for this file or feature
  * const v = {
- *   // These are never reset
+ *   // These variables are never reset; manage them yourself at will
  *   persistent: {
  *     foo1: 0,
  *   },
  *
- *   // These are reset at the beginning of every run
+ *   // These variables are reset at the beginning of every run
  *   run: {
  *     foo2: 0,
  *   },
  *
- *   // These are reset at the beginning of every level
+ *   // These variables are reset at the beginning of every level
  *   level: {
  *     foo3: 0,
  *   },
  *
- *   // These are reset at the beginning of every room
+ *   // These variables are reset at the beginning of every room
  *   room: {
  *     foo2: 0,
  *   },
@@ -55,11 +52,11 @@ export function init(mod: Mod): void {
  * // (every child object is optional; only create the ones that you need)
  *
  * // Register the variables with the save data manager
- * // We need to provide a string key to the resetter so that it can save the variables properly in
- * // the "save#.dat" file
- * saveDataManager.register("feature1", v);
+ * // (we need to provide a string key so that it can save the variables properly in the "save#.dat"
+ * // file)
+ * saveDataManager("feature1", v);
  *
- * // Elsewhere in the file...
+ * // Elsewhere in the file, use your variables
  * function feature1Function() {
  *   if (v.run.foo1 > 0) {
  *     // Do stuff
@@ -73,7 +70,7 @@ export function init(mod: Mod): void {
  * @param saveData An object with one or more child-objects of "persistent", "run", "level", or
  * "room".
  */
-export function register(key: string, saveData: SaveData): void {
+export function saveDataManager(key: string, saveData: SaveData): void {
   if (saveDataMap.has(key)) {
     error(
       `The save data manager is already managing save data for a key of: ${key}`,
