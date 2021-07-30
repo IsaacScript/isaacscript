@@ -6,6 +6,10 @@ For reference, this is a handy list of all possible callback functions.
 
 <br />
 
+## Vanilla Callbacks
+
+<br />
+
 ### MC_NPC_UPDATE (0)
 
 ```typescript
@@ -531,4 +535,28 @@ function preRoomEntitySpawn(
   gridIndex: int,
   seed: int,
 ): [EntityType | int, int, int] | void {}
+```
+
+<br />
+
+## Custom Callbacks
+
+<br />
+
+### MC_POST_ITEM_PICKUP
+
+```typescript
+function postItemPickup(
+  player: EntityPlayer,
+  pickingUpItem: PickingUpItem,
+): void {}
+```
+
+### MC_PRE_ITEM_PICKUP
+
+```typescript
+function preItemPickup(
+  player: EntityPlayer,
+  pickingUpItem: PickingUpItem,
+): void {}
 ```
