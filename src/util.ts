@@ -160,7 +160,7 @@ export function initRNG(seed: int): RNG {
 /**
  * @category Utility
  */
-export function isAntibirthStage(): boolean {
+export function isRepentanceStage(): boolean {
   const level = game.GetLevel();
   const stageType = level.GetStageType();
 
