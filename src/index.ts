@@ -8,11 +8,10 @@ export * from "./player";
 export { saveDataManager } from "./saveDataManager";
 export * from "./tears";
 export * from "./ui";
+export * from "./upgradeMod";
 export * from "./util";
 
 /*
-export * from "./upgradeMod";
-export { default as CallbackParametersCustom } from "./types/CallbackParametersCustom";
 export { default as ModCallbacksCustom } from "./types/ModCallbacksCustom";
 export { default as PickingUpItem } from "./types/PickingUpItem";
 */

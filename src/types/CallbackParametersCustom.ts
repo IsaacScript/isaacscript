@@ -7,6 +7,7 @@ import PickingUpItem from "./PickingUpItem";
  * Also see the [[`upgradeMod`]] function and the [[`ModCallbacksCustom`]] enum.
  *
  * @category Custom Callbacks
+ * @public
  */
 export default interface CallbackParametersCustom {
   [ModCallbacksCustom.MC_PRE_ITEM_PICKUP]: [
