@@ -2,7 +2,6 @@ import PickingUpItem from "./PickingUpItem";
 import { getPlayerIndex, getPlayers, PlayerIndex } from "./player";
 import { postItemPickup } from "./postItemPickup";
 import { preItemPickup } from "./preItemPickup";
-import { saveDataManager } from "./saveDataManager";
 
 const v = {
   run: {
@@ -11,7 +10,8 @@ const v = {
 };
 
 export function init(mod: Mod): void {
-  saveDataManager("itemPickupCallback", v);
+  // Commenting this out to see if it fixes the global variable problem
+  // saveDataManager("itemPickupCallback", v);
 
   mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate);
 }

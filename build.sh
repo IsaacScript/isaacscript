@@ -11,8 +11,4 @@ cd "$DIR"
 # Compile the project, which will result in Lua files & TypeScript definition files
 npx tstl
 
-# Generate the documentation
-# rm -rf "$DIR/docs"
-# npx typedoc --out "$DIR/docs" "$DIR/src/index.ts"
-
 echo "Success!"
