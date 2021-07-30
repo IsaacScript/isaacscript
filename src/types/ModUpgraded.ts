@@ -3,15 +3,15 @@ import * as postItemPickup from "../callbacks/postItemPickup";
 import * as preItemPickup from "../callbacks/preItemPickup";
 import { ensureAllCases } from "../functions/util";
 import * as saveDataManager from "../saveDataManager";
-import { ModCallbacksCustom } from "./ModCallbacksCustom";
-import PickingUpItem from "./PickingUpItem";
+import CallbackParametersCustom from "./CallbackParametersCustom";
+import ModCallbacksCustom from "./ModCallbacksCustom";
 
 /** `isaacscript-common` allows for custom callbacks, so it provides an upgraded Mod object. */
 export default class ModUpgraded extends Mod {
   // eslint-disable-next-line class-methods-use-this
-  AddCallbackCustom<T extends keyof CallbackParametersUpgraded>(
+  AddCallbackCustom<T extends keyof CallbackParametersCustom>(
     customCallbackIDGeneric: T,
-    ...args: CallbackParametersUpgraded[T]
+    ...args: CallbackParametersCustom[T]
   ): void {
     const customCallbackID = customCallbackIDGeneric as ModCallbacksCustom;
     switch (customCallbackID) {
@@ -54,22 +54,4 @@ export default class ModUpgraded extends Mod {
   initCustomCallbacks(): void {
     itemPickup.init(this);
   }
-}
-
-/**
- * This is the format for the custom callbacks, along with optional arguments, if any.
- *
- * @category Custom Callbacks
- */
-interface CallbackParametersUpgraded {
-  [ModCallbacksCustom.MC_PRE_ITEM_PICKUP]: [
-    callback: (player: EntityPlayer, pickingUpItem: PickingUpItem) => void,
-    itemType?: ItemType,
-    itemID?: CollectibleType | TrinketType | int,
-  ];
-  [ModCallbacksCustom.MC_POST_ITEM_PICKUP]: [
-    callback: (player: EntityPlayer, pickingUpItem: PickingUpItem) => void,
-    itemType?: ItemType,
-    itemID?: CollectibleType | TrinketType | int,
-  ];
 }

@@ -5,7 +5,8 @@
  *
  * @category Custom Callbacks
  */
-export enum ModCallbacksCustom {
+enum ModCallbacksCustom {
   MC_PRE_ITEM_PICKUP,
   MC_POST_ITEM_PICKUP,
 }
+export default ModCallbacksCustom;
