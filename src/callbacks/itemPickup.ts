@@ -1,5 +1,5 @@
 import { getPlayerIndex, getPlayers, PlayerIndex } from "../functions/player";
-import * as saveDataManager from "../saveDataManager";
+import { saveDataManager } from "../saveDataManager";
 import PickingUpItem from "../types/PickingUpItem";
 import { postItemPickup } from "./postItemPickup";
 import { preItemPickup } from "./preItemPickup";
@@ -11,7 +11,7 @@ const v = {
 };
 
 export function init(mod: Mod): void {
-  saveDataManager.register("postItemPickupCustomCallback", v);
+  saveDataManager("itemPickupCallback", v);
 
   mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate);
 }
