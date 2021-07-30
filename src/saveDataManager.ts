@@ -1,6 +1,8 @@
 import SaveData from "./SaveData";
 import { deepCopy } from "./util";
 
+let isInitialized = false;
+
 /** Indexed by subscriber name. */
 const saveDataMap = new Map<string, SaveData>();
 
@@ -11,6 +13,8 @@ export function init(mod: Mod): void {
   mod.AddCallback(ModCallbacks.MC_POST_GAME_STARTED, postGameStarted); // 15
   mod.AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, postNewLevel); // 18
   mod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoom); // 19
+
+  isInitialized = true;
 }
 
 /**
@@ -64,6 +68,8 @@ export function init(mod: Mod): void {
  * }
  * ```
  *
+ * Note that before using the save data manager, you must call the `[[upgradeMod]]` function.
+ *
  * @param key The name of the file or feature that is submitting data to be managed by the save data
  * manager. The save data manager will throw an error if it receives a second registration request
  * using the same key as a previous subscriber.
@@ -71,6 +77,12 @@ export function init(mod: Mod): void {
  * "room".
  */
 export function saveDataManager(key: string, saveData: SaveData): void {
+  if (!isInitialized) {
+    error(
+      'The save data manager is not initialized. You must first upgrade your mod object by calling the "upgradeMod()" function.',
+    );
+  }
+
   if (saveDataMap.has(key)) {
     error(
       `The save data manager is already managing save data for a key of: ${key}`,

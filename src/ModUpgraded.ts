@@ -7,7 +7,38 @@ import * as saveDataManager from "./saveDataManager";
 import { ensureAllCases } from "./util";
 
 /** `isaacscript-common` allows for custom callbacks, so it provides an upgraded Mod object. */
-export default class ModUpgraded extends Mod {
+export default class ModUpgraded implements Mod {
+  // First, define stubs for all of the Mod functions and attributes
+
+  /* eslint-disable-next-line class-methods-use-this */
+  AddCallback<T extends keyof CallbackParameters>(
+    _callbackID: T,
+    ..._args: CallbackParameters[T]
+  ): void {}
+
+  /* eslint-disable-next-line class-methods-use-this */
+  HasData(): boolean {
+    return false;
+  }
+
+  /* eslint-disable-next-line class-methods-use-this */
+  LoadData(): string {
+    return "";
+  }
+
+  /* eslint-disable-next-line class-methods-use-this */
+  RemoveCallback(_callbackID: ModCallbacks, _callback: () => void): void {}
+
+  /* eslint-disable-next-line class-methods-use-this */
+  RemoveData(): void {}
+
+  /* eslint-disable-next-line class-methods-use-this */
+  SaveData(_data: string): void {}
+
+  Name: string;
+
+  // Second, define custom functionality
+
   // eslint-disable-next-line class-methods-use-this
   AddCallbackCustom<T extends keyof CallbackParametersCustom>(
     customCallbackIDGeneric: T,
@@ -34,14 +65,7 @@ export default class ModUpgraded extends Mod {
   }
 
   constructor(mod: Mod) {
-    super();
-
-    this.copyAllModAttributes(mod);
-    saveDataManager.init(this);
-    this.initCustomCallbacks();
-  }
-
-  copyAllModAttributes(mod: Mod): void {
+    // Copy all attributes from the original
     this.AddCallback = mod.AddCallback; // eslint-disable-line @typescript-eslint/unbound-method
     this.HasData = mod.HasData; // eslint-disable-line @typescript-eslint/unbound-method
     this.LoadData = mod.LoadData; // eslint-disable-line @typescript-eslint/unbound-method
@@ -49,6 +73,9 @@ export default class ModUpgraded extends Mod {
     this.RemoveData = mod.RemoveData; // eslint-disable-line @typescript-eslint/unbound-method
     this.SaveData = mod.SaveData; // eslint-disable-line @typescript-eslint/unbound-method
     this.Name = mod.Name;
+
+    saveDataManager.init(this);
+    this.initCustomCallbacks();
   }
 
   initCustomCallbacks(): void {
