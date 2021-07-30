@@ -4,7 +4,10 @@ import { game } from "./game";
 /**
  * @category Player
  */
-export function anyPlayerCloserThan(position: Vector, distance: int): boolean {
+export function anyPlayerCloserThan(
+  position: Vector,
+  distance: float,
+): boolean {
   for (const player of getPlayers()) {
     if (player.Position.Distance(position) <= distance) {
       return true;
