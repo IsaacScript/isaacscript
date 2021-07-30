@@ -121,6 +121,55 @@ export function getPlayers(performExclusions = false): EntityPlayer[] {
 }
 
 /**
+ * PlayerIndex is a specific type of string; see the JSDoc comment for the `getPlayerIndex()`
+ * function. Mods can signify that data structures handle EntityPlayers by using this type:
+ *
+ * ```
+ * const myPlayerMap = new Map<PlayerIndex, string>();
+ * ```
+ *
+ * This type is branded for extra type safety.
+ */
+export type PlayerIndex = string & { __playerIndexBrand: any }; // eslint-disable-line @typescript-eslint/no-explicit-any
+
+/**
+ * Mods often have to track variables relating to the player. In naive mods, information will only
+ * be stored about the first player. However, in order to be robust, mods must handle up to 4
+ * players playing at the same time. This means that information must be stored on a map data
+ * structure. Finding a good index for these types of map data structures is difficult:
+ *
+ * - We cannot use the index from `Isaac.GetPlayer(i)` since this fails in the case where there are
+ *   two players and the first player leaves the run.
+ * - We cannot use `EntityPlayer.ControllerIndex` as an index because it fails in the case of Jacob
+ *   & Esau or Tainted Forgotten. It also fails in the case of a player changing their controls
+ *   mid-run.
+ * - We cannot use `EntityPlayer.GetData().index` because it does not persist across saving and
+ *   continuing.
+ * - We cannot use `GetPtrHash()` as an index because it does not persist across exiting and
+ *   relaunching the game.
+ *
+ * Instead, we use `EntityPlayer.GetCollectibleRNG()` with an arbitrary value of 1 (i.e. Sad Onion).
+ * This works even if the player does not have any Sad Onions. We also convert the numerical seed to
+ * a string to avoid null element creation when saving the table as JSON (which is necessary when
+ * saving variables on run exit).
+ *
+ * Finally, this index fails in the case of Tainted Lazarus, since the RNG will be the same for both
+ * Tainted Lazarus and Dead Tainted Lazarus. We revert to using "GetPtrHash()" for this case.
+ */
+export function getPlayerIndex(player: EntityPlayer): PlayerIndex {
+  const character = player.GetPlayerType();
+
+  if (
+    character === PlayerType.PLAYER_LAZARUS_B ||
+    character === PlayerType.PLAYER_LAZARUS2_B
+  ) {
+    return GetPtrHash(player).toString() as PlayerIndex;
+  }
+
+  return player.GetCollectibleRNG(1).GetSeed().toString() as PlayerIndex;
+}
+
+/**
  * Returns the total number of collectibles amongst all players. For example, if player 1 has 1 Sad
  * Onion and player 2 has 2 Sad Onions, then this function would return 3.
  *
