@@ -1,7 +1,6 @@
 /**
  * These are the custom callbacks available for use once the mod object has been upgraded.
- * See the [[`upgradeMod`]] function.
- * Also see [[`CallbackParametersCustom`]] for the format of the specific callbacks.
+ * Also see the [[`upgradeMod`]] function and [[`CallbackParametersCustom`]].
  *
  * @category Custom Callbacks
  */

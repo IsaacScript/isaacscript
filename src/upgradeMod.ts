@@ -15,6 +15,8 @@ import ModUpgraded from "./types/ModUpgraded";
  * mod.AddCallbackCustom(ModCallbacksCustom.MC_POST_ITEM_PICKUP, postItemPickup);
  * ```
  *
+ * Also see the [[`ModCallbacksCustom`]] enum and [[`CallbackParametersCustom`]].
+ *
  * @category Custom Callbacks
  */
 export function upgradeMod(mod: Mod): ModUpgraded {

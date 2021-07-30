@@ -4,6 +4,8 @@ import PickingUpItem from "./PickingUpItem";
 /**
  * This is the format for the custom callbacks, along with optional arguments, if any.
  *
+ * Also see the [[`upgradeMod`]] function and the [[`ModCallbacksCustom`]] enum.
+ *
  * @category Custom Callbacks
  */
 export default interface CallbackParametersCustom {
