@@ -77,6 +77,22 @@ export function changeRoom(roomIndex: int): void {
 export const ensureAllCases = (obj: never): never => obj;
 
 /**
+ * This returns a random number between x and y, inclusive.
+ *
+ * Example:
+ * ```
+ * const oneTwoOrThree = getRandom(1, 3, seed);
+ * ```
+ *
+ * @category Utility
+ */
+export function getRandom(x: int, y: int, seed: int): int {
+  const rng = initRNG(seed);
+
+  return rng.RandomInt(y - x + 1) + x;
+}
+
+/**
  * Helper function to get the room index of the current room. Use this instead of calling
  * `Game().GetLevel().GetCurrentRoomIndex()` directly to avoid bugs with big rooms.
  * (Big rooms can return the specific 1x1 quadrant that the player is in, which can break data
