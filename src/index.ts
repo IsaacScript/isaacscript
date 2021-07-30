@@ -8,3 +8,5 @@ export * from "./functions/player";
 export * from "./functions/tears";
 export * from "./functions/ui";
 export * from "./functions/util";
+export * as saveDataManager from "./saveDataManager";
+export * from "./upgradeMod";

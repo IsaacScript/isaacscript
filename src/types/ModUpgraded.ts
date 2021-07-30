@@ -56,6 +56,11 @@ export default class ModUpgraded extends Mod {
   }
 }
 
+/**
+ * This is the format for the custom callbacks, along with optional arguments, if any.
+ *
+ * @category Custom Callbacks
+ */
 interface CallbackParametersUpgraded {
   [ModCallbacksCustom.MC_PRE_ITEM_PICKUP]: [
     callback: (player: EntityPlayer, pickingUpItem: PickingUpItem) => void,
