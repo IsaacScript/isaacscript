@@ -1,5 +1,8 @@
-/** The Mod class is defined in the "scripts/main.lua" file. */
-declare class Mod {
+/**
+ * The Lua object corresponding to this interface is defined as a local variable in the
+ * "scripts/main.lua" file.
+ */
+declare interface Mod {
   AddCallback<T extends keyof CallbackParameters>(
     callbackID: T,
     ...args: CallbackParameters[T]
