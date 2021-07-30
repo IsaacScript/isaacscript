@@ -5,14 +5,14 @@ import ModUpgraded from "./ModUpgraded";
  *
  * Example:
  * ```
- * let mod = RegisterMod("My Mod", 1); // "mod" is now type Mod
- * mod = upgradeMod(mod); // "mod" is now type ModUpgraded
+ * const mod = RegisterMod("My Mod", 1);
+ * const modUpgraded = upgradeMod(mod);
  *
  * // Subscribe to vanilla callbacks
  * mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate);
  *
  * // Subscribe to custom callbacks
- * mod.AddCallbackCustom(ModCallbacksCustom.MC_POST_ITEM_PICKUP, postItemPickup);
+ * modUpgraded.AddCallbackCustom(ModCallbacksCustom.MC_POST_ITEM_PICKUP, postItemPickup);
  * ```
  *
  * Also see the [[`ModCallbacksCustom`]] enum and [[`CallbackParametersCustom`]].
