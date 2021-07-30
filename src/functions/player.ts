@@ -121,7 +121,7 @@ export function getPlayers(performExclusions = false): EntityPlayer[] {
 }
 
 /**
- * PlayerIndex is a specific type of string; see the JSDoc comment for the `getPlayerIndex()`
+ * PlayerIndex is a specific type of string; see the documentation for the `getPlayerIndex()`
  * function. Mods can signify that data structures handle EntityPlayers by using this type:
  *
  * ```
