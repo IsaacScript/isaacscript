@@ -3,7 +3,7 @@ import {
   MAX_ENTITY_FLAG_SHIFT,
   MAX_PROJECTILE_FLAG_SHIFT,
   MAX_USE_FLAG_SHIFT,
-} from "./constants";
+} from "../constants";
 import { hasFlag } from "./flags";
 
 /**

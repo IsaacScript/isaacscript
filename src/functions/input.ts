@@ -1,4 +1,4 @@
-import { NUM_INPUTS } from "./constants";
+import { NUM_INPUTS } from "../constants";
 
 /**
  * Iterates over all 4 inputs to see if a particular button is pressed (i.e. held down).
