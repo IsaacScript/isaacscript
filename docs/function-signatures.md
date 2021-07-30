@@ -8,8 +8,6 @@ For reference, this is a handy list of all possible callback functions.
 
 ## Vanilla Callbacks
 
-<br />
-
 ### MC_NPC_UPDATE (0)
 
 ```ts
@@ -540,8 +538,6 @@ function preRoomEntitySpawn(
 <br />
 
 ## Custom Callbacks
-
-<br />
 
 ### MC_POST_ITEM_PICKUP
 
