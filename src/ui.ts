@@ -1,4 +1,4 @@
-import { game } from "../game";
+import { game } from "./game";
 
 /**
  * In the options menu, players have the ability to set a HUD offset. However, mods do not have

@@ -1,5 +1,5 @@
-import { MAX_NUM_DOORS } from "../constants";
-import { game } from "../game";
+import { MAX_NUM_DOORS } from "./constants";
+import { game } from "./game";
 
 /**
  * @category Grid Entities

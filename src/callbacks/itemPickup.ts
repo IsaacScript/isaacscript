@@ -1,4 +1,4 @@
-import { getPlayerIndex, getPlayers, PlayerIndex } from "../functions/player";
+import { getPlayerIndex, getPlayers, PlayerIndex } from "../player";
 import { saveDataManager } from "../saveDataManager";
 import PickingUpItem from "../types/PickingUpItem";
 import { postItemPickup } from "./postItemPickup";

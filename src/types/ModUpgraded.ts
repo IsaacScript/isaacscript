@@ -1,7 +1,7 @@
 import * as itemPickup from "../callbacks/itemPickup";
 import * as postItemPickup from "../callbacks/postItemPickup";
 import * as preItemPickup from "../callbacks/preItemPickup";
-import { ensureAllCases } from "../functions/util";
+import { ensureAllCases } from "../util";
 import * as saveDataManager from "../saveDataManager";
 import CallbackParametersCustom from "./CallbackParametersCustom";
 import ModCallbacksCustom from "./ModCallbacksCustom";
