@@ -39,16 +39,37 @@ export function changeRoom(roomIndex: int): void {
 
 /** deepCopy recursively copies a table so that none of the nested references remain. */
 export function deepCopy(table: LuaTable): LuaTable {
+  const tableType = type(table);
+  if (tableType !== "table") {
+    error(
+      `The deepCopy function was supplied with a ${tableType} instead of a table.`,
+    );
+  }
+
   const newTable = new LuaTable();
+
+  // First, detect the special case of a TypeScript Map that is transpiled to Lua
+  // In this case, we will just perform a shallow copy
+  const metatable = getmetatable(table);
+  if (metatable !== null) {
+    if (table instanceof Map) {
+      const shallowCopy = new Map(table);
+      return shallowCopy as unknown as LuaTable;
+    }
+
+    error(
+      "The deepCopy function encountered an object that has a metatable but is not a Map, which is not supported.",
+    );
+  }
+
+  // Copy over all of the fields
   for (const [key, value] of pairs(table)) {
     const valueType = type(value);
 
     let newValue: unknown;
     if (valueType === "table") {
-      // Recursively handle child tables
       newValue = deepCopy(value as LuaTable);
     } else {
-      // Base case - copy the value
       newValue = value;
     }
 
