@@ -180,6 +180,14 @@ declare const enum TrapdoorState {
   OPEN = 1,
 }
 
+/** For GridEntityType.GRID_PRESSURE_PLATE (20) */
+declare const enum PressurePlateState {
+  UNPRESSED = 0,
+  STATE_1_UNKNOWN = 1,
+  STATE_2_UNKNOWN = 2,
+  PRESSED = 3,
+}
+
 /**
  * Matches the ItemConfig.CHARGE_* members of the ItemConfig class.
  * In IsaacScript, we reimplement this as an enum, since it is cleaner.
