@@ -1,7 +1,7 @@
 import PickingUpItem from "./PickingUpItem";
 import { getPlayerIndex, getPlayers, PlayerIndex } from "./player";
-import { postItemPickup } from "./postItemPickup";
-import { preItemPickup } from "./preItemPickup";
+import * as postItemPickup from "./postItemPickup";
+import * as preItemPickup from "./preItemPickup";
 import { saveDataManager } from "./saveDataManager";
 
 const v = {
@@ -18,6 +18,10 @@ export function init(mod: Mod): void {
 
 // ModCallbacks.MC_POST_UPDATE (1)
 function postUpdate() {
+  if (!preItemPickup.hasSubscriptions() && !postItemPickup.hasSubscriptions()) {
+    return;
+  }
+
   for (const player of getPlayers()) {
     const pickingUpItem = getPickingUpItemForPlayer(player);
 
@@ -32,7 +36,7 @@ function postUpdate() {
 function queueEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
   // Check to see if this player was picking something up on the previous frame
   if (pickingUpItem.id !== CollectibleType.COLLECTIBLE_NULL) {
-    postItemPickup(player, pickingUpItem);
+    postItemPickup.postItemPickup(player, pickingUpItem);
 
     // Reset the held item for this player
     pickingUpItem.id = CollectibleType.COLLECTIBLE_NULL;
@@ -48,7 +52,7 @@ function queueNotEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
     pickingUpItem.id = queuedItem.ID;
     pickingUpItem.type = queuedItem.Type;
 
-    preItemPickup(player, pickingUpItem);
+    preItemPickup.preItemPickup(player, pickingUpItem);
   }
 }
 

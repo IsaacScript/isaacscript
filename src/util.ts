@@ -39,10 +39,12 @@ export function changeRoom(roomIndex: int): void {
 
 /** deepCopy recursively copies a table so that none of the nested references remain. */
 export function deepCopy(table: LuaTable): LuaTable {
+  const functionName = "deepCopy";
+
   const tableType = type(table);
   if (tableType !== "table") {
     error(
-      `The deepCopy function was supplied with a ${tableType} instead of a table.`,
+      `The ${functionName} function was supplied with a ${tableType} instead of a table.`,
     );
   }
 
@@ -58,13 +60,23 @@ export function deepCopy(table: LuaTable): LuaTable {
     }
 
     error(
-      "The deepCopy function encountered an object that has a metatable but is not a Map, which is not supported.",
+      `The ${functionName} function encountered an object that has a metatable but is not a Map, which is not supported.`,
     );
   }
 
   // Copy over all of the fields
   for (const [key, value] of pairs(table)) {
     const valueType = type(value);
+
+    if (
+      valueType === "function" ||
+      valueType === "thread" ||
+      valueType === "userdata"
+    ) {
+      error(
+        `The ${functionName} function does not support cloning tables that have elements of type ${valueType} in them.`,
+      );
+    }
 
     let newValue: unknown;
     if (valueType === "table") {
@@ -121,6 +133,31 @@ export const ensureAllCases = (obj: never): never => obj;
 export function getAngleDifference(angle1: float, angle2: float): float {
   const subtractedAngle = angle1 - angle2;
   return ((subtractedAngle + 180) % 360) - 180;
+}
+
+/**
+ * TypeScriptToLua will transpile TypeScript enums to Lua tables that have a double mapping. Thus,
+ * when you iterate over them, you will get both the names of the enums and the values of the enums,
+ * in a random order. If all you need are the values of an enum, use this helper function.
+ *
+ * For a more in depth explanation, see:
+ * https://isaacscript.github.io/docs/gotchas#iterating-over-enums
+ */
+export function getEnumValues(transpiledEnum: unknown): int[] {
+  const enumValues: int[] = [];
+  for (const [key, value] of pairs(transpiledEnum)) {
+    // Ignore the reverse mappings created by TypeScriptToLua
+    if (type(key) === "string") {
+      enumValues.push(value);
+    }
+  }
+
+  return enumValues;
+}
+
+export function getRandomArrayElement<T>(array: T[], seed: int): T {
+  const randomIndex = getRandomInt(0, array.length - 1, seed);
+  return array[randomIndex];
 }
 
 /**

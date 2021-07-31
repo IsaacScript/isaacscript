@@ -8,6 +8,10 @@ const subscriptions: Array<
   ]
 > = [];
 
+export function hasSubscriptions(): boolean {
+  return subscriptions.length > 0;
+}
+
 export function register(
   callback: (player: EntityPlayer, pickingUpItem: PickingUpItem) => void,
   itemType?: ItemType,
