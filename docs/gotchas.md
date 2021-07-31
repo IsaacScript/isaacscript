@@ -253,7 +253,7 @@ However, this means that if you want to iterate over your own enums in a way sim
 
 ```ts
 for (const [key, value] of Object.entries(TestEnum)) {
-  if (type(key) === "string") {
+  if (type(key) !== "string") {
     // Ignore the reverse mappings created by TypeScriptToLua
     continue;
   }
