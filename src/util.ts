@@ -2,25 +2,6 @@ import { BEAST_ROOM_SUB_TYPE, RECOMMENDED_SHIFT_IDX } from "./constants";
 import { game } from "./game";
 
 /**
- * Helper function for determining if two arrays contain the exact same elements.
- *
- * @category Utility
- */
-export function arrayEquals<T>(array1: T[], array2: T[]): boolean {
-  if (array1.length !== array2.length) {
-    return false;
-  }
-
-  for (let i = 0; i < array1.length; i++) {
-    if (array1[i] !== array2[i]) {
-      return false;
-    }
-  }
-
-  return true;
-}
-
-/**
  * Helper function for quickly switching to a new room without playing a particular animation.
  * Always use this helper function over invoking `Game().ChangeRoom()` directly to ensure that you
  * do not forget to set the LeaveDoor property.
@@ -37,7 +18,11 @@ export function changeRoom(roomIndex: int): void {
   game.ChangeRoom(roomIndex);
 }
 
-/** deepCopy recursively copies a table so that none of the nested references remain. */
+/**
+ * deepCopy recursively copies a table so that none of the nested references remain.
+ *
+ * @category Utility
+ */
 export function deepCopy(table: LuaTable): LuaTable {
   const functionName = "deepCopy";
 
@@ -153,11 +138,6 @@ export function getEnumValues(transpiledEnum: unknown): int[] {
   }
 
   return enumValues;
-}
-
-export function getRandomArrayElement<T>(array: T[], seed: int): T {
-  const randomIndex = getRandomInt(0, array.length - 1, seed);
-  return array[randomIndex];
 }
 
 /**
