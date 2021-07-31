@@ -263,6 +263,14 @@ for (const [key, value] of Object.entries(TestEnum)) {
 }
 ```
 
+Or, simply use `getEnumValues`, which is a provided convenience function from `isaacscript-common`:
+
+```ts
+for (const value of getEnumValues(TestEnum)) {
+  Isaac.DebugString(`Value: ${value}`);
+}
+```
+
 <br />
 
 ### NPM Dependencies
