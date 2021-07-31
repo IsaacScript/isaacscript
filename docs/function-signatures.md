@@ -520,7 +520,7 @@ function preNPCUpdate(entity: Entity): boolean | void {}
 ### MC_PRE_SPAWN_CLEAN_AWARD (70)
 
 ```ts
-function preSpawnClearAward(rng: RNG, spawnPosition: Vector): void {}
+function preSpawnClearAward(rng: RNG, spawnPosition: Vector): boolean | void {}
 ```
 
 ### MC_PRE_ROOM_ENTITY_SPAWN (71)
