@@ -195,6 +195,12 @@ declare const enum PressurePlateState {
   REWARD_PLATE_PRESSED = 4,
 }
 
+/** For GridEntityType.GRID_STATUE (21) */
+declare const enum StatueVariant {
+  DEVIL = 0,
+  ANGEL = 1,
+}
+
 /**
  * Matches the ItemConfig.CHARGE_* members of the ItemConfig class.
  * In IsaacScript, we reimplement this as an enum, since it is cleaner.
