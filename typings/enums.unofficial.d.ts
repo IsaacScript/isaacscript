@@ -181,11 +181,18 @@ declare const enum TrapdoorState {
 }
 
 /** For GridEntityType.GRID_PRESSURE_PLATE (20) */
+declare const enum PressurePlateVariant {
+  PRESSURE_PLATE = 0,
+  REWARD_PLATE = 1,
+}
+
+/** For GridEntityType.GRID_PRESSURE_PLATE (20) */
 declare const enum PressurePlateState {
   UNPRESSED = 0,
   STATE_1_UNKNOWN = 1,
   STATE_2_UNKNOWN = 2,
-  PRESSED = 3,
+  PRESSURE_PLATE_PRESSED = 3,
+  REWARD_PLATE_PRESSED = 4,
 }
 
 /**
