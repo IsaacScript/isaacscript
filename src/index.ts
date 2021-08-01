@@ -9,6 +9,7 @@ export { default as ModCallbacksCustom } from "./ModCallbacksCustom";
 export { default as ModUpgraded } from "./ModUpgraded";
 export { default as PickingUpItem } from "./PickingUpItem";
 export * from "./player";
+export * from "./random";
 export { saveDataManager } from "./saveDataManager";
 export * from "./tears";
 export * from "./ui";

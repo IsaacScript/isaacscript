@@ -1,4 +1,4 @@
-import { getRandomInt } from "./util";
+import { getRandomInt } from "./random";
 
 /**
  * Helper function for determining if two arrays contain the exact same elements.

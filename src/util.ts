@@ -141,40 +141,6 @@ export function getEnumValues(transpiledEnum: unknown): int[] {
 }
 
 /**
- * This returns a random float between min and max. It is inclusive on the low end, but exclusive on
- * the high end. (This is because `RNG.RandomFloat()` can return a value of 0.999, but it will never
- * return a value of exactly 1.)
- *
- * Example:
- * ```
- * const realNumberBetweenOneAndThree = getRandomFloat(1, 3, seed);
- * ```
- *
- * @category Utility
- */
-export function getRandomFloat(min: int, max: int, seed: int): float {
-  const rng = initRNG(seed);
-
-  return rng.RandomFloat() + getRandomInt(min, max - 1, seed);
-}
-
-/**
- * This returns a random integer between min and max, inclusive.
- *
- * Example:
- * ```
- * const oneTwoOrThree = getRandomInt(1, 3, seed);
- * ```
- *
- * @category Utility
- */
-export function getRandomInt(min: int, max: int, seed: int): int {
-  const rng = initRNG(seed);
-
-  return rng.RandomInt(max - min + 1) + min;
-}
-
-/**
  * Helper function to get the room index of the current room. Use this instead of calling
  * `Game().GetLevel().GetCurrentRoomIndex()` directly to avoid bugs with big rooms.
  * (Big rooms can return the specific 1x1 quadrant that the player is in, which can break data
