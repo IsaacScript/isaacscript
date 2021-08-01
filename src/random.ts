@@ -26,7 +26,8 @@ export function getRandom(seed: int): float {
  * @category Random
  */
 export function getRandomFloat(min: int, max: int, seed: int): float {
-  return getRandom(seed) + getRandomInt(min, max - 1, seed);
+  // From: https://stackoverflow.com/questions/40431966
+  return min + getRandom(seed) * (max - min);
 }
 
 /**
