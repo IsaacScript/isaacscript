@@ -141,19 +141,37 @@ export function getEnumValues(transpiledEnum: unknown): int[] {
 }
 
 /**
- * This returns a random number between x and y, inclusive.
+ * This returns a random float between min and max. It is inclusive on the low end, but exclusive on
+ * the high end. (This is because `RNG.RandomFloat()` can return a value of 0.999, but it will never
+ * return a value of exactly 1.)
  *
  * Example:
  * ```
- * const oneTwoOrThree = getRandom(1, 3, seed);
+ * const realNumberBetweenOneAndThree = getRandomFloat(1, 3, seed);
  * ```
  *
  * @category Utility
  */
-export function getRandomInt(x: int, y: int, seed: int): int {
+export function getRandomFloat(min: int, max: int, seed: int): float {
   const rng = initRNG(seed);
 
-  return rng.RandomInt(y - x + 1) + x;
+  return rng.RandomFloat() + getRandomInt(min, max - 1, seed);
+}
+
+/**
+ * This returns a random integer between min and max, inclusive.
+ *
+ * Example:
+ * ```
+ * const oneTwoOrThree = getRandomInt(1, 3, seed);
+ * ```
+ *
+ * @category Utility
+ */
+export function getRandomInt(min: int, max: int, seed: int): int {
+  const rng = initRNG(seed);
+
+  return rng.RandomInt(max - min + 1) + min;
 }
 
 /**

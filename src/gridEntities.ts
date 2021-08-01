@@ -23,9 +23,10 @@ export function getDoors(): GridEntityDoor[] {
  */
 export function getGridEntities(): GridEntity[] {
   const room = game.GetRoom();
+  const gridSize = room.GetGridSize();
 
   const gridEntities: GridEntity[] = [];
-  for (let gridIndex = 0; gridIndex < room.GetGridSize(); gridIndex++) {
+  for (let gridIndex = 0; gridIndex < gridSize; gridIndex++) {
     const gridEntity = room.GetGridEntity(gridIndex);
     if (gridEntity !== null) {
       gridEntities.push(gridEntity);
