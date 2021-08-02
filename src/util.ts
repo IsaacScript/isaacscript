@@ -23,7 +23,10 @@ export function changeRoom(roomIndex: int): void {
  *
  * @category Utility
  */
-export function deepCopy(table: LuaTable): LuaTable {
+export function deepCopy(
+  table: LuaTable,
+  tableKey?: string | number,
+): LuaTable {
   const functionName = "deepCopy";
 
   const tableType = type(table);
@@ -44,9 +47,7 @@ export function deepCopy(table: LuaTable): LuaTable {
       return shallowCopy as unknown as LuaTable;
     }
 
-    error(
-      `The ${functionName} function encountered an object that has a metatable but is not a Map, which is not supported.`,
-    );
+    throwErrorMetatableNotSupported(functionName, tableKey);
   }
 
   // Copy over all of the fields
@@ -65,7 +66,7 @@ export function deepCopy(table: LuaTable): LuaTable {
 
     let newValue: unknown;
     if (valueType === "table") {
-      newValue = deepCopy(value as LuaTable);
+      newValue = deepCopy(value as LuaTable, key as string | number);
     } else {
       newValue = value;
     }
@@ -74,6 +75,29 @@ export function deepCopy(table: LuaTable): LuaTable {
   }
 
   return newTable;
+}
+
+function throwErrorMetatableNotSupported(
+  functionName: string,
+  tableKey: string | number | undefined,
+): never {
+  const tableKeyType = type(tableKey);
+  let tableKeyString: string;
+  if (tableKeyType === "string") {
+    tableKeyString = tableKey as string;
+  } else if (tableKeyType === "number") {
+    tableKeyString = tostring(tableKey);
+  } else if (tableKeyType === "nil") {
+    tableKeyString = "nil";
+  } else {
+    error(
+      `The ${functionName} function does not support copying tables that have keys of type: ${tableKeyType}`,
+    );
+  }
+
+  error(
+    `The ${functionName} function encountered a table with a name of "${tableKeyString}" that has a metatable but is not a Map, which is not supported.`,
+  );
 }
 
 /**
