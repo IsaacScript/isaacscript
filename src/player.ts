@@ -153,16 +153,13 @@ export type PlayerIndex = string & { __playerIndexBrand: any }; // eslint-disabl
  * a string to avoid null element creation when saving the table as JSON (which is necessary when
  * saving variables on run exit).
  *
- * Finally, this index fails in the case of Tainted Lazarus, since the RNG will be the same for both
+ * Finally, this index fails in the case of Tainted Lazarus 2, since the RNG will be the same for both
  * Tainted Lazarus and Dead Tainted Lazarus. We revert to using "GetPtrHash()" for this case.
  */
 export function getPlayerIndex(player: EntityPlayer): PlayerIndex {
   const character = player.GetPlayerType();
 
-  if (
-    character === PlayerType.PLAYER_LAZARUS_B ||
-    character === PlayerType.PLAYER_LAZARUS2_B
-  ) {
+  if (character === PlayerType.PLAYER_LAZARUS2_B) {
     return GetPtrHash(player).toString() as PlayerIndex;
   }
 
