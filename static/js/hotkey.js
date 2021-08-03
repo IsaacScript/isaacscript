@@ -28,7 +28,6 @@ document.onkeydown = (e) => {
   }
 };
 
-// Click on the first button
 keyMap.set("Enter", () => {
   if (isOnLandingPage()) {
     clickOnFirstLargeButton();
