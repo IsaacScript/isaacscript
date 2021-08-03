@@ -6,6 +6,10 @@ import PickingUpItem from "./PickingUpItem";
  *
  * Also see the [[`upgradeMod`]] function and the [[`ModCallbacksCustom`]] enum.
  *
+ * These signatures are automatically generated and difficult to read, so check out the official
+ * [Function Signatures](https://isaacscript.github.io/docs/function-signatures#custom-callbacks)
+ * docs instead.
+ *
  * @category Custom Callbacks
  */
 export default interface CallbackParametersCustom {
