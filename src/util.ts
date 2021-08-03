@@ -38,16 +38,17 @@ export function deepCopy(
 
   const newTable = new LuaTable();
 
-  // First, detect the special case of a TypeScript Map that is transpiled to Lua
-  // In this case, we will just perform a shallow copy
+  // Lua tables can have metatables, which make writing a generic deep-cloner impossible
+  // All TypeScriptToLua objects use metatables
   const metatable = getmetatable(table);
   if (metatable !== null) {
-    if (table instanceof Map) {
-      const shallowCopy = new Map(table);
-      return shallowCopy as unknown as LuaTable;
-    }
-
-    throwErrorMetatableNotSupported(functionName, tableKey);
+    // Normally, we could detect the specific case of a TSTL Map with "instanceof Map",
+    // but this is currently bugged
+    const tableKeyType = type(tableKey);
+    const tableKeyString = tostring(tableKeyType);
+    error(
+      `The ${functionName} function encountered a table with a name of "${tableKeyString}" that has a metatable, which is not supported. If you are trying to use a Map object, then use a LuaTable object instead as a replacement.`,
+    );
   }
 
   // Copy over all of the fields
@@ -75,29 +76,6 @@ export function deepCopy(
   }
 
   return newTable;
-}
-
-function throwErrorMetatableNotSupported(
-  functionName: string,
-  tableKey: string | number | undefined,
-): never {
-  const tableKeyType = type(tableKey);
-  let tableKeyString: string;
-  if (tableKeyType === "string") {
-    tableKeyString = tableKey as string;
-  } else if (tableKeyType === "number") {
-    tableKeyString = tostring(tableKey);
-  } else if (tableKeyType === "nil") {
-    tableKeyString = "nil";
-  } else {
-    error(
-      `The ${functionName} function does not support copying tables that have keys of type: ${tableKeyType}`,
-    );
-  }
-
-  error(
-    `The ${functionName} function encountered a table with a name of "${tableKeyString}" that has a metatable but is not a Map, which is not supported.`,
-  );
 }
 
 /**

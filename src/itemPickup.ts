@@ -6,7 +6,7 @@ import { saveDataManager } from "./saveDataManager";
 
 const v = {
   run: {
-    pickingUpItem: new Map<PlayerIndex, PickingUpItem>(),
+    pickingUpItem: new LuaTable<PlayerIndex, PickingUpItem>(),
   },
 };
 
