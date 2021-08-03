@@ -1,10 +1,10 @@
+import * as itemPickup from "../callbacks/itemPickup";
+import * as postItemPickup from "../callbacks/postItemPickup";
+import * as preItemPickup from "../callbacks/preItemPickup";
+import * as saveDataManager from "../features/saveDataManager";
+import { ensureAllCases } from "../functions/util";
 import CallbackParametersCustom from "./CallbackParametersCustom";
-import * as itemPickup from "./itemPickup";
 import ModCallbacksCustom from "./ModCallbacksCustom";
-import * as postItemPickup from "./postItemPickup";
-import * as preItemPickup from "./preItemPickup";
-import * as saveDataManager from "./saveDataManager";
-import { ensureAllCases } from "./util";
 
 /** `isaacscript-common` allows for custom callbacks, so it provides an upgraded Mod object. */
 export default class ModUpgraded implements Mod {

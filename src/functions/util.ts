@@ -1,5 +1,5 @@
-import { BEAST_ROOM_SUB_TYPE, RECOMMENDED_SHIFT_IDX } from "./constants";
-import { game } from "./game";
+import { BEAST_ROOM_SUB_TYPE, RECOMMENDED_SHIFT_IDX } from "../constants";
+import { game } from "../game";
 
 /**
  * Helper function for quickly switching to a new room without playing a particular animation.

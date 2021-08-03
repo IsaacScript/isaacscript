@@ -1,4 +1,4 @@
-import ModUpgraded from "./ModUpgraded";
+import ModUpgraded from "../types/ModUpgraded";
 
 /**
  * Use this function to enable the custom callbacks provided by `isaacscript-common`.

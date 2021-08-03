@@ -1,5 +1,5 @@
-import { EXCLUDED_CHARACTERS } from "./constants";
-import { game } from "./game";
+import { EXCLUDED_CHARACTERS } from "../constants";
+import { game } from "../game";
 
 /**
  * @category Player

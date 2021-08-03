@@ -1,5 +1,5 @@
-import SaveData from "./SaveData";
-import { deepCopy } from "./util";
+import { deepCopy } from "../functions/util";
+import SaveData from "../types/SaveData";
 
 let isInitialized = false;
 
