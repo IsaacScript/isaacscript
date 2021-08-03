@@ -17,6 +17,10 @@ import ModUpgraded from "../types/ModUpgraded";
  *
  * Also see the [[`ModCallbacksCustom`]] enum and [[`CallbackParametersCustom`]].
  *
+ * For a list of all custom callbacks, check out the official
+ * [Function Signatures](https://isaacscript.github.io/docs/function-signatures#custom-callbacks)
+ * docs.
+ *
  * @category Custom Callbacks
  */
 export function upgradeMod(mod: Mod): ModUpgraded {

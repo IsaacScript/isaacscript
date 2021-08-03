@@ -4,7 +4,7 @@
  *
  * For a better listing of all possible custom callbacks, check out the official
  * [Function Signatures](https://isaacscript.github.io/docs/function-signatures#custom-callbacks)
- * docs instead.
+ * docs.
  *
  * @category Custom Callbacks
  */
