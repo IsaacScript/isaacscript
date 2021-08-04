@@ -152,8 +152,11 @@ declare global {
      * Returns a random position in the current room in world coordinates (not render coordinates).
      */
     function GetRandomPosition(): Vector;
-    /** This should never be used over Isaac.GetRoomEntities() since it is known to cause bugs. */
-    function GetRoomEntities(fakeArg: never): Entity[];
+    /**
+     * This function is very expensive and is the main cause of lag in mods across the Isaac
+     * ecosystem. Be careful about calling this multiple times per frame.
+     */
+    function GetRoomEntities(): Entity[];
     /** Returns -1 if no sound with the specified name was found. */
     function GetSoundIdByName(soundName: string): SoundEffect | int;
     /**
