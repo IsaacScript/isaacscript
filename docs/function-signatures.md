@@ -4,6 +4,9 @@ title: Function Signatures
 
 For reference, this is a handy list of all possible callback functions.
 
+- [Vanilla Callbacks](#vanilla-callbacks)
+- [Custom Callbacks](#custom-callbacks)
+
 <br />
 
 ## Vanilla Callbacks
