@@ -1,13 +1,11 @@
-import { PostNewRoomCallback } from "../../types/ModCallbacksCustom";
-
 const subscriptions: Array<[() => void]> = [];
 
 export function hasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-export function register(data: PostNewRoomCallback): void {
-  subscriptions.push([data.callback]);
+export function register(callback: () => void): void {
+  subscriptions.push([callback]);
 }
 
 export function postNewRoom(): void {

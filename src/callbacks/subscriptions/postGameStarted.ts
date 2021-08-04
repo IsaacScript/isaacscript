@@ -1,17 +1,15 @@
-import { PostGameStartedCallback } from "../../types/ModCallbacksCustom";
-
-const subscriptions: Array<[() => void]> = [];
+const subscriptions: Array<[(isContinued: boolean) => void]> = [];
 
 export function hasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-export function register(data: PostGameStartedCallback): void {
-  subscriptions.push([data.callback]);
+export function register(callback: (isContinued: boolean) => void): void {
+  subscriptions.push([callback]);
 }
 
-export function postGameStarted(): void {
+export function postGameStarted(isContinued: boolean): void {
   for (const [callback] of subscriptions) {
-    callback();
+    callback(isContinued);
   }
 }
