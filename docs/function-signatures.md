@@ -539,8 +539,6 @@ function preRoomEntitySpawn(
 
 ## Custom Callbacks
 
-<br />
-
 ### MC_POST_GAME_STARTED
 
 Similar to the vanilla callback of the same name, but fires in the correct order with respect to the PostNewLevel and the PostNewRoom callbacks:
