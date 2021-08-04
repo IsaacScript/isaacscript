@@ -1,8 +1,5 @@
-// The "json" module can only be imported from a file at the root of the project,
-// so use this helper as a workaround
-
-import * as json from "json";
-import { log } from "./functions/log";
+import { log } from "../functions/log";
+import * as json from "./json";
 
 /**
  * Converts a Lua table to a JSON string.

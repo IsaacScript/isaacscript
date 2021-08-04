@@ -2,9 +2,9 @@
 
 import { log } from "../functions/log";
 import { deepCopy } from "../functions/util";
-import * as jsonHelper from "../jsonHelper";
 import ModUpgraded from "../types/ModUpgraded";
 import { SaveData, SaveDataWithoutRoom } from "../types/SaveData";
+import * as jsonHelper from "./jsonHelper";
 
 let mod: Mod | null = null;
 

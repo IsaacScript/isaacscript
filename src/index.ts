@@ -12,7 +12,6 @@ export * from "./functions/random";
 export * from "./functions/tears";
 export * from "./functions/ui";
 export * from "./functions/util";
-export * as jsonHelper from "./jsonHelper";
 export { default as ModCallbacksCustom } from "./types/ModCallbacksCustom";
 export { default as ModUpgraded } from "./types/ModUpgraded";
 export { default as PickingUpItem } from "./types/PickingUpItem";
