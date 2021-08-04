@@ -543,7 +543,7 @@ function preRoomEntitySpawn(
 
 ## MC_POST_GAME_STARTED
 
-The same as the vanilla callback of the same name, but fires in the correct order with respect to the PostNewLevel and the PostNewRoom callbacks:
+Similar to the vanilla callback of the same name, but fires in the correct order with respect to the PostNewLevel and the PostNewRoom callbacks:
 
 PostGameStarted --> PostNewLevel --> PostNewRoom
 
@@ -553,7 +553,7 @@ function postGameStarted(): void {}
 
 ## MC_POST_NEW_LEVEL
 
-The same as the vanilla callback of the same name, but fires in the correct order with respect to the PostNewLevel and the PostNewRoom callbacks:
+Similar to the vanilla callback of the same name, but fires in the correct order with respect to the PostNewLevel and the PostNewRoom callbacks:
 
 PostGameStarted --> PostNewLevel --> PostNewRoom
 
@@ -563,7 +563,7 @@ function postNewLevel(): void {}
 
 ## MC_POST_NEW_ROOM
 
-The same as the vanilla callback of the same name, but fires in the correct order with respect to the PostNewLevel and the PostNewRoom callbacks:
+Similar to the vanilla callback of the same name, but fires in the correct order with respect to the PostNewLevel and the PostNewRoom callbacks:
 
 PostGameStarted --> PostNewLevel --> PostNewRoom
 
