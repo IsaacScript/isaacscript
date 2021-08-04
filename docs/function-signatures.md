@@ -539,19 +539,55 @@ function preRoomEntitySpawn(
 
 ## Custom Callbacks
 
-### MC_POST_ITEM_PICKUP
+<br />
 
-```typescript
-function postItemPickup(
+## MC_POST_GAME_STARTED
+
+The same as the vanilla callback of the same name, but fires in the correct order with respect to the PostNewLevel and the PostNewRoom callbacks:
+
+PostGameStarted --> PostNewLevel --> PostNewRoom
+
+```ts
+function postGameStarted(): void {}
+```
+
+## MC_POST_NEW_LEVEL
+
+The same as the vanilla callback of the same name, but fires in the correct order with respect to the PostNewLevel and the PostNewRoom callbacks:
+
+PostGameStarted --> PostNewLevel --> PostNewRoom
+
+```ts
+function postNewLevel(): void {}
+```
+
+## MC_POST_NEW_ROOM
+
+The same as the vanilla callback of the same name, but fires in the correct order with respect to the PostNewLevel and the PostNewRoom callbacks:
+
+PostGameStarted --> PostNewLevel --> PostNewRoom
+
+```ts
+function postNewRoom(): void {}
+```
+
+### MC_PRE_ITEM_PICKUP
+
+Fires on the first frame that an item becomes queued (i.e. when Isaac begins to hold the item above his head).
+
+```ts
+function preItemPickup(
   player: EntityPlayer,
   pickingUpItem: PickingUpItem,
 ): void {}
 ```
 
-### MC_PRE_ITEM_PICKUP
+### MC_POST_ITEM_PICKUP
 
-```typescript
-function preItemPickup(
+Fires on the first frame that an item is no longer queued (i.e. when the animation of Isaac holding the item above his head is finished and the item is actually added to the player's inventory).
+
+```ts
+function postItemPickup(
   player: EntityPlayer,
   pickingUpItem: PickingUpItem,
 ): void {}
