@@ -2,7 +2,7 @@
 // so use this helper as a workaround
 
 import * as json from "json";
-import { log } from "./log";
+import { log } from "./functions/log";
 
 /**
  * Converts a Lua table to a JSON string.

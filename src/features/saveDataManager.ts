@@ -1,8 +1,8 @@
 // TODO convert Maps to LuaTables
 
-import * as jsonHelper from "../functions/jsonHelper";
 import { log } from "../functions/log";
 import { deepCopy } from "../functions/util";
+import * as jsonHelper from "../jsonHelper";
 import ModUpgraded from "../types/ModUpgraded";
 import { SaveData, SaveDataWithoutRoom } from "../types/SaveData";
 
