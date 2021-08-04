@@ -21,8 +21,8 @@ export function init(mod: Mod): void {
 }
 
 // ModCallbacks.MC_POST_GAME_STARTED (15)
-function postGameStartedVanilla() {
-  postGameStarted.postGameStarted();
+function postGameStartedVanilla(isContinued: boolean) {
+  postGameStarted.postGameStarted(isContinued);
   recordCurrentStage();
   postNewLevel.postNewLevel();
   postNewRoom.postNewRoom();
