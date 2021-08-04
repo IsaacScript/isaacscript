@@ -1,20 +1,26 @@
+// TODO convert Maps to LuaTables
+
+import * as jsonHelper from "../functions/jsonHelper";
+import { log } from "../functions/log";
 import { deepCopy } from "../functions/util";
-import SaveData from "../types/SaveData";
+import ModUpgraded from "../types/ModUpgraded";
+import { SaveData, SaveDataWithoutRoom } from "../types/SaveData";
 
-let isInitialized = false;
-
-/** Indexed by subscriber name. */
-const saveDataMap = new Map<string, SaveData>();
+let mod: Mod | null = null;
 
 /** Indexed by subscriber name. */
-const saveDataDefaultsMap = new Map<string, SaveData>();
+const saveDataMap = new LuaTable<string, SaveData>();
 
-export function init(mod: Mod): void {
+/** Indexed by subscriber name. */
+const saveDataDefaultsMap = new LuaTable<string, SaveData>();
+
+export function init(incomingMod: ModUpgraded): void {
+  mod = incomingMod;
+
   mod.AddCallback(ModCallbacks.MC_POST_GAME_STARTED, postGameStarted); // 15
+  mod.AddCallback(ModCallbacks.MC_PRE_GAME_EXIT, preGameExit); // 17
   mod.AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, postNewLevel); // 18
   mod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoom); // 19
-
-  isInitialized = true;
 }
 
 /**
@@ -77,9 +83,16 @@ export function init(mod: Mod): void {
  * "room".
  */
 export function saveDataManager(key: string, saveData: SaveData): void {
-  if (!isInitialized) {
+  if (mod === null) {
     error(
       'The save data manager is not initialized. You must first upgrade your mod object by calling the "upgradeMod()" function.',
+    );
+  }
+
+  const keyType = type(key);
+  if (keyType !== "string") {
+    error(
+      `The save data manager requires that keys are strings. You tried to use a key of type: ${keyType}`,
     );
   }
 
@@ -101,8 +114,21 @@ export function saveDataManager(key: string, saveData: SaveData): void {
 }
 
 // ModCallbacks.MC_POST_GAME_STARTED (15)
-function postGameStarted() {
-  restoreDefaults("run");
+function postGameStarted(isContinued: boolean) {
+  if (isContinued) {
+    loadFromDisk();
+  } else {
+    restoreDefaults("run");
+  }
+}
+
+// ModCallbacks.MC_PRE_GAME_EXIT (17)
+function preGameExit(shouldSave: boolean) {
+  if (shouldSave) {
+    saveToDisk();
+  }
+
+  restoreDefaultsAll();
 }
 
 // ModCallbacks.MC_POST_NEW_LEVEL (18)
@@ -115,8 +141,14 @@ function postNewRoom() {
   restoreDefaults("room");
 }
 
+function restoreDefaultsAll() {
+  restoreDefaults("run");
+  restoreDefaults("level");
+  restoreDefaults("room");
+}
+
 function restoreDefaults(childTableName: keyof SaveData) {
-  for (const [key, saveData] of saveDataMap.entries()) {
+  for (const [key, saveData] of pairs(saveDataMap)) {
     const childTable = saveData[childTableName];
     if (childTable === undefined) {
       // This feature does not happen to store any variables on this particular child table
@@ -148,5 +180,122 @@ function restoreDefaults(childTableName: keyof SaveData) {
   }
 }
 
-// TODO interaction with "save#.dat"
-// TODO convert Maps to LuaTables
+function saveToDisk() {
+  if (mod === null) {
+    error('"saveDat.save()" was called without the mod being initialized.');
+  }
+
+  const allSaveData = getAllSaveDataWithoutRoom();
+  const jsonString = jsonHelper.encode(allSaveData);
+  Isaac.SaveModData(mod, jsonString); // Write it to the "save#.dat" file
+}
+
+function loadFromDisk() {
+  if (mod === null) {
+    error("The save data manager is not initialized.");
+  }
+
+  if (!Isaac.HasModData(mod)) {
+    // There is no "save#.dat" file for this save slot
+    return;
+  }
+
+  const oldSaveData = getAllSaveDataWithoutRoom();
+
+  const jsonString = readSaveDatFile(mod);
+  if (jsonString === null) {
+    return;
+  }
+  const newSaveData = jsonHelper.decode(jsonString);
+
+  // We don't want to directly copy the old data into the map,
+  // because save data could contain out-of-date values
+  // Instead, merge it one field at a time in a recursive way
+  merge(oldSaveData, newSaveData);
+
+  log('Loaded the "save#.dat" file.');
+}
+
+function readSaveDatFile(modObject: Mod) {
+  const isaacFrameCount = Isaac.GetFrameCount();
+  const defaultModData = "{}";
+
+  const [ok, jsonStringOrErrMsg] = pcall(tryLoadModData, modObject);
+  if (!ok) {
+    log(
+      `Failed to read from the "save#.dat" file on Isaac frame ${isaacFrameCount}: ${jsonStringOrErrMsg}`,
+    );
+    return defaultModData;
+  }
+
+  const jsonStringTrimmed = jsonStringOrErrMsg.trim();
+  if (jsonStringTrimmed === "") {
+    return defaultModData;
+  }
+
+  return jsonStringTrimmed;
+}
+
+function tryLoadModData(this: void, modObject: Mod) {
+  return Isaac.LoadModData(modObject);
+}
+
+function getAllSaveDataWithoutRoom() {
+  const allSaveData = new LuaTable();
+  for (const [key, saveData] of pairs(saveDataMap)) {
+    const saveDataWithoutRoom: SaveDataWithoutRoom = {
+      persistent: saveData.persistent,
+      run: saveData.run,
+      level: saveData.level,
+    };
+
+    allSaveData.set(key, saveDataWithoutRoom);
+  }
+
+  return allSaveData;
+}
+
+/**
+ * merge takes the values from a new table and merges them into an old table.
+ * It will only copy over values that are present in the old table.
+ * In other words, it will ignore extraneous values in the new table.
+ * (This is useful when loading out-of-date save data from the "save#.dat" file.)
+ */
+export function merge(oldTable: LuaTable, newTable: LuaTable): void {
+  if (type(oldTable) !== "table" || type(newTable) !== "table") {
+    error("merge is comparing a value that is not a table.");
+  }
+
+  // Go through the old table, merging every found value
+  for (const [key, oldValue] of pairs(oldTable)) {
+    const newValue = newTable.get(key) as unknown;
+    const oldType = type(oldValue);
+    const newType = type(newValue);
+
+    // Do nothing if a property on the incoming table either does not exist or is a mismatched type
+    if (oldType !== newType) {
+      continue;
+    }
+
+    // Recursively handle sub-tables
+    if (oldType === "table") {
+      merge(oldValue, newValue as LuaTable);
+      continue;
+    }
+
+    // Base case - copy the value
+    oldTable.set(key, newValue);
+  }
+
+  // We also need to iterate through the new table in case it is:
+  // 1) an "array" (i.e. indexed by "1", "2", and so on)
+  // 2) a key-value object indexed by a number coerced to a string (i.e. indexed by "2182363682")
+  // In both of these cases, we always want to copy the values,
+  // since they indicate state data that will be independent of mod version
+  for (const [key, newValue] of pairs(newTable)) {
+    const num = tonumber(key);
+    if (num !== undefined) {
+      oldTable.set(key, newValue);
+    }
+  }
+}

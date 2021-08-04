@@ -1,4 +1,5 @@
-import PickingUpItem from "../types/PickingUpItem";
+import { PostItemPickupCallback } from "../../types/ModCallbacksCustom";
+import PickingUpItem from "../../types/PickingUpItem";
 
 const subscriptions: Array<
   [
@@ -12,12 +13,8 @@ export function hasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-export function register(
-  callback: (player: EntityPlayer, pickingUpItem: PickingUpItem) => void,
-  itemType?: ItemType,
-  itemID?: CollectibleType | TrinketType | int,
-): void {
-  subscriptions.push([callback, itemType, itemID]);
+export function register(data: PostItemPickupCallback): void {
+  subscriptions.push([data.callback, data.itemType, data.itemID]);
 }
 
 export function postItemPickup(

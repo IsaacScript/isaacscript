@@ -1,8 +1,8 @@
 import { saveDataManager } from "../features/saveDataManager";
 import { getPlayerIndex, getPlayers, PlayerIndex } from "../functions/player";
 import PickingUpItem from "../types/PickingUpItem";
-import * as postItemPickup from "./postItemPickup";
-import * as preItemPickup from "./preItemPickup";
+import * as postItemPickup from "./subscriptions/postItemPickup";
+import * as preItemPickup from "./subscriptions/preItemPickup";
 
 const v = {
   run: {

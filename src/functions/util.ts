@@ -42,12 +42,10 @@ export function deepCopy(
   // All TypeScriptToLua objects use metatables
   const metatable = getmetatable(table);
   if (metatable !== null) {
-    // Normally, we could detect the specific case of a TSTL Map with "instanceof Map",
-    // but this is currently bugged
     const tableKeyType = type(tableKey);
     const tableKeyString = tostring(tableKeyType);
     error(
-      `The ${functionName} function encountered a table with a name of "${tableKeyString}" that has a metatable, which is not supported. If you are trying to use a Map object, then use a LuaTable object instead as a replacement.`,
+      `The ${functionName} function detected that the "${tableKeyString}" table has a metatable. Copying tables with metatables is not supported. If you are trying to use a Map object, then use a LuaTable object instead as a replacement.`,
     );
   }
 

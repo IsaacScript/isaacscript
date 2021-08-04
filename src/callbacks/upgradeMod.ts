@@ -1,7 +1,9 @@
+import * as saveDataManager from "../features/saveDataManager";
 import ModUpgraded from "../types/ModUpgraded";
+import * as itemPickup from "./itemPickup";
 
 /**
- * Use this function to enable the custom callbacks provided by `isaacscript-common`.
+ * Use this function to enable the custom features and callbacks provided by `isaacscript-common`.
  *
  * Example:
  * ```
@@ -15,14 +17,24 @@ import ModUpgraded from "../types/ModUpgraded";
  * modUpgraded.AddCallbackCustom(ModCallbacksCustom.MC_POST_ITEM_PICKUP, postItemPickup);
  * ```
  *
- * Also see the [[`ModCallbacksCustom`]] enum and [[`CallbackParametersCustom`]].
- *
- * For a list of all custom callbacks, check out the official
- * [Function Signatures](https://isaacscript.github.io/docs/function-signatures#custom-callbacks)
- * docs.
+ * For a list of all custom callbacks, check out the
+ * [Function Signatures](https://isaacscript.github.io/docs/function-signatures#custom-callbacks).
  *
  * @category Custom Callbacks
  */
 export function upgradeMod(mod: Mod): ModUpgraded {
-  return new ModUpgraded(mod);
+  const modUpgraded = new ModUpgraded(mod);
+
+  initFeatures(modUpgraded);
+  initCustomCallbacks(modUpgraded);
+
+  return modUpgraded;
+}
+
+function initFeatures(modUpgraded: ModUpgraded) {
+  saveDataManager.init(modUpgraded);
+}
+
+function initCustomCallbacks(modUpgraded: ModUpgraded) {
+  itemPickup.init(modUpgraded);
 }

@@ -125,7 +125,7 @@ export function getPlayers(performExclusions = false): EntityPlayer[] {
  * function. Mods can signify that data structures handle EntityPlayers by using this type:
  *
  * ```
- * const myPlayerMap = new Map<PlayerIndex, string>();
+ * const myPlayerMap = new LuaTable<PlayerIndex, string>();
  * ```
  *
  * This type is branded for extra type safety.

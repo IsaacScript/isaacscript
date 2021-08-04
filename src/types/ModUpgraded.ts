@@ -1,10 +1,12 @@
-import * as itemPickup from "../callbacks/itemPickup";
-import * as postItemPickup from "../callbacks/postItemPickup";
-import * as preItemPickup from "../callbacks/preItemPickup";
-import * as saveDataManager from "../features/saveDataManager";
+import * as postGameStarted from "../callbacks/subscriptions/postGameStarted";
+import * as postItemPickup from "../callbacks/subscriptions/postItemPickup";
+import * as postNewLevel from "../callbacks/subscriptions/postNewLevel";
+import * as postNewRoom from "../callbacks/subscriptions/postNewRoom";
+import * as preItemPickup from "../callbacks/subscriptions/preItemPickup";
 import { ensureAllCases } from "../functions/util";
-import CallbackParametersCustom from "./CallbackParametersCustom";
-import ModCallbacksCustom from "./ModCallbacksCustom";
+import ModCallbacksCustom, {
+  CallbackParametersCustom,
+} from "./ModCallbacksCustom";
 
 /** `isaacscript-common` allows for custom callbacks, so it provides an upgraded Mod object. */
 export default class ModUpgraded implements Mod {
@@ -45,25 +47,36 @@ export default class ModUpgraded implements Mod {
   // Define custom functionality
 
   // eslint-disable-next-line class-methods-use-this
-  AddCallbackCustom<T extends keyof CallbackParametersCustom>(
-    customCallbackIDGeneric: T,
-    ...args: CallbackParametersCustom[T]
-  ): void {
-    const customCallbackID = customCallbackIDGeneric as ModCallbacksCustom;
-    switch (customCallbackID) {
+  AddCallbackCustom(data: CallbackParametersCustom): void {
+    switch (data.type) {
+      case ModCallbacksCustom.MC_POST_GAME_STARTED: {
+        postGameStarted.register(data);
+        break;
+      }
+
+      case ModCallbacksCustom.MC_POST_NEW_LEVEL: {
+        postNewLevel.register(data);
+        break;
+      }
+
+      case ModCallbacksCustom.MC_POST_NEW_ROOM: {
+        postNewRoom.register(data);
+        break;
+      }
+
       case ModCallbacksCustom.MC_PRE_ITEM_PICKUP: {
-        preItemPickup.register(args[0], args[1], args[2]);
+        preItemPickup.register(data);
         break;
       }
 
       case ModCallbacksCustom.MC_POST_ITEM_PICKUP: {
-        postItemPickup.register(args[0], args[1], args[2]);
+        postItemPickup.register(data);
         break;
       }
 
       default: {
-        ensureAllCases(customCallbackID);
-        error(`The custom callback ID of "${customCallbackID}" is not valid.`);
+        ensureAllCases(data);
+        error(`The custom callback ID of "${data}" is not valid.`);
         break;
       }
     }
@@ -72,12 +85,5 @@ export default class ModUpgraded implements Mod {
   constructor(mod: Mod) {
     this.Mod = mod;
     this.Name = mod.Name;
-
-    saveDataManager.init(this);
-    this.initCustomCallbacks();
-  }
-
-  initCustomCallbacks(): void {
-    itemPickup.init(this);
   }
 }
