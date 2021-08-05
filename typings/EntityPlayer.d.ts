@@ -222,7 +222,7 @@ declare class EntityPlayer extends Entity {
    * @param familiarVariant
    * @param targetCount
    * @param rng
-   * @param sourceItem The item this type of familiar was created by. Default is nil.
+   * @param sourceItem The item this type of familiar was created by. Default is null.
    * @param familiarSubType The subtype of the familiar to check (-1 matches any subtype). Default
    * is -1.
    */
@@ -248,12 +248,12 @@ declare class EntityPlayer extends Entity {
   /**
    * @param position
    * @param velocity
-   * @param source Default is nil.
+   * @param source Default is null.
    */
   FireBomb(position: Vector, velocity: Vector, source?: Entity): EntityBomb;
   /**
    * @param direction
-   * @param source Default is nil.
+   * @param source Default is null.
    * @param damageMultiplier Default is 1.
    */
   FireBrimstone(
@@ -282,7 +282,7 @@ declare class EntityPlayer extends Entity {
    * @param canBeEye Default is true.
    * @param noTractorBeam Default is false.
    * @param canTriggerStreakEnd Default is true.
-   * @param source Default is nil.
+   * @param source Default is null.
    * @param damageMultiplier Default is 1.
    */
   FireTear(
@@ -300,7 +300,7 @@ declare class EntityPlayer extends Entity {
    * @param direction
    * @param leftEye
    * @param oneHit Default is false.
-   * @param source Default is nil.
+   * @param source Default is null.
    * @param damageMultiplier Default is 1.
    */
   FireTechLaser(
@@ -316,7 +316,7 @@ declare class EntityPlayer extends Entity {
    * @param position
    * @param direction
    * @param radius
-   * @param source Default is nil.
+   * @param source Default is null.
    * @param damageMultiplier Default is 1.
    */
   FireTechXLaser(
@@ -464,7 +464,7 @@ declare class EntityPlayer extends Entity {
    * When called on Esau, returns Jacob.
    * When called on Tainted Forgotten, returns Tainted Forgotten's Soul.
    * When called on Tainted Forgotten's Soul, returns Tainted Forgotten.
-   * When called on any other character, returns nil.
+   * When called on any other character, returns null.
    */
   GetOtherTwin(): EntityPlayer;
   /** Returns 0 if there is no pill. */
@@ -489,7 +489,7 @@ declare class EntityPlayer extends Entity {
    * @param weaponType
    * @param damageScale Default is 1.
    * @param tearDisplacement Default is 1.
-   * @param source Default is nil.
+   * @param source Default is null.
    */
   GetTearHitParams(
     weaponType: WeaponType,
@@ -669,7 +669,7 @@ declare class EntityPlayer extends Entity {
   ): EntityFamiliar;
   /**
    * If holding an entity, throws it in the specified direction and returns it, otherwise returns
-   * nil.
+   * null.
    *
    * @param velocity
    */

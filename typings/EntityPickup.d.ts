@@ -24,7 +24,7 @@ declare class EntityPickup extends Entity {
   PlayDropSound(): void;
   PlayPickupSound(): void;
   /**
-   * @param player Default is nil.
+   * @param player Default is null.
    */
   TryOpenChest(player?: EntityPlayer): boolean;
 

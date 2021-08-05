@@ -125,12 +125,12 @@ declare global {
     /**
      * With no argument, it returns the 0th player.
      * For the purposes of this definition, we assume that the 0th player always exists.
-     * However, if called in the menu, this function will return nil, so beware.
+     * However, if called in the menu, this function will return null, so beware.
      */
     function GetPlayer(): EntityPlayer;
     /**
      * For the purposes of this definition, we assume that the 0th player always exists.
-     * However, if called in the menu, this function will return nil, so beware.
+     * However, if called in the menu, this function will return null, so beware.
      */
     function GetPlayer(playerID: 0): EntityPlayer;
     /**

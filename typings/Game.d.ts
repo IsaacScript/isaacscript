@@ -14,7 +14,7 @@ declare class Game {
    * @param damage
    * @param radius
    * @param lineCheck Default is true.
-   * @param source Default is nil.
+   * @param source Default is null.
    * @param tearFlags Default is TearFlags.TEAR_NORMAL.
    * @param damageFlags Default is DamageFlag.DAMAGE_EXPLOSION.
    * @param damageSource Default is false.
@@ -38,7 +38,7 @@ declare class Game {
    * @param damage
    * @param tearFlags Default is TearFlags.TEAR_NORMAL.
    * @param color Default is Color.Default.
-   * @param source Default is nil.
+   * @param source Default is null.
    * @param radiusMult Default is 1.
    * @param lineCheck Default is true.
    * @param damageSource Default is false.
@@ -63,7 +63,7 @@ declare class Game {
    * @param position
    * @param radius
    * @param tearFlags
-   * @param source Default is nil.
+   * @param source Default is null.
    * @param radiusMult Default is 1.
    */
   BombTearflagEffects(
@@ -99,7 +99,7 @@ declare class Game {
   /**
    * @param position
    * @param radius Default is 85.
-   * @param source Default is nil.
+   * @param source Default is null.
    * @param fartScale Default is 1.
    * @param fartSubType Default is 0
    * @param fartColor Default is Color.Default.
@@ -210,7 +210,7 @@ declare class Game {
    * @param roomIndex
    * @param direction
    * @param roomTransition Default is RoomTransitionAnim.WALK.
-   * @param player Default is nil.
+   * @param player Default is null.
    * @param dimension Default is Dimension.CURRENT.
    */
   StartRoomTransition(

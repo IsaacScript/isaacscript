@@ -24,7 +24,7 @@ declare class ItemPool {
   GetPill(seed: int): PillColor | int;
   /**
    * @param pillColor
-   * @param player Default is nil.
+   * @param player Default is null.
    */
   GetPillEffect(
     pillColor: PillColor | int,

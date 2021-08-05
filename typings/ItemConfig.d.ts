@@ -1,22 +1,24 @@
 declare class ItemConfig {
-  /** Returns nil if the card was not found. */
-  GetCard(card: Card | int): Readonly<ItemConfigCard>;
+  /** Returns null if the card was not found. */
+  GetCard(card: Card | int): Readonly<ItemConfigCard> | null;
   GetCards(): Readonly<CardConfigList>;
-  /** Returns nil if the collectible type was not found. */
+  /** Returns null if the collectible type was not found. */
   GetCollectible(
     collectibleType: CollectibleType | int,
-  ): Readonly<ItemConfigItem>;
+  ): Readonly<ItemConfigItem> | null;
   GetCollectibles(): Readonly<ItemConfigList>;
   // CostumeConfigList is bugged and always returns a list of size 0
   // GetCostumes(): Readonly<CostumeConfigList>;
-  /** Returns nil if the item was not found. */
-  GetNullItem(nullItemID: NullItemID | int): Readonly<ItemConfigItem>;
+  /** Returns null if the item was not found. */
+  GetNullItem(nullItemID: NullItemID | int): Readonly<ItemConfigItem> | null;
   GetNullItems(): Readonly<ItemConfigList>;
-  /** Returns nil if the pill effect was not found. */
-  GetPillEffect(pillEffect: PillEffect | int): Readonly<ItemConfigPillEffect>;
+  /** Returns null if the pill effect was not found. */
+  GetPillEffect(
+    pillEffect: PillEffect | int,
+  ): Readonly<ItemConfigPillEffect> | null;
   GetPillEffects(): Readonly<PillConfigList>;
-  /** Returns nil if the trinket was not found. */
-  GetTrinket(trinketType: TrinketType | int): Readonly<ItemConfigItem>;
+  /** Returns null if the trinket was not found. */
+  GetTrinket(trinketType: TrinketType | int): Readonly<ItemConfigItem> | null;
   GetTrinkets(): Readonly<ItemConfigList>;
 
   // The static methods in this class are weird and can only be called by a global variable
