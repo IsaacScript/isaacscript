@@ -551,7 +551,7 @@ Similar to the vanilla callback of the same name, but fires in the correct order
 PostGameStarted --> PostNewLevel --> PostNewRoom
 
 ```ts
-function postGameStarted(): void {}
+function postGameStarted(isContinued: boolean): void {}
 ```
 
 ### MC_POST_NEW_LEVEL
