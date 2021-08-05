@@ -1,8 +1,5 @@
 import { EXCLUDED_CHARACTERS } from "../constants";
 
-/**
- * @category Player
- */
 export function anyPlayerCloserThan(
   position: Vector,
   distance: float,
@@ -16,9 +13,6 @@ export function anyPlayerCloserThan(
   return false;
 }
 
-/**
- * @category Player
- */
 export function anyPlayerHasCollectible(
   collectibleType: CollectibleType,
 ): boolean {
@@ -31,9 +25,6 @@ export function anyPlayerHasCollectible(
   return false;
 }
 
-/**
- * @category Player
- */
 export function anyPlayerHasTrinket(trinketType: TrinketType): boolean {
   for (const player of getPlayers()) {
     if (player.HasTrinket(trinketType)) {
@@ -44,9 +35,6 @@ export function anyPlayerHasTrinket(trinketType: TrinketType): boolean {
   return false;
 }
 
-/**
- * @category Player
- */
 export function anyPlayerIs(matchingCharacter: PlayerType): boolean {
   for (const player of getPlayers()) {
     const character = player.GetPlayerType();
@@ -70,8 +58,6 @@ export function anyPlayerIs(matchingCharacter: PlayerType): boolean {
  *   player.AddTrinket(TrinketType.TRINKET_SWALLOWED_PENNY);
  * }
  * ```
- *
- * @category Player
  */
 export function getOpenTrinketSlot(player: EntityPlayer): int | null {
   const maxTrinkets = player.GetMaxTrinkets();
@@ -99,7 +85,6 @@ export function getOpenTrinketSlot(player: EntityPlayer): int | null {
  *
  * @param performExclusions Whether or not to exclude characters that are not directly controlled by
  * the player (like Esau). False by default.
- * @category Player
  */
 export function getPlayers(performExclusions = false): EntityPlayer[] {
   const game = Game();
@@ -122,11 +107,11 @@ export function getPlayers(performExclusions = false): EntityPlayer[] {
 }
 
 /**
- * PlayerIndex is a specific type of string; see the documentation for the `getPlayerIndex()`
+ * PlayerIndex is a specific type of string; see the documentation for the `[[getPlayerIndex]]`
  * function. Mods can signify that data structures handle EntityPlayers by using this type:
  *
  * ```
- * const myPlayerMap = new LuaTable<PlayerIndex, string>();
+ * const myPlayerMap = new Map<PlayerIndex, string>();
  * ```
  *
  * This type is branded for extra type safety.
@@ -170,8 +155,6 @@ export function getPlayerIndex(player: EntityPlayer): PlayerIndex {
 /**
  * Returns the total number of collectibles amongst all players. For example, if player 1 has 1 Sad
  * Onion and player 2 has 2 Sad Onions, then this function would return 3.
- *
- * @category Player
  */
 export function getTotalPlayerCollectibles(
   collectibleType: CollectibleType,

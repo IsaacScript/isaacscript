@@ -9,7 +9,6 @@ import { SCREEN_SIZE_BETWEEN_RENDER_SURFACES } from "../constants";
  * @returns If the user does not have Mod Config Menu enabled, or does not have this option set,
  * then this function will return `Vector.Zero.` Otherwise, it will return a Vector that represents
  * a HUD offset that should be added to the position of a UI element.
- * @category UI
  */
 export function getHUDOffsetVector(): Vector {
   const defaultVector = Vector.Zero;

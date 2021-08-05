@@ -9,8 +9,6 @@
  *   npc.Remove();
  * }
  * ```
- *
- * @category Entities
  */
 export function getRoomNPCs(): EntityNPC[] {
   const npcs: EntityNPC[] = [];

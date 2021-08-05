@@ -1,9 +1,9 @@
 export * from "./callbacks/upgradeMod";
 export { saveDataManager } from "./features/saveDataManager";
 export * from "./functions/array";
-export * from "./functions/entities";
+export * from "./functions/entity";
 export * from "./functions/flags";
-export * from "./functions/gridEntities";
+export * from "./functions/gridEntity";
 export * from "./functions/input";
 export * from "./functions/log";
 export * from "./functions/math";

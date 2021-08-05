@@ -2,8 +2,6 @@ import { getRandomInt } from "./random";
 
 /**
  * Helper function for determining if two arrays contain the exact same elements.
- *
- * @category Array
  */
 export function arrayEquals<T>(array1: T[], array2: T[]): boolean {
   if (array1.length !== array2.length) {
@@ -19,9 +17,6 @@ export function arrayEquals<T>(array1: T[], array2: T[]): boolean {
   return true;
 }
 
-/**
- * @category Array
- */
 export function getRandomArrayElement<T>(array: T[], seed: int): T {
   const randomIndex = getRandomInt(0, array.length - 1, seed);
   return array[randomIndex];
@@ -29,8 +24,6 @@ export function getRandomArrayElement<T>(array: T[], seed: int): T {
 
 /**
  * Copies and removes the specified element from the array. Returns the copied array.
- *
- * @category Array
  */
 export function arrayRemove<T>(array: T[], element: T): T[] {
   const arrayCopy = [...array];

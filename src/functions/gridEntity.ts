@@ -1,8 +1,5 @@
 import { MAX_NUM_DOORS } from "../constants";
 
-/**
- * @category Grid Entities
- */
 export function getDoors(): GridEntityDoor[] {
   const game = Game();
   const room = game.GetRoom();
@@ -18,9 +15,6 @@ export function getDoors(): GridEntityDoor[] {
   return doors;
 }
 
-/**
- * @category Grid Entities
- */
 export function getGridEntities(): GridEntity[] {
   const game = Game();
   const room = game.GetRoom();
@@ -37,9 +31,6 @@ export function getGridEntities(): GridEntity[] {
   return gridEntities;
 }
 
-/**
- * @category Grid Entities
- */
 export function openAllDoors(): void {
   for (const door of getDoors()) {
     // If we try to open a hidden secret room door (or super secret room door),

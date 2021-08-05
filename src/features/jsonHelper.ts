@@ -26,8 +26,6 @@ function tryEncode(this: void, table: unknown) {
  * If decoding fails, it will return a blank Lua table instead of throwing an error.
  * (This allows execution to continue in cases where users have no current save data or have
  * manually removed their existing save data.)
- *
- * @category JSON Helper
  */
 export function decode(jsonString: string): LuaTable {
   const [ok, luaTableOrErrMsg] = pcall(tryDecode, jsonString);

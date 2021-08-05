@@ -4,8 +4,6 @@ import { BEAST_ROOM_SUB_TYPE, RECOMMENDED_SHIFT_IDX } from "../constants";
  * Helper function for quickly switching to a new room without playing a particular animation.
  * Always use this helper function over invoking `Game().ChangeRoom()` directly to ensure that you
  * do not forget to set the LeaveDoor property.
- *
- * @category Utility
  */
 export function changeRoom(roomIndex: int): void {
   const game = Game();
@@ -20,8 +18,6 @@ export function changeRoom(roomIndex: int): void {
 
 /**
  * deepCopy recursively copies a table so that none of the nested references remain.
- *
- * @category Utility
  */
 export function deepCopy(
   table: LuaTable,
@@ -110,8 +106,6 @@ export function deepCopy(
  *   }
  * }
  * ```
- *
- * @category Utility
  */
 export const ensureAllCases = (obj: never): never => obj;
 
@@ -176,8 +170,6 @@ export function getItemName(
  * `Game().GetLevel().GetCurrentRoomIndex()` directly to avoid bugs with big rooms.
  * (Big rooms can return the specific 1x1 quadrant that the player is in, which can break data
  * structures that use the room index as an index.)
- *
- * @category Utility
  */
 export function getRoomIndex(): int {
   const game = Game();
@@ -195,8 +187,6 @@ export function getRoomIndex(): int {
 /**
  * Converts a room X and Y coordinate to a position. For example, the coordinates of 0, 0 are
  * equal to `Vector(80, 160)`.
- *
- * @category Utility
  */
 export function gridToPos(x: int, y: int): Vector {
   const game = Game();
@@ -214,8 +204,6 @@ export function gridToPos(x: int, y: int): Vector {
  * Helper function for determining whether the current room is a crawlspace. Use this function over
  * comparing to `GridRooms.ROOM_DUNGEON_IDX` directly since there is a special case of the player
  * being in The Beast room.
- *
- * @category Utility
  */
 export function inCrawlspace(): boolean {
   const game = Game();
@@ -244,7 +232,6 @@ export function inCrawlspace(): boolean {
  * @param seed The seed to initialize it with.
  * (If you aren't initializing it with a seed, then don't use this function and instead simply call
  * the `RNG()` constructor.)
- * @category Utility
  */
 export function initRNG(seed: int): RNG {
   const rng = RNG();
@@ -255,9 +242,6 @@ export function initRNG(seed: int): RNG {
   return rng;
 }
 
-/**
- * @category Utility
- */
 export function isRepentanceStage(): boolean {
   const game = Game();
   const level = game.GetLevel();
@@ -269,9 +253,6 @@ export function isRepentanceStage(): boolean {
   );
 }
 
-/**
- * @category Utility
- */
 export function lerp(a: number, b: number, pos: float): number {
   return a + (b - a) * pos;
 }
@@ -288,8 +269,6 @@ export function lerpAngleDegrees(
  * Whether or not the player is playing on a set seed (i.e. that they entered in a specific seed by
  * pressing tab on the character selection screen). When the player resets the game on a set seed,
  * the game will not switch to a different seed.
- *
- * @category Utility
  */
 export function onSetSeed(): boolean {
   const game = Game();

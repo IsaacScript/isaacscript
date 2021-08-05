@@ -14,6 +14,7 @@ const saveDataMap = new LuaTable<string, SaveData>();
 /** Indexed by subscriber name. */
 const saveDataDefaultsMap = new LuaTable<string, SaveData>();
 
+/** @hidden */
 export function init(incomingMod: ModUpgraded): void {
   mod = incomingMod;
 
@@ -260,6 +261,8 @@ function getAllSaveDataWithoutRoom() {
  * It will only copy over values that are present in the old table.
  * In other words, it will ignore extraneous values in the new table.
  * (This is useful when loading out-of-date save data from the "save#.dat" file.)
+ *
+ * @hidden
  */
 export function merge(oldTable: LuaTable, newTable: LuaTable): void {
   if (type(oldTable) !== "table" || type(newTable) !== "table") {
