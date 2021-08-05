@@ -1,16 +1,21 @@
 declare class ItemConfig {
+  /** Returns nil if the card was not found. */
   GetCard(card: Card | int): Readonly<ItemConfigCard>;
   GetCards(): Readonly<CardConfigList>;
+  /** Returns nil if the collectible type was not found. */
   GetCollectible(
     collectibleType: CollectibleType | int,
   ): Readonly<ItemConfigItem>;
   GetCollectibles(): Readonly<ItemConfigList>;
   // CostumeConfigList is bugged and always returns a list of size 0
   // GetCostumes(): Readonly<CostumeConfigList>;
+  /** Returns nil if the item was not found. */
   GetNullItem(nullItemID: NullItemID | int): Readonly<ItemConfigItem>;
   GetNullItems(): Readonly<ItemConfigList>;
+  /** Returns nil if the pill effect was not found. */
   GetPillEffect(pillEffect: PillEffect | int): Readonly<ItemConfigPillEffect>;
   GetPillEffects(): Readonly<PillConfigList>;
+  /** Returns nil if the trinket was not found. */
   GetTrinket(trinketType: TrinketType | int): Readonly<ItemConfigItem>;
   GetTrinkets(): Readonly<ItemConfigList>;
 
