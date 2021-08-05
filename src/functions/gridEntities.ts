@@ -1,10 +1,10 @@
 import { MAX_NUM_DOORS } from "../constants";
-import { game } from "../game";
 
 /**
  * @category Grid Entities
  */
 export function getDoors(): GridEntityDoor[] {
+  const game = Game();
   const room = game.GetRoom();
 
   const doors: GridEntityDoor[] = [];
@@ -22,6 +22,7 @@ export function getDoors(): GridEntityDoor[] {
  * @category Grid Entities
  */
 export function getGridEntities(): GridEntity[] {
+  const game = Game();
   const room = game.GetRoom();
   const gridSize = room.GetGridSize();
 

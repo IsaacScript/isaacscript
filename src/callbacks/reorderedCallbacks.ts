@@ -4,7 +4,6 @@
 // PostGameStarted --> PostNewLevel --> PostNewRoom
 // Manually reorganize the callback execution so that this is the case
 
-import { game } from "../game";
 import * as postGameStarted from "./subscriptions/postGameStarted";
 import * as postNewLevel from "./subscriptions/postNewLevel";
 import * as postNewRoom from "./subscriptions/postNewRoom";
@@ -30,6 +29,7 @@ function postGameStartedVanilla(isContinued: boolean) {
 
 // ModCallbacks.MC_POST_NEW_LEVEL (18)
 function postNewLevelVanilla() {
+  const game = Game();
   const gameFrameCount = game.GetFrameCount();
 
   if (gameFrameCount === 0 && !forceNewLevel) {
@@ -45,6 +45,7 @@ function postNewLevelVanilla() {
 
 // ModCallbacks.MC_POST_NEW_ROOM (19)
 function postNewRoomVanilla() {
+  const game = Game();
   const gameFrameCount = game.GetFrameCount();
   const level = game.GetLevel();
   const stage = level.GetStage();
@@ -64,6 +65,7 @@ function postNewRoomVanilla() {
 }
 
 function recordCurrentStage() {
+  const game = Game();
   const level = game.GetLevel();
   const stage = level.GetStage();
   const stageType = level.GetStageType();

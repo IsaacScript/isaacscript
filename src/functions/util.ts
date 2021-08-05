@@ -1,5 +1,4 @@
 import { BEAST_ROOM_SUB_TYPE, RECOMMENDED_SHIFT_IDX } from "../constants";
-import { game } from "../game";
 
 /**
  * Helper function for quickly switching to a new room without playing a particular animation.
@@ -9,6 +8,7 @@ import { game } from "../game";
  * @category Utility
  */
 export function changeRoom(roomIndex: int): void {
+  const game = Game();
   const level = game.GetLevel();
 
   // LeaveDoor must be set before every ChangeRoom() invocation or else the function can send you to
@@ -141,6 +141,37 @@ export function getEnumValues(transpiledEnum: unknown): int[] {
 }
 
 /**
+ * This is a helper function to get an item name from a CollectibleType or a TrinketType.
+ *
+ * Example:
+ * ```
+ * const item = CollectibleType.COLLECTIBLE_SAD_ONION;
+ * const itemName = getItemName(item); // itemName is now "Sad Onion"
+ * ```
+ */
+export function getItemName(
+  collectibleOrTrinketType: CollectibleType | TrinketType,
+  trinket = false,
+): string {
+  const itemConfig = Isaac.GetItemConfig();
+  const defaultName = "Unknown";
+
+  if (type(collectibleOrTrinketType) !== "number") {
+    return defaultName;
+  }
+
+  const itemConfigItem = trinket
+    ? itemConfig.GetTrinket(collectibleOrTrinketType)
+    : itemConfig.GetCollectible(collectibleOrTrinketType);
+
+  if (itemConfigItem === null) {
+    return defaultName;
+  }
+
+  return itemConfigItem.Name;
+}
+
+/**
  * Helper function to get the room index of the current room. Use this instead of calling
  * `Game().GetLevel().GetCurrentRoomIndex()` directly to avoid bugs with big rooms.
  * (Big rooms can return the specific 1x1 quadrant that the player is in, which can break data
@@ -149,6 +180,7 @@ export function getEnumValues(transpiledEnum: unknown): int[] {
  * @category Utility
  */
 export function getRoomIndex(): int {
+  const game = Game();
   const level = game.GetLevel();
 
   const roomIndex = level.GetCurrentRoomDesc().SafeGridIndex;
@@ -167,6 +199,7 @@ export function getRoomIndex(): int {
  * @category Utility
  */
 export function gridToPos(x: int, y: int): Vector {
+  const game = Game();
   const room = game.GetRoom();
 
   x += 1;
@@ -185,6 +218,7 @@ export function gridToPos(x: int, y: int): Vector {
  * @category Utility
  */
 export function inCrawlspace(): boolean {
+  const game = Game();
   const level = game.GetLevel();
   const roomDesc = level.GetCurrentRoomDesc();
   const roomData = roomDesc.Data;
@@ -225,6 +259,7 @@ export function initRNG(seed: int): RNG {
  * @category Utility
  */
 export function isRepentanceStage(): boolean {
+  const game = Game();
   const level = game.GetLevel();
   const stageType = level.GetStageType();
 
@@ -257,6 +292,7 @@ export function lerpAngleDegrees(
  * @category Utility
  */
 export function onSetSeed(): boolean {
+  const game = Game();
   const seeds = game.GetSeeds();
   const customRun = seeds.IsCustomRun();
   const challenge = Isaac.GetChallenge();

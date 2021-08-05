@@ -1,5 +1,4 @@
 import { SCREEN_SIZE_BETWEEN_RENDER_SURFACES } from "../constants";
-import { game } from "../game";
 
 /**
  * In the options menu, players have the ability to set a HUD offset. However, mods do not have
@@ -61,6 +60,7 @@ export function getScreenBottomLeft(): Vector {
 }
 
 export function getScreenBottomRight(): Vector {
+  const game = Game();
   const room = game.GetRoom();
 
   // First, get the offset from (0, 0) that the top-left wall text is drawn at

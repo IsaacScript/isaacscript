@@ -1,5 +1,4 @@
 import { EXCLUDED_CHARACTERS } from "../constants";
-import { game } from "../game";
 
 /**
  * @category Player
@@ -103,6 +102,8 @@ export function getOpenTrinketSlot(player: EntityPlayer): int | null {
  * @category Player
  */
 export function getPlayers(performExclusions = false): EntityPlayer[] {
+  const game = Game();
+
   const players: EntityPlayer[] = [];
   for (let i = 0; i < game.GetNumPlayers(); i++) {
     const player = Isaac.GetPlayer(i);
