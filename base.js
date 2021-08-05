@@ -214,6 +214,7 @@ module.exports = {
       {
         definedTags: [
           "category", // Used in TypeDoc
+          "hidden", // Used in TypeDoc
           "noResolution", // Used in TypeScriptToLua as a compiler annotation
           "noSelf", // Used in TypeScriptToLua as a compiler annotation
         ],
