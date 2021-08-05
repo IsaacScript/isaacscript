@@ -542,6 +542,8 @@ function preRoomEntitySpawn(
 
 ## Custom Callbacks
 
+The `isaacscript-common` package provides access to some custom callbacks. In order to use custom callbacks, you must first invoke the `[upgradeMod](https://isaacscript.github.io/isaacscript-common/modules/callbacks_upgradeMod.html#upgradeMod)` function.
+
 ### MC_POST_GAME_STARTED
 
 Similar to the vanilla callback of the same name, but fires in the correct order with respect to the PostNewLevel and the PostNewRoom callbacks:
