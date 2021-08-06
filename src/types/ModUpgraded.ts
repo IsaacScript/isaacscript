@@ -1,3 +1,7 @@
+import * as postEsauJr from "../callbacks/subscriptions/postEsauJr";
+import * as postFirstEsauJr from "../callbacks/subscriptions/postFirstEsauJr";
+import * as postFirstFlip from "../callbacks/subscriptions/postFirstFlip";
+import * as postFlip from "../callbacks/subscriptions/postFlip";
 import * as postGameStarted from "../callbacks/subscriptions/postGameStarted";
 import * as postItemPickup from "../callbacks/subscriptions/postItemPickup";
 import * as postNewLevel from "../callbacks/subscriptions/postNewLevel";
@@ -86,10 +90,37 @@ export default class ModUpgraded implements Mod {
         break;
       }
 
+      case ModCallbacksCustom.MC_POST_FLIP: {
+        postFlip.register(
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_FLIP]),
+        );
+        break;
+      }
+
+      case ModCallbacksCustom.MC_POST_FIRST_FLIP: {
+        postFirstFlip.register(
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_FIRST_FLIP]),
+        );
+        break;
+      }
+
+      case ModCallbacksCustom.MC_POST_ESAU_JR: {
+        postEsauJr.register(
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_ESAU_JR]),
+        );
+        break;
+      }
+
+      case ModCallbacksCustom.MC_POST_FIRST_ESAU_JR: {
+        postFirstEsauJr.register(
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_FIRST_ESAU_JR]),
+        );
+        break;
+      }
+
       default: {
         ensureAllCases(callbackID);
         error(`The custom callback ID of "${callbackID}" is not valid.`);
-        break;
       }
     }
   }
