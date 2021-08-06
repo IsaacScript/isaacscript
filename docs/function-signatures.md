@@ -599,3 +599,39 @@ function postItemPickup(
   pickingUpItem: PickingUpItem,
 ): void {}
 ```
+
+### MC_POST_FLIP
+
+Fires after the player has used the Flip item.
+
+```ts
+function postFlip(player: EntityPlayer): void {}
+```
+
+### MC_POST_FIRST_FLIP
+
+Fires after the player has used the Flip item for the first time.
+
+This callback is useful because there is no way to get access to the "flipped" character entity before the player has actually used the Flip item.
+
+```ts
+function postFirstFlip(player: EntityPlayer): void {}
+```
+
+### MC_POST_ESAU_JR
+
+Fires one game frame after the player has used the Esau Jr. item. (The player is not updated to the new character until a game frame has passed.)
+
+```ts
+function postEsauJr(player: EntityPlayer): void {}
+```
+
+### MC_POST_FIRST_ESAU_JR
+
+Fires one game frame after the player has first used the Esau Jr. item. (The player is not updated to the new character until a game frame has passed.)
+
+This callback is useful because there is no way to get access to the Esau Jr. character entity before the player has actually used the Esau Jr. item.
+
+```ts
+function postFirstEsauJr(player: EntityPlayer): void {}
+```
