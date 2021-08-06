@@ -4,7 +4,7 @@ import {
   MAX_PROJECTILE_FLAG_SHIFT,
   MAX_USE_FLAG_SHIFT,
 } from "../constants";
-import { hasFlag } from "./flags";
+import { hasFlag } from "./flag";
 
 /**
  * Helper function to avoid typing out `Isaac.DebugString()`.
