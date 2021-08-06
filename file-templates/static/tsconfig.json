@@ -10,7 +10,7 @@
     "rootDir": "./src",
 
     // Specifies the directory of the output
-    "outDir": "./mod"
+    "outDir": "./mod",
   },
 
   // A list of the TypeScript files to compile
