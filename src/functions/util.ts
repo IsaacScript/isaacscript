@@ -144,7 +144,7 @@ export function getEnumValues(transpiledEnum: unknown): int[] {
  * ```
  */
 export function getItemName(
-  collectibleOrTrinketType: CollectibleType | TrinketType,
+  collectibleOrTrinketType: int,
   trinket = false,
 ): string {
   const itemConfig = Isaac.GetItemConfig();
