@@ -560,6 +560,8 @@ Similar to the vanilla callback of the same name, but fires in the correct order
 
 PostGameStarted --> PostNewLevel --> PostNewRoom
 
+If some specific cases, mods can change the current level during run initialization (on the 0th frame). However, due to how the callback reordering works, the custom PostNewLevel callback will never fire on the 0th frame. To get around this, call the `forceNewLevelCallback()` function before changing levels to temporarily force the callback to fire.
+
 ```ts
 function postNewLevel(): void {}
 ```
@@ -569,6 +571,8 @@ function postNewLevel(): void {}
 Similar to the vanilla callback of the same name, but fires in the correct order with respect to the PostNewLevel and the PostNewRoom callbacks:
 
 PostGameStarted --> PostNewLevel --> PostNewRoom
+
+If some specific cases, mods can change the current room during run initialization (on the 0th frame). However, due to how the callback reordering works, the custom PostNewRoom callback will never fire on the 0th frame. To get around this, call the `forceNewRoomCallback()` function before changing levels to temporarily force the callback to fire.
 
 ```ts
 function postNewRoom(): void {}
