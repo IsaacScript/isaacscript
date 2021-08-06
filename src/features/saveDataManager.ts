@@ -117,10 +117,14 @@ export function saveDataManager(key: string, saveData: SaveData): void {
 // ModCallbacks.MC_POST_GAME_STARTED (15)
 function postGameStarted(isContinued: boolean) {
   if (isContinued) {
+    // Since the PostGameStarted callback fires after the PostNewLevel and the PostNewRoom
+    // callbacks, we do not have to worry about our loaded data being overwritten
     loadFromDisk();
-  } else {
-    restoreDefaults("run");
   }
+
+  // If the game is a run that is not continued, we do not need to reset any variables because they
+  // were already reset in the PreGameExit callback (or this is the first run after opening the
+  // game).
 }
 
 // ModCallbacks.MC_PRE_GAME_EXIT (17)
@@ -213,8 +217,6 @@ function loadFromDisk() {
   // because save data could contain out-of-date values
   // Instead, merge it one field at a time in a recursive way
   merge(oldSaveData, newSaveData);
-
-  log('Loaded the "save#.dat" file.');
 }
 
 function readSaveDatFile(modObject: Mod) {

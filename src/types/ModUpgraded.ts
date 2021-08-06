@@ -6,6 +6,7 @@ import * as postGameStarted from "../callbacks/subscriptions/postGameStarted";
 import * as postItemPickup from "../callbacks/subscriptions/postItemPickup";
 import * as postNewLevel from "../callbacks/subscriptions/postNewLevel";
 import * as postNewRoom from "../callbacks/subscriptions/postNewRoom";
+import * as postPlayerChangeType from "../callbacks/subscriptions/postPlayerChangeType";
 import * as preItemPickup from "../callbacks/subscriptions/preItemPickup";
 import { ensureAllCases } from "../functions/util";
 import CallbackParametersCustom from "./CallbackParametersCustom";
@@ -86,6 +87,13 @@ export default class ModUpgraded implements Mod {
       case ModCallbacksCustom.MC_POST_ITEM_PICKUP: {
         postItemPickup.register(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_ITEM_PICKUP]),
+        );
+        break;
+      }
+
+      case ModCallbacksCustom.MC_POST_PLAYER_CHANGE_TYPE: {
+        postPlayerChangeType.register(
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_PLAYER_CHANGE_TYPE]),
         );
         break;
       }

@@ -3,6 +3,7 @@ import ModUpgraded from "../types/ModUpgraded";
 import * as itemPickup from "./itemPickup";
 import * as postEsauJr from "./postEsauJr";
 import * as postFlip from "./postFlip";
+import * as postPlayerChangeType from "./postPlayerChangeType";
 import * as reorderedCallbacks from "./reorderedCallbacks";
 
 /**
@@ -41,6 +42,7 @@ function initFeatures(modUpgraded: ModUpgraded) {
 function initCustomCallbacks(modUpgraded: ModUpgraded) {
   reorderedCallbacks.init(modUpgraded);
   itemPickup.init(modUpgraded);
+  postPlayerChangeType.init(modUpgraded);
   postFlip.init(modUpgraded);
   postEsauJr.init(modUpgraded);
 }
