@@ -16,41 +16,68 @@ export function changeRoom(roomIndex: int): void {
   game.ChangeRoom(roomIndex);
 }
 
-/**
- * deepCopy recursively copies a table so that none of the nested references remain.
- */
+/** deepCopy recursively copies a table so that none of the nested references remain. */
 export function deepCopy(
-  table: LuaTable,
-  tableKey?: string | number,
+  oldTable: LuaTable,
+  tableName = "unknown" as AnyNotNil,
 ): LuaTable {
   const functionName = "deepCopy";
 
-  const tableType = type(table);
-  if (tableType !== "table") {
+  const oldTableType = type(oldTable);
+  if (oldTableType !== "table") {
     error(
-      `The ${functionName} function was supplied with a ${tableType} instead of a table.`,
+      `The ${functionName} function was given a ${oldTableType} instead of a table.`,
     );
   }
 
   const newTable = new LuaTable();
 
+  checkMetatable(functionName, oldTable, tableName);
+  copyAllFields(functionName, oldTable, newTable);
+
+  return newTable;
+}
+
+function checkMetatable(
+  functionName: string,
+  oldTable: LuaTable,
+  tableName: AnyNotNil,
+) {
   // Lua tables can have metatables, which make writing a generic deep-cloner impossible
   // All TypeScriptToLua objects use metatables
-  const metatable = getmetatable(table);
-  if (metatable !== null) {
-    const tableKeyType = type(tableKey);
-    const tableKeyString = tostring(tableKeyType);
+  const metatable = getmetatable(oldTable);
+  if (metatable === null) {
+    return;
+  }
+
+  if (oldTable instanceof Map) {
     error(
-      `The ${functionName} function detected that the "${tableKeyString}" table has a metatable. Copying tables with metatables is not supported. If you are trying to use a Map object, then use a LuaTable object instead as a replacement.`,
+      `The ${functionName} function does not support cloning Maps. Please use the LuaTable type as a drop-in replacement for a Map.`,
     );
   }
 
-  // Copy over all of the fields
-  for (const [key, value] of pairs(table)) {
+  const tableNameType = type(tableName);
+  const tableDescription =
+    tableNameType === "string"
+      ? `the "${tableName}" table`
+      : "a child element of the table to copy";
+
+  error(
+    `The ${functionName} function detected that ${tableDescription} has a metatable. Copying tables with metatables is not supported.`,
+  );
+}
+
+function copyAllFields(
+  functionName: string,
+  oldTable: LuaTable,
+  newTable: LuaTable,
+) {
+  for (const [key, value] of pairs(oldTable)) {
     const valueType = type(value);
 
     if (
       valueType === "function" ||
+      valueType === "nil" ||
       valueType === "thread" ||
       valueType === "userdata"
     ) {
@@ -61,15 +88,13 @@ export function deepCopy(
 
     let newValue: unknown;
     if (valueType === "table") {
-      newValue = deepCopy(value as LuaTable, key as string | number);
+      newValue = deepCopy(value, key);
     } else {
       newValue = value;
     }
 
     newTable.set(key, newValue);
   }
-
-  return newTable;
 }
 
 /**

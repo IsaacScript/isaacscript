@@ -1,5 +1,3 @@
-// TODO convert Maps to LuaTables
-
 import { log } from "../functions/log";
 import { deepCopy } from "../functions/util";
 import ModUpgraded from "../types/ModUpgraded";
@@ -263,10 +261,8 @@ function getAllSaveDataWithoutRoom() {
  * It will only copy over values that are present in the old table.
  * In other words, it will ignore extraneous values in the new table.
  * (This is useful when loading out-of-date save data from the "save#.dat" file.)
- *
- * @hidden
  */
-export function merge(oldTable: LuaTable, newTable: LuaTable): void {
+function merge(oldTable: LuaTable, newTable: LuaTable): void {
   if (type(oldTable) !== "table" || type(newTable) !== "table") {
     error("merge is comparing a value that is not a table.");
   }
