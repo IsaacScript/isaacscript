@@ -1,11 +1,12 @@
 import PickingUpItem from "../../types/PickingUpItem";
 
+type CallbackType = (
+  player: EntityPlayer,
+  pickingUpItem: PickingUpItem,
+) => void;
+
 const subscriptions: Array<
-  [
-    (player: EntityPlayer, pickingUpItem: PickingUpItem) => void,
-    ItemType | undefined,
-    CollectibleType | TrinketType | undefined,
-  ]
+  [CallbackType, ItemType | undefined, int | undefined]
 > = [];
 
 export function hasSubscriptions(): boolean {
@@ -13,17 +14,14 @@ export function hasSubscriptions(): boolean {
 }
 
 export function register(
-  callback: (player: EntityPlayer, pickingUpItem: PickingUpItem) => void,
+  callback: CallbackType,
   itemType?: ItemType,
-  itemID?: CollectibleType | TrinketType | int,
+  itemID?: int,
 ): void {
   subscriptions.push([callback, itemType, itemID]);
 }
 
-export function postItemPickup(
-  player: EntityPlayer,
-  pickingUpItem: PickingUpItem,
-): void {
+export function fire(player: EntityPlayer, pickingUpItem: PickingUpItem): void {
   for (const [callback, itemType, itemID] of subscriptions) {
     // Handle the optional 2nd callback argument
     if (itemType !== undefined && itemType !== pickingUpItem.type) {

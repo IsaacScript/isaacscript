@@ -84,7 +84,7 @@ export function getOpenTrinketSlot(player: EntityPlayer): int | null {
  * (e.g. the Strawman Keeper).
  *
  * @param performExclusions Whether or not to exclude characters that are not directly controlled by
- * the player (like Esau). False by default.
+ * the player (i.e. Esau & Tainted Soul). False by default.
  */
 export function getPlayers(performExclusions = false): EntityPlayer[] {
   const game = Game();
@@ -139,17 +139,20 @@ export type PlayerIndex = string & { __playerIndexBrand: any }; // eslint-disabl
  * a string to avoid null element creation when saving the table as JSON (which is necessary when
  * saving variables on run exit).
  *
- * Finally, this index fails in the case of Tainted Lazarus 2, since the RNG will be the same for both
- * Tainted Lazarus and Dead Tainted Lazarus. We revert to using "GetPtrHash()" for this case.
+ * Finally, this index fails in the case of Tainted Lazarus, since the RNG will be the same for both
+ * Tainted Lazarus and Dead Tainted Lazarus. We revert to using the RNG of Inner Eye for this case.
  */
 export function getPlayerIndex(player: EntityPlayer): PlayerIndex {
   const character = player.GetPlayerType();
+  const collectibleToUse =
+    character === PlayerType.PLAYER_LAZARUS2_B
+      ? CollectibleType.COLLECTIBLE_INNER_EYE
+      : CollectibleType.COLLECTIBLE_SAD_ONION;
+  const collectibleRNG = player.GetCollectibleRNG(collectibleToUse);
+  const seed = collectibleRNG.GetSeed();
+  const seedString = seed.toString();
 
-  if (character === PlayerType.PLAYER_LAZARUS2_B) {
-    return GetPtrHash(player).toString() as PlayerIndex;
-  }
-
-  return player.GetCollectibleRNG(1).GetSeed().toString() as PlayerIndex;
+  return seedString as PlayerIndex;
 }
 
 /**

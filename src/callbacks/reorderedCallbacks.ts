@@ -21,14 +21,22 @@ export function init(mod: Mod): void {
 
 // ModCallbacks.MC_POST_GAME_STARTED (15)
 function postGameStartedVanilla(isContinued: boolean) {
-  postGameStarted.postGameStarted(isContinued);
+  if (!hasSubscriptions()) {
+    return;
+  }
+
+  postGameStarted.fire(isContinued);
   recordCurrentStage();
-  postNewLevel.postNewLevel();
-  postNewRoom.postNewRoom();
+  postNewLevel.fire();
+  postNewRoom.fire();
 }
 
 // ModCallbacks.MC_POST_NEW_LEVEL (18)
 function postNewLevelVanilla() {
+  if (!hasSubscriptions()) {
+    return;
+  }
+
   const game = Game();
   const gameFrameCount = game.GetFrameCount();
 
@@ -39,12 +47,16 @@ function postNewLevelVanilla() {
   forceNewLevel = false;
 
   recordCurrentStage();
-  postNewLevel.postNewLevel();
-  postNewRoom.postNewRoom();
+  postNewLevel.fire();
+  postNewRoom.fire();
 }
 
 // ModCallbacks.MC_POST_NEW_ROOM (19)
 function postNewRoomVanilla() {
+  if (!hasSubscriptions()) {
+    return;
+  }
+
   const game = Game();
   const gameFrameCount = game.GetFrameCount();
   const level = game.GetLevel();
@@ -61,7 +73,15 @@ function postNewRoomVanilla() {
   }
   forceNewRoom = false;
 
-  postNewRoom.postNewRoom();
+  postNewRoom.fire();
+}
+
+function hasSubscriptions() {
+  return (
+    postGameStarted.hasSubscriptions() ||
+    postNewLevel.hasSubscriptions() ||
+    postNewRoom.hasSubscriptions()
+  );
 }
 
 function recordCurrentStage() {

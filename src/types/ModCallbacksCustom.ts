@@ -13,5 +13,9 @@ enum ModCallbacksCustom {
   MC_POST_NEW_ROOM,
   MC_PRE_ITEM_PICKUP,
   MC_POST_ITEM_PICKUP,
+  MC_POST_FLIP,
+  MC_POST_FIRST_FLIP,
+  MC_POST_ESAU_JR,
+  MC_POST_FIRST_ESAU_JR,
 }
 export default ModCallbacksCustom;

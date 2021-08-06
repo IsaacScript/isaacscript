@@ -1,4 +1,4 @@
-type CallbackType = () => void;
+type CallbackType = (player: EntityPlayer) => void;
 
 const subscriptions: Array<[CallbackType]> = [];
 
@@ -10,8 +10,8 @@ export function register(callback: CallbackType): void {
   subscriptions.push([callback]);
 }
 
-export function fire(): void {
+export function fire(player: EntityPlayer): void {
   for (const [callback] of subscriptions) {
-    callback();
+    callback(player);
   }
 }

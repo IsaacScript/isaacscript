@@ -1,6 +1,9 @@
 import * as saveDataManager from "../features/saveDataManager";
 import ModUpgraded from "../types/ModUpgraded";
 import * as itemPickup from "./itemPickup";
+import * as postEsauJr from "./postEsauJr";
+import * as postFlip from "./postFlip";
+import * as reorderedCallbacks from "./reorderedCallbacks";
 
 /**
  * Use this function to enable the custom features and callbacks provided by `isaacscript-common`.
@@ -36,5 +39,8 @@ function initFeatures(modUpgraded: ModUpgraded) {
 }
 
 function initCustomCallbacks(modUpgraded: ModUpgraded) {
+  reorderedCallbacks.init(modUpgraded);
   itemPickup.init(modUpgraded);
+  postFlip.init(modUpgraded);
+  postEsauJr.init(modUpgraded);
 }
