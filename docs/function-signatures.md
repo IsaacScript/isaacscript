@@ -582,8 +582,8 @@ function postNewRoom(): void {}
 
 Fires on the first frame that an item becomes queued (i.e. when Isaac begins to hold the item above his head).
 
-- Has an optional second argument that will make the callback only fire if it matches the `ItemType` provided.
-- Has an optional third argument that will make the callback only fire if the CollectibleType or the TrinketType matches the ID provided.
+- When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `ItemType` provided.
+- When registering the callback, takes an optional third argument that will make the callback only fire if the CollectibleType or the TrinketType matches the ID provided.
 
 ```ts
 function preItemPickup(
@@ -596,8 +596,8 @@ function preItemPickup(
 
 Fires on the first frame that an item is no longer queued (i.e. when the animation of Isaac holding the item above his head is finished and the item is actually added to the player's inventory).
 
-- Has an optional second argument that will make the callback only fire if it matches the `ItemType` provided.
-- Has an optional third argument that will make the callback only fire if the CollectibleType or the TrinketType matches the ID provided.
+- When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `ItemType` provided.
+- When registering the callback, takes an optional third argument that will make the callback only fire if the CollectibleType or the TrinketType matches the ID provided.
 
 ```ts
 function postItemPickup(
