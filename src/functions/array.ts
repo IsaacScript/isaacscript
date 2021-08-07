@@ -32,3 +32,20 @@ export function arrayRemove<T>(array: T[], element: T): T[] {
 
   return arrayCopy;
 }
+
+/**
+ * Initializes an array with all elements containing the specified default value.
+ *
+ * Example:
+ * ```
+ * const playerTransformations = initArray(false, PlayerForm.NUM_PLAYER_FORMS - 1);
+ * ```
+ */
+export function initArray<T>(defaultValue: T, size: int): T[] {
+  const array: T[] = [];
+  for (let i = 0; i < size; i++) {
+    array.push(defaultValue);
+  }
+
+  return array;
+}

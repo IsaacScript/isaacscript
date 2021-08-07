@@ -1,5 +1,5 @@
 import { saveDataManager } from "../features/saveDataManager";
-import { getPlayerIndex, getPlayers, PlayerIndex } from "../functions/player";
+import { getPlayerIndex, PlayerIndex } from "../functions/player";
 import PickingUpItem from "../types/PickingUpItem";
 import * as postItemPickup from "./subscriptions/postItemPickup";
 import * as preItemPickup from "./subscriptions/preItemPickup";
@@ -13,23 +13,44 @@ const v = {
 export function init(mod: Mod): void {
   saveDataManager("itemPickupCallback", v);
 
-  mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate);
+  mod.AddCallback(
+    ModCallbacks.MC_POST_PLAYER_INIT,
+    postPlayerInitPlayer,
+    PlayerVariant.PLAYER, // Co-op babies cannot take items
+  ); // 9
+
+  mod.AddCallback(
+    ModCallbacks.MC_POST_PLAYER_UPDATE,
+    postPlayerUpdatePlayer,
+    PlayerVariant.PLAYER, // Co-op babies cannot take items
+  ); // 31
 }
 
-// ModCallbacks.MC_POST_UPDATE (1)
-function postUpdate() {
+// ModCallbacks.MC_POST_PLAYER_INIT (9)
+// PlayerVariant.PLAYER (0)
+function postPlayerInitPlayer(player: EntityPlayer) {
   if (!hasSubscriptions()) {
     return;
   }
 
-  for (const player of getPlayers()) {
-    const pickingUpItem = getPickingUpItemForPlayer(player);
+  const index = getPlayerIndex(player);
+  const pickingUpItem = new PickingUpItem();
+  v.run.pickingUpItem.set(index, pickingUpItem);
+}
 
-    if (player.IsItemQueueEmpty()) {
-      queueEmpty(player, pickingUpItem);
-    } else {
-      queueNotEmpty(player, pickingUpItem);
-    }
+// ModCallbacks.MC_POST_PLAYER_UPDATE (31)
+// PlayerVariant.PLAYER (0)
+function postPlayerUpdatePlayer(player: EntityPlayer) {
+  if (!hasSubscriptions()) {
+    return;
+  }
+
+  const pickingUpItem = getPickingUpItemForPlayer(player);
+
+  if (player.IsItemQueueEmpty()) {
+    queueEmpty(player, pickingUpItem);
+  } else {
+    queueNotEmpty(player, pickingUpItem);
   }
 }
 
@@ -62,10 +83,9 @@ function queueNotEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
 
 function getPickingUpItemForPlayer(player: EntityPlayer) {
   const index = getPlayerIndex(player);
-  let pickingUpItem = v.run.pickingUpItem.get(index);
+  const pickingUpItem = v.run.pickingUpItem.get(index);
   if (pickingUpItem === undefined) {
-    pickingUpItem = new PickingUpItem();
-    v.run.pickingUpItem.set(index, pickingUpItem);
+    error(`Failed to get the picking up item for player: ${index}`);
   }
 
   return pickingUpItem;
