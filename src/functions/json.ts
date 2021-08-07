@@ -1,5 +1,5 @@
 import * as json from "json";
-import { log } from "../functions/log";
+import { log } from "./log";
 
 /**
  * Converts a Lua table to a JSON string.
@@ -7,7 +7,7 @@ import { log } from "../functions/log";
  * If encoding fails, it will throw an error to prevent writing a blank string or corrupted data to
  * a user's "save#.dat" file.
  */
-export function encode(table: unknown): string {
+export function jsonEncode(table: unknown): string {
   const [ok, jsonStringOrErrMsg] = pcall(tryEncode, table);
   if (!ok) {
     error(`Failed to convert the Lua table to JSON: ${jsonStringOrErrMsg}`);
@@ -27,10 +27,10 @@ function tryEncode(this: void, table: unknown) {
  * (This allows execution to continue in cases where users have no current save data or have
  * manually removed their existing save data.)
  */
-export function decode(jsonString: string): LuaTable {
+export function jsonDecode(jsonString: string): LuaTable {
   const [ok, luaTableOrErrMsg] = pcall(tryDecode, jsonString);
   if (!ok) {
-    // Instead of throwing an error, allow invalid save data to continue execution of the callback
+    // Instead of throwing an error, continue execution of the callback
     log(`Failed to convert the JSON string to a Lua table: ${jsonString}`);
     return new LuaTable();
   }

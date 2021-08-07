@@ -1,8 +1,8 @@
+import { jsonDecode, jsonEncode } from "../functions/json";
 import { log } from "../functions/log";
 import { deepCopy } from "../functions/util";
 import ModUpgraded from "../types/ModUpgraded";
 import { SaveData, SaveDataWithoutRoom } from "../types/SaveData";
-import * as jsonHelper from "./jsonHelper";
 
 let mod: Mod | null = null;
 
@@ -202,7 +202,7 @@ function saveToDisk() {
   }
 
   const allSaveData = getAllSaveDataWithoutRoom(true);
-  const jsonString = jsonHelper.encode(allSaveData);
+  const jsonString = jsonEncode(allSaveData);
   mod.SaveData(jsonString); // Write it to the "save#.dat" file
 }
 
@@ -222,7 +222,7 @@ function loadFromDisk() {
   if (jsonString === null) {
     return;
   }
-  const newSaveData = jsonHelper.decode(jsonString);
+  const newSaveData = jsonDecode(jsonString);
 
   // We don't want to directly copy the old data into the map,
   // because save data could contain out-of-date values
