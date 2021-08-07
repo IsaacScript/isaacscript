@@ -41,6 +41,9 @@ declare interface ModConfigMenuSetting {
   CurrentSetting: () => number | boolean;
   Display: () => string;
   Info: string[];
+  Maximum?: number | null;
+  Minimum?: number | null;
+  ModifyBy?: number | null;
   OnChange: (newValue: number | boolean) => void;
   Popup?: (() => void) | null;
   PopupGfx?: string | null;
