@@ -656,6 +656,8 @@ function postFirstEsauJr(player: EntityPlayer): void {}
 
 Fires on the frame that a player gains or loses a new transformation.
 
+- When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `PlayerForm` provided.
+
 ```ts
-function postTransformation(player: EntityPlayer, playerForm: PlayerForm, gained: boolean): void {}
+function postTransformation(player: EntityPlayer, playerForm: PlayerForm, hasForm: boolean): void {}
 ```
