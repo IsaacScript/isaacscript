@@ -656,6 +656,6 @@ function postFirstEsauJr(player: EntityPlayer): void {}
 
 Fires on the frame that a player gains or loses a new transformation.
 
-```
+```ts
 function postTransformation(player: EntityPlayer, playerForm: PlayerForm, gained: boolean): void {}
 ```
