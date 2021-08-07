@@ -60,8 +60,8 @@ export function init(incomingMod: ModUpgraded): void {
  * // (every child object is optional; only create the ones that you need)
  *
  * // Register the variables with the save data manager
- * // (we need to provide a string key so that it can save the variables properly in the "save#.dat"
- * // file)
+ * // (we need to provide a string key so that it can save the variables properly in the
+ * // "save#.dat" file)
  * saveDataManager("feature1", v);
  *
  * // Elsewhere in the file, use your variables
@@ -74,7 +74,7 @@ export function init(incomingMod: ModUpgraded): void {
  *
  * Save data is recorded to disk in the MC_PRE_GAME_EXIT callback.
  *
- * Note that before using the save data manager, you must call the `[[upgradeMod]]` function.
+ * Note that before using the save data manager, you must call the [[`upgradeMod`]] function.
  *
  * @param key The name of the file or feature that is submitting data to be managed by the save data
  * manager. The save data manager will throw an error if it receives a second registration request
