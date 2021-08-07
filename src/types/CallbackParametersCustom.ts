@@ -30,6 +30,13 @@ export default interface CallbackParametersCustom {
   [ModCallbacksCustom.MC_POST_FIRST_ESAU_JR]: [
     callback: (player: EntityPlayer) => void,
   ];
+  [ModCallbacksCustom.MC_POST_TRANSFORMATION]: [
+    callback: (
+      player: EntityPlayer,
+      playerForm: PlayerForm,
+      hasForm: boolean,
+    ) => void,
+  ];
 }
 
 // Make copies of the objects we need to verify so that we can easily re-use the code block below

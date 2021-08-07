@@ -17,4 +17,11 @@ fi
 # we set max warnings to 0 so that warnings will fail in CI
 cd "$DIR"
 npx eslint --max-warnings 0 "$DIR/src"
+
+# Check for unused exports
+# The "--error" flag makes it return an error code of 1 if unused exports are found
+# We ignore exports defined in the index.ts file since those are intended to be consumed by
+# end-users
+npx ts-prune --error --ignore index.ts
+
 echo "Success!"

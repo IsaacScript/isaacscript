@@ -1,25 +1,33 @@
 type CallbackType = (
   player: EntityPlayer,
   playerForm: PlayerForm,
-  gained: boolean,
+  hasForm: boolean,
 ) => void;
 
-const subscriptions: Array<[CallbackType]> = [];
+const subscriptions: Array<[CallbackType, PlayerForm | undefined]> = [];
 
 export function hasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-export function register(callback: CallbackType): void {
-  subscriptions.push([callback]);
+export function register(
+  callback: CallbackType,
+  playerForm?: PlayerForm,
+): void {
+  subscriptions.push([callback, playerForm]);
 }
 
 export function fire(
   player: EntityPlayer,
   playerForm: PlayerForm,
-  gained: boolean,
+  hasForm: boolean,
 ): void {
-  for (const [callback] of subscriptions) {
-    callback(player, playerForm, gained);
+  for (const [callback, callbackPlayerForm] of subscriptions) {
+    // Handle the optional 2nd callback argument
+    if (callbackPlayerForm !== undefined && callbackPlayerForm !== playerForm) {
+      return;
+    }
+
+    callback(player, playerForm, hasForm);
   }
 }

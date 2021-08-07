@@ -7,6 +7,7 @@ import * as postItemPickup from "../callbacks/subscriptions/postItemPickup";
 import * as postNewLevel from "../callbacks/subscriptions/postNewLevel";
 import * as postNewRoom from "../callbacks/subscriptions/postNewRoom";
 import * as postPlayerChangeType from "../callbacks/subscriptions/postPlayerChangeType";
+import * as postTransformation from "../callbacks/subscriptions/postTransformation";
 import * as preItemPickup from "../callbacks/subscriptions/preItemPickup";
 import { ensureAllCases } from "../functions/util";
 import CallbackParametersCustom from "./CallbackParametersCustom";
@@ -122,6 +123,13 @@ export default class ModUpgraded implements Mod {
       case ModCallbacksCustom.MC_POST_FIRST_ESAU_JR: {
         postFirstEsauJr.register(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_FIRST_ESAU_JR]),
+        );
+        break;
+      }
+
+      case ModCallbacksCustom.MC_POST_TRANSFORMATION: {
+        postTransformation.register(
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_TRANSFORMATION]),
         );
         break;
       }

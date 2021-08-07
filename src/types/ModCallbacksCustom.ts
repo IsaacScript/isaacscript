@@ -18,5 +18,6 @@ enum ModCallbacksCustom {
   MC_POST_FIRST_FLIP,
   MC_POST_ESAU_JR,
   MC_POST_FIRST_ESAU_JR,
+  MC_POST_TRANSFORMATION,
 }
 export default ModCallbacksCustom;
