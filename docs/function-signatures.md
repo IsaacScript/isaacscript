@@ -668,6 +668,8 @@ Fires when a new grid entity is initialized. Specifically, this is either:
 - in the MC_POST_NEW_ROOM callback (firing every time a room is entered, even if the grid entity was previously there on a previous room entry)
 - in the MC_POST_UPDATE callback (if the grid entity has only appeared midway through the room, like when the trapdoor appears after defeating It Lives!)
 
+When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `GridEntityType` provided.
+
 ```
 function postGridEntityInit(gridEntity: GridEntity): void {}
 ```
@@ -675,6 +677,8 @@ function postGridEntityInit(gridEntity: GridEntity): void {}
 ### MC_POST_GRID_ENTITY_UPDATE
 
 Fires on every MC_POST_UPDATE frame that a grid entity exists.
+
+When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `GridEntityType` provided.
 
 ```
 function postGridEntityUpdate(gridEntity: GridEntity): void {}
