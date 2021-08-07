@@ -670,7 +670,7 @@ Fires when a new grid entity is initialized. Specifically, this is either:
 
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `GridEntityType` provided.
 
-```
+```ts
 function postGridEntityInit(gridEntity: GridEntity): void {}
 ```
 
@@ -680,7 +680,7 @@ Fires on every MC_POST_UPDATE frame that a grid entity exists.
 
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `GridEntityType` provided.
 
-```
+```ts
 function postGridEntityUpdate(gridEntity: GridEntity): void {}
 ```
 
@@ -690,6 +690,6 @@ Fires on the MC_POST_UPDATE frame after a grid entity no longer exists (where it
 
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `GridEntityType` provided.
 
-```
+```ts
 function postGridEntityRemove(gridIndex: int, gridEntityType: GridEntityType): void {}
 ```
