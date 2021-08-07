@@ -120,9 +120,9 @@ function postGameStarted(isContinued: boolean) {
     loadFromDisk();
   }
 
-  // If the game is a run that is not continued, we do not need to reset any variables because they
-  // were already reset in the PreGameExit callback (or this is the first run after opening the
-  // game).
+  // If the game is a run that is not continued, we do not need to reset any variables because:
+  // 1) they were already reset in the PreGameExit callback, or
+  // 2) this is the first run after opening the game
 }
 
 // ModCallbacks.MC_PRE_GAME_EXIT (17)
@@ -136,7 +136,17 @@ function preGameExit(shouldSave: boolean) {
 
 // ModCallbacks.MC_POST_NEW_LEVEL (18)
 function postNewLevel() {
+  const game = Game();
+  const gameFrameCount = game.GetFrameCount();
+
   restoreDefaults("level");
+
+  // The game records the run to disk at the beginning of every level as a "checkpoint" in case the
+  // game crashes
+  // Emulate this functionality for mod save data
+  if (gameFrameCount > 0) {
+    saveToDisk();
+  }
 }
 
 // ModCallbacks.MC_POST_NEW_ROOM (19)
