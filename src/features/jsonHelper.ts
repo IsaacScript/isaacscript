@@ -1,5 +1,5 @@
+import * as json from "json";
 import { log } from "../functions/log";
-import * as json from "./json";
 
 /**
  * Converts a Lua table to a JSON string.
