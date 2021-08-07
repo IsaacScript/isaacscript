@@ -1,6 +1,7 @@
 import { saveDataManager } from "../features/saveDataManager";
 import { getGridEntities } from "../functions/gridEntity";
 import * as postGridEntityInit from "./subscriptions/postGridEntityInit";
+import * as postGridEntityRemove from "./subscriptions/postGridEntityRemove";
 import * as postGridEntityUpdate from "./subscriptions/postGridEntityUpdate";
 
 const v = {
@@ -19,7 +20,8 @@ export function init(mod: Mod): void {
 function hasSubscriptions() {
   return (
     postGridEntityInit.hasSubscriptions() ||
-    postGridEntityUpdate.hasSubscriptions()
+    postGridEntityUpdate.hasSubscriptions() ||
+    postGridEntityRemove.hasSubscriptions()
   );
 }
 
@@ -45,6 +47,7 @@ function postUpdate() {
     const gridEntity = room.GetGridEntity(gridIndex);
     if (gridEntity === null || gridEntity.GetType() !== gridEntityType) {
       v.room.initializedGridEntities.delete(gridIndex);
+      postGridEntityRemove.fire(gridIndex, gridEntityType);
     }
   }
 }

@@ -1,13 +1,15 @@
-type CallbackType = (gridEntity: GridEntity) => void;
+export type PostGridEntityInitCallbackType = (gridEntity: GridEntity) => void;
 
-const subscriptions: Array<[CallbackType, GridEntityType | undefined]> = [];
+const subscriptions: Array<
+  [PostGridEntityInitCallbackType, GridEntityType | undefined]
+> = [];
 
 export function hasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
 export function register(
-  callback: CallbackType,
+  callback: PostGridEntityInitCallbackType,
   gridEntityType?: GridEntityType,
 ): void {
   subscriptions.push([callback, gridEntityType]);

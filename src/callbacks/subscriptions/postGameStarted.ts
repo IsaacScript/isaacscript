@@ -1,12 +1,12 @@
-type CallbackType = (isContinued: boolean) => void;
+export type PostGameStartedCallbackType = (isContinued: boolean) => void;
 
-const subscriptions: Array<[CallbackType]> = [];
+const subscriptions: Array<[PostGameStartedCallbackType]> = [];
 
 export function hasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-export function register(callback: CallbackType): void {
+export function register(callback: PostGameStartedCallbackType): void {
   subscriptions.push([callback]);
 }
 

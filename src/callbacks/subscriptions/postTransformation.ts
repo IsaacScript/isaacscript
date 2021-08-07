@@ -1,17 +1,19 @@
-type CallbackType = (
+export type PostTransformationCallbackType = (
   player: EntityPlayer,
   playerForm: PlayerForm,
   hasForm: boolean,
 ) => void;
 
-const subscriptions: Array<[CallbackType, PlayerForm | undefined]> = [];
+const subscriptions: Array<
+  [PostTransformationCallbackType, PlayerForm | undefined]
+> = [];
 
 export function hasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
 export function register(
-  callback: CallbackType,
+  callback: PostTransformationCallbackType,
   playerForm?: PlayerForm,
 ): void {
   subscriptions.push([callback, playerForm]);

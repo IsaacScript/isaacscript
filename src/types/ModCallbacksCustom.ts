@@ -21,5 +21,6 @@ enum ModCallbacksCustom {
   MC_POST_TRANSFORMATION,
   MC_POST_GRID_ENTITY_INIT,
   MC_POST_GRID_ENTITY_UPDATE,
+  MC_POST_GRID_ENTITY_REMOVE,
 }
 export default ModCallbacksCustom;

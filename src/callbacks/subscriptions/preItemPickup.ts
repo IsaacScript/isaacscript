@@ -1,12 +1,12 @@
 import PickingUpItem from "../../types/PickingUpItem";
 
-type CallbackType = (
+export type PreItemPickupCallbackType = (
   player: EntityPlayer,
   pickingUpItem: PickingUpItem,
 ) => void;
 
 const subscriptions: Array<
-  [CallbackType, ItemType | undefined, int | undefined]
+  [PreItemPickupCallbackType, ItemType | undefined, int | undefined]
 > = [];
 
 export function hasSubscriptions(): boolean {
@@ -14,7 +14,7 @@ export function hasSubscriptions(): boolean {
 }
 
 export function register(
-  callback: CallbackType,
+  callback: PreItemPickupCallbackType,
   itemType?: ItemType,
   itemID?: int,
 ): void {

@@ -1,12 +1,12 @@
-type CallbackType = (player: EntityPlayer) => void;
+export type PostPlayerChangeTypeCallbackType = (player: EntityPlayer) => void;
 
-const subscriptions: Array<[CallbackType]> = [];
+const subscriptions: Array<[PostPlayerChangeTypeCallbackType]> = [];
 
 export function hasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-export function register(callback: CallbackType): void {
+export function register(callback: PostPlayerChangeTypeCallbackType): void {
   subscriptions.push([callback]);
 }
 
