@@ -72,11 +72,7 @@ export function init(incomingMod: ModUpgraded): void {
  * }
  * ```
  *
- * Save data is recorded to disk in a way that matches/emulates what the real game does for its run
- * data:
- *
- * 1) on game exit
- * 2) at the beginning of every level (in case the game crashes)
+ * Save data is recorded to disk in the MC_PRE_GAME_EXIT callback.
  *
  * Note that before using the save data manager, you must call the `[[upgradeMod]]` function.
  *
@@ -153,17 +149,7 @@ function preGameExit(shouldSave: boolean) {
 
 // ModCallbacks.MC_POST_NEW_LEVEL (18)
 function postNewLevel() {
-  const game = Game();
-  const gameFrameCount = game.GetFrameCount();
-
   restoreDefaults("level");
-
-  // The game records the run to disk at the beginning of every level as a "checkpoint" in case the
-  // game crashes
-  // Emulate this functionality for mod save data
-  if (gameFrameCount > 0) {
-    saveToDisk();
-  }
 }
 
 // ModCallbacks.MC_POST_NEW_ROOM (19)
