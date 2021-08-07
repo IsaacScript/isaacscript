@@ -222,7 +222,7 @@ In Lua, the typical way to iterate over an array is with `ipairs`.
 
 ```lua
 -- Lua code
-local gapers = Isaac.FindByType(EntityType.ENTITY_GAPER, -1, -1, false, false)
+local gapers = Isaac.FindByType(EntityType.ENTITY_GAPER)
 
 for i, gaper in ipairs(gapers) do
   print(i)
@@ -234,7 +234,7 @@ In TypeScript, you have a few different options.
 
 ```ts
 // Typescript code
-const gapers = Isaac.FindByType(EntityType.ENTITY_GAPER, -1, -1, false, false);
+const gapers = Isaac.FindByType(EntityType.ENTITY_GAPER);
 
 // A "for of" loop is the simplest way to iterate over an array
 for (const gaper of gapers) {
