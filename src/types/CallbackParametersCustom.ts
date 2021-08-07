@@ -37,6 +37,14 @@ export default interface CallbackParametersCustom {
       hasForm: boolean,
     ) => void,
   ];
+  [ModCallbacksCustom.MC_POST_GRID_ENTITY_INIT]: [
+    callback: (gridEntity: GridEntity) => void,
+    gridEntityType?: GridEntityType,
+  ];
+  [ModCallbacksCustom.MC_POST_GRID_ENTITY_UPDATE]: [
+    callback: (gridEntity: GridEntity) => void,
+    gridEntityType?: GridEntityType,
+  ];
 }
 
 // Make copies of the objects we need to verify so that we can easily re-use the code block below

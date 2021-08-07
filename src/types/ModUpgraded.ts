@@ -3,6 +3,8 @@ import * as postFirstEsauJr from "../callbacks/subscriptions/postFirstEsauJr";
 import * as postFirstFlip from "../callbacks/subscriptions/postFirstFlip";
 import * as postFlip from "../callbacks/subscriptions/postFlip";
 import * as postGameStarted from "../callbacks/subscriptions/postGameStarted";
+import * as postGridEntityInit from "../callbacks/subscriptions/postGridEntityInit";
+import * as postGridEntityUpdate from "../callbacks/subscriptions/postGridEntityUpdate";
 import * as postItemPickup from "../callbacks/subscriptions/postItemPickup";
 import * as postNewLevel from "../callbacks/subscriptions/postNewLevel";
 import * as postNewRoom from "../callbacks/subscriptions/postNewRoom";
@@ -130,6 +132,20 @@ export default class ModUpgraded implements Mod {
       case ModCallbacksCustom.MC_POST_TRANSFORMATION: {
         postTransformation.register(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_TRANSFORMATION]),
+        );
+        break;
+      }
+
+      case ModCallbacksCustom.MC_POST_GRID_ENTITY_INIT: {
+        postGridEntityInit.register(
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_GRID_ENTITY_INIT]),
+        );
+        break;
+      }
+
+      case ModCallbacksCustom.MC_POST_GRID_ENTITY_UPDATE: {
+        postGridEntityUpdate.register(
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_GRID_ENTITY_UPDATE]),
         );
         break;
       }

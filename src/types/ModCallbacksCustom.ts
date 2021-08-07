@@ -19,5 +19,7 @@ enum ModCallbacksCustom {
   MC_POST_ESAU_JR,
   MC_POST_FIRST_ESAU_JR,
   MC_POST_TRANSFORMATION,
+  MC_POST_GRID_ENTITY_INIT,
+  MC_POST_GRID_ENTITY_UPDATE,
 }
 export default ModCallbacksCustom;
