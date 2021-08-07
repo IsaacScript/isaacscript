@@ -6,11 +6,10 @@ import * as jsonHelper from "./jsonHelper";
 
 let mod: Mod | null = null;
 
-/** Indexed by subscriber name. */
+// Indexed by subscriber name
 const saveDataMap = new LuaTable<string, SaveData>();
-
-/** Indexed by subscriber name. */
 const saveDataDefaultsMap = new LuaTable<string, SaveData>();
+const saveDataConditionalFuncMap = new LuaTable<string, () => boolean>();
 
 /** @hidden */
 export function init(incomingMod: ModUpgraded): void {
@@ -73,6 +72,12 @@ export function init(incomingMod: ModUpgraded): void {
  * }
  * ```
  *
+ * Save data is recorded to disk in a way that matches/emulates what the real game does for its run
+ * data:
+ *
+ * 1) on game exit
+ * 2) at the beginning of every level (in case the game crashes)
+ *
  * Note that before using the save data manager, you must call the `[[upgradeMod]]` function.
  *
  * @param key The name of the file or feature that is submitting data to be managed by the save data
@@ -80,8 +85,15 @@ export function init(incomingMod: ModUpgraded): void {
  * using the same key as a previous subscriber.
  * @param saveData An object with one or more child-objects of "persistent", "run", "level", or
  * "room".
+ * @param conditionalFunc An optional function to run upon saving this key to disk. If the function
+ * is false, the key will not be written to disk. This allows mod features to avoid cluttering the
+ * "save#.dat" file with unnecessary keys.
  */
-export function saveDataManager(key: string, saveData: SaveData): void {
+export function saveDataManager(
+  key: string,
+  saveData: SaveData,
+  conditionalFunc?: () => boolean,
+): void {
   if (mod === null) {
     error(
       'The save data manager is not initialized. You must first upgrade your mod object by calling the "upgradeMod()" function.',
@@ -104,12 +116,17 @@ export function saveDataManager(key: string, saveData: SaveData): void {
   // Add the new save data to the map
   saveDataMap.set(key, saveData);
 
-  // Also, make a copy of the initial save data so that we can use it to restore the default values
-  // later on
+  // Make a copy of the initial save data so that we can use it to restore the default values later
+  // on
   const saveDataTable = saveData as LuaTable;
   const saveDataTableCopy = deepCopy(saveDataTable);
   const saveDataCopy = saveDataTableCopy as unknown as SaveData;
   saveDataDefaultsMap.set(key, saveDataCopy);
+
+  // Store the conditional function for later, if present
+  if (conditionalFunc !== undefined) {
+    saveDataConditionalFuncMap.set(key, conditionalFunc);
+  }
 }
 
 // ModCallbacks.MC_POST_GAME_STARTED (15)
@@ -198,7 +215,7 @@ function saveToDisk() {
     error('"saveDat.save()" was called without the mod being initialized.');
   }
 
-  const allSaveData = getAllSaveDataWithoutRoom();
+  const allSaveData = getAllSaveDataWithoutRoom(true);
   const jsonString = jsonHelper.encode(allSaveData);
   mod.SaveData(jsonString); // Write it to the "save#.dat" file
 }
@@ -213,7 +230,7 @@ function loadFromDisk() {
     return;
   }
 
-  const oldSaveData = getAllSaveDataWithoutRoom();
+  const oldSaveData = getAllSaveDataWithoutRoom(false);
 
   const jsonString = readSaveDatFile();
   if (jsonString === null) {
@@ -255,9 +272,21 @@ function tryLoadModData(this: void) {
   return mod.LoadData();
 }
 
-function getAllSaveDataWithoutRoom() {
+function getAllSaveDataWithoutRoom(pruneKeys: boolean) {
   const allSaveData = new LuaTable();
   for (const [key, saveData] of pairs(saveDataMap)) {
+    // Handle the feature of the save data manager where certain mod features can conditionally
+    // write their data to disk
+    if (pruneKeys) {
+      const conditionalFunc = saveDataConditionalFuncMap.get(key);
+      if (conditionalFunc !== undefined) {
+        const shouldSave = conditionalFunc();
+        if (!shouldSave) {
+          continue;
+        }
+      }
+    }
+
     const saveDataWithoutRoom: SaveDataWithoutRoom = {
       persistent: saveData.persistent,
       run: saveData.run,

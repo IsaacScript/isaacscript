@@ -11,7 +11,7 @@ const v = {
 };
 
 export function init(mod: Mod): void {
-  saveDataManager("itemPickupCallback", v);
+  saveDataManager("itemPickupCallback", v, hasSubscriptions);
 
   mod.AddCallback(
     ModCallbacks.MC_POST_PLAYER_INIT,
@@ -24,6 +24,10 @@ export function init(mod: Mod): void {
     postPlayerUpdatePlayer,
     PlayerVariant.PLAYER, // Co-op babies cannot take items
   ); // 31
+}
+
+function hasSubscriptions() {
+  return preItemPickup.hasSubscriptions() || postItemPickup.hasSubscriptions();
 }
 
 // ModCallbacks.MC_POST_PLAYER_INIT (9)
@@ -52,10 +56,6 @@ function postPlayerUpdatePlayer(player: EntityPlayer) {
   } else {
     queueNotEmpty(player, pickingUpItem);
   }
-}
-
-function hasSubscriptions() {
-  return preItemPickup.hasSubscriptions() || postItemPickup.hasSubscriptions();
 }
 
 function queueEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {

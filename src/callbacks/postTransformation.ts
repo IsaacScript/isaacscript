@@ -10,7 +10,7 @@ const v = {
 };
 
 export function init(mod: Mod): void {
-  saveDataManager("postTransformationCallback", v);
+  saveDataManager("postTransformationCallback", v, hasSubscriptions);
 
   mod.AddCallback(
     ModCallbacks.MC_POST_PLAYER_INIT,
@@ -25,10 +25,14 @@ export function init(mod: Mod): void {
   ); // 31
 }
 
+function hasSubscriptions() {
+  return postTransformation.hasSubscriptions();
+}
+
 // ModCallbacks.MC_POST_PLAYER_INIT (9)
 // PlayerVariant.PLAYER (0)
 function postPlayerInitPlayer(player: EntityPlayer) {
-  if (!postTransformation.hasSubscriptions()) {
+  if (!hasSubscriptions()) {
     return;
   }
 
@@ -40,7 +44,7 @@ function postPlayerInitPlayer(player: EntityPlayer) {
 // ModCallbacks.MC_POST_PLAYER_UPDATE (31)
 // PlayerVariant.PLAYER (0)
 function postPlayerUpdatePlayer(player: EntityPlayer) {
-  if (!postTransformation.hasSubscriptions()) {
+  if (!hasSubscriptions()) {
     return;
   }
 

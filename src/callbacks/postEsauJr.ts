@@ -12,7 +12,7 @@ const v = {
 };
 
 export function init(mod: Mod): void {
-  saveDataManager("postEsauJrCallback", v);
+  saveDataManager("postEsauJrCallback", v, hasSubscriptions);
 
   mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate); // 1
   mod.AddCallback(
@@ -20,6 +20,10 @@ export function init(mod: Mod): void {
     useItemEsauJr,
     CollectibleType.COLLECTIBLE_ESAU_JR,
   ); // 3
+}
+
+function hasSubscriptions() {
+  return postEsauJr.hasSubscriptions() || postFirstEsauJr.hasSubscriptions();
 }
 
 // ModCallbacks.POST_UPDATE (1)
@@ -87,8 +91,4 @@ function useItemEsauJr(
 
   // The player only changes to Esau Jr. on the frame after the item is used
   v.run.usedEsauJrFrame = gameFrameCount + 1;
-}
-
-function hasSubscriptions() {
-  return postEsauJr.hasSubscriptions() || postFirstEsauJr.hasSubscriptions();
 }
