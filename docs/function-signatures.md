@@ -661,3 +661,21 @@ Fires on the frame that a player gains or loses a new transformation.
 ```ts
 function postTransformation(player: EntityPlayer, playerForm: PlayerForm, hasForm: boolean): void {}
 ```
+
+### MC_POST_GRID_ENTITY_INIT
+
+Fires when a new grid entity is initialized. Specifically, this is either:
+- in the MC_POST_NEW_ROOM callback (firing every time a room is entered, even if the grid entity was previously there on a previous room entry)
+- in the MC_POST_UPDATE callback (if the grid entity has only appeared midway through the room, like when the trapdoor appears after defeating It Lives!)
+
+```
+function postGridEntityInit(gridEntity: GridEntity): void {}
+```
+
+### MC_POST_GRID_ENTITY_UPDATE
+
+Fires on every MC_POST_UPDATE frame that a grid entity exists.
+
+```
+function postGridEntityUpdate(gridEntity: GridEntity): void {}
+```
