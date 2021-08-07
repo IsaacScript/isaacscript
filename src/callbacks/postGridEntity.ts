@@ -29,9 +29,23 @@ function postUpdate() {
     return;
   }
 
+  const game = Game();
+  const room = game.GetRoom();
+
   for (const gridEntity of getGridEntities()) {
     checkNewGridEntity(gridEntity);
     postGridEntityUpdate.fire(gridEntity);
+  }
+
+  // Check to see if any grid entities have disappeared and remove them from the initialized map if
+  // so
+  for (const [gridIndex, gridEntityType] of pairs(
+    v.room.initializedGridEntities,
+  )) {
+    const gridEntity = room.GetGridEntity(gridIndex);
+    if (gridEntity === null || gridEntity.GetType() !== gridEntityType) {
+      v.room.initializedGridEntities.delete(gridIndex);
+    }
   }
 }
 
