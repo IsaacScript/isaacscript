@@ -188,11 +188,11 @@ function restoreDefaults(childTableName: keyof SaveData) {
     // Make a new copy of the default child table
     const childTableDefaultsTable = childTableDefaults as unknown as LuaTable;
     const childTableDefaultsTableCopy = deepCopy(childTableDefaultsTable);
-    const childTableDefaultsCopy =
-      childTableDefaultsTableCopy as unknown as Record<string, unknown>;
 
-    // Blow away the existing child table with all default values
-    saveData[childTableName] = childTableDefaultsCopy;
+    // We do not want to blow away the existing child table because we don't want to break any
+    // existing references
+    // Instead, merge in the values
+    merge(childTable as unknown as LuaTable, childTableDefaultsTableCopy);
   }
 }
 
@@ -292,8 +292,12 @@ function getAllSaveDataWithoutRoom(pruneKeys: boolean) {
  * (This is useful when loading out-of-date save data from the "save#.dat" file.)
  */
 function merge(oldTable: LuaTable, newTable: LuaTable): void {
-  if (type(oldTable) !== "table" || type(newTable) !== "table") {
-    error("merge is comparing a value that is not a table.");
+  if (type(oldTable) !== "table") {
+    error("The first argument given to the merge function is not a table.");
+  }
+
+  if (type(newTable) !== "table") {
+    error("The second argument given to the merge function is not a table.");
   }
 
   // Go through the old table, merging every found value
@@ -313,7 +317,7 @@ function merge(oldTable: LuaTable, newTable: LuaTable): void {
       continue;
     }
 
-    // Base case - copy the value
+    // Base case: copy the value
     oldTable.set(key, newValue);
   }
 
