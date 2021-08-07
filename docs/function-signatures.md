@@ -645,3 +645,11 @@ This callback is useful because there is no way to get access to the Esau Jr. ch
 ```ts
 function postFirstEsauJr(player: EntityPlayer): void {}
 ```
+
+### MC_POST_TRANSFORMATION
+
+Fires on the frame that a player gains or loses a new transformation.
+
+```
+function postTransformation(player: EntityPlayer, playerForm: PlayerForm, gained: boolean): void {}
+```
