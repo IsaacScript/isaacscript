@@ -190,7 +190,7 @@ function saveToDisk() {
 
   const allSaveData = getAllSaveDataWithoutRoom();
   const jsonString = jsonHelper.encode(allSaveData);
-  Isaac.SaveModData(mod, jsonString); // Write it to the "save#.dat" file
+  mod.SaveData(jsonString); // Write it to the "save#.dat" file
 }
 
 function loadFromDisk() {
@@ -198,14 +198,14 @@ function loadFromDisk() {
     error("The save data manager is not initialized.");
   }
 
-  if (!Isaac.HasModData(mod)) {
+  if (!mod.HasData()) {
     // There is no "save#.dat" file for this save slot
     return;
   }
 
   const oldSaveData = getAllSaveDataWithoutRoom();
 
-  const jsonString = readSaveDatFile(mod);
+  const jsonString = readSaveDatFile();
   if (jsonString === null) {
     return;
   }
@@ -217,11 +217,11 @@ function loadFromDisk() {
   merge(oldSaveData, newSaveData);
 }
 
-function readSaveDatFile(modObject: Mod) {
+function readSaveDatFile() {
   const isaacFrameCount = Isaac.GetFrameCount();
   const defaultModData = "{}";
 
-  const [ok, jsonStringOrErrMsg] = pcall(tryLoadModData, modObject);
+  const [ok, jsonStringOrErrMsg] = pcall(tryLoadModData);
   if (!ok) {
     log(
       `Failed to read from the "save#.dat" file on Isaac frame ${isaacFrameCount}: ${jsonStringOrErrMsg}`,
@@ -237,8 +237,12 @@ function readSaveDatFile(modObject: Mod) {
   return jsonStringTrimmed;
 }
 
-function tryLoadModData(this: void, modObject: Mod) {
-  return Isaac.LoadModData(modObject);
+function tryLoadModData(this: void) {
+  if (mod === null) {
+    error("The save data manager is not initialized.");
+  }
+
+  return mod.LoadData();
 }
 
 function getAllSaveDataWithoutRoom() {
