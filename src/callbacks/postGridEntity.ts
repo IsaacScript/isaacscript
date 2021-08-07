@@ -10,7 +10,7 @@ const v = {
 };
 
 export function init(mod: Mod): void {
-  saveDataManager("itemPickupCallback", v, hasSubscriptions);
+  saveDataManager("postGridEntityCallback", v, hasSubscriptions);
 
   mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate); // 1
   mod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoom); // 9
