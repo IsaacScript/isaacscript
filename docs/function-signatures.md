@@ -683,3 +683,13 @@ When registering the callback, takes an optional second argument that will make 
 ```
 function postGridEntityUpdate(gridEntity: GridEntity): void {}
 ```
+
+### MC_POST_GRID_ENTITY_REMOVE
+
+Fires on the MC_POST_UPDATE frame after a grid entity no longer exists (where it did exist a frame ago).
+
+When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `GridEntityType` provided.
+
+```
+function postGridEntityRemove(gridIndex: int, gridEntityType: GridEntityType): void {}
+```
