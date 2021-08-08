@@ -3,7 +3,10 @@ export {
   forceNewRoomCallback,
 } from "./callbacks/reorderedCallbacks";
 export * from "./callbacks/upgradeMod";
-export { saveDataManager } from "./features/saveDataManager";
+export {
+  saveDataManager,
+  saveDataManagerSave,
+} from "./features/saveDataManager";
 export * from "./functions/array";
 export * from "./functions/entity";
 export * from "./functions/flag";

@@ -196,6 +196,10 @@ function restoreDefaults(childTableName: keyof SaveData) {
   }
 }
 
+export function saveDataManagerSave(): void {
+  saveToDisk();
+}
+
 function saveToDisk() {
   if (mod === null) {
     error('"saveDat.save()" was called without the mod being initialized.');
