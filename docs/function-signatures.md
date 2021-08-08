@@ -544,7 +544,7 @@ function preRoomEntitySpawn(
 
 The [`isaacscript-common`](https://isaacscript.github.io/isaacscript-common/) package provides access to some custom callbacks. In order to use custom callbacks, you must first invoke the [`upgradeMod`](https://isaacscript.github.io/isaacscript-common/modules/callbacks_upgradeMod.html#upgradeMod) function.
 
-### MC_POST_GAME_STARTED
+### MC_POST_GAME_STARTED_REORDERED
 
 Similar to the vanilla callback of the same name, but fires in the correct order with respect to the PostNewLevel and the PostNewRoom callbacks:
 
@@ -554,7 +554,7 @@ PostGameStarted --> PostNewLevel --> PostNewRoom
 function postGameStarted(isContinued: boolean): void {}
 ```
 
-### MC_POST_NEW_LEVEL
+### MC_POST_NEW_LEVEL_REORDERED
 
 Similar to the vanilla callback of the same name, but fires in the correct order with respect to the PostNewLevel and the PostNewRoom callbacks:
 
@@ -566,7 +566,7 @@ If some specific cases, mods can change the current level during run initializat
 function postNewLevel(): void {}
 ```
 
-### MC_POST_NEW_ROOM
+### MC_POST_NEW_ROOM_REORDERED
 
 Similar to the vanilla callback of the same name, but fires in the correct order with respect to the PostNewLevel and the PostNewRoom callbacks:
 
