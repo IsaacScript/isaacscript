@@ -25,7 +25,7 @@ function hasSubscriptions() {
   );
 }
 
-// ModCallbacks.MC_POST_NEW_ROOM (1)
+// ModCallbacks.MC_POST_UPDATE (1)
 function postUpdate() {
   if (!hasSubscriptions()) {
     return;
@@ -68,7 +68,7 @@ function checkNewGridEntity(gridEntity: GridEntity) {
   const gridEntityType = gridEntity.GetType();
   const storedGridEntityType = v.room.initializedGridEntities.get(gridIndex);
   if (storedGridEntityType !== gridEntityType) {
-    v.room.initializedGridEntities.set(gridIndex, storedGridEntityType);
+    v.room.initializedGridEntities.set(gridIndex, gridEntityType);
     postGridEntityInit.fire(gridEntity);
   }
 }
