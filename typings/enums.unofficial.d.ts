@@ -293,35 +293,54 @@ declare const enum ItemConfigCardType {
   CARDTYPE_TAROT_REVERSE = 5,
 }
 
-/** Used for the `gridspawn` console command. */
-declare const enum GridEntityRoomType {
+/**
+ * The type of a grid entity as represented in a room XML/STB file.
+ * This is converted by the game to the GridEntityType enum.
+ * The `gridspawn` console command accepts GridEntityXMLType instead of GridEntityType.
+ */
+declare const enum GridEntityXMLType {
   ROCK = 1000,
-  BOMB_ROCK = 1001,
-  POT = 1002,
+  ROCK_BOMB = 1001,
+  ROCK_ALT = 1002,
+  ROCK_ALT2 = 1008,
+  ROCK_SPIKED = 1010,
   TNT = 1300,
   FIREPLACE = 1400,
   RED_FIREPLACE = 1410,
-  RED_POOP = 1490,
-  RAINBOW_POOP = 1494,
-  CHUNKY_POOP = 1495,
-  GOLDEN_POOP = 1496,
-  BLACK_POOP = 1497,
-  HOLY_POOP = 1498,
-  GIGA_POOP = 1499,
+  POOP_RED = 1490,
+  POOP_RAINBOW = 1494,
+  POOP_CORN = 1495,
+  POOP_GOLDEN = 1496,
+  POOP_BLACK = 1497,
+  POOP_WHITE = 1498,
+  POOP_GIGA = 1499,
   POOP = 1500,
-  CHARMING_POOP = 1501,
-  BLOCK = 1900,
+  POOP_CHARMING = 1501,
+  ROCKB = 1900,
+  PILLAR = 1901,
   SPIKES = 1930,
-  RETRACTING_SPIKES = 1931,
-  COBWEB = 1940,
+  SPIKES_ONOFF = 1931,
+  SPIDERWEB = 1940,
+  WALL = 1999,
   PIT = 3000,
-  KEY_BLOCK = 4000,
-  PLATE = 4500,
-  DEVIL_STATUE = 5000,
-  ANGEL_STATUE = 5001,
-  TRAP_DOOR = 9000,
-  LADDER_DOOR = 9100,
+  LOCK = 4000,
+  PRESSURE_PLATE = 4500,
+  STATUE_DEVIL = 5000,
+  STATUE_ANGEL = 5001,
+  TELEPORTER = 6100,
+  TRAPDOOR = 9000,
+  STAIRS = 9100,
   GRAVITY = 10000,
+}
+
+/**
+ * GridPath is not an enum, but rather a variable integer that represents the cost it would take for
+ * an entity to pass through a grid entity. This enum lists some standard cost values.
+ */
+declare const enum GridPath {
+  NONE = 0,
+  FIREPLACE = 950,
+  PIT = 1000,
 }
 
 declare const enum PlateVariant {
