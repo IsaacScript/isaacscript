@@ -662,6 +662,14 @@ Fires on the frame that a player gains or loses a new transformation.
 function postTransformation(player: EntityPlayer, playerForm: PlayerForm, hasForm: boolean): void {}
 ```
 
+### MC_POST_SACRIFICE
+
+Fires on the frame that a player takes damage from spikes in a Sacrifice Room.
+
+```ts
+function postSacrifice(player: EntityPlayer, numSacrifices: int): void {}
+```
+
 ### MC_POST_GRID_ENTITY_INIT
 
 Fires when a new grid entity is initialized. Specifically, this is either:
