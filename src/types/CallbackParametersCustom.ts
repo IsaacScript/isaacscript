@@ -10,6 +10,7 @@ import { PostItemPickupCallbackType } from "../callbacks/subscriptions/postItemP
 import { PostNewLevelCallbackType } from "../callbacks/subscriptions/postNewLevel";
 import { PostNewRoomCallbackType } from "../callbacks/subscriptions/postNewRoom";
 import { PostPlayerChangeTypeCallbackType } from "../callbacks/subscriptions/postPlayerChangeType";
+import { PostSacrificeCallbackType } from "../callbacks/subscriptions/postSacrifice";
 import { PostTransformationCallbackType } from "../callbacks/subscriptions/postTransformation";
 import { PreItemPickupCallbackType } from "../callbacks/subscriptions/preItemPickup";
 import ModCallbacksCustom from "./ModCallbacksCustom";
@@ -44,6 +45,7 @@ export default interface CallbackParametersCustom {
   [ModCallbacksCustom.MC_POST_TRANSFORMATION]: [
     callback: PostTransformationCallbackType,
   ];
+  [ModCallbacksCustom.MC_POST_SACRIFICE]: [callback: PostSacrificeCallbackType];
   [ModCallbacksCustom.MC_POST_GRID_ENTITY_INIT]: [
     callback: PostGridEntityInitCallbackType,
     gridEntityType?: GridEntityType,

@@ -5,6 +5,7 @@ import * as postEsauJr from "./postEsauJr";
 import * as postFlip from "./postFlip";
 import * as postGridEntity from "./postGridEntity";
 import * as postPlayerChangeType from "./postPlayerChangeType";
+import * as postSacrifice from "./postSacrifice";
 import * as postTransformation from "./postTransformation";
 import * as reorderedCallbacks from "./reorderedCallbacks";
 
@@ -48,5 +49,6 @@ function initCustomCallbacks(modUpgraded: ModUpgraded) {
   postFlip.init(modUpgraded);
   postEsauJr.init(modUpgraded);
   postTransformation.init(modUpgraded);
+  postSacrifice.init(modUpgraded);
   postGridEntity.init(modUpgraded);
 }
