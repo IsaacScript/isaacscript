@@ -61,23 +61,23 @@ export default class ModUpgraded implements Mod {
     ...args: CallbackParametersCustom[T]
   ): void {
     switch (callbackID) {
-      case ModCallbacksCustom.MC_POST_GAME_STARTED: {
+      case ModCallbacksCustom.MC_POST_GAME_STARTED_REORDERED: {
         postGameStarted.register(
-          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_GAME_STARTED]),
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_GAME_STARTED_REORDERED]),
         );
         break;
       }
 
-      case ModCallbacksCustom.MC_POST_NEW_LEVEL: {
+      case ModCallbacksCustom.MC_POST_NEW_LEVEL_REORDERED: {
         postNewLevel.register(
-          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_NEW_LEVEL]),
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_NEW_LEVEL_REORDERED]),
         );
         break;
       }
 
-      case ModCallbacksCustom.MC_POST_NEW_ROOM: {
+      case ModCallbacksCustom.MC_POST_NEW_ROOM_REORDERED: {
         postNewRoom.register(
-          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_NEW_ROOM]),
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_NEW_ROOM_REORDERED]),
         );
         break;
       }

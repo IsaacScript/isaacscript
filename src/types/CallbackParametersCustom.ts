@@ -16,11 +16,15 @@ import { PreItemPickupCallbackType } from "../callbacks/subscriptions/preItemPic
 import ModCallbacksCustom from "./ModCallbacksCustom";
 
 export default interface CallbackParametersCustom {
-  [ModCallbacksCustom.MC_POST_GAME_STARTED]: [
+  [ModCallbacksCustom.MC_POST_GAME_STARTED_REORDERED]: [
     callback: PostGameStartedCallbackType,
   ];
-  [ModCallbacksCustom.MC_POST_NEW_LEVEL]: [callback: PostNewLevelCallbackType];
-  [ModCallbacksCustom.MC_POST_NEW_ROOM]: [callback: PostNewRoomCallbackType];
+  [ModCallbacksCustom.MC_POST_NEW_LEVEL_REORDERED]: [
+    callback: PostNewLevelCallbackType,
+  ];
+  [ModCallbacksCustom.MC_POST_NEW_ROOM_REORDERED]: [
+    callback: PostNewRoomCallbackType,
+  ];
   [ModCallbacksCustom.MC_PRE_ITEM_PICKUP]: [
     callback: PreItemPickupCallbackType,
     itemType?: ItemType,
