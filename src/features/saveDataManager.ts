@@ -196,10 +196,6 @@ function restoreDefaults(childTableName: keyof SaveData) {
   }
 }
 
-export function saveDataManagerSave(): void {
-  saveToDisk();
-}
-
 function saveToDisk() {
   if (mod === null) {
     error('"saveDat.save()" was called without the mod being initialized.');
@@ -336,4 +332,19 @@ function merge(oldTable: LuaTable, newTable: LuaTable): void {
       oldTable.set(key, newValue);
     }
   }
+}
+
+export function saveDataManagerSave(): void {
+  saveToDisk();
+}
+
+declare let g: LuaTable<string, SaveData>;
+
+/**
+ * Set the global variable of "g" equal to all of the save data variables for this mod.
+ * This can make debugging easier, as you can access the variables from the game's debug console.
+ * e.g. `l print(g.feature1.foo)`
+ */
+export function saveDataManagerSetGlobal(): void {
+  g = saveDataMap; // eslint-disable-line @typescript-eslint/no-unused-vars
 }
