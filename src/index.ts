@@ -6,6 +6,7 @@ export * from "./callbacks/upgradeMod";
 export {
   saveDataManager,
   saveDataManagerSave,
+  saveDataManagerSetGlobal,
 } from "./features/saveDataManager";
 export * from "./functions/array";
 export * from "./functions/entity";
