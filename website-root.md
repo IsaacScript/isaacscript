@@ -19,6 +19,7 @@ For more information about IsaacScript, see the [official website](https://isaac
 - [Math Functions](modules/functions_math.html)
 - [Player Functions](modules/functions_player.html)
 - [Random Functions](modules/functions_random.html)
+- [Stage Functions](modules/functions_stage.html)
 - [Tears Functions](modules/functions_tears.html)
 - [UI Functions](modules/functions_ui.html)
 - [Util Functions](modules/functions_util.html)

@@ -267,17 +267,6 @@ export function initRNG(seed: int): RNG {
   return rng;
 }
 
-export function isRepentanceStage(): boolean {
-  const game = Game();
-  const level = game.GetLevel();
-  const stageType = level.GetStageType();
-
-  return (
-    stageType === StageType.STAGETYPE_REPENTANCE ||
-    stageType === StageType.STAGETYPE_REPENTANCE_B
-  );
-}
-
 export function lerp(a: number, b: number, pos: float): number {
   return a + (b - a) * pos;
 }

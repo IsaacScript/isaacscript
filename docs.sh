@@ -20,6 +20,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/math.ts" \
   --entryPoints "$DIR/src/functions/player.ts" \
   --entryPoints "$DIR/src/functions/random.ts" \
+  --entryPoints "$DIR/src/functions/stage.ts" \
   --entryPoints "$DIR/src/functions/tears.ts" \
   --entryPoints "$DIR/src/functions/ui.ts" \
   --entryPoints "$DIR/src/functions/util.ts" \
