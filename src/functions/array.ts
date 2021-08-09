@@ -17,6 +17,10 @@ export function arrayEquals<T>(array1: T[], array2: T[]): boolean {
   return true;
 }
 
+export function arrayEmpty<T>(array: T[]): void {
+  array.splice(0, array.length);
+}
+
 export function getRandomArrayElement<T>(array: T[], seed: int): T {
   const randomIndex = getRandomInt(0, array.length - 1, seed);
   return array[randomIndex];
