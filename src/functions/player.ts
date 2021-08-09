@@ -1,5 +1,17 @@
 import { EXCLUDED_CHARACTERS } from "../constants";
 
+/**
+ * PlayerIndex is a specific type of string; see the documentation for the [[`getPlayerIndex`]]
+ * function. Mods can signify that data structures handle EntityPlayers by using this type:
+ *
+ * ```
+ * const myPlayerMap = new Map<PlayerIndex, string>();
+ * ```
+ *
+ * This type is branded for extra type safety.
+ */
+export type PlayerIndex = string & { __playerIndexBrand: any }; // eslint-disable-line @typescript-eslint/no-explicit-any
+
 export function anyPlayerCloserThan(
   position: Vector,
   distance: float,
@@ -107,18 +119,6 @@ export function getPlayers(performExclusions = false): EntityPlayer[] {
 }
 
 /**
- * PlayerIndex is a specific type of string; see the documentation for the [[`getPlayerIndex`]]
- * function. Mods can signify that data structures handle EntityPlayers by using this type:
- *
- * ```
- * const myPlayerMap = new Map<PlayerIndex, string>();
- * ```
- *
- * This type is branded for extra type safety.
- */
-export type PlayerIndex = string & { __playerIndexBrand: any }; // eslint-disable-line @typescript-eslint/no-explicit-any
-
-/**
  * Mods often have to track variables relating to the player. In naive mods, information will only
  * be stored about the first player. However, in order to be robust, mods must handle up to 4
  * players playing at the same time. This means that information must be stored on a map data
@@ -153,6 +153,14 @@ export function getPlayerIndex(player: EntityPlayer): PlayerIndex {
   const seedString = seed.toString();
 
   return seedString as PlayerIndex;
+}
+
+export function getPlayerNumAllHearts(player: EntityPlayer): int {
+  const hearts = player.GetHearts();
+  const soulHearts = player.GetSoulHearts();
+  const boneHearts = player.GetBoneHearts();
+
+  return hearts + soulHearts + boneHearts;
 }
 
 /**
