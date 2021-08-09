@@ -542,7 +542,9 @@ function preRoomEntitySpawn(
 
 ## Custom Callbacks
 
-The [`isaacscript-common`](https://isaacscript.github.io/isaacscript-common/) package provides access to some custom callbacks. In order to use custom callbacks, you must first invoke the [`upgradeMod`](https://isaacscript.github.io/isaacscript-common/modules/callbacks_upgradeMod.html#upgradeMod) function.
+The [`isaacscript-common`](https://isaacscript.github.io/isaacscript-common/) package provides access to some custom callbacks, which are listed below.
+
+In order to use custom callbacks, you must first invoke the [`upgradeMod`](https://isaacscript.github.io/isaacscript-common/modules/callbacks_upgradeMod.html#upgradeMod) function.
 
 ### MC_POST_GAME_STARTED_REORDERED
 
@@ -668,6 +670,14 @@ Fires on the frame that a player takes damage from spikes in a Sacrifice Room.
 
 ```ts
 function postSacrifice(player: EntityPlayer, numSacrifices: int): void {}
+```
+
+### MC_POST_CURSED_EYE_ACTIVATION
+
+Fires on the frame that the "TeleportUp" animation begins when a player procs Cursed Eye.
+
+```ts
+function postCursedEyeActivation(player: EntityPlayer): void {}
 ```
 
 ### MC_POST_GRID_ENTITY_INIT
