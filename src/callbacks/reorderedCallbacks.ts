@@ -4,9 +4,9 @@
 // PostGameStarted --> PostNewLevel --> PostNewRoom
 // Manually reorganize the callback execution so that this is the case
 
-import * as postGameStarted from "./subscriptions/postGameStarted";
-import * as postNewLevel from "./subscriptions/postNewLevel";
-import * as postNewRoom from "./subscriptions/postNewRoom";
+import * as postGameStartedReordered from "./subscriptions/postGameStartedReordered";
+import * as postNewLevelReordered from "./subscriptions/postNewLevelReordered";
+import * as postNewRoomReordered from "./subscriptions/postNewRoomReordered";
 
 let currentStage = -1;
 let currentStageType = -1;
@@ -25,10 +25,10 @@ function postGameStartedVanilla(isContinued: boolean) {
     return;
   }
 
-  postGameStarted.fire(isContinued);
+  postGameStartedReordered.fire(isContinued);
   recordCurrentStage();
-  postNewLevel.fire();
-  postNewRoom.fire();
+  postNewLevelReordered.fire();
+  postNewRoomReordered.fire();
 }
 
 // ModCallbacks.MC_POST_NEW_LEVEL (18)
@@ -47,8 +47,8 @@ function postNewLevelVanilla() {
   forceNewLevel = false;
 
   recordCurrentStage();
-  postNewLevel.fire();
-  postNewRoom.fire();
+  postNewLevelReordered.fire();
+  postNewRoomReordered.fire();
 }
 
 // ModCallbacks.MC_POST_NEW_ROOM (19)
@@ -73,14 +73,14 @@ function postNewRoomVanilla() {
   }
   forceNewRoom = false;
 
-  postNewRoom.fire();
+  postNewRoomReordered.fire();
 }
 
 function hasSubscriptions() {
   return (
-    postGameStarted.hasSubscriptions() ||
-    postNewLevel.hasSubscriptions() ||
-    postNewRoom.hasSubscriptions()
+    postGameStartedReordered.hasSubscriptions() ||
+    postNewLevelReordered.hasSubscriptions() ||
+    postNewRoomReordered.hasSubscriptions()
   );
 }
 

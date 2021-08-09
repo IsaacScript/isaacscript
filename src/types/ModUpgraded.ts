@@ -3,13 +3,13 @@ import * as postEsauJr from "../callbacks/subscriptions/postEsauJr";
 import * as postFirstEsauJr from "../callbacks/subscriptions/postFirstEsauJr";
 import * as postFirstFlip from "../callbacks/subscriptions/postFirstFlip";
 import * as postFlip from "../callbacks/subscriptions/postFlip";
-import * as postGameStarted from "../callbacks/subscriptions/postGameStarted";
+import * as postGameStartedReordered from "../callbacks/subscriptions/postGameStartedReordered";
 import * as postGridEntityInit from "../callbacks/subscriptions/postGridEntityInit";
 import * as postGridEntityRemove from "../callbacks/subscriptions/postGridEntityRemove";
 import * as postGridEntityUpdate from "../callbacks/subscriptions/postGridEntityUpdate";
 import * as postItemPickup from "../callbacks/subscriptions/postItemPickup";
-import * as postNewLevel from "../callbacks/subscriptions/postNewLevel";
-import * as postNewRoom from "../callbacks/subscriptions/postNewRoom";
+import * as postNewLevelReordered from "../callbacks/subscriptions/postNewLevelReordered";
+import * as postNewRoomReordered from "../callbacks/subscriptions/postNewRoomReordered";
 import * as postPlayerChangeType from "../callbacks/subscriptions/postPlayerChangeType";
 import * as postSacrifice from "../callbacks/subscriptions/postSacrifice";
 import * as postTransformation from "../callbacks/subscriptions/postTransformation";
@@ -63,21 +63,21 @@ export default class ModUpgraded implements Mod {
   ): void {
     switch (callbackID) {
       case ModCallbacksCustom.MC_POST_GAME_STARTED_REORDERED: {
-        postGameStarted.register(
+        postGameStartedReordered.register(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_GAME_STARTED_REORDERED]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_NEW_LEVEL_REORDERED: {
-        postNewLevel.register(
+        postNewLevelReordered.register(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_NEW_LEVEL_REORDERED]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_NEW_ROOM_REORDERED: {
-        postNewRoom.register(
+        postNewRoomReordered.register(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_NEW_ROOM_REORDERED]),
         );
         break;

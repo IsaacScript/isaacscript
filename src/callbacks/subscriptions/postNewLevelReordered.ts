@@ -1,12 +1,12 @@
-export type PostNewLevelCallbackType = () => void;
+export type PostNewLevelReorderedCallbackType = () => void;
 
-const subscriptions: Array<[PostNewLevelCallbackType]> = [];
+const subscriptions: Array<[PostNewLevelReorderedCallbackType]> = [];
 
 export function hasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-export function register(callback: PostNewLevelCallbackType): void {
+export function register(callback: PostNewLevelReorderedCallbackType): void {
   subscriptions.push([callback]);
 }
 

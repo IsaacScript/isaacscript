@@ -3,13 +3,13 @@ import { PostEsauJrCallbackType } from "../callbacks/subscriptions/postEsauJr";
 import { PostFirstEsauJrCallbackType } from "../callbacks/subscriptions/postFirstEsauJr";
 import { PostFirstFlipCallbackType } from "../callbacks/subscriptions/postFirstFlip";
 import { PostFlipCallbackType } from "../callbacks/subscriptions/postFlip";
-import { PostGameStartedCallbackType } from "../callbacks/subscriptions/postGameStarted";
+import { PostGameStartedReorderedCallbackType } from "../callbacks/subscriptions/postGameStartedReordered";
 import { PostGridEntityInitCallbackType } from "../callbacks/subscriptions/postGridEntityInit";
 import { PostGridEntityRemoveCallbackType } from "../callbacks/subscriptions/postGridEntityRemove";
 import { PostGridEntityUpdateCallbackType } from "../callbacks/subscriptions/postGridEntityUpdate";
 import { PostItemPickupCallbackType } from "../callbacks/subscriptions/postItemPickup";
-import { PostNewLevelCallbackType } from "../callbacks/subscriptions/postNewLevel";
-import { PostNewRoomCallbackType } from "../callbacks/subscriptions/postNewRoom";
+import { PostNewLevelReorderedCallbackType } from "../callbacks/subscriptions/postNewLevelReordered";
+import { PostNewRoomReorderedCallbackType } from "../callbacks/subscriptions/postNewRoomReordered";
 import { PostPlayerChangeTypeCallbackType } from "../callbacks/subscriptions/postPlayerChangeType";
 import { PostSacrificeCallbackType } from "../callbacks/subscriptions/postSacrifice";
 import { PostTransformationCallbackType } from "../callbacks/subscriptions/postTransformation";
@@ -18,13 +18,13 @@ import ModCallbacksCustom from "./ModCallbacksCustom";
 
 export default interface CallbackParametersCustom {
   [ModCallbacksCustom.MC_POST_GAME_STARTED_REORDERED]: [
-    callback: PostGameStartedCallbackType,
+    callback: PostGameStartedReorderedCallbackType,
   ];
   [ModCallbacksCustom.MC_POST_NEW_LEVEL_REORDERED]: [
-    callback: PostNewLevelCallbackType,
+    callback: PostNewLevelReorderedCallbackType,
   ];
   [ModCallbacksCustom.MC_POST_NEW_ROOM_REORDERED]: [
-    callback: PostNewRoomCallbackType,
+    callback: PostNewRoomReorderedCallbackType,
   ];
   [ModCallbacksCustom.MC_PRE_ITEM_PICKUP]: [
     callback: PreItemPickupCallbackType,

@@ -25,7 +25,7 @@ export function fire(gridIndex: int, gridEntityType: GridEntityType): void {
       callbackGridEntityType !== undefined &&
       callbackGridEntityType !== gridEntityType
     ) {
-      return;
+      continue;
     }
 
     callback(gridIndex, gridEntityType);

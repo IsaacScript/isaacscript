@@ -25,12 +25,12 @@ export function fire(player: EntityPlayer, pickingUpItem: PickingUpItem): void {
   for (const [callback, itemType, itemID] of subscriptions) {
     // Handle the optional 2nd callback argument
     if (itemType !== undefined && itemType !== pickingUpItem.type) {
-      return;
+      continue;
     }
 
     // Handle the optional 3rd callback argument
     if (itemID !== undefined && itemID !== pickingUpItem.id) {
-      return;
+      continue;
     }
 
     callback(player, pickingUpItem);

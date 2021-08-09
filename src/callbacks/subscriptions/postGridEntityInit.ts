@@ -22,7 +22,7 @@ export function fire(gridEntity: GridEntity): void {
       gridEntityType !== undefined &&
       gridEntityType !== gridEntity.GetType()
     ) {
-      return;
+      continue;
     }
 
     callback(gridEntity);
