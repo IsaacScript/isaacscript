@@ -674,7 +674,7 @@ function postSacrifice(player: EntityPlayer, numSacrifices: int): void {}
 
 ### MC_POST_CURSED_EYE_ACTIVATION
 
-Fires on the first frame that the "TeleportUp" animation begins playing after a player procs Cursed Eye.
+Fires on the first frame that the "TeleportUp" animation begins playing after a player triggers a Cursed Eye teleport.
 
 ```ts
 function postCursedEyeActivation(player: EntityPlayer): void {}
