@@ -1,3 +1,4 @@
+import * as postCursedTeleport from "../callbacks/subscriptions/postCursedTeleport";
 import * as postEsauJr from "../callbacks/subscriptions/postEsauJr";
 import * as postFirstEsauJr from "../callbacks/subscriptions/postFirstEsauJr";
 import * as postFirstFlip from "../callbacks/subscriptions/postFirstFlip";
@@ -141,6 +142,13 @@ export default class ModUpgraded implements Mod {
       case ModCallbacksCustom.MC_POST_SACRIFICE: {
         postSacrifice.register(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_SACRIFICE]),
+        );
+        break;
+      }
+
+      case ModCallbacksCustom.MC_POST_CURSED_TELEPORT: {
+        postCursedTeleport.register(
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_CURSED_TELEPORT]),
         );
         break;
       }

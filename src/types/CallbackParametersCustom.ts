@@ -1,3 +1,4 @@
+import { PostCursedTeleportCallbackType } from "../callbacks/subscriptions/postCursedTeleport";
 import { PostEsauJrCallbackType } from "../callbacks/subscriptions/postEsauJr";
 import { PostFirstEsauJrCallbackType } from "../callbacks/subscriptions/postFirstEsauJr";
 import { PostFirstFlipCallbackType } from "../callbacks/subscriptions/postFirstFlip";
@@ -50,6 +51,9 @@ export default interface CallbackParametersCustom {
     callback: PostTransformationCallbackType,
   ];
   [ModCallbacksCustom.MC_POST_SACRIFICE]: [callback: PostSacrificeCallbackType];
+  [ModCallbacksCustom.MC_POST_CURSED_TELEPORT]: [
+    callback: PostCursedTeleportCallbackType,
+  ];
   [ModCallbacksCustom.MC_POST_GRID_ENTITY_INIT]: [
     callback: PostGridEntityInitCallbackType,
     gridEntityType?: GridEntityType,

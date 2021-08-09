@@ -1,6 +1,7 @@
 import * as saveDataManager from "../features/saveDataManager";
 import ModUpgraded from "../types/ModUpgraded";
 import * as itemPickup from "./itemPickup";
+import * as postCursedTeleport from "./postCursedTeleport";
 import * as postEsauJr from "./postEsauJr";
 import * as postFlip from "./postFlip";
 import * as postGridEntity from "./postGridEntity";
@@ -50,5 +51,6 @@ function initCustomCallbacks(modUpgraded: ModUpgraded) {
   postEsauJr.init(modUpgraded);
   postTransformation.init(modUpgraded);
   postSacrifice.init(modUpgraded);
+  postCursedTeleport.init(modUpgraded);
   postGridEntity.init(modUpgraded);
 }
