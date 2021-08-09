@@ -115,28 +115,37 @@ function postPlayerRenderPlayer(player: EntityPlayer) {
     return;
   }
 
-  if (playerIsTeleportingFromCursedTeleport(player)) {
-    postCursedTeleport.fire(player);
-  }
-}
-
-function playerIsTeleportingFromCursedTeleport(player: EntityPlayer) {
+  // Retrieve information about this player
+  const game = Game();
+  const gameFrameCount = game.GetFrameCount();
   const playerIndex = getPlayerIndex(player);
   const trackingArray = v.run.damageFrameMap.get(playerIndex);
   if (trackingArray === undefined) {
-    return false;
+    return;
   }
   const [lastDamageFrame, callbackActivatedOnThisFrame] = trackingArray;
 
+  if (!playerIsTeleportingFromCursedTeleport(player, lastDamageFrame)) {
+    return;
+  }
+
+  // Do nothing if the callback already fired on this frame
+  if (callbackActivatedOnThisFrame) {
+    return;
+  }
+
+  v.run.damageFrameMap.set(playerIndex, [gameFrameCount, true]);
+  postCursedTeleport.fire(player);
+}
+
+function playerIsTeleportingFromCursedTeleport(
+  player: EntityPlayer,
+  lastDamageFrame: int,
+) {
   // Check to see if this is the frame that we last took damage
   const game = Game();
   const gameFrameCount = game.GetFrameCount();
   if (gameFrameCount !== lastDamageFrame) {
-    return false;
-  }
-
-  // Check to see if we already activated the callback on this frame
-  if (callbackActivatedOnThisFrame) {
     return false;
   }
 
