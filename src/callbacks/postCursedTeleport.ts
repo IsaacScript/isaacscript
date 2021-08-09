@@ -5,20 +5,16 @@ import {
   getPlayerNumAllHearts,
   PlayerIndex,
 } from "../functions/player";
-import { getRoomIndex } from "../functions/util";
 import * as postCursedTeleport from "./subscriptions/postCursedTeleport";
 
 const v = {
-  level: {
-    numSacrifices: 0,
+  run: {
+    /** Values are game frame and whether or not the callback has fired on this frame. */
+    damageFrameMap: new LuaTable<PlayerIndex, [int, boolean]>(),
   },
 
-  room: {
-    /**
-     * Values are game frame and room index. We must track the room index because the
-     * PostPlayerRender callback fires before the PostNewRoom callback.
-     */
-    damageTrackingMap: new LuaTable<PlayerIndex, [int, int]>(),
+  level: {
+    numSacrifices: 0,
   },
 };
 
@@ -62,18 +58,28 @@ function entityTakeDmgPlayer(
 function setDamageFrame(tookDamage: Entity, damageFlags: int) {
   const game = Game();
   const gameFrameCount = game.GetFrameCount();
+
   const player = tookDamage.ToPlayer();
   if (player === null) {
     return;
   }
   const playerIndex = getPlayerIndex(player);
-  const roomIndex = getRoomIndex();
 
+  // Don't do anything if we already activated the callback on this frame
+  const trackingArray = v.run.damageFrameMap.get(playerIndex);
+  if (trackingArray !== undefined) {
+    const [lastDamageFrame, callbackActivatedOnThisFrame] = trackingArray;
+    if (lastDamageFrame === gameFrameCount && callbackActivatedOnThisFrame) {
+      return;
+    }
+  }
+
+  // Don't do anything if this could be a Sacrifice Room teleport
   if (isPotentialNaturalTeleportFromSacrificeRoom(damageFlags)) {
     return;
   }
 
-  v.room.damageTrackingMap.set(playerIndex, [gameFrameCount, roomIndex]);
+  v.run.damageFrameMap.set(playerIndex, [gameFrameCount, false]);
 }
 
 function isPotentialNaturalTeleportFromSacrificeRoom(damageFlags: int) {
@@ -116,11 +122,11 @@ function postPlayerRenderPlayer(player: EntityPlayer) {
 
 function playerIsTeleportingFromCursedTeleport(player: EntityPlayer) {
   const playerIndex = getPlayerIndex(player);
-  const trackingArray = v.room.damageTrackingMap.get(playerIndex);
+  const trackingArray = v.run.damageFrameMap.get(playerIndex);
   if (trackingArray === undefined) {
     return false;
   }
-  const [lastDamageFrame, lastDamageRoomIndex] = trackingArray;
+  const [lastDamageFrame, callbackActivatedOnThisFrame] = trackingArray;
 
   // Check to see if this is the frame that we last took damage
   const game = Game();
@@ -129,9 +135,8 @@ function playerIsTeleportingFromCursedTeleport(player: EntityPlayer) {
     return false;
   }
 
-  // Check to see if this is the room that we last took damage
-  const roomIndex = getRoomIndex();
-  if (roomIndex !== lastDamageRoomIndex) {
+  // Check to see if we already activated the callback on this frame
+  if (callbackActivatedOnThisFrame) {
     return false;
   }
 
