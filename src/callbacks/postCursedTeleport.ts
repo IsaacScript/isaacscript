@@ -109,7 +109,12 @@ function playerIsTeleportingFromCursedTeleport(player: EntityPlayer) {
   const lastDamageFrame = v.run.damageFrameMap.get(playerIndex);
   const sprite = player.GetSprite();
 
-  if (lastDamageFrame !== gameFrameCount || !sprite.IsPlaying("TeleportUp")) {
+  // Only trigger on the 0th frame of the teleport animation on the same frame we have taken damage
+  if (
+    lastDamageFrame !== gameFrameCount ||
+    !sprite.IsPlaying("TeleportUp") ||
+    sprite.GetFrame() > 0
+  ) {
     return false;
   }
 
