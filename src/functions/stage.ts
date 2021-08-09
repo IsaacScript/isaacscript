@@ -9,6 +9,15 @@ export function onRepentanceStage(): boolean {
   );
 }
 
+export function onCathedral(): boolean {
+  const game = Game();
+  const level = game.GetLevel();
+  const stage = level.GetStage();
+  const stageType = level.GetStageType();
+
+  return stage === 10 && stageType === 1;
+}
+
 export function onChest(): boolean {
   const game = Game();
   const level = game.GetLevel();
@@ -25,4 +34,13 @@ export function onDarkRoom(): boolean {
   const stageType = level.GetStageType();
 
   return stage === 11 && stageType === 0;
+}
+
+export function onSheol(): boolean {
+  const game = Game();
+  const level = game.GetLevel();
+  const stage = level.GetStage();
+  const stageType = level.GetStageType();
+
+  return stage === 10 && stageType === 0;
 }
