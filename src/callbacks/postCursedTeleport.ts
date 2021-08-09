@@ -5,6 +5,7 @@ import {
   getPlayerNumAllHearts,
   PlayerIndex,
 } from "../functions/player";
+import { getRoomIndex } from "../functions/util";
 import * as postCursedTeleport from "./subscriptions/postCursedTeleport";
 
 const v = {
@@ -13,7 +14,11 @@ const v = {
   },
 
   room: {
-    damageFrameMap: new LuaTable<PlayerIndex, int>(),
+    /**
+     * Values are game frame and room index. We must track the room index because the
+     * PostPlayerRender callback fires before the PostNewRoom callback.
+     */
+    damageTrackingMap: new LuaTable<PlayerIndex, [int, int]>(),
   },
 };
 
@@ -57,26 +62,33 @@ function entityTakeDmgPlayer(
 function setDamageFrame(tookDamage: Entity, damageFlags: int) {
   const game = Game();
   const gameFrameCount = game.GetFrameCount();
-  const room = game.GetRoom();
-  const roomType = room.GetType();
-  const isSpikeDamage = hasFlag(damageFlags, DamageFlag.DAMAGE_SPIKES);
   const player = tookDamage.ToPlayer();
   if (player === null) {
     return;
   }
   const playerIndex = getPlayerIndex(player);
+  const roomIndex = getRoomIndex();
 
-  // Don't record the frame if we are potentially going to the Angel Room or the Dark Room from a
-  // Sacrifice Room
-  if (
-    roomType === RoomType.ROOM_SACRIFICE &&
-    isSpikeDamage &&
-    (v.level.numSacrifices === 6 || v.level.numSacrifices >= 12)
-  ) {
+  if (isPotentialNaturalTeleportFromSacrificeRoom(damageFlags)) {
     return;
   }
 
-  v.room.damageFrameMap.set(playerIndex, gameFrameCount);
+  v.room.damageTrackingMap.set(playerIndex, [gameFrameCount, roomIndex]);
+}
+
+function isPotentialNaturalTeleportFromSacrificeRoom(damageFlags: int) {
+  const game = Game();
+  const room = game.GetRoom();
+  const roomType = room.GetType();
+  const isSpikeDamage = hasFlag(damageFlags, DamageFlag.DAMAGE_SPIKES);
+
+  // Don't record the frame if we are potentially going to the Angel Room or the Dark Room from a
+  // Sacrifice Room
+  return (
+    roomType === RoomType.ROOM_SACRIFICE &&
+    isSpikeDamage &&
+    (v.level.numSacrifices === 6 || v.level.numSacrifices >= 12)
+  );
 }
 
 function incrementNumSacrifices(damageFlags: int) {
@@ -103,15 +115,29 @@ function postPlayerRenderPlayer(player: EntityPlayer) {
 }
 
 function playerIsTeleportingFromCursedTeleport(player: EntityPlayer) {
+  const playerIndex = getPlayerIndex(player);
+  const trackingArray = v.room.damageTrackingMap.get(playerIndex);
+  if (trackingArray === undefined) {
+    return false;
+  }
+  const [lastDamageFrame, lastDamageRoomIndex] = trackingArray;
+
+  // Check to see if this is the frame that we last took damage
   const game = Game();
   const gameFrameCount = game.GetFrameCount();
-  const playerIndex = getPlayerIndex(player);
-  const lastDamageFrame = v.room.damageFrameMap.get(playerIndex);
-  const sprite = player.GetSprite();
+  if (gameFrameCount !== lastDamageFrame) {
+    return false;
+  }
 
-  // Only trigger on the 1st frame of the teleport animation on the same frame we have taken damage
+  // Check to see if this is the room that we last took damage
+  const roomIndex = getRoomIndex();
+  if (roomIndex !== lastDamageRoomIndex) {
+    return false;
+  }
+
+  // Check to see if this is the 1st frame that we are teleporting
+  const sprite = player.GetSprite();
   if (
-    lastDamageFrame !== gameFrameCount ||
     !sprite.IsPlaying("TeleportUp") ||
     sprite.GetFrame() !== 1 // The 0th frame never fires
   ) {
