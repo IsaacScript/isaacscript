@@ -8,12 +8,12 @@ import {
 import * as postCursedTeleport from "./subscriptions/postCursedTeleport";
 
 const v = {
-  run: {
-    damageFrameMap: new LuaTable<PlayerIndex, int>(),
-  },
-
   level: {
     numSacrifices: 0,
+  },
+
+  room: {
+    damageFrameMap: new LuaTable<PlayerIndex, int>(),
   },
 };
 
@@ -76,7 +76,7 @@ function setDamageFrame(tookDamage: Entity, damageFlags: int) {
     return;
   }
 
-  v.run.damageFrameMap.set(playerIndex, gameFrameCount);
+  v.room.damageFrameMap.set(playerIndex, gameFrameCount);
 }
 
 function incrementNumSacrifices(damageFlags: int) {
@@ -106,14 +106,14 @@ function playerIsTeleportingFromCursedTeleport(player: EntityPlayer) {
   const game = Game();
   const gameFrameCount = game.GetFrameCount();
   const playerIndex = getPlayerIndex(player);
-  const lastDamageFrame = v.run.damageFrameMap.get(playerIndex);
+  const lastDamageFrame = v.room.damageFrameMap.get(playerIndex);
   const sprite = player.GetSprite();
 
-  // Only trigger on the 0th frame of the teleport animation on the same frame we have taken damage
+  // Only trigger on the 1st frame of the teleport animation on the same frame we have taken damage
   if (
     lastDamageFrame !== gameFrameCount ||
     !sprite.IsPlaying("TeleportUp") ||
-    sprite.GetFrame() > 0
+    sprite.GetFrame() !== 1 // The 0th frame never fires
   ) {
     return false;
   }
