@@ -672,12 +672,12 @@ Fires on the frame that a player takes damage from spikes in a Sacrifice Room.
 function postSacrifice(player: EntityPlayer, numSacrifices: int): void {}
 ```
 
-### MC_POST_CURSED_EYE_ACTIVATION
+### MC_POST_CURSED_TELEPORT
 
-Fires on the first frame that the "TeleportUp" animation begins playing after a player triggers a Cursed Eye teleport.
+Fires on the first frame that the "TeleportUp" animation begins playing after a player triggers a Cursed Eye teleport or a Cursed Skull teleport. (Both of these have the same effect in causing Isaac to be teleported to a random room.)
 
 ```ts
-function postCursedEyeActivation(player: EntityPlayer): void {}
+function postCursedTeleport(player: EntityPlayer): void {}
 ```
 
 ### MC_POST_GRID_ENTITY_INIT
