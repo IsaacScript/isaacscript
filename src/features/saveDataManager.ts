@@ -338,7 +338,8 @@ export function saveDataManagerSave(): void {
   saveToDisk();
 }
 
-declare let g: LuaTable<string, SaveData>;
+declare let g: LuaTable<string, SaveData>; // Globals
+declare let gd: LuaTable<string, SaveData>; // Globals defaults
 
 /**
  * Set the global variable of "g" equal to all of the save data variables for this mod.
@@ -347,4 +348,5 @@ declare let g: LuaTable<string, SaveData>;
  */
 export function saveDataManagerSetGlobal(): void {
   g = saveDataMap; // eslint-disable-line @typescript-eslint/no-unused-vars
+  gd = saveDataDefaultsMap; // eslint-disable-line @typescript-eslint/no-unused-vars
 }
