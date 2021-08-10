@@ -323,6 +323,7 @@ declare const enum GridEntityXMLType {
   SPIDERWEB = 1940,
   WALL = 1999,
   PIT = 3000,
+  PIT_EVENT = 3009,
   LOCK = 4000,
   PRESSURE_PLATE = 4500,
   STATUE_DEVIL = 5000,
