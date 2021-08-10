@@ -342,7 +342,8 @@ declare let g: LuaTable<string, SaveData>; // Globals
 declare let gd: LuaTable<string, SaveData>; // Globals defaults
 
 /**
- * Set the global variable of "g" equal to all of the save data variables for this mod.
+ * Sets the global variable of "g" equal to all of the save data variables for this mod.
+ * Sets the global variable of "gd" equal to all of the save data default variables for this mod.
  * This can make debugging easier, as you can access the variables from the game's debug console.
  * e.g. `l print(g.feature1.foo)`
  */
