@@ -192,7 +192,8 @@ function restoreDefaults(childTableName: keyof SaveData) {
     // We do not want to blow away the existing child table because we don't want to break any
     // existing references
     // Instead, merge in the values
-    merge(childTable as unknown as LuaTable, childTableDefaultsTableCopy);
+    // (but only one level deep, or else arrays and maps would be merged)
+    merge(childTable as unknown as LuaTable, childTableDefaultsTableCopy, true);
   }
 }
 
@@ -291,7 +292,7 @@ function getAllSaveDataWithoutRoom(pruneKeys: boolean) {
  * In other words, it will ignore extraneous values in the new table.
  * (This is useful when loading out-of-date save data from the "save#.dat" file.)
  */
-function merge(oldTable: LuaTable, newTable: LuaTable): void {
+function merge(oldTable: LuaTable, newTable: LuaTable, shallow = false): void {
   if (type(oldTable) !== "table") {
     error("The first argument given to the merge function is not a table.");
   }
@@ -311,14 +312,13 @@ function merge(oldTable: LuaTable, newTable: LuaTable): void {
       continue;
     }
 
-    // Recursively handle sub-tables
-    if (oldType === "table") {
+    if (oldType === "table" && !shallow) {
+      // Recursively handle sub-tables
       merge(oldValue, newValue as LuaTable);
-      continue;
+    } else {
+      // Base case: copy the value
+      oldTable.set(key, newValue);
     }
-
-    // Base case: copy the value
-    oldTable.set(key, newValue);
   }
 
   // We also need to iterate through the new table in case it is:
