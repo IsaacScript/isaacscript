@@ -7,9 +7,12 @@
     "words": [
         "alphabirth",
         "cloner",
+        "getinfo",
         "getmetatable",
         "isaacscript",
         "lerp",
+        "linedefined",
+        "luadebug",
         "metatable",
         "metatables",
         "npcs",

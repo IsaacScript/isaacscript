@@ -1,11 +1,34 @@
 import { MaxFlagShift } from "../enums";
 import { hasFlag } from "./flag";
 
+// This function is part of the sandbox provided by the Racing+ client
+declare global {
+  function getParentFunctionDescription(): string;
+}
+
 /**
  * Helper function to avoid typing out `Isaac.DebugString()`.
  */
 export function log(msg: string): void {
-  Isaac.DebugString(msg);
+  const debugMsg = getDebugPrependString(msg);
+  Isaac.DebugString(debugMsg);
+}
+
+function getDebugPrependString(msg: string) {
+  if (debug !== undefined) {
+    // The --luadebug launch flag is enabled
+    const debugTable = debug.getinfo(3);
+    if (debugTable !== undefined) {
+      return `${debugTable.name}:${debugTable.linedefined} - ${msg}`;
+    }
+  }
+
+  if (getParentFunctionDescription !== undefined) {
+    // The Racing+ sandbox is enabled
+    return `${getParentFunctionDescription()} - ${msg}`;
+  }
+
+  return msg;
 }
 
 /**
