@@ -3,7 +3,7 @@ import { hasFlag } from "./flag";
 
 // This function is part of the sandbox provided by the Racing+ client
 declare global {
-  function getParentFunctionDescription(levels: int): string;
+  function getParentFunctionDescription(this: void, levels: int): string;
 }
 
 /**
