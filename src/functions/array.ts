@@ -53,3 +53,33 @@ export function initArray<T>(defaultValue: T, size: int): T[] {
 
   return array;
 }
+
+/**
+ * Since Lua uses tables for every non-primitive data structure,
+ * it is non-trivial to determine if a particular table is being used as an array.
+ * isArray returns true if the table contains all numerical indexes that are contiguous,
+ * starting at 1.
+ */
+export function isArray(table: LuaTable): boolean {
+  // First, handle the case of non-numerical keys
+  // (and count the entries in the table)
+  let numEntries = 0;
+  for (const [key] of pairs(table)) {
+    numEntries += 1;
+
+    const keyType = type(key);
+    if (keyType !== "number") {
+      return false;
+    }
+  }
+
+  // Second, check for non-contiguous elements
+  for (let i = 1; i <= numEntries; i++) {
+    const element = table.get(i) as unknown | undefined;
+    if (element === undefined) {
+      return false;
+    }
+  }
+
+  return true;
+}

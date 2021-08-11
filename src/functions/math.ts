@@ -1,3 +1,11 @@
+export function isEven(num: int): boolean {
+  return num % 2 === 0;
+}
+
+export function isOdd(num: int): boolean {
+  return num % 2 !== 0;
+}
+
 export function tanh(x: number): number {
   return (Math.exp(x) - Math.exp(-x)) / (Math.exp(x) + Math.exp(-x));
 }
