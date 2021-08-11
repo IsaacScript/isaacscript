@@ -1,9 +1,9 @@
 export function isEven(num: int): boolean {
-  return num % 2 === 0;
+  return (num & 1) === 0;
 }
 
 export function isOdd(num: int): boolean {
-  return num % 2 !== 0;
+  return (num & 1) === 1;
 }
 
 export function tanh(x: number): number {
