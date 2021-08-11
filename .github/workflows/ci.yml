@@ -34,9 +34,11 @@ jobs:
         run: bash lint.sh
 
       - name: Create the docs locally in CI
+        if: github.event_name != 'pull_request'
         run: bash docs.sh
 
       - name: Deploy 🚀
+        if: github.event_name != 'pull_request'
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           branch: gh-pages
