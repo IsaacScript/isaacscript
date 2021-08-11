@@ -1,10 +1,10 @@
 /// <reference types="lua-types/5.3" />
 
 /// <reference path="enums.d.ts" />
-/// <reference path="enums.flags.d.ts" />
-/// <reference path="enums.subtypes.d.ts" />
-/// <reference path="enums.unofficial.d.ts" />
-/// <reference path="enums.variants.d.ts" />
+/// <reference path="enumsFlags.d.ts" />
+/// <reference path="enumsSubtypes.d.ts" />
+/// <reference path="enumsUnofficial.d.ts" />
+/// <reference path="enumsVariants.d.ts" />
 /// <reference path="functions.d.ts" />
 /// <reference path="json.d.ts" />
 /// <reference path="main.d.ts" />
