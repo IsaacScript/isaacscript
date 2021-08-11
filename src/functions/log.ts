@@ -20,7 +20,7 @@ function getDebugPrependString(msg: string) {
   // 1 - getDebugPrependString
   // 2 - log
   // 3 - the function that calls log
-  const numParentFunctions = 4;
+  const numParentFunctions = 3;
 
   if (debug !== undefined) {
     // The --luadebug launch flag is enabled
