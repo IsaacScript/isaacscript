@@ -20,6 +20,7 @@ export * from "./functions/entity";
 export * from "./functions/flag";
 export * from "./functions/gridEntity";
 export * from "./functions/input";
+export * from "./functions/items";
 export * from "./functions/json";
 export * from "./functions/log";
 export * from "./functions/math";
