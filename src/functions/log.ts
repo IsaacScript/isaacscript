@@ -1,9 +1,4 @@
-import {
-  MAX_DAMAGE_FLAG_SHIFT,
-  MAX_ENTITY_FLAG_SHIFT,
-  MAX_PROJECTILE_FLAG_SHIFT,
-  MAX_USE_FLAG_SHIFT,
-} from "../constants";
+import { MaxFlagShift } from "../enums";
 import { hasFlag } from "./flag";
 
 /**
@@ -17,14 +12,14 @@ export function log(msg: string): void {
  * Helper function for printing out every damage flag that is turned on. Helpful when debugging.
  */
 export function logAllDamageFlags(flags: int): void {
-  logAllFlags(flags, MAX_DAMAGE_FLAG_SHIFT, "damage");
+  logAllFlags(flags, MaxFlagShift.DAMAGE, "damage");
 }
 
 /**
  * Helper function for printing out every entity flag that is turned on. Helpful when debugging.
  */
 export function logAllEntityFlags(flags: int): void {
-  logAllFlags(flags, MAX_ENTITY_FLAG_SHIFT, "entity");
+  logAllFlags(flags, MaxFlagShift.ENTITY, "entity");
 }
 
 /**
@@ -46,12 +41,12 @@ export function logAllFlags(flags: int, maxShift: int, description = ""): void {
  * Helper function for printing out every projectile flag that is turned on. Helpful when debugging.
  */
 export function logAllProjectileFlags(flags: int): void {
-  logAllFlags(flags, MAX_PROJECTILE_FLAG_SHIFT, "projectile");
+  logAllFlags(flags, MaxFlagShift.PROJECTILE, "projectile");
 }
 
 /**
  * Helper function for printing out every use flag that is turned on. Helpful when debugging.
  */
 export function logAllUseFlags(flags: int): void {
-  logAllFlags(flags, MAX_USE_FLAG_SHIFT, "use");
+  logAllFlags(flags, MaxFlagShift.USE, "use");
 }

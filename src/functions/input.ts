@@ -1,10 +1,10 @@
-import { NUM_INPUTS } from "../constants";
+import { MAX_NUM_INPUTS } from "../constants";
 
 /**
  * Iterates over all 4 inputs to see if a particular button is pressed (i.e. held down).
  */
 export function isActionPressedOnAnyInput(buttonAction: ButtonAction): boolean {
-  for (let i = 0; i < NUM_INPUTS; i++) {
+  for (let i = 0; i < MAX_NUM_INPUTS; i++) {
     if (Input.IsActionPressed(buttonAction, i)) {
       return true;
     }
@@ -20,7 +20,7 @@ export function isActionPressedOnAnyInput(buttonAction: ButtonAction): boolean {
 export function isActionTriggeredOnAnyInput(
   buttonAction: ButtonAction,
 ): boolean {
-  for (let i = 0; i < NUM_INPUTS; i++) {
+  for (let i = 0; i < MAX_NUM_INPUTS; i++) {
     if (Input.IsActionTriggered(buttonAction, i)) {
       return true;
     }

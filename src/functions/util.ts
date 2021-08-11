@@ -1,4 +1,4 @@
-import { BEAST_ROOM_SUB_TYPE, RECOMMENDED_SHIFT_IDX } from "../constants";
+import { BEAST_ROOM_SUBTYPE, RECOMMENDED_SHIFT_IDX } from "../constants";
 
 /**
  * Helper function for quickly switching to a new room without playing a particular animation.
@@ -245,7 +245,7 @@ export function inCrawlspace(): boolean {
 
   return (
     roomIndex === GridRooms.ROOM_DUNGEON_IDX &&
-    roomSubType !== BEAST_ROOM_SUB_TYPE
+    roomSubType !== BEAST_ROOM_SUBTYPE
   );
 }
 

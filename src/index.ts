@@ -4,6 +4,13 @@ export {
 } from "./callbacks/reorderedCallbacks";
 export * from "./callbacks/upgradeMod";
 export {
+  BEAST_ROOM_SUBTYPE,
+  FIRST_TMTRAINER_COLLECTIBLE_TYPE,
+  MAX_NUM_DOORS,
+  MAX_NUM_INPUTS,
+} from "./constants";
+export * from "./enums";
+export {
   saveDataManager,
   saveDataManagerSave,
   saveDataManagerSetGlobal,
