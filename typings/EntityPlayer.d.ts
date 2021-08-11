@@ -338,11 +338,12 @@ declare class EntityPlayer extends Entity {
    */
   GetActiveCharge(activeSlot?: ActiveSlot): int;
   /**
-   *
    * @param activeSlot Default is ActiveSlot.SLOT_PRIMARY.
    */
   GetActiveItem(activeSlot?: ActiveSlot): CollectibleType | int;
   /**
+   * Returns 0 if there is no active item in the specified slot.
+   *
    * @param activeSlot Default is ActiveSlot.SLOT_PRIMARY.
    */
   GetActiveSubCharge(activeSlot?: ActiveSlot): int;
