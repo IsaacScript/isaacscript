@@ -165,6 +165,27 @@ export function getPlayerIndex(player: EntityPlayer): PlayerIndex {
   return seedString as PlayerIndex;
 }
 
+/** Get the index of this player with respect to the output of the `Isaac.GetPlayer()` function. */
+export function getPlayerIndexVanilla(playerToFind: EntityPlayer): int | null {
+  const game = Game();
+
+  const playerToFindHash = GetPtrHash(playerToFind);
+
+  for (let i = 0; i < game.GetNumPlayers(); i++) {
+    const player = Isaac.GetPlayer(i);
+    if (player === null) {
+      continue;
+    }
+
+    const playerHash = GetPtrHash(player);
+    if (playerHash === playerToFindHash) {
+      return i;
+    }
+  }
+
+  return null;
+}
+
 export function getPlayerNumAllHearts(player: EntityPlayer): int {
   const hearts = player.GetHearts();
   const soulHearts = player.GetSoulHearts();
