@@ -3,7 +3,7 @@ import { hasFlag } from "./flag";
 
 // This function is part of the sandbox provided by the Racing+ client
 declare global {
-  function getParentFunctionDescription(): string;
+  function getParentFunctionDescription(levels: int): string;
 }
 
 /**
@@ -15,9 +15,13 @@ export function log(msg: string): void {
 }
 
 function getDebugPrependString(msg: string) {
+  // 1 - log
+  // 2 - the function that calls log
+  const numParentFunctions = 2;
+
   if (debug !== undefined) {
     // The --luadebug launch flag is enabled
-    const debugTable = debug.getinfo(3);
+    const debugTable = debug.getinfo(numParentFunctions);
     if (debugTable !== undefined) {
       return `${debugTable.name}:${debugTable.linedefined} - ${msg}`;
     }
@@ -25,7 +29,7 @@ function getDebugPrependString(msg: string) {
 
   if (getParentFunctionDescription !== undefined) {
     // The Racing+ sandbox is enabled
-    return `${getParentFunctionDescription()} - ${msg}`;
+    return `${getParentFunctionDescription(numParentFunctions + 1)} - ${msg}`;
   }
 
   return msg;
