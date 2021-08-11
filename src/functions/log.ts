@@ -15,9 +15,10 @@ export function log(msg: string): void {
 }
 
 function getDebugPrependString(msg: string) {
-  // 1 - log
-  // 2 - the function that calls log
-  const numParentFunctions = 2;
+  // 1 - getDebugPrependString
+  // 2 - log
+  // 3 - the function that calls log
+  const numParentFunctions = 3;
 
   if (debug !== undefined) {
     // The --luadebug launch flag is enabled
