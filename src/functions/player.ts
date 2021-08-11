@@ -208,3 +208,7 @@ export function getTotalPlayerCollectibles(
 
   return numCollectibles;
 }
+
+export function isFirstPlayer(player: EntityPlayer): boolean {
+  return getPlayerIndexVanilla(player) === 0;
+}
