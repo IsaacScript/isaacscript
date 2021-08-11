@@ -190,6 +190,11 @@ export function getItemName(
   return itemConfigItem.Name;
 }
 
+export function getMaxCollectibleID(): int {
+  const itemConfig = Isaac.GetItemConfig();
+  return itemConfig.GetCollectibles().Size - 1;
+}
+
 /**
  * Helper function to get the room index of the current room. Use this instead of calling
  * `Game().GetLevel().GetCurrentRoomIndex()` directly to avoid bugs with big rooms.
