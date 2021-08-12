@@ -12,3 +12,10 @@ export interface SaveDataWithoutRoom {
   // Room data does not need to be saved because the room will be reloaded as soon as they enter
   // into a new run anyway
 }
+
+export enum SaveDataKeys {
+  Persistent = "persistent",
+  Run = "run",
+  Level = "level",
+  Room = "room",
+}

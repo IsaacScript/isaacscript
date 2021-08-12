@@ -1,7 +1,7 @@
 import { deepCopy } from "../functions/deepCopy";
 import { tableClear } from "../functions/util";
 import ModUpgraded from "../types/ModUpgraded";
-import { SaveData } from "../types/SaveData";
+import { SaveData, SaveDataKeys } from "../types/SaveData";
 import { loadFromDisk } from "./load";
 import { saveToDisk } from "./save";
 
@@ -85,8 +85,7 @@ export function init(incomingMod: ModUpgraded): void {
  * @param key The name of the file or feature that is submitting data to be managed by the save data
  * manager. The save data manager will throw an error if it receives a second registration request
  * using the same key as a previous subscriber.
- * @param saveData An object with one or more child-objects of "persistent", "run", "level", or
- * "room".
+ * @param saveData An object that corresponds to the `SaveData` interface.
  * @param conditionalFunc An optional function to run upon saving this key to disk. If the function
  * is false, the key will not be written to disk. This allows mod features to avoid cluttering the
  * "save#.dat" file with unnecessary keys.
@@ -161,25 +160,25 @@ function preGameExit(shouldSave: boolean) {
 
 // ModCallbacks.MC_POST_NEW_LEVEL (18)
 function postNewLevel() {
-  restoreDefaults("level");
+  restoreDefaults(SaveDataKeys.Level);
 }
 
 // ModCallbacks.MC_POST_NEW_ROOM (19)
 function postNewRoom() {
-  restoreDefaults("room");
+  restoreDefaults(SaveDataKeys.Room);
 }
 
 function restoreDefaultsAll() {
-  restoreDefaults("run");
-  restoreDefaults("level");
-  restoreDefaults("room");
+  restoreDefaults(SaveDataKeys.Run);
+  restoreDefaults(SaveDataKeys.Level);
+  restoreDefaults(SaveDataKeys.Room);
 }
 
-function restoreDefaults(childTableName: keyof SaveData) {
+function restoreDefaults(childTableName: SaveDataKeys) {
   if (
-    childTableName !== "run" &&
-    childTableName !== "level" &&
-    childTableName !== "room"
+    childTableName !== SaveDataKeys.Run &&
+    childTableName !== SaveDataKeys.Level &&
+    childTableName !== SaveDataKeys.Room
   ) {
     error(`Unknown child table name of: ${childTableName}`);
   }

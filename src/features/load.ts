@@ -32,15 +32,15 @@ export function loadFromDisk(
       continue;
     }
 
-    // All elements of loaded save data should be tables that contain fields of "persistent", "run",
-    // and so on
+    // All elements of loaded save data should be tables that contain fields corresponding to the
+    // SaveData interface
     // Ignore elements that are not tables
     const valueType = type(value);
     if (valueType !== "table") {
       continue;
     }
 
-    // Ignore elements that represent subscriptions that no longer exist the current save data
+    // Ignore elements that represent subscriptions that no longer exist in the current save data
     const oldSaveDataForSubscriber = oldSaveData.get(key as string);
     if (oldSaveDataForSubscriber === undefined) {
       continue;
@@ -112,6 +112,8 @@ function merge(oldTable: LuaTable, newTable: LuaTable): void {
     for (const [key, value] of pairs(newTable)) {
       oldTable.set(key, value);
     }
+
+    return;
   }
 
   // Go through the old table, merging every found value
