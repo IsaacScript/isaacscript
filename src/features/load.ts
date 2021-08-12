@@ -8,7 +8,7 @@ const DEFAULT_MOD_DATA = "{}";
 
 export function loadFromDisk(
   mod: Mod,
-  oldSaveData: Map<string, SaveData>,
+  oldSaveData: LuaTable<string, SaveData>,
 ): void {
   if (!mod.HasData()) {
     // There is no "save#.dat" file for this save slot

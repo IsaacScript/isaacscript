@@ -1,5 +1,5 @@
-export default class PickingUpItem {
-  id: CollectibleType | TrinketType = CollectibleType.COLLECTIBLE_NULL;
+export default interface PickingUpItem {
+  id: CollectibleType | TrinketType;
   /** Needed so that we can distinguish between picking up a collectible and a trinket. */
-  type = ItemType.ITEM_NULL;
+  type: ItemType;
 }

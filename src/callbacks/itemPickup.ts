@@ -40,8 +40,11 @@ function postPlayerInitReorderedPlayer(player: EntityPlayer) {
   }
 
   const index = getPlayerIndex(player);
-  const pickingUpItem = new PickingUpItem();
-  v.run.pickingUpItem.set(index, pickingUpItem);
+  const defaultPickingUpItem = {
+    id: CollectibleType.COLLECTIBLE_NULL,
+    type: ItemType.ITEM_NULL,
+  };
+  v.run.pickingUpItem.set(index, defaultPickingUpItem);
 }
 
 // ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED

@@ -7,12 +7,12 @@
  * @param oldTable The table to copy.
  * @param convertMapsToTables Whether or not to convert children Map elements to Lua tables. False
  * by default.
- * @param tableName Used to track the current key that we are operating on.
+ * @param traversalDescription Used to track the current key that we are operating on.
  */
 export function deepCopy(
   oldTable: LuaTable,
   convertMapsToTables = false,
-  tableName = "unknown" as AnyNotNil,
+  traversalDescription = "",
 ): LuaTable {
   const oldTableType = type(oldTable);
   if (oldTableType !== "table") {
@@ -23,18 +23,27 @@ export function deepCopy(
 
   if (oldTable instanceof Map) {
     if (convertMapsToTables) {
-      return convertMapToTable(oldTable, convertMapsToTables);
+      return convertMapToTable(
+        oldTable,
+        convertMapsToTables,
+        traversalDescription,
+      );
     }
 
-    return deepCopyMap(oldTable, convertMapsToTables) as unknown as LuaTable;
+    return deepCopyMap(
+      oldTable,
+      convertMapsToTables,
+      traversalDescription,
+    ) as unknown as LuaTable;
   }
 
-  return deepCopyTable(oldTable, tableName, convertMapsToTables);
+  return deepCopyTable(oldTable, convertMapsToTables, traversalDescription);
 }
 
 function convertMapToTable(
   oldMap: Map<AnyNotNil, unknown>,
   convertMapsToTables: boolean,
+  traversalDescription: string,
 ) {
   const newTable = new LuaTable();
 
@@ -44,7 +53,12 @@ function convertMapToTable(
 
     let newValue: unknown;
     if (valueType === "table") {
-      newValue = deepCopy(value as LuaTable, convertMapsToTables, key);
+      traversalDescription = addTraversalDescription(key, traversalDescription);
+      newValue = deepCopy(
+        value as LuaTable,
+        convertMapsToTables,
+        traversalDescription,
+      );
     } else {
       newValue = value;
     }
@@ -58,6 +72,7 @@ function convertMapToTable(
 function deepCopyMap(
   oldMap: Map<AnyNotNil, unknown>,
   convertMapsToTables: boolean,
+  traversalDescription: string,
 ) {
   const newMap = new Map();
 
@@ -67,7 +82,12 @@ function deepCopyMap(
 
     let newValue: unknown;
     if (valueType === "table") {
-      newValue = deepCopy(value as LuaTable, convertMapsToTables, key);
+      traversalDescription = addTraversalDescription(key, traversalDescription);
+      newValue = deepCopy(
+        value as LuaTable,
+        convertMapsToTables,
+        traversalDescription,
+      );
     } else {
       newValue = value;
     }
@@ -80,12 +100,12 @@ function deepCopyMap(
 
 function deepCopyTable(
   oldTable: LuaTable,
-  tableName: AnyNotNil,
   convertMapsToTables: boolean,
+  traversalDescription: string,
 ) {
   const newTable = new LuaTable();
 
-  checkMetatable(oldTable, tableName);
+  checkMetatable(oldTable, traversalDescription);
 
   for (const [key, value] of pairs(oldTable)) {
     const valueType = type(value);
@@ -93,7 +113,8 @@ function deepCopyTable(
 
     let newValue: unknown;
     if (valueType === "table") {
-      newValue = deepCopy(value, convertMapsToTables, key);
+      traversalDescription = addTraversalDescription(key, traversalDescription);
+      newValue = deepCopy(value, convertMapsToTables, traversalDescription);
     } else {
       newValue = value;
     }
@@ -104,7 +125,7 @@ function deepCopyTable(
   return newTable;
 }
 
-function checkMetatable(oldTable: LuaTable, tableName: AnyNotNil) {
+function checkMetatable(oldTable: LuaTable, traversalDescription: string) {
   // Lua tables can have metatables, which make writing a generic deep-cloner impossible
   // All TypeScriptToLua objects use metatables
   const metatable = getmetatable(oldTable);
@@ -112,11 +133,10 @@ function checkMetatable(oldTable: LuaTable, tableName: AnyNotNil) {
     return;
   }
 
-  const tableNameType = type(tableName);
   const tableDescription =
-    tableNameType === "string"
-      ? `the "${tableName}" table`
-      : "a child element of the table to copy";
+    traversalDescription === ""
+      ? "the table to copy"
+      : `"${traversalDescription}"`;
 
   error(
     `The deepCopy function detected that ${tableDescription} has a metatable. Copying tables with metatables is not supported.`,
@@ -134,4 +154,14 @@ function validateValue(valueType: string) {
       `The deepCopy function does not support cloning tables that have elements of type ${valueType} in them.`,
     );
   }
+}
+
+function addTraversalDescription(key: AnyNotNil, traversalDescription: string) {
+  if (traversalDescription !== "") {
+    traversalDescription += " --> ";
+  }
+
+  traversalDescription += tostring(key);
+
+  return traversalDescription;
 }

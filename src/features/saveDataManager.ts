@@ -10,9 +10,12 @@ const DEFAULT_ERROR_MESSAGE =
 
 let mod: Mod | null = null;
 
-// Indexed by subscriber name
-const saveDataMap = new Map<string, SaveData>();
-const saveDataDefaultsMap = new Map<string, SaveData>();
+// The master save data map is indexed by subscriber name
+// We use Lua tables instead of TypeScriptToLua Maps for the master map so that we can access the
+// variables via the in-game console when debugging
+// (TSTL Maps don't expose the map keys as normal keys)
+const saveDataMap = new LuaTable<string, SaveData>();
+const saveDataDefaultsMap = new LuaTable<string, SaveData>();
 const saveDataConditionalFuncMap = new Map<string, () => boolean>();
 
 export function init(incomingMod: ModUpgraded): void {
@@ -116,7 +119,7 @@ export function saveDataManager(
   // Make a copy of the initial save data so that we can use it to restore the default values later
   // on
   const saveDataTable = saveData as LuaTable;
-  const saveDataTableCopy = deepCopy(saveDataTable);
+  const saveDataTableCopy = deepCopy(saveDataTable, false, key);
   const saveDataCopy = saveDataTableCopy as unknown as SaveData;
   saveDataDefaultsMap.set(key, saveDataCopy);
 
@@ -181,7 +184,7 @@ function restoreDefaults(childTableName: keyof SaveData) {
     error(`Unknown child table name of: ${childTableName}`);
   }
 
-  for (const [subscriberName, saveData] of saveDataMap) {
+  for (const [subscriberName, saveData] of pairs(saveDataMap)) {
     const childTable = saveData[childTableName];
     if (childTable === undefined) {
       // This feature does not happen to store any variables on this particular child table
@@ -206,7 +209,11 @@ function restoreDefaults(childTableName: keyof SaveData) {
 
     // Make a new copy of the default child table
     const childTableDefaultsTable = childTableDefaults as unknown as LuaTable;
-    const childTableDefaultsTableCopy = deepCopy(childTableDefaultsTable);
+    const childTableDefaultsTableCopy = deepCopy(
+      childTableDefaultsTable,
+      false,
+      `${subscriberName} --> ${childTableName}`,
+    );
 
     // We do not want to blow away the existing child table because we don't want to break any
     // existing references
@@ -243,8 +250,8 @@ export function saveDataManagerSave(): void {
   saveToDisk(mod, saveDataMap, saveDataConditionalFuncMap);
 }
 
-declare let g: Map<string, SaveData>; // Globals
-declare let gd: Map<string, SaveData>; // Globals defaults
+declare let g: LuaTable<string, SaveData>; // Globals
+declare let gd: LuaTable<string, SaveData>; // Globals defaults
 
 /**
  * Sets the global variable of "g" equal to all of the save data variables for this mod.
