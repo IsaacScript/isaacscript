@@ -5,7 +5,7 @@ import { log } from "../functions/log";
 import { tableClear } from "../functions/util";
 import { SaveData } from "../types/SaveData";
 
-const DEBUG = true;
+const DEBUG = false;
 const DEFAULT_MOD_DATA = "{}";
 
 export function loadFromDisk(
