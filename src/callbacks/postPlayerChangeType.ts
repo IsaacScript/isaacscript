@@ -46,7 +46,7 @@ function postPlayerUpdateReorderedPlayer(player: EntityPlayer): void {
   }
 }
 
-// ModCallbacks.MC_POST_PLAYER_INIT_REORDERED
+// ModCallbacksCustom.MC_POST_PLAYER_INIT_REORDERED
 // PlayerVariant.PLAYER (0)
 function postPlayerInitReorderedPlayer(player: EntityPlayer) {
   if (!hasSubscriptions()) {
