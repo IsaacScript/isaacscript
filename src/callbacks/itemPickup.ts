@@ -1,38 +1,40 @@
 import { saveDataManager } from "../features/saveDataManager";
 import { getPlayerIndex, PlayerIndex } from "../functions/player";
+import ModCallbacksCustom from "../types/ModCallbacksCustom";
+import ModUpgraded from "../types/ModUpgraded";
 import PickingUpItem from "../types/PickingUpItem";
 import * as postItemPickup from "./subscriptions/postItemPickup";
 import * as preItemPickup from "./subscriptions/preItemPickup";
 
 const v = {
   run: {
-    pickingUpItem: new LuaTable<PlayerIndex, PickingUpItem>(),
+    pickingUpItem: new Map<PlayerIndex, PickingUpItem>(),
   },
 };
 
-export function init(mod: Mod): void {
+export function init(mod: ModUpgraded): void {
   saveDataManager("itemPickupCallback", v, hasSubscriptions);
 
-  mod.AddCallback(
-    ModCallbacks.MC_POST_PLAYER_INIT,
-    postPlayerInitPlayer,
+  mod.AddCallbackCustom(
+    ModCallbacksCustom.MC_POST_PLAYER_INIT_REORDERED,
+    postPlayerInitReorderedPlayer,
     PlayerVariant.PLAYER, // Co-op babies cannot take items
-  ); // 9
+  );
 
-  mod.AddCallback(
-    ModCallbacks.MC_POST_PLAYER_UPDATE,
-    postPlayerUpdatePlayer,
+  mod.AddCallbackCustom(
+    ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED,
+    postPlayerUpdateReorderedPlayer,
     PlayerVariant.PLAYER, // Co-op babies cannot take items
-  ); // 31
+  );
 }
 
 function hasSubscriptions() {
   return preItemPickup.hasSubscriptions() || postItemPickup.hasSubscriptions();
 }
 
-// ModCallbacks.MC_POST_PLAYER_INIT (9)
+// ModCallbacksCustom.MC_POST_PLAYER_INIT_REORDERED
 // PlayerVariant.PLAYER (0)
-function postPlayerInitPlayer(player: EntityPlayer) {
+function postPlayerInitReorderedPlayer(player: EntityPlayer) {
   if (!hasSubscriptions()) {
     return;
   }
@@ -42,9 +44,9 @@ function postPlayerInitPlayer(player: EntityPlayer) {
   v.run.pickingUpItem.set(index, pickingUpItem);
 }
 
-// ModCallbacks.MC_POST_PLAYER_UPDATE (31)
+// ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED
 // PlayerVariant.PLAYER (0)
-function postPlayerUpdatePlayer(player: EntityPlayer) {
+function postPlayerUpdateReorderedPlayer(player: EntityPlayer) {
   if (!hasSubscriptions()) {
     return;
   }

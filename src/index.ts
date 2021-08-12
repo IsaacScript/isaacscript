@@ -2,7 +2,6 @@ export {
   forceNewLevelCallback,
   forceNewRoomCallback,
 } from "./callbacks/reorderedCallbacks";
-export * from "./callbacks/upgradeMod";
 export {
   BEAST_ROOM_SUBTYPE,
   FIRST_TMTRAINER_COLLECTIBLE_TYPE,
@@ -16,6 +15,7 @@ export {
   saveDataManagerSetGlobal,
 } from "./features/saveDataManager";
 export * from "./functions/array";
+export { deepCopy } from "./functions/deepCopy";
 export * from "./functions/entity";
 export * from "./functions/flag";
 export * from "./functions/gridEntity";
@@ -35,3 +35,4 @@ export { default as CallbackParametersCustom } from "./types/CallbackParametersC
 export { default as ModCallbacksCustom } from "./types/ModCallbacksCustom";
 export { default as ModUpgraded } from "./types/ModUpgraded";
 export { default as PickingUpItem } from "./types/PickingUpItem";
+export * from "./upgradeMod";

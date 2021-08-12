@@ -1,17 +1,20 @@
-import { jsonDecode, jsonEncode } from "../functions/json";
-import { log } from "../functions/log";
-import { deepCopy } from "../functions/util";
+import { deepCopy } from "../functions/deepCopy";
+import { tableClear } from "../functions/util";
 import ModUpgraded from "../types/ModUpgraded";
-import { SaveData, SaveDataWithoutRoom } from "../types/SaveData";
+import { SaveData } from "../types/SaveData";
+import { loadFromDisk } from "./load";
+import { saveToDisk } from "./save";
+
+const DEFAULT_ERROR_MESSAGE =
+  'The save data manager is not initialized. You must first upgrade your mod object by calling the "upgradeMod()" function.';
 
 let mod: Mod | null = null;
 
 // Indexed by subscriber name
-const saveDataMap = new LuaTable<string, SaveData>();
-const saveDataDefaultsMap = new LuaTable<string, SaveData>();
-const saveDataConditionalFuncMap = new LuaTable<string, () => boolean>();
+const saveDataMap = new Map<string, SaveData>();
+const saveDataDefaultsMap = new Map<string, SaveData>();
+const saveDataConditionalFuncMap = new Map<string, () => boolean>();
 
-/** @hidden */
 export function init(incomingMod: ModUpgraded): void {
   mod = incomingMod;
 
@@ -91,9 +94,7 @@ export function saveDataManager(
   conditionalFunc?: () => boolean,
 ): void {
   if (mod === null) {
-    error(
-      'The save data manager is not initialized. You must first upgrade your mod object by calling the "upgradeMod()" function.',
-    );
+    error(DEFAULT_ERROR_MESSAGE);
   }
 
   const keyType = type(key);
@@ -127,21 +128,29 @@ export function saveDataManager(
 
 // ModCallbacks.MC_POST_GAME_STARTED (15)
 function postGameStarted(isContinued: boolean) {
-  if (isContinued) {
-    // Since the PostGameStarted callback fires after the PostNewLevel and the PostNewRoom
-    // callbacks, we do not have to worry about our loaded data being overwritten
-    loadFromDisk();
+  if (mod === null) {
+    error("The save data manager is not initialized.");
   }
 
-  // If the game is a run that is not continued, we do not need to reset any variables because:
-  // 1) they were already reset in the PreGameExit callback, or
-  // 2) this is the first run after opening the game
+  // We want to unconditionally load save data on every new run since there might be persistent data
+  // that is not tied to an individual run
+  // Since the PostGameStarted callback fires after the PostNewLevel and the PostNewRoom callbacks,
+  // we do not have to worry about our loaded data being overwritten in subsequent callbacks
+  loadFromDisk(mod, saveDataMap);
+
+  if (!isContinued) {
+    restoreDefaultsAll();
+  }
 }
 
 // ModCallbacks.MC_PRE_GAME_EXIT (17)
 function preGameExit(shouldSave: boolean) {
+  if (mod === null) {
+    error(DEFAULT_ERROR_MESSAGE);
+  }
+
   if (shouldSave) {
-    saveToDisk();
+    saveToDisk(mod, saveDataMap, saveDataConditionalFuncMap);
   }
 
   restoreDefaultsAll();
@@ -164,7 +173,15 @@ function restoreDefaultsAll() {
 }
 
 function restoreDefaults(childTableName: keyof SaveData) {
-  for (const [key, saveData] of pairs(saveDataMap)) {
+  if (
+    childTableName !== "run" &&
+    childTableName !== "level" &&
+    childTableName !== "room"
+  ) {
+    error(`Unknown child table name of: ${childTableName}`);
+  }
+
+  for (const [subscriberName, saveData] of saveDataMap) {
     const childTable = saveData[childTableName];
     if (childTable === undefined) {
       // This feature does not happen to store any variables on this particular child table
@@ -172,16 +189,18 @@ function restoreDefaults(childTableName: keyof SaveData) {
     }
 
     // Get the default values for this feature
-    const saveDataDefaults = saveDataDefaultsMap.get(key);
+    const saveDataDefaults = saveDataDefaultsMap.get(subscriberName);
     if (saveDataDefaults === undefined) {
-      error(`Failed to find the default copy of the save data for key: ${key}`);
+      error(
+        `Failed to find the default copy of the save data for subscriber: ${subscriberName}`,
+      );
     }
 
     // Get the default values for the specific sub-table of this feature
     const childTableDefaults = saveDataDefaults[childTableName];
     if (childTableDefaults === undefined) {
       error(
-        `Failed to find the default copy of the child table "${childTableName}" for key: ${key}`,
+        `Failed to find the default copy of the child table "${childTableName}" for subscriber: ${subscriberName}`,
       );
     }
 
@@ -191,155 +210,41 @@ function restoreDefaults(childTableName: keyof SaveData) {
 
     // We do not want to blow away the existing child table because we don't want to break any
     // existing references
-    // Instead, merge in the values
-    // (but only one level deep, or else arrays and maps would be merged)
-    merge(childTable as unknown as LuaTable, childTableDefaultsTableCopy, true);
-  }
-}
-
-function saveToDisk() {
-  if (mod === null) {
-    error('"saveDat.save()" was called without the mod being initialized.');
-  }
-
-  const allSaveData = getAllSaveDataWithoutRoom(true);
-  const jsonString = jsonEncode(allSaveData);
-  mod.SaveData(jsonString); // Write it to the "save#.dat" file
-}
-
-function loadFromDisk() {
-  if (mod === null) {
-    error("The save data manager is not initialized.");
-  }
-
-  if (!mod.HasData()) {
-    // There is no "save#.dat" file for this save slot
-    return;
-  }
-
-  const oldSaveData = getAllSaveDataWithoutRoom(false);
-
-  const jsonString = readSaveDatFile();
-  if (jsonString === null) {
-    return;
-  }
-  const newSaveData = jsonDecode(jsonString);
-
-  // We don't want to directly copy the old data into the map,
-  // because save data could contain out-of-date values
-  // Instead, merge it one field at a time in a recursive way
-  merge(oldSaveData, newSaveData);
-}
-
-function readSaveDatFile() {
-  const isaacFrameCount = Isaac.GetFrameCount();
-  const defaultModData = "{}";
-
-  const [ok, jsonStringOrErrMsg] = pcall(tryLoadModData);
-  if (!ok) {
-    log(
-      `Failed to read from the "save#.dat" file on Isaac frame ${isaacFrameCount}: ${jsonStringOrErrMsg}`,
+    // Instead, empty the table and copy all of the elements from the copy of the defaults table
+    clearAndCopyAllElements(
+      childTable as unknown as LuaTable,
+      childTableDefaultsTableCopy,
     );
-    return defaultModData;
   }
-
-  const jsonStringTrimmed = jsonStringOrErrMsg.trim();
-  if (jsonStringTrimmed === "") {
-    return defaultModData;
-  }
-
-  return jsonStringTrimmed;
-}
-
-function tryLoadModData(this: void) {
-  if (mod === null) {
-    error("The save data manager is not initialized.");
-  }
-
-  return mod.LoadData();
-}
-
-function getAllSaveDataWithoutRoom(pruneKeys: boolean) {
-  const allSaveData = new LuaTable();
-  for (const [key, saveData] of pairs(saveDataMap)) {
-    // Handle the feature of the save data manager where certain mod features can conditionally
-    // write their data to disk
-    if (pruneKeys) {
-      const conditionalFunc = saveDataConditionalFuncMap.get(key);
-      if (conditionalFunc !== undefined) {
-        const shouldSave = conditionalFunc();
-        if (!shouldSave) {
-          continue;
-        }
-      }
-    }
-
-    const saveDataWithoutRoom: SaveDataWithoutRoom = {
-      persistent: saveData.persistent,
-      run: saveData.run,
-      level: saveData.level,
-    };
-
-    allSaveData.set(key, saveDataWithoutRoom);
-  }
-
-  return allSaveData;
 }
 
 /**
- * merge takes the values from a new table and merges them into an old table.
- * It will only copy over values that are present in the old table.
- * In other words, it will ignore extraneous values in the new table.
- * (This is useful when loading out-of-date save data from the "save#.dat" file.)
+ * Will empty the old table of all elements, and then shallow copy all the elements from the new
+ * table to the old table.
  */
-function merge(oldTable: LuaTable, newTable: LuaTable, shallow = false): void {
-  if (type(oldTable) !== "table") {
-    error("The first argument given to the merge function is not a table.");
-  }
+function clearAndCopyAllElements(oldTable: LuaTable, newTable: LuaTable) {
+  tableClear(oldTable);
 
-  if (type(newTable) !== "table") {
-    error("The second argument given to the merge function is not a table.");
-  }
-
-  // Go through the old table, merging every found value
-  for (const [key, oldValue] of pairs(oldTable)) {
-    const newValue = newTable.get(key) as unknown;
-    const oldType = type(oldValue);
-    const newType = type(newValue);
-
-    // Do nothing if a property on the incoming table either does not exist or is a mismatched type
-    if (oldType !== newType) {
-      continue;
-    }
-
-    if (oldType === "table" && !shallow) {
-      // Recursively handle sub-tables
-      merge(oldValue, newValue as LuaTable);
-    } else {
-      // Base case: copy the value
-      oldTable.set(key, newValue);
-    }
-  }
-
-  // We also need to iterate through the new table in case it is:
-  // 1) an "array" (i.e. indexed by "1", "2", and so on)
-  // 2) a key-value object indexed by a number coerced to a string (i.e. indexed by "2182363682")
-  // In both of these cases, we always want to copy the values,
-  // since they indicate state data that will be independent of mod version
-  for (const [key, newValue] of pairs(newTable)) {
-    const num = tonumber(key);
-    if (num !== undefined) {
-      oldTable.set(key, newValue);
-    }
+  for (const [key, value] of pairs(newTable)) {
+    oldTable.set(key, value);
   }
 }
 
+/**
+ * The save data manager will automatically save variables to disk at the appropriate times (i.e.
+ * when the run is exited). Use this function to explicitly force the save data manager to write all
+ * of its variables to disk immediately.
+ */
 export function saveDataManagerSave(): void {
-  saveToDisk();
+  if (mod === null) {
+    error(DEFAULT_ERROR_MESSAGE);
+  }
+
+  saveToDisk(mod, saveDataMap, saveDataConditionalFuncMap);
 }
 
-declare let g: LuaTable<string, SaveData>; // Globals
-declare let gd: LuaTable<string, SaveData>; // Globals defaults
+declare let g: Map<string, SaveData>; // Globals
+declare let gd: Map<string, SaveData>; // Globals defaults
 
 /**
  * Sets the global variable of "g" equal to all of the save data variables for this mod.

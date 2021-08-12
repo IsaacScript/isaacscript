@@ -10,7 +10,7 @@ import * as postCursedTeleport from "./subscriptions/postCursedTeleport";
 const v = {
   run: {
     /** Values are game frame and whether or not the callback has fired on this frame. */
-    damageFrameMap: new LuaTable<PlayerIndex, [int, boolean]>(),
+    damageFrameMap: new Map<PlayerIndex, [int, boolean]>(),
   },
 
   level: {

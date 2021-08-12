@@ -16,87 +16,6 @@ export function changeRoom(roomIndex: int): void {
   game.ChangeRoom(roomIndex);
 }
 
-/** deepCopy recursively copies a table so that none of the nested references remain. */
-export function deepCopy(
-  oldTable: LuaTable,
-  tableName = "unknown" as AnyNotNil,
-): LuaTable {
-  const functionName = "deepCopy";
-
-  const oldTableType = type(oldTable);
-  if (oldTableType !== "table") {
-    error(
-      `The ${functionName} function was given a ${oldTableType} instead of a table.`,
-    );
-  }
-
-  const newTable = new LuaTable();
-
-  checkMetatable(functionName, oldTable, tableName);
-  copyAllFields(functionName, oldTable, newTable);
-
-  return newTable;
-}
-
-function checkMetatable(
-  functionName: string,
-  oldTable: LuaTable,
-  tableName: AnyNotNil,
-) {
-  // Lua tables can have metatables, which make writing a generic deep-cloner impossible
-  // All TypeScriptToLua objects use metatables
-  const metatable = getmetatable(oldTable);
-  if (metatable === null) {
-    return;
-  }
-
-  if (oldTable instanceof Map) {
-    error(
-      `The ${functionName} function does not support cloning Maps. Please use the LuaTable type as a drop-in replacement for a Map.`,
-    );
-  }
-
-  const tableNameType = type(tableName);
-  const tableDescription =
-    tableNameType === "string"
-      ? `the "${tableName}" table`
-      : "a child element of the table to copy";
-
-  error(
-    `The ${functionName} function detected that ${tableDescription} has a metatable. Copying tables with metatables is not supported.`,
-  );
-}
-
-function copyAllFields(
-  functionName: string,
-  oldTable: LuaTable,
-  newTable: LuaTable,
-) {
-  for (const [key, value] of pairs(oldTable)) {
-    const valueType = type(value);
-
-    if (
-      valueType === "function" ||
-      valueType === "nil" ||
-      valueType === "thread" ||
-      valueType === "userdata"
-    ) {
-      error(
-        `The ${functionName} function does not support cloning tables that have elements of type ${valueType} in them.`,
-      );
-    }
-
-    let newValue: unknown;
-    if (valueType === "table") {
-      newValue = deepCopy(value, key);
-    } else {
-      newValue = value;
-    }
-
-    newTable.set(key, newValue);
-  }
-}
-
 /**
  * Helper function to get type safety on a switch statement.
  * Very useful to be future-safe against people adding values to a type or an enum.
@@ -260,4 +179,14 @@ export function onSetSeed(): boolean {
   const challenge = Isaac.GetChallenge();
 
   return challenge === Challenge.CHALLENGE_NULL && customRun;
+}
+
+/**
+ * In a Map, you can use the `clear` method to delete every element. However, in a LuaTable, the
+ * `clear` method does not exist. Use this helper function as a drop-in replacement for this.
+ */
+export function tableClear(table: LuaTable): void {
+  for (const [key] of pairs(table)) {
+    table.delete(key);
+  }
 }

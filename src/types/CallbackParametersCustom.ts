@@ -11,6 +11,8 @@ import { PostItemPickupCallbackType } from "../callbacks/subscriptions/postItemP
 import { PostNewLevelReorderedCallbackType } from "../callbacks/subscriptions/postNewLevelReordered";
 import { PostNewRoomReorderedCallbackType } from "../callbacks/subscriptions/postNewRoomReordered";
 import { PostPlayerChangeTypeCallbackType } from "../callbacks/subscriptions/postPlayerChangeType";
+import { PostPlayerInitReorderedCallbackType } from "../callbacks/subscriptions/postPlayerInitReordered";
+import { PostPlayerUpdateReorderedCallbackType } from "../callbacks/subscriptions/postPlayerUpdateReordered";
 import { PostSacrificeCallbackType } from "../callbacks/subscriptions/postSacrifice";
 import { PostTransformationCallbackType } from "../callbacks/subscriptions/postTransformation";
 import { PreItemPickupCallbackType } from "../callbacks/subscriptions/preItemPickup";
@@ -25,6 +27,14 @@ export default interface CallbackParametersCustom {
   ];
   [ModCallbacksCustom.MC_POST_NEW_ROOM_REORDERED]: [
     callback: PostNewRoomReorderedCallbackType,
+  ];
+  [ModCallbacksCustom.MC_POST_PLAYER_INIT_REORDERED]: [
+    callback: PostPlayerInitReorderedCallbackType,
+    playerVariant?: PlayerVariant,
+  ];
+  [ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED]: [
+    callback: PostPlayerUpdateReorderedCallbackType,
+    playerVariant?: PlayerVariant,
   ];
   [ModCallbacksCustom.MC_PRE_ITEM_PICKUP]: [
     callback: PreItemPickupCallbackType,

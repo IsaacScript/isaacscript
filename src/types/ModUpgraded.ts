@@ -11,6 +11,8 @@ import * as postItemPickup from "../callbacks/subscriptions/postItemPickup";
 import * as postNewLevelReordered from "../callbacks/subscriptions/postNewLevelReordered";
 import * as postNewRoomReordered from "../callbacks/subscriptions/postNewRoomReordered";
 import * as postPlayerChangeType from "../callbacks/subscriptions/postPlayerChangeType";
+import * as postPlayerInitReordered from "../callbacks/subscriptions/postPlayerInitReordered";
+import * as postPlayerUpdateReordered from "../callbacks/subscriptions/postPlayerUpdateReordered";
 import * as postSacrifice from "../callbacks/subscriptions/postSacrifice";
 import * as postTransformation from "../callbacks/subscriptions/postTransformation";
 import * as preItemPickup from "../callbacks/subscriptions/preItemPickup";
@@ -79,6 +81,20 @@ export default class ModUpgraded implements Mod {
       case ModCallbacksCustom.MC_POST_NEW_ROOM_REORDERED: {
         postNewRoomReordered.register(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_NEW_ROOM_REORDERED]),
+        );
+        break;
+      }
+
+      case ModCallbacksCustom.MC_POST_PLAYER_INIT_REORDERED: {
+        postPlayerInitReordered.register(
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_PLAYER_INIT_REORDERED]),
+        );
+        break;
+      }
+
+      case ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED: {
+        postPlayerUpdateReordered.register(
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED]),
         );
         break;
       }

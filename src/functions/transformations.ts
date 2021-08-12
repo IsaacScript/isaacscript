@@ -60,7 +60,7 @@ export function getPlayerNumTransformationCollectibles(
 ): int {
   if (TRANSFORMATIONS_NOT_TRACKED.includes(playerForm)) {
     error(
-      `The transformation of ${playerForm} cannot be tracked this function.`,
+      `The transformation of ${playerForm} cannot be tracked by this function.`,
     );
   }
 

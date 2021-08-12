@@ -1,37 +1,39 @@
 import { saveDataManager } from "../features/saveDataManager";
 import { initArray } from "../functions/array";
 import { getPlayerIndex, PlayerIndex } from "../functions/player";
+import ModCallbacksCustom from "../types/ModCallbacksCustom";
+import ModUpgraded from "../types/ModUpgraded";
 import * as postTransformation from "./subscriptions/postTransformation";
 
 const v = {
   run: {
-    transformations: new LuaTable<PlayerIndex, boolean[]>(),
+    transformations: new Map<PlayerIndex, boolean[]>(),
   },
 };
 
-export function init(mod: Mod): void {
+export function init(mod: ModUpgraded): void {
   saveDataManager("postTransformationCallback", v, hasSubscriptions);
 
-  mod.AddCallback(
-    ModCallbacks.MC_POST_PLAYER_INIT,
-    postPlayerInitPlayer,
+  mod.AddCallbackCustom(
+    ModCallbacksCustom.MC_POST_PLAYER_INIT_REORDERED,
+    postPlayerInitReorderedPlayer,
     PlayerVariant.PLAYER, // Co-op babies cannot transform
-  ); // 9
+  );
 
-  mod.AddCallback(
-    ModCallbacks.MC_POST_PLAYER_UPDATE,
-    postPlayerUpdatePlayer,
+  mod.AddCallbackCustom(
+    ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED,
+    postPlayerUpdateReorderedPlayer,
     PlayerVariant.PLAYER, // Co-op babies cannot transform
-  ); // 31
+  );
 }
 
 function hasSubscriptions() {
   return postTransformation.hasSubscriptions();
 }
 
-// ModCallbacks.MC_POST_PLAYER_INIT (9)
+// ModCallbacks.MC_POST_PLAYER_INIT_REORDERED
 // PlayerVariant.PLAYER (0)
-function postPlayerInitPlayer(player: EntityPlayer) {
+function postPlayerInitReorderedPlayer(player: EntityPlayer) {
   if (!hasSubscriptions()) {
     return;
   }
@@ -41,9 +43,9 @@ function postPlayerInitPlayer(player: EntityPlayer) {
   v.run.transformations.set(index, transformations);
 }
 
-// ModCallbacks.MC_POST_PLAYER_UPDATE (31)
+// ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED
 // PlayerVariant.PLAYER (0)
-function postPlayerUpdatePlayer(player: EntityPlayer) {
+function postPlayerUpdateReorderedPlayer(player: EntityPlayer) {
   if (!hasSubscriptions()) {
     return;
   }

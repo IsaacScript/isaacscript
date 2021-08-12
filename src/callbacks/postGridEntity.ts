@@ -6,7 +6,7 @@ import * as postGridEntityUpdate from "./subscriptions/postGridEntityUpdate";
 
 const v = {
   room: {
-    initializedGridEntities: new LuaTable<int, GridEntityType>(),
+    initializedGridEntities: new Map<int, GridEntityType>(),
   },
 };
 
@@ -41,9 +41,7 @@ function postUpdate() {
 
   // Check to see if any grid entities have disappeared and remove them from the initialized map if
   // so
-  for (const [gridIndex, gridEntityType] of pairs(
-    v.room.initializedGridEntities,
-  )) {
+  for (const [gridIndex, gridEntityType] of v.room.initializedGridEntities) {
     const gridEntity = room.GetGridEntity(gridIndex);
     if (gridEntity === null || gridEntity.GetType() !== gridEntityType) {
       v.room.initializedGridEntities.delete(gridIndex);

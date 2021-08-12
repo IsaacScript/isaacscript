@@ -1,48 +1,38 @@
 import { saveDataManager } from "../features/saveDataManager";
 import { getPlayerIndex, PlayerIndex } from "../functions/player";
+import ModCallbacksCustom from "../types/ModCallbacksCustom";
+import ModUpgraded from "../types/ModUpgraded";
 import * as postPlayerChangeType from "./subscriptions/postPlayerChangeType";
 
 const v = {
   run: {
-    characterMap: new LuaTable<PlayerIndex, int>(),
+    characterMap: new Map<PlayerIndex, int>(),
   },
 };
 
-export function init(mod: Mod): void {
+export function init(mod: ModUpgraded): void {
   saveDataManager("postPlayerChangeTypeCallback", v, hasSubscriptions);
 
-  mod.AddCallback(
-    ModCallbacks.MC_POST_PLAYER_INIT,
-    postPlayerInitPlayer,
+  mod.AddCallbackCustom(
+    ModCallbacksCustom.MC_POST_PLAYER_INIT_REORDERED,
+    postPlayerInitReorderedPlayer,
     PlayerVariant.PLAYER, // Co-op babies cannot change player type
-  ); // 9
+  );
 
-  mod.AddCallback(
-    ModCallbacks.MC_POST_PLAYER_UPDATE,
-    postPlayerUpdatePlayer,
+  mod.AddCallbackCustom(
+    ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED,
+    postPlayerUpdateReorderedPlayer,
     PlayerVariant.PLAYER, // Co-op babies cannot change player type
-  ); // 31
+  );
 }
 
 function hasSubscriptions() {
   return postPlayerChangeType.hasSubscriptions();
 }
 
-// ModCallbacks.MC_POST_PLAYER_INIT (9)
+// ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED
 // PlayerVariant.PLAYER (0)
-function postPlayerInitPlayer(player: EntityPlayer) {
-  if (!hasSubscriptions()) {
-    return;
-  }
-
-  const playerIndex = getPlayerIndex(player);
-  const character = player.GetPlayerType();
-  v.run.characterMap.set(playerIndex, character);
-}
-
-// ModCallbacks.MC_POST_PLAYER_UPDATE (31)
-// PlayerVariant.PLAYER (0)
-function postPlayerUpdatePlayer(player: EntityPlayer): void {
+function postPlayerUpdateReorderedPlayer(player: EntityPlayer): void {
   if (!hasSubscriptions()) {
     return;
   }
@@ -54,4 +44,16 @@ function postPlayerUpdatePlayer(player: EntityPlayer): void {
     v.run.characterMap.set(index, character);
     postPlayerChangeType.fire(player);
   }
+}
+
+// ModCallbacks.MC_POST_PLAYER_INIT_REORDERED
+// PlayerVariant.PLAYER (0)
+function postPlayerInitReorderedPlayer(player: EntityPlayer) {
+  if (!hasSubscriptions()) {
+    return;
+  }
+
+  const playerIndex = getPlayerIndex(player);
+  const character = player.GetPlayerType();
+  v.run.characterMap.set(playerIndex, character);
 }
