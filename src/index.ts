@@ -28,6 +28,7 @@ export * from "./functions/player";
 export * from "./functions/random";
 export * from "./functions/stage";
 export * from "./functions/tears";
+export * from "./functions/transformations";
 export * from "./functions/ui";
 export * from "./functions/util";
 export { default as CallbackParametersCustom } from "./types/CallbackParametersCustom";
