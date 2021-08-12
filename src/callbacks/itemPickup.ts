@@ -18,12 +18,6 @@ export function init(mod: ModUpgraded): void {
   saveDataManager("itemPickupCallback", v, hasSubscriptions);
 
   mod.AddCallbackCustom(
-    ModCallbacksCustom.MC_POST_PLAYER_INIT_REORDERED,
-    postPlayerInitReorderedPlayer,
-    PlayerVariant.PLAYER, // Co-op babies cannot take items
-  );
-
-  mod.AddCallbackCustom(
     ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED,
     postPlayerUpdateReorderedPlayer,
     PlayerVariant.PLAYER, // Co-op babies cannot take items
@@ -32,21 +26,6 @@ export function init(mod: ModUpgraded): void {
 
 function hasSubscriptions() {
   return preItemPickup.hasSubscriptions() || postItemPickup.hasSubscriptions();
-}
-
-// ModCallbacksCustom.MC_POST_PLAYER_INIT_REORDERED
-// PlayerVariant.PLAYER (0)
-function postPlayerInitReorderedPlayer(player: EntityPlayer) {
-  if (!hasSubscriptions()) {
-    return;
-  }
-
-  const index = getPlayerIndex(player);
-  const defaultPickingUpItem = {
-    id: CollectibleType.COLLECTIBLE_NULL,
-    type: ItemType.ITEM_NULL,
-  };
-  v.run.pickingUpItem.set(index, defaultPickingUpItem);
 }
 
 // ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED
@@ -90,9 +69,14 @@ function queueNotEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
 
 function getPickingUpItemForPlayer(player: EntityPlayer) {
   const index = getPlayerIndex(player);
-  const pickingUpItem = v.run.pickingUpItem.get(index);
+
+  let pickingUpItem = v.run.pickingUpItem.get(index);
   if (pickingUpItem === undefined) {
-    error(`Failed to get the picking up item for player: ${index}`);
+    pickingUpItem = {
+      id: CollectibleType.COLLECTIBLE_NULL,
+      type: ItemType.ITEM_NULL,
+    };
+    v.run.pickingUpItem.set(index, pickingUpItem);
   }
 
   return pickingUpItem;
