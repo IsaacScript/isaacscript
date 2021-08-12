@@ -4,8 +4,7 @@ import * as postEsauJr from "./callbacks/postEsauJr";
 import * as postFlip from "./callbacks/postFlip";
 import * as postGridEntity from "./callbacks/postGridEntity";
 import * as postPlayerChangeType from "./callbacks/postPlayerChangeType";
-import * as postPlayerInitReordered from "./callbacks/postPlayerInitReordered";
-import * as postPlayerUpdateReordered from "./callbacks/postPlayerUpdateReordered";
+import * as postPlayerReordered from "./callbacks/postPlayerReordered";
 import * as postSacrifice from "./callbacks/postSacrifice";
 import * as postTransformation from "./callbacks/postTransformation";
 import * as reorderedCallbacks from "./callbacks/reorderedCallbacks";
@@ -47,8 +46,7 @@ function initFeatures(modUpgraded: ModUpgraded) {
 
 function initCustomCallbacks(modUpgraded: ModUpgraded) {
   reorderedCallbacks.init(modUpgraded);
-  postPlayerInitReordered.init(modUpgraded);
-  postPlayerUpdateReordered.init(modUpgraded);
+  postPlayerReordered.init(modUpgraded);
   itemPickup.init(modUpgraded);
   postPlayerChangeType.init(modUpgraded);
   postFlip.init(modUpgraded);

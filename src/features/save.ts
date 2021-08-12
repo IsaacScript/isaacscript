@@ -1,5 +1,6 @@
 import { deepCopy } from "../functions/deepCopy";
 import { jsonEncode } from "../functions/json";
+import { log } from "../functions/log";
 import { SaveData, SaveDataWithoutRoom } from "../types/SaveData";
 
 export function saveToDisk(
@@ -13,6 +14,7 @@ export function saveToDisk(
   );
   const jsonString = jsonEncode(allSaveData);
   mod.SaveData(jsonString); // Write it to the "save#.dat" file
+  log('The save data manager wrote data to the "save#.dat" file.');
 }
 
 function getAllSaveDataToWriteToDisk(

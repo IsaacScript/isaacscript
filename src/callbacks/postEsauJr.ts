@@ -1,3 +1,5 @@
+// This provides the logic for PostEsauJr and PostFirstEsauJr
+
 import { saveDataManager } from "../features/saveDataManager";
 import { getPlayers } from "../functions/player";
 import * as postEsauJr from "./subscriptions/postEsauJr";

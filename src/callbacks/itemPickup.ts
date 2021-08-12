@@ -1,3 +1,5 @@
+// This provides the logic for PreItemPickup and PostItemPickup
+
 import { saveDataManager } from "../features/saveDataManager";
 import { getPlayerIndex, PlayerIndex } from "../functions/player";
 import ModCallbacksCustom from "../types/ModCallbacksCustom";

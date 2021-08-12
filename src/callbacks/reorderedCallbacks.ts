@@ -1,3 +1,6 @@
+// This provides the logic for PostGameStartedReordered, PostNewLevelReordered,
+// and PostNewRoomReordered
+
 // By default, callbacks fire in the following order:
 // PostNewRoom --> PostNewLevel --> PostGameStarted
 // It is easier to write mod code if the callbacks run in a more logical order:

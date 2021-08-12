@@ -1,9 +1,11 @@
 import { isArray } from "../functions/array";
+import { addTraversalDescription } from "../functions/deepCopy";
 import { jsonDecode } from "../functions/json";
 import { log } from "../functions/log";
 import { tableClear } from "../functions/util";
 import { SaveData } from "../types/SaveData";
 
+const DEBUG = true;
 const DEFAULT_MOD_DATA = "{}";
 
 export function loadFromDisk(
@@ -21,6 +23,10 @@ export function loadFromDisk(
     return;
   }
   const newSaveData = jsonDecode(jsonString);
+
+  if (DEBUG) {
+    log('Converted data from the "save#.dat" to a Lua table.');
+  }
 
   // Second, iterate over all the fields of the new table
   for (const [key, value] of pairs(newSaveData)) {
@@ -46,12 +52,18 @@ export function loadFromDisk(
       continue;
     }
 
+    if (DEBUG) {
+      log(`Merging in stored data for feature: ${key}`);
+    }
+
     // We do not want to blow away the child tables of the existing map,
     // because save data could contain out-of-date fields
     // Instead, merge it one field at a time in a recursive way
     // (and convert Lua tables back to TypeScriptToLua Maps, if necessary)
-    merge(oldSaveDataForSubscriber as LuaTable, value);
+    merge(oldSaveDataForSubscriber as LuaTable, value, key as string);
   }
+
+  log('The save data manager loaded data from the "save#.dat" file.');
 }
 
 function readSaveDatFile(mod: Mod) {
@@ -85,7 +97,11 @@ function tryLoadModData(this: void, mod: Mod) {
  * It will also fill any TypeScriptToLua Maps with appropriate values from a corresponding Lua
  * table.
  */
-function merge(oldTable: LuaTable, newTable: LuaTable): void {
+function merge(
+  oldTable: LuaTable,
+  newTable: LuaTable,
+  traversalDescription: string,
+): void {
   if (type(oldTable) !== "table") {
     error("The first argument given to the merge function is not a table.");
   }
@@ -96,11 +112,27 @@ function merge(oldTable: LuaTable, newTable: LuaTable): void {
 
   // First, handle the case of a TypeScriptToLua Map
   if (oldTable instanceof Map) {
-    // Assume that we should blow away all Map values with whatever is present in the incoming table
-    oldTable.clear();
-    for (const [key, value] of pairs(newTable)) {
-      oldTable.set(key, value);
+    const oldMap = oldTable as Map<AnyNotNil, unknown>;
+
+    if (DEBUG) {
+      log(
+        `Converting the "${traversalDescription}" table to a TypeScriptToLua Map.`,
+      );
     }
+
+    // Assume that we should blow away all Map values with whatever is present in the incoming table
+    oldMap.clear();
+    for (const [key, value] of pairs(newTable)) {
+      if (DEBUG) {
+        log(`Setting ${key} --> ${value}`);
+      }
+      oldMap.set(key, value);
+    }
+
+    if (DEBUG) {
+      log(`Size of merged Map "${traversalDescription}": ${oldMap.size}`);
+    }
+
     return;
   }
 
@@ -129,7 +161,8 @@ function merge(oldTable: LuaTable, newTable: LuaTable): void {
 
     if (oldType === "table") {
       // Recursively handle sub-tables
-      merge(oldValue, newValue as LuaTable);
+      traversalDescription = addTraversalDescription(key, traversalDescription);
+      merge(oldValue, newValue as LuaTable, traversalDescription);
     } else {
       // Base case: copy the value
       oldTable.set(key, newValue);
