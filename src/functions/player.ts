@@ -186,6 +186,10 @@ export function getPlayerIndexVanilla(playerToFind: EntityPlayer): int | null {
   return null;
 }
 
+/**
+ * Returns the combined value of all of the player's red hearts, soul/black hearts, and bone hearts.
+ * This is equivalent to the number of hits that the player can currently take.
+ */
 export function getPlayerNumAllHearts(player: EntityPlayer): int {
   const hearts = player.GetHearts();
   const soulHearts = player.GetSoulHearts();
