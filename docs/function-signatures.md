@@ -553,7 +553,7 @@ Similar to the vanilla callback of the same name, but fires in the correct order
 PostGameStarted --> PostNewLevel --> PostNewRoom
 
 ```ts
-function postGameStarted(isContinued: boolean): void {}
+function postGameStartedReordered(isContinued: boolean): void {}
 ```
 
 ### MC_POST_NEW_LEVEL_REORDERED
@@ -565,7 +565,7 @@ PostGameStarted --> PostNewLevel --> PostNewRoom
 If some specific cases, mods can change the current level during run initialization (on the 0th frame). However, due to how the callback reordering works, the custom PostNewLevel callback will never fire on the 0th frame. To get around this, call the `forceNewLevelCallback()` function before changing levels to temporarily force the callback to fire.
 
 ```ts
-function postNewLevel(): void {}
+function postNewLevelReordered(): void {}
 ```
 
 ### MC_POST_NEW_ROOM_REORDERED
@@ -577,7 +577,22 @@ PostGameStarted --> PostNewLevel --> PostNewRoom
 If some specific cases, mods can change the current room during run initialization (on the 0th frame). However, due to how the callback reordering works, the custom PostNewRoom callback will never fire on the 0th frame. To get around this, call the `forceNewRoomCallback()` function before changing levels to temporarily force the callback to fire.
 
 ```ts
-function postNewRoom(): void {}
+function postNewRoomReordered(): void {}
+```
+
+### MC_POST_PLAYER_INIT_REORDERED
+
+Similar to the vanilla callback of the same name, but fires after the PostGameStarted callback fires (if the player is spawning on the 0th game frame of the run).
+
+This callback is useful for two reasons:
+
+1. Normally, the PostPlayerInit fires before any other callbacks. Since mod variables are often reset at the beginning of the PostGameStarted callback, any variable related initialization done in the PostPlayerInit callback may be blown away. (This includes any run-based save data that the Save Data Manager is managing for you.)
+1. Some functions do not work (or crash the game) when called in the PostPlayerInit callback, since the run is not fully initialized yet. For example, since the level is not generated yet, you will not be able to access any rooms.
+
+- When registering the callback, takes an optional second argument that will make the callback only fire if the player matches the `PlayerVariant` provided.
+
+```ts
+function postPlayerInitReordered(player: EntityPlayer): void {}
 ```
 
 ### MC_PRE_ITEM_PICKUP
