@@ -586,7 +586,7 @@ Similar to the vanilla callback of the same name, but fires after the PostGameSt
 
 This callback is useful for two reasons:
 
-1. Normally, the PostPlayerInit fires before any other callbacks. Since mod variables are often reset at the beginning of the PostGameStarted callback, any variable related initialization done in the PostPlayerInit callback may be blown away. (This includes any run-based save data that the Save Data Manager is managing for you.)
+1. Normally, PostPlayerInit fires before any other callbacks. Since mod variables are often reset at the beginning of the PostGameStarted callback, any variable related initialization done in the PostPlayerInit callback may be blown away. (This includes any run-based save data that the Save Data Manager is managing for you.)
 1. Some functions do not work (or crash the game) when called in the PostPlayerInit callback, since the run is not fully initialized yet. For example, since the level is not generated yet, you will not be able to access any rooms.
 
 - When registering the callback, takes an optional second argument that will make the callback only fire if the player matches the `PlayerVariant` provided.
