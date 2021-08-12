@@ -586,13 +586,28 @@ Similar to the vanilla callback of the same name, but fires after the PostGameSt
 
 This callback is useful for two reasons:
 
-1. Normally, PostPlayerInit fires before any other callbacks. Since mod variables are often reset at the beginning of the PostGameStarted callback, any variable related initialization done in the PostPlayerInit callback may be blown away. (This includes any run-based save data that the Save Data Manager is managing for you.)
-1. Some functions do not work (or crash the game) when called in the PostPlayerInit callback, since the run is not fully initialized yet. For example, since the level is not generated yet, you will not be able to access any rooms.
+1. Normally, PostPlayerUpdate fires before PostGameStarted. Since mod variables are often initialized at the beginning of the PostGameStarted callback, this can cause problems.
+1. Some functions do not work (or crash the game) when called before the PostNewRoom callback. For example, since the level is not generated yet, you will not be able to access any rooms.
 
 - When registering the callback, takes an optional second argument that will make the callback only fire if the player matches the `PlayerVariant` provided.
 
 ```ts
 function postPlayerInitReordered(player: EntityPlayer): void {}
+```
+
+### MC_POST_PLAYER_UPDATE_REORDERED
+
+Similar to the vanilla callback of the same name, but fires after the PostGameStarted callback fires (if the player is being updated on the 0th game frame of the run).
+
+This callback is useful for two reasons:
+
+1. Normally, PostPlayerUpdate fires before PostGameStarted. Since mod variables are often initialized at the beginning of the PostGameStarted callback, this can cause problems.
+1. Some functions do not work (or crash the game) when called before the PostNewRoom callback. For example, since the level is not generated yet, you will not be able to access any rooms.
+
+- When registering the callback, takes an optional second argument that will make the callback only fire if the player matches the `PlayerVariant` provided.
+
+```ts
+function postPlayerUpdateReordered(player: EntityPlayer): void {}
 ```
 
 ### MC_PRE_ITEM_PICKUP
