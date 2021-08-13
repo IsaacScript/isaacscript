@@ -10,7 +10,6 @@ const DEFAULT_ERROR_MESSAGE =
 
 let mod: Mod | null = null;
 let loadedDataOnThisRun = false;
-let skipWipingLevelData = false;
 
 // The master save data map is indexed by subscriber name
 // We use Lua tables instead of TypeScriptToLua Maps for the master map so that we can access the
@@ -39,19 +38,20 @@ function postPlayerInit() {
     return;
   }
   loadedDataOnThisRun = true;
-  skipWipingLevelData = true;
 
   // We want to unconditionally load save data on every new run since there might be persistent data
   // that is not tied to an individual run
-  // Since the PostGameStarted callback fires after the PostNewLevel and the PostNewRoom callbacks,
-  // we do not have to worry about our loaded data being overwritten in subsequent callbacks
   loadFromDisk(mod, saveDataMap);
 
   const game = Game();
   const gameFrameCount = game.GetFrameCount();
-  if (gameFrameCount === 0) {
+  const isContinued = gameFrameCount !== 0;
+  if (!isContinued) {
     restoreDefaultsAll();
   }
+
+  // On continued runs, the PostNewLevel callback will not fire, so we do not have to worry about
+  // saved data based on level getting overwritten
 }
 
 // ModCallbacks.MC_PRE_GAME_EXIT (17)
@@ -70,11 +70,6 @@ function preGameExit(shouldSave: boolean) {
 
 // ModCallbacks.MC_POST_NEW_LEVEL (18)
 function postNewLevel() {
-  if (skipWipingLevelData) {
-    skipWipingLevelData = false;
-    return;
-  }
-
   restoreDefaults(SaveDataKeys.Level);
 }
 
