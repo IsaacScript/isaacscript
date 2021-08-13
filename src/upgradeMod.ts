@@ -8,7 +8,7 @@ import * as postPlayerReordered from "./callbacks/postPlayerReordered";
 import * as postSacrifice from "./callbacks/postSacrifice";
 import * as postTransformation from "./callbacks/postTransformation";
 import * as reorderedCallbacks from "./callbacks/reorderedCallbacks";
-import * as saveDataManager from "./features/saveDataManager";
+import * as saveDataManager from "./features/saveDataManager/main";
 import ModUpgraded from "./types/ModUpgraded";
 
 /**

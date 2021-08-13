@@ -13,7 +13,7 @@ export {
   saveDataManager,
   saveDataManagerSave,
   saveDataManagerSetGlobal,
-} from "./features/saveDataManager";
+} from "./features/saveDataManager/main";
 export * from "./functions/array";
 export { deepCopy } from "./functions/deepCopy";
 export * from "./functions/entity";

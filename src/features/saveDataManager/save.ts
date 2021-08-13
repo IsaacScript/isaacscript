@@ -1,7 +1,7 @@
-import { deepCopy } from "../functions/deepCopy";
-import { jsonEncode } from "../functions/json";
-import { log } from "../functions/log";
-import { SaveData, SaveDataWithoutRoom } from "../types/SaveData";
+import { deepCopy } from "../../functions/deepCopy";
+import { jsonEncode } from "../../functions/json";
+import { log } from "../../functions/log";
+import { SaveData, SaveDataWithoutRoom } from "../../types/SaveData";
 
 export function saveToDisk(
   mod: Mod,

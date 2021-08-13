@@ -54,10 +54,6 @@ function postPlayerUpdate(player: EntityPlayer) {
 
 // ModCallbacks.MC_POST_GAME_STARTED (15)
 function postGameStarted() {
-  Isaac.DebugString(
-    "ModCallbacks.MC_POST_GAME_STARTED - postPlayerReordered.ts",
-  );
-
   if (!hasSubscriptions()) {
     return;
   }

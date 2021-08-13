@@ -1,6 +1,6 @@
 // This provides the logic for PostFlip and PostFirstFlip
 
-import { saveDataManager } from "../features/saveDataManager";
+import { saveDataManager } from "../features/saveDataManager/main";
 import * as postFirstFlip from "./subscriptions/postFirstFlip";
 import * as postFlip from "./subscriptions/postFlip";
 

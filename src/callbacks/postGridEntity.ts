@@ -1,6 +1,6 @@
 // This provides the logic for PostGridEntityInit, PostGridEntityUpdate, and PostGridEntityRemove
 
-import { saveDataManager } from "../features/saveDataManager";
+import { saveDataManager } from "../features/saveDataManager/main";
 import { getGridEntities } from "../functions/gridEntity";
 import * as postGridEntityInit from "./subscriptions/postGridEntityInit";
 import * as postGridEntityRemove from "./subscriptions/postGridEntityRemove";

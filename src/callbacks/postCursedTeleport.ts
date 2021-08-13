@@ -1,4 +1,4 @@
-import { saveDataManager } from "../features/saveDataManager";
+import { saveDataManager } from "../features/saveDataManager/main";
 import { hasFlag } from "../functions/flag";
 import {
   getPlayerIndex,

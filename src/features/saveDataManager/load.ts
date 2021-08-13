@@ -1,9 +1,9 @@
-import { isArray } from "../functions/array";
-import { addTraversalDescription } from "../functions/deepCopy";
-import { jsonDecode } from "../functions/json";
-import { log } from "../functions/log";
-import { tableClear } from "../functions/util";
-import { SaveData } from "../types/SaveData";
+import { isArray } from "../../functions/array";
+import { addTraversalDescription } from "../../functions/deepCopy";
+import { jsonDecode } from "../../functions/json";
+import { log } from "../../functions/log";
+import { tableClear } from "../../functions/util";
+import { SaveData } from "../../types/SaveData";
 
 const DEBUG = false;
 const DEFAULT_MOD_DATA = "{}";
