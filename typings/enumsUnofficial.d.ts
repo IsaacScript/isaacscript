@@ -293,6 +293,16 @@ declare const enum ItemConfigCardType {
   CARDTYPE_TAROT_REVERSE = 5,
 }
 
+declare const enum DevilRoomSubType {
+  NORMAL = 0,
+  NUMBER_SIX_TRINKET_ROOM = 1,
+}
+
+declare const enum AngelRoomSubType {
+  NORMAL = 0,
+  SHOP = 1,
+}
+
 /**
  * The type of a grid entity as represented in a room XML/STB file.
  * This is converted by the game to the GridEntityType enum.
