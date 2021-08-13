@@ -3,7 +3,6 @@ export {
   forceNewRoomCallback,
 } from "./callbacks/reorderedCallbacks";
 export {
-  BEAST_ROOM_SUBTYPE,
   FIRST_GLITCHED_COLLECTIBLE_TYPE,
   MAX_NUM_DOORS,
   MAX_NUM_INPUTS,
