@@ -303,6 +303,18 @@ declare const enum AngelRoomSubType {
   SHOP = 1,
 }
 
+declare const enum HomeRoomSubType {
+  ISAACS_BEDROOM = 0,
+  HALLWAY = 1,
+  MOMS_BEDROOM = 2,
+  LIVING_ROOM = 3,
+  BEAST_ROOM = 4,
+  CLOSET_RIGHT = 10,
+  CLOSET_LEFT = 11,
+  DEATH_CERTIFICATE_ENTRANCE = 33,
+  DEATH_CERTIFICATE_ITEMS = 33,
+}
+
 declare const enum BackwardsPathRoomSubType {
   EXIT = 0,
   BASEMENT = 1,
