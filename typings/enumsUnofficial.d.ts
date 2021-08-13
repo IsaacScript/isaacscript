@@ -303,6 +303,16 @@ declare const enum AngelRoomSubType {
   SHOP = 1,
 }
 
+declare const enum BackwardsPathRoomSubType {
+  EXIT = 0,
+  BASEMENT = 1,
+  CAVES = 4,
+  DEPTHS = 7,
+  DOWNPOUR = 27,
+  MINES = 29,
+  MAUSOLEUM = 31,
+}
+
 /**
  * The type of a grid entity as represented in a room XML/STB file.
  * This is converted by the game to the GridEntityType enum.
