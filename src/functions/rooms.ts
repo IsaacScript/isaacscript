@@ -1,5 +1,3 @@
-import { BEAST_ROOM_SUBTYPE } from "../constants";
-
 /**
  * Helper function for quickly switching to a new room without playing a particular animation.
  * Always use this helper function over invoking `Game().ChangeRoom()` directly to ensure that you
@@ -80,6 +78,6 @@ export function inCrawlspace(): boolean {
 
   return (
     roomIndex === GridRooms.ROOM_DUNGEON_IDX &&
-    roomSubType !== BEAST_ROOM_SUBTYPE
+    roomSubType !== HomeRoomSubType.BEAST_ROOM
   );
 }

@@ -1,5 +1,3 @@
-export const BEAST_ROOM_SUBTYPE = 4;
-
 /**
  * The random items that appear when the player has TMTRAINER are generated on the fly as they are
  * encountered by the player. The first TMTRAINER item takes the final possible 32 bit number. The
