@@ -18,6 +18,9 @@ export const MAX_NUM_DOORS = 8;
 /** The game can only handle up to four different players. */
 export const MAX_NUM_INPUTS = 4;
 
+export const MAX_VANILLA_COLLECTIBLE_TYPE =
+  CollectibleType.COLLECTIBLE_DECAP_ATTACK;
+
 /**
  * This is the ShiftIdx that Blade recommended after having reviewing the game's internal functions.
  * Any value between 0 and 80 should work equally well.

@@ -7,6 +7,7 @@ export {
   FIRST_TMTRAINER_COLLECTIBLE_TYPE,
   MAX_NUM_DOORS,
   MAX_NUM_INPUTS,
+  MAX_VANILLA_COLLECTIBLE_TYPE,
 } from "./constants";
 export * from "./enums";
 export {
