@@ -19,6 +19,7 @@ const saveDataMap = new LuaTable<string, SaveData>();
 const saveDataDefaultsMap = new LuaTable<string, SaveData>();
 const saveDataConditionalFuncMap = new Map<string, () => boolean>();
 
+/** @hidden */
 export function init(incomingMod: ModUpgraded): void {
   mod = incomingMod;
 
