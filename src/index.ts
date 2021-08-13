@@ -27,6 +27,7 @@ export * from "./functions/log";
 export * from "./functions/math";
 export * from "./functions/player";
 export * from "./functions/random";
+export * from "./functions/rooms";
 export * from "./functions/stage";
 export * from "./functions/tears";
 export * from "./functions/transformations";

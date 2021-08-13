@@ -1,3 +1,8 @@
+export function getAngleDifference(angle1: float, angle2: float): float {
+  const subtractedAngle = angle1 - angle2;
+  return ((subtractedAngle + 180) % 360) - 180;
+}
+
 export function isEven(num: int): boolean {
   return (num & 1) === 0;
 }
