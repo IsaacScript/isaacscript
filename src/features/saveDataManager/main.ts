@@ -197,13 +197,14 @@ function clearAndCopyAllElements(oldTable: LuaTable, newTable: LuaTable) {
  * }
  * ```
  *
- * Save data is recorded to disk in the MC_PRE_GAME_EXIT callback.
+ * - Save data is loaded from disk in the MC_POST_PLAYER_INIT callback
+ * (i.e. the first callback that can possibly run).
+ * - Save data is recorded to disk in the MC_PRE_GAME_EXIT callback.
  *
  * Note that before using the save data manager, you must call the [[`upgradeMod`]] function.
  *
  * @param key The name of the file or feature that is submitting data to be managed by the save data
- * manager. The save data manager will throw an error if it receives a second registration request
- * using the same key as a previous subscriber.
+ * manager. The save data manager will throw an error if the key is already registered.
  * @param saveData An object that corresponds to the `SaveData` interface.
  * @param conditionalFunc An optional function to run upon saving this key to disk. If the function
  * is false, the key will not be written to disk. This allows mod features to avoid cluttering the
