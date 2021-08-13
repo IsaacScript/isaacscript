@@ -1,7 +1,7 @@
 The `isaacscript-common` package contains extra optional features that you can use in your [IsaacScript](https://isaacscript.github.io/) mods:
 
 1. Helper functions (see below)
-1. [A save data manager](modules/features_saveDataManager.html)
+1. [A save data manager](modules/features_saveDataManager_main.html)
 1. [Custom callbacks](https://isaacscript.github.io/docs/function-signatures#custom-callbacks)
 
 For more information about IsaacScript, see the [official website](https://isaacscript.github.io/).

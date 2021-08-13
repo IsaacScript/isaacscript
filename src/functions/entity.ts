@@ -24,6 +24,11 @@ export function getRoomNPCs(): EntityNPC[] {
   return npcs;
 }
 
+/**
+ * Returns whether or not the given collectible is a "glitched" item. All items are replaced by
+ * glitched items once a player has TMTRAINER. However, glitched items can also "naturally" appear
+ * in secret rooms and I AM ERROR rooms if the "Corrupted Data" achievement is unlocked.
+ */
 export function isGlitchedCollectible(entity: Entity): boolean {
   return (
     entity.Type === EntityType.ENTITY_PICKUP &&
