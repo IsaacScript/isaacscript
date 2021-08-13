@@ -35,7 +35,7 @@ function postPlayerUpdateReorderedPlayer(player: EntityPlayer): void {
   const playerIndex = getPlayerIndex(player);
 
   const storedCharacter = v.run.characterMap.get(playerIndex);
-  if (storedCharacter !== undefined) {
+  if (storedCharacter === undefined) {
     v.run.characterMap.set(playerIndex, character);
     return;
   }
