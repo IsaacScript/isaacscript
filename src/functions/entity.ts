@@ -1,3 +1,5 @@
+import { GLITCHED_ITEM_THRESHOLD } from "../constants";
+
 /**
  * Helper function to get all the NPCs in the room. Due to bugs with `Isaac.FindInRadius()`,
  * this function uses `Isaac.GetRoomEntities()`, which is more expensive but also more robust.
@@ -20,4 +22,12 @@ export function getRoomNPCs(): EntityNPC[] {
   }
 
   return npcs;
+}
+
+export function isGlitchedCollectible(entity: Entity): boolean {
+  return (
+    entity.Type === EntityType.ENTITY_PICKUP &&
+    entity.Variant === PickupVariant.PICKUP_COLLECTIBLE &&
+    entity.SubType > GLITCHED_ITEM_THRESHOLD
+  );
 }

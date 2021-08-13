@@ -5,12 +5,15 @@ export const BEAST_ROOM_SUBTYPE = 4;
  * encountered by the player. The first TMTRAINER item takes the final possible 32 bit number. The
  * second TMTRAINER item subtracts one from that, and so on.
  */
-export const FIRST_TMTRAINER_COLLECTIBLE_TYPE = (1 << 32) - 1;
+export const FIRST_GLITCHED_COLLECTIBLE_TYPE = (1 << 32) - 1;
 
 export const EXCLUDED_CHARACTERS = [
   PlayerType.PLAYER_ESAU, // 20
   PlayerType.PLAYER_THESOUL_B, // 40
 ];
+
+// Glitched items start at id 4294967295 (the final 32-bit integer) and increment backwards
+export const GLITCHED_ITEM_THRESHOLD = 4000000000;
 
 /** In a 2x2 room, there can be 8 doors. */
 export const MAX_NUM_DOORS = 8;
