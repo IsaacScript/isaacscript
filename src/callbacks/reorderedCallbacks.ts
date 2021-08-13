@@ -22,6 +22,14 @@ export function init(mod: Mod): void {
   mod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoomVanilla); // 19
 }
 
+function hasSubscriptions() {
+  return (
+    postGameStartedReordered.hasSubscriptions() ||
+    postNewLevelReordered.hasSubscriptions() ||
+    postNewRoomReordered.hasSubscriptions()
+  );
+}
+
 // ModCallbacks.MC_POST_GAME_STARTED (15)
 function postGameStartedVanilla(isContinued: boolean) {
   if (!hasSubscriptions()) {
@@ -77,14 +85,6 @@ function postNewRoomVanilla() {
   forceNewRoom = false;
 
   postNewRoomReordered.fire();
-}
-
-function hasSubscriptions() {
-  return (
-    postGameStartedReordered.hasSubscriptions() ||
-    postNewLevelReordered.hasSubscriptions() ||
-    postNewRoomReordered.hasSubscriptions()
-  );
 }
 
 function recordCurrentStage() {

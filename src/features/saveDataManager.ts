@@ -9,6 +9,8 @@ const DEFAULT_ERROR_MESSAGE =
   'The save data manager is not initialized. You must first upgrade your mod object by calling the "upgradeMod()" function.';
 
 let mod: Mod | null = null;
+let loadedDataOnThisRun = false;
+let skipWipingLevelData = false;
 
 // The master save data map is indexed by subscriber name
 // We use Lua tables instead of TypeScriptToLua Maps for the master map so that we can access the
@@ -21,7 +23,7 @@ const saveDataConditionalFuncMap = new Map<string, () => boolean>();
 export function init(incomingMod: ModUpgraded): void {
   mod = incomingMod;
 
-  mod.AddCallback(ModCallbacks.MC_POST_GAME_STARTED, postGameStarted); // 15
+  mod.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit); // 9
   mod.AddCallback(ModCallbacks.MC_PRE_GAME_EXIT, preGameExit); // 17
   mod.AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, postNewLevel); // 18
   mod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoom); // 19
@@ -128,11 +130,17 @@ export function saveDataManager(
   }
 }
 
-// ModCallbacks.MC_POST_GAME_STARTED (15)
-function postGameStarted(isContinued: boolean) {
+// ModCallbacks.MC_POST_PLAYER_INIT (9)
+function postPlayerInit() {
   if (mod === null) {
     error("The save data manager is not initialized.");
   }
+
+  if (loadedDataOnThisRun) {
+    return;
+  }
+  loadedDataOnThisRun = true;
+  skipWipingLevelData = true;
 
   // We want to unconditionally load save data on every new run since there might be persistent data
   // that is not tied to an individual run
@@ -140,7 +148,9 @@ function postGameStarted(isContinued: boolean) {
   // we do not have to worry about our loaded data being overwritten in subsequent callbacks
   loadFromDisk(mod, saveDataMap);
 
-  if (!isContinued) {
+  const game = Game();
+  const gameFrameCount = game.GetFrameCount();
+  if (gameFrameCount === 0) {
     restoreDefaultsAll();
   }
 }
@@ -156,10 +166,16 @@ function preGameExit(shouldSave: boolean) {
   }
 
   restoreDefaultsAll();
+  loadedDataOnThisRun = false;
 }
 
 // ModCallbacks.MC_POST_NEW_LEVEL (18)
 function postNewLevel() {
+  if (skipWipingLevelData) {
+    skipWipingLevelData = false;
+    return;
+  }
+
   restoreDefaults(SaveDataKeys.Level);
 }
 

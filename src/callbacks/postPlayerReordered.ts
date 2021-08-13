@@ -5,11 +5,14 @@ import * as postPlayerUpdateReordered from "./subscriptions/postPlayerUpdateReor
 const postPlayerInitQueue: EntityPtr[] = [];
 const postPlayerUpdateQueue: EntityPtr[] = [];
 
+let postGameStartedFiredOnThisRun = false;
+
 export function init(mod: Mod): void {
   mod.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit); // 9
   mod.AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, postPlayerUpdate); // 31
 
   mod.AddCallback(ModCallbacks.MC_POST_GAME_STARTED, postGameStarted); // 15
+  mod.AddCallback(ModCallbacks.MC_PRE_GAME_EXIT, preGameExit); // 17
 }
 
 function hasSubscriptions() {
@@ -25,15 +28,9 @@ function postPlayerInit(player: EntityPlayer) {
     return;
   }
 
-  const game = Game();
-  const gameFrameCount = game.GetFrameCount();
-
-  if (gameFrameCount > 0) {
-    // This is a player that has spawned mid-way through the run
-    // Execute the callback immediately
+  if (postGameStartedFiredOnThisRun) {
     postPlayerInitReordered.fire(player);
   } else {
-    // This is a player that has spawned at the beginning of the run
     // Defer callback execution until the PostGameStarted callback fires
     const entityPtr = EntityPtr(player);
     postPlayerInitQueue.push(entityPtr);
@@ -46,14 +43,9 @@ function postPlayerUpdate(player: EntityPlayer) {
     return;
   }
 
-  const game = Game();
-  const gameFrameCount = game.GetFrameCount();
-
-  if (gameFrameCount > 0) {
-    // Execute the callback immediately
+  if (postGameStartedFiredOnThisRun) {
     postPlayerUpdateReordered.fire(player);
   } else {
-    // This is a player that has spawned at the beginning of the run
     // Defer callback execution until the PostGameStarted callback fires
     const entityPtr = EntityPtr(player);
     postPlayerUpdateQueue.push(entityPtr);
@@ -62,12 +54,18 @@ function postPlayerUpdate(player: EntityPlayer) {
 
 // ModCallbacks.MC_POST_GAME_STARTED (15)
 function postGameStarted() {
+  Isaac.DebugString(
+    "ModCallbacks.MC_POST_GAME_STARTED - postPlayerReordered.ts",
+  );
+
   if (!hasSubscriptions()) {
     return;
   }
 
   postPlayerInitDequeue();
   postPlayerUpdateDequeue();
+
+  postGameStartedFiredOnThisRun = true;
 }
 
 function postPlayerInitDequeue() {
@@ -104,4 +102,9 @@ function postPlayerUpdateDequeue() {
   }
 
   arrayEmpty(postPlayerUpdateQueue);
+}
+
+// ModCallbacks.MC_PRE_GAME_EXIT (17)
+function preGameExit() {
+  postGameStartedFiredOnThisRun = false;
 }
