@@ -1,17 +1,24 @@
+import { isVector } from "./util";
+
 /**
  * deepCopy recursively copies a table so that none of the nested references remain.
+ *
  * It will refuse to copy tables that have metatables, since that indicates that it the table is a
- * special object of some kind and cannot be copied in a generically safe way. The one exception is
- * TypeScriptToLua maps, which this function has explicit logic to support.
+ * special object of some kind and cannot be copied in a generically safe way.
+ *
+ * There are two exceptions, which the function has explicit logic to support:
+ *
+ * 1. TypeScriptToLua maps
+ * 2. Vectors
  *
  * @param oldTable The table to copy.
- * @param convertMapsToTables Whether or not to convert children Map elements to Lua tables. False
- * by default.
+ * @param shouldSerialize Whether or not to convert children Map & Vector elements to Lua tables.
+ * False by default.
  * @param traversalDescription Used to track the current key that we are operating on.
  */
 export function deepCopy(
   oldTable: LuaTable,
-  convertMapsToTables = false,
+  shouldSerialize = false,
   traversalDescription = "",
 ): LuaTable {
   const oldTableType = type(oldTable);
@@ -22,27 +29,38 @@ export function deepCopy(
   }
 
   if (oldTable instanceof Map) {
-    if (convertMapsToTables) {
-      return convertMapToTable(
-        oldTable,
-        convertMapsToTables,
-        traversalDescription,
-      );
+    if (shouldSerialize) {
+      return convertMapToTable(oldTable, shouldSerialize, traversalDescription);
     }
 
     return deepCopyMap(
       oldTable,
-      convertMapsToTables,
+      shouldSerialize,
       traversalDescription,
     ) as unknown as LuaTable;
   }
 
-  return deepCopyTable(oldTable, convertMapsToTables, traversalDescription);
+  if (isVector(oldTable)) {
+    const oldVector = oldTable as unknown as Vector;
+
+    if (shouldSerialize) {
+      // We must convert the X and Y values to strings since floats cannot exist in JSON
+      const vectorTable = new LuaTable();
+      vectorTable.set("X", tostring(oldVector.X));
+      vectorTable.set("Y", tostring(oldVector.Y));
+      return vectorTable;
+    }
+
+    const newVector = Vector(oldVector.X, oldVector.Y);
+    return newVector as unknown as LuaTable;
+  }
+
+  return deepCopyTable(oldTable, shouldSerialize, traversalDescription);
 }
 
 function convertMapToTable(
   oldMap: Map<AnyNotNil, unknown>,
-  convertMapsToTables: boolean,
+  shouldSerialize: boolean,
   traversalDescription: string,
 ) {
   const newTable = new LuaTable();
@@ -56,7 +74,7 @@ function convertMapToTable(
       traversalDescription = addTraversalDescription(key, traversalDescription);
       newValue = deepCopy(
         value as LuaTable,
-        convertMapsToTables,
+        shouldSerialize,
         traversalDescription,
       );
     } else {
@@ -71,7 +89,7 @@ function convertMapToTable(
 
 function deepCopyMap(
   oldMap: Map<AnyNotNil, unknown>,
-  convertMapsToTables: boolean,
+  shouldSerialize: boolean,
   traversalDescription: string,
 ) {
   const newMap = new Map();
@@ -85,7 +103,7 @@ function deepCopyMap(
       traversalDescription = addTraversalDescription(key, traversalDescription);
       newValue = deepCopy(
         value as LuaTable,
-        convertMapsToTables,
+        shouldSerialize,
         traversalDescription,
       );
     } else {
@@ -100,7 +118,7 @@ function deepCopyMap(
 
 function deepCopyTable(
   oldTable: LuaTable,
-  convertMapsToTables: boolean,
+  shouldSerialize: boolean,
   traversalDescription: string,
 ) {
   const newTable = new LuaTable();
@@ -114,7 +132,7 @@ function deepCopyTable(
     let newValue: unknown;
     if (valueType === "table") {
       traversalDescription = addTraversalDescription(key, traversalDescription);
-      newValue = deepCopy(value, convertMapsToTables, traversalDescription);
+      newValue = deepCopy(value, shouldSerialize, traversalDescription);
     } else {
       newValue = value;
     }

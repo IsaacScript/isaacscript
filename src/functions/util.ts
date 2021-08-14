@@ -81,6 +81,21 @@ export function initRNG(seed: int): RNG {
   return rng;
 }
 
+export function isVector(thing: unknown): boolean {
+  const thingType = type(thing);
+  if (thingType !== "userdata") {
+    return false;
+  }
+
+  const metatable = getmetatable(thing);
+  if (metatable === undefined) {
+    return false;
+  }
+
+  const vectorMetatable = metatable as Record<string, string>;
+  return vectorMetatable.__type === "Vector"; // eslint-disable-line no-underscore-dangle
+}
+
 export function lerp(a: number, b: number, pos: float): number {
   return a + (b - a) * pos;
 }

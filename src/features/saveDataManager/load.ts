@@ -2,7 +2,7 @@ import { isArray } from "../../functions/array";
 import { addTraversalDescription } from "../../functions/deepCopy";
 import { jsonDecode } from "../../functions/json";
 import { log } from "../../functions/log";
-import { tableClear } from "../../functions/util";
+import { isVector, tableClear } from "../../functions/util";
 import { SaveData } from "../../types/SaveData";
 
 const DEBUG = false;
@@ -110,7 +110,7 @@ function merge(
     error("The second argument given to the merge function is not a table.");
   }
 
-  // First, handle the case of a TypeScriptToLua Map
+  // First, handle the special case of a TypeScriptToLua Map
   if (oldTable instanceof Map) {
     const oldMap = oldTable as Map<AnyNotNil, unknown>;
 
@@ -136,7 +136,7 @@ function merge(
     return;
   }
 
-  // Second, handle the case of an array
+  // Second, handle the special case of an array
   if (isArray(oldTable) && isArray(newTable)) {
     // Assume that we should blow away all array values with whatever is present in the incoming
     // array
@@ -160,12 +160,38 @@ function merge(
     }
 
     if (oldType === "table") {
-      // Recursively handle sub-tables
-      traversalDescription = addTraversalDescription(key, traversalDescription);
-      merge(oldValue, newValue as LuaTable, traversalDescription);
+      if (isVector(oldValue)) {
+        // Handle the special case of a Vector
+        mergeVector(oldValue, newValue as LuaTable);
+      } else {
+        // Recursively handle sub-tables
+        traversalDescription = addTraversalDescription(
+          key,
+          traversalDescription,
+        );
+        merge(oldValue, newValue as LuaTable, traversalDescription);
+      }
     } else {
       // Base case: copy the value
       oldTable.set(key, newValue);
+    }
+  }
+}
+
+function mergeVector(oldVector: Vector, serializedVector: LuaTable) {
+  if (serializedVector.has("X")) {
+    const xString = serializedVector.get("X") as string;
+    const x = tonumber(xString);
+    if (x !== undefined) {
+      oldVector.X = x;
+    }
+  }
+
+  if (serializedVector.has("Y")) {
+    const yString = serializedVector.get("Y") as string;
+    const y = tonumber(yString);
+    if (y !== undefined) {
+      oldVector.Y = y;
     }
   }
 }
