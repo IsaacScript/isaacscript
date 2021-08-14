@@ -201,6 +201,17 @@ declare const enum StatueVariant {
   ANGEL = 1,
 }
 
+/** For GridEntityType.GRID_TELEPORTER (23) */
+declare const enum TeleporterState {
+  NORMAL = 0,
+  ACTIVATED = 1,
+  /**
+   * Set when a player stands on a teleport pad that has no corresponding pad for the player to be
+   * sent to. When this happens, the pad turns black and deactivates.
+   */
+  DISABLED = 2,
+}
+
 /**
  * Matches the ItemConfig.CHARGE_* members of the ItemConfig class.
  * In IsaacScript, we reimplement this as an enum, since it is cleaner.
