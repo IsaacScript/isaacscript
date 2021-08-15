@@ -12,6 +12,7 @@ import { EXCLUDED_CHARACTERS } from "../constants";
  */
 export type PlayerIndex = string & { __playerIndexBrand: any }; // eslint-disable-line @typescript-eslint/no-explicit-any
 
+/** Iterates over all players and checks if any player is close enough to the specified position. */
 export function anyPlayerCloserThan(
   position: Vector,
   distance: float,
@@ -88,6 +89,24 @@ export function getOpenTrinketSlot(player: EntityPlayer): int | null {
   }
 
   error(`The player has ${maxTrinkets} trinket slots, which is not supported.`);
+  return null;
+}
+
+/**
+ * Iterates over all players and checks if any are close enough to the specified position.
+ *
+ * @returns The first player found when iterating upwards from index 0.
+ */
+export function getPlayerCloserThan(
+  position: Vector,
+  distance: float,
+): EntityPlayer | null {
+  for (const player of getPlayers()) {
+    if (player.Position.Distance(position) <= distance) {
+      return player;
+    }
+  }
+
   return null;
 }
 
