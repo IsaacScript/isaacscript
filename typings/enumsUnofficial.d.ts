@@ -88,6 +88,12 @@ declare const enum FallenVariant {
   KRAMPUS = 1,
 }
 
+/** For EntityType.ENTITY_SATAN (84) */
+declare const enum SatanVariant {
+  SATAN = 0,
+  STOMP = 10,
+}
+
 /** For EntityType.ENTITY_THE_HAUNT (260) */
 declare const enum HauntVariant {
   HAUNT = 0,
