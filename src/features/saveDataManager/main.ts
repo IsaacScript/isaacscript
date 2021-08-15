@@ -123,7 +123,7 @@ function restoreDefaults(childTableName: SaveDataKeys) {
       childTableDefaultsTable,
       false,
       `${subscriberName} --> ${childTableName}`,
-    );
+    ) as LuaTable;
 
     // We do not want to blow away the existing child table because we don't want to break any
     // existing references

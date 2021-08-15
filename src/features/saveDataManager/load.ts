@@ -154,23 +154,21 @@ function merge(
     const oldType = type(oldValue);
     const newType = type(newValue);
 
+    // Handle the special case of a Vector
+    if (isVector(oldValue)) {
+      mergeVector(oldValue, newValue as LuaTable);
+      continue;
+    }
+
     // Do nothing if a property on the incoming table either does not exist or is a mismatched type
     if (oldType !== newType) {
       continue;
     }
 
     if (oldType === "table") {
-      if (isVector(oldValue)) {
-        // Handle the special case of a Vector
-        mergeVector(oldValue, newValue as LuaTable);
-      } else {
-        // Recursively handle sub-tables
-        traversalDescription = addTraversalDescription(
-          key,
-          traversalDescription,
-        );
-        merge(oldValue, newValue as LuaTable, traversalDescription);
-      }
+      // Recursively handle sub-tables
+      traversalDescription = addTraversalDescription(key, traversalDescription);
+      merge(oldValue, newValue as LuaTable, traversalDescription);
     } else {
       // Base case: copy the value
       oldTable.set(key, newValue);
@@ -179,6 +177,10 @@ function merge(
 }
 
 function mergeVector(oldVector: Vector, serializedVector: LuaTable) {
+  if (serializedVector === null) {
+    return;
+  }
+
   if (serializedVector.has("X")) {
     const xString = serializedVector.get("X") as string;
     const x = tonumber(xString);
