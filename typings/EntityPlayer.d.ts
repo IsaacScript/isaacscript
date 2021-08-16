@@ -6,7 +6,7 @@ type CollectibleAnimationName =
   | "PlayerPickupSparkle";
 type ControllerIndex = 0 | 1 | 2 | 3;
 type PlayerAnimationName = "Pickup" | "LiftItem" | "HideItem" | "UseItem";
-type SlotId = 0 | 1;
+type PocketItemSlot = 0 | 1 | 2 | 3;
 type ZodiacCollectibles =
   | CollectibleType.COLLECTIBLE_CANCER
   | CollectibleType.COLLECTIBLE_ARIES
@@ -377,7 +377,7 @@ declare class EntityPlayer extends Entity {
   GetBoneHearts(): int;
   GetBrokenHearts(): int;
   /** Returns 0 if there is no card. */
-  GetCard(slotID: SlotId): Card | int;
+  GetCard(pocketItemSlot: PocketItemSlot): Card | int;
   GetCardRNG(card: Card | int): RNG;
   GetCollectibleCount(): int;
   /**
@@ -481,7 +481,7 @@ declare class EntityPlayer extends Entity {
    */
   GetOtherTwin(): EntityPlayer;
   /** Returns 0 if there is no pill. */
-  GetPill(slotID: SlotId): PillColor | int;
+  GetPill(pocketItemSlot: PocketItemSlot): PillColor | int;
   GetPillRNG(pillEffect: PillEffect | int): RNG;
   GetPlayerType(): PlayerType | int;
   // GetPocketItem(slotID: int): Readonly<PlayerPocketItem>; // PlayerPocketItem is not implemented
@@ -637,10 +637,10 @@ declare class EntityPlayer extends Entity {
    * @param num
    */
   SetBloodCharge(num: int): void;
-  SetCard(slotID: SlotId, card: Card | int): void;
+  SetCard(pocketItemSlot: PocketItemSlot, card: Card | int): void;
   SetFullHearts(): void;
   SetMinDamageCooldown(damageCooldown: int): void;
-  SetPill(slotID: SlotId, pillColor: PillColor | int): void;
+  SetPill(pocketItemSlot: PocketItemSlot, pillColor: PillColor | int): void;
   /**
    * Sets the player's pocket active item to the given active item.
    * Items added to SLOT_POCKET2 will always be removed upon being used.
