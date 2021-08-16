@@ -426,6 +426,16 @@ declare class EntityPlayer extends Entity {
    */
   GetMainTwin(): EntityPlayer;
   GetMaxHearts(): int;
+  /**
+   * Returns the maximum number of pocket items + pocket actives that the player can currently hold.
+   *
+   * - Usually, this will return 1.
+   * - If the player has Belly Button, Starter Deck, or Little Baggy, it will increment the number
+   * by 1.
+   * - If the player has a pocket active item, it will increment the number by 1.
+   * - If the player has a dice from the Dice Bag trinket, it will increment the number by 1.
+   * - The maximum number this can return is 4.
+   */
   GetMaxPocketItems(): int;
   GetMaxTrinkets(): int;
   /**
