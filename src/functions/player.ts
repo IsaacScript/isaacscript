@@ -240,6 +240,8 @@ export function getPocketItems(player: EntityPlayer): PocketItemDescription[] {
   const maxPocketItems = player.GetMaxPocketItems();
 
   const pocketItems: PocketItemDescription[] = [];
+  let pocketItemIdentified = false;
+  let pocketItem2Identified = false;
   for (let slot = 0; slot < 4; slot++) {
     const card = player.GetCard(slot as PocketItemSlot);
     const pill = player.GetPill(slot as PocketItemSlot);
@@ -254,12 +256,14 @@ export function getPocketItems(player: EntityPlayer): PocketItemDescription[] {
         type: PocketItemType.PILL,
         id: pill,
       });
-    } else if (hasPocketItem && !hasPocketItem2) {
+    } else if (hasPocketItem && !hasPocketItem2 && !pocketItemIdentified) {
+      pocketItemIdentified = true;
       pocketItems.push({
         type: PocketItemType.ACTIVE_ITEM,
         id: pocketItem,
       });
-    } else if (!hasPocketItem && hasPocketItem2) {
+    } else if (!hasPocketItem && hasPocketItem2 && !pocketItem2Identified) {
+      pocketItem2Identified = true;
       pocketItems.push({
         type: PocketItemType.DICE_BAG_DICE,
         id: pocketItem2,
