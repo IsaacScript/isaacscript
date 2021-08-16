@@ -299,25 +299,20 @@ export function getTotalPlayerCollectibles(
   return numCollectibles;
 }
 
-export function hasOpenTrinketSlot(player: EntityPlayer): boolean {
-  const trinket1 = player.GetTrinket(0);
-  const slot1Open = trinket1 === 0;
-
-  const trinket2 = player.GetTrinket(1);
-  const slot2Open = trinket2 === 0;
-
-  const maxTrinkets = player.GetMaxTrinkets();
-
-  if (maxTrinkets === 1) {
-    return slot1Open;
+export function hasOpenCardSlot(player: EntityPlayer): boolean {
+  const pocketItems = getPocketItems(player);
+  for (const pocketItem of pocketItems) {
+    if (pocketItem.type === PocketItemType.EMPTY) {
+      return true;
+    }
   }
 
-  if (maxTrinkets === 2) {
-    return slot1Open || slot2Open;
-  }
-
-  error(`The player has an unknown number of trinket slots: ${maxTrinkets}`);
   return false;
+}
+
+export function hasOpenTrinketSlot(player: EntityPlayer): boolean {
+  const openTrinketSlot = getOpenTrinketSlot(player);
+  return openTrinketSlot !== null;
 }
 
 export function isFirstPlayer(player: EntityPlayer): boolean {
