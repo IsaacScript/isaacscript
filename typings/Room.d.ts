@@ -136,7 +136,11 @@ declare class Room {
     seed: int,
     varData: int,
   ): boolean;
-  TryMakeBridge(pit: GridEntity): boolean;
+  /**
+   * This function was updated to take two arguments in Repentance. The reason for this is that
+   * bridges can be spike bridges, so the specifying the type of rock is necessary.
+   */
+  TryMakeBridge(pit: GridEntity, rock: GridEntity): boolean;
   TryPlaceLadder(
     playerPos: Vector,
     playerVelocity: Vector,
