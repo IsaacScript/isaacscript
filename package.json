@@ -1,6 +1,6 @@
 {
   "name": "isaacscript-common",
-  "version": "1.0.166",
+  "version": "1.0.167",
   "description": "Helper functions for IsaacScript mods",
   "keywords": [
     "isaac",
@@ -25,7 +25,7 @@
     "dist/**/*.d.ts"
   ],
   "dependencies": {
-    "isaac-typescript-definitions": "^1.0.124"
+    "isaac-typescript-definitions": "^1.0.126"
   },
   "devDependencies": {
     "isaacscript-lint": "^1.0.51",
