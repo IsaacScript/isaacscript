@@ -11,6 +11,7 @@
         "deserialization",
         "getinfo",
         "getmetatable",
+        "ipairs",
         "isaacscript",
         "lerp",
         "linedefined",

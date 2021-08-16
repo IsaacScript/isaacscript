@@ -21,6 +21,15 @@ export function arrayEmpty<T>(array: T[]): void {
   array.splice(0, array.length);
 }
 
+export function arrayToString<T>(array: T[]): string {
+  const strings: string[] = [];
+  for (const [, value] of ipairs(array)) {
+    strings.push(tostring(value));
+  }
+
+  return `[${strings.join(", ")}]`;
+}
+
 export function getRandomArrayElement<T>(array: T[], seed: int): T {
   const randomIndex = getRandomInt(0, array.length - 1, seed);
   return array[randomIndex];
