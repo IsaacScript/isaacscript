@@ -299,7 +299,7 @@ export function getTotalPlayerCollectibles(
   return numCollectibles;
 }
 
-export function hasOpenCardSlot(player: EntityPlayer): boolean {
+export function hasOpenPocketItemSlot(player: EntityPlayer): boolean {
   const pocketItems = getPocketItems(player);
   for (const pocketItem of pocketItems) {
     if (pocketItem.type === PocketItemType.EMPTY) {
