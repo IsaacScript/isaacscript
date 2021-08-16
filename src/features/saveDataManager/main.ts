@@ -56,14 +56,14 @@ function postPlayerInit() {
 }
 
 // ModCallbacks.MC_PRE_GAME_EXIT (17)
-function preGameExit(shouldSave: boolean) {
+function preGameExit() {
   if (mod === null) {
     error(DEFAULT_ERROR_MESSAGE);
   }
 
-  if (shouldSave) {
-    saveToDisk(mod, saveDataMap, saveDataConditionalFuncMap);
-  }
+  // We unconditionally save variables to disk
+  // (because regardless of a save & quit or a death, persistent variables should be recorded)
+  saveToDisk(mod, saveDataMap, saveDataConditionalFuncMap);
 
   restoreDefaultsAll();
   loadedDataOnThisRun = false;
