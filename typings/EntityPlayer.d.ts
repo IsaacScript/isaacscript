@@ -7,6 +7,7 @@ type CollectibleAnimationName =
 type ControllerIndex = 0 | 1 | 2 | 3;
 type PlayerAnimationName = "Pickup" | "LiftItem" | "HideItem" | "UseItem";
 type PocketItemSlot = 0 | 1 | 2 | 3;
+type TrinketSlot = 0 | 1;
 type ZodiacCollectibles =
   | CollectibleType.COLLECTIBLE_CANCER
   | CollectibleType.COLLECTIBLE_ARIES
@@ -516,7 +517,7 @@ declare class EntityPlayer extends Entity {
   GetTotalDamageTaken(): int;
   GetTractorBeam(): Entity;
   /** Returns 0 if there is no trinket. */
-  GetTrinket(trinketIndex: 0 | 1): int;
+  GetTrinket(trinketSlot: TrinketSlot): int;
   GetTrinketMultiplier(): int;
   GetTrinketRNG(trinketType: TrinketType | int): RNG;
   GetVelocityBeforeUpdate(): Readonly<Vector>;
