@@ -1,4 +1,6 @@
 import { EXCLUDED_CHARACTERS } from "../constants";
+import PocketItemDescription from "../types/PocketItemDescription";
+import PocketItemType from "../types/PocketItemType";
 
 /**
  * PlayerIndex is a specific type of string; see the documentation for the [[`getPlayerIndex`]]
@@ -216,6 +218,70 @@ export function getPlayerNumAllHearts(player: EntityPlayer): int {
   const boneHearts = player.GetBoneHearts();
 
   return hearts + soulHearts + boneHearts;
+}
+
+/**
+ * Use this helper function as a workaround for `EntityPlayer.GetPocketItem()` not working
+ * correctly.
+ *
+ * Note that due to API limitations, there is no way to determine the location of a Dice Bag trinket
+ * dice. Furthermore, when the player has a Dice Bag trinket dice and a pocket active at the same
+ * time, there is no way to determine the location of the pocket active item. If this function
+ * cannot determine the identity of a particular slot, it will mark the type of the slot as
+ * `PocketItemType.UNDETERMINABLE`.
+ */
+export function getPocketItems(player: EntityPlayer): PocketItemDescription[] {
+  const pocketItem = player.GetActiveItem(ActiveSlot.SLOT_POCKET);
+  const hasPocketItem = pocketItem !== CollectibleType.COLLECTIBLE_NULL;
+
+  const pocketItem2 = player.GetActiveItem(ActiveSlot.SLOT_POCKET2);
+  const hasPocketItem2 = pocketItem2 !== CollectibleType.COLLECTIBLE_NULL;
+
+  const maxPocketItems = player.GetMaxPocketItems();
+
+  const pocketItems: PocketItemDescription[] = [];
+  for (let slot = 0; slot < 4; slot++) {
+    const card = player.GetCard(slot as PocketItemSlot);
+    const pill = player.GetPill(slot as PocketItemSlot);
+
+    if (card !== Card.CARD_NULL) {
+      pocketItems.push({
+        type: PocketItemType.CARD,
+        id: card,
+      });
+    } else if (pill !== PillColor.PILL_NULL) {
+      pocketItems.push({
+        type: PocketItemType.PILL,
+        id: pill,
+      });
+    } else if (hasPocketItem && !hasPocketItem2) {
+      pocketItems.push({
+        type: PocketItemType.ACTIVE_ITEM,
+        id: pocketItem,
+      });
+    } else if (!hasPocketItem && hasPocketItem2) {
+      pocketItems.push({
+        type: PocketItemType.DICE_BAG_DICE,
+        id: pocketItem2,
+      });
+    } else if (hasPocketItem && hasPocketItem2) {
+      pocketItems.push({
+        type: PocketItemType.UNDETERMINABLE,
+        id: 0,
+      });
+    } else {
+      pocketItems.push({
+        type: PocketItemType.EMPTY,
+        id: 0,
+      });
+    }
+
+    if (slot + 1 === maxPocketItems) {
+      break;
+    }
+  }
+
+  return pocketItems;
 }
 
 /**

@@ -36,4 +36,6 @@ export { default as CallbackParametersCustom } from "./types/CallbackParametersC
 export { default as ModCallbacksCustom } from "./types/ModCallbacksCustom";
 export { default as ModUpgraded } from "./types/ModUpgraded";
 export { default as PickingUpItem } from "./types/PickingUpItem";
+export { default as PocketItemDescription } from "./types/PocketItemDescription";
+export { default as PocketItemType } from "./types/PocketItemType";
 export * from "./upgradeMod";
