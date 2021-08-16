@@ -21,6 +21,15 @@ export function arrayEmpty<T>(array: T[]): void {
   array.splice(0, array.length);
 }
 
+export function arraySum(array: int[]): int {
+  let sum = 0;
+  for (const element of array) {
+    sum += element;
+  }
+
+  return sum;
+}
+
 export function arrayToString<T>(array: T[]): string {
   const strings: string[] = [];
   for (const [, value] of ipairs(array)) {
