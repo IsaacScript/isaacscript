@@ -1,4 +1,3 @@
-import { MaxFlagShift } from "../enums";
 import { hasFlag } from "./flag";
 
 // This function is part of the sandbox provided by the Racing+ client
@@ -42,27 +41,31 @@ function getDebugPrependString(msg: string) {
  * Helper function for printing out every damage flag that is turned on. Helpful when debugging.
  */
 export function logAllDamageFlags(flags: int): void {
-  logAllFlags(flags, MaxFlagShift.DAMAGE, "damage");
+  logAllFlags(flags, DamageFlag as unknown as LuaTable, "damage");
 }
 
 /**
  * Helper function for printing out every entity flag that is turned on. Helpful when debugging.
  */
 export function logAllEntityFlags(flags: int): void {
-  logAllFlags(flags, MaxFlagShift.ENTITY, "entity");
+  logAllFlags(flags, EntityFlag as unknown as LuaTable, "entity");
 }
 
 /**
  * Helper function for printing out every flag that is turned on. Helpful when debugging.
  */
-export function logAllFlags(flags: int, maxShift: int, description = ""): void {
+export function logAllFlags(
+  flags: int,
+  flagEnum: LuaTable,
+  description = "",
+): void {
   if (description !== "") {
     description += " ";
   }
   log(`Logging all ${description}flags:`);
-  for (let i = 0; i <= maxShift; i++) {
-    if (hasFlag(flags, 1 << i)) {
-      log(`- Has flag: ${i}`);
+  for (const [key, value] of pairs(flagEnum)) {
+    if (hasFlag(flags, value)) {
+      log(`- Has flag: ${key}`);
     }
   }
 }
@@ -71,12 +74,12 @@ export function logAllFlags(flags: int, maxShift: int, description = ""): void {
  * Helper function for printing out every projectile flag that is turned on. Helpful when debugging.
  */
 export function logAllProjectileFlags(flags: int): void {
-  logAllFlags(flags, MaxFlagShift.PROJECTILE, "projectile");
+  logAllFlags(flags, ProjectileFlags as unknown as LuaTable, "projectile");
 }
 
 /**
  * Helper function for printing out every use flag that is turned on. Helpful when debugging.
  */
 export function logAllUseFlags(flags: int): void {
-  logAllFlags(flags, MaxFlagShift.USE, "use");
+  logAllFlags(flags, UseFlag as unknown as LuaTable, "use");
 }
