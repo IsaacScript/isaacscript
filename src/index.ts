@@ -8,7 +8,6 @@ export {
   MAX_NUM_INPUTS,
   MAX_VANILLA_COLLECTIBLE_TYPE,
 } from "./constants";
-export * from "./enums";
 export {
   saveDataManager,
   saveDataManagerSave,
