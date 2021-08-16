@@ -85,10 +85,11 @@ export function getOpenTrinketSlot(player: EntityPlayer): int | null {
     if (trinket0 === TrinketType.TRINKET_NULL) {
       return 0;
     }
+
     return trinket1 === TrinketType.TRINKET_NULL ? 1 : null;
   }
 
-  error(`The player has ${maxTrinkets} trinket slots, which is not supported.`);
+  error(`The player has an unknown number of trinket slots: ${maxTrinkets}`);
   return null;
 }
 
@@ -230,6 +231,27 @@ export function getTotalPlayerCollectibles(
   }
 
   return numCollectibles;
+}
+
+export function hasOpenTrinketSlot(player: EntityPlayer): boolean {
+  const trinket1 = player.GetTrinket(0);
+  const slot1Open = trinket1 === 0;
+
+  const trinket2 = player.GetTrinket(1);
+  const slot2Open = trinket2 === 0;
+
+  const maxTrinkets = player.GetMaxTrinkets();
+
+  if (maxTrinkets === 1) {
+    return slot1Open;
+  }
+
+  if (maxTrinkets === 2) {
+    return slot1Open || slot2Open;
+  }
+
+  error(`The player has an unknown number of trinket slots: ${maxTrinkets}`);
+  return false;
 }
 
 export function isFirstPlayer(player: EntityPlayer): boolean {
