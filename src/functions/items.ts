@@ -35,7 +35,7 @@ export function getMaxCollectibleID(): int {
 }
 
 export function collectibleHasTag(
-  collectibleType: CollectibleType,
+  collectibleType: CollectibleType | int,
   tag: ItemConfigTag,
 ): boolean {
   const itemConfig = Isaac.GetItemConfig();
