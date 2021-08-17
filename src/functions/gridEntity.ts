@@ -31,9 +31,16 @@ export function getGridEntities(): GridEntity[] {
   return gridEntities;
 }
 
+export function isSecretRoomDoor(door: GridEntityDoor): boolean {
+  const sprite = door.GetSprite();
+  const filename = sprite.GetFilename();
+
+  return filename === "gfx/grid/Door_08_HoleInWall.anm2";
+}
+
 export function openAllDoors(): void {
   for (const door of getDoors()) {
-    // If we try to open a hidden secret room door (or super secret room door),
+    // If we try to open a hidden Secret Room door (or Super Secret Room door),
     // then nothing will happen
     door.Open();
   }
