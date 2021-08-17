@@ -31,6 +31,13 @@ export function getGridEntities(): GridEntity[] {
   return gridEntities;
 }
 
+export function isHiddenSecretRoomDoor(door: GridEntityDoor): boolean {
+  const sprite = door.GetSprite();
+  const animation = sprite.GetAnimation();
+
+  return isSecretRoomDoor(door) && animation === "Hidden";
+}
+
 export function isSecretRoomDoor(door: GridEntityDoor): boolean {
   const sprite = door.GetSprite();
   const filename = sprite.GetFilename();
