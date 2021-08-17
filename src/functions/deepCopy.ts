@@ -82,7 +82,7 @@ function deepCopyValue(
   shouldSerialize: boolean,
 ) {
   const valueType = type(value);
-  validateValue(value, valueType);
+  validateValue(value, valueType, traversalDescription);
 
   let newValue: unknown;
   if (isVector(value)) {
@@ -131,11 +131,15 @@ function checkMetatable(table: LuaTable, traversalDescription: string) {
       : `"${traversalDescription}"`;
 
   error(
-    `The deepCopy function detected that ${tableDescription} has a metatable. Copying tables with metatables is not supported (unless they are TypeScriptToLua Maps).`,
+    `The deepCopy function detected that "${tableDescription}" has a metatable. Copying tables with metatables is not supported (unless they are TypeScriptToLua Maps).`,
   );
 }
 
-function validateValue(value: unknown, valueType: string) {
+function validateValue(
+  value: unknown,
+  valueType: string,
+  traversalDescription: string,
+) {
   if (isVector(value)) {
     return;
   }
@@ -147,7 +151,7 @@ function validateValue(value: unknown, valueType: string) {
     valueType === "userdata"
   ) {
     error(
-      `The deepCopy function does not support cloning tables that have elements of type ${valueType} in them.`,
+      `The deepCopy function detected that "${traversalDescription}" is type ${valueType}, which is not supported.`,
     );
   }
 }

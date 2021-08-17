@@ -79,7 +79,13 @@ export function initArray<T>(defaultValue: T, size: int): T[] {
  * starting at 1.
  */
 export function isArray(table: LuaTable): boolean {
-  // First, handle the case of non-numerical keys
+  // First, if there is a metatable, this cannot be a simple array and must be a more complex object
+  const metatable = getmetatable(table);
+  if (metatable !== undefined) {
+    return false;
+  }
+
+  // Second, handle the case of non-numerical keys
   // (and count the entries in the table)
   let numEntries = 0;
   for (const [key] of pairs(table)) {
@@ -91,7 +97,7 @@ export function isArray(table: LuaTable): boolean {
     }
   }
 
-  // Second, check for non-contiguous elements
+  // Third, check for non-contiguous elements
   for (let i = 1; i <= numEntries; i++) {
     const element = table.get(i) as unknown | undefined;
     if (element === undefined) {
