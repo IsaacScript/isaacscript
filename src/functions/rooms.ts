@@ -52,6 +52,17 @@ export function gridToPos(x: int, y: int): Vector {
   return room.GetGridPosition(gridIndex);
 }
 
+export function in2x1Room(): boolean {
+  const game = Game();
+  const room = game.GetRoom();
+  const roomShape = room.GetRoomShape();
+
+  return (
+    roomShape === RoomShape.ROOMSHAPE_1x2 ||
+    roomShape === RoomShape.ROOMSHAPE_2x1
+  );
+}
+
 export function inAngelShop(): boolean {
   const game = Game();
   const level = game.GetLevel();
@@ -83,5 +94,18 @@ export function inCrawlspace(): boolean {
   return (
     roomIndex === GridRooms.ROOM_DUNGEON_IDX &&
     roomSubType !== HomeRoomSubType.BEAST_ROOM
+  );
+}
+
+export function inLRoom(): boolean {
+  const game = Game();
+  const room = game.GetRoom();
+  const roomShape = room.GetRoomShape();
+
+  return (
+    roomShape === RoomShape.ROOMSHAPE_LTL ||
+    roomShape === RoomShape.ROOMSHAPE_LTR ||
+    roomShape === RoomShape.ROOMSHAPE_LBL ||
+    roomShape === RoomShape.ROOMSHAPE_LBR
   );
 }
