@@ -190,6 +190,7 @@ declare const enum TrapdoorState {
 declare const enum PressurePlateVariant {
   PRESSURE_PLATE = 0,
   REWARD_PLATE = 1,
+  GREED_PLATE = 2,
 }
 
 /** For GridEntityType.GRID_PRESSURE_PLATE (20) */
@@ -393,10 +394,15 @@ declare const enum GridPath {
   PIT = 1000,
 }
 
-declare const enum PlateVariant {
-  PRESSURE_PLATE_ROOM_CLEAR = 0,
-  GIFT_PLATE = 1,
-  GREED_PLATE = 2,
+declare const enum DoorSlotFlag {
+  LEFT0 = 1 << DoorSlot.LEFT0,
+  UP0 = 1 << DoorSlot.UP0,
+  RIGHT0 = 1 << DoorSlot.RIGHT0,
+  DOWN0 = 1 << DoorSlot.DOWN0,
+  LEFT1 = 1 << DoorSlot.LEFT1,
+  UP1 = 1 << DoorSlot.UP1,
+  RIGHT1 = 1 << DoorSlot.RIGHT1,
+  DOWN1 = 1 << DoorSlot.DOWN1,
 }
 
 declare const enum StageTransition {
