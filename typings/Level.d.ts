@@ -18,7 +18,11 @@ declare class Level {
   GetAngelRoomChance(): float;
   GetCanSeeEverything(): boolean;
   GetCurrentRoom(): Room;
-  GetCurrentRoomDesc(): Readonly<RoomDescriptor>;
+  /**
+   * This item returns an incomplete RoomDescriptor and should never be used.
+   * Instead, use the `GetRoomByIdx(currentRoomIndex)` function.
+   */
+  GetCurrentRoomDesc(fakeArg: never): Readonly<RoomDescriptor>;
   GetCurrentRoomIndex(): int;
   GetCurseName(): string;
   GetCurses(): LevelCurse | int;
