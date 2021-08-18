@@ -14,13 +14,13 @@ declare class GridEntity {
   Render(offset: Vector): void;
   SetType(gridEntityType: GridEntityType): void;
   SetVariant(variant: int): void;
-  ToDoor(): GridEntityDoor;
-  ToPit(): GridEntityPit;
-  ToPoop(): GridEntityPoop;
-  ToPressurePlate(): GridEntityPressurePlate;
-  ToRock(): GridEntityRock;
-  ToSpikes(): GridEntitySpikes;
-  ToTNT(): GridEntityTNT;
+  ToDoor(): GridEntityDoor | null;
+  ToPit(): GridEntityPit | null;
+  ToPoop(): GridEntityPoop | null;
+  ToPressurePlate(): GridEntityPressurePlate | null;
+  ToRock(): GridEntityRock | null;
+  ToSpikes(): GridEntitySpikes | null;
+  ToTNT(): GridEntityTNT | null;
   Update(): void;
 
   CollisionClass: GridCollisionClass;
