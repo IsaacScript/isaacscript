@@ -23,14 +23,17 @@ export function changeRoom(roomIndex: int): void {
 export function getRoomIndex(): int {
   const game = Game();
   const level = game.GetLevel();
+  const roomIndex = level.GetCurrentRoomIndex();
 
-  const roomIndex = level.GetCurrentRoomDesc().SafeGridIndex;
   if (roomIndex < 0) {
-    // SafeGridIndex is always -1 for rooms outside the grid
-    return level.GetCurrentRoomIndex();
+    // SafeGridIndex is always -1 for rooms outside the grid,
+    // so default to returning the room index provided by the "GetCurrentRoomIndex() function"
+    return roomIndex;
   }
 
-  return roomIndex;
+  // SafeGridIndex is equal to the top-left index of the room
+  const roomDesc = level.GetRoomByIdx(roomIndex);
+  return roomDesc.SafeGridIndex;
 }
 
 /**
@@ -52,7 +55,8 @@ export function gridToPos(x: int, y: int): Vector {
 export function inAngelShop(): boolean {
   const game = Game();
   const level = game.GetLevel();
-  const roomDesc = level.GetCurrentRoomDesc();
+  const roomIndex = getRoomIndex();
+  const roomDesc = level.GetRoomByIdx(roomIndex);
   const roomData = roomDesc.Data;
   const roomSubType = roomData.Subtype;
   const room = game.GetRoom();
@@ -71,10 +75,10 @@ export function inAngelShop(): boolean {
 export function inCrawlspace(): boolean {
   const game = Game();
   const level = game.GetLevel();
-  const roomDesc = level.GetCurrentRoomDesc();
+  const roomIndex = getRoomIndex();
+  const roomDesc = level.GetRoomByIdx(roomIndex);
   const roomData = roomDesc.Data;
   const roomSubType = roomData.Subtype;
-  const roomIndex = getRoomIndex();
 
   return (
     roomIndex === GridRooms.ROOM_DUNGEON_IDX &&
