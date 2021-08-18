@@ -53,7 +53,7 @@ declare class Level {
    * @param roomIdx
    * @param dimension Default is Dimension.CURRENT.
    */
-  GetRoomByIdx(roomIdx: int, dimension?: Dimension): RoomDescriptor;
+  GetRoomByIdx(roomIndex: int, dimension?: Dimension): RoomDescriptor;
   GetRoomCount(): int;
   GetRooms(): RoomList;
   GetStage(): LevelStage;
