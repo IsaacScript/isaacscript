@@ -1,5 +1,19 @@
 import { GLITCHED_ITEM_THRESHOLD } from "../constants";
 
+export function anyEntityCloserThan(
+  entities: Entity[],
+  position: Vector,
+  distance: int,
+): boolean {
+  for (const entity of entities) {
+    if (position.Distance(entity.Position) <= distance) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 /**
  * Helper function to get all the NPCs in the room. Due to bugs with `Isaac.FindInRadius()`,
  * this function uses `Isaac.GetRoomEntities()`, which is more expensive but also more robust.
