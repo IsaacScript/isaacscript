@@ -614,7 +614,7 @@ function postPlayerUpdateReordered(player: EntityPlayer): void {}
 
 Fires on the first MC_POST_PICKUP_UPDATE frame for each pickup.
 
-This callback is useful because many attributes cannot be retrieved or set in the normal MC_POST_PICKUP_INIT callback.
+This callback is useful because many attributes cannot be retrieved properly in the normal MC_POST_PICKUP_INIT callback.
 
 - When registering the callback, takes an optional second argument that will make the callback only fire if the pickup variant matches the `PickupVariant` provided.
 
