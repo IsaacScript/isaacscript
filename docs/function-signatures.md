@@ -558,7 +558,7 @@ function postGameStartedReordered(isContinued: boolean): void {}
 
 ### MC_POST_NEW_LEVEL_REORDERED
 
-Similar to the vanilla callback of the same name, but fires in the correct order with respect to the PostNewLevel and the PostNewRoom callbacks:
+The same as the vanilla callback of the same name, but fires in the correct order with respect to the PostGameStarted and the PostNewRoom callbacks:
 
 PostGameStarted --> PostNewLevel --> PostNewRoom
 
@@ -570,7 +570,7 @@ function postNewLevelReordered(): void {}
 
 ### MC_POST_NEW_ROOM_REORDERED
 
-Similar to the vanilla callback of the same name, but fires in the correct order with respect to the PostNewLevel and the PostNewRoom callbacks:
+The same as the vanilla callback of the same name, but fires in the correct order with respect to the PostGameStarted and the PostNewLevel callbacks:
 
 PostGameStarted --> PostNewLevel --> PostNewRoom
 
