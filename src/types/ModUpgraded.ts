@@ -10,6 +10,7 @@ import * as postGridEntityUpdate from "../callbacks/subscriptions/postGridEntity
 import * as postItemPickup from "../callbacks/subscriptions/postItemPickup";
 import * as postNewLevelReordered from "../callbacks/subscriptions/postNewLevelReordered";
 import * as postNewRoomReordered from "../callbacks/subscriptions/postNewRoomReordered";
+import * as postPickupInitLate from "../callbacks/subscriptions/postPickupInitLate";
 import * as postPlayerChangeType from "../callbacks/subscriptions/postPlayerChangeType";
 import * as postPlayerInitReordered from "../callbacks/subscriptions/postPlayerInitReordered";
 import * as postPlayerUpdateReordered from "../callbacks/subscriptions/postPlayerUpdateReordered";
@@ -95,6 +96,13 @@ export default class ModUpgraded implements Mod {
       case ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED: {
         postPlayerUpdateReordered.register(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED]),
+        );
+        break;
+      }
+
+      case ModCallbacksCustom.MC_POST_PICKUP_INIT_LATE: {
+        postPickupInitLate.register(
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_PICKUP_INIT_LATE]),
         );
         break;
       }
