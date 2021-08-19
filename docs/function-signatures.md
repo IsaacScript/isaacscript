@@ -610,6 +610,18 @@ This callback is useful for two reasons:
 function postPlayerUpdateReordered(player: EntityPlayer): void {}
 ```
 
+### MC_POST_PICKUP_INIT_LATE
+
+Fires on the first MC_POST_PICKUP_UPDATES frame for each pickup.
+
+This callback is useful because many attributes cannot be retrieved or set in the normal MC_POST_PICKUP_INIT callback.
+
+- When registering the callback, takes an optional second argument that will make the callback only fire if the pickup variant matches the `PickupVariant` provided.
+
+```ts
+function postPickupInitLate(pickup: EntityPickup): void {}
+```
+
 ### MC_PRE_ITEM_PICKUP
 
 Fires on the first frame that an item becomes queued (i.e. when Isaac begins to hold the item above his head).
