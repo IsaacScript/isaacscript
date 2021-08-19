@@ -612,7 +612,7 @@ function postPlayerUpdateReordered(player: EntityPlayer): void {}
 
 ### MC_POST_PICKUP_INIT_LATE
 
-Fires on the first MC_POST_PICKUP_UPDATES frame for each pickup.
+Fires on the first MC_POST_PICKUP_UPDATE frame for each pickup.
 
 This callback is useful because many attributes cannot be retrieved or set in the normal MC_POST_PICKUP_INIT callback.
 
