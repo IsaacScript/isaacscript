@@ -1,3 +1,5 @@
+export const DISTANCE_OF_GRID_SQUARE = 40;
+
 /**
  * The random items that appear when the player has TMTRAINER are generated on the fly as they are
  * encountered by the player. The first TMTRAINER item takes the final possible 32 bit number. The
