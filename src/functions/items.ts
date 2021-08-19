@@ -48,6 +48,6 @@ export function getMaxCollectibleID(): int {
   return itemConfig.GetCollectibles().Size - 1;
 }
 
-export function isQuestItem(collectibleType: CollectibleType): boolean {
+export function isQuestItem(collectibleType: CollectibleType | int): boolean {
   return collectibleHasTag(collectibleType, ItemConfigTag.QUEST);
 }
