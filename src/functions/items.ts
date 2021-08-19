@@ -1,3 +1,17 @@
+export function collectibleHasTag(
+  collectibleType: CollectibleType | int,
+  tag: ItemConfigTag,
+): boolean {
+  const itemConfig = Isaac.GetItemConfig();
+
+  const itemConfigItem = itemConfig.GetCollectible(collectibleType);
+  if (itemConfigItem === null) {
+    return false;
+  }
+
+  return itemConfigItem.HasTags(tag);
+}
+
 /**
  * This is a helper function to get an item name from a CollectibleType or a TrinketType.
  *
@@ -34,16 +48,6 @@ export function getMaxCollectibleID(): int {
   return itemConfig.GetCollectibles().Size - 1;
 }
 
-export function collectibleHasTag(
-  collectibleType: CollectibleType | int,
-  tag: ItemConfigTag,
-): boolean {
-  const itemConfig = Isaac.GetItemConfig();
-
-  const itemConfigItem = itemConfig.GetCollectible(collectibleType);
-  if (itemConfigItem === null) {
-    return false;
-  }
-
-  return itemConfigItem.HasTags(tag);
+export function isQuestItem(collectibleType: CollectibleType): boolean {
+  return collectibleHasTag(collectibleType, ItemConfigTag.QUEST);
 }
