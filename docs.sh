@@ -13,6 +13,7 @@ npx typedoc \
   --readme "$DIR/website-root.md" \
   --entryPoints "$DIR/src/functions/array.ts" \
   --entryPoints "$DIR/src/functions/deepCopy.ts" \
+  --entryPoints "$DIR/src/functions/doors.ts" \
   --entryPoints "$DIR/src/functions/entity.ts" \
   --entryPoints "$DIR/src/functions/flag.ts" \
   --entryPoints "$DIR/src/functions/gridEntity.ts" \

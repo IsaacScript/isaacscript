@@ -12,6 +12,7 @@ For more information about IsaacScript, see the [official website](https://isaac
 
 - [Array Functions](modules/functions_array.html)
 - [Deep Copy Functions](modules/functions_deepCopy.html)
+- [Door Functions](modules/functions_doors.html)
 - [Entity Functions](modules/functions_entity.html)
 - [Flag Functions](modules/functions_flag.html)
 - [Grid Entity Functions](modules/functions_gridEntity.html)

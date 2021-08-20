@@ -16,6 +16,7 @@ export {
 } from "./features/saveDataManager/main";
 export * from "./functions/array";
 export { deepCopy } from "./functions/deepCopy";
+export * from "./functions/doors";
 export * from "./functions/entity";
 export * from "./functions/flag";
 export * from "./functions/gridEntity";
