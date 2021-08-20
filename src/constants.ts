@@ -36,3 +36,14 @@ const GRID_ENTITY_RENDER_SIZE = Vector(26, 26);
 export const SCREEN_SIZE_BETWEEN_RENDER_SURFACES = GRID_ENTITY_RENDER_SIZE.mul(
   GRID_ENTITIES_BETWEEN_RENDER_SURFACES,
 );
+
+export const SURROUNDING_GRID_INDEXES_DELTA = [
+  -16, // Above-left
+  -15, // Above
+  -14, // Above-right
+  -1, // Left
+  1, // Right
+  14, // Below-left
+  15, // Below
+  16, // Below-right
+];

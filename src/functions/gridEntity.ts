@@ -1,4 +1,4 @@
-import { MAX_NUM_DOORS } from "../constants";
+import { MAX_NUM_DOORS, SURROUNDING_GRID_INDEXES_DELTA } from "../constants";
 
 export function getDoors(): GridEntityDoor[] {
   const game = Game();
@@ -29,6 +29,25 @@ export function getGridEntities(): GridEntity[] {
   }
 
   return gridEntities;
+}
+
+export function getSurroundingGridEntities(
+  gridEntity: GridEntity,
+): GridEntity[] {
+  const game = Game();
+  const room = game.GetRoom();
+  const gridIndex = gridEntity.GetGridIndex();
+
+  const surroundingGridEntities: GridEntity[] = [];
+  for (const delta of SURROUNDING_GRID_INDEXES_DELTA) {
+    const surroundingGridIndex = gridIndex + delta;
+    const surroundingGridEntity = room.GetGridEntity(surroundingGridIndex);
+    if (surroundingGridEntity !== null) {
+      surroundingGridEntities.push(surroundingGridEntity);
+    }
+  }
+
+  return surroundingGridEntities;
 }
 
 export function isHiddenSecretRoomDoor(door: GridEntityDoor): boolean {
