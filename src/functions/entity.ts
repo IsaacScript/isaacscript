@@ -50,3 +50,9 @@ export function isGlitchedCollectible(entity: Entity): boolean {
     entity.SubType > GLITCHED_ITEM_THRESHOLD
   );
 }
+
+export function removeAllEntities(entities: Entity[]): void {
+  for (const entity of entities) {
+    entity.Remove();
+  }
+}

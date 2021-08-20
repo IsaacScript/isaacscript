@@ -1,5 +1,5 @@
-// Some pickup properties cannot be read or written in the PostPickupInit callback and must be done
-// in the PostPickupUpdate callback
+// Some pickup properties cannot be retrieved properly in the PostPickupInit callback and must be
+// checked in the PostPickupUpdate callback
 // This fires on the first update frame
 
 import { saveDataManager } from "../features/saveDataManager/main";
