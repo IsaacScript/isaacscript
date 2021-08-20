@@ -1,4 +1,5 @@
 import { MAX_NUM_DOORS, SURROUNDING_GRID_INDEXES_DELTA } from "../constants";
+import { onRepentanceStage } from "./stage";
 
 export function getDoors(): GridEntityDoor[] {
   const game = Game();
@@ -53,10 +54,7 @@ export function getSurroundingGridEntities(
 export function getRepentanceDoor(): GridEntityDoor | null {
   for (const gridEntity of getGridEntities()) {
     const door = gridEntity.ToDoor();
-    if (
-      door !== null &&
-      door.TargetRoomIndex === GridRooms.ROOM_SECRET_EXIT_IDX
-    ) {
+    if (door !== null && isRepentanceDoor(door)) {
       return door;
     }
   }
@@ -69,6 +67,22 @@ export function isHiddenSecretRoomDoor(door: GridEntityDoor): boolean {
   const animation = sprite.GetAnimation();
 
   return isSecretRoomDoor(door) && animation === "Hidden";
+}
+
+export function isRepentanceDoorToMines(door: GridEntityDoor): boolean {
+  const game = Game();
+  const level = game.GetLevel();
+  const stage = level.GetStage();
+
+  return (
+    isRepentanceDoor(door) &&
+    ((stage === 2 && onRepentanceStage()) ||
+      ((stage === 3 || stage === 4) && !onRepentanceStage()))
+  );
+}
+
+export function isRepentanceDoor(door: GridEntityDoor): boolean {
+  return door.TargetRoomIndex === GridRooms.ROOM_SECRET_EXIT_IDX;
 }
 
 export function isSecretRoomDoor(door: GridEntityDoor): boolean {
