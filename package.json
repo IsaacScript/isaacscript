@@ -9,7 +9,7 @@
   "license": "GPL-3.0",
   "author": "Zamiell",
   "dependencies": {
-    "eslint-config-airbnb-typescript": "^12.3.1",
+    "eslint-config-airbnb-typescript": "^13.0.0",
     "eslint-config-prettier": "^8.3.0"
   },
   "devDependencies": {
