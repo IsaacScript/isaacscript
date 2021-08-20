@@ -38,13 +38,7 @@ async function main(): Promise<void> {
   // Get command line arguments
   const argv = parseArgs();
 
-  // ASCII banner
-  console.log(chalk.green(figlet.textSync("IsaacScript")));
-  const bannerLength = 55;
-  const version = `v${pkg.version}`;
-  const leftPaddingAmount = Math.floor((bannerLength + version.length) / 2);
-  console.log(version.padStart(leftPaddingAmount));
-  console.log();
+  printBanner();
 
   // Check for a new version
   updateNotifier({ pkg }).notify();
@@ -53,6 +47,15 @@ async function main(): Promise<void> {
   await checkForWindowsTerminalBugs();
 
   await handleCommands(argv);
+}
+
+function printBanner() {
+  console.log(chalk.green(figlet.textSync("IsaacScript")));
+  const bannerLength = 55;
+  const version = `v${pkg.version}`;
+  const leftPaddingAmount = Math.floor((bannerLength + version.length) / 2);
+  console.log(version.padStart(leftPaddingAmount));
+  console.log();
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
