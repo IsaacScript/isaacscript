@@ -14,6 +14,25 @@ export function changeRoom(roomIndex: int): void {
   game.ChangeRoom(roomIndex);
 }
 
+export function getCurrentDimension(): Dimension | null {
+  const game = Game();
+  const level = game.GetLevel();
+
+  const roomIndex = getRoomIndex();
+  const currentRoomDesc = level.GetCurrentRoomDesc();
+  const currentRoomHash = GetPtrHash(currentRoomDesc);
+
+  for (let dimension = 0; dimension <= 2; dimension++) {
+    const dimensionRoomDesc = level.GetRoomByIdx(roomIndex, dimension);
+    const dimensionRoomHash = GetPtrHash(dimensionRoomDesc);
+    if (dimensionRoomHash === currentRoomHash) {
+      return dimension;
+    }
+  }
+
+  return null;
+}
+
 /**
  * Helper function to get the room index of the current room. Use this instead of calling
  * `Game().GetLevel().GetCurrentRoomIndex()` directly to avoid bugs with big rooms.
@@ -32,7 +51,7 @@ export function getRoomIndex(): int {
   }
 
   // SafeGridIndex is equal to the top-left index of the room
-  const roomDesc = level.GetRoomByIdx(roomIndex);
+  const roomDesc = level.GetCurrentRoomDesc();
   return roomDesc.SafeGridIndex;
 }
 
@@ -66,8 +85,7 @@ export function in2x1Room(): boolean {
 export function inAngelShop(): boolean {
   const game = Game();
   const level = game.GetLevel();
-  const roomIndex = getRoomIndex();
-  const roomDesc = level.GetRoomByIdx(roomIndex);
+  const roomDesc = level.GetCurrentRoomDesc();
   const roomData = roomDesc.Data;
   const roomSubType = roomData.Subtype;
   const room = game.GetRoom();
@@ -87,7 +105,7 @@ export function inCrawlspace(): boolean {
   const game = Game();
   const level = game.GetLevel();
   const roomIndex = getRoomIndex();
-  const roomDesc = level.GetRoomByIdx(roomIndex);
+  const roomDesc = level.GetCurrentRoomDesc();
   const roomData = roomDesc.Data;
   const roomSubType = roomData.Subtype;
 
