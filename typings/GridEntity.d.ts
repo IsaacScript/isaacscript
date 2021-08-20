@@ -24,7 +24,11 @@ declare class GridEntity {
   Update(): void;
 
   CollisionClass: GridCollisionClass;
-  // Desc: GridEntityDesc; // Should use GetSaveState() instead
+  /**
+   * Use the `GetSaveState()` method instead of accessing Desc directly, as it is a deprecated
+   * property.
+   */
+  Desc: never; // GridEntityDesc;
   readonly Position: Readonly<Vector>;
   State: int;
   VarData: int;
