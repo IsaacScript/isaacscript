@@ -10,9 +10,10 @@
   "author": "Zamiell",
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^4.29.2",
+    "@typescript-eslint/parser": "^4.29.2",
     "cspell": "^5.7.2",
     "eslint": "^7.32.0",
-    "eslint-config-isaacscript": "^1.0.45",
+    "eslint-config-isaacscript": "^1.0.46",
     "eslint-plugin-eqeqeq-fix": "^1.0.3",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-import": "^2.24.1",
