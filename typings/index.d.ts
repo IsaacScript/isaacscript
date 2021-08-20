@@ -66,6 +66,7 @@
 /// <reference path="RoomConfigEntry.d.ts" />
 /// <reference path="RoomConfigSpawn.d.ts" />
 /// <reference path="RoomDescriptor.d.ts" />
+/// <reference path="RoomDescriptorReadOnly.d.ts" />
 /// <reference path="RoomList.d.ts" />
 /// <reference path="Seeds.d.ts" />
 /// <reference path="SFXManager.d.ts" />

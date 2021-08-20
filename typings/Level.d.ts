@@ -19,10 +19,11 @@ declare class Level {
   GetCanSeeEverything(): boolean;
   GetCurrentRoom(): Room;
   /**
-   * This item returns an incomplete RoomDescriptor and should never be used.
-   * Instead, use the `GetRoomByIdx(currentRoomIndex)` function.
+   * Note that this returns a read-only copy of the RoomDescriptor object and writing to any of its
+   * properties will fail. If you need to update anything in this object, use the
+   * `GetRoomByIdx(currentRoomIndex)` method instead.
    */
-  GetCurrentRoomDesc(fakeArg: never): Readonly<RoomDescriptor>;
+  GetCurrentRoomDesc(): RoomDescriptorReadOnly;
   GetCurrentRoomIndex(): int;
   GetCurseName(): string;
   GetCurses(): LevelCurse | int;
