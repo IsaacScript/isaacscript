@@ -50,6 +50,20 @@ export function getSurroundingGridEntities(
   return surroundingGridEntities;
 }
 
+export function getRepentanceDoor(): GridEntityDoor | null {
+  for (const gridEntity of getGridEntities()) {
+    const door = gridEntity.ToDoor();
+    if (
+      door !== null &&
+      door.TargetRoomIndex === GridRooms.ROOM_SECRET_EXIT_IDX
+    ) {
+      return door;
+    }
+  }
+
+  return null;
+}
+
 export function isHiddenSecretRoomDoor(door: GridEntityDoor): boolean {
   const sprite = door.GetSprite();
   const animation = sprite.GetAnimation();
