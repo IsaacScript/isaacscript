@@ -56,3 +56,12 @@ export function removeAllEntities(entities: Entity[]): void {
     entity.Remove();
   }
 }
+
+export function removeAllMatchingEntities(
+  entityType: int,
+  entityVariant = -1,
+  entitySubType = -1,
+): void {
+  const entities = Isaac.FindByType(entityType, entityVariant, entitySubType);
+  removeAllEntities(entities);
+}
