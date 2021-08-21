@@ -35,6 +35,10 @@ export function getDevilRoomDoor(): GridEntityDoor | null {
   return null;
 }
 
+/**
+ * If there is both a Devil Room and an Angel Room door, this function will return door with the
+ * lowest slot number.
+ */
 export function getDevilRoomOrAngelRoomDoor(): GridEntityDoor | null {
   for (const door of getDoors()) {
     if (isDevilRoomDoor(door) || isAngelRoomDoor(door)) {
