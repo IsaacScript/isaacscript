@@ -391,6 +391,7 @@ declare const enum GridEntityXMLType {
 declare const enum GridPath {
   NONE = 0,
   FIREPLACE = 950,
+  ROCK = 1000,
   PIT = 3000,
 }
 
