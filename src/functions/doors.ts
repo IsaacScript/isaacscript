@@ -1,5 +1,4 @@
 import { MAX_NUM_DOORS } from "../constants";
-import { getGridEntities } from "./gridEntity";
 
 export function getDoors(): GridEntityDoor[] {
   const game = Game();
@@ -16,15 +15,42 @@ export function getDoors(): GridEntityDoor[] {
   return doors;
 }
 
-export function getRepentanceDoor(): GridEntityDoor | null {
-  for (const gridEntity of getGridEntities()) {
-    const door = gridEntity.ToDoor();
-    if (door !== null && isRepentanceDoor(door)) {
+export function getAngelRoomDoor(): GridEntityDoor | null {
+  for (const door of getDoors()) {
+    if (isAngelRoomDoor(door)) {
       return door;
     }
   }
 
   return null;
+}
+
+export function getDevilRoomDoor(): GridEntityDoor | null {
+  for (const door of getDoors()) {
+    if (isDevilRoomDoor(door)) {
+      return door;
+    }
+  }
+
+  return null;
+}
+
+export function getRepentanceDoor(): GridEntityDoor | null {
+  for (const door of getDoors()) {
+    if (isRepentanceDoor(door)) {
+      return door;
+    }
+  }
+
+  return null;
+}
+
+export function isAngelRoomDoor(door: GridEntityDoor): boolean {
+  return door.TargetRoomType === RoomType.ROOM_ANGEL;
+}
+
+export function isDevilRoomDoor(door: GridEntityDoor): boolean {
+  return door.TargetRoomType === RoomType.ROOM_DEVIL;
 }
 
 export function isHiddenSecretRoomDoor(door: GridEntityDoor): boolean {
@@ -46,6 +72,7 @@ export function isDoorToDownpour(door: GridEntityDoor): boolean {
 
   const sprite = door.GetSprite();
   const filename = sprite.GetFilename();
+
   return filename === "gfx/grid/Door_Downpour.anm2";
 }
 
@@ -61,6 +88,7 @@ export function isDoorToMausoleum(door: GridEntityDoor): boolean {
 
   const sprite = door.GetSprite();
   const filename = sprite.GetFilename();
+
   return filename === "gfx/grid/Door_Mausoleum.anm2";
 }
 
@@ -76,6 +104,7 @@ export function isDoorToMausoleumAscent(door: GridEntityDoor): boolean {
 
   const sprite = door.GetSprite();
   const filename = sprite.GetFilename();
+
   return filename === "gfx/grid/Door_Mausoleum_Alt.anm2";
 }
 
@@ -91,6 +120,7 @@ export function isDoorToMines(door: GridEntityDoor): boolean {
 
   const sprite = door.GetSprite();
   const filename = sprite.GetFilename();
+
   return filename === "gfx/grid/Door_Mines.anm2";
 }
 
@@ -106,6 +136,7 @@ export function isDoorToMomsHeart(door: GridEntityDoor): boolean {
 
   const sprite = door.GetSprite();
   const filename = sprite.GetFilename();
+
   return filename === "gfx/grid/Door_MomsHeart.anm2";
 }
 
