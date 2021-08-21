@@ -35,6 +35,16 @@ export function getDevilRoomDoor(): GridEntityDoor | null {
   return null;
 }
 
+export function getDevilRoomOrAngelRoomDoor(): GridEntityDoor | null {
+  for (const door of getDoors()) {
+    if (isDevilRoomDoor(door) || isAngelRoomDoor(door)) {
+      return door;
+    }
+  }
+
+  return null;
+}
+
 export function getRepentanceDoor(): GridEntityDoor | null {
   for (const door of getDoors()) {
     if (isRepentanceDoor(door)) {
