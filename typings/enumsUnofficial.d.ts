@@ -165,7 +165,7 @@ declare const enum BeastVariant {
 }
 
 /** For EffectVariant.TALL_LADDER (156) */
-declare const enum LadderVariant {
+declare const enum LadderSubType {
   TALL_LADDER = 0,
   STAIRWAY = 1,
 }
