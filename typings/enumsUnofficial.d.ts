@@ -164,6 +164,12 @@ declare const enum BeastVariant {
   BACKGROUND_DEATH = 104,
 }
 
+/** For EffectVariant.TALL_LADDER (156) */
+declare const enum LadderVariant {
+  TALL_LADDER = 0,
+  STAIRWAY = 1,
+}
+
 /** For GridEntityType.GRID_POOP (14) */
 declare const enum PoopVariant {
   NORMAL = 0,
