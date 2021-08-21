@@ -40,6 +40,11 @@ export function arrayToString<T>(array: T[]): string {
 }
 
 export function getRandomArrayElement<T>(array: T[], seed: int): T {
+  if (array.length === 0) {
+    error(
+      "Failed to get a random array element since the provided array is empty.",
+    );
+  }
   const randomIndex = getRandomInt(0, array.length - 1, seed);
   return array[randomIndex];
 }
