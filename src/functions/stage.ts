@@ -1,3 +1,15 @@
+export function getEffectiveStage(): int {
+  const game = Game();
+  const level = game.GetLevel();
+  const stage = level.GetStage();
+
+  if (onRepentanceStage()) {
+    return stage - 1;
+  }
+
+  return stage;
+}
+
 export function onCathedral(): boolean {
   const game = Game();
   const level = game.GetLevel();
