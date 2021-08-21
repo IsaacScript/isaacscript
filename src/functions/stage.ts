@@ -4,7 +4,7 @@ export function getEffectiveStage(): int {
   const stage = level.GetStage();
 
   if (onRepentanceStage()) {
-    return stage - 1;
+    return stage + 1;
   }
 
   return stage;
