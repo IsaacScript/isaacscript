@@ -82,6 +82,14 @@ declare const enum MomVariant {
   STOMP = 10,
 }
 
+/** For EntityType.ENTITY_PIN (62) */
+declare const enum PinVariant {
+  PIN = 0,
+  SCOLEX = 1,
+  FRAIL = 2,
+  WORMWOOD = 3,
+}
+
 /** For EntityType.ENTITY_FALLEN (81) */
 declare const enum FallenVariant {
   FALLEN = 0,
