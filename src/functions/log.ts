@@ -74,6 +74,8 @@ export function logAllFlags(
 
 export function logAllGameStateFlags(): void {
   const game = Game();
+
+  log("Logging all game state flags:");
   for (const [key, value] of Object.entries(GameStateFlag)) {
     const gameStateFlag = value as GameStateFlag;
     const flagValue = game.GetStateFlag(gameStateFlag);
