@@ -1,4 +1,5 @@
-export const DISTANCE_OF_GRID_SQUARE = 40;
+export const DISTANCE_OF_GRID_TILE = 40;
+export const DOOR_HITBOX_DISTANCE = 11;
 
 /**
  * The random items that appear when the player has TMTRAINER are generated on the fly as they are

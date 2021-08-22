@@ -3,7 +3,8 @@ export {
   forceNewRoomCallback,
 } from "./callbacks/reorderedCallbacks";
 export {
-  DISTANCE_OF_GRID_SQUARE,
+  DISTANCE_OF_GRID_TILE,
+  DOOR_HITBOX_DISTANCE,
   FIRST_GLITCHED_COLLECTIBLE_TYPE,
   MAX_NUM_DOORS,
   MAX_NUM_INPUTS,
