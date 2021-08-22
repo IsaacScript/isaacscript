@@ -4,7 +4,7 @@ declare class RoomDescriptor {
   ChallengeDone: boolean;
   Clear: boolean;
   ClearCount: int;
-  Data: RoomConfig;
+  Data: RoomConfig | null;
   DecorationSeed: int;
   DeliriumDistance: int;
   DisplayFlags: int;
