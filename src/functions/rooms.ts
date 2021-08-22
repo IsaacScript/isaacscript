@@ -33,11 +33,38 @@ export function getCurrentDimension(): Dimension | null {
   return null;
 }
 
+export function getRoomData(): RoomConfig | null {
+  const game = Game();
+  const level = game.GetLevel();
+  const roomIndex = getRoomIndex();
+  const roomDesc = level.GetRoomByIdx(roomIndex);
+
+  return roomDesc.Data;
+}
+
+/**
+ * Helper function to get the type for the room from the XML/STB data. The room data type will
+ * correspond to different things depending on what XML/STB file it draws from. For example, in the
+ * "00.special rooms.stb" file, a room type of 2 corresponds to a shop, a room type of 3 corresponds
+ * to an I AM ERROR room, and so on.
+ *
+ * @returns The room data type. Returns -1 if the room data type was not found.
+ */
+export function getRoomDataType(): int {
+  const roomData = getRoomData();
+
+  if (roomData === null) {
+    return -1;
+  }
+
+  return roomData.Type;
+}
+
 /**
  * Helper function to get the room index of the current room. Use this instead of calling
  * `Game().GetLevel().GetCurrentRoomIndex()` directly to avoid bugs with big rooms.
- * (Big rooms can return the specific 1x1 quadrant that the player is in, which can break data
- * structures that use the room index as an index.)
+ * (Big rooms will return the specific 1x1 quadrant that the player entered the room at,
+ * which can break data structures that use the room index as an index.)
  */
 export function getRoomIndex(): int {
   const game = Game();
@@ -53,6 +80,41 @@ export function getRoomIndex(): int {
   // SafeGridIndex is equal to the top-left index of the room
   const roomDesc = level.GetCurrentRoomDesc();
   return roomDesc.SafeGridIndex;
+}
+
+/**
+ * Helper function to get the subtype for the room from the XML/STB data. The room subtype will
+ * correspond to different things depending on what XML/STB file it draws from. For example, in the
+ * "00.special rooms.stb" file, an Angel Room with a subtype of 0 will correspond to a normal Angel
+ * Room and a subtype of 1 will correspond to an Angel Room shop for The Stairway.
+ *
+ * @returns The room subtype. Returns -1 if the room subtype was not found.
+ */
+export function getRoomSubType(): int {
+  const roomData = getRoomData();
+
+  if (roomData === null) {
+    return -1;
+  }
+
+  return roomData.Subtype;
+}
+
+/**
+ * Helper function to get the variant for the current room from the XML/STB data. You can think of a
+ * room variant as its identifier. For example, to go to Basement room #123, you would use a console
+ * command of `goto d.123` while on the Basement.
+ *
+ * @returns The room variant. Returns -1 if the room variant was not found.
+ */
+export function getRoomVariant(): int {
+  const roomData = getRoomData();
+
+  if (roomData === null) {
+    return -1;
+  }
+
+  return roomData.Variant;
 }
 
 /**
@@ -84,12 +146,9 @@ export function in2x1Room(): boolean {
 
 export function inAngelShop(): boolean {
   const game = Game();
-  const level = game.GetLevel();
-  const roomDesc = level.GetCurrentRoomDesc();
-  const roomData = roomDesc.Data;
-  const roomSubType = roomData.Subtype;
   const room = game.GetRoom();
   const roomType = room.GetType();
+  const roomSubType = getRoomSubType();
 
   return (
     roomType === RoomType.ROOM_ANGEL && roomSubType === AngelRoomSubType.SHOP
@@ -102,12 +161,8 @@ export function inAngelShop(): boolean {
  * being in The Beast room.
  */
 export function inCrawlspace(): boolean {
-  const game = Game();
-  const level = game.GetLevel();
   const roomIndex = getRoomIndex();
-  const roomDesc = level.GetCurrentRoomDesc();
-  const roomData = roomDesc.Data;
-  const roomSubType = roomData.Subtype;
+  const roomSubType = getRoomSubType();
 
   return (
     roomIndex === GridRooms.ROOM_DUNGEON_IDX &&
