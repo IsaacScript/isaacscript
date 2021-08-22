@@ -99,6 +99,10 @@ function deepCopyValue(
   if (shouldSerialize && oldObject instanceof Map && valueType === "number") {
     convertNumberKeysToString = true;
     newObject.set(TSTL_MAP_WITH_NUMBER_KEYS_IDENTIFIER, true);
+
+    if (DEBUG) {
+      log("deepCopy is converting a TSTL map with number keys to strings.");
+    }
   }
 
   // Get the value to set on the new object
