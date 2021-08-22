@@ -48,7 +48,7 @@ export function getRoomData(): RoomConfig | null {
  * "00.special rooms.stb" file, a room type of 2 corresponds to a shop, a room type of 3 corresponds
  * to an I AM ERROR room, and so on.
  *
- * @returns The room data type. Returns -1 if the room data type was not found.
+ * @returns The room data type. Returns -1 if the type was not found.
  */
 export function getRoomDataType(): int {
   const roomData = getRoomData();
@@ -83,12 +83,29 @@ export function getRoomIndex(): int {
 }
 
 /**
+ * Helper function to get the stage ID for the room from the XML/STB data. The room stage ID will
+ * correspond to the first number in the filename of the XML/STB file. For example, a Depths room
+ * would have a stage ID of 7.
+ *
+ * @returns The room stage ID. Returns -1 if the stage ID was not found.
+ */
+export function getRoomStageID(): int {
+  const roomData = getRoomData();
+
+  if (roomData === null) {
+    return -1;
+  }
+
+  return roomData.StageID;
+}
+
+/**
  * Helper function to get the subtype for the room from the XML/STB data. The room subtype will
  * correspond to different things depending on what XML/STB file it draws from. For example, in the
  * "00.special rooms.stb" file, an Angel Room with a subtype of 0 will correspond to a normal Angel
  * Room and a subtype of 1 will correspond to an Angel Room shop for The Stairway.
  *
- * @returns The room subtype. Returns -1 if the room subtype was not found.
+ * @returns The room subtype. Returns -1 if the subtype was not found.
  */
 export function getRoomSubType(): int {
   const roomData = getRoomData();
@@ -105,7 +122,7 @@ export function getRoomSubType(): int {
  * room variant as its identifier. For example, to go to Basement room #123, you would use a console
  * command of `goto d.123` while on the Basement.
  *
- * @returns The room variant. Returns -1 if the room variant was not found.
+ * @returns The room variant. Returns -1 if the variant was not found.
  */
 export function getRoomVariant(): int {
   const roomData = getRoomData();
