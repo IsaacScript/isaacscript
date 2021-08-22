@@ -30,10 +30,14 @@ import ModUpgraded from "./types/ModUpgraded";
  * For a list of all custom callbacks, check out the
  * [Function Signatures](https://isaacscript.github.io/docs/function-signatures#custom-callbacks).
  *
+ * @param mod The mod object returned by the `RegisterMod()` function.
+ * @param verbose Enables verbose logging for the purposes of crash troubleshooting.
+ * Defaults to false.
+ * @returns The upgraded mod object.
  * @category Custom Callbacks
  */
-export function upgradeMod(mod: Mod): ModUpgraded {
-  const modUpgraded = new ModUpgraded(mod);
+export function upgradeMod(mod: Mod, verbose = false): ModUpgraded {
+  const modUpgraded = new ModUpgraded(mod, verbose);
 
   initFeatures(modUpgraded);
   initCustomCallbacks(modUpgraded);

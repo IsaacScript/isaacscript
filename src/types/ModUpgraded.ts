@@ -17,6 +17,7 @@ import * as postPlayerUpdateReordered from "../callbacks/subscriptions/postPlaye
 import * as postSacrifice from "../callbacks/subscriptions/postSacrifice";
 import * as postTransformation from "../callbacks/subscriptions/postTransformation";
 import * as preItemPickup from "../callbacks/subscriptions/preItemPickup";
+import { getDebugPrependString } from "../functions/log";
 import { ensureAllCases } from "../functions/util";
 import CallbackParametersCustom from "./CallbackParametersCustom";
 import ModCallbacksCustom from "./ModCallbacksCustom";
@@ -26,13 +27,35 @@ export default class ModUpgraded implements Mod {
   /** We store a copy of the original mod object so that we can re-implement its functions. */
   Mod: Mod;
 
+  /** End-users can optionally enable verbose-mode, which helps troubleshoot crashes. */
+  Verbose: boolean;
+
   // Re-implement all of the functions and attributes of Mod
 
   AddCallback<T extends keyof CallbackParameters>(
     callbackID: T,
     ...args: CallbackParameters[T]
   ): void {
-    this.Mod.AddCallback(callbackID, ...args);
+    if (this.Verbose) {
+      const callback = args[0] as any; // eslint-disable-line
+      const optionalArg = args[1] as any; // eslint-disable-line
+
+      const callbackName = getCallbackName(callbackID);
+      const debugMsg = getDebugPrependString(callbackName);
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const callbackWithLogger = (...callbackArgs: any[]) => {
+        Isaac.DebugString(`${debugMsg} - START`);
+        callback(...callbackArgs); // eslint-disable-line @typescript-eslint/no-unsafe-call
+        Isaac.DebugString(`${debugMsg} - END`);
+      };
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      this.Mod.AddCallback(callbackID, callbackWithLogger, optionalArg);
+    } else {
+      this.Mod.AddCallback(callbackID, ...args);
+    }
   }
 
   HasData(): boolean {
@@ -205,8 +228,19 @@ export default class ModUpgraded implements Mod {
     }
   }
 
-  constructor(mod: Mod) {
+  constructor(mod: Mod, verbose: boolean) {
     this.Mod = mod;
+    this.Verbose = verbose;
     this.Name = mod.Name;
   }
+}
+
+function getCallbackName(callbackID: int) {
+  for (const [key, value] of Object.entries(ModCallbacks)) {
+    if (value === callbackID) {
+      return key;
+    }
+  }
+
+  return "MC_UNKNOWN";
 }

@@ -5,22 +5,14 @@ declare global {
   function getParentFunctionDescription(this: void, levels: int): string;
 }
 
-/**
- * Helper function to avoid typing out `Isaac.DebugString()`.
- * If you have the --luadebug launch flag turned on or the Racing+ sandbox enabled,
- * then this function will also prepend the function name and the line number before the string.
- */
-export function log(msg: string): void {
-  const debugMsg = getDebugPrependString(msg);
-  Isaac.DebugString(debugMsg);
-}
-
-function getDebugPrependString(msg: string) {
+export function getDebugPrependString(
+  msg: string,
+  // We use 3 as a default because:
   // 1 - getDebugPrependString
-  // 2 - log
-  // 3 - the function that calls log
-  const numParentFunctions = 3;
-
+  // 2 - calling function
+  // 3 - the function that calls the calling function
+  numParentFunctions = 3,
+): string {
   if (debug !== undefined) {
     // The --luadebug launch flag is enabled
     const debugTable = debug.getinfo(numParentFunctions);
@@ -35,6 +27,16 @@ function getDebugPrependString(msg: string) {
   }
 
   return msg;
+}
+
+/**
+ * Helper function to avoid typing out `Isaac.DebugString()`.
+ * If you have the --luadebug launch flag turned on or the Racing+ sandbox enabled,
+ * then this function will also prepend the function name and the line number before the string.
+ */
+export function log(msg: string): void {
+  const debugMsg = getDebugPrependString(msg);
+  Isaac.DebugString(debugMsg);
 }
 
 /**
