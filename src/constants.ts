@@ -26,6 +26,14 @@ export const MAX_VANILLA_COLLECTIBLE_TYPE =
   CollectibleType.COLLECTIBLE_DECAP_ATTACK;
 
 /**
+ * As the player continues to move in a direction, they will accelerate. When going from one wall to
+ * another in a 2x2 room at 2.0 speed (the maximum that the speed stat can rise to), the amount of
+ * units moved per update frame will climb to around 9.797 as they hit the opposite wall. The
+ * constant specifies a value of 9.8 to be safe.
+ */
+export const MAX_PLAYER_SPEED_IN_UNITS = 9.8;
+
+/**
  * This is the ShiftIdx that Blade recommended after having reviewing the game's internal functions.
  * Any value between 0 and 80 should work equally well.
  * https://www.jstatsoft.org/article/view/v008i14/xorshift.pdf
