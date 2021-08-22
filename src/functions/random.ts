@@ -1,4 +1,4 @@
-import { initRNG } from "./util";
+import { RECOMMENDED_SHIFT_IDX } from "../constants";
 
 /**
  * This returns a random float between 0 and 1. It is inclusive on the low end, but exclusive on
@@ -38,4 +38,33 @@ export function getRandomInt(min: int, max: int, seed: int): int {
   const rng = initRNG(seed);
 
   return rng.RandomInt(max - min + 1) + min;
+}
+
+/**
+ * Helper function to initialize an RNG object.
+ *
+ * Example:
+ * ```
+ * const startSeed = Game():GetSeeds():GetStartSeed();
+ * const rng = initRNG(startSeed);
+ * const fiftyFiftyChance = rng.RandomInt(2) === 0;
+ * ```
+ *
+ * @param seed The seed to initialize it with.
+ * (If you aren't initializing it with a seed, then don't use this function and instead simply call
+ * the `RNG()` constructor.)
+ */
+export function initRNG(seed: int): RNG {
+  if (seed === 0) {
+    error(
+      "You cannot initialize an RNG object with a seed of 0, or the game will crash.",
+    );
+  }
+
+  const rng = RNG();
+
+  // The game expects seeds in the range of 0 to 4294967295
+  rng.SetSeed(seed, RECOMMENDED_SHIFT_IDX);
+
+  return rng;
 }
