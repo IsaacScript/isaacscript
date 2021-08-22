@@ -1,3 +1,4 @@
+import { TSTL_MAP_WITH_NUMBER_KEYS_IDENTIFIER } from "../../constants";
 import { isArray } from "../../functions/array";
 import { addTraversalDescription } from "../../functions/deepCopy";
 import { jsonDecode } from "../../functions/json";
@@ -120,13 +121,29 @@ function merge(
       );
     }
 
+    // Handle the special case of a TSTL map with number keys that were converted to string keys
+    // during serialization; if so, we must reverse the process
+    const convertStringKeysToNumbers = newTable.has(
+      TSTL_MAP_WITH_NUMBER_KEYS_IDENTIFIER,
+    );
+
     // Assume that we should blow away all Map values with whatever is present in the incoming table
     oldMap.clear();
     for (const [key, value] of pairs(newTable)) {
       if (DEBUG) {
         log(`Setting ${key} --> ${value}`);
       }
-      oldMap.set(key, value);
+
+      let keyToUse = key;
+      if (convertStringKeysToNumbers) {
+        const numberKey = tonumber(key);
+        if (numberKey === undefined) {
+          continue;
+        }
+        keyToUse = numberKey;
+      }
+
+      oldMap.set(keyToUse, value);
     }
 
     if (DEBUG) {

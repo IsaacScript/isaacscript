@@ -56,3 +56,6 @@ export const SURROUNDING_GRID_INDEXES_DELTA = [
   15, // Below
   16, // Below-right
 ];
+
+export const TSTL_MAP_WITH_NUMBER_KEYS_IDENTIFIER =
+  "__TSTL_MAP_WITH_NUMBER_KEYS";

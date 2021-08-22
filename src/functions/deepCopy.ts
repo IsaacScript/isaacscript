@@ -1,3 +1,4 @@
+import { TSTL_MAP_WITH_NUMBER_KEYS_IDENTIFIER } from "../constants";
 import { log } from "./log";
 import { isVector } from "./util";
 
@@ -52,6 +53,7 @@ export function deepCopy(
   if (oldObject instanceof Map) {
     for (const [key, value] of oldObject) {
       deepCopyValue(
+        oldObject,
         newObject,
         key,
         value,
@@ -62,6 +64,7 @@ export function deepCopy(
   } else {
     for (const [key, value] of pairs(oldObject)) {
       deepCopyValue(
+        oldObject,
         newObject,
         key,
         value,
@@ -75,6 +78,7 @@ export function deepCopy(
 }
 
 function deepCopyValue(
+  oldObject: LuaTable | Map<AnyNotNil, unknown>,
   newObject: LuaTable | Map<AnyNotNil, unknown>,
   key: AnyNotNil,
   value: unknown,
@@ -84,6 +88,20 @@ function deepCopyValue(
   const valueType = type(value);
   validateValue(value, valueType, traversalDescription);
 
+  // First, handle the special case of serializing a value for a TSTL Map that uses integer keys
+  // These will be converted to JSON as an array, which will insert a bunch of unnecessary "null"
+  // entires (e.g. "[null, null, null, 123]" for a TSTL Map with one entry at index 4)
+  // To work around this, we simply convert all integer keys to strings
+  // We mark the table with a special identifier key so that we can properly deserialize it later
+  // This key will be set over and over for every element in the Map, but we have to do it here
+  // since we are not able to derive the type of Map keys at runtime
+  let convertNumberKeysToString = false;
+  if (shouldSerialize && oldObject instanceof Map && valueType === "number") {
+    convertNumberKeysToString = true;
+    newObject.set(TSTL_MAP_WITH_NUMBER_KEYS_IDENTIFIER, true);
+  }
+
+  // Get the value to set on the new object
   let newValue: unknown;
   if (isVector(value)) {
     const vector = value as Vector;
@@ -92,12 +110,15 @@ function deepCopyValue(
     const table = value as LuaTable;
     traversalDescription = addTraversalDescription(key, traversalDescription);
     newValue = deepCopy(table, shouldSerialize, traversalDescription);
+  } else if (convertNumberKeysToString) {
+    newValue = tostring(value);
   } else {
     newValue = value;
   }
 
+  // Set the value on the new object
   // Even though the "set()" invocations below are identical,
-  // we must narrow the type for the method to work correctly
+  // we must narrow the type for the method to be transpiled correctly
   if (newObject instanceof Map) {
     newObject.set(key, newValue);
   } else {
