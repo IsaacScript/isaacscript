@@ -130,6 +130,13 @@ export default class ModUpgraded implements Mod {
         break;
       }
 
+      case ModCallbacksCustom.MC_POST_PICKUP_COLLECT: {
+        postPickupInitLate.register(
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_PICKUP_COLLECT]),
+        );
+        break;
+      }
+
       case ModCallbacksCustom.MC_PRE_ITEM_PICKUP: {
         preItemPickup.register(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_PRE_ITEM_PICKUP]),

@@ -96,6 +96,8 @@ function deepCopyValue(
     newValue = value;
   }
 
+  // Even though the "set()" invocations below are identical,
+  // we must narrow the type for the method to work correctly
   if (newObject instanceof Map) {
     newObject.set(key, newValue);
   } else {

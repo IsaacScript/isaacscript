@@ -3,7 +3,7 @@
 // This fires on the first update frame
 
 import { saveDataManager } from "../features/saveDataManager/main";
-import * as postPickupInitLate from "./subscriptions/postPickupInitLate";
+import * as postPickupCollect from "./subscriptions/postPickupCollect";
 
 const v = {
   room: {
@@ -12,18 +12,24 @@ const v = {
 };
 
 export function init(mod: Mod): void {
-  saveDataManager("postPickupInitLate", v, hasSubscriptions);
+  saveDataManager("postPickupCollect", v, hasSubscriptions);
 
-  mod.AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, postPickupUpdate); // 35
+  mod.AddCallback(ModCallbacks.MC_POST_PICKUP_RENDER, postPickupRender); // 36
 }
 
 function hasSubscriptions() {
-  return postPickupInitLate.hasSubscriptions();
+  return postPickupCollect.hasSubscriptions();
 }
 
-// ModCallbacks.MC_POST_PICKUP_UPDATE (35)
-function postPickupUpdate(pickup: EntityPickup) {
+// ModCallbacks.MC_POST_PICKUP_RENDER (36)
+function postPickupRender(pickup: EntityPickup) {
   if (!hasSubscriptions()) {
+    return;
+  }
+
+  const sprite = pickup.GetSprite();
+  const animation = sprite.GetAnimation();
+  if (animation !== "Collect") {
     return;
   }
 
@@ -31,6 +37,6 @@ function postPickupUpdate(pickup: EntityPickup) {
   const fired = v.room.pickupFiredMap.get(index);
   if (fired === undefined) {
     v.room.pickupFiredMap.set(index, true);
-    postPickupInitLate.fire(pickup);
+    postPickupCollect.fire(pickup);
   }
 }
