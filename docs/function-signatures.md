@@ -622,6 +622,18 @@ This callback is useful because many attributes cannot be retrieved properly in 
 function postPickupInitLate(pickup: EntityPickup): void {}
 ```
 
+### MC_POST_PICKUP_COLLECT
+
+Fires on the first MC_POST_RENDER frame that a pickup plays the "Collect" animation.
+
+Use this callback to know when a pickup is about to be added to the player's inventory or health.
+
+- When registering the callback, takes an optional second argument that will make the callback only fire if the pickup variant matches the `PickupVariant` provided.
+
+```ts
+function postPickupCollect(pickup: EntityPickup): void {}
+```
+
 ### MC_PRE_ITEM_PICKUP
 
 Fires on the first frame that an item becomes queued (i.e. when Isaac begins to hold the item above his head).
