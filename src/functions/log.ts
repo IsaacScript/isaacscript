@@ -72,6 +72,17 @@ export function logAllFlags(
   }
 }
 
+export function logAllGameStateFlags(): void {
+  const game = Game();
+  for (const [key, value] of Object.entries(GameStateFlag)) {
+    const gameStateFlag = value as GameStateFlag;
+    const flagValue = game.GetStateFlag(gameStateFlag);
+    if (flagValue) {
+      log(`- Has flag: ${key}`);
+    }
+  }
+}
+
 /**
  * Helper function for printing out every projectile flag that is turned on. Helpful when debugging.
  */
