@@ -3,6 +3,7 @@ import * as postCursedTeleport from "./callbacks/postCursedTeleport";
 import * as postEsauJr from "./callbacks/postEsauJr";
 import * as postFlip from "./callbacks/postFlip";
 import * as postGridEntity from "./callbacks/postGridEntity";
+import * as postLaserInitLate from "./callbacks/postLaserInitLate";
 import * as postPickupCollect from "./callbacks/postPickupCollect";
 import * as postPickupInitLate from "./callbacks/postPickupInitLate";
 import * as postPlayerChangeHealth from "./callbacks/postPlayerChangeHealth";
@@ -56,6 +57,7 @@ function initCustomCallbacks(modUpgraded: ModUpgraded) {
   reorderedCallbacks.init(modUpgraded);
   postPlayerReordered.init(modUpgraded);
   postPickupInitLate.init(modUpgraded);
+  postLaserInitLate.init(modUpgraded);
   postPickupCollect.init(modUpgraded);
   itemPickup.init(modUpgraded);
   postPlayerChangeType.init(modUpgraded);

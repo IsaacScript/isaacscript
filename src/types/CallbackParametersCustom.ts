@@ -8,6 +8,7 @@ import { PostGridEntityInitCallbackType } from "../callbacks/subscriptions/postG
 import { PostGridEntityRemoveCallbackType } from "../callbacks/subscriptions/postGridEntityRemove";
 import { PostGridEntityUpdateCallbackType } from "../callbacks/subscriptions/postGridEntityUpdate";
 import { PostItemPickupCallbackType } from "../callbacks/subscriptions/postItemPickup";
+import { PostLaserInitLateCallbackType } from "../callbacks/subscriptions/postLaserInitLate";
 import { PostNewLevelReorderedCallbackType } from "../callbacks/subscriptions/postNewLevelReordered";
 import { PostNewRoomReorderedCallbackType } from "../callbacks/subscriptions/postNewRoomReordered";
 import { PostPickupCollectCallbackType } from "../callbacks/subscriptions/postPickupCollect";
@@ -43,6 +44,10 @@ export default interface CallbackParametersCustom {
   [ModCallbacksCustom.MC_POST_PICKUP_INIT_LATE]: [
     callback: PostPickupInitLateCallbackType,
     pickupVariant?: PickupVariant,
+  ];
+  [ModCallbacksCustom.MC_POST_LASER_INIT_LATE]: [
+    callback: PostLaserInitLateCallbackType,
+    laserVariant?: LaserVariant,
   ];
   [ModCallbacksCustom.MC_POST_PICKUP_COLLECT]: [
     callback: PostPickupCollectCallbackType,

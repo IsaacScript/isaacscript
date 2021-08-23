@@ -8,6 +8,7 @@ import * as postGridEntityInit from "../callbacks/subscriptions/postGridEntityIn
 import * as postGridEntityRemove from "../callbacks/subscriptions/postGridEntityRemove";
 import * as postGridEntityUpdate from "../callbacks/subscriptions/postGridEntityUpdate";
 import * as postItemPickup from "../callbacks/subscriptions/postItemPickup";
+import * as postLaserInitLate from "../callbacks/subscriptions/postLaserInitLate";
 import * as postNewLevelReordered from "../callbacks/subscriptions/postNewLevelReordered";
 import * as postNewRoomReordered from "../callbacks/subscriptions/postNewRoomReordered";
 import * as postPickupCollect from "../callbacks/subscriptions/postPickupCollect";
@@ -129,6 +130,13 @@ export default class ModUpgraded implements Mod {
       case ModCallbacksCustom.MC_POST_PICKUP_INIT_LATE: {
         postPickupInitLate.register(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_PICKUP_INIT_LATE]),
+        );
+        break;
+      }
+
+      case ModCallbacksCustom.MC_POST_LASER_INIT_LATE: {
+        postLaserInitLate.register(
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_LASER_INIT_LATE]),
         );
         break;
       }

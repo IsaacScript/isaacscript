@@ -1,7 +1,3 @@
-// Some pickup properties cannot be retrieved properly in the PostPickupInit callback and must be
-// checked in the PostPickupUpdate callback
-// This fires on the first update frame
-
 import { saveDataManager } from "../features/saveDataManager/main";
 import * as postPickupInitLate from "./subscriptions/postPickupInitLate";
 
