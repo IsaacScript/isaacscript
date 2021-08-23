@@ -32,7 +32,7 @@ declare class Level {
   GetEnterPosition(): Vector;
   GetHeartPicked(): boolean;
   GetLastBossRoomListIndex(): int;
-  GetLastRoomDesc(): Readonly<RoomDescriptor>;
+  GetLastRoomDesc(): RoomDescriptorReadOnly;
   /**
    * @param levelStage Default value is the current stage.
    * @param stageType Default value is the current stage type.
