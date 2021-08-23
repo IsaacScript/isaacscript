@@ -672,6 +672,28 @@ Notably, it does not fire after the player uses the Flip item or the Esau Jr. it
 function postPlayerChangeType(player: EntityPlayer) {}
 ```
 
+### MC_POST_PLAYER_CHANGE_HEALTH
+
+Fires on the MC_POST_UPDATE frame when a player entity gains or loses any health (i.e. hearts).
+
+```ts
+function postPlayerChangeHealth(player: EntityPlayer, healthType: HealthType, amount: int) {}
+```
+
+- When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `PlayerVariant` provided.
+
+### MC_POST_PLAYER_FATAL_DAMAGE
+
+Fires from the MC_ENTITY_TAKE_DMG callback when a player takes fatal damage.
+
+Note that this function assumes that Guppy's Collar and Broken Ankh will not activate, since there is no way of knowing if they will revive the player or not.
+
+- When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `PlayerVariant` provided.
+
+```ts
+function postPlayerFatalDamage(player: EntityPlayer) {}
+```
+
 ### MC_POST_FLIP
 
 Fires after the player has used the Flip item.
