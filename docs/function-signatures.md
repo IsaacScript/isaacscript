@@ -684,7 +684,7 @@ function postPlayerChangeHealth(player: EntityPlayer, healthType: HealthType, am
 
 ### MC_POST_PLAYER_FATAL_DAMAGE
 
-Fires from the MC_ENTITY_TAKE_DMG callback when a player takes fatal damage.
+Fires from the MC_ENTITY_TAKE_DMG callback when a player takes fatal damage. Return false to prevent the fatal damage.
 
 Note that this function assumes that Guppy's Collar and Broken Ankh will not activate, since there is no way of knowing if they will revive the player or not.
 
