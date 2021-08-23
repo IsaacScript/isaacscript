@@ -38,6 +38,7 @@ export * from "./functions/transformations";
 export * from "./functions/ui";
 export * from "./functions/util";
 export { default as CallbackParametersCustom } from "./types/CallbackParametersCustom";
+export { default as HealthType } from "./types/HealthType";
 export { default as ModCallbacksCustom } from "./types/ModCallbacksCustom";
 export { default as ModUpgraded } from "./types/ModUpgraded";
 export { default as PickingUpItem } from "./types/PickingUpItem";

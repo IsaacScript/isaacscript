@@ -218,8 +218,9 @@ export function getPlayerNumAllHearts(player: EntityPlayer): int {
   const hearts = player.GetHearts();
   const soulHearts = player.GetSoulHearts();
   const boneHearts = player.GetBoneHearts();
+  const eternalHearts = player.GetEternalHearts();
 
-  return hearts + soulHearts + boneHearts;
+  return hearts + soulHearts + boneHearts + eternalHearts;
 }
 
 /**

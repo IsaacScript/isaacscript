@@ -7,6 +7,7 @@ import * as postPickupCollect from "./callbacks/postPickupCollect";
 import * as postPickupInitLate from "./callbacks/postPickupInitLate";
 import * as postPlayerChangeHealth from "./callbacks/postPlayerChangeHealth";
 import * as postPlayerChangeType from "./callbacks/postPlayerChangeType";
+import * as postPlayerFatalDamage from "./callbacks/postPlayerFatalDamage";
 import * as postPlayerReordered from "./callbacks/postPlayerReordered";
 import * as postSacrifice from "./callbacks/postSacrifice";
 import * as postTransformation from "./callbacks/postTransformation";
@@ -59,6 +60,7 @@ function initCustomCallbacks(modUpgraded: ModUpgraded) {
   itemPickup.init(modUpgraded);
   postPlayerChangeType.init(modUpgraded);
   postPlayerChangeHealth.init(modUpgraded);
+  postPlayerFatalDamage.init(modUpgraded);
   postFlip.init(modUpgraded);
   postEsauJr.init(modUpgraded);
   postTransformation.init(modUpgraded);

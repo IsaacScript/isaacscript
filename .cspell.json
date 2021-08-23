@@ -12,6 +12,7 @@
         "deserialization",
         "getinfo",
         "getmetatable",
+        "guppys",
         "hitbox",
         "ipairs",
         "isaacs",
