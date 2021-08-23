@@ -614,12 +614,24 @@ function postPlayerUpdateReordered(player: EntityPlayer): void {}
 
 Fires on the first MC_POST_PICKUP_UPDATE frame for each pickup.
 
-This callback is useful because many attributes cannot be retrieved properly in the normal MC_POST_PICKUP_INIT callback.
+This callback is useful because many attributes cannot be set or retrieved properly in the normal MC_POST_PICKUP_INIT callback.
 
 - When registering the callback, takes an optional second argument that will make the callback only fire if the pickup variant matches the `PickupVariant` provided.
 
 ```ts
 function postPickupInitLate(pickup: EntityPickup): void {}
+```
+
+### MC_POST_LASER_INIT_LATE
+
+Fires on the first MC_POST_LASER_UPDATE frame for each laser.
+
+This callback is useful because many attributes cannot be set or retrieved properly in the normal MC_POST_LASER_INIT callback.
+
+- When registering the callback, takes an optional second argument that will make the callback only fire if the laser variant matches the `PickupLaser` provided.
+
+```ts
+function postLaserInitLate(laser: EntityLaser): void {}
 ```
 
 ### MC_POST_PICKUP_COLLECT
