@@ -13,7 +13,7 @@ const v = {
 };
 
 export function init(mod: ModUpgraded): void {
-  saveDataManager("postPlayerChangeTypeCallback", v, hasSubscriptions);
+  saveDataManager("postPlayerChangeHealthCallback", v, hasSubscriptions);
 
   mod.AddCallbackCustom(
     ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED,
