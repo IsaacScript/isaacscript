@@ -12,6 +12,7 @@ import * as postNewLevelReordered from "../callbacks/subscriptions/postNewLevelR
 import * as postNewRoomReordered from "../callbacks/subscriptions/postNewRoomReordered";
 import * as postPickupCollect from "../callbacks/subscriptions/postPickupCollect";
 import * as postPickupInitLate from "../callbacks/subscriptions/postPickupInitLate";
+import * as postPlayerChangeHealth from "../callbacks/subscriptions/postPlayerChangeHealth";
 import * as postPlayerChangeType from "../callbacks/subscriptions/postPlayerChangeType";
 import * as postPlayerInitReordered from "../callbacks/subscriptions/postPlayerInitReordered";
 import * as postPlayerUpdateReordered from "../callbacks/subscriptions/postPlayerUpdateReordered";
@@ -155,6 +156,13 @@ export default class ModUpgraded implements Mod {
       case ModCallbacksCustom.MC_POST_PLAYER_CHANGE_TYPE: {
         postPlayerChangeType.register(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_PLAYER_CHANGE_TYPE]),
+        );
+        break;
+      }
+
+      case ModCallbacksCustom.MC_POST_PLAYER_CHANGE_HEALTH: {
+        postPlayerChangeHealth.register(
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_PLAYER_CHANGE_HEALTH]),
         );
         break;
       }

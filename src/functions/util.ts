@@ -54,6 +54,9 @@ export function getEnumValues(transpiledEnum: unknown): int[] {
     }
   }
 
+  // The enums will be in a random order, so sort them
+  enumValues.sort();
+
   return enumValues;
 }
 

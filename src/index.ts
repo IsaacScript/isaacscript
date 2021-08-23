@@ -3,6 +3,7 @@ export {
   forceNewRoomCallback,
 } from "./callbacks/reorderedCallbacks";
 export {
+  CHARACTERS_WITH_NO_RED_HEARTS,
   DISTANCE_OF_GRID_TILE,
   DOOR_HITBOX_DISTANCE,
   FIRST_GLITCHED_COLLECTIBLE_TYPE,

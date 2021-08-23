@@ -85,7 +85,7 @@ export function getRoomIndex(): int {
 /**
  * Helper function to get the stage ID for the room from the XML/STB data. The room stage ID will
  * correspond to the first number in the filename of the XML/STB file. For example, a Depths room
- * would have a stage ID of 7.
+ * would have a stage ID of 7. (Use the `StageID` enum for comparison.)
  *
  * @returns The room stage ID. Returns -1 if the stage ID was not found.
  */

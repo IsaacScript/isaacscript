@@ -12,6 +12,7 @@ import { PostNewLevelReorderedCallbackType } from "../callbacks/subscriptions/po
 import { PostNewRoomReorderedCallbackType } from "../callbacks/subscriptions/postNewRoomReordered";
 import { PostPickupCollectCallbackType } from "../callbacks/subscriptions/postPickupCollect";
 import { PostPickupInitLateCallbackType } from "../callbacks/subscriptions/postPickupInitLate";
+import { PostPlayerChangeHealthCallbackType } from "../callbacks/subscriptions/postPlayerChangeHealth";
 import { PostPlayerChangeTypeCallbackType } from "../callbacks/subscriptions/postPlayerChangeType";
 import { PostPlayerInitReorderedCallbackType } from "../callbacks/subscriptions/postPlayerInitReordered";
 import { PostPlayerUpdateReorderedCallbackType } from "../callbacks/subscriptions/postPlayerUpdateReordered";
@@ -58,6 +59,10 @@ export default interface CallbackParametersCustom {
   ];
   [ModCallbacksCustom.MC_POST_PLAYER_CHANGE_TYPE]: [
     callback: PostPlayerChangeTypeCallbackType,
+  ];
+  [ModCallbacksCustom.MC_POST_PLAYER_CHANGE_HEALTH]: [
+    callback: PostPlayerChangeHealthCallbackType,
+    playerVariant?: PlayerVariant,
   ];
   [ModCallbacksCustom.MC_POST_FLIP]: [callback: PostFlipCallbackType];
   [ModCallbacksCustom.MC_POST_FIRST_FLIP]: [
