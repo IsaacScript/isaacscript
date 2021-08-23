@@ -134,9 +134,7 @@ export function getPlayers(performExclusions = false): EntityPlayer[] {
       continue;
     }
 
-    // Exclude players with a non-null parent, since they are not real players
-    // (e.g. the Strawman Keeper)
-    if (player.Parent !== null) {
+    if (isChildPlayer(player)) {
       continue;
     }
 
@@ -321,6 +319,14 @@ export function hasOpenPocketItemSlot(player: EntityPlayer): boolean {
 export function hasOpenTrinketSlot(player: EntityPlayer): boolean {
   const openTrinketSlot = getOpenTrinketSlot(player);
   return openTrinketSlot !== null;
+}
+
+/**
+ * Some players are "child" players, meaning that they have a non-null Parent property.
+ * (For example, the Strawman Keeper.)
+ */
+export function isChildPlayer(player: EntityPlayer): boolean {
+  return player.Parent !== null;
 }
 
 export function isFirstPlayer(player: EntityPlayer): boolean {
