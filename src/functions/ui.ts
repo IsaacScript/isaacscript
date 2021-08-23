@@ -1,4 +1,8 @@
-import { SCREEN_SIZE_BETWEEN_RENDER_SURFACES } from "../constants";
+const GRID_ENTITIES_BETWEEN_RENDER_SURFACES = Vector(17, 11); // 17 on the x axis, 11 on the y axis
+const GRID_ENTITY_RENDER_SIZE = Vector(26, 26);
+const SCREEN_SIZE_BETWEEN_RENDER_SURFACES = GRID_ENTITY_RENDER_SIZE.mul(
+  GRID_ENTITIES_BETWEEN_RENDER_SURFACES,
+);
 
 /**
  * In the options menu, players have the ability to set a HUD offset. However, mods do not have

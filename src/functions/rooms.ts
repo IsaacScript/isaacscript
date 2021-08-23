@@ -1,3 +1,5 @@
+import { GENESIS_ROOM_VARIANT } from "../constants";
+
 /**
  * Helper function for quickly switching to a new room without playing a particular animation.
  * Always use this helper function over invoking `Game().ChangeRoom()` directly to ensure that you
@@ -197,5 +199,16 @@ export function inLRoom(): boolean {
     roomShape === RoomShape.ROOMSHAPE_LTR ||
     roomShape === RoomShape.ROOMSHAPE_LBL ||
     roomShape === RoomShape.ROOMSHAPE_LBR
+  );
+}
+
+export function inGenesisRoom(): boolean {
+  const game = Game();
+  const room = game.GetRoom();
+  const roomType = room.GetType();
+  const roomVariant = getRoomVariant();
+
+  return (
+    roomType === RoomType.ROOM_ISAACS || roomVariant === GENESIS_ROOM_VARIANT
   );
 }

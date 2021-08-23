@@ -1,4 +1,9 @@
-import { RECOMMENDED_SHIFT_IDX } from "../constants";
+/**
+ * This is the ShiftIdx that Blade recommended after having reviewing the game's internal functions.
+ * Any value between 0 and 80 should work equally well.
+ * https://www.jstatsoft.org/article/view/v008i14/xorshift.pdf
+ */
+const RECOMMENDED_SHIFT_IDX = 35;
 
 /**
  * This returns a random float between 0 and 1. It is inclusive on the low end, but exclusive on

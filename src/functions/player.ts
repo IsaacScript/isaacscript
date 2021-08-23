@@ -1,6 +1,10 @@
-import { EXCLUDED_CHARACTERS } from "../constants";
 import PocketItemDescription from "../types/PocketItemDescription";
 import PocketItemType from "../types/PocketItemType";
+
+const EXCLUDED_CHARACTERS = [
+  PlayerType.PLAYER_ESAU, // 20
+  PlayerType.PLAYER_THESOUL_B, // 40
+];
 
 /**
  * PlayerIndex is a specific type of string; see the documentation for the [[`getPlayerIndex`]]

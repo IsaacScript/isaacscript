@@ -1,4 +1,13 @@
-import { SURROUNDING_GRID_INDEXES_DELTA } from "../constants";
+const SURROUNDING_GRID_INDEXES_DELTA = [
+  -16, // Above-left
+  -15, // Above
+  -14, // Above-right
+  -1, // Left
+  1, // Right
+  14, // Below-left
+  15, // Below
+  16, // Below-right
+];
 
 export function getGridEntities(): GridEntity[] {
   const game = Game();

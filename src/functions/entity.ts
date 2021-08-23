@@ -1,4 +1,5 @@
-import { GLITCHED_ITEM_THRESHOLD } from "../constants";
+// Glitched items start at id 4294967295 (the final 32-bit integer) and increment backwards
+const GLITCHED_ITEM_THRESHOLD = 4000000000;
 
 export function anyEntityCloserThan(
   entities: Entity[],
