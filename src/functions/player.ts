@@ -334,6 +334,19 @@ export function isFirstPlayer(player: EntityPlayer): boolean {
   return getPlayerIndexVanilla(player) === 0;
 }
 
+/**
+ * Helper function for detecting when a player is Jacob or Esau. This will only match the
+ * non-tainted versions of these characters.
+ */
+export function isJacobOrEsau(player: EntityPlayer): boolean {
+  const character = player.GetPlayerType();
+
+  return (
+    character === PlayerType.PLAYER_JACOB ||
+    character === PlayerType.PLAYER_ESAU
+  );
+}
+
 export function removeDeadEyeMultiplier(player: EntityPlayer): void {
   // Each time the "ClearDeadEyeCharge()" function is called, it only has a chance of working,
   // so just call it 100 times to be safe
