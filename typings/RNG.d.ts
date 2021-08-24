@@ -1,6 +1,6 @@
 declare function RNG(this: void): RNG;
 
-declare class RNG {
+declare interface RNG {
   GetSeed(): int;
   Next(): int;
   /**

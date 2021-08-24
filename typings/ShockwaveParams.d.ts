@@ -1,4 +1,4 @@
-declare class ShockwaveParams {
+declare interface ShockwaveParams {
   Age: int;
   LifeSpan: int;
   Position: Vector;

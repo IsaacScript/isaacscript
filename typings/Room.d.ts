@@ -1,4 +1,4 @@
-declare class Room {
+declare interface Room {
   /**
    * @param position1
    * @param position2

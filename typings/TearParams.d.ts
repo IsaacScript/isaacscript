@@ -1,4 +1,4 @@
-declare class TearParams {
+declare interface TearParams {
   BombVariant: int;
   TearColor: Color;
   TearDamage: float;

@@ -1,6 +1,6 @@
 declare function ProjectileParams(this: void): ProjectileParams;
 
-declare class ProjectileParams {
+declare interface ProjectileParams {
   Acceleration: float;
   BulletFlags: int;
   ChangeFlags: ProjectileFlags;

@@ -1,6 +1,6 @@
 declare function BitSet128(this: void, l: int, h: int): BitSet128;
 
-declare class BitSet128 {
+declare interface BitSet128 {
   // If you call these methods directly, the game will crash; see the below methods instead
   /*
   __band(right: BitSet128): BitSet128;

@@ -17,8 +17,8 @@ module.exports = {
 
   rules: {
     // Documentation: https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/member-ordering.md
-    // We want class definitions to be alphabetically ordered so that they match Wofsauge's
-    // documentation
+    // We want class and interface definitions to be alphabetically ordered so that they match the
+    // Isaac documentation
     "@typescript-eslint/member-ordering": [
       "warn",
       {

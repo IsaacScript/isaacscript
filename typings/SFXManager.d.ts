@@ -1,6 +1,6 @@
 declare function SFXManager(this: void): SFXManager;
 
-declare class SFXManager {
+declare interface SFXManager {
   AdjustPitch(soundEffect: SoundEffect | int, pitch: float): void;
   AdjustVolume(soundEffect: SoundEffect | int, volume: float): void;
   GetAmbientSoundVolume(soundEffect: SoundEffect | int): float;

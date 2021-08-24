@@ -1,4 +1,4 @@
-declare class PillConfigList {
+declare interface PillConfigList {
   Get(idx: int): ItemConfigPillEffect | null;
 
   readonly Size: int;

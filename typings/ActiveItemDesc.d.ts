@@ -1,4 +1,4 @@
-declare class ActiveItemDesc {
+declare interface ActiveItemDesc {
   BatteryCharge: int;
   Charge: int;
   Item: CollectibleType | int;

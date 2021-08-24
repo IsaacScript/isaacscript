@@ -1,4 +1,4 @@
-declare class SpawnList {
+declare interface SpawnList {
   Get(idx: int): RoomConfigSpawn | null;
 
   Size: int;

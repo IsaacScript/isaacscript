@@ -1,6 +1,6 @@
 declare function Sprite(this: void): Sprite;
 
-declare class Sprite {
+declare interface Sprite {
   GetAnimation(): string;
   GetDefaultAnimation(): string;
   GetDefaultAnimationName(): Readonly<string>;

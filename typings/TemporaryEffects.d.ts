@@ -1,4 +1,4 @@
-declare class TemporaryEffects {
+declare interface TemporaryEffects {
   /**
    * This method is currently bugged in v820. Do not use this method, as it will semi-reliably crash
    * the game.

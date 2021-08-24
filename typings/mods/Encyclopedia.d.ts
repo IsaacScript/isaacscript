@@ -1,6 +1,6 @@
-declare const Encyclopedia: EncyclopediaObj;
+declare const Encyclopedia: EncyclopediaObject;
 
-declare class EncyclopediaObj {
+declare interface EncyclopediaObject {
   AddCharacter(args: {
     ModName: string;
     Name: string;

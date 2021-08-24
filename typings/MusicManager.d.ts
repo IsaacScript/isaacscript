@@ -1,6 +1,6 @@
 declare function MusicManager(this: void): MusicManager;
 
-declare class MusicManager {
+declare interface MusicManager {
   /**
    * @param music
    * @param fadeRate Default is 0.08.

@@ -1,6 +1,6 @@
 declare const EID: ExternalItemDescriptions;
 
-declare type EIDDescriptionObj = {
+declare interface EIDDescriptionObject {
   ItemType: int;
   ItemVariant: int;
   RealID: int;
@@ -9,7 +9,7 @@ declare type EIDDescriptionObj = {
   Name: string;
   Description: string;
   Transformation: string;
-};
+}
 
 /**
  * @param LeftOffset Defaults to -1.
@@ -33,7 +33,7 @@ declare type EIDTransformationTargetType =
   | "pill"
   | "entity";
 
-declare class ExternalItemDescriptions {
+declare interface ExternalItemDescriptions {
   /** Gets the size of the screen. */
   GetScreenSize(): Vector;
 
@@ -160,7 +160,10 @@ declare class ExternalItemDescriptions {
   alterTextPos(newPosVector: Vector): void;
 
   /** Appends a given string to the description of a given `EIDDescriptionObj`. */
-  appendToDescription(descObj: EIDDescriptionObj, appendString: string): void;
+  appendToDescription(
+    descObj: EIDDescriptionObject,
+    appendString: string,
+  ): void;
 
   /** Compares two KColors. Returns true if they are equal. */
   areColorsEqual(c1: KColor, c2: KColor): boolean;
@@ -202,7 +205,7 @@ declare class ExternalItemDescriptions {
    * turned off again using
    * {@link EID.hidePermanentText EID:hidePermanentText()}.
    */
-  displayPermanentText(descriptionObject: EIDDescriptionObj): void;
+  displayPermanentText(descriptionObject: EIDDescriptionObject): void;
 
   /**
    * Filters a given string and looks for `KColor` markup.
@@ -260,21 +263,29 @@ declare class ExternalItemDescriptions {
    *
    * Falls back to English if it doesn't exist.
    */
-  getDescriptionData(Type: int, Variant: int, SubType: int): EIDDescriptionObj;
+  getDescriptionData(
+    Type: int,
+    Variant: int,
+    SubType: int,
+  ): EIDDescriptionObject;
 
   /**
    * Returns the specified object table in the current language.
    *
    * Falls back to English if it doesn't exist.
    */
-  getDescriptionEntry(objTable: string, objID?: string): EIDDescriptionObj;
+  getDescriptionEntry(objTable: string, objID?: string): EIDDescriptionObject;
 
   /**
    * Returns the description object of the specified entity.
    *
    * Falls back to English if the objID isn't available.
    */
-  getDescriptionObj(Type: int, Variant: int, SubType: int): EIDDescriptionObj;
+  getDescriptionObj(
+    Type: int,
+    Variant: int,
+    SubType: int,
+  ): EIDDescriptionObject;
 
   /** Get `KColor` object of "Error" texts. */
   getErrorColor(): KColor;
