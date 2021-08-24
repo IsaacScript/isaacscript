@@ -698,7 +698,7 @@ function postPlayerChangeHealth(player: EntityPlayer, healthType: HealthType, am
 
 Fires from the MC_ENTITY_TAKE_DMG callback when a player takes fatal damage. Return false to prevent the fatal damage.
 
-Note that this function properly takes into account Guppy's Collar, Broken Ankh, and Mysterious Paper.
+Note that this function does properly take into account Guppy's Collar, Broken Ankh, and Mysterious Paper. It does not take into account Spirit Shackles, since that isn't a "real" revival item. For detecting Spirit Shackles, use the `willReviveFromSpiritShackles()` helper function.
 
 - When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `PlayerVariant` provided.
 
