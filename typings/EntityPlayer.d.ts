@@ -518,7 +518,7 @@ declare class EntityPlayer extends Entity {
   GetTractorBeam(): Entity;
   /** Returns 0 if there is no trinket. */
   GetTrinket(trinketSlot: TrinketSlot): int;
-  GetTrinketMultiplier(trinketType: TrinketType): int;
+  GetTrinketMultiplier(trinketType: TrinketType | int): int;
   GetTrinketRNG(trinketType: TrinketType | int): RNG;
   GetVelocityBeforeUpdate(): Readonly<Vector>;
   GetZodiacEffect(): ZodiacCollectibles;
