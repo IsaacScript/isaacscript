@@ -1,7 +1,7 @@
 // Enums from the "resources/scripts/enums.lua" file
 // (entity subtypes only)
 
-/** For EntityType.ENTITY_PLAYER (1) (Variant 0 - Player) */
+/** For EntityType.ENTITY_PLAYER (1), PlayerVariant.PLAYER (0) */
 declare enum PlayerType {
   PLAYER_POSSESSOR = -1,
   PLAYER_ISAAC = 0,
@@ -48,7 +48,7 @@ declare enum PlayerType {
   NUM_PLAYER_TYPES = 41,
 }
 
-/** For EntityType.ENTITY_PLAYER (1) (Variant 1 - Coplayer) */
+/** For EntityType.ENTITY_PLAYER (1), PlayerVariant.COOP_BABY (1) */
 declare enum BabySubType {
   BABY_UNASSIGNED = -1,
   BABY_SPIDER = 0,
@@ -125,7 +125,7 @@ declare enum BabySubType {
   BABY_BASIC = 71,
 }
 
-/** For FamiliarVariant.BLUE_FLY (43) */
+/** For EntityType.ENTITY_FAMILIAR (3), FamiliarVariant.BLUE_FLY (43) */
 declare enum LocustSubtypes {
   /** Red (explosive) */
   LOCUST_OF_WRATH = 1,
@@ -139,7 +139,7 @@ declare enum LocustSubtypes {
   LOCUST_OF_CONQUEST = 5,
 }
 
-/** For PickupVariant.PICKUP_HEART (10) */
+/** For EntityType.ENTITY_PICKUP (5), PickupVariant.PICKUP_HEART (10) */
 declare enum HeartSubType {
   HEART_FULL = 1,
   HEART_HALF = 2,
@@ -155,7 +155,7 @@ declare enum HeartSubType {
   HEART_ROTTEN = 12,
 }
 
-/** For PickupVariant.PICKUP_COIN (20) */
+/** For EntityType.ENTITY_PICKUP (5), PickupVariant.PICKUP_COIN (20) */
 declare enum CoinSubType {
   COIN_PENNY = 1,
   COIN_NICKEL = 2,
@@ -166,7 +166,7 @@ declare enum CoinSubType {
   COIN_GOLDEN = 7,
 }
 
-/** For PickupVariant.PICKUP_KEY (30) */
+/** EntityType.ENTITY_PICKUP (5), For PickupVariant.PICKUP_KEY (30) */
 declare enum KeySubType {
   KEY_NORMAL = 1,
   KEY_GOLDEN = 2,
@@ -174,7 +174,7 @@ declare enum KeySubType {
   KEY_CHARGED = 4,
 }
 
-/** For PickupVariant.PICKUP_BOMB (40) */
+/** For EntityType.ENTITY_PICKUP (5), PickupVariant.PICKUP_BOMB (40) */
 declare enum BombSubType {
   BOMB_NORMAL = 1,
   BOMB_DOUBLEPACK = 2,
@@ -185,25 +185,25 @@ declare enum BombSubType {
   BOMB_GIGA = 7,
 }
 
-/** For PickupVariant.PICKUP_POOP (42) */
+/** For EntityType.ENTITY_PICKUP (5), PickupVariant.PICKUP_POOP (42) */
 declare enum PoopPickupSubType {
   POOP_SMALL = 0,
   POOP_BIG = 1,
 }
 
-/** For PickupVariant.PICKUP_CHEST (50) */
+/** For EntityType.ENTITY_PICKUP (5), PickupVariant.PICKUP_CHEST (50) */
 declare enum ChestSubType {
   CHEST_OPENED = 0,
   CHEST_CLOSED = 1,
 }
 
-/** For PickupVariant.PICKUP_GRAB_BAG (69) */
+/** For EntityType.ENTITY_PICKUP (5), PickupVariant.PICKUP_GRAB_BAG (69) */
 declare enum SackSubType {
   SACK_NORMAL = 1,
   SACK_BLACK = 2,
 }
 
-/** For PickupVariant.PICKUP_LIL_BATTERY (90) */
+/** For EntityType.ENTITY_PICKUP (5), PickupVariant.PICKUP_LIL_BATTERY (90) */
 declare enum BatterySubType {
   BATTERY_NORMAL = 1,
   BATTERY_MICRO = 2,
@@ -211,7 +211,7 @@ declare enum BatterySubType {
   BATTERY_GOLDEN = 4,
 }
 
-/** For PickupVariant.PICKUP_COLLECTIBLE (100) */
+/** For EntityType.ENTITY_PICKUP (5), PickupVariant.PICKUP_COLLECTIBLE (100) */
 declare enum CollectibleType {
   COLLECTIBLE_NULL = 0,
   COLLECTIBLE_SAD_ONION = 1,
@@ -934,7 +934,7 @@ declare enum CollectibleType {
   NUM_COLLECTIBLES = 730,
 }
 
-/** For PickupVariant.PICKUP_TAROTCARD (300) */
+/** For EntityType.ENTITY_PICKUP (5), PickupVariant.PICKUP_TAROTCARD (300) */
 declare enum Card {
   CARD_RANDOM = -1,
   CARD_NULL = 0,
@@ -1038,7 +1038,7 @@ declare enum Card {
   NUM_CARDS = 98,
 }
 
-/** For PickupVariant.PICKUP_TRINKET (350) */
+/** For EntityType.ENTITY_PICKUP (5), PickupVariant.PICKUP_TRINKET (350) */
 declare enum TrinketType {
   TRINKET_NULL = 0,
   TRINKET_SWALLOWED_PENNY = 1,
@@ -1235,7 +1235,7 @@ declare enum TrinketType {
   TRINKET_ID_MASK = 0x7fff,
 }
 
-/** For PickupVariant.PICKUP_BED (380) */
+/** For EntityType.ENTITY_PICKUP (5), PickupVariant.PICKUP_BED (380) */
 declare enum BedSubType {
   BED_ISAAC = 0,
   BED_MOM = 1,

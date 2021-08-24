@@ -24,16 +24,25 @@ type ZodiacCollectibles =
   | CollectibleType.COLLECTIBLE_VIRGO;
 
 declare class EntityPlayer extends Entity {
+  /** 1 unit is half a heart. Remove them with negative numbers. */
   AddBlackHearts(blackHearts: int): void;
-  /** This adds Tainted Bethany's blood charges. */
+  /** This adds Tainted Bethany's blood charges. Only works on Tainted Bethany. */
   AddBloodCharge(num: int): void;
   AddBlueFlies(amount: int, position: Vector, target: Entity | null): Entity;
   AddBlueSpider(position: Vector): Entity;
+  /** Remove them with negative numbers. */
   AddBombs(amount: int): void;
+  /** Remove them with negative numbers. */
   AddBoneHearts(hearts: int): void;
+  /** Remove them with negative numbers. */
   AddBrokenHearts(hearts: int): void;
+  /**
+   * Used to specify the kinds of stats that should be evaluated the next time `EvaluateCache()` is
+   * run.
+   */
   AddCacheFlags(cacheFlags: CacheFlag): void;
   AddCard(card: Card | int): void;
+  /** Remove them with negative numbers. */
   AddCoins(amount: int): void;
   /**
    * @param collectibleType
@@ -62,13 +71,9 @@ declare class EntityPlayer extends Entity {
   AddCurseMistEffect(): void;
   AddDeadEyeCharge(): void;
   AddDollarBillEffect(): void;
+  /** Remove them with negative numbers. */
   AddEternalHearts(eternalHearts: int): void;
-  /**
-   * Spawns a friendly dip from Dirty Mind.
-   *
-   * @param subType
-   * @param position
-   */
+  /** Spawns a friendly dip from Dirty Mind. */
   AddFriendlyDip(subType: int, position: Vector): EntityFamiliar;
   /**
    * Turns the given number of bombs into giga bombs.
