@@ -333,3 +333,11 @@ export function isChildPlayer(player: EntityPlayer): boolean {
 export function isFirstPlayer(player: EntityPlayer): boolean {
   return getPlayerIndexVanilla(player) === 0;
 }
+
+export function removeDeadEyeMultiplier(player: EntityPlayer): void {
+  // Each time the "ClearDeadEyeCharge()" function is called, it only has a chance of working,
+  // so just call it 100 times to be safe
+  for (let i = 0; i < 100; i++) {
+    player.ClearDeadEyeCharge();
+  }
+}
