@@ -1,15 +1,19 @@
-type CollectibleAnimationName =
+declare type CollectibleAnimation =
   | "Idle"
   | "Empty"
   | "ShopIdle"
   | "PlayerPickup"
   | "PlayerPickupSparkle";
-type ControllerIndex = 0 | 1 | 2 | 3;
-type PlayerAnimationName = "Pickup" | "LiftItem" | "HideItem" | "UseItem";
-type PocketItemSlot = 0 | 1 | 2 | 3;
+declare type ControllerIndex = 0 | 1 | 2 | 3;
+declare type PlayerItemAnimation =
+  | "Pickup"
+  | "LiftItem"
+  | "HideItem"
+  | "UseItem";
+declare type PocketItemSlot = 0 | 1 | 2 | 3;
 /** Slot 0 is the bottom-right trinket. Slot 1 is the top-left trinket. */
-type TrinketSlot = 0 | 1;
-type ZodiacCollectibles =
+declare type TrinketSlot = 0 | 1;
+declare type ZodiacCollectibles =
   | CollectibleType.COLLECTIBLE_CANCER
   | CollectibleType.COLLECTIBLE_ARIES
   | CollectibleType.COLLECTIBLE_LEO
@@ -175,7 +179,10 @@ declare class EntityPlayer extends Entity {
    * @param card
    * @param playerAnimationName Default is "Pickup".
    */
-  AnimateCard(card: Card | int, playerAnimationName?: string): void;
+  AnimateCard(
+    card: Card | int,
+    playerAnimationName?: PlayerItemAnimation,
+  ): void;
   /**
    * @param collectibleType
    * @param playerAnimationName Default is "Pickup".
@@ -183,8 +190,8 @@ declare class EntityPlayer extends Entity {
    */
   AnimateCollectible(
     collectibleType: CollectibleType | int,
-    playerAnimationName?: PlayerAnimationName,
-    spriteAnimationName?: CollectibleAnimationName,
+    playerAnimationName?: PlayerItemAnimation,
+    spriteAnimationName?: CollectibleAnimation,
   ): void;
   /** Play the "thumbs up" animation. */
   AnimateHappy(): void;
@@ -194,7 +201,10 @@ declare class EntityPlayer extends Entity {
    * @param pillColor
    * @param playerAnimationName Default is "Pickup".
    */
-  AnimatePill(pillColor: PillColor | int, playerAnimationName?: string): void;
+  AnimatePill(
+    pillColor: PillColor | int,
+    playerAnimationName?: PlayerItemAnimation,
+  ): void;
   AnimatePitfallIn(): void;
   AnimatePitfallOut(): void;
   /**
@@ -211,7 +221,7 @@ declare class EntityPlayer extends Entity {
    */
   AnimateTrinket(
     trinketType: TrinketType | int,
-    playerAnimationName?: string,
+    playerAnimationName?: PlayerItemAnimation,
     spriteAnimationName?: string,
   ): void;
   AreControlsEnabled(): boolean;
