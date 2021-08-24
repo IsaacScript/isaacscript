@@ -1,5 +1,5 @@
 /** For EntityType.ENTITY_FAMILIAR (3), FamiliarVariant.DIP (201) */
-declare const enum DipFamiliarVariant {
+declare const enum DipFamiliarSubType {
   NORMAL = 0,
   RED = 1,
   CORNY = 2,
