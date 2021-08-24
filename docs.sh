@@ -24,7 +24,9 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/math.ts" \
   --entryPoints "$DIR/src/functions/player.ts" \
   --entryPoints "$DIR/src/functions/random.ts" \
+  --entryPoints "$DIR/src/functions/revive.ts"
   --entryPoints "$DIR/src/functions/rooms.ts" \
+  --entryPoints "$DIR/src/functions/sprite.ts" \
   --entryPoints "$DIR/src/functions/stage.ts" \
   --entryPoints "$DIR/src/functions/tears.ts" \
   --entryPoints "$DIR/src/functions/transformations.ts" \

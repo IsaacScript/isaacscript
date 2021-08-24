@@ -22,6 +22,7 @@
         "luadebug",
         "metatable",
         "metatables",
+        "noanim",
         "npcs",
         "pcall",
         "playerform",

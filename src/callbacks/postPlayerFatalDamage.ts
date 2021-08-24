@@ -1,4 +1,5 @@
 import { getPlayerNumAllHearts } from "../functions/player";
+import { willPlayerRevive } from "../functions/revive";
 import ModUpgraded from "../types/ModUpgraded";
 import * as postPlayerFatalDamage from "./subscriptions/postPlayerFatalDamage";
 
@@ -38,16 +39,14 @@ function entityTakeDmgPlayer(
     return undefined;
   }
 
-  const hearts = player.GetHearts();
-  const eternalHearts = player.GetEternalHearts();
-  const soulHearts = player.GetSoulHearts();
-  const boneHearts = player.GetBoneHearts();
-  let extraLives = player.GetExtraLives();
-
   // Furthermore, this will not be fatal damage if we have two different kinds of hearts
   // e.g. a bomb explosion deals 2 damage,
   // but if the player has one half soul heart and one half red heart,
   // the game will only remove the soul heart
+  const hearts = player.GetHearts();
+  const eternalHearts = player.GetEternalHearts();
+  const soulHearts = player.GetSoulHearts();
+  const boneHearts = player.GetBoneHearts();
   if (
     (hearts > 0 && soulHearts > 0) ||
     (hearts > 0 && boneHearts > 0) ||
@@ -58,23 +57,8 @@ function entityTakeDmgPlayer(
     return undefined;
   }
 
-  // Having Guppy's Collar causes the extra lives to be incremented by 1,
-  // but we cannot detect whether or not Guppy's Collar will actually activate,
-  // so just decrement the extra lives
-  if (player.HasCollectible(CollectibleType.COLLECTIBLE_GUPPYS_COLLAR)) {
-    extraLives -= 1;
-  }
-
-  // Having Missing Poster does not affect the extra lives variable, so manually account for this
-  if (
-    player.HasTrinket(TrinketType.TRINKET_MISSING_POSTER) &&
-    // Mysterious Paper has a chance to give Missing Poster on every frame
-    !player.HasTrinket(TrinketType.TRINKET_MYSTERIOUS_PAPER)
-  ) {
-    extraLives += 1;
-  }
-
-  if (extraLives > 0) {
+  // If we have a revival item, this will not be fatal damage
+  if (willPlayerRevive(player)) {
     return undefined;
   }
 
