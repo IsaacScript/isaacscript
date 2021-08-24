@@ -25,7 +25,6 @@ function postPlayerUpdate(player: EntityPlayer) {
   }
 
   const playerIndex = getPlayerIndex(player);
-  Isaac.DebugString(`PLAYER INDEX IS: ${playerIndex}`);
   const fired = v.run.firedMap.get(playerIndex);
   if (fired === undefined) {
     v.run.firedMap.set(playerIndex, true);
