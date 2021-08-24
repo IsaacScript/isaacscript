@@ -26,6 +26,8 @@ export const MAX_NUM_DOORS = 8;
 /** The game can only handle up to four different players. */
 export const MAX_NUM_INPUTS = 4;
 
+export const MAX_PLAYER_POCKET_ITEM_SLOTS = 4;
+
 /**
  * As the player continues to move in a direction, they will accelerate. When going from one wall to
  * another in a 2x2 room at 2.0 speed (the maximum that the speed stat can rise to), the amount of
@@ -33,6 +35,8 @@ export const MAX_NUM_INPUTS = 4;
  * constant specifies a value of 9.8 to be safe.
  */
 export const MAX_PLAYER_SPEED_IN_UNITS = 9.8;
+
+export const MAX_PLAYER_TRINKET_SLOTS = 2;
 
 export const MAX_VANILLA_COLLECTIBLE_TYPE =
   CollectibleType.COLLECTIBLE_DECAP_ATTACK;
