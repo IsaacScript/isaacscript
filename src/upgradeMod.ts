@@ -9,6 +9,7 @@ import * as postPickupInitLate from "./callbacks/postPickupInitLate";
 import * as postPlayerChangeHealth from "./callbacks/postPlayerChangeHealth";
 import * as postPlayerChangeType from "./callbacks/postPlayerChangeType";
 import * as postPlayerFatalDamage from "./callbacks/postPlayerFatalDamage";
+import * as postPlayerInitLate from "./callbacks/postPlayerInitLate";
 import * as postPlayerReordered from "./callbacks/postPlayerReordered";
 import * as postSacrifice from "./callbacks/postSacrifice";
 import * as postTransformation from "./callbacks/postTransformation";
@@ -52,6 +53,7 @@ export function upgradeMod(mod: Mod, verbose = false): ModUpgraded {
 function initCustomCallbacks(mod: ModUpgraded) {
   reorderedCallbacks.init(mod);
   postPlayerReordered.init(mod);
+  postPlayerInitLate.init(mod);
   postPickupInitLate.init(mod);
   postLaserInitLate.init(mod);
   postPickupCollect.init(mod);

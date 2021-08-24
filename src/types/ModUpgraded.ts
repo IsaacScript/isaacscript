@@ -16,6 +16,7 @@ import * as postPickupInitLate from "../callbacks/subscriptions/postPickupInitLa
 import * as postPlayerChangeHealth from "../callbacks/subscriptions/postPlayerChangeHealth";
 import * as postPlayerChangeType from "../callbacks/subscriptions/postPlayerChangeType";
 import * as postPlayerFatalDamage from "../callbacks/subscriptions/postPlayerFatalDamage";
+import * as postPlayerInitLate from "../callbacks/subscriptions/postPlayerInitLate";
 import * as postPlayerInitReordered from "../callbacks/subscriptions/postPlayerInitReordered";
 import * as postPlayerUpdateReordered from "../callbacks/subscriptions/postPlayerUpdateReordered";
 import * as postSacrifice from "../callbacks/subscriptions/postSacrifice";
@@ -123,6 +124,13 @@ export default class ModUpgraded implements Mod {
       case ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED: {
         postPlayerUpdateReordered.register(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED]),
+        );
+        break;
+      }
+
+      case ModCallbacksCustom.MC_POST_PLAYER_INIT_LATE: {
+        postPlayerInitLate.register(
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_PLAYER_INIT_LATE]),
         );
         break;
       }

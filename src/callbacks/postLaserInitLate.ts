@@ -3,7 +3,7 @@ import * as postLaserInitLate from "./subscriptions/postLaserInitLate";
 
 const v = {
   room: {
-    laserFiredMap: new Map<PtrHash, boolean>(),
+    firedMap: new Map<PtrHash, boolean>(),
   },
 };
 
@@ -24,9 +24,9 @@ function postLaserUpdate(laser: EntityLaser) {
   }
 
   const index = GetPtrHash(laser);
-  const fired = v.room.laserFiredMap.get(index);
+  const fired = v.room.firedMap.get(index);
   if (fired === undefined) {
-    v.room.laserFiredMap.set(index, true);
+    v.room.firedMap.set(index, true);
     postLaserInitLate.fire(laser);
   }
 }
