@@ -698,7 +698,7 @@ function postPlayerChangeHealth(player: EntityPlayer, healthType: HealthType, am
 
 Fires from the MC_ENTITY_TAKE_DMG callback when a player takes fatal damage. Return false to prevent the fatal damage.
 
-Note that this function assumes that Guppy's Collar and Broken Ankh will not activate, since there is no way of knowing if they will revive the player or not.
+Note that this function assumes that Mysterious Paper will not activate, since there is no reliable way of knowing if it will revive the player or not. (Missing Poster is only active when `gameFrameCount % 3 === 3`, and since different characters can have different length death animations, it is difficult to predict on what frame the death animation will end.)
 
 - When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `PlayerVariant` provided.
 
