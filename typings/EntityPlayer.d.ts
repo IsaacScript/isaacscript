@@ -7,6 +7,7 @@ type CollectibleAnimationName =
 type ControllerIndex = 0 | 1 | 2 | 3;
 type PlayerAnimationName = "Pickup" | "LiftItem" | "HideItem" | "UseItem";
 type PocketItemSlot = 0 | 1 | 2 | 3;
+/** Slot 0 is the bottom-right trinket. Slot 1 is the top-left trinket. */
 type TrinketSlot = 0 | 1;
 type ZodiacCollectibles =
   | CollectibleType.COLLECTIBLE_CANCER

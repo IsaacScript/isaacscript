@@ -126,6 +126,12 @@ declare const enum LambVariant {
   BODY = 10,
 }
 
+/** For EntityType.ENTITY_DARK_ESAU (866) */
+declare const enum DarkEsauVariant {
+  DARK_ESAU = 0,
+  PIT = 1,
+}
+
 /** For EntityType.ENTITY_ROTGUT (911) */
 declare const enum RotgutVariant {
   PHASE_1_HEAD = 0,
