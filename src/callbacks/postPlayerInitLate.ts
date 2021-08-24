@@ -1,9 +1,10 @@
 import { saveDataManager } from "../features/saveDataManager/main";
+import { getPlayerIndex, PlayerIndex } from "../functions/player";
 import * as postPlayerInitLate from "./subscriptions/postPlayerInitLate";
 
 const v = {
   room: {
-    firedMap: new Map<PtrHash, boolean>(),
+    firedMap: new Map<PlayerIndex, boolean>(),
   },
 };
 
@@ -23,10 +24,10 @@ function postPlayerUpdate(player: EntityPlayer) {
     return;
   }
 
-  const index = GetPtrHash(player);
-  const fired = v.room.firedMap.get(index);
+  const playerIndex = getPlayerIndex(player);
+  const fired = v.room.firedMap.get(playerIndex);
   if (fired === undefined) {
-    v.room.firedMap.set(index, true);
+    v.room.firedMap.set(playerIndex, true);
     postPlayerInitLate.fire(player);
   }
 }
