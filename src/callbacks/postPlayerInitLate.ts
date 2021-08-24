@@ -3,7 +3,7 @@ import { getPlayerIndex, PlayerIndex } from "../functions/player";
 import * as postPlayerInitLate from "./subscriptions/postPlayerInitLate";
 
 const v = {
-  room: {
+  run: {
     firedMap: new Map<PlayerIndex, boolean>(),
   },
 };
@@ -25,9 +25,10 @@ function postPlayerUpdate(player: EntityPlayer) {
   }
 
   const playerIndex = getPlayerIndex(player);
-  const fired = v.room.firedMap.get(playerIndex);
+  Isaac.DebugString(`PLAYER INDEX IS: ${playerIndex}`);
+  const fired = v.run.firedMap.get(playerIndex);
   if (fired === undefined) {
-    v.room.firedMap.set(playerIndex, true);
+    v.run.firedMap.set(playerIndex, true);
     postPlayerInitLate.fire(player);
   }
 }
