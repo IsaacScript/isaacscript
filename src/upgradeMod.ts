@@ -43,30 +43,26 @@ import ModUpgraded from "./types/ModUpgraded";
 export function upgradeMod(mod: Mod, verbose = false): ModUpgraded {
   const modUpgraded = new ModUpgraded(mod, verbose);
 
-  initFeatures(modUpgraded);
+  saveDataManager.init(modUpgraded);
   initCustomCallbacks(modUpgraded);
 
   return modUpgraded;
 }
 
-function initFeatures(modUpgraded: ModUpgraded) {
-  saveDataManager.init(modUpgraded);
-}
-
-function initCustomCallbacks(modUpgraded: ModUpgraded) {
-  reorderedCallbacks.init(modUpgraded);
-  postPlayerReordered.init(modUpgraded);
-  postPickupInitLate.init(modUpgraded);
-  postLaserInitLate.init(modUpgraded);
-  postPickupCollect.init(modUpgraded);
-  itemPickup.init(modUpgraded);
-  postPlayerChangeType.init(modUpgraded);
-  postPlayerChangeHealth.init(modUpgraded);
-  postPlayerFatalDamage.init(modUpgraded);
-  postFlip.init(modUpgraded);
-  postEsauJr.init(modUpgraded);
-  postTransformation.init(modUpgraded);
-  postSacrifice.init(modUpgraded);
-  postCursedTeleport.init(modUpgraded);
-  postGridEntity.init(modUpgraded);
+function initCustomCallbacks(mod: ModUpgraded) {
+  reorderedCallbacks.init(mod);
+  postPlayerReordered.init(mod);
+  postPickupInitLate.init(mod);
+  postLaserInitLate.init(mod);
+  postPickupCollect.init(mod);
+  itemPickup.init(mod);
+  postPlayerChangeType.init(mod);
+  postPlayerChangeHealth.init(mod);
+  postPlayerFatalDamage.init(mod);
+  postFlip.init(mod);
+  postEsauJr.init(mod);
+  postTransformation.init(mod);
+  postSacrifice.init(mod);
+  postCursedTeleport.init(mod);
+  postGridEntity.init(mod);
 }

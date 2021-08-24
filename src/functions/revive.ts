@@ -150,3 +150,20 @@ export function willMysteriousPaperRevive(player: EntityPlayer): boolean {
 
   return frameOfDeath % 4 === 3;
 }
+
+/**
+ * Helper function to see if the Spirit Shackles item is in an enabled state.
+ * (It can be either enabled or disabled.)
+ */
+export function willReviveFromSpiritShackles(player: EntityPlayer): boolean {
+  if (!player.HasCollectible(CollectibleType.COLLECTIBLE_SPIRIT_SHACKLES)) {
+    return false;
+  }
+
+  const effects = player.GetEffects();
+  const spiritShacklesEnabled =
+    effects.GetNullEffectNum(NullItemID.ID_SPIRIT_SHACKLES_DISABLED) === 0;
+  const playerInSoulForm =
+    effects.GetNullEffectNum(NullItemID.ID_SPIRIT_SHACKLES_SOUL) > 0;
+  return spiritShacklesEnabled && !playerInSoulForm;
+}
