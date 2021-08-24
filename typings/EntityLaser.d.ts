@@ -1,4 +1,4 @@
-declare class EntityLaser extends Entity {
+declare interface EntityLaser extends Entity {
   /**
    * Be aware that this really takes a BitSet128 instead of an integer.
    * However, all of the TearFlags enums values use BitSet128 constructors.
@@ -63,8 +63,10 @@ declare class EntityLaser extends Entity {
    */
   TearFlags: int;
   Timeout: int;
+}
 
-  static CalculateEndPoint(
+declare namespace EntityLaser {
+  function CalculateEndPoint(
     this: void,
     start: Vector,
     dir: Vector,
@@ -72,7 +74,7 @@ declare class EntityLaser extends Entity {
     parent: Entity,
     margin: float,
   ): Vector;
-  static ShootAngle(
+  function ShootAngle(
     this: void,
     variant: LaserVariant | int,
     sourcePos: Vector,

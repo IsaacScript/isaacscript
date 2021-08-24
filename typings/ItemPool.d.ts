@@ -1,4 +1,4 @@
-declare class ItemPool {
+declare interface ItemPool {
   AddBibleUpgrade(add: int, itemPoolType: ItemPoolType): void;
   AddRoomBlacklist(collectibleType: CollectibleType | int): void;
   ForceAddPillEffect(pillEffect: PillEffect | int): PillColor | int;

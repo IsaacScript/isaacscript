@@ -1,6 +1,6 @@
 // This class is unused because "ItemConfig.GetCostumes()" is broken
 
-declare class ItemConfigCostume {
+declare interface ItemConfigCostume {
   Anm2Path: string;
   HasOverlay: boolean;
   HasSkinAlt: boolean;

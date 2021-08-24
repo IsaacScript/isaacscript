@@ -1,4 +1,4 @@
-declare class RoomConfigSpawn {
+declare interface RoomConfigSpawn {
   PickEntry(r: float): Readonly<RoomConfigEntry>;
 
   EntryCount: int;

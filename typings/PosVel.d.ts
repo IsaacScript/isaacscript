@@ -1,4 +1,4 @@
-declare class PosVel {
+declare interface PosVel {
   Position: Vector;
   Vector: Vector;
 }

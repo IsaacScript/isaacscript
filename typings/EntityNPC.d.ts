@@ -1,4 +1,4 @@
-declare class EntityNPC extends Entity {
+declare interface EntityNPC extends Entity {
   AnimWalkFrame(
     horizontalAnim: string,
     verticalAnim: string,
@@ -79,8 +79,10 @@ declare class EntityNPC extends Entity {
   StateFrame: int;
   V1: Vector;
   V2: Vector;
+}
 
-  static ThrowSpider(
+declare namespace EntityNPC {
+  function ThrowSpider(
     this: void,
     position: Vector,
     spawner: Entity,

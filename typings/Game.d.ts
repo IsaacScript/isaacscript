@@ -1,4 +1,4 @@
-declare class Game {
+declare interface Game {
   AddDevilRoomDeal(): void;
   AddEncounteredBoss(entityType: EntityType | int, variant: int): void;
   AddPixelation(duration: int): void;

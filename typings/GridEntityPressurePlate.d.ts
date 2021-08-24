@@ -1,4 +1,4 @@
-declare class GridEntityPressurePlate extends GridEntity {
+declare interface GridEntityPressurePlate extends GridEntity {
   Reward(): void;
 
   GreedModeRNG: RNG;

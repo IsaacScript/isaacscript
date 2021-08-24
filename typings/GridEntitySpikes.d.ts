@@ -1,3 +1,3 @@
-declare class GridEntitySpikes extends GridEntity {
+declare interface GridEntitySpikes extends GridEntity {
   Timeout: int;
 }

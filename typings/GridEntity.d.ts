@@ -1,4 +1,4 @@
-declare class GridEntity {
+declare interface GridEntity {
   Destroy(immediate: boolean): boolean;
   GetGridIndex(): int;
   /** The RNG returned is a reference (i.e. not a copy). */

@@ -1,4 +1,4 @@
-declare class GridEntityDesc {
+declare interface GridEntityDesc {
   Initialized: boolean;
   SpawnCount: int;
   SpawnSeed: int;

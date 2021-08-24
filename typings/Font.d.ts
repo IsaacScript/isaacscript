@@ -1,6 +1,6 @@
 declare function Font(this: void): Font;
 
-declare class Font {
+declare interface Font {
   /**
    * @param str
    * @param positionX

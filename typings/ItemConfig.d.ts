@@ -1,4 +1,4 @@
-declare class ItemConfig {
+declare interface ItemConfig {
   /** Returns null if the card was not found. */
   GetCard(card: Card | int): Readonly<ItemConfigCard> | null;
   GetCards(): Readonly<CardConfigList>;
@@ -21,21 +21,22 @@ declare class ItemConfig {
   GetTrinket(trinketType: TrinketType | int): Readonly<ItemConfigItem> | null;
   GetTrinkets(): Readonly<ItemConfigList>;
 
-  // The static methods in this class are weird and can only be called by a global variable
-  // e.g. ItemConfig.Config.IsValidCollectible(1)
-
-  /**
-   * This method does not work properly for modded items, so it should never be used.
-   * Instead, use "GetCollectible(collectibleType) !== null".
-   */
-  static IsValidCollectible(fakeArg: never): boolean;
-
-  static ShouldAddCostumeOnPickup(): boolean;
-
   // In the "enums.lua" file, the ItemConfig class is extended with many members:
   // - ItemConfig.CHARGE_*
   // - ItemConfig.TAG_*
   // - ItemConfig.CARDTYPE_*
   // In IsaacScript, these are instead implemented as enums, since it is cleaner
   // See ItemConfigChargeType, ItemConfigTag, and ItemConfigCardType respectively
+}
+
+// The static methods in this class can only be called by a global variable
+// e.g. ItemConfig.Config.IsValidCollectible(1)
+declare namespace ItemConfig {
+  /**
+   * This method does not work properly for modded items, so it should never be used.
+   * Instead, use "GetCollectible(collectibleType) !== null".
+   */
+  function IsValidCollectible(fakeArg: never): boolean;
+
+  function ShouldAddCostumeOnPickup(): boolean;
 }

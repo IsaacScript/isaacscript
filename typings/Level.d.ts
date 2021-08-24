@@ -1,4 +1,4 @@
-declare class Level {
+declare interface Level {
   AddAngelRoomChance(chance: float): void;
   AddCurse(levelCurse: LevelCurse | int, showName: boolean): void;
   ApplyBlueMapEffect(): void;

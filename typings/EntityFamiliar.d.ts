@@ -1,4 +1,4 @@
-declare class EntityFamiliar extends Entity {
+declare interface EntityFamiliar extends Entity {
   AddCoins(value: int): void;
   AddHearts(hearts: int): void;
   AddKeys(keys: int): void;
@@ -57,6 +57,8 @@ declare class EntityFamiliar extends Entity {
   RoomClearCount: int;
   ShootDirection: Direction;
   State: int;
+}
 
-  static GetOrbitDistance(this: void, layer: int): Vector;
+declare namespace EntityFamiliar {
+  function GetOrbitDistance(this: void, layer: int): Vector;
 }

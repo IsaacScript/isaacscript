@@ -1,4 +1,4 @@
-declare class Seeds {
+declare interface Seeds {
   AddSeedEffect(seedEffect: SeedEffect): void;
   CanAddSeedEffect(seedEffect: SeedEffect): boolean;
   ClearSeedEffects(): void;
@@ -19,12 +19,14 @@ declare class Seeds {
   Reset(): void;
   Restart(challenge: Challenge | int): void;
   SetStartSeed(startSeed: string): void;
+}
 
-  static CountUnlockedSeedEffects(this: void): int;
-  static GetSeedEffect(this: void, str: string): SeedEffect;
-  static InitSeedInfo(this: void): void;
-  static IsSpecialSeed(this: void, str: string): boolean;
-  static IsStringValidSeed(this: void, str: string): boolean;
-  static Seed2String(this: void, seed: int): string;
-  static String2Seed(this: void, str: string): int;
+declare namespace Seeds {
+  function CountUnlockedSeedEffects(this: void): int;
+  function GetSeedEffect(this: void, str: string): SeedEffect;
+  function InitSeedInfo(this: void): void;
+  function IsSpecialSeed(this: void, str: string): boolean;
+  function IsStringValidSeed(this: void, str: string): boolean;
+  function Seed2String(this: void, seed: int): string;
+  function String2Seed(this: void, str: string): int;
 }

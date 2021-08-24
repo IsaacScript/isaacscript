@@ -1,4 +1,4 @@
-declare class RoomDescriptor {
+declare interface RoomDescriptor {
   // AllowedDoors: DoorSet; // DoorSet is not implemented
   AwardSeed: int;
   ChallengeDone: boolean;

@@ -1,4 +1,4 @@
-declare class GridEntityPoop extends GridEntity {
+declare interface GridEntityPoop extends GridEntity {
   ReduceSpawnRate(): void;
   RespawnRedPoop(): void;
 

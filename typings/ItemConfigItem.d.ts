@@ -1,4 +1,4 @@
-declare class ItemConfigItem {
+declare interface ItemConfigItem {
   HasTags(tags: ItemConfigTag): boolean;
   IsCollectible(): boolean;
   IsNull(): boolean;

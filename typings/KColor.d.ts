@@ -6,7 +6,7 @@ declare function KColor(
   a: float,
 ): KColor;
 
-declare class KColor {
+declare interface KColor {
   Alpha: float;
   Blue: float;
   Green: float;

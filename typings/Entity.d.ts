@@ -1,4 +1,4 @@
-declare class Entity {
+declare interface Entity {
   AddBurn(source: EntityRef, duration: int, damage: float): void;
   AddCharmed(source: EntityRef, duration: int): void;
   AddConfusion(source: EntityRef, duration: int, ignoreBosses: boolean): void;

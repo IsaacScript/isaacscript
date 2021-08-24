@@ -1,4 +1,4 @@
-declare class GridEntityRock extends GridEntity {
+declare interface GridEntityRock extends GridEntity {
   GetBigRockFrame(): int;
   GetRubbleAnim(): string;
   SetBigRockFrame(frame: int): void;

@@ -1,4 +1,4 @@
-declare class PathFinder {
+declare interface PathFinder {
   EvadeTarget(targetPos: Vector): void;
   FindGridPath(
     position: Vector,

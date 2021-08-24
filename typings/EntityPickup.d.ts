@@ -1,4 +1,4 @@
-declare class EntityPickup extends Entity {
+declare interface EntityPickup extends Entity {
   AppearFast(): void;
   CanReroll(): boolean;
   GetCoinValue(): int;

@@ -1,6 +1,6 @@
 // This is the same thing as the RoomDescriptor class, but every value is marked as being read only
 
-declare class RoomDescriptorReadOnly {
+declare interface RoomDescriptorReadOnly {
   // AllowedDoors: DoorSet; // DoorSet is not implemented
   /**
    * To set this property, get a writable copy of the RoomDescriptor by using the

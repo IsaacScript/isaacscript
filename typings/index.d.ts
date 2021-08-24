@@ -3,10 +3,7 @@
 /// <reference path="enums.d.ts" />
 /// <reference path="enumsFlags.d.ts" />
 /// <reference path="enumsSubTypes.d.ts" />
-/// <reference path="enumsSubTypesUnofficial.d.ts" />
-/// <reference path="enumsUnofficial.d.ts" />
 /// <reference path="enumsVariants.d.ts" />
-/// <reference path="enumsVariantsUnofficial.d.ts" />
 /// <reference path="functions.d.ts" />
 /// <reference path="json.d.ts" />
 /// <reference path="main.d.ts" />
@@ -81,6 +78,12 @@
 /// <reference path="TemporaryEffects.d.ts" />
 /// <reference path="Vector.d.ts" />
 /// <reference path="VectorList.d.ts" />
+
+/// <reference path="unofficial/enums.d.ts" />
+/// <reference path="unofficial/enumsGridEntity.d.ts" />
+/// <reference path="unofficial/enumsSubTypes.d.ts" />
+/// <reference path="unofficial/enumsVariants.d.ts" />
+/// <reference path="unofficial/enumsXML.d.ts" />
 
 /// <reference path="mods/EID.d.ts" />
 /// <reference path="mods/Encyclopedia.d.ts" />

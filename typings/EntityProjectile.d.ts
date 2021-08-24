@@ -1,4 +1,4 @@
-declare class EntityProjectile extends Entity {
+declare interface EntityProjectile extends Entity {
   AddChangeFlags(flags: int): void;
   AddFallingAccel(value: float): void;
   AddFallingSpeed(value: float): void;

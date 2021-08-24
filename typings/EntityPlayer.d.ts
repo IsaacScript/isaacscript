@@ -1,19 +1,4 @@
-declare type ControllerIndex = 0 | 1 | 2 | 3;
-declare type ZodiacCollectibles =
-  | CollectibleType.COLLECTIBLE_CANCER
-  | CollectibleType.COLLECTIBLE_ARIES
-  | CollectibleType.COLLECTIBLE_LEO
-  | CollectibleType.COLLECTIBLE_SCORPIO
-  | CollectibleType.COLLECTIBLE_AQUARIUS
-  | CollectibleType.COLLECTIBLE_PISCES
-  | CollectibleType.COLLECTIBLE_TAURUS
-  | CollectibleType.COLLECTIBLE_GEMINI
-  | CollectibleType.COLLECTIBLE_CAPRICORN
-  | CollectibleType.COLLECTIBLE_SAGITTARIUS
-  | CollectibleType.COLLECTIBLE_LIBRA
-  | CollectibleType.COLLECTIBLE_VIRGO;
-
-declare class EntityPlayer extends Entity {
+declare interface EntityPlayer extends Entity {
   /** 1 unit is half a heart. Remove them with negative numbers. */
   AddBlackHearts(blackHearts: int): void;
   /** This adds Tainted Bethany's blood charges. Only works on Tainted Bethany. */

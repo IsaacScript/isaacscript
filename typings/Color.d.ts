@@ -18,7 +18,7 @@ declare function Color(
   bo?: int,
 ): Color;
 
-declare class Color {
+declare interface Color {
   Reset(): void;
   SetColorize(red: float, green: float, blue: float, amount: float): void;
   SetOffset(redOffset: float, greenOffset: float, blueOffset: float): void;
@@ -36,7 +36,10 @@ declare class Color {
   GO: float;
   R: float;
   RO: float;
+}
 
-  static Lerp(this: void, m1: Color, m2: Color, t: float): Color;
-  static Default: Color;
+declare namespace Color {
+  function Lerp(this: void, m1: Color, m2: Color, t: float): Color;
+
+  const Default: Color;
 }

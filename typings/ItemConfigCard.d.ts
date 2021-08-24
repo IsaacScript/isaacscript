@@ -1,4 +1,4 @@
-declare class ItemConfigCard {
+declare interface ItemConfigCard {
   AchievementID: int;
   Description: string;
   GreedModeAllowed: boolean;

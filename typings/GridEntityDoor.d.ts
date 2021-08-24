@@ -1,4 +1,4 @@
-declare class GridEntityDoor extends GridEntity {
+declare interface GridEntityDoor extends GridEntity {
   Bar(): void;
   CanBlowOpen(): boolean;
   Close(force: boolean): void;

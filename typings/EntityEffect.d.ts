@@ -1,4 +1,4 @@
-declare class EntityEffect extends Entity {
+declare interface EntityEffect extends Entity {
   FollowParent(parent: Entity): void;
   SetDamageSource(entityType: EntityType | int): void;
   SetRadii(min: float, max: float): void;
@@ -17,6 +17,8 @@ declare class EntityEffect extends Entity {
   State: int;
   Timeout: int;
   m_Height: float;
+}
 
-  static IsPlayerCreep(this: void, variant: int): boolean;
+declare namespace EntityEffect {
+  function IsPlayerCreep(this: void, variant: int): boolean;
 }
