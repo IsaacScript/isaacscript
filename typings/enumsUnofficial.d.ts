@@ -126,6 +126,35 @@ declare const enum ItemConfigCardType {
   CARDTYPE_TAROT_REVERSE = 5,
 }
 
+declare const enum PlayerItemAnimation {
+  PICKUP = "Pickup",
+  LIFT_ITEM = "LiftItem",
+  HIDE_ITEM = "HideItem",
+  USE_ITEM = "UseItem",
+}
+
+declare const enum CollectibleAnimation {
+  IDLE = "Idle",
+  EMPTY = "Empty",
+  SHOP_IDLE = "ShopIdle",
+  PLAYER_PICKUP = "PlayerPickup",
+  PLAYER_PICKUP_SPARKLE = "PlayerPickupSparkle",
+}
+
+declare const enum PocketItemSlot {
+  SLOT_1 = 0,
+  SLOT_2 = 1,
+  SLOT_3 = 2,
+  SLOT_4 = 3,
+}
+
+declare const enum TrinketSlot {
+  /** The bottom-right trinket. */
+  SLOT_1 = 0,
+  /** The top-left trinket. */
+  SLOT_2 = 1,
+}
+
 declare const enum StageID {
   SPECIAL_ROOMS = 0,
   BASEMENT = 1,

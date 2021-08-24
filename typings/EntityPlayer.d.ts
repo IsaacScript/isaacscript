@@ -1,18 +1,4 @@
-declare type CollectibleAnimation =
-  | "Idle"
-  | "Empty"
-  | "ShopIdle"
-  | "PlayerPickup"
-  | "PlayerPickupSparkle";
 declare type ControllerIndex = 0 | 1 | 2 | 3;
-declare type PlayerItemAnimation =
-  | "Pickup"
-  | "LiftItem"
-  | "HideItem"
-  | "UseItem";
-declare type PocketItemSlot = 0 | 1 | 2 | 3;
-/** Slot 0 is the bottom-right trinket. Slot 1 is the top-left trinket. */
-declare type TrinketSlot = 0 | 1;
 declare type ZodiacCollectibles =
   | CollectibleType.COLLECTIBLE_CANCER
   | CollectibleType.COLLECTIBLE_ARIES
