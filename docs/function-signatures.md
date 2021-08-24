@@ -610,6 +610,18 @@ This callback is useful for two reasons:
 function postPlayerUpdateReordered(player: EntityPlayer): void {}
 ```
 
+### MC_POST_PLAYER_INIT_LATE
+
+Fires on the first MC_POST_PICKUP_UPDATE frame for each player.
+
+This callback is useful because many attributes cannot be set or retrieved properly in the normal MC_POST_PLAYER_INIT callback.
+
+- When registering the callback, takes an optional second argument that will make the callback only fire if the player variant matches the `PlayerVariant` provided.
+
+```ts
+function postPlayerInitLate(pickup: EntityPickup): void {}
+```
+
 ### MC_POST_PICKUP_INIT_LATE
 
 Fires on the first MC_POST_PICKUP_UPDATE frame for each pickup.
