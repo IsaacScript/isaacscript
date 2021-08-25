@@ -1,6 +1,7 @@
 // This provides the logic for PostFlip and PostFirstFlip
 
 import { saveDataManager } from "../features/saveDataManager/main";
+import { getPlayers } from "../functions/player";
 import * as postFirstFlip from "./subscriptions/postFirstFlip";
 import * as postFlip from "./subscriptions/postFlip";
 
@@ -38,10 +39,27 @@ function useItemFlip(
     return;
   }
 
+  // The player passed as part of the callback will be the old Lazarus that used the Flip item
+  // We pass the new Lazarus to the callback subscribers
+  const newLazarus = getNewLazarus(player);
+
   if (!v.run.usedFlipAtLeastOnce) {
     v.run.usedFlipAtLeastOnce = true;
-    postFirstFlip.fire(player);
+    postFirstFlip.fire(newLazarus);
   }
 
-  postFlip.fire(player);
+  postFlip.fire(newLazarus);
+}
+
+function getNewLazarus(oldLazarus: EntityPlayer) {
+  const oldLazarusHash = GetPtrHash(oldLazarus);
+  for (const player of getPlayers()) {
+    const playerHash = GetPtrHash(player);
+    if (playerHash === oldLazarusHash) {
+      return player;
+    }
+  }
+
+  error("Failed to find the player entity for the new Lazarus.");
+  return oldLazarus;
 }
