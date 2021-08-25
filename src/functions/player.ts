@@ -1,6 +1,6 @@
 import PocketItemDescription from "../types/PocketItemDescription";
 import PocketItemType from "../types/PocketItemType";
-import { getMaxCollectibleID } from "./items";
+import { getCollectibleList } from "./util";
 
 const EXCLUDED_CHARACTERS = [
   PlayerType.PLAYER_ESAU, // 20
@@ -125,21 +125,16 @@ export function getPlayerCloserThan(
 export function getPlayerCollectibleMap(
   player: EntityPlayer,
 ): Map<CollectibleType | int, int> {
-  const itemConfig = Isaac.GetItemConfig();
-
   const collectibleMap = new Map<CollectibleType | int, int>();
-  for (
-    let collectibleType = 1;
-    collectibleType <= getMaxCollectibleID();
-    collectibleType++
-  ) {
-    const itemConfigItem = itemConfig.GetCollectible(collectibleType);
-    if (itemConfigItem === null) {
+  for (const collectibleType of getCollectibleList()) {
+    // We check for both "HasCollectible()" and "GetCollectibleNum()" to avoid bugs in special cases
+    // (e.g. Lilith having 1 Incubus despite not really having the collectible)
+    if (!player.HasCollectible(collectibleType)) {
       continue;
     }
 
     const collectibleNum = player.GetCollectibleNum(collectibleType);
-    if (collectibleNum > 0 && player.HasCollectible(collectibleType)) {
+    if (collectibleNum > 0) {
       collectibleMap.set(collectibleType, collectibleNum);
     }
   }

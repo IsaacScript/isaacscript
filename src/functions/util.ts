@@ -1,3 +1,4 @@
+import { getMaxCollectibleID } from "./items";
 import { getAngleDifference } from "./math";
 
 /**
@@ -58,6 +59,24 @@ export function getEnumValues(transpiledEnum: unknown): int[] {
   enumValues.sort();
 
   return enumValues;
+}
+
+export function getCollectibleList(): Array<CollectibleType | int> {
+  const itemConfig = Isaac.GetItemConfig();
+
+  const collectibleList: Array<CollectibleType | int> = [];
+  for (
+    let collectibleType = 1;
+    collectibleType <= getMaxCollectibleID();
+    collectibleType++
+  ) {
+    const itemConfigItem = itemConfig.GetCollectible(collectibleType);
+    if (itemConfigItem !== null) {
+      collectibleList.push(collectibleType);
+    }
+  }
+
+  return collectibleList;
 }
 
 export function isVector(thing: unknown): boolean {
