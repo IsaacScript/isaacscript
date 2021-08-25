@@ -720,7 +720,9 @@ function postPlayerFatalDamage(player: EntityPlayer) {}
 
 ### MC_POST_FLIP
 
-Fires after the player has used the Flip item.
+Fires after the player has used the Flip item. Unlike the vanilla MC_USE_ITEM callback, this callback will return the player object for the new Lazarus (not the one who used the Flip item).
+
+This callback is useful because there is no way to get access to the "flipped" character entity before the player has actually used the Flip item.
 
 ```ts
 function postFlip(player: EntityPlayer): void {}
@@ -728,7 +730,7 @@ function postFlip(player: EntityPlayer): void {}
 
 ### MC_POST_FIRST_FLIP
 
-Fires after the player has used the Flip item for the first time.
+Fires after the player has used the Flip item for the first time. Unlike the vanilla MC_USE_ITEM callback, this callback will return the player object for the new Lazarus (not the one who used the Flip item).
 
 This callback is useful because there is no way to get access to the "flipped" character entity before the player has actually used the Flip item.
 
