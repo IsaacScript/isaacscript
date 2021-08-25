@@ -1,4 +1,4 @@
-import { getPlayerNumAllHearts } from "../functions/player";
+import { getPlayerNumAllHearts, hasLostCurse } from "../functions/player";
 import { willPlayerRevive } from "../functions/revive";
 import ModUpgraded from "../types/ModUpgraded";
 import * as postPlayerFatalDamage from "./subscriptions/postPlayerFatalDamage";
@@ -33,10 +33,28 @@ function entityTakeDmgPlayer(
     return undefined;
   }
 
-  // Check to see if this is fatal damage
+  // If we have a revival item, this will not be fatal damage
+  if (willPlayerRevive(player)) {
+    return undefined;
+  }
+
+  // If we are the "Lost Curse" form from touching a white fire, all damage will be fatal
+  if (!hasLostCurse(player) && !damageIsFatal(player, damageAmount)) {
+    return undefined;
+  }
+
+  const returnValue = postPlayerFatalDamage.fire(player);
+  if (returnValue === false) {
+    return false;
+  }
+
+  return undefined;
+}
+
+function damageIsFatal(player: EntityPlayer, damageAmount: int) {
   const playerNumAllHearts = getPlayerNumAllHearts(player);
   if (damageAmount < playerNumAllHearts) {
-    return undefined;
+    return false;
   }
 
   // Furthermore, this will not be fatal damage if we have two different kinds of hearts
@@ -54,18 +72,8 @@ function entityTakeDmgPlayer(
     (soulHearts > 0 && eternalHearts > 0) ||
     boneHearts >= 2 // Two bone hearts and nothing else should not result in a death
   ) {
-    return undefined;
-  }
-
-  // If we have a revival item, this will not be fatal damage
-  if (willPlayerRevive(player)) {
-    return undefined;
-  }
-
-  const returnValue = postPlayerFatalDamage.fire(player);
-  if (returnValue === false) {
     return false;
   }
 
-  return undefined;
+  return true;
 }

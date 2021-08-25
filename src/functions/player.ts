@@ -306,6 +306,12 @@ export function getTotalPlayerCollectibles(
   return numCollectibles;
 }
 
+/** After touching a white fire, a player will turn into The Lost until they clear a room. */
+export function hasLostCurse(player: EntityPlayer): boolean {
+  const effects = player.GetEffects();
+  return effects.HasNullEffect(NullItemID.ID_LOST_CURSE);
+}
+
 export function hasOpenPocketItemSlot(player: EntityPlayer): boolean {
   const pocketItems = getPocketItems(player);
   for (const pocketItem of pocketItems) {
