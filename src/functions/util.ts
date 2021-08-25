@@ -61,6 +61,7 @@ export function getEnumValues(transpiledEnum: unknown): int[] {
   return enumValues;
 }
 
+/** Returns an array containing every valid collectible type in the game, including modded items. */
 export function getCollectibleList(): Array<CollectibleType | int> {
   const itemConfig = Isaac.GetItemConfig();
 
