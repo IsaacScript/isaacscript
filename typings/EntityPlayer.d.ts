@@ -767,7 +767,14 @@ declare interface EntityPlayer extends Entity {
     keepPersistent: boolean,
   ): void;
   TryRemoveNullCostume(nullItemID: NullItemID | int): void;
-  /** If you provide an argument of 0 or an otherwise invalid trinket ID, the game will crash. */
+  /**
+   * Will remove the specified trinket, if it exists. This will also remove The Tick and smelted
+   * trinkets.
+   *
+   * @param trinketType If you provide an argument of 0 or an otherwise invalid trinket ID, the game
+   * will crash.
+   * @returns Whether or not the specified trinket was removed successfully.
+   */
   TryRemoveTrinket(trinketType: TrinketType | int): boolean;
   TryRemoveTrinketCostume(trinketType: TrinketType | int): void;
   TryUseKey(): boolean;
