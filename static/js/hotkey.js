@@ -83,3 +83,7 @@ function clickOnFirstLargeButton() {
     largeButtons[0].click();
   }
 }
+
+keyMap.set("f", () => {
+  window.location = "/docs/function-signatures";
+});
