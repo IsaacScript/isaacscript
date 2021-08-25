@@ -441,9 +441,9 @@ declare interface EntityPlayer extends Entity {
   GetLastDamageSource(): Readonly<EntityRef>;
   GetLastDirection(): Readonly<Vector>;
   /**
-   * When called on Jacob or Esau, returns Jacob.
-   * When called on Tainted Forgotten or Tainted Forgotten's Soul, returns Tainted Forgotten.
-   * When called on any other character, returns that character.
+   * - When called on Jacob or Esau, returns Jacob.
+   * - When called on Tainted Forgotten or Tainted Forgotten's Soul, returns Tainted Forgotten.
+   * - When called on any other character, returns that character.
    */
   GetMainTwin(): EntityPlayer;
   /**
@@ -506,13 +506,13 @@ declare interface EntityPlayer extends Entity {
   GetNumGigaBombs(): int;
   GetNumKeys(): int;
   /**
-   * When called on Jacob, returns Esau.
-   * When called on Esau, returns Jacob.
-   * When called on Tainted Forgotten, returns Tainted Forgotten's Soul.
-   * When called on Tainted Forgotten's Soul, returns Tainted Forgotten.
-   * When called on any other character, returns null.
+   * - When called on Jacob, returns Esau.
+   * - When called on Esau, returns Jacob.
+   * - When called on Tainted Forgotten, returns Tainted Forgotten's Soul.
+   * - When called on Tainted Forgotten's Soul, returns Tainted Forgotten.
+   * - When called on any other character, returns null.
    */
-  GetOtherTwin(): EntityPlayer;
+  GetOtherTwin(): EntityPlayer | null;
   /** Returns 0 if there is no pill. */
   GetPill(pocketItemSlot: PocketItemSlot): PillColor | int;
   GetPillRNG(pillEffect: PillEffect | int): RNG;
