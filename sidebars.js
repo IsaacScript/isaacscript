@@ -25,7 +25,12 @@ module.exports = {
     {
       type: "category",
       label: "Other",
-      items: ["publishing-to-the-workshop", "gotchas", "function-signatures"],
+      items: [
+        "publishing-to-the-workshop",
+        "gotchas",
+        "function-signatures",
+        "function-signatures-custom",
+      ],
     },
   ],
 };
