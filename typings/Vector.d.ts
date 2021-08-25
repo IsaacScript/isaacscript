@@ -7,6 +7,14 @@ declare interface Vector {
   Distance(secondVector: Vector): float;
   DistanceSquared(secondVector: Vector): float;
   Dot(secondVector: Vector): float;
+  /**
+   * The game returns degrees in the following format:
+   *
+   * - Right: 0
+   * - Up: -90
+   * - Left: 180
+   * - Down: 90
+   */
   GetAngleDegrees(): float;
   Length(): float;
   LengthSquared(): float;
