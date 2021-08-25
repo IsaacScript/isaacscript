@@ -1,5 +1,6 @@
 import PocketItemDescription from "../types/PocketItemDescription";
 import PocketItemType from "../types/PocketItemType";
+import { getMaxCollectibleID } from "./items";
 
 const EXCLUDED_CHARACTERS = [
   PlayerType.PLAYER_ESAU, // 20
@@ -115,6 +116,35 @@ export function getPlayerCloserThan(
   }
 
   return null;
+}
+
+/**
+ * Iterates over every item in the game and returns a map containing the number of each item that
+ * the player has.
+ */
+export function getPlayerCollectibleMap(
+  player: EntityPlayer,
+): Map<CollectibleType | int, int> {
+  const itemConfig = Isaac.GetItemConfig();
+
+  const collectibleMap = new Map<CollectibleType | int, int>();
+  for (
+    let collectibleType = 1;
+    collectibleType <= getMaxCollectibleID();
+    collectibleType++
+  ) {
+    const itemConfigItem = itemConfig.GetCollectible(collectibleType);
+    if (itemConfigItem === null) {
+      continue;
+    }
+
+    const collectibleNum = player.GetCollectibleNum(collectibleType);
+    if (collectibleNum > 0 && player.HasCollectible(collectibleType)) {
+      collectibleMap.set(collectibleType, collectibleNum);
+    }
+  }
+
+  return collectibleMap;
 }
 
 /**
