@@ -130,3 +130,26 @@ export function tableClear(table: LuaTable): void {
     table.delete(key);
   }
 }
+
+/** Helper function for finding out which way a vector is pointing. */
+export function vectorToDirection(vector: Vector): Direction {
+  const degrees = vector.GetAngleDegrees();
+
+  if (degrees >= -45 && degrees < 45) {
+    return Direction.RIGHT;
+  }
+
+  if (degrees >= 45 && degrees < 135) {
+    return Direction.DOWN;
+  }
+
+  if (degrees < -45 && degrees >= -135) {
+    return Direction.UP;
+  }
+
+  if (degrees >= 135 || degrees < -135) {
+    return Direction.LEFT;
+  }
+
+  return Direction.NO_DIRECTION;
+}
