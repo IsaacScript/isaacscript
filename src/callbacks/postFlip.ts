@@ -52,10 +52,23 @@ function useItemFlip(
 }
 
 function getNewLazarus(oldLazarus: EntityPlayer) {
-  const oldLazarusHash = GetPtrHash(oldLazarus);
+  const oldCharacter = oldLazarus.GetPlayerType();
+
+  let newCharacter: PlayerType;
+  if (oldCharacter === PlayerType.PLAYER_LAZARUS_B) {
+    newCharacter = PlayerType.PLAYER_LAZARUS2_B;
+  } else if (oldCharacter === PlayerType.PLAYER_LAZARUS2_B) {
+    newCharacter = PlayerType.PLAYER_LAZARUS_B;
+  } else {
+    error("Failed to determine the character in the postFlip callback.");
+  }
+
   for (const player of getPlayers()) {
-    const playerHash = GetPtrHash(player);
-    if (playerHash === oldLazarusHash) {
+    const character = player.GetPlayerType();
+    if (
+      character === newCharacter &&
+      player.FrameCount === oldLazarus.FrameCount
+    ) {
       return player;
     }
   }
