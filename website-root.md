@@ -29,5 +29,6 @@ For more information about IsaacScript, see the [official website](https://isaac
 - [Stage Functions](modules/functions_stage.html)
 - [Tears Functions](modules/functions_tears.html)
 - [Transformation Functions](modules/functions_transformations.html)
+- [Trinket Functions](modules/functions_trinkets.html)
 - [UI Functions](modules/functions_ui.html)
 - [Util Functions](modules/functions_util.html)

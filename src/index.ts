@@ -40,6 +40,7 @@ export * from "./functions/sprite";
 export * from "./functions/stage";
 export * from "./functions/tears";
 export * from "./functions/transformations";
+export * from "./functions/trinkets";
 export * from "./functions/ui";
 export * from "./functions/util";
 export { default as CallbackParametersCustom } from "./types/CallbackParametersCustom";

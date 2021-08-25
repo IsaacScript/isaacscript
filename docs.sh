@@ -30,6 +30,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/stage.ts" \
   --entryPoints "$DIR/src/functions/tears.ts" \
   --entryPoints "$DIR/src/functions/transformations.ts" \
+  --entryPoints "$DIR/src/functions/trinkets.ts" \
   --entryPoints "$DIR/src/functions/ui.ts" \
   --entryPoints "$DIR/src/functions/util.ts" \
   --entryPoints "$DIR/src/features/saveDataManager/main.ts" \
