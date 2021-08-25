@@ -174,6 +174,16 @@ export function inAngelShop(): boolean {
   );
 }
 
+export function inBeastRoom(): boolean {
+  const roomIndex = getRoomIndex();
+  const roomSubType = getRoomSubType();
+
+  return (
+    roomIndex === GridRooms.ROOM_DUNGEON_IDX &&
+    roomSubType === HomeRoomSubType.BEAST_ROOM
+  );
+}
+
 /**
  * Helper function for determining whether the current room is a crawlspace. Use this function over
  * comparing to `GridRooms.ROOM_DUNGEON_IDX` directly since there is a special case of the player
