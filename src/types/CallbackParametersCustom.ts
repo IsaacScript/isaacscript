@@ -83,11 +83,10 @@ export default interface CallbackParametersCustom {
   ];
   [ModCallbacksCustom.MC_PRE_CUSTOM_REVIVE]: [
     callback: PreCustomReviveCallbackType,
-    playerVariant?: PlayerVariant,
   ];
   [ModCallbacksCustom.MC_POST_CUSTOM_REVIVE]: [
     callback: PostCustomReviveCallbackType,
-    playerVariant?: PlayerVariant,
+    revivalType?: int,
   ];
   [ModCallbacksCustom.MC_POST_FLIP]: [callback: PostFlipCallbackType];
   [ModCallbacksCustom.MC_POST_FIRST_FLIP]: [

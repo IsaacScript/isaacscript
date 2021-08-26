@@ -3,9 +3,8 @@ export type PostCustomReviveCallbackType = (
   revivalType: int,
 ) => void;
 
-const subscriptions: Array<
-  [PostCustomReviveCallbackType, PlayerVariant | undefined]
-> = [];
+const subscriptions: Array<[PostCustomReviveCallbackType, int | undefined]> =
+  [];
 
 export function hasSubscriptions(): boolean {
   return subscriptions.length > 0;
@@ -13,15 +12,18 @@ export function hasSubscriptions(): boolean {
 
 export function register(
   callback: PostCustomReviveCallbackType,
-  playerVariant?: PlayerVariant,
+  revivalType?: int,
 ): void {
-  subscriptions.push([callback, playerVariant]);
+  subscriptions.push([callback, revivalType]);
 }
 
 export function fire(player: EntityPlayer, revivalType: int): void {
-  for (const [callback, playerVariant] of subscriptions) {
+  for (const [callback, callbackRevivalType] of subscriptions) {
     // Handle the optional 2nd callback argument
-    if (playerVariant !== undefined && playerVariant !== player.Variant) {
+    if (
+      callbackRevivalType !== undefined &&
+      callbackRevivalType !== revivalType
+    ) {
       continue;
     }
 
