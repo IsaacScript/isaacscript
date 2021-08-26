@@ -1,3 +1,4 @@
+import * as customRevive from "./callbacks/customRevive";
 import * as itemPickup from "./callbacks/itemPickup";
 import * as postCursedTeleport from "./callbacks/postCursedTeleport";
 import * as postEsauJr from "./callbacks/postEsauJr";
@@ -14,6 +15,8 @@ import * as postPlayerReordered from "./callbacks/postPlayerReordered";
 import * as postSacrifice from "./callbacks/postSacrifice";
 import * as postTransformation from "./callbacks/postTransformation";
 import * as reorderedCallbacks from "./callbacks/reorderedCallbacks";
+import * as disableInputs from "./features/disableInputs";
+import * as forgottenSwitch from "./features/forgottenSwitch";
 import * as saveDataManager from "./features/saveDataManager/main";
 import ModUpgraded from "./types/ModUpgraded";
 
@@ -46,6 +49,7 @@ export function upgradeMod(mod: Mod, verbose = false): ModUpgraded {
 
   saveDataManager.init(modUpgraded);
   initCustomCallbacks(modUpgraded);
+  initFeatures(modUpgraded);
 
   return modUpgraded;
 }
@@ -61,10 +65,16 @@ function initCustomCallbacks(mod: ModUpgraded) {
   postPlayerChangeType.init(mod);
   postPlayerChangeHealth.init(mod);
   postPlayerFatalDamage.init(mod);
+  customRevive.init(mod);
   postFlip.init(mod);
   postEsauJr.init(mod);
   postTransformation.init(mod);
   postSacrifice.init(mod);
   postCursedTeleport.init(mod);
   postGridEntity.init(mod);
+}
+
+function initFeatures(mod: ModUpgraded) {
+  disableInputs.init(mod);
+  forgottenSwitch.init(mod);
 }

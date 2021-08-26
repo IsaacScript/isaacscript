@@ -1,4 +1,5 @@
 import * as postCursedTeleport from "../callbacks/subscriptions/postCursedTeleport";
+import * as postCustomRevive from "../callbacks/subscriptions/postCustomRevive";
 import * as postEsauJr from "../callbacks/subscriptions/postEsauJr";
 import * as postFirstEsauJr from "../callbacks/subscriptions/postFirstEsauJr";
 import * as postFirstFlip from "../callbacks/subscriptions/postFirstFlip";
@@ -21,6 +22,7 @@ import * as postPlayerInitReordered from "../callbacks/subscriptions/postPlayerI
 import * as postPlayerUpdateReordered from "../callbacks/subscriptions/postPlayerUpdateReordered";
 import * as postSacrifice from "../callbacks/subscriptions/postSacrifice";
 import * as postTransformation from "../callbacks/subscriptions/postTransformation";
+import * as preCustomRevive from "../callbacks/subscriptions/preCustomRevive";
 import * as preItemPickup from "../callbacks/subscriptions/preItemPickup";
 import { getDebugPrependString } from "../functions/log";
 import { ensureAllCases } from "../functions/util";
@@ -187,6 +189,20 @@ export default class ModUpgraded implements Mod {
       case ModCallbacksCustom.MC_POST_PLAYER_FATAL_DAMAGE: {
         postPlayerFatalDamage.register(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_PLAYER_FATAL_DAMAGE]),
+        );
+        break;
+      }
+
+      case ModCallbacksCustom.MC_PRE_CUSTOM_REVIVE: {
+        preCustomRevive.register(
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_PRE_CUSTOM_REVIVE]),
+        );
+        break;
+      }
+
+      case ModCallbacksCustom.MC_POST_CUSTOM_REVIVE: {
+        postCustomRevive.register(
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_CUSTOM_REVIVE]),
         );
         break;
       }

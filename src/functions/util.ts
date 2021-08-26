@@ -131,6 +131,21 @@ export function tableClear(table: LuaTable): void {
   }
 }
 
+export function teleport(
+  roomIndex: int,
+  direction = Direction.NO_DIRECTION,
+  roomTransitionAnim = RoomTransitionAnim.TELEPORT,
+): void {
+  const game = Game();
+  const level = game.GetLevel();
+
+  // This must be set before every StartRoomTransition() invocation or else the function can send
+  // you to the wrong room
+  level.LeaveDoor = -1;
+
+  game.StartRoomTransition(roomIndex, direction, roomTransitionAnim);
+}
+
 /** Helper function for finding out which way a vector is pointing. */
 export function vectorToDirection(vector: Vector): Direction {
   const degrees = vector.GetAngleDegrees();

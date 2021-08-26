@@ -43,9 +43,9 @@ function entityTakeDmgPlayer(
     return undefined;
   }
 
-  const returnValue = postPlayerFatalDamage.fire(player);
-  if (returnValue === false) {
-    return false;
+  const shouldSustainDeath = postPlayerFatalDamage.fire(player);
+  if (shouldSustainDeath !== undefined) {
+    return shouldSustainDeath;
   }
 
   return undefined;

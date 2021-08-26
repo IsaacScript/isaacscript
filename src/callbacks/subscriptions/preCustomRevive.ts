@@ -1,9 +1,7 @@
-export type PostPlayerFatalDamageCallbackType = (
-  player: EntityPlayer,
-) => boolean | void;
+export type PreCustomReviveCallbackType = (player: EntityPlayer) => int | void;
 
 const subscriptions: Array<
-  [PostPlayerFatalDamageCallbackType, PlayerVariant | undefined]
+  [PreCustomReviveCallbackType, PlayerVariant | undefined]
 > = [];
 
 export function hasSubscriptions(): boolean {
@@ -11,22 +9,22 @@ export function hasSubscriptions(): boolean {
 }
 
 export function register(
-  callback: PostPlayerFatalDamageCallbackType,
+  callback: PreCustomReviveCallbackType,
   playerVariant?: PlayerVariant,
 ): void {
   subscriptions.push([callback, playerVariant]);
 }
 
-export function fire(player: EntityPlayer): boolean | void {
+export function fire(player: EntityPlayer): int | void {
   for (const [callback, playerVariant] of subscriptions) {
     // Handle the optional 2nd callback argument
     if (playerVariant !== undefined && playerVariant !== player.Variant) {
       continue;
     }
 
-    const shouldSustainDeath = callback(player);
-    if (shouldSustainDeath !== undefined) {
-      return shouldSustainDeath;
+    const revivalType = callback(player);
+    if (revivalType !== undefined) {
+      return revivalType;
     }
   }
 

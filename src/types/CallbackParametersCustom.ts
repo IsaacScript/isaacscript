@@ -1,4 +1,5 @@
 import { PostCursedTeleportCallbackType } from "../callbacks/subscriptions/postCursedTeleport";
+import { PostCustomReviveCallbackType } from "../callbacks/subscriptions/postCustomRevive";
 import { PostEsauJrCallbackType } from "../callbacks/subscriptions/postEsauJr";
 import { PostFirstEsauJrCallbackType } from "../callbacks/subscriptions/postFirstEsauJr";
 import { PostFirstFlipCallbackType } from "../callbacks/subscriptions/postFirstFlip";
@@ -21,6 +22,7 @@ import { PostPlayerInitReorderedCallbackType } from "../callbacks/subscriptions/
 import { PostPlayerUpdateReorderedCallbackType } from "../callbacks/subscriptions/postPlayerUpdateReordered";
 import { PostSacrificeCallbackType } from "../callbacks/subscriptions/postSacrifice";
 import { PostTransformationCallbackType } from "../callbacks/subscriptions/postTransformation";
+import { PreCustomReviveCallbackType } from "../callbacks/subscriptions/preCustomRevive";
 import { PreItemPickupCallbackType } from "../callbacks/subscriptions/preItemPickup";
 import ModCallbacksCustom from "./ModCallbacksCustom";
 
@@ -77,6 +79,14 @@ export default interface CallbackParametersCustom {
   ];
   [ModCallbacksCustom.MC_POST_PLAYER_FATAL_DAMAGE]: [
     callback: PostPlayerFatalDamageCallbackType,
+    playerVariant?: PlayerVariant,
+  ];
+  [ModCallbacksCustom.MC_PRE_CUSTOM_REVIVE]: [
+    callback: PreCustomReviveCallbackType,
+    playerVariant?: PlayerVariant,
+  ];
+  [ModCallbacksCustom.MC_POST_CUSTOM_REVIVE]: [
+    callback: PostCustomReviveCallbackType,
     playerVariant?: PlayerVariant,
   ];
   [ModCallbacksCustom.MC_POST_FLIP]: [callback: PostFlipCallbackType];

@@ -16,6 +16,8 @@ export {
   MAX_PLAYER_TRINKET_SLOTS,
   MAX_VANILLA_COLLECTIBLE_TYPE,
 } from "./constants";
+export { disableInputs, enableInputs } from "./features/disableInputs";
+export { forgottenSwitch } from "./features/forgottenSwitch";
 export {
   saveDataManager,
   saveDataManagerSave,
@@ -50,4 +52,4 @@ export { default as ModUpgraded } from "./types/ModUpgraded";
 export { default as PickingUpItem } from "./types/PickingUpItem";
 export { default as PocketItemDescription } from "./types/PocketItemDescription";
 export { default as PocketItemType } from "./types/PocketItemType";
-export * from "./upgradeMod";
+export { upgradeMod } from "./upgradeMod";

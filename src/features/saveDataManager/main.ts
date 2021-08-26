@@ -1,3 +1,4 @@
+import { getUpgradeErrorMsg } from "../../errors";
 import { deepCopy } from "../../functions/deepCopy";
 import { tableClear } from "../../functions/util";
 import ModUpgraded from "../../types/ModUpgraded";
@@ -5,8 +6,7 @@ import { SaveData, SaveDataKeys } from "../../types/SaveData";
 import { loadFromDisk } from "./load";
 import { saveToDisk } from "./save";
 
-const DEFAULT_ERROR_MESSAGE =
-  'The save data manager is not initialized. You must first upgrade your mod object by calling the "upgradeMod()" function.';
+const FEATURE_NAME = "save data manager";
 
 let mod: Mod | null = null;
 let loadedDataOnThisRun = false;
@@ -32,7 +32,8 @@ export function init(incomingMod: ModUpgraded): void {
 // ModCallbacks.MC_POST_PLAYER_INIT (9)
 function postPlayerInit() {
   if (mod === null) {
-    error("The save data manager is not initialized.");
+    const msg = getUpgradeErrorMsg(FEATURE_NAME);
+    error(msg);
   }
 
   if (loadedDataOnThisRun) {
@@ -58,7 +59,8 @@ function postPlayerInit() {
 // ModCallbacks.MC_PRE_GAME_EXIT (17)
 function preGameExit() {
   if (mod === null) {
-    error(DEFAULT_ERROR_MESSAGE);
+    const msg = getUpgradeErrorMsg(FEATURE_NAME);
+    error(msg);
   }
 
   // We unconditionally save variables to disk
@@ -217,7 +219,8 @@ export function saveDataManager(
   conditionalFunc?: () => boolean,
 ): void {
   if (mod === null) {
-    error(DEFAULT_ERROR_MESSAGE);
+    const msg = getUpgradeErrorMsg(FEATURE_NAME);
+    error(msg);
   }
 
   const keyType = type(key);
@@ -256,7 +259,8 @@ export function saveDataManager(
  */
 export function saveDataManagerSave(): void {
   if (mod === null) {
-    error(DEFAULT_ERROR_MESSAGE);
+    const msg = getUpgradeErrorMsg(FEATURE_NAME);
+    error(msg);
   }
 
   saveToDisk(mod, saveDataMap, saveDataConditionalFuncMap);
