@@ -4,7 +4,7 @@ title: Project Directory Structure
 
 When you use `isaacscript init`, it will automatically load a directory with some files for you. The basic folder structure is:
 
-```
+```n/a
 project/
 ├── src/ (TypeScript source code)
 |   └── main.ts

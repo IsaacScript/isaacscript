@@ -182,7 +182,7 @@ function postPlayerFatalDamage(player: EntityPlayer) {}
 
 ### MC_PRE_CUSTOM_REVIVE
 
-Fires from the MC_POST_PLAYER_FATAL_DAMAGE callback. If you want to initiate a custom revival, return a integer that corresponds to the item or type of revival that you are doing. Otherwise, return undefined to continue the fatal damage.
+Fires from the MC_POST_PLAYER_FATAL_DAMAGE callback. If you want to initiate a custom revival, return an integer that corresponds to the item or type of revival that you are doing. Otherwise, return undefined to continue the fatal damage.
 
 This callback is useful because reviving the player after the game things that player should have died will result in the save data for the run getting deleted.
 
