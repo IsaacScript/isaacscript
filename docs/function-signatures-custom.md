@@ -186,8 +186,6 @@ Fires from the MC_POST_PLAYER_FATAL_DAMAGE callback. If you want to initiate a c
 
 This callback is useful because reviving the player after the game things that player should have died will result in the save data for the run getting deleted.
 
-- When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `PlayerVariant` provided.
-
 ```ts
 function preCustomRevive(player: EntityPlayer) {}
 ```
@@ -196,7 +194,7 @@ function preCustomRevive(player: EntityPlayer) {}
 
 Fires from the MC_POST_NEW_ROOM callback after the player has finished the death animation and teleported to the previous room. The `revivalType` will match the value returned from the `MC_PRE_CUSTOM_REVIVE` callback.
 
-- When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `PlayerVariant` provided.
+- When registering the callback, takes an optional second argument that will make the callback only fire if the revival type matches the one provided.
 
 ```ts
 function postCustomRevive(player: EntityPlayer, revivalType: int) {}
