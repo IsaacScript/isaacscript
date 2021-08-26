@@ -161,8 +161,8 @@ declare interface EntityPlayer extends Entity {
    */
   AnimateCollectible(
     collectibleType: CollectibleType | int,
-    playerAnimationName?: PlayerItemAnimation,
-    spriteAnimationName?: CollectibleAnimation,
+    playerItemAnimation?: PlayerItemAnimation,
+    collectibleAnimation?: CollectibleAnimation,
   ): void;
   /** Play the "thumbs up" animation. */
   AnimateHappy(): void;
