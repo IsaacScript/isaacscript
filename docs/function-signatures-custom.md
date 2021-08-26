@@ -176,6 +176,10 @@ Note that this function does properly take into account Guppy's Collar, Broken A
 
 - When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `PlayerVariant` provided.
 
+```ts
+function postPlayerFatalDamage(player: EntityPlayer) {}
+```
+
 ### MC_PRE_CUSTOM_REVIVE
 
 Fires from the MC_POST_PLAYER_FATAL_DAMAGE callback. If you want to initiate a custom revival, return a integer that corresponds to the item or type of revival that you are doing. Otherwise, return undefined to continue the fatal damage.
