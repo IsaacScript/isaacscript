@@ -74,10 +74,11 @@ export function initArray<T>(defaultValue: T, size: int): T[] {
 }
 
 /**
- * Since Lua uses tables for every non-primitive data structure,
- * it is non-trivial to determine if a particular table is being used as an array.
- * isArray returns true if the table contains all numerical indexes that are contiguous,
- * starting at 1.
+ * Since Lua uses tables for every non-primitive data structure, it is non-trivial to determine if a
+ * particular table is being used as an array. isArray returns true if:
+ *
+ * - the table contains all numerical indexes that are contiguous, starting at 1
+ * - the table has no keys (i.e. an "empty" table)
  */
 export function isArray(table: LuaTable): boolean {
   // First, if there is a metatable, this cannot be a simple array and must be a more complex object

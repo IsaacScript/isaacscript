@@ -153,7 +153,53 @@ function merge(
     return;
   }
 
-  // Second, handle the special case of an array
+  // Second, handle the special case of a TypeScriptToLua set
+  if (oldTable instanceof Set) {
+    const oldSet = oldTable as Set<AnyNotNil>;
+
+    if (DEBUG) {
+      log(
+        `Converting the "${traversalDescription}" table to a TypeScriptToLua Set.`,
+      );
+    }
+
+    // Handle the special case of a TSTL set with number keys that were converted to string keys
+    // during serialization; if so, we must reverse the process
+    /*
+    const convertStringKeysToNumbers = newTable.has(
+      TSTL_MAP_WITH_NUMBER_KEYS_IDENTIFIER,
+    );
+    */
+
+    // Assume that we should blow away all Set values with whatever is present in the incoming table
+    oldSet.clear();
+    for (const [key] of pairs(newTable)) {
+      if (DEBUG) {
+        log(`Adding ${key} (for a set)`);
+      }
+
+      const keyToUse = key;
+      /*
+      if (convertStringKeysToNumbers) {
+        const numberKey = tonumber(key);
+        if (numberKey === undefined) {
+          continue;
+        }
+        keyToUse = numberKey;
+      }
+      */
+
+      oldSet.add(keyToUse);
+    }
+
+    if (DEBUG) {
+      log(`Size of merged Set "${traversalDescription}": ${oldSet.size}`);
+    }
+
+    return;
+  }
+
+  // Third, handle the special case of an array
   if (isArray(oldTable) && isArray(newTable)) {
     // Assume that we should blow away all array values with whatever is present in the incoming
     // array
