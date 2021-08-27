@@ -35,7 +35,11 @@ export function deepCopy(
   }
 
   if (DEBUG) {
-    log(`deepCopy is operating on: ${traversalDescription}`);
+    let logString = `deepCopy is operating on: ${traversalDescription}`;
+    if (shouldSerialize) {
+      logString += " (serializing)";
+    }
+    log(logString);
   }
 
   if (!(oldObject instanceof Map) && !(oldObject instanceof Set)) {
@@ -113,7 +117,8 @@ function deepCopyValue(
   // This key will be set over and over for every element in the Map, but we have to do it here
   // since we are not able to derive the type of Map keys at runtime
   let convertNumberKeysToString = false;
-  if (shouldSerialize && oldObject instanceof Map && valueType === "number") {
+  const keyType = type(key);
+  if (shouldSerialize && oldObject instanceof Map && keyType === "number") {
     convertNumberKeysToString = true;
 
     const newTable = newObject as LuaTable;

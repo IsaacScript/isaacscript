@@ -16,7 +16,14 @@ export {
   MAX_PLAYER_TRINKET_SLOTS,
   MAX_VANILLA_COLLECTIBLE_TYPE,
 } from "./constants";
-export { disableInputs, enableInputs } from "./features/disableInputs";
+export {
+  disableAllInputs,
+  disableAllInputsExceptFor,
+  disableMovementInputs,
+  disableShootingInputs,
+  enableAllInputs,
+  enableAllInputsExceptFor,
+} from "./features/disableInputs";
 export { forgottenSwitch } from "./features/forgottenSwitch";
 export {
   saveDataManager,

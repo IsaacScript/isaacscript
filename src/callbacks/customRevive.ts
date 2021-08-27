@@ -1,4 +1,4 @@
-import { disableInputs, enableInputs } from "../features/disableInputs";
+import { disableAllInputs, enableAllInputs } from "../features/disableInputs";
 import { forgottenSwitch } from "../features/forgottenSwitch";
 import {
   getPlayerIndex,
@@ -184,7 +184,7 @@ function postNewRoomChangingRooms() {
   const seeds = game.GetSeeds();
   const player = getPlayerFromEntityPtr(v.run.playerPtr);
 
-  enableInputs();
+  enableAllInputs();
   seeds.RemoveSeedEffect(SeedEffect.SEED_PERMANENT_CURSE_UNKNOWN);
 
   if (v.run.revivalType !== null) {
@@ -253,7 +253,7 @@ function invokeCustomDeath(player: EntityPlayer) {
   v.run.reviveFrame = gameFrameCount + deathAnimationFrames;
   v.run.playerPtr = EntityPtr(player);
 
-  disableInputs();
+  disableAllInputs();
   sfx.Play(SoundEffect.SOUND_ISAACDIES);
 
   // Hide the player's health to obfuscate the fact that they are still technically alive
