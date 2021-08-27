@@ -68,11 +68,11 @@ export function anyPlayerIs(matchingCharacter: PlayerType): boolean {
 
 export function getClosestPlayer(position: Vector): EntityPlayer {
   let closestPlayer: EntityPlayer | null = null;
-  let closestDistance: float | null = null;
+  let closestDistance = math.huge;
   for (const player of getPlayers()) {
     const distance = position.Distance(player.Position);
 
-    if (closestDistance === null || distance < closestDistance) {
+    if (distance < closestDistance) {
       closestPlayer = player;
       closestDistance = distance;
     }
