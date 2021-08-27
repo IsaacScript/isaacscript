@@ -66,6 +66,25 @@ export function anyPlayerIs(matchingCharacter: PlayerType): boolean {
   return false;
 }
 
+export function getClosestPlayer(position: Vector): EntityPlayer {
+  let closestPlayer: EntityPlayer | null = null;
+  let closestDistance: float | null = null;
+  for (const player of getPlayers()) {
+    const distance = position.Distance(player.Position);
+
+    if (closestDistance === null || distance < closestDistance) {
+      closestPlayer = player;
+      closestDistance = distance;
+    }
+  }
+
+  if (closestPlayer === null) {
+    error("Failed to find any players.");
+  }
+
+  return closestPlayer;
+}
+
 /**
  * Returns the slot number corresponding to where a trinket can be safely inserted.
  *
