@@ -14,3 +14,9 @@ declare const enum LadderSubType {
   TALL_LADDER = 0,
   STAIRWAY = 1,
 }
+
+/** For EntityType.ENTITY_EFFECT (1000), EffectVariant.PURGATORY (189) */
+declare const enum PurgatorySubType {
+  PURGATORY_RIFT = 0,
+  PURGATORY_GHOST = 1,
+}
