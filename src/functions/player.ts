@@ -1,11 +1,11 @@
 import PocketItemDescription from "../types/PocketItemDescription";
 import PocketItemType from "../types/PocketItemType";
-import { getCollectibleList } from "./util";
+import { getCollectibleSet } from "./util";
 
-const EXCLUDED_CHARACTERS = [
+const EXCLUDED_CHARACTERS = new Set([
   PlayerType.PLAYER_ESAU, // 20
   PlayerType.PLAYER_THESOUL_B, // 40
-];
+]);
 
 /**
  * PlayerIndex is a specific type of string; see the documentation for the [[`getPlayerIndex`]]
@@ -145,7 +145,7 @@ export function getPlayerCollectibleMap(
   player: EntityPlayer,
 ): Map<CollectibleType | int, int> {
   const collectibleMap = new Map<CollectibleType | int, int>();
-  for (const collectibleType of getCollectibleList()) {
+  for (const collectibleType of getCollectibleSet()) {
     // We check for both "HasCollectible()" and "GetCollectibleNum()" to avoid bugs in special cases
     // (e.g. Lilith having 1 Incubus despite not really having the collectible)
     if (!player.HasCollectible(collectibleType)) {
@@ -186,7 +186,7 @@ export function getPlayers(performExclusions = false): EntityPlayer[] {
     // humans
     // Thus, we need to exclude certain characters
     const character = player.GetPlayerType();
-    if (performExclusions && EXCLUDED_CHARACTERS.includes(character)) {
+    if (performExclusions && EXCLUDED_CHARACTERS.has(character)) {
       continue;
     }
 

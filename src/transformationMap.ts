@@ -16,11 +16,11 @@ const TRANSFORMATION_TO_TAG_MAP = new Map<PlayerForm, ItemConfigTag>([
 ]);
 
 // Some transformations are not tracked since they do not have to do with how many items you have
-export const TRANSFORMATIONS_NOT_TRACKED = [
+export const TRANSFORMATIONS_NOT_TRACKED = new Set<PlayerForm>([
   PlayerForm.PLAYERFORM_ADULTHOOD, // 11 (based on pill usage)
   PlayerForm.PLAYERFORM_STOMPY, // 13 (based on size)
   PlayerForm.PLAYERFORM_FLIGHT, // 14 (unused enum)
-];
+]);
 
 export const TRANSFORMATION_TO_ITEMS_MAP = new Map<
   PlayerForm,

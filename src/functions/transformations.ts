@@ -8,7 +8,7 @@ export function getPlayerNumTransformationCollectibles(
   player: EntityPlayer,
   playerForm: PlayerForm,
 ): int {
-  if (TRANSFORMATIONS_NOT_TRACKED.includes(playerForm)) {
+  if (TRANSFORMATIONS_NOT_TRACKED.has(playerForm)) {
     error(
       `The transformation of ${playerForm} cannot be tracked by this function.`,
     );

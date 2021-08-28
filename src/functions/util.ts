@@ -61,11 +61,11 @@ export function getEnumValues(transpiledEnum: unknown): int[] {
   return enumValues;
 }
 
-/** Returns an array containing every valid collectible type in the game, including modded items. */
-export function getCollectibleList(): Array<CollectibleType | int> {
+/** Returns a set containing every valid collectible type in the game, including modded items. */
+export function getCollectibleSet(): Set<CollectibleType | int> {
   const itemConfig = Isaac.GetItemConfig();
 
-  const collectibleList: Array<CollectibleType | int> = [];
+  const collectibleSet = new Set<CollectibleType | int>();
   for (
     let collectibleType = 1;
     collectibleType <= getMaxCollectibleID();
@@ -73,11 +73,11 @@ export function getCollectibleList(): Array<CollectibleType | int> {
   ) {
     const itemConfigItem = itemConfig.GetCollectible(collectibleType);
     if (itemConfigItem !== null) {
-      collectibleList.push(collectibleType);
+      collectibleSet.add(collectibleType);
     }
   }
 
-  return collectibleList;
+  return collectibleSet;
 }
 
 export function isVector(thing: unknown): boolean {

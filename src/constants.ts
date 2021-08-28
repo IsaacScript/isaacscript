@@ -1,11 +1,11 @@
-export const CHARACTERS_WITH_NO_RED_HEARTS: PlayerType[] = [
+export const CHARACTERS_WITH_NO_RED_HEARTS = new Set<PlayerType>([
   PlayerType.PLAYER_XXX, // 4
   PlayerType.PLAYER_BLACKJUDAS, // 12
   PlayerType.PLAYER_JUDAS_B, // 24
   PlayerType.PLAYER_XXX_B, // 25
   PlayerType.PLAYER_THEFORGOTTEN_B, // 35
   PlayerType.PLAYER_BETHANY_B, // 36
-];
+]);
 
 export const DISTANCE_OF_GRID_TILE = 40;
 export const DOOR_HITBOX_DISTANCE = 11;
