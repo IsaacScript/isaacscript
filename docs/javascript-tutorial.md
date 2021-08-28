@@ -263,9 +263,9 @@ In Lua, the typical way to iterate over a key/value table is with `pairs`.
 -- Define a table of item prices
 -- (we must put "[]" around the item IDs since the table keys are numbers)
 local itemPrices = {
-  [CollectibleType.COLLECTIBLE_SAD_ONION] = 30,
-  [CollectibleType.COLLECTIBLE_INNER_EYE] = 40,
-  [CollectibleType.COLLECTIBLE_SPOON_BENDER] = 25,
+  [CollectibleType.COLLECTIBLE_SAD_ONION] = 15,
+  [CollectibleType.COLLECTIBLE_INNER_EYE] = 15,
+  [CollectibleType.COLLECTIBLE_SPOON_BENDER] = 7,
 }
 
 for itemID, price in pairs(itemPrices) do
