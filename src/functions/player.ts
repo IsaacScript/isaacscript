@@ -356,6 +356,32 @@ export function hasLostCurse(player: EntityPlayer): boolean {
   return effects.HasNullEffect(NullItemID.ID_LOST_CURSE);
 }
 
+/**
+ * Returns whether or not the player can hold an additional active item, beyond what they are
+ * currently carrying. This takes the Schoolbag into account.
+ */
+export function hasOpenActiveItemSlot(player: EntityPlayer): boolean {
+  const activeItemPrimary = player.GetActiveItem(ActiveSlot.SLOT_PRIMARY);
+  const activeItemSecondary = player.GetActiveItem(ActiveSlot.SLOT_SECONDARY);
+  const hasSchoolbag = player.HasCollectible(
+    CollectibleType.COLLECTIBLE_SCHOOLBAG,
+  );
+
+  if (hasSchoolbag) {
+    return (
+      activeItemPrimary !== CollectibleType.COLLECTIBLE_NULL ||
+      activeItemSecondary !== CollectibleType.COLLECTIBLE_NULL
+    );
+  }
+
+  return activeItemPrimary !== CollectibleType.COLLECTIBLE_NULL;
+}
+
+/**
+ * Returns whether or not the player can hold an additional pocket item, beyond what they are
+ * currently carrying. This takes into account items that modify the max number of pocket items,
+ * like Starter Deck.
+ */
 export function hasOpenPocketItemSlot(player: EntityPlayer): boolean {
   const pocketItems = getPocketItems(player);
   for (const pocketItem of pocketItems) {
@@ -367,6 +393,10 @@ export function hasOpenPocketItemSlot(player: EntityPlayer): boolean {
   return false;
 }
 
+/**
+ * Returns whether or not the player can hold an additional trinket, beyond what they are currently
+ * carrying. This takes into account items that modify the max number of trinkets, like Mom's Purse.
+ */
 export function hasOpenTrinketSlot(player: EntityPlayer): boolean {
   const openTrinketSlot = getOpenTrinketSlot(player);
   return openTrinketSlot !== null;
