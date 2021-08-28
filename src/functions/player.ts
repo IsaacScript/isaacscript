@@ -397,6 +397,7 @@ export function isJacobOrEsau(player: EntityPlayer): boolean {
   );
 }
 
+/** Helper function for detecting when a player is Keeper or Tainted Keeper. */
 export function isKeeper(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
 
