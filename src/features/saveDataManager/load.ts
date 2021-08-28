@@ -1,4 +1,4 @@
-import { TSTL_MAP_WITH_NUMBER_KEYS_IDENTIFIER } from "../../constants";
+import { TSTL_OBJECT_WITH_NUMBER_KEYS_IDENTIFIER } from "../../constants";
 import { isArray } from "../../functions/array";
 import { addTraversalDescription } from "../../functions/deepCopy";
 import { jsonDecode } from "../../functions/json";
@@ -111,6 +111,12 @@ function merge(
     error("The second argument given to the merge function is not a table.");
   }
 
+  // During serialization, we brand Lua tables with a special identifier to signify that they have
+  // keys that should be deserialized to numbers
+  const convertStringKeysToNumbers = newTable.has(
+    TSTL_OBJECT_WITH_NUMBER_KEYS_IDENTIFIER,
+  );
+
   // First, handle the special case of a TypeScriptToLua Map
   if (oldTable instanceof Map) {
     const oldMap = oldTable as Map<AnyNotNil, unknown>;
@@ -120,12 +126,6 @@ function merge(
         `Converting the "${traversalDescription}" table to a TypeScriptToLua Map.`,
       );
     }
-
-    // Handle the special case of a TSTL map with number keys that were converted to string keys
-    // during serialization; if so, we must reverse the process
-    const convertStringKeysToNumbers = newTable.has(
-      TSTL_MAP_WITH_NUMBER_KEYS_IDENTIFIER,
-    );
 
     // Assume that we should blow away all Map values with whatever is present in the incoming table
     oldMap.clear();
@@ -163,14 +163,6 @@ function merge(
       );
     }
 
-    // Handle the special case of a TSTL set with number keys that were converted to string keys
-    // during serialization; if so, we must reverse the process
-    /*
-    const convertStringKeysToNumbers = newTable.has(
-      TSTL_MAP_WITH_NUMBER_KEYS_IDENTIFIER,
-    );
-    */
-
     // Assume that we should blow away all Set values with whatever is present in the incoming table
     oldSet.clear();
     for (const [key] of pairs(newTable)) {
@@ -178,8 +170,7 @@ function merge(
         log(`Adding ${key} (for a set)`);
       }
 
-      const keyToUse = key;
-      /*
+      let keyToUse = key;
       if (convertStringKeysToNumbers) {
         const numberKey = tonumber(key);
         if (numberKey === undefined) {
@@ -187,7 +178,6 @@ function merge(
         }
         keyToUse = numberKey;
       }
-      */
 
       oldSet.add(keyToUse);
     }

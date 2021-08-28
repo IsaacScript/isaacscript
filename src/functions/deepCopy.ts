@@ -1,4 +1,4 @@
-import { TSTL_MAP_WITH_NUMBER_KEYS_IDENTIFIER } from "../constants";
+import { TSTL_OBJECT_WITH_NUMBER_KEYS_IDENTIFIER } from "../constants";
 import { log } from "./log";
 import { isVector } from "./util";
 
@@ -55,7 +55,7 @@ export function deepCopy(
     newObject = new LuaTable();
   }
 
-  // Depending on whether we are working on a TypeScriptToLua Map or a Lua table,
+  // Depending on whether we are working on a TypeScriptToLua object or a Lua table,
   // we need to iterate over the object in a specific way
   if (oldObject instanceof Map) {
     for (const [key, value] of oldObject) {
@@ -109,7 +109,7 @@ function deepCopyValue(
   const valueType = type(value);
   validateValue(value, valueType, traversalDescription);
 
-  // First, handle the special case of serializing a value for a TSTL Map that uses integer keys
+  // First, handle the special case of serializing a value for a TSTL object that uses integer keys
   // These will be converted to JSON as an array, which will insert a bunch of unnecessary "null"
   // entires (e.g. "[null, null, null, 123]" for a TSTL Map with one entry at index 4)
   // To work around this, we simply convert all integer keys to strings
@@ -117,12 +117,13 @@ function deepCopyValue(
   // This key will be set over and over for every element in the Map, but we have to do it here
   // since we are not able to derive the type of Map keys at runtime
   let convertNumberKeysToString = false;
+  const isTSTLObject = oldObject instanceof Map || oldObject instanceof Set;
   const keyType = type(key);
-  if (shouldSerialize && oldObject instanceof Map && keyType === "number") {
+  if (shouldSerialize && isTSTLObject && keyType === "number") {
     convertNumberKeysToString = true;
 
     const newTable = newObject as LuaTable;
-    newTable.set(TSTL_MAP_WITH_NUMBER_KEYS_IDENTIFIER, true);
+    newTable.set(TSTL_OBJECT_WITH_NUMBER_KEYS_IDENTIFIER, true);
 
     if (DEBUG) {
       log("deepCopy is converting a TSTL map with number keys to strings.");
