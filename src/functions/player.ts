@@ -359,8 +359,16 @@ export function hasLostCurse(player: EntityPlayer): boolean {
 /**
  * Returns whether or not the player can hold an additional active item, beyond what they are
  * currently carrying. This takes the Schoolbag into account.
+ *
+ * If the player is the Tainted Soul, this always returns false, since that character cannot pick up
+ * items. (Only Tainted Forgotten can pick up items.)
  */
 export function hasOpenActiveItemSlot(player: EntityPlayer): boolean {
+  const character = player.GetPlayerType();
+  if (character === PlayerType.PLAYER_THESOUL_B) {
+    return false;
+  }
+
   const activeItemPrimary = player.GetActiveItem(ActiveSlot.SLOT_PRIMARY);
   const activeItemSecondary = player.GetActiveItem(ActiveSlot.SLOT_SECONDARY);
   const hasSchoolbag = player.HasCollectible(
@@ -381,8 +389,16 @@ export function hasOpenActiveItemSlot(player: EntityPlayer): boolean {
  * Returns whether or not the player can hold an additional pocket item, beyond what they are
  * currently carrying. This takes into account items that modify the max number of pocket items,
  * like Starter Deck.
+ *
+ * If the player is the Tainted Soul, this always returns false, since that character cannot pick up
+ * items. (Only Tainted Forgotten can pick up items.)
  */
 export function hasOpenPocketItemSlot(player: EntityPlayer): boolean {
+  const character = player.GetPlayerType();
+  if (character === PlayerType.PLAYER_THESOUL_B) {
+    return false;
+  }
+
   const pocketItems = getPocketItems(player);
   for (const pocketItem of pocketItems) {
     if (pocketItem.type === PocketItemType.EMPTY) {
@@ -396,8 +412,16 @@ export function hasOpenPocketItemSlot(player: EntityPlayer): boolean {
 /**
  * Returns whether or not the player can hold an additional trinket, beyond what they are currently
  * carrying. This takes into account items that modify the max number of trinkets, like Mom's Purse.
+ *
+ * If the player is the Tainted Soul, this always returns false, since that character cannot pick up
+ * items. (Only Tainted Forgotten can pick up items.)
  */
 export function hasOpenTrinketSlot(player: EntityPlayer): boolean {
+  const character = player.GetPlayerType();
+  if (character === PlayerType.PLAYER_THESOUL_B) {
+    return false;
+  }
+
   const openTrinketSlot = getOpenTrinketSlot(player);
   return openTrinketSlot !== null;
 }
