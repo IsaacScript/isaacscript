@@ -369,12 +369,12 @@ export function hasOpenActiveItemSlot(player: EntityPlayer): boolean {
 
   if (hasSchoolbag) {
     return (
-      activeItemPrimary !== CollectibleType.COLLECTIBLE_NULL ||
-      activeItemSecondary !== CollectibleType.COLLECTIBLE_NULL
+      activeItemPrimary === CollectibleType.COLLECTIBLE_NULL ||
+      activeItemSecondary === CollectibleType.COLLECTIBLE_NULL
     );
   }
 
-  return activeItemPrimary !== CollectibleType.COLLECTIBLE_NULL;
+  return activeItemPrimary === CollectibleType.COLLECTIBLE_NULL;
 }
 
 /**
