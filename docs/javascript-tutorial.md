@@ -152,7 +152,7 @@ Revelations.AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, () => {
 
 ### `if` Statements and Operators
 
-In Lua, you don't have to put parentheses around the conditions of an `if` statement. But in TypeScript, you do.
+In Lua, you don't put parentheses around the conditions of an `if` statement. But in TypeScript, you do.
 
 Also, the operators are a bit different:
 
