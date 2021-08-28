@@ -62,7 +62,7 @@ But don't bother typing the semi-colons yourself - just hit `Ctrl + s` and the e
 
 ### Colons
 
-Sometimes in Lua, you call functions with a colon, and sometimes you call them with a period. This is kind of annoying.
+Sometimes in Lua, you call functions with a colon, and sometimes you call them with a period. This is really annoying.
 
 In TypeScript, you just call everything with a period. Easy.
 
