@@ -29,7 +29,7 @@ But we don't have to suffer anymore. The `isaacscript` framework allows us to pr
 
 ### <img src="/img/items/humbling_bundle.png" className="features-icon" /> Extra Enums
 
-- Seamlessly utilize [community-contributed enums](https://github.com/IsaacScript/isaac-typescript-definitions/blob/main/typings/enums.unofficial.d.ts) for things that the developers forgot to include in the "enums.lua" file.
+- Seamlessly utilize [community-contributed enums](https://github.com/IsaacScript/isaac-typescript-definitions/tree/main/typings/unofficial) for things that the developers forgot to include in the "enums.lua" file.
 
 ### <img src="/img/items/pencil.png" className="features-icon" /> Automatic Formatting
 
