@@ -192,7 +192,9 @@ function preCustomRevive(player: EntityPlayer) {}
 
 ### MC_POST_CUSTOM_REVIVE
 
-Fires from the MC_POST_NEW_ROOM callback after the player has finished the death animation and teleported to the previous room. The `revivalType` will match the value returned from the `MC_PRE_CUSTOM_REVIVE` callback.
+Fires from the MC_POST_PLAYER_UPDATE callback after the player has finished the death animation, has teleported to the previous room, and is ready to play the animation for the modded revival item. The `revivalType` will match the value returned from the `MC_PRE_CUSTOM_REVIVE` callback.
+
+In this callback, you must play an animation with something along the lines of `player.AnimateCollectible(CollectibleTypeCustom.COLLECTIBLE_MY_REVIVAL_ITEM);`, otherwise the animation for a 1-Up will play.
 
 - When registering the callback, takes an optional second argument that will make the callback only fire if the revival type matches the one provided.
 
