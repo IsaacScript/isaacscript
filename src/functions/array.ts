@@ -28,6 +28,19 @@ export function arraySum(array: int[]): int {
   return sum;
 }
 
+export function arrayInArray<T>(
+  arrayToMatch: T[],
+  parentArray: T[][],
+): boolean {
+  for (const element of parentArray) {
+    if (arrayEquals(element, arrayToMatch)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 export function arrayToString<T>(array: T[]): string {
   const strings: string[] = [];
   for (const [, value] of ipairs(array)) {
