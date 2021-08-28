@@ -8,7 +8,7 @@ let initialized = false;
 
 const v = {
   run: {
-    shouldSwitch: true,
+    shouldSwitch: false,
   },
 };
 
