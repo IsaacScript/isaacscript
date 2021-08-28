@@ -24,12 +24,12 @@ export const TRANSFORMATIONS_NOT_TRACKED = new Set<PlayerForm>([
 
 export const TRANSFORMATION_TO_ITEMS_MAP = new Map<
   PlayerForm,
-  CollectibleType[]
+  Set<CollectibleType | int>
 >();
 
-// Initialize the map with empty arrays
+// Initialize the map with empty sets
 for (const playerForm of TRANSFORMATION_TO_TAG_MAP.keys()) {
-  TRANSFORMATION_TO_ITEMS_MAP.set(playerForm, []);
+  TRANSFORMATION_TO_ITEMS_MAP.set(playerForm, new Set());
 }
 
 for (
@@ -43,7 +43,7 @@ for (
       if (items === undefined) {
         error(`Failed to get the items for transformation: ${playerForm}`);
       }
-      items.push(collectibleType);
+      items.add(collectibleType);
     }
   }
 }
