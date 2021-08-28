@@ -615,16 +615,16 @@ This means that we can get even more specific with our item prices definition by
 
 ```ts
 enum ItemPrice {
-  Normal = 15,
-  Double = 30,
-  Sale = 7,
+  NORMAL = 15,
+  DOUBLE = 30,
+  SALE = 7,
 }
 
 // itemPrices now only has values of ItemPrice, which is even safer than before!
 const itemPrices = {
-  [CollectibleType.COLLECTIBLE_SAD_ONION]: ItemPrice.Normal,
-  [CollectibleType.COLLECTIBLE_INNER_EYE]: ItemPrice.Normal,
-  [CollectibleType.COLLECTIBLE_SPOON_BENDER]: ItemPrice.Sale,
+  [CollectibleType.COLLECTIBLE_SAD_ONION]: ItemPrice.NORMAL,
+  [CollectibleType.COLLECTIBLE_INNER_EYE]: ItemPrice.NORMAL,
+  [CollectibleType.COLLECTIBLE_SPOON_BENDER]: ItemPrice.SALE,
 };
 ```
 
@@ -641,10 +641,10 @@ In this example, what "itemPrices" _really_ represents is a _map_ of a specific 
 ```ts
 // itemPrices has a type of "Map<CollectibleType, number>",
 // which makes much more sense than an anonymous object
-const itemPrices = new Map([
-  [CollectibleType.COLLECTIBLE_SAD_ONION, 15],
-  [CollectibleType.COLLECTIBLE_INNER_EYE, 15],
-  [CollectibleType.COLLECTIBLE_SPOON_BENDER, 7],
+const itemPrices = new Map<CollectibleType, ItemPrice>([
+  [CollectibleType.COLLECTIBLE_SAD_ONION, ItemPrice.NORMAL],
+  [CollectibleType.COLLECTIBLE_INNER_EYE, ItemPrice.NORMAL],
+  [CollectibleType.COLLECTIBLE_SPOON_BENDER, ItemPrice.SALE],
 ]);
 for (const [itemID, price] of itemPrices) {
   // Do something with "itemID" and "price"
