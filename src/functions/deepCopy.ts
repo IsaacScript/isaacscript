@@ -3,6 +3,8 @@ import { log } from "./log";
 import { isVector } from "./util";
 
 const DEBUG = false;
+const TSTL_MAP_BRAND = "__TSTL_MAP";
+const TSTL_SET_BRAND = "__TSTL_SET";
 
 /**
  * deepCopy returns a new Lua table, a TypeScriptToLua Map, or a TypeScriptToLua Set that is
@@ -42,15 +44,38 @@ export function deepCopy(
     log(logString);
   }
 
-  if (!(oldObject instanceof Map) && !(oldObject instanceof Set)) {
-    checkMetatable(oldObject, traversalDescription);
+  // Work around a bug in TSTL where "instanceof" stops working in common modules by branding the
+  // Lua objects with extra keys
+  if (oldObject instanceof Map) {
+    const oldTable = oldObject as unknown as LuaTable;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    rawset(oldTable, TSTL_MAP_BRAND as any, true);
+  } else if (oldObject instanceof Set) {
+    const oldTable = oldObject as unknown as LuaTable;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    rawset(oldTable, TSTL_SET_BRAND as any, true);
+  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const hasMapBrand = rawget(oldObject, TSTL_MAP_BRAND as any) === true;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const hasSetBrand = rawget(oldObject, TSTL_SET_BRAND as any) === true;
+  const isTSTLMap = oldObject instanceof Map || hasMapBrand;
+  const isTSTLSet = oldObject instanceof Set || hasSetBrand;
+
+  if (!isTSTLMap && !isTSTLSet) {
+    checkMetatable(oldObject as LuaTable, traversalDescription);
   }
 
+  // Instantiate the new object
   let newObject: LuaTable | Map<AnyNotNil, unknown> | Set<AnyNotNil>;
   if (oldObject instanceof Map && !shouldSerialize) {
     newObject = new Map();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    rawset(newObject, TSTL_MAP_BRAND as any, true);
   } else if (oldObject instanceof Set && !shouldSerialize) {
     newObject = new Set();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    rawset(newObject, TSTL_SET_BRAND as any, true);
   } else {
     newObject = new LuaTable();
   }

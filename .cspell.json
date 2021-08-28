@@ -28,6 +28,8 @@
         "npcs",
         "pcall",
         "playerform",
+        "rawget",
+        "rawset",
         "roomshape",
         "sarisia",
         "setmetatable",
