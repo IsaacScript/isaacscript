@@ -41,7 +41,7 @@ declare interface RoomDescriptorReadOnly {
    * To set this property, get a writable copy of the RoomDescriptor by using the
    * `Level.GetRoomByIdx()` method.
    */
-  DisplayFlags: Readonly<int>;
+  DisplayFlags: Readonly<DisplayFlags>;
   /**
    * To set this property, get a writable copy of the RoomDescriptor by using the
    * `Level.GetRoomByIdx()` method.

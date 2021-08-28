@@ -243,3 +243,10 @@ declare const enum ProjectilesMode {
    */
   N_PROJECTILES_IN_CIRCLE = 9,
 }
+
+declare const enum DisplayFlags {
+  INVISIBLE = 1 << -1,
+  VISIBLE = 1 << 0,
+  SHADOW = 1 << 1,
+  SHOW_ICON = 1 << 2,
+}
