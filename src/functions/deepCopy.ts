@@ -47,24 +47,17 @@ export function deepCopy(
   // Work around a bug in TSTL where "instanceof" stops working in common modules by branding the
   // Lua objects with extra keys
   if (oldObject instanceof Map) {
-    const oldTable = oldObject as unknown as LuaTable;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    rawset(oldTable, TSTL_MAP_BRAND as any, true);
+    brandMap(oldObject);
   } else if (oldObject instanceof Set) {
-    const oldTable = oldObject as unknown as LuaTable;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    rawset(oldTable, TSTL_SET_BRAND as any, true);
+    brandSet(oldObject);
   }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const hasMapBrand = rawget(oldObject, TSTL_MAP_BRAND as any) === true;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const hasSetBrand = rawget(oldObject, TSTL_SET_BRAND as any) === true;
+  const oldTable = oldObject as unknown as LuaTable;
+  const hasMapBrand = oldTable.get(TSTL_MAP_BRAND) === true;
+  const hasSetBrand = oldTable.get(TSTL_SET_BRAND) === true;
   const isTSTLMap = oldObject instanceof Map || hasMapBrand;
   const isTSTLSet = oldObject instanceof Set || hasSetBrand;
 
   if (!isTSTLMap && !isTSTLSet) {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    const oldTable = oldObject as LuaTable;
     checkMetatable(oldTable, traversalDescription);
   }
 
@@ -72,12 +65,10 @@ export function deepCopy(
   let newObject: LuaTable | Map<AnyNotNil, unknown> | Set<AnyNotNil>;
   if (oldObject instanceof Map && !shouldSerialize) {
     newObject = new Map();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    rawset(newObject, TSTL_MAP_BRAND as any, true);
+    brandMap(newObject);
   } else if (oldObject instanceof Set && !shouldSerialize) {
     newObject = new Set();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    rawset(newObject, TSTL_SET_BRAND as any, true);
+    brandSet(newObject);
   } else {
     newObject = new LuaTable();
   }
@@ -123,6 +114,16 @@ export function deepCopy(
   }
 
   return newObject;
+}
+
+function brandMap(map: Map<AnyNotNil, unknown>) {
+  const table = map as unknown as LuaTable;
+  table.set(TSTL_MAP_BRAND, true);
+}
+
+function brandSet(set: Set<AnyNotNil>) {
+  const table = set as unknown as LuaTable;
+  table.set(TSTL_SET_BRAND, true);
 }
 
 function deepCopyValue(
