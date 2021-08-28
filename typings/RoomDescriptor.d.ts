@@ -7,7 +7,8 @@ declare interface RoomDescriptor {
   Data: RoomConfig | null;
   DecorationSeed: int;
   DeliriumDistance: int;
-  DisplayFlags: DisplayFlags;
+  /** A composition of zero or more DisplayFlag. */
+  DisplayFlags: int;
   GridIndex: int;
   HasWater: boolean;
   ListIndex: int;

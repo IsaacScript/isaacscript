@@ -38,10 +38,12 @@ declare interface RoomDescriptorReadOnly {
    */
   DeliriumDistance: Readonly<int>;
   /**
+   * A composition of zero or more DisplayFlag.
+   *
    * To set this property, get a writable copy of the RoomDescriptor by using the
    * `Level.GetRoomByIdx()` method.
    */
-  DisplayFlags: Readonly<DisplayFlags>;
+  DisplayFlags: Readonly<int>;
   /**
    * To set this property, get a writable copy of the RoomDescriptor by using the
    * `Level.GetRoomByIdx()` method.
