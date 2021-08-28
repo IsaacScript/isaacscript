@@ -7,7 +7,10 @@ declare interface RoomDescriptor {
   Data: RoomConfig | null;
   DecorationSeed: int;
   DeliriumDistance: int;
-  /** A composition of zero or more DisplayFlag. */
+  /**
+   * A composition of zero or more DisplayFlag. After modifying this value, you must call
+   * `Level.UpdateVisibility()` for it to take effect.
+   */
   DisplayFlags: int;
   GridIndex: int;
   HasWater: boolean;

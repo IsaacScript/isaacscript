@@ -92,6 +92,9 @@ declare interface Level {
   ShowName(sticky: boolean): void;
   UncoverHiddenDoor(currentRoomIdx: int, doorSlot: DoorSlot): void;
   Update(): void;
+  /**
+   * Call this method to update the mini-map after changing the `DisplayFlags` property of a room.
+   */
   UpdateVisibility(): void;
 
   DungeonReturnPosition: Vector;
