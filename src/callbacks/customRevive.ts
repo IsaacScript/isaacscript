@@ -172,7 +172,7 @@ function postNewRoomDeathAnimation() {
 
   // They entered a loading zone while dying (e.g. running through a Curse Room door)
   // Play the death animation again, since entering a new room canceled it
-  startDeathAnimation(player);
+  invokeCustomDeath(player);
 }
 
 function postNewRoomChangingRooms() {
@@ -259,10 +259,6 @@ function invokeCustomDeath(player: EntityPlayer) {
   // Hide the player's health to obfuscate the fact that they are still technically alive
   seeds.AddSeedEffect(SeedEffect.SEED_PERMANENT_CURSE_UNKNOWN);
 
-  startDeathAnimation(player);
-}
-
-function startDeathAnimation(player: EntityPlayer) {
   modifyPlayerForDeathAnimation(player);
   if (isJacobOrEsau(player)) {
     const twin = player.GetOtherTwin();
@@ -273,6 +269,6 @@ function startDeathAnimation(player: EntityPlayer) {
 }
 
 function modifyPlayerForDeathAnimation(player: EntityPlayer) {
-  player.PlayExtraAnimation("Death");
+  player.QueueExtraAnimation("Death");
   player.EntityCollisionClass = EntityCollisionClass.ENTCOLL_NONE;
 }

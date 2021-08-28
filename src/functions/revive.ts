@@ -53,10 +53,12 @@ export function willReviveFromSpiritShackles(player: EntityPlayer): boolean {
 
   const effects = player.GetEffects();
 
-  const spiritShacklesEnabled =
-    effects.GetNullEffectNum(NullItemID.ID_SPIRIT_SHACKLES_DISABLED) === 0;
-  const playerInSoulForm =
-    effects.GetNullEffectNum(NullItemID.ID_SPIRIT_SHACKLES_SOUL) > 0;
+  const spiritShacklesEnabled = !effects.HasNullEffect(
+    NullItemID.ID_SPIRIT_SHACKLES_DISABLED,
+  );
+  const playerInSoulForm = effects.HasNullEffect(
+    NullItemID.ID_SPIRIT_SHACKLES_SOUL,
+  );
 
   return spiritShacklesEnabled && !playerInSoulForm;
 }
