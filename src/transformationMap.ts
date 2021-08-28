@@ -27,7 +27,12 @@ export const TRANSFORMATION_TO_ITEMS_MAP = new Map<
   Set<CollectibleType | int>
 >();
 
-// Initialize the map with empty sets
+export const ITEM_TO_TRANSFORMATION_MAP = new Map<
+  CollectibleType | int,
+  Set<PlayerForm>
+>();
+
+// Initialize the maps with empty sets
 for (const playerForm of TRANSFORMATION_TO_TAG_MAP.keys()) {
   TRANSFORMATION_TO_ITEMS_MAP.set(playerForm, new Set());
 }
@@ -39,11 +44,20 @@ for (
 ) {
   for (const [playerForm, tag] of TRANSFORMATION_TO_TAG_MAP) {
     if (collectibleHasTag(collectibleType, tag)) {
+      // Update the first map
       const items = TRANSFORMATION_TO_ITEMS_MAP.get(playerForm);
       if (items === undefined) {
         error(`Failed to get the items for transformation: ${playerForm}`);
       }
       items.add(collectibleType);
+
+      // Update the second map
+      let transformations = ITEM_TO_TRANSFORMATION_MAP.get(collectibleType);
+      if (transformations === undefined) {
+        transformations = new Set();
+        ITEM_TO_TRANSFORMATION_MAP.set(collectibleType, transformations);
+      }
+      transformations.add(playerForm);
     }
   }
 }
