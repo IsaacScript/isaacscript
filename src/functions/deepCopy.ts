@@ -63,7 +63,9 @@ export function deepCopy(
   const isTSTLSet = oldObject instanceof Set || hasSetBrand;
 
   if (!isTSTLMap && !isTSTLSet) {
-    checkMetatable(oldObject as LuaTable, traversalDescription);
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+    const oldTable = oldObject as LuaTable;
+    checkMetatable(oldTable, traversalDescription);
   }
 
   // Instantiate the new object
