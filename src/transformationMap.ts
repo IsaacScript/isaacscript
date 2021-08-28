@@ -1,6 +1,6 @@
 import { collectibleHasTag, getMaxCollectibleID } from "./functions/items";
 
-const TRANSFORMATION_TO_TAG_MAP = new Map<PlayerForm, ItemConfigTag>([
+export const TRANSFORMATION_TO_TAG_MAP = new Map<PlayerForm, ItemConfigTag>([
   [PlayerForm.PLAYERFORM_GUPPY, ItemConfigTag.GUPPY], // 0
   [PlayerForm.PLAYERFORM_LORD_OF_THE_FLIES, ItemConfigTag.FLY], // 1
   [PlayerForm.PLAYERFORM_MUSHROOM, ItemConfigTag.MUSHROOM], // 2
@@ -32,32 +32,36 @@ export const ITEM_TO_TRANSFORMATION_MAP = new Map<
   Set<PlayerForm>
 >();
 
-// Initialize the maps with empty sets
-for (const playerForm of TRANSFORMATION_TO_TAG_MAP.keys()) {
-  TRANSFORMATION_TO_ITEMS_MAP.set(playerForm, new Set());
-}
+initMaps();
 
-for (
-  let collectibleType = 1;
-  collectibleType <= getMaxCollectibleID();
-  collectibleType++
-) {
-  for (const [playerForm, tag] of TRANSFORMATION_TO_TAG_MAP) {
-    if (collectibleHasTag(collectibleType, tag)) {
-      // Update the first map
-      const items = TRANSFORMATION_TO_ITEMS_MAP.get(playerForm);
-      if (items === undefined) {
-        error(`Failed to get the items for transformation: ${playerForm}`);
-      }
-      items.add(collectibleType);
+function initMaps() {
+  // Initialize the maps with empty sets
+  for (const playerForm of TRANSFORMATION_TO_TAG_MAP.keys()) {
+    TRANSFORMATION_TO_ITEMS_MAP.set(playerForm, new Set());
+  }
 
-      // Update the second map
-      let transformations = ITEM_TO_TRANSFORMATION_MAP.get(collectibleType);
-      if (transformations === undefined) {
-        transformations = new Set();
-        ITEM_TO_TRANSFORMATION_MAP.set(collectibleType, transformations);
+  for (
+    let collectibleType = 1;
+    collectibleType <= getMaxCollectibleID();
+    collectibleType++
+  ) {
+    for (const [playerForm, tag] of TRANSFORMATION_TO_TAG_MAP) {
+      if (collectibleHasTag(collectibleType, tag)) {
+        // Update the first map
+        const items = TRANSFORMATION_TO_ITEMS_MAP.get(playerForm);
+        if (items === undefined) {
+          error(`Failed to get the items for transformation: ${playerForm}`);
+        }
+        items.add(collectibleType);
+
+        // Update the second map
+        let transformations = ITEM_TO_TRANSFORMATION_MAP.get(collectibleType);
+        if (transformations === undefined) {
+          transformations = new Set();
+          ITEM_TO_TRANSFORMATION_MAP.set(collectibleType, transformations);
+        }
+        transformations.add(playerForm);
       }
-      transformations.add(playerForm);
     }
   }
 }

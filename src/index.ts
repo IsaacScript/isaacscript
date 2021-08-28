@@ -52,6 +52,11 @@ export * from "./functions/transformations";
 export * from "./functions/trinkets";
 export * from "./functions/ui";
 export * from "./functions/util";
+export {
+  ITEM_TO_TRANSFORMATION_MAP,
+  TRANSFORMATION_TO_ITEMS_MAP,
+  TRANSFORMATION_TO_TAG_MAP,
+} from "./transformationMap";
 export { default as CallbackParametersCustom } from "./types/CallbackParametersCustom";
 export { default as HealthType } from "./types/HealthType";
 export { default as ModCallbacksCustom } from "./types/ModCallbacksCustom";

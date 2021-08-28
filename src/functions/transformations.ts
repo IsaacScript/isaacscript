@@ -1,4 +1,5 @@
 import {
+  ITEM_TO_TRANSFORMATION_MAP,
   TRANSFORMATIONS_NOT_TRACKED,
   TRANSFORMATION_TO_ITEMS_MAP,
 } from "../transformationMap";
@@ -27,4 +28,11 @@ export function getPlayerNumTransformationCollectibles(
   }
 
   return numCollectibles;
+}
+
+export function getTransformationsForItem(
+  collectibleType: CollectibleType | int,
+): Set<PlayerForm> {
+  const transformations = ITEM_TO_TRANSFORMATION_MAP.get(collectibleType);
+  return transformations === undefined ? new Set() : transformations;
 }
