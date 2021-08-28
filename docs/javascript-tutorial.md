@@ -126,6 +126,8 @@ function getNumPoops() {
 }
 ```
 
+<br />
+
 ### Anonymous Functions
 
 For very small functions, it is common to type them anonymously (i.e. without a name).
