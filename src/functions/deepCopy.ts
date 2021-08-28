@@ -3,8 +3,6 @@ import { log } from "./log";
 import { isVector } from "./util";
 
 const DEBUG = false;
-const TSTL_MAP_BRAND = "__TSTL_MAP";
-const TSTL_SET_BRAND = "__TSTL_SET";
 
 /**
  * deepCopy returns a new Lua table, a TypeScriptToLua Map, or a TypeScriptToLua Set that is
@@ -44,20 +42,11 @@ export function deepCopy(
     log(logString);
   }
 
-  // Work around a bug in TSTL where "instanceof" stops working in common modules by branding the
-  // Lua objects with extra keys
-  if (oldObject instanceof Map) {
-    brandMap(oldObject);
-  } else if (oldObject instanceof Set) {
-    brandSet(oldObject);
-  }
-  const oldTable = oldObject as unknown as LuaTable;
-  const hasMapBrand = oldTable.get(TSTL_MAP_BRAND) === true;
-  const hasSetBrand = oldTable.get(TSTL_SET_BRAND) === true;
-  const isTSTLMap = oldObject instanceof Map || hasMapBrand;
-  const isTSTLSet = oldObject instanceof Set || hasSetBrand;
+  const isTSTLMap = oldObject instanceof Map;
+  const isTSTLSet = oldObject instanceof Set;
 
   if (!isTSTLMap && !isTSTLSet) {
+    const oldTable = oldObject as unknown as LuaTable;
     checkMetatable(oldTable, traversalDescription);
   }
 
@@ -65,10 +54,8 @@ export function deepCopy(
   let newObject: LuaTable | Map<AnyNotNil, unknown> | Set<AnyNotNil>;
   if (oldObject instanceof Map && !shouldSerialize) {
     newObject = new Map();
-    brandMap(newObject);
   } else if (oldObject instanceof Set && !shouldSerialize) {
     newObject = new Set();
-    brandSet(newObject);
   } else {
     newObject = new LuaTable();
   }
@@ -114,16 +101,6 @@ export function deepCopy(
   }
 
   return newObject;
-}
-
-function brandMap(map: Map<AnyNotNil, unknown>) {
-  const table = map as unknown as LuaTable;
-  table.set(TSTL_MAP_BRAND, true);
-}
-
-function brandSet(set: Set<AnyNotNil>) {
-  const table = set as unknown as LuaTable;
-  table.set(TSTL_SET_BRAND, true);
 }
 
 function deepCopyValue(
