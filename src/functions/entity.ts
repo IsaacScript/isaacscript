@@ -16,22 +16,26 @@ export function anyEntityCloserThan(
 }
 
 /**
- * Helper function to get all the bosses in the room. Due to bugs with `Isaac.FindInRadius()`,
- * this function uses `Isaac.GetRoomEntities()`, which is more expensive but also more robust.
- *
- * Example:
- * ```
- * // Remove all of the bosses in the room
- * for (const npc of getBosses()) {
- *   npc.Remove();
- * }
- * ```
+ * Helper function to get all the non-dead bosses in the room. Due to bugs with
+ * `Isaac.FindInRadius()`, this function uses `Isaac.GetRoomEntities()`, which is more expensive but
+ * also more robust.
  */
+export function getAliveBosses(): EntityNPC[] {
+  const aliveBosses: EntityNPC[] = [];
+  for (const boss of getBosses()) {
+    if (!boss.IsDead()) {
+      aliveBosses.push(boss);
+    }
+  }
+
+  return aliveBosses;
+}
+
+/** Helper function to get all the bosses in the room. */
 export function getBosses(): EntityNPC[] {
   const bosses: EntityNPC[] = [];
-  for (const entity of Isaac.GetRoomEntities()) {
-    const npc = entity.ToNPC();
-    if (npc !== null && npc.IsBoss()) {
+  for (const npc of getNPCs()) {
+    if (npc.IsBoss()) {
       bosses.push(npc);
     }
   }
