@@ -397,6 +397,15 @@ export function isJacobOrEsau(player: EntityPlayer): boolean {
   );
 }
 
+export function isKeeper(player: EntityPlayer): boolean {
+  const character = player.GetPlayerType();
+
+  return (
+    character === PlayerType.PLAYER_KEEPER ||
+    character === PlayerType.PLAYER_KEEPER_B
+  );
+}
+
 export function removeDeadEyeMultiplier(player: EntityPlayer): void {
   // Each time the "ClearDeadEyeCharge()" function is called, it only has a chance of working,
   // so just call it 100 times to be safe
