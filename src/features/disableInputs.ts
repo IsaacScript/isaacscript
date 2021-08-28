@@ -4,14 +4,14 @@ import { saveDataManager } from "./saveDataManager/main";
 
 const FEATURE_NAME = "input disabler";
 
-const MOVEMENT_BUTTONS = new Set([
+const MOVEMENT_BUTTONS = new Set<ButtonAction>([
   ButtonAction.ACTION_LEFT, // 0
   ButtonAction.ACTION_RIGHT, // 1
   ButtonAction.ACTION_UP, // 2
   ButtonAction.ACTION_DOWN, // 3
 ]);
 
-const SHOOTING_BUTTONS = new Set([
+const SHOOTING_BUTTONS = new Set<ButtonAction>([
   ButtonAction.ACTION_SHOOTLEFT, // 4
   ButtonAction.ACTION_SHOOTRIGHT, // 5
   ButtonAction.ACTION_SHOOTUP, // 6

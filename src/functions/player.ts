@@ -2,7 +2,7 @@ import PocketItemDescription from "../types/PocketItemDescription";
 import PocketItemType from "../types/PocketItemType";
 import { getCollectibleSet } from "./util";
 
-const EXCLUDED_CHARACTERS = new Set([
+const EXCLUDED_CHARACTERS = new Set<PlayerType>([
   PlayerType.PLAYER_ESAU, // 20
   PlayerType.PLAYER_THESOUL_B, // 40
 ]);
