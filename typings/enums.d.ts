@@ -891,6 +891,7 @@ declare enum PlayerForm {
   PLAYERFORM_ADULTHOOD = 11,
   PLAYERFORM_SPIDERBABY = 12,
   PLAYERFORM_STOMPY = 13,
+  /** This transformation is unused by the game. */
   PLAYERFORM_FLIGHT = 14,
   NUM_PLAYER_FORMS = 15,
 }
