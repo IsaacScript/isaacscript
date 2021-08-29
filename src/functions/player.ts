@@ -66,6 +66,18 @@ export function anyPlayerIs(matchingCharacter: PlayerType): boolean {
   return false;
 }
 
+export function getPlayersOfType(playerType: PlayerType): EntityPlayer[] {
+  const players: EntityPlayer[] = [];
+  for (const player of getPlayers()) {
+    const character = player.GetPlayerType();
+    if (character === playerType) {
+      players.push(player);
+    }
+  }
+
+  return players;
+}
+
 export function getClosestPlayer(position: Vector): EntityPlayer {
   let closestPlayer: EntityPlayer | null = null;
   let closestDistance = math.huge;
@@ -83,6 +95,27 @@ export function getClosestPlayer(position: Vector): EntityPlayer {
   }
 
   return closestPlayer;
+}
+
+/**
+ * Helper function to get the first player with the lowest frame count of 0. Useful to find a
+ * freshly spawned player after using items like Esau Jr.
+ */
+export function getNewestPlayer(): EntityPlayer {
+  let newestPlayer: EntityPlayer | null = null;
+  let lowestFrame = math.huge;
+  for (const player of getPlayers()) {
+    if (player.FrameCount < lowestFrame) {
+      newestPlayer = player;
+      lowestFrame = player.FrameCount;
+    }
+  }
+
+  if (newestPlayer === null) {
+    error("Failed to find any players.");
+  }
+
+  return newestPlayer;
 }
 
 /**
