@@ -9,6 +9,12 @@ declare const enum DipFamiliarSubType {
   WHITE = 6,
 }
 
+/** For EntityType.ENTITY_EFFECT (1000), EffectVariant.HEAVEN_LIGHT_DOOR (39) */
+declare const enum HeavenLightDoorSubType {
+  HEAVEN_DOOR = 0,
+  MOONLIGHT = 1,
+}
+
 /** For EntityType.ENTITY_EFFECT (1000), EffectVariant.TALL_LADDER (156) */
 declare const enum LadderSubType {
   TALL_LADDER = 0,
