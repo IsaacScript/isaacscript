@@ -12,6 +12,32 @@ export function collectibleHasTag(
   return itemConfigItem.HasTags(tag);
 }
 
+export function getCollectibleInitCharges(
+  collectibleType: CollectibleType | int,
+): int {
+  const itemConfig = Isaac.GetItemConfig();
+
+  const itemConfigItem = itemConfig.GetCollectible(collectibleType);
+  if (itemConfigItem === null) {
+    return 0;
+  }
+
+  return itemConfigItem.InitCharge;
+}
+
+export function getCollectibleMaxCharges(
+  collectibleType: CollectibleType | int,
+): int {
+  const itemConfig = Isaac.GetItemConfig();
+
+  const itemConfigItem = itemConfig.GetCollectible(collectibleType);
+  if (itemConfigItem === null) {
+    return 0;
+  }
+
+  return itemConfigItem.MaxCharges;
+}
+
 /**
  * This is a helper function to get an item name from a CollectibleType or a TrinketType.
  *
@@ -45,6 +71,7 @@ export function getItemName(
 
 export function getMaxCollectibleID(): int {
   const itemConfig = Isaac.GetItemConfig();
+
   return itemConfig.GetCollectibles().Size - 1;
 }
 
