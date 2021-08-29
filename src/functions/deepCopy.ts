@@ -60,7 +60,7 @@ export function deepCopy(
     newObject = new LuaTable();
   }
 
-  // Depending on whether we are working on a TypeScriptToLua object or a Lua table,
+  // Depending on whether we are working on a Lua table or a TypeScriptToLua object,
   // we need to iterate over the object in a specific way
   if (oldObject instanceof Map) {
     for (const [key, value] of oldObject) {
@@ -140,6 +140,12 @@ function deepCopyValue(
   if (isVector(value)) {
     const vector = value as Vector;
     newValue = copyVector(vector, shouldSerialize);
+  } else if (value instanceof Map) {
+    traversalDescription = addTraversalDescription(key, traversalDescription);
+    newValue = deepCopy(value, shouldSerialize, traversalDescription);
+  } else if (value instanceof Set) {
+    traversalDescription = addTraversalDescription(key, traversalDescription);
+    newValue = deepCopy(value, shouldSerialize, traversalDescription);
   } else if (valueType === "table") {
     const table = value as LuaTable;
     traversalDescription = addTraversalDescription(key, traversalDescription);
