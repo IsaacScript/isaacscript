@@ -161,6 +161,26 @@ export function getPlayerCollectibleMap(
   return collectibleMap;
 }
 
+export function getPlayerFromEntityPtr(
+  entityPtr: EntityPtr | null,
+): EntityPlayer {
+  if (entityPtr === null) {
+    error("Failed to get the player pointer.");
+  }
+
+  const entity = entityPtr.Ref;
+  if (entity === null) {
+    error("Failed to reference the player pointer.");
+  }
+
+  const player = entity.ToPlayer();
+  if (player === null) {
+    error("Failed to convert the player entity to a player.");
+  }
+
+  return player;
+}
+
 /**
  * This function always excludes players with a non-null parent, since they are not real players
  * (e.g. the Strawman Keeper).

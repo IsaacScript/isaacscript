@@ -1,15 +1,18 @@
 import { arrayEmpty } from "../functions/array";
 import * as postPlayerInitReordered from "./subscriptions/postPlayerInitReordered";
+import * as postPlayerRenderReordered from "./subscriptions/postPlayerRenderReordered";
 import * as postPlayerUpdateReordered from "./subscriptions/postPlayerUpdateReordered";
 
 const postPlayerInitQueue: EntityPtr[] = [];
 const postPlayerUpdateQueue: EntityPtr[] = [];
+const postPlayerRenderQueue: EntityPtr[] = [];
 
 let postGameStartedFiredOnThisRun = false;
 
 export function init(mod: Mod): void {
   mod.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit); // 9
   mod.AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, postPlayerUpdate); // 31
+  mod.AddCallback(ModCallbacks.MC_POST_PLAYER_RENDER, postPlayerRender); // 32
 
   mod.AddCallback(ModCallbacks.MC_POST_GAME_STARTED, postGameStarted); // 15
   mod.AddCallback(ModCallbacks.MC_PRE_GAME_EXIT, preGameExit); // 17
@@ -52,20 +55,39 @@ function postPlayerUpdate(player: EntityPlayer) {
   }
 }
 
+// ModCallbacks.MC_POST_PLAYER_RENDER (32)
+function postPlayerRender(player: EntityPlayer) {
+  if (!hasSubscriptions()) {
+    return;
+  }
+
+  if (postGameStartedFiredOnThisRun) {
+    postPlayerRenderReordered.fire(player);
+  } else {
+    // Defer callback execution until the PostGameStarted callback fires
+    const entityPtr = EntityPtr(player);
+    postPlayerRenderQueue.push(entityPtr);
+  }
+}
+
 // ModCallbacks.MC_POST_GAME_STARTED (15)
 function postGameStarted() {
   if (!hasSubscriptions()) {
     return;
   }
 
-  postPlayerInitDequeue();
-  postPlayerUpdateDequeue();
-
   postGameStartedFiredOnThisRun = true;
+
+  dequeue(postPlayerInitQueue, postPlayerInitReordered.fire);
+  dequeue(postPlayerUpdateQueue, postPlayerUpdateReordered.fire);
+  dequeue(postPlayerRenderQueue, postPlayerRenderReordered.fire);
 }
 
-function postPlayerInitDequeue() {
-  for (const entityPtr of postPlayerInitQueue) {
+function dequeue(
+  queue: EntityPtr[],
+  fireFunction: (player: EntityPlayer) => void,
+) {
+  for (const entityPtr of queue) {
     const entity = entityPtr.Ref;
     if (entity === null) {
       continue;
@@ -76,28 +98,10 @@ function postPlayerInitDequeue() {
       continue;
     }
 
-    postPlayerInitReordered.fire(player);
+    fireFunction(player);
   }
 
-  arrayEmpty(postPlayerInitQueue);
-}
-
-function postPlayerUpdateDequeue() {
-  for (const entityPtr of postPlayerUpdateQueue) {
-    const entity = entityPtr.Ref;
-    if (entity === null) {
-      continue;
-    }
-
-    const player = entity.ToPlayer();
-    if (player === null) {
-      continue;
-    }
-
-    postPlayerUpdateReordered.fire(player);
-  }
-
-  arrayEmpty(postPlayerUpdateQueue);
+  arrayEmpty(queue);
 }
 
 // ModCallbacks.MC_PRE_GAME_EXIT (17)

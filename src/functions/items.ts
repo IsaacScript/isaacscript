@@ -51,3 +51,22 @@ export function getMaxCollectibleID(): int {
 export function isQuestItem(collectibleType: CollectibleType | int): boolean {
   return collectibleHasTag(collectibleType, ItemConfigTag.QUEST);
 }
+
+/**
+ * Helper function to put a message in the log.txt file to let the Rebirth Item Tracker know that it
+ * should remove an item.
+ *
+ * The "item tracker" in this function does not refer to the in-game item tracker, but rather to the
+ * Python program located at: https://github.com/Rchardon/RebirthItemTracker
+ */
+export function removeItemFromItemTracker(
+  collectibleType: CollectibleType | int,
+): void {
+  const itemName = getItemName(collectibleType);
+
+  // This cannot use the "log()" function since the prefix will prevent the Rebirth Item Tracker
+  // from recognizing the message
+  Isaac.DebugString(
+    `Removing voided collectible ${collectibleType} (${itemName}) from player 0 (Player)`,
+  );
+}

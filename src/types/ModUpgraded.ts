@@ -130,6 +130,13 @@ export default class ModUpgraded implements Mod {
         break;
       }
 
+      case ModCallbacksCustom.MC_POST_PLAYER_RENDER_REORDERED: {
+        postPlayerUpdateReordered.register(
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_PLAYER_RENDER_REORDERED]),
+        );
+        break;
+      }
+
       case ModCallbacksCustom.MC_POST_PLAYER_INIT_LATE: {
         postPlayerInitLate.register(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_PLAYER_INIT_LATE]),

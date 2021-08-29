@@ -19,6 +19,7 @@ import { PostPlayerChangeTypeCallbackType } from "../callbacks/subscriptions/pos
 import { PostPlayerFatalDamageCallbackType } from "../callbacks/subscriptions/postPlayerFatalDamage";
 import { PostPlayerInitLateCallbackType } from "../callbacks/subscriptions/postPlayerInitLate";
 import { PostPlayerInitReorderedCallbackType } from "../callbacks/subscriptions/postPlayerInitReordered";
+import { PostPlayerRenderReorderedCallbackType } from "../callbacks/subscriptions/postPlayerRenderReordered";
 import { PostPlayerUpdateReorderedCallbackType } from "../callbacks/subscriptions/postPlayerUpdateReordered";
 import { PostSacrificeCallbackType } from "../callbacks/subscriptions/postSacrifice";
 import { PostTransformationCallbackType } from "../callbacks/subscriptions/postTransformation";
@@ -42,6 +43,10 @@ export default interface CallbackParametersCustom {
   ];
   [ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED]: [
     callback: PostPlayerUpdateReorderedCallbackType,
+    playerVariant?: PlayerVariant,
+  ];
+  [ModCallbacksCustom.MC_POST_PLAYER_RENDER_REORDERED]: [
+    callback: PostPlayerRenderReorderedCallbackType,
     playerVariant?: PlayerVariant,
   ];
   [ModCallbacksCustom.MC_POST_PLAYER_INIT_LATE]: [
