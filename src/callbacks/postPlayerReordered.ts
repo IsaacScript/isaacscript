@@ -21,7 +21,8 @@ export function init(mod: Mod): void {
 function hasSubscriptions() {
   return (
     postPlayerInitReordered.hasSubscriptions() ||
-    postPlayerUpdateReordered.hasSubscriptions()
+    postPlayerUpdateReordered.hasSubscriptions() ||
+    postPlayerRenderReordered.hasSubscriptions()
   );
 }
 
