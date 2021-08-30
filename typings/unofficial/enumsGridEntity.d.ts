@@ -12,6 +12,8 @@ declare const enum GridEntityXMLType {
   ROCKT = 1003,
   /** A marked skull that will drop a Fool card. */
   ROCK_ALT2 = 1008,
+  /** Rocks that will be destroyed when other nearby rocks are. */
+  ROCK_CHAIN_BREAKING = 1009 ,
   ROCK_SPIKED = 1010,
   TNT = 1300,
   FIREPLACE = 1400,
