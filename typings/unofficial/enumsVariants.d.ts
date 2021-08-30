@@ -92,6 +92,13 @@ declare const enum SatanVariant {
   STOMP = 10,
 }
 
+/** For EntityType.ENTITY_ISAAC (102) */
+declare const enum IsaacVariant {
+  ISAAC = 0,
+  BLUE_BABY = 1,
+  BLUE_BABY_HUSH = 2,
+}
+
 /** For EntityType.ENTITY_THE_HAUNT (260) */
 declare const enum HauntVariant {
   HAUNT = 0,
