@@ -6,7 +6,11 @@
 declare const enum GridEntityXMLType {
   ROCK = 1000,
   ROCK_BOMB = 1001,
+  /** A pot, mushroom, or skull, depending on the stage and room type. */
   ROCK_ALT = 1002,
+  /** A tinted rock. */
+  ROCKT = 1003,
+  /** A marked skull that will drop a Fool card. */
   ROCK_ALT2 = 1008,
   ROCK_SPIKED = 1010,
   TNT = 1300,
