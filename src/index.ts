@@ -25,6 +25,7 @@ export {
   enableAllInputsExceptFor,
 } from "./features/disableInputs";
 export { forgottenSwitch } from "./features/forgottenSwitch";
+export { runInNFrames, runNextFrame } from "./features/runInNFrames";
 export {
   saveDataManager,
   saveDataManagerSave,
