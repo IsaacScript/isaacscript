@@ -155,7 +155,8 @@ function isBrand(key: AnyNotNil) {
   return (
     key === TSTL_MAP_BRAND ||
     key === TSTL_SET_BRAND ||
-    key === TSTL_OBJECT_WITH_NUMBER_KEYS_BRAND
+    key === TSTL_OBJECT_WITH_NUMBER_KEYS_BRAND ||
+    key === VECTOR_BRAND
   );
 }
 
