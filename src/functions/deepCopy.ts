@@ -298,10 +298,7 @@ function validateValue(
   }
 }
 
-export function addTraversalDescription(
-  key: AnyNotNil,
-  traversalDescription: string,
-): string {
+function addTraversalDescription(key: AnyNotNil, traversalDescription: string) {
   if (traversalDescription !== "") {
     traversalDescription += " --> ";
   }
