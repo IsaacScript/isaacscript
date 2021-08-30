@@ -16,7 +16,7 @@ declare const enum GridEntityXMLType {
    * Rocks that will be destroyed when other nearby rocks are. In-game, it will be a
    * GridEntityType.GRID_ROCK with a VarData of 1.
    */
-  ROCK_CHAIN_BREAKING = 1009,
+  ROCK_EVENT = 1009,
   ROCK_SPIKED = 1010,
   ROCK_GOLD = 1011,
   TNT = 1300,
