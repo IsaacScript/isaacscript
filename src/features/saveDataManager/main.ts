@@ -1,5 +1,5 @@
 import { getUpgradeErrorMsg } from "../../errors";
-import { deepCopy } from "../../functions/deepCopy";
+import { deepCopy, SerializationType } from "../../functions/deepCopy";
 import { tableClear } from "../../functions/util";
 import ModUpgraded from "../../types/ModUpgraded";
 import { SaveData, SaveDataKeys } from "../../types/SaveData";
@@ -123,7 +123,7 @@ function restoreDefaults(childTableName: SaveDataKeys) {
     const childTableDefaultsTable = childTableDefaults as unknown as LuaTable;
     const childTableDefaultsTableCopy = deepCopy(
       childTableDefaultsTable,
-      false,
+      SerializationType.NONE,
       `${subscriberName} --> ${childTableName}`,
     ) as LuaTable;
 
@@ -242,7 +242,11 @@ export function saveDataManager(
   // Make a copy of the initial save data so that we can use it to restore the default values later
   // on
   const saveDataTable = saveData as LuaTable;
-  const saveDataTableCopy = deepCopy(saveDataTable, false, key);
+  const saveDataTableCopy = deepCopy(
+    saveDataTable,
+    SerializationType.NONE,
+    key,
+  );
   const saveDataCopy = saveDataTableCopy as unknown as SaveData;
   saveDataDefaultsMap.set(key, saveDataCopy);
 

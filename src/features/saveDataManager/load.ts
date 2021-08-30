@@ -1,12 +1,9 @@
-import { TSTL_OBJECT_WITH_NUMBER_KEYS_IDENTIFIER } from "../../constants";
-import { isArray } from "../../functions/array";
-import { addTraversalDescription } from "../../functions/deepCopy";
+import { DEBUG } from "../../debug";
 import { jsonDecode } from "../../functions/json";
 import { log } from "../../functions/log";
-import { isVector, tableClear } from "../../functions/util";
 import { SaveData } from "../../types/SaveData";
+import { merge } from "./merge";
 
-const DEBUG = false;
 const DEFAULT_MOD_DATA = "{}";
 
 export function loadFromDisk(
@@ -61,7 +58,7 @@ export function loadFromDisk(
     // because save data could contain out-of-date fields
     // Instead, merge it one field at a time in a recursive way
     // (and convert Lua tables back to TypeScriptToLua Maps, if necessary)
-    merge(oldSaveDataForSubscriber as LuaTable, value, key as string);
+    merge(oldSaveDataForSubscriber as LuaTable, value);
   }
 
   log('The save data manager loaded data from the "save#.dat" file.');
@@ -88,165 +85,4 @@ function readSaveDatFile(mod: Mod) {
 
 function tryLoadModData(this: void, mod: Mod) {
   return mod.LoadData();
-}
-
-/**
- * merge takes the values from a new table and merges them into an old table.
- * It will only copy over values that are present in the old table.
- * In other words, it will ignore extraneous values in the new table.
- * (This is useful when loading out-of-date save data from the "save#.dat" file.)
- * It will also fill any TypeScriptToLua Maps with appropriate values from a corresponding Lua
- * table.
- */
-function merge(
-  oldTable: LuaTable,
-  newTable: LuaTable,
-  traversalDescription: string,
-): void {
-  if (type(oldTable) !== "table") {
-    error("The first argument given to the merge function is not a table.");
-  }
-
-  if (type(newTable) !== "table") {
-    error("The second argument given to the merge function is not a table.");
-  }
-
-  // During serialization, we brand Lua tables with a special identifier to signify that they have
-  // keys that should be deserialized to numbers
-  const convertStringKeysToNumbers = newTable.has(
-    TSTL_OBJECT_WITH_NUMBER_KEYS_IDENTIFIER,
-  );
-
-  // First, handle the special case of a TypeScriptToLua Map
-  if (oldTable instanceof Map) {
-    const oldMap = oldTable as Map<AnyNotNil, unknown>;
-
-    if (DEBUG) {
-      log(
-        `Converting the "${traversalDescription}" table to a TypeScriptToLua Map.`,
-      );
-    }
-
-    // Assume that we should blow away all Map values with whatever is present in the incoming table
-    oldMap.clear();
-    for (const [key, value] of pairs(newTable)) {
-      if (DEBUG) {
-        log(`Setting ${key} --> ${value}`);
-      }
-
-      let keyToUse = key;
-      if (convertStringKeysToNumbers) {
-        const numberKey = tonumber(key);
-        if (numberKey === undefined) {
-          continue;
-        }
-        keyToUse = numberKey;
-      }
-
-      oldMap.set(keyToUse, value);
-    }
-
-    if (DEBUG) {
-      log(`Size of merged Map "${traversalDescription}": ${oldMap.size}`);
-    }
-
-    return;
-  }
-
-  // Second, handle the special case of a TypeScriptToLua set
-  if (oldTable instanceof Set) {
-    const oldSet = oldTable as Set<AnyNotNil>;
-
-    if (DEBUG) {
-      log(
-        `Converting the "${traversalDescription}" table to a TypeScriptToLua Set.`,
-      );
-    }
-
-    // Assume that we should blow away all Set values with whatever is present in the incoming table
-    oldSet.clear();
-    for (const [key] of pairs(newTable)) {
-      if (DEBUG) {
-        log(`Adding ${key} (for a set)`);
-      }
-
-      let keyToUse = key;
-      if (convertStringKeysToNumbers) {
-        const numberKey = tonumber(key);
-        if (numberKey === undefined) {
-          continue;
-        }
-        keyToUse = numberKey;
-      }
-
-      oldSet.add(keyToUse);
-    }
-
-    if (DEBUG) {
-      log(`Size of merged Set "${traversalDescription}": ${oldSet.size}`);
-    }
-
-    return;
-  }
-
-  // Third, handle the special case of an array
-  if (isArray(oldTable) && isArray(newTable)) {
-    // Assume that we should blow away all array values with whatever is present in the incoming
-    // array
-    tableClear(oldTable);
-    for (const [key, value] of pairs(newTable)) {
-      oldTable.set(key, value);
-    }
-
-    return;
-  }
-
-  // Go through the old table, merging every found value
-  for (const [key, oldValue] of pairs(oldTable)) {
-    const newValue = newTable.get(key) as unknown;
-    const oldType = type(oldValue);
-    const newType = type(newValue);
-
-    // Handle the special case of a Vector
-    if (isVector(oldValue)) {
-      mergeVector(oldValue, newValue as LuaTable);
-      continue;
-    }
-
-    // Do nothing if a property on the incoming table either does not exist or is a mismatched type
-    if (oldType !== newType) {
-      continue;
-    }
-
-    if (oldType === "table") {
-      // Recursively handle sub-tables
-      traversalDescription = addTraversalDescription(key, traversalDescription);
-      merge(oldValue, newValue as LuaTable, traversalDescription);
-    } else {
-      // Base case: copy the value
-      oldTable.set(key, newValue);
-    }
-  }
-}
-
-function mergeVector(oldVector: Vector, serializedVector: LuaTable) {
-  if (serializedVector === null) {
-    return;
-  }
-
-  if (serializedVector.has("X")) {
-    const xString = serializedVector.get("X") as string;
-    const x = tonumber(xString);
-    if (x !== undefined) {
-      oldVector.X = x;
-    }
-  }
-
-  if (serializedVector.has("Y")) {
-    const yString = serializedVector.get("Y") as string;
-    const y = tonumber(yString);
-    if (y !== undefined) {
-      oldVector.Y = y;
-    }
-  }
 }

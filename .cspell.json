@@ -49,6 +49,7 @@
         "tonumber",
         "tostring",
         "transpiled",
+        "transpiles",
         "tstl",
         "typedoc",
         "userdata",

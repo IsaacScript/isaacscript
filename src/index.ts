@@ -32,6 +32,7 @@ export {
 } from "./features/saveDataManager/main";
 export * from "./functions/array";
 export { deepCopy } from "./functions/deepCopy";
+export { deepCopyTests } from "./functions/deepCopyTests";
 export * from "./functions/doors";
 export * from "./functions/entity";
 export * from "./functions/flag";

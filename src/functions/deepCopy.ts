@@ -1,8 +1,18 @@
-import { TSTL_OBJECT_WITH_NUMBER_KEYS_IDENTIFIER } from "../constants";
+import {
+  TSTL_MAP_BRAND,
+  TSTL_OBJECT_WITH_NUMBER_KEYS_BRAND,
+  TSTL_SET_BRAND,
+  VECTOR_BRAND,
+} from "../constants";
+import { DEBUG } from "../debug";
 import { log } from "./log";
-import { isVector } from "./util";
+import { isSerializedVector, isVector } from "./util";
 
-const DEBUG = false;
+export enum SerializationType {
+  NONE,
+  SERIALIZE,
+  DESERIALIZE,
+}
 
 /**
  * deepCopy returns a new Lua table, a TypeScriptToLua Map, or a TypeScriptToLua Set that is
@@ -18,13 +28,14 @@ const DEBUG = false;
  * 2. Vectors
  *
  * @param oldObject The Lua table or TypeScriptToLua Map to copy.
- * @param shouldSerialize Whether or not to convert children objects to Lua tables.
- * False by default. Set to true when preparing data to be encoded as JSON and saved to disk.
+ * @param serializationType Has 3 possible values. Can leave TypeScriptToLua objects as-is, or can
+ * serialize objects to Lua tables, or can deserialize Lua tables to objects. No serialization by
+ * default.
  * @param traversalDescription Used to track the current key that we are operating on.
  */
 export function deepCopy(
   oldObject: LuaTable | Map<AnyNotNil, unknown> | Set<AnyNotNil>,
-  shouldSerialize = false,
+  serializationType = SerializationType.NONE,
   traversalDescription = "",
 ): LuaTable | Map<AnyNotNil, unknown> | Set<AnyNotNil> {
   const oldObjectType = type(oldObject);
@@ -36,8 +47,10 @@ export function deepCopy(
 
   if (DEBUG) {
     let logString = `deepCopy is operating on: ${traversalDescription}`;
-    if (shouldSerialize) {
+    if (serializationType === SerializationType.SERIALIZE) {
       logString += " (serializing)";
+    } else if (serializationType === SerializationType.DESERIALIZE) {
+      logString += " (deserializing)";
     }
     log(logString);
   }
@@ -45,36 +58,67 @@ export function deepCopy(
   const isTSTLMap = oldObject instanceof Map;
   const isTSTLSet = oldObject instanceof Set;
 
+  let hasTSTLMapBrand = false;
+  let hasTSTLSetBrand = false;
   if (!isTSTLMap && !isTSTLSet) {
     const oldTable = oldObject as unknown as LuaTable;
     checkMetatable(oldTable, traversalDescription);
+
+    hasTSTLMapBrand = oldTable.has(TSTL_MAP_BRAND);
+    hasTSTLSetBrand = oldTable.has(TSTL_SET_BRAND);
   }
 
   // Instantiate the new object
   let newObject: LuaTable | Map<AnyNotNil, unknown> | Set<AnyNotNil>;
-  if (oldObject instanceof Map && !shouldSerialize) {
+  if (
+    (serializationType === SerializationType.NONE &&
+      oldObject instanceof Map) ||
+    (serializationType === SerializationType.DESERIALIZE && hasTSTLMapBrand)
+  ) {
     newObject = new Map();
-  } else if (oldObject instanceof Set && !shouldSerialize) {
+  } else if (
+    (serializationType === SerializationType.NONE &&
+      oldObject instanceof Set) ||
+    (serializationType === SerializationType.DESERIALIZE && hasTSTLSetBrand)
+  ) {
     newObject = new Set();
   } else {
     newObject = new LuaTable();
+  }
+
+  // If we are serializing, brand TSTL objects
+  if (serializationType === SerializationType.SERIALIZE) {
+    const newTable = newObject as LuaTable;
+    if (oldObject instanceof Map) {
+      newTable.set(TSTL_MAP_BRAND, "");
+    } else if (oldObject instanceof Set) {
+      newTable.set(TSTL_SET_BRAND, "");
+    }
   }
 
   // Depending on whether we are working on a Lua table or a TypeScriptToLua object,
   // we need to iterate over the object in a specific way
   if (oldObject instanceof Map) {
     for (const [key, value] of oldObject) {
+      if (isBrand(key)) {
+        continue;
+      }
+
       deepCopyValue(
         oldObject,
         newObject,
         key,
         value,
         traversalDescription,
-        shouldSerialize,
+        serializationType,
       );
     }
   } else if (oldObject instanceof Set) {
     for (const key of oldObject) {
+      if (isBrand(key)) {
+        continue;
+      }
+
       // For serialization purposes, represent a Set as a table with keys that match the values in
       // the set and values that are an empty string
       const value = "";
@@ -84,23 +128,35 @@ export function deepCopy(
         key,
         value,
         traversalDescription,
-        shouldSerialize,
+        serializationType,
       );
     }
   } else {
     for (const [key, value] of pairs(oldObject)) {
+      if (isBrand(key)) {
+        continue;
+      }
+
       deepCopyValue(
         oldObject,
         newObject,
         key,
         value,
         traversalDescription,
-        shouldSerialize,
+        serializationType,
       );
     }
   }
 
   return newObject;
+}
+
+function isBrand(key: AnyNotNil) {
+  return (
+    key === TSTL_MAP_BRAND ||
+    key === TSTL_SET_BRAND ||
+    key === TSTL_OBJECT_WITH_NUMBER_KEYS_BRAND
+  );
 }
 
 function deepCopyValue(
@@ -109,7 +165,7 @@ function deepCopyValue(
   key: AnyNotNil,
   value: unknown,
   traversalDescription: string,
-  shouldSerialize: boolean,
+  serializationType: SerializationType,
 ) {
   const valueType = type(value);
   validateValue(value, valueType, traversalDescription);
@@ -124,11 +180,15 @@ function deepCopyValue(
   let convertNumberKeysToString = false;
   const isTSTLObject = oldObject instanceof Map || oldObject instanceof Set;
   const keyType = type(key);
-  if (shouldSerialize && isTSTLObject && keyType === "number") {
+  if (
+    serializationType === SerializationType.SERIALIZE &&
+    isTSTLObject &&
+    keyType === "number"
+  ) {
     convertNumberKeysToString = true;
 
     const newTable = newObject as LuaTable;
-    newTable.set(TSTL_OBJECT_WITH_NUMBER_KEYS_IDENTIFIER, true);
+    newTable.set(TSTL_OBJECT_WITH_NUMBER_KEYS_BRAND, true);
 
     if (DEBUG) {
       log("deepCopy is converting a TSTL map with number keys to strings.");
@@ -139,17 +199,17 @@ function deepCopyValue(
   let newValue: unknown;
   if (isVector(value)) {
     const vector = value as Vector;
-    newValue = copyVector(vector, shouldSerialize);
-  } else if (value instanceof Map) {
-    traversalDescription = addTraversalDescription(key, traversalDescription);
-    newValue = deepCopy(value, shouldSerialize, traversalDescription);
-  } else if (value instanceof Set) {
-    traversalDescription = addTraversalDescription(key, traversalDescription);
-    newValue = deepCopy(value, shouldSerialize, traversalDescription);
+    newValue = copyVector(vector, serializationType);
+  } else if (
+    isSerializedVector(value) &&
+    serializationType === SerializationType.DESERIALIZE
+  ) {
+    const serializedVector = value as LuaTable;
+    newValue = deserializeVector(serializedVector);
   } else if (valueType === "table") {
     const table = value as LuaTable;
     traversalDescription = addTraversalDescription(key, traversalDescription);
-    newValue = deepCopy(table, shouldSerialize, traversalDescription);
+    newValue = deepCopy(table, serializationType, traversalDescription);
   } else if (convertNumberKeysToString) {
     newValue = tostring(value);
   } else {
@@ -168,18 +228,35 @@ function deepCopyValue(
   }
 }
 
-function copyVector(vector: Vector, shouldSerialize: boolean) {
-  if (shouldSerialize) {
+function copyVector(vector: Vector, serializationType: SerializationType) {
+  if (serializationType === SerializationType.SERIALIZE) {
     // We convert the X and Y values to strings just in case the JSON encoding messes up the float
     // values
     const vectorTable = new LuaTable();
     vectorTable.set("X", tostring(vector.X));
     vectorTable.set("Y", tostring(vector.Y));
+    vectorTable.set(VECTOR_BRAND, "");
     return vectorTable;
   }
 
   const newVector = Vector(vector.X, vector.Y);
   return newVector;
+}
+
+export function deserializeVector(vectorTable: LuaTable): Vector {
+  const xString = vectorTable.get("X") as string;
+  const x = tonumber(xString);
+  if (x === undefined) {
+    error("Failed to read the X value of a serialized vector.");
+  }
+
+  const yString = vectorTable.get("Y") as string;
+  const y = tonumber(yString);
+  if (y === undefined) {
+    error("Failed to read the Y value of a serialized vector.");
+  }
+
+  return Vector(x, y);
 }
 
 function checkMetatable(table: LuaTable, traversalDescription: string) {

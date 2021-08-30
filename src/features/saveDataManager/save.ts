@@ -1,4 +1,4 @@
-import { deepCopy } from "../../functions/deepCopy";
+import { deepCopy, SerializationType } from "../../functions/deepCopy";
 import { jsonEncode } from "../../functions/json";
 import { log } from "../../functions/log";
 import { SaveData, SaveDataWithoutRoom } from "../../types/SaveData";
@@ -46,7 +46,7 @@ function getAllSaveDataToWriteToDisk(
     // Make a copy of the data and recursively convert all TypeScriptToLua Maps into Lua tables
     const saveDataCopy = deepCopy(
       saveDataWithoutRoom as LuaTable,
-      true,
+      SerializationType.SERIALIZE,
       subscriberName,
     );
 

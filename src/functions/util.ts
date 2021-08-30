@@ -1,3 +1,4 @@
+import { VECTOR_BRAND } from "../constants";
 import { getMaxCollectibleID } from "./items";
 import { getAngleDifference } from "./math";
 
@@ -80,13 +81,27 @@ export function getCollectibleSet(): Set<CollectibleType | int> {
   return collectibleSet;
 }
 
-export function isVector(thing: unknown): boolean {
-  const thingType = type(thing);
-  if (thingType !== "userdata") {
+/**
+ * Used to determine is the given table is a serialized Vector created by the save data manager
+ * and/or the `deepCopy` function.
+ */
+export function isSerializedVector(object: unknown): boolean {
+  const objectType = type(object);
+  if (objectType !== "table") {
     return false;
   }
 
-  const metatable = getmetatable(thing);
+  const table = object as LuaTable;
+  return table.has(VECTOR_BRAND) && table.has("X") && table.has("Y");
+}
+
+export function isVector(object: unknown): boolean {
+  const objectType = type(object);
+  if (objectType !== "userdata") {
+    return false;
+  }
+
+  const metatable = getmetatable(object);
   if (metatable === undefined) {
     return false;
   }
