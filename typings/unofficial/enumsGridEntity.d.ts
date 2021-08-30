@@ -18,6 +18,7 @@ declare const enum GridEntityXMLType {
    */
   ROCK_CHAIN_BREAKING = 1009,
   ROCK_SPIKED = 1010,
+  ROCK_GOLD = 1011,
   TNT = 1300,
   FIREPLACE = 1400,
   RED_FIREPLACE = 1410,
