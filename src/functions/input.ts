@@ -28,3 +28,7 @@ export function isActionTriggeredOnAnyInput(
 
   return false;
 }
+
+export function isKeyboardPressed(key: Keyboard): boolean {
+  return Input.IsButtonPressed(key, ControllerIndex.KEYBOARD);
+}
