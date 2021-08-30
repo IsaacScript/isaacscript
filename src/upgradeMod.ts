@@ -12,6 +12,7 @@ import * as postPlayerChangeType from "./callbacks/postPlayerChangeType";
 import * as postPlayerFatalDamage from "./callbacks/postPlayerFatalDamage";
 import * as postPlayerInitLate from "./callbacks/postPlayerInitLate";
 import * as postPlayerReordered from "./callbacks/postPlayerReordered";
+import * as postPurchase from "./callbacks/postPurchase";
 import * as postSacrifice from "./callbacks/postSacrifice";
 import * as postTransformation from "./callbacks/postTransformation";
 import * as reorderedCallbacks from "./callbacks/reorderedCallbacks";
@@ -70,6 +71,7 @@ function initCustomCallbacks(mod: ModUpgraded) {
   postFlip.init(mod);
   postEsauJr.init(mod);
   postTransformation.init(mod);
+  postPurchase.init(mod);
   postSacrifice.init(mod);
   postCursedTeleport.init(mod);
   postGridEntity.init(mod);

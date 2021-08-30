@@ -98,3 +98,7 @@ export function logAllProjectileFlags(flags: int): void {
 export function logAllUseFlags(flags: int): void {
   logAllFlags(flags, UseFlag as unknown as LuaTable, "use");
 }
+
+export function logEntity(entity: Entity): void {
+  log(`Entity: ${entity.Type}.${entity.Variant}.${entity.SubType}`);
+}

@@ -21,6 +21,7 @@ import { PostPlayerInitLateCallbackType } from "../callbacks/subscriptions/postP
 import { PostPlayerInitReorderedCallbackType } from "../callbacks/subscriptions/postPlayerInitReordered";
 import { PostPlayerRenderReorderedCallbackType } from "../callbacks/subscriptions/postPlayerRenderReordered";
 import { PostPlayerUpdateReorderedCallbackType } from "../callbacks/subscriptions/postPlayerUpdateReordered";
+import { PostPurchaseCallbackType } from "../callbacks/subscriptions/postPurchase";
 import { PostSacrificeCallbackType } from "../callbacks/subscriptions/postSacrifice";
 import { PostTransformationCallbackType } from "../callbacks/subscriptions/postTransformation";
 import { PreCustomReviveCallbackType } from "../callbacks/subscriptions/preCustomRevive";
@@ -104,6 +105,7 @@ export default interface CallbackParametersCustom {
   [ModCallbacksCustom.MC_POST_TRANSFORMATION]: [
     callback: PostTransformationCallbackType,
   ];
+  [ModCallbacksCustom.MC_POST_PURCHASE]: [callback: PostPurchaseCallbackType];
   [ModCallbacksCustom.MC_POST_SACRIFICE]: [callback: PostSacrificeCallbackType];
   [ModCallbacksCustom.MC_POST_CURSED_TELEPORT]: [
     callback: PostCursedTeleportCallbackType,

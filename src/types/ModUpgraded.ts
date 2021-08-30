@@ -21,6 +21,7 @@ import * as postPlayerInitLate from "../callbacks/subscriptions/postPlayerInitLa
 import * as postPlayerInitReordered from "../callbacks/subscriptions/postPlayerInitReordered";
 import * as postPlayerRenderReordered from "../callbacks/subscriptions/postPlayerRenderReordered";
 import * as postPlayerUpdateReordered from "../callbacks/subscriptions/postPlayerUpdateReordered";
+import * as postPurchase from "../callbacks/subscriptions/postPurchase";
 import * as postSacrifice from "../callbacks/subscriptions/postSacrifice";
 import * as postTransformation from "../callbacks/subscriptions/postTransformation";
 import * as preCustomRevive from "../callbacks/subscriptions/preCustomRevive";
@@ -246,6 +247,13 @@ export default class ModUpgraded implements Mod {
       case ModCallbacksCustom.MC_POST_TRANSFORMATION: {
         postTransformation.register(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_TRANSFORMATION]),
+        );
+        break;
+      }
+
+      case ModCallbacksCustom.MC_POST_PURCHASE: {
+        postPurchase.register(
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_PURCHASE]),
         );
         break;
       }
