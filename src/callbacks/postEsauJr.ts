@@ -34,35 +34,35 @@ function postUpdate() {
     return;
   }
 
-  const gameFrameCount = Isaac.GetFrameCount();
+  const game = Game();
+  const gameFrameCount = game.GetFrameCount();
 
   // Check to see if it is the frame after the player has used Esau Jr.
   if (
-    v.run.usedEsauJrFrame !== null &&
-    gameFrameCount >= v.run.usedEsauJrFrame + 1
+    v.run.usedEsauJrFrame === null ||
+    gameFrameCount < v.run.usedEsauJrFrame + 1
   ) {
-    v.run.usedEsauJrFrame = null;
-
-    // Find the player corresponding to the player who used Esau Jr. a frame ago
-    // (via matching the ControllerIndex)
-    if (v.run.usedEsauJrControllerIndex === null) {
-      return;
-    }
-    const player = getPlayerWithControllerIndex(
-      v.run.usedEsauJrControllerIndex,
-    );
-    v.run.usedEsauJrControllerIndex = null;
-    if (player === null) {
-      return;
-    }
-
-    if (!v.run.usedEsauJrAtLeastOnce) {
-      v.run.usedEsauJrAtLeastOnce = true;
-      postFirstEsauJr.fire(player);
-    }
-
-    postEsauJr.fire(player);
+    return;
   }
+  v.run.usedEsauJrFrame = null;
+
+  // Find the player corresponding to the player who used Esau Jr. a frame ago
+  // (via matching the ControllerIndex)
+  if (v.run.usedEsauJrControllerIndex === null) {
+    return;
+  }
+  const player = getPlayerWithControllerIndex(v.run.usedEsauJrControllerIndex);
+  v.run.usedEsauJrControllerIndex = null;
+  if (player === null) {
+    return;
+  }
+
+  if (!v.run.usedEsauJrAtLeastOnce) {
+    v.run.usedEsauJrAtLeastOnce = true;
+    postFirstEsauJr.fire(player);
+  }
+
+  postEsauJr.fire(player);
 }
 
 function getPlayerWithControllerIndex(controllerIndex: int) {
@@ -80,7 +80,7 @@ function getPlayerWithControllerIndex(controllerIndex: int) {
 function useItemEsauJr(
   _collectibleType: CollectibleType | int,
   _rng: RNG,
-  _player: EntityPlayer,
+  player: EntityPlayer,
   _useFlags: int,
   _activeSlot: int,
   _customVarData: int,
@@ -89,8 +89,10 @@ function useItemEsauJr(
     return;
   }
 
-  const gameFrameCount = Isaac.GetFrameCount();
+  const game = Game();
+  const gameFrameCount = game.GetFrameCount();
 
   // The player only changes to Esau Jr. on the frame after the item is used
   v.run.usedEsauJrFrame = gameFrameCount + 1;
+  v.run.usedEsauJrControllerIndex = player.ControllerIndex;
 }
