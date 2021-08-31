@@ -2,9 +2,23 @@
 
 # isaacscript-lint
 
-`isaacscript-lint` is a helper package to install all of the dependencies necessary for ESLint to work with a typical IsaacScript linting configuration.
+`isaacscript-lint` is a helper package to install all of the dependencies necessary for ESLint to work with a typical TypeScript project, or a typical IsaacScript mod.
 
 Please see the [IsaacScript webpage](https://isaacscript.github.io/) for more information.
+
+<br />
+
+## For Use With an Isaacscript Mod
+
+Use the `isaacscript init` tool to automatically set up a new mod that has: `isaacscript-lint` as a dependency and a starting `eslintrc.js` config file.
+
+<br />
+
+## For Use in a Typescript Project
+
+`isaacscript-lint` is a great starting point for any TypeScript project. It's a pain in the ass to get ESLint working with TypeScript and to get everything working properly. Don't clutter your `package.json` file with 15+ different ESlint-related depedencies; just use `isaacscript-lint`.
+
+See the [installation instructions](#installation-instructions-for-typescript-projects) below.
 
 <br />
 
@@ -61,5 +75,88 @@ Finally, some specific Airbnb rules are disabled, since they don't make much sen
 - [`eslint-plugin-prettier`](https://github.com/prettier/eslint-plugin-prettier) - A plugin that runs Prettier as an ESLint rule.
 - [`isaacscript-tsconfig`](https://github.com/IsaacScript/isaacscript-tsconfig) - A package that provides a shared TypeScript configuration file. This is included in the linting meta-package for convenience.
 - [`prettier-plugin-organize-imports`](https://github.com/simonhaenisch/prettier-plugin-organize-imports) - A plugin used because Prettier will not organize imports automatically. (It has no configuration and is automatically applied to Prettier if it is installed.)
+
+<br />
+
+## Installation Instructions for TypeScript Projects
+
+### Step 0 - Get a TypeScript Project Set Up
+
+It should have a `package.json` file, a `tsconfig.json` file, and so on.
+
+### Step 1 - Install the Dependency
+
+```
+npm install isaacscript-lint --save-dev
+```
+
+### Step 2 - `eslintrc.js`
+
+Create a `eslintrc.js` file in the root of your repository:
+
+```js
+// This is the configuration file for ESLint, the TypeScript linter
+// https://eslint.org/docs/user-guide/configuring
+module.exports = {
+  extends: [
+    // The linter base is the shared IsaacScript config
+    // https://github.com/IsaacScript/eslint-config-isaacscript/blob/main/base.js
+    "eslint-config-isaacscript/base",
+  ],
+
+  parserOptions: {
+    // ESLint needs to know about the project's TypeScript settings in order for TypeScript-specific
+    // things to lint correctly
+    // We do not point this at "./tsconfig.json" because certain files (such at this file) should be
+    // linted but not included in the actual project output
+    project: "./tsconfig.eslint.json",
+  },
+
+  // We modify the linting rules from the base for some specific things
+  rules: {},
+};
+```
+
+### Step 3 - `tsconfig.eslint.json`
+
+Create a `tsconfig.eslint.json` file in the root of your repository:
+
+```jsonc
+// A special TypeScript configuration file, used by ESLint only
+{
+  "extends": "./tsconfig.json",
+
+  // A list of the TypeScript files to compile
+  "include": [
+    // This must match the "include" setting in the main "tsconfig.json" file
+    "./src/**/*.ts",
+
+    // These are ESLint-only inclusions
+    "./.eslintrc.js",
+  ],
+}
+```
+
+### Done!
+
+You can add extra rules (or ignore existing rules) by editing the `rules` section of the `eslintrc.js` file. For example:
+
+```
+  // We modify the linting rules from the base for some specific things
+  rules: {
+    // Documentation:
+    // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-unused-modules.md
+    // Not defined in parent configs
+    // This helps to find dead code that should be deleted
+    "import/no-unused-modules": [
+      "error",
+      {
+        missingExports: true,
+        unusedExports: true,
+        ignoreExports: [".eslintrc.js", "src/main.ts"],
+      },
+    ],
+  },
+```
 
 <br />
