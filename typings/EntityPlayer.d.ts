@@ -113,10 +113,13 @@ declare interface EntityPlayer extends Entity {
   /** Spawns a defensive fly from The Swarm. */
   AddSwarmFlyOrbital(position: Vector): EntityFamiliar;
   /**
-   * If you provide an argument of 0 or an otherwise invalid trinket ID, the game will crash.
+   * - If the player does not have any open trinket slots, this function will do nothing.
+   * - If the player has an open trinket slot but already has a trinket, the new trinket will go to
+   * the first slot and the existing trinket will get pushed back to the second slot.
+   * - If you provide an argument of 0 or an otherwise invalid trinket ID, the game will crash.
    *
    * @param trinketType
-   * @param firstTimePickingUp Setting this to false will not spawn or add consumables for the item
+   * @param firstTimePickingUp Setting this to false will not spawn or add pickups for the item
    * and will not cause it to count towards transformations. Default is true.
    */
   AddTrinket(
