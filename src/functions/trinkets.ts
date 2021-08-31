@@ -1,7 +1,7 @@
 import { GOLDEN_TRINKET_SHIFT } from "../constants";
 
 export interface TrinketSituation {
-  temporaryTrinket: TrinketType | int;
+  trinketTypeRemoved: TrinketType | int;
   trinket1: TrinketType | int;
   trinket2: TrinketType | int;
   numSmeltedTrinkets: int;
@@ -14,6 +14,8 @@ export interface TrinketSituation {
  * including smelted trinkets.
  *
  * Note that for simplicity, this function assumes that all smelted trinkets are non-golden.
+ *
+ * @returns Null if the player does not have the trinket, or TrinketSituation if they do.
  */
 export function temporarilyRemoveTrinkets(
   player: EntityPlayer,
@@ -45,7 +47,7 @@ export function temporarilyRemoveTrinkets(
   }
 
   return {
-    temporaryTrinket: trinketType,
+    trinketTypeRemoved: trinketType,
     trinket1,
     trinket2,
     numSmeltedTrinkets,
@@ -70,6 +72,7 @@ export function giveTrinketsBack(
   const trinket1 = player.GetTrinket(0);
   const trinket2 = player.GetTrinket(1);
 
+  // Remove any existing trinkets
   if (trinket1 !== TrinketType.TRINKET_NULL) {
     player.TryRemoveTrinket(trinket1);
   }
@@ -77,18 +80,20 @@ export function giveTrinketsBack(
     player.TryRemoveTrinket(trinket2);
   }
 
+  // First, add the smelted trinkets back
   for (let i = 0; i < trinketSituation.numSmeltedTrinkets; i++) {
-    player.AddTrinket(trinketSituation.temporaryTrinket, false);
+    player.AddTrinket(trinketSituation.trinketTypeRemoved, false);
     player.UseActiveItem(
       CollectibleType.COLLECTIBLE_SMELTER,
       UseFlag.USE_NOANIM,
     );
   }
 
-  if (trinket1 !== TrinketType.TRINKET_NULL) {
+  // Second, add back the stored trinkets
+  if (trinketSituation.trinket1 !== TrinketType.TRINKET_NULL) {
     player.AddTrinket(trinket1, false);
   }
-  if (trinket2 !== TrinketType.TRINKET_NULL) {
+  if (trinketSituation.trinket2 !== TrinketType.TRINKET_NULL) {
     player.AddTrinket(trinket2, false);
   }
 }
