@@ -1,7 +1,7 @@
 import { getUpgradeErrorMsg } from "../errors";
 import { saveDataManager } from "./saveDataManager/main";
 
-const FEATURE_NAME = "function  disabler";
+const FEATURE_NAME = "run in N frames";
 
 let initialized = false;
 
