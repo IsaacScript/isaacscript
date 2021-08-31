@@ -10,7 +10,7 @@ Please see the [IsaacScript webpage](https://isaacscript.github.io/) for more in
 
 ## For Use With an Isaacscript Mod
 
-Use the `isaacscript init` tool to automatically set up a new mod that has: `isaacscript-lint` as a dependency and a starting `eslintrc.js` config file.
+Use the `isaacscript init` tool to automatically set up a new mod that has `isaacscript-lint` as a dependency and a starting `eslintrc.js` config file.
 
 <br />
 
