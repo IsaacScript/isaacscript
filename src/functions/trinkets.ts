@@ -91,9 +91,9 @@ export function giveTrinketsBack(
 
   // Second, add back the stored trinkets
   if (trinketSituation.trinket1 !== TrinketType.TRINKET_NULL) {
-    player.AddTrinket(trinket1, false);
+    player.AddTrinket(trinketSituation.trinket1, false);
   }
   if (trinketSituation.trinket2 !== TrinketType.TRINKET_NULL) {
-    player.AddTrinket(trinket2, false);
+    player.AddTrinket(trinketSituation.trinket2, false);
   }
 }
