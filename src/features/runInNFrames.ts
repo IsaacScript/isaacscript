@@ -58,6 +58,7 @@ export function runNextFrame(func: () => void): void {
   runInNFrames(1, func);
 }
 
+/** Supply a function to run N frames from now in the PostUpdate callback. */
 export function runInNFrames(frames: int, func: () => void): void {
   if (!initialized) {
     const msg = getUpgradeErrorMsg(FEATURE_NAME);
