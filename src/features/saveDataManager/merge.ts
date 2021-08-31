@@ -1,10 +1,13 @@
 import { TSTL_OBJECT_WITH_NUMBER_KEYS_BRAND } from "../../constants";
+import { DEBUG } from "../../debug";
 import { isArray } from "../../functions/array";
 import {
+  addTraversalDescription,
   deepCopy,
   deserializeVector,
   SerializationType,
 } from "../../functions/deepCopy";
+import { log } from "../../functions/log";
 import { isSerializedVector, tableClear } from "../../functions/util";
 
 /**
@@ -21,6 +24,7 @@ import { isSerializedVector, tableClear } from "../../functions/util";
 export function merge(
   oldObject: LuaTable | Map<AnyNotNil, unknown> | Set<AnyNotNil>,
   newTable: LuaTable,
+  traversalDescription: string,
 ): void {
   const oldObjectType = type(oldObject);
   if (oldObjectType !== "table") {
@@ -32,6 +36,10 @@ export function merge(
     error("The second argument given to the merge function is not a table.");
   }
 
+  if (DEBUG) {
+    log(`merge is operating on: ${traversalDescription}`);
+  }
+
   // First, handle the special case of an array with a shallow clone
   if (mergeArray(oldObject, newTable)) {
     return;
@@ -40,9 +48,9 @@ export function merge(
   // Depending on whether we are working on a Lua table or a TypeScriptToLua object,
   // we need to iterate in a specific way
   if (oldObject instanceof Map || oldObject instanceof Set) {
-    mergeTSTLObject(oldObject, newTable);
+    mergeTSTLObject(oldObject, newTable, traversalDescription);
   } else {
-    mergeTable(oldObject, newTable);
+    mergeTable(oldObject, newTable, traversalDescription);
   }
 }
 
@@ -67,6 +75,7 @@ function mergeArray(
 function mergeTSTLObject(
   oldObject: Map<AnyNotNil, unknown> | Set<AnyNotNil>,
   newTable: LuaTable,
+  traversalDescription: string,
 ) {
   // We blow away the old object and recursively copy over all of the incoming values
   oldObject.clear();
@@ -88,7 +97,17 @@ function mergeTSTLObject(
     }
 
     if (oldObject instanceof Map) {
-      const valueCopy = deepCopy(value, SerializationType.DESERIALIZE);
+      const valueType = type(value);
+      let valueCopy: unknown;
+      if (valueType === "table") {
+        valueCopy = deepCopy(
+          value,
+          SerializationType.DESERIALIZE,
+          traversalDescription,
+        );
+      } else {
+        valueCopy = value;
+      }
       oldObject.set(keyToUse, valueCopy);
     } else if (oldObject instanceof Set) {
       oldObject.add(keyToUse);
@@ -96,7 +115,11 @@ function mergeTSTLObject(
   }
 }
 
-function mergeTable(oldTable: LuaTable, newTable: LuaTable) {
+function mergeTable(
+  oldTable: LuaTable,
+  newTable: LuaTable,
+  traversalDescription: string,
+) {
   for (const [key, value] of pairs(newTable)) {
     // Handle the special case of a Vector
     if (mergeVector(oldTable, key, value)) {
@@ -106,13 +129,20 @@ function mergeTable(oldTable: LuaTable, newTable: LuaTable) {
     const valueType = type(value);
     if (valueType === "table") {
       // Recursively merge sub-tables, but only if the child table exists on the old table too
-      const oldValue = oldTable.get(value) as LuaTable;
+      const oldValue = oldTable.get(key) as LuaTable;
       const oldValueType = type(oldValue);
       if (oldValueType === "table") {
-        merge(oldValue, value);
+        traversalDescription = addTraversalDescription(
+          key,
+          traversalDescription,
+        );
+        merge(oldValue, value, traversalDescription);
       }
     } else {
       // Base case: copy the value
+      if (DEBUG) {
+        log(`Merging key "${key}" with value: ${value}`);
+      }
       oldTable.set(key, value);
     }
   }
