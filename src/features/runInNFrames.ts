@@ -10,7 +10,6 @@ type FunctionTuple = [int, () => void];
 
 const v = {
   run: {
-    /** */
     queuedFunctionTuples: [] as FunctionTuple[],
   },
 };
