@@ -141,7 +141,7 @@ Create a `tsconfig.eslint.json` file in the root of your repository:
 
 You can add extra rules (or ignore existing rules) by editing the `rules` section of the `eslintrc.js` file. For example:
 
-```
+```js
   // We modify the linting rules from the base for some specific things
   rules: {
     // Documentation:
