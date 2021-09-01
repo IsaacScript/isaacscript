@@ -6,7 +6,7 @@ title: Getting Started
 
 Choose one:
 
-- [Instructions for Beginners to Programming](#instructions-for-beginners) (detailed)
+- [Instructions for Beginners to Programming](#instructions-for-beginners-to-programming) (detailed)
 - [Instructions for Experts](#instructions-for-experts) (summary)
 
 (For Linux users, choose the "Instructions for Experts".)
