@@ -6,14 +6,14 @@ title: Getting Started
 
 Choose one:
 
-- [Instructions for Beginners](#instructions-for-beginners) (detailed)
+- [Instructions for Beginners to Programming](#instructions-for-beginners) (detailed)
 - [Instructions for Experts](#instructions-for-experts) (summary)
 
 (For Linux users, choose the "Instructions for Experts".)
 
 <br />
 
-## Instructions for Beginners
+## Instructions for Beginners to Programming
 
 ### 1) Open a Command Prompt
 
