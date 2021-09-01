@@ -194,24 +194,17 @@ export function getPlayerCollectibleMap(
   return collectibleMap;
 }
 
-export function getPlayerFromEntityPtr(
-  entityPtr: EntityPtr | null,
-): EntityPlayer {
-  if (entityPtr === null) {
-    error("Failed to get the player pointer.");
+export function getPlayerFromIndex(
+  playerIndex: PlayerIndex,
+): EntityPlayer | null {
+  for (const player of getPlayers()) {
+    const existingPlayerIndex = getPlayerIndex(player);
+    if (existingPlayerIndex === playerIndex) {
+      return player;
+    }
   }
 
-  const entity = entityPtr.Ref;
-  if (entity === null) {
-    error("Failed to reference the player pointer.");
-  }
-
-  const player = entity.ToPlayer();
-  if (player === null) {
-    error("Failed to convert the player entity to a player.");
-  }
-
-  return player;
+  return null;
 }
 
 /**

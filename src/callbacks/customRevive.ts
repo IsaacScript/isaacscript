@@ -1,6 +1,6 @@
 import { removeAllMatchingEntities } from "../functions/entity";
 import { removeItemFromItemTracker } from "../functions/items";
-import { getPlayerFromEntityPtr } from "../functions/player";
+import { getPlayerIndex, PlayerIndex } from "../functions/player";
 import ModCallbacksCustom from "../types/ModCallbacksCustom";
 import ModUpgraded from "../types/ModUpgraded";
 import * as postCustomRevive from "./subscriptions/postCustomRevive";
@@ -16,15 +16,12 @@ const v = {
   run: {
     state: CustomReviveState.DISABLED,
     revivalType: null as int | null,
+    dyingPlayerIndex: null as PlayerIndex | null,
   },
-
-  playerPtr: null as EntityPtr | null,
 };
 
 export function init(mod: ModUpgraded): void {
   mod.AddCallback(ModCallbacks.MC_POST_RENDER, postRender); // 2
-
-  mod.AddCallback(ModCallbacks.MC_POST_GAME_STARTED, postGameStarted); // 15
 
   mod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoom); // 19
 
@@ -57,11 +54,6 @@ function postRender() {
   sfx.Stop(SoundEffect.SOUND_1UP);
 }
 
-// ModCallbacks.MC_POST_GAME_STARTED (15)
-function postGameStarted() {
-  v.playerPtr = null;
-}
-
 // ModCallbacks.MC_POST_NEW_ROOM (19)
 function postNewRoom() {
   if (v.run.state !== CustomReviveState.CHANGING_ROOMS) {
@@ -77,11 +69,12 @@ function postPlayerUpdateReordered(player: EntityPlayer) {
     return;
   }
 
-  const playerHash = GetPtrHash(player);
-  const storedPlayer = getPlayerFromEntityPtr(v.playerPtr);
-  const storedPlayerHash = GetPtrHash(storedPlayer);
+  if (v.run.dyingPlayerIndex === null) {
+    return;
+  }
 
-  if (playerHash !== storedPlayerHash) {
+  const playerIndex = getPlayerIndex(player);
+  if (playerIndex !== v.run.dyingPlayerIndex) {
     return;
   }
 
@@ -100,7 +93,7 @@ function postPlayerUpdateReordered(player: EntityPlayer) {
 
   v.run.state = CustomReviveState.DISABLED;
   v.run.revivalType = null;
-  v.playerPtr = null;
+  v.run.dyingPlayerIndex = null;
 }
 
 // ModCallbacksCustom.MC_POST_PLAYER_FATAL_DAMAGE
@@ -116,7 +109,7 @@ function postPlayerFatalDamage(player: EntityPlayer) {
 
   v.run.state = CustomReviveState.CHANGING_ROOMS;
   v.run.revivalType = revivalType;
-  v.playerPtr = EntityPtr(player);
+  v.run.dyingPlayerIndex = getPlayerIndex(player);
 
   player.AddCollectible(CollectibleType.COLLECTIBLE_1UP, 0, false);
   removeAllMatchingEntities(EntityType.ENTITY_FAMILIAR, FamiliarVariant.ONE_UP);

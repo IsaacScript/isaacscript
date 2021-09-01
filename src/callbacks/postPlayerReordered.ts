@@ -1,21 +1,32 @@
+import { saveDataManager } from "../features/saveDataManager/main";
 import { arrayEmpty } from "../functions/array";
+import {
+  getPlayerFromIndex,
+  getPlayerIndex,
+  PlayerIndex,
+} from "../functions/player";
 import * as postPlayerInitReordered from "./subscriptions/postPlayerInitReordered";
 import * as postPlayerRenderReordered from "./subscriptions/postPlayerRenderReordered";
 import * as postPlayerUpdateReordered from "./subscriptions/postPlayerUpdateReordered";
 
-const postPlayerInitQueue: EntityPtr[] = [];
-const postPlayerUpdateQueue: EntityPtr[] = [];
-const postPlayerRenderQueue: EntityPtr[] = [];
+const v = {
+  run: {
+    postGameStartedFiredOnThisRun: false,
 
-let postGameStartedFiredOnThisRun = false;
+    postPlayerInitQueue: [] as PlayerIndex[],
+    postPlayerUpdateQueue: [] as PlayerIndex[],
+    postPlayerRenderQueue: [] as PlayerIndex[],
+  },
+};
 
 export function init(mod: Mod): void {
+  saveDataManager("postPlayerReordered", v, hasSubscriptions);
+
   mod.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit); // 9
   mod.AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, postPlayerUpdate); // 31
   mod.AddCallback(ModCallbacks.MC_POST_PLAYER_RENDER, postPlayerRender); // 32
 
   mod.AddCallback(ModCallbacks.MC_POST_GAME_STARTED, postGameStarted); // 15
-  mod.AddCallback(ModCallbacks.MC_PRE_GAME_EXIT, preGameExit); // 17
 }
 
 function hasSubscriptions() {
@@ -32,12 +43,12 @@ function postPlayerInit(player: EntityPlayer) {
     return;
   }
 
-  if (postGameStartedFiredOnThisRun) {
+  if (v.run.postGameStartedFiredOnThisRun) {
     postPlayerInitReordered.fire(player);
   } else {
     // Defer callback execution until the PostGameStarted callback fires
-    const entityPtr = EntityPtr(player);
-    postPlayerInitQueue.push(entityPtr);
+    const playerIndex = getPlayerIndex(player);
+    v.run.postPlayerInitQueue.push(playerIndex);
   }
 }
 
@@ -47,12 +58,12 @@ function postPlayerUpdate(player: EntityPlayer) {
     return;
   }
 
-  if (postGameStartedFiredOnThisRun) {
+  if (v.run.postGameStartedFiredOnThisRun) {
     postPlayerUpdateReordered.fire(player);
   } else {
     // Defer callback execution until the PostGameStarted callback fires
-    const entityPtr = EntityPtr(player);
-    postPlayerUpdateQueue.push(entityPtr);
+    const playerIndex = getPlayerIndex(player);
+    v.run.postPlayerUpdateQueue.push(playerIndex);
   }
 }
 
@@ -62,12 +73,12 @@ function postPlayerRender(player: EntityPlayer) {
     return;
   }
 
-  if (postGameStartedFiredOnThisRun) {
+  if (v.run.postGameStartedFiredOnThisRun) {
     postPlayerRenderReordered.fire(player);
   } else {
     // Defer callback execution until the PostGameStarted callback fires
-    const entityPtr = EntityPtr(player);
-    postPlayerRenderQueue.push(entityPtr);
+    const playerIndex = getPlayerIndex(player);
+    v.run.postPlayerRenderQueue.push(playerIndex);
   }
 }
 
@@ -77,24 +88,19 @@ function postGameStarted() {
     return;
   }
 
-  postGameStartedFiredOnThisRun = true;
+  v.run.postGameStartedFiredOnThisRun = true;
 
-  dequeue(postPlayerInitQueue, postPlayerInitReordered.fire);
-  dequeue(postPlayerUpdateQueue, postPlayerUpdateReordered.fire);
-  dequeue(postPlayerRenderQueue, postPlayerRenderReordered.fire);
+  dequeue(v.run.postPlayerInitQueue, postPlayerInitReordered.fire);
+  dequeue(v.run.postPlayerUpdateQueue, postPlayerUpdateReordered.fire);
+  dequeue(v.run.postPlayerRenderQueue, postPlayerRenderReordered.fire);
 }
 
 function dequeue(
-  queue: EntityPtr[],
+  playerIndexes: PlayerIndex[],
   fireFunction: (player: EntityPlayer) => void,
 ) {
-  for (const entityPtr of queue) {
-    const entity = entityPtr.Ref;
-    if (entity === null) {
-      continue;
-    }
-
-    const player = entity.ToPlayer();
+  for (const playerIndex of playerIndexes) {
+    const player = getPlayerFromIndex(playerIndex);
     if (player === null) {
       continue;
     }
@@ -102,10 +108,5 @@ function dequeue(
     fireFunction(player);
   }
 
-  arrayEmpty(queue);
-}
-
-// ModCallbacks.MC_PRE_GAME_EXIT (17)
-function preGameExit() {
-  postGameStartedFiredOnThisRun = false;
+  arrayEmpty(playerIndexes);
 }
