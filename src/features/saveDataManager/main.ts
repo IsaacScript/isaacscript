@@ -206,6 +206,10 @@ function clearAndCopyAllElements(oldTable: LuaTable, newTable: LuaTable) {
  *
  * Note that before using the save data manager, you must call the [[`upgradeMod`]] function.
  *
+ * Finally, some features may have variables that need to be automatically reset per run/level, but
+ * not saved to disk on game exit. (For example, if they contain functions or other non-serializable
+ * data.) For these cases, set a special key of "dontSave" alongside "run", "level", and so forth.
+ *
  * @param key The name of the file or feature that is submitting data to be managed by the save data
  * manager. The save data manager will throw an error if the key is already registered.
  * @param saveData An object that corresponds to the `SaveData` interface.

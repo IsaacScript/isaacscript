@@ -24,6 +24,11 @@ function getAllSaveDataToWriteToDisk(
   const allSaveData = new LuaTable();
 
   for (const [subscriberName, saveData] of pairs(saveDataMap)) {
+    // Don't write this feature to disk if the feature explicitly opted out
+    if (saveData.dontSave !== undefined) {
+      continue;
+    }
+
     // Handle the feature of the save data manager where certain mod features can conditionally
     // write their data to disk
     const conditionalFunc = saveDataConditionalFuncMap.get(subscriberName);

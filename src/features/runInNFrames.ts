@@ -9,6 +9,7 @@ let initialized = false;
 type FunctionTuple = [int, () => void];
 
 const v = {
+  dontSave: true,
   run: {
     queuedFunctionTuples: [] as FunctionTuple[],
   },
