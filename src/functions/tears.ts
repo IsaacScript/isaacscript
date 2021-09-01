@@ -3,8 +3,10 @@
  * function should only be used inside the EvaluateCache callback.
  */
 export function addTearsStat(player: EntityPlayer, tearsStat: float): void {
-  const fireDelay = getFireDelay(tearsStat);
-  player.MaxFireDelay -= fireDelay;
+  const existingTearsStat = getTearsStat(player.MaxFireDelay);
+  const newTearsStat = existingTearsStat + tearsStat;
+  const newMaxFireDelay = getFireDelay(newTearsStat);
+  player.MaxFireDelay = newMaxFireDelay;
 }
 
 /**
