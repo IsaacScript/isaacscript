@@ -42,6 +42,17 @@ export const MAX_PLAYER_TRINKET_SLOTS = 2;
 export const MAX_VANILLA_COLLECTIBLE_TYPE =
   CollectibleType.COLLECTIBLE_DECAP_ATTACK;
 
+export const SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES = new Set<CollectibleType>([
+  CollectibleType.COLLECTIBLE_FORGET_ME_NOW, // 127
+  CollectibleType.COLLECTIBLE_EDENS_SOUL, // 490
+  CollectibleType.COLLECTIBLE_ALABASTER_BOX, // 585
+  CollectibleType.COLLECTIBLE_PLAN_C, // 475
+  CollectibleType.COLLECTIBLE_MAMA_MEGA, // 483
+  CollectibleType.COLLECTIBLE_SACRIFICIAL_ALTAR, // 536
+  CollectibleType.COLLECTIBLE_DEATH_CERTIFICATE, // 628
+  CollectibleType.COLLECTIBLE_R_KEY, // 636
+]);
+
 export const TSTL_MAP_BRAND = "__TSTL_MAP";
 export const TSTL_SET_BRAND = "__TSTL_SET";
 export const TSTL_OBJECT_WITH_NUMBER_KEYS_BRAND =

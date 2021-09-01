@@ -15,6 +15,7 @@ export {
   MAX_PLAYER_SPEED_IN_UNITS,
   MAX_PLAYER_TRINKET_SLOTS,
   MAX_VANILLA_COLLECTIBLE_TYPE,
+  SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES,
 } from "./constants";
 export {
   disableAllInputs,
