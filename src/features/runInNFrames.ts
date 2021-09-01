@@ -48,7 +48,13 @@ function postUpdate() {
   }
 }
 
-/** Supply a function to run on the next PostUpdate callback. */
+/**
+ * Supply a function to run on the next PostUpdate callback.
+ *
+ * Note that this function will not handle saving and quitting, so if a player saving and quitting
+ * before the next PostUpdate frame would cause a bug in your mod, then you should handle deferred
+ * functions manually using serializable data.
+ */
 export function runNextFrame(func: () => void): void {
   if (!initialized) {
     const msg = getUpgradeErrorMsg(FEATURE_NAME);
@@ -58,7 +64,13 @@ export function runNextFrame(func: () => void): void {
   runInNFrames(1, func);
 }
 
-/** Supply a function to run N frames from now in the PostUpdate callback. */
+/**
+ * Supply a function to run N frames from now in the PostUpdate callback.
+ *
+ * Note that this function will not handle saving and quitting, so if a player saving and quitting
+ * before the next PostUpdate frame would cause a bug in your mod, then you should handle deferred
+ * functions manually using serializable data.
+ */
 export function runInNFrames(frames: int, func: () => void): void {
   if (!initialized) {
     const msg = getUpgradeErrorMsg(FEATURE_NAME);
