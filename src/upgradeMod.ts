@@ -14,6 +14,8 @@ import * as postPlayerInitLate from "./callbacks/postPlayerInitLate";
 import * as postPlayerReordered from "./callbacks/postPlayerReordered";
 import * as postPurchase from "./callbacks/postPurchase";
 import * as postSacrifice from "./callbacks/postSacrifice";
+import * as postSlot from "./callbacks/postSlot";
+import * as postSlotRender from "./callbacks/postSlotRender";
 import * as postTransformation from "./callbacks/postTransformation";
 import * as reorderedCallbacks from "./callbacks/reorderedCallbacks";
 import * as disableInputs from "./features/disableInputs";
@@ -80,6 +82,8 @@ function initCustomCallbacks(mod: ModUpgraded) {
   postPurchase.init(mod);
   postSacrifice.init(mod);
   postCursedTeleport.init(mod);
+  postSlot.init(mod);
+  postSlotRender.init(mod);
   postGridEntity.init(mod);
 }
 

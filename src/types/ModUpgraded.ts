@@ -23,6 +23,9 @@ import * as postPlayerRenderReordered from "../callbacks/subscriptions/postPlaye
 import * as postPlayerUpdateReordered from "../callbacks/subscriptions/postPlayerUpdateReordered";
 import * as postPurchase from "../callbacks/subscriptions/postPurchase";
 import * as postSacrifice from "../callbacks/subscriptions/postSacrifice";
+import * as postSlotInit from "../callbacks/subscriptions/postSlotInit";
+import * as postSlotRender from "../callbacks/subscriptions/postSlotRender";
+import * as postSlotUpdate from "../callbacks/subscriptions/postSlotUpdate";
 import * as postTransformation from "../callbacks/subscriptions/postTransformation";
 import * as preCustomRevive from "../callbacks/subscriptions/preCustomRevive";
 import * as preItemPickup from "../callbacks/subscriptions/preItemPickup";
@@ -268,6 +271,27 @@ export default class ModUpgraded implements Mod {
       case ModCallbacksCustom.MC_POST_CURSED_TELEPORT: {
         postCursedTeleport.register(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_CURSED_TELEPORT]),
+        );
+        break;
+      }
+
+      case ModCallbacksCustom.MC_POST_SLOT_INIT: {
+        postSlotInit.register(
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_SLOT_INIT]),
+        );
+        break;
+      }
+
+      case ModCallbacksCustom.MC_POST_SLOT_UPDATE: {
+        postSlotUpdate.register(
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_SLOT_UPDATE]),
+        );
+        break;
+      }
+
+      case ModCallbacksCustom.MC_POST_SLOT_RENDER: {
+        postSlotRender.register(
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_SLOT_RENDER]),
         );
         break;
       }

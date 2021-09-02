@@ -23,6 +23,9 @@ import { PostPlayerRenderReorderedCallbackType } from "../callbacks/subscription
 import { PostPlayerUpdateReorderedCallbackType } from "../callbacks/subscriptions/postPlayerUpdateReordered";
 import { PostPurchaseCallbackType } from "../callbacks/subscriptions/postPurchase";
 import { PostSacrificeCallbackType } from "../callbacks/subscriptions/postSacrifice";
+import { PostSlotInitCallbackType } from "../callbacks/subscriptions/postSlotInit";
+import { PostSlotRenderCallbackType } from "../callbacks/subscriptions/postSlotRender";
+import { PostSlotUpdateCallbackType } from "../callbacks/subscriptions/postSlotUpdate";
 import { PostTransformationCallbackType } from "../callbacks/subscriptions/postTransformation";
 import { PreCustomReviveCallbackType } from "../callbacks/subscriptions/preCustomRevive";
 import { PreItemPickupCallbackType } from "../callbacks/subscriptions/preItemPickup";
@@ -109,6 +112,18 @@ export default interface CallbackParametersCustom {
   [ModCallbacksCustom.MC_POST_SACRIFICE]: [callback: PostSacrificeCallbackType];
   [ModCallbacksCustom.MC_POST_CURSED_TELEPORT]: [
     callback: PostCursedTeleportCallbackType,
+  ];
+  [ModCallbacksCustom.MC_POST_SLOT_INIT]: [
+    callback: PostSlotInitCallbackType,
+    slotVariant?: SlotVariant,
+  ];
+  [ModCallbacksCustom.MC_POST_SLOT_UPDATE]: [
+    callback: PostSlotUpdateCallbackType,
+    slotVariant?: SlotVariant,
+  ];
+  [ModCallbacksCustom.MC_POST_SLOT_RENDER]: [
+    callback: PostSlotRenderCallbackType,
+    slotVariant?: SlotVariant,
   ];
   [ModCallbacksCustom.MC_POST_GRID_ENTITY_INIT]: [
     callback: PostGridEntityInitCallbackType,
