@@ -41,7 +41,8 @@ export default function createMod(
 }
 
 function makeSubdirectories(projectPath: string) {
-  for (const subdirectory of ["mod", "src"]) {
+  // The "src" directory is created during copying of static files
+  for (const subdirectory of ["mod"]) {
     const srcPath = path.join(projectPath, subdirectory);
     file.makeDir(srcPath);
   }

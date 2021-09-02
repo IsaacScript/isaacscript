@@ -1,14 +1,15 @@
-// Register the mod
-// (which will make it show up in the list of mods on the mod screen in the main menu)
-const mod = RegisterMod("MOD_NAME", 1);
+export default function main(): void {
+  // Instantiate a new mod object, which grants the ability to add callback functions that
+  // correspond to in-game events
+  const mod = RegisterMod("MOD_NAME", 1);
 
-// Define callback functions
+  // Set a callback function that corresponds to when a new run is started
+  mod.AddCallback(ModCallbacks.MC_POST_GAME_STARTED, postGameStarted);
+
+  // Print an initialization message to the "log.txt" file
+  Isaac.DebugString("MOD_NAME initialized.");
+}
+
 function postGameStarted() {
   Isaac.DebugString("Callback triggered: MC_POST_GAME_STARTED");
 }
-
-// Register callbacks
-mod.AddCallback(ModCallbacks.MC_POST_GAME_STARTED, postGameStarted);
-
-// Print an initialization message to the "log.txt" file
-Isaac.DebugString("MOD_NAME initialized.");
