@@ -266,11 +266,43 @@ Fires on the first frame that the "TeleportUp" animation begins playing after a 
 function postCursedTeleport(player: EntityPlayer): void {}
 ```
 
+### MC_POST_SLOT_INIT
+
+Fires when a new slot entity is initialized. Specifically, this is either:
+- in the MC_POST_NEW_ROOM callback (firing every time a room is entered, even if the entity was previously there on a previous room entry)
+- in the MC_POST_UPDATE callback (if the entity appeared midway through the room, like when a Wheel of Fortune card is used)
+
+When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `SlotVariant` provided.
+
+```ts
+function postSlotInit(slot: Entity): void {}
+```
+
+### MC_POST_SLOT_UPDATE
+
+Fires on every MC_POST_UPDATE frame that a slot entity exists.
+
+When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `SlotVariant` provided.
+
+```ts
+function postSlotUpdate(slot: Entity): void {}
+```
+
+### MC_POST_SLOT_RENDER
+
+Fires on every MC_POST_RENDER frame that a slot entity exists.
+
+When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `SlotVariant` provided.
+
+```ts
+function postSlotRender(slot: Entity): void {}
+```
+
 ### MC_POST_GRID_ENTITY_INIT
 
 Fires when a new grid entity is initialized. Specifically, this is either:
-- in the MC_POST_NEW_ROOM callback (firing every time a room is entered, even if the grid entity was previously there on a previous room entry)
-- in the MC_POST_UPDATE callback (if the grid entity has only appeared midway through the room, like when the trapdoor appears after defeating It Lives!)
+- in the MC_POST_NEW_ROOM callback (firing every time a room is entered, even if the entity was previously there on a previous room entry)
+- in the MC_POST_UPDATE callback (if the entity appeared midway through the room, like when the trapdoor appears after defeating It Lives!)
 
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `GridEntityType` provided.
 
