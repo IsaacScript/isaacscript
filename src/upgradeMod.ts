@@ -22,6 +22,8 @@ import * as runInNFrames from "./features/runInNFrames";
 import * as saveDataManager from "./features/saveDataManager/main";
 import ModUpgraded from "./types/ModUpgraded";
 
+let initialized = false;
+
 /**
  * Use this function to enable the custom features and callbacks provided by `isaacscript-common`.
  *
@@ -49,9 +51,13 @@ import ModUpgraded from "./types/ModUpgraded";
 export function upgradeMod(mod: Mod, verbose = false): ModUpgraded {
   const modUpgraded = new ModUpgraded(mod, verbose);
 
-  saveDataManager.init(modUpgraded);
-  initCustomCallbacks(modUpgraded);
-  initFeatures(modUpgraded);
+  if (!initialized) {
+    initialized = true;
+
+    saveDataManager.init(modUpgraded);
+    initCustomCallbacks(modUpgraded);
+    initFeatures(modUpgraded);
+  }
 
   return modUpgraded;
 }
