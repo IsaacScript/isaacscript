@@ -48,3 +48,15 @@ declare const enum ReapCreepState {
    */
   TRANSFORMING_TO_NEXT_PHASE = 16,
 }
+
+/* For EntityType.ENTITY_COLOSTOMIA (917) */
+declare const enum ColostomiaState {
+  IDLE_PHASE_1 = 3,
+  IDLE_PHASE_2 = 4,
+  JUMP_ATTACK_WITH_PROJECTILE_SPLASH = 6,
+  CHARGE_SLIDE = 8,
+  SPIT_POOP_BOMB = 9,
+  SPIT_TWO_POOP_BOMBS = 10,
+  FART_ATTACK = 11,
+  TRANSITION_TO_PHASE_2 = 16,
+}
