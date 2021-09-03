@@ -66,18 +66,6 @@ export function anyPlayerIs(matchingCharacter: PlayerType): boolean {
   return false;
 }
 
-export function getPlayersOfType(playerType: PlayerType): EntityPlayer[] {
-  const players: EntityPlayer[] = [];
-  for (const player of getPlayers()) {
-    const character = player.GetPlayerType();
-    if (character === playerType) {
-      players.push(player);
-    }
-  }
-
-  return players;
-}
-
 export function getClosestPlayer(position: Vector): EntityPlayer {
   let closestPlayer: EntityPlayer | null = null;
   let closestDistance = math.huge;
@@ -242,6 +230,18 @@ export function getPlayers(performExclusions = false): EntityPlayer[] {
   return players;
 }
 
+export function getPlayersOfType(playerType: PlayerType): EntityPlayer[] {
+  const players: EntityPlayer[] = [];
+  for (const player of getPlayers()) {
+    const character = player.GetPlayerType();
+    if (character === playerType) {
+      players.push(player);
+    }
+  }
+
+  return players;
+}
+
 /**
  * Mods often have to track variables relating to the player. In naive mods, information will only
  * be stored about the first player. However, in order to be robust, mods must handle up to 4
@@ -279,7 +279,10 @@ export function getPlayerIndex(player: EntityPlayer): PlayerIndex {
   return seedString as PlayerIndex;
 }
 
-/** Get the index of this player with respect to the output of the `Isaac.GetPlayer()` function. */
+/**
+ * Helper function to return the index of this player with respect to the output of the
+ * `Isaac.GetPlayer()` function.
+ */
 export function getPlayerIndexVanilla(playerToFind: EntityPlayer): int | null {
   const game = Game();
 
@@ -379,6 +382,20 @@ export function getPocketItems(player: EntityPlayer): PocketItemDescription[] {
   }
 
   return pocketItems;
+}
+
+/**
+ * Helper function to return the active charge and the battery charge combined. This is useful
+ * because you are not able to set the battery charge directly.
+ */
+export function getTotalCharge(
+  player: EntityPlayer,
+  activeSlot: ActiveSlot,
+): int {
+  const activeCharge = player.GetActiveCharge(activeSlot);
+  const batteryCharge = player.GetBatteryCharge(activeSlot);
+
+  return activeCharge + batteryCharge;
 }
 
 /**
