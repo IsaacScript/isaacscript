@@ -2,8 +2,8 @@
 // checked in the PostPickupUpdate callback
 // This fires on the first update frame
 
-import { getClosestPlayer } from "..";
 import { saveDataManager } from "../features/saveDataManager/main";
+import { getClosestPlayer } from "../functions/player";
 import * as postPickupCollect from "./subscriptions/postPickupCollect";
 
 const v = {
