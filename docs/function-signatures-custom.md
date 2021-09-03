@@ -112,12 +112,12 @@ function postLaserInitLate(laser: EntityLaser): void {}
 
 Fires on the first MC_POST_RENDER frame that a pickup plays the "Collect" animation.
 
-Use this callback to know when a pickup is about to be added to the player's inventory or health.
+Use this callback to know when a pickup is added to the player's inventory or health.
 
 - When registering the callback, takes an optional second argument that will make the callback only fire if the pickup variant matches the `PickupVariant` provided.
 
 ```ts
-function postPickupCollect(pickup: EntityPickup): void {}
+function postPickupCollect(pickup: EntityPickup, player: EntityPlayer): void {}
 ```
 
 ### MC_PRE_ITEM_PICKUP
