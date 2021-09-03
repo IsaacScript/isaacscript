@@ -48,25 +48,6 @@ export function getHUDOffsetVector(): Vector {
   return Vector(x, y);
 }
 
-/**
- * Get how many hearts are currently being shown on the hearts UI.
- *
- * This function is originally from piber20 Helper.
- */
-export function getVisibleHearts(player: EntityPlayer): int {
-  const maxHearts = math.max(
-    player.GetEffectiveMaxHearts(),
-    player.GetBoneHearts() * 2,
-  );
-
-  let visibleHearts = math.ceil((maxHearts + player.GetSoulHearts()) / 2);
-  if (visibleHearts < 1) {
-    visibleHearts = 1;
-  }
-
-  return visibleHearts;
-}
-
 export function getScreenTopLeft(): Vector {
   return Vector.Zero;
 }
@@ -99,4 +80,23 @@ export function getScreenBottomRight(): Vector {
 export function getScreenCenter(): Vector {
   const bottomRight = getScreenBottomRight();
   return bottomRight.div(2);
+}
+
+/**
+ * Get how many hearts are currently being shown on the hearts UI.
+ *
+ * This function is originally from piber20 Helper.
+ */
+export function getVisibleHearts(player: EntityPlayer): int {
+  const maxHearts = math.max(
+    player.GetEffectiveMaxHearts(),
+    player.GetBoneHearts() * 2,
+  );
+
+  let visibleHearts = math.ceil((maxHearts + player.GetSoulHearts()) / 2);
+  if (visibleHearts < 1) {
+    visibleHearts = 1;
+  }
+
+  return visibleHearts;
 }
