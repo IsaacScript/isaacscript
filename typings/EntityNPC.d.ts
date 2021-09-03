@@ -75,7 +75,11 @@ declare interface EntityNPC extends Entity {
   ProjectileCooldown: int;
   ProjectileDelay: int;
   Scale: float;
-  State: NpcState;
+  /**
+   * This has a type of `NpcState | int` so that other enums can be used to represent more specific
+   * entities.
+   */
+  State: NpcState | int;
   StateFrame: int;
   V1: Vector;
   V2: Vector;
