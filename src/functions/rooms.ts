@@ -16,7 +16,7 @@ export function changeRoom(roomIndex: int): void {
   game.ChangeRoom(roomIndex);
 }
 
-export function getCurrentDimension(): Dimension | null {
+export function getCurrentDimension(): Dimension {
   const game = Game();
   const level = game.GetLevel();
 
@@ -32,7 +32,10 @@ export function getCurrentDimension(): Dimension | null {
     }
   }
 
-  return null;
+  error(
+    `Failed to get the current dimension using a room index of: ${roomIndex}`,
+  );
+  return 0;
 }
 
 export function getRoomData(): RoomConfig | null {
