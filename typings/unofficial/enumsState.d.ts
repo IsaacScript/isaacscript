@@ -12,6 +12,25 @@ declare const enum DaddyLongLegsState {
   MULTI_STOMP_ATTACK_MAIN = 9,
 }
 
+/* For EntityType.ENTITY_BIG_HORN (411) */
+declare const enum BigHornState {
+  IDLE = 3,
+  HEAD_GOING_UP_OR_GOING_DOWN_INTO_HOLE = 4,
+  HAND_GOING_DOWN_INTO_HOLE = 5,
+  HAND_SLAM_ATTACK = 8,
+  /**
+   * This is used for all types of Troll Bomb attacks. Troll Bombs can randomly be Mega Troll Bombs
+   * or Hot Bombs.
+   */
+  HAND_THROW_TROLL_BOMB_ATTACK = 9,
+  HAND_THROW_TRIPLE_TROLL_BOMB_ATTACK = 10,
+  /**
+   * This is used for the attack where he spits out 1 ball, spits out 2 balls, and spits out 3
+   * balls.
+   */
+  HEAD_BALL_ATTACK = 13,
+}
+
 /* For EntityType.ENTITY_REAP_CREEP (900) */
 declare const enum ReapCreepState {
   CRAWLING_FROM_SIDE_TO_SIDE = 3,
