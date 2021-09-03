@@ -3,7 +3,7 @@ import * as postPickupInitLate from "./subscriptions/postPickupInitLate";
 
 const v = {
   room: {
-    firedMap: new Map<PtrHash, boolean>(),
+    firedSet: new Set<PtrHash>(),
   },
 };
 
@@ -24,9 +24,8 @@ function postPickupUpdate(pickup: EntityPickup) {
   }
 
   const index = GetPtrHash(pickup);
-  const fired = v.room.firedMap.get(index);
-  if (fired === undefined) {
-    v.room.firedMap.set(index, true);
+  if (!v.room.firedSet.has(index)) {
+    v.room.firedSet.add(index);
     postPickupInitLate.fire(pickup);
   }
 }

@@ -2,12 +2,13 @@
 // checked in the PostPickupUpdate callback
 // This fires on the first update frame
 
+import { getClosestPlayer } from "..";
 import { saveDataManager } from "../features/saveDataManager/main";
 import * as postPickupCollect from "./subscriptions/postPickupCollect";
 
 const v = {
   room: {
-    firedMap: new Map<PtrHash, boolean>(),
+    firedSet: new Set<PtrHash>(),
   },
 };
 
@@ -34,9 +35,10 @@ function postPickupRender(pickup: EntityPickup) {
   }
 
   const index = GetPtrHash(pickup);
-  const fired = v.room.firedMap.get(index);
-  if (fired === undefined) {
-    v.room.firedMap.set(index, true);
-    postPickupCollect.fire(pickup);
+  if (!v.room.firedSet.has(index)) {
+    v.room.firedSet.add(index);
+
+    const player = getClosestPlayer(pickup.Position);
+    postPickupCollect.fire(pickup, player);
   }
 }

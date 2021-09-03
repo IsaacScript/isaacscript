@@ -4,7 +4,7 @@ import * as postPlayerInitLate from "./subscriptions/postPlayerInitLate";
 
 const v = {
   run: {
-    firedMap: new Map<PlayerIndex, boolean>(),
+    firedSet: new Set<PlayerIndex>(),
   },
 };
 
@@ -25,9 +25,8 @@ function postPlayerUpdate(player: EntityPlayer) {
   }
 
   const playerIndex = getPlayerIndex(player);
-  const fired = v.run.firedMap.get(playerIndex);
-  if (fired === undefined) {
-    v.run.firedMap.set(playerIndex, true);
+  if (!v.run.firedSet.has(playerIndex)) {
+    v.run.firedSet.add(playerIndex);
     postPlayerInitLate.fire(player);
   }
 }

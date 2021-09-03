@@ -1,4 +1,7 @@
-export type PostPickupCollectCallbackType = (pickup: EntityPickup) => void;
+export type PostPickupCollectCallbackType = (
+  pickup: EntityPickup,
+  player: EntityPlayer,
+) => void;
 
 const subscriptions: Array<
   [PostPickupCollectCallbackType, PickupVariant | undefined]
@@ -15,13 +18,13 @@ export function register(
   subscriptions.push([callback, pickupVariant]);
 }
 
-export function fire(pickup: EntityPickup): void {
+export function fire(pickup: EntityPickup, player: EntityPlayer): void {
   for (const [callback, pickupVariant] of subscriptions) {
     // Handle the optional 2nd callback argument
     if (pickupVariant !== undefined && pickupVariant !== pickup.Variant) {
       continue;
     }
 
-    callback(pickup);
+    callback(pickup, player);
   }
 }
