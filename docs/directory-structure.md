@@ -106,7 +106,7 @@ This is the TypeScript source directory. All of the TypeScript files for your mo
 
 This is the configuration file for [cspell](https://github.com/streetsidesoftware/cspell), a spell-checker for code.
 
-If VSCode incorrectly reports that a file is misspelled, you can right-click on the word and say "Add Word to Workspace Dictionaries". The word will then be recorded in this file and the squiggly line will go away.
+If VSCode incorrectly reports that a file is misspelled, you can right-click on the word and say "Add Words to CSpell Configuration". The word will then be recorded in this file and the squiggly line will go away.
 
 <br />
 
