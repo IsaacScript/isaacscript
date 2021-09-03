@@ -1,3 +1,16 @@
+/* For EntityType.ENTITY_DEATH (66) */
+declare const enum DeathState {
+  APPEAR = 1,
+  SCYTHE_APPEAR = 3,
+  /** Death will wander around in his idle state. */
+  MAIN_IDLE = 4,
+  SCYTHE_SPIN_ATTACK = 4,
+  JUMP_OFF_HORSE = 7,
+  SLOW_ATTACK = 8,
+  SUMMON_KNIGHTS = 13,
+  SUMMON_SCYTHES = 14,
+}
+
 /** For EntityType.ENTITY_DADDYLONGLEGS (101) */
 declare const enum DaddyLongLegsState {
   /** Used at the end of the sequence of single stomp attacks. */
