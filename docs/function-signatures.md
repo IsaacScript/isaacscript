@@ -107,7 +107,7 @@ function postCurseEval(curses: LevelCurse | int): LevelCurse | int | void {}
 
 ```ts
 function inputAction(
-  entity: Entity | null,
+  entity: Entity | undefined,
   inputHook: InputHook,
   buttonAction: ButtonAction,
 ): boolean | float | void {}

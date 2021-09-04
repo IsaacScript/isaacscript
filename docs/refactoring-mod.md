@@ -70,7 +70,7 @@ export function checkApplyEffect(): void {
   for (let i = 0; i < numPlayers; i++) {
     const player = Isaac.GetPlayer(i);
     if (
-      player !== null &&
+      player !== undefined &&
       player.HasCollectible(CollectibleTypeCustom.COLLECTIBLE_GREEN_CANDLE)
     ) {
       applyEffect(player);

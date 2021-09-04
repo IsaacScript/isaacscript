@@ -143,7 +143,7 @@
     "command": "ssmacro.replace",
     "args": {
         "find": "\\bnil\\b",
-        "replace": "null",
+        "replace": "undefined",
         "all": true,
         "reg": true,
         "flag": "gm"

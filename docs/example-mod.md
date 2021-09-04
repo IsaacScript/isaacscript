@@ -193,7 +193,7 @@ function checkApplyGreenCandleEffect() {
   const numPlayers = game.GetNumPlayers();
   for (let i = 0; i < numPlayers; i++) {
     const player = Isaac.GetPlayer(i);
-    if (player !== null && player.HasCollectible(greenCandleItemID)) {
+    if (player !== undefined && player.HasCollectible(greenCandleItemID)) {
       applyGreenCandleEffect(player);
     }
   }
@@ -245,7 +245,7 @@ function applyGreenCandleEffect(player: EntityPlayer) {
 }
 ```
 
-TypeScript saves the day, telling us that we actually need to feed the function an entity reference. This is accomplished by simply casting the player as an `EntityRef`. (The "EntityRef()" function is a global.)
+This showcases the advantage of programming in TypeScript instead of Lua, because this is a common error. The TypeScript compiler tells us that we *actually* need to feed the function an entity reference instead of an entity. This is accomplished by simply casting the player as an `EntityRef`. (The "EntityRef()" function is a global.)
 
 ```ts
 entity.AddPoison(EntityRef(player), 100, player.Damage);
@@ -259,7 +259,7 @@ Now, let's fill in the `shouldApplyGreenCandleEffectToEntity()` function.
 
 Some enemies, like Stonies, are supposed to be invincible, so it would be a bug in our mod if the poison effect applied to them. So, we have to find a way to detect invincible enemies.
 
-By looking through [the API docs](https://wofsauge.github.io/IsaacDocs/), we eventually find that there is `IsVulnerableEnemy()` method. This sounds like what we need.
+By looking through [the API docs](https://wofsauge.github.io/IsaacDocs/), we eventually find that there is a `IsVulnerableEnemy()` method. This sounds like what we need.
 
 Furthermore, we want the random chance for the Green Candle to work to be around 1 in 500. We can accomplish that with the `math.random()` function.
 
@@ -297,7 +297,7 @@ function checkApplyGreenCandleEffect() {
   const numPlayers = game.GetNumPlayers();
   for (let i = 0; i < numPlayers; i++) {
     const player = Isaac.GetPlayer(i);
-    if (player !== null && player.HasCollectible(greenCandleItemID)) {
+    if (player !== undefined && player.HasCollectible(greenCandleItemID)) {
       applyGreenCandleEffect(player);
     }
   }

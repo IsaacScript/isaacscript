@@ -286,8 +286,8 @@ On the other hand, if you want to split IsaacScript code between repositories or
 Normally, in TypeScript programs, you would handle errors with `throw new Error("foo")`. For example:
 
 ```ts
-const player = Isaac.GetPlayer(1); // The type of player is "EntityPlayer | null"
-if (player === null) {
+const player = Isaac.GetPlayer(1); // The type of player is "EntityPlayer | undefined"
+if (player === undefined) {
   throw new Error("Failed to get the player!");
 }
 player.AddSoulHearts(1); // The type of player is now "EntityPlayer"
@@ -297,11 +297,11 @@ However, in Isaac mods, this code won't work. It will error with something along
 
 `[Foo] Error in "foo" call: ...n\The Binding of Isaac Rebirth/mods/foo/main.lua:100: attempt to index a nil value (global 'debug')`
 
-This is because TypeScriptToLua transpiles `throw` to a function that uses Lua's `debug` library, and Isaac does not normally have access to `debug` for sandboxing reasons. But not to worry, because instead we can simply use Lua's `error()` function. For example:
+This is because TypeScriptToLua transpiles `throw` to a function that uses Lua's `debug` library, and Isaac does not normally have access to `debug` for sandboxing reasons. But not to worry, because we can simply use Lua's `error()` function instead. For example:
 
 ```ts
-const player = Isaac.GetPlayer(1); // The type of player is "EntityPlayer | null"
-if (player === null) {
+const player = Isaac.GetPlayer(1); // The type of player is "EntityPlayer | undefined"
+if (player === undefined) {
   error("Failed to get the player!");
 }
 player.AddSoulHearts(1); // The type of player is now "EntityPlayer"
@@ -310,44 +310,3 @@ player.AddSoulHearts(1); // The type of player is now "EntityPlayer"
 (TypeScript is smart enough to know that `error()` can constrain the type of player in the same way that `throw` normally would.)
 
 <br />
-
-### No Blank Mod Classes
-
-You cannot instantiate a blank mod object/class:
-
-```ts
-// TypeScript code
-const Revelations = RegisterMod("Revelations", 1); // "Revelations" has the type "Mod"
-
-class Foo {
-  // We might not want to define a type of "Mod | null",
-  // so what if we use a blank class?
-  modObject = Mod();
-}
-const foo = new Foo();
-
-// Later on in the code, we can overwrite it
-foo.modObject = Revelations;
-```
-
-Doing this will result in an error in the following TypeScriptToLua boilerplate code:
-
-```lua
-function __TS__New(target, ...)
-    local instance = setmetatable({}, target.prototype) -- Error on this line
-```
-
-To fix this problem, do something like the following:
-
-```ts
-// TypeScript code
-const Revelations = RegisterMod("Revelations", 1); // "Revelations" has the type "Mod"
-
-class Foo {
-  modObject: Mod | null = null;
-}
-const foo = new Foo();
-
-// Later on in the code, we can overwrite it
-foo.modObject = Revelations;
-```

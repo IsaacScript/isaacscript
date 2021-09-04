@@ -301,7 +301,7 @@ for (const price of Object.values(itemPrices)) {
 
 <br />
 
-### `nil` --> `null`
+### `nil` --> `undefined`
 
 ```lua
 -- Lua code
@@ -312,12 +312,12 @@ end
 
 ```ts
 // TypeScript code
-if (entity.SpawnerEntity === null) {
+if (entity.SpawnerEntity === undefined) {
   // This entity was not spawned by anything in particular
 }
 ```
 
-Note that `undefined` also transpiles to `nil` (in addition to `null`).
+Note that `null` also transpiles to `nil` (in addition to `undefined`). But `null` should be reserved for situations where you want to model an actual null-type defined value.
 
 <br />
 
@@ -507,8 +507,8 @@ end
 
 ```ts
 // TypeScript code
-declare const InfinityTrueCoopInterface: null | unknown;
-if (InfinityTrueCoopInterface !== null) {
+declare const InfinityTrueCoopInterface: unknown | undefined;
+if (InfinityTrueCoopInterface !== undefined) {
   // The user has the True Co-op mod enabled, so now do something
 }
 ```
@@ -517,7 +517,7 @@ if (InfinityTrueCoopInterface !== null) {
 
 #### Option 2 - A Declaration File
 
-If you need to check for `InfinityTrueCoopInterface !== null` in more than one place in your mod, then option 1 is bad, because you would be [need to repeat yourself before each check](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself). Instead, make a TypeScript definition file that corresponds to the variable / table.
+If you need to check for `InfinityTrueCoopInterface !== undefined` in more than one place in your mod, then option 1 is bad, because you would be [need to repeat yourself before each check](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself). Instead, make a TypeScript definition file that corresponds to the variable / table.
 
 For example, to declare `InfinityTrueCoopInterface`, starting from the root of your project:
 
@@ -526,7 +526,7 @@ For example, to declare `InfinityTrueCoopInterface`, starting from the root of y
 - Put the following in it:
 
 ```ts
-declare const InfinityTrueCoopInterface: null | unknown;
+declare const InfinityTrueCoopInterface: unknown | undefined;
 ```
 
 Now, your other TypeScript files will see it as a global variable without you having to do anything else.
@@ -544,7 +544,7 @@ The solution is to add the `AddCharacter()` method to our definition file. We ne
 ```ts
 // The global variable exists and it is a Lua table of type TrueCoop,
 // which we will immediately define below
-declare const InfinityTrueCoopInterface: TrueCoop;
+declare const InfinityTrueCoopInterface: TrueCoop | undefined;
 
 // We declare a TrueCoop class that has as many methods as we need
 // (but for now we will only add one)
@@ -676,7 +676,5 @@ function pickingUpItem(player: EntityPlayer, pickingUpItemID: number) {
   }
 }
 ```
-
-(You could also use `price !== null` instead of `price !== undefined`, which would transpile to the same thing. But comparing to undefined is more correct, since that is how you would write normal TypeScript code.)
 
 <br />
