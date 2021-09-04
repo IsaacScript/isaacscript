@@ -108,7 +108,11 @@ export default interface CallbackParametersCustom {
   [ModCallbacksCustom.MC_POST_TRANSFORMATION]: [
     callback: PostTransformationCallbackType,
   ];
-  [ModCallbacksCustom.MC_POST_PURCHASE]: [callback: PostPurchaseCallbackType];
+  [ModCallbacksCustom.MC_POST_PURCHASE]: [
+    callback: PostPurchaseCallbackType,
+    pickupVariant: PickupVariant,
+    pickupSubType: int,
+  ];
   [ModCallbacksCustom.MC_POST_SACRIFICE]: [callback: PostSacrificeCallbackType];
   [ModCallbacksCustom.MC_POST_CURSED_TELEPORT]: [
     callback: PostCursedTeleportCallbackType,
