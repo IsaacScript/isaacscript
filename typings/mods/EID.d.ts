@@ -94,12 +94,12 @@ declare interface ExternalItemDescriptions {
   /**
    * Adds a description for an entity.
    *
-   * When subtype is -1 or null, it will affect all subtypes of that entity.
+   * When subtype is -1 or undefined, it will affect all subtypes of that entity.
    */
   addEntity(
     id: int,
     variant: int,
-    subtype: int | null,
+    subtype: int | undefined,
     entityName: string,
     description: string,
     language?: string,
@@ -124,8 +124,8 @@ declare interface ExternalItemDescriptions {
     animationFrame: int,
     width: int,
     height: int,
-    leftOffset: float | null,
-    topOffset: float | null,
+    leftOffset: float | undefined,
+    topOffset: float | undefined,
     spriteObject: Sprite,
   ): void;
 
@@ -189,9 +189,9 @@ declare interface ExternalItemDescriptions {
    * Tries to read special markup used to generate icons for all collectibles/trinkets and the
    * default cards/pills.
    *
-   * @returns An `EIDInlineIcon` Object or `null` if no parsing was possible.
+   * @returns An `EIDInlineIcon` Object or `undefined` if no parsing was possible.
    */
-  createItemIconObject(str: string): EIDInlineIcon | null;
+  createItemIconObject(str: string): EIDInlineIcon | undefined;
 
   /** Creates a new transformation. */
   createTransformation(
@@ -310,13 +310,13 @@ declare interface ExternalItemDescriptions {
    * Fetches description table from the legacy mod descriptions if they exist.
    *
    * @returns ["", "", description], ["", name, description],
-   * or `null` (if there is no legacy description).
+   * or `undefined` (if there is no legacy description).
    */
   getLegacyModDescription(
     Type: int,
     Variant: int,
     SubType: int,
-  ): ["", "", string] | ["", string, string] | null;
+  ): ["", "", string] | ["", string, string] | undefined;
 
   /** Get `KColor` object of "Entity Name" texts. */
   getNameColor(): KColor;

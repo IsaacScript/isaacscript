@@ -76,19 +76,19 @@ declare interface Entity {
     source: EntityRef,
     damageCountdown: int,
   ): boolean;
-  ToBomb(): EntityBomb | null;
-  ToEffect(): EntityEffect | null;
-  ToFamiliar(): EntityFamiliar | null;
-  ToKnife(): EntityKnife | null;
-  ToLaser(): EntityLaser | null;
-  ToNPC(): EntityNPC | null;
-  ToPickup(): EntityPickup | null;
-  ToPlayer(): EntityPlayer | null;
-  ToProjectile(): EntityProjectile | null;
-  ToTear(): EntityTear | null;
+  ToBomb(): EntityBomb | undefined;
+  ToEffect(): EntityEffect | undefined;
+  ToFamiliar(): EntityFamiliar | undefined;
+  ToKnife(): EntityKnife | undefined;
+  ToLaser(): EntityLaser | undefined;
+  ToNPC(): EntityNPC | undefined;
+  ToPickup(): EntityPickup | undefined;
+  ToPlayer(): EntityPlayer | undefined;
+  ToProjectile(): EntityProjectile | undefined;
+  ToTear(): EntityTear | undefined;
   Update(): void;
 
-  Child: Entity | null;
+  Child: Entity | undefined;
   CollisionDamage: float;
   DepthOffset: float;
   readonly DropSeed: int;
@@ -102,14 +102,14 @@ declare interface Entity {
   readonly InitSeed: int;
   Mass: float;
   MaxHitPoints: float;
-  Parent: Entity | null;
+  Parent: Entity | undefined;
   Position: Vector;
   readonly PositionOffset: Readonly<Vector>;
   RenderZOffset: int;
   Size: float;
   SizeMulti: Vector;
   readonly SpawnGridIndex: int;
-  SpawnerEntity: Entity | null;
+  SpawnerEntity: Entity | undefined;
   SpawnerType: EntityType | int;
   SpawnerVariant: int;
   readonly SplatColor: Readonly<Color>;
@@ -117,7 +117,7 @@ declare interface Entity {
   SpriteRotation: float;
   SpriteScale: Vector;
   SubType: int;
-  Target: Entity | null;
+  Target: Entity | undefined;
   readonly TargetPosition: Readonly<Vector>;
   readonly Type: EntityType | int;
   Variant: int;

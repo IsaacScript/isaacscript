@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-declare type PtrHash = number & { __ptrHashBrand: any };
+declare type PtrHash = number & { __ptrHashBrand: unknown };
 
 declare function Game(this: void): Game;
 /**

@@ -5,7 +5,7 @@ interface StageAPICallbackParameters {
     callback: (
       currentRoom: unknown,
       roomsList: unknown,
-    ) => CustomRoomConfig | null,
+    ) => CustomRoomConfig | undefined,
   ];
   [StageCallback.PRE_SPAWN_GRID]: [
     callback: (
@@ -13,7 +13,7 @@ interface StageAPICallbackParameters {
       gridInformation: unknown,
       entities: unknown,
       gridSpawnRNG: RNG,
-    ) => boolean | null,
+    ) => boolean | undefined,
   ];
   [StageCallback.POST_CHANGE_ROOM_GFX]: [callback: () => void];
   [StageCallback.PRE_STAGEAPI_NEW_ROOM]: [callback: () => void];
@@ -21,7 +21,7 @@ interface StageAPICallbackParameters {
     callback: (
       gridIndex: int,
       grid: GridEntity,
-      justBrokenGridSpawns: LuaTable<int, RemovedEntityData> | null,
+      justBrokenGridSpawns: LuaTable<int, RemovedEntityData> | undefined,
     ) => false | void,
   ];
 }
@@ -48,7 +48,7 @@ declare global {
 
     function RoomGfx(
       Backdrop: Backdrop,
-      GridGfx: GridGfx | null,
+      GridGfx: GridGfx | undefined,
       shadingName: string,
       shadingPrefix: string,
     ): RoomGfx;

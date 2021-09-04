@@ -57,7 +57,7 @@ declare interface EncyclopediaObject {
   ): void;
 
   AddRune(itemTab: {
-    Sprite: Sprite | null;
+    Sprite: Sprite | undefined;
     Name: string | undefined;
     Desc: string | undefined;
     ModName: string | undefined;
@@ -137,16 +137,16 @@ declare type WikiDescription = [
  */
 declare interface EncyclopediaItemVars {
   Spr: Sprite;
-  Name: string | null;
-  Desc: string | null;
-  WikiDesc: WikiDescription | null;
-  Pools: EncyclopediaItemPools | null;
-  Title: string | null;
+  Name: string | undefined;
+  Desc: string | undefined;
+  WikiDesc: WikiDescription | undefined;
+  Pools: EncyclopediaItemPools | undefined;
+  Title: string | undefined;
   ItemID: number;
   typeString: string;
   Class: string;
-  Index: number | null;
-  AllIndex: number | null;
+  Index: number | undefined;
+  AllIndex: number | undefined;
   AllIntIndex: number;
   StatusFunc: (vars: EncyclopediaItemVars) => EncyclopediaItemVars;
   CloseFunc: (vars: EncyclopediaItemVars) => void;

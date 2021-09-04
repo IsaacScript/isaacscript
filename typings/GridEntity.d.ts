@@ -14,13 +14,13 @@ declare interface GridEntity {
   Render(offset: Vector): void;
   SetType(gridEntityType: GridEntityType): void;
   SetVariant(variant: int): void;
-  ToDoor(): GridEntityDoor | null;
-  ToPit(): GridEntityPit | null;
-  ToPoop(): GridEntityPoop | null;
-  ToPressurePlate(): GridEntityPressurePlate | null;
-  ToRock(): GridEntityRock | null;
-  ToSpikes(): GridEntitySpikes | null;
-  ToTNT(): GridEntityTNT | null;
+  ToDoor(): GridEntityDoor | undefined;
+  ToPit(): GridEntityPit | undefined;
+  ToPoop(): GridEntityPoop | undefined;
+  ToPressurePlate(): GridEntityPressurePlate | undefined;
+  ToRock(): GridEntityRock | undefined;
+  ToSpikes(): GridEntitySpikes | undefined;
+  ToTNT(): GridEntityTNT | undefined;
   Update(): void;
 
   CollisionClass: GridCollisionClass;

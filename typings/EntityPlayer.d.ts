@@ -3,7 +3,17 @@ declare interface EntityPlayer extends Entity {
   AddBlackHearts(blackHearts: int): void;
   /** This adds Tainted Bethany's blood charges. Only works on Tainted Bethany. */
   AddBloodCharge(num: int): void;
-  AddBlueFlies(amount: int, position: Vector, target: Entity | null): Entity;
+  /**
+   * @param amount
+   * @param position
+   * @param target This argument is not optional. If you want to spawn a fly without a target, then
+   * you must explicitly pass undefined.
+   */
+  AddBlueFlies(
+    amount: int,
+    position: Vector,
+    target: Entity | undefined,
+  ): Entity;
   AddBlueSpider(position: Vector): Entity;
   /** Remove them with negative numbers. */
   AddBombs(amount: int): void;
@@ -234,7 +244,7 @@ declare interface EntityPlayer extends Entity {
    * @param familiarVariant
    * @param targetCount
    * @param rng
-   * @param sourceItem The item this type of familiar was created by. Default is null.
+   * @param sourceItem The item this type of familiar was created by. Default is undefined.
    * @param familiarSubType The subtype of the familiar to check (-1 matches any subtype). Default
    * is -1.
    */
@@ -267,12 +277,12 @@ declare interface EntityPlayer extends Entity {
   /**
    * @param position
    * @param velocity
-   * @param source Default is null.
+   * @param source Default is undefined.
    */
   FireBomb(position: Vector, velocity: Vector, source?: Entity): EntityBomb;
   /**
    * @param direction
-   * @param source Default is null.
+   * @param source Default is undefined.
    * @param damageMultiplier Default is 1.
    */
   FireBrimstone(
@@ -301,7 +311,7 @@ declare interface EntityPlayer extends Entity {
    * @param canBeEye Default is true.
    * @param noTractorBeam Default is false.
    * @param canTriggerStreakEnd Default is true.
-   * @param source Default is null.
+   * @param source Default is undefined.
    * @param damageMultiplier Default is 1.
    */
   FireTear(
@@ -319,7 +329,7 @@ declare interface EntityPlayer extends Entity {
    * @param direction
    * @param leftEye
    * @param oneHit Default is false.
-   * @param source Default is null.
+   * @param source Default is undefined.
    * @param damageMultiplier Default is 1.
    */
   FireTechLaser(
@@ -335,7 +345,7 @@ declare interface EntityPlayer extends Entity {
    * @param position
    * @param direction
    * @param radius
-   * @param source Default is null.
+   * @param source Default is undefined.
    * @param damageMultiplier Default is 1.
    */
   FireTechXLaser(
@@ -513,9 +523,9 @@ declare interface EntityPlayer extends Entity {
    * - When called on Esau, returns Jacob.
    * - When called on Tainted Forgotten, returns Tainted Forgotten's Soul.
    * - When called on Tainted Forgotten's Soul, returns Tainted Forgotten.
-   * - When called on any other character, returns null.
+   * - When called on any other character, returns undefined.
    */
-  GetOtherTwin(): EntityPlayer | null;
+  GetOtherTwin(): EntityPlayer | undefined;
   /** Returns 0 if there is no pill. */
   GetPill(pocketItemSlot: PocketItemSlot): PillColor | int;
   GetPillRNG(pillEffect: PillEffect | int): RNG;
@@ -544,16 +554,16 @@ declare interface EntityPlayer extends Entity {
   /**
    * - When on The Forgotten, returns the player object for The Soul.
    * - When on The Soul, returns the player object for The Forgotten.
-   * - Otherwise, returns null.
+   * - Otherwise, returns undefined.
    */
-  GetSubPlayer(): EntityPlayer | null;
+  GetSubPlayer(): EntityPlayer | undefined;
   /**
    * Used for tear parameters that are calculated on hit (e.g. Tough Love, Common Cold),
    *
    * @param weaponType
    * @param damageScale Default is 1.
    * @param tearDisplacement Default is 1.
-   * @param source Default is null.
+   * @param source Default is undefined.
    */
   GetTearHitParams(
     weaponType: WeaponType,
@@ -743,8 +753,8 @@ declare interface EntityPlayer extends Entity {
     target?: Vector,
   ): EntityFamiliar;
   /**
-   * If holding an entity, throws it in the specified direction and returns it, otherwise returns
-   * null.
+   * If holding an entity, throws it in the specified direction and returns it. Otherwise, returns
+   * undefined.
    *
    * @param velocity
    */

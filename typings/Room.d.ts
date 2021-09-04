@@ -47,7 +47,7 @@ declare interface Room {
   GetDecorationSeed(): int;
   GetDeliriumDistance(): int;
   GetDevilRoomChance(): float;
-  GetDoor(doorSlot: DoorSlot): GridEntityDoor | null;
+  GetDoor(doorSlot: DoorSlot): GridEntityDoor | undefined;
   GetDoorSlotPosition(doorSlot: DoorSlot): Vector;
   GetDungeonRockIdx(): int;
   /**
@@ -58,8 +58,8 @@ declare interface Room {
   GetFrameCount(): int;
   GetGridCollision(gridIndex: int): GridCollisionClass;
   GetGridCollisionAtPos(position: Vector): GridCollisionClass;
-  GetGridEntity(index: int): GridEntity | null;
-  GetGridEntityFromPos(position: Vector): GridEntity | null;
+  GetGridEntity(index: int): GridEntity | undefined;
+  GetGridEntityFromPos(position: Vector): GridEntity | undefined;
   GetGridHeight(): int;
   GetGridIndex(position: Vector): int;
   GetGridPath(index: int): int;

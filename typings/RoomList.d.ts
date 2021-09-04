@@ -1,5 +1,5 @@
 declare interface RoomList {
-  Get(idx: int): RoomDescriptor | null;
+  Get(idx: int): RoomDescriptor | undefined;
 
   Size: int;
 }

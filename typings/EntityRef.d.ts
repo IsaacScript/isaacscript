@@ -1,4 +1,4 @@
-declare function EntityRef(this: void, entity: Entity | null): EntityRef;
+declare function EntityRef(this: void, entity: Entity | undefined): EntityRef;
 
 declare interface EntityRef {
   Entity: Entity;

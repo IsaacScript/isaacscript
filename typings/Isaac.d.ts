@@ -45,7 +45,7 @@ declare global {
      */
     function CountEntities(
       fakeArg: never,
-      spawner: Entity | null,
+      spawner: Entity | undefined,
       entityType?: EntityType | int,
       variant?: int,
       subType?: int,
@@ -59,7 +59,7 @@ declare global {
     function ExecuteCommand(command: string): string;
     function Explode(
       position: Vector,
-      source: Entity | null,
+      source: Entity | undefined,
       damage: float,
     ): void;
     /**
@@ -127,19 +127,19 @@ declare global {
     /**
      * With no argument, it returns the 0th player.
      * For the purposes of this definition, we assume that the 0th player always exists.
-     * However, if called in the menu, this function will return null, so beware.
+     * However, if called in the menu, this function will return undefined, so beware.
      */
     function GetPlayer(): EntityPlayer;
     /**
      * For the purposes of this definition, we assume that the 0th player always exists.
-     * However, if called in the menu, this function will return null, so beware.
+     * However, if called in the menu, this function will return undefined, so beware.
      */
     function GetPlayer(playerID: 0): EntityPlayer;
     /**
-     * Before using the EntityPlayer object, you should check to see if it is equal to null and
+     * Before using the EntityPlayer object, you should check to see if it is equal to undefined and
      * handle the error case.
      */
-    function GetPlayer(playerID: int): EntityPlayer | null;
+    function GetPlayer(playerID: int): EntityPlayer | undefined;
     /**
      * Returns -1 if the specified character does not exist.
      *
@@ -245,7 +245,7 @@ declare global {
       entitySubType: int,
       position: Vector,
       velocity: Vector,
-      spawner: Entity | null,
+      spawner: Entity | undefined,
     ): Entity;
     /**
      * Converts a game Vector (i.e. `entity.Position`) to a render Vector used for drawing sprites

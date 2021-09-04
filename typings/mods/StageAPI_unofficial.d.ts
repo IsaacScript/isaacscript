@@ -20,7 +20,7 @@ declare const enum StageCallback {
    *
    * @param justBrokenGridSpawns Contains all deleted spawns from the grid.
    *
-   * Breaks on first non-null return.
+   * Breaks on first non-undefined return.
    */
   POST_OVERRIDDEN_GRID_BREAK = "POST_OVERRIDDEN_GRID_BREAK",
 

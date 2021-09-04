@@ -44,7 +44,7 @@ declare interface RemovedEntityData {
   SubType: int;
   Position: Vector;
   Velocity: Vector;
-  Spawner: Entity | null;
+  Spawner: Entity | undefined;
   Seed: number;
 }
 
@@ -105,7 +105,7 @@ declare interface CustomStage {
    * Sets the paths to the "spot" graphic,
    * the patch of ground underneath the boss and player sprites in the pre-boss cutscene.
    */
-  SetSpots(bossSpot: string | null, playerSpot: string | null): void;
+  SetSpots(bossSpot: string | undefined, playerSpot: string | undefined): void;
 
   /** Sets the available bosses for the stage. */
   SetBosses(bossIDs: int[]): void;

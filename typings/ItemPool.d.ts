@@ -24,7 +24,7 @@ declare interface ItemPool {
   GetPill(seed: int): PillColor | int;
   /**
    * @param pillColor
-   * @param player Default is null.
+   * @param player Default is undefined.
    */
   GetPillEffect(
     pillColor: PillColor | int,

@@ -13,7 +13,7 @@ declare interface ModConfigMenuInterface {
     subcategoryName: string,
     textFunction: () => string,
   ): void;
-  GetCategoryIDByName(categoryName: string): int | null;
+  GetCategoryIDByName(categoryName: string): int | undefined;
 
   Config: {
     General: {
@@ -41,13 +41,13 @@ declare interface ModConfigMenuSetting {
   CurrentSetting: () => number | boolean;
   Display: () => string;
   Info: string[];
-  Maximum?: number | null;
-  Minimum?: number | null;
-  ModifyBy?: number | null;
+  Maximum?: number;
+  Minimum?: number;
+  ModifyBy?: number;
   OnChange: (newValue: number | boolean) => void;
-  Popup?: (() => void) | null;
-  PopupGfx?: string | null;
-  PopupWidth?: int | null;
+  Popup?: () => void;
+  PopupGfx?: string;
+  PopupWidth?: int;
   Type: ModConfigMenuOptionType;
 }
 

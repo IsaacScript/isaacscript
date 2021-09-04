@@ -26,7 +26,7 @@ declare interface RoomDescriptorReadOnly {
    * To set this property, get a writable copy of the RoomDescriptor by using the
    * `Level.GetRoomByIdx()` method.
    */
-  Data: Readonly<RoomConfig> | Readonly<null>;
+  Data: Readonly<RoomConfig> | Readonly<undefined>;
   /**
    * To set this property, get a writable copy of the RoomDescriptor by using the
    * `Level.GetRoomByIdx()` method.

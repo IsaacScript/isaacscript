@@ -1,5 +1,5 @@
 declare interface PillConfigList {
-  Get(idx: int): ItemConfigPillEffect | null;
+  Get(idx: int): ItemConfigPillEffect | undefined;
 
   readonly Size: int;
 }

@@ -4,7 +4,7 @@ declare interface RoomDescriptor {
   ChallengeDone: boolean;
   Clear: boolean;
   ClearCount: int;
-  Data: RoomConfig | null;
+  Data: RoomConfig | undefined;
   DecorationSeed: int;
   DeliriumDistance: int;
   /**

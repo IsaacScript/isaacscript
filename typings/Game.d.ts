@@ -14,7 +14,7 @@ declare interface Game {
    * @param damage
    * @param radius
    * @param lineCheck Default is true.
-   * @param source Default is null.
+   * @param source Default is undefined.
    * @param tearFlags Default is TearFlags.TEAR_NORMAL.
    * @param damageFlags Default is DamageFlag.DAMAGE_EXPLOSION.
    * @param damageSource Default is false.
@@ -38,7 +38,7 @@ declare interface Game {
    * @param damage
    * @param tearFlags Default is TearFlags.TEAR_NORMAL.
    * @param color Default is Color.Default.
-   * @param source Default is null.
+   * @param source Default is undefined.
    * @param radiusMult Default is 1.
    * @param lineCheck Default is true.
    * @param damageSource Default is false.
@@ -63,7 +63,7 @@ declare interface Game {
    * @param position
    * @param radius
    * @param tearFlags
-   * @param source Default is null.
+   * @param source Default is undefined.
    * @param radiusMult Default is 1.
    */
   BombTearflagEffects(
@@ -99,7 +99,7 @@ declare interface Game {
   /**
    * @param position
    * @param radius Default is 85.
-   * @param source Default is null.
+   * @param source Default is undefined.
    * @param fartScale Default is 1.
    * @param fartSubType Default is 0
    * @param fartColor Default is Color.Default.
@@ -133,7 +133,8 @@ declare interface Game {
   GetNearestPlayer(position: Vector): EntityPlayer;
   GetNumEncounteredBosses(): int;
   GetNumPlayers(): int;
-  GetPlayer(index: int): EntityPlayer | null;
+  /** Use `Isaac.GetPlayer()` instead of this function. */
+  GetPlayer(fakeArg: never): EntityPlayer | undefined;
   GetRandomPlayer(position: Vector, radius: float): EntityPlayer;
   GetRoom(): Room;
   GetScreenShakeCountdown(): Readonly<int>;
@@ -174,7 +175,7 @@ declare interface Game {
     variant: int,
     position: Vector,
     velocity: Vector,
-    spawner: Entity | null,
+    spawner: Entity | undefined,
     subType: int,
     seed: int,
   ): Entity;
@@ -210,7 +211,7 @@ declare interface Game {
    * @param roomIndex
    * @param direction
    * @param roomTransition Default is RoomTransitionAnim.WALK.
-   * @param player Default is null.
+   * @param player Default is undefined.
    * @param dimension Default is Dimension.CURRENT.
    */
   StartRoomTransition(

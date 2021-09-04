@@ -24,7 +24,7 @@ declare interface EntityPickup extends Entity {
   PlayDropSound(): void;
   PlayPickupSound(): void;
   /**
-   * @param player Default is null.
+   * @param player Default is undefined.
    */
   TryOpenChest(player?: EntityPlayer): boolean;
 
