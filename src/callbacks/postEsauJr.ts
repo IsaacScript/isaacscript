@@ -53,7 +53,7 @@ function postUpdate() {
   }
   const player = getPlayerWithControllerIndex(v.run.usedEsauJrControllerIndex);
   v.run.usedEsauJrControllerIndex = null;
-  if (player === null) {
+  if (player === undefined) {
     return;
   }
 
@@ -72,7 +72,7 @@ function getPlayerWithControllerIndex(controllerIndex: int) {
     }
   }
 
-  return null;
+  return undefined;
 }
 
 // ModCallbacks.USE_ITEM (3)

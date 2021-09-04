@@ -38,7 +38,7 @@ export function getCurrentDimension(): Dimension {
   return 0;
 }
 
-export function getRoomData(): RoomConfig | null {
+export function getRoomData(): RoomConfig | undefined {
   const game = Game();
   const level = game.GetLevel();
   const roomIndex = getRoomIndex();
@@ -58,7 +58,7 @@ export function getRoomData(): RoomConfig | null {
 export function getRoomDataType(): int {
   const roomData = getRoomData();
 
-  if (roomData === null) {
+  if (roomData === undefined) {
     return -1;
   }
 
@@ -97,7 +97,7 @@ export function getRoomIndex(): int {
 export function getRoomStageID(): int {
   const roomData = getRoomData();
 
-  if (roomData === null) {
+  if (roomData === undefined) {
     return -1;
   }
 
@@ -115,7 +115,7 @@ export function getRoomStageID(): int {
 export function getRoomSubType(): int {
   const roomData = getRoomData();
 
-  if (roomData === null) {
+  if (roomData === undefined) {
     return -1;
   }
 
@@ -132,7 +132,7 @@ export function getRoomSubType(): int {
 export function getRoomVariant(): int {
   const roomData = getRoomData();
 
-  if (roomData === null) {
+  if (roomData === undefined) {
     return -1;
   }
 

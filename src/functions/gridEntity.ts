@@ -17,7 +17,7 @@ export function getGridEntities(): GridEntity[] {
   const gridEntities: GridEntity[] = [];
   for (let gridIndex = 0; gridIndex < gridSize; gridIndex++) {
     const gridEntity = room.GetGridEntity(gridIndex);
-    if (gridEntity !== null) {
+    if (gridEntity !== undefined) {
       gridEntities.push(gridEntity);
     }
   }
@@ -36,7 +36,7 @@ export function getSurroundingGridEntities(
   for (const delta of SURROUNDING_GRID_INDEXES_DELTA) {
     const surroundingGridIndex = gridIndex + delta;
     const surroundingGridEntity = room.GetGridEntity(surroundingGridIndex);
-    if (surroundingGridEntity !== null) {
+    if (surroundingGridEntity !== undefined) {
       surroundingGridEntities.push(surroundingGridEntity);
     }
   }

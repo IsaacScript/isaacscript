@@ -14,7 +14,7 @@ export function willPlayerRevive(player: EntityPlayer): boolean {
 
   const willRevive =
     player.WillPlayerRevive() ||
-    (trinketSituation !== null && willMysteriousPaperRevive(player));
+    (trinketSituation !== undefined && willMysteriousPaperRevive(player));
 
   giveTrinketsBack(player, trinketSituation);
 

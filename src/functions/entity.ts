@@ -59,7 +59,7 @@ export function getNPCs(): EntityNPC[] {
   const npcs: EntityNPC[] = [];
   for (const entity of Isaac.GetRoomEntities()) {
     const npc = entity.ToNPC();
-    if (npc !== null) {
+    if (npc !== undefined) {
       npcs.push(npc);
     }
   }

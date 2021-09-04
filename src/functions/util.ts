@@ -73,7 +73,7 @@ export function getCollectibleSet(): Set<CollectibleType | int> {
     collectibleType++
   ) {
     const itemConfigItem = itemConfig.GetCollectible(collectibleType);
-    if (itemConfigItem !== null) {
+    if (itemConfigItem !== undefined) {
       collectibleSet.add(collectibleType);
     }
   }

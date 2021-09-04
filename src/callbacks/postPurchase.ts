@@ -78,7 +78,7 @@ function checkPickupsPurchased(pickups: Entity[], players: EntityPlayer[]) {
 function storePickupsInMap(pickups: Entity[]) {
   for (const entity of pickups) {
     const pickup = entity.ToPickup();
-    if (pickup === null || pickup.Price === 0) {
+    if (pickup === undefined || pickup.Price === 0) {
       continue;
     }
 

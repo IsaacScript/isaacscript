@@ -7,7 +7,7 @@ export function getDoors(): GridEntityDoor[] {
   const doors: GridEntityDoor[] = [];
   for (let i = 0; i < MAX_NUM_DOORS; i++) {
     const door = room.GetDoor(i);
-    if (door !== null) {
+    if (door !== undefined) {
       doors.push(door);
     }
   }
@@ -15,48 +15,48 @@ export function getDoors(): GridEntityDoor[] {
   return doors;
 }
 
-export function getAngelRoomDoor(): GridEntityDoor | null {
+export function getAngelRoomDoor(): GridEntityDoor | undefined {
   for (const door of getDoors()) {
     if (isAngelRoomDoor(door)) {
       return door;
     }
   }
 
-  return null;
+  return undefined;
 }
 
-export function getDevilRoomDoor(): GridEntityDoor | null {
+export function getDevilRoomDoor(): GridEntityDoor | undefined {
   for (const door of getDoors()) {
     if (isDevilRoomDoor(door)) {
       return door;
     }
   }
 
-  return null;
+  return undefined;
 }
 
 /**
  * If there is both a Devil Room and an Angel Room door, this function will return door with the
  * lowest slot number.
  */
-export function getDevilRoomOrAngelRoomDoor(): GridEntityDoor | null {
+export function getDevilRoomOrAngelRoomDoor(): GridEntityDoor | undefined {
   for (const door of getDoors()) {
     if (isDevilRoomDoor(door) || isAngelRoomDoor(door)) {
       return door;
     }
   }
 
-  return null;
+  return undefined;
 }
 
-export function getRepentanceDoor(): GridEntityDoor | null {
+export function getRepentanceDoor(): GridEntityDoor | undefined {
   for (const door of getDoors()) {
     if (isRepentanceDoor(door)) {
       return door;
     }
   }
 
-  return null;
+  return undefined;
 }
 
 export function isAngelRoomDoor(door: GridEntityDoor): boolean {

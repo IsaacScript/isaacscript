@@ -264,7 +264,7 @@ function checkMetatable(table: LuaTable, traversalDescription: string) {
   // Lua tables can have metatables, which make writing a generic deep-cloner impossible
   // All TypeScriptToLua objects use metatables
   const metatable = getmetatable(table);
-  if (metatable === null) {
+  if (metatable === undefined) {
     return;
   }
 

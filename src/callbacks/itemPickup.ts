@@ -58,7 +58,7 @@ function queueEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
 function queueNotEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
   const queuedItem = player.QueuedItem.Item;
 
-  if (queuedItem !== null && queuedItem.ID !== pickingUpItem.id) {
+  if (queuedItem !== undefined && queuedItem.ID !== pickingUpItem.id) {
     // Record which item we are picking up
     pickingUpItem.id = queuedItem.ID;
     pickingUpItem.type = queuedItem.Type;

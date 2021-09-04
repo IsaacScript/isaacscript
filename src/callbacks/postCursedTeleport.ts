@@ -60,7 +60,7 @@ function setDamageFrame(tookDamage: Entity, damageFlags: int) {
   const gameFrameCount = game.GetFrameCount();
 
   const player = tookDamage.ToPlayer();
-  if (player === null) {
+  if (player === undefined) {
     return;
   }
   const playerIndex = getPlayerIndex(player);

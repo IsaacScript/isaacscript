@@ -20,9 +20,9 @@ export interface TrinketSituation {
 export function temporarilyRemoveTrinkets(
   player: EntityPlayer,
   trinketType: TrinketType,
-): TrinketSituation | null {
+): TrinketSituation | undefined {
   if (!player.HasTrinket(trinketType)) {
-    return null;
+    return undefined;
   }
 
   const trinket1 = player.GetTrinket(0);
@@ -61,11 +61,11 @@ export function temporarilyRemoveTrinkets(
  */
 export function giveTrinketsBack(
   player: EntityPlayer,
-  trinketSituation: TrinketSituation | null,
+  trinketSituation: TrinketSituation | undefined,
 ): void {
-  // A trinket situation of null signifies that we did not have to remove the trinket
+  // A trinket situation of undefined signifies that we did not have to remove the trinket
   // If this is the case, we do not have to give anything back
-  if (trinketSituation === null) {
+  if (trinketSituation === undefined) {
     return;
   }
 

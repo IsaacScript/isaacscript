@@ -56,7 +56,7 @@ export function init(mod: ModUpgraded): void {
 
 // InputHook.IS_ACTION_PRESSED (0)
 function isActionPressed(
-  _entity: Entity | null,
+  _entity: Entity | undefined,
   _inputHook: InputHook,
   buttonAction: ButtonAction,
 ) {
@@ -65,7 +65,7 @@ function isActionPressed(
 
 // InputHook.IS_ACTION_TRIGGERED (1)
 function isActionTriggered(
-  _entity: Entity | null,
+  _entity: Entity | undefined,
   _inputHook: InputHook,
   buttonAction: ButtonAction,
 ) {
@@ -74,7 +74,7 @@ function isActionTriggered(
 
 // InputHook.GET_ACTION_VALUE (2)
 function getActionValue(
-  _entity: Entity | null,
+  _entity: Entity | undefined,
   _inputHook: InputHook,
   buttonAction: ButtonAction,
 ) {

@@ -5,7 +5,7 @@ export function collectibleHasTag(
   const itemConfig = Isaac.GetItemConfig();
 
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
-  if (itemConfigItem === null) {
+  if (itemConfigItem === undefined) {
     return false;
   }
 
@@ -18,7 +18,7 @@ export function getCollectibleInitCharges(
   const itemConfig = Isaac.GetItemConfig();
 
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
-  if (itemConfigItem === null) {
+  if (itemConfigItem === undefined) {
     return 0;
   }
 
@@ -31,7 +31,7 @@ export function getCollectibleMaxCharges(
   const itemConfig = Isaac.GetItemConfig();
 
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
-  if (itemConfigItem === null) {
+  if (itemConfigItem === undefined) {
     return 0;
   }
 
@@ -62,7 +62,7 @@ export function getItemName(
     ? itemConfig.GetTrinket(collectibleOrTrinketType)
     : itemConfig.GetCollectible(collectibleOrTrinketType);
 
-  if (itemConfigItem === null) {
+  if (itemConfigItem === undefined) {
     return defaultName;
   }
 

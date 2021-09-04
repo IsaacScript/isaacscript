@@ -45,7 +45,7 @@ function postUpdate() {
   // so
   for (const [gridIndex, gridEntityType] of v.room.initializedGridEntities) {
     const gridEntity = room.GetGridEntity(gridIndex);
-    if (gridEntity === null || gridEntity.GetType() !== gridEntityType) {
+    if (gridEntity === undefined || gridEntity.GetType() !== gridEntityType) {
       v.room.initializedGridEntities.delete(gridIndex);
       postGridEntityRemove.fire(gridIndex, gridEntityType);
     }

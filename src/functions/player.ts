@@ -128,19 +128,19 @@ export function getNewestPlayer(): EntityPlayer {
  * ```
  * const player = Isaac.GetPlayer();
  * const trinketSlot = getOpenTrinketSlotNum(player);
- * if (trinketSlot !== null) {
+ * if (trinketSlot !== undefined) {
  *   // They have one or more open trinket slots
  *   player.AddTrinket(TrinketType.TRINKET_SWALLOWED_PENNY);
  * }
  * ```
  */
-export function getOpenTrinketSlot(player: EntityPlayer): int | null {
+export function getOpenTrinketSlot(player: EntityPlayer): int | undefined {
   const maxTrinkets = player.GetMaxTrinkets();
   const trinket0 = player.GetTrinket(0);
   const trinket1 = player.GetTrinket(1);
 
   if (maxTrinkets === 1) {
-    return trinket0 === TrinketType.TRINKET_NULL ? 0 : null;
+    return trinket0 === TrinketType.TRINKET_NULL ? 0 : undefined;
   }
 
   if (maxTrinkets === 2) {
@@ -148,11 +148,11 @@ export function getOpenTrinketSlot(player: EntityPlayer): int | null {
       return 0;
     }
 
-    return trinket1 === TrinketType.TRINKET_NULL ? 1 : null;
+    return trinket1 === TrinketType.TRINKET_NULL ? 1 : undefined;
   }
 
   error(`The player has an unknown number of trinket slots: ${maxTrinkets}`);
-  return null;
+  return undefined;
 }
 
 /**
@@ -163,14 +163,14 @@ export function getOpenTrinketSlot(player: EntityPlayer): int | null {
 export function getPlayerCloserThan(
   position: Vector,
   distance: float,
-): EntityPlayer | null {
+): EntityPlayer | undefined {
   for (const player of getPlayers()) {
     if (player.Position.Distance(position) <= distance) {
       return player;
     }
   }
 
-  return null;
+  return undefined;
 }
 
 /**
@@ -199,7 +199,7 @@ export function getPlayerCollectibleMap(
 
 export function getPlayerFromIndex(
   playerIndex: PlayerIndex,
-): EntityPlayer | null {
+): EntityPlayer | undefined {
   for (const player of getPlayers()) {
     const existingPlayerIndex = getPlayerIndex(player);
     if (existingPlayerIndex === playerIndex) {
@@ -207,12 +207,12 @@ export function getPlayerFromIndex(
     }
   }
 
-  return null;
+  return undefined;
 }
 
 /**
- * This function always excludes players with a non-null parent, since they are not real players
- * (e.g. the Strawman Keeper).
+ * This function always excludes players with a non-undefined parent, since they are not real
+ * players. (e.g. the Strawman Keeper)
  *
  * @param performExclusions Whether or not to exclude characters that are not directly controlled by
  * the player (i.e. Esau & Tainted Soul). False by default.
@@ -223,7 +223,7 @@ export function getPlayers(performExclusions = false): EntityPlayer[] {
   const players: EntityPlayer[] = [];
   for (let i = 0; i < game.GetNumPlayers(); i++) {
     const player = Isaac.GetPlayer(i);
-    if (player === null) {
+    if (player === undefined) {
       continue;
     }
 
@@ -298,14 +298,16 @@ export function getPlayerIndex(player: EntityPlayer): PlayerIndex {
  * Helper function to return the index of this player with respect to the output of the
  * `Isaac.GetPlayer()` function.
  */
-export function getPlayerIndexVanilla(playerToFind: EntityPlayer): int | null {
+export function getPlayerIndexVanilla(
+  playerToFind: EntityPlayer,
+): int | undefined {
   const game = Game();
 
   const playerToFindHash = GetPtrHash(playerToFind);
 
   for (let i = 0; i < game.GetNumPlayers(); i++) {
     const player = Isaac.GetPlayer(i);
-    if (player === null) {
+    if (player === undefined) {
       continue;
     }
 
@@ -315,7 +317,7 @@ export function getPlayerIndexVanilla(playerToFind: EntityPlayer): int | null {
     }
   }
 
-  return null;
+  return undefined;
 }
 
 /**
@@ -501,15 +503,15 @@ export function hasOpenTrinketSlot(player: EntityPlayer): boolean {
   }
 
   const openTrinketSlot = getOpenTrinketSlot(player);
-  return openTrinketSlot !== null;
+  return openTrinketSlot !== undefined;
 }
 
 /**
- * Some players are "child" players, meaning that they have a non-null Parent property.
+ * Some players are "child" players, meaning that they have a non-undefined Parent property.
  * (For example, the Strawman Keeper.)
  */
 export function isChildPlayer(player: EntityPlayer): boolean {
-  return player.Parent !== null;
+  return player.Parent !== undefined;
 }
 
 export function isFirstPlayer(player: EntityPlayer): boolean {

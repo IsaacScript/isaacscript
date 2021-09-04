@@ -17,9 +17,6 @@ export function loadFromDisk(
 
   // First, read the "save#.dat" file into a Lua table
   const jsonString = readSaveDatFile(mod);
-  if (jsonString === null) {
-    return;
-  }
   const newSaveData = jsonDecode(jsonString);
 
   if (DEBUG) {
@@ -72,6 +69,10 @@ function readSaveDatFile(mod: Mod) {
     log(
       `Failed to read from the "save#.dat" file on Isaac frame ${isaacFrameCount}: ${jsonStringOrErrMsg}`,
     );
+    return DEFAULT_MOD_DATA;
+  }
+
+  if (jsonStringOrErrMsg === undefined) {
     return DEFAULT_MOD_DATA;
   }
 

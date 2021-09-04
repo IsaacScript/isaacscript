@@ -36,7 +36,7 @@ function entityTakeDmgPlayer(
   }
 
   const player = tookDamage.ToPlayer();
-  if (player === null) {
+  if (player === undefined) {
     return;
   }
 

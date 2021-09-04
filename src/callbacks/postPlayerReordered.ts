@@ -101,7 +101,7 @@ function dequeue(
 ) {
   for (const playerIndex of playerIndexes) {
     const player = getPlayerFromIndex(playerIndex);
-    if (player === null) {
+    if (player === undefined) {
       continue;
     }
 
