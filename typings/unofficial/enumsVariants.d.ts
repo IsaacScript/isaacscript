@@ -208,6 +208,28 @@ declare const enum PoopVariant {
   CHARMING = 11,
 }
 
+/** GridEntityType.GRID_TRAPDOOR (17) */
+declare const enum TrapdoorVariant {
+  /** Trapdoors of non-zero variants will function equivalently to those of variant zero. */
+  NORMAL = 0,
+}
+
+/** GridEntityType.GRID_STAIRS (18) */
+declare const enum StairsVariant {
+  NORMAL = 0,
+  /** Found by throwing a Chaos Card at Great Gideon. */
+  GREAT_GIDEON = 1,
+  /** Found in shops when the player has the Member Card item. */
+  SECRET_SHOP = 2,
+  /** Found when using Genesis on a "final" floor. */
+  PASSAGE_TO_BEGINNING_OF_FLOOR = 3,
+  /**
+   * This variant is not used by the game.
+   * Any variant with a value of 4 or higher will not interact with the player.
+   */
+  NULL = 4,
+}
+
 /** For GridEntityType.GRID_PRESSURE_PLATE (20) */
 declare const enum PressurePlateVariant {
   PRESSURE_PLATE = 0,
