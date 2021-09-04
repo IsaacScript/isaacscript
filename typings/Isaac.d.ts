@@ -78,11 +78,12 @@ declare global {
     ): Entity[];
     /**
      * Beware:
-     * - this function does not work in the PostNewRoom() callback
+     * - this function does not work in the PostNewRoom callback
      * - it excludes effects, even when the effect partition is selected
      * - it can exclude dead enemies
      *
-     * It is recommended to never use this function and instead use `Isaac.GetRoomEntities()`.
+     * It is recommended to never use this function and instead use `Isaac.FindByType()` or
+     * `Isaac.GetRoomEntities()`.
      *
      * @param position
      * @param radius

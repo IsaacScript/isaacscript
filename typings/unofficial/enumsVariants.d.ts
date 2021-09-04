@@ -86,6 +86,17 @@ declare const enum PinVariant {
   WORMWOOD = 3,
 }
 
+/** For EntityType.ENTITY_GEMINI (79) */
+declare const enum GeminiVariant {
+  GEMINI = 0,
+  STEVEN = 1,
+  BLIGHTED_OVUM = 2,
+  GEMINI_BABY = 10,
+  STEVEN_BABY = 11,
+  BLIGHTED_OVUM_BABY = 12,
+  UMBILICAL_CORD = 20,
+}
+
 /** For EntityType.ENTITY_FALLEN (81) */
 declare const enum FallenVariant {
   FALLEN = 0,
