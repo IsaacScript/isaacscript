@@ -90,7 +90,14 @@ export function getClosestPlayer(position: Vector): EntityPlayer {
  * The Lost and Tainted Lost use a 38 frame death animation (i.e. the "LostDeath" animation).
  */
 export function getDeathAnimationName(player: EntityPlayer): string {
-  return isLost(player) ? "LostDeath" : "Death";
+  const character = player.GetPlayerType();
+  const isLostTypeCharacter =
+    character === PlayerType.PLAYER_THELOST ||
+    character === PlayerType.PLAYER_THELOST_B ||
+    character === PlayerType.PLAYER_THESOUL ||
+    character === PlayerType.PLAYER_THESOUL_B;
+
+  return isLostTypeCharacter ? "LostDeath" : "Death";
 }
 
 /**
