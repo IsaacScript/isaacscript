@@ -51,7 +51,7 @@ This callback is useful for two reasons:
 1. Normally, PostPlayerUpdate fires before PostGameStarted. Since mod variables are often initialized at the beginning of the PostGameStarted callback, this can cause problems.
 1. Some functions do not work (or crash the game) when called before the PostNewRoom callback. For example, since the level is not generated yet, you will not be able to access any rooms.
 
-- When registering the callback, takes an optional second argument that will make the callback only fire if the player matches the `PlayerVariant` provided.
+When registering the callback, takes an optional second argument that will make the callback only fire if the player matches the `PlayerVariant` provided.
 
 ```ts
 function postPlayerInitReordered(player: EntityPlayer): void {}
@@ -66,7 +66,7 @@ This callback is useful for two reasons:
 1. Normally, PostPlayerUpdate fires before PostGameStarted. Since mod variables are often initialized at the beginning of the PostGameStarted callback, this can cause problems.
 1. Some functions do not work (or crash the game) when called before the PostNewRoom callback. For example, since the level is not generated yet, you will not be able to access any rooms.
 
-- When registering the callback, takes an optional second argument that will make the callback only fire if the player matches the `PlayerVariant` provided.
+When registering the callback, takes an optional second argument that will make the callback only fire if the player matches the `PlayerVariant` provided.
 
 ```ts
 function postPlayerUpdateReordered(player: EntityPlayer): void {}
@@ -78,7 +78,7 @@ Fires on the first MC_POST_PICKUP_UPDATE frame for each player.
 
 This callback is useful because many attributes cannot be set or retrieved properly in the normal MC_POST_PLAYER_INIT callback.
 
-- When registering the callback, takes an optional second argument that will make the callback only fire if the player variant matches the `PlayerVariant` provided.
+When registering the callback, takes an optional second argument that will make the callback only fire if the player variant matches the `PlayerVariant` provided.
 
 ```ts
 function postPlayerInitLate(pickup: EntityPickup): void {}
@@ -90,7 +90,7 @@ Fires on the first MC_POST_PICKUP_UPDATE frame for each pickup.
 
 This callback is useful because many attributes cannot be set or retrieved properly in the normal MC_POST_PICKUP_INIT callback.
 
-- When registering the callback, takes an optional second argument that will make the callback only fire if the pickup variant matches the `PickupVariant` provided.
+When registering the callback, takes an optional second argument that will make the callback only fire if the pickup variant matches the `PickupVariant` provided.
 
 ```ts
 function postPickupInitLate(pickup: EntityPickup): void {}
@@ -102,7 +102,7 @@ Fires on the first MC_POST_LASER_UPDATE frame for each laser.
 
 This callback is useful because many attributes cannot be set or retrieved properly in the normal MC_POST_LASER_INIT callback.
 
-- When registering the callback, takes an optional second argument that will make the callback only fire if the laser variant matches the `PickupLaser` provided.
+When registering the callback, takes an optional second argument that will make the callback only fire if the laser variant matches the `PickupLaser` provided.
 
 ```ts
 function postLaserInitLate(laser: EntityLaser): void {}
@@ -114,7 +114,7 @@ Fires on the first MC_POST_RENDER frame that a pickup plays the "Collect" animat
 
 Use this callback to know when a pickup is added to the player's inventory or health.
 
-- When registering the callback, takes an optional second argument that will make the callback only fire if the pickup variant matches the `PickupVariant` provided.
+When registering the callback, takes an optional second argument that will make the callback only fire if the pickup variant matches the `PickupVariant` provided.
 
 ```ts
 function postPickupCollect(pickup: EntityPickup, player: EntityPlayer): void {}
@@ -162,11 +162,11 @@ function postPlayerChangeType(player: EntityPlayer) {}
 
 Fires on the MC_POST_UPDATE frame when a player entity gains or loses any health (i.e. hearts).
 
+When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `PlayerVariant` provided.
+
 ```ts
 function postPlayerChangeHealth(player: EntityPlayer, healthType: HealthType, amount: int) {}
 ```
-
-- When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `PlayerVariant` provided.
 
 ### MC_POST_PLAYER_FATAL_DAMAGE
 
@@ -174,7 +174,7 @@ Fires from the MC_ENTITY_TAKE_DMG callback when a player takes fatal damage. Ret
 
 Note that this function does properly take into account Guppy's Collar, Broken Ankh, and Mysterious Paper. It does not take into account Spirit Shackles, since that isn't a "real" revival item. For detecting Spirit Shackles, use the `willReviveFromSpiritShackles()` helper function.
 
-- When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `PlayerVariant` provided.
+When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `PlayerVariant` provided.
 
 ```ts
 function postPlayerFatalDamage(player: EntityPlayer) {}
@@ -196,7 +196,7 @@ Fires from the MC_POST_PLAYER_UPDATE callback after the player has finished the 
 
 In this callback, you must play an animation with something along the lines of `player.AnimateCollectible(CollectibleTypeCustom.COLLECTIBLE_MY_REVIVAL_ITEM);`, otherwise the animation for a 1-Up will play.
 
-- When registering the callback, takes an optional second argument that will make the callback only fire if the revival type matches the one provided.
+When registering the callback, takes an optional second argument that will make the callback only fire if the revival type matches the one provided.
 
 ```ts
 function postCustomRevive(player: EntityPlayer, revivalType: int) {}
@@ -244,10 +244,26 @@ function postFirstEsauJr(player: EntityPlayer): void {}
 
 Fires on the frame that a player gains or loses a new transformation.
 
-- When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `PlayerForm` provided.
+When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `PlayerForm` provided.
 
 ```ts
 function postTransformation(player: EntityPlayer, playerForm: PlayerForm, hasForm: boolean): void {}
+```
+
+### MC_POST_PURCHASE
+
+Fires on the MC_POST_UPDATE frame that a pickup with a price disappears. The player who purchased it is assumed to be the player that was not holding anything on the previous frame but is holding something now.
+
+- When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `PickupVariant` provided.
+- When registering the callback, takes an optional third argument that will make the callback only fire if it matches the subtype provided.
+
+```ts
+function postPurchase(
+  player: EntityPlayer,
+  pickupVariant: PickupVariant,
+  pickupSubType: int,
+  pickupPrice: int,
+): void {}
 ```
 
 ### MC_POST_SACRIFICE
