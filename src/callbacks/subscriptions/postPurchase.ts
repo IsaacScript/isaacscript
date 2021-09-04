@@ -5,14 +5,20 @@ export type PostPurchaseCallbackType = (
   pickupPrice: int,
 ) => void;
 
-const subscriptions: Array<[PostPurchaseCallbackType]> = [];
+const subscriptions: Array<
+  [PostPurchaseCallbackType, PickupVariant | undefined, int | undefined]
+> = [];
 
 export function hasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-export function register(callback: PostPurchaseCallbackType): void {
-  subscriptions.push([callback]);
+export function register(
+  callback: PostPurchaseCallbackType,
+  pickupVariant?: PickupVariant,
+  pickupSubType?: int,
+): void {
+  subscriptions.push([callback, pickupVariant, pickupSubType]);
 }
 
 export function fire(
