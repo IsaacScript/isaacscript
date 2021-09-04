@@ -86,6 +86,14 @@ export function getClosestPlayer(position: Vector): EntityPlayer {
 }
 
 /**
+ * Most characters have a 56 frame death animation (i.e. the "Death" animation).
+ * The Lost and Tainted Lost use a 38 frame death animation (i.e. the "LostDeath" animation).
+ */
+export function getDeathAnimationName(player: EntityPlayer): string {
+  return isLost(player) ? "LostDeath" : "Death";
+}
+
+/**
  * Helper function to get the first player with the lowest frame count of 0. Useful to find a
  * freshly spawned player after using items like Esau Jr.
  */
