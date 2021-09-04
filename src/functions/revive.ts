@@ -1,3 +1,4 @@
+import { isLost } from "./player";
 import { getFinalFrameOfAnimation } from "./sprite";
 import { giveTrinketsBack, temporarilyRemoveTrinkets } from "./trinkets";
 
@@ -33,9 +34,12 @@ export function willMysteriousPaperRevive(player: EntityPlayer): boolean {
   const gameFrameCount = game.GetFrameCount();
   const sprite = player.GetSprite();
 
-  // All vanilla characters have a 56 frame death animation, but we might be playing on a modded
-  // character that has a custom death animation
-  const deathAnimationFrames = getFinalFrameOfAnimation(sprite, "Death");
+  // Most vanilla characters have a 56 frame death animation (i.e. the "Death" animation)
+  // The Lost and Tainted Lost use a 38 frame death animation (i.e. the "LostDeath" animation)
+  // We want to explicitly check the length of the death animation because we might be playing on a
+  // modded character that has a custom death animation
+  const animation = isLost(player) ? "LostDeath" : "Death";
+  const deathAnimationFrames = getFinalFrameOfAnimation(sprite, animation);
   const frameOfDeath = gameFrameCount + deathAnimationFrames + 1;
   // (we add 1 because it takes one frame for the death animation to begin)
 

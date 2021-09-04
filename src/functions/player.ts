@@ -514,13 +514,25 @@ export function isJacobOrEsau(player: EntityPlayer): boolean {
   );
 }
 
-/** Helper function for detecting when a player is Keeper or Tainted Keeper. */
+/**
+ * Helper function for detecting when a player is Keeper or Tainted Keeper. Useful for situations
+ * where you want to know if the health is coin hearts, for example.
+ */
 export function isKeeper(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
 
   return (
     character === PlayerType.PLAYER_KEEPER ||
     character === PlayerType.PLAYER_KEEPER_B
+  );
+}
+
+export function isLost(player: EntityPlayer): boolean {
+  const character = player.GetPlayerType();
+
+  return (
+    character === PlayerType.PLAYER_THELOST ||
+    character === PlayerType.PLAYER_THELOST_B
   );
 }
 
