@@ -5,7 +5,7 @@ interface MinimapAPIInterface {
     Disable: boolean;
   };
 
-  GetRoomByIdx(roomIndex: int): MinimapAPIRoomDescriptor;
+  GetRoomByIdx(roomIndex: int): MinimapAPIRoomDescriptor | undefined;
 }
 
 interface MinimapAPIRoomDescriptor {
