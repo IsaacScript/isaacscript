@@ -100,7 +100,7 @@ function entityTakeDmg(
 ### MC_POST_CURSE_EVAL (12)
 
 ```ts
-function postCurseEval(curses: LevelCurse | int): LevelCurse | int | void {}
+function postCurseEval(curses: int): int | void {}
 ```
 
 ### MC_INPUT_ACTION (13)
