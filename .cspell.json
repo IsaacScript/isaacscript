@@ -13,6 +13,7 @@
         "entcoll",
         "getinfo",
         "getmetatable",
+        "gsub",
         "guppys",
         "hitbox",
         "ipairs",

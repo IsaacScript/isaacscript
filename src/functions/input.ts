@@ -37,7 +37,9 @@ export function isKeyboardPressed(key: Keyboard): boolean {
 export function keyboardToString(keyboard: Keyboard): string {
   for (const [keyName, keyCode] of pairs(Keyboard)) {
     if (keyCode === keyboard) {
-      return keyName;
+      const withoutPrefix = keyName.slice("KEY_".length);
+      const [withoutUnderscores] = string.gsub(withoutPrefix, "_", " ");
+      return withoutUnderscores;
     }
   }
 
