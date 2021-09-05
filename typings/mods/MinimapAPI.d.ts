@@ -1,6 +1,6 @@
-declare const MinimapAPI: MinimapAPIObject | undefined;
+declare const MinimapAPI: MinimapAPIInterface | undefined;
 
-interface MinimapAPIObject {
+interface MinimapAPIInterface {
   Config: {
     Disable: boolean;
   };
