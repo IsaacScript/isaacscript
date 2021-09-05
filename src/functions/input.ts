@@ -33,6 +33,7 @@ export function isKeyboardPressed(key: Keyboard): boolean {
   return Input.IsButtonPressed(key, ControllerIndex.KEYBOARD);
 }
 
+/** Helper function to get the enum name for the specified `Keyboard` value. */
 export function keyboardToString(keyboard: Keyboard): string {
   for (const [keyName, keyCode] of pairs(Keyboard)) {
     if (keyCode === keyboard) {
