@@ -44,7 +44,8 @@ declare interface ModConfigMenuSetting {
   Maximum?: number;
   Minimum?: number;
   ModifyBy?: number;
-  OnChange: (newValue: number | boolean) => void;
+  /** This will be undefined if the user canceled the popup dialog. */
+  OnChange: (newValue: number | boolean | undefined) => void;
   Popup?: () => void;
   PopupGfx?: string;
   PopupWidth?: int;
