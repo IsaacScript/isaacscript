@@ -30,6 +30,13 @@ export const MAX_NUM_INPUTS = 4;
 export const MAX_PLAYER_POCKET_ITEM_SLOTS = 4;
 
 /**
+ * The floor is represented by a 13x13 grid. Room indexes start at 0. The first row is represented
+ * by grid indexes from 0 to 12. The second row is represented by grid indexes from 13 to 25, and so
+ * on. The maximum room index possible is 168. (It is not 169 because we start at 0 instead of 1.)
+ */
+export const MAX_ROOM_INDEX = 168;
+
+/**
  * As the player continues to move in a direction, they will accelerate. When going from one wall to
  * another in a 2x2 room at 2.0 speed (the maximum that the speed stat can rise to), the amount of
  * units moved per update frame will climb to around 9.797 as they hit the opposite wall. The

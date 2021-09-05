@@ -1,4 +1,4 @@
-import { GENESIS_ROOM_VARIANT } from "../constants";
+import { GENESIS_ROOM_VARIANT, MAX_ROOM_INDEX } from "../constants";
 
 /**
  * Helper function for quickly switching to a new room without playing a particular animation.
@@ -85,6 +85,32 @@ export function getRoomIndex(): int {
   // SafeGridIndex is equal to the top-left index of the room
   const roomDesc = level.GetCurrentRoomDesc();
   return roomDesc.SafeGridIndex;
+}
+
+/**
+ * Helper function to get the safe grid index of the first room that matches the specified room
+ * type. If there are multiple rooms of the specified room type, it will return the first one found
+ * (while searching in order from top-left to bottom-right).
+ *
+ * This function only searches through rooms in the current dimension.
+ */
+export function getRoomIndexForType(roomType: RoomType): int | undefined {
+  const game = Game();
+  const level = game.GetLevel();
+
+  // We do not use the "GetRooms()" method since it returns extra-dimensional rooms
+  for (let i = 0; i <= MAX_ROOM_INDEX; i++) {
+    const room = level.GetRoomByIdx(i);
+    if (
+      room !== undefined &&
+      room.Data !== undefined &&
+      room.Data.Type === roomType
+    ) {
+      return room.SafeGridIndex;
+    }
+  }
+
+  return undefined;
 }
 
 /**
