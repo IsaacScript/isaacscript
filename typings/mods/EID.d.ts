@@ -1,4 +1,4 @@
-declare const EID: ExternalItemDescriptions;
+declare const EID: EIDInterface | undefined;
 
 declare interface EIDDescriptionObject {
   ItemType: int;
@@ -33,7 +33,7 @@ declare type EIDTransformationTargetType =
   | "pill"
   | "entity";
 
-declare interface ExternalItemDescriptions {
+declare interface EIDInterface {
   /** Gets the size of the screen. */
   GetScreenSize(): Vector;
 

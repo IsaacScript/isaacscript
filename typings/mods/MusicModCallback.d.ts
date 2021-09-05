@@ -1,4 +1,4 @@
-declare const MMC: MusicModCallback;
+declare const MMC: MusicModCallback | undefined;
 
 declare interface MusicModCallback {
   /**

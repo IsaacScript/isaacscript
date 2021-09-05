@@ -59,7 +59,6 @@ declare interface LuaRoomEntity extends LuaRoomGenericEntity {
   };
 }
 
-// ----- Layout entity enums -----
 declare const enum LayoutGridType {
   ROCK = 1000,
   ROCK_ALT = 1002,

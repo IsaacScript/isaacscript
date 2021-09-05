@@ -1,4 +1,4 @@
-declare const ModConfigMenu: ModConfigMenuInterface;
+declare const ModConfigMenu: ModConfigMenuInterface | undefined;
 
 /** @noSelf */
 declare interface ModConfigMenuInterface {
