@@ -10,6 +10,7 @@
         "cloner",
         "decap",
         "deserialization",
+        "DPAD",
         "entcoll",
         "getinfo",
         "getmetatable",
