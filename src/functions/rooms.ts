@@ -88,17 +88,17 @@ export function getRoomIndex(): int {
 }
 
 /**
- * Helper function to get the safe grid index of the first room that matches the specified room
- * type. If there are multiple rooms of the specified room type, it will return the first one found
- * (while searching in order from top-left to bottom-right).
+ * Helper function to get an array of all of the safe grid indexes for rooms that match the
+ * specified room type.
  *
  * This function only searches through rooms in the current dimension.
  */
-export function getRoomIndexForType(roomType: RoomType): int | undefined {
+export function getRoomIndexesForType(roomType: RoomType): int[] {
   const game = Game();
   const level = game.GetLevel();
 
   // We do not use the "GetRooms()" method since it returns extra-dimensional rooms
+  const roomIndexes: int[] = [];
   for (let i = 0; i <= MAX_ROOM_INDEX; i++) {
     const room = level.GetRoomByIdx(i);
     if (
@@ -106,11 +106,11 @@ export function getRoomIndexForType(roomType: RoomType): int | undefined {
       room.Data !== undefined &&
       room.Data.Type === roomType
     ) {
-      return room.SafeGridIndex;
+      roomIndexes.push(room.SafeGridIndex);
     }
   }
 
-  return undefined;
+  return roomIndexes;
 }
 
 /**
