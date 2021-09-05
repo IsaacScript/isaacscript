@@ -1,5 +1,7 @@
 import { GENESIS_ROOM_VARIANT, MAX_ROOM_INDEX } from "../constants";
 
+const IT_LIVES_ROOM_VARIANTS = [1090, 1091, 1092, 1093, 1094];
+
 /**
  * Helper function for quickly switching to a new room without playing a particular animation.
  * Always use this helper function over invoking `Game().ChangeRoom()` directly to ensure that you
@@ -249,5 +251,17 @@ export function inGenesisRoom(): boolean {
 
   return (
     roomType === RoomType.ROOM_ISAACS || roomVariant === GENESIS_ROOM_VARIANT
+  );
+}
+
+export function inItLivesRoom(): boolean {
+  const game = Game();
+  const room = game.GetRoom();
+  const roomType = room.GetType();
+  const roomVariant = getRoomVariant();
+
+  return (
+    roomType === RoomType.ROOM_BOSS &&
+    IT_LIVES_ROOM_VARIANTS.includes(roomVariant)
   );
 }
