@@ -79,9 +79,7 @@ interface CallbackParameters {
     ) => boolean | void,
     entityType?: EntityType | int,
   ];
-  [ModCallbacks.MC_POST_CURSE_EVAL]: [
-    callback: (curses: LevelCurse | int) => LevelCurse | int | void,
-  ];
+  [ModCallbacks.MC_POST_CURSE_EVAL]: [callback: (curses: int) => int | void];
   [ModCallbacks.MC_INPUT_ACTION]: [
     callback: (
       entity: Entity | undefined,
