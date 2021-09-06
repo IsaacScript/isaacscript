@@ -1,6 +1,8 @@
 import { GENESIS_ROOM_VARIANT, MAX_ROOM_INDEX } from "../constants";
 
 const IT_LIVES_ROOM_VARIANTS = [1090, 1091, 1092, 1093, 1094];
+const BLUE_BABY_ROOM_VARIANTS = [3390, 3391, 3392, 3393];
+const LAMB_ROOM_VARIANTS = [5130];
 
 /**
  * Helper function for quickly switching to a new room without playing a particular animation.
@@ -215,6 +217,16 @@ export function inBeastRoom(): boolean {
   );
 }
 
+export function inBlueBabyRoom(): boolean {
+  const roomStageID = getRoomStageID();
+  const roomVariant = getRoomVariant();
+
+  return (
+    roomStageID === StageID.SPECIAL_ROOMS &&
+    BLUE_BABY_ROOM_VARIANTS.includes(roomVariant)
+  );
+}
+
 /**
  * Helper function for determining whether the current room is a crawlspace. Use this function over
  * comparing to `GridRooms.ROOM_DUNGEON_IDX` directly since there is a special case of the player
@@ -240,6 +252,16 @@ export function inLRoom(): boolean {
     roomShape === RoomShape.ROOMSHAPE_LTR ||
     roomShape === RoomShape.ROOMSHAPE_LBL ||
     roomShape === RoomShape.ROOMSHAPE_LBR
+  );
+}
+
+export function inLambRoom(): boolean {
+  const roomStageID = getRoomStageID();
+  const roomVariant = getRoomVariant();
+
+  return (
+    roomStageID === StageID.SPECIAL_ROOMS &&
+    LAMB_ROOM_VARIANTS.includes(roomVariant)
   );
 }
 
