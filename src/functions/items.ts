@@ -1,3 +1,5 @@
+import { COLLECTIBLE_SPRITE_LAYER } from "../constants";
+
 export function collectibleHasTag(
   collectibleType: CollectibleType | int,
   tag: ItemConfigTag,
@@ -96,4 +98,19 @@ export function removeItemFromItemTracker(
   Isaac.DebugString(
     `Removing voided collectible ${collectibleType} (${itemName}) from player 0 (Player)`,
   );
+}
+
+export function setCollectibleBlind(pickup: EntityPickup): void {
+  if (pickup.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
+    error(
+      `The "setCollectibleBlind()" function only works on collectibles and this is a pickup of variant: ${pickup.Variant}`,
+    );
+  }
+
+  const sprite = pickup.GetSprite();
+  sprite.ReplaceSpritesheet(
+    COLLECTIBLE_SPRITE_LAYER,
+    "gfx/items/collectibles/questionmark.png",
+  );
+  sprite.LoadGraphics();
 }
