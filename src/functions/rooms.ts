@@ -255,13 +255,11 @@ export function inGenesisRoom(): boolean {
 }
 
 export function inItLivesRoom(): boolean {
-  const game = Game();
-  const room = game.GetRoom();
-  const roomType = room.GetType();
+  const roomStageID = getRoomStageID();
   const roomVariant = getRoomVariant();
 
   return (
-    roomType === RoomType.ROOM_BOSS &&
+    roomStageID === StageID.SPECIAL_ROOMS &&
     IT_LIVES_ROOM_VARIANTS.includes(roomVariant)
   );
 }
