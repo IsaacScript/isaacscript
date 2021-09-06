@@ -12,12 +12,8 @@ export function isOdd(num: int): boolean {
 }
 
 /**
- * Rounds
- * From: http://lua-users.org/wiki/SimpleRound
- */
-
-/**
  * If rounding fails, this function returns 0.
+ * From: http://lua-users.org/wiki/SimpleRound
  *
  * @param num The number to round.
  * @param numDecimalPlaces Default is 0.
