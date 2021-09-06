@@ -11,6 +11,22 @@ export function isOdd(num: int): boolean {
   return (num & 1) === 1;
 }
 
+/**
+ * Rounds
+ * From: http://lua-users.org/wiki/SimpleRound
+ */
+
+/**
+ * If rounding fails, this function returns 0.
+ *
+ * @param num The number to round.
+ * @param numDecimalPlaces Default is 0.
+ */
+export function round(num: float, numDecimalPlaces = 0): float {
+  const roundedNum = tonumber(string.format(`%.${numDecimalPlaces}f`, num));
+  return roundedNum === undefined ? 0 : roundedNum;
+}
+
 export function tanh(x: number): number {
   return (Math.exp(x) - Math.exp(-x)) / (Math.exp(x) + Math.exp(-x));
 }
