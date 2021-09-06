@@ -1,5 +1,4 @@
-import { COLLECTIBLE_SPRITE_LAYER } from "../constants";
-
+const COLLECTIBLE_SPRITE_LAYER = 1;
 const BLIND_ITEM_PNG_PATH = "gfx/items/collectibles/questionmark.png";
 
 export function collectibleHasTag(

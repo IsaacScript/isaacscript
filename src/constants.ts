@@ -7,7 +7,6 @@ export const CHARACTERS_WITH_NO_RED_HEARTS = new Set<PlayerType>([
   PlayerType.PLAYER_BETHANY_B, // 36
 ]);
 
-export const COLLECTIBLE_SPRITE_LAYER = 1;
 export const DISTANCE_OF_GRID_TILE = 40;
 export const DOOR_HITBOX_DISTANCE = 11;
 
