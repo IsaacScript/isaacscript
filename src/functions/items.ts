@@ -1,5 +1,7 @@
 import { COLLECTIBLE_SPRITE_LAYER } from "../constants";
 
+const BLIND_ITEM_PNG_PATH = "gfx/items/collectibles/questionmark.png";
+
 export function collectibleHasTag(
   collectibleType: CollectibleType | int,
   tag: ItemConfigTag,
@@ -101,16 +103,20 @@ export function removeItemFromItemTracker(
 }
 
 export function setCollectibleBlind(pickup: EntityPickup): void {
+  setCollectibleSprite(pickup, BLIND_ITEM_PNG_PATH);
+}
+
+export function setCollectibleSprite(
+  pickup: EntityPickup,
+  pngPath: string,
+): void {
   if (pickup.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
     error(
-      `The "setCollectibleBlind()" function only works on collectibles and this is a pickup of variant: ${pickup.Variant}`,
+      `You cannot set a collectible sprite for pickups of variant: ${pickup.Variant}`,
     );
   }
 
   const sprite = pickup.GetSprite();
-  sprite.ReplaceSpritesheet(
-    COLLECTIBLE_SPRITE_LAYER,
-    "gfx/items/collectibles/questionmark.png",
-  );
+  sprite.ReplaceSpritesheet(COLLECTIBLE_SPRITE_LAYER, pngPath);
   sprite.LoadGraphics();
 }
