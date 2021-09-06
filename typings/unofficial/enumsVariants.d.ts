@@ -140,6 +140,13 @@ declare const enum LambVariant {
   BODY = 10,
 }
 
+/** EntityType.ENTITY_PITFALL (291) */
+declare const enum PitfallVariant {
+  PITFALL = 0,
+  SUCTION_PITFALL = 1,
+  TELEPORT_PITFALL = 2,
+}
+
 /** For EntityType.ENTITY_DARK_ESAU (866) */
 declare const enum DarkEsauVariant {
   DARK_ESAU = 0,
