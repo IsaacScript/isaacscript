@@ -242,6 +242,10 @@ export function inCrawlspace(): boolean {
   );
 }
 
+export function inDimension(dimension: Dimension): boolean {
+  return dimension === getCurrentDimension();
+}
+
 export function inLRoom(): boolean {
   const game = Game();
   const room = game.GetRoom();
