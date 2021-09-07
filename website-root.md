@@ -17,6 +17,7 @@ For more information about IsaacScript, see the [official website](https://isaac
 ## List of Helper Functions by Category
 
 - [Array Functions](modules/functions_array.html)
+- [Collectible Functions](modules/functions_collectibles.html)
 - [Deep Copy Functions](modules/functions_deepCopy.html)
 - [Door Functions](modules/functions_doors.html)
 - [Entity Functions](modules/functions_entity.html)
@@ -27,6 +28,7 @@ For more information about IsaacScript, see the [official website](https://isaac
 - [JSON Functions](modules/functions_json.html)
 - [Log Functions](modules/functions_log.html)
 - [Math Functions](modules/functions_math.html)
+- [Pickup Functions](modules/functions_pickups.html)
 - [Player Functions](modules/functions_player.html)
 - [Random Functions](modules/functions_random.html)
 - [Revive Functions](modules/functions_revive.html)

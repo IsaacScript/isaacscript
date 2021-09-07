@@ -1,5 +1,5 @@
 import { VECTOR_BRAND } from "../constants";
-import { getMaxCollectibleID } from "./items";
+import { getMaxCollectibleID } from "./collectibles";
 import { getAngleDifference } from "./math";
 
 /**

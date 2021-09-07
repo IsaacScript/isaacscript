@@ -33,6 +33,7 @@ export {
   saveDataManagerSetGlobal,
 } from "./features/saveDataManager/main";
 export * from "./functions/array";
+export * from "./functions/collectibles";
 export { deepCopy } from "./functions/deepCopy";
 export { deepCopyTests } from "./functions/deepCopyTests";
 export * from "./functions/doors";
@@ -44,6 +45,7 @@ export * from "./functions/items";
 export * from "./functions/json";
 export * from "./functions/log";
 export * from "./functions/math";
+export * from "./functions/pickups";
 export * from "./functions/player";
 export * from "./functions/random";
 export * from "./functions/revive";

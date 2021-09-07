@@ -1,4 +1,7 @@
-import { collectibleHasTag, getMaxCollectibleID } from "./functions/items";
+import {
+  collectibleHasTag,
+  getMaxCollectibleID,
+} from "./functions/collectibles";
 
 export const TRANSFORMATION_TO_TAG_MAP = new Map<PlayerForm, ItemConfigTag>([
   [PlayerForm.PLAYERFORM_GUPPY, ItemConfigTag.GUPPY], // 0
