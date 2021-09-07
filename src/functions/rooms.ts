@@ -20,6 +20,12 @@ export function changeRoom(roomIndex: int): void {
   game.ChangeRoom(roomIndex);
 }
 
+/**
+ * This function will not work properly for the Death Certificate dimension. When in the Death
+ * Certificate dimension, this function will randomly return either `Dimension.SECONDARY` or
+ * `Dimension.DEATH_CERTIFICATE`. For now, this is still the best known method of getting the
+ * current dimension.
+ */
 export function getCurrentDimension(): Dimension {
   const game = Game();
   const level = game.GetLevel();
