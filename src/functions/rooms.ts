@@ -24,20 +24,23 @@ export function getCurrentDimension(): Dimension {
   const game = Game();
   const level = game.GetLevel();
 
-  const roomIndex = getRoomIndex();
-  const currentRoomDesc = level.GetCurrentRoomDesc();
-  const currentRoomHash = GetPtrHash(currentRoomDesc);
+  const startingRoomIndex = level.GetStartingRoomIndex();
+  const startingRoomDesc = level.GetRoomByIdx(
+    startingRoomIndex,
+    Dimension.CURRENT,
+  );
+  const startingRoomHash = GetPtrHash(startingRoomDesc);
 
   for (let dimension = 0; dimension <= 2; dimension++) {
-    const dimensionRoomDesc = level.GetRoomByIdx(roomIndex, dimension);
+    const dimensionRoomDesc = level.GetRoomByIdx(startingRoomIndex, dimension);
     const dimensionRoomHash = GetPtrHash(dimensionRoomDesc);
-    if (dimensionRoomHash === currentRoomHash) {
+    if (dimensionRoomHash === startingRoomHash) {
       return dimension;
     }
   }
 
   error(
-    `Failed to get the current dimension using a room index of: ${roomIndex}`,
+    `Failed to get the current dimension using the starting room index of: ${startingRoomIndex}`,
   );
   return 0;
 }
