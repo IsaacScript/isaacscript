@@ -3,8 +3,11 @@
  * sprite. By default, it will use the currently playing animation, but you can also specify a
  * specific animation to check.
  *
- * For example, this can be useful to know how many frames in the future that a particular dying NPC
- * will disappear.
+ * Note that this function is bugged with the Stop Watch or the Broken Watch, since using the
+ * `SetFrame()` method will reset the internal accumulator used to slow down the playback speed of
+ * the animation. (The `PlaybackSpeed` property of the sprite is not used.) Thus, it is only safe to
+ * use this function on animations that are not slowed down by Stop Watch or Broken Watch, such as
+ * player animations.
  */
 export function getFinalFrameOfAnimation(
   sprite: Sprite,
