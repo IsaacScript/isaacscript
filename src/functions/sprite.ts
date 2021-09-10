@@ -23,7 +23,7 @@ export function getFinalFrameOfAnimation(
 
   // Set the sprite back to the way it was
   if (animation !== undefined && animation !== currentAnimation) {
-    sprite.SetAnimation(currentAnimation);
+    sprite.Play(currentAnimation, true);
   }
   sprite.SetFrame(currentFrame);
 
