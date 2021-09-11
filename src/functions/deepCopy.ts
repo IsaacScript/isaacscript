@@ -67,15 +67,12 @@ export function deepCopy(
   }
 
   const oldTable = oldObject as unknown as LuaTable;
-
-  const isMap = oldObject instanceof Map;
-  const isSet = oldObject instanceof Set;
   const isClass = isTSTLClass(oldTable);
 
   let hasTSTLMapBrand = false;
   let hasTSTLSetBrand = false;
   let hasTSTLClassBrand = false;
-  if (!isMap && !isSet && !isClass) {
+  if (!(oldObject instanceof Map) && !(oldObject instanceof Set) && !isClass) {
     checkMetatable(oldTable, traversalDescription);
 
     hasTSTLMapBrand = oldTable.has(TSTL_MAP_BRAND);
@@ -86,12 +83,14 @@ export function deepCopy(
   // Instantiate the new object
   let newObject: LuaTable | Map<AnyNotNil, unknown> | Set<AnyNotNil>;
   if (
-    (serializationType === SerializationType.NONE && isMap) ||
+    (serializationType === SerializationType.NONE &&
+      oldObject instanceof Map) ||
     (serializationType === SerializationType.DESERIALIZE && hasTSTLMapBrand)
   ) {
     newObject = new Map();
   } else if (
-    (serializationType === SerializationType.NONE && isSet) ||
+    (serializationType === SerializationType.NONE &&
+      oldObject instanceof Set) ||
     (serializationType === SerializationType.DESERIALIZE && hasTSTLSetBrand)
   ) {
     newObject = new Set();
@@ -107,9 +106,9 @@ export function deepCopy(
   // If we are serializing, brand TSTL objects
   if (serializationType === SerializationType.SERIALIZE) {
     const newTable = newObject as LuaTable;
-    if (isMap) {
+    if (oldObject instanceof Map) {
       newTable.set(TSTL_MAP_BRAND, "");
-    } else if (isSet) {
+    } else if (oldObject instanceof Set) {
       newTable.set(TSTL_SET_BRAND, "");
     } else if (isClass) {
       newTable.set(TSTL_CLASS_BRAND, "");
@@ -118,8 +117,8 @@ export function deepCopy(
 
   // Depending on whether we are working on a Lua table or a TypeScriptToLua object,
   // we need to iterate over the object in a specific way
-  if (isMap) {
-    for (const [key, value] of oldObject) {
+  if (oldObject instanceof Map) {
+    for (const [key, value] of oldObject.entries()) {
       if (isBrand(key)) {
         continue;
       }
@@ -133,8 +132,8 @@ export function deepCopy(
         serializationType,
       );
     }
-  } else if (isSet) {
-    for (const key of oldObject) {
+  } else if (oldObject instanceof Set) {
+    for (const key of oldObject.values()) {
       if (isBrand(key)) {
         continue;
       }
