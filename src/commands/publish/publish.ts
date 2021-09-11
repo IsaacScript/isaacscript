@@ -13,9 +13,9 @@ import {
 } from "../../constants";
 import * as file from "../../file";
 import { error, execShell, parseIntSafe } from "../../misc";
+import { monkeyPatchMainLua } from "../../monkeyPatch";
 import { Config } from "../../types/Config";
 import { compileAndCopy } from "../copy/copy";
-import { monkeyPatchMainLua } from "../monitor/modDirectorySyncer/modDirectorySyncer";
 
 export default function publish(
   argv: Record<string, unknown>,

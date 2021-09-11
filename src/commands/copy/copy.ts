@@ -2,8 +2,8 @@ import path from "path";
 import { CURRENT_DIRECTORY_NAME, MOD_SOURCE_PATH } from "../../constants";
 import * as file from "../../file";
 import { execShell } from "../../misc";
+import { monkeyPatchMainLua } from "../../monkeyPatch";
 import { Config } from "../../types/Config";
-import { monkeyPatchMainLua } from "../monitor/modDirectorySyncer/modDirectorySyncer";
 
 export default function copy(config: Config): void {
   const modTargetPath = path.join(config.modsDirectory, CURRENT_DIRECTORY_NAME);
