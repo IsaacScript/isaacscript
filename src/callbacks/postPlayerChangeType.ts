@@ -26,7 +26,7 @@ function hasSubscriptions() {
 
 // ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED
 // PlayerVariant.PLAYER (0)
-function postPlayerUpdateReorderedPlayer(player: EntityPlayer): void {
+function postPlayerUpdateReorderedPlayer(player: EntityPlayer) {
   if (!hasSubscriptions()) {
     return;
   }

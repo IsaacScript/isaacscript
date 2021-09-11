@@ -84,7 +84,7 @@ function useItemEsauJr(
   _useFlags: int,
   _activeSlot: int,
   _customVarData: int,
-): void {
+) {
   if (!hasSubscriptions()) {
     return;
   }
