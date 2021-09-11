@@ -81,6 +81,15 @@ export function getCollectibleSet(): Set<CollectibleType | int> {
   return collectibleSet;
 }
 
+export function isGreedMode(): boolean {
+  const game = Game();
+
+  return (
+    game.Difficulty === Difficulty.DIFFICULTY_GREED ||
+    game.Difficulty === Difficulty.DIFFICULTY_GREEDIER
+  );
+}
+
 /**
  * Used to determine is the given table is a serialized Vector created by the save data manager
  * and/or the `deepCopy` function.
