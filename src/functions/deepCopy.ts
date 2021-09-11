@@ -172,11 +172,14 @@ export function deepCopy(
 }
 
 function isTSTLClass(object: LuaTable) {
-  if (object instanceof Map || object instanceof Set) {
+  const metatable = getmetatable(object);
+  if (metatable === undefined) {
     return false;
   }
 
-  const metatable = getmetatable(object);
+  if (object instanceof Map || object instanceof Set) {
+    return false;
+  }
 
   // TSTL classes have a metatable with a certain amount of keys
   let numKeys = 0;
