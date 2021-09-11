@@ -1,6 +1,6 @@
-import * as file from "./file";
 import path from "path";
 import { MAIN_LUA } from "./constants";
+import * as file from "./file";
 
 // Some TSTL objects (such as Map and Set) are written as global variables,
 // which can cause multiple mods written with IsaacScript to trample on one another
@@ -10,15 +10,15 @@ export function monkeyPatchMainLua(targetModDirectory: string): void {
   let mainLua = file.read(mainLuaPath);
 
   mainLua = mainLua.replace(
-    /WeakMap = \(function\(\)/,
+    "WeakMap = (function",
     "WeakMap = WeakMap or (function",
   );
   mainLua = mainLua.replace(
-    /WeakSet = \(function\(\)/,
+    "WeakSet = (function",
     "WeakSet = WeakSet or (function",
   );
-  mainLua = mainLua.replace(/Map = \(function\(\)/, "Map = (function");
-  mainLua = mainLua.replace(/Set = \(function\(\)/, "Set = (function");
+  mainLua = mainLua.replace("Map = (function", "Map = Map or (function");
+  mainLua = mainLua.replace("Set = (function", "Set = Set or (function");
 
   file.write(mainLuaPath, mainLua);
 }

@@ -7,6 +7,7 @@ import {
   FILE_SYNCED_MESSAGE,
   MAIN_LUA,
   MOD_SOURCE_PATH,
+  PACKAGE_JSON,
 } from "../../constants";
 import * as file from "../../file";
 import { error } from "../../misc";
@@ -95,9 +96,8 @@ function spawnModDirectorySyncer(config: Config) {
 }
 
 function spawnTSTLWatcher() {
-  // Fix the bug where tstl cannot be invoked if IsaacScript is specified as a local path in a mod's
-  // package.json file
   const processDescription = "tstl";
+
   let tstl: ChildProcessWithoutNullStreams;
   if (runningFromLocalPath()) {
     const tstlPath = path.join(
@@ -158,6 +158,7 @@ function spawnTSTLWatcher() {
 // Returns whether or not IsaacScript is a local path in "package.json"
 // e.g. "isaacscript": "../isaacscript"
 function runningFromLocalPath() {
-  const tstlDirPath = path.join(CWD, "node_modules", "typescript-to-lua");
-  return !file.exists(tstlDirPath);
+  const packageJSONPath = path.join(CWD, PACKAGE_JSON);
+  const packageJSON = file.read(packageJSONPath);
+  return packageJSON.includes('"isaacscript": "file:../isaacscript"');
 }
