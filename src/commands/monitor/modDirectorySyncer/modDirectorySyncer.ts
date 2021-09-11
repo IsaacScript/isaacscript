@@ -24,6 +24,11 @@ function init() {
     type: "copy",
     afterSync,
     onError,
+    chokidarWatchOptions: {
+      awaitWriteFinish: {
+        stabilityThreshold: 1000,
+      },
+    },
   });
 }
 
