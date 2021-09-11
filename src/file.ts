@@ -78,11 +78,6 @@ export function isDir(filePath: string): boolean {
   return fileStats.isDirectory();
 }
 
-export function isFile(filePath: string): boolean {
-  const fileStats = getFileStats(filePath);
-  return fileStats.isFile();
-}
-
 export function isSubDirOf(dir: string, parent: string): boolean {
   const relative = path.relative(parent, dir);
   return (
