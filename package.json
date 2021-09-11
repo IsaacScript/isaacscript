@@ -1,6 +1,6 @@
 {
   "name": "isaacscript-lint",
-  "version": "1.0.54",
+  "version": "1.0.55",
   "description": "An updatable linting dependency container for IsaacScript projects.",
   "repository": {
     "type": "git",
@@ -9,18 +9,19 @@
   "license": "GPL-3.0",
   "author": "Zamiell",
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.29.2",
-    "@typescript-eslint/parser": "^4.29.2",
-    "cspell": "^5.7.2",
+    "@typescript-eslint/eslint-plugin": "^4.31.0",
+    "@typescript-eslint/parser": "^4.31.0",
+    "cspell": "^5.9.0",
     "eslint": "^7.32.0",
-    "eslint-config-isaacscript": "^1.0.47",
+    "eslint-config-isaacscript": "^1.0.48",
     "eslint-plugin-eqeqeq-fix": "^1.0.3",
     "eslint-plugin-eslint-comments": "^3.2.0",
-    "eslint-plugin-import": "^2.24.1",
-    "eslint-plugin-jsdoc": "^36.0.7",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jsdoc": "^36.1.0",
+    "eslint-plugin-no-implicit-map-set-loops": "^1.0.1",
     "eslint-plugin-no-template-curly-in-string-fix": "^1.0.4",
     "eslint-plugin-only-warn": "^1.0.3",
-    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-prettier": "^4.0.0",
     "isaacscript-tsconfig": "^1.1.4",
     "prettier-plugin-organize-imports": "^2.3.3"
   }
