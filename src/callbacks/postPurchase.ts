@@ -40,7 +40,7 @@ function postUpdate() {
 }
 
 function checkPickupsPurchased(pickups: Entity[], players: EntityPlayer[]) {
-  for (const [index, pickupDescription] of v.room.pickupMap) {
+  for (const [index, pickupDescription] of v.room.pickupMap.entries()) {
     // First, see if a pickup that existed on the last frame is now gone
     if (pickupIndexExists(index, pickups)) {
       continue;

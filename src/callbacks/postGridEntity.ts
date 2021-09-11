@@ -43,7 +43,10 @@ function postUpdate() {
 
   // Check to see if any grid entities have disappeared and remove them from the initialized map if
   // so
-  for (const [gridIndex, gridEntityType] of v.room.initializedGridEntities) {
+  for (const [
+    gridIndex,
+    gridEntityType,
+  ] of v.room.initializedGridEntities.entries()) {
     const gridEntity = room.GetGridEntity(gridIndex);
     if (gridEntity === undefined || gridEntity.GetType() !== gridEntityType) {
       v.room.initializedGridEntities.delete(gridIndex);

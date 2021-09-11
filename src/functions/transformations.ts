@@ -23,7 +23,7 @@ export function getPlayerNumTransformationCollectibles(
   }
 
   let numCollectibles = 0;
-  for (const collectibleType of itemsForTransformation) {
+  for (const collectibleType of itemsForTransformation.values()) {
     numCollectibles += player.GetCollectibleNum(collectibleType);
   }
 

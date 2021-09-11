@@ -181,7 +181,8 @@ export function getPlayerCollectibleMap(
   player: EntityPlayer,
 ): Map<CollectibleType | int, int> {
   const collectibleMap = new Map<CollectibleType | int, int>();
-  for (const collectibleType of getCollectibleSet()) {
+  const collectibleSet = getCollectibleSet();
+  for (const collectibleType of collectibleSet.values()) {
     // We check for both "HasCollectible()" and "GetCollectibleNum()" to avoid bugs in special cases
     // (e.g. Lilith having 1 Incubus despite not really having the collectible)
     if (!player.HasCollectible(collectibleType)) {

@@ -49,7 +49,7 @@ function initMaps() {
     collectibleType <= getMaxCollectibleID();
     collectibleType++
   ) {
-    for (const [playerForm, tag] of TRANSFORMATION_TO_TAG_MAP) {
+    for (const [playerForm, tag] of TRANSFORMATION_TO_TAG_MAP.entries()) {
       if (!collectibleHasTag(collectibleType, tag)) {
         continue;
       }
