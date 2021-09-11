@@ -13,7 +13,7 @@ import { isSerializedVector, tableClear } from "../../functions/util";
 /**
  * merge takes the values from a new table and recursively merges them into an old object
  * (while performing appropriate deserialization).
- * This function handles Lua tables, TypeScriptToLua Maps, and TypeScriptToLua Sets.
+ * This function handles Lua tables and TypeScriptToLua Maps/Sets/Classes.
  *
  * Since it is common for a variable to have a type of `something | null`, we must iterate over the
  * new object and copy over all of the values. (A value of null transpiles to nil, which means the

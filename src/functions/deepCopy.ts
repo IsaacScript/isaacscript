@@ -1,4 +1,5 @@
 import {
+  TSTL_CLASS_BRAND,
   TSTL_MAP_BRAND,
   TSTL_OBJECT_WITH_NUMBER_KEYS_BRAND,
   TSTL_SET_BRAND,
@@ -14,20 +15,30 @@ export enum SerializationType {
   DESERIALIZE,
 }
 
+interface TSTLClassMetatable {
+  ____constructor: () => void;
+  __index: unknown;
+  constructor: {
+    prototype: unknown;
+    name: string;
+  };
+}
+
+const TSTL_CLASS_KEYS = new Set(["____constructor", "__index", "constructor"]);
+
 /**
- * deepCopy returns a new Lua table, a TypeScriptToLua Map, or a TypeScriptToLua Set that is
- * identical to the provided one. It will recursively copy all of the values so that none of the
- * nested references remain.
+ * deepCopy is a semi-generic deep cloner. It will recursively copy all of the values so that none
+ * of the nested references remain.
  *
- * It will refuse to copy tables that have metatables, since that indicates that it the table is a
- * special object of some kind and cannot be copied in a generically safe way. There are three
- * exceptions, which the function has explicit logic to support:
+ * It supports the following object types:
  *
- * 1. TypeScriptToLua Maps
- * 2. TypeScriptToLua Sets
- * 2. Vectors
+ * - LuaTables / basic TSTL objects
+ * - TSTL Maps
+ * - TSTL Sets
+ * - TSTL Classes
+ * - Isaac Vectors
  *
- * @param oldObject The Lua table or TypeScriptToLua Map to copy.
+ * @param oldObject The object to copy.
  * @param serializationType Has 3 possible values. Can leave TypeScriptToLua objects as-is, or can
  * serialize objects to Lua tables, or can deserialize Lua tables to objects. No serialization by
  * default.
@@ -55,33 +66,40 @@ export function deepCopy(
     log(logString);
   }
 
-  const isTSTLMap = oldObject instanceof Map;
-  const isTSTLSet = oldObject instanceof Set;
+  const oldTable = oldObject as unknown as LuaTable;
+
+  const isMap = oldObject instanceof Map;
+  const isSet = oldObject instanceof Set;
+  const isClass = isTSTLClass(oldTable);
 
   let hasTSTLMapBrand = false;
   let hasTSTLSetBrand = false;
-  if (!isTSTLMap && !isTSTLSet) {
-    const oldTable = oldObject as unknown as LuaTable;
+  let hasTSTLClassBrand = false;
+  if (!isMap && !isSet && !isClass) {
     checkMetatable(oldTable, traversalDescription);
 
     hasTSTLMapBrand = oldTable.has(TSTL_MAP_BRAND);
     hasTSTLSetBrand = oldTable.has(TSTL_SET_BRAND);
+    hasTSTLClassBrand = oldTable.has(TSTL_CLASS_BRAND);
   }
 
   // Instantiate the new object
   let newObject: LuaTable | Map<AnyNotNil, unknown> | Set<AnyNotNil>;
   if (
-    (serializationType === SerializationType.NONE &&
-      oldObject instanceof Map) ||
+    (serializationType === SerializationType.NONE && isMap) ||
     (serializationType === SerializationType.DESERIALIZE && hasTSTLMapBrand)
   ) {
     newObject = new Map();
   } else if (
-    (serializationType === SerializationType.NONE &&
-      oldObject instanceof Set) ||
+    (serializationType === SerializationType.NONE && isSet) ||
     (serializationType === SerializationType.DESERIALIZE && hasTSTLSetBrand)
   ) {
     newObject = new Set();
+  } else if (
+    (serializationType === SerializationType.NONE && isClass) ||
+    (serializationType === SerializationType.DESERIALIZE && hasTSTLClassBrand)
+  ) {
+    newObject = cloneClass(oldObject);
   } else {
     newObject = new LuaTable();
   }
@@ -89,16 +107,18 @@ export function deepCopy(
   // If we are serializing, brand TSTL objects
   if (serializationType === SerializationType.SERIALIZE) {
     const newTable = newObject as LuaTable;
-    if (oldObject instanceof Map) {
+    if (isMap) {
       newTable.set(TSTL_MAP_BRAND, "");
-    } else if (oldObject instanceof Set) {
+    } else if (isSet) {
       newTable.set(TSTL_SET_BRAND, "");
+    } else if (isClass) {
+      newTable.set(TSTL_CLASS_BRAND, "");
     }
   }
 
   // Depending on whether we are working on a Lua table or a TypeScriptToLua object,
   // we need to iterate over the object in a specific way
-  if (oldObject instanceof Map) {
+  if (isMap) {
     for (const [key, value] of oldObject) {
       if (isBrand(key)) {
         continue;
@@ -113,7 +133,7 @@ export function deepCopy(
         serializationType,
       );
     }
-  } else if (oldObject instanceof Set) {
+  } else if (isSet) {
     for (const key of oldObject) {
       if (isBrand(key)) {
         continue;
@@ -132,6 +152,7 @@ export function deepCopy(
       );
     }
   } else {
+    // This applies to both Lua tables and TypeScriptToLua classes
     for (const [key, value] of pairs(oldObject)) {
       if (isBrand(key)) {
         continue;
@@ -151,10 +172,52 @@ export function deepCopy(
   return newObject;
 }
 
+function isTSTLClass(object: LuaTable) {
+  if (object instanceof Map || object instanceof Set) {
+    return false;
+  }
+
+  const metatable = getmetatable(object);
+
+  // TSTL classes have a metatable with a certain amount of keys
+  let numKeys = 0;
+  for (const [key] of pairs(metatable)) {
+    numKeys += 1;
+
+    if (!TSTL_CLASS_KEYS.has(key as string)) {
+      return false;
+    }
+  }
+
+  return numKeys === TSTL_CLASS_KEYS.size;
+}
+
+function cloneClass(oldClass: unknown) {
+  const metatable = getmetatable(oldClass) as TSTLClassMetatable;
+  const newClass = getNewClassFromMetatable(metatable);
+
+  for (const [key, value] of pairs(oldClass)) {
+    newClass.set(key, value);
+  }
+
+  return newClass;
+}
+
+function getNewClassFromMetatable(metatable: TSTLClassMetatable) {
+  // This is a re-implementation of the transpiled "__TS__New" function
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const instance = setmetatable({}, metatable.constructor.prototype as any);
+  const newClass = instance as TSTLClassMetatable;
+  newClass.____constructor(); // eslint-disable-line no-underscore-dangle
+
+  return newClass as unknown as LuaTable;
+}
+
 function isBrand(key: AnyNotNil) {
   return (
     key === TSTL_MAP_BRAND ||
     key === TSTL_SET_BRAND ||
+    key === TSTL_CLASS_BRAND ||
     key === TSTL_OBJECT_WITH_NUMBER_KEYS_BRAND ||
     key === VECTOR_BRAND
   );
@@ -262,7 +325,7 @@ export function deserializeVector(vectorTable: LuaTable): Vector {
 
 function checkMetatable(table: LuaTable, traversalDescription: string) {
   // Lua tables can have metatables, which make writing a generic deep-cloner impossible
-  // All TypeScriptToLua objects use metatables
+  // We will refuse to copy an unknown table type that has a metatable
   const metatable = getmetatable(table);
   if (metatable === undefined) {
     return;
@@ -274,7 +337,7 @@ function checkMetatable(table: LuaTable, traversalDescription: string) {
       : `"${traversalDescription}"`;
 
   error(
-    `The deepCopy function detected that ${tableDescription} has a metatable. Copying tables with metatables is not supported (unless they are TypeScriptToLua Maps).`,
+    `The deepCopy function detected that ${tableDescription} has a metatable. Copying tables with metatables is not supported (unless they are TypeScriptToLua Maps, Sets, or Classes).`,
   );
 }
 
