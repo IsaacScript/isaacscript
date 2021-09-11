@@ -1,11 +1,10 @@
 /* eslint-disable import/no-unused-modules */
 
-import syncDirectory from "sync-directory2";
+import syncDirectory from "sync-directory";
 import { FILE_SYNCED_MESSAGE } from "../../../constants";
 
 let modSourcePath: string;
 let modTargetPath: string;
-let timeInvoked: Date;
 
 init();
 
@@ -20,8 +19,6 @@ function init() {
   modSourcePath = process.argv[2];
   modTargetPath = process.argv[3];
 
-  timeInvoked = new Date();
-
   syncDirectory(modSourcePath, modTargetPath, {
     watch: true,
     type: "copy",
@@ -31,10 +28,11 @@ function init() {
 }
 
 function afterSync(params: { type: string; relativePath: string }) {
-  const secondsPassed = (new Date().getTime() - timeInvoked.getTime()) / 1000;
-  if (secondsPassed > 1) {
-    send(`${FILE_SYNCED_MESSAGE} ${params.relativePath}`);
+  if (params.type === "init:copy") {
+    return;
   }
+
+  send(`${FILE_SYNCED_MESSAGE} ${params.relativePath}`);
 }
 
 function onError(err: Error) {
