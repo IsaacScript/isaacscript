@@ -38,6 +38,10 @@ module.exports = {
     // https://github.com/Zamiell/eslint-plugin-no-template-curly-in-string-fix
     "plugin:no-template-curly-in-string-fix/recommended",
 
+    // This prevents void return types on unexported functions
+    // https://github.com/Zamiell/eslint-plugin-no-void-return-type
+    "plugin:no-void-return-type/recommended",
+
     // We use Prettier to automatically format TypeScript files
     // We want to run Prettier as an ESLint rule so that we can detect non-formatted files in CI
     // https://github.com/prettier/eslint-plugin-prettier
