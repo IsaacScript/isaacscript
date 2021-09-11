@@ -48,7 +48,7 @@ function startPublish(
   skip: boolean,
   setVersion: string | undefined,
   steamCmdPath: string | undefined,
-): void {
+) {
   updateDeps();
 
   let version =

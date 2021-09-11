@@ -19,12 +19,12 @@ export function compileAndCopy(
   monkeyPatchMainLua(modTargetPath);
 }
 
-function compile(): void {
+function compile() {
   execShell("npx", ["tstl"]);
   console.log("Mod compiled successfully.");
 }
 
-function copyMod(modSourcePath: string, modTargetPath: string): void {
+function copyMod(modSourcePath: string, modTargetPath: string) {
   file.deleteDir(modTargetPath);
   file.copy(modSourcePath, modTargetPath);
   console.log("Mod copied successfully.");

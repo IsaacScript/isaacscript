@@ -41,7 +41,7 @@
     "@types/source-map-support": "^0.5.4",
     "@types/update-notifier": "^5.1.0",
     "@types/yargs": "^17.0.2",
-    "isaacscript-lint": "^1.0.56",
+    "isaacscript-lint": "^1.0.58",
     "ts-prune": "^0.10.0"
   }
 }

@@ -37,11 +37,7 @@ function init() {
   });
 }
 
-function onMessage(
-  type: SaveDatMessageType,
-  data: string,
-  numRetries = 0,
-): void {
+function onMessage(type: SaveDatMessageType, data: string, numRetries = 0) {
   const saveDat = readSaveDatFromDisk();
   if (saveDat.length > MAX_MESSAGES) {
     // If IsaacScript is running and
