@@ -1,5 +1,3 @@
-/* eslint-disable import/no-unused-modules */
-
 import path from "path";
 import syncDirectory from "sync-directory";
 import { FILE_SYNCED_MESSAGE, MAIN_LUA } from "../../../constants";
@@ -40,7 +38,7 @@ function afterSync(params: { type: string; relativePath: string }) {
   }
 
   if (params.relativePath === `${path.sep}${MAIN_LUA}`) {
-    monkeyPatchMainLua();
+    monkeyPatchMainLua(modTargetPath);
   }
 
   send(`${FILE_SYNCED_MESSAGE} ${params.relativePath}`);
@@ -59,11 +57,20 @@ function send(msg: string) {
 // Some TSTL objects (such as Map and Set) are written as global variables,
 // which can cause multiple mods written with IsaacScript to trample on one another
 // Until TSTL has an official fix, monkey patch this
-function monkeyPatchMainLua() {
-  const mainLuaPath = path.join(modTargetPath, MAIN_LUA);
-  const mainLua = file.read(mainLuaPath);
-  mainLua.replace(/WeakMap = \(function\(\)/, "WeakMap = WeakMap or (function");
-  mainLua.replace(/WeakSet = \(function\(\)/, "WeakSet = WeakSet or (function");
-  mainLua.replace(/Map = \(function\(\)/, "Map = (function");
-  mainLua.replace(/Set = \(function\(\)/, "Set = (function");
+export function monkeyPatchMainLua(targetModDirectory: string): void {
+  const mainLuaPath = path.join(targetModDirectory, MAIN_LUA);
+  let mainLua = file.read(mainLuaPath);
+
+  mainLua = mainLua.replace(
+    /WeakMap = \(function\(\)/,
+    "WeakMap = WeakMap or (function",
+  );
+  mainLua = mainLua.replace(
+    /WeakSet = \(function\(\)/,
+    "WeakSet = WeakSet or (function",
+  );
+  mainLua = mainLua.replace(/Map = \(function\(\)/, "Map = (function");
+  mainLua = mainLua.replace(/Set = \(function\(\)/, "Set = (function");
+
+  file.write(mainLuaPath, mainLua);
 }

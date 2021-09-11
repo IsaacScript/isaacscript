@@ -15,6 +15,7 @@ import * as file from "../../file";
 import { error, execShell, parseIntSafe } from "../../misc";
 import { Config } from "../../types/Config";
 import { compileAndCopy } from "../copy/copy";
+import { monkeyPatchMainLua } from "../monitor/modDirectorySyncer/modDirectorySyncer";
 
 export default function publish(
   argv: Record<string, unknown>,
@@ -63,6 +64,7 @@ function startPublish(
   writeVersionToVersionTXT(version);
   runReleaseScriptPreCopy();
   compileAndCopy(modSourcePath, modTargetPath);
+  monkeyPatchMainLua(modTargetPath);
   purgeRoomXMLs(modTargetPath);
   runReleaseScriptPostCopy();
   gitCommitIfChanges(version);
