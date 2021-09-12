@@ -9,6 +9,10 @@ const SURROUNDING_GRID_INDEXES_DELTA = [
   16, // Below-right
 ];
 
+/**
+ * @param gridEntityType Optional. If not specified, will return every grid entity in the room. If
+ * specified, it will only return grid entities in the room that match the specified type.
+ */
 export function getGridEntities(gridEntityType?: GridEntityType): GridEntity[] {
   const game = Game();
   const room = game.GetRoom();
