@@ -72,6 +72,15 @@ declare const enum FireplaceVariant {
   MOVEABLE_PURPLE = 13,
 }
 
+/** For EntityType.ENTITY_VIS (39) */
+declare const enum VisVariant {
+  VIS = 0,
+  DOUBLE_VIS = 1,
+  CHUBBER = 2,
+  SCARRED_DOUBLE_VIS = 3,
+  CHUBBER_PROJECTILE = 22,
+}
+
 /** For EntityType.ENTITY_MOM (45) */
 declare const enum MomVariant {
   MOM = 0,
