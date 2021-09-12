@@ -119,6 +119,10 @@ declare const enum IsaacVariant {
 /** For EntityType.ENTITY_DEATHS_HEAD (212) */
 declare const enum DeathsHeadVariant {
   DEATHS_HEAD = 0,
+  /**
+   * This is the only Death's Head variant that does not rely on other enemies in the room being
+   * alive.
+   */
   DANK_DEATHS_HEAD = 1,
   CURSED_DEATHS_HEAD = 2,
   BRIMSTONE_DEATHS_HEAD = 3,
