@@ -116,6 +116,15 @@ declare const enum IsaacVariant {
   BLUE_BABY_HUSH = 2,
 }
 
+/** For EntityType.ENTITY_DEATHS_HEAD (212) */
+declare const enum DeathsHeadVariant {
+  DEATHS_HEAD = 0,
+  DANK_DEATHS_HEAD = 1,
+  CURSED_DEATHS_HEAD = 2,
+  BRIMSTONE_DEATHS_HEAD = 3,
+  REDSKULL = 4,
+}
+
 /** For EntityType.ENTITY_THE_HAUNT (260) */
 declare const enum HauntVariant {
   HAUNT = 0,
