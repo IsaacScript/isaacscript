@@ -178,6 +178,13 @@ declare const enum DingleVariant {
   DANGLE = 1,
 }
 
+/** For EntityType.ENTITY_MAMA_GURDY (266) */
+declare const enum MamaGurdyVariant {
+  MAMA_GURDY = 0,
+  LEFT_HAND = 1,
+  RIGHT_HAND = 2,
+}
+
 /** For EntityType.ENTITY_URIEL (271) and EntityType.ENTITY_GABRIEL (272) */
 declare const enum AngelVariant {
   NORMAL = 0,
