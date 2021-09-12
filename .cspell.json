@@ -1,9 +1,5 @@
 {
-    "version": "0.1",
-    "language": "en",
-    "dictionaries": [
-        "en_US"
-    ],
+    "version": "0.2",
     "words": [
         "backticks",
         "btmills",
