@@ -129,6 +129,12 @@ declare const enum DeathsHeadVariant {
   REDSKULL = 4,
 }
 
+/** For EntityType.ENTITY_RAGLING (246) */
+declare const enum RaglingVariant {
+  RAGLING = 0,
+  RAG_MANS_RAGLING = 1,
+}
+
 /** For EntityType.ENTITY_THE_HAUNT (260) */
 declare const enum HauntVariant {
   HAUNT = 0,
