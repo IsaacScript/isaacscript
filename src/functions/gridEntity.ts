@@ -9,7 +9,7 @@ const SURROUNDING_GRID_INDEXES_DELTA = [
   16, // Below-right
 ];
 
-export function getGridEntities(): GridEntity[] {
+export function getGridEntities(gridEntityType?: GridEntityType): GridEntity[] {
   const game = Game();
   const room = game.GetRoom();
   const gridSize = room.GetGridSize();
@@ -17,8 +17,17 @@ export function getGridEntities(): GridEntity[] {
   const gridEntities: GridEntity[] = [];
   for (let gridIndex = 0; gridIndex < gridSize; gridIndex++) {
     const gridEntity = room.GetGridEntity(gridIndex);
-    if (gridEntity !== undefined) {
+    if (gridEntity === undefined) {
+      continue;
+    }
+
+    if (gridEntityType === undefined) {
       gridEntities.push(gridEntity);
+    } else {
+      const thisGridEntityType = gridEntity.GetType();
+      if (thisGridEntityType === gridEntityType) {
+        gridEntities.push(gridEntity);
+      }
     }
   }
 
