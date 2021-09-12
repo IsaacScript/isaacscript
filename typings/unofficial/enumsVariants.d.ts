@@ -204,6 +204,13 @@ declare const enum PitfallVariant {
   TELEPORT_PITFALL = 2,
 }
 
+/** EntityType.ENTITY_BIG_HORN (411) */
+declare const enum BigHornVariant {
+  BIG_HORN = 0,
+  SMALL_HOLE = 1,
+  BIG_HOLE = 2,
+}
+
 /** For EntityType.ENTITY_DARK_ESAU (866) */
 declare const enum DarkEsauVariant {
   DARK_ESAU = 0,
