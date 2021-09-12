@@ -59,6 +59,14 @@ declare const enum KnifeVariant {
   TECH_SWORD = 11,
 }
 
+/** For EntityType.ENTITY_CHARGER (23) */
+declare const enum ChargerVariant {
+  CHARGER = 0,
+  DROWNED_CHARGER = 1,
+  DANK_CHARGER = 2,
+  CARRION_PRINCESS = 3,
+}
+
 /** For EntityType.ENTITY_FIREPLACE (33) */
 declare const enum FireplaceVariant {
   NORMAL = 0,
