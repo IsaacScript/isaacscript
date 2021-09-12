@@ -1,3 +1,4 @@
+import { arrayToString } from "./array";
 import { hasFlag } from "./flag";
 
 // This function is part of the sandbox provided by the Racing+ client
@@ -100,6 +101,11 @@ export function logAllProjectileFlags(flags: int): void {
  */
 export function logAllUseFlags(flags: int): void {
   logAllFlags(flags, UseFlag as unknown as LuaTable, "use");
+}
+
+export function logArray<T>(array: T[]): void {
+  const arrayString = arrayToString(array);
+  log(`Array: ${arrayString}`);
 }
 
 export function logEntity(entity: Entity): void {
