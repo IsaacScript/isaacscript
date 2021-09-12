@@ -160,6 +160,12 @@ declare const enum RaglingVariant {
   RAG_MANS_RAGLING = 1,
 }
 
+/** For EntityType.ENTITY_BEGOTTEN (251) */
+declare const enum BegottenVariant {
+  BEGOTTEN = 0,
+  BEGOTTEN_CHAIN = 10,
+}
+
 /** For EntityType.ENTITY_THE_HAUNT (260) */
 declare const enum HauntVariant {
   HAUNT = 0,
