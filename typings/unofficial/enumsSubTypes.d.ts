@@ -9,6 +9,12 @@ declare const enum DipFamiliarSubType {
   WHITE = 6,
 }
 
+/** For EntityType.ENTITY_CHARGER (23), ChargerVariant.CHARGER (0) */
+declare const enum ChargerSubType {
+  CHARGER = 0,
+  MY_SHADOW = 1,
+}
+
 /** For EntityType.ENTITY_EFFECT (1000), EffectVariant.HEAVEN_LIGHT_DOOR (39) */
 declare const enum HeavenLightDoorSubType {
   HEAVEN_DOOR = 0,
