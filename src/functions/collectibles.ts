@@ -11,7 +11,6 @@ export function changeCollectibleSubType(
 ): void {
   collectible.SubType = newCollectibleType;
 
-  // Changing the subtype will not affect the existing sprite
   const itemConfig = Isaac.GetItemConfig();
   const itemConfigItem = itemConfig.GetCollectible(newCollectibleType);
   if (itemConfigItem === undefined) {
