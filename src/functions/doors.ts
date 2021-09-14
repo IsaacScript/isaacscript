@@ -1,13 +1,19 @@
 import { MAX_NUM_DOORS } from "../constants";
 
-export function getDoors(): GridEntityDoor[] {
+export function getDoors(roomType?: RoomType): GridEntityDoor[] {
   const game = Game();
   const room = game.GetRoom();
 
   const doors: GridEntityDoor[] = [];
   for (let i = 0; i < MAX_NUM_DOORS; i++) {
     const door = room.GetDoor(i);
-    if (door !== undefined) {
+    if (door === undefined) {
+      continue;
+    }
+
+    if (roomType === undefined) {
+      doors.push(door);
+    } else if (door.IsRoomType(roomType)) {
       doors.push(door);
     }
   }
