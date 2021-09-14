@@ -298,3 +298,12 @@ export function inItLivesRoom(): boolean {
     IT_LIVES_ROOM_VARIANTS.includes(roomVariant)
   );
 }
+
+export function inStartingRoom(): boolean {
+  const game = Game();
+  const level = game.GetLevel();
+  const startingRoomIndex = level.GetStartingRoomIndex();
+  const roomIndex = getRoomIndex();
+
+  return roomIndex === startingRoomIndex;
+}
