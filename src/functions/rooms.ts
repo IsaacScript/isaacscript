@@ -23,8 +23,8 @@ export function changeRoom(roomIndex: int): void {
 /**
  * This function will not work properly for the Death Certificate dimension. When in the Death
  * Certificate dimension, this function will randomly return either `Dimension.SECONDARY` or
- * `Dimension.DEATH_CERTIFICATE`. For now, this is still the best known method of getting the
- * current dimension.
+ * `Dimension.DEATH_CERTIFICATE`. Use the `inDeathCertificateArea` function instead for that
+ * purpose.
  */
 export function getCurrentDimension(): Dimension {
   const game = Game();
@@ -248,6 +248,21 @@ export function inCrawlspace(): boolean {
   return (
     roomIndex === GridRooms.ROOM_DUNGEON_IDX &&
     roomSubType !== HomeRoomSubType.BEAST_ROOM
+  );
+}
+
+/**
+ * We cannot use the `inDimension` function for this since it is bugged with the Death Certificate
+ * area.
+ */
+export function inDeathCertificateArea(): boolean {
+  const roomStageID = getRoomStageID();
+  const roomSubType = getRoomSubType();
+
+  return (
+    roomStageID === StageID.HOME &&
+    (roomSubType === HomeRoomSubType.DEATH_CERTIFICATE_ENTRANCE ||
+      roomSubType === HomeRoomSubType.DEATH_CERTIFICATE_ITEMS)
   );
 }
 
