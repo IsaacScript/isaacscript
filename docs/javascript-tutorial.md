@@ -537,7 +537,7 @@ Now, your other TypeScript files will see it as a global variable without you ha
 
 First, see the previous section on [importing global variables](#importing-global-variables).
 
-In the True Co-op Mod, the exported global variable of `InfinityTrueCoopInterface` allows other mods to add new characters with the `AddCharacter` method. What if your mod creates a new character and you want to add it to the True Co-op Mod? If you try calling `InfinityTrueCoopInterface.AddCharacter()`, TypeScript will throw and error and say that it doesn't exist.
+In the True Co-op Mod, the exported global variable of `InfinityTrueCoopInterface` allows other mods to add new characters with the `AddCharacter` method. What if your mod creates a new character and you want to add it to the True Co-op Mod? If you try calling `InfinityTrueCoopInterface.AddCharacter()`, TypeScript will throw an error and say that it doesn't exist.
 
 The solution is to add the `AddCharacter()` method to our definition file. We need to flesh out the `src/types/InfinityTrueCoopInterface.d.ts` file a bit:
 
@@ -678,3 +678,36 @@ function pickingUpItem(player: EntityPlayer, pickingUpItemID: number) {
 ```
 
 <br />
+
+### Type Narrowing
+
+Lua allows you to write unsafe code. Consider the following:
+
+```lua
+-- Lua code
+local player = entity:ToPlayer() -- Convert the entity to a player
+player:AddMaxHearts(2) -- Give them a heart container
+```
+
+Not all entities convert to players though, so this code can fail. In fact, for most entities, the `ToPlayer()` method would return `nil` and cause the next line to throw a runtime error, preventing all of the subsequent code in the callback from firing. In TypeScript, writing this code would cause a compiler error:
+
+```ts
+const player = entity.ToPlayer();
+player.AddMaxHearts(2); // Error: Object is possibly 'undefined'
+```
+
+This error is because the return type of the `ToPlayer()` method is `EntityPlayer | undefined`. To solve this, we can use *type narrowing*:
+
+```ts
+const player = entity.ToPlayer();
+if (player === undefined) {
+  error("Failed to convert the entity to a player.");
+}
+player.AddMaxHearts(2); // Error: Object is possibly 'undefined'
+```
+
+Here, we explicitly handle the error case and supply a helpful error message. But this code does something more important than simply providing the error message.
+
+`error()` is a Lua function that causes execution of the function to immediately end. Thus, TypeScript is smart enough to realize that if the code gets to the `AddMaxHearts()` line, the type of `player` is no longer `EntityPlayer | undefined` - it would have to be a `EntityPlayer`. You can confirm this by mousing over the variable in VSCode.
+
+Since many of the Isaac API methods can fail, you will have to use *type narrowing* like this in many places in your code. For some, it can be anoying to explicitly check if things go wrong. But *type narrowing* should be seen as a good thing: by handling errors in a sane way, you safely limit the damage that runtime errors can cause. And when things do go wrong, troubleshooting what what wrong becomes much easier.
