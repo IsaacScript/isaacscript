@@ -99,6 +99,7 @@ function postNewRoomVanilla() {
     recordCurrentStage();
     postNewLevelReordered.fire();
     postNewRoomReordered.fire();
+    return;
   }
 
   if (
