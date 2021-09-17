@@ -11,12 +11,18 @@ import * as postGameStartedReordered from "./subscriptions/postGameStartedReorde
 import * as postNewLevelReordered from "./subscriptions/postNewLevelReordered";
 import * as postNewRoomReordered from "./subscriptions/postNewRoomReordered";
 
-let currentStage = -1;
-let currentStageType = -1;
+let currentStage = null as int | null;
+let currentStageType = null as int | null;
+let usedGlowingHourGlass = false;
 let forceNewLevel = false;
 let forceNewRoom = false;
 
 export function init(mod: Mod): void {
+  mod.AddCallback(
+    ModCallbacks.MC_USE_ITEM,
+    useItemGlowingHourGlass,
+    CollectibleType.COLLECTIBLE_GLOWING_HOUR_GLASS,
+  ); // 3
   mod.AddCallback(ModCallbacks.MC_POST_GAME_STARTED, postGameStartedVanilla); // 15
   mod.AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, postNewLevelVanilla); // 18
   mod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoomVanilla); // 19
@@ -28,6 +34,15 @@ function hasSubscriptions() {
     postNewLevelReordered.hasSubscriptions() ||
     postNewRoomReordered.hasSubscriptions()
   );
+}
+
+// ModCallbacks.MC_USE_ITEM (3)
+// CollectibleType.COLLECTIBLE_GLOWING_HOUR_GLASS (422)
+function useItemGlowingHourGlass() {
+  // If Glowing Hour Glass is used on the first room of a floor,
+  // it will send the player to the previous floor without triggering the PostNewLevel callback
+  // Manually check for this
+  usedGlowingHourGlass = true;
 }
 
 // ModCallbacks.MC_POST_GAME_STARTED (15)
@@ -73,6 +88,18 @@ function postNewRoomVanilla() {
   const level = game.GetLevel();
   const stage = level.GetStage();
   const stageType = level.GetStageType();
+
+  if (
+    usedGlowingHourGlass &&
+    (currentStage !== stage || currentStageType !== stageType)
+  ) {
+    // The player has used the Glowing Hour Glass to take them to the previous floor
+    // (which does not trigger the PostNewLevel callback)
+    // Emulate what happens in the PostNewLevel callback
+    recordCurrentStage();
+    postNewLevelReordered.fire();
+    postNewRoomReordered.fire();
+  }
 
   if (
     (gameFrameCount === 0 ||
