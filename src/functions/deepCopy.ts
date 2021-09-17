@@ -254,7 +254,7 @@ function deepCopyValue(
     convertNumberKeysToString = true;
 
     const newTable = newObject as LuaTable;
-    newTable.set(TSTL_OBJECT_WITH_NUMBER_KEYS_BRAND, true);
+    newTable.set(TSTL_OBJECT_WITH_NUMBER_KEYS_BRAND, "");
 
     if (DEBUG) {
       log("deepCopy is converting a TSTL map with number keys to strings.");
@@ -276,8 +276,6 @@ function deepCopyValue(
     const table = value as LuaTable;
     traversalDescription = addTraversalDescription(key, traversalDescription);
     newValue = deepCopy(table, serializationType, traversalDescription);
-  } else if (convertNumberKeysToString) {
-    newValue = tostring(value);
   } else {
     newValue = value;
   }
@@ -290,17 +288,16 @@ function deepCopyValue(
   } else if (newObject instanceof Set) {
     newObject.add(key);
   } else {
-    newObject.set(key, newValue);
+    const keyToUse = convertNumberKeysToString ? tostring(key) : key;
+    newObject.set(keyToUse, newValue);
   }
 }
 
 function copyVector(vector: Vector, serializationType: SerializationType) {
   if (serializationType === SerializationType.SERIALIZE) {
-    // We convert the X and Y values to strings just in case the JSON encoding messes up the float
-    // values
     const vectorTable = new LuaTable();
-    vectorTable.set("X", tostring(vector.X));
-    vectorTable.set("Y", tostring(vector.Y));
+    vectorTable.set("X", vector.X);
+    vectorTable.set("Y", vector.Y);
     vectorTable.set(VECTOR_BRAND, "");
     return vectorTable;
   }
