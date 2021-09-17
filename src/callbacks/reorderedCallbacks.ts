@@ -89,17 +89,18 @@ function postNewRoomVanilla() {
   const stage = level.GetStage();
   const stageType = level.GetStageType();
 
-  if (
-    usedGlowingHourGlass &&
-    (currentStage !== stage || currentStageType !== stageType)
-  ) {
-    // The player has used the Glowing Hour Glass to take them to the previous floor
-    // (which does not trigger the PostNewLevel callback)
-    // Emulate what happens in the PostNewLevel callback
-    recordCurrentStage();
-    postNewLevelReordered.fire();
-    postNewRoomReordered.fire();
-    return;
+  if (usedGlowingHourGlass) {
+    usedGlowingHourGlass = false;
+
+    if (currentStage !== stage || currentStageType !== stageType) {
+      // The player has used the Glowing Hour Glass to take them to the previous floor
+      // (which does not trigger the PostNewLevel callback)
+      // Emulate what happens in the PostNewLevel callback
+      recordCurrentStage();
+      postNewLevelReordered.fire();
+      postNewRoomReordered.fire();
+      return;
+    }
   }
 
   if (
