@@ -126,9 +126,13 @@ function mergeTable(
   traversalDescription: string,
 ) {
   for (const [key, value] of pairs(newTable)) {
+    if (isBrand(key)) {
+      continue;
+    }
+
     // Handle the special case of a Vector
     if (mergeVector(oldTable, key, value)) {
-      return;
+      continue;
     }
 
     const valueType = type(value);
