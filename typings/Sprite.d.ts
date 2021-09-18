@@ -7,6 +7,7 @@ declare interface Sprite {
   GetFilename(): string;
   GetFrame(): int;
   GetLayerCount(): int;
+  GetOverlayAnimation(): string;
   GetOverlayFrame(): int;
   GetTexel(samplePos: Vector, renderPos: Vector, alphaThreshold: float): Color;
   IsEventTriggered(eventName: string): boolean;
