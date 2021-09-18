@@ -61,7 +61,6 @@ export function getCollectibleMaxCharges(
 
 export function getMaxCollectibleID(): int {
   const itemConfig = Isaac.GetItemConfig();
-
   return itemConfig.GetCollectibles().Size - 1;
 }
 

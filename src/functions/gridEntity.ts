@@ -1,14 +1,3 @@
-const SURROUNDING_GRID_INDEXES_DELTA = [
-  -16, // Above-left
-  -15, // Above
-  -14, // Above-right
-  -1, // Left
-  1, // Right
-  14, // Below-left
-  15, // Below
-  16, // Below-right
-];
-
 /**
  * @param gridEntityType Optional. If not specified, will return every grid entity in the room. If
  * specified, it will only return grid entities in the room that match the specified type.
@@ -43,10 +32,24 @@ export function getSurroundingGridEntities(
 ): GridEntity[] {
   const game = Game();
   const room = game.GetRoom();
+  const gridWidth = room.GetGridWidth();
   const gridIndex = gridEntity.GetGridIndex();
 
+  const surroundingGridIndexesDelta: int[] = [
+    gridIndex - 1, // Left
+    gridIndex + 1, // Right
+
+    gridIndex - gridWidth - 1, // Top-left
+    gridIndex - gridWidth, // Top
+    gridIndex - gridWidth + 1, // Top-right
+
+    gridIndex + gridWidth - 1, // Bottom-left
+    gridIndex + gridWidth, // Bottom
+    gridIndex + gridWidth + 1, // Bottom-right
+  ];
+
   const surroundingGridEntities: GridEntity[] = [];
-  for (const delta of SURROUNDING_GRID_INDEXES_DELTA) {
+  for (const delta of surroundingGridIndexesDelta) {
     const surroundingGridIndex = gridIndex + delta;
     const surroundingGridEntity = room.GetGridEntity(surroundingGridIndex);
     if (surroundingGridEntity !== undefined) {
