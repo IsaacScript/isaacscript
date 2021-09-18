@@ -215,7 +215,7 @@ function getNewClassFromMetatable(metatable: TSTLClassMetatable) {
   return newClass as unknown as LuaTable;
 }
 
-function isBrand(key: AnyNotNil) {
+export function isBrand(key: AnyNotNil): boolean {
   return (
     key === TSTL_MAP_BRAND ||
     key === TSTL_SET_BRAND ||

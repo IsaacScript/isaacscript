@@ -5,6 +5,7 @@ import {
   addTraversalDescription,
   deepCopy,
   deserializeVector,
+  isBrand,
   SerializationType,
 } from "../../functions/deepCopy";
 import { log } from "../../functions/log";
@@ -87,6 +88,10 @@ function mergeTSTLObject(
   );
 
   for (const [key, value] of pairs(newTable)) {
+    if (isBrand(key)) {
+      continue;
+    }
+
     let keyToUse = key;
     if (convertStringKeysToNumbers) {
       const numberKey = tonumber(key);
