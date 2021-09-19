@@ -56,11 +56,17 @@ function postRender() {
 
 // ModCallbacks.MC_POST_NEW_ROOM (19)
 function postNewRoom() {
-  if (v.run.state !== CustomReviveState.CHANGING_ROOMS) {
-    return;
+  if (v.run.state === CustomReviveState.CHANGING_ROOMS) {
+    // We have entered the previous room after a 1-Up death
+    // The player will hold the 1-Up above their head in a few frames from now
+    v.run.state = CustomReviveState.WAITING_FOR_ITEM_ANIMATION;
+  } else if (v.run.state === CustomReviveState.WAITING_FOR_ITEM_ANIMATION) {
+    // We exited the room before the player had a chance to hold up the item
+    // Cancel calling the PostCustomReive callback and reset the state
+    v.run.state = CustomReviveState.DISABLED;
+    v.run.revivalType = null;
+    v.run.dyingPlayerIndex = null;
   }
-
-  v.run.state = CustomReviveState.WAITING_FOR_ITEM_ANIMATION;
 }
 
 // ModCallbacks.MC_POST_PLAYER_UPDATE (31)
