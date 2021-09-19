@@ -35,7 +35,7 @@ export function getSurroundingGridEntities(
   const gridWidth = room.GetGridWidth();
   const gridIndex = gridEntity.GetGridIndex();
 
-  const surroundingGridIndexesDelta: int[] = [
+  const surroundingGridIndexes: int[] = [
     gridIndex - 1, // Left
     gridIndex + 1, // Right
 
@@ -49,8 +49,7 @@ export function getSurroundingGridEntities(
   ];
 
   const surroundingGridEntities: GridEntity[] = [];
-  for (const delta of surroundingGridIndexesDelta) {
-    const surroundingGridIndex = gridIndex + delta;
+  for (const surroundingGridIndex of surroundingGridIndexes) {
     const surroundingGridEntity = room.GetGridEntity(surroundingGridIndex);
     if (surroundingGridEntity !== undefined) {
       surroundingGridEntities.push(surroundingGridEntity);
