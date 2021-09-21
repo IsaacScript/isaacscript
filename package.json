@@ -27,6 +27,7 @@
     "eslint-plugin-only-warn": "^1.0.3",
     "eslint-plugin-prettier": "^4.0.0",
     "isaacscript-tsconfig": "^1.1.4",
+    "prettier": "^2.4.1",
     "prettier-plugin-organize-imports": "^2.3.3",
     "ts-prune": "^0.10.0"
   }
