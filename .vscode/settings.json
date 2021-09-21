@@ -19,7 +19,7 @@
   // ----------
 
   // Automatically run the formatter when a JavaScript file is saved
-  "[javascript]":  {
+  "[javascript]": {
     "editor.codeActionsOnSave": [
       "source.fixAll.eslint",
     ],
