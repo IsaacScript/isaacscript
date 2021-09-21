@@ -30,5 +30,8 @@
     "prettier": "^2.4.1",
     "prettier-plugin-organize-imports": "^2.3.3",
     "ts-prune": "^0.10.0"
+  },
+  "peerDependencies": {
+    "typescript": "^4.4.3"
   }
 }
