@@ -21,6 +21,7 @@ declare interface ModConfigMenuInterface {
     };
     LastBackPressed: Keyboard | Controller;
   };
+  IsVisible: boolean;
   /**
    * MenuData is not normally supposed to be accessed, but we access it to wipe data during a mod
    * reload.
