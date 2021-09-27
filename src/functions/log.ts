@@ -108,8 +108,20 @@ export function logArray<T>(array: T[]): void {
   log(`Array: ${arrayString}`);
 }
 
+export function logColor(color: Color): void {
+  log(
+    `Color: R${color.R}, G${color.G}, B${color.B}, A${color.A}, RO${color.RO}, BO${color.BO}, GO${color.GO}`,
+  );
+}
+
 export function logEntity(entity: Entity): void {
   log(`Entity: ${entity.Type}.${entity.Variant}.${entity.SubType}`);
+}
+
+export function logKColor(kColor: KColor): void {
+  log(
+    `Color: R${kColor.Red}, G${kColor.Green}, B${kColor.Blue}, A${kColor.Alpha}`,
+  );
 }
 
 export function logMap(map: Map<AnyNotNil, unknown>): void {
