@@ -225,6 +225,12 @@ function IsaacScriptWatcher:CheckInput()
     return
   end
 
+  -- Ensure that this feature does not overlap with custom consoles by checking for the
+  -- "AwaitingTextInput" global variable
+  if AwaitingTextInput then
+    return
+  end
+
   -- Manually show the log when the user presses the "I" key on the keyboard
   if Input.IsButtonPressed(Keyboard.KEY_I, 0) then
     frameOfLastMsg = Isaac.GetFrameCount()
