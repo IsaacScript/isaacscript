@@ -84,7 +84,7 @@ export function getCollectibleSet(): Set<CollectibleType | int> {
 }
 
 /**
- * Converts a hex string like "#33aa33" to a Color object.
+ * Converts a hex string like "#33aa33" to a KColor object.
  *
  * @param hexString A hex string like "#ffffff".
  */
