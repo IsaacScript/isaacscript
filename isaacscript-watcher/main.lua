@@ -78,6 +78,11 @@ function IsaacScriptWatcher:RenderSprite()
 end
 
 function IsaacScriptWatcher:RenderText()
+  -- Don't draw IsaacScript text when custom consoles are open
+  if AwaitingTextInput then
+    return
+  end
+
   if frameOfLastMsg == 0 then
     return
   end
