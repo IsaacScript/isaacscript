@@ -2,6 +2,8 @@ import { VECTOR_BRAND } from "../constants";
 import { getMaxCollectibleID } from "./collectibles";
 import { getAngleDifference } from "./math";
 
+const HEX_STRING_LENGTH = 6;
+
 /**
  * Helper function to get type safety on a switch statement.
  * Very useful to be future-safe against people adding values to a type or an enum.
@@ -79,6 +81,38 @@ export function getCollectibleSet(): Set<CollectibleType | int> {
   }
 
   return collectibleSet;
+}
+
+/**
+ * Converts a hex string like "#33aa33ff" to a Color object.
+ *
+ * @param hexString A hex string like "#ffffffff".
+ */
+export function hexToKColor(hexString: string, alpha: float): KColor {
+  hexString = hexString.replace("#", "");
+  if (hexString.length !== HEX_STRING_LENGTH) {
+    error(`Hex strings must be of length ${HEX_STRING_LENGTH}.`);
+  }
+
+  const rString = hexString.substr(0, 2);
+  const R = tonumber(`0x${rString}`);
+  if (R === undefined) {
+    error(`Failed to convert \`0x${rString}\` to a number.`);
+  }
+
+  const gString = hexString.substr(2, 4);
+  const G = tonumber(`0x${gString}`);
+  if (G === undefined) {
+    error(`Failed to convert \`0x${gString}\` to a number.`);
+  }
+
+  const bString = hexString.substr(4, 6);
+  const B = tonumber(`0x${bString}`);
+  if (B === undefined) {
+    error(`Failed to convert \`0x${bString}\` to a number.`);
+  }
+
+  return KColor(R, G, B, alpha);
 }
 
 export function isGreedMode(): boolean {
