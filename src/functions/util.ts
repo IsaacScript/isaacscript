@@ -84,9 +84,9 @@ export function getCollectibleSet(): Set<CollectibleType | int> {
 }
 
 /**
- * Converts a hex string like "#33aa33ff" to a Color object.
+ * Converts a hex string like "#33aa33" to a Color object.
  *
- * @param hexString A hex string like "#ffffffff".
+ * @param hexString A hex string like "#ffffff".
  */
 export function hexToKColor(hexString: string, alpha: float): KColor {
   hexString = hexString.replace("#", "");
