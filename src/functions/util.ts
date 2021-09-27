@@ -112,7 +112,9 @@ export function hexToKColor(hexString: string, alpha: float): KColor {
     error(`Failed to convert \`0x${bString}\` to a number.`);
   }
 
-  return KColor(R, G, B, alpha);
+  // KColor values should be between 0 and 1
+  const base = 255;
+  return KColor(R / base, G / base, B / base, alpha);
 }
 
 export function isGreedMode(): boolean {
