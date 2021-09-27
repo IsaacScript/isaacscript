@@ -100,13 +100,13 @@ export function hexToKColor(hexString: string, alpha: float): KColor {
     error(`Failed to convert \`0x${rString}\` to a number.`);
   }
 
-  const gString = hexString.substr(2, 4);
+  const gString = hexString.substr(2, 2);
   const G = tonumber(`0x${gString}`);
   if (G === undefined) {
     error(`Failed to convert \`0x${gString}\` to a number.`);
   }
 
-  const bString = hexString.substr(4, 6);
+  const bString = hexString.substr(4, 2);
   const B = tonumber(`0x${bString}`);
   if (B === undefined) {
     error(`Failed to convert \`0x${bString}\` to a number.`);
