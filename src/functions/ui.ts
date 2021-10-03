@@ -66,7 +66,7 @@ export function getScreenBottomRight(): Vector {
   const game = Game();
   const room = game.GetRoom();
 
-  // First, get the offset from (0, 0) that the top-left wall text is drawn at
+  // First, get the offset from (0, 0) that the top-left wall is drawn at
   const renderSurfaceTopLeft = room.GetRenderSurfaceTopLeft();
 
   // Multiply it by 2 because the bottom-right-hand-corner will be offset in an identical way
