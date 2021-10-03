@@ -4,6 +4,19 @@ import { getAngleDifference } from "./math";
 const HEX_STRING_LENGTH = 6;
 
 /**
+ * Using a Set constructor to copy a Set does not seem to work properly, so this helper function is
+ * used instead.
+ */
+export function copySet<T>(oldSet: Set<T>): Set<T> {
+  const newSet = new Set<T>();
+  for (const value of oldSet.values()) {
+    newSet.add(value);
+  }
+
+  return newSet;
+}
+
+/**
  * Helper function to get type safety on a switch statement.
  * Very useful to be future-safe against people adding values to a type or an enum.
  *

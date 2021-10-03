@@ -1,3 +1,5 @@
+import { copySet } from "./util";
+
 const COLLECTIBLE_SPRITE_LAYER = 1;
 const BLIND_ITEM_PNG_PATH = "gfx/items/collectibles/questionmark.png";
 const COLLECTIBLE_SET = new Set<CollectibleType | int>();
@@ -82,7 +84,7 @@ export function getCollectibleSet(): Set<CollectibleType | int> {
     initSet();
   }
 
-  return new Set(COLLECTIBLE_SET);
+  return copySet(COLLECTIBLE_SET);
 }
 
 export function getMaxCollectibleID(): int {

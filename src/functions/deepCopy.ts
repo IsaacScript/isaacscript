@@ -24,7 +24,11 @@ interface TSTLClassMetatable {
   };
 }
 
-const TSTL_CLASS_KEYS = new Set(["____constructor", "__index", "constructor"]);
+const TSTL_CLASS_KEYS = new Set<string>([
+  "____constructor",
+  "__index",
+  "constructor",
+]);
 
 /**
  * deepCopy is a semi-generic deep cloner. It will recursively copy all of the values so that none

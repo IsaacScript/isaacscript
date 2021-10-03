@@ -3,6 +3,7 @@ import {
   TRANSFORMATIONS_NOT_TRACKED,
   TRANSFORMATION_TO_ITEMS_MAP,
 } from "../transformationMap";
+import { copySet } from "./util";
 
 /** Returns the number of items that a player has towards a particular transformation. */
 export function getPlayerNumTransformationCollectibles(
@@ -34,5 +35,5 @@ export function getTransformationsForItem(
   collectibleType: CollectibleType | int,
 ): Set<PlayerForm> {
   const transformations = ITEM_TO_TRANSFORMATION_MAP.get(collectibleType);
-  return transformations === undefined ? new Set() : transformations;
+  return transformations === undefined ? new Set() : copySet(transformations);
 }
