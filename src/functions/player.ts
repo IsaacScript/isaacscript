@@ -1,6 +1,5 @@
 import PocketItemDescription from "../types/PocketItemDescription";
 import PocketItemType from "../types/PocketItemType";
-import { getCollectibleSet } from "./collectibles";
 
 const EXCLUDED_CHARACTERS = new Set<PlayerType>([
   PlayerType.PLAYER_ESAU, // 20
@@ -179,9 +178,9 @@ export function getPlayerCloserThan(
  */
 export function getPlayerCollectibleMap(
   player: EntityPlayer,
+  collectibleSet: Set<int>,
 ): Map<CollectibleType | int, int> {
   const collectibleMap = new Map<CollectibleType | int, int>();
-  const collectibleSet = getCollectibleSet();
   for (const collectibleType of collectibleSet.values()) {
     // We check for both "HasCollectible()" and "GetCollectibleNum()" to avoid bugs in special cases
     // (e.g. Lilith having 1 Incubus despite not really having the collectible)
