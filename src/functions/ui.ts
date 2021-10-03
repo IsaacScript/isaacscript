@@ -88,12 +88,16 @@ export function getScreenCenter(): Vector {
  * This function is originally from piber20 Helper.
  */
 export function getVisibleHearts(player: EntityPlayer): int {
+  const effectiveMaxHearts = player.GetEffectiveMaxHearts();
+  const soulHearts = player.GetSoulHearts();
+  const boneHearts = player.GetBoneHearts();
+  
   const maxHearts = math.max(
-    player.GetEffectiveMaxHearts(),
-    player.GetBoneHearts() * 2,
+    effectiveMaxHearts,
+    boneHearts * 2,
   );
 
-  let visibleHearts = math.ceil((maxHearts + player.GetSoulHearts()) / 2);
+  let visibleHearts = math.ceil((maxHearts + soulHearts) / 2);
   if (visibleHearts < 1) {
     visibleHearts = 1;
   }
