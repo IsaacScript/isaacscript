@@ -1,5 +1,21 @@
 const COLLECTIBLE_SPRITE_LAYER = 1;
 const BLIND_ITEM_PNG_PATH = "gfx/items/collectibles/questionmark.png";
+const COLLECTIBLE_SET = new Set<CollectibleType | int>();
+
+function initSet() {
+  const itemConfig = Isaac.GetItemConfig();
+
+  for (
+    let collectibleType = 1;
+    collectibleType <= getMaxCollectibleID();
+    collectibleType++
+  ) {
+    const itemConfigItem = itemConfig.GetCollectible(collectibleType);
+    if (itemConfigItem !== undefined) {
+      COLLECTIBLE_SET.add(collectibleType);
+    }
+  }
+}
 
 /**
  * Helper function to change the item on an item pedestal. Simply updating the SubType is not
@@ -57,6 +73,16 @@ export function getCollectibleMaxCharges(
   }
 
   return itemConfigItem.MaxCharges;
+}
+
+/** Returns a set containing every valid collectible type in the game, including modded items. */
+export function getCollectibleSet(): Set<CollectibleType | int> {
+  // Lazy initialize the set
+  if (COLLECTIBLE_SET.size === 0) {
+    initSet();
+  }
+
+  return new Set(COLLECTIBLE_SET);
 }
 
 export function getMaxCollectibleID(): int {

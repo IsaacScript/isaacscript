@@ -18,7 +18,6 @@ For more information about IsaacScript, see the [official website](https://isaac
 
 - [Array Functions](modules/functions_array.html)
 - [Collectible Functions](modules/functions_collectibles.html)
-- [Collectible Set Functions](modules/functions_collectibleSet.html)
 - [Deep Copy Functions](modules/functions_deepCopy.html)
 - [Door Functions](modules/functions_doors.html)
 - [Entity Functions](modules/functions_entity.html)

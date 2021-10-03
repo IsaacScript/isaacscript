@@ -13,7 +13,6 @@ npx typedoc \
   --readme "$DIR/website-root.md" \
   --entryPoints "$DIR/src/functions/array.ts" \
   --entryPoints "$DIR/src/functions/collectibles.ts" \
-  --entryPoints "$DIR/src/functions/collectibleSet.ts" \
   --entryPoints "$DIR/src/functions/deepCopy.ts" \
   --entryPoints "$DIR/src/functions/doors.ts" \
   --entryPoints "$DIR/src/functions/entity.ts" \

@@ -36,7 +36,6 @@ export {
 } from "./features/saveDataManager/main";
 export * from "./functions/array";
 export * from "./functions/collectibles";
-export * from "./functions/collectibleSet";
 export { deepCopy } from "./functions/deepCopy";
 export { deepCopyTests } from "./functions/deepCopyTests";
 export * from "./functions/doors";
