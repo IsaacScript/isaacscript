@@ -91,11 +91,8 @@ export function getVisibleHearts(player: EntityPlayer): int {
   const effectiveMaxHearts = player.GetEffectiveMaxHearts();
   const soulHearts = player.GetSoulHearts();
   const boneHearts = player.GetBoneHearts();
-  
-  const maxHearts = math.max(
-    effectiveMaxHearts,
-    boneHearts * 2,
-  );
+
+  const maxHearts = math.max(effectiveMaxHearts, boneHearts * 2);
 
   let visibleHearts = math.ceil((maxHearts + soulHearts) / 2);
   if (visibleHearts < 1) {
