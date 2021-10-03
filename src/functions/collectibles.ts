@@ -59,25 +59,6 @@ export function getCollectibleMaxCharges(
   return itemConfigItem.MaxCharges;
 }
 
-/** Returns a set containing every valid collectible type in the game, including modded items. */
-export function getCollectibleSet(): Set<CollectibleType | int> {
-  const itemConfig = Isaac.GetItemConfig();
-
-  const collectibleSet = new Set<CollectibleType | int>();
-  for (
-    let collectibleType = 1;
-    collectibleType <= getMaxCollectibleID();
-    collectibleType++
-  ) {
-    const itemConfigItem = itemConfig.GetCollectible(collectibleType);
-    if (itemConfigItem !== undefined) {
-      collectibleSet.add(collectibleType);
-    }
-  }
-
-  return collectibleSet;
-}
-
 export function getMaxCollectibleID(): int {
   const itemConfig = Isaac.GetItemConfig();
   return itemConfig.GetCollectibles().Size - 1;

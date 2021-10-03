@@ -1,3 +1,4 @@
+import { getCollectibleSet } from "../collectibleSet";
 import PocketItemDescription from "../types/PocketItemDescription";
 import PocketItemType from "../types/PocketItemType";
 
@@ -178,8 +179,8 @@ export function getPlayerCloserThan(
  */
 export function getPlayerCollectibleMap(
   player: EntityPlayer,
-  collectibleSet: Set<int>,
 ): Map<CollectibleType | int, int> {
+  const collectibleSet = getCollectibleSet();
   const collectibleMap = new Map<CollectibleType | int, int>();
   for (const collectibleType of collectibleSet.values()) {
     // We check for both "HasCollectible()" and "GetCollectibleNum()" to avoid bugs in special cases
