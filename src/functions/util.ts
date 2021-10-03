@@ -1,5 +1,4 @@
 import { VECTOR_BRAND } from "../constants";
-import { getMaxCollectibleID } from "./collectibles";
 import { getAngleDifference } from "./math";
 
 const HEX_STRING_LENGTH = 6;
@@ -62,25 +61,6 @@ export function getEnumValues(transpiledEnum: unknown): int[] {
   enumValues.sort();
 
   return enumValues;
-}
-
-/** Returns a set containing every valid collectible type in the game, including modded items. */
-export function getCollectibleSet(): Set<CollectibleType | int> {
-  const itemConfig = Isaac.GetItemConfig();
-
-  const collectibleSet = new Set<CollectibleType | int>();
-  for (
-    let collectibleType = 1;
-    collectibleType <= getMaxCollectibleID();
-    collectibleType++
-  ) {
-    const itemConfigItem = itemConfig.GetCollectible(collectibleType);
-    if (itemConfigItem !== undefined) {
-      collectibleSet.add(collectibleType);
-    }
-  }
-
-  return collectibleSet;
 }
 
 /**
