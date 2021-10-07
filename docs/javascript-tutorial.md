@@ -707,7 +707,7 @@ const player = entity.ToPlayer();
 if (player === undefined) {
   error("Failed to convert the entity to a player.");
 }
-player.AddMaxHearts(2); // Error: Object is possibly 'undefined'
+player.AddMaxHearts(2); // The type of player is now narrowed to "EntityPlayer"
 ```
 
 Here, we explicitly handle the error case and supply a helpful error message. But this code does something more important than simply providing the error message.
