@@ -339,6 +339,10 @@ numFarts += 1; // numFarts is now equal to 2
 
 <br />
 
+## Level 2 - Intermediate
+
+<br />
+
 ### String Concatenation
 
 The way to concatenate strings is different:
@@ -441,10 +445,6 @@ When coding in TypeScript, you will need to add the type for every function argu
 
 <br />
 
-## Level 2 - Intermediate
-
-<br />
-
 ### Splitting Your Code Into Multiple Files: `require()` --> `import`
 
 In Lua, you split your code into multiple files by using `require()`.
@@ -485,6 +485,10 @@ export function main(player: EntityPlayer) {
   player.AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false);
 }
 ```
+
+<br />
+
+## Level 3 - Advanced
 
 <br />
 
