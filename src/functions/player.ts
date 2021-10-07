@@ -17,7 +17,7 @@ const EXCLUDED_CHARACTERS = new Set<PlayerType>([
  *
  * This type is branded for extra type safety.
  */
-export type PlayerIndex = string & { __playerIndexBrand: any }; // eslint-disable-line @typescript-eslint/no-explicit-any
+export type PlayerIndex = int & { __playerIndexBrand: unknown };
 
 /** Iterates over all players and checks if any player is close enough to the specified position. */
 export function anyPlayerCloserThan(
@@ -275,9 +275,7 @@ export function getPlayersOfType(playerType: PlayerType): EntityPlayer[] {
  *   relaunching the game.
  *
  * Instead, we use `EntityPlayer.GetCollectibleRNG()` with an arbitrary value of 1 (i.e. Sad Onion).
- * This works even if the player does not have any Sad Onions. We also convert the numerical seed to
- * a string to avoid null element creation when saving the table as JSON (which is necessary when
- * saving variables on run exit).
+ * This works even if the player does not have any Sad Onions.
  *
  * Finally, this index fails in the case of Tainted Lazarus, since the RNG will be the same for both
  * Tainted Lazarus and Dead Tainted Lazarus. We revert to using the RNG of Inner Eye for this case.
@@ -290,9 +288,8 @@ export function getPlayerIndex(player: EntityPlayer): PlayerIndex {
       : CollectibleType.COLLECTIBLE_SAD_ONION;
   const collectibleRNG = player.GetCollectibleRNG(collectibleToUse);
   const seed = collectibleRNG.GetSeed();
-  const seedString = seed.toString();
 
-  return seedString as PlayerIndex;
+  return seed as PlayerIndex;
 }
 
 /**
