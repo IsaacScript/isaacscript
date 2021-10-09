@@ -203,19 +203,19 @@ export function teleport(
 export function vectorToDirection(vector: Vector): Direction {
   const degrees = vector.GetAngleDegrees();
 
-  if (degrees >= -45 && degrees < 45) {
+  if (degrees > -45 && degrees < 45) {
     return Direction.RIGHT;
   }
 
-  if (degrees >= 45 && degrees < 135) {
+  if (degrees >= 45 && degrees <= 135) {
     return Direction.DOWN;
   }
 
-  if (degrees < -45 && degrees >= -135) {
+  if (degrees <= -45 && degrees >= -135) {
     return Direction.UP;
   }
 
-  if (degrees >= 135 || degrees < -135) {
+  if (degrees > 135 || degrees < -135) {
     return Direction.LEFT;
   }
 
