@@ -28,33 +28,6 @@ interface StageAPICallbackParameters {
 
 /** @noSelf */
 interface StageAPIInterface {
-  StageOverride: {
-    CatacombsOne: 1;
-    CatacombsTwo: 2;
-  };
-
-  /**
-   * Creates a new custom stage.
-   *
-   * @param name MUST BE UNIQUE. USED TO IDENTIFY STAGE AND FOR SAVING CURRENT STAGE.
-   * @param noSetReplaces Replaces defaults to catacombs one if noSetReplaces is not set.
-   */
-  CustomStage(
-    name: string,
-    StageOverrideStage?: StageOverrideStage,
-    noSetReplaces?: boolean,
-  ): CustomStage;
-
-  RoomGfx(
-    Backdrop: Backdrop,
-    GridGfx: GridGfx | undefined,
-    shadingName: string,
-    shadingPrefix: string,
-  ): RoomGfx;
-
-  RoomsList(name: string, ...layouts: unknown[]): RoomsList;
-  GridGfx(): GridGfx;
-
   /**
    * Stores a function and its params in a table indexed by `ID` and sorted by `priority`,
    * where low priority is at the start.
@@ -64,16 +37,6 @@ interface StageAPIInterface {
     id: T,
     priority: int,
     ...args: StageAPICallbackParameters[T]
-  ): void;
-
-  /** Unregisters all mod callbacks, should be used when a mod loads, useful for `luamod`. */
-  UnregisterCallbacks(modID: Mod): void;
-
-  /** Teleports the player(s) to a specified stage */
-  GotoCustomStage(
-    CustomStage: CustomStage,
-    playTransition?: boolean,
-    noForgetSeed?: boolean,
   ): void;
 
   /**
@@ -96,4 +59,47 @@ interface StageAPIInterface {
     prefix: string,
     suffix: string,
   ): Backdrop;
+
+  /** Function to create a custom floor layout. */
+  CreateMapFromRoomsList(roomsList: RoomsList): LevelMap;
+
+  /**
+   * Creates a new custom stage.
+   *
+   * @param name MUST BE UNIQUE. USED TO IDENTIFY STAGE AND FOR SAVING CURRENT STAGE.
+   * @param noSetReplaces Replaces defaults to catacombs one if noSetReplaces is not set.
+   */
+  CustomStage(
+    name: string,
+    StageOverrideStage?: StageOverrideStage,
+    noSetReplaces?: boolean,
+  ): CustomStage;
+
+  /** Teleports the player(s) to a specified stage */
+  GotoCustomStage(
+    CustomStage: CustomStage,
+    playTransition?: boolean,
+    noForgetSeed?: boolean,
+  ): void;
+
+  GridGfx(): GridGfx;
+
+  InitCustomLevel(levelMap: LevelMap, levelStartRoom: boolean): void;
+
+  RoomGfx(
+    Backdrop: Backdrop,
+    GridGfx: GridGfx | undefined,
+    shadingName: string,
+    shadingPrefix: string,
+  ): RoomGfx;
+
+  RoomsList(name: string, ...layouts: unknown[]): RoomsList;
+
+  /** Unregisters all mod callbacks, should be used when a mod loads, useful for `luamod`. */
+  UnregisterCallbacks(modID: Mod): void;
+
+  StageOverride: {
+    CatacombsOne: 1;
+    CatacombsTwo: 2;
+  };
 }

@@ -175,3 +175,7 @@ declare interface GridGfx {
   /** Sets the path to the pay-to-play door gfx spritesheet. */
   SetPayToPlayDoor(filename: string): void;
 }
+
+declare interface LevelMap {
+  Init(): void;
+}
