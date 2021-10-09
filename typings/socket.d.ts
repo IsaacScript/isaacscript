@@ -10,7 +10,10 @@ declare interface Socket {
 }
 
 declare interface SocketClient {
-  connect(): LuaMultiReturn<[returnCode: int, errMsg: string]>;
+  connect(
+    host: string,
+    port: int,
+  ): LuaMultiReturn<[returnCode: int, errMsg: string]>;
   receive(): LuaMultiReturn<[data: string | undefined, errMsg: string]>;
   send(
     msg: string,
