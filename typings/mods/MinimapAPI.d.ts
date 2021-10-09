@@ -2,11 +2,12 @@ declare const MinimapAPI: MinimapAPIInterface | undefined;
 
 interface MinimapAPIInterface {
   GetRoomByIdx(roomIndex: int): MinimapAPIRoomDescriptor | undefined;
+  GetLevel(dimension: Dimension): MinimapAPIRoomDescriptor[];
 
   Config: {
     Disable: boolean;
   };
-  Level: MinimapAPIRoomDescriptor[];
+  Levels: Map<Dimension, MinimapAPIRoomDescriptor[]>;
 }
 
 interface MinimapAPIRoomDescriptor {
