@@ -4,7 +4,7 @@
  */
 declare interface Mod {
   AddCallback<T extends keyof CallbackParameters>(
-    callbackID: T,
+    modCallbacks: T,
     ...args: CallbackParameters[T]
   ): void;
   HasData(): boolean;
