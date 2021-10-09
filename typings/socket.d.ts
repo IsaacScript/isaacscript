@@ -12,7 +12,7 @@ declare module "socket" {
   function udp(this: void): SocketClient;
 }
 
-interface SocketClient {
+declare interface SocketClient {
   receive(): LuaMultiReturn<[data: string | undefined, errMsg: string]>;
   send(
     msg: string,
