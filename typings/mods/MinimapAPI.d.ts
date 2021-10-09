@@ -9,6 +9,15 @@ interface MinimapAPIInterface {
 }
 
 interface MinimapAPIRoomDescriptor {
+  IsVisible(): boolean;
+  IsShadow(): boolean;
+  IsIconVisible(): boolean;
+  IsVisited(): boolean;
+  GetAdjacentRooms(): MinimapAPIRoomDescriptor[];
+  GetDisplayFlags(): int;
+  IsClear(): boolean;
   Remove(): void;
+
   DisplayFlags: int;
+  Level: MinimapAPIRoomDescriptor[];
 }
