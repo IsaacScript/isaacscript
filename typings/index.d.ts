@@ -8,6 +8,7 @@
 /// <reference path="json.d.ts" />
 /// <reference path="main.d.ts" />
 /// <reference path="primitives.d.ts" />
+/// <reference path="socket.d.ts" />
 
 /// <reference path="ActiveItemDesc.d.ts" />
 /// <reference path="BitSet128.d.ts" />
