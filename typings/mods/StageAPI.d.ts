@@ -24,6 +24,13 @@ interface StageAPICallbackParameters {
       justBrokenGridSpawns: LuaTable<int, RemovedEntityData> | undefined,
     ) => false | void,
   ];
+  [StageCallback.POST_ROOM_LOAD]: [
+    callback: (
+      room: unknown,
+      isFirstLoad: boolean,
+      isExtraRoom: boolean,
+    ) => void,
+  ];
 }
 
 /** @noSelf */

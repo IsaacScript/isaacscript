@@ -154,4 +154,6 @@ declare const enum StageCallback {
    * Guaranteed to run before any room loads.
    */
   PRE_STAGEAPI_NEW_ROOM = "PRE_STAGEAPI_NEW_ROOM",
+
+  POST_ROOM_LOAD = "POST_ROOM_LOAD",
 }
