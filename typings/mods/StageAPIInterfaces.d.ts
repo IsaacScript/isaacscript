@@ -183,6 +183,12 @@ declare interface RoomsList {
   AddRooms(roomFiles: string[] | CustomRoomConfig[]): void;
 }
 
+declare interface StageAPIRoom {
+  Layout: {
+    Name: string;
+  };
+}
+
 /** This is a type used by the StageAPI library. */
 declare type StageOverrideStage = {
   OverrideStage: LevelStage;

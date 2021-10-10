@@ -89,6 +89,8 @@ interface StageAPIInterface {
    */
   FinishedLoadingData(): boolean;
 
+  GetCurrentRoom(): StageAPIRoom;
+
   GetCustomGrids(index: int | undefined, name: string): CustomGridEntity[];
 
   /** Teleports the player(s) to a specified stage */
