@@ -559,7 +559,12 @@ export function removeDeadEyeMultiplier(player: EntityPlayer): void {
   }
 }
 
-/** This function was originally created by im_tem. */
+/**
+ * If you want to stop the player from shooting without the blindfold costume, then simply call
+ * `player.TryRemoveNullCostume(NullItemID.ID_BLINDFOLD)` after invoking this function.
+ *
+ * This function was originally created by im_tem.
+ */
 export function setBlindfold(player: EntityPlayer, enabled: boolean): void {
   const game = Game();
   const character = player.GetPlayerType();
