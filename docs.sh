@@ -12,6 +12,7 @@ npx typedoc \
   --out "$DOCS_DIR" \
   --readme "$DIR/website-root.md" \
   --entryPoints "$DIR/src/functions/array.ts" \
+  --entryPoints "$DIR/src/functions/bitwise.ts" \
   --entryPoints "$DIR/src/functions/collectibles.ts" \
   --entryPoints "$DIR/src/functions/deepCopy.ts" \
   --entryPoints "$DIR/src/functions/doors.ts" \

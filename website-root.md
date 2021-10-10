@@ -17,6 +17,7 @@ For more information about IsaacScript, see the [official website](https://isaac
 ## List of Helper Functions by Category
 
 - [Array Functions](modules/functions_array.html)
+- [Bitwise Functions](modules/functions_bitwise.html)
 - [Collectible Functions](modules/functions_collectibles.html)
 - [Deep Copy Functions](modules/functions_deepCopy.html)
 - [Door Functions](modules/functions_doors.html)
