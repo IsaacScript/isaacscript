@@ -1,18 +1,19 @@
 declare const MinimapAPI: MinimapAPIInterface | undefined;
 
 interface MinimapAPIInterface {
-  GetRoomByIdx(roomIndex: int): MinimapAPIRoomDescriptor | undefined;
+  GetConfig(configOption: string): unknown;
   GetLevel(dimension?: Dimension): MinimapAPIRoomDescriptor[];
+  GetRoomByIdx(roomIndex: int): MinimapAPIRoomDescriptor | undefined;
 
   Config: {
     Disable: boolean;
   };
   Levels: Map<Dimension, MinimapAPIRoomDescriptor[]>;
+  OverrideConfig: Record<string, unknown>;
 }
 
 interface MinimapAPIRoomDescriptor {
   GetAdjacentRooms(): MinimapAPIRoomDescriptor[];
-  GetConfig(configOption: string): unknown;
   GetDisplayFlags(): int;
   IsClear(): boolean;
   IsIconVisible(): boolean;
@@ -32,7 +33,6 @@ interface MinimapAPIRoomDescriptor {
   ItemIcons: unknown[];
   LockedIcons: unknown[];
   NoUpdate: boolean;
-  OverrideConfig: Record<string, unknown>;
   PermanentIcons: unknown[];
   Position: Vector;
   RenderOffset: Vector;
