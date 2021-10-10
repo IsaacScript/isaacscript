@@ -1,5 +1,5 @@
 export function getKBitOfN(k: int, n: int): int {
-  return (n & (1 << k)) >>> k;
+  return (n >>> k) & 1;
 }
 
 export function getNumBitsOfN(n: int): int {
