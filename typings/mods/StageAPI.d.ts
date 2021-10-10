@@ -89,7 +89,7 @@ interface StageAPIInterface {
    */
   FinishedLoadingData(): boolean;
 
-  GetCurrentRoom(): StageAPIRoom;
+  GetCurrentRoom(): StageAPIRoom | undefined;
 
   GetCustomGrids(index: int | undefined, name: string): CustomGridEntity[];
 
