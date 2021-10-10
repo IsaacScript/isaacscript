@@ -127,6 +127,21 @@ export function getRoomIndexesForType(roomType: RoomType): Set<int> {
 }
 
 /**
+ * Helper function to get the name of the room as it appears in the STB/XML data.
+ *
+ * @returns The room name. Returns "Unknown" if the type was not found.
+ */
+export function getRoomName(): string {
+  const roomData = getRoomData();
+
+  if (roomData === undefined) {
+    return "Unknown";
+  }
+
+  return roomData.Name;
+}
+
+/**
  * Helper function to get the stage ID for the room from the XML/STB data. The room stage ID will
  * correspond to the first number in the filename of the XML/STB file. For example, a Depths room
  * would have a stage ID of 7. (Use the `StageID` enum for comparison.)
