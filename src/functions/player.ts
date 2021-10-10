@@ -566,13 +566,13 @@ export function setBlindfold(player: EntityPlayer, enabled: boolean): void {
   const challenge = Isaac.GetChallenge();
 
   if (enabled) {
+    game.Challenge = Challenge.CHALLENGE_SOLAR_SYSTEM; // This challenge has a blindfold
+    player.ChangePlayerType(character);
+    game.Challenge = challenge;
+  } else {
     game.Challenge = Challenge.CHALLENGE_NULL;
     player.ChangePlayerType(character);
     game.Challenge = challenge;
     player.TryRemoveNullCostume(NullItemID.ID_BLINDFOLD);
-  } else {
-    game.Challenge = Challenge.CHALLENGE_SOLAR_SYSTEM; // This challenge has a blindfold
-    player.ChangePlayerType(character);
-    game.Challenge = challenge;
   }
 }
