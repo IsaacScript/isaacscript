@@ -558,3 +558,21 @@ export function removeDeadEyeMultiplier(player: EntityPlayer): void {
     player.ClearDeadEyeCharge();
   }
 }
+
+/** This function was originally created by im_tem. */
+export function setBlindfold(player: EntityPlayer, enabled: boolean): void {
+  const game = Game();
+  const character = player.GetPlayerType();
+  const challenge = Isaac.GetChallenge();
+
+  if (enabled) {
+    game.Challenge = Challenge.CHALLENGE_NULL;
+    player.ChangePlayerType(character);
+    game.Challenge = challenge;
+    player.TryRemoveNullCostume(NullItemID.ID_BLINDFOLD);
+  } else {
+    game.Challenge = Challenge.CHALLENGE_SOLAR_SYSTEM; // This challenge has a blindfold
+    player.ChangePlayerType(character);
+    game.Challenge = challenge;
+  }
+}
