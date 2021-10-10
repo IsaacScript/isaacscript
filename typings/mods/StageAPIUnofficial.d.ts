@@ -1,64 +1,25 @@
-declare const enum StageCallback {
-  /**
-   * Takes 1 return value. If `false`, cancels spawning the grid.
-   * If a table, uses it as the grid data.
-   *
-   * Any return value breaks out of future callbacks.
-   */
-  PRE_SPAWN_GRID = "PRE_SPAWN_GRID",
-
-  /**
-   * Takes 1 return value. If a table, uses it as the current room layout.
-   * Otherwise, chooses from `roomsList` with seeded RNG. Breaks on first return.
-   *
-   * Called both on initial room load and when continuing game, before INIT.
-   */
-  PRE_ROOM_LAYOUT_CHOOSE = "PRE_ROOM_LAYOUT_CHOOSE",
-
-  /**
-   * Called when an overridden grid reaches its break state and is considered broken.
-   *
-   * @param justBrokenGridSpawns Contains all deleted spawns from the grid.
-   *
-   * Breaks on first non-undefined return.
-   */
-  POST_OVERRIDDEN_GRID_BREAK = "POST_OVERRIDDEN_GRID_BREAK",
-
-  POST_CHANGE_ROOM_GFX = "POST_CHANGE_ROOM_GFX",
-
-  /**
-   * Runs before most but not all StageAPI room functionality.
-   * Guaranteed to run before any room loads.
-   */
-  PRE_STAGEAPI_NEW_ROOM = "PRE_STAGEAPI_NEW_ROOM",
-}
-
+/** This is a type used by the StageAPI library. */
 declare type CustomRoomConfig = LuaTable<
   number | string,
   LuaRoomGenericEntity | number | string
 >;
 
-declare interface LuaRoomGenericEntity {
-  ISDOOR: boolean;
-  GRIDX: int;
-  GRIDY: int;
+/** This is an enum used by the StageAPI library. */
+declare const enum LayoutButtonVariant {
+  ROOM_CLEAR = 0,
+  REWARD = 1,
+  GREED = 2,
+  KILL = 9,
+  RAIL = 3,
 }
 
-declare interface LuaRoomDoor extends LuaRoomGenericEntity {
-  SLOT: DoorSlot;
-  EXISTS: boolean;
+/** This is an enum used by the StageAPI library. */
+declare const enum LayoutCornyPoopSubtype {
+  NORMAL = 0,
+  NON_REPLACEABLE = 1,
 }
 
-declare interface LuaRoomEntity extends LuaRoomGenericEntity {
-  1: {
-    TYPE: int;
-    VARIANT: int;
-    SUBTYPE: int;
-    WEIGHT: float;
-    METADATA?: unknown;
-  };
-}
-
+/** This is an enum used by the StageAPI library. */
 declare const enum LayoutGridType {
   ROCK = 1000,
   ROCK_ALT = 1002,
@@ -92,11 +53,26 @@ declare const enum LayoutGridType {
   PROP_C = 30,
 }
 
+/** This is an enum used by the StageAPI library. */
+declare const enum LayoutPitfallVariant {
+  NORMAL = 0,
+  SUCTION = 1,
+  TELEPORT = 2,
+}
+
+/** This is an enum used by the StageAPI library. */
+declare const enum LayoutPoopSubtype {
+  NORMAL = 0,
+  NON_REPLACEABLE = 1,
+}
+
+/** This is an enum used by the StageAPI library. */
 declare const enum LayoutRockSubtype {
   NORMAL = 0,
   NON_REPLACEABLE = 1,
 }
 
+/** This is an enum used by the StageAPI library. */
 declare const enum LayoutSpikesOnOffVariant {
   NORMAL = 0,
   DOWN_1_FIFTH = 1,
@@ -111,34 +87,71 @@ declare const enum LayoutSpikesOnOffVariant {
   UP_5_FIFTHS = 10,
 }
 
-declare const enum LayoutButtonVariant {
-  ROOM_CLEAR = 0,
-  REWARD = 1,
-  GREED = 2,
-  KILL = 9,
-  RAIL = 3,
+/** This is an interface used by the StageAPI library. */
+declare interface LuaRoomDoor extends LuaRoomGenericEntity {
+  SLOT: DoorSlot;
+  EXISTS: boolean;
 }
 
-declare const enum LayoutPoopSubtype {
-  NORMAL = 0,
-  NON_REPLACEABLE = 1,
+/** This is an interface used by the StageAPI library. */
+declare interface LuaRoomEntity extends LuaRoomGenericEntity {
+  1: {
+    TYPE: int;
+    VARIANT: int;
+    SUBTYPE: int;
+    WEIGHT: float;
+    METADATA?: unknown;
+  };
 }
 
-declare const enum LayoutCornyPoopSubtype {
-  NORMAL = 0,
-  NON_REPLACEABLE = 1,
+/** This is an interface used by the StageAPI library. */
+declare interface LuaRoomGenericEntity {
+  ISDOOR: boolean;
+  GRIDX: int;
+  GRIDY: int;
 }
 
-declare const enum LayoutPitfallVariant {
-  NORMAL = 0,
-  SUCTION = 1,
-  TELEPORT = 2,
-}
-
+/** This is an enum used by the StageAPI library. */
 declare const enum PickupRandomGroupVariant {
   ANY = 0,
   NOT_CHEST_ITEM = 1,
   NOT_ITEM = 2,
   NOT_CHEST_ITEM_COIN = 3,
   NOT_CHEST_ITEM_TRINKET = 4,
+}
+
+/** This is an enum used by the StageAPI library. */
+declare const enum StageCallback {
+  /**
+   * Takes 1 return value. If `false`, cancels spawning the grid.
+   * If a table, uses it as the grid data.
+   *
+   * Any return value breaks out of future callbacks.
+   */
+  PRE_SPAWN_GRID = "PRE_SPAWN_GRID",
+
+  /**
+   * Takes 1 return value. If a table, uses it as the current room layout.
+   * Otherwise, chooses from `roomsList` with seeded RNG. Breaks on first return.
+   *
+   * Called both on initial room load and when continuing game, before INIT.
+   */
+  PRE_ROOM_LAYOUT_CHOOSE = "PRE_ROOM_LAYOUT_CHOOSE",
+
+  /**
+   * Called when an overridden grid reaches its break state and is considered broken.
+   *
+   * @param justBrokenGridSpawns Contains all deleted spawns from the grid.
+   *
+   * Breaks on first non-undefined return.
+   */
+  POST_OVERRIDDEN_GRID_BREAK = "POST_OVERRIDDEN_GRID_BREAK",
+
+  POST_CHANGE_ROOM_GFX = "POST_CHANGE_ROOM_GFX",
+
+  /**
+   * Runs before most but not all StageAPI room functionality.
+   * Guaranteed to run before any room loads.
+   */
+  PRE_STAGEAPI_NEW_ROOM = "PRE_STAGEAPI_NEW_ROOM",
 }

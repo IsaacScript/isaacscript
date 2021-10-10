@@ -1,25 +1,4 @@
-declare interface VanillaStage {
-  NormalStage: true;
-  Stage: LevelStage;
-  StageType: StageType;
-}
-
-declare type StageOverrideStage = {
-  OverrideStage: LevelStage;
-  OverrideStageType: StageType;
-  ReplaceWith: CustomStage | VanillaStage;
-};
-
-declare interface DoorInfo {
-  RequireCurrent?: RoomType[];
-  RequireTarget?: RoomType[];
-  RequireEither?: RoomType[];
-  NotCurrent?: RoomType[];
-  NotTarget?: RoomType[];
-  NotEither?: RoomType[];
-  IsBossAmbush?: boolean;
-}
-
+/** This is an interface used by the StageAPI library. */
 declare interface Backdrop {
   NFloors: string[];
   LFloors: string[];
@@ -27,27 +6,14 @@ declare interface Backdrop {
   Walls: string[];
 }
 
-declare interface RoomGfx {
-  Backdrop: Sprite;
-  GridGfx: Sprite;
-  shadingName: string;
-  shadingPrefix: string;
+/** This is an interface used by the StageAPI library. */
+declare interface CustomGridEntity {
+  PersistentData: {
+    TransitionAnim: int;
+  };
 }
 
-declare interface RoomsList {
-  AddRooms(roomFiles: string[] | CustomRoomConfig[]): void;
-}
-
-declare interface RemovedEntityData {
-  Type: EntityType;
-  Variant: int;
-  SubType: int;
-  Position: Vector;
-  Velocity: Vector;
-  Spawner: Entity | undefined;
-  Seed: number;
-}
-
+/** This is an interface used by the StageAPI library. */
 declare interface CustomStage {
   /**
    * Automatically aliases the new stage to the old one, if noSetAlias is not set.
@@ -130,6 +96,18 @@ declare interface CustomStage {
   IsStage(noAlias: boolean): boolean;
 }
 
+/** This is an interface used by the StageAPI library. */
+declare interface DoorInfo {
+  RequireCurrent?: RoomType[];
+  RequireTarget?: RoomType[];
+  RequireEither?: RoomType[];
+  NotCurrent?: RoomType[];
+  NotTarget?: RoomType[];
+  NotEither?: RoomType[];
+  IsBossAmbush?: boolean;
+}
+
+/** This is an interface used by the StageAPI library. */
 declare interface GridGfx {
   /** Sets the path to the gfx spritesheet for the specified {@link GridEntity}. */
   SetGrid(filename: string, GridEntityType: GridEntityType, variant: int): void;
@@ -176,6 +154,45 @@ declare interface GridGfx {
   SetPayToPlayDoor(filename: string): void;
 }
 
+/** This is an interface used by the StageAPI library. */
 declare interface LevelMap {
   Init(): void;
+}
+
+/** This is an interface used by the StageAPI library. */
+declare interface RemovedEntityData {
+  Type: EntityType;
+  Variant: int;
+  SubType: int;
+  Position: Vector;
+  Velocity: Vector;
+  Spawner: Entity | undefined;
+  Seed: number;
+}
+
+/** This is an interface used by the StageAPI library. */
+declare interface RoomGfx {
+  Backdrop: Sprite;
+  GridGfx: Sprite;
+  shadingName: string;
+  shadingPrefix: string;
+}
+
+/** This is an interface used by the StageAPI library. */
+declare interface RoomsList {
+  AddRooms(roomFiles: string[] | CustomRoomConfig[]): void;
+}
+
+/** This is a type used by the StageAPI library. */
+declare type StageOverrideStage = {
+  OverrideStage: LevelStage;
+  OverrideStageType: StageType;
+  ReplaceWith: CustomStage | VanillaStage;
+};
+
+/** This is an interface used by the StageAPI library. */
+declare interface VanillaStage {
+  NormalStage: true;
+  Stage: LevelStage;
+  StageType: StageType;
 }
