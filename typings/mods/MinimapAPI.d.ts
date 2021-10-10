@@ -20,5 +20,22 @@ interface MinimapAPIRoomDescriptor {
   IsClear(): boolean;
   Remove(): void;
 
+  AdjacentDisplayFlags: int;
+  Clear: boolean;
+  Color: Color;
+  Descriptor: RoomDescriptor;
   DisplayFlags: int;
+  DisplayPosition: Vector;
+  Hidden: boolean;
+  ID: int;
+  ItemIcons: unknown[];
+  LockedIcons: unknown[];
+  NoUpdate: boolean;
+  PermanentIcons: unknown[];
+  Position: Vector;
+  RenderOffset: Vector;
+  Shape: RoomShape;
+  TargetRenderOffset: Vector;
+  Type: RoomType;
+  Visited: boolean;
 }
