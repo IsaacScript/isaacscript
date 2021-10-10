@@ -75,6 +75,13 @@ interface StageAPIInterface {
     noSetReplaces?: boolean,
   ): CustomStage;
 
+  /**
+   * On the first run after opening the game for the first time, StageAPI gathers a bunch of data
+   * from vanilla rooms so that it can properly build custom stages. If a mod is initializing a
+   * custom stage, they must first check on every PostRender frame until this method returns true.
+   */
+  FinishedLoadingData(): boolean;
+
   /** Teleports the player(s) to a specified stage */
   GotoCustomStage(
     CustomStage: CustomStage,
