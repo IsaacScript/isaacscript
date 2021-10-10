@@ -11,13 +11,14 @@ interface MinimapAPIInterface {
 }
 
 interface MinimapAPIRoomDescriptor {
-  IsVisible(): boolean;
-  IsShadow(): boolean;
-  IsIconVisible(): boolean;
-  IsVisited(): boolean;
   GetAdjacentRooms(): MinimapAPIRoomDescriptor[];
+  GetConfig(configOption: string): unknown;
   GetDisplayFlags(): int;
   IsClear(): boolean;
+  IsIconVisible(): boolean;
+  IsShadow(): boolean;
+  IsVisible(): boolean;
+  IsVisited(): boolean;
   Remove(): void;
 
   AdjacentDisplayFlags: int;
@@ -31,6 +32,7 @@ interface MinimapAPIRoomDescriptor {
   ItemIcons: unknown[];
   LockedIcons: unknown[];
   NoUpdate: boolean;
+  OverrideConfig: Record<string, unknown>;
   PermanentIcons: unknown[];
   Position: Vector;
   RenderOffset: Vector;
