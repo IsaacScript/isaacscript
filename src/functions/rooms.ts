@@ -144,11 +144,11 @@ export function getRoomName(): string {
 /**
  * Helper function to get the stage ID for the room from the XML/STB data. The room stage ID will
  * correspond to the first number in the filename of the XML/STB file. For example, a Depths room
- * would have a stage ID of 7. (Use the `StageID` enum for comparison.)
+ * would have a stage ID of 7.
  *
  * @returns The room stage ID. Returns -1 if the stage ID was not found.
  */
-export function getRoomStageID(): int {
+export function getRoomStageID(): StageID {
   const roomData = getRoomData();
 
   if (roomData === undefined) {
