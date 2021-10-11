@@ -13,7 +13,7 @@ declare interface RoomConfig {
   Shape: RoomShape;
   SpawnCount: int;
   Spawns: SpawnList;
-  StageID: int;
+  StageID: StageID;
   Subtype: int;
   Type: RoomType;
   Variant: int;
