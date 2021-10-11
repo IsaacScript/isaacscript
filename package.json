@@ -11,16 +11,16 @@
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^4.31.2",
     "@typescript-eslint/parser": "^4.31.2",
-    "cspell": "^5.10.1",
+    "cspell": "^5.12.3",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-config-airbnb-typescript": "^14.0.0",
+    "eslint-config-airbnb-typescript": "^14.0.1",
     "eslint-config-isaacscript": "^1.0.50",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-eqeqeq-fix": "^1.0.3",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-import": "^2.24.2",
-    "eslint-plugin-jsdoc": "^36.1.0",
+    "eslint-plugin-jsdoc": "^36.1.1",
     "eslint-plugin-no-implicit-map-set-loops": "^1.0.3",
     "eslint-plugin-no-template-curly-in-string-fix": "^1.0.4",
     "eslint-plugin-no-void-return-type": "^1.0.2",
@@ -28,8 +28,8 @@
     "eslint-plugin-prettier": "^4.0.0",
     "isaacscript-tsconfig": "^1.1.4",
     "prettier": "^2.4.1",
-    "prettier-plugin-organize-imports": "^2.3.3",
-    "ts-prune": "^0.10.0"
+    "prettier-plugin-organize-imports": "^2.3.4",
+    "ts-prune": "^0.10.1"
   },
   "peerDependencies": {
     "typescript": "^4.4.3"
