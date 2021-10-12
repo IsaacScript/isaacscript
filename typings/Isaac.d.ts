@@ -250,8 +250,6 @@ declare global {
     /**
      * Converts a game Vector (i.e. `entity.Position`) to a render Vector used for drawing sprites
      * and text to the screen at fixed positions.
-     *
-     * Note that if you call this in the main menu, the game will sometimes crash.
      */
     function WorldToRenderPosition(position: Vector): Vector;
     /**
