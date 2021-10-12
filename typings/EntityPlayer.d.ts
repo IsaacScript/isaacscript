@@ -412,8 +412,9 @@ declare interface EntityPlayer extends Entity {
   GetCollectibleCount(): int;
   /**
    * @param collectibleType
-   * @param ignoreModifiers If set to true, only counts collectibles the player actually owns and
-   * ignores effects granted by items like Zodiac, 3 Dollar Bill and Lemegeton. Default is false.
+   * @param onlyCountTrueItems If set to true, the function only counts collectibles that the player
+   * actually owns and ignores things like Lilith's Incubus, items granted by 3 Dollar Bill, and so
+   * forth.
    */
   GetCollectibleNum(
     collectibleType: CollectibleType | int,
