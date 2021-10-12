@@ -66,6 +66,7 @@ declare interface Room {
   GetGridPathFromPos(index: int): int;
   GetGridPosition(gridIndex: int): Vector;
   GetGridSize(): int;
+  /** Note that if you call this in the main menu, the game will sometimes crash. */
   GetGridWidth(): int;
   GetLaserTarget(position: Vector, direction: Vector): Vector;
   GetLightingAlpha(): float;
