@@ -80,7 +80,8 @@ export function isGlitchedCollectible(entity: Entity): boolean {
   );
 }
 
-export function removeAllEntities(entities: Entity[]): void {
+/** Removes all of the entities in the supplied array. */
+export function removeEntities(entities: Entity[]): void {
   for (const entity of entities) {
     entity.Remove();
   }
@@ -92,5 +93,5 @@ export function removeAllMatchingEntities(
   entitySubType = -1,
 ): void {
   const entities = Isaac.FindByType(entityType, entityVariant, entitySubType);
-  removeAllEntities(entities);
+  removeEntities(entities);
 }
