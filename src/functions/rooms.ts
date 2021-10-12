@@ -193,22 +193,6 @@ export function getRoomVariant(): int {
   return roomData.Variant;
 }
 
-/**
- * Converts a room X and Y coordinate to a position. For example, the coordinates of 0, 0 are
- * equal to `Vector(80, 160)`.
- */
-export function gridToPos(x: int, y: int): Vector {
-  const game = Game();
-  const room = game.GetRoom();
-
-  x += 1;
-  y += 1;
-
-  const gridIndex = y * room.GetGridWidth() + x;
-
-  return room.GetGridPosition(gridIndex);
-}
-
 export function in2x1Room(): boolean {
   const game = Game();
   const room = game.GetRoom();
