@@ -1,5 +1,7 @@
+import HealthType from "../types/HealthType";
 import PocketItemDescription from "../types/PocketItemDescription";
 import PocketItemType from "../types/PocketItemType";
+import { getKBitOfN, getNumBitsOfN } from "./bitwise";
 import { getCollectibleSet } from "./collectibles";
 
 const EXCLUDED_CHARACTERS = new Set<PlayerType>([
@@ -98,6 +100,64 @@ export function getDeathAnimationName(player: EntityPlayer): string {
     character === PlayerType.PLAYER_THESOUL_B;
 
   return isLostTypeCharacter ? "LostDeath" : "Death";
+}
+
+/**
+ * Helper function that returns the type of the rightmost heart, not including golden hearts since
+ * they can't be damaged directly.
+ */
+export function getLastHeart(player: EntityPlayer): HealthType {
+  const hearts = player.GetHearts();
+  const effectiveMaxHearts = player.GetEffectiveMaxHearts();
+  const soulHearts = player.GetSoulHearts();
+  const blackHearts = player.GetBlackHearts();
+  const eternalHearts = player.GetEternalHearts();
+  const boneHearts = player.GetBoneHearts();
+  const rottenHearts = player.GetRottenHearts();
+
+  const soulHeartSlots = soulHearts / 2;
+  const lastHeartIndex = boneHearts + soulHeartSlots - 1;
+  const isLastHeartBone = player.IsBoneHeart(lastHeartIndex);
+
+  if (isLastHeartBone) {
+    const isLastContainerEmpty = hearts <= effectiveMaxHearts - 2;
+    if (isLastContainerEmpty) {
+      return HealthType.BONE;
+    }
+
+    if (rottenHearts > 0) {
+      return HealthType.ROTTEN;
+    }
+
+    if (eternalHearts > 0) {
+      return HealthType.ETERNAL;
+    }
+
+    return HealthType.RED;
+  }
+
+  const numBits = getNumBitsOfN(blackHearts);
+  const finalBit = getKBitOfN(numBits - 1, blackHearts);
+  const isBlack = finalBit === 1;
+
+  if (soulHearts > 0) {
+    if (isBlack) {
+      return HealthType.BLACK;
+    }
+
+    // If it is not a black heart, it must be a soul heart
+    return HealthType.SOUL;
+  }
+
+  if (eternalHearts > 0) {
+    return HealthType.ETERNAL;
+  }
+
+  if (rottenHearts > 0) {
+    return HealthType.ROTTEN;
+  }
+
+  return HealthType.RED;
 }
 
 /**

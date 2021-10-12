@@ -57,6 +57,10 @@ function getCurrentHealthValue(player: EntityPlayer, healthType: HealthType) {
       return player.GetHearts();
     }
 
+    case HealthType.ROTTEN: {
+      return player.GetRottenHearts();
+    }
+
     case HealthType.SOUL: {
       return player.GetSoulHearts();
     }
