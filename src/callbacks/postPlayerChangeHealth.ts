@@ -53,32 +53,39 @@ function postPlayerUpdateReordered(player: EntityPlayer) {
 
 function getCurrentHealthValue(player: EntityPlayer, healthType: HealthType) {
   switch (healthType) {
+    // 5.10.1
     case HealthType.RED: {
       return player.GetHearts();
     }
 
-    case HealthType.ROTTEN: {
-      return player.GetRottenHearts();
-    }
-
+    // 5.10.3
     case HealthType.SOUL: {
       return player.GetSoulHearts();
     }
 
+    // 5.10.4
+    case HealthType.ETERNAL: {
+      return player.GetEternalHearts();
+    }
+
+    // 5.10.6
     case HealthType.BLACK: {
       return player.GetBlackHearts();
     }
 
-    case HealthType.BONE: {
-      return player.GetBoneHearts();
-    }
-
+    // 5.10.7
     case HealthType.GOLDEN: {
       return player.GetGoldenHearts();
     }
 
-    case HealthType.ETERNAL: {
-      return player.GetEternalHearts();
+    // 5.10.11
+    case HealthType.BONE: {
+      return player.GetBoneHearts();
+    }
+
+    // 5.10.12
+    case HealthType.ROTTEN: {
+      return player.GetRottenHearts();
     }
 
     case HealthType.MAX_HEARTS: {

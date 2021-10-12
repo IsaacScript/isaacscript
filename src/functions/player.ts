@@ -136,11 +136,11 @@ export function getLastHeart(player: EntityPlayer): HealthType {
     return HealthType.RED;
   }
 
-  const numBits = getNumBitsOfN(blackHearts);
-  const finalBit = getKBitOfN(numBits - 1, blackHearts);
-  const isBlack = finalBit === 1;
-
   if (soulHearts > 0) {
+    const numBits = getNumBitsOfN(blackHearts);
+    const finalBit = getKBitOfN(numBits - 1, blackHearts);
+    const isBlack = finalBit === 1;
+
     if (isBlack) {
       return HealthType.BLACK;
     }
