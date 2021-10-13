@@ -39,7 +39,7 @@ interface StageAPIInterface {
    * Stores a function and its params in a table indexed by `ID` and sorted by `priority`,
    * where low priority is at the start.
    */
-  AddCallback<T extends keyof StageAPICallbackParameters>(
+  AddCallback<T extends StageAPICallback>(
     modID: string,
     id: T,
     priority: int,
@@ -118,6 +118,8 @@ interface StageAPIInterface {
 
   /** Unregisters all mod callbacks, should be used when a mod loads, useful for `luamod`. */
   UnregisterCallbacks(modID: Mod): void;
+
+  Callbacks: Record<StageAPICallback, unknown>;
 
   StageOverride: {
     CatacombsOne: 1;
