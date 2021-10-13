@@ -91,7 +91,8 @@ interface StageAPIInterface {
 
   GetCurrentRoom(): StageAPIRoom | undefined;
 
-  GetCurrentRoomIndex(): int;
+  /** Roughly analogous to the vanilla `Level.GetCurrentRoomIndex` function. */
+  GetCurrentRoomID(): int;
 
   GetCustomGrids(index: int | undefined, name: string): CustomGridEntity[];
 
