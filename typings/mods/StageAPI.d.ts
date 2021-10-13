@@ -117,7 +117,7 @@ interface StageAPIInterface {
   RoomsList(name: string, ...layouts: unknown[]): RoomsList;
 
   /** Unregisters all mod callbacks, should be used when a mod loads, useful for `luamod`. */
-  UnregisterCallbacks(modID: Mod): void;
+  UnregisterCallbacks(modID: string): void;
 
   Callbacks: Record<StageAPICallback, unknown>;
 
