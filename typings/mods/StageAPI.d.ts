@@ -82,6 +82,18 @@ interface StageAPIInterface {
     noSetReplaces?: boolean,
   ): CustomStage;
 
+  /** Used to go to a specific room when on a custom StageAPI floor. */
+  ExtraRoomTransition(
+    levelMapRoomID: int,
+    direction: Direction,
+    transitionType: RoomTransitionAnim,
+    levelMapID: unknown,
+    leaveDoor?: int,
+    enterDoor?: int,
+    setPlayerPosition?: unknown,
+    extraRoomBaseType?: unknown,
+  ): void;
+
   /**
    * On the first run after opening the game for the first time, StageAPI gathers a bunch of data
    * from vanilla rooms so that it can properly build custom stages. If a mod is initializing a
@@ -93,6 +105,8 @@ interface StageAPIInterface {
 
   /** Roughly analogous to the vanilla `Level.GetCurrentRoomIndex` function. */
   GetCurrentRoomID(): int;
+
+  GetCurrentLevelMap(): unknown;
 
   GetCustomGrids(index: int | undefined, name: string): CustomGridEntity[];
 
