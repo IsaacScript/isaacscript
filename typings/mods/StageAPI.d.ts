@@ -5,7 +5,7 @@ interface StageAPICallbackParameters {
     callback: (
       currentRoom: unknown,
       roomsList: unknown,
-    ) => CustomRoomConfig | undefined,
+    ) => StageAPICustomRoomConfig | undefined,
   ];
   [StageAPICallback.PRE_SPAWN_GRID]: [
     callback: (
@@ -21,7 +21,9 @@ interface StageAPICallbackParameters {
     callback: (
       gridIndex: int,
       grid: GridEntity,
-      justBrokenGridSpawns: LuaTable<int, RemovedEntityData> | undefined,
+      justBrokenGridSpawns:
+        | LuaTable<int, StageAPIRemovedEntityData>
+        | undefined,
     ) => false | void,
   ];
   [StageAPICallback.POST_ROOM_LOAD]: [
@@ -65,10 +67,10 @@ interface StageAPIInterface {
     },
     prefix: string,
     suffix: string,
-  ): Backdrop;
+  ): StageAPIBackdrop;
 
   /** Function to create a custom floor layout. */
-  CreateMapFromRoomsList(roomsList: RoomsList): LevelMap;
+  CreateMapFromRoomsList(roomsList: StageAPIRoomsList): StageAPILevelMap;
 
   /**
    * Creates a new custom stage.
@@ -78,9 +80,9 @@ interface StageAPIInterface {
    */
   CustomStage(
     name: string,
-    StageOverrideStage?: StageOverrideStage,
+    StageOverrideStage?: StageAPIStageOverrideStage,
     noSetReplaces?: boolean,
-  ): CustomStage;
+  ): StageAPICustomStage;
 
   /** Used to go to a specific room when on a custom StageAPI floor. */
   ExtraRoomTransition(
@@ -106,29 +108,32 @@ interface StageAPIInterface {
   /** Roughly analogous to the vanilla `Level.GetCurrentRoomIndex` function. */
   GetCurrentRoomID(): int;
 
-  GetCurrentLevelMap(): unknown;
+  GetCurrentLevelMap(): StageAPILevelMap;
 
-  GetCustomGrids(index: int | undefined, name: string): CustomGridEntity[];
+  GetCustomGrids(
+    index: int | undefined,
+    name: string,
+  ): StageAPICustomGridEntity[];
 
   /** Teleports the player(s) to a specified stage */
   GotoCustomStage(
-    CustomStage: CustomStage,
+    customStage: StageAPICustomStage,
     playTransition?: boolean,
     noForgetSeed?: boolean,
   ): void;
 
-  GridGfx(): GridGfx;
+  GridGfx(): StageAPIGridGfx;
 
-  InitCustomLevel(levelMap: LevelMap, levelStartRoom: boolean): void;
+  InitCustomLevel(levelMap: StageAPILevelMap, levelStartRoom: boolean): void;
 
   RoomGfx(
-    Backdrop: Backdrop,
-    GridGfx: GridGfx | undefined,
+    backdrop: StageAPIBackdrop,
+    gridGfx: StageAPIGridGfx | undefined,
     shadingName: string,
     shadingPrefix: string,
-  ): RoomGfx;
+  ): StageAPIRoomGfx;
 
-  RoomsList(name: string, ...layouts: unknown[]): RoomsList;
+  RoomsList(name: string, ...layouts: unknown[]): StageAPIRoomsList;
 
   /** Unregisters all mod callbacks, should be used when a mod loads, useful for `luamod`. */
   UnregisterCallbacks(modID: string): void;

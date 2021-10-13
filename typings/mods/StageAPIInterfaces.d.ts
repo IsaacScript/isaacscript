@@ -1,20 +1,17 @@
-/** This is an interface used by the StageAPI library. */
-declare interface Backdrop {
+declare interface StageAPIBackdrop {
   NFloors: string[];
   LFloors: string[];
   Corners: string[];
   Walls: string[];
 }
 
-/** This is an interface used by the StageAPI library. */
-declare interface CustomGridEntity {
+declare interface StageAPICustomGridEntity {
   PersistentData: {
     TransitionAnim: int;
   };
 }
 
-/** This is an interface used by the StageAPI library. */
-declare interface CustomStage {
+declare interface StageAPICustomStage {
   /**
    * Automatically aliases the new stage to the old one, if noSetAlias is not set.
    *
@@ -41,10 +38,10 @@ declare interface CustomStage {
   SetStageNumber(num: int): void;
 
   /** Sets the stage this `CustomStage` overrides. */
-  SetReplace(stageOverrideStage: StageOverrideStage): void;
+  SetReplace(stageOverrideStage: StageAPIStageOverrideStage): void;
 
   /** Sets the stage after this one. */
-  SetNextStage(nextStage: CustomStage | VanillaStage): void;
+  SetNextStage(nextStage: StageAPICustomStage | StageAPIVanillaStage): void;
 
   /**
    * Sets the {@link RoomGfx} used by the stage.
@@ -54,12 +51,12 @@ declare interface CustomStage {
    * Can be a string identifier, a {@link RoomType}, or an array of either.
    */
   SetRoomGfx(
-    roomGfx: RoomGfx,
+    roomGfx: StageAPIRoomGfx,
     roomTypes: string | int | string[] | int[],
   ): void;
 
   /** Sets the list room layouts used by the stage. */
-  SetRooms(roomsList: RoomsList): void;
+  SetRooms(roomsList: StageAPIRoomsList): void;
 
   /** Sets the music used by the stage. */
   SetMusic(musicID: int, roomType: RoomType): void;
@@ -96,8 +93,7 @@ declare interface CustomStage {
   IsStage(noAlias: boolean): boolean;
 }
 
-/** This is an interface used by the StageAPI library. */
-declare interface DoorInfo {
+declare interface StageAPIDoorInfo {
   RequireCurrent?: RoomType[];
   RequireTarget?: RoomType[];
   RequireEither?: RoomType[];
@@ -107,8 +103,7 @@ declare interface DoorInfo {
   IsBossAmbush?: boolean;
 }
 
-/** This is an interface used by the StageAPI library. */
-declare interface GridGfx {
+declare interface StageAPIGridGfx {
   /** Sets the path to the gfx spritesheet for the specified {@link GridEntity}. */
   SetGrid(filename: string, GridEntityType: GridEntityType, variant: int): void;
 
@@ -148,19 +143,18 @@ declare interface GridGfx {
   SetDecorations(filename: string): void;
 
   /** Sets the path to the gfx spritesheet of the specified subset of doors. */
-  AddDoors(filename: string, DoorInfo: DoorInfo): void;
+  AddDoors(filename: string, DoorInfo: StageAPIDoorInfo): void;
 
   /** Sets the path to the pay-to-play door gfx spritesheet. */
   SetPayToPlayDoor(filename: string): void;
 }
 
-/** This is an interface used by the StageAPI library. */
-declare interface LevelMap {
-  Init(): void;
+declare interface StageAPILevelMap {
+  GetRoom(roomData: StageAPIRoomData): StageAPIRoom;
+  Map: StageAPIRoomData[];
 }
 
-/** This is an interface used by the StageAPI library. */
-declare interface RemovedEntityData {
+declare interface StageAPIRemovedEntityData {
   Type: EntityType;
   Variant: int;
   SubType: int;
@@ -170,17 +164,19 @@ declare interface RemovedEntityData {
   Seed: number;
 }
 
-/** This is an interface used by the StageAPI library. */
-declare interface RoomGfx {
+declare interface StageAPIRoomData {
+  MapID: number;
+}
+
+declare interface StageAPIRoomGfx {
   Backdrop: Sprite;
   GridGfx: Sprite;
   shadingName: string;
   shadingPrefix: string;
 }
 
-/** This is an interface used by the StageAPI library. */
-declare interface RoomsList {
-  AddRooms(roomFiles: string[] | CustomRoomConfig[]): void;
+declare interface StageAPIRoomsList {
+  AddRooms(roomFiles: string[] | StageAPICustomRoomConfig[]): void;
 }
 
 declare interface StageAPIRoom {
@@ -189,15 +185,13 @@ declare interface StageAPIRoom {
   };
 }
 
-/** This is a type used by the StageAPI library. */
-declare type StageOverrideStage = {
+declare type StageAPIStageOverrideStage = {
   OverrideStage: LevelStage;
   OverrideStageType: StageType;
-  ReplaceWith: CustomStage | VanillaStage;
+  ReplaceWith: StageAPICustomStage | StageAPIVanillaStage;
 };
 
-/** This is an interface used by the StageAPI library. */
-declare interface VanillaStage {
+declare interface StageAPIVanillaStage {
   NormalStage: true;
   Stage: LevelStage;
   StageType: StageType;

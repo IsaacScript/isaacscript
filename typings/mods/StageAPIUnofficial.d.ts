@@ -1,11 +1,9 @@
-/** This is a type used by the StageAPI library. */
-declare type CustomRoomConfig = LuaTable<
+declare type StageAPICustomRoomConfig = LuaTable<
   number | string,
-  LuaRoomGenericEntity | number | string
+  StageAPILuaRoomGenericEntity | number | string
 >;
 
-/** This is an enum used by the StageAPI library. */
-declare const enum LayoutButtonVariant {
+declare const enum StageAPILayoutButtonVariant {
   ROOM_CLEAR = 0,
   REWARD = 1,
   GREED = 2,
@@ -13,14 +11,12 @@ declare const enum LayoutButtonVariant {
   RAIL = 3,
 }
 
-/** This is an enum used by the StageAPI library. */
-declare const enum LayoutCornyPoopSubtype {
+declare const enum StageAPILayoutCornyPoopSubtype {
   NORMAL = 0,
   NON_REPLACEABLE = 1,
 }
 
-/** This is an enum used by the StageAPI library. */
-declare const enum LayoutGridType {
+declare const enum StageAPILayoutGridType {
   ROCK = 1000,
   ROCK_ALT = 1002,
   ROCK_BOMB = 1001,
@@ -53,27 +49,23 @@ declare const enum LayoutGridType {
   PROP_C = 30,
 }
 
-/** This is an enum used by the StageAPI library. */
-declare const enum LayoutPitfallVariant {
+declare const enum StageAPILayoutPitfallVariant {
   NORMAL = 0,
   SUCTION = 1,
   TELEPORT = 2,
 }
 
-/** This is an enum used by the StageAPI library. */
-declare const enum LayoutPoopSubtype {
+declare const enum StageAPILayoutPoopSubtype {
   NORMAL = 0,
   NON_REPLACEABLE = 1,
 }
 
-/** This is an enum used by the StageAPI library. */
-declare const enum LayoutRockSubtype {
+declare const enum StageAPILayoutRockSubtype {
   NORMAL = 0,
   NON_REPLACEABLE = 1,
 }
 
-/** This is an enum used by the StageAPI library. */
-declare const enum LayoutSpikesOnOffVariant {
+declare const enum StageAPILayoutSpikesOnOffVariant {
   NORMAL = 0,
   DOWN_1_FIFTH = 1,
   DOWN_2_FIFTHS = 2,
@@ -87,14 +79,12 @@ declare const enum LayoutSpikesOnOffVariant {
   UP_5_FIFTHS = 10,
 }
 
-/** This is an interface used by the StageAPI library. */
-declare interface LuaRoomDoor extends LuaRoomGenericEntity {
+declare interface StageAPILuaRoomDoor extends StageAPILuaRoomGenericEntity {
   SLOT: DoorSlot;
   EXISTS: boolean;
 }
 
-/** This is an interface used by the StageAPI library. */
-declare interface LuaRoomEntity extends LuaRoomGenericEntity {
+declare interface StageAPILuaRoomEntity extends StageAPILuaRoomGenericEntity {
   1: {
     TYPE: int;
     VARIANT: int;
@@ -104,15 +94,13 @@ declare interface LuaRoomEntity extends LuaRoomGenericEntity {
   };
 }
 
-/** This is an interface used by the StageAPI library. */
-declare interface LuaRoomGenericEntity {
+declare interface StageAPILuaRoomGenericEntity {
   ISDOOR: boolean;
   GRIDX: int;
   GRIDY: int;
 }
 
-/** This is an enum used by the StageAPI library. */
-declare const enum PickupRandomGroupVariant {
+declare const enum StageAPIPickupRandomGroupVariant {
   ANY = 0,
   NOT_CHEST_ITEM = 1,
   NOT_ITEM = 2,
