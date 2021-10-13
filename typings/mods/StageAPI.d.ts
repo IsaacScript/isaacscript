@@ -1,13 +1,13 @@
 declare const StageAPI: StageAPIInterface | undefined;
 
 interface StageAPICallbackParameters {
-  [StageCallback.PRE_ROOM_LAYOUT_CHOOSE]: [
+  [StageAPICallback.PRE_ROOM_LAYOUT_CHOOSE]: [
     callback: (
       currentRoom: unknown,
       roomsList: unknown,
     ) => CustomRoomConfig | undefined,
   ];
-  [StageCallback.PRE_SPAWN_GRID]: [
+  [StageAPICallback.PRE_SPAWN_GRID]: [
     callback: (
       gridData: unknown,
       gridInformation: unknown,
@@ -15,16 +15,16 @@ interface StageAPICallbackParameters {
       gridSpawnRNG: RNG,
     ) => boolean | undefined,
   ];
-  [StageCallback.POST_CHANGE_ROOM_GFX]: [callback: () => void];
-  [StageCallback.PRE_STAGEAPI_NEW_ROOM]: [callback: () => void];
-  [StageCallback.POST_OVERRIDDEN_GRID_BREAK]: [
+  [StageAPICallback.POST_CHANGE_ROOM_GFX]: [callback: () => void];
+  [StageAPICallback.PRE_STAGEAPI_NEW_ROOM]: [callback: () => void];
+  [StageAPICallback.POST_OVERRIDDEN_GRID_BREAK]: [
     callback: (
       gridIndex: int,
       grid: GridEntity,
       justBrokenGridSpawns: LuaTable<int, RemovedEntityData> | undefined,
     ) => false | void,
   ];
-  [StageCallback.POST_ROOM_LOAD]: [
+  [StageAPICallback.POST_ROOM_LOAD]: [
     callback: (
       room: unknown,
       isFirstLoad: boolean,

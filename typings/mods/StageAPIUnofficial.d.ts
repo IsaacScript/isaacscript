@@ -120,8 +120,7 @@ declare const enum PickupRandomGroupVariant {
   NOT_CHEST_ITEM_TRINKET = 4,
 }
 
-/** This is an enum used by the StageAPI library. */
-declare const enum StageCallback {
+declare const enum StageAPICallback {
   /**
    * Takes 1 return value. If `false`, cancels spawning the grid.
    * If a table, uses it as the grid data.
