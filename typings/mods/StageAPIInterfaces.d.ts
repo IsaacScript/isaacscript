@@ -5,10 +5,22 @@ declare interface StageAPIBackdrop {
   Walls: string[];
 }
 
+declare interface StageAPICustomDoor {
+  AlwaysOpen: boolean;
+  Anm2: string;
+  CloseAnim: string;
+  ClosedAnim: string;
+  DirectionOffsets: unknown;
+  ExitFunction: string;
+  Name: string;
+  OpenAnim: string;
+  OpenedAnim: string;
+  NoAutoHandling: boolean;
+  TransitionAnim: int;
+}
+
 declare interface StageAPICustomGridEntity {
-  PersistentData: {
-    TransitionAnim: int;
-  };
+  PersistentData: StageAPICustomDoor;
 }
 
 declare interface StageAPICustomStage {
