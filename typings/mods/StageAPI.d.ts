@@ -72,8 +72,13 @@ interface StageAPIInterface {
   ChangeBackdrop(
     backdrop: StageAPIBackdrop,
     justWalls?: boolean,
-    storeBackdropEntities?: boolean,
-  ): Entity[] | undefined;
+    storeBackdropEntities?: false,
+  ): void;
+  ChangeBackdrop(
+    backdrop: StageAPIBackdrop,
+    justWalls: boolean,
+    storeBackdropEntities: true,
+  ): Entity[];
 
   /** Function to create a custom floor layout. */
   CreateMapFromRoomsList(roomsList: StageAPIRoomsList): StageAPILevelMap;
