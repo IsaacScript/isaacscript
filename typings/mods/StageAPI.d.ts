@@ -69,6 +69,12 @@ interface StageAPIInterface {
     suffix: string,
   ): StageAPIBackdrop;
 
+  ChangeBackdrop(
+    backdrop: StageAPIBackdrop,
+    justWalls?: boolean,
+    storeBackdropEntities?: boolean,
+  ): Entity[] | undefined;
+
   /** Function to create a custom floor layout. */
   CreateMapFromRoomsList(roomsList: StageAPIRoomsList): StageAPILevelMap;
 
@@ -126,6 +132,7 @@ interface StageAPIInterface {
 
   InitCustomLevel(levelMap: StageAPILevelMap, levelStartRoom: boolean): void;
 
+  /** Constructor for the RoomGfx object. */
   RoomGfx(
     backdrop: StageAPIBackdrop,
     gridGfx: StageAPIGridGfx | undefined,
