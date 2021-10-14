@@ -41,6 +41,9 @@ declare const enum PressurePlateVariant {
   PRESSURE_PLATE = 0,
   REWARD_PLATE = 1,
   GREED_PLATE = 2,
+  MINECART_PLATE = 3,
+  KILL_ALL_ENEMIES_PLATE = 9,
+  SPAWN_ROCKS_PLATE = 10,
 }
 
 /** For GridEntityType.GRID_STATUE (21) */
