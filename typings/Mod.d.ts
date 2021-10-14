@@ -16,6 +16,7 @@ declare interface Mod {
   Name: string;
 }
 
+/* eslint-disable @typescript-eslint/member-ordering */
 interface CallbackParameters {
   [ModCallbacks.MC_NPC_UPDATE]: [
     callback: (npc: EntityNPC) => void,
@@ -367,3 +368,4 @@ interface CallbackParameters {
     ) => [EntityType | int, int, int] | void,
   ];
 }
+/* eslint-enable @typescript-eslint/member-ordering */

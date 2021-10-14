@@ -1,14 +1,14 @@
 declare const EID: EIDInterface | undefined;
 
 declare interface EIDDescriptionObject {
+  Description: string;
+  ID: int;
   ItemType: int;
   ItemVariant: int;
-  RealID: int;
-  ID: int;
-  fullItemString: string;
   Name: string;
-  Description: string;
+  RealID: int;
   Transformation: string;
+  fullItemString: string;
 }
 
 /**
