@@ -80,24 +80,26 @@ declare const enum StageAPILayoutSpikesOnOffVariant {
 }
 
 declare interface StageAPILuaRoomDoor extends StageAPILuaRoomGenericEntity {
-  SLOT: DoorSlot;
   EXISTS: boolean;
+  SLOT: DoorSlot;
 }
 
 declare interface StageAPILuaRoomEntity extends StageAPILuaRoomGenericEntity {
   1: {
+    /* eslint-disable @typescript-eslint/member-ordering */
     TYPE: int;
     VARIANT: int;
     SUBTYPE: int;
     WEIGHT: float;
     METADATA?: unknown;
+    /* eslint-enable @typescript-eslint/member-ordering */
   };
 }
 
 declare interface StageAPILuaRoomGenericEntity {
-  ISDOOR: boolean;
   GRIDX: int;
   GRIDY: int;
+  ISDOOR: boolean;
 }
 
 declare const enum StageAPIPickupRandomGroupVariant {

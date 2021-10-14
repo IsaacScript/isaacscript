@@ -1,22 +1,7 @@
 declare const StageAPI: StageAPIInterface | undefined;
 
 interface StageAPICallbackParameters {
-  [StageAPICallback.PRE_ROOM_LAYOUT_CHOOSE]: [
-    callback: (
-      currentRoom: unknown,
-      roomsList: unknown,
-    ) => StageAPICustomRoomConfig | undefined,
-  ];
-  [StageAPICallback.PRE_SPAWN_GRID]: [
-    callback: (
-      gridData: unknown,
-      gridInformation: unknown,
-      entities: unknown,
-      gridSpawnRNG: RNG,
-    ) => boolean | undefined,
-  ];
   [StageAPICallback.POST_CHANGE_ROOM_GFX]: [callback: () => void];
-  [StageAPICallback.PRE_STAGEAPI_NEW_ROOM]: [callback: () => void];
   [StageAPICallback.POST_OVERRIDDEN_GRID_BREAK]: [
     callback: (
       gridIndex: int,
@@ -33,6 +18,21 @@ interface StageAPICallbackParameters {
       isExtraRoom: boolean,
     ) => void,
   ];
+  [StageAPICallback.PRE_ROOM_LAYOUT_CHOOSE]: [
+    callback: (
+      currentRoom: unknown,
+      roomsList: unknown,
+    ) => StageAPICustomRoomConfig | undefined,
+  ];
+  [StageAPICallback.PRE_SPAWN_GRID]: [
+    callback: (
+      gridData: unknown,
+      gridInformation: unknown,
+      entities: unknown,
+      gridSpawnRNG: RNG,
+    ) => boolean | undefined,
+  ];
+  [StageAPICallback.PRE_STAGEAPI_NEW_ROOM]: [callback: () => void];
 }
 
 /** @noSelf */
@@ -60,10 +60,10 @@ interface StageAPIInterface {
    */
   BackdropHelper(
     backdrop: {
-      Walls: string[];
-      NFloors: string[];
-      LFloors: string[];
       Corners: string[];
+      LFloors: string[];
+      NFloors: string[];
+      Walls: string[];
     },
     prefix: string,
     suffix: string,
@@ -91,7 +91,7 @@ interface StageAPIInterface {
    */
   CustomStage(
     name: string,
-    StageOverrideStage?: StageAPIStageOverrideStage,
+    stageOverrideStage?: StageAPIStageOverrideStage,
     noSetReplaces?: boolean,
   ): StageAPICustomStage;
 
@@ -114,12 +114,12 @@ interface StageAPIInterface {
    */
   FinishedLoadingData(): boolean;
 
+  GetCurrentLevelMap(): StageAPILevelMap;
+
   GetCurrentRoom(): StageAPIRoom | undefined;
 
   /** Roughly analogous to the vanilla `Level.GetCurrentRoomIndex` function. */
   GetCurrentRoomID(): int;
-
-  GetCurrentLevelMap(): StageAPILevelMap;
 
   GetCustomGrids(
     index: int | undefined,
