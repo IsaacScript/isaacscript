@@ -11,7 +11,7 @@ interface MinimapAPIInterface {
 
   AddIcon(
     id: number | string,
-    Sprite: Sprite,
+    sprite: Sprite,
     animationName: string,
     frame: number,
     color: Color | undefined,
@@ -137,17 +137,17 @@ interface MinimapAPIInterface {
 
   AddRoomShape(
     id: number | string,
-    small_anims: RoomAnimsTable,
-    large_anims: RoomAnimsTable,
-    gridpivot: Vector,
-    gridsize: Vector,
+    smallAnims: RoomAnimsTable,
+    largeAnims: RoomAnimsTable,
+    gridPivot: Vector,
+    gridSize: Vector,
     positions: Vector[],
-    iconpositions: Vector[],
-    iconpositioncenter: Vector,
-    largeiconpositions: Vector[],
-    largeiconpositioncenter: Vector[],
-    adjacentcoords: Vector,
-    doorslots: DoorSlot[] | undefined,
+    iconPositions: Vector[],
+    iconPositionCenter: Vector,
+    largeIconPositions: Vector[],
+    largeIconPositionCenter: Vector[],
+    adjacentCoords: Vector,
+    doorSlots: DoorSlot[] | undefined,
   ): void;
 
   GetConfig(configOption: string): boolean | number | undefined;
@@ -171,13 +171,13 @@ interface MinimapAPIInterface {
 
   GetRoomByIdx(roomIndex: int): MinimapAPIRoomDescriptor | undefined;
 
-  GetSaveTable(menuexit: boolean): LuaTable;
+  GetSaveTable(menuExit: boolean): LuaTable;
 
   IsPositionFree(position: Vector): boolean;
 
   IsPositionFreeNoAlign(
     position: Vector,
-    roomshape: RoomShape | undefined,
+    roomShape: RoomShape | undefined,
   ): boolean;
 
   IsRoomAdjacent(
