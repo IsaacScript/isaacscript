@@ -23,7 +23,11 @@ module.exports = {
       "warn",
       {
         default: {
-          memberTypes: ["instance-method", "instance-field"],
+          order: "alphabetically",
+        },
+
+        interfaces: {
+          memberTypes: ["method", "field"],
           order: "alphabetically",
         },
       },
