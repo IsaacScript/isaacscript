@@ -144,5 +144,12 @@ declare const enum StageAPICallback {
    */
   PRE_STAGEAPI_NEW_ROOM = "PRE_STAGEAPI_NEW_ROOM",
 
+  /**
+   * Called when a room initializes. Can occur at two times, when a room is initially entered or
+   * when a room is loaded from save data. Takes no return values.
+   */
+  POST_ROOM_INIT = "POST_ROOM_INIT",
+
+  /** Called when a room is loaded. Takes no return value. */
   POST_ROOM_LOAD = "POST_ROOM_LOAD",
 }
