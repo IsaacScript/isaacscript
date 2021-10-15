@@ -1,9 +1,10 @@
 declare const StageAPI: StageAPIInterface | undefined;
 
 interface StageAPICallbackParameters {
-  [StageAPICallback.POST_CHANGE_ROOM_GFX]: [callback: () => void];
+  [StageAPICallback.POST_CHANGE_ROOM_GFX]: [callback: (this: void) => void];
   [StageAPICallback.POST_OVERRIDDEN_GRID_BREAK]: [
     callback: (
+      this: void,
       gridIndex: int,
       grid: GridEntity,
       justBrokenGridSpawns:
@@ -13,6 +14,7 @@ interface StageAPICallbackParameters {
   ];
   [StageAPICallback.POST_ROOM_INIT]: [
     callback: (
+      this: void,
       currentRoom: StageAPILevelRoom,
       fromSaveData: unknown,
       saveData: unknown,
@@ -20,6 +22,7 @@ interface StageAPICallbackParameters {
   ];
   [StageAPICallback.POST_ROOM_LOAD]: [
     callback: (
+      this: void,
       currentRoom: StageAPILevelRoom,
       isFirstLoad: boolean,
       isExtraRoom: boolean,
@@ -27,19 +30,21 @@ interface StageAPICallbackParameters {
   ];
   [StageAPICallback.PRE_ROOM_LAYOUT_CHOOSE]: [
     callback: (
+      this: void,
       currentRoom: unknown,
       roomsList: unknown,
     ) => StageAPICustomRoomConfig | undefined,
   ];
   [StageAPICallback.PRE_SPAWN_GRID]: [
     callback: (
+      this: void,
       gridData: unknown,
       gridInformation: unknown,
       entities: unknown,
       gridSpawnRNG: RNG,
     ) => boolean | undefined,
   ];
-  [StageAPICallback.PRE_STAGEAPI_NEW_ROOM]: [callback: () => void];
+  [StageAPICallback.PRE_STAGEAPI_NEW_ROOM]: [callback: (this: void) => void];
 }
 
 /** @noSelf */
