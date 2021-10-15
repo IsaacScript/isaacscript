@@ -59,7 +59,7 @@ export default class ModUpgraded implements Mod {
         Isaac.DebugString(`${debugMsg} - START`);
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         const value = callback(...callbackArgs) as unknown;
-        Isaac.DebugString(`${debugMsg} - END`);
+        Isaac.DebugString(`${debugMsg} - END - ${value}`);
         return value;
       };
 
