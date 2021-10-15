@@ -12,9 +12,7 @@ interface StageAPICallbackParameters {
     ) => false | void,
   ];
   [StageAPICallback.POST_ROOM_INIT]: [
-    room: unknown,
-    fromSaveData: unknown,
-    saveData: unknown,
+    callback: (room: unknown, fromSaveData: unknown, saveData: unknown) => void,
   ];
   [StageAPICallback.POST_ROOM_LOAD]: [
     callback: (
