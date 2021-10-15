@@ -141,6 +141,8 @@ declare const enum StageAPICallback {
   /**
    * Runs before most but not all StageAPI room functionality.
    * Guaranteed to run before any room loads.
+   * For most purposes, you will want to do MC_POST_NEW_ROOM-style things in the POST_ROOM_INIT
+   * callback.
    */
   PRE_STAGEAPI_NEW_ROOM = "PRE_STAGEAPI_NEW_ROOM",
 
