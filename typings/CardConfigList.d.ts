@@ -1,5 +1,6 @@
 declare interface CardConfigList {
-  Get(idx: int): ItemConfigCard | undefined;
+  /** This function is bugged and returns useless userdata. */
+  Get(idx: int): never;
 
   readonly Size: int;
 }
