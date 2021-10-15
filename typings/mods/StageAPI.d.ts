@@ -59,15 +59,10 @@ interface StageAPIInterface {
    * @param suffix Generally the file extension, i.e. `".png"`.
    */
   BackdropHelper(
-    backdrop: {
-      Corners: string[];
-      LFloors: string[];
-      NFloors: string[];
-      Walls: string[];
-    },
+    backdrop: StageAPIBackdrop | StageAPIBackdrop[],
     prefix: string,
     suffix: string,
-  ): StageAPIBackdrop;
+  ): StageAPIBackdrop[];
 
   ChangeBackdrop(
     backdrop: StageAPIBackdrop,
