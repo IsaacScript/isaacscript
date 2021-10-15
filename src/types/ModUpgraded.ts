@@ -57,8 +57,10 @@ export default class ModUpgraded implements Mod {
 
       const callbackWithLogger = (...callbackArgs: unknown[]) => {
         Isaac.DebugString(`${debugMsg} - START`);
-        callback(...callbackArgs); // eslint-disable-line @typescript-eslint/no-unsafe-call
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        const value = callback(...callbackArgs) as unknown;
         Isaac.DebugString(`${debugMsg} - END`);
+        return value;
       };
 
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
