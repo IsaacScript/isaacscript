@@ -166,6 +166,27 @@ declare interface StageAPILevelMap {
   Map: StageAPIRoomData[];
 }
 
+declare interface StageAPILevelRoom {
+  AvoidSpawning: unknown;
+  AwardSeed: int;
+  ClearCount: int;
+  Data: unknown;
+  DecorationSeed: int;
+  Dimension: Dimension;
+  Doors: unknown;
+  ExtraSpawn: unknown;
+  FirstLoad: boolean;
+  PersistenceData: unknown;
+  PersistentData: unknown;
+  RoomType: RoomType;
+  RoomsListName: string;
+  Seed: int;
+  Shape: RoomShape;
+  SpawnSeed: int;
+  SurpriseMiniboss: boolean;
+  VisitCount: int;
+}
+
 declare interface StageAPIRemovedEntityData {
   Position: Vector;
   Seed: number;

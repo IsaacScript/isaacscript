@@ -12,6 +12,10 @@ declare function GetPtrHash(
   this: void,
   pointer: Entity | RoomDescriptor | RoomDescriptorReadOnly,
 ): PtrHash;
+/** Returns a random integer between 0 and 2^32. */
 declare function Random(this: void): int;
-/** Returns a random vector between (-1, -1) and (1, 1). */
+/**
+ * Returns a random vector between (-1, -1) and (1, 1).
+ * Multiply this vector by a number for larger random vectors.
+ */
 declare function RandomVector(this: void): Vector;
