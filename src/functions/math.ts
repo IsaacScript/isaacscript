@@ -3,6 +3,22 @@ export function getAngleDifference(angle1: float, angle2: float): float {
   return ((subtractedAngle + 180) % 360) - 180;
 }
 
+export function getCircleDiscretizedPoints(
+  centerPos: Vector,
+  distance: int,
+  numPoints: int,
+): Vector[] {
+  const positions: Vector[] = [];
+  const leftOfCenter = Vector(-distance, 0);
+  for (let i = 0; i < numPoints; i++) {
+    const rotatedPosition = leftOfCenter.Rotated((i * 360) / numPoints);
+    const positionFromCenter = centerPos.add(rotatedPosition);
+    positions.push(positionFromCenter);
+  }
+
+  return positions;
+}
+
 export function isEven(num: int): boolean {
   return (num & 1) === 0;
 }
