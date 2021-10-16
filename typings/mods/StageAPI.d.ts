@@ -2,6 +2,55 @@ declare const StageAPI: StageAPIInterface | undefined;
 
 interface StageAPICallbackParameters {
   [StageAPICallback.POST_CHANGE_ROOM_GFX]: [callback: (this: void) => void];
+
+  [StageAPICallback.POST_CHECK_VALID_ROOM]: [
+    callback: (
+      this: void,
+      roomList: unknown,
+      seed: int,
+      shape: RoomShape,
+      rType: RoomType,
+      requireRoomType: unknown,
+    ) => void,
+  ];
+
+  [StageAPICallback.POST_CUSTOM_DOOR_UPDATE]: [
+    callback: (
+      door: unknown,
+      data: unknown,
+      sprite: unknown,
+      customDoor: unknown,
+      persistData: unknown,
+    ) => void,
+  ];
+
+  [StageAPICallback.POST_CUSTOM_GRID_PROJECTILE_HELPER_UPDATE]: [
+    callback: (
+      customGridEntity: unknown,
+      projectileHelper: unknown,
+      projectileHelperParent: unknown,
+    ) => void,
+  ];
+
+  [StageAPICallback.POST_CUSTOM_GRID_PROJECTILE_UPDATE]: [
+    callback: (customGridEntity: unknown, projectile: unknown) => void,
+  ];
+
+  [StageAPICallback.POST_CUSTOM_GRID_REMOVE]: [
+    callback: (
+      spawnIndex: unknown,
+      persistData: unknown,
+      customGrid: unknown,
+      customGridTypeName: unknown,
+    ) => void,
+  ];
+
+  [StageAPICallback.POST_CUSTOM_GRID_UPDATE]: [
+    callback: (customGridEntity: unknown) => void,
+  ];
+
+  [StageAPICallback.POST_GRID_UPDATE]: [callback: () => void];
+
   [StageAPICallback.POST_OVERRIDDEN_GRID_BREAK]: [
     callback: (
       this: void,
@@ -12,6 +61,7 @@ interface StageAPICallbackParameters {
         | undefined,
     ) => false | void,
   ];
+
   [StageAPICallback.POST_ROOM_INIT]: [
     callback: (
       this: void,
@@ -20,6 +70,7 @@ interface StageAPICallbackParameters {
       saveData: unknown,
     ) => void,
   ];
+
   [StageAPICallback.POST_ROOM_LOAD]: [
     callback: (
       this: void,
@@ -28,6 +79,44 @@ interface StageAPICallbackParameters {
       isExtraRoom: boolean,
     ) => void,
   ];
+
+  [StageAPICallback.POST_SPAWN_CUSTOM_DOOR]: [
+    callback: (
+      door: unknown,
+      data: unknown,
+      sprite: unknown,
+      customDoor: unknown,
+      persistData: unknown,
+      index: unknown,
+      force: unknown,
+      respawning: unknown,
+      grid: unknown,
+      customGrid: unknown,
+    ) => void,
+  ];
+
+  [StageAPICallback.POST_SPAWN_CUSTOM_GRID]: [
+    callback: (
+      customGridEntity: unknown,
+      force: unknown,
+      respawning: unknown,
+    ) => void,
+  ];
+
+  [StageAPICallback.POST_STAGEAPI_NEW_ROOM]: [callback: () => void];
+
+  [StageAPICallback.POST_STAGEAPI_NEW_ROOM_GENERATION]: [
+    callback: (justGenerated: unknown, currentRoom: unknown) => void,
+  ];
+
+  [StageAPICallback.PRE_BOSS_SELECT]: [
+    callback: (bosses: unknown, allowHorseman: unknown, rng: unknown) => void,
+  ];
+
+  [StageAPICallback.PRE_CHANGE_ROOM_GFX]: [
+    callback: (currentRoom: unknown) => void,
+  ];
+
   [StageAPICallback.PRE_ROOM_LAYOUT_CHOOSE]: [
     callback: (
       this: void,
@@ -35,6 +124,49 @@ interface StageAPICallbackParameters {
       roomsList: unknown,
     ) => StageAPICustomRoomConfig | undefined,
   ];
+
+  [StageAPICallback.PRE_SELECT_ENTITY_LIST]: [
+    callback: (
+      entityList: unknown,
+      spawnIndex: unknown,
+      addEntities: unknown,
+    ) => void,
+  ];
+
+  [StageAPICallback.PRE_SELECT_GRIDENTITY_LIST]: [
+    callback: (gridDataList: unknown, spawnIndex: unknown) => void,
+  ];
+
+  [StageAPICallback.PRE_SELECT_NEXT_STAGE]: [
+    callback: (currentStage: unknown) => void,
+  ];
+
+  [StageAPICallback.PRE_SPAWN_ENTITY]: [
+    callback: (
+      entityInfo: unknown,
+      entityList: unknown,
+      index: unknown,
+      doGrids: unknown,
+      doPersistentOnly: unknown,
+      doAutoPersistent: unknown,
+      avoidSpawning: unknown,
+      persistenceData: unknown,
+      shouldSpawnEntity: unknown,
+    ) => void,
+  ];
+
+  [StageAPICallback.PRE_SPAWN_ENTITY_LIST]: [
+    callback: (
+      entityList: unknown,
+      spawnIndex: unknown,
+      doGrids: unknown,
+      doPersistentOnly: unknown,
+      doAutoPersistent: unknown,
+      avoidSpawning: unknown,
+      persistenceData: unknown,
+    ) => void,
+  ];
+
   [StageAPICallback.PRE_SPAWN_GRID]: [
     callback: (
       this: void,
@@ -44,7 +176,12 @@ interface StageAPICallbackParameters {
       gridSpawnRNG: RNG,
     ) => boolean | undefined,
   ];
+
   [StageAPICallback.PRE_STAGEAPI_NEW_ROOM]: [callback: (this: void) => void];
+
+  [StageAPICallback.PRE_TRANSITION_RENDER]: [callback: () => void];
+
+  [StageAPICallback.PRE_UPDATE_GRID_GFX]: [callback: () => void];
 }
 
 /** @noSelf */

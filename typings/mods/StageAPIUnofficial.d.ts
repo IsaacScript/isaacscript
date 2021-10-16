@@ -111,21 +111,46 @@ declare const enum StageAPIPickupRandomGroupVariant {
 }
 
 declare const enum StageAPICallback {
-  /**
-   * Takes 1 return value. If `false`, cancels spawning the grid.
-   * If a table, uses it as the grid data.
-   *
-   * Any return value breaks out of future callbacks.
-   */
-  PRE_SPAWN_GRID = "PRE_SPAWN_GRID",
+  POST_CHANGE_ROOM_GFX = "POST_CHANGE_ROOM_GFX",
+
+  /** Return false to invalidate a room layout; return integer to specify new weight. */
+  POST_CHECK_VALID_ROOM = "POST_CHECK_VALID_ROOM",
 
   /**
-   * Takes 1 return value. If a table, uses it as the current room layout.
-   * Otherwise, chooses from `roomsList` with seeded RNG. Breaks on first return.
-   *
-   * Called both on initial room load and when continuing game, before INIT.
+   * Takes CustomDoorName as first callback parameter, and will only run if parameter not supplied
+   * or matches current door.
    */
-  PRE_ROOM_LAYOUT_CHOOSE = "PRE_ROOM_LAYOUT_CHOOSE",
+  POST_CUSTOM_DOOR_UPDATE = "POST_CUSTOM_DOOR_UPDATE",
+
+  /**
+   * Takes CustomGridTypeName as first callback parameter, and will only run if parameter not
+   * supplied or matches current grid.
+   */
+  POST_CUSTOM_GRID_PROJECTILE_HELPER_UPDATE = "POST_CUSTOM_GRID_PROJECTILE_HELPER_UPDATE",
+
+  /**
+   * Takes CustomGridTypeName as first callback parameter, and will only run if parameter not
+   * supplied or matches current grid.
+   */
+  POST_CUSTOM_GRID_PROJECTILE_UPDATE = "POST_CUSTOM_GRID_PROJECTILE_UPDATE",
+
+  /**
+   * Takes CustomGridTypeName as first callback parameter, and will only run if parameter not
+   * supplied or matches current grid.
+   */
+  POST_CUSTOM_GRID_REMOVE = "POST_CUSTOM_GRID_REMOVE",
+
+  /**
+   * Takes CustomGridTypeName as first callback parameter, and will only run if parameter not
+   * supplied or matches current grid.
+   */
+  POST_CUSTOM_GRID_UPDATE = "POST_CUSTOM_GRID_UPDATE",
+
+  /**
+   * Calls when the number of grids changes or grids are reprocessed. This is when room grid
+   * graphics are changed.
+   */
+  POST_GRID_UPDATE = "POST_GRID_UPDATE",
 
   /**
    * Called when an overridden grid reaches its break state and is considered broken.
@@ -136,16 +161,6 @@ declare const enum StageAPICallback {
    */
   POST_OVERRIDDEN_GRID_BREAK = "POST_OVERRIDDEN_GRID_BREAK",
 
-  POST_CHANGE_ROOM_GFX = "POST_CHANGE_ROOM_GFX",
-
-  /**
-   * Runs before most but not all StageAPI room functionality.
-   * Guaranteed to run before any room loads.
-   * For most purposes, you will want to do MC_POST_NEW_ROOM-style things in the POST_ROOM_INIT
-   * callback.
-   */
-  PRE_STAGEAPI_NEW_ROOM = "PRE_STAGEAPI_NEW_ROOM",
-
   /**
    * Called when a room initializes. Can occur at two times, when a room is initially entered or
    * when a room is loaded from save data. Takes no return values.
@@ -154,4 +169,99 @@ declare const enum StageAPICallback {
 
   /** Called when a room is loaded. Takes no return value. */
   POST_ROOM_LOAD = "POST_ROOM_LOAD",
+
+  /**
+   * Takes CustomDoorName as first callback parameter, and will only run if parameter not supplied
+   * or matches current door.
+   */
+  POST_SPAWN_CUSTOM_DOOR = "POST_SPAWN_CUSTOM_DOOR",
+
+  /**
+   * Takes CustomGridTypeName as first callback parameter, and will only run if parameter not
+   * supplied or matches current grid.
+   */
+  POST_SPAWN_CUSTOM_GRID = "POST_SPAWN_CUSTOM_GRID",
+
+  /**
+   * All loading and processing of new room generation and old room loading is done, but the gfx
+   * has not changed yet.
+   */
+  POST_STAGEAPI_NEW_ROOM = "POST_STAGEAPI_NEW_ROOM",
+
+  /**
+   * Allows returning justGenerated and currentRoom. Run after normal room generation but before
+   * reloading old rooms.
+   */
+  POST_STAGEAPI_NEW_ROOM_GENERATION = "POST_STAGEAPI_NEW_ROOM_GENERATION",
+
+  /** If a boss is returned, uses it instead. */
+  PRE_BOSS_SELECT = "PRE_BOSS_SELECT",
+
+  /** Allows returning room gfx to use in place of the stage's. */
+  PRE_CHANGE_ROOM_GFX = "PRE_CHANGE_ROOM_GFX",
+
+  /**
+   * Takes 1 return value. If a table, uses it as the current room layout.
+   * Otherwise, chooses from `roomsList` with seeded RNG. Breaks on first return.
+   *
+   * Called both on initial room load and when continuing game, before INIT.
+   */
+  PRE_ROOM_LAYOUT_CHOOSE = "PRE_ROOM_LAYOUT_CHOOSE",
+
+  /**
+   * Takes 4 return values, AddEntities, EntityList, StillAddRandom, and NoBreak.
+   * If the first value is false, cancels selecting the list.
+   * AddEntities and EntityList are lists of EntityData tables, described below.
+   * Usually StageAPI will pick one entity from the EntityList to add to the AddEntities table at
+   * random, but that can be changed with this callback.
+   * If StillAddRandom is true, StageAPI will still add a random entity from the entityList to
+   * addEntities, alongside ones you returned.
+   */
+  PRE_SELECT_ENTITY_LIST = "PRE_SELECT_ENTITY_LIST",
+
+  /**
+   * Takes 1 return value. If false, cancels selecting the list. If GridData, selects it to spawn.
+   * With no value, picks at random.
+   */
+  PRE_SELECT_GRIDENTITY_LIST = "PRE_SELECT_GRIDENTITY_LIST",
+
+  /** Return a stage to go to instead of currentStage.NextStage or none. */
+  PRE_SELECT_NEXT_STAGE = "PRE_SELECT_NEXT_STAGE",
+
+  /**
+   * Takes 1 return value. If false, cancels spawning the entity info. If a table, uses it as the
+   * entity info. Any return value breaks out of future callbacks.
+   */
+  PRE_SPAWN_ENTITY = "PRE_SPAWN_ENTITY",
+
+  /**
+   * Takes 1 return value. If false, cancels spawning the entity list. If a table, uses it as the
+   * entity list. Any return value breaks out of future callbacks. Every entity in the final entity
+   * list is spawned. Note that this entity list contains EntityInfo tables rather than EntityData,
+   * which contain persistent room-specific data. Both detailed below.
+   */
+  PRE_SPAWN_ENTITY_LIST = "PRE_SPAWN_ENTITY_LIST",
+
+  /**
+   * Takes 1 return value. If `false`, cancels spawning the grid.
+   * If a table, uses it as the grid data.
+   *
+   * Any return value breaks out of future callbacks.
+   */
+  PRE_SPAWN_GRID = "PRE_SPAWN_GRID",
+
+  /**
+   * Runs before most but not all stageapi room functionality. Guaranteed to run before any room
+   * loads.
+   */
+  PRE_STAGEAPI_NEW_ROOM = "PRE_STAGEAPI_NEW_ROOM",
+
+  /**
+   * Called before the custom room transition would render, for effects that should render before
+   * it.
+   */
+  PRE_TRANSITION_RENDER = "PRE_TRANSITION_RENDER",
+
+  /** Allows returning grid gfx to use in place of the stage's. */
+  PRE_UPDATE_GRID_GFX = "PRE_UPDATE_GRID_GFX",
 }
