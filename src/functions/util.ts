@@ -1,5 +1,4 @@
 import { VECTOR_BRAND } from "../constants";
-import { getAngleDifference } from "./math";
 
 const HEX_STRING_LENGTH = 6;
 
@@ -146,18 +145,6 @@ export function isVector(object: unknown): boolean {
 
   const vectorMetatable = metatable as Record<string, string>;
   return vectorMetatable.__type === "Vector"; // eslint-disable-line no-underscore-dangle
-}
-
-export function lerp(a: number, b: number, pos: float): number {
-  return a + (b - a) * pos;
-}
-
-export function lerpAngleDegrees(
-  aStart: number,
-  aEnd: number,
-  percent: float,
-): number {
-  return aStart + getAngleDifference(aStart, aEnd) * percent;
 }
 
 /**
