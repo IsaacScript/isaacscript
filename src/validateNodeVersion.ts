@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { error } from "./misc";
+import { error } from "./util";
 
 const REQUIRED_MAJOR_VERSION = 16;
 

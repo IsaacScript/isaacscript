@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import fs from "fs-extra";
 import path from "path";
-import { error } from "./misc";
+import { error } from "./util";
 
 export function copy(srcPath: string, dstPath: string): void {
   try {

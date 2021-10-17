@@ -14,7 +14,7 @@ import monitor from "./commands/monitor/monitor";
 import publish from "./commands/publish/publish";
 import * as configFile from "./configFile";
 import { CWD } from "./constants";
-import { ensureAllCases, error } from "./misc";
+import { ensureAllCases, error } from "./util";
 import parseArgs from "./parseArgs";
 import Command, { DEFAULT_COMMAND } from "./types/Command";
 import { Config } from "./types/Config";

@@ -1,12 +1,13 @@
 import path from "path";
-import { CURRENT_DIRECTORY_NAME, MOD_SOURCE_PATH } from "../../constants";
+import { MOD_SOURCE_PATH } from "../../constants";
 import * as file from "../../file";
-import { execShell } from "../../misc";
 import { monkeyPatchMainLua } from "../../monkeyPatch";
 import { Config } from "../../types/Config";
+import { execShell, getModTargetDirectoryName } from "../../util";
 
 export default function copy(config: Config): void {
-  const modTargetPath = path.join(config.modsDirectory, CURRENT_DIRECTORY_NAME);
+  const modTargetDirectoryName = getModTargetDirectoryName(config);
+  const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
   compileAndCopy(MOD_SOURCE_PATH, modTargetPath);
 }
 

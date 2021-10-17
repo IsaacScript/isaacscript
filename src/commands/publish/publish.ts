@@ -3,7 +3,6 @@ import path from "path";
 import {
   CONFIG_FILE_NAME,
   CONSTANTS_TS_PATH,
-  CURRENT_DIRECTORY_NAME,
   METADATA_XML_PATH,
   MOD_SOURCE_PATH,
   PACKAGE_JSON_PATH,
@@ -12,9 +11,14 @@ import {
   VERSION_TXT_PATH,
 } from "../../constants";
 import * as file from "../../file";
-import { error, execShell, parseIntSafe } from "../../misc";
 import { monkeyPatchMainLua } from "../../monkeyPatch";
 import { Config } from "../../types/Config";
+import {
+  error,
+  execShell,
+  getModTargetDirectoryName,
+  parseIntSafe,
+} from "../../util";
 import { compileAndCopy } from "../copy/copy";
 
 export default function publish(
@@ -23,7 +27,8 @@ export default function publish(
 ): void {
   const skip = argv.skip === true;
   const setVersion = argv.setversion as string | undefined;
-  const modTargetPath = path.join(config.modsDirectory, CURRENT_DIRECTORY_NAME);
+  const modTargetDirectoryName = getModTargetDirectoryName(config);
+  const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
 
   if (setVersion !== undefined && /^\d+\.\d+\.\d+$/.exec(setVersion) === null) {
     error(

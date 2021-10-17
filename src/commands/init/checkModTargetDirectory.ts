@@ -2,7 +2,7 @@ import chalk from "chalk";
 import path from "path";
 import prompts from "prompts";
 import * as file from "../../file";
-import { error } from "../../misc";
+import { error } from "../../util";
 
 export default async function checkModTargetDirectory(
   modsDirectory: string,

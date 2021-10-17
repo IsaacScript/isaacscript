@@ -1,7 +1,8 @@
 import chalk from "chalk";
 import { execSync, spawnSync, SpawnSyncReturns } from "child_process";
 import moment from "moment";
-import { CWD } from "./constants";
+import { CURRENT_DIRECTORY_NAME, CWD } from "./constants";
+import { Config } from "./types/Config";
 
 // Use this on a switch statement's default case to get
 // the linter to complain if a case was not predicted
@@ -74,6 +75,12 @@ export function execShell(
   }
 
   return [exitStatus, stdout];
+}
+
+export function getModTargetDirectoryName(config: Config): string {
+  return config.customTargetModDirectoryName === undefined
+    ? CURRENT_DIRECTORY_NAME
+    : config.customTargetModDirectoryName;
 }
 
 export function getTime(): string {

@@ -6,6 +6,7 @@ local IsaacScriptWatcher = RegisterMod("IsaacScript Watcher", 1)
 
 -- Constants
 local MOD_NAME = "isaacscript-watcher"
+local RESTART_GAME_ON_RECOMPILATION = true
 local FRAMES_BEFORE_DISCONNECTED = 2 * 60 -- 2 seconds
 local FRAMES_BEFORE_TEXT_FADE = 2 * 60 -- 2 seconds
 local SPRITE_BOTTOM_RIGHT_OFFSET = Vector(-35, -60)
@@ -243,6 +244,10 @@ function IsaacScriptWatcher:CheckInput()
 end
 
 function IsaacScriptWatcher:CheckRestart()
+  if not RESTART_GAME_ON_RECOMPILATION then
+    return
+  end
+
   if restartFrame == 0 or restartFrame < Isaac.GetFrameCount() then
     return
   end

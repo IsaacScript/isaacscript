@@ -1,6 +1,7 @@
 import path from "path";
 import {
   DISABLE_IT_FILE,
+  MAIN_LUA,
   WATCHER_MOD_NAME,
   WATCHER_MOD_SOURCE_PATH,
 } from "../../constants";
@@ -27,8 +28,26 @@ export default function copyWatcherMod(config: Config): void {
     file.write(disableItPath, "");
   }
 
+  // By default, the IsaacScript watcher mod automatically restarts the game,
+  // so we only need to disable it if the config option is explicitly set to false
+  if (config.enableIsaacScriptWatcherAutoRestart === false) {
+    disableIsaacScriptWatcherAutomaticRestart(watcherModPath);
+  }
+
   // If we copied a new version of the watcher mod into place,
   // but the user currently has the game open, then the old version will stay loaded
   // However, if the watcher mod reloads itself, the game will crash,
   // so there is no automated solution for this
+}
+
+function disableIsaacScriptWatcherAutomaticRestart(watcherModPath: string) {
+  const mainLuaPath = path.join(watcherModPath, MAIN_LUA);
+  const mainLua = file.read(mainLuaPath);
+
+  const modifiedMainLua = mainLua.replace(
+    "local RESTART_GAME_ON_RECOMPILATION = true",
+    "local RESTART_GAME_ON_RECOMPILATION = false",
+  );
+
+  file.write(mainLuaPath, modifiedMainLua);
 }

@@ -2,7 +2,7 @@ import chalk from "chalk";
 import prompts from "prompts";
 import { CWD } from "../../constants";
 import * as file from "../../file";
-import { error } from "../../misc";
+import { error } from "../../util";
 
 export default async function checkIfProjectPathExists(
   projectPath: string,

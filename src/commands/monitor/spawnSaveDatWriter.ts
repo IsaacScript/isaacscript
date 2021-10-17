@@ -1,8 +1,8 @@
 import { ChildProcess, fork } from "child_process";
 import path from "path";
 import { WATCHER_MOD_NAME } from "../../constants";
-import { error } from "../../misc";
 import { Config } from "../../types/Config";
+import { error } from "../../util";
 import { SaveDatMessage } from "./saveDatWriter/types";
 
 let saveDatWriter: ChildProcess | null = null;

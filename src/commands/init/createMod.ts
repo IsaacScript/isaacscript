@@ -16,7 +16,7 @@ import {
   TEMPLATES_STATIC_DIR,
 } from "../../constants";
 import * as file from "../../file";
-import { execShell, snakeKebabToCamel } from "../../misc";
+import { execShell, snakeKebabToCamel } from "../../util";
 
 export default function createMod(
   projectName: string,

@@ -13,10 +13,7 @@ export function validateOS(): void {
     )} and ${chalk.green("Linux")}.`,
   );
   console.error(
-    "If you use another operating system and you want to use IsaacScript, contact Zamiel and let him know.",
-  );
-  console.error(
-    "(Since the program is written in TypeScript, porting to a new operating system should be easy, but is untested.)",
+    "If you use another operating system and you want to use IsaacScript, make a request in the community Discord server.",
   );
   process.exit(1);
 }

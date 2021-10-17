@@ -2,7 +2,7 @@ import chalk from "chalk";
 import path from "path";
 import prompts from "prompts";
 import { CURRENT_DIRECTORY_NAME, CWD } from "../../constants";
-import { error, hasWhiteSpace } from "../../misc";
+import { error, hasWhiteSpace } from "../../util";
 
 // From: https://gist.github.com/doctaphred/d01d05291546186941e1b7ddc02034d3
 const ILLEGAL_CHARACTERS_FOR_WINDOWS_FILENAMES = [

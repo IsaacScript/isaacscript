@@ -3,7 +3,7 @@ import os from "os";
 import path from "path";
 import prompts from "prompts";
 import * as file from "../../file";
-import { error } from "../../misc";
+import { error } from "../../util";
 
 // https://stackoverflow.com/questions/9080085/node-js-find-home-directory-in-platform-agnostic-way
 const homeDir = os.homedir();

@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { getTime } from "../../misc";
+import { getTime } from "../../util";
 import { sendMsgToSaveDatWriter } from "./spawnSaveDatWriter";
 
 export function msg(data: string): void {

@@ -5,7 +5,7 @@ import getModsDir from "./commands/init/getModsDir";
 import promptSaveSlot from "./commands/init/promptSaveSlot";
 import { CONFIG_FILE_NAME, CONFIG_FILE_PATH, CWD } from "./constants";
 import * as file from "./file";
-import { error } from "./misc";
+import { error } from "./util";
 import { Config } from "./types/Config";
 
 export async function get(argv: Record<string, unknown>): Promise<Config> {

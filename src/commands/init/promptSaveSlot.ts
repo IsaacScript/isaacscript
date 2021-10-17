@@ -1,5 +1,5 @@
 import prompts from "prompts";
-import { error } from "../../misc";
+import { error } from "../../util";
 
 export default async function promptSaveSlot(
   argv: Record<string, unknown>,

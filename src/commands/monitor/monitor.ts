@@ -2,7 +2,6 @@ import chalk from "chalk";
 import { ChildProcessWithoutNullStreams, fork, spawn } from "child_process";
 import path from "path";
 import {
-  CURRENT_DIRECTORY_NAME,
   CWD,
   FILE_SYNCED_MESSAGE,
   MAIN_LUA,
@@ -10,13 +9,13 @@ import {
   PACKAGE_JSON,
 } from "../../constants";
 import * as file from "../../file";
-import { error } from "../../misc";
 import { Config } from "../../types/Config";
+import { error, getModTargetDirectoryName } from "../../util";
 import copyWatcherMod from "./copyWatcherMod";
 import getTSConfigInclude from "./getTSConfigInclude";
 import * as notifyGame from "./notifyGame";
 import { spawnSaveDatWriter } from "./spawnSaveDatWriter";
-import touchSaveDatFiles from "./touchSaveDatFiles";
+import touchWatcherSaveDatFiles from "./touchWatcherSaveDatFiles";
 
 export default function monitor(
   argv: Record<string, unknown>,
@@ -30,11 +29,9 @@ export default function monitor(
     config.saveSlot = argv.saveSlot as number; // eslint-disable-line no-param-reassign
   }
 
-  // Prepare the watcher mod
+  // Prepare the IsaacScript watcher mod
   copyWatcherMod(config);
-
-  // Ensure that the "save#.dat" file exists
-  touchSaveDatFiles(config);
+  touchWatcherSaveDatFiles(config);
 
   // Subprocess #1 - The "save#.dat" file writer
   spawnSaveDatWriter(config);
@@ -53,7 +50,8 @@ export default function monitor(
   // Read the "tsconfig.json" file
   const tsConfigInclude = getTSConfigInclude();
   const resolvedIncludePath = path.resolve(CWD, tsConfigInclude);
-  const modTargetPath = path.join(config.modsDirectory, CURRENT_DIRECTORY_NAME);
+  const modTargetDirectoryName = getModTargetDirectoryName(config);
+  const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
 
   console.log("Automatically monitoring the following for changes:");
   console.log(
@@ -70,7 +68,8 @@ function spawnModDirectorySyncer(config: Config) {
   const processName = "modDirectorySyncer";
   const processDescription = "Directory syncer";
   const processPath = path.join(__dirname, processName, processName);
-  const modTargetPath = path.join(config.modsDirectory, CURRENT_DIRECTORY_NAME);
+  const modTargetName = getModTargetDirectoryName(config);
+  const modTargetPath = path.join(config.modsDirectory, modTargetName);
   const directorySycner = fork(processPath, [MOD_SOURCE_PATH, modTargetPath]);
 
   directorySycner.on("message", (msg: string) => {
@@ -80,7 +79,7 @@ function spawnModDirectorySyncer(config: Config) {
     // to reload the mod
     // Look for something like: "File synced: \main.lua"
     if (msg === `${FILE_SYNCED_MESSAGE} ${path.sep}${MAIN_LUA}`) {
-      notifyGame.command(`luamod ${CURRENT_DIRECTORY_NAME}`);
+      notifyGame.command(`luamod ${modTargetName}`);
       notifyGame.command("restart");
       notifyGame.msg("Reloaded the mod.");
     }
