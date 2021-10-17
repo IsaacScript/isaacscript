@@ -24,9 +24,9 @@
     "jsonc-parser": "^3.0.0",
     "moment": "^2.29.1",
     "npm-check-updates": "^11.8.5",
-    "prompts": "^2.4.1",
+    "prompts": "^2.4.2",
     "source-map-support": "^0.5.20",
-    "sync-directory": "^2.2.22",
+    "sync-directory": "^4.0.4",
     "typescript": "4.4.3",
     "typescript-to-lua": "^1.0.1",
     "update-notifier": "^5.1.0",
@@ -36,11 +36,11 @@
     "@types/command-exists": "^1.2.0",
     "@types/figlet": "^1.5.4",
     "@types/fs-extra": "^9.0.13",
-    "@types/node": "^16.10.2",
+    "@types/node": "^16.11.1",
     "@types/prompts": "^2.0.14",
     "@types/source-map-support": "^0.5.4",
     "@types/update-notifier": "^5.1.0",
-    "@types/yargs": "^17.0.3",
-    "isaacscript-lint": "^1.0.61"
+    "@types/yargs": "^17.0.4",
+    "isaacscript-lint": "^1.0.63"
   }
 }
