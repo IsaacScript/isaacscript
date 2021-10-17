@@ -8,8 +8,8 @@ local IsaacScriptWatcher = RegisterMod("IsaacScript Watcher", 1)
 local MOD_NAME = "isaacscript-watcher"
 local FRAMES_BEFORE_DISCONNECTED = 2 * 60 -- 2 seconds
 local FRAMES_BEFORE_TEXT_FADE = 2 * 60 -- 2 seconds
-local EMOJI_EYES_BOTTOM_RIGHT_OFFSET = Vector(-20, -70)
--- (offset it enough so that it does not overlap with a pocket active + 2 pocket items)
+local SPRITE_BOTTOM_RIGHT_OFFSET = Vector(-35, -60)
+-- (enough so that it does not overlap with a pocket active + 2 pocket items)
 
 -- Mod variables
 local saveData = {} -- An array of message objects
@@ -21,7 +21,7 @@ local game = Game()
 local font = Font()
 font:Load("font/pftempestasevencondensed.fnt") -- A vanilla font good for this kind of text
 local connected = false
-local emojiEyesSprite = nil
+local sprite = nil
 
 -- On mod initialization, nuke the "save#.dat" folder to get rid of old messages that might be left
 -- there from IsaacScript
@@ -59,21 +59,21 @@ function IsaacScriptWatcher:RenderSprite()
 
   -- Set the sprite
   if connected then
-    if emojiEyesSprite == nil then
-      emojiEyesSprite = Sprite()
-      emojiEyesSprite:Load("gfx/emoji-eyes.anm2", true)
-      emojiEyesSprite:SetFrame("Default", 0)
+    if sprite == nil then
+      sprite = Sprite()
+      sprite:Load("gfx/logo.anm2", true)
+      sprite:SetFrame("Default", 0)
     end
   else
-    if emojiEyesSprite ~= nil then
-      emojiEyesSprite = nil
+    if sprite ~= nil then
+      sprite = nil
     end
   end
 
   -- Render it
-  if emojiEyesSprite ~= nil then
-    local position = IsaacScriptWatcher:GetBottomRightCorner() + EMOJI_EYES_BOTTOM_RIGHT_OFFSET
-    emojiEyesSprite:RenderLayer(0, position)
+  if sprite ~= nil then
+    local position = IsaacScriptWatcher:GetBottomRightCorner() + SPRITE_BOTTOM_RIGHT_OFFSET
+    sprite:RenderLayer(0, position)
   end
 end
 
