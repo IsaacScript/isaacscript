@@ -24,7 +24,7 @@ function init() {
   syncDirectory(modSourcePath, modTargetPath, {
     watch: true,
     type: "copy",
-    afterSync,
+    afterEachSync,
     onError,
     chokidarWatchOptions: {
       awaitWriteFinish: {
@@ -34,8 +34,14 @@ function init() {
   });
 }
 
-function afterSync(params: { type: string; relativePath: string }) {
-  if (params.type === "init:copy") {
+function afterEachSync(params?: {
+  eventType: string;
+  nodeType: string;
+  relativePath: string;
+  srcPath: string;
+  targetPath: string;
+}) {
+  if (params === undefined) {
     return;
   }
 
@@ -43,7 +49,9 @@ function afterSync(params: { type: string; relativePath: string }) {
     monkeyPatchMainLua(modTargetPath);
   }
 
-  send(`${FILE_SYNCED_MESSAGE} ${params.relativePath}`);
+  if (params.eventType !== "init:copy") {
+    send(`${FILE_SYNCED_MESSAGE} ${params.relativePath}`);
+  }
 }
 
 function onError(err: Error) {
