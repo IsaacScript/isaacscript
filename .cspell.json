@@ -142,6 +142,7 @@
         "gello",
         "getpeername",
         "getsockname",
+        "gettime",
         "giga",
         "goldenbomb",
         "goldenkey",

@@ -5,6 +5,7 @@
 // (but it requires that the "--luadebug" flag is enabled)
 
 declare interface Socket {
+  gettime(this: void): float;
   tcp(this: void): SocketClient;
   udp(this: void): SocketClient;
 }
