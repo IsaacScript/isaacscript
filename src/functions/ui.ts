@@ -48,21 +48,21 @@ export function getHUDOffsetVector(): Vector {
   return Vector(x, y);
 }
 
-export function getScreenTopLeft(): Vector {
+export function getScreenTopLeftPos(): Vector {
   return Vector.Zero;
 }
 
-export function getScreenTopRight(): Vector {
-  const bottomRight = getScreenBottomRight();
+export function getScreenTopRightPos(): Vector {
+  const bottomRight = getScreenBottomRightPos();
   return Vector(bottomRight.X, 0);
 }
 
-export function getScreenBottomLeft(): Vector {
-  const bottomRight = getScreenBottomRight();
+export function getScreenBottomLeftPos(): Vector {
+  const bottomRight = getScreenBottomRightPos();
   return Vector(0, bottomRight.Y);
 }
 
-export function getScreenBottomRight(): Vector {
+export function getScreenBottomRightPos(): Vector {
   const game = Game();
   const room = game.GetRoom();
 
@@ -77,8 +77,8 @@ export function getScreenBottomRight(): Vector {
   return doubleRenderSurfaceTopLeft.add(SCREEN_SIZE_BETWEEN_RENDER_SURFACES);
 }
 
-export function getScreenCenter(): Vector {
-  const bottomRight = getScreenBottomRight();
+export function getScreenCenterPos(): Vector {
+  const bottomRight = getScreenBottomRightPos();
   return bottomRight.div(2);
 }
 

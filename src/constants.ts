@@ -7,7 +7,9 @@ export const CHARACTERS_WITH_NO_RED_HEARTS = new Set<PlayerType>([
   PlayerType.PLAYER_BETHANY_B, // 36
 ]);
 
+/** This is also the distance that a player spawns from the door that they enter a room from. */
 export const DISTANCE_OF_GRID_TILE = 40;
+
 export const DOOR_HITBOX_DISTANCE = 11;
 
 /**
