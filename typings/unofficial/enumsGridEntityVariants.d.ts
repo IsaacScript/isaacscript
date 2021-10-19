@@ -7,7 +7,7 @@ declare const enum RockVariant {
 /** For GridEntityType.GRID_ROCK (2) */
 declare const enum PitVariant {
   NORMAL = 0,
-  FISSURE = 16,
+  FISSURE_SPAWNER = 16,
 }
 
 /** For GridEntityType.GRID_POOP (14) */
