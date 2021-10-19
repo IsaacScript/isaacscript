@@ -162,6 +162,7 @@ declare interface StageAPIGridGfx {
 }
 
 declare interface StageAPILevelMap {
+  GetCurrentRoomData(): StageAPIRoomData;
   GetRoom(roomData: StageAPIRoomData): StageAPIRoom;
   Map: StageAPIRoomData[];
 }

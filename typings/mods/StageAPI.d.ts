@@ -281,6 +281,12 @@ interface StageAPIInterface {
 
   InitCustomLevel(levelMap: StageAPILevelMap, levelStartRoom: boolean): void;
 
+  LoadCustomMapRoomDoors(
+    levelRoom: StageAPILevelRoom,
+    roomData: StageAPIRoomData,
+    levelMap: StageAPILevelMap,
+  ): void;
+
   /** Constructor for the RoomGfx object. */
   RoomGfx(
     backdrop: StageAPIBackdrop,
