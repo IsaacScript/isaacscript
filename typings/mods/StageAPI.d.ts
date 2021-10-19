@@ -260,7 +260,7 @@ interface StageAPIInterface {
 
   GetCurrentLevelMap(): StageAPILevelMap;
 
-  GetCurrentRoom(): StageAPIRoom | undefined;
+  GetCurrentRoom(): StageAPILevelRoom | undefined;
 
   /** Roughly analogous to the vanilla `Level.GetCurrentRoomIndex` function. */
   GetCurrentRoomID(): int;
@@ -284,7 +284,7 @@ interface StageAPIInterface {
   LoadCustomMapRoomDoors(
     levelRoom: StageAPILevelRoom,
     roomData: StageAPIRoomData,
-    levelMap: StageAPILevelMap,
+    levelMap?: StageAPILevelMap,
   ): void;
 
   /** Constructor for the RoomGfx object. */
