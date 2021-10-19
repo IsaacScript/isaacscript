@@ -8,7 +8,7 @@ For more information about IsaacScript, see the [official website](https://isaac
 
 - The Isaac API offers a lot of callbacks, but a lot of times there isn't one for the specific thing that you are looking to do. So, `isaacscript-common` adds a bunch of new callbacks that you can easily use.
 - The extra callbacks are efficient such that no code is ran until they have one or more subscriptions.
-- See the [main website](https://isaacscript.github.io/docs/function-signatures#custom-callbacks) for a full list.
+- See the [main website](https://isaacscript.github.io/docs/function-signatures-custom) for a full list.
 
 <br />
 
