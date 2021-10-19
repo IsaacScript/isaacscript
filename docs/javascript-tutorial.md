@@ -321,6 +321,10 @@ Note that `null` also transpiles to `nil` (in addition to `undefined`). But `nul
 
 <br />
 
+## Level 2 - Intermediate
+
+<br />
+
 ### Assignment Operators
 
 Lua does not have assignment operators, because it is a terrible language.
@@ -336,10 +340,6 @@ numFarts = numFarts + 1 -- numFarts is now equal to 2
 let numFarts = 1;
 numFarts += 1; // numFarts is now equal to 2
 ```
-
-<br />
-
-## Level 2 - Intermediate
 
 <br />
 
