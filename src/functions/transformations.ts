@@ -1,6 +1,6 @@
 import {
   ITEM_TO_TRANSFORMATION_MAP,
-  TRANSFORMATIONS_NOT_TRACKED,
+  TRANSFORMATIONS_NOT_BASED_ON_ITEMS,
   TRANSFORMATION_TO_ITEMS_MAP,
 } from "../transformationMap";
 import { copySet } from "./util";
@@ -10,7 +10,7 @@ export function getPlayerNumTransformationCollectibles(
   player: EntityPlayer,
   playerForm: PlayerForm,
 ): int {
-  if (TRANSFORMATIONS_NOT_TRACKED.has(playerForm)) {
+  if (TRANSFORMATIONS_NOT_BASED_ON_ITEMS.has(playerForm)) {
     error(
       `The transformation of ${playerForm} cannot be tracked by this function.`,
     );

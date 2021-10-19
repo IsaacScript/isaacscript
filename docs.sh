@@ -11,6 +11,11 @@ rm -rf "$DOCS_DIR"
 npx typedoc \
   --out "$DOCS_DIR" \
   --readme "$DIR/website-root.md" \
+  --entryPoints "$DIR/src/constants.ts" \
+  --entryPoints "$DIR/src/features/disableInputs.ts" \
+  --entryPoints "$DIR/src/features/forgottenSwitch.ts" \
+  --entryPoints "$DIR/src/features/runInNFrames.ts" \
+  --entryPoints "$DIR/src/features/saveDataManager/main.ts" \
   --entryPoints "$DIR/src/functions/array.ts" \
   --entryPoints "$DIR/src/functions/bitwise.ts" \
   --entryPoints "$DIR/src/functions/collectibles.ts" \
@@ -39,4 +44,5 @@ npx typedoc \
   --entryPoints "$DIR/src/features/disableInputs.ts" \
   --entryPoints "$DIR/src/features/forgottenSwitch.ts" \
   --entryPoints "$DIR/src/features/saveDataManager/main.ts" \
+  --entryPoints "$DIR/src/transformationMap.ts" \
   --entryPoints "$DIR/src/upgradeMod.ts" \

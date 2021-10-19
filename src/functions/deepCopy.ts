@@ -4,10 +4,10 @@ import {
   TSTL_OBJECT_WITH_NUMBER_KEYS_BRAND,
   TSTL_SET_BRAND,
   VECTOR_BRAND,
-} from "../constants";
+} from "../constantsInternal";
 import { DEBUG } from "../debug";
 import { log } from "./log";
-import { isSerializedVector, isVector } from "./util";
+import { isVector } from "./util";
 
 export enum SerializationType {
   NONE,
@@ -376,4 +376,18 @@ export function addTraversalDescription(
   traversalDescription += tostring(key);
 
   return traversalDescription;
+}
+
+/**
+ * Used to determine is the given table is a serialized Vector created by the save data manager
+ * and/or the `deepCopy` function.
+ */
+export function isSerializedVector(object: unknown): boolean {
+  const objectType = type(object);
+  if (objectType !== "table") {
+    return false;
+  }
+
+  const table = object as LuaTable;
+  return table.has(VECTOR_BRAND) && table.has("X") && table.has("Y");
 }

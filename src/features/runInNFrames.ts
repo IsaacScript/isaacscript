@@ -51,6 +51,28 @@ function postUpdate() {
 /**
  * Supply a function to run on the next PostUpdate callback.
  *
+ * Example:
+ * ```ts
+ * const NUM_EXPLODER_EXPLOSIONS = 5;
+ *
+ * function useItemExploder(player: EntityPlayer) {
+ *   playSound("exploderBegin");
+ *   runNextFrame(() => {
+ *     explode(player, NUM_EXPLODER_EXPLOSIONS);
+ *   });
+ * }
+ *
+ * function explode(player: EntityPlayer, numFramesLeft: int) {
+ *   Isaac.Explode(player, undefined, 1);
+ *   numFramesLeft -= 1;
+ *   if (numFramesLeft === 0) {
+ *     runNextFrame(() => {
+ *       explode(player, numFramesLeft);
+ *     });
+ *   }
+ * }
+ * ```
+ *
  * Note that this function will not handle saving and quitting, so if a player saving and quitting
  * before the next PostUpdate frame would cause a bug in your mod, then you should handle deferred
  * functions manually using serializable data.
@@ -66,6 +88,9 @@ export function runNextFrame(func: () => void): void {
 
 /**
  * Supply a function to run N frames from now in the PostUpdate callback.
+ *
+ * For a usage example, see the documentation for the `runNextFrame`, which is used in a similar
+ * way.
  *
  * Note that this function will not handle saving and quitting, so if a player saving and quitting
  * before the next PostUpdate frame would cause a bug in your mod, then you should handle deferred

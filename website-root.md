@@ -1,20 +1,20 @@
-The `isaacscript-common` package contains extra optional features that you can use in your [IsaacScript](https://isaacscript.github.io/) mods.
+The `isaacscript-common` package contains extra goodies that you can easily use in your [IsaacScript](https://isaacscript.github.io/) mods. Think of it as an expanded standard library beyond what the official Isaac API offers.
 
 For more information about IsaacScript, see the [official website](https://isaacscript.github.io/).
 
 <br />
 
-## List of Features
+## Custom Callbacks
 
-- Helper functions (see below)
-- [A save data manager](modules/features_saveDataManager_main.html)
-- [Custom callbacks](https://isaacscript.github.io/docs/function-signatures#custom-callbacks)
-- [An input disabler](modules/features_disableInputs.html)
-- [A Forgotten switcher](modules/features_forgottenSwitch.html)
+- The Isaac API offers a lot of callbacks, but a lot of times there isn't one for the specific thing that you are looking to do. So, `isaacscript-common` adds a bunch of new callbacks that you can easily use.
+- The extra callbacks are efficient such that no code is ran until they have one or more subscriptions.
+- See the [main website](https://isaacscript.github.io/docs/function-signatures#custom-callbacks) for a full list.
 
 <br />
 
-## List of Helper Functions by Category
+## Helper Functions
+
+Don't copy-paste the same functions over and over in your mods. Simply use the standard library:
 
 - [Array Functions](modules/functions_array.html)
 - [Bitwise Functions](modules/functions_bitwise.html)
@@ -41,3 +41,19 @@ For more information about IsaacScript, see the [official website](https://isaac
 - [Trinket Functions](modules/functions_trinkets.html)
 - [UI Functions](modules/functions_ui.html)
 - [Util Functions](modules/functions_util.html)
+
+<br />
+
+## Optional Features and Abstractions
+
+- [Save Data Manager](modules/features_saveDataManager_main.html)
+- [Input Disabler](modules/features_disableInputs.html)
+- [Forgotten Switcher](modules/features_forgottenSwitch.html)
+- [Run in N Frames](modules/features_runInNFrames.html)
+
+<br />
+
+## Extra Constants
+
+- [Constants](modules/constants.html)
+- [Transformation Constants](modules/transformationMap.html)

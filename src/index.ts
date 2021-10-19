@@ -2,25 +2,7 @@ export {
   forceNewLevelCallback,
   forceNewRoomCallback,
 } from "./callbacks/reorderedCallbacks";
-export {
-  CHARACTERS_WITH_NO_RED_HEARTS,
-  DISTANCE_OF_GRID_TILE,
-  DOOR_HITBOX_DISTANCE,
-  FIRST_GLITCHED_COLLECTIBLE_TYPE,
-  GAME_FRAMES_PER_SECOND,
-  GENESIS_ROOM_VARIANT,
-  GOLDEN_TRINKET_SHIFT,
-  GRID_INDEX_CENTER_OF_1X1_ROOM,
-  ISAAC_FRAMES_PER_SECOND,
-  MAX_NUM_DOORS,
-  MAX_NUM_INPUTS,
-  MAX_PLAYER_POCKET_ITEM_SLOTS,
-  MAX_PLAYER_SPEED_IN_UNITS,
-  MAX_PLAYER_TRINKET_SLOTS,
-  MAX_ROOM_INDEX,
-  MAX_VANILLA_COLLECTIBLE_TYPE,
-  SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES,
-} from "./constants";
+export * from "./constants";
 export {
   disableAllInputs,
   disableAllInputsExceptFor,
@@ -62,11 +44,7 @@ export * from "./functions/transformations";
 export * from "./functions/trinkets";
 export * from "./functions/ui";
 export * from "./functions/util";
-export {
-  ITEM_TO_TRANSFORMATION_MAP,
-  TRANSFORMATION_TO_ITEMS_MAP,
-  TRANSFORMATION_TO_TAG_MAP,
-} from "./transformationMap";
+export * from "./transformationMap";
 export { default as CallbackParametersCustom } from "./types/CallbackParametersCustom";
 export { default as HealthType } from "./types/HealthType";
 export { default as ModCallbacksCustom } from "./types/ModCallbacksCustom";

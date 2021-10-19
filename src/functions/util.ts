@@ -1,5 +1,3 @@
-import { VECTOR_BRAND } from "../constants";
-
 const HEX_STRING_LENGTH = 6;
 
 /**
@@ -116,20 +114,6 @@ export function isGreedMode(): boolean {
     game.Difficulty === Difficulty.DIFFICULTY_GREED ||
     game.Difficulty === Difficulty.DIFFICULTY_GREEDIER
   );
-}
-
-/**
- * Used to determine is the given table is a serialized Vector created by the save data manager
- * and/or the `deepCopy` function.
- */
-export function isSerializedVector(object: unknown): boolean {
-  const objectType = type(object);
-  if (objectType !== "table") {
-    return false;
-  }
-
-  const table = object as LuaTable;
-  return table.has(VECTOR_BRAND) && table.has("X") && table.has("Y");
 }
 
 export function isVector(object: unknown): boolean {
