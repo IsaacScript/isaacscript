@@ -163,7 +163,7 @@ declare interface StageAPIGridGfx {
 
 declare interface StageAPILevelMap {
   GetCurrentRoomData(): StageAPIRoomData;
-  GetRoom(roomData: StageAPIRoomData): StageAPIRoom;
+  GetRoom(roomData: StageAPIRoomData): StageAPILevelRoom;
   Map: StageAPIRoomData[];
 }
 
@@ -177,6 +177,9 @@ declare interface StageAPILevelRoom {
   Doors: unknown;
   ExtraSpawn: unknown;
   FirstLoad: boolean;
+  Layout: {
+    Name: string;
+  };
   PersistenceData: unknown;
   PersistentData: unknown;
   RoomType: RoomType;
@@ -211,12 +214,6 @@ declare interface StageAPIRoomGfx {
 
 declare interface StageAPIRoomsList {
   AddRooms(roomFiles: string[] | StageAPICustomRoomConfig[]): void;
-}
-
-declare interface StageAPIRoom {
-  Layout: {
-    Name: string;
-  };
 }
 
 declare type StageAPIStageOverrideStage = {
