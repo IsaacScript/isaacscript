@@ -4,6 +4,12 @@ declare const enum RockVariant {
   EVENT = 1,
 }
 
+/** For GridEntityType.GRID_ROCK (2) */
+declare const enum PitVariant {
+  NORMAL = 0,
+  FISSURE = 16,
+}
+
 /** For GridEntityType.GRID_POOP (14) */
 declare const enum PoopVariant {
   NORMAL = 0,
