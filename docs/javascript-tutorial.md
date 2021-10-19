@@ -571,6 +571,12 @@ interface TrueCoopPlayerData {
 }
 ```
 
+After doing this, we will be able to call `InfinityTrueCoopInterface.AddCharacter(playerData)` successfully in our mod code.
+
+```ts
+
+```
+
 <br />
 
 ### Exporting Global Variables
