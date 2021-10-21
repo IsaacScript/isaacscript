@@ -14,7 +14,7 @@ Use the `isaacscript init` tool to automatically set up a new mod that has `isaa
 
 <br />
 
-## For Use in a Typescript Project
+## For Use in a TypeScript / TypeScriptToLua Project
 
 `isaacscript-lint` is a great starting point for any TypeScript project. It's a pain in the ass to get ESLint working with TypeScript and to get everything working properly. Don't clutter your `package.json` file with 15+ different ESlint-related depedencies; just use `isaacscript-lint`.
 
