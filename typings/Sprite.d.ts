@@ -9,7 +9,7 @@ declare interface Sprite {
   GetLayerCount(): int;
   GetOverlayAnimation(): string;
   GetOverlayFrame(): int;
-  GetTexel(samplePos: Vector, renderPos: Vector, alphaThreshold: float): Color;
+  GetTexel(samplePos: Vector, renderPos: Vector, alphaThreshold: float): KColor;
   IsEventTriggered(eventName: string): boolean;
   IsFinished(animationName: string): boolean;
   IsLoaded(): boolean;
