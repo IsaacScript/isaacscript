@@ -179,6 +179,7 @@ declare interface StageAPILevelRoom {
   FirstLoad: boolean;
   Layout: {
     Name: string;
+    Variant: int;
   };
   PersistenceData: unknown;
   PersistentData: unknown;
