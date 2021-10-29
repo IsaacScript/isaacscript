@@ -40,7 +40,7 @@ interface MinimapAPIInterface {
 
   AddPickup(
     id: number | string,
-    Icon: string | MinimapAPIIcon,
+    icon: string | MinimapAPIIcon,
     entityType: EntityType,
     variant: number,
     subtype: number,
