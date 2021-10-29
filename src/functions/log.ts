@@ -125,15 +125,22 @@ export function logKColor(kColor: KColor): void {
 }
 
 export function logMap(map: Map<AnyNotNil, unknown>): void {
-  log("Printing out map:");
+  log("Printing out a TSTL Map:");
   for (const [key, value] of map.entries()) {
     log(`  Key: ${key}, Value: ${value}`);
   }
   log(`The size of the map was: ${map.size}`);
 }
 
+export function logTable(table: LuaTable): void {
+  log("Printing out a Lua table:");
+  for (const [key, value] of pairs(table)) {
+    log(`  Key: ${key}, Value: ${value}`);
+  }
+}
+
 export function logSet(set: Set<AnyNotNil>): void {
-  log("Printing out set:");
+  log("Printing out a TSTL Set:");
   for (const value of set.values()) {
     log(`  Value: ${value}`);
   }
