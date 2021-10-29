@@ -132,7 +132,7 @@ export function logMap(map: Map<AnyNotNil, unknown>): void {
   log(`The size of the map was: ${map.size}`);
 }
 
-export function logTable(table: LuaTable): void {
+export function logTable(table: unknown): void {
   log("Printing out a Lua table:");
   for (const [key, value] of pairs(table)) {
     log(`  Key: ${key}, Value: ${value}`);
