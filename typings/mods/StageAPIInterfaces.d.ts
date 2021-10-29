@@ -202,7 +202,10 @@ declare interface StageAPIRemovedEntityData {
 }
 
 declare interface StageAPIRoomData {
-  MapID: number;
+  MapID: int;
+  RoomID: int;
+  X: int;
+  Y: int;
 }
 
 declare interface StageAPIRoomGfx {
