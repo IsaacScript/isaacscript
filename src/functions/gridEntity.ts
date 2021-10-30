@@ -1,11 +1,30 @@
 /**
- * @param gridEntityType Optional. If not specified, will return every grid entity in the room. If
- * specified, it will only return grid entities in the room that match the specified type.
+ * Helper function to get every grid entity in the current room. Use it with no arguments to get
+ * every grid entity, or specify a variadic amount of arguments to match specific grid entity types.
+ *
+ * Example:
+ * ```
+ * for (const gridEntity of getGridEntities()) {
+ *   print(gridEntity.GetType())
+ * }
+ * ```
+ *
+ * Example:
+ * ```
+ * const rocks = getGridEntities(
+ *   GridEntityType.GRID_ROCK,
+ *   GridEntityType.GRID_ROCKB,
+ *   GridEntityType.GRID_ROCKT,
+ * );
+ * ```
  */
-export function getGridEntities(gridEntityType?: GridEntityType): GridEntity[] {
+export function getGridEntities(
+  ...gridEntityTypes: GridEntityType[]
+): GridEntity[] {
   const game = Game();
   const room = game.GetRoom();
   const gridSize = room.GetGridSize();
+  const gridEntityTypesSet = new Set(gridEntityTypes);
 
   const gridEntities: GridEntity[] = [];
   for (let gridIndex = 0; gridIndex < gridSize; gridIndex++) {
@@ -14,11 +33,11 @@ export function getGridEntities(gridEntityType?: GridEntityType): GridEntity[] {
       continue;
     }
 
-    if (gridEntityType === undefined) {
+    if (gridEntityTypes.length === 0) {
       gridEntities.push(gridEntity);
     } else {
       const thisGridEntityType = gridEntity.GetType();
-      if (thisGridEntityType === gridEntityType) {
+      if (gridEntityTypesSet.has(thisGridEntityType)) {
         gridEntities.push(gridEntity);
       }
     }
