@@ -42,6 +42,12 @@ export default async function getModsDir(
   }
 
   const defaultModsPath = getDefaultModsPath(process.platform);
+  if (file.exists(defaultModsPath) && file.isSymbolicLink(defaultModsPath)) {
+    error(
+      'Error: Your mods directory appears to be a symbolic link, which is not currently supported. If you want to get around this, try specifying a directory with the "--mods-directory" command line flag, but the rest of the program may not work properly.',
+    );
+  }
+
   if (file.exists(defaultModsPath) && file.isDir(defaultModsPath)) {
     return defaultModsPath;
   }

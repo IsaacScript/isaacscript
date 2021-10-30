@@ -85,6 +85,11 @@ export function isSubDirOf(dir: string, parent: string): boolean {
   );
 }
 
+export function isSymbolicLink(filePath: string): boolean {
+  const fileStats = getFileStats(filePath);
+  return fileStats.isSymbolicLink();
+}
+
 export function makeDir(dirPath: string): void {
   try {
     fs.mkdirSync(dirPath);
