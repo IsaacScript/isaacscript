@@ -58,12 +58,12 @@ declare interface Room {
   GetFrameCount(): int;
   GetGridCollision(gridIndex: int): GridCollisionClass;
   GetGridCollisionAtPos(position: Vector): GridCollisionClass;
-  GetGridEntity(index: int): GridEntity | undefined;
+  GetGridEntity(gridIndex: int): GridEntity | undefined;
   GetGridEntityFromPos(position: Vector): GridEntity | undefined;
   GetGridHeight(): int;
   GetGridIndex(position: Vector): int;
   GetGridPath(index: int): int;
-  GetGridPathFromPos(index: int): int;
+  GetGridPathFromPos(position: Vector): int;
   GetGridPosition(gridIndex: int): Vector;
   GetGridSize(): int;
   /** Note that if you call this in the main menu, the game will sometimes crash. */
