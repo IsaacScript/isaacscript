@@ -225,7 +225,10 @@ interface StageAPIInterface {
   ): Entity[];
 
   /** Function to create a custom floor layout. */
-  CreateMapFromRoomsList(roomsList: StageAPIRoomsList): StageAPILevelMap;
+  CreateMapFromRoomsList(
+    roomsList: StageAPIRoomsList,
+    mapRoomVariant?: int,
+  ): StageAPILevelMap;
 
   /**
    * Creates a new custom stage.
