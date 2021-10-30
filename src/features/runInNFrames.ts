@@ -83,7 +83,7 @@ export function runNextFrame(func: () => void): void {
     error(msg);
   }
 
-  runInNFrames(1, func);
+  runInNFrames(func, 1);
 }
 
 /**
@@ -96,7 +96,7 @@ export function runNextFrame(func: () => void): void {
  * before the next PostUpdate frame would cause a bug in your mod, then you should handle deferred
  * functions manually using serializable data.
  */
-export function runInNFrames(frames: int, func: () => void): void {
+export function runInNFrames(func: () => void, frames: int): void {
   if (!initialized) {
     const msg = getUpgradeErrorMsg(FEATURE_NAME);
     error(msg);
