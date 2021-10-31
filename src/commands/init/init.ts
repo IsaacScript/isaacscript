@@ -28,14 +28,10 @@ export default async function init(
   createMod(projectName, projectPath, createNewDir, modsDirectory, saveSlot);
   console.log(`Successfully created mod: ${chalk.green(projectName)}`);
 
-  const VSCodeExists =
-    commandExists.sync("code") ||
-    commandExists.sync("code-oss") ||
-    commandExists.sync("codium");
-  const VSCodePath = getVSCodePath();
-  if (VSCodeExists && VSCodePath !== undefined) {
+  const VSCodeCommand = getVSCodeCommand();
+  if (VSCodeCommand !== null) {
     installVSCodeExtensions(projectPath);
-    await promptVSCode(projectPath, argv, VSCodePath);
+    await promptVSCode(projectPath, argv, VSCodeCommand);
   } else {
     console.log(
       'VSCode does not seem to be installed. (The "code" command is not in the path.) Skipping VSCode-related things.',
@@ -50,15 +46,13 @@ export default async function init(
   commandsToType += `"${chalk.green("npx isaacscript")}"`;
   console.log(`Now, start IsaacScript by typing ${commandsToType}.`);
 }
-function getVSCodePath() {
-  if (commandExists.sync("code")) {
-    return "code";
+
+function getVSCodeCommand() {
+  for (const VSCodeCommand of ["code", "codium", "code-oss"]) {
+    if (commandExists.sync(VSCodeCommand)) {  
+      return VSCodeCommand;
+    }
   }
-  if (commandExists.sync("codium")) {
-    return "codium";
-  }
-  if (commandExists.sync("code-oss")) {
-    return "code-oss";
-  }
-  return undefined;
+
+  return null;
 }
