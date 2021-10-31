@@ -28,10 +28,21 @@ export default async function init(
   createMod(projectName, projectPath, createNewDir, modsDirectory, saveSlot);
   console.log(`Successfully created mod: ${chalk.green(projectName)}`);
 
-  const VSCodeExists = commandExists.sync("code");
+  const VSCodeExists =
+    commandExists.sync("code") ||
+    commandExists.sync("code-oss") ||
+    commandExists.sync("codium");
+  let VSCodePath = "";
+  if (commandExists.sync("code")) {
+    VSCodePath = "code";
+  } else if (commandExists.sync("codium")) {
+    VSCodePath = "codium";
+  } else if (commandExists.sync("code-oss")) {
+    VSCodePath = "code-oss";
+  }
   if (VSCodeExists) {
     installVSCodeExtensions(projectPath);
-    await promptVSCode(projectPath, argv);
+    await promptVSCode(projectPath, argv, VSCodePath);
   } else {
     console.log(
       'VSCode does not seem to be installed. (The "code" command is not in the path.) Skipping VSCode-related things.',

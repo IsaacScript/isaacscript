@@ -6,11 +6,12 @@ import { execShell } from "../../util";
 export default async function promptVSCode(
   projectPath: string,
   argv: Record<string, unknown>,
+  VSCodePath: string,
 ): Promise<void> {
   if (argv.vscode !== undefined) {
     // They supplied the "--vscode" command-line flag,
     // so there is no need to prompt the user
-    openVSCode(projectPath);
+    openVSCode(projectPath, VSCodePath);
     return;
   }
 
@@ -22,11 +23,11 @@ export default async function promptVSCode(
   });
 
   if (response.VSCode === true) {
-    openVSCode(projectPath);
+    openVSCode(projectPath, VSCodePath);
   }
 }
 
-function openVSCode(projectPath: string) {
+function openVSCode(projectPath: string, VSCodePath: string) {
   const MAIN_TS_PATH = path.join(projectPath, "src", MAIN_TS);
-  execShell("code", [projectPath, MAIN_TS_PATH]);
+  execShell(VSCodePath, [projectPath, MAIN_TS_PATH]);
 }
