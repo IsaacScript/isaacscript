@@ -65,7 +65,7 @@ export function getDirList(dirPath: string): string[] {
 function getFileStats(filePath: string): fs.Stats {
   let fileStats: fs.Stats;
   try {
-    fileStats = fs.lstatSync(filePath);
+    fileStats = fs.statSync(filePath);
   } catch (err) {
     error(`Failed to get the file stats for "${chalk.green(filePath)}":`, err);
   }
