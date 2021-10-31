@@ -29,13 +29,13 @@ export default async function init(
   console.log(`Successfully created mod: ${chalk.green(projectName)}`);
 
   const VSCodeCommand = getVSCodeCommand();
-  if (VSCodeCommand !== null) {
-    installVSCodeExtensions(projectPath);
-    await promptVSCode(projectPath, argv, VSCodeCommand);
-  } else {
+  if (VSCodeCommand === null) {
     console.log(
       'VSCode does not seem to be installed. (The "code" command is not in the path.) Skipping VSCode-related things.',
     );
+  } else {
+    installVSCodeExtensions(projectPath);
+    await promptVSCode(projectPath, argv, VSCodeCommand);
   }
 
   // Finished
