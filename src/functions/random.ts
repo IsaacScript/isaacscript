@@ -46,6 +46,18 @@ export function getRandomInt(min: int, max: int, seed: int): int {
 }
 
 /**
+ * Helper function to get the next seed value.
+ *
+ * This function is useful because it is standard practice to work with seed values directly over
+ * RNG objects, since the latter are not serializable.
+ */
+export function nextSeed(seed: int): int {
+  const rng = initRNG(seed);
+  rng.Next();
+  return rng.GetSeed();
+}
+
+/**
  * Helper function to initialize an RNG object.
  *
  * Example:
