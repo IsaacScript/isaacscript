@@ -57,9 +57,7 @@ function postUpdate() {
  *
  * function useItemExploder(player: EntityPlayer) {
  *   playSound("exploderBegin");
- *   runNextFrame(() => {
- *     explode(player, NUM_EXPLODER_EXPLOSIONS);
- *   });
+ *   explode(player, NUM_EXPLODER_EXPLOSIONS);
  * }
  *
  * function explode(player: EntityPlayer, numFramesLeft: int) {
