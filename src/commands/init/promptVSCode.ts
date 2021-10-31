@@ -27,7 +27,7 @@ export default async function promptVSCode(
   }
 }
 
-function openVSCode(projectPath: string, VSCodePath: string) {
+function openVSCode(projectPath: string, VSCodeCommand: string) {
   const MAIN_TS_PATH = path.join(projectPath, "src", MAIN_TS);
-  execShell(VSCodePath, [projectPath, MAIN_TS_PATH]);
+  execShell(VSCodeCommand, [projectPath, MAIN_TS_PATH]);
 }
