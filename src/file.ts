@@ -65,7 +65,7 @@ export function getDirList(dirPath: string): string[] {
 function getFileStats(filePath: string): fs.Stats {
   let fileStats: fs.Stats;
   try {
-    fileStats = fs.lstatSync(filePath);
+    fileStats = fs.statSync(filePath);
   } catch (err) {
     error(`Failed to get the file stats for "${chalk.green(filePath)}":`, err);
   }
@@ -83,11 +83,6 @@ export function isSubDirOf(dir: string, parent: string): boolean {
   return (
     relative !== "" && !relative.startsWith("..") && !path.isAbsolute(relative)
   );
-}
-
-export function isSymbolicLink(filePath: string): boolean {
-  const fileStats = getFileStats(filePath);
-  return fileStats.isSymbolicLink();
 }
 
 export function makeDir(dirPath: string): void {
