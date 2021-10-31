@@ -42,7 +42,7 @@ But we don't have to suffer anymore. The `isaacscript` framework allows us to pr
 ### <img src="/img/items/poke-go.png" className="features-icon" /> Extra Callbacks
 
 - Ever wish that there was a callback for the particular thing you are working on? Wish no longer.
-- IsaacScript mods can use [many extra callbacks](function-signatures-custom) as part of the expanded standard library.
+- IsaacScript mods can use [many extra callbacks](function-signatures-custom.md) as part of the expanded standard library.
 
 ### <img src="/img/items/book-of-virtues.png" className="features-icon" /> Expanded Standard Library
 
@@ -66,7 +66,7 @@ Enjoy all the benefits of a strongly typed language over the shit-show that is L
 - Use the <code>F12</code> hotkey (for "Go to Definition") to automatically jump around in your code. Press <code>Alt + Left</code> to return.
 - Use the <code>F2</code> hotkey to rename a variable. The editor will automatically rename it everywhere in your entire project!
 - Use the <code>Shift + Alt + F12</code> hotkey (for "Find All References") to automatically find all places where something is used. With this, it is trivial to work your way backwards from a nested function.
-- And so much much that I can't list it on this page because I don't want to ramble!
+- And more!
 
 <br />
 
