@@ -49,7 +49,7 @@ export default async function init(
 
 function getVSCodeCommand() {
   for (const VSCodeCommand of ["code", "codium", "code-oss"]) {
-    if (commandExists.sync(VSCodeCommand)) {  
+    if (commandExists.sync(VSCodeCommand)) {
       return VSCodeCommand;
     }
   }
