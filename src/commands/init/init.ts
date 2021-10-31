@@ -32,15 +32,8 @@ export default async function init(
     commandExists.sync("code") ||
     commandExists.sync("code-oss") ||
     commandExists.sync("codium");
-  let VSCodePath = "";
-  if (commandExists.sync("code")) {
-    VSCodePath = "code";
-  } else if (commandExists.sync("codium")) {
-    VSCodePath = "codium";
-  } else if (commandExists.sync("code-oss")) {
-    VSCodePath = "code-oss";
-  }
-  if (VSCodeExists) {
+  const VSCodePath = getVSCodePath();
+  if (VSCodeExists && VSCodePath !== undefined) {
     installVSCodeExtensions(projectPath);
     await promptVSCode(projectPath, argv, VSCodePath);
   } else {
@@ -56,4 +49,16 @@ export default async function init(
   }
   commandsToType += `"${chalk.green("npx isaacscript")}"`;
   console.log(`Now, start IsaacScript by typing ${commandsToType}.`);
+}
+function getVSCodePath() {
+  if (commandExists.sync("code")) {
+    return "code";
+  }
+  if (commandExists.sync("codium")) {
+    return "codium";
+  }
+  if (commandExists.sync("code-oss")) {
+    return "code-oss";
+  }
+  return undefined;
 }
