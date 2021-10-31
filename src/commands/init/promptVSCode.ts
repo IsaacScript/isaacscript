@@ -23,7 +23,7 @@ export default async function promptVSCode(
   });
 
   if (response.VSCode === true) {
-    openVSCode(projectPath, VSCodePath);
+    openVSCode(projectPath, VSCodeCommand);
   }
 }
 
