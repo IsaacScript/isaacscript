@@ -2,14 +2,20 @@ import path from "path";
 import { MAIN_LUA } from "./constants";
 import * as file from "./file";
 
-const mainLuaHeader = `-- This Isaac mod was created with the IsaacScript tool.
--- The Lua code in this file was automatically generated from higher-level TypeScript code and might
--- be hard to read. If you want to understand how the code in this mod works, you should read the
--- actual TypeScript source code directly instead of trying to parse this file. Usually, the link to
--- the source code can be found in the mod's description on the Steam Workshop. If not, you can ask
--- the mod author directly if the source code is publicly available.
--- IsaacScript provides a lot of advantages over using raw Lua. For more information about the tool,
--- see the official website: https://isaacscript.github.io/
+const mainLuaHeader = `--[[
+
+This Isaac mod was created with the IsaacScript tool.
+
+The Lua code in this file was automatically generated from higher-level TypeScript code and might be
+hard to read. If you want to understand how the code in this mod works, you should read the actual
+TypeScript source code directly instead of trying to parse this file. Usually, the link to the
+source code can be found in the mod's description on the Steam Workshop. If not, you can ask the mod
+author directly if the source code is publicly available.
+
+IsaacScript provides a lot of advantages over using raw Lua. For more information about the tool,
+see the official website: https://isaacscript.github.io/
+
+--]]
 
 `;
 
