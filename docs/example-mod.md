@@ -40,11 +40,11 @@ We can now begin working.
 
 ## 2) Create the Image for the Item
 
-First, we will set up the image for how the item will appear in-game. We will use this image: ![Green Candle](/img/items/green_candle.png)
+First, we will set up the image for how the item will appear in-game. We will use this image: ![Green Candle](/img/items/green-candle.png)
 
 Most images for a mod should be placed in a "resources" subdirectory. (This corresponds to how things are organized in `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\resources`.)
 
-For our purposes, we will need to copy [the Green Candle image](/img/items/green_candle.png) to `C:\Repositories\green-candle\mod\resources\gfx\items\collectibles\green_candle.png`. (You will need to create the "resources", "gfx", "items", and "collectibles" directories, since they won't exist yet.)
+For our purposes, we will need to copy [the Green Candle image](/img/items/green-candle.png) to `C:\Repositories\green-candle\mod\resources\gfx\items\collectibles\green-candle.png`. (You will need to create the "resources", "gfx", "items", and "collectibles" directories, since they won't exist yet.)
 
 Notice that this path corresponds to the "real" items graphics directory of `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\resources\gfx\items\collectibles\`. Under the hood, the game will merge the two directories when you enable the mod.
 
@@ -60,7 +60,7 @@ In this file, add the following:
 
 ```xml
 <items gfxroot="gfx/items/" version="1">
-  <passive description="Mass poison" gfx="green_candle.png" name="Green Candle" />
+  <passive description="Mass poison" gfx="green-candle.png" name="Green Candle" />
 </items>
 ```
 
