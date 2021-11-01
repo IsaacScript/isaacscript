@@ -23,7 +23,7 @@ Some of these points I agree with, and some are confused, so let's go through ea
 
 <br />
 
-### 1. TypeScript isn't a good programming language.
+## 1. TypeScript isn't a good programming language.
 
 Programming languages are tools. As programmers, once we learn a bunch of different languages, we realize that they all have different pros and cons, and that there isn't one best language. Rather, it is more about choosing the right tool for the job. And even when you choose the best tool for your particular situation, it still isn't going to be perfect, because *every programming language sucks*.
 
@@ -37,7 +37,7 @@ When we examine it from the opposite direction, TypeScript has plenty of feature
 
 <br />
 
-### 2. Other programming languages that transpile to Lua should have been chosen instead of TypeScript.
+## 2. Other programming languages that transpile to Lua should have been chosen instead of TypeScript.
 
 Jill goes on to say that MoonScript, Teal, Fennel, Amulet, and Haxe would all be better choices than TypeScript, because they are "designed to be compiled". That is a little misleading. Here, I think Jill is ignorant of how these languages work, because [all](https://github.com/leafo/moonscript/blob/b7efcd131046ed921ae1075d7c0f6a3b64a570f7/docs/command_line.md#syntax-transformer) [five](https://github.com/teal-language/tl/blob/6b46e4051eb4a73138f827387017f9bcfe1befbe/spec/parser/parser_spec.lua) [of](https://github.com/bakpakin/Fennel/blob/5b142c22c679a23f0f63873e923e16d354bcbc82/src/fennel/compiler.fnl) [these](https://github.com/ianmaclarty/amulet/blob/8fa43fcdc5e145f607ba195eb9a053b423f24655/third_party/glsl-optimizer/src/glsl/glsl_parser.yy) [languages](https://github.com/HaxeFoundation/haxe/blob/0ef19b4e282502800896ec41ad5b2fdf10a50f03/src/generators/genlua.ml) convert code to an AST (abstract syntax tree), which can then be transpiled to any language in an agnostic way. In fact, this is [exactly how TypeScriptToLua works as well](https://github.com/TypeScriptToLua/TypeScriptToLua/blob/master/src/LuaAST.ts), so there is no meaningful difference here.
 
@@ -49,7 +49,7 @@ Furthermore, the transpilation of TypeScriptToLua is essentially flawless and ge
 
 <br />
 
-### 3. There is no operator overloading.
+## 3. There is no operator overloading.
 
 Jill complains that code without operator overloading is verbose. However, this isn't a fair criticism, because any IsaacScript mod can enable operator overloading for their project by copy-pasting a new definition for a `Vector` in.
 
@@ -57,31 +57,31 @@ In fact, this gives you the best of both worlds: you can choose operator overloa
 
 <br />
 
-### 4. It uses a compiler, which increases overhead, and extra overhead is bad.
+## 4. It uses a compiler, which increases overhead, and extra overhead is bad.
 
 It is indeed true that using a compiler increases overhead. Jill is quite right to showcase here that IsaacScript significantly increases the complexity of your setup, and that should not be overlooked. I agree with her that people who are not already familiar with command-line tools and/or programming should probably not be using the tool. And extra overhead adds more things to troubleshoot when things go wrong.
 
 But let's get a little more specific and try to quantify exactly what that overhead is.
 
-#### Installing
+### Installing
 
 The time to install IsaacScript is anywhere between 1 minute (if you already know how to install things from npm) to 10 minutes (assuming you've never programmed before and you have to install Node, Git, and VSCode).
 
-#### Running
+### Running
 
 The steps to run IsaacScript are just double clicking on a shortcut, or typing a few keystrokes into a shell. Both of these can be performed in a fraction of second.
 
-#### Learning TypeScript
+### Learning TypeScript
 
 For those who have only programmed in Lua before, you could say that another cost would be to learn the syntax of the TypeScript programming language. Of course, many people already know both languages, and some people *only* know TypeScript, so this cost wouldn't apply to everyone.
 
-#### Transpilation
+### Transpilation
 
 Debugging runtime errors becomes slightly more tricky because the Lua line numbers won't match up to your TypeScript line numbers. So you could consider "harder troubleshooting" as another cost of using the tool.
 
 Thankfully, this is almost never a problem in practice, because 1) using TypeScript prevents nearly all runtime errors (that's the point of using TypeScript), and 2) the Lua code is very close to the TypeScript code, so it is trivial to find the matching line of TypeScript.
 
-#### Cost-Benefit Analysis
+### Cost-Benefit Analysis
 
 You can think of the cost of installing IsaacScript and learning the syntax as a one time cost, with the others as recurring costs. However, for people familiar with computers or familiar with programming, we can probably agree that these things shouldn't be a big hurdle.
 
@@ -91,7 +91,7 @@ So, for people who *are* familiar with command-line tools and/or programming, th
 
 <br />
 
-### 5. It is advertised at beginners when it should only be advertised at more advanced users.
+## 5. It is advertised at beginners when it should only be advertised at more advanced users.
 
 On the one hand, I think that Jill is right: adding the complexity of a compiler could be overwhelming or counterproductive for someone new to programming. But on the other hand, I think that Jill is wrong: having a compiler can be invaluable for a beginner.
 
@@ -103,9 +103,9 @@ So, the benefits for beginners can be immense. But do the benefits outweigh the 
 
 <br />
 
-### 6. Some of the features can be accomplished by extra Lua tooling.
+## 6. Some of the features can be accomplished by extra Lua tooling.
 
-#### Mouseover
+### Mouseover
 
 Jill starts off this section by showcasing that Lua language servers provide some mouseover info, which is true. However, this is vastly inferior to IsaacScript. For example, this is a screenshot of what happens when I mouse over the `AddTrinket` method:
 
@@ -119,23 +119,23 @@ While every function in the game doesn't have this level of detail, a lot of the
 
 Jill's main point here is that it this should not be listed as a TypeScript feature, because it is possible for someone to make this happen in Lua (using something like [EmmyLua](https://github.com/EmmyLua/EmmyLua-LanguageServer)). I agree that it's *possible*, but such a framework **does not currently exist**. If it ever gets created, and it is as thorough as the IsaacScript API comments are, then when that day comes, IsaacScript will have one less feature over the competition. Until then, it's not super relevant to say that "it could be possible in Lua" without such a thing actually existing for people to use.
 
-#### API Accuracy
+### API Accuracy
 
 IsaacScript sets the definition for some problematic functions to have a type of `never`. This causes compiler errors for end-users who accidentally use those functions, which is handy.
 
 Jill is correct in saying that this isn't an important feature. She states that you "don't really need to have something solve this", and I agree. But it's a nice bonus that you get for free when having a compiler along for the ride.
 
-#### Monolith
+### Monolith
 
 Jill claims that IsaacScript is a "monolith", linking a blog post that goes over the downsides of having tightly coupled software. However, she doesn't mention *how* IsaacScript is tightly coupled, she just states that it is. This is an annoying pattern that we repeatedly see in this blog.
 
 In short, I don't think that Jill understands what the tool is doing very well. IsaacScript is objectively very modular: linting is optional, automatic mod reloading is optional, the expanded standard library is optional, and even the definitions themselves are optional. You can easily drop in your own solutions for any of these by changing a single line in the "package.json" file. Furthermore, the IsaacScript tool itself is just a convienence, and is completely optional, since you can just run TSTL yourself. So I think that this criticism misses the mark.
 
-#### Require/Include
+### Require/Include
 
 Jill says that "there are no consequences of using `include`", but this is false. The official docs [go into more detail on why you should never use `include` without having require as a fallback](https://wofsauge.github.io/IsaacDocs/rep/tutorials/Using-Additional-Lua-Files.html), so I think that Jill is just unaware that `include` is broken in this way.
 
-#### Extra Enums
+### Extra Enums
 
 Jill points out that theoretically, extra enums are possible in Lua. I agree. But **solutions for this do not currently exist**, just like they don't exist for mouseover text. So, for practical purposes, it doesn't make much sense to point this out.
 
@@ -143,13 +143,13 @@ I think Jill is confused in that she is interpreting the list of IsaacScript fea
 
 Instead, I think that people should interpret the list as "things that no-one else has bothered to do as Lua", or perhaps more charitably, "things that are done more robustly and seamlessly than could be ever possible in Lua".
 
-#### Automatic Formatting
+### Automatic Formatting
 
 Jill mentions that you can auto-format in Lua, which is true. In fact, the best option for Lua auto-formatting right now is [LuaFormatter](https://github.com/Koihik/LuaFormatter). I use it myself in my Lua projects, and it has a lot of great options. But I think that anyone who has used both tools would admit that LuaFormatter only has a shadow of the power that Prettier + ESLint does.
 
 So I'd argue that listing Prettier as a feature is warranted, especially when the tooling makes using it utterly seamless. However, I don't feel strongly about this, so if people think that it would be more honest to remove it as a feature, I can.
 
-#### Automatic Linting
+### Automatic Linting
 
 Jill mentions that you don't need ESLint because you can use Luacheck. But this is a little misleading.
 
@@ -157,7 +157,7 @@ I've used Luacheck myself for the past 5 years, and I would highly recommend it 
 
 On the other hand, ESLint is hands down the most popular and best linter in the world. It is actively maintained and has the ability to write custom plugins to do anything you want. The ESLint ecosystem has tons of existing rules, plugins, and even a support Discord for when things go wrong. This isn't exactly an apples to oranges comparison.
 
-#### Lua Language Servers
+### Lua Language Servers
 
 Jill mentions that you can achieve types in Lua with a language server. This is true, and I would highly recommend doing this for anyone working with Lua projects.
 
@@ -203,7 +203,7 @@ More importantly, the `ensureAllCases(situation)` line leverages the type checke
 
 While everyone may not appreciate the power of this, this is the kind of thing I get excited about, because I love having bug-free code. :)
 
-#### TypeScript is Not Strongly Typed
+### TypeScript is Not Strongly Typed
 
 Jill claims that if you have "one trace of `any`, your code becomes unsafe", but this is misguided.
 
@@ -213,7 +213,7 @@ In TypeScript land, the situation is identical. TypeScript allows the `any` type
 
 <br />
 
-### 7. IsaacScript does not work properly if you have created a symbolic link on top of your mods directory.
+## 7. IsaacScript does not work properly if you have created a symbolic link on top of your mods directory.
 
 This is half-true. Prior to October 31st, IsaacScript would not handle the special case of end-users symlinking their mods directory to an entirely different directly. However, fixing this bug was as simple as [removing a single character](https://github.com/IsaacScript/isaacscript/pull/11/files#diff-bc9705d0f7a567399044dfc66ccc82d4d9aa1cff116842a0094d54e463c9ecbcR68), which was handily performed by Kyojo in a pull request within hours of Jill bringing up the problem in the IsaacScript Discord.
 
@@ -221,7 +221,7 @@ Jill seems to imply that this as a major flaw in the software, but I don't think
 
 <br />
 
-### 8. There are no TypeScript comments in the Lua output.
+## 8. There are no TypeScript comments in the Lua output.
 
 I agree that it would be nice for TypeScript comments to get copied over. In fact, it's one of the open issues on the TypeScriptToLua Github. Maybe it will get implemented soon! The nice thing about TypeScriptToLua is that it is actively maintained and continues to get nice goodies added as time progresses.
 
@@ -229,7 +229,7 @@ Until then, I think it's worth noting that while having comments would be nice, 
 
 <br />
 
-### 9. You need to cast to get around functions that return undefined.
+## 9. You need to cast to get around functions that return undefined.
 
 Jill's example attempts to show that you "have to cast" in order for some code to compile, but this is not true. Her example is instead better written like this, which requires no casting:
 
@@ -244,7 +244,7 @@ In general, I think Jill is confused about how TypeScript casting works. In my m
 
 <br />
 
-#### 10. It pollutes the global namespace with `__TS__` functions.
+## 10. It pollutes the global namespace with `__TS__` functions.
 
 I agree that it would be nice for the `__TS__` functions to be local to the transpiled project. In fact, it's one of the open issues on the TypeScriptToLua Github. Maybe it will get implemented soon!
 
@@ -252,7 +252,7 @@ As my friends on the modding Discord server will know, I hate polluting the glob
 
 <br />
 
-#### 11. It adds extra transpiled functions, even if they are not used in the source code.
+## 11. It adds extra transpiled functions, even if they are not used in the source code.
 
 Jill takes issue with non-used functions getting put into the transpilation output. Admittedly, at first glance, this does appear to be a bug. However, this is not a bug, and Jill is just ignorant of how TypeScriptToLua works.
 
@@ -266,7 +266,7 @@ It's important to remember that as programmers, we [should only be worried about
 
 <br />
 
-#### 12. Using IsaacScript makes your mod lag more.
+## 12. Using IsaacScript makes your mod lag more.
 
 Jill speculates that using higher-order functions like `filter` will make mods more laggy than if you use a for loop. But the practical differences here are almost certainly going to be so small that they won't be measurable. This is a classic mistake made by newer programmers, summarized nicely by the legendary Donald Knuth:
 
@@ -280,7 +280,7 @@ Finally, I can't help but notice that this criticism in particular is not even a
 
 <br />
 
-#### 13. The transpiled output is hard to read.
+## 13. The transpiled output is hard to read.
 
 This is a criticism that other people have brought up before, so it's a good one to discuss. I believe that this issue is a symptom of people thinking incorrectly about what code is.
 
@@ -332,7 +332,7 @@ It's also important to remember that runtime errors are **very rare** in IsaacSc
 
 <br />
 
-#### 14. Someone reading the Lua code wouldn't know that IsaacScript is used and would be confused.
+## 14. Someone reading the Lua code wouldn't know that IsaacScript is used and would be confused.
 
 This is good feedback. As of version 1.1.30, the IsaacScript tool prints the following at the top of every transpiled main.lua file:
 
@@ -358,7 +358,7 @@ Regardless, since [JavaScript is objectively more popular than Lua](https://www.
 
 <br />
 
-### Conclusion
+## Conclusion
 
 Jill concludes the post with a summary:
 
