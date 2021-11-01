@@ -258,7 +258,7 @@ Jill takes issue with non-used functions getting put into the transpilation outp
 
 As noted in the [TypeScriptToLua documentation](https://typescripttolua.github.io/docs/configuration), the default value for the `luaLibImport` compiler option is set to `require`, which causes every polyfilled function to be included. If users instead set this to `inline`, it would match the playground behavior and only include the explicit functions that are used in the source code, which is probably how Jill would expect the software to work. So, if this is an issue for you, simply use `inline` and you are done.
 
-The reason that `require` is the default over `inline` is because it provides better compilation times and doesn't increase the size of the transpiled output that much. With a big enough mod, you would probably end up using all of the transpiled functions anyway, so parsing the AST to see if the individual functions are actually being used is essentially just a waste of time.
+For those wondering, the reason that `require` is the default over `inline` is because it provides better compilation times and doesn't increase the size of the transpiled output that much. With a big enough mod, you would probably end up using all of the transpiled functions anyway, so parsing the AST to see if the individual functions are actually being used is essentially just a waste of time.
 
 Even if it were not possible to use the `inline` compiler flag, this criticism is still really weird. Are there any actual implications of having non-used functions in the transpiled output? Jill states that "it's not good, at ALL", but doesn't go on to say why, other than to just imply that it is "bad".
 
