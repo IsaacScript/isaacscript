@@ -51,13 +51,19 @@ export function arrayToString<T>(array: T[]): string {
 }
 
 export function getRandomArrayElement<T>(array: T[], seed: int): T {
+  const randomIndex = getRandomArrayIndex(array, seed);
+  return array[randomIndex];
+}
+
+export function getRandomArrayIndex<T>(array: T[], seed: int): int {
   if (array.length === 0) {
     error(
-      "Failed to get a random array element since the provided array is empty.",
+      "Failed to get a random array index since the provided array is empty.",
     );
   }
+
   const randomIndex = getRandomInt(0, array.length - 1, seed);
-  return array[randomIndex];
+  return randomIndex;
 }
 
 /** Copies and removes the specified element from the array. Returns the copied array. */
