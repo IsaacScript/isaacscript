@@ -225,7 +225,7 @@ Jill seems to imply that this as a major flaw in the software, but I don't think
 
 I agree that it would be nice for TypeScript comments to get copied over. In fact, it's one of the open issues on the TypeScriptToLua Github. Maybe it will get implemented soon! The nice thing about TypeScriptToLua is that it is actively maintained and continues to get nice goodies added as time progresses.
 
-Until then, I think it's worth noting that while having comments would be nice, it doesn't make a lot of practical difference. Jill points out that without comments, troubleshooting might become really hard, but this is dead wrong. When you get a runtime error and a Lua line number, finding the matching TypeScript code is trivial because all of the Lua function names and variable names are the same.
+Until then, I think it's worth noting that while having comments would be nice, it makes **zero practical difference**. Jill points out that without comments, troubleshooting might become really hard, but this is dead wrong. When you get a runtime error and a Lua line number, finding the matching TypeScript code is trivial because all of the Lua function names and variable names are the same.
 
 <br />
 
