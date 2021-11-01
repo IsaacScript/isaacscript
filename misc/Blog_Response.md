@@ -35,6 +35,8 @@ I'll try to steelman this point. More generally, the only feature that I am awar
 
 When we examine it from the opposite direction, TypeScript has plenty of features that Lua does not have. Beyond the obvious point of having type safety, TypeScript has switch statements, assignment operators, higher-order functions, and real ternaries, just to name a few. Yummy.
 
+<br />
+
 ### 2. Other programming languages that transpile to Lua should have been chosen instead of TypeScript.
 
 Jill goes on to say that MoonScript, Teal, Fennel, Amulet, and Haxe would all be better choices than TypeScript, because they are "designed to be compiled". That is a little misleading. Here, I think Jill is ignorant of how these languages work, because [all](https://github.com/leafo/moonscript/blob/b7efcd131046ed921ae1075d7c0f6a3b64a570f7/docs/command_line.md#syntax-transformer) [five](https://github.com/teal-language/tl/blob/6b46e4051eb4a73138f827387017f9bcfe1befbe/spec/parser/parser_spec.lua) [of](https://github.com/bakpakin/Fennel/blob/5b142c22c679a23f0f63873e923e16d354bcbc82/src/fennel/compiler.fnl) [these](https://github.com/ianmaclarty/amulet/blob/8fa43fcdc5e145f607ba195eb9a053b423f24655/third_party/glsl-optimizer/src/glsl/glsl_parser.yy) [languages](https://github.com/HaxeFoundation/haxe/blob/0ef19b4e282502800896ec41ad5b2fdf10a50f03/src/generators/genlua.ml) convert code to an AST (abstract syntax tree), which can then be transpiled to any language in an agnostic way. In fact, this is [exactly how TypeScriptToLua works as well](https://github.com/TypeScriptToLua/TypeScriptToLua/blob/master/src/LuaAST.ts), so there is no meaningful difference here.
