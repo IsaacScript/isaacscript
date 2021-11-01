@@ -4,10 +4,13 @@ import path from "path";
 import * as file from "../../file";
 import { error, execShell } from "../../util";
 
-export default function installVSCodeExtensions(projectPath: string): void {
+export default function installVSCodeExtensions(
+  projectPath: string,
+  VSCodeCommand = "code",
+): void {
   const extensions = getExtensionsFromJSON(projectPath);
   for (const extensionName of extensions) {
-    execShell("code", ["--install-extension", extensionName]);
+    execShell(VSCodeCommand, ["--install-extension", extensionName]);
   }
 }
 
