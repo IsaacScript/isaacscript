@@ -163,7 +163,7 @@ Jill mentions that you can achieve types in Lua with a language server. This is 
 
 However, I think Jill should acknowledge that there is a meaningful distinction to be made between 1) types annotated on LDoc comments and validated by a linter, and 2) types embedded into the language itself.
 
-Having all type information encoded as LDoc comments is clunky, harder to type, and difficult to ensure full coverage. But more importantly, the tooling to get this working well in the Isaac ecosystem does not currently exist. It's the same story again: when Lua types actually exist for EID, StageAPI, and the other common libraries, I'll gladly make some consessions here. But until then, it's not fair to complain that something is theoretical possible without it actually existing for people to use in their mods right now.
+Having all type information encoded as LDoc comments is clunky, harder to type, and difficult to ensure full coverage. But more importantly, the tooling to get this working well in the Isaac ecosystem does not currently exist. It's the same story again: when Lua types actually exist for EID, StageAPI, and the other common libraries, I'll gladly make some concessions here. But until then, it's not fair to complain that something is theoretical possible without it actually existing for people to use in their mods right now.
 
 Furthermore, it's important to note that when types are a first class part of the language, it allows for powerful coding patterns that are just not possible with LDoc comments and a Lua language server. Consider the following code snippet:
 
