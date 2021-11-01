@@ -6,7 +6,7 @@ import { error, execShell } from "../../util";
 
 export default function installVSCodeExtensions(
   projectPath: string,
-  VSCodeCommand = "code",
+  VSCodeCommand: string,
 ): void {
   const extensions = getExtensionsFromJSON(projectPath);
   for (const extensionName of extensions) {
