@@ -34,7 +34,7 @@ export default async function init(
       'VSCode does not seem to be installed. (The "code" command is not in the path.) Skipping VSCode-related things.',
     );
   } else {
-    installVSCodeExtensions(projectPath);
+    installVSCodeExtensions(projectPath, VSCodeCommand);
     await promptVSCode(projectPath, argv, VSCodeCommand);
   }
 
