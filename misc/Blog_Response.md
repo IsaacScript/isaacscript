@@ -139,9 +139,9 @@ Jill says that "there are no consequences of using `include`", but this is false
 
 Jill points out that theoretically, extra enums are possible in Lua. I agree. But **solutions for this do not currently exist**, just like they don't exist for mouseover text. So, for practical purposes, it doesn't make much sense to point this out.
 
-I think Jill is confused in that she is interpreting the list of IsaacScript features on the website as a list of "things that only TypeScript" can do. In that interpretation, she would be right in shouting: "Hey! Lua can do some of these things do!"
+I think Jill is confused in that she is interpreting the list of IsaacScript features on the website as a list of "things that only TypeScript can do". In that interpretation, she would be right in shouting: "Hey! Lua can do some of these things do!"
 
-Instead, I think that people should interpret the list as "things that no-one else has bothered to do as Lua", or perhaps more charitably, "things that are done more robustly and seamlessly than could be ever possible in Lua".
+Instead, I think that people should interpret the list as "things that no-one else has bothered to do as Lua", or perhaps more charitably, "things that TypeScript can do more robustly and seamlessly than could be ever possible in Lua".
 
 ### Automatic Formatting
 
