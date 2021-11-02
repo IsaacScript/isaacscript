@@ -6,7 +6,7 @@ import styles from "./HomepageFeatures.module.css";
 const FeatureList = [
   {
     title: "The Entire Isaac API, Strongly Typed",
-    img: "img/items/magic_mushroom.png",
+    img: "img/items/magic-mushroom.png",
     description: (
       <>
         <li>Code fearlessly without having to worry about making a typo.</li>
