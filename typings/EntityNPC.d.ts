@@ -93,5 +93,5 @@ declare namespace EntityNPC {
     targetPos: Vector,
     big: boolean,
     yOffset: float,
-  ): void;
+  ): EntityNPC;
 }
