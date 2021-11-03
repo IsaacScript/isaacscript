@@ -66,13 +66,30 @@ export function getRandomArrayIndex<T>(array: T[], seed: int): int {
   return randomIndex;
 }
 
-/** Copies and removes the specified element from the array. Returns the copied array. */
+/**
+ * Shallow copies and removes the specified element from the array. Returns the copied array. If the
+ * specified element is not found in the array, it will simply return a shallow copy of the array.
+ */
 export function arrayRemove<T>(array: T[], element: T): T[] {
   const arrayCopy = [...array];
   const index = array.indexOf(element);
   arrayCopy.splice(index, 1);
 
   return arrayCopy;
+}
+
+/**
+ * Removes the specified element from the array. If the specified element is not found in the array,
+ * this function will do nothing. Returns whether or not the element was found.
+ */
+export function arrayRemoveInPlace<T>(array: T[], element: T): boolean {
+  const index = array.indexOf(element);
+  if (index === -1) {
+    return false;
+  }
+
+  array.splice(index, 1);
+  return true;
 }
 
 /**
