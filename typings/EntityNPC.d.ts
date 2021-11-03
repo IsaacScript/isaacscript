@@ -86,6 +86,11 @@ declare interface EntityNPC extends Entity {
 }
 
 declare namespace EntityNPC {
+  /**
+   * This function is bugged and returns a read-only version of the EntityNPC class. If you need to
+   * mutate the properties of the spider, then you should spawn it with `Isaac.Spawn()` or
+   * `Game.Spawn()` instead.
+   */
   function ThrowSpider(
     this: void,
     position: Vector,
@@ -93,5 +98,5 @@ declare namespace EntityNPC {
     targetPos: Vector,
     big: boolean,
     yOffset: float,
-  ): EntityNPC;
+  ): Readonly<EntityNPC>;
 }
