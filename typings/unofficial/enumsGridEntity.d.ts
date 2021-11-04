@@ -50,6 +50,12 @@ declare const enum GridEntityXMLType {
   GRAVITY = 10000,
 }
 
+/** For GridEntityType.GRID_ROCK (2) */
+declare const enum RockState {
+  UNBROKEN = 1,
+  BROKEN = 2,
+}
+
 /** For GridEntityType.GRID_DOOR (16) */
 declare const enum DoorSlotFlag {
   LEFT0 = 1 << DoorSlot.LEFT0,
@@ -62,7 +68,7 @@ declare const enum DoorSlotFlag {
   DOWN1 = 1 << DoorSlot.DOWN1,
 }
 
-/** For GridEntityType.GRID_TRAPDOOR (17)  */
+/** For GridEntityType.GRID_TRAPDOOR (17) */
 declare const enum TrapdoorState {
   CLOSED = 0,
   OPEN = 1,
