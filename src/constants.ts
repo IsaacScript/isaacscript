@@ -139,6 +139,8 @@ export const MAX_ROOM_INDEX = 168;
 export const MAX_VANILLA_COLLECTIBLE_TYPE =
   CollectibleType.COLLECTIBLE_DECAP_ATTACK;
 
+export const ONE_BY_ONE_ROOM_GRID_SIZE = 135;
+
 export const SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES = new Set<CollectibleType>([
   CollectibleType.COLLECTIBLE_FORGET_ME_NOW, // 127
   CollectibleType.COLLECTIBLE_EDENS_SOUL, // 490
