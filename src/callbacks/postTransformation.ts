@@ -1,5 +1,5 @@
 import { saveDataManager } from "../features/saveDataManager/main";
-import { initArray } from "../functions/array";
+import { arrayInit } from "../functions/array";
 import { getPlayerIndex, PlayerIndex } from "../functions/player";
 import ModCallbacksCustom from "../types/ModCallbacksCustom";
 import ModUpgraded from "../types/ModUpgraded";
@@ -35,7 +35,7 @@ function postPlayerUpdateReorderedPlayer(player: EntityPlayer) {
   const index = getPlayerIndex(player);
   let transformations = v.run.transformations.get(index);
   if (transformations === undefined) {
-    transformations = initArray(false, PlayerForm.NUM_PLAYER_FORMS - 1);
+    transformations = arrayInit(false, PlayerForm.NUM_PLAYER_FORMS - 1);
     v.run.transformations.set(index, transformations);
   }
 
