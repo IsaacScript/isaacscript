@@ -3,6 +3,7 @@ import PocketItemDescription from "../types/PocketItemDescription";
 import PocketItemType from "../types/PocketItemType";
 import { getKBitOfN, getNumBitsOfN } from "./bitwise";
 import { getCollectibleSet } from "./collectibles";
+import { getFireDelay } from "./tears";
 
 const EXCLUDED_CHARACTERS = new Set<PlayerType>([
   PlayerType.PLAYER_ESAU, // 20
@@ -20,6 +21,11 @@ const EXCLUDED_CHARACTERS = new Set<PlayerType>([
  * This type is branded for extra type safety.
  */
 export type PlayerIndex = int & { __playerIndexBrand: unknown };
+
+export function addTearsStat(player: EntityPlayer, tearsStat: float): void {
+  const fireDelay = getFireDelay(tearsStat);
+  player.FireDelay -= fireDelay;
+}
 
 /** Iterates over all players and checks if any player is close enough to the specified position. */
 export function anyPlayerCloserThan(

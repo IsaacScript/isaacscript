@@ -7,7 +7,7 @@ import {
 } from "../constantsInternal";
 import { DEBUG } from "../debug";
 import { log } from "./log";
-import { isVector } from "./util";
+import { isVector } from "./vector";
 
 export enum SerializationType {
   NONE,
