@@ -19,6 +19,30 @@ export function arrayEmpty<T>(array: T[]): void {
   array.splice(0, array.length);
 }
 
+/**
+ * Shallow copies and shuffles the array using the Fisher-Yates algorithm. Returns the copied array.
+ *
+ * From: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+ */
+export function arrayShuffle<T>(originalArray: T[], seed = Random()): T[] {
+  const array = [...originalArray];
+
+  let currentIndex = array.length;
+  let randomIndex: int;
+
+  while (currentIndex !== 0) {
+    randomIndex = getRandomArrayIndex(array, seed);
+    currentIndex -= 1;
+
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
+  }
+
+  return array;
+}
+
 export function arraySum(array: int[]): int {
   let sum = 0;
   for (const element of array) {
@@ -70,12 +94,12 @@ export function getRandomArrayIndex<T>(array: T[], seed = Random()): int {
  * Shallow copies and removes the specified element from the array. Returns the copied array. If the
  * specified element is not found in the array, it will simply return a shallow copy of the array.
  */
-export function arrayRemove<T>(array: T[], element: T): T[] {
-  const arrayCopy = [...array];
+export function arrayRemove<T>(originalArray: T[], element: T): T[] {
+  const array = [...originalArray];
   const index = array.indexOf(element);
-  arrayCopy.splice(index, 1);
+  array.splice(index, 1);
 
-  return arrayCopy;
+  return array;
 }
 
 /**
