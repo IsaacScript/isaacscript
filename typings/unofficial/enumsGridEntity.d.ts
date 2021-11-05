@@ -56,6 +56,18 @@ declare const enum RockState {
   BROKEN = 2,
 }
 
+/**
+ * For GridEntityType.GRID_POOP (14)
+ *
+ * The health of a Giga Poop is represented by its state. It starts at 0 and climbs upwards in
+ * increments of 20, regardless of what the player's damage is. Once the state reaches 1000, the
+ * Giga Poop is completely broken (taking 50 tears).
+ */
+declare const enum GigaPoopState {
+  FULL_HEALTH = 0,
+  COMPLETELY_BROKEN = 1000,
+}
+
 /** For GridEntityType.GRID_DOOR (16) */
 declare const enum DoorSlotFlag {
   LEFT0 = 1 << DoorSlot.LEFT0,
