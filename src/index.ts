@@ -44,6 +44,7 @@ export * from "./functions/transformations";
 export * from "./functions/trinkets";
 export * from "./functions/ui";
 export * from "./functions/util";
+export * from "./functions/vector";
 export * from "./transformationMap";
 export { default as CallbackParametersCustom } from "./types/CallbackParametersCustom";
 export { default as HealthType } from "./types/HealthType";
