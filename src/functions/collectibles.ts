@@ -2,6 +2,10 @@ import { copySet } from "./util";
 
 const COLLECTIBLE_SPRITE_LAYER = 1;
 const BLIND_ITEM_PNG_PATH = "gfx/items/collectibles/questionmark.png";
+
+// Glitched items start at id 4294967295 (the final 32-bit integer) and increment backwards
+const GLITCHED_ITEM_THRESHOLD = 4000000000;
+
 const COLLECTIBLE_SET = new Set<CollectibleType | int>();
 
 function initSet() {
@@ -90,6 +94,19 @@ export function getCollectibleSet(): Set<CollectibleType | int> {
 export function getMaxCollectibleID(): int {
   const itemConfig = Isaac.GetItemConfig();
   return itemConfig.GetCollectibles().Size - 1;
+}
+
+/**
+ * Returns whether or not the given collectible is a "glitched" item. All items are replaced by
+ * glitched items once a player has TMTRAINER. However, glitched items can also "naturally" appear
+ * in secret rooms and I AM ERROR rooms if the "Corrupted Data" achievement is unlocked.
+ */
+export function isGlitchedCollectible(entity: Entity): boolean {
+  return (
+    entity.Type === EntityType.ENTITY_PICKUP &&
+    entity.Variant === PickupVariant.PICKUP_COLLECTIBLE &&
+    entity.SubType > GLITCHED_ITEM_THRESHOLD
+  );
 }
 
 export function isQuestCollectible(

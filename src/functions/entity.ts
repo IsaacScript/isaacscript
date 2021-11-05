@@ -1,6 +1,3 @@
-// Glitched items start at id 4294967295 (the final 32-bit integer) and increment backwards
-const GLITCHED_ITEM_THRESHOLD = 4000000000;
-
 export function anyEntityCloserThan(
   entities: Entity[],
   position: Vector,
@@ -15,11 +12,7 @@ export function anyEntityCloserThan(
   return false;
 }
 
-/**
- * Helper function to get all the non-dead bosses in the room. Due to bugs with
- * `Isaac.FindInRadius()`, this function uses `Isaac.GetRoomEntities()`, which is more expensive but
- * also more robust.
- */
+/** Helper function to get all the non-dead bosses in the room. */
 export function getAliveBosses(): EntityNPC[] {
   const aliveBosses: EntityNPC[] = [];
   for (const boss of getBosses()) {
@@ -29,6 +22,18 @@ export function getAliveBosses(): EntityNPC[] {
   }
 
   return aliveBosses;
+}
+
+/** Helper function to get all the non-dead NPCs in the room. */
+export function getAliveNPCs(): EntityNPC[] {
+  const aliveNPCs: EntityNPC[] = [];
+  for (const npc of getNPCs()) {
+    if (!npc.IsDead()) {
+      aliveNPCs.push(npc);
+    }
+  }
+
+  return aliveNPCs;
 }
 
 /** Helper function to get all the bosses in the room. */
@@ -65,19 +70,6 @@ export function getNPCs(): EntityNPC[] {
   }
 
   return npcs;
-}
-
-/**
- * Returns whether or not the given collectible is a "glitched" item. All items are replaced by
- * glitched items once a player has TMTRAINER. However, glitched items can also "naturally" appear
- * in secret rooms and I AM ERROR rooms if the "Corrupted Data" achievement is unlocked.
- */
-export function isGlitchedCollectible(entity: Entity): boolean {
-  return (
-    entity.Type === EntityType.ENTITY_PICKUP &&
-    entity.Variant === PickupVariant.PICKUP_COLLECTIBLE &&
-    entity.SubType > GLITCHED_ITEM_THRESHOLD
-  );
 }
 
 /** Removes all of the entities in the supplied array. */
