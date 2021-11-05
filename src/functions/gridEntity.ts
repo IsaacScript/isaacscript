@@ -77,3 +77,52 @@ export function getSurroundingGridEntities(
 
   return surroundingGridEntities;
 }
+
+export function spawnGiantPoop(topLeftGridIndex: int): void {
+  const game = Game();
+  const room = game.GetRoom();
+  const gridWidth = room.GetGridWidth();
+  const topRightGridIndex = topLeftGridIndex + 1;
+  const bottomLeftGridIndex = topLeftGridIndex + gridWidth;
+  const bottomRightGridIndex = bottomLeftGridIndex + 1;
+
+  spawnGridEntityWithVariant(
+    GridEntityType.GRID_POOP,
+    PoopVariant.GIGA_TOP_LEFT,
+    topLeftGridIndex,
+  );
+  spawnGridEntityWithVariant(
+    GridEntityType.GRID_POOP,
+    PoopVariant.GIGA_TOP_RIGHT,
+    topRightGridIndex,
+  );
+  spawnGridEntityWithVariant(
+    GridEntityType.GRID_POOP,
+    PoopVariant.GIGA_BOTTOM_LEFT,
+    bottomLeftGridIndex,
+  );
+  spawnGridEntityWithVariant(
+    GridEntityType.GRID_POOP,
+    PoopVariant.GIGA_BOTTOM_RIGHT,
+    bottomRightGridIndex,
+  );
+}
+
+export function spawnGridEntity(
+  gridEntityType: GridEntityType,
+  gridIndex: int,
+): GridEntity {
+  return spawnGridEntityWithVariant(gridEntityType, 0, gridIndex);
+}
+
+export function spawnGridEntityWithVariant(
+  gridEntityType: GridEntityType,
+  variant: int,
+  gridIndex: int,
+): GridEntity {
+  const game = Game();
+  const room = game.GetRoom();
+  const position = room.GetGridPosition(gridIndex);
+
+  return Isaac.GridSpawn(gridEntityType, variant, position, true);
+}
