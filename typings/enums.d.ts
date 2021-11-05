@@ -432,6 +432,7 @@ declare enum GridEntityType {
   GRID_SPIKES = 8,
   GRID_SPIKES_ONOFF = 9,
   GRID_SPIDERWEB = 10,
+  /** A key block. */
   GRID_LOCK = 11,
   GRID_TNT = 12,
   GRID_FIREPLACE = 13,
