@@ -605,6 +605,34 @@ export function isLost(player: EntityPlayer): boolean {
   );
 }
 
+export function removeCostumeCollectible(
+  player: EntityPlayer,
+  collectibleType: CollectibleType,
+): void {
+  const itemConfig = Isaac.GetItemConfig();
+
+  const itemConfigItem = itemConfig.GetCollectible(collectibleType);
+  if (itemConfigItem === undefined) {
+    return;
+  }
+
+  player.RemoveCostume(itemConfigItem);
+}
+
+export function removeCostumeTrinket(
+  player: EntityPlayer,
+  trinketType: TrinketType,
+): void {
+  const itemConfig = Isaac.GetItemConfig();
+
+  const itemConfigTrinket = itemConfig.GetTrinket(trinketType);
+  if (itemConfigTrinket === undefined) {
+    return;
+  }
+
+  player.RemoveCostume(itemConfigTrinket);
+}
+
 export function removeDeadEyeMultiplier(player: EntityPlayer): void {
   // Each time the "ClearDeadEyeCharge()" function is called, it only has a chance of working,
   // so just call it 100 times to be safe
