@@ -26,7 +26,7 @@ export function getRandom(seed: int): float {
  * const realNumberBetweenOneAndThree = getRandomFloat(1, 3, seed);
  * ```
  */
-export function getRandomFloat(min: int, max: int, seed: int): float {
+export function getRandomFloat(min: int, max: int, seed = Random()): float {
   // From: https://stackoverflow.com/questions/40431966
   return min + getRandom(seed) * (max - min);
 }
@@ -39,7 +39,7 @@ export function getRandomFloat(min: int, max: int, seed: int): float {
  * const oneTwoOrThree = getRandomInt(1, 3, seed);
  * ```
  */
-export function getRandomInt(min: int, max: int, seed: int): int {
+export function getRandomInt(min: int, max: int, seed = Random()): int {
   const rng = initRNG(seed);
 
   return rng.RandomInt(max - min + 1) + min;
@@ -71,7 +71,7 @@ export function nextSeed(seed: int): int {
  * (If you aren't initializing it with a seed, then don't use this function and instead simply call
  * the `RNG()` constructor.)
  */
-export function initRNG(seed: int): RNG {
+export function initRNG(seed = Random()): RNG {
   if (seed === 0) {
     error(
       "You cannot initialize an RNG object with a seed of 0, or the game will crash.",

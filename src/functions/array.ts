@@ -50,12 +50,12 @@ export function arrayToString<T>(array: T[]): string {
   return `[${strings.join(", ")}]`;
 }
 
-export function getRandomArrayElement<T>(array: T[], seed: int): T {
+export function getRandomArrayElement<T>(array: T[], seed = Random()): T {
   const randomIndex = getRandomArrayIndex(array, seed);
   return array[randomIndex];
 }
 
-export function getRandomArrayIndex<T>(array: T[], seed: int): int {
+export function getRandomArrayIndex<T>(array: T[], seed = Random()): int {
   if (array.length === 0) {
     error(
       "Failed to get a random array index since the provided array is empty.",
