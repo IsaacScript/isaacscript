@@ -116,21 +116,6 @@ export function isGreedMode(): boolean {
   );
 }
 
-export function isVector(object: unknown): boolean {
-  const objectType = type(object);
-  if (objectType !== "userdata") {
-    return false;
-  }
-
-  const metatable = getmetatable(object);
-  if (metatable === undefined) {
-    return false;
-  }
-
-  const vectorMetatable = metatable as Record<string, string>;
-  return vectorMetatable.__type === "Vector"; // eslint-disable-line no-underscore-dangle
-}
-
 /**
  * Whether or not the player is playing on a set seed (i.e. that they entered in a specific seed by
  * pressing tab on the character selection screen). When the player resets the game on a set seed,
@@ -168,27 +153,4 @@ export function teleport(
   level.LeaveDoor = -1;
 
   game.StartRoomTransition(roomIndex, direction, roomTransitionAnim);
-}
-
-/** Helper function for finding out which way a vector is pointing. */
-export function vectorToDirection(vector: Vector): Direction {
-  const degrees = vector.GetAngleDegrees();
-
-  if (degrees > -45 && degrees < 45) {
-    return Direction.RIGHT;
-  }
-
-  if (degrees >= 45 && degrees <= 135) {
-    return Direction.DOWN;
-  }
-
-  if (degrees <= -45 && degrees >= -135) {
-    return Direction.UP;
-  }
-
-  if (degrees > 135 || degrees < -135) {
-    return Direction.LEFT;
-  }
-
-  return Direction.NO_DIRECTION;
 }

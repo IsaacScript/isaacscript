@@ -41,6 +41,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Trinket Functions](modules/functions_trinkets.html)
 - [UI Functions](modules/functions_ui.html)
 - [Util Functions](modules/functions_util.html)
+- [Vector Functions](modules/functions_vector.html)
 
 <br />
 

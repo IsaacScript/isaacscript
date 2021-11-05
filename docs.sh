@@ -41,6 +41,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/trinkets.ts" \
   --entryPoints "$DIR/src/functions/ui.ts" \
   --entryPoints "$DIR/src/functions/util.ts" \
+  --entryPoints "$DIR/src/functions/vector.ts" \
   --entryPoints "$DIR/src/features/disableInputs.ts" \
   --entryPoints "$DIR/src/features/forgottenSwitch.ts" \
   --entryPoints "$DIR/src/features/saveDataManager/main.ts" \
