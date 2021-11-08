@@ -15,6 +15,18 @@ declare const enum ChargerSubType {
   MY_SHADOW = 1,
 }
 
+/**
+ * For EntityType.ENTITY_CONSTANT_STONE_SHOOTER (202),
+ * ConstantStoneShooterVariant.CONSTANT_STONE_SHOOTER (0)
+ * (this is the same as the Direction enum)
+ */
+declare const enum ConstantStoneShooterSubType {
+  LEFT = 0,
+  UP = 1,
+  RIGHT = 2,
+  DOWN = 3,
+}
+
 /** For EntityType.ENTITY_EFFECT (1000), EffectVariant.HEAVEN_LIGHT_DOOR (39) */
 declare const enum HeavenLightDoorSubType {
   HEAVEN_DOOR = 0,
