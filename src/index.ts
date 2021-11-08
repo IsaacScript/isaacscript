@@ -52,6 +52,7 @@ export * from "./types/HealthType";
 export * from "./types/ModCallbacksCustom";
 export * from "./types/ModUpgraded";
 export * from "./types/PickingUpItem";
+export * from "./types/PlayerHealth";
 export * from "./types/PocketItemDescription";
 export * from "./types/PocketItemType";
 export * from "./upgradeMod";
