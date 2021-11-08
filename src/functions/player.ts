@@ -633,9 +633,13 @@ export function removeCostumeTrinket(
   player.RemoveCostume(itemConfigTrinket);
 }
 
+/**
+ * Helper function to remove the Dead Eye multiplier from a player.
+ *
+ * Note that each time the `EntityPlayer.ClearDeadEyeCharge()` function is called, it only has a
+ * chance of working, so this function calls it 100 times to be safe.
+ */
 export function removeDeadEyeMultiplier(player: EntityPlayer): void {
-  // Each time the "ClearDeadEyeCharge()" function is called, it only has a chance of working,
-  // so just call it 100 times to be safe
   for (let i = 0; i < 100; i++) {
     player.ClearDeadEyeCharge();
   }
