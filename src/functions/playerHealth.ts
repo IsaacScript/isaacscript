@@ -46,6 +46,9 @@ export function getPlayerHealth(player: EntityPlayer): PlayerHealth {
     hearts = subPlayer.GetHearts();
   }
 
+  // Rotten Hearts are included in the hearts value, so strip them out
+  hearts -= rottenHearts * 2;
+
   // This is the number of individual hearts shown in the HUD, minus heart containers
   const extraHearts = math.ceil(soulHearts / 2) + boneHearts;
 
