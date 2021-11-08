@@ -8,7 +8,7 @@ import { PlayerHealth } from "../types/PlayerHealth";
  *
  * This is based on the `REVEL.StoreHealth()` function in the Revelations mod.
  */
-export function getHealth(player: EntityPlayer): PlayerHealth {
+export function getPlayerHealth(player: EntityPlayer): PlayerHealth {
   const character = player.GetPlayerType();
   const soulHeartTypes: HeartSubType[] = [];
   let maxHearts = player.GetMaxHearts();
