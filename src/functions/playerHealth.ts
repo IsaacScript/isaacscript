@@ -18,6 +18,7 @@ export function getPlayerHealth(player: EntityPlayer): PlayerHealth {
   const goldenHearts = player.GetGoldenHearts();
   const eternalHearts = player.GetEternalHearts();
   const rottenHearts = player.GetRottenHearts();
+  const brokenHearts = player.GetBrokenHearts();
   const subPlayer = player.GetSubPlayer();
 
   // The Forgotten and The Soul has special health, so we need to account for this
@@ -95,6 +96,7 @@ export function getPlayerHealth(player: EntityPlayer): PlayerHealth {
     boneHearts,
     goldenHearts,
     rottenHearts,
+    brokenHearts,
   };
 }
 
@@ -162,4 +164,5 @@ export function setPlayerHealth(
   player.AddGoldenHearts(playerHealth.goldenHearts);
   // (no matter what kind of heart is added, no sounds effects will play)
   player.AddRottenHearts(playerHealth.rottenHearts);
+  player.AddBrokenHearts(playerHealth.brokenHearts);
 }

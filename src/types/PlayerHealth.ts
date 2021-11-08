@@ -6,4 +6,5 @@ export interface PlayerHealth {
   boneHearts: int;
   goldenHearts: int;
   rottenHearts: int;
+  brokenHearts: int;
 }
