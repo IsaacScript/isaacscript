@@ -31,6 +31,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/math.ts" \
   --entryPoints "$DIR/src/functions/pickups.ts" \
   --entryPoints "$DIR/src/functions/player.ts" \
+  --entryPoints "$DIR/src/functions/playerHealth.ts" \
   --entryPoints "$DIR/src/functions/random.ts" \
   --entryPoints "$DIR/src/functions/revive.ts" \
   --entryPoints "$DIR/src/functions/rooms.ts" \

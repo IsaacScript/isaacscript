@@ -31,6 +31,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Math Functions](modules/functions_math.html)
 - [Pickup Functions](modules/functions_pickups.html)
 - [Player Functions](modules/functions_player.html)
+- [Player Health Functions](modules/functions_playerHealth.html)
 - [Random Functions](modules/functions_random.html)
 - [Revive Functions](modules/functions_revive.html)
 - [Rooms Functions](modules/functions_rooms.html)

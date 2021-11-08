@@ -34,6 +34,7 @@ export * from "./functions/log";
 export * from "./functions/math";
 export * from "./functions/pickups";
 export * from "./functions/player";
+export * from "./functions/playerHealth";
 export * from "./functions/random";
 export * from "./functions/revive";
 export * from "./functions/rooms";
