@@ -111,8 +111,12 @@ export function setPlayerHealth(
 ): void {
   const character = player.GetPlayerType();
   const subPlayer = player.GetSubPlayer();
+  const goldenHearts = player.GetGoldenHearts();
 
   // Remove all existing health
+  player.AddGoldenHearts(goldenHearts * -1);
+  // (we have to remove the exact amount of Golden Hearts or else it will bug out)
+  // (we remove Golden Hearts first so that they don't break)
   player.AddMaxHearts(-24, true);
   player.AddSoulHearts(-24);
   player.AddBoneHearts(-24);
