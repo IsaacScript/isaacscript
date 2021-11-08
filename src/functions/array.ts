@@ -1,4 +1,4 @@
-import { getRandomInt } from "./random";
+import { getRandomInt, nextSeed } from "./random";
 
 export function arrayEmpty<T>(array: T[]): void {
   array.splice(0, array.length);
@@ -56,21 +56,30 @@ export function arrayInit<T>(defaultValue: T, size: int): T[] {
  */
 export function arrayShuffle<T>(originalArray: T[], seed = Random()): T[] {
   const array = [...originalArray];
+  arrayShuffleInPlace(array, seed);
 
+  return array;
+}
+
+/**
+ * Shuffles the provided array in-place using the Fisher-Yates algorithm.
+ *
+ * From: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+ */
+export function arrayShuffleInPlace<T>(array: T[], seed = Random()): void {
   let currentIndex = array.length;
   let randomIndex: int;
 
-  while (currentIndex !== 0) {
-    randomIndex = getRandomArrayIndex(array, seed);
+  while (currentIndex > 0) {
     currentIndex -= 1;
+    seed = nextSeed(seed);
+    randomIndex = getRandomArrayIndex(array, seed);
 
     [array[currentIndex], array[randomIndex]] = [
       array[randomIndex],
       array[currentIndex],
     ];
   }
-
-  return array;
 }
 
 export function arraySum(array: int[]): int {
