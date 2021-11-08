@@ -1,8 +1,8 @@
 import { removeAllMatchingEntities } from "../functions/entity";
 import { removeItemFromItemTracker } from "../functions/items";
 import { getPlayerIndex, PlayerIndex } from "../functions/player";
-import ModCallbacksCustom from "../types/ModCallbacksCustom";
-import ModUpgraded from "../types/ModUpgraded";
+import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
+import { ModUpgraded } from "../types/ModUpgraded";
 import * as postCustomRevive from "./subscriptions/postCustomRevive";
 import * as preCustomRevive from "./subscriptions/preCustomRevive";
 

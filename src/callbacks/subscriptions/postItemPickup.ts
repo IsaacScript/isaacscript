@@ -1,4 +1,4 @@
-import PickingUpItem from "../../types/PickingUpItem";
+import { PickingUpItem } from "../../types/PickingUpItem";
 
 export type PostItemPickupCallbackType = (
   player: EntityPlayer,

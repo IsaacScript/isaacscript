@@ -1,6 +1,6 @@
-import PocketItemType from "./PocketItemType";
+import { PocketItemType } from "./PocketItemType";
 
-export default interface PocketItemDescription {
+export interface PocketItemDescription {
   type: PocketItemType;
   id: int;
 }

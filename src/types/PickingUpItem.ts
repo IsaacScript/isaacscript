@@ -1,4 +1,4 @@
-export default interface PickingUpItem {
+export interface PickingUpItem {
   /** Needed so that we can distinguish between picking up a collectible and a trinket. */
   type: ItemType;
 

@@ -1,7 +1,7 @@
 import { saveDataManager } from "../features/saveDataManager/main";
 import { getPlayerIndex, PlayerIndex } from "../functions/player";
-import ModCallbacksCustom from "../types/ModCallbacksCustom";
-import ModUpgraded from "../types/ModUpgraded";
+import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
+import { ModUpgraded } from "../types/ModUpgraded";
 import * as postPlayerChangeType from "./subscriptions/postPlayerChangeType";
 
 const v = {

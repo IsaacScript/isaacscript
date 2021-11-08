@@ -1,5 +1,5 @@
 import { getUpgradeErrorMsg } from "../errors";
-import ModUpgraded from "../types/ModUpgraded";
+import { ModUpgraded } from "../types/ModUpgraded";
 import { saveDataManager } from "./saveDataManager/main";
 
 const FEATURE_NAME = "input disabler";

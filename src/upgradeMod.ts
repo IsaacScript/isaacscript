@@ -22,7 +22,7 @@ import * as disableInputs from "./features/disableInputs";
 import * as forgottenSwitch from "./features/forgottenSwitch";
 import * as runInNFrames from "./features/runInNFrames";
 import * as saveDataManager from "./features/saveDataManager/main";
-import ModUpgraded from "./types/ModUpgraded";
+import { ModUpgraded } from "./types/ModUpgraded";
 
 let initialized = false;
 

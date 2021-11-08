@@ -2,9 +2,9 @@
 
 import { saveDataManager } from "../features/saveDataManager/main";
 import { getPlayerIndex, PlayerIndex } from "../functions/player";
-import ModCallbacksCustom from "../types/ModCallbacksCustom";
-import ModUpgraded from "../types/ModUpgraded";
-import PickingUpItem from "../types/PickingUpItem";
+import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
+import { ModUpgraded } from "../types/ModUpgraded";
+import { PickingUpItem } from "../types/PickingUpItem";
 import * as postItemPickup from "./subscriptions/postItemPickup";
 import * as preItemPickup from "./subscriptions/preItemPickup";
 

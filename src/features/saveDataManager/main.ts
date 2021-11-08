@@ -1,7 +1,7 @@
 import { getUpgradeErrorMsg } from "../../errors";
 import { deepCopy, SerializationType } from "../../functions/deepCopy";
 import { tableClear } from "../../functions/util";
-import ModUpgraded from "../../types/ModUpgraded";
+import { ModUpgraded } from "../../types/ModUpgraded";
 import { SaveData, SaveDataKeys } from "../../types/SaveData";
 import { loadFromDisk } from "./load";
 import { saveToDisk } from "./save";

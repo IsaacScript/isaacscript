@@ -31,11 +31,11 @@ import * as preCustomRevive from "../callbacks/subscriptions/preCustomRevive";
 import * as preItemPickup from "../callbacks/subscriptions/preItemPickup";
 import { getDebugPrependString } from "../functions/log";
 import { ensureAllCases } from "../functions/util";
-import CallbackParametersCustom from "./CallbackParametersCustom";
-import ModCallbacksCustom from "./ModCallbacksCustom";
+import { CallbackParametersCustom } from "./CallbackParametersCustom";
+import { ModCallbacksCustom } from "./ModCallbacksCustom";
 
 /** `isaacscript-common` allows for custom callbacks, so it provides an upgraded Mod object. */
-export default class ModUpgraded implements Mod {
+export class ModUpgraded implements Mod {
   /** We store a copy of the original mod object so that we can re-implement its functions. */
   Mod: Mod;
 

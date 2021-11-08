@@ -2,7 +2,7 @@
  * This represents the type of health that is either given or taken away from a player. Note that
  * we cannot use the HeartSubType enum for this purpose this since it has no value for max hearts.
  */
-enum HealthType {
+export enum HealthType {
   RED, // 5.10.1
   SOUL, // 5.10.3
   ETERNAL, // 5.10.4
@@ -12,4 +12,3 @@ enum HealthType {
   ROTTEN, // 5.10.12
   MAX_HEARTS,
 }
-export default HealthType;

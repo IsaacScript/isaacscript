@@ -1,6 +1,6 @@
 import { getPlayerNumAllHearts, hasLostCurse } from "../functions/player";
 import { willPlayerRevive } from "../functions/revive";
-import ModUpgraded from "../types/ModUpgraded";
+import { ModUpgraded } from "../types/ModUpgraded";
 import * as postPlayerFatalDamage from "./subscriptions/postPlayerFatalDamage";
 
 export function init(mod: ModUpgraded): void {

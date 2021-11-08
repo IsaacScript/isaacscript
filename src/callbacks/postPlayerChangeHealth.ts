@@ -1,9 +1,9 @@
 import { saveDataManager } from "../features/saveDataManager/main";
 import { getPlayerIndex, PlayerIndex } from "../functions/player";
 import { ensureAllCases, getEnumValues } from "../functions/util";
-import HealthType from "../types/HealthType";
-import ModCallbacksCustom from "../types/ModCallbacksCustom";
-import ModUpgraded from "../types/ModUpgraded";
+import { HealthType } from "../types/HealthType";
+import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
+import { ModUpgraded } from "../types/ModUpgraded";
 import * as postPlayerChangeHealth from "./subscriptions/postPlayerChangeHealth";
 
 const v = {

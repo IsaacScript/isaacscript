@@ -1,6 +1,6 @@
-import HealthType from "../types/HealthType";
-import PocketItemDescription from "../types/PocketItemDescription";
-import PocketItemType from "../types/PocketItemType";
+import { HealthType } from "../types/HealthType";
+import { PocketItemDescription } from "../types/PocketItemDescription";
+import { PocketItemType } from "../types/PocketItemType";
 import { getKBitOfN, getNumBitsOfN } from "./bitwise";
 import { getCollectibleSet } from "./collectibles";
 

@@ -1,4 +1,4 @@
-import HealthType from "../../types/HealthType";
+import { HealthType } from "../../types/HealthType";
 
 export type PostPlayerChangeHealthCallbackType = (
   player: EntityPlayer,

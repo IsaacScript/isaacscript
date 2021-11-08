@@ -29,9 +29,9 @@ import { PostSlotUpdateCallbackType } from "../callbacks/subscriptions/postSlotU
 import { PostTransformationCallbackType } from "../callbacks/subscriptions/postTransformation";
 import { PreCustomReviveCallbackType } from "../callbacks/subscriptions/preCustomRevive";
 import { PreItemPickupCallbackType } from "../callbacks/subscriptions/preItemPickup";
-import ModCallbacksCustom from "./ModCallbacksCustom";
+import { ModCallbacksCustom } from "./ModCallbacksCustom";
 
-export default interface CallbackParametersCustom {
+export interface CallbackParametersCustom {
   [ModCallbacksCustom.MC_POST_GAME_STARTED_REORDERED]: [
     callback: PostGameStartedReorderedCallbackType,
   ];

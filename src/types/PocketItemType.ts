@@ -1,4 +1,4 @@
-enum PocketItemType {
+export enum PocketItemType {
   EMPTY,
   CARD,
   PILL,
@@ -6,4 +6,3 @@ enum PocketItemType {
   DICE_BAG_DICE,
   UNDETERMINABLE,
 }
-export default PocketItemType;

@@ -7,7 +7,7 @@
  *
  * @category Custom Callbacks
  */
-enum ModCallbacksCustom {
+export enum ModCallbacksCustom {
   MC_POST_GAME_STARTED_REORDERED,
   MC_POST_NEW_LEVEL_REORDERED,
   MC_POST_NEW_ROOM_REORDERED,
@@ -40,4 +40,3 @@ enum ModCallbacksCustom {
   MC_POST_GRID_ENTITY_UPDATE,
   MC_POST_GRID_ENTITY_REMOVE,
 }
-export default ModCallbacksCustom;
