@@ -112,9 +112,11 @@ export function setPlayerHealth(
 ): void {
   const character = player.GetPlayerType();
   const subPlayer = player.GetSubPlayer();
+  const brokenHearts = player.GetBrokenHearts();
   const goldenHearts = player.GetGoldenHearts();
 
   // Remove all existing health
+  player.AddBrokenHearts(brokenHearts * -1);
   player.AddGoldenHearts(goldenHearts * -1);
   // (we have to remove the exact amount of Golden Hearts or else it will bug out)
   // (we remove Golden Hearts first so that they don't break)
@@ -162,9 +164,10 @@ export function setPlayerHealth(
   }
 
   // Fill in the red heart containers
+  // (Rotten Hearts must be filled in first in order for this to work properly,
+  // since they conflict with half red hearts)
+  player.AddRottenHearts(playerHealth.rottenHearts);
   player.AddHearts(playerHealth.hearts);
   player.AddGoldenHearts(playerHealth.goldenHearts);
-  // (no matter what kind of heart is added, no sounds effects will play)
-  player.AddRottenHearts(playerHealth.rottenHearts);
   player.AddBrokenHearts(playerHealth.brokenHearts);
 }
