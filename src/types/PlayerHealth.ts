@@ -2,6 +2,7 @@ export interface PlayerHealth {
   soulHeartTypes: HeartSubType[];
   maxHearts: int;
   hearts: int;
+  eternalHearts: int;
   soulHearts: int;
   boneHearts: int;
   goldenHearts: int;

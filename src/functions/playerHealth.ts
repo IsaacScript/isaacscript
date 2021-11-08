@@ -1,4 +1,3 @@
-import { CHARACTERS_WITH_NO_RED_HEARTS } from "../constants";
 import { PlayerHealth } from "../types/PlayerHealth";
 
 /**
@@ -39,16 +38,6 @@ export function getPlayerHealth(player: EntityPlayer): PlayerHealth {
     // We need to store it as "maxHearts" instead of "boneHearts"
     maxHearts = subPlayer.GetBoneHearts() * 2;
     hearts = subPlayer.GetHearts();
-  }
-
-  // Eternal Hearts will be lost since we are about to change floors,
-  // so convert it to other types of health
-  // "eternalHearts" will be equal to 1 if we have an Eternal Heart
-  if (CHARACTERS_WITH_NO_RED_HEARTS.has(character)) {
-    soulHearts += eternalHearts * 2;
-  } else {
-    maxHearts += eternalHearts * 2;
-    hearts += eternalHearts * 2;
   }
 
   // This is the number of individual hearts shown in the HUD, minus heart containers
@@ -92,6 +81,7 @@ export function getPlayerHealth(player: EntityPlayer): PlayerHealth {
     soulHeartTypes,
     maxHearts,
     hearts,
+    eternalHearts,
     soulHearts,
     boneHearts,
     goldenHearts,
@@ -130,6 +120,9 @@ export function setPlayerHealth(
   } else {
     player.AddMaxHearts(playerHealth.maxHearts, false);
   }
+
+  // Add the eternal hearts
+  player.AddEternalHearts(playerHealth.eternalHearts);
 
   // Add the soul / black / bone hearts
   let soulHeartsRemaining = playerHealth.soulHearts;
