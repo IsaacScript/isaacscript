@@ -18,6 +18,10 @@ export {
   saveDataManagerSave,
   saveDataManagerSetGlobal,
 } from "./features/saveDataManager/main";
+export {
+  hasSirenStolenFamiliar,
+  setFamiliarNoSirenSteal,
+} from "./features/sirenHelpers";
 export * from "./functions/array";
 export * from "./functions/bitwise";
 export * from "./functions/collectibles";

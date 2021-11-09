@@ -22,6 +22,7 @@ import * as disableInputs from "./features/disableInputs";
 import * as forgottenSwitch from "./features/forgottenSwitch";
 import * as runInNFrames from "./features/runInNFrames";
 import * as saveDataManager from "./features/saveDataManager/main";
+import * as sirenHelpers from "./features/sirenHelpers";
 import { ModUpgraded } from "./types/ModUpgraded";
 
 let initialized = false;
@@ -91,4 +92,5 @@ function initFeatures(mod: ModUpgraded) {
   disableInputs.init(mod);
   forgottenSwitch.init(mod);
   runInNFrames.init(mod);
+  sirenHelpers.init(mod);
 }
