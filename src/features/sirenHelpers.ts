@@ -4,6 +4,7 @@ import { saveDataManager } from "./saveDataManager/main";
 const FEATURE_NAME = "sirenHelpers";
 
 let initialized = false;
+
 const v = {
   run: {
     familiarBlacklist: [] as Array<[variant: int, subtype: int | undefined]>,
