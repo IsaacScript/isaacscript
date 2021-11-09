@@ -49,9 +49,10 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 ## Optional Features and Abstractions
 
 - [Save Data Manager](modules/features_saveDataManager_main.html)
+- [Run in N Frames](modules/features_runInNFrames.html)
 - [Input Disabler](modules/features_disableInputs.html)
 - [Forgotten Switcher](modules/features_forgottenSwitch.html)
-- [Run in N Frames](modules/features_runInNFrames.html)
+- [The Siren boss functions](modules/features_sirenHelpers.html)
 
 <br />
 
