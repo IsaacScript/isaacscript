@@ -49,6 +49,39 @@ export function getBosses(): EntityNPC[] {
 }
 
 /**
+ * Given an array of entities, this helper function returns the closest one to a provided reference
+ * entity.
+ *
+ * Example:
+ * ```ts
+ * const player = Isaac.GetPlayer();
+ * const gapers = Isaac.FindByType(EntityType.ENTITY_GAPER);
+ * const closestGaper = getClosestEntityTo(player, gapers);
+ * ```
+ */
+export function getClosestEntityTo(
+  referenceEntity: Entity,
+  entities: Entity[],
+): Entity {
+  let closestEntity: Entity | null = null;
+  let closestDistance = math.huge;
+  for (const entity of entities) {
+    const distance = referenceEntity.Position.Distance(entity.Position);
+
+    if (distance < closestDistance) {
+      closestEntity = entity;
+      closestDistance = distance;
+    }
+  }
+
+  if (closestEntity === null) {
+    error("Failed to find the closest entity.");
+  }
+
+  return closestEntity;
+}
+
+/**
  * Helper function to get all the NPCs in the room. Due to bugs with `Isaac.FindInRadius()`,
  * this function uses `Isaac.GetRoomEntities()`, which is more expensive but also more robust.
  *

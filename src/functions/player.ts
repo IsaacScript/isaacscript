@@ -81,7 +81,7 @@ export function getClosestPlayer(position: Vector): EntityPlayer {
   }
 
   if (closestPlayer === null) {
-    error("Failed to find any players.");
+    error("Failed to find the closest player.");
   }
 
   return closestPlayer;
@@ -176,7 +176,7 @@ export function getNewestPlayer(): EntityPlayer {
   }
 
   if (newestPlayer === null) {
-    error("Failed to find any players.");
+    error("Failed to find the newest player.");
   }
 
   return newestPlayer;
