@@ -161,8 +161,9 @@ export function getLastHeart(player: EntityPlayer): HealthType {
 }
 
 /**
- * Helper function to get the first player with the lowest frame count of 0. Useful to find a
- * freshly spawned player after using items like Esau Jr.
+ * Helper function to get the first player with the lowest frame count. Useful to find a freshly
+ * spawned player after using items like Esau Jr. Don't use this function if two or more players
+ * will be spawned on the same frame.
  */
 export function getNewestPlayer(): EntityPlayer {
   let newestPlayer: EntityPlayer | null = null;
@@ -179,6 +180,12 @@ export function getNewestPlayer(): EntityPlayer {
   }
 
   return newestPlayer;
+}
+
+export function getFinalPlayer(): EntityPlayer {
+  const players = getPlayers();
+
+  return players[players.length - 1];
 }
 
 /**
