@@ -7,8 +7,6 @@ declare interface ItemConfig {
     collectibleType: CollectibleType | int,
   ): Readonly<ItemConfigItem> | undefined;
   GetCollectibles(): Readonly<ItemConfigList>;
-  // CostumeConfigList is bugged and always returns a list of size 0
-  // GetCostumes(): Readonly<CostumeConfigList>;
   /** Returns undefined if the item was not found. */
   GetNullItem(
     nullItemID: NullItemID | int,
