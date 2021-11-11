@@ -13,6 +13,7 @@ declare interface TemporaryEffects {
     addCostume?: boolean,
     count?: int,
   ): void;
+
   /**
    * @param nullItemID
    * @param addCostume
@@ -23,6 +24,7 @@ declare interface TemporaryEffects {
     addCostume: boolean,
     count?: int,
   ): void;
+
   /**
    * @param trinketType
    * @param addCostume
@@ -33,10 +35,13 @@ declare interface TemporaryEffects {
     addCostume: boolean,
     count?: int,
   ): void;
+
   ClearEffects(): void;
+
   GetCollectibleEffect(
     collectibleType: CollectibleType | int,
   ): Readonly<TemporaryEffect>;
+
   GetCollectibleEffectNum(collectibleType: CollectibleType | int): int;
   GetEffectsList(): Readonly<EffectList>;
   GetNullEffect(nullItemID: NullItemID | int): Readonly<TemporaryEffect>;
@@ -46,22 +51,40 @@ declare interface TemporaryEffects {
   HasCollectibleEffect(collectibleType: CollectibleType | int): boolean;
   HasNullEffect(nullItemID: NullItemID | int): boolean;
   HasTrinketEffect(trinketType: TrinketType | int): boolean;
+
   /**
+   * This method is broken in patch v1.7.5.
+   *
    * @param collectibleType
    * @param count Use -1 to remove all instances. Default is 1.
    */
   RemoveCollectibleEffect(
+    fakeArg: never,
     collectibleType: CollectibleType | int,
     count?: int,
   ): void;
+
   /**
+   * This method is broken in patch v1.7.5.
+   *
    * @param nullItemID
    * @param count Use -1 to remove all instances. Default is 1.
    */
-  RemoveNullEffect(nullItemID: NullItemID | int, count?: int): void;
+  RemoveNullEffect(
+    fakeArg: never,
+    nullItemID: NullItemID | int,
+    count?: int,
+  ): void;
+
   /**
+   * This method is broken in patch v1.7.5.
+   *
    * @param trinketType
    * @param count Use -1 to remove all instances. Default is 1.
    */
-  RemoveTrinketEffect(trinketType: TrinketType | int, count?: int): void;
+  RemoveTrinketEffect(
+    fakeArg: never,
+    trinketType: TrinketType | int,
+    count?: int,
+  ): void;
 }
