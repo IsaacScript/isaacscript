@@ -1,4 +1,5 @@
 import { GOLDEN_TRINKET_SHIFT } from "../constants";
+import { TRINKET_NAME_MAP } from "../trinketNameMap";
 import { copySet } from "./util";
 
 export interface TrinketSituation {
@@ -102,6 +103,38 @@ export function giveTrinketsBack(
 export function getMaxTrinketID(): int {
   const itemConfig = Isaac.GetItemConfig();
   return itemConfig.GetTrinkets().Size - 1;
+}
+
+/**
+ * This is a helper function to get a trinket name from a TrinketType.
+ *
+ * Example:
+ * ```
+ * const trinketType = TrinketType.TRINKET_SWALLOWED_PENNY;
+ * const trinketName = getTrinketName(trinketType); // trinketName is "Swallowed Penny"
+ * ```
+ */
+export function getTrinketName(trinketType: TrinketType | int): string {
+  const itemConfig = Isaac.GetItemConfig();
+  const defaultName = "Unknown";
+
+  if (type(trinketType) !== "number") {
+    return defaultName;
+  }
+
+  // "ItemConfigItem.Name" is bugged with vanilla items on patch v1.7.5,
+  // so we use a hard-coded map as a workaround
+  const trinketName = TRINKET_NAME_MAP.get(trinketType);
+  if (trinketName !== undefined) {
+    return trinketName;
+  }
+
+  const itemConfigItem = itemConfig.GetCollectible(trinketType);
+  if (itemConfigItem === undefined) {
+    return defaultName;
+  }
+
+  return itemConfigItem.Name;
 }
 
 const TRINKET_SET = new Set<TrinketType | int>();

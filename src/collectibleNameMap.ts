@@ -716,4 +716,7 @@ export const COLLECTIBLE_NAME_MAP = new Map<CollectibleType, string>([
   [727, "Ghost Bombs"],
   [728, "Gello"],
   [729, "Decap Attack"],
+  [730, "Glass Eye"],
+  [731, "Stye"],
+  [732, "Mom's Ring"],
 ]);

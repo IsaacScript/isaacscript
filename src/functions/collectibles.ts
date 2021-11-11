@@ -1,3 +1,4 @@
+import { COLLECTIBLE_NAME_MAP } from "../collectibleNameMap";
 import { copySet } from "./util";
 
 const COLLECTIBLE_SPRITE_LAYER = 1;
@@ -81,6 +82,40 @@ export function getCollectibleMaxCharges(
   return itemConfigItem.MaxCharges;
 }
 
+/**
+ * This is a helper function to get an item name from a CollectibleType.
+ *
+ * Example:
+ * ```
+ * const collectibleType = CollectibleType.COLLECTIBLE_SAD_ONION;
+ * const collectibleName = getCollectibleName(collectibleType); // collectibleName is "Sad Onion"
+ * ```
+ */
+export function getCollectibleName(
+  collectibleType: CollectibleType | int,
+): string {
+  const itemConfig = Isaac.GetItemConfig();
+  const defaultName = "Unknown";
+
+  if (type(collectibleType) !== "number") {
+    return defaultName;
+  }
+
+  // "ItemConfigItem.Name" is bugged with vanilla items on patch v1.7.5,
+  // so we use a hard-coded map as a workaround
+  const collectibleName = COLLECTIBLE_NAME_MAP.get(collectibleType);
+  if (collectibleName !== undefined) {
+    return collectibleName;
+  }
+
+  const itemConfigItem = itemConfig.GetCollectible(collectibleType);
+  if (itemConfigItem === undefined) {
+    return defaultName;
+  }
+
+  return itemConfigItem.Name;
+}
+
 /** Returns a set containing every valid collectible type in the game, including modded items. */
 export function getCollectibleSet(): Set<CollectibleType | int> {
   // Lazy initialize the set
@@ -113,6 +148,25 @@ export function isQuestCollectible(
   collectibleType: CollectibleType | int,
 ): boolean {
   return collectibleHasTag(collectibleType, ItemConfigTag.QUEST);
+}
+
+/**
+ * Helper function to put a message in the log.txt file to let the Rebirth Item Tracker know that it
+ * should remove an item.
+ *
+ * The "item tracker" in this function does not refer to the in-game item tracker, but rather to the
+ * Python program located at: https://github.com/Rchardon/RebirthItemTracker
+ */
+export function removeCollectibleFromItemTracker(
+  collectibleType: CollectibleType | int,
+): void {
+  const collectibleName = getCollectibleName(collectibleType);
+
+  // This cannot use the "log()" function since the prefix will prevent the Rebirth Item Tracker
+  // from recognizing the message
+  Isaac.DebugString(
+    `Removing voided collectible ${collectibleType} (${collectibleName}) from player 0 (Player)`,
+  );
 }
 
 export function setCollectibleBlind(pickup: EntityPickup): void {

@@ -1,8 +1,8 @@
 export const CHARACTERS_WITH_NO_RED_HEARTS = new Set<PlayerType>([
-  PlayerType.PLAYER_XXX, // 4
+  PlayerType.PLAYER_BLUEBABY, // 4
   PlayerType.PLAYER_BLACKJUDAS, // 12
   PlayerType.PLAYER_JUDAS_B, // 24
-  PlayerType.PLAYER_XXX_B, // 25
+  PlayerType.PLAYER_BLUEBABY_B, // 25
   PlayerType.PLAYER_THEFORGOTTEN_B, // 35
   PlayerType.PLAYER_BETHANY_B, // 36
 ]);
@@ -45,28 +45,43 @@ export const GRID_ENTITY_XML_MAP = new Map<
   // GridEntityXMLType.FIREPLACE (1400) and GridEntityXMLType.RED_FIREPLACE (1410) are intentionally
   // not mapped; the game converts these to EntityType.ENTITY_FIREPLACE (33)
   // Manually spawning the grid version of the fireplace will result in a bugged entity
-  [GridEntityXMLType.POOP_RED, [GridEntityType.GRID_POOP, PoopVariant.RED]],
+  [
+    GridEntityXMLType.POOP_RED,
+    [GridEntityType.GRID_POOP, PoopGridEntityVariant.RED],
+  ],
   [
     GridEntityXMLType.POOP_RAINBOW,
-    [GridEntityType.GRID_POOP, PoopVariant.RAINBOW],
+    [GridEntityType.GRID_POOP, PoopGridEntityVariant.RAINBOW],
   ],
-  [GridEntityXMLType.POOP_CORN, [GridEntityType.GRID_POOP, PoopVariant.CORN]],
+  [
+    GridEntityXMLType.POOP_CORN,
+    [GridEntityType.GRID_POOP, PoopGridEntityVariant.CORN],
+  ],
   [
     GridEntityXMLType.POOP_GOLDEN,
-    [GridEntityType.GRID_POOP, PoopVariant.GOLDEN],
+    [GridEntityType.GRID_POOP, PoopGridEntityVariant.GOLDEN],
   ],
-  [GridEntityXMLType.POOP_BLACK, [GridEntityType.GRID_POOP, PoopVariant.BLACK]],
-  [GridEntityXMLType.POOP_WHITE, [GridEntityType.GRID_POOP, PoopVariant.WHITE]],
+  [
+    GridEntityXMLType.POOP_BLACK,
+    [GridEntityType.GRID_POOP, PoopGridEntityVariant.BLACK],
+  ],
+  [
+    GridEntityXMLType.POOP_WHITE,
+    [GridEntityType.GRID_POOP, PoopGridEntityVariant.WHITE],
+  ],
   // GridEntityXMLType.POOP_GIGA (1499) is intentionally not mapped;
   // the game converts this to four different grid entities that are all next to each other:
   // - PoopVariant.GIGA_TOP_LEFT (7)
   // - PoopVariant.GIGA_TOP_RIGHT (8)
   // - PoopVariant.GIGA_BOTTOM_LEFT (9)
   // - PoopVariant.GIGA_BOTTOM_RIGHT (10)
-  [GridEntityXMLType.POOP, [GridEntityType.GRID_POOP, PoopVariant.NORMAL]],
+  [
+    GridEntityXMLType.POOP,
+    [GridEntityType.GRID_POOP, PoopGridEntityVariant.NORMAL],
+  ],
   [
     GridEntityXMLType.POOP_CHARMING,
-    [GridEntityType.GRID_POOP, PoopVariant.CHARMING],
+    [GridEntityType.GRID_POOP, PoopGridEntityVariant.CHARMING],
   ],
   [GridEntityXMLType.ROCKB, [GridEntityType.GRID_ROCKB, 0]],
   [GridEntityXMLType.PILLAR, [GridEntityType.GRID_PILLAR, 0]],
@@ -137,7 +152,7 @@ export const MAX_PLAYER_TRINKET_SLOTS = 2;
 export const MAX_ROOM_INDEX = 168;
 
 export const MAX_VANILLA_COLLECTIBLE_TYPE =
-  CollectibleType.COLLECTIBLE_DECAP_ATTACK;
+  CollectibleType.COLLECTIBLE_MOMS_RING;
 
 export const ONE_BY_ONE_ROOM_GRID_SIZE = 135;
 

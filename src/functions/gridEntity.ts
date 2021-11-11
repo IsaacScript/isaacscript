@@ -88,22 +88,22 @@ export function spawnGiantPoop(topLeftGridIndex: int): void {
 
   spawnGridEntityWithVariant(
     GridEntityType.GRID_POOP,
-    PoopVariant.GIGA_TOP_LEFT,
+    PoopGridEntityVariant.GIGA_TOP_LEFT,
     topLeftGridIndex,
   );
   spawnGridEntityWithVariant(
     GridEntityType.GRID_POOP,
-    PoopVariant.GIGA_TOP_RIGHT,
+    PoopGridEntityVariant.GIGA_TOP_RIGHT,
     topRightGridIndex,
   );
   spawnGridEntityWithVariant(
     GridEntityType.GRID_POOP,
-    PoopVariant.GIGA_BOTTOM_LEFT,
+    PoopGridEntityVariant.GIGA_BOTTOM_LEFT,
     bottomLeftGridIndex,
   );
   spawnGridEntityWithVariant(
     GridEntityType.GRID_POOP,
-    PoopVariant.GIGA_BOTTOM_RIGHT,
+    PoopGridEntityVariant.GIGA_BOTTOM_RIGHT,
     bottomRightGridIndex,
   );
 }

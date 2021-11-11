@@ -1,5 +1,5 @@
+import { removeCollectibleFromItemTracker } from "../functions/collectibles";
 import { removeAllMatchingEntities } from "../functions/entity";
-import { removeItemFromItemTracker } from "../functions/items";
 import { getPlayerIndex, PlayerIndex } from "../functions/player";
 import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
 import { ModUpgraded } from "../types/ModUpgraded";
@@ -119,5 +119,5 @@ function postPlayerFatalDamage(player: EntityPlayer) {
 
   player.AddCollectible(CollectibleType.COLLECTIBLE_1UP, 0, false);
   removeAllMatchingEntities(EntityType.ENTITY_FAMILIAR, FamiliarVariant.ONE_UP);
-  removeItemFromItemTracker(CollectibleType.COLLECTIBLE_1UP);
+  removeCollectibleFromItemTracker(CollectibleType.COLLECTIBLE_1UP);
 }
