@@ -29,7 +29,15 @@ declare interface Level {
   GetCurrentRoomDesc(): RoomDescriptorReadOnly;
 
   GetCurrentRoomIndex(): int;
+
+  /**
+   * Returns the name of the current floor's curse, like "Curse of the Unknown!". If there are two
+   * or more curses on the floor, this will only return the name of the curse with the lowest ID.
+   * Note that this will return the localized curse name, like "Maldición de oscuridad" for Curse of
+   * Darkness in Spanish.
+   */
   GetCurseName(): string;
+
   GetCurses(): LevelCurse | int;
   GetDevilAngelRoomRNG(): RNG;
   GetDungeonPlacementSeed(): int;

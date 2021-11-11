@@ -630,7 +630,10 @@ declare interface EntityPlayer extends Entity {
    */
   GetNPCTarget(): Entity;
 
-  /** Returns e.g. "Isaac", "Cain", etc. */
+  /**
+   * Returns the character name, like "Isaac" or "Cain". Note that this will return the localized
+   * version of the character's name, e.g. "Magdalena" for Magdalene in Spanish.
+   */
   GetName(): string;
 
   GetNumBlueFlies(): int;
