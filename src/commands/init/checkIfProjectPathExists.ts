@@ -4,7 +4,7 @@ import { CWD } from "../../constants";
 import * as file from "../../file";
 import { error } from "../../util";
 
-export default async function checkIfProjectPathExists(
+export async function checkIfProjectPathExists(
   projectPath: string,
 ): Promise<void> {
   if (projectPath !== CWD && file.exists(projectPath)) {

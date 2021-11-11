@@ -4,7 +4,7 @@ import { CWD } from "./constants";
 import * as file from "./file";
 
 // Validate that we are in a directory that looks like an IsaacScript project
-export default function validateInIsaacScriptProject(): void {
+export function validateInIsaacScriptProject(): void {
   const subdirectoriesToCheck = ["src", "mod", "node_modules"];
   for (const subdirectoryName of subdirectoriesToCheck) {
     const subdirectoryPath = path.join(CWD, subdirectoryName);

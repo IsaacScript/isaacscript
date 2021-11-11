@@ -8,7 +8,7 @@ import {
 import * as file from "../../file";
 import { Config } from "../../types/Config";
 
-export default function copyWatcherMod(config: Config): void {
+export function copyWatcherMod(config: Config): void {
   // Check to see if this mod was disabled
   const watcherModPath = path.join(config.modsDirectory, WATCHER_MOD_NAME);
   const disableItPath = path.join(watcherModPath, DISABLE_IT_FILE);

@@ -5,7 +5,7 @@ import { monkeyPatchMainLua } from "../../monkeyPatch";
 import { Config } from "../../types/Config";
 import { execShell, getModTargetDirectoryName } from "../../util";
 
-export default function copy(config: Config): void {
+export function copy(config: Config): void {
   const modTargetDirectoryName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
   compileAndCopy(MOD_SOURCE_PATH, modTargetPath);

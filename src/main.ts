@@ -7,19 +7,19 @@ import path from "path";
 import sourceMapSupport from "source-map-support";
 import updateNotifier from "update-notifier";
 import pkg from "../package.json";
-import checkForWindowsTerminalBugs from "./checkForWindowsTerminalBugs";
-import copy from "./commands/copy/copy";
-import init from "./commands/init/init";
-import monitor from "./commands/monitor/monitor";
-import publish from "./commands/publish/publish";
+import { checkForWindowsTerminalBugs } from "./checkForWindowsTerminalBugs";
+import { copy } from "./commands/copy/copy";
+import { init } from "./commands/init/init";
+import { monitor } from "./commands/monitor/monitor";
+import { publish } from "./commands/publish/publish";
 import * as configFile from "./configFile";
 import { CWD } from "./constants";
-import parseArgs from "./parseArgs";
-import Command, { DEFAULT_COMMAND } from "./types/Command";
+import { parseArgs } from "./parseArgs";
+import { Command, DEFAULT_COMMAND } from "./types/Command";
 import { Config } from "./types/Config";
 import { ensureAllCases, error } from "./util";
-import validateInIsaacScriptProject from "./validateInIsaacScriptProject";
-import validateNodeVersion from "./validateNodeVersion";
+import { validateInIsaacScriptProject } from "./validateInIsaacScriptProject";
+import { validateNodeVersion } from "./validateNodeVersion";
 import { validateOS } from "./validateOS";
 
 main().catch((err) => {

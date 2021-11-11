@@ -2,7 +2,7 @@ import chalk from "chalk";
 import { CWD } from "../../constants";
 import * as file from "../../file";
 
-export default function checkModSubdirectory(
+export function checkModSubdirectory(
   projectPath: string,
   modsDirectory: string,
 ): void {

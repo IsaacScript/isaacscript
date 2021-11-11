@@ -32,7 +32,7 @@ const DEFAULT_MODS_PATH_LINUX = path.join(
   MODS,
 );
 
-export default async function getModsDir(
+export async function getModsDir(
   argv: Record<string, unknown>,
 ): Promise<string> {
   if (argv.modsDirectory !== undefined) {

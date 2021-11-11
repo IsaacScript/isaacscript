@@ -17,7 +17,7 @@ const ILLEGAL_CHARACTERS_FOR_WINDOWS_FILENAMES = [
   "*",
 ];
 
-export default async function getProjectPath(
+export async function getProjectPath(
   argv: Record<string, unknown>,
 ): Promise<[string, boolean]> {
   let projectName = getProjectNameFromCommandLineArgument(argv);

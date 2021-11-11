@@ -15,7 +15,7 @@ const WINDOWS_CODE_PAGE = "65001";
 // By default, Git Bash for Windows uses MINGW64
 // This will not work correctly with the prompts library (or any other NodeJS input library)
 // Try to detect this and warn the end-user
-export default async function checkForWindowsTerminalBugs(): Promise<void> {
+export async function checkForWindowsTerminalBugs(): Promise<void> {
   if (process.platform !== "win32") {
     return;
   }

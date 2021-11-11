@@ -2,19 +2,17 @@ import chalk from "chalk";
 import commandExists from "command-exists";
 import path from "path";
 import { CWD } from "../../constants";
-import checkIfProjectPathExists from "./checkIfProjectPathExists";
-import checkModSubdirectory from "./checkModSubdirectory";
-import checkModTargetDirectory from "./checkModTargetDirectory";
-import createMod from "./createMod";
-import getModsDir from "./getModsDir";
-import getProjectPath from "./getProjectPath";
-import installVSCodeExtensions from "./installVSCodeExtensions";
-import promptSaveSlot from "./promptSaveSlot";
-import promptVSCode from "./promptVSCode";
+import { checkIfProjectPathExists } from "./checkIfProjectPathExists";
+import { checkModSubdirectory } from "./checkModSubdirectory";
+import { checkModTargetDirectory } from "./checkModTargetDirectory";
+import { createMod } from "./createMod";
+import { getModsDir } from "./getModsDir";
+import { getProjectPath } from "./getProjectPath";
+import { installVSCodeExtensions } from "./installVSCodeExtensions";
+import { promptSaveSlot } from "./promptSaveSlot";
+import { promptVSCode } from "./promptVSCode";
 
-export default async function init(
-  argv: Record<string, unknown>,
-): Promise<void> {
+export async function init(argv: Record<string, unknown>): Promise<void> {
   // Prompt the end-user for some information (and validate it as we go)
   const [projectPath, createNewDir] = await getProjectPath(argv);
   await checkIfProjectPathExists(projectPath);

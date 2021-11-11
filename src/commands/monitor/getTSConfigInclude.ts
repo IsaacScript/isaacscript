@@ -4,7 +4,7 @@ import { TSCONFIG_PATH } from "../../constants";
 import * as file from "../../file";
 import { error } from "../../util";
 
-export default function getTSConfigInclude(): string {
+export function getTSConfigInclude(): string {
   const tsConfigRaw = file.read(TSCONFIG_PATH);
   let tsConfig: Record<string, string[]>;
   try {

@@ -11,16 +11,13 @@ import {
 import * as file from "../../file";
 import { Config } from "../../types/Config";
 import { error, getModTargetDirectoryName } from "../../util";
-import copyWatcherMod from "./copyWatcherMod";
-import getTSConfigInclude from "./getTSConfigInclude";
+import { copyWatcherMod } from "./copyWatcherMod";
+import { getTSConfigInclude } from "./getTSConfigInclude";
 import * as notifyGame from "./notifyGame";
 import { spawnSaveDatWriter } from "./spawnSaveDatWriter";
-import touchWatcherSaveDatFiles from "./touchWatcherSaveDatFiles";
+import { touchWatcherSaveDatFiles } from "./touchWatcherSaveDatFiles";
 
-export default function monitor(
-  argv: Record<string, unknown>,
-  config: Config,
-): void {
+export function monitor(argv: Record<string, unknown>, config: Config): void {
   // If they specified some command-line flags, override the values found in the config file
   if (argv.modsDirectory !== undefined) {
     config.modsDirectory = argv.modsDirectory as string; // eslint-disable-line no-param-reassign

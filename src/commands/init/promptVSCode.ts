@@ -3,7 +3,7 @@ import prompts from "prompts";
 import { MAIN_TS } from "../../constants";
 import { execShell } from "../../util";
 
-export default async function promptVSCode(
+export async function promptVSCode(
   projectPath: string,
   argv: Record<string, unknown>,
   VSCodeCommand: string,

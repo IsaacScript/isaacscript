@@ -18,7 +18,7 @@ import {
 import * as file from "../../file";
 import { execShell, snakeKebabToCamel } from "../../util";
 
-export default function createMod(
+export function createMod(
   projectName: string,
   projectPath: string,
   createNewDir: boolean,

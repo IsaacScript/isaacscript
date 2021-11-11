@@ -1,8 +1,8 @@
 import chalk from "chalk";
 import * as JSONC from "jsonc-parser";
 import path from "path";
-import getModsDir from "./commands/init/getModsDir";
-import promptSaveSlot from "./commands/init/promptSaveSlot";
+import { getModsDir } from "./commands/init/getModsDir";
+import { promptSaveSlot } from "./commands/init/promptSaveSlot";
 import { CONFIG_FILE_NAME, CONFIG_FILE_PATH, CWD } from "./constants";
 import * as file from "./file";
 import { Config } from "./types/Config";

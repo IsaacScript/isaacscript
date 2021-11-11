@@ -4,7 +4,7 @@ import prompts from "prompts";
 import * as file from "../../file";
 import { error } from "../../util";
 
-export default async function checkModTargetDirectory(
+export async function checkModTargetDirectory(
   modsDirectory: string,
   projectName: string,
 ): Promise<void> {

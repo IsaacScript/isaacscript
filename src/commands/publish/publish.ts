@@ -21,10 +21,7 @@ import {
 } from "../../util";
 import { compileAndCopy } from "../copy/copy";
 
-export default function publish(
-  argv: Record<string, unknown>,
-  config: Config,
-): void {
+export function publish(argv: Record<string, unknown>, config: Config): void {
   const skip = argv.skip === true;
   const setVersion = argv.setversion as string | undefined;
   const modTargetDirectoryName = getModTargetDirectoryName(config);

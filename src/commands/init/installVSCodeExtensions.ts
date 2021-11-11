@@ -4,7 +4,7 @@ import path from "path";
 import * as file from "../../file";
 import { error, execShell } from "../../util";
 
-export default function installVSCodeExtensions(
+export function installVSCodeExtensions(
   projectPath: string,
   VSCodeCommand: string,
 ): void {

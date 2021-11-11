@@ -6,7 +6,7 @@ const REQUIRED_MAJOR_VERSION = 16;
 // IsaacScript requires Node to be at least v16.0.0
 // (I tested on Node v15.0.0, and ),
 // since that is the version that added the "fs.rmSync()" function
-export default function validateNodeVersion(): void {
+export function validateNodeVersion(): void {
   const { version } = process;
 
   const match = /^v(\d+)\.(\d+)\.(\d)+$/g.exec(version);

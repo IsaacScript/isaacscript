@@ -1,4 +1,3 @@
-type Command = "monitor" | "init" | "copy" | "publish";
-export default Command;
+export type Command = "monitor" | "init" | "copy" | "publish";
 
 export const DEFAULT_COMMAND = "monitor";

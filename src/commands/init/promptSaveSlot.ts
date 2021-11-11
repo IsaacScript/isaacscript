@@ -1,7 +1,7 @@
 import prompts from "prompts";
 import { error } from "../../util";
 
-export default async function promptSaveSlot(
+export async function promptSaveSlot(
   argv: Record<string, unknown>,
 ): Promise<number> {
   if (argv.saveSlot !== undefined) {
