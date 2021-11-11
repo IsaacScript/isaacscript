@@ -111,17 +111,8 @@ export function setPlayerHealth(
 ): void {
   const character = player.GetPlayerType();
   const subPlayer = player.GetSubPlayer();
-  const brokenHearts = player.GetBrokenHearts();
-  const goldenHearts = player.GetGoldenHearts();
 
-  // Remove all existing health
-  player.AddBrokenHearts(brokenHearts * -1);
-  player.AddGoldenHearts(goldenHearts * -1);
-  // (we have to remove the exact amount of Golden Hearts or else it will bug out)
-  // (we remove Golden Hearts first so that they don't break)
-  player.AddMaxHearts(MAX_PLAYER_HEART_CONTAINERS * -2, true);
-  player.AddSoulHearts(MAX_PLAYER_HEART_CONTAINERS * -2);
-  player.AddBoneHearts(MAX_PLAYER_HEART_CONTAINERS);
+  removeAllPlayerHealth(player);
 
   // Add the red heart containers
   if (character === PlayerType.PLAYER_THESOUL && subPlayer !== undefined) {
@@ -169,4 +160,17 @@ export function setPlayerHealth(
   player.AddHearts(playerHealth.hearts);
   player.AddGoldenHearts(playerHealth.goldenHearts);
   player.AddBrokenHearts(playerHealth.brokenHearts);
+}
+
+export function removeAllPlayerHealth(player: EntityPlayer): void {
+  const brokenHearts = player.GetBrokenHearts();
+  const goldenHearts = player.GetGoldenHearts();
+
+  // We have to remove the exact amount of Golden Hearts or else it will bug out
+  // We remove Golden Hearts first so that they don't break
+  player.AddGoldenHearts(goldenHearts * -1);
+  player.AddBrokenHearts(brokenHearts * -1);
+  player.AddMaxHearts(MAX_PLAYER_HEART_CONTAINERS * -2, true);
+  player.AddSoulHearts(MAX_PLAYER_HEART_CONTAINERS * -2);
+  player.AddBoneHearts(MAX_PLAYER_HEART_CONTAINERS);
 }
