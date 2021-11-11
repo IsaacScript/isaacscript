@@ -165,7 +165,7 @@ export function removeCollectibleFromItemTracker(
   // This cannot use the "log()" function since the prefix will prevent the Rebirth Item Tracker
   // from recognizing the message
   Isaac.DebugString(
-    `Removing voided collectible ${collectibleType} (${collectibleName}) from player 0 (Player)`,
+    `Removing collectible ${collectibleType} (${collectibleName}) on player 0 (Player)`,
   );
 }
 
