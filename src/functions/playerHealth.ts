@@ -1,3 +1,4 @@
+import { MAX_PLAYER_HEART_CONTAINERS } from "../constants";
 import { PlayerHealth } from "../types/PlayerHealth";
 
 // Testing snippets:
@@ -118,9 +119,9 @@ export function setPlayerHealth(
   player.AddGoldenHearts(goldenHearts * -1);
   // (we have to remove the exact amount of Golden Hearts or else it will bug out)
   // (we remove Golden Hearts first so that they don't break)
-  player.AddMaxHearts(-24, true);
-  player.AddSoulHearts(-24);
-  player.AddBoneHearts(-24);
+  player.AddMaxHearts(MAX_PLAYER_HEART_CONTAINERS * -2, true);
+  player.AddSoulHearts(MAX_PLAYER_HEART_CONTAINERS * -2);
+  player.AddBoneHearts(MAX_PLAYER_HEART_CONTAINERS * -2);
 
   // Add the red heart containers
   if (character === PlayerType.PLAYER_THESOUL && subPlayer !== undefined) {

@@ -132,6 +132,9 @@ export const MAX_NUM_DOORS = 8;
 /** The game can only handle up to four different players. */
 export const MAX_NUM_INPUTS = 4;
 
+/** With Birthright, it is possible for Magdalene to have 18 heart containers. */
+export const MAX_PLAYER_HEART_CONTAINERS = 18;
+
 export const MAX_PLAYER_POCKET_ITEM_SLOTS = 4;
 
 /**
