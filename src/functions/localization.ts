@@ -1,6 +1,6 @@
 /**
  * Listed in the order that they appear in the "stringtable.sta" file. (This is different from the
- * order that the languages cycle through in the in-game options menu.
+ * order that the languages cycle through in the in-game options menu.)
  */
 export enum Language {
   ENGLISH,
