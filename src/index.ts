@@ -2,6 +2,8 @@ export {
   forceNewLevelCallback,
   forceNewRoomCallback,
 } from "./callbacks/reorderedCallbacks";
+export * from "./cardNameMap";
+export * from "./collectibleNameMap";
 export * from "./constants";
 export {
   disableAllInputs,
@@ -50,7 +52,9 @@ export * from "./functions/trinkets";
 export * from "./functions/ui";
 export * from "./functions/util";
 export * from "./functions/vector";
+export * from "./pillEffectNameMap";
 export * from "./transformationMap";
+export * from "./trinketNameMap";
 export * from "./types/CallbackParametersCustom";
 export * from "./types/HealthType";
 export * from "./types/ModCallbacksCustom";
