@@ -25,8 +25,12 @@ const CURSE_NAME_TO_LANGUAGE_MAP = new Map([
   ["Maldición de oscuridad", Language.SPANISH],
 ]);
 
+type LanguageDescriptions = {
+  [Value in Language]: [string, string];
+};
+
 /** Values are a tuple of language name and resource folder suffix. */
-const LANGUAGE_DESCRIPTIONS = {
+const LANGUAGE_DESCRIPTIONS: LanguageDescriptions = {
   [Language.ENGLISH]: ["English", ""],
   [Language.JAPANESE]: ["Japanese", ".jp"],
   [Language.KOREAN]: ["Korean", ".kr"],
