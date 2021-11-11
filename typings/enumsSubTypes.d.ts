@@ -16,7 +16,9 @@ declare enum PlayerType {
   PLAYER_LAZARUS = 8,
   PLAYER_EDEN = 9,
   PLAYER_THELOST = 10,
+  /** Lazarus Risen, from the Lazarus' Rags collectible. */
   PLAYER_LAZARUS2 = 11,
+  /** Dark Judas, from the Judas' Shadow collectible. */
   PLAYER_BLACKJUDAS = 12,
   PLAYER_LILITH = 13,
   PLAYER_KEEPER = 14,
@@ -26,25 +28,45 @@ declare enum PlayerType {
   PLAYER_BETHANY = 18,
   PLAYER_JACOB = 19,
   PLAYER_ESAU = 20,
+  /** Tainted Isaac */
   PLAYER_ISAAC_B = 21,
+  /** Tainted Magdalene */
   PLAYER_MAGDALENE_B = 22,
+  /** Tainted Cain */
   PLAYER_CAIN_B = 23,
+  /** Tainted Judas */
   PLAYER_JUDAS_B = 24,
+  /** Tainted Blue Baby */
   PLAYER_BLUEBABY_B = 25,
+  /** Tainted Eve */
   PLAYER_EVE_B = 26,
+  /** Tainted Samson */
   PLAYER_SAMSON_B = 27,
+  /** Tainted Azazel */
   PLAYER_AZAZEL_B = 28,
+  /** Tainted Lazarus */
   PLAYER_LAZARUS_B = 29,
+  /** Tainted Eden */
   PLAYER_EDEN_B = 30,
+  /** Tainted Lost */
   PLAYER_THELOST_B = 31,
+  /** Tainted Lilith */
   PLAYER_LILITH_B = 32,
+  /** Tainted Keeper */
   PLAYER_KEEPER_B = 33,
+  /** Tainted Apollyon */
   PLAYER_APOLLYON_B = 34,
+  /** Tainted Forgotten */
   PLAYER_THEFORGOTTEN_B = 35,
+  /** Tainted Bethany */
   PLAYER_BETHANY_B = 36,
+  /** Tainted Jacob */
   PLAYER_JACOB_B = 37,
+  /** Dead Tainted Lazarus */
   PLAYER_LAZARUS2_B = 38,
+  /** Tainted Jacob in "Lost" form. */
   PLAYER_JACOB2_B = 39,
+  /** Tainted Soul */
   PLAYER_THESOUL_B = 40,
   NUM_PLAYER_TYPES = 41,
 }
