@@ -121,7 +121,7 @@ export function setPlayerHealth(
   // (we remove Golden Hearts first so that they don't break)
   player.AddMaxHearts(MAX_PLAYER_HEART_CONTAINERS * -2, true);
   player.AddSoulHearts(MAX_PLAYER_HEART_CONTAINERS * -2);
-  player.AddBoneHearts(MAX_PLAYER_HEART_CONTAINERS * -2);
+  player.AddBoneHearts(MAX_PLAYER_HEART_CONTAINERS);
 
   // Add the red heart containers
   if (character === PlayerType.PLAYER_THESOUL && subPlayer !== undefined) {
