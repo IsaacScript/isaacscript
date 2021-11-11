@@ -146,6 +146,7 @@
         "getsockname",
         "gettime",
         "giga",
+        "GIGANTE",
         "goldenbomb",
         "goldenkey",
         "goldentroll",

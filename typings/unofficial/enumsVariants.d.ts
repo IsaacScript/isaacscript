@@ -44,6 +44,12 @@ declare const enum LaserVariant {
   LIGHT_RING = 8,
   /** Used for Brimstone + Technology. */
   BRIMTECH = 9,
+  ELECTRIC = 10,
+  THICKER_RED = 11,
+  THICK_BROWN = 12,
+  BEAST = 13,
+  THICKER_BRIMTECH = 14,
+  GIANT_BRIMTECH = 15,
 }
 
 /** For EntityType.ENTITY_KNIFE (8) */
@@ -619,6 +625,18 @@ declare const enum RoundWormVariant {
   TUBE_WORM = 1,
   TAINTED_ROUND_WORM = 2,
   TAINTED_TUBE_WORM = 3,
+}
+
+/** For EntityType.ENTITY_POOP (245) */
+declare enum PoopEntityVariant {
+  NORMAL = 0,
+  GOLDEN = 1,
+  STONE = 11,
+  CORNY = 12,
+  BURNING = 13,
+  STINKY = 14,
+  BLACK = 15,
+  HOLY = 16,
 }
 
 /** For EntityType.ENTITY_RAGLING (246) */

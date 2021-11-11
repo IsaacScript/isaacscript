@@ -4,11 +4,12 @@
 /** For EntityType.ENTITY_PLAYER (1), PlayerVariant.PLAYER (0) */
 declare enum PlayerType {
   PLAYER_POSSESSOR = -1,
+
   PLAYER_ISAAC = 0,
-  PLAYER_MAGDALENA = 1,
+  PLAYER_MAGDALENE = 1,
   PLAYER_CAIN = 2,
   PLAYER_JUDAS = 3,
-  PLAYER_XXX = 4,
+  PLAYER_BLUEBABY = 4,
   PLAYER_EVE = 5,
   PLAYER_SAMSON = 6,
   PLAYER_AZAZEL = 7,
@@ -26,10 +27,10 @@ declare enum PlayerType {
   PLAYER_JACOB = 19,
   PLAYER_ESAU = 20,
   PLAYER_ISAAC_B = 21,
-  PLAYER_MAGDALENA_B = 22,
+  PLAYER_MAGDALENE_B = 22,
   PLAYER_CAIN_B = 23,
   PLAYER_JUDAS_B = 24,
-  PLAYER_XXX_B = 25,
+  PLAYER_BLUEBABY_B = 25,
   PLAYER_EVE_B = 26,
   PLAYER_SAMSON_B = 27,
   PLAYER_AZAZEL_B = 28,
@@ -1173,8 +1174,8 @@ declare enum TrinketType {
   TRINKET_CHEWED_PEN = 130,
   TRINKET_BLESSED_PENNY = 131,
   TRINKET_BROKEN_SYRINGE = 132,
-  TRINKET_FIRECRACKER = 133,
-  TRINKET_GIANT_BEAN = 134,
+  TRINKET_SHORT_FUSE = 133,
+  TRINKET_GIGANTE_BEAN = 134,
   TRINKET_LIGHTER = 135,
   TRINKET_BROKEN_PADLOCK = 136,
   TRINKET_MYOSOTIS = 137,
@@ -1230,6 +1231,7 @@ declare enum TrinketType {
   TRINKET_BROKEN_GLASSES = 187,
   TRINKET_ICE_CUBE = 188,
   TRINKET_SIGIL_OF_BAPHOMET = 189,
+
   NUM_TRINKETS = 190,
   TRINKET_GOLDEN_FLAG = 0x8000,
   TRINKET_ID_MASK = 0x7fff,
@@ -1239,4 +1241,18 @@ declare enum TrinketType {
 declare enum BedSubType {
   BED_ISAAC = 0,
   BED_MOM = 1,
+}
+
+/** For EntityType.ENTITY_LASER (7) */
+declare enum LaserSubType {
+  /** A typical laser that has a start and end point. */
+  LASER_SUBTYPE_LINEAR = 0,
+  /** A controlled ring laser (e.g. Tech + Ludovico, Brim + Ludovico). */
+  LASER_SUBTYPE_RING_LUDOVICO = 1,
+  /** A ring laser that travels like a projectile (e.g. Tech X). */
+  LASER_SUBTYPE_RING_PROJECTILE = 2,
+  /** A ring laser that encircle their parents (e.g. Maw of the Void). */
+  LASER_SUBTYPE_RING_FOLLOW_PARENT = 3,
+  /** For Technology Zero; doesn't create an impact. */
+  LASER_SUBTYPE_NO_IMPACT = 4,
 }

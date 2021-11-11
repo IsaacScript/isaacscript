@@ -7,23 +7,27 @@ declare interface Level {
   CanOpenChallengeRoom(roomIndex: int): boolean;
   CanSpawnDevilRoom(): boolean;
   CanStageHaveCurseOfLabyrinth(levelStage: LevelStage): boolean;
+
   /**
    * @param roomIndex
    * @param dimension Default is Dimension.CURRENT.
    */
   ChangeRoom(roomIndex: int, dimension?: Dimension): void;
+
   DisableDevilRoom(): void;
   ForceHorsemanBoss(seed: int): boolean;
   GetAbsoluteStage(): LevelStage;
   GetAngelRoomChance(): float;
   GetCanSeeEverything(): boolean;
   GetCurrentRoom(): Room;
+
   /**
    * Note that this returns a read-only copy of the RoomDescriptor object and writing to any of its
    * properties will fail. If you need to update anything in this object, use the
    * `GetRoomByIdx(currentRoomIndex)` method instead.
    */
   GetCurrentRoomDesc(): RoomDescriptorReadOnly;
+
   GetCurrentRoomIndex(): int;
   GetCurseName(): string;
   GetCurses(): LevelCurse | int;
@@ -33,6 +37,7 @@ declare interface Level {
   GetHeartPicked(): boolean;
   GetLastBossRoomListIndex(): int;
   GetLastRoomDesc(): RoomDescriptorReadOnly;
+
   /**
    * @param levelStage Default value is the current stage.
    * @param stageType Default value is the current stage type.
@@ -47,14 +52,21 @@ declare interface Level {
     infiniteLevel?: int,
     dyslexia?: boolean,
   ): string;
+
   GetNonCompleteRoomIndex(): int;
+
+  /** Returns the probability of getting a Planetarium (in the 0-1 range). */
+  GetPlanetariumChance(): float;
+
   GetPreviousRoomIndex(): int;
   GetRandomRoomIndex(IAmErrorRoom: boolean, seed: int): int;
+
   /**
    * @param roomIdx
    * @param dimension Default is Dimension.CURRENT.
    */
   GetRoomByIdx(roomIndex: int, dimension?: Dimension): RoomDescriptor;
+
   GetRoomCount(): int;
   GetRooms(): RoomList;
   GetStage(): LevelStage;
@@ -64,8 +76,22 @@ declare interface Level {
   HasBossChallenge(): boolean;
   InitializeDevilAngelRoom(forceAngel: boolean, forceDevil: boolean): void;
   IsAltStage(): boolean;
+
+  /** Returns true if the player is in the Ascent. */
+  IsAscent(): boolean;
+
   IsDevilRoomDisabled(): boolean;
   IsNextStageAvailable(): boolean;
+
+  /** Returns true if the player is in the version of Mausoleum/Gehenna leading to the Ascent. */
+  IsPreAscent(): boolean;
+
+  /**
+   * Attempts to create a red room door in the given room at the given door slot. Returns true on
+   * success.
+   */
+  MakeRedRoomDoor(currentRoomIndex: int, doorSlot: DoorSlot): boolean;
+
   /**
    * @param roomType
    * @param visited
@@ -79,9 +105,12 @@ declare interface Level {
     rng: RNG,
     ignoreGroup?: boolean,
   ): int;
+
   RemoveCompassEffect(): void;
+
   /** This is currently bugged and maps internally to "RemoveCurse()". The old "RemoveCurses()" is not currently accessible. */
   RemoveCurses(levelCurse: LevelCurse | int): void;
+
   SetCanSeeEverything(value: boolean): void;
   SetHeartPicked(): void;
   SetNextStage(): void;
@@ -92,6 +121,7 @@ declare interface Level {
   ShowName(sticky: boolean): void;
   UncoverHiddenDoor(currentRoomIdx: int, doorSlot: DoorSlot): void;
   Update(): void;
+
   /**
    * Call this method to update the mini-map after changing the `DisplayFlags` property of a room.
    */

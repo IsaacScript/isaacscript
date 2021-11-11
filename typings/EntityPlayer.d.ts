@@ -1,8 +1,10 @@
 declare interface EntityPlayer extends Entity {
   /** 1 unit is half a heart. Remove them with negative numbers. */
   AddBlackHearts(blackHearts: int): void;
+
   /** This adds Tainted Bethany's blood charges. Only works on Tainted Bethany. */
   AddBloodCharge(num: int): void;
+
   /**
    * @param amount
    * @param position
@@ -14,21 +16,29 @@ declare interface EntityPlayer extends Entity {
     position: Vector,
     target: Entity | undefined,
   ): Entity;
+
   AddBlueSpider(position: Vector): Entity;
+
   /** Remove them with negative numbers. */
   AddBombs(amount: int): void;
+
   /** Remove them with negative numbers. */
   AddBoneHearts(hearts: int): void;
+
   /** Remove them with negative numbers. */
   AddBrokenHearts(hearts: int): void;
+
   /**
    * Used to specify the kinds of stats that should be evaluated the next time `EvaluateCache()` is
    * run.
    */
   AddCacheFlags(cacheFlags: CacheFlag): void;
+
   AddCard(card: Card | int): void;
+
   /** Remove them with negative numbers. */
   AddCoins(amount: int): void;
+
   /**
    * @param collectibleType
    * @param charge Default is 0.
@@ -47,19 +57,25 @@ declare interface EntityPlayer extends Entity {
     activeSlot?: ActiveSlot,
     varData?: int,
   ): void;
+
   AddControlsCooldown(cooldown: int): void;
   AddCostume(itemConfigItem: ItemConfigItem, itemStateOnly: boolean): void;
+
   /**
    * Disables all item effects similarly to the abandoned mineshaft in Mines II.
    * This also temporarily removes consumables and pocket items.
    */
   AddCurseMistEffect(): void;
+
   AddDeadEyeCharge(): void;
   AddDollarBillEffect(): void;
+
   /** Remove them with negative numbers. */
   AddEternalHearts(eternalHearts: int): void;
+
   /** Spawns a friendly dip from Dirty Mind. */
   AddFriendlyDip(subType: DipFamiliarSubType, position: Vector): EntityFamiliar;
+
   /**
    * Turns the given number of bombs into giga bombs.
    * This does not actually increase the number of bombs held. To actually add bombs, AddBombs()
@@ -68,15 +84,19 @@ declare interface EntityPlayer extends Entity {
    * @param num
    */
   AddGigaBombs(num: int): void;
+
   /** Remove them with negative numbers. */
   AddGoldenBomb(): void;
+
   AddGoldenHearts(hearts: int): void;
   AddGoldenKey(): void;
+
   /**
    * Adds red hearts to the player if there are any empty heart containers. 1 unit is half a heart.
    * Remove health with negative numbers.
    */
   AddHearts(hearts: int): void;
+
   /**
    * Spawns a Lemegeton wisp.
    *
@@ -89,15 +109,19 @@ declare interface EntityPlayer extends Entity {
     position: Vector,
     adjustOrbitLayer?: boolean,
   ): EntityFamiliar;
+
   AddJarFlies(flies: int): void;
   AddJarHearts(hearts: int): void;
+
   /** Remove them with negative numbers. */
   AddKeys(amount: int): void;
+
   /**
    * Adds heart containers to the player. 2 units is a full heart container.
    * Remove them with negative numbers.
    */
   AddMaxHearts(maxHearts: int, ignoreKeeper: boolean): void;
+
   /**
    * Spawns a mini Isaac from Giant Cell.
    *
@@ -105,10 +129,16 @@ declare interface EntityPlayer extends Entity {
    * @param playAnim If false, skips the appear animation for the familiars.
    */
   AddMinisaac(position: Vector, playAnim?: boolean): EntityFamiliar;
+
   AddNullCostume(nullItemID: NullItemID | int): void;
   AddPill(pillColor: PillColor | int): void;
   AddPlayerFormCostume(playerForm: PlayerForm): void;
+
+  /** Adds (or removes) poop consumables from the player. */
+  AddPoopMana(num: int): void;
+
   AddPrettyFly(): void;
+
   /**
    * Remove them with negative numbers.
    *
@@ -116,12 +146,16 @@ declare interface EntityPlayer extends Entity {
    * For example, `AddRottenHearts(4)` will add 2 rotten hearts.
    */
   AddRottenHearts(hearts: int): void;
+
   /** This adds Bethany's soul heart charges. Only works on Bethany. */
   AddSoulCharge(num: int): void;
+
   /** 1 unit is half a heart. Remove them with negative numbers. */
   AddSoulHearts(soulHearts: int): void;
+
   /** Spawns a defensive fly from The Swarm. */
   AddSwarmFlyOrbital(position: Vector): EntityFamiliar;
+
   /**
    * - If the player does not have any open trinket slots, this function will do nothing.
    * - If the player has an open trinket slot but already has a trinket, the new trinket will go to
@@ -136,6 +170,7 @@ declare interface EntityPlayer extends Entity {
     trinketType: TrinketType | int,
     firstTimePickingUp?: boolean,
   ): void;
+
   /**
    * Spawns a Book of Virtues wisp.
    *
@@ -154,11 +189,13 @@ declare interface EntityPlayer extends Entity {
     adjustOrbitLayer?: boolean,
     dontUpdate?: boolean,
   ): EntityFamiliar;
+
   /**
    * Play the animation that is normally played at the beginning of a stage.
    * Also plays the associated sound effect.
    */
   AnimateAppear(): void;
+
   /**
    * @param card
    * @param playerAnimationName Default is "Pickup".
@@ -167,6 +204,7 @@ declare interface EntityPlayer extends Entity {
     card: Card | int,
     playerAnimationName?: PlayerItemAnimation,
   ): void;
+
   /**
    * @param collectibleType
    * @param playerAnimationName Default is "Pickup".
@@ -177,10 +215,27 @@ declare interface EntityPlayer extends Entity {
     playerItemAnimation?: PlayerItemAnimation,
     collectibleAnimation?: CollectibleAnimation,
   ): void;
+
   /** Play the "thumbs up" animation. */
   AnimateHappy(): void;
+
   /** Play the animation where Isaac steps into a beam of light (e.g. at the end of Womb 2). */
   AnimateLightTravel(): void;
+
+  /**
+   * Plays a pickup animation using any supplied Sprite object.
+   *
+   * @param sprite
+   * @param hideShadow Default is false. This should be usually set to true when rendering a sprite
+   * with a custom shadow layer.
+   * @param animationName Default is "Pickup".
+   */
+  AnimatePickup(
+    sprite: Sprite,
+    hideShadow?: boolean,
+    animationName?: string,
+  ): void;
+
   /**
    * @param pillColor
    * @param playerAnimationName Default is "Pickup".
@@ -189,15 +244,19 @@ declare interface EntityPlayer extends Entity {
     pillColor: PillColor | int,
     playerAnimationName?: PlayerItemAnimation,
   ): void;
+
   AnimatePitfallIn(): void;
   AnimatePitfallOut(): void;
+
   /**
    * Play the animation where Isaac holds his head in his hands.
    * Also plays the associated sound effect.
    */
   AnimateSad(): void;
+
   AnimateTeleport(up: boolean): void;
   AnimateTrapdoor(): void;
+
   /**
    * @param trinketType
    * @param playerAnimationName Default is "Pickup".
@@ -208,38 +267,50 @@ declare interface EntityPlayer extends Entity {
     playerAnimationName?: PlayerItemAnimation,
     spriteAnimationName?: string,
   ): void;
+
   AreControlsEnabled(): boolean;
   AreOpposingShootDirectionsPressed(): boolean;
+
   /**
    * @param collectibleType Default is CollectibleType.COLLECTIBLE_NULL.
    */
   CanAddCollectible(collectibleType?: CollectibleType): boolean;
+
   /** Returns true if the player can pick up black hearts, false otherwise. */
   CanPickBlackHearts(): boolean;
+
   /** Returns true if the player can pick up bone hearts, false otherwise. */
   CanPickBoneHearts(): boolean;
+
   /** Returns true if the player can pick up golden hearts, false otherwise. */
   CanPickGoldenHearts(): boolean;
+
   /** Returns true if the player can pick up red hearts, false otherwise. */
   CanPickRedHearts(): boolean;
+
   /** Returns true if the player can pick up rotten hearts, false otherwise. */
   CanPickRottenHearts(): boolean;
+
   /** Returns true if the player can pick up soul hearts, false otherwise. */
   CanPickSoulHearts(): boolean;
+
   CanPickupItem(): boolean;
   CanShoot(): boolean;
+
   /**
    * When the player presses the different shoot buttons, Isaac will normally turn his head to face
    * the direction that he is supposed to shoot in. This returns true if head will react to
    * shooting, false otherwise.
    */
   CanTurnHead(): boolean;
+
   /**
    * This will attempt to merge forms when called on characters like Jacob and Esau.
    * This currently does not work correctly when changing from/to certain characters.
    * (i.e. Tainted Isaac)
    */
   ChangePlayerType(type: PlayerType): void;
+
   /**
    * @param familiarVariant
    * @param targetCount
@@ -255,31 +326,38 @@ declare interface EntityPlayer extends Entity {
     sourceItem?: ItemConfigItem,
     familiarSubType?: int,
   ): void;
+
   ClearCostumes(): void;
   ClearDeadEyeCharge(): void;
+
   /** Called automatically by the game when the player exits a room. */
   ClearTemporaryEffects(): void;
+
   /**
    * Sets the charge of the active item to 0 without triggering the active item effect.
    *
    * @param activeSlot Default is ActiveSlot.SLOT_PRIMARY.
    */
   DischargeActiveItem(activeSlot?: ActiveSlot): void;
+
   DoZitEffect(direction: Vector): void;
   DonateLuck(luck: int): void;
   DropPocketItem(pocketItemSlot: PocketItemSlot, position: Vector): void;
   DropTrinket(dropPos: Vector, replaceTick: boolean): void;
+
   /**
    * Triggers the MC_EVALUATE_CACHE callback. Before calling this function, you need to set the
    * appropriate cache flags by using the `AddCacheFlag()` method.
    */
   EvaluateItems(): void;
+
   /**
    * @param position
    * @param velocity
    * @param source Default is undefined.
    */
   FireBomb(position: Vector, velocity: Vector, source?: Entity): EntityBomb;
+
   /**
    * @param direction
    * @param source Default is undefined.
@@ -290,7 +368,9 @@ declare interface EntityPlayer extends Entity {
     source?: Entity,
     damageMultiplier?: float,
   ): EntityLaser;
+
   FireDelayedBrimstone(angle: float, parent: Entity): EntityLaser;
+
   /**
    * @param parent
    * @param rotationOffset Default is 0.
@@ -305,6 +385,7 @@ declare interface EntityPlayer extends Entity {
     subType?: int,
     variant?: int,
   ): EntityKnife;
+
   /**
    * @param position
    * @param velocity
@@ -323,6 +404,7 @@ declare interface EntityPlayer extends Entity {
     source?: Entity,
     damageMultiplier?: float,
   ): EntityTear;
+
   /**
    * @param position
    * @param laserOffset
@@ -341,6 +423,7 @@ declare interface EntityPlayer extends Entity {
     source?: Entity,
     damageMultiplier?: float,
   ): EntityLaser;
+
   /**
    * @param position
    * @param direction
@@ -355,46 +438,57 @@ declare interface EntityPlayer extends Entity {
     source?: Entity,
     damageMultiplier?: float,
   ): EntityLaser;
+
   FlushQueueItem(): boolean;
+
   /**
    * @param activeSlot Default is ActiveSlot.SLOT_PRIMARY.
    * @param force If set, items will always be charged even if they normally cannot be recharged by
    * batteries.
    */
   FullCharge(activeSlot?: ActiveSlot, force?: boolean): boolean;
+
   /**
    * @param activeSlot Default is ActiveSlot.SLOT_PRIMARY.
    */
   GetActiveCharge(activeSlot?: ActiveSlot): int;
+
   /**
    * Returns 0 if no item is held.
    *
    * @param activeSlot Default is ActiveSlot.SLOT_PRIMARY.
    */
   GetActiveItem(activeSlot?: ActiveSlot): CollectibleType | int;
+
   /**
    * Returns 0 if there is no active item in the specified slot.
    *
    * @param activeSlot Default is ActiveSlot.SLOT_PRIMARY.
    */
   GetActiveSubCharge(activeSlot?: ActiveSlot): int;
+
   GetActiveWeaponEntity(): Entity;
   GetAimDirection(): Readonly<Vector>;
   GetBabySkin(): BabySubType | int;
+
   /**
    * @param activeSlot Default is ActiveSlot.SLOT_PRIMARY.
    */
   GetBatteryCharge(activeSlot?: ActiveSlot): int;
+
   /** This returns the bit mask for which soul hearts are black hearts. */
   GetBlackHearts(): int;
+
   /** This gets Tainted Bethany's blood charges. */
   GetBloodCharge(): int;
+
   /**
    * There is no separate BombFlags enum, so bombs use tear flags.
    * Be aware that this really takes a BitSet128 instead of an integer.
    * However, all of the TearFlags enums values use BitSet128 constructors.
    */
   GetBombFlags(): int;
+
   /**
    * There is no separate BombFlags enum, so bombs use tear flags.
    * Be aware that this really takes a BitSet128 instead of an integer.
@@ -404,12 +498,16 @@ declare interface EntityPlayer extends Entity {
     tearFlags: TearFlags,
     forceSmallBomb: boolean,
   ): BombVariant | int;
+
   GetBoneHearts(): int;
   GetBrokenHearts(): int;
+
   /** Returns 0 if there is no card. */
   GetCard(pocketItemSlot: PocketItemSlot): Card | int;
+
   GetCardRNG(card: Card | int): RNG;
   GetCollectibleCount(): int;
+
   /**
    * @param collectibleType
    * @param onlyCountTrueItems If set to true, the function only counts collectibles that the player
@@ -420,18 +518,25 @@ declare interface EntityPlayer extends Entity {
     collectibleType: CollectibleType | int,
     ignoreModifiers?: boolean,
   ): int;
+
   GetCollectibleRNG(collectibleType: CollectibleType | int): RNG;
+
   GetCostumeNullPos(
     nullFrameName: string,
     headScale: boolean,
     direction: Vector,
   ): Vector;
+
   GetDamageCooldown(): int;
+
   /** This returns the number of blood charges when called on Tainted Bethany, 0 otherwise. */
   GetEffectiveBloodCharge(): int;
+
   GetEffectiveMaxHearts(): int;
+
   /** This returns the number of soul charges when called on Bethany, 0 otherwise. */
   GetEffectiveSoulCharge(): int;
+
   GetEffects(): TemporaryEffects;
   GetEternalHearts(): int;
   GetExtraLives(): int;
@@ -441,11 +546,13 @@ declare interface EntityPlayer extends Entity {
   GetGreedDonationBreakChance(): float;
   GetHeadDirection(): Direction;
   GetHeartLimit(): int;
+
   /**
    * Returns the amount of red hearts the player has inside their heart containers and bone hearts.
    * 1 unit is half a heart.
    */
   GetHearts(): int;
+
   GetItemState(): int;
   GetJarFlies(): int;
   GetJarHearts(): int;
@@ -454,16 +561,19 @@ declare interface EntityPlayer extends Entity {
   GetLastDamageFlags(): DamageFlag;
   GetLastDamageSource(): Readonly<EntityRef>;
   GetLastDirection(): Readonly<Vector>;
+
   /**
    * - When called on Jacob or Esau, returns Jacob.
    * - When called on Tainted Forgotten or Tainted Forgotten's Soul, returns Tainted Forgotten.
    * - When called on any other character, returns that character.
    */
   GetMainTwin(): EntityPlayer;
+
   /**
    * Returns the amount of heart containers that the player has. 1 unit is half a heart container.
    */
   GetMaxHearts(): int;
+
   /**
    * Returns the maximum number of pocket items + pocket actives that the player can currently hold.
    *
@@ -475,21 +585,28 @@ declare interface EntityPlayer extends Entity {
    * - The maximum number this can return is 4.
    */
   GetMaxPocketItems(): int;
+
+  /** Returns the max amount of poop consumables that can be held by the player. */
+  GetMaxPoopMana(): int;
+
   /**
    * Returns the maximum number of trinkets that the player can currently hold. Usually, this will
    * return 1, but the player can hold up to 2 trinkets under certain conditions (e.g. having Mom's
    * Purse).
    */
   GetMaxTrinkets(): int;
+
   /**
    * Returns the current passive item mimicked by Modeling Clay
    * (or COLLECTIBLE_NULL if no effect is being mimicked).
    */
   GetModelingClayEffect(): CollectibleType;
+
   GetMovementDirection(): Direction;
   GetMovementInput(): Vector;
   GetMovementJoystick(): Vector;
   GetMovementVector(): Readonly<Vector>;
+
   /**
    * Note that the only thing that you can do with MultiShotParams is feed it to the
    * `EntityPlayer.GetMultiShotPositionVelocity()` method.
@@ -497,6 +614,7 @@ declare interface EntityPlayer extends Entity {
    * @param weaponType Default is WeaponType.WEAPON_TEARS.
    */
   GetMultiShotParams(weaponType?: WeaponType): MultiShotParams;
+
   GetMultiShotPositionVelocity(
     loopIndex: int,
     weaponType: WeaponType,
@@ -504,21 +622,27 @@ declare interface EntityPlayer extends Entity {
     shotSpeed: float,
     multiShotParams: MultiShotParams,
   ): PosVel;
+
   /**
    * Normally, this function returns the player. However, in some cases, NPCs can be redirected to
    * attack another target, in which case this function will return the alternate target
    * (e.g. after using Best Friend).
    */
   GetNPCTarget(): Entity;
+
   /** Returns e.g. "Isaac", "Cain", etc. */
   GetName(): string;
+
   GetNumBlueFlies(): int;
   GetNumBlueSpiders(): int;
   GetNumBombs(): int;
   GetNumCoins(): int;
+
   /** Returns the number of giga bombs held. */
   GetNumGigaBombs(): int;
+
   GetNumKeys(): int;
+
   /**
    * - When called on Jacob, returns Esau.
    * - When called on Esau, returns Jacob.
@@ -527,37 +651,53 @@ declare interface EntityPlayer extends Entity {
    * - When called on any other character, returns undefined.
    */
   GetOtherTwin(): EntityPlayer | undefined;
+
   /** Returns 0 if there is no pill. */
   GetPill(pocketItemSlot: PocketItemSlot): PillColor | int;
+
   GetPillRNG(pillEffect: PillEffect | int): RNG;
   GetPlayerType(): PlayerType | int;
+
   // GetPocketItem(slotID: int): Readonly<PlayerPocketItem>; // PlayerPocketItem is not implemented
+
+  /** Returns how many poop consumables the player is currently holding. */
+  GetPoopMana(): int;
+
+  /** Returns the poop spell at the given position in the player's spell queue. */
+  GetPoopSpell(position: int): PoopSpellType;
+
   /**
    * Returns the joystick direction that drives player movement, taking into account certain
    * modifiers like disabled controls and seed effects.
    */
   GetRecentMovementVector(): Readonly<Vector>;
+
   /**
    * This returns the actual number of rotten hearts.
    * (For example, this returns 2 if the player has 2 rotten hearts.)
    */
   GetRottenHearts(): int;
+
   GetShootingInput(): Vector;
   GetShootingJoystick(): Vector;
   GetSmoothBodyRotation(): float;
+
   /** This gets Bethany's soul heart charges. */
   GetSoulCharge(): int;
+
   /**
    * 1 unit is half a heart. Black hearts count toward this total.
    * Remove them with negative numbers.
    */
   GetSoulHearts(): int;
+
   /**
    * - When on The Forgotten, returns the player object for The Soul.
    * - When on The Soul, returns the player object for The Forgotten.
    * - Otherwise, returns undefined.
    */
   GetSubPlayer(): EntityPlayer | undefined;
+
   /**
    * Used for tear parameters that are calculated on hit (e.g. Tough Love, Common Cold),
    *
@@ -572,21 +712,26 @@ declare interface EntityPlayer extends Entity {
     tearDisplacement?: int,
     source?: Entity,
   ): TearParams;
+
   GetTearMovementInheritance(shotDirection: Vector): Vector;
   GetTearPoisonDamage(): float;
   GetTearRangeModifier(): int;
   GetTotalDamageTaken(): int;
   GetTractorBeam(): Entity;
+
   /** Returns 0 if there is no trinket. */
   GetTrinket(trinketSlot: TrinketSlot): int;
+
   /**
    * This is the number of times that the trinket effect is applied.
    * Returns 0 if the player does not have the particular trinket.
    */
   GetTrinketMultiplier(trinketType: TrinketType | int): int;
+
   GetTrinketRNG(trinketType: TrinketType | int): RNG;
   GetVelocityBeforeUpdate(): Readonly<Vector>;
   GetZodiacEffect(): ZodiacCollectibles;
+
   /**
    * @param collectibleType
    * @param ignoreModifiers If set to true, only counts collectibles the player actually owns and
@@ -596,18 +741,23 @@ declare interface EntityPlayer extends Entity {
     collectibleType: CollectibleType | int,
     ignoreModifiers?: boolean,
   ): boolean;
+
   /** Returns true if the player's item effects are currently being disabled. */
   HasCurseMistEffect(): boolean;
+
   HasFullHearts(): boolean;
   HasFullHeartsAndSoulHearts(): boolean;
   HasGoldenBomb(): boolean;
   HasGoldenKey(): boolean;
+
   /**
    * @param damageFlag Default is 0.
    */
   HasInvincibility(damageFlag?: DamageFlag): boolean;
+
   HasPlayerForm(playerForm: PlayerForm): boolean;
   HasTimedItem(): boolean;
+
   /**
    * @param trinketType
    * @param ignoreModifiers If set to true, only counts trinkets the player actually holds and
@@ -617,31 +767,40 @@ declare interface EntityPlayer extends Entity {
     trinketType: TrinketType | int,
     ignoreModifiers?: boolean,
   ): boolean;
+
   HasWeaponType(weaponType: WeaponType): boolean;
   InitBabySkin(): void;
   IsBlackHeart(heart: int): boolean;
   IsBoneHeart(heartSlot: int): boolean;
+
   /**
    * In a multiplayer game, if a player dies, they will return as a tiny ghost. This method returns
    * true if the player is a co-op ghost.
    */
   IsCoopGhost(): boolean;
+
   IsExtraAnimationFinished(): boolean;
   IsFullSpriteRendering(): boolean;
   IsHeldItemVisible(): boolean;
+
   /* Is the player holding up an item (card/collectible/etc)? */
   IsHoldingItem(): boolean;
+
   IsItemQueueEmpty(): boolean;
   IsP2Appearing(): boolean;
   IsPosInSpotLight(position: Vector): boolean;
+
   /** Returns true for The Soul. Otherwise, returns false. */
   IsSubPlayer(): boolean;
+
   /**
    * @param activeSlot Default is ActiveSlot.SLOT_PRIMARY.
    */
   NeedsCharge(activeSlot?: ActiveSlot): boolean;
+
   PlayExtraAnimation(animation: string): void;
   QueueExtraAnimation(animation: string): void;
+
   /**
    * When the player touches a collectible item, they are not granted it immediately. Instead, the
    * item is a queue for the duration of the animation where the player holds the item above their
@@ -662,9 +821,11 @@ declare interface EntityPlayer extends Entity {
     golden?: boolean,
     varData?: int,
   ): void;
+
   RemoveBlackHeart(blackHeart: int): void;
   RemoveBlueFly(): void;
   RemoveBlueSpider(): void;
+
   /**
    * @param collectibleType
    * @param ignoreModifiers Ignores collectible effects granted by other items (i.e. Void).
@@ -680,40 +841,51 @@ declare interface EntityPlayer extends Entity {
     activeSlot?: ActiveSlot,
     removeFromPlayerForm?: boolean,
   ): void;
+
   RemoveCostume(itemConfigItem: ItemConfigItem): void;
+
   /**
    * Re-enables item effects removed by AddCurseMistEffect().
    * Also attempts to restore consumables and pocket items removed by AddCurseMistEffect().
    */
   RemoveCurseMistEffect(): void;
+
   RemoveGoldenBomb(): void;
   RemoveGoldenKey(): void;
+
   /** Removes player-specific costumes like Magdalene's hair or Cain's eyepatch. */
   RemoveSkinCostume(): void;
+
   RenderBody(position: Vector): void;
   RenderGlow(position: Vector): void;
   RenderHead(position: Vector): void;
   RenderTop(position: Vector): void;
+
   ReplaceCostumeSprite(
     itemConfigItem: ItemConfigItem,
     spritePath: string,
     spriteID: int,
   ): void;
+
   ResetDamageCooldown(): void;
   ResetItemState(): void;
   RespawnFamiliars(): void;
   Revive(): void;
+
   /**
    * @param charge
    * @param activeSlot Default is ActiveSlot.SLOT_PRIMARY.
    */
   SetActiveCharge(charge: int, activeSlot?: ActiveSlot): void;
+
   /** This sets Tainted Bethany's blood charges. Only works on Tainted Bethany. */
   SetBloodCharge(num: int): void;
+
   SetCard(pocketItemSlot: PocketItemSlot, card: Card | int): void;
   SetFullHearts(): void;
   SetMinDamageCooldown(damageCooldown: int): void;
   SetPill(pocketItemSlot: PocketItemSlot, pillColor: PillColor | int): void;
+
   /**
    * Sets the player's pocket active item to the given active item.
    * Items added to SLOT_POCKET2 will always be removed upon being used.
@@ -727,19 +899,23 @@ declare interface EntityPlayer extends Entity {
     slot?: ActiveSlot,
     keepInPools?: boolean,
   ): void;
+
   SetShootingCooldown(cooldown: int): void;
+
   /**
    * This sets Bethany's soul heart charges.
    *
    * @param num
    */
   SetSoulCharge(num: int): void;
+
   SetTargetTrapDoor(trapDoor: GridEntity): void;
   ShootRedCandle(direction: Vector): void;
   SpawnMawOfVoid(timeout: int): EntityLaser;
   StopExtraAnimation(): void;
   SwapActiveItems(): void;
   ThrowBlueSpider(position: Vector, target: Vector): Entity;
+
   /**
    * Spawns a friendly dip (from Dirty Mind) and throws it towards the specified target.
    *
@@ -753,6 +929,7 @@ declare interface EntityPlayer extends Entity {
     position: Vector,
     target?: Vector,
   ): EntityFamiliar;
+
   /**
    * If holding an entity, throws it in the specified direction and returns it. Otherwise, returns
    * undefined.
@@ -760,18 +937,22 @@ declare interface EntityPlayer extends Entity {
    * @param velocity
    */
   ThrowHeldEntity(velocity: Vector): Entity;
+
   /**
    * Triggers the extra effect granted by Book of Virtues for the given active item.
    *
    * @param collectibleType Default is CollectibleType.COLLECTIBLE_NULL.
    */
   TriggerBookOfVirtues(collectibleType?: CollectibleType): void;
+
   /**
    * Attempts to pick up the given entity, returns true on success.
    * Currently only works with some entity types (mainly bombs and enemies).
    */
   TryHoldEntity(entity: Entity): boolean;
+
   TryHoldTrinket(trinketType: TrinketType | int): boolean;
+
   /**
    * @param collectibleType
    * @param keepPersistent If set to false, this method will only remove temporary costumes.
@@ -780,7 +961,9 @@ declare interface EntityPlayer extends Entity {
     collectibleType: CollectibleType | int,
     keepPersistent: boolean,
   ): void;
+
   TryRemoveNullCostume(nullItemID: NullItemID | int): void;
+
   /**
    * Will remove the specified trinket, if it exists. This will also remove The Tick and smelted
    * trinkets.
@@ -790,9 +973,11 @@ declare interface EntityPlayer extends Entity {
    * @returns Whether or not the specified trinket was removed successfully.
    */
   TryRemoveTrinket(trinketType: TrinketType | int): boolean;
+
   TryRemoveTrinketCostume(trinketType: TrinketType | int): void;
   TryUseKey(): boolean;
   UpdateCanShoot(): void;
+
   /**
    * @param collectibleType
    * @param useFlag Default is 0.
@@ -805,6 +990,7 @@ declare interface EntityPlayer extends Entity {
     useFlag?: UseFlag,
     activeSlot?: ActiveSlot,
   ): void;
+
   /**
    * @param collectibleType
    * @param showAnim
@@ -823,11 +1009,13 @@ declare interface EntityPlayer extends Entity {
     toAddCostume: boolean,
     activeSlot?: ActiveSlot,
   ): void;
+
   /**
    * @param card
    * @param useFlag Default is 0.
    */
   UseCard(card: Card | int, useFlag?: UseFlag): void;
+
   /**
    * @param pillEffect
    * @param pillColor
@@ -838,9 +1026,14 @@ declare interface EntityPlayer extends Entity {
     pillColor: PillColor | int,
     useFlag?: UseFlag,
   ): void;
+
+  /** Triggers one of Tainted Blue Baby's poop spells. */
+  UsePoopSpell(poopSpellType: PoopSpellType): void;
+
   WillPlayerRevive(): boolean;
 
   BabySkin: BabySubType | int;
+
   /** Only change this in the EvaluateCache callback. */
   CanFly: boolean;
   readonly ControllerIndex: ControllerIndex;
@@ -878,5 +1071,10 @@ declare interface EntityPlayer extends Entity {
    * Only change this in the EvaluateCache callback.
    */
   TearHeight: float;
+  /**
+   * This is equal to the range stat multiplied by 40.
+   * Only change this in the EvaluateCache callback.
+   */
+  TearRange: float;
   readonly TearsOffset: Readonly<Vector>;
 }

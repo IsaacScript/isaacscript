@@ -11,7 +11,7 @@ declare const enum PitVariant {
 }
 
 /** For GridEntityType.GRID_POOP (14) */
-declare const enum PoopVariant {
+declare const enum PoopGridEntityVariant {
   NORMAL = 0,
   RED = 1,
   CORN = 2,

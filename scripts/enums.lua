@@ -1,32 +1,32 @@
 ModCallbacks = {
 	MC_NPC_UPDATE = 0,			-- Callback is a method that takes (EntityNPC). Called after an NPC is updated. When adding callback, specify an EntityType so it is only called for entities of that type.
-	MC_POST_UPDATE = 1,			-- Callback is a method with no arguments. Called after game update. 
+	MC_POST_UPDATE = 1,			-- Callback is a method with no arguments. Called after game update.
 	MC_POST_RENDER = 2,			-- Callback is a method with no arguments. Called after game render.
-	MC_USE_ITEM = 3,			-- Callback is a method that takes (CollectibleType, RNG). Return true to show the "use item" animation, otherwise false. Called when a custom active item is used, after discharging it. When adding callback, specify a CollectibleType to only respond to one custom active. The item RNG allows for the item's random events to be seeded. 
+	MC_USE_ITEM = 3,			-- Callback is a method that takes (CollectibleType, RNG). Return true to show the "use item" animation, otherwise false. Called when a custom active item is used, after discharging it. When adding callback, specify a CollectibleType to only respond to one custom active. The item RNG allows for the item's random events to be seeded.
 	MC_POST_PEFFECT_UPDATE = 4,	-- Callback is a method that takes (EntityPlayer). Called for each player, each frame, after the player evaluates the effects of items that must be constantly evaluated.
 	MC_USE_CARD = 5,			-- Callback is a method that takes (Card). Called when a custom card is used. When adding callback, specify a Card ID to only respond to one card type.
 	MC_FAMILIAR_UPDATE = 6,		-- Callback is a method that takes (Entity_Familiar). Called every frame for each custom familiar. When adding callback, specify a Variant to restrict calls to a specific familiar.
 	MC_FAMILIAR_INIT = 7,		-- Callback is a method that takes (Entity_Familiar). Called just after a custom familiar is initialized. When adding callback, specify a Variant to restrict calls to a specific familiar.
-	
-	-- Callback is a method that takes (EntityPlayer, CacheFlag). 
-	-- Called one or more times when a player's stats must be re-evaluated, such as after picking up an item, using certain pills, manually calling EvaluateItems on EntityPlayer. 
+
+	-- Callback is a method that takes (EntityPlayer, CacheFlag).
+	-- Called one or more times when a player's stats must be re-evaluated, such as after picking up an item, using certain pills, manually calling EvaluateItems on EntityPlayer.
 	-- Use this to let custom items change the player's stats, familiars, flying, weapons, etc.
 	-- Items tell the game which stats they affect using cache values in items.xml. Then the callback should respond to the CacheFlag by setting the corresponding player stat.
 	-- Other items' stat modifiers, multipliers, etc are applied before this callback is called.
 	MC_EVALUATE_CACHE = 8,
-	
+
 	MC_POST_PLAYER_INIT = 9,	-- Callback is a method that takes (EntityPlayer). Called after the player is initialized.
 	MC_USE_PILL = 10,			-- Callback is a method that takes (PillEffect). Called when a custom pill is used. When adding callback, specify a PillEffect ID to only respond to one pill effect.
-	
-	-- Callback is a method that takes (TookDamage : Entity, DamageAmount : number, DamageFlag : number (bit flags from DamageFlag enumeration), DamageSource : EntityRef, DamageCountdownFrames : number). 
-	-- Return true or nil if the entity or player should sustain the damage, otherwise false to ignore it. 
+
+	-- Callback is a method that takes (TookDamage : Entity, DamageAmount : number, DamageFlag : number (bit flags from DamageFlag enumeration), DamageSource : EntityRef, DamageCountdownFrames : number).
+	-- Return true or nil if the entity or player should sustain the damage, otherwise false to ignore it.
 	-- If the entity is an EntityPlayer, the DamageAmount is the integer number of half-hearts of damage that the player will take. Otherwise, DamageAmount is a number of hit points.
 	-- Called before new damage is applied. A DAMAGE_COUNTDOWN flag means the entity will ignore any other DAMAGE_COUNTDOWN hits for the duration specified.
 	-- When adding callback, specify an EntityType to respond to only damage taken by that entity type.
 	MC_ENTITY_TAKE_DMG = 11,
 	MC_POST_CURSE_EVAL = 12, -- Callback is a method that takes (integer Curses). Curses is a bitmask containing current curses. Called after Level applied it's curses. Returns the new curse bitmask. Use Isaac.GetCurseIdByName to get a custom curse
-	
-	-- Callback that takes (Entity, InputHook, ButtonAction). It is called when game/game entities wants to read action input. 
+
+	-- Callback that takes (Entity, InputHook, ButtonAction). It is called when game/game entities wants to read action input.
 	-- Entity can be nil if the input is read not from an entity Class. InputHook and ButtonActions are enumerations. Return nil if you don't want to overwrite the input or value otherwise.
 	-- Return value can be bool if it's a Is__ hook or float if it's an Get__Value hook. Float values should be in range of 0.0 and 1.0
 	MC_INPUT_ACTION = 13,
@@ -35,11 +35,11 @@ ModCallbacks = {
 	MC_POST_GAME_END = 16, -- (bool) - Gameover
 	MC_PRE_GAME_EXIT = 17, -- (bool) - ShouldSave
 	MC_POST_NEW_LEVEL = 18, -- This triggers after new room!
-	MC_POST_NEW_ROOM = 19, 
+	MC_POST_NEW_ROOM = 19,
 	MC_GET_CARD = 20, -- (RNG& rng, integer CurrentCard, bool Playing, bool Runes, bool OnlyRunes) - This is used for Card Pools. Because not all cards have the same chance to spawn, use RNG for seeded random and return your card id (if you don't want to change the current card, return CurrentCard or nil). If desired Playing (can include playing cards), Runes (can include runes), OnlyRunes (only return runes) filter can be used to make your selection.
 	MC_GET_SHADER_PARAMS = 21, -- (string shaderName) - returns a table containing a key -> value pair for custom shader parameters
 	MC_EXECUTE_CMD = 22, -- (string cmd, string params) - returns a string separated by \n (newline) per output line
-	
+
 	MC_PRE_USE_ITEM = 23, -- (CollectibleType ItemId, RNG& ItemRng) - return true if the item can't be used / processed inside the script, other values or no value will continue the routine
 	MC_PRE_ENTITY_SPAWN = 24, -- (EntityType Type, integer Variant, integer SubType, const Vector2 Position, const Vector2 Velocity, const Entity Spawner, integer Seed), optional return - an array table with new values { Type, Variant, Subtype, Seed }
 	MC_POST_FAMILIAR_RENDER = 25, -- (EntityFamiliar Fam, Vector Offset)
@@ -311,7 +311,7 @@ EntityType = {
 	ENTITY_FISTULOID = 308,
 	ENTITY_GUSH = 309,
 	ENTITY_LEPER = 310,
-	
+
 	-- Afterbirth bosses
 	ENTITY_STAIN = 401,
 	ENTITY_BROWNIE = 402,
@@ -326,11 +326,11 @@ EntityType = {
 	ENTITY_BIG_HORN = 411,
 	ENTITY_DELIRIUM = 412,
 	ENTITY_MATRIARCH = 413,
-	
+
 	-- Repentance
 	ENTITY_BONE_WORM = 801,
 	ENTITY_BLOOD_PUPPY = 802,
-	
+
 	ENTITY_QUAKE_GRIMACE = 804,
 	ENTITY_BISHOP = 805,
 	ENTITY_BUBBLES = 806,
@@ -366,11 +366,11 @@ EntityType = {
 	ENTITY_VIS_VERSA = 836,
 	ENTITY_HENRY = 837,
 	ENTITY_WILLO_L2 = 838,
-	
+
 	ENTITY_PON = 840,
 	ENTITY_REVENANT = 841,
-	
-	
+
+
 	ENTITY_BOMBGAGGER = 844,
 	ENTITY_GAPER_L2 = 850,
 	ENTITY_TWITCHY = 851,
@@ -380,7 +380,7 @@ EntityType = {
 	ENTITY_CHARGER_L2 = 855,
 	ENTITY_GASBAG = 856,
 	ENTITY_COHORT = 857,
-	
+
 	ENTITY_FLOATING_HOST = 859,
 	ENTITY_UNBORN = 860,
 	ENTITY_PUSTULE = 861,
@@ -416,7 +416,7 @@ EntityType = {
 	ENTITY_GOAT = 891,
 	ENTITY_POOFER = 892,
 	ENTITY_BALL_AND_CHAIN = 893,
-	
+
 	ENTITY_REAP_CREEP = 900,
 	ENTITY_LIL_BLUB = 901,
 	ENTITY_RAINMAKER = 902,
@@ -450,7 +450,7 @@ EntityType = {
 	ENTITY_HORNFEL_DOOR = 967,
 	ENTITY_TRIGGER_OUTPUT = 969,
 	ENTITY_ENVIRONMENT = 970,
-	
+
 	ENTITY_EFFECT = 1000, -- 1000 special effects
 	ENTITY_TEXT = 9001
 }
@@ -459,10 +459,10 @@ GridEntityType = {
 	GRID_NULL = 0,
 	GRID_DECORATION = 1,
 	GRID_ROCK = 2,
-	GRID_ROCKB = 3,	
-	GRID_ROCKT = 4,	
-	GRID_ROCK_BOMB = 5,	
-	GRID_ROCK_ALT = 6,	
+	GRID_ROCKB = 3,
+	GRID_ROCKT = 4,
+	GRID_ROCK_BOMB = 5,
+	GRID_ROCK_ALT = 6,
 	GRID_PIT = 7,
 	GRID_SPIKES = 8,
 	GRID_SPIKES_ONOFF = 9,
@@ -479,7 +479,7 @@ GridEntityType = {
 	GRID_PRESSURE_PLATE = 20,
 	GRID_STATUE = 21,
 	GRID_ROCK_SS = 22,
-	
+
 	-- Repentance
 	GRID_TELEPORTER = 23,
 	GRID_PILLAR = 24,
@@ -545,18 +545,18 @@ EffectVariant = {
 	RED_CANDLE_FLAME = 52,
 	PLAYER_CREEP_GREEN = 53,
 	PLAYER_CREEP_HOLYWATER_TRAIL = 54,
-	SPIKE = 55,			
-	CREEP_BROWN = 56,	
+	SPIKE = 55,
+	CREEP_BROWN = 56,
 	PULLING_EFFECT = 57,
-	POOP_PARTICLE = 58,	
-	DUST_CLOUD = 59,	
+	POOP_PARTICLE = 58,
+	DUST_CLOUD = 59,
 	BOOMERANG = 60,
 	SHOCKWAVE = 61,
 	ROCK_EXPLOSION = 62,
-	WORM = 63, 
+	WORM = 63,
 	BEETLE = 64,
 	WISP = 65,
-	EMBER_PARTICLE = 66, 
+	EMBER_PARTICLE = 66,
 	SHOCKWAVE_DIRECTIONAL = 67,
 	WALL_BUG = 68,
 	BUTTERFLY = 69,
@@ -565,7 +565,7 @@ EffectVariant = {
 	CRACKWAVE = 72,
 	SHOCKWAVE_RANDOM = 73,
 	ISAACS_CARPET = 74,
-	BAR_PARTICLE = 75, 
+	BAR_PARTICLE = 75,
 	DICE_FLOOR = 76,
 	LARGE_BLOOD_EXPLOSION = 77,
 	PLAYER_CREEP_LEMON_PARTY = 78,
@@ -609,7 +609,7 @@ EffectVariant = {
 	DIRT_PATCH = 116,
 	FORGOTTEN_SOUL = 117,
 	SMALL_ROCKET = 118,
-	
+
 	-- Repentance
 	TIMER = 119,
 	SPAWNER = 120,
@@ -843,7 +843,7 @@ Challenge = {
 	CHALLENGE_ULTRA_HARD = 34,
 	CHALLENGE_PONG = 35,
 	--NUM_CHALLENGES = 36
-	
+
 	-- Repentance
 	CHALLENGE_SCAT_MAN = 36,
 	CHALLENGE_BLOODY_MARY = 37,
@@ -897,7 +897,7 @@ CacheFlag = {
 	CACHE_SIZE = 0x800, -- invalidates player size
 	CACHE_COLOR = 0x1000, -- invalidates player color
 	CACHE_PICKUP_VISION = 0x2000, -- invalidates effects that predict pickup drops (i.e. Guppy's Eye)
-	
+
 	CACHE_ALL = 0xFFFF,
 
 	CACHE_TWIN_SYNC = 0x80000000, -- special cache flag used when syncing Jacob and Esau's speed
@@ -906,17 +906,17 @@ CacheFlag = {
 NpcState = {
 	STATE_INIT = 0,
 	STATE_APPEAR = 1,
-	STATE_APPEAR_CUSTOM = 2, 
+	STATE_APPEAR_CUSTOM = 2,
 	STATE_IDLE = 3,
 	STATE_MOVE = 4,
 	STATE_SUICIDE = 5,
 	STATE_JUMP = 6,
 	STATE_STOMP = 7,
 	STATE_ATTACK = 8,
-	STATE_ATTACK2 = 9,	
+	STATE_ATTACK2 = 9,
 	STATE_ATTACK3 = 10,
 	STATE_ATTACK4 = 11,
-	STATE_SUMMON = 12,	
+	STATE_SUMMON = 12,
 	STATE_SUMMON2 = 13,
 	STATE_SUMMON3 = 14,
 	STATE_SPECIAL = 15,
@@ -934,7 +934,7 @@ EntityGridCollisionClass = {
 	GRIDCOLL_NOPITS = 6,	-- collide with all grid entities except pits and correct position
 	GRIDCOLL_PITSONLY = 7,	-- moving inside a pit, collide with everything else, correct position
 }
-	
+
 EntityCollisionClass = {
 	ENTCOLL_NONE = 0,			-- no collision with other entities
 	ENTCOLL_PLAYERONLY = 1,		-- collide with player only
@@ -963,12 +963,12 @@ EntityFlag = {
 	FLAG_NO_BLOOD_SPLASH = 1<<16,
 	FLAG_NO_REMOVE_ON_TEX_RENDER = 1<<17,	-- for FLAG_RENDER_FLOOR and FLAG_RENDER_WALL
 	FLAG_NO_DEATH_TRIGGER = 1<<18,
-	
+
 	-- NOTE: Those next flags share the same bit but have a different meaning depending on entity type
 	FLAG_NO_SPIKE_DAMAGE = 1<<19,			-- EntityNPC: shouldn't take any damage from spikes
 	FLAG_LASER_POP = 1<<19,					-- EntityTear: Pop tear fired by a laser, should decelerate very quickly for the first few frames
 	FLAG_ITEM_SHOULD_DUPLICATE = 1<<19,		-- EntityPickup: item pedestal affected by Damocles, will be duplicated at the end of the current frame
-	
+
 	FLAG_BOSSDEATH_TRIGGERED = 1<<20,
 	FLAG_DONT_OVERWRITE = 1<<21,			-- Used in entityfactory to not remove this entity if there is no space left for new entity
 	FLAG_SPAWN_STICKY_SPIDERS = 1<<22,		-- Used by Sticky bombs to generate spiders on death
@@ -987,7 +987,7 @@ EntityFlag = {
 	FLAG_HIDE_HP_BAR = 1<<35,				-- Added for Ultra Greed so his HP can be hidden after he "dies" since his entity sticks around
 	FLAG_NO_DAMAGE_BLINK = 1<<36,			-- Player was given a short period of invulnerability by something other than damage, don't blink
 	FLAG_PERSISTENT = 1<<37,				-- Entity persists between rooms
-	
+
 	FLAG_BACKDROP_DETAIL = 1<<38,			-- Was spawned as a backdrop decoration, should be deleted if the current backdrop changes (due to Delirium)
 	FLAG_AMBUSH = 1<<39,					-- Enemy was spawned by some sort of ambush (Greed Mode, challenge rooms), don't collide with the player for a few frames
 	FLAG_GLITCH = 1<<40,					-- Glitched out, has different effects depending on the entity
@@ -1164,19 +1164,19 @@ FamiliarVariant = {
 	BROWN_NUGGET_POOTER = 115,
 	BLOODSHOT_EYE = 116,
 	MOMS_RAZOR = 117,
-	
+
 	-- Booster Pack #1
 	ANGRY_FLY = 118,
 	BUDDY_IN_A_BOX = 119,
 	SPRINKLER = 120,
-	
+
 	-- Booster Pack #2
 	LEPROSY = 121,
 
 	-- Booster Pack #3
 	LIL_HARBINGERS = 122,
 	ANGELIC_PRISM = 123,
-	
+
 	-- Booster Pack #5
 	MYSTERY_EGG = 124,
 	LIL_SPEWER = 125,
@@ -1185,7 +1185,7 @@ FamiliarVariant = {
 	BONE_ORBITAL = 128,
 	HALLOWED_GROUND = 129,
 	JAW_BONE = 130,
-	
+
 	-- Repentance
 	INTRUDER = 200,
 	DIP = 201,
@@ -1202,11 +1202,11 @@ FamiliarVariant = {
 	LIL_DUMPY = 212,
 	KNIFE_PIECE_1 = 213,
 	KNIFE_PIECE_2 = 214,
-	
+
 	TINYTOMA = 216,
 	TINYTOMA_2 = 217,
 	BOT_FLY = 218,
-	
+
 	SIREN_MINION = 220,
 	PASCHAL_CANDLE = 221,
 	STITCHES = 222,
@@ -1214,7 +1214,7 @@ FamiliarVariant = {
 	BABY_PLUM = 224,
 	FRUITY_PLUM = 225,
 	SPIN_TO_WIN = 226,
-	
+
 	MINISAAC = 228,
 	SWARM_FLY_ORBITAL = 229,
 	LIL_ABADDON = 230,
@@ -1231,7 +1231,7 @@ FamiliarVariant = {
 	BLOOD_PUPPY = 241,
 	VANISHING_TWIN = 242,
 	DECAP_ATTACK = 243,
-	
+
 	FORGOTTEN_BODY = 900,
 }
 
@@ -1298,7 +1298,7 @@ NullItemID = {
 	ID_ERA_WALK = 42,
 	ID_SACRIFICIAL_ALTAR = 43,
 	ID_FORGOTTEN = 44,
-	
+
 	-- Repentance
 	ID_BRIMSTONE2 = 45,
 	ID_HOLY_CARD = 46,
@@ -1479,7 +1479,7 @@ BabySubType = {
 	BABY_BONE = 57,
 	BABY_BOUND = 58,
 	--BABY_BASIC = 59
-	
+
 	-- Repentance
 	BABY_FOUND_SOUL = 59,
 	BABY_LOST_WHITE = 60,
@@ -1549,7 +1549,7 @@ LevelStage = {
 	STAGE7 = 12,
 	STAGE8 = 13, -- Home
 	NUM_STAGES = 14,
-	
+
 	STAGE1_GREED = 1,
 	STAGE2_GREED = 2,
 	STAGE3_GREED = 3,
@@ -1557,7 +1557,7 @@ LevelStage = {
 	STAGE5_GREED = 5,
 	STAGE6_GREED = 6,
 	STAGE7_GREED = 7,
-	
+
 	NUM_BACKWARDS_STAGES = 7, -- Save stages up to Mausoleum II for the Ascent (7 stages)
 }
 
@@ -1596,7 +1596,7 @@ RoomType = {
 	ROOM_BLACK_MARKET = 22,
 	ROOM_GREED_EXIT = 23,
 	--NUM_ROOMTYPES = 24
-	
+
 	-- Repentance
 	ROOM_PLANETARIUM = 24,
 	ROOM_TELEPORTER = 25,		-- Mausoleum teleporter entrance, currently unused
@@ -1651,7 +1651,7 @@ LevelCurse = {
 
 PlayerType = {
 	PLAYER_POSSESSOR = -1,
-	
+
 	PLAYER_ISAAC = 0,
 	PLAYER_MAGDALENA = 1,
 	PLAYER_CAIN = 2,
@@ -1671,7 +1671,7 @@ PlayerType = {
 	PLAYER_THEFORGOTTEN = 16,
 	PLAYER_THESOUL = 17,
 	--NUM_PLAYER_TYPES = 18
-	
+
 	-- Repentance
 	PLAYER_BETHANY = 18,
 	PLAYER_JACOB = 19,
@@ -1734,7 +1734,7 @@ PillColor = {
 	PILL_WHITE_BLACK = 12,
 	PILL_WHITE_YELLOW = 13,
 	--NUM_PILLS = 14
-	
+
 	NUM_STANDARD_PILLS = 14,
 	PILL_GOLD = 14,
 	NUM_PILLS = 15,
@@ -2036,7 +2036,7 @@ SoundEffect = {
 	SOUND_MEGA_BLAST_END = 280,
 
 	SOUND_BLOOD_LASER_LOOP = 281,
-	
+
 	SOUND_MENU_SCROLL = 282,
 	SOUND_MENU_NOTE_APPEAR = 283,
 	SOUND_MENU_NOTE_HIDE = 284,
@@ -2260,7 +2260,7 @@ SoundEffect = {
 	SOUND_BIG_LEECH = 510,
 
 	SOUND_REVERSE_EXPLOSION = 511,
-		
+
 	SOUND_REVERSE_FOOL = 512,
 	SOUND_REVERSE_MAGICIAN = 513,
 	SOUND_REVERSE_HIGH_PRIESTESS = 514,
@@ -2372,7 +2372,7 @@ SoundEffect = {
 	SOUND_MIRROR_ENTER = 608,
 	SOUND_MIRROR_EXIT = 609,
 	SOUND_MIRROR_BREAK = 610,
-	
+
 	SOUND_ANIMA_TRAP = 611,
 	SOUND_ANIMA_RATTLE = 612,
 	SOUND_ANIMA_BREAK = 613,
@@ -2381,7 +2381,7 @@ SoundEffect = {
 	SOUND_FLASHBACK = 615,
 	SOUND_DARK_ESAU_OPEN = 616,
 	SOUND_DARK_ESAU_DEATH_OPEN = 617,
-	
+
 	SOUND_MOTHER_DEATH1 = 618,
 	SOUND_MOTHER_DEATH2 = 619,
 	SOUND_MOTHER_FISTPOUND1 = 620,
@@ -2595,7 +2595,7 @@ SoundEffect = {
 	SOUND_BEAST_LAVABALL_RISE = 814,
 	SOUND_BEAST_GROWL = 815,
 	SOUND_BEAST_GRUMBLE = 816,
-	
+
 	NUM_SOUND_EFFECTS = 817
 }
 
@@ -2702,13 +2702,13 @@ GameStateFlag = {
 		STATE_ABPLUS_BOSS_SWITCHED = 42, -- obsolete
 		STATE_SISTERS_VIS_SELECTED = 43, -- obsolete
 	STATE_MAX_COINS_OBTAINED = 43,		-- set when reaching 99 coins, used to check for the Golden Razor achievement
-	
+
 	STATE_SECRET_PATH = 44,				-- set when entering a trapdoor that leads to the alternate path
 	STATE_PERFECTION_SPAWNED = 45,		-- set when Perfection has dropped from a boss
 	STATE_MAUSOLEUM_HEART_KILLED = 46,	-- set when Mom's Heart has been killed in the Mausoleum
 	STATE_BACKWARDS_PATH_INIT = 47,		-- set when entering Mausoleum/Gehenna II through the photo door, causes Dad's Note to spawn instead of the Mom boss room
 	STATE_BACKWARDS_PATH = 48,			-- set during the Ascent
-	
+
 	NUM_STATE_FLAGS = 49
 }
 
@@ -3224,7 +3224,7 @@ CollectibleType = {
 	COLLECTIBLE_MOMS_RAZOR = 508,
 	COLLECTIBLE_BLOODSHOT_EYE = 509,
 	COLLECTIBLE_DELIRIOUS = 510,
-	
+
 	-- Booster Pack #1
 	COLLECTIBLE_ANGRY_FLY = 511,
 	COLLECTIBLE_BLACK_HOLE = 512,
@@ -3243,7 +3243,7 @@ CollectibleType = {
 	COLLECTIBLE_MOVING_BOX = 523,
 	COLLECTIBLE_TECHNOLOGY_ZERO = 524,
 	COLLECTIBLE_LEPROSY = 525,
-	
+
 	-- Booster Pack #3
 	COLLECTIBLE_7_SEALS = 526,
 	COLLECTIBLE_MR_ME = 527,
@@ -3256,7 +3256,7 @@ CollectibleType = {
 	COLLECTIBLE_LACHRYPHAGY = 532,
 	COLLECTIBLE_TRISAGION = 533,
 	COLLECTIBLE_SCHOOLBAG = 534,
-	
+
 	-- Booster Pack #5
 	COLLECTIBLE_BLANKET = 535,
 	COLLECTIBLE_SACRIFICIAL_ALTAR = 536,
@@ -3280,7 +3280,7 @@ CollectibleType = {
 	COLLECTIBLE_MOMS_SHOVEL = 552,
 
 	--NUM_COLLECTIBLES = 553
-	
+
 	-- Repentance
 	COLLECTIBLE_MUCORMYCOSIS = 553,
 	COLLECTIBLE_2SPOOKY = 554,
@@ -3396,7 +3396,7 @@ CollectibleType = {
 	COLLECTIBLE_BINGE_EATER = 664,
 	COLLECTIBLE_GUPPYS_EYE = 665,
 	-- 666
-	COLLECTIBLE_STRAW_MAN = 667, 
+	COLLECTIBLE_STRAW_MAN = 667,
 	COLLECTIBLE_DADS_NOTE = 668,
 	COLLECTIBLE_SAUSAGE = 669,
 	COLLECTIBLE_OPTIONS = 670,
@@ -3459,7 +3459,7 @@ CollectibleType = {
 	COLLECTIBLE_GHOST_BOMBS = 727,
 	COLLECTIBLE_GELLO = 728,
 	COLLECTIBLE_DECAP_ATTACK = 729,
-	
+
 	NUM_COLLECTIBLES = 730
 }
 
@@ -3584,7 +3584,7 @@ TrinketType = {
 	TRINKET_LOCUST_OF_CONQUEST = 117,
 	TRINKET_BAT_WING = 118,
 	TRINKET_STEM_CELL = 119,
-	
+
 	-- Booster pack #1
 	TRINKET_HAIRPIN = 120,
 	TRINKET_WOODEN_CROSS = 121,
@@ -3592,20 +3592,20 @@ TrinketType = {
 
 	-- Booster pack #2
 	TRINKET_FILIGREE_FEATHERS = 123,
-	
+
 	-- Booster pack #3
 	TRINKET_DOOR_STOP = 124,
-	
+
 	-- Booster pack #4
 	TRINKET_EXTENSION_CORD = 125,
-	
+
 	-- Booster pack #5
 	TRINKET_ROTTEN_PENNY = 126,
 	TRINKET_BABY_BENDER = 127,
 	TRINKET_FINGER_BONE = 128,
-	
+
 	--NUM_TRINKETS = 129
-	
+
 	-- Repentance
 	TRINKET_JAW_BREAKER = 129,
 	TRINKET_CHEWED_PEN = 130,
@@ -3669,7 +3669,7 @@ TrinketType = {
 	TRINKET_ICE_CUBE = 188,
 	TRINKET_SIGIL_OF_BAPHOMET = 189,
 	NUM_TRINKETS = 190,
-	
+
 	-- Golden trinkets
 	TRINKET_GOLDEN_FLAG = 0x8000,
 	TRINKET_ID_MASK = 0x7fff,
@@ -3786,14 +3786,14 @@ Card = {
 	CARD_DICE_SHARD = 49,
 	CARD_EMERGENCY_CONTACT = 50,
 	CARD_HOLY = 51,
-	
+
 	-- Booster Pack #1
 	CARD_HUGE_GROWTH = 52,
 	CARD_ANCIENT_RECALL = 53,
 	CARD_ERA_WALK = 54,
-	
+
 	--NUM_CARDS = 55
-	
+
 	-- Repentance
 	RUNE_SHARD = 55,
 	CARD_REVERSE_FOOL = 56,
@@ -3881,7 +3881,7 @@ TearVariant = {
 	HUNGRY = 36,
 	BALLOON_BRIMSTONE = 37,
 	BALLOON_BOMB = 38,
-	
+
 	-- Repentance
 	FIST = 39,
 	GRIDENT = 40,
@@ -3984,13 +3984,13 @@ TearFlags = {
 	TEAR_CARD_DROP_DEATH = TEARFLAG(79),			-- Killed enemies will drop a random tarot card
 	TEAR_RUNE_DROP_DEATH = TEARFLAG(80),			-- Killed enemies will drop a random rune
 	TEAR_TELEPORT = TEARFLAG(81),					-- Hit enemies will teleport to a different part of the room
-	
+
 	TEAR_EFFECT_COUNT = 82,
-	
+
 	-- Reserved flags - cannot be randomly picked
-	TEAR_REROLL_ROCK_WISP = TEARFLAG(115),			
-	TEAR_MOM_STOMP_WISP = TEARFLAG(116),			
-	TEAR_ENEMY_TO_WISP = TEARFLAG(117),				
+	TEAR_REROLL_ROCK_WISP = TEARFLAG(115),
+	TEAR_MOM_STOMP_WISP = TEARFLAG(116),
+	TEAR_ENEMY_TO_WISP = TEARFLAG(117),
 	TEAR_REROLL_ENEMY = TEARFLAG(118),				-- D10 Wisps, chance to reroll enemy on hit
 	TEAR_GIGA_BOMB = TEARFLAG(119),					-- Causes giant explosions that create holes in the ground (for Giga Bombs)
 	TEAR_EXTRA_GORE = TEARFLAG(120),				-- Causes enemies to explode into more gibs on death (for Donkey Jawbone)
@@ -4031,17 +4031,17 @@ ButtonAction = {
 	ACTION_MENULT = 24,
 	ACTION_MENURT = 25,
 	ACTION_MENUTAB = 26,
-	
+
 	ACTION_CONSOLE = 28 -- USE ONLY FOR HOOKING! To check the input use IsButtonTriggered with desired key
 }
 
 Keyboard = {
 	KEY_SPACE = 32,
-	KEY_APOSTROPHE = 39,  
-	KEY_COMMA = 44, 
-	KEY_MINUS = 45, 
-	KEY_PERIOD = 46,  
-	KEY_SLASH = 47, 
+	KEY_APOSTROPHE = 39,
+	KEY_COMMA = 44,
+	KEY_MINUS = 45,
+	KEY_PERIOD = 46,
+	KEY_SLASH = 47,
 	KEY_0 = 48,
 	KEY_1 = 49,
 	KEY_2 = 50,
@@ -4052,8 +4052,8 @@ Keyboard = {
 	KEY_7 = 55,
 	KEY_8 = 56,
 	KEY_9 = 57,
-	KEY_SEMICOLON = 59,  
-	KEY_EQUAL = 61,  
+	KEY_SEMICOLON = 59,
+	KEY_EQUAL = 61,
 	KEY_A = 65,
 	KEY_B = 66,
 	KEY_C = 67,
@@ -4080,12 +4080,12 @@ Keyboard = {
 	KEY_X = 88,
 	KEY_Y = 89,
 	KEY_Z = 90,
-	KEY_LEFT_BRACKET = 91, 
-	KEY_BACKSLASH = 92, 
-	KEY_RIGHT_BRACKET = 93,  
-	KEY_GRAVE_ACCENT = 96,  
-	KEY_WORLD_1 = 161, 
-	KEY_WORLD_2 = 162, 
+	KEY_LEFT_BRACKET = 91,
+	KEY_BACKSLASH = 92,
+	KEY_RIGHT_BRACKET = 93,
+	KEY_GRAVE_ACCENT = 96,
+	KEY_WORLD_1 = 161,
+	KEY_WORLD_2 = 162,
 	KEY_ESCAPE = 256,
 	KEY_ENTER = 257,
 	KEY_TAB = 258,
@@ -4254,7 +4254,7 @@ SeedEffect = {
 
 GridRooms = {
 	NO_ROOM_IDX = -99999,
-	
+
 	ROOM_DEVIL_IDX = -1,
 	ROOM_ERROR_IDX = -2,
 	ROOM_DEBUG_IDX = -3,
@@ -4275,10 +4275,10 @@ GridRooms = {
 	ROOM_EXTRA_BOSS_IDX = -17,
 	ROOM_ANGEL_SHOP_IDX = -18,
 	NUM_OFF_GRID_ROOMS = 18,
-	
+
 	MAX_GRID_ROOMS = 507,
 	MAX_ROOMS = 525,
-	
+
 	-- Not real room indices, doors that point to those indices have special behavior
 	ROOM_MIRROR_IDX = -100,
 	ROOM_MINESHAFT_IDX = -101,
@@ -4434,11 +4434,11 @@ ChampionColor = {
 	FLY_PROTECTED = 17, -- has halo of fly like shopkeeper, spawns 2 attack flies on death
 	TINY = 18, -- 33% less hp, half size, speed +33%, 20% chance of small pill
 	GIANT = 19, -- double size, 50% more hp, does 2 hearts of damage, 10% slower, 20% chance of large pill
-	
+
 	PULSE_RED = 20, -- heals all enemies in the room including himself by 30hp every second  - spawns a red heart when killed
 	SIZE_PULSE = 21, -- spawns flies when hit, one attack fly for each time it takes damage - spawns 4-6 blue flies when killed
 	KING = 22, -- turns all enemies in the room into yellow champions and has tripple HP - spawns 2-3 random pickups when killed
-	DEATH = 23, -- does 2 hearts of damage when touched - does death effect when killed 
+	DEATH = 23, -- does 2 hearts of damage when touched - does death effect when killed
 
 	BROWN = 24, -- constantly poops
 	RAINBOW = 25, -- many champion effects combined, drops one of everything
@@ -4463,7 +4463,7 @@ UseFlag = {
 
 	USE_MIMIC = 1 << 7,			-- Effect was mimicked by an active item (Blank Card, Placebo)
 	USE_NOANNOUNCER = 1 << 8,	-- Never play announcer voice
-	
+
 	USE_ALLOWWISPSPAWN = 1 << 9, -- This allows an item to spawn wisps when called from another item usage as the wisps generator checks for NOANIM, so usually you want to use this with NOANIM call
 	USE_CUSTOMVARDATA = 1 << 10, -- If set, forces UseActiveItem to use the CustomVarData argument instead of the active item's stored VarData
 }
@@ -4568,7 +4568,7 @@ AddEnumToNamespace(ItemConfig, {
 	CHARGE_NORMAL = 0,
 	CHARGE_TIMED = 1,
 	CHARGE_SPECIAL = 2,
-	
+
 	-- ItemConfig.TAG_*
 	TAG_DEAD = 1,					-- Dead things (for the Parasite unlock)
 	TAG_SYRINGE = 1<<1,				-- Syringes (for Little Baggy and the Spun! transformation)
@@ -4598,7 +4598,7 @@ AddEnumToNamespace(ItemConfig, {
 	TAG_NO_CANTRIP = 1<<25,			-- Can't be obtained in Cantripped challenge
 	TAG_WISP = 1<<26,				-- Active items that have wisps attached to them (automatically set)
 	TAG_UNIQUE_FAMILIAR = 1<<27,	-- Unique familiars that cannot be duplicated
-	
+
 	-- ItemConfig.CARDTYPE_*
 	CARDTYPE_TAROT = 0,				-- Tarot cards
 	CARDTYPE_SUIT = 1,				-- Standard playing cards (twos, aces and Joker, does not include Suicide King, Rules Card or Queen of Hearts)
@@ -4642,5 +4642,5 @@ CollectibleType.COLLECTIBLE_LEPROCY = 525
 CollectibleType.COLLECTIBLE_LIL_HARBINGERS = 526
 CollectibleType.COLLECTIBLE_DEATH_LIST = 530
 CollectibleType.COLLECTIBLE_BROKEN_SHOVEL = 550
-	
+
 TearFlags.TEAR_MIGAN = TearFlags.TEAR_MULLIGAN

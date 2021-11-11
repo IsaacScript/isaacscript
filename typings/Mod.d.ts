@@ -109,7 +109,11 @@ interface CallbackParameters {
     callback: (shaderName: string) => Record<string, unknown> | void,
   ];
   [ModCallbacks.MC_EXECUTE_CMD]: [
-    callback: (command: string, parameters: string) => void,
+    callback: (
+      command: string,
+      parameters: string,
+      player: EntityPlayer,
+    ) => void,
   ];
   [ModCallbacks.MC_PRE_USE_ITEM]: [
     callback: (
