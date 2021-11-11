@@ -26,6 +26,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Grid Entity Functions](modules/functions_gridEntity.html)
 - [Input Functions](modules/functions_input.html)
 - [JSON Functions](modules/functions_json.html)
+- [Localization Functions](modules/functions_localization.html)
 - [Log Functions](modules/functions_log.html)
 - [Math Functions](modules/functions_math.html)
 - [Pickup Functions](modules/functions_pickups.html)

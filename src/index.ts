@@ -35,6 +35,7 @@ export * from "./functions/flag";
 export * from "./functions/gridEntity";
 export * from "./functions/input";
 export * from "./functions/json";
+export * from "./functions/localization";
 export * from "./functions/log";
 export * from "./functions/math";
 export * from "./functions/pickups";

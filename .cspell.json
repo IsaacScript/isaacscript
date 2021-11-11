@@ -25,10 +25,12 @@
         "deserialization",
         "Discretized",
         "DPAD",
+        "Dunkelheit",
         "EHWAZ",
         "entcoll",
         "ETERNALCHEST",
         "Explosivo",
+        "Fluch",
         "Gamekid",
         "Gello",
         "getinfo",
@@ -64,6 +66,7 @@
         "luadebug",
         "Ludovico",
         "Maggy",
+        "Maldición",
         "Meconium",
         "MEGACHEST",
         "Mercurius",
@@ -78,6 +81,7 @@
         "noanim",
         "npcs",
         "OLDCHEST",
+        "oscuridad",
         "Ouroboros",
         "Parasitoid",
         "pcall",
@@ -115,6 +119,7 @@
         "stagetype",
         "stompy",
         "strawman",
+        "stringtable",
         "Sumptorium",
         "Suplex",
         "Synthoil",
@@ -139,6 +144,8 @@
         "Vasculitis",
         "VURP",
         "WOODENCHEST",
-        "zamiell"
+        "zamiell",
+        "Проклятие",
+        "Тьмы"
     ]
 }
