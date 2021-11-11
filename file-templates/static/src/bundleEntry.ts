@@ -3,7 +3,7 @@
 // (We don't want to point the TypeScriptToLua bundler at the "main.ts" file directly, because any
 // variables or functions that are declared in a bundle entry point will become global)
 
-import main from "./main";
+import { main } from "./main";
 
 main();
 

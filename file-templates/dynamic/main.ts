@@ -1,4 +1,4 @@
-export default function main(): void {
+export function main(): void {
   // Instantiate a new mod object, which grants the ability to add callback functions that
   // correspond to in-game events
   const mod = RegisterMod("MOD_NAME", 1);
