@@ -26,7 +26,7 @@ declare interface ItemConfigItem {
   InitCharge: int;
   MaxCharges: int;
   MaxCooldown: int;
-  Name: string;
+  // Name: string; // Commented out since it is bugged in patch v1.7.5
   PassiveCache: boolean;
   PersistentEffect: boolean;
   Quality: int;
