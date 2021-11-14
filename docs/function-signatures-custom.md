@@ -174,7 +174,7 @@ Fires on the first MC_NPC_UPDATE frame for each NPC.
 
 This callback is useful because many attributes cannot be set or retrieved properly in the normal MC_POST_NPC_INIT callback.
 
-When registering the callback, takes an optional second argument that will make the callback only fire if the NPC variant matches the variant provided.
+When registering the callback, takes an optional second argument that will make the callback only fire if the NPC's entity type matches the entity type provided.
 
 ```ts
 function postNPCInitLate(npc: EntityNPC): void {}
