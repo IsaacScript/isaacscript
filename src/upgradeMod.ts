@@ -1,10 +1,15 @@
 import * as customRevive from "./callbacks/customRevive";
 import * as itemPickup from "./callbacks/itemPickup";
+import * as postBombInitLate from "./callbacks/postBombInitLate";
 import * as postCursedTeleport from "./callbacks/postCursedTeleport";
+import * as postEffectInitLate from "./callbacks/postEffectInitLate";
 import * as postEsauJr from "./callbacks/postEsauJr";
+import * as postFamiliarInitLate from "./callbacks/postFamiliarInitLate";
 import * as postFlip from "./callbacks/postFlip";
 import * as postGridEntity from "./callbacks/postGridEntity";
+import * as postKnifeInitLate from "./callbacks/postKnifeInitLate";
 import * as postLaserInitLate from "./callbacks/postLaserInitLate";
+import * as postNPCInitLate from "./callbacks/postNPCInitLate";
 import * as postPickupCollect from "./callbacks/postPickupCollect";
 import * as postPickupInitLate from "./callbacks/postPickupInitLate";
 import * as postPlayerChangeHealth from "./callbacks/postPlayerChangeHealth";
@@ -12,10 +17,12 @@ import * as postPlayerChangeType from "./callbacks/postPlayerChangeType";
 import * as postPlayerFatalDamage from "./callbacks/postPlayerFatalDamage";
 import * as postPlayerInitLate from "./callbacks/postPlayerInitLate";
 import * as postPlayerReordered from "./callbacks/postPlayerReordered";
+import * as postProjectileInitLate from "./callbacks/postProjectileInitLate";
 import * as postPurchase from "./callbacks/postPurchase";
 import * as postSacrifice from "./callbacks/postSacrifice";
 import * as postSlot from "./callbacks/postSlot";
 import * as postSlotRender from "./callbacks/postSlotRender";
+import * as postTearInitLate from "./callbacks/postTearInitLate";
 import * as postTransformation from "./callbacks/postTransformation";
 import * as reorderedCallbacks from "./callbacks/reorderedCallbacks";
 import * as disableInputs from "./features/disableInputs";
@@ -68,9 +75,16 @@ export function upgradeMod(mod: Mod, verbose = false): ModUpgraded {
 function initCustomCallbacks(mod: ModUpgraded) {
   reorderedCallbacks.init(mod);
   postPlayerReordered.init(mod);
-  postPlayerInitLate.init(mod);
-  postPickupInitLate.init(mod);
-  postLaserInitLate.init(mod);
+  postPlayerInitLate.init(mod); // 1
+  postTearInitLate.init(mod); // 2
+  postFamiliarInitLate.init(mod); // 3
+  postBombInitLate.init(mod); // 4
+  postPickupInitLate.init(mod); // 5
+  postLaserInitLate.init(mod); // 7
+  postKnifeInitLate.init(mod); // 8
+  postProjectileInitLate.init(mod); // 9
+  postNPCInitLate.init(mod);
+  postEffectInitLate.init(mod); // 1000
   postPickupCollect.init(mod);
   itemPickup.init(mod);
   postPlayerChangeType.init(mod);
