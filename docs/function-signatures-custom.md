@@ -86,7 +86,7 @@ function postPlayerInitLate(pickup: EntityPickup): void {}
 
 ### MC_POST_TEAR_INIT_LATE
 
-Fires on the first MC_POST_TEAR_UPDATE frame for each player.
+Fires on the first MC_POST_TEAR_UPDATE frame for each tear.
 
 This callback is useful because many attributes cannot be set or retrieved properly in the normal MC_POST_TEAR_INIT callback.
 
@@ -98,7 +98,7 @@ function postTearInitLate(tear: EntityTear): void {}
 
 ### MC_POST_FAMILIAR_INIT_LATE
 
-Fires on the first MC_FAMILIAR_UPDATE frame for each player.
+Fires on the first MC_FAMILIAR_UPDATE frame for each familiar.
 
 This callback is useful because many attributes cannot be set or retrieved properly in the normal MC_POST_TEAR_INIT callback.
 
@@ -110,7 +110,7 @@ function postTearInitLate(familiar: EntityFamiliar): void {}
 
 ### MC_POST_BOMB_INIT_LATE
 
-Fires on the first MC_POST_BOMB_UPDATE frame for each player.
+Fires on the first MC_POST_BOMB_UPDATE frame for each bomb.
 
 This callback is useful because many attributes cannot be set or retrieved properly in the normal MC_POST_BOMB_INIT callback.
 
@@ -146,7 +146,7 @@ function postLaserInitLate(laser: EntityLaser): void {}
 
 ### MC_POST_KNIFE_INIT_LATE
 
-Fires on the first MC_POST_KNIFE_UPDATE frame for each laser.
+Fires on the first MC_POST_KNIFE_UPDATE frame for each knife.
 
 This callback is useful because many attributes cannot be set or retrieved properly in the normal MC_POST_KNIFE_INIT callback.
 
@@ -158,7 +158,7 @@ function postKnifeInitLate(knife: EntityKnife): void {}
 
 ### MC_POST_PROJECTILE_INIT_LATE
 
-Fires on the first MC_POST_PROJECTILE_UPDATE frame for each laser.
+Fires on the first MC_POST_PROJECTILE_UPDATE frame for each projectile.
 
 This callback is useful because many attributes cannot be set or retrieved properly in the normal MC_POST_PROJECTILE_INIT callback.
 
@@ -166,6 +166,30 @@ When registering the callback, takes an optional second argument that will make 
 
 ```ts
 function postProjectileInitLate(projectile: EntityProjectile): void {}
+```
+
+### MC_POST_NPC_INIT_LATE
+
+Fires on the first MC_NPC_UPDATE frame for each NPC.
+
+This callback is useful because many attributes cannot be set or retrieved properly in the normal MC_POST_NPC_INIT callback.
+
+When registering the callback, takes an optional second argument that will make the callback only fire if the NPC variant matches the variant provided.
+
+```ts
+function postNPCInitLate(npc: EntityNPC): void {}
+```
+
+### MC_POST_EFFECT_INIT_LATE
+
+Fires on the first MC_POST_EFFECT_UPDATE frame for each effect.
+
+This callback is useful because many attributes cannot be set or retrieved properly in the normal MC_POST_EFFECT_INIT callback.
+
+When registering the callback, takes an optional second argument that will make the callback only fire if the effect variant matches the `EffectVariant` provided.
+
+```ts
+function postEffectInitLate(npc: EntityEffect): void {}
 ```
 
 ### MC_POST_PICKUP_COLLECT
