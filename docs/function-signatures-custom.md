@@ -74,7 +74,7 @@ function postPlayerUpdateReordered(player: EntityPlayer): void {}
 
 ### MC_POST_PLAYER_INIT_LATE
 
-Fires on the first MC_POST_PICKUP_UPDATE frame for each player.
+Fires on the first MC_POST_PLAYER_UPDATE frame for each player.
 
 This callback is useful because many attributes cannot be set or retrieved properly in the normal MC_POST_PLAYER_INIT callback.
 
@@ -82,6 +82,42 @@ When registering the callback, takes an optional second argument that will make 
 
 ```ts
 function postPlayerInitLate(pickup: EntityPickup): void {}
+```
+
+### MC_POST_TEAR_INIT_LATE
+
+Fires on the first MC_POST_TEAR_UPDATE frame for each player.
+
+This callback is useful because many attributes cannot be set or retrieved properly in the normal MC_POST_TEAR_INIT callback.
+
+When registering the callback, takes an optional second argument that will make the callback only fire if the tear variant matches the `TearVariant` provided.
+
+```ts
+function postTearInitLate(tear: EntityTear): void {}
+```
+
+### MC_POST_FAMILIAR_INIT_LATE
+
+Fires on the first MC_FAMILIAR_UPDATE frame for each player.
+
+This callback is useful because many attributes cannot be set or retrieved properly in the normal MC_POST_TEAR_INIT callback.
+
+When registering the callback, takes an optional second argument that will make the callback only fire if the familiar variant matches the `FamiliarVariant` provided.
+
+```ts
+function postTearInitLate(familiar: EntityFamiliar): void {}
+```
+
+### MC_POST_BOMB_INIT_LATE
+
+Fires on the first MC_POST_BOMB_UPDATE frame for each player.
+
+This callback is useful because many attributes cannot be set or retrieved properly in the normal MC_POST_BOMB_INIT callback.
+
+When registering the callback, takes an optional second argument that will make the callback only fire if the bomb variant matches the `BombVariant` provided.
+
+```ts
+function postBombInitLate(bomb: EntityBomb): void {}
 ```
 
 ### MC_POST_PICKUP_INIT_LATE
@@ -102,10 +138,34 @@ Fires on the first MC_POST_LASER_UPDATE frame for each laser.
 
 This callback is useful because many attributes cannot be set or retrieved properly in the normal MC_POST_LASER_INIT callback.
 
-When registering the callback, takes an optional second argument that will make the callback only fire if the laser variant matches the `PickupLaser` provided.
+When registering the callback, takes an optional second argument that will make the callback only fire if the laser variant matches the `LaserVariant` provided.
 
 ```ts
 function postLaserInitLate(laser: EntityLaser): void {}
+```
+
+### MC_POST_KNIFE_INIT_LATE
+
+Fires on the first MC_POST_KNIFE_UPDATE frame for each laser.
+
+This callback is useful because many attributes cannot be set or retrieved properly in the normal MC_POST_KNIFE_INIT callback.
+
+When registering the callback, takes an optional second argument that will make the callback only fire if the knife variant matches the `KnifeVariant` provided.
+
+```ts
+function postKnifeInitLate(knife: EntityKnife): void {}
+```
+
+### MC_POST_PROJECTILE_INIT_LATE
+
+Fires on the first MC_POST_PROJECTILE_UPDATE frame for each laser.
+
+This callback is useful because many attributes cannot be set or retrieved properly in the normal MC_POST_PROJECTILE_INIT callback.
+
+When registering the callback, takes an optional second argument that will make the callback only fire if the projectile variant matches the `ProjectileVariant` provided.
+
+```ts
+function postProjectileInitLate(projectile: EntityProjectile): void {}
 ```
 
 ### MC_POST_PICKUP_COLLECT
