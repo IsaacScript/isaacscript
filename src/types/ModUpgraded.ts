@@ -1,6 +1,9 @@
+import * as postBombInitLate from "../callbacks/subscriptions/postBombInitLate";
 import * as postCursedTeleport from "../callbacks/subscriptions/postCursedTeleport";
 import * as postCustomRevive from "../callbacks/subscriptions/postCustomRevive";
+import * as postEffectInitLate from "../callbacks/subscriptions/postEffectInitLate";
 import * as postEsauJr from "../callbacks/subscriptions/postEsauJr";
+import * as postFamiliarInitLate from "../callbacks/subscriptions/postFamiliarInitLate";
 import * as postFirstEsauJr from "../callbacks/subscriptions/postFirstEsauJr";
 import * as postFirstFlip from "../callbacks/subscriptions/postFirstFlip";
 import * as postFlip from "../callbacks/subscriptions/postFlip";
@@ -9,9 +12,11 @@ import * as postGridEntityInit from "../callbacks/subscriptions/postGridEntityIn
 import * as postGridEntityRemove from "../callbacks/subscriptions/postGridEntityRemove";
 import * as postGridEntityUpdate from "../callbacks/subscriptions/postGridEntityUpdate";
 import * as postItemPickup from "../callbacks/subscriptions/postItemPickup";
+import * as postKnifeInitLate from "../callbacks/subscriptions/postKnifeInitLate";
 import * as postLaserInitLate from "../callbacks/subscriptions/postLaserInitLate";
 import * as postNewLevelReordered from "../callbacks/subscriptions/postNewLevelReordered";
 import * as postNewRoomReordered from "../callbacks/subscriptions/postNewRoomReordered";
+import * as postNPCInitLate from "../callbacks/subscriptions/postNPCInitLate";
 import * as postPickupCollect from "../callbacks/subscriptions/postPickupCollect";
 import * as postPickupInitLate from "../callbacks/subscriptions/postPickupInitLate";
 import * as postPlayerChangeHealth from "../callbacks/subscriptions/postPlayerChangeHealth";
@@ -21,11 +26,13 @@ import * as postPlayerInitLate from "../callbacks/subscriptions/postPlayerInitLa
 import * as postPlayerInitReordered from "../callbacks/subscriptions/postPlayerInitReordered";
 import * as postPlayerRenderReordered from "../callbacks/subscriptions/postPlayerRenderReordered";
 import * as postPlayerUpdateReordered from "../callbacks/subscriptions/postPlayerUpdateReordered";
+import * as postProjectileInitLate from "../callbacks/subscriptions/postProjectileInitLate";
 import * as postPurchase from "../callbacks/subscriptions/postPurchase";
 import * as postSacrifice from "../callbacks/subscriptions/postSacrifice";
 import * as postSlotInit from "../callbacks/subscriptions/postSlotInit";
 import * as postSlotRender from "../callbacks/subscriptions/postSlotRender";
 import * as postSlotUpdate from "../callbacks/subscriptions/postSlotUpdate";
+import * as postTearInitLate from "../callbacks/subscriptions/postTearInitLate";
 import * as postTransformation from "../callbacks/subscriptions/postTransformation";
 import * as preCustomRevive from "../callbacks/subscriptions/preCustomRevive";
 import * as preItemPickup from "../callbacks/subscriptions/preItemPickup";
@@ -150,6 +157,27 @@ export class ModUpgraded implements Mod {
         break;
       }
 
+      case ModCallbacksCustom.MC_POST_TEAR_INIT_LATE: {
+        postTearInitLate.register(
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_TEAR_INIT_LATE]),
+        );
+        break;
+      }
+
+      case ModCallbacksCustom.MC_POST_FAMILIAR_INIT_LATE: {
+        postFamiliarInitLate.register(
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_FAMILIAR_INIT_LATE]),
+        );
+        break;
+      }
+
+      case ModCallbacksCustom.MC_POST_BOMB_INIT_LATE: {
+        postBombInitLate.register(
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_BOMB_INIT_LATE]),
+        );
+        break;
+      }
+
       case ModCallbacksCustom.MC_POST_PICKUP_INIT_LATE: {
         postPickupInitLate.register(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_PICKUP_INIT_LATE]),
@@ -160,6 +188,34 @@ export class ModUpgraded implements Mod {
       case ModCallbacksCustom.MC_POST_LASER_INIT_LATE: {
         postLaserInitLate.register(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_LASER_INIT_LATE]),
+        );
+        break;
+      }
+
+      case ModCallbacksCustom.MC_POST_KNIFE_INIT_LATE: {
+        postKnifeInitLate.register(
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_KNIFE_INIT_LATE]),
+        );
+        break;
+      }
+
+      case ModCallbacksCustom.MC_POST_PROJECTILE_INIT_LATE: {
+        postProjectileInitLate.register(
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_PROJECTILE_INIT_LATE]),
+        );
+        break;
+      }
+
+      case ModCallbacksCustom.MC_POST_NPC_INIT_LATE: {
+        postNPCInitLate.register(
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_NPC_INIT_LATE]),
+        );
+        break;
+      }
+
+      case ModCallbacksCustom.MC_POST_EFFECT_INIT_LATE: {
+        postEffectInitLate.register(
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_EFFECT_INIT_LATE]),
         );
         break;
       }
