@@ -1,9 +1,12 @@
 import { saveDataManager } from "../features/saveDataManager/main";
+import { getRoomIndex, getRoomVisitedCount } from "../functions/rooms";
 import * as postEffectInitLate from "./subscriptions/postEffectInitLate";
 
 const v = {
-  room: {
+  run: {
     firedSet: new Set<PtrHash>(),
+    currentRoomIndex: null as int | null,
+    currentRoomVisitedCount: null as int | null,
   },
 };
 
@@ -23,9 +26,20 @@ function postEffectUpdate(effect: EntityEffect) {
     return;
   }
 
+  const roomIndex = getRoomIndex();
+  const roomVisitedCount = getRoomVisitedCount();
+  if (
+    roomIndex !== v.run.currentRoomIndex ||
+    roomVisitedCount !== v.run.currentRoomVisitedCount
+  ) {
+    v.run.currentRoomIndex = roomIndex;
+    v.run.currentRoomVisitedCount = roomVisitedCount;
+    v.run.firedSet.clear();
+  }
+
   const index = GetPtrHash(effect);
-  if (!v.room.firedSet.has(index)) {
-    v.room.firedSet.add(index);
+  if (!v.run.firedSet.has(index)) {
+    v.run.firedSet.add(index);
     postEffectInitLate.fire(effect);
   }
 }
