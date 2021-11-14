@@ -8,15 +8,15 @@ export function hasSubscriptions(): boolean {
 
 export function register(
   callback: PostNPCInitLateCallbackType,
-  npcVariant?: int,
+  entityType?: EntityType,
 ): void {
-  subscriptions.push([callback, npcVariant]);
+  subscriptions.push([callback, entityType]);
 }
 
 export function fire(npc: EntityNPC): void {
-  for (const [callback, npcVariant] of subscriptions) {
+  for (const [callback, entityType] of subscriptions) {
     // Handle the optional 2nd callback argument
-    if (npcVariant !== undefined && npcVariant !== npc.Variant) {
+    if (entityType !== undefined && entityType !== npc.Type) {
       continue;
     }
 

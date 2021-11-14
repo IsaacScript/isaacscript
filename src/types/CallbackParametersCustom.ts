@@ -108,7 +108,7 @@ export interface CallbackParametersCustom {
 
   [ModCallbacksCustom.MC_POST_NPC_INIT_LATE]: [
     callback: PostNPCInitLateCallbackType,
-    npcVariant?: int,
+    entityType?: EntityType,
   ];
 
   [ModCallbacksCustom.MC_POST_EFFECT_INIT_LATE]: [
