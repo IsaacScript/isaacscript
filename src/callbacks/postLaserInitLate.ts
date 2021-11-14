@@ -5,8 +5,8 @@ import * as postLaserInitLate from "./subscriptions/postLaserInitLate";
 const v = {
   run: {
     firedSet: new Set<PtrHash>(),
-    currentRoomIndex: null,
-    currentRoomVisitedCount: null,
+    currentRoomIndex: null as int | null,
+    currentRoomVisitedCount: null as int | null,
   },
 };
 
@@ -27,11 +27,13 @@ function postLaserUpdate(laser: EntityLaser) {
   }
 
   const roomIndex = getRoomIndex();
-  const visitedCount = getRoomVisitedCount();
+  const roomVisitedCount = getRoomVisitedCount();
   if (
     roomIndex !== v.run.currentRoomIndex ||
-    visitedCount !== v.run.currentRoomVisitedCount
+    roomVisitedCount !== v.run.currentRoomVisitedCount
   ) {
+    v.run.currentRoomIndex = roomIndex;
+    v.run.currentRoomVisitedCount = roomVisitedCount;
     v.run.firedSet.clear();
   }
 
