@@ -56,6 +56,7 @@ export function getRoomData(): RoomConfig | undefined {
   const level = game.GetLevel();
   const roomIndex = getRoomIndex();
   const roomDesc = level.GetRoomByIdx(roomIndex);
+  // (we don't use "level.GetCurrentRoomDesc()" since it returns a read-only copy of the data)
 
   return roomDesc.Data;
 }
@@ -191,6 +192,14 @@ export function getRoomVariant(): int {
   }
 
   return roomData.Variant;
+}
+
+export function getRoomVisitedCount(): int {
+  const game = Game();
+  const level = game.GetLevel();
+  const roomDesc = level.GetCurrentRoomDesc();
+
+  return roomDesc.VisitedCount;
 }
 
 /**

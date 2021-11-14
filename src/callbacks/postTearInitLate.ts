@@ -1,9 +1,12 @@
 import { saveDataManager } from "../features/saveDataManager/main";
+import { getRoomIndex, getRoomVisitedCount } from "../functions/rooms";
 import * as postTearInitLate from "./subscriptions/postTearInitLate";
 
 const v = {
-  room: {
+  run: {
     firedSet: new Set<PtrHash>(),
+    currentRoomIndex: null,
+    currentRoomVisitedCount: null,
   },
 };
 
@@ -23,9 +26,18 @@ function postTearUpdate(tear: EntityTear) {
     return;
   }
 
+  const roomIndex = getRoomIndex();
+  const visitedCount = getRoomVisitedCount();
+  if (
+    roomIndex !== v.run.currentRoomIndex ||
+    visitedCount !== v.run.currentRoomVisitedCount
+  ) {
+    v.run.firedSet.clear();
+  }
+
   const index = GetPtrHash(tear);
-  if (!v.room.firedSet.has(index)) {
-    v.room.firedSet.add(index);
+  if (!v.run.firedSet.has(index)) {
+    v.run.firedSet.add(index);
     postTearInitLate.fire(tear);
   }
 }
