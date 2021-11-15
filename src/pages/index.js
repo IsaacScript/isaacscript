@@ -48,14 +48,16 @@ function HomepageHeader() {
 }
 
 const exampleSource = `
-const deadEnts = Isaac.GetRoomEntities().filter((ent) => ent.IsDead());
+const entities = Isaac.GetRoomEntities();
+const deadEntities = entities.filter((entity) => entity.IsDead());
 `.trim();
 
 const exampleOutput = `
-local deadEnts = {}
-for _, ent in ipairs(Isaac.GetRoomEntities()) do
-   if ent:IsDead() then
-      table.insert(deadEnts, ent)
+local entities = Isaac.GetRoomEntities()
+local deadEntities = {}
+for _, entity in ipairs(entities) do
+   if entity:IsDead() then
+      table.insert(deadEntities, entity)
    end
 end
 `.trim();
