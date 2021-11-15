@@ -16,6 +16,7 @@ export function init(mod: Mod): void {
   saveDataManager("postGridEntityCallback", v, hasSubscriptions);
 
   mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate); // 1
+  mod.AddCallback(ModCallbacks.MC_POST_RENDER, postRender); // 2
   mod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoom); // 9
 }
 
@@ -33,16 +34,31 @@ function postUpdate() {
     return;
   }
 
-  const game = Game();
-  const room = game.GetRoom();
-
   for (const gridEntity of getGridEntities()) {
     checkNewGridEntity(gridEntity);
     postGridEntityUpdate.fire(gridEntity);
   }
 
-  // Check to see if any grid entities have disappeared and remove them from the initialized map if
-  // so
+  checkGridEntityRemoved();
+}
+
+// ModCallbacks.MC_POST_RENDER (2)
+function postRender() {
+  if (!hasSubscriptions()) {
+    return;
+  }
+
+  for (const gridEntity of getGridEntities()) {
+    checkNewGridEntity(gridEntity);
+  }
+
+  checkGridEntityRemoved();
+}
+
+function checkGridEntityRemoved() {
+  const game = Game();
+  const room = game.GetRoom();
+
   for (const [
     gridIndex,
     gridEntityType,
