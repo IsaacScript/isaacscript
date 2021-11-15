@@ -78,6 +78,27 @@ export function getSurroundingGridEntities(
   return surroundingGridEntities;
 }
 
+export function removeAllMatchingGridEntities(
+  gridEntityType: GridEntityType,
+): void {
+  const gridEntities = getGridEntities(gridEntityType);
+  for (const gridEntity of gridEntities) {
+    removeGridEntity(gridEntity);
+  }
+}
+
+export function removeGridEntity(gridEntity: GridEntity): void {
+  const game = Game();
+  const room = game.GetRoom();
+
+  const gridIndex = gridEntity.GetGridIndex();
+  room.RemoveGridEntity(gridIndex, 0, false);
+
+  // It is best practice to call the "Update()" method after removing a grid entity;
+  // otherwise, spawning grid entities on the same tile can fail
+  room.Update();
+}
+
 export function spawnGiantPoop(topLeftGridIndex: int): void {
   const game = Game();
   const room = game.GetRoom();
