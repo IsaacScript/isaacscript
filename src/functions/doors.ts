@@ -171,6 +171,10 @@ export function isSecretRoomDoor(door: GridEntityDoor): boolean {
   return filename === "gfx/grid/Door_08_HoleInWall.anm2";
 }
 
+/**
+ * For the purposes of this function, doors to Secret Rooms or Super Secret Rooms that have not been
+ * discovered yet will not be opened.
+ */
 export function openAllDoors(): void {
   for (const door of getDoors()) {
     // If we try to open a hidden Secret Room door (or Super Secret Room door),
