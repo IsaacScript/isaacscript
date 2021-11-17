@@ -164,12 +164,14 @@ export function setPlayerHealth(
 
 export function removeAllPlayerHealth(player: EntityPlayer): void {
   const goldenHearts = player.GetGoldenHearts();
+  const eternalHearts = player.GetEternalHearts();
   const boneHearts = player.GetBoneHearts();
   const brokenHearts = player.GetBrokenHearts();
 
   // To avoid bugs, we have to remove the exact amount of certain types of hearts
   // We remove Golden Hearts first so that they don't break
   player.AddGoldenHearts(goldenHearts * -1);
+  player.AddEternalHearts(eternalHearts * -1);
   player.AddBoneHearts(boneHearts * -1);
   player.AddBrokenHearts(brokenHearts * -1);
   player.AddMaxHearts(MAX_PLAYER_HEART_CONTAINERS * -2, true);
