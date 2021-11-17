@@ -107,7 +107,7 @@ function mergeTSTLObject(
       let valueCopy: unknown;
       if (valueType === "table") {
         valueCopy = deepCopy(
-          value,
+          value as LuaTable,
           SerializationType.DESERIALIZE,
           traversalDescription,
         );
@@ -146,7 +146,7 @@ function mergeTable(
           key,
           traversalDescription,
         );
-        merge(oldValue, value, traversalDescription);
+        merge(oldValue, value as LuaTable, traversalDescription);
       }
     } else {
       // Base case: copy the value

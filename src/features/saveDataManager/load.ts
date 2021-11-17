@@ -55,7 +55,11 @@ export function loadFromDisk(
     // because save data could contain out-of-date fields
     // Instead, merge it one field at a time in a recursive way
     // (and convert Lua tables back to TypeScriptToLua Maps, if necessary)
-    merge(oldSaveDataForSubscriber as LuaTable, value, key as string);
+    merge(
+      oldSaveDataForSubscriber as LuaTable,
+      value as LuaTable,
+      key as string,
+    );
   }
 
   log('The save data manager loaded data from the "save#.dat" file.');

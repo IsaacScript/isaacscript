@@ -70,7 +70,7 @@ export function logAllFlags(
   }
   log(`Logging all ${description}flags:`);
   for (const [key, value] of pairs(flagEnum)) {
-    if (hasFlag(flags, value)) {
+    if (hasFlag(flags, value as int)) {
       log(`- Has flag: ${key}`);
     }
   }

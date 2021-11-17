@@ -211,7 +211,7 @@ function cloneClass(oldClass: unknown) {
 
 function getNewClassFromMetatable(metatable: TSTLClassMetatable) {
   // This is a re-implementation of the transpiled "__TS__New" function
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line
   const instance = setmetatable({}, metatable.constructor.prototype as any);
   const newClass = instance as TSTLClassMetatable;
   newClass.____constructor(); // eslint-disable-line no-underscore-dangle

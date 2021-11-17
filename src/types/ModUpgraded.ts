@@ -72,7 +72,7 @@ export class ModUpgraded implements Mod {
 
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      this.Mod.AddCallback(callbackID, callbackWithLogger, optionalArg);
+      this.Mod.AddCallback(callbackID, callbackWithLogger, optionalArg); // eslint-disable-line
     } else {
       this.Mod.AddCallback(callbackID, ...args);
     }
