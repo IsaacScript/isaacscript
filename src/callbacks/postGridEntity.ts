@@ -16,7 +16,6 @@ export function init(mod: Mod): void {
   saveDataManager("postGridEntityCallback", v, hasSubscriptions);
 
   mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate); // 1
-  mod.AddCallback(ModCallbacks.MC_POST_RENDER, postRender); // 2
   mod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoom); // 9
 }
 
@@ -37,19 +36,6 @@ function postUpdate() {
   for (const gridEntity of getGridEntities()) {
     checkNewGridEntity(gridEntity);
     postGridEntityUpdate.fire(gridEntity);
-  }
-
-  checkGridEntityRemoved();
-}
-
-// ModCallbacks.MC_POST_RENDER (2)
-function postRender() {
-  if (!hasSubscriptions()) {
-    return;
-  }
-
-  for (const gridEntity of getGridEntities()) {
-    checkNewGridEntity(gridEntity);
   }
 
   checkGridEntityRemoved();
