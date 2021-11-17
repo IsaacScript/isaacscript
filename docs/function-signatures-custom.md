@@ -402,7 +402,7 @@ function postSlotRender(slot: Entity): void {}
 
 Fires when a new grid entity is initialized. Specifically, this is either:
 - in the MC_POST_NEW_ROOM callback (firing every time a room is entered, even if the entity was previously there on a previous room entry)
-- in the MC_POST_UPDATE or MC_POST_RENDER callback (if the entity appeared midway through the room, like when the trapdoor appears after defeating It Lives!)
+- in the MC_POST_UPDATE callback (if the entity appeared midway through the room, like when the trapdoor appears after defeating It Lives!)
 
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `GridEntityType` provided.
 
@@ -422,7 +422,7 @@ function postGridEntityUpdate(gridEntity: GridEntity): void {}
 
 ### MC_POST_GRID_ENTITY_REMOVE
 
-Fires on the MC_POST_UPDATE or MC_POST_RENDER frame after a grid entity no longer exists (where it did exist a frame ago).
+Fires when a new grid entity is removed. Specifically, this on the MC_POST_UPDATE frame after a grid entity no longer exists (where it did exist a frame ago).
 
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `GridEntityType` provided.
 
