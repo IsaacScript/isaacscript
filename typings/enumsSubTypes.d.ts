@@ -959,6 +959,7 @@ declare enum CollectibleType {
   COLLECTIBLE_GLASS_EYE = 730,
   COLLECTIBLE_STYE = 731,
   COLLECTIBLE_MOMS_RING = 732,
+
   NUM_COLLECTIBLES = 733,
 }
 
@@ -1063,6 +1064,7 @@ declare enum Card {
   CARD_SOUL_FORGOTTEN = 95,
   CARD_SOUL_BETHANY = 96,
   CARD_SOUL_JACOB = 97,
+
   NUM_CARDS = 98,
 }
 

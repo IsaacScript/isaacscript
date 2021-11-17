@@ -28,9 +28,10 @@ declare interface RoomDescriptor {
   SpawnSeed: int;
   SurpriseMiniboss: boolean;
   VisitedCount: int;
+
   // In the "enums.lua" file, the RoomDescriptor class is extended with many members:
   // - RoomDescriptor.DISPLAY_*
   // - RoomDescriptor.FLAG_*
   // In IsaacScript, these are instead implemented as enums, since it is cleaner
-  // See RoomDescriptorDisplayType and RoomDescriptorFlag respectively
+  // See the "RoomDescriptorDisplayType" and "RoomDescriptorFlag" enums respectively
 }

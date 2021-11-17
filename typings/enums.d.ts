@@ -2127,7 +2127,7 @@ declare enum ItemPoolType {
   POOL_GREED_CURSE = 21,
   POOL_GREED_SECRET = 22,
   POOL_CRANE_GAME = 23,
-  POOL_24 = 24,
+  POOL_ULTRA_SECRET = 24,
   POOL_BOMB_BUM = 25,
   POOL_PLANETARIUM = 26,
   POOL_OLD_CHEST = 27,
@@ -2381,4 +2381,18 @@ declare enum PoopSpellType {
   NUM_POOP_SPELLS = 12,
   SPELL_BAG_SIZE = 20,
   SPELL_QUEUE_SIZE = 6,
+}
+
+declare enum RenderMode {
+  /** Currently not rendering room entities. */
+  RENDER_NULL = 0,
+  /** Rendering room entities normally (in a dry room). */
+  RENDER_NORMAL = 1,
+  RENDER_SKIP = 2,
+  /** Rendering room entities above the water in a flooded room. */
+  RENDER_WATER_ABOVE = 3,
+  /** Rendering room entities below the water in a flooded room. */
+  RENDER_WATER_REFRACT = 4,
+  /** Rendering the reflection of room entities in a flooded room. */
+  RENDER_WATER_REFLECT = 5,
 }
