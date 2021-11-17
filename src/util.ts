@@ -10,7 +10,7 @@ export const ensureAllCases = (obj: never): never => obj;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function error(...args: any[]): never {
-  console.error(...args);
+  console.error(...args); // eslint-disable-line @typescript-eslint/no-unsafe-argument
   process.exit(1);
 }
 

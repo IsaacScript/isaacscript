@@ -46,7 +46,7 @@ async function main(): Promise<void> {
   // Pre-flight checks
   await checkForWindowsTerminalBugs();
 
-  await handleCommands(argv);
+  await handleCommands(argv as Record<string, unknown>);
 }
 
 function printBanner() {
@@ -58,9 +58,7 @@ function printBanner() {
   console.log();
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function handleCommands(argv: any) {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+async function handleCommands(argv: Record<string, unknown>) {
   const positionalArgs = argv._ as string[];
   let command: Command;
   if (positionalArgs.length > 0) {

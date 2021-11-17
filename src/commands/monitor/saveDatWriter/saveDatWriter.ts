@@ -51,7 +51,7 @@ function onMessage(type: SaveDatMessageType, data: string, numRetries = 0) {
     return;
   }
   addMessageToSaveDat(type, saveDat, data); // Mutates saveDat
-  writeSaveDatToDisk(type, data, numRetries, saveDat);
+  writeSaveDatToDisk(type, data, saveDat, numRetries);
 }
 
 function readSaveDatFromDisk() {
@@ -111,8 +111,8 @@ function addMessageToSaveDat(
 function writeSaveDatToDisk(
   type: SaveDatMessageType,
   data: string,
-  numRetries = 0,
   saveDat: SaveDatMessage[],
+  numRetries = 0,
 ) {
   const saveDatRaw = JSON.stringify(saveDat, null, 2);
   try {
