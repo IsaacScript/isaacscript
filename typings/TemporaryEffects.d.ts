@@ -53,38 +53,23 @@ declare interface TemporaryEffects {
   HasTrinketEffect(trinketType: TrinketType | int): boolean;
 
   /**
-   * This method is broken in patch v1.7.5.
-   *
    * @param collectibleType
    * @param count Use -1 to remove all instances. Default is 1.
    */
   RemoveCollectibleEffect(
-    fakeArg: never,
     collectibleType: CollectibleType | int,
     count?: int,
   ): void;
 
   /**
-   * This method is broken in patch v1.7.5.
-   *
    * @param nullItemID
    * @param count Use -1 to remove all instances. Default is 1.
    */
-  RemoveNullEffect(
-    fakeArg: never,
-    nullItemID: NullItemID | int,
-    count?: int,
-  ): void;
+  RemoveNullEffect(nullItemID: NullItemID | int, count?: int): void;
 
   /**
-   * This method is broken in patch v1.7.5.
-   *
    * @param trinketType
    * @param count Use -1 to remove all instances. Default is 1.
    */
-  RemoveTrinketEffect(
-    fakeArg: never,
-    trinketType: TrinketType | int,
-    count?: int,
-  ): void;
+  RemoveTrinketEffect(trinketType: TrinketType | int, count?: int): void;
 }

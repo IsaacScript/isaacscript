@@ -236,10 +236,8 @@ declare enum BatterySubType {
 
 /**
  * For EntityType.ENTITY_PICKUP (5), PickupVariant.PICKUP_COLLECTIBLE (100).
- * Note that this is temporarily a constant enum until the next vanilla patch (because it is missing enum
- * values for the new items).
  */
-declare const enum CollectibleType {
+declare enum CollectibleType {
   COLLECTIBLE_NULL = 0,
   COLLECTIBLE_SAD_ONION = 1,
   COLLECTIBLE_INNER_EYE = 2,

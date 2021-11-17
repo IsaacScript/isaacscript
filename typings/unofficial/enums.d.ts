@@ -33,7 +33,7 @@ declare const enum ItemConfigTag {
   TECH = 1 << 3,
   /** Battery items (for the Jumper Cables unlock) */
   BATTERY = 1 << 4,
-  /** -- Guppy items (Guppy transformation) */
+  /** Guppy items (Guppy transformation) */
   GUPPY = 1 << 5,
   /** Fly items (Beelzebub transformation) */
   FLY = 1 << 6,
@@ -245,4 +245,60 @@ declare const enum DisplayFlag {
   VISIBLE = 1 << 0,
   SHADOW = 1 << 1,
   SHOW_ICON = 1 << 2,
+}
+
+/**
+ * Matches the RoomDescriptor.DISPLAY_* members of the RoomDescriptor class.
+ * In IsaacScript, we reimplement this as an enum, since it is cleaner.
+ */
+declare const enum RoomDescriptorDisplayType {
+  NONE = 0,
+  BOX = 1,
+  LOCK = 2,
+  ICON = 4,
+  ALL = 5,
+}
+/**
+ * Matches the RoomDescriptor.FLAG_* members of the RoomDescriptor class.
+ * In IsaacScript, we reimplement this as an enum, since it is cleaner.
+ */
+declare const enum RoomDescriptorFlag {
+  /** Room is clear, don't spawn enemies when visiting */
+  CLEAR = 1 << 0,
+  /** All pressure plates have been triggered in this room. This won't be set if there are no trigger pressure plates in the first place. */
+  PRESSURE_PLATES_TRIGGERED = 1 << 1,
+  /** Sacrifice room has paid out */
+  SACRIFICE_DONE = 1 << 2,
+  /** Challenge room finished */
+  CHALLENGE_DONE = 1 << 3,
+  /** Load Greed/Krampus instead of the room specified by Type, Variant */
+  SURPRISE_MINIBOSS = 1 << 4,
+  /** Pits in this room contain water */
+  HAS_WATER = 1 << 5,
+  /** Play alternate boss music in this room */
+  ALT_BOSS_MUSIC = 1 << 6,
+  /** Don't pay out with a reward when clearing this room, used for traps that lock the player in the room when triggered */
+  NO_REWARD = 1 << 7,
+  /** Was flooded by an item (i.e. Flush) */
+  FLOODED = 1 << 8,
+  /** Complete darkness */
+  PITCH_BLACK = 1 << 9,
+  /** Room spawned by Red Key */
+  RED_ROOM = 1 << 10,
+  /** Treasure room transformed by Devil's Crown */
+  DEVIL_TREASURE = 1 << 11,
+  /** Use an alternate backdrop (this is used by some floors such as Dross and Ashpit) */
+  USE_ALTERNATE_BACKDROP = 1 << 12,
+  /** Room is covered in cursed mist, player is temporarily reduced to base items and stats */
+  CURSED_MIST = 1 << 13,
+  /** Mama Mega has activated in this room */
+  MAMA_MEGA = 1 << 14,
+  /** Don't generate walls (for Beast arena) */
+  NO_WALLS = 1 << 15,
+  /** Rotgut's heart was killed, immediately play Rotgut's death animation when reentering this room */
+  ROTGUT_CLEARED = 1 << 16,
+  /** A portal spawned by Lil Portal now links to this room, don't create more portals that link to it */
+  PORTAL_LINKED = 1 << 17,
+  /** If walking into this room through a door, redirect to a Blue Womb room instead (this is used by Blue Key) */
+  BLUE_REDIRECT = 1 << 18,
 }

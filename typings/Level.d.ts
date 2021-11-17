@@ -97,10 +97,8 @@ declare interface Level {
   /**
    * Attempts to create a red room door in the given room at the given door slot. Returns true on
    * success.
-   *
-   * Note that this is supposed to be named "MakeRedRoomDoor", but has an accidental typo.
    */
-  MakeRedRoomDor(currentRoomIndex: int, doorSlot: DoorSlot): boolean;
+  MakeRedRoomDoor(currentRoomIndex: int, doorSlot: DoorSlot): boolean;
 
   /**
    * @param roomType
