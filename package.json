@@ -40,7 +40,7 @@
     "@types/prompts": "^2.0.14",
     "@types/source-map-support": "^0.5.4",
     "@types/update-notifier": "^5.1.0",
-    "@types/yargs": "^17.0.5",
-    "isaacscript-lint": "^1.0.63"
+    "@types/yargs": "^17.0.6",
+    "isaacscript-lint": "^1.0.64"
   }
 }
