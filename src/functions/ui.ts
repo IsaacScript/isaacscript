@@ -11,22 +11,11 @@
 export function getHUDOffsetVector(): Vector {
   const defaultVector = Vector.Zero;
 
-  // In Mod Config Menu, players can set a Hud Offset
-  if (
-    ModConfigMenu === undefined ||
-    ModConfigMenu.Config === undefined ||
-    ModConfigMenu.Config.General === undefined
-  ) {
-    return defaultVector;
-  }
-
-  const hudOffset = ModConfigMenu.Config.General.HudOffset;
-  if (hudOffset === undefined) {
-    return defaultVector;
-  }
+  // Convert e.g. 0.4 to 4
+  const hudOffset = math.floor(Options.HUDOffset * 10);
 
   // Expected values are integers between 1 and 10
-  if (type(hudOffset) !== "number" || hudOffset < 1 || hudOffset > 10) {
+  if (hudOffset < 1 || hudOffset > 10) {
     return defaultVector;
   }
 
