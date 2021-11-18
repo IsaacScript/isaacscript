@@ -1,5 +1,9 @@
 import { ensureAllCases } from "./util";
 
+export function copyVector(vector: Vector): Vector {
+  return Vector(vector.X, vector.Y);
+}
+
 export function directionToVector(direction: Direction): Vector {
   switch (direction) {
     case Direction.DOWN: {
@@ -27,6 +31,22 @@ export function directionToVector(direction: Direction): Vector {
       return Vector.Zero;
     }
   }
+}
+
+/**
+ * Helper function to get a new vector of length 1. Using this is safer than using the `Vector.One`
+ * variable because the variable can be overwritten or modified.
+ */
+export function getOneVector(): Vector {
+  return Vector(1, 1);
+}
+
+/**
+ * Helper function to get a new vector of length 0. Using this is safer than using the `Vector.Zero`
+ * variable because the variable can be overwritten or modified.
+ */
+export function getZeroVector(): Vector {
+  return Vector(0, 0);
 }
 
 export function isVector(object: unknown): boolean {

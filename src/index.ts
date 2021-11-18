@@ -28,6 +28,7 @@ export * from "./functions/array";
 export * from "./functions/bitwise";
 export * from "./functions/charge";
 export * from "./functions/collectibles";
+export * from "./functions/color";
 export { deepCopy } from "./functions/deepCopy";
 export { deepCopyTests } from "./functions/deepCopyTests";
 export * from "./functions/doors";

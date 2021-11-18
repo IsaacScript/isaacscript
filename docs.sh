@@ -20,6 +20,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/bitwise.ts" \
   --entryPoints "$DIR/src/functions/charge.ts" \
   --entryPoints "$DIR/src/functions/collectibles.ts" \
+  --entryPoints "$DIR/src/functions/color.ts" \
   --entryPoints "$DIR/src/functions/deepCopy.ts" \
   --entryPoints "$DIR/src/functions/doors.ts" \
   --entryPoints "$DIR/src/functions/entity.ts" \

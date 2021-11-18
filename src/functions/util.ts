@@ -76,7 +76,7 @@ export function getEnumValues(transpiledEnum: unknown): int[] {
 /**
  * Converts a hex string like "#33aa33" to a KColor object.
  *
- * @param hexString A hex string like "#ffffff".
+ * @param hexString A hex string like "#ffffff" or "ffffff". (The "#" character is optional.)
  */
 export function hexToKColor(hexString: string, alpha: float): KColor {
   hexString = hexString.replace("#", "");
