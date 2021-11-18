@@ -1,6 +1,6 @@
 declare namespace Options {
   /**
-   * Whether the Announcer voice should play when using items, pills, cards, and runes.
+   * Whether the announcer voice should play when using items, pills, cards, and runes.
    * 0: random, 1: off, 2: always on.
    */
   let AnnouncerVoiceMode: int;

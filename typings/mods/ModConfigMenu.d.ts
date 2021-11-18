@@ -4,7 +4,7 @@ declare const ModConfigMenu: ModConfigMenuInterface | undefined;
 declare interface ModConfigMenuInterface {
   AddSetting(
     categoryName: string,
-    subcategoryName: string,
+    subcategoryName?: string,
     setting?: ModConfigMenuSetting,
   ): void;
   AddSpace(categoryName: string, subcategoryName: string): void;
