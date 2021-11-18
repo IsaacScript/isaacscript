@@ -306,15 +306,6 @@ export function removeEntities(entities: Entity[]): void {
   }
 }
 
-export function removeAllMatchingEntities(
-  entityType: int,
-  entityVariant = -1,
-  entitySubType = -1,
-): void {
-  const entities = Isaac.FindByType(entityType, entityVariant, entitySubType);
-  removeEntities(entities);
-}
-
 export function removeAllBombs(): void {
   const bombs = getBombs();
   for (const bomb of bombs) {
@@ -348,6 +339,15 @@ export function removeAllLasers(): void {
   for (const laser of lasers) {
     laser.Remove();
   }
+}
+
+export function removeAllMatchingEntities(
+  entityType: int,
+  entityVariant = -1,
+  entitySubType = -1,
+): void {
+  const entities = Isaac.FindByType(entityType, entityVariant, entitySubType);
+  removeEntities(entities);
 }
 
 export function removeAllNPCs(): void {
