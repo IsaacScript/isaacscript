@@ -140,6 +140,16 @@ export function tableClear(table: LuaTable): void {
   }
 }
 
+/**
+ * Helper function to change the current room. It can be used for both teleportation and "normal"
+ * room transitions, depending on what is passed for the `direction` and `roomTransitionAnim`
+ * arguments. Use this function instead of invoking `Game.StartRoomTransition()` directly so that
+ * you don't forget to set `Level.LeaveDoor` property.
+ *
+ * @param roomIndex The room index of the destination room.
+ * @param direction Optional. Default is `Direction.NO_DIRECTION`.
+ * @param roomTransitionAnim Optional. Default is `RoomTransitionAnim.TELEPORT`.
+ */
 export function teleport(
   roomIndex: int,
   direction = Direction.NO_DIRECTION,
@@ -148,8 +158,8 @@ export function teleport(
   const game = Game();
   const level = game.GetLevel();
 
-  // This must be set before every StartRoomTransition() invocation or else the function can send
-  // you to the wrong room
+  // This must be set before every `Game.StartRoomTransition()` invocation or else the function can
+  // send you to the wrong room
   level.LeaveDoor = -1;
 
   game.StartRoomTransition(roomIndex, direction, roomTransitionAnim);
