@@ -55,6 +55,20 @@ export function hasFlag(flags: int, ...flag: int[]): boolean {
 }
 
 /**
+ * Helper function to determine whether damage to a player in the EntityTakeDmg callback was
+ * self-inflicted. For example, damage from a Curse Room door, a Razor, or a Blood Donation Machine
+ * would count as self-inflicted damage.
+ */
+export function isSelfDamage(damageFlags: int): boolean {
+  return (
+    // Exclude self-damage from e.g. Curse Room door spikes
+    hasFlag(damageFlags, DamageFlag.DAMAGE_NO_PENALTIES) ||
+    // Exclude self-damage from e.g. Razor
+    hasFlag(damageFlags, DamageFlag.DAMAGE_RED_HEARTS)
+  );
+}
+
+/**
  * Helper function to remove a bit flag from an existing set of bit flags.
  * This is a variadic function, so pass as many flags as you want to remove.
  *

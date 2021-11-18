@@ -78,6 +78,18 @@ export function getSurroundingGridEntities(
   return surroundingGridEntities;
 }
 
+/**
+ * Helper function to detect whether a given Void Portal is one that randomly spawns after a boss is
+ * defeated or is one that naturally spawns in the room after Hush. (This is determined by looking
+ * at the VarData of the entity.)
+ */
+export function isPostBossVoidPortal(gridEntity: GridEntity): boolean {
+  // The VarData of Void Portals that are spawned after bosses will be equal to 1
+  // The VarData of the Void Portal in the room after Hush is equal to 0
+  const saveState = gridEntity.GetSaveState();
+  return saveState.VarData === 1;
+}
+
 export function removeAllGridEntitiesExceptFor(
   ...gridEntityTypes: GridEntityType[]
 ): void {

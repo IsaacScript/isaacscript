@@ -1,4 +1,5 @@
 import { COLLECTIBLE_NAME_MAP } from "../collectibleNameMap";
+import { removeAllMatchingEntities } from "./entity";
 import { copySet } from "./util";
 
 const COLLECTIBLE_SPRITE_LAYER = 1;
@@ -148,6 +149,13 @@ export function isQuestCollectible(
   collectibleType: CollectibleType | int,
 ): boolean {
   return collectibleHasTag(collectibleType, ItemConfigTag.QUEST);
+}
+
+export function removeAllCollectibles(): void {
+  removeAllMatchingEntities(
+    EntityType.ENTITY_PICKUP,
+    PickupVariant.PICKUP_COLLECTIBLE,
+  );
 }
 
 /**
