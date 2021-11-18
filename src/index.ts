@@ -45,6 +45,7 @@ export * from "./functions/pocketItems";
 export * from "./functions/random";
 export * from "./functions/revive";
 export * from "./functions/rooms";
+export * from "./functions/sound";
 export * from "./functions/sprite";
 export * from "./functions/stage";
 export * from "./functions/tears";

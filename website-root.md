@@ -36,6 +36,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Random Functions](modules/functions_random.html)
 - [Revive Functions](modules/functions_revive.html)
 - [Rooms Functions](modules/functions_rooms.html)
+- [Sound Functions](modules/functions_sound.html)
 - [Sprite Functions](modules/functions_sprite.html)
 - [Stage Functions](modules/functions_stage.html)
 - [Tears Functions](modules/functions_tears.html)
