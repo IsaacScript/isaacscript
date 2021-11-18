@@ -3,23 +3,23 @@ declare namespace Options {
    * Whether the announcer voice should play when using items, pills, cards, and runes.
    * 0: random, 1: off, 2: always on.
    */
-  let AnnouncerVoiceMode: int;
+  let AnnouncerVoiceMode: 0 | 1 | 2;
 
   let BulletVisibility: boolean;
 
   /** Toggles the active camera. 1: on, 2: off. */
-  let CameraStyle: int;
+  let CameraStyle: 1 | 2;
 
   let ChargeBars: boolean;
 
   /** How big the text in the debug console should be. 0: default, 1: small, 2: tiny. */
-  let ConsoleFont: int;
+  let ConsoleFont: 0 | 1 | 2;
 
   let DebugConsoleEnabled: boolean;
   let DisplayPopups: boolean;
 
   /** Sets the style of the Extra HUD. 0: off, 1: on, 2: mini. */
-  let ExtraHUDStyle: int;
+  let ExtraHUDStyle: 0 | 1 | 2;
 
   let FadedConsoleDisplay: boolean;
   let Filter: boolean;
