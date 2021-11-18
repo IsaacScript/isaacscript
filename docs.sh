@@ -27,7 +27,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/input.ts" \
   --entryPoints "$DIR/src/functions/pocketItems.ts" \
   --entryPoints "$DIR/src/functions/json.ts" \
-  --entryPoints "$DIR/src/functions/localization.ts" \
+  --entryPoints "$DIR/src/functions/language.ts" \
   --entryPoints "$DIR/src/functions/log.ts" \
   --entryPoints "$DIR/src/functions/math.ts" \
   --entryPoints "$DIR/src/functions/pickups.ts" \
