@@ -1,5 +1,3 @@
-export {};
-
 /** @noSelf */
 declare namespace Input {
   function GetActionValue(action: ButtonAction, controllerID: int): float;
