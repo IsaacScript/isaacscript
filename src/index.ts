@@ -26,6 +26,7 @@ export {
 } from "./features/sirenHelpers";
 export * from "./functions/array";
 export * from "./functions/bitwise";
+export * from "./functions/charge";
 export * from "./functions/collectibles";
 export { deepCopy } from "./functions/deepCopy";
 export { deepCopyTests } from "./functions/deepCopyTests";

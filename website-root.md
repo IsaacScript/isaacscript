@@ -18,6 +18,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 
 - [Array Functions](modules/functions_array.html)
 - [Bitwise Functions](modules/functions_bitwise.html)
+- [Charge Functions](modules/functions_charge.html)
 - [Collectible Functions](modules/functions_collectibles.html)
 - [Deep Copy Functions](modules/functions_deepCopy.html)
 - [Door Functions](modules/functions_doors.html)
