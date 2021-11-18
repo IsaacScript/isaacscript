@@ -13,6 +13,8 @@ if (($NODE_VERSION < 16)); then
   exit 1
 fi
 
+SECONDS=0
+
 cd "$DIR"
 
 # Step 1 - Use ESLint to lint the TypeScript
@@ -25,4 +27,4 @@ npx eslint --max-warnings 0 src
 npx cspell --no-progress --no-summary "src/**/*.ts"
 npx cspell --no-progress --no-summary "mods/metadata.xml"
 
-echo "Success!"
+echo "Successfully linted in $SECONDS seconds."

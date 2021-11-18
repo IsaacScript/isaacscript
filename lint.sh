@@ -13,6 +13,8 @@ if (($NODE_VERSION < 16)); then
   exit 1
 fi
 
+SECONDS=0
+
 cd "$DIR"
 
 # Step 1 - Use ESLint to lint the TypeScript
@@ -28,4 +30,4 @@ npx cspell --no-progress --no-summary "src/**/*.ts"
 # The "--error" flag makes it return an error code of 1 if unused exports are found
 npx ts-prune --error
 
-echo "Success!"
+echo "Successfully linted in $SECONDS seconds."

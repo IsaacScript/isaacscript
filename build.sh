@@ -10,6 +10,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 # https://stackoverflow.com/questions/23162299/how-to-get-the-last-part-of-dirname-in-bash/23162553
 REPO="$(basename "$DIR")"
 
+SECONDS=0
+
 cd "$DIR"
 
 # Cleanup
@@ -24,3 +26,5 @@ rm -rf "$HOME/AppData/Roaming/npm/node_modules/$REPO" # Previous link from "npm 
 npx tsc
 touch "$DIR/dist/.npmignore"
 npm install . --global
+
+echo "Successfully built in $SECONDS seconds."
