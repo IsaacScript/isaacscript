@@ -1,9 +1,3 @@
-const GRID_ENTITIES_BETWEEN_RENDER_SURFACES = Vector(17, 11); // 17 on the x axis, 11 on the y axis
-const GRID_ENTITY_RENDER_SIZE = Vector(26, 26);
-const SCREEN_SIZE_BETWEEN_RENDER_SURFACES = GRID_ENTITY_RENDER_SIZE.mul(
-  GRID_ENTITIES_BETWEEN_RENDER_SURFACES,
-);
-
 /**
  * In the options menu, players have the ability to set a HUD offset. However, mods do not have
  * access to this value. To get around this, Mod Config Menu provides a separate HUD offset setting
@@ -63,18 +57,10 @@ export function getScreenBottomLeftPos(): Vector {
 }
 
 export function getScreenBottomRightPos(): Vector {
-  const game = Game();
-  const room = game.GetRoom();
+  const screenWidth = Isaac.GetScreenWidth();
+  const screenHeight = Isaac.GetScreenHeight();
 
-  // First, get the offset from (0, 0) that the top-left wall is drawn at
-  const renderSurfaceTopLeft = room.GetRenderSurfaceTopLeft();
-
-  // Multiply it by 2 because the bottom-right-hand-corner will be offset in an identical way
-  // (technically, the bottom right room render surface is not set identically,
-  // but for a 1x1 room it would be, and the camera is consistent across all room shapes)
-  const doubleRenderSurfaceTopLeft = renderSurfaceTopLeft.mul(2);
-
-  return doubleRenderSurfaceTopLeft.add(SCREEN_SIZE_BETWEEN_RENDER_SURFACES);
+  return Vector(screenWidth, screenHeight);
 }
 
 export function getScreenCenterPos(): Vector {
