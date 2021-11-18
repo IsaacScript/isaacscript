@@ -78,6 +78,19 @@ export function getSurroundingGridEntities(
   return surroundingGridEntities;
 }
 
+export function removeAllGridEntitiesExceptFor(
+  ...gridEntityTypes: GridEntityType[]
+): void {
+  const gridEntityTypeExceptions = new Set(gridEntityTypes);
+  const gridEntities = getGridEntities();
+  for (const gridEntity of gridEntities) {
+    const gridEntityType = gridEntity.GetType();
+    if (!gridEntityTypeExceptions.has(gridEntityType)) {
+      removeGridEntity(gridEntity);
+    }
+  }
+}
+
 export function removeAllMatchingGridEntities(
   gridEntityType: GridEntityType,
 ): void {
