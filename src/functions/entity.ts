@@ -1,3 +1,5 @@
+import { getRandom, nextSeed } from "./random";
+
 export function anyEntityCloserThan(
   entities: Entity[],
   position: Vector,
@@ -375,4 +377,16 @@ export function removeAllTears(): void {
   for (const tear of tears) {
     tear.Remove();
   }
+}
+
+export function setEntityRandomColor(entity: Entity): void {
+  const colorValues: int[] = [];
+  let seed = entity.InitSeed;
+  for (let i = 0; i < 3; i++) {
+    seed = nextSeed(seed);
+    const randomColorValue = getRandom(seed);
+    colorValues.push(randomColorValue);
+  }
+  const color = Color(colorValues[0], colorValues[1], colorValues[2]);
+  entity.SetColor(color, 100000, 100000, false, false);
 }
