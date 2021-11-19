@@ -312,6 +312,16 @@ export function getProjectiles(
   return projectiles;
 }
 
+export function getSlots(matchingVariant = -1, matchingSubType = -1): Entity[] {
+  const slots = Isaac.FindByType(
+    EntityType.ENTITY_SLOT,
+    matchingVariant,
+    matchingSubType,
+  );
+
+  return slots;
+}
+
 /**
  * Helper function to get all of the tears in the room.
  *

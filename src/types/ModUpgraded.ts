@@ -29,6 +29,7 @@ import * as postPlayerUpdateReordered from "../callbacks/subscriptions/postPlaye
 import * as postProjectileInitLate from "../callbacks/subscriptions/postProjectileInitLate";
 import * as postPurchase from "../callbacks/subscriptions/postPurchase";
 import * as postSacrifice from "../callbacks/subscriptions/postSacrifice";
+import * as postSlotDestroyed from "../callbacks/subscriptions/postSlotDestroyed";
 import * as postSlotInit from "../callbacks/subscriptions/postSlotInit";
 import * as postSlotRender from "../callbacks/subscriptions/postSlotRender";
 import * as postSlotUpdate from "../callbacks/subscriptions/postSlotUpdate";
@@ -349,6 +350,13 @@ export class ModUpgraded implements Mod {
       case ModCallbacksCustom.MC_POST_SLOT_RENDER: {
         postSlotRender.register(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_SLOT_RENDER]),
+        );
+        break;
+      }
+
+      case ModCallbacksCustom.MC_POST_SLOT_DESTROYED: {
+        postSlotDestroyed.register(
+          ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_SLOT_DESTROYED]),
         );
         break;
       }

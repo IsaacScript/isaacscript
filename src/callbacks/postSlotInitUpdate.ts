@@ -1,8 +1,10 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
+import { getSlots } from "../functions/entity";
 import * as postSlotInit from "./subscriptions/postSlotInit";
 import * as postSlotUpdate from "./subscriptions/postSlotUpdate";
 
-// This provides the logic for PostSlotInit and PostSlotUpdate
+// This provides the logic for the PostSlotInit and PostSlotUpdate callbacks
+// (the PostSlotRender and PostSlotDestroyed callbacks are handled in a different file)
 
 const v = {
   room: {
@@ -10,8 +12,8 @@ const v = {
   },
 };
 
-export function postSlotCallbacksInit(mod: Mod): void {
-  saveDataManager("postSlot", v, hasSubscriptions);
+export function postSlotInitUpdateCallbacksInit(mod: Mod): void {
+  saveDataManager("postSlotInitUpdate", v, hasSubscriptions);
 
   mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate); // 1
   mod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoom); // 9
@@ -27,8 +29,7 @@ function postUpdate() {
     return;
   }
 
-  const slots = Isaac.FindByType(EntityType.ENTITY_SLOT);
-  for (const slot of slots) {
+  for (const slot of getSlots()) {
     checkNewEntity(slot);
     postSlotUpdate.fire(slot);
   }
@@ -40,8 +41,7 @@ function postNewRoom() {
     return;
   }
 
-  const slots = Isaac.FindByType(EntityType.ENTITY_SLOT);
-  for (const slot of slots) {
+  for (const slot of getSlots()) {
     checkNewEntity(slot);
   }
 }

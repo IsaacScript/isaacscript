@@ -20,8 +20,8 @@ import { postPlayerReorderedCallbacksInit } from "./callbacks/postPlayerReordere
 import { postProjectileInitLateCallbackInit } from "./callbacks/postProjectileInitLate";
 import { postPurchaseCallbackInit } from "./callbacks/postPurchase";
 import { postSacrificeCallbackInit } from "./callbacks/postSacrifice";
-import { postSlotCallbacksInit } from "./callbacks/postSlot";
-import { postSlotRenderCallbackInit } from "./callbacks/postSlotRender";
+import { postSlotInitUpdateCallbacksInit } from "./callbacks/postSlotInitUpdate";
+import { postSlotRenderBrokenCallbacksInit } from "./callbacks/postSlotRenderBroken";
 import { postTearInitLateCallbackInit } from "./callbacks/postTearInitLate";
 import { postTransformationCallbackInit } from "./callbacks/postTransformation";
 import { reorderedCallbacksInit } from "./callbacks/reorderedCallbacks";
@@ -97,8 +97,8 @@ function initCustomCallbacks(mod: ModUpgraded) {
   postPurchaseCallbackInit(mod);
   postSacrificeCallbackInit(mod);
   postCursedTeleportCallbackInit(mod);
-  postSlotCallbacksInit(mod);
-  postSlotRenderCallbackInit(mod);
+  postSlotInitUpdateCallbacksInit(mod);
+  postSlotRenderBrokenCallbacksInit(mod);
   postGridEntityCallbacksInit(mod);
 }
 
