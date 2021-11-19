@@ -79,6 +79,31 @@ export function getSurroundingGridEntities(
 }
 
 /**
+ * Helper function to see if all of the pressure plates in the current room are pushed. Returns true
+ * if there are no pressure plates in the room.
+ */
+export function isAllPressurePlatesPushed(): boolean {
+  const game = Game();
+  const room = game.GetRoom();
+  const hasPressurePlates = room.HasTriggerPressurePlates();
+
+  if (!hasPressurePlates) {
+    return true;
+  }
+
+  for (const gridEntity of getGridEntities(
+    GridEntityType.GRID_PRESSURE_PLATE,
+  )) {
+    const gridEntityDesc = gridEntity.GetSaveState();
+    if (gridEntityDesc.State !== PressurePlateState.PRESSURE_PLATE_PRESSED) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+/**
  * Helper function to detect whether a given Void Portal is one that randomly spawns after a boss is
  * defeated or is one that naturally spawns in the room after Hush. (This is determined by looking
  * at the VarData of the entity.)
