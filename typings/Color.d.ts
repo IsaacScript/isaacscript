@@ -1,11 +1,11 @@
 /**
- * @param r
- * @param g
- * @param b
- * @param a Default is 1.
- * @param ro Default is 0, range is 0-1.
- * @param go Default is 0, range is 0-1.
- * @param bo Default is 0, range is 0-1.
+ * @param r Range is 0-1.
+ * @param g Range is 0-1.
+ * @param b Range is 0-1.
+ * @param a Default is 1. Range is 0-1.
+ * @param ro Default is 0. Range is 0-1.
+ * @param go Default is 0. Range is 0-1.
+ * @param bo Default is 0. Range is 0-1.
  */
 declare function Color(
   this: void,
