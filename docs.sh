@@ -12,3 +12,42 @@ npx typedoc \
   --out "$DOCS_DIR" \
   --readme "$DIR/website-root.md" \
   --entryPoints "$DIR/src/index.ts" \
+  --entryPoints "$DIR/src/features/disableInputs.ts" \
+  --entryPoints "$DIR/src/features/forgottenSwitch.ts" \
+  --entryPoints "$DIR/src/features/runInNFrames.ts" \
+  --entryPoints "$DIR/src/features/saveDataManager/exports.ts" \
+  --entryPoints "$DIR/src/features/sirenHelpers.ts" \
+  --entryPoints "$DIR/src/functions/array.ts" \
+  --entryPoints "$DIR/src/functions/bitwise.ts" \
+  --entryPoints "$DIR/src/functions/card.ts" \
+  --entryPoints "$DIR/src/functions/charge.ts" \
+  --entryPoints "$DIR/src/functions/collectibles.ts" \
+  --entryPoints "$DIR/src/functions/color.ts" \
+  --entryPoints "$DIR/src/functions/deepCopy.ts" \
+  --entryPoints "$DIR/src/functions/doors.ts" \
+  --entryPoints "$DIR/src/functions/entity.ts" \
+  --entryPoints "$DIR/src/functions/flag.ts" \
+  --entryPoints "$DIR/src/functions/gridEntity.ts" \
+  --entryPoints "$DIR/src/functions/input.ts" \
+  --entryPoints "$DIR/src/functions/pocketItems.ts" \
+  --entryPoints "$DIR/src/functions/json.ts" \
+  --entryPoints "$DIR/src/functions/language.ts" \
+  --entryPoints "$DIR/src/functions/log.ts" \
+  --entryPoints "$DIR/src/functions/math.ts" \
+  --entryPoints "$DIR/src/functions/npc.ts" \
+  --entryPoints "$DIR/src/functions/pickups.ts" \
+  --entryPoints "$DIR/src/functions/player.ts" \
+  --entryPoints "$DIR/src/functions/playerHealth.ts" \
+  --entryPoints "$DIR/src/functions/random.ts" \
+  --entryPoints "$DIR/src/functions/revive.ts" \
+  --entryPoints "$DIR/src/functions/rooms.ts" \
+  --entryPoints "$DIR/src/functions/sprite.ts" \
+  --entryPoints "$DIR/src/functions/stage.ts" \
+  --entryPoints "$DIR/src/functions/tears.ts" \
+  --entryPoints "$DIR/src/functions/transformations.ts" \
+  --entryPoints "$DIR/src/functions/trinkets.ts" \
+  --entryPoints "$DIR/src/functions/ui.ts" \
+  --entryPoints "$DIR/src/functions/util.ts" \
+  --entryPoints "$DIR/src/functions/vector.ts" \
+  --entryPoints "$DIR/src/transformationMap.ts" \
+  --entryPoints "$DIR/src/upgradeMod.ts" \
