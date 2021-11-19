@@ -1,9 +1,9 @@
-// This provides the logic for PostFlip and PostFirstFlip
-
-import { saveDataManager } from "../features/saveDataManager/main";
+import { saveDataManager } from "../features/saveDataManager/exports";
 import { getPlayers } from "../functions/player";
 import * as postFirstFlip from "./subscriptions/postFirstFlip";
 import * as postFlip from "./subscriptions/postFlip";
+
+// This provides the logic for PostFlip and PostFirstFlip
 
 const v = {
   run: {

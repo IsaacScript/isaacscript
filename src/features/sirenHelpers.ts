@@ -1,5 +1,5 @@
 import { getUpgradeErrorMsg } from "../errors";
-import { saveDataManager } from "./saveDataManager/main";
+import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "sirenHelpers";
 

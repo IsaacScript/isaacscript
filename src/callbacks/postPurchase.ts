@@ -1,4 +1,4 @@
-import { saveDataManager } from "../features/saveDataManager/main";
+import { saveDataManager } from "../features/saveDataManager/exports";
 import { getPlayerIndex, getPlayers, PlayerIndex } from "../functions/player";
 import * as postPurchase from "./subscriptions/postPurchase";
 

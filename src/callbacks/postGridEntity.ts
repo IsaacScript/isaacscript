@@ -1,10 +1,10 @@
-// This provides the logic for PostGridEntityInit, PostGridEntityUpdate, and PostGridEntityRemove
-
-import { saveDataManager } from "../features/saveDataManager/main";
+import { saveDataManager } from "../features/saveDataManager/exports";
 import { getGridEntities } from "../functions/gridEntity";
 import * as postGridEntityInit from "./subscriptions/postGridEntityInit";
 import * as postGridEntityRemove from "./subscriptions/postGridEntityRemove";
 import * as postGridEntityUpdate from "./subscriptions/postGridEntityUpdate";
+
+// This provides the logic for PostGridEntityInit, PostGridEntityUpdate, and PostGridEntityRemove
 
 const v = {
   room: {

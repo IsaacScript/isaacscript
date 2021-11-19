@@ -1,15 +1,15 @@
-// This provides the logic for PostGameStartedReordered, PostNewLevelReordered,
-// and PostNewRoomReordered
+import * as postGameStartedReordered from "./subscriptions/postGameStartedReordered";
+import * as postNewLevelReordered from "./subscriptions/postNewLevelReordered";
+import * as postNewRoomReordered from "./subscriptions/postNewRoomReordered";
+
+// This provides the logic for PostGameStartedReordered, PostNewLevelReordered, and
+// PostNewRoomReordered
 
 // By default, callbacks fire in the following order:
 // PostNewRoom --> PostNewLevel --> PostGameStarted
 // It is easier to write mod code if the callbacks run in a more logical order:
 // PostGameStarted --> PostNewLevel --> PostNewRoom
 // Manually reorganize the callback execution so that this is the case
-
-import * as postGameStartedReordered from "./subscriptions/postGameStartedReordered";
-import * as postNewLevelReordered from "./subscriptions/postNewLevelReordered";
-import * as postNewRoomReordered from "./subscriptions/postNewRoomReordered";
 
 let currentStage = null as int | null;
 let currentStageType = null as int | null;

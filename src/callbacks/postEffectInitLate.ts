@@ -1,4 +1,4 @@
-import { saveDataManager } from "../features/saveDataManager/main";
+import { saveDataManager } from "../features/saveDataManager/exports";
 import { getRoomIndex, getRoomVisitedCount } from "../functions/rooms";
 import * as postEffectInitLate from "./subscriptions/postEffectInitLate";
 

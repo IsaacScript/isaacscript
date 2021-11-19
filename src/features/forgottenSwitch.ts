@@ -1,6 +1,6 @@
 import { getUpgradeErrorMsg } from "../errors";
 import { ModUpgraded } from "../types/ModUpgraded";
-import { saveDataManager } from "./saveDataManager/main";
+import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "Forgotten switcher";
 

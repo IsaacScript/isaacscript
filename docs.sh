@@ -49,7 +49,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/vector.ts" \
   --entryPoints "$DIR/src/features/disableInputs.ts" \
   --entryPoints "$DIR/src/features/forgottenSwitch.ts" \
-  --entryPoints "$DIR/src/features/saveDataManager/main.ts" \
+  --entryPoints "$DIR/src/features/saveDataManager/exports.ts" \
   --entryPoints "$DIR/src/features/sirenHelpers.ts" \
   --entryPoints "$DIR/src/transformationMap.ts" \
   --entryPoints "$DIR/src/upgradeMod.ts" \

@@ -1,4 +1,4 @@
-import { saveDataManager } from "../features/saveDataManager/main";
+import { saveDataManager } from "../features/saveDataManager/exports";
 import { arrayEmpty } from "../functions/array";
 import {
   getPlayerFromIndex,

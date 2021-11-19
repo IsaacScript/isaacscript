@@ -1,4 +1,4 @@
-import { saveDataManager } from "../features/saveDataManager/main";
+import { saveDataManager } from "../features/saveDataManager/exports";
 import { hasFlag } from "../functions/flag";
 import * as postSacrifice from "./subscriptions/postSacrifice";
 

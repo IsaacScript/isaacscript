@@ -1,4 +1,4 @@
-import { saveDataManager } from "../features/saveDataManager/main";
+import { saveDataManager } from "../features/saveDataManager/exports";
 import { arrayInit } from "../functions/array";
 import { getPlayerIndex, PlayerIndex } from "../functions/player";
 import { ModCallbacksCustom } from "../types/ModCallbacksCustom";

@@ -15,11 +15,7 @@ export {
 } from "./features/disableInputs";
 export { forgottenSwitch } from "./features/forgottenSwitch";
 export { runInNFrames, runNextFrame } from "./features/runInNFrames";
-export {
-  saveDataManager,
-  saveDataManagerSave,
-  saveDataManagerSetGlobal,
-} from "./features/saveDataManager/main";
+export * from "./features/saveDataManager/exports";
 export {
   hasSirenStolenFamiliar,
   setFamiliarNoSirenSteal,
