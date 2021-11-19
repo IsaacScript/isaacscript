@@ -1,10 +1,8 @@
-import { getRandomArrayElement } from "./array";
-import { getEnumValues } from "./util";
+import { getRandomInt } from "./random";
 
-/** Has an equal chance of returning any value in the `Card` enum. */
+/** Has an equal chance of returning any value between 1 and `Card.NUM_CARDS - 1`. */
 export function getRandomCard(seed = Random()): Card {
-  const cards = getEnumValues(Card);
-  return getRandomArrayElement(cards, seed);
+  return getRandomInt(1, Card.NUM_CARDS - 1, seed);
 }
 
 /** Returns true for entries in the Card enum that are not a rune or an object. */
