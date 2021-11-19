@@ -15,7 +15,7 @@
     "eslint": "^8.2.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-airbnb-typescript": "^16.0.0",
-    "eslint-config-isaacscript": "^1.0.50",
+    "eslint-config-isaacscript": "^1.0.51",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-eqeqeq-fix": "^1.0.3",
     "eslint-plugin-eslint-comments": "^3.2.0",
@@ -32,6 +32,6 @@
     "ts-prune": "^0.10.1"
   },
   "peerDependencies": {
-    "typescript": "^4.4.4"
+    "typescript": "4.4.4"
   }
 }
