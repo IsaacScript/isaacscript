@@ -1,7 +1,7 @@
 import { getRandomArrayElement } from "./array";
 import { getEnumValues } from "./util";
 
-export function getRandomHeartSubType(seed: int): HeartSubType {
+export function getRandomHeartSubType(seed = Random()): HeartSubType {
   const heartSubTypes = getEnumValues(HeartSubType);
   return getRandomArrayElement(heartSubTypes, seed);
 }
