@@ -593,7 +593,11 @@ export function hasOpenTrinketSlot(player: EntityPlayer): boolean {
   return openTrinketSlot !== undefined;
 }
 
-/** Helper function for detecting when a player is Bethany or Tainted Bethany. */
+/**
+ * Helper function for detecting when a player is Bethany or Tainted Bethany. This is useful if you
+ * need to adjust UI elements to account for Bethany's soul charges or Tainted Bethany's blood
+ * charges.
+ */
 export function isBethany(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
 
