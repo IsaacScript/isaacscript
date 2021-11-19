@@ -1,6 +1,6 @@
 {
   "name": "isaac-typescript-definitions",
-  "version": "1.0.266",
+  "version": "1.0.267",
   "description": "TypeScript definitions for The Binding of Isaac: Repentance",
   "keywords": [
     "isaac",
@@ -23,7 +23,7 @@
     "lua-types": "2.11.0"
   },
   "devDependencies": {
-    "isaacscript-lint": "^1.0.64",
+    "isaacscript-lint": "^1.0.65",
     "typescript": "4.4.4"
   }
 }
