@@ -88,11 +88,14 @@ export function getBosses(): EntityNPC[] {
  * type.
  * @param matchingVariant Optional. If specified, will only return NPCs that match this variant.
  * @param matchingSubType Optional. If specified, will only return NPCs that match this sub-type.
+ * @param ignoreFriendly Optional. If set to true, it will exclude friendly NPCs from being
+ * returned. False by default.
  */
 export function getNPCs(
   matchingEntityType?: EntityType | int,
   matchingVariant?: int,
   matchingSubType?: int,
+  ignoreFriendly = false,
 ): EntityNPC[] {
   const npcs: EntityNPC[] = [];
 
@@ -112,6 +115,7 @@ export function getNPCs(
       matchingEntityType,
       matchingVariant,
       matchingSubType,
+      ignoreFriendly,
     );
   }
 
