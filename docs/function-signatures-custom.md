@@ -398,14 +398,14 @@ When registering the callback, takes an optional second argument that will make 
 function postSlotRender(slot: Entity): void {}
 ```
 
-### MC_POST_SLOT_RENDER
+### MC_POST_SLOT_DESTROYED
 
 Fires on the first MC_POST_RENDER frame that a slot plays the animation that indicates that it has broken.
 
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `SlotVariant` provided.
 
 ```ts
-function postSlotBroken(slot: Entity): void {}
+function postSlotDestroyed(slot: Entity): void {}
 ```
 
 ### MC_POST_GRID_ENTITY_INIT
