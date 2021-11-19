@@ -11,7 +11,6 @@ import {
   VERSION_TXT_PATH,
 } from "../../constants";
 import * as file from "../../file";
-import { monkeyPatchMainLua } from "../../monkeyPatch";
 import { Config } from "../../types/Config";
 import {
   error,
@@ -66,7 +65,6 @@ function startPublish(
   writeVersionToVersionTXT(version);
   runReleaseScriptPreCopy();
   compileAndCopy(modSourcePath, modTargetPath);
-  monkeyPatchMainLua(modTargetPath);
   purgeRoomXMLs(modTargetPath);
   runReleaseScriptPostCopy();
   gitCommitIfChanges(version);

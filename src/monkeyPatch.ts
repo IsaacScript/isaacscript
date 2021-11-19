@@ -2,7 +2,7 @@ import path from "path";
 import { MAIN_LUA } from "./constants";
 import * as file from "./file";
 
-const mainLuaHeader = `--[[
+const INFORMATIONAL_HEADER = `--[[
 
 This Isaac mod was created with the IsaacScript tool.
 
@@ -19,14 +19,28 @@ see the official website: https://isaacscript.github.io/
 
 `;
 
+export function monkeyPatchMainLua(targetModDirectory: string): void {
+  const mainLuaPath = path.join(targetModDirectory, MAIN_LUA);
+  let mainLua = file.read(mainLuaPath);
+
+  mainLua = patchInformationalHeader(mainLua);
+  mainLua = patchGlobalObjects(mainLua);
+
+  file.write(mainLuaPath, mainLua);
+}
+
+// Add an informational header for people who happen to be browsing the Lua output
+function patchInformationalHeader(mainLua: string) {
+  return INFORMATIONAL_HEADER + mainLua;
+}
+
 // Some TSTL objects (such as Map and Set) are written as global variables,
 // which can cause multiple mods written with IsaacScript to trample on one another
 // Until TSTL has an official fix, monkey patch this
 // We also make sure of this function to compose a stock comment header for curious people looking
 // at the transpiled Lua code
-export function monkeyPatchMainLua(targetModDirectory: string): void {
-  const mainLuaPath = path.join(targetModDirectory, MAIN_LUA);
-  let mainLua = file.read(mainLuaPath);
+function patchGlobalObjects(originalMainLua: string) {
+  let mainLua = originalMainLua;
 
   mainLua = mainLua.replace(
     "WeakMap = (function",
@@ -39,7 +53,5 @@ export function monkeyPatchMainLua(targetModDirectory: string): void {
   mainLua = mainLua.replace("Map = (function", "Map = Map or (function");
   mainLua = mainLua.replace("Set = (function", "Set = Set or (function");
 
-  mainLua = mainLuaHeader + mainLua;
-
-  file.write(mainLuaPath, mainLua);
+  return mainLua;
 }

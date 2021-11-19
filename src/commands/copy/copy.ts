@@ -16,8 +16,8 @@ export function compileAndCopy(
   modTargetPath: string,
 ): void {
   compile();
+  monkeyPatchMainLua(modSourcePath);
   copyMod(modSourcePath, modTargetPath);
-  monkeyPatchMainLua(modTargetPath);
 }
 
 function compile() {

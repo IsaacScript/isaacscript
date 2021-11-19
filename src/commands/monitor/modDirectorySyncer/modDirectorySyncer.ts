@@ -45,7 +45,7 @@ function afterEachSync(params?: {
     return;
   }
 
-  if (params.relativePath === `${path.sep}${MAIN_LUA}`) {
+  if (params.relativePath === path.sep + MAIN_LUA) {
     monkeyPatchMainLua(modTargetPath);
   }
 
