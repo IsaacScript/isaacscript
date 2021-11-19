@@ -28,7 +28,10 @@ export function getRandomRune(seed = Random()): Card {
   return card;
 }
 
-/** Returns true for entries in the Card enum that are not a rune or an object. */
+/**
+ * Returns true for entries in the Card enum that are not a rune or an object (e.g. Fool, Reverse
+ * Fool, Wild Card, etc.).
+ */
 export function isCard(card: Card): boolean {
   return isNotCardOrRune(card) && !isRune(card);
 }
