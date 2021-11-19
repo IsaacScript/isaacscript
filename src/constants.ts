@@ -174,8 +174,7 @@ export const SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES = new Set<CollectibleType>([
 ]);
 
 /**
- * This is how long each heart is on the UI in the upper left hand corner. Note that this is not in
- * pixels, but in draw coordinates; you can see that it is 13 pixels wide in the "ui_hearts.png"
- * file.
+ * This is the number of draw coordinates that each heart spans on the UI in the upper left hand
+ * corner.
  */
 export const UI_HEART_WIDTH = 12;

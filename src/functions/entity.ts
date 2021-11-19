@@ -25,8 +25,16 @@ export function anyEntityCloserThan(
  * }
  * ```
  */
-export function getBombs(): EntityBomb[] {
-  const entities = Isaac.FindByType(EntityType.ENTITY_BOMB);
+export function getBombs(
+  matchingVariant = -1,
+  matchingSubType = -1,
+): EntityBomb[] {
+  const entities = Isaac.FindByType(
+    EntityType.ENTITY_BOMB,
+    matchingVariant,
+    matchingSubType,
+  );
+
   const bombs: EntityBomb[] = [];
   for (const entity of entities) {
     const bomb = entity.ToBomb();
@@ -82,8 +90,16 @@ export function getClosestEntityTo(
  * }
  * ```
  */
-export function getEffects(): EntityEffect[] {
-  const entities = Isaac.FindByType(EntityType.ENTITY_EFFECT);
+export function getEffects(
+  matchingVariant = -1,
+  matchingSubType = -1,
+): EntityEffect[] {
+  const entities = Isaac.FindByType(
+    EntityType.ENTITY_EFFECT,
+    matchingVariant,
+    matchingSubType,
+  );
+
   const effects: EntityEffect[] = [];
   for (const entity of entities) {
     const effect = entity.ToEffect();
@@ -93,6 +109,47 @@ export function getEffects(): EntityEffect[] {
   }
 
   return effects;
+}
+
+/**
+ * Helper function to get all of the entities in the room or all of the entities that match a
+ * specific entity type / variant / sub-type.
+ *
+ * Due to bugs with `Isaac.FindInRadius()`, this function uses `Isaac.GetRoomEntities()`,
+ * which is more expensive but also more robust. (If a matching entity type is provided, then
+ * `Isaac.FindByType()` will be used instead.)
+ *
+ * Example:
+ * ```
+ * // Make all of the entities in the room invisible
+ * for (const entity of getEntities()) {
+ *   entity.Visible = false;
+ * }
+ * ```
+ *
+ * @param matchingEntityType Optional. If specified, will only return NPCs that match this entity
+ * type.
+ * @param matchingVariant Optional. If specified, will only return NPCs that match this variant.
+ * @param matchingSubType Optional. If specified, will only return NPCs that match this sub-type.
+ * @param ignoreFriendly Optional. If set to true, it will exclude friendly NPCs from being
+ * returned. False by default. Will only be taken into account if `matchingEntityType` is specified.
+ */
+export function getEntities(
+  matchingEntityType?: EntityType | int,
+  matchingVariant = -1,
+  matchingSubType = -1,
+  ignoreFriendly = false,
+): Entity[] {
+  if (matchingEntityType === undefined) {
+    return Isaac.GetRoomEntities();
+  }
+
+  return Isaac.FindByType(
+    matchingEntityType,
+    matchingVariant,
+    matchingSubType,
+    ignoreFriendly,
+  );
 }
 
 /**
@@ -106,8 +163,16 @@ export function getEffects(): EntityEffect[] {
  * }
  * ```
  */
-export function getFamiliars(): EntityFamiliar[] {
-  const entities = Isaac.FindByType(EntityType.ENTITY_FAMILIAR);
+export function getFamiliars(
+  matchingVariant = -1,
+  matchingSubType = -1,
+): EntityFamiliar[] {
+  const entities = Isaac.FindByType(
+    EntityType.ENTITY_FAMILIAR,
+    matchingVariant,
+    matchingSubType,
+  );
+
   const familiars: EntityFamiliar[] = [];
   for (const entity of entities) {
     const familiar = entity.ToFamiliar();
@@ -130,8 +195,16 @@ export function getFamiliars(): EntityFamiliar[] {
  * }
  * ```
  */
-export function getKnives(): EntityKnife[] {
-  const entities = Isaac.FindByType(EntityType.ENTITY_KNIFE);
+export function getKnives(
+  matchingVariant = -1,
+  matchingSubType = -1,
+): EntityKnife[] {
+  const entities = Isaac.FindByType(
+    EntityType.ENTITY_KNIFE,
+    matchingVariant,
+    matchingSubType,
+  );
+
   const knives: EntityKnife[] = [];
   for (const entity of entities) {
     const knife = entity.ToKnife();
@@ -154,8 +227,16 @@ export function getKnives(): EntityKnife[] {
  * }
  * ```
  */
-export function getLasers(): EntityLaser[] {
-  const entities = Isaac.FindByType(EntityType.ENTITY_LASER);
+export function getLasers(
+  matchingVariant = -1,
+  matchingSubType = -1,
+): EntityLaser[] {
+  const entities = Isaac.FindByType(
+    EntityType.ENTITY_LASER,
+    matchingVariant,
+    matchingSubType,
+  );
+
   const lasers: EntityLaser[] = [];
   for (const entity of entities) {
     const laser = entity.ToLaser();
@@ -178,8 +259,16 @@ export function getLasers(): EntityLaser[] {
  * }
  * ```
  */
-export function getPickups(): EntityPickup[] {
-  const entities = Isaac.FindByType(EntityType.ENTITY_PICKUP);
+export function getPickups(
+  matchingVariant = -1,
+  matchingSubType = -1,
+): EntityPickup[] {
+  const entities = Isaac.FindByType(
+    EntityType.ENTITY_PICKUP,
+    matchingVariant,
+    matchingSubType,
+  );
+
   const pickups: EntityPickup[] = [];
   for (const entity of entities) {
     const pickup = entity.ToPickup();
@@ -202,8 +291,16 @@ export function getPickups(): EntityPickup[] {
  * }
  * ```
  */
-export function getProjectiles(): EntityProjectile[] {
-  const entities = Isaac.FindByType(EntityType.ENTITY_PROJECTILE);
+export function getProjectiles(
+  matchingVariant = -1,
+  matchingSubType = -1,
+): EntityProjectile[] {
+  const entities = Isaac.FindByType(
+    EntityType.ENTITY_PROJECTILE,
+    matchingVariant,
+    matchingSubType,
+  );
+
   const projectiles: EntityProjectile[] = [];
   for (const entity of entities) {
     const projectile = entity.ToProjectile();
@@ -226,8 +323,16 @@ export function getProjectiles(): EntityProjectile[] {
  * }
  * ```
  */
-export function getTears(): EntityTear[] {
-  const entities = Isaac.FindByType(EntityType.ENTITY_TEAR);
+export function getTears(
+  matchingVariant = -1,
+  matchingSubType = -1,
+): EntityTear[] {
+  const entities = Isaac.FindByType(
+    EntityType.ENTITY_TEAR,
+    matchingVariant,
+    matchingSubType,
+  );
+
   const tears: EntityTear[] = [];
   for (const entity of entities) {
     const tear = entity.ToTear();
