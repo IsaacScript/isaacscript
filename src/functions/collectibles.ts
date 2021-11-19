@@ -57,6 +57,41 @@ export function collectibleHasTag(
   return itemConfigItem.HasTags(tag);
 }
 
+/**
+ * Helper function to get the heart cost that a collectible item would be if it were being offered
+ * in a Devil Room deal. Returns 0 if passed CollectibleType.COLLECTIBLE_NULL.
+ */
+export function getCollectibleDevilHeartPrice(
+  collectibleType: CollectibleType | int,
+  player: EntityPlayer,
+): PickupPrice {
+  const itemConfig = Isaac.GetItemConfig();
+  const maxHearts = player.GetMaxHearts();
+
+  if (collectibleType === CollectibleType.COLLECTIBLE_NULL) {
+    return 0;
+  }
+
+  if (maxHearts === 0) {
+    return PickupPrice.PRICE_THREE_SOULHEARTS;
+  }
+
+  const defaultPickupPrice = PickupPrice.PRICE_ONE_HEART;
+  const itemConfigItem = itemConfig.GetCollectible(collectibleType);
+  if (itemConfigItem === undefined) {
+    return defaultPickupPrice;
+  }
+
+  const twoHeartPrice =
+    maxHearts === 2
+      ? PickupPrice.PRICE_ONE_HEART_AND_TWO_SOULHEARTS
+      : PickupPrice.PRICE_TWO_HEARTS;
+
+  return itemConfigItem.DevilPrice === 2
+    ? twoHeartPrice
+    : PickupPrice.PRICE_ONE_HEART;
+}
+
 export function getCollectibleInitCharges(
   collectibleType: CollectibleType | int,
 ): int {
