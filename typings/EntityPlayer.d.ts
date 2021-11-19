@@ -343,6 +343,8 @@ declare interface EntityPlayer extends Entity {
   DoZitEffect(direction: Vector): void;
   DonateLuck(luck: int): void;
   DropPocketItem(pocketItemSlot: PocketItemSlot, position: Vector): void;
+
+  /** If the player does not currently have a trinket, this function will be a no-op. */
   DropTrinket(dropPos: Vector, replaceTick: boolean): void;
 
   /**
