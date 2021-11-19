@@ -143,6 +143,29 @@ export function logSet(set: Set<AnyNotNil>): void {
 }
 
 /**
+ * Converts every `isaacscript-common` function that begins with "log" to a global function.
+ * This is useful for printing out variables from the in-game debug console.
+ */
+export function setLogFunctionsGlobal(): void {
+  const globals = _G as Record<string, unknown>;
+
+  globals.log = log;
+  globals.logAllDamageFlags = logAllDamageFlags;
+  globals.logAllEntityFlags = logAllEntityFlags;
+  globals.logAllFlags = logAllFlags;
+  globals.logAllGameStateFlags = logAllGameStateFlags;
+  globals.logAllProjectileFlags = logAllProjectileFlags;
+  globals.logAllUseFlags = logAllUseFlags;
+  globals.logArray = logArray;
+  globals.logColor = logColor;
+  globals.logEntity = logEntity;
+  globals.logKColor = logKColor;
+  globals.logMap = logMap;
+  globals.logTable = logTable;
+  globals.logSet = logSet;
+}
+
+/**
  * Helper function to print a stack trace to the "log.txt" file, similar to JavaScript's
  * `console.trace()` function. This will only work if the `--luadebug` launch option is enabled.
  */
