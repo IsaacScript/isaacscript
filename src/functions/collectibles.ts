@@ -105,6 +105,19 @@ export function getCollectibleInitCharges(
   return itemConfigItem.InitCharge;
 }
 
+export function getCollectibleItemType(
+  collectibleType: CollectibleType | int,
+): ItemType {
+  const itemConfig = Isaac.GetItemConfig();
+
+  const itemConfigItem = itemConfig.GetCollectible(collectibleType);
+  if (itemConfigItem === undefined) {
+    return ItemType.ITEM_NULL;
+  }
+
+  return itemConfigItem.Type;
+}
+
 export function getCollectibleMaxCharges(
   collectibleType: CollectibleType | int,
 ): int {
