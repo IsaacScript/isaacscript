@@ -1,4 +1,4 @@
-import { nextSeed } from "./random";
+import { getRandomInt, nextSeed } from "./random";
 
 /**
  * Has an equal chance of returning any card (e.g. Fool, Reverse Fool, Wild Card, etc.). This will
@@ -8,7 +8,7 @@ export function getRandomCard(seed = Random()): Card {
   let card: Card;
   do {
     seed = nextSeed(seed);
-    card = getRandomCard(seed);
+    card = getRandomInt(1, Card.NUM_CARDS - 1);
   } while (!isCard(card));
 
   return card;
@@ -22,7 +22,7 @@ export function getRandomRune(seed = Random()): Card {
   let card: Card;
   do {
     seed = nextSeed(seed);
-    card = getRandomCard(seed);
+    card = getRandomInt(1, Card.NUM_CARDS - 1);
   } while (!isRune(card) || card === Card.RUNE_SHARD);
 
   return card;
