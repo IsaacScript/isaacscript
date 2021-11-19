@@ -34,6 +34,11 @@ module.exports = {
     // https://github.com/Zamiell/eslint-plugin-eqeqeq-fix
     "plugin:eqeqeq-fix/recommended",
 
+    // This prevents implicit iteration of Maps and Sets,
+    // which is helpful to prevent bugs when refactoring
+    // https://github.com/Zamiell/eslint-plugin-no-implicit-map-set-loops
+    "plugin:no-implicit-map-set-loops/recommended",
+
     // This provides a version of the "no-template-curly-in-string" that the "--fix" flag can fix
     // https://github.com/Zamiell/eslint-plugin-no-template-curly-in-string-fix
     "plugin:no-template-curly-in-string-fix/recommended",

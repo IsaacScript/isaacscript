@@ -5,11 +5,6 @@ module.exports = {
     // The mod config extends the base configuration:
     // https://github.com/IsaacScript/eslint-config-isaacscript/blob/main/base.js
     "./base",
-
-    // This prevents implicit iteration of Maps and Sets,
-    // since it does not work robustly with the TypeScriptToLua transpiler
-    // https://github.com/Zamiell/eslint-plugin-no-implicit-map-set-loops
-    "plugin:no-implicit-map-set-loops/recommended",
   ],
 
   // We modify the linting rules from the base for some specific things
