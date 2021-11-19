@@ -33,7 +33,7 @@ export function getDebugPrependString(
  * If you have the --luadebug launch flag turned on or the Racing+ sandbox enabled,
  * then this function will also prepend the function name and the line number before the string.
  */
-export function log(msg: string): void {
+export function log(this: void, msg: string): void {
   const debugMsg = getDebugPrependString(msg);
   Isaac.DebugString(debugMsg);
 }
@@ -41,14 +41,14 @@ export function log(msg: string): void {
 /**
  * Helper function for printing out every damage flag that is turned on. Helpful when debugging.
  */
-export function logAllDamageFlags(flags: int): void {
+export function logAllDamageFlags(this: void, flags: int): void {
   logAllFlags(flags, DamageFlag as unknown as LuaTable, "damage");
 }
 
 /**
  * Helper function for printing out every entity flag that is turned on. Helpful when debugging.
  */
-export function logAllEntityFlags(flags: int): void {
+export function logAllEntityFlags(this: void, flags: int): void {
   logAllFlags(flags, EntityFlag as unknown as LuaTable, "entity");
 }
 
@@ -56,6 +56,7 @@ export function logAllEntityFlags(flags: int): void {
  * Helper function for printing out every flag that is turned on. Helpful when debugging.
  */
 export function logAllFlags(
+  this: void,
   flags: int,
   flagEnum: LuaTable,
   description = "",
@@ -71,7 +72,7 @@ export function logAllFlags(
   }
 }
 
-export function logAllGameStateFlags(): void {
+export function logAllGameStateFlags(this: void): void {
   const game = Game();
 
   log("Logging all game state flags:");
@@ -87,39 +88,39 @@ export function logAllGameStateFlags(): void {
 /**
  * Helper function for printing out every projectile flag that is turned on. Helpful when debugging.
  */
-export function logAllProjectileFlags(flags: int): void {
+export function logAllProjectileFlags(this: void, flags: int): void {
   logAllFlags(flags, ProjectileFlags as unknown as LuaTable, "projectile");
 }
 
 /**
  * Helper function for printing out every use flag that is turned on. Helpful when debugging.
  */
-export function logAllUseFlags(flags: int): void {
+export function logAllUseFlags(this: void, flags: int): void {
   logAllFlags(flags, UseFlag as unknown as LuaTable, "use");
 }
 
-export function logArray<T>(array: T[]): void {
+export function logArray<T>(this: void, array: T[]): void {
   const arrayString = arrayToString(array);
   log(`Array: ${arrayString}`);
 }
 
-export function logColor(color: Color): void {
+export function logColor(this: void, color: Color): void {
   log(
     `Color: R${color.R}, G${color.G}, B${color.B}, A${color.A}, RO${color.RO}, BO${color.BO}, GO${color.GO}`,
   );
 }
 
-export function logEntity(entity: Entity): void {
+export function logEntity(this: void, entity: Entity): void {
   log(`Entity: ${entity.Type}.${entity.Variant}.${entity.SubType}`);
 }
 
-export function logKColor(kColor: KColor): void {
+export function logKColor(this: void, kColor: KColor): void {
   log(
     `Color: R${kColor.Red}, G${kColor.Green}, B${kColor.Blue}, A${kColor.Alpha}`,
   );
 }
 
-export function logMap(map: Map<AnyNotNil, unknown>): void {
+export function logMap(this: void, map: Map<AnyNotNil, unknown>): void {
   log("Printing out a TSTL Map:");
   for (const [key, value] of map.entries()) {
     log(`  Key: ${key}, Value: ${value}`);
@@ -127,14 +128,14 @@ export function logMap(map: Map<AnyNotNil, unknown>): void {
   log(`The size of the map was: ${map.size}`);
 }
 
-export function logTable(table: unknown): void {
+export function logTable(this: void, table: unknown): void {
   log("Printing out a Lua table:");
   for (const [key, value] of pairs(table)) {
     log(`  Key: ${key}, Value: ${value}`);
   }
 }
 
-export function logSet(set: Set<AnyNotNil>): void {
+export function logSet(this: void, set: Set<AnyNotNil>): void {
   log("Printing out a TSTL Set:");
   for (const value of set.values()) {
     log(`  Value: ${value}`);
