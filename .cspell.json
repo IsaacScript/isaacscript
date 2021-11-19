@@ -136,6 +136,7 @@
         "tmtrainer",
         "tonumber",
         "tostring",
+        "traceback",
         "transpiled",
         "transpiles",
         "Trisagion",
