@@ -13,6 +13,8 @@ if (($NODE_VERSION < 16)); then
   exit 1
 fi
 
+SECONDS=0
+
 # Since all ESLint errors are set to warnings,
 # we set max warnings to 0 so that warnings will fail in CI
 cd "$DIR"
@@ -24,4 +26,4 @@ npx eslint --max-warnings 0 "$DIR/src"
 # end-users
 npx ts-prune --error --ignore index.ts
 
-echo "Success!"
+echo "Successfully linted in $SECONDS seconds."
