@@ -1,3 +1,6 @@
+/** Bombs explode when their frame count is equal to this value. */
+export const BOMB_EXPLODE_FRAME = 51;
+
 export const CHARACTERS_WITH_NO_RED_HEARTS = new Set<PlayerType>([
   PlayerType.PLAYER_BLUEBABY, // 4
   PlayerType.PLAYER_BLACKJUDAS, // 12
