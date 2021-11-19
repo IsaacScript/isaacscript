@@ -1,20 +1,29 @@
-import { getRandomInt, nextSeed } from "./random";
+import { nextSeed } from "./random";
 
-/** Has an equal chance of returning any value between 1 and `Card.NUM_CARDS - 1`. */
+/**
+ * Has an equal chance of returning any card (e.g. Fool, Reverse Fool, Wild Card, etc.). This will
+ * not return any runes or objects.
+ */
 export function getRandomCard(seed = Random()): Card {
-  return getRandomInt(1, Card.NUM_CARDS - 1, seed);
+  let card: Card;
+  do {
+    seed = nextSeed(seed);
+    card = getRandomCard(seed);
+  } while (!isCard(card));
+
+  return card;
 }
 
 /**
- * Has an equal chance of returning any rune. (e.g. Rune of Hagalaz, Blank Rune, Black Rune, Rune
- * Shard, Soul of Isaac, etc.)
+ * Has an equal chance of returning any rune (e.g. Rune of Hagalaz, Blank Rune, Black Rune, Soul of
+ * Isaac, etc.). This will never return a Rune Shard.
  */
 export function getRandomRune(seed = Random()): Card {
   let card: Card;
   do {
     seed = nextSeed(seed);
     card = getRandomCard(seed);
-  } while (!isRune(card));
+  } while (!isRune(card) || card === Card.RUNE_SHARD);
 
   return card;
 }
