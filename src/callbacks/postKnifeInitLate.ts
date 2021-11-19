@@ -10,7 +10,7 @@ const v = {
   },
 };
 
-export function init(mod: Mod): void {
+export function postKnifeInitLateCallbackInit(mod: Mod): void {
   saveDataManager("postKnifeInitLate", v, hasSubscriptions);
 
   mod.AddCallback(ModCallbacks.MC_POST_KNIFE_UPDATE, postKnifeUpdate); // 51

@@ -10,7 +10,7 @@ const v = {
   },
 };
 
-export function init(mod: Mod): void {
+export function postFamiliarInitLateCallbackInit(mod: Mod): void {
   saveDataManager("postFamiliarInitLate", v, hasSubscriptions);
 
   mod.AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, postFamiliarUpdate); // 6

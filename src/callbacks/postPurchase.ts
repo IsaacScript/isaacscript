@@ -16,8 +16,8 @@ const v = {
   },
 };
 
-export function init(mod: Mod): void {
-  saveDataManager("postPurchaseCallback", v, hasSubscriptions);
+export function postPurchaseCallbackInit(mod: Mod): void {
+  saveDataManager("postPurchase", v, hasSubscriptions);
 
   mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate);
 }

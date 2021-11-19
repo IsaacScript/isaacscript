@@ -19,7 +19,7 @@ const v = {
   },
 };
 
-export function init(mod: Mod): void {
+export function postPlayerReorderedCallbacksInit(mod: Mod): void {
   saveDataManager("postPlayerReordered", v, hasSubscriptions);
 
   mod.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit); // 9

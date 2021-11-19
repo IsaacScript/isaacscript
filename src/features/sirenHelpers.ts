@@ -1,7 +1,7 @@
 import { getUpgradeErrorMsg } from "../errors";
 import { saveDataManager } from "./saveDataManager/exports";
 
-const FEATURE_NAME = "sirenHelpers";
+const FEATURE_NAME = "siren helpers";
 
 let initialized = false;
 
@@ -12,9 +12,9 @@ const v = {
 };
 
 /** @hidden */
-export function init(mod: Mod): void {
+export function sirenHelpersInit(mod: Mod): void {
   initialized = true;
-  saveDataManager(FEATURE_NAME, v);
+  saveDataManager("sirenHelpers", v);
 
   mod.AddCallback(
     ModCallbacks.MC_POST_NPC_INIT,

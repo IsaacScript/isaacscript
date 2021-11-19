@@ -11,8 +11,8 @@ const v = {
   },
 };
 
-export function init(mod: Mod): void {
-  saveDataManager("postFlipCallback", v, hasSubscriptions);
+export function postFlipCallbacksInit(mod: Mod): void {
+  saveDataManager("postFlip", v, hasSubscriptions);
 
   mod.AddCallback(
     ModCallbacks.MC_USE_ITEM,

@@ -10,8 +10,8 @@ const v = {
   },
 };
 
-export function init(mod: Mod): void {
-  saveDataManager("postSlotCallback", v, hasSubscriptions);
+export function postSlotCallbacksInit(mod: Mod): void {
+  saveDataManager("postSlot", v, hasSubscriptions);
 
   mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate); // 1
   mod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoom); // 9

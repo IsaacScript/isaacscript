@@ -16,7 +16,7 @@ const v = {
 };
 
 /** @hidden */
-export function init(mod: Mod): void {
+export function runInNFramesInit(mod: Mod): void {
   initialized = true;
   saveDataManager("runInNFrames", v);
 

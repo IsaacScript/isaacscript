@@ -12,7 +12,7 @@ const v = {
   },
 };
 
-export function init(mod: Mod): void {
+export function postPickupCollectCallbackInit(mod: Mod): void {
   saveDataManager("postPickupCollect", v, hasSubscriptions);
 
   mod.AddCallback(ModCallbacks.MC_POST_PICKUP_RENDER, postPickupRender); // 36

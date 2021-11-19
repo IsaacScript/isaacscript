@@ -18,7 +18,7 @@ let mod: Mod | null = null;
 let loadedDataOnThisRun = false;
 
 /** @hidden */
-export function init(incomingMod: ModUpgraded): void {
+export function saveDataManagerInit(incomingMod: ModUpgraded): void {
   mod = incomingMod;
 
   mod.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit); // 9

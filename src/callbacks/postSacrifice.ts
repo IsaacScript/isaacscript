@@ -8,8 +8,8 @@ const v = {
   },
 };
 
-export function init(mod: Mod): void {
-  saveDataManager("postSacrificeCallback", v, hasSubscriptions);
+export function postSacrificeCallbackInit(mod: Mod): void {
+  saveDataManager("postSacrifice", v, hasSubscriptions);
 
   mod.AddCallback(
     ModCallbacks.MC_ENTITY_TAKE_DMG,

@@ -21,7 +21,7 @@ const v = {
   },
 };
 
-export function init(mod: ModUpgraded): void {
+export function customReviveCallbacksInit(mod: ModUpgraded): void {
   saveDataManager("customRevive", v, hasSubscriptions);
 
   mod.AddCallback(ModCallbacks.MC_POST_RENDER, postRender); // 2

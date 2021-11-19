@@ -12,8 +12,8 @@ const v = {
   },
 };
 
-export function init(mod: ModUpgraded): void {
-  saveDataManager("postPlayerChangeHealthCallback", v, hasSubscriptions);
+export function postPlayerChangeHealthCallbackInit(mod: ModUpgraded): void {
+  saveDataManager("postPlayerChangeHealth", v, hasSubscriptions);
 
   mod.AddCallbackCustom(
     ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED,

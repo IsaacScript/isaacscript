@@ -8,7 +8,7 @@ const v = {
   },
 };
 
-export function init(mod: Mod): void {
+export function postPlayerInitLateCallbackInit(mod: Mod): void {
   saveDataManager("postPlayerInitLate", v, hasSubscriptions);
 
   mod.AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, postPlayerUpdate); // 31

@@ -13,8 +13,8 @@ const v = {
   },
 };
 
-export function init(mod: Mod): void {
-  saveDataManager("postEsauJrCallback", v, hasSubscriptions);
+export function postEsauJrCallbacksInit(mod: Mod): void {
+  saveDataManager("postEsauJr", v, hasSubscriptions);
 
   mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate); // 1
   mod.AddCallback(

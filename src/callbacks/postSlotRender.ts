@@ -1,6 +1,6 @@
 import * as postSlotRender from "./subscriptions/postSlotRender";
 
-export function init(mod: Mod): void {
+export function postSlotRenderCallbackInit(mod: Mod): void {
   mod.AddCallback(ModCallbacks.MC_POST_RENDER, postRender); // 2
 }
 

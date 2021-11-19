@@ -10,7 +10,7 @@ const v = {
   },
 };
 
-export function init(mod: Mod): void {
+export function postLaserInitLateCallbackInit(mod: Mod): void {
   saveDataManager("postLaserInitLate", v, hasSubscriptions);
 
   mod.AddCallback(ModCallbacks.MC_POST_LASER_UPDATE, postLaserUpdate); // 35

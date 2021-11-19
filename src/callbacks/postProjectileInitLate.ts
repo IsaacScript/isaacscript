@@ -10,7 +10,7 @@ const v = {
   },
 };
 
-export function init(mod: Mod): void {
+export function postProjectileInitLateCallbackInit(mod: Mod): void {
   saveDataManager("postProjectileInitLate", v, hasSubscriptions);
 
   mod.AddCallback(ModCallbacks.MC_POST_PROJECTILE_UPDATE, postProjectileUpdate); // 44

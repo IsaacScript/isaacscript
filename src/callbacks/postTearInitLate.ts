@@ -10,7 +10,7 @@ const v = {
   },
 };
 
-export function init(mod: Mod): void {
+export function postTearInitLateCallbackInit(mod: Mod): void {
   saveDataManager("postTearInitLate", v, hasSubscriptions);
 
   mod.AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, postTearUpdate); // 40

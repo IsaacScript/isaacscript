@@ -18,8 +18,8 @@ const v = {
   },
 };
 
-export function init(mod: Mod): void {
-  saveDataManager("postCursedEyeActivationCallback", v, hasSubscriptions);
+export function postCursedTeleportCallbackInit(mod: Mod): void {
+  saveDataManager("postCursedTeleport", v, hasSubscriptions);
 
   mod.AddCallback(
     ModCallbacks.MC_ENTITY_TAKE_DMG,

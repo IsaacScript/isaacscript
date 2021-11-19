@@ -10,7 +10,7 @@ const v = {
   },
 };
 
-export function init(mod: Mod): void {
+export function postBombInitLateCallbackInit(mod: Mod): void {
   saveDataManager("postBombInitLate", v, hasSubscriptions);
 
   mod.AddCallback(ModCallbacks.MC_POST_BOMB_UPDATE, postBombUpdate); // 58

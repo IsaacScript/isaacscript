@@ -3,7 +3,7 @@ import { willPlayerRevive } from "../functions/revive";
 import { ModUpgraded } from "../types/ModUpgraded";
 import * as postPlayerFatalDamage from "./subscriptions/postPlayerFatalDamage";
 
-export function init(mod: ModUpgraded): void {
+export function postPlayerFatalDamageCallbackInit(mod: ModUpgraded): void {
   mod.AddCallback(
     ModCallbacks.MC_ENTITY_TAKE_DMG,
     entityTakeDmgPlayer,

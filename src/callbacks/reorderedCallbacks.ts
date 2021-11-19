@@ -17,7 +17,7 @@ let usedGlowingHourGlass = false;
 let forceNewLevel = false;
 let forceNewRoom = false;
 
-export function init(mod: Mod): void {
+export function reorderedCallbacksInit(mod: Mod): void {
   mod.AddCallback(
     ModCallbacks.MC_USE_ITEM,
     useItemGlowingHourGlass,

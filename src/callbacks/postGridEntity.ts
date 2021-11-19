@@ -12,8 +12,8 @@ const v = {
   },
 };
 
-export function init(mod: Mod): void {
-  saveDataManager("postGridEntityCallback", v, hasSubscriptions);
+export function postGridEntityCallbacksInit(mod: Mod): void {
+  saveDataManager("postGridEntity", v, hasSubscriptions);
 
   mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate); // 1
   mod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoom); // 9

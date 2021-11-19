@@ -13,7 +13,7 @@ const v = {
 };
 
 /** @hidden */
-export function init(mod: ModUpgraded): void {
+export function forgottenSwitchInit(mod: ModUpgraded): void {
   initialized = true;
   saveDataManager("forgottenSwitch", v);
 

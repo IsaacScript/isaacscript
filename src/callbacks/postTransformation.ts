@@ -11,8 +11,8 @@ const v = {
   },
 };
 
-export function init(mod: ModUpgraded): void {
-  saveDataManager("postTransformationCallback", v, hasSubscriptions);
+export function postTransformationCallbackInit(mod: ModUpgraded): void {
+  saveDataManager("postTransformation", v, hasSubscriptions);
 
   mod.AddCallbackCustom(
     ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED,

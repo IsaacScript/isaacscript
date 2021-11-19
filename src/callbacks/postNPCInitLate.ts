@@ -10,7 +10,7 @@ const v = {
   },
 };
 
-export function init(mod: Mod): void {
+export function postNPCInitLateCallbackInit(mod: Mod): void {
   saveDataManager("postNPCInitLate", v, hasSubscriptions);
 
   mod.AddCallback(ModCallbacks.MC_NPC_UPDATE, postNPCUpdate); // 0
