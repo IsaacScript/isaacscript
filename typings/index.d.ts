@@ -94,6 +94,7 @@
 /// <reference path="mods/MinimapAPI.d.ts" />
 /// <reference path="mods/ModConfigMenu.d.ts" />
 /// <reference path="mods/MusicModCallback.d.ts" />
+/// <reference path="mods/RacingPlus.d.ts" />
 /// <reference path="mods/StageAPI.d.ts" />
 /// <reference path="mods/StageAPIInterfaces.d.ts" />
 /// <reference path="mods/StageAPIUnofficial.d.ts" />
