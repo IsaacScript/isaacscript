@@ -69,10 +69,12 @@ export function getBosses(): EntityNPC[] {
 }
 
 /**
- * Helper function to get all of the NPCs in the room.
+ * Helper function to get all of the NPCs in the room or all of the NPCs that match a specific
+ * entity type / variant / sub-type.
  *
  * Due to bugs with `Isaac.FindInRadius()`, this function uses `Isaac.GetRoomEntities()`,
- * which is more expensive but also more robust.
+ * which is more expensive but also more robust. (If a matching entity type is provided, then
+ * `Isaac.FindByType()` will be used instead.)
  *
  * Example:
  * ```
@@ -81,10 +83,39 @@ export function getBosses(): EntityNPC[] {
  *   npc.Visible = false;
  * }
  * ```
+ *
+ * @param matchingEntityType Optional. If specified, will only return NPCs that match this entity
+ * type.
+ * @param matchingVariant Optional. If specified, will only return NPCs that match this variant.
+ * @param matchingSubType Optional. If specified, will only return NPCs that match this sub-type.
  */
-export function getNPCs(): EntityNPC[] {
+export function getNPCs(
+  matchingEntityType?: EntityType | int,
+  matchingVariant?: int,
+  matchingSubType?: int,
+): EntityNPC[] {
   const npcs: EntityNPC[] = [];
-  for (const entity of Isaac.GetRoomEntities()) {
+
+  let entities: Entity[];
+  if (matchingEntityType === undefined) {
+    entities = Isaac.GetRoomEntities();
+  } else {
+    if (matchingVariant === undefined) {
+      matchingVariant = -1;
+    }
+
+    if (matchingSubType === undefined) {
+      matchingSubType = -1;
+    }
+
+    entities = Isaac.FindByType(
+      matchingEntityType,
+      matchingVariant,
+      matchingSubType,
+    );
+  }
+
+  for (const entity of entities) {
     const npc = entity.ToNPC();
     if (npc !== undefined) {
       npcs.push(npc);
