@@ -21,6 +21,34 @@ const EXCLUDED_CHARACTERS = new Set<PlayerType>([
  */
 export type PlayerIndex = int & { __playerIndexBrand: unknown };
 
+export function addCollectibleCostume(
+  player: EntityPlayer,
+  collectibleType: CollectibleType,
+): void {
+  const itemConfig = Isaac.GetItemConfig();
+
+  const itemConfigItem = itemConfig.GetCollectible(collectibleType);
+  if (itemConfigItem === undefined) {
+    return;
+  }
+
+  player.AddCostume(itemConfigItem, false);
+}
+
+export function addTrinketCostume(
+  player: EntityPlayer,
+  trinketType: TrinketType,
+): void {
+  const itemConfig = Isaac.GetItemConfig();
+
+  const itemConfigTrinket = itemConfig.GetTrinket(trinketType);
+  if (itemConfigTrinket === undefined) {
+    return;
+  }
+
+  player.AddCostume(itemConfigTrinket, false);
+}
+
 /** Iterates over all players and checks if any player is close enough to the specified position. */
 export function anyPlayerCloserThan(
   position: Vector,
@@ -612,7 +640,7 @@ export function isLost(player: EntityPlayer): boolean {
   );
 }
 
-export function removeCostumeCollectible(
+export function removeCollectibleCostume(
   player: EntityPlayer,
   collectibleType: CollectibleType,
 ): void {
@@ -626,7 +654,19 @@ export function removeCostumeCollectible(
   player.RemoveCostume(itemConfigItem);
 }
 
-export function removeCostumeTrinket(
+/**
+ * Helper function to remove the Dead Eye multiplier from a player.
+ *
+ * Note that each time the `EntityPlayer.ClearDeadEyeCharge()` function is called, it only has a
+ * chance of working, so this function calls it 100 times to be safe.
+ */
+export function removeDeadEyeMultiplier(player: EntityPlayer): void {
+  for (let i = 0; i < 100; i++) {
+    player.ClearDeadEyeCharge();
+  }
+}
+
+export function removeTrinketCostume(
   player: EntityPlayer,
   trinketType: TrinketType,
 ): void {
@@ -638,18 +678,6 @@ export function removeCostumeTrinket(
   }
 
   player.RemoveCostume(itemConfigTrinket);
-}
-
-/**
- * Helper function to remove the Dead Eye multiplier from a player.
- *
- * Note that each time the `EntityPlayer.ClearDeadEyeCharge()` function is called, it only has a
- * chance of working, so this function calls it 100 times to be safe.
- */
-export function removeDeadEyeMultiplier(player: EntityPlayer): void {
-  for (let i = 0; i < 100; i++) {
-    player.ClearDeadEyeCharge();
-  }
 }
 
 /**
