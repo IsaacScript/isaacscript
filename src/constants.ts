@@ -132,6 +132,13 @@ export const ISAAC_FRAMES_PER_SECOND = 60;
 /** In a 2x2 room, there can be 8 doors. */
 export const MAX_NUM_DOORS = 8;
 
+/**
+ * The game has a limit on the number of currently spawned familiars and will refuse to spawn any
+ * more if it reaches the limit. Blue flies and blue spiders have a lower priority and will be
+ * deleted to make room for other familiars.
+ */
+export const MAX_NUM_FAMILIARS = 64;
+
 /** The game can only handle up to four different players. */
 export const MAX_NUM_INPUTS = 4;
 
