@@ -175,6 +175,23 @@ export function getCollectibleSet(): Set<CollectibleType | int> {
   return copySet(COLLECTIBLE_SET);
 }
 
+/** Helper function to get all of the collectible entities in the room. */
+export function getCollectibles(): EntityPickup[] {
+  const entities = Isaac.FindByType(
+    EntityType.ENTITY_PICKUP,
+    PickupVariant.PICKUP_COLLECTIBLE,
+  );
+  const collectibles: EntityPickup[] = [];
+  for (const entity of entities) {
+    const pickup = entity.ToPickup();
+    if (pickup !== undefined) {
+      collectibles.push(pickup);
+    }
+  }
+
+  return collectibles;
+}
+
 export function getMaxCollectibleID(): int {
   const itemConfig = Isaac.GetItemConfig();
   return itemConfig.GetCollectibles().Size - 1;
