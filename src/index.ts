@@ -22,6 +22,7 @@ export {
 } from "./features/sirenHelpers";
 export * from "./functions/array";
 export * from "./functions/bitwise";
+export * from "./functions/card";
 export * from "./functions/charge";
 export * from "./functions/collectibles";
 export * from "./functions/color";

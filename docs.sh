@@ -18,6 +18,7 @@ npx typedoc \
   --entryPoints "$DIR/src/features/saveDataManager/main.ts" \
   --entryPoints "$DIR/src/functions/array.ts" \
   --entryPoints "$DIR/src/functions/bitwise.ts" \
+  --entryPoints "$DIR/src/functions/card.ts" \
   --entryPoints "$DIR/src/functions/charge.ts" \
   --entryPoints "$DIR/src/functions/collectibles.ts" \
   --entryPoints "$DIR/src/functions/color.ts" \
