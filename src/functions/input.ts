@@ -1,5 +1,8 @@
-import { MOVEMENT_ACTIONS } from "..";
-import { MAX_NUM_INPUTS, SHOOTING_ACTIONS } from "../constants";
+import {
+  MAX_NUM_INPUTS,
+  MOVEMENT_ACTIONS,
+  SHOOTING_ACTIONS,
+} from "../constants";
 
 /**
  * This is a copied version of the Control enum from `isaac-typescript-definitions`. We need a
