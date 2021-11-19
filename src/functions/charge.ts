@@ -10,10 +10,13 @@ import { playSound } from "./sound";
  * - L rooms and 2x2 rooms granting a double charge
  * - The Battery
  * - AAA Battery
+ *
+ * @param ignoreBigRoomDoubleCharge Optional. If set to true, it will treat the current room as a
+ * 1x1 room for the purposes of calculating how much charge to grant. False by default.
  */
-export function addRoomClearCharges(): void {
+export function addRoomClearCharges(ignoreBigRoomDoubleCharge = false): void {
   for (const player of getPlayers()) {
-    addRoomClearCharge(player);
+    addRoomClearCharge(player, ignoreBigRoomDoubleCharge);
   }
 }
 
@@ -25,14 +28,21 @@ export function addRoomClearCharges(): void {
  * - L rooms and 2x2 rooms granting a double charge
  * - The Battery
  * - AAA Battery
+ *
+ * @param player The player to grant the charges to.
+ * @param ignoreBigRoomDoubleCharge Optional. If set to true, it will treat the current room as a
+ * 1x1 room for the purposes of calculating how much charge to grant. False by default.
  */
-export function addRoomClearCharge(player: EntityPlayer): void {
+export function addRoomClearCharge(
+  player: EntityPlayer,
+  ignoreBigRoomDoubleCharge = false,
+): void {
   for (const activeSlot of [
     ActiveSlot.SLOT_PRIMARY,
     ActiveSlot.SLOT_SECONDARY,
     ActiveSlot.SLOT_POCKET,
   ]) {
-    addRoomClearChargeToSlot(player, activeSlot);
+    addRoomClearChargeToSlot(player, activeSlot, ignoreBigRoomDoubleCharge);
   }
 }
 
@@ -44,10 +54,16 @@ export function addRoomClearCharge(player: EntityPlayer): void {
  * - L rooms and 2x2 rooms granting a double charge
  * - The Battery
  * - AAA Battery
+ *
+ * @param player The player to grant the charges to.
+ * @param activeSlot The active item slot to grant the charges to.
+ * @param ignoreBigRoomDoubleCharge Optional. If set to true, it will treat the current room as a
+ * 1x1 room for the purposes of calculating how much charge to grant. False by default.
  */
 export function addRoomClearChargeToSlot(
   player: EntityPlayer,
   activeSlot: ActiveSlot,
+  ignoreBigRoomDoubleCharge = false,
 ) {
   if (!player.NeedsCharge(activeSlot)) {
     return;
@@ -58,7 +74,11 @@ export function addRoomClearChargeToSlot(
 
   // Find out the new charge to set on the item
   const totalCharge = getTotalCharge(player, activeSlot);
-  const chargesToAdd = getNumChargesToAdd(player, activeSlot);
+  const chargesToAdd = getNumChargesToAdd(
+    player,
+    activeSlot,
+    ignoreBigRoomDoubleCharge,
+  );
   const modifiedChargesToAdd = getNumChargesWithAAAModifier(
     player,
     activeSlot,
@@ -72,7 +92,11 @@ export function addRoomClearChargeToSlot(
   playChargeSoundEffect(player, activeSlot);
 }
 
-function getNumChargesToAdd(player: EntityPlayer, activeSlot: ActiveSlot) {
+function getNumChargesToAdd(
+  player: EntityPlayer,
+  activeSlot: ActiveSlot,
+  ignoreBigRoomDoubleCharge = false,
+) {
   const game = Game();
   const room = game.GetRoom();
   const roomShape = room.GetRoomShape();
@@ -103,7 +127,7 @@ function getNumChargesToAdd(player: EntityPlayer, activeSlot: ActiveSlot) {
     return 1;
   }
 
-  if (roomShape >= RoomShape.ROOMSHAPE_2x2) {
+  if (roomShape >= RoomShape.ROOMSHAPE_2x2 && !ignoreBigRoomDoubleCharge) {
     // 2x2 rooms and L rooms should grant 2 charges
     return 2;
   }
