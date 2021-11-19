@@ -1,6 +1,5 @@
 import { getCollectibleMaxCharges } from "./collectibles";
 import { getPlayers, getTotalCharge } from "./player";
-import { playSound } from "./sound";
 
 /**
  * Helper function to add a charge to every player's active item, emulating what happens when a room
@@ -183,7 +182,7 @@ export function playChargeSoundEffect(
   const chargeSoundEffect = shouldPlayFullRechargeSound(player, activeSlot)
     ? SoundEffect.SOUND_BATTERYCHARGE
     : SoundEffect.SOUND_BEEP;
-  playSound(chargeSoundEffect);
+  sfx.Play(chargeSoundEffect);
 }
 
 function shouldPlayFullRechargeSound(
