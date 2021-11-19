@@ -1,3 +1,11 @@
+import { getRandomArrayElement } from "./array";
+import { getEnumValues } from "./util";
+
+export function getRandomHeartSubType(seed: int): HeartSubType {
+  const heartSubTypes = getEnumValues(HeartSubType);
+  return getRandomArrayElement(heartSubTypes, seed);
+}
+
 const CHEST_PICKUP_VARIANTS = new Set<PickupVariant>([
   PickupVariant.PICKUP_CHEST, // 50
   PickupVariant.PICKUP_BOMBCHEST, // 51
