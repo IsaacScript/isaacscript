@@ -176,11 +176,13 @@ export function getCollectibleSet(): Set<CollectibleType | int> {
 }
 
 /** Helper function to get all of the collectible entities in the room. */
-export function getCollectibles(): EntityPickup[] {
+export function getCollectibles(matchingSubType = -1): EntityPickup[] {
   const entities = Isaac.FindByType(
     EntityType.ENTITY_PICKUP,
     PickupVariant.PICKUP_COLLECTIBLE,
+    matchingSubType,
   );
+
   const collectibles: EntityPickup[] = [];
   for (const entity of entities) {
     const pickup = entity.ToPickup();
