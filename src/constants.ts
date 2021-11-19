@@ -167,6 +167,13 @@ export const MAX_ROOM_INDEX = 168;
 export const MAX_VANILLA_COLLECTIBLE_TYPE =
   CollectibleType.COLLECTIBLE_MOMS_RING;
 
+export const MOVEMENT_ACTIONS = new Set<ButtonAction>([
+  ButtonAction.ACTION_LEFT, // 0
+  ButtonAction.ACTION_RIGHT, // 1
+  ButtonAction.ACTION_UP, // 2
+  ButtonAction.ACTION_DOWN, // 3
+]);
+
 export const ONE_BY_ONE_ROOM_GRID_SIZE = 135;
 
 export const SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES = new Set<CollectibleType>([
@@ -178,6 +185,13 @@ export const SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES = new Set<CollectibleType>([
   CollectibleType.COLLECTIBLE_SACRIFICIAL_ALTAR, // 536
   CollectibleType.COLLECTIBLE_DEATH_CERTIFICATE, // 628
   CollectibleType.COLLECTIBLE_R_KEY, // 636
+]);
+
+export const SHOOTING_ACTIONS = new Set<ButtonAction>([
+  ButtonAction.ACTION_SHOOTLEFT, // 4
+  ButtonAction.ACTION_SHOOTRIGHT, // 5
+  ButtonAction.ACTION_SHOOTUP, // 6
+  ButtonAction.ACTION_SHOOTDOWN, // 7
 ]);
 
 /**

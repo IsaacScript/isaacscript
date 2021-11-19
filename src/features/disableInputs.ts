@@ -1,22 +1,9 @@
+import { MOVEMENT_ACTIONS, SHOOTING_ACTIONS } from "../constants";
 import { getUpgradeErrorMsg } from "../errors";
 import { ModUpgraded } from "../types/ModUpgraded";
 import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "input disabler";
-
-const MOVEMENT_BUTTONS = new Set<ButtonAction>([
-  ButtonAction.ACTION_LEFT, // 0
-  ButtonAction.ACTION_RIGHT, // 1
-  ButtonAction.ACTION_UP, // 2
-  ButtonAction.ACTION_DOWN, // 3
-]);
-
-const SHOOTING_BUTTONS = new Set<ButtonAction>([
-  ButtonAction.ACTION_SHOOTLEFT, // 4
-  ButtonAction.ACTION_SHOOTRIGHT, // 5
-  ButtonAction.ACTION_SHOOTUP, // 6
-  ButtonAction.ACTION_SHOOTDOWN, // 7
-]);
 
 let initialized = false;
 
@@ -182,7 +169,7 @@ export function disableAllInputsExceptFor(whitelist: Set<ButtonAction>): void {
  * this function.
  */
 export function disableMovementInputs(): void {
-  enableAllInputsExceptFor(MOVEMENT_BUTTONS);
+  enableAllInputsExceptFor(MOVEMENT_ACTIONS);
 }
 
 /**
@@ -195,5 +182,5 @@ export function disableMovementInputs(): void {
  * this function.
  */
 export function disableShootingInputs(): void {
-  enableAllInputsExceptFor(SHOOTING_BUTTONS);
+  enableAllInputsExceptFor(SHOOTING_ACTIONS);
 }
