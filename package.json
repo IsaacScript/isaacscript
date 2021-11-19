@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-isaacscript",
-  "version": "1.0.50",
+  "version": "1.0.51",
   "description": "An ESLint config for IsaacScript projects.",
   "repository": {
     "type": "git",
@@ -9,7 +9,7 @@
   "license": "GPL-3.0",
   "author": "Zamiell",
   "devDependencies": {
-    "eslint": "^7.32.0",
+    "eslint": "^8.2.0",
     "eslint-plugin-prettier": "^4.0.0",
     "prettier": "^2.4.1"
   }
