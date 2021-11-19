@@ -33,6 +33,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/language.ts" \
   --entryPoints "$DIR/src/functions/log.ts" \
   --entryPoints "$DIR/src/functions/math.ts" \
+  --entryPoints "$DIR/src/functions/npc.ts" \
   --entryPoints "$DIR/src/functions/pickups.ts" \
   --entryPoints "$DIR/src/functions/player.ts" \
   --entryPoints "$DIR/src/functions/playerHealth.ts" \

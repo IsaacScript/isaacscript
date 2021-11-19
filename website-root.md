@@ -32,6 +32,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Language Functions](modules/functions_language.html)
 - [Log Functions](modules/functions_log.html)
 - [Math Functions](modules/functions_math.html)
+- [NPC Functions](modules/functions_npc.html)
 - [Pickup Functions](modules/functions_pickups.html)
 - [Player Functions](modules/functions_player.html)
 - [Player Health Functions](modules/functions_playerHealth.html)

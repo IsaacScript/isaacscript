@@ -14,30 +14,6 @@ export function anyEntityCloserThan(
   return false;
 }
 
-/** Helper function to get all of the non-dead bosses in the room. */
-export function getAliveBosses(): EntityNPC[] {
-  const aliveBosses: EntityNPC[] = [];
-  for (const boss of getBosses()) {
-    if (!boss.IsDead()) {
-      aliveBosses.push(boss);
-    }
-  }
-
-  return aliveBosses;
-}
-
-/** Helper function to get all of the non-dead NPCs in the room. */
-export function getAliveNPCs(): EntityNPC[] {
-  const aliveNPCs: EntityNPC[] = [];
-  for (const npc of getNPCs()) {
-    if (!npc.IsDead()) {
-      aliveNPCs.push(npc);
-    }
-  }
-
-  return aliveNPCs;
-}
-
 /**
  * Helper function to get all of the bombs in the room.
  *
@@ -60,18 +36,6 @@ export function getBombs(): EntityBomb[] {
   }
 
   return bombs;
-}
-
-/** Helper function to get all of the bosses in the room. */
-export function getBosses(): EntityNPC[] {
-  const bosses: EntityNPC[] = [];
-  for (const npc of getNPCs()) {
-    if (npc.IsBoss()) {
-      bosses.push(npc);
-    }
-  }
-
-  return bosses;
 }
 
 /**
@@ -204,32 +168,6 @@ export function getLasers(): EntityLaser[] {
 }
 
 /**
- * Helper function to get all of the NPCs in the room.
- *
- * Due to bugs with `Isaac.FindInRadius()`, this function uses `Isaac.GetRoomEntities()`,
- * which is more expensive but also more robust.
- *
- * Example:
- * ```
- * // Make all of the enemies in the room invisible
- * for (const npc of getNPCs()) {
- *   npc.Visible = false;
- * }
- * ```
- */
-export function getNPCs(): EntityNPC[] {
-  const npcs: EntityNPC[] = [];
-  for (const entity of Isaac.GetRoomEntities()) {
-    const npc = entity.ToNPC();
-    if (npc !== undefined) {
-      npcs.push(npc);
-    }
-  }
-
-  return npcs;
-}
-
-/**
  * Helper function to get all of the pickups in the room.
  *
  * Example:
@@ -352,12 +290,6 @@ export function removeAllMatchingEntities(
   removeEntities(entities);
 }
 
-export function removeAllNPCs(): void {
-  const npcs = getNPCs();
-  for (const npc of npcs) {
-    npc.Remove();
-  }
-}
 export function removeAllPickups(): void {
   const pickups = getPickups();
   for (const pickup of pickups) {

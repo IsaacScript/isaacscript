@@ -37,6 +37,7 @@ export * from "./functions/json";
 export * from "./functions/language";
 export * from "./functions/log";
 export * from "./functions/math";
+export * from "./functions/npc";
 export * from "./functions/pickups";
 export * from "./functions/player";
 export * from "./functions/playerHealth";
