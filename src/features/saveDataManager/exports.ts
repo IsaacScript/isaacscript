@@ -1,6 +1,5 @@
 import { getUpgradeErrorMsg } from "../../errors";
 import { deepCopy, SerializationType } from "../../functions/deepCopy";
-import { traceback } from "../../functions/log";
 import { SaveData } from "../../types/SaveData";
 import {
   FEATURE_NAME,
@@ -86,8 +85,6 @@ export function saveDataManager(
   saveData: SaveData,
   conditionalFunc?: () => boolean,
 ): void {
-  traceback();
-
   if (!isSaveDataManagerInitialized()) {
     const msg = getUpgradeErrorMsg(FEATURE_NAME);
     error(msg);
