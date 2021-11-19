@@ -1,3 +1,4 @@
+import { saveDataManager } from "../features/saveDataManager/exports";
 import { removeCollectibleFromItemTracker } from "../functions/collectibles";
 import { removeAllMatchingEntities } from "../functions/entity";
 import { getPlayerIndex, PlayerIndex } from "../functions/player";
@@ -21,8 +22,9 @@ const v = {
 };
 
 export function init(mod: ModUpgraded): void {
-  mod.AddCallback(ModCallbacks.MC_POST_RENDER, postRender); // 2
+  saveDataManager("customRevive", v, hasSubscriptions);
 
+  mod.AddCallback(ModCallbacks.MC_POST_RENDER, postRender); // 2
   mod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoom); // 19
 
   mod.AddCallbackCustom(

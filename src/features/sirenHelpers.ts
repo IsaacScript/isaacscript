@@ -12,11 +12,11 @@ const v = {
 };
 
 /** @hidden */
-export function init(incomingMod: Mod): void {
+export function init(mod: Mod): void {
   initialized = true;
-
   saveDataManager(FEATURE_NAME, v);
-  incomingMod.AddCallback(
+
+  mod.AddCallback(
     ModCallbacks.MC_POST_NPC_INIT,
     postNPCInitSirenHelper,
     EntityType.ENTITY_SIREN_HELPER,
