@@ -593,6 +593,16 @@ export function hasOpenTrinketSlot(player: EntityPlayer): boolean {
   return openTrinketSlot !== undefined;
 }
 
+/** Helper function for detecting when a player is Bethany or Tainted Bethany. */
+export function isBethany(player: EntityPlayer): boolean {
+  const character = player.GetPlayerType();
+
+  return (
+    character === PlayerType.PLAYER_BETHANY ||
+    character === PlayerType.PLAYER_BETHANY_B
+  );
+}
+
 /**
  * Some players are "child" players, meaning that they have a non-undefined Parent property.
  * (For example, the Strawman Keeper.)
