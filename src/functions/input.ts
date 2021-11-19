@@ -1,4 +1,5 @@
-import { MAX_NUM_INPUTS } from "../constants";
+import { MOVEMENT_ACTIONS } from "..";
+import { MAX_NUM_INPUTS, SHOOTING_ACTIONS } from "../constants";
 
 /**
  * This is a copied version of the Control enum from `isaac-typescript-definitions`. We need a
@@ -94,6 +95,46 @@ export function isActionTriggeredOnAnyInput(
 
 export function isKeyboardPressed(key: Keyboard): boolean {
   return Input.IsButtonPressed(key, ControllerIndex.KEYBOARD);
+}
+
+export function isMoveActionPressedOnAnyInput(): boolean {
+  for (const buttonAction of MOVEMENT_ACTIONS.values()) {
+    if (isActionPressedOnAnyInput(buttonAction)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+export function isMoveActionTriggeredOnAnyInput(): boolean {
+  for (const buttonAction of MOVEMENT_ACTIONS.values()) {
+    if (isActionTriggeredOnAnyInput(buttonAction)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+export function isShootActionPressedOnAnyInput(): boolean {
+  for (const buttonAction of SHOOTING_ACTIONS.values()) {
+    if (isActionPressedOnAnyInput(buttonAction)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+export function isShootActionTriggeredOnAnyInput(): boolean {
+  for (const buttonAction of SHOOTING_ACTIONS.values()) {
+    if (isActionTriggeredOnAnyInput(buttonAction)) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 /** Helper function to get the enum name for the specified `Keyboard` value. */
