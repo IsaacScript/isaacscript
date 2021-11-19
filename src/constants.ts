@@ -1,3 +1,6 @@
+/** The distance of the laser when Azazel does not have any range up items yet. */
+export const AZAZEL_BRIMSTONE_DISTANCE = 75.125;
+
 /** Bombs explode when their frame count is equal to this value. */
 export const BOMB_EXPLODE_FRAME = 51;
 
