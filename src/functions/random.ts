@@ -10,7 +10,7 @@ const RECOMMENDED_SHIFT_IDX = 35;
  * the high end. (This is because `RNG.RandomFloat()` can return a value of 0.999, but it will never
  * return a value of exactly 1.)
  */
-export function getRandom(seed: int): float {
+export function getRandom(seed = Random()): float {
   const rng = initRNG(seed);
 
   return rng.RandomFloat();
