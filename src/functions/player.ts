@@ -96,6 +96,24 @@ export function anyPlayerIs(matchingCharacter: PlayerType): boolean {
   return false;
 }
 
+/**
+ * Helper function to get how long Azazel's Brimstone laser should be. You can pass either an
+ * `EntityPlayer` object or a tear height stat.
+ *
+ * The formula for calculating it is: 32 - 2.5 * player.TearHeight
+ */
+export function getAzazelBrimstoneDistance(
+  playerOrTearHeight: EntityPlayer | float,
+) {
+  let tearHeight = tonumber(playerOrTearHeight);
+  if (tearHeight === undefined) {
+    const player = playerOrTearHeight as EntityPlayer;
+    tearHeight = player.TearHeight;
+  }
+
+  return 32 - 2.5 * tearHeight;
+}
+
 export function getClosestPlayer(position: Vector): EntityPlayer {
   let closestPlayer: EntityPlayer | null = null;
   let closestDistance = math.huge;
