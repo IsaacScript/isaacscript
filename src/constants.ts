@@ -22,6 +22,13 @@ export const DISTANCE_OF_GRID_TILE = 40;
 export const DOOR_HITBOX_DISTANCE = 11;
 
 /**
+ * When Eggies take fatal damage, they go into NpcState.STATE_SUICIDE and spawn 14 Swarm Spiders
+ * while their StateFrame ticks upwards. The 14th spider appears when the StateFrame is at this
+ * value.
+ */
+export const EGGY_STATE_FRAME_OF_FINAL_SPIDER = 45;
+
+/**
  * The random items that appear when the player has TMTRAINER are generated on the fly as they are
  * encountered by the player. The first TMTRAINER item takes the final possible 32 bit number. The
  * second TMTRAINER item subtracts one from that, and so on.

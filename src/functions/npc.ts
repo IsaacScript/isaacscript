@@ -1,3 +1,4 @@
+import { EGGY_STATE_FRAME_OF_FINAL_SPIDER } from "../constants";
 import { getEntities } from "./entity";
 
 /**
@@ -114,7 +115,24 @@ export function isAliveExceptionNPC(npc: EntityNPC): boolean {
     return true;
   }
 
+  if (isDyingEggyWithNoSpidersLeft(npc)) {
+    return true;
+  }
+
   return false;
+}
+
+/**
+ * Helper function to detect the custom death state of an Eggy. Eggies are never actually marked
+ * dead by the game. Instead, when Eggies take fatal damage, they go into NpcState.STATE_SUICIDE and
+ * spawn 14 Swarm Spiders while their StateFrame ticks upwards. This function considers an Eggy to
+ * be dead only when all of the spiders have spawned.
+ */
+export function isDyingEggyWithNoSpidersLeft(npc: EntityNPC): boolean {
+  return (
+    npc.State === NpcState.STATE_SUICIDE &&
+    npc.StateFrame >= EGGY_STATE_FRAME_OF_FINAL_SPIDER
+  );
 }
 
 /**
