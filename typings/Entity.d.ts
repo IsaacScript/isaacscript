@@ -44,7 +44,10 @@ declare interface Entity {
   IsFrame(frame: int, offset: int): boolean;
   IsInvincible(): boolean;
   IsVisible(): boolean;
+
+  /** Returns true for enemies that can be damaged. */
   IsVulnerableEnemy(): boolean;
+
   Kill(): void;
   MultiplyFriction(value: float): void;
   PostRender(): void;
