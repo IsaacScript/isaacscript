@@ -2,7 +2,7 @@ import { HealthType } from "../types/HealthType";
 import { PocketItemDescription } from "../types/PocketItemDescription";
 import { PocketItemType } from "../types/PocketItemType";
 import { getKBitOfN, getNumBitsOfN } from "./bitwise";
-import { getCollectibleSet } from "./collectibles";
+import { getCollectibleSet } from "./collectibleSet";
 
 const EXCLUDED_CHARACTERS = new Set<PlayerType>([
   PlayerType.PLAYER_ESAU, // 20

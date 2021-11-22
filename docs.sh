@@ -22,6 +22,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/card.ts" \
   --entryPoints "$DIR/src/functions/charge.ts" \
   --entryPoints "$DIR/src/functions/collectibles.ts" \
+  --entryPoints "$DIR/src/functions/collectibleSet.ts" \
   --entryPoints "$DIR/src/functions/color.ts" \
   --entryPoints "$DIR/src/functions/deepCopy.ts" \
   --entryPoints "$DIR/src/functions/doors.ts" \
@@ -46,6 +47,8 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/tears.ts" \
   --entryPoints "$DIR/src/functions/transformations.ts" \
   --entryPoints "$DIR/src/functions/trinkets.ts" \
+  --entryPoints "$DIR/src/functions/trinketGive.ts" \
+  --entryPoints "$DIR/src/functions/trinketSet.ts" \
   --entryPoints "$DIR/src/functions/ui.ts" \
   --entryPoints "$DIR/src/functions/util.ts" \
   --entryPoints "$DIR/src/functions/vector.ts" \

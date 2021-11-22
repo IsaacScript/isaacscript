@@ -1,6 +1,6 @@
 import { getDeathAnimationName } from "./player";
 import { getFinalFrameOfAnimation } from "./sprite";
-import { giveTrinketsBack, temporarilyRemoveTrinkets } from "./trinkets";
+import { giveTrinketsBack, temporarilyRemoveTrinkets } from "./trinketGive";
 
 /**
  * The `EntityPlayer.WillPlayerRevive()` function does not properly account for Mysterious Paper,

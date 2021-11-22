@@ -1,29 +1,11 @@
 import { COLLECTIBLE_NAME_MAP } from "../collectibleNameMap";
 import { removeAllMatchingEntities } from "./entity";
-import { copySet } from "./util";
 
 const COLLECTIBLE_SPRITE_LAYER = 1;
 const BLIND_ITEM_PNG_PATH = "gfx/items/collectibles/questionmark.png";
 
 // Glitched items start at id 4294967295 (the final 32-bit integer) and increment backwards
 const GLITCHED_ITEM_THRESHOLD = 4000000000;
-
-const COLLECTIBLE_SET = new Set<CollectibleType | int>();
-
-function initSet() {
-  const itemConfig = Isaac.GetItemConfig();
-
-  for (
-    let collectibleType = 1;
-    collectibleType <= getMaxCollectibleID();
-    collectibleType++
-  ) {
-    const itemConfigItem = itemConfig.GetCollectible(collectibleType);
-    if (itemConfigItem !== undefined) {
-      COLLECTIBLE_SET.add(collectibleType);
-    }
-  }
-}
 
 /**
  * Helper function to change the item on an item pedestal. Simply updating the SubType is not
@@ -163,16 +145,6 @@ export function getCollectibleName(
   }
 
   return itemConfigItem.Name;
-}
-
-/** Returns a set containing every valid collectible type in the game, including modded items. */
-export function getCollectibleSet(): Set<CollectibleType | int> {
-  // Lazy initialize the set
-  if (COLLECTIBLE_SET.size === 0) {
-    initSet();
-  }
-
-  return copySet(COLLECTIBLE_SET);
 }
 
 /** Helper function to get all of the collectible entities in the room. */
