@@ -131,6 +131,15 @@ export function onSetSeed(): boolean {
 }
 
 /**
+ * Helper function to print something to the in-game console. Use this instead of invoking
+ * `Isaac.ConsoleOutput()` directly because it will automatically insert a newline at the end of the
+ * message (which `Isaac.ConsoleOutput()` does not do by default).
+ */
+export function printConsole(msg: string): void {
+  Isaac.ConsoleOutput(`${msg}\n`);
+}
+
+/**
  * In a Map, you can use the `clear` method to delete every element. However, in a LuaTable, the
  * `clear` method does not exist. Use this helper function as a drop-in replacement for this.
  */
