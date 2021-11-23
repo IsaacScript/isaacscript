@@ -27,6 +27,14 @@ declare const enum ConstantStoneShooterSubType {
   DOWN = 3,
 }
 
+/** For EntityType.ENTITY_EFFECT (1000), EffectVariant.POOF01 (15) */
+declare const enum PoofSubType {
+  NORMAL = 0,
+  SMALL = 1,
+  // A sub-type of 2 appears to be the same thing as a sub-type of 0
+  LARGE = 3,
+}
+
 /** For EntityType.ENTITY_EFFECT (1000), EffectVariant.HEAVEN_LIGHT_DOOR (39) */
 declare const enum HeavenLightDoorSubType {
   HEAVEN_DOOR = 0,
