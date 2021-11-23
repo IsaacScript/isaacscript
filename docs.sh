@@ -30,7 +30,6 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/flag.ts" \
   --entryPoints "$DIR/src/functions/gridEntity.ts" \
   --entryPoints "$DIR/src/functions/input.ts" \
-  --entryPoints "$DIR/src/functions/pocketItems.ts" \
   --entryPoints "$DIR/src/functions/json.ts" \
   --entryPoints "$DIR/src/functions/language.ts" \
   --entryPoints "$DIR/src/functions/log.ts" \
@@ -39,6 +38,8 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/pickups.ts" \
   --entryPoints "$DIR/src/functions/player.ts" \
   --entryPoints "$DIR/src/functions/playerHealth.ts" \
+  --entryPoints "$DIR/src/functions/pocketItems.ts" \
+  --entryPoints "$DIR/src/functions/position.ts" \
   --entryPoints "$DIR/src/functions/random.ts" \
   --entryPoints "$DIR/src/functions/revive.ts" \
   --entryPoints "$DIR/src/functions/rooms.ts" \

@@ -38,6 +38,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Player Functions](modules/functions_player.html)
 - [Player Health Functions](modules/functions_playerHealth.html)
 - [Pocket Item Functions](modules/functions_pocketItems.html)
+- [Pocket Item Functions](modules/functions_position.html)
 - [Random Functions](modules/functions_random.html)
 - [Revive Functions](modules/functions_revive.html)
 - [Rooms Functions](modules/functions_rooms.html)
