@@ -5,7 +5,8 @@ import { getPlayerCloserThan } from "./player";
 /**
  * Helper function to get a room position that is not overlapping with a grid entity, a heaven door,
  * or a player. The `Room.FindFreePickupSpawnPosition()` function will return locations that overlap
- * with heaven doors and players, so use this function instead if you want to account for those
+ * with heaven doors and partially overlap with players, if the thing being spawned is bigger than a
+ * tile (like a Blood Donation Machine). Use this function instead if you want to account for those
  * specific situations.
  */
 export function findFreePosition(startingPosition: Vector): Vector {
