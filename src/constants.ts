@@ -30,6 +30,8 @@ export const CHARACTERS_WITH_NO_RED_HEARTS = new Set<PlayerType>([
   PlayerType.PLAYER_BETHANY_B, // 36
 ]);
 
+export const DEFAULT_ITEM_POOL_TYPE = ItemPoolType.POOL_TREASURE;
+
 /** This is also the distance that a player spawns from the door that they enter a room from. */
 export const DISTANCE_OF_GRID_TILE = 40;
 
@@ -50,6 +52,7 @@ export const EGGY_STATE_FRAME_OF_FINAL_SPIDER = 45;
 export const FIRST_GLITCHED_COLLECTIBLE_TYPE = (1 << 32) - 1;
 
 export const GENESIS_ROOM_VARIANT = 1000;
+export const GENESIS_ROOM_SUBTYPE = 99;
 export const GOLDEN_TRINKET_SHIFT = 1 << 15;
 
 /**
@@ -202,6 +205,22 @@ export const MOVEMENT_ACTIONS = new Set<ButtonAction>([
 ]);
 
 export const ONE_BY_ONE_ROOM_GRID_SIZE = 135;
+
+export const ROOM_TYPE_TO_ITEM_POOL_TYPE_MAP = new Map<RoomType, ItemPoolType>([
+  [RoomType.ROOM_SHOP, ItemPoolType.POOL_SHOP], // 2
+  [RoomType.ROOM_TREASURE, ItemPoolType.POOL_TREASURE], // 4
+  [RoomType.ROOM_BOSS, ItemPoolType.POOL_BOSS], // 5
+  [RoomType.ROOM_SECRET, ItemPoolType.POOL_SECRET], // 7
+  [RoomType.ROOM_CURSE, ItemPoolType.POOL_CURSE], // 10
+  [RoomType.ROOM_CHALLENGE, ItemPoolType.POOL_BOSS], // 11
+  [RoomType.ROOM_LIBRARY, ItemPoolType.POOL_LIBRARY], // 12
+  [RoomType.ROOM_DEVIL, ItemPoolType.POOL_DEVIL], // 14
+  [RoomType.ROOM_ANGEL, ItemPoolType.POOL_ANGEL], // 15
+  [RoomType.ROOM_CHEST, ItemPoolType.POOL_GOLDEN_CHEST], // 20
+  [RoomType.ROOM_BLACK_MARKET, ItemPoolType.POOL_SHOP], // 22
+  [RoomType.ROOM_PLANETARIUM, ItemPoolType.POOL_PLANETARIUM], // 24
+  [RoomType.ROOM_ULTRASECRET, ItemPoolType.POOL_ULTRA_SECRET], // 29
+]);
 
 export const SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES = new Set<CollectibleType>([
   CollectibleType.COLLECTIBLE_FORGET_ME_NOW, // 127
