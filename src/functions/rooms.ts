@@ -6,10 +6,6 @@ import {
   ROOM_TYPE_TO_ITEM_POOL_TYPE_MAP,
 } from "../constants";
 
-const IT_LIVES_ROOM_VARIANTS = [1090, 1091, 1092, 1093, 1094];
-const BLUE_BABY_ROOM_VARIANTS = [3390, 3391, 3392, 3393];
-const LAMB_ROOM_VARIANTS = [5130];
-
 /**
  * Helper function for quickly switching to a new room without playing a particular animation.
  * Always use this helper function over invoking `Game().ChangeRoom()` directly to ensure that you
@@ -271,12 +267,16 @@ export function inBeastRoom(): boolean {
 }
 
 export function inBlueBabyRoom(): boolean {
+  const game = Game();
+  const room = game.GetRoom();
+  const roomType = room.GetType();
   const roomStageID = getRoomStageID();
-  const roomVariant = getRoomVariant();
+  const roomSubType = getRoomSubType();
 
   return (
+    roomType === RoomType.ROOM_BOSS &&
     roomStageID === StageID.SPECIAL_ROOMS &&
-    BLUE_BABY_ROOM_VARIANTS.includes(roomVariant)
+    roomSubType === BossIDs.BLUE_BABY
   );
 }
 
@@ -328,12 +328,16 @@ export function inLRoom(): boolean {
 }
 
 export function inLambRoom(): boolean {
+  const game = Game();
+  const room = game.GetRoom();
+  const roomType = room.GetType();
   const roomStageID = getRoomStageID();
-  const roomVariant = getRoomVariant();
+  const roomSubType = getRoomSubType();
 
   return (
+    roomType === RoomType.ROOM_BOSS &&
     roomStageID === StageID.SPECIAL_ROOMS &&
-    LAMB_ROOM_VARIANTS.includes(roomVariant)
+    roomSubType === BossIDs.THE_LAMB
   );
 }
 
@@ -352,12 +356,16 @@ export function inGenesisRoom(): boolean {
 }
 
 export function inItLivesRoom(): boolean {
+  const game = Game();
+  const room = game.GetRoom();
+  const roomType = room.GetType();
   const roomStageID = getRoomStageID();
-  const roomVariant = getRoomVariant();
+  const roomSubType = getRoomSubType();
 
   return (
+    roomType === RoomType.ROOM_BOSS &&
     roomStageID === StageID.SPECIAL_ROOMS &&
-    IT_LIVES_ROOM_VARIANTS.includes(roomVariant)
+    roomSubType === BossIDs.IT_LIVES
   );
 }
 
