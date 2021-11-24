@@ -60,6 +60,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Save Data Manager](modules/features_saveDataManager_exports.html)
 - [Run in N Frames](modules/features_runInNFrames.html)
 - [Input Disabler](modules/features_disableInputs.html)
+- [Get Collectible Item Pool Type](modules/features_getCollectibleItemPoolType.html)
 - [Forgotten Switcher](modules/features_forgottenSwitch.html)
 - [The Siren boss functions](modules/features_sirenHelpers.html)
 
