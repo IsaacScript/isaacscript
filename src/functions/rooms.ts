@@ -234,6 +234,10 @@ export function gridToPos(x: int, y: int): Vector {
   return room.GetGridPosition(gridIndex);
 }
 
+/**
+ * Helper function to see if the current room shape is equal to `RoomShape.ROOMSHAPE_1x2` or
+ * `RoomShape.ROOMSHAPE_2x1`.
+ */
 export function in2x1Room(): boolean {
   const game = Game();
   const room = game.GetRoom();
@@ -266,7 +270,11 @@ export function inBeastRoom(): boolean {
   );
 }
 
-export function inBlueBabyRoom(): boolean {
+/**
+ * Helper function to check if the current room is a boss room for a particular boss. This will only
+ * work for bosses that have dedicated boss rooms in the "00.special rooms.stb" file.
+ */
+export function inBossRoomOf(bossID: BossID) {
   const game = Game();
   const room = game.GetRoom();
   const roomType = room.GetType();
@@ -276,7 +284,7 @@ export function inBlueBabyRoom(): boolean {
   return (
     roomType === RoomType.ROOM_BOSS &&
     roomStageID === StageID.SPECIAL_ROOMS &&
-    roomSubType === BossIDs.BLUE_BABY
+    roomSubType === bossID
   );
 }
 
@@ -314,6 +322,7 @@ export function inDimension(dimension: Dimension): boolean {
   return dimension === getCurrentDimension();
 }
 
+/** Helper function to see if the current room shape is one of the four L room shapes. */
 export function inLRoom(): boolean {
   const game = Game();
   const room = game.GetRoom();
@@ -324,20 +333,6 @@ export function inLRoom(): boolean {
     roomShape === RoomShape.ROOMSHAPE_LTR ||
     roomShape === RoomShape.ROOMSHAPE_LBL ||
     roomShape === RoomShape.ROOMSHAPE_LBR
-  );
-}
-
-export function inLambRoom(): boolean {
-  const game = Game();
-  const room = game.GetRoom();
-  const roomType = room.GetType();
-  const roomStageID = getRoomStageID();
-  const roomSubType = getRoomSubType();
-
-  return (
-    roomType === RoomType.ROOM_BOSS &&
-    roomStageID === StageID.SPECIAL_ROOMS &&
-    roomSubType === BossIDs.THE_LAMB
   );
 }
 
@@ -352,20 +347,6 @@ export function inGenesisRoom(): boolean {
     roomType === RoomType.ROOM_ISAACS &&
     roomVariant === GENESIS_ROOM_VARIANT &&
     roomSubType === GENESIS_ROOM_SUBTYPE
-  );
-}
-
-export function inItLivesRoom(): boolean {
-  const game = Game();
-  const room = game.GetRoom();
-  const roomType = room.GetType();
-  const roomStageID = getRoomStageID();
-  const roomSubType = getRoomSubType();
-
-  return (
-    roomType === RoomType.ROOM_BOSS &&
-    roomStageID === StageID.SPECIAL_ROOMS &&
-    roomSubType === BossIDs.IT_LIVES
   );
 }
 
