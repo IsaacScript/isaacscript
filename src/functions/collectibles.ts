@@ -209,21 +209,27 @@ export function removeCollectibleFromItemTracker(
   );
 }
 
-export function setCollectibleBlind(pickup: EntityPickup): void {
-  setCollectibleSprite(pickup, BLIND_ITEM_PNG_PATH);
-}
-
-export function setCollectibleSprite(
-  pickup: EntityPickup,
-  pngPath: string,
-): void {
-  if (pickup.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
+export function setCollectibleBlind(collectible: EntityPickup): void {
+  if (collectible.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
     error(
-      `You cannot set a collectible sprite for pickups of variant: ${pickup.Variant}`,
+      `You cannot set a collectible to be blind for pickups of variant: ${collectible.Variant}`,
     );
   }
 
-  const sprite = pickup.GetSprite();
+  setCollectibleSprite(collectible, BLIND_ITEM_PNG_PATH);
+}
+
+export function setCollectibleSprite(
+  collectible: EntityPickup,
+  pngPath: string,
+): void {
+  if (collectible.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
+    error(
+      `You cannot set a collectible sprite for pickups of variant: ${collectible.Variant}`,
+    );
+  }
+
+  const sprite = collectible.GetSprite();
   sprite.ReplaceSpritesheet(COLLECTIBLE_SPRITE_LAYER, pngPath);
   sprite.LoadGraphics();
 }
@@ -236,6 +242,12 @@ export function setCollectibleSubType(
   collectible: EntityPickup,
   newCollectibleType: CollectibleType | int,
 ): void {
+  if (collectible.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
+    error(
+      `You cannot set a collectible sub type for pickups of variant: ${collectible.Variant}`,
+    );
+  }
+
   collectible.SubType = newCollectibleType;
 
   const itemConfig = Isaac.GetItemConfig();
