@@ -1,4 +1,10 @@
-import { GENESIS_ROOM_VARIANT, MAX_ROOM_INDEX } from "../constants";
+import {
+  DEFAULT_ITEM_POOL_TYPE,
+  GENESIS_ROOM_SUBTYPE,
+  GENESIS_ROOM_VARIANT,
+  MAX_ROOM_INDEX,
+  ROOM_TYPE_TO_ITEM_POOL_TYPE_MAP,
+} from "../constants";
 
 const IT_LIVES_ROOM_VARIANTS = [1090, 1091, 1092, 1093, 1094];
 const BLUE_BABY_ROOM_VARIANTS = [3390, 3391, 3392, 3393];
@@ -125,6 +131,20 @@ export function getRoomIndexesForType(roomType: RoomType): Set<int> {
   }
 
   return roomIndexes;
+}
+
+/**
+ * Helper function to get the item pool type for the current room. For example, this returns
+ * `ItemPoolType.ItemPoolType.POOL_ANGEL` if you are in an Angel Room. Returns
+ * `DEFAULT_ITEM_POOL_TYPE` if there is no particular pool associated with the current room type.
+ */
+export function getRoomItemPoolType(): ItemPoolType {
+  const game = Game();
+  const room = game.GetRoom();
+  const roomType = room.GetType();
+
+  const itemPoolType = ROOM_TYPE_TO_ITEM_POOL_TYPE_MAP.get(roomType);
+  return itemPoolType === undefined ? DEFAULT_ITEM_POOL_TYPE : itemPoolType;
 }
 
 /**
@@ -322,9 +342,12 @@ export function inGenesisRoom(): boolean {
   const room = game.GetRoom();
   const roomType = room.GetType();
   const roomVariant = getRoomVariant();
+  const roomSubType = getRoomSubType();
 
   return (
-    roomType === RoomType.ROOM_ISAACS || roomVariant === GENESIS_ROOM_VARIANT
+    roomType === RoomType.ROOM_ISAACS &&
+    roomVariant === GENESIS_ROOM_VARIANT &&
+    roomSubType === GENESIS_ROOM_SUBTYPE
   );
 }
 
