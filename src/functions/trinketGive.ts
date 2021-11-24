@@ -19,7 +19,7 @@ export interface TrinketSituation {
  */
 export function temporarilyRemoveTrinkets(
   player: EntityPlayer,
-  trinketType: TrinketType,
+  trinketType: TrinketType | int,
 ): TrinketSituation | undefined {
   if (!player.HasTrinket(trinketType)) {
     return undefined;

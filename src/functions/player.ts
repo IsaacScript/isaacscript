@@ -23,7 +23,7 @@ export type PlayerIndex = int & { __playerIndexBrand: unknown };
 
 export function addCollectibleCostume(
   player: EntityPlayer,
-  collectibleType: CollectibleType,
+  collectibleType: CollectibleType | int,
 ): void {
   const itemConfig = Isaac.GetItemConfig();
 
@@ -37,7 +37,7 @@ export function addCollectibleCostume(
 
 export function addTrinketCostume(
   player: EntityPlayer,
-  trinketType: TrinketType,
+  trinketType: TrinketType | int,
 ): void {
   const itemConfig = Isaac.GetItemConfig();
 
@@ -64,7 +64,7 @@ export function anyPlayerCloserThan(
 }
 
 export function anyPlayerHasCollectible(
-  collectibleType: CollectibleType,
+  collectibleType: CollectibleType | int,
 ): boolean {
   for (const player of getPlayers()) {
     if (player.HasCollectible(collectibleType)) {
@@ -75,7 +75,7 @@ export function anyPlayerHasCollectible(
   return false;
 }
 
-export function anyPlayerHasTrinket(trinketType: TrinketType): boolean {
+export function anyPlayerHasTrinket(trinketType: TrinketType | int): boolean {
   for (const player of getPlayers()) {
     if (player.HasTrinket(trinketType)) {
       return true;
@@ -525,7 +525,7 @@ export function getTotalCharge(
  * Onion and player 2 has 2 Sad Onions, then this function would return 3.
  */
 export function getTotalPlayerCollectibles(
-  collectibleType: CollectibleType,
+  collectibleType: CollectibleType | int,
 ): int {
   let numCollectibles = 0;
   for (const player of getPlayers()) {
@@ -685,7 +685,7 @@ export function isTaintedLazarus(player: EntityPlayer): boolean {
 
 export function removeCollectibleCostume(
   player: EntityPlayer,
-  collectibleType: CollectibleType,
+  collectibleType: CollectibleType | int,
 ): void {
   const itemConfig = Isaac.GetItemConfig();
 
@@ -711,7 +711,7 @@ export function removeDeadEyeMultiplier(player: EntityPlayer): void {
 
 export function removeTrinketCostume(
   player: EntityPlayer,
-  trinketType: TrinketType,
+  trinketType: TrinketType | int,
 ): void {
   const itemConfig = Isaac.GetItemConfig();
 
