@@ -7,24 +7,6 @@ const BLIND_ITEM_PNG_PATH = "gfx/items/collectibles/questionmark.png";
 // Glitched items start at id 4294967295 (the final 32-bit integer) and increment backwards
 const GLITCHED_ITEM_THRESHOLD = 4000000000;
 
-/**
- * Helper function to change the item on an item pedestal. Simply updating the SubType is not
- * sufficient because you also need to update the sprite.
- */
-export function changeCollectibleSubType(
-  collectible: EntityPickup,
-  newCollectibleType: CollectibleType | int,
-): void {
-  collectible.SubType = newCollectibleType;
-
-  const itemConfig = Isaac.GetItemConfig();
-  const itemConfigItem = itemConfig.GetCollectible(newCollectibleType);
-  if (itemConfigItem === undefined) {
-    error(`Failed to get the item config for: ${newCollectibleType}`);
-  }
-  setCollectibleSprite(collectible, itemConfigItem.GfxFileName);
-}
-
 export function collectibleHasTag(
   collectibleType: CollectibleType | int,
   tag: ItemConfigTag,
@@ -244,4 +226,22 @@ export function setCollectibleSprite(
   const sprite = pickup.GetSprite();
   sprite.ReplaceSpritesheet(COLLECTIBLE_SPRITE_LAYER, pngPath);
   sprite.LoadGraphics();
+}
+
+/**
+ * Helper function to change the item on an item pedestal. Simply updating the SubType is not
+ * sufficient because you also need to update the sprite.
+ */
+export function setCollectibleSubType(
+  collectible: EntityPickup,
+  newCollectibleType: CollectibleType | int,
+): void {
+  collectible.SubType = newCollectibleType;
+
+  const itemConfig = Isaac.GetItemConfig();
+  const itemConfigItem = itemConfig.GetCollectible(newCollectibleType);
+  if (itemConfigItem === undefined) {
+    error(`Failed to get the item config for: ${newCollectibleType}`);
+  }
+  setCollectibleSprite(collectible, itemConfigItem.GfxFileName);
 }
