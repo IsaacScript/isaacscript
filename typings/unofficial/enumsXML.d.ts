@@ -1,4 +1,4 @@
-/** This matches the sub-type in the "specialrooms.stb" file. */
+/** This matches the sub-type in the "00.special rooms.stb" file. */
 declare const enum BossID {
   MONSTRO = 1,
   LARRY_JR = 2,
