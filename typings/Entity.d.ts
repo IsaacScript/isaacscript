@@ -24,7 +24,7 @@ declare interface Entity {
   CollidesWithGrid(): boolean;
   Die(): void;
   Exists(): boolean;
-  GetBossID(): BossIDs | int;
+  GetBossID(): BossID | int;
   GetColor(): Readonly<Color>;
   GetData(): Record<string, unknown>;
   GetDropRNG(): RNG;

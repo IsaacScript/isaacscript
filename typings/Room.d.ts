@@ -41,7 +41,7 @@ declare interface Room {
   GetAliveEnemiesCount(): int;
   GetAwardSeed(): int;
   GetBackdropType(): BackdropType;
-  GetBossID(): BossIDs | int;
+  GetBossID(): BossID | int;
   GetBottomRightPos(): Vector;
   GetBrokenWatchState(): int;
   GetCenterPos(): Vector;
@@ -96,7 +96,7 @@ declare interface Room {
   GetRenderSurfaceTopLeft(): Readonly<Vector>;
   GetRoomConfigStage(): int;
   GetRoomShape(): RoomShape;
-  GetSecondBossID(): BossIDs | int;
+  GetSecondBossID(): BossID | int;
   GetSeededCollectible(seed: int): CollectibleType | int;
   GetShopLevel(): int;
   GetSpawnSeed(): int;

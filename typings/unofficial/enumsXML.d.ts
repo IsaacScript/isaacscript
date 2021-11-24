@@ -1,5 +1,5 @@
-/** Matches the IDs in the "specialrooms.stb" file. */
-declare const enum BossIDs {
+/** This matches the sub-type in the "specialrooms.stb" file. */
+declare const enum BossID {
   MONSTRO = 1,
   LARRY_JR = 2,
   CHUB = 3,
