@@ -235,8 +235,8 @@ export function setCollectibleSprite(
 }
 
 /**
- * Helper function to change the item on an item pedestal. Simply updating the SubType is not
- * sufficient because you also need to update the sprite.
+ * Helper function to change the collectible on a pedestal. Simply updating the SubType property is
+ * not sufficient because the sprite will not change.
  */
 export function setCollectibleSubType(
   collectible: EntityPickup,
@@ -248,12 +248,17 @@ export function setCollectibleSubType(
     );
   }
 
-  collectible.SubType = newCollectibleType;
-
-  const itemConfig = Isaac.GetItemConfig();
-  const itemConfigItem = itemConfig.GetCollectible(newCollectibleType);
-  if (itemConfigItem === undefined) {
-    error(`Failed to get the item config for: ${newCollectibleType}`);
-  }
-  setCollectibleSprite(collectible, itemConfigItem.GfxFileName);
+  // The naive way to change a collectible's sub-type is to set it directly
+  // However, doing this will not update the sprite
+  // Manually updating the sprite works in most situations, but does not work when the pedestal is
+  // empty
+  // Instead, we can simply morph the collectible, which seems to work in all situations
+  collectible.Morph(
+    EntityType.ENTITY_PICKUP,
+    PickupVariant.PICKUP_COLLECTIBLE,
+    newCollectibleType,
+    true,
+    true,
+    true,
+  );
 }
