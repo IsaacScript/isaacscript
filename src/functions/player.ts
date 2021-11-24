@@ -663,12 +663,23 @@ export function isKeeper(player: EntityPlayer): boolean {
   );
 }
 
+/** Helper function for detecting when a player is The Lost or Tainted Lost. */
 export function isLost(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
 
   return (
     character === PlayerType.PLAYER_THELOST ||
     character === PlayerType.PLAYER_THELOST_B
+  );
+}
+
+/** Helper function for detecting when a player is Tainted Lazarus or Dead Tainted Lazarus. */
+export function isTaintedLazarus(player: EntityPlayer): boolean {
+  const character = player.GetPlayerType();
+
+  return (
+    character === PlayerType.PLAYER_LAZARUS_B ||
+    character === PlayerType.PLAYER_LAZARUS2_B
   );
 }
 

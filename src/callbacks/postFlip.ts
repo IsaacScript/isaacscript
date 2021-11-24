@@ -1,5 +1,5 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { getPlayers } from "../functions/player";
+import { getPlayers, isTaintedLazarus } from "../functions/player";
 import * as postFirstFlip from "./subscriptions/postFirstFlip";
 import * as postFlip from "./subscriptions/postFlip";
 
@@ -36,6 +36,10 @@ function useItemFlip(
   _customVarData: int,
 ) {
   if (!hasSubscriptions()) {
+    return;
+  }
+
+  if (!isTaintedLazarus(player)) {
     return;
   }
 
