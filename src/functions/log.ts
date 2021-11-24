@@ -143,6 +143,10 @@ export function logSet(this: void, set: Set<AnyNotNil>): void {
   log(`The size of the set was: ${set.size}`);
 }
 
+export function logVector(this: void, vector: Vector): void {
+  log(`Vector: (${vector.X}, ${vector.Y})`);
+}
+
 /**
  * Converts every `isaacscript-common` function that begins with "log" to a global function.
  * This is useful for printing out variables from the in-game debug console.
@@ -164,6 +168,7 @@ export function setLogFunctionsGlobal(): void {
   globals.logMap = logMap;
   globals.logTable = logTable;
   globals.logSet = logSet;
+  globals.logVector = logVector;
 }
 
 /**
