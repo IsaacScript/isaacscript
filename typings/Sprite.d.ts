@@ -54,7 +54,19 @@ declare interface Sprite {
   Update(): void;
   WasEventTriggered(eventName: string): boolean;
 
+  /**
+   * You cannot modify the values of this `Color` class directly. Instead, replace the entire class
+   * with a new object.
+   *
+   * Example:
+   * ```
+   * const faded = copyColor(sprite.Color);
+   * faded.A = 0.5;
+   * sprite.Color = faded;
+   * ```
+   */
   Color: Color;
+
   FlipX: boolean;
   FlipY: boolean;
   Offset: Vector;
