@@ -190,7 +190,9 @@ export function isGlitchedCollectible(entity: Entity): boolean {
  */
 export function isPassiveCollectible(collectibleType: CollectibleType | int) {
   const itemType = getCollectibleItemType(collectibleType);
-  return itemType === ItemType.ITEM_PASSIVE || ItemType.ITEM_FAMILIAR;
+  return (
+    itemType === ItemType.ITEM_PASSIVE || itemType === ItemType.ITEM_FAMILIAR
+  );
 }
 
 export function isQuestCollectible(
