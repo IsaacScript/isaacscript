@@ -11,13 +11,11 @@ import {
 } from "./maps";
 import { saveToDisk } from "./save";
 
-/** @hidden */
 export const FEATURE_NAME = "save data manager";
 
 let mod: Mod | null = null;
 let loadedDataOnThisRun = false;
 
-/** @hidden */
 export function saveDataManagerInit(incomingMod: ModUpgraded): void {
   mod = incomingMod;
 
@@ -147,12 +145,10 @@ function clearAndCopyAllElements(oldTable: LuaTable, newTable: LuaTable) {
   }
 }
 
-/** @hidden */
 export function isSaveDataManagerInitialized(): boolean {
   return mod !== null;
 }
 
-/** @hidden */
 export function forceSaveDataManagerSave(): void {
   if (mod === null) {
     return;

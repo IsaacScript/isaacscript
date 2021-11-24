@@ -2,7 +2,7 @@ import { getUpgradeErrorMsg } from "../errors";
 import { ModUpgraded } from "../types/ModUpgraded";
 import { saveDataManager } from "./saveDataManager/exports";
 
-const FEATURE_NAME = "Forgotten switcher";
+const FEATURE_NAME = "forgotten switcher";
 
 let initialized = false;
 
@@ -18,12 +18,13 @@ export function forgottenSwitchInit(mod: ModUpgraded): void {
   saveDataManager("forgottenSwitch", v);
 
   mod.AddCallback(
-    ModCallbacks.MC_INPUT_ACTION,
+    ModCallbacks.MC_INPUT_ACTION, // 13
     isActionTriggered,
     InputHook.IS_ACTION_TRIGGERED, // 1
   );
 }
 
+// ModCallbacks.MC_INPUT_ACTION (13)
 // InputHook.IS_ACTION_TRIGGERED (1)
 function isActionTriggered(
   _entity: Entity | undefined,

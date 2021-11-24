@@ -27,6 +27,7 @@ import { postTransformationCallbackInit } from "./callbacks/postTransformation";
 import { reorderedCallbacksInit } from "./callbacks/reorderedCallbacks";
 import { disableInputsInit } from "./features/disableInputs";
 import { forgottenSwitchInit } from "./features/forgottenSwitch";
+import { getCollectibleItemPoolTypeInit } from "./features/getCollectibleItemPoolType";
 import { runInNFramesInit } from "./features/runInNFrames";
 import { saveDataManagerInit } from "./features/saveDataManager/main";
 import { sirenHelpersInit } from "./features/sirenHelpers";
@@ -39,14 +40,14 @@ let initialized = false;
  *
  * Example:
  * ```
- * const mod = RegisterMod("My Mod", 1);
- * const modUpgraded = upgradeMod(mod);
+ * const modVanilla = RegisterMod("My Mod", 1);
+ * const mod = upgradeMod(modVanilla);
  *
  * // Subscribe to vanilla callbacks
  * mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate);
  *
  * // Subscribe to custom callbacks
- * modUpgraded.AddCallbackCustom(ModCallbacksCustom.MC_POST_ITEM_PICKUP, postItemPickup);
+ * mod.AddCallbackCustom(ModCallbacksCustom.MC_POST_ITEM_PICKUP, postItemPickup);
  * ```
  *
  * For a list of all custom callbacks, check out the
@@ -105,6 +106,7 @@ function initCustomCallbacks(mod: ModUpgraded) {
 function initFeatures(mod: ModUpgraded) {
   disableInputsInit(mod);
   forgottenSwitchInit(mod);
+  getCollectibleItemPoolTypeInit(mod);
   runInNFramesInit(mod);
   sirenHelpersInit(mod);
 }

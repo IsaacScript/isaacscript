@@ -75,7 +75,8 @@ import {
  *
  * @param key The name of the file or feature that is submitting data to be managed by the save data
  * manager. The save data manager will throw an error if the key is already registered.
- * @param saveData An object that corresponds to the `SaveData` interface.
+ * @param saveData An object that corresponds to the `SaveData` interface. The object is
+ * conventionally called "v" for brevity (which is short for "local variables").
  * @param conditionalFunc An optional function to run upon saving this key to disk. If the function
  * is false, the key will not be written to disk. This allows mod features to avoid cluttering the
  * "save#.dat" file with unnecessary keys.

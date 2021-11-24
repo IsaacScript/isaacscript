@@ -14,6 +14,7 @@ export {
   enableAllInputsExceptFor,
 } from "./features/disableInputs";
 export { forgottenSwitch } from "./features/forgottenSwitch";
+export { getCollectibleItemPoolType } from "./features/getCollectibleItemPoolType";
 export { runInNFrames, runNextFrame } from "./features/runInNFrames";
 export * from "./features/saveDataManager/exports";
 export {

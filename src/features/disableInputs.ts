@@ -160,8 +160,7 @@ export function disableAllInputsExceptFor(whitelist: Set<ButtonAction>): void {
 
 /**
  * Helper function to disable only the inputs used for moving the character (or moving the cursor in
- * the UI).
- * This is useful because `EntityPlayer.ControlsEnabled` is not very reliable.
+ * the UI). This is useful because `EntityPlayer.ControlsEnabled` is not very reliable.
  *
  * Call `enableInputs()` to set things back to normal.
  *
