@@ -100,7 +100,8 @@ export function enableAllInputs(): void {
 
 /**
  * Helper function to disable all inputs.
- * This is useful because `EntityPlayer.ControlsEnabled` is not very reliable.
+ * This is useful because `EntityPlayer.ControlsEnabled` can be changed by the game under certain
+ * conditions.
  *
  * Call `enableAllInputs()` to set things back to normal.
  *
@@ -120,7 +121,8 @@ export function disableAllInputs(): void {
 
 /**
  * Helper function to enable all inputs besides the ones provided.
- * This is useful because `EntityPlayer.ControlsEnabled` is not very reliable.
+ * This is useful because `EntityPlayer.ControlsEnabled` can be changed by the game under certain
+ * conditions.
  *
  * Call `enableAllInputs()` to set things back to normal.
  *
@@ -140,7 +142,8 @@ export function enableAllInputsExceptFor(blacklist: Set<ButtonAction>): void {
 
 /**
  * Helper function to disable all inputs besides the ones provided.
- * This is useful because `EntityPlayer.ControlsEnabled` is not very reliable.
+ * This is useful because `EntityPlayer.ControlsEnabled` can be changed by the game under certain
+ * conditions.
  *
  * Call `enableAllInputs()` to set things back to normal.
  *
@@ -160,7 +163,9 @@ export function disableAllInputsExceptFor(whitelist: Set<ButtonAction>): void {
 
 /**
  * Helper function to disable only the inputs used for moving the character (or moving the cursor in
- * the UI). This is useful because `EntityPlayer.ControlsEnabled` is not very reliable.
+ * the UI).
+ * This is useful because `EntityPlayer.ControlsEnabled` can be changed by the game under certain
+ * conditions.
  *
  * Call `enableInputs()` to set things back to normal.
  *
@@ -173,7 +178,8 @@ export function disableMovementInputs(): void {
 
 /**
  * Helper function to disable only the inputs used for shooting tears.
- * This is useful because `EntityPlayer.ControlsEnabled` is not very reliable.
+ * This is useful because `EntityPlayer.ControlsEnabled` can be changed by the game under certain
+ * conditions.
  *
  * Call `enableInputs()` to set things back to normal.
  *
