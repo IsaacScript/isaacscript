@@ -29,12 +29,25 @@ declare interface Color {
     alphaTint: float,
   ): void;
 
+  /** Range is 0-1. */
   A: float;
+
+  /** Range is 0-1. */
   B: float;
+
+  /** Range is 0-1. */
   BO: float;
+
+  /** Range is 0-1. */
   G: float;
+
+  /** Range is 0-1. */
   GO: float;
+
+  /** Range is 0-1. */
   R: float;
+
+  /** Range is 0-1. */
   RO: float;
 }
 
