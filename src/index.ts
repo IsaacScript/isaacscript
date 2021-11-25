@@ -6,6 +6,11 @@ export * from "./cardNameMap";
 export * from "./collectibleNameMap";
 export * from "./constants";
 export {
+  deployJSONRoom,
+  deployRandomJSONRoom,
+  emptyRoom,
+} from "./features/deployJSONRoom";
+export {
   disableAllInputs,
   disableAllInputsExceptFor,
   disableMovementInputs,
@@ -15,6 +20,7 @@ export {
 } from "./features/disableInputs";
 export { forgottenSwitch } from "./features/forgottenSwitch";
 export { getCollectibleItemPoolType } from "./features/getCollectibleItemPoolType";
+export { preventCollectibleRotate } from "./features/preventCollectibleRotate";
 export { runInNFrames, runNextFrame } from "./features/runInNFrames";
 export * from "./features/saveDataManager/exports";
 export {
@@ -36,6 +42,7 @@ export * from "./functions/flag";
 export * from "./functions/gridEntity";
 export * from "./functions/input";
 export * from "./functions/json";
+export * from "./functions/jsonRoom";
 export * from "./functions/language";
 export * from "./functions/log";
 export * from "./functions/math";
@@ -48,6 +55,7 @@ export * from "./functions/position";
 export * from "./functions/random";
 export * from "./functions/revive";
 export * from "./functions/rooms";
+export * from "./functions/spawnCollectible";
 export * from "./functions/sprite";
 export * from "./functions/stage";
 export * from "./functions/tears";
@@ -63,6 +71,11 @@ export * from "./transformationMap";
 export * from "./trinketNameMap";
 export * from "./types/CallbackParametersCustom";
 export * from "./types/HealthType";
+export * from "./types/JSONDoor";
+export * from "./types/JSONEntity";
+export * from "./types/JSONRoom";
+export * from "./types/JSONRooms";
+export * from "./types/JSONSpawn";
 export * from "./types/ModCallbacksCustom";
 export * from "./types/ModUpgraded";
 export * from "./types/PickingUpItem";

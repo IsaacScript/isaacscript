@@ -12,9 +12,11 @@ npx typedoc \
   --out "$DOCS_DIR" \
   --readme "$DIR/website-root.md" \
   --entryPoints "$DIR/src/index.ts" \
+  --entryPoints "$DIR/src/features/deployJSONRoom.ts" \
   --entryPoints "$DIR/src/features/disableInputs.ts" \
   --entryPoints "$DIR/src/features/forgottenSwitch.ts" \
   --entryPoints "$DIR/src/features/getCollectibleItemPoolType.ts" \
+  --entryPoints "$DIR/src/features/preventCollectibleRotate.ts" \
   --entryPoints "$DIR/src/features/runInNFrames.ts" \
   --entryPoints "$DIR/src/features/saveDataManager/exports.ts" \
   --entryPoints "$DIR/src/features/sirenHelpers.ts" \
@@ -44,6 +46,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/random.ts" \
   --entryPoints "$DIR/src/functions/revive.ts" \
   --entryPoints "$DIR/src/functions/rooms.ts" \
+  --entryPoints "$DIR/src/functions/spawnCollectible.ts" \
   --entryPoints "$DIR/src/functions/sprite.ts" \
   --entryPoints "$DIR/src/functions/stage.ts" \
   --entryPoints "$DIR/src/functions/tears.ts" \

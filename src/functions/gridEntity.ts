@@ -1,3 +1,41 @@
+import { GRID_ENTITY_XML_MAP } from "../constants";
+
+/**
+ * Helper function to convert the grid entity type found in a room XML file to the corresponding
+ * grid entity type and variant normally used by the game. For example, a rock is represented as
+ * 1000.0 in a room XML file, but `GridEntityType.GRID_ROCK` is equal to 2.
+ */
+export function convertXMLGridEntityType(
+  gridEntityXMLType: int,
+  gridEntityXMLVariant: int,
+): [int, int] | undefined {
+  // Triggers are bugged; spawning one will immediately crash the game
+  if (gridEntityXMLType === EntityType.ENTITY_TRIGGER_OUTPUT) {
+    return undefined;
+  }
+
+  const gridEntityArray = GRID_ENTITY_XML_MAP.get(gridEntityXMLType);
+  if (gridEntityArray === undefined) {
+    error(
+      `Failed to find an entry in the grid entity map for XML entity type: ${gridEntityXMLType}`,
+    );
+  }
+  const gridEntityType = gridEntityArray[0];
+  let gridEntityVariant = gridEntityArray[1];
+
+  // For some specific grid entities, the variant defined in the XML is what is used by the actual
+  // game (which is not the case for e.g. poops)
+  if (
+    gridEntityType === GridEntityType.GRID_SPIKES_ONOFF || // 9
+    gridEntityType === GridEntityType.GRID_PRESSURE_PLATE || // 20
+    gridEntityType === GridEntityType.GRID_TELEPORTER // 23
+  ) {
+    gridEntityVariant = gridEntityXMLVariant;
+  }
+
+  return [gridEntityType, gridEntityVariant];
+}
+
 /**
  * Helper function to get every grid entity in the current room. Use it with no arguments to get
  * every grid entity, or specify a variadic amount of arguments to match specific grid entity types.
@@ -147,6 +185,19 @@ export function removeGridEntity(gridEntity: GridEntity): void {
   // It is best practice to call the "Update()" method after removing a grid entity;
   // otherwise, spawning grid entities on the same tile can fail
   room.Update();
+}
+
+/**
+ * Helper function to make a grid entity invisible. This is accomplished by setting its sprite to
+ * "gfx/none.png" (a non-existent PNG file).
+ *
+ * Using this function will cause spurious errors in the "log.txt file". If you want to remove them,
+ * create a transparent 1 pixel PNG file in your resources folder at "gfx/none.png".
+ */
+export function setGridEntityInvisible(gridEntity: GridEntity) {
+  const sprite = gridEntity.GetSprite();
+  sprite.ReplaceSpritesheet(0, "gfx/none.png");
+  sprite.LoadGraphics();
 }
 
 export function spawnGiantPoop(topLeftGridIndex: int): void {

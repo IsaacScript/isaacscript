@@ -3,7 +3,7 @@ import { copySet } from "./util";
 
 const TRINKET_SET = new Set<TrinketType | int>();
 
-function initSet() {
+function initTrinketSet() {
   const itemConfig = Isaac.GetItemConfig();
 
   for (let trinketType = 1; trinketType <= getMaxTrinketID(); trinketType++) {
@@ -18,7 +18,7 @@ function initSet() {
 export function getTrinketSet(): Set<TrinketType | int> {
   // Lazy initialize the set
   if (TRINKET_SET.size === 0) {
-    initSet();
+    initTrinketSet();
   }
 
   return copySet(TRINKET_SET);

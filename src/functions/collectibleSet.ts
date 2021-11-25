@@ -3,7 +3,7 @@ import { copySet } from "./util";
 
 const COLLECTIBLE_SET = new Set<CollectibleType | int>();
 
-function initSet() {
+function initCollectibleSet() {
   const itemConfig = Isaac.GetItemConfig();
 
   for (
@@ -22,7 +22,7 @@ function initSet() {
 export function getCollectibleSet(): Set<CollectibleType | int> {
   // Lazy initialize the set
   if (COLLECTIBLE_SET.size === 0) {
-    initSet();
+    initCollectibleSet();
   }
 
   return copySet(COLLECTIBLE_SET);

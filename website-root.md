@@ -20,8 +20,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Bitwise Functions](modules/functions_bitwise.html)
 - [Card Functions](modules/functions_card.html)
 - [Charge Functions](modules/functions_charge.html)
-- [Collectible Functions](modules/functions_collectible_set.html)
-- [Collectible Set Functions](modules/functions_collectibles.html)
+- [Collectible Functions](modules/functions_collectible_set.html) & [Spawn Collectible Functions](modules/functions_spawnCollectible_set.html) & [Collectible Set Functions](modules/functions_collectibles.html)
 - [Color Functions](modules/functions_color.html)
 - [Deep Copy Functions](modules/functions_deepCopy.html)
 - [Door Functions](modules/functions_doors.html)
@@ -35,10 +34,9 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Math Functions](modules/functions_math.html)
 - [NPC Functions](modules/functions_npc.html)
 - [Pickup Functions](modules/functions_pickups.html)
-- [Player Functions](modules/functions_player.html)
-- [Player Health Functions](modules/functions_playerHealth.html)
+- [Player Functions](modules/functions_player.html) & [Player Health Functions](modules/functions_playerHealth.html)
 - [Pocket Item Functions](modules/functions_pocketItems.html)
-- [Pocket Item Functions](modules/functions_position.html)
+- [Position Functions](modules/functions_position.html)
 - [Random Functions](modules/functions_random.html)
 - [Revive Functions](modules/functions_revive.html)
 - [Rooms Functions](modules/functions_rooms.html)
@@ -46,9 +44,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Stage Functions](modules/functions_stage.html)
 - [Tears Functions](modules/functions_tears.html)
 - [Transformation Functions](modules/functions_transformations.html)
-- [Trinket Functions](modules/functions_trinkets.html)
-- [Trinket Giving & Removing Functions](modules/functions_trinket_give.html)
-- [Trinket Set Functions](modules/functions_trinket_set.html)
+- [Trinket Functions](modules/functions_trinkets.html) & [Trinket Giving/Removing Functions](modules/functions_trinket_give.html) & [Trinket Set Functions](modules/functions_trinket_set.html)
 - [UI Functions](modules/functions_ui.html)
 - [Util Functions](modules/functions_util.html)
 - [Vector Functions](modules/functions_vector.html)
@@ -58,11 +54,13 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 ## Optional Features and Abstractions
 
 - [Save Data Manager](modules/features_saveDataManager_exports.html)
+- [JSON Room Deployer](modules/features_deployJSONRoom.html)
 - [Run in N Frames](modules/features_runInNFrames.html)
 - [Input Disabler](modules/features_disableInputs.html)
 - [Get Collectible Item Pool Type](modules/features_getCollectibleItemPoolType.html)
+- [Prevent Collectible Rotate](modules/features_preventCollectibleRotate.html)
 - [Forgotten Switcher](modules/features_forgottenSwitch.html)
-- [The Siren boss functions](modules/features_sirenHelpers.html)
+- [Siren Boss Functions](modules/features_sirenHelpers.html)
 
 <br />
 

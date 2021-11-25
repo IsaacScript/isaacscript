@@ -5,6 +5,7 @@ import {
   MAX_ROOM_INDEX,
   ROOM_TYPE_TO_ITEM_POOL_TYPE_MAP,
 } from "../constants";
+import { closeAllDoors, getDoors, isHiddenSecretRoomDoor } from "./doors";
 
 /**
  * Helper function for quickly switching to a new room without playing a particular animation.
@@ -357,4 +358,56 @@ export function inStartingRoom(): boolean {
   const roomIndex = getRoomIndex();
 
   return roomIndex === startingRoomIndex;
+}
+
+/**
+ * Helper function to convert an uncleared room to a cleared room in the PostNewRoom callback. This
+ * is useful because if enemies are removed in this callback, a room drop will be awarded and the
+ * doors will start closed and then open.
+ */
+export function setRoomCleared(): void {
+  const game = Game();
+  const room = game.GetRoom();
+  const roomClear = room.IsClear();
+  const sfx = SFXManager();
+
+  // If the room is already cleared, we don't have to do anything
+  if (roomClear) {
+    return;
+  }
+
+  room.SetClear(true);
+
+  for (const door of getDoors()) {
+    if (isHiddenSecretRoomDoor(door)) {
+      continue;
+    }
+
+    door.State = DoorState.STATE_OPEN;
+
+    const sprite = door.GetSprite();
+    sprite.Play("Opened", true);
+
+    // If this is a mini-boss room, then the door would be barred in addition to being closed
+    // Ensure that the bar is not visible
+    door.ExtraVisible = false;
+  }
+
+  sfx.Stop(SoundEffect.SOUND_DOOR_HEAVY_OPEN);
+
+  // If the room contained Mom's Hands, then a screen shake will be queued
+  // Override it with a 0 frame shake
+  game.ShakeScreen(0);
+}
+
+/**
+ * Helper function to emulate what happens when you bomb an Angel Statue or push a Reward Plate that
+ * spawns an NPC.
+ */
+export function setRoomUncleared(): void {
+  const game = Game();
+  const room = game.GetRoom();
+
+  room.SetClear(false);
+  closeAllDoors();
 }

@@ -25,15 +25,16 @@ import { postSlotRenderBrokenCallbacksInit } from "./callbacks/postSlotRenderBro
 import { postTearInitLateCallbackInit } from "./callbacks/postTearInitLate";
 import { postTransformationCallbackInit } from "./callbacks/postTransformation";
 import { reorderedCallbacksInit } from "./callbacks/reorderedCallbacks";
+import { deployJSONRoomInit } from "./features/deployJSONRoom";
 import { disableInputsInit } from "./features/disableInputs";
 import { forgottenSwitchInit } from "./features/forgottenSwitch";
 import { getCollectibleItemPoolTypeInit } from "./features/getCollectibleItemPoolType";
+import { preventCollectibleRotateInit } from "./features/preventCollectibleRotate";
 import { runInNFramesInit } from "./features/runInNFrames";
 import { saveDataManagerInit } from "./features/saveDataManager/main";
 import { sirenHelpersInit } from "./features/sirenHelpers";
+import { areFeaturesInitialized, setFeaturesInitialized } from "./initialized";
 import { ModUpgraded } from "./types/ModUpgraded";
-
-let initialized = false;
 
 /**
  * Use this function to enable the custom features and callbacks provided by `isaacscript-common`.
@@ -62,8 +63,8 @@ let initialized = false;
 export function upgradeMod(mod: Mod, verbose = false): ModUpgraded {
   const modUpgraded = new ModUpgraded(mod, verbose);
 
-  if (!initialized) {
-    initialized = true;
+  if (!areFeaturesInitialized()) {
+    setFeaturesInitialized();
 
     saveDataManagerInit(modUpgraded);
     initCustomCallbacks(modUpgraded);
@@ -104,9 +105,11 @@ function initCustomCallbacks(mod: ModUpgraded) {
 }
 
 function initFeatures(mod: ModUpgraded) {
+  deployJSONRoomInit(mod);
   disableInputsInit(mod);
   forgottenSwitchInit(mod);
   getCollectibleItemPoolTypeInit(mod);
+  preventCollectibleRotateInit(mod);
   runInNFramesInit(mod);
   sirenHelpersInit(mod);
 }
