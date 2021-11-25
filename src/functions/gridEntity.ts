@@ -182,6 +182,10 @@ export function removeGridEntity(gridEntity: GridEntity): void {
   const gridIndex = gridEntity.GetGridIndex();
   room.RemoveGridEntity(gridIndex, 0, false);
 
+  // In addition to removing the grid entity, we also have to make it invisible, because certain
+  // grid entities will not actually disappear (like a Devil Statue)
+  setGridEntityInvisible(gridEntity);
+
   // It is best practice to call the "Update()" method after removing a grid entity;
   // otherwise, spawning grid entities on the same tile can fail
   room.Update();
