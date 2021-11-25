@@ -191,6 +191,20 @@ export function removeAllCollectibles(): void {
 }
 
 /**
+ * Helper function to remove all pickup delay on a collectible. By default, collectibles have a 20
+ * frame delay before they can be picked up by a player.
+ */
+export function removeCollectiblePickupDelay(collectible: EntityPickup): void {
+  if (collectible.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
+    error(
+      `You cannot remove pickup delay for pickups of variant: ${collectible.Variant}`,
+    );
+  }
+
+  collectible.Wait = 0;
+}
+
+/**
  * Helper function to put a message in the log.txt file to let the Rebirth Item Tracker know that it
  * should remove an item.
  *
