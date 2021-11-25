@@ -4,7 +4,7 @@ import { getRandomFloat } from "./random";
 export function getJSONRoomOfVariant(
   jsonRooms: JSONRoom[],
   variant: int,
-): JSONRoom | null {
+): JSONRoom | undefined {
   for (const jsonRoom of jsonRooms) {
     const roomVariantString = jsonRoom.$.variant;
     const roomVariant = tonumber(roomVariantString);
@@ -13,7 +13,7 @@ export function getJSONRoomOfVariant(
     }
   }
 
-  return null;
+  return undefined;
 }
 
 export function getJSONRoomsOfSubType(

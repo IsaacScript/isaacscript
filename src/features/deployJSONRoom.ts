@@ -32,7 +32,9 @@ import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "JSON room deployer";
 
-const NPCS_TO_NOT_REMOVE = new Set<EntityType>([EntityType.ENTITY_DARK_ESAU]);
+const NPC_TYPES_TO_NOT_REMOVE = new Set<EntityType>([
+  EntityType.ENTITY_DARK_ESAU,
+]);
 
 const PERSISTENT_ENTITY_TYPES = new Set<EntityType>([
   EntityType.ENTITY_WALL_HUGGER,
@@ -213,7 +215,7 @@ function removeSpecificNPCs() {
   const room = game.GetRoom();
 
   for (const npc of getNPCs()) {
-    if (NPCS_TO_NOT_REMOVE.has(npc.Type)) {
+    if (NPC_TYPES_TO_NOT_REMOVE.has(npc.Type)) {
       continue;
     }
 
