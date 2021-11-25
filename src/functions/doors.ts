@@ -1,5 +1,14 @@
 import { MAX_NUM_DOORS } from "../constants";
 
+export function closeAllDoors(): void {
+  for (const door of getDoors()) {
+    door.State = DoorState.STATE_CLOSED;
+
+    const sprite = door.GetSprite();
+    sprite.Play("Close", true);
+  }
+}
+
 export function getDoors(roomType?: RoomType): GridEntityDoor[] {
   const game = Game();
   const room = game.GetRoom();
