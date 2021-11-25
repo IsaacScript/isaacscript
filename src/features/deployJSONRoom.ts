@@ -301,7 +301,13 @@ function spawnAllEntities(jsonRoom: JSONRoom, seed: int) {
       );
     }
 
-    const entityTypeString = spawn.entity.$.type;
+    if (spawn.entity.length > 1) {
+      error("Stacked entities are not implemented for JSON rooms.");
+    }
+
+    const xmlEntity = spawn.entity[0];
+
+    const entityTypeString = xmlEntity.$.type;
     const entityType = tonumber(entityTypeString);
     if (entityType === undefined) {
       error(
@@ -309,13 +315,13 @@ function spawnAllEntities(jsonRoom: JSONRoom, seed: int) {
       );
     }
 
-    const variantString = spawn.entity.$.variant;
+    const variantString = xmlEntity.$.variant;
     const variant = tonumber(variantString);
     if (variant === undefined) {
       error(`Failed to convert the entity variant to a number: ${variant}`);
     }
 
-    const subTypeString = spawn.entity.$.subtype;
+    const subTypeString = xmlEntity.$.subtype;
     const subType = tonumber(subTypeString);
     if (subType === undefined) {
       error(`Failed to convert the entity sub-type to a number: ${subType}`);

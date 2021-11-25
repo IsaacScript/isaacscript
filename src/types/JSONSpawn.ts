@@ -9,5 +9,5 @@ export interface JSONSpawn {
     y: string;
   };
 
-  entity: JSONEntity;
+  entity: JSONEntity[];
 }
