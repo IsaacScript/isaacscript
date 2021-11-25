@@ -7,6 +7,7 @@ import {
 import {
   convertXMLGridEntityType,
   getGridEntities,
+  removeAllGridEntitiesExceptFor,
   setGridEntityInvisible,
 } from "../functions/gridEntity";
 import { getRandomJSONRoom } from "../functions/jsonRoom";
@@ -167,8 +168,8 @@ export function deployRandomJSONRoom(
 /**
  * Helper function to remove all naturally spawning entities and grid entities from a room. Notably,
  * this will not remove players (1), tears (2), familiars (3), lasers (7), knives (8),
- * projectiles (9), blacklisted NPCs such as Dark Esau, charmed NPCs, friendly NPCs, and persistent
- * NPCs.
+ * projectiles (9), blacklisted NPCs such as Dark Esau, charmed NPCs, friendly NPCs, persistent
+ * NPCs, doors, and walls.
  *
  * @param fillWithDecorations Optional. Set to true to fill every grid tile with an invisible
  * decoration, which prevents vanilla entities in the room from respawning the next time that the
@@ -188,6 +189,11 @@ export function emptyRoom(fillWithDecorations: boolean) {
   removeAllPickups(); // 5
   removeAllMatchingEntities(EntityType.ENTITY_SLOT); // 6
   removeSpecificNPCs();
+
+  removeAllGridEntitiesExceptFor(
+    GridEntityType.GRID_WALL, // 15
+    GridEntityType.GRID_DOOR, // 16
+  );
 
   setRoomCleared();
 
