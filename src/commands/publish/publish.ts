@@ -21,8 +21,10 @@ import {
 import { compileAndCopy } from "../copy/copy";
 
 export function publish(argv: Record<string, unknown>, config: Config): void {
-  const skip = argv.skip === true;
+  const skipVersionIncrement = argv.skipVersionIncrement === true;
   const setVersion = argv.setversion as string | undefined;
+  const dryRun = argv.dryRun === true;
+
   const modTargetDirectoryName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
 
@@ -37,24 +39,26 @@ export function publish(argv: Record<string, unknown>, config: Config): void {
   startPublish(
     MOD_SOURCE_PATH,
     modTargetPath,
-    skip,
+    skipVersionIncrement,
     setVersion,
     config.steamCmdPath,
+    dryRun,
   );
 }
 
 function startPublish(
   modSourcePath: string,
   modTargetPath: string,
-  skip: boolean,
+  skipVersionIncrement: boolean,
   setVersion: string | undefined,
   steamCmdPath: string | undefined,
+  dryRun: boolean,
 ) {
   updateDeps();
 
   let version =
     setVersion === undefined ? getVersionFromPackageJSON() : setVersion;
-  if (!skip && setVersion === undefined) {
+  if (!skipVersionIncrement && setVersion === undefined) {
     version = bumpVersionInPackageJSON(version);
   } else if (setVersion !== undefined) {
     writeVersionInPackageJSON(version);
@@ -67,10 +71,14 @@ function startPublish(
   compileAndCopy(modSourcePath, modTargetPath);
   purgeRoomXMLs(modTargetPath);
   runReleaseScriptPostCopy();
-  gitCommitIfChanges(version);
-  uploadMod(modTargetPath, steamCmdPath);
 
-  console.log(`\nPublished version ${version} successfully.`);
+  if (!dryRun) {
+    gitCommitIfChanges(version);
+    uploadMod(modTargetPath, steamCmdPath);
+  }
+
+  const dryRunSuffix = dryRun ? " (dry run)" : "";
+  console.log(`\nPublished version ${version} successfully${dryRunSuffix}.`);
 }
 
 function updateDeps() {

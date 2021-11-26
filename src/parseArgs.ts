@@ -67,6 +67,11 @@ export function parseArgs() {
             type: "string",
             description:
               "specify the version number instead of incrementing it",
+          })
+          .option("dryrun", {
+            alias: "d",
+            type: "boolean",
+            description: "skip invoking steamcmd",
           });
       },
     )
