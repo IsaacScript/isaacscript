@@ -16,7 +16,7 @@
     "isaacscript": "./dist/src/main.js"
   },
   "dependencies": {
-    "chalk": "^4.1.2",
+    "chalk": "^5.0.0",
     "command-exists": "^1.2.9",
     "dotenv": "^10.0.0",
     "figlet": "^1.5.2",
@@ -25,8 +25,8 @@
     "moment": "^2.29.1",
     "npm-check-updates": "^12.0.2",
     "prompts": "^2.4.2",
-    "source-map-support": "^0.5.20",
-    "sync-directory": "^4.0.6",
+    "source-map-support": "^0.5.21",
+    "sync-directory": "^4.0.7",
     "typescript": "4.4.4",
     "typescript-to-lua": "^1.1.1",
     "update-notifier": "^5.1.0",
@@ -36,11 +36,11 @@
     "@types/command-exists": "^1.2.0",
     "@types/figlet": "^1.5.4",
     "@types/fs-extra": "^9.0.13",
-    "@types/node": "^16.11.8",
+    "@types/node": "^16.11.10",
     "@types/prompts": "^2.0.14",
     "@types/source-map-support": "^0.5.4",
     "@types/update-notifier": "^5.1.0",
     "@types/yargs": "^17.0.7",
-    "isaacscript-lint": "^1.0.64"
+    "isaacscript-lint": "^1.0.67"
   }
 }

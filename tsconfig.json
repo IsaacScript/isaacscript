@@ -6,14 +6,14 @@
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    // We need to import the "package.json" file to see what version we are running
-    // By default, this is false
-    "resolveJsonModule": true,
-
     // "outDir" specifies the output directory
     // By default, it will put the compiled ".js" next to the respective ".ts" file,
     // which will clutter the "src" directory
     "outDir": "./dist",
+
+    // We need to import the "package.json" file to see what version we are running
+    // By default, this is false
+    "resolveJsonModule": true,
   },
 
   // A list of the TypeScript files to compile
