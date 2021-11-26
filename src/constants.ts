@@ -65,15 +65,12 @@ export const METADATA_XML_PATH = path.join(MOD_SOURCE_PATH, "metadata.xml");
 export const VERSION_TXT_PATH = path.join(MOD_SOURCE_PATH, "version.txt");
 
 // project/scripts
-const PUBLISH_PRE_COPY_PY = "publish_pre_copy.py";
+const SCRIPTS_PATH = path.join(CWD, "scripts");
 export const PUBLISH_PRE_COPY_PY_PATH = path.join(
-  CWD,
-  "scripts",
-  PUBLISH_PRE_COPY_PY,
+  SCRIPTS_PATH,
+  "publish_pre_copy.py",
 );
-const PUBLISH_POST_COPY_PY = "publish_post_copy.py";
 export const PUBLISH_POST_COPY_PY_PATH = path.join(
-  CWD,
-  "scripts",
-  PUBLISH_POST_COPY_PY,
+  SCRIPTS_PATH,
+  "publish_post_copy.py",
 );

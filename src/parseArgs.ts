@@ -72,6 +72,12 @@ export function parseArgs() {
             alias: "d",
             type: "boolean",
             description: "skip invoking steamcmd",
+          })
+          .option("onlyupload", {
+            alias: "u",
+            type: "boolean",
+            description:
+              "only upload the mod to the Steam Workshop (without doing anything else)",
           });
       },
     )

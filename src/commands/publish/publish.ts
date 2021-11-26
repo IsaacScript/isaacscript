@@ -24,6 +24,7 @@ export function publish(argv: Record<string, unknown>, config: Config): void {
   const skipVersionIncrement = argv.skip === true;
   const setVersion = argv.setversion as string | undefined;
   const dryRun = argv.dryrun === true;
+  const onlyUpload = argv.onlyupload === true;
 
   const modTargetDirectoryName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
@@ -34,6 +35,11 @@ export function publish(argv: Record<string, unknown>, config: Config): void {
         `The version of "${setVersion}" does not match the semantic versioning format.`,
       ),
     );
+  }
+
+  if (onlyUpload) {
+    uploadMod(modTargetPath, config.steamCmdPath);
+    return;
   }
 
   startPublish(
