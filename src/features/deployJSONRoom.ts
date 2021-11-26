@@ -11,6 +11,7 @@ import {
   setGridEntityInvisible,
 } from "../functions/gridEntity";
 import { getRandomJSONRoom } from "../functions/jsonRoom";
+import { log } from "../functions/log";
 import { getNPCs } from "../functions/npc";
 import { nextSeed } from "../functions/random";
 import {
@@ -127,17 +128,47 @@ function respawnPersistentEntities() {
  *
  * This function is meant to be used in the PostNewRoom callback.
  *
- * @returns The iterated seed, which can be used in subsequent room deployments. (The seed is used
- * to spawn every entity contained within the custom room.)
+ * @param jsonRoom The JSON room to deploy. In practice, this will be something like:
+ * ```
+ * import customRooms from "./customRooms";
+ *
+ * const firstJSONRoom = customRooms.rooms.room[0];
+ * deployJSONRoom(firstJSONRoom);
+ * ```
+ * @param seed Optional. Specifies the seed that will be used for spawning every entity in the room.
+ * Equal to `Random()` by default.
+ * @param verbose Optional. If specified, will write entries to the "log.txt" file that describe
+ * what the function is doing. False by default.
+ * @returns Before using the seed for spawning each entity, it is iterated with `nextSeed()`. The
+ * function returns the final iterated seed after spawning everything, which can be used in
+ * subsequent room deployments.
  */
-export function deployJSONRoom(jsonRoom: JSONRoom, seed = Random()): int {
+export function deployJSONRoom(
+  jsonRoom: JSONRoom,
+  seed = Random(),
+  verbose = false,
+): int {
   if (!initialized) {
     const msg = getUpgradeErrorMsg(FEATURE_NAME);
     error(msg);
   }
 
+  if (verbose) {
+    log("Starting to empty the room of entities and grid entities.");
+  }
   emptyRoom(false);
-  const newSeed = spawnAllEntities(jsonRoom, seed);
+  if (verbose) {
+    log("Finished emptying the room of entities and grid entities.");
+  }
+
+  if (verbose) {
+    log("Starting to spawn all of the new entities and grid entities.");
+  }
+  const newSeed = spawnAllEntities(jsonRoom, seed, verbose);
+  if (verbose) {
+    log("Finished spawning all of the new entities and grid entities.");
+  }
+
   fixPitGraphics();
   fillRoomWithDecorations();
 
@@ -155,20 +186,40 @@ export function deployJSONRoom(jsonRoom: JSONRoom, seed = Random()): int {
  * properly account for each room weight using the algorithm from:
  * https://stackoverflow.com/questions/1761626/weighted-random-numbers
  *
- * @returns The iterated seed, which can be used in subsequent room deployments. (The seed is used
- * to spawn every entity contained within the custom room.)
+ * @param jsonRooms An array of JSON rooms to randomly select from. In practice, this will be
+ * something like:
+ * ```
+ * import customRooms from "./customRooms";
+ *
+ * const jsonRooms = customRooms.rooms.room;
+ * deployRandomJSONRoom(jsonRooms);
+ * ```
+ * @param seed Optional. Specifies the seed that will be used for determining the random room. After
+ * that, it is also used for spawning every entity in the room. Equal to `Random()` by default.
+ * @param verbose Optional. If specified, will write entries to the "log.txt" file that describe
+ * what the function is doing. False by default.
+ * @returns Before using the seed for spawning each entity, it is iterated with `nextSeed()`. The
+ * function returns the final iterated seed after spawning everything, which can be used in
+ * subsequent room deployments.
  */
 export function deployRandomJSONRoom(
   jsonRooms: JSONRoom[],
   seed = Random(),
+  verbose = false,
 ): int {
   if (!initialized) {
     const msg = getUpgradeErrorMsg(FEATURE_NAME);
     error(msg);
   }
 
-  const randomJSONRoom = getRandomJSONRoom(jsonRooms, seed);
-  return deployJSONRoom(randomJSONRoom, seed);
+  const randomJSONRoom = getRandomJSONRoom(jsonRooms, seed, verbose);
+  if (verbose) {
+    log(
+      `Randomly chose JSON room ${randomJSONRoom.$.type}.${randomJSONRoom.$.variant}.${randomJSONRoom.$.subtype} with name: ${randomJSONRoom.$.name}`,
+    );
+  }
+
+  return deployJSONRoom(randomJSONRoom, seed, verbose);
 }
 
 /**
@@ -289,7 +340,7 @@ function fillRoomWithDecorations() {
   }
 }
 
-function spawnAllEntities(jsonRoom: JSONRoom, seed: int) {
+function spawnAllEntities(jsonRoom: JSONRoom, seed: int, verbose = false) {
   let shouldUnclearRoom = false;
 
   for (const spawn of jsonRoom.spawn) {
@@ -337,9 +388,17 @@ function spawnAllEntities(jsonRoom: JSONRoom, seed: int) {
 
     // Note that XML entity type 1000 is a rock, not an effect
     if (entityType >= 1000) {
+      if (verbose) {
+        log(`Spawning a grid entity ${entityType}.${variant} at: (${x}, ${y})`);
+      }
       spawnGridEntity(entityType, variant, x, y);
     } else {
       seed = nextSeed(seed);
+      if (verbose) {
+        log(
+          `Spawning a normal entity ${entityType}.${variant}.${subType} at: (${x}, ${y})`,
+        );
+      }
       const entity = spawnNormalEntity(
         entityType,
         variant,
@@ -359,6 +418,11 @@ function spawnAllEntities(jsonRoom: JSONRoom, seed: int) {
   // However, if the room layout contains an battle NPC,
   // then we need to reset the clear state and close the doors again
   if (shouldUnclearRoom) {
+    if (verbose) {
+      log(
+        "Setting the room to be uncleared since there were one or more battle NPCs spawned.",
+      );
+    }
     setRoomUncleared();
   }
 

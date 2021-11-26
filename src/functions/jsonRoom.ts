@@ -1,4 +1,5 @@
 import { JSONRoom } from "../types/JSONRoom";
+import { log } from "./log";
 import { getRandomFloat } from "./random";
 
 export function getJSONRoomOfVariant(
@@ -32,14 +33,28 @@ export function getJSONRoomsOfSubType(
   return jsonRoomsOfSubType;
 }
 
+/**
+ * Helper function to get a random JSON room from an array of JSON rooms.
+ *
+ * Note that this function does not simply choose a random element in the provided array; it will
+ * properly account for each room weight using the algorithm from:
+ * https://stackoverflow.com/questions/1761626/weighted-random-numbers
+ */
 export function getRandomJSONRoom(
   jsonRooms: JSONRoom[],
   seed = Random(),
+  verbose = false,
 ): JSONRoom {
-  // Since each room has an individual weight, we need to get a random weighted selection
-  // Algorithm from: https://stackoverflow.com/questions/1761626/weighted-random-numbers
   const totalWeight = getTotalWeightOfJSONRooms(jsonRooms);
+  if (verbose) {
+    log(`Total weight of the JSON rooms provided: ${totalWeight}`);
+  }
+
   const chosenWeight = getRandomFloat(0, totalWeight, seed);
+  if (verbose) {
+    log(`Randomly chose weight: ${chosenWeight}`);
+  }
+
   return getJSONRoomWithChosenWeight(jsonRooms, chosenWeight);
 }
 
