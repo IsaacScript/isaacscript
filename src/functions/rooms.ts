@@ -6,6 +6,7 @@ import {
   ROOM_TYPE_TO_ITEM_POOL_TYPE_MAP,
 } from "../constants";
 import { closeAllDoors, getDoors, isHiddenSecretRoomDoor } from "./doors";
+import { hasFlag } from "./flag";
 
 /**
  * Helper function for quickly switching to a new room without playing a particular animation.
@@ -317,6 +318,14 @@ export function inDeathCertificateArea(): boolean {
     (roomSubType === HomeRoomSubType.DEATH_CERTIFICATE_ENTRANCE ||
       roomSubType === HomeRoomSubType.DEATH_CERTIFICATE_ITEMS)
   );
+}
+
+export function isDevilsCrownTreasureRoom() {
+  const game = Game();
+  const level = game.GetLevel();
+  const roomDesc = level.GetCurrentRoomDesc();
+
+  return hasFlag(roomDesc.Flags, RoomDescriptorFlag.DEVIL_TREASURE);
 }
 
 export function inDimension(dimension: Dimension): boolean {

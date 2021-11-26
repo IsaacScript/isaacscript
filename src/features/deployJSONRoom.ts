@@ -151,6 +151,10 @@ export function deployJSONRoom(jsonRoom: JSONRoom, seed = Random()): int {
  *
  * This function is meant to be used in the PostNewRoom callback.
  *
+ * Note that this function does not simply choose a random element in the provided array; it will
+ * properly account for each room weight using the algorithm from:
+ * https://stackoverflow.com/questions/1761626/weighted-random-numbers
+ *
  * @returns The iterated seed, which can be used in subsequent room deployments. (The seed is used
  * to spawn every entity contained within the custom room.)
  */
