@@ -54,7 +54,7 @@ export function parseArgs() {
 
     .command(
       "publish",
-      "Bump the version & launch the mod uploader.",
+      "Bump the version & automatically publish the new files using the steamcmd tool.",
       (builder) => {
         return builder
           .option("skip", {
