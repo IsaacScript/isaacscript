@@ -47,6 +47,7 @@ If you want to be alerted via Discord if a commit fails CI, then perform the fol
 1. Name the secret `DISCORD_WEBHOOK`.
 1. Paste in the URL from earlier as the "Value".
 1. Click on "Add secret".
+1. Uncomment the Discord-related code in the "project/.github/ci.yml" file.
 
 <br />
 
