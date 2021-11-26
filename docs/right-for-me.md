@@ -29,7 +29,7 @@ Coding in TypeScript is a bit more involved than coding in Lua, since it require
 ### How good at you at coding?
 
 - Never coded before - ❌ - IsaacScript is not for you. Spend a few months learning to code, and then come back here.
-- Beginner - ❔ - Since using IsaacScript can make things more complicated, beginners might want to follow KISS - Keep It Simple, Stupid. On the other hand, beginners often waste an enourmous amount of time troubleshooting typos and other small errors. The TypeScript compiler is a helpful friend that looks out for you, pointing out all of these small errors automatically.
+- Beginner - ❔ - Since using IsaacScript can make things more complicated, beginners might want to follow KISS - Keep It Simple, Stupid. On the other hand, beginners often waste an enormous amount of time troubleshooting typos and other small errors. The TypeScript compiler is a helpful friend that looks out for you, pointing out all of these small errors automatically.
 - Intermediate - ✔️ - `isaacscript` helps you focus on _coding_. Spend less time referencing the API docs amd less dealing with runtime errors.
 - Expert - ✔️ - You probably already know how invaluable type-safety is. Enjoy the power of TypeScript's generics and robust ecosystem. And use IsaacScript's expansive standard library to avoid reinventing the wheel.
 
