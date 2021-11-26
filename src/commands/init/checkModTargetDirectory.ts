@@ -32,5 +32,5 @@ export async function checkModTargetDirectory(
     error("Ok then. You delete it yourself. Good bye.");
   }
 
-  file.deleteDir(modTargetPath);
+  file.deleteFileOrDirectory(modTargetPath);
 }

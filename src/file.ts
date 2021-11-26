@@ -19,21 +19,16 @@ export function copy(srcPath: string, dstPath: string): void {
   }
 }
 
-export function deleteDir(dirPath: string): void {
+export function deleteFileOrDirectory(filePath: string): void {
   try {
-    fs.rmSync(dirPath, {
+    fs.rmSync(filePath, {
       recursive: true,
     });
   } catch (err) {
-    error(`Failed to delete directory "${chalk.green(dirPath)}":`, err);
-  }
-}
-
-export function deleteFile(filePath: string): void {
-  try {
-    fs.rmSync(filePath);
-  } catch (err) {
-    error(`Failed to delete file "${chalk.green(filePath)}":`, err);
+    error(
+      `Failed to delete file or directory "${chalk.green(filePath)}":`,
+      err,
+    );
   }
 }
 

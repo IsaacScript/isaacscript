@@ -17,7 +17,7 @@ export function copyWatcherMod(config: Config): void {
   // Delete and re-copy the watcher mod every time IsaacScript starts
   // This ensures that it is always the latest version
   if (file.exists(watcherModPath)) {
-    file.deleteDir(watcherModPath);
+    file.deleteFileOrDirectory(watcherModPath);
   }
 
   file.copy(WATCHER_MOD_SOURCE_PATH, watcherModPath);

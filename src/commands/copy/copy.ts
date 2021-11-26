@@ -26,7 +26,9 @@ function compile() {
 }
 
 function copyMod(modSourcePath: string, modTargetPath: string) {
-  file.deleteDir(modTargetPath);
+  if (file.exists(modTargetPath)) {
+    file.deleteFileOrDirectory(modTargetPath);
+  }
   file.copy(modSourcePath, modTargetPath);
   console.log("Mod copied successfully.");
 }

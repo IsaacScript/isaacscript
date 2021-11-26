@@ -24,10 +24,6 @@ export async function checkIfProjectPathExists(
       error("Ok then. Good-bye.");
     }
 
-    if (fileType === "directory") {
-      file.deleteDir(projectPath);
-    } else {
-      file.deleteFile(projectPath);
-    }
+    file.deleteFileOrDirectory(projectPath);
   }
 }

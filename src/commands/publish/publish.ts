@@ -276,7 +276,7 @@ function purgeRoomXMLs(modTargetPath: string) {
   roomFileList.forEach((fileName: string) => {
     if (path.extname(fileName) === ".xml") {
       const roomFilePath = path.join(roomsPath, fileName);
-      file.deleteFile(roomFilePath);
+      file.deleteFileOrDirectory(roomFilePath);
     }
   });
 }
