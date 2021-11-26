@@ -37,6 +37,12 @@ export function execShell(
   // Thus, wrap everything in a double quote
   // This will cause arguments that naturally have double quotes to fail
   for (let i = 0; i < args.length; i++) {
+    if (args[i].includes('"')) {
+      throw new Error(
+        "execShell cannot execute commands with double quotes in the arguments.",
+      );
+    }
+
     args[i] = `"${args[i]}"`; // eslint-disable-line no-param-reassign
   }
 

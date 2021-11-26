@@ -219,7 +219,11 @@ function runReleaseScriptPreCopy() {
   }
 
   console.log(`Running the "${PUBLISH_PRE_COPY_PY_PATH}" script.`);
-  execShell("python", [PUBLISH_PRE_COPY_PY_PATH]);
+  let [, stdout] = execShell("python", [PUBLISH_PRE_COPY_PY_PATH]);
+  stdout = stdout.trim();
+  if (stdout.length > 0) {
+    console.log(stdout);
+  }
 }
 
 function runReleaseScriptPostCopy() {
@@ -228,7 +232,11 @@ function runReleaseScriptPostCopy() {
   }
 
   console.log(`Running the "${PUBLISH_POST_COPY_PY_PATH}" script.`);
-  execShell("python", [PUBLISH_POST_COPY_PY_PATH]);
+  let [, stdout] = execShell("python", [PUBLISH_POST_COPY_PY_PATH]);
+  stdout = stdout.trim();
+  if (stdout.length > 0) {
+    console.log(stdout);
+  }
 }
 
 function gitCommitIfChanges(version: string) {
