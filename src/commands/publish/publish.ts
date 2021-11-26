@@ -21,9 +21,9 @@ import {
 import { compileAndCopy } from "../copy/copy";
 
 export function publish(argv: Record<string, unknown>, config: Config): void {
-  const skipVersionIncrement = argv.skipVersionIncrement === true;
+  const skipVersionIncrement = argv.skip === true;
   const setVersion = argv.setversion as string | undefined;
-  const dryRun = argv.dryRun === true;
+  const dryRun = argv.dryrun === true;
 
   const modTargetDirectoryName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
