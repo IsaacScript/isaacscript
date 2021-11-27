@@ -35,9 +35,10 @@ export function getCollectibleDescription(
 
   // "ItemConfigItem.Description" is bugged with vanilla items on patch v1.7.6,
   // so we use a hard-coded map as a workaround
-  const collectibleName = COLLECTIBLE_DESCRIPTION_MAP.get(collectibleType);
-  if (collectibleName !== undefined) {
-    return collectibleName;
+  const collectibleDescription =
+    COLLECTIBLE_DESCRIPTION_MAP.get(collectibleType);
+  if (collectibleDescription !== undefined) {
+    return collectibleDescription;
   }
 
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
@@ -45,7 +46,7 @@ export function getCollectibleDescription(
     return defaultDescription;
   }
 
-  return itemConfigItem.Name;
+  return itemConfigItem.Description;
 }
 
 /**
