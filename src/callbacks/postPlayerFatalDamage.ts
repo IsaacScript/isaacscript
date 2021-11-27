@@ -39,7 +39,7 @@ function entityTakeDmgPlayer(
   }
 
   // If we are the "Lost Curse" form from touching a white fire, all damage will be fatal
-  if (!hasLostCurse(player) && !damageIsFatal(player, damageAmount)) {
+  if (!damageIsFatal(player, damageAmount) && !hasLostCurse(player)) {
     return undefined;
   }
 
@@ -51,7 +51,15 @@ function entityTakeDmgPlayer(
   return undefined;
 }
 
+/** Uses the player's current health to determine if incoming damage will be fatal. */
 function damageIsFatal(player: EntityPlayer, damageAmount: int) {
+  // First, handle the special case of Tainted Jacob's Lost Form
+  // In this case, he may have plenty of health left, but will still die in one hit to anything
+  const character = player.GetPlayerType();
+  if (character === PlayerType.PLAYER_JACOB2_B) {
+    return true;
+  }
+
   const playerNumAllHearts = getPlayerNumAllHearts(player);
   if (damageAmount < playerNumAllHearts) {
     return false;
