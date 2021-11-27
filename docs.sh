@@ -22,7 +22,7 @@ npx typedoc \
   --entryPoints "$DIR/src/features/sirenHelpers.ts" \
   --entryPoints "$DIR/src/functions/array.ts" \
   --entryPoints "$DIR/src/functions/bitwise.ts" \
-  --entryPoints "$DIR/src/functions/card.ts" \
+  --entryPoints "$DIR/src/functions/cards.ts" \
   --entryPoints "$DIR/src/functions/charge.ts" \
   --entryPoints "$DIR/src/functions/collectibles.ts" \
   --entryPoints "$DIR/src/functions/collectibleSet.ts" \
@@ -41,7 +41,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/pickups.ts" \
   --entryPoints "$DIR/src/functions/player.ts" \
   --entryPoints "$DIR/src/functions/playerHealth.ts" \
-  --entryPoints "$DIR/src/functions/pocketItems.ts" \
+  --entryPoints "$DIR/src/functions/pills.ts" \
   --entryPoints "$DIR/src/functions/position.ts" \
   --entryPoints "$DIR/src/functions/random.ts" \
   --entryPoints "$DIR/src/functions/revive.ts" \

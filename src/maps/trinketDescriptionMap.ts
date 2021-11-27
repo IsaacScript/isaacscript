@@ -1,5 +1,5 @@
 // cspell:disable
-export const TRINKET_DESCRIPTION_MAP = new Map<CollectibleType, string>([
+export const TRINKET_DESCRIPTION_MAP = new Map<TrinketType, string>([
   [1, "Gulp!"],
   [2, "It feels lucky?"],
   [3, "Trickle charge"],
