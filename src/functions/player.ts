@@ -135,17 +135,26 @@ export function getClosestPlayer(position: Vector): EntityPlayer {
 
 /**
  * Most characters have a 56 frame death animation (i.e. the "Death" animation).
- * The Lost and Tainted Lost use a 38 frame death animation (i.e. the "LostDeath" animation).
+ * The Lost and Tainted Lost have a 38 frame death animation (i.e. the "LostDeath" animation).
+ * Tainted Forgotten have a 20 frame death animation (i.e. the "ForgottenDeath" animation).
  */
 export function getDeathAnimationName(player: EntityPlayer): string {
   const character = player.GetPlayerType();
-  const isLostTypeCharacter =
+
+  if (
     character === PlayerType.PLAYER_THELOST ||
     character === PlayerType.PLAYER_THELOST_B ||
     character === PlayerType.PLAYER_THESOUL ||
-    character === PlayerType.PLAYER_THESOUL_B;
+    character === PlayerType.PLAYER_THESOUL_B
+  ) {
+    return "LostDeath";
+  }
 
-  return isLostTypeCharacter ? "LostDeath" : "Death";
+  if (character === PlayerType.PLAYER_THEFORGOTTEN_B) {
+    return "ForgottenDeath";
+  }
+
+  return "Death";
 }
 
 /**
