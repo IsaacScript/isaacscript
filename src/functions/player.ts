@@ -1,3 +1,4 @@
+import { LOST_STYLE_PLAYER_TYPES } from "../constants";
 import { HealthType } from "../types/HealthType";
 import { PocketItemDescription } from "../types/PocketItemDescription";
 import { PocketItemType } from "../types/PocketItemType";
@@ -141,12 +142,7 @@ export function getClosestPlayer(position: Vector): EntityPlayer {
 export function getDeathAnimationName(player: EntityPlayer): string {
   const character = player.GetPlayerType();
 
-  if (
-    character === PlayerType.PLAYER_THELOST ||
-    character === PlayerType.PLAYER_THELOST_B ||
-    character === PlayerType.PLAYER_THESOUL ||
-    character === PlayerType.PLAYER_THESOUL_B
-  ) {
+  if (LOST_STYLE_PLAYER_TYPES.has(character)) {
     return "LostDeath";
   }
 
