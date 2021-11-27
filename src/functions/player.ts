@@ -3,7 +3,9 @@ import { HealthType } from "../types/HealthType";
 import { PocketItemDescription } from "../types/PocketItemDescription";
 import { PocketItemType } from "../types/PocketItemType";
 import { getKBitOfN, getNumBitsOfN } from "./bitwise";
+import { getCollectibleMaxCharges } from "./collectibles";
 import { getCollectibleSet } from "./collectibleSet";
+import { ensureAllCases } from "./util";
 
 const EXCLUDED_CHARACTERS = new Set<PlayerType>([
   PlayerType.PLAYER_ESAU, // 20
@@ -726,6 +728,97 @@ export function removeTrinketCostume(
   }
 
   player.RemoveCostume(itemConfigTrinket);
+}
+
+/**
+ * Helper function to set an active collectible to a particular slot. This has different behavior
+ * than calling `player.AddCollectible()` with the `activeSlot` argument, because this function will
+ * not shift existing items into the Schoolbag and it handles `ActiveSlot.SLOT_POCKET2`.
+ *
+ * Note that if an item is set to `ActiveSlot.SLOT_POCKET2`, it will disappear after being used and
+ * will be automatically removed upon entering a new room.
+ *
+ * @param player The player to give the item to.
+ * @param collectibleType The collectible type of the item to give.
+ * @param activeSlot The slot to set.
+ * @param charge Optional. The argument of charges to set. If not specified, the item will be set
+ * with maximum charges.
+ * @param keepInPools Optional. Whether or not to remove the item from pools. False by default.
+ */
+export function setActiveItem(
+  player: EntityPlayer,
+  collectibleType: CollectibleType,
+  activeSlot: ActiveSlot,
+  charge?: int,
+  keepInPools = false,
+): void {
+  const game = Game();
+  const itemPool = game.GetItemPool();
+  const primaryCollectibleType = player.GetActiveItem(ActiveSlot.SLOT_PRIMARY);
+  const primaryCharge = player.GetActiveCharge(ActiveSlot.SLOT_PRIMARY);
+  const secondaryCollectibleType = player.GetActiveItem(
+    ActiveSlot.SLOT_SECONDARY,
+  );
+
+  if (charge === undefined) {
+    charge = getCollectibleMaxCharges(collectibleType);
+  }
+
+  if (!keepInPools) {
+    itemPool.RemoveCollectible(collectibleType);
+  }
+
+  switch (activeSlot) {
+    case ActiveSlot.SLOT_PRIMARY: {
+      // If there is a Schoolbag item, removing the primary item will shift the Schoolbag item to
+      // the primary slot
+      if (primaryCollectibleType !== CollectibleType.COLLECTIBLE_NULL) {
+        player.RemoveCollectible(primaryCollectibleType);
+      }
+
+      // If there was a Schoolbag item, adding a new primary item will shift it back into the
+      // secondary slot
+      player.AddCollectible(collectibleType, charge, false);
+
+      break;
+    }
+
+    case ActiveSlot.SLOT_SECONDARY: {
+      if (primaryCollectibleType !== CollectibleType.COLLECTIBLE_NULL) {
+        player.RemoveCollectible(primaryCollectibleType);
+      }
+
+      if (secondaryCollectibleType !== CollectibleType.COLLECTIBLE_NULL) {
+        player.RemoveCollectible(secondaryCollectibleType);
+      }
+
+      // Add the new item, which will go to the primary slot
+      player.AddCollectible(secondaryCollectibleType, charge, false);
+
+      // Add back the original primary item, if any
+      if (primaryCollectibleType !== CollectibleType.COLLECTIBLE_NULL) {
+        player.AddCollectible(primaryCollectibleType, primaryCharge, false);
+      }
+
+      break;
+    }
+
+    case ActiveSlot.SLOT_POCKET: {
+      player.SetPocketActiveItem(collectibleType, activeSlot, keepInPools);
+      player.SetActiveCharge(charge, activeSlot);
+
+      break;
+    }
+
+    case ActiveSlot.SLOT_POCKET2: {
+      player.SetPocketActiveItem(collectibleType, activeSlot, keepInPools);
+      break;
+    }
+
+    default: {
+      ensureAllCases(activeSlot);
+    }
+  }
 }
 
 /**
