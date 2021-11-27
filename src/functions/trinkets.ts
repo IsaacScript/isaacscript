@@ -1,5 +1,5 @@
 import { GOLDEN_TRINKET_SHIFT } from "../constants";
-import { TRINKET_NAME_MAP } from "../trinketNameMap";
+import { TRINKET_NAME_MAP } from "../maps/trinketNameMap";
 
 export function getMaxTrinketID(): int {
   const itemConfig = Isaac.GetItemConfig();

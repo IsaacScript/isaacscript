@@ -2,7 +2,7 @@ import {
   ITEM_TO_TRANSFORMATION_MAP,
   TRANSFORMATIONS_NOT_BASED_ON_ITEMS,
   TRANSFORMATION_TO_ITEMS_MAP,
-} from "../transformationMap";
+} from "../maps/transformationMap";
 import { copySet } from "./util";
 
 /** Returns the number of items that a player has towards a particular transformation. */

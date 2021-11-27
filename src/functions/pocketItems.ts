@@ -1,5 +1,5 @@
-import { CARD_NAME_MAP } from "../cardNameMap";
-import { PILL_EFFECT_NAME_MAP } from "../pillEffectNameMap";
+import { CARD_NAME_MAP } from "../maps/cardNameMap";
+import { PILL_EFFECT_NAME_MAP } from "../maps/pillEffectNameMap";
 
 /**
  * This is a helper function to get a card name from a Card.

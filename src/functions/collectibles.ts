@@ -1,4 +1,4 @@
-import { COLLECTIBLE_NAME_MAP } from "../collectibleNameMap";
+import { COLLECTIBLE_NAME_MAP } from "../maps/collectibleNameMap";
 import { removeAllMatchingEntities } from "./entity";
 
 const COLLECTIBLE_SPRITE_LAYER = 1;

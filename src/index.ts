@@ -2,8 +2,8 @@ export {
   forceNewLevelCallback,
   forceNewRoomCallback,
 } from "./callbacks/reorderedCallbacks";
-export * from "./cardNameMap";
-export * from "./collectibleNameMap";
+export * from "./maps/cardNameMap";
+export * from "./maps/collectibleNameMap";
 export * from "./constants";
 export {
   deployJSONRoom,
@@ -66,9 +66,9 @@ export * from "./functions/trinketSet";
 export * from "./functions/ui";
 export * from "./functions/util";
 export * from "./functions/vector";
-export * from "./pillEffectNameMap";
-export * from "./transformationMap";
-export * from "./trinketNameMap";
+export * from "./maps/pillEffectNameMap";
+export * from "./maps/transformationMap";
+export * from "./maps/trinketNameMap";
 export * from "./types/CallbackParametersCustom";
 export * from "./types/HealthType";
 export * from "./types/JSONDoor";
