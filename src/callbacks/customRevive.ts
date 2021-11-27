@@ -81,12 +81,22 @@ function postPlayerUpdateReordered(player: EntityPlayer) {
     return;
   }
 
+  const character = player.GetPlayerType();
   const playerIndex = getPlayerIndex(player);
+
   if (playerIndex !== v.run.dyingPlayerIndex) {
     return;
   }
 
-  if (!player.IsHoldingItem()) {
+  let playerToCheckHoldingItem = player;
+  if (character === PlayerType.PLAYER_THESOUL_B) {
+    const forgottenBody = player.GetOtherTwin();
+    if (forgottenBody !== undefined) {
+      playerToCheckHoldingItem = forgottenBody;
+    }
+  }
+
+  if (!playerToCheckHoldingItem.IsHoldingItem()) {
     return;
   }
 
@@ -96,7 +106,7 @@ function postPlayerUpdateReordered(player: EntityPlayer) {
   // which will overwrite the 1-Up animation
 
   if (v.run.revivalType !== null) {
-    postCustomRevive.fire(player, v.run.revivalType);
+    postCustomRevive.fire(playerToCheckHoldingItem, v.run.revivalType);
   }
 
   v.run.state = CustomReviveState.DISABLED;
