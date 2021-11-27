@@ -2,6 +2,7 @@ import { MAX_PLAYER_HEART_CONTAINERS } from "../constants";
 import { PlayerHealth } from "../types/PlayerHealth";
 
 // Testing snippets:
+
 // lua local p = Isaac.GetPlayer() p:AddEternalHearts(1) p:AddBoneHearts(1) p:Update() p:AddRottenHearts(1) p:AddBlackHearts(2) p:AddSoulHearts(2) p:AddBoneHearts(1) p:AddBlackHearts(3) p:AddBrokenHearts(2)
 // lua local p = Isaac.GetPlayer() p:AddEternalHearts(-1) p:AddBoneHearts(-1) p:AddRottenHearts(-1) p:AddBlackHearts(-2) p:AddSoulHearts(-2) p:AddBoneHearts(-1) p:AddBlackHearts(-3) p:AddBrokenHearts(-2)
 
@@ -127,10 +128,10 @@ export function setPlayerHealth(
 
   // Add the soul / black / bone hearts
   let soulHeartsRemaining = playerHealth.soulHearts;
-  for (let i = 1; i <= playerHealth.soulHeartTypes.length; i++) {
-    const heartType = playerHealth.soulHeartTypes[i - 1];
+  for (let i = 0; i < playerHealth.soulHeartTypes.length; i++) {
+    const heartType = playerHealth.soulHeartTypes[i];
     const isHalf =
-      playerHealth.soulHearts + playerHealth.boneHearts * 2 < i * 2;
+      playerHealth.soulHearts + playerHealth.boneHearts * 2 < (i + 1) * 2;
     let addAmount = 2;
     if (
       isHalf ||

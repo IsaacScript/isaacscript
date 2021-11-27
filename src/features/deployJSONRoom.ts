@@ -389,14 +389,14 @@ function spawnAllEntities(jsonRoom: JSONRoom, seed: int, verbose = false) {
     // Note that XML entity type 1000 is a rock, not an effect
     if (entityType >= 1000) {
       if (verbose) {
-        log(`Spawning a grid entity ${entityType}.${variant} at: (${x}, ${y})`);
+        log(`Spawning grid entity ${entityType}.${variant} at: (${x}, ${y})`);
       }
       spawnGridEntity(entityType, variant, x, y);
     } else {
       seed = nextSeed(seed);
       if (verbose) {
         log(
-          `Spawning a normal entity ${entityType}.${variant}.${subType} at: (${x}, ${y})`,
+          `Spawning normal entity ${entityType}.${variant}.${subType} at: (${x}, ${y})`,
         );
       }
       const entity = spawnNormalEntity(
