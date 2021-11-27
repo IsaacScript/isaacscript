@@ -7,6 +7,7 @@ declare interface Vector {
   Distance(secondVector: Vector): float;
   DistanceSquared(secondVector: Vector): float;
   Dot(secondVector: Vector): float;
+
   /**
    * The game returns degrees in the following format:
    *
@@ -16,6 +17,7 @@ declare interface Vector {
    * - Down: 90
    */
   GetAngleDegrees(): float;
+
   Length(): float;
   LengthSquared(): float;
   Lerp(secondVector: Vector, t: float): Vector;
@@ -27,12 +29,16 @@ declare interface Vector {
 
   /** Use the "add()" method instead. */
   __add(right: never): Vector;
+
   /** Use the "div()" method instead. */
   __div(modifier: never): Vector;
+
   /** Use the "mul()" method instead. */
   __mul(modifier: never): Vector;
+
   /** Use the "sub()" method instead. */
   __sub(right: never): Vector;
+
   // Not implemented since it can cause the game to crash
   // __unm(right: never): Vector;
 
@@ -41,10 +47,15 @@ declare interface Vector {
 
   // Helper functions for adding and so forth
   // https://typescripttolua.github.io/docs/advanced/language-extensions/#operator-map-types
+
   add: LuaAdditionMethod<Vector, Vector>;
-  // Vector multiplication was extended to allow Vectors in Repentance
-  // However, this functionality does not apply to division
+
+  /**
+   * Vector multiplication was extended to allow Vectors in Repentance. However, this functionality
+   * does not apply to division.
+   */
   div: LuaDivisionMethod<number, Vector>;
+
   mul: LuaMultiplicationMethod<number | Vector, Vector>;
   sub: LuaSubtractionMethod<Vector, Vector>;
 }

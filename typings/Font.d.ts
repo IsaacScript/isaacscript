@@ -17,6 +17,7 @@ declare interface Font {
     boxWidth?: int,
     center?: boolean,
   ): void;
+
   /**
    * @param str
    * @param positionX
@@ -37,6 +38,7 @@ declare interface Font {
     boxWidth?: int,
     center?: boolean,
   ): void;
+
   DrawStringScaledUTF8(
     str: string,
     positionX: float,
@@ -47,6 +49,7 @@ declare interface Font {
     boxWidth: int,
     center: boolean,
   ): void;
+
   /**
    * @param str
    * @param positionX
@@ -63,6 +66,7 @@ declare interface Font {
     boxWidth?: int,
     center?: boolean,
   ): void;
+
   GetBaselineHeight(): int;
   GetCharacterWidth(character: string): int;
   GetLineHeight(): int;

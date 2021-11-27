@@ -5,6 +5,7 @@ declare interface Game {
   AddStageWithoutDamage(): void;
   AddStageWithoutHeartsPicked(): void;
   AddTreasureRoomsVisited(): void;
+
   /**
    * There is no separate BombFlags enum, so bombs use tear flags.
    * Be aware that this really takes a BitSet128 instead of an integer.
@@ -29,6 +30,7 @@ declare interface Game {
     damageFlags?: DamageFlag,
     damageSource?: boolean,
   ): void;
+
   /**
    * There is no separate BombFlags enum, so bombs use tear flags.
    * Be aware that this really takes a BitSet128 instead of an integer.
@@ -55,6 +57,7 @@ declare interface Game {
     damageSource?: boolean,
     damageFlags?: DamageFlag,
   ): void;
+
   /**
    * There is no separate BombFlags enum, so bombs use tear flags.
    * Be aware that this really takes a BitSet128 instead of an integer.
@@ -73,6 +76,7 @@ declare interface Game {
     source?: Entity,
     radiusMult?: float,
   ): void;
+
   ButterBeanFart(
     position: Vector,
     radius: float,
@@ -80,11 +84,13 @@ declare interface Game {
     showEffect: boolean,
     doSuperKnockback: boolean,
   ): void;
+
   /**
    * @param roomIndex
    * @param dimension Default is Dimension.CURRENT.
    */
   ChangeRoom(roomIndex: int, dimension?: Dimension): void;
+
   CharmFart(position: Vector, radius: float, source: Entity): void;
   ClearDonationModAngel(): void;
   ClearDonationModGreed(): void;
@@ -96,6 +102,7 @@ declare interface Game {
   End(ending: Ending): void;
   Fadein(speed: float): void;
   Fadeout(speed: float, fadeoutTarget: FadeoutTarget): void;
+
   /**
    * @param position
    * @param radius Default is 85.
@@ -112,6 +119,7 @@ declare interface Game {
     fartSubType?: int,
     fartColor?: Color,
   ): void;
+
   FinishChallenge(): void;
   // GetAmbush(): Ambush; // Ambush is not implemented
   GetDarknessModifier(): float;
@@ -125,16 +133,20 @@ declare interface Game {
   // GetItemOverlay(): ItemOverlay; // ItemOverlay is not implemented
   GetHUD(): HUD;
   GetItemPool(): ItemPool;
+
   /** This function is bugged and returns useless userdata. */
   GetLastDevilRoomStage(fakeArg: never): LevelStage;
+
   GetLastLevelWithDamage(): LevelStage;
   GetLastLevelWithoutHalfHp(): LevelStage;
   GetLevel(): Level;
   GetNearestPlayer(position: Vector): EntityPlayer;
   GetNumEncounteredBosses(): int;
   GetNumPlayers(): int;
+
   /** Use `Isaac.GetPlayer()` instead of this function. */
   GetPlayer(fakeArg: never): EntityPlayer | undefined;
+
   GetRandomPlayer(position: Vector, radius: float): EntityPlayer;
   GetRoom(): Room;
   GetScreenShakeCountdown(): Readonly<int>;
@@ -161,6 +173,7 @@ declare interface Game {
   SetStateFlag(gameStateFlag: GameStateFlag, val: boolean): void;
   ShakeScreen(timeout: int): void;
   ShowFortune(): void;
+
   /**
    * @param frameCount
    * @param hallucinationBackdrop Default is BackdropType.NUM_BACKDROPS.
@@ -169,7 +182,9 @@ declare interface Game {
     frameCount: int,
     hallucinationBackdropType?: BackdropType,
   ): void;
+
   ShowRule(): void;
+
   Spawn(
     entityType: EntityType | int,
     variant: int,
@@ -179,6 +194,7 @@ declare interface Game {
     subType: int,
     seed: int,
   ): Entity;
+
   /*
   SpawnEntityDesc(
     entityDesc: EntityDesc, // EntityDesc is not implemented
@@ -186,6 +202,7 @@ declare interface Game {
     spawner: Entity,
   ): EntityNPC;
   */
+
   /**
    * @param position
    * @param effectVariant
@@ -204,6 +221,7 @@ declare interface Game {
     height?: float,
     subType?: int,
   ): void;
+
   /**
    * You have to set Level.LeaveDoor to an appropriate value before using this function. Otherwise,
    * you will be sent to the wrong room. (For teleports, set it to -1.)
@@ -221,11 +239,14 @@ declare interface Game {
     player?: EntityPlayer,
     dimension?: Dimension,
   ): void;
+
   StartStageTransition(
     sameStage: boolean,
     stageTransition: StageTransition,
   ): void;
+
   Update(): void;
+
   /**
    * @param position
    * @param force Default is 10.

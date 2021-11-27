@@ -1041,45 +1041,59 @@ declare interface EntityPlayer extends Entity {
 
   /** Only change this in the EvaluateCache callback. */
   CanFly: boolean;
+
   readonly ControllerIndex: ControllerIndex;
   ControlsCooldown: int;
   ControlsEnabled: boolean;
+
   /** Only change this in the EvaluateCache callback. */
   Damage: float;
+
   FireDelay: int;
   // readonly FriendBallEnemy: Readonly<EntityDesc>; // EntityDesc is not implemented
   HeadFrameDelay: int;
   ItemHoldCooldown: int;
   LaserColor: Color;
+
   /** Only change this in the EvaluateCache callback. */
   Luck: float;
+
   /** Only change this in the EvaluateCache callback. */
   MaxFireDelay: int;
+
   /** Only change this in the EvaluateCache callback. */
   MoveSpeed: float;
+
   QueuedItem: QueueItemData;
+
   /** Only change this in the EvaluateCache callback. */
   ShotSpeed: float;
+
   SpriteScale: Vector;
   TearColor: Color;
   TearFallingAcceleration: float;
+
   /** Only change this in the EvaluateCache callback. */
   TearFallingSpeed: float;
+
   /**
    * Only change this in the EvaluateCache callback.
    * Be aware that this is really a BitSet128 instead of an integer.
    * However, all of the TearFlags enums values use BitSet128 constructors.
    */
   TearFlags: int;
+
   /**
    * This is equal to the range stat multiplied by -1.
    * Only change this in the EvaluateCache callback.
    */
   TearHeight: float;
+
   /**
    * This is equal to the range stat multiplied by 40.
    * Only change this in the EvaluateCache callback.
    */
   TearRange: float;
+
   readonly TearsOffset: Readonly<Vector>;
 }

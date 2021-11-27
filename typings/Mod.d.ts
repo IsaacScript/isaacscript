@@ -7,6 +7,7 @@ declare interface Mod {
     modCallbacks: T,
     ...args: CallbackParameters[T]
   ): void;
+
   HasData(): boolean;
   LoadData(): string;
   RemoveCallback(callbackID: ModCallbacks, callback: () => void): void;

@@ -9,12 +9,14 @@ declare interface Entity {
   AddMidasFreeze(source: EntityRef, duration: int): void;
   AddPoison(source: EntityRef, duration: int, damage: float): void;
   AddShrink(source: EntityRef, duration: int): void;
+
   AddSlowing(
     source: EntityRef,
     duration: int,
     slowValue: float,
     slowColor: Color,
   ): void;
+
   AddVelocity(velocity: Vector): void;
   BloodExplode(): void;
   // CanShutDoors is deliberately not implemented here because it conflicts with
@@ -55,6 +57,7 @@ declare interface Entity {
   RemoveStatusEffects(): void;
   Render(offset: Vector): void;
   RenderShadowLayer(offset: Vector): boolean;
+
   /**
    *
    * @param color
@@ -70,15 +73,18 @@ declare interface Entity {
     fadeout?: boolean,
     share?: boolean,
   ): void;
+
   SetSize(size: float, sizeMulti: Vector, numGridCollisionPoints: int): void;
   SetSpriteFrame(animationName: string, frameNum: int): void;
   SetSpriteOverlayFrame(animationName: string, frameNum: int): void;
+
   TakeDamage(
     damage: float,
     damageFlags: int,
     source: EntityRef,
     damageCountdown: int,
   ): boolean;
+
   ToBomb(): EntityBomb | undefined;
   ToEffect(): EntityEffect | undefined;
   ToFamiliar(): EntityFamiliar | undefined;

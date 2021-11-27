@@ -4,19 +4,23 @@ declare interface EntityKnife extends Entity {
    * However, all of the TearFlags enums values use BitSet128 constructors.
    */
   AddTearFlags(flags: TearFlags): void;
+
   /**
    * Be aware that this really takes a BitSet128 instead of an integer.
    * However, all of the TearFlags enums values use BitSet128 constructors.
    */
   ClearTearFlags(flags: TearFlags): void;
+
   GetKnifeDistance(): float;
   GetKnifeVelocity(): float;
   GetRenderZ(): int;
+
   /**
    * Be aware that this really takes a BitSet128 instead of an integer.
    * However, all of the TearFlags enums values use BitSet128 constructors.
    */
   HasTearFlags(flags: TearFlags): boolean;
+
   IsFlying(): boolean;
   Reset(): void;
   SetPathFollowSpeed(speed: float): void;
@@ -29,6 +33,7 @@ declare interface EntityKnife extends Entity {
   Rotation: float;
   RotationOffset: float;
   Scale: float;
+
   /**
    * Be aware that this is really a BitSet128 instead of an integer.
    * However, all of the TearFlags enums values use BitSet128 constructors.

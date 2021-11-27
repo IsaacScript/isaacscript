@@ -1,5 +1,3 @@
-// This class is unused because "ItemConfig.GetCostumes()" is broken
-
 declare interface ItemConfigCostume {
   Anm2Path: string;
   HasOverlay: boolean;

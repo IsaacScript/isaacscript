@@ -4,28 +4,34 @@ declare interface EntityLaser extends Entity {
    * However, all of the TearFlags enums values use BitSet128 constructors.
    */
   AddTearFlags(flags: TearFlags): void;
+
   /**
    * Be aware that this really takes a BitSet128 instead of an integer.
    * However, all of the TearFlags enums values use BitSet128 constructors.
    */
   ClearTearFlags(flags: TearFlags): void;
+
   GetEndPoint(): Readonly<Vector>;
   // GetNonOptimizedSamples(): Readonly<HomingLaserSampleList>; // HomingLaser is not implemented
   GetRenderZ(): int;
   // GetSamples(): Readonly<HomingLaserSampleList>; // HomingLaser is not implemented
+
   /**
    * Be aware that this really takes a BitSet128 instead of an integer.
    * However, all of the TearFlags enums values use BitSet128 constructors.
    */
   HasTearFlags(flags: TearFlags): boolean;
+
   IsCircleLaser(): boolean;
   IsSampleLaser(): boolean;
+
   SetActiveRotation(
     delay: int,
     angleDegrees: float,
     rotationSpeed: float,
     timeoutComplete: boolean,
   ): void;
+
   SetBlackHpDropChance(chance: float): void;
   // SetHomingType(laserHomingType: LaserHomingType): void; // LaserHomingType is not implemented
   SetMaxDistance(distance: float): void;
@@ -57,11 +63,13 @@ declare interface EntityLaser extends Entity {
   // SampleLaser: boolean; // Should use IsSampleLaser() instead
   Shrink: boolean;
   StartAngleDegrees: float;
+
   /**
    * Be aware that this is really a BitSet128 instead of an integer.
    * However, all of the TearFlags enums values use BitSet128 constructors.
    */
   TearFlags: int;
+
   Timeout: int;
 }
 
@@ -74,6 +82,7 @@ declare namespace EntityLaser {
     parent: Entity,
     margin: float,
   ): Vector;
+
   function ShootAngle(
     this: void,
     variant: LaserVariant | int,

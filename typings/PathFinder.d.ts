@@ -1,11 +1,13 @@
 declare interface PathFinder {
   EvadeTarget(targetPos: Vector): void;
+
   FindGridPath(
     position: Vector,
     speed: float,
     pathMarker: int,
     useDirectPath: boolean,
   ): void;
+
   GetEvadeMovementCountdown(): int;
   GetGridIndex(): int;
   HasDirectPath(): boolean;

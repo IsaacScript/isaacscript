@@ -4,17 +4,21 @@ declare interface EntityTear extends Entity {
    * However, all of the TearFlags enums values use BitSet128 constructors.
    */
   AddTearFlags(flags: TearFlags): void;
-  ChangeVariant(newVariant: TearVariant | int): void;
+
+  ChangeVariant(tearVariant: TearVariant | int): void;
+
   /**
    * Be aware that this really takes a BitSet128 instead of an integer.
    * However, all of the TearFlags enums values use BitSet128 constructors.
    */
   ClearTearFlags(flags: TearFlags): void;
+
   /**
    * Be aware that this really takes a BitSet128 instead of an integer.
    * However, all of the TearFlags enums values use BitSet128 constructors.
    */
   HasTearFlags(flags: TearFlags): boolean;
+
   ResetSpriteScale(): void;
   SetDeadEyeIntensity(intensity: float): void;
   SetKnockbackMultiplier(multiplier: float): void;
@@ -38,11 +42,13 @@ declare interface EntityTear extends Entity {
   StickDiff: Vector;
   StickTarget: Entity;
   StickTimer: int;
+
   /**
    * Be aware that this is really a BitSet128 instead of an integer.
    * However, all of the TearFlags enums values use BitSet128 constructors.
    */
   TearFlags: int;
+
   /**
    * - In each run, the game keeps track of how many tears have been fired by the player in total.
    * This is used for items such as Lead Pencil.
@@ -52,5 +58,6 @@ declare interface EntityTear extends Entity {
    * on.
    */
   readonly TearIndex: int;
+
   WaitFrames: int;
 }

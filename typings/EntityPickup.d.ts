@@ -3,6 +3,7 @@ declare interface EntityPickup extends Entity {
   CanReroll(): boolean;
   GetCoinValue(): int;
   IsShopItem(): boolean;
+
   /**
    * @param entityType
    * @param variant
@@ -21,8 +22,10 @@ declare interface EntityPickup extends Entity {
     keepSeed?: boolean,
     ignoreModifiers?: boolean,
   ): void;
+
   PlayDropSound(): void;
   PlayPickupSound(): void;
+
   /**
    * @param player Default is undefined.
    */
@@ -30,6 +33,7 @@ declare interface EntityPickup extends Entity {
 
   AutoUpdatePrice: boolean;
   Charge: int;
+
   /**
    * Any non-zero value causes the item to form an option group with any other item with the same
    * OptionsPickupIndex value.
@@ -40,6 +44,7 @@ declare interface EntityPickup extends Entity {
    * 0 is the default value and means the item doesn't belong to any group.
    */
   OptionsPickupIndex: int;
+
   Price: int;
   ShopItemId: int;
   State: int;

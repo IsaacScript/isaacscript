@@ -23,11 +23,13 @@ declare interface Sprite {
   PlayRandom(seed: int): void;
   Reload(): void;
   RemoveOverlay(): void;
+
   Render(
     position: Vector,
     topLeftClamp: Vector,
     bottomRightClamp: Vector,
   ): void;
+
   /**
    * @param layerID
    * @param position
@@ -40,6 +42,7 @@ declare interface Sprite {
     topLeftClamp?: Vector,
     bottomRightClamp?: Vector,
   ): void;
+
   ReplaceSpritesheet(layerID: int, pngFilename: string): void;
   Reset(): void;
   SetAnimation(animationName: string): boolean;

@@ -1,26 +1,35 @@
 declare interface ItemConfig {
   /** Returns undefined if the card was not found. */
   GetCard(card: Card | int): Readonly<ItemConfigCard> | undefined;
+
   GetCards(): Readonly<CardConfigList>;
+
   /** Returns undefined if the collectible type was not found. */
   GetCollectible(
     collectibleType: CollectibleType | int,
   ): Readonly<ItemConfigItem> | undefined;
+
   GetCollectibles(): Readonly<ItemConfigList>;
+
   /** Returns undefined if the item was not found. */
   GetNullItem(
     nullItemID: NullItemID | int,
   ): Readonly<ItemConfigItem> | undefined;
+
   GetNullItems(): Readonly<ItemConfigList>;
+
   /** Returns undefined if the pill effect was not found. */
   GetPillEffect(
     pillEffect: PillEffect | int,
   ): Readonly<ItemConfigPillEffect> | undefined;
+
   GetPillEffects(): Readonly<PillConfigList>;
+
   /** Returns undefined if the trinket was not found. */
   GetTrinket(
     trinketType: TrinketType | int,
   ): Readonly<ItemConfigItem> | undefined;
+
   GetTrinkets(): Readonly<ItemConfigList>;
 
   // In the "enums.lua" file, the ItemConfig class is extended with many members:

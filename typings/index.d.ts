@@ -14,7 +14,6 @@
 /// <reference path="BitSet128.d.ts" />
 /// <reference path="CardConfigList.d.ts" />
 /// <reference path="Color.d.ts" />
-/// <reference path="CostumeConfigList.d.ts" />
 /// <reference path="EffectList.d.ts" />
 /// <reference path="Entity.d.ts" />
 /// <reference path="EntityBomb.d.ts" />

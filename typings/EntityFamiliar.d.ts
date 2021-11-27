@@ -11,6 +11,7 @@ declare interface EntityFamiliar extends Entity {
   GetOrbitPosition(position: Vector): Vector;
   MoveDelayed(numFrames: int): void;
   MoveDiagonally(speed: float): void;
+
   /**
    * @param maxDistance
    * @param frameInterval Default is 13.
@@ -35,6 +36,7 @@ declare interface EntityFamiliar extends Entity {
     coneDir?: Vector,
     coneAngle?: float,
   ): void;
+
   PlayChargeAnim(direction: Direction): void;
   PlayFloatAnim(direction: Direction): void;
   PlayShootAnim(direction: Direction): void;

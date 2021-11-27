@@ -5,6 +5,7 @@ declare interface SFXManager {
   AdjustVolume(soundEffect: SoundEffect | int, volume: float): void;
   GetAmbientSoundVolume(soundEffect: SoundEffect | int): float;
   IsPlaying(soundEffect: SoundEffect | int): boolean;
+
   /**
    * @param soundEffect
    * @param volume Default is 1.
@@ -21,12 +22,15 @@ declare interface SFXManager {
     pitch?: float,
     pan?: float,
   ): void;
+
   Preload(soundEffect: SoundEffect | int): void;
+
   SetAmbientSound(
     soundEffect: SoundEffect | int,
     volume: float,
     pitch: float,
   ): void;
+
   Stop(soundEffect: SoundEffect | int): void;
   StopLoopingSounds(): void;
 }

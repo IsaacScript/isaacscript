@@ -4,21 +4,25 @@ declare interface EntityNPC extends Entity {
     verticalAnim: string,
     speedThreshold: float,
   ): void;
+
   CalcTargetPosition(distanceLimit: float): Vector;
   CanBeDamagedFromVelocity(velocity: Vector): boolean;
   CanReroll(): boolean;
+
   FireBossProjectiles(
     numProjectiles: int,
     targetPos: Vector,
     trajectoryModifier: float,
     projectileParams: ProjectileParams,
   ): EntityProjectile;
+
   FireProjectiles(
     position: Vector,
     velocity: Vector,
     projectilesMode: ProjectilesMode,
     projectileParams: ProjectileParams,
   ): void;
+
   GetAliveEnemyCount(): int;
   GetBossColorIdx(): int;
   GetChampionColorIdx(): ChampionColor;
@@ -26,6 +30,7 @@ declare interface EntityNPC extends Entity {
   IsBoss(): boolean;
   IsChampion(): boolean;
   KillUnique(): void;
+
   /**
    * @param seed
    * @param championColor The type of champion to turn this enemy into.
@@ -39,13 +44,16 @@ declare interface EntityNPC extends Entity {
     championColorIdx?: ChampionColor,
     init?: boolean,
   ): void;
+
   MakeSplat(size: float): EntityEffect;
+
   Morph(
     entityType: EntityType | int,
     variant: int,
     subType: int,
     championColorIdx: ChampionColor,
   ): boolean;
+
   PlaySound(
     soundEffect: SoundEffect | int,
     volume: float,
@@ -53,18 +61,22 @@ declare interface EntityNPC extends Entity {
     loop: boolean,
     pitch: float,
   ): void;
+
   QueryNPCsGroup(groupIdx: int): EntityList;
+
   QueryNPCsSpawnerType(
     spawnerType: EntityType | int,
     entityType: EntityType | int,
     onlyEnemies: boolean,
   ): EntityList;
+
   QueryNPCsType(entityType: EntityNPC, variant: int): EntityList;
   ResetPathFinderTarget(): void;
 
   // EntityNPC.CanShutDoors conflicts with Entity.CanShutDoors(),
   // but the latter is deliberately not implemented so that we can use the property in EntityNPC
   CanShutDoors: boolean;
+
   readonly ChildNPC: Readonly<EntityNPC>;
   EntityRef: Entity;
   GroupIdx: int;
@@ -75,11 +87,13 @@ declare interface EntityNPC extends Entity {
   ProjectileCooldown: int;
   ProjectileDelay: int;
   Scale: float;
+
   /**
    * This has a type of `NpcState | int` so that other enums can be used to represent more specific
    * entities.
    */
   State: NpcState | int;
+
   StateFrame: int;
   V1: Vector;
   V2: Vector;
