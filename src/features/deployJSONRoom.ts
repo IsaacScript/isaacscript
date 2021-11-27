@@ -424,6 +424,8 @@ function spawnAllEntities(jsonRoom: JSONRoom, seed: int, verbose = false) {
       );
     }
     setRoomUncleared();
+  } else if (verbose) {
+    log("Leaving the room cleared since there were no battle NPCs spawned.");
   }
 
   return seed;
