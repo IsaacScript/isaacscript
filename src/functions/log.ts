@@ -29,32 +29,26 @@ export function getDebugPrependString(
 }
 
 /**
- * Helper function to avoid typing out `Isaac.DebugString()`.
- * If you have the --luadebug launch flag turned on or the Racing+ sandbox enabled,
- * then this function will also prepend the function name and the line number before the string.
+ * Helper function to avoid typing out `Isaac.DebugString()`. If you have the --luadebug launch flag
+ * turned on or the Racing+ sandbox enabled, then this function will also prepend the function name
+ * and the line number before the string.
  */
 export function log(this: void, msg: string): void {
   const debugMsg = getDebugPrependString(msg);
   Isaac.DebugString(debugMsg);
 }
 
-/**
- * Helper function for printing out every damage flag that is turned on. Helpful when debugging.
- */
+/** Helper function for printing out every damage flag that is turned on. Helpful when debugging. */
 export function logAllDamageFlags(this: void, flags: int): void {
   logAllFlags(flags, DamageFlag as unknown as LuaTable, "damage");
 }
 
-/**
- * Helper function for printing out every entity flag that is turned on. Helpful when debugging.
- */
+/** Helper function for printing out every entity flag that is turned on. Helpful when debugging. */
 export function logAllEntityFlags(this: void, flags: int): void {
   logAllFlags(flags, EntityFlag as unknown as LuaTable, "entity");
 }
 
-/**
- * Helper function for printing out every flag that is turned on. Helpful when debugging.
- */
+/** Helper function for printing out every flag that is turned on. Helpful when debugging. */
 export function logAllFlags(
   this: void,
   flags: int,
@@ -72,6 +66,9 @@ export function logAllFlags(
   }
 }
 
+/**
+ * Helper function for printing out every game state flag that is turned on. Helpful when debugging.
+ */
 export function logAllGameStateFlags(this: void): void {
   const game = Game();
 
@@ -92,9 +89,12 @@ export function logAllProjectileFlags(this: void, flags: int): void {
   logAllFlags(flags, ProjectileFlags as unknown as LuaTable, "projectile");
 }
 
-/**
- * Helper function for printing out every use flag that is turned on. Helpful when debugging.
- */
+/** Helper function for printing out every use flag that is turned on. Helpful when debugging. */
+export function logAllTearFlags(this: void, flags: int): void {
+  logAllFlags(flags, TearFlags as unknown as LuaTable, "tear");
+}
+
+/** Helper function for printing out every use flag that is turned on. Helpful when debugging. */
 export function logAllUseFlags(this: void, flags: int): void {
   logAllFlags(flags, UseFlag as unknown as LuaTable, "use");
 }
