@@ -18,7 +18,7 @@ export function getCardName(card: Card | int): string {
     return defaultName;
   }
 
-  // "ItemConfigCard.Name" is bugged with vanilla cards on patch v1.7.5,
+  // "ItemConfigCard.Name" is bugged with vanilla cards on patch v1.7.6,
   // so we use a hard-coded map as a workaround
   const cardName = CARD_NAME_MAP.get(card);
   if (cardName !== undefined) {
@@ -50,7 +50,7 @@ export function getPillEffectName(pillEffect: PillEffect | int): string {
     return defaultName;
   }
 
-  // "ItemConfigPillEffect.Name" is bugged with vanilla pill effects on patch v1.7.5,
+  // "ItemConfigPillEffect.Name" is bugged with vanilla pill effects on patch v1.7.6,
   // so we use a hard-coded map as a workaround
   const pillEffectName = PILL_EFFECT_NAME_MAP.get(pillEffect);
   if (pillEffectName !== undefined) {

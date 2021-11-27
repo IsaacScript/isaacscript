@@ -1,3 +1,4 @@
+import { COLLECTIBLE_DESCRIPTION_MAP } from "../maps/collectibleDescriptionMap";
 import { COLLECTIBLE_NAME_MAP } from "../maps/collectibleNameMap";
 import { removeAllMatchingEntities } from "./entity";
 
@@ -19,6 +20,32 @@ export function collectibleHasTag(
   }
 
   return itemConfigItem.HasTags(tag);
+}
+
+/** This is a helper function to get a description from a CollectibleType. */
+export function getCollectibleDescription(
+  collectibleType: CollectibleType | int,
+): string {
+  const itemConfig = Isaac.GetItemConfig();
+  const defaultDescription = "Unknown";
+
+  if (type(collectibleType) !== "number") {
+    return defaultDescription;
+  }
+
+  // "ItemConfigItem.Description" is bugged with vanilla items on patch v1.7.6,
+  // so we use a hard-coded map as a workaround
+  const collectibleName = COLLECTIBLE_DESCRIPTION_MAP.get(collectibleType);
+  if (collectibleName !== undefined) {
+    return collectibleName;
+  }
+
+  const itemConfigItem = itemConfig.GetCollectible(collectibleType);
+  if (itemConfigItem === undefined) {
+    return defaultDescription;
+  }
+
+  return itemConfigItem.Name;
 }
 
 /**
@@ -114,7 +141,7 @@ export function getCollectibleName(
     return defaultName;
   }
 
-  // "ItemConfigItem.Name" is bugged with vanilla items on patch v1.7.5,
+  // "ItemConfigItem.Name" is bugged with vanilla items on patch v1.7.6,
   // so we use a hard-coded map as a workaround
   const collectibleName = COLLECTIBLE_NAME_MAP.get(collectibleType);
   if (collectibleName !== undefined) {

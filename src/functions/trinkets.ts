@@ -42,7 +42,7 @@ export function getTrinketName(trinketType: TrinketType | int): string {
     return defaultName;
   }
 
-  // "ItemConfigItem.Name" is bugged with vanilla items on patch v1.7.5,
+  // "ItemConfigItem.Name" is bugged with vanilla items on patch v1.7.6,
   // so we use a hard-coded map as a workaround
   const trinketName = TRINKET_NAME_MAP.get(trinketType);
   if (trinketName !== undefined) {
