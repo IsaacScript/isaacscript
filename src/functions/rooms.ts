@@ -6,6 +6,13 @@ import {
   ROOM_TYPE_TO_ITEM_POOL_TYPE_MAP,
 } from "../constants";
 import { closeAllDoors, getDoors, isHiddenSecretRoomDoor } from "./doors";
+import {
+  getEntities,
+  getEntityPositions,
+  getEntityVelocities,
+  setEntityPositions,
+  setEntityVelocities,
+} from "./entity";
 import { hasFlag } from "./flag";
 
 /**
@@ -367,6 +374,26 @@ export function inStartingRoom(): boolean {
   const roomIndex = getRoomIndex();
 
   return roomIndex === startingRoomIndex;
+}
+
+/**
+ * If `Room.Update()` is called in a PostNewRoom callback, then some entities will slide around
+ * (such as the player). Since those entity velocities are already at zero, setting them to zero
+ * will have no effect. Thus, a generic solution is to record all of the entity positions/velocities
+ * before updating the room, and then restore those positions/velocities.
+ */
+export function roomUpdateSafe(): void {
+  const game = Game();
+  const room = game.GetRoom();
+  const entities = getEntities();
+
+  const entityPositions = getEntityPositions(entities);
+  const entityVelocities = getEntityVelocities(entities);
+
+  room.Update();
+
+  setEntityPositions(entityPositions, entities);
+  setEntityVelocities(entityVelocities, entities);
 }
 
 /**

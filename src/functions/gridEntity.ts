@@ -1,4 +1,5 @@
 import { GRID_ENTITY_XML_MAP } from "../constants";
+import { roomUpdateSafe } from "./rooms";
 
 /**
  * Helper function to convert the grid entity type found in a room XML file to the corresponding
@@ -153,6 +154,17 @@ export function isPostBossVoidPortal(gridEntity: GridEntity): boolean {
   return saveState.VarData === 1;
 }
 
+/**
+ * Helper function to remove most grid entities in the room.
+ *
+ * Example:
+ * ```
+ * removeAllGridEntitiesExceptFor(
+ *   GridEntityType.GRID_WALL,
+ *   GridEntityType.GRID_DOOR,
+ * );
+ * ```
+ */
 export function removeAllGridEntitiesExceptFor(
   ...gridEntityTypes: GridEntityType[]
 ): void {
@@ -161,9 +173,11 @@ export function removeAllGridEntitiesExceptFor(
   for (const gridEntity of gridEntities) {
     const gridEntityType = gridEntity.GetType();
     if (!gridEntityTypeExceptions.has(gridEntityType)) {
-      removeGridEntity(gridEntity);
+      removeGridEntity(gridEntity, false);
     }
   }
+
+  roomUpdateSafe();
 }
 
 export function removeAllMatchingGridEntities(
@@ -171,20 +185,35 @@ export function removeAllMatchingGridEntities(
 ): void {
   const gridEntities = getGridEntities(gridEntityType);
   for (const gridEntity of gridEntities) {
-    removeGridEntity(gridEntity);
+    removeGridEntity(gridEntity, false);
   }
+
+  roomUpdateSafe();
 }
 
-export function removeGridEntity(gridEntity: GridEntity): void {
+/**
+ * Helper function to remove a grid entity simply by providing the grid entity object.
+ *
+ * @param gridEntity The grid entity to remove.
+ * @param updateRoom Optional. Whether or not to update the room after the grid entity is removed.
+ * True by default. This is generally a good idea because if the room is not updated, you will be
+ * unable to spawn another grid entity on the same tile until a frame has passed. However, doing
+ * this is expensive, since it involves a call to `Isaac.GetRoomEntities()`, so set it to false if
+ * you need to invoke this function multiple times.
+ */
+export function removeGridEntity(
+  gridEntity: GridEntity,
+  updateRoom = true,
+): void {
   const game = Game();
   const room = game.GetRoom();
 
   const gridIndex = gridEntity.GetGridIndex();
   room.RemoveGridEntity(gridIndex, 0, false);
 
-  // It is best practice to call the "Update()" method after removing a grid entity;
-  // otherwise, spawning grid entities on the same tile can fail
-  room.Update();
+  if (updateRoom) {
+    roomUpdateSafe();
+  }
 }
 
 /**
