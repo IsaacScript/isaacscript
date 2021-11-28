@@ -49,6 +49,7 @@ export * from "./functions/pickups";
 export * from "./functions/pills";
 export * from "./functions/player";
 export * from "./functions/playerHealth";
+export * from "./functions/pocketItems";
 export * from "./functions/position";
 export * from "./functions/random";
 export * from "./functions/revive";
