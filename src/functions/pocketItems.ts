@@ -47,33 +47,39 @@ export function getPocketItems(player: EntityPlayer): PocketItemDescription[] {
       pocketItems.push({
         type: PocketItemType.CARD,
         id: card,
+        slot,
       });
     } else if (pill !== PillColor.PILL_NULL) {
       pocketItems.push({
         type: PocketItemType.PILL,
         id: pill,
+        slot,
       });
     } else if (hasPocketItem && !hasPocketItem2 && !pocketItemIdentified) {
       pocketItemIdentified = true;
       pocketItems.push({
         type: PocketItemType.ACTIVE_ITEM,
         id: pocketItem,
+        slot,
       });
     } else if (!hasPocketItem && hasPocketItem2 && !pocketItem2Identified) {
       pocketItem2Identified = true;
       pocketItems.push({
         type: PocketItemType.DICE_BAG_DICE,
         id: pocketItem2,
+        slot,
       });
     } else if (hasPocketItem && hasPocketItem2) {
       pocketItems.push({
         type: PocketItemType.UNDETERMINABLE,
         id: 0,
+        slot,
       });
     } else {
       pocketItems.push({
         type: PocketItemType.EMPTY,
         id: 0,
+        slot,
       });
     }
 
