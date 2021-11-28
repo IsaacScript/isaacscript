@@ -658,7 +658,7 @@ declare interface EntityPlayer extends Entity {
   GetOtherTwin(): EntityPlayer | undefined;
 
   /** Returns 0 if there is no pill. */
-  GetPill(pocketItemSlot: PocketItemSlot): PillColor | int;
+  GetPill(pocketItemSlot: PocketItemSlot): PillColor;
 
   GetPillRNG(pillEffect: PillEffect | int): RNG;
   GetPlayerType(): PlayerType | int;
