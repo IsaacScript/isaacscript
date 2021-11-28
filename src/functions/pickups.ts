@@ -1,10 +1,18 @@
 import { getRandomArrayElement } from "./array";
 import { getEnumValues } from "./util";
 
-/** Has an equal chance of returning any value in the `HeartSubType` enum. */
-export function getRandomHeartSubType(seed = Random()): HeartSubType {
+/**
+ * Has as an equal chance of returning any value in the `HeartSubType` enum. Useful for spawning a random type of heart.
+ *
+ * @param seed Optional. The seed with which to select the random sub-type. `Random()` by default.
+ * @param exceptions Optional. An array of sub-types to not select.
+ */
+export function getRandomHeartSubType(
+  seed = Random(),
+  exceptions: HeartSubType[] = [],
+): HeartSubType {
   const heartSubTypes = getEnumValues(HeartSubType);
-  return getRandomArrayElement(heartSubTypes, seed);
+  return getRandomArrayElement(heartSubTypes, seed, exceptions);
 }
 
 const CHEST_PICKUP_VARIANTS = new Set<PickupVariant>([

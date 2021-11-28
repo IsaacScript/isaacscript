@@ -101,34 +101,58 @@ export function arrayToString<T>(array: T[]): string {
 }
 
 /**
- * Shallow copies and removes the specified element from the array. Returns the copied array. If the
- * specified element is not found in the array, it will simply return a shallow copy of the array.
+ * Shallow copies and removes the specified element(s) from the array. Returns the copied array. If
+ * the specified element(s) are not found in the array, it will simply return a shallow copy of the
+ * array.
+ *
+ * This function is variadic, meaning that you can specify N arguments to remove N elements.
  */
-export function arrayRemove<T>(originalArray: T[], element: T): T[] {
+export function arrayRemove<T>(originalArray: T[], ...elements: T[]): T[] {
   const array = [...originalArray];
-  const index = array.indexOf(element);
-  array.splice(index, 1);
+
+  for (const element of elements) {
+    const index = array.indexOf(element);
+    array.splice(index, 1);
+  }
 
   return array;
 }
 
 /**
- * Removes the specified element from the array. If the specified element is not found in the array,
- * this function will do nothing. Returns whether or not the element was found.
+ * Removes the specified element(s) from the array. If the specified element(s) are not found in the
+ * array, this function will do nothing. Returns whether or not one or more elements were found.
+ *
+ * This function is variadic, meaning that you can specify N arguments to remove N elements.
  */
-export function arrayRemoveInPlace<T>(array: T[], element: T): boolean {
-  const index = array.indexOf(element);
-  if (index === -1) {
-    return false;
+export function arrayRemoveInPlace<T>(array: T[], ...elements: T[]): boolean {
+  let removedOneOrMoreElements = false;
+
+  for (const element of elements) {
+    const index = array.indexOf(element);
+    if (index > -1) {
+      removedOneOrMoreElements = true;
+      array.splice(index, 1);
+    }
   }
 
-  array.splice(index, 1);
-  return true;
+  return removedOneOrMoreElements;
 }
 
-export function getRandomArrayElement<T>(array: T[], seed = Random()): T {
-  const randomIndex = getRandomArrayIndex(array, seed);
-  return array[randomIndex];
+/**
+ * Helper function to get a random element from the provided array.
+ *
+ * @param array The array to get an element from.
+ * @param seed Optional. The seed used to select the random element. `Random()` by default.
+ * @param exceptions Optional. An array of elements to skip over if selected.
+ */
+export function getRandomArrayElement<T>(
+  array: T[],
+  seed = Random(),
+  exceptions: T[] = [],
+): T {
+  const arrayWithoutExceptions = arrayRemove(array, ...exceptions);
+  const randomIndex = getRandomArrayIndex(arrayWithoutExceptions, seed);
+  return arrayWithoutExceptions[randomIndex];
 }
 
 export function getRandomArrayIndex<T>(array: T[], seed = Random()): int {

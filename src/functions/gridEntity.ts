@@ -1,4 +1,4 @@
-import { GRID_ENTITY_XML_MAP } from "../constants";
+import { GRID_ENTITY_XML_MAP } from "../maps/gridEntityXMLMap";
 import { roomUpdateSafe } from "./rooms";
 
 /**

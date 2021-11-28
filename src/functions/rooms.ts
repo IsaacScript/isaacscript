@@ -3,8 +3,8 @@ import {
   GENESIS_ROOM_SUBTYPE,
   GENESIS_ROOM_VARIANT,
   MAX_ROOM_INDEX,
-  ROOM_TYPE_TO_ITEM_POOL_TYPE_MAP,
 } from "../constants";
+import { ROOM_TYPE_TO_ITEM_POOL_TYPE_MAP } from "../maps/roomTypeToItemPoolMap";
 import { closeAllDoors, getDoors, isHiddenSecretRoomDoor } from "./doors";
 import {
   getEntities,
