@@ -1,7 +1,7 @@
 import { PILL_EFFECT_NAME_MAP } from "../maps/pillEffectNameMap";
 
 /**
- * This is a helper function to get a pill effect name from a PillEffect.
+ * Helper function to get a pill effect name from a PillEffect.
  *
  * Example:
  * ```

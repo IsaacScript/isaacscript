@@ -10,7 +10,7 @@ import {
 import { arrayRemove, getRandomArrayElement } from "./array";
 
 /**
- * This is a helper function to get a card name from a Card.
+ * Helper function to get a card name from a Card.
  *
  * Example:
  * ```
@@ -42,7 +42,7 @@ export function getCardDescription(card: Card | int): string {
 }
 
 /**
- * This is a helper function to get a card name from a Card.
+ * Helper function to get a card name from a Card.
  *
  * Example:
  * ```

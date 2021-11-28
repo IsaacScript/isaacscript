@@ -60,7 +60,10 @@ export function getTrinkets(matchingSubType = -1): EntityPickup[] {
   return collectibles;
 }
 
-/** This is a helper function to get a trinket description from a TrinketType. */
+/**
+ * Helper function to get the in-game description for a trinket. Returns "Unknown" if the provided
+ * trinket type was not valid.
+ */
 export function getTrinketDescription(trinketType: TrinketType | int): string {
   const itemConfig = Isaac.GetItemConfig();
   const defaultDescription = "Unknown";
@@ -85,7 +88,8 @@ export function getTrinketDescription(trinketType: TrinketType | int): string {
 }
 
 /**
- * This is a helper function to get a trinket name from a TrinketType.
+ * Helper function to get the name of a trinket. Returns "Unknown" if the provided trinket type is
+ * not valid.
  *
  * Example:
  * ```

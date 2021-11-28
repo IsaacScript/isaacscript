@@ -22,7 +22,10 @@ export function collectibleHasTag(
   return itemConfigItem.HasTags(tag);
 }
 
-/** This is a helper function to get a description from a CollectibleType. */
+/**
+ * Helper function to get the in-game description for a collectible. Returns "Unknown" if the
+ * provided collectible type was not valid.
+ */
 export function getCollectibleDescription(
   collectibleType: CollectibleType | int,
 ): string {
@@ -84,6 +87,10 @@ export function getCollectibleDevilHeartPrice(
     : PickupPrice.PRICE_ONE_HEART;
 }
 
+/**
+ * Helper function to get the path to a collectible's sprite. Returns
+ * "gfx/items/collectibles/questionmark.png" if the provided collectible type was not valid.
+ */
 export function getCollectibleGfxFilename(
   collectibleType: CollectibleType | int,
 ): string {
@@ -97,6 +104,10 @@ export function getCollectibleGfxFilename(
   return itemConfigItem.GfxFileName;
 }
 
+/**
+ * Helper function to get the initial amount of charges that a collectible has. Returns 0 if the
+ * provided collectible type was not valid.
+ */
 export function getCollectibleInitCharges(
   collectibleType: CollectibleType | int,
 ): int {
@@ -110,6 +121,10 @@ export function getCollectibleInitCharges(
   return itemConfigItem.InitCharge;
 }
 
+/**
+ * Helper function to get the `ItemType` of a collectible. Returns `ItemType.ITEM_NULL` if the
+ * provided collectible type was not valid.
+ */
 export function getCollectibleItemType(
   collectibleType: CollectibleType | int,
 ): ItemType {
@@ -123,6 +138,10 @@ export function getCollectibleItemType(
   return itemConfigItem.Type;
 }
 
+/**
+ * Helper function to get the maximum amount of charges that a collectible has. Returns 0 if the
+ * provided collectible type was not valid.
+ */
 export function getCollectibleMaxCharges(
   collectibleType: CollectibleType | int,
 ): int {
@@ -137,7 +156,8 @@ export function getCollectibleMaxCharges(
 }
 
 /**
- * This is a helper function to get an item name from a CollectibleType.
+ * Helper function to get the name of a collectible. Returns "Unknown" if the provided collectible
+ * type is not valid.
  *
  * Example:
  * ```
