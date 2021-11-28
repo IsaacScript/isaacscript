@@ -333,13 +333,11 @@ interface CallbackParameters {
       seed: int,
     ) => CollectibleType | int | void,
   ];
-  [ModCallbacks.MC_GET_PILL_COLOR]: [
-    callback: (seed: int) => PillColor | int | void,
-  ];
+  [ModCallbacks.MC_GET_PILL_COLOR]: [callback: (seed: int) => PillColor | void];
   [ModCallbacks.MC_GET_PILL_EFFECT]: [
     callback: (
       pillEffect: PillEffect | int,
-      pillColor: PillColor | int,
+      pillColor: PillColor,
     ) => PillEffect | int | void,
   ];
   [ModCallbacks.MC_GET_TRINKET]: [

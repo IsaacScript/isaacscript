@@ -1,7 +1,7 @@
 declare interface ItemPool {
   AddBibleUpgrade(add: int, itemPoolType: ItemPoolType): void;
   AddRoomBlacklist(collectibleType: CollectibleType | int): void;
-  ForceAddPillEffect(pillEffect: PillEffect | int): PillColor | int;
+  ForceAddPillEffect(pillEffect: PillEffect | int): PillColor;
 
   GetCard(
     seed: int,
@@ -24,16 +24,13 @@ declare interface ItemPool {
   ): CollectibleType | int;
 
   GetLastPool(): ItemPoolType;
-  GetPill(seed: int): PillColor | int;
+  GetPill(seed: int): PillColor;
 
   /**
    * @param pillColor
    * @param player Default is undefined.
    */
-  GetPillEffect(
-    pillColor: PillColor | int,
-    player?: EntityPlayer,
-  ): PillEffect | int;
+  GetPillEffect(pillColor: PillColor, player?: EntityPlayer): PillEffect | int;
 
   GetPoolForRoom(roomType: RoomType, seed: int): ItemPoolType;
 
@@ -42,8 +39,8 @@ declare interface ItemPool {
    */
   GetTrinket(dontAdvanceRNG?: boolean): TrinketType | int;
 
-  IdentifyPill(pillColor: PillColor | int): void;
-  IsPillIdentified(pillColor: PillColor | int): boolean;
+  IdentifyPill(pillColor: PillColor): void;
+  IsPillIdentified(pillColor: PillColor): boolean;
   RemoveCollectible(collectibleType: CollectibleType | int): boolean;
   RemoveTrinket(trinketType: TrinketType | int): boolean;
   ResetRoomBlacklist(): void;

@@ -22,10 +22,7 @@ declare namespace Isaac {
     entityID?: int,
   ): void;
 
-  /**
-   * @returns The pill color.
-   */
-  function AddPillEffectToPool(pillEffect: PillEffect | int): PillColor | int;
+  function AddPillEffectToPool(pillEffect: PillEffect | int): PillColor;
 
   /**
    * Puts a string into the debug console. (You can open the debug console with the tilde key.)
