@@ -84,6 +84,19 @@ export function getCollectibleDevilHeartPrice(
     : PickupPrice.PRICE_ONE_HEART;
 }
 
+export function getCollectibleGfxFilename(
+  collectibleType: CollectibleType | int,
+): string {
+  const itemConfig = Isaac.GetItemConfig();
+
+  const itemConfigItem = itemConfig.GetCollectible(collectibleType);
+  if (itemConfigItem === undefined) {
+    return "unknown.png";
+  }
+
+  return itemConfigItem.GfxFileName;
+}
+
 export function getCollectibleInitCharges(
   collectibleType: CollectibleType | int,
 ): int {
