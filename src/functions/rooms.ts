@@ -92,22 +92,14 @@ export function getRoomDataType(): int {
 
 /**
  * Helper function to get the room index of the current room. Use this instead of calling
- * `Game().GetLevel().GetCurrentRoomIndex()` directly to avoid bugs with big rooms.
- * (Big rooms will return the specific 1x1 quadrant that the player entered the room at,
- * which can break data structures that use the room index as an index.)
+ * `Level.GetCurrentRoomIndex()` directly to avoid bugs with big rooms. (Big rooms will return the
+ * specific 1x1 quadrant that the player entered the room at, which can break data structures that
+ * use the room index as an index.)
  */
 export function getRoomIndex(): int {
   const game = Game();
   const level = game.GetLevel();
-  const roomIndex = level.GetCurrentRoomIndex();
 
-  if (roomIndex < 0) {
-    // SafeGridIndex is always -1 for rooms outside the grid,
-    // so default to returning the room index provided by the "GetCurrentRoomIndex() function"
-    return roomIndex;
-  }
-
-  // SafeGridIndex is equal to the top-left index of the room
   const roomDesc = level.GetCurrentRoomDesc();
   return roomDesc.SafeGridIndex;
 }
