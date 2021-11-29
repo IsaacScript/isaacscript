@@ -1,3 +1,4 @@
+import { EMPTY_PNG_PATH } from "../constants";
 import { GRID_ENTITY_XML_MAP } from "../maps/gridEntityXMLMap";
 import { roomUpdateSafe } from "./rooms";
 
@@ -232,14 +233,13 @@ export function removeGridEntity(
 
 /**
  * Helper function to make a grid entity invisible. This is accomplished by setting its sprite to
- * "gfx/none.png" (a non-existent PNG file).
+ * an empty/missing PNG file.
  *
- * Using this function will cause spurious errors in the "log.txt file". If you want to remove them,
- * create a transparent 1 pixel PNG file in your resources folder at "gfx/none.png".
+ * For more information, see the documentation for the "EMPTY_PNG_FILENAME" constant.
  */
 export function setGridEntityInvisible(gridEntity: GridEntity) {
   const sprite = gridEntity.GetSprite();
-  sprite.ReplaceSpritesheet(0, "gfx/none.png");
+  sprite.ReplaceSpritesheet(0, EMPTY_PNG_PATH);
   sprite.LoadGraphics();
 }
 

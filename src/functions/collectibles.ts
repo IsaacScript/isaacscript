@@ -1,10 +1,14 @@
-import { SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES } from "../constants";
+import {
+  BLIND_ITEM_PNG_PATH,
+  SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES,
+} from "../constants";
 import { COLLECTIBLE_DESCRIPTION_MAP } from "../maps/collectibleDescriptionMap";
 import { COLLECTIBLE_NAME_MAP } from "../maps/collectibleNameMap";
 import { removeAllPickups } from "./entity";
+import { clearSprite } from "./sprite";
 
 const COLLECTIBLE_SPRITE_LAYER = 1;
-const BLIND_ITEM_PNG_PATH = "gfx/items/collectibles/questionmark.png";
+const COLLECTIBLE_SHADOW_LAYER = 4;
 
 // Glitched items start at id 4294967295 (the final 32-bit integer) and increment backwards
 const GLITCHED_ITEM_THRESHOLD = 4000000000;
@@ -313,9 +317,38 @@ export function setCollectibleBlind(collectible: EntityPickup): void {
   setCollectibleSprite(collectible, BLIND_ITEM_PNG_PATH);
 }
 
+/**
+ * Helper function to remove the collectible from a collectible pedestal and make it appear as if a
+ * player has already taken the item. This is accomplished by setting its sprite to an empty/missing
+ * PNG file.
+ *
+ * For more information, see the documentation for the "EMPTY_PNG_FILENAME" constant.
+ */
+export function setCollectibleEmpty(collectible: EntityPickup): void {
+  if (collectible.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
+    error(
+      `You cannot set a collectible to be empty for pickups of variant: ${collectible.Variant}`,
+    );
+  }
+
+  collectible.SubType = CollectibleType.COLLECTIBLE_NULL;
+  setCollectibleSprite(collectible);
+}
+
+/**
+ * Helper function to change the sprite of a collectible pedestal entity.
+ *
+ * For more information about removing the collectible sprite, see the documentation for the
+ * "EMPTY_PNG_FILENAME" constant.
+ *
+ * @param collectible The collectible whose sprite you want to modify.
+ * @param pngPath Optional. Equal to the spritesheet path to load (e.g.
+ * "gfx/items/collectibles/collectibles_001_thesadonion.png"). If not specified, will remove the
+ * sprite, making it appear like the collectible has already been taken by the player.
+ */
 export function setCollectibleSprite(
   collectible: EntityPickup,
-  pngPath: string,
+  pngPath?: string,
 ): void {
   if (collectible.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
     error(
@@ -324,8 +357,12 @@ export function setCollectibleSprite(
   }
 
   const sprite = collectible.GetSprite();
-  sprite.ReplaceSpritesheet(COLLECTIBLE_SPRITE_LAYER, pngPath);
-  sprite.LoadGraphics();
+  if (pngPath === undefined) {
+    clearSprite(sprite, COLLECTIBLE_SPRITE_LAYER, COLLECTIBLE_SHADOW_LAYER);
+  } else {
+    sprite.ReplaceSpritesheet(COLLECTIBLE_SPRITE_LAYER, pngPath);
+    sprite.LoadGraphics();
+  }
 }
 
 /**

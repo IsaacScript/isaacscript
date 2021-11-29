@@ -1,3 +1,22 @@
+import { EMPTY_PNG_PATH } from "../constants";
+
+/**
+ * Helper function to clear a specific layer from a sprite. This function is variadic, so pass as
+ * many layer IDs as you want to clear.
+ *
+ * Since there is no official API method to "clear" a sprite, we can work around it by setting the
+ * spritesheet to a non-existent or completely transparent file. If the path to the spritesheet does
+ * not exist, then this function might cause spurious errors to appear in the "log.txt file". To
+ * silence these errors, create a transparent 1 pixel PNG file in your mod's resources folder at the
+ * path corresponding to the "EMPTY_PNG_PATH" constant.
+ */
+export function clearSprite(sprite: Sprite, ...layerIDs: int[]): void {
+  for (const layerID of layerIDs) {
+    sprite.ReplaceSpritesheet(layerID, EMPTY_PNG_PATH);
+  }
+  sprite.LoadGraphics();
+}
+
 /**
  * Helper function that returns the number of the final frame in a particular animation for a
  * sprite. By default, it will use the currently playing animation, but you can also specify a

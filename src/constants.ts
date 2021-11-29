@@ -4,6 +4,12 @@
  */
 export const AZAZEL_DEFAULT_BRIMSTONE_DISTANCE = 75.125;
 
+/**
+ * The path to the png file for collectible items during Curse of the Blind, making them appear with
+ * a red question mark.
+ */
+export const BLIND_ITEM_PNG_PATH = "gfx/items/collectibles/questionmark.png";
+
 /** Bombs explode when their frame count is equal to this value. */
 export const BOMB_EXPLODE_FRAME = 45;
 
@@ -76,6 +82,12 @@ export const DOOR_HITBOX_DISTANCE = 11;
  * value.
  */
 export const EGGY_STATE_FRAME_OF_FINAL_SPIDER = 45;
+
+/**
+ * A non-existent or completely transparent PNG file for use in clearing sprites. For more
+ * information, see the documentation for the `clearSprite()` helper function.
+ */
+export const EMPTY_PNG_PATH = "gfx/none.png";
 
 /** As of Repentance, the final stage is floor 13 (which is the Home floor). */
 export const FINAL_STAGE = LevelStage.NUM_STAGES - 1;
