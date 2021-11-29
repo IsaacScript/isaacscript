@@ -12,6 +12,7 @@ npx typedoc \
   --out "$DOCS_DIR" \
   --readme "$DIR/website-root.md" \
   --entryPoints "$DIR/src/index.ts" \
+  --entryPoints "$DIR/src/constants.ts" \
   --entryPoints "$DIR/src/features/deployJSONRoom.ts" \
   --entryPoints "$DIR/src/features/disableInputs.ts" \
   --entryPoints "$DIR/src/features/forgottenSwitch.ts" \
