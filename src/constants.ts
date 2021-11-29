@@ -73,6 +73,9 @@ export const DOOR_HITBOX_DISTANCE = 11;
  */
 export const EGGY_STATE_FRAME_OF_FINAL_SPIDER = 45;
 
+/** As of Repentance, the final stage is floor 13 (which is the Home floor). */
+export const FINAL_STAGE = LevelStage.NUM_STAGES - 1;
+
 /**
  * The random items that appear when the player has TMTRAINER are generated on the fly as they are
  * encountered by the player. The first TMTRAINER item takes the final possible 32 bit number. The
