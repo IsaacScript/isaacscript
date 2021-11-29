@@ -18,7 +18,20 @@ declare interface RoomDescriptor {
   /** * A composition of zero or more `RoomDescriptorFlag`. */
   Flags: int;
 
+  /**
+   * - For a 1x1 room, this is equal to the 1x1 grid index of the room.
+   * - For a room bigger than a 1x1 room, this is equal to the top left 1x1 quadrant.
+   * - For `RoomType.ROOMSHAPE_LTL` rooms (i.e. rooms that look like a "J"), this is equal to the
+   * 1x1 quadrant where the gap in the room is. In other words, it is a 1x1 quadrant that is not
+   * actually contained within the room.
+   * - Note that this value **is different** than the value returned by
+   * `Level.GetCurrentRoomIndex()`. (That function returns the 1x1 quadrant that the room was
+   * entered in.)
+   * - Data structures that store data per room should use `ListIndex` as a key instead of
+   * `GridIndex`, since the former is unique across different dimensions.
+   */
   GridIndex: int;
+
   HasWater: boolean;
 
   /**
@@ -38,12 +51,15 @@ declare interface RoomDescriptor {
   SacrificeDone: boolean;
 
   /**
-   * `GridIndex` is equal to the the specific 1x1 quadrant that the player entered the room at.
-   * Thus, it will return different values for the same big room. `SafeGridIndex` is always equal to
-   * the the top-left index of the room. Thus, it will always return consistent values.
-   *
-   * With that said, data structures that store data per room should use the `ListIndex` as a key
-   * instead, since it is unique across different dimensions.
+   * - For a 1x1 room, this is equal to the 1x1 grid index of the room.
+   * - For a room bigger than a 1x1 room, this is equal to the top left 1x1 quadrant.
+   * - For `RoomType.ROOMSHAPE_LTL` rooms (i.e. rooms that look like a "J"), this is equal to the
+   * top right 1x1 quadrant.
+   * - Note that this value **is different** than the value returned by
+   * `Level.GetCurrentRoomIndex()`. (That function returns the 1x1 quadrant that the room was
+   * entered in.)
+   * - Data structures that store data per room should use `ListIndex` as a key instead of
+   * `SafeGridIndex`, since the former is unique across different dimensions.
    */
   SafeGridIndex: int;
 
