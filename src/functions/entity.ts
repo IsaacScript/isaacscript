@@ -399,76 +399,171 @@ export function getTears(
   return tears;
 }
 
-/** Removes all of the entities in the supplied array. */
-export function removeEntities(entities: Entity[]): void {
-  for (const entity of entities) {
+/**
+ * Helper function to remove all of the entities in the supplied array.
+ *
+ * @param entities The array of entities to remove.
+ * @param cap Optional. If specified, will only remove the given amount of entities.
+ */
+export function removeEntities(entities: Entity[], cap?: int): void {
+  let numEntitiesRemoved = 0;
+  for (let i = 0; i < entities.length; i++) {
+    const entity = entities[i];
     entity.Remove();
+
+    numEntitiesRemoved += 1;
+    if (cap !== undefined && numEntitiesRemoved >= cap) {
+      return;
+    }
   }
 }
 
-export function removeAllBombs(): void {
-  const bombs = getBombs();
-  for (const bomb of bombs) {
-    bomb.Remove();
-  }
+/**
+ * Helper function to remove all of the bombs in the room.
+ *
+ * @param variant Optional. If specified, will only remove bombs that match this variant.
+ * @param subType Optional. If specified, will only remove bombs that match this sub-type.
+ * @param cap Optional. If specified, will only remove the given amount of bombs.
+ */
+export function removeAllBombs(
+  variant?: BombVariant,
+  subType?: int,
+  cap?: int,
+): void {
+  const bombs = getBombs(variant, subType);
+  removeEntities(bombs, cap);
 }
 
-export function removeAllEffects(): void {
-  const effects = getEffects();
-  for (const effect of effects) {
-    effect.Remove();
-  }
+/**
+ * Helper function to remove all of the effects in the room.
+ *
+ * @param variant Optional. If specified, will only remove effects that match this variant.
+ * @param subType Optional. If specified, will only remove effects that match this sub-type.
+ * @param cap Optional. If specified, will only remove the given amount of effects.
+ */
+export function removeAllEffects(
+  variant?: EffectVariant,
+  subType?: int,
+  cap?: int,
+): void {
+  const effects = getEffects(variant, subType);
+  removeEntities(effects, cap);
 }
 
-export function removeAllFamiliars(): void {
-  const familiars = getFamiliars();
-  for (const familiar of familiars) {
-    familiar.Remove();
-  }
+/**
+ * Helper function to remove all of the familiars in the room.
+ *
+ * @param variant Optional. If specified, will only remove familiars that match this variant.
+ * @param subType Optional. If specified, will only remove familiars that match this sub-type.
+ * @param cap Optional. If specified, will only remove the given amount of familiars.
+ */
+export function removeAllFamiliars(
+  variant?: FamiliarVariant,
+  subType?: int,
+  cap?: int,
+): void {
+  const familiars = getFamiliars(variant, subType);
+  removeEntities(familiars, cap);
 }
 
-export function removeAllKnives(): void {
-  const knives = getKnives();
-  for (const knife of knives) {
-    knife.Remove();
-  }
+/**
+ * Helper function to remove all of the knives in the room.
+ *
+ * @param variant Optional. If specified, will only remove knives that match this variant.
+ * @param subType Optional. If specified, will only remove knives that match this sub-type.
+ * @param cap Optional. If specified, will only remove the given amount of knives.
+ */
+export function removeAllKnives(
+  variant?: KnifeVariant,
+  subType?: int,
+  cap?: int,
+): void {
+  const knives = getKnives(variant, subType);
+  removeEntities(knives, cap);
 }
 
-export function removeAllLasers(): void {
-  const lasers = getLasers();
-  for (const laser of lasers) {
-    laser.Remove();
-  }
+/**
+ * Helper function to remove all of the lasers in the room.
+ *
+ * @param variant Optional. If specified, will only remove lasers that match this variant.
+ * @param subType Optional. If specified, will only remove lasers that match this sub-type.
+ * @param cap Optional. If specified, will only remove the given amount of lasers.
+ */
+export function removeAllLasers(
+  variant?: LaserVariant,
+  subType?: int,
+  cap?: int,
+): void {
+  const lasers = getLasers(variant, subType);
+  removeEntities(lasers, cap);
 }
 
+/**
+ * Helper function to remove all of the matching entities in the room.
+ *
+ * @param entityType The entity type to match.
+ * @param entityVariant Optional. The variant to match. -1 by default (which will match every
+ * variant).
+ * @param entitySubType Optional. The sub-type to match. -1 by default (which will match every
+ * sub-type).
+ * @param cap Optional. If specified, will only remove the given amount of collectibles.
+ */
 export function removeAllMatchingEntities(
   entityType: int,
   entityVariant = -1,
   entitySubType = -1,
+  cap: int | undefined = undefined,
 ): void {
   const entities = Isaac.FindByType(entityType, entityVariant, entitySubType);
-  removeEntities(entities);
+  removeEntities(entities, cap);
 }
 
-export function removeAllPickups(): void {
-  const pickups = getPickups();
-  for (const pickup of pickups) {
-    pickup.Remove();
-  }
+/**
+ * Helper function to remove all of the pickups in the room.
+ *
+ * @param variant Optional. If specified, will only remove pickups that match this variant.
+ * @param subType Optional. If specified, will only remove pickups that match this sub-type.
+ * @param cap Optional. If specified, will only remove the given amount of pickups.
+ */
+export function removeAllPickups(
+  variant?: PickupVariant,
+  subType?: int,
+  cap?: int,
+): void {
+  const pickups = getPickups(variant, subType);
+  removeEntities(pickups, cap);
 }
 
-export function removeAllProjectiles(): void {
-  const projectiles = getProjectiles();
-  for (const projectile of projectiles) {
-    projectile.Remove();
-  }
+/**
+ * Helper function to remove all of the projectiles in the room.
+ *
+ * @param variant Optional. If specified, will only remove projectiles that match this variant.
+ * @param subType Optional. If specified, will only remove projectiles that match this sub-type.
+ * @param cap Optional. If specified, will only remove the given amount of projectiles.
+ */
+export function removeAllProjectiles(
+  variant?: ProjectileVariant,
+  subType?: int,
+  cap?: int,
+): void {
+  const projectiles = getProjectiles(variant, subType);
+  removeEntities(projectiles, cap);
 }
 
-export function removeAllTears(): void {
-  const tears = getTears();
-  for (const tear of tears) {
-    tear.Remove();
-  }
+/**
+ * Helper function to remove all of the tears in the room.
+ *
+ * @param variant Optional. If specified, will only remove tears that match this variant.
+ * @param subType Optional. If specified, will only remove tears that match this sub-type.
+ * @param cap Optional. If specified, will only remove the given amount of tears.
+ */
+export function removeAllTears(
+  variant?: TearVariant,
+  subType?: int,
+  cap?: int,
+): void {
+  const tears = getTears(variant, subType);
+  removeEntities(tears, cap);
 }
 
 /**

@@ -1,6 +1,6 @@
 import { COLLECTIBLE_DESCRIPTION_MAP } from "../maps/collectibleDescriptionMap";
 import { COLLECTIBLE_NAME_MAP } from "../maps/collectibleNameMap";
-import { removeAllMatchingEntities } from "./entity";
+import { removeAllPickups } from "./entity";
 
 const COLLECTIBLE_SPRITE_LAYER = 1;
 const BLIND_ITEM_PNG_PATH = "gfx/items/collectibles/questionmark.png";
@@ -244,11 +244,18 @@ export function isQuestCollectible(
   return collectibleHasTag(collectibleType, ItemConfigTag.QUEST);
 }
 
-export function removeAllCollectibles(): void {
-  removeAllMatchingEntities(
-    EntityType.ENTITY_PICKUP,
-    PickupVariant.PICKUP_COLLECTIBLE,
-  );
+/**
+ * Helper function to remove all of the collectibles in the room.
+ *
+ * @param collectibleType Optional. If specified, will only remove collectibles that match this
+ * collectible type.
+ * @param cap Optional. If specified, will only remove the given amount of collectibles.
+ */
+export function removeAllCollectibles(
+  collectibleType?: CollectibleType | int,
+  cap?: int,
+): void {
+  removeAllPickups(PickupVariant.PICKUP_COLLECTIBLE, collectibleType, cap);
 }
 
 /**

@@ -155,7 +155,8 @@ export function isPostBossVoidPortal(gridEntity: GridEntity): boolean {
 }
 
 /**
- * Helper function to remove most grid entities in the room.
+ * Helper function to all grid entities in the room except for ones matching the grid entity types
+ * provided.
  *
  * Example:
  * ```
@@ -180,10 +181,23 @@ export function removeAllGridEntitiesExceptFor(
   roomUpdateSafe();
 }
 
+/**
+ * Helper function to remove all of the grid entities in the room that match the grid entity types
+ * provided.
+ *
+ * Example:
+ * ```
+ * removeAllMatchingGridEntities(
+ *   GridEntityType.GRID_ROCK,
+ *   GridEntityType.GRID_ROCKB,
+ *   GridEntityType.GRID_ROCKT,
+ * );
+ * ```
+ */
 export function removeAllMatchingGridEntities(
-  gridEntityType: GridEntityType,
+  ...gridEntityType: GridEntityType[]
 ): void {
-  const gridEntities = getGridEntities(gridEntityType);
+  const gridEntities = getGridEntities(...gridEntityType);
   for (const gridEntity of gridEntities) {
     removeGridEntity(gridEntity, false);
   }

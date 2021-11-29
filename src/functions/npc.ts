@@ -1,5 +1,5 @@
 import { EGGY_STATE_FRAME_OF_FINAL_SPIDER } from "../constants";
-import { getEntities } from "./entity";
+import { getEntities, removeEntities } from "./entity";
 
 /**
  * Used to filter out certain NPCs when determining of an NPC is "alive" and/or should keep the
@@ -149,9 +149,12 @@ export function isRaglingDeathPatch(npc: EntityNPC): boolean {
   );
 }
 
-export function removeAllNPCs(): void {
+/**
+ * Helper function to remove all NPCs in the room.
+ *
+ * @param cap Optional. If specified, will only remove the given amount of NPCs.
+ */
+export function removeAllNPCs(cap?: int): void {
   const npcs = getNPCs();
-  for (const npc of npcs) {
-    npc.Remove();
-  }
+  removeEntities(npcs, cap);
 }
