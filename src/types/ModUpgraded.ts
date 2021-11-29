@@ -1,42 +1,42 @@
-import * as postBombInitLate from "../callbacks/subscriptions/postBombInitLate";
-import * as postCursedTeleport from "../callbacks/subscriptions/postCursedTeleport";
-import * as postCustomRevive from "../callbacks/subscriptions/postCustomRevive";
-import * as postEffectInitLate from "../callbacks/subscriptions/postEffectInitLate";
-import * as postEsauJr from "../callbacks/subscriptions/postEsauJr";
-import * as postFamiliarInitLate from "../callbacks/subscriptions/postFamiliarInitLate";
-import * as postFirstEsauJr from "../callbacks/subscriptions/postFirstEsauJr";
-import * as postFirstFlip from "../callbacks/subscriptions/postFirstFlip";
-import * as postFlip from "../callbacks/subscriptions/postFlip";
-import * as postGameStartedReordered from "../callbacks/subscriptions/postGameStartedReordered";
-import * as postGridEntityInit from "../callbacks/subscriptions/postGridEntityInit";
-import * as postGridEntityRemove from "../callbacks/subscriptions/postGridEntityRemove";
-import * as postGridEntityUpdate from "../callbacks/subscriptions/postGridEntityUpdate";
-import * as postItemPickup from "../callbacks/subscriptions/postItemPickup";
-import * as postKnifeInitLate from "../callbacks/subscriptions/postKnifeInitLate";
-import * as postLaserInitLate from "../callbacks/subscriptions/postLaserInitLate";
-import * as postNewLevelReordered from "../callbacks/subscriptions/postNewLevelReordered";
-import * as postNewRoomReordered from "../callbacks/subscriptions/postNewRoomReordered";
-import * as postNPCInitLate from "../callbacks/subscriptions/postNPCInitLate";
-import * as postPickupCollect from "../callbacks/subscriptions/postPickupCollect";
-import * as postPickupInitLate from "../callbacks/subscriptions/postPickupInitLate";
-import * as postPlayerChangeHealth from "../callbacks/subscriptions/postPlayerChangeHealth";
-import * as postPlayerChangeType from "../callbacks/subscriptions/postPlayerChangeType";
-import * as postPlayerFatalDamage from "../callbacks/subscriptions/postPlayerFatalDamage";
-import * as postPlayerInitLate from "../callbacks/subscriptions/postPlayerInitLate";
-import * as postPlayerInitReordered from "../callbacks/subscriptions/postPlayerInitReordered";
-import * as postPlayerRenderReordered from "../callbacks/subscriptions/postPlayerRenderReordered";
-import * as postPlayerUpdateReordered from "../callbacks/subscriptions/postPlayerUpdateReordered";
-import * as postProjectileInitLate from "../callbacks/subscriptions/postProjectileInitLate";
-import * as postPurchase from "../callbacks/subscriptions/postPurchase";
-import * as postSacrifice from "../callbacks/subscriptions/postSacrifice";
-import * as postSlotDestroyed from "../callbacks/subscriptions/postSlotDestroyed";
-import * as postSlotInit from "../callbacks/subscriptions/postSlotInit";
-import * as postSlotRender from "../callbacks/subscriptions/postSlotRender";
-import * as postSlotUpdate from "../callbacks/subscriptions/postSlotUpdate";
-import * as postTearInitLate from "../callbacks/subscriptions/postTearInitLate";
-import * as postTransformation from "../callbacks/subscriptions/postTransformation";
-import * as preCustomRevive from "../callbacks/subscriptions/preCustomRevive";
-import * as preItemPickup from "../callbacks/subscriptions/preItemPickup";
+import { postBombInitLateRegister } from "../callbacks/subscriptions/postBombInitLate";
+import { postCursedTeleportRegister } from "../callbacks/subscriptions/postCursedTeleport";
+import { postCustomReviveRegister } from "../callbacks/subscriptions/postCustomRevive";
+import { postEffectInitLateRegister } from "../callbacks/subscriptions/postEffectInitLate";
+import { postEsauJrRegister } from "../callbacks/subscriptions/postEsauJr";
+import { postFamiliarInitLateRegister } from "../callbacks/subscriptions/postFamiliarInitLate";
+import { postFirstEsauJrRegister } from "../callbacks/subscriptions/postFirstEsauJr";
+import { postFirstFlipRegister } from "../callbacks/subscriptions/postFirstFlip";
+import { postFlipRegister } from "../callbacks/subscriptions/postFlip";
+import { postGameStartedReorderedRegister } from "../callbacks/subscriptions/postGameStartedReordered";
+import { postGridEntityInitRegister } from "../callbacks/subscriptions/postGridEntityInit";
+import { postGridEntityRemoveRegister } from "../callbacks/subscriptions/postGridEntityRemove";
+import { postGridEntityUpdateRegister } from "../callbacks/subscriptions/postGridEntityUpdate";
+import { postItemPickupRegister } from "../callbacks/subscriptions/postItemPickup";
+import { postKnifeInitLateRegister } from "../callbacks/subscriptions/postKnifeInitLate";
+import { postLaserInitLateRegister } from "../callbacks/subscriptions/postLaserInitLate";
+import { postNewLevelReorderedRegister } from "../callbacks/subscriptions/postNewLevelReordered";
+import { postNewRoomReorderedRegister } from "../callbacks/subscriptions/postNewRoomReordered";
+import { postNPCInitLateRegister } from "../callbacks/subscriptions/postNPCInitLate";
+import { postPickupCollectRegister } from "../callbacks/subscriptions/postPickupCollect";
+import { postPickupInitLateRegister } from "../callbacks/subscriptions/postPickupInitLate";
+import { postPlayerChangeHealthRegister } from "../callbacks/subscriptions/postPlayerChangeHealth";
+import { postPlayerChangeTypeRegister } from "../callbacks/subscriptions/postPlayerChangeType";
+import { postPlayerFatalDamageRegister } from "../callbacks/subscriptions/postPlayerFatalDamage";
+import { postPlayerInitLateRegister } from "../callbacks/subscriptions/postPlayerInitLate";
+import { postPlayerInitReorderedRegister } from "../callbacks/subscriptions/postPlayerInitReordered";
+import { postPlayerRenderReorderedRegister } from "../callbacks/subscriptions/postPlayerRenderReordered";
+import { postPlayerUpdateReorderedRegister } from "../callbacks/subscriptions/postPlayerUpdateReordered";
+import { postProjectileInitLateRegister } from "../callbacks/subscriptions/postProjectileInitLate";
+import { postPurchaseRegister } from "../callbacks/subscriptions/postPurchase";
+import { postSacrificeRegister } from "../callbacks/subscriptions/postSacrifice";
+import { postSlotDestroyedRegister } from "../callbacks/subscriptions/postSlotDestroyed";
+import { postSlotInitRegister } from "../callbacks/subscriptions/postSlotInit";
+import { postSlotRenderRegister } from "../callbacks/subscriptions/postSlotRender";
+import { postSlotUpdateRegister } from "../callbacks/subscriptions/postSlotUpdate";
+import { postTearInitLateRegister } from "../callbacks/subscriptions/postTearInitLate";
+import { postTransformationRegister } from "../callbacks/subscriptions/postTransformation";
+import { preCustomReviveRegister } from "../callbacks/subscriptions/preCustomRevive";
+import { preItemPickupRegister } from "../callbacks/subscriptions/preItemPickup";
 import { getDebugPrependString } from "../functions/log";
 import { ensureAllCases } from "../functions/util";
 import { CallbackParametersCustom } from "./CallbackParametersCustom";
@@ -110,273 +110,273 @@ export class ModUpgraded implements Mod {
   ): void {
     switch (callbackID) {
       case ModCallbacksCustom.MC_POST_GAME_STARTED_REORDERED: {
-        postGameStartedReordered.register(
+        postGameStartedReorderedRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_GAME_STARTED_REORDERED]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_NEW_LEVEL_REORDERED: {
-        postNewLevelReordered.register(
+        postNewLevelReorderedRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_NEW_LEVEL_REORDERED]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_NEW_ROOM_REORDERED: {
-        postNewRoomReordered.register(
+        postNewRoomReorderedRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_NEW_ROOM_REORDERED]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_PLAYER_INIT_REORDERED: {
-        postPlayerInitReordered.register(
+        postPlayerInitReorderedRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_PLAYER_INIT_REORDERED]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED: {
-        postPlayerUpdateReordered.register(
+        postPlayerUpdateReorderedRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_PLAYER_RENDER_REORDERED: {
-        postPlayerRenderReordered.register(
+        postPlayerRenderReorderedRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_PLAYER_RENDER_REORDERED]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_PLAYER_INIT_LATE: {
-        postPlayerInitLate.register(
+        postPlayerInitLateRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_PLAYER_INIT_LATE]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_TEAR_INIT_LATE: {
-        postTearInitLate.register(
+        postTearInitLateRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_TEAR_INIT_LATE]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_FAMILIAR_INIT_LATE: {
-        postFamiliarInitLate.register(
+        postFamiliarInitLateRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_FAMILIAR_INIT_LATE]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_BOMB_INIT_LATE: {
-        postBombInitLate.register(
+        postBombInitLateRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_BOMB_INIT_LATE]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_PICKUP_INIT_LATE: {
-        postPickupInitLate.register(
+        postPickupInitLateRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_PICKUP_INIT_LATE]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_LASER_INIT_LATE: {
-        postLaserInitLate.register(
+        postLaserInitLateRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_LASER_INIT_LATE]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_KNIFE_INIT_LATE: {
-        postKnifeInitLate.register(
+        postKnifeInitLateRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_KNIFE_INIT_LATE]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_PROJECTILE_INIT_LATE: {
-        postProjectileInitLate.register(
+        postProjectileInitLateRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_PROJECTILE_INIT_LATE]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_NPC_INIT_LATE: {
-        postNPCInitLate.register(
+        postNPCInitLateRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_NPC_INIT_LATE]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_EFFECT_INIT_LATE: {
-        postEffectInitLate.register(
+        postEffectInitLateRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_EFFECT_INIT_LATE]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_PICKUP_COLLECT: {
-        postPickupCollect.register(
+        postPickupCollectRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_PICKUP_COLLECT]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_PRE_ITEM_PICKUP: {
-        preItemPickup.register(
+        preItemPickupRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_PRE_ITEM_PICKUP]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_ITEM_PICKUP: {
-        postItemPickup.register(
+        postItemPickupRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_ITEM_PICKUP]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_PLAYER_CHANGE_TYPE: {
-        postPlayerChangeType.register(
+        postPlayerChangeTypeRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_PLAYER_CHANGE_TYPE]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_PLAYER_CHANGE_HEALTH: {
-        postPlayerChangeHealth.register(
+        postPlayerChangeHealthRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_PLAYER_CHANGE_HEALTH]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_PLAYER_FATAL_DAMAGE: {
-        postPlayerFatalDamage.register(
+        postPlayerFatalDamageRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_PLAYER_FATAL_DAMAGE]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_PRE_CUSTOM_REVIVE: {
-        preCustomRevive.register(
+        preCustomReviveRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_PRE_CUSTOM_REVIVE]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_CUSTOM_REVIVE: {
-        postCustomRevive.register(
+        postCustomReviveRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_CUSTOM_REVIVE]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_FLIP: {
-        postFlip.register(
+        postFlipRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_FLIP]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_FIRST_FLIP: {
-        postFirstFlip.register(
+        postFirstFlipRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_FIRST_FLIP]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_ESAU_JR: {
-        postEsauJr.register(
+        postEsauJrRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_ESAU_JR]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_FIRST_ESAU_JR: {
-        postFirstEsauJr.register(
+        postFirstEsauJrRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_FIRST_ESAU_JR]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_TRANSFORMATION: {
-        postTransformation.register(
+        postTransformationRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_TRANSFORMATION]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_PURCHASE: {
-        postPurchase.register(
+        postPurchaseRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_PURCHASE]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_SACRIFICE: {
-        postSacrifice.register(
+        postSacrificeRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_SACRIFICE]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_CURSED_TELEPORT: {
-        postCursedTeleport.register(
+        postCursedTeleportRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_CURSED_TELEPORT]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_SLOT_INIT: {
-        postSlotInit.register(
+        postSlotInitRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_SLOT_INIT]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_SLOT_UPDATE: {
-        postSlotUpdate.register(
+        postSlotUpdateRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_SLOT_UPDATE]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_SLOT_RENDER: {
-        postSlotRender.register(
+        postSlotRenderRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_SLOT_RENDER]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_SLOT_DESTROYED: {
-        postSlotDestroyed.register(
+        postSlotDestroyedRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_SLOT_DESTROYED]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_GRID_ENTITY_INIT: {
-        postGridEntityInit.register(
+        postGridEntityInitRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_GRID_ENTITY_INIT]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_GRID_ENTITY_UPDATE: {
-        postGridEntityUpdate.register(
+        postGridEntityUpdateRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_GRID_ENTITY_UPDATE]),
         );
         break;
       }
 
       case ModCallbacksCustom.MC_POST_GRID_ENTITY_REMOVE: {
-        postGridEntityRemove.register(
+        postGridEntityRemoveRegister(
           ...(args as CallbackParametersCustom[ModCallbacksCustom.MC_POST_GRID_ENTITY_REMOVE]),
         );
         break;
