@@ -74,7 +74,7 @@ function postPlayerUpdateReordered(player: EntityPlayer): void {}
 
 ### MC_POST_NEW_ROOM_EARLY
 
-Fires on the first `MC_POST_NEW_ROOM` or `MC_PRE_ENTITY_SPAWN` callback where being in a new room is detected. This is useful because the vanilla `MC_POST_NEW_ROOM` callback only fires after entities in the room have been initialized and updated once, which is counterintuitive. This means that it is possible for enity-related code can run before room-related-initialized has been performed.
+Fires on the first `MC_POST_NEW_ROOM` or `MC_PRE_ENTITY_SPAWN` callback where being in a new room is detected. This is useful because the vanilla `MC_POST_NEW_ROOM` callback fires only after entities in the room have been initialized and updated once, which is counterintuitive. This means that it is possible for entity-related code to run before room-related-initialized has been performed. Run such initialization code in this callback instead.
 
 ```ts
 function postNewRoomEarly(): void {}
