@@ -103,8 +103,9 @@ export function anyPlayerIs(matchingCharacter: PlayerType): boolean {
 
 /**
  * Helper function to see if the provided character can have red heart containers. Returns true for
- * characters like Isaac, Magdalene, or Cain. Returns false for characters like Blue Baby. Returns
- * false for The Lost and Tainted Lost.
+ * characters like Isaac, Magdalene, or Cain. Returns true for Keeper and Tainted Keeper, even
+ * though coin containers are not technically the same as red heart containers. Returns false for
+ * characters like Blue Baby. Returns false for The Lost and Tainted Lost.
  */
 export function characterCanHaveRedHearts(character: PlayerType): boolean {
   return !CHARACTERS_WITH_NO_RED_HEARTS.has(character);
