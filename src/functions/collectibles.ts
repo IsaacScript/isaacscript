@@ -322,7 +322,7 @@ export function setCollectibleBlind(collectible: EntityPickup): void {
  * player has already taken the item. This is accomplished by setting its sprite to an empty/missing
  * PNG file.
  *
- * For more information, see the documentation for the "EMPTY_PNG_FILENAME" constant.
+ * For more information, see the documentation for the "emptySprite" helper function.
  */
 export function setCollectibleEmpty(collectible: EntityPickup): void {
   if (collectible.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
@@ -339,7 +339,7 @@ export function setCollectibleEmpty(collectible: EntityPickup): void {
  * Helper function to change the sprite of a collectible pedestal entity.
  *
  * For more information about removing the collectible sprite, see the documentation for the
- * "EMPTY_PNG_FILENAME" constant.
+ * "emptySprite" helper function.
  *
  * @param collectible The collectible whose sprite you want to modify.
  * @param pngPath Optional. Equal to the spritesheet path to load (e.g.
@@ -377,6 +377,13 @@ export function setCollectibleSubType(
     error(
       `You cannot set a collectible sub type for pickups of variant: ${collectible.Variant}`,
     );
+  }
+
+  // You cannot morph a pedestal to "CollectibleType.COLLECTIBLE_NULL";
+  // it would instead create a new random collectible item
+  if (newCollectibleType === CollectibleType.COLLECTIBLE_NULL) {
+    setCollectibleEmpty(collectible);
+    return;
   }
 
   // The naive way to change a collectible's sub-type is to set it directly
