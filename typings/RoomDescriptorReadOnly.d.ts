@@ -74,6 +74,12 @@ declare interface RoomDescriptorReadOnly {
   HasWater: Readonly<boolean>;
 
   /**
+   * The index for this room corresponding to the `Level.GetRooms().Get()` method. This is equal to
+   * the order that the room was created by the floor generation algorithm.
+   *
+   * Use this as an index for data structures that store data per room, since it is unique across
+   * different dimensions.
+   *
    * To set this property, get a writable copy of the RoomDescriptor by using the
    * `Level.GetRoomByIdx()` method.
    */
@@ -119,9 +125,10 @@ declare interface RoomDescriptorReadOnly {
   /**
    * `GridIndex` is equal to the the specific 1x1 quadrant that the player entered the room at.
    * Thus, it will return different values for the same big room. `SafeGridIndex` is always equal to
-   * the the top-left index of the room. Thus, it will always return consistent values. Use
-   * `SafeGridIndex` over `GridIndex` as the key for data structures that use the room index as an
-   * index.
+   * the the top-left index of the room. Thus, it will always return consistent values.
+   *
+   * With that said, data structures that store data per room should use the `ListIndex` as a key
+   * instead, since it is unique across different dimensions.
    *
    * To set this property, get a writable copy of the RoomDescriptor by using the
    * `Level.GetRoomByIdx()` method.
