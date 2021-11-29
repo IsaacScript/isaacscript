@@ -53,14 +53,14 @@ export const CHARACTERS_WITH_NO_SOUL_HEARTS = new Set<PlayerType>([
  * colors, you should copy them first with the `copyColor` function.
  */
 export const COLORS = {
-  BLACK: Color(1, 1, 1),
-  RED: Color(1, 0, 0),
-  GREEN: Color(0, 1, 0),
-  BLUE: Color(0, 0, 1),
-  YELLOW: Color(1, 1, 0),
-  PINK: Color(1, 0, 1),
-  CYAN: Color(0, 1, 1),
-  WHITE: Color(1, 1, 1),
+  Black: Color(1, 1, 1),
+  Red: Color(1, 0, 0),
+  Green: Color(0, 1, 0),
+  Blue: Color(0, 0, 1),
+  Yellow: Color(1, 1, 0),
+  Pink: Color(1, 0, 1),
+  Cyan: Color(0, 1, 1),
+  White: Color(1, 1, 1),
 };
 
 export const DEFAULT_ITEM_POOL_TYPE = ItemPoolType.POOL_TREASURE;
