@@ -1,9 +1,9 @@
-import { MAX_PLAYER_HEART_CONTAINERS } from "../constants";
-import { PlayerHealth } from "../types/PlayerHealth";
-
 // Testing snippets:
 // lua local p = Isaac.GetPlayer() p:AddEternalHearts(1) p:AddBoneHearts(1) p:Update() p:AddRottenHearts(1) p:AddBlackHearts(2) p:AddSoulHearts(2) p:AddBoneHearts(1) p:AddBlackHearts(3) p:AddBrokenHearts(2)
 // lua local p = Isaac.GetPlayer() p:AddEternalHearts(-1) p:AddBoneHearts(-1) p:AddRottenHearts(-1) p:AddBlackHearts(-2) p:AddSoulHearts(-2) p:AddBoneHearts(-1) p:AddBlackHearts(-3) p:AddBrokenHearts(-2)
+
+import { MAX_PLAYER_HEART_CONTAINERS } from "../constants";
+import { PlayerHealth } from "../types/PlayerHealth";
 
 /**
  * Helper function to get an inventory of the player's health. Use this in combination with the

@@ -1,6 +1,9 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getRoomIndex, getRoomVisitedCount } from "../functions/rooms";
-import * as postTearInitLate from "./subscriptions/postTearInitLate";
+import {
+  postTearInitLateFire,
+  postTearInitLateHasSubscriptions,
+} from "./subscriptions/postTearInitLate";
 
 const v = {
   run: {
@@ -17,7 +20,7 @@ export function postTearInitLateCallbackInit(mod: Mod): void {
 }
 
 function hasSubscriptions() {
-  return postTearInitLate.hasSubscriptions();
+  return postTearInitLateHasSubscriptions();
 }
 
 // ModCallbacks.MC_POST_TEAR_UPDATE (40)
@@ -40,6 +43,6 @@ function postTearUpdate(tear: EntityTear) {
   const index = GetPtrHash(tear);
   if (!v.run.firedSet.has(index)) {
     v.run.firedSet.add(index);
-    postTearInitLate.fire(tear);
+    postTearInitLateFire(tear);
   }
 }

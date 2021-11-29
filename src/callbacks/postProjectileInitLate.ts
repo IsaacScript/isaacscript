@@ -1,6 +1,9 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getRoomIndex, getRoomVisitedCount } from "../functions/rooms";
-import * as postProjectileInitLate from "./subscriptions/postProjectileInitLate";
+import {
+  postProjectileInitLateFire,
+  postProjectileInitLateHasSubscriptions,
+} from "./subscriptions/postProjectileInitLate";
 
 const v = {
   run: {
@@ -17,7 +20,7 @@ export function postProjectileInitLateCallbackInit(mod: Mod): void {
 }
 
 function hasSubscriptions() {
-  return postProjectileInitLate.hasSubscriptions();
+  return postProjectileInitLateHasSubscriptions();
 }
 
 // ModCallbacks.MC_POST_PROJECTILE_UPDATE (44)
@@ -40,6 +43,6 @@ function postProjectileUpdate(projectile: EntityProjectile) {
   const index = GetPtrHash(projectile);
   if (!v.run.firedSet.has(index)) {
     v.run.firedSet.add(index);
-    postProjectileInitLate.fire(projectile);
+    postProjectileInitLateFire(projectile);
   }
 }

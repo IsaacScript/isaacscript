@@ -1,3 +1,7 @@
+// The item pool type of a collectible is not stored on the collectible
+// Thus, we scan for incoming item pool types in the PreGetCollectible callback,
+// and then assume that the next spawned collectible has this item pool type
+
 import { getUpgradeErrorMsg } from "../errors";
 import { arrayEmpty } from "../functions/array";
 import {
@@ -7,10 +11,6 @@ import {
 } from "../functions/rooms";
 import { ModUpgraded } from "../types/ModUpgraded";
 import { saveDataManager } from "./saveDataManager/exports";
-
-// The item pool type of a collectible is not stored on the collectible
-// Thus, we scan for incoming item pool types in the PreGetCollectible callback,
-// and then assume that the next spawned collectible has this item pool type
 
 const FEATURE_NAME = "get collectible item pool type";
 

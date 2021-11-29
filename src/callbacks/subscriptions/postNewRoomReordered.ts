@@ -2,15 +2,17 @@ export type PostNewRoomReorderedCallbackType = () => void;
 
 const subscriptions: Array<[PostNewRoomReorderedCallbackType]> = [];
 
-export function hasSubscriptions(): boolean {
+export function postNewRoomReorderedHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-export function register(callback: PostNewRoomReorderedCallbackType): void {
+export function postNewRoomReorderedRegister(
+  callback: PostNewRoomReorderedCallbackType,
+): void {
   subscriptions.push([callback]);
 }
 
-export function fire(): void {
+export function postNewRoomReorderedFire(): void {
   for (const [callback] of subscriptions) {
     callback();
   }

@@ -2,15 +2,17 @@ export type PreCustomReviveCallbackType = (player: EntityPlayer) => int | void;
 
 const subscriptions: Array<[PreCustomReviveCallbackType]> = [];
 
-export function hasSubscriptions(): boolean {
+export function preCustomReviveHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-export function register(callback: PreCustomReviveCallbackType): void {
+export function preCustomReviveRegister(
+  callback: PreCustomReviveCallbackType,
+): void {
   subscriptions.push([callback]);
 }
 
-export function fire(player: EntityPlayer): int | void {
+export function preCustomReviveFire(player: EntityPlayer): int | void {
   for (const [callback] of subscriptions) {
     const revivalType = callback(player);
     if (revivalType !== undefined) {

@@ -7,18 +7,21 @@ const subscriptions: Array<
   [PostGridEntityRemoveCallbackType, GridEntityType | undefined]
 > = [];
 
-export function hasSubscriptions(): boolean {
+export function postGridEntityRemoveHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-export function register(
+export function postGridEntityRemoveRegister(
   callback: PostGridEntityRemoveCallbackType,
   gridEntityType?: GridEntityType,
 ): void {
   subscriptions.push([callback, gridEntityType]);
 }
 
-export function fire(gridIndex: int, gridEntityType: GridEntityType): void {
+export function postGridEntityRemoveFire(
+  gridIndex: int,
+  gridEntityType: GridEntityType,
+): void {
   for (const [callback, callbackGridEntityType] of subscriptions) {
     // Handle the optional 2nd callback argument
     if (

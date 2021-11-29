@@ -3,7 +3,10 @@ import { arrayInit } from "../functions/array";
 import { getPlayerIndex, PlayerIndex } from "../functions/player";
 import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
 import { ModUpgraded } from "../types/ModUpgraded";
-import * as postTransformation from "./subscriptions/postTransformation";
+import {
+  postTransformationFire,
+  postTransformationHasSubscriptions,
+} from "./subscriptions/postTransformation";
 
 const v = {
   run: {
@@ -22,7 +25,7 @@ export function postTransformationCallbackInit(mod: ModUpgraded): void {
 }
 
 function hasSubscriptions() {
-  return postTransformation.hasSubscriptions();
+  return postTransformationHasSubscriptions();
 }
 
 // ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED
@@ -48,7 +51,7 @@ function postPlayerUpdateReorderedPlayer(player: EntityPlayer) {
     const storedForm = transformations[playerForm];
     if (hasForm !== storedForm) {
       transformations[playerForm] = hasForm;
-      postTransformation.fire(player, playerForm, hasForm);
+      postTransformationFire(player, playerForm, hasForm);
     }
   }
 }

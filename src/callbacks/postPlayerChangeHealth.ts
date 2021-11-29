@@ -4,7 +4,10 @@ import { ensureAllCases, getEnumValues } from "../functions/util";
 import { HealthType } from "../types/HealthType";
 import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
 import { ModUpgraded } from "../types/ModUpgraded";
-import * as postPlayerChangeHealth from "./subscriptions/postPlayerChangeHealth";
+import {
+  postPlayerChangeHealthFire,
+  postPlayerChangeHealthHasSubscriptions,
+} from "./subscriptions/postPlayerChangeHealth";
 
 const v = {
   run: {
@@ -22,7 +25,7 @@ export function postPlayerChangeHealthCallbackInit(mod: ModUpgraded): void {
 }
 
 function hasSubscriptions() {
-  return postPlayerChangeHealth.hasSubscriptions();
+  return postPlayerChangeHealthHasSubscriptions();
 }
 
 // ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED
@@ -46,7 +49,7 @@ function postPlayerUpdateReordered(player: EntityPlayer) {
       storedHealthValue !== currentHealthValue
     ) {
       const amount = currentHealthValue - storedHealthValue;
-      postPlayerChangeHealth.fire(player, healthType, amount);
+      postPlayerChangeHealthFire(player, healthType, amount);
     }
   }
 }

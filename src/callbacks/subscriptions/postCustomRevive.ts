@@ -6,18 +6,21 @@ export type PostCustomReviveCallbackType = (
 const subscriptions: Array<[PostCustomReviveCallbackType, int | undefined]> =
   [];
 
-export function hasSubscriptions(): boolean {
+export function postCustomReviveHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-export function register(
+export function postCustomReviveRegister(
   callback: PostCustomReviveCallbackType,
   revivalType?: int,
 ): void {
   subscriptions.push([callback, revivalType]);
 }
 
-export function fire(player: EntityPlayer, revivalType: int): void {
+export function postCustomReviveFire(
+  player: EntityPlayer,
+  revivalType: int,
+): void {
   for (const [callback, callbackRevivalType] of subscriptions) {
     // Handle the optional 2nd callback argument
     if (

@@ -4,18 +4,18 @@ const subscriptions: Array<
   [PostSlotUpdateCallbackType, SlotVariant | undefined]
 > = [];
 
-export function hasSubscriptions(): boolean {
+export function postSlotUpdateHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-export function register(
+export function postSlotUpdateRegister(
   callback: PostSlotUpdateCallbackType,
   slotVariant?: SlotVariant,
 ): void {
   subscriptions.push([callback, slotVariant]);
 }
 
-export function fire(slot: Entity): void {
+export function postSlotUpdateFire(slot: Entity): void {
   for (const [callback, slotVariant] of subscriptions) {
     // Handle the optional 2nd callback argument
     if (slotVariant !== undefined && slotVariant !== slot.Variant) {

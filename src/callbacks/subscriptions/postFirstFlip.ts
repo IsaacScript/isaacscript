@@ -2,15 +2,17 @@ export type PostFirstFlipCallbackType = (player: EntityPlayer) => void;
 
 const subscriptions: Array<[PostFirstFlipCallbackType]> = [];
 
-export function hasSubscriptions(): boolean {
+export function postFirstFlipHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-export function register(callback: PostFirstFlipCallbackType): void {
+export function postFirstFlipRegister(
+  callback: PostFirstFlipCallbackType,
+): void {
   subscriptions.push([callback]);
 }
 
-export function fire(player: EntityPlayer): void {
+export function postFirstFlipFire(player: EntityPlayer): void {
   for (const [callback] of subscriptions) {
     callback(player);
   }

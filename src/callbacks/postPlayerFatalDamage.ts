@@ -1,7 +1,10 @@
 import { getPlayerNumAllHearts, hasLostCurse } from "../functions/player";
 import { willPlayerRevive } from "../functions/revive";
 import { ModUpgraded } from "../types/ModUpgraded";
-import * as postPlayerFatalDamage from "./subscriptions/postPlayerFatalDamage";
+import {
+  postPlayerFatalDamageFire,
+  postPlayerFatalDamageHasSubscriptions,
+} from "./subscriptions/postPlayerFatalDamage";
 
 export function postPlayerFatalDamageCallbackInit(mod: ModUpgraded): void {
   mod.AddCallback(
@@ -12,7 +15,7 @@ export function postPlayerFatalDamageCallbackInit(mod: ModUpgraded): void {
 }
 
 function hasSubscriptions() {
-  return postPlayerFatalDamage.hasSubscriptions();
+  return postPlayerFatalDamageHasSubscriptions();
 }
 
 // ModCallbacks.MC_ENTITY_TAKE_DMG (11)
@@ -43,7 +46,7 @@ function entityTakeDmgPlayer(
     return undefined;
   }
 
-  const shouldSustainDeath = postPlayerFatalDamage.fire(player);
+  const shouldSustainDeath = postPlayerFatalDamageFire(player);
   if (shouldSustainDeath !== undefined) {
     return shouldSustainDeath;
   }

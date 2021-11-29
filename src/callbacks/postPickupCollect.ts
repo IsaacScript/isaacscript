@@ -1,10 +1,13 @@
-import { saveDataManager } from "../features/saveDataManager/exports";
-import { getClosestPlayer } from "../functions/player";
-import * as postPickupCollect from "./subscriptions/postPickupCollect";
-
 // Some pickup properties cannot be retrieved properly in the PostPickupInit callback and must be
 // checked in the PostPickupUpdate callback
 // This fires on the first update frame
+
+import { saveDataManager } from "../features/saveDataManager/exports";
+import { getClosestPlayer } from "../functions/player";
+import {
+  postPickupCollectFire,
+  postPickupCollectHasSubscriptions,
+} from "./subscriptions/postPickupCollect";
 
 const v = {
   room: {
@@ -19,7 +22,7 @@ export function postPickupCollectCallbackInit(mod: Mod): void {
 }
 
 function hasSubscriptions() {
-  return postPickupCollect.hasSubscriptions();
+  return postPickupCollectHasSubscriptions();
 }
 
 // ModCallbacks.MC_POST_PICKUP_RENDER (36)
@@ -39,6 +42,6 @@ function postPickupRender(pickup: EntityPickup) {
     v.room.firedSet.add(index);
 
     const player = getClosestPlayer(pickup.Position);
-    postPickupCollect.fire(pickup, player);
+    postPickupCollectFire(pickup, player);
   }
 }

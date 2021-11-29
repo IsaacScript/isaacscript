@@ -2,15 +2,15 @@ export type PostEsauJrCallbackType = (player: EntityPlayer) => void;
 
 const subscriptions: Array<[PostEsauJrCallbackType]> = [];
 
-export function hasSubscriptions(): boolean {
+export function postEsauJrHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-export function register(callback: PostEsauJrCallbackType): void {
+export function postEsauJrRegister(callback: PostEsauJrCallbackType): void {
   subscriptions.push([callback]);
 }
 
-export function fire(player: EntityPlayer): void {
+export function postEsauJrFire(player: EntityPlayer): void {
   for (const [callback] of subscriptions) {
     callback(player);
   }

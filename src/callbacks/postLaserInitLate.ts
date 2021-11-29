@@ -1,6 +1,9 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getRoomIndex, getRoomVisitedCount } from "../functions/rooms";
-import * as postLaserInitLate from "./subscriptions/postLaserInitLate";
+import {
+  postLaserInitLateFire,
+  postLaserInitLateHasSubscriptions,
+} from "./subscriptions/postLaserInitLate";
 
 const v = {
   run: {
@@ -17,7 +20,7 @@ export function postLaserInitLateCallbackInit(mod: Mod): void {
 }
 
 function hasSubscriptions() {
-  return postLaserInitLate.hasSubscriptions();
+  return postLaserInitLateHasSubscriptions();
 }
 
 // ModCallbacks.MC_POST_LASER_UPDATE (48)
@@ -40,6 +43,6 @@ function postLaserUpdate(laser: EntityLaser) {
   const index = GetPtrHash(laser);
   if (!v.run.firedSet.has(index)) {
     v.run.firedSet.add(index);
-    postLaserInitLate.fire(laser);
+    postLaserInitLateFire(laser);
   }
 }

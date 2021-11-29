@@ -2,7 +2,10 @@ import { saveDataManager } from "../features/saveDataManager/exports";
 import { getPlayerIndex, PlayerIndex } from "../functions/player";
 import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
 import { ModUpgraded } from "../types/ModUpgraded";
-import * as postPlayerChangeType from "./subscriptions/postPlayerChangeType";
+import {
+  postPlayerChangeTypeFire,
+  postPlayerChangeTypeHasSubscriptions,
+} from "./subscriptions/postPlayerChangeType";
 
 const v = {
   run: {
@@ -21,7 +24,7 @@ export function postPlayerChangeTypeCallbackInit(mod: ModUpgraded): void {
 }
 
 function hasSubscriptions() {
-  return postPlayerChangeType.hasSubscriptions();
+  return postPlayerChangeTypeHasSubscriptions();
 }
 
 // ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED
@@ -42,6 +45,6 @@ function postPlayerUpdateReorderedPlayer(player: EntityPlayer) {
 
   if (character !== storedCharacter) {
     v.run.characterMap.set(playerIndex, character);
-    postPlayerChangeType.fire(player);
+    postPlayerChangeTypeFire(player);
   }
 }

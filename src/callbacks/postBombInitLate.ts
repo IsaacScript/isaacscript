@@ -1,6 +1,9 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getRoomIndex, getRoomVisitedCount } from "../functions/rooms";
-import * as postBombInitLate from "./subscriptions/postBombInitLate";
+import {
+  postBombInitLateFire,
+  postBombInitLateHasSubscriptions,
+} from "./subscriptions/postBombInitLate";
 
 const v = {
   run: {
@@ -17,7 +20,7 @@ export function postBombInitLateCallbackInit(mod: Mod): void {
 }
 
 function hasSubscriptions() {
-  return postBombInitLate.hasSubscriptions();
+  return postBombInitLateHasSubscriptions();
 }
 
 // ModCallbacks.MC_POST_BOMB_UPDATE (58)
@@ -40,6 +43,6 @@ function postBombUpdate(bomb: EntityBomb) {
   const index = GetPtrHash(bomb);
   if (!v.run.firedSet.has(index)) {
     v.run.firedSet.add(index);
-    postBombInitLate.fire(bomb);
+    postBombInitLateFire(bomb);
   }
 }

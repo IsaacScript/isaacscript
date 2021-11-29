@@ -1,6 +1,9 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getRoomIndex, getRoomVisitedCount } from "../functions/rooms";
-import * as postEffectInitLate from "./subscriptions/postEffectInitLate";
+import {
+  postEffectInitLateFire,
+  postEffectInitLateHasSubscriptions,
+} from "./subscriptions/postEffectInitLate";
 
 const v = {
   run: {
@@ -17,7 +20,7 @@ export function postEffectInitLateCallbackInit(mod: Mod): void {
 }
 
 function hasSubscriptions() {
-  return postEffectInitLate.hasSubscriptions();
+  return postEffectInitLateHasSubscriptions();
 }
 
 // ModCallbacks.MC_POST_EFFECT_UPDATE (55)
@@ -40,6 +43,6 @@ function postEffectUpdate(effect: EntityEffect) {
   const index = GetPtrHash(effect);
   if (!v.run.firedSet.has(index)) {
     v.run.firedSet.add(index);
-    postEffectInitLate.fire(effect);
+    postEffectInitLateFire(effect);
   }
 }

@@ -9,11 +9,11 @@ const subscriptions: Array<
   [PostPurchaseCallbackType, PickupVariant | int | undefined, int | undefined]
 > = [];
 
-export function hasSubscriptions(): boolean {
+export function postPurchaseHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-export function register(
+export function postPurchaseRegister(
   callback: PostPurchaseCallbackType,
   pickupVariant?: PickupVariant | int,
   pickupSubType?: int,
@@ -21,7 +21,7 @@ export function register(
   subscriptions.push([callback, pickupVariant, pickupSubType]);
 }
 
-export function fire(
+export function postPurchaseFire(
   player: EntityPlayer,
   pickupVariant: PickupVariant | int,
   pickupSubType: int,

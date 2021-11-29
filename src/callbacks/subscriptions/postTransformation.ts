@@ -8,18 +8,18 @@ const subscriptions: Array<
   [PostTransformationCallbackType, PlayerForm | undefined]
 > = [];
 
-export function hasSubscriptions(): boolean {
+export function postTransformationHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-export function register(
+export function postTransformationRegister(
   callback: PostTransformationCallbackType,
   playerForm?: PlayerForm,
 ): void {
   subscriptions.push([callback, playerForm]);
 }
 
-export function fire(
+export function postTransformationFire(
   player: EntityPlayer,
   playerForm: PlayerForm,
   hasForm: boolean,

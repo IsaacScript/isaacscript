@@ -6,18 +6,18 @@ const subscriptions: Array<
   [PostPlayerUpdateReorderedCallbackType, PlayerVariant | undefined]
 > = [];
 
-export function hasSubscriptions(): boolean {
+export function postPlayerUpdateReorderedHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-export function register(
+export function postPlayerUpdateReorderedRegister(
   callback: PostPlayerUpdateReorderedCallbackType,
   playerVariant?: PlayerVariant,
 ): void {
   subscriptions.push([callback, playerVariant]);
 }
 
-export function fire(player: EntityPlayer): void {
+export function postPlayerUpdateReorderedFire(player: EntityPlayer): void {
   for (const [callback, playerVariant] of subscriptions) {
     // Handle the optional 2nd callback argument
     if (playerVariant !== undefined && playerVariant !== player.Variant) {

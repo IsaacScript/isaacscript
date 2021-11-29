@@ -4,18 +4,18 @@ const subscriptions: Array<
   [PostEffectInitLateCallbackType, EffectVariant | undefined]
 > = [];
 
-export function hasSubscriptions(): boolean {
+export function postEffectInitLateHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-export function register(
+export function postEffectInitLateRegister(
   callback: PostEffectInitLateCallbackType,
   effectVariant?: EffectVariant,
 ): void {
   subscriptions.push([callback, effectVariant]);
 }
 
-export function fire(effect: EntityEffect): void {
+export function postEffectInitLateFire(effect: EntityEffect): void {
   for (const [callback, effectVariant] of subscriptions) {
     // Handle the optional 2nd callback argument
     if (effectVariant !== undefined && effectVariant !== effect.Variant) {

@@ -1,12 +1,18 @@
+// This provides the logic for PreItemPickup and PostItemPickup
+
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getPlayerIndex, PlayerIndex } from "../functions/player";
 import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
 import { ModUpgraded } from "../types/ModUpgraded";
 import { PickingUpItem } from "../types/PickingUpItem";
-import * as postItemPickup from "./subscriptions/postItemPickup";
-import * as preItemPickup from "./subscriptions/preItemPickup";
-
-// This provides the logic for PreItemPickup and PostItemPickup
+import {
+  postItemPickupFire,
+  postItemPickupHasSubscriptions,
+} from "./subscriptions/postItemPickup";
+import {
+  preItemPickupFire,
+  preItemPickupHasSubscriptions,
+} from "./subscriptions/preItemPickup";
 
 const v = {
   run: {
@@ -25,7 +31,7 @@ export function itemPickupCallbacksInit(mod: ModUpgraded): void {
 }
 
 function hasSubscriptions() {
-  return preItemPickup.hasSubscriptions() || postItemPickup.hasSubscriptions();
+  return preItemPickupHasSubscriptions() || postItemPickupHasSubscriptions();
 }
 
 // ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED
@@ -47,7 +53,7 @@ function postPlayerUpdateReorderedPlayer(player: EntityPlayer) {
 function queueEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
   // Check to see if this player was picking something up on the previous frame
   if (pickingUpItem.id !== CollectibleType.COLLECTIBLE_NULL) {
-    postItemPickup.fire(player, pickingUpItem);
+    postItemPickupFire(player, pickingUpItem);
 
     // Reset the held item for this player
     pickingUpItem.id = CollectibleType.COLLECTIBLE_NULL;
@@ -63,7 +69,7 @@ function queueNotEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
     pickingUpItem.id = queuedItem.ID;
     pickingUpItem.type = queuedItem.Type;
 
-    preItemPickup.fire(player, pickingUpItem);
+    preItemPickupFire(player, pickingUpItem);
   }
 }
 

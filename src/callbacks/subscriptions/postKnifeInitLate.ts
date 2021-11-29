@@ -4,18 +4,18 @@ const subscriptions: Array<
   [PostKnifeInitLateCallbackType, KnifeVariant | int | undefined]
 > = [];
 
-export function hasSubscriptions(): boolean {
+export function postKnifeInitLateHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-export function register(
+export function postKnifeInitLateRegister(
   callback: PostKnifeInitLateCallbackType,
   knifeVariant?: KnifeVariant | int,
 ): void {
   subscriptions.push([callback, knifeVariant]);
 }
 
-export function fire(knife: EntityKnife): void {
+export function postKnifeInitLateFire(knife: EntityKnife): void {
   for (const [callback, knifeVariant] of subscriptions) {
     // Handle the optional 2nd callback argument
     if (knifeVariant !== undefined && knifeVariant !== knife.Variant) {

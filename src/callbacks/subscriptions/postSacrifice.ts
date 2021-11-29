@@ -5,15 +5,20 @@ export type PostSacrificeCallbackType = (
 
 const subscriptions: Array<[PostSacrificeCallbackType]> = [];
 
-export function hasSubscriptions(): boolean {
+export function postSacrificeHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-export function register(callback: PostSacrificeCallbackType): void {
+export function postSacrificeRegister(
+  callback: PostSacrificeCallbackType,
+): void {
   subscriptions.push([callback]);
 }
 
-export function fire(player: EntityPlayer, numSacrifices: int): void {
+export function postSacrificeFire(
+  player: EntityPlayer,
+  numSacrifices: int,
+): void {
   for (const [callback] of subscriptions) {
     callback(player, numSacrifices);
   }

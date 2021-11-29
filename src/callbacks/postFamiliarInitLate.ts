@@ -1,6 +1,9 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getRoomIndex, getRoomVisitedCount } from "../functions/rooms";
-import * as postFamiliarInitLate from "./subscriptions/postFamiliarInitLate";
+import {
+  postFamiliarInitLateFire,
+  postFamiliarInitLateHasSubscriptions,
+} from "./subscriptions/postFamiliarInitLate";
 
 const v = {
   run: {
@@ -17,7 +20,7 @@ export function postFamiliarInitLateCallbackInit(mod: Mod): void {
 }
 
 function hasSubscriptions() {
-  return postFamiliarInitLate.hasSubscriptions();
+  return postFamiliarInitLateHasSubscriptions();
 }
 
 // ModCallbacks.MC_FAMILIAR_UPDATE (6)
@@ -40,6 +43,6 @@ function postFamiliarUpdate(familiar: EntityFamiliar) {
   const index = GetPtrHash(familiar);
   if (!v.run.firedSet.has(index)) {
     v.run.firedSet.add(index);
-    postFamiliarInitLate.fire(familiar);
+    postFamiliarInitLateFire(familiar);
   }
 }

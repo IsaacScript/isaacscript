@@ -1,10 +1,16 @@
-import { saveDataManager } from "../features/saveDataManager/exports";
-import { getSlots } from "../functions/entity";
-import * as postSlotInit from "./subscriptions/postSlotInit";
-import * as postSlotUpdate from "./subscriptions/postSlotUpdate";
-
 // This provides the logic for the PostSlotInit and PostSlotUpdate callbacks
 // (the PostSlotRender and PostSlotDestroyed callbacks are handled in a different file)
+
+import { saveDataManager } from "../features/saveDataManager/exports";
+import { getSlots } from "../functions/entity";
+import {
+  postSlotInitFire,
+  postSlotInitHasSubscriptions,
+} from "./subscriptions/postSlotInit";
+import {
+  postSlotUpdateFire,
+  postSlotUpdateHasSubscriptions,
+} from "./subscriptions/postSlotUpdate";
 
 const v = {
   room: {
@@ -20,7 +26,7 @@ export function postSlotInitUpdateCallbacksInit(mod: Mod): void {
 }
 
 function hasSubscriptions() {
-  return postSlotInit.hasSubscriptions() || postSlotUpdate.hasSubscriptions();
+  return postSlotInitHasSubscriptions() || postSlotUpdateHasSubscriptions();
 }
 
 // ModCallbacks.MC_POST_UPDATE (1)
@@ -31,7 +37,7 @@ function postUpdate() {
 
   for (const slot of getSlots()) {
     checkNewEntity(slot);
-    postSlotUpdate.fire(slot);
+    postSlotUpdateFire(slot);
   }
 }
 
@@ -50,6 +56,6 @@ function checkNewEntity(slot: Entity) {
   const ptrHash = GetPtrHash(slot);
   if (!v.room.initializedSlots.has(ptrHash)) {
     v.room.initializedSlots.add(ptrHash);
-    postSlotInit.fire(slot);
+    postSlotInitFire(slot);
   }
 }

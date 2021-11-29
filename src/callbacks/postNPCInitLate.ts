@@ -1,6 +1,9 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getRoomIndex, getRoomVisitedCount } from "../functions/rooms";
-import * as postNPCInitLate from "./subscriptions/postNPCInitLate";
+import {
+  postNPCInitLateFire,
+  postNPCInitLateHasSubscriptions,
+} from "./subscriptions/postNPCInitLate";
 
 const v = {
   run: {
@@ -17,7 +20,7 @@ export function postNPCInitLateCallbackInit(mod: Mod): void {
 }
 
 function hasSubscriptions() {
-  return postNPCInitLate.hasSubscriptions();
+  return postNPCInitLateHasSubscriptions();
 }
 
 // ModCallbacks.MC_NPC_UPDATE (0)
@@ -40,6 +43,6 @@ function postNPCUpdate(npc: EntityNPC) {
   const index = GetPtrHash(npc);
   if (!v.run.firedSet.has(index)) {
     v.run.firedSet.add(index);
-    postNPCInitLate.fire(npc);
+    postNPCInitLateFire(npc);
   }
 }

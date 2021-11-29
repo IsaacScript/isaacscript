@@ -1,9 +1,15 @@
+// This provides the logic for PostFlip and PostFirstFlip
+
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getPlayers, isTaintedLazarus } from "../functions/player";
-import * as postFirstFlip from "./subscriptions/postFirstFlip";
-import * as postFlip from "./subscriptions/postFlip";
-
-// This provides the logic for PostFlip and PostFirstFlip
+import {
+  postFirstFlipFire,
+  postFirstFlipHasSubscriptions,
+} from "./subscriptions/postFirstFlip";
+import {
+  postFlipFire,
+  postFlipHasSubscriptions,
+} from "./subscriptions/postFlip";
 
 const v = {
   run: {
@@ -22,7 +28,7 @@ export function postFlipCallbacksInit(mod: Mod): void {
 }
 
 function hasSubscriptions() {
-  return postFlip.hasSubscriptions() || postFirstFlip.hasSubscriptions();
+  return postFlipHasSubscriptions() || postFirstFlipHasSubscriptions();
 }
 
 // ModCallbacks.USE_ITEM (3)
@@ -49,10 +55,10 @@ function useItemFlip(
 
   if (!v.run.usedFlipAtLeastOnce) {
     v.run.usedFlipAtLeastOnce = true;
-    postFirstFlip.fire(newLazarus);
+    postFirstFlipFire(newLazarus);
   }
 
-  postFlip.fire(newLazarus);
+  postFlipFire(newLazarus);
 }
 
 function getNewLazarus(oldLazarus: EntityPlayer) {

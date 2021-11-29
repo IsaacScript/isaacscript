@@ -1,6 +1,9 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { hasFlag } from "../functions/flag";
-import * as postSacrifice from "./subscriptions/postSacrifice";
+import {
+  postSacrificeFire,
+  postSacrificeHasSubscriptions,
+} from "./subscriptions/postSacrifice";
 
 const v = {
   level: {
@@ -19,7 +22,7 @@ export function postSacrificeCallbackInit(mod: Mod): void {
 }
 
 function hasSubscriptions() {
-  return postSacrifice.hasSubscriptions();
+  return postSacrificeHasSubscriptions();
 }
 
 // ModCallbacks.MC_ENTITY_TAKE_DMG (11)
@@ -47,6 +50,6 @@ function entityTakeDmgPlayer(
 
   if (roomType === RoomType.ROOM_SACRIFICE && isSpikeDamage) {
     v.level.numSacrifices += 1;
-    postSacrifice.fire(player, v.level.numSacrifices);
+    postSacrificeFire(player, v.level.numSacrifices);
   }
 }

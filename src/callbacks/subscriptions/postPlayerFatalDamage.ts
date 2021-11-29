@@ -6,18 +6,20 @@ const subscriptions: Array<
   [PostPlayerFatalDamageCallbackType, PlayerVariant | undefined]
 > = [];
 
-export function hasSubscriptions(): boolean {
+export function postPlayerFatalDamageHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-export function register(
+export function postPlayerFatalDamageRegister(
   callback: PostPlayerFatalDamageCallbackType,
   playerVariant?: PlayerVariant,
 ): void {
   subscriptions.push([callback, playerVariant]);
 }
 
-export function fire(player: EntityPlayer): boolean | void {
+export function postPlayerFatalDamageFire(
+  player: EntityPlayer,
+): boolean | void {
   for (const [callback, playerVariant] of subscriptions) {
     // Handle the optional 2nd callback argument
     if (playerVariant !== undefined && playerVariant !== player.Variant) {

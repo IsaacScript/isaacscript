@@ -1,6 +1,9 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getPlayerIndex, getPlayers, PlayerIndex } from "../functions/player";
-import * as postPurchase from "./subscriptions/postPurchase";
+import {
+  postPurchaseFire,
+  postPurchaseHasSubscriptions,
+} from "./subscriptions/postPurchase";
 
 interface PickupDescription {
   variant: PickupVariant | int;
@@ -23,7 +26,7 @@ export function postPurchaseCallbackInit(mod: Mod): void {
 }
 
 function hasSubscriptions() {
-  return postPurchase.hasSubscriptions();
+  return postPurchaseHasSubscriptions();
 }
 
 // ModCallbacks.MC_POST_UPDATE (1)
@@ -62,7 +65,7 @@ function checkPickupsPurchased(pickups: Entity[], players: EntityPlayer[]) {
 
       if (!playerHoldingItemLastFrame && playerHoldingItem) {
         // Assume that this is the player that purchased the pickup
-        postPurchase.fire(
+        postPurchaseFire(
           player,
           pickupDescription.variant,
           pickupDescription.subtype,

@@ -5,7 +5,10 @@ import {
   getPlayerNumAllHearts,
   PlayerIndex,
 } from "../functions/player";
-import * as postCursedTeleport from "./subscriptions/postCursedTeleport";
+import {
+  postCursedTeleportFire,
+  postCursedTeleportHasSubscriptions,
+} from "./subscriptions/postCursedTeleport";
 
 const v = {
   run: {
@@ -35,7 +38,7 @@ export function postCursedTeleportCallbackInit(mod: Mod): void {
 }
 
 function hasSubscriptions() {
-  return postCursedTeleport.hasSubscriptions();
+  return postCursedTeleportHasSubscriptions();
 }
 
 // ModCallbacks.MC_ENTITY_TAKE_DMG (11)
@@ -135,7 +138,7 @@ function postPlayerRenderPlayer(player: EntityPlayer) {
   }
 
   v.run.damageFrameMap.set(playerIndex, [gameFrameCount, true]);
-  postCursedTeleport.fire(player);
+  postCursedTeleportFire(player);
 }
 
 function playerIsTeleportingFromCursedTeleport(

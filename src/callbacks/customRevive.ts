@@ -4,8 +4,14 @@ import { removeAllMatchingEntities } from "../functions/entity";
 import { getPlayerIndex, PlayerIndex } from "../functions/player";
 import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
 import { ModUpgraded } from "../types/ModUpgraded";
-import * as postCustomRevive from "./subscriptions/postCustomRevive";
-import * as preCustomRevive from "./subscriptions/preCustomRevive";
+import {
+  postCustomReviveFire,
+  postCustomReviveHasSubscriptions,
+} from "./subscriptions/postCustomRevive";
+import {
+  preCustomReviveFire,
+  preCustomReviveHasSubscriptions,
+} from "./subscriptions/preCustomRevive";
 
 enum CustomReviveState {
   DISABLED,
@@ -40,7 +46,7 @@ export function customReviveCallbacksInit(mod: ModUpgraded): void {
 
 function hasSubscriptions() {
   return (
-    preCustomRevive.hasSubscriptions() || postCustomRevive.hasSubscriptions()
+    preCustomReviveHasSubscriptions() || postCustomReviveHasSubscriptions()
   );
 }
 
@@ -106,7 +112,7 @@ function postPlayerUpdateReordered(player: EntityPlayer) {
   // which will overwrite the 1-Up animation
 
   if (v.run.revivalType !== null) {
-    postCustomRevive.fire(playerToCheckHoldingItem, v.run.revivalType);
+    postCustomReviveFire(playerToCheckHoldingItem, v.run.revivalType);
   }
 
   v.run.state = CustomReviveState.DISABLED;
@@ -120,7 +126,7 @@ function postPlayerFatalDamage(player: EntityPlayer) {
     return;
   }
 
-  const revivalType = preCustomRevive.fire(player);
+  const revivalType = preCustomReviveFire(player);
   if (revivalType === undefined) {
     return;
   }

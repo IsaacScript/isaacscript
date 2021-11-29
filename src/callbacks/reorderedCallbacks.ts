@@ -1,7 +1,3 @@
-import * as postGameStartedReordered from "./subscriptions/postGameStartedReordered";
-import * as postNewLevelReordered from "./subscriptions/postNewLevelReordered";
-import * as postNewRoomReordered from "./subscriptions/postNewRoomReordered";
-
 // This provides the logic for PostGameStartedReordered, PostNewLevelReordered, and
 // PostNewRoomReordered
 
@@ -10,6 +6,19 @@ import * as postNewRoomReordered from "./subscriptions/postNewRoomReordered";
 // It is easier to write mod code if the callbacks run in a more logical order:
 // PostGameStarted --> PostNewLevel --> PostNewRoom
 // Manually reorganize the callback execution so that this is the case
+
+import {
+  postGameStartedReorderedFire,
+  postGameStartedReorderedHasSubscriptions,
+} from "./subscriptions/postGameStartedReordered";
+import {
+  postNewLevelReorderedFire,
+  postNewLevelReorderedHasSubscriptions,
+} from "./subscriptions/postNewLevelReordered";
+import {
+  postNewRoomReorderedFire,
+  postNewRoomReorderedHasSubscriptions,
+} from "./subscriptions/postNewRoomReordered";
 
 let currentStage = null as int | null;
 let currentStageType = null as int | null;
@@ -30,9 +39,9 @@ export function reorderedCallbacksInit(mod: Mod): void {
 
 function hasSubscriptions() {
   return (
-    postGameStartedReordered.hasSubscriptions() ||
-    postNewLevelReordered.hasSubscriptions() ||
-    postNewRoomReordered.hasSubscriptions()
+    postGameStartedReorderedHasSubscriptions() ||
+    postNewLevelReorderedHasSubscriptions() ||
+    postNewRoomReorderedHasSubscriptions()
   );
 }
 
@@ -51,10 +60,10 @@ function postGameStartedVanilla(isContinued: boolean) {
     return;
   }
 
-  postGameStartedReordered.fire(isContinued);
+  postGameStartedReorderedFire(isContinued);
   recordCurrentStage();
-  postNewLevelReordered.fire();
-  postNewRoomReordered.fire();
+  postNewLevelReorderedFire();
+  postNewRoomReorderedFire();
 }
 
 // ModCallbacks.MC_POST_NEW_LEVEL (18)
@@ -73,8 +82,8 @@ function postNewLevelVanilla() {
   forceNewLevel = false;
 
   recordCurrentStage();
-  postNewLevelReordered.fire();
-  postNewRoomReordered.fire();
+  postNewLevelReorderedFire();
+  postNewRoomReorderedFire();
 }
 
 // ModCallbacks.MC_POST_NEW_ROOM (19)
@@ -97,8 +106,8 @@ function postNewRoomVanilla() {
       // (which does not trigger the PostNewLevel callback)
       // Emulate what happens in the PostNewLevel callback
       recordCurrentStage();
-      postNewLevelReordered.fire();
-      postNewRoomReordered.fire();
+      postNewLevelReorderedFire();
+      postNewRoomReorderedFire();
       return;
     }
   }
@@ -113,7 +122,7 @@ function postNewRoomVanilla() {
   }
   forceNewRoom = false;
 
-  postNewRoomReordered.fire();
+  postNewRoomReorderedFire();
 }
 
 function recordCurrentStage() {

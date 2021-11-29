@@ -1,10 +1,16 @@
-import { saveDataManager } from "../features/saveDataManager/exports";
-import { getSlots } from "../functions/entity";
-import * as postSlotDestroyed from "./subscriptions/postSlotDestroyed";
-import * as postSlotRender from "./subscriptions/postSlotRender";
-
 // This provides the logic for the PostSlotRender and PostSlotBroken callbacks
 // (the PostSlotInit and PostSlotUpdate callbacks are handled in a different file)
+
+import { saveDataManager } from "../features/saveDataManager/exports";
+import { getSlots } from "../functions/entity";
+import {
+  postSlotDestroyedFire,
+  postSlotDestroyedHasSubscriptions,
+} from "./subscriptions/postSlotDestroyed";
+import {
+  postSlotRenderFire,
+  postSlotRenderHasSubscriptions,
+} from "./subscriptions/postSlotRender";
 
 const BROKEN_ANIMATIONS = new Set([
   "Broken", // Normal machines
@@ -25,7 +31,7 @@ export function postSlotRenderBrokenCallbacksInit(mod: Mod): void {
 
 function hasSubscriptions() {
   return (
-    postSlotRender.hasSubscriptions() || postSlotDestroyed.hasSubscriptions()
+    postSlotRenderHasSubscriptions() || postSlotDestroyedHasSubscriptions()
   );
 }
 
@@ -36,7 +42,7 @@ function postRender() {
   }
 
   for (const slot of getSlots()) {
-    postSlotRender.fire(slot);
+    postSlotRenderFire(slot);
     checkSlotBroken(slot);
   }
 }
@@ -52,6 +58,6 @@ function checkSlotBroken(slot: Entity) {
   const animation = sprite.GetAnimation();
   if (BROKEN_ANIMATIONS.has(animation)) {
     v.room.brokenSlots.add(ptrHash);
-    postSlotDestroyed.fire(slot);
+    postSlotDestroyedFire(slot);
   }
 }

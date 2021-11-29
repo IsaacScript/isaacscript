@@ -4,15 +4,17 @@ export type PostGameStartedReorderedCallbackType = (
 
 const subscriptions: Array<[PostGameStartedReorderedCallbackType]> = [];
 
-export function hasSubscriptions(): boolean {
+export function postGameStartedReorderedHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-export function register(callback: PostGameStartedReorderedCallbackType): void {
+export function postGameStartedReorderedRegister(
+  callback: PostGameStartedReorderedCallbackType,
+): void {
   subscriptions.push([callback]);
 }
 
-export function fire(isContinued: boolean): void {
+export function postGameStartedReorderedFire(isContinued: boolean): void {
   for (const [callback] of subscriptions) {
     callback(isContinued);
   }

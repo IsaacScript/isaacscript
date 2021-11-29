@@ -1,10 +1,10 @@
+// Keep specific items from being affected by the Glitched Crown, Binge Eater,
+// and the Tainted Isaac switching mechanic
+
 import { getUpgradeErrorMsg } from "../errors";
 import { setCollectibleSubType } from "../functions/collectibles";
 import { ModUpgraded } from "../types/ModUpgraded";
 import { saveDataManager } from "./saveDataManager/exports";
-
-// Keep specific items from being affected by the Glitched Crown, Binge Eater,
-// and the Tainted Isaac switching mechanic
 
 const FEATURE_NAME = "prevent collectible rotation";
 

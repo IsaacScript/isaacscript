@@ -1,6 +1,9 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getRoomIndex, getRoomVisitedCount } from "../functions/rooms";
-import * as postPickupInitLate from "./subscriptions/postPickupInitLate";
+import {
+  postPickupInitLateFire,
+  postPickupInitLateHasSubscriptions,
+} from "./subscriptions/postPickupInitLate";
 
 const v = {
   run: {
@@ -17,7 +20,7 @@ export function postPickupInitLateCallbackInit(mod: Mod): void {
 }
 
 function hasSubscriptions() {
-  return postPickupInitLate.hasSubscriptions();
+  return postPickupInitLateHasSubscriptions();
 }
 
 // ModCallbacks.MC_POST_PICKUP_UPDATE (35)
@@ -40,6 +43,6 @@ function postPickupUpdate(pickup: EntityPickup) {
   const index = GetPtrHash(pickup);
   if (!v.run.firedSet.has(index)) {
     v.run.firedSet.add(index);
-    postPickupInitLate.fire(pickup);
+    postPickupInitLateFire(pickup);
   }
 }

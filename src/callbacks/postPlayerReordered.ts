@@ -5,9 +5,18 @@ import {
   getPlayerIndex,
   PlayerIndex,
 } from "../functions/player";
-import * as postPlayerInitReordered from "./subscriptions/postPlayerInitReordered";
-import * as postPlayerRenderReordered from "./subscriptions/postPlayerRenderReordered";
-import * as postPlayerUpdateReordered from "./subscriptions/postPlayerUpdateReordered";
+import {
+  postPlayerInitReorderedFire,
+  postPlayerInitReorderedHasSubscriptions,
+} from "./subscriptions/postPlayerInitReordered";
+import {
+  postPlayerRenderReorderedFire,
+  postPlayerRenderReorderedHasSubscriptions,
+} from "./subscriptions/postPlayerRenderReordered";
+import {
+  postPlayerUpdateReorderedFire,
+  postPlayerUpdateReorderedHasSubscriptions,
+} from "./subscriptions/postPlayerUpdateReordered";
 
 const v = {
   run: {
@@ -31,9 +40,9 @@ export function postPlayerReorderedCallbacksInit(mod: Mod): void {
 
 function hasSubscriptions() {
   return (
-    postPlayerInitReordered.hasSubscriptions() ||
-    postPlayerUpdateReordered.hasSubscriptions() ||
-    postPlayerRenderReordered.hasSubscriptions()
+    postPlayerInitReorderedHasSubscriptions() ||
+    postPlayerUpdateReorderedHasSubscriptions() ||
+    postPlayerRenderReorderedHasSubscriptions()
   );
 }
 
@@ -44,7 +53,7 @@ function postPlayerInit(player: EntityPlayer) {
   }
 
   if (v.run.postGameStartedFiredOnThisRun) {
-    postPlayerInitReordered.fire(player);
+    postPlayerInitReorderedFire(player);
   } else {
     // Defer callback execution until the PostGameStarted callback fires
     const playerIndex = getPlayerIndex(player);
@@ -59,7 +68,7 @@ function postPlayerUpdate(player: EntityPlayer) {
   }
 
   if (v.run.postGameStartedFiredOnThisRun) {
-    postPlayerUpdateReordered.fire(player);
+    postPlayerUpdateReorderedFire(player);
   } else {
     // Defer callback execution until the PostGameStarted callback fires
     const playerIndex = getPlayerIndex(player);
@@ -74,7 +83,7 @@ function postPlayerRender(player: EntityPlayer) {
   }
 
   if (v.run.postGameStartedFiredOnThisRun) {
-    postPlayerRenderReordered.fire(player);
+    postPlayerRenderReorderedFire(player);
   } else {
     // Defer callback execution until the PostGameStarted callback fires
     const playerIndex = getPlayerIndex(player);
@@ -90,9 +99,9 @@ function postGameStarted() {
 
   v.run.postGameStartedFiredOnThisRun = true;
 
-  dequeue(v.run.postPlayerInitQueue, postPlayerInitReordered.fire);
-  dequeue(v.run.postPlayerUpdateQueue, postPlayerUpdateReordered.fire);
-  dequeue(v.run.postPlayerRenderQueue, postPlayerRenderReordered.fire);
+  dequeue(v.run.postPlayerInitQueue, postPlayerInitReorderedFire);
+  dequeue(v.run.postPlayerUpdateQueue, postPlayerUpdateReorderedFire);
+  dequeue(v.run.postPlayerRenderQueue, postPlayerRenderReorderedFire);
 }
 
 function dequeue(

@@ -1,6 +1,9 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getRoomIndex, getRoomVisitedCount } from "../functions/rooms";
-import * as postKnifeInitLate from "./subscriptions/postKnifeInitLate";
+import {
+  postKnifeInitLateFire,
+  postKnifeInitLateHasSubscriptions,
+} from "./subscriptions/postKnifeInitLate";
 
 const v = {
   run: {
@@ -17,7 +20,7 @@ export function postKnifeInitLateCallbackInit(mod: Mod): void {
 }
 
 function hasSubscriptions() {
-  return postKnifeInitLate.hasSubscriptions();
+  return postKnifeInitLateHasSubscriptions();
 }
 
 // ModCallbacks.MC_POST_KNIFE_UPDATE (51)
@@ -40,6 +43,6 @@ function postKnifeUpdate(knife: EntityKnife) {
   const index = GetPtrHash(knife);
   if (!v.run.firedSet.has(index)) {
     v.run.firedSet.add(index);
-    postKnifeInitLate.fire(knife);
+    postKnifeInitLateFire(knife);
   }
 }

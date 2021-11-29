@@ -10,18 +10,18 @@ const subscriptions: Array<
   [PostPlayerChangeHealthCallbackType, PlayerVariant | undefined]
 > = [];
 
-export function hasSubscriptions(): boolean {
+export function postPlayerChangeHealthHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-export function register(
+export function postPlayerChangeHealthRegister(
   callback: PostPlayerChangeHealthCallbackType,
   playerVariant?: PlayerVariant,
 ): void {
   subscriptions.push([callback, playerVariant]);
 }
 
-export function fire(
+export function postPlayerChangeHealthFire(
   player: EntityPlayer,
   healthType: HealthType,
   amount: int,

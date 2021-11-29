@@ -9,11 +9,11 @@ const subscriptions: Array<
   [PostItemPickupCallbackType, ItemType | undefined, int | undefined]
 > = [];
 
-export function hasSubscriptions(): boolean {
+export function postItemPickupHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-export function register(
+export function postItemPickupRegister(
   callback: PostItemPickupCallbackType,
   itemType?: ItemType,
   itemID?: int,
@@ -21,7 +21,10 @@ export function register(
   subscriptions.push([callback, itemType, itemID]);
 }
 
-export function fire(player: EntityPlayer, pickingUpItem: PickingUpItem): void {
+export function postItemPickupFire(
+  player: EntityPlayer,
+  pickingUpItem: PickingUpItem,
+): void {
   for (const [callback, itemType, itemID] of subscriptions) {
     // Handle the optional 2nd callback argument
     if (itemType !== undefined && itemType !== pickingUpItem.type) {

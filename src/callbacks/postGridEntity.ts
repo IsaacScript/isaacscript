@@ -1,10 +1,19 @@
+// This provides the logic for PostGridEntityInit, PostGridEntityUpdate, and PostGridEntityRemove
+
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getGridEntities } from "../functions/gridEntity";
-import * as postGridEntityInit from "./subscriptions/postGridEntityInit";
-import * as postGridEntityRemove from "./subscriptions/postGridEntityRemove";
-import * as postGridEntityUpdate from "./subscriptions/postGridEntityUpdate";
-
-// This provides the logic for PostGridEntityInit, PostGridEntityUpdate, and PostGridEntityRemove
+import {
+  postGridEntityInitFire,
+  postGridEntityInitHasSubscriptions,
+} from "./subscriptions/postGridEntityInit";
+import {
+  postGridEntityRemoveFire,
+  postGridEntityRemoveHasSubscriptions,
+} from "./subscriptions/postGridEntityRemove";
+import {
+  postGridEntityUpdateFire,
+  postGridEntityUpdateHasSubscriptions,
+} from "./subscriptions/postGridEntityUpdate";
 
 const v = {
   room: {
@@ -21,9 +30,9 @@ export function postGridEntityCallbacksInit(mod: Mod): void {
 
 function hasSubscriptions() {
   return (
-    postGridEntityInit.hasSubscriptions() ||
-    postGridEntityUpdate.hasSubscriptions() ||
-    postGridEntityRemove.hasSubscriptions()
+    postGridEntityInitHasSubscriptions() ||
+    postGridEntityUpdateHasSubscriptions() ||
+    postGridEntityRemoveHasSubscriptions()
   );
 }
 
@@ -35,7 +44,7 @@ function postUpdate() {
 
   for (const gridEntity of getGridEntities()) {
     checkNewGridEntity(gridEntity);
-    postGridEntityUpdate.fire(gridEntity);
+    postGridEntityUpdateFire(gridEntity);
   }
 
   checkGridEntityRemoved();
@@ -52,7 +61,7 @@ function checkGridEntityRemoved() {
     const gridEntity = room.GetGridEntity(gridIndex);
     if (gridEntity === undefined || gridEntity.GetType() !== gridEntityType) {
       v.room.initializedGridEntities.delete(gridIndex);
-      postGridEntityRemove.fire(gridIndex, gridEntityType);
+      postGridEntityRemoveFire(gridIndex, gridEntityType);
     }
   }
 }
@@ -74,6 +83,6 @@ function checkNewGridEntity(gridEntity: GridEntity) {
   const storedGridEntityType = v.room.initializedGridEntities.get(gridIndex);
   if (storedGridEntityType !== gridEntityType) {
     v.room.initializedGridEntities.set(gridIndex, gridEntityType);
-    postGridEntityInit.fire(gridEntity);
+    postGridEntityInitFire(gridEntity);
   }
 }

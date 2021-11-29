@@ -1,9 +1,15 @@
+// This provides the logic for PostEsauJr and PostFirstEsauJr
+
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getPlayers } from "../functions/player";
-import * as postEsauJr from "./subscriptions/postEsauJr";
-import * as postFirstEsauJr from "./subscriptions/postFirstEsauJr";
-
-// This provides the logic for PostEsauJr and PostFirstEsauJr
+import {
+  postEsauJrFire,
+  postEsauJrHasSubscriptions,
+} from "./subscriptions/postEsauJr";
+import {
+  postFirstEsauJrFire,
+  postFirstEsauJrHasSubscriptions,
+} from "./subscriptions/postFirstEsauJr";
 
 const v = {
   run: {
@@ -25,7 +31,7 @@ export function postEsauJrCallbacksInit(mod: Mod): void {
 }
 
 function hasSubscriptions() {
-  return postEsauJr.hasSubscriptions() || postFirstEsauJr.hasSubscriptions();
+  return postEsauJrHasSubscriptions() || postFirstEsauJrHasSubscriptions();
 }
 
 // ModCallbacks.POST_UPDATE (1)
@@ -59,10 +65,10 @@ function postUpdate() {
 
   if (!v.run.usedEsauJrAtLeastOnce) {
     v.run.usedEsauJrAtLeastOnce = true;
-    postFirstEsauJr.fire(player);
+    postFirstEsauJrFire(player);
   }
 
-  postEsauJr.fire(player);
+  postEsauJrFire(player);
 }
 
 function getPlayerWithControllerIndex(controllerIndex: int) {

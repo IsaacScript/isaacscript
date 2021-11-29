@@ -1,3 +1,8 @@
+// Basement Renovator can create custom rooms that are saved to XML files
+// These XML files can be converted to JSON so that they can be imported by TypeScript code
+// Then, existing rooms can be manually replaced with a custom room by manually removing everything
+// in the room and rebuilding it from scratch based on the JSON data
+
 import { getUpgradeErrorMsg } from "../errors";
 import {
   removeAllBombs,
@@ -25,11 +30,6 @@ import { JSONRoom } from "../types/JSONRoom";
 import { ModUpgraded } from "../types/ModUpgraded";
 import { PersistentEntityDescription } from "../types/PersistentEntityDescription";
 import { saveDataManager } from "./saveDataManager/exports";
-
-// Basement Renovator can create custom rooms that are saved to XML files
-// These XML files can be converted to JSON so that they can be imported by TypeScript code
-// Then, existing rooms can be manually replaced with a custom room by manually removing everything
-// in the room and rebuilding it from scratch based on the JSON data
 
 const FEATURE_NAME = "JSON room deployer";
 
