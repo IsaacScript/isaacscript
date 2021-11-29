@@ -1,7 +1,7 @@
 export type PostLaserInitLateCallbackType = (laser: EntityLaser) => void;
 
 const subscriptions: Array<
-  [PostLaserInitLateCallbackType, LaserVariant | undefined]
+  [PostLaserInitLateCallbackType, LaserVariant | int | undefined]
 > = [];
 
 export function hasSubscriptions(): boolean {
@@ -10,7 +10,7 @@ export function hasSubscriptions(): boolean {
 
 export function register(
   callback: PostLaserInitLateCallbackType,
-  laserVariant?: LaserVariant,
+  laserVariant?: LaserVariant | int,
 ): void {
   subscriptions.push([callback, laserVariant]);
 }

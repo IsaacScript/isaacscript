@@ -3,7 +3,7 @@ export type PostProjectileInitLateCallbackType = (
 ) => void;
 
 const subscriptions: Array<
-  [PostProjectileInitLateCallbackType, ProjectileVariant | undefined]
+  [PostProjectileInitLateCallbackType, ProjectileVariant | int | undefined]
 > = [];
 
 export function hasSubscriptions(): boolean {
@@ -12,7 +12,7 @@ export function hasSubscriptions(): boolean {
 
 export function register(
   callback: PostProjectileInitLateCallbackType,
-  projectileVariant?: ProjectileVariant,
+  projectileVariant?: ProjectileVariant | int,
 ): void {
   subscriptions.push([callback, projectileVariant]);
 }

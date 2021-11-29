@@ -3,7 +3,7 @@ import { getPlayerIndex, getPlayers, PlayerIndex } from "../functions/player";
 import * as postPurchase from "./subscriptions/postPurchase";
 
 interface PickupDescription {
-  variant: PickupVariant;
+  variant: PickupVariant | int;
   subtype: int;
   price: int;
 }

@@ -1,12 +1,12 @@
 export type PostPurchaseCallbackType = (
   player: EntityPlayer,
-  pickupVariant: PickupVariant,
+  pickupVariant: PickupVariant | int,
   pickupSubType: int,
   pickupPrice: int,
 ) => void;
 
 const subscriptions: Array<
-  [PostPurchaseCallbackType, PickupVariant | undefined, int | undefined]
+  [PostPurchaseCallbackType, PickupVariant | int | undefined, int | undefined]
 > = [];
 
 export function hasSubscriptions(): boolean {
@@ -15,7 +15,7 @@ export function hasSubscriptions(): boolean {
 
 export function register(
   callback: PostPurchaseCallbackType,
-  pickupVariant?: PickupVariant,
+  pickupVariant?: PickupVariant | int,
   pickupSubType?: int,
 ): void {
   subscriptions.push([callback, pickupVariant, pickupSubType]);
@@ -23,7 +23,7 @@ export function register(
 
 export function fire(
   player: EntityPlayer,
-  pickupVariant: PickupVariant,
+  pickupVariant: PickupVariant | int,
   pickupSubType: int,
   pickupPrice: int,
 ): void {

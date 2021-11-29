@@ -4,7 +4,7 @@ export type PostPickupCollectCallbackType = (
 ) => void;
 
 const subscriptions: Array<
-  [PostPickupCollectCallbackType, PickupVariant | undefined]
+  [PostPickupCollectCallbackType, PickupVariant | int | undefined]
 > = [];
 
 export function hasSubscriptions(): boolean {
@@ -13,7 +13,7 @@ export function hasSubscriptions(): boolean {
 
 export function register(
   callback: PostPickupCollectCallbackType,
-  pickupVariant?: PickupVariant,
+  pickupVariant?: PickupVariant | int,
 ): void {
   subscriptions.push([callback, pickupVariant]);
 }

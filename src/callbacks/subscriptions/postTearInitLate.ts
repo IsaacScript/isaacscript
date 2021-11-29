@@ -1,7 +1,7 @@
 export type PostTearInitLateCallbackType = (tear: EntityTear) => void;
 
 const subscriptions: Array<
-  [PostTearInitLateCallbackType, TearVariant | undefined]
+  [PostTearInitLateCallbackType, TearVariant | int | undefined]
 > = [];
 
 export function hasSubscriptions(): boolean {
@@ -10,7 +10,7 @@ export function hasSubscriptions(): boolean {
 
 export function register(
   callback: PostTearInitLateCallbackType,
-  tearVariant?: TearVariant,
+  tearVariant?: TearVariant | int,
 ): void {
   subscriptions.push([callback, tearVariant]);
 }

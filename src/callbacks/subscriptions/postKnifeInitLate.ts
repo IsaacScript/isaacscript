@@ -1,7 +1,7 @@
 export type PostKnifeInitLateCallbackType = (knife: EntityKnife) => void;
 
 const subscriptions: Array<
-  [PostKnifeInitLateCallbackType, KnifeVariant | undefined]
+  [PostKnifeInitLateCallbackType, KnifeVariant | int | undefined]
 > = [];
 
 export function hasSubscriptions(): boolean {
@@ -10,7 +10,7 @@ export function hasSubscriptions(): boolean {
 
 export function register(
   callback: PostKnifeInitLateCallbackType,
-  knifeVariant?: KnifeVariant,
+  knifeVariant?: KnifeVariant | int,
 ): void {
   subscriptions.push([callback, knifeVariant]);
 }

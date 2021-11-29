@@ -74,37 +74,37 @@ export interface CallbackParametersCustom {
 
   [ModCallbacksCustom.MC_POST_TEAR_INIT_LATE]: [
     callback: PostTearInitLateCallbackType,
-    tearVariant?: TearVariant,
+    tearVariant?: TearVariant | int,
   ];
 
   [ModCallbacksCustom.MC_POST_FAMILIAR_INIT_LATE]: [
     callback: PostFamiliarInitLateCallbackType,
-    familiarVariant?: FamiliarVariant,
+    familiarVariant?: FamiliarVariant | int,
   ];
 
   [ModCallbacksCustom.MC_POST_BOMB_INIT_LATE]: [
     callback: PostBombInitLateCallbackType,
-    bombVariant?: BombVariant,
+    bombVariant?: BombVariant | int,
   ];
 
   [ModCallbacksCustom.MC_POST_PICKUP_INIT_LATE]: [
     callback: PostPickupInitLateCallbackType,
-    pickupVariant?: PickupVariant,
+    pickupVariant?: PickupVariant | int,
   ];
 
   [ModCallbacksCustom.MC_POST_LASER_INIT_LATE]: [
     callback: PostLaserInitLateCallbackType,
-    laserVariant?: LaserVariant,
+    laserVariant?: LaserVariant | int,
   ];
 
   [ModCallbacksCustom.MC_POST_KNIFE_INIT_LATE]: [
     callback: PostKnifeInitLateCallbackType,
-    knifeVariant?: KnifeVariant,
+    knifeVariant?: KnifeVariant | int,
   ];
 
   [ModCallbacksCustom.MC_POST_PROJECTILE_INIT_LATE]: [
     callback: PostProjectileInitLateCallbackType,
-    projectileVariant?: ProjectileVariant,
+    projectileVariant?: ProjectileVariant | int,
   ];
 
   [ModCallbacksCustom.MC_POST_NPC_INIT_LATE]: [
@@ -119,7 +119,7 @@ export interface CallbackParametersCustom {
 
   [ModCallbacksCustom.MC_POST_PICKUP_COLLECT]: [
     callback: PostPickupCollectCallbackType,
-    pickupVariant?: PickupVariant,
+    pickupVariant?: PickupVariant | int,
   ];
 
   [ModCallbacksCustom.MC_PRE_ITEM_PICKUP]: [
@@ -175,7 +175,7 @@ export interface CallbackParametersCustom {
 
   [ModCallbacksCustom.MC_POST_PURCHASE]: [
     callback: PostPurchaseCallbackType,
-    pickupVariant?: PickupVariant,
+    pickupVariant?: PickupVariant | int,
     pickupSubType?: int,
   ];
 

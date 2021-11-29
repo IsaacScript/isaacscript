@@ -3,7 +3,7 @@ export type PostFamiliarInitLateCallbackType = (
 ) => void;
 
 const subscriptions: Array<
-  [PostFamiliarInitLateCallbackType, FamiliarVariant | undefined]
+  [PostFamiliarInitLateCallbackType, FamiliarVariant | int | undefined]
 > = [];
 
 export function hasSubscriptions(): boolean {
@@ -12,7 +12,7 @@ export function hasSubscriptions(): boolean {
 
 export function register(
   callback: PostFamiliarInitLateCallbackType,
-  familiarVariant?: FamiliarVariant,
+  familiarVariant?: FamiliarVariant | int,
 ): void {
   subscriptions.push([callback, familiarVariant]);
 }

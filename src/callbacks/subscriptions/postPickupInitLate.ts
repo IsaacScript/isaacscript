@@ -1,7 +1,7 @@
 export type PostPickupInitLateCallbackType = (pickup: EntityPickup) => void;
 
 const subscriptions: Array<
-  [PostPickupInitLateCallbackType, PickupVariant | undefined]
+  [PostPickupInitLateCallbackType, PickupVariant | int | undefined]
 > = [];
 
 export function hasSubscriptions(): boolean {
@@ -10,7 +10,7 @@ export function hasSubscriptions(): boolean {
 
 export function register(
   callback: PostPickupInitLateCallbackType,
-  pickupVariant?: PickupVariant,
+  pickupVariant?: PickupVariant | int,
 ): void {
   subscriptions.push([callback, pickupVariant]);
 }

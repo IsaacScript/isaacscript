@@ -426,7 +426,7 @@ export function removeEntities(entities: Entity[], cap?: int): void {
  * @param cap Optional. If specified, will only remove the given amount of bombs.
  */
 export function removeAllBombs(
-  variant?: BombVariant,
+  variant?: BombVariant | int,
   subType?: int,
   cap?: int,
 ): void {
@@ -458,7 +458,7 @@ export function removeAllEffects(
  * @param cap Optional. If specified, will only remove the given amount of familiars.
  */
 export function removeAllFamiliars(
-  variant?: FamiliarVariant,
+  variant?: FamiliarVariant | int,
   subType?: int,
   cap?: int,
 ): void {
@@ -474,7 +474,7 @@ export function removeAllFamiliars(
  * @param cap Optional. If specified, will only remove the given amount of knives.
  */
 export function removeAllKnives(
-  variant?: KnifeVariant,
+  variant?: KnifeVariant | int,
   subType?: int,
   cap?: int,
 ): void {
@@ -490,7 +490,7 @@ export function removeAllKnives(
  * @param cap Optional. If specified, will only remove the given amount of lasers.
  */
 export function removeAllLasers(
-  variant?: LaserVariant,
+  variant?: LaserVariant | int,
   subType?: int,
   cap?: int,
 ): void {
@@ -526,7 +526,7 @@ export function removeAllMatchingEntities(
  * @param cap Optional. If specified, will only remove the given amount of pickups.
  */
 export function removeAllPickups(
-  variant?: PickupVariant,
+  variant?: PickupVariant | int,
   subType?: int,
   cap?: int,
 ): void {
@@ -542,7 +542,7 @@ export function removeAllPickups(
  * @param cap Optional. If specified, will only remove the given amount of projectiles.
  */
 export function removeAllProjectiles(
-  variant?: ProjectileVariant,
+  variant?: ProjectileVariant | int,
   subType?: int,
   cap?: int,
 ): void {
@@ -558,7 +558,7 @@ export function removeAllProjectiles(
  * @param cap Optional. If specified, will only remove the given amount of tears.
  */
 export function removeAllTears(
-  variant?: TearVariant,
+  variant?: TearVariant | int,
   subType?: int,
   cap?: int,
 ): void {

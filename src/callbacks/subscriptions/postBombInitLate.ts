@@ -1,7 +1,7 @@
 export type PostBombInitLateCallbackType = (bomb: EntityBomb) => void;
 
 const subscriptions: Array<
-  [PostBombInitLateCallbackType, BombVariant | undefined]
+  [PostBombInitLateCallbackType, BombVariant | int | undefined]
 > = [];
 
 export function hasSubscriptions(): boolean {
@@ -10,7 +10,7 @@ export function hasSubscriptions(): boolean {
 
 export function register(
   callback: PostBombInitLateCallbackType,
-  bombVariant?: BombVariant,
+  bombVariant?: BombVariant | int,
 ): void {
   subscriptions.push([callback, bombVariant]);
 }
