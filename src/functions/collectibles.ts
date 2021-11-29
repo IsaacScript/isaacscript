@@ -1,3 +1,4 @@
+import { SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES } from "../constants";
 import { COLLECTIBLE_DESCRIPTION_MAP } from "../maps/collectibleDescriptionMap";
 import { COLLECTIBLE_NAME_MAP } from "../maps/collectibleNameMap";
 import { removeAllPickups } from "./entity";
@@ -242,6 +243,17 @@ export function isQuestCollectible(
   collectibleType: CollectibleType | int,
 ): boolean {
   return collectibleHasTag(collectibleType, ItemConfigTag.QUEST);
+}
+
+/**
+ * Helper function to see if a particular collectible will disappear from the player's inventory
+ * upon use. Note that this will not work will modded items, as there is no way to dynamically know
+ * if a modded item will disappear.
+ */
+export function isSingleUseCollectible(
+  collectibleType: CollectibleType | int,
+): boolean {
+  return SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES.has(collectibleType);
 }
 
 /**
