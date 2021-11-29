@@ -3,12 +3,7 @@
 // and then assume that the next spawned collectible has this item pool type
 
 import { getUpgradeErrorMsg } from "../errors";
-import { arrayEmpty } from "../functions/array";
-import {
-  getRoomIndex,
-  getRoomItemPoolType,
-  getRoomVisitedCount,
-} from "../functions/rooms";
+import { getRoomItemPoolType } from "../functions/rooms";
 import { ModUpgraded } from "../types/ModUpgraded";
 import { saveDataManager } from "./saveDataManager/exports";
 
@@ -37,41 +32,17 @@ export function getCollectibleItemPoolTypeInit(mod: ModUpgraded): void {
     postPickupInitCollectible,
     PickupVariant.PICKUP_COLLECTIBLE,
   ); // 34
-  mod.AddCallback(ModCallbacks.MC_PRE_GET_COLLECTIBLE, preGetCollectible); // 62
 }
 
 // ModCallbacks.MC_POST_PICKUP_INIT (34)
 // PickupVariant.PICKUP_COLLECTIBLE (100)
 function postPickupInitCollectible(pickup: EntityPickup) {
-  const itemPoolType = v.run.collectibleQueue.shift();
-  if (itemPoolType === undefined) {
-    return;
-  }
-
+  const game = Game();
+  const itemPool = game.GetItemPool();
   const ptrHash = GetPtrHash(pickup);
-  v.run.collectibleItemPoolTypeMap.set(ptrHash, itemPoolType);
-}
+  const lastItemPoolType = itemPool.GetLastPool();
 
-// ModCallbacks.MC_PRE_GET_COLLECTIBLE (62)
-function preGetCollectible(
-  itemPoolType: ItemPoolType,
-  _decrease: boolean,
-  _seed: int,
-) {
-  const roomIndex = getRoomIndex();
-  const roomVisitedCount = getRoomVisitedCount();
-  if (
-    roomIndex !== v.run.currentRoomIndex ||
-    roomVisitedCount !== v.run.currentRoomVisitedCount
-  ) {
-    v.run.currentRoomIndex = roomIndex;
-    v.run.currentRoomVisitedCount = roomVisitedCount;
-
-    arrayEmpty(v.run.collectibleQueue);
-    v.run.collectibleItemPoolTypeMap.clear();
-  }
-
-  v.run.collectibleQueue.push(itemPoolType);
+  v.run.collectibleItemPoolTypeMap.set(ptrHash, lastItemPoolType);
 }
 
 /**

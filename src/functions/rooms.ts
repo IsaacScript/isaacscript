@@ -1,10 +1,8 @@
 import {
-  DEFAULT_ITEM_POOL_TYPE,
   GENESIS_ROOM_SUBTYPE,
   GENESIS_ROOM_VARIANT,
   MAX_ROOM_INDEX,
 } from "../constants";
-import { ROOM_TYPE_TO_ITEM_POOL_TYPE_MAP } from "../maps/roomTypeToItemPoolMap";
 import { closeAllDoors, getDoors, isHiddenSecretRoomDoor } from "./doors";
 import {
   getEntities,
@@ -132,16 +130,16 @@ export function getRoomIndexesForType(roomType: RoomType): Set<int> {
 
 /**
  * Helper function to get the item pool type for the current room. For example, this returns
- * `ItemPoolType.ItemPoolType.POOL_ANGEL` if you are in an Angel Room. Returns
- * `DEFAULT_ITEM_POOL_TYPE` if there is no particular pool associated with the current room type.
+ * `ItemPoolType.ItemPoolType.POOL_ANGEL` if you are in an Angel Room.
  */
 export function getRoomItemPoolType(): ItemPoolType {
   const game = Game();
+  const itemPool = game.GetItemPool();
   const room = game.GetRoom();
   const roomType = room.GetType();
+  const roomSeed = room.GetSpawnSeed();
 
-  const itemPoolType = ROOM_TYPE_TO_ITEM_POOL_TYPE_MAP.get(roomType);
-  return itemPoolType === undefined ? DEFAULT_ITEM_POOL_TYPE : itemPoolType;
+  return itemPool.GetPoolForRoom(roomType, roomSeed);
 }
 
 /**
