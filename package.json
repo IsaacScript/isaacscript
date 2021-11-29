@@ -24,6 +24,6 @@
   },
   "devDependencies": {
     "isaacscript-lint": "^1.0.67",
-    "typescript": "4.4.4"
+    "typescript": "4.5.2"
   }
 }
