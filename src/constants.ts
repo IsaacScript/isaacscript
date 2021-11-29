@@ -48,6 +48,10 @@ export const CHARACTERS_WITH_NO_SOUL_HEARTS = new Set<PlayerType>([
   PlayerType.PLAYER_KEEPER_B, // 33
 ]);
 
+/**
+ * A collection of common colors that can be reused. Note that if you want to further modify these
+ * colors, you should copy them first with the `copyColor` function.
+ */
 export const COLORS = {
   BLACK: Color(1, 1, 1),
   RED: Color(1, 0, 0),
