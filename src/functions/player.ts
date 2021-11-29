@@ -1,4 +1,8 @@
-import { LOST_STYLE_PLAYER_TYPES } from "../constants";
+import {
+  CHARACTERS_WITH_NO_RED_HEARTS,
+  CHARACTERS_WITH_NO_SOUL_HEARTS,
+  LOST_STYLE_PLAYER_TYPES,
+} from "../constants";
 import { HealthType } from "../types/HealthType";
 import { getKBitOfN, getNumBitsOfN } from "./bitwise";
 import { getCollectibleMaxCharges } from "./collectibles";
@@ -95,6 +99,24 @@ export function anyPlayerIs(matchingCharacter: PlayerType): boolean {
   }
 
   return false;
+}
+
+/**
+ * Helper function to see if the provided character can have red heart containers. Returns true for
+ * characters like Isaac, Magdalene, or Cain. Returns false for characters like Blue Baby. Returns
+ * false for The Lost and Tainted Lost.
+ */
+export function characterCanHaveRedHearts(character: PlayerType): boolean {
+  return !CHARACTERS_WITH_NO_RED_HEARTS.has(character);
+}
+
+/**
+ * Helper function to see if the provided character can have soul hearts. Returns true for
+ * characters like Isaac, Magdalene, or Cain. Returns false for characters like Bethany. Returns
+ * false for The Lost and Tainted Lost.
+ */
+export function characterCanHaveSoulHearts(character: PlayerType): boolean {
+  return !CHARACTERS_WITH_NO_SOUL_HEARTS.has(character);
 }
 
 /**

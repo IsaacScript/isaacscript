@@ -21,17 +21,29 @@ export const CHARACTERS_WITH_AN_ACTIVE_ITEM = new Set<PlayerType>([
   PlayerType.PLAYER_EDEN_B, // 30
 ]);
 
+/**
+ * The set of characters where red heart containers will be turned into soul hearts (e.g. Blue
+ * Baby). This set includes The Lost and Tainted Lost.
+ */
 export const CHARACTERS_WITH_NO_RED_HEARTS = new Set<PlayerType>([
   PlayerType.PLAYER_BLUEBABY, // 4
+  PlayerType.PLAYER_THELOST, // 10
   PlayerType.PLAYER_BLACKJUDAS, // 12
   PlayerType.PLAYER_JUDAS_B, // 24
   PlayerType.PLAYER_BLUEBABY_B, // 25
+  PlayerType.PLAYER_THELOST_B, // 31
   PlayerType.PLAYER_THEFORGOTTEN_B, // 35
   PlayerType.PLAYER_BETHANY_B, // 36
 ]);
 
+/**
+ * The set of characters where soul hearts will be automatically stripped away (e.g. Bethany). This
+ * set includes The Lost and Tainted Lost.
+ */
 export const CHARACTERS_WITH_NO_SOUL_HEARTS = new Set<PlayerType>([
+  PlayerType.PLAYER_THELOST, // 10
   PlayerType.PLAYER_BETHANY, // 18
+  PlayerType.PLAYER_THELOST_B, // 31
 ]);
 
 export const DEFAULT_ITEM_POOL_TYPE = ItemPoolType.POOL_TREASURE;
