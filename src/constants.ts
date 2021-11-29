@@ -30,6 +30,10 @@ export const CHARACTERS_WITH_NO_RED_HEARTS = new Set<PlayerType>([
   PlayerType.PLAYER_BETHANY_B, // 36
 ]);
 
+export const CHARACTERS_WITH_NO_SOUL_HEARTS = new Set<PlayerType>([
+  PlayerType.PLAYER_BETHANY, // 18
+]);
+
 export const DEFAULT_ITEM_POOL_TYPE = ItemPoolType.POOL_TREASURE;
 
 /** This is also the distance that a player spawns from the door that they enter a room from. */

@@ -102,7 +102,7 @@ export function deepCopy(
     (serializationType === SerializationType.NONE && isClass) ||
     (serializationType === SerializationType.DESERIALIZE && hasTSTLClassBrand)
   ) {
-    newObject = cloneClass(oldObject);
+    newObject = copyClass(oldObject);
   } else {
     newObject = new LuaTable();
   }
@@ -198,7 +198,7 @@ function isTSTLClass(object: LuaTable) {
   return numKeys === TSTL_CLASS_KEYS.size;
 }
 
-function cloneClass(oldClass: unknown) {
+function copyClass(oldClass: unknown) {
   const metatable = getmetatable(oldClass) as TSTLClassMetatable;
   const newClass = getNewClassFromMetatable(metatable);
 

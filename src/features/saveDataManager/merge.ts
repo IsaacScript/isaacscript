@@ -42,7 +42,7 @@ export function merge(
     log(`merge is operating on: ${traversalDescription}`);
   }
 
-  // First, handle the special case of an array with a shallow clone
+  // First, handle the special case of an array with a shallow copy
   if (mergeArray(oldObject, newTable)) {
     return;
   }
