@@ -19,6 +19,13 @@ see the official website: https://isaacscript.github.io/
 
 `;
 
+const MAIN_LUA_REPLACEMENTS = [
+  ["WeakMap = __TS__Class()", "WeakMap = WeakMap or __TS__Class()"],
+  ["WeakSet = __TS__Class()", "WeakSet = WeakSet or __TS__Class()"],
+  ["Map = __TS__Class()", "Map = Map or __TS__Class()"],
+  ["Set = __TS__Class()", "Set = Set or __TS__Class()"],
+];
+
 export function monkeyPatchMainLua(targetModDirectory: string): void {
   const mainLuaPath = path.join(targetModDirectory, MAIN_LUA);
   let mainLua = file.read(mainLuaPath);
@@ -42,16 +49,9 @@ function patchInformationalHeader(mainLua: string) {
 function patchGlobalObjects(originalMainLua: string) {
   let mainLua = originalMainLua;
 
-  mainLua = mainLua.replace(
-    "WeakMap = (function",
-    "WeakMap = WeakMap or (function",
-  );
-  mainLua = mainLua.replace(
-    "WeakSet = (function",
-    "WeakSet = WeakSet or (function",
-  );
-  mainLua = mainLua.replace("Map = (function", "Map = Map or (function");
-  mainLua = mainLua.replace("Set = (function", "Set = Set or (function");
+  for (const [findString, replaceString] of MAIN_LUA_REPLACEMENTS) {
+    mainLua = mainLua.replace(findString, replaceString);
+  }
 
   return mainLua;
 }
