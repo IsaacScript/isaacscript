@@ -1,5 +1,9 @@
 import { EMPTY_PNG_PATH } from "../constants";
 import { GRID_ENTITY_XML_MAP } from "../maps/gridEntityXMLMap";
+import {
+  DEFAULT_TOP_LEFT_WALL_GRID_INDEX,
+  ROOM_SHAPE_TO_TOP_LEFT_WALL_GRID_INDEX_MAP,
+} from "../maps/roomShapeToTopLeftWallGridIndexMap";
 import { roomUpdateSafe } from "./rooms";
 
 /**
@@ -86,6 +90,29 @@ export function getGridEntities(
   return gridEntities;
 }
 
+export function getTopLeftWall(): GridEntity | undefined {
+  const game = Game();
+  const room = game.GetRoom();
+  const topLeftWallGridIndex = getTopLeftWallGridIndex();
+  return room.GetGridEntity(topLeftWallGridIndex);
+}
+
+/**
+ * Helper function to get the grid index of the top left wall.
+ * (This will depend on what the current room shape is.)
+ */
+export function getTopLeftWallGridIndex(): int {
+  const game = Game();
+  const room = game.GetRoom();
+  const roomShape = room.GetRoomShape();
+
+  const topLeftWallGridIndex =
+    ROOM_SHAPE_TO_TOP_LEFT_WALL_GRID_INDEX_MAP.get(roomShape);
+  return topLeftWallGridIndex === undefined
+    ? DEFAULT_TOP_LEFT_WALL_GRID_INDEX
+    : topLeftWallGridIndex;
+}
+
 export function getSurroundingGridEntities(
   gridEntity: GridEntity,
 ): GridEntity[] {
@@ -119,8 +146,8 @@ export function getSurroundingGridEntities(
 }
 
 /**
- * Helper function to see if all of the pressure plates in the current room are pushed. Returns true
- * if there are no pressure plates in the room.
+ * Helper function to determine if all of the pressure plates in the current room are pushed.
+ * Returns true if there are no pressure plates in the room.
  */
 export function isAllPressurePlatesPushed(): boolean {
   const game = Game();

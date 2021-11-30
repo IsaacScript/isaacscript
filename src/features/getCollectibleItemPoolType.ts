@@ -12,13 +12,8 @@ const FEATURE_NAME = "get collectible item pool type";
 let initialized = false;
 
 const v = {
-  // We can't use the save data manager room resetting feature since the PreGetCollectible callback
-  // fires before the PostNewRoom callback
   run: {
-    collectibleQueue: [] as ItemPoolType[],
     collectibleItemPoolTypeMap: new Map<PtrHash, ItemPoolType>(),
-    currentRoomIndex: null as int | null,
-    currentRoomVisitedCount: null as int | null,
   },
 };
 

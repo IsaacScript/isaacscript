@@ -250,9 +250,9 @@ export function isQuestCollectible(
 }
 
 /**
- * Helper function to see if a particular collectible will disappear from the player's inventory
- * upon use. Note that this will not work will modded items, as there is no way to dynamically know
- * if a modded item will disappear.
+ * Helper function to determine if a particular collectible will disappear from the player's
+ * inventory upon use. Note that this will not work will modded items, as there is no way to
+ * dynamically know if a modded item will disappear.
  */
 export function isSingleUseCollectible(
   collectibleType: CollectibleType | int,

@@ -20,7 +20,7 @@ import { log } from "../functions/log";
 import { getNPCs } from "../functions/npc";
 import { nextSeed } from "../functions/random";
 import {
-  getRoomIndex,
+  getRoomListIndex,
   gridToPos,
   setRoomCleared,
   setRoomUncleared,
@@ -45,12 +45,12 @@ let initialized = false;
 
 const v = {
   level: {
-    deployedRoomIndexes: new Set<int>(),
+    deployedRoomListIndexes: new Set<int>(),
 
-    /** Indexed by room index. */
+    /** Indexed by room list index. */
     persistentEntities: new Map<int, PersistentEntityDescription[]>(),
 
-    /** Indexed by room index. */
+    /** Indexed by room list index. */
     decorationGridIndexes: new Map<int, int[]>(),
   },
 };
@@ -65,9 +65,9 @@ export function deployJSONRoomInit(mod: ModUpgraded): void {
 
 // ModCallbacks.MC_POST_NEW_ROOM (19)
 function postNewRoom() {
-  const roomIndex = getRoomIndex();
+  const roomListIndex = getRoomListIndex();
 
-  if (!v.level.deployedRoomIndexes.has(roomIndex)) {
+  if (!v.level.deployedRoomListIndexes.has(roomListIndex)) {
     return;
   }
 
@@ -82,9 +82,10 @@ function postNewRoom() {
 function setDecorationsInvisible() {
   const game = Game();
   const room = game.GetRoom();
-  const roomIndex = getRoomIndex();
+  const roomListIndex = getRoomListIndex();
 
-  const decorationGridIndexes = v.level.decorationGridIndexes.get(roomIndex);
+  const decorationGridIndexes =
+    v.level.decorationGridIndexes.get(roomListIndex);
   if (decorationGridIndexes === undefined) {
     return;
   }
@@ -101,9 +102,9 @@ function setDecorationsInvisible() {
 function respawnPersistentEntities() {
   const game = Game();
   const room = game.GetRoom();
-  const roomIndex = getRoomIndex();
+  const roomListIndex = getRoomListIndex();
 
-  const persistentEntities = v.level.persistentEntities.get(roomIndex);
+  const persistentEntities = v.level.persistentEntities.get(roomListIndex);
   if (persistentEntities === undefined) {
     return;
   }
@@ -238,9 +239,9 @@ export function emptyRoom(fillWithDecorations: boolean) {
     error(msg);
   }
 
-  const roomIndex = getRoomIndex();
+  const roomListIndex = getRoomListIndex();
 
-  v.level.deployedRoomIndexes.add(roomIndex);
+  v.level.deployedRoomListIndexes.add(roomListIndex);
 
   removeAllBombs(); // 4
   removeAllPickups(); // 5
@@ -313,12 +314,12 @@ function fillRoomWithDecorations() {
   const game = Game();
   const room = game.GetRoom();
   const gridSize = room.GetGridSize();
-  const roomIndex = getRoomIndex();
+  const roomListIndex = getRoomListIndex();
 
-  let decorationGridIndexes = v.level.decorationGridIndexes.get(roomIndex);
+  let decorationGridIndexes = v.level.decorationGridIndexes.get(roomListIndex);
   if (decorationGridIndexes === undefined) {
     decorationGridIndexes = [];
-    v.level.decorationGridIndexes.set(roomIndex, decorationGridIndexes);
+    v.level.decorationGridIndexes.set(roomListIndex, decorationGridIndexes);
   }
 
   for (let gridIndex = 0; gridIndex < gridSize; gridIndex++) {
@@ -526,7 +527,7 @@ function storePersistentEntity(entity: Entity) {
   const game = Game();
   const room = game.GetRoom();
   const gridIndex = room.GetGridIndex(entity.Position);
-  const roomIndex = getRoomIndex();
+  const roomListIndex = getRoomListIndex();
 
   const persistentEntity = {
     gridIndex,
@@ -535,10 +536,10 @@ function storePersistentEntity(entity: Entity) {
     subType: entity.SubType,
   };
 
-  let persistentEntities = v.level.persistentEntities.get(roomIndex);
+  let persistentEntities = v.level.persistentEntities.get(roomListIndex);
   if (persistentEntities === undefined) {
     persistentEntities = [];
-    v.level.persistentEntities.set(roomIndex, persistentEntities);
+    v.level.persistentEntities.set(roomListIndex, persistentEntities);
   }
   persistentEntities.push(persistentEntity);
 }

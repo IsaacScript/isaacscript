@@ -69,6 +69,7 @@ export * from "./maps/cardNameMap";
 export * from "./maps/collectibleNameMap";
 export * from "./maps/gridEntityXMLMap";
 export * from "./maps/pillEffectNameMap";
+export * from "./maps/roomShapeToTopLeftWallGridIndexMap";
 export * from "./maps/transformationMap";
 export * from "./maps/trinketNameMap";
 export * from "./sets/cards";

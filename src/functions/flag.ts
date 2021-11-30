@@ -29,7 +29,7 @@ export function addFlag(flags: int, ...flag: int[]): int {
 }
 
 /**
- * Helper function to check to see if a particular bit flag is set to true.
+ * Helper function to determine if a particular bit flag is set to true.
  * This is a variadic function, so pass as many flags as you want to check for.
  * If passed multiple flags, it will only return true if all of the flags are set.
  *

@@ -155,12 +155,12 @@ export function tableClear(table: LuaTable): void {
  * arguments. Use this function instead of invoking `Game.StartRoomTransition()` directly so that
  * you don't forget to set `Level.LeaveDoor` property.
  *
- * @param roomIndex The room index of the destination room.
+ * @param roomGridIndex The room grid index of the destination room.
  * @param direction Optional. Default is `Direction.NO_DIRECTION`.
  * @param roomTransitionAnim Optional. Default is `RoomTransitionAnim.TELEPORT`.
  */
 export function teleport(
-  roomIndex: int,
+  roomGridIndex: int,
   direction = Direction.NO_DIRECTION,
   roomTransitionAnim = RoomTransitionAnim.TELEPORT,
 ): void {
@@ -171,5 +171,5 @@ export function teleport(
   // send you to the wrong room
   level.LeaveDoor = -1;
 
-  game.StartRoomTransition(roomIndex, direction, roomTransitionAnim);
+  game.StartRoomTransition(roomGridIndex, direction, roomTransitionAnim);
 }

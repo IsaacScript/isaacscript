@@ -1,5 +1,6 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { getRoomIndex, getRoomVisitedCount } from "../functions/rooms";
+import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
+import { ModUpgraded } from "../types/ModUpgraded";
 import {
   postProjectileInitLateFire,
   postProjectileInitLateHasSubscriptions,
@@ -8,15 +9,17 @@ import {
 const v = {
   run: {
     firedSet: new Set<PtrHash>(),
-    currentRoomIndex: null as int | null,
-    currentRoomVisitedCount: null as int | null,
   },
 };
 
-export function postProjectileInitLateCallbackInit(mod: Mod): void {
+export function postProjectileInitLateCallbackInit(mod: ModUpgraded): void {
   saveDataManager("postProjectileInitLate", v, hasSubscriptions);
 
   mod.AddCallback(ModCallbacks.MC_POST_PROJECTILE_UPDATE, postProjectileUpdate); // 44
+  mod.AddCallbackCustom(
+    ModCallbacksCustom.MC_POST_NEW_ROOM_EARLY,
+    postNewRoomEarly,
+  );
 }
 
 function hasSubscriptions() {
@@ -29,20 +32,18 @@ function postProjectileUpdate(projectile: EntityProjectile) {
     return;
   }
 
-  const roomIndex = getRoomIndex();
-  const roomVisitedCount = getRoomVisitedCount();
-  if (
-    roomIndex !== v.run.currentRoomIndex ||
-    roomVisitedCount !== v.run.currentRoomVisitedCount
-  ) {
-    v.run.currentRoomIndex = roomIndex;
-    v.run.currentRoomVisitedCount = roomVisitedCount;
-    v.run.firedSet.clear();
-  }
-
   const index = GetPtrHash(projectile);
   if (!v.run.firedSet.has(index)) {
     v.run.firedSet.add(index);
     postProjectileInitLateFire(projectile);
   }
+}
+
+// ModCallbacksCustom.MC_POST_NEW_ROOM_EARLY
+function postNewRoomEarly() {
+  if (!hasSubscriptions()) {
+    return;
+  }
+
+  v.run.firedSet.clear();
 }

@@ -45,8 +45,8 @@ export function willMysteriousPaperRevive(player: EntityPlayer): boolean {
 }
 
 /**
- * Helper function to see if the Spirit Shackles item is in an enabled state.
- * (It can be either enabled or disabled.)
+ * Helper function to determine if the Spirit Shackles item is in an enabled state. (It can be
+ * either enabled or disabled.)
  */
 export function willReviveFromSpiritShackles(player: EntityPlayer): boolean {
   if (!player.HasCollectible(CollectibleType.COLLECTIBLE_SPIRIT_SHACKLES)) {

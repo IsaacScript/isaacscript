@@ -15,6 +15,7 @@ import { PostItemPickupCallbackType } from "../callbacks/subscriptions/postItemP
 import { PostKnifeInitLateCallbackType } from "../callbacks/subscriptions/postKnifeInitLate";
 import { PostLaserInitLateCallbackType } from "../callbacks/subscriptions/postLaserInitLate";
 import { PostNewLevelReorderedCallbackType } from "../callbacks/subscriptions/postNewLevelReordered";
+import { PostNewRoomEarlyCallbackType } from "../callbacks/subscriptions/postNewRoomEarly";
 import { PostNewRoomReorderedCallbackType } from "../callbacks/subscriptions/postNewRoomReordered";
 import { PostNPCInitLateCallbackType } from "../callbacks/subscriptions/postNPCInitLate";
 import { PostPickupCollectCallbackType } from "../callbacks/subscriptions/postPickupCollect";
@@ -65,6 +66,10 @@ export interface CallbackParametersCustom {
   [ModCallbacksCustom.MC_POST_PLAYER_RENDER_REORDERED]: [
     callback: PostPlayerRenderReorderedCallbackType,
     playerVariant?: PlayerVariant,
+  ];
+
+  [ModCallbacksCustom.MC_POST_NEW_ROOM_EARLY]: [
+    callback: PostNewRoomEarlyCallbackType,
   ];
 
   [ModCallbacksCustom.MC_POST_PLAYER_INIT_LATE]: [

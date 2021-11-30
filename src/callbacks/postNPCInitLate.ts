@@ -1,5 +1,6 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { getRoomIndex, getRoomVisitedCount } from "../functions/rooms";
+import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
+import { ModUpgraded } from "../types/ModUpgraded";
 import {
   postNPCInitLateFire,
   postNPCInitLateHasSubscriptions,
@@ -8,15 +9,17 @@ import {
 const v = {
   run: {
     firedSet: new Set<PtrHash>(),
-    currentRoomIndex: null as int | null,
-    currentRoomVisitedCount: null as int | null,
   },
 };
 
-export function postNPCInitLateCallbackInit(mod: Mod): void {
+export function postNPCInitLateCallbackInit(mod: ModUpgraded): void {
   saveDataManager("postNPCInitLate", v, hasSubscriptions);
 
   mod.AddCallback(ModCallbacks.MC_NPC_UPDATE, postNPCUpdate); // 0
+  mod.AddCallbackCustom(
+    ModCallbacksCustom.MC_POST_NEW_ROOM_EARLY,
+    postNewRoomEarly,
+  );
 }
 
 function hasSubscriptions() {
@@ -29,20 +32,18 @@ function postNPCUpdate(npc: EntityNPC) {
     return;
   }
 
-  const roomIndex = getRoomIndex();
-  const roomVisitedCount = getRoomVisitedCount();
-  if (
-    roomIndex !== v.run.currentRoomIndex ||
-    roomVisitedCount !== v.run.currentRoomVisitedCount
-  ) {
-    v.run.currentRoomIndex = roomIndex;
-    v.run.currentRoomVisitedCount = roomVisitedCount;
-    v.run.firedSet.clear();
-  }
-
   const index = GetPtrHash(npc);
   if (!v.run.firedSet.has(index)) {
     v.run.firedSet.add(index);
     postNPCInitLateFire(npc);
   }
+}
+
+// ModCallbacksCustom.MC_POST_NEW_ROOM_EARLY
+function postNewRoomEarly() {
+  if (!hasSubscriptions()) {
+    return;
+  }
+
+  v.run.firedSet.clear();
 }

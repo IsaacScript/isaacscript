@@ -18,7 +18,7 @@ import { hasFlag } from "./flag";
  * Always use this helper function over invoking `Game().ChangeRoom()` directly to ensure that you
  * do not forget to set the LeaveDoor property.
  */
-export function changeRoom(roomIndex: int): void {
+export function changeRoom(roomGridIndex: int): void {
   const game = Game();
   const level = game.GetLevel();
 
@@ -26,28 +26,33 @@ export function changeRoom(roomIndex: int): void {
   // the wrong room
   level.LeaveDoor = -1;
 
-  game.ChangeRoom(roomIndex);
+  game.ChangeRoom(roomGridIndex);
 }
 
-/**
- * This function will not work properly for the Death Certificate dimension. When in the Death
- * Certificate dimension, this function will randomly return either `Dimension.SECONDARY` or
- * `Dimension.DEATH_CERTIFICATE`. Use the `inDeathCertificateArea` function instead for that
- * purpose.
- */
 export function getCurrentDimension(): Dimension {
   const game = Game();
   const level = game.GetLevel();
 
-  const startingRoomIndex = level.GetStartingRoomIndex();
+  // When in the Death Certificate dimension, the algorithm below will randomly return either
+  // "Dimension.SECONDARY" or "Dimension.DEATH_CERTIFICATE"
+  // Thus, we revert to an alternate technique to determine if we are in the Death Certificate
+  // dimension
+  if (inDeathCertificateArea()) {
+    return Dimension.DEATH_CERTIFICATE;
+  }
+
+  const startingRoomGridIndex = level.GetStartingRoomIndex();
   const startingRoomDesc = level.GetRoomByIdx(
-    startingRoomIndex,
+    startingRoomGridIndex,
     Dimension.CURRENT,
   );
   const startingRoomHash = GetPtrHash(startingRoomDesc);
 
   for (let dimension = 0; dimension <= 2; dimension++) {
-    const dimensionRoomDesc = level.GetRoomByIdx(startingRoomIndex, dimension);
+    const dimensionRoomDesc = level.GetRoomByIdx(
+      startingRoomGridIndex,
+      dimension,
+    );
     const dimensionRoomHash = GetPtrHash(dimensionRoomDesc);
     if (dimensionRoomHash === startingRoomHash) {
       return dimension;
@@ -55,7 +60,7 @@ export function getCurrentDimension(): Dimension {
   }
 
   error(
-    `Failed to get the current dimension using the starting room index of: ${startingRoomIndex}`,
+    `Failed to get the current dimension using the starting room index of: ${startingRoomGridIndex}`,
   );
   return 0;
 }
@@ -63,8 +68,8 @@ export function getCurrentDimension(): Dimension {
 export function getRoomData(): RoomConfig | undefined {
   const game = Game();
   const level = game.GetLevel();
-  const roomIndex = getRoomIndex();
-  const roomDesc = level.GetRoomByIdx(roomIndex);
+  const roomSafeGridIndex = getRoomSafeGridIndex();
+  const roomDesc = level.GetRoomByIdx(roomSafeGridIndex);
   // (we don't use "level.GetCurrentRoomDesc()" since it returns a read-only copy of the data)
 
   return roomDesc.Data;
@@ -89,12 +94,35 @@ export function getRoomDataType(): int {
 }
 
 /**
- * Helper function to get the room index of the current room. Use this instead of calling
- * `Level.GetCurrentRoomIndex()` directly to avoid bugs with big rooms. (Big rooms will return the
- * specific 1x1 quadrant that the player entered the room at, which can break data structures that
- * use the room index as an index.)
+ * Helper function to get the list grid index of the current room, which is equal to the index in
+ * the `Level.GetRooms().Get()` method. In other words, this is equal to the order that the room was
+ * created by the floor generation algorithm.
+ *
+ * Use this as an index for data structures that store data per room, since it is unique across
+ * different dimensions.
  */
-export function getRoomIndex(): int {
+export function getRoomListIndex(): int {
+  const game = Game();
+  const level = game.GetLevel();
+
+  const roomDesc = level.GetCurrentRoomDesc();
+  return roomDesc.ListIndex;
+}
+
+/**
+ * Helper function to get the safe grid index of the current room. The safe grid index is defined as
+ * the top-left 1x1 section that the room overlaps with (or the top-right 1x1 section of a
+ * `RoomType.ROOMSHAPE_LTL` room).
+ *
+ * In most situations, using the safe grid index is more reliable than using the `GridIndex` or the
+ * `Level.GetCurrentRoomIndex()` method directly. `GridIndex` can return quadrants that are not on
+ * the map, and `Level.GetCurrentRoomIndex()` returns the specific 1x1 quadrant that the player
+ * entered the room at.
+ *
+ * Data structures that store data per room should use the room's `ListIndex` instead of
+ * `SafeGridIndex`, since the former is unique across different dimensions.
+ */
+export function getRoomSafeGridIndex(): int {
   const game = Game();
   const level = game.GetLevel();
 
@@ -108,12 +136,12 @@ export function getRoomIndex(): int {
  *
  * This function only searches through rooms in the current dimension.
  */
-export function getRoomIndexesForType(roomType: RoomType): Set<int> {
+export function getRoomGridIndexesForType(roomType: RoomType): Set<int> {
   const game = Game();
   const level = game.GetLevel();
 
   // We do not use the "GetRooms()" method since it returns extra-dimensional rooms
-  const roomIndexes = new Set<int>();
+  const roomGridIndexes = new Set<int>();
   for (let i = 0; i <= MAX_ROOM_INDEX; i++) {
     const room = level.GetRoomByIdx(i);
     if (
@@ -121,11 +149,11 @@ export function getRoomIndexesForType(roomType: RoomType): Set<int> {
       room.Data !== undefined &&
       room.Data.Type === roomType
     ) {
-      roomIndexes.add(room.SafeGridIndex);
+      roomGridIndexes.add(room.SafeGridIndex);
     }
   }
 
-  return roomIndexes;
+  return roomGridIndexes;
 }
 
 /**
@@ -209,6 +237,11 @@ export function getRoomVariant(): int {
   return roomData.Variant;
 }
 
+/**
+ * The room visited count will be inaccurate during the period before the PostNewRoom callback has
+ * fired (i.e. when entities are initializing and performing their first update). This is because
+ * the variable is only incremented immediately before the PostNewRoom callback fires.
+ */
 export function getRoomVisitedCount(): int {
   const game = Game();
   const level = game.GetLevel();
@@ -234,7 +267,7 @@ export function gridToPos(x: int, y: int): Vector {
 }
 
 /**
- * Helper function to see if the current room shape is equal to `RoomShape.ROOMSHAPE_1x2` or
+ * Helper function to determine if the current room shape is equal to `RoomShape.ROOMSHAPE_1x2` or
  * `RoomShape.ROOMSHAPE_2x1`.
  */
 export function in2x1Room(): boolean {
@@ -260,11 +293,11 @@ export function inAngelShop(): boolean {
 }
 
 export function inBeastRoom(): boolean {
-  const roomIndex = getRoomIndex();
+  const roomSafeGridIndex = getRoomSafeGridIndex();
   const roomSubType = getRoomSubType();
 
   return (
-    roomIndex === GridRooms.ROOM_DUNGEON_IDX &&
+    roomSafeGridIndex === GridRooms.ROOM_DUNGEON_IDX &&
     roomSubType === HomeRoomSubType.BEAST_ROOM
   );
 }
@@ -293,18 +326,18 @@ export function inBossRoomOf(bossID: BossID) {
  * being in The Beast room.
  */
 export function inCrawlspace(): boolean {
-  const roomIndex = getRoomIndex();
+  const roomSafeGridIndex = getRoomSafeGridIndex();
   const roomSubType = getRoomSubType();
 
   return (
-    roomIndex === GridRooms.ROOM_DUNGEON_IDX &&
+    roomSafeGridIndex === GridRooms.ROOM_DUNGEON_IDX &&
     roomSubType !== HomeRoomSubType.BEAST_ROOM
   );
 }
 
 /**
- * We cannot use the `inDimension` function for this since it is bugged with the Death Certificate
- * area.
+ * We cannot use the standard code in the `inDimension` function for this purpose since it is bugged
+ * with the Death Certificate area.
  */
 export function inDeathCertificateArea(): boolean {
   const roomStageID = getRoomStageID();
@@ -317,7 +350,7 @@ export function inDeathCertificateArea(): boolean {
   );
 }
 
-export function isDevilsCrownTreasureRoom() {
+export function inDevilsCrownTreasureRoom() {
   const game = Game();
   const level = game.GetLevel();
   const roomDesc = level.GetCurrentRoomDesc();
@@ -329,7 +362,7 @@ export function inDimension(dimension: Dimension): boolean {
   return dimension === getCurrentDimension();
 }
 
-/** Helper function to see if the current room shape is one of the four L room shapes. */
+/** Helper function to determine if the current room shape is one of the four L room shapes. */
 export function inLRoom(): boolean {
   const game = Game();
   const room = game.GetRoom();
@@ -357,13 +390,24 @@ export function inGenesisRoom(): boolean {
   );
 }
 
+/** Helper function to determine whether or not the current room is the starting room of a floor. */
 export function inStartingRoom(): boolean {
   const game = Game();
   const level = game.GetLevel();
-  const startingRoomIndex = level.GetStartingRoomIndex();
-  const roomIndex = getRoomIndex();
+  const startingRoomGridIndex = level.GetStartingRoomIndex();
+  const roomSafeGridIndex = getRoomSafeGridIndex();
 
-  return roomIndex === startingRoomIndex;
+  return roomSafeGridIndex === startingRoomGridIndex;
+}
+
+/**
+ * Helper function to determine whether or not the current room is part of the floor layout. For
+ * example, Devil Rooms and the Mega Satan room are not considered to be inside the map.
+ */
+export function isRoomInsideMap(): boolean {
+  const roomSafeGridIndex = getRoomSafeGridIndex();
+
+  return roomSafeGridIndex >= 0;
 }
 
 /**
