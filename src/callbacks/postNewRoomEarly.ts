@@ -1,4 +1,7 @@
-import { getTopLeftWall } from "../functions/gridEntity";
+import {
+  getTopLeftWallGridIndex,
+  spawnGridEntity,
+} from "../functions/gridEntity";
 import { ModUpgraded } from "../types/ModUpgraded";
 import {
   postNewRoomEarlyFire,
@@ -35,7 +38,21 @@ function preEntitySpawn() {
 }
 
 function checkRoomChanged() {
-  const topLeftWall = getTopLeftWall();
+  const game = Game();
+  const room = game.GetRoom();
+  const topLeftWallGridIndex = getTopLeftWallGridIndex();
+  let topLeftWall = room.GetGridEntity(topLeftWallGridIndex);
+
+  // Sometimes, the PreEntitySpawn callback can fire before any grid entities in the room have
+  // spawned, which means that the top-left wall will not exist
+  // If ths is the case, then simply spawn the top-left wall early
+  if (topLeftWall === undefined) {
+    topLeftWall = spawnGridEntity(
+      GridEntityType.GRID_WALL,
+      topLeftWallGridIndex,
+    );
+  }
+
   const topLeftWallPtrHash =
     topLeftWall === undefined ? null : GetPtrHash(topLeftWall);
   if (topLeftWallPtrHash !== currentRoomTopLeftWallPtrHash) {
