@@ -11,6 +11,15 @@ module.exports = {
   // (listed in alphabetical order)
   rules: {
     // Documentation:
+    // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-loop-func.md
+    // https://eslint.org/docs/rules/no-loop-func
+    // Defined at:
+    // https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js
+    // This rule throws false positives with API functions
+    // It can be worked around by supplying lists of globals to ESLint, but this is ugly
+    "@typescript-eslint/no-loop-func": "off",
+
+    // Documentation:
     // https://github.com/eslint/eslint/blob/master/docs/rules/no-bitwise.md
     // Defined at:
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
