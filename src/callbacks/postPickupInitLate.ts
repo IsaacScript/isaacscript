@@ -1,25 +1,19 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
-import { ModUpgraded } from "../types/ModUpgraded";
 import {
   postPickupInitLateFire,
   postPickupInitLateHasSubscriptions,
 } from "./subscriptions/postPickupInitLate";
 
 const v = {
-  run: {
+  room: {
     firedSet: new Set<PtrHash>(),
   },
 };
 
-export function postPickupInitLateCallbackInit(mod: ModUpgraded): void {
+export function postPickupInitLateCallbackInit(mod: Mod): void {
   saveDataManager("postPickupInitLate", v, hasSubscriptions);
 
   mod.AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, postPickupUpdate); // 35
-  mod.AddCallbackCustom(
-    ModCallbacksCustom.MC_POST_NEW_ROOM_EARLY,
-    postNewRoomEarly,
-  );
 }
 
 function hasSubscriptions() {
@@ -33,17 +27,8 @@ function postPickupUpdate(pickup: EntityPickup) {
   }
 
   const index = GetPtrHash(pickup);
-  if (!v.run.firedSet.has(index)) {
-    v.run.firedSet.add(index);
+  if (!v.room.firedSet.has(index)) {
+    v.room.firedSet.add(index);
     postPickupInitLateFire(pickup);
   }
-}
-
-// ModCallbacksCustom.MC_POST_NEW_ROOM_EARLY
-function postNewRoomEarly() {
-  if (!hasSubscriptions()) {
-    return;
-  }
-
-  v.run.firedSet.clear();
 }

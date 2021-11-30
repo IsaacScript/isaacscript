@@ -1,4 +1,3 @@
-import { saveDataManager } from "../features/saveDataManager/exports";
 import { getTopLeftWall } from "../functions/gridEntity";
 import { ModUpgraded } from "../types/ModUpgraded";
 import {
@@ -6,15 +5,9 @@ import {
   postNewRoomEarlyHasSubscriptions,
 } from "./subscriptions/postNewRoomEarly";
 
-const v = {
-  run: {
-    topLeftWallPtrHash: null as PtrHash | null,
-  },
-};
+let currentRoomTopLeftWallPtrHash: PtrHash | null = null;
 
 export function postNewRoomEarlyCallbackInit(mod: ModUpgraded): void {
-  saveDataManager("postNewRoomEarlyCallback", v, hasSubscriptions);
-
   mod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoom); // 19
   mod.AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, preEntitySpawn); // 24
 }
@@ -45,8 +38,8 @@ function checkRoomChanged() {
   const topLeftWall = getTopLeftWall();
   const topLeftWallPtrHash =
     topLeftWall === undefined ? null : GetPtrHash(topLeftWall);
-  if (topLeftWallPtrHash !== v.run.topLeftWallPtrHash) {
-    v.run.topLeftWallPtrHash = topLeftWallPtrHash;
+  if (topLeftWallPtrHash !== currentRoomTopLeftWallPtrHash) {
+    currentRoomTopLeftWallPtrHash = topLeftWallPtrHash;
     postNewRoomEarlyFire();
   }
 }

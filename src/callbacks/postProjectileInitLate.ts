@@ -1,25 +1,19 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
-import { ModUpgraded } from "../types/ModUpgraded";
 import {
   postProjectileInitLateFire,
   postProjectileInitLateHasSubscriptions,
 } from "./subscriptions/postProjectileInitLate";
 
 const v = {
-  run: {
+  room: {
     firedSet: new Set<PtrHash>(),
   },
 };
 
-export function postProjectileInitLateCallbackInit(mod: ModUpgraded): void {
+export function postProjectileInitLateCallbackInit(mod: Mod): void {
   saveDataManager("postProjectileInitLate", v, hasSubscriptions);
 
   mod.AddCallback(ModCallbacks.MC_POST_PROJECTILE_UPDATE, postProjectileUpdate); // 44
-  mod.AddCallbackCustom(
-    ModCallbacksCustom.MC_POST_NEW_ROOM_EARLY,
-    postNewRoomEarly,
-  );
 }
 
 function hasSubscriptions() {
@@ -33,17 +27,8 @@ function postProjectileUpdate(projectile: EntityProjectile) {
   }
 
   const index = GetPtrHash(projectile);
-  if (!v.run.firedSet.has(index)) {
-    v.run.firedSet.add(index);
+  if (!v.room.firedSet.has(index)) {
+    v.room.firedSet.add(index);
     postProjectileInitLateFire(projectile);
   }
-}
-
-// ModCallbacksCustom.MC_POST_NEW_ROOM_EARLY
-function postNewRoomEarly() {
-  if (!hasSubscriptions()) {
-    return;
-  }
-
-  v.run.firedSet.clear();
 }

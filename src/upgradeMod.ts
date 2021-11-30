@@ -55,30 +55,37 @@ import { ModUpgraded } from "./types/ModUpgraded";
  * For a list of all custom callbacks, check out the
  * [Function Signatures](https://isaacscript.github.io/docs/function-signatures#custom-callbacks).
  *
- * @param mod The mod object returned by the `RegisterMod()` function.
+ * @param modVanilla The mod object returned by the `RegisterMod()` function.
  * @param verbose Enables verbose logging for the purposes of crash troubleshooting.
  * Defaults to false.
  * @returns The upgraded mod object.
  * @category Custom Callbacks
  */
-export function upgradeMod(mod: Mod, verbose = false): ModUpgraded {
-  const modUpgraded = new ModUpgraded(mod, verbose);
+export function upgradeMod(modVanilla: Mod, verbose = false): ModUpgraded {
+  const mod = new ModUpgraded(modVanilla, verbose);
 
   if (!areFeaturesInitialized()) {
     setFeaturesInitialized();
 
-    saveDataManagerInit(modUpgraded);
-    initCustomCallbacks(modUpgraded);
-    initFeatures(modUpgraded);
+    // We initialize the PostNewRoomEarly callback first since it is used by the save data manager
+    postNewRoomEarlyCallbackInit(mod);
+
+    // We initialized the save data manager second since it is used by the other custom callbacks
+    // and features
+    saveDataManagerInit(mod);
+
+    // We initialize custom callbacks next since some features use custom callbacks
+    initCustomCallbacks(mod);
+
+    initFeatures(mod);
   }
 
-  return modUpgraded;
+  return mod;
 }
 
 function initCustomCallbacks(mod: ModUpgraded) {
   reorderedCallbacksInit(mod);
   postPlayerReorderedCallbacksInit(mod);
-  postNewRoomEarlyCallbackInit(mod);
   postPlayerInitLateCallbackInit(mod); // 1
   postTearInitLateCallbackInit(mod); // 2
   postFamiliarInitLateCallbackInit(mod); // 3

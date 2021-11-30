@@ -1,25 +1,19 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
-import { ModUpgraded } from "../types/ModUpgraded";
 import {
   postKnifeInitLateFire,
   postKnifeInitLateHasSubscriptions,
 } from "./subscriptions/postKnifeInitLate";
 
 const v = {
-  run: {
+  room: {
     firedSet: new Set<PtrHash>(),
   },
 };
 
-export function postKnifeInitLateCallbackInit(mod: ModUpgraded): void {
+export function postKnifeInitLateCallbackInit(mod: Mod): void {
   saveDataManager("postKnifeInitLate", v, hasSubscriptions);
 
   mod.AddCallback(ModCallbacks.MC_POST_KNIFE_UPDATE, postKnifeUpdate); // 51
-  mod.AddCallbackCustom(
-    ModCallbacksCustom.MC_POST_NEW_ROOM_EARLY,
-    postNewRoomEarly,
-  );
 }
 
 function hasSubscriptions() {
@@ -33,17 +27,8 @@ function postKnifeUpdate(knife: EntityKnife) {
   }
 
   const index = GetPtrHash(knife);
-  if (!v.run.firedSet.has(index)) {
-    v.run.firedSet.add(index);
+  if (!v.room.firedSet.has(index)) {
+    v.room.firedSet.add(index);
     postKnifeInitLateFire(knife);
   }
-}
-
-// ModCallbacksCustom.MC_POST_NEW_ROOM_EARLY
-function postNewRoomEarly() {
-  if (!hasSubscriptions()) {
-    return;
-  }
-
-  v.run.firedSet.clear();
 }

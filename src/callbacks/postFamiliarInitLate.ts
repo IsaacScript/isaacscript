@@ -1,6 +1,4 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
-import { ModUpgraded } from "../types/ModUpgraded";
 import {
   postFamiliarInitLateFire,
   postFamiliarInitLateHasSubscriptions,
@@ -12,14 +10,10 @@ const v = {
   },
 };
 
-export function postFamiliarInitLateCallbackInit(mod: ModUpgraded): void {
+export function postFamiliarInitLateCallbackInit(mod: Mod): void {
   saveDataManager("postFamiliarInitLate", v, hasSubscriptions);
 
   mod.AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, postFamiliarUpdate); // 6
-  mod.AddCallbackCustom(
-    ModCallbacksCustom.MC_POST_NEW_ROOM_EARLY,
-    postNewRoomEarly,
-  );
 }
 
 function hasSubscriptions() {
@@ -37,13 +31,4 @@ function postFamiliarUpdate(familiar: EntityFamiliar) {
     v.run.firedSet.add(index);
     postFamiliarInitLateFire(familiar);
   }
-}
-
-// ModCallbacksCustom.MC_POST_NEW_ROOM_EARLY
-function postNewRoomEarly() {
-  if (!hasSubscriptions()) {
-    return;
-  }
-
-  v.run.firedSet.clear();
 }

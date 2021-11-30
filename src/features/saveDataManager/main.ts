@@ -1,6 +1,7 @@
 import { getUpgradeErrorMsg } from "../../errors";
 import { deepCopy, SerializationType } from "../../functions/deepCopy";
 import { tableClear } from "../../functions/util";
+import { ModCallbacksCustom } from "../../types/ModCallbacksCustom";
 import { ModUpgraded } from "../../types/ModUpgraded";
 import { SaveDataKeys } from "../../types/SaveData";
 import { loadFromDisk } from "./load";
@@ -13,7 +14,7 @@ import { saveToDisk } from "./save";
 
 export const FEATURE_NAME = "save data manager";
 
-let mod: Mod | null = null;
+let mod: ModUpgraded | null = null;
 let loadedDataOnThisRun = false;
 
 export function saveDataManagerInit(incomingMod: ModUpgraded): void {
@@ -22,7 +23,10 @@ export function saveDataManagerInit(incomingMod: ModUpgraded): void {
   mod.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit); // 9
   mod.AddCallback(ModCallbacks.MC_PRE_GAME_EXIT, preGameExit); // 17
   mod.AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, postNewLevel); // 18
-  mod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoom); // 19
+  mod.AddCallbackCustom(
+    ModCallbacksCustom.MC_POST_NEW_ROOM_EARLY,
+    postNewRoomEarly,
+  ); // 19
 }
 
 // ModCallbacks.MC_POST_PLAYER_INIT (9)
@@ -73,7 +77,7 @@ function postNewLevel() {
 }
 
 // ModCallbacks.MC_POST_NEW_ROOM (19)
-function postNewRoom() {
+function postNewRoomEarly() {
   restoreDefaults(SaveDataKeys.Room);
 }
 
