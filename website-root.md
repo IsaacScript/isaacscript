@@ -71,6 +71,8 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 
 - [Constants](modules/constants.html)
 
+<br />
+
 ## Maps
 
 - [Card Description Map](modules/maps_cardDescriptionMap.html)

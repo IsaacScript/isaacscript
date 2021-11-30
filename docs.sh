@@ -65,8 +65,8 @@ npx typedoc \
   --entryPoints "$DIR/src/maps/collectibleNameMap.ts" \
   --entryPoints "$DIR/src/maps/gridEntityXMLMap.ts" \
   --entryPoints "$DIR/src/maps/pillEffectNameMap.ts" \
-  --entryPoints "$DIR/src/maps/roomShapeToTopLeftWallGridIndexMap.ts.ts" \
-  --entryPoints "$DIR/src/maps/transformationMap.ts.ts" \
-  --entryPoints "$DIR/src/maps/trinketDescriptionMap.ts.ts" \
-  --entryPoints "$DIR/src/maps/trinketNameMap.ts.ts" \
+  --entryPoints "$DIR/src/maps/roomShapeToTopLeftWallGridIndexMap.ts" \
+  --entryPoints "$DIR/src/maps/transformationMap.ts" \
+  --entryPoints "$DIR/src/maps/trinketDescriptionMap.ts" \
+  --entryPoints "$DIR/src/maps/trinketNameMap.ts" \
   --entryPoints "$DIR/src/upgradeMod.ts" \
