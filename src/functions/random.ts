@@ -75,10 +75,10 @@ export function nextSeed(seed: int): int {
  */
 export function initRNG(seed = Random()): RNG {
   if (seed === 0) {
+    traceback();
     error(
       "You cannot initialize an RNG object with a seed of 0, or the game will crash.",
     );
-    traceback();
   }
 
   const rng = RNG();
