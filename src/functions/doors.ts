@@ -181,6 +181,17 @@ export function isSecretRoomDoor(door: GridEntityDoor): boolean {
 }
 
 /**
+ * Helper function to reset an unlocked door back to a locked state. Doing this is non-trivial
+ * because you must also set the variant and close the door in addition to calling the `SetLocked()`
+ * method.
+ */
+export function lockDoor(door: GridEntityDoor): void {
+  door.SetVariant(DoorVariant.DOOR_LOCKED);
+  door.SetLocked(true);
+  door.Close(true);
+}
+
+/**
  * For the purposes of this function, doors to Secret Rooms or Super Secret Rooms that have not been
  * discovered yet will not be opened.
  */
