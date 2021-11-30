@@ -161,6 +161,12 @@ declare interface RoomDescriptorReadOnly {
   SurpriseMiniboss: Readonly<boolean>;
 
   /**
+   * The number of times that the room has been visited.
+   *
+   * This will be inaccurate during the period before the PostNewRoom callback has fired (i.e. when
+   * entities are initializing and performing their first update). This is because this variable is
+   * only incremented immediately before the PostNewRoom callback fires.
+   *
    * To set this property, get a writable copy of the RoomDescriptor by using the
    * `Level.GetRoomByIdx()` method.
    */
