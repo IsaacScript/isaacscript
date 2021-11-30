@@ -1,6 +1,7 @@
 The `isaacscript-common` package contains extra goodies that you can easily use in your [IsaacScript](https://isaacscript.github.io/) mods. Think of it as an expanded standard library beyond what the official Isaac API offers.
 
-For more information about IsaacScript, see the [official website](https://isaacscript.github.io/).
+- For more information about IsaacScript, see the [official website](https://isaacscript.github.io/).
+- Also see the [GitHub repository](https://github.com/IsaacScript/isaacscript-common) for `isaacscript-common`.
 
 <br />
 
@@ -45,7 +46,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Stage Functions](modules/functions_stage.html)
 - [Tears Functions](modules/functions_tears.html)
 - [Transformation Functions](modules/functions_transformations.html)
-- [Trinket Functions](modules/functions_trinkets.html) & [Trinket Giving/Removing Functions](modules/functions_trinket_give.html) & [Trinket Set Functions](modules/functions_trinket_set.html)
+- [Trinket Functions](modules/functions_trinkets.html) & [Trinket Giving/Removing Functions](modules/functions_trinketGive.html) & [Trinket Set Functions](modules/functions_trinketSet.html)
 - [UI Functions](modules/functions_ui.html)
 - [Util Functions](modules/functions_util.html)
 - [Vector Functions](modules/functions_vector.html)
