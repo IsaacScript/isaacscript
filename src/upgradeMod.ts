@@ -9,6 +9,7 @@ import { postFlipCallbacksInit } from "./callbacks/postFlip";
 import { postGridEntityCallbacksInit } from "./callbacks/postGridEntity";
 import { postKnifeInitLateCallbackInit } from "./callbacks/postKnifeInitLate";
 import { postLaserInitLateCallbackInit } from "./callbacks/postLaserInitLate";
+import { postNewRoomEarlyCallbackInit } from "./callbacks/postNewRoomEarly";
 import { postNPCInitLateCallbackInit } from "./callbacks/postNPCInitLate";
 import { postPickupCollectCallbackInit } from "./callbacks/postPickupCollect";
 import { postPickupInitLateCallbackInit } from "./callbacks/postPickupInitLate";
@@ -77,6 +78,7 @@ export function upgradeMod(mod: Mod, verbose = false): ModUpgraded {
 function initCustomCallbacks(mod: ModUpgraded) {
   reorderedCallbacksInit(mod);
   postPlayerReorderedCallbacksInit(mod);
+  postNewRoomEarlyCallbackInit(mod);
   postPlayerInitLateCallbackInit(mod); // 1
   postTearInitLateCallbackInit(mod); // 2
   postFamiliarInitLateCallbackInit(mod); // 3

@@ -10,6 +10,7 @@ The `isaacscript-common` package contains extra goodies that you can easily use 
 - The Isaac API offers a lot of callbacks, but a lot of times there isn't one for the specific thing that you are looking to do. So, `isaacscript-common` adds a bunch of new callbacks that you can easily use.
 - The extra callbacks are efficient such that no code is ran until they have one or more subscriptions.
 - See the [main website](https://isaacscript.github.io/docs/function-signatures-custom) for a full list.
+- You must [upgrade your mod](modules/upgradeMod.html) before using a custom callback.
 
 <br />
 
@@ -69,4 +70,16 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 ## Extra Constants
 
 - [Constants](modules/constants.html)
-- [Transformation Constants](modules/transformationMap.html)
+
+## Maps
+
+- [Card Description Map](modules/maps_cardDescriptionMap.html)
+- [Card Name Map](modules/maps_cardNameMap.html)
+- [Collectible Description Map](modules/maps_collectibleDescriptionMap.html)
+- [Collectible Name Map](modules/maps_collectibleNameMap.html)
+- [Grid Entity XML Map](modules/maps_gridEntityXMLMap.html)
+- [Pill Effect Name Map](modules/maps_pillEffectNameMap.html)
+- [Room Shape to Top Left Wall Grid Index Map](modules/maps_roomShapeToTopLeftWallGridIndexMap.html)
+- [Transformation Map](modules/maps_transformationMap.html)
+- [Trinket Description Map](modules/maps_trinketDescriptionMap.html)
+- [Trinket Name Map](modules/maps_trinketNameMap.html)

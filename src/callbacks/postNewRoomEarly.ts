@@ -1,5 +1,5 @@
-import { getTopLeftWall } from "..";
 import { saveDataManager } from "../features/saveDataManager/exports";
+import { getTopLeftWall } from "../functions/gridEntity";
 import { ModUpgraded } from "../types/ModUpgraded";
 import {
   postNewRoomEarlyFire,
