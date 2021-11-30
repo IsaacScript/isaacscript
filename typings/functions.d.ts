@@ -11,7 +11,7 @@ declare function Game(this: void): Game;
  */
 declare function GetPtrHash(
   this: void,
-  pointer: Entity | RoomDescriptor | RoomDescriptorReadOnly,
+  pointer: Entity | GridEntity | RoomDescriptor | RoomDescriptorReadOnly,
 ): PtrHash;
 
 /** Returns a random integer between 0 and 2^32. */
