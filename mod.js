@@ -17,6 +17,7 @@ module.exports = {
     // https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js
     // This rule throws false positives with API functions
     // It can be worked around by supplying lists of globals to ESLint, but this is ugly
+    // See: https://github.com/typescript-eslint/typescript-eslint/issues/2780
     "@typescript-eslint/no-loop-func": "off",
 
     // Documentation:
