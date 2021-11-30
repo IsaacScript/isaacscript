@@ -28,6 +28,9 @@ declare interface GridEntityDoor extends GridEntity {
   // PreviousState: State; // State is not implemented (it is userdata and not an int)
   PreviousVariant: DoorVariant;
   Slot: DoorSlot;
+
+  /** This corresponds to the room grid index. */
   TargetRoomIndex: int;
+
   TargetRoomType: RoomType;
 }

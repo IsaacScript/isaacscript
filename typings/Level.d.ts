@@ -4,15 +4,15 @@ declare interface Level {
   ApplyBlueMapEffect(): void;
   ApplyCompassEffect(persistent: boolean): void;
   ApplyMapEffect(): void;
-  CanOpenChallengeRoom(roomIndex: int): boolean;
+  CanOpenChallengeRoom(roomGridIndex: int): boolean;
   CanSpawnDevilRoom(): boolean;
   CanStageHaveCurseOfLabyrinth(levelStage: LevelStage): boolean;
 
   /**
-   * @param roomIndex
+   * @param roomGridIndex The room grid index of the destination room.
    * @param dimension Default is Dimension.CURRENT.
    */
-  ChangeRoom(roomIndex: int, dimension?: Dimension): void;
+  ChangeRoom(roomGridIndex: int, dimension?: Dimension): void;
 
   DisableDevilRoom(): void;
   ForceHorsemanBoss(seed: int): boolean;
@@ -28,6 +28,7 @@ declare interface Level {
    */
   GetCurrentRoomDesc(): RoomDescriptorReadOnly;
 
+  /** Returns the current room's grid index. */
   GetCurrentRoomIndex(): int;
 
   /**
@@ -61,25 +62,35 @@ declare interface Level {
     dyslexia?: boolean,
   ): string;
 
+  /**
+   * Returns the grid index of an unexplored or uncleared room on the floor. Returns -1 if all rooms
+   * have been explored and cleared.
+   */
   GetNonCompleteRoomIndex(): int;
 
   /** Returns the probability of getting a Planetarium (in the 0-1 range). */
   GetPlanetariumChance(): float;
 
+  /** Returns the grid index of the previous room. */
   GetPreviousRoomIndex(): int;
+
+  /** Returns a random grid index of the floor. */
   GetRandomRoomIndex(IAmErrorRoom: boolean, seed: int): int;
 
   /**
-   * @param roomIdx
+   * @param roomGridIndex The grid index of the room to get.
    * @param dimension Default is Dimension.CURRENT.
    */
-  GetRoomByIdx(roomIndex: int, dimension?: Dimension): RoomDescriptor;
+  GetRoomByIdx(roomGridIndex: int, dimension?: Dimension): RoomDescriptor;
 
   GetRoomCount(): int;
   GetRooms(): RoomList;
   GetStage(): LevelStage;
   GetStageType(): StageType;
+
+  /** Returns the grid index of the starting room on the floor. */
   GetStartingRoomIndex(): int;
+
   GetStateFlag(levelStateFlag: LevelStateFlag): boolean;
   HasBossChallenge(): boolean;
   InitializeDevilAngelRoom(forceAngel: boolean, forceDevil: boolean): void;
@@ -98,7 +109,7 @@ declare interface Level {
    * Attempts to create a red room door in the given room at the given door slot. Returns true on
    * success.
    */
-  MakeRedRoomDoor(currentRoomIndex: int, doorSlot: DoorSlot): boolean;
+  MakeRedRoomDoor(roomGridIndex: int, doorSlot: DoorSlot): boolean;
 
   /**
    * @param roomType
@@ -135,8 +146,12 @@ declare interface Level {
    */
   UpdateVisibility(): void;
 
+  /** The position that the player will return to if they exit a crawlspace. */
   DungeonReturnPosition: Vector;
+
+  /** The grid index that the player will return to if they exit a crawlspace. */
   DungeonReturnRoomIndex: int;
+
   EnterDoor: int;
   GreedModeWave: int;
   LeaveDoor: int;

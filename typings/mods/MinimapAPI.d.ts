@@ -169,7 +169,7 @@ interface MinimapAPIInterface {
 
   GetRoomById(id: number | string): MinimapAPIRoomDescriptor | undefined;
 
-  GetRoomByIdx(roomIndex: int): MinimapAPIRoomDescriptor | undefined;
+  GetRoomByIdx(roomGridIndex: int): MinimapAPIRoomDescriptor | undefined;
 
   GetSaveTable(menuExit: boolean): LuaTable;
 

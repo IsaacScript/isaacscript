@@ -86,10 +86,10 @@ declare interface Game {
   ): void;
 
   /**
-   * @param roomIndex
+   * @param roomGridIndex The room grid index of the destination room.
    * @param dimension Default is Dimension.CURRENT.
    */
-  ChangeRoom(roomIndex: int, dimension?: Dimension): void;
+  ChangeRoom(roomGridIndex: int, dimension?: Dimension): void;
 
   CharmFart(position: Vector, radius: float, source: Entity): void;
   ClearDonationModAngel(): void;
@@ -226,14 +226,14 @@ declare interface Game {
    * You have to set Level.LeaveDoor to an appropriate value before using this function. Otherwise,
    * you will be sent to the wrong room. (For teleports, set it to -1.)
    *
-   * @param roomIndex
+   * @param roomGridIndex The room grid index of the destination room.
    * @param direction
    * @param roomTransition Default is RoomTransitionAnim.WALK.
    * @param player Default is undefined.
    * @param dimension Default is Dimension.CURRENT.
    */
   StartRoomTransition(
-    roomIndex: int,
+    roomGridIndex: int,
     direction: Direction,
     roomTransitionAnim?: RoomTransitionAnim,
     player?: EntityPlayer,
