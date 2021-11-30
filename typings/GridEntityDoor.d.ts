@@ -25,7 +25,7 @@ declare interface GridEntityDoor extends GridEntity {
   LockedAnimation: string;
   OpenAnimation: string;
   OpenLockedAnimation: string;
-  // PreviousState: State; // State is not implemented (it is userdata and not an int)
+  // PreviousState: never; // Instead of returning DoorState, it returns userdata
   PreviousVariant: DoorVariant;
   Slot: DoorSlot;
 
