@@ -53,8 +53,7 @@ function checkRoomChanged() {
     );
   }
 
-  const topLeftWallPtrHash =
-    topLeftWall === undefined ? null : GetPtrHash(topLeftWall);
+  const topLeftWallPtrHash = GetPtrHash(topLeftWall);
   if (topLeftWallPtrHash !== currentRoomTopLeftWallPtrHash) {
     currentRoomTopLeftWallPtrHash = topLeftWallPtrHash;
     postNewRoomEarlyFire();
