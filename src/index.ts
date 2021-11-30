@@ -32,6 +32,7 @@ export * from "./functions/charge";
 export * from "./functions/collectibles";
 export * from "./functions/collectibleSet";
 export * from "./functions/color";
+export * from "./functions/debug";
 export { deepCopy } from "./functions/deepCopy";
 export { deepCopyTests } from "./functions/deepCopyTests";
 export * from "./functions/doors";

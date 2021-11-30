@@ -28,6 +28,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/collectibles.ts" \
   --entryPoints "$DIR/src/functions/collectibleSet.ts" \
   --entryPoints "$DIR/src/functions/color.ts" \
+  --entryPoints "$DIR/src/functions/debug.ts" \
   --entryPoints "$DIR/src/functions/deepCopy.ts" \
   --entryPoints "$DIR/src/functions/doors.ts" \
   --entryPoints "$DIR/src/functions/entity.ts" \
