@@ -443,8 +443,9 @@ export function inStartingRoom(): boolean {
 /**
  * Helper function to loop through every room on the floor and see if it has been cleared.
  *
- * @param onlyCheckRoomTypes Optional. A whitelist of room types. Room types not in the provided
- * array will be ignored. If not specified, then all rooms will be checked. Undefined by default.
+ * @param onlyCheckRoomTypes Optional. A whitelist of room types. If specified, room types not in
+ * the array will be ignored. If not specified, then all rooms will be checked. Undefined by
+ * default.
  */
 export function isAllRoomsClear(onlyCheckRoomTypes?: RoomType[]): boolean {
   const game = Game();
