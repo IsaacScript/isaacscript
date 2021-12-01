@@ -441,6 +441,43 @@ export function inStartingRoom(): boolean {
 }
 
 /**
+ * Helper function to loop through every room on the floor and see if it has been cleared.
+ *
+ * @param onlyCheckRoomTypes Optional. A whitelist of room types. Room types not in the provided
+ * array will be ignored. If not specified, then all rooms will be checked. Undefined by default.
+ */
+export function isAllRoomsClear(onlyCheckRoomTypes?: RoomType[]): boolean {
+  const game = Game();
+  const level = game.GetLevel();
+  const rooms = level.GetRooms();
+  const roomTypeWhitelist =
+    onlyCheckRoomTypes === undefined ? null : new Set(onlyCheckRoomTypes);
+
+  for (let i = 0; i < rooms.Size; i++) {
+    const roomDesc = rooms.Get(i);
+    if (roomDesc === undefined) {
+      continue;
+    }
+
+    const roomData = roomDesc.Data;
+    if (roomData === undefined) {
+      continue;
+    }
+
+    const roomType = roomData.Type;
+    if (roomTypeWhitelist !== null && !roomTypeWhitelist.has(roomType)) {
+      continue;
+    }
+
+    if (!roomDesc.Clear) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+/**
  * Helper function to determine whether or not the current room is part of the floor layout. For
  * example, Devil Rooms and the Mega Satan room are not considered to be inside the map.
  */
