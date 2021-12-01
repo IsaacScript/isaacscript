@@ -29,6 +29,22 @@ export function changeRoom(roomGridIndex: int): void {
   game.ChangeRoom(roomGridIndex);
 }
 
+export function getAllRoomGridIndexes(): int[] {
+  const game = Game();
+  const level = game.GetLevel();
+  const rooms = level.GetRooms();
+
+  const allRoomGridIndexes: int[] = [];
+  for (let i = 0; i < rooms.Size; i++) {
+    const roomDesc = rooms.Get(i);
+    if (roomDesc !== undefined) {
+      allRoomGridIndexes.push(roomDesc.SafeGridIndex);
+    }
+  }
+
+  return allRoomGridIndexes;
+}
+
 export function getCurrentDimension(): Dimension {
   const game = Game();
   const level = game.GetLevel();
