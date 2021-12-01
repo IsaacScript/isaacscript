@@ -80,6 +80,14 @@ Fires on the first `MC_POST_NEW_ROOM` or `MC_PRE_ENTITY_SPAWN` callback where be
 function postNewRoomEarly(): void {}
 ```
 
+### MC_PRE_NEW_LEVEL
+
+Fires on the `MC_POST_RENDER` frame before the player is taken to a new floor. Only fires when a player jumps into a trapdoor or enters a heaven door (beam of light). Does not fire on the first floor of the run. Does not fire when the player reloads/reseeds the current floor (i.e. Forget Me Now, 5-pip dice room).
+
+```ts
+function preNewLevel(): void {}
+```
+
 ### MC_POST_PLAYER_INIT_LATE
 
 Fires on the first MC_POST_PLAYER_UPDATE frame for each player.
