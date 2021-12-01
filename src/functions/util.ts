@@ -117,6 +117,23 @@ export function isGreedMode(): boolean {
 }
 
 /**
+ * Players can boot the game with an launch option called "--luadebug", which will enable additional
+ * functionality that is considered to be unsafe. For more information about this flag, see the
+ * wiki: https://bindingofisaacrebirth.fandom.com/wiki/Launch_Options
+ *
+ * When this flag is enabled, the global environment will be slightly different. The differences are
+ * documented here: https://wofsauge.github.io/IsaacDocs/rep/Globals.html
+ *
+ * This function uses the `package` global variable as a proxy to determine if the "--luadebug" flag
+ * is enabled or not.
+ */
+export function isLuaDebugEnabled(): boolean {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  return package !== undefined;
+}
+
+/**
  * Whether or not the player is playing on a set seed (i.e. that they entered in a specific seed by
  * pressing tab on the character selection screen). When the player resets the game on a set seed,
  * the game will not switch to a different seed.

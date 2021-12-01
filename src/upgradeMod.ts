@@ -35,6 +35,8 @@ import { runInNFramesInit } from "./features/runInNFrames";
 import { saveDataManagerInit } from "./features/saveDataManager/main";
 import { sirenHelpersInit } from "./features/sirenHelpers";
 import { areFeaturesInitialized, setFeaturesInitialized } from "./initialized";
+import { patchErrorFunction } from "./patchErrorFunctions";
+import { patchPrintFunction } from "./patchPrintFunction";
 import { ModUpgraded } from "./types/ModUpgraded";
 
 /**
@@ -62,6 +64,9 @@ import { ModUpgraded } from "./types/ModUpgraded";
  * @category Custom Callbacks
  */
 export function upgradeMod(modVanilla: Mod, verbose = false): ModUpgraded {
+  patchErrorFunction();
+  patchPrintFunction();
+
   const mod = new ModUpgraded(modVanilla, verbose);
 
   if (!areFeaturesInitialized()) {
