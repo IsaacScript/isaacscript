@@ -38,6 +38,7 @@ import { postTearInitLateRegister } from "../callbacks/subscriptions/postTearIni
 import { postTransformationRegister } from "../callbacks/subscriptions/postTransformation";
 import { preCustomReviveRegister } from "../callbacks/subscriptions/preCustomRevive";
 import { preItemPickupRegister } from "../callbacks/subscriptions/preItemPickup";
+import { preNewLevelRegister } from "../callbacks/subscriptions/PreNewLevel";
 import { getDebugPrependString } from "../functions/log";
 import { ensureAllCases } from "../functions/util";
 import { CallbackParametersCustom } from "./CallbackParametersCustom";
@@ -162,6 +163,10 @@ function getCallbackRegisterFunction(callbackID: ModCallbacksCustom) {
 
     case ModCallbacksCustom.MC_POST_NEW_ROOM_EARLY: {
       return postNewRoomEarlyRegister;
+    }
+
+    case ModCallbacksCustom.MC_PRE_NEW_LEVEL: {
+      return preNewLevelRegister;
     }
 
     case ModCallbacksCustom.MC_POST_PLAYER_INIT_LATE: {

@@ -38,6 +38,7 @@ import { PostTearInitLateCallbackType } from "../callbacks/subscriptions/postTea
 import { PostTransformationCallbackType } from "../callbacks/subscriptions/postTransformation";
 import { PreCustomReviveCallbackType } from "../callbacks/subscriptions/preCustomRevive";
 import { PreItemPickupCallbackType } from "../callbacks/subscriptions/preItemPickup";
+import { PreNewLevelCallbackType } from "../callbacks/subscriptions/PreNewLevel";
 import { ModCallbacksCustom } from "./ModCallbacksCustom";
 
 export interface CallbackParametersCustom {
@@ -71,6 +72,8 @@ export interface CallbackParametersCustom {
   [ModCallbacksCustom.MC_POST_NEW_ROOM_EARLY]: [
     callback: PostNewRoomEarlyCallbackType,
   ];
+
+  [ModCallbacksCustom.MC_PRE_NEW_LEVEL]: [callback: PreNewLevelCallbackType];
 
   [ModCallbacksCustom.MC_POST_PLAYER_INIT_LATE]: [
     callback: PostPlayerInitLateCallbackType,
