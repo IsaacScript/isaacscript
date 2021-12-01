@@ -108,6 +108,26 @@ declare const enum BossID {
   POSSESSOR = 102,
 }
 
+/** This matches the sub-type in the "00.special rooms.stb" file. */
+declare const enum MinibossID {
+  SLOTH = 0,
+  LUST = 1,
+  WRATH = 2,
+  GLUTTONY = 3,
+  GREED = 4,
+  ENVY = 5,
+  PRIDE = 6,
+  SUPER_SLOTH = 7,
+  SUPER_LUST = 8,
+  SUPER_WRATH = 9,
+  SUPER_GLUTTONY = 10,
+  SUPER_GREED = 11,
+  SUPER_ENVY = 12,
+  SUPER_PRIDE = 13,
+  ULTRA_PRIDE = 14,
+  KRAMPUS = 15,
+}
+
 /** For RoomType.ROOM_DEVIL (14) */
 declare const enum DevilRoomSubType {
   NORMAL = 0,
