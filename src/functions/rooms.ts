@@ -391,6 +391,24 @@ export function inGenesisRoom(): boolean {
 }
 
 /**
+ * Helper function to check if the current room is a miniboss room for a particular miniboss. This
+ * will only work for minibosses that have dedicated boss rooms in the "00.special rooms.stb" file.
+ */
+export function inMinibossRoomOf(minibossID: MinibossID) {
+  const game = Game();
+  const room = game.GetRoom();
+  const roomType = room.GetType();
+  const roomStageID = getRoomStageID();
+  const roomSubType = getRoomSubType();
+
+  return (
+    roomType === RoomType.ROOM_MINIBOSS &&
+    roomStageID === StageID.SPECIAL_ROOMS &&
+    roomSubType === minibossID
+  );
+}
+
+/**
  * Helper function to determine whether or not the current room is the starting room of a floor.
  * Only returns true for the starting room of the primary dimension (meaning that being in the
  * starting room of the mirror world does not count).
