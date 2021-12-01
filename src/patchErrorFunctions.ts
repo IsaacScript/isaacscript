@@ -1,4 +1,4 @@
-import { traceback } from "./functions/debug";
+import { getTraceback } from "./functions/debug";
 import { isLuaDebugEnabled } from "./functions/util";
 
 declare let error: ErrorFunction;
@@ -44,6 +44,41 @@ function errorWithTraceback(
     error(message, level);
   }
 
-  traceback();
-  vanillaError(message, level);
+  if (level === undefined) {
+    level = 1;
+  }
+
+  const tracebackOutput = getTraceback();
+  const slimmedTracebackOutput = slimTracebackOutput(tracebackOutput);
+  Isaac.DebugString(slimmedTracebackOutput);
+
+  // We add one to the level so that the error message appears to originate at the parent function
+  vanillaError(message, level + 1);
+}
+
+/**
+ * Some lines of the traceback output will not be relevant to the error that just occurred. Thus, to
+ * reduce noise, we can always remove these lines.
+ */
+function slimTracebackOutput(tracebackOutput: string) {
+  const lineSeparator = "\n";
+  const lines = tracebackOutput.split(lineSeparator);
+
+  // The first line will always be equal to "stack traceback:"
+
+  // The second line of the traceback will always be the "getTraceback" function,
+  // so remove it
+  if (lines[1].includes("in upvalue 'getTraceback'")) {
+    lines.splice(1, 1);
+  }
+
+  // The third line of the traceback will always be in the "errorWithTraceback" function,
+  // so remove it
+  if (lines[1].includes("in function 'error'")) {
+    lines.splice(1, 1);
+  }
+
+  const slimmedTracebackOutput = lines.join(lineSeparator);
+
+  return slimmedTracebackOutput;
 }

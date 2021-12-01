@@ -1,28 +1,30 @@
 /**
- * Helper function to print a stack trace to the "log.txt" file, similar to JavaScript's
- * `console.trace()` function. This will only work if the `--luadebug` launch option is enabled or
- * the Racing+ sandbox is enabled.
+ * Helper function to get a stack trace.
  *
- * @param silent Optional. Whether or not to print an error message if the `--luadebug` launch
- * option is not turned on. False by default.
+ * This will only work if the `--luadebug` launch option is enabled or the Racing+ sandbox is
+ * enabled.
  */
-export function traceback(silent = false): void {
+export function getTraceback(): string {
   if (debug !== undefined) {
     // The --luadebug launch flag is enabled
-    const tracebackMsg = debug.traceback();
-    Isaac.DebugString(tracebackMsg);
-    return;
+    return debug.traceback();
   }
 
-  if (sandboxTraceback !== undefined) {
-    // The Racing+ sandbox is enabled
-    sandboxTraceback();
-    return;
+  if (sandboxGetTraceback !== undefined) {
+    return sandboxGetTraceback();
   }
 
-  if (!silent) {
-    Isaac.DebugString(
-      "Error: Cannot perform a traceback since --luadebug is not enabled.",
-    );
-  }
+  return 'stack traceback:\n(the "--luadebug" flag is not enabled)';
+}
+
+/**
+ * Helper function to print a stack trace to the "log.txt" file, similar to JavaScript's
+ * `console.trace()` function.
+ *
+ * This will only work if the `--luadebug` launch option is enabled or the Racing+ sandbox is
+ * enabled.
+ */
+export function traceback(): void {
+  const tracebackOutput = getTraceback();
+  Isaac.DebugString(tracebackOutput);
 }
