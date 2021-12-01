@@ -390,14 +390,20 @@ export function inGenesisRoom(): boolean {
   );
 }
 
-/** Helper function to determine whether or not the current room is the starting room of a floor. */
+/**
+ * Helper function to determine whether or not the current room is the starting room of a floor.
+ * Only returns true for the starting room of the primary dimension (meaning that being in the
+ * starting room of the mirror world does not count).
+ */
 export function inStartingRoom(): boolean {
   const game = Game();
   const level = game.GetLevel();
   const startingRoomGridIndex = level.GetStartingRoomIndex();
   const roomSafeGridIndex = getRoomSafeGridIndex();
 
-  return roomSafeGridIndex === startingRoomGridIndex;
+  return (
+    roomSafeGridIndex === startingRoomGridIndex && inDimension(Dimension.MAIN)
+  );
 }
 
 /**
