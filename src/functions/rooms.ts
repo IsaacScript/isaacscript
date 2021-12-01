@@ -136,12 +136,12 @@ export function getRoomSafeGridIndex(): int {
  *
  * This function only searches through rooms in the current dimension.
  */
-export function getRoomGridIndexesForType(roomType: RoomType): Set<int> {
+export function getRoomGridIndexesForType(roomType: RoomType): int[] {
   const game = Game();
   const level = game.GetLevel();
 
   // We do not use the "GetRooms()" method since it returns extra-dimensional rooms
-  const roomGridIndexes = new Set<int>();
+  const roomGridIndexes: int[] = [];
   for (let i = 0; i <= MAX_ROOM_INDEX; i++) {
     const room = level.GetRoomByIdx(i);
     if (
@@ -149,7 +149,7 @@ export function getRoomGridIndexesForType(roomType: RoomType): Set<int> {
       room.Data !== undefined &&
       room.Data.Type === roomType
     ) {
-      roomGridIndexes.add(room.SafeGridIndex);
+      roomGridIndexes.push(room.SafeGridIndex);
     }
   }
 
