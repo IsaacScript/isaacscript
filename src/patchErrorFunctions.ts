@@ -3,6 +3,9 @@ import { isLuaDebugEnabled } from "./functions/util";
 
 declare let error: ErrorFunction;
 
+// eslint-disable-next-line no-underscore-dangle,@typescript-eslint/naming-convention
+declare let __PATCHED_ERROR: boolean | undefined;
+
 type ErrorFunction = (this: void, message: string, level?: number) => never;
 
 // The actual type is "ErrorFunction | undefined", but TypeScript doesn't like this
@@ -17,15 +20,16 @@ let vanillaError: ErrorFunction;
  * does nothing if the "--luadebug" flag is disabled.
  */
 export function patchErrorFunction(): void {
-  // Do nothing if the function was already replaced
-  if (vanillaError !== undefined) {
-    return;
-  }
-
   // Only replace the function if the "--luadebug" launch flag is enabled
   if (!isLuaDebugEnabled()) {
     return;
   }
+
+  // Do nothing if the function was already patched
+  if (__PATCHED_ERROR !== undefined) {
+    return;
+  }
+  __PATCHED_ERROR = true;
 
   vanillaError = error;
   error = errorWithTraceback;

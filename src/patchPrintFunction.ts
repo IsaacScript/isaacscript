@@ -3,9 +3,10 @@ import { isVector } from "./functions/vector";
 
 declare let print: PrintFunction;
 
-type PrintFunction = (this: void, ...args: unknown[]) => void;
+// eslint-disable-next-line no-underscore-dangle,@typescript-eslint/naming-convention
+declare let __PATCHED_PRINT: boolean | undefined;
 
-let vanillaPrint: PrintFunction | null = null;
+type PrintFunction = (this: void, ...args: unknown[]) => void;
 
 /**
  * When the "--luadebug" flag is enabled, the `print` function will no longer print messages to the
@@ -15,21 +16,21 @@ let vanillaPrint: PrintFunction | null = null;
  * If the "--luadebug" flag is disabled, this function will do nothing.
  */
 export function patchPrintFunction() {
-  // Do nothing if the function was already replaced
-  if (vanillaPrint !== null) {
-    return;
-  }
-
   // Only replace the function if the "--luadebug" launch flag is enabled
   if (!isLuaDebugEnabled()) {
     return;
   }
 
-  vanillaPrint = print;
-  print = newPrint;
+  // Do nothing if the function was already patched
+  if (__PATCHED_PRINT !== undefined) {
+    return;
+  }
+  __PATCHED_PRINT = true;
+
+  print = printForLuaDebug; // eslint-disable-line @typescript-eslint/no-unused-vars
 }
 
-function newPrint(this: void, ...args: unknown[]) {
+function printForLuaDebug(this: void, ...args: unknown[]) {
   const msg = getPrintMsg(args);
 
   // First, write it to the log.txt
