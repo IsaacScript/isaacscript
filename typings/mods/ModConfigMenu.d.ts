@@ -7,12 +7,15 @@ declare interface ModConfigMenuInterface {
     subcategoryName?: string,
     setting?: ModConfigMenuSetting,
   ): void;
+
   AddSpace(categoryName: string, subcategoryName: string): void;
+
   AddText(
     categoryName: string,
     subcategoryName: string,
     textFunction: () => string,
   ): void;
+
   GetCategoryIDByName(categoryName: string): int | undefined;
 
   Config: {
@@ -21,12 +24,15 @@ declare interface ModConfigMenuInterface {
     };
     LastBackPressed: Keyboard | Controller;
   };
+
   IsVisible: boolean;
+
   /**
    * MenuData is not normally supposed to be accessed, but we access it to wipe data during a mod
    * reload.
    */
   MenuData: LuaTable<int, MenuData>;
+
   PopupGfx: {
     /* eslint-disable @typescript-eslint/member-ordering */
     THIN_SMALL: "gfx/ui/modconfig/popup_thin_small.png";
@@ -47,8 +53,10 @@ declare interface ModConfigMenuSetting {
   Maximum?: number;
   Minimum?: number;
   ModifyBy?: number;
+
   /** This will be undefined if the user canceled the popup dialog. */
   OnChange: (newValue: number | boolean | undefined) => void;
+
   Popup?: () => void;
   PopupGfx?: string;
   PopupWidth?: int;
