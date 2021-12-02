@@ -8,8 +8,7 @@ declare let __PATCHED_ERROR: boolean | undefined;
 
 type ErrorFunction = (this: void, message: string, level?: number) => never;
 
-// The actual type is "ErrorFunction | undefined", but TypeScript doesn't like this
-let vanillaError: ErrorFunction;
+let vanillaError: ErrorFunction | undefined;
 
 /**
  * In Lua, the `error` function will tell you the line number of the error, but not give you a full
@@ -53,7 +52,7 @@ function errorWithTraceback(
   Isaac.DebugString(slimmedTracebackOutput);
 
   // We add one to the level so that the error message appears to originate at the parent function
-  vanillaError(message, level + 1);
+  return vanillaError(message, level + 1);
 }
 
 /**
