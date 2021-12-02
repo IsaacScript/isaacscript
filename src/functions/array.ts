@@ -92,6 +92,10 @@ export function arraySum(array: int[]): int {
 }
 
 export function arrayToString<T>(array: T[]): string {
+  if (array.length === 0) {
+    return "[]";
+  }
+
   const strings: string[] = [];
   for (const [, value] of ipairs(array)) {
     strings.push(tostring(value));

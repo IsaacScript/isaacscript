@@ -8,6 +8,21 @@ declare let __PATCHED_ERROR: boolean | undefined;
 
 type ErrorFunction = (this: void, message: string, level?: number) => never;
 
+const LINE_SEPARATOR = "\n";
+
+/**
+ * These must be listed in order from how they appear in the traceback from top to bottom, or they
+ * won't be properly removed.
+ */
+const USELESS_TRACEBACK_MESSAGES = [
+  // The second line of the traceback will always be the "getTraceback" function
+  "in upvalue 'getTraceback'",
+  "in function 'sandboxGetTraceback'",
+
+  // The third line of the traceback will always be a line within the "errorWithTraceback" function
+  "in function 'error'",
+];
+
 let vanillaError: ErrorFunction | undefined;
 
 /**
@@ -60,27 +75,22 @@ function errorWithTraceback(
  * reduce noise, we can always remove these lines.
  */
 function slimTracebackOutput(tracebackOutput: string) {
-  const lineSeparator = "\n";
-  const lines = tracebackOutput.split(lineSeparator);
-
-  // The first line will always be equal to "stack traceback:"
-
-  // The second line of the traceback will always be the "getTraceback" function,
-  // so remove it
-  if (
-    lines[1].includes("in upvalue 'getTraceback'") ||
-    lines[1].includes("in function 'sandboxGetTraceback'")
-  ) {
-    lines.splice(1, 1);
+  for (const msg of USELESS_TRACEBACK_MESSAGES) {
+    tracebackOutput = removeAnyLineThatContains(tracebackOutput, msg);
   }
 
-  // The third line of the traceback will always be in the "errorWithTraceback" function,
-  // so remove it
-  if (lines[1].includes("in function 'error'")) {
-    lines.splice(1, 1);
+  return tracebackOutput;
+}
+
+function removeAnyLineThatContains(msg: string, containsMsg: string) {
+  const lines = msg.split(LINE_SEPARATOR);
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    if (line.includes(containsMsg)) {
+      lines.splice(i, 1);
+    }
   }
 
-  const slimmedTracebackOutput = lines.join(lineSeparator);
-
-  return slimmedTracebackOutput;
+  return lines.join(LINE_SEPARATOR);
 }
