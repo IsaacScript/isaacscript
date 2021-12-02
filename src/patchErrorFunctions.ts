@@ -67,7 +67,10 @@ function slimTracebackOutput(tracebackOutput: string) {
 
   // The second line of the traceback will always be the "getTraceback" function,
   // so remove it
-  if (lines[1].includes("in upvalue 'getTraceback'")) {
+  if (
+    lines[1].includes("in upvalue 'getTraceback'") ||
+    lines[1].includes("in function 'sandboxGetTraceback'")
+  ) {
     lines.splice(1, 1);
   }
 
