@@ -82,7 +82,9 @@ export function isSubDirOf(dir: string, parent: string): boolean {
 
 export function makeDir(dirPath: string): void {
   try {
-    fs.mkdirSync(dirPath);
+    fs.mkdirSync(dirPath, {
+      recursive: true,
+    });
   } catch (err) {
     error(`Failed to create the "${chalk.green(dirPath)}" directory:`, err);
   }
