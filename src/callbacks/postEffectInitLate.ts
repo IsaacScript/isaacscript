@@ -10,6 +10,7 @@ const v = {
   },
 };
 
+/** @internal */
 export function postEffectInitLateCallbackInit(mod: Mod): void {
   saveDataManager("postEffectInitLate", v, hasSubscriptions);
 

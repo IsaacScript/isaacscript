@@ -19,6 +19,7 @@ const v = {
   },
 };
 
+/** @internal */
 export function postEsauJrCallbacksInit(mod: Mod): void {
   saveDataManager("postEsauJr", v, hasSubscriptions);
 

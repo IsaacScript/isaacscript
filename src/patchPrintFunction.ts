@@ -14,6 +14,8 @@ type PrintFunction = (this: void, ...args: unknown[]) => void;
  * restore this functionality.
  *
  * If the "--luadebug" flag is disabled, this function will do nothing.
+ *
+ * @internal
  */
 export function patchPrintFunction() {
   // Only replace the function if the "--luadebug" launch flag is enabled

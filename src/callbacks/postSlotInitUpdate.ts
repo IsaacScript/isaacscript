@@ -18,6 +18,7 @@ const v = {
   },
 };
 
+/** @internal */
 export function postSlotInitUpdateCallbacksInit(mod: Mod): void {
   saveDataManager("postSlotInitUpdate", v, hasSubscriptions);
 

@@ -11,6 +11,7 @@ const v = {
   },
 };
 
+/** @internal */
 export function postSacrificeCallbackInit(mod: Mod): void {
   saveDataManager("postSacrifice", v, hasSubscriptions);
 

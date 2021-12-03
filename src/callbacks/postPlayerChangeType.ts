@@ -13,6 +13,7 @@ const v = {
   },
 };
 
+/** @internal */
 export function postPlayerChangeTypeCallbackInit(mod: ModUpgraded): void {
   saveDataManager("postPlayerChangeType", v, hasSubscriptions);
 

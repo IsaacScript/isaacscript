@@ -1,3 +1,4 @@
+/** @internal */
 export type PostTransformationCallbackType = (
   player: EntityPlayer,
   playerForm: PlayerForm,
@@ -8,10 +9,12 @@ const subscriptions: Array<
   [PostTransformationCallbackType, PlayerForm | undefined]
 > = [];
 
+/** @internal */
 export function postTransformationHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
+/** @internal */
 export function postTransformationRegister(
   callback: PostTransformationCallbackType,
   playerForm?: PlayerForm,
@@ -19,6 +22,7 @@ export function postTransformationRegister(
   subscriptions.push([callback, playerForm]);
 }
 
+/** @internal */
 export function postTransformationFire(
   player: EntityPlayer,
   playerForm: PlayerForm,

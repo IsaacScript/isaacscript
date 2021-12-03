@@ -10,6 +10,7 @@ const v = {
   },
 };
 
+/** @internal */
 export function postProjectileInitLateCallbackInit(mod: Mod): void {
   saveDataManager("postProjectileInitLate", v, hasSubscriptions);
 

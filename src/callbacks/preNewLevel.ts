@@ -12,6 +12,7 @@ import {
  */
 let firedOnStage: int | null = null;
 
+/** @internal */
 export function preNewLevelCallbackInit(mod: ModUpgraded): void {
   mod.AddCallback(ModCallbacks.MC_POST_PLAYER_RENDER, postPlayerRender); // 32
 }

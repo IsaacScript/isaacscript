@@ -4,8 +4,6 @@
  *
  * For a better listing of all custom callbacks, check out the
  * [Function Signatures](https://isaacscript.github.io/docs/function-signatures#custom-callbacks).
- *
- * @category Custom Callbacks
  */
 export enum ModCallbacksCustom {
   MC_POST_GAME_STARTED_REORDERED,

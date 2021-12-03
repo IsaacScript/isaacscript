@@ -10,6 +10,7 @@ const v = {
   },
 };
 
+/** @internal */
 export function postNPCInitLateCallbackInit(mod: Mod): void {
   saveDataManager("postNPCInitLate", v, hasSubscriptions);
 

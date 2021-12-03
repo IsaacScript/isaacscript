@@ -1,5 +1,6 @@
 import { PickingUpItem } from "../../types/PickingUpItem";
 
+/** @internal */
 export type PreItemPickupCallbackType = (
   player: EntityPlayer,
   pickingUpItem: PickingUpItem,
@@ -9,10 +10,12 @@ const subscriptions: Array<
   [PreItemPickupCallbackType, ItemType | undefined, int | undefined]
 > = [];
 
+/** @internal */
 export function preItemPickupHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
+/** @internal */
 export function preItemPickupRegister(
   callback: PreItemPickupCallbackType,
   itemType?: ItemType,
@@ -21,6 +24,7 @@ export function preItemPickupRegister(
   subscriptions.push([callback, itemType, itemID]);
 }
 
+/** @internal */
 export function preItemPickupFire(
   player: EntityPlayer,
   pickingUpItem: PickingUpItem,

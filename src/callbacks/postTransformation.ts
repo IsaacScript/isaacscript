@@ -14,6 +14,7 @@ const v = {
   },
 };
 
+/** @internal */
 export function postTransformationCallbackInit(mod: ModUpgraded): void {
   saveDataManager("postTransformation", v, hasSubscriptions);
 

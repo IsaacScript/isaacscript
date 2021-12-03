@@ -15,7 +15,7 @@ const v = {
   },
 };
 
-/** @hidden */
+/** @internal */
 export function runInNFramesInit(mod: Mod): void {
   initialized = true;
   saveDataManager("runInNFrames", v);

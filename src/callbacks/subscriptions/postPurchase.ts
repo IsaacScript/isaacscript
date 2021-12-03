@@ -1,3 +1,4 @@
+/** @internal */
 export type PostPurchaseCallbackType = (
   player: EntityPlayer,
   pickupVariant: PickupVariant | int,
@@ -9,10 +10,12 @@ const subscriptions: Array<
   [PostPurchaseCallbackType, PickupVariant | int | undefined, int | undefined]
 > = [];
 
+/** @internal */
 export function postPurchaseHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
+/** @internal */
 export function postPurchaseRegister(
   callback: PostPurchaseCallbackType,
   pickupVariant?: PickupVariant | int,
@@ -21,6 +24,7 @@ export function postPurchaseRegister(
   subscriptions.push([callback, pickupVariant, pickupSubType]);
 }
 
+/** @internal */
 export function postPurchaseFire(
   player: EntityPlayer,
   pickupVariant: PickupVariant | int,

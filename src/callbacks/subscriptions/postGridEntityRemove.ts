@@ -1,3 +1,4 @@
+/** @internal */
 export type PostGridEntityRemoveCallbackType = (
   gridIndex: int,
   gridEntityType: GridEntityType,
@@ -7,10 +8,12 @@ const subscriptions: Array<
   [PostGridEntityRemoveCallbackType, GridEntityType | undefined]
 > = [];
 
+/** @internal */
 export function postGridEntityRemoveHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
+/** @internal */
 export function postGridEntityRemoveRegister(
   callback: PostGridEntityRemoveCallbackType,
   gridEntityType?: GridEntityType,
@@ -18,6 +21,7 @@ export function postGridEntityRemoveRegister(
   subscriptions.push([callback, gridEntityType]);
 }
 
+/** @internal */
 export function postGridEntityRemoveFire(
   gridIndex: int,
   gridEntityType: GridEntityType,

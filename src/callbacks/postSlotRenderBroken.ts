@@ -23,6 +23,7 @@ const v = {
   },
 };
 
+/** @internal */
 export function postSlotRenderBrokenCallbacksInit(mod: Mod): void {
   saveDataManager("postSlotRenderBroken", v, hasSubscriptions);
 

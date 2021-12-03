@@ -1,3 +1,4 @@
+/** @internal */
 export type PostPlayerFatalDamageCallbackType = (
   player: EntityPlayer,
 ) => boolean | void;
@@ -6,10 +7,12 @@ const subscriptions: Array<
   [PostPlayerFatalDamageCallbackType, PlayerVariant | undefined]
 > = [];
 
+/** @internal */
 export function postPlayerFatalDamageHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
+/** @internal */
 export function postPlayerFatalDamageRegister(
   callback: PostPlayerFatalDamageCallbackType,
   playerVariant?: PlayerVariant,
@@ -17,6 +20,7 @@ export function postPlayerFatalDamageRegister(
   subscriptions.push([callback, playerVariant]);
 }
 
+/** @internal */
 export function postPlayerFatalDamageFire(
   player: EntityPlayer,
 ): boolean | void {

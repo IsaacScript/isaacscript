@@ -55,7 +55,7 @@ const v = {
   },
 };
 
-/** @hidden */
+/** @internal */
 export function deployJSONRoomInit(mod: ModUpgraded): void {
   initialized = true;
   saveDataManager("deployJSONRoom", v);

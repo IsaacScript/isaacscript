@@ -11,7 +11,7 @@ const v = {
   },
 };
 
-/** @hidden */
+/** @internal */
 export function sirenHelpersInit(mod: Mod): void {
   initialized = true;
   saveDataManager("sirenHelpers", v);

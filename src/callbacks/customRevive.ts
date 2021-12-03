@@ -27,6 +27,7 @@ const v = {
   },
 };
 
+/** @internal */
 export function customReviveCallbacksInit(mod: ModUpgraded): void {
   saveDataManager("customRevive", v, hasSubscriptions);
 

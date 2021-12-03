@@ -32,6 +32,8 @@ let vanillaError: ErrorFunction | undefined;
  *
  * Traceback functionality can only be added if the "--luadebug" flag is turned on, so this function
  * does nothing if the "--luadebug" flag is disabled.
+ *
+ * @internal
  */
 export function patchErrorFunction(): void {
   // Only replace the function if the "--luadebug" launch flag is enabled

@@ -1,5 +1,6 @@
 import { HealthType } from "../../types/HealthType";
 
+/** @internal */
 export type PostPlayerChangeHealthCallbackType = (
   player: EntityPlayer,
   healthType: HealthType,
@@ -10,10 +11,12 @@ const subscriptions: Array<
   [PostPlayerChangeHealthCallbackType, PlayerVariant | undefined]
 > = [];
 
+/** @internal */
 export function postPlayerChangeHealthHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
+/** @internal */
 export function postPlayerChangeHealthRegister(
   callback: PostPlayerChangeHealthCallbackType,
   playerVariant?: PlayerVariant,
@@ -21,6 +24,7 @@ export function postPlayerChangeHealthRegister(
   subscriptions.push([callback, playerVariant]);
 }
 
+/** @internal */
 export function postPlayerChangeHealthFire(
   player: EntityPlayer,
   healthType: HealthType,

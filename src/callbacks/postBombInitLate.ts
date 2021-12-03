@@ -10,6 +10,7 @@ const v = {
   },
 };
 
+/** @internal */
 export function postBombInitLateCallbackInit(mod: Mod): void {
   saveDataManager("postBombInitLate", v, hasSubscriptions);
 

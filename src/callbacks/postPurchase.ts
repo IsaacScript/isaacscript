@@ -19,6 +19,7 @@ const v = {
   },
 };
 
+/** @internal */
 export function postPurchaseCallbackInit(mod: Mod): void {
   saveDataManager("postPurchase", v, hasSubscriptions);
 

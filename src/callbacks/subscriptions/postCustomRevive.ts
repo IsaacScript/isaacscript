@@ -1,3 +1,4 @@
+/** @internal */
 export type PostCustomReviveCallbackType = (
   player: EntityPlayer,
   revivalType: int,
@@ -6,10 +7,12 @@ export type PostCustomReviveCallbackType = (
 const subscriptions: Array<[PostCustomReviveCallbackType, int | undefined]> =
   [];
 
+/** @internal */
 export function postCustomReviveHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
+/** @internal */
 export function postCustomReviveRegister(
   callback: PostCustomReviveCallbackType,
   revivalType?: int,
@@ -17,6 +20,7 @@ export function postCustomReviveRegister(
   subscriptions.push([callback, revivalType]);
 }
 
+/** @internal */
 export function postCustomReviveFire(
   player: EntityPlayer,
   revivalType: int,

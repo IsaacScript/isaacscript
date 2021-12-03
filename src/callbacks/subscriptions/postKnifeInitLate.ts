@@ -1,3 +1,4 @@
+/** @internal */
 export type PostKnifeInitLateCallbackType = (knife: EntityKnife) => void;
 
 const subscriptions: Array<

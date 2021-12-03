@@ -10,6 +10,7 @@ import {
 
 let currentRoomTopLeftWallPtrHash: PtrHash | null = null;
 
+/** @internal */
 export function postNewRoomEarlyCallbackInit(mod: ModUpgraded): void {
   mod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoom); // 19
   mod.AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, preEntitySpawn); // 24

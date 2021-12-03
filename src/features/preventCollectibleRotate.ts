@@ -17,6 +17,7 @@ const v = {
   },
 };
 
+/** @internal */
 export function preventCollectibleRotateInit(mod: ModUpgraded): void {
   initialized = true;
   saveDataManager("preventCollectibleRotate", v);

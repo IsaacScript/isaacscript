@@ -21,6 +21,7 @@ const v = {
   },
 };
 
+/** @internal */
 export function postCursedTeleportCallbackInit(mod: Mod): void {
   saveDataManager("postCursedTeleport", v, hasSubscriptions);
 

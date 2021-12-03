@@ -10,6 +10,7 @@ const v = {
   },
 };
 
+/** @internal */
 export function postTearInitLateCallbackInit(mod: Mod): void {
   saveDataManager("postTearInitLate", v, hasSubscriptions);
 

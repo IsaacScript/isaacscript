@@ -17,7 +17,7 @@ const v = {
   },
 };
 
-/** @hidden */
+/** @internal */
 export function disableInputsInit(mod: ModUpgraded): void {
   initialized = true;
   saveDataManager("disableInputs", v);

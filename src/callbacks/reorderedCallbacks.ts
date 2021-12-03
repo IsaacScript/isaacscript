@@ -26,6 +26,7 @@ let usedGlowingHourGlass = false;
 let forceNewLevel = false;
 let forceNewRoom = false;
 
+/** @internal */
 export function reorderedCallbacksInit(mod: Mod): void {
   mod.AddCallback(
     ModCallbacks.MC_USE_ITEM,
@@ -140,8 +141,6 @@ function recordCurrentStage() {
  * frame. However, due to how the callback reordering works, the custom PostNewLevel callback will
  * never fire on the 0th frame. To get around this, call this function before changing levels to
  * temporarily force the callback to fire.
- *
- * @category Custom Callbacks
  */
 export function forceNewLevelCallback(): void {
   forceNewLevel = true;
@@ -152,8 +151,6 @@ export function forceNewLevelCallback(): void {
  * frame. However, due to how the callback reordering works, the custom PostNewRoom callback will
  * never fire on the 0th frame. To get around this, call this function before changing rooms to
  * temporarily force the callback to fire.
- *
- * @category Custom Callbacks
  */
 export function forceNewRoomCallback(): void {
   forceNewRoom = true;

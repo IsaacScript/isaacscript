@@ -17,7 +17,7 @@ const v = {
   },
 };
 
-/** @hidden */
+/** @internal */
 export function getCollectibleItemPoolTypeInit(mod: ModUpgraded): void {
   initialized = true;
   saveDataManager("getCollectibleItemPoolType", v);

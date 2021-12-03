@@ -62,7 +62,6 @@ import { ModUpgraded } from "./types/ModUpgraded";
  * @param verbose Enables verbose logging for the purposes of crash troubleshooting.
  * Defaults to false.
  * @returns The upgraded mod object.
- * @category Custom Callbacks
  */
 export function upgradeMod(modVanilla: Mod, verbose = false): ModUpgraded {
   patchErrorFunction();

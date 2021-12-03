@@ -6,6 +6,7 @@ import {
   postPlayerFatalDamageHasSubscriptions,
 } from "./subscriptions/postPlayerFatalDamage";
 
+/** @internal */
 export function postPlayerFatalDamageCallbackInit(mod: ModUpgraded): void {
   mod.AddCallback(
     ModCallbacks.MC_ENTITY_TAKE_DMG,

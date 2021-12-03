@@ -1,3 +1,4 @@
+/** @internal */
 export type PostPickupCollectCallbackType = (
   pickup: EntityPickup,
   player: EntityPlayer,
@@ -7,10 +8,12 @@ const subscriptions: Array<
   [PostPickupCollectCallbackType, PickupVariant | int | undefined]
 > = [];
 
+/** @internal */
 export function postPickupCollectHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
+/** @internal */
 export function postPickupCollectRegister(
   callback: PostPickupCollectCallbackType,
   pickupVariant?: PickupVariant | int,
@@ -18,6 +21,7 @@ export function postPickupCollectRegister(
   subscriptions.push([callback, pickupVariant]);
 }
 
+/** @internal */
 export function postPickupCollectFire(
   pickup: EntityPickup,
   player: EntityPlayer,

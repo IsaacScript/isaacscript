@@ -10,6 +10,7 @@ const v = {
   },
 };
 
+/** @internal */
 export function postPickupInitLateCallbackInit(mod: Mod): void {
   saveDataManager("postPickupInitLate", v, hasSubscriptions);
 
