@@ -4,10 +4,12 @@ const subscriptions: Array<
   [PostKnifeInitLateCallbackType, KnifeVariant | int | undefined]
 > = [];
 
+/** @internal */
 export function postKnifeInitLateHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
+/** @internal */
 export function postKnifeInitLateRegister(
   callback: PostKnifeInitLateCallbackType,
   knifeVariant?: KnifeVariant | int,
