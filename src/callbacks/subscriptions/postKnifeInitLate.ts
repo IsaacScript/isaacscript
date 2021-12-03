@@ -15,6 +15,7 @@ export function postKnifeInitLateRegister(
   subscriptions.push([callback, knifeVariant]);
 }
 
+/** @internal */
 export function postKnifeInitLateFire(knife: EntityKnife): void {
   for (const [callback, knifeVariant] of subscriptions) {
     // Handle the optional 2nd callback argument
