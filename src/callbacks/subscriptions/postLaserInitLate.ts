@@ -1,4 +1,3 @@
-/** @internal */
 export type PostLaserInitLateCallbackType = (laser: EntityLaser) => void;
 
 const subscriptions: Array<

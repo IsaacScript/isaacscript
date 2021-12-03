@@ -1,4 +1,3 @@
-/** @internal */
 export type PreNewLevelCallbackType = () => void;
 
 const subscriptions: Array<[PreNewLevelCallbackType]> = [];

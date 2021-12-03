@@ -1,4 +1,3 @@
-/** @internal */
 export type PostNewLevelReorderedCallbackType = () => void;
 
 const subscriptions: Array<[PostNewLevelReorderedCallbackType]> = [];

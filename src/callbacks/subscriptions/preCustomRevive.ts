@@ -1,4 +1,3 @@
-/** @internal */
 export type PreCustomReviveCallbackType = (player: EntityPlayer) => int | void;
 
 const subscriptions: Array<[PreCustomReviveCallbackType]> = [];

@@ -1,4 +1,3 @@
-/** @internal */
 export type PostFamiliarInitLateCallbackType = (
   familiar: EntityFamiliar,
 ) => void;

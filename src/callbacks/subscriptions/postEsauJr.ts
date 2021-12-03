@@ -1,4 +1,3 @@
-/** @internal */
 export type PostEsauJrCallbackType = (player: EntityPlayer) => void;
 
 const subscriptions: Array<[PostEsauJrCallbackType]> = [];

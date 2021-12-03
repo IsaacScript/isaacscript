@@ -1,4 +1,3 @@
-/** @internal */
 export type PostPurchaseCallbackType = (
   player: EntityPlayer,
   pickupVariant: PickupVariant | int,

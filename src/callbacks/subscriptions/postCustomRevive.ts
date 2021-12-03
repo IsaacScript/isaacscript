@@ -1,4 +1,3 @@
-/** @internal */
 export type PostCustomReviveCallbackType = (
   player: EntityPlayer,
   revivalType: int,

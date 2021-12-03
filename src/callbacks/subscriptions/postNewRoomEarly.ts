@@ -1,4 +1,3 @@
-/** @internal */
 export type PostNewRoomEarlyCallbackType = () => void;
 
 const subscriptions: Array<[PostNewRoomEarlyCallbackType]> = [];

@@ -1,4 +1,3 @@
-/** @internal */
 export type PostGridEntityRemoveCallbackType = (
   gridIndex: int,
   gridEntityType: GridEntityType,

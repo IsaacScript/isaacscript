@@ -1,4 +1,3 @@
-/** @internal */
 export type PostPlayerInitLateCallbackType = (player: EntityPlayer) => void;
 
 const subscriptions: Array<

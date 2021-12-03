@@ -1,4 +1,3 @@
-/** @internal */
 export type PostCursedTeleportCallbackType = (player: EntityPlayer) => void;
 
 const subscriptions: Array<[PostCursedTeleportCallbackType]> = [];

@@ -1,4 +1,3 @@
-/** @internal */
 export type PostProjectileInitLateCallbackType = (
   projectile: EntityProjectile,
 ) => void;

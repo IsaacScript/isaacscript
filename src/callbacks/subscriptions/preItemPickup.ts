@@ -1,6 +1,5 @@
 import { PickingUpItem } from "../../types/PickingUpItem";
 
-/** @internal */
 export type PreItemPickupCallbackType = (
   player: EntityPlayer,
   pickingUpItem: PickingUpItem,

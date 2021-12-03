@@ -1,4 +1,3 @@
-/** @internal */
 export type PostGridEntityUpdateCallbackType = (gridEntity: GridEntity) => void;
 
 const subscriptions: Array<

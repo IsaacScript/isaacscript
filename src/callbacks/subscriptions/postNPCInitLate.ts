@@ -1,4 +1,3 @@
-/** @internal */
 export type PostNPCInitLateCallbackType = (npc: EntityNPC) => void;
 
 const subscriptions: Array<[PostNPCInitLateCallbackType, int | undefined]> = [];

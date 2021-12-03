@@ -1,4 +1,3 @@
-/** @internal */
 export type PostPickupInitLateCallbackType = (pickup: EntityPickup) => void;
 
 const subscriptions: Array<

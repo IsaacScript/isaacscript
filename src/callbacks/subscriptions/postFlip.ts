@@ -1,4 +1,3 @@
-/** @internal */
 export type PostFlipCallbackType = (player: EntityPlayer) => void;
 
 const subscriptions: Array<[PostFlipCallbackType]> = [];

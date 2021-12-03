@@ -1,4 +1,3 @@
-/** @internal */
 export type PostPlayerChangeTypeCallbackType = (player: EntityPlayer) => void;
 
 const subscriptions: Array<[PostPlayerChangeTypeCallbackType]> = [];

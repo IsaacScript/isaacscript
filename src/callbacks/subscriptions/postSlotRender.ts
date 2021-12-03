@@ -1,4 +1,3 @@
-/** @internal */
 export type PostSlotRenderCallbackType = (slot: Entity) => void;
 
 const subscriptions: Array<

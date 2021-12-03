@@ -1,4 +1,3 @@
-/** @internal */
 export type PostPlayerFatalDamageCallbackType = (
   player: EntityPlayer,
 ) => boolean | void;

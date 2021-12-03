@@ -1,4 +1,3 @@
-/** @internal */
 export type PostEffectInitLateCallbackType = (effect: EntityEffect) => void;
 
 const subscriptions: Array<

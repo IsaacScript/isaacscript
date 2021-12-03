@@ -1,4 +1,3 @@
-/** @internal */
 export type PostTearInitLateCallbackType = (tear: EntityTear) => void;
 
 const subscriptions: Array<

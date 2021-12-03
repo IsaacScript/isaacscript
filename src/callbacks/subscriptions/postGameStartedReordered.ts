@@ -1,4 +1,3 @@
-/** @internal */
 export type PostGameStartedReorderedCallbackType = (
   isContinued: boolean,
 ) => void;

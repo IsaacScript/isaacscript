@@ -1,4 +1,3 @@
-/** @internal */
 export type PostPickupCollectCallbackType = (
   pickup: EntityPickup,
   player: EntityPlayer,

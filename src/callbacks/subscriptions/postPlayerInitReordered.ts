@@ -1,4 +1,3 @@
-/** @internal */
 export type PostPlayerInitReorderedCallbackType = (
   player: EntityPlayer,
 ) => void;

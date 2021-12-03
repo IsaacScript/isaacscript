@@ -1,4 +1,3 @@
-/** @internal */
 export type PostTransformationCallbackType = (
   player: EntityPlayer,
   playerForm: PlayerForm,

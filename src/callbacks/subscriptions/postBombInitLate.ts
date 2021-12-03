@@ -1,4 +1,3 @@
-/** @internal */
 export type PostBombInitLateCallbackType = (bomb: EntityBomb) => void;
 
 const subscriptions: Array<

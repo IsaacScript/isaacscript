@@ -1,4 +1,3 @@
-/** @internal */
 import { PickingUpItem } from "../../types/PickingUpItem";
 
 export type PostItemPickupCallbackType = (

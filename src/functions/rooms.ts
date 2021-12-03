@@ -30,16 +30,9 @@ export function changeRoom(roomGridIndex: int): void {
 }
 
 export function getAllRoomGridIndexes(): int[] {
-  const game = Game();
-  const level = game.GetLevel();
-  const rooms = level.GetRooms();
-
   const allRoomGridIndexes: int[] = [];
-  for (let i = 0; i < rooms.Size; i++) {
-    const roomDesc = rooms.Get(i);
-    if (roomDesc !== undefined) {
-      allRoomGridIndexes.push(roomDesc.SafeGridIndex);
-    }
+  for (const roomDesc of getRooms()) {
+    allRoomGridIndexes.push(roomDesc.SafeGridIndex);
   }
 
   return allRoomGridIndexes;
@@ -153,19 +146,10 @@ export function getRoomSafeGridIndex(): int {
  * This function only searches through rooms in the current dimension.
  */
 export function getRoomGridIndexesForType(roomType: RoomType): int[] {
-  const game = Game();
-  const level = game.GetLevel();
-
-  // We do not use the "GetRooms()" method since it returns extra-dimensional rooms
   const roomGridIndexes: int[] = [];
-  for (let i = 0; i <= MAX_ROOM_INDEX; i++) {
-    const room = level.GetRoomByIdx(i);
-    if (
-      room !== undefined &&
-      room.Data !== undefined &&
-      room.Data.Type === roomType
-    ) {
-      roomGridIndexes.push(room.SafeGridIndex);
+  for (const roomDesc of getRooms()) {
+    if (roomDesc.Data !== undefined && roomDesc.Data.Type === roomType) {
+      roomGridIndexes.push(roomDesc.SafeGridIndex);
     }
   }
 
@@ -264,6 +248,42 @@ export function getRoomVisitedCount(): int {
   const roomDesc = level.GetCurrentRoomDesc();
 
   return roomDesc.VisitedCount;
+}
+
+/**
+ * Helper function to get the room descriptor for every room on the level. Uses the
+ * `Level.GetRooms()` method to accomplish this.
+ *
+ * @param includeExtraDimensionalRooms Optional. On some floors (e.g. Downpour 2, Mines 2),
+ * extra-dimensional rooms are automatically be generated and can be seen when you iterate over the
+ * `RoomList`. False by default.
+ */
+export function getRooms(
+  includeExtraDimensionalRooms = false,
+): RoomDescriptor[] {
+  const game = Game();
+  const level = game.GetLevel();
+  const roomList = level.GetRooms();
+
+  const rooms: RoomDescriptor[] = [];
+
+  if (includeExtraDimensionalRooms) {
+    for (let i = 0; i < roomList.Size; i++) {
+      const roomDesc = roomList.Get(i);
+      if (roomDesc !== undefined) {
+        rooms.push(roomDesc);
+      }
+    }
+  } else {
+    for (let i = 0; i <= MAX_ROOM_INDEX; i++) {
+      const roomDesc = level.GetRoomByIdx(i);
+      if (roomDesc !== undefined) {
+        rooms.push(roomDesc);
+      }
+    }
+  }
+
+  return rooms;
 }
 
 /**
@@ -443,23 +463,17 @@ export function inStartingRoom(): boolean {
 /**
  * Helper function to loop through every room on the floor and see if it has been cleared.
  *
+ * This function will only check rooms in the current dimension.
+ *
  * @param onlyCheckRoomTypes Optional. A whitelist of room types. If specified, room types not in
  * the array will be ignored. If not specified, then all rooms will be checked. Undefined by
  * default.
  */
 export function isAllRoomsClear(onlyCheckRoomTypes?: RoomType[]): boolean {
-  const game = Game();
-  const level = game.GetLevel();
-  const rooms = level.GetRooms();
   const roomTypeWhitelist =
     onlyCheckRoomTypes === undefined ? null : new Set(onlyCheckRoomTypes);
 
-  for (let i = 0; i < rooms.Size; i++) {
-    const roomDesc = rooms.Get(i);
-    if (roomDesc === undefined) {
-      continue;
-    }
-
+  for (const roomDesc of getRooms()) {
     const roomData = roomDesc.Data;
     if (roomData === undefined) {
       continue;
