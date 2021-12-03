@@ -49,6 +49,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/random.ts" \
   --entryPoints "$DIR/src/functions/revive.ts" \
   --entryPoints "$DIR/src/functions/rooms.ts" \
+  --entryPoints "$DIR/src/functions/seeds.ts" \
   --entryPoints "$DIR/src/functions/spawnCollectible.ts" \
   --entryPoints "$DIR/src/functions/sprite.ts" \
   --entryPoints "$DIR/src/functions/stage.ts" \
