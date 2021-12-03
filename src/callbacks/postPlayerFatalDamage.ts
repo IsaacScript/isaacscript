@@ -1,4 +1,8 @@
-import { getPlayerNumAllHearts, hasLostCurse } from "../functions/player";
+import {
+  getPlayerAvailableHeartSlots,
+  getPlayerNumAllHearts,
+  hasLostCurse,
+} from "../functions/player";
 import { willPlayerRevive } from "../functions/revive";
 import { ModUpgraded } from "../types/ModUpgraded";
 import {
