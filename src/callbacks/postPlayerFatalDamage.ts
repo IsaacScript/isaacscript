@@ -69,6 +69,15 @@ function damageIsFatal(player: EntityPlayer, damageAmount: int) {
     return false;
   }
 
+  // This will not be fatal damage if the player has Heartbreak and two slots open for broken hearts
+  const playerAvailableHeartSlots = getPlayerAvailableHeartSlots(player);
+  if (
+    player.HasCollectible(CollectibleType.COLLECTIBLE_HEARTBREAK) &&
+    playerAvailableHeartSlots >= 2
+  ) {
+    return false;
+  }
+
   // Furthermore, this will not be fatal damage if we have two different kinds of hearts
   // e.g. a bomb explosion deals 2 damage,
   // but if the player has one half soul heart and one half red heart,

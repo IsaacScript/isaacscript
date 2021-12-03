@@ -2,6 +2,7 @@ import {
   CHARACTERS_WITH_NO_RED_HEARTS,
   CHARACTERS_WITH_NO_SOUL_HEARTS,
   LOST_STYLE_PLAYER_TYPES,
+  MAX_PLAYER_HEART_CONTAINERS,
 } from "../constants";
 import { HealthType } from "../types/HealthType";
 import { getKBitOfN, getNumBitsOfN } from "./bitwise";
@@ -176,6 +177,12 @@ export function getDeathAnimationName(player: EntityPlayer): string {
   return "Death";
 }
 
+export function getFinalPlayer(): EntityPlayer {
+  const players = getPlayers();
+
+  return players[players.length - 1];
+}
+
 /**
  * Helper function that returns the type of the rightmost heart, not including golden hearts since
  * they can't be damaged directly.
@@ -256,10 +263,38 @@ export function getNewestPlayer(): EntityPlayer {
   return newestPlayer;
 }
 
-export function getFinalPlayer(): EntityPlayer {
-  const players = getPlayers();
+/**
+ * Returns the number of slots that the player has remaining for heart containers, accounting for
+ * broken hearts. For example, if the player is Judas and has 1 red heart containers and 2 full soul
+ * hearts and 3 broken hearts, then this function would return 6 (i.e. 12 - 1 - 2 - 3).
+ */
+export function getPlayerAvailableHeartSlots(player: EntityPlayer): int {
+  const effectiveMaxHearts = player.GetEffectiveMaxHearts();
+  const normalAndBoneHeartContainers = effectiveMaxHearts / 2;
+  const soulHearts = player.GetSoulHearts();
+  const soulHeartContainers = math.ceil(soulHearts / 2);
+  const totalHeartContainers =
+    normalAndBoneHeartContainers + soulHeartContainers;
+  const brokenHearts = player.GetBrokenHearts();
 
-  return players[players.length - 1];
+  return totalHeartContainers - brokenHearts;
+}
+
+/**
+ * Returns the maximum heart containers that the provided character can have. Normally, this is 12,
+ * but with Keeper it is 3, with Tainted Keeper it is 2. Does not account for Birthright or Mother's
+ * Kiss; use the `getPlayerMaxHeartContainers()` function for that.
+ */
+export function getCharacterMaxHeartContainers(character: PlayerType): int {
+  if (character === PlayerType.PLAYER_KEEPER) {
+    return 3;
+  }
+
+  if (character === PlayerType.PLAYER_KEEPER_B) {
+    return 2;
+  }
+
+  return 12;
 }
 
 /**
@@ -310,53 +345,6 @@ export function getPlayerFromIndex(
   }
 
   return undefined;
-}
-
-/**
- * This function always excludes players with a non-undefined parent, since they are not real
- * players. (e.g. the Strawman Keeper)
- *
- * @param performExclusions Whether or not to exclude characters that are not directly controlled by
- * the player (i.e. Esau & Tainted Soul). False by default.
- */
-export function getPlayers(performExclusions = false): EntityPlayer[] {
-  const game = Game();
-
-  const players: EntityPlayer[] = [];
-  for (let i = 0; i < game.GetNumPlayers(); i++) {
-    const player = Isaac.GetPlayer(i);
-    if (player === undefined) {
-      continue;
-    }
-
-    if (isChildPlayer(player)) {
-      continue;
-    }
-
-    // BWe might only want to make a list of players that are fully-functioning and controlled by
-    // humans
-    // Thus, we need to exclude certain characters
-    const character = player.GetPlayerType();
-    if (performExclusions && EXCLUDED_CHARACTERS.has(character)) {
-      continue;
-    }
-
-    players.push(player);
-  }
-
-  return players;
-}
-
-export function getPlayersOfType(playerType: PlayerType): EntityPlayer[] {
-  const players: EntityPlayer[] = [];
-  for (const player of getPlayers()) {
-    const character = player.GetPlayerType();
-    if (character === playerType) {
-      players.push(player);
-    }
-  }
-
-  return players;
 }
 
 /**
@@ -420,6 +408,34 @@ export function getPlayerIndexVanilla(
 }
 
 /**
+ * Returns the maximum heart containers that the provided player can have. Normally, this is 12, but
+ * it can change depending on the character (e.g. Keeper) and other things (e.g. Mother's Kiss).
+ * Does not account for Broken Hearts; use the `getPlayerAvailableHeartSlots()` function for that.
+ */
+export function getPlayerMaxHeartContainers(player: EntityPlayer): int {
+  const character = player.GetPlayerType();
+  let maxHeartContainers = getCharacterMaxHeartContainers(character);
+
+  if (
+    character === PlayerType.PLAYER_MAGDALENE &&
+    player.HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
+  ) {
+    maxHeartContainers += 6;
+  }
+
+  const numMothersKisses = player.GetTrinketMultiplier(
+    TrinketType.TRINKET_MOTHERS_KISS,
+  );
+  maxHeartContainers += numMothersKisses;
+
+  if (maxHeartContainers > MAX_PLAYER_HEART_CONTAINERS) {
+    maxHeartContainers = MAX_PLAYER_HEART_CONTAINERS;
+  }
+
+  return maxHeartContainers;
+}
+
+/**
  * Returns the combined value of all of the player's red hearts, soul/black hearts, and bone hearts.
  * This is equivalent to the number of hits that the player can currently take.
  */
@@ -430,6 +446,53 @@ export function getPlayerNumAllHearts(player: EntityPlayer): int {
   const eternalHearts = player.GetEternalHearts();
 
   return hearts + soulHearts + boneHearts + eternalHearts;
+}
+
+/**
+ * This function always excludes players with a non-undefined parent, since they are not real
+ * players. (e.g. the Strawman Keeper)
+ *
+ * @param performExclusions Whether or not to exclude characters that are not directly controlled by
+ * the player (i.e. Esau & Tainted Soul). False by default.
+ */
+export function getPlayers(performExclusions = false): EntityPlayer[] {
+  const game = Game();
+
+  const players: EntityPlayer[] = [];
+  for (let i = 0; i < game.GetNumPlayers(); i++) {
+    const player = Isaac.GetPlayer(i);
+    if (player === undefined) {
+      continue;
+    }
+
+    if (isChildPlayer(player)) {
+      continue;
+    }
+
+    // BWe might only want to make a list of players that are fully-functioning and controlled by
+    // humans
+    // Thus, we need to exclude certain characters
+    const character = player.GetPlayerType();
+    if (performExclusions && EXCLUDED_CHARACTERS.has(character)) {
+      continue;
+    }
+
+    players.push(player);
+  }
+
+  return players;
+}
+
+export function getPlayersOfType(playerType: PlayerType): EntityPlayer[] {
+  const players: EntityPlayer[] = [];
+  for (const player of getPlayers()) {
+    const character = player.GetPlayerType();
+    if (character === playerType) {
+      players.push(player);
+    }
+  }
+
+  return players;
 }
 
 /**
