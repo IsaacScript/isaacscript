@@ -534,6 +534,11 @@ declare interface EntityPlayer extends Entity {
   /** This returns the number of blood charges when called on Tainted Bethany, 0 otherwise. */
   GetEffectiveBloodCharge(): int;
 
+  /**
+   * Returns the amount of red hearts the player can have in their normal heart containers and bone
+   * heart containers. 1 unit is half a red heart. For example, if you have 3 red heart containers
+   * and 1 bone heart container, then this function would return 8 (i.e. 6 + 2).
+   */
   GetEffectiveMaxHearts(): int;
 
   /** This returns the number of soul charges when called on Bethany, 0 otherwise. */
