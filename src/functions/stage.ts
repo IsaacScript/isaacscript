@@ -1,5 +1,10 @@
 import { ensureAllCases } from "./util";
 
+/**
+ * Helper function to account for Repentance floors being offset by 1. For example, Downpour 2 is
+ * the third level of the run, but the game considers it to have a stage of 2. This function will
+ * consider Downpour 2 to have a stage of 3.
+ */
 export function getEffectiveStage(): int {
   const game = Game();
   const level = game.GetLevel();
@@ -10,6 +15,22 @@ export function getEffectiveStage(): int {
   }
 
   return stage;
+}
+
+/** Helper function to get the current stage. */
+export function getStage(): LevelStage {
+  const game = Game();
+  const level = game.GetLevel();
+
+  return level.GetStage();
+}
+
+/** Helper function to get the current stage. */
+export function getStageType(): StageType {
+  const game = Game();
+  const level = game.GetLevel();
+
+  return level.GetStageType();
 }
 
 /** Helper function to directly warp to a specific stage using the "stage" console command. */
