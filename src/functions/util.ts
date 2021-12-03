@@ -1,8 +1,21 @@
 const HEX_STRING_LENGTH = 6;
 
 /**
- * Using a Set constructor to copy a Set does not seem to work properly, so this helper function is
- * used instead.
+ * Using a Map constructor to copy a Map does not seem to work properly, so use this helper function
+ * instead.
+ */
+export function copyMap<K, V>(oldMap: Map<K, V>): Map<K, V> {
+  const newMap = new Map<K, V>();
+  for (const [key, value] of oldMap.entries()) {
+    newMap.set(key, value);
+  }
+
+  return newMap;
+}
+
+/**
+ * Using a Set constructor to copy a Set does not seem to work properly, so use this helper function
+ * instead.
  */
 export function copySet<T>(oldSet: Set<T>): Set<T> {
   const newSet = new Set<T>();
