@@ -269,6 +269,7 @@ export function getNewestPlayer(): EntityPlayer {
  * hearts and 3 broken hearts, then this function would return 6 (i.e. 12 - 1 - 2 - 3).
  */
 export function getPlayerAvailableHeartSlots(player: EntityPlayer): int {
+  const maxHeartContainers = getPlayerMaxHeartContainers(player);
   const effectiveMaxHearts = player.GetEffectiveMaxHearts();
   const normalAndBoneHeartContainers = effectiveMaxHearts / 2;
   const soulHearts = player.GetSoulHearts();
@@ -276,8 +277,9 @@ export function getPlayerAvailableHeartSlots(player: EntityPlayer): int {
   const totalHeartContainers =
     normalAndBoneHeartContainers + soulHeartContainers;
   const brokenHearts = player.GetBrokenHearts();
+  const totalOccupiedHeartSlots = totalHeartContainers + brokenHearts;
 
-  return totalHeartContainers - brokenHearts;
+  return maxHeartContainers - totalOccupiedHeartSlots;
 }
 
 /**
