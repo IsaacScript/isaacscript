@@ -25,7 +25,7 @@ export function getStage(): LevelStage {
   return level.GetStage();
 }
 
-/** Helper function to get the current stage. */
+/** Helper function to get the current stage type. */
 export function getStageType(): StageType {
   const game = Game();
   const level = game.GetLevel();
