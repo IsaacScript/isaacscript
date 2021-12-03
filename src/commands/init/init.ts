@@ -46,7 +46,7 @@ export async function init(argv: Record<string, unknown>): Promise<void> {
 }
 
 function getVSCodeCommand() {
-  for (const VSCodeCommand of ["code", "codium", "code-oss"]) {
+  for (const VSCodeCommand of ["code", "codium", "code-oss", "code-insiders"]) {
     if (commandExists.sync(VSCodeCommand)) {
       return VSCodeCommand;
     }
