@@ -42,6 +42,7 @@
         "getmetatable",
         "GIGA",
         "Gigante",
+        "GREEDMODE",
         "GRIDCOLL",
         "gsub",
         "guppys",
@@ -162,6 +163,7 @@
         "Vasculitis",
         "VURP",
         "WOODENCHEST",
+        "WOTL",
         "zamiell",
         "Проклятие",
         "Тьмы"

@@ -1,3 +1,5 @@
+import { ensureAllCases } from "./util";
+
 export function getEffectiveStage(): int {
   const game = Game();
   const level = game.GetLevel();
@@ -8,6 +10,13 @@ export function getEffectiveStage(): int {
   }
 
   return stage;
+}
+
+/** Helper function to directly warp to a specific stage using the "stage" console command. */
+export function goToStage(stage: LevelStage, stageType: StageType): void {
+  const stageTypeLetterSuffix = stageTypeToLetter(stageType);
+  const command = `stage ${stage}${stageTypeLetterSuffix}`;
+  Isaac.ExecuteCommand(command);
 }
 
 export function onCathedral(): boolean {
@@ -76,4 +85,51 @@ export function onSheol(): boolean {
   const stageType = level.GetStageType();
 
   return stage === 10 && stageType === 0;
+}
+
+/**
+ * Helper function to convert a numerical `StageType` into the letter suffix supplied to the "stage"
+ * console command. For example, `StageType.STAGETYPE_REPENTANCE` is the stage type for Downpour,
+ * and the console command to go to Downpour is "stage 1c", so this function converts
+ * `StageType.STAGETYPE_REPENTANCE` to "c".
+ */
+export function stageTypeToLetter(stageType: StageType): string {
+  switch (stageType) {
+    // 0
+    case StageType.STAGETYPE_ORIGINAL: {
+      // e.g. To go to Basement 2, the command is simply "stage 2"
+      return "";
+    }
+
+    // 1
+    case StageType.STAGETYPE_WOTL: {
+      return "a";
+    }
+
+    // 2
+    case StageType.STAGETYPE_AFTERBIRTH: {
+      return "b";
+    }
+
+    // 3
+    case StageType.STAGETYPE_GREEDMODE: {
+      // There is no corresponding suffix
+      return "";
+    }
+
+    // 4
+    case StageType.STAGETYPE_REPENTANCE: {
+      return "c";
+    }
+
+    // 5
+    case StageType.STAGETYPE_REPENTANCE_B: {
+      return "d";
+    }
+
+    default: {
+      ensureAllCases(stageType);
+      return "";
+    }
+  }
 }
