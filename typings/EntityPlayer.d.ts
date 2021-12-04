@@ -772,13 +772,18 @@ declare interface EntityPlayer extends Entity {
   HasTimedItem(): boolean;
 
   /**
+   * This method will not work properly for golden trinkets, so you should almost always use
+   * `EntityPlayer.GetTrinketMultiplier` instead. If you want to check to see if the player is
+   * specifically holding a trinket, use the `isPlayerHoldingTrinket()` helper function.
+   *
    * @param trinketType
    * @param ignoreModifiers If set to true, only counts trinkets the player actually holds and
    * ignores effects granted by other items. Default is false.
    */
   HasTrinket(
     trinketType: TrinketType | int,
-    ignoreModifiers?: boolean,
+    ignoreModifiers: boolean,
+    fakeArg: never,
   ): boolean;
 
   HasWeaponType(weaponType: WeaponType): boolean;
