@@ -46,6 +46,10 @@ function postPlayerUpdateReorderedPlayer(player: EntityPlayer) {
 
   if (player.IsItemQueueEmpty()) {
     queueEmpty(player, pickingUpItem);
+    // If a player enters a room with a trinket next to the entrance, the player will pick up the
+    // trinket, but it will not become queued (it will be deposited into their inventory
+    // immediately)
+    // Since we don't know what type of item the player is holding, don't account for this bug
   } else {
     queueNotEmpty(player, pickingUpItem);
   }
@@ -64,11 +68,18 @@ function queueEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
 
 function queueNotEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
   const queuedItem = player.QueuedItem.Item;
+  if (queuedItem === undefined) {
+    // This should never happen, since "player.IsItemQueueEmpty()" returned true
+    return;
+  }
 
-  if (queuedItem !== undefined && queuedItem.ID !== pickingUpItem.id) {
+  if (
+    queuedItem.Type !== pickingUpItem.type ||
+    queuedItem.ID !== pickingUpItem.id
+  ) {
     // Record which item we are picking up
-    pickingUpItem.id = queuedItem.ID;
     pickingUpItem.type = queuedItem.Type;
+    pickingUpItem.id = queuedItem.ID;
 
     preItemPickupFire(player, pickingUpItem);
   }

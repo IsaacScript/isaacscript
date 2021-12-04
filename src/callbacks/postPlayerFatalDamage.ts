@@ -41,6 +41,11 @@ function entityTakeDmgPlayer(
     return undefined;
   }
 
+  // This callback should not trigger for co-op babies or the ghost granted from Found Soul
+  if (player.Variant !== PlayerVariant.PLAYER) {
+    return undefined;
+  }
+
   // If we have a revival item, this will not be fatal damage
   if (willPlayerRevive(player)) {
     return undefined;
