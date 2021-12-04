@@ -2,6 +2,7 @@ import {
   getPlayerAvailableHeartSlots,
   getPlayerNumAllHearts,
   hasLostCurse,
+  isChildPlayer,
 } from "../functions/player";
 import { willPlayerRevive } from "../functions/revive";
 import { ModUpgraded } from "../types/ModUpgraded";
@@ -41,8 +42,14 @@ function entityTakeDmgPlayer(
     return undefined;
   }
 
-  // This callback should not trigger for co-op babies or the ghost granted from Found Soul
+  // This callback should not trigger for co-op babies
   if (player.Variant !== PlayerVariant.PLAYER) {
+    return undefined;
+  }
+
+  // This callback should not trigger for the Strawman Keeper and other players that are "child"
+  // players
+  if (isChildPlayer(player)) {
     return undefined;
   }
 
