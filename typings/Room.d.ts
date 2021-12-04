@@ -92,6 +92,13 @@ declare interface Room {
   GetRandomPosition(margin: float): Vector;
   GetRandomTileIndex(seed: int): int;
   GetRedHeartDamage(): boolean;
+
+  /**
+   * Returns the current render mode, which can be used to render entities differently depending on
+   * the context (i.e. custom water reflections).
+   */
+  GetRenderMode(): RenderMode;
+
   GetRenderScrollOffset(): Readonly<Vector>;
   GetRenderSurfaceTopLeft(): Readonly<Vector>;
   GetRoomConfigStage(): int;

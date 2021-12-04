@@ -484,6 +484,8 @@ declare interface EntityPlayer extends Entity {
   /** This gets Tainted Bethany's blood charges. */
   GetBloodCharge(): int;
 
+  GetBodyColor(): SkinColor;
+
   /**
    * There is no separate BombFlags enum, so bombs use tear flags.
    * Be aware that this really takes a BitSet128 instead of an integer.
@@ -551,6 +553,7 @@ declare interface EntityPlayer extends Entity {
   GetFlyingOffset(): Vector;
   GetGoldenHearts(): int;
   GetGreedDonationBreakChance(): float;
+  GetHeadColor(): SkinColor;
   GetHeadDirection(): Direction;
   GetHeartLimit(): int;
 
