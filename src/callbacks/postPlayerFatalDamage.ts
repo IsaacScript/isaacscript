@@ -1,8 +1,11 @@
+import { saveDataManager } from "../features/saveDataManager/exports";
 import {
   getPlayerAvailableHeartSlots,
+  getPlayerIndex,
   getPlayerNumAllHearts,
   hasLostCurse,
   isChildPlayer,
+  PlayerIndex,
 } from "../functions/player";
 import { willPlayerRevive } from "../functions/revive";
 import { ModUpgraded } from "../types/ModUpgraded";
@@ -11,8 +14,17 @@ import {
   postPlayerFatalDamageHasSubscriptions,
 } from "./subscriptions/postPlayerFatalDamage";
 
+const v = {
+  run: {
+    /** Needed to detect if Glass Cannon will kill the player or not. */
+    playerLastDamageFrame: new Map<PlayerIndex, int>(),
+  },
+};
+
 /** @internal */
 export function postPlayerFatalDamageCallbackInit(mod: ModUpgraded): void {
+  saveDataManager("postPlayerFatalDamage", v);
+
   mod.AddCallback(
     ModCallbacks.MC_ENTITY_TAKE_DMG,
     entityTakeDmgPlayer,
@@ -53,13 +65,23 @@ function entityTakeDmgPlayer(
     return undefined;
   }
 
+  const game = Game();
+  const gameFrameCount = game.GetFrameCount();
+  const playerIndex = getPlayerIndex(player);
+
+  const lastDamageFrame = v.run.playerLastDamageFrame.get(playerIndex);
+  v.run.playerLastDamageFrame.set(playerIndex, gameFrameCount);
+
   // If we have a revival item, this will not be fatal damage
   if (willPlayerRevive(player)) {
     return undefined;
   }
 
   // If we are the "Lost Curse" form from touching a white fire, all damage will be fatal
-  if (!damageIsFatal(player, damageAmount) && !hasLostCurse(player)) {
+  if (
+    !damageIsFatal(player, damageAmount, lastDamageFrame) &&
+    !hasLostCurse(player)
+  ) {
     return undefined;
   }
 
@@ -72,7 +94,14 @@ function entityTakeDmgPlayer(
 }
 
 /** Uses the player's current health to determine if incoming damage will be fatal. */
-function damageIsFatal(player: EntityPlayer, damageAmount: int) {
+function damageIsFatal(
+  player: EntityPlayer,
+  damageAmount: int,
+  lastDamageFrame: int | undefined,
+) {
+  const game = Game();
+  const gameFrameCount = game.GetFrameCount();
+
   // First, handle the special case of Tainted Jacob's Lost Form
   // In this case, he may have plenty of health left, but will still die in one hit to anything
   const character = player.GetPlayerType();
@@ -90,6 +119,15 @@ function damageIsFatal(player: EntityPlayer, damageAmount: int) {
   if (
     player.HasCollectible(CollectibleType.COLLECTIBLE_HEARTBREAK) &&
     playerAvailableHeartSlots >= 2
+  ) {
+    return false;
+  }
+
+  // Furthermore, this will not be fatal damage if we have Glass Cannon and this is the second time
+  // we are taking damage on the same frame
+  if (
+    player.HasCollectible(CollectibleType.COLLECTIBLE_BROKEN_GLASS_CANNON) &&
+    gameFrameCount === lastDamageFrame
   ) {
     return false;
   }
