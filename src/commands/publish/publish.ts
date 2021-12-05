@@ -96,7 +96,7 @@ function updateDeps() {
     );
   }
 
-  execShell(UPDATE_SCRIPT_NAME);
+  execShell("bash", [UPDATE_SCRIPT_NAME]);
 }
 
 function getVersionFromPackageJSON() {
