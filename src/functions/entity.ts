@@ -400,6 +400,16 @@ export function getTears(
 }
 
 /**
+ * Helper function to measure an entity's velocity to see if it is moving.
+ *
+ * @param entity The entity whose velocity to measure.
+ * @param threshold Optional. The threshold from 0 to consider to be moving. 0.01 by default.
+ */
+export function isEntityMoving(entity: Entity, threshold = 0.01): boolean {
+  return entity.Velocity.Length() >= threshold;
+}
+
+/**
  * Helper function to remove all of the entities in the supplied array.
  *
  * @param entities The array of entities to remove.
