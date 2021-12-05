@@ -89,6 +89,17 @@ export const EGGY_STATE_FRAME_OF_FINAL_SPIDER = 45;
  */
 export const EMPTY_PNG_PATH = "gfx/none.png";
 
+export const FAMILIARS_THAT_SHOOT_PLAYER_TEARS = new Set([
+  FamiliarVariant.SCISSORS,
+  FamiliarVariant.INCUBUS,
+  FamiliarVariant.FATES_REWARD,
+  FamiliarVariant.SPRINKLER,
+  FamiliarVariant.LOST_SOUL,
+  FamiliarVariant.TWISTED_BABY,
+  FamiliarVariant.BLOOD_BABY,
+  FamiliarVariant.DECAP_ATTACK,
+]);
+
 /** As of Repentance, the final stage is floor 13 (which is the Home floor). */
 export const FINAL_STAGE = LevelStage.NUM_STAGES - 1;
 
