@@ -24,6 +24,7 @@ import { postSacrificeCallbackInit } from "./callbacks/postSacrifice";
 import { postSlotInitUpdateCallbacksInit } from "./callbacks/postSlotInitUpdate";
 import { postSlotRenderBrokenCallbacksInit } from "./callbacks/postSlotRenderBroken";
 import { postTearInitLateCallbackInit } from "./callbacks/postTearInitLate";
+import { postTearInitVeryLateCallbackInit } from "./callbacks/postTearInitVeryLate";
 import { postTransformationCallbackInit } from "./callbacks/postTransformation";
 import { preNewLevelCallbackInit } from "./callbacks/preNewLevel";
 import { reorderedCallbacksInit } from "./callbacks/reorderedCallbacks";
@@ -92,6 +93,7 @@ function initCustomCallbacks(mod: ModUpgraded) {
   postPlayerReorderedCallbacksInit(mod);
   postPlayerInitLateCallbackInit(mod); // 1
   postTearInitLateCallbackInit(mod); // 2
+  postTearInitVeryLateCallbackInit(mod); // 2
   postFamiliarInitLateCallbackInit(mod); // 3
   postBombInitLateCallbackInit(mod); // 4
   postPickupInitLateCallbackInit(mod); // 5
