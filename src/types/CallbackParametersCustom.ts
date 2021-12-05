@@ -35,6 +35,7 @@ import { PostSlotInitCallbackType } from "../callbacks/subscriptions/postSlotIni
 import { PostSlotRenderCallbackType } from "../callbacks/subscriptions/postSlotRender";
 import { PostSlotUpdateCallbackType } from "../callbacks/subscriptions/postSlotUpdate";
 import { PostTearInitLateCallbackType } from "../callbacks/subscriptions/postTearInitLate";
+import { PostTearInitVeryLateCallbackType } from "../callbacks/subscriptions/postTearInitVeryLate";
 import { PostTransformationCallbackType } from "../callbacks/subscriptions/postTransformation";
 import { PreCustomReviveCallbackType } from "../callbacks/subscriptions/preCustomRevive";
 import { PreItemPickupCallbackType } from "../callbacks/subscriptions/preItemPickup";
@@ -82,6 +83,11 @@ export interface CallbackParametersCustom {
 
   [ModCallbacksCustom.MC_POST_TEAR_INIT_LATE]: [
     callback: PostTearInitLateCallbackType,
+    tearVariant?: TearVariant | int,
+  ];
+
+  [ModCallbacksCustom.MC_POST_TEAR_INIT_VERY_LATE]: [
+    callback: PostTearInitVeryLateCallbackType,
     tearVariant?: TearVariant | int,
   ];
 

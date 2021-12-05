@@ -35,6 +35,7 @@ import { postSlotInitRegister } from "../callbacks/subscriptions/postSlotInit";
 import { postSlotRenderRegister } from "../callbacks/subscriptions/postSlotRender";
 import { postSlotUpdateRegister } from "../callbacks/subscriptions/postSlotUpdate";
 import { postTearInitLateRegister } from "../callbacks/subscriptions/postTearInitLate";
+import { postTearInitVeryLateRegister } from "../callbacks/subscriptions/postTearInitVeryLate";
 import { postTransformationRegister } from "../callbacks/subscriptions/postTransformation";
 import { preCustomReviveRegister } from "../callbacks/subscriptions/preCustomRevive";
 import { preItemPickupRegister } from "../callbacks/subscriptions/preItemPickup";
@@ -111,6 +112,11 @@ export class ModUpgraded implements Mod {
     ...args: CallbackParametersCustom[T]
   ): void {
     const callbackRegisterFunction = getCallbackRegisterFunction(callbackID);
+    if (callbackRegisterFunction === undefined) {
+      error(
+        `Failed to find a callback registration function for custom callback: ${callbackID}`,
+      );
+    }
 
     // Calling this properly with generics is difficult
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -175,6 +181,10 @@ function getCallbackRegisterFunction(callbackID: ModCallbacksCustom) {
 
     case ModCallbacksCustom.MC_POST_TEAR_INIT_LATE: {
       return postTearInitLateRegister;
+    }
+
+    case ModCallbacksCustom.MC_POST_TEAR_INIT_VERY_LATE: {
+      return postTearInitVeryLateRegister;
     }
 
     case ModCallbacksCustom.MC_POST_FAMILIAR_INIT_LATE: {
