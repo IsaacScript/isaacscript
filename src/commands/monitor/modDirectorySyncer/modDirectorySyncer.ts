@@ -1,5 +1,3 @@
-/* eslint-disable import/no-unused-modules */
-
 import path from "path";
 import syncDirectory from "sync-directory";
 import { FILE_SYNCED_MESSAGE, MAIN_LUA } from "../../../constants";

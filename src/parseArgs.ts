@@ -21,6 +21,11 @@ export function parseArgs() {
             type: "number",
             choices: [1, 2, 3],
             description: "The save slot in-game that you use",
+          })
+          .option("crash-debug", {
+            alias: "c",
+            type: "boolean",
+            description: "Enable crash debugging",
           });
       },
     )
@@ -62,18 +67,18 @@ export function parseArgs() {
             type: "boolean",
             description: "skip incrementing the version number",
           })
-          .option("setversion", {
+          .option("set-version", {
             alias: "t",
             type: "string",
             description:
               "specify the version number instead of incrementing it",
           })
-          .option("dryrun", {
+          .option("dry-run", {
             alias: "d",
             type: "boolean",
             description: "skip invoking steamcmd",
           })
-          .option("onlyupload", {
+          .option("only-upload", {
             alias: "u",
             type: "boolean",
             description:

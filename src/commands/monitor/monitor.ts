@@ -37,7 +37,7 @@ export function monitor(argv: Record<string, unknown>, config: Config): void {
   spawnModDirectorySyncer(config);
 
   // Subprocess #3 - tstl --watch (to automatically convert TypeScript to Lua)
-  spawnTSTLWatcher();
+  spawnTSTLWatcher(argv);
 
   // Also, start constantly pinging the watcher mod
   setInterval(() => {
@@ -91,8 +91,17 @@ function spawnModDirectorySyncer(config: Config) {
   });
 }
 
-function spawnTSTLWatcher() {
+function spawnTSTLWatcher(argv: Record<string, unknown>) {
   const processDescription = "tstl";
+  const crashDebug = argv.crashDebug === true;
+
+  const tstlArgs = ["--watch", "--preserveWatchOutput"];
+  if (crashDebug) {
+    tstlArgs.push("--luaPlugins");
+    tstlArgs.push(
+      '\'{ "name": "./node_modules/isaacscript/src/plugins/addCrashDebugStatements.ts" }\'',
+    );
+  }
 
   let tstl: ChildProcessWithoutNullStreams;
   if (runningFromLocalPath()) {
@@ -105,12 +114,12 @@ function spawnTSTLWatcher() {
       "dist",
       "tstl.js",
     );
-    tstl = spawn("node", [tstlPath, "--watch", "--preserveWatchOutput"], {
+    tstl = spawn("node", [tstlPath, ...tstlArgs], {
       shell: true,
       cwd: CWD,
     });
   } else {
-    tstl = spawn("npx", ["tstl", "--watch", "--preserveWatchOutput"], {
+    tstl = spawn("npx", ["tstl", ...tstlArgs], {
       shell: true,
     });
   }

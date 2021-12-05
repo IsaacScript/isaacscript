@@ -24,9 +24,9 @@ const UPDATE_SCRIPT_NAME = "update.sh";
 
 export function publish(argv: Record<string, unknown>, config: Config): void {
   const skipVersionIncrement = argv.skip === true;
-  const setVersion = argv.setversion as string | undefined;
-  const dryRun = argv.dryrun === true;
-  const onlyUpload = argv.onlyupload === true;
+  const setVersion = argv.setVersion as string | undefined;
+  const dryRun = argv.dryRun === true;
+  const onlyUpload = argv.onlyUpload === true;
 
   const modTargetDirectoryName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
