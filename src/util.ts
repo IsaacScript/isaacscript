@@ -29,7 +29,7 @@ export function execExe(path: string, cwd = CWD): string {
 
 export function execShell(
   command: string,
-  args: string[],
+  args: string[] = [],
   allowFailure = false,
   cwd = CWD,
 ): [number | null, string] {

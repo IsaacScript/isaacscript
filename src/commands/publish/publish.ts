@@ -88,14 +88,7 @@ function startPublish(
 }
 
 function updateDeps() {
-  execShell("npx", [
-    "npm-check-updates",
-    "--upgrade",
-    "--packageFile",
-    "package.json",
-  ]);
-
-  console.log("NPM dependencies updated successfully.");
+  execShell("./update.sh");
 }
 
 function getVersionFromPackageJSON() {
