@@ -1,14 +1,12 @@
 declare interface TemporaryEffects {
   /**
-   * This method is currently bugged in v820. Do not use this method, as it will semi-reliably crash
-   * the game.
+   * This will only work properly with specific collectibles.
    *
    * @param collectibleType
    * @param addCostume Default is true.
    * @param count Default is 1.
    */
   AddCollectibleEffect(
-    fakeArg: never,
     collectibleType: CollectibleType | int,
     addCostume?: boolean,
     count?: int,
