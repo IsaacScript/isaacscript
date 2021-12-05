@@ -189,7 +189,7 @@ declare enum CoinSubType {
   COIN_GOLDEN = 7,
 }
 
-/** EntityType.ENTITY_PICKUP (5), For PickupVariant.PICKUP_KEY (30) */
+/** For EntityType.ENTITY_PICKUP (5), For PickupVariant.PICKUP_KEY (30) */
 declare enum KeySubType {
   KEY_NORMAL = 1,
   KEY_GOLDEN = 2,

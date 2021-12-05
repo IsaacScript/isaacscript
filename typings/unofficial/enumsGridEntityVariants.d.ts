@@ -26,14 +26,40 @@ declare const enum PoopGridEntityVariant {
   CHARMING = 11,
 }
 
-/** GridEntityType.GRID_TRAPDOOR (17) */
+/** For GridEntityType.GRID_TRAPDOOR (17) */
 declare const enum TrapdoorVariant {
   /** Trapdoors of non-zero variants will function equivalently to those of variant zero. */
   NORMAL = 0,
 }
 
-/** GridEntityType.GRID_STAIRS (18) */
+/**
+ * For GridEntityType.GRID_STAIRS (18)
+ *
+ * This is a copy of the `CrawlspaceVariant` enum. You can use either one. (There is not a good way
+ * to alias an enum.)
+ */
 declare const enum StairsVariant {
+  NORMAL = 0,
+  /** Found by throwing a Chaos Card at Great Gideon. */
+  GREAT_GIDEON = 1,
+  /** Found in shops when the player has the Member Card item. */
+  SECRET_SHOP = 2,
+  /** Found when using Genesis on a "final" floor. */
+  PASSAGE_TO_BEGINNING_OF_FLOOR = 3,
+  /**
+   * This variant is not used by the game.
+   * Any variant with a value of 4 or higher will not interact with the player.
+   */
+  NULL = 4,
+}
+
+/**
+ * For GridEntityType.GRID_STAIRS (18)
+ *
+ * This is a copy of the `StairsVariant` enum. You can use either one. (There is not a good way to
+ * alias an enum.)
+ */
+declare const enum CrawlspaceVariant {
   NORMAL = 0,
   /** Found by throwing a Chaos Card at Great Gideon. */
   GREAT_GIDEON = 1,

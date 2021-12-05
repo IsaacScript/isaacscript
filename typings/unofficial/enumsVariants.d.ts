@@ -701,7 +701,7 @@ declare const enum MegaSatanVariant {
   MEGA_SATAN_LEFT_HAND = 2,
 }
 
-/** EntityType.ENTITY_PITFALL (291) */
+/** For EntityType.ENTITY_PITFALL (291) */
 declare const enum PitfallVariant {
   PITFALL = 0,
   SUCTION_PITFALL = 1,
