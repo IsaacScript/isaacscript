@@ -54,6 +54,10 @@ But we don't have to suffer anymore. The `isaacscript` framework allows us to pr
 - The best mods serialize all state to disk so that saving and continuing a run results in a seamless experience. But getting this right is tricky.
 - Optionally leverage IsaacScript's build-in save data manager that allows for automatic resetting of variables and keeping mod-feature variables scoped as locally as possible.
 
+### <img src="/img/items/undefined.png" className="features-icon" /> Crash Debugging
+
+- Troubleshooting crashes is no longer a nightmare. Enable crash debugging and IsaacScript will tell you the exact line that the game crashed on.
+
 ### <img src="/img/items/bffs.png" className="features-icon" /> TypeScript
 
 Enjoy all the benefits of a strongly typed language over the shit-show that is Lua:
