@@ -112,6 +112,18 @@ When registering the callback, takes an optional second argument that will make 
 function postTearInitLate(tear: EntityTear): void {}
 ```
 
+### MC_POST_TEAR_INIT_VERY_LATE
+
+Fires on the second MC_POST_TEAR_UPDATE frame for each tear (i.e. frame 1).
+
+This callback is useful because Incubus tears are not distinguishable until the second frame.
+
+When registering the callback, takes an optional second argument that will make the callback only fire if the tear variant matches the `TearVariant` provided.
+
+```ts
+function postTearInitVeryLate(tear: EntityTear): void {}
+```
+
 ### MC_POST_FAMILIAR_INIT_LATE
 
 Fires on the first MC_FAMILIAR_UPDATE frame for each familiar.
