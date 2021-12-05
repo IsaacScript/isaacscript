@@ -28,6 +28,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Deep Copy Functions](modules/functions_deepCopy.html)
 - [Door Functions](modules/functions_doors.html)
 - [Entity Functions](modules/functions_entity.html)
+- [Familiar Functions](modules/functions_familiars.html)
 - [Flag Functions](modules/functions_flag.html)
 - [Grid Entity Functions](modules/functions_gridEntity.html)
 - [Input Functions](modules/functions_input.html)

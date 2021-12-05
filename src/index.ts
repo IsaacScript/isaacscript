@@ -37,6 +37,7 @@ export { deepCopy } from "./functions/deepCopy";
 export { deepCopyTests } from "./functions/deepCopyTests";
 export * from "./functions/doors";
 export * from "./functions/entity";
+export * from "./functions/familiars";
 export * from "./functions/flag";
 export * from "./functions/gridEntity";
 export * from "./functions/input";

@@ -32,6 +32,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/deepCopy.ts" \
   --entryPoints "$DIR/src/functions/doors.ts" \
   --entryPoints "$DIR/src/functions/entity.ts" \
+  --entryPoints "$DIR/src/functions/familiars.ts" \
   --entryPoints "$DIR/src/functions/flag.ts" \
   --entryPoints "$DIR/src/functions/gridEntity.ts" \
   --entryPoints "$DIR/src/functions/input.ts" \
