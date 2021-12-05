@@ -312,18 +312,27 @@ declare interface EntityPlayer extends Entity {
   ChangePlayerType(type: PlayerType): void;
 
   /**
-   * @param familiarVariant
-   * @param targetCount
-   * @param rng
-   * @param sourceItem The item this type of familiar was created by. Default is undefined.
-   * @param familiarSubType The subtype of the familiar to check (-1 matches any subtype). Default
-   * is -1.
+   * Call this in the PostPEffectUpdate callback to spawn the appropriate amount of familiars
+   * associated with a custom collectible.
+   *
+   * - If the target count specified is less than the current amount of familiars, it will spawn
+   * more until the target count is met.
+   * - If the target count specified is than the current amount of familiars, it will despawn
+   * familiars until the target count is met.
+   *
+   * @param familiarVariant In most cases, use the familiar variant for your custom familiar.
+   * @param targetCount In most cases, use the collectible count for the custom collectible.
+   * @param rng In most cases, use the RNG object returned from `EntityPlayer.GetCollectibleRNG()`.
+   * @param sourceItemConfigItem The ItemConfigItem that this familiar was created by. Default is
+   * undefined.
+   * @param familiarSubType The subtype of the familiar to check. -1 matches any subtype. Default is
+   * -1.
    */
   CheckFamiliar(
     familiarVariant: FamiliarVariant | int,
     targetCount: int,
     rng: RNG,
-    sourceItem?: ItemConfigItem,
+    sourceItemConfigItem?: ItemConfigItem,
     familiarSubType?: int,
   ): void;
 
