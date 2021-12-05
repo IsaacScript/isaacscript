@@ -91,10 +91,18 @@ export function anyPlayerHasTrinket(trinketType: TrinketType | int): boolean {
   return false;
 }
 
-export function anyPlayerIs(matchingCharacter: PlayerType): boolean {
+/**
+ * Helper function to determine if the given character is present.
+ *
+ * This function is variadic, meaning that you can supply as many characters as you want to check
+ * for. Returns true if any of the characters supplied are present.
+ */
+export function anyPlayerIs(...characters: PlayerType[]): boolean {
+  const characterSet = new Set(characters);
+
   for (const player of getPlayers()) {
     const character = player.GetPlayerType();
-    if (character === matchingCharacter) {
+    if (characterSet.has(character)) {
       return true;
     }
   }
