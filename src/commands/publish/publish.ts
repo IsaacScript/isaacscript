@@ -20,6 +20,8 @@ import {
 } from "../../util";
 import { compileAndCopy } from "../copy/copy";
 
+const UPDATE_SCRIPT_NAME = "update.sh";
+
 export function publish(argv: Record<string, unknown>, config: Config): void {
   const skipVersionIncrement = argv.skip === true;
   const setVersion = argv.setversion as string | undefined;
@@ -88,7 +90,13 @@ function startPublish(
 }
 
 function updateDeps() {
-  execShell("./update.sh");
+  if (!file.exists(UPDATE_SCRIPT_NAME)) {
+    error(
+      `The "${UPDATE_SCRIPT_NAME}" script does not exist in the current working directory.`,
+    );
+  }
+
+  execShell(UPDATE_SCRIPT_NAME);
 }
 
 function getVersionFromPackageJSON() {
