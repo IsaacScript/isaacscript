@@ -1,23 +1,17 @@
 import { GOLDEN_TRINKET_SHIFT } from "../constants";
-
-export interface TrinketSituation {
-  trinketTypeRemoved: TrinketType | int;
-  trinket1: TrinketType | int;
-  trinket2: TrinketType | int;
-  numSmeltedTrinkets: int;
-}
+import { TrinketSituation } from "../types/TrinketSituation";
 
 /**
- * Helper function to temporarily remove a trinket from the player. Use this in combination with the
- * `giveTrinketBack` function to take away and give back a trinket on the same frame. This function
- * correctly handles multiple trinket slots and ensures that all copies of the trinket are removed,
- * including smelted trinkets.
+ * Helper function to temporarily remove a specific kind of trinket from the player. Use this in
+ * combination with the `giveTrinketBack` function to take away and give back a trinket on the same
+ * frame. This function correctly handles multiple trinket slots and ensures that all copies of the
+ * trinket are removed, including smelted trinkets.
  *
  * Note that for simplicity, this function assumes that all smelted trinkets are non-golden.
  *
- * @returns Null if the player does not have the trinket, or TrinketSituation if they do.
+ * @returns Undefined if the player does not have the trinket, or TrinketSituation if they do.
  */
-export function temporarilyRemoveTrinkets(
+export function temporarilyRemoveTrinket(
   player: EntityPlayer,
   trinketType: TrinketType | int,
 ): TrinketSituation | undefined {
@@ -51,6 +45,42 @@ export function temporarilyRemoveTrinkets(
     trinket1,
     trinket2,
     numSmeltedTrinkets,
+  };
+}
+
+/**
+ * Helper function to temporarily removes a player's held trinkets, if any. This will not remove any
+ * smelted trinkets. Use this in combination with the `giveTrinketBack` function to take away and
+ * give back trinkets on the same frame.
+ *
+ * @returns Undefined if the player does not have any trinkets, or TrinketSituation if they do.
+ */
+export function temporarilyRemoveTrinkets(
+  player: EntityPlayer,
+): TrinketSituation | undefined {
+  const trinket1 = player.GetTrinket(0);
+  const trinket2 = player.GetTrinket(1);
+
+  if (
+    trinket1 === TrinketType.TRINKET_NULL &&
+    trinket2 === TrinketType.TRINKET_NULL
+  ) {
+    return undefined;
+  }
+
+  if (trinket1 !== TrinketType.TRINKET_NULL) {
+    player.TryRemoveTrinket(trinket1);
+  }
+
+  if (trinket2 !== TrinketType.TRINKET_NULL) {
+    player.TryRemoveTrinket(trinket2);
+  }
+
+  return {
+    trinketTypeRemoved: TrinketType.TRINKET_NULL,
+    trinket1,
+    trinket2,
+    numSmeltedTrinkets: 0,
   };
 }
 

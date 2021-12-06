@@ -89,4 +89,5 @@ export * from "./types/PickingUpItem";
 export * from "./types/PlayerHealth";
 export * from "./types/PocketItemDescription";
 export * from "./types/PocketItemType";
+export * from "./types/TrinketSituation";
 export * from "./upgradeMod";

@@ -1,6 +1,7 @@
 import { GOLDEN_TRINKET_SHIFT } from "../constants";
 import { TRINKET_DESCRIPTION_MAP } from "../maps/trinketDescriptionMap";
 import { TRINKET_NAME_MAP } from "../maps/trinketNameMap";
+import { giveTrinketsBack, temporarilyRemoveTrinkets } from "./trinketGive";
 
 export function getMaxTrinketID(): int {
   const itemConfig = Isaac.GetItemConfig();
@@ -139,4 +140,35 @@ export function hasOpenTrinketSlot(player: EntityPlayer): boolean {
 
 export function isGoldenTrinket(trinketType: TrinketType | int): boolean {
   return trinketType > GOLDEN_TRINKET_SHIFT;
+}
+
+/**
+ * Helper function to smelt a trinket. Before smelting, this function will automatically remove the
+ * trinkets that the player is holding, if any, and then give them back after the new trinket is
+ * smelted.
+ *
+ * @param player The player to smelt the trinkets to.
+ * @param trinketType The trinket type to smelt.
+ * @param numTrinkets Optional. If specified, will smelt the given number of trinkets. Use this to
+ * avoid calling this function multiple times. 1 by default.
+ */
+export function smeltTrinket(
+  player: EntityPlayer,
+  trinketType: TrinketType | int,
+  numTrinkets = 1,
+): void {
+  const trinketSituation = temporarilyRemoveTrinkets(player);
+
+  for (let i = 0; i < numTrinkets; i++) {
+    player.AddTrinket(trinketType);
+    player.UseActiveItem(
+      CollectibleType.COLLECTIBLE_SMELTER,
+      false,
+      false,
+      true,
+      false,
+    );
+  }
+
+  giveTrinketsBack(player, trinketSituation);
 }
