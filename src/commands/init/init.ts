@@ -21,28 +21,31 @@ export async function init(argv: Record<string, unknown>): Promise<void> {
   const projectName = path.basename(projectPath);
   await checkModTargetDirectory(modsDirectory, projectName);
   const saveSlot = await promptSaveSlot(argv);
+  const skipNPMInstall = argv.skipNpmInstall === true;
 
-  // Begin the creation of the new mod
-  createMod(projectName, projectPath, createNewDir, modsDirectory, saveSlot);
-  console.log(`Successfully created mod: ${chalk.green(projectName)}`);
+  await createMod(
+    projectName,
+    projectPath,
+    createNewDir,
+    modsDirectory,
+    saveSlot,
+    skipNPMInstall,
+  );
+  await openVSCode(projectPath, argv);
+  printFinishMessage(projectPath, projectName);
+}
 
+async function openVSCode(projectPath: string, argv: Record<string, unknown>) {
   const VSCodeCommand = getVSCodeCommand();
   if (VSCodeCommand === null) {
     console.log(
       'VSCode does not seem to be installed. (The "code" command is not in the path.) Skipping VSCode-related things.',
     );
-  } else {
-    installVSCodeExtensions(projectPath, VSCodeCommand);
-    await promptVSCode(projectPath, argv, VSCodeCommand);
+    return;
   }
 
-  // Finished
-  let commandsToType = "";
-  if (projectPath !== CWD) {
-    commandsToType += `"${chalk.green(`cd ${projectName}`)}" and `;
-  }
-  commandsToType += `"${chalk.green("npx isaacscript")}"`;
-  console.log(`Now, start IsaacScript by typing ${commandsToType}.`);
+  installVSCodeExtensions(projectPath, VSCodeCommand);
+  await promptVSCode(projectPath, argv, VSCodeCommand);
 }
 
 function getVSCodeCommand() {
@@ -53,4 +56,13 @@ function getVSCodeCommand() {
   }
 
   return null;
+}
+
+function printFinishMessage(projectPath: string, projectName: string) {
+  let commandsToType = "";
+  if (projectPath !== CWD) {
+    commandsToType += `"${chalk.green(`cd ${projectName}`)}" and `;
+  }
+  commandsToType += `"${chalk.green("npx isaacscript")}"`;
+  console.log(`Now, start IsaacScript by typing ${commandsToType}.`);
 }

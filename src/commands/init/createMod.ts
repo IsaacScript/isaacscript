@@ -1,4 +1,7 @@
+import chalk from "chalk";
+import commandExists from "command-exists";
 import path from "path";
+import prompts from "prompts";
 import * as configFile from "../../configFile";
 import {
   GITIGNORE,
@@ -16,15 +19,16 @@ import {
   TEMPLATES_STATIC_DIR,
 } from "../../constants";
 import * as file from "../../file";
-import { execShell, snakeKebabToCamel } from "../../util";
+import { error, execShell, snakeKebabToCamel } from "../../util";
 
-export function createMod(
+export async function createMod(
   projectName: string,
   projectPath: string,
   createNewDir: boolean,
   modsDirectory: string,
   saveSlot: number,
-): void {
+  skipNPMInstall: boolean,
+): Promise<void> {
   if (createNewDir) {
     file.makeDir(projectPath);
   }
@@ -36,8 +40,11 @@ export function createMod(
   makeSubdirectories(projectPath);
   copyStaticFiles(projectPath);
   copyDynamicFiles(projectName, projectPath, targetModDirectory);
+  await initGitRepository(projectPath);
   updateNodeModules(projectPath);
-  installNodeModules(projectPath);
+  installNodeModules(projectPath, skipNPMInstall);
+
+  console.log(`Successfully created mod: ${chalk.green(projectName)}`);
 }
 
 function makeSubdirectories(projectPath: string) {
@@ -145,6 +152,42 @@ function copyDynamicFiles(
   }
 }
 
+async function initGitRepository(projectPath: string) {
+  if (!commandExists.sync("git")) {
+    console.log(
+      'Git does not seem to be installed. (The "git" command is not in the path.) Skipping Git-related things.',
+    );
+    return;
+  }
+
+  const response = await prompts({
+    type: "text",
+    name: "remoteURL",
+    message: `Paste in the remote Git URL for your project.
+For example, if you have an SSH key, it would be something like: ${chalk.green(
+      "git@github.com:Alice/green-candle.git",
+    )}
+If you don't have an SSH key, it would be something like: ${chalk.green(
+      "https://github.com/Alice/green-candle.git",
+    )}
+If you don't want to initialize a Git repository for this project, then just press enter to skip.
+`,
+  });
+
+  if (typeof response.remoteURL !== "string") {
+    error("Error: The response was not a string.");
+  }
+  const remoteURL = response.remoteURL.trim();
+
+  if (remoteURL === "") {
+    return;
+  }
+
+  execShell("git", ["init"], false, projectPath);
+  execShell("git", ["branch", "-M", "main"], false, projectPath);
+  execShell("git", ["remote", "add", "origin", remoteURL], false, projectPath);
+}
+
 function updateNodeModules(projectPath: string) {
   console.log("Updating node modules...");
   execShell(
@@ -155,7 +198,11 @@ function updateNodeModules(projectPath: string) {
   );
 }
 
-function installNodeModules(projectPath: string) {
+function installNodeModules(projectPath: string, skipNPMInstall: boolean) {
+  if (skipNPMInstall) {
+    return;
+  }
+
   console.log("Installing node modules... (This can take a long time.)");
   execShell("npm", ["install"], false, projectPath);
 }
