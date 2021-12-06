@@ -23,8 +23,6 @@ More specifics are detailed below. **You do not need to know what all of these f
 
 This is the root directory of your project. It won't actually be called `project`; it will instead be named after your mod.
 
-If you want to track your project in [Git](https://git-scm.com/), this directory should be the root of the Git repository. (`isaacscript` does not automatically initialize a Git repository; you have to do that on your own with `git init` or `git clone`.)
-
 <br />
 
 ### `project/.github`

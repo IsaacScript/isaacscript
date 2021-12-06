@@ -77,7 +77,7 @@ VSCode is the recommended editor to use in conjunction with `isaacscript`, but f
 
 Close the administrative shell and start either:
 
-- a normal (non-administrative) Windows Command Prompt
+- a normal (non-administrative) Windows Command Prompt, or
 - a Git Bash shell (via `Start` --> `Git Bash`)
 
 Either one is fine, depending on what you like better.
