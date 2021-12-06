@@ -19,8 +19,8 @@ export function temporarilyRemoveTrinket(
     return undefined;
   }
 
-  const trinket1 = player.GetTrinket(0);
-  const trinket2 = player.GetTrinket(1);
+  const trinket1 = player.GetTrinket(TrinketSlot.SLOT_1);
+  const trinket2 = player.GetTrinket(TrinketSlot.SLOT_2);
 
   let numTrinkets = 0;
   while (player.HasTrinket(trinketType)) {
@@ -58,8 +58,8 @@ export function temporarilyRemoveTrinket(
 export function temporarilyRemoveTrinkets(
   player: EntityPlayer,
 ): TrinketSituation | undefined {
-  const trinket1 = player.GetTrinket(0);
-  const trinket2 = player.GetTrinket(1);
+  const trinket1 = player.GetTrinket(TrinketSlot.SLOT_1);
+  const trinket2 = player.GetTrinket(TrinketSlot.SLOT_2);
 
   if (
     trinket1 === TrinketType.TRINKET_NULL &&
@@ -99,8 +99,8 @@ export function giveTrinketsBack(
     return;
   }
 
-  const trinket1 = player.GetTrinket(0);
-  const trinket2 = player.GetTrinket(1);
+  const trinket1 = player.GetTrinket(TrinketSlot.SLOT_1);
+  const trinket2 = player.GetTrinket(TrinketSlot.SLOT_2);
 
   // Remove any existing trinkets
   if (trinket1 !== TrinketType.TRINKET_NULL) {

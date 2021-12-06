@@ -23,8 +23,8 @@ export function getMaxTrinketID(): int {
  */
 export function getOpenTrinketSlot(player: EntityPlayer): int | undefined {
   const maxTrinkets = player.GetMaxTrinkets();
-  const trinket0 = player.GetTrinket(0);
-  const trinket1 = player.GetTrinket(1);
+  const trinket0 = player.GetTrinket(TrinketSlot.SLOT_1);
+  const trinket1 = player.GetTrinket(TrinketSlot.SLOT_2);
 
   if (maxTrinkets === 1) {
     return trinket0 === TrinketType.TRINKET_NULL ? 0 : undefined;
