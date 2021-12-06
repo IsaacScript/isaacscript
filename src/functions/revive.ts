@@ -1,13 +1,13 @@
 import { getDeathAnimationName } from "./player";
 import { getFinalFrameOfAnimation } from "./sprite";
-import { giveTrinketsBack, temporarilyRemoveTrinkets } from "./trinketGive";
+import { giveTrinketsBack, temporarilyRemoveTrinket } from "./trinketGive";
 
 /**
  * The `EntityPlayer.WillPlayerRevive()` function does not properly account for Mysterious Paper,
  * so use this helper function instead for more robust revival detection.
  */
 export function willPlayerRevive(player: EntityPlayer): boolean {
-  const trinketSituation = temporarilyRemoveTrinkets(
+  const trinketSituation = temporarilyRemoveTrinket(
     player,
     TrinketType.TRINKET_MYSTERIOUS_PAPER,
   );
