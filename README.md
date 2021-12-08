@@ -54,9 +54,7 @@ Because of the advantages of Prettier, we use it on top of the Airbnb config, an
 
 Finally, some specific Airbnb rules are disabled, since they don't make much sense in certain contexts. You can see the specific exclusions in the [base.js](https://github.com/IsaacScript/eslint-config-isaacscript/blob/main/base.js) and [mod.js](https://github.com/IsaacScript/eslint-config-isaacscript/blob/main/mod.js) files of the [`eslint-config-isaacscript`](https://github.com/IsaacScript/eslint-config-isaacscript) repository.
 
-In order to avoid running two different tools, we could use [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) to run Prettier as an ESLint rule. However, doing this [is not recommended by Prettier](https://prettier.io/docs/en/integrating-with-linters.html). Thus, in order to use `isaacscript-lint`, you should be running both Prettier and ESLint on save. You can accomplish this by
-
-In conclusion, in order to really auto-format Unfortunately, this means thatInstead of running two different tools, we run Prettier inside of ESLint as a plugin with [`eslint-plugin-prettier`](https://github.com/prettier/eslint-plugin-prettier). Then,
+In order to avoid running two different tools, we could use [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) to run Prettier as an ESLint rule. However, doing this [is not recommended by Prettier](https://prettier.io/docs/en/integrating-with-linters.html). Thus, in order to use `isaacscript-lint`, you should be running both Prettier and ESLint on save. (More info on that is below.)
 
 <br />
 
@@ -78,7 +76,6 @@ In conclusion, in order to really auto-format Unfortunately, this means thatInst
 - [`eslint-plugin-no-template-curly-in-string-fix`](https://github.com/Zamiell/eslint-plugin-no-template-curly-in-string-fix) - A plugin that provides a better [`no-template-curly-in-string`](https://eslint.org/docs/rules/no-template-curly-in-string) rule.
 - [`eslint-plugin-no-void-return-type`](https://github.com/Zamiell/eslint-plugin-no-void-return-type) - A plugin that disallows void return types on unexported functions.
 - [`eslint-plugin-only-warn`](https://github.com/bfanger/eslint-plugin-only-warn) - A plugin that turns all errors to warnings.
-- [`eslint-plugin-prettier`](https://github.com/prettier/eslint-plugin-prettier) - A plugin that runs Prettier as an ESLint rule.
 - [`isaacscript-tsconfig`](https://github.com/IsaacScript/isaacscript-tsconfig) - A package that provides a shared TypeScript configuration file. This is included in the linting meta-package for convenience.
 - [`prettier`](https://github.com/prettier/prettier) - This is a peer dependency for `eslint-plugin-prettier`.
 - [`prettier-plugin-organize-imports`](https://github.com/simonhaenisch/prettier-plugin-organize-imports) - A plugin used because Prettier will not organize imports automatically. (It has no configuration and is automatically applied to Prettier if it is installed.)
@@ -198,11 +195,11 @@ Furthermore, you will probably want Prettier and ESLint to be run automatically 
 
 (Create this file if it does not already exist.)
 
-You can also commit this file to your project's repository so that this behavior is automatically inherited by anyone who clones the project.
+You can also commit this file to your project's repository so that this behavior is automatically inherited by anyone who clones the project (and uses VSCode).
 
 ### `.vscode/extensions.json`
 
-Optionally, you can also provide a hint to anyone cloning your repository that they should install the two required extensions:
+Optionally, you can also provide a hint to anyone cloning your repository that they should install the required extensions:
 
 ```jsonc
 // These are Visual Studio Code extensions that are intended to be used with this particular
@@ -213,8 +210,7 @@ Optionally, you can also provide a hint to anyone cloning your repository that t
     "esbenp.prettier-vscode", // The TypeScript formatter
     "dbaeumer.vscode-eslint", // The TypeScript linter
     "streetsidesoftware.code-spell-checker", // A spell-checker extension based on cspell
-    "typescript-to-lua.vscode-typescript-to-lua", // The TypeScriptToLua extension
-  ]
+  ],
 }
 ```
 
