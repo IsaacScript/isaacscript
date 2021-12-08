@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { execSync, spawnSync, SpawnSyncReturns } from "child_process";
+import { spawnSync, SpawnSyncReturns } from "child_process";
 import moment from "moment";
 import { CURRENT_DIRECTORY_NAME, CWD } from "./constants";
 import { Config } from "./types/Config";
@@ -9,20 +9,6 @@ export const ensureAllCases = (obj: never): never => obj;
 export function error(...args: unknown[]): never {
   console.error(...args);
   process.exit(1);
-}
-
-export function execExe(path: string, cwd = CWD): string {
-  let stdout: string;
-  try {
-    const buffer = execSync(`"${path}"`, {
-      cwd,
-    });
-    stdout = buffer.toString().trim();
-  } catch (err) {
-    error(`Failed to run "${chalk.green(path)}":`, err);
-  }
-
-  return stdout;
 }
 
 /** Returns an array of exit status and stdout. */
