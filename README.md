@@ -58,31 +58,6 @@ In order to avoid running two different tools, we could use [eslint-plugin-prett
 
 <br />
 
-## Package Documentation
-
-- [`@typescript-eslint/eslint-plugin`](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin) - Required as a peer dependency for `eslint-config-airbnb-typescript`.
-- [`@typescript-eslint/parser`](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/parser) - Required as a peer dependency for `eslint-config-airbnb-typescript`.
-- [`cspell`](https://github.com/streetsidesoftware/cspell) - A spell checker for code that is intended to be paired with the [Code Spell Checker VSCode extension](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker).
-- [`eslint`](https://github.com/eslint/eslint) - The main linter engine for JavaScript/TypeScript, as explained above.
-- [`eslint-config-airbnb-base`](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb-base) - ESLint rules that conform to the Airbnb style guide.
-- [`eslint-config-airbnb-typescript`](https://github.com/iamturns/eslint-config-airbnb-typescript) - Enhances the Airbnb rules with TypeScript support.
-- [`eslint-config-isaacscript`](https://github.com/IsaacScript/eslint-config-isaacscript) - Contains the master ESLint configuration.
-- [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier) - Turns off all rules that conflict with Prettier.
-- [`eslint-plugin-eqeqeq-fix`](https://github.com/Zamiell/eslint-plugin-eqeqeq-fix) - A plugin that provides a better [`eqeqeq`](https://eslint.org/docs/rules/eqeqeq) rule.
-- [`eslint-plugin-eslint-comments`](https://github.com/mysticatea/eslint-plugin-eslint-comments) - A plugin that provides rules relating to ESLint comments.
-- [`eslint-plugin-import`](https://github.com/benmosher/eslint-plugin-import) - Required as a peer dependency for `eslint-config-airbnb-base`.
-- [`eslint-plugin-jsdoc`](https://github.com/gajus/eslint-plugin-jsdoc) - A plugin that provides rules for [JSDoc](https://en.wikipedia.org/wiki/JSDoc).
-- [`eslint-plugin-no-implicit-map-set-loops`](https://github.com/Zamiell/eslint-plugin-no-implicit-map-set-loops) - A plugin that prevents unsafe iteration.
-- [`eslint-plugin-no-template-curly-in-string-fix`](https://github.com/Zamiell/eslint-plugin-no-template-curly-in-string-fix) - A plugin that provides a better [`no-template-curly-in-string`](https://eslint.org/docs/rules/no-template-curly-in-string) rule.
-- [`eslint-plugin-no-void-return-type`](https://github.com/Zamiell/eslint-plugin-no-void-return-type) - A plugin that disallows void return types on unexported functions.
-- [`eslint-plugin-only-warn`](https://github.com/bfanger/eslint-plugin-only-warn) - A plugin that turns all errors to warnings.
-- [`isaacscript-tsconfig`](https://github.com/IsaacScript/isaacscript-tsconfig) - A package that provides a shared TypeScript configuration file. This is included in the linting meta-package for convenience.
-- [`prettier`](https://github.com/prettier/prettier) - This is a peer dependency for `eslint-plugin-prettier`.
-- [`prettier-plugin-organize-imports`](https://github.com/simonhaenisch/prettier-plugin-organize-imports) - A plugin used because Prettier will not organize imports automatically. (It has no configuration and is automatically applied to Prettier if it is installed.)
-- [`ts-prune`](https://github.com/nadeesha/ts-prune) - A tool to look for unused exports, which catchs bugs that the `import/no-unused-modules` rule cannot find.
-
-<br />
-
 ## Installation Instructions for TypeScript Projects
 
 ### Step 0 - Get a TypeScript Project Set Up
@@ -213,5 +188,30 @@ Optionally, you can also provide a hint to anyone cloning your repository that t
   ],
 }
 ```
+
+<br />
+
+## Package Documentation
+
+- [`@typescript-eslint/eslint-plugin`](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin) - Required as a peer dependency for `eslint-config-airbnb-typescript`.
+- [`@typescript-eslint/parser`](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/parser) - Required as a peer dependency for `eslint-config-airbnb-typescript`.
+- [`cspell`](https://github.com/streetsidesoftware/cspell) - A spell checker for code that is intended to be paired with the [Code Spell Checker VSCode extension](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker).
+- [`eslint`](https://github.com/eslint/eslint) - The main linter engine for JavaScript/TypeScript, as explained above.
+- [`eslint-config-airbnb-base`](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb-base) - ESLint rules that conform to the Airbnb style guide.
+- [`eslint-config-airbnb-typescript`](https://github.com/iamturns/eslint-config-airbnb-typescript) - Enhances the Airbnb rules with TypeScript support.
+- [`eslint-config-isaacscript`](https://github.com/IsaacScript/eslint-config-isaacscript) - Contains the master ESLint configuration.
+- [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier) - Turns off all rules that conflict with Prettier.
+- [`eslint-plugin-eqeqeq-fix`](https://github.com/Zamiell/eslint-plugin-eqeqeq-fix) - A plugin that provides a better [`eqeqeq`](https://eslint.org/docs/rules/eqeqeq) rule.
+- [`eslint-plugin-eslint-comments`](https://github.com/mysticatea/eslint-plugin-eslint-comments) - A plugin that provides rules relating to ESLint comments.
+- [`eslint-plugin-import`](https://github.com/benmosher/eslint-plugin-import) - Required as a peer dependency for `eslint-config-airbnb-base`.
+- [`eslint-plugin-jsdoc`](https://github.com/gajus/eslint-plugin-jsdoc) - A plugin that provides rules for [JSDoc](https://en.wikipedia.org/wiki/JSDoc).
+- [`eslint-plugin-no-implicit-map-set-loops`](https://github.com/Zamiell/eslint-plugin-no-implicit-map-set-loops) - A plugin that prevents unsafe iteration.
+- [`eslint-plugin-no-template-curly-in-string-fix`](https://github.com/Zamiell/eslint-plugin-no-template-curly-in-string-fix) - A plugin that provides a better [`no-template-curly-in-string`](https://eslint.org/docs/rules/no-template-curly-in-string) rule.
+- [`eslint-plugin-no-void-return-type`](https://github.com/Zamiell/eslint-plugin-no-void-return-type) - A plugin that disallows void return types on unexported functions.
+- [`eslint-plugin-only-warn`](https://github.com/bfanger/eslint-plugin-only-warn) - A plugin that turns all errors to warnings.
+- [`isaacscript-tsconfig`](https://github.com/IsaacScript/isaacscript-tsconfig) - A package that provides a shared TypeScript configuration file. This is included in the linting meta-package for convenience.
+- [`prettier`](https://github.com/prettier/prettier) - This is a peer dependency for `eslint-plugin-prettier`.
+- [`prettier-plugin-organize-imports`](https://github.com/simonhaenisch/prettier-plugin-organize-imports) - A plugin used because Prettier will not organize imports automatically. (It has no configuration and is automatically applied to Prettier if it is installed.)
+- [`ts-prune`](https://github.com/nadeesha/ts-prune) - A tool to look for unused exports, which catchs bugs that the `import/no-unused-modules` rule cannot find.
 
 <br />
