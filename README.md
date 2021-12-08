@@ -119,6 +119,8 @@ Create a `tsconfig.eslint.json` file in the root of your repository:
 }
 ```
 
+<br />
+
 ## Adding or Removing Rules
 
 You can add extra rules (or ignore existing rules) by editing the `rules` section of your `eslintrc.js` file. For example:
