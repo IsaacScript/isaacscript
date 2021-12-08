@@ -2,23 +2,23 @@
 
 # isaacscript-lint
 
-`isaacscript-lint` is a helper package to install all of the dependencies necessary for ESLint to work with a typical TypeScript project, or a typical IsaacScript mod.
+`isaacscript-lint` is a helper package to install all of the dependencies necessary for ESLint to work with a typical TypeScript project or a typical IsaacScript mod.
 
-Please see the [IsaacScript webpage](https://isaacscript.github.io/) for more information.
+For more information about IsaacScript, see the [webpage](https://isaacscript.github.io/).
+
+<br />
+
+## For Use in a TypeScript / TypeScriptToLua Project
+
+`isaacscript-lint` is a great starting point for any TypeScript project. It's a pain in the ass to get ESLint working with TypeScript and to get everything working properly. Don't clutter your `package.json` file with 15+ different ESlint-related dependencies; just use `isaacscript-lint`.
+
+See the [installation instructions](#installation-instructions-for-typescript-projects) below.
 
 <br />
 
 ## For Use With an Isaacscript Mod
 
 Use the `isaacscript init` tool to automatically set up a new mod that has `isaacscript-lint` as a dependency and a starting `eslintrc.js` config file.
-
-<br />
-
-## For Use in a TypeScript / TypeScriptToLua Project
-
-`isaacscript-lint` is a great starting point for any TypeScript project. It's a pain in the ass to get ESLint working with TypeScript and to get everything working properly. Don't clutter your `package.json` file with 15+ different ESlint-related depedencies; just use `isaacscript-lint`.
-
-See the [installation instructions](#installation-instructions-for-typescript-projects) below.
 
 <br />
 
@@ -30,9 +30,9 @@ One of the key insights of [Guido van Rossum](https://en.wikipedia.org/wiki/Guid
 
 [Go](https://golang.org/), the programming language designed at Google in 2009, took this concept a step further. They included a code formatter inside of the language itself, called `gofmt` (which is short for "Go formatter"). When you are coding a Go program, it will automatically format all of the code as soon as you save the file. This can be surprising and disturbing for newcomers: "Why does gofmt make my code ugly?!"
 
-However, once people get used to the formatter, they realize that it saves them a *tremendous amount of time*. By ignoring all formatting and typing out code "raw", and then summoning the formatter to instantly fix everything, you can quite literally code twice as fast. Rob Pike, one of the creators of Go, famously said that "gofmt's style is no one's favorite, yet gofmt is everyone's favorite". ([This YouTube clip](https://www.youtube.com/watch?v=PAAkCSZUG1c&t=523s) of Rob is a much-watch!)
+However, once people get used to the formatter, they realize that it saves them a *tremendous amount of time*. By ignoring all formatting and typing out code "raw", and then summoning the formatter to instantly fix everything, you can quite literally code twice as fast. Rob Pike, one of the creators of Go, famously said that "gofmt's style is no one's favorite, yet gofmt is everyone's favorite". ([This YouTube clip](https://www.youtube.com/embed/PAAkCSZUG1c?start=523&end=568) of Rob is a much-watch!)
 
-`gofmt` is nice because it saves people from mundane code formatting. But there is also a benefit that is entirely separate and not readily apparent. When looking at other people's Go code on StackOverflow or GitHub, you realize that it looks exactly like your code. It's easy to read and comprehend. And you can copy-paste code snippets from other programs into your own applications without having to change anything! For programmers, this is not the norm, and it feels incredible - it's the hidden superpower of Go.
+`gofmt` is nice because it saves people from mundane code formatting. But there is also a benefit that is entirely separate and not readily apparent. When looking at other people's Go code on StackOverflow or GitHub, you realize that it looks exactly like your code. It's easy to read and comprehend. And you can copy-paste code snippets from other programs into your own applications without having to change anything! For programmers, this is not the norm, and it feels great - it's the hidden superpower of Go.
 
 When Rob says that everyone loves `gofmt`, he isn't lying. Programmers across the world have taken this concept and ran with it. People now use [rustfmt](https://github.com/rust-lang/rustfmt) in [Rust](https://www.rust-lang.org/), [Black](https://github.com/psf/black) in [Python](https://www.python.org/), and [Prettier](https://prettier.io/) in [JavaScript](https://www.javascript.com/) & [TypeScript](https://www.typescriptlang.org/).
 
@@ -48,11 +48,15 @@ Historically, the the most popular style guide is the world is the [Airbnb JavaS
 
 ESLint is the industry standard tool for linting in JavaScript and TypeScript. Airbnb helpfully provides an ESLint configuration with most of their style recommendations. ESLint can function in a way similar to `gofmt` by configuring your text editor to do `eslint --fix` on save. However, this has a lot of limitations. It can't automatically fix everything and leaves a lot up to the end user to fix.
 
-[Prettier](https://prettier.io/) was released in 2017 and it has quickly become very widespread. (It could *probably* also be considered to be industry standard in 2021.) Prettier works by completely rebuilding your code from scratch using the [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree), which allows it to make much better transformations than pure ESLint can.
+[Prettier](https://prettier.io/) was released in 2017 and it has quickly become very widespread. (It could *probably* also be considered to be industry standard in 2022.) Prettier works by completely rebuilding your code from scratch using the [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree), which allows it to make much better transformations than pure ESLint can.
 
-Because of the advantages of Prettier, we use it on top of the Airbnb config, and prefer Prettier's changes if there are any conflicts. Instead of running two different tools, we run Prettier inside of ESLint as a plugin with [`eslint-plugin-prettier`](https://github.com/prettier/eslint-plugin-prettier). Then, any ESLint rules that conflict with Prettier are turned off with [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier).
+Because of the advantages of Prettier, we use it on top of the Airbnb config, and prefer Prettier's changes if there are any conflicts. Any ESLint rules that conflict with Prettier are turned off with [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier).
 
-Finally, some specific Airbnb rules are disabled, since they don't make much sense in IsaacScript projects. You can see the specific exclusions in the [base.js](https://github.com/IsaacScript/eslint-config-isaacscript/blob/main/base.js) and [mod.js](https://github.com/IsaacScript/eslint-config-isaacscript/blob/main/mod.js) files of the [`eslint-config-isaacscript`](https://github.com/IsaacScript/eslint-config-isaacscript) repository.
+Finally, some specific Airbnb rules are disabled, since they don't make much sense in certain contexts. You can see the specific exclusions in the [base.js](https://github.com/IsaacScript/eslint-config-isaacscript/blob/main/base.js) and [mod.js](https://github.com/IsaacScript/eslint-config-isaacscript/blob/main/mod.js) files of the [`eslint-config-isaacscript`](https://github.com/IsaacScript/eslint-config-isaacscript) repository.
+
+In order to avoid running two different tools, we could use [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) to run Prettier as an ESLint rule. However, doing this [is not recommended by Prettier](https://prettier.io/docs/en/integrating-with-linters.html). Thus, in order to use `isaacscript-lint`, you should be running both Prettier and ESLint on save. You can accomplish this by
+
+In conclusion, in order to really auto-format Unfortunately, this means thatInstead of running two different tools, we run Prettier inside of ESLint as a plugin with [`eslint-plugin-prettier`](https://github.com/prettier/eslint-plugin-prettier). Then,
 
 <br />
 
@@ -136,31 +140,82 @@ Create a `tsconfig.eslint.json` file in the root of your repository:
     "./src/**/*.ts",
 
     // These are ESLint-only inclusions
+    // Usually, this includes any files that are outside of your "src" directory,
+    // such as "webpack.config.js", "jest.config.js", "Gruntfile.js", and so forth
     "./.eslintrc.js",
   ],
 }
 ```
 
-### Done!
+## Adding or Removing Rules
 
-You can add extra rules (or ignore existing rules) by editing the `rules` section of the `eslintrc.js` file. For example:
+You can add extra rules (or ignore existing rules) by editing the `rules` section of your `eslintrc.js` file. For example:
 
 ```js
   // We modify the linting rules from the base for some specific things
   rules: {
-    // Documentation:
-    // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-unused-modules.md
-    // Not defined in parent configs
-    // This helps to find dead code that should be deleted
-    "import/no-unused-modules": [
-      "error",
-      {
-        missingExports: true,
-        unusedExports: true,
-        ignoreExports: [".eslintrc.js", "src/main.ts"],
-      },
+    "@typescript-eslint/no-unused-vars": "off",
+  },
+```
+
+<br />
+
+## Integration with VSCode
+
+[Visual Studio Code](https://code.visualstudio.com/), or VSCode for short, is the most popular TypeScript editor / IDE.
+
+<br />
+
+### Extensions
+
+In order for the linter inside of VSCode, you will have to install the following extensions:
+
+- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+
+### `.vscode/settings.json`
+
+Furthermore, you will probably want Prettier and ESLint to be run automatically every time you save a TypeScript file. You can tell VSCode to do this by adding the following to your project's `.vscode/settings.json` file:
+
+```jsonc
+// These are Visual Studio Code settings that should apply to this particular repository
+{
+  "[javascript]": {
+    "editor.codeActionsOnSave": [
+      "editor.formatOnSave": true,
+      "source.fixAll.eslint",
     ],
   },
+
+  "[typescript]": {
+    "editor.codeActionsOnSave": [
+      "editor.formatOnSave": true,
+      "source.fixAll.eslint",
+    ],
+  },
+}
+```
+
+(Create this file if it does not already exist.)
+
+You can also commit this file to your project's repository so that this behavior is automatically inherited by anyone who clones the project.
+
+### `.vscode/extensions.json`
+
+Optionally, you can also provide a hint to anyone cloning your repository that they should install the two required extensions:
+
+```jsonc
+// These are Visual Studio Code extensions that are intended to be used with this particular
+// repository
+// https://go.microsoft.com/fwlink/?LinkId=827846
+{
+  "recommendations": [
+    "esbenp.prettier-vscode", // The TypeScript formatter
+    "dbaeumer.vscode-eslint", // The TypeScript linter
+    "streetsidesoftware.code-spell-checker", // A spell-checker extension based on cspell
+    "typescript-to-lua.vscode-typescript-to-lua", // The TypeScriptToLua extension
+  ]
+}
 ```
 
 <br />
