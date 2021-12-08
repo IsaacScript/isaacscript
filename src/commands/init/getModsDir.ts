@@ -1,12 +1,9 @@
 import chalk from "chalk";
-import os from "os";
 import path from "path";
-import prompts from "prompts";
+import { HOME_DIR } from "../../constants";
 import * as file from "../../file";
+import { getInputString } from "../../prompt";
 import { error } from "../../util";
-
-// https://stackoverflow.com/questions/9080085/node-js-find-home-directory-in-platform-agnostic-way
-const homeDir = os.homedir();
 
 const MODS = "mods";
 
@@ -22,7 +19,7 @@ const DEFAULT_MODS_PATH_WINDOWS = path.join(
 
 // This is a subdirectory of $HOME
 const DEFAULT_MODS_PATH_LINUX = path.join(
-  homeDir,
+  HOME_DIR,
   ".local",
   "share",
   "Steam",
@@ -50,16 +47,13 @@ export async function getModsDir(
   console.error(
     `Failed to find your mods directory at: ${chalk.green(defaultModsPath)}`,
   );
-  const response = await prompts({
-    type: "text",
-    name: "modsDir",
-    message: `Enter the full path to the "${MODS}" directory on your system, which should be next to your "isaac-ng.exe" program:`,
-  });
+  const modsDir = await getInputString(
+    `Enter the full path to the "${MODS}" directory on your system, which should be next to your "isaac-ng.exe" program:`,
+  );
 
-  if (typeof response.modsDir !== "string") {
-    error("Error: The response was not a string.");
+  if (modsDir === "") {
+    error("Error: You did not provide a response; exiting.");
   }
-  const modsDir = response.modsDir.trim();
 
   if (!file.exists(modsDir)) {
     error(

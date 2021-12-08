@@ -1,10 +1,15 @@
+import os from "os";
 import path from "path";
 
 const cwd = process.cwd();
 
+// https://stackoverflow.com/questions/9080085/node-js-find-home-directory-in-platform-agnostic-way
+const homeDir = os.homedir();
+
 // Miscellaneous
 export const CURRENT_DIRECTORY_NAME = path.basename(cwd);
 export const CWD = cwd;
+export const HOME_DIR = homeDir;
 export const FILE_SYNCED_MESSAGE = "File synced:";
 
 // isaacscript

@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import path from "path";
-import prompts from "prompts";
 import * as file from "../../file";
+import { getInputYesNo } from "../../prompt";
 import { error } from "../../util";
 
 export async function checkModTargetDirectory(
@@ -21,14 +21,12 @@ export async function checkModTargetDirectory(
   console.error(
     "When you run IsaacScript, it will want to create a directory here so that it can sync it with your project folder.",
   );
-  const response = await prompts({
-    type: "confirm",
-    name: "deleteDirectory",
-    message:
-      "Should I delete the existing directory for you? (Make sure that it does not contain anything important first.)",
-    initial: true,
-  });
-  if (response.deleteDirectory === false) {
+
+  const shouldDeleteDirectory = await getInputYesNo(
+    "Should I delete the existing directory for you? (Make sure that it does not contain anything important first.)",
+  );
+
+  if (!shouldDeleteDirectory) {
     error("Ok then. You delete it yourself. Good bye.");
   }
 

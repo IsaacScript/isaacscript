@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import commandExists from "command-exists";
 import path from "path";
-import prompts from "prompts";
+import yaml from "yaml";
 import * as configFile from "../../configFile";
 import {
   GITIGNORE,
@@ -19,7 +19,9 @@ import {
   TEMPLATES_STATIC_DIR,
 } from "../../constants";
 import * as file from "../../file";
-import { error, execShell, snakeKebabToCamel } from "../../util";
+import { getInputString, getInputYesNo } from "../../prompt";
+import { GitHubCLIHostsYAML } from "../../types/GitHubCLIHostsYAML";
+import { execShell, snakeKebabToCamel } from "../../util";
 
 export async function createMod(
   projectName: string,
@@ -40,8 +42,8 @@ export async function createMod(
   makeSubdirectories(projectPath);
   copyStaticFiles(projectPath);
   copyDynamicFiles(projectName, projectPath, targetModDirectory);
-  await initGitRepository(projectPath);
   updateNodeModules(projectPath);
+  await initGitRepository(projectPath, projectName);
   installNodeModules(projectPath, skipNPMInstall);
 
   console.log(`Successfully created mod: ${chalk.green(projectName)}`);
@@ -152,7 +154,7 @@ function copyDynamicFiles(
   }
 }
 
-async function initGitRepository(projectPath: string) {
+async function initGitRepository(projectPath: string, projectName: string) {
   if (!commandExists.sync("git")) {
     console.log(
       'Git does not seem to be installed. (The "git" command is not in the path.) Skipping Git-related things.',
@@ -160,25 +162,7 @@ async function initGitRepository(projectPath: string) {
     return;
   }
 
-  const response = await prompts({
-    type: "text",
-    name: "remoteURL",
-    message: `Paste in the remote Git URL for your project.
-For example, if you have an SSH key, it would be something like: ${chalk.green(
-      "git@github.com:Alice/green-candle.git",
-    )}
-If you don't have an SSH key, it would be something like: ${chalk.green(
-      "https://github.com/Alice/green-candle.git",
-    )}
-If you don't want to initialize a Git repository for this project, then just press enter to skip.
-`,
-  });
-
-  if (typeof response.remoteURL !== "string") {
-    error("Error: The response was not a string.");
-  }
-  const remoteURL = response.remoteURL.trim();
-
+  const remoteURL = await getGitRemoteURL(projectName);
   if (remoteURL === "") {
     return;
   }
@@ -186,10 +170,101 @@ If you don't want to initialize a Git repository for this project, then just pre
   execShell("git", ["init"], false, projectPath);
   execShell("git", ["branch", "-M", "main"], false, projectPath);
   execShell("git", ["remote", "add", "origin", remoteURL], false, projectPath);
+  if (isGitNameAndEmailConfigured()) {
+    execShell("git", ["add", "--all"], false, projectPath);
+    execShell(
+      "git",
+      ["commit", "--message", "IsaacScript template"],
+      false,
+      projectPath,
+    );
+  }
+}
+
+async function getGitRemoteURL(projectName: string) {
+  const guessedRemoteURL = guessRemoteURL(projectName);
+  if (guessedRemoteURL !== undefined) {
+    const shouldUseGuessedURL = await getInputYesNo(
+      `Do you want to use a Git remote URL of: ${chalk.green(
+        guessedRemoteURL,
+      )}`,
+    );
+    if (shouldUseGuessedURL) {
+      return guessedRemoteURL;
+    }
+  }
+
+  return getInputString(`Paste in the remote Git URL for your project.
+For example, if you have an SSH key, it would be something like:
+${chalk.green("git@github.com:Alice/green-candle.git")}
+If you don't have an SSH key, it would be something like:
+${chalk.green("https://github.com/Alice/green-candle.git")}
+If you don't want to initialize a Git repository for this project, press enter to skip.
+`);
+}
+
+function guessRemoteURL(projectName: string) {
+  const gitHubUsername = getGitHubUsername();
+  if (gitHubUsername === undefined) {
+    return undefined;
+  }
+
+  return `git@github.com:${gitHubUsername}/${projectName}.git`;
+}
+
+function getGitHubUsername() {
+  // If the GitHub CLI is installed, we can derive the user's GitHub username
+  if (
+    !commandExists.sync("gh") ||
+    process.env.APPDATA === undefined ||
+    process.env.APPDATA === ""
+  ) {
+    return undefined;
+  }
+
+  const githubCLIHostsPath = path.join(
+    process.env.APPDATA,
+    "GitHub CLI",
+    "hosts.yml",
+  );
+  if (!file.exists(githubCLIHostsPath)) {
+    return undefined;
+  }
+
+  const configYAMLRaw = file.read(githubCLIHostsPath);
+  const configYAML = yaml.parse(configYAMLRaw) as GitHubCLIHostsYAML;
+
+  const githubCom = configYAML["github.com"];
+  if (githubCom === undefined) {
+    return undefined;
+  }
+
+  const { user } = githubCom;
+  if (user === "") {
+    return undefined;
+  }
+
+  return user;
+}
+
+function isGitNameAndEmailConfigured() {
+  const [nameExitStatus] = execShell(
+    "git",
+    ["config", "--global", "user.name"],
+    true,
+  );
+
+  const [emailExitStatus] = execShell(
+    "git",
+    ["config", "--global", "user.email"],
+    true,
+  );
+
+  return nameExitStatus === 0 && emailExitStatus === 0;
 }
 
 function updateNodeModules(projectPath: string) {
-  console.log("Updating node modules...");
+  console.log("Finding out the latest versions of the IsaacScript packages...");
   execShell(
     "npx",
     ["npm-check-updates", "--upgrade", "--packageFile", "package.json"],

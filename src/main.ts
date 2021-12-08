@@ -15,6 +15,7 @@ import { publish } from "./commands/publish/publish";
 import * as configFile from "./configFile";
 import { CWD } from "./constants";
 import { parseArgs } from "./parseArgs";
+import { promptInit } from "./prompt";
 import { Command, DEFAULT_COMMAND } from "./types/Command";
 import { Config } from "./types/Config";
 import { ensureAllCases, error } from "./util";
@@ -28,6 +29,7 @@ main().catch((err) => {
 
 async function main(): Promise<void> {
   sourceMapSupport.install();
+  promptInit();
   validateNodeVersion();
   validateOS();
 

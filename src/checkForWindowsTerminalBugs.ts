@@ -1,19 +1,15 @@
 import chalk from "chalk";
 import fs from "fs";
-import os from "os";
 import path from "path";
-import prompts from "prompts";
+import { HOME_DIR } from "./constants";
 import * as file from "./file";
-import { error, execExe } from "./util";
+import { getInputYesNo } from "./prompt";
+import { error } from "./util";
 
-// https://stackoverflow.com/questions/9080085/node-js-find-home-directory-in-platform-agnostic-way
-const homeDir = os.homedir();
-
-const BASH_PROFILE_PATH = path.join(homeDir, ".bash_profile");
-const WINDOWS_CODE_PAGE = "65001";
+const BASH_PROFILE_PATH = path.join(HOME_DIR, ".bash_profile");
 
 // By default, Git Bash for Windows uses MINGW64
-// This will not work correctly with the prompts library (or any other NodeJS input library)
+// This will not work correctly with the inquirer library (or any other NodeJS input library)
 // Try to detect this and warn the end-user
 export async function checkForWindowsTerminalBugs(): Promise<void> {
   if (process.platform !== "win32") {
@@ -24,44 +20,7 @@ export async function checkForWindowsTerminalBugs(): Promise<void> {
     return;
   }
 
-  await checkForCodePage();
   await checkForWindowsBugColor();
-}
-
-async function checkForCodePage() {
-  const chcpPath = "C:\\Windows\\System32\\chcp.com";
-  const stdout = execExe(chcpPath).trim();
-  // The output of "chcp" will be different depending on the language of the Windows installation,
-  // so we only parse the final number
-  const match = /(\d+)$/.exec(stdout);
-  if (match === null) {
-    error(`Failed to parse the results of "${chalk.green(chcpPath)}":`, stdout);
-  }
-
-  const activeCodePage = match[1].trim();
-  if (activeCodePage === WINDOWS_CODE_PAGE) {
-    return;
-  }
-
-  console.error(
-    chalk.red(
-      `Error: It looks like you are using Git Bash for Windows (MINGW64) with an incorrect code page of "${chalk.green(
-        activeCodePage,
-      )}". (It should be equal to "${WINDOWS_CODE_PAGE}".)`,
-    ),
-  );
-  const response = await prompts({
-    type: "confirm",
-    name: "fixCodePage",
-    message:
-      'Do you want me to fix this for you? (Type "y", then press "enter".)',
-    initial: true,
-  });
-  if (response.fixCodePage === false) {
-    error("Ok then. Good-bye.");
-  }
-
-  applyFixesToBashProfile();
 }
 
 async function checkForWindowsBugColor() {
@@ -80,15 +39,11 @@ async function checkForWindowsBugColor() {
     "This is necessary in order for colors to work properly in the terminal.",
   );
 
-  const response = await prompts({
-    type: "confirm",
-    name: "fixColors",
-    message:
-      'Do you want me to fix this for you? (Type "y", then press "enter".)',
-    initial: true,
-  });
-  if (response.fixColors === false) {
-    error("Ok then. Good-bye.");
+  const shouldFixColors = await getInputYesNo(
+    "Do you want me to fix this for you?",
+  );
+  if (!shouldFixColors) {
+    return;
   }
 
   applyFixesToBashProfile();
@@ -103,8 +58,29 @@ function applyFixesToBashProfile() {
     bashProfileContents = "";
   }
 
-  // Prepare the text to append
+  const appendText = getBashProfileAppendText(bashProfileContents);
+
+  try {
+    fs.appendFileSync(BASH_PROFILE_PATH, appendText);
+  } catch (err) {
+    error(`Failed to append text to "${BASH_PROFILE_PATH}":`, err);
+  }
+
+  console.log(
+    chalk.green("Complete!"),
+    `The terminal fixes have been added to: ${chalk.green(BASH_PROFILE_PATH)}`,
+  );
+  console.log(
+    chalk.red(
+      "Please close and re-open your terminal, then run this program again.",
+    ),
+  );
+  process.exit(0);
+}
+
+function getBashProfileAppendText(bashProfileContents: string) {
   let newText = "";
+
   if (
     bashProfileContents !== "" &&
     bashProfileContents[bashProfileContents.length - 1] !== "\n"
@@ -113,29 +89,15 @@ function applyFixesToBashProfile() {
     // Add an extra newline if this is not the case
     newText += "\n";
   }
+
   if (bashProfileContents !== "") {
     // If the Bash profile exists and has data, add an extra newline between the existing stuff and
     // the new lines added by us
     newText += "\n";
   }
+
   newText += "# Terminal fixes added by IsaacScript\n";
-  newText += `chcp.com ${WINDOWS_CODE_PAGE} > /dev/null\n`;
   newText += "export FORCE_COLOR=true\n";
 
-  try {
-    fs.appendFileSync(BASH_PROFILE_PATH, newText);
-  } catch (err) {
-    error(`Failed to append text to "${BASH_PROFILE_PATH}":`, err);
-  }
-
-  console.log(
-    chalk.green("Complete!"),
-    `I have added the terminal fixes to "${BASH_PROFILE_PATH}".`,
-  );
-  console.log(
-    chalk.red(
-      "Please close and re-open your terminal, then run this program again.",
-    ),
-  );
-  process.exit(0);
+  return newText;
 }

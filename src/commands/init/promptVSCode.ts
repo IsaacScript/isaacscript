@@ -1,6 +1,6 @@
 import path from "path";
-import prompts from "prompts";
 import { MAIN_TS } from "../../constants";
+import { getInputYesNo } from "../../prompt";
 import { execShell } from "../../util";
 
 export async function promptVSCode(
@@ -15,14 +15,10 @@ export async function promptVSCode(
     return;
   }
 
-  const response = await prompts({
-    type: "confirm",
-    name: "VSCode",
-    message: "Do you want to open your new project in VSCode now?",
-    initial: true,
-  });
-
-  if (response.VSCode === true) {
+  const shouldOpenVSCode = await getInputYesNo(
+    "Do you want to open your new project in VSCode now?",
+  );
+  if (shouldOpenVSCode) {
     openVSCode(projectPath, VSCodeCommand);
   }
 }
