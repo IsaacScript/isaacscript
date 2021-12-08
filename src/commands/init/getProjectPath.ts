@@ -1,8 +1,8 @@
 import chalk from "chalk";
 import path from "path";
-import prompts from "prompts";
 import { CURRENT_DIRECTORY_NAME, CWD } from "../../constants";
-import { error, hasWhiteSpace } from "../../util";
+import { getInputString, getInputYesNo } from "../../prompt";
+import { hasWhiteSpace } from "../../util";
 
 // From: https://gist.github.com/doctaphred/d01d05291546186941e1b7ddc02034d3
 const ILLEGAL_CHARACTERS_FOR_WINDOWS_FILENAMES = [
@@ -54,29 +54,17 @@ function getProjectNameFromCommandLineArgument(
 
 async function getNewProjectName(): Promise<[string, string, boolean]> {
   console.log("You did not specify a project name as a command-line argument.");
-  const response1 = await prompts({
-    type: "confirm",
-    name: "useCurrentDir",
-    message: `Would you like to create a new project using the current directory "${chalk.green(
+  const shouldUseCurrentDir = await getInputYesNo(
+    `Would you like to create a new project using the current directory "${chalk.green(
       CURRENT_DIRECTORY_NAME,
     )}" as the root?`,
-    initial: true,
-  });
+  );
 
-  if (response1.useCurrentDir === true) {
+  if (shouldUseCurrentDir) {
     return [CURRENT_DIRECTORY_NAME, CWD, false];
   }
 
-  const response2 = await prompts({
-    type: "text",
-    name: "projectName",
-    message: "Enter the name of the project:",
-  });
-
-  if (typeof response2.projectName !== "string") {
-    error("Error: The response was not a string.");
-  }
-  const projectName = response2.projectName.trim();
+  const projectName = await getInputString("Enter the name of the project:");
   const projectPath = path.join(CWD, projectName);
 
   return [projectName, projectPath, true];

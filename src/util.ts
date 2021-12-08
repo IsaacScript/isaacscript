@@ -1,11 +1,9 @@
 import chalk from "chalk";
-import { execSync, spawnSync, SpawnSyncReturns } from "child_process";
+import { spawnSync, SpawnSyncReturns } from "child_process";
 import moment from "moment";
 import { CURRENT_DIRECTORY_NAME, CWD } from "./constants";
 import { Config } from "./types/Config";
 
-// Use this on a switch statement's default case to get
-// the linter to complain if a case was not predicted
 export const ensureAllCases = (obj: never): never => obj;
 
 export function error(...args: unknown[]): never {
@@ -13,20 +11,7 @@ export function error(...args: unknown[]): never {
   process.exit(1);
 }
 
-export function execExe(path: string, cwd = CWD): string {
-  let stdout: string;
-  try {
-    const buffer = execSync(`"${path}"`, {
-      cwd,
-    });
-    stdout = buffer.toString().trim();
-  } catch (err) {
-    error(`Failed to run "${chalk.green(path)}":`, err);
-  }
-
-  return stdout;
-}
-
+/** Returns an array of exit status and stdout. */
 export function execShell(
   command: string,
   args: string[] = [],
@@ -97,9 +82,10 @@ export function hasWhiteSpace(s: string): boolean {
   return /\s/g.test(s);
 }
 
-// parseIntSafe is a more reliable version of parseInt
-// By default, "parseInt('1a')" will return "1", which is unexpected
-// This returns either an integer or NaN
+/**
+ * parseIntSafe is a more reliable version of parseInt. By default, "parseInt('1a')" will return
+ * "1", which is unexpected. This returns either an integer or NaN.
+ */
 export function parseIntSafe(input: string): number {
   if (typeof input !== "string") {
     return NaN;
@@ -127,8 +113,11 @@ export function parseIntSafe(input: string): number {
   return parseInt(trimmedInput, 10);
 }
 
-// Convert snake_case and kebab-case to camelCase
-// From: https://hisk.io/javascript-snake-to-camel/
+/**
+ * Converts snake_case and kebab-case to camelCase.
+ *
+ * From: https://hisk.io/javascript-snake-to-camel/
+ */
 export function snakeKebabToCamel(str: string): string {
   return str.replace(/([-_][a-z])/g, (group) =>
     group.toUpperCase().replace("-", "").replace("_", ""),

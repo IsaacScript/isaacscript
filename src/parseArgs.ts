@@ -52,6 +52,12 @@ export function parseArgs() {
           alias: "c",
           type: "boolean",
           description: "Open the project in VSCode after initialization",
+        })
+        .option("skip-npm-install", {
+          alias: "i",
+          type: "boolean",
+          description:
+            'Don\'t automatically run "npm install" after initializing the project',
         });
     })
 

@@ -1,7 +1,7 @@
 import chalk from "chalk";
-import prompts from "prompts";
 import { CWD } from "../../constants";
 import * as file from "../../file";
+import { getInputYesNo } from "../../prompt";
 import { error } from "../../util";
 
 export async function checkIfProjectPathExists(
@@ -15,12 +15,9 @@ export async function checkIfProjectPathExists(
       )}".`,
     );
 
-    const response = await prompts({
-      type: "confirm",
-      name: "delete",
-      message: "Do you want me to delete it?",
-    });
-    if (!response.delete) { // eslint-disable-line
+    const shouldDelete = await getInputYesNo("Do you want me to delete it?");
+
+    if (!shouldDelete) {
       error("Ok then. Good-bye.");
     }
 
