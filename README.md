@@ -155,15 +155,17 @@ Furthermore, you will probably want Prettier and ESLint to be run automatically 
 // These are Visual Studio Code settings that should apply to this particular repository
 {
   "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
     "editor.codeActionsOnSave": [
-      "editor.formatOnSave": true,
       "source.fixAll.eslint",
     ],
   },
 
   "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
     "editor.codeActionsOnSave": [
-      "editor.formatOnSave": true,
       "source.fixAll.eslint",
     ],
   },
