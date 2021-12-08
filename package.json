@@ -9,8 +9,6 @@
   "license": "GPL-3.0",
   "author": "Zamiell",
   "devDependencies": {
-    "eslint": "^8.3.0",
-    "eslint-plugin-prettier": "^4.0.0",
     "prettier": "^2.5.0"
   }
 }
