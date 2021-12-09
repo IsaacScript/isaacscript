@@ -6,32 +6,28 @@ export function parseArgs() {
     .usage("usage: isaacscript <command> [options]")
     .scriptName("isaacscript")
 
-    .command(
-      "monitor",
-      "Monitor a project for changes. (default)",
-      (builder) => {
-        return builder
-          .option("mods-directory", {
-            alias: "m",
-            type: "string",
-            description: "The directory where Isaac mods live on your system",
-          })
-          .option("save-slot", {
-            alias: "s",
-            type: "number",
-            choices: [1, 2, 3],
-            description: "The save slot in-game that you use",
-          })
-          .option("crash-debug", {
-            alias: "c",
-            type: "boolean",
-            description: "Enable crash debugging",
-          });
-      },
+    .command("monitor", "Monitor a project for changes. (default)", (builder) =>
+      builder
+        .option("mods-directory", {
+          alias: "m",
+          type: "string",
+          description: "The directory where Isaac mods live on your system",
+        })
+        .option("save-slot", {
+          alias: "s",
+          type: "number",
+          choices: [1, 2, 3],
+          description: "The save slot in-game that you use",
+        })
+        .option("crash-debug", {
+          alias: "c",
+          type: "boolean",
+          description: "Enable crash debugging",
+        }),
     )
 
-    .command("init [name]", "Initialize a new IsaacScript mod.", (builder) => {
-      return builder
+    .command("init [name]", "Initialize a new IsaacScript mod.", (builder) =>
+      builder
         .option("use-current-dir", {
           alias: "u",
           type: "boolean",
@@ -58,16 +54,16 @@ export function parseArgs() {
           type: "boolean",
           description:
             'Don\'t automatically run "npm install" after initializing the project',
-        });
-    })
+        }),
+    )
 
     .command("copy", "Only compile & copy the mod.")
 
     .command(
       "publish",
       "Bump the version & automatically publish the new files using the steamcmd tool.",
-      (builder) => {
-        return builder
+      (builder) =>
+        builder
           .option("skip", {
             alias: "s",
             type: "boolean",
@@ -89,8 +85,7 @@ export function parseArgs() {
             type: "boolean",
             description:
               "only upload the mod to the Steam Workshop (without doing anything else)",
-          });
-      },
+          }),
     )
 
     .alias("h", "help") // By default, only "--help" is enabled
