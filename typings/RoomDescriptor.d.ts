@@ -15,7 +15,7 @@ declare interface RoomDescriptor {
    */
   DisplayFlags: int;
 
-  /** * A composition of zero or more `RoomDescriptorFlag`. */
+  /** A composition of zero or more `RoomDescriptorFlag`. */
   Flags: int;
 
   /**
