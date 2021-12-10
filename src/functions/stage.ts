@@ -17,7 +17,7 @@ export function getEffectiveStage(): int {
   return stage;
 }
 
-/** Helper function to get the current stage. */
+/** Alias for the `Level.GetStage` method. */
 export function getStage(): LevelStage {
   const game = Game();
   const level = game.GetLevel();
@@ -25,7 +25,7 @@ export function getStage(): LevelStage {
   return level.GetStage();
 }
 
-/** Helper function to get the current stage type. */
+/** Alias for the `Level.GetStageType` method. */
 export function getStageType(): StageType {
   const game = Game();
   const level = game.GetLevel();

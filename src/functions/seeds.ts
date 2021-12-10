@@ -1,4 +1,4 @@
-/** Helper function to get the seed of the current run. */
+/** Alias for the `Seeds.GetStartSeedString` method. */
 export function getStartSeedString(): string {
   const game = Game();
   const seeds = game.GetSeeds();

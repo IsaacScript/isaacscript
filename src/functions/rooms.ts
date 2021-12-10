@@ -74,6 +74,14 @@ export function getCurrentDimension(): Dimension {
   return 0;
 }
 
+/** An alias to the `Level.GetCurrentRoomDesc()` method. */
+export function getCurrentRoomDescReadOnly(): RoomDescriptorReadOnly {
+  const game = Game();
+  const level = game.GetLevel();
+
+  return level.GetCurrentRoomDesc();
+}
+
 export function getRoomData(): RoomConfig | undefined {
   const game = Game();
   const level = game.GetLevel();
@@ -111,10 +119,7 @@ export function getRoomDataType(): int {
  * different dimensions.
  */
 export function getRoomListIndex(): int {
-  const game = Game();
-  const level = game.GetLevel();
-
-  const roomDesc = level.GetCurrentRoomDesc();
+  const roomDesc = getCurrentRoomDescReadOnly();
   return roomDesc.ListIndex;
 }
 
@@ -132,10 +137,7 @@ export function getRoomListIndex(): int {
  * `SafeGridIndex`, since the former is unique across different dimensions.
  */
 export function getRoomSafeGridIndex(): int {
-  const game = Game();
-  const level = game.GetLevel();
-
-  const roomDesc = level.GetCurrentRoomDesc();
+  const roomDesc = getCurrentRoomDescReadOnly();
   return roomDesc.SafeGridIndex;
 }
 
@@ -243,10 +245,7 @@ export function getRoomVariant(): int {
  * the variable is only incremented immediately before the PostNewRoom callback fires.
  */
 export function getRoomVisitedCount(): int {
-  const game = Game();
-  const level = game.GetLevel();
-  const roomDesc = level.GetCurrentRoomDesc();
-
+  const roomDesc = getCurrentRoomDescReadOnly();
   return roomDesc.VisitedCount;
 }
 
@@ -386,11 +385,13 @@ export function inDeathCertificateArea(): boolean {
   );
 }
 
+/**
+ * Helper function to detect if the current room is a Treasure Room created when entering with a
+ * Devil's Crown trinket. Under the hood, this checks for the `RoomDescriptorFlag.DEVIL_TREASURE`
+ * flag.
+ */
 export function inDevilsCrownTreasureRoom() {
-  const game = Game();
-  const level = game.GetLevel();
-  const roomDesc = level.GetCurrentRoomDesc();
-
+  const roomDesc = getCurrentRoomDescReadOnly();
   return hasFlag(roomDesc.Flags, RoomDescriptorFlag.DEVIL_TREASURE);
 }
 
@@ -490,6 +491,15 @@ export function isAllRoomsClear(onlyCheckRoomTypes?: RoomType[]): boolean {
   }
 
   return true;
+}
+
+/**
+ * Helper function to detect if the current room was created by the Red Key item. Under the hood,
+ * this checks for the `RoomDescriptorFlag.FLAG_RED_ROOM` flag.
+ */
+export function isRedKeyRoom(): boolean {
+  const roomDesc = getCurrentRoomDescReadOnly();
+  return hasFlag(roomDesc.Flags, RoomDescriptorFlag.RED_ROOM);
 }
 
 /**
