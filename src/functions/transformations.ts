@@ -4,7 +4,6 @@ import {
   TRANSFORMATION_TO_ITEMS_MAP,
 } from "../maps/transformationMaps";
 import { TRANSFORMATION_NAME_MAP } from "../maps/transformationNameMap";
-import { copySet } from "./util";
 
 /** Returns the number of items that a player has towards a particular transformation. */
 export function getPlayerNumTransformationCollectibles(
@@ -25,7 +24,7 @@ export function getPlayerNumTransformationCollectibles(
   }
 
   let numCollectibles = 0;
-  for (const collectibleType of itemsForTransformation.values()) {
+  for (const collectibleType of itemsForTransformation) {
     numCollectibles += player.GetCollectibleNum(collectibleType);
   }
 
@@ -34,9 +33,9 @@ export function getPlayerNumTransformationCollectibles(
 
 export function getTransformationsForItem(
   collectibleType: CollectibleType | int,
-): Set<PlayerForm> {
+): PlayerForm[] {
   const transformations = ITEM_TO_TRANSFORMATION_MAP.get(collectibleType);
-  return transformations === undefined ? new Set() : copySet(transformations);
+  return transformations === undefined ? [] : [...transformations];
 }
 
 /**

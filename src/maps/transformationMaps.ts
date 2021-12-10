@@ -26,12 +26,12 @@ export const TRANSFORMATIONS_NOT_BASED_ON_ITEMS = new Set<PlayerForm>([
 
 export const TRANSFORMATION_TO_ITEMS_MAP = new Map<
   PlayerForm,
-  Set<CollectibleType | int>
+  Array<CollectibleType | int>
 >();
 
 export const ITEM_TO_TRANSFORMATION_MAP = new Map<
   CollectibleType | int,
-  Set<PlayerForm>
+  PlayerForm[]
 >();
 
 initMaps();
@@ -40,7 +40,7 @@ function initMaps() {
   // The transformation to items map should be valid for every transformation,
   // so we initialize it with empty sets
   for (const playerForm of TRANSFORMATION_TO_TAG_MAP.keys()) {
-    TRANSFORMATION_TO_ITEMS_MAP.set(playerForm, new Set());
+    TRANSFORMATION_TO_ITEMS_MAP.set(playerForm, []);
   }
 
   for (
@@ -58,15 +58,15 @@ function initMaps() {
       if (items === undefined) {
         error(`Failed to get the items for transformation: ${playerForm}`);
       }
-      items.add(collectibleType);
+      items.push(collectibleType);
 
       // Update the second map
       let transformations = ITEM_TO_TRANSFORMATION_MAP.get(collectibleType);
       if (transformations === undefined) {
-        transformations = new Set();
+        transformations = [];
         ITEM_TO_TRANSFORMATION_MAP.set(collectibleType, transformations);
       }
-      transformations.add(playerForm);
+      transformations.push(playerForm);
     }
   }
 }
