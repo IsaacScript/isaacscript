@@ -153,8 +153,9 @@ export function isRaglingDeathPatch(npc: EntityNPC): boolean {
  * Helper function to remove all NPCs in the room.
  *
  * @param cap Optional. If specified, will only remove the given amount of NPCs.
+ * @returns True if one or more NPCs was removed, false otherwise.
  */
-export function removeAllNPCs(cap?: int): void {
+export function removeAllNPCs(cap?: int): boolean {
   const npcs = getNPCs();
-  removeEntities(npcs, cap);
+  return removeEntities(npcs, cap);
 }

@@ -266,12 +266,17 @@ export function isSingleUseCollectible(
  * @param collectibleType Optional. If specified, will only remove collectibles that match this
  * collectible type.
  * @param cap Optional. If specified, will only remove the given amount of collectibles.
+ * @returns True if one or more collectibles was removed, false otherwise.
  */
 export function removeAllCollectibles(
   collectibleType?: CollectibleType | int,
   cap?: int,
-): void {
-  removeAllPickups(PickupVariant.PICKUP_COLLECTIBLE, collectibleType, cap);
+): boolean {
+  return removeAllPickups(
+    PickupVariant.PICKUP_COLLECTIBLE,
+    collectibleType,
+    cap,
+  );
 }
 
 /**

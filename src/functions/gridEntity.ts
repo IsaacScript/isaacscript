@@ -193,20 +193,28 @@ export function isPostBossVoidPortal(gridEntity: GridEntity): boolean {
  *   GridEntityType.GRID_DOOR,
  * );
  * ```
+ *
+ * @returns True if one or more grid entities was removed, false otherwise.
  */
 export function removeAllGridEntitiesExceptFor(
   ...gridEntityTypes: GridEntityType[]
-): void {
+): boolean {
   const gridEntityTypeExceptions = new Set(gridEntityTypes);
   const gridEntities = getGridEntities();
+  let removedOneOrMoreGridEntities = false;
   for (const gridEntity of gridEntities) {
     const gridEntityType = gridEntity.GetType();
     if (!gridEntityTypeExceptions.has(gridEntityType)) {
       removeGridEntity(gridEntity, false);
+      removedOneOrMoreGridEntities = true;
     }
   }
 
-  roomUpdateSafe();
+  if (removedOneOrMoreGridEntities) {
+    roomUpdateSafe();
+  }
+
+  return removedOneOrMoreGridEntities;
 }
 
 /**
@@ -221,16 +229,23 @@ export function removeAllGridEntitiesExceptFor(
  *   GridEntityType.GRID_ROCKT,
  * );
  * ```
+ *
+ * @returns True if one or more grid entities was removed, false otherwise.
  */
 export function removeAllMatchingGridEntities(
   ...gridEntityType: GridEntityType[]
-): void {
+): boolean {
   const gridEntities = getGridEntities(...gridEntityType);
+  if (gridEntities.length === 0) {
+    return false;
+  }
+
   for (const gridEntity of gridEntities) {
     removeGridEntity(gridEntity, false);
   }
 
   roomUpdateSafe();
+  return true;
 }
 
 /**
