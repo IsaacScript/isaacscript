@@ -1,4 +1,4 @@
-import { EMPTY_PNG_PATH } from "../constants";
+import { clearSprite } from "..";
 import { GRID_ENTITY_XML_MAP } from "../maps/gridEntityXMLMap";
 import {
   DEFAULT_TOP_LEFT_WALL_GRID_INDEX,
@@ -277,17 +277,11 @@ export function removeGridEntity(
  * Helper function to make a grid entity invisible. This is accomplished by setting its sprite to
  * an empty/missing PNG file.
  *
- * For more information, see the documentation for the "EMPTY_PNG_FILENAME" constant.
+ * For more information, see the documentation for the `clearSprite()` helper function.
  */
 export function setGridEntityInvisible(gridEntity: GridEntity) {
   const sprite = gridEntity.GetSprite();
-  const numLayers = sprite.GetLayerCount();
-
-  for (let i = 0; i < numLayers; i++) {
-    sprite.ReplaceSpritesheet(i, EMPTY_PNG_PATH);
-  }
-
-  sprite.LoadGraphics();
+  clearSprite(sprite);
 }
 
 export function spawnGiantPoop(topLeftGridIndex: int): void {

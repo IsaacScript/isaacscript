@@ -2,7 +2,7 @@ import { EMPTY_PNG_PATH } from "../constants";
 
 /**
  * Helper function to clear a specific layer from a sprite. This function is variadic, so pass as
- * many layer IDs as you want to clear.
+ * many layer IDs as you want to clear. If no specific layers are passed, it will clear every layer.
  *
  * Since there is no official API method to "clear" a sprite, we can work around it by setting the
  * spritesheet to a non-existent or completely transparent file. If the path to the spritesheet does
@@ -11,9 +11,18 @@ import { EMPTY_PNG_PATH } from "../constants";
  * path corresponding to the "EMPTY_PNG_PATH" constant.
  */
 export function clearSprite(sprite: Sprite, ...layerIDs: int[]): void {
+  if (layerIDs.length === 0) {
+    layerIDs = [];
+    const numLayers = sprite.GetLayerCount();
+    for (let i = 0; i < numLayers; i++) {
+      layerIDs.push(i);
+    }
+  }
+
   for (const layerID of layerIDs) {
     sprite.ReplaceSpritesheet(layerID, EMPTY_PNG_PATH);
   }
+
   sprite.LoadGraphics();
 }
 
