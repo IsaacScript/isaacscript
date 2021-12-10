@@ -20,8 +20,19 @@ declare interface GridEntityDoor extends GridEntity {
   CloseAnimation: string;
   CurrentRoomType: RoomType;
   Direction: Direction;
+
+  /**
+   * Some doors use an additional sprite that is placed on top of the door (e.g. bars, chains,
+   * wooden boards, etc.).
+   */
   ExtraSprite: Sprite;
+
+  /**
+   * Toggles the visibility of the extra sprite. Some doors use an additional sprite that is placed
+   * on top of the door (e.g. bars, chains, wooden boards, etc.).
+   */
   ExtraVisible: boolean;
+
   LockedAnimation: string;
   OpenAnimation: string;
   OpenLockedAnimation: string;
