@@ -13,6 +13,8 @@ if (($NODE_VERSION < 16)); then
   exit 1
 fi
 
+SECONDS=0
+
 cd "$DIR"
 
 # Step 1 - Use Prettier to check formatting
@@ -28,4 +30,4 @@ npx eslint --max-warnings 0 typings
 npx cspell --no-progress --no-summary "typings/**/*.ts"
 npx cspell --no-progress --no-summary "scripts/**/*.py"
 
-echo "Success!"
+echo "Successfully linted in $SECONDS seconds."
