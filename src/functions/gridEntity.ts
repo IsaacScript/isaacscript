@@ -1,10 +1,10 @@
-import { clearSprite } from "..";
 import { GRID_ENTITY_XML_MAP } from "../maps/gridEntityXMLMap";
 import {
   DEFAULT_TOP_LEFT_WALL_GRID_INDEX,
   ROOM_SHAPE_TO_TOP_LEFT_WALL_GRID_INDEX_MAP,
 } from "../maps/roomShapeToTopLeftWallGridIndexMap";
 import { roomUpdateSafe } from "./rooms";
+import { clearSprite } from "./sprite";
 
 /**
  * Helper function to convert the grid entity type found in a room XML file to the corresponding

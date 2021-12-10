@@ -11,9 +11,11 @@ import { EMPTY_PNG_PATH } from "../constants";
  * path corresponding to the "EMPTY_PNG_PATH" constant.
  */
 export function clearSprite(sprite: Sprite, ...layerIDs: int[]): void {
+  const numLayers = sprite.GetLayerCount();
+
   if (layerIDs.length === 0) {
     layerIDs = [];
-    const numLayers = sprite.GetLayerCount();
+
     for (let i = 0; i < numLayers; i++) {
       layerIDs.push(i);
     }
