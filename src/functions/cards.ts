@@ -10,12 +10,12 @@ import {
 import { arrayRemove, getRandomArrayElement } from "./array";
 
 /**
- * Helper function to get a card name from a Card.
+ * Helper function to get a card description from a Card enum value.
  *
  * Example:
  * ```
  * const card = Card.CARD_FOOL;
- * const cardName = getCardName(card); // cardName is "0 - The Fool"
+ * const cardDescription = getCardDescription(card); // cardDescription is "Where journey begins"
  * ```
  */
 export function getCardDescription(card: Card | int): string {
