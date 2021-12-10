@@ -281,7 +281,12 @@ export function removeGridEntity(
  */
 export function setGridEntityInvisible(gridEntity: GridEntity) {
   const sprite = gridEntity.GetSprite();
-  sprite.ReplaceSpritesheet(0, EMPTY_PNG_PATH);
+  const numLayers = sprite.GetLayerCount();
+
+  for (let i = 0; i < numLayers; i++) {
+    sprite.ReplaceSpritesheet(i, EMPTY_PNG_PATH);
+  }
+
   sprite.LoadGraphics();
 }
 
