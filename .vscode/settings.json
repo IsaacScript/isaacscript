@@ -29,12 +29,16 @@
 
   // Automatically run the formatter when a JavaScript or TypeScript file is saved
   "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
     "editor.codeActionsOnSave": [
       "source.fixAll.eslint",
     ],
     "editor.tabSize": 2,
   },
   "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
     "editor.codeActionsOnSave": [
       "source.fixAll.eslint",
     ],
