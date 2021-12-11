@@ -4,6 +4,10 @@ export function arrayCombine<T>(array1: T[], array2: T[]): T[] {
   return [...array1, ...array2];
 }
 
+export function arrayCopy<T>(array: T[]): T[] {
+  return [...array];
+}
+
 export function arrayEmpty<T>(array: T[]): void {
   array.splice(0, array.length);
 }
