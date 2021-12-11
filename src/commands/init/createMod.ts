@@ -21,7 +21,7 @@ import {
 import * as file from "../../file";
 import { getInputString, getInputYesNo } from "../../prompt";
 import { GitHubCLIHostsYAML } from "../../types/GitHubCLIHostsYAML";
-import { execShell, snakeKebabToCamel } from "../../util";
+import { execShell } from "../../util";
 
 export async function createMod(
   projectName: string,
@@ -100,7 +100,7 @@ function copyDynamicFiles(
     const fileName = PACKAGE_JSON;
     const templatePath = PACKAGE_JSON_TEMPLATE_PATH;
     const template = file.read(templatePath);
-    const packageJSON = template.replace(/MOD_NAME/g, projectName);
+    const packageJSON = template.replace(/MOD_NAME_TO_REPLACE/g, projectName);
     const destinationPath = path.join(projectPath, fileName);
     file.write(destinationPath, packageJSON);
   }
@@ -110,7 +110,7 @@ function copyDynamicFiles(
     const fileName = README_MD;
     const templatePath = README_MD_TEMPLATES_PATH;
     const template = file.read(templatePath);
-    const readmeMD = template.replace(/MOD_NAME/g, projectName);
+    const readmeMD = template.replace(/MOD_NAME_TO_REPLACE/g, projectName);
     const destinationPath = path.join(projectPath, fileName);
     file.write(destinationPath, readmeMD);
   }
@@ -120,7 +120,7 @@ function copyDynamicFiles(
     const fileName = METADATA_XML;
     const templatePath = METADATA_XML_TEMPLATE_PATH;
     const template = file.read(templatePath);
-    const metadataXML = template.replace(/MOD_NAME/g, projectName);
+    const metadataXML = template.replace(/MOD_NAME_TO_REPLACE/g, projectName);
     const modPath = path.join(projectPath, "mod");
     const destinationPath = path.join(modPath, fileName);
     file.write(destinationPath, metadataXML);
@@ -142,13 +142,10 @@ function copyDynamicFiles(
     // Convert snake_case and kebab-case to camelCase
     // (kebab-case in particular will make the example TypeScript file fail to compile)
     const srcPath = path.join(projectPath, "src");
-    const camelCaseProjectName = snakeKebabToCamel(projectName);
     const fileName = MAIN_TS;
     const templatePath = MAIN_TS_TEMPLATE_PATH;
     const template = file.read(templatePath);
-    const mainTS = template
-      .replace(/MOD_NAME initialized/g, `${projectName} initialized`)
-      .replace(/MOD_NAME/g, camelCaseProjectName);
+    const mainTS = template.replace(/MOD_NAME_TO_REPLACE/g, projectName);
     const destinationPath = path.join(srcPath, fileName);
     file.write(destinationPath, mainTS);
   }
