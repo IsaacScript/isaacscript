@@ -1,3 +1,4 @@
+import { MAX_PLAYER_POCKET_ITEM_SLOTS } from "../constants";
 import { PocketItemDescription } from "../types/PocketItemDescription";
 import { PocketItemType } from "../types/PocketItemType";
 
@@ -39,7 +40,7 @@ export function getPocketItems(player: EntityPlayer): PocketItemDescription[] {
   const pocketItems: PocketItemDescription[] = [];
   let pocketItemIdentified = false;
   let pocketItem2Identified = false;
-  for (let slot = 0; slot < 4; slot++) {
+  for (let slot = 0; slot < MAX_PLAYER_POCKET_ITEM_SLOTS; slot++) {
     const card = player.GetCard(slot as PocketItemSlot);
     const pill = player.GetPill(slot as PocketItemSlot);
 
