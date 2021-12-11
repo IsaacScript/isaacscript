@@ -1,5 +1,9 @@
 import { getRandomInt, nextSeed } from "./random";
 
+export function arrayCombine<T>(array1: T[], array2: T[]): T[] {
+  return [...array1, ...array2];
+}
+
 export function arrayEmpty<T>(array: T[]): void {
   array.splice(0, array.length);
 }
