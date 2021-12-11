@@ -394,6 +394,16 @@ Fires on the first frame that the "TeleportUp" animation begins playing after a 
 function postCursedTeleport(player: EntityPlayer): void {}
 ```
 
+### MC_POST_TRINKET_BREAK
+
+Fires from MC_ENTITY_TAKE_DMG callback when a Wishbone or a Walnut breaks.
+
+When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `TrinketType` provided.
+
+```ts
+function postTrinketBreak(player: EntityPlayer, trinketType: TrinketType): void {}
+```
+
 ### MC_POST_SLOT_INIT
 
 Fires when a new slot entity is initialized. Specifically, this is either:
