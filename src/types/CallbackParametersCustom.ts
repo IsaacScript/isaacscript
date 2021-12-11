@@ -37,6 +37,7 @@ import { PostSlotUpdateCallbackType } from "../callbacks/subscriptions/postSlotU
 import { PostTearInitLateCallbackType } from "../callbacks/subscriptions/postTearInitLate";
 import { PostTearInitVeryLateCallbackType } from "../callbacks/subscriptions/postTearInitVeryLate";
 import { PostTransformationCallbackType } from "../callbacks/subscriptions/postTransformation";
+import { PostTrinketBreakCallbackType } from "../callbacks/subscriptions/postTrinketBreak";
 import { PreCustomReviveCallbackType } from "../callbacks/subscriptions/preCustomRevive";
 import { PreItemPickupCallbackType } from "../callbacks/subscriptions/preItemPickup";
 import { PreNewLevelCallbackType } from "../callbacks/subscriptions/PreNewLevel";
@@ -197,6 +198,10 @@ export interface CallbackParametersCustom {
 
   [ModCallbacksCustom.MC_POST_CURSED_TELEPORT]: [
     callback: PostCursedTeleportCallbackType,
+  ];
+
+  [ModCallbacksCustom.MC_POST_TRINKET_BREAK]: [
+    callback: PostTrinketBreakCallbackType,
   ];
 
   [ModCallbacksCustom.MC_POST_SLOT_INIT]: [

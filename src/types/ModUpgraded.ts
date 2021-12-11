@@ -37,6 +37,7 @@ import { postSlotUpdateRegister } from "../callbacks/subscriptions/postSlotUpdat
 import { postTearInitLateRegister } from "../callbacks/subscriptions/postTearInitLate";
 import { postTearInitVeryLateRegister } from "../callbacks/subscriptions/postTearInitVeryLate";
 import { postTransformationRegister } from "../callbacks/subscriptions/postTransformation";
+import { postTrinketBreakRegister } from "../callbacks/subscriptions/postTrinketBreak";
 import { preCustomReviveRegister } from "../callbacks/subscriptions/preCustomRevive";
 import { preItemPickupRegister } from "../callbacks/subscriptions/preItemPickup";
 import { preNewLevelRegister } from "../callbacks/subscriptions/PreNewLevel";
@@ -281,6 +282,10 @@ function getCallbackRegisterFunction(callbackID: ModCallbacksCustom) {
 
     case ModCallbacksCustom.MC_POST_CURSED_TELEPORT: {
       return postCursedTeleportRegister;
+    }
+
+    case ModCallbacksCustom.MC_POST_TRINKET_BREAK: {
+      return postTrinketBreakRegister;
     }
 
     case ModCallbacksCustom.MC_POST_SLOT_INIT: {

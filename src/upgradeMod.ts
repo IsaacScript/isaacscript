@@ -26,6 +26,7 @@ import { postSlotRenderBrokenCallbacksInit } from "./callbacks/postSlotRenderBro
 import { postTearInitLateCallbackInit } from "./callbacks/postTearInitLate";
 import { postTearInitVeryLateCallbackInit } from "./callbacks/postTearInitVeryLate";
 import { postTransformationCallbackInit } from "./callbacks/postTransformation";
+import { postTrinketBreakCallbackInit } from "./callbacks/postTrinketBreak";
 import { preNewLevelCallbackInit } from "./callbacks/preNewLevel";
 import { reorderedCallbacksInit } from "./callbacks/reorderedCallbacks";
 import { deployJSONRoomInit } from "./features/deployJSONRoom";
@@ -113,6 +114,7 @@ function initCustomCallbacks(mod: ModUpgraded) {
   postTransformationCallbackInit(mod);
   postPurchaseCallbackInit(mod);
   postSacrificeCallbackInit(mod);
+  postTrinketBreakCallbackInit(mod);
   postCursedTeleportCallbackInit(mod);
   postSlotInitUpdateCallbacksInit(mod);
   postSlotRenderBrokenCallbacksInit(mod);
