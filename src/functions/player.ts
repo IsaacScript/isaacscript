@@ -774,12 +774,19 @@ export function setActiveItem(
 }
 
 /**
- * If you want to stop the player from shooting without the blindfold costume, then simply call
- * `player.TryRemoveNullCostume(NullItemID.ID_BLINDFOLD)` after invoking this function.
+ * Helper function to blindfold the player by using a hack with the challenge variable.
  *
- * This function was originally created by im_tem.
+ * The method used in this function was discovered by im_tem.
+ *
+ * @param player The player to apply or remove the blindfold state from.
+ * @param enabled Whether or not to apply or remove the blindfold.
+ * @param modifyCostume Optional. Whether to add or remove the blindfold costume. True by default.
  */
-export function setBlindfold(player: EntityPlayer, enabled: boolean): void {
+export function setBlindfold(
+  player: EntityPlayer,
+  enabled: boolean,
+  modifyCostume = true,
+): void {
   const game = Game();
   const character = player.GetPlayerType();
   const challenge = Isaac.GetChallenge();
@@ -788,10 +795,18 @@ export function setBlindfold(player: EntityPlayer, enabled: boolean): void {
     game.Challenge = Challenge.CHALLENGE_SOLAR_SYSTEM; // This challenge has a blindfold
     player.ChangePlayerType(character);
     game.Challenge = challenge;
+
+    // The costume is applied automatically
+    if (!modifyCostume) {
+      player.TryRemoveNullCostume(NullItemID.ID_BLINDFOLD);
+    }
   } else {
     game.Challenge = Challenge.CHALLENGE_NULL;
     player.ChangePlayerType(character);
     game.Challenge = challenge;
-    player.TryRemoveNullCostume(NullItemID.ID_BLINDFOLD);
+
+    if (modifyCostume) {
+      player.TryRemoveNullCostume(NullItemID.ID_BLINDFOLD);
+    }
   }
 }
