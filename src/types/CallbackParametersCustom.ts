@@ -202,6 +202,7 @@ export interface CallbackParametersCustom {
 
   [ModCallbacksCustom.MC_POST_TRINKET_BREAK]: [
     callback: PostTrinketBreakCallbackType,
+    trinketType?: TrinketType,
   ];
 
   [ModCallbacksCustom.MC_POST_SLOT_INIT]: [
