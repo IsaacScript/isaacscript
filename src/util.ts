@@ -112,14 +112,3 @@ export function parseIntSafe(input: string): number {
 
   return parseInt(trimmedInput, 10);
 }
-
-/**
- * Converts snake_case and kebab-case to camelCase.
- *
- * From: https://hisk.io/javascript-snake-to-camel/
- */
-export function snakeKebabToCamel(str: string): string {
-  return str.replace(/([-_][a-z])/g, (group) =>
-    group.toUpperCase().replace("-", "").replace("_", ""),
-  );
-}
