@@ -9,9 +9,15 @@ export function closeAllDoors(): void {
   }
 }
 
-export function getDoors(roomType?: RoomType): GridEntityDoor[] {
+/**
+ * Helper function to get all of the doors in the room. By default, it will return every door. You
+ * can optionally specify one or more room types to return only the doors that match the specified
+ * room types.
+ */
+export function getDoors(...roomTypes: RoomType[]): GridEntityDoor[] {
   const game = Game();
   const room = game.GetRoom();
+  const roomTypesSet = new Set(roomTypes);
 
   const doors: GridEntityDoor[] = [];
   for (let i = 0; i < MAX_NUM_DOORS; i++) {
@@ -20,9 +26,9 @@ export function getDoors(roomType?: RoomType): GridEntityDoor[] {
       continue;
     }
 
-    if (roomType === undefined) {
+    if (roomTypes.length === 0) {
       doors.push(door);
-    } else if (door.IsRoomType(roomType)) {
+    } else if (roomTypesSet.has(door.TargetRoomType)) {
       doors.push(door);
     }
   }
