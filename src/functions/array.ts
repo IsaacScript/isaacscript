@@ -1,9 +1,22 @@
 import { getRandomInt, nextSeed } from "./random";
 
-export function arrayCombine<T>(array1: T[], array2: T[]): T[] {
-  return [...array1, ...array2];
+/**
+ * Helper function to combine arrays. Returns a new array that is the composition of all of the
+ * specified arrays. This function is variadic, meaning that you can specify N arguments to combine
+ * N arrays. Note that this will only perform a shallow copy of the array elements.
+ */
+export function arrayCombine<T>(...arrays: T[][]): T[] {
+  const elements: T[] = [];
+  for (const array of arrays) {
+    for (const element of array) {
+      elements.push(element);
+    }
+  }
+
+  return elements;
 }
 
+/** Helper function to perform a shallow copy. */
 export function arrayCopy<T>(array: T[]): T[] {
   return [...array];
 }
