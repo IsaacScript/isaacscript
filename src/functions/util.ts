@@ -120,15 +120,6 @@ export function hexToKColor(hexString: string, alpha: float): KColor {
   return KColor(R / base, G / base, B / base, alpha);
 }
 
-export function isGreedMode(): boolean {
-  const game = Game();
-
-  return (
-    game.Difficulty === Difficulty.DIFFICULTY_GREED ||
-    game.Difficulty === Difficulty.DIFFICULTY_GREEDIER
-  );
-}
-
 /**
  * Players can boot the game with an launch option called "--luadebug", which will enable additional
  * functionality that is considered to be unsafe. For more information about this flag, see the
