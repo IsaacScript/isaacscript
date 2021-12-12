@@ -39,13 +39,14 @@ export function monkeyPatchMainLua(targetModDirectory: string): void {
   const mainLuaPath = path.join(targetModDirectory, MAIN_LUA);
   let mainLua = file.read(mainLuaPath);
 
-  mainLua = patchInformationalHeader(mainLua);
+  // mainLua = patchInformationalHeader(mainLua);
   mainLua = patchGlobalObjects(mainLua);
 
   file.write(mainLuaPath, mainLua);
 }
 
 // Add an informational header for people who happen to be browsing the Lua output
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function patchInformationalHeader(mainLua: string) {
   return INFORMATIONAL_HEADER + mainLua;
 }
