@@ -20,8 +20,8 @@ export function postPlayerChangeHealthCallbackInit(mod: ModUpgraded): void {
   saveDataManager("postPlayerChangeHealth", v, hasSubscriptions);
 
   mod.AddCallbackCustom(
-    ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED,
-    postPlayerUpdateReordered,
+    ModCallbacksCustom.MC_POST_PEFFECT_UPDATE_REORDERED,
+    postPEffectUpdateReordered,
   );
 }
 
@@ -29,8 +29,8 @@ function hasSubscriptions() {
   return postPlayerChangeHealthHasSubscriptions();
 }
 
-// ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED
-function postPlayerUpdateReordered(player: EntityPlayer) {
+// ModCallbacksCustom.MC_POST_PEFFECT_UPDATE_REORDERED
+function postPEffectUpdateReordered(player: EntityPlayer) {
   if (!hasSubscriptions()) {
     return;
   }

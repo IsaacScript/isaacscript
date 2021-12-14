@@ -35,8 +35,8 @@ export function customReviveCallbacksInit(mod: ModUpgraded): void {
   mod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoom); // 19
 
   mod.AddCallbackCustom(
-    ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED,
-    postPlayerUpdateReordered,
+    ModCallbacksCustom.MC_POST_PEFFECT_UPDATE_REORDERED,
+    postPEffectUpdateReordered,
   );
 
   mod.AddCallbackCustom(
@@ -78,8 +78,8 @@ function postNewRoom() {
   }
 }
 
-// ModCallbacks.MC_POST_PLAYER_UPDATE (31)
-function postPlayerUpdateReordered(player: EntityPlayer) {
+// ModCallbacksCustom.MC_POST_PEFFECT_UPDATE_REORDERED
+function postPEffectUpdateReordered(player: EntityPlayer) {
   if (v.run.state !== CustomReviveState.WAITING_FOR_ITEM_ANIMATION) {
     return;
   }

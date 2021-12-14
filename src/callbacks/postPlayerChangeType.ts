@@ -18,9 +18,8 @@ export function postPlayerChangeTypeCallbackInit(mod: ModUpgraded): void {
   saveDataManager("postPlayerChangeType", v, hasSubscriptions);
 
   mod.AddCallbackCustom(
-    ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED,
-    postPlayerUpdateReorderedPlayer,
-    PlayerVariant.PLAYER, // Co-op babies cannot change player type
+    ModCallbacksCustom.MC_POST_PEFFECT_UPDATE_REORDERED,
+    postPEffectUpdateReordered,
   );
 }
 
@@ -28,9 +27,8 @@ function hasSubscriptions() {
   return postPlayerChangeTypeHasSubscriptions();
 }
 
-// ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED
-// PlayerVariant.PLAYER (0)
-function postPlayerUpdateReorderedPlayer(player: EntityPlayer) {
+// ModCallbacksCustom.MC_POST_PEFFECT_UPDATE_REORDERED
+function postPEffectUpdateReordered(player: EntityPlayer) {
   if (!hasSubscriptions()) {
     return;
   }
