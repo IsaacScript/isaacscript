@@ -18,6 +18,7 @@ import { postNewLevelReorderedRegister } from "../callbacks/subscriptions/postNe
 import { postNewRoomEarlyRegister } from "../callbacks/subscriptions/postNewRoomEarly";
 import { postNewRoomReorderedRegister } from "../callbacks/subscriptions/postNewRoomReordered";
 import { postNPCInitLateRegister } from "../callbacks/subscriptions/postNPCInitLate";
+import { postPEffectUpdateReorderedRegister } from "../callbacks/subscriptions/postPEffectUpdateReordered";
 import { postPickupCollectRegister } from "../callbacks/subscriptions/postPickupCollect";
 import { postPickupInitLateRegister } from "../callbacks/subscriptions/postPickupInitLate";
 import { postPlayerChangeHealthRegister } from "../callbacks/subscriptions/postPlayerChangeHealth";
@@ -158,6 +159,10 @@ function getCallbackRegisterFunction(callbackID: ModCallbacksCustom) {
 
     case ModCallbacksCustom.MC_POST_PLAYER_INIT_REORDERED: {
       return postPlayerInitReorderedRegister;
+    }
+
+    case ModCallbacksCustom.MC_POST_PEFFECT_UPDATE_REORDERED: {
+      return postPEffectUpdateReorderedRegister;
     }
 
     case ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED: {

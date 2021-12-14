@@ -6,6 +6,10 @@ import {
   PlayerIndex,
 } from "../functions/player";
 import {
+  postPEffectUpdateReorderedFire,
+  postPEffectUpdateReorderedHasSubscriptions,
+} from "./subscriptions/postPEffectUpdateReordered";
+import {
   postPlayerInitReorderedFire,
   postPlayerInitReorderedHasSubscriptions,
 } from "./subscriptions/postPlayerInitReordered";
@@ -23,6 +27,7 @@ const v = {
     postGameStartedFiredOnThisRun: false,
 
     postPlayerInitQueue: [] as PlayerIndex[],
+    postPEffectUpdateQueue: [] as PlayerIndex[],
     postPlayerUpdateQueue: [] as PlayerIndex[],
     postPlayerRenderQueue: [] as PlayerIndex[],
   },
@@ -32,6 +37,7 @@ const v = {
 export function postPlayerReorderedCallbacksInit(mod: Mod): void {
   saveDataManager("postPlayerReordered", v, hasSubscriptions);
 
+  mod.AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, postPEffectUpdate); // 4
   mod.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit); // 9
   mod.AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, postPlayerUpdate); // 31
   mod.AddCallback(ModCallbacks.MC_POST_PLAYER_RENDER, postPlayerRender); // 32
@@ -42,9 +48,25 @@ export function postPlayerReorderedCallbacksInit(mod: Mod): void {
 function hasSubscriptions() {
   return (
     postPlayerInitReorderedHasSubscriptions() ||
+    postPEffectUpdateReorderedHasSubscriptions() ||
     postPlayerUpdateReorderedHasSubscriptions() ||
     postPlayerRenderReorderedHasSubscriptions()
   );
+}
+
+// ModCallbacks.MC_POST_PEFFECT_UPDATE (4)
+function postPEffectUpdate(player: EntityPlayer) {
+  if (!hasSubscriptions()) {
+    return;
+  }
+
+  if (v.run.postGameStartedFiredOnThisRun) {
+    postPEffectUpdateReorderedFire(player);
+  } else {
+    // Defer callback execution until the PostGameStarted callback fires
+    const playerIndex = getPlayerIndex(player);
+    v.run.postPEffectUpdateQueue.push(playerIndex);
+  }
 }
 
 // ModCallbacks.MC_POST_PLAYER_INIT (9)
