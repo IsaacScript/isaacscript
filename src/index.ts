@@ -28,6 +28,7 @@ export {
 export * from "./functions/array";
 export * from "./functions/bitwise";
 export * from "./functions/cards";
+export * from "./functions/challenges";
 export * from "./functions/charge";
 export * from "./functions/collectibles";
 export * from "./functions/collectibleSet";
