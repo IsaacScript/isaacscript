@@ -121,7 +121,15 @@ declare interface Entity {
   SpawnerEntity: Entity | undefined;
   SpawnerType: EntityType | int;
   SpawnerVariant: int;
-  readonly SplatColor: Readonly<Color>;
+
+  /**
+   * The color of the gibs when an entity dies.
+   *
+   * The Color of this property is read only, so if you want to change it, you have to replace the
+   * entire thing with a new Color object.
+   */
+  SplatColor: Readonly<Color>;
+
   SpriteOffset: Vector;
   SpriteRotation: float;
   SpriteScale: Vector;
