@@ -599,12 +599,12 @@ Building on this example, you can also expose both variables and methods:
 
 ```ts
 declare let RevelationsExports: unknown;
-RevelationsExports = {
+RevelationsExports = { // "RevelationsExports" is now a global variable
+  myVariable1,
+  myVariable2,
   myFunction1,
   myFunction2,
-  myFunction3,
 }
-// "RevelationsExports" is now a global variable
 ```
 
 <br />
