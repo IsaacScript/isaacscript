@@ -186,6 +186,15 @@ interface StageAPICallbackParameters {
 
 /** @noSelf */
 interface StageAPIInterface {
+  /** Creates a custom boss. */
+  AddBossData(id: string, bossData: BossData): void;
+
+  /** Add boss to current floor. */
+  AddBossToBaseFloorPool(
+    pool: PoolEntry,
+    stage: LevelStage,
+    stageType: StageType,
+  ): void;
   /**
    * Stores a function and its params in a table indexed by `ID` and sorted by `priority`,
    * where low priority is at the start.

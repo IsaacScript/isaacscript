@@ -231,3 +231,19 @@ declare interface StageAPIVanillaStage {
   Stage: LevelStage;
   StageType: StageType;
 }
+
+declare interface BossData {
+  Bossname: string;
+  Name: string;
+  Portrait: string;
+  Rooms: StageAPIRoomsList;
+}
+
+declare interface PoolEntry {
+  AlwaysReplaceHorsemen?: boolean | undefined;
+  AlwaysReplaceSubtype?: int | undefined;
+  BossID: string;
+  Horseman?: boolean | undefined;
+  OnlyReplaceSubtype?: int | undefined;
+  Weight?: int | undefined;
+}
