@@ -598,15 +598,13 @@ RevelationsVersion = "2.1"; // "RevelationsVersion" is now a global variable
 Building on this example, you can also expose both variables and methods:
 
 ```ts
-class Exports() {
-  IncreaseStrength(amount: int) {
-    // [more code here]
-  }
+declare let RevelationsExports: unknown;
+RevelationsExports = {
+  myFunction1,
+  myFunction2,
+  myFunction3,
 }
-const exports = new Exports()
-
-declare let RevelationsExports: Exports;
-RevelationsExports = exports; // "RevelationsExports" is now a global variable
+// "RevelationsExports" is now a global variable
 ```
 
 <br />
