@@ -26,9 +26,21 @@ export function monitor(argv: Record<string, unknown>, config: Config): void {
     config.saveSlot = argv.saveSlot as number; // eslint-disable-line no-param-reassign
   }
 
+  // Read the "tsconfig.json" file
+  const tsConfigInclude = getTSConfigInclude();
+  const resolvedIncludePath = path.resolve(CWD, tsConfigInclude);
+  const modTargetDirectoryName = getModTargetDirectoryName(config);
+  const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
+
   // Prepare the IsaacScript watcher mod
   copyWatcherMod(config);
   touchWatcherSaveDatFiles(config);
+
+  // Delete and re-copy the mod every time IsaacScript starts
+  // This ensures that it is always the latest version
+  if (file.exists(modTargetPath)) {
+    file.deleteFileOrDirectory(modTargetPath);
+  }
 
   // Subprocess #1 - The "save#.dat" file writer
   spawnSaveDatWriter(config);
@@ -43,12 +55,6 @@ export function monitor(argv: Record<string, unknown>, config: Config): void {
   setInterval(() => {
     notifyGame.ping();
   }, 1000); // Every second
-
-  // Read the "tsconfig.json" file
-  const tsConfigInclude = getTSConfigInclude();
-  const resolvedIncludePath = path.resolve(CWD, tsConfigInclude);
-  const modTargetDirectoryName = getModTargetDirectoryName(config);
-  const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
 
   console.log("Automatically monitoring the following for changes:");
   console.log(
