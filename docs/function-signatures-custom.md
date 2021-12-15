@@ -84,8 +84,10 @@ function postNewRoomEarly(): void {}
 
 Fires on the `MC_POST_RENDER` frame before the player is taken to a new floor. Only fires when a player jumps into a trapdoor or enters a heaven door (beam of light). Does not fire on the first floor of the run. Does not fire when the player reloads/reseeds the current floor (i.e. Forget Me Now, 5-pip dice room).
 
+This callback passes the `EntityPlayer` object for the player who jumped into the trapdoor or entered the heaven door, if needed.
+
 ```ts
-function preNewLevel(): void {}
+function preNewLevel(player: EntityPlayer): void {}
 ```
 
 ### MC_POST_PLAYER_INIT_LATE
