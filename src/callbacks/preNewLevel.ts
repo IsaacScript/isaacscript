@@ -45,6 +45,6 @@ function postPlayerRender(player: EntityPlayer) {
   const finalFrame = getFinalFrameOfAnimation(sprite);
   if (frame === finalFrame) {
     firedOnStage = effectiveStage;
-    preNewLevelFire();
+    preNewLevelFire(player);
   }
 }

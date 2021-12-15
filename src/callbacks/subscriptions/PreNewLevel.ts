@@ -1,4 +1,4 @@
-export type PreNewLevelCallbackType = () => void;
+export type PreNewLevelCallbackType = (player: EntityPlayer) => void;
 
 const subscriptions: Array<[PreNewLevelCallbackType]> = [];
 
@@ -13,8 +13,8 @@ export function preNewLevelRegister(callback: PreNewLevelCallbackType): void {
 }
 
 /** @internal */
-export function preNewLevelFire(): void {
+export function preNewLevelFire(player: EntityPlayer): void {
   for (const [callback] of subscriptions) {
-    callback();
+    callback(player);
   }
 }
