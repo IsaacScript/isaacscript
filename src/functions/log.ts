@@ -59,7 +59,7 @@ export function logAllFlags(
     description += " ";
   }
   log(`Logging all ${description}flags:`);
-  for (const [key, value] of pairs(flagEnum)) {
+  for (const [key, value] of Object.entries(flagEnum)) {
     if (hasFlag(flags, value as int)) {
       log(`- Has flag: ${key}`);
     }
@@ -97,6 +97,29 @@ export function logAllTearFlags(this: void, flags: int): void {
 /** Helper function for printing out every use flag that is turned on. Helpful when debugging. */
 export function logAllUseFlags(this: void, flags: int): void {
   logAllFlags(flags, UseFlag as unknown as LuaTable, "use");
+}
+
+/**
+ * Helper function for printing out every seed effect (i.e. Easter Egg) that is turned on for the
+ * particular run.
+ */
+export function logAllSeedEffects(this: void): void {
+  const game = Game();
+  const seeds = game.GetSeeds();
+
+  log("Logging all seed effects:");
+  let hasNoSeedEffects = true;
+  for (const [key, value] of Object.entries(SeedEffect)) {
+    const seedEffect = value as SeedEffect;
+    if (seeds.HasSeedEffect(seedEffect)) {
+      log(`- ${key}`);
+      hasNoSeedEffects = false;
+    }
+  }
+
+  if (hasNoSeedEffects) {
+    log("- n/a");
+  }
 }
 
 export function logArray<T>(this: void, array: T[]): void {

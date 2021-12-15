@@ -140,7 +140,7 @@ export function isShootActionTriggeredOnAnyInput(): boolean {
 
 /** Helper function to get the enum name for the specified `Keyboard` value. */
 export function keyboardToString(keyboard: Keyboard): string {
-  for (const [keyName, keyCode] of pairs(Keyboard)) {
+  for (const [keyName, keyCode] of Object.entries(Keyboard)) {
     if (keyCode === keyboard) {
       const withoutPrefix = keyName.slice("KEY_".length);
       const [withoutUnderscores] = string.gsub(withoutPrefix, "_", " ");
