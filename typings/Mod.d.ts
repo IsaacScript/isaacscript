@@ -10,7 +10,10 @@ declare interface Mod {
 
   HasData(): boolean;
   LoadData(): string;
-  RemoveCallback(callbackID: ModCallbacks, callback: () => void): void;
+  RemoveCallback<T extends keyof CallbackParameters>(
+    modCallbacks: ModCallbacks,
+    ...args: CallbackParameters[T]
+  ): void;
   RemoveData(): void;
   SaveData(data: string): void;
 
