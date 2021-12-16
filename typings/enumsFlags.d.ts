@@ -68,102 +68,298 @@ declare enum EntityFlag {
 
 /** For EntityType.ENTITY_TEAR (2) */
 declare enum TearFlags {
+  /** Default tear (no special effects). */
   TEAR_NORMAL = 0,
+
+  /** Goes through obstacles. Used by Ouija Board. */
   TEAR_SPECTRAL = 1,
+
+  /** Goes through enemies. Used by Cupid's Arrow. */
   TEAR_PIERCING = 1 << 1,
+
+  /** Used by Spoon Bender. */
   TEAR_HOMING = 1 << 2,
+
+  /** Slows enemies on contact. Used by Spider Bite. */
   TEAR_SLOW = 1 << 3,
+
+  /** Used by The Common Cold. */
   TEAR_POISON = 1 << 4,
+
+  /**
+   * Freezes enemies in place. (For the ice effect, see `TearFlags.TEAR_ICE`.) Used by Mom's
+   * Contacts.
+   */
   TEAR_FREEZE = 1 << 5,
+
+  /** Splits into two different tears on collision. Used by The Parasite. */
   TEAR_SPLIT = 1 << 6,
+
+  /** The tear increases in size and damage the longer it travels. Used by Lump of Coal. */
   TEAR_GROW = 1 << 7,
+
+  /** Returns backwards after travelling for a little while. Used by My Reflection. */
   TEAR_BOOMERANG = 1 << 8,
+
+  /** Keeps going past enemies that it kills (with less damage). Used by Polyphemus. */
   TEAR_PERSISTENT = 1 << 9,
+
+  /** Used by the Wiggle Worm trinket. */
   TEAR_WIGGLE = 1 << 10,
+
+  /** Created a blue fly on hit. Used by The Mulligan. */
   TEAR_MULLIGAN = 1 << 11,
+
+  /** Explodes on hit. Used by Ipecac. */
   TEAR_EXPLOSIVE = 1 << 12,
+
+  /** Used by Mom's Eyeshadow. */
   TEAR_CHARM = 1 << 13,
+
+  /** Used by Iron Bar. */
   TEAR_CONFUSION = 1 << 14,
+
+  /** Enemies killed have a 33% chance to drop a heart. */
   TEAR_HP_DROP = 1 << 15,
+
+  /** Tears orbit around the player. Used by Tiny Planet. */
   TEAR_ORBIT = 1 << 16,
+
+  /** Floats in place until the player releases the fire button. Used by Anti-Gravity. */
   TEAR_WAIT = 1 << 17,
+
+  /** Splits into four different tears on collision. Used by Cricket's Body. */
   TEAR_QUADSPLIT = 1 << 18,
+
+  /** Bounces off of enemies, walls, rocks, and so on. Used by Rubber Cement. */
   TEAR_BOUNCE = 1 << 19,
+
+  /** Used by Mom's Perfume. */
   TEAR_FEAR = 1 << 20,
+
+  /** The tear shrinks the longer it travels. Used by Proptosis. */
   TEAR_SHRINK = 1 << 21,
+
+  /** Used by Fire Mind. */
   TEAR_BURN = 1 << 22,
+
+  /** Attracts enemies and pickups. Used by Strange Attractor. */
   TEAR_ATTRACTOR = 1 << 23,
+
+  /** Pushes enemies back further than normal. */
   TEAR_KNOCKBACK = 1 << 24,
+
+  /** Used by Pulse Worm. */
   TEAR_PULSE = 1 << 25,
+
   TEAR_SPIRAL = 1 << 26,
+
+  /** Used by Flat worm. */
   TEAR_FLAT = 1 << 27,
+
+  /** Makes tears explode out of the bomb. Used by Sad Bombs. */
   TEAR_SAD_BOMB = 1 << 28,
+
+  /** Damages everything in the room when it explodes. Used by Butt Bombs. */
   TEAR_BUTT_BOMB = 1 << 29,
+
+  /** Used by Hook Worm. */
   TEAR_SQUARE = 1 << 30,
+
+  /** Creates an aura around the tear. Used by Godhead. */
   TEAR_GLOW = 1 << 31,
+
+  /** Slows enemies and colors them black. Used by Lil Gish. */
   TEAR_GISH = 1 << 32,
+
+  /** Spawns green creep on hit. Used by Mysterious Liquid. */
   TEAR_MYSTERIOUS_LIQUID_CREEP = 1 << 33,
+
+  /** Deletes projectiles that it collides with. Used by Lost Contact. */
   TEAR_SHIELDED = 1 << 34,
+
+  /** Spawns a pickup upon exploding. Used by Glitter Bombs. */
   TEAR_GLITTER_BOMB = 1 << 35,
+
+  /** Splits into 5 little bombs upon exploding. Used by Scatter Bombs. */
   TEAR_SCATTER_BOMB = 1 << 36,
+
+  /** Sticks to enemies and continues to deal damage. Used by Explosivo and Sticky Bombs. */
   TEAR_STICKY = 1 << 37,
+
+  /** Pass through walls to loop around the screen. Used by Continuum. */
   TEAR_CONTINUUM = 1 << 38,
+
+  /** Creates a light beam on hit. Used by Holy Light. */
   TEAR_LIGHT_FROM_HEAVEN = 1 << 39,
+
+  /** Spawns a coin on hit. Used by Bumbo. */
   TEAR_COIN_DROP = 1 << 40,
+
+  /** Enemies killed will spawn a black heart. */
   TEAR_BLACK_HP_DROP = 1 << 41,
+
+  /** Follows the parent player's beam. Used by Tractor Beam. */
   TEAR_TRACTOR_BEAM = 1 << 42,
+
+  /** Shrink enemies on hit. Used by God's Flesh. */
   TEAR_GODS_FLESH = 1 << 43,
+
+  /** Have a chance to spawn a coin on hit. */
   TEAR_GREED_COIN = 1 << 44,
+
+  /** Causes a large explosion in the shape of a cross. Used by Bomber Boy. */
   TEAR_CROSS_BOMB = 1 << 45,
+
+  /** Used by Ouroboros Worm. */
   TEAR_BIG_SPIRAL = 1 << 46,
+
+  /** Used by Glaucoma. */
   TEAR_PERMANENT_CONFUSION = 1 << 47,
+
+  /** Sticks to enemies and does damage over time. Used by Sinus Infection. */
   TEAR_BOOGER = 1 << 48,
+
+  /** Spawns creep on hit and spawns blue flies or spiders. Used by Parasitoid. */
   TEAR_EGG = 1 << 49,
+
+  /** Can open doors or break grid entities. Used by Sulfuric Acid. */
   TEAR_ACID = 1 << 50,
+
+  /** Splits into two tears. Used by Compound Fracture. */
   TEAR_BONE = 1 << 51,
+
+  /**
+   * Piercing. When passing through an enemy, gains homing and does double damage. Used by Eye of
+   * Belial.
+   */
   TEAR_BELIAL = 1 << 52,
+
+  /** Enemies turn gold and drop coins on death. Used by Midas' Touch. */
   TEAR_MIDAS = 1 << 53,
+
   TEAR_NEEDLE = 1 << 54,
+
+  /** Causes electricity to ripple around the room, damaging enemies. Used by Jacob's Ladder. */
   TEAR_JACOBS = 1 << 55,
+
+  /** Void tears. Instantly kills enemies. Used by Little Horn. */
   TEAR_HORN = 1 << 56,
+
+  /** Electricity arcs between tears. Used by Technology Zero. */
   TEAR_LASER = 1 << 57,
+
+  /** Tears stay in the air and bump into each other. Used by Pop! */
   TEAR_POP = 1 << 58,
+
+  /** Tears combine when they collide into each other. Used by Lachryphagy. */
   TEAR_ABSORB = 1 << 59,
+
+  /** Lasers are generated on top of the tear. Used by Trisagion. */
   TEAR_LASERSHOT = 1 << 60,
+
+  /** Continually bounces as it travels. Used by Flat Stone. */
   TEAR_HYDROBOUNCE = 1 << 61,
+
+  /** Arcing shots that split into smaller tears on impact. Used by Haemolacria. */
   TEAR_BURSTSPLIT = 1 << 62,
+
+  /** Spawns green creep. Used by Bob's Bladder. */
   TEAR_CREEP_TRAIL = 1 << 63,
+
+  /** Knockback tears. Used by Knockout Drops. */
   TEAR_PUNCH = 1 << 64,
+
+  /** Enemies become frozen on death. (For the freeze-in-place effect, see `TearFlags.FREEZE`.) */
   TEAR_ICE = 1 << 65,
+
+  /** Enemies being magnetized and pull other things towards them. Used by Lodestone. */
   TEAR_MAGNETIZE = 1 << 66,
+
+  /**
+   * Marks enemies. Marked enemies will attack and damage each other, as well as have reduced
+   * movement speed. Used by Rotten Tomato.
+   */
   TEAR_BAIT = 1 << 67,
+
+  /** Velocity can be adjusted by the player while in the air. Used by Eye of the Occult. */
   TEAR_OCCULT = 1 << 68,
+
+  /** Tears orbit in a narrow and stable orbit. Used by Saturnus. */
   TEAR_ORBIT_ADVANCED = 1 << 69,
+
+  /** Chance to break rocks and open doors. Deals extra damage to rock-type enemies. */
   TEAR_ROCK = 1 << 70,
+
+  /** Tears turn and go horizontally when moving past an enemy. Used by Brain Worm. */
   TEAR_TURN_HORIZONTAL = 1 << 71,
+
+  /** Spawns red creep. */
   TEAR_BLOOD_BOMB = 1 << 72,
+
+  /** Enemies are turned into poop. */
   TEAR_ECOLI = 1 << 73,
+
+  /** Enemies have a chance to drop a coin on death. Used by The Hanged Man? */
   TEAR_COIN_DROP_DEATH = 1 << 74,
+
+  /** Explosion creates a Brimstone laser cross pattern. */
   TEAR_BRIMSTONE_BOMB = 1 << 75,
+
+  /** Creates a black hole on impact. */
   TEAR_RIFT = 1 << 76,
+
+  /** Sticks to enemies and multiplies on enemy death. */
   TEAR_SPORE = 1 << 77,
+
+  /** Spawns a ghost upon explosion. */
   TEAR_GHOST_BOMB = 1 << 78,
+
+  /** Killed enemies will drop a random tarot card. */
   TEAR_CARD_DROP_DEATH = 1 << 79,
+
+  /** Killed enemies will drop a random rune. */
   TEAR_RUNE_DROP_DEATH = 1 << 80,
+
+  /** Enemies will teleport to a different part of the room on hit. */
   TEAR_TELEPORT = 1 << 81,
+
   TEAR_EFFECT_COUNT = 82,
+
   TEAR_REROLL_ROCK_WISP = 1 << 115,
   TEAR_MOM_STOMP_WISP = 1 << 116,
   TEAR_ENEMY_TO_WISP = 1 << 117,
+
+  /** Chance to reroll the enemy on hit. Used by D10 wisps. */
   TEAR_REROLL_ENEMY = 1 << 118,
+
+  /** Causes giant explosions that create pits. Used by Giga Bombs. */
   TEAR_GIGA_BOMB = 1 << 119,
+
+  /** Enemies explode into more gibs on death than normal. Used by Berserk! */
   TEAR_EXTRA_GORE = 1 << 120,
+
+  /** Lasers cycle between colors, causing a rainbow effect. */
   TEAR_RAINBOW = 1 << 121,
+
+  /** Bombs can be detonated by Remote Detonator. */
   TEAR_DETONATE = 1 << 122,
+
+  /** Tears stick to each other and form a chain that can be swung around. Used by Akeldama. */
   TEAR_CHAIN = 1 << 123,
+
+  /** Black aura effect. Used by Dark Matter. */
   TEAR_DARK_MATTER = 1 << 124,
+
+  /** Bombs dropped while having a Golden Bomb will have this flag. */
   TEAR_GOLDEN_BOMB = 1 << 125,
+
+  /** Bombs dropped while having Fast Bombs will have this flag. */
   TEAR_FAST_BOMB = 1 << 126,
+
+  /**
+   * A single tear controlled by the player with the shooting keys. Used by The Ludovico Technique.
+   */
   TEAR_LUDOVICO = 1 << 127,
 }
 
