@@ -119,7 +119,7 @@ declare enum TearFlags {
   /** Used by Iron Bar. */
   TEAR_CONFUSION = 1 << 14,
 
-  /** Enemies killed have a 33% chance to drop a heart. */
+  /** Enemies killed have a 33% chance to drop a heart. Used by Tainted Magdalene. */
   TEAR_HP_DROP = 1 << 15,
 
   /** Tears orbit around the player. Used by Tiny Planet. */
