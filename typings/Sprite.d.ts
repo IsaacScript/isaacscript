@@ -68,7 +68,7 @@ declare interface Sprite {
    * sprite.Color = faded;
    * ```
    */
-  Color: Color;
+  Color: Readonly<Color>;
 
   FlipX: boolean;
   FlipY: boolean;
