@@ -38,6 +38,13 @@ export function getAllRoomGridIndexes(): int[] {
   return allRoomGridIndexes;
 }
 
+/**
+ * Helper function to get the current dimension. Most of the time, this will be `Dimension.MAIN`,
+ * but it can change if e.g. the player is in the mirror world of Downpour/Dross.
+ *
+ * Note that this function does correctly handle detecting the Death Certificate dimension, which is
+ * tricky to properly detect.
+ */
 export function getCurrentDimension(): Dimension {
   const game = Game();
   const level = game.GetLevel();
