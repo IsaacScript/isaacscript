@@ -1,4 +1,7 @@
-export type PostPlayerChangeTypeCallbackType = (player: EntityPlayer) => void;
+export type PostPlayerChangeTypeCallbackType = (
+  player: EntityPlayer,
+  character: PlayerType,
+) => void;
 
 const subscriptions: Array<[PostPlayerChangeTypeCallbackType]> = [];
 
@@ -15,8 +18,11 @@ export function postPlayerChangeTypeRegister(
 }
 
 /** @internal */
-export function postPlayerChangeTypeFire(player: EntityPlayer): void {
+export function postPlayerChangeTypeFire(
+  player: EntityPlayer,
+  character: PlayerType,
+): void {
   for (const [callback] of subscriptions) {
-    callback(player);
+    callback(player, character);
   }
 }

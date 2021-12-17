@@ -44,6 +44,6 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
 
   if (character !== storedCharacter) {
     v.run.characterMap.set(playerIndex, character);
-    postPlayerChangeTypeFire(player);
+    postPlayerChangeTypeFire(player, character);
   }
 }
