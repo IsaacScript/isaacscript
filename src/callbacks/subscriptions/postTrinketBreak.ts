@@ -1,10 +1,10 @@
 export type PostTrinketBreakCallbackType = (
   player: EntityPlayer,
-  trinketType: TrinketType,
+  trinketType: TrinketType | int,
 ) => void;
 
 const subscriptions: Array<
-  [PostTrinketBreakCallbackType, TrinketType | undefined]
+  [PostTrinketBreakCallbackType, TrinketType | int | undefined]
 > = [];
 
 /** @internal */
@@ -15,7 +15,7 @@ export function postTrinketBreakHasSubscriptions(): boolean {
 /** @internal */
 export function postTrinketBreakRegister(
   callback: PostTrinketBreakCallbackType,
-  trinketType?: TrinketType,
+  trinketType?: TrinketType | int,
 ): void {
   subscriptions.push([callback, trinketType]);
 }
@@ -23,7 +23,7 @@ export function postTrinketBreakRegister(
 /** @internal */
 export function postTrinketBreakFire(
   player: EntityPlayer,
-  trinketType: TrinketType,
+  trinketType: TrinketType | int,
 ): void {
   for (const [callback, callbackTrinketType] of subscriptions) {
     // Handle the optional 2nd callback argument
