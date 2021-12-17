@@ -219,7 +219,7 @@ This callback is useful because many attributes cannot be set or retrieved prope
 When registering the callback, takes an optional second argument that will make the callback only fire if the effect variant matches the `EffectVariant` provided.
 
 ```ts
-function postEffectInitLate(npc: EntityEffect): void {}
+function postEffectInitLate(effect: EntityEffect): void {}
 ```
 
 ### MC_POST_PICKUP_COLLECT
