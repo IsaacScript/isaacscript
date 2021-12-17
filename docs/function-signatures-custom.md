@@ -403,7 +403,7 @@ Fires from MC_ENTITY_TAKE_DMG callback when a Wishbone or a Walnut breaks.
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `TrinketType` provided.
 
 ```ts
-function postTrinketBreak(player: EntityPlayer, trinketType: TrinketType): void {}
+function postTrinketBreak(player: EntityPlayer, trinketType: TrinketType | int): void {}
 ```
 
 ### MC_POST_SLOT_INIT
