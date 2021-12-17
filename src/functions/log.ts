@@ -1,5 +1,7 @@
 import { arrayToString } from "./array";
+import { getCollectibleName } from "./collectibles";
 import { hasFlag } from "./flag";
+import { getTrinketName } from "./trinkets";
 
 /**
  * Helper function to prefix the name of the function and the line number before a debug message.
@@ -177,6 +179,37 @@ export function logTable(this: void, table: unknown): void {
   log("Printing out a Lua table:");
   for (const [key, value] of pairs(table)) {
     log(`  Key: ${key}, Value: ${value}`);
+  }
+}
+
+export function logTemporaryEffects(this: void, player: EntityPlayer): void {
+  const effects = player.GetEffects();
+  const effectsList = effects.GetEffectsList();
+
+  log("Logging all player temporary effects:");
+
+  if (effectsList.Size === 0) {
+    log("  n/a (no temporary effects)");
+    return;
+  }
+
+  for (let i = 0; i < effectsList.Size; i++) {
+    const effect = effectsList.Get(i);
+    if (effect === undefined) {
+      continue;
+    }
+
+    if (effect.Item.IsCollectible()) {
+      const collectibleName = getCollectibleName(effect.Item.ID);
+      log(`  ${i + 1}) ${collectibleName}`);
+    } else if (effect.Item.IsTrinket()) {
+      const trinketName = getTrinketName(effect.Item.ID);
+      log(`  ${i + 1}) ${trinketName}`);
+    } else if (effect.Item.IsNull()) {
+      log(`  ${i + 1}) Null item: ${effect.Item.ID}`);
+    } else {
+      log(`  ${i + 1}) Unknown type of temporary effect: ${effect.Item.ID}`);
+    }
   }
 }
 
