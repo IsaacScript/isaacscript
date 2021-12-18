@@ -5,6 +5,7 @@ import {
   CONSTANTS_TS_PATH,
   METADATA_XML_PATH,
   MOD_SOURCE_PATH,
+  MOD_UPLOADER_PATH,
   PACKAGE_JSON_PATH,
   PUBLISH_POST_COPY_PY_PATH,
   PUBLISH_PRE_COPY_PY_PATH,
@@ -290,15 +291,18 @@ function purgeRoomXMLs(modTargetPath: string) {
 
 function uploadMod(modTargetPath: string, steamCmdPath: string | undefined) {
   if (steamCmdPath === undefined) {
-    error(
-      `In order for IsaacScript to automatically upload a mod, it needs to know the path to the "steamcmd.exe" program on your computer. Add a "${chalk.green(
-        "steamCmdPath",
-      )}" property to your "${chalk.green(
+    console.log(
+      `The "steamCmdPath" property was not found in the "${chalk.green(
         CONFIG_FILE_NAME,
-      )}" file and try again.`,
+      )}" file; assuming that we want to use the ModUploader tool.`,
     );
+    execShell(MOD_UPLOADER_PATH);
+  } else {
+    runSteamCmd(modTargetPath, steamCmdPath);
   }
+}
 
+function runSteamCmd(modTargetPath: string, steamCmdPath: string) {
   if (!file.exists(steamCmdPath)) {
     error(
       chalk.red(

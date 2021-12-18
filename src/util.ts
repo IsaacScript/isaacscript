@@ -31,7 +31,7 @@ export function execShell(
     args[i] = `"${args[i]}"`; // eslint-disable-line no-param-reassign
   }
 
-  const commandDescription = `${command} ${args.join(" ")}`;
+  const commandDescription = `${command} ${args.join(" ")}`.trim();
 
   let spawnSyncReturns: SpawnSyncReturns<Buffer>;
   try {
