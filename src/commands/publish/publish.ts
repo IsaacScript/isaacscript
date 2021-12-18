@@ -296,7 +296,7 @@ function uploadMod(modTargetPath: string, steamCmdPath: string | undefined) {
         CONFIG_FILE_NAME,
       )}" file; assuming that we want to use the ModUploader tool.`,
     );
-    execShell(MOD_UPLOADER_PATH);
+    execShell(MOD_UPLOADER_PATH, [], false, modTargetPath);
   } else {
     runSteamCmd(modTargetPath, steamCmdPath);
   }
