@@ -78,6 +78,7 @@ export * from "./maps/transformationMaps";
 export * from "./maps/transformationNameMap";
 export * from "./maps/trinketNameMap";
 export * from "./sets/cards";
+export * from "./types/AnyEntity";
 export * from "./types/CallbackParametersCustom";
 export * from "./types/HealthType";
 export * from "./types/JSONDoor";

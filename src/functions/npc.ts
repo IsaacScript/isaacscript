@@ -1,5 +1,10 @@
 import { EGGY_STATE_FRAME_OF_FINAL_SPIDER } from "../constants";
-import { getEntities, removeEntities } from "./entity";
+import {
+  getEntities,
+  getFilteredNewEntities,
+  getProjectiles,
+  removeEntities,
+} from "./entity";
 
 /**
  * Used to filter out certain NPCs when determining of an NPC is "alive" and/or should keep the
@@ -24,6 +29,33 @@ const NON_ALIVE_NPCS_TYPE_VARIANT = new Set<string>([
 const NON_ALIVE_NPCS_TYPE_VARIANT_SUBTYPE = new Set<string>([
   `${EntityType.ENTITY_CHARGER}.${ChargerVariant.CHARGER}.${ChargerSubType.MY_SHADOW}`,
 ]);
+
+/**
+ * Helper function to make an NPC fire a projectile. Returns the fired projectile. Use this function
+ * instead of `EntityNPC.FireProjectiles()`, since that returns void.
+ *
+ * @param npc The NPC to fire the projectile from.
+ * @param position The staring position of the projectile.
+ * @param velocity The starting velocity of the projectile.
+ * @param projectilesMode The mode of the projectile. Optional. Equal to
+ * `ProjectilesMode.ONE_PROJECTILE` by default.
+ * @param projectileParams The parameters of the projectile. Optional. Equal to `ProjectileParams()`
+ * by default.
+ * @returns The fired projectile.
+ */
+export function fireProjectiles(
+  npc: EntityNPC,
+  position: Vector,
+  velocity: Vector,
+  projectilesMode: ProjectilesMode = ProjectilesMode.ONE_PROJECTILE,
+  projectileParams: ProjectileParams = ProjectileParams(),
+): EntityProjectile[] {
+  const oldProjectiles = getProjectiles(projectileParams.Variant);
+  npc.FireProjectiles(position, velocity, projectilesMode, projectileParams);
+  const newProjectiles = getProjectiles(projectileParams.Variant);
+
+  return getFilteredNewEntities(oldProjectiles, newProjectiles);
+}
 
 /**
  * Helper function to get all of the non-dead bosses in the room.
