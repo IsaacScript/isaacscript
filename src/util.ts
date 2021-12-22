@@ -21,6 +21,11 @@ export function execShell(
   // On Windows, "spawnSync()" will not account for spaces in arguments
   // Thus, wrap everything in a double quote
   // This will cause arguments that naturally have double quotes to fail
+  if (command.includes('"')) {
+    throw new Error(
+      "execShell cannot execute commands with double quotes in the arguments.",
+    );
+  }
   for (let i = 0; i < args.length; i++) {
     if (args[i].includes('"')) {
       throw new Error(
@@ -31,7 +36,7 @@ export function execShell(
     args[i] = `"${args[i]}"`; // eslint-disable-line no-param-reassign
   }
 
-  const commandDescription = `${command} ${args.join(" ")}`.trim();
+  const commandDescription = `"${command}" ${args.join(" ")}`.trim();
 
   let spawnSyncReturns: SpawnSyncReturns<Buffer>;
   try {
