@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { spawnSync, SpawnSyncReturns } from "child_process";
+import { execSync, spawnSync, SpawnSyncReturns } from "child_process";
 import moment from "moment";
 import { CURRENT_DIRECTORY_NAME, CWD } from "./constants";
 import { Config } from "./types/Config";
@@ -9,6 +9,21 @@ export const ensureAllCases = (obj: never): never => obj;
 export function error(...args: unknown[]): never {
   console.error(...args);
   process.exit(1);
+}
+
+export function execExe(path: string, cwd = CWD): string {
+  let stdout: string;
+  try {
+    const buffer = execSync(`"${path}"`, {
+      cwd,
+    });
+    stdout = buffer.toString().trim();
+  } catch (err) {
+    console.error(`Failed to run "${chalk.green(path)}":`, err);
+    process.exit(1);
+  }
+
+  return stdout;
 }
 
 /** Returns an array of exit status and stdout. */
@@ -23,7 +38,7 @@ export function execShell(
   // This will cause arguments that naturally have double quotes to fail
   if (command.includes('"')) {
     throw new Error(
-      "execShell cannot execute commands with double quotes in the arguments.",
+      "execShell cannot execute commands with double quotes in the command.",
     );
   }
   for (let i = 0; i < args.length; i++) {
@@ -36,7 +51,7 @@ export function execShell(
     args[i] = `"${args[i]}"`; // eslint-disable-line no-param-reassign
   }
 
-  const commandDescription = `"${command}" ${args.join(" ")}`.trim();
+  const commandDescription = `${command} ${args.join(" ")}`.trim();
 
   let spawnSyncReturns: SpawnSyncReturns<Buffer>;
   try {

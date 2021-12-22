@@ -15,6 +15,7 @@ import * as file from "../../file";
 import { Config } from "../../types/Config";
 import {
   error,
+  execExe,
   execShell,
   getModTargetDirectoryName,
   parseIntSafe,
@@ -296,7 +297,7 @@ function uploadMod(modTargetPath: string, steamCmdPath: string | undefined) {
         CONFIG_FILE_NAME,
       )}" file; assuming that we want to use the ModUploader tool.`,
     );
-    execShell(MOD_UPLOADER_PATH, [], false, modTargetPath);
+    execExe(MOD_UPLOADER_PATH, modTargetPath);
   } else {
     runSteamCmd(modTargetPath, steamCmdPath);
   }
