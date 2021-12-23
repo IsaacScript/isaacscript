@@ -577,10 +577,7 @@ export function setRoomCleared(): void {
       continue;
     }
 
-    door.State = DoorState.STATE_OPEN;
-
-    const sprite = door.GetSprite();
-    sprite.Play("Opened", true);
+    door.Open();
 
     // If this is a mini-boss room, then the door would be barred in addition to being closed
     // Ensure that the bar is not visible
