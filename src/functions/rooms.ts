@@ -3,7 +3,12 @@ import {
   GENESIS_ROOM_VARIANT,
   MAX_ROOM_INDEX,
 } from "../constants";
-import { closeAllDoors, getDoors, isHiddenSecretRoomDoor } from "./doors";
+import {
+  closeAllDoors,
+  getDoors,
+  isHiddenSecretRoomDoor,
+  openDoorFast,
+} from "./doors";
 import {
   getEntities,
   getEntityPositions,
@@ -578,9 +583,7 @@ export function setRoomCleared(): void {
     }
 
     // We don't use the "door.Open()" method since that will cause the door to play an animation
-    door.State = DoorState.STATE_OPEN;
-    const sprite = door.GetSprite();
-    sprite.Play("Opened", true);
+    openDoorFast(door);
 
     // If this is a mini-boss room, then the door would be barred in addition to being closed
     // Ensure that the bar is not visible

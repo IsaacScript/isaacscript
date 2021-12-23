@@ -7,6 +7,17 @@ export function closeAllDoors(): void {
 }
 
 /**
+ * Use this instead of the `door.Close()` method if you want the door to immediately close without
+ * an animation.
+ */
+export function closeDoorFast(door: GridEntityDoor): void {
+  door.State = DoorState.STATE_CLOSED;
+
+  const sprite = door.GetSprite();
+  sprite.Play("Closed", true);
+}
+
+/**
  * Helper function to get all of the doors in the room. By default, it will return every door. You
  * can optionally specify one or more room types to return only the doors that match the specified
  * room types.
@@ -214,4 +225,15 @@ export function openAllDoors(): void {
     // then nothing will happen
     door.Open();
   }
+}
+
+/**
+ * Use this instead of the `door.Open()` method if you want the door to immediately open without
+ * an animation.
+ */
+export function openDoorFast(door: GridEntityDoor): void {
+  door.State = DoorState.STATE_OPEN;
+
+  const sprite = door.GetSprite();
+  sprite.Play("Opened", true);
 }
