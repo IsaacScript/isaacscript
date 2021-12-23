@@ -31,8 +31,8 @@ export function changeRoom(roomGridIndex: int): void {
 
 export function getAllRoomGridIndexes(): int[] {
   const allRoomGridIndexes: int[] = [];
-  for (const roomDesc of getRooms()) {
-    allRoomGridIndexes.push(roomDesc.SafeGridIndex);
+  for (const roomDescriptor of getRooms()) {
+    allRoomGridIndexes.push(roomDescriptor.SafeGridIndex);
   }
 
   return allRoomGridIndexes;
@@ -42,7 +42,7 @@ export function getAllRoomGridIndexes(): int[] {
  * Helper function to get the current dimension. Most of the time, this will be `Dimension.MAIN`,
  * but it can change if e.g. the player is in the mirror world of Downpour/Dross.
  *
- * Note that this function does correctly handle detecting the Death Certificate dimension, which is
+ * Note that this function correctly handles detecting the Death Certificate dimension, which is
  * tricky to properly detect.
  */
 export function getCurrentDimension(): Dimension {
@@ -81,71 +81,53 @@ export function getCurrentDimension(): Dimension {
   return 0;
 }
 
-/** An alias to the `Level.GetCurrentRoomDesc()` method. */
-export function getCurrentRoomDescReadOnly(): RoomDescriptorReadOnly {
+/** Alias for the `Level.GetCurrentRoomDesc()` method. */
+export function getCurrentRoomDescriptorReadOnly(): RoomDescriptorReadOnly {
   const game = Game();
   const level = game.GetLevel();
 
   return level.GetCurrentRoomDesc();
 }
 
-export function getRoomData(): RoomConfig | undefined {
-  const game = Game();
-  const level = game.GetLevel();
-  const roomSafeGridIndex = getRoomSafeGridIndex();
-  const roomDesc = level.GetRoomByIdx(roomSafeGridIndex);
-  // (we don't use "level.GetCurrentRoomDesc()" since it returns a read-only copy of the data)
-
-  return roomDesc.Data;
+/**
+ * Helper function to get the room data for the provided room.
+ *
+ * @param roomGridIndex Optional. Equal to the current room index by default.
+ */
+export function getRoomData(roomGridIndex?: int): RoomConfig | undefined {
+  const roomDescriptor = getRoomDescriptor(roomGridIndex);
+  return roomDescriptor.Data;
 }
 
 /**
- * Helper function to get the type for the room from the XML/STB data. The room data type will
+ * Helper function to get the type of a room from the XML/STB data. The room data type will
  * correspond to different things depending on what XML/STB file it draws from. For example, in the
  * "00.special rooms.stb" file, a room type of 2 corresponds to a shop, a room type of 3 corresponds
  * to an I AM ERROR room, and so on.
  *
+ * @param roomGridIndex Optional. Equal to the current room index by default.
  * @returns The room data type. Returns -1 if the type was not found.
  */
-export function getRoomDataType(): int {
-  const roomData = getRoomData();
+export function getRoomDataType(roomGridIndex?: int): int {
+  const roomData = getRoomData(roomGridIndex);
+  return roomData === undefined ? -1 : roomData.Type;
+}
 
-  if (roomData === undefined) {
-    return -1;
+/**
+ * Helper function to get the descriptor for a room.
+ *
+ * @param roomGridIndex Optional. Equal to the current room index by default.
+ */
+export function getRoomDescriptor(roomGridIndex?: int): RoomDescriptor {
+  const game = Game();
+  const level = game.GetLevel();
+
+  if (roomGridIndex === undefined) {
+    const currentRoomDescriptor = getCurrentRoomDescriptorReadOnly();
+    roomGridIndex = currentRoomDescriptor.SafeGridIndex;
   }
 
-  return roomData.Type;
-}
-
-/**
- * Helper function to get the list grid index of the current room, which is equal to the index in
- * the `Level.GetRooms().Get()` method. In other words, this is equal to the order that the room was
- * created by the floor generation algorithm.
- *
- * Use this as an index for data structures that store data per room, since it is unique across
- * different dimensions.
- */
-export function getRoomListIndex(): int {
-  const roomDesc = getCurrentRoomDescReadOnly();
-  return roomDesc.ListIndex;
-}
-
-/**
- * Helper function to get the safe grid index of the current room. The safe grid index is defined as
- * the top-left 1x1 section that the room overlaps with (or the top-right 1x1 section of a
- * `RoomType.ROOMSHAPE_LTL` room).
- *
- * In most situations, using the safe grid index is more reliable than using the `GridIndex` or the
- * `Level.GetCurrentRoomIndex()` method directly. `GridIndex` can return quadrants that are not on
- * the map, and `Level.GetCurrentRoomIndex()` returns the specific 1x1 quadrant that the player
- * entered the room at.
- *
- * Data structures that store data per room should use the room's `ListIndex` instead of
- * `SafeGridIndex`, since the former is unique across different dimensions.
- */
-export function getRoomSafeGridIndex(): int {
-  const roomDesc = getCurrentRoomDescReadOnly();
-  return roomDesc.SafeGridIndex;
+  return level.GetRoomByIdx(roomGridIndex);
 }
 
 /**
@@ -156,9 +138,12 @@ export function getRoomSafeGridIndex(): int {
  */
 export function getRoomGridIndexesForType(roomType: RoomType): int[] {
   const roomGridIndexes: int[] = [];
-  for (const roomDesc of getRooms()) {
-    if (roomDesc.Data !== undefined && roomDesc.Data.Type === roomType) {
-      roomGridIndexes.push(roomDesc.SafeGridIndex);
+  for (const roomDescriptor of getRooms()) {
+    if (
+      roomDescriptor.Data !== undefined &&
+      roomDescriptor.Data.Type === roomType
+    ) {
+      roomGridIndexes.push(roomDescriptor.SafeGridIndex);
     }
   }
 
@@ -180,80 +165,104 @@ export function getRoomItemPoolType(): ItemPoolType {
 }
 
 /**
- * Helper function to get the name of the room as it appears in the STB/XML data.
+ * Helper function to get the list grid index of the provided room, which is equal to the index in
+ * the `Level.GetRooms().Get()` method. In other words, this is equal to the order that the room was
+ * created by the floor generation algorithm.
  *
- * @returns The room name. Returns "Unknown" if the type was not found.
+ * Use this as an index for data structures that store data per room, since it is unique across
+ * different dimensions.
+ *
+ * @param roomGridIndex Optional. Equal to the current room index by default.
  */
-export function getRoomName(): string {
-  const roomData = getRoomData();
-
-  if (roomData === undefined) {
-    return "Unknown";
-  }
-
-  return roomData.Name;
+export function getRoomListIndex(roomGridIndex?: int): int {
+  const roomDescriptor = getRoomDescriptor(roomGridIndex);
+  return roomDescriptor.ListIndex;
 }
 
 /**
- * Helper function to get the stage ID for the room from the XML/STB data. The room stage ID will
+ * Helper function to get the name of the room as it appears in the STB/XML data.
+ *
+ * @param roomGridIndex Optional. Equal to the current room index by default.
+ * @returns The room name. Returns "Unknown" if the type was not found.
+ */
+export function getRoomName(roomGridIndex?: int): string {
+  const roomData = getRoomData(roomGridIndex);
+  return roomData === undefined ? "Unknown" : roomData.Name;
+}
+
+/**
+ * Helper function to get the safe grid index of the provided room. The safe grid index is defined as
+ * the top-left 1x1 section that the room overlaps with (or the top-right 1x1 section of a
+ * `RoomType.ROOMSHAPE_LTL` room).
+ *
+ * In most situations, using the safe grid index is more reliable than using the `GridIndex` or the
+ * `Level.GetCurrentRoomIndex()` method directly. `GridIndex` can return quadrants that are not on
+ * the map, and `Level.GetCurrentRoomIndex()` returns the specific 1x1 quadrant that the player
+ * entered the room at.
+ *
+ * Data structures that store data per room should use the room's `ListIndex` instead of
+ * `SafeGridIndex`, since the former is unique across different dimensions.
+ *
+ * @param roomGridIndex Optional. Equal to the current room index by default.
+ */
+export function getRoomSafeGridIndex(roomGridIndex?: int): int {
+  const roomDescriptor =
+    roomGridIndex === undefined
+      ? getCurrentRoomDescriptorReadOnly()
+      : getRoomDescriptor(roomGridIndex);
+  return roomDescriptor.SafeGridIndex;
+}
+
+/**
+ * Helper function to get the stage ID for a room from the XML/STB data. The room stage ID will
  * correspond to the first number in the filename of the XML/STB file. For example, a Depths room
  * would have a stage ID of 7.
  *
+ * @param roomGridIndex Optional. Equal to the current room index by default.
  * @returns The room stage ID. Returns -1 if the stage ID was not found.
  */
-export function getRoomStageID(): StageID {
-  const roomData = getRoomData();
-
-  if (roomData === undefined) {
-    return -1;
-  }
-
-  return roomData.StageID;
+export function getRoomStageID(roomGridIndex?: int): StageID {
+  const roomData = getRoomData(roomGridIndex);
+  return roomData === undefined ? -1 : roomData.StageID;
 }
 
 /**
- * Helper function to get the subtype for the room from the XML/STB data. The room subtype will
+ * Helper function to get the subtype for a room from the XML/STB data. The room subtype will
  * correspond to different things depending on what XML/STB file it draws from. For example, in the
  * "00.special rooms.stb" file, an Angel Room with a subtype of 0 will correspond to a normal Angel
  * Room and a subtype of 1 will correspond to an Angel Room shop for The Stairway.
  *
+ * @param roomGridIndex Optional. Equal to the current room index by default.
  * @returns The room subtype. Returns -1 if the subtype was not found.
  */
-export function getRoomSubType(): int {
-  const roomData = getRoomData();
-
-  if (roomData === undefined) {
-    return -1;
-  }
-
-  return roomData.Subtype;
+export function getRoomSubType(roomGridIndex?: int): int {
+  const roomData = getRoomData(roomGridIndex);
+  return roomData === undefined ? -1 : roomData.Subtype;
 }
 
 /**
- * Helper function to get the variant for the current room from the XML/STB data. You can think of a
- * room variant as its identifier. For example, to go to Basement room #123, you would use a console
+ * Helper function to get the variant for a room from the XML/STB data. You can think of a room
+ * variant as its identifier. For example, to go to Basement room #123, you would use a console
  * command of `goto d.123` while on the Basement.
  *
+ * @param roomGridIndex Optional. Equal to the current room index by default.
  * @returns The room variant. Returns -1 if the variant was not found.
  */
-export function getRoomVariant(): int {
-  const roomData = getRoomData();
-
-  if (roomData === undefined) {
-    return -1;
-  }
-
-  return roomData.Variant;
+export function getRoomVariant(roomGridIndex?: int): int {
+  const roomData = getRoomData(roomGridIndex);
+  return roomData === undefined ? -1 : roomData.Variant;
 }
 
 /**
- * The room visited count will be inaccurate during the period before the PostNewRoom callback has
- * fired (i.e. when entities are initializing and performing their first update). This is because
- * the variable is only incremented immediately before the PostNewRoom callback fires.
+ * Note that the room visited count will be inaccurate during the period before the PostNewRoom
+ * callback has fired (i.e. when entities are initializing and performing their first update). This
+ * is because the variable is only incremented immediately before the PostNewRoom callback fires.
+ *
+ * @param roomGridIndex Optional. Equal to the current room index by default.
  */
-export function getRoomVisitedCount(): int {
-  const roomDesc = getCurrentRoomDescReadOnly();
-  return roomDesc.VisitedCount;
+export function getRoomVisitedCount(roomGridIndex?: int): int {
+  const roomDescriptor = getRoomDescriptor(roomGridIndex);
+  return roomDescriptor.VisitedCount;
 }
 
 /**
@@ -275,16 +284,16 @@ export function getRooms(
 
   if (includeExtraDimensionalRooms) {
     for (let i = 0; i < roomList.Size; i++) {
-      const roomDesc = roomList.Get(i);
-      if (roomDesc !== undefined) {
-        rooms.push(roomDesc);
+      const roomDescriptor = roomList.Get(i);
+      if (roomDescriptor !== undefined) {
+        rooms.push(roomDescriptor);
       }
     }
   } else {
     for (let i = 0; i <= MAX_ROOM_INDEX; i++) {
-      const roomDesc = level.GetRoomByIdx(i);
-      if (roomDesc !== undefined) {
-        rooms.push(roomDesc);
+      const roomDescriptor = level.GetRoomByIdx(i);
+      if (roomDescriptor !== undefined) {
+        rooms.push(roomDescriptor);
       }
     }
   }
@@ -398,8 +407,8 @@ export function inDeathCertificateArea(): boolean {
  * flag.
  */
 export function inDevilsCrownTreasureRoom() {
-  const roomDesc = getCurrentRoomDescReadOnly();
-  return hasFlag(roomDesc.Flags, RoomDescriptorFlag.DEVIL_TREASURE);
+  const roomDescriptor = getCurrentRoomDescriptorReadOnly();
+  return hasFlag(roomDescriptor.Flags, RoomDescriptorFlag.DEVIL_TREASURE);
 }
 
 export function inDimension(dimension: Dimension): boolean {
@@ -481,8 +490,8 @@ export function isAllRoomsClear(onlyCheckRoomTypes?: RoomType[]): boolean {
   const roomTypeWhitelist =
     onlyCheckRoomTypes === undefined ? null : new Set(onlyCheckRoomTypes);
 
-  for (const roomDesc of getRooms()) {
-    const roomData = roomDesc.Data;
+  for (const roomDescriptor of getRooms()) {
+    const roomData = roomDescriptor.Data;
     if (roomData === undefined) {
       continue;
     }
@@ -492,7 +501,7 @@ export function isAllRoomsClear(onlyCheckRoomTypes?: RoomType[]): boolean {
       continue;
     }
 
-    if (!roomDesc.Clear) {
+    if (!roomDescriptor.Clear) {
       return false;
     }
   }
@@ -501,22 +510,28 @@ export function isAllRoomsClear(onlyCheckRoomTypes?: RoomType[]): boolean {
 }
 
 /**
- * Helper function to detect if the current room was created by the Red Key item. Under the hood,
+ * Helper function to detect if the provided room was created by the Red Key item. Under the hood,
  * this checks for the `RoomDescriptorFlag.FLAG_RED_ROOM` flag.
+ *
+ * @param roomGridIndex Optional. Equal to the current room index by default.
  */
-export function isRedKeyRoom(): boolean {
-  const roomDesc = getCurrentRoomDescReadOnly();
-  return hasFlag(roomDesc.Flags, RoomDescriptorFlag.RED_ROOM);
+export function isRedKeyRoom(roomGridIndex?: int): boolean {
+  const roomDescriptor = getRoomDescriptor(roomGridIndex);
+  return hasFlag(roomDescriptor.Flags, RoomDescriptorFlag.RED_ROOM);
 }
 
 /**
- * Helper function to determine whether or not the current room is part of the floor layout. For
+ * Helper function to determine if the provided room is part of the floor layout. For
  * example, Devil Rooms and the Mega Satan room are not considered to be inside the map.
+ *
+ * @param roomGridIndex Optional. Equal to the current room index by default.
  */
-export function isRoomInsideMap(): boolean {
-  const roomSafeGridIndex = getRoomSafeGridIndex();
+export function isRoomInsideMap(roomGridIndex?: int): boolean {
+  if (roomGridIndex === undefined) {
+    roomGridIndex = getRoomSafeGridIndex();
+  }
 
-  return roomSafeGridIndex >= 0;
+  return roomGridIndex >= 0;
 }
 
 /**

@@ -198,8 +198,9 @@ export function lockDoor(door: GridEntityDoor): void {
   const game = Game();
   const level = game.GetLevel();
 
-  const roomDesc = level.GetRoomByIdx(door.TargetRoomIndex);
-  roomDesc.VisitedCount = 0;
+  const roomDescriptor = level.GetRoomByIdx(door.TargetRoomIndex);
+  // (we can't use the "getRoomDescriptor()" function since it will cause a dependency cycle)
+  roomDescriptor.VisitedCount = 0;
 
   door.SetVariant(DoorVariant.DOOR_LOCKED);
   door.SetLocked(true);
