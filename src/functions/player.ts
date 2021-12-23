@@ -1,4 +1,5 @@
 import {
+  CHARACTERS_WITH_BLACK_HEART_FROM_ETERNAL_HEART,
   CHARACTERS_WITH_NO_RED_HEARTS,
   CHARACTERS_WITH_NO_SOUL_HEARTS,
   LOST_STYLE_PLAYER_TYPES,
@@ -127,6 +128,17 @@ export function characterCanHaveRedHearts(character: PlayerType): boolean {
  */
 export function characterCanHaveSoulHearts(character: PlayerType): boolean {
   return !CHARACTERS_WITH_NO_SOUL_HEARTS.has(character);
+}
+
+/**
+ * Normally, characters get a red heart container upon reaching a new floor with an eternal heart,
+ * but some characters grant a black heart instead. Returns true for Dark Judas and Tainted Judas.
+ * Otherwise, returns false.
+ */
+export function characterGetsBlackHeartFromEternalHeart(
+  character: PlayerType,
+): boolean {
+  return CHARACTERS_WITH_BLACK_HEART_FROM_ETERNAL_HEART.has(character);
 }
 
 /**
