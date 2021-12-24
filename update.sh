@@ -10,7 +10,7 @@ cd "$DIR"
 
 PACKAGE_JSON="$DIR/package.json"
 OLD_HASH=$(md5sum "$PACKAGE_JSON")
-npx npm-check-updates --upgrade --packageFile "$PACKAGE_JSON" --reject typescript,typescript-to-lua
+npx npm-check-updates --upgrade --packageFile "$PACKAGE_JSON"
 NEW_HASH=$(md5sum "$PACKAGE_JSON")
 if [[ $OLD_HASH != $NEW_HASH ]]; then
   npm install
