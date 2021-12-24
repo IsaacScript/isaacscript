@@ -8,7 +8,7 @@
 
 declare interface Socket {
   /**
-   * Returns the epoch timestamp in seconds. It provides four decimal places of precision (e.g.
+   * Returns the epoch timestamp in seconds, with four decimal places of precision (e.g.
    * `1640320492.5779`).
    */
   gettime(this: void): float;
