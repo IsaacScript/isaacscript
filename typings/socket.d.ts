@@ -3,10 +3,34 @@
 // It is intended to be consumed by mods via:
 // local socket = require("socket")
 // (but it requires that the "--luadebug" flag is enabled)
+// The documentation is located at:
+// https://web.tecgraf.puc-rio.br/luasocket/old/luasocket-2.0-beta/tcp.html
 
 declare interface Socket {
+  /**
+   * Returns the epoch timestamp in seconds. It provides four decimal places of precision (e.g.
+   * `1640320492.5779`).
+   */
   gettime(this: void): float;
+
+  /**
+   * Creates and returns a TCP master object. A master object can be transformed into a server
+   * object with the method listen (after a call to bind) or into a client object with the method
+   * connect. The only other method supported by a master object is the close method.
+   *
+   * In case of success, a new master object is returned. In case of error, nil is returned,
+   * followed by an error message.
+   */
   tcp(this: void): SocketClient;
+
+  /**
+   * Creates and returns an unconnected UDP object. Unconnected objects support the sendto, receive,
+   * receivefrom, getsockname, setoption, settimeout, setpeername, setsockname, and close. The
+   * setpeername is used to connect the object.
+   *
+   * In case of success, a new unconnected UDP object returned. In case of error, nil is returned,
+   * followed by an error message.
+   */
   udp(this: void): SocketClient;
 }
 
