@@ -30,7 +30,7 @@ export function changeRoom(roomGridIndex: int): void {
   const roomData = getRoomData(roomGridIndex);
   if (roomData === undefined) {
     error(
-      `Failed to change the room to to grid index ${roomGridIndex} because that room does not exist.`,
+      `Failed to change the room to grid index ${roomGridIndex} because that room does not exist.`,
     );
   }
 
@@ -638,7 +638,7 @@ export function teleport(
   const roomData = getRoomData(roomGridIndex);
   if (roomData === undefined) {
     error(
-      `Failed to change the room to to grid index ${roomGridIndex} because that room does not exist.`,
+      `Failed to change the room to grid index ${roomGridIndex} because that room does not exist.`,
     );
   }
 
