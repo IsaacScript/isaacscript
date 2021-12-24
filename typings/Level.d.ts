@@ -9,10 +9,13 @@ declare interface Level {
   CanStageHaveCurseOfLabyrinth(levelStage: LevelStage): boolean;
 
   /**
+   * This function is bugged and does not update the fxlayers properly. Use the `Game.ChangeRoom`
+   * method instead.
+   *
    * @param roomGridIndex The room grid index of the destination room.
    * @param dimension Default is Dimension.CURRENT.
    */
-  ChangeRoom(roomGridIndex: int, dimension?: Dimension): void;
+  ChangeRoom(fakeArg: never, roomGridIndex: int, dimension?: Dimension): void;
 
   DisableDevilRoom(): void;
   ForceHorsemanBoss(seed: int): boolean;

@@ -86,6 +86,9 @@ declare interface Game {
   ): void;
 
   /**
+   * This method is the same thing as the `Level.ChangeRoom()` method, but it will update the
+   * fxlayers properly.
+   *
    * @param roomGridIndex The room grid index of the destination room.
    * @param dimension Default is Dimension.CURRENT.
    */
