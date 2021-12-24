@@ -20,10 +20,10 @@
   "author": "Zamiell",
   "types": "typings/index.d.ts",
   "dependencies": {
-    "lua-types": "2.11.0"
+    "lua-types": "^2.11.0"
   },
   "devDependencies": {
-    "isaacscript-lint": "^1.0.74",
-    "typescript": "4.4.4"
+    "isaacscript-lint": "^1.0.77",
+    "typescript": "^4.5.4"
   }
 }
