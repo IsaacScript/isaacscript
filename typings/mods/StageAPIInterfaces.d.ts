@@ -19,6 +19,15 @@ declare interface StageAPICustomDoor {
   TransitionAnim: int;
 }
 
+declare interface StageAPICustomGrid {
+  Spawn(
+    grindex: number,
+    force: boolean,
+    reSpawning: boolean,
+    initialPersistData: unknown,
+  ): StageAPICustomGridEntity;
+}
+
 declare interface StageAPICustomGridEntity {
   PersistentData: StageAPICustomDoor;
 }

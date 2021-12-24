@@ -240,6 +240,29 @@ interface StageAPIInterface {
   ): StageAPILevelMap;
 
   /**
+   * Creates a new custom grid entity type. Any undocumented parameters are unknown in type and/or
+   * usage.
+   *
+   * @param name NAME IS NOT OPTIONAL. USED FOR IDENTIFICATION AFTER SAVING.
+   * @param anm2 Path to the anm2 file for this entity.
+   * @param animation The animation name to play.
+   * @param frame Which frame to display.
+   */
+  CustomGrid(
+    name: string,
+    GridEntityType: GridEntityType,
+    baseVariant: number,
+    anm2: string,
+    animation: string,
+    frame: number,
+    variantFrames: unknown,
+    offset: unknown,
+    overrideGridSpawns: boolean,
+    overrideGridSpawnAtState: boolean,
+    forceSpawning: boolean,
+  ): StageAPICustomGrid;
+
+  /**
    * Creates a new custom stage.
    *
    * @param name MUST BE UNIQUE. USED TO IDENTIFY STAGE AND FOR SAVING CURRENT STAGE.
