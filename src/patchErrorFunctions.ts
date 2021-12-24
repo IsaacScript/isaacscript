@@ -66,7 +66,8 @@ function errorWithTraceback(
 
   const tracebackOutput = getTraceback();
   const slimmedTracebackOutput = slimTracebackOutput(tracebackOutput);
-  Isaac.DebugString(slimmedTracebackOutput);
+  message += "\n";
+  message += slimmedTracebackOutput;
 
   // We add one to the level so that the error message appears to originate at the parent function
   return vanillaError(message, level + 1);
