@@ -21,11 +21,18 @@ import { hasFlag } from "./flag";
 /**
  * Helper function for quickly switching to a new room without playing a particular animation.
  * Always use this helper function over invoking `Game().ChangeRoom()` directly to ensure that you
- * do not forget to set the LeaveDoor property.
+ * do not forget to set the LeaveDoor property and to prevent crashing on invalid room grid indexes.
  */
 export function changeRoom(roomGridIndex: int): void {
   const game = Game();
   const level = game.GetLevel();
+
+  const roomData = getRoomData(roomGridIndex);
+  if (roomData === undefined) {
+    error(
+      `Failed to change the room to to grid index ${roomGridIndex} because that room does not exist.`,
+    );
+  }
 
   // LeaveDoor must be set before every ChangeRoom() invocation or else the function can send you to
   // the wrong room
