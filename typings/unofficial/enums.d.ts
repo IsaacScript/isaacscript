@@ -247,6 +247,12 @@ declare const enum DisplayFlag {
   SHOW_ICON = 1 << 2,
 }
 
+declare const enum BrokenWatchState {
+  NONE = 0,
+  SLOW = 1,
+  FAST = 2,
+}
+
 /**
  * Matches the RoomDescriptor.DISPLAY_* members of the RoomDescriptor class.
  * In IsaacScript, we reimplement this as an enum, since it is cleaner.

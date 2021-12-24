@@ -158,7 +158,7 @@ declare interface Room {
   RespawnEnemies(): void;
   ScreenWrapPosition(position: Vector, margin: float): Vector;
   SetAmbushDone(value: boolean): void;
-  SetBrokenWatchState(state: int): void;
+  SetBrokenWatchState(brokenWatchState: BrokenWatchState): void;
   SetCardAgainstHumanity(): void;
   SetClear(clear: boolean): void;
   SetFirstEnemyDead(value: boolean): void;
