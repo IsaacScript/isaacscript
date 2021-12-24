@@ -1,4 +1,3 @@
-/*
 import * as crypto from "crypto";
 import { SourceNode } from "source-map";
 import * as ts from "typescript";
@@ -25,5 +24,5 @@ const plugin: tstl.Plugin = {
   ) => new CustomPrinter(emitHost, program, fileName).print(file),
 };
 
+// ts-prune-ignore-next
 export default plugin;
-*/
