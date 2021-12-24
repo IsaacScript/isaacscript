@@ -20,8 +20,8 @@ import { hasFlag } from "./flag";
 
 /**
  * Helper function for quickly switching to a new room without playing a particular animation.
- * Always use this helper function over invoking `Game().ChangeRoom()` directly to ensure that you
- * do not forget to set the LeaveDoor property and to prevent crashing on invalid room grid indexes.
+ * Use this helper function over invoking `Game().ChangeRoom()` directly to ensure that you do not
+ * forget to set the LeaveDoor property and to prevent crashing on invalid room grid indexes.
  */
 export function changeRoom(roomGridIndex: int): void {
   const game = Game();
@@ -614,4 +614,37 @@ export function setRoomUncleared(): void {
 
   room.SetClear(false);
   closeAllDoors();
+}
+
+/**
+ * Helper function to change the current room. It can be used for both teleportation and "normal"
+ * room transitions, depending on what is passed for the `direction` and `roomTransitionAnim`
+ * arguments. Use this function instead of invoking `Game.StartRoomTransition()` directly so that
+ * you do not forget to set `Level.LeaveDoor` property and to prevent crashing on invalid room grid
+ * indexes.
+ *
+ * @param roomGridIndex The room grid index of the destination room.
+ * @param direction Optional. Default is `Direction.NO_DIRECTION`.
+ * @param roomTransitionAnim Optional. Default is `RoomTransitionAnim.TELEPORT`.
+ */
+export function teleport(
+  roomGridIndex: int,
+  direction = Direction.NO_DIRECTION,
+  roomTransitionAnim = RoomTransitionAnim.TELEPORT,
+): void {
+  const game = Game();
+  const level = game.GetLevel();
+
+  const roomData = getRoomData(roomGridIndex);
+  if (roomData === undefined) {
+    error(
+      `Failed to change the room to to grid index ${roomGridIndex} because that room does not exist.`,
+    );
+  }
+
+  // This must be set before every `Game.StartRoomTransition()` invocation or else the function can
+  // send you to the wrong room
+  level.LeaveDoor = -1;
+
+  game.StartRoomTransition(roomGridIndex, direction, roomTransitionAnim);
 }
