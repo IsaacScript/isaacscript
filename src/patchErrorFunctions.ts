@@ -17,7 +17,7 @@ const LINE_SEPARATOR = "\n";
 const USELESS_TRACEBACK_MESSAGES = [
   // The second line of the traceback will always be the "getTraceback" function
   "in upvalue 'getTraceback'",
-  "in function 'sandboxGetTraceback'",
+  "in function 'sandbox.GetTraceback'",
 
   // The third line of the traceback will always be a line within the "errorWithTraceback" function
   "in function 'error'",
