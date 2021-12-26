@@ -482,7 +482,7 @@ export function removeAllBombs(
  * @returns True if one or more effects was removed, false otherwise.
  */
 export function removeAllEffects(
-  variant?: EffectVariant,
+  variant?: EffectVariant | int,
   subType?: int,
   cap?: int,
 ): boolean {
