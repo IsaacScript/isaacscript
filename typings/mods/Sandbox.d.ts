@@ -6,6 +6,7 @@ declare interface Sandbox {
   connectLocalhost(port: int, useTCP: boolean): SocketClient;
   getDate(format?: string): string;
   getParentFunctionDescription(levels: int): string;
+  getSocketTime(): float;
   getTraceback(): string;
   init(): void;
   isSocketInitialized(): boolean;
