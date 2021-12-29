@@ -59,7 +59,12 @@ declare interface StageAPICustomStage {
   OverrideRockAltEffects(rooms?: RoomType[]): void;
 
   /** Sets the boss music used by the stage. */
-  SetBossMusic(musicID: int, clearedMusicID: int): void;
+  SetBossMusic(
+    musicID: int,
+    clearedMusicID: int,
+    introMusicID: int,
+    outroMusicID: int,
+  ): void;
 
   /** Sets the available bosses for the stage. */
   SetBosses(bossIDs: int[]): void;
