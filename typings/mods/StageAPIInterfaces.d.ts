@@ -67,7 +67,7 @@ declare interface StageAPICustomStage {
   ): void;
 
   /** Sets the available bosses for the stage. */
-  SetBosses(bossIDs: int[]): void;
+  SetBosses(bossIDs: string[]): void;
 
   /** Sets the name displayed to the player. */
   SetDisplayName(name: string): void;

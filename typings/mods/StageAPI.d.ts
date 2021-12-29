@@ -300,6 +300,9 @@ interface StageAPIInterface {
   /** Roughly analogous to the vanilla `Level.GetCurrentRoomIndex` function. */
   GetCurrentRoomID(): int;
 
+  /** Gets the current custom stage.  */
+  GetCurrentStage(): StageAPICustomStage | undefined;
+
   GetCustomGrids(
     index: int | undefined,
     name: string,
