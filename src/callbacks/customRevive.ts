@@ -1,6 +1,6 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { removeCollectibleFromItemTracker } from "../functions/collectibles";
-import { removeAllMatchingEntities } from "../functions/entity";
+import { removeAllFamiliars } from "../functions/entity";
 import { getPlayerIndex, PlayerIndex } from "../functions/player";
 import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
 import { ModUpgraded } from "../types/ModUpgraded";
@@ -15,6 +15,7 @@ import {
 
 enum CustomReviveState {
   DISABLED,
+  WAITING_FOR_BERSERK_TO_END,
   CHANGING_ROOMS,
   WAITING_FOR_ITEM_ANIMATION,
 }
@@ -80,6 +81,48 @@ function postNewRoom() {
 
 // ModCallbacksCustom.MC_POST_PEFFECT_UPDATE_REORDERED
 function postPEffectUpdateReordered(player: EntityPlayer) {
+  postPEffectUpdateReorderedWaitingForBerserkToEnd(player);
+  postPEffectUpdateReorderedWaitingForItemAnimation(player);
+}
+
+function postPEffectUpdateReorderedWaitingForBerserkToEnd(
+  player: EntityPlayer,
+) {
+  if (v.run.state !== CustomReviveState.WAITING_FOR_BERSERK_TO_END) {
+    return;
+  }
+
+  if (v.run.dyingPlayerIndex === null) {
+    return;
+  }
+
+  const playerIndex = getPlayerIndex(player);
+  const effects = player.GetEffects();
+
+  if (playerIndex !== v.run.dyingPlayerIndex) {
+    return;
+  }
+
+  // During the Berserk! effect, the familiar cache can be updated,
+  // which will make the 1-Up re-appear
+  // Thus, remove all 1-Up familiars on every frame to account for this
+  // (we can't defer giving the 1-Up until later because by then it will be too late and the current
+  // run's data will have been deleted)
+  removeAllFamiliars(FamiliarVariant.ONE_UP);
+
+  const isBerserk = effects.HasCollectibleEffect(
+    CollectibleType.COLLECTIBLE_BERSERK,
+  );
+  if (isBerserk) {
+    return;
+  }
+
+  v.run.state = CustomReviveState.CHANGING_ROOMS;
+}
+
+function postPEffectUpdateReorderedWaitingForItemAnimation(
+  player: EntityPlayer,
+) {
   if (v.run.state !== CustomReviveState.WAITING_FOR_ITEM_ANIMATION) {
     return;
   }
@@ -132,11 +175,22 @@ function postPlayerFatalDamage(player: EntityPlayer) {
     return;
   }
 
-  v.run.state = CustomReviveState.CHANGING_ROOMS;
+  // In the special case of the player being berserk,
+  // fatal damage will not cause them to immediately die
+  // In this case, send the player to an intermediary state to wait for the berserk effect to finish
+  const effects = player.GetEffects();
+  const isBerserk = effects.HasCollectibleEffect(
+    CollectibleType.COLLECTIBLE_BERSERK,
+  );
+  const newState = isBerserk
+    ? CustomReviveState.WAITING_FOR_BERSERK_TO_END
+    : CustomReviveState.CHANGING_ROOMS;
+
+  v.run.state = newState;
   v.run.revivalType = revivalType;
   v.run.dyingPlayerIndex = getPlayerIndex(player);
 
   player.AddCollectible(CollectibleType.COLLECTIBLE_1UP, 0, false);
-  removeAllMatchingEntities(EntityType.ENTITY_FAMILIAR, FamiliarVariant.ONE_UP);
+  removeAllFamiliars(FamiliarVariant.ONE_UP);
   removeCollectibleFromItemTracker(CollectibleType.COLLECTIBLE_1UP);
 }
