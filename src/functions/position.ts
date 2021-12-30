@@ -8,8 +8,15 @@ import { getPlayerCloserThan } from "./player";
  * with heaven doors and partially overlap with players, if the thing being spawned is bigger than a
  * tile (like a Blood Donation Machine). Use this function instead if you want to account for those
  * specific situations.
+ *
+ * @param startingPosition The position to start searching from. If this position is not overlapping
+ * with anything, then it will be returned.
+ * @param avoidActiveEntities Optional. False by default.
  */
-export function findFreePosition(startingPosition: Vector): Vector {
+export function findFreePosition(
+  startingPosition: Vector,
+  avoidActiveEntities = false,
+): Vector {
   const game = Game();
   const room = game.GetRoom();
   const heavenDoors = getEffects(
@@ -18,7 +25,11 @@ export function findFreePosition(startingPosition: Vector): Vector {
   );
 
   for (let i = 0; i < 100; i++) {
-    const position = room.FindFreePickupSpawnPosition(startingPosition, i);
+    const position = room.FindFreePickupSpawnPosition(
+      startingPosition,
+      i,
+      avoidActiveEntities,
+    );
 
     const closePlayer = getPlayerCloserThan(position, DISTANCE_OF_GRID_TILE);
     if (closePlayer !== undefined) {
