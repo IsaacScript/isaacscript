@@ -29,7 +29,18 @@ declare interface StageAPICustomGrid {
 }
 
 declare interface StageAPICustomGridEntity {
-  PersistentData: StageAPICustomDoor;
+  Remove(keepBaseGrid: boolean): void;
+  Data: Record<string, unknown>;
+  GridConfig: StageAPICustomGrid;
+  GridIndex: int;
+  PersistentData: Record<string, unknown>;
+}
+
+declare interface StageAPIEntityInfo {
+  Data: StageAPIEntityData;
+  Persistent: boolean;
+  PersistentData: boolean;
+  PersistentIndex: int;
 }
 
 declare interface StageAPICustomStage {
@@ -110,7 +121,12 @@ declare interface StageAPICustomStage {
    * Sets the paths to the "spot" graphic,
    * the patch of ground underneath the boss and player sprites in the pre-boss cutscene.
    */
-  SetSpots(bossSpot: string | undefined, playerSpot: string | undefined): void;
+  SetSpots(
+    bossSpot: string | undefined,
+    playerSpot: string | undefined,
+    bgColor: Color | undefined,
+    dirtColor: Color | undefined,
+  ): void;
 
   /** Sets the stage's number. */
   SetStageNumber(num: int): void;
@@ -127,6 +143,13 @@ declare interface StageAPIDoorInfo {
   RequireCurrent?: RoomType[];
   RequireEither?: RoomType[];
   RequireTarget?: RoomType[];
+}
+
+declare interface StageAPIGridContainer {
+  Desc: GridEntityDesc;
+  Grid: GridEntity;
+  Index: int;
+  Type: GridEntityType;
 }
 
 declare interface StageAPIGridGfx {
@@ -181,7 +204,17 @@ declare interface StageAPILevelMap {
   Map: StageAPIRoomData[];
 }
 
+declare interface StageAPIEntityData {
+  GridX: int;
+  GridY: int;
+  Index: int;
+  SubType: int;
+  Type: int;
+  Variant: int;
+}
+
 declare interface StageAPILevelRoom {
+  SetTypeOverride(typeOverride: RoomType): void;
   AvoidSpawning: unknown;
   AwardSeed: int;
   ClearCount: int;
@@ -204,6 +237,16 @@ declare interface StageAPILevelRoom {
   SpawnSeed: int;
   SurpriseMiniboss: boolean;
   VisitCount: int;
+}
+
+declare interface StageAPIOverlay {
+  Fade(total: int, time: int, step: int): void;
+  Render(noCenterCorrect: boolean): void;
+  SetAlpha(alpha: int, noCancelFade: boolean): void;
+  Anm2: string;
+  Offset: Vector | undefined;
+  Size: Vector | undefined;
+  Velocity: Vector | undefined;
 }
 
 declare interface StageAPIRemovedEntityData {
@@ -230,6 +273,14 @@ declare interface StageAPIRoomGfx {
   shadingPrefix: string;
 }
 
+declare interface StageAPIGridData {
+  GridX: int;
+  GridY: int;
+  Index: int;
+  Type: int;
+  Variant: int;
+}
+
 declare interface StageAPIRoomsList {
   AddRooms(roomFiles: string[] | StageAPICustomRoomConfig[]): void;
 }
@@ -239,6 +290,22 @@ declare type StageAPIStageOverrideStage = {
   OverrideStageType: StageType;
   ReplaceWith: StageAPICustomStage | StageAPIVanillaStage;
 };
+
+declare interface StageAPITextStreakParams {
+  Color: Color | undefined;
+  ExtraFontScale: Vector | undefined;
+  ExtraOffset: Vector | undefined;
+  Font: Font | undefined;
+  Hold: boolean | undefined;
+  HoldFrames: int | undefined;
+  LineSpacing: int | undefined;
+  RenderPos: Vector | undefined;
+  SmallFont: Font | undefined;
+  SpriteOffset: Vector | undefined;
+  Spritesheet: string | undefined;
+  Text: string;
+  TextOffset: Vector;
+}
 
 declare interface StageAPIVanillaStage {
   NormalStage: true;

@@ -233,6 +233,29 @@ interface StageAPIInterface {
     storeBackdropEntities: true,
   ): Entity[];
 
+  ChangeDecoration(decoration: StageAPIGridContainer): void;
+
+  ChangeDoor(
+    container: StageAPIGridContainer,
+    doorInfo: StageAPIDoorInfo,
+    payToPlayFile: string | undefined,
+  ): void;
+
+  ChangePit(
+    gridContainer: StageAPIGridContainer,
+    fileName: string | undefined,
+    bridgeFileName: string | undefined,
+    altFileName: string | undefined,
+  ): void;
+
+  ChangeRock(container: StageAPIGridContainer): void;
+
+  CheckBridge(
+    gridEntity: GridEntity,
+    gridIndex: int,
+    bridgeFileName: string,
+  ): void;
+
   /** Function to create a custom floor layout. */
   CreateMapFromRoomsList(
     roomsList: StageAPIRoomsList,
@@ -293,6 +316,8 @@ interface StageAPIInterface {
    */
   FinishedLoadingData(): boolean;
 
+  GetBossData(id: string): BossData;
+
   GetCurrentLevelMap(): StageAPILevelMap;
 
   GetCurrentRoom(): StageAPILevelRoom | undefined;
@@ -300,8 +325,12 @@ interface StageAPIInterface {
   /** Roughly analogous to the vanilla `Level.GetCurrentRoomIndex` function. */
   GetCurrentRoomID(): int;
 
+  GetCurrentRoomType(): RoomType;
+
   /** Gets the current custom stage.  */
   GetCurrentStage(): StageAPICustomStage | undefined;
+
+  GetCurrentStageDisplayName(): string;
 
   GetCustomGrids(
     index: int | undefined,
@@ -317,13 +346,23 @@ interface StageAPIInterface {
 
   GridGfx(): StageAPIGridGfx;
 
+  InNewStage(): boolean;
+
+  InOverrideStage(): boolean;
+
+  InOverridenStage(): boolean;
+
   InitCustomLevel(levelMap: StageAPILevelMap, levelStartRoom: boolean): void;
+
+  IsDoorSlotAllowed(slot: DoorSlot): boolean;
 
   LoadCustomMapRoomDoors(
     levelRoom: StageAPILevelRoom,
     roomData: StageAPIRoomData,
     levelMap?: StageAPILevelMap,
   ): void;
+
+  PlayTextStreak(params: StageAPITextStreakParams): void;
 
   /** Constructor for the RoomGfx object. */
   RoomGfx(
@@ -335,10 +374,36 @@ interface StageAPIInterface {
 
   RoomsList(name: string, ...layouts: unknown[]): StageAPIRoomsList;
 
+  SetCurrentRoom(room: StageAPILevelRoom): void;
+
+  SetDoorOpen(open: boolean, door: Entity): void;
+
+  SpawnCustomDoor(
+    slot: DoorSlot,
+    leadsToExtraRoomName: string,
+    levelMapID: unknown | undefined,
+    doorDataName: string,
+    data: unknown | undefined,
+    exitSlot: DoorSlot | undefined,
+  ): void;
+
+  SpawnCustomTrapdoor(
+    position: Vector,
+    goesTo: StageAPICustomStage,
+    anm2: string | undefined,
+    size: int | undefined,
+  ): Entity;
+
   /** Unregisters all mod callbacks, should be used when a mod loads, useful for `luamod`. */
   UnregisterCallbacks(modID: string): void;
 
   Callbacks: Record<StageAPICallback, unknown>;
+
+  /** Where default doors should spawn. */
+  DefaultDoorSpawn: StageAPIDoorInfo;
+
+  /** Where default doors should spawn. */
+  SecretDoorSpawn: StageAPIDoorInfo;
 
   StageOverride: {
     CatacombsOne: 1;
