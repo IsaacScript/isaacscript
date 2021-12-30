@@ -24,6 +24,8 @@ export function getPlayerHealth(player: EntityPlayer): PlayerHealth {
   const rottenHearts = player.GetRottenHearts();
   const brokenHearts = player.GetBrokenHearts();
   const subPlayer = player.GetSubPlayer();
+  const soulCharges = player.GetEffectiveSoulCharge();
+  const bloodCharges = player.GetEffectiveBloodCharge();
 
   // The Forgotten and The Soul has special health, so we need to account for this
   if (character === PlayerType.PLAYER_THEFORGOTTEN && subPlayer !== undefined) {
@@ -95,6 +97,8 @@ export function getPlayerHealth(player: EntityPlayer): PlayerHealth {
     goldenHearts,
     rottenHearts,
     brokenHearts,
+    soulCharges,
+    bloodCharges,
   };
 }
 
@@ -160,6 +164,13 @@ export function setPlayerHealth(
   player.AddHearts(playerHealth.hearts);
   player.AddGoldenHearts(playerHealth.goldenHearts);
   player.AddBrokenHearts(playerHealth.brokenHearts);
+
+  // Set the Bethany / Tainted Bethany charges
+  if (character === PlayerType.PLAYER_BETHANY) {
+    player.SetSoulCharge(playerHealth.soulCharges);
+  } else if (character === PlayerType.PLAYER_BETHANY_B) {
+    player.SetBloodCharge(playerHealth.bloodCharges);
+  }
 }
 
 export function removeAllPlayerHealth(player: EntityPlayer): void {
