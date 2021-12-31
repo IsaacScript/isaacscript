@@ -34,8 +34,9 @@ declare const enum TrapdoorVariant {
    * Void Portals will have a VarData of 0 if they are part of the grid layout and a VarData of 1 if
    * they are spawned after defeating a boss.
    *
-   * Manually spawning a trapdoor with a variant of a Void Portal will not work; the trapdoor will
-   * appear and function as normal trapdoor.
+   * Manually spawning a trapdoor with a variant of a Void Portal will work, but the sprite will
+   * have the appearance of a normal trapdoor; you must replace the spritesheet with
+   * "gfx/grid/voidtrapdoor.anm2".
    */
   VOID_PORTAL = 1,
 }
