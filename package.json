@@ -25,7 +25,7 @@
     "dist/**/*.d.ts"
   ],
   "devDependencies": {
-    "isaac-typescript-definitions": "^1.0.327",
+    "isaac-typescript-definitions": "^1.0.329",
     "isaacscript-lint": "^1.0.77",
     "typedoc": "^0.22.10",
     "typescript": "^4.5.4",

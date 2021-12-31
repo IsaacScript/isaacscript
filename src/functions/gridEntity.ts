@@ -284,10 +284,15 @@ export function setGridEntityInvisible(gridEntity: GridEntity) {
   clearSprite(sprite);
 }
 
+/**
+ * Helper function to spawn a giant poop. This is performed by spawning each of the four quadrant
+ * grid entities in the appropriate positions.
+ */
 export function spawnGiantPoop(topLeftGridIndex: int): void {
   const game = Game();
   const room = game.GetRoom();
   const gridWidth = room.GetGridWidth();
+
   const topRightGridIndex = topLeftGridIndex + 1;
   const bottomLeftGridIndex = topLeftGridIndex + gridWidth;
   const bottomRightGridIndex = bottomLeftGridIndex + 1;
@@ -314,6 +319,11 @@ export function spawnGiantPoop(topLeftGridIndex: int): void {
   );
 }
 
+/**
+ * Helper function to spawn a grid entity. This function assumes you want to give the grid entity a
+ * variant of 0. Use this instead of the `Isaac.GridSpawn()` method since it handles giving pits
+ * collision and it allows you to specify the grid index instead of the position.
+ */
 export function spawnGridEntity(
   gridEntityType: GridEntityType,
   gridIndex: int,
@@ -321,6 +331,11 @@ export function spawnGridEntity(
   return spawnGridEntityWithVariant(gridEntityType, 0, gridIndex);
 }
 
+/**
+ * Helper function to spawn a grid entity with a specific variant. Use this instead of the
+ * `Isaac.GridSpawn()` method since it handles giving pits collision and it allows you to specify
+ * the grid index instead of the position.
+ */
 export function spawnGridEntityWithVariant(
   gridEntityType: GridEntityType,
   variant: int,
@@ -341,4 +356,19 @@ export function spawnGridEntityWithVariant(
   }
 
   return gridEntity;
+}
+
+/**
+ * Helper function to spawn a Void Portal. This is more complicated than simply spawning a trapdoor
+ * with the appropriate variant, as the game does not give it the correct sprite automatically.
+ */
+export function spawnVoidPortal(gridIndex: int) {
+  const voidPortal = spawnGridEntityWithVariant(
+    GridEntityType.GRID_TRAPDOOR,
+    TrapdoorVariant.VOID_PORTAL,
+    gridIndex,
+  );
+
+  const sprite = voidPortal.GetSprite();
+  sprite.Load("gfx/grid/voidtrapdoor.anm2", true);
 }
