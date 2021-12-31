@@ -369,6 +369,10 @@ export function spawnVoidPortal(gridIndex: int) {
     gridIndex,
   );
 
+  // If Void Portals are not given a VarData of 1, they will send the player to the next floor
+  // instead of The Void
+  voidPortal.VarData = 1;
+
   const sprite = voidPortal.GetSprite();
   sprite.Load("gfx/grid/voidtrapdoor.anm2", true);
 }
