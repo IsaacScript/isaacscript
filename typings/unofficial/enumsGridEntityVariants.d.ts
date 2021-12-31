@@ -28,8 +28,16 @@ declare const enum PoopGridEntityVariant {
 
 /** For GridEntityType.GRID_TRAPDOOR (17) */
 declare const enum TrapdoorVariant {
-  /** Trapdoors of non-zero variants will function equivalently to those of variant zero. */
   NORMAL = 0,
+
+  /**
+   * Void Portals will have a VarData of 0 if they are part of the grid layout and a VarData of 1 if
+   * they are spawned after defeating a boss.
+   *
+   * Manually spawning a trapdoor with a variant of a Void Portal will not work; the trapdoor will
+   * appear and function as normal trapdoor.
+   */
+  VOID_PORTAL = 1,
 }
 
 /**
