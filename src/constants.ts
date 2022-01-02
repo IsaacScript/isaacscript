@@ -170,6 +170,7 @@ export const MAX_PLAYER_TRINKET_SLOTS = 2;
  */
 export const MAX_ROOM_INDEX = 168;
 
+export const MAX_VANILLA_CHARACTER = PlayerType.PLAYER_THESOUL_B;
 export const MAX_VANILLA_COLLECTIBLE_TYPE =
   CollectibleType.COLLECTIBLE_MOMS_RING;
 
