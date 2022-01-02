@@ -42,7 +42,7 @@ function entityTakeDmgPlayer(
   tookDamage: Entity,
   damageAmount: float,
   _damageFlags: int,
-  _damageSource: EntityRef,
+  damageSource: EntityRef,
   _damageCountdownFrames: int,
 ): boolean | void {
   if (!hasSubscriptions()) {
@@ -67,6 +67,7 @@ function entityTakeDmgPlayer(
 
   const game = Game();
   const gameFrameCount = game.GetFrameCount();
+  const character = player.GetPlayerType();
   const playerIndex = getPlayerIndex(player);
 
   const lastDamageFrame = v.run.playerLastDamageFrame.get(playerIndex);
@@ -77,9 +78,18 @@ function entityTakeDmgPlayer(
     return undefined;
   }
 
-  // If we are the "Lost Curse" form from touching a white fire, all damage will be fatal
+  // If we are Tainted Jacob and the damage source is Dark Esau, this will not be fatal damage
+  // (because we will transform into Tainted Jacob's lost form)
+  if (
+    character === PlayerType.PLAYER_JACOB_B &&
+    damageSource.Type === EntityType.ENTITY_DARK_ESAU
+  ) {
+    return undefined;
+  }
+
   if (
     !damageIsFatal(player, damageAmount, lastDamageFrame) &&
+    // If we are the "Lost Curse" form from touching a white fire, all damage will be fatal
     !hasLostCurse(player)
   ) {
     return undefined;
