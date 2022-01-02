@@ -321,8 +321,10 @@ export function spawnGiantPoop(topLeftGridIndex: int): void {
 
 /**
  * Helper function to spawn a grid entity. This function assumes you want to give the grid entity a
- * variant of 0. Use this instead of the `Isaac.GridSpawn()` method since it handles giving pits
- * collision and it allows you to specify the grid index instead of the position.
+ * variant of 0. Use this instead of the `Isaac.GridSpawn()` method since it:
+ * - handles giving pits collision
+ * - removes existing grid entities on the same tile, if any
+ * - allows you to specify the grid index instead of the position
  */
 export function spawnGridEntity(
   gridEntityType: GridEntityType,
@@ -333,8 +335,10 @@ export function spawnGridEntity(
 
 /**
  * Helper function to spawn a grid entity with a specific variant. Use this instead of the
- * `Isaac.GridSpawn()` method since it handles giving pits collision and it allows you to specify
- * the grid index instead of the position.
+ * `Isaac.GridSpawn()` method since it:
+ * - handles giving pits collision
+ * - removes existing grid entities on the same tile, if any
+ * - allows you to specify the grid index instead of the position
  */
 export function spawnGridEntityWithVariant(
   gridEntityType: GridEntityType,
@@ -343,6 +347,12 @@ export function spawnGridEntityWithVariant(
 ): GridEntity {
   const game = Game();
   const room = game.GetRoom();
+
+  const existingGridEntity = room.GetGridEntity(gridIndex);
+  if (existingGridEntity !== undefined) {
+    removeGridEntity(existingGridEntity);
+  }
+
   const position = room.GetGridPosition(gridIndex);
   const gridEntity = Isaac.GridSpawn(gridEntityType, variant, position, true);
 
