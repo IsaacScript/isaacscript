@@ -356,13 +356,17 @@ export function spawnGridEntityWithVariant(
   const position = room.GetGridPosition(gridIndex);
   const gridEntity = Isaac.GridSpawn(gridEntityType, variant, position, true);
 
-  // For some reason, spawned pits start with a collision class of COLLISION_NONE,
-  // so we have to manually set it
   if (gridEntityType === GridEntityType.GRID_PIT) {
+    // For some reason, spawned pits start with a collision class of COLLISION_NONE,
+    // so we have to manually set it
     const pit = gridEntity.ToPit();
     if (pit !== undefined) {
       pit.UpdateCollision();
     }
+  } else if (gridEntityType === GridEntityType.GRID_WALL) {
+    // For some reason, spawned walls start with a collision class of COLLISION_NONE,
+    // so we have to manually set it
+    gridEntity.CollisionClass = GridCollisionClass.COLLISION_WALL;
   }
 
   return gridEntity;
