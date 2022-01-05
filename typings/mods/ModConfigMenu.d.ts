@@ -2,6 +2,63 @@ declare const ModConfigMenu: ModConfigMenuInterface | undefined;
 
 /** @noSelf */
 declare interface ModConfigMenuInterface {
+  AddBooleanSetting(
+    categoryName: string,
+    subcategoryName: string,
+    attribute: string,
+    defaultValue: boolean,
+    displayText: string,
+    displayValueProxies: LuaTable<boolean, string>,
+    info: string,
+    color?: string,
+  ): void;
+
+  AddControllerSetting(
+    categoryName: string,
+    subcategoryName: string,
+    attribute: string,
+    defaultValue: Controller,
+    displayText: string,
+    displayDevice: boolean,
+    info: string,
+    color?: string,
+  ): void;
+
+  AddKeyboardSetting(
+    categoryName: string,
+    subcategoryName: string,
+    attribute: string,
+    defaultValue: Keyboard,
+    displayText: string,
+    displayDevice: boolean,
+    info: string,
+    color?: string,
+  ): void;
+
+  AddNumberSetting(
+    categoryName: string,
+    subcategoryName: string,
+    attribute: string,
+    minValue: number,
+    maxValue: number,
+    modifyBy: number,
+    defaultValue: number,
+    displayText: string,
+    displayValueProxies: LuaTable<number, string>,
+    info: string,
+    color?: string,
+  ): void;
+
+  AddScrollSetting(
+    categoryName: string,
+    subcategoryName: string,
+    attribute: string,
+    defaultValue: number,
+    displayText: string,
+    info: string,
+    color?: string,
+  ): void;
+
   AddSetting(
     categoryName: string,
     subcategoryName?: string,
@@ -13,10 +70,60 @@ declare interface ModConfigMenuInterface {
   AddText(
     categoryName: string,
     subcategoryName: string,
-    textFunction: () => string,
+    text: string | (() => string),
+    color?: string,
+  ): void;
+
+  AddTitle(
+    categoryName: string,
+    subcategoryName: string,
+    text: string,
+    color?: string,
   ): void;
 
   GetCategoryIDByName(categoryName: string): int | undefined;
+
+  GetSubcategoryIDByName(
+    category: string | number,
+    subcategoryName: string,
+  ): int;
+
+  RemoveCategory(categoryName: string): void;
+
+  RemoveSetting(
+    categoryName: string,
+    subcategoryString: string,
+    settingAttribute: string,
+  ): void;
+
+  RemoveSubcategory(categoryName: string, subcategoryName: string): void;
+
+  SetCategoryInfo(categoryName: string, info: string): void;
+
+  SimpleAddSetting(
+    settingType: ModConfigMenuOptionType,
+    categoryName: string,
+    subcategoryName: string,
+    attribute: string,
+    minValue: number,
+    maxValue: number,
+    modifyBy: number,
+    defaultValue: number | boolean,
+    displayText: string,
+    displayValueProxies: LuaTable<number, string> | LuaTable<boolean, string>,
+    displayDevice: boolean,
+    info: string,
+    color?: string,
+    functionName?: string,
+  ): void;
+
+  UpdateCategory(categoryName: string, categoryData: CategoryData): void;
+
+  UpdateSubcategory(
+    categoryName: string,
+    subcategoryName: string,
+    subcategoryData: SubcategoryData,
+  ): void;
 
   Config: {
     General: {
@@ -43,6 +150,8 @@ declare interface ModConfigMenuInterface {
     WIDE_LARGE: "gfx/ui/modconfig/popup_wide_large.png";
     /* eslint-enable @typescript-eslint/member-ordering */
   };
+
+  Version: int;
 }
 
 /** @noSelf */
@@ -72,6 +181,17 @@ declare const enum ModConfigMenuOptionType {
   KEYBIND_KEYBOARD = 6,
   KEYBIND_CONTROLLER = 7,
   TITLE = 8,
+}
+
+declare interface CategoryData {
+  Info: string;
+  IsOld: boolean;
+  Name: string;
+}
+
+declare interface SubcategoryData {
+  Info: string;
+  Name: string;
 }
 
 declare interface MenuData {
