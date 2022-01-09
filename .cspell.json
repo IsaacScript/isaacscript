@@ -1,9 +1,5 @@
 {
-    "version": "0.1",
-    "language": "en",
-    "dictionaries": [
-        "en_US"
-    ],
+    "version": "0.2",
     "words": [
         "dbaeumer",
         "eqeqeq",
@@ -16,6 +12,7 @@
         "rossum",
         "rustfmt",
         "tiamtowtdi",
+        "unexported",
         "zamiell"
     ]
 }
