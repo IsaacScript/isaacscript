@@ -53,7 +53,7 @@ export function getHeartRowLength(player: EntityPlayer): int {
   const combinedHearts = maxHearts + soulHearts + boneHearts * 2; // There are no half bone hearts
   const heartRowLength = combinedHearts / 2;
 
-  // After 6 hearts, the hearts wraps to a second row
+  // After 6 hearts, the hearts wrap to a second row
   return Math.min(heartRowLength, 6);
 }
 
