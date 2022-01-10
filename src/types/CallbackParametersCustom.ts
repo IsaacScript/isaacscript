@@ -39,6 +39,7 @@ import { PostTearInitLateCallbackType } from "../callbacks/subscriptions/postTea
 import { PostTearInitVeryLateCallbackType } from "../callbacks/subscriptions/postTearInitVeryLate";
 import { PostTransformationCallbackType } from "../callbacks/subscriptions/postTransformation";
 import { PostTrinketBreakCallbackType } from "../callbacks/subscriptions/postTrinketBreak";
+import { PreBerserkDeathCallbackType } from "../callbacks/subscriptions/preBerserkDeath";
 import { PreCustomReviveCallbackType } from "../callbacks/subscriptions/preCustomRevive";
 import { PreItemPickupCallbackType } from "../callbacks/subscriptions/preItemPickup";
 import { PreNewLevelCallbackType } from "../callbacks/subscriptions/PreNewLevel";
@@ -166,6 +167,11 @@ export interface CallbackParametersCustom {
 
   [ModCallbacksCustom.MC_POST_PLAYER_FATAL_DAMAGE]: [
     callback: PostPlayerFatalDamageCallbackType,
+    playerVariant?: PlayerVariant,
+  ];
+
+  [ModCallbacksCustom.MC_PRE_BERSERK_DEATH]: [
+    callback: PreBerserkDeathCallbackType,
     playerVariant?: PlayerVariant,
   ];
 

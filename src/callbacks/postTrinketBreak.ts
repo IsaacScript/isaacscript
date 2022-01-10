@@ -1,5 +1,7 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getPlayerIndex, PlayerIndex } from "../functions/player";
+import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
+import { ModUpgraded } from "../types/ModUpgraded";
 import {
   postTrinketBreakFire,
   postTrinketBreakHasSubscriptions,
@@ -17,35 +19,23 @@ const v = {
 };
 
 /** @internal */
-export function postTrinketBreakCallbackInit(mod: Mod): void {
+export function postTrinketBreakCallbackInit(mod: ModUpgraded): void {
   saveDataManager("postTrinketBreak", v, hasSubscriptions);
-
-  mod.AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, postPEffectUpdate); // 4
 
   mod.AddCallback(
     ModCallbacks.MC_ENTITY_TAKE_DMG,
     entityTakeDmgPlayer,
     EntityType.ENTITY_PLAYER,
   ); // 11
+
+  mod.AddCallbackCustom(
+    ModCallbacksCustom.MC_POST_PEFFECT_UPDATE_REORDERED,
+    postPEffectUpdateReordered,
+  ); // 4
 }
 
 function hasSubscriptions() {
   return postTrinketBreakHasSubscriptions();
-}
-
-// ModCallbacks.MC_POST_PEFFECT_UPDATE (4)
-function postPEffectUpdate(player: EntityPlayer) {
-  if (!hasSubscriptions()) {
-    return;
-  }
-
-  // On every frame, keep track of how many trinkets we have
-  const trinketMap = getTrinketMap(player);
-
-  for (const trinketType of TRINKETS_THAT_CAN_BREAK) {
-    const numTrinkets = player.GetTrinketMultiplier(trinketType);
-    trinketMap.set(trinketType, numTrinkets);
-  }
 }
 
 // ModCallbacks.MC_ENTITY_TAKE_DMG (11)
@@ -92,6 +82,21 @@ function entityTakeDmgPlayer(
     }
 
     postTrinketBreakFire(player, trinketType);
+  }
+}
+
+// ModCallbacksCustom.MC_POST_PEFFECT_UPDATE_REORDERED
+function postPEffectUpdateReordered(player: EntityPlayer) {
+  if (!hasSubscriptions()) {
+    return;
+  }
+
+  // On every frame, keep track of how many trinkets we have
+  const trinketMap = getTrinketMap(player);
+
+  for (const trinketType of TRINKETS_THAT_CAN_BREAK) {
+    const numTrinkets = player.GetTrinketMultiplier(trinketType);
+    trinketMap.set(trinketType, numTrinkets);
   }
 }
 

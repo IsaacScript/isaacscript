@@ -27,6 +27,7 @@ import { postTearInitLateCallbackInit } from "./callbacks/postTearInitLate";
 import { postTearInitVeryLateCallbackInit } from "./callbacks/postTearInitVeryLate";
 import { postTransformationCallbackInit } from "./callbacks/postTransformation";
 import { postTrinketBreakCallbackInit } from "./callbacks/postTrinketBreak";
+import { preBerserkDeathCallbackInit } from "./callbacks/preBerserkDeath";
 import { preNewLevelCallbackInit } from "./callbacks/preNewLevel";
 import { reorderedCallbacksInit } from "./callbacks/reorderedCallbacks";
 import { deployJSONRoomInit } from "./features/deployJSONRoom";
@@ -108,6 +109,7 @@ function initCustomCallbacks(mod: ModUpgraded) {
   postPlayerChangeTypeCallbackInit(mod);
   postPlayerChangeHealthCallbackInit(mod);
   postPlayerFatalDamageCallbackInit(mod);
+  preBerserkDeathCallbackInit(mod);
   customReviveCallbacksInit(mod);
   postFlipCallbacksInit(mod);
   postEsauJrCallbacksInit(mod);

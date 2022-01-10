@@ -15,7 +15,6 @@ import {
 
 enum CustomReviveState {
   DISABLED,
-  WAITING_FOR_BERSERK_TO_END,
   CHANGING_ROOMS,
   WAITING_FOR_ITEM_ANIMATION,
 }
@@ -43,6 +42,11 @@ export function customReviveCallbacksInit(mod: ModUpgraded): void {
   mod.AddCallbackCustom(
     ModCallbacksCustom.MC_POST_PLAYER_FATAL_DAMAGE,
     postPlayerFatalDamage,
+  );
+
+  mod.AddCallbackCustom(
+    ModCallbacksCustom.MC_PRE_BERSERK_DEATH,
+    preBerserkDeath,
   );
 }
 
@@ -81,48 +85,10 @@ function postNewRoom() {
 
 // ModCallbacksCustom.MC_POST_PEFFECT_UPDATE_REORDERED
 function postPEffectUpdateReordered(player: EntityPlayer) {
-  postPEffectUpdateReorderedWaitingForBerserkToEnd(player);
-  postPEffectUpdateReorderedWaitingForItemAnimation(player);
+  checkWaitingForItemAnimation(player);
 }
 
-function postPEffectUpdateReorderedWaitingForBerserkToEnd(
-  player: EntityPlayer,
-) {
-  if (v.run.state !== CustomReviveState.WAITING_FOR_BERSERK_TO_END) {
-    return;
-  }
-
-  if (v.run.dyingPlayerIndex === null) {
-    return;
-  }
-
-  const playerIndex = getPlayerIndex(player);
-  const effects = player.GetEffects();
-
-  if (playerIndex !== v.run.dyingPlayerIndex) {
-    return;
-  }
-
-  // During the Berserk! effect, the familiar cache can be updated,
-  // which will make the 1-Up re-appear
-  // Thus, remove all 1-Up familiars on every frame to account for this
-  // (we can't defer giving the 1-Up until later because by then it will be too late and the current
-  // run's data will have been deleted)
-  removeAllFamiliars(FamiliarVariant.ONE_UP);
-
-  const isBerserk = effects.HasCollectibleEffect(
-    CollectibleType.COLLECTIBLE_BERSERK,
-  );
-  if (isBerserk) {
-    return;
-  }
-
-  v.run.state = CustomReviveState.CHANGING_ROOMS;
-}
-
-function postPEffectUpdateReorderedWaitingForItemAnimation(
-  player: EntityPlayer,
-) {
+function checkWaitingForItemAnimation(player: EntityPlayer) {
   if (v.run.state !== CustomReviveState.WAITING_FOR_ITEM_ANIMATION) {
     return;
   }
@@ -170,23 +136,29 @@ function postPlayerFatalDamage(player: EntityPlayer) {
     return;
   }
 
+  playerIsAboutToDie(player);
+}
+
+// ModCallbacksCustom.MC_PRE_BERSERK_DEATH
+function preBerserkDeath(player: EntityPlayer) {
+  if (!hasSubscriptions()) {
+    return;
+  }
+
+  playerIsAboutToDie(player);
+}
+
+/**
+ * The player is about to die, which will immediately delete the save data for the run. To prevent
+ * this from happening, we grant the 1-Up item.
+ */
+function playerIsAboutToDie(player: EntityPlayer) {
   const revivalType = preCustomReviveFire(player);
   if (revivalType === undefined) {
     return;
   }
 
-  // In the special case of the player being berserk,
-  // fatal damage will not cause them to immediately die
-  // In this case, send the player to an intermediary state to wait for the berserk effect to finish
-  const effects = player.GetEffects();
-  const isBerserk = effects.HasCollectibleEffect(
-    CollectibleType.COLLECTIBLE_BERSERK,
-  );
-  const newState = isBerserk
-    ? CustomReviveState.WAITING_FOR_BERSERK_TO_END
-    : CustomReviveState.CHANGING_ROOMS;
-
-  v.run.state = newState;
+  v.run.state = CustomReviveState.CHANGING_ROOMS;
   v.run.revivalType = revivalType;
   v.run.dyingPlayerIndex = getPlayerIndex(player);
 

@@ -39,6 +39,7 @@ import { postTearInitLateRegister } from "../callbacks/subscriptions/postTearIni
 import { postTearInitVeryLateRegister } from "../callbacks/subscriptions/postTearInitVeryLate";
 import { postTransformationRegister } from "../callbacks/subscriptions/postTransformation";
 import { postTrinketBreakRegister } from "../callbacks/subscriptions/postTrinketBreak";
+import { preBerserkDeathRegister } from "../callbacks/subscriptions/preBerserkDeath";
 import { preCustomReviveRegister } from "../callbacks/subscriptions/preCustomRevive";
 import { preItemPickupRegister } from "../callbacks/subscriptions/preItemPickup";
 import { preNewLevelRegister } from "../callbacks/subscriptions/PreNewLevel";
@@ -247,6 +248,10 @@ function getCallbackRegisterFunction(callbackID: ModCallbacksCustom) {
 
     case ModCallbacksCustom.MC_POST_PLAYER_FATAL_DAMAGE: {
       return postPlayerFatalDamageRegister;
+    }
+
+    case ModCallbacksCustom.MC_PRE_BERSERK_DEATH: {
+      return preBerserkDeathRegister;
     }
 
     case ModCallbacksCustom.MC_PRE_CUSTOM_REVIVE: {
