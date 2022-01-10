@@ -6,13 +6,24 @@ import { UI_HEART_WIDTH } from "../constants";
  * combination with the `getHUDOffsetVector()` helper function.
  */
 export function getHeartsUIWidth(): int {
+  const game = Game();
+  const level = game.GetLevel();
+  const curses = level.GetCurses();
   const player = Isaac.GetPlayer();
   const extraLives = player.GetExtraLives();
   const effects = player.GetEffects();
   const hasHolyMantleEffect = effects.HasCollectibleEffect(
     CollectibleType.COLLECTIBLE_HOLY_MANTLE,
   );
-  const heartRowLength = getHeartRowLength(player);
+
+  let heartRowLength = getHeartRowLength(player);
+  if (hasHolyMantleEffect) {
+    heartRowLength += 1;
+  }
+  if (curses === LevelCurse.CURSE_OF_THE_UNKNOWN) {
+    heartRowLength = 1;
+  }
+  Isaac.DebugString(`HEART ROW LENGTH: ${heartRowLength}`);
 
   let width = heartRowLength * UI_HEART_WIDTH;
   if (extraLives > 9) {
@@ -27,35 +38,23 @@ export function getHeartsUIWidth(): int {
     }
   }
 
-  if (hasHolyMantleEffect) {
-    width += UI_HEART_WIDTH;
-  }
-
   return width;
 }
 
 /**
- * Returns how many hearts are in the heart UI row.
- *
- * - If Curse of the Unknown is present, this function will return 1.
- * - If the player has more than 6 hearts, this function will return 6.
+ * Returns how many hearts are in the heart UI row. If the player has more than 6 hearts, this
+ * function will return 6.
  */
-function getHeartRowLength(player: EntityPlayer) {
-  const game = Game();
-  const level = game.GetLevel();
-  const curses = level.GetCurses();
+export function getHeartRowLength(player: EntityPlayer): int {
   const maxHearts = player.GetMaxHearts();
   const soulHearts = player.GetSoulHearts();
   const boneHearts = player.GetBoneHearts();
 
-  if (curses === LevelCurse.CURSE_OF_THE_UNKNOWN) {
-    return 1;
-  }
-
   const combinedHearts = maxHearts + soulHearts + boneHearts * 2; // There are no half bone hearts
+  const heartRowLength = combinedHearts / 2;
 
   // After 6 hearts, the hearts wraps to a second row
-  return Math.max(combinedHearts / 2, 6);
+  return Math.min(heartRowLength, 6);
 }
 
 /**
