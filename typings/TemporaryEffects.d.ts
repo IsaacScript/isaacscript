@@ -38,13 +38,21 @@ declare interface TemporaryEffects {
 
   GetCollectibleEffect(
     collectibleType: CollectibleType | int,
-  ): Readonly<TemporaryEffect>;
+  ): Readonly<TemporaryEffect> | undefined;
 
   GetCollectibleEffectNum(collectibleType: CollectibleType | int): int;
   GetEffectsList(): Readonly<EffectList>;
-  GetNullEffect(nullItemID: NullItemID | int): Readonly<TemporaryEffect>;
+
+  GetNullEffect(
+    nullItemID: NullItemID | int,
+  ): Readonly<TemporaryEffect> | undefined;
+
   GetNullEffectNum(nullItemID: NullItemID | int): int;
-  GetTrinketEffect(trinketType: TrinketType | int): Readonly<TemporaryEffect>;
+
+  GetTrinketEffect(
+    trinketType: TrinketType | int,
+  ): Readonly<TemporaryEffect> | undefined;
+
   GetTrinketEffectNum(trinketType: TrinketType | int): int;
   HasCollectibleEffect(collectibleType: CollectibleType | int): boolean;
   HasNullEffect(nullItemID: NullItemID | int): boolean;
