@@ -18,6 +18,8 @@ const v = {
   run: {
     /** Needed to detect if Glass Cannon will kill the player or not. */
     playerLastDamageFrame: new Map<PlayerIndex, int>(),
+
+    berserkEndFrame: null as int | null,
   },
 };
 
