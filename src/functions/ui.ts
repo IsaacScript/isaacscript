@@ -6,25 +6,15 @@ import { UI_HEART_WIDTH } from "../constants";
  * combination with the `getHUDOffsetVector()` helper function.
  */
 export function getHeartsUIWidth(): int {
-  const game = Game();
-  const level = game.GetLevel();
-  const curses = level.GetCurses();
   const player = Isaac.GetPlayer();
-  const maxHearts = player.GetMaxHearts();
-  const soulHearts = player.GetSoulHearts();
-  const boneHearts = player.GetBoneHearts();
   const extraLives = player.GetExtraLives();
+  const effects = player.GetEffects();
+  const hasHolyMantleEffect = effects.HasCollectibleEffect(
+    CollectibleType.COLLECTIBLE_HOLY_MANTLE,
+  );
+  const heartRowLength = getHeartRowLength(player);
 
-  let combinedHearts = maxHearts + soulHearts + boneHearts * 2; // There are no half bone hearts
-  if (combinedHearts > 12) {
-    combinedHearts = 12; // After 6 hearts, it wraps to a second row
-  }
-
-  if (curses === LevelCurse.CURSE_OF_THE_UNKNOWN) {
-    combinedHearts = 2;
-  }
-
-  let width = (combinedHearts / 2) * UI_HEART_WIDTH;
+  let width = heartRowLength * UI_HEART_WIDTH;
   if (extraLives > 9) {
     width += 20;
     if (player.HasCollectible(CollectibleType.COLLECTIBLE_GUPPYS_COLLAR)) {
@@ -37,7 +27,35 @@ export function getHeartsUIWidth(): int {
     }
   }
 
+  if (hasHolyMantleEffect) {
+    width += UI_HEART_WIDTH;
+  }
+
   return width;
+}
+
+/**
+ * Returns how many hearts are in the heart UI row.
+ *
+ * - If Curse of the Unknown is present, this function will return 1.
+ * - If the player has more than 6 hearts, this function will return 6.
+ */
+function getHeartRowLength(player: EntityPlayer) {
+  const game = Game();
+  const level = game.GetLevel();
+  const curses = level.GetCurses();
+  const maxHearts = player.GetMaxHearts();
+  const soulHearts = player.GetSoulHearts();
+  const boneHearts = player.GetBoneHearts();
+
+  if (curses === LevelCurse.CURSE_OF_THE_UNKNOWN) {
+    return 1;
+  }
+
+  const combinedHearts = maxHearts + soulHearts + boneHearts * 2; // There are no half bone hearts
+
+  // After 6 hearts, the hearts wraps to a second row
+  return Math.max(combinedHearts / 2, 6);
 }
 
 /**
