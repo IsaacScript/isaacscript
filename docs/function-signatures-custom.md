@@ -300,7 +300,7 @@ Fires from the MC_POST_PEFFECT_UPDATE callback on the frame before a Berserk! ef
 
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `PlayerVariant` provided.
 
-```
+```ts
 function preBerserkDeath(player: EntityPlayer) {}
 ```
 
