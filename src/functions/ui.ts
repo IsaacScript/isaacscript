@@ -23,7 +23,6 @@ export function getHeartsUIWidth(): int {
   if (curses === LevelCurse.CURSE_OF_THE_UNKNOWN) {
     heartRowLength = 1;
   }
-  Isaac.DebugString(`HEART ROW LENGTH: ${heartRowLength}`);
 
   let width = heartRowLength * UI_HEART_WIDTH;
   if (extraLives > 9) {
