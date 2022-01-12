@@ -506,11 +506,18 @@ export function getPlayers(performExclusions = false): EntityPlayer[] {
   return players;
 }
 
-export function getPlayersOfType(playerType: PlayerType): EntityPlayer[] {
+/**
+ * Helper function to get all of the players that are a certain character.
+ *
+ * This function is variadic, meaning that you can supply as many characters as you want to check
+ * for. Returns true if any of the characters supplied are present.
+ */
+export function getPlayersOfType(...characters: PlayerType[]): EntityPlayer[] {
+  const charactersSet = new Set(characters);
   const players: EntityPlayer[] = [];
   for (const player of getPlayers()) {
     const character = player.GetPlayerType();
-    if (character === playerType) {
+    if (charactersSet.has(character)) {
       players.push(player);
     }
   }
