@@ -40,6 +40,13 @@ export function goToStage(stage: LevelStage, stageType: StageType): void {
   Isaac.ExecuteCommand(command);
 }
 
+export function isRepentanceStage(stageType: int): boolean {
+  return (
+    stageType === StageType.STAGETYPE_REPENTANCE ||
+    stageType === StageType.STAGETYPE_REPENTANCE_B
+  );
+}
+
 export function onCathedral(): boolean {
   const game = Game();
   const level = game.GetLevel();
@@ -93,10 +100,7 @@ export function onRepentanceStage(): boolean {
   const level = game.GetLevel();
   const stageType = level.GetStageType();
 
-  return (
-    stageType === StageType.STAGETYPE_REPENTANCE ||
-    stageType === StageType.STAGETYPE_REPENTANCE_B
-  );
+  return isRepentanceStage(stageType);
 }
 
 export function onSheol(): boolean {
