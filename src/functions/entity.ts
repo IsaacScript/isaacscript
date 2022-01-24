@@ -1,3 +1,4 @@
+import { STORY_BOSSES } from "../constants";
 import { AnyEntity } from "../types/AnyEntity";
 import { getRandom, nextSeed } from "./random";
 
@@ -428,6 +429,15 @@ export function getTears(
  */
 export function isEntityMoving(entity: Entity, threshold = 0.01): boolean {
   return entity.Velocity.Length() >= threshold;
+}
+
+/**
+ * Helper function to determine if the current entity is an end-game story boss, like Isaac, Blue
+ * Baby, Mega Satan, The Beast, and so on. This is useful because certain effects should only apply
+ * to non-story bosses, like Vanishing Twin. Also see the `STORY_BOSSES` constant.
+ */
+export function isStoryBoss(entity: Entity): boolean {
+  return STORY_BOSSES.has(entity.Type);
 }
 
 /**
