@@ -1,6 +1,7 @@
 import chalk from "chalk";
 import * as JSONC from "jsonc-parser";
 import path from "path";
+import { PROJECT_NAME } from "../../../constants";
 import * as file from "../../../file";
 import { ensureAllCases, error } from "../../../util";
 import { SaveDatMessage, SaveDatMessageType } from "./types";
@@ -118,7 +119,7 @@ function writeSaveDatToDisk(
   } catch (err) {
     if (numRetries > 4) {
       console.error(
-        `Failed to write to the ${saveDatFileName} for 5 times in a row. Maybe the file got locked somehow. IsaacScript will now exit.`,
+        `Failed to write to the ${saveDatFileName} for 5 times in a row. Maybe the file got locked somehow. ${PROJECT_NAME} will now exit.`,
       );
       console.error("The writing error is as follows:");
       console.error(err);

@@ -14,6 +14,7 @@ import {
   METADATA_XML_TEMPLATE_PATH,
   PACKAGE_JSON,
   PACKAGE_JSON_TEMPLATE_PATH,
+  PROJECT_NAME,
   README_MD,
   README_MD_TEMPLATES_PATH,
   TEMPLATES_STATIC_DIR,
@@ -171,7 +172,7 @@ async function initGitRepository(projectPath: string, projectName: string) {
     execShell("git", ["add", "--all"], false, projectPath);
     execShell(
       "git",
-      ["commit", "--message", "IsaacScript template"],
+      ["commit", "--message", `${PROJECT_NAME} template`],
       false,
       projectPath,
     );
@@ -261,7 +262,7 @@ function isGitNameAndEmailConfigured() {
 }
 
 function updateNodeModules(projectPath: string) {
-  console.log("Finding out the latest versions of the IsaacScript packages...");
+  console.log("Finding out the latest versions of the NPM packages...");
   execShell(
     "npx",
     ["npm-check-updates", "--upgrade", "--packageFile", "package.json"],

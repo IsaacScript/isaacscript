@@ -1,5 +1,6 @@
 import chalk from "chalk";
 import path from "path";
+import { PROJECT_NAME } from "../../constants";
 import * as file from "../../file";
 import { getInputYesNo } from "../../prompt";
 import { error } from "../../util";
@@ -19,7 +20,7 @@ export async function checkModTargetDirectory(
     )}" already exists.`,
   );
   console.error(
-    "When you run IsaacScript, it will want to create a directory here so that it can sync it with your project folder.",
+    `When you run ${PROJECT_NAME}, it will want to create a directory here so that it can sync it with your project folder.`,
   );
 
   const shouldDeleteDirectory = await getInputYesNo(

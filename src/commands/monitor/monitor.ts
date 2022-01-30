@@ -7,6 +7,7 @@ import {
   MAIN_LUA,
   MOD_SOURCE_PATH,
   PACKAGE_JSON,
+  PROJECT_NAME,
 } from "../../constants";
 import * as file from "../../file";
 import { Config } from "../../types/Config";
@@ -133,7 +134,7 @@ function spawnTSTLWatcher(argv: Record<string, unknown>) {
   tstl.stdout.on("data", (data: Buffer[]) => {
     const msg = data.toString().trim();
     if (msg.includes("Starting compilation in watch mode...")) {
-      const newMsg = "IsaacScript is now watching for changes.";
+      const newMsg = `${PROJECT_NAME} is now watching for changes.`;
       notifyGame.msg(newMsg);
     } else if (
       msg.includes("File change detected. Starting incremental compilation...")

@@ -13,7 +13,7 @@ import { init } from "./commands/init/init";
 import { monitor } from "./commands/monitor/monitor";
 import { publish } from "./commands/publish/publish";
 import * as configFile from "./configFile";
-import { CWD } from "./constants";
+import { CWD, PROJECT_NAME } from "./constants";
 import { parseArgs } from "./parseArgs";
 import { promptInit } from "./prompt";
 import { Command, DEFAULT_COMMAND } from "./types/Command";
@@ -24,7 +24,7 @@ import { validateNodeVersion } from "./validateNodeVersion";
 import { validateOS } from "./validateOS";
 
 main().catch((err) => {
-  error("IsaacScript failed:", err);
+  error(`${PROJECT_NAME} failed:`, err);
 });
 
 async function main(): Promise<void> {
@@ -52,7 +52,7 @@ async function main(): Promise<void> {
 }
 
 function printBanner() {
-  console.log(chalk.green(figlet.textSync("IsaacScript")));
+  console.log(chalk.green(figlet.textSync(PROJECT_NAME)));
   const bannerLength = 55;
   const version = `v${pkg.version}`;
   const leftPaddingAmount = Math.floor((bannerLength + version.length) / 2);

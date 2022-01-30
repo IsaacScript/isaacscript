@@ -13,6 +13,7 @@ export const HOME_DIR = homeDir;
 export const FILE_SYNCED_MESSAGE = "File synced:";
 export const MOD_UPLOADER_PATH =
   "C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\tools\\ModUploader\\ModUploader.exe";
+export const PROJECT_NAME = "IsaacScript";
 
 // isaacscript
 const REPO_ROOT = path.join(__dirname, "..", "..");

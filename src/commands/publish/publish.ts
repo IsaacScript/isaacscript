@@ -7,6 +7,7 @@ import {
   MOD_SOURCE_PATH,
   MOD_UPLOADER_PATH,
   PACKAGE_JSON_PATH,
+  PROJECT_NAME,
   PUBLISH_POST_COPY_PY_PATH,
   PUBLISH_PRE_COPY_PY_PATH,
   VERSION_TXT_PATH,
@@ -316,7 +317,7 @@ function runSteamCmd(modTargetPath: string, steamCmdPath: string) {
   if (!file.exists(metadataVDFPath)) {
     console.error(
       chalk.red(
-        'A "metadata.vdf" file was not found in your mod directory. You must create this file in order for "steamcmd.exe" to work. Please see the IsaacScript docs:',
+        `A "metadata.vdf" file was not found in your mod directory. You must create this file in order for "steamcmd.exe" to work. Please see the ${PROJECT_NAME} docs:`,
       ),
     );
     error(getIsaacScriptDocs());
@@ -327,7 +328,7 @@ function runSteamCmd(modTargetPath: string, steamCmdPath: string) {
   if (username === undefined || username === "") {
     console.error(
       chalk.red(
-        `Failed to read the "${usernameVar}" environment variable from the ".env" file. Please see the IsaacScript docs:`,
+        `Failed to read the "${usernameVar}" environment variable from the ".env" file. Please see the ${PROJECT_NAME} docs:`,
       ),
     );
     error(getIsaacScriptDocs());
@@ -338,7 +339,7 @@ function runSteamCmd(modTargetPath: string, steamCmdPath: string) {
   if (password === undefined || password === "") {
     console.error(
       chalk.red(
-        `Failed to read the "${passwordVar}" environment variable from the ".env" file. Please see the IsaacScript docs:`,
+        `Failed to read the "${passwordVar}" environment variable from the ".env" file. Please see the ${PROJECT_NAME} docs:`,
       ),
     );
     error(getIsaacScriptDocs());

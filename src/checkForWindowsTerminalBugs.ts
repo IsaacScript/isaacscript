@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import fs from "fs";
 import path from "path";
-import { HOME_DIR } from "./constants";
+import { HOME_DIR, PROJECT_NAME } from "./constants";
 import * as file from "./file";
 import { getInputYesNo } from "./prompt";
 import { error } from "./util";
@@ -9,7 +9,7 @@ import { error } from "./util";
 const BASH_PROFILE_PATH = path.join(HOME_DIR, ".bash_profile");
 
 // By default, Git Bash for Windows uses MINGW64
-// This will not work correctly with the inquirer library (or any other NodeJS input library)
+// This will not work correctly with the prompt library
 // Try to detect this and warn the end-user
 export async function checkForWindowsTerminalBugs(): Promise<void> {
   if (process.platform !== "win32") {
@@ -96,7 +96,7 @@ function getBashProfileAppendText(bashProfileContents: string) {
     newText += "\n";
   }
 
-  newText += "# Terminal fixes added by IsaacScript\n";
+  newText += `# Terminal fixes added by ${PROJECT_NAME}\n`;
   newText += "export FORCE_COLOR=true\n";
 
   return newText;

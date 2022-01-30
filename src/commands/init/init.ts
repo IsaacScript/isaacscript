@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import commandExists from "command-exists";
 import path from "path";
-import { CWD } from "../../constants";
+import { CWD, PROJECT_NAME } from "../../constants";
 import { checkIfProjectPathExists } from "./checkIfProjectPathExists";
 import { checkModSubdirectory } from "./checkModSubdirectory";
 import { checkModTargetDirectory } from "./checkModTargetDirectory";
@@ -64,5 +64,5 @@ function printFinishMessage(projectPath: string, projectName: string) {
     commandsToType += `"${chalk.green(`cd ${projectName}`)}" and `;
   }
   commandsToType += `"${chalk.green("npx isaacscript")}"`;
-  console.log(`Now, start IsaacScript by typing ${commandsToType}.`);
+  console.log(`Now, start ${PROJECT_NAME} by typing ${commandsToType}.`);
 }

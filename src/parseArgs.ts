@@ -1,4 +1,5 @@
 import yargs from "yargs";
+import { PROJECT_NAME } from "./constants";
 
 export function parseArgs() {
   const yargsObject = yargs(process.argv.slice(2))
@@ -26,35 +27,39 @@ export function parseArgs() {
         }),
     )
 
-    .command("init [name]", "Initialize a new IsaacScript mod.", (builder) =>
-      builder
-        .option("use-current-dir", {
-          alias: "u",
-          type: "boolean",
-          description: "Use the current directory as the root for the project",
-        })
-        .option("mods-directory", {
-          alias: "m",
-          type: "string",
-          description: "The directory where Isaac mods live on your system",
-        })
-        .option("save-slot", {
-          alias: "s",
-          type: "number",
-          choices: [1, 2, 3],
-          description: "The in-game save slot that you use",
-        })
-        .option("vscode", {
-          alias: "c",
-          type: "boolean",
-          description: "Open the project in VSCode after initialization",
-        })
-        .option("skip-npm-install", {
-          alias: "i",
-          type: "boolean",
-          description:
-            'Don\'t automatically run "npm install" after initializing the project',
-        }),
+    .command(
+      "init [name]",
+      `Initialize a new ${PROJECT_NAME} mod.`,
+      (builder) =>
+        builder
+          .option("use-current-dir", {
+            alias: "u",
+            type: "boolean",
+            description:
+              "Use the current directory as the root for the project",
+          })
+          .option("mods-directory", {
+            alias: "m",
+            type: "string",
+            description: "The directory where Isaac mods live on your system",
+          })
+          .option("save-slot", {
+            alias: "s",
+            type: "number",
+            choices: [1, 2, 3],
+            description: "The in-game save slot that you use",
+          })
+          .option("vscode", {
+            alias: "c",
+            type: "boolean",
+            description: "Open the project in VSCode after initialization",
+          })
+          .option("skip-npm-install", {
+            alias: "i",
+            type: "boolean",
+            description:
+              'Don\'t automatically run "npm install" after initializing the project',
+          }),
     )
 
     .command("copy", "Only compile & copy the mod.")
