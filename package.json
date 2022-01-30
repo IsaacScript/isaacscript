@@ -21,6 +21,7 @@
     "dotenv": "^14.3.2",
     "figlet": "^1.5.2",
     "fs-extra": "^10.0.0",
+    "isaacscript-tsconfig": "^1.1.8",
     "jsonc-parser": "^3.0.0",
     "moment": "^2.29.1",
     "npm-check-updates": "^12.2.1",
@@ -43,7 +44,6 @@
     "@types/source-map-support": "^0.5.4",
     "@types/update-notifier": "^5.1.0",
     "@types/yargs": "^17.0.8",
-    "isaacscript-lint": "^1.0.79",
-    "isaacscript-tsconfig": "^1.1.8"
+    "isaacscript-lint": "^1.0.79"
   }
 }

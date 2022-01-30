@@ -32,10 +32,7 @@ async function main(): Promise<void> {
   promptInit();
   validateNodeVersion();
   validateOS();
-
-  // Load environment variables from the ".env" file
-  const envFile = path.join(CWD, ".env");
-  dotenv.config({ path: envFile });
+  loadEnvironmentVariables();
 
   // Get command line arguments
   const argv = parseArgs();
@@ -49,6 +46,11 @@ async function main(): Promise<void> {
   await checkForWindowsTerminalBugs();
 
   await handleCommands(argv as Record<string, unknown>);
+}
+
+function loadEnvironmentVariables() {
+  const envFile = path.join(CWD, ".env");
+  dotenv.config({ path: envFile });
 }
 
 function printBanner() {
