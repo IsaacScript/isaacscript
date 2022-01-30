@@ -128,6 +128,9 @@ declare interface StageAPICustomStage {
     dirtColor: Color | undefined,
   ): void;
 
+  /** Sets the stage's music. */
+  SetStageMusic(music: number): void;
+
   /** Sets the stage's number. */
   SetStageNumber(num: int): void;
 
