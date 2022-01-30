@@ -152,6 +152,16 @@ function copyDynamicFiles(
   }
 }
 
+function updateNodeModules(projectPath: string) {
+  console.log("Finding out the latest versions of the NPM packages...");
+  execShell(
+    "npx",
+    ["npm-check-updates", "--upgrade", "--packageFile", "package.json"],
+    false,
+    projectPath,
+  );
+}
+
 async function initGitRepository(projectPath: string, projectName: string) {
   if (!commandExists.sync("git")) {
     console.log(
@@ -259,16 +269,6 @@ function isGitNameAndEmailConfigured() {
   );
 
   return nameExitStatus === 0 && emailExitStatus === 0;
-}
-
-function updateNodeModules(projectPath: string) {
-  console.log("Finding out the latest versions of the NPM packages...");
-  execShell(
-    "npx",
-    ["npm-check-updates", "--upgrade", "--packageFile", "package.json"],
-    false,
-    projectPath,
-  );
 }
 
 function installNodeModules(projectPath: string, skipNPMInstall: boolean) {

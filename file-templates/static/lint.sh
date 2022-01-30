@@ -29,7 +29,7 @@ if ! command -v xmllint &> /dev/null; then
   find "$DIR/mod" -name "*.xml" -print0 | xargs -0 xmllint --noout
 fi
 
-# Step 4 - Check for unused imports
+# Step 5 - Check for unused imports
 # The "--error" flag makes it return an error code of 1 if unused exports are found
 # (this starts out disabled by default, but you can uncomment the following line to find dead code)
 # npx ts-prune -error
