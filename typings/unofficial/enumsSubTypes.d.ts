@@ -9,6 +9,18 @@ declare const enum DipFamiliarSubType {
   WHITE = 6,
 }
 
+/** For EntityType.ENTITY_FAMILIAR (3), FamiliarVariant.BLOOD_BABY (238) */
+declare const enum BloodClotSubType {
+  RED = 0,
+  SOUL = 1,
+  BLACK = 2,
+  ETERNAL = 3,
+  GOLD = 4,
+  BONE = 5,
+  ROTTEN = 6,
+  /** Spawned by the Blood Clot trinket; cannot be turned into health by Sumptorium. */
+  RED_NO_SUMPTORIUM = 7,
+}
 /** For EntityType.ENTITY_CHARGER (23), ChargerVariant.CHARGER (0) */
 declare const enum ChargerSubType {
   CHARGER = 0,
