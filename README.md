@@ -155,19 +155,19 @@ Furthermore, you will probably want Prettier and ESLint to be run automatically 
 // These are Visual Studio Code settings that should apply to this particular repository
 {
   "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true,
     "editor.codeActionsOnSave": [
       "source.fixAll.eslint",
     ],
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
   },
 
   "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true,
     "editor.codeActionsOnSave": [
       "source.fixAll.eslint",
     ],
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
   },
 }
 ```
@@ -213,7 +213,7 @@ Optionally, you can also provide a hint to anyone cloning your repository that t
 - [`eslint-plugin-no-template-curly-in-string-fix`](https://github.com/Zamiell/eslint-plugin-no-template-curly-in-string-fix) - A plugin that provides a better [`no-template-curly-in-string`](https://eslint.org/docs/rules/no-template-curly-in-string) rule.
 - [`eslint-plugin-no-void-return-type`](https://github.com/Zamiell/eslint-plugin-no-void-return-type) - A plugin that disallows void return types on unexported functions.
 - [`eslint-plugin-only-warn`](https://github.com/bfanger/eslint-plugin-only-warn) - A plugin that turns all errors to warnings.
-- [`prettier`](https://github.com/prettier/prettier) - This is a peer dependency for `eslint-plugin-prettier`.
+- [`prettier`](https://github.com/prettier/prettier) - This is the main code formatter, as explained above.
 - [`prettier-plugin-organize-imports`](https://github.com/simonhaenisch/prettier-plugin-organize-imports) - A plugin used because Prettier will not organize imports automatically. (It has no configuration and is automatically applied to Prettier if it is installed.)
 - [`ts-prune`](https://github.com/nadeesha/ts-prune) - A tool to look for unused exports, which catches bugs that the `import/no-unused-modules` rule cannot find.
 
