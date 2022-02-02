@@ -1,4 +1,5 @@
 import { getPlayerNumAllHearts, isChildPlayer } from "../functions/player";
+import { willPlayerRevive } from "../functions/revive";
 import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
 import { ModUpgraded } from "../types/ModUpgraded";
 import {
@@ -40,7 +41,8 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
   if (
     berserkEffect !== undefined &&
     berserkEffect.Cooldown === 1 &&
-    playerNumAllHearts === 0
+    playerNumAllHearts === 0 &&
+    !willPlayerRevive(player)
   ) {
     preBerserkDeathFire(player);
   }
