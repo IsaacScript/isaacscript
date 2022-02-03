@@ -33,6 +33,12 @@ export const CHARACTERS_WITH_BLACK_HEART_FROM_ETERNAL_HEART =
     PlayerType.PLAYER_JUDAS_B, // 24
   ]);
 
+export const CHARACTERS_WITH_FREE_DEVIL_DEALS = new Set<PlayerType>([
+  PlayerType.PLAYER_THELOST,
+  PlayerType.PLAYER_THELOST_B,
+  PlayerType.PLAYER_JACOB2_B,
+]);
+
 /**
  * The set of characters where red heart containers will be turned into soul hearts (e.g. Blue
  * Baby). This includes The Lost and Tainted Lost. This does not include Keeper or Tainted Keeper.

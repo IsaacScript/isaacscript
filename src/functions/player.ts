@@ -1,5 +1,6 @@
 import {
   CHARACTERS_WITH_BLACK_HEART_FROM_ETERNAL_HEART,
+  CHARACTERS_WITH_FREE_DEVIL_DEALS,
   CHARACTERS_WITH_NO_RED_HEARTS,
   CHARACTERS_WITH_NO_SOUL_HEARTS,
   LOST_STYLE_PLAYER_TYPES,
@@ -734,6 +735,15 @@ export function isLost(player: EntityPlayer): boolean {
     character === PlayerType.PLAYER_THELOST ||
     character === PlayerType.PLAYER_THELOST_B
   );
+}
+
+/**
+ * Helper function for detecting when a player is one of the characters that can take free Devil
+ * Deals. (e.g. The Lost, Tainted Lost, etc.)
+ */
+export function canTakeFreeDevilDeals(player: EntityPlayer): boolean {
+  const character = player.GetPlayerType();
+  return CHARACTERS_WITH_FREE_DEVIL_DEALS.has(character);
 }
 
 /** Helper function for detecting when a player is Tainted Lazarus or Dead Tainted Lazarus. */
