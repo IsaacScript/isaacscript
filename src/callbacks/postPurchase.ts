@@ -1,4 +1,5 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
+import { getPickups } from "../functions/entity";
 import { getPlayerIndex, getPlayers, PlayerIndex } from "../functions/player";
 import {
   postPurchaseFire,
@@ -36,14 +37,17 @@ function postUpdate() {
     return;
   }
 
-  const pickups = Isaac.FindByType(EntityType.ENTITY_PICKUP);
+  const pickups = getPickups();
   const players = getPlayers();
   checkPickupsPurchased(pickups, players);
   storePickupsInMap(pickups);
   storePlayersInMap(players);
 }
 
-function checkPickupsPurchased(pickups: Entity[], players: EntityPlayer[]) {
+function checkPickupsPurchased(
+  pickups: EntityPickup[],
+  players: EntityPlayer[],
+) {
   for (const [index, pickupDescription] of v.room.pickupMap.entries()) {
     // First, see if a pickup that existed on the last frame is now gone
     if (pickupIndexExists(index, pickups)) {
@@ -79,10 +83,9 @@ function checkPickupsPurchased(pickups: Entity[], players: EntityPlayer[]) {
   }
 }
 
-function storePickupsInMap(pickups: Entity[]) {
-  for (const entity of pickups) {
-    const pickup = entity.ToPickup();
-    if (pickup === undefined || pickup.Price === 0) {
+function storePickupsInMap(pickups: EntityPickup[]) {
+  for (const pickup of pickups) {
+    if (pickup.Price === 0) {
       continue;
     }
 
@@ -102,9 +105,9 @@ function storePlayersInMap(players: EntityPlayer[]) {
   }
 }
 
-function pickupIndexExists(index: int, pickups: Entity[]) {
-  for (const entity of pickups) {
-    if (entity.Index === index && entity.Exists()) {
+function pickupIndexExists(index: int, pickups: EntityPickup[]) {
+  for (const pickup of pickups) {
+    if (pickup.Index === index && pickup.Exists()) {
       return true;
     }
   }

@@ -107,6 +107,13 @@ export function saveDataManager(
   // Add the new save data to the map
   saveDataMap.set(key, saveData);
 
+  // If the only key in the save data is "room", then we don't have to worry about saving this data
+  // to disk (because the room would be reloaded upon resuming a continued run)
+  const saveDataKeys = Object.keys(saveData);
+  if (saveDataKeys.length === 1 && saveDataKeys[0] === "room") {
+    saveData.dontSave = true;
+  }
+
   // Make a copy of the initial save data so that we can use it to restore the default values later
   // on
   const saveDataTable = saveData as LuaTable;

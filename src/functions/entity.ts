@@ -28,7 +28,7 @@ export function anyEntityCloserThan(
  * ```
  */
 export function getBombs(
-  matchingVariant = -1,
+  matchingVariant: BombVariant | int = -1,
   matchingSubType = -1,
 ): EntityBomb[] {
   const entities = Isaac.FindByType(
@@ -113,7 +113,7 @@ export function getFilteredNewEntities<T extends AnyEntity>(
  * ```
  */
 export function getEffects(
-  matchingVariant = -1,
+  matchingVariant: EffectVariant | int = -1,
   matchingSubType = -1,
 ): EntityEffect[] {
   const entities = Isaac.FindByType(
@@ -231,7 +231,7 @@ export function getEntityVelocities(entities?: Entity[]): Map<PtrHash, Vector> {
  * ```
  */
 export function getFamiliars(
-  matchingVariant = -1,
+  matchingVariant: FamiliarVariant | int = -1,
   matchingSubType = -1,
 ): EntityFamiliar[] {
   const entities = Isaac.FindByType(
@@ -263,7 +263,7 @@ export function getFamiliars(
  * ```
  */
 export function getKnives(
-  matchingVariant = -1,
+  matchingVariant: KnifeVariant | int = -1,
   matchingSubType = -1,
 ): EntityKnife[] {
   const entities = Isaac.FindByType(
@@ -295,7 +295,7 @@ export function getKnives(
  * ```
  */
 export function getLasers(
-  matchingVariant = -1,
+  matchingVariant: LaserVariant | int = -1,
   matchingSubType = -1,
 ): EntityLaser[] {
   const entities = Isaac.FindByType(
@@ -327,7 +327,7 @@ export function getLasers(
  * ```
  */
 export function getPickups(
-  matchingVariant = -1,
+  matchingVariant: PickupVariant | int = -1,
   matchingSubType = -1,
 ): EntityPickup[] {
   const entities = Isaac.FindByType(
@@ -359,7 +359,7 @@ export function getPickups(
  * ```
  */
 export function getProjectiles(
-  matchingVariant = -1,
+  matchingVariant: ProjectileVariant | int = -1,
   matchingSubType = -1,
 ): EntityProjectile[] {
   const entities = Isaac.FindByType(
@@ -379,7 +379,10 @@ export function getProjectiles(
   return projectiles;
 }
 
-export function getSlots(matchingVariant = -1, matchingSubType = -1): Entity[] {
+export function getSlots(
+  matchingVariant: SlotVariant | int = -1,
+  matchingSubType = -1,
+): Entity[] {
   const slots = Isaac.FindByType(
     EntityType.ENTITY_SLOT,
     matchingVariant,
@@ -401,7 +404,7 @@ export function getSlots(matchingVariant = -1, matchingSubType = -1): Entity[] {
  * ```
  */
 export function getTears(
-  matchingVariant = -1,
+  matchingVariant: TearVariant | int = -1,
   matchingSubType = -1,
 ): EntityTear[] {
   const entities = Isaac.FindByType(
