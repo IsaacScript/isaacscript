@@ -167,9 +167,7 @@ This is a helper script to lint and spell-check the project. (It is also used in
 
 ### `LICENCE`
 
-This is the licence for your project. By default, `isaacscript init` installs a [GNU General Public License v3](https://www.gnu.org/licenses/gpl-3.0.en.html), because all code projects should include a license in them.
-
-Feel free to change this to something else if you don't like GPLv3.
+This is the licence for your project. By default, `isaacscript init` installs [GNU General Public License v3](https://www.gnu.org/licenses/gpl-3.0.en.html). Since the type definitions are licensed as GPLv3, you must use GPLv3 or another compatible license in your IsaacScript project.
 
 <br />
 
