@@ -63,7 +63,7 @@ Back in your command prompt, start `isaacscript`:
 npx isaacscript
 ```
 
-(This is shorthand for `isaacscript monitor`.)
+(This is shorthand for `npx isaacscript monitor`.)
 
 The program will run forever, monitoring for changes in your project. If you want to cancel it, you can press `Ctrl + C` to return to your shell.
 
