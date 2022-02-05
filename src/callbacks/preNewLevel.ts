@@ -6,6 +6,8 @@ import {
   preNewLevelHasSubscriptions,
 } from "./subscriptions/preNewLevel";
 
+const TRAVELING_TO_NEXT_FLOOR_ANIMATIONS = new Set(["Trapdoor", "LightTravel"]);
+
 /**
  * Since there can be multiple players, use this variable to ensure that we only fire the custom
  * callback once per stage.
@@ -34,7 +36,7 @@ function postPlayerRender(player: EntityPlayer) {
 
   const sprite = player.GetSprite();
   const animation = sprite.GetAnimation();
-  if (animation !== "Trapdoor" && animation !== "LightTravel") {
+  if (!TRAVELING_TO_NEXT_FLOOR_ANIMATIONS.has(animation)) {
     return;
   }
 
