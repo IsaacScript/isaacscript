@@ -42,7 +42,7 @@ import { postTrinketBreakRegister } from "../callbacks/subscriptions/postTrinket
 import { preBerserkDeathRegister } from "../callbacks/subscriptions/preBerserkDeath";
 import { preCustomReviveRegister } from "../callbacks/subscriptions/preCustomRevive";
 import { preItemPickupRegister } from "../callbacks/subscriptions/preItemPickup";
-import { preNewLevelRegister } from "../callbacks/subscriptions/PreNewLevel";
+import { preNewLevelRegister } from "../callbacks/subscriptions/preNewLevel";
 import { getDebugPrependString } from "../functions/log";
 import { ensureAllCases } from "../functions/util";
 import { CallbackParametersCustom } from "./CallbackParametersCustom";

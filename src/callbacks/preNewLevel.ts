@@ -4,7 +4,7 @@ import { ModUpgraded } from "../types/ModUpgraded";
 import {
   preNewLevelFire,
   preNewLevelHasSubscriptions,
-} from "./subscriptions/PreNewLevel";
+} from "./subscriptions/preNewLevel";
 
 /**
  * Since there can be multiple players, use this variable to ensure that we only fire the custom

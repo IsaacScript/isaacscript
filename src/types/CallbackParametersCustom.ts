@@ -42,7 +42,7 @@ import { PostTrinketBreakCallbackType } from "../callbacks/subscriptions/postTri
 import { PreBerserkDeathCallbackType } from "../callbacks/subscriptions/preBerserkDeath";
 import { PreCustomReviveCallbackType } from "../callbacks/subscriptions/preCustomRevive";
 import { PreItemPickupCallbackType } from "../callbacks/subscriptions/preItemPickup";
-import { PreNewLevelCallbackType } from "../callbacks/subscriptions/PreNewLevel";
+import { PreNewLevelCallbackType } from "../callbacks/subscriptions/preNewLevel";
 import { ModCallbacksCustom } from "./ModCallbacksCustom";
 
 export interface CallbackParametersCustom {
