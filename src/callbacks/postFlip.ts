@@ -84,6 +84,5 @@ function getNewLazarus(oldLazarus: EntityPlayer) {
     }
   }
 
-  error("Failed to find the player entity for the new Lazarus.");
-  return oldLazarus;
+  return error("Failed to find the player entity for the new Lazarus.");
 }

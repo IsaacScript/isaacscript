@@ -92,6 +92,5 @@ function getJSONRoomWithChosenWeight(
     chosenWeight -= roomWeight;
   }
 
-  error(`Failed to get a room with chosen weight: ${chosenWeight}`);
-  return jsonRooms[0];
+  return error(`Failed to get a room with chosen weight: ${chosenWeight}`);
 }

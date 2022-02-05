@@ -87,10 +87,9 @@ export function getCurrentDimension(): Dimension {
     }
   }
 
-  error(
+  return error(
     `Failed to get the current dimension using the starting room index of: ${startingRoomGridIndex}`,
   );
-  return 0;
 }
 
 /** Alias for the `Level.GetCurrentRoomDesc()` method. */

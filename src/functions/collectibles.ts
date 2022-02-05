@@ -380,7 +380,7 @@ export function setCollectibleSubType(
 ): void {
   if (collectible.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
     error(
-      `You cannot set a collectible sub type for pickups of variant: ${collectible.Variant}`,
+      `You cannot set a collectible sub-type for pickups of variant: ${collectible.Variant}`,
     );
   }
 

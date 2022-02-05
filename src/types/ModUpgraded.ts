@@ -328,8 +328,7 @@ function getCallbackRegisterFunction(callbackID: ModCallbacksCustom) {
 
     default: {
       ensureAllCases(callbackID);
-      error(`The custom callback ID of "${callbackID}" is not valid.`);
-      return () => {};
+      return error(`The custom callback ID of "${callbackID}" is not valid.`);
     }
   }
 }

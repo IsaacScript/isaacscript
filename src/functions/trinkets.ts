@@ -38,8 +38,9 @@ export function getOpenTrinketSlot(player: EntityPlayer): int | undefined {
     return trinket1 === TrinketType.TRINKET_NULL ? 1 : undefined;
   }
 
-  error(`The player has an unknown number of trinket slots: ${maxTrinkets}`);
-  return undefined;
+  return error(
+    `The player has an unknown number of trinket slots: ${maxTrinkets}`,
+  );
 }
 
 /** Helper function to get all of the trinket entities in the room. */
