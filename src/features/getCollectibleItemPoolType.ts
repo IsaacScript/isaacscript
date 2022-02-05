@@ -42,8 +42,8 @@ function postPickupInitCollectible(pickup: EntityPickup) {
 
 /**
  * Helper function to get the item pool type that a given collectible came from. Since there is no
- * native method in the API to get this, IsaacScript listens in the PreGetCollectible callback for
- * item pool types, and then assumes that the next spawned collectible will match.
+ * native method in the API to get this, we listen in the PreGetCollectible callback for item pool
+ * types, and then assume that the next spawned collectible will match.
  */
 export function getCollectibleItemPoolType(
   collectible: EntityPickup,
