@@ -107,11 +107,7 @@ export function hasOpenPocketItemSlot(player: EntityPlayer): boolean {
   }
 
   const pocketItems = getPocketItems(player);
-  for (const pocketItem of pocketItems) {
-    if (pocketItem.type === PocketItemType.EMPTY) {
-      return true;
-    }
-  }
-
-  return false;
+  return pocketItems.some(
+    (pocketItem) => pocketItem.type === PocketItemType.EMPTY,
+  );
 }
