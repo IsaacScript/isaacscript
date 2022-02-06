@@ -121,6 +121,7 @@ const DEFAULT_GLOBALS = new Set([
   "SeedEffect",
   "Seeds",
   "ShockwaveParams",
+  "SkinColor",
   "SortingLayer",
   "SoundEffect",
   "Sprite",
