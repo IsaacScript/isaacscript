@@ -1,6 +1,7 @@
 import { GOLDEN_TRINKET_SHIFT } from "../constants";
 import { TRINKET_DESCRIPTION_MAP } from "../maps/trinketDescriptionMap";
 import { TRINKET_NAME_MAP } from "../maps/trinketNameMap";
+import { getPickups } from "./entity";
 import { giveTrinketsBack, temporarilyRemoveTrinkets } from "./trinketGive";
 
 export function getMaxTrinketID(): int {
@@ -45,21 +46,7 @@ export function getOpenTrinketSlot(player: EntityPlayer): int | undefined {
 
 /** Helper function to get all of the trinket entities in the room. */
 export function getTrinkets(matchingSubType = -1): EntityPickup[] {
-  const entities = Isaac.FindByType(
-    EntityType.ENTITY_PICKUP,
-    PickupVariant.PICKUP_TRINKET,
-    matchingSubType,
-  );
-
-  const collectibles: EntityPickup[] = [];
-  for (const entity of entities) {
-    const pickup = entity.ToPickup();
-    if (pickup !== undefined) {
-      collectibles.push(pickup);
-    }
-  }
-
-  return collectibles;
+  return getPickups(PickupVariant.PICKUP_TRINKET, matchingSubType);
 }
 
 /**

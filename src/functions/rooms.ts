@@ -42,12 +42,8 @@ export function changeRoom(roomGridIndex: int): void {
 }
 
 export function getAllRoomGridIndexes(): int[] {
-  const allRoomGridIndexes: int[] = [];
-  for (const roomDescriptor of getRooms()) {
-    allRoomGridIndexes.push(roomDescriptor.SafeGridIndex);
-  }
-
-  return allRoomGridIndexes;
+  const rooms = getRooms();
+  return rooms.map((roomDescriptor) => roomDescriptor.SafeGridIndex);
 }
 
 /**
@@ -148,17 +144,13 @@ export function getRoomDescriptor(roomGridIndex?: int): RoomDescriptor {
  * This function only searches through rooms in the current dimension.
  */
 export function getRoomGridIndexesForType(roomType: RoomType): int[] {
-  const roomGridIndexes: int[] = [];
-  for (const roomDescriptor of getRooms()) {
-    if (
+  const rooms = getRooms();
+  const matchingRooms = rooms.filter(
+    (roomDescriptor) =>
       roomDescriptor.Data !== undefined &&
-      roomDescriptor.Data.Type === roomType
-    ) {
-      roomGridIndexes.push(roomDescriptor.SafeGridIndex);
-    }
-  }
-
-  return roomGridIndexes;
+      roomDescriptor.Data.Type === roomType,
+  );
+  return matchingRooms.map((roomDescriptor) => roomDescriptor.SafeGridIndex);
 }
 
 /**
@@ -500,24 +492,17 @@ export function inStartingRoom(): boolean {
 export function isAllRoomsClear(onlyCheckRoomTypes?: RoomType[]): boolean {
   const roomTypeWhitelist =
     onlyCheckRoomTypes === undefined ? null : new Set(onlyCheckRoomTypes);
+  const rooms = getRooms();
+  const matchingRooms =
+    roomTypeWhitelist === null
+      ? rooms
+      : rooms.filter(
+          (roomDescriptor) =>
+            roomDescriptor.Data !== undefined &&
+            roomTypeWhitelist.has(roomDescriptor.Data.Type),
+        );
 
-  for (const roomDescriptor of getRooms()) {
-    const roomData = roomDescriptor.Data;
-    if (roomData === undefined) {
-      continue;
-    }
-
-    const roomType = roomData.Type;
-    if (roomTypeWhitelist !== null && !roomTypeWhitelist.has(roomType)) {
-      continue;
-    }
-
-    if (!roomDescriptor.Clear) {
-      return false;
-    }
-  }
-
-  return true;
+  return matchingRooms.every((roomDescriptor) => roomDescriptor.Clear);
 }
 
 /**

@@ -1,4 +1,5 @@
 import { getUpgradeErrorMsg } from "../errors";
+import { getEntities } from "../functions/entity";
 import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "siren helpers";
@@ -106,7 +107,7 @@ export function setFamiliarNoSirenSteal(
 function getSirenHelper(familiar: EntityFamiliar): Entity | undefined {
   const familiarHash = GetPtrHash(familiar);
 
-  const sirenHelpers = Isaac.FindByType(EntityType.ENTITY_SIREN_HELPER);
+  const sirenHelpers = getEntities(EntityType.ENTITY_SIREN_HELPER);
   for (const sirenHelper of sirenHelpers) {
     if (
       sirenHelper.Target !== undefined &&
