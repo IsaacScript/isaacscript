@@ -25,32 +25,26 @@ export function arrayEmpty<T>(array: T[]): void {
   array.splice(0, array.length);
 }
 
-/** Helper function for determining if two arrays contain the exact same elements. */
+/**
+ * Helper function for determining if two arrays contain the exact same elements. Note that this
+ * only performs a shallow comparison.
+ */
 export function arrayEquals<T>(array1: T[], array2: T[]): boolean {
   if (array1.length !== array2.length) {
     return false;
   }
 
-  for (let i = 0; i < array1.length; i++) {
-    if (array1[i] !== array2[i]) {
-      return false;
-    }
-  }
-
-  return true;
+  return array1.every((array1Element, i) => {
+    const array2Element = array2[i];
+    return array1Element === array2Element;
+  });
 }
 
 export function arrayInArray<T>(
   arrayToMatch: T[],
   parentArray: T[][],
 ): boolean {
-  for (const element of parentArray) {
-    if (arrayEquals(element, arrayToMatch)) {
-      return true;
-    }
-  }
-
-  return false;
+  return parentArray.some((element) => arrayEquals(element, arrayToMatch));
 }
 
 /**
@@ -76,7 +70,7 @@ export function arrayInit<T>(defaultValue: T, size: int): T[] {
  * From: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
  */
 export function arrayShuffle<T>(originalArray: T[], seed = Random()): T[] {
-  const array = [...originalArray];
+  const array = arrayCopy(originalArray);
   arrayShuffleInPlace(array, seed);
 
   return array;
@@ -104,12 +98,7 @@ export function arrayShuffleInPlace<T>(array: T[], seed = Random()): void {
 }
 
 export function arraySum(array: int[]): int {
-  let sum = 0;
-  for (const element of array) {
-    sum += element;
-  }
-
-  return sum;
+  return array.reduce((accumulator, element) => accumulator + element, 0);
 }
 
 export function arrayToString<T>(array: T[]): string {
@@ -117,12 +106,9 @@ export function arrayToString<T>(array: T[]): string {
     return "[]";
   }
 
-  const strings: string[] = [];
-  for (const [, value] of ipairs(array)) {
-    strings.push(tostring(value));
-  }
-
-  return `[${strings.join(", ")}]`;
+  const strings = array.map((element) => tostring(element));
+  const commaSeparatedStrings = strings.join(", ");
+  return `[${commaSeparatedStrings}]`;
 }
 
 /**
@@ -133,11 +119,13 @@ export function arrayToString<T>(array: T[]): string {
  * This function is variadic, meaning that you can specify N arguments to remove N elements.
  */
 export function arrayRemove<T>(originalArray: T[], ...elements: T[]): T[] {
-  const array = [...originalArray];
+  const array = arrayCopy(originalArray);
 
   for (const element of elements) {
     const index = array.indexOf(element);
-    array.splice(index, 1);
+    if (index > -1) {
+      array.splice(index, 1);
+    }
   }
 
   return array;
@@ -145,7 +133,7 @@ export function arrayRemove<T>(originalArray: T[], ...elements: T[]): T[] {
 
 /**
  * Removes the specified element(s) from the array. If the specified element(s) are not found in the
- * array, this function will do nothing. Returns whether or not one or more elements were found.
+ * array, this function will do nothing. Returns whether or not one or more elements were removed.
  *
  * This function is variadic, meaning that you can specify N arguments to remove N elements.
  */
