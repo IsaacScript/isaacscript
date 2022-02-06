@@ -1,5 +1,5 @@
 import { log } from "./log";
-import { combineSets, isLuaDebugEnabled } from "./util";
+import { combineSets, copySet, isLuaDebugEnabled } from "./util";
 
 const DEFAULT_GLOBALS = new Set([
   "ActionTriggers",
@@ -170,6 +170,12 @@ const DEFAULT_GLOBALS = new Set([
 
 const LUA_DEBUG_ADDED_GLOBALS = new Set(["debug", "io", "os", "package"]);
 
+const RACING_PLUS_SANDBOX_ADDED_GLOBALS = [
+  "sandboxTraceback",
+  "sandboxGetTraceback",
+  "getParentFunctionDescription",
+];
+
 /**
  * Helper function to get a set containing all of the global variable names that are contained
  * within the Isaac environment by default.
@@ -177,9 +183,19 @@ const LUA_DEBUG_ADDED_GLOBALS = new Set(["debug", "io", "os", "package"]);
  * Returns a slightly different set depending on whether the "--luadebug" flag is enabled or not.
  */
 export function getDefaultGlobals(): Set<string> {
-  return isLuaDebugEnabled()
-    ? combineSets(DEFAULT_GLOBALS, LUA_DEBUG_ADDED_GLOBALS)
-    : DEFAULT_GLOBALS;
+  let defaultGlobals = copySet(DEFAULT_GLOBALS);
+
+  if (isLuaDebugEnabled()) {
+    defaultGlobals = combineSets(defaultGlobals, LUA_DEBUG_ADDED_GLOBALS);
+  }
+
+  for (const globalName of RACING_PLUS_SANDBOX_ADDED_GLOBALS) {
+    if ((_G as Record<string, unknown>)[globalName] !== undefined) {
+      defaultGlobals.add(globalName);
+    }
+  }
+
+  return defaultGlobals;
 }
 
 /**
