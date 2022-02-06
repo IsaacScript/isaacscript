@@ -127,6 +127,23 @@ export function getCollectibleInitCharges(
 }
 
 /**
+ * Helper function to get the path to a collectible's quality. Returns 0 if the provided collectible
+ * type was not valid.
+ */
+export function getCollectibleQuality(
+  collectibleType: CollectibleType | int,
+): int {
+  const itemConfig = Isaac.GetItemConfig();
+
+  const itemConfigItem = itemConfig.GetCollectible(collectibleType);
+  if (itemConfigItem === undefined) {
+    return 0;
+  }
+
+  return itemConfigItem.Quality;
+}
+
+/**
  * Helper function to get the `ItemType` of a collectible. Returns `ItemType.ITEM_NULL` if the
  * provided collectible type was not valid.
  */
