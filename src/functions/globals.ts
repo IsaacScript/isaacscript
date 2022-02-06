@@ -1,5 +1,5 @@
 import { log } from "./log";
-import { combineSets, copySet, isLuaDebugEnabled } from "./util";
+import { addSetsToSet, copySet, isLuaDebugEnabled } from "./util";
 
 const DEFAULT_GLOBALS = new Set([
   "ActionTriggers",
@@ -170,11 +170,11 @@ const DEFAULT_GLOBALS = new Set([
 
 const LUA_DEBUG_ADDED_GLOBALS = new Set(["debug", "io", "os", "package"]);
 
-const RACING_PLUS_SANDBOX_ADDED_GLOBALS = [
+const RACING_PLUS_SANDBOX_ADDED_GLOBALS = new Set([
   "sandboxTraceback",
   "sandboxGetTraceback",
   "getParentFunctionDescription",
-];
+]);
 
 /**
  * Helper function to get a set containing all of the global variable names that are contained
@@ -183,17 +183,13 @@ const RACING_PLUS_SANDBOX_ADDED_GLOBALS = [
  * Returns a slightly different set depending on whether the "--luadebug" flag is enabled or not.
  */
 export function getDefaultGlobals(): Set<string> {
-  let defaultGlobals = copySet(DEFAULT_GLOBALS);
+  const defaultGlobals = copySet(DEFAULT_GLOBALS);
 
   if (isLuaDebugEnabled()) {
-    defaultGlobals = combineSets(defaultGlobals, LUA_DEBUG_ADDED_GLOBALS);
+    addSetsToSet(defaultGlobals, LUA_DEBUG_ADDED_GLOBALS);
   }
 
-  for (const globalName of RACING_PLUS_SANDBOX_ADDED_GLOBALS) {
-    if ((_G as Record<string, unknown>)[globalName] !== undefined) {
-      defaultGlobals.add(globalName);
-    }
-  }
+  addSetsToSet(defaultGlobals, RACING_PLUS_SANDBOX_ADDED_GLOBALS);
 
   return defaultGlobals;
 }
@@ -212,7 +208,18 @@ export function getNewGlobals() {
     }
   }
 
+  newGlobals.sort(twoDimensionalSort);
+
   return newGlobals;
+}
+
+// From: https://stackoverflow.com/questions/16096872/how-to-sort-2-dimensional-array-by-column-value
+function twoDimensionalSort<T>(a: T[], b: T[]) {
+  if (a[0] === b[0]) {
+    return 0;
+  }
+
+  return a[0] < b[0] ? -1 : 1;
 }
 
 export function logNewGlobals() {
