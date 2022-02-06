@@ -26,6 +26,17 @@ export function copySet<T>(oldSet: Set<T>): Set<T> {
   return newSet;
 }
 
+export function combineSets<T>(...sets: Array<Set<T>>): Set<T> {
+  const newSet = new Set<T>();
+  for (const set of sets) {
+    for (const value of set.values()) {
+      newSet.add(value);
+    }
+  }
+
+  return newSet;
+}
+
 /**
  * Helper function to get type safety on a switch statement.
  * Very useful to be future-safe against people adding values to a type or an enum.
