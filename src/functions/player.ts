@@ -7,6 +7,7 @@ import {
   MAX_PLAYER_HEART_CONTAINERS,
 } from "../constants";
 import { HealthType } from "../types/HealthType";
+import { arraySum } from "./array";
 import { getKBitOfN, getNumBitsOfN } from "./bitwise";
 import { getCollectibleMaxCharges } from "./collectibles";
 import { getCollectibleSet } from "./collectibleSet";
@@ -501,15 +502,11 @@ export function getPlayers(performExclusions = false): EntityPlayer[] {
  */
 export function getPlayersOfType(...characters: PlayerType[]): EntityPlayer[] {
   const charactersSet = new Set(characters);
-  const players: EntityPlayer[] = [];
-  for (const player of getPlayers()) {
+  const players = getPlayers();
+  return players.filter((player) => {
     const character = player.GetPlayerType();
-    if (charactersSet.has(character)) {
-      players.push(player);
-    }
-  }
-
-  return players;
+    return charactersSet.has(character);
+  });
 }
 
 /**
@@ -533,12 +530,11 @@ export function getTotalCharge(
 export function getTotalPlayerCollectibles(
   collectibleType: CollectibleType | int,
 ): int {
-  let numCollectibles = 0;
-  for (const player of getPlayers()) {
-    numCollectibles += player.GetCollectibleNum(collectibleType);
-  }
-
-  return numCollectibles;
+  const players = getPlayers();
+  const numCollectiblesArray = players.map((player) =>
+    player.GetCollectibleNum(collectibleType),
+  );
+  return arraySum(numCollectiblesArray);
 }
 
 /** After touching a white fire, a player will turn into The Lost until they clear a room. */
