@@ -158,16 +158,11 @@ export function isAllPressurePlatesPushed(): boolean {
     return true;
   }
 
-  for (const gridEntity of getGridEntities(
-    GridEntityType.GRID_PRESSURE_PLATE,
-  )) {
-    const gridEntityDesc = gridEntity.GetSaveState();
-    if (gridEntityDesc.State !== PressurePlateState.PRESSURE_PLATE_PRESSED) {
-      return false;
-    }
-  }
-
-  return true;
+  const pressurePlates = getGridEntities(GridEntityType.GRID_PRESSURE_PLATE);
+  return pressurePlates.every((pressurePlate) => {
+    const gridEntityDesc = pressurePlate.GetSaveState();
+    return gridEntityDesc.State === PressurePlateState.PRESSURE_PLATE_PRESSED;
+  });
 }
 
 /**

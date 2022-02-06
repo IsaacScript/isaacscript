@@ -1,11 +1,10 @@
-import { getPickups } from "..";
 import {
   BLIND_ITEM_PNG_PATH,
   SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES,
 } from "../constants";
 import { COLLECTIBLE_DESCRIPTION_MAP } from "../maps/collectibleDescriptionMap";
 import { COLLECTIBLE_NAME_MAP } from "../maps/collectibleNameMap";
-import { removeAllPickups } from "./entity";
+import { getPickups, removeAllPickups } from "./entity";
 import { clearSprite } from "./sprite";
 
 const COLLECTIBLE_SPRITE_LAYER = 1;
