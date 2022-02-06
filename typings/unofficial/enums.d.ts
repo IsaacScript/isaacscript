@@ -21,73 +21,201 @@ declare const enum ItemConfigChargeType {
 /**
  * Matches the ItemConfig.TAG_* members of the ItemConfig class.
  * In IsaacScript, we reimplement this as an enum, since it is cleaner.
+ * The vanilla is enum is missing values for the following tags:
+ * - nochallenge         - 1 << 28
+ * - nodaily             - 1 << 29
+ * - lazarusshared       - 1 << 30
+ * - lazarussharedglobal - 1 << 31
+ * - noeden              - 1 << 32
  */
 declare const enum ItemConfigTag {
-  /** Dead things (for the Parasite unlock) */
+  /**
+   * Dead things (for the Parasite unlock).
+   * Equal to "dead" in "items_metadata.xml".
+   */
   DEAD = 1,
-  /** Syringes (for Little Baggy and the Spun! transformation) */
+  /**
+   * Syringes (for Little Baggy and the Spun! transformation).
+   * Equal to "syringe" in "items_metadata.xml".
+   */
   SYRINGE = 1 << 1,
-  /** Mom's things (for Mom's Contact and the Yes Mother? transformation) */
+  /**
+   * Mom's things (for Mom's Contact and the Yes Mother? transformation).
+   * Equal to "mom" in "items_metadata.xml".
+   */
   MOM = 1 << 2,
-  /** Technology items (for the Technology Zero unlock) */
+  /**
+   * Technology items (for the Technology Zero unlock).
+   * Equal to "tech" in "items_metadata.xml".
+   */
   TECH = 1 << 3,
-  /** Battery items (for the Jumper Cables unlock) */
+  /**
+   * Battery items (for the Jumper Cables unlock).
+   * Equal to "battery" in "items_metadata.xml".
+   */
   BATTERY = 1 << 4,
-  /** Guppy items (Guppy transformation) */
+  /**
+   * Guppy items (Guppy transformation).
+   * Equal to "guppy" in "items_metadata.xml".
+   */
   GUPPY = 1 << 5,
-  /** Fly items (Beelzebub transformation) */
+  /**
+   * Fly items (Beelzebub transformation).
+   * Equal to "fly" in "items_metadata.xml".
+   */
   FLY = 1 << 6,
-  /** Bob items (Bob transformation) */
+  /**
+   * Bob items (Bob transformation).
+   * Equal to "bob" in "items_metadata.xml".
+   */
   BOB = 1 << 7,
-  /** Mushroom items (Fun Guy transformation) */
+  /**
+   * Mushroom items (Fun Guy transformation).
+   * Equal to "mushroom" in "items_metadata.xml".
+   */
   MUSHROOM = 1 << 8,
-  /** Baby items (Conjoined transformation) */
+  /**
+   * Baby items (Conjoined transformation).
+   * Equal to "mushroom" in "items_metadata.xml".
+   */
   BABY = 1 << 9,
-  /** Angel items (Seraphim transformation) */
+  /**
+   * Angel items (Seraphim transformation).
+   * Equal to "angel" in "items_metadata.xml".
+   */
   ANGEL = 1 << 10,
-  /** Devil items (Leviathan transformation) */
+  /**
+   * Devil items (Leviathan transformation).
+   * Equal to "devil" in "items_metadata.xml".
+   */
   DEVIL = 1 << 11,
-  /** Poop items (Oh Shit transformation) */
+  /**
+   * Poop items (Oh Shit transformation).
+   * Equal to "poop" in "items_metadata.xml".
+   */
   POOP = 1 << 12,
-  /** Book items (Book Worm transformation) */
+  /**
+   * Book items (Book Worm transformation).
+   * Equal to "book" in "items_metadata.xml".
+   */
   BOOK = 1 << 13,
-  /** Spider items (Spider Baby transformation) */
+  /**
+   * Spider items (Spider Baby transformation).
+   * Equal to "spider" in "items_metadata.xml".
+   */
   SPIDER = 1 << 14,
-  /** Quest item (cannot be rerolled or randomly obtained) */
+  /**
+   * Quest item (cannot be rerolled or randomly obtained).
+   * Equal to "quest" in "items_metadata.xml".
+   */
   QUEST = 1 << 15,
-  /** Can be spawned by Monster Manual */
+  /**
+   * Can be spawned by Monster Manual.
+   * Equal to "monstermanual" in "items_metadata.xml".
+   */
   MONSTER_MANUAL = 1 << 16,
-  /** Cannot appear in Greed Mode */
+  /**
+   * Cannot appear in Greed Mode.
+   * Equal to "nogreed" in "items_metadata.xml".
+   */
   NO_GREED = 1 << 17,
-  /** Food item (for Binge Eater) */
+  /**
+   * Food item (for Binge Eater).
+   * Equal to "food" in "items_metadata.xml".
+   */
   FOOD = 1 << 18,
-  /** Tears up item (for Lachryphagy unlock detection) */
+  /**
+   * Tears up item (for Lachryphagy unlock detection).
+   * Equal to "tearsup" in "items_metadata.xml".
+   */
   TEARS_UP = 1 << 19,
-  /** Whitelisted item for Tainted Lost */
+  /**
+   * Whitelisted item for Tainted Lost.
+   * Equal to "offensive" in "items_metadata.xml".
+   */
   OFFENSIVE = 1 << 20,
-  /** Blacklisted item for Keeper & Tainted Keeper */
+  /**
+   * Blacklisted item for Keeper & Tainted Keeper.
+   * Equal to "nokeeper" in "items_metadata.xml".
+   */
   NO_KEEPER = 1 << 21,
-  /** Blacklisted item for The Lost's Birthright */
+  /**
+   * Blacklisted item for The Lost's Birthright.
+   * Equal to "nolostbr" in "items_metadata.xml".
+   */
   NO_LOST_BR = 1 << 22,
-  /** Star themed items (for the Planetarium unlock) */
+  /**
+   * Star themed items (for the Planetarium unlock).
+   * Equal to "stars" in "items_metadata.xml".
+   */
   STARS = 1 << 23,
-  /** Summonable items (for Tainted Bethany) */
+  /**
+   * Summonable items (for Tainted Bethany).
+   * Equal to "summonable" in "items_metadata.xml".
+   */
   SUMMONABLE = 1 << 24,
-  /** Can't be obtained in Cantripped challenge */
+  /**
+   * Can't be obtained in Cantripped challenge.
+   * Equal to "nocantrip" in "items_metadata.xml".
+   */
   NO_CANTRIP = 1 << 25,
-  /** Active items that have wisps attached to them (automatically set) */
+  /**
+   * Active items that have wisps attached to them (automatically set).
+   * Not equal to any particular tag in "items_metadata.xml". Instead, this is set for all of the
+   * items in the "wisps.xml" file.
+   */
   WISP = 1 << 26,
-  /** Unique familiars that cannot be duplicated */
+  /**
+   * Unique familiars that cannot be duplicated.
+   * Equal to "uniquefamiliar" in "items_metadata.xml".
+   */
   UNIQUE_FAMILIAR = 1 << 27,
+  /**
+   * Won't appear in challenges.
+   * Equal to "nochallenge" in "items_metadata.xml".
+   * This is not present in the vanilla enum.
+   */
+  NO_CHALLENGE = 1 << 28,
+  /**
+   * Won't appear in Daily Challenges.
+   * Equal to "nodaily" in "items_metadata.xml".
+   * This is not present in the vanilla enum.
+   */
+  NO_DAILY = 1 << 29,
+  /**
+   * Used for items that should be shared between Tainted Lazarus and Dead Tainted Lazarus.
+   * This is different from `LAZARUS_SHARED_GLOBAL` in that it does apply stat changes from the item
+   * for both characters.
+   * Equal to "lazarusshared" in "items_metadata.xml".
+   * This is not present in the vanilla enum.
+   */
+  LAZARUS_SHARED = 1 << 30,
+  /**
+   * Used for items that should be shared between Tainted Lazarus and Dead Tainted Lazarus.
+   * This is different from `LAZARUS_SHARED` in that it does not apply stat changes from the item
+   * for both characters.
+   * Equal to "lazarussharedglobal" in "items_metadata.xml".
+   * This is not present in the vanilla enum.
+   */
+  LAZARUS_SHARED_GLOBAL = 1 << 31,
+  /**
+   * Won't be a starting item for Eden and Tainted Eden.
+   * Equal to "noeden" in "items_metadata.xml".
+   * This is not present in the vanilla enum.
+   */
+  NO_EDEN = 1 << 32,
 }
 
 /**
- * Matches the ItemConfig.TAG_* members of the ItemConfig class.
+ * Matches the ItemConfig.CARDTYPE_* members of the ItemConfig class.
  * In IsaacScript, we reimplement this as an enum, since it is cleaner.
  */
 declare const enum ItemConfigCardType {
   TAROT = 0,
-  /** Standard playing cards (twos, aces and Joker, does not include Suicide King, Rules Card or Queen of Hearts) */
+  /**
+   * Standard playing cards (twos, aces and Joker, does not include Suicide King, Rules Card or
+   * Queen of Hearts).
+   */
   CARDTYPE_SUIT = 1,
   CARDTYPE_RUNE = 2,
   /**
@@ -95,7 +223,7 @@ declare const enum ItemConfigCardType {
    * This excludes non-cards such as Dice Shard, which are located in subsequent enums.
    */
   CARDTYPE_SPECIAL = 3,
-  /** Special pocket items that do not qualify as "cards" */
+  /** Special pocket items that do not qualify as "cards". */
   CARDTYPE_SPECIAL_OBJECT = 4,
   CARDTYPE_TAROT_REVERSE = 5,
 }
