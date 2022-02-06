@@ -64,14 +64,8 @@ export function fireProjectiles(
  * Horn holes.
  */
 export function getAliveBosses(): EntityNPC[] {
-  const aliveBosses: EntityNPC[] = [];
-  for (const boss of getBosses()) {
-    if (!boss.IsDead() && !isAliveExceptionNPC(boss)) {
-      aliveBosses.push(boss);
-    }
-  }
-
-  return aliveBosses;
+  const aliveNPCs = getAliveNPCs();
+  return aliveNPCs.filter((aliveNPC) => aliveNPC.IsBoss());
 }
 
 /**
@@ -81,26 +75,14 @@ export function getAliveBosses(): EntityNPC[] {
  * holes.
  */
 export function getAliveNPCs(): EntityNPC[] {
-  const aliveNPCs: EntityNPC[] = [];
-  for (const npc of getNPCs()) {
-    if (!npc.IsDead() && !isAliveExceptionNPC(npc)) {
-      aliveNPCs.push(npc);
-    }
-  }
-
-  return aliveNPCs;
+  const npcs = getNPCs();
+  return npcs.filter((npc) => !npc.IsDead() && !isAliveExceptionNPC(npc));
 }
 
 /** Helper function to get all of the bosses in the room. */
 export function getBosses(): EntityNPC[] {
-  const bosses: EntityNPC[] = [];
-  for (const npc of getNPCs()) {
-    if (npc.IsBoss()) {
-      bosses.push(npc);
-    }
-  }
-
-  return bosses;
+  const npcs = getNPCs();
+  return npcs.filter((npc) => npc.IsBoss());
 }
 
 /** The same thing as the `getEntities()` function, but returns only NPCs. */

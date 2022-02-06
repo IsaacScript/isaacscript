@@ -62,35 +62,22 @@ export function anyPlayerCloserThan(
   position: Vector,
   distance: float,
 ): boolean {
-  for (const player of getPlayers()) {
-    if (player.Position.Distance(position) <= distance) {
-      return true;
-    }
-  }
-
-  return false;
+  const players = getPlayers();
+  return players.some(
+    (player) => player.Position.Distance(position) <= distance,
+  );
 }
 
 export function anyPlayerHasCollectible(
   collectibleType: CollectibleType | int,
 ): boolean {
-  for (const player of getPlayers()) {
-    if (player.HasCollectible(collectibleType)) {
-      return true;
-    }
-  }
-
-  return false;
+  const players = getPlayers();
+  return players.some((player) => player.HasCollectible(collectibleType));
 }
 
 export function anyPlayerHasTrinket(trinketType: TrinketType | int): boolean {
-  for (const player of getPlayers()) {
-    if (player.HasTrinket(trinketType)) {
-      return true;
-    }
-  }
-
-  return false;
+  const players = getPlayers();
+  return players.some((player) => player.HasTrinket(trinketType));
 }
 
 /**
@@ -99,17 +86,10 @@ export function anyPlayerHasTrinket(trinketType: TrinketType | int): boolean {
  * This function is variadic, meaning that you can supply as many characters as you want to check
  * for. Returns true if any of the characters supplied are present.
  */
-export function anyPlayerIs(...characters: PlayerType[]): boolean {
-  const characterSet = new Set(characters);
-
-  for (const player of getPlayers()) {
-    const character = player.GetPlayerType();
-    if (characterSet.has(character)) {
-      return true;
-    }
-  }
-
-  return false;
+export function anyPlayerIs(...matchingCharacters: PlayerType[]): boolean {
+  const matchingCharacterSet = new Set(matchingCharacters);
+  const characters = getCharacters();
+  return characters.some((character) => matchingCharacterSet.has(character));
 }
 
 /**
@@ -318,6 +298,12 @@ export function getCharacterMaxHeartContainers(character: PlayerType): int {
   }
 
   return 12;
+}
+
+/** Helper function to get an array containing the characters of all of the current players. */
+export function getCharacters() {
+  const players = getPlayers();
+  return players.map((player) => player.GetPlayerType());
 }
 
 /**

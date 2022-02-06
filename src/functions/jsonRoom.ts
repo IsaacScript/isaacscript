@@ -1,4 +1,5 @@
 import { JSONRoom } from "../types/JSONRoom";
+import { arraySum } from "./array";
 import { log } from "./log";
 import { getRandomFloat } from "./random";
 
@@ -6,31 +7,36 @@ export function getJSONRoomOfVariant(
   jsonRooms: JSONRoom[],
   variant: int,
 ): JSONRoom | undefined {
-  for (const jsonRoom of jsonRooms) {
+  const jsonRoomsOfVariant = jsonRooms.filter((jsonRoom) => {
     const roomVariantString = jsonRoom.$.variant;
     const roomVariant = tonumber(roomVariantString);
-    if (roomVariant === variant) {
-      return jsonRoom;
-    }
+    return roomVariant === variant;
+  });
+
+  // The room variant acts as an ID for the room
+  // We assume that there should only be a single room per variant
+  if (jsonRoomsOfVariant.length === 0) {
+    return undefined;
   }
 
-  return undefined;
+  if (jsonRoomsOfVariant.length === 1) {
+    return jsonRoomsOfVariant[0];
+  }
+
+  return error(
+    `Found ${jsonRoomsOfVariant.length} JSON rooms with a variant of ${variant}, when there should only be 1.`,
+  );
 }
 
 export function getJSONRoomsOfSubType(
   jsonRooms: JSONRoom[],
   subType: int,
 ): JSONRoom[] {
-  const jsonRoomsOfSubType: JSONRoom[] = [];
-  for (const jsonRoom of jsonRooms) {
+  return jsonRooms.filter((jsonRoom) => {
     const roomSubTypeString = jsonRoom.$.subtype;
     const roomSubType = tonumber(roomSubTypeString);
-    if (roomSubType === subType) {
-      jsonRoomsOfSubType.push(jsonRoom);
-    }
-  }
-
-  return jsonRoomsOfSubType;
+    return roomSubType === subType;
+  });
 }
 
 /**
@@ -52,26 +58,23 @@ export function getRandomJSONRoom(
 
   const chosenWeight = getRandomFloat(0, totalWeight, seed);
   if (verbose) {
-    log(`Randomly chose weight: ${chosenWeight}`);
+    log(`Randomly chose weight for JSON room: ${chosenWeight}`);
   }
 
   return getJSONRoomWithChosenWeight(jsonRooms, chosenWeight);
 }
 
 function getTotalWeightOfJSONRooms(jsonRooms: JSONRoom[]) {
-  let totalWeight = 0;
-
-  for (const jsonRoom of jsonRooms) {
+  const weights = jsonRooms.map((jsonRoom) => {
     const roomWeightString = jsonRoom.$.weight;
     const roomWeight = tonumber(roomWeightString);
     if (roomWeight === undefined) {
-      error(`Failed to parse the weight of a room: ${roomWeightString}.`);
+      error(`Failed to parse the weight of a JSON room: ${roomWeightString}.`);
     }
+    return roomWeight;
+  });
 
-    totalWeight += roomWeight;
-  }
-
-  return totalWeight;
+  return arraySum(weights);
 }
 
 function getJSONRoomWithChosenWeight(
@@ -82,7 +85,7 @@ function getJSONRoomWithChosenWeight(
     const roomWeightString = jsonRoom.$.weight;
     const roomWeight = tonumber(roomWeightString);
     if (roomWeight === undefined) {
-      error(`Failed to parse the weight of a room: ${roomWeightString}`);
+      error(`Failed to parse the weight of a JSON room: ${roomWeightString}`);
     }
 
     if (chosenWeight < roomWeight) {
@@ -92,5 +95,5 @@ function getJSONRoomWithChosenWeight(
     chosenWeight -= roomWeight;
   }
 
-  return error(`Failed to get a room with chosen weight: ${chosenWeight}`);
+  return error(`Failed to get a JSON room with chosen weight: ${chosenWeight}`);
 }
