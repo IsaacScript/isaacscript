@@ -31,6 +31,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Entity Functions](modules/functions_entity.html)
 - [Familiar Functions](modules/functions_familiars.html)
 - [Flag Functions](modules/functions_flag.html)
+- [Globals Functions](modules/functions_globals.html)
 - [Grid Entity Functions](modules/functions_gridEntity.html)
 - [Input Functions](modules/functions_input.html)
 - [JSON Functions](modules/functions_json.html)

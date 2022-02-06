@@ -1,4 +1,7 @@
-export const DEFAULT_GLOBALS = new Set([
+import { log } from "./log";
+import { combineSets, isLuaDebugEnabled } from "./util";
+
+const DEFAULT_GLOBALS = new Set([
   "ActionTriggers",
   "ActiveSlot",
   "BabySubType",
@@ -165,9 +168,46 @@ export const DEFAULT_GLOBALS = new Set([
   "xpcall",
 ]);
 
-export const LUA_DEBUG_ADDED_GLOBALS = new Set([
-  "debug",
-  "io",
-  "os",
-  "package",
-]);
+const LUA_DEBUG_ADDED_GLOBALS = new Set(["debug", "io", "os", "package"]);
+
+/**
+ * Helper function to get a set containing all of the global variable names that are contained
+ * within the Isaac environment by default.
+ *
+ * Returns a slightly different set depending on whether the "--luadebug" flag is enabled or not.
+ */
+export function getDefaultGlobals(): Set<string> {
+  return isLuaDebugEnabled()
+    ? combineSets(DEFAULT_GLOBALS, LUA_DEBUG_ADDED_GLOBALS)
+    : DEFAULT_GLOBALS;
+}
+
+/**
+ * Helper function to get an array of any added global variables in the Isaac Lua environment.
+ * Returns an array of key/value tuples.
+ */
+export function getNewGlobals() {
+  const defaultGlobals = getDefaultGlobals();
+  const newGlobals: Array<[AnyNotNil, unknown]> = [];
+  for (const [key, value] of pairs(_G)) {
+    if (!defaultGlobals.has(key)) {
+      const keyValueTuple: [AnyNotNil, unknown] = [key, value];
+      newGlobals.push(keyValueTuple);
+    }
+  }
+
+  return newGlobals;
+}
+
+export function logNewGlobals() {
+  const newGlobals = getNewGlobals();
+
+  log("List of added global variables in the Isaac environment:");
+  if (newGlobals.length === 0) {
+    log("- n/a (no extra global variables found)");
+  }
+  for (let i = 0; i < newGlobals.length; i++) {
+    const [key, value] = newGlobals[i];
+    log(`${i + 1}) ${key} - ${value}`);
+  }
+}

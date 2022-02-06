@@ -35,6 +35,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/entity.ts" \
   --entryPoints "$DIR/src/functions/familiars.ts" \
   --entryPoints "$DIR/src/functions/flag.ts" \
+  --entryPoints "$DIR/src/functions/globals.ts" \
   --entryPoints "$DIR/src/functions/gridEntity.ts" \
   --entryPoints "$DIR/src/functions/input.ts" \
   --entryPoints "$DIR/src/functions/json.ts" \

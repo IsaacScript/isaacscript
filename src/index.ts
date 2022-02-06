@@ -40,6 +40,7 @@ export * from "./functions/doors";
 export * from "./functions/entity";
 export * from "./functions/familiars";
 export * from "./functions/flag";
+export * from "./functions/globals";
 export * from "./functions/gridEntity";
 export * from "./functions/input";
 export * from "./functions/json";
