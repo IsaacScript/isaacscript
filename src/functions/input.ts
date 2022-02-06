@@ -67,7 +67,7 @@ export function controllerToString(controller: Controller): string {
   return "unknown";
 }
 
-/** Iterates over all 4 inputs to determine if a particular button is pressed (i.e. held down). */
+/** Iterates over all inputs to determine if a particular button is pressed (i.e. held down). */
 export function isActionPressedOnAnyInput(buttonAction: ButtonAction): boolean {
   for (let i = 0; i < MAX_NUM_INPUTS; i++) {
     if (Input.IsActionPressed(buttonAction, i)) {
@@ -79,7 +79,7 @@ export function isActionPressedOnAnyInput(buttonAction: ButtonAction): boolean {
 }
 
 /**
- * Iterates over all 4 inputs to determine if a particular button is triggered (i.e. held down and
+ * Iterates over all inputs to determine if a particular button is triggered (i.e. held down and
  * then released).
  */
 export function isActionTriggeredOnAnyInput(

@@ -7,13 +7,9 @@ export function anyEntityCloserThan(
   position: Vector,
   distance: int,
 ): boolean {
-  for (const entity of entities) {
-    if (position.Distance(entity.Position) <= distance) {
-      return true;
-    }
-  }
-
-  return false;
+  return entities.some(
+    (entity) => position.Distance(entity.Position) <= distance,
+  );
 }
 
 /**

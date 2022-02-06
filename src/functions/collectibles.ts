@@ -1,3 +1,4 @@
+import { getPickups } from "..";
 import {
   BLIND_ITEM_PNG_PATH,
   SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES,
@@ -197,21 +198,7 @@ export function getCollectibleName(
 
 /** Helper function to get all of the collectible entities in the room. */
 export function getCollectibles(matchingSubType = -1): EntityPickup[] {
-  const entities = Isaac.FindByType(
-    EntityType.ENTITY_PICKUP,
-    PickupVariant.PICKUP_COLLECTIBLE,
-    matchingSubType,
-  );
-
-  const collectibles: EntityPickup[] = [];
-  for (const entity of entities) {
-    const pickup = entity.ToPickup();
-    if (pickup !== undefined) {
-      collectibles.push(pickup);
-    }
-  }
-
-  return collectibles;
+  return getPickups(PickupVariant.PICKUP_COLLECTIBLE, matchingSubType);
 }
 
 export function getMaxCollectibleID(): int {
