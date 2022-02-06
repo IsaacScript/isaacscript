@@ -2,9 +2,7 @@ import { getTraceback } from "./functions/debug";
 import { isLuaDebugEnabled } from "./functions/util";
 
 declare let error: ErrorFunction;
-
-// eslint-disable-next-line no-underscore-dangle,@typescript-eslint/naming-convention
-declare let __PATCHED_ERROR: boolean | undefined;
+declare let __PATCHED_ERROR: boolean | undefined; // eslint-disable-line
 
 type ErrorFunction = (this: void, message: string, level?: number) => never;
 
