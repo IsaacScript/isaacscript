@@ -446,10 +446,15 @@ export function getPlayerMaxHeartContainers(player: EntityPlayer): int {
 }
 
 /**
- * Returns the combined value of all of the player's red hearts, soul/black hearts, and bone hearts.
- * This is equivalent to the number of hits that the player can currently take.
+ * Returns the combined value of all of the player's red hearts, soul/black hearts, and bone hearts,
+ * minus the value of the player's rotten hearts.
+ *
+ * This is equivalent to the number of hits that the player can currently take, but does not take
+ * into account double damage from champion enemies and/or being on later floors. (For example, on
+ * Womb 1, players who have 1 soul heart remaining would die in 1 hit to anything, even though this
+ * function would report that they have 2 hits remaining.)
  */
-export function getPlayerNumAllHearts(player: EntityPlayer): int {
+export function getPlayerNumHitsRemaining(player: EntityPlayer): int {
   const hearts = player.GetHearts();
   const soulHearts = player.GetSoulHearts();
   const boneHearts = player.GetBoneHearts();
@@ -635,7 +640,7 @@ export function isDamageToPlayerFatal(
     return true;
   }
 
-  const playerNumAllHearts = getPlayerNumAllHearts(player);
+  const playerNumAllHearts = getPlayerNumHitsRemaining(player);
   if (damageAmount < playerNumAllHearts) {
     return false;
   }

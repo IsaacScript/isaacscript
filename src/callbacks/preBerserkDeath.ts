@@ -1,4 +1,4 @@
-import { getPlayerNumAllHearts, isChildPlayer } from "../functions/player";
+import { getPlayerNumHitsRemaining, isChildPlayer } from "../functions/player";
 import { willPlayerRevive } from "../functions/revive";
 import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
 import { ModUpgraded } from "../types/ModUpgraded";
@@ -35,13 +35,13 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
   const berserkEffect = effects.GetCollectibleEffect(
     CollectibleType.COLLECTIBLE_BERSERK,
   );
-  const playerNumAllHearts = getPlayerNumAllHearts(player);
+  const numHitsRemaining = getPlayerNumHitsRemaining(player);
 
   // If the Berserk! effect will end on the next frame and we have no hearts left
   if (
     berserkEffect !== undefined &&
     berserkEffect.Cooldown === 1 &&
-    playerNumAllHearts === 0 &&
+    numHitsRemaining === 0 &&
     !willPlayerRevive(player)
   ) {
     preBerserkDeathFire(player);

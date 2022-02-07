@@ -2,7 +2,7 @@ import { saveDataManager } from "../features/saveDataManager/exports";
 import { hasFlag } from "../functions/flag";
 import {
   getPlayerIndex,
-  getPlayerNumAllHearts,
+  getPlayerNumHitsRemaining,
   PlayerIndex,
 } from "../functions/player";
 import {
@@ -168,10 +168,10 @@ function playerIsTeleportingFromCursedTeleport(
   }
 
   // Cursed Skull
-  const numHitsLeft = getPlayerNumAllHearts(player);
+  const numHitsRemaining = getPlayerNumHitsRemaining(player);
   if (
     player.HasTrinket(TrinketType.TRINKET_CURSED_SKULL) &&
-    numHitsLeft === 1
+    numHitsRemaining === 1
   ) {
     return true;
   }
