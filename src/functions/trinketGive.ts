@@ -115,7 +115,10 @@ export function giveTrinketsBack(
     player.AddTrinket(trinketSituation.trinketTypeRemoved, false);
     player.UseActiveItem(
       CollectibleType.COLLECTIBLE_SMELTER,
-      UseFlag.USE_NOANIM,
+      false,
+      false,
+      true,
+      false,
     );
   }
 
