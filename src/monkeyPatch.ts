@@ -49,6 +49,7 @@ function patchInformationalHeader(mainLua: string) {
 // Until TSTL has an official fix, monkey patch this
 // We also make sure of this function to compose a stock comment header for curious people looking
 // at the transpiled Lua code
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function patchGlobalObjects(originalMainLua: string) {
   let mainLua = originalMainLua;
 
