@@ -918,7 +918,7 @@ export function setBlindfold(
  */
 export function useActiveItemTemp(
   player: EntityPlayer,
-  collectibleType: CollectibleType,
+  collectibleType: CollectibleType | int,
 ): void {
   player.UseActiveItem(collectibleType, false, false, true, false);
 }
