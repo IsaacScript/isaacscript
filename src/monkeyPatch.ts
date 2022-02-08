@@ -28,7 +28,8 @@ const MAIN_LUA_REPLACEMENTS = [
   ["Set = __TS__Class()", "Set = Set or __TS__Class()"],
 ];
 
-export function monkeyPatchMainLua(targetModDirectory: string): void {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function monkeyPatchMainLua(targetModDirectory: string) {
   const mainLuaPath = path.join(targetModDirectory, MAIN_LUA);
   const mainLua = file.read(mainLuaPath);
 
