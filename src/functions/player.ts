@@ -920,5 +920,5 @@ export function useActiveItemTemp(
   player: EntityPlayer,
   collectibleType: CollectibleType | int,
 ): void {
-  player.UseActiveItem(collectibleType, false, false, true, false);
+  player.UseActiveItem(collectibleType, false, false, true, false, -1);
 }
