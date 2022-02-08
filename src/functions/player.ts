@@ -911,3 +911,14 @@ export function setBlindfold(
     }
   }
 }
+
+/**
+ * Helper function to use an active item without showing an animation, keeping the item, or adding
+ * any costumes.
+ */
+export function useActiveItemTemp(
+  player: EntityPlayer,
+  collectibleType: CollectibleType,
+): void {
+  player.UseActiveItem(collectibleType, false, false, true, false);
+}

@@ -2,6 +2,7 @@ import { GOLDEN_TRINKET_SHIFT } from "../constants";
 import { TRINKET_DESCRIPTION_MAP } from "../maps/trinketDescriptionMap";
 import { TRINKET_NAME_MAP } from "../maps/trinketNameMap";
 import { getPickups } from "./entity";
+import { useActiveItemTemp } from "./player";
 import { giveTrinketsBack, temporarilyRemoveTrinkets } from "./trinketGive";
 
 export function getMaxTrinketID(): int {
@@ -149,13 +150,7 @@ export function smeltTrinket(
 
   for (let i = 0; i < numTrinkets; i++) {
     player.AddTrinket(trinketType);
-    player.UseActiveItem(
-      CollectibleType.COLLECTIBLE_SMELTER,
-      false,
-      false,
-      true,
-      false,
-    );
+    useActiveItemTemp(player, CollectibleType.COLLECTIBLE_SMELTER);
   }
 
   giveTrinketsBack(player, trinketSituation);
