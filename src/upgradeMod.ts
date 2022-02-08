@@ -81,7 +81,6 @@ export function upgradeMod(modVanilla: Mod, verbose = false): ModUpgraded {
 
     // We initialize custom callbacks next since some features use custom callbacks
     initCustomCallbacks(mod);
-
     initFeatures(mod);
   }
 

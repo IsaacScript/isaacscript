@@ -175,7 +175,7 @@ export function deepCopy(
   return newObject;
 }
 
-function isTSTLClass(object: LuaTable) {
+export function isTSTLClass(object: LuaTable): boolean {
   const metatable = getmetatable(object);
   if (metatable === undefined) {
     return false;

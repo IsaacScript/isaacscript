@@ -28,5 +28,9 @@
   "tstl": {
     "luaTarget": "5.3",
     "buildMode": "library",
+
+    "luaPlugins": [
+      // { "name": "./plugins/addCrashDebugStatements.ts" },
+    ],
   },
 }
