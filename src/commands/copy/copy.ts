@@ -1,7 +1,6 @@
 import path from "path";
 import { MOD_SOURCE_PATH } from "../../constants";
 import * as file from "../../file";
-import { monkeyPatchMainLua } from "../../monkeyPatch";
 import { Config } from "../../types/Config";
 import { execShell, getModTargetDirectoryName } from "../../util";
 
@@ -16,7 +15,7 @@ export function compileAndCopy(
   modTargetPath: string,
 ): void {
   compile();
-  monkeyPatchMainLua(modSourcePath);
+  // monkeyPatchMainLua(modSourcePath);
   copyMod(modSourcePath, modTargetPath);
 }
 

@@ -20,27 +20,20 @@ see the official website: https://isaacscript.github.io/
 `;
 
 const MAIN_LUA_REPLACEMENTS = [
-  // For TSTL v1.2.X
+  // For TSTL v1.2.X-v1.3.3
+  // (fixed with GlassBrick's PR)
   ["WeakMap = __TS__Class()", "WeakMap = WeakMap or __TS__Class()"],
   ["WeakSet = __TS__Class()", "WeakSet = WeakSet or __TS__Class()"],
   ["Map = __TS__Class()", "Map = Map or __TS__Class()"],
   ["Set = __TS__Class()", "Set = Set or __TS__Class()"],
-
-  // For TSTL v1.1.1
-  /*
-  ["WeakMap = (function", "WeakMap = WeakMap or (function"],
-  ["WeakSet = (function", "WeakSet = WeakSet or (function"],
-  ["Map = (function", "Map = Map or (function"],
-  ["Set = (function", "Set = Set or (function"],
-  */
 ];
 
 export function monkeyPatchMainLua(targetModDirectory: string): void {
   const mainLuaPath = path.join(targetModDirectory, MAIN_LUA);
-  let mainLua = file.read(mainLuaPath);
+  const mainLua = file.read(mainLuaPath);
 
   // mainLua = patchInformationalHeader(mainLua);
-  mainLua = patchGlobalObjects(mainLua);
+  // mainLua = patchGlobalObjects(mainLua);
 
   file.write(mainLuaPath, mainLua);
 }

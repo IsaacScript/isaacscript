@@ -1,7 +1,5 @@
-import path from "path";
 import syncDirectory from "sync-directory";
-import { FILE_SYNCED_MESSAGE, MAIN_LUA } from "../../../constants";
-import { monkeyPatchMainLua } from "../../../monkeyPatch";
+import { FILE_SYNCED_MESSAGE } from "../../../constants";
 
 let modSourcePath: string;
 let modTargetPath: string;
@@ -43,9 +41,11 @@ function afterEachSync(params?: {
     return;
   }
 
+  /*
   if (params.relativePath === path.sep + MAIN_LUA) {
     monkeyPatchMainLua(modTargetPath);
   }
+  */
 
   if (params.eventType !== "init:copy") {
     send(`${FILE_SYNCED_MESSAGE} ${params.relativePath}`);
