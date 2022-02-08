@@ -39,6 +39,7 @@ import { runInNFramesInit } from "./features/runInNFrames";
 import { saveDataManagerInit } from "./features/saveDataManager/main";
 import { sirenHelpersInit } from "./features/sirenHelpers";
 import { areFeaturesInitialized, setFeaturesInitialized } from "./initialized";
+import { patchErrorFunction } from "./patchErrorFunctions";
 import { ModUpgraded } from "./types/ModUpgraded";
 
 /**
@@ -65,7 +66,7 @@ import { ModUpgraded } from "./types/ModUpgraded";
  * @returns The upgraded mod object.
  */
 export function upgradeMod(modVanilla: Mod, verbose = false): ModUpgraded {
-  // patchErrorFunction(); // TODO DISABLING THIS WITH GLASS BRICKS PR
+  patchErrorFunction();
 
   const mod = new ModUpgraded(modVanilla, verbose);
 
@@ -81,6 +82,7 @@ export function upgradeMod(modVanilla: Mod, verbose = false): ModUpgraded {
 
     // We initialize custom callbacks next since some features use custom callbacks
     initCustomCallbacks(mod);
+
     initFeatures(mod);
   }
 
