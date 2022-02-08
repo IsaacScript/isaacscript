@@ -1,6 +1,6 @@
 {
   "name": "isaacscript",
-  "version": "1.1.74",
+  "version": "1.1.74-dev.1",
   "description": "A command line tool for managing Isaac mods written in TypeScript",
   "homepage": "https://isaacscript.github.io/",
   "bugs": {
@@ -30,7 +30,7 @@
     "source-map-support": "^0.5.21",
     "sync-directory": "^4.0.12",
     "typescript": "^4.5.5",
-    "typescript-to-lua": "^1.3.3",
+    "@zamiell/typescript-to-lua": "^1.3.6",
     "update-notifier": "^5.1.0",
     "yaml": "^1.10.2",
     "yargs": "^17.3.1"

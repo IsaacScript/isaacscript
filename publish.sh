@@ -8,4 +8,4 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd "$DIR"
 pip install publish-npm --upgrade --quiet
-publish-npm "$@" # Can use "--skip-increment"
+publish-npm "$@" --skip-increment --skip-update
