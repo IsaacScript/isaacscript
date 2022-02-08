@@ -203,7 +203,9 @@ declare const enum ItemConfigTag {
    * Equal to "noeden" in "items_metadata.xml".
    * This is not present in the vanilla enum.
    */
-  NO_EDEN = 1 << 32,
+  NO_EDEN = 4294967296,
+  // (we can't represent this as "1 << 32" because JavaScript only has 32-bit numbers and it will be
+  // converted to 1)
 }
 
 /**
