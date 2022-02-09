@@ -137,6 +137,9 @@ function recordCurrentStage() {
 }
 
 /**
+ * This is a utility function for users of the `ModCallbacksCustom.POST_NEW_LEVEL_REORDERED` custom
+ * callback.
+ *
  * If some specific cases, mods can change the current level during run initialization on the 0th
  * frame. However, due to how the callback reordering works, the custom PostNewLevel callback will
  * never fire on the 0th frame. To get around this, call this function before changing levels to
@@ -147,6 +150,9 @@ export function forceNewLevelCallback(): void {
 }
 
 /**
+ * This is a utility function for users of the `ModCallbacksCustom.POST_NEW_ROOM_REORDERED` custom
+ * callback.
+ *
  * If some specific cases, mods can change the current room during run initialization on the 0th
  * frame. However, due to how the callback reordering works, the custom PostNewRoom callback will
  * never fire on the 0th frame. To get around this, call this function before changing rooms to
