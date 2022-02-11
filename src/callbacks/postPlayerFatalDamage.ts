@@ -39,9 +39,9 @@ function hasSubscriptions() {
 function entityTakeDmgPlayer(
   tookDamage: Entity,
   damageAmount: float,
-  _damageFlags: int,
+  damageFlags: int,
   damageSource: EntityRef,
-  _damageCountdownFrames: int,
+  damageCountdownFrames: int,
 ): boolean | void {
   if (!hasSubscriptions()) {
     return undefined;
@@ -76,7 +76,13 @@ function entityTakeDmgPlayer(
     return undefined;
   }
 
-  const shouldSustainDeath = postPlayerFatalDamageFire(player);
+  const shouldSustainDeath = postPlayerFatalDamageFire(
+    player,
+    damageAmount,
+    damageFlags,
+    damageSource,
+    damageCountdownFrames,
+  );
   if (shouldSustainDeath !== undefined) {
     return shouldSustainDeath;
   }

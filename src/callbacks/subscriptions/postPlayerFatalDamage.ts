@@ -1,5 +1,9 @@
 export type PostPlayerFatalDamageCallbackType = (
   player: EntityPlayer,
+  damageAmount: float,
+  damageFlags: int,
+  damageSource: EntityRef,
+  damageCountdownFrames: int,
 ) => boolean | void;
 
 const subscriptions: Array<
@@ -22,6 +26,10 @@ export function postPlayerFatalDamageRegister(
 /** @internal */
 export function postPlayerFatalDamageFire(
   player: EntityPlayer,
+  damageAmount: float,
+  damageFlags: int,
+  damageSource: EntityRef,
+  damageCountdownFrames: int,
 ): boolean | void {
   for (const [callback, playerVariant] of subscriptions) {
     // Handle the optional 2nd callback argument
@@ -29,7 +37,13 @@ export function postPlayerFatalDamageFire(
       continue;
     }
 
-    const shouldSustainDeath = callback(player);
+    const shouldSustainDeath = callback(
+      player,
+      damageAmount,
+      damageFlags,
+      damageSource,
+      damageCountdownFrames,
+    );
     if (shouldSustainDeath !== undefined) {
       return shouldSustainDeath;
     }
