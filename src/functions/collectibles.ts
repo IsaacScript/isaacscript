@@ -315,6 +315,17 @@ export function removeCollectibleFromItemTracker(
   );
 }
 
+/**
+ * Helper function to put a message in the log.txt file to let the Rebirth Item Tracker know that
+ * the build has been rerolled.
+ */
+export function setCollectiblesRerolledForItemTracker(): void {
+  // This cannot use the "log()" function since the prefix will prevent the Rebirth Item Tracker
+  // from recognizing the message
+  // The number here does not matter since the tracker does not check for a specific number
+  Isaac.DebugString("Added 3 Collectibles");
+}
+
 export function setCollectibleBlind(collectible: EntityPickup): void {
   if (collectible.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
     error(
