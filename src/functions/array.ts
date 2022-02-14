@@ -168,6 +168,24 @@ export function getRandomArrayElement<T>(
   return arrayWithoutExceptions[randomIndex];
 }
 
+/**
+ * Helper function to get a random element from the provided array. Once the random element is
+ * decided, it is then removed from the array (in-place).
+ *
+ * @param array The array to get an element from.
+ * @param seed Optional. The seed used to select the random element. `Random()` by default.
+ * @param exceptions Optional. An array of elements to skip over if selected.
+ */
+export function getRandomArrayElementAndRemove<T>(
+  array: T[],
+  seed = Random(),
+  exceptions: T[] = [],
+) {
+  const randomArrayElement = getRandomArrayElement(array, seed, exceptions);
+  arrayRemoveInPlace(array, randomArrayElement);
+  return randomArrayElement;
+}
+
 export function getRandomArrayIndex<T>(array: T[], seed = Random()): int {
   if (array.length === 0) {
     error(
