@@ -180,6 +180,9 @@ export const MAX_VANILLA_CHARACTER = PlayerType.PLAYER_THESOUL_B;
 export const MAX_VANILLA_COLLECTIBLE_TYPE =
   CollectibleType.COLLECTIBLE_MOMS_RING;
 
+export const SECOND_IN_MILLISECONDS = 1000;
+export const MINUTE_IN_MILLISECONDS = 60 * SECOND_IN_MILLISECONDS;
+
 export const MOVEMENT_ACTIONS = new Set<ButtonAction>([
   ButtonAction.ACTION_LEFT, // 0
   ButtonAction.ACTION_RIGHT, // 1
