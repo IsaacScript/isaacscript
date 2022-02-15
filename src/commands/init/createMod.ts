@@ -19,10 +19,14 @@ import {
   README_MD_TEMPLATES_PATH,
   TEMPLATES_STATIC_DIR,
 } from "../../constants";
+import { execShell } from "../../exec";
 import * as file from "../../file";
 import { getInputString, getInputYesNo } from "../../prompt";
 import { GitHubCLIHostsYAML } from "../../types/GitHubCLIHostsYAML";
-import { execShell } from "../../util";
+import { error, parseSemVer } from "../../util";
+
+const REQUIRED_GIT_MAJOR_VERSION = 2;
+const REQUIRED_GIT_MINOR_VERSION = 30;
 
 export async function createMod(
   projectName: string,
@@ -177,6 +181,8 @@ async function initGitRepository(
     return;
   }
 
+  checkOldGitVersion(verbose);
+
   const remoteURL = await getGitRemoteURL(projectName);
   if (remoteURL === "") {
     return;
@@ -223,6 +229,38 @@ If you don't have an SSH key, it would be something like:
 ${chalk.green("https://github.com/Alice/green-candle.git")}
 If you don't want to initialize a Git repository for this project, press enter to skip.
 `);
+}
+
+function checkOldGitVersion(verbose: boolean) {
+  const [, stdout] = execShell("git", ["--version"], verbose);
+
+  const outputPrefix = "git version ";
+  if (!stdout.startsWith(outputPrefix)) {
+    error(
+      `Failed to parse the output from the "git --version" command: ${stdout}`,
+    );
+  }
+
+  const gitVersionString = stdout.slice(outputPrefix.length);
+  const [majorVersion, minorVersion] = parseSemVer(gitVersionString);
+
+  if (
+    majorVersion >= REQUIRED_GIT_MAJOR_VERSION &&
+    minorVersion >= REQUIRED_GIT_MINOR_VERSION
+  ) {
+    return;
+  }
+
+  console.error(`Your Git version is: ${chalk.red(gitVersionString)}`);
+  console.error(
+    `${PROJECT_NAME} requires a Git version of ${chalk.red(
+      `${REQUIRED_GIT_MAJOR_VERSION}.${REQUIRED_GIT_MINOR_VERSION}.0`,
+    )} or greater.`,
+  );
+  console.error(
+    `Please upgrade your version of Git before using ${PROJECT_NAME}.`,
+  );
+  process.exit(1);
 }
 
 function guessRemoteURL(projectName: string) {

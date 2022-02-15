@@ -12,15 +12,10 @@ import {
   PUBLISH_PRE_COPY_PY_PATH,
   VERSION_TXT_PATH,
 } from "../../constants";
+import { execExe, execShell } from "../../exec";
 import * as file from "../../file";
 import { Config } from "../../types/Config";
-import {
-  error,
-  execExe,
-  execShell,
-  getModTargetDirectoryName,
-  parseIntSafe,
-} from "../../util";
+import { error, getModTargetDirectoryName, parseIntSafe } from "../../util";
 import { compileAndCopy } from "../copy/copy";
 
 const UPDATE_SCRIPT_NAME = "update.sh";

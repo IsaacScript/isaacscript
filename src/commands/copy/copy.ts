@@ -1,8 +1,9 @@
 import path from "path";
 import { MOD_SOURCE_PATH } from "../../constants";
+import { execShell } from "../../exec";
 import * as file from "../../file";
 import { Config } from "../../types/Config";
-import { execShell, getModTargetDirectoryName } from "../../util";
+import { getModTargetDirectoryName } from "../../util";
 
 export function copy(argv: Record<string, unknown>, config: Config): void {
   const verbose = argv.verbose === true;

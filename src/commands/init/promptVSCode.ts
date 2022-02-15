@@ -1,7 +1,7 @@
 import path from "path";
 import { MAIN_TS } from "../../constants";
+import { execShell } from "../../exec";
 import { getInputYesNo } from "../../prompt";
-import { execShell } from "../../util";
 
 export async function promptVSCode(
   projectPath: string,

@@ -1,7 +1,5 @@
-import chalk from "chalk";
-import { execSync, spawnSync, SpawnSyncReturns } from "child_process";
 import moment from "moment";
-import { CURRENT_DIRECTORY_NAME, CWD } from "./constants";
+import { CURRENT_DIRECTORY_NAME } from "./constants";
 import { Config } from "./types/Config";
 
 export const ensureAllCases = (obj: never): never => obj;
@@ -9,99 +7,6 @@ export const ensureAllCases = (obj: never): never => obj;
 export function error(...args: unknown[]): never {
   console.error(...args);
   process.exit(1);
-}
-
-export function execExe(path: string, verbose = false, cwd = CWD): string {
-  if (verbose) {
-    console.log(`Executing binary: ${path}`);
-  }
-
-  let stdout: string;
-  try {
-    const buffer = execSync(`"${path}"`, {
-      cwd,
-    });
-    stdout = buffer.toString().trim();
-  } catch (err) {
-    console.error(`Failed to run "${chalk.green(path)}":`, err);
-    process.exit(1);
-  }
-
-  if (verbose) {
-    console.log(`Executed binary: ${path}`);
-  }
-
-  return stdout;
-}
-
-/** Returns an array of exit status and stdout. */
-export function execShell(
-  command: string,
-  args: string[] = [],
-  verbose = false,
-  allowFailure = false,
-  cwd = CWD,
-): [number | null, string] {
-  // On Windows, "spawnSync()" will not account for spaces in arguments
-  // Thus, wrap everything in a double quote
-  // This will cause arguments that naturally have double quotes to fail
-  if (command.includes('"')) {
-    throw new Error(
-      "execShell cannot execute commands with double quotes in the command.",
-    );
-  }
-  for (let i = 0; i < args.length; i++) {
-    if (args[i].includes('"')) {
-      throw new Error(
-        "execShell cannot execute commands with double quotes in the arguments.",
-      );
-    }
-
-    args[i] = `"${args[i]}"`; // eslint-disable-line no-param-reassign
-  }
-
-  const commandDescription = `${command} ${args.join(" ")}`.trim();
-
-  if (verbose) {
-    console.log(`Executing command: ${commandDescription}`);
-  }
-
-  let spawnSyncReturns: SpawnSyncReturns<Buffer>;
-  try {
-    spawnSyncReturns = spawnSync(command, args, {
-      shell: true,
-      cwd,
-    });
-  } catch (err) {
-    error(
-      `Failed to run the "${chalk.green(commandDescription)}" command:`,
-      err,
-    );
-  }
-
-  if (verbose) {
-    console.log(`Executed command: ${commandDescription}`);
-  }
-
-  const exitStatus = spawnSyncReturns.status;
-  const stdout = spawnSyncReturns.output.join("\n").trim();
-
-  if (exitStatus !== 0) {
-    if (allowFailure) {
-      return [exitStatus, stdout];
-    }
-
-    console.error(
-      `Failed to run the "${chalk.green(
-        commandDescription,
-      )}" command with an exit code of ${exitStatus}.`,
-    );
-    console.error("The output was as follows:");
-    console.error(stdout);
-    process.exit(1);
-  }
-
-  return [exitStatus, stdout];
 }
 
 export function getModTargetDirectoryName(config: Config): string {
@@ -148,4 +53,32 @@ export function parseIntSafe(input: string): number {
   }
 
   return parseInt(trimmedInput, 10);
+}
+
+export function parseSemVer(
+  versionString: string,
+): [major: number, minor: number, patch: number] {
+  const match = /^v*(\d+)\.(\d+)\.(\d+)/g.exec(versionString);
+  if (match === null) {
+    error(`Failed to parse the version string of: ${versionString}`);
+  }
+
+  const [, majorVersionString, minorVersionString, patchVersionString] = match;
+
+  const majorVersion = parseIntSafe(majorVersionString);
+  if (Number.isNaN(majorVersion)) {
+    error(`Failed to parse the major version number from: ${versionString}`);
+  }
+
+  const minorVersion = parseInt(minorVersionString, 10);
+  if (Number.isNaN(minorVersion)) {
+    error(`Failed to parse the minor version number from: ${versionString}`);
+  }
+
+  const patchVersion = parseInt(patchVersionString, 10);
+  if (Number.isNaN(patchVersion)) {
+    error(`Failed to parse the patch version number from: ${versionString}`);
+  }
+
+  return [majorVersion, minorVersion, patchVersion];
 }

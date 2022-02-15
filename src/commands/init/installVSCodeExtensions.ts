@@ -1,8 +1,9 @@
 import chalk from "chalk";
 import * as JSONC from "jsonc-parser";
 import path from "path";
+import { execShell } from "../../exec";
 import * as file from "../../file";
-import { error, execShell } from "../../util";
+import { error } from "../../util";
 
 export function installVSCodeExtensions(
   projectPath: string,
