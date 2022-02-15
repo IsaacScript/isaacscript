@@ -6,6 +6,7 @@ import { error } from "../../util";
 
 export async function checkIfProjectPathExists(
   projectPath: string,
+  verbose: boolean,
 ): Promise<void> {
   if (projectPath !== CWD && file.exists(projectPath)) {
     const fileType = file.isDir(projectPath) ? "directory" : "file";
@@ -21,6 +22,6 @@ export async function checkIfProjectPathExists(
       error("Ok then. Good-bye.");
     }
 
-    file.deleteFileOrDirectory(projectPath);
+    file.deleteFileOrDirectory(projectPath, verbose);
   }
 }

@@ -4,30 +4,38 @@ import * as file from "../../file";
 import { Config } from "../../types/Config";
 import { execShell, getModTargetDirectoryName } from "../../util";
 
-export function copy(config: Config): void {
+export function copy(argv: Record<string, unknown>, config: Config): void {
+  const verbose = argv.verbose === true;
+
   const modTargetDirectoryName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
-  compileAndCopy(MOD_SOURCE_PATH, modTargetPath);
+
+  compileAndCopy(MOD_SOURCE_PATH, modTargetPath, verbose);
 }
 
 export function compileAndCopy(
   modSourcePath: string,
   modTargetPath: string,
+  verbose: boolean,
 ): void {
-  compile();
+  compile(verbose);
   // monkeyPatchMainLua(modSourcePath);
-  copyMod(modSourcePath, modTargetPath);
+  copyMod(modSourcePath, modTargetPath, verbose);
 }
 
-function compile() {
-  execShell("npx", ["tstl"]);
+function compile(verbose: boolean) {
+  execShell("npx", ["tstl"], verbose);
   console.log("Mod compiled successfully.");
 }
 
-function copyMod(modSourcePath: string, modTargetPath: string) {
+function copyMod(
+  modSourcePath: string,
+  modTargetPath: string,
+  verbose: boolean,
+) {
   if (file.exists(modTargetPath)) {
-    file.deleteFileOrDirectory(modTargetPath);
+    file.deleteFileOrDirectory(modTargetPath, verbose);
   }
-  file.copy(modSourcePath, modTargetPath);
+  file.copy(modSourcePath, modTargetPath, verbose);
   console.log("Mod copied successfully.");
 }

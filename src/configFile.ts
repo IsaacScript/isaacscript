@@ -9,6 +9,8 @@ import { Config } from "./types/Config";
 import { error } from "./util";
 
 export async function get(argv: Record<string, unknown>): Promise<Config> {
+  const verbose = argv.verbose === true;
+
   const existingConfig = readExistingConfig();
   if (existingConfig !== null) {
     return existingConfig;
@@ -18,7 +20,7 @@ export async function get(argv: Record<string, unknown>): Promise<Config> {
   const modsDirectory = await getModsDir(argv);
   const saveSlot = await promptSaveSlot(argv);
   const config = createObject(modsDirectory, saveSlot);
-  createFile(CWD, config);
+  createFile(CWD, config, verbose);
 
   return config;
 }
@@ -66,8 +68,12 @@ export function createObject(modsDirectory: string, saveSlot: number): Config {
   };
 }
 
-export function createFile(projectPath: string, config: Config): void {
+export function createFile(
+  projectPath: string,
+  config: Config,
+  verbose: boolean,
+): void {
   const configFilePath = path.join(projectPath, CONFIG_FILE_NAME);
   const configContents = JSON.stringify(config, null, 2);
-  file.write(configFilePath, configContents);
+  file.write(configFilePath, configContents, verbose);
 }

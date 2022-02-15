@@ -8,6 +8,7 @@ import { error } from "../../util";
 export async function checkModTargetDirectory(
   modsDirectory: string,
   projectName: string,
+  verbose: boolean,
 ): Promise<void> {
   const modTargetPath = path.join(modsDirectory, projectName);
   if (!file.exists(modTargetPath)) {
@@ -31,5 +32,5 @@ export async function checkModTargetDirectory(
     error("Ok then. You delete it yourself. Good bye.");
   }
 
-  file.deleteFileOrDirectory(modTargetPath);
+  file.deleteFileOrDirectory(modTargetPath, verbose);
 }

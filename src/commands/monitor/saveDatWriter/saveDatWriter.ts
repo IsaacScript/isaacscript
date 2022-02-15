@@ -27,7 +27,7 @@ function init() {
   // Check to see if the data directory exists
   const watcherModDataPath = path.dirname(saveDatPath);
   if (!file.exists(watcherModDataPath)) {
-    file.makeDir(watcherModDataPath);
+    file.makeDir(watcherModDataPath, false);
   }
 
   // Listen for messages from the parent process

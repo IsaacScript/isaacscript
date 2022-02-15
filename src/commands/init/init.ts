@@ -13,15 +13,18 @@ import { promptSaveSlot } from "./promptSaveSlot";
 import { promptVSCode } from "./promptVSCode";
 
 export async function init(argv: Record<string, unknown>): Promise<void> {
+  const vscode = argv.vscode === true;
+  const skipNPMInstall = argv.skipNpmInstall === true;
+  const verbose = argv.verbose === true;
+
   // Prompt the end-user for some information (and validate it as we go)
   const [projectPath, createNewDir] = await getProjectPath(argv);
-  await checkIfProjectPathExists(projectPath);
+  await checkIfProjectPathExists(projectPath, verbose);
   const modsDirectory = await getModsDir(argv);
   checkModSubdirectory(projectPath, modsDirectory);
   const projectName = path.basename(projectPath);
-  await checkModTargetDirectory(modsDirectory, projectName);
+  await checkModTargetDirectory(modsDirectory, projectName, verbose);
   const saveSlot = await promptSaveSlot(argv);
-  const skipNPMInstall = argv.skipNpmInstall === true;
 
   await createMod(
     projectName,
@@ -30,12 +33,17 @@ export async function init(argv: Record<string, unknown>): Promise<void> {
     modsDirectory,
     saveSlot,
     skipNPMInstall,
+    verbose,
   );
-  await openVSCode(projectPath, argv);
+  await openVSCode(projectPath, vscode, verbose);
   printFinishMessage(projectPath, projectName);
 }
 
-async function openVSCode(projectPath: string, argv: Record<string, unknown>) {
+async function openVSCode(
+  projectPath: string,
+  vscode: boolean,
+  verbose: boolean,
+) {
   const VSCodeCommand = getVSCodeCommand();
   if (VSCodeCommand === null) {
     console.log(
@@ -44,8 +52,8 @@ async function openVSCode(projectPath: string, argv: Record<string, unknown>) {
     return;
   }
 
-  installVSCodeExtensions(projectPath, VSCodeCommand);
-  await promptVSCode(projectPath, argv, VSCodeCommand);
+  installVSCodeExtensions(projectPath, VSCodeCommand, verbose);
+  await promptVSCode(projectPath, VSCodeCommand, vscode, verbose);
 }
 
 function getVSCodeCommand() {

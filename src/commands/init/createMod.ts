@@ -31,41 +31,42 @@ export async function createMod(
   modsDirectory: string,
   saveSlot: number,
   skipNPMInstall: boolean,
+  verbose: boolean,
 ): Promise<void> {
   if (createNewDir) {
-    file.makeDir(projectPath);
+    file.makeDir(projectPath, verbose);
   }
 
   const config = configFile.createObject(modsDirectory, saveSlot);
-  configFile.createFile(projectPath, config);
+  configFile.createFile(projectPath, config, verbose);
   const targetModDirectory = path.join(config.modsDirectory, projectName);
 
-  makeSubdirectories(projectPath);
-  copyStaticFiles(projectPath);
-  copyDynamicFiles(projectName, projectPath, targetModDirectory);
-  updateNodeModules(projectPath);
-  await initGitRepository(projectPath, projectName);
-  installNodeModules(projectPath, skipNPMInstall);
+  makeSubdirectories(projectPath, verbose);
+  copyStaticFiles(projectPath, verbose);
+  copyDynamicFiles(projectName, projectPath, targetModDirectory, verbose);
+  updateNodeModules(projectPath, verbose);
+  await initGitRepository(projectPath, projectName, verbose);
+  installNodeModules(projectPath, skipNPMInstall, verbose);
 
   console.log(`Successfully created mod: ${chalk.green(projectName)}`);
 }
 
-function makeSubdirectories(projectPath: string) {
+function makeSubdirectories(projectPath: string, verbose: boolean) {
   // The "src" directory is created during copying of static files
   for (const subdirectory of ["mod"]) {
     const srcPath = path.join(projectPath, subdirectory);
-    file.makeDir(srcPath);
+    file.makeDir(srcPath, verbose);
   }
 }
 
 // Copy static files, like ".eslintrc.js", "tsconfig.json", etc.
-function copyStaticFiles(projectPath: string) {
+function copyStaticFiles(projectPath: string, verbose: boolean) {
   const staticFileList = file.getDirList(TEMPLATES_STATIC_DIR);
   staticFileList.forEach((fileName: string) => {
     const templateFilePath = path.join(TEMPLATES_STATIC_DIR, fileName);
     const destinationFilePath = path.join(projectPath, fileName);
     if (!file.exists(destinationFilePath)) {
-      file.copy(templateFilePath, destinationFilePath);
+      file.copy(templateFilePath, destinationFilePath, verbose);
     }
   });
 }
@@ -75,6 +76,7 @@ function copyDynamicFiles(
   projectName: string,
   projectPath: string,
   targetModDirectory: string,
+  verbose: boolean,
 ) {
   // ".gitignore"
   {
@@ -92,7 +94,7 @@ function copyDynamicFiles(
     const gitignore = gitignoreHeader + template;
 
     const destinationPath = path.join(projectPath, `.${fileName}`); // We need to prepend a period
-    file.write(destinationPath, gitignore);
+    file.write(destinationPath, gitignore, verbose);
   }
 
   // "package.json"
@@ -103,7 +105,7 @@ function copyDynamicFiles(
     const template = file.read(templatePath);
     const packageJSON = template.replace(/MOD_NAME_TO_REPLACE/g, projectName);
     const destinationPath = path.join(projectPath, fileName);
-    file.write(destinationPath, packageJSON);
+    file.write(destinationPath, packageJSON, verbose);
   }
 
   // "README.md"
@@ -113,7 +115,7 @@ function copyDynamicFiles(
     const template = file.read(templatePath);
     const readmeMD = template.replace(/MOD_NAME_TO_REPLACE/g, projectName);
     const destinationPath = path.join(projectPath, fileName);
-    file.write(destinationPath, readmeMD);
+    file.write(destinationPath, readmeMD, verbose);
   }
 
   // "mod/metadata.xml"
@@ -124,7 +126,7 @@ function copyDynamicFiles(
     const metadataXML = template.replace(/MOD_NAME_TO_REPLACE/g, projectName);
     const modPath = path.join(projectPath, "mod");
     const destinationPath = path.join(modPath, fileName);
-    file.write(destinationPath, metadataXML);
+    file.write(destinationPath, metadataXML, verbose);
   }
 
   // "mod/metadata.vdf"
@@ -135,7 +137,7 @@ function copyDynamicFiles(
     const metadataVDF = template.replace(/MOD_TARGET_DIR/g, targetModDirectory);
     const modPath = path.join(projectPath, "mod");
     const destinationPath = path.join(modPath, fileName);
-    file.write(destinationPath, metadataVDF);
+    file.write(destinationPath, metadataVDF, verbose);
   }
 
   // "src/main.ts"
@@ -148,21 +150,26 @@ function copyDynamicFiles(
     const template = file.read(templatePath);
     const mainTS = template.replace(/MOD_NAME_TO_REPLACE/g, projectName);
     const destinationPath = path.join(srcPath, fileName);
-    file.write(destinationPath, mainTS);
+    file.write(destinationPath, mainTS, verbose);
   }
 }
 
-function updateNodeModules(projectPath: string) {
+function updateNodeModules(projectPath: string, verbose: boolean) {
   console.log("Finding out the latest versions of the NPM packages...");
   execShell(
     "npx",
     ["npm-check-updates", "--upgrade", "--packageFile", "package.json"],
+    verbose,
     false,
     projectPath,
   );
 }
 
-async function initGitRepository(projectPath: string, projectName: string) {
+async function initGitRepository(
+  projectPath: string,
+  projectName: string,
+  verbose: boolean,
+) {
   if (!commandExists.sync("git")) {
     console.log(
       'Git does not seem to be installed. (The "git" command is not in the path.) Skipping Git-related things.',
@@ -175,14 +182,21 @@ async function initGitRepository(projectPath: string, projectName: string) {
     return;
   }
 
-  execShell("git", ["init"], false, projectPath);
-  execShell("git", ["branch", "-M", "main"], false, projectPath);
-  execShell("git", ["remote", "add", "origin", remoteURL], false, projectPath);
-  if (isGitNameAndEmailConfigured()) {
-    execShell("git", ["add", "--all"], false, projectPath);
+  execShell("git", ["init"], verbose, false, projectPath);
+  execShell("git", ["branch", "-M", "main"], verbose, false, projectPath);
+  execShell(
+    "git",
+    ["remote", "add", "origin", remoteURL],
+    verbose,
+    false,
+    projectPath,
+  );
+  if (isGitNameAndEmailConfigured(verbose)) {
+    execShell("git", ["add", "--all"], verbose, false, projectPath);
     execShell(
       "git",
       ["commit", "--message", `${PROJECT_NAME} template`],
+      verbose,
       false,
       projectPath,
     );
@@ -255,27 +269,33 @@ function getGitHubUsername() {
   return user;
 }
 
-function isGitNameAndEmailConfigured() {
+function isGitNameAndEmailConfigured(verbose: boolean) {
   const [nameExitStatus] = execShell(
     "git",
     ["config", "--global", "user.name"],
+    verbose,
     true,
   );
 
   const [emailExitStatus] = execShell(
     "git",
     ["config", "--global", "user.email"],
+    verbose,
     true,
   );
 
   return nameExitStatus === 0 && emailExitStatus === 0;
 }
 
-function installNodeModules(projectPath: string, skipNPMInstall: boolean) {
+function installNodeModules(
+  projectPath: string,
+  skipNPMInstall: boolean,
+  verbose: boolean,
+) {
   if (skipNPMInstall) {
     return;
   }
 
   console.log("Installing node modules... (This can take a long time.)");
-  execShell("npm", ["install"], false, projectPath);
+  execShell("npm", ["install"], verbose, false, projectPath);
 }

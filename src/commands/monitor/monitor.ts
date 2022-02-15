@@ -19,6 +19,8 @@ import { spawnSaveDatWriter } from "./spawnSaveDatWriter";
 import { touchWatcherSaveDatFiles } from "./touchWatcherSaveDatFiles";
 
 export function monitor(argv: Record<string, unknown>, config: Config): void {
+  const verbose = argv.verbose === true;
+
   // If they specified some command-line flags, override the values found in the config file
   if (argv.modsDirectory !== undefined) {
     config.modsDirectory = argv.modsDirectory as string; // eslint-disable-line no-param-reassign
@@ -34,13 +36,13 @@ export function monitor(argv: Record<string, unknown>, config: Config): void {
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
 
   // Prepare the IsaacScript watcher mod
-  copyWatcherMod(config);
-  touchWatcherSaveDatFiles(config);
+  copyWatcherMod(config, verbose);
+  touchWatcherSaveDatFiles(config, verbose);
 
   // Delete and re-copy the mod every time IsaacScript starts
   // This ensures that it is always the latest version
   if (file.exists(modTargetPath)) {
-    file.deleteFileOrDirectory(modTargetPath);
+    file.deleteFileOrDirectory(modTargetPath, true);
   }
 
   // Subprocess #1 - The "save#.dat" file writer

@@ -24,6 +24,11 @@ export function parseArgs() {
           alias: "c",
           type: "boolean",
           description: "Enable crash debugging",
+        })
+        .option("verbose", {
+          alias: "v",
+          type: "boolean",
+          description: "Enable verbose output",
         }),
     )
 
@@ -59,10 +64,21 @@ export function parseArgs() {
             type: "boolean",
             description:
               'Don\'t automatically run "npm install" after initializing the project',
+          })
+          .option("verbose", {
+            alias: "v",
+            type: "boolean",
+            description: "Enable verbose output",
           }),
     )
 
-    .command("copy", "Only compile & copy the mod.")
+    .command("copy", "Only compile & copy the mod.", (builder) =>
+      builder.option("verbose", {
+        alias: "v",
+        type: "boolean",
+        description: "Enable verbose output",
+      }),
+    )
 
     .command(
       "publish",
@@ -90,6 +106,11 @@ export function parseArgs() {
             type: "boolean",
             description:
               "only upload the mod to the Steam Workshop (without doing anything else)",
+          })
+          .option("verbose", {
+            alias: "v",
+            type: "boolean",
+            description: "Enable verbose output",
           }),
     )
 

@@ -11,7 +11,11 @@ export function error(...args: unknown[]): never {
   process.exit(1);
 }
 
-export function execExe(path: string, cwd = CWD): string {
+export function execExe(path: string, verbose = false, cwd = CWD): string {
+  if (verbose) {
+    console.log(`Executing binary: ${path}`);
+  }
+
   let stdout: string;
   try {
     const buffer = execSync(`"${path}"`, {
@@ -23,6 +27,10 @@ export function execExe(path: string, cwd = CWD): string {
     process.exit(1);
   }
 
+  if (verbose) {
+    console.log(`Executed binary: ${path}`);
+  }
+
   return stdout;
 }
 
@@ -30,6 +38,7 @@ export function execExe(path: string, cwd = CWD): string {
 export function execShell(
   command: string,
   args: string[] = [],
+  verbose = false,
   allowFailure = false,
   cwd = CWD,
 ): [number | null, string] {
@@ -53,6 +62,10 @@ export function execShell(
 
   const commandDescription = `${command} ${args.join(" ")}`.trim();
 
+  if (verbose) {
+    console.log(`Executing command: ${commandDescription}`);
+  }
+
   let spawnSyncReturns: SpawnSyncReturns<Buffer>;
   try {
     spawnSyncReturns = spawnSync(command, args, {
@@ -64,6 +77,10 @@ export function execShell(
       `Failed to run the "${chalk.green(commandDescription)}" command:`,
       err,
     );
+  }
+
+  if (verbose) {
+    console.log(`Executed command: ${commandDescription}`);
   }
 
   const exitStatus = spawnSyncReturns.status;

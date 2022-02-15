@@ -29,14 +29,14 @@ const MAIN_LUA_REPLACEMENTS = [
 ];
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function monkeyPatchMainLua(targetModDirectory: string) {
+function monkeyPatchMainLua(targetModDirectory: string, verbose: boolean) {
   const mainLuaPath = path.join(targetModDirectory, MAIN_LUA);
   const mainLua = file.read(mainLuaPath);
 
   // mainLua = patchInformationalHeader(mainLua);
   // mainLua = patchGlobalObjects(mainLua);
 
-  file.write(mainLuaPath, mainLua);
+  file.write(mainLuaPath, mainLua, verbose);
 }
 
 // Add an informational header for people who happen to be browsing the Lua output

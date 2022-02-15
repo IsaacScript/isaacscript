@@ -7,10 +7,11 @@ import { error, execShell } from "../../util";
 export function installVSCodeExtensions(
   projectPath: string,
   VSCodeCommand: string,
+  verbose: boolean,
 ): void {
   const extensions = getExtensionsFromJSON(projectPath);
   for (const extensionName of extensions) {
-    execShell(VSCodeCommand, ["--install-extension", extensionName]);
+    execShell(VSCodeCommand, ["--install-extension", extensionName], verbose);
   }
 }
 

@@ -89,7 +89,7 @@ async function handleCommands(argv: Record<string, unknown>) {
     }
 
     case "copy": {
-      copy(config);
+      copy(argv, config);
       break;
     }
 

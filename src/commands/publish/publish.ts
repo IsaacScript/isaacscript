@@ -30,6 +30,7 @@ export function publish(argv: Record<string, unknown>, config: Config): void {
   const setVersion = argv.setVersion as string | undefined;
   const dryRun = argv.dryRun === true;
   const onlyUpload = argv.onlyUpload === true;
+  const verbose = argv.verbose === true;
 
   const modTargetDirectoryName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
@@ -43,7 +44,7 @@ export function publish(argv: Record<string, unknown>, config: Config): void {
   }
 
   if (onlyUpload) {
-    uploadMod(modTargetPath, config.steamCmdPath);
+    uploadMod(modTargetPath, config.steamCmdPath, verbose);
     return;
   }
 
@@ -54,6 +55,7 @@ export function publish(argv: Record<string, unknown>, config: Config): void {
     setVersion,
     config.steamCmdPath,
     dryRun,
+    verbose,
   );
 }
 
@@ -64,42 +66,43 @@ function startPublish(
   setVersion: string | undefined,
   steamCmdPath: string | undefined,
   dryRun: boolean,
+  verbose: boolean,
 ) {
-  updateDeps();
+  updateDeps(verbose);
 
   let version =
     setVersion === undefined ? getVersionFromPackageJSON() : setVersion;
   if (!skipVersionIncrement && setVersion === undefined) {
-    version = bumpVersionInPackageJSON(version);
+    version = bumpVersionInPackageJSON(version, verbose);
   } else if (setVersion !== undefined) {
-    writeVersionInPackageJSON(version);
+    writeVersionInPackageJSON(version, verbose);
   }
 
-  writeVersionToConstantsTS(version);
-  writeVersionToMetadataXML(version);
-  writeVersionToVersionTXT(version);
-  runReleaseScriptPreCopy();
-  compileAndCopy(modSourcePath, modTargetPath);
-  purgeRoomXMLs(modTargetPath);
-  runReleaseScriptPostCopy();
+  writeVersionToConstantsTS(version, verbose);
+  writeVersionToMetadataXML(version, verbose);
+  writeVersionToVersionTXT(version, verbose);
+  runReleaseScriptPreCopy(verbose);
+  compileAndCopy(modSourcePath, modTargetPath, verbose);
+  purgeRoomXMLs(modTargetPath, verbose);
+  runReleaseScriptPostCopy(verbose);
 
   if (!dryRun) {
-    gitCommitIfChanges(version);
-    uploadMod(modTargetPath, steamCmdPath);
+    gitCommitIfChanges(version, verbose);
+    uploadMod(modTargetPath, steamCmdPath, verbose);
   }
 
   const dryRunSuffix = dryRun ? " (dry run)" : "";
   console.log(`\nPublished version ${version} successfully${dryRunSuffix}.`);
 }
 
-function updateDeps() {
+function updateDeps(verbose: boolean) {
   if (!file.exists(UPDATE_SCRIPT_NAME)) {
     error(
       `The "${UPDATE_SCRIPT_NAME}" script does not exist in the current working directory.`,
     );
   }
 
-  execShell("bash", [UPDATE_SCRIPT_NAME]);
+  execShell("bash", [UPDATE_SCRIPT_NAME], verbose);
 }
 
 function getVersionFromPackageJSON() {
@@ -138,7 +141,7 @@ function getVersionFromPackageJSON() {
   return packageJSON.version;
 }
 
-function bumpVersionInPackageJSON(version: string): string {
+function bumpVersionInPackageJSON(version: string, verbose: boolean): string {
   // Get the patch version (i.e. the third number)
   const matches = /(\d+\.\d+\.)(\d+)/.exec(version);
   if (matches === null) {
@@ -168,7 +171,7 @@ function bumpVersionInPackageJSON(version: string): string {
     /"version": ".+",/,
     `"version": "${incrementedVersion}",`,
   );
-  file.write(PACKAGE_JSON_PATH, newPackageJSON);
+  file.write(PACKAGE_JSON_PATH, newPackageJSON, verbose);
 
   console.log(
     `The version of ${incrementedVersion} was written to: ${PACKAGE_JSON_PATH}`,
@@ -177,18 +180,18 @@ function bumpVersionInPackageJSON(version: string): string {
   return incrementedVersion;
 }
 
-function writeVersionInPackageJSON(version: string) {
+function writeVersionInPackageJSON(version: string, verbose: boolean) {
   const packageJSON = file.read(PACKAGE_JSON_PATH);
   const newPackageJSON = packageJSON.replace(
     /"version": ".+",/,
     `"version": "${version}",`,
   );
-  file.write(PACKAGE_JSON_PATH, newPackageJSON);
+  file.write(PACKAGE_JSON_PATH, newPackageJSON, verbose);
 
   console.log(`The version of ${version} was written to: ${PACKAGE_JSON_PATH}`);
 }
 
-function writeVersionToConstantsTS(version: string) {
+function writeVersionToConstantsTS(version: string, verbose: boolean) {
   if (!file.exists(CONSTANTS_TS_PATH)) {
     console.log(
       'Skipping writing the version to "constants.ts" since it was not found.',
@@ -201,57 +204,57 @@ function writeVersionToConstantsTS(version: string) {
     /const VERSION = ".+"/,
     `const VERSION = "${version}"`,
   );
-  file.write(CONSTANTS_TS_PATH, newConstantsTS);
+  file.write(CONSTANTS_TS_PATH, newConstantsTS, verbose);
 
   console.log(`The version of ${version} was written to: ${CONSTANTS_TS_PATH}`);
 }
 
-function writeVersionToMetadataXML(version: string) {
+function writeVersionToMetadataXML(version: string, verbose: boolean) {
   const metadataXML = file.read(METADATA_XML_PATH);
   const newMetadataXML = metadataXML.replace(
     /<version>.+<\/version>/,
     `<version>${version}</version>`,
   );
-  file.write(METADATA_XML_PATH, newMetadataXML);
+  file.write(METADATA_XML_PATH, newMetadataXML, verbose);
 
   console.log(`The version of ${version} was written to: ${METADATA_XML_PATH}`);
 }
 
-function writeVersionToVersionTXT(version: string) {
-  file.write(VERSION_TXT_PATH, version);
+function writeVersionToVersionTXT(version: string, verbose: boolean) {
+  file.write(VERSION_TXT_PATH, version, verbose);
 
   console.log(`The version of ${version} was written to: ${VERSION_TXT_PATH}`);
 }
 
-function runReleaseScriptPreCopy() {
+function runReleaseScriptPreCopy(verbose: boolean) {
   if (!file.exists(PUBLISH_PRE_COPY_PY_PATH)) {
     return;
   }
 
   console.log(`Running the "${PUBLISH_PRE_COPY_PY_PATH}" script.`);
-  let [, stdout] = execShell("python", [PUBLISH_PRE_COPY_PY_PATH]);
+  let [, stdout] = execShell("python", [PUBLISH_PRE_COPY_PY_PATH], verbose);
   stdout = stdout.trim();
   if (stdout.length > 0) {
     console.log(stdout);
   }
 }
 
-function runReleaseScriptPostCopy() {
+function runReleaseScriptPostCopy(verbose: boolean) {
   if (!file.exists(PUBLISH_POST_COPY_PY_PATH)) {
     return;
   }
 
   console.log(`Running the "${PUBLISH_POST_COPY_PY_PATH}" script.`);
-  let [, stdout] = execShell("python", [PUBLISH_POST_COPY_PY_PATH]);
+  let [, stdout] = execShell("python", [PUBLISH_POST_COPY_PY_PATH], verbose);
   stdout = stdout.trim();
   if (stdout.length > 0) {
     console.log(stdout);
   }
 }
 
-function gitCommitIfChanges(version: string) {
+function gitCommitIfChanges(version: string, verbose: boolean) {
   // Throw an error if this is not a git repository
-  execShell("git", ["status"]);
+  execShell("git", ["status"], verbose);
 
   // Check to see if there are any changes
   // https://stackoverflow.com/questions/3878624/how-do-i-programmatically-determine-if-there-are-uncommitted-changes
@@ -267,16 +270,16 @@ function gitCommitIfChanges(version: string) {
   }
 
   const commitMessage = `v${version}`;
-  execShell("git", ["add", "-A"]);
-  execShell("git", ["commit", "-m", commitMessage]);
-  execShell("git", ["push"]);
+  execShell("git", ["add", "-A"], verbose);
+  execShell("git", ["commit", "-m", commitMessage], verbose);
+  execShell("git", ["push"], verbose);
 
   console.log(
     `Committed and pushed to the git repository with a message of: ${commitMessage}`,
   );
 }
 
-function purgeRoomXMLs(modTargetPath: string) {
+function purgeRoomXMLs(modTargetPath: string, verbose: boolean) {
   const roomsPath = path.join(modTargetPath, "resources", "rooms");
   if (!file.exists(roomsPath) || !file.isDir(roomsPath)) {
     return;
@@ -286,25 +289,33 @@ function purgeRoomXMLs(modTargetPath: string) {
   roomFileList.forEach((fileName: string) => {
     if (path.extname(fileName) === ".xml") {
       const roomFilePath = path.join(roomsPath, fileName);
-      file.deleteFileOrDirectory(roomFilePath);
+      file.deleteFileOrDirectory(roomFilePath, verbose);
     }
   });
 }
 
-function uploadMod(modTargetPath: string, steamCmdPath: string | undefined) {
+function uploadMod(
+  modTargetPath: string,
+  steamCmdPath: string | undefined,
+  verbose: boolean,
+) {
   if (steamCmdPath === undefined) {
     console.log(
       `The "steamCmdPath" property was not found in the "${chalk.green(
         CONFIG_FILE_NAME,
       )}" file; assuming that we want to use the ModUploader tool.`,
     );
-    execExe(MOD_UPLOADER_PATH, modTargetPath);
+    execExe(MOD_UPLOADER_PATH, verbose, modTargetPath);
   } else {
-    runSteamCmd(modTargetPath, steamCmdPath);
+    runSteamCmd(modTargetPath, steamCmdPath, verbose);
   }
 }
 
-function runSteamCmd(modTargetPath: string, steamCmdPath: string) {
+function runSteamCmd(
+  modTargetPath: string,
+  steamCmdPath: string,
+  verbose: boolean,
+) {
   if (!file.exists(steamCmdPath)) {
     error(
       chalk.red(
@@ -347,14 +358,18 @@ function runSteamCmd(modTargetPath: string, steamCmdPath: string) {
 
   console.log("Uploading the mod to the Steam Workshop...");
 
-  execShell(steamCmdPath, [
-    "+login",
-    username,
-    password,
-    "+workshop_build_item",
-    metadataVDFPath,
-    "+quit",
-  ]);
+  execShell(
+    steamCmdPath,
+    [
+      "+login",
+      username,
+      password,
+      "+workshop_build_item",
+      metadataVDFPath,
+      "+quit",
+    ],
+    verbose,
+  );
 
   console.log("Mod uploaded successfully.");
 }

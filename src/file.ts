@@ -3,7 +3,11 @@ import fs from "fs-extra";
 import path from "path";
 import { error } from "./util";
 
-export function copy(srcPath: string, dstPath: string): void {
+export function copy(srcPath: string, dstPath: string, verbose: boolean): void {
+  if (verbose) {
+    console.log(`Copying: ${srcPath} --> ${dstPath}`);
+  }
+
   try {
     // "copySync()" is a "fs-extra" method for copying directories recursively
     fs.copySync(srcPath, dstPath, {
@@ -17,9 +21,20 @@ export function copy(srcPath: string, dstPath: string): void {
       err,
     );
   }
+
+  if (verbose) {
+    console.log(`Copied: ${srcPath} --> ${dstPath}`);
+  }
 }
 
-export function deleteFileOrDirectory(filePath: string): void {
+export function deleteFileOrDirectory(
+  filePath: string,
+  verbose: boolean,
+): void {
+  if (verbose) {
+    console.log(`Deleting: ${filePath}`);
+  }
+
   try {
     fs.rmSync(filePath, {
       recursive: true,
@@ -29,6 +44,10 @@ export function deleteFileOrDirectory(filePath: string): void {
       `Failed to delete file or directory "${chalk.green(filePath)}":`,
       err,
     );
+  }
+
+  if (verbose) {
+    console.log(`Deleted: ${filePath}`);
   }
 }
 
@@ -80,13 +99,21 @@ export function isSubDirOf(dir: string, parent: string): boolean {
   );
 }
 
-export function makeDir(dirPath: string): void {
+export function makeDir(dirPath: string, verbose: boolean): void {
+  if (verbose) {
+    console.log(`Making a directory: ${dirPath}`);
+  }
+
   try {
     fs.mkdirSync(dirPath, {
       recursive: true,
     });
   } catch (err) {
     error(`Failed to create the "${chalk.green(dirPath)}" directory:`, err);
+  }
+
+  if (verbose) {
+    console.log(`Made a directory: ${dirPath}`);
   }
 }
 
@@ -101,20 +128,36 @@ export function read(filePath: string): string {
   return fileContents;
 }
 
-export function touch(filePath: string): void {
+export function touch(filePath: string, verbose: boolean): void {
+  if (verbose) {
+    console.log(`Touching: ${filePath}`);
+  }
+
   try {
     const fileHandle = fs.openSync(filePath, "w");
     fs.closeSync(fileHandle);
   } catch (err) {
     error(`Failed to touch the "${chalk.green(filePath)}" file:`, err);
   }
+
+  if (verbose) {
+    console.log(`Touched: ${filePath}`);
+  }
 }
 
-export function write(filePath: string, data: string): void {
+export function write(filePath: string, data: string, verbose: boolean): void {
+  if (verbose) {
+    console.log(`Writing data to: ${filePath}`);
+  }
+
   try {
     fs.writeFileSync(filePath, data);
   } catch (err) {
     error(`Failed to write to the "${chalk.green(filePath)}" file:`, err);
+  }
+
+  if (verbose) {
+    console.log(`Wrote data to: ${filePath}`);
   }
 }
 
