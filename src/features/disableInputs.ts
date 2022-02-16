@@ -1,4 +1,4 @@
-import { MOVEMENT_ACTIONS, SHOOTING_ACTIONS } from "../constants";
+import { MOVEMENT_ACTIONS_SET, SHOOTING_ACTIONS_SET } from "../constants";
 import { getUpgradeErrorMsg } from "../errors";
 import { ModUpgraded } from "../types/ModUpgraded";
 import { saveDataManager } from "./saveDataManager/exports";
@@ -173,7 +173,7 @@ export function disableAllInputsExceptFor(whitelist: Set<ButtonAction>): void {
  * this function.
  */
 export function disableMovementInputs(): void {
-  enableAllInputsExceptFor(MOVEMENT_ACTIONS);
+  enableAllInputsExceptFor(MOVEMENT_ACTIONS_SET);
 }
 
 /**
@@ -187,5 +187,5 @@ export function disableMovementInputs(): void {
  * this function.
  */
 export function disableShootingInputs(): void {
-  enableAllInputsExceptFor(SHOOTING_ACTIONS);
+  enableAllInputsExceptFor(SHOOTING_ACTIONS_SET);
 }

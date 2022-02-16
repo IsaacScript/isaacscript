@@ -92,6 +92,16 @@ export function lerpAngleDegrees(
   return aStart + getAngleDifference(aStart, aEnd) * percent;
 }
 
+/** Helper function to return an array with the elements from start to end, inclusive. */
+export function range(start: int, end: int): int[] {
+  const array: int[] = [];
+  for (let i = start; i <= end; i++) {
+    array.push(i);
+  }
+
+  return array;
+}
+
 /**
  * If rounding fails, this function returns 0.
  * From: http://lua-users.org/wiki/SimpleRound

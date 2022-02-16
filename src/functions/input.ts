@@ -3,6 +3,7 @@ import {
   MOVEMENT_ACTIONS,
   SHOOTING_ACTIONS,
 } from "../constants";
+import { range } from "./math";
 
 /**
  * This is a copied version of the Control enum from `isaac-typescript-definitions`. We need a
@@ -69,13 +70,10 @@ export function controllerToString(controller: Controller): string {
 
 /** Iterates over all inputs to determine if a particular button is pressed (i.e. held down). */
 export function isActionPressedOnAnyInput(buttonAction: ButtonAction): boolean {
-  for (let i = 0; i < MAX_NUM_INPUTS; i++) {
-    if (Input.IsActionPressed(buttonAction, i)) {
-      return true;
-    }
-  }
-
-  return false;
+  const validInputs = range(0, MAX_NUM_INPUTS - 1);
+  return validInputs.some((input) =>
+    Input.IsActionPressed(buttonAction, input),
+  );
 }
 
 /**
@@ -85,13 +83,10 @@ export function isActionPressedOnAnyInput(buttonAction: ButtonAction): boolean {
 export function isActionTriggeredOnAnyInput(
   buttonAction: ButtonAction,
 ): boolean {
-  for (let i = 0; i < MAX_NUM_INPUTS; i++) {
-    if (Input.IsActionTriggered(buttonAction, i)) {
-      return true;
-    }
-  }
-
-  return false;
+  const validInputs = range(0, MAX_NUM_INPUTS - 1);
+  return validInputs.some((input) =>
+    Input.IsActionTriggered(buttonAction, input),
+  );
 }
 
 export function isKeyboardPressed(key: Keyboard): boolean {
@@ -99,43 +94,27 @@ export function isKeyboardPressed(key: Keyboard): boolean {
 }
 
 export function isMoveActionPressedOnAnyInput(): boolean {
-  for (const buttonAction of MOVEMENT_ACTIONS.values()) {
-    if (isActionPressedOnAnyInput(buttonAction)) {
-      return true;
-    }
-  }
-
-  return false;
+  return MOVEMENT_ACTIONS.some((moveAction) =>
+    isActionPressedOnAnyInput(moveAction),
+  );
 }
 
 export function isMoveActionTriggeredOnAnyInput(): boolean {
-  for (const buttonAction of MOVEMENT_ACTIONS.values()) {
-    if (isActionTriggeredOnAnyInput(buttonAction)) {
-      return true;
-    }
-  }
-
-  return false;
+  return MOVEMENT_ACTIONS.some((moveAction) =>
+    isActionTriggeredOnAnyInput(moveAction),
+  );
 }
 
 export function isShootActionPressedOnAnyInput(): boolean {
-  for (const buttonAction of SHOOTING_ACTIONS.values()) {
-    if (isActionPressedOnAnyInput(buttonAction)) {
-      return true;
-    }
-  }
-
-  return false;
+  return SHOOTING_ACTIONS.some((shootAction) =>
+    isActionPressedOnAnyInput(shootAction),
+  );
 }
 
 export function isShootActionTriggeredOnAnyInput(): boolean {
-  for (const buttonAction of SHOOTING_ACTIONS.values()) {
-    if (isActionTriggeredOnAnyInput(buttonAction)) {
-      return true;
-    }
-  }
-
-  return false;
+  return SHOOTING_ACTIONS.some((shootAction) =>
+    isActionTriggeredOnAnyInput(shootAction),
+  );
 }
 
 /** Helper function to get the enum name for the specified `Keyboard` value. */
