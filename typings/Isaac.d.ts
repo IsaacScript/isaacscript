@@ -197,8 +197,14 @@ declare namespace Isaac {
   function GetTextWidth(str: string): int;
 
   /**
-   * Returns the current time in milliseconds since the program was launched.
-   * (This is simply a mapping to "os.clock()".)
+   * Returns the current time in milliseconds since the computer's operating system was started.
+   *
+   * This is useful for measuring how much real time has passed independent of how many frames have
+   * passed. (Frames are not a very good indicator of how much time has passed, because the game
+   * locks up to load new data on every level transition and room transition.)
+   *
+   * For example, you could use this to implement an on-screen speedrunning timer based on
+   * real-time, or to benchmark the performance impact of one function over another.
    */
   function GetTime(): int;
 
