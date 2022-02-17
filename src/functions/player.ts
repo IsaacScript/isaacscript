@@ -447,16 +447,18 @@ export function getPlayerMaxHeartContainers(player: EntityPlayer): int {
 
 /**
  * Helper function to get the name of the player. Use this instead of the `EntityPlayer.GetName`
- * method if you want the name to include the "Tainted" prefix.
+ * method if you want the name to fill in "???" and include the "Tainted" prefix.
  */
 export function getPlayerName(player: EntityPlayer): string {
   const name = player.GetName();
 
+  const filledInName = name === "???" ? "Blue Baby" : name;
+
   if (!isTainted(player)) {
-    return name;
+    return filledInName;
   }
 
-  const baseName = trimPrefix(name, "The ");
+  const baseName = trimPrefix(filledInName, "The ");
   return `Tainted ${baseName}`;
 }
 
