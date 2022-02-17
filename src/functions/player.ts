@@ -809,6 +809,7 @@ export function isTainted(player: EntityPlayer): boolean {
 function isTaintedModded(player: EntityPlayer) {
   // This algorithm only works for modded characters because the "Isaac.GetPlayerTypeByName" method
   // is bugged
+  // https://github.com/Meowlala/RepentanceAPIIssueTracker/issues/117
   const character = player.GetPlayerType();
   const name = player.GetName();
   const taintedCharacter = Isaac.GetPlayerTypeByName(name, true);
