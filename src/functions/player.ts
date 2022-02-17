@@ -5,6 +5,7 @@ import {
   CHARACTERS_WITH_NO_SOUL_HEARTS,
   LOST_STYLE_PLAYER_TYPES,
   MAX_PLAYER_HEART_CONTAINERS,
+  MAX_VANILLA_CHARACTER,
 } from "../constants";
 import { HealthType } from "../types/HealthType";
 import { arraySum } from "./array";
@@ -799,7 +800,20 @@ export function canTakeFreeDevilDeals(player: EntityPlayer): boolean {
 /** Helper function for detecting if a player is one of the Tainted characters. */
 export function isTainted(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
-  return character >= PlayerType.PLAYER_ISAAC_B;
+
+  return isVanillaCharacter(player)
+    ? character >= PlayerType.PLAYER_ISAAC_B
+    : isTaintedModded(player);
+}
+
+function isTaintedModded(player: EntityPlayer) {
+  // This algorithm only works for modded characters because the "Isaac.GetPlayerTypeByName" method
+  // is bugged
+  const character = player.GetPlayerType();
+  const name = player.GetName();
+  const taintedCharacter = Isaac.GetPlayerTypeByName(name, true);
+
+  return character === taintedCharacter;
 }
 
 /** Helper function for detecting when a player is Tainted Lazarus or Dead Tainted Lazarus. */
@@ -810,6 +824,15 @@ export function isTaintedLazarus(player: EntityPlayer): boolean {
     character === PlayerType.PLAYER_LAZARUS_B ||
     character === PlayerType.PLAYER_LAZARUS2_B
   );
+}
+
+export function isModdedCharacter(player: EntityPlayer): boolean {
+  const character = player.GetPlayerType();
+  return character > MAX_VANILLA_CHARACTER;
+}
+
+export function isVanillaCharacter(player: EntityPlayer): boolean {
+  return !isModdedCharacter(player);
 }
 
 export function removeCollectibleCostume(
