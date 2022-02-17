@@ -156,3 +156,12 @@ export function tableClear(table: LuaTable): void {
     table.delete(key);
   }
 }
+
+/** Helper function to trim a prefix from a string, if it exists. Returns the trimmed string. */
+export function trimPrefix(string: string, prefix: string): string {
+  if (!string.startsWith(prefix)) {
+    return string;
+  }
+
+  return string.slice(prefix.length);
+}

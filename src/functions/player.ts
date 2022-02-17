@@ -11,7 +11,7 @@ import { arraySum } from "./array";
 import { getKBitOfN, getNumBitsOfN } from "./bitwise";
 import { getCollectibleMaxCharges } from "./collectibles";
 import { getCollectibleSet } from "./collectibleSet";
-import { ensureAllCases } from "./util";
+import { ensureAllCases, trimPrefix } from "./util";
 
 const EXCLUDED_CHARACTERS = new Set<PlayerType>([
   PlayerType.PLAYER_ESAU, // 20
@@ -443,6 +443,21 @@ export function getPlayerMaxHeartContainers(player: EntityPlayer): int {
   }
 
   return maxHeartContainers;
+}
+
+/**
+ * Helper function to get the name of the player. Use this instead of the `EntityPlayer.GetName`
+ * method if you want the name to include the "Tainted" prefix.
+ */
+export function getPlayerName(player: EntityPlayer): string {
+  const name = player.GetName();
+
+  if (!isTainted(player)) {
+    return name;
+  }
+
+  const baseName = trimPrefix(name, "The ");
+  return `Tainted ${baseName}`;
 }
 
 /**
