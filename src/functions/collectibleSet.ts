@@ -1,5 +1,5 @@
 import { getMaxCollectibleID } from "./collectibles";
-import { copySet } from "./util";
+import { copySet } from "./set";
 
 const COLLECTIBLE_SET = new Set<CollectibleType | int>();
 

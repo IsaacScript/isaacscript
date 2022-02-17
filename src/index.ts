@@ -59,6 +59,7 @@ export * from "./functions/random";
 export * from "./functions/revive";
 export * from "./functions/rooms";
 export * from "./functions/seeds";
+export * from "./functions/set";
 export * from "./functions/spawnCollectible";
 export * from "./functions/sprite";
 export * from "./functions/stage";

@@ -1,5 +1,6 @@
 import { log } from "./log";
-import { addSetsToSet, copySet, isLuaDebugEnabled } from "./util";
+import { addSetsToSet, copySet } from "./set";
+import { isLuaDebugEnabled } from "./util";
 
 const DEFAULT_GLOBALS = new Set([
   "ActionTriggers",

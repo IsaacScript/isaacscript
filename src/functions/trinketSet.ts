@@ -1,5 +1,5 @@
+import { copySet } from "./set";
 import { getMaxTrinketID } from "./trinkets";
-import { copySet } from "./util";
 
 const TRINKET_SET = new Set<TrinketType | int>();
 

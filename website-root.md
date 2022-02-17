@@ -48,6 +48,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Revive Functions](modules/functions_revive.html)
 - [Room Functions](modules/functions_rooms.html)
 - [Seed Functions](modules/functions_seeds.html)
+- [Set Functions](modules/functions_set.html)
 - [Sprite Functions](modules/functions_sprite.html)
 - [Stage Functions](modules/functions_stage.html)
 - [Tears Functions](modules/functions_tears.html)
