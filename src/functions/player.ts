@@ -11,7 +11,7 @@ import { arraySum } from "./array";
 import { getKBitOfN, getNumBitsOfN } from "./bitwise";
 import { getCollectibleMaxCharges } from "./collectibles";
 import { getCollectibleSet } from "./collectibleSet";
-import { ensureAllCases, trimPrefix } from "./util";
+import { ensureAllCases, stringContains, trimPrefix } from "./util";
 
 const EXCLUDED_CHARACTERS = new Set<PlayerType>([
   PlayerType.PLAYER_ESAU, // 20
@@ -458,22 +458,48 @@ export function getPlayerName(player: EntityPlayer): string {
   }
 
   const baseName = trimPrefix(adjustedName, "The ");
-  return `Tainted ${baseName}`;
+  return stringContains(baseName, "Tainted") ? baseName : `Tainted ${baseName}`;
 }
 
 function getAdjustedPlayerName(player: EntityPlayer) {
   const character = player.GetPlayerType();
 
   switch (character) {
+    // 4, 25
     // "???" --> "Blue Baby"
     case PlayerType.PLAYER_BLUEBABY:
     case PlayerType.PLAYER_BLUEBABY_B: {
       return "Blue Baby";
     }
 
+    // 11
     // "Lazarus" --> "Lazarus II"
     case PlayerType.PLAYER_LAZARUS2: {
       return "Lazarus II";
+    }
+
+    // 12
+    // "Black Judas" --> "Dark Judas"
+    case PlayerType.PLAYER_BLACKJUDAS: {
+      return "Dark Judas";
+    }
+
+    // 19
+    // "Jacob" --> "Jacob & Esau"
+    case PlayerType.PLAYER_JACOB: {
+      return "Jacob & Esau";
+    }
+
+    // 38
+    // "Lazarus" --> "Dead Tainted Lazarus"
+    case PlayerType.PLAYER_LAZARUS2_B: {
+      return "Dead Tainted Lazarus";
+    }
+
+    // 39
+    // "Jacob" --> "Dead Tainted Jacob"
+    case PlayerType.PLAYER_JACOB2_B: {
+      return "Dead Tainted Jacob";
     }
 
     default: {

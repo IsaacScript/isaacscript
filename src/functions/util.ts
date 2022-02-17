@@ -147,6 +147,10 @@ export function printConsole(msg: string): void {
   Isaac.ConsoleOutput(`${msg}\n`);
 }
 
+export function stringContains(string: string, searchString: string): boolean {
+  return string.indexOf(searchString) !== -1;
+}
+
 /**
  * In a Map, you can use the `clear` method to delete every element. However, in a LuaTable, the
  * `clear` method does not exist. Use this helper function as a drop-in replacement for this.
