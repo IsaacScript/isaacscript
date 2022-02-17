@@ -446,20 +446,40 @@ export function getPlayerMaxHeartContainers(player: EntityPlayer): int {
 }
 
 /**
- * Helper function to get the name of the player. Use this instead of the `EntityPlayer.GetName`
- * method if you want the name to fill in "???" and include the "Tainted" prefix.
+ * Helper function to get the proper name of the player. Use this instead of the
+ * `EntityPlayer.GetName` method because it accounts for Blue Baby, Lazarus II, and Tainted
+ * characters.
  */
 export function getPlayerName(player: EntityPlayer): string {
-  const name = player.GetName();
-
-  const filledInName = name === "???" ? "Blue Baby" : name;
+  const adjustedName = getAdjustedPlayerName(player);
 
   if (!isTainted(player)) {
-    return filledInName;
+    return adjustedName;
   }
 
-  const baseName = trimPrefix(filledInName, "The ");
+  const baseName = trimPrefix(adjustedName, "The ");
   return `Tainted ${baseName}`;
+}
+
+function getAdjustedPlayerName(player: EntityPlayer) {
+  const character = player.GetPlayerType();
+
+  switch (character) {
+    // "???" --> "Blue Baby"
+    case PlayerType.PLAYER_BLUEBABY:
+    case PlayerType.PLAYER_BLUEBABY_B: {
+      return "Blue Baby";
+    }
+
+    // "Lazarus" --> "Lazarus II"
+    case PlayerType.PLAYER_LAZARUS2: {
+      return "Lazarus II";
+    }
+
+    default: {
+      return player.GetName();
+    }
+  }
 }
 
 /**
