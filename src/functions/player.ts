@@ -733,6 +733,12 @@ export function canTakeFreeDevilDeals(player: EntityPlayer): boolean {
   return CHARACTERS_WITH_FREE_DEVIL_DEALS.has(character);
 }
 
+/** Helper function for detecting if a player is one of the Tainted characters. */
+export function isTainted(player: EntityPlayer): boolean {
+  const character = player.GetPlayerType();
+  return character >= PlayerType.PLAYER_ISAAC_B;
+}
+
 /** Helper function for detecting when a player is Tainted Lazarus or Dead Tainted Lazarus. */
 export function isTaintedLazarus(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
