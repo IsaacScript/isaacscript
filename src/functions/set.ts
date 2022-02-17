@@ -12,10 +12,7 @@ export function addSetsToSet<T>(mainSet: Set<T>, ...setsToAdd: Array<Set<T>>) {
   }
 }
 
-/**
- * Using a Set constructor to copy a Set does not seem to work properly, so use this helper function
- * instead.
- */
+/** Helper function to copy a set. (You can also use a Set constructor to accomplish this task.) */
 export function copySet<T>(oldSet: Set<T>): Set<T> {
   const newSet = new Set<T>();
   for (const value of oldSet.values()) {
