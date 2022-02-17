@@ -164,3 +164,12 @@ export function forceSaveDataManagerSave(): void {
 
   saveToDisk(mod, saveDataMap, saveDataConditionalFuncMap);
 }
+
+/** @internal */
+export function forceSaveDataManagerLoad(): void {
+  if (mod === null) {
+    return;
+  }
+
+  loadFromDisk(mod, saveDataMap);
+}

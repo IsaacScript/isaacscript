@@ -3,6 +3,7 @@ import { deepCopy, SerializationType } from "../../functions/deepCopy";
 import { SaveData } from "../../types/SaveData";
 import {
   FEATURE_NAME,
+  forceSaveDataManagerLoad,
   forceSaveDataManagerSave,
   isSaveDataManagerInitialized,
 } from "./main";
@@ -63,11 +64,16 @@ import {
  * }
  * ```
  *
- * - Save data is loaded from disk in the MC_POST_PLAYER_INIT callback
- * (i.e. the first callback that can possibly run).
+ * - Save data is loaded from disk in the MC_POST_PLAYER_INIT callback (i.e. the first callback that
+ * can possibly run).
  * - Save data is recorded to disk in the MC_PRE_GAME_EXIT callback.
  *
  * Note that before using the save data manager, you must call the [[`upgradeMod`]] function.
+ *
+ * If you want the save data manager to load data before the MC_POST_PLAYER_INIT callback (i.e. in
+ * the main menu), then you should explicitly call the [[`saveDataManagerLoad`]] function. (The save
+ * data manager cannot do this on its own because it cannot know when your mod features are finished
+ * initializing.)
  *
  * Finally, some features may have variables that need to be automatically reset per run/level, but
  * not saved to disk on game exit. (For example, if they contain functions or other non-serializable
@@ -78,8 +84,8 @@ import {
  * @param saveData An object that corresponds to the `SaveData` interface. The object is
  * conventionally called "v" for brevity (which is short for "local variables").
  * @param conditionalFunc An optional function to run upon saving this key to disk. If the function
- * is false, the key will not be written to disk. This allows mod features to avoid cluttering the
- * "save#.dat" file with unnecessary keys.
+ * returns false, the key will not be written to disk. This allows mod features to avoid cluttering
+ * the "save#.dat" file with unnecessary keys.
  */
 export function saveDataManager(
   key: string,
@@ -143,6 +149,22 @@ export function saveDataManagerSave(): void {
   }
 
   forceSaveDataManagerSave();
+}
+
+/**
+ * The save data manager will automatically load variables from disk at the appropriate times (i.e.
+ * when a new run is started). Use this function to explicitly force the save data manager to load
+ * all of its variables from disk immediately.
+ *
+ * Note that doing this will overwrite current data, which can potentially result in lost state.
+ */
+export function saveDataManagerLoad(): void {
+  if (!isSaveDataManagerInitialized()) {
+    const msg = getUpgradeErrorMsg(FEATURE_NAME);
+    error(msg);
+  }
+
+  forceSaveDataManagerLoad();
 }
 
 declare let g: LuaTable<string, SaveData>; // Globals
