@@ -159,7 +159,8 @@ declare namespace Isaac {
    * Returns -1 if the specified character does not exist.
    *
    * @param playerName
-   * @param tainted Default is false.
+   * @param tainted Default is false. This only works with modded characters. For example,
+   * `Isaac.GetPlayerTypeByName("Isaac", true)` will return -1.
    */
   function GetPlayerTypeByName(
     playerName: string,
