@@ -7,6 +7,7 @@ import { postEsauJrCallbacksInit } from "./callbacks/postEsauJr";
 import { postFamiliarInitLateCallbackInit } from "./callbacks/postFamiliarInitLate";
 import { postFlipCallbacksInit } from "./callbacks/postFlip";
 import { postGridEntityCallbacksInit } from "./callbacks/postGridEntity";
+import { postGridEntityCollisionInit } from "./callbacks/postGridEntityCollision";
 import { postKnifeInitLateCallbackInit } from "./callbacks/postKnifeInitLate";
 import { postLaserInitLateCallbackInit } from "./callbacks/postLaserInitLate";
 import { postNewRoomEarlyCallbackInit } from "./callbacks/postNewRoomEarly";
@@ -121,6 +122,7 @@ function initCustomCallbacks(mod: ModUpgraded) {
   postSlotInitUpdateCallbacksInit(mod);
   postSlotRenderBrokenCallbacksInit(mod);
   postGridEntityCallbacksInit(mod);
+  postGridEntityCollisionInit(mod);
 }
 
 function initFeatures(mod: ModUpgraded) {

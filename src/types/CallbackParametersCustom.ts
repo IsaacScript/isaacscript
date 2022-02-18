@@ -8,6 +8,7 @@ import { PostFirstEsauJrCallbackType } from "../callbacks/subscriptions/postFirs
 import { PostFirstFlipCallbackType } from "../callbacks/subscriptions/postFirstFlip";
 import { PostFlipCallbackType } from "../callbacks/subscriptions/postFlip";
 import { PostGameStartedReorderedCallbackType } from "../callbacks/subscriptions/postGameStartedReordered";
+import { PostGridEntityCollisionCallbackType } from "../callbacks/subscriptions/postGridEntityCollision";
 import { PostGridEntityInitCallbackType } from "../callbacks/subscriptions/postGridEntityInit";
 import { PostGridEntityRemoveCallbackType } from "../callbacks/subscriptions/postGridEntityRemove";
 import { PostGridEntityUpdateCallbackType } from "../callbacks/subscriptions/postGridEntityUpdate";
@@ -249,6 +250,11 @@ export interface CallbackParametersCustom {
 
   [ModCallbacksCustom.MC_POST_GRID_ENTITY_REMOVE]: [
     callback: PostGridEntityRemoveCallbackType,
+    gridEntityType?: GridEntityType,
+  ];
+
+  [ModCallbacksCustom.MC_POST_GRID_ENTITY_COLLISION]: [
+    callback: PostGridEntityCollisionCallbackType,
     gridEntityType?: GridEntityType,
   ];
 }

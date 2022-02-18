@@ -17,6 +17,7 @@ import {
 
 const v = {
   room: {
+    /** Indexed by grid index. */
     initializedGridEntities: new Map<int, GridEntityType>(),
   },
 };
@@ -51,6 +52,16 @@ function postUpdate() {
   checkGridEntityRemoved();
 }
 
+function checkNewGridEntity(gridEntity: GridEntity) {
+  const gridIndex = gridEntity.GetGridIndex();
+  const gridEntityType = gridEntity.GetType();
+  const storedGridEntityType = v.room.initializedGridEntities.get(gridIndex);
+  if (storedGridEntityType !== gridEntityType) {
+    v.room.initializedGridEntities.set(gridIndex, gridEntityType);
+    postGridEntityInitFire(gridEntity);
+  }
+}
+
 function checkGridEntityRemoved() {
   const game = Game();
   const room = game.GetRoom();
@@ -75,15 +86,5 @@ function postNewRoom() {
 
   for (const gridEntity of getGridEntities()) {
     checkNewGridEntity(gridEntity);
-  }
-}
-
-function checkNewGridEntity(gridEntity: GridEntity) {
-  const gridIndex = gridEntity.GetGridIndex();
-  const gridEntityType = gridEntity.GetType();
-  const storedGridEntityType = v.room.initializedGridEntities.get(gridIndex);
-  if (storedGridEntityType !== gridEntityType) {
-    v.room.initializedGridEntities.set(gridIndex, gridEntityType);
-    postGridEntityInitFire(gridEntity);
   }
 }
