@@ -1,9 +1,6 @@
 const HEX_STRING_LENGTH = 6;
 
-/**
- * Using a Map constructor to copy a Map does not seem to work properly, so use this helper function
- * instead.
- */
+/** Helper function to copy a map. (You can also use a Map constructor to accomplish this task.) */
 export function copyMap<K, V>(oldMap: Map<K, V>): Map<K, V> {
   const newMap = new Map<K, V>();
   for (const [key, value] of oldMap.entries()) {

@@ -28,6 +28,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/charge.ts" \
   --entryPoints "$DIR/src/functions/collectibles.ts" \
   --entryPoints "$DIR/src/functions/collectibleSet.ts" \
+  --entryPoints "$DIR/src/functions/collectibleCacheFlag.ts" \
   --entryPoints "$DIR/src/functions/color.ts" \
   --entryPoints "$DIR/src/functions/debug.ts" \
   --entryPoints "$DIR/src/functions/deepCopy.ts" \
@@ -70,9 +71,9 @@ npx typedoc \
   --entryPoints "$DIR/src/maps/collectibleDescriptionMap.ts" \
   --entryPoints "$DIR/src/maps/collectibleNameMap.ts" \
   --entryPoints "$DIR/src/maps/gridEntityXMLMap.ts" \
+  --entryPoints "$DIR/src/maps/pillEffectClassMap.ts" \
   --entryPoints "$DIR/src/maps/pillEffectNameMap.ts" \
   --entryPoints "$DIR/src/maps/roomShapeToTopLeftWallGridIndexMap.ts" \
-  --entryPoints "$DIR/src/maps/transformationMap.ts" \
   --entryPoints "$DIR/src/maps/trinketDescriptionMap.ts" \
   --entryPoints "$DIR/src/maps/trinketNameMap.ts" \
   --entryPoints "$DIR/src/upgradeMod.ts" \
