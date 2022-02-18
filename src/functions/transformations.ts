@@ -23,6 +23,13 @@ const TRANSFORMATIONS_NOT_BASED_ON_ITEMS = new Set<PlayerForm>([
   PlayerForm.PLAYERFORM_FLIGHT, // 14 (unused enum)
 ]);
 
+const TRANSFORMATIONS_THAT_GRANT_FLYING = new Set<PlayerForm>([
+  PlayerForm.PLAYERFORM_GUPPY, // 0
+  PlayerForm.PLAYERFORM_LORD_OF_THE_FLIES, // 1
+  PlayerForm.PLAYERFORM_ANGEL, // 3
+  PlayerForm.PLAYERFORM_EVIL_ANGEL, // 8
+]);
+
 const TRANSFORMATION_TO_COLLECTIBLE_TYPES_MAP = new Map<
   PlayerForm,
   Set<CollectibleType | int>
@@ -131,10 +138,10 @@ export function getPlayerNumTransformationCollectibles(
  * // transformationName is "Beelzebub"
  * ```
  */
-export function getTransformationName(transformation: PlayerForm): string {
+export function getTransformationName(playerForm: PlayerForm): string {
   const defaultName = "Unknown";
 
-  const transformationName = TRANSFORMATION_NAME_MAP.get(transformation);
+  const transformationName = TRANSFORMATION_NAME_MAP.get(playerForm);
   return transformationName === undefined ? defaultName : transformationName;
 }
 
@@ -149,4 +156,18 @@ export function getTransformationsForCollectibleType(
   const transformations =
     COLLECTIBLE_TYPE_TO_TRANSFORMATION_MAP.get(collectibleType);
   return transformations === undefined ? new Set() : copySet(transformations);
+}
+
+export function isTransformationFlying(playerForm: PlayerForm): boolean {
+  return TRANSFORMATIONS_THAT_GRANT_FLYING.has(playerForm);
+}
+
+export function playerHasFlyingTransformation(player: EntityPlayer): boolean {
+  for (const playerForm of TRANSFORMATIONS_THAT_GRANT_FLYING.values()) {
+    if (player.HasPlayerForm(playerForm)) {
+      return true;
+    }
+  }
+
+  return false;
 }

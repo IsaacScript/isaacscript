@@ -1,5 +1,5 @@
 import { collectibleHasCacheFlag, getMaxCollectibleID } from "./collectibles";
-import { copySet } from "./set";
+import { copySet, deleteSetsFromSet } from "./set";
 import { getEnumValues } from "./util";
 
 const CACHE_FLAG_TO_COLLECTIBLES_MAP = new Map<
@@ -45,4 +45,24 @@ export function getCollectiblesForCacheFlag(
   }
 
   return copySet(collectiblesSet);
+}
+
+export function getFlyingCollectibles(): Set<CollectibleType | int> {
+  // Instead of manually compiling a list of collectibles that grant flying,
+  // we can instead dynamically look for collectibles that have "CacheFlag.CACHE_FLYING"
+  const collectiblesWithFlyingCacheFlag = getCollectiblesForCacheFlag(
+    CacheFlag.CACHE_FLYING,
+  );
+
+  // None of the collectibles with a cache of "all" grant flying,
+  // so we can safely remove them from the list
+  const collectiblesWithAllCacheFlag = getCollectiblesForCacheFlag(
+    CacheFlag.CACHE_ALL,
+  );
+  deleteSetsFromSet(
+    collectiblesWithFlyingCacheFlag,
+    collectiblesWithAllCacheFlag,
+  );
+
+  return collectiblesWithFlyingCacheFlag;
 }
