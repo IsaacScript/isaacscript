@@ -17,7 +17,7 @@ const v = {
 
 /** @internal */
 export function postGridEntityCollisionInit(mod: Mod): void {
-  saveDataManager("postGridEntity", v, hasSubscriptions);
+  saveDataManager("postGridEntityCollision", v, hasSubscriptions);
 
   mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate); // 1
 }
