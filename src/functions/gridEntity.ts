@@ -1,8 +1,10 @@
+import { DISTANCE_OF_GRID_TILE } from "../constants";
 import { GRID_ENTITY_XML_MAP } from "../maps/gridEntityXMLMap";
 import {
   DEFAULT_TOP_LEFT_WALL_GRID_INDEX,
   ROOM_SHAPE_TO_TOP_LEFT_WALL_GRID_INDEX_MAP,
 } from "../maps/roomShapeToTopLeftWallGridIndexMap";
+import { isCircleIntersectingRectangle } from "./math";
 import { roomUpdateSafe } from "./rooms";
 import { clearSprite } from "./sprite";
 
@@ -40,6 +42,38 @@ export function convertXMLGridEntityType(
   }
 
   return [gridEntityType, gridEntityVariant];
+}
+
+export function getCollidingEntitiesWithGridEntity(
+  gridEntity: GridEntity,
+): Entity[] {
+  const gridEntityCollisionTopLeft = Vector(
+    gridEntity.Position.X - DISTANCE_OF_GRID_TILE / 2,
+    gridEntity.Position.Y - DISTANCE_OF_GRID_TILE / 2,
+  );
+
+  const gridEntityCollisionBottomRight = Vector(
+    gridEntity.Position.X + DISTANCE_OF_GRID_TILE / 2,
+    gridEntity.Position.Y + DISTANCE_OF_GRID_TILE / 2,
+  );
+
+  const closeEntities = Isaac.FindInRadius(
+    gridEntity.Position,
+    DISTANCE_OF_GRID_TILE * 2,
+  );
+
+  const closeEntitiesThatCollideWithGrid = closeEntities.filter((entity) =>
+    entity.CollidesWithGrid(),
+  );
+
+  return closeEntitiesThatCollideWithGrid.filter((entity) =>
+    isCircleIntersectingRectangle(
+      entity.Position,
+      entity.Size,
+      gridEntityCollisionTopLeft,
+      gridEntityCollisionBottomRight,
+    ),
+  );
 }
 
 /**
