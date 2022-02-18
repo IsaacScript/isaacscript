@@ -1,6 +1,15 @@
 import { getCollectiblesForCacheFlag } from "./collectibleCacheFlag";
 import { copySet, deleteSetsFromSet } from "./set";
 
+const FLYING_CHARACTERS = new Set<PlayerType>([
+  PlayerType.PLAYER_AZAZEL, // 7
+  PlayerType.PLAYER_THELOST, // 10
+  PlayerType.PLAYER_THESOUL, // 17
+  PlayerType.PLAYER_THELOST_B, // 31
+  PlayerType.PLAYER_JACOB2_B, // 39
+  PlayerType.PLAYER_THESOUL_B, // 40
+]);
+
 const FLYING_TRINKETS = new Set<TrinketType>([
   TrinketType.TRINKET_BAT_WING, // 118
   TrinketType.TRINKET_AZAZELS_STUMP, // 162
@@ -77,4 +86,9 @@ export function hasFlyingTemporaryEffect(player: EntityPlayer): boolean {
   }
 
   return false;
+}
+
+export function isFlyingCharacter(player: EntityPlayer): boolean {
+  const character = player.GetPlayerType();
+  return FLYING_CHARACTERS.has(character);
 }
