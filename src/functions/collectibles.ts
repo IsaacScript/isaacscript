@@ -5,6 +5,7 @@ import {
 import { COLLECTIBLE_DESCRIPTION_MAP } from "../maps/collectibleDescriptionMap";
 import { COLLECTIBLE_NAME_MAP } from "../maps/collectibleNameMap";
 import { getPickups, removeAllPickups } from "./entity";
+import { hasFlag } from "./flag";
 import { clearSprite } from "./sprite";
 
 const COLLECTIBLE_SPRITE_LAYER = 1;
@@ -25,6 +26,20 @@ export function collectibleHasTag(
   }
 
   return itemConfigItem.HasTags(tag);
+}
+
+export function collectibleHasCacheFlag(
+  collectibleType: CollectibleType | int,
+  cacheFlag: CacheFlag,
+): boolean {
+  const itemConfig = Isaac.GetItemConfig();
+
+  const itemConfigItem = itemConfig.GetCollectible(collectibleType);
+  if (itemConfigItem === undefined) {
+    return false;
+  }
+
+  return hasFlag(itemConfigItem.CacheFlags, cacheFlag);
 }
 
 /**
