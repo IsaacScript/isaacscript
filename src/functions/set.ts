@@ -1,6 +1,6 @@
 /**
- * Helper function to add all of the contents of one set to another set. The first set passed will
- * be modified in place.
+ * Helper function to add all of the values in one set to another set. The first set passed will be
+ * modified in place.
  *
  * This function is variadic, meaning that you can specify N sets to add to the first set.
  */
@@ -36,4 +36,21 @@ export function combineSets<T>(...sets: Array<Set<T>>): Set<T> {
   }
 
   return newSet;
+}
+
+/**
+ * Helper function to delete all of the values in one set from another set. The first set passed
+ * will be modified in place.
+ *
+ * This function is variadic, meaning that you can specify N sets to remove from the first set.
+ */
+export function deleteSetsFromSet<T>(
+  mainSet: Set<T>,
+  ...setsToRemove: Array<Set<T>>
+) {
+  for (const set of setsToRemove) {
+    for (const value of set.values()) {
+      mainSet.delete(value);
+    }
+  }
 }
