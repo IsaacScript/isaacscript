@@ -71,6 +71,7 @@ export * from "./functions/trinketSet";
 export * from "./functions/ui";
 export * from "./functions/util";
 export * from "./functions/vector";
+export * from "./maps/cacheFlagToCollectiblesMap";
 export * from "./maps/cardNameMap";
 export * from "./maps/collectibleNameMap";
 export * from "./maps/gridEntityXMLMap";
