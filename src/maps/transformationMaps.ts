@@ -37,6 +37,8 @@ export const ITEM_TO_TRANSFORMATION_MAP = new Map<
 initMaps();
 
 function initMaps() {
+  const maxCollectibleID = getMaxCollectibleID();
+
   // The transformation to items map should be valid for every transformation,
   // so we initialize it with empty sets
   for (const playerForm of TRANSFORMATION_TO_TAG_MAP.keys()) {
@@ -45,7 +47,7 @@ function initMaps() {
 
   for (
     let collectibleType = 1;
-    collectibleType <= getMaxCollectibleID();
+    collectibleType <= maxCollectibleID;
     collectibleType++
   ) {
     for (const [playerForm, tag] of TRANSFORMATION_TO_TAG_MAP.entries()) {

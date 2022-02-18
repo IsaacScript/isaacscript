@@ -5,10 +5,11 @@ const COLLECTIBLE_SET = new Set<CollectibleType | int>();
 
 function initCollectibleSet() {
   const itemConfig = Isaac.GetItemConfig();
+  const maxCollectibleID = getMaxCollectibleID();
 
   for (
     let collectibleType = 1;
-    collectibleType <= getMaxCollectibleID();
+    collectibleType <= maxCollectibleID;
     collectibleType++
   ) {
     const itemConfigItem = itemConfig.GetCollectible(collectibleType);
