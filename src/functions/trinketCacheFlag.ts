@@ -38,3 +38,24 @@ export function getTrinketsForCacheFlag(
 
   return copySet(trinketsSet);
 }
+
+/**
+ * Returns a map containing every trinket type that the player has that matches the provided
+ * CacheFlag. The values of the map correspond to the multiplier for that trinket.
+ */
+export function getPlayerTrinketsForCacheFlag(
+  player: EntityPlayer,
+  cacheFlag: CacheFlag,
+): Map<TrinketType | int, int> {
+  const trinketsForCacheFlag = getTrinketsForCacheFlag(cacheFlag);
+
+  const playerTrinkets = new Map<TrinketType | int, int>();
+  for (const trinketType of trinketsForCacheFlag.values()) {
+    const trinketMultiplier = player.GetTrinketMultiplier(trinketType);
+    if (trinketMultiplier > 0) {
+      playerTrinkets.set(trinketType, trinketMultiplier);
+    }
+  }
+
+  return playerTrinkets;
+}

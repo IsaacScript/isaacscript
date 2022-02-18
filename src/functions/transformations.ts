@@ -158,11 +158,7 @@ export function getTransformationsForCollectibleType(
   return transformations === undefined ? new Set() : copySet(transformations);
 }
 
-export function isTransformationFlying(playerForm: PlayerForm): boolean {
-  return TRANSFORMATIONS_THAT_GRANT_FLYING.has(playerForm);
-}
-
-export function playerHasFlyingTransformation(player: EntityPlayer): boolean {
+export function hasFlyingTransformation(player: EntityPlayer): boolean {
   for (const playerForm of TRANSFORMATIONS_THAT_GRANT_FLYING.values()) {
     if (player.HasPlayerForm(playerForm)) {
       return true;
@@ -170,4 +166,8 @@ export function playerHasFlyingTransformation(player: EntityPlayer): boolean {
   }
 
   return false;
+}
+
+export function isTransformationFlying(playerForm: PlayerForm): boolean {
+  return TRANSFORMATIONS_THAT_GRANT_FLYING.has(playerForm);
 }
