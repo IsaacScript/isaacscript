@@ -36,6 +36,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/entity.ts" \
   --entryPoints "$DIR/src/functions/familiars.ts" \
   --entryPoints "$DIR/src/functions/flag.ts" \
+  --entryPoints "$DIR/src/functions/flying.ts" \
   --entryPoints "$DIR/src/functions/globals.ts" \
   --entryPoints "$DIR/src/functions/gridEntity.ts" \
   --entryPoints "$DIR/src/functions/input.ts" \
@@ -61,6 +62,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/tears.ts" \
   --entryPoints "$DIR/src/functions/transformations.ts" \
   --entryPoints "$DIR/src/functions/trinkets.ts" \
+  --entryPoints "$DIR/src/functions/trinketCacheFlag.ts" \
   --entryPoints "$DIR/src/functions/trinketGive.ts" \
   --entryPoints "$DIR/src/functions/trinketSet.ts" \
   --entryPoints "$DIR/src/functions/ui.ts" \

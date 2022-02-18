@@ -2,6 +2,7 @@ import { GOLDEN_TRINKET_SHIFT } from "../constants";
 import { TRINKET_DESCRIPTION_MAP } from "../maps/trinketDescriptionMap";
 import { TRINKET_NAME_MAP } from "../maps/trinketNameMap";
 import { getPickups } from "./entity";
+import { hasFlag } from "./flag";
 import { useActiveItemTemp } from "./player";
 import { giveTrinketsBack, temporarilyRemoveTrinkets } from "./trinketGive";
 
@@ -154,4 +155,18 @@ export function smeltTrinket(
   }
 
   giveTrinketsBack(player, trinketSituation);
+}
+
+export function trinketHasCacheFlag(
+  trinketType: TrinketType | int,
+  cacheFlag: CacheFlag,
+): boolean {
+  const itemConfig = Isaac.GetItemConfig();
+
+  const itemConfigItem = itemConfig.GetTrinket(trinketType);
+  if (itemConfigItem === undefined) {
+    return false;
+  }
+
+  return hasFlag(itemConfigItem.CacheFlags, cacheFlag);
 }
