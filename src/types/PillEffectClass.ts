@@ -8,3 +8,5 @@ export enum PillEffectClass {
   MEDIUM,
   MAJOR,
 }
+
+export const DEFAULT_PILL_EFFECT_CLASS = PillEffectClass.MEDIUM;

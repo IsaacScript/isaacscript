@@ -7,3 +7,5 @@ export enum PillEffectType {
   NEGATIVE,
   NEUTRAL,
 }
+
+export const DEFAULT_PILL_EFFECT_TYPE = PillEffectType.NEUTRAL;
