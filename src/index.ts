@@ -91,6 +91,8 @@ export * from "./types/JSONSpawn";
 export * from "./types/ModCallbacksCustom";
 export * from "./types/ModUpgraded";
 export * from "./types/PickingUpItem";
+export * from "./types/PillEffectClass";
+export * from "./types/PillEffectType";
 export * from "./types/PlayerHealth";
 export * from "./types/PocketItemDescription";
 export * from "./types/PocketItemType";
