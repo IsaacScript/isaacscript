@@ -165,6 +165,7 @@
         "tonumber",
         "tostring",
         "traceback",
+        "Transcendences",
         "transpiled",
         "transpiles",
         "Trisagion",
