@@ -836,6 +836,10 @@ export function isVanillaCharacter(player: EntityPlayer): boolean {
   return !isModdedCharacter(player);
 }
 
+/**
+ * Helper function to remove a collectible costume from a player. Use this helper function to avoid
+ * having to request the collectible from the item config.
+ */
 export function removeCollectibleCostume(
   player: EntityPlayer,
   collectibleType: CollectibleType | int,
@@ -862,6 +866,10 @@ export function removeDeadEyeMultiplier(player: EntityPlayer): void {
   }
 }
 
+/**
+ * Helper function to remove a trinket costume from a player. Use this helper function to avoid
+ * having to request the trinket from the item config.
+ */
 export function removeTrinketCostume(
   player: EntityPlayer,
   trinketType: TrinketType | int,
