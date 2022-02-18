@@ -976,6 +976,10 @@ declare interface EntityPlayer extends Entity {
   TryHoldTrinket(trinketType: TrinketType | int): boolean;
 
   /**
+   * This method will crash the game if you provide it an invalid collectible type, such as -1 or
+   * 43. (Using 0 will not cause a crash.) Thus, it is safer to use the `RemoveCostume` method
+   * instead.
+   *
    * @param collectibleType
    * @param keepPersistent If set to false, this method will only remove temporary costumes.
    */
@@ -996,7 +1000,12 @@ declare interface EntityPlayer extends Entity {
    */
   TryRemoveTrinket(trinketType: TrinketType | int): boolean;
 
+  /**
+   * This method will crash the game if you provide it an invalid trinket type, such as -1, 0, or
+   * 500. Thus, it is safer to use the `RemoveCostume` method instead.
+   */
   TryRemoveTrinketCostume(trinketType: TrinketType | int): void;
+
   TryUseKey(): boolean;
   UpdateCanShoot(): void;
 
