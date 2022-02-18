@@ -9,7 +9,7 @@ Coding in TypeScript is a bit more involved than coding in Lua, since it require
 
 ### Are you good with computers? Have you programmed anything before?
 
-- No - ❌ - `isaacscript` is a command-line program. If you don't know what that is, then this is not be the right tool for you.
+- No - ❌ - `isaacscript` is a command-line program. If you don't know what that is, then this is not the right tool for you.
 - Yes - ✔️ - Using IsaacScript is as simple as using any other compiler.
 
 ### How much time are you spending on coding Isaac mods?
