@@ -15,7 +15,7 @@ Coding in TypeScript is a bit more involved than coding in Lua, since it require
 ### How much time are you spending on coding Isaac mods?
 
 - Not a lot of time - ❌ - Code quick mods in Lua and move on with your life.
-- A lot of time - ✔️ - Using `isaacscript` will save you a time:
+- A lot of time - ✔️ - Using `isaacscript` will save you a lot of time:
   - Automatic formatting and tab-complete makes typing up mod code twice as fast.
   - With automatic in-game loading, testing your mods is lightning fast.
   - You will waste less time running-around in-game debugging run-time errors.
