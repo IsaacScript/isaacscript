@@ -72,6 +72,23 @@ function getCircleInitialPosition(direction: Direction, radius: float) {
   }
 }
 
+/**
+ * Helper function to check if a given position is within a given rectangle. This is an inclusive
+ * check, meaning that it will return true if the position is on the border of the rectangle.
+ */
+export function inRectangle(
+  position: Vector,
+  topLeft: Vector,
+  bottomRight: Vector,
+): boolean {
+  return (
+    position.X >= topLeft.X &&
+    position.X <= bottomRight.X &&
+    position.Y <= topLeft.Y &&
+    position.Y >= bottomRight.Y
+  );
+}
+
 export function isEven(num: int): boolean {
   return (num & 1) === 0;
 }
