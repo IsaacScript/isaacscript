@@ -89,6 +89,32 @@ export function inRectangle(
   );
 }
 
+/**
+ * From: https://www.geeksforgeeks.org/check-if-any-point-overlaps-the-given-circle-and-rectangle/
+ */
+export function isCircleIntersectingRectangle(
+  circleCenter: Vector,
+  circleRadius: float,
+  rectangleTopLeft: Vector,
+  rectangleBottomRight: Vector,
+) {
+  const nearestX = Math.max(
+    rectangleTopLeft.X,
+    Math.min(circleCenter.X, rectangleBottomRight.X),
+  );
+
+  const nearestY = Math.max(
+    rectangleTopLeft.Y,
+    Math.min(circleCenter.Y, rectangleBottomRight.Y),
+  );
+
+  const nearestPointToCircleOnRectangle = Vector(nearestX, nearestY);
+  const distanceToCenterOfCircle =
+    nearestPointToCircleOnRectangle.Distance(circleCenter);
+
+  return distanceToCenterOfCircle <= circleRadius;
+}
+
 export function isEven(num: int): boolean {
   return (num & 1) === 0;
 }
