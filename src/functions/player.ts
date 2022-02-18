@@ -180,6 +180,10 @@ export function getDeathAnimationName(player: EntityPlayer): string {
   return "Death";
 }
 
+/**
+ * Helper function to return the player with the highest index, according to the
+ * `Isaac.GetPlayer()` method.
+ */
 export function getFinalPlayer(): EntityPlayer {
   const players = getPlayers();
 
