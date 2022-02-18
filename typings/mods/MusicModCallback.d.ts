@@ -1,5 +1,6 @@
 declare const MMC: MusicModCallback | undefined;
 
+/** @noSelf */
 declare interface MusicModCallback {
   /**
    * Adds a callback to be triggered whenever a track is about to play. Used for changing music.
