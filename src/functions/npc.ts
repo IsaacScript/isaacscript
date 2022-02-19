@@ -29,7 +29,8 @@ const NON_ALIVE_NPCS_TYPE_VARIANT = new Set<string>([
  * doors open.
  */
 const NON_ALIVE_NPCS_TYPE_VARIANT_SUBTYPE = new Set<string>([
-  `${EntityType.ENTITY_CHARGER}.${ChargerVariant.CHARGER}.${ChargerSubType.MY_SHADOW}`,
+  `${EntityType.ENTITY_CHARGER}.${ChargerVariant.CHARGER}.${ChargerSubType.MY_SHADOW}`, // 23.0.1
+  `${EntityType.ENTITY_MOTHER}.${MotherVariant.MOTHER_1}.${MotherSubType.PHASE_2}`, // 912
 ]);
 
 /**
