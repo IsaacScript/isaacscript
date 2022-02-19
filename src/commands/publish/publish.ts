@@ -256,6 +256,7 @@ function gitCommitIfChanges(version: string, verbose: boolean) {
   const [exitCode] = execShell(
     "git",
     ["diff-index", "--quiet", "HEAD", "--"],
+    verbose,
     true,
   );
   if (exitCode === 0) {
