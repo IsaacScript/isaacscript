@@ -96,6 +96,17 @@ export function setFamiliarNoSirenSteal(
 }
 
 /**
+ * Helper function to check if the Siren boss has stolen a familiar. Some familiars may need to
+ * behave differently when under The Siren's control (e.g. if they auto-target enemies).
+ *
+ * @param familiar The familiar to be checked.
+ * @returns Returns whether the familiar has been stolen by The Siren.
+ */
+export function hasSirenStolenFamiliar(familiar: EntityFamiliar): boolean {
+  return getSirenHelper(familiar) !== undefined;
+}
+
+/**
  * When The Siren boss "steals" your familiars, a hidden "Siren Helper" entity is spawned to control
  * each familiar stolen. (Checking for this entity seems to be the only way to detect when the Siren
  * steals a familiar.)
@@ -118,15 +129,4 @@ function getSirenHelper(familiar: EntityFamiliar): Entity | undefined {
   }
 
   return undefined;
-}
-
-/**
- * Helper function to check if the Siren boss has stolen a familiar. Some familiars may need to
- * behave differently when under The Siren's control (e.g. if they auto-target enemies).
- *
- * @param familiar The familiar to be checked.
- * @returns Returns whether the familiar has been stolen by The Siren.
- */
-export function hasSirenStolenFamiliar(familiar: EntityFamiliar): boolean {
-  return getSirenHelper(familiar) !== undefined;
 }

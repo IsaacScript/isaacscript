@@ -15,6 +15,11 @@ const FLYING_TRINKETS = new Set<TrinketType>([
   TrinketType.TRINKET_AZAZELS_STUMP, // 162
 ]);
 
+const FLYING_NULL_ITEMS = [
+  NullItemID.ID_REVERSE_SUN, // 66
+  NullItemID.ID_SPIRIT_SHACKLES_SOUL, // 10
+];
+
 /**
  * Returns a set of all of the collectibles that grant flight. This is derived from collectibles
  * that have `CacheFlag.CACHE_FLYING` set in the "items.xml" file.
@@ -71,6 +76,8 @@ export function getFlyingTrinkets(): Set<CollectibleType | int> {
 export function hasFlyingTemporaryEffect(player: EntityPlayer): boolean {
   const effects = player.GetEffects();
 
+  // Hanged Man card gives a Transcendence temporary effect
+  // Pinking Shears gives a Transcendence temporary effect
   const flyingCollectibles = getFlyingCollectibles(false);
   for (const collectibleType of flyingCollectibles.values()) {
     if (effects.HasCollectibleEffect(collectibleType)) {
@@ -81,6 +88,12 @@ export function hasFlyingTemporaryEffect(player: EntityPlayer): boolean {
   const flyingTrinkets = getFlyingTrinkets();
   for (const trinketType of flyingTrinkets.values()) {
     if (effects.HasTrinketEffect(trinketType)) {
+      return true;
+    }
+  }
+
+  for (const nullItemID of FLYING_NULL_ITEMS) {
+    if (effects.HasNullEffect(nullItemID)) {
       return true;
     }
   }
