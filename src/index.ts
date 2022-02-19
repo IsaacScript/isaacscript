@@ -19,7 +19,12 @@ export {
 export { forgottenSwitch } from "./features/forgottenSwitch";
 export { getCollectibleItemPoolType } from "./features/getCollectibleItemPoolType";
 export { preventCollectibleRotate } from "./features/preventCollectibleRotate";
-export { runInNFrames, runNextFrame } from "./features/runInNFrames";
+export {
+  runInNGameFrames,
+  runInNRenderFrames,
+  runNextGameFrame,
+  runNextRenderFrame,
+} from "./features/runInNFrames";
 export * from "./features/saveDataManager/exports";
 export {
   hasSirenStolenFamiliar,

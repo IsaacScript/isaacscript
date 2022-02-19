@@ -5,13 +5,14 @@ const FEATURE_NAME = "run in N frames";
 
 let initialized = false;
 
-/** The game frame count to fire, paired with the corresponding function. */
+/** The frame count to fire, paired with the corresponding function. */
 type FunctionTuple = [int, () => void];
 
 const v = {
   dontSave: true,
   run: {
-    queuedFunctionTuples: [] as FunctionTuple[],
+    queuedGameFunctionTuples: [] as FunctionTuple[],
+    queuedRenderFunctionTuples: [] as FunctionTuple[],
   },
 };
 
@@ -20,7 +21,8 @@ export function runInNFramesInit(mod: Mod): void {
   initialized = true;
   saveDataManager("runInNFrames", v);
 
-  mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate);
+  mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate); // 1
+  mod.AddCallback(ModCallbacks.MC_POST_RENDER, postRender); // 2
 }
 
 // ModCallbacks.MC_POST_UPDATE (1)
@@ -28,24 +30,86 @@ function postUpdate() {
   const game = Game();
   const gameFrameCount = game.GetFrameCount();
 
+  checkExecuteQueuedFunctions(gameFrameCount, v.run.queuedGameFunctionTuples);
+}
+
+// ModCallbacks.MC_POST_RENDER (2)
+function postRender() {
+  const isaacFrameCount = Isaac.GetFrameCount();
+
+  checkExecuteQueuedFunctions(
+    isaacFrameCount,
+    v.run.queuedRenderFunctionTuples,
+  );
+}
+
+function checkExecuteQueuedFunctions(
+  frameCount: int,
+  functionTuples: FunctionTuple[],
+) {
   const functionsToFire: Array<() => void> = [];
   const indexesToRemove: int[] = [];
-  for (let i = 0; i < v.run.queuedFunctionTuples.length; i++) {
-    const functionTuple = v.run.queuedFunctionTuples[i];
+  for (let i = 0; i < functionTuples.length; i++) {
+    const functionTuple = functionTuples[i];
     const [frame, func] = functionTuple;
-    if (gameFrameCount >= frame) {
+    if (frameCount >= frame) {
       functionsToFire.push(func);
       indexesToRemove.push(i);
     }
   }
 
   for (const indexToRemove of indexesToRemove) {
-    v.run.queuedFunctionTuples.splice(indexToRemove, 1);
+    functionTuples.splice(indexToRemove, 1);
   }
 
   for (const func of functionsToFire) {
     func();
   }
+}
+
+/**
+ * Supply a function to run N game frames from now in the PostUpdate callback.
+ *
+ * For a usage example, see the documentation for the `runNextGameFrame`, which is used in a similar
+ * way.
+ *
+ * Note that this function will not handle saving and quitting. If a player saving and quitting
+ * before the deferred function fires would cause a bug in your mod, then you should handle deferred
+ * functions manually using serializable data.
+ */
+export function runInNGameFrames(func: () => void, frames: int): void {
+  if (!initialized) {
+    const msg = getUpgradeErrorMsg(FEATURE_NAME);
+    error(msg);
+  }
+
+  const game = Game();
+  const gameFrameCount = game.GetFrameCount();
+  const functionFireFrame = gameFrameCount + frames;
+  const tuple: [int, () => void] = [functionFireFrame, func];
+  v.run.queuedGameFunctionTuples.push(tuple);
+}
+
+/**
+ * Supply a function to run N render frames from now in the PostRender callback.
+ *
+ * For a usage example, see the documentation for the `runNextGameFrame`, which is used in a similar
+ * way.
+ *
+ * Note that this function will not handle saving and quitting. If a player saving and quitting
+ * before the deferred function fires would cause a bug in your mod, then you should handle deferred
+ * functions manually using serializable data.
+ */
+export function runInNRenderFrames(func: () => void, frames: int): void {
+  if (!initialized) {
+    const msg = getUpgradeErrorMsg(FEATURE_NAME);
+    error(msg);
+  }
+
+  const isaacFrameCount = Isaac.GetFrameCount();
+  const functionFireFrame = isaacFrameCount + frames;
+  const tuple: [int, () => void] = [functionFireFrame, func];
+  v.run.queuedRenderFunctionTuples.push(tuple);
 }
 
 /**
@@ -71,38 +135,32 @@ function postUpdate() {
  * }
  * ```
  *
- * Note that this function will not handle saving and quitting, so if a player saving and quitting
- * before the next PostUpdate frame would cause a bug in your mod, then you should handle deferred
+ * Note that this function will not handle saving and quitting. If a player saving and quitting
+ * before the deferred function fires would cause a bug in your mod, then you should handle deferred
  * functions manually using serializable data.
  */
-export function runNextFrame(func: () => void): void {
+export function runNextGameFrame(func: () => void): void {
   if (!initialized) {
     const msg = getUpgradeErrorMsg(FEATURE_NAME);
     error(msg);
   }
 
-  runInNFrames(func, 1);
+  runInNGameFrames(func, 1);
 }
 
 /**
- * Supply a function to run N frames from now in the PostUpdate callback.
+ * Supply a function to run on the next PostRender callback.
  *
- * For a usage example, see the documentation for the `runNextFrame`, which is used in a similar
+ * For a usage example, see the documentation for the `runNextGameFrame`, which is used in a similar
  * way.
  *
- * Note that this function will not handle saving and quitting, so if a player saving and quitting
- * before the next PostUpdate frame would cause a bug in your mod, then you should handle deferred
- * functions manually using serializable data.
+ * Note that this function will not handle saving and quitting.
  */
-export function runInNFrames(func: () => void, frames: int): void {
+export function runNextRenderFrame(func: () => void): void {
   if (!initialized) {
     const msg = getUpgradeErrorMsg(FEATURE_NAME);
     error(msg);
   }
 
-  const game = Game();
-  const gameFrameCount = game.GetFrameCount();
-  const functionFireFrame = gameFrameCount + frames;
-  const tuple: [int, () => void] = [functionFireFrame, func];
-  v.run.queuedFunctionTuples.push(tuple);
+  runInNRenderFrames(func, 1);
 }
