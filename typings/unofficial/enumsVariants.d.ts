@@ -976,8 +976,15 @@ declare const enum RotgutVariant {
 
 /** For EntityType.ENTITY_MOTHER (912) */
 declare const enum MotherVariant {
-  PHASE_1 = 0,
-  PHASE_2 = 10,
+  /**
+   * The body that is attached to the top of the screen in phase 1. During phase 2, it remains alive
+   * but is inactive.
+   */
+  MOTHER_1 = 0,
+
+  /** The circular body that moves around in phase 2. */
+  MOTHER_2 = 10,
+
   BALL = 100,
 }
 

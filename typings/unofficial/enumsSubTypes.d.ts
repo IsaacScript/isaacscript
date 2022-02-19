@@ -39,6 +39,12 @@ declare const enum ConstantStoneShooterSubType {
   DOWN = 3,
 }
 
+/** For EntityType.ENTITY_MOTHER (912), MotherVariant.MOTHER_1 (0) */
+declare const enum MotherSubType {
+  PHASE_1,
+  PHASE_2,
+}
+
 /** For EntityType.ENTITY_EFFECT (1000), EffectVariant.POOF01 (15) */
 declare const enum PoofSubType {
   NORMAL = 0,

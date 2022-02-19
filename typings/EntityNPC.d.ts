@@ -47,6 +47,14 @@ declare interface EntityNPC extends Entity {
 
   MakeSplat(size: float): EntityEffect;
 
+  /**
+   * Change the NPC into another one.
+   *
+   * @param entityType
+   * @param variant
+   * @param subType
+   * @param championColorIdx Pass -1 to morph into a non-champion.
+   */
   Morph(
     entityType: EntityType | int,
     variant: int,
