@@ -142,13 +142,16 @@ export function getRoomDescriptor(roomGridIndex?: int): RoomDescriptor {
  * specified room type.
  *
  * This function only searches through rooms in the current dimension.
+ *
+ * This function is variadic, meaning that you can specify N arguments to get the combined grid
+ * indexes for N room types.
  */
-export function getRoomGridIndexesForType(roomType: RoomType): int[] {
+export function getRoomGridIndexesForType(...roomTypes: RoomType[]): int[] {
   const rooms = getRooms();
   const matchingRooms = rooms.filter(
     (roomDescriptor) =>
       roomDescriptor.Data !== undefined &&
-      roomDescriptor.Data.Type === roomType,
+      roomTypes.includes(roomDescriptor.Data.Type),
   );
   return matchingRooms.map((roomDescriptor) => roomDescriptor.SafeGridIndex);
 }
