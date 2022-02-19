@@ -21,6 +21,18 @@ declare const enum BloodClotSubType {
   /** Spawned by the Blood Clot trinket; cannot be turned into health by Sumptorium. */
   RED_NO_SUMPTORIUM = 7,
 }
+
+/** For EntityType.ENTITY_PICKUP (5), PickupVariant.PICKUP_NULL (0) */
+declare const enum PickupNullSubType {
+  /** Has a chance to spawn any possible pickup, including collectibles. */
+  ALL,
+
+  EXCLUDE_COLLECTIBLES_CHESTS,
+  EXCLUDE_COLLECTIBLES,
+  EXCLUDE_COLLECTIBLES_CHESTS_COINS,
+  EXCLUDE_COLLECTIBLES_TRINKETS_CHESTS,
+}
+
 /** For EntityType.ENTITY_CHARGER (23), ChargerVariant.CHARGER (0) */
 declare const enum ChargerSubType {
   CHARGER = 0,
