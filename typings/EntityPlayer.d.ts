@@ -216,7 +216,10 @@ declare interface EntityPlayer extends Entity {
     collectibleAnimation?: CollectibleAnimation,
   ): void;
 
-  /** Play the "thumbs up" animation. */
+  /**
+   * Plays the "thumbs up" animation.
+   * Also plays `SoundEffect.SOUND_THUMBSUP`.
+   */
   AnimateHappy(): void;
 
   /** Play the animation where Isaac steps into a beam of light (e.g. at the end of Womb 2). */
@@ -250,7 +253,7 @@ declare interface EntityPlayer extends Entity {
 
   /**
    * Play the animation where Isaac holds his head in his hands.
-   * Also plays the associated sound effect.
+   * Also plays `SoundEffect.SOUND_THUMBS_DOWN`.
    */
   AnimateSad(): void;
 
