@@ -761,11 +761,23 @@ declare enum LaserOffset {
 
 declare enum ActionTriggers {
   ACTIONTRIGGER_NONE = 0,
-  ACTIONTRIGGER_BOMBPLACED = 1,
+
+  /** 1 << 0 */
+  ACTIONTRIGGER_BOMBPLACED = 1 << 0,
+
+  /** 1 << 1 */
   ACTIONTRIGGER_MOVED = 1 << 1,
+
+  /** 1 << 2 */
   ACTIONTRIGGER_SHOOTING = 1 << 2,
+
+  /** 1 << 3 */
   ACTIONTRIGGER_CARDPILLUSED = 1 << 3,
+
+  /** 1 << 4 */
   ACTIONTRIGGER_ITEMACTIVATED = 1 << 4,
+
+  /** 1 << 5 */
   ACTIONTRIGGER_ITEMSDROPPED = 1 << 5,
 }
 
@@ -928,14 +940,31 @@ declare enum DoorSlot {
 
 declare enum LevelCurse {
   CURSE_NONE = 0,
-  CURSE_OF_DARKNESS = 1,
+
+  /** 1 << 0 */
+  CURSE_OF_DARKNESS = 1 << 0,
+
+  /** 1 << 1 */
   CURSE_OF_LABYRINTH = 1 << 1,
+
+  /** 1 << 2 */
   CURSE_OF_THE_LOST = 1 << 2,
+
+  /** 1 << 3 */
   CURSE_OF_THE_UNKNOWN = 1 << 3,
+
+  /** 1 << 4 */
   CURSE_OF_THE_CURSED = 1 << 4,
+
+  /** 1 << 5 */
   CURSE_OF_MAZE = 1 << 5,
+
+  /** 1 << 6 */
   CURSE_OF_BLIND = 1 << 6,
+
+  /** 1 << 7 */
   CURSE_OF_GIANT = 1 << 7,
+
   NUM_CURSES = 9,
 }
 
@@ -2191,12 +2220,25 @@ declare enum ItemPoolType {
 }
 
 declare enum EntityPartition {
-  FAMILIAR = 1,
+  /** 1 << 0 */
+  FAMILIAR = 1 << 0,
+
+  /** 1 << 1 */
   BULLET = 1 << 1,
+
+  /** 1 << 2 */
   TEAR = 1 << 2,
+
+  /** 1 << 3 */
   ENEMY = 1 << 3,
+
+  /** 1 << 4 */
   PICKUP = 1 << 4,
+
+  /** 1 << 5 */
   PLAYER = 1 << 5,
+
+  /** 1 << 6 */
   EFFECT = 1 << 6,
 }
 
@@ -2379,42 +2421,6 @@ declare enum BackdropType {
   ASHPIT_SHAFT = 59,
   DARK_CLOSET = 60,
   NUM_BACKDROPS = 61,
-  CHARGE_NORMAL = 0,
-  CHARGE_TIMED = 1,
-  CHARGE_SPECIAL = 2,
-  TAG_DEAD = 1,
-  TAG_SYRINGE = 1 << 1,
-  TAG_MOM = 1 << 2,
-  TAG_TECH = 1 << 3,
-  TAG_BATTERY = 1 << 4,
-  TAG_GUPPY = 1 << 5,
-  TAG_FLY = 1 << 6,
-  TAG_BOB = 1 << 7,
-  TAG_MUSHROOM = 1 << 8,
-  TAG_BABY = 1 << 9,
-  TAG_ANGEL = 1 << 10,
-  TAG_DEVIL = 1 << 11,
-  TAG_POOP = 1 << 12,
-  TAG_BOOK = 1 << 13,
-  TAG_SPIDER = 1 << 14,
-  TAG_QUEST = 1 << 15,
-  TAG_MONSTER_MANUAL = 1 << 16,
-  TAG_NO_GREED = 1 << 17,
-  TAG_FOOD = 1 << 18,
-  TAG_TEARS_UP = 1 << 19,
-  TAG_OFFENSIVE = 1 << 20,
-  TAG_NO_KEEPER = 1 << 21,
-  TAG_NO_LOST_BR = 1 << 22,
-  TAG_STARS = 1 << 23,
-  TAG_SUMMONABLE = 1 << 24,
-  TAG_NO_CANTRIP = 1 << 25,
-  TAG_WISP = 1 << 26,
-  TAG_UNIQUE_FAMILIAR = 1 << 27,
-  CARDTYPE_TAROT = 0,
-  CARDTYPE_SUIT = 1,
-  CARDTYPE_RUNE = 2,
-  CARDTYPE_SPECIAL_OBJECT = 4,
-  CARDTYPE_TAROT_REVERSE = 5,
 }
 
 declare enum PoopSpellType {
