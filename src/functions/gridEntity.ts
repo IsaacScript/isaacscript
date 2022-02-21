@@ -360,7 +360,7 @@ export function spawnGiantPoop(topLeftGridIndex: int): void {
 export function spawnGridEntity(
   gridEntityType: GridEntityType,
   gridIndex: int,
-): GridEntity {
+): GridEntity | undefined {
   return spawnGridEntityWithVariant(gridEntityType, 0, gridIndex);
 }
 
@@ -375,7 +375,7 @@ export function spawnGridEntityWithVariant(
   gridEntityType: GridEntityType,
   variant: int,
   gridIndex: int,
-): GridEntity {
+): GridEntity | undefined {
   const game = Game();
   const room = game.GetRoom();
 
@@ -386,6 +386,9 @@ export function spawnGridEntityWithVariant(
 
   const position = room.GetGridPosition(gridIndex);
   const gridEntity = Isaac.GridSpawn(gridEntityType, variant, position, true);
+  if (gridEntity === undefined) {
+    return gridEntity;
+  }
 
   if (gridEntityType === GridEntityType.GRID_PIT) {
     // For some reason, spawned pits start with a collision class of COLLISION_NONE,
@@ -407,12 +410,15 @@ export function spawnGridEntityWithVariant(
  * Helper function to spawn a Void Portal. This is more complicated than simply spawning a trapdoor
  * with the appropriate variant, as the game does not give it the correct sprite automatically.
  */
-export function spawnVoidPortal(gridIndex: int) {
+export function spawnVoidPortal(gridIndex: int): GridEntity | undefined {
   const voidPortal = spawnGridEntityWithVariant(
     GridEntityType.GRID_TRAPDOOR,
     TrapdoorVariant.VOID_PORTAL,
     gridIndex,
   );
+  if (voidPortal === undefined) {
+    return voidPortal;
+  }
 
   // If Void Portals are not given a VarData of 1, they will send the player to the next floor
   // instead of The Void
@@ -420,4 +426,6 @@ export function spawnVoidPortal(gridIndex: int) {
 
   const sprite = voidPortal.GetSprite();
   sprite.Load("gfx/grid/voidtrapdoor.anm2", true);
+
+  return voidPortal;
 }

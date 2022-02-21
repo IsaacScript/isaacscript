@@ -14,6 +14,7 @@ import {
   getGridEntities,
   removeAllGridEntitiesExceptFor,
   setGridEntityInvisible,
+  spawnGridEntityWithVariant,
 } from "../functions/gridEntity";
 import { getRandomJSONRoom } from "../functions/jsonRoom";
 import { log } from "../functions/log";
@@ -336,7 +337,10 @@ function fillRoomWithDecorations() {
       true,
     );
 
-    setGridEntityInvisible(decoration);
+    if (decoration !== undefined) {
+      setGridEntityInvisible(decoration);
+    }
+
     decorationGridIndexes.push(gridIndex);
   }
 }
@@ -392,7 +396,7 @@ function spawnAllEntities(jsonRoom: JSONRoom, seed: int, verbose = false) {
       if (verbose) {
         log(`Spawning grid entity ${entityType}.${variant} at: (${x}, ${y})`);
       }
-      spawnGridEntity(entityType, variant, x, y);
+      spawnGridEntityForJSONRoom(entityType, variant, x, y);
     } else {
       seed = nextSeed(seed);
       if (verbose) {
@@ -400,7 +404,7 @@ function spawnAllEntities(jsonRoom: JSONRoom, seed: int, verbose = false) {
           `Spawning normal entity ${entityType}.${variant}.${subType} at: (${x}, ${y})`,
         );
       }
-      const entity = spawnNormalEntity(
+      const entity = spawnNormalEntityForJSONRoom(
         entityType,
         variant,
         subType,
@@ -432,35 +436,38 @@ function spawnAllEntities(jsonRoom: JSONRoom, seed: int, verbose = false) {
   return seed;
 }
 
-function spawnGridEntity(
+function spawnGridEntityForJSONRoom(
   xmlEntityType: int,
   xmlEntityVariant: int,
   x: int,
   y: int,
 ) {
-  const gridEntityArray = convertXMLGridEntityType(
+  const game = Game();
+  const room = game.GetRoom();
+
+  const gridEntityTuple = convertXMLGridEntityType(
     xmlEntityType,
     xmlEntityVariant,
   );
-  if (gridEntityArray === undefined) {
+  if (gridEntityTuple === undefined) {
     return undefined;
   }
-  const [entityType, variant] = gridEntityArray;
+  const [gridEntityType, variant] = gridEntityTuple;
   const position = gridToPos(x, y);
-  const gridEntity = Isaac.GridSpawn(entityType, variant, position, true);
+  const gridIndex = room.GetGridIndex(position);
 
-  // For some reason, spawned pits start with a collision class of COLLISION_NONE,
-  // so we have to manually set it
-  if (entityType === GridEntityType.GRID_PIT) {
-    const pit = gridEntity.ToPit();
-    if (pit !== undefined) {
-      pit.UpdateCollision();
-    }
+  const gridEntity = spawnGridEntityWithVariant(
+    gridEntityType,
+    variant,
+    gridIndex,
+  );
+  if (gridEntity === undefined) {
+    return gridEntity;
   }
 
   // Prevent poops from playing an appear animation,
   // since that is not supposed to normally happen when entering a new room
-  if (entityType === GridEntityType.GRID_POOP) {
+  if (gridEntityType === GridEntityType.GRID_POOP) {
     const sprite = gridEntity.GetSprite();
     sprite.Play("State1", true);
     sprite.SetLastFrame();
@@ -469,7 +476,7 @@ function spawnGridEntity(
   return gridEntity;
 }
 
-function spawnNormalEntity(
+function spawnNormalEntityForJSONRoom(
   entityType: int,
   variant: int,
   subType: int,

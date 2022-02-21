@@ -52,6 +52,9 @@ function checkRoomChanged() {
       GridEntityType.GRID_WALL,
       topLeftWallGridIndex,
     );
+    if (topLeftWall === undefined) {
+      return;
+    }
   }
 
   const topLeftWallPtrHash = GetPtrHash(topLeftWall);
