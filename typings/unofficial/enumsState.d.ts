@@ -1,3 +1,9 @@
+/** EntityType.ENTITY_FAMILIAR (3), FamiliarVariant.LOST_SOUL (211) */
+declare const enum LostSoulState {
+  ALIVE = 1,
+  DEAD = 4,
+}
+
 /* For EntityType.ENTITY_DEATH (66) */
 declare const enum DeathState {
   APPEAR = 1,
