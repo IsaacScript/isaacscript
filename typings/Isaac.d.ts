@@ -213,6 +213,12 @@ declare namespace Isaac {
   function GetTrinketIdByName(trinketName: string): TrinketType | int;
 
   /**
+   * Used to spawn a grid entity (e.g. a rock or a pot). Grid entities are different than normal
+   * entities, as they follow different rules and are always aligned with the grid.
+   *
+   * Normally, this function will always return a `GridEntity`, even if the spawned grid entity will
+   * not actually be placed. it fails. However, in very rare cases, it can return undefined.
+   *
    * @param gridEntityType
    * @param variant
    * @param position
@@ -224,7 +230,7 @@ declare namespace Isaac {
     variant: int,
     position: Vector,
     forced: boolean,
-  ): GridEntity;
+  ): GridEntity | undefined;
 
   /**
    * Returns true if your mod has data stored from the `Isaac.SaveModData()` function.
