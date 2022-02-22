@@ -55,7 +55,13 @@ declare interface EntityFamiliar extends Entity {
   MoveDirection: Direction;
   OrbitAngleOffset: float;
   OrbitDistance: Vector;
+
+  /**
+   * All familiars are associated with an `EntityPlayer`. If the `Player` attribute is set to
+   * undefined, the game will crash.
+   */
   Player: EntityPlayer;
+
   RoomClearCount: int;
   ShootDirection: Direction;
   State: int;
