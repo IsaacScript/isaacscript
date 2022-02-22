@@ -41,7 +41,7 @@ function useItemBoxOfFriends() {
  * @param player The player that has the collectibles for this familiar.
  * @param collectibleType The collectible type of the collectible associated with this familiar.
  * @param familiarVariant The variant of the familiar to spawn or remove.
- * @param familiarSubType The sub-type of the familiar to spawn
+ * @param familiarSubType Optional. The sub-type of the familiar to spawn or remove. 0 by default.
  * @returns The amount of familiars that were added or removed. For example, the player has 0
  * collectibles and there were 2 familiars, this function would remove the 2 familiars and return
  * -2.
