@@ -1,8 +1,6 @@
 import { FAMILIARS_THAT_SHOOT_PLAYER_TEARS } from "../constants";
 import { getEntities, removeEntities } from "./entity";
 
-const SPIN_TO_WIN_VELOCITY_ACTIVATION_THRESHOLD = 5;
-
 /**
  * Helper function to add and remove familiars based on the amount of associated collectibles that a
  * player has. Use this instead of the `EntityPlayer.CheckFamiliar` method so that the InitSeed of
@@ -112,19 +110,6 @@ export function isFamiliarThatShootsPlayerTears(
   familiar: EntityFamiliar,
 ): boolean {
   return FAMILIARS_THAT_SHOOT_PLAYER_TEARS.has(familiar.Type);
-}
-
-/**
- * Helper function to see if one or more Spin to Win familiars are rotating fast. This is helpful
- * because the Spin to Win collectible does not fire the UseItem or PreUseItem callbacks when it is
- * used.
- */
-export function isSpinToWinActive(): boolean {
-  const spinToWins = getFamiliars(FamiliarVariant.SPIN_TO_WIN);
-  return spinToWins.some(
-    (spinToWin) =>
-      spinToWin.Velocity.Length() > SPIN_TO_WIN_VELOCITY_ACTIVATION_THRESHOLD,
-  );
 }
 
 /**
