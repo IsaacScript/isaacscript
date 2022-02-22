@@ -61,7 +61,7 @@ export function checkFamiliar(
         familiarVariant,
         player.Position,
         Vector.Zero,
-        undefined,
+        player,
         familiarSubTypeToUse,
         collectibleRNG.GetSeed(),
       )
