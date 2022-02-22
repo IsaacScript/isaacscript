@@ -216,38 +216,6 @@ export function getEntityVelocities(entities?: Entity[]): Map<PtrHash, Vector> {
 }
 
 /**
- * Helper function to get all of the familiars in the room.
- *
- * Example:
- * ```
- * // Make all of the familiars in the room invisible
- * for (const familiar of getFamiliars()) {
- *   familiar.Visible = false;
- * }
- * ```
- */
-export function getFamiliars(
-  matchingVariant: FamiliarVariant | int = -1,
-  matchingSubType = -1,
-): EntityFamiliar[] {
-  const entities = getEntities(
-    EntityType.ENTITY_FAMILIAR,
-    matchingVariant,
-    matchingSubType,
-  );
-
-  const familiars: EntityFamiliar[] = [];
-  for (const entity of entities) {
-    const familiar = entity.ToFamiliar();
-    if (familiar !== undefined) {
-      familiars.push(familiar);
-    }
-  }
-
-  return familiars;
-}
-
-/**
  * Helper function to get all of the knives in the room.
  *
  * Example:
@@ -497,23 +465,6 @@ export function removeAllEffects(
 ): boolean {
   const effects = getEffects(variant, subType);
   return removeEntities(effects, cap);
-}
-
-/**
- * Helper function to remove all of the familiars in the room.
- *
- * @param variant Optional. If specified, will only remove familiars that match this variant.
- * @param subType Optional. If specified, will only remove familiars that match this sub-type.
- * @param cap Optional. If specified, will only remove the given amount of familiars.
- * @returns True if one or more familiars was removed, false otherwise.
- */
-export function removeAllFamiliars(
-  variant?: FamiliarVariant | int,
-  subType?: int,
-  cap?: int,
-): boolean {
-  const familiars = getFamiliars(variant, subType);
-  return removeEntities(familiars, cap);
 }
 
 /**
