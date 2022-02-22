@@ -315,13 +315,16 @@ declare interface EntityPlayer extends Entity {
   ChangePlayerType(type: PlayerType): void;
 
   /**
-   * Call this in the PostPEffectUpdate callback to spawn the appropriate amount of familiars
-   * associated with a custom collectible.
+   * Call this to spawn the appropriate amount of familiars associated with a custom collectible.
    *
    * - If the target count specified is less than the current amount of familiars, it will spawn
    * more until the target count is met.
    * - If the target count specified is than the current amount of familiars, it will despawn
    * familiars until the target count is met.
+   *
+   * This function does not increment the provided RNG before spawning the familiar, which will
+   * result in multiple familiars having the same InitSeed. Thus, it is recommended to avoid using
+   * this method and use the `checkFamiliar` function from the IsaacScript standard library instead.
    *
    * @param familiarVariant In most cases, use the familiar variant for your custom familiar.
    * @param targetCount In most cases, use the collectible count for the custom collectible.
