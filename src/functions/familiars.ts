@@ -9,8 +9,16 @@ import { getEntities, removeEntities } from "./entity";
  * This function is meant to be called in the EvaluateCache callback (when the cache flag is equal
  * to `CacheFlag.CACHE_FAMILIARS`).
  *
+ * Note that if you want your custom familiar to work properly with Box of Friends, you must keep
+ * track of the number of times that it has been used per room and then pass that as the
+ * `numTempFamiliars` argument.
+ *
  * @param player The player that has the collectibles for this familiar.
  * @param collectibleType The collectible type of the collectible associated with this familiar.
+ * @param numTempFamiliars The amount of extra familiars that should exist that are not associated
+ * with a collectible. Usually, this should be 0. For example, if the player has one familiar and
+ * has used Box of Friends once in the current room, then 1 should be passed (so that 2 total
+ * familiars will be spawned).
  * @param familiarVariant The variant of the familiar to spawn or remove.
  * @param familiarSubType The sub-type of the familiar to spawn
  * @returns The amount of familiars that were added or removed. For example, the player has 0
@@ -20,6 +28,7 @@ import { getEntities, removeEntities } from "./entity";
 export function checkFamiliar(
   player: EntityPlayer,
   collectibleType: int,
+  numTempFamiliars: int,
   familiarVariant: int,
   familiarSubType?: int,
 ): int {
@@ -33,14 +42,15 @@ export function checkFamiliar(
     (familiar) => GetPtrHash(familiar.Player) === playerPtrHash,
   );
   const numCollectibles = player.GetCollectibleNum(collectibleType);
+  const numFamiliarsThatShouldExist = numCollectibles + numTempFamiliars;
 
-  if (familiarsForThisPlayer.length === numCollectibles) {
+  if (familiarsForThisPlayer.length === numFamiliarsThatShouldExist) {
     return 0;
   }
 
-  if (familiarsForThisPlayer.length > numCollectibles) {
+  if (familiarsForThisPlayer.length > numFamiliarsThatShouldExist) {
     const numFamiliarsToRemove =
-      familiarsForThisPlayer.length - numCollectibles;
+      familiarsForThisPlayer.length - numFamiliarsThatShouldExist;
     for (let i = 0; i < numFamiliarsToRemove; i++) {
       const familiar = familiarsForThisPlayer[i];
       familiar.Remove();
@@ -49,7 +59,8 @@ export function checkFamiliar(
     return numFamiliarsToRemove * -1;
   }
 
-  const numFamiliarsToSpawn = numCollectibles - familiarsForThisPlayer.length;
+  const numFamiliarsToSpawn =
+    numFamiliarsThatShouldExist - familiarsForThisPlayer.length;
   const collectibleRNG = player.GetCollectibleRNG(collectibleType);
   const familiarSubTypeToUse =
     familiarSubType === undefined ? 0 : familiarSubType;
