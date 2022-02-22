@@ -163,7 +163,10 @@ declare interface Game {
   HasEncounteredBoss(entityType: EntityType | int, variant: int): boolean;
   HasHallucination(): int;
   IsGreedMode(): boolean;
+
+  /** Returns true if the game is paused or the console is open. */
   IsPaused(): boolean;
+
   MoveToRandomRoom(IAmErrorRoom: boolean, seed: int): void;
   NextVictoryLap(): void;
   Render(): void;
