@@ -14,6 +14,7 @@ npx typedoc \
   --entryPoints "$DIR/src/index.ts" \
   --entryPoints "$DIR/src/challenges.ts" \
   --entryPoints "$DIR/src/constants.ts" \
+  --entryPoints "$DIR/src/features/checkFamiliar.ts" \
   --entryPoints "$DIR/src/features/deployJSONRoom.ts" \
   --entryPoints "$DIR/src/features/disableInputs.ts" \
   --entryPoints "$DIR/src/features/forgottenSwitch.ts" \

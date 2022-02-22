@@ -3,6 +3,7 @@ export {
   forceNewRoomCallback,
 } from "./callbacks/reorderedCallbacks";
 export * from "./constants";
+export * from "./features/checkFamiliar";
 export {
   deployJSONRoom,
   deployRandomJSONRoom,
