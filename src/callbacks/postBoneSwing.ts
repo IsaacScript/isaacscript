@@ -20,11 +20,7 @@ const v = {
 export function postBoneSwingCallbackInit(mod: Mod): void {
   saveDataManager("postBoneSwing", v, hasSubscriptions);
 
-  mod.AddCallback(
-    ModCallbacks.MC_POST_KNIFE_RENDER,
-    postKnifeRenderBoneClub,
-    KnifeVariant.BONE_CLUB,
-  ); // 52
+  mod.AddCallback(ModCallbacks.MC_POST_KNIFE_RENDER, postKnifeRender); // 52
 }
 
 function hasSubscriptions() {
@@ -32,11 +28,20 @@ function hasSubscriptions() {
 }
 
 // ModCallbacks.MC_POST_KNIFE_RENDER (52)
-function postKnifeRenderBoneClub(boneClub: EntityKnife) {
+function postKnifeRender(knife: EntityKnife) {
   if (!hasSubscriptions()) {
     return;
   }
 
+  // The PostKnifeRender callback cannot be registered with knife variants for some reason
+  if (knife.Variant !== KnifeVariant.BONE_CLUB) {
+    return;
+  }
+
+  postKnifeRenderBoneClub(knife);
+}
+
+function postKnifeRenderBoneClub(boneClub: EntityKnife) {
   const sprite = boneClub.GetSprite();
   const animation = sprite.GetAnimation();
   const ptrHash = GetPtrHash(boneClub);
