@@ -182,8 +182,8 @@ export function getDeathAnimationName(player: EntityPlayer): string {
 }
 
 /**
- * Helper function to return the player with the highest index, according to the
- * `Isaac.GetPlayer()` method.
+ * Helper function to return the player with the highest ID, according to the `Isaac.GetPlayer()`
+ * method.
  */
 export function getFinalPlayer(): EntityPlayer {
   const players = getPlayers();
@@ -381,22 +381,38 @@ export function getPlayerFromIndex(
  * - We cannot use `EntityPlayer.InitSeed` because it is not consistent with additional players
  *   beyond the first.
  *
- * Instead, we use `EntityPlayer.GetCollectibleRNG()` with an arbitrary value of 1 (i.e. Sad Onion).
- * This works even if the player does not have any Sad Onions.
+ * Instead, we use `EntityPlayer.GetCollectibleRNG()` with an arbitrary value of Sad Onion (1). This
+ * works even if the player does not have any Sad Onions.
  *
- * Finally, this index fails in the case of Tainted Lazarus, since the RNG will be the same for both
- * Tainted Lazarus and Dead Tainted Lazarus. We revert to using the RNG of Inner Eye for this case.
+ * Since the RNG value is the same for both The Forgotten and The Soul, we revert to using the RNG
+ * of Inner Eye (2) for The Soul.
+ *
+ * Since the RNG value is the same for both Tainted Lazarus and Dead Tainted Lazarus, we revert to
+ * using the RNG of Spoon Bender (3) for Dead Tainted Lazarus.
  */
 export function getPlayerIndex(player: EntityPlayer): PlayerIndex {
   const character = player.GetPlayerType();
-  const collectibleToUse =
-    character === PlayerType.PLAYER_LAZARUS2_B
-      ? CollectibleType.COLLECTIBLE_INNER_EYE
-      : CollectibleType.COLLECTIBLE_SAD_ONION;
-  const collectibleRNG = player.GetCollectibleRNG(collectibleToUse);
+  const rngCollectible = getPlayerIndexRNGCollectibleForCharacter(character);
+  const collectibleRNG = player.GetCollectibleRNG(rngCollectible);
   const seed = collectibleRNG.GetSeed();
 
   return seed as PlayerIndex;
+}
+
+function getPlayerIndexRNGCollectibleForCharacter(character: PlayerType) {
+  switch (character) {
+    case PlayerType.PLAYER_THESOUL: {
+      return CollectibleType.COLLECTIBLE_INNER_EYE;
+    }
+
+    case PlayerType.PLAYER_LAZARUS2_B: {
+      return CollectibleType.COLLECTIBLE_SPOON_BENDER;
+    }
+
+    default: {
+      return CollectibleType.COLLECTIBLE_SAD_ONION;
+    }
+  }
 }
 
 /**
@@ -412,10 +428,6 @@ export function getPlayerIndexVanilla(
 
   for (let i = 0; i < game.GetNumPlayers(); i++) {
     const player = Isaac.GetPlayer(i);
-    if (player === undefined) {
-      continue;
-    }
-
     const playerHash = GetPtrHash(player);
     if (playerHash === playerToFindHash) {
       return i;
@@ -548,15 +560,12 @@ export function getPlayers(performExclusions = false): EntityPlayer[] {
   const players: EntityPlayer[] = [];
   for (let i = 0; i < game.GetNumPlayers(); i++) {
     const player = Isaac.GetPlayer(i);
-    if (player === undefined) {
-      continue;
-    }
 
     if (isChildPlayer(player)) {
       continue;
     }
 
-    // BWe might only want to make a list of players that are fully-functioning and controlled by
+    // We might only want to make a list of players that are fully-functioning and controlled by
     // humans
     // Thus, we need to exclude certain characters
     const character = player.GetPlayerType();
