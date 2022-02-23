@@ -1,6 +1,6 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getPlayerIndex, PlayerIndex } from "../functions/player";
-import { ensureAllCases, getEnumValues } from "../functions/util";
+import { ensureAllCases, getEnumValues } from "../functions/utils";
 import { HealthType } from "../types/HealthType";
 import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
 import { ModUpgraded } from "../types/ModUpgraded";

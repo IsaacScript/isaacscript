@@ -12,7 +12,8 @@ import { arraySum } from "./array";
 import { getKBitOfN, getNumBitsOfN } from "./bitwise";
 import { getCollectibleMaxCharges } from "./collectibles";
 import { getCollectibleSet } from "./collectibleSet";
-import { ensureAllCases, stringContains, trimPrefix } from "./util";
+import { stringContains, trimPrefix } from "./string";
+import { ensureAllCases } from "./utils";
 
 const EXCLUDED_CHARACTERS: ReadonlySet<PlayerType> = new Set([
   PlayerType.PLAYER_ESAU, // 20

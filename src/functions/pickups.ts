@@ -1,5 +1,5 @@
 import { getRandomArrayElement } from "./array";
-import { getEnumValues } from "./util";
+import { getEnumValues } from "./utils";
 
 /**
  * Has as an equal chance of returning any value in the `HeartSubType` enum. Useful for spawning a random type of heart.

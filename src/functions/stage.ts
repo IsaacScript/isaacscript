@@ -1,4 +1,4 @@
-import { ensureAllCases } from "./util";
+import { ensureAllCases } from "./utils";
 
 /**
  * Helper function to account for Repentance floors being offset by 1. For example, Downpour 2 is

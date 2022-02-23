@@ -1,6 +1,6 @@
 import { log } from "./log";
 import { addSetsToSet, copySet } from "./set";
-import { isLuaDebugEnabled } from "./util";
+import { isLuaDebugEnabled } from "./utils";
 
 const DEFAULT_GLOBALS: ReadonlySet<string> = new Set([
   "ActionTriggers",

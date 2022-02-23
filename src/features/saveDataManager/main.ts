@@ -1,6 +1,6 @@
 import { getUpgradeErrorMsg } from "../../errors";
 import { deepCopy, SerializationType } from "../../functions/deepCopy";
-import { tableClear } from "../../functions/util";
+import { tableClear } from "../../functions/utils";
 import { ModCallbacksCustom } from "../../types/ModCallbacksCustom";
 import { ModUpgraded } from "../../types/ModUpgraded";
 import { SaveDataKeys } from "../../types/SaveData";

@@ -1,4 +1,4 @@
-import { ensureAllCases } from "./util";
+import { ensureAllCases } from "./utils";
 
 export function getAngleDifference(angle1: float, angle2: float): float {
   const subtractedAngle = angle1 - angle2;

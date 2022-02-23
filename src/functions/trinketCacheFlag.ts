@@ -1,6 +1,6 @@
 import { copySet } from "./set";
 import { getMaxTrinketID, trinketHasCacheFlag } from "./trinkets";
-import { getEnumValues } from "./util";
+import { getEnumValues } from "./utils";
 
 const CACHE_FLAG_TO_TRINKETS_MAP = new Map<CacheFlag, Set<TrinketType | int>>();
 

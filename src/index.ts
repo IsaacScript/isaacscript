@@ -81,7 +81,7 @@ export * from "./functions/trinketGive";
 export * from "./functions/trinkets";
 export * from "./functions/trinketSet";
 export * from "./functions/ui";
-export * from "./functions/util";
+export * from "./functions/utils";
 export * from "./functions/vector";
 export * from "./maps/cardNameMap";
 export * from "./maps/collectibleNameMap";

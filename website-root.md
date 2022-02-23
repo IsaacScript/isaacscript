@@ -60,7 +60,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Transformation Functions](modules/functions_transformations.html)
 - [Trinket Functions](modules/functions_trinkets.html) & [Trinket Giving/Removing Functions](modules/functions_trinketGive.html) & [Trinket Set Functions](modules/functions_trinketSet.html) & [Trinket Cache Flag Functions](modules/functions_trinketCacheFlag.html)
 - [UI Functions](modules/functions_ui.html)
-- [Util Functions](modules/functions_util.html)
+- [Utility Functions](modules/functions_utils.html)
 - [Vector Functions](modules/functions_vector.html)
 
 <br />

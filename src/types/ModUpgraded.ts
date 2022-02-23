@@ -45,7 +45,7 @@ import { preCustomReviveRegister } from "../callbacks/subscriptions/preCustomRev
 import { preItemPickupRegister } from "../callbacks/subscriptions/preItemPickup";
 import { preNewLevelRegister } from "../callbacks/subscriptions/preNewLevel";
 import { getDebugPrependString } from "../functions/log";
-import { ensureAllCases } from "../functions/util";
+import { ensureAllCases } from "../functions/utils";
 import { CallbackParametersCustom } from "./CallbackParametersCustom";
 import { ModCallbacksCustom } from "./ModCallbacksCustom";
 

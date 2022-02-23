@@ -1,4 +1,4 @@
-import { getEnumValues } from "./util";
+import { getEnumValues } from "./utils";
 
 export function stopAllSoundEffects(): void {
   const sfxManager = SFXManager();

@@ -1,6 +1,6 @@
 import { collectibleHasCacheFlag, getMaxCollectibleID } from "./collectibles";
 import { copySet } from "./set";
-import { getEnumValues } from "./util";
+import { getEnumValues } from "./utils";
 
 const CACHE_FLAG_TO_COLLECTIBLES_MAP = new Map<
   CacheFlag,

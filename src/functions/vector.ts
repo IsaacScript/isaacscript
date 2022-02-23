@@ -1,4 +1,4 @@
-import { ensureAllCases } from "./util";
+import { ensureAllCases } from "./utils";
 
 export function copyVector(vector: Vector): Vector {
   return Vector(vector.X, vector.Y);

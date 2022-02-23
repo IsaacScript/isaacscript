@@ -70,7 +70,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/trinketGive.ts" \
   --entryPoints "$DIR/src/functions/trinketSet.ts" \
   --entryPoints "$DIR/src/functions/ui.ts" \
-  --entryPoints "$DIR/src/functions/util.ts" \
+  --entryPoints "$DIR/src/functions/utils.ts" \
   --entryPoints "$DIR/src/functions/vector.ts" \
   --entryPoints "$DIR/src/maps/cardDescriptionMap.ts" \
   --entryPoints "$DIR/src/maps/cardNameMap.ts" \

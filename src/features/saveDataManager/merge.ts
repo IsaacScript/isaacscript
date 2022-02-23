@@ -10,7 +10,7 @@ import {
   SerializationType,
 } from "../../functions/deepCopy";
 import { log } from "../../functions/log";
-import { tableClear } from "../../functions/util";
+import { tableClear } from "../../functions/utils";
 
 /**
  * merge takes the values from a new table and recursively merges them into an old object
