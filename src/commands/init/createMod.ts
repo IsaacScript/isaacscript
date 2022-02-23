@@ -45,14 +45,54 @@ export async function createMod(
   configFile.createFile(projectPath, config, verbose);
   const targetModDirectory = path.join(config.modsDirectory, projectName);
 
+  await initGitRepository(projectPath, projectName, verbose);
   makeSubdirectories(projectPath, verbose);
   copyStaticFiles(projectPath, verbose);
   copyDynamicFiles(projectName, projectPath, targetModDirectory, verbose);
   updateNodeModules(projectPath, verbose);
-  await initGitRepository(projectPath, projectName, verbose);
   installNodeModules(projectPath, skipNPMInstall, verbose);
 
   console.log(`Successfully created mod: ${chalk.green(projectName)}`);
+}
+
+async function initGitRepository(
+  projectPath: string,
+  projectName: string,
+  verbose: boolean,
+) {
+  if (!commandExists.sync("git")) {
+    console.log(
+      'Git does not seem to be installed. (The "git" command is not in the path.) Skipping Git-related things.',
+    );
+    return;
+  }
+
+  checkOldGitVersion(verbose);
+
+  const remoteURL = await getGitRemoteURL(projectName);
+  if (remoteURL === "") {
+    return;
+  }
+
+  execShell("git", ["init"], verbose, false, projectPath);
+  execShell("git", ["branch", "-M", "main"], verbose, false, projectPath);
+  execShell(
+    "git",
+    ["remote", "add", "origin", remoteURL],
+    verbose,
+    false,
+    projectPath,
+  );
+  if (isGitNameAndEmailConfigured(verbose)) {
+    execShell("git", ["add", "--all"], verbose, false, projectPath);
+    execShell(
+      "git",
+      ["commit", "--message", `${PROJECT_NAME} template`],
+      verbose,
+      false,
+      projectPath,
+    );
+  }
 }
 
 function makeSubdirectories(projectPath: string, verbose: boolean) {
@@ -167,46 +207,6 @@ function updateNodeModules(projectPath: string, verbose: boolean) {
     false,
     projectPath,
   );
-}
-
-async function initGitRepository(
-  projectPath: string,
-  projectName: string,
-  verbose: boolean,
-) {
-  if (!commandExists.sync("git")) {
-    console.log(
-      'Git does not seem to be installed. (The "git" command is not in the path.) Skipping Git-related things.',
-    );
-    return;
-  }
-
-  checkOldGitVersion(verbose);
-
-  const remoteURL = await getGitRemoteURL(projectName);
-  if (remoteURL === "") {
-    return;
-  }
-
-  execShell("git", ["init"], verbose, false, projectPath);
-  execShell("git", ["branch", "-M", "main"], verbose, false, projectPath);
-  execShell(
-    "git",
-    ["remote", "add", "origin", remoteURL],
-    verbose,
-    false,
-    projectPath,
-  );
-  if (isGitNameAndEmailConfigured(verbose)) {
-    execShell("git", ["add", "--all"], verbose, false, projectPath);
-    execShell(
-      "git",
-      ["commit", "--message", `${PROJECT_NAME} template`],
-      verbose,
-      false,
-      projectPath,
-    );
-  }
 }
 
 async function getGitRemoteURL(projectName: string) {
