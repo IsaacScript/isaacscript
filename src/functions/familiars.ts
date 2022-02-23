@@ -4,8 +4,8 @@ import { getEntities, removeEntities } from "./entity";
 /**
  * Helper function to add and remove familiars based on a target amount that you specify. Use this
  * instead of the `EntityPlayer.CheckFamiliar` method so that the InitSeed of the spawned familiar
- * will be set properly. Note that when using this function, you need to automatically account for
- * Box of Friends.
+ * will be set properly. Note that when using this function, you need to manually account for Box of
+ * Friends (by looking at the number of collectible effects on the player for Box of Friends).
  *
  * This function is meant to be called in the EvaluateCache callback (when the cache flag is equal
  * to `CacheFlag.CACHE_FAMILIARS`).
@@ -86,7 +86,7 @@ export function checkFamiliar(
 /**
  * Helper function to add and remove familiars based on the amount of associated collectibles that a
  * player has. Use this instead of the `EntityPlayer.CheckFamiliar` method so that the InitSeed of
- * the spawned familiar will be set properly and Box of Friends functions correctly.
+ * the spawned familiar will be set properly and Box of Friends is handled automatically.
  *
  * This function is meant to be called in the EvaluateCache callback (when the cache flag is equal
  * to `CacheFlag.CACHE_FAMILIARS`).
