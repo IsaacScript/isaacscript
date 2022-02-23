@@ -139,21 +139,30 @@ declare namespace Isaac {
   /**
    * With no argument, it returns the 0th player.
    * For the purposes of this definition, we assume that the 0th player always exists.
-   * However, if called in the menu, this function will return undefined, so beware.
+   * However, if this function is called in the menu, it will return undefined, so beware of this
+   * case.
    */
   function GetPlayer(): EntityPlayer;
 
   /**
    * For the purposes of this definition, we assume that the 0th player always exists.
-   * However, if called in the menu, this function will return undefined, so beware.
+   * However, if this function is called in the menu, it will return undefined, so beware of this
+   * case.
    */
   function GetPlayer(playerID: 0): EntityPlayer;
 
   /**
-   * Before using the EntityPlayer object, you should check to see if it is equal to undefined and
-   * handle the error case.
+   * Returns the EntityPlayer that matches the provided player ID. Player IDs start at 0 and
+   * increment upwards. For example, when playing as Jacob & Esau, Jacob will have a player ID of 0
+   * and Esau will have a player ID of 1.
+   *
+   * If an invalid player ID is passed (such as -20 or 20), the function will instead assume a
+   * player index of 0.
+   *
+   * This function can return undefined if it is called before any player is initialized (i.e. if
+   * you call it in the main menu), so beware of this case.
    */
-  function GetPlayer(playerID: int): EntityPlayer | undefined;
+  function GetPlayer(playerID: int): EntityPlayer;
 
   /**
    * Returns -1 if the specified character does not exist.
