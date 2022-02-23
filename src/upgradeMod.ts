@@ -31,7 +31,6 @@ import { postTrinketBreakCallbackInit } from "./callbacks/postTrinketBreak";
 import { preBerserkDeathCallbackInit } from "./callbacks/preBerserkDeath";
 import { preNewLevelCallbackInit } from "./callbacks/preNewLevel";
 import { reorderedCallbacksInit } from "./callbacks/reorderedCallbacks";
-import { checkFamiliarInit } from "./features/checkFamiliar";
 import { deployJSONRoomInit } from "./features/deployJSONRoom";
 import { disableInputsInit } from "./features/disableInputs";
 import { forgottenSwitchInit } from "./features/forgottenSwitch";
@@ -127,7 +126,6 @@ function initCustomCallbacks(mod: ModUpgraded) {
 }
 
 function initFeatures(mod: ModUpgraded) {
-  checkFamiliarInit(mod);
   deployJSONRoomInit(mod);
   disableInputsInit(mod);
   forgottenSwitchInit(mod);

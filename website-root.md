@@ -72,7 +72,6 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Prevent Collectible Rotate](modules/features_preventCollectibleRotate.html)
 - [Forgotten Switcher](modules/features_forgottenSwitch.html)
 - [Siren Boss Functions](modules/features_sirenHelpers.html)
-- [Check Familiar Helper](modules/features_checkFamiliar.html)
 
 <br />
 

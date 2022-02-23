@@ -2,6 +2,86 @@ import { FAMILIARS_THAT_SHOOT_PLAYER_TEARS } from "../constants";
 import { getEntities, removeEntities } from "./entity";
 
 /**
+ * Helper function to add and remove familiars based on the amount of associated collectibles that a
+ * player has. Use this instead of the `EntityPlayer.CheckFamiliar` method so that the InitSeed of
+ * the spawned familiar will be set properly and Box of Friends functions correctly.
+ *
+ * This function is meant to be called in the EvaluateCache callback (when the cache flag is equal
+ * to `CacheFlag.CACHE_FAMILIARS`).
+ *
+ * @param player The player that has the collectibles for this familiar.
+ * @param collectibleType The collectible type of the collectible associated with this familiar.
+ * @param familiarVariant The variant of the familiar to spawn or remove.
+ * @param familiarSubType Optional. The sub-type of the familiar to spawn or remove. 0 by default.
+ * @returns The amount of familiars that were added or removed. For example, the player has 0
+ * collectibles and there were 2 familiars, this function would remove the 2 familiars and return
+ * -2.
+ */
+export function checkFamiliar(
+  player: EntityPlayer,
+  collectibleType: int,
+  familiarVariant: int,
+  familiarSubType?: int,
+): int {
+  const game = Game();
+
+  const familiarSubTypeToSearchFor =
+    familiarSubType === undefined ? -1 : familiarSubType;
+  const playerPtrHash = GetPtrHash(player);
+  const familiars = getFamiliars(familiarVariant, familiarSubTypeToSearchFor);
+  const familiarsForThisPlayer = familiars.filter(
+    (familiar) => GetPtrHash(familiar.Player) === playerPtrHash,
+  );
+  const numCollectibles = player.GetCollectibleNum(collectibleType);
+  const effects = player.GetEffects();
+  const numBoxOfFriendsUses = effects.GetCollectibleEffectNum(
+    CollectibleType.COLLECTIBLE_BOX_OF_FRIENDS,
+  );
+  const numFamiliarsThatShouldExist =
+    numCollectibles * (numBoxOfFriendsUses + 1);
+
+  if (familiarsForThisPlayer.length === numFamiliarsThatShouldExist) {
+    return 0;
+  }
+
+  if (familiarsForThisPlayer.length > numFamiliarsThatShouldExist) {
+    const numFamiliarsToRemove =
+      familiarsForThisPlayer.length - numFamiliarsThatShouldExist;
+    for (let i = 0; i < numFamiliarsToRemove; i++) {
+      const familiar = familiarsForThisPlayer[i];
+      familiar.Remove();
+    }
+
+    return numFamiliarsToRemove * -1;
+  }
+
+  const numFamiliarsToSpawn =
+    numFamiliarsThatShouldExist - familiarsForThisPlayer.length;
+  const collectibleRNG = player.GetCollectibleRNG(collectibleType);
+  const familiarSubTypeToUse =
+    familiarSubType === undefined ? 0 : familiarSubType;
+  for (let i = 0; i < numFamiliarsToSpawn; i++) {
+    collectibleRNG.Next();
+    const familiar = game
+      .Spawn(
+        EntityType.ENTITY_FAMILIAR,
+        familiarVariant,
+        player.Position,
+        Vector.Zero,
+        player,
+        familiarSubTypeToUse,
+        collectibleRNG.GetSeed(),
+      )
+      .ToFamiliar();
+    if (familiar !== undefined) {
+      familiar.Player = player;
+    }
+  }
+
+  return numFamiliarsToSpawn;
+}
+
+/**
  * Helper function to get all of the familiars in the room.
  *
  * Example:
