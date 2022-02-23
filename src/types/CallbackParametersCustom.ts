@@ -1,4 +1,5 @@
 import { PostBombInitLateCallbackType } from "../callbacks/subscriptions/postBombInitLate";
+import { PostBoneSwingCallbackType } from "../callbacks/subscriptions/postBoneSwing";
 import { PostCursedTeleportCallbackType } from "../callbacks/subscriptions/postCursedTeleport";
 import { PostCustomReviveCallbackType } from "../callbacks/subscriptions/postCustomRevive";
 import { PostEffectInitLateCallbackType } from "../callbacks/subscriptions/postEffectInitLate";
@@ -256,6 +257,10 @@ export interface CallbackParametersCustom {
   [ModCallbacksCustom.MC_POST_GRID_ENTITY_COLLISION]: [
     callback: PostGridEntityCollisionCallbackType,
     gridEntityType?: GridEntityType,
+  ];
+
+  [ModCallbacksCustom.MC_POST_BONE_SWING]: [
+    callback: PostBoneSwingCallbackType,
   ];
 }
 

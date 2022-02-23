@@ -1,4 +1,5 @@
 import { postBombInitLateRegister } from "../callbacks/subscriptions/postBombInitLate";
+import { postBoneSwingRegister } from "../callbacks/subscriptions/postBoneSwing";
 import { postCursedTeleportRegister } from "../callbacks/subscriptions/postCursedTeleport";
 import { postCustomReviveRegister } from "../callbacks/subscriptions/postCustomRevive";
 import { postEffectInitLateRegister } from "../callbacks/subscriptions/postEffectInitLate";
@@ -329,6 +330,10 @@ function getCallbackRegisterFunction(callbackID: ModCallbacksCustom) {
 
     case ModCallbacksCustom.MC_POST_GRID_ENTITY_COLLISION: {
       return postGridEntityCollisionRegister;
+    }
+
+    case ModCallbacksCustom.MC_POST_BONE_SWING: {
+      return postBoneSwingRegister;
     }
 
     default: {

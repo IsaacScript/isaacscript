@@ -1,6 +1,7 @@
 import { customReviveCallbacksInit } from "./callbacks/customRevive";
 import { itemPickupCallbacksInit } from "./callbacks/itemPickup";
 import { postBombInitLateCallbackInit } from "./callbacks/postBombInitLate";
+import { postBoneSwingCallbackInit } from "./callbacks/postBoneSwing";
 import { postCursedTeleportCallbackInit } from "./callbacks/postCursedTeleport";
 import { postEffectInitLateCallbackInit } from "./callbacks/postEffectInitLate";
 import { postEsauJrCallbacksInit } from "./callbacks/postEsauJr";
@@ -123,6 +124,7 @@ function initCustomCallbacks(mod: ModUpgraded) {
   postSlotRenderBrokenCallbacksInit(mod);
   postGridEntityCallbacksInit(mod);
   postGridEntityCollisionInit(mod);
+  postBoneSwingCallbackInit(mod);
 }
 
 function initFeatures(mod: ModUpgraded) {
