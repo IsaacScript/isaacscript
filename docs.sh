@@ -43,6 +43,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/json.ts" \
   --entryPoints "$DIR/src/functions/language.ts" \
   --entryPoints "$DIR/src/functions/log.ts" \
+  --entryPoints "$DIR/src/functions/map.ts" \
   --entryPoints "$DIR/src/functions/math.ts" \
   --entryPoints "$DIR/src/functions/npc.ts" \
   --entryPoints "$DIR/src/functions/pickups.ts" \
@@ -60,6 +61,8 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/spawnCollectible.ts" \
   --entryPoints "$DIR/src/functions/sprite.ts" \
   --entryPoints "$DIR/src/functions/stage.ts" \
+  --entryPoints "$DIR/src/functions/string.ts" \
+  --entryPoints "$DIR/src/functions/table.ts" \
   --entryPoints "$DIR/src/functions/tears.ts" \
   --entryPoints "$DIR/src/functions/transformations.ts" \
   --entryPoints "$DIR/src/functions/trinkets.ts" \

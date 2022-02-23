@@ -1,15 +1,5 @@
 const HEX_STRING_LENGTH = 6;
 
-/** Helper function to copy a map. (You can also use a Map constructor to accomplish this task.) */
-export function copyMap<K, V>(oldMap: Map<K, V>): Map<K, V> {
-  const newMap = new Map<K, V>();
-  for (const [key, value] of oldMap.entries()) {
-    newMap.set(key, value);
-  }
-
-  return newMap;
-}
-
 /**
  * Helper function to get type safety on a switch statement.
  * Very useful to be future-safe against people adding values to a type or an enum.
@@ -142,27 +132,4 @@ export function onSetSeed(): boolean {
  */
 export function printConsole(msg: string): void {
   Isaac.ConsoleOutput(`${msg}\n`);
-}
-
-export function stringContains(string: string, searchString: string): boolean {
-  return string.indexOf(searchString) !== -1;
-}
-
-/**
- * In a Map, you can use the `clear` method to delete every element. However, in a LuaTable, the
- * `clear` method does not exist. Use this helper function as a drop-in replacement for this.
- */
-export function tableClear(table: LuaTable): void {
-  for (const [key] of pairs(table)) {
-    table.delete(key);
-  }
-}
-
-/** Helper function to trim a prefix from a string, if it exists. Returns the trimmed string. */
-export function trimPrefix(string: string, prefix: string): string {
-  if (!string.startsWith(prefix)) {
-    return string;
-  }
-
-  return string.slice(prefix.length);
 }
