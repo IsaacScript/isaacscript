@@ -499,3 +499,11 @@ When registering the callback, takes an optional second argument that will make 
 ```ts
 function postGridEntityCollision(gridEntity: GridEntity, entity: Entity): void {}
 ```
+
+### MC_POST_BONE_SWING
+
+Fires from the MC_POST_RENDER callback when one of Forgotten's bone clubs is swung or thrown.
+
+```ts
+function postBoneSwing(boneClub: EntityKnife): void {}
+```
