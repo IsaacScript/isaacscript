@@ -13,26 +13,26 @@ Let's say that in our example mod, we want to add a few more custom items, so th
 We don't want to have any logic in the "main.ts" file. This purpose of this file is to simply register the mod and glue together all of the callbacks.
 
 ```ts
-// Define imports
 import * as postUpdate from "./callbacks/postUpdate";
 
-// Register the mod
-// (which will make it show up in the list of mods on the mod screen in the main menu)
-const greenCandle = RegisterMod("greenCandle", 1);
+const MOD_NAME = "Green Candle";
 
-// Register callbacks
-greenCandle.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate.main);
-// TODO - Add code for new callbacks here
+export function main(): void {
+  const mod = RegisterMod(MOD_NAME, 1);
+  registerCallbacks(mod);
+}
 
-// Print an initialization message to the "log.txt" file
-Isaac.DebugString("The Green Candle mod is initialized.");
+function registerCallbacks(mod: Mod) {
+  mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate.main);
+  // TODO - Add code for new callbacks here
+}
 ```
 
 <br />
 
-## 2) src/constants.ts
+## 2) src/types/CollectibleTypeCustom.ts
 
-Before, we had a `greenCandleItemID` variable. This is a constant and will never change, so it belongs in its own "constants.ts" file. Furthermore, instead of having individual variables for every item ID, we can put them all in a "CollectibleTypeCustom" enum, which helps us stay more organized.
+Before, we had a `GREEN_CANDLE_COLLECTIBLE_TYPE` constant at the top of the file. This probably belongs in its own file. Furthermore, instead of having individual variables for every collectible type, we can put them all in a "CollectibleTypeCustom" enum, which helps us stay more organized.
 
 ```ts
 export enum CollectibleTypeCustom {
@@ -40,11 +40,13 @@ export enum CollectibleTypeCustom {
 }
 ```
 
+Types, interfaces, and enums are typically stored in files of the same name in a "types" subdirectory.
+
 <br />
 
 ## 3) src/callbacks/postUpdate.ts
 
-Each callback can have its own dedicated file in the "callbacks" directory. Here's the code for "postUpdate.ts":
+Each callback can have its own dedicated file in a "callbacks" subdirectory.
 
 ```ts
 import * as greenCandle from "../items/greenCandle";
@@ -59,37 +61,29 @@ export function main(): void {
 
 ## 4) src/items/greenCandle.ts
 
-Each item can have its own dedicated file in the "items" directory.
+Each item can have its own dedicated file in a "items" subdirectory.
 
 ```ts
-import { CollectibleTypeCustom } from "../constants";
+import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
 
-export function checkApplyEffect(): void {
-  const game = Game();
-  const numPlayers = game.GetNumPlayers();
-  for (let i = 0; i < numPlayers; i++) {
-    const player = Isaac.GetPlayer(i);
-    if (
-      player !== undefined &&
-      player.HasCollectible(CollectibleTypeCustom.COLLECTIBLE_GREEN_CANDLE)
-    ) {
-      applyEffect(player);
+export function checkApplyGreenCandleEffect(): void {
+  for (const player of getPlayers()) {
+    if (player.HasCollectible(GREEN_CANDLE_COLLECTIBLE_TYPE)) {
+      applyGreenCandleEffect(player);
     }
   }
 }
 
-function applyEffect(player: EntityPlayer) {
-  for (const entity of Isaac.GetRoomEntities()) {
-    if (shouldApplyEffectToEntity(entity)) {
+function applyGreenCandleEffect(player: EntityPlayer) {
+  for (const entity of getEntities()) {
+    if (shouldApplyGreenCandleEffectToEntity(entity)) {
       entity.AddPoison(EntityRef(player), 100, player.Damage);
     }
   }
 }
 
-function shouldApplyEffectToEntity(entity: Entity) {
-  // "math.random(500)" generates a random number between 1 and 500
-  // This is a 1 / 500 chance, or 0.2%
-  return entity.IsVulnerableEnemy() && math.random(500) === 1;
+function shouldApplyGreenCandleEffectToEntity(entity: Entity) {
+  return entity.IsVulnerableEnemy() && getRandomInt(1, 500) === 1;
 }
 ```
 
@@ -100,9 +94,10 @@ Now, our project looks like this:
 ```ts
 src/
 ├── main.ts
-├── constants.ts
 ├── callbacks/
 │   └── postUpdate.ts
-└── items/
-    └── greenCandle.ts
+├── items/
+│   └── greenCandle.ts
+├── types/
+│   └── CollectibleTypeCustom.ts
 ```

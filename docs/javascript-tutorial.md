@@ -69,13 +69,13 @@ In TypeScript, you just call everything with a period. Easy.
 ```lua
 -- Lua code
 Isaac.DebugString("hello world")
-Game():GetPlayer(0):AddMaxHearts(2)
+Game():GetPlayer():AddMaxHearts(2)
 ```
 
 ```ts
 // TypeScript code
 Isaac.DebugString("hello world");
-Game().GetPlayer(0).AddMaxHearts(2);
+Game().GetPlayer().AddMaxHearts(2);
 ```
 
 <br />

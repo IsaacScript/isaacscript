@@ -286,9 +286,9 @@ On the other hand, if you want to split IsaacScript code between repositories or
 Normally, in TypeScript programs, you would handle errors with `throw new Error("foo")`. For example:
 
 ```ts
-const player = Isaac.GetPlayer(1); // The type of player is "EntityPlayer | undefined"
+const player = entity.ToPlayer(); // The type of player is "EntityPlayer | undefined"
 if (player === undefined) {
-  throw new Error("Failed to get the player!");
+  throw new Error("Failed to convert the player!");
 }
 player.AddSoulHearts(1); // The type of player is now "EntityPlayer"
 ```
@@ -300,9 +300,9 @@ However, in Isaac mods, this code won't work. It will error with something along
 This is because TypeScriptToLua transpiles `throw` to a function that uses Lua's `debug` library, and Isaac does not normally have access to `debug` for sandboxing reasons. But not to worry, because we can simply use Lua's `error()` function instead. For example:
 
 ```ts
-const player = Isaac.GetPlayer(1); // The type of player is "EntityPlayer | undefined"
+const player = Isaac.ToPlayer(); // The type of player is "EntityPlayer | undefined"
 if (player === undefined) {
-  error("Failed to get the player!");
+  error("Failed to convert the player!");
 }
 player.AddSoulHearts(1); // The type of player is now "EntityPlayer"
 ```
