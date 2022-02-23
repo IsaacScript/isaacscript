@@ -489,3 +489,13 @@ When registering the callback, takes an optional second argument that will make 
 ```ts
 function postGridEntityRemove(gridIndex: int, gridEntityType: GridEntityType): void {}
 ```
+
+### MC_POST_GRID_ENTITY_COLLISION
+
+Fires from the MC_POST_UPDATE callback when a new entity collides with a grid entity.
+
+When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `GridEntityType` provided.
+
+```ts
+function postGridEntityCollision(gridEntity: GridEntity, entity: Entity): void {}
+```
