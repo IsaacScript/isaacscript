@@ -66,8 +66,7 @@ function getCircleInitialPosition(direction: Direction, radius: float) {
     }
 
     default: {
-      ensureAllCases(direction);
-      return Vector.Zero;
+      return ensureAllCases(direction);
     }
   }
 }

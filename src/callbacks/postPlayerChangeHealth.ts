@@ -97,8 +97,7 @@ function getCurrentHealthValue(player: EntityPlayer, healthType: HealthType) {
     }
 
     default: {
-      ensureAllCases(healthType);
-      return 0;
+      return ensureAllCases(healthType);
     }
   }
 }

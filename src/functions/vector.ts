@@ -27,8 +27,7 @@ export function directionToVector(direction: Direction): Vector {
     }
 
     default: {
-      ensureAllCases(direction);
-      return Vector.Zero;
+      return ensureAllCases(direction);
     }
   }
 }

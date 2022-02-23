@@ -153,8 +153,7 @@ export function stageTypeToLetter(stageType: StageType): string {
     }
 
     default: {
-      ensureAllCases(stageType);
-      return "";
+      return ensureAllCases(stageType);
     }
   }
 }
