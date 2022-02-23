@@ -2,7 +2,7 @@ import { log } from "./log";
 import { addSetsToSet, copySet } from "./set";
 import { isLuaDebugEnabled } from "./util";
 
-const DEFAULT_GLOBALS = new Set([
+const DEFAULT_GLOBALS: ReadonlySet<string> = new Set([
   "ActionTriggers",
   "ActiveSlot",
   "BabySubType",
@@ -170,9 +170,14 @@ const DEFAULT_GLOBALS = new Set([
   "xpcall",
 ]);
 
-const LUA_DEBUG_ADDED_GLOBALS = new Set(["debug", "io", "os", "package"]);
+const LUA_DEBUG_ADDED_GLOBALS: ReadonlySet<string> = new Set([
+  "debug",
+  "io",
+  "os",
+  "package",
+]);
 
-const RACING_PLUS_SANDBOX_ADDED_GLOBALS = new Set([
+const RACING_PLUS_SANDBOX_ADDED_GLOBALS: ReadonlySet<string> = new Set([
   "sandboxTraceback",
   "sandboxGetTraceback",
   "getParentFunctionDescription",

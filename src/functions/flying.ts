@@ -1,7 +1,7 @@
 import { getCollectiblesForCacheFlag } from "./collectibleCacheFlag";
 import { copySet, deleteSetsFromSet } from "./set";
 
-const FLYING_CHARACTERS = new Set<PlayerType>([
+const FLYING_CHARACTERS: ReadonlySet<PlayerType> = new Set([
   PlayerType.PLAYER_AZAZEL, // 7
   PlayerType.PLAYER_THELOST, // 10
   PlayerType.PLAYER_THESOUL, // 17
@@ -10,12 +10,12 @@ const FLYING_CHARACTERS = new Set<PlayerType>([
   PlayerType.PLAYER_THESOUL_B, // 40
 ]);
 
-const FLYING_TRINKETS = new Set<TrinketType>([
+const FLYING_TRINKETS: ReadonlySet<TrinketType> = new Set([
   TrinketType.TRINKET_BAT_WING, // 118
   TrinketType.TRINKET_AZAZELS_STUMP, // 162
 ]);
 
-const FLYING_NULL_ITEMS = [
+const FLYING_NULL_ITEMS: readonly NullItemID[] = [
   NullItemID.ID_REVERSE_SUN, // 66
   NullItemID.ID_SPIRIT_SHACKLES_SOUL, // 10
 ];
@@ -67,7 +67,7 @@ export function getFlyingCollectibles(
  * Returns a set of all of the trinkets that grant flight. (All trinkets that grant flight do so
  * conditionally, like Bat Wing.)
  */
-export function getFlyingTrinkets(): Set<CollectibleType | int> {
+export function getFlyingTrinkets(): ReadonlySet<CollectibleType | int> {
   // We use a different algorithm than the "getFlyingCollectibles()" function because Azazel's Stump
   // has a cache of "all"
   return copySet(FLYING_TRINKETS);

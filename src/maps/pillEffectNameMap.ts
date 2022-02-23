@@ -1,4 +1,4 @@
-export const PILL_EFFECT_NAME_MAP = new Map<PillEffect, string>([
+export const PILL_EFFECT_NAME_MAP: ReadonlyMap<PillEffect, string> = new Map([
   [PillEffect.PILLEFFECT_BAD_GAS, "Bad Gas"],
   [PillEffect.PILLEFFECT_BAD_TRIP, "Bad Trip"],
   [PillEffect.PILLEFFECT_BALLS_OF_STEEL, "Balls of Steel"],

@@ -24,7 +24,7 @@ interface TSTLClassMetatable {
   };
 }
 
-const TSTL_CLASS_KEYS = new Set<string>([
+const TSTL_CLASS_KEYS: ReadonlySet<string> = new Set([
   "____constructor",
   "__index",
   "constructor",

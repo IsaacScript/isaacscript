@@ -6,7 +6,10 @@ import {
   preNewLevelHasSubscriptions,
 } from "./subscriptions/preNewLevel";
 
-const TRAVELING_TO_NEXT_FLOOR_ANIMATIONS = new Set(["Trapdoor", "LightTravel"]);
+const TRAVELING_TO_NEXT_FLOOR_ANIMATIONS: ReadonlySet<string> = new Set([
+  "Trapdoor",
+  "LightTravel",
+]);
 
 /**
  * Since there can be multiple players, use this variable to ensure that we only fire the custom

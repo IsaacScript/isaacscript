@@ -1,5 +1,5 @@
 // cspell:disable
-export const CARD_DESCRIPTION_MAP = new Map<Card, string>([
+export const CARD_DESCRIPTION_MAP: ReadonlyMap<Card, string> = new Map([
   [1, "Where journey begins"],
   [2, "May you never miss your goal"],
   [3, "Mother is watching you"],

@@ -10,7 +10,7 @@ import {
  * Used to filter out certain NPCs when determining of an NPC is "alive" and/or should keep the
  * doors open.
  */
-const NON_ALIVE_NPCS_TYPE_VARIANT = new Set<string>([
+const NON_ALIVE_NPCS_TYPE_VARIANT: ReadonlySet<string> = new Set([
   `${EntityType.ENTITY_VIS}.${VisVariant.CHUBBER_PROJECTILE}`, // 39.22
   `${EntityType.ENTITY_DEATH}.${DeathVariant.DEATH_SCYTHE}`, // 66.10
   `${EntityType.ENTITY_PEEP}.${PeepVariant.PEEP_EYE}`, // 68.10
@@ -28,7 +28,7 @@ const NON_ALIVE_NPCS_TYPE_VARIANT = new Set<string>([
  * Used to filter out certain NPCs when determining of an NPC is "alive" and/or should keep the
  * doors open.
  */
-const NON_ALIVE_NPCS_TYPE_VARIANT_SUBTYPE = new Set<string>([
+const NON_ALIVE_NPCS_TYPE_VARIANT_SUBTYPE: ReadonlySet<string> = new Set([
   `${EntityType.ENTITY_CHARGER}.${ChargerVariant.CHARGER}.${ChargerSubType.MY_SHADOW}`, // 23.0.1
   `${EntityType.ENTITY_MOTHER}.${MotherVariant.MOTHER_1}.${MotherSubType.PHASE_2}`, // 912
 ]);

@@ -13,7 +13,7 @@ export const BLIND_ITEM_PNG_PATH = "gfx/items/collectibles/questionmark.png";
 /** Bombs explode when their frame count is equal to this value. */
 export const BOMB_EXPLODE_FRAME = 45;
 
-export const CHARACTERS_WITH_AN_ACTIVE_ITEM = new Set<PlayerType>([
+export const CHARACTERS_WITH_AN_ACTIVE_ITEM: ReadonlySet<PlayerType> = new Set([
   PlayerType.PLAYER_ISAAC, // 0
   PlayerType.PLAYER_MAGDALENE, // 1
   PlayerType.PLAYER_JUDAS, // 3
@@ -27,23 +27,24 @@ export const CHARACTERS_WITH_AN_ACTIVE_ITEM = new Set<PlayerType>([
   PlayerType.PLAYER_EDEN_B, // 30
 ]);
 
-export const CHARACTERS_WITH_BLACK_HEART_FROM_ETERNAL_HEART =
-  new Set<PlayerType>([
+export const CHARACTERS_WITH_BLACK_HEART_FROM_ETERNAL_HEART: ReadonlySet<PlayerType> =
+  new Set([
     PlayerType.PLAYER_BLACKJUDAS, // 12
     PlayerType.PLAYER_JUDAS_B, // 24
   ]);
 
-export const CHARACTERS_WITH_FREE_DEVIL_DEALS = new Set<PlayerType>([
-  PlayerType.PLAYER_THELOST,
-  PlayerType.PLAYER_THELOST_B,
-  PlayerType.PLAYER_JACOB2_B,
-]);
+export const CHARACTERS_WITH_FREE_DEVIL_DEALS: ReadonlySet<PlayerType> =
+  new Set([
+    PlayerType.PLAYER_THELOST,
+    PlayerType.PLAYER_THELOST_B,
+    PlayerType.PLAYER_JACOB2_B,
+  ]);
 
 /**
  * The set of characters where red heart containers will be turned into soul hearts (e.g. Blue
  * Baby). This includes The Lost and Tainted Lost. This does not include Keeper or Tainted Keeper.
  */
-export const CHARACTERS_WITH_NO_RED_HEARTS = new Set<PlayerType>([
+export const CHARACTERS_WITH_NO_RED_HEARTS: ReadonlySet<PlayerType> = new Set([
   PlayerType.PLAYER_BLUEBABY, // 4
   PlayerType.PLAYER_THELOST, // 10
   PlayerType.PLAYER_BLACKJUDAS, // 12
@@ -58,7 +59,7 @@ export const CHARACTERS_WITH_NO_RED_HEARTS = new Set<PlayerType>([
  * The set of characters where soul hearts will be automatically stripped away (e.g. Bethany). This
  * includes The Lost and Tainted Lost.
  */
-export const CHARACTERS_WITH_NO_SOUL_HEARTS = new Set<PlayerType>([
+export const CHARACTERS_WITH_NO_SOUL_HEARTS: ReadonlySet<PlayerType> = new Set([
   PlayerType.PLAYER_THELOST, // 10
   PlayerType.PLAYER_KEEPER, // 14
   PlayerType.PLAYER_BETHANY, // 18
@@ -101,16 +102,17 @@ export const EGGY_STATE_FRAME_OF_FINAL_SPIDER = 45;
  */
 export const EMPTY_PNG_PATH = "gfx/none.png";
 
-export const FAMILIARS_THAT_SHOOT_PLAYER_TEARS = new Set([
-  FamiliarVariant.SCISSORS,
-  FamiliarVariant.INCUBUS,
-  FamiliarVariant.FATES_REWARD,
-  FamiliarVariant.SPRINKLER,
-  FamiliarVariant.LOST_SOUL,
-  FamiliarVariant.TWISTED_BABY,
-  FamiliarVariant.BLOOD_BABY,
-  FamiliarVariant.DECAP_ATTACK,
-]);
+export const FAMILIARS_THAT_SHOOT_PLAYER_TEARS: ReadonlySet<FamiliarVariant> =
+  new Set([
+    FamiliarVariant.SCISSORS,
+    FamiliarVariant.INCUBUS,
+    FamiliarVariant.FATES_REWARD,
+    FamiliarVariant.SPRINKLER,
+    FamiliarVariant.LOST_SOUL,
+    FamiliarVariant.TWISTED_BABY,
+    FamiliarVariant.BLOOD_BABY,
+    FamiliarVariant.DECAP_ATTACK,
+  ]);
 
 /** As of Repentance, the final stage is floor 13 (which is the Home floor). */
 export const FINAL_STAGE = LevelStage.NUM_STAGES - 1;
@@ -133,7 +135,7 @@ export const ISAAC_FRAMES_PER_SECOND = 60;
  * This is the set of characters that look like The Lost and play the "LostDeath" animation when
  * they die.
  */
-export const LOST_STYLE_PLAYER_TYPES = new Set([
+export const LOST_STYLE_PLAYER_TYPES: ReadonlySet<PlayerType> = new Set([
   PlayerType.PLAYER_THELOST, // 10
   PlayerType.PLAYER_THESOUL, // 17
   PlayerType.PLAYER_THELOST_B, // 31
@@ -183,38 +185,43 @@ export const MAX_VANILLA_COLLECTIBLE_TYPE =
 export const SECOND_IN_MILLISECONDS = 1000;
 export const MINUTE_IN_MILLISECONDS = 60 * SECOND_IN_MILLISECONDS;
 
-export const MOVEMENT_ACTIONS = [
+export const MOVEMENT_ACTIONS: readonly ButtonAction[] = [
   ButtonAction.ACTION_LEFT, // 0
   ButtonAction.ACTION_RIGHT, // 1
   ButtonAction.ACTION_UP, // 2
   ButtonAction.ACTION_DOWN, // 3
 ];
 
-export const MOVEMENT_ACTIONS_SET = new Set(MOVEMENT_ACTIONS);
+export const MOVEMENT_ACTIONS_SET: ReadonlySet<ButtonAction> = new Set(
+  MOVEMENT_ACTIONS,
+);
 
 export const ONE_BY_ONE_ROOM_GRID_SIZE = 135;
 
-export const SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES = new Set<CollectibleType>([
-  CollectibleType.COLLECTIBLE_FORGET_ME_NOW, // 127
-  CollectibleType.COLLECTIBLE_EDENS_SOUL, // 490
-  CollectibleType.COLLECTIBLE_ALABASTER_BOX, // 585
-  CollectibleType.COLLECTIBLE_PLAN_C, // 475
-  CollectibleType.COLLECTIBLE_MAMA_MEGA, // 483
-  CollectibleType.COLLECTIBLE_SACRIFICIAL_ALTAR, // 536
-  CollectibleType.COLLECTIBLE_DEATH_CERTIFICATE, // 628
-  CollectibleType.COLLECTIBLE_R_KEY, // 636
-]);
+export const SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES: ReadonlySet<CollectibleType> =
+  new Set([
+    CollectibleType.COLLECTIBLE_FORGET_ME_NOW, // 127
+    CollectibleType.COLLECTIBLE_EDENS_SOUL, // 490
+    CollectibleType.COLLECTIBLE_ALABASTER_BOX, // 585
+    CollectibleType.COLLECTIBLE_PLAN_C, // 475
+    CollectibleType.COLLECTIBLE_MAMA_MEGA, // 483
+    CollectibleType.COLLECTIBLE_SACRIFICIAL_ALTAR, // 536
+    CollectibleType.COLLECTIBLE_DEATH_CERTIFICATE, // 628
+    CollectibleType.COLLECTIBLE_R_KEY, // 636
+  ]);
 
-export const SHOOTING_ACTIONS = [
+export const SHOOTING_ACTIONS: readonly ButtonAction[] = [
   ButtonAction.ACTION_SHOOTLEFT, // 4
   ButtonAction.ACTION_SHOOTRIGHT, // 5
   ButtonAction.ACTION_SHOOTUP, // 6
   ButtonAction.ACTION_SHOOTDOWN, // 7
 ];
 
-export const SHOOTING_ACTIONS_SET = new Set(SHOOTING_ACTIONS);
+export const SHOOTING_ACTIONS_SET: ReadonlySet<ButtonAction> = new Set(
+  SHOOTING_ACTIONS,
+);
 
-export const STORY_BOSSES = new Set<EntityType>([
+export const STORY_BOSSES: ReadonlySet<EntityType> = new Set([
   EntityType.ENTITY_MOM, // 45
   EntityType.ENTITY_MOMS_HEART, // 78
   EntityType.ENTITY_SATAN, // 84

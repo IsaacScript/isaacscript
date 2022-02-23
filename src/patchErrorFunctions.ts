@@ -12,7 +12,7 @@ const LINE_SEPARATOR = "\n";
  * These must be listed in order from how they appear in the traceback from top to bottom, or they
  * won't be properly removed.
  */
-const USELESS_TRACEBACK_MESSAGES = [
+const USELESS_TRACEBACK_MESSAGES: readonly string[] = [
   // The second line of the traceback will always be the "getTraceback" function
   "in upvalue 'getTraceback'",
   "in function 'sandbox.GetTraceback'",

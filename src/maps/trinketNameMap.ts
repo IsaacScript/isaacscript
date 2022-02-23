@@ -1,4 +1,4 @@
-export const TRINKET_NAME_MAP = new Map<TrinketType, string>([
+export const TRINKET_NAME_MAP: ReadonlyMap<TrinketType, string> = new Map([
   [1, "Swallowed Penny"],
   [2, "Petrified Poop"],
   [3, "AAA Battery"],

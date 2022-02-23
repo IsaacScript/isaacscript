@@ -5,7 +5,7 @@ import { getRandomInt, nextSeed } from "./random";
  * specified arrays. This function is variadic, meaning that you can specify N arguments to combine
  * N arrays. Note that this will only perform a shallow copy of the array elements.
  */
-export function arrayCombine<T>(...arrays: T[][]): T[] {
+export function arrayCombine<T>(...arrays: Array<T[] | readonly T[]>): T[] {
   const elements: T[] = [];
   for (const array of arrays) {
     for (const element of array) {
@@ -17,7 +17,7 @@ export function arrayCombine<T>(...arrays: T[][]): T[] {
 }
 
 /** Helper function to perform a shallow copy. */
-export function arrayCopy<T>(array: T[]): T[] {
+export function arrayCopy<T>(array: T[] | readonly T[]): T[] {
   return [...array];
 }
 
@@ -29,7 +29,10 @@ export function arrayEmpty<T>(array: T[]): void {
  * Helper function for determining if two arrays contain the exact same elements. Note that this
  * only performs a shallow comparison.
  */
-export function arrayEquals<T>(array1: T[], array2: T[]): boolean {
+export function arrayEquals<T>(
+  array1: T[] | readonly T[],
+  array2: T[] | readonly T[],
+): boolean {
   if (array1.length !== array2.length) {
     return false;
   }
@@ -41,8 +44,8 @@ export function arrayEquals<T>(array1: T[], array2: T[]): boolean {
 }
 
 export function arrayInArray<T>(
-  arrayToMatch: T[],
-  parentArray: T[][],
+  arrayToMatch: T[] | readonly T[],
+  parentArray: Array<T[] | readonly T[]>,
 ): boolean {
   return parentArray.some((element) => arrayEquals(element, arrayToMatch));
 }
@@ -69,7 +72,10 @@ export function arrayInit<T>(defaultValue: T, size: int): T[] {
  *
  * From: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
  */
-export function arrayShuffle<T>(originalArray: T[], seed = Random()): T[] {
+export function arrayShuffle<T>(
+  originalArray: T[] | readonly T[],
+  seed = Random(),
+): T[] {
   const array = arrayCopy(originalArray);
   arrayShuffleInPlace(array, seed);
 
@@ -97,7 +103,7 @@ export function arrayShuffleInPlace<T>(array: T[], seed = Random()): void {
   }
 }
 
-export function arraySum(array: int[]): int {
+export function arraySum(array: number[] | readonly number[]): number {
   return array.reduce((accumulator, element) => accumulator + element, 0);
 }
 
@@ -118,7 +124,10 @@ export function arrayToString<T>(array: T[]): string {
  *
  * This function is variadic, meaning that you can specify N arguments to remove N elements.
  */
-export function arrayRemove<T>(originalArray: T[], ...elements: T[]): T[] {
+export function arrayRemove<T>(
+  originalArray: T[] | readonly T[],
+  ...elements: T[]
+): T[] {
   const array = arrayCopy(originalArray);
 
   for (const element of elements) {
@@ -137,7 +146,10 @@ export function arrayRemove<T>(originalArray: T[], ...elements: T[]): T[] {
  *
  * This function is variadic, meaning that you can specify N arguments to remove N elements.
  */
-export function arrayRemoveInPlace<T>(array: T[], ...elements: T[]): boolean {
+export function arrayRemoveInPlace<T>(
+  array: T[],
+  ...elements: T[] | readonly T[]
+): boolean {
   let removedOneOrMoreElements = false;
 
   for (const element of elements) {
@@ -159,9 +171,9 @@ export function arrayRemoveInPlace<T>(array: T[], ...elements: T[]): boolean {
  * @param exceptions Optional. An array of elements to skip over if selected.
  */
 export function getRandomArrayElement<T>(
-  array: T[],
+  array: T[] | readonly T[],
   seed = Random(),
-  exceptions: T[] = [],
+  exceptions: T[] | readonly T[] = [],
 ): T {
   const arrayWithoutExceptions = arrayRemove(array, ...exceptions);
   const randomIndex = getRandomArrayIndex(arrayWithoutExceptions, seed);
@@ -179,14 +191,17 @@ export function getRandomArrayElement<T>(
 export function getRandomArrayElementAndRemove<T>(
   array: T[],
   seed = Random(),
-  exceptions: T[] = [],
+  exceptions: T[] | readonly T[] = [],
 ) {
   const randomArrayElement = getRandomArrayElement(array, seed, exceptions);
   arrayRemoveInPlace(array, randomArrayElement);
   return randomArrayElement;
 }
 
-export function getRandomArrayIndex<T>(array: T[], seed = Random()): int {
+export function getRandomArrayIndex<T>(
+  array: T[] | readonly T[],
+  seed = Random(),
+): int {
   if (array.length === 0) {
     error(
       "Failed to get a random array index since the provided array is empty.",

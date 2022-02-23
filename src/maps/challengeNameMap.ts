@@ -1,4 +1,4 @@
-export const CHALLENGE_NAME_MAP = new Map<Challenge, string>([
+export const CHALLENGE_NAME_MAP: ReadonlyMap<Challenge, string> = new Map([
   [Challenge.CHALLENGE_PITCH_BLACK, "Pitch Black"], // 1
   [Challenge.CHALLENGE_HIGH_BROW, "High Brow"], // 2
   [Challenge.CHALLENGE_HEAD_TRAUMA, "Head Trauma"], // 3

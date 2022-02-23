@@ -34,11 +34,11 @@ import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "JSON room deployer";
 
-const NPC_TYPES_TO_NOT_REMOVE = new Set<EntityType>([
+const NPC_TYPES_TO_NOT_REMOVE: ReadonlySet<EntityType> = new Set([
   EntityType.ENTITY_DARK_ESAU,
 ]);
 
-const PERSISTENT_ENTITY_TYPES = new Set<EntityType>([
+const PERSISTENT_ENTITY_TYPES: ReadonlySet<EntityType> = new Set([
   EntityType.ENTITY_WALL_HUGGER,
 ]);
 

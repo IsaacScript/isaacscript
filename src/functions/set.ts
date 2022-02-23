@@ -4,7 +4,10 @@
  *
  * This function is variadic, meaning that you can specify N sets to add to the first set.
  */
-export function addSetsToSet<T>(mainSet: Set<T>, ...setsToAdd: Array<Set<T>>) {
+export function addSetsToSet<T>(
+  mainSet: Set<T>,
+  ...setsToAdd: Array<Set<T> | ReadonlySet<T>>
+) {
   for (const set of setsToAdd) {
     for (const value of set.values()) {
       mainSet.add(value);
@@ -13,7 +16,7 @@ export function addSetsToSet<T>(mainSet: Set<T>, ...setsToAdd: Array<Set<T>>) {
 }
 
 /** Helper function to copy a set. (You can also use a Set constructor to accomplish this task.) */
-export function copySet<T>(oldSet: Set<T>): Set<T> {
+export function copySet<T>(oldSet: Set<T> | ReadonlySet<T>): Set<T> {
   const newSet = new Set<T>();
   for (const value of oldSet.values()) {
     newSet.add(value);
@@ -27,7 +30,9 @@ export function copySet<T>(oldSet: Set<T>): Set<T> {
  *
  * This function is variadic, meaning that you can specify N sets.
  */
-export function combineSets<T>(...sets: Array<Set<T>>): Set<T> {
+export function combineSets<T>(
+  ...sets: Array<Set<T> | ReadonlySet<T>>
+): Set<T> {
   const newSet = new Set<T>();
   for (const set of sets) {
     for (const value of set.values()) {
@@ -46,7 +51,7 @@ export function combineSets<T>(...sets: Array<Set<T>>): Set<T> {
  */
 export function deleteSetsFromSet<T>(
   mainSet: Set<T>,
-  ...setsToRemove: Array<Set<T>>
+  ...setsToRemove: Array<Set<T> | ReadonlySet<T>>
 ) {
   for (const set of setsToRemove) {
     for (const value of set.values()) {

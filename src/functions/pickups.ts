@@ -15,7 +15,7 @@ export function getRandomHeartSubType(
   return getRandomArrayElement(heartSubTypes, seed, exceptions);
 }
 
-const CHEST_PICKUP_VARIANTS = new Set<PickupVariant>([
+const CHEST_PICKUP_VARIANTS: ReadonlySet<PickupVariant> = new Set([
   PickupVariant.PICKUP_CHEST, // 50
   PickupVariant.PICKUP_BOMBCHEST, // 51
   PickupVariant.PICKUP_SPIKEDCHEST, // 52

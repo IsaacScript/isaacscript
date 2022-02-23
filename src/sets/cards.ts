@@ -2,7 +2,7 @@
  * Contains all of the entries in the `Card` enum that are not a rune and not an object (e.g. Fool,
  * Reverse Fool, Wild Card, etc.).
  */
-export const CARDS: Card[] = [
+export const CARDS: readonly Card[] = [
   Card.CARD_FOOL,
   Card.CARD_MAGICIAN,
   Card.CARD_HIGH_PRIESTESS,
@@ -75,13 +75,13 @@ export const CARDS: Card[] = [
  * Contains all of the entries in the `Card` enum that are not a rune and not an object (e.g. Fool,
  * Reverse Fool, Wild Card, etc.).
  */
-export const CARD_SET = new Set(CARDS);
+export const CARD_SET: ReadonlySet<Card> = new Set(CARDS);
 
 /**
  * Contains all of the entries in the `Card` enum that are a rune (e.g. Rune of Hagalaz, Blank Rune,
  * Black Rune, Rune Shard, Soul of Isaac, etc.).
  */
-export const RUNES: Card[] = [
+export const RUNES: readonly Card[] = [
   Card.RUNE_HAGALAZ,
   Card.RUNE_JERA,
   Card.RUNE_EHWAZ,
@@ -116,14 +116,16 @@ export const RUNES: Card[] = [
  * Contains all of the entries in the `Card` enum that are a rune (e.g. Rune of Hagalaz, Blank Rune,
  * Black Rune, Rune Shard, Soul of Isaac, etc.).
  */
-export const RUNE_SET = new Set(RUNES);
+export const RUNE_SET: ReadonlySet<Card> = new Set(RUNES);
 
 /** Contains all of the entries in the `Card` enum that are objects (like Dice Shard). */
-export const POCKET_ITEM_OBJECTS = [
+export const POCKET_ITEM_OBJECTS: readonly Card[] = [
   Card.CARD_DICE_SHARD,
   Card.CARD_EMERGENCY_CONTACT,
   Card.CARD_CRACKED_KEY,
 ];
 
 /** Contains all of the entries in the `Card` enum that are objects (like Dice Shard). */
-export const POCKET_ITEM_OBJECT_SET = new Set(POCKET_ITEM_OBJECTS);
+export const POCKET_ITEM_OBJECT_SET: ReadonlySet<Card> = new Set(
+  POCKET_ITEM_OBJECTS,
+);

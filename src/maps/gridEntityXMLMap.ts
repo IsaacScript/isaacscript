@@ -2,10 +2,10 @@
  * This maps the GridEntityXMLType (i.e. the type contained in the room XML/STB file) to the
  * GridEntityType and the variant used by the game.
  */
-export const GRID_ENTITY_XML_MAP = new Map<
+export const GRID_ENTITY_XML_MAP: ReadonlyMap<
   GridEntityXMLType,
   [GridEntityType, int]
->([
+> = new Map([
   [GridEntityXMLType.ROCK, [GridEntityType.GRID_ROCK, RockVariant.NORMAL]],
   [GridEntityXMLType.ROCK_BOMB, [GridEntityType.GRID_ROCK_BOMB, 0]],
   [GridEntityXMLType.ROCK_ALT, [GridEntityType.GRID_ROCK_ALT, 0]],

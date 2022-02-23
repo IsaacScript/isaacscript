@@ -2,28 +2,29 @@ import { TRANSFORMATION_NAME_MAP } from "../maps/transformationNameMap";
 import { collectibleHasTag, getMaxCollectibleID } from "./collectibles";
 import { copySet } from "./set";
 
-const TRANSFORMATION_TO_TAG_MAP = new Map<PlayerForm, ItemConfigTag>([
-  [PlayerForm.PLAYERFORM_GUPPY, ItemConfigTag.GUPPY], // 0
-  [PlayerForm.PLAYERFORM_LORD_OF_THE_FLIES, ItemConfigTag.FLY], // 1
-  [PlayerForm.PLAYERFORM_MUSHROOM, ItemConfigTag.MUSHROOM], // 2
-  [PlayerForm.PLAYERFORM_ANGEL, ItemConfigTag.ANGEL], // 3
-  [PlayerForm.PLAYERFORM_BOB, ItemConfigTag.BOB], // 4
-  [PlayerForm.PLAYERFORM_DRUGS, ItemConfigTag.SYRINGE], // 5
-  [PlayerForm.PLAYERFORM_MOM, ItemConfigTag.MOM], // 6
-  [PlayerForm.PLAYERFORM_BABY, ItemConfigTag.BABY], // 7
-  [PlayerForm.PLAYERFORM_EVIL_ANGEL, ItemConfigTag.DEVIL], // 8
-  [PlayerForm.PLAYERFORM_POOP, ItemConfigTag.POOP], // 9
-  [PlayerForm.PLAYERFORM_BOOK_WORM, ItemConfigTag.BOOK], // 10
-  [PlayerForm.PLAYERFORM_SPIDERBABY, ItemConfigTag.SPIDER], // 12
-]);
+const TRANSFORMATION_TO_TAG_MAP: ReadonlyMap<PlayerForm, ItemConfigTag> =
+  new Map([
+    [PlayerForm.PLAYERFORM_GUPPY, ItemConfigTag.GUPPY], // 0
+    [PlayerForm.PLAYERFORM_LORD_OF_THE_FLIES, ItemConfigTag.FLY], // 1
+    [PlayerForm.PLAYERFORM_MUSHROOM, ItemConfigTag.MUSHROOM], // 2
+    [PlayerForm.PLAYERFORM_ANGEL, ItemConfigTag.ANGEL], // 3
+    [PlayerForm.PLAYERFORM_BOB, ItemConfigTag.BOB], // 4
+    [PlayerForm.PLAYERFORM_DRUGS, ItemConfigTag.SYRINGE], // 5
+    [PlayerForm.PLAYERFORM_MOM, ItemConfigTag.MOM], // 6
+    [PlayerForm.PLAYERFORM_BABY, ItemConfigTag.BABY], // 7
+    [PlayerForm.PLAYERFORM_EVIL_ANGEL, ItemConfigTag.DEVIL], // 8
+    [PlayerForm.PLAYERFORM_POOP, ItemConfigTag.POOP], // 9
+    [PlayerForm.PLAYERFORM_BOOK_WORM, ItemConfigTag.BOOK], // 10
+    [PlayerForm.PLAYERFORM_SPIDERBABY, ItemConfigTag.SPIDER], // 12
+  ]);
 
-const TRANSFORMATIONS_NOT_BASED_ON_ITEMS = new Set<PlayerForm>([
+const TRANSFORMATIONS_NOT_BASED_ON_ITEMS: ReadonlySet<PlayerForm> = new Set([
   PlayerForm.PLAYERFORM_ADULTHOOD, // 11 (based on pill usage)
   PlayerForm.PLAYERFORM_STOMPY, // 13 (based on size)
   PlayerForm.PLAYERFORM_FLIGHT, // 14 (unused enum)
 ]);
 
-const TRANSFORMATIONS_THAT_GRANT_FLYING = new Set<PlayerForm>([
+const TRANSFORMATIONS_THAT_GRANT_FLYING: ReadonlySet<PlayerForm> = new Set([
   PlayerForm.PLAYERFORM_GUPPY, // 0
   PlayerForm.PLAYERFORM_LORD_OF_THE_FLIES, // 1
   PlayerForm.PLAYERFORM_ANGEL, // 3

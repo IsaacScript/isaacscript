@@ -12,7 +12,7 @@ import {
   postSlotRenderHasSubscriptions,
 } from "./subscriptions/postSlotRender";
 
-const BROKEN_ANIMATIONS = new Set([
+const BROKEN_ANIMATIONS: ReadonlySet<string> = new Set([
   "Broken", // Normal machines
   "Death", // Restock machines
 ]);

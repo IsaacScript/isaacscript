@@ -11,9 +11,9 @@ const v = {
   run: {
     enableSomeInputs: true,
     /** A set of inputs that are allowed, or null if all inputs are allowed. */
-    whitelist: null as Set<ButtonAction> | null,
+    whitelist: null as Set<ButtonAction> | ReadonlySet<ButtonAction> | null,
     /** A set of inputs that are disallowed, or null if nothing specific is disallowed. */
-    blacklist: null as Set<ButtonAction> | null,
+    blacklist: null as Set<ButtonAction> | ReadonlySet<ButtonAction> | null,
   },
 };
 
@@ -129,7 +129,9 @@ export function disableAllInputs(): void {
  * Note that calling any of the various `enable` or `disable` functions will override the effects of
  * this function.
  */
-export function enableAllInputsExceptFor(blacklist: Set<ButtonAction>): void {
+export function enableAllInputsExceptFor(
+  blacklist: Set<ButtonAction> | ReadonlySet<ButtonAction>,
+): void {
   if (!initialized) {
     const msg = getUpgradeErrorMsg(FEATURE_NAME);
     error(msg);

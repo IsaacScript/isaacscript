@@ -7,7 +7,7 @@ import {
   postTrinketBreakHasSubscriptions,
 } from "./subscriptions/postTrinketBreak";
 
-const TRINKETS_THAT_CAN_BREAK = [
+const TRINKETS_THAT_CAN_BREAK: readonly TrinketType[] = [
   TrinketType.TRINKET_WISH_BONE,
   TrinketType.TRINKET_WALNUT,
 ];

@@ -1,4 +1,4 @@
-export const CARD_NAME_MAP = new Map<Card, string>([
+export const CARD_NAME_MAP: ReadonlyMap<Card, string> = new Map([
   [Card.CARD_FOOL, "0 - The Fool"],
   [Card.CARD_MAGICIAN, "I - The Magician"],
   [Card.CARD_HIGH_PRIESTESS, "II - The High Priestess"],

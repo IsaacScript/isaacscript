@@ -14,7 +14,7 @@ import { getCollectibleMaxCharges } from "./collectibles";
 import { getCollectibleSet } from "./collectibleSet";
 import { ensureAllCases, stringContains, trimPrefix } from "./util";
 
-const EXCLUDED_CHARACTERS = new Set<PlayerType>([
+const EXCLUDED_CHARACTERS: ReadonlySet<PlayerType> = new Set([
   PlayerType.PLAYER_ESAU, // 20
   PlayerType.PLAYER_THESOUL_B, // 40
 ]);
