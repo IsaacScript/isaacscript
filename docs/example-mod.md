@@ -114,7 +114,7 @@ Second, remove all of the lines relating to the `MC_POST_GAME_STARTED` callback.
 
 ## 6) Get the ID for the Green Candle
 
-When the game loads a new collectible, it assigns it an collectible type. These types start at 733 and count upwards. (732 is the collectible type of the final vanilla item, "Mom's Ring", so the first available collectible type for mods is 733.)
+When the game loads a new collectible, it assigns it a collectible type. These types start at 733 and count upwards. (732 is the collectible type of the final vanilla item, "Mom's Ring", so the first available collectible type for mods is 733.)
 
 The collectible type that the Green Candle will get depends on how many other custom modded items that we have loaded. So, in order to write code for the Green Candle, we have to ask the game what the current ID is and store it for later.
 

@@ -61,7 +61,7 @@ export function main(): void {
 
 ## 4) src/items/greenCandle.ts
 
-Each item can have its own dedicated file in a "items" subdirectory.
+Each item can have its own dedicated file in an "items" subdirectory.
 
 ```ts
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
