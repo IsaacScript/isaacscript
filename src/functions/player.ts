@@ -378,6 +378,8 @@ export function getPlayerFromIndex(
  *   continuing.
  * - We cannot use `GetPtrHash()` as an index because it does not persist across exiting and
  *   relaunching the game.
+ * - We cannot use `EntityPlayer.InitSeed` because it is not consistent with additional players
+ *   beyond the first.
  *
  * Instead, we use `EntityPlayer.GetCollectibleRNG()` with an arbitrary value of 1 (i.e. Sad Onion).
  * This works even if the player does not have any Sad Onions.
