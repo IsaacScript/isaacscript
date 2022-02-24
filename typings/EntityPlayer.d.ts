@@ -732,11 +732,13 @@ declare interface EntityPlayer extends Entity {
   GetSoulHearts(): int;
 
   /**
-   * - When on The Forgotten, returns the player object for The Soul.
-   * - When on The Soul, returns the player object for The Forgotten.
+   * - When on The Forgotten, returns the sub-player object for The Soul.
+   * - When on The Soul, returns the sub-player object for The Forgotten.
    * - Otherwise, returns undefined.
+   * - This will always return undefined if you call it on a sub-player. To get the "parent" player,
+   *   use the `getSubPlayerParent` helper function.
    */
-  GetSubPlayer(): EntityPlayer | undefined;
+  GetSubPlayer(): EntitySubPlayer | undefined;
 
   /**
    * Used for tear parameters that are calculated on hit (e.g. Tough Love, Common Cold),

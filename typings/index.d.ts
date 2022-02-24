@@ -87,6 +87,7 @@
 /// <reference path="unofficial/enumsSubTypes.d.ts" />
 /// <reference path="unofficial/enumsVariants.d.ts" />
 /// <reference path="unofficial/enumsXML.d.ts" />
+/// <reference path="unofficial/EntitySubPlayer.d.ts" />
 
 /// <reference path="mods/EID.d.ts" />
 /// <reference path="mods/Encyclopedia.d.ts" />
