@@ -82,4 +82,5 @@ npx typedoc \
   --entryPoints "$DIR/src/maps/roomShapeToTopLeftWallGridIndexMap.ts" \
   --entryPoints "$DIR/src/maps/trinketDescriptionMap.ts" \
   --entryPoints "$DIR/src/maps/trinketNameMap.ts" \
+  --entryPoints "$DIR/src/types/DefaultMap.ts" \
   --entryPoints "$DIR/src/upgradeMod.ts" \
