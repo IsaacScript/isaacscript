@@ -94,6 +94,12 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 
 <br>
 
+## Extra Data Structures
+
+- [DefaultMap](modules/types_DefaultMap.html)
+
+<br>
+
 ## Extra Constants
 
 - [Constants](modules/constants.html)
