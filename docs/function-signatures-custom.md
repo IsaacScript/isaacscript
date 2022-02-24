@@ -269,7 +269,7 @@ Fires when a player entity changes its player type (i.e. character). For example
 Notably, it does not fire after the player uses the Flip item or the Esau Jr. item, because those items cause separate player entities to be created. Use the `MC_POST_FLIP` and `MC_POST_ESAU_JR` callbacks to handle those situations.
 
 ```ts
-function postPlayerChangeType(player: EntityPlayer, character: PlayerType | int) {}
+function postPlayerChangeType(player: EntityPlayer, oldCharacter: PlayerType | int, newCharacter: PlayerType | int) {}
 ```
 
 ### MC_POST_PLAYER_CHANGE_HEALTH
