@@ -15,6 +15,8 @@ import { getCollectibleSet } from "./collectibleSet";
 import { stringContains, trimPrefix } from "./string";
 import { ensureAllCases } from "./utils";
 
+const DEFAULT_COLLECTIBLE_TYPE = CollectibleType.COLLECTIBLE_SAD_ONION;
+
 const EXCLUDED_CHARACTERS: ReadonlySet<PlayerType> = new Set([
   PlayerType.PLAYER_ESAU, // 20
   PlayerType.PLAYER_THESOUL_B, // 40
@@ -388,44 +390,56 @@ export function getPlayerFromIndex(
  *
  * Note that by default, this returns the same index for both The Forgotten and The Soul. (Even
  * though they are technically different characters, they share the same inventory and InitSeed.) If
- * this is not desired, pass true for the `differentiateForgottenAndSoul` argument.
+ * this is not desired, pass true for the `differentiateForgottenAndSoul` argument, and the RNG of
+ * Spoon Bender (3) will be used for The Soul.
  */
 export function getPlayerIndex(
-  player: EntityPlayer | EntitySubPlayer,
+  player: EntityPlayer,
   differentiateForgottenAndSoul = false,
 ): PlayerIndex {
+  // Sub-players use separate RNG values for some reason, so we need to always use the main player
+  // https://github.com/Meowlala/RepentanceAPIIssueTracker/issues/443
+  const isSubPlayer = player.IsSubPlayer();
+  const playerToUse = isSubPlayer
+    ? getSubPlayerParent(player as EntitySubPlayer)
+    : player;
+  if (playerToUse === undefined) {
+    error(
+      `Failed to get the sub-player parent when determining the index for the player with InitSeed: ${player.InitSeed}`,
+    );
+  }
+
   const collectibleType = getPlayerIndexCollectibleType(
     player,
     differentiateForgottenAndSoul,
   );
-  const collectibleRNG = player.GetCollectibleRNG(collectibleType);
+  const collectibleRNG = playerToUse.GetCollectibleRNG(collectibleType);
   const seed = collectibleRNG.GetSeed();
 
   return seed as PlayerIndex;
 }
 
 function getPlayerIndexCollectibleType(
-  player: EntityPlayer | EntitySubPlayer,
+  player: EntityPlayer,
   differentiateForgottenAndSoul: boolean,
 ) {
-  const defaultCollectibleType = CollectibleType.COLLECTIBLE_SAD_ONION; // 1
   const character = player.GetPlayerType();
 
   switch (character) {
     // 17
     case PlayerType.PLAYER_THESOUL: {
       return differentiateForgottenAndSoul
-        ? CollectibleType.COLLECTIBLE_INNER_EYE // 2
-        : defaultCollectibleType;
+        ? CollectibleType.COLLECTIBLE_SPOON_BENDER
+        : DEFAULT_COLLECTIBLE_TYPE;
     }
 
     // 38
     case PlayerType.PLAYER_LAZARUS2_B: {
-      return CollectibleType.COLLECTIBLE_SPOON_BENDER; // 2
+      return CollectibleType.COLLECTIBLE_INNER_EYE;
     }
 
     default: {
-      return defaultCollectibleType;
+      return DEFAULT_COLLECTIBLE_TYPE;
     }
   }
 }
