@@ -47,24 +47,12 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
   const pickingUpItem = getPickingUpItemForPlayer(player);
 
   if (player.IsItemQueueEmpty()) {
-    if (player.GetPlayerType() === PlayerType.PLAYER_THESOUL) {
-      Isaac.DebugString(
-        `GETTING HERE - EMPTY - ${pickingUpItem.itemType}, ${pickingUpItem.subType}`,
-      );
-    }
-
     queueEmpty(player, pickingUpItem);
     // If a player enters a room with a trinket next to the entrance, the player will pick up the
     // trinket, but it will not become queued (it will be deposited into their inventory
     // immediately)
     // Since we don't know what type of item the player is holding, don't account for this bug
   } else {
-    if (player.GetPlayerType() === PlayerType.PLAYER_THESOUL) {
-      Isaac.DebugString(
-        `GETTING HERE - NOT EMPTY - ${pickingUpItem.itemType}, ${pickingUpItem.subType}`,
-      );
-    }
-
     queueNotEmpty(player, pickingUpItem);
   }
 }
@@ -92,9 +80,6 @@ function queueNotEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
     // Record which item we are picking up
     pickingUpItem.itemType = queuedItem.Type;
     pickingUpItem.subType = queuedItem.ID;
-    Isaac.DebugString(
-      `GETTING HERE - SET: ${pickingUpItem.itemType}, ${pickingUpItem.subType}`,
-    );
 
     preItemPickupFire(player, pickingUpItem);
   }
