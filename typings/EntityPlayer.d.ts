@@ -2,7 +2,7 @@ declare interface EntityPlayer extends Entity {
   /** 1 unit is half a heart. Remove them with negative numbers. */
   AddBlackHearts(blackHearts: int): void;
 
-  /** This adds Tainted Bethany's blood charges. Only works on Tainted Bethany. */
+  /** Adds Tainted Bethany's blood charges. Only works on Tainted Bethany. */
   AddBloodCharge(num: int): void;
 
   /**
@@ -147,7 +147,7 @@ declare interface EntityPlayer extends Entity {
    */
   AddRottenHearts(hearts: int): void;
 
-  /** This adds Bethany's soul heart charges. Only works on Bethany. */
+  /** Adds Bethany's soul heart charges. Only works on Bethany. */
   AddSoulCharge(num: int): void;
 
   /** 1 unit is half a heart. Remove them with negative numbers. */
@@ -308,14 +308,14 @@ declare interface EntityPlayer extends Entity {
   CanTurnHead(): boolean;
 
   /**
-   * This will attempt to merge forms when called on characters like Jacob and Esau.
-   * This currently does not work correctly when changing from/to certain characters.
-   * (i.e. Tainted Isaac)
+   * Changes the current character of the player. This will attempt to merge forms when called on
+   * characters like Jacob and Esau. This does not work correctly when changing from/to certain
+   * characters (i.e. Tainted Isaac).
    */
   ChangePlayerType(type: PlayerType): void;
 
   /**
-   * Call this to spawn the appropriate amount of familiars associated with a custom collectible.
+   * Spawns the appropriate amount of familiars associated with a custom collectible.
    *
    * - If the target count specified is less than the current amount of familiars, it will spawn
    * more until the target count is met.
@@ -493,10 +493,13 @@ declare interface EntityPlayer extends Entity {
    */
   GetBatteryCharge(activeSlot?: ActiveSlot): int;
 
-  /** This returns the bit mask for which soul hearts are black hearts. */
+  /** Returns the bit mask for which soul hearts are black hearts. */
   GetBlackHearts(): int;
 
-  /** This gets Tainted Bethany's blood charges. */
+  /**
+   * Gets Tainted Bethany's blood charges. Returns 0 on characters other than Tainted Bethany. (It
+   * is unknown how this method is different from `EntityPlayer.GetEffectiveBloodCharge`.)
+   */
   GetBloodCharge(): int;
 
   GetBodyColor(): SkinColor;
@@ -548,7 +551,10 @@ declare interface EntityPlayer extends Entity {
 
   GetDamageCooldown(): int;
 
-  /** This returns the number of blood charges when called on Tainted Bethany, 0 otherwise. */
+  /**
+   * Gets Tainted Bethany's blood charges. Returns 0 on characters other than Tainted Bethany. (It
+   * is unknown how this method is different from `EntityPlayer.GetBloodCharge`.)
+   */
   GetEffectiveBloodCharge(): int;
 
   /**
@@ -558,7 +564,10 @@ declare interface EntityPlayer extends Entity {
    */
   GetEffectiveMaxHearts(): int;
 
-  /** This returns the number of soul charges when called on Bethany, 0 otherwise. */
+  /**
+   * Gets Bethany's soul heart charges. Returns 0 on characters other than Bethany. (It is unknown
+   * how this function is different from `EntityPlayer.GetSoulCharge`.)
+   */
   GetEffectiveSoulCharge(): int;
 
   GetEffects(): TemporaryEffects;
@@ -710,7 +719,10 @@ declare interface EntityPlayer extends Entity {
   GetShootingJoystick(): Vector;
   GetSmoothBodyRotation(): float;
 
-  /** This gets Bethany's soul heart charges. */
+  /**
+   * Gets Bethany's soul heart charges. Returns 0 on characters other than Bethany. (It is unknown
+   * how this function is different from `EntityPlayer.GetEffectiveSoulCharge`.)
+   */
   GetSoulCharge(): int;
 
   /**
