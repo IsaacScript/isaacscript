@@ -8,6 +8,10 @@ import {
   postTransformationHasSubscriptions,
 } from "./subscriptions/postTransformation";
 
+const UNUSED_TRANSFORMATIONS: ReadonlySet<PlayerForm> = new Set([
+  PlayerForm.PLAYERFORM_FLIGHT,
+]);
+
 const v = {
   run: {
     transformations: new Map<PlayerIndex, boolean[]>(),
@@ -46,6 +50,11 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
     playerForm < PlayerForm.NUM_PLAYER_FORMS;
     playerForm++
   ) {
+    // Skip transformations unused by the game
+    if (UNUSED_TRANSFORMATIONS.has(playerForm)) {
+      continue;
+    }
+
     const hasForm = player.HasPlayerForm(playerForm);
     const storedForm = transformations[playerForm];
     if (hasForm !== storedForm) {
