@@ -6,7 +6,7 @@ The [`isaacscript-common`](https://isaacscript.github.io/isaacscript-common/) pa
 
 In order to use custom callbacks, you must first invoke the [`upgradeMod`](https://isaacscript.github.io/isaacscript-common/modules/upgradeMod.html) function.
 
-<br />
+<br>
 
 ### MC_POST_GAME_STARTED_REORDERED
 

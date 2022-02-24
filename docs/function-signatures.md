@@ -6,7 +6,7 @@ For reference, this is a handy list of all possible callback functions.
 
 For the list of custom callbacks, see [this page](function-signatures-custom.md).
 
-<br />
+<br>
 
 ### MC_NPC_UPDATE (0)
 

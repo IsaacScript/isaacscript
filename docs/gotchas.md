@@ -4,7 +4,7 @@ title: Gotchas
 
 This page lists several "gotchas" or things that might be weird about IsaacScript.
 
-<br />
+<br>
 
 ### Extending Enums --> Custom Enums
 
@@ -42,7 +42,7 @@ if (
 
 Note that you don't have to worry about polluting the global namespace: due to how the transpiler works, your enum will be local to your own project.
 
-<br />
+<br>
 
 ### `int` and `float`
 
@@ -81,7 +81,7 @@ numSadOnions += 0.5;
 // This is a bug and TypeScript won't catch this for you!
 ```
 
-<br />
+<br>
 
 ### Vector Operators
 
@@ -138,7 +138,7 @@ type Vector = number & { __intBrand: unknown };
 
 But this is **not recommend** because it destroys type-safety.
 
-<br />
+<br>
 
 ### Using JSON
 
@@ -190,7 +190,7 @@ function saveModData() {
 }
 ```
 
-<br />
+<br>
 
 ### Iterating Over Enums
 
@@ -271,7 +271,7 @@ for (const value of getEnumValues(TestEnum)) {
 }
 ```
 
-<br />
+<br>
 
 ### NPM Dependencies
 
@@ -279,7 +279,7 @@ Unfortunately, you can't use JavaScript or TypeScript libraries from NPM, since 
 
 On the other hand, if you want to split IsaacScript code between repositories or share a library with others, TypeScriptToLua does allow [using and creating npm packages containing .lua files](https://typescripttolua.github.io/docs/external-lua-code). Check out the TypeScriptToLua docs for more details.
 
-<br />
+<br>
 
 ### Throwing Errors
 
@@ -309,4 +309,4 @@ player.AddSoulHearts(1); // The type of player is now "EntityPlayer"
 
 (TypeScript is smart enough to know that `error()` can constrain the type of player in the same way that `throw` normally would.)
 
-<br />
+<br>

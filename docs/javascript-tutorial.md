@@ -6,11 +6,11 @@ If you have never programmed in JavaScript/TypeScript before, but you **have** p
 
 If you have never programmed in Lua before, then skip reading this page.
 
-<br />
+<br>
 
 ## Level 1 - Basic
 
-<br />
+<br>
 
 ### Comments
 
@@ -38,7 +38,7 @@ And wordy.
 */
 ```
 
-<br />
+<br>
 
 ### Semi-Colons
 
@@ -58,7 +58,7 @@ But don't bother typing the semi-colons yourself - just hit `Ctrl + s` and the e
 
 (In fact, you should always hit `Ctrl + s` periodically as you code, so that the code is constantly formatting itself. This frees you from the tedium of aligning things, breaking up long if statements, and so forth. If the file is not auto-formatting itself, then you probably need to add a bracket somewhere so that the code can properly compile.)
 
-<br />
+<br>
 
 ### Colons
 
@@ -78,7 +78,7 @@ Isaac.DebugString("hello world");
 Game().GetPlayer().AddMaxHearts(2);
 ```
 
-<br />
+<br>
 
 ### Variables: `local` --> `const` and `let`
 
@@ -86,7 +86,7 @@ In Lua, you generally type `local` before declaring a variable to stop it from b
 
 In TypeScript, this isn't necessary. There are no globals variables, unless we explicitly create one.
 
-Furthermore, in TypeScript, there are two kinds of variable declarations: `let` and `const`.<br />
+Furthermore, in TypeScript, there are two kinds of variable declarations: `let` and `const`.<br>
 (Don't ever use `var`, which is only used in older JavaScript code.)
 
 ```lua
@@ -103,7 +103,7 @@ let numFarts = 1; // We use "let" because we have to modify it later
 numFarts = numFarts + 1; // numFarts is now equal to 2
 ```
 
-<br />
+<br>
 
 ### Functions
 
@@ -126,7 +126,7 @@ function getNumPoops() {
 }
 ```
 
-<br />
+<br>
 
 ### Anonymous Functions
 
@@ -148,7 +148,7 @@ Revelations.AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, () => {
 
 (If this syntax looks confusing, google "JavaScript arrow functions" in order to get more familiar with them. But of course, you don't have to use arrow functions if you don't want to.)
 
-<br />
+<br>
 
 ### `if` Statements and Operators
 
@@ -178,7 +178,7 @@ if (x === 1 && y !== 0) {
 }
 ```
 
-<br />
+<br>
 
 ### `for` Statements for Counting
 
@@ -218,7 +218,7 @@ for (let i = 10; i >= 1; i--) {
 }
 ```
 
-<br />
+<br>
 
 ### `for` Statements for Arrays
 
@@ -252,7 +252,7 @@ for (let i = 0; i < gaper.length; i++) {
 }
 ```
 
-<br />
+<br>
 
 ### `for` Statements for Key/Value Tables
 
@@ -299,7 +299,7 @@ for (const price of Object.values(itemPrices)) {
 }
 ```
 
-<br />
+<br>
 
 ### `nil` --> `undefined`
 
@@ -319,11 +319,11 @@ if (entity.SpawnerEntity === undefined) {
 
 Note that `null` also transpiles to `nil` (in addition to `undefined`). But `null` should be reserved for situations where you want to model an actual null-type defined value.
 
-<br />
+<br>
 
 ## Level 2 - Intermediate
 
-<br />
+<br>
 
 ### Assignment Operators
 
@@ -341,7 +341,7 @@ let numFarts = 1;
 numFarts += 1; // numFarts is now equal to 2
 ```
 
-<br />
+<br>
 
 ### String Concatenation
 
@@ -361,7 +361,7 @@ poopString += " modified"; // poopString is now equal to "poop modified"
 
 (TypeScript uses the same operator for adding numbers and concatenating strings.)
 
-<br />
+<br>
 
 ### String Conversion & String Templates
 
@@ -410,7 +410,7 @@ Isaac.DebugString(
 
 Look at how compact and easier to read the TypeScript version is!
 
-<br />
+<br>
 
 ### TypeScript Type Annotations
 
@@ -443,7 +443,7 @@ Once the type has been annotated, your editor will know about all of the legal m
 
 When coding in TypeScript, you will need to add the type for every function argument. That way, the compiler can catch all of the bugs.
 
-<br />
+<br>
 
 ### Splitting Your Code Into Multiple Files: `require()` --> `import`
 
@@ -468,7 +468,7 @@ end
 return postPlayerInit
 ```
 
-In TypeScript, this is accomplished with `import`.<br />
+In TypeScript, this is accomplished with `import`.<br>
 (Don't ever use the JavaScript/TypeScript version of `require()`, which is only used in older JavaScript code.)
 
 ```ts
@@ -486,17 +486,17 @@ export function main(player: EntityPlayer) {
 }
 ```
 
-<br />
+<br>
 
 ## Level 3 - Advanced
 
-<br />
+<br>
 
 ### Importing Global Variables
 
 Sometimes, your mod might need to use a global variable exported by someone else's mod. For example, you might need to use the `InfinityTrueCoopInterface` global variable from the True Co-op Mod. (This mod is useless now in Repentance, but in Afterbirth+, most character mods would want to register their character with the True Co-op Mod.)
 
-<br />
+<br>
 
 #### Option 1 - Inline Declarations
 
@@ -517,7 +517,7 @@ if (InfinityTrueCoopInterface !== undefined) {
 }
 ```
 
-<br />
+<br>
 
 #### Option 2 - A Declaration File
 
@@ -535,7 +535,7 @@ declare const InfinityTrueCoopInterface: unknown | undefined;
 
 Now, your other TypeScript files will see it as a global variable without you having to do anything else.
 
-<br />
+<br>
 
 ### Importing Complicated Global Variables
 
@@ -577,7 +577,7 @@ After doing this, we will be able to call `InfinityTrueCoopInterface.AddCharacte
 
 ```
 
-<br />
+<br>
 
 ### Exporting Global Variables
 
@@ -607,7 +607,7 @@ RevelationsExports = { // "RevelationsExports" is now a global variable
 }
 ```
 
-<br />
+<br>
 
 ### Enums
 
@@ -636,7 +636,7 @@ const itemPrices = {
 };
 ```
 
-<br />
+<br>
 
 ### Maps
 
@@ -685,7 +685,7 @@ function pickingUpItem(player: EntityPlayer, pickingUpItemID: number) {
 }
 ```
 
-<br />
+<br>
 
 ### Type Narrowing
 

@@ -71,8 +71,8 @@ export default function Home() {
     <Layout description="A framework for coding mods for The Binding of Isaac: Repentance">
       <HomepageHeader />
 
-      <br />
-      <br />
+      <br>
+      <br>
 
       <main>
         <section className="padding-vert--md container">

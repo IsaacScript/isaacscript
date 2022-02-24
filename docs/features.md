@@ -72,6 +72,6 @@ Enjoy all the benefits of a strongly typed language over the shit-show that is L
 - Use the <code>Shift + Alt + F12</code> hotkey (for "Find All References") to automatically find all places where something is used. With this, it is trivial to work your way backwards from a nested function.
 - And more!
 
-<br />
+<br>
 
 There are plenty of reasons to use IsaacScript, but it isn't for everyone. Read on.
