@@ -3,7 +3,7 @@ The `isaacscript-common` package contains extra goodies that you can easily use 
 - For more information about IsaacScript, see the [official website](https://isaacscript.github.io/).
 - Also see the [GitHub repository](https://github.com/IsaacScript/isaacscript-common) for `isaacscript-common`.
 
-<br />
+<br>
 
 ## Custom Callbacks
 
@@ -12,7 +12,7 @@ The `isaacscript-common` package contains extra goodies that you can easily use 
 - See the [main website](https://isaacscript.github.io/docs/function-signatures-custom) for a full list.
 - You must [upgrade your mod](modules/upgradeMod.html) before using a custom callback.
 
-<br />
+<br>
 
 ## Helper Functions
 
@@ -63,9 +63,9 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Utility Functions](modules/functions_utils.html)
 - [Vector Functions](modules/functions_vector.html)
 
-<br />
+<br>
 
-## Optional Features and Abstractions
+## Optional Features
 
 - [Save Data Manager](modules/features_saveDataManager_exports.html)
 - [JSON Room Deployer](modules/features_deployJSONRoom.html)
@@ -76,13 +76,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Forgotten Switcher](modules/features_forgottenSwitch.html)
 - [Siren Boss Functions](modules/features_sirenHelpers.html)
 
-<br />
-
-## Extra Constants
-
-- [Constants](modules/constants.html)
-
-<br />
+<br>
 
 ## Maps
 
@@ -97,3 +91,11 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Room Shape to Top Left Wall Grid Index Map](modules/maps_roomShapeToTopLeftWallGridIndexMap.html)
 - [Trinket Description Map](modules/maps_trinketDescriptionMap.html)
 - [Trinket Name Map](modules/maps_trinketNameMap.html)
+
+<br>
+
+## Extra Constants
+
+- [Constants](modules/constants.html)
+
+<br>
