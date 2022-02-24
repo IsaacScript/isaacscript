@@ -8,15 +8,31 @@ interface ParsedArgs<K, V> {
 }
 
 /**
- * An extended Map with a new method of `getAndSetDefault`.
+ * An extended Map with two new methods:
  *
- * When instantiating the object, you must specify either a default value or a function that returns
- * a default value.
+ * - `getAndSetDefault` - If the key exists, this will return the same thing as the `get` method.
+ *   Otherwise, it will set a default value to the key, and then return the default value.
+ * - `getDefaultValue` - Returns the default value to be used for a new key. (If a factory function
+ *   was provided during instantiation, this will execute the factory function.)
+ *
+ * When instantiating a new DefaultMap, you must specify either a default value or a function that
+ * returns a default value.
  *
  * Example:
  * ```ts
- * const defaultMap1 = new DefaultMap<string, string>("foo");
- * const defaultMap2 = new DefaultMap<string, string>(["a", "b", "c"], "bar");
+ * // Initializes a new empty DefaultMap with a default value of "foo"
+ * const defaultMapWithPrimitive = new DefaultMap<string, string>("foo");
+ *
+ * // Initializes a new empty DefaultMap with a default value of a new Map
+ * const defaultMapWithFactory = new DefaultMap<string, Map<string, string>>(() => {
+ *   return new Map<string, string>();
+ * })
+ *
+ * // Initializes a DefaultMap with some initial values and a default value of "bar"
+ * const defaultMapWithInitialValues = new DefaultMap<string, string>([
+ *   ["a1", "a2"],
+ *   ["b1", "b2"],
+ * ], "bar");
  * ```
  */
 export class DefaultMap<K, V> extends Map<K, V> {
@@ -53,8 +69,8 @@ export class DefaultMap<K, V> extends Map<K, V> {
   }
 
   /**
-   * Almost the same as `Map.prototype.get`. However, if the key does not exist in the map, then
-   * this method will set the default value for the key and return the default value.
+   * If the key exists, this will return the same thing as the `get` method. Otherwise, it will set
+   * a default value to the key, and then return the default value.
    */
   getAndSetDefault(key: K) {
     if (this.has(key)) {
@@ -66,6 +82,10 @@ export class DefaultMap<K, V> extends Map<K, V> {
     return defaultValue;
   }
 
+  /**
+   * Returns the default value to be used for a new key. (If a factory function was provided during
+   * instantiation, this will execute the factory function.)
+   */
   getDefaultValue(key: K) {
     if (this.defaultValue !== undefined) {
       return this.defaultValue;
