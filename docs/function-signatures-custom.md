@@ -366,7 +366,7 @@ function postFirstEsauJr(player: EntityPlayer): void {}
 
 ### MC_POST_TRANSFORMATION
 
-Fires on the frame that a player gains or loses a new transformation.
+Fires on the frame that a player gains or loses a new transformation. Note that this callback will only fire once per Forgotten/Soul pair.
 
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `PlayerForm` provided.
 
