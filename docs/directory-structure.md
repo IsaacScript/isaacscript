@@ -15,7 +15,7 @@ project/
 
 More specifics are detailed below. **You do not need to know what all of these files are for**, so if you want to dive into coding your mod, skip reading this page.
 
-<br>
+<br />
 
 ## Directories
 
@@ -23,7 +23,7 @@ More specifics are detailed below. **You do not need to know what all of these f
 
 This is the root directory of your project. It won't actually be called `project`; it will instead be named after your mod.
 
-<br>
+<br />
 
 ### `project/.github`
 
@@ -47,7 +47,7 @@ If you want to be alerted via Discord if a commit fails CI, then perform the fol
 1. Click on "Add secret".
 1. Uncomment the Discord-related code in the "project/.github/ci.yml" file.
 
-<br>
+<br />
 
 ### `project/.vscode`
 
@@ -55,7 +55,7 @@ This directory contains some stock settings that are recommended for VSCode to w
 
 If you do not use VSCode, feel free to delete this directory.
 
-<br>
+<br />
 
 ### `project/mod`
 
@@ -73,7 +73,7 @@ will be copied to:
 C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\mods\revelations\image.png
 ```
 
-<br>
+<br />
 
 ### `project/node_modules`
 
@@ -89,7 +89,7 @@ More info:
 - `node_modules` are always excluded from being tracked in a Git repository.
   - There will already be an entry for `node_modules` in the `.gitignore` file installed by `isaacscript`.
 
-<br>
+<br />
 
 ### `project/src`
 
@@ -97,7 +97,7 @@ This is the TypeScript source directory. All of the TypeScript files for your mo
 
 `isaacscript init` will automatically create a `main.ts` file for you in this directory.
 
-<br>
+<br />
 
 ## Files
 
@@ -107,7 +107,7 @@ This is the configuration file for [cspell](https://github.com/streetsidesoftwar
 
 If VSCode incorrectly reports that a file is misspelled, you can right-click on the word and say "Add Words to CSpell Configuration". The word will then be recorded in this file and the squiggly line will go away.
 
-<br>
+<br />
 
 ### `.env_template`
 
@@ -115,7 +115,7 @@ This is a template for a `.env` file; you are intended to copy it to `.env` and 
 
 The `.env` file is only needed if IsaacScript is publishing your mod to the Steam Workshop.
 
-<br>
+<br />
 
 ### `.eslintrc.js`
 
@@ -123,19 +123,19 @@ This is the configuration file for [ESLint](https://eslint.org/), the TypeScript
 
 You can edit this file if you need to disable a specific linting rule.
 
-<br>
+<br />
 
 ### `.gitattributes`
 
 This contains specific Git attributes that should be applied to this Git repository, if present. By default, it prevent Windows systems from cloning the repository with "\r\n" line endings (since "\n" line endings should always be used for consistency).
 
-<br>
+<br />
 
 ### `.gitignore`
 
 This contains a list of files that should not be added to a Git repository, if present. If you have a private file that you don't want to be committed to a repository, you can edit this file and add it.
 
-<br>
+<br />
 
 ### `.prettierrc.js`
 
@@ -143,51 +143,51 @@ This is the configuration file for Prettier (which is invoked as an ESLint plugi
 
 If you need to modify a specific option of Prettier, you can edit this file.
 
-<br>
+<br />
 
 ### `build.sh`
 
 This is a helper script to compile the project. (It is also used in CI.)
 
-<br>
+<br />
 
 ### `isaacscript.json`
 
 This is the configuration file for `isaacscript`. It contains only per-user settings. Thus, it should not be committed to a Git repository. You can see the format of the file in [the IsaacScript source code](https://github.com/IsaacScript/isaacscript/blob/main/src/types/Config.ts).
 
-<br>
+<br />
 
 ### `lint.sh`
 
 This is a helper script to lint and spell-check the project. (It is also used in CI.)
 
-<br>
+<br />
 
-<br>
+<br />
 
 ### `LICENCE`
 
 This is the licence for your project. By default, `isaacscript init` installs [GNU General Public License v3](https://www.gnu.org/licenses/gpl-3.0.en.html). Since the type definitions are licensed as GPLv3, you must use GPLv3 or another compatible license in your IsaacScript project.
 
-<br>
+<br />
 
 ### `mod/main.lua`
 
 This is the transpiled Lua output of your TypeScript source code. All TypeScript code is combined into one big Lua file. There is no need to commit this file to a Git repository, so it is included in the ".gitignore" file by default.
 
-<br>
+<br />
 
 ### `mod/metadata.xml`
 
 This is the file used by the "ModUploader" tool to upload your mod to the Steam Workshop. It contains a description of your mod and other metadata. IsaacScript creates a basic one for you, but when you upload your mod to the Steam Workshop for the first time, more information will be added (like the ID of the mod).
 
-<br>
+<br />
 
 ### `mod/metadata.vdf`
 
 This is a file used by IsaacScript to automatically upload your mod to the Steam Workshop. For this to work, you must edit the file and fill in your mod ID. (The mod ID can be found by looking in the "metadata.xml" file after uploading the mod to the Steam Workshop for the first time.)
 
-<br>
+<br />
 
 ### `package.json`
 
@@ -202,7 +202,7 @@ IsaacScript projects start with 3 dependencies by default:
 1. `isaacscript-common` - Provides optional code that you can use in your mod. See the [isaacscript-common page](isaacscript-common.md) for more info.
 1. `isaacscript-lint` - Provides `eslint` and all of the linting-related packages that `eslint` uses, including the official IsaacScript linting rule-set. It also includes `isaacscript-tsconfig` to allow for a streamlined `tsconfig.json` file for end-users.
 
-<br>
+<br />
 
 ### `package-lock.json`
 
@@ -210,25 +210,25 @@ This is a lock file for [npm](https://www.npmjs.com/), the Node package manager.
 
 You are not supposed to edit this file; just leave it in place so that `npm` can function correctly.
 
-<br>
+<br />
 
 ### `publish.sh`
 
 This is a helper script to invoke `npx isaacscript publish`.
 
-<br>
+<br />
 
 ### `README.md`
 
 This is the README file for your project, which should contain a brief description of your mod. It uses [Markdown](https://guides.github.com/features/mastering-markdown/), which is the standard format for README files.
 
-<br>
+<br />
 
 ### `run.sh`
 
 This is a helper script to invoke `npx isaacscript`.
 
-<br>
+<br />
 
 ### `tsconfig.eslint.json` and `tsconfig.json`
 
@@ -236,7 +236,7 @@ These are the configuration files for the [TypeScript](https://www.typescriptlan
 
 Edit `tsconfig.json` if you need to add or remove a particular compiler flag.
 
-<br>
+<br />
 
 ### `update.sh`
 

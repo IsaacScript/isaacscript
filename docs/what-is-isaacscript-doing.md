@@ -10,7 +10,7 @@ The `isaacscript` program will run forever, monitoring for changes in your proje
 
 As a new user, you might want to confirm that each of these functions is working properly as a way to get familiar with the program.
 
-<br>
+<br />
 
 ### Confirm That Auto-Mod-Reloading Works
 
@@ -42,7 +42,7 @@ print("hello world");
 
 <!-- lint enable list-item-content-indent -->
 
-<br>
+<br />
 
 ### Confirm That File Cloning Works
 
@@ -58,4 +58,4 @@ For example:
 
 For now, just put something in your mod folder and confirm that `isaacscript` copies it over for you.
 
-<br>
+<br />

@@ -6,7 +6,7 @@ As your mod grows larger and larger, you will want to stay organized. Splitting 
 
 Let's say that in our example mod, we want to add a few more custom items, so that the mod becomes an item pack. Before we continue to clutter our "main.ts" file, let's refactor our code to keep things clean.
 
-<br>
+<br />
 
 ## 1) src/main.ts
 
@@ -28,7 +28,7 @@ function registerCallbacks(mod: Mod) {
 }
 ```
 
-<br>
+<br />
 
 ## 2) src/types/CollectibleTypeCustom.ts
 
@@ -42,7 +42,7 @@ export enum CollectibleTypeCustom {
 
 Types, interfaces, and enums are typically stored in files of the same name in a "types" subdirectory.
 
-<br>
+<br />
 
 ## 3) src/callbacks/postUpdate.ts
 
@@ -57,7 +57,7 @@ export function main(): void {
 }
 ```
 
-<br>
+<br />
 
 ## 4) src/items/greenCandle.ts
 

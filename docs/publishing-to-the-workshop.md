@@ -21,7 +21,7 @@ However, for large mods, there are often other tasks that need to be performed b
 
 Furthermore, run `npx isaacscript publish --help` to see additional flags that may be passed to the `publish` command.
 
-<br>
+<br />
 
 ### `metadata.vdf`
 
@@ -36,7 +36,7 @@ In order for `steamcmd.exe` to work, you must create a file called `metadata.vdf
 }
 ```
 
-<br>
+<br />
 
 ### `.env`
 

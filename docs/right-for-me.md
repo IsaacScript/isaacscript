@@ -5,7 +5,7 @@ hide_table_of_contents: true
 
 Coding in TypeScript is a bit more involved than coding in Lua, since it requires more tooling to be installed. This means that `isaacscript` isn't right for everyone. Whether or not you should use the framework depends on several factors.
 
-<br>
+<br />
 
 ### Are you good with computers? Have you programmed anything before?
 
@@ -40,6 +40,6 @@ Coding in TypeScript is a bit more involved than coding in Lua, since it require
 - No, but I know Lua - ❔ - On one hand, if you already know Lua and are comfortable with it, then it might not be worth the time and effort to learn something new. On the other hand, once you've learned one language, learning another is pretty easy. It is **totally worth it** to spend an hour or two to learn TypeScript in order to get all of the other fantastic benefits that it provides over Lua.
 - No, but I know some other language - ✔️ - Isaac mods are programmed in either TypeScript or Lua. If you don't know either, then start with TypeScript from the get-go. You'll thank me later.
 
-<br>
+<br />
 
 Are you ready to get started? Read on.

@@ -4,25 +4,25 @@ title: Converting Lua Code
 
 Sometimes, you might want to convert an old mod written in Lua to TypeScript. There are two ways to do this.
 
-<br>
+<br />
 
 ## LuaToTypeScript
 
 Hazzard993 wrote [a tool to automatically convert Lua to TypeScript](https://github.com/hazzard993/LuaToTypeScript). Unfortunately, this does not convert comments.
 
-<br>
+<br />
 
 ## Manually With a Macro
 
 If you want more fine-grained control over converting your code, then you can do it manually with a macro. Here's a quick tutorial to convert code using a simple macro.
 
-<br>
+<br />
 
 ### 1) Install the ssmacro Extension
 
 [ssmacro](https://marketplace.visualstudio.com/items?itemName=joekon.ssmacro) is a popular VSCode extension that allows you to make macros.
 
-<br>
+<br />
 
 ### 2) Download the Macro
 
@@ -30,7 +30,7 @@ I've written [a short macro](https://isaacscript.github.io/convert-lua-to-typesc
 
 Download it to the following directory: `C:\Users\[Username]\.vscode\extensions\joekon.ssmacro-0.6.0\macros`
 
-<br>
+<br />
 
 ### 3) Make a Keyboard Shortcut
 
@@ -49,13 +49,13 @@ In VSCode, type Ctrl + Shift + P, then type in "Preferences: Open Keyboard Short
 ]
 ```
 
-<br>
+<br />
 
 ### 4) Open a Lua File and Convert It
 
 Open a big Lua file and use the hotkey to perform the replacements on everything in the file.
 
-<br>
+<br />
 
 ### 5) Copy It Over One Function at a Time
 

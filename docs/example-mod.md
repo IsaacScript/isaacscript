@@ -6,7 +6,7 @@ This is a tutorial that shows off how to code a simple mod with IsaacScript. Our
 
 (If you don't know what IsaacScript is or you are not yet convinced that you should use it, see the [Is IsaacScript Right for Me?](right-for-me.md) page first.)
 
-<br>
+<br />
 
 ## 0) Extract the Game's Resources
 
@@ -16,7 +16,7 @@ Most modders will have already done this, but just in case you haven't, you shou
 
 After running the unpacker, you can find all of the vanilla assets in the `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\resources\` directory and the `resources-dlc3\` directory. (The latter contains only Repentance files.) Study the layout of the files in these two directories so that you can get familiar with where particular files need to live.
 
-<br>
+<br />
 
 ## 1) Initializing the Project
 
@@ -38,7 +38,7 @@ npx isaacscript
 
 We can now begin working.
 
-<br>
+<br />
 
 ## 2) Create the Image for the Item
 
@@ -50,7 +50,7 @@ For our purposes, we will need to copy [the Green Candle image](/img/items/green
 
 Notice that this path corresponds to the "real" items graphics directory of `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\resources\gfx\items\collectibles\`. Under the hood, the game will merge the two directories when you enable the mod.
 
-<br>
+<br />
 
 ## 3) Create the Entry For the Item in `items.xml`
 
@@ -70,7 +70,7 @@ Now, the item will exist in the game, and you can give it to yourself with the c
 
 Notice that this file is in the same format as the "real" items.xml file located at `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\resources\items.xml`. Under the hood, the game will merge the contents of your little items.xml file with the big items.xml file when you enable the mod.
 
-<br>
+<br />
 
 ## 4) Create the Entry for the Item in `itempools.xml`
 
@@ -90,7 +90,7 @@ Here, we use values for "Weight", "DecreaseBy", and "RemoveOn" that match what i
 
 Now, the item will sometimes randomly appear for players when they enter a Treasure Room!
 
-<br>
+<br />
 
 ## 5) Start Coding the Effect
 
@@ -110,7 +110,7 @@ First, change the `MOD_NAME` constant to "Green Candle".
 
 Second, remove all of the lines relating to the `MC_POST_GAME_STARTED` callback. This callback is useful for initializing things at the start of every run. But for our purposes, we don't need to use it.
 
-<br>
+<br />
 
 ## 6) Get the ID for the Green Candle
 
@@ -126,7 +126,7 @@ const GREEN_CANDLE_COLLECTIBLE_TYPE = Isaac.GetItemIdByName("Green Candle");
 
 This is a constant, so we name it with all capital letters and with snake_case. Put this at the top of the file next to the "MOD_NAME" constant.
 
-<br>
+<br />
 
 ## 7) Add a New Callback
 
@@ -152,7 +152,7 @@ function postUpdate() {
 
 Now, we can run the mod and confirm that this code makes tons of messages in the log.txt file at the rate of 30 times a second.
 
-<br>
+<br />
 
 ## 8) Getting the Number of Green Candles
 
@@ -202,7 +202,7 @@ function applyGreenCandleEffect(player: EntityPlayer) {
 }
 ```
 
-<br>
+<br />
 
 ## 9) Looping Over All the Enemies in a Room
 
@@ -223,7 +223,7 @@ function shouldApplyGreenCandleEffectToEntity(entity: Entity) {
 }
 ```
 
-<br>
+<br />
 
 ## 10) Applying the Poison
 
@@ -249,7 +249,7 @@ This showcases the advantage of programming in TypeScript instead of Lua, becaus
 entity.AddPoison(EntityRef(player), 100, player.Damage);
 ```
 
-<br>
+<br />
 
 ## 11) Detect Invulnerable Enemies and Add a Random Chance
 
@@ -267,7 +267,7 @@ function shouldApplyGreenCandleEffectToEntity(entity: Entity) {
 }
 ```
 
-<br>
+<br />
 
 ## 12) Done!
 
