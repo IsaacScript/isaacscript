@@ -96,7 +96,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 
 ## Extra Data Structures
 
-- [DefaultMap](modules/types_DefaultMap.html)
+- [DefaultMap](classes/types_DefaultMap.DefaultMap.html)
 
 <br>
 

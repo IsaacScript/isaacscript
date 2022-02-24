@@ -22,6 +22,10 @@ export class DefaultMap<K, V> extends Map<K, V> {
   private defaultValue: V | undefined;
   private defaultValueFactory: ((k: K) => V) | undefined;
 
+  /**
+   * See the DefaultMap documentation:
+   * https://isaacscript.github.io/isaacscript-common/classes/types_DefaultMap.DefaultMap.html
+   */
   constructor(
     iterableOrDefaultValueOrDefaultValueFactory: FirstArg<K, V>,
     defaultValueOrDefaultValueFactory?: SecondArg<K, V>,
