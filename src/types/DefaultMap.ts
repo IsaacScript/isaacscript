@@ -1,10 +1,11 @@
 type FirstArg<K, V> = Iterable<[K, V]> | V | ((k: K) => V);
 type SecondArg<K, V> = V | ((k: K) => V);
-type ParsedArgs<K, V> = [
-  iterable: Iterable<[K, V]> | undefined,
-  defaultValue: V | undefined,
-  defaultValueFactory: ((k: K) => V) | undefined,
-];
+
+interface ParsedArgs<K, V> {
+  iterable: Iterable<[K, V]> | undefined;
+  defaultValue: V | undefined;
+  defaultValueFactory: ((k: K) => V) | undefined;
+}
 
 /**
  * An extended Map with a new method of `getAndSetDefault`.
@@ -30,7 +31,7 @@ export class DefaultMap<K, V> extends Map<K, V> {
     iterableOrDefaultValueOrDefaultValueFactory: FirstArg<K, V>,
     defaultValueOrDefaultValueFactory?: SecondArg<K, V>,
   ) {
-    const [iterable, defaultValue, defaultValueFactory] = parseArguments(
+    const { iterable, defaultValue, defaultValueFactory } = parseArguments(
       iterableOrDefaultValueOrDefaultValueFactory,
       defaultValueOrDefaultValueFactory,
     );
@@ -88,9 +89,13 @@ function parseArguments<K, V>(
 }
 
 function parseArgumentsOne<K, V>(firstArg: FirstArg<K, V>): ParsedArgs<K, V> {
-  const [defaultValue, defaultValueFactory] =
+  const { defaultValue, defaultValueFactory } =
     parseDefaultValueOrDefaultValueFactory(firstArg as SecondArg<K, V>);
-  return [undefined, defaultValue, defaultValueFactory];
+  return {
+    iterable: undefined,
+    defaultValue,
+    defaultValueFactory,
+  };
 }
 
 function parseArgumentsTwo<K, V>(
@@ -104,28 +109,38 @@ function parseArgumentsTwo<K, V>(
     );
   }
 
-  const [defaultValue, defaultValueFactory] =
+  const { defaultValue, defaultValueFactory } =
     parseDefaultValueOrDefaultValueFactory(secondArg);
-  return [firstArg as Iterable<[K, V]>, defaultValue, defaultValueFactory];
+  return {
+    iterable: firstArg as Iterable<[K, V]>,
+    defaultValue,
+    defaultValueFactory,
+  };
 }
 
 function parseDefaultValueOrDefaultValueFactory<K, V>(
   arg: SecondArg<K, V>,
-): [
-  defaultValue: V | undefined,
-  defaultValueFactory: ((k: K) => V) | undefined,
-] {
+): {
+  defaultValue: V | undefined;
+  defaultValueFactory: ((k: K) => V) | undefined;
+} {
   const argType = type(arg);
 
   if (argType === "function") {
-    return [undefined, arg as (k: K) => V];
+    return {
+      defaultValue: undefined,
+      defaultValueFactory: arg as (k: K) => V,
+    };
   }
 
   if (argType === "boolean" || argType === "number" || argType === "string") {
-    return [arg as V, undefined];
+    return {
+      defaultValue: arg as V,
+      defaultValueFactory: undefined,
+    };
   }
 
   return error(
-    "A DefaultMap must be initialized with a default value that is either a primitive or a function that returns a default value.",
+    `A DefaultMap was instantiated with an unknown type of: ${argType}`,
   );
 }
