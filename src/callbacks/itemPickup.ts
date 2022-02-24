@@ -54,14 +54,30 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
 }
 
 function queueEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
-  // Check to see if this player was picking something up on the previous frame
-  if (pickingUpItem.subType !== CollectibleType.COLLECTIBLE_NULL) {
-    postItemPickupFire(player, pickingUpItem);
-
-    // Reset the held item for this player
-    pickingUpItem.subType = CollectibleType.COLLECTIBLE_NULL;
-    pickingUpItem.itemType = ItemType.ITEM_NULL;
+  if (pickingUpItem.subType === CollectibleType.COLLECTIBLE_NULL) {
+    return;
   }
+
+  postItemPickupFire(player, pickingUpItem);
+  resetPickingUpItem(pickingUpItem);
+
+  // If we are The Forgotten, we need to also reset the held item for The Soul
+  // Otherwise, it is possible to make the callback trigger twice by picking up an item on The Soul
+  // and switching back to The Forgotten, then switching back to The Soul after the animation is
+  // over
+  const character = player.GetPlayerType();
+  if (character === PlayerType.PLAYER_THEFORGOTTEN) {
+    const theSoul = player.GetSubPlayer();
+    if (theSoul !== undefined) {
+      const theSoulPickingUpItem = getPickingUpItemForPlayer(theSoul);
+      resetPickingUpItem(theSoulPickingUpItem);
+    }
+  }
+}
+
+function resetPickingUpItem(pickingUpItem: PickingUpItem) {
+  pickingUpItem.itemType = ItemType.ITEM_NULL;
+  pickingUpItem.subType = CollectibleType.COLLECTIBLE_NULL;
 }
 
 function queueNotEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
@@ -89,8 +105,8 @@ function getPickingUpItemForPlayer(player: EntityPlayer) {
   let pickingUpItem = v.run.pickingUpItem.get(index);
   if (pickingUpItem === undefined) {
     pickingUpItem = {
-      subType: CollectibleType.COLLECTIBLE_NULL,
       itemType: ItemType.ITEM_NULL,
+      subType: CollectibleType.COLLECTIBLE_NULL,
     };
     v.run.pickingUpItem.set(index, pickingUpItem);
   }
