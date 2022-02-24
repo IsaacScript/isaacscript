@@ -35,7 +35,9 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
     return;
   }
 
-  const playerIndex = getPlayerIndex(player);
+  // If we don't differentiate between The Forgotten and The Soul,
+  // the callback will fire every time the player switches between the two
+  const playerIndex = getPlayerIndex(player, true);
   let playerHealthMap = v.run.playersHealthMap.get(playerIndex);
   if (playerHealthMap === undefined) {
     playerHealthMap = new Map();

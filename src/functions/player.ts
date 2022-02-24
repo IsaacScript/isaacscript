@@ -399,6 +399,8 @@ export function getPlayerIndex(
 ): PlayerIndex {
   // Sub-players use separate RNG values for some reason, so we need to always use the main player
   // https://github.com/Meowlala/RepentanceAPIIssueTracker/issues/443
+  // We can safely ignore the player's character because regardless of whether the main player ends
+  // up being The Forgotten or The Soul, the collectible RNG values will be the same
   const isSubPlayer = player.IsSubPlayer();
   const playerToUse = isSubPlayer
     ? getSubPlayerParent(player as EntitySubPlayer)
