@@ -238,6 +238,8 @@ function postPickupCollect(pickup: EntityPickup, player: EntityPlayer): void {}
 
 Fires on the first frame that an item becomes queued (i.e. when Isaac begins to hold the item above his head).
 
+Note that this callback will only fire once per Forgotten/Soul pair.
+
 - When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `ItemType` provided.
 - When registering the callback, takes an optional third argument that will make the callback only fire if the `CollectibleType` or the `TrinketType` matches the ID provided.
 
@@ -251,6 +253,8 @@ function preItemPickup(
 ### MC_POST_ITEM_PICKUP
 
 Fires on the first frame that an item is no longer queued (i.e. when the animation of Isaac holding the item above his head is finished and the item is actually added to the player's inventory).
+
+Note that this callback will only fire once per Forgotten/Soul pair.
 
 - When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `ItemType` provided.
 - When registering the callback, takes an optional third argument that will make the callback only fire if the `CollectibleType` or the `TrinketType` matches the ID provided.
@@ -366,7 +370,9 @@ function postFirstEsauJr(player: EntityPlayer): void {}
 
 ### MC_POST_TRANSFORMATION
 
-Fires on the frame that a player gains or loses a new transformation. Note that this callback will only fire once per Forgotten/Soul pair.
+Fires on the frame that a player gains or loses a new transformation.
+
+Note that this callback will only fire once per Forgotten/Soul pair.
 
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `PlayerForm` provided.
 
