@@ -55,12 +55,12 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
 
 function queueEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
   // Check to see if this player was picking something up on the previous frame
-  if (pickingUpItem.id !== CollectibleType.COLLECTIBLE_NULL) {
+  if (pickingUpItem.subType !== CollectibleType.COLLECTIBLE_NULL) {
     postItemPickupFire(player, pickingUpItem);
 
     // Reset the held item for this player
-    pickingUpItem.id = CollectibleType.COLLECTIBLE_NULL;
-    pickingUpItem.type = ItemType.ITEM_NULL;
+    pickingUpItem.subType = CollectibleType.COLLECTIBLE_NULL;
+    pickingUpItem.itemType = ItemType.ITEM_NULL;
   }
 }
 
@@ -72,12 +72,12 @@ function queueNotEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
   }
 
   if (
-    queuedItem.Type !== pickingUpItem.type ||
-    queuedItem.ID !== pickingUpItem.id
+    queuedItem.Type !== pickingUpItem.itemType ||
+    queuedItem.ID !== pickingUpItem.subType
   ) {
     // Record which item we are picking up
-    pickingUpItem.type = queuedItem.Type;
-    pickingUpItem.id = queuedItem.ID;
+    pickingUpItem.itemType = queuedItem.Type;
+    pickingUpItem.subType = queuedItem.ID;
 
     preItemPickupFire(player, pickingUpItem);
   }
@@ -89,8 +89,8 @@ function getPickingUpItemForPlayer(player: EntityPlayer) {
   let pickingUpItem = v.run.pickingUpItem.get(index);
   if (pickingUpItem === undefined) {
     pickingUpItem = {
-      id: CollectibleType.COLLECTIBLE_NULL,
-      type: ItemType.ITEM_NULL,
+      subType: CollectibleType.COLLECTIBLE_NULL,
+      itemType: ItemType.ITEM_NULL,
     };
     v.run.pickingUpItem.set(index, pickingUpItem);
   }
