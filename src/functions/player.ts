@@ -392,19 +392,21 @@ export function getPlayerFromIndex(
  */
 export function getPlayerIndex(player: EntityPlayer): PlayerIndex {
   const character = player.GetPlayerType();
-  const rngCollectible = getPlayerIndexRNGCollectibleForCharacter(character);
-  const collectibleRNG = player.GetCollectibleRNG(rngCollectible);
+  const collectibleType = getPlayerIndexCollectibleType(character);
+  const collectibleRNG = player.GetCollectibleRNG(collectibleType);
   const seed = collectibleRNG.GetSeed();
 
   return seed as PlayerIndex;
 }
 
-function getPlayerIndexRNGCollectibleForCharacter(character: PlayerType) {
+function getPlayerIndexCollectibleType(character: PlayerType) {
   switch (character) {
+    // 17
     case PlayerType.PLAYER_THESOUL: {
       return CollectibleType.COLLECTIBLE_INNER_EYE;
     }
 
+    // 38
     case PlayerType.PLAYER_LAZARUS2_B: {
       return CollectibleType.COLLECTIBLE_SPOON_BENDER;
     }
