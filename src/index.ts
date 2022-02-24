@@ -95,6 +95,7 @@ export * from "./maps/trinketNameMap";
 export * from "./sets/cards";
 export * from "./types/AnyEntity";
 export * from "./types/CallbackParametersCustom";
+export * from "./types/DefaultMap";
 export * from "./types/HealthType";
 export * from "./types/JSONDoor";
 export * from "./types/JSONEntity";
