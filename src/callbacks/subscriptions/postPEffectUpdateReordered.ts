@@ -3,7 +3,7 @@ export type PostPEffectUpdateReorderedCallbackType = (
 ) => void;
 
 const subscriptions: Array<
-  [PostPEffectUpdateReorderedCallbackType, PlayerType | undefined]
+  [PostPEffectUpdateReorderedCallbackType, PlayerType | int | undefined]
 > = [];
 
 /** @internal */
@@ -14,7 +14,7 @@ export function postPEffectUpdateReorderedHasSubscriptions(): boolean {
 /** @internal */
 export function postPEffectUpdateReorderedRegister(
   callback: PostPEffectUpdateReorderedCallbackType,
-  character?: PlayerType,
+  character?: PlayerType | int,
 ): void {
   subscriptions.push([callback, character]);
 }

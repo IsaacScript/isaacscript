@@ -89,7 +89,9 @@ export function anyPlayerHasTrinket(trinketType: TrinketType | int): boolean {
  * This function is variadic, meaning that you can supply as many characters as you want to check
  * for. Returns true if any of the characters supplied are present.
  */
-export function anyPlayerIs(...matchingCharacters: PlayerType[]): boolean {
+export function anyPlayerIs(
+  ...matchingCharacters: Array<PlayerType | int>
+): boolean {
   const matchingCharacterSet = new Set(matchingCharacters);
   const characters = getCharacters();
   return characters.some((character) => matchingCharacterSet.has(character));
@@ -101,7 +103,9 @@ export function anyPlayerIs(...matchingCharacters: PlayerType[]): boolean {
  * even though coin containers are not technically the same as red heart containers. Returns false
  * for characters like Blue Baby. Returns false for The Lost and Tainted Lost.
  */
-export function characterCanHaveRedHearts(character: PlayerType): boolean {
+export function characterCanHaveRedHearts(
+  character: PlayerType | int,
+): boolean {
   return !CHARACTERS_WITH_NO_RED_HEARTS.has(character);
 }
 
@@ -110,7 +114,9 @@ export function characterCanHaveRedHearts(character: PlayerType): boolean {
  * characters like Isaac, Magdalene, or Cain. Returns false for characters like Bethany. Returns
  * false for The Lost and Tainted Lost.
  */
-export function characterCanHaveSoulHearts(character: PlayerType): boolean {
+export function characterCanHaveSoulHearts(
+  character: PlayerType | int,
+): boolean {
   return !CHARACTERS_WITH_NO_SOUL_HEARTS.has(character);
 }
 
@@ -120,7 +126,7 @@ export function characterCanHaveSoulHearts(character: PlayerType): boolean {
  * Otherwise, returns false.
  */
 export function characterGetsBlackHeartFromEternalHeart(
-  character: PlayerType,
+  character: PlayerType | int,
 ): boolean {
   return CHARACTERS_WITH_BLACK_HEART_FROM_ETERNAL_HEART.has(character);
 }
@@ -295,7 +301,9 @@ export function getPlayerAvailableHeartSlots(player: EntityPlayer): int {
  * but with Keeper it is 3, with Tainted Keeper it is 2. Does not account for Birthright or Mother's
  * Kiss; use the `getPlayerMaxHeartContainers()` function for that.
  */
-export function getCharacterMaxHeartContainers(character: PlayerType): int {
+export function getCharacterMaxHeartContainers(
+  character: PlayerType | int,
+): int {
   if (character === PlayerType.PLAYER_KEEPER) {
     return 3;
   }
@@ -399,7 +407,7 @@ export function getPlayerIndex(player: EntityPlayer): PlayerIndex {
   return seed as PlayerIndex;
 }
 
-function getPlayerIndexCollectibleType(character: PlayerType) {
+function getPlayerIndexCollectibleType(character: PlayerType | int) {
   switch (character) {
     // 17
     case PlayerType.PLAYER_THESOUL: {
@@ -587,7 +595,9 @@ export function getPlayers(performExclusions = false): EntityPlayer[] {
  * This function is variadic, meaning that you can supply as many characters as you want to check
  * for. Returns true if any of the characters supplied are present.
  */
-export function getPlayersOfType(...characters: PlayerType[]): EntityPlayer[] {
+export function getPlayersOfType(
+  ...characters: Array<PlayerType | int>
+): EntityPlayer[] {
   const charactersSet = new Set(characters);
   const players = getPlayers();
   return players.filter((player) => {
@@ -686,7 +696,7 @@ export function isDamageToPlayerFatal(
   player: EntityPlayer,
   damageAmount: int,
   damageSource: EntityRef,
-  lastDamageFrame: int | undefined,
+  lastDamageFrame?: int,
 ) {
   const game = Game();
   const gameFrameCount = game.GetFrameCount();

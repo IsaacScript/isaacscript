@@ -67,7 +67,7 @@ export interface CallbackParametersCustom {
 
   [ModCallbacksCustom.MC_POST_PEFFECT_UPDATE_REORDERED]: [
     callback: PostPEffectUpdateReorderedCallbackType,
-    character?: PlayerType,
+    character?: PlayerType | int,
   ];
 
   [ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED]: [
@@ -133,7 +133,7 @@ export interface CallbackParametersCustom {
 
   [ModCallbacksCustom.MC_POST_NPC_INIT_LATE]: [
     callback: PostNPCInitLateCallbackType,
-    entityType?: EntityType,
+    entityType?: EntityType | int,
   ];
 
   [ModCallbacksCustom.MC_POST_EFFECT_INIT_LATE]: [
