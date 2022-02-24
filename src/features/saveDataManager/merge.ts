@@ -10,7 +10,7 @@ import {
   SerializationType,
 } from "../../functions/deepCopy";
 import { log } from "../../functions/log";
-import { tableClear } from "../../functions/table";
+import { clearTable } from "../../functions/table";
 
 /**
  * merge takes the values from a new table and recursively merges them into an old object
@@ -66,7 +66,7 @@ function mergeArray(
   }
 
   // Assume that we should blow away all array values with whatever is present in the incoming array
-  tableClear(oldArray);
+  clearTable(oldArray);
   for (const [key, value] of pairs(newTable)) {
     oldArray.set(key, value);
   }

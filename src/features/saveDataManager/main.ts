@@ -1,6 +1,6 @@
 import { getUpgradeErrorMsg } from "../../errors";
 import { deepCopy, SerializationType } from "../../functions/deepCopy";
-import { tableClear } from "../../functions/table";
+import { clearTable } from "../../functions/table";
 import { ModCallbacksCustom } from "../../types/ModCallbacksCustom";
 import { ModUpgraded } from "../../types/ModUpgraded";
 import { SaveDataKeys } from "../../types/SaveData";
@@ -144,7 +144,7 @@ function restoreDefaults(childTableName: SaveDataKeys) {
  * table to the old table.
  */
 function clearAndCopyAllElements(oldTable: LuaTable, newTable: LuaTable) {
-  tableClear(oldTable);
+  clearTable(oldTable);
 
   for (const [key, value] of pairs(newTable)) {
     oldTable.set(key, value);
