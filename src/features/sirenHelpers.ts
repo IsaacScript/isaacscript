@@ -116,17 +116,12 @@ export function hasSirenStolenFamiliar(familiar: EntityFamiliar): boolean {
  * exists. Returns undefined otherwise.
  */
 function getSirenHelper(familiar: EntityFamiliar): Entity | undefined {
-  const familiarHash = GetPtrHash(familiar);
+  const familiarPtrHash = GetPtrHash(familiar);
 
   const sirenHelpers = getEntities(EntityType.ENTITY_SIREN_HELPER);
-  for (const sirenHelper of sirenHelpers) {
-    if (
+  return sirenHelpers.find(
+    (sirenHelper) =>
       sirenHelper.Target !== undefined &&
-      GetPtrHash(sirenHelper.Target) === familiarHash
-    ) {
-      return sirenHelper;
-    }
-  }
-
-  return undefined;
+      GetPtrHash(sirenHelper.Target) === familiarPtrHash,
+  );
 }

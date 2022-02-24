@@ -6,16 +6,11 @@ export function getFirstCardOrPill(
   player: EntityPlayer,
 ): PocketItemDescription | undefined {
   const pocketItems = getPocketItems(player);
-  for (const pocketItem of pocketItems) {
-    if (
+  return pocketItems.find(
+    (pocketItem) =>
       pocketItem.type === PocketItemType.CARD ||
-      pocketItem.type === PocketItemType.PILL
-    ) {
-      return pocketItem;
-    }
-  }
-
-  return undefined;
+      pocketItem.type === PocketItemType.PILL,
+  );
 }
 
 /**

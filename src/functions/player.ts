@@ -330,13 +330,10 @@ export function getPlayerCloserThan(
   position: Vector,
   distance: float,
 ): EntityPlayer | undefined {
-  for (const player of getPlayers()) {
-    if (player.Position.Distance(position) <= distance) {
-      return player;
-    }
-  }
-
-  return undefined;
+  const players = getPlayers();
+  return players.find(
+    (player) => player.Position.Distance(position) <= distance,
+  );
 }
 
 /**
@@ -361,14 +358,8 @@ export function getPlayerCollectibleMap(
 export function getPlayerFromIndex(
   playerIndex: PlayerIndex,
 ): EntityPlayer | undefined {
-  for (const player of getPlayers()) {
-    const existingPlayerIndex = getPlayerIndex(player);
-    if (existingPlayerIndex === playerIndex) {
-      return player;
-    }
-  }
-
-  return undefined;
+  const players = getPlayers();
+  return players.find((player) => getPlayerIndex(player) === playerIndex);
 }
 
 /**
@@ -447,7 +438,6 @@ export function getPlayerIndexVanilla(
   playerToFind: EntityPlayer,
 ): int | undefined {
   const game = Game();
-
   const playerToFindHash = GetPtrHash(playerToFind);
 
   for (let i = 0; i < game.GetNumPlayers(); i++) {

@@ -71,42 +71,7 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
 
     if (hasForm !== storedForm) {
       transformations.set(playerForm, hasForm);
-      playerTransformationChanged(player, playerForm, hasForm);
+      postTransformationFire(player, playerForm, hasForm);
     }
   }
-}
-
-function playerTransformationChanged(
-  player: EntityPlayer,
-  playerForm: PlayerForm,
-  hasForm: boolean,
-) {
-  postTransformationFire(player, playerForm, hasForm);
-  updateForgottenOrSoulTransformation(player, playerForm, hasForm);
-}
-
-/**
- * If The Forgotten just got a transformation, the next time the player switches to The Soul, the
- * PostTransformation callback will fire again (and vice versa for The Soul). In this situation, we
- * only want the callback to fire once, so we manually update the transformation map for the
- * alternate character.
- */
-function updateForgottenOrSoulTransformation(
-  player: EntityPlayer,
-  playerForm: PlayerForm,
-  hasForm: boolean,
-) {
-  const subPlayer = player.GetSubPlayer();
-  if (subPlayer === undefined) {
-    return;
-  }
-
-  const subPlayerIndex = getPlayerIndex(subPlayer);
-  let transformations = v.run.transformations.get(subPlayerIndex);
-  if (transformations === undefined) {
-    transformations = new Map();
-    v.run.transformations.set(subPlayerIndex, transformations);
-  }
-
-  transformations.set(playerForm, hasForm);
 }

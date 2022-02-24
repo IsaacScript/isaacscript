@@ -45,23 +45,13 @@ export function getDoors(...roomTypes: RoomType[]): GridEntityDoor[] {
 }
 
 export function getAngelRoomDoor(): GridEntityDoor | undefined {
-  for (const door of getDoors()) {
-    if (isAngelRoomDoor(door)) {
-      return door;
-    }
-  }
-
-  return undefined;
+  const angelRoomDoors = getDoors(RoomType.ROOM_ANGEL);
+  return angelRoomDoors.length === 0 ? undefined : angelRoomDoors[0];
 }
 
 export function getDevilRoomDoor(): GridEntityDoor | undefined {
-  for (const door of getDoors()) {
-    if (isDevilRoomDoor(door)) {
-      return door;
-    }
-  }
-
-  return undefined;
+  const devilRoomDoors = getDoors(RoomType.ROOM_DEVIL);
+  return devilRoomDoors.length === 0 ? undefined : devilRoomDoors[0];
 }
 
 /**
@@ -69,23 +59,18 @@ export function getDevilRoomDoor(): GridEntityDoor | undefined {
  * lowest slot number.
  */
 export function getDevilRoomOrAngelRoomDoor(): GridEntityDoor | undefined {
-  for (const door of getDoors()) {
-    if (isDevilRoomDoor(door) || isAngelRoomDoor(door)) {
-      return door;
-    }
-  }
-
-  return undefined;
+  const devilRoomOrAngelRoomDoors = getDoors(
+    RoomType.ROOM_DEVIL,
+    RoomType.ROOM_ANGEL,
+  );
+  return devilRoomOrAngelRoomDoors.length === 0
+    ? undefined
+    : devilRoomOrAngelRoomDoors[0];
 }
 
 export function getRepentanceDoor(): GridEntityDoor | undefined {
-  for (const door of getDoors()) {
-    if (isRepentanceDoor(door)) {
-      return door;
-    }
-  }
-
-  return undefined;
+  const doors = getDoors();
+  return doors.find((door) => isRepentanceDoor(door));
 }
 
 export function isAngelRoomDoor(door: GridEntityDoor): boolean {
