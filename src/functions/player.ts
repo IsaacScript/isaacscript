@@ -149,6 +149,31 @@ export function getAzazelBrimstoneDistance(
   return 32 - 2.5 * tearHeight;
 }
 
+/**
+ * Returns the maximum heart containers that the provided character can have. Normally, this is 12,
+ * but with Keeper it is 3, with Tainted Keeper it is 2. Does not account for Birthright or Mother's
+ * Kiss; use the `getPlayerMaxHeartContainers()` function for that.
+ */
+export function getCharacterMaxHeartContainers(
+  character: PlayerType | int,
+): int {
+  if (character === PlayerType.PLAYER_KEEPER) {
+    return 3;
+  }
+
+  if (character === PlayerType.PLAYER_KEEPER_B) {
+    return 2;
+  }
+
+  return 12;
+}
+
+/** Helper function to get an array containing the characters of all of the current players. */
+export function getCharacters() {
+  const players = getPlayers();
+  return players.map((player) => player.GetPlayerType());
+}
+
 export function getClosestPlayer(position: Vector): EntityPlayer {
   let closestPlayer: EntityPlayer | null = null;
   let closestDistance = math.huge;
@@ -297,31 +322,6 @@ export function getPlayerAvailableHeartSlots(player: EntityPlayer): int {
 }
 
 /**
- * Returns the maximum heart containers that the provided character can have. Normally, this is 12,
- * but with Keeper it is 3, with Tainted Keeper it is 2. Does not account for Birthright or Mother's
- * Kiss; use the `getPlayerMaxHeartContainers()` function for that.
- */
-export function getCharacterMaxHeartContainers(
-  character: PlayerType | int,
-): int {
-  if (character === PlayerType.PLAYER_KEEPER) {
-    return 3;
-  }
-
-  if (character === PlayerType.PLAYER_KEEPER_B) {
-    return 2;
-  }
-
-  return 12;
-}
-
-/** Helper function to get an array containing the characters of all of the current players. */
-export function getCharacters() {
-  const players = getPlayers();
-  return players.map((player) => player.GetPlayerType());
-}
-
-/**
  * Iterates over all players and checks if any are close enough to the specified position.
  *
  * @returns The first player found when iterating upwards from index 0.
@@ -392,35 +392,49 @@ export function getPlayerFromIndex(
  * Instead, we use `EntityPlayer.GetCollectibleRNG()` with an arbitrary value of Sad Onion (1). This
  * works even if the player does not have any Sad Onions.
  *
- * Since the RNG value is the same for both The Forgotten and The Soul, we revert to using the RNG
- * of Inner Eye (2) for The Soul.
- *
  * Since the RNG value is the same for both Tainted Lazarus and Dead Tainted Lazarus, we revert to
- * using the RNG of Spoon Bender (3) for Dead Tainted Lazarus.
+ * using the RNG of The Inner Eye (2) for Dead Tainted Lazarus.
+ *
+ * Note that by default, this returns the same index for both The Forgotten and The Soul. (Even
+ * though they are technically different characters, they share the same inventory and InitSeed.) If
+ * this is not desired, pass true for the `differentiateForgottenAndSoul` argument.
  */
-export function getPlayerIndex(player: EntityPlayer): PlayerIndex {
-  const character = player.GetPlayerType();
-  const collectibleType = getPlayerIndexCollectibleType(character);
+export function getPlayerIndex(
+  player: EntityPlayer | EntitySubPlayer,
+  differentiateForgottenAndSoul = false,
+): PlayerIndex {
+  const collectibleType = getPlayerIndexCollectibleType(
+    player,
+    differentiateForgottenAndSoul,
+  );
   const collectibleRNG = player.GetCollectibleRNG(collectibleType);
   const seed = collectibleRNG.GetSeed();
 
   return seed as PlayerIndex;
 }
 
-function getPlayerIndexCollectibleType(character: PlayerType | int) {
+function getPlayerIndexCollectibleType(
+  player: EntityPlayer | EntitySubPlayer,
+  differentiateForgottenAndSoul: boolean,
+) {
+  const defaultCollectibleType = CollectibleType.COLLECTIBLE_SAD_ONION; // 1
+  const character = player.GetPlayerType();
+
   switch (character) {
     // 17
     case PlayerType.PLAYER_THESOUL: {
-      return CollectibleType.COLLECTIBLE_INNER_EYE;
+      return differentiateForgottenAndSoul
+        ? CollectibleType.COLLECTIBLE_INNER_EYE // 2
+        : defaultCollectibleType;
     }
 
     // 38
     case PlayerType.PLAYER_LAZARUS2_B: {
-      return CollectibleType.COLLECTIBLE_SPOON_BENDER;
+      return CollectibleType.COLLECTIBLE_SPOON_BENDER; // 2
     }
 
     default: {
-      return CollectibleType.COLLECTIBLE_SAD_ONION;
+      return defaultCollectibleType;
     }
   }
 }
@@ -603,6 +617,28 @@ export function getPlayersOfType(
   return players.filter((player) => {
     const character = player.GetPlayerType();
     return charactersSet.has(character);
+  });
+}
+
+/**
+ * Helper function to get a parent `EntityPlayer` object for a given `EntitySubPlayer` object. This
+ * is useful because calling the `EntityPlayer.GetSubPlayer` method on a sub-player object will
+ * return undefined.
+ */
+export function getSubPlayerParent(
+  subPlayer: EntitySubPlayer,
+): EntityPlayer | undefined {
+  const subPlayerPtrHash = GetPtrHash(subPlayer);
+  const players = getPlayers();
+
+  return players.find((player) => {
+    const thisPlayerSubPlayer = player.GetSubPlayer();
+    if (thisPlayerSubPlayer === undefined) {
+      return false;
+    }
+
+    const thisPlayerSubPlayerPtrHash = GetPtrHash(thisPlayerSubPlayer);
+    return thisPlayerSubPlayerPtrHash === subPlayerPtrHash;
   });
 }
 

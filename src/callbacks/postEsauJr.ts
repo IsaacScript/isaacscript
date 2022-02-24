@@ -73,13 +73,8 @@ function postUpdate() {
 }
 
 function getPlayerWithControllerIndex(controllerIndex: int) {
-  for (const player of getPlayers()) {
-    if (player.ControllerIndex === controllerIndex) {
-      return player;
-    }
-  }
-
-  return undefined;
+  const players = getPlayers();
+  return players.find((player) => player.ControllerIndex === controllerIndex);
 }
 
 // ModCallbacks.USE_ITEM (3)

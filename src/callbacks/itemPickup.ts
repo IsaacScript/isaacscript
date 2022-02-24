@@ -4,7 +4,11 @@ import { saveDataManager } from "../features/saveDataManager/exports";
 import { getPlayerIndex, PlayerIndex } from "../functions/player";
 import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
 import { ModUpgraded } from "../types/ModUpgraded";
-import { PickingUpItem } from "../types/PickingUpItem";
+import {
+  newPickingUpItem,
+  PickingUpItem,
+  resetPickingUpItem,
+} from "../types/PickingUpItem";
 import {
   postItemPickupFire,
   postItemPickupHasSubscriptions,
@@ -43,12 +47,24 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
   const pickingUpItem = getPickingUpItemForPlayer(player);
 
   if (player.IsItemQueueEmpty()) {
+    if (player.GetPlayerType() === PlayerType.PLAYER_THESOUL) {
+      Isaac.DebugString(
+        `GETTING HERE - EMPTY - ${pickingUpItem.itemType}, ${pickingUpItem.subType}`,
+      );
+    }
+
     queueEmpty(player, pickingUpItem);
     // If a player enters a room with a trinket next to the entrance, the player will pick up the
     // trinket, but it will not become queued (it will be deposited into their inventory
     // immediately)
     // Since we don't know what type of item the player is holding, don't account for this bug
   } else {
+    if (player.GetPlayerType() === PlayerType.PLAYER_THESOUL) {
+      Isaac.DebugString(
+        `GETTING HERE - NOT EMPTY - ${pickingUpItem.itemType}, ${pickingUpItem.subType}`,
+      );
+    }
+
     queueNotEmpty(player, pickingUpItem);
   }
 }
@@ -60,24 +76,6 @@ function queueEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
 
   postItemPickupFire(player, pickingUpItem);
   resetPickingUpItem(pickingUpItem);
-
-  // If we are The Forgotten, we need to also reset the held item for The Soul
-  // Otherwise, it is possible to make the callback trigger twice by picking up an item on The Soul
-  // and switching back to The Forgotten, then switching back to The Soul after the animation is
-  // over
-  const character = player.GetPlayerType();
-  if (character === PlayerType.PLAYER_THEFORGOTTEN) {
-    const theSoul = player.GetSubPlayer();
-    if (theSoul !== undefined) {
-      const theSoulPickingUpItem = getPickingUpItemForPlayer(theSoul);
-      resetPickingUpItem(theSoulPickingUpItem);
-    }
-  }
-}
-
-function resetPickingUpItem(pickingUpItem: PickingUpItem) {
-  pickingUpItem.itemType = ItemType.ITEM_NULL;
-  pickingUpItem.subType = CollectibleType.COLLECTIBLE_NULL;
 }
 
 function queueNotEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
@@ -94,21 +92,38 @@ function queueNotEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
     // Record which item we are picking up
     pickingUpItem.itemType = queuedItem.Type;
     pickingUpItem.subType = queuedItem.ID;
+    Isaac.DebugString(
+      `GETTING HERE - SET: ${pickingUpItem.itemType}, ${pickingUpItem.subType}`,
+    );
 
     preItemPickupFire(player, pickingUpItem);
   }
 }
 
 function getPickingUpItemForPlayer(player: EntityPlayer) {
-  const index = getPlayerIndex(player);
+  const character = player.GetPlayerType();
 
-  let pickingUpItem = v.run.pickingUpItem.get(index);
+  // Since The Forgotten and The Soul share items, we force the PickingUpPlayer data structure to
+  // always be based on The Forgotten
+  // Otherwise, it is possible to make the callback trigger twice by picking up an item on The Soul
+  // and switching back to The Forgotten, then switching back to The Soul after the animation is
+  // over
+  // (Tainted Forgotten does not have this problem)
+  let playerIndex: PlayerIndex;
+  if (character === PlayerType.PLAYER_THESOUL) {
+    const forgotten = player.GetSubPlayer();
+    if (forgotten === undefined) {
+      error("Failed");
+    }
+    playerIndex = getPlayerIndex(forgotten);
+  } else {
+    playerIndex = getPlayerIndex(player);
+  }
+
+  let pickingUpItem = v.run.pickingUpItem.get(playerIndex);
   if (pickingUpItem === undefined) {
-    pickingUpItem = {
-      itemType: ItemType.ITEM_NULL,
-      subType: CollectibleType.COLLECTIBLE_NULL,
-    };
-    v.run.pickingUpItem.set(index, pickingUpItem);
+    pickingUpItem = newPickingUpItem();
+    v.run.pickingUpItem.set(playerIndex, pickingUpItem);
   }
 
   return pickingUpItem;
