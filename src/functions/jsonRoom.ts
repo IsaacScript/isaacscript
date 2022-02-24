@@ -1,5 +1,5 @@
 import { JSONRoom } from "../types/JSONRoom";
-import { arraySum } from "./array";
+import { sumArray } from "./array";
 import { log } from "./log";
 import { getRandomFloat } from "./random";
 
@@ -74,7 +74,7 @@ function getTotalWeightOfJSONRooms(jsonRooms: JSONRoom[]) {
     return roomWeight;
   });
 
-  return arraySum(weights);
+  return sumArray(weights);
 }
 
 function getJSONRoomWithChosenWeight(

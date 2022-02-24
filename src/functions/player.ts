@@ -8,7 +8,7 @@ import {
   MAX_VANILLA_CHARACTER,
 } from "../constants";
 import { HealthType } from "../types/HealthType";
-import { arraySum } from "./array";
+import { sumArray } from "./array";
 import { getKBitOfN, getNumBitsOfN } from "./bitwise";
 import { getCollectibleMaxCharges } from "./collectibles";
 import { getCollectibleSet } from "./collectibleSet";
@@ -621,7 +621,7 @@ export function getTotalPlayerCollectibles(
   const numCollectiblesArray = players.map((player) =>
     player.GetCollectibleNum(collectibleType),
   );
-  return arraySum(numCollectiblesArray);
+  return sumArray(numCollectiblesArray);
 }
 
 /** After touching a white fire, a player will turn into The Lost until they clear a room. */

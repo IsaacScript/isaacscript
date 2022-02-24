@@ -1,5 +1,5 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { arrayEmpty } from "../functions/array";
+import { emptyArray } from "../functions/array";
 import {
   getPlayerFromIndex,
   getPlayerIndex,
@@ -140,5 +140,5 @@ function dequeue(
     fireFunction(player);
   }
 
-  arrayEmpty(playerIndexes);
+  emptyArray(playerIndexes);
 }

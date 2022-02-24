@@ -1,11 +1,11 @@
 import { getRandomInt, nextSeed } from "./random";
 
 /**
- * Helper function to combine arrays. Returns a new array that is the composition of all of the
- * specified arrays. This function is variadic, meaning that you can specify N arguments to combine
- * N arrays. Note that this will only perform a shallow copy of the array elements.
+ * Helper function to combine two or more arrays. Returns a new array that is the composition of all
+ * of the specified arrays. This function is variadic, meaning that you can specify N arguments to
+ * combine N arrays. Note that this will only perform a shallow copy of the array elements.
  */
-export function arrayCombine<T>(...arrays: Array<T[] | readonly T[]>): T[] {
+export function combineArray<T>(...arrays: Array<T[] | readonly T[]>): T[] {
   const elements: T[] = [];
   for (const array of arrays) {
     for (const element of array) {
@@ -17,11 +17,11 @@ export function arrayCombine<T>(...arrays: Array<T[] | readonly T[]>): T[] {
 }
 
 /** Helper function to perform a shallow copy. */
-export function arrayCopy<T>(array: T[] | readonly T[]): T[] {
+export function copyArray<T>(array: T[] | readonly T[]): T[] {
   return [...array];
 }
 
-export function arrayEmpty<T>(array: T[]): void {
+export function emptyArray<T>(array: T[]): void {
   array.splice(0, array.length);
 }
 
@@ -43,13 +43,6 @@ export function arrayEquals<T>(
   });
 }
 
-export function arrayInArray<T>(
-  arrayToMatch: T[] | readonly T[],
-  parentArray: Array<T[] | readonly T[]>,
-): boolean {
-  return parentArray.some((element) => arrayEquals(element, arrayToMatch));
-}
-
 /**
  * Initializes an array with all elements containing the specified default value.
  *
@@ -58,7 +51,7 @@ export function arrayInArray<T>(
  * const playerTransformations = initArray(false, PlayerForm.NUM_PLAYER_FORMS - 1);
  * ```
  */
-export function arrayInit<T>(defaultValue: T, size: int): T[] {
+export function initArray<T>(defaultValue: T, size: int): T[] {
   const array: T[] = [];
   for (let i = 0; i < size; i++) {
     array.push(defaultValue);
@@ -67,17 +60,24 @@ export function arrayInit<T>(defaultValue: T, size: int): T[] {
   return array;
 }
 
+export function isArrayInArray<T>(
+  arrayToMatch: T[] | readonly T[],
+  parentArray: Array<T[] | readonly T[]>,
+): boolean {
+  return parentArray.some((element) => arrayEquals(element, arrayToMatch));
+}
+
 /**
  * Shallow copies and shuffles the array using the Fisher-Yates algorithm. Returns the copied array.
  *
  * From: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
  */
-export function arrayShuffle<T>(
+export function shuffleArray<T>(
   originalArray: T[] | readonly T[],
   seed = Random(),
 ): T[] {
-  const array = arrayCopy(originalArray);
-  arrayShuffleInPlace(array, seed);
+  const array = copyArray(originalArray);
+  shuffleArrayInPlace(array, seed);
 
   return array;
 }
@@ -87,7 +87,7 @@ export function arrayShuffle<T>(
  *
  * From: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
  */
-export function arrayShuffleInPlace<T>(array: T[], seed = Random()): void {
+export function shuffleArrayInPlace<T>(array: T[], seed = Random()): void {
   let currentIndex = array.length;
   let randomIndex: int;
 
@@ -103,7 +103,7 @@ export function arrayShuffleInPlace<T>(array: T[], seed = Random()): void {
   }
 }
 
-export function arraySum(array: number[] | readonly number[]): number {
+export function sumArray(array: number[] | readonly number[]): number {
   return array.reduce((accumulator, element) => accumulator + element, 0);
 }
 
@@ -128,7 +128,7 @@ export function arrayRemove<T>(
   originalArray: T[] | readonly T[],
   ...elements: T[]
 ): T[] {
-  const array = arrayCopy(originalArray);
+  const array = copyArray(originalArray);
 
   for (const element of elements) {
     const index = array.indexOf(element);
