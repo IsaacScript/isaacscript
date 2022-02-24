@@ -12,8 +12,10 @@ import {
 
 const v = {
   run: {
-    /** Values are game frame and whether or not the callback has fired on this frame. */
-    damageFrameMap: new Map<PlayerIndex, [int, boolean]>(),
+    damageFrameMap: new Map<
+      PlayerIndex,
+      [lastDamageFrame: int, callbackFiredOnThisFrame: boolean]
+    >(),
   },
 
   level: {
@@ -72,8 +74,8 @@ function setDamageFrame(tookDamage: Entity, damageFlags: int) {
   // Don't do anything if we already activated the callback on this frame
   const trackingArray = v.run.damageFrameMap.get(playerIndex);
   if (trackingArray !== undefined) {
-    const [lastDamageFrame, callbackActivatedOnThisFrame] = trackingArray;
-    if (lastDamageFrame === gameFrameCount && callbackActivatedOnThisFrame) {
+    const [lastDamageFrame, callbackFiredOnThisFrame] = trackingArray;
+    if (lastDamageFrame === gameFrameCount && callbackFiredOnThisFrame) {
       return;
     }
   }

@@ -39,6 +39,7 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
   let playerHealthMap = v.run.playersHealthMap.get(playerIndex);
   if (playerHealthMap === undefined) {
     playerHealthMap = new Map();
+    v.run.playersHealthMap.set(playerIndex, playerHealthMap);
   }
 
   const healthTypes = getEnumValues(HealthType);
