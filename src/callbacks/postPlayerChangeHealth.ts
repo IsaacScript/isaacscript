@@ -11,7 +11,7 @@ import {
 
 const v = {
   run: {
-    healthMap: new Map<PlayerIndex, Map<HealthType, int>>(),
+    playersHealthMap: new Map<PlayerIndex, Map<HealthType, int>>(),
   },
 };
 
@@ -36,15 +36,17 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
   }
 
   const playerIndex = getPlayerIndex(player);
-  let storedHealth = v.run.healthMap.get(playerIndex);
-  if (storedHealth === undefined) {
-    storedHealth = new Map();
+  let playerHealthMap = v.run.playersHealthMap.get(playerIndex);
+  if (playerHealthMap === undefined) {
+    playerHealthMap = new Map();
   }
 
   const healthTypes = getEnumValues(HealthType);
   for (const healthType of healthTypes) {
-    const storedHealthValue = storedHealth.get(healthType);
+    const storedHealthValue = playerHealthMap.get(healthType);
     const currentHealthValue = getCurrentHealthValue(player, healthType);
+    playerHealthMap.set(healthType, currentHealthValue);
+
     if (
       storedHealthValue !== undefined &&
       storedHealthValue !== currentHealthValue
