@@ -132,7 +132,7 @@ export function disableAllInputs(key: string): void {
  * Helper function to enable all inputs besides the ones provided. This is useful because
  * `EntityPlayer.ControlsEnabled` can be changed by the game under certain conditions.
  *
- * Use the `enableAllInputs` helper function to set things back to normal.
+ * Use the [[`enableAllInputs`]] helper function to set things back to normal.
  *
  * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
  * that multiple mod features can work in tandem.
@@ -155,7 +155,7 @@ export function enableAllInputsExceptFor(
  * Helper function to disable all inputs besides the ones provided. This is useful because
  * `EntityPlayer.ControlsEnabled` can be changed by the game under certain conditions.
  *
- * Use the `enableAllInputs` helper function to set things back to normal.
+ * Use the [[`enableAllInputs`]] helper function to set things back to normal.
  *
  * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
  * that multiple mod features can work in tandem.
@@ -179,7 +179,7 @@ export function disableAllInputsExceptFor(
  * the UI). This is useful because `EntityPlayer.ControlsEnabled` can be changed by the game under
  * certain conditions.
  *
- * Use the `enableAllInputs` helper function to set things back to normal.
+ * Use the [[`enableAllInputs`]] helper function to set things back to normal.
  *
  * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
  * that multiple mod features can work in tandem.
@@ -193,7 +193,7 @@ export function disableMovementInputs(key: string): void {
  * Helper function to disable only the inputs used for shooting tears. This is useful because
  * `EntityPlayer.ControlsEnabled` can be changed by the game under certain conditions.
  *
- * Use the `enableAllInputs` helper function to set things back to normal.
+ * Use the [[`enableAllInputs`]] helper function to set things back to normal.
  *
  * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
  * that multiple mod features can work in tandem.
