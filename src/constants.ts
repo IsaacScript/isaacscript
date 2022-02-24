@@ -185,17 +185,6 @@ export const MAX_VANILLA_COLLECTIBLE_TYPE =
 export const SECOND_IN_MILLISECONDS = 1000;
 export const MINUTE_IN_MILLISECONDS = 60 * SECOND_IN_MILLISECONDS;
 
-export const MOVEMENT_ACTIONS: readonly ButtonAction[] = [
-  ButtonAction.ACTION_LEFT, // 0
-  ButtonAction.ACTION_RIGHT, // 1
-  ButtonAction.ACTION_UP, // 2
-  ButtonAction.ACTION_DOWN, // 3
-];
-
-export const MOVEMENT_ACTIONS_SET: ReadonlySet<ButtonAction> = new Set(
-  MOVEMENT_ACTIONS,
-);
-
 export const ONE_BY_ONE_ROOM_GRID_SIZE = 135;
 
 export const SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES: ReadonlySet<CollectibleType> =
@@ -209,17 +198,6 @@ export const SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES: ReadonlySet<CollectibleType> =
     CollectibleType.COLLECTIBLE_DEATH_CERTIFICATE, // 628
     CollectibleType.COLLECTIBLE_R_KEY, // 636
   ]);
-
-export const SHOOTING_ACTIONS: readonly ButtonAction[] = [
-  ButtonAction.ACTION_SHOOTLEFT, // 4
-  ButtonAction.ACTION_SHOOTRIGHT, // 5
-  ButtonAction.ACTION_SHOOTUP, // 6
-  ButtonAction.ACTION_SHOOTDOWN, // 7
-];
-
-export const SHOOTING_ACTIONS_SET: ReadonlySet<ButtonAction> = new Set(
-  SHOOTING_ACTIONS,
-);
 
 export const STORY_BOSSES: ReadonlySet<EntityType> = new Set([
   EntityType.ENTITY_MOM, // 45

@@ -1,5 +1,5 @@
-import { MOVEMENT_ACTIONS_SET, SHOOTING_ACTIONS_SET } from "../constants";
 import { getUpgradeErrorMsg } from "../errors";
+import { getMoveActions, getShootActions } from "../functions/input";
 import { ModUpgraded } from "../types/ModUpgraded";
 import { saveDataManager } from "./saveDataManager/exports";
 
@@ -9,11 +9,17 @@ let initialized = false;
 
 const v = {
   run: {
-    enableSomeInputs: true,
-    /** A set of inputs that are allowed, or null if all inputs are allowed. */
-    whitelist: null as Set<ButtonAction> | ReadonlySet<ButtonAction> | null,
-    /** A set of inputs that are disallowed, or null if nothing specific is disallowed. */
-    blacklist: null as Set<ButtonAction> | ReadonlySet<ButtonAction> | null,
+    /** Indexed by the requesting feature key. */
+    disableInputsWithWhitelistMap: new Map<
+      string,
+      Set<ButtonAction> | ReadonlySet<ButtonAction>
+    >(),
+
+    /** Indexed by the requesting feature key. */
+    enableInputsWithBlacklistMap: new Map<
+      string,
+      Set<ButtonAction> | ReadonlySet<ButtonAction>
+    >(),
   },
 };
 
@@ -71,65 +77,69 @@ function getActionValue(
 function getReturnValue(buttonAction: ButtonAction, booleanCallback: boolean) {
   const disableValue = booleanCallback ? false : 0;
 
-  if (!v.run.enableSomeInputs) {
-    return disableValue;
+  for (const whitelist of v.run.disableInputsWithWhitelistMap.values()) {
+    if (!whitelist.has(buttonAction)) {
+      return disableValue;
+    }
   }
 
-  if (v.run.whitelist !== null && !v.run.whitelist.has(buttonAction)) {
-    return disableValue;
-  }
-
-  if (v.run.blacklist !== null && v.run.blacklist.has(buttonAction)) {
-    return disableValue;
+  for (const blacklist of v.run.enableInputsWithBlacklistMap.values()) {
+    if (blacklist.has(buttonAction)) {
+      return disableValue;
+    }
   }
 
   return undefined;
 }
 
-/** After having disabled inputs, use this function to set things back to normal. */
-export function enableAllInputs(): void {
-  if (!initialized) {
-    const msg = getUpgradeErrorMsg(FEATURE_NAME);
-    error(msg);
-  }
-
-  v.run.enableSomeInputs = true;
-  v.run.whitelist = null;
-  v.run.blacklist = null;
-}
-
 /**
- * Helper function to disable all inputs.
- * This is useful because `EntityPlayer.ControlsEnabled` can be changed by the game under certain
- * conditions.
+ * Helper function to enable all inputs. Use this function to set things back to normal after having
+ * used one of the other helper functions to disable inputs.
  *
- * Call `enableAllInputs()` to set things back to normal.
- *
- * Note that calling any of the various `enable` or `disable` functions will override the effects of
- * this function.
+ * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
+ * that multiple mod features can work in tandem.
  */
-export function disableAllInputs(): void {
+export function enableAllInputs(key: string): void {
   if (!initialized) {
     const msg = getUpgradeErrorMsg(FEATURE_NAME);
     error(msg);
   }
 
-  v.run.enableSomeInputs = false;
-  v.run.whitelist = null;
-  v.run.blacklist = null;
+  v.run.disableInputsWithWhitelistMap.delete(key);
+  v.run.enableInputsWithBlacklistMap.delete(key);
 }
 
 /**
- * Helper function to enable all inputs besides the ones provided.
- * This is useful because `EntityPlayer.ControlsEnabled` can be changed by the game under certain
- * conditions.
+ * Helper function to disable all inputs. This is useful because `EntityPlayer.ControlsEnabled` can
+ * be changed by the game under certain conditions.
  *
- * Call `enableAllInputs()` to set things back to normal.
+ * Use the [[`enableAllInputs`]] helper function to set things back to normal.
  *
- * Note that calling any of the various `enable` or `disable` functions will override the effects of
- * this function.
+ * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
+ * that multiple mod features can work in tandem.
+ */
+export function disableAllInputs(key: string): void {
+  if (!initialized) {
+    const msg = getUpgradeErrorMsg(FEATURE_NAME);
+    error(msg);
+  }
+
+  v.run.disableInputsWithWhitelistMap.set(key, new Set());
+  v.run.enableInputsWithBlacklistMap.delete(key);
+}
+
+/**
+ * Helper function to enable all inputs besides the ones provided. This is useful because
+ * `EntityPlayer.ControlsEnabled` can be changed by the game under certain conditions.
+ *
+ * Use the `enableAllInputs` helper function to set things back to normal.
+ *
+ * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
+ * that multiple mod features can work in tandem.
+ * @param blacklist A set of ButtonActions to disallow.
  */
 export function enableAllInputsExceptFor(
+  key: string,
   blacklist: Set<ButtonAction> | ReadonlySet<ButtonAction>,
 ): void {
   if (!initialized) {
@@ -137,57 +147,58 @@ export function enableAllInputsExceptFor(
     error(msg);
   }
 
-  v.run.enableSomeInputs = true;
-  v.run.whitelist = null;
-  v.run.blacklist = blacklist;
+  v.run.disableInputsWithWhitelistMap.delete(key);
+  v.run.enableInputsWithBlacklistMap.set(key, blacklist);
 }
 
 /**
- * Helper function to disable all inputs besides the ones provided.
- * This is useful because `EntityPlayer.ControlsEnabled` can be changed by the game under certain
- * conditions.
+ * Helper function to disable all inputs besides the ones provided. This is useful because
+ * `EntityPlayer.ControlsEnabled` can be changed by the game under certain conditions.
  *
- * Call `enableAllInputs()` to set things back to normal.
+ * Use the `enableAllInputs` helper function to set things back to normal.
  *
- * Note that calling any of the various `enable` or `disable` functions will override the effects of
- * this function.
+ * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
+ * that multiple mod features can work in tandem.
+ * @param whitelist A set of ButtonActions to allow.
  */
-export function disableAllInputsExceptFor(whitelist: Set<ButtonAction>): void {
+export function disableAllInputsExceptFor(
+  key: string,
+  whitelist: Set<ButtonAction>,
+): void {
   if (!initialized) {
     const msg = getUpgradeErrorMsg(FEATURE_NAME);
     error(msg);
   }
 
-  v.run.enableSomeInputs = true;
-  v.run.whitelist = whitelist;
-  v.run.blacklist = null;
+  v.run.disableInputsWithWhitelistMap.set(key, whitelist);
+  v.run.enableInputsWithBlacklistMap.delete(key);
 }
 
 /**
  * Helper function to disable only the inputs used for moving the character (or moving the cursor in
- * the UI).
- * This is useful because `EntityPlayer.ControlsEnabled` can be changed by the game under certain
- * conditions.
+ * the UI). This is useful because `EntityPlayer.ControlsEnabled` can be changed by the game under
+ * certain conditions.
  *
- * Call `enableInputs()` to set things back to normal.
+ * Use the `enableAllInputs` helper function to set things back to normal.
  *
- * Note that calling any of the various `enable` or `disable` functions will override the effects of
- * this function.
+ * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
+ * that multiple mod features can work in tandem.
  */
-export function disableMovementInputs(): void {
-  enableAllInputsExceptFor(MOVEMENT_ACTIONS_SET);
+export function disableMovementInputs(key: string): void {
+  const moveActions = getMoveActions();
+  enableAllInputsExceptFor(key, moveActions);
 }
 
 /**
- * Helper function to disable only the inputs used for shooting tears.
- * This is useful because `EntityPlayer.ControlsEnabled` can be changed by the game under certain
- * conditions.
+ * Helper function to disable only the inputs used for shooting tears. This is useful because
+ * `EntityPlayer.ControlsEnabled` can be changed by the game under certain conditions.
  *
- * Call `enableInputs()` to set things back to normal.
+ * Use the `enableAllInputs` helper function to set things back to normal.
  *
- * Note that calling any of the various `enable` or `disable` functions will override the effects of
- * this function.
+ * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
+ * that multiple mod features can work in tandem.
  */
-export function disableShootingInputs(): void {
-  enableAllInputsExceptFor(SHOOTING_ACTIONS_SET);
+export function disableShootingInputs(key: string): void {
+  const shootActions = getShootActions();
+  enableAllInputsExceptFor(key, shootActions);
 }

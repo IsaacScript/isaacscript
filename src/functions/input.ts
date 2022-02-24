@@ -1,9 +1,6 @@
-import {
-  MAX_NUM_INPUTS,
-  MOVEMENT_ACTIONS,
-  SHOOTING_ACTIONS,
-} from "../constants";
+import { MAX_NUM_INPUTS } from "../constants";
 import { range } from "./math";
+import { copySet } from "./set";
 
 /**
  * This is a copied version of the Control enum from `isaac-typescript-definitions`. We need a
@@ -35,6 +32,28 @@ enum ControllerLiteral {
   /** Start, Options and + on Xbox, Playstation and Nintendo respectively. */
   BUTTON_START = 15,
 }
+
+const MOVEMENT_ACTIONS: readonly ButtonAction[] = [
+  ButtonAction.ACTION_LEFT, // 0
+  ButtonAction.ACTION_RIGHT, // 1
+  ButtonAction.ACTION_UP, // 2
+  ButtonAction.ACTION_DOWN, // 3
+];
+
+const MOVEMENT_ACTIONS_SET: ReadonlySet<ButtonAction> = new Set(
+  MOVEMENT_ACTIONS,
+);
+
+const SHOOTING_ACTIONS: readonly ButtonAction[] = [
+  ButtonAction.ACTION_SHOOTLEFT, // 4
+  ButtonAction.ACTION_SHOOTRIGHT, // 5
+  ButtonAction.ACTION_SHOOTUP, // 6
+  ButtonAction.ACTION_SHOOTDOWN, // 7
+];
+
+const SHOOTING_ACTIONS_SET: ReadonlySet<ButtonAction> = new Set(
+  SHOOTING_ACTIONS,
+);
 
 /** Helper function to get the enum name for the specified `Controller` value. */
 export function controllerToString(controller: Controller): string {
@@ -68,6 +87,14 @@ export function controllerToString(controller: Controller): string {
   return "unknown";
 }
 
+export function getMoveActions(): Set<ButtonAction> {
+  return copySet(MOVEMENT_ACTIONS_SET);
+}
+
+export function getShootActions(): Set<ButtonAction> {
+  return copySet(SHOOTING_ACTIONS_SET);
+}
+
 /** Iterates over all inputs to determine if a particular button is pressed (i.e. held down). */
 export function isActionPressedOnAnyInput(buttonAction: ButtonAction): boolean {
   const validInputs = range(0, MAX_NUM_INPUTS - 1);
@@ -93,6 +120,10 @@ export function isKeyboardPressed(key: Keyboard): boolean {
   return Input.IsButtonPressed(key, ControllerIndex.KEYBOARD);
 }
 
+export function isMoveAction(buttonAction: ButtonAction): boolean {
+  return MOVEMENT_ACTIONS_SET.has(buttonAction);
+}
+
 export function isMoveActionPressedOnAnyInput(): boolean {
   return MOVEMENT_ACTIONS.some((moveAction) =>
     isActionPressedOnAnyInput(moveAction),
@@ -103,6 +134,10 @@ export function isMoveActionTriggeredOnAnyInput(): boolean {
   return MOVEMENT_ACTIONS.some((moveAction) =>
     isActionTriggeredOnAnyInput(moveAction),
   );
+}
+
+export function isShootAction(buttonAction: ButtonAction): boolean {
+  return SHOOTING_ACTIONS_SET.has(buttonAction);
 }
 
 export function isShootActionPressedOnAnyInput(): boolean {
