@@ -86,25 +86,7 @@ function queueNotEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
 }
 
 function getPickingUpItemForPlayer(player: EntityPlayer) {
-  const character = player.GetPlayerType();
-
-  // Since The Forgotten and The Soul share items, we force the PickingUpPlayer data structure to
-  // always be based on The Forgotten
-  // Otherwise, it is possible to make the callback trigger twice by picking up an item on The Soul
-  // and switching back to The Forgotten, then switching back to The Soul after the animation is
-  // over
-  // (Tainted Forgotten does not have this problem)
-  let playerIndex: PlayerIndex;
-  if (character === PlayerType.PLAYER_THESOUL) {
-    const forgotten = player.GetSubPlayer();
-    if (forgotten === undefined) {
-      error("Failed");
-    }
-    playerIndex = getPlayerIndex(forgotten);
-  } else {
-    playerIndex = getPlayerIndex(player);
-  }
-
+  const playerIndex = getPlayerIndex(player);
   let pickingUpItem = v.run.pickingUpItem.get(playerIndex);
   if (pickingUpItem === undefined) {
     pickingUpItem = newPickingUpItem();
