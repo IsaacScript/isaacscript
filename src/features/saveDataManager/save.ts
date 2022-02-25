@@ -46,6 +46,11 @@ function getAllSaveDataToWriteToDisk(
       level: saveData.level,
     };
 
+    // If there is no data, then we can move on to the next feature
+    if (Object.keys(saveDataWithoutRoom).length === 0) {
+      continue;
+    }
+
     // If we encode TypeScriptToLua Maps into JSON,
     // it will result in a lot of extraneous data that is unnecessary
     // Make a copy of the data and recursively convert all TypeScriptToLua Maps into Lua tables
