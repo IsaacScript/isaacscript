@@ -1,18 +1,11 @@
-type FactoryFunction<K, A extends unknown[], V> = (
-  key: K,
-  ...extraArgs: A
-) => V;
+type FactoryFunction<K, V> = (k: K) => V;
+type FirstArg<K, V> = Iterable<[K, V]> | V | FactoryFunction<K, V>;
+type SecondArg<K, V> = V | FactoryFunction<K, V>;
 
-type FirstArg<K, A extends unknown[], V> =
-  | Iterable<[K, V]>
-  | V
-  | FactoryFunction<K, A, V>;
-type SecondArg<K, A extends unknown[], V> = V | FactoryFunction<K, A, V>;
-
-interface ParsedArgs<K, A extends unknown[], V> {
+interface ParsedArgs<K, V> {
   iterable: Iterable<[K, V]> | undefined;
   defaultValue: V | undefined;
-  defaultValueFactory: FactoryFunction<K, A, V> | undefined;
+  defaultValueFactory: FactoryFunction<K, V> | undefined;
 }
 
 /**
@@ -36,7 +29,7 @@ interface ParsedArgs<K, A extends unknown[], V> {
  * // Initializes a new empty DefaultMap with a default value of a new Map
  * const defaultMapWithFactory = new DefaultMap<string, Map<string, string>>(() => {
  *   return new Map();
- * });
+ * })
  *
  * // Initializes a DefaultMap with some initial values and a default value of "bar"
  * const defaultMapWithInitialValues = new DefaultMap<string, string>([
@@ -44,35 +37,18 @@ interface ParsedArgs<K, A extends unknown[], V> {
  *   ["b1", "b2"],
  * ], "bar");
  * ```
- *
- * If specified, the first argument of a factory function must always be equal to the key:
- *
- * ```ts
- * const defaultMapWithConditionalDefaultValue = new DefaultMap<number, number>((key: number) => {
- *   return isOdd(key) ? 0 : 1;
- * });
- * ```
- *
- * You can also specify a factory function that takes a generic amount of arguments beyond the
- * first:
- *
- * ```ts
- * const defaultMapWithExtraArgs = new DefaultMap<string, string>((_key: string, arg2: boolean) => {
- *   return arg2 ? 0 : 1;
- * })
- * ```
  */
-export class DefaultMap<K, A extends unknown[], V> extends Map<K, V> {
+export class DefaultMap<K, V> extends Map<K, V> {
   private defaultValue: V | undefined;
-  private defaultValueFactory: FactoryFunction<K, A, V> | undefined;
+  private defaultValueFactory: FactoryFunction<K, V> | undefined;
 
   /**
    * See the DefaultMap documentation:
    * https://isaacscript.github.io/isaacscript-common/classes/types_DefaultMap.DefaultMap.html
    */
   constructor(
-    iterableOrDefaultValueOrDefaultValueFactory: FirstArg<K, A, V>,
-    defaultValueOrDefaultValueFactory?: SecondArg<K, A, V>,
+    iterableOrDefaultValueOrDefaultValueFactory: FirstArg<K, V>,
+    defaultValueOrDefaultValueFactory?: SecondArg<K, V>,
   ) {
     const { iterable, defaultValue, defaultValueFactory } = parseArguments(
       iterableOrDefaultValueOrDefaultValueFactory,
@@ -99,13 +75,13 @@ export class DefaultMap<K, A extends unknown[], V> extends Map<K, V> {
    * If the key exists, this will return the same thing as the `get` method. Otherwise, it will set
    * a default value to the key, and then return the default value.
    */
-  getAndSetDefault(key: K, ...extraArgs: A) {
+  getAndSetDefault(key: K) {
     const value = this.get(key);
     if (value !== undefined) {
       return value;
     }
 
-    const defaultValue = this.getDefaultValue(key, ...extraArgs);
+    const defaultValue = this.getDefaultValue(key);
     this.set(key, defaultValue);
     return defaultValue;
   }
@@ -114,22 +90,18 @@ export class DefaultMap<K, A extends unknown[], V> extends Map<K, V> {
    * Returns the default value to be used for a new key. (If a factory function was provided during
    * instantiation, this will execute the factory function.)
    */
-  getDefaultValue(key: K, ...extraArgs: A) {
+  getDefaultValue(key: K) {
     if (this.defaultValue !== undefined) {
       return this.defaultValue;
     }
 
     if (this.defaultValueFactory !== undefined) {
-      return this.defaultValueFactory(key, ...extraArgs);
+      return this.defaultValueFactory(key);
     }
 
     return error("A DefaultMap was incorrectly instantiated.");
   }
 
-  /**
-   * Helper method for cloning the map. Returns either the default value or a reference to the
-   * factory function.
-   */
   getConstructorArg() {
     if (this.defaultValue !== undefined) {
       return this.defaultValue;
@@ -143,21 +115,18 @@ export class DefaultMap<K, A extends unknown[], V> extends Map<K, V> {
   }
 }
 
-function parseArguments<K, A extends unknown[], V>(
-  firstArg: FirstArg<K, A, V>,
-  secondArg?: SecondArg<K, A, V>,
-): ParsedArgs<K, A, V> {
+function parseArguments<K, V>(
+  firstArg: FirstArg<K, V>,
+  secondArg?: SecondArg<K, V>,
+): ParsedArgs<K, V> {
   return secondArg === undefined
     ? parseArgumentsOne(firstArg)
     : parseArgumentsTwo(firstArg, secondArg);
 }
 
-function parseArgumentsOne<K, A extends unknown[], V>(
-  firstArg: FirstArg<K, A, V>,
-): ParsedArgs<K, A, V> {
-  const arg = firstArg as SecondArg<K, A, V>;
+function parseArgumentsOne<K, V>(firstArg: FirstArg<K, V>): ParsedArgs<K, V> {
   const { defaultValue, defaultValueFactory } =
-    parseDefaultValueOrDefaultValueFactory(arg);
+    parseDefaultValueOrDefaultValueFactory(firstArg as SecondArg<K, V>);
   return {
     iterable: undefined,
     defaultValue,
@@ -165,14 +134,14 @@ function parseArgumentsOne<K, A extends unknown[], V>(
   };
 }
 
-function parseArgumentsTwo<K, A extends unknown[], V>(
-  firstArg: FirstArg<K, A, V>,
-  secondArg: SecondArg<K, A, V>,
-): ParsedArgs<K, A, V> {
+function parseArgumentsTwo<K, V>(
+  firstArg: FirstArg<K, V>,
+  secondArg: SecondArg<K, V>,
+): ParsedArgs<K, V> {
   const firstArgType = type(firstArg);
   if (firstArgType !== "table") {
     error(
-      "A DefaultMap constructor with two arguments must have the first argument be the initializer list.",
+      "A DefaultMap constructor with two arguments must have the first argument be an array.",
     );
   }
 
@@ -185,31 +154,29 @@ function parseArgumentsTwo<K, A extends unknown[], V>(
   };
 }
 
-function parseDefaultValueOrDefaultValueFactory<K, A extends unknown[], V>(
-  arg: SecondArg<K, A, V>,
+function parseDefaultValueOrDefaultValueFactory<K, V>(
+  arg: SecondArg<K, V>,
 ): {
   defaultValue: V | undefined;
-  defaultValueFactory: FactoryFunction<K, A, V> | undefined;
+  defaultValueFactory: FactoryFunction<K, V> | undefined;
 } {
-  if (typeof arg === "function") {
+  const argType = type(arg);
+
+  if (argType === "function") {
     return {
       defaultValue: undefined,
-      defaultValueFactory: arg as FactoryFunction<K, A, V>,
+      defaultValueFactory: arg as FactoryFunction<K, V>,
     };
   }
 
-  if (
-    typeof arg === "boolean" ||
-    typeof arg === "number" ||
-    typeof arg === "string"
-  ) {
+  if (argType === "boolean" || argType === "number" || argType === "string") {
     return {
-      defaultValue: arg,
+      defaultValue: arg as V,
       defaultValueFactory: undefined,
     };
   }
 
   return error(
-    `A DefaultMap was instantiated with an unknown type of: ${typeof arg}`,
+    `A DefaultMap was instantiated with an unknown type of: ${argType}`,
   );
 }
