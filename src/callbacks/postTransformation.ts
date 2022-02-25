@@ -1,5 +1,5 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { copyArray } from "../functions/array";
+import { range } from "../functions/math";
 import { getPlayerIndex, PlayerIndex } from "../functions/player";
 import { DefaultMap } from "../types/DefaultMap";
 import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
@@ -13,15 +13,13 @@ const UNUSED_TRANSFORMATIONS: ReadonlySet<PlayerForm> = new Set([
   PlayerForm.PLAYERFORM_FLIGHT,
 ]);
 
-const tempTransformations: PlayerForm[] = [];
-for (let i = 0; i < PlayerForm.NUM_PLAYER_FORMS; i++) {
-  // Skip transformations unused by the game
-  if (!UNUSED_TRANSFORMATIONS.has(i)) {
-    tempTransformations.push(i);
-  }
-}
-const VALID_TRANSFORMATIONS: readonly PlayerForm[] =
-  copyArray(tempTransformations);
+const ALL_TRANSFORMATIONS: readonly PlayerForm[] = range(
+  0,
+  PlayerForm.NUM_PLAYER_FORMS - 1,
+);
+const VALID_TRANSFORMATIONS: readonly PlayerForm[] = ALL_TRANSFORMATIONS.filter(
+  (playerForm) => !UNUSED_TRANSFORMATIONS.has(playerForm),
+);
 
 const v = {
   run: {
