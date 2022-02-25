@@ -1,10 +1,11 @@
-type FirstArg<K, V> = Iterable<[K, V]> | V | ((k: K) => V);
-type SecondArg<K, V> = V | ((k: K) => V);
+type FactoryFunction<K, V> = (k: K) => V;
+type FirstArg<K, V> = Iterable<[K, V]> | V | FactoryFunction<K, V>;
+type SecondArg<K, V> = V | FactoryFunction<K, V>;
 
 interface ParsedArgs<K, V> {
   iterable: Iterable<[K, V]> | undefined;
   defaultValue: V | undefined;
-  defaultValueFactory: ((k: K) => V) | undefined;
+  defaultValueFactory: FactoryFunction<K, V> | undefined;
 }
 
 /**
@@ -39,7 +40,7 @@ interface ParsedArgs<K, V> {
  */
 export class DefaultMap<K, V> extends Map<K, V> {
   private defaultValue: V | undefined;
-  private defaultValueFactory: ((k: K) => V) | undefined;
+  private defaultValueFactory: FactoryFunction<K, V> | undefined;
 
   /**
    * See the DefaultMap documentation:
@@ -157,14 +158,14 @@ function parseDefaultValueOrDefaultValueFactory<K, V>(
   arg: SecondArg<K, V>,
 ): {
   defaultValue: V | undefined;
-  defaultValueFactory: ((k: K) => V) | undefined;
+  defaultValueFactory: FactoryFunction<K, V> | undefined;
 } {
   const argType = type(arg);
 
   if (argType === "function") {
     return {
       defaultValue: undefined,
-      defaultValueFactory: arg as (k: K) => V,
+      defaultValueFactory: arg as FactoryFunction<K, V>,
     };
   }
 
