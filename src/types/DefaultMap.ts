@@ -1,11 +1,14 @@
-type FactoryFunction<K, V> = (k: K) => V;
-type FirstArg<K, V> = Iterable<[K, V]> | V | FactoryFunction<K, V>;
-type SecondArg<K, V> = V | FactoryFunction<K, V>;
+type FactoryFunction<K, V, A extends unknown[]> = (k: K, ...extraArgs: A) => V;
+type FirstArg<K, V, A extends unknown[]> =
+  | Iterable<[K, V]>
+  | V
+  | FactoryFunction<K, V, A>;
+type SecondArg<K, V, A extends unknown[]> = V | FactoryFunction<K, V, A>;
 
-interface ParsedArgs<K, V> {
+interface ParsedArgs<K, V, A extends unknown[]> {
   iterable: Iterable<[K, V]> | undefined;
   defaultValue: V | undefined;
-  defaultValueFactory: FactoryFunction<K, V> | undefined;
+  defaultValueFactory: FactoryFunction<K, V, A> | undefined;
 }
 
 /**
@@ -38,25 +41,34 @@ interface ParsedArgs<K, V> {
  * ], "bar");
  * ```
  *
- * If specified, the first argument of a factory function must be equal to the key:
+ * If specified, the first argument of a factory function must always be equal to the key:
  *
  * ```ts
  * const defaultMapWithConditionalDefaultValue = new DefaultMap<number, number>((key: number) => {
  *   return isOdd(key) ? 0 : 1;
  * });
  * ```
+ *
+ * You can also specify a factory function that takes a generic amount of arguments beyond the
+ * first:
+ *
+ * ```ts
+ * const defaultMapWithExtraArgs = new DefaultMap<string, string>((_key: string, arg2: boolean) => {
+ *   return arg2 ? 0 : 1;
+ * })
+ * ```
  */
-export class DefaultMap<K, V> extends Map<K, V> {
+export class DefaultMap<K, V, A extends unknown[] = []> extends Map<K, V> {
   private defaultValue: V | undefined;
-  private defaultValueFactory: FactoryFunction<K, V> | undefined;
+  private defaultValueFactory: FactoryFunction<K, V, A> | undefined;
 
   /**
    * See the DefaultMap documentation:
    * https://isaacscript.github.io/isaacscript-common/classes/types_DefaultMap.DefaultMap.html
    */
   constructor(
-    iterableOrDefaultValueOrDefaultValueFactory: FirstArg<K, V>,
-    defaultValueOrDefaultValueFactory?: SecondArg<K, V>,
+    iterableOrDefaultValueOrDefaultValueFactory: FirstArg<K, V, A>,
+    defaultValueOrDefaultValueFactory?: SecondArg<K, V, A>,
   ) {
     const { iterable, defaultValue, defaultValueFactory } = parseArguments(
       iterableOrDefaultValueOrDefaultValueFactory,
@@ -83,13 +95,13 @@ export class DefaultMap<K, V> extends Map<K, V> {
    * If the key exists, this will return the same thing as the `get` method. Otherwise, it will set
    * a default value to the key, and then return the default value.
    */
-  getAndSetDefault(key: K) {
+  getAndSetDefault(key: K, ...extraArgs: A) {
     const value = this.get(key);
     if (value !== undefined) {
       return value;
     }
 
-    const defaultValue = this.getDefaultValue(key);
+    const defaultValue = this.getDefaultValue(key, ...extraArgs);
     this.set(key, defaultValue);
     return defaultValue;
   }
@@ -98,13 +110,13 @@ export class DefaultMap<K, V> extends Map<K, V> {
    * Returns the default value to be used for a new key. (If a factory function was provided during
    * instantiation, this will execute the factory function.)
    */
-  getDefaultValue(key: K) {
+  getDefaultValue(key: K, ...extraArgs: A) {
     if (this.defaultValue !== undefined) {
       return this.defaultValue;
     }
 
     if (this.defaultValueFactory !== undefined) {
-      return this.defaultValueFactory(key);
+      return this.defaultValueFactory(key, ...extraArgs);
     }
 
     return error("A DefaultMap was incorrectly instantiated.");
@@ -127,17 +139,19 @@ export class DefaultMap<K, V> extends Map<K, V> {
   }
 }
 
-function parseArguments<K, V>(
-  firstArg: FirstArg<K, V>,
-  secondArg?: SecondArg<K, V>,
-): ParsedArgs<K, V> {
+function parseArguments<K, V, A extends unknown[]>(
+  firstArg: FirstArg<K, V, A>,
+  secondArg?: SecondArg<K, V, A>,
+): ParsedArgs<K, V, A> {
   return secondArg === undefined
     ? parseArgumentsOne(firstArg)
     : parseArgumentsTwo(firstArg, secondArg);
 }
 
-function parseArgumentsOne<K, V>(firstArg: FirstArg<K, V>): ParsedArgs<K, V> {
-  const arg = firstArg as SecondArg<K, V>;
+function parseArgumentsOne<K, V, A extends unknown[]>(
+  firstArg: FirstArg<K, V, A>,
+): ParsedArgs<K, V, A> {
+  const arg = firstArg as SecondArg<K, V, A>;
   const { defaultValue, defaultValueFactory } =
     parseDefaultValueOrDefaultValueFactory(arg);
   return {
@@ -147,10 +161,10 @@ function parseArgumentsOne<K, V>(firstArg: FirstArg<K, V>): ParsedArgs<K, V> {
   };
 }
 
-function parseArgumentsTwo<K, V>(
-  firstArg: FirstArg<K, V>,
-  secondArg: SecondArg<K, V>,
-): ParsedArgs<K, V> {
+function parseArgumentsTwo<K, V, A extends unknown[]>(
+  firstArg: FirstArg<K, V, A>,
+  secondArg: SecondArg<K, V, A>,
+): ParsedArgs<K, V, A> {
   const firstArgType = type(firstArg);
   if (firstArgType !== "table") {
     error(
@@ -167,16 +181,16 @@ function parseArgumentsTwo<K, V>(
   };
 }
 
-function parseDefaultValueOrDefaultValueFactory<K, V>(
-  arg: SecondArg<K, V>,
+function parseDefaultValueOrDefaultValueFactory<K, V, A extends unknown[]>(
+  arg: SecondArg<K, V, A>,
 ): {
   defaultValue: V | undefined;
-  defaultValueFactory: FactoryFunction<K, V> | undefined;
+  defaultValueFactory: FactoryFunction<K, V, A> | undefined;
 } {
   if (typeof arg === "function") {
     return {
       defaultValue: undefined,
-      defaultValueFactory: arg as FactoryFunction<K, V>,
+      defaultValueFactory: arg as FactoryFunction<K, V, A>,
     };
   }
 
