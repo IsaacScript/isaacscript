@@ -50,45 +50,41 @@ function checkPickupsPurchased(
 ) {
   for (const [index, pickupDescription] of v.room.pickupMap.entries()) {
     // First, see if a pickup that existed on the last frame is now gone
-    if (pickupIndexExists(index, pickups)) {
+    if (pickupAtIndexStillExists(index, pickups)) {
       continue;
     }
 
     // The item has disappeared
     v.room.pickupMap.delete(index);
 
-    // Second, find a player that was not holding an item on the previous frame,
-    // but is holding an item now
-    for (const player of players) {
-      const playerHoldingItem = player.IsHoldingItem();
-      const playerIndex = getPlayerIndex(player);
-      const playerHoldingItemLastFrame =
-        v.room.playerHoldingItemLastFrameMap.get(playerIndex);
-      if (playerHoldingItemLastFrame === undefined) {
-        continue;
-      }
-
-      if (!playerHoldingItemLastFrame && playerHoldingItem) {
-        // Assume that this is the player that purchased the pickup
-        postPurchaseFire(
-          player,
-          pickupDescription.variant,
-          pickupDescription.subtype,
-          pickupDescription.price,
-        );
-
-        break;
-      }
+    const player = getPlayerThatIsNoLongerHoldingAnItem(players);
+    if (player !== undefined) {
+      // Assume that this is the player that purchased the pickup
+      postPurchaseFire(
+        player,
+        pickupDescription.variant,
+        pickupDescription.subtype,
+        pickupDescription.price,
+      );
     }
   }
 }
 
-function storePickupsInMap(pickups: EntityPickup[]) {
-  for (const pickup of pickups) {
-    if (pickup.Price === 0) {
-      continue;
-    }
+/** Find a player that was not holding an item on the previous frame, but is holding an item now. */
+function getPlayerThatIsNoLongerHoldingAnItem(players: EntityPlayer[]) {
+  return players.find((player) => {
+    const playerHoldingItem = player.IsHoldingItem();
+    const playerIndex = getPlayerIndex(player);
+    const playerHoldingItemLastFrame =
+      v.room.playerHoldingItemLastFrameMap.get(playerIndex);
+    return playerHoldingItemLastFrame === false && playerHoldingItem;
+  });
+}
 
+function storePickupsInMap(pickups: EntityPickup[]) {
+  const pickupsWithPrice = pickups.filter((pickup) => pickup.Price !== 0);
+
+  for (const pickup of pickupsWithPrice) {
     v.room.pickupMap.set(pickup.Index, {
       variant: pickup.Variant,
       subtype: pickup.SubType,
@@ -105,12 +101,7 @@ function storePlayersInMap(players: EntityPlayer[]) {
   }
 }
 
-function pickupIndexExists(index: int, pickups: EntityPickup[]) {
-  for (const pickup of pickups) {
-    if (pickup.Index === index && pickup.Exists()) {
-      return true;
-    }
-  }
-
-  return false;
+function pickupAtIndexStillExists(index: int, pickups: EntityPickup[]) {
+  const pickupAtIndex = pickups.find((pickup) => pickup.Index);
+  return pickupAtIndex !== undefined && pickupAtIndex.Exists();
 }
