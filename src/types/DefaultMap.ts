@@ -38,8 +38,8 @@ interface ParsedArgs<K, V> {
  * ```
  */
 export class DefaultMap<K, V> extends Map<K, V> {
-  defaultValue: V | undefined;
-  defaultValueFactory: ((k: K) => V) | undefined;
+  private defaultValue: V | undefined;
+  private defaultValueFactory: ((k: K) => V) | undefined;
 
   /**
    * See the DefaultMap documentation:

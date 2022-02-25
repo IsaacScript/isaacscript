@@ -142,6 +142,9 @@ export function deepCopy(
 
       const oldDefaultMap = oldObject as DefaultMap<AnyNotNil, unknown>;
       const defaultValue = oldDefaultMap.getConstructorArg();
+
+      // The constructor argument can be a reference to a factory function
+      // If this is the case, then we can't serialize it
       if (
         typeof defaultValue === "boolean" ||
         typeof defaultValue === "number" ||
