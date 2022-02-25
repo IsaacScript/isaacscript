@@ -20,9 +20,11 @@
 
   // Automatically run the formatter when a JavaScript file is saved
   "[javascript]": {
-    "editor.codeActionsOnSave": [
-      "source.fixAll.eslint",
-    ],
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true,
+    },
     "editor.tabSize": 2,
   },
 }

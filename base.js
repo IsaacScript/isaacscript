@@ -47,6 +47,10 @@ module.exports = {
     // https://github.com/Zamiell/eslint-plugin-no-void-return-type
     "plugin:no-void-return-type/recommended",
 
+    // This prevents declaring variables without a type
+    // https://github.com/Zamiell/eslint-plugin-no-let-any
+    "plugin:no-let-any/recommended",
+
     // Disable any ESLint rules that conflict with Prettier
     // (otherwise, we will have unfixable ESLint errors)
     // https://github.com/prettier/eslint-config-prettier
