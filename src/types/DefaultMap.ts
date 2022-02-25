@@ -9,7 +9,7 @@ interface ParsedArgs<K, V> {
 }
 
 /**
- * An extended Map with two new methods:
+ * An extended Map with some new methods:
  *
  * - `getAndSetDefault` - If the key exists, this will return the same thing as the `get` method.
  *   Otherwise, it will set a default value to the key, and then return the default value.
@@ -28,7 +28,7 @@ interface ParsedArgs<K, V> {
  *
  * // Initializes a new empty DefaultMap with a default value of a new Map
  * const defaultMapWithFactory = new DefaultMap<string, Map<string, string>>(() => {
- *   return new Map<string, string>();
+ *   return new Map();
  * })
  *
  * // Initializes a DefaultMap with some initial values and a default value of "bar"
