@@ -37,6 +37,14 @@ interface ParsedArgs<K, V> {
  *   ["b1", "b2"],
  * ], "bar");
  * ```
+ *
+ * If specified, the first argument of a factory function must be equal to the key:
+ *
+ * ```ts
+ * const defaultMapWithConditionalDefaultValue = new DefaultMap<number, number>((key: number) => {
+ *   return isOdd(key) ? 0 : 1;
+ * });
+ * ```
  */
 export class DefaultMap<K, V> extends Map<K, V> {
   private defaultValue: V | undefined;
@@ -102,6 +110,10 @@ export class DefaultMap<K, V> extends Map<K, V> {
     return error("A DefaultMap was incorrectly instantiated.");
   }
 
+  /**
+   * Helper method for cloning the map. Returns either the default value or a reference to the
+   * factory function.
+   */
   getConstructorArg() {
     if (this.defaultValue !== undefined) {
       return this.defaultValue;
@@ -125,8 +137,9 @@ function parseArguments<K, V>(
 }
 
 function parseArgumentsOne<K, V>(firstArg: FirstArg<K, V>): ParsedArgs<K, V> {
+  const arg = firstArg as SecondArg<K, V>;
   const { defaultValue, defaultValueFactory } =
-    parseDefaultValueOrDefaultValueFactory(firstArg as SecondArg<K, V>);
+    parseDefaultValueOrDefaultValueFactory(arg);
   return {
     iterable: undefined,
     defaultValue,
@@ -141,7 +154,7 @@ function parseArgumentsTwo<K, V>(
   const firstArgType = type(firstArg);
   if (firstArgType !== "table") {
     error(
-      "A DefaultMap constructor with two arguments must have the first argument be an array.",
+      "A DefaultMap constructor with two arguments must have the first argument be the initializer list.",
     );
   }
 
@@ -160,16 +173,18 @@ function parseDefaultValueOrDefaultValueFactory<K, V>(
   defaultValue: V | undefined;
   defaultValueFactory: FactoryFunction<K, V> | undefined;
 } {
-  const argType = type(arg);
-
-  if (argType === "function") {
+  if (typeof arg === "function") {
     return {
       defaultValue: undefined,
       defaultValueFactory: arg as FactoryFunction<K, V>,
     };
   }
 
-  if (argType === "boolean" || argType === "number" || argType === "string") {
+  if (
+    typeof arg === "boolean" ||
+    typeof arg === "number" ||
+    typeof arg === "string"
+  ) {
     return {
       defaultValue: arg as V,
       defaultValueFactory: undefined,
@@ -177,6 +192,6 @@ function parseDefaultValueOrDefaultValueFactory<K, V>(
   }
 
   return error(
-    `A DefaultMap was instantiated with an unknown type of: ${argType}`,
+    `A DefaultMap was instantiated with an unknown type of: ${typeof arg}`,
   );
 }
