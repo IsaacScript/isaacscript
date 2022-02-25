@@ -232,8 +232,7 @@ export function isArray(table: LuaTable): boolean {
   for (const [key] of pairs(table)) {
     numEntries += 1;
 
-    const keyType = type(key);
-    if (keyType !== "number") {
+    if (typeof key !== "number") {
       return false;
     }
   }
