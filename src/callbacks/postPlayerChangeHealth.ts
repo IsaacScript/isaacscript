@@ -1,6 +1,7 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getPlayerIndex, PlayerIndex } from "../functions/player";
 import { ensureAllCases, getEnumValues } from "../functions/utils";
+import { DefaultMap } from "../types/DefaultMap";
 import { HealthType } from "../types/HealthType";
 import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
 import { ModUpgraded } from "../types/ModUpgraded";
@@ -11,7 +12,9 @@ import {
 
 const v = {
   run: {
-    playersHealthMap: new Map<PlayerIndex, Map<HealthType, int>>(),
+    playersHealthMap: new DefaultMap<PlayerIndex, Map<HealthType, int>>(
+      () => new Map(),
+    ),
   },
 };
 
@@ -35,17 +38,13 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
     return;
   }
 
+  // We call the "getPlayerIndex" function with the "differentiateForgottenAndSoul" argument
   // If we don't differentiate between The Forgotten and The Soul,
   // the callback will fire every time the player switches between the two
   const playerIndex = getPlayerIndex(player, true);
-  let playerHealthMap = v.run.playersHealthMap.get(playerIndex);
-  if (playerHealthMap === undefined) {
-    playerHealthMap = new Map();
-    v.run.playersHealthMap.set(playerIndex, playerHealthMap);
-  }
+  const playerHealthMap = v.run.playersHealthMap.getAndSetDefault(playerIndex);
 
-  const healthTypes = getEnumValues(HealthType);
-  for (const healthType of healthTypes) {
+  for (const healthType of getEnumValues(HealthType)) {
     const storedHealthValue = playerHealthMap.get(healthType);
     const currentHealthValue = getCurrentHealthValue(player, healthType);
     playerHealthMap.set(healthType, currentHealthValue);

@@ -2,6 +2,7 @@
 
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getPlayerIndex, PlayerIndex } from "../functions/player";
+import { DefaultMap } from "../types/DefaultMap";
 import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
 import { ModUpgraded } from "../types/ModUpgraded";
 import {
@@ -20,7 +21,9 @@ import {
 
 const v = {
   run: {
-    pickingUpItem: new Map<PlayerIndex, PickingUpItem>(),
+    playerPickingUpItemMap: new DefaultMap<PlayerIndex, PickingUpItem>(() =>
+      newPickingUpItem(),
+    ),
   },
 };
 
@@ -44,7 +47,9 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
     return;
   }
 
-  const pickingUpItem = getPickingUpItemForPlayer(player);
+  const playerIndex = getPlayerIndex(player);
+  const pickingUpItem =
+    v.run.playerPickingUpItemMap.getAndSetDefault(playerIndex);
 
   if (player.IsItemQueueEmpty()) {
     queueEmpty(player, pickingUpItem);
@@ -83,15 +88,4 @@ function queueNotEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
 
     preItemPickupFire(player, pickingUpItem);
   }
-}
-
-function getPickingUpItemForPlayer(player: EntityPlayer) {
-  const playerIndex = getPlayerIndex(player);
-  let pickingUpItem = v.run.pickingUpItem.get(playerIndex);
-  if (pickingUpItem === undefined) {
-    pickingUpItem = newPickingUpItem();
-    v.run.pickingUpItem.set(playerIndex, pickingUpItem);
-  }
-
-  return pickingUpItem;
 }

@@ -1,5 +1,7 @@
+import { DefaultMap } from "../types/DefaultMap";
+import { SerializationBrand } from "../types/SerializationBrand";
 import { arrayEquals } from "./array";
-import { deepCopy } from "./deepCopy";
+import { deepCopy, SerializationType } from "./deepCopy";
 import { log } from "./log";
 
 export function deepCopyTests(): void {
@@ -19,6 +21,8 @@ export function deepCopyTests(): void {
   copiedSetHasValue();
 
   copiedMapHasChildMap();
+  copiedDefaultMapHasChildDefaultMap();
+  copiedDefaultMapHasBrand();
 
   log("All tests passed!");
 }
@@ -314,5 +318,79 @@ function copiedMapHasChildMap() {
   }
   if (value !== childMapValue) {
     error(`The copied child Map did not have a value of: ${childMapValue}`);
+  }
+}
+
+function copiedDefaultMapHasChildDefaultMap() {
+  const parentMapKey = "abc";
+  const childMapKey1 = 123;
+  const childMapKey2 = 456;
+  const childMapDefaultValue = 1;
+  const childMapCustomValue = 2;
+  const oldParentMap = new DefaultMap<string, DefaultMap<number, number>>(
+    () => new DefaultMap(childMapDefaultValue),
+  );
+  const oldChildMap = oldParentMap.getAndSetDefault(parentMapKey);
+  oldChildMap.getAndSetDefault(childMapKey1);
+  oldChildMap.set(childMapKey2, childMapCustomValue);
+
+  const newTable = deepCopy(oldParentMap);
+  const newParentMap = newTable as typeof oldParentMap;
+
+  const newChildMap = newParentMap.get(parentMapKey);
+  if (newChildMap === undefined) {
+    error(
+      `The copied DefaultMap did not have a child map at key: ${parentMapKey}`,
+    );
+  }
+
+  const newChildMapType = type(newChildMap);
+  if (newChildMapType !== "table") {
+    error(`The copied child DefaultMap had a type of: ${newChildMapType}`);
+  }
+  if (!(newChildMap instanceof DefaultMap)) {
+    error("The copied child DefaultMap was not a DefaultMap.");
+  }
+
+  const newChildMapValue1 = newChildMap.get(childMapKey1);
+  if (newChildMapValue1 === undefined) {
+    error(`The copied child DefaultMap did not have a key of: ${childMapKey1}`);
+  }
+  if (newChildMapValue1 !== childMapDefaultValue) {
+    error(
+      `The copied child Map did not have a default value of: ${childMapDefaultValue}`,
+    );
+  }
+
+  const newChildMapValue2 = newChildMap.get(childMapKey2);
+  if (newChildMapValue2 === undefined) {
+    error(`The copied child DefaultMap did not have a key of: ${childMapKey2}`);
+  }
+  if (newChildMapValue2 !== childMapCustomValue) {
+    error(
+      `The copied child Map did not have a custom value of: ${childMapCustomValue}`,
+    );
+  }
+}
+
+function copiedDefaultMapHasBrand() {
+  const oldDefaultValue = "foo";
+  const oldDefaultMap = new DefaultMap<string, string>(oldDefaultValue);
+  const newTable = deepCopy(
+    oldDefaultMap,
+    SerializationType.SERIALIZE,
+  ) as LuaTable<AnyNotNil, unknown>;
+
+  if (!newTable.has(SerializationBrand.DEFAULT_MAP)) {
+    error(
+      `The copied DefaultMap does not have the brand: ${SerializationBrand.DEFAULT_MAP}`,
+    );
+  }
+
+  const serializedDefaultValue = newTable.get(SerializationBrand.DEFAULT_MAP);
+  if (serializedDefaultValue !== oldDefaultValue) {
+    error(
+      `The copied DefaultMap does not have a serialized default value of: ${oldDefaultValue}`,
+    );
   }
 }

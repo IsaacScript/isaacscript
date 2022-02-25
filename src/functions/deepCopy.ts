@@ -1,11 +1,9 @@
+import { SAVE_DATA_MANAGER_DEBUG } from "../features/saveDataManager/debug";
+import { DefaultMap } from "../types/DefaultMap";
 import {
-  TSTL_CLASS_BRAND,
-  TSTL_MAP_BRAND,
-  TSTL_OBJECT_WITH_NUMBER_KEYS_BRAND,
-  TSTL_SET_BRAND,
-  VECTOR_BRAND,
-} from "../constantsInternal";
-import { DEBUG } from "../debug";
+  isSerializationBrand,
+  SerializationBrand,
+} from "../types/SerializationBrand";
 import { log } from "./log";
 import { isVector } from "./vector";
 
@@ -40,12 +38,13 @@ const TSTL_CLASS_KEYS: ReadonlySet<string> = new Set([
  * - TSTL Maps
  * - TSTL Sets
  * - TSTL Classes
+ * - DefaultMaps
  * - Isaac Vectors
  *
  * @param oldObject The object to copy.
  * @param serializationType Has 3 possible values. Can leave TypeScriptToLua objects as-is, or can
- * serialize objects to Lua tables, or can deserialize Lua tables to objects. No serialization by
- * default.
+ * serialize objects to Lua tables, or can deserialize Lua tables to objects. Will perform no
+ * serialization by default.
  * @param traversalDescription Used to track the current key that we are operating on.
  */
 export function deepCopy(
@@ -60,7 +59,7 @@ export function deepCopy(
     );
   }
 
-  if (DEBUG) {
+  if (SAVE_DATA_MANAGER_DEBUG) {
     let logString = `deepCopy is operating on: ${traversalDescription}`;
     if (serializationType === SerializationType.SERIALIZE) {
       logString += " (serializing)";
@@ -73,20 +72,47 @@ export function deepCopy(
   const oldTable = oldObject as unknown as LuaTable;
   const isClass = isTSTLClass(oldTable);
 
+  let hasTSTLDefaultMapBrand = false;
   let hasTSTLMapBrand = false;
   let hasTSTLSetBrand = false;
   let hasTSTLClassBrand = false;
   if (!(oldObject instanceof Map) && !(oldObject instanceof Set) && !isClass) {
     checkMetatable(oldTable, traversalDescription);
 
-    hasTSTLMapBrand = oldTable.has(TSTL_MAP_BRAND);
-    hasTSTLSetBrand = oldTable.has(TSTL_SET_BRAND);
-    hasTSTLClassBrand = oldTable.has(TSTL_CLASS_BRAND);
+    hasTSTLDefaultMapBrand = oldTable.has(SerializationBrand.DEFAULT_MAP);
+    hasTSTLMapBrand = oldTable.has(SerializationBrand.MAP);
+    hasTSTLSetBrand = oldTable.has(SerializationBrand.SET);
+    hasTSTLClassBrand = oldTable.has(SerializationBrand.CLASS);
   }
 
   // Instantiate the new object
   let newObject: LuaTable | Map<AnyNotNil, unknown> | Set<AnyNotNil>;
   if (
+    serializationType === SerializationType.NONE &&
+    oldObject instanceof DefaultMap
+  ) {
+    const oldDefaultMap = oldObject as DefaultMap<AnyNotNil, unknown>;
+    const constructorArg = oldDefaultMap.getConstructorArg();
+    newObject = new DefaultMap(constructorArg);
+  } else if (
+    serializationType === SerializationType.DESERIALIZE &&
+    hasTSTLDefaultMapBrand
+  ) {
+    const defaultValue: unknown = oldTable.get(
+      SerializationBrand.DEFAULT_MAP_VALUE,
+    );
+    if (
+      typeof defaultValue !== "boolean" &&
+      typeof defaultValue !== "number" &&
+      typeof defaultValue !== "string"
+    ) {
+      error(
+        "The deepCopy function failed to get a valid default value for a DefaultMap object when deserializing.",
+      );
+    } else {
+      newObject = new DefaultMap(defaultValue);
+    }
+  } else if (
     (serializationType === SerializationType.NONE &&
       oldObject instanceof Map) ||
     (serializationType === SerializationType.DESERIALIZE && hasTSTLMapBrand)
@@ -110,12 +136,25 @@ export function deepCopy(
   // If we are serializing, brand TSTL objects
   if (serializationType === SerializationType.SERIALIZE) {
     const newTable = newObject as LuaTable;
-    if (oldObject instanceof Map) {
-      newTable.set(TSTL_MAP_BRAND, "");
+
+    if (oldObject instanceof DefaultMap) {
+      newTable.set(SerializationBrand.DEFAULT_MAP, "");
+
+      const oldDefaultMap = oldObject as DefaultMap<AnyNotNil, unknown>;
+      const defaultValue = oldDefaultMap.getConstructorArg();
+      if (
+        typeof defaultValue === "boolean" ||
+        typeof defaultValue === "number" ||
+        typeof defaultValue === "string"
+      ) {
+        newTable.set(SerializationBrand.DEFAULT_MAP_VALUE, defaultValue);
+      }
+    } else if (oldObject instanceof Map) {
+      newTable.set(SerializationBrand.MAP, "");
     } else if (oldObject instanceof Set) {
-      newTable.set(TSTL_SET_BRAND, "");
+      newTable.set(SerializationBrand.SET, "");
     } else if (isClass) {
-      newTable.set(TSTL_CLASS_BRAND, "");
+      newTable.set(SerializationBrand.CLASS, "");
     }
   }
 
@@ -123,7 +162,7 @@ export function deepCopy(
   // we need to iterate over the object in a specific way
   if (oldObject instanceof Map) {
     for (const [key, value] of oldObject.entries()) {
-      if (isBrand(key)) {
+      if (isSerializationBrand(key)) {
         continue;
       }
 
@@ -138,7 +177,7 @@ export function deepCopy(
     }
   } else if (oldObject instanceof Set) {
     for (const key of oldObject.values()) {
-      if (isBrand(key)) {
+      if (isSerializationBrand(key)) {
         continue;
       }
 
@@ -157,7 +196,7 @@ export function deepCopy(
   } else {
     // This applies to both Lua tables and TypeScriptToLua classes
     for (const [key, value] of pairs(oldObject)) {
-      if (isBrand(key)) {
+      if (isSerializationBrand(key)) {
         continue;
       }
 
@@ -190,7 +229,11 @@ function isTSTLClass(object: LuaTable): boolean {
   for (const [key] of pairs(metatable)) {
     numKeys += 1;
 
-    if (!TSTL_CLASS_KEYS.has(key as string)) {
+    if (typeof key !== "string") {
+      return false;
+    }
+
+    if (!TSTL_CLASS_KEYS.has(key)) {
       return false;
     }
   }
@@ -217,16 +260,6 @@ function getNewClassFromMetatable(metatable: TSTLClassMetatable) {
   newClass.____constructor(); // eslint-disable-line no-underscore-dangle
 
   return newClass as unknown as LuaTable;
-}
-
-export function isBrand(key: AnyNotNil): boolean {
-  return (
-    key === TSTL_MAP_BRAND ||
-    key === TSTL_SET_BRAND ||
-    key === TSTL_CLASS_BRAND ||
-    key === TSTL_OBJECT_WITH_NUMBER_KEYS_BRAND ||
-    key === VECTOR_BRAND
-  );
 }
 
 function deepCopyValue(
@@ -258,9 +291,9 @@ function deepCopyValue(
     convertNumberKeysToString = true;
 
     const newTable = newObject as LuaTable;
-    newTable.set(TSTL_OBJECT_WITH_NUMBER_KEYS_BRAND, "");
+    newTable.set(SerializationBrand.OBJECT_WITH_NUMBER_KEYS, "");
 
-    if (DEBUG) {
+    if (SAVE_DATA_MANAGER_DEBUG) {
       log("deepCopy is converting a TSTL map with number keys to strings.");
     }
   }
@@ -302,7 +335,7 @@ function copyVector(vector: Vector, serializationType: SerializationType) {
     const vectorTable = new LuaTable();
     vectorTable.set("X", vector.X);
     vectorTable.set("Y", vector.Y);
-    vectorTable.set(VECTOR_BRAND, "");
+    vectorTable.set(SerializationBrand.VECTOR, "");
     return vectorTable;
   }
 
@@ -389,5 +422,7 @@ export function isSerializedVector(object: unknown): boolean {
   }
 
   const table = object as LuaTable;
-  return table.has(VECTOR_BRAND) && table.has("X") && table.has("Y");
+  return (
+    table.has(SerializationBrand.VECTOR) && table.has("X") && table.has("Y")
+  );
 }

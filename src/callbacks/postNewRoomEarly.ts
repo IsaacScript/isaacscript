@@ -42,6 +42,7 @@ function checkRoomChanged() {
   const game = Game();
   const room = game.GetRoom();
   const topLeftWallGridIndex = getTopLeftWallGridIndex();
+
   let topLeftWall = room.GetGridEntity(topLeftWallGridIndex);
 
   // Sometimes, the PreEntitySpawn callback can fire before any grid entities in the room have

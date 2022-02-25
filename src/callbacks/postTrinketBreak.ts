@@ -1,5 +1,6 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getPlayerIndex, PlayerIndex } from "../functions/player";
+import { DefaultMap } from "../types/DefaultMap";
 import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
 import { ModUpgraded } from "../types/ModUpgraded";
 import {
@@ -14,7 +15,10 @@ const TRINKETS_THAT_CAN_BREAK: readonly TrinketType[] = [
 
 const v = {
   run: {
-    playerTrinketMap: new Map<PlayerIndex, Map<TrinketType, int>>(),
+    playersTrinketMap: new DefaultMap<
+      PlayerIndex,
+      DefaultMap<TrinketType, int>
+    >(() => new DefaultMap(0)),
   },
 };
 
@@ -56,15 +60,13 @@ function entityTakeDmgPlayer(
     return;
   }
 
-  const trinketMap = getTrinketMap(player);
+  const playerIndex = getPlayerIndex(player);
+  const trinketMap = v.run.playersTrinketMap.getAndSetDefault(playerIndex);
 
   for (const trinketType of TRINKETS_THAT_CAN_BREAK) {
     const numTrinketsHeld = player.GetTrinketMultiplier(trinketType);
-    const oldNumTrinketsHeld = trinketMap.get(trinketType);
-    if (
-      oldNumTrinketsHeld === undefined ||
-      numTrinketsHeld >= oldNumTrinketsHeld
-    ) {
+    const oldNumTrinketsHeld = trinketMap.getAndSetDefault(trinketType);
+    if (numTrinketsHeld >= oldNumTrinketsHeld) {
       continue;
     }
 
@@ -92,21 +94,11 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
   }
 
   // On every frame, keep track of how many trinkets we have
-  const trinketMap = getTrinketMap(player);
+  const playerIndex = getPlayerIndex(player);
+  const trinketMap = v.run.playersTrinketMap.getAndSetDefault(playerIndex);
 
   for (const trinketType of TRINKETS_THAT_CAN_BREAK) {
     const numTrinkets = player.GetTrinketMultiplier(trinketType);
     trinketMap.set(trinketType, numTrinkets);
   }
-}
-
-function getTrinketMap(player: EntityPlayer) {
-  const playerIndex = getPlayerIndex(player);
-  let playerTrinketMap = v.run.playerTrinketMap.get(playerIndex);
-  if (playerTrinketMap === undefined) {
-    playerTrinketMap = new Map();
-    v.run.playerTrinketMap.set(playerIndex, playerTrinketMap);
-  }
-
-  return playerTrinketMap;
 }

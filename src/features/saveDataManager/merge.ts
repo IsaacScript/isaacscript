@@ -1,16 +1,18 @@
-import { TSTL_OBJECT_WITH_NUMBER_KEYS_BRAND } from "../../constantsInternal";
-import { DEBUG } from "../../debug";
 import { isArray } from "../../functions/array";
 import {
   addTraversalDescription,
   deepCopy,
   deserializeVector,
-  isBrand,
   isSerializedVector,
   SerializationType,
 } from "../../functions/deepCopy";
 import { log } from "../../functions/log";
 import { clearTable } from "../../functions/table";
+import {
+  isSerializationBrand,
+  SerializationBrand,
+} from "../../types/SerializationBrand";
+import { SAVE_DATA_MANAGER_DEBUG } from "./debug";
 
 /**
  * merge takes the values from a new table and recursively merges them into an old object
@@ -38,7 +40,7 @@ export function merge(
     error("The second argument given to the merge function is not a table.");
   }
 
-  if (DEBUG) {
+  if (SAVE_DATA_MANAGER_DEBUG) {
     log(`merge is operating on: ${traversalDescription}`);
   }
 
@@ -85,11 +87,11 @@ function mergeTSTLObject(
   // During serialization, we brand some Lua tables with a special identifier to signify that it has
   // keys that should be deserialized to numbers
   const convertStringKeysToNumbers = newTable.has(
-    TSTL_OBJECT_WITH_NUMBER_KEYS_BRAND,
+    SerializationBrand.OBJECT_WITH_NUMBER_KEYS,
   );
 
   for (const [key, value] of pairs(newTable)) {
-    if (isBrand(key)) {
+    if (isSerializationBrand(key)) {
       continue;
     }
 
@@ -104,6 +106,7 @@ function mergeTSTLObject(
 
     if (oldObject instanceof Map) {
       const valueType = type(value);
+
       let valueCopy: unknown;
       if (valueType === "table") {
         valueCopy = deepCopy(
@@ -114,6 +117,7 @@ function mergeTSTLObject(
       } else {
         valueCopy = value;
       }
+
       oldObject.set(keyToUse, valueCopy);
     } else if (oldObject instanceof Set) {
       oldObject.add(keyToUse);
@@ -127,7 +131,7 @@ function mergeTable(
   traversalDescription: string,
 ) {
   for (const [key, value] of pairs(newTable)) {
-    if (isBrand(key)) {
+    if (isSerializationBrand(key)) {
       continue;
     }
 
@@ -150,7 +154,7 @@ function mergeTable(
       }
     } else {
       // Base case: copy the value
-      if (DEBUG) {
+      if (SAVE_DATA_MANAGER_DEBUG) {
         log(`Merging key "${key}" with value: ${value}`);
       }
       oldTable.set(key, value);

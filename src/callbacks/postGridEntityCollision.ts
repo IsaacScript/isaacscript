@@ -3,6 +3,7 @@ import {
   getCollidingEntitiesWithGridEntity,
   getGridEntities,
 } from "../functions/gridEntity";
+import { DefaultMap } from "../types/DefaultMap";
 import {
   postGridEntityCollisionFire,
   postGridEntityCollisionHasSubscriptions,
@@ -11,7 +12,9 @@ import {
 const v = {
   room: {
     /** Indexed by grid entity pointer hash. */
-    collidingEntitiesMap: new Map<PtrHash, Set<PtrHash>>(),
+    collidingEntitiesMap: new DefaultMap<PtrHash, Set<PtrHash>>(
+      () => new Set(),
+    ),
   },
 };
 
@@ -38,13 +41,8 @@ function postUpdate() {
     }
 
     const gridEntityPtrHash = GetPtrHash(gridEntity);
-
-    let oldCollidingEntities =
-      v.room.collidingEntitiesMap.get(gridEntityPtrHash);
-    if (oldCollidingEntities === undefined) {
-      oldCollidingEntities = new Set();
-      v.room.collidingEntitiesMap.set(gridEntityPtrHash, oldCollidingEntities);
-    }
+    const oldCollidingEntities =
+      v.room.collidingEntitiesMap.getAndSetDefault(gridEntityPtrHash);
 
     // Check for new colliding entities
     const collidingEntities = getCollidingEntitiesWithGridEntity(gridEntity);

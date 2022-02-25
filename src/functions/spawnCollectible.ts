@@ -1,5 +1,5 @@
 import { preventCollectibleRotate } from "../features/preventCollectibleRotate";
-import { areFeaturesInitialized } from "../initialized";
+import { areFeaturesInitialized } from "../featuresInitialized";
 import { isQuestCollectible } from "./collectibles";
 import { anyPlayerIs } from "./player";
 

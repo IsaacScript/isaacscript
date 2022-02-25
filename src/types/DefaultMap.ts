@@ -14,6 +14,8 @@ interface ParsedArgs<K, V> {
  *   Otherwise, it will set a default value to the key, and then return the default value.
  * - `getDefaultValue` - Returns the default value to be used for a new key. (If a factory function
  *   was provided during instantiation, this will execute the factory function.)
+ * - `getConstructorArg` - Helper method for cloning the map. Returns either the default value or
+ *   the reference to the factory function.
  *
  * When instantiating a new DefaultMap, you must specify either a default value or a function that
  * returns a default value.
@@ -36,8 +38,8 @@ interface ParsedArgs<K, V> {
  * ```
  */
 export class DefaultMap<K, V> extends Map<K, V> {
-  private defaultValue: V | undefined;
-  private defaultValueFactory: ((k: K) => V) | undefined;
+  defaultValue: V | undefined;
+  defaultValueFactory: ((k: K) => V) | undefined;
 
   /**
    * See the DefaultMap documentation:
@@ -73,8 +75,9 @@ export class DefaultMap<K, V> extends Map<K, V> {
    * a default value to the key, and then return the default value.
    */
   getAndSetDefault(key: K) {
-    if (this.has(key)) {
-      return this.get(key);
+    const value = this.get(key);
+    if (value !== undefined) {
+      return value;
     }
 
     const defaultValue = this.getDefaultValue(key);
@@ -93,6 +96,18 @@ export class DefaultMap<K, V> extends Map<K, V> {
 
     if (this.defaultValueFactory !== undefined) {
       return this.defaultValueFactory(key);
+    }
+
+    return error("A DefaultMap was incorrectly instantiated.");
+  }
+
+  getConstructorArg() {
+    if (this.defaultValue !== undefined) {
+      return this.defaultValue;
+    }
+
+    if (this.defaultValueFactory !== undefined) {
+      return this.defaultValueFactory;
     }
 
     return error("A DefaultMap was incorrectly instantiated.");

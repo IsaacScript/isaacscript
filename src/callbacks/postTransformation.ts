@@ -1,6 +1,7 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { copyArray } from "../functions/array";
 import { getPlayerIndex, PlayerIndex } from "../functions/player";
+import { DefaultMap } from "../types/DefaultMap";
 import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
 import { ModUpgraded } from "../types/ModUpgraded";
 import {
@@ -13,23 +14,21 @@ const UNUSED_TRANSFORMATIONS: ReadonlySet<PlayerForm> = new Set([
 ]);
 
 const tempTransformations: PlayerForm[] = [];
-for (
-  let playerForm = 0;
-  playerForm < PlayerForm.NUM_PLAYER_FORMS;
-  playerForm++
-) {
+for (let i = 0; i < PlayerForm.NUM_PLAYER_FORMS; i++) {
   // Skip transformations unused by the game
-  if (UNUSED_TRANSFORMATIONS.has(playerForm)) {
-    continue;
+  if (!UNUSED_TRANSFORMATIONS.has(i)) {
+    tempTransformations.push(i);
   }
-
-  tempTransformations.push(playerForm);
 }
-const TRANSFORMATIONS: readonly PlayerForm[] = copyArray(tempTransformations);
+const VALID_TRANSFORMATIONS: readonly PlayerForm[] =
+  copyArray(tempTransformations);
 
 const v = {
   run: {
-    transformations: new Map<PlayerIndex, Map<PlayerForm, boolean>>(),
+    playersTransformationsMap: new DefaultMap<
+      PlayerIndex,
+      DefaultMap<PlayerForm, boolean>
+    >(() => new DefaultMap(false)),
   },
 };
 
@@ -54,23 +53,15 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
   }
 
   const playerIndex = getPlayerIndex(player);
-  let transformations = v.run.transformations.get(playerIndex);
-  if (transformations === undefined) {
-    transformations = new Map();
-    v.run.transformations.set(playerIndex, transformations);
-  }
+  const playerTransformationsMap =
+    v.run.playersTransformationsMap.getAndSetDefault(playerIndex);
 
-  for (const playerForm of TRANSFORMATIONS) {
+  for (const playerForm of VALID_TRANSFORMATIONS) {
     const hasForm = player.HasPlayerForm(playerForm);
-    let storedForm = transformations.get(playerForm);
-    if (storedForm === undefined) {
-      const defaultValue = false;
-      storedForm = defaultValue;
-      transformations.set(playerForm, defaultValue);
-    }
+    const storedForm = playerTransformationsMap.getAndSetDefault(playerForm);
 
     if (hasForm !== storedForm) {
-      transformations.set(playerForm, hasForm);
+      playerTransformationsMap.set(playerForm, hasForm);
       postTransformationFire(player, playerForm, hasForm);
     }
   }

@@ -1,11 +1,11 @@
-let initialized = false;
+let featuresInitialized = false;
 
 /** @internal */
 export function areFeaturesInitialized(): boolean {
-  return initialized;
+  return featuresInitialized;
 }
 
 /** @internal */
 export function setFeaturesInitialized(): void {
-  initialized = true;
+  featuresInitialized = true;
 }

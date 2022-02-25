@@ -27,6 +27,7 @@ import {
   setRoomUncleared,
 } from "../functions/rooms";
 import { spawnCollectible } from "../functions/spawnCollectible";
+import { DefaultMap } from "../types/DefaultMap";
 import { JSONRoom } from "../types/JSONRoom";
 import { ModUpgraded } from "../types/ModUpgraded";
 import { PersistentEntityDescription } from "../types/PersistentEntityDescription";
@@ -49,10 +50,13 @@ const v = {
     deployedRoomListIndexes: new Set<int>(),
 
     /** Indexed by room list index. */
-    persistentEntities: new Map<int, PersistentEntityDescription[]>(),
+    roomToPersistentEntitiesMap: new DefaultMap<
+      int,
+      PersistentEntityDescription[]
+    >(() => []),
 
     /** Indexed by room list index. */
-    decorationGridIndexes: new Map<int, int[]>(),
+    roomToDecorationGridIndexesMap: new DefaultMap<int, int[]>(() => []),
   },
 };
 
@@ -86,10 +90,7 @@ function setDecorationsInvisible() {
   const roomListIndex = getRoomListIndex();
 
   const decorationGridIndexes =
-    v.level.decorationGridIndexes.get(roomListIndex);
-  if (decorationGridIndexes === undefined) {
-    return;
-  }
+    v.level.roomToDecorationGridIndexesMap.getAndSetDefault(roomListIndex);
 
   for (const gridIndex of decorationGridIndexes) {
     const gridEntity = room.GetGridEntity(gridIndex);
@@ -105,10 +106,8 @@ function respawnPersistentEntities() {
   const room = game.GetRoom();
   const roomListIndex = getRoomListIndex();
 
-  const persistentEntities = v.level.persistentEntities.get(roomListIndex);
-  if (persistentEntities === undefined) {
-    return;
-  }
+  const persistentEntities =
+    v.level.roomToPersistentEntitiesMap.getAndSetDefault(roomListIndex);
 
   for (const persistentEntity of persistentEntities) {
     const position = room.GetGridPosition(persistentEntity.gridIndex);
@@ -317,11 +316,8 @@ function fillRoomWithDecorations() {
   const gridSize = room.GetGridSize();
   const roomListIndex = getRoomListIndex();
 
-  let decorationGridIndexes = v.level.decorationGridIndexes.get(roomListIndex);
-  if (decorationGridIndexes === undefined) {
-    decorationGridIndexes = [];
-    v.level.decorationGridIndexes.set(roomListIndex, decorationGridIndexes);
-  }
+  const decorationGridIndexes =
+    v.level.roomToDecorationGridIndexesMap.getAndSetDefault(roomListIndex);
 
   for (let gridIndex = 0; gridIndex < gridSize; gridIndex++) {
     const existingGridEntity = room.GetGridEntity(gridIndex);
@@ -543,11 +539,8 @@ function storePersistentEntity(entity: Entity) {
     subType: entity.SubType,
   };
 
-  let persistentEntities = v.level.persistentEntities.get(roomListIndex);
-  if (persistentEntities === undefined) {
-    persistentEntities = [];
-    v.level.persistentEntities.set(roomListIndex, persistentEntities);
-  }
+  const persistentEntities =
+    v.level.roomToPersistentEntitiesMap.getAndSetDefault(roomListIndex);
   persistentEntities.push(persistentEntity);
 }
 

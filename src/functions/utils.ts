@@ -42,19 +42,26 @@ export const ensureAllCases = (obj: never): never => obj;
  * when you iterate over them, you will get both the names of the enums and the values of the enums,
  * in a random order. If all you need are the values of an enum, use this helper function.
  *
+ * This function will return the enum values in a sorted order, which may not necessarily be the
+ * same order as which they were declared in.
+ *
+ * This function will work properly for both number enums and string enums. (Reverse mappings are
+ * not created for string enums.)
+ *
  * For a more in depth explanation, see:
  * https://isaacscript.github.io/docs/gotchas#iterating-over-enums
  */
-export function getEnumValues(transpiledEnum: unknown): int[] {
-  const enumValues: int[] = [];
+export function getEnumValues<T>(transpiledEnum: T): Array<T[keyof T]> {
+  const enumValues: Array<T[keyof T]> = [];
   for (const [key, value] of pairs(transpiledEnum)) {
     // Ignore the reverse mappings created by TypeScriptToLua
+    // Note that reverse mappings are not created for string enums
     if (type(key) === "string") {
       enumValues.push(value);
     }
   }
 
-  // The enums will be in a random order, so sort them
+  // The enums will be in a random order (because of "pairs"), so sort them
   enumValues.sort();
 
   return enumValues;

@@ -40,7 +40,10 @@ import { preventCollectibleRotateInit } from "./features/preventCollectibleRotat
 import { runInNFramesInit } from "./features/runInNFrames";
 import { saveDataManagerInit } from "./features/saveDataManager/main";
 import { sirenHelpersInit } from "./features/sirenHelpers";
-import { areFeaturesInitialized, setFeaturesInitialized } from "./initialized";
+import {
+  areFeaturesInitialized,
+  setFeaturesInitialized,
+} from "./featuresInitialized";
 import { patchErrorFunction } from "./patchErrorFunctions";
 import { ModUpgraded } from "./types/ModUpgraded";
 

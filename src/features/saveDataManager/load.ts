@@ -1,7 +1,7 @@
-import { DEBUG } from "../../debug";
 import { jsonDecode } from "../../functions/json";
 import { log } from "../../functions/log";
 import { SaveData } from "../../types/SaveData";
+import { SAVE_DATA_MANAGER_DEBUG } from "./debug";
 import { merge } from "./merge";
 
 const DEFAULT_MOD_DATA = "{}";
@@ -19,7 +19,7 @@ export function loadFromDisk(
   const jsonString = readSaveDatFile(mod);
   const newSaveData = jsonDecode(jsonString);
 
-  if (DEBUG) {
+  if (SAVE_DATA_MANAGER_DEBUG) {
     log('Converted data from the "save#.dat" to a Lua table.');
   }
 
@@ -28,8 +28,7 @@ export function loadFromDisk(
     // All elements of loaded save data should have keys that are strings equal to the name of the
     // subscriber/feature
     // Ignore elements with other types of keys
-    const keyType = type(key);
-    if (keyType !== "string") {
+    if (typeof key !== "string") {
       continue;
     }
 
@@ -42,12 +41,12 @@ export function loadFromDisk(
     }
 
     // Ignore elements that represent subscriptions that no longer exist in the current save data
-    const oldSaveDataForSubscriber = oldSaveData.get(key as string);
+    const oldSaveDataForSubscriber = oldSaveData.get(key);
     if (oldSaveDataForSubscriber === undefined) {
       continue;
     }
 
-    if (DEBUG) {
+    if (SAVE_DATA_MANAGER_DEBUG) {
       log(`Merging in stored data for feature: ${key}`);
     }
 
@@ -55,11 +54,7 @@ export function loadFromDisk(
     // because save data could contain out-of-date fields
     // Instead, merge it one field at a time in a recursive way
     // (and convert Lua tables back to TypeScriptToLua Maps, if necessary)
-    merge(
-      oldSaveDataForSubscriber as LuaTable,
-      value as LuaTable,
-      key as string,
-    );
+    merge(oldSaveDataForSubscriber as LuaTable, value as LuaTable, key);
   }
 
   log('The save data manager loaded data from the "save#.dat" file.');

@@ -175,10 +175,21 @@ export function logMap(this: void, map: Map<AnyNotNil, unknown>): void {
   log(`The size of the map was: ${map.size}`);
 }
 
-export function logTable(this: void, table: unknown): void {
-  log("Printing out a Lua table:");
+export function logTable(this: void, table: unknown, parentTables = 0): void {
+  const numSpaces = (parentTables + 1) * 2; // 2, 4, 6, etc.
+
+  if (parentTables === 0) {
+    log("Printing out a Lua table:");
+  }
+
+  const indentation = " ".repeat(numSpaces);
   for (const [key, value] of pairs(table)) {
-    log(`  Key: ${key}, Value: ${value}`);
+    log(`${indentation}Key: ${key}, Value: ${value}`);
+
+    const valueType = type(value);
+    if (valueType === "table") {
+      logTable(value, parentTables + 1);
+    }
   }
 }
 
