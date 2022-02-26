@@ -11,6 +11,24 @@ declare const enum SpiderWebState {
 }
 
 /**
+ * For GridEntityType.GRID_TNT (12)
+ *
+ * The health of a TNT barrel is represented by its state. It starts at 0 and climbs upwards in
+ * increments of 1. Once the state reaches 4, the barrel explodes, and remains at state 4.
+ *
+ * Breaking a TNT barrel usually takes 4 tears. However, it is possible to take less than that if
+ * the players damage is high enough. (High damage causes the tear to do two or more increments at
+ * once.)
+ */
+declare const enum TNTState {
+  UNDAMAGED = 0,
+  ONE_QUARTER_DAMAGED = 1,
+  TWO_QUARTERS_DAMAGED = 2,
+  THREE_QUARTERS_DAMAGED = 3,
+  EXPLODED = 4,
+}
+
+/**
  * For GridEntityType.GRID_POOP (14)
  *
  * The health of a poop is represented by its state. It starts at 0 and climbs upwards in
@@ -23,11 +41,11 @@ declare const enum SpiderWebState {
  * Giga Poops increment by 20 instead of 250. Thus, they take around 50 tears to destroy.
  */
 declare const enum PoopState {
-  FULL_HEALTH = 0,
-  ONE_QUARTER_BROKEN = 250,
-  TWO_QUARTERS_BROKEN = 500,
-  THREE_QUARTERS_BROKEN = 750,
-  COMPLETELY_BROKEN = 1000,
+  UNDAMAGED = 0,
+  ONE_QUARTER_DAMAGED = 250,
+  TWO_QUARTERS_DAMAGED = 500,
+  THREE_QUARTERS_DAMAGED = 750,
+  COMPLETELY_DESTROYED = 1000,
 }
 
 /** For GridEntityType.GRID_TRAPDOOR (17) */
