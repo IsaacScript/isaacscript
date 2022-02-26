@@ -503,7 +503,7 @@ Fires on the MC_POST_UPDATE frame that a state change is detected.
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `GridEntityType` provided.
 
 ```ts
-function postGridEntityStateChange(gridEntity: GridEntity): void {}
+function postGridEntityStateChange(gridEntity: GridEntity, oldState: int, newState: int): void {}
 ```
 
 ### MC_POST_GRID_ENTITY_COLLISION
