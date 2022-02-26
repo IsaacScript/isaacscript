@@ -50,24 +50,6 @@ declare const enum GridEntityXMLType {
   GRAVITY = 10000,
 }
 
-/** For GridEntityType.GRID_ROCK (2) */
-declare const enum RockState {
-  UNBROKEN = 1,
-  BROKEN = 2,
-}
-
-/**
- * For GridEntityType.GRID_POOP (14)
- *
- * The health of a Giga Poop is represented by its state. It starts at 0 and climbs upwards in
- * increments of 20, regardless of what the player's damage is. Once the state reaches 1000, the
- * Giga Poop is completely broken (taking 50 tears).
- */
-declare const enum GigaPoopState {
-  FULL_HEALTH = 0,
-  COMPLETELY_BROKEN = 1000,
-}
-
 /** For GridEntityType.GRID_DOOR (16) */
 declare const enum DoorSlotFlag {
   LEFT0 = 1 << DoorSlot.LEFT0,
@@ -78,32 +60,6 @@ declare const enum DoorSlotFlag {
   UP1 = 1 << DoorSlot.UP1,
   RIGHT1 = 1 << DoorSlot.RIGHT1,
   DOWN1 = 1 << DoorSlot.DOWN1,
-}
-
-/** For GridEntityType.GRID_TRAPDOOR (17) */
-declare const enum TrapdoorState {
-  CLOSED = 0,
-  OPEN = 1,
-}
-
-/** For GridEntityType.GRID_PRESSURE_PLATE (20) */
-declare const enum PressurePlateState {
-  UNPRESSED = 0,
-  STATE_1_UNKNOWN = 1,
-  STATE_2_UNKNOWN = 2,
-  PRESSURE_PLATE_PRESSED = 3,
-  REWARD_PLATE_PRESSED = 4,
-}
-
-/** For GridEntityType.GRID_TELEPORTER (23) */
-declare const enum TeleporterState {
-  NORMAL = 0,
-  ACTIVATED = 1,
-  /**
-   * Set when a player stands on a teleport pad that has no corresponding pad for the player to be
-   * sent to. When this happens, the pad turns black and deactivates.
-   */
-  DISABLED = 2,
 }
 
 /**

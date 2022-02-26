@@ -82,6 +82,7 @@
 
 /// <reference path="unofficial/enums.d.ts" />
 /// <reference path="unofficial/enumsGridEntity.d.ts" />
+/// <reference path="unofficial/enumsGridEntityState.d.ts" />
 /// <reference path="unofficial/enumsGridEntityVariants.d.ts" />
 /// <reference path="unofficial/enumsState.d.ts" />
 /// <reference path="unofficial/enumsSubTypes.d.ts" />
