@@ -1,6 +1,7 @@
 import { arrayToString } from "./array";
 import { getCollectibleName } from "./collectibles";
 import { hasFlag } from "./flag";
+import { getEffectsList } from "./player";
 import { getTrinketName } from "./trinkets";
 
 /**
@@ -194,21 +195,17 @@ export function logTable(this: void, table: unknown, parentTables = 0): void {
 }
 
 export function logTemporaryEffects(this: void, player: EntityPlayer): void {
-  const effects = player.GetEffects();
-  const effectsList = effects.GetEffectsList();
+  const effects = getEffectsList(player);
 
   log("Logging all player temporary effects:");
 
-  if (effectsList.Size === 0) {
+  if (effects.length === 0) {
     log("  n/a (no temporary effects)");
     return;
   }
 
-  for (let i = 0; i < effectsList.Size; i++) {
-    const effect = effectsList.Get(i);
-    if (effect === undefined) {
-      continue;
-    }
+  for (let i = 0; i < effects.length; i++) {
+    const effect = effects[i];
 
     if (effect.Item.IsCollectible()) {
       const collectibleName = getCollectibleName(effect.Item.ID);
