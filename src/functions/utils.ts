@@ -144,8 +144,8 @@ export function printConsole(msg: string): void {
 /**
  * Helper function to repeat code N times. This is faster to type and cleaner than using a for loop.
  */
-export function repeat(n: int, func: () => void) {
+export function repeat(n: int, func: (i: int) => void) {
   for (let i = 0; i < n; i++) {
-    func();
+    func(i);
   }
 }
