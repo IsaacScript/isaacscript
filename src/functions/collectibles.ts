@@ -232,7 +232,7 @@ export function getCollectibles(matchingSubType = -1): EntityPickup[] {
   return getPickups(PickupVariant.PICKUP_COLLECTIBLE, matchingSubType);
 }
 
-export function getMaxCollectibleID(): int {
+export function getMaxCollectibleType(): int {
   const itemConfig = Isaac.GetItemConfig();
   return itemConfig.GetCollectibles().Size - 1;
 }

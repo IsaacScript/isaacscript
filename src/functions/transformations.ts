@@ -1,5 +1,5 @@
 import { TRANSFORMATION_NAME_MAP } from "../maps/transformationNameMap";
-import { collectibleHasTag, getMaxCollectibleID } from "./collectibles";
+import { collectibleHasTag, getMaxCollectibleType } from "./collectibles";
 import { range } from "./math";
 import { copySet } from "./set";
 
@@ -43,7 +43,7 @@ const COLLECTIBLE_TYPE_TO_TRANSFORMATION_MAP = new Map<
 >();
 
 function initMaps() {
-  const maxCollectibleID = getMaxCollectibleID();
+  const maxCollectibleType = getMaxCollectibleType();
 
   // The transformation to items map should be valid for every transformation based on items,
   // so we initialize it with empty sets
@@ -51,7 +51,7 @@ function initMaps() {
     TRANSFORMATION_TO_COLLECTIBLE_TYPES_MAP.set(playerForm, new Set());
   }
 
-  for (const collectibleType of range(1, maxCollectibleID)) {
+  for (const collectibleType of range(1, maxCollectibleType)) {
     for (const [playerForm, tag] of TRANSFORMATION_TO_TAG_MAP.entries()) {
       if (!collectibleHasTag(collectibleType, tag)) {
         continue;

@@ -260,3 +260,17 @@ export function removeAllDoors(...roomTypes: RoomType[]): int {
 
   return numDoorsRemoved;
 }
+
+/**
+ * Helper function to remove the door(s) provided.
+ *
+ * This function is variadic, meaning that you can specify as many doors as you want to remove.
+ */
+export function removeDoors(...doors: GridEntityDoor[]): void {
+  const game = Game();
+  const room = game.GetRoom();
+
+  for (const door of doors) {
+    room.RemoveDoor(door.Slot);
+  }
+}
