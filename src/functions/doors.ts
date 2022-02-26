@@ -241,36 +241,27 @@ export function openDoorFast(door: GridEntityDoor): void {
  * @returns The number of doors removed.
  */
 export function removeAllDoors(...roomTypes: RoomType[]): int {
+  const doors = getDoors(...roomTypes);
+  removeDoors(...doors);
+
+  return doors.length;
+}
+
+/** Helper function to remove a single door. */
+export function removeDoor(door: GridEntityDoor): void {
   const game = Game();
   const room = game.GetRoom();
-  const roomTypesSet = new Set(roomTypes);
 
-  let numDoorsRemoved = 0;
-  for (let i = 0; i < MAX_NUM_DOORS; i++) {
-    const door = room.GetDoor(i);
-    if (door === undefined) {
-      continue;
-    }
-
-    if (roomTypes.length === 0 || roomTypesSet.has(door.TargetRoomType)) {
-      room.RemoveDoor(i);
-      numDoorsRemoved += 1;
-    }
-  }
-
-  return numDoorsRemoved;
+  room.RemoveDoor(door.Slot);
 }
 
 /**
- * Helper function to remove the door(s) provided.
+ * Helper function to remove the doors provided.
  *
  * This function is variadic, meaning that you can specify as many doors as you want to remove.
  */
 export function removeDoors(...doors: GridEntityDoor[]): void {
-  const game = Game();
-  const room = game.GetRoom();
-
   for (const door of doors) {
-    room.RemoveDoor(door.Slot);
+    removeDoor(door);
   }
 }
