@@ -34,9 +34,7 @@ export function getDoors(...roomTypes: RoomType[]): GridEntityDoor[] {
       continue;
     }
 
-    if (roomTypes.length === 0) {
-      doors.push(door);
-    } else if (roomTypesSet.has(door.TargetRoomType)) {
+    if (roomTypes.length === 0 || roomTypesSet.has(door.TargetRoomType)) {
       doors.push(door);
     }
   }
@@ -221,4 +219,32 @@ export function openDoorFast(door: GridEntityDoor): void {
 
   const sprite = door.GetSprite();
   sprite.Play("Opened", true);
+}
+
+/**
+ * Helper function to remove all of the doors in the room. By default, it will remove every door.
+ * You can optionally specify one or more room types to remove only the doors that match the
+ * specified room types.
+ *
+ * @returns The number of doors removed.
+ */
+export function removeAllDoors(...roomTypes: RoomType[]): int {
+  const game = Game();
+  const room = game.GetRoom();
+  const roomTypesSet = new Set(roomTypes);
+
+  let numDoorsRemoved = 0;
+  for (let i = 0; i < MAX_NUM_DOORS; i++) {
+    const door = room.GetDoor(i);
+    if (door === undefined) {
+      continue;
+    }
+
+    if (roomTypes.length === 0 || roomTypesSet.has(door.TargetRoomType)) {
+      room.RemoveDoor(i);
+      numDoorsRemoved += 1;
+    }
+  }
+
+  return numDoorsRemoved;
 }
