@@ -10,7 +10,7 @@ declare interface GridEntity {
   /** The Sprite returned is a reference (i.e. not a copy). */
   GetSprite(): Sprite;
 
-  GetType(): GridEntityType | int;
+  GetType(): GridEntityType;
   GetVariant(): int;
   Hurt(damage: int): boolean;
   Init(seed: int): void;

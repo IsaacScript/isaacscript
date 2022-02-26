@@ -235,7 +235,7 @@ declare namespace Isaac {
    * Remove any existing grid entities first.
    */
   function GridSpawn(
-    gridEntityType: GridEntityType | int,
+    gridEntityType: GridEntityType,
     variant: int,
     position: Vector,
     forced: boolean,

@@ -176,7 +176,7 @@ declare interface Room {
 
   SpawnGridEntity(
     gridIndex: int,
-    gridEntityType: GridEntityType | int,
+    gridEntityType: GridEntityType,
     variant: int,
     seed: int,
     varData: int,

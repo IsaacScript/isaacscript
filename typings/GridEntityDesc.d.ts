@@ -3,7 +3,7 @@ declare interface GridEntityDesc {
   SpawnCount: int;
   SpawnSeed: int;
   State: int;
-  Type: GridEntityType | int;
+  Type: GridEntityType;
   VarData: int;
   VariableSeed: int;
   Variant: int;
