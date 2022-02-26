@@ -8,7 +8,7 @@ import {
   MAX_VANILLA_CHARACTER,
 } from "../constants";
 import { HealthType } from "../types/HealthType";
-import { sumArray } from "./array";
+import { getLastElement, sumArray } from "./array";
 import { getKBitOfN, getNumBitsOfN } from "./bitwise";
 import { getCollectibleMaxCharges } from "./collectibles";
 import { getCollectibleSet } from "./collectibleSet";
@@ -259,8 +259,7 @@ export function getEffectsList(player: EntityPlayer): TemporaryEffect[] {
  */
 export function getFinalPlayer(): EntityPlayer {
   const players = getPlayers();
-
-  return players[players.length - 1];
+  return getLastElement(players);
 }
 
 /**

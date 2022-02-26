@@ -2,6 +2,24 @@ import { getRandomInt, nextSeed } from "./random";
 import { repeat } from "./utils";
 
 /**
+ * Helper function for determining if two arrays contain the exact same elements. Note that this
+ * only performs a shallow comparison.
+ */
+export function arrayEquals<T>(
+  array1: T[] | readonly T[],
+  array2: T[] | readonly T[],
+): boolean {
+  if (array1.length !== array2.length) {
+    return false;
+  }
+
+  return array1.every((array1Element, i) => {
+    const array2Element = array2[i];
+    return array1Element === array2Element;
+  });
+}
+
+/**
  * Helper function to combine two or more arrays. Returns a new array that is the composition of all
  * of the specified arrays. This function is variadic, meaning that you can specify N arguments to
  * combine N arrays. Note that this will only perform a shallow copy of the array elements.
@@ -45,22 +63,9 @@ export function emptyArray<T>(array: T[]): void {
   array.splice(0, array.length);
 }
 
-/**
- * Helper function for determining if two arrays contain the exact same elements. Note that this
- * only performs a shallow comparison.
- */
-export function arrayEquals<T>(
-  array1: T[] | readonly T[],
-  array2: T[] | readonly T[],
-): boolean {
-  if (array1.length !== array2.length) {
-    return false;
-  }
-
-  return array1.every((array1Element, i) => {
-    const array2Element = array2[i];
-    return array1Element === array2Element;
-  });
+/** Helper function to return the last element of an array. */
+export function getLastElement<T>(array: T[]): T {
+  return array[array.length - 1];
 }
 
 /**
@@ -228,8 +233,7 @@ export function getRandomArrayIndex<T>(
     );
   }
 
-  const randomIndex = getRandomInt(0, array.length - 1, seed);
-  return randomIndex;
+  return getRandomInt(0, array.length - 1, seed);
 }
 
 /**
