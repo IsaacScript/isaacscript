@@ -215,6 +215,25 @@ export function getDeathAnimationName(player: EntityPlayer): string {
 }
 
 /**
+ * Helper function to get an array of temporary effects for a player. This is helpful so that you
+ * don't have to manually create an array from an `EffectsList` object.
+ */
+export function getEffectsList(player: EntityPlayer): TemporaryEffect[] {
+  const effects = player.GetEffects();
+  const effectsList = effects.GetEffectsList();
+
+  const effectArray: TemporaryEffect[] = [];
+  for (let i = 0; i < effectsList.Size; i++) {
+    const effect = effectsList.Get(i);
+    if (effect !== undefined) {
+      effectArray.push(effect);
+    }
+  }
+
+  return effectArray;
+}
+
+/**
  * Helper function to return the player with the highest ID, according to the `Isaac.GetPlayer()`
  * method.
  */
