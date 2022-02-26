@@ -4,6 +4,12 @@ declare const enum RockState {
   BROKEN = 2,
 }
 
+/** For GridEntityType.GRID_SPIDERWEB (10) */
+declare const enum SpiderWebState {
+  UNBROKEN = 0,
+  BROKEN = 1,
+}
+
 /**
  * For GridEntityType.GRID_POOP (14)
  *
