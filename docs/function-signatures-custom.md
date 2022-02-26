@@ -506,6 +506,16 @@ When registering the callback, takes an optional second argument that will make 
 function postGridEntityStateChange(gridEntity: GridEntity, oldState: int, newState: int): void {}
 ```
 
+### MC_POST_GRID_ENTITY_BROKEN
+
+Fires on the MC_POST_UPDATE frame that a grid entity first changes to a state that corresponds to the broken state for the respective grid entity type.
+
+When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `GridEntityType` provided.
+
+```ts
+function postGridEntityStateChange(gridEntity: GridEntity, oldState: int, newState: int): void {}
+```
+
 ### MC_POST_GRID_ENTITY_COLLISION
 
 Fires from the MC_POST_UPDATE callback when a new entity collides with a grid entity.
