@@ -42,6 +42,18 @@ export function getDoors(...roomTypes: RoomType[]): GridEntityDoor[] {
   return doors;
 }
 
+/**
+ * Helper function to get all of the doors in the room that lead to the provided room index.
+ *
+ * This function is variadic, meaning that you can specify N arguments to return all of the doors
+ * that match any of the N room grid indexes.
+ */
+export function getDoorsToRoomIndex(...roomGridIndex: int[]): GridEntityDoor[] {
+  const roomGridIndexesSet = new Set(roomGridIndex);
+  const doors = getDoors();
+  return doors.filter((door) => roomGridIndexesSet.has(door.TargetRoomIndex));
+}
+
 export function getAngelRoomDoor(): GridEntityDoor | undefined {
   const angelRoomDoors = getDoors(RoomType.ROOM_ANGEL);
   return angelRoomDoors.length === 0 ? undefined : angelRoomDoors[0];
