@@ -224,7 +224,7 @@ export function isAllPressurePlatesPushed(): boolean {
   });
 }
 
-export function isBreakableGridEntityByExplosion(
+export function isGridEntityBreakableByExplosion(
   gridEntity: GridEntity,
 ): boolean {
   const gridEntityType = gridEntity.GetType();
