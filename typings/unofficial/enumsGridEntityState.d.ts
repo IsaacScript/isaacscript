@@ -1,7 +1,10 @@
-/** For GridEntityType.GRID_ROCK (2) */
+/** For GridEntityType.GRID_ROCK (2) and all of the other rock entity types. */
 declare const enum RockState {
   UNBROKEN = 1,
   BROKEN = 2,
+
+  /** Only applies for `GridEntityType.GRID_ROCK_SS` (22), since it takes two bombs to break. */
+  HALF_BROKEN = 4,
 }
 
 /** For GridEntityType.GRID_SPIDERWEB (10) */
