@@ -78,22 +78,6 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 
 <br>
 
-## Maps
-
-- [Card Description Map](modules/maps_cardDescriptionMap.html)
-- [Card Name Map](modules/maps_cardNameMap.html)
-- [Collectible Description Map](modules/maps_collectibleDescriptionMap.html)
-- [Collectible Name Map](modules/maps_collectibleNameMap.html)
-- [Grid Entity XML Map](modules/maps_gridEntityXMLMap.html)
-- [Pill Effect Class Map](modules/maps_pillEffectClassMap.html)
-- [Pill Effect Name Map](modules/maps_pillEffectNameMap.html)
-- [Pill Effect Type Map](modules/maps_pillEffectTypeMap.html)
-- [Room Shape to Top Left Wall Grid Index Map](modules/maps_roomShapeToTopLeftWallGridIndexMap.html)
-- [Trinket Description Map](modules/maps_trinketDescriptionMap.html)
-- [Trinket Name Map](modules/maps_trinketNameMap.html)
-
-<br>
-
 ## Extra Data Structures
 
 - [DefaultMap](classes/types_DefaultMap.DefaultMap.html)

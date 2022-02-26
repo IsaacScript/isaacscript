@@ -1,4 +1,5 @@
 import { DISTANCE_OF_GRID_TILE } from "../constants";
+import { GRID_ENTITY_TYPE_TO_BROKEN_STATE_MAP } from "../maps/gridEntityTypeToBrokenStateMap";
 import { GRID_ENTITY_XML_MAP } from "../maps/gridEntityXMLMap";
 import {
   DEFAULT_TOP_LEFT_WALL_GRID_INDEX,
@@ -7,6 +8,28 @@ import {
 import { isCircleIntersectingRectangle, range } from "./math";
 import { roomUpdateSafe } from "./rooms";
 import { clearSprite } from "./sprite";
+
+const BREAKABLE_GRID_ENTITY_TYPES_BY_EXPLOSIONS: ReadonlySet<GridEntityType> =
+  new Set([
+    GridEntityType.GRID_ROCK, // 2
+    GridEntityType.GRID_ROCKT, // 4
+    GridEntityType.GRID_ROCK_BOMB, // 5
+    GridEntityType.GRID_ROCK_ALT, // 6
+    GridEntityType.GRID_SPIDERWEB, // 10
+    GridEntityType.GRID_TNT, // 12
+
+    // GridEntityType.GRID_FIREPLACE (13) does not count since it is turned into a non-grid entity
+    // upon spawning
+
+    GridEntityType.GRID_POOP, // 14
+    GridEntityType.GRID_ROCK_SS, // 22
+    GridEntityType.GRID_ROCK_SPIKED, // 25
+    GridEntityType.GRID_ROCK_ALT2, // 26
+    GridEntityType.GRID_ROCK_GOLD, // 27
+  ]);
+
+const BREAKABLE_GRID_ENTITY_TYPES_VARIANTS_BY_EXPLOSIONS: ReadonlySet<string> =
+  new Set([`${GridEntityType.GRID_STATUE}.${StatueVariant.ANGEL}`]);
 
 /**
  * Helper function to convert the grid entity type found in a room XML file to the corresponding
@@ -199,6 +222,34 @@ export function isAllPressurePlatesPushed(): boolean {
     const gridEntityDesc = pressurePlate.GetSaveState();
     return gridEntityDesc.State === PressurePlateState.PRESSURE_PLATE_PRESSED;
   });
+}
+
+export function isBreakableGridEntityByExplosion(
+  gridEntity: GridEntity,
+): boolean {
+  const gridEntityType = gridEntity.GetType();
+  const gridEntityVariant = gridEntity.GetVariant();
+  const gridEntityTypeVariant = `${gridEntityType}.${gridEntityVariant}`;
+
+  return (
+    BREAKABLE_GRID_ENTITY_TYPES_BY_EXPLOSIONS.has(gridEntityType) ||
+    BREAKABLE_GRID_ENTITY_TYPES_VARIANTS_BY_EXPLOSIONS.has(
+      gridEntityTypeVariant,
+    )
+  );
+}
+
+/**
+ * Helper function to see if the provided gridEntity is in its respective broken state. See the
+ * `GRID_ENTITY_TYPE_TO_BROKEN_STATE_MAP` constant for more details.
+ *
+ * Note that in the case of `GridEntityType.GRID_LOCK` (11), the state will turn to being broken
+ * before the actual collision for the entity is removed.
+ */
+export function isGridEntityBroken(gridEntity: GridEntity): boolean {
+  const gridEntityType = gridEntity.GetType();
+  const brokenState = GRID_ENTITY_TYPE_TO_BROKEN_STATE_MAP.get(gridEntityType);
+  return gridEntity.State === brokenState;
 }
 
 /**
