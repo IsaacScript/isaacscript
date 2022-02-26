@@ -1,4 +1,5 @@
 import { collectibleHasCacheFlag, getMaxCollectibleID } from "./collectibles";
+import { range } from "./math";
 import { copySet } from "./set";
 import { getEnumValues } from "./utils";
 
@@ -13,11 +14,7 @@ function initCacheFlagMap() {
   for (const cacheFlag of getEnumValues(CacheFlag)) {
     const collectiblesSet = new Set<CollectibleType | int>();
 
-    for (
-      let collectibleType = 1;
-      collectibleType <= maxCollectibleID;
-      collectibleType++
-    ) {
+    for (const collectibleType of range(1, maxCollectibleID)) {
       if (collectibleHasCacheFlag(collectibleType, cacheFlag)) {
         collectiblesSet.add(collectibleType);
       }

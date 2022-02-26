@@ -4,7 +4,7 @@ import {
   DEFAULT_TOP_LEFT_WALL_GRID_INDEX,
   ROOM_SHAPE_TO_TOP_LEFT_WALL_GRID_INDEX_MAP,
 } from "../maps/roomShapeToTopLeftWallGridIndexMap";
-import { isCircleIntersectingRectangle } from "./math";
+import { isCircleIntersectingRectangle, range } from "./math";
 import { roomUpdateSafe } from "./rooms";
 import { clearSprite } from "./sprite";
 
@@ -107,7 +107,7 @@ export function getGridEntities(
   const gridEntityTypesSet = new Set(gridEntityTypes);
 
   const gridEntities: GridEntity[] = [];
-  for (let gridIndex = 0; gridIndex < gridSize; gridIndex++) {
+  for (const gridIndex of range(0, gridSize - 1)) {
     const gridEntity = room.GetGridEntity(gridIndex);
     if (gridEntity === undefined) {
       continue;

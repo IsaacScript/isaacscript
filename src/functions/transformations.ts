@@ -1,5 +1,6 @@
 import { TRANSFORMATION_NAME_MAP } from "../maps/transformationNameMap";
 import { collectibleHasTag, getMaxCollectibleID } from "./collectibles";
+import { range } from "./math";
 import { copySet } from "./set";
 
 const TRANSFORMATION_TO_TAG_MAP: ReadonlyMap<PlayerForm, ItemConfigTag> =
@@ -50,11 +51,7 @@ function initMaps() {
     TRANSFORMATION_TO_COLLECTIBLE_TYPES_MAP.set(playerForm, new Set());
   }
 
-  for (
-    let collectibleType = 1;
-    collectibleType <= maxCollectibleID;
-    collectibleType++
-  ) {
+  for (const collectibleType of range(1, maxCollectibleID)) {
     for (const [playerForm, tag] of TRANSFORMATION_TO_TAG_MAP.entries()) {
       if (!collectibleHasTag(collectibleType, tag)) {
         continue;

@@ -1,6 +1,7 @@
 import { MAX_PLAYER_POCKET_ITEM_SLOTS } from "../constants";
 import { PocketItemDescription } from "../types/PocketItemDescription";
 import { PocketItemType } from "../types/PocketItemType";
+import { range } from "./math";
 
 export function getFirstCardOrPill(
   player: EntityPlayer,
@@ -35,47 +36,47 @@ export function getPocketItems(player: EntityPlayer): PocketItemDescription[] {
   const pocketItems: PocketItemDescription[] = [];
   let pocketItemIdentified = false;
   let pocketItem2Identified = false;
-  for (let slot = 0; slot < MAX_PLAYER_POCKET_ITEM_SLOTS; slot++) {
+  for (const slot of range(0, MAX_PLAYER_POCKET_ITEM_SLOTS - 1)) {
     const card = player.GetCard(slot as PocketItemSlot);
-    const pill = player.GetPill(slot as PocketItemSlot);
+    const pillColor = player.GetPill(slot as PocketItemSlot);
 
     if (card !== Card.CARD_NULL) {
       pocketItems.push({
+        slot,
         type: PocketItemType.CARD,
-        id: card,
-        slot,
+        subType: card,
       });
-    } else if (pill !== PillColor.PILL_NULL) {
+    } else if (pillColor !== PillColor.PILL_NULL) {
       pocketItems.push({
-        type: PocketItemType.PILL,
-        id: pill,
         slot,
+        type: PocketItemType.PILL,
+        subType: pillColor,
       });
     } else if (hasPocketItem && !hasPocketItem2 && !pocketItemIdentified) {
       pocketItemIdentified = true;
       pocketItems.push({
-        type: PocketItemType.ACTIVE_ITEM,
-        id: pocketItem,
         slot,
+        type: PocketItemType.ACTIVE_ITEM,
+        subType: pocketItem,
       });
     } else if (!hasPocketItem && hasPocketItem2 && !pocketItem2Identified) {
       pocketItem2Identified = true;
       pocketItems.push({
-        type: PocketItemType.DICE_BAG_DICE,
-        id: pocketItem2,
         slot,
+        type: PocketItemType.DICE_BAG_DICE,
+        subType: pocketItem2,
       });
     } else if (hasPocketItem && hasPocketItem2) {
       pocketItems.push({
-        type: PocketItemType.UNDETERMINABLE,
-        id: 0,
         slot,
+        type: PocketItemType.UNDETERMINABLE,
+        subType: 0,
       });
     } else {
       pocketItems.push({
-        type: PocketItemType.EMPTY,
-        id: 0,
         slot,
+        type: PocketItemType.EMPTY,
+        subType: 0,
       });
     }
 

@@ -238,6 +238,7 @@ export function isArray(table: LuaTable): boolean {
   }
 
   // Third, check for non-contiguous elements
+  // (Lua tables start at an index of 1)
   for (let i = 1; i <= numEntries; i++) {
     const element = table.get(i) as unknown | undefined;
     if (element === undefined) {

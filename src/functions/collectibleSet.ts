@@ -1,4 +1,5 @@
 import { getMaxCollectibleID } from "./collectibles";
+import { range } from "./math";
 import { copySet } from "./set";
 
 const COLLECTIBLE_SET = new Set<CollectibleType | int>();
@@ -7,11 +8,7 @@ function initCollectibleSet() {
   const itemConfig = Isaac.GetItemConfig();
   const maxCollectibleID = getMaxCollectibleID();
 
-  for (
-    let collectibleType = 1;
-    collectibleType <= maxCollectibleID;
-    collectibleType++
-  ) {
+  for (const collectibleType of range(1, maxCollectibleID)) {
     const itemConfigItem = itemConfig.GetCollectible(collectibleType);
     if (itemConfigItem !== undefined) {
       COLLECTIBLE_SET.add(collectibleType);

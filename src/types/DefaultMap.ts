@@ -53,9 +53,8 @@ interface ParsedArgs<K, V, A extends unknown[]> {
  * first:
  *
  * ```ts
- * const defaultMapWithExtraArgs = new DefaultMap<string, string>((_key: string, arg2: boolean) => {
- *   return arg2 ? 0 : 1;
- * })
+ * const factoryFunction = (_key: string, arg2: boolean) => arg2 ? 0 : 1;
+ * const defaultMapWithExtraArgs = new DefaultMap<string, string, [arg2: boolean]>(factoryFunction);
  * ```
  */
 export class DefaultMap<K, V, A extends unknown[] = []> extends Map<K, V> {

@@ -2,6 +2,7 @@ import {
   GENESIS_ROOM_SUBTYPE,
   GENESIS_ROOM_VARIANT,
   MAX_ROOM_INDEX,
+  NUM_DIMENSIONS,
 } from "../constants";
 import {
   closeAllDoors,
@@ -17,6 +18,7 @@ import {
   setEntityVelocities,
 } from "./entity";
 import { hasFlag } from "./flag";
+import { range } from "./math";
 
 /**
  * Helper function for quickly switching to a new room without playing a particular animation.
@@ -72,7 +74,7 @@ export function getCurrentDimension(): Dimension {
   );
   const startingRoomHash = GetPtrHash(startingRoomDesc);
 
-  for (let dimension = 0; dimension <= 2; dimension++) {
+  for (const dimension of range(0, NUM_DIMENSIONS - 1)) {
     const dimensionRoomDesc = level.GetRoomByIdx(
       startingRoomGridIndex,
       dimension,

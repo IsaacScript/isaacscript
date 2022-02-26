@@ -18,6 +18,7 @@ import {
 } from "../functions/gridEntity";
 import { getRandomJSONRoom } from "../functions/jsonRoom";
 import { log } from "../functions/log";
+import { range } from "../functions/math";
 import { getNPCs } from "../functions/npc";
 import { nextSeed } from "../functions/random";
 import {
@@ -319,7 +320,7 @@ function fillRoomWithDecorations() {
   const decorationGridIndexes =
     v.level.roomToDecorationGridIndexesMap.getAndSetDefault(roomListIndex);
 
-  for (let gridIndex = 0; gridIndex < gridSize; gridIndex++) {
+  for (const gridIndex of range(0, gridSize - 1)) {
     const existingGridEntity = room.GetGridEntity(gridIndex);
     if (existingGridEntity !== undefined) {
       continue;

@@ -1,3 +1,4 @@
+import { range } from "./math";
 import { copySet } from "./set";
 import { getMaxTrinketID, trinketHasCacheFlag } from "./trinkets";
 import { getEnumValues } from "./utils";
@@ -10,7 +11,7 @@ function initCacheFlagMap() {
   for (const cacheFlag of getEnumValues(CacheFlag)) {
     const trinketsSet = new Set<CollectibleType | int>();
 
-    for (let trinketType = 1; trinketType <= maxTrinketID; trinketType++) {
+    for (const trinketType of range(1, maxTrinketID)) {
       if (trinketHasCacheFlag(trinketType, cacheFlag)) {
         trinketsSet.add(trinketType);
       }
