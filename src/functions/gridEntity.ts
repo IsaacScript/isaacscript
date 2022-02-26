@@ -102,8 +102,10 @@ export function getCollidingEntitiesWithGridEntity(
 }
 
 /**
- * Helper function to get every grid entity in the current room. Use it with no arguments to get
- * every grid entity, or specify a variadic amount of arguments to match specific grid entity types.
+ * Helper function to get every grid entity in the current room.
+ *
+ * Use this function with no arguments to get every grid entity, or specify a variadic amount of
+ * arguments to match specific grid entity types.
  *
  * Example:
  * ```
@@ -124,29 +126,54 @@ export function getCollidingEntitiesWithGridEntity(
 export function getGridEntities(
   ...gridEntityTypes: GridEntityType[]
 ): GridEntity[] {
+  const gridEntities = getAllGridEntities();
+
+  if (gridEntityTypes.length === 0) {
+    return gridEntities;
+  }
+
+  const gridEntityTypesSet = new Set(gridEntityTypes);
+  return gridEntities.filter((gridEntity) => {
+    const gridEntityType = gridEntity.GetType();
+    return gridEntityTypesSet.has(gridEntityType);
+  });
+}
+
+function getAllGridEntities(): GridEntity[] {
   const game = Game();
   const room = game.GetRoom();
   const gridSize = room.GetGridSize();
-  const gridEntityTypesSet = new Set(gridEntityTypes);
 
   const gridEntities: GridEntity[] = [];
   for (const gridIndex of range(0, gridSize - 1)) {
     const gridEntity = room.GetGridEntity(gridIndex);
-    if (gridEntity === undefined) {
-      continue;
-    }
-
-    if (gridEntityTypes.length === 0) {
+    if (gridEntity !== undefined) {
       gridEntities.push(gridEntity);
-    } else {
-      const thisGridEntityType = gridEntity.GetType();
-      if (gridEntityTypesSet.has(thisGridEntityType)) {
-        gridEntities.push(gridEntity);
-      }
     }
   }
 
   return gridEntities;
+}
+
+/**
+ * Helper function to get a map of every grid entity in the current room. The indexes of the map are
+ * equal to the grid index. The values of the map are equal to the grid entities.
+ *
+ * Use this function with no arguments to get every grid entity, or specify a variadic amount of
+ * arguments to match specific grid entity types.
+ */
+export function getGridEntitiesMap(
+  ...gridEntityTypes: GridEntityType[]
+): Map<int, GridEntity> {
+  const gridEntities = getGridEntities(...gridEntityTypes);
+
+  const gridEntityMap = new Map<int, GridEntity>();
+  for (const gridEntity of gridEntities) {
+    const gridIndex = gridEntity.GetGridIndex();
+    gridEntityMap.set(gridIndex, gridEntity);
+  }
+
+  return gridEntityMap;
 }
 
 export function getTopLeftWall(): GridEntity | undefined {

@@ -1,7 +1,19 @@
-// This provides the logic for PostGridEntityInit, PostGridEntityUpdate, and PostGridEntityRemove
+// This provides the logic for the following callbacks:
+// - PostGridEntityInit
+// - PostGridEntityUpdate
+// - PostGridEntityRemove
+// - PostGridEntityStateChange
+// - PostGridEntityBroken
 
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { getGridEntities } from "../functions/gridEntity";
+import {
+  getGridEntitiesMap,
+  isGridEntityBroken,
+} from "../functions/gridEntity";
+import {
+  postGridEntityBrokenFire,
+  postGridEntityBrokenHasSubscriptions,
+} from "./subscriptions/postGridEntityBroken";
 import {
   postGridEntityInitFire,
   postGridEntityInitHasSubscriptions,
@@ -11,14 +23,20 @@ import {
   postGridEntityRemoveHasSubscriptions,
 } from "./subscriptions/postGridEntityRemove";
 import {
+  postGridEntityStateChangeFire,
+  postGridEntityStateChangeHasSubscriptions,
+} from "./subscriptions/postGridEntityStateChange";
+import {
   postGridEntityUpdateFire,
   postGridEntityUpdateHasSubscriptions,
 } from "./subscriptions/postGridEntityUpdate";
 
+type GridEntityTuple = [gridEntityType: GridEntityType, state: int];
+
 const v = {
   room: {
     /** Indexed by grid index. */
-    initializedGridEntities: new Map<int, GridEntityType>(),
+    initializedGridEntities: new Map<int, GridEntityTuple>(),
   },
 };
 
@@ -34,7 +52,9 @@ function hasSubscriptions() {
   return (
     postGridEntityInitHasSubscriptions() ||
     postGridEntityUpdateHasSubscriptions() ||
-    postGridEntityRemoveHasSubscriptions()
+    postGridEntityRemoveHasSubscriptions() ||
+    postGridEntityStateChangeHasSubscriptions() ||
+    postGridEntityBrokenHasSubscriptions()
   );
 }
 
@@ -44,38 +64,71 @@ function postUpdate() {
     return;
   }
 
-  for (const gridEntity of getGridEntities()) {
-    checkNewGridEntity(gridEntity);
+  const gridEntitiesMap = getGridEntitiesMap();
+
+  // We check for removed grid entities first so that grid entities that change type will count as
+  // being removed and fire the PostGridEntityRemoved callback
+  checkGridEntitiesRemoved(gridEntitiesMap);
+
+  for (const [gridIndex, gridEntity] of gridEntitiesMap.entries()) {
+    checkGridEntityStateChanged(gridIndex, gridEntity);
+    checkNewGridEntity(gridIndex, gridEntity);
     postGridEntityUpdateFire(gridEntity);
   }
-
-  checkGridEntityRemoved();
 }
 
-function checkNewGridEntity(gridEntity: GridEntity) {
-  const gridIndex = gridEntity.GetGridIndex();
+function checkGridEntitiesRemoved(gridEntitiesMap: Map<int, GridEntity>) {
+  for (const [
+    gridIndex,
+    gridEntityTuple,
+  ] of v.room.initializedGridEntities.entries()) {
+    const [storedGridEntityType] = gridEntityTuple;
+    const gridEntity = gridEntitiesMap.get(gridIndex);
+    if (
+      gridEntity === undefined ||
+      gridEntity.GetType() !== storedGridEntityType
+    ) {
+      v.room.initializedGridEntities.delete(gridIndex);
+      postGridEntityRemoveFire(gridIndex, storedGridEntityType);
+    }
+  }
+}
+
+function checkGridEntityStateChanged(gridIndex: int, gridEntity: GridEntity) {
+  const gridEntityTuple = v.room.initializedGridEntities.get(gridIndex);
+  if (gridEntityTuple === undefined) {
+    // This grid entity did not exist a frame ago; we don't want to fire the state change callback
+    // on the first frame that it exists
+    return;
+  }
+
+  const [, oldState] = gridEntityTuple;
+  const newState = gridEntity.State;
+  if (oldState !== newState) {
+    updateTupleInMap(gridEntity);
+    postGridEntityStateChangeFire(gridEntity, oldState, newState);
+
+    if (isGridEntityBroken(gridEntity)) {
+      postGridEntityBrokenFire(gridEntity);
+    }
+  }
+}
+
+function checkNewGridEntity(gridIndex: int, gridEntity: GridEntity) {
   const gridEntityType = gridEntity.GetType();
-  const storedGridEntityType = v.room.initializedGridEntities.get(gridIndex);
-  if (storedGridEntityType !== gridEntityType) {
-    v.room.initializedGridEntities.set(gridIndex, gridEntityType);
+  const gridEntityTuple = v.room.initializedGridEntities.get(gridIndex);
+
+  if (gridEntityTuple === undefined || gridEntityTuple[0] !== gridEntityType) {
+    updateTupleInMap(gridEntity);
     postGridEntityInitFire(gridEntity);
   }
 }
 
-function checkGridEntityRemoved() {
-  const game = Game();
-  const room = game.GetRoom();
-
-  for (const [
-    gridIndex,
-    gridEntityType,
-  ] of v.room.initializedGridEntities.entries()) {
-    const gridEntity = room.GetGridEntity(gridIndex);
-    if (gridEntity === undefined || gridEntity.GetType() !== gridEntityType) {
-      v.room.initializedGridEntities.delete(gridIndex);
-      postGridEntityRemoveFire(gridIndex, gridEntityType);
-    }
-  }
+function updateTupleInMap(gridEntity: GridEntity) {
+  const gridEntityType = gridEntity.GetType();
+  const gridIndex = gridEntity.GetGridIndex();
+  const newTuple: GridEntityTuple = [gridEntityType, gridEntity.State];
+  v.room.initializedGridEntities.set(gridIndex, newTuple);
 }
 
 // ModCallbacks.MC_POST_NEW_ROOM (9)
@@ -84,7 +137,9 @@ function postNewRoom() {
     return;
   }
 
-  for (const gridEntity of getGridEntities()) {
-    checkNewGridEntity(gridEntity);
+  const gridEntitiesMap = getGridEntitiesMap();
+
+  for (const [gridIndex, gridEntity] of gridEntitiesMap.entries()) {
+    checkNewGridEntity(gridIndex, gridEntity);
   }
 }

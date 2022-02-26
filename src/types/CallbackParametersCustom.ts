@@ -9,9 +9,11 @@ import { PostFirstEsauJrCallbackType } from "../callbacks/subscriptions/postFirs
 import { PostFirstFlipCallbackType } from "../callbacks/subscriptions/postFirstFlip";
 import { PostFlipCallbackType } from "../callbacks/subscriptions/postFlip";
 import { PostGameStartedReorderedCallbackType } from "../callbacks/subscriptions/postGameStartedReordered";
+import { PostGridEntityBrokenCallbackType } from "../callbacks/subscriptions/postGridEntityBroken";
 import { PostGridEntityCollisionCallbackType } from "../callbacks/subscriptions/postGridEntityCollision";
 import { PostGridEntityInitCallbackType } from "../callbacks/subscriptions/postGridEntityInit";
 import { PostGridEntityRemoveCallbackType } from "../callbacks/subscriptions/postGridEntityRemove";
+import { PostGridEntityStateChangeCallbackType } from "../callbacks/subscriptions/postGridEntityStateChange";
 import { PostGridEntityUpdateCallbackType } from "../callbacks/subscriptions/postGridEntityUpdate";
 import { PostItemPickupCallbackType } from "../callbacks/subscriptions/postItemPickup";
 import { PostKnifeInitLateCallbackType } from "../callbacks/subscriptions/postKnifeInitLate";
@@ -251,6 +253,16 @@ export interface CallbackParametersCustom {
 
   [ModCallbacksCustom.MC_POST_GRID_ENTITY_REMOVE]: [
     callback: PostGridEntityRemoveCallbackType,
+    gridEntityType?: GridEntityType,
+  ];
+
+  [ModCallbacksCustom.MC_POST_GRID_ENTITY_STATE_CHANGE]: [
+    callback: PostGridEntityStateChangeCallbackType,
+    gridEntityType?: GridEntityType,
+  ];
+
+  [ModCallbacksCustom.MC_POST_GRID_ENTITY_BROKEN]: [
+    callback: PostGridEntityBrokenCallbackType,
     gridEntityType?: GridEntityType,
   ];
 

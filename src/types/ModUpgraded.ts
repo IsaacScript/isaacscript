@@ -9,9 +9,11 @@ import { postFirstEsauJrRegister } from "../callbacks/subscriptions/postFirstEsa
 import { postFirstFlipRegister } from "../callbacks/subscriptions/postFirstFlip";
 import { postFlipRegister } from "../callbacks/subscriptions/postFlip";
 import { postGameStartedReorderedRegister } from "../callbacks/subscriptions/postGameStartedReordered";
+import { postGridEntityBrokenRegister } from "../callbacks/subscriptions/postGridEntityBroken";
 import { postGridEntityCollisionRegister } from "../callbacks/subscriptions/postGridEntityCollision";
 import { postGridEntityInitRegister } from "../callbacks/subscriptions/postGridEntityInit";
 import { postGridEntityRemoveRegister } from "../callbacks/subscriptions/postGridEntityRemove";
+import { postGridEntityStateChangeRegister } from "../callbacks/subscriptions/postGridEntityStateChange";
 import { postGridEntityUpdateRegister } from "../callbacks/subscriptions/postGridEntityUpdate";
 import { postItemPickupRegister } from "../callbacks/subscriptions/postItemPickup";
 import { postKnifeInitLateRegister } from "../callbacks/subscriptions/postKnifeInitLate";
@@ -326,6 +328,14 @@ function getCallbackRegisterFunction(callbackID: ModCallbacksCustom) {
 
     case ModCallbacksCustom.MC_POST_GRID_ENTITY_REMOVE: {
       return postGridEntityRemoveRegister;
+    }
+
+    case ModCallbacksCustom.MC_POST_GRID_ENTITY_STATE_CHANGE: {
+      return postGridEntityStateChangeRegister;
+    }
+
+    case ModCallbacksCustom.MC_POST_GRID_ENTITY_BROKEN: {
+      return postGridEntityBrokenRegister;
     }
 
     case ModCallbacksCustom.MC_POST_GRID_ENTITY_COLLISION: {
