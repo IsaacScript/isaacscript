@@ -35,11 +35,12 @@ function postUpdate() {
     return;
   }
 
-  for (const gridEntity of getGridEntities()) {
-    if (gridEntity.CollisionClass === GridCollisionClass.COLLISION_NONE) {
-      continue;
-    }
-
+  const gridEntities = getGridEntities();
+  const gridEntitiesWithCollision = gridEntities.filter(
+    (gridEntity) =>
+      gridEntity.CollisionClass !== GridCollisionClass.COLLISION_NONE,
+  );
+  for (const gridEntity of gridEntitiesWithCollision) {
     const gridEntityPtrHash = GetPtrHash(gridEntity);
     const oldCollidingEntities =
       v.room.collidingEntitiesMap.getAndSetDefault(gridEntityPtrHash);

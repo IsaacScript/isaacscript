@@ -17,9 +17,28 @@ export function combineArray<T>(...arrays: Array<T[] | readonly T[]>): T[] {
   return elements;
 }
 
-/** Helper function to perform a shallow copy. */
-export function copyArray<T>(array: T[] | readonly T[]): T[] {
-  return [...array];
+/**
+ * Helper function to perform a shallow copy.
+ *
+ * @param oldArray The array to copy.
+ * @param numElements Optional. If specified, will only copy the first N elements. By default, the
+ * entire array will be copied.
+ */
+export function copyArray<T>(
+  oldArray: T[] | readonly T[],
+  numElements?: int,
+): T[] {
+  if (numElements === undefined) {
+    numElements = oldArray.length;
+  }
+
+  const newArray: T[] = [];
+  for (let i = 0; i < numElements; i++) {
+    const oldElement = oldArray[i];
+    newArray.push(oldElement);
+  }
+
+  return newArray;
 }
 
 export function emptyArray<T>(array: T[]): void {

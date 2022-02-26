@@ -131,8 +131,7 @@ export function setPlayerHealth(
 
   // Add the soul / black / bone hearts
   let soulHeartsRemaining = playerHealth.soulHearts;
-  for (let i = 0; i < playerHealth.soulHeartTypes.length; i++) {
-    const heartType = playerHealth.soulHeartTypes[i];
+  playerHealth.soulHeartTypes.forEach((heartType, i) => {
     const isHalf =
       playerHealth.soulHearts + playerHealth.boneHearts * 2 < (i + 1) * 2;
     let addAmount = 2;
@@ -155,7 +154,7 @@ export function setPlayerHealth(
     } else if (heartType === HeartSubType.HEART_BONE) {
       player.AddBoneHearts(addAmount);
     }
-  }
+  });
 
   // Fill in the red heart containers
   // (Rotten Hearts must be filled in first in order for this to work properly,

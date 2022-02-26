@@ -77,21 +77,16 @@ function errorWithTraceback(
  */
 function slimTracebackOutput(tracebackOutput: string) {
   for (const msg of USELESS_TRACEBACK_MESSAGES) {
-    tracebackOutput = removeAnyLineThatContains(tracebackOutput, msg);
+    tracebackOutput = removeLinesContaining(tracebackOutput, msg);
   }
 
   return tracebackOutput;
 }
 
-function removeAnyLineThatContains(msg: string, containsMsg: string) {
+function removeLinesContaining(msg: string, containsMsg: string) {
   const lines = msg.split(LINE_SEPARATOR);
-
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-    if (line.includes(containsMsg)) {
-      lines.splice(i, 1);
-    }
-  }
-
-  return lines.join(LINE_SEPARATOR);
+  const linesThatDontContain = lines.filter(
+    (line) => !line.includes(containsMsg),
+  );
+  return linesThatDontContain.join(LINE_SEPARATOR);
 }

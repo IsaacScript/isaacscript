@@ -1,4 +1,5 @@
 import { EMPTY_PNG_PATH } from "../constants";
+import { range } from "./math";
 
 /**
  * Helper function to clear a specific layer from a sprite. This function is variadic, so pass as
@@ -11,14 +12,9 @@ import { EMPTY_PNG_PATH } from "../constants";
  * path corresponding to the "EMPTY_PNG_PATH" constant.
  */
 export function clearSprite(sprite: Sprite, ...layerIDs: int[]): void {
-  const numLayers = sprite.GetLayerCount();
-
   if (layerIDs.length === 0) {
-    layerIDs = [];
-
-    for (let i = 0; i < numLayers; i++) {
-      layerIDs.push(i);
-    }
+    const numLayers = sprite.GetLayerCount();
+    layerIDs = range(0, numLayers - 1);
   }
 
   for (const layerID of layerIDs) {

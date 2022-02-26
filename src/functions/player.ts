@@ -13,7 +13,7 @@ import { getKBitOfN, getNumBitsOfN } from "./bitwise";
 import { getCollectibleMaxCharges } from "./collectibles";
 import { getCollectibleSet } from "./collectibleSet";
 import { stringContains, trimPrefix } from "./string";
-import { ensureAllCases } from "./utils";
+import { ensureAllCases, repeat } from "./utils";
 
 const DEFAULT_COLLECTIBLE_TYPE = CollectibleType.COLLECTIBLE_SAD_ONION;
 
@@ -131,6 +131,26 @@ export function characterGetsBlackHeartFromEternalHeart(
   character: PlayerType | int,
 ): boolean {
   return CHARACTERS_WITH_BLACK_HEART_FROM_ETERNAL_HEART.has(character);
+}
+
+/**
+ * Helper function to get every player with no restrictions, by using `Game.GetNumPlayers` and
+ * `Isaac.GetPlayer`.
+ *
+ * This function is almost never what you want to use. For most intents and purposes, use the
+ * `getPlayers()` helper function instead to get a more filtered list of players.
+ */
+export function getAllPlayers(): EntityPlayer[] {
+  const game = Game();
+  const numPlayers = game.GetNumPlayers();
+
+  const players: EntityPlayer[] = [];
+  for (let i = 0; i < numPlayers; i++) {
+    const player = Isaac.GetPlayer(i);
+    players.push(player);
+  }
+
+  return players;
 }
 
 /**
@@ -601,33 +621,20 @@ export function getPlayerNumHitsRemaining(player: EntityPlayer): int {
  * This function always excludes players with a non-undefined parent, since they are not real
  * players. (e.g. the Strawman Keeper)
  *
- * @param performExclusions Whether or not to exclude characters that are not directly controlled by
- * the player (i.e. Esau & Tainted Soul). False by default.
+ * If this is not desired, use the `getAllPlayers` helper function instead.
+ *
+ * @param performCharacterExclusions Whether or not to exclude characters that are not directly
+ * controlled by the player (i.e. Esau & Tainted Soul). False by default.
  */
-export function getPlayers(performExclusions = false): EntityPlayer[] {
-  const game = Game();
-  const numPlayers = game.GetNumPlayers();
-
-  const players: EntityPlayer[] = [];
-  for (let i = 0; i < numPlayers; i++) {
-    const player = Isaac.GetPlayer(i);
-
-    if (isChildPlayer(player)) {
-      continue;
-    }
-
-    // We might only want to make a list of players that are fully-functioning and controlled by
-    // humans
-    // Thus, we need to exclude certain characters
+export function getPlayers(performCharacterExclusions = false): EntityPlayer[] {
+  const players = getAllPlayers();
+  const nonChildPlayers = players.filter((player) => !isChildPlayer(player));
+  const nonChildPlayersFiltered = nonChildPlayers.filter((player) => {
     const character = player.GetPlayerType();
-    if (performExclusions && EXCLUDED_CHARACTERS.has(character)) {
-      continue;
-    }
+    return !EXCLUDED_CHARACTERS.has(character);
+  });
 
-    players.push(player);
-  }
-
-  return players;
+  return performCharacterExclusions ? nonChildPlayersFiltered : nonChildPlayers;
 }
 
 /**
@@ -867,9 +874,9 @@ export function removeCollectibleCostume(
  * chance of working, so this function calls it 100 times to be safe.
  */
 export function removeDeadEyeMultiplier(player: EntityPlayer): void {
-  for (let i = 0; i < 100; i++) {
+  repeat(100, () => {
     player.ClearDeadEyeCharge();
-  }
+  });
 }
 
 /**

@@ -49,14 +49,13 @@ function checkExecuteQueuedFunctions(
 ) {
   const functionsToFire: Array<() => void> = [];
   const indexesToRemove: int[] = [];
-  for (let i = 0; i < functionTuples.length; i++) {
-    const functionTuple = functionTuples[i];
+  functionTuples.forEach((functionTuple, i) => {
     const [frame, func] = functionTuple;
     if (frameCount >= frame) {
       functionsToFire.push(func);
       indexesToRemove.push(i);
     }
-  }
+  });
 
   for (const indexToRemove of indexesToRemove) {
     functionTuples.splice(indexToRemove, 1);

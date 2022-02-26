@@ -1,4 +1,5 @@
 import { FAMILIARS_THAT_SHOOT_PLAYER_TEARS } from "../constants";
+import { copyArray } from "./array";
 import { getEntities, removeEntities } from "./entity";
 import { repeat } from "./utils";
 
@@ -50,10 +51,11 @@ export function checkFamiliar(
   if (familiarsForThisPlayer.length > numTargetFamiliars) {
     const numFamiliarsToRemove =
       familiarsForThisPlayer.length - numTargetFamiliars;
-    for (let i = 0; i < numFamiliarsToRemove; i++) {
-      const familiar = familiarsForThisPlayer[i];
-      familiar.Remove();
-    }
+    const familiarsToRemove = copyArray(
+      familiarsForThisPlayer,
+      numFamiliarsToRemove,
+    );
+    removeEntities(familiarsToRemove);
 
     return numFamiliarsToRemove * -1;
   }

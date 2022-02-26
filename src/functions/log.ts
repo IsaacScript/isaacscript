@@ -204,9 +204,7 @@ export function logTemporaryEffects(this: void, player: EntityPlayer): void {
     return;
   }
 
-  for (let i = 0; i < effects.length; i++) {
-    const effect = effects[i];
-
+  effects.forEach((effect, i) => {
     if (effect.Item.IsCollectible()) {
       const collectibleName = getCollectibleName(effect.Item.ID);
       log(`  ${i + 1}) ${collectibleName}`);
@@ -218,7 +216,7 @@ export function logTemporaryEffects(this: void, player: EntityPlayer): void {
     } else {
       log(`  ${i + 1}) Unknown type of temporary effect: ${effect.Item.ID}`);
     }
-  }
+  });
 }
 
 export function logSet(this: void, set: Set<AnyNotNil>): void {

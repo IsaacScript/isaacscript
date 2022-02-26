@@ -1,7 +1,7 @@
 // This provides the logic for PostFlip and PostFirstFlip
 
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { getPlayers, isTaintedLazarus } from "../functions/player";
+import { getPlayersOfType, isTaintedLazarus } from "../functions/player";
 import {
   postFirstFlipFire,
   postFirstFlipHasSubscriptions,
@@ -53,6 +53,9 @@ function useItemFlip(
   // The player passed as part of the callback will be the old Lazarus that used the Flip item
   // We pass the new Lazarus to the callback subscribers
   const newLazarus = getNewLazarus(player);
+  if (newLazarus === undefined) {
+    return;
+  }
 
   if (!v.run.usedFlipAtLeastOnce) {
     v.run.usedFlipAtLeastOnce = true;
@@ -74,15 +77,8 @@ function getNewLazarus(oldLazarus: EntityPlayer) {
     error("Failed to determine the character in the postFlip callback.");
   }
 
-  for (const player of getPlayers()) {
-    const character = player.GetPlayerType();
-    if (
-      character === newCharacter &&
-      player.FrameCount === oldLazarus.FrameCount
-    ) {
-      return player;
-    }
-  }
-
-  return error("Failed to find the player entity for the new Lazarus.");
+  const playersOfType = getPlayersOfType(newCharacter);
+  return playersOfType.find(
+    (player) => player.FrameCount === oldLazarus.FrameCount,
+  );
 }

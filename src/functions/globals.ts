@@ -205,7 +205,7 @@ export function getDefaultGlobals(): Set<string> {
  * Helper function to get an array of any added global variables in the Isaac Lua environment.
  * Returns an array of key/value tuples.
  */
-export function getNewGlobals() {
+export function getNewGlobals(): Array<[AnyNotNil, unknown]> {
   const defaultGlobals = getDefaultGlobals();
   const newGlobals: Array<[AnyNotNil, unknown]> = [];
   for (const [key, value] of pairs(_G)) {
@@ -236,8 +236,7 @@ export function logNewGlobals() {
   if (newGlobals.length === 0) {
     log("- n/a (no extra global variables found)");
   }
-  for (let i = 0; i < newGlobals.length; i++) {
-    const [key, value] = newGlobals[i];
+  newGlobals.forEach(([key, value], i) => {
     log(`${i + 1}) ${key} - ${value}`);
-  }
+  });
 }
