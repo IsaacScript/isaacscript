@@ -454,9 +454,10 @@ export function getPlayerIndexVanilla(
   playerToFind: EntityPlayer,
 ): int | undefined {
   const game = Game();
+  const numPlayers = game.GetNumPlayers();
   const playerToFindHash = GetPtrHash(playerToFind);
 
-  for (let i = 0; i < game.GetNumPlayers(); i++) {
+  for (let i = 0; i < numPlayers; i++) {
     const player = Isaac.GetPlayer(i);
     const playerHash = GetPtrHash(player);
     if (playerHash === playerToFindHash) {
@@ -586,9 +587,10 @@ export function getPlayerNumHitsRemaining(player: EntityPlayer): int {
  */
 export function getPlayers(performExclusions = false): EntityPlayer[] {
   const game = Game();
+  const numPlayers = game.GetNumPlayers();
 
   const players: EntityPlayer[] = [];
-  for (let i = 0; i < game.GetNumPlayers(); i++) {
+  for (let i = 0; i < numPlayers; i++) {
     const player = Isaac.GetPlayer(i);
 
     if (isChildPlayer(player)) {

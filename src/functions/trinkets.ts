@@ -5,8 +5,9 @@ import { getPickups } from "./entity";
 import { hasFlag } from "./flag";
 import { useActiveItemTemp } from "./player";
 import { giveTrinketsBack, temporarilyRemoveTrinkets } from "./trinketGive";
+import { repeat } from "./utils";
 
-export function getMaxTrinketID(): int {
+export function getMaxTrinketType(): int {
   const itemConfig = Isaac.GetItemConfig();
   return itemConfig.GetTrinkets().Size - 1;
 }
@@ -149,10 +150,10 @@ export function smeltTrinket(
 ): void {
   const trinketSituation = temporarilyRemoveTrinkets(player);
 
-  for (let i = 0; i < numTrinkets; i++) {
+  repeat(numTrinkets, () => {
     player.AddTrinket(trinketType);
     useActiveItemTemp(player, CollectibleType.COLLECTIBLE_SMELTER);
-  }
+  });
 
   giveTrinketsBack(player, trinketSituation);
 }

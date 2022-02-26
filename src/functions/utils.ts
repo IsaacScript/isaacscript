@@ -143,6 +143,22 @@ export function printConsole(msg: string): void {
 
 /**
  * Helper function to repeat code N times. This is faster to type and cleaner than using a for loop.
+ *
+ * Example:
+ * ```ts
+ * const player = Isaac.GetPlayer();
+ * repeat(10, () => {
+ *   player.AddCollectible(CollectibleType.COLLECTIBLE_STEVEN);
+ * });
+ * ```
+ *
+ * The repeated function is passed the index of the iteration, if needed:
+ *
+ * ```ts
+ * repeat(3, (i) => {
+ *   print(i); // Prints "0", "1", "2"
+ * });
+ * ```
  */
 export function repeat(n: int, func: (i: int) => void) {
   for (let i = 0; i < n; i++) {

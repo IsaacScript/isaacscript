@@ -1,12 +1,14 @@
+import { range } from "./math";
 import { copySet } from "./set";
-import { getMaxTrinketID } from "./trinkets";
+import { getMaxTrinketType } from "./trinkets";
 
 const TRINKET_SET = new Set<TrinketType | int>();
 
 function initTrinketSet() {
   const itemConfig = Isaac.GetItemConfig();
+  const maxTrinketID = getMaxTrinketType();
 
-  for (let trinketType = 1; trinketType <= getMaxTrinketID(); trinketType++) {
+  for (const trinketType of range(1, maxTrinketID)) {
     const itemConfigTrinket = itemConfig.GetTrinket(trinketType);
     if (itemConfigTrinket !== undefined) {
       TRINKET_SET.add(trinketType);

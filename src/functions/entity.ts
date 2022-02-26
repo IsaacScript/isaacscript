@@ -1,6 +1,7 @@
 import { STORY_BOSSES } from "../constants";
 import { AnyEntity } from "../types/AnyEntity";
 import { getRandom, nextSeed } from "./random";
+import { repeat } from "./utils";
 
 export function anyEntityCloserThan(
   entities: Entity[],
@@ -420,8 +421,7 @@ export function removeEntities(entities: Entity[], cap?: int): boolean {
   }
 
   let numEntitiesRemoved = 0;
-  for (let i = 0; i < entities.length; i++) {
-    const entity = entities[i];
+  for (const entity of entities) {
     entity.Remove();
 
     numEntitiesRemoved += 1;
@@ -633,11 +633,11 @@ export function setEntityPositions(
 export function setEntityRandomColor(entity: Entity): void {
   const colorValues: int[] = [];
   let seed = entity.InitSeed;
-  for (let i = 0; i < 3; i++) {
+  repeat(3, () => {
     seed = nextSeed(seed);
     const randomColorValue = getRandom(seed);
     colorValues.push(randomColorValue);
-  }
+  });
   const color = Color(colorValues[0], colorValues[1], colorValues[2]);
   entity.SetColor(color, 100000, 100000, false, false);
 }

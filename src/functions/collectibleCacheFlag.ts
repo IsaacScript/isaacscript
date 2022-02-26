@@ -1,7 +1,7 @@
 import { collectibleHasCacheFlag, getMaxCollectibleType } from "./collectibles";
 import { range } from "./math";
 import { copySet } from "./set";
-import { getEnumValues } from "./utils";
+import { getEnumValues, repeat } from "./utils";
 
 const CACHE_FLAG_TO_COLLECTIBLES_MAP = new Map<
   CacheFlag,
@@ -68,9 +68,9 @@ export function getPlayerCollectiblesForCacheFlag(
   const playerCollectibles: Array<CollectibleType | int> = [];
   for (const collectibleType of collectiblesForCacheFlag.values()) {
     const numCollectibles = player.GetCollectibleNum(collectibleType);
-    for (let i = 0; i < numCollectibles; i++) {
+    repeat(numCollectibles, () => {
       playerCollectibles.push(collectibleType);
-    }
+    });
   }
 
   return playerCollectibles;

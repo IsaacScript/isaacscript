@@ -1,5 +1,6 @@
 import { FAMILIARS_THAT_SHOOT_PLAYER_TEARS } from "../constants";
 import { getEntities, removeEntities } from "./entity";
+import { repeat } from "./utils";
 
 /**
  * Helper function to add and remove familiars based on a target amount that you specify. Use this
@@ -62,7 +63,7 @@ export function checkFamiliar(
   const collectibleRNG = player.GetCollectibleRNG(collectibleType);
   const familiarSubTypeToUse =
     familiarSubType === undefined ? 0 : familiarSubType;
-  for (let i = 0; i < numFamiliarsToSpawn; i++) {
+  repeat(numFamiliarsToSpawn, () => {
     collectibleRNG.Next();
     const familiar = game
       .Spawn(
@@ -78,7 +79,7 @@ export function checkFamiliar(
     if (familiar !== undefined) {
       familiar.Player = player;
     }
-  }
+  });
 
   return numFamiliarsToSpawn;
 }

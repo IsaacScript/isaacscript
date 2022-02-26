@@ -1,6 +1,7 @@
 import { GOLDEN_TRINKET_SHIFT } from "../constants";
 import { TrinketSituation } from "../types/TrinketSituation";
 import { useActiveItemTemp } from "./player";
+import { repeat } from "./utils";
 
 /**
  * Helper function to temporarily remove a specific kind of trinket from the player. Use this in
@@ -112,10 +113,10 @@ export function giveTrinketsBack(
   }
 
   // First, add the smelted trinkets back
-  for (let i = 0; i < trinketSituation.numSmeltedTrinkets; i++) {
+  repeat(trinketSituation.numSmeltedTrinkets, () => {
     player.AddTrinket(trinketSituation.trinketTypeRemoved, false);
     useActiveItemTemp(player, CollectibleType.COLLECTIBLE_SMELTER);
-  }
+  });
 
   // Second, add back the stored trinkets
   if (trinketSituation.trinket1 !== TrinketType.TRINKET_NULL) {

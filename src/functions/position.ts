@@ -2,6 +2,8 @@ import { DISTANCE_OF_GRID_TILE } from "../constants";
 import { anyEntityCloserThan, getEffects } from "./entity";
 import { getPlayerCloserThan } from "./player";
 
+const MAX_FIND_FREE_POSITION_ATTEMPTS = 100;
+
 /**
  * Helper function to get a room position that is not overlapping with a grid entity, a heaven door,
  * or a player. The `Room.FindFreePickupSpawnPosition()` function will return locations that overlap
@@ -24,7 +26,7 @@ export function findFreePosition(
     HeavenLightDoorSubType.HEAVEN_DOOR,
   );
 
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < MAX_FIND_FREE_POSITION_ATTEMPTS; i++) {
     const position = room.FindFreePickupSpawnPosition(
       startingPosition,
       i,

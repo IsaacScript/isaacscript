@@ -1,4 +1,5 @@
 import { getRandomInt, nextSeed } from "./random";
+import { repeat } from "./utils";
 
 /**
  * Helper function to combine two or more arrays. Returns a new array that is the composition of all
@@ -53,9 +54,9 @@ export function arrayEquals<T>(
  */
 export function initArray<T>(defaultValue: T, size: int): T[] {
   const array: T[] = [];
-  for (let i = 0; i < size; i++) {
+  repeat(size, () => {
     array.push(defaultValue);
-  }
+  });
 
   return array;
 }
