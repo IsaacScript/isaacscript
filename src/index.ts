@@ -18,6 +18,7 @@ export {
 } from "./features/disableInputs";
 export { forgottenSwitch } from "./features/forgottenSwitch";
 export { getCollectibleItemPoolType } from "./features/getCollectibleItemPoolType";
+export { isPonyActive } from "./features/isPonyActive";
 export { preventCollectibleRotate } from "./features/preventCollectibleRotate";
 export {
   runInNGameFrames,
@@ -114,6 +115,7 @@ export * from "./types/PickingUpItem";
 export * from "./types/PillEffectClass";
 export * from "./types/PillEffectType";
 export * from "./types/PlayerHealth";
+export * from "./types/PlayerIndex";
 export * from "./types/PocketItemDescription";
 export * from "./types/PocketItemType";
 export * from "./types/TrinketSituation";

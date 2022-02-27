@@ -1,6 +1,7 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getPickups } from "../functions/entity";
-import { getPlayerIndex, getPlayers, PlayerIndex } from "../functions/player";
+import { getPlayerIndex, getPlayers } from "../functions/player";
+import { PlayerIndex } from "../types/PlayerIndex";
 import {
   postPurchaseFire,
   postPurchaseHasSubscriptions,

@@ -1,8 +1,9 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { getPlayerIndex, PlayerIndex } from "../functions/player";
+import { getPlayerIndex } from "../functions/player";
 import { DefaultMap } from "../types/DefaultMap";
 import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
 import { ModUpgraded } from "../types/ModUpgraded";
+import { PlayerIndex } from "../types/PlayerIndex";
 import {
   postTrinketBreakFire,
   postTrinketBreakHasSubscriptions,

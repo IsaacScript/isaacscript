@@ -36,6 +36,7 @@ import { deployJSONRoomInit } from "./features/deployJSONRoom";
 import { disableInputsInit } from "./features/disableInputs";
 import { forgottenSwitchInit } from "./features/forgottenSwitch";
 import { getCollectibleItemPoolTypeInit } from "./features/getCollectibleItemPoolType";
+import { isPonyActiveInit } from "./features/isPonyActive";
 import { preventCollectibleRotateInit } from "./features/preventCollectibleRotate";
 import { runInNFramesInit } from "./features/runInNFrames";
 import { saveDataManagerInit } from "./features/saveDataManager/main";
@@ -138,4 +139,5 @@ function initFeatures(mod: ModUpgraded) {
   preventCollectibleRotateInit(mod);
   runInNFramesInit(mod);
   sirenHelpersInit(mod);
+  isPonyActiveInit(mod);
 }
