@@ -10,15 +10,15 @@ import {
   isHiddenSecretRoomDoor,
   openDoorFast,
 } from "./doors";
+import { getEntities } from "./entity";
+import { hasFlag } from "./flag";
+import { range } from "./math";
 import {
-  getEntities,
   getEntityPositions,
   getEntityVelocities,
   setEntityPositions,
   setEntityVelocities,
-} from "./entity";
-import { hasFlag } from "./flag";
-import { range } from "./math";
+} from "./positionVelocity";
 
 /**
  * Helper function for quickly switching to a new room without playing a particular animation.

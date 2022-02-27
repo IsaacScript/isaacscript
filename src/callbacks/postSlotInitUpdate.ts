@@ -2,7 +2,7 @@
 // (the PostSlotRender and PostSlotDestroyed callbacks are handled in a different file)
 
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { getSlots } from "../functions/entity";
+import { getSlots } from "../functions/entitySpecific";
 import {
   postSlotInitFire,
   postSlotInitHasSubscriptions,

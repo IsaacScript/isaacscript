@@ -14,38 +14,6 @@ export function anyEntityCloserThan(
 }
 
 /**
- * Helper function to get all of the bombs in the room.
- *
- * Example:
- * ```
- * // Make all of the bombs in the room invisible
- * for (const bomb of getBombs()) {
- *   bomb.Visible = false;
- * }
- * ```
- */
-export function getBombs(
-  matchingVariant: BombVariant | int = -1,
-  matchingSubType = -1,
-): EntityBomb[] {
-  const entities = getEntities(
-    EntityType.ENTITY_BOMB,
-    matchingVariant,
-    matchingSubType,
-  );
-
-  const bombs: EntityBomb[] = [];
-  for (const entity of entities) {
-    const bomb = entity.ToBomb();
-    if (bomb !== undefined) {
-      bombs.push(bomb);
-    }
-  }
-
-  return bombs;
-}
-
-/**
  * Given an array of entities, this helper function returns the closest one to a provided reference
  * entity.
  *
@@ -56,11 +24,11 @@ export function getBombs(
  * const closestGaper = getClosestEntityTo(player, gapers);
  * ```
  */
-export function getClosestEntityTo(
+export function getClosestEntityTo<T extends AnyEntity>(
   referenceEntity: Entity,
-  entities: Entity[],
-): Entity {
-  let closestEntity: Entity | null = null;
+  entities: T[],
+): T {
+  let closestEntity: T | null = null;
   let closestDistance = math.huge;
   for (const entity of entities) {
     const distance = referenceEntity.Position.Distance(entity.Position);
@@ -96,38 +64,6 @@ export function getFilteredNewEntities<T extends AnyEntity>(
     const ptrHash = GetPtrHash(entity);
     return !oldEntitiesSet.has(ptrHash);
   });
-}
-
-/**
- * Helper function to get all of the effects in the room.
- *
- * Example:
- * ```
- * // Make all of the effects in the room invisible
- * for (const effect of getEffects()) {
- *   effect.Visible = false;
- * }
- * ```
- */
-export function getEffects(
-  matchingVariant: EffectVariant | int = -1,
-  matchingSubType = -1,
-): EntityEffect[] {
-  const entities = getEntities(
-    EntityType.ENTITY_EFFECT,
-    matchingVariant,
-    matchingSubType,
-  );
-
-  const effects: EntityEffect[] = [];
-  for (const entity of entities) {
-    const effect = entity.ToEffect();
-    if (effect !== undefined) {
-      effects.push(effect);
-    }
-  }
-
-  return effects;
 }
 
 /**
@@ -172,115 +108,6 @@ export function getEntities(
 }
 
 /**
- * Helper function to get a map containing the positions of every entity in the current room.
- *
- * This is useful for rewinding entity positions at a later time. Also see `setEntityPositions()`.
- *
- * @param entities Optional. If provided, will only get the positions of the provided entities. This
- * can be used to cache the entities to avoid invoking `Isaac.GetRoomEntities()` multiple times.
- */
-export function getEntityPositions(entities?: Entity[]): Map<PtrHash, Vector> {
-  if (entities === undefined) {
-    entities = getEntities();
-  }
-
-  const entityPositions = new Map<PtrHash, Vector>();
-  for (const entity of entities) {
-    const ptrHash = GetPtrHash(entity);
-    entityPositions.set(ptrHash, entity.Position);
-  }
-
-  return entityPositions;
-}
-
-/**
- * Helper function to get a map containing the velocities of every entity in the current room.
- *
- * This is useful for rewinding entity velocities at a later time. Also see `setEntityVelocities()`.
- *
- * @param entities Optional. If provided, will only get the velocities of the provided entities.
- * This can be used to cache the entities to avoid invoking `Isaac.GetRoomEntities()` multiple
- * times.
- */
-export function getEntityVelocities(entities?: Entity[]): Map<PtrHash, Vector> {
-  if (entities === undefined) {
-    entities = getEntities();
-  }
-
-  const entityVelocities = new Map<PtrHash, Vector>();
-  for (const entity of entities) {
-    const ptrHash = GetPtrHash(entity);
-    entityVelocities.set(ptrHash, entity.Velocity);
-  }
-
-  return entityVelocities;
-}
-
-/**
- * Helper function to get all of the knives in the room.
- *
- * Example:
- * ```
- * // Make all of the knives in the room invisible
- * for (const knife of getKnives()) {
- *   knife.Visible = false;
- * }
- * ```
- */
-export function getKnives(
-  matchingVariant: KnifeVariant | int = -1,
-  matchingSubType = -1,
-): EntityKnife[] {
-  const entities = getEntities(
-    EntityType.ENTITY_KNIFE,
-    matchingVariant,
-    matchingSubType,
-  );
-
-  const knives: EntityKnife[] = [];
-  for (const entity of entities) {
-    const knife = entity.ToKnife();
-    if (knife !== undefined) {
-      knives.push(knife);
-    }
-  }
-
-  return knives;
-}
-
-/**
- * Helper function to get all of the lasers in the room.
- *
- * Example:
- * ```
- * // Make all of the lasers in the room invisible
- * for (const laser of getLasers()) {
- *   laser.Visible = false;
- * }
- * ```
- */
-export function getLasers(
-  matchingVariant: LaserVariant | int = -1,
-  matchingSubType = -1,
-): EntityLaser[] {
-  const entities = getEntities(
-    EntityType.ENTITY_LASER,
-    matchingVariant,
-    matchingSubType,
-  );
-
-  const lasers: EntityLaser[] = [];
-  for (const entity of entities) {
-    const laser = entity.ToLaser();
-    if (laser !== undefined) {
-      lasers.push(laser);
-    }
-  }
-
-  return lasers;
-}
-
-/**
  * Helper function to get all of the pickups in the room.
  *
  * Example:
@@ -310,83 +137,6 @@ export function getPickups(
   }
 
   return pickups;
-}
-
-/**
- * Helper function to get all of the projectiles in the room.
- *
- * Example:
- * ```
- * // Make all of the projectiles in the room invisible
- * for (const projectile of getProjectiles()) {
- *   projectile.Visible = false;
- * }
- * ```
- */
-export function getProjectiles(
-  matchingVariant: ProjectileVariant | int = -1,
-  matchingSubType = -1,
-): EntityProjectile[] {
-  const entities = getEntities(
-    EntityType.ENTITY_PROJECTILE,
-    matchingVariant,
-    matchingSubType,
-  );
-
-  const projectiles: EntityProjectile[] = [];
-  for (const entity of entities) {
-    const projectile = entity.ToProjectile();
-    if (projectile !== undefined) {
-      projectiles.push(projectile);
-    }
-  }
-
-  return projectiles;
-}
-
-export function getSlots(
-  matchingVariant: SlotVariant | int = -1,
-  matchingSubType = -1,
-): Entity[] {
-  const slots = getEntities(
-    EntityType.ENTITY_SLOT,
-    matchingVariant,
-    matchingSubType,
-  );
-
-  return slots;
-}
-
-/**
- * Helper function to get all of the tears in the room.
- *
- * Example:
- * ```
- * // Make all of the tears in the room invisible
- * for (const tear of getTears()) {
- *   tear.Visible = false;
- * }
- * ```
- */
-export function getTears(
-  matchingVariant: TearVariant | int = -1,
-  matchingSubType = -1,
-): EntityTear[] {
-  const entities = getEntities(
-    EntityType.ENTITY_TEAR,
-    matchingVariant,
-    matchingSubType,
-  );
-
-  const tears: EntityTear[] = [];
-  for (const entity of entities) {
-    const tear = entity.ToTear();
-    if (tear !== undefined) {
-      tears.push(tear);
-    }
-  }
-
-  return tears;
 }
 
 /**
@@ -434,74 +184,6 @@ export function removeEntities(entities: Entity[], cap?: int): boolean {
 }
 
 /**
- * Helper function to remove all of the bombs in the room.
- *
- * @param variant Optional. If specified, will only remove bombs that match this variant.
- * @param subType Optional. If specified, will only remove bombs that match this sub-type.
- * @param cap Optional. If specified, will only remove the given amount of bombs.
- * @returns True if one or more bombs was removed, false otherwise.
- */
-export function removeAllBombs(
-  variant?: BombVariant | int,
-  subType?: int,
-  cap?: int,
-): boolean {
-  const bombs = getBombs(variant, subType);
-  return removeEntities(bombs, cap);
-}
-
-/**
- * Helper function to remove all of the effects in the room.
- *
- * @param variant Optional. If specified, will only remove effects that match this variant.
- * @param subType Optional. If specified, will only remove effects that match this sub-type.
- * @param cap Optional. If specified, will only remove the given amount of effects.
- * @returns True if one or more effects was removed, false otherwise.
- */
-export function removeAllEffects(
-  variant?: EffectVariant | int,
-  subType?: int,
-  cap?: int,
-): boolean {
-  const effects = getEffects(variant, subType);
-  return removeEntities(effects, cap);
-}
-
-/**
- * Helper function to remove all of the knives in the room.
- *
- * @param variant Optional. If specified, will only remove knives that match this variant.
- * @param subType Optional. If specified, will only remove knives that match this sub-type.
- * @param cap Optional. If specified, will only remove the given amount of knives.
- * @returns True if one or more knives was removed, false otherwise.
- */
-export function removeAllKnives(
-  variant?: KnifeVariant | int,
-  subType?: int,
-  cap?: int,
-): boolean {
-  const knives = getKnives(variant, subType);
-  return removeEntities(knives, cap);
-}
-
-/**
- * Helper function to remove all of the lasers in the room.
- *
- * @param variant Optional. If specified, will only remove lasers that match this variant.
- * @param subType Optional. If specified, will only remove lasers that match this sub-type.
- * @param cap Optional. If specified, will only remove the given amount of lasers.
- * @returns True if one or more lasers was removed, false otherwise.
- */
-export function removeAllLasers(
-  variant?: LaserVariant | int,
-  subType?: int,
-  cap?: int,
-): boolean {
-  const lasers = getLasers(variant, subType);
-  return removeEntities(lasers, cap);
-}
-
-/**
  * Helper function to remove all of the matching entities in the room.
  *
  * @param entityType The entity type to match.
@@ -540,94 +222,31 @@ export function removeAllPickups(
 }
 
 /**
- * Helper function to remove all of the projectiles in the room.
+ * Helper function to reroll an enemy. Use this instead of the vanilla "Game.RerollEnemy" function
+ * if you want the rerolled enemy to be returned.
  *
- * @param variant Optional. If specified, will only remove projectiles that match this variant.
- * @param subType Optional. If specified, will only remove projectiles that match this sub-type.
- * @param cap Optional. If specified, will only remove the given amount of projectiles.
- * @returns True if one or more projectiles was removed, false otherwise.
+ * @param entity The entity to reroll.
+ * @returns If the game failed to reroll the enemy, returns undefined. Otherwise, returns the
+ * rerolled entity.
  */
-export function removeAllProjectiles(
-  variant?: ProjectileVariant | int,
-  subType?: int,
-  cap?: int,
-): boolean {
-  const projectiles = getProjectiles(variant, subType);
-  return removeEntities(projectiles, cap);
-}
-
-/**
- * Helper function to remove all of the tears in the room.
- *
- * @param variant Optional. If specified, will only remove tears that match this variant.
- * @param subType Optional. If specified, will only remove tears that match this sub-type.
- * @param cap Optional. If specified, will only remove the given amount of tears.
- * @returns True if one or more tears was removed, false otherwise.
- */
-export function removeAllTears(
-  variant?: TearVariant | int,
-  subType?: int,
-  cap?: int,
-): boolean {
-  const tears = getTears(variant, subType);
-  return removeEntities(tears, cap);
-}
-
-/**
- * Game().RerollEnemy rerolls a boolean of whether or not the enemy was rerolled. However, you
- * cannot use the same entity object after a reroll. This function calls game.RerollEnemy and
- * returns the new entity object.
- *
- * @param entity The entity to reroll
- * @returns If the entity was not rerolled, returns the original entity. otherwise, returns the resulting entity from the reroll
- */
-export function rerollEnemy(entity: Entity): Entity {
+export function rerollEnemy(entity: Entity): Entity | undefined {
   const game = Game();
 
   const oldEntities = getEntities();
   const wasRerolled = game.RerollEnemy(entity);
   if (!wasRerolled) {
-    return entity;
+    return undefined;
   }
 
   const newEntities = getEntities();
   const filteredNewEntities = getFilteredNewEntities(oldEntities, newEntities);
-  if (filteredNewEntities.length !== 0) {
+  if (filteredNewEntities.length === 0) {
     error(
       'Failed to find the new entity generated by the "RerollEnemy" method.',
     );
   }
 
   return filteredNewEntities[0];
-}
-
-/**
- * Helper function to set the position of every entity in the room based on a map of positions. If
- * an entity is found that does not have matching element in the provided map, then that entity will
- * be skipped.
- *
- * This function is useful for rewinding entity positions at a later time. Also see
- * `getEntityPositions()`.
- *
- * @param entityPositions The map providing the positions for every entity.
- * @param entities Optional. If provided, will only set the positions of the provided entities. This
- * can be used to cache the entities to avoid invoking `Isaac.GetRoomEntities()` multiple times.
- */
-export function setEntityPositions(
-  entityPositions: Map<PtrHash, Vector>,
-  entities?: Entity[],
-): void {
-  if (entities === undefined) {
-    entities = getEntities();
-  }
-
-  for (const entity of entities) {
-    const ptrHash = GetPtrHash(entity);
-    const entityPosition = entityPositions.get(ptrHash);
-    if (entityPosition !== undefined) {
-      entity.Position = entityPosition;
-    }
-  }
 }
 
 export function setEntityRandomColor(entity: Entity): void {
@@ -640,34 +259,4 @@ export function setEntityRandomColor(entity: Entity): void {
   });
   const color = Color(colorValues[0], colorValues[1], colorValues[2]);
   entity.SetColor(color, 100000, 100000, false, false);
-}
-
-/**
- * Helper function to set the velocity of every entity in the room based on a map of velocities. If
- * an entity is found that does not have matching element in the provided map, then that entity will
- * be skipped.
- *
- * This function is useful for rewinding entity velocities at a later time. Also see
- * `getEntityVelocities()`.
- *
- * @param entityVelocities The map providing the velocities for every entity.
- * @param entities Optional. If provided, will only set the velocities of the provided entities.
- * This can be used to cache the entities to avoid invoking `Isaac.GetRoomEntities()` multiple
- * times.
- */
-export function setEntityVelocities(
-  entityVelocities: Map<PtrHash, Vector>,
-  entities?: Entity[],
-): void {
-  if (entities === undefined) {
-    entities = getEntities();
-  }
-
-  for (const entity of entities) {
-    const ptrHash = GetPtrHash(entity);
-    const entityVelocity = entityVelocities.get(ptrHash);
-    if (entityVelocity !== undefined) {
-      entity.Velocity = entityVelocity;
-    }
-  }
 }

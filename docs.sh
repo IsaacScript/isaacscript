@@ -34,6 +34,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/deepCopy.ts" \
   --entryPoints "$DIR/src/functions/doors.ts" \
   --entryPoints "$DIR/src/functions/entity.ts" \
+  --entryPoints "$DIR/src/functions/entitySpecific.ts" \
   --entryPoints "$DIR/src/functions/familiars.ts" \
   --entryPoints "$DIR/src/functions/flag.ts" \
   --entryPoints "$DIR/src/functions/flying.ts" \
@@ -74,12 +75,16 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/vector.ts" \
   --entryPoints "$DIR/src/maps/cardDescriptionMap.ts" \
   --entryPoints "$DIR/src/maps/cardNameMap.ts" \
+  --entryPoints "$DIR/src/maps/challengeNameMap.ts" \
   --entryPoints "$DIR/src/maps/collectibleDescriptionMap.ts" \
   --entryPoints "$DIR/src/maps/collectibleNameMap.ts" \
+  --entryPoints "$DIR/src/maps/gridEntityTypeToBrokenStateMap.ts" \
   --entryPoints "$DIR/src/maps/gridEntityXMLMap.ts" \
   --entryPoints "$DIR/src/maps/pillEffectClassMap.ts" \
   --entryPoints "$DIR/src/maps/pillEffectNameMap.ts" \
+  --entryPoints "$DIR/src/maps/pillEffectTypeMap.ts" \
   --entryPoints "$DIR/src/maps/roomShapeToTopLeftWallGridIndexMap.ts" \
+  --entryPoints "$DIR/src/maps/transformationNameMap.ts" \
   --entryPoints "$DIR/src/maps/trinketDescriptionMap.ts" \
   --entryPoints "$DIR/src/maps/trinketNameMap.ts" \
   --entryPoints "$DIR/src/types/DefaultMap.ts" \

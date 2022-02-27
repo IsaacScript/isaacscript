@@ -1,10 +1,6 @@
 import { EGGY_STATE_FRAME_OF_FINAL_SPIDER } from "../constants";
-import {
-  getEntities,
-  getFilteredNewEntities,
-  getProjectiles,
-  removeEntities,
-} from "./entity";
+import { getEntities, getFilteredNewEntities, removeEntities } from "./entity";
+import { getProjectiles } from "./entitySpecific";
 
 /**
  * Used to filter out certain NPCs when determining of an NPC is "alive" and/or should keep the

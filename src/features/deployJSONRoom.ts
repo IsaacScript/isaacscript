@@ -5,10 +5,10 @@
 
 import { getUpgradeErrorMsg } from "../errors";
 import {
-  removeAllBombs,
   removeAllMatchingEntities,
   removeAllPickups,
 } from "../functions/entity";
+import { removeAllBombs } from "../functions/entitySpecific";
 import {
   convertXMLGridEntityType,
   getGridEntities,
