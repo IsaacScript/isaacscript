@@ -42,19 +42,30 @@ declare const enum BossID {
   PIN = 37,
   CONQUEST = 38,
   ISAAC = 39,
+
   /** Also known as "???". */
   BLUE_BABY = 40,
+
   DADDY_LONG_LEGS = 41,
   TRIACHNID = 42,
   THE_HAUNT = 43,
   DINGLE = 44,
   MEGA_MAW = 45,
-  MEGA_MAW_II = 46, // The Gate
+
+  /** The Gate */
+  MEGA_MAW_II = 46,
+
   MEGA_FATTY = 47,
-  MEGA_FATTY_II = 48, // The Cage
+
+  /** The Cage */
+  MEGA_FATTY_II = 48,
+
   MEGA_GURDY = 49,
   DARK_ONE = 50,
-  DARK_ONE_II = 51, // The Adversary
+
+  /** The Adversary */
+  DARK_ONE_II = 51,
+
   POLYCEPHALUS = 52,
   MEGA_FRED = 53,
   THE_LAMB = 54,
@@ -100,13 +111,18 @@ declare const enum BossID {
   COLOSTOMIA = 95,
   THE_SHELL = 96,
   TURDLET = 97,
+
   /** This boss is currently unfinished and there are no boss rooms for it. */
   RAGLICH = 98,
+
   /** Dogma does not have its own boss rooms; it appears in a normal room. */
   DOGMA = 99,
+
   /** The Beast does not have its own boss rooms; it appears in a crawlspace. */
   BEAST = 100,
+
   HORNY_BOYS = 101,
+
   /** This boss is currently unfinished and there are no boss rooms for it. */
   POSSESSOR = 102,
 }
