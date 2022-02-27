@@ -1,6 +1,5 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { getPlayerIndex } from "../functions/player";
-import { PlayerIndex } from "../types/PlayerIndex";
+import { getPlayerIndex, PlayerIndex } from "../functions/player";
 import {
   postPlayerInitLateFire,
   postPlayerInitLateHasSubscriptions,

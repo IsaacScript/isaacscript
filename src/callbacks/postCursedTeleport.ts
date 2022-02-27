@@ -1,7 +1,10 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { hasFlag } from "../functions/flag";
-import { getPlayerIndex, getPlayerNumHitsRemaining } from "../functions/player";
-import { PlayerIndex } from "../types/PlayerIndex";
+import {
+  getPlayerIndex,
+  getPlayerNumHitsRemaining,
+  PlayerIndex,
+} from "../functions/player";
 import {
   postCursedTeleportFire,
   postCursedTeleportHasSubscriptions,

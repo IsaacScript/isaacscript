@@ -1,9 +1,12 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { getPlayerIndex, isChildPlayer } from "../functions/player";
+import {
+  getPlayerIndex,
+  isChildPlayer,
+  PlayerIndex,
+} from "../functions/player";
 import { isDamageToPlayerFatal, willPlayerRevive } from "../functions/revive";
 import { DefaultMap } from "../types/DefaultMap";
 import { ModUpgraded } from "../types/ModUpgraded";
-import { PlayerIndex } from "../types/PlayerIndex";
 import {
   postPlayerFatalDamageFire,
   postPlayerFatalDamageHasSubscriptions,

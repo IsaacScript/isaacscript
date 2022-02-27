@@ -18,7 +18,6 @@ npx typedoc \
   --entryPoints "$DIR/src/features/disableInputs.ts" \
   --entryPoints "$DIR/src/features/forgottenSwitch.ts" \
   --entryPoints "$DIR/src/features/getCollectibleItemPoolType.ts" \
-  --entryPoints "$DIR/src/features/isPonyActive.ts" \
   --entryPoints "$DIR/src/features/preventCollectibleRotate.ts" \
   --entryPoints "$DIR/src/features/runInNFrames.ts" \
   --entryPoints "$DIR/src/features/saveDataManager/exports.ts" \
