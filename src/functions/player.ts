@@ -343,9 +343,9 @@ export function getNewestPlayer(): EntityPlayer {
 }
 
 /**
- * Returns the number of slots that the player has remaining for heart containers, accounting for
- * broken hearts. For example, if the player is Judas and has 1 red heart containers and 2 full soul
- * hearts and 3 broken hearts, then this function would return 6 (i.e. 12 - 1 - 2 - 3).
+ * Returns the number of slots that the player has remaining for new heart containers, accounting
+ * for broken hearts. For example, if the player is Judas and has 1 red heart containers and 2 full
+ * soul hearts and 3 broken hearts, then this function would return 6 (i.e. 12 - 1 - 2 - 3).
  */
 export function getPlayerAvailableHeartSlots(player: EntityPlayer): int {
   const maxHeartContainers = getPlayerMaxHeartContainers(player);

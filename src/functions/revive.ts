@@ -1,8 +1,9 @@
 import {
   getDeathAnimationName,
-  getPlayerAvailableHeartSlots,
+  getPlayerMaxHeartContainers,
   getPlayerNumHitsRemaining,
   hasLostCurse,
+  isKeeper,
 } from "./player";
 import { getFinalFrameOfAnimation } from "./sprite";
 import { giveTrinketsBack, temporarilyRemoveTrinket } from "./trinketGive";
@@ -45,8 +46,8 @@ export function isDamageToPlayerFatal(
     return false;
   }
 
-  // If we are Tainted Jacob in the Lost Form, we may have plenty of health left,
-  // but we will still die in one hit to anything
+  // If we are Tainted Jacob in the Lost Form, we may have plenty of health left, but we will still
+  // die in one hit to anything
   if (character === PlayerType.PLAYER_JACOB2_B) {
     return true;
   }
@@ -62,11 +63,7 @@ export function isDamageToPlayerFatal(
   }
 
   // This will not be fatal damage if the player has Heartbreak and two slots open for broken hearts
-  const playerAvailableHeartSlots = getPlayerAvailableHeartSlots(player);
-  if (
-    player.HasCollectible(CollectibleType.COLLECTIBLE_HEARTBREAK) &&
-    playerAvailableHeartSlots >= 2
-  ) {
+  if (willReviveFromHeartbreak(player)) {
     return false;
   }
 
@@ -80,9 +77,8 @@ export function isDamageToPlayerFatal(
   }
 
   // This will not be fatal damage if we have two different kinds of hearts
-  // e.g. a bomb explosion deals 2 damage,
-  // but if the player has one half soul heart and one half red heart,
-  // the game will only remove the soul heart
+  // For example, a bomb explosion deals 2 damage, but if the player has one half soul heart and one
+  // half red heart, the game will only remove the soul heart
   const hearts = player.GetHearts();
   const eternalHearts = player.GetEternalHearts();
   const soulHearts = player.GetSoulHearts();
@@ -101,8 +97,8 @@ export function isDamageToPlayerFatal(
 }
 
 /**
- * The `EntityPlayer.WillPlayerRevive()` function does not properly account for Mysterious Paper,
- * so use this helper function instead for more robust revival detection.
+ * The `EntityPlayer.WillPlayerRevive()` function does not properly account for Mysterious Paper, so
+ * use this helper function instead for more robust revival detection.
  */
 export function willPlayerRevive(player: EntityPlayer): boolean {
   const trinketSituation = temporarilyRemoveTrinket(
@@ -140,6 +136,25 @@ export function willMysteriousPaperRevive(player: EntityPlayer): boolean {
   // (we add 1 because it takes one frame for the death animation to begin)
 
   return frameOfDeath % 4 === 3;
+}
+
+/**
+ * Helper function to determine if the player will be revived by the Heartbreak collectible if they
+ * take fatal damage. This is contingent on the character that they are playing as and the amount of
+ * broken hearts that they already have.
+ */
+export function willReviveFromHeartbreak(player: EntityPlayer): boolean {
+  if (player.HasCollectible(CollectibleType.COLLECTIBLE_HEARTBREAK)) {
+    return false;
+  }
+
+  const numBrokenHeartsThatWillBeAdded = isKeeper(player) ? 1 : 2;
+  const brokenHearts = player.GetBrokenHearts();
+  const numBrokenHeartsAfterRevival =
+    numBrokenHeartsThatWillBeAdded + brokenHearts;
+  const maxHeartContainers = getPlayerMaxHeartContainers(player);
+
+  return numBrokenHeartsAfterRevival < maxHeartContainers;
 }
 
 /**
