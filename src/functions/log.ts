@@ -64,14 +64,11 @@ export function logAllFlags(
 
   log(`Logging all ${description}flags:`);
   let hasNoFlags = true;
-  let i = 1;
   for (const [key, value] of pairs(flagEnum)) {
     if (hasFlag(flags, value as int)) {
-      log(`  ${i}) Has flag: ${key} (${value})`);
+      log(`  Has flag: ${key} (${value})`);
       hasNoFlags = false;
     }
-
-    i += 1;
   }
 
   if (hasNoFlags) {
@@ -87,16 +84,13 @@ export function logAllGameStateFlags(this: void): void {
 
   log("Logging all game state flags:");
   let hasNoFlags = true;
-  let i = 1;
   for (const [key, value] of pairs(GameStateFlag)) {
     const gameStateFlag = value as GameStateFlag;
     const flagValue = game.GetStateFlag(gameStateFlag);
     if (flagValue) {
-      log(`  ${i}) Has flag: ${key} (${value})`);
+      log(`  Has flag: ${key} (${value})`);
       hasNoFlags = false;
     }
-
-    i += 1;
   }
 
   if (hasNoFlags) {
@@ -121,15 +115,12 @@ export function logAllSeedEffects(this: void): void {
 
   log("Logging all seed effects:");
   let hasNoSeedEffects = true;
-  let i = 1;
   for (const [key, value] of pairs(SeedEffect)) {
     const seedEffect = value as SeedEffect;
     if (seeds.HasSeedEffect(seedEffect)) {
-      log(`  ${i}) ${key} (${value})`);
+      log(`  ${key} (${value})`);
       hasNoSeedEffects = false;
     }
-
-    i += 1;
   }
 
   if (hasNoSeedEffects) {
