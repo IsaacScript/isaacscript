@@ -521,7 +521,18 @@ declare interface EntityPlayer extends Entity {
     forceSmallBomb: boolean,
   ): BombVariant | int;
 
+  /**
+   * Returns the amount of bone hearts that the player has. This is not doubled like the
+   * `EntityPlayer.GetMaxHearts` method is, so if e.g. the player has 3 bone hearts, this will
+   * return 3.
+   */
   GetBoneHearts(): int;
+
+  /**
+   * Returns the amount of broken hearts that the player has. This is not doubled like the
+   * `EntityPlayer.GetMaxHearts` method is, so if e.g. the player has 3 broken hearts, this will
+   * return 3.
+   */
   GetBrokenHearts(): int;
 
   /** Returns 0 if there is no card. */
