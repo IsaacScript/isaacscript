@@ -144,17 +144,17 @@ export function willMysteriousPaperRevive(player: EntityPlayer): boolean {
  * broken hearts that they already have.
  */
 export function willReviveFromHeartbreak(player: EntityPlayer): boolean {
-  if (player.HasCollectible(CollectibleType.COLLECTIBLE_HEARTBREAK)) {
+  if (!player.HasCollectible(CollectibleType.COLLECTIBLE_HEARTBREAK)) {
     return false;
   }
 
+  const maxHeartContainers = getPlayerMaxHeartContainers(player);
   const numBrokenHeartsThatWillBeAdded = isKeeper(player) ? 1 : 2;
   const brokenHearts = player.GetBrokenHearts();
   const numBrokenHeartsAfterRevival =
     numBrokenHeartsThatWillBeAdded + brokenHearts;
-  const maxHeartContainers = getPlayerMaxHeartContainers(player);
 
-  return numBrokenHeartsAfterRevival < maxHeartContainers;
+  return maxHeartContainers > numBrokenHeartsAfterRevival;
 }
 
 /**
