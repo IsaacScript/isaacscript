@@ -9,7 +9,7 @@ import {
 
 interface PickupDescription {
   variant: PickupVariant | int;
-  subtype: int;
+  subType: int;
   price: int;
 }
 
@@ -64,7 +64,7 @@ function checkPickupsPurchased(
       postPurchaseFire(
         player,
         pickupDescription.variant,
-        pickupDescription.subtype,
+        pickupDescription.subType,
         pickupDescription.price,
       );
     }
@@ -88,7 +88,7 @@ function storePickupsInMap(pickups: EntityPickup[]) {
   for (const pickup of pickupsWithPrice) {
     v.room.pickupMap.set(pickup.Index, {
       variant: pickup.Variant,
-      subtype: pickup.SubType,
+      subType: pickup.SubType,
       price: pickup.Price,
     });
   }

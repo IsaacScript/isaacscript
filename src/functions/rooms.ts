@@ -235,13 +235,13 @@ export function getRoomStageID(roomGridIndex?: int): StageID {
 }
 
 /**
- * Helper function to get the subtype for a room from the XML/STB data. The room subtype will
+ * Helper function to get the sub-type for a room from the XML/STB data. The room sub-type will
  * correspond to different things depending on what XML/STB file it draws from. For example, in the
- * "00.special rooms.stb" file, an Angel Room with a subtype of 0 will correspond to a normal Angel
- * Room and a subtype of 1 will correspond to an Angel Room shop for The Stairway.
+ * "00.special rooms.stb" file, an Angel Room with a sub-type of 0 will correspond to a normal Angel
+ * Room and a sub-type of 1 will correspond to an Angel Room shop for The Stairway.
  *
  * @param roomGridIndex Optional. Equal to the current room index by default.
- * @returns The room subtype. Returns -1 if the subtype was not found.
+ * @returns The room sub-type. Returns -1 if the sub-type was not found.
  */
 export function getRoomSubType(roomGridIndex?: int): int {
   const roomData = getRoomData(roomGridIndex);

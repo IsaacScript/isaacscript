@@ -8,7 +8,7 @@ let initialized = false;
 
 const v = {
   run: {
-    familiarBlacklist: [] as Array<[variant: int, subtype: int | undefined]>,
+    familiarBlacklist: [] as Array<[variant: int, subType: int | undefined]>,
   },
 };
 
@@ -55,7 +55,7 @@ function blacklistEntryExists(
       incomingFamiliarVariant === familiarVariant &&
       familiarSubType === incomingFamiliarSubType
     ) {
-      // There is an entry that matches the variant and subtype exactly
+      // There is an entry that matches the variant and sub-type exactly
       return true;
     }
 
@@ -63,7 +63,7 @@ function blacklistEntryExists(
       incomingFamiliarVariant === familiarVariant &&
       familiarSubType === undefined
     ) {
-      // There is an entry that matches all subtypes for this variant
+      // There is an entry that matches all sub-types for this variant
       return true;
     }
   }
@@ -76,8 +76,8 @@ function blacklistEntryExists(
  * beginning of every run.
  *
  * @param familiarVariant The familiar variant to blacklist.
- * @param familiarSubType The subtype to blacklist. Optional. The default is to blacklist all
- * subtypes of the given variant.
+ * @param familiarSubType The sub-type to blacklist. Optional. The default is to blacklist all
+ * sub-types of the given variant.
  */
 export function setFamiliarNoSirenSteal(
   familiarVariant: FamiliarVariant | int,
