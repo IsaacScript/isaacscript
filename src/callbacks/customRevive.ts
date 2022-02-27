@@ -1,9 +1,10 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { removeCollectibleFromItemTracker } from "../functions/collectibles";
 import { removeAllFamiliars } from "../functions/familiars";
-import { getPlayerIndex, PlayerIndex } from "../functions/player";
+import { getPlayerIndex } from "../functions/player";
 import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
 import { ModUpgraded } from "../types/ModUpgraded";
+import { PlayerIndex } from "../types/PlayerIndex";
 import {
   postCustomReviveFire,
   postCustomReviveHasSubscriptions,

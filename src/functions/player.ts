@@ -8,6 +8,7 @@ import {
   MAX_VANILLA_CHARACTER,
 } from "../constants";
 import { HealthType } from "../types/HealthType";
+import { PlayerIndex } from "../types/PlayerIndex";
 import { getLastElement, sumArray } from "./array";
 import { getKBitOfN, getNumBitsOfN } from "./bitwise";
 import { getCollectibleMaxCharges } from "./collectibles";
@@ -21,18 +22,6 @@ const EXCLUDED_CHARACTERS: ReadonlySet<PlayerType> = new Set([
   PlayerType.PLAYER_ESAU, // 20
   PlayerType.PLAYER_THESOUL_B, // 40
 ]);
-
-/**
- * PlayerIndex is a specific type of string; see the documentation for the [[`getPlayerIndex`]]
- * function. Mods can signify that data structures handle EntityPlayers by using this type:
- *
- * ```
- * const myPlayerMap = new Map<PlayerIndex, string>();
- * ```
- *
- * This type is branded for extra type safety.
- */
-export type PlayerIndex = int & { __playerIndexBrand: unknown };
 
 export function addCollectibleCostume(
   player: EntityPlayer,

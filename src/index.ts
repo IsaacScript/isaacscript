@@ -114,6 +114,7 @@ export * from "./types/PickingUpItem";
 export * from "./types/PillEffectClass";
 export * from "./types/PillEffectType";
 export * from "./types/PlayerHealth";
+export * from "./types/PlayerIndex";
 export * from "./types/PocketItemDescription";
 export * from "./types/PocketItemType";
 export * from "./types/TrinketSituation";
