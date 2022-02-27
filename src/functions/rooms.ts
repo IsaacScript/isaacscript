@@ -109,15 +109,11 @@ export function getRoomData(roomGridIndex?: int): RoomConfig | undefined {
 }
 
 /**
- * Helper function to get the type of a room from the XML/STB data. The room data type will
- * correspond to different things depending on what XML/STB file it draws from. For example, in the
- * "00.special rooms.stb" file, a room type of 2 corresponds to a shop, a room type of 3 corresponds
- * to an I AM ERROR room, and so on.
+ * Helper function for getting the type of the room with the given grid index.
  *
- * @param roomGridIndex Optional. Equal to the current room index by default.
  * @returns The room data type. Returns -1 if the type was not found.
  */
-export function getRoomDataType(roomGridIndex?: int): int {
+export function getRoomType(roomGridIndex: int): RoomType {
   const roomData = getRoomData(roomGridIndex);
   return roomData === undefined ? -1 : roomData.Type;
 }
