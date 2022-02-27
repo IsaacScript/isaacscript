@@ -41,7 +41,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/globals.ts" \
   --entryPoints "$DIR/src/functions/gridEntity.ts" \
   --entryPoints "$DIR/src/functions/input.ts" \
-  --entryPoints "$DIR/src/functions/json.ts" \
+  --entryPoints "$DIR/src/functions/jsonHelpers.ts" \
   --entryPoints "$DIR/src/functions/language.ts" \
   --entryPoints "$DIR/src/functions/log.ts" \
   --entryPoints "$DIR/src/functions/map.ts" \

@@ -1,4 +1,4 @@
-import { jsonDecode } from "../../functions/json";
+import { jsonDecode } from "../../functions/jsonHelpers";
 import { log } from "../../functions/log";
 import { SaveData } from "../../types/SaveData";
 import { SAVE_DATA_MANAGER_DEBUG } from "./debug";

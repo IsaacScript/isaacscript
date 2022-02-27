@@ -36,7 +36,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Globals Functions](modules/functions_globals.html)
 - [Grid Entity Functions](modules/functions_gridEntity.html)
 - [Input Functions](modules/functions_input.html)
-- [JSON Functions](modules/functions_json.html)
+- [JSON Functions](modules/functions_jsonHelpers.html)
 - [Language Functions](modules/functions_language.html)
 - [Log Functions](modules/functions_log.html)
 - [Map Functions](modules/functions_map.html)

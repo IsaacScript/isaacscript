@@ -51,7 +51,7 @@ export * from "./functions/flying";
 export * from "./functions/globals";
 export * from "./functions/gridEntity";
 export * from "./functions/input";
-export * from "./functions/json";
+export * from "./functions/jsonHelpers";
 export * from "./functions/jsonRoom";
 export * from "./functions/language";
 export * from "./functions/log";
