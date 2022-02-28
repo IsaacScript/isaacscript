@@ -2,6 +2,7 @@ import chalk from "chalk";
 import { ChildProcessWithoutNullStreams, fork, spawn } from "child_process";
 import path from "path";
 import {
+  CUSTOM_NODE_JS_STACK_SIZE,
   CWD,
   FILE_SYNCED_MESSAGE,
   MAIN_LUA,
@@ -128,9 +129,13 @@ function spawnTSTLWatcher(argv: Record<string, unknown>) {
       cwd: CWD,
     });
   } else {
-    tstl = spawn("npx", ["tstl", ...tstlArgs], {
-      shell: true,
-    });
+    tstl = spawn(
+      "npx",
+      [`--stack-size=${CUSTOM_NODE_JS_STACK_SIZE}`, "tstl", ...tstlArgs],
+      {
+        shell: true,
+      },
+    );
   }
 
   tstl.stdout.on("data", (data: Buffer[]) => {

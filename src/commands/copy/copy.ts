@@ -1,5 +1,5 @@
 import path from "path";
-import { MOD_SOURCE_PATH } from "../../constants";
+import { CUSTOM_NODE_JS_STACK_SIZE, MOD_SOURCE_PATH } from "../../constants";
 import { execShell } from "../../exec";
 import * as file from "../../file";
 import { Config } from "../../types/Config";
@@ -25,7 +25,11 @@ export function compileAndCopy(
 }
 
 function compile(verbose: boolean) {
-  execShell("npx", ["tstl"], verbose);
+  execShell(
+    "npx",
+    [`--stack-size=${CUSTOM_NODE_JS_STACK_SIZE}`, "tstl"],
+    verbose,
+  );
   console.log("Mod compiled successfully.");
 }
 
