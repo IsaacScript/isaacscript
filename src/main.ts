@@ -13,7 +13,7 @@ import { init } from "./commands/init/init";
 import { monitor } from "./commands/monitor/monitor";
 import { publish } from "./commands/publish/publish";
 import * as configFile from "./configFile";
-import { CWD, PROJECT_NAME } from "./constants";
+import { CUSTOM_NODE_JS_STACK_SIZE, CWD, PROJECT_NAME } from "./constants";
 import { parseArgs } from "./parseArgs";
 import { promptInit } from "./prompt";
 import { Command, DEFAULT_COMMAND } from "./types/Command";
@@ -33,6 +33,7 @@ async function main(): Promise<void> {
   validateNodeVersion();
   validateOS();
   loadEnvironmentVariables();
+  addEnvironmentVariables();
 
   // Get command line arguments
   const argv = parseArgs();
@@ -51,6 +52,11 @@ async function main(): Promise<void> {
 function loadEnvironmentVariables() {
   const envFile = path.join(CWD, ".env");
   dotenv.config({ path: envFile });
+}
+
+function addEnvironmentVariables() {
+  // https://stackoverflow.com/questions/37317557/pass-arguments-to-node-executable-when-running-npm-run
+  process.env.NODE_OPTIONS = `--stack-size=${CUSTOM_NODE_JS_STACK_SIZE}`;
 }
 
 function printBanner() {

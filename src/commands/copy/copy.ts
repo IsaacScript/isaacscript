@@ -3,7 +3,7 @@ import { MOD_SOURCE_PATH } from "../../constants";
 import { execShell } from "../../exec";
 import * as file from "../../file";
 import { Config } from "../../types/Config";
-import { getModTargetDirectoryName, getTSTLArgs } from "../../utils";
+import { getModTargetDirectoryName } from "../../utils";
 
 export function copy(argv: Record<string, unknown>, config: Config): void {
   const verbose = argv.verbose === true;
@@ -25,8 +25,7 @@ export function compileAndCopy(
 }
 
 function compile(verbose: boolean) {
-  const tstlArgs = getTSTLArgs(false);
-  execShell("node", tstlArgs, verbose);
+  execShell("npx", ["tstl"], verbose);
   console.log("Mod compiled successfully.");
 }
 

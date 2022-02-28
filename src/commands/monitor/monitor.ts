@@ -10,7 +10,7 @@ import {
 } from "../../constants";
 import * as file from "../../file";
 import { Config } from "../../types/Config";
-import { error, getModTargetDirectoryName, getTSTLArgs } from "../../utils";
+import { error, getModTargetDirectoryName } from "../../utils";
 import { copyWatcherMod } from "./copyWatcherMod";
 import { getTSConfigInclude } from "./getTSConfigInclude";
 import * as notifyGame from "./notifyGame";
@@ -101,8 +101,7 @@ function spawnModDirectorySyncer(config: Config) {
 
 function spawnTSTLWatcher() {
   const processDescription = "tstl";
-  const tstlArgs = getTSTLArgs(true);
-  const tstl = spawn("node", tstlArgs, {
+  const tstl = spawn("npx", ["tstl", "--watch", "--preserveWatchOutput"], {
     shell: true,
   });
 
