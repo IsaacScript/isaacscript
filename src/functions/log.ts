@@ -2,6 +2,12 @@ import { arrayToString } from "./array";
 import { getCollectibleName } from "./collectibles";
 import { hasFlag } from "./flag";
 import { getEffectsList } from "./player";
+import {
+  getRoomListIndex,
+  getRoomSafeGridIndex,
+  getRoomSubType,
+  getRoomVariant,
+} from "./rooms";
 import { getTrinketName } from "./trinkets";
 
 /**
@@ -41,17 +47,17 @@ export function log(this: void, msg: string): void {
   Isaac.DebugString(debugMsg);
 }
 
-/** Helper function for printing out every damage flag that is turned on. Helpful when debugging. */
+/** Helper function for printing out every damage flag that is turned on. Useful when debugging. */
 export function logAllDamageFlags(this: void, flags: int): void {
   logAllFlags(flags, DamageFlag as unknown as LuaTable, "damage");
 }
 
-/** Helper function for printing out every entity flag that is turned on. Helpful when debugging. */
+/** Helper function for printing out every entity flag that is turned on. Useful when debugging. */
 export function logAllEntityFlags(this: void, flags: int): void {
   logAllFlags(flags, EntityFlag as unknown as LuaTable, "entity");
 }
 
-/** Helper function for printing out every flag that is turned on. Helpful when debugging. */
+/** Helper function for printing out every flag that is turned on. Useful when debugging. */
 export function logAllFlags(
   this: void,
   flags: int,
@@ -77,7 +83,7 @@ export function logAllFlags(
 }
 
 /**
- * Helper function for printing out every game state flag that is turned on. Helpful when debugging.
+ * Helper function for printing out every game state flag that is turned on. Useful when debugging.
  */
 export function logAllGameStateFlags(this: void): void {
   const game = Game();
@@ -99,7 +105,7 @@ export function logAllGameStateFlags(this: void): void {
 }
 
 /**
- * Helper function for printing out every projectile flag that is turned on. Helpful when debugging.
+ * Helper function for printing out every projectile flag that is turned on. Useful when debugging.
  */
 export function logAllProjectileFlags(this: void, flags: int): void {
   logAllFlags(flags, ProjectileFlags as unknown as LuaTable, "projectile");
@@ -128,12 +134,12 @@ export function logAllSeedEffects(this: void): void {
   }
 }
 
-/** Helper function for printing out every use flag that is turned on. Helpful when debugging. */
+/** Helper function for printing out every tear flag that is turned on. Useful when debugging. */
 export function logAllTearFlags(this: void, flags: int): void {
   logAllFlags(flags, TearFlags as unknown as LuaTable, "tear");
 }
 
-/** Helper function for printing out every use flag that is turned on. Helpful when debugging. */
+/** Helper function for printing out every use flag that is turned on. Useful when debugging. */
 export function logAllUseFlags(this: void, flags: int): void {
   logAllFlags(flags, UseFlag as unknown as LuaTable, "use");
 }
@@ -161,10 +167,33 @@ export function logKColor(this: void, kColor: KColor): void {
 
 export function logMap(this: void, map: Map<AnyNotNil, unknown>): void {
   log("Printing out a TSTL Map:");
-  for (const [key, value] of map.entries()) {
+
+  const mapKeys = [...map.keys()];
+  mapKeys.sort();
+
+  for (const key of mapKeys) {
+    const value = map.get(key);
     log(`  Key: ${key}, Value: ${value}`);
   }
+
   log(`The size of the map was: ${map.size}`);
+}
+
+/** Helper function for printing out information about the current room. */
+export function logRoom(this: void): void {
+  const game = Game();
+  const room = game.GetRoom();
+  const roomType = room.GetType();
+  const roomVariant = getRoomVariant();
+  const roomSubType = getRoomSubType();
+  const roomSafeGridIndex = getRoomSafeGridIndex();
+  const roomListIndex = getRoomListIndex();
+
+  log(
+    `Current room type/variant/sub-type: ${roomType}.${roomVariant}.${roomSubType}`,
+  );
+  log(`Current room safe grid index: ${roomSafeGridIndex}`);
+  log(`Current room list index: ${roomListIndex}`);
 }
 
 export function logTable(this: void, table: unknown, parentTables = 0): void {
@@ -175,6 +204,7 @@ export function logTable(this: void, table: unknown, parentTables = 0): void {
   }
 
   const indentation = " ".repeat(numSpaces);
+  let numKeys = 0;
   for (const [key, value] of pairs(table)) {
     log(`${indentation}Key: ${key}, Value: ${value}`);
 
@@ -182,7 +212,11 @@ export function logTable(this: void, table: unknown, parentTables = 0): void {
     if (valueType === "table") {
       logTable(value, parentTables + 1);
     }
+
+    numKeys += 1;
   }
+
+  log(`The size of the table was: ${numKeys}`);
 }
 
 export function logTemporaryEffects(this: void, player: EntityPlayer): void {
@@ -212,9 +246,14 @@ export function logTemporaryEffects(this: void, player: EntityPlayer): void {
 
 export function logSet(this: void, set: Set<AnyNotNil>): void {
   log("Printing out a TSTL Set:");
-  for (const value of set.values()) {
+
+  const setValues = [...set.values()];
+  setValues.sort();
+
+  for (const value of setValues) {
     log(`  Value: ${value}`);
   }
+
   log(`The size of the set was: ${set.size}`);
 }
 
@@ -243,6 +282,7 @@ export function setLogFunctionsGlobal(): void {
   globals.logEntity = logEntity;
   globals.logKColor = logKColor;
   globals.logMap = logMap;
+  globals.logRoom = logRoom;
   globals.logTable = logTable;
   globals.logTemporaryEffects = logTemporaryEffects;
   globals.logSet = logSet;
