@@ -348,12 +348,14 @@ export function inAngelShop(): boolean {
 }
 
 export function inBeastRoom(): boolean {
-  const roomSafeGridIndex = getRoomSafeGridIndex();
+  const game = Game();
+  const room = game.GetRoom();
+  const roomType = room.GetType();
   const roomSubType = getRoomSubType();
 
   return (
-    roomSafeGridIndex === GridRooms.ROOM_DUNGEON_IDX &&
-    roomSubType === HomeRoomSubType.BEAST_ROOM
+    roomType === RoomType.ROOM_DUNGEON &&
+    roomSubType === DungeonSubType.BEAST_ROOM
   );
 }
 
@@ -377,16 +379,18 @@ export function inBossRoomOf(bossID: BossID) {
 
 /**
  * Helper function for determining whether the current room is a crawlspace. Use this function over
- * comparing to `GridRooms.ROOM_DUNGEON_IDX` directly since there is a special case of the player
- * being in The Beast room.
+ * comparing to `RoomType.ROOM_DUNGEON` or `GridRooms.ROOM_DUNGEON_IDX` since there is a special
+ * case of the player being in a boss fight that take place in a dungeon.
  */
 export function inCrawlspace(): boolean {
-  const roomSafeGridIndex = getRoomSafeGridIndex();
+  const game = Game();
+  const room = game.GetRoom();
+  const roomType = room.GetType();
   const roomSubType = getRoomSubType();
 
   return (
-    roomSafeGridIndex === GridRooms.ROOM_DUNGEON_IDX &&
-    roomSubType !== HomeRoomSubType.BEAST_ROOM
+    roomType === RoomType.ROOM_DUNGEON &&
+    roomSubType !== DungeonSubType.BEAST_ROOM
   );
 }
 
