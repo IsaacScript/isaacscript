@@ -470,6 +470,17 @@ export function inMinibossRoomOf(minibossID: MinibossID) {
 }
 
 /**
+ * Helper function for checking if the room room is a secret shop from the Member Card collectible.
+ *
+ * Secret shops are simply copies of normal shops but with the backdrop of a secret room. In other
+ * words, they will have the same room type, room variant, and room sub-type of a normal shop. Thus,
+ * the only way to detect them is by using the grid index.
+ */
+export function inSecretShop(): boolean {
+  return getRoomSafeGridIndex() === GridRooms.ROOM_SECRET_SHOP_IDX;
+}
+
+/**
  * Helper function to determine whether or not the current room is the starting room of a floor.
  * Only returns true for the starting room of the primary dimension (meaning that being in the
  * starting room of the mirror world does not count).
