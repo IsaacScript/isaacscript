@@ -20,11 +20,6 @@ export function parseArgs() {
           choices: [1, 2, 3],
           description: "The save slot in-game that you use",
         })
-        .option("crash-debug", {
-          alias: "c",
-          type: "boolean",
-          description: "Enable crash debugging",
-        })
         .option("verbose", {
           alias: "v",
           type: "boolean",

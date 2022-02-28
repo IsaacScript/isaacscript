@@ -1,9 +1,9 @@
 import path from "path";
-import { CUSTOM_NODE_JS_STACK_SIZE, MOD_SOURCE_PATH } from "../../constants";
+import { MOD_SOURCE_PATH } from "../../constants";
 import { execShell } from "../../exec";
 import * as file from "../../file";
 import { Config } from "../../types/Config";
-import { getModTargetDirectoryName } from "../../utils";
+import { getModTargetDirectoryName, getTSTLArgs } from "../../utils";
 
 export function copy(argv: Record<string, unknown>, config: Config): void {
   const verbose = argv.verbose === true;
@@ -25,11 +25,8 @@ export function compileAndCopy(
 }
 
 function compile(verbose: boolean) {
-  execShell(
-    "npx",
-    [`--stack-size=${CUSTOM_NODE_JS_STACK_SIZE}`, "tstl"],
-    verbose,
-  );
+  const tstlArgs = getTSTLArgs(false);
+  execShell("node", tstlArgs, verbose);
   console.log("Mod compiled successfully.");
 }
 

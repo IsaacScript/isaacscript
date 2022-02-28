@@ -1,5 +1,5 @@
 import moment from "moment";
-import { CURRENT_DIRECTORY_NAME } from "./constants";
+import { CURRENT_DIRECTORY_NAME, CUSTOM_NODE_JS_STACK_SIZE } from "./constants";
 import { Config } from "./types/Config";
 
 export const ensureAllCases = (obj: never): never => obj;
@@ -17,6 +17,21 @@ export function getModTargetDirectoryName(config: Config): string {
 
 export function getTime(): string {
   return moment().format("h:mm:ss A"); // e.g. "1:23:45 AM"
+}
+
+export function getTSTLArgs(watch: boolean): string[] {
+  // We cannot pass the "--stack-size" flag to the "npx" command
+  // Thus, we must execute node directly with the following arguments
+  const tstlArgs = [
+    `--stack-size=${CUSTOM_NODE_JS_STACK_SIZE}`,
+    "node_modules/@zamiell/typescript-to-lua/dist/tstl.js",
+  ];
+
+  if (watch) {
+    tstlArgs.push("--watch", "--preserveWatchOutput");
+  }
+
+  return tstlArgs;
 }
 
 // From: https://stackoverflow.com/questions/1731190/check-if-a-string-has-white-space

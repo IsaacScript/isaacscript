@@ -1,18 +1,16 @@
 import chalk from "chalk";
-import { ChildProcessWithoutNullStreams, fork, spawn } from "child_process";
+import { fork, spawn } from "child_process";
 import path from "path";
 import {
-  CUSTOM_NODE_JS_STACK_SIZE,
   CWD,
   FILE_SYNCED_MESSAGE,
   MAIN_LUA,
   MOD_SOURCE_PATH,
-  PACKAGE_JSON,
   PROJECT_NAME,
 } from "../../constants";
 import * as file from "../../file";
 import { Config } from "../../types/Config";
-import { error, getModTargetDirectoryName } from "../../utils";
+import { error, getModTargetDirectoryName, getTSTLArgs } from "../../utils";
 import { copyWatcherMod } from "./copyWatcherMod";
 import { getTSConfigInclude } from "./getTSConfigInclude";
 import * as notifyGame from "./notifyGame";
@@ -53,7 +51,7 @@ export function monitor(argv: Record<string, unknown>, config: Config): void {
   spawnModDirectorySyncer(config);
 
   // Subprocess #3 - tstl --watch (to automatically convert TypeScript to Lua)
-  spawnTSTLWatcher(argv);
+  spawnTSTLWatcher();
 
   // Also, start constantly pinging the watcher mod
   setInterval(() => {
@@ -101,42 +99,12 @@ function spawnModDirectorySyncer(config: Config) {
   });
 }
 
-function spawnTSTLWatcher(argv: Record<string, unknown>) {
+function spawnTSTLWatcher() {
   const processDescription = "tstl";
-  const crashDebug = argv.crashDebug === true;
-
-  const tstlArgs = ["--watch", "--preserveWatchOutput"];
-  if (crashDebug) {
-    tstlArgs.push("--luaPlugins");
-    tstlArgs.push(
-      '\'{ "name": "./node_modules/isaacscript/src/plugins/addCrashDebugStatements.ts" }\'',
-    );
-  }
-
-  let tstl: ChildProcessWithoutNullStreams;
-  if (runningFromLocalPath()) {
-    const tstlPath = path.join(
-      CWD,
-      "..",
-      "isaacscript",
-      "node_modules",
-      "typescript-to-lua",
-      "dist",
-      "tstl.js",
-    );
-    tstl = spawn("node", [tstlPath, ...tstlArgs], {
-      shell: true,
-      cwd: CWD,
-    });
-  } else {
-    tstl = spawn(
-      "npx",
-      [`--stack-size=${CUSTOM_NODE_JS_STACK_SIZE}`, "tstl", ...tstlArgs],
-      {
-        shell: true,
-      },
-    );
-  }
+  const tstlArgs = getTSTLArgs(true);
+  const tstl = spawn("node", tstlArgs, {
+    shell: true,
+  });
 
   tstl.stdout.on("data", (data: Buffer[]) => {
     const msg = data.toString().trim();
@@ -172,12 +140,4 @@ function spawnTSTLWatcher(argv: Record<string, unknown>) {
   tstl.on("exit", (code) => {
     error(`Error: ${processDescription} subprocess exited with code: ${code}`);
   });
-}
-
-// Returns whether or not IsaacScript is a local path in "package.json"
-// e.g. "isaacscript": "../isaacscript"
-function runningFromLocalPath() {
-  const packageJSONPath = path.join(CWD, PACKAGE_JSON);
-  const packageJSON = file.read(packageJSONPath);
-  return packageJSON.includes('"isaacscript": "file:../isaacscript"');
 }
