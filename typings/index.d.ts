@@ -2,6 +2,7 @@
 
 /// <reference path="enums.d.ts" />
 /// <reference path="enumsFlags.d.ts" />
+/// <reference path="enumsGridEntityVariants.d.ts" />
 /// <reference path="enumsSubTypes.d.ts" />
 /// <reference path="enumsVariants.d.ts" />
 /// <reference path="functions.d.ts" />

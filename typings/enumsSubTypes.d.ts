@@ -234,9 +234,7 @@ declare enum BatterySubType {
   BATTERY_GOLDEN = 4,
 }
 
-/**
- * For EntityType.ENTITY_PICKUP (5), PickupVariant.PICKUP_COLLECTIBLE (100).
- */
+/** For EntityType.ENTITY_PICKUP (5), PickupVariant.PICKUP_COLLECTIBLE (100) */
 declare enum CollectibleType {
   COLLECTIBLE_NULL = 0,
   COLLECTIBLE_SAD_ONION = 1,

@@ -94,8 +94,24 @@ declare const enum TrapdoorState {
   OPEN = 1,
 }
 
-/** For GridEntityType.GRID_STAIRS (18) */
+/**
+ * For GridEntityType.GRID_STAIRS (18)
+ *
+ * This is a copy of the `CrawlspaceVariant` enum. You can use either one. (There is not a good way
+ * to alias an enum.)
+ */
 declare const enum StairsState {
+  CLOSED = 0,
+  OPEN = 1,
+}
+
+/**
+ * For GridEntityType.GRID_STAIRS (18)
+ *
+ * This is a copy of the `StairsVariant` enum. You can use either one. (There is not a good way
+ * to alias an enum.)
+ */
+declare const enum CrawlspaceState {
   CLOSED = 0,
   OPEN = 1,
 }

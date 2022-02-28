@@ -867,15 +867,19 @@ declare enum RoomType {
 
   /** This is the room type of a crawlspace. */
   ROOM_DUNGEON = 16,
+
   ROOM_BOSSRUSH = 17,
+
+  /** A clean bedroom. */
   ROOM_ISAACS = 18,
+
+  /** A dirty bedroom. */
   ROOM_BARREN = 19,
+
   ROOM_CHEST = 20,
   ROOM_DICE = 21,
   ROOM_BLACK_MARKET = 22,
   ROOM_GREED_EXIT = 23,
-
-  // Repentance
   ROOM_PLANETARIUM = 24,
 
   /** The Mausoleum teleporter entrance. Currently unused. */
@@ -2391,8 +2395,13 @@ declare enum BackdropType {
   MEGA_SATAN = 18,
   LIBRARY = 19,
   SHOP = 20,
+
+  /** A clean bedroom. */
   ISAAC = 21,
+
+  /** A dirty bedroom. */
   BARREN = 22,
+
   SECRET = 23,
   DICE = 24,
   ARCADE = 25,
@@ -2419,11 +2428,19 @@ declare enum BackdropType {
   ASHPIT = 46,
   GEHENNA = 47,
   MORTIS = 48,
+
+  /** This corresponds to Isaac's bedroom on the Home floor, not a clean bedroom. */
   ISAACS_BEDROOM = 49,
+
   HALLWAY = 50,
   MOMS_BEDROOM = 51,
+
+  /** The closet on the right side. */
   CLOSET = 52,
+
+  /** The secret closet on the left side. */
   CLOSET_B = 53,
+
   DOGMA = 54,
   DUNGEON_GIDEON = 55,
   DUNGEON_ROTGUT = 56,

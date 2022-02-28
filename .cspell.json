@@ -148,6 +148,7 @@
         "getpeername",
         "getsockname",
         "gettime",
+        "GIDEONS",
         "giga",
         "GIGANTE",
         "goldenbomb",

@@ -4,7 +4,7 @@ declare const enum RockVariant {
   EVENT = 1,
 }
 
-/** For GridEntityType.GRID_ROCK (2) */
+// For GridEntityType.GRID_PIT (7) */
 declare const enum PitVariant {
   NORMAL = 0,
   FISSURE_SPAWNER = 16,
@@ -25,6 +25,8 @@ declare const enum PoopGridEntityVariant {
   GIGA_BOTTOM_RIGHT = 10,
   CHARMING = 11,
 }
+
+// GridEntityType.GRID_DOOR (16) has a vanilla DoorVariant enum
 
 /** For GridEntityType.GRID_TRAPDOOR (17) */
 declare const enum TrapdoorVariant {

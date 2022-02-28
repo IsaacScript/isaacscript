@@ -1,6 +1,44 @@
 /**
- * For StageID.SPECIAL_ROOMS (0), RoomType.ROOM_BOSS (5)
+ * For StageID.SPECIAL_ROOMS (0), RoomType.ROOM_SHOP (2)
+ *
  * This matches the sub-type in the "00.special rooms.stb" file.
+ */
+declare const enum ShopSubType {
+  LEVEL_1 = 0,
+  LEVEL_2 = 1,
+  LEVEL_3 = 2,
+  LEVEL_4 = 3,
+  LEVEL_5 = 4,
+  RARE_GOOD = 10,
+  RARE_BAD = 11,
+  TAINTED_KEEPER_LEVEL_1 = 100,
+  TAINTED_KEEPER_LEVEL_2 = 101,
+  TAINTED_KEEPER_LEVEL_3 = 102,
+  TAINTED_KEEPER_LEVEL_4 = 103,
+  TAINTED_KEEPER_LEVEL_5 = 104,
+  TAINTED_KEEPER_RARE_GOOD = 110,
+  TAINTED_KEEPER_RARE_BAD = 111,
+}
+
+/**
+ * For StageID.SPECIAL_ROOMS (0), RoomType.ROOM_TREASURE (4)
+ *
+ * This matches the sub-type in the "00.special rooms.stb" file and elsewhere.
+ */
+declare const enum TreasureRoomSubType {
+  NORMAL = 0,
+  MORE_OPTIONS = 1,
+  PAY_TO_WIN = 2,
+  MORE_OPTIONS_AND_PAY_TO_WIN = 3,
+  KNIFE_PIECE = 34,
+}
+
+/**
+ * For StageID.SPECIAL_ROOMS (0), RoomType.ROOM_BOSS (5)
+ *
+ * This matches the sub-type in the "00.special rooms.stb" file.
+ * The enum is named this way to match the `Entity.GetBossID`, `Room.GetBossID` and
+ * `Room.GetSecondBossID` methods.
  */
 declare const enum BossID {
   MONSTRO = 1,
@@ -129,7 +167,9 @@ declare const enum BossID {
 
 /**
  * For StageID.SPECIAL_ROOMS (0), RoomType.ROOM_MINIBOSS (6)
+ *
  * This matches the sub-type in the "00.special rooms.stb" file.
+ * The enum is named this way to match the `BossID` enum.
  */
 declare const enum MinibossID {
   SLOTH = 0,
@@ -150,26 +190,129 @@ declare const enum MinibossID {
   KRAMPUS = 15,
 }
 
+// For StageID.SPECIAL_ROOMS (0), RoomType.ROOM_SUPERSECRET (8), the sub-type corresponds to the
+// BackdropType enum
+
+/**
+ * For StageID.SPECIAL_ROOMS (0), RoomType.ROOM_CHALLENGE (11)
+ *
+ * This matches the sub-type in the "00.special rooms.stb" file and elsewhere.
+ */
+declare const enum ChallengeRoomSubType {
+  NORMAL = 10,
+  BOSS = 11,
+  GREAT_GIDEON = 12,
+}
+
+/**
+ * For StageID.SPECIAL_ROOMS (0), RoomType.ROOM_LIBRARY (12)
+ *
+ * This matches the sub-type in the "00.special rooms.stb" file.
+ */
+declare const enum LibrarySubType {
+  UNKNOWN_0 = 0,
+  UNKNOWN_1 = 1,
+  UNKNOWN_2 = 2,
+  UNKNOWN_3 = 3,
+  UNKNOWN_4 = 4,
+}
+
 /**
  * For StageID.SPECIAL_ROOMS (0), RoomType.ROOM_DEVIL (14)
+ *
  * This matches the sub-type in the "00.special rooms.stb" file.
  */
 declare const enum DevilRoomSubType {
   NORMAL = 0,
-  NUMBER_SIX_TRINKET_ROOM = 1,
+  NUMBER_SIX_TRINKET = 1,
 }
 
 /**
  * For StageID.SPECIAL_ROOMS (0), RoomType.ROOM_ANGEL (15)
+ *
  * This matches the sub-type in the "00.special rooms.stb" file.
  */
 declare const enum AngelRoomSubType {
   NORMAL = 0,
+
+  /** This is the kind of Angel Room that appears when players have The Stairway collectible. */
   SHOP = 1,
 }
 
 /**
- * For StageID.HOME (35)
+ * For StageID.SPECIAL_ROOMS (0), RoomType.ROOM_DUNGEON (16)
+ *
+ * This matches the sub-type in the "00.special rooms.stb" file and elsewhere.
+ */
+declare const enum DungeonSubType {
+  NORMAL = 0,
+
+  /** This is the room uncovered by throwing a Chaos Card at Great Gideon. */
+  GIDEONS_GRAVE = 1,
+
+  /** This is the room for the second phase of Rotgut. */
+  ROTGUT_MAGGOT = 2,
+
+  /** This is the room for the third phase of Rotgut. */
+  ROTGUT_HEART = 3,
+
+  BEAST_ROOM = 4,
+}
+
+/**
+ * For StageID.SPECIAL_ROOMS (0), RoomType.ROOM_ISAACS (18)
+ *
+ * This matches the sub-type in the "00.special rooms.stb" file.
+ */
+declare const enum IsaacsRoomSubType {
+  NORMAL = 0,
+  GENESIS = 99,
+}
+
+/**
+ * For StageID.SPECIAL_ROOMS (0), RoomType.ROOM_SECRET_EXIT (27)
+ *
+ * This matches the sub-type in the "00.special rooms.stb" file.
+ */
+declare const enum SecretExitSubType {
+  DOWNPOUR = 1,
+  MINES = 2,
+  MAUSOLEUM = 3,
+}
+
+/**
+ * For StageID.DOWNPOUR (27) and StageID.DROSS (28)
+ *
+ * For RoomType.ROOM_DEFAULT (1)
+ *
+ * This matches the sub-type in the "27.downpour.stb" and "28.dross.stb" files.
+ */
+declare const enum DownpourRoomSubType {
+  NORMAL = 0,
+  WHITE_FIRE = 1,
+  MIRROR = 34,
+}
+
+/**
+ * For StageID.MINES (29) and StageID.ASHPIT (30)
+ *
+ * For RoomType.ROOM_DEFAULT (1)
+ *
+ * This matches the sub-type in the "29.mines.stb" and "30.ashpit.stb" files.
+ */
+declare const enum MinesRoomSubType {
+  NORMAL = 0,
+  BUTTON_ROOM = 1,
+  MINESHAFT_ENTRANCE = 10,
+  MINESHAFT_LOBBY = 11,
+  MINESHAFT_KNIFE_PIECE = 20,
+  MINESHAFT_ROOM_PRE_CHASE = 30,
+  MINESHAFT_ROOM_POST_CHASE = 30,
+}
+
+/**
+ * For StageID.HOME (35), RoomType.ROOM_DEFAULT (1)
+ *
  * This matches the sub-type in the "35.home.stb" file.
  */
 declare const enum HomeRoomSubType {
@@ -177,18 +320,18 @@ declare const enum HomeRoomSubType {
   HALLWAY = 1,
   MOMS_BEDROOM = 2,
   LIVING_ROOM = 3,
-  BEAST_ROOM = 4,
   CLOSET_RIGHT = 10,
   CLOSET_LEFT = 11,
   DEATH_CERTIFICATE_ENTRANCE = 33,
-  DEATH_CERTIFICATE_ITEMS = 33,
+  DEATH_CERTIFICATE_ITEMS = 34,
 }
 
 /**
- * For StageID.BACKWARDS (36)
+ * For StageID.BACKWARDS (36), RoomType.ROOM_DEFAULT (1)
+ *
  * This matches the sub-type in the "36.backwards.stb" file.
  */
-declare const enum BackwardsPathRoomSubType {
+declare const enum BackwardsRoomSubType {
   EXIT = 0,
   BASEMENT = 1,
   CAVES = 4,

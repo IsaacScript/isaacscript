@@ -4,6 +4,14 @@ declare const enum PlayerVariant {
   COOP_BABY = 1,
 }
 
+// EntityType.ENTITY_TEAR (2) has a vanilla TearVariant enum
+
+// EntityType.ENTITY_FAMILIAR (2) has a vanilla FamiliarVariant enum
+
+// EntityType.ENTITY_BOMBDROP (4) has a vanilla BombVariant enum
+
+// EntityType.ENTITY_PICKUP (5) has a vanilla PickupVariant
+
 /** For EntityType.ENTITY_SLOT (6) */
 declare const enum SlotVariant {
   SLOT_MACHINE = 1,
@@ -64,6 +72,8 @@ declare const enum KnifeVariant {
   SPIRIT_SWORD = 10,
   TECH_SWORD = 11,
 }
+
+// EntityType.ENTITY_PROJECTILE has a vanilla ProjectileVariant enum
 
 /** For EntityType.ENTITY_GAPER (10) */
 declare const enum GaperVariant {
@@ -419,8 +429,10 @@ declare const enum LokiVariant {
 }
 
 /**
- * For EntityType.ENTITY_FISTULA_BIG (71), EntityType.ENTITY_FISTULA_MEDIUM (72),
- * and EntityType.ENTITY_FISTULA_SMALL (73)
+ * For:
+ * - EntityType.ENTITY_FISTULA_BIG (71)
+ * - EntityType.ENTITY_FISTULA_MEDIUM (72)
+ * - EntityType.ENTITY_FISTULA_SMALL (73)
  */
 declare const enum FistulaVariant {
   FISTULA = 0,
