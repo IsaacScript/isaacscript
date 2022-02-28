@@ -62,8 +62,18 @@ export function fireProjectiles(
  * This function will not include bosses on an internal blacklist, such as Death's scythes or Big
  * Horn holes.
  */
-export function getAliveBosses(): EntityNPC[] {
-  const aliveNPCs = getAliveNPCs();
+export function getAliveBosses(
+  matchingEntityType?: EntityType | int,
+  matchingVariant?: int,
+  matchingSubType?: int,
+  ignoreFriendly = false,
+): EntityNPC[] {
+  const aliveNPCs = getAliveNPCs(
+    matchingEntityType,
+    matchingVariant,
+    matchingSubType,
+    ignoreFriendly,
+  );
   return aliveNPCs.filter((aliveNPC) => aliveNPC.IsBoss());
 }
 
@@ -73,14 +83,34 @@ export function getAliveBosses(): EntityNPC[] {
  * This function will not include NPCs on an internal blacklist, such as Death's scythes or Big Horn
  * holes.
  */
-export function getAliveNPCs(): EntityNPC[] {
-  const npcs = getNPCs();
+export function getAliveNPCs(
+  matchingEntityType?: EntityType | int,
+  matchingVariant?: int,
+  matchingSubType?: int,
+  ignoreFriendly = false,
+): EntityNPC[] {
+  const npcs = getNPCs(
+    matchingEntityType,
+    matchingVariant,
+    matchingSubType,
+    ignoreFriendly,
+  );
   return npcs.filter((npc) => !npc.IsDead() && !isAliveExceptionNPC(npc));
 }
 
 /** Helper function to get all of the bosses in the room. */
-export function getBosses(): EntityNPC[] {
-  const npcs = getNPCs();
+export function getBosses(
+  matchingEntityType?: EntityType | int,
+  matchingVariant?: int,
+  matchingSubType?: int,
+  ignoreFriendly = false,
+): EntityNPC[] {
+  const npcs = getNPCs(
+    matchingEntityType,
+    matchingVariant,
+    matchingSubType,
+    ignoreFriendly,
+  );
   return npcs.filter((npc) => npc.IsBoss());
 }
 
