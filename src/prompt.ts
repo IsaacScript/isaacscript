@@ -4,7 +4,7 @@
 
 import chalk from "chalk";
 import prompt from "prompt";
-import { error, parseIntSafe } from "./util";
+import { error, parseIntSafe } from "./utils";
 
 const VALID_YES_RESPONSES = new Set(["yes", "ye", "y"]);
 const VALID_NO_RESPONSES = new Set(["no", "n"]);

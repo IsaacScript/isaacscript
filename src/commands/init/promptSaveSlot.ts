@@ -1,5 +1,5 @@
 import { getInputInt } from "../../prompt";
-import { error } from "../../util";
+import { error } from "../../utils";
 
 export async function promptSaveSlot(
   argv: Record<string, unknown>,

@@ -3,7 +3,7 @@ import { CUSTOM_NODE_JS_STACK_SIZE, MOD_SOURCE_PATH } from "../../constants";
 import { execShell } from "../../exec";
 import * as file from "../../file";
 import { Config } from "../../types/Config";
-import { getModTargetDirectoryName } from "../../util";
+import { getModTargetDirectoryName } from "../../utils";
 
 export function copy(argv: Record<string, unknown>, config: Config): void {
   const verbose = argv.verbose === true;

@@ -3,7 +3,7 @@ import * as JSONC from "jsonc-parser";
 import path from "path";
 import { execShell } from "../../exec";
 import * as file from "../../file";
-import { error } from "../../util";
+import { error } from "../../utils";
 
 export function installVSCodeExtensions(
   projectPath: string,

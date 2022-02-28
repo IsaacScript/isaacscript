@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import { PROJECT_NAME } from "./constants";
-import { parseSemVer } from "./util";
+import { parseSemVer } from "./utils";
 
 const REQUIRED_NODE_JS_MAJOR_VERSION = 16;
 

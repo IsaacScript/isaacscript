@@ -3,7 +3,7 @@ import path from "path";
 import { PROJECT_NAME } from "../../constants";
 import * as file from "../../file";
 import { getInputYesNo } from "../../prompt";
-import { error } from "../../util";
+import { error } from "../../utils";
 
 export async function checkModTargetDirectory(
   modsDirectory: string,

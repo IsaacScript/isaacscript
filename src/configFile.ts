@@ -6,7 +6,7 @@ import { promptSaveSlot } from "./commands/init/promptSaveSlot";
 import { CONFIG_FILE_NAME, CONFIG_FILE_PATH, CWD } from "./constants";
 import * as file from "./file";
 import { Config } from "./types/Config";
-import { error } from "./util";
+import { error } from "./utils";
 
 export async function get(argv: Record<string, unknown>): Promise<Config> {
   const verbose = argv.verbose === true;

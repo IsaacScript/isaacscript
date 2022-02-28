@@ -23,7 +23,7 @@ import { execShell } from "../../exec";
 import * as file from "../../file";
 import { getInputString, getInputYesNo } from "../../prompt";
 import { GitHubCLIHostsYAML } from "../../types/GitHubCLIHostsYAML";
-import { error, parseSemVer } from "../../util";
+import { error, parseSemVer } from "../../utils";
 
 const REQUIRED_GIT_MAJOR_VERSION = 2;
 const REQUIRED_GIT_MINOR_VERSION = 30;

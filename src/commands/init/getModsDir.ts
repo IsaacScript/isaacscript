@@ -3,7 +3,7 @@ import path from "path";
 import { HOME_DIR } from "../../constants";
 import * as file from "../../file";
 import { getInputString } from "../../prompt";
-import { error } from "../../util";
+import { error } from "../../utils";
 
 const MODS = "mods";
 

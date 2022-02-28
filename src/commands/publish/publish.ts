@@ -15,7 +15,7 @@ import {
 import { execExe, execShell } from "../../exec";
 import * as file from "../../file";
 import { Config } from "../../types/Config";
-import { error, getModTargetDirectoryName, parseIntSafe } from "../../util";
+import { error, getModTargetDirectoryName, parseIntSafe } from "../../utils";
 import { compileAndCopy } from "../copy/copy";
 
 const UPDATE_SCRIPT_NAME = "update.sh";

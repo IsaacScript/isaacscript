@@ -2,7 +2,7 @@ import chalk from "chalk";
 import * as JSONC from "jsonc-parser";
 import { TSCONFIG_PATH } from "../../constants";
 import * as file from "../../file";
-import { error } from "../../util";
+import { error } from "../../utils";
 
 export function getTSConfigInclude(): string {
   const tsConfigRaw = file.read(TSCONFIG_PATH);

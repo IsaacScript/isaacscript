@@ -4,7 +4,7 @@ import path from "path";
 import { HOME_DIR, PROJECT_NAME } from "./constants";
 import * as file from "./file";
 import { getInputYesNo } from "./prompt";
-import { error } from "./util";
+import { error } from "./utils";
 
 const BASH_PROFILE_PATH = path.join(HOME_DIR, ".bash_profile");
 

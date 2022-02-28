@@ -12,7 +12,7 @@ import {
 } from "../../constants";
 import * as file from "../../file";
 import { Config } from "../../types/Config";
-import { error, getModTargetDirectoryName } from "../../util";
+import { error, getModTargetDirectoryName } from "../../utils";
 import { copyWatcherMod } from "./copyWatcherMod";
 import { getTSConfigInclude } from "./getTSConfigInclude";
 import * as notifyGame from "./notifyGame";
