@@ -2,6 +2,12 @@ import { arrayToString } from "./array";
 import { getCollectibleName } from "./collectibles";
 import { hasFlag } from "./flag";
 import { getEffectsList } from "./player";
+import {
+  getRoomListIndex,
+  getRoomSafeGridIndex,
+  getRoomSubType,
+  getRoomVariant,
+} from "./rooms";
 import { getTrinketName } from "./trinkets";
 
 /**
@@ -174,7 +180,6 @@ export function logMap(this: void, map: Map<AnyNotNil, unknown>): void {
 }
 
 /** Helper function for printing out information about the current room. */
-/*
 export function logRoom(this: void): void {
   const game = Game();
   const room = game.GetRoom();
@@ -190,7 +195,6 @@ export function logRoom(this: void): void {
   log(`Current room safe grid index: ${roomSafeGridIndex}`);
   log(`Current room list index: ${roomListIndex}`);
 }
-*/
 
 export function logTable(this: void, table: unknown, parentTables = 0): void {
   const numSpaces = (parentTables + 1) * 2; // 2, 4, 6, etc.
