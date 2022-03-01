@@ -4,8 +4,8 @@ import {
 } from "../constants";
 import { COLLECTIBLE_DESCRIPTION_MAP } from "../maps/collectibleDescriptionMap";
 import { COLLECTIBLE_NAME_MAP } from "../maps/collectibleNameMap";
-import { getPickups, removeAllPickups } from "./entity";
 import { hasFlag } from "./flag";
+import { getPickups, removeAllPickups } from "./pickups";
 import { clearSprite } from "./sprite";
 
 const COLLECTIBLE_SPRITE_LAYER = 1;

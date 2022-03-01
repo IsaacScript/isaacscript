@@ -1,5 +1,5 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { getPickups } from "../functions/entity";
+import { getPickups } from "../functions/pickups";
 import { getPlayerIndex, getPlayers } from "../functions/player";
 import { PlayerIndex } from "../types/PlayerIndex";
 import {

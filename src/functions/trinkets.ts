@@ -1,8 +1,8 @@
 import { GOLDEN_TRINKET_SHIFT } from "../constants";
 import { TRINKET_DESCRIPTION_MAP } from "../maps/trinketDescriptionMap";
 import { TRINKET_NAME_MAP } from "../maps/trinketNameMap";
-import { getPickups } from "./entity";
 import { hasFlag } from "./flag";
+import { getPickups } from "./pickups";
 import { useActiveItemTemp } from "./player";
 import { giveTrinketsBack, temporarilyRemoveTrinkets } from "./trinketGive";
 import { repeat } from "./utils";

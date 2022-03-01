@@ -4,10 +4,7 @@
 // in the room and rebuilding it from scratch based on the JSON data
 
 import { getUpgradeErrorMsg } from "../errors";
-import {
-  removeAllMatchingEntities,
-  removeAllPickups,
-} from "../functions/entity";
+import { removeAllMatchingEntities } from "../functions/entity";
 import { removeAllBombs } from "../functions/entitySpecific";
 import {
   convertXMLGridEntityType,
@@ -20,6 +17,7 @@ import { getRandomJSONRoom } from "../functions/jsonRoom";
 import { log } from "../functions/log";
 import { range } from "../functions/math";
 import { getNPCs } from "../functions/npc";
+import { removeAllPickups } from "../functions/pickups";
 import { nextSeed } from "../functions/random";
 import {
   getRoomListIndex,
