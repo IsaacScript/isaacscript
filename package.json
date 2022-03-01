@@ -25,10 +25,10 @@
     "dist/**/*.d.ts"
   ],
   "devDependencies": {
-    "@zamiell/typescript-to-lua": "1.4.0",
-    "isaac-typescript-definitions": "1.0.355",
-    "isaacscript-lint": "1.0.83",
-    "isaacscript-tsconfig": "1.1.8",
+    "@zamiell/typescript-to-lua": "^1.4.0",
+    "isaac-typescript-definitions": "^1.0.355",
+    "isaacscript-lint": "^1.0.84",
+    "isaacscript-tsconfig": "^1.1.8",
     "typedoc": "^0.22.12",
     "typescript": "4.5.5"
   }
