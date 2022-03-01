@@ -13,6 +13,7 @@ import { getLastElement, sumArray } from "./array";
 import { getKBitOfN, getNumBitsOfN } from "./bitwise";
 import { getCollectibleMaxCharges } from "./collectibles";
 import { getCollectibleSet } from "./collectibleSet";
+import { countSetBits } from "./math";
 import { stringContains, trimPrefix } from "./string";
 import { ensureAllCases, repeat } from "./utils";
 
@@ -158,6 +159,18 @@ export function getAzazelBrimstoneDistance(
   }
 
   return 32 - 2.5 * tearHeight;
+}
+
+/**
+ * Returns the number of black hearts that the player has, excluding any soul hearts. For example,
+ * if the player has one full black heart, one full soul heart, and one half black heart, this
+ * function returns 3.
+ *
+ * This is different from the `EntityPlayer.GetBlackHearts` method, since that returns a bitmask.
+ */
+export function getBlackHearts(player: EntityPlayer): int {
+  const blackHearts = player.GetBlackHearts();
+  return countSetBits(blackHearts);
 }
 
 /**
@@ -640,6 +653,21 @@ export function getPlayersOfType(
     const character = player.GetPlayerType();
     return charactersSet.has(character);
   });
+}
+
+/**
+ * Returns the number of soul hearts that the player has, excluding any black hearts. For example,
+ * if the player has one full black heart, one full soul heart, and one half black heart, this
+ * function returns 2.
+ *
+ * This is different from the `EntityPlayer.GetSoulHearts` method, since that returns the combined
+ * number of soul hearts and black hearts.
+ */
+export function getSoulHearts(player: EntityPlayer): int {
+  const soulHearts = player.GetSoulHearts();
+  const blackHearts = getBlackHearts(player);
+
+  return soulHearts - blackHearts;
 }
 
 /**
