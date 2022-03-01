@@ -17,10 +17,12 @@ export const PROJECT_NAME = "IsaacScript";
 
 /**
  * The default Node.js stack size is 984 kilobytes, but this is not large enough to compile the
- * biggest mods, resulting in an error of "RangeError: Maximum call stack size exceeded". Thus, we
- * specify a custom stack size that is bigger than the default.
+ * biggest mods, resulting in an error of "RangeError: Maximum call stack size exceeded". Thus,
+ * IsaacScript provides an option to specify a custom stack size that is bigger than the default.
+ * We choose 1968 because it is double the default.
  */
-export const CUSTOM_NODE_JS_STACK_SIZE = 2048;
+// export const CUSTOM_NODE_JS_STACK_SIZE = 1968;
+// (commented out temporarily)
 
 // isaacscript
 const REPO_ROOT = path.join(__dirname, "..", "..");
