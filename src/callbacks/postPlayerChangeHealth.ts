@@ -65,6 +65,7 @@ function getCurrentHealthValue(player: EntityPlayer, healthType: HealthType) {
   switch (healthType) {
     // 5.10.1
     case HealthType.RED: {
+      // TODO replace with getHearts()
       const rottenHearts = player.GetRottenHearts();
       const hearts = player.GetHearts();
 
@@ -75,6 +76,7 @@ function getCurrentHealthValue(player: EntityPlayer, healthType: HealthType) {
     case HealthType.SOUL: {
       // We use the standard library helper function since the "EntityPlayer.GetSoulHearts" method
       // returns a value that includes black hearts
+      // TODO replace with getSoulHearts()
       const soulHearts = player.GetSoulHearts();
       const blackHeartsBitmask = player.GetBlackHearts();
       const blackHearts = countSetBits(blackHeartsBitmask);
@@ -91,6 +93,7 @@ function getCurrentHealthValue(player: EntityPlayer, healthType: HealthType) {
     case HealthType.BLACK: {
       // We use the standard library helper function since the "EntityPlayer.GetBlackHearts" method
       // returns a bit mask
+      // TODO replace with getBlackHearts()
       const blackHearts = player.GetBlackHearts();
       return countSetBits(blackHearts);
     }
