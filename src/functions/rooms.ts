@@ -354,8 +354,7 @@ export function inBeastRoom(): boolean {
   const roomSubType = getRoomSubType();
 
   return (
-    roomType === RoomType.ROOM_DUNGEON &&
-    roomSubType === DungeonSubType.BEAST_ROOM
+    roomType === RoomType.ROOM_DUNGEON && roomSubType === 4 // TODO DungeonSubType.BEAST_ROOM
   );
 }
 
@@ -389,8 +388,7 @@ export function inCrawlspace(): boolean {
   const roomSubType = getRoomSubType();
 
   return (
-    roomType === RoomType.ROOM_DUNGEON &&
-    roomSubType !== DungeonSubType.BEAST_ROOM
+    roomType === RoomType.ROOM_DUNGEON && roomSubType === 0 // TODO DungeonSubType.NORMAL
   );
 }
 
