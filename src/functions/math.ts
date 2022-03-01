@@ -71,6 +71,17 @@ function getCircleInitialPosition(direction: Direction, radius: float) {
   }
 }
 
+export function getSetBits(n: int): int {
+  let count = 0;
+
+  while (n > 0) {
+    n &= n - 1;
+    count += 1;
+  }
+
+  return count;
+}
+
 /**
  * Helper function to check if a given position is within a given rectangle. This is an inclusive
  * check, meaning that it will return true if the position is on the border of the rectangle.
