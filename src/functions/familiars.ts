@@ -7,7 +7,7 @@ import { repeat } from "./utils";
  * Helper function to add and remove familiars based on a target amount that you specify. Use this
  * instead of the `EntityPlayer.CheckFamiliar` method so that the InitSeed of the spawned familiar
  * will be set properly. Note that when using this function, you need to manually account for Box of
- * Friends (by looking at the number of collectible effects on the player for Box of Friends).
+ * Friends and Monster Manual (by looking at the number of collectible effects for the familiar).
  *
  * This function is meant to be called in the EvaluateCache callback (when the cache flag is equal
  * to `CacheFlag.CACHE_FAMILIARS`).
@@ -95,8 +95,9 @@ export function checkFamiliar(
  * to `CacheFlag.CACHE_FAMILIARS`).
  *
  * Use this function when the amount of familiars should be equal to the amount of associated
- * collectibles that the player has (plus any extras from having used Box of Friends). If you
- * instead need to have a custom amount of familiars, use the `checkFamiliars` function instead.
+ * collectibles that the player has (plus any extras from having used Box of Friends or Monster
+ * Manual). If you instead need to have a custom amount of familiars, use the `checkFamiliars`
+ * function instead.
  *
  * @param player The player that owns the familiars and collectibles.
  * @param collectibleType The collectible type of the collectible associated with this familiar.
@@ -116,10 +117,12 @@ export function checkFamiliarFromCollectibles(
 ): int {
   const numCollectibles = player.GetCollectibleNum(collectibleType);
   const effects = player.GetEffects();
-  const numBoxOfFriendsUses = effects.GetCollectibleEffectNum(
-    CollectibleType.COLLECTIBLE_BOX_OF_FRIENDS,
-  );
-  const numTargetFamiliars = numCollectibles * (numBoxOfFriendsUses + 1);
+
+  // Whenever Box of Friends or Monster Manual is used, it will automatically increment the number
+  // of collectible effects for this familiar
+  const numCollectibleEffects =
+    effects.GetCollectibleEffectNum(collectibleType);
+  const numTargetFamiliars = numCollectibles + numCollectibleEffects;
 
   return checkFamiliar(
     player,
