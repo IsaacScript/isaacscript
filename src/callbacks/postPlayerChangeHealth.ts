@@ -1,5 +1,5 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { countSetBits } from "../functions/math";
+import { countSetBits } from "../functions/bitwise";
 import { getPlayerIndex } from "../functions/player";
 import { ensureAllCases, getEnumValues } from "../functions/utils";
 import { DefaultMap } from "../types/DefaultMap";
@@ -65,12 +65,21 @@ function getCurrentHealthValue(player: EntityPlayer, healthType: HealthType) {
   switch (healthType) {
     // 5.10.1
     case HealthType.RED: {
-      return player.GetHearts();
+      const rottenHearts = player.GetRottenHearts();
+      const hearts = player.GetHearts();
+
+      return hearts - rottenHearts * 2;
     }
 
     // 5.10.3
     case HealthType.SOUL: {
-      return player.GetSoulHearts();
+      // We use the standard library helper function since the "EntityPlayer.GetSoulHearts" method
+      // returns a value that includes black hearts
+      const soulHearts = player.GetSoulHearts();
+      const blackHeartsBitmask = player.GetBlackHearts();
+      const blackHearts = countSetBits(blackHeartsBitmask);
+
+      return soulHearts - blackHearts;
     }
 
     // 5.10.4
@@ -80,6 +89,8 @@ function getCurrentHealthValue(player: EntityPlayer, healthType: HealthType) {
 
     // 5.10.6
     case HealthType.BLACK: {
+      // We use the standard library helper function since the "EntityPlayer.GetBlackHearts" method
+      // returns a bit mask
       const blackHearts = player.GetBlackHearts();
       return countSetBits(blackHearts);
     }

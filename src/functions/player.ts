@@ -10,10 +10,9 @@ import {
 import { HealthType } from "../types/HealthType";
 import { PlayerIndex } from "../types/PlayerIndex";
 import { getLastElement, sumArray } from "./array";
-import { getKBitOfN, getNumBitsOfN } from "./bitwise";
+import { countSetBits, getKBitOfN, getNumBitsOfN } from "./bitwise";
 import { getCollectibleMaxCharges } from "./collectibles";
 import { getCollectibleSet } from "./collectibleSet";
-import { countSetBits } from "./math";
 import { stringContains, trimPrefix } from "./string";
 import { ensureAllCases, repeat } from "./utils";
 
@@ -262,6 +261,21 @@ export function getEffectsList(player: EntityPlayer): TemporaryEffect[] {
 export function getFinalPlayer(): EntityPlayer {
   const players = getPlayers();
   return getLastElement(players);
+}
+
+/**
+ * Returns the number of red hearts that the player has, excluding any rotten hearts. For example,
+ * if the player has one full black heart, one full soul heart, and one half black heart, this
+ * function returns 3.
+ *
+ * This is different from the `EntityPlayer.GetHearts` method, since that returns a value that
+ * includes rotten hearts.
+ */
+export function getHearts(player: EntityPlayer): int {
+  const rottenHearts = player.GetRottenHearts();
+  const hearts = player.GetHearts();
+
+  return hearts - rottenHearts * 2;
 }
 
 /**

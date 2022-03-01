@@ -1,16 +1,5 @@
 import { ensureAllCases } from "./utils";
 
-export function countSetBits(n: int): int {
-  let count = 0;
-
-  while (n > 0) {
-    n &= n - 1;
-    count += 1;
-  }
-
-  return count;
-}
-
 export function getAngleDifference(angle1: float, angle2: float): float {
   const subtractedAngle = angle1 - angle2;
   return ((subtractedAngle + 180) % 360) - 180;
