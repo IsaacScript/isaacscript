@@ -1,4 +1,5 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
+import { countSetBits } from "../functions/math";
 import { getPlayerIndex } from "../functions/player";
 import { ensureAllCases, getEnumValues } from "../functions/utils";
 import { DefaultMap } from "../types/DefaultMap";
@@ -79,7 +80,8 @@ function getCurrentHealthValue(player: EntityPlayer, healthType: HealthType) {
 
     // 5.10.6
     case HealthType.BLACK: {
-      return player.GetBlackHearts();
+      const blackHearts = player.GetBlackHearts();
+      return countSetBits(blackHearts);
     }
 
     // 5.10.7
