@@ -168,8 +168,10 @@ export function getAzazelBrimstoneDistance(
  * This is different from the `EntityPlayer.GetBlackHearts` method, since that returns a bitmask.
  */
 export function getBlackHearts(player: EntityPlayer): int {
-  const blackHearts = player.GetBlackHearts();
-  return countSetBits(blackHearts);
+  const blackHeartsBitmask = player.GetBlackHearts();
+  const blackHeartBits = countSetBits(blackHeartsBitmask);
+
+  return blackHeartBits * 2;
 }
 
 /**

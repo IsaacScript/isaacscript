@@ -79,7 +79,8 @@ function getCurrentHealthValue(player: EntityPlayer, healthType: HealthType) {
       // TODO replace with getSoulHearts()
       const soulHearts = player.GetSoulHearts();
       const blackHeartsBitmask = player.GetBlackHearts();
-      const blackHearts = countSetBits(blackHeartsBitmask);
+      const blackHeartsBits = countSetBits(blackHeartsBitmask);
+      const blackHearts = blackHeartsBits * 2;
 
       return soulHearts - blackHearts;
     }
@@ -94,8 +95,11 @@ function getCurrentHealthValue(player: EntityPlayer, healthType: HealthType) {
       // We use the standard library helper function since the "EntityPlayer.GetBlackHearts" method
       // returns a bit mask
       // TODO replace with getBlackHearts()
-      const blackHearts = player.GetBlackHearts();
-      return countSetBits(blackHearts);
+      const blackHeartsBitmask = player.GetBlackHearts();
+      const blackHeartsBits = countSetBits(blackHeartsBitmask);
+      const blackHearts = blackHeartsBits * 2;
+
+      return blackHearts;
     }
 
     // 5.10.7
