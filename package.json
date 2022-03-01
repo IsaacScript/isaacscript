@@ -1,6 +1,6 @@
 {
   "name": "isaacscript",
-  "version": "1.2.13",
+  "version": "1.2.14",
   "description": "A command line tool for managing Isaac mods written in TypeScript",
   "homepage": "https://isaacscript.github.io/",
   "bugs": {
@@ -16,7 +16,7 @@
     "isaacscript": "./dist/src/main.js"
   },
   "dependencies": {
-    "@zamiell/typescript-to-lua": "^1.4.1",
+    "@zamiell/typescript-to-lua": "^1.4.2",
     "chalk": "4.1.2",
     "command-exists": "^1.2.9",
     "dotenv": "^16.0.0",
