@@ -18,6 +18,7 @@ export {
 } from "./features/disableInputs";
 export { forgottenSwitch } from "./features/forgottenSwitch";
 export { getCollectibleItemPoolType } from "./features/getCollectibleItemPoolType";
+export * from "./features/isPonyActive";
 export { preventCollectibleRotate } from "./features/preventCollectibleRotate";
 export {
   runInNGameFrames,

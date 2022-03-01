@@ -76,6 +76,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Prevent Collectible Rotate](modules/features_preventCollectibleRotate.html)
 - [Forgotten Switcher](modules/features_forgottenSwitch.html)
 - [Siren Boss Functions](modules/features_sirenHelpers.html)
+- [Pony Detection Functions](modules/features_isPonyActive.html)
 
 <br>
 
