@@ -263,6 +263,8 @@ declare const enum DungeonSubType {
  * For StageID.SPECIAL_ROOMS (0), RoomType.ROOM_ISAACS (18)
  *
  * This matches the sub-type in the "00.special rooms.stb" file.
+ *
+ * ("RoomType.ROOM_ISAACS" is a clean bedroom.)
  */
 declare const enum IsaacsRoomSubType {
   NORMAL = 0,
