@@ -10,7 +10,7 @@ PACKAGE_LOCK="$DIR/package-lock.json"
 rm -f "$PACKAGE_LOCK"
 echo "Successfully deleted: $PACKAGE_LOCK"
 
-NODE_MODULES="$DIR/node-modules"
+NODE_MODULES="$DIR/node_modules"
 rm -rf "$NODE_MODULES"
 echo "Successfully deleted: $NODE_MODULES"
 
