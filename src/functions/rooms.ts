@@ -459,6 +459,11 @@ export function inGenesisRoom(): boolean {
   );
 }
 
+export function inMegaSatanRoom(): boolean {
+  const roomGridIndex = getRoomGridIndex();
+  return roomGridIndex === GridRooms.ROOM_MEGA_SATAN_IDX;
+}
+
 /**
  * Helper function to check if the current room is a miniboss room for a particular miniboss. This
  * will only work for minibosses that have dedicated boss rooms in the "00.special rooms.stb" file.
