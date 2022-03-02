@@ -136,6 +136,38 @@ export function getRoomDescriptor(roomGridIndex?: int): RoomDescriptor {
 }
 
 /**
+ * Helper function to get the grid index of the current room.
+ *
+ * - If the current room is inside of the grid, this function will return the `SafeGridIndex` from
+ *   the room descriptor. (The safe grid index is defined as the top-left 1x1 section that the room
+ *   overlaps with, or the top-right 1x1 section of a `RoomType.ROOMSHAPE_LTL` room.)
+ * - If the current room is outside of the grid, it will return the index from the
+ *   `Level.GetCurrentRoomIndex` method (since `SafeGridIndex` is bugged for these cases).
+ *
+ * Use this function instead of the `Level.GetCurrentRoomIndex` method directly because the latter
+ * will return the specific 1x1 quadrant that the player entered the room at. For most situations,
+ * using the safe grid index is more reliable than this.
+ *
+ * Data structures that store data per room should use the room's `ListIndex` instead of
+ * `SafeGridIndex`, since the former is unique across different dimensions.
+ */
+export function getRoomGridIndex(): int {
+  const game = Game();
+  const level = game.GetLevel();
+  const currentRoomIndex = level.GetCurrentRoomIndex();
+
+  // Both `RoomDescriptor.GridIndex` and `RoomDescriptor.SafeGridIndex` will always be equal to -1
+  // for rooms outside of the grid
+  // Thus, we revert to using the `Level.GetCurrentRoomIndex` method for these cases
+  if (currentRoomIndex < 0) {
+    return currentRoomIndex;
+  }
+
+  const roomDescriptor = getCurrentRoomDescriptorReadOnly();
+  return roomDescriptor.SafeGridIndex;
+}
+
+/**
  * Helper function to get an array of all of the safe grid indexes for rooms that match the
  * specified room type.
  *
@@ -192,29 +224,6 @@ export function getRoomListIndex(roomGridIndex?: int): int {
 export function getRoomName(roomGridIndex?: int): string {
   const roomData = getRoomData(roomGridIndex);
   return roomData === undefined ? "Unknown" : roomData.Name;
-}
-
-/**
- * Helper function to get the safe grid index of the provided room. The safe grid index is defined as
- * the top-left 1x1 section that the room overlaps with (or the top-right 1x1 section of a
- * `RoomType.ROOMSHAPE_LTL` room).
- *
- * In most situations, using the safe grid index is more reliable than using the `GridIndex` or the
- * `Level.GetCurrentRoomIndex()` method directly. `GridIndex` can return quadrants that are not on
- * the map, and `Level.GetCurrentRoomIndex()` returns the specific 1x1 quadrant that the player
- * entered the room at.
- *
- * Data structures that store data per room should use the room's `ListIndex` instead of
- * `SafeGridIndex`, since the former is unique across different dimensions.
- *
- * @param roomGridIndex Optional. Equal to the current room index by default.
- */
-export function getRoomSafeGridIndex(roomGridIndex?: int): int {
-  const roomDescriptor =
-    roomGridIndex === undefined
-      ? getCurrentRoomDescriptorReadOnly()
-      : getRoomDescriptor(roomGridIndex);
-  return roomDescriptor.SafeGridIndex;
 }
 
 /**
@@ -476,7 +485,7 @@ export function inMinibossRoomOf(minibossID: MinibossID) {
  * the only way to detect them is by using the grid index.
  */
 export function inSecretShop(): boolean {
-  return getRoomSafeGridIndex() === GridRooms.ROOM_SECRET_SHOP_IDX;
+  return getRoomGridIndex() === GridRooms.ROOM_SECRET_SHOP_IDX;
 }
 
 /**
@@ -488,11 +497,9 @@ export function inStartingRoom(): boolean {
   const game = Game();
   const level = game.GetLevel();
   const startingRoomGridIndex = level.GetStartingRoomIndex();
-  const roomSafeGridIndex = getRoomSafeGridIndex();
+  const roomGridIndex = getRoomGridIndex();
 
-  return (
-    roomSafeGridIndex === startingRoomGridIndex && inDimension(Dimension.MAIN)
-  );
+  return roomGridIndex === startingRoomGridIndex && inDimension(Dimension.MAIN);
 }
 
 /**
@@ -539,7 +546,7 @@ export function isRedKeyRoom(roomGridIndex?: int): boolean {
  */
 export function isRoomInsideMap(roomGridIndex?: int): boolean {
   if (roomGridIndex === undefined) {
-    roomGridIndex = getRoomSafeGridIndex();
+    roomGridIndex = getRoomGridIndex();
   }
 
   return roomGridIndex >= 0;

@@ -3,8 +3,8 @@ import { getCollectibleName } from "./collectibles";
 import { hasFlag } from "./flag";
 import { getEffectsList } from "./player";
 import {
+  getRoomGridIndex,
   getRoomListIndex,
-  getRoomSafeGridIndex,
   getRoomSubType,
   getRoomVariant,
 } from "./rooms";
@@ -186,13 +186,13 @@ export function logRoom(this: void): void {
   const roomType = room.GetType();
   const roomVariant = getRoomVariant();
   const roomSubType = getRoomSubType();
-  const roomSafeGridIndex = getRoomSafeGridIndex();
+  const roomGridIndex = getRoomGridIndex();
   const roomListIndex = getRoomListIndex();
 
   log(
     `Current room type/variant/sub-type: ${roomType}.${roomVariant}.${roomSubType}`,
   );
-  log(`Current room safe grid index: ${roomSafeGridIndex}`);
+  log(`Current room grid index: ${roomGridIndex}`);
   log(`Current room list index: ${roomListIndex}`);
 }
 
