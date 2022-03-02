@@ -1,9 +1,4 @@
-import {
-  GENESIS_ROOM_SUBTYPE,
-  GENESIS_ROOM_VARIANT,
-  MAX_ROOM_INDEX,
-  NUM_DIMENSIONS,
-} from "../constants";
+import { MAX_ROOM_INDEX, NUM_DIMENSIONS } from "../constants";
 import {
   closeAllDoors,
   getDoors,
@@ -90,7 +85,10 @@ export function getCurrentDimension(): Dimension {
   );
 }
 
-/** Alias for the `Level.GetCurrentRoomDesc()` method. */
+/**
+ * Alias for the `Level.GetCurrentRoomDesc()` method. Use this to make it more clear what type of
+ * `RoomDescriptor` object that you are retrieving.
+ */
 export function getCurrentRoomDescriptorReadOnly(): RoomDescriptorReadOnly {
   const game = Game();
   const level = game.GetLevel();
@@ -111,9 +109,10 @@ export function getRoomData(roomGridIndex?: int): RoomConfig | undefined {
 /**
  * Helper function for getting the type of the room with the given grid index.
  *
+ * @param roomGridIndex Optional. Equal to the current room index by default.
  * @returns The room data type. Returns -1 if the type was not found.
  */
-export function getRoomType(roomGridIndex: int): RoomType {
+export function getRoomType(roomGridIndex?: int): RoomType {
   const roomData = getRoomData(roomGridIndex);
   return roomData === undefined ? -1 : roomData.Type;
 }
@@ -128,8 +127,7 @@ export function getRoomDescriptor(roomGridIndex?: int): RoomDescriptor {
   const level = game.GetLevel();
 
   if (roomGridIndex === undefined) {
-    const currentRoomDescriptor = getCurrentRoomDescriptorReadOnly();
-    roomGridIndex = currentRoomDescriptor.SafeGridIndex;
+    roomGridIndex = getRoomGridIndex();
   }
 
   return level.GetRoomByIdx(roomGridIndex);
@@ -449,13 +447,11 @@ export function inGenesisRoom(): boolean {
   const game = Game();
   const room = game.GetRoom();
   const roomType = room.GetType();
-  const roomVariant = getRoomVariant();
   const roomSubType = getRoomSubType();
 
   return (
     roomType === RoomType.ROOM_ISAACS &&
-    roomVariant === GENESIS_ROOM_VARIANT &&
-    roomSubType === GENESIS_ROOM_SUBTYPE
+    roomSubType === IsaacsRoomSubType.GENESIS
   );
 }
 

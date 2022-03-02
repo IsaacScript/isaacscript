@@ -2,12 +2,7 @@ import { arrayToString } from "./array";
 import { getCollectibleName } from "./collectibles";
 import { hasFlag } from "./flag";
 import { getEffectsList } from "./player";
-import {
-  getRoomGridIndex,
-  getRoomListIndex,
-  getRoomSubType,
-  getRoomVariant,
-} from "./rooms";
+import { getRoomData, getRoomGridIndex, getRoomListIndex } from "./rooms";
 import { getTrinketName } from "./trinkets";
 
 /**
@@ -181,17 +176,17 @@ export function logMap(this: void, map: Map<AnyNotNil, unknown>): void {
 
 /** Helper function for printing out information about the current room. */
 export function logRoom(this: void): void {
-  const game = Game();
-  const room = game.GetRoom();
-  const roomType = room.GetType();
-  const roomVariant = getRoomVariant();
-  const roomSubType = getRoomSubType();
   const roomGridIndex = getRoomGridIndex();
   const roomListIndex = getRoomListIndex();
+  const roomData = getRoomData();
 
-  log(
-    `Current room type/variant/sub-type: ${roomType}.${roomVariant}.${roomSubType}`,
-  );
+  if (roomData === undefined) {
+    log("Current room data is undefined.");
+  } else {
+    log(
+      `Current room type/variant/sub-type: ${roomData.Type}.${roomData.Variant}.${roomData.Subtype}`,
+    );
+  }
   log(`Current room grid index: ${roomGridIndex}`);
   log(`Current room list index: ${roomListIndex}`);
 }

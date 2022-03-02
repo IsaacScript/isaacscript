@@ -139,8 +139,6 @@ export const FINAL_STAGE = LevelStage.NUM_STAGES - 1;
  */
 export const FIRST_GLITCHED_COLLECTIBLE_TYPE = (1 << 32) - 1;
 
-export const GENESIS_ROOM_VARIANT = -1;
-export const GENESIS_ROOM_SUBTYPE = -1;
 export const GOLDEN_TRINKET_SHIFT = 1 << 15;
 export const GRID_INDEX_CENTER_OF_1X1_ROOM = 67;
 export const GAME_FRAMES_PER_SECOND = 30;
