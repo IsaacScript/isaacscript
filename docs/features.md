@@ -3,7 +3,7 @@ title: Features
 hide_table_of_contents: true
 ---
 
-They say that every programming language has some pros and some cons. However, after five years of programming mods in Lua for <em>The Binding of Isaac: Repentance</em>, I have not found very many pros. It is incredibly easy to shoot yourself in the foot after making even the smallest typo. And it doesn't have the tooling that we take for granted when programming in other modern languages.
+They say that every programming language has some pros and some cons. However, after five years of programming mods in Lua for <em>The Binding of Isaac: Afterbirth+</em> and <em>The Binding of Isaac: Repentance</em>, I have not found very many pros. It is incredibly easy to shoot yourself in the foot after making even the smallest typo. And it doesn't have the tooling that we take for granted when programming in other modern languages.
 
 But we don't have to suffer anymore. The `isaacscript` framework allows us to program Isaac mods in TypeScript. And once you start, you will never go back. Here's a short list of features:
 
