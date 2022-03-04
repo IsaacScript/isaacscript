@@ -1,7 +1,7 @@
 import { deepCopy, SerializationType } from "../../functions/deepCopy";
 import { jsonEncode } from "../../functions/jsonHelpers";
 import { log } from "../../functions/log";
-import { SaveData, SaveDataWithoutRoom } from "../../types/SaveData";
+import { SaveData, SaveDataWithoutRoom } from "../../types/private/SaveData";
 
 export function saveToDisk(
   mod: Mod,

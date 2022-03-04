@@ -21,10 +21,12 @@ export function arrayEquals<T>(
 
 /**
  * Helper function to combine two or more arrays. Returns a new array that is the composition of all
- * of the specified arrays. This function is variadic, meaning that you can specify N arguments to
- * combine N arrays. Note that this will only perform a shallow copy of the array elements.
+ * of the specified arrays.
+ *
+ * This function is variadic, meaning that you can specify N arguments to combine N arrays. Note
+ * that this will only perform a shallow copy of the array elements.
  */
-export function combineArray<T>(...arrays: Array<T[] | readonly T[]>): T[] {
+export function combineArrays<T>(...arrays: Array<T[] | readonly T[]>): T[] {
   const elements: T[] = [];
   for (const array of arrays) {
     for (const element of array) {
@@ -151,14 +153,14 @@ export function arrayToString<T>(array: T[]): string {
  */
 export function arrayRemove<T>(
   originalArray: T[] | readonly T[],
-  ...elements: T[]
+  ...elementsToRemove: T[]
 ): T[] {
-  const array = copyArray(originalArray);
+  const elementsToRemoveSet = new Set(elementsToRemove);
 
-  for (const element of elements) {
-    const index = array.indexOf(element);
-    if (index > -1) {
-      array.splice(index, 1);
+  const array: T[] = [];
+  for (const element of originalArray) {
+    if (!elementsToRemoveSet.has(element)) {
+      array.push(element);
     }
   }
 
@@ -173,11 +175,10 @@ export function arrayRemove<T>(
  */
 export function arrayRemoveInPlace<T>(
   array: T[],
-  ...elements: T[] | readonly T[]
+  ...elementsToRemove: T[]
 ): boolean {
   let removedOneOrMoreElements = false;
-
-  for (const element of elements) {
+  for (const element of elementsToRemove) {
     const index = array.indexOf(element);
     if (index > -1) {
       removedOneOrMoreElements = true;

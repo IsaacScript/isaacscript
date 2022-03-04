@@ -1,6 +1,6 @@
 import { getUpgradeErrorMsg } from "../../errors";
 import { deepCopy, SerializationType } from "../../functions/deepCopy";
-import { SaveData } from "../../types/SaveData";
+import { SaveData } from "../../types/private/SaveData";
 import {
   FEATURE_NAME,
   forceSaveDataManagerLoad,

@@ -1,6 +1,6 @@
 import { jsonDecode } from "../../functions/jsonHelpers";
 import { log } from "../../functions/log";
-import { SaveData } from "../../types/SaveData";
+import { SaveData } from "../../types/private/SaveData";
 import { SAVE_DATA_MANAGER_DEBUG } from "./debug";
 import { merge } from "./merge";
 

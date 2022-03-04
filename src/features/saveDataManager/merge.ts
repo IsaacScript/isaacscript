@@ -11,7 +11,7 @@ import { clearTable } from "../../functions/table";
 import {
   isSerializationBrand,
   SerializationBrand,
-} from "../../types/SerializationBrand";
+} from "../../types/private/SerializationBrand";
 import { SAVE_DATA_MANAGER_DEBUG } from "./debug";
 
 /**

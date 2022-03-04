@@ -1,3 +1,5 @@
+import { getRandomArrayElement } from "./array";
+
 /**
  * Helper function to add all of the values in one set to another set. The first set passed will be
  * modified in place.
@@ -58,4 +60,34 @@ export function deleteSetsFromSet<T>(
       mainSet.delete(value);
     }
   }
+}
+
+/**
+ * Helper function to get a random element from the provided set.
+ *
+ * @param set The set to get an element from.
+ * @param seed Optional. The seed used to select the random element. `Random()` by default.
+ * @param exceptions Optional. An array of elements to skip over if selected.
+ */
+export function getRandomSetElement<T>(
+  set: Set<T> | ReadonlySet<T>,
+  seed = Random(),
+  exceptions: T[] | readonly T[] = [],
+): T {
+  const array = getSortedSetValues(set);
+  return getRandomArrayElement(array, seed, exceptions);
+}
+
+/**
+ * Helper function to get a sorted array based on the contents of a set.
+ *
+ * Normally, set values are returned in a random order, so use this function when the ordering of
+ * the contents is important.
+ */
+export function getSortedSetValues<T>(set: Set<T> | ReadonlySet<T>): T[] {
+  const values = set.values();
+  const array = [...values];
+  array.sort();
+
+  return array;
 }

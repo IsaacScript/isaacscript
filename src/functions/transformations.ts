@@ -1,4 +1,5 @@
 import { TRANSFORMATION_NAME_MAP } from "../maps/transformationNameMap";
+import { DefaultMap } from "../types/DefaultMap";
 import { collectibleHasTag, getMaxCollectibleType } from "./collectibles";
 import { range } from "./math";
 import { copySet } from "./set";
@@ -37,12 +38,12 @@ const TRANSFORMATION_TO_COLLECTIBLE_TYPES_MAP = new Map<
   Set<CollectibleType | int>
 >();
 
-const COLLECTIBLE_TYPE_TO_TRANSFORMATION_MAP = new Map<
+const COLLECTIBLE_TYPE_TO_TRANSFORMATION_MAP = new DefaultMap<
   CollectibleType | int,
   Set<PlayerForm>
->();
+>(() => new Set());
 
-function initMaps() {
+function initTransformationMaps() {
   const maxCollectibleType = getMaxCollectibleType();
 
   // The transformation to items map should be valid for every transformation based on items,
@@ -68,15 +69,10 @@ function initMaps() {
       collectibleTypesSet.add(collectibleType);
 
       // Update the second map
-      let transformations =
-        COLLECTIBLE_TYPE_TO_TRANSFORMATION_MAP.get(collectibleType);
-      if (transformations === undefined) {
-        transformations = new Set();
-        COLLECTIBLE_TYPE_TO_TRANSFORMATION_MAP.set(
+      const transformations =
+        COLLECTIBLE_TYPE_TO_TRANSFORMATION_MAP.getAndSetDefault(
           collectibleType,
-          transformations,
         );
-      }
       transformations.add(playerForm);
     }
   }
@@ -87,7 +83,7 @@ export function getCollectibleTypesForTransformation(
 ): Set<PlayerForm> {
   // Lazy initialize the map
   if (TRANSFORMATION_TO_COLLECTIBLE_TYPES_MAP.size === 0) {
-    initMaps();
+    initTransformationMaps();
   }
 
   const collectibleTypes =
@@ -108,7 +104,7 @@ export function getPlayerNumTransformationCollectibles(
 
   // Lazy initialize the map
   if (TRANSFORMATION_TO_COLLECTIBLE_TYPES_MAP.size === 0) {
-    initMaps();
+    initTransformationMaps();
   }
 
   const itemsForTransformation =
@@ -148,7 +144,7 @@ export function getTransformationsForCollectibleType(
 ): Set<PlayerForm> {
   // Lazy initialize the map
   if (COLLECTIBLE_TYPE_TO_TRANSFORMATION_MAP.size === 0) {
-    initMaps();
+    initTransformationMaps();
   }
 
   const transformations =

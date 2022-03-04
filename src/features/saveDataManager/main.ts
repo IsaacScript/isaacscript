@@ -3,7 +3,7 @@ import { deepCopy, SerializationType } from "../../functions/deepCopy";
 import { clearTable } from "../../functions/table";
 import { ModCallbacksCustom } from "../../types/ModCallbacksCustom";
 import { ModUpgraded } from "../../types/ModUpgraded";
-import { SaveDataKeys } from "../../types/SaveData";
+import { SaveDataKeys } from "../../types/private/SaveData";
 import { loadFromDisk } from "./load";
 import {
   saveDataConditionalFuncMap,

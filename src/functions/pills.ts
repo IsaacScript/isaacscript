@@ -10,6 +10,11 @@ import {
   PillEffectType,
 } from "../types/PillEffectType";
 
+export function getMaxPillEffects(): int {
+  const itemConfig = Isaac.GetItemConfig();
+  return itemConfig.GetPillEffects().Size - 1;
+}
+
 /**
  * Helper function to get a pill effect class from a PillEffect enum value. In this context, the
  * class is equal to the numerical prefix in the "class" tag in the "pocketitems.xml" file. Use the

@@ -29,10 +29,16 @@ import { spawnCollectible } from "../functions/spawnCollectible";
 import { DefaultMap } from "../types/DefaultMap";
 import { JSONRoom } from "../types/JSONRoom";
 import { ModUpgraded } from "../types/ModUpgraded";
-import { PersistentEntityDescription } from "../types/PersistentEntityDescription";
 import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "JSON room deployer";
+
+interface PersistentEntityDescription {
+  gridIndex: int;
+  type: int;
+  variant: int;
+  subType: int;
+}
 
 const NPC_TYPES_TO_NOT_REMOVE: ReadonlySet<EntityType> = new Set([
   EntityType.ENTITY_DARK_ESAU,

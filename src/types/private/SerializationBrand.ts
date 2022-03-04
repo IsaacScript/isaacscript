@@ -1,4 +1,4 @@
-import { getEnumValues } from "../functions/utils";
+import { getEnumValues } from "../../functions/utils";
 
 export enum SerializationBrand {
   DEFAULT_MAP = "__TSTL_DEFAULT_MAP",
@@ -16,9 +16,9 @@ export enum SerializationBrand {
   VECTOR = "__VECTOR",
 }
 
-const serializationBrands = getEnumValues(SerializationBrand);
+const SERIALIZATION_BRANDS = getEnumValues(SerializationBrand);
 const SERIALIZATION_BRAND_SET: ReadonlySet<string> = new Set(
-  serializationBrands,
+  SERIALIZATION_BRANDS,
 );
 
 export function isSerializationBrand(key: AnyNotNil): boolean {

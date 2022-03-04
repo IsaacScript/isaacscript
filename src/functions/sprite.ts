@@ -2,8 +2,10 @@ import { EMPTY_PNG_PATH } from "../constants";
 import { range } from "./math";
 
 /**
- * Helper function to clear a specific layer from a sprite. This function is variadic, so pass as
- * many layer IDs as you want to clear. If no specific layers are passed, it will clear every layer.
+ * Helper function to clear a specific layer from a sprite.
+ *
+ * This function is variadic, so pass as many layer IDs as you want to clear. If no specific layers
+ * are passed, it will clear every layer.
  *
  * Since there is no official API method to "clear" a sprite, we can work around it by setting the
  * spritesheet to a non-existent or completely transparent file. If the path to the spritesheet does

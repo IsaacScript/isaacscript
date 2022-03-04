@@ -1,4 +1,4 @@
-import { SaveData } from "../../types/SaveData";
+import { SaveData } from "../../types/private/SaveData";
 
 // The save data map is indexed by subscriber name
 // We use Lua tables instead of TypeScriptToLua Maps for the master map so that we can access the

@@ -175,12 +175,15 @@ export function getRoomGridIndex(): int {
  * indexes for N room types.
  */
 export function getRoomGridIndexesForType(...roomTypes: RoomType[]): int[] {
+  const roomTypesSet = new Set<RoomType>([...roomTypes]);
+
   const rooms = getRooms();
   const matchingRooms = rooms.filter(
     (roomDescriptor) =>
       roomDescriptor.Data !== undefined &&
-      roomTypes.includes(roomDescriptor.Data.Type),
+      roomTypesSet.has(roomDescriptor.Data.Type),
   );
+
   return matchingRooms.map((roomDescriptor) => roomDescriptor.SafeGridIndex);
 }
 

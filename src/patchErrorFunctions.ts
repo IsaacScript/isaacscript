@@ -88,5 +88,6 @@ function removeLinesContaining(msg: string, containsMsg: string) {
   const linesThatDontContain = lines.filter(
     (line) => !line.includes(containsMsg),
   );
+
   return linesThatDontContain.join(LINE_SEPARATOR);
 }

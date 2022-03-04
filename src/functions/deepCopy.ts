@@ -3,7 +3,7 @@ import { DefaultMap } from "../types/DefaultMap";
 import {
   isSerializationBrand,
   SerializationBrand,
-} from "../types/SerializationBrand";
+} from "../types/private/SerializationBrand";
 import { log } from "./log";
 import { isVector } from "./vector";
 
