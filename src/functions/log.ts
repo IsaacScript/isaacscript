@@ -3,6 +3,7 @@ import { getCollectibleName } from "./collectibles";
 import { hasFlag } from "./flag";
 import { getEffectsList } from "./player";
 import { getRoomData, getRoomGridIndex, getRoomListIndex } from "./rooms";
+import { getSortedSetValues } from "./set";
 import { getTrinketName } from "./trinkets";
 
 /**
@@ -242,9 +243,7 @@ export function logTemporaryEffects(this: void, player: EntityPlayer): void {
 export function logSet(this: void, set: Set<AnyNotNil>): void {
   log("Printing out a TSTL Set:");
 
-  const setValues = [...set.values()];
-  setValues.sort();
-
+  const setValues = getSortedSetValues(set);
   for (const value of setValues) {
     log(`  Value: ${value}`);
   }

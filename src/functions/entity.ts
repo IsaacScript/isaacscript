@@ -14,6 +14,37 @@ export function anyEntityCloserThan(
 }
 
 /**
+ * Helper function to count the number of entities in room. Use this over the vanilla
+ * `Isaac.CountEntities` method to avoid having to specify a spawner and to handle ignoring charmed
+ * enemies.
+ *
+ * @param entityType -1 by default.
+ * @param variant -1 by default.
+ * @param subType -1 by default.
+ * @param ignoreFriendly False by default.
+ */
+export function countEntities(
+  entityType: EntityType | int = -1,
+  variant = -1,
+  subType = -1,
+  ignoreFriendly = false,
+) {
+  if (!ignoreFriendly) {
+    return Isaac.CountEntities(undefined, entityType, variant, subType);
+  }
+
+  const entities = Isaac.FindByType(
+    entityType,
+    variant,
+    subType,
+    false,
+    ignoreFriendly,
+  );
+
+  return entities.length;
+}
+
+/**
  * Given an array of entities, this helper function returns the closest one to a provided reference
  * entity.
  *
