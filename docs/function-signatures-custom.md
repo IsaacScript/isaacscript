@@ -390,9 +390,7 @@ Fires on the MC_POST_UPDATE frame that a pickup with a price disappears. The pla
 ```ts
 function postPurchase(
   player: EntityPlayer,
-  pickupVariant: PickupVariant | int,
-  pickupSubType: int,
-  pickupPrice: int,
+  pickupDescription: PickupDescription,
 ): void {}
 ```
 
