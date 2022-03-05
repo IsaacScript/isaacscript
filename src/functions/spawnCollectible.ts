@@ -1,6 +1,6 @@
 import { preventCollectibleRotate } from "../features/preventCollectibleRotate";
 import { areFeaturesInitialized } from "../featuresInitialized";
-import { isQuestCollectible } from "./collectibles";
+import { isQuestCollectible, setCollectibleEmpty } from "./collectibles";
 import { anyPlayerIs } from "./player";
 
 /**
@@ -72,4 +72,23 @@ export function spawnCollectible(
   }
 
   return collectible;
+}
+
+/**
+ * Helper function to spawn an empty collectible. Doing this is tricky since spawning a collectible
+ * with `CollectibleType.COLLECTIBLE_NULL` will result in spawning a collectible with a random type
+ * from the current room's item pool.
+ *
+ * Instead, this function arbitrarily spawns a collectible with
+ * `CollectibleType.COLLECTIBLE_SAD_ONION`, and then converts it to an empty pedestal afterward.
+ */
+export function spawnEmptyCollectible(position: Vector, seed = Random()) {
+  const collectible = spawnCollectible(
+    CollectibleType.COLLECTIBLE_SAD_ONION,
+    position,
+    seed,
+    false,
+    true,
+  );
+  setCollectibleEmpty(collectible);
 }

@@ -28,6 +28,10 @@ export function collectibleHasTag(
   return itemConfigItem.HasTags(tag);
 }
 
+export function clearCollectibleSprite(collectible: EntityPickup): void {
+  setCollectibleSprite(collectible, undefined);
+}
+
 export function collectibleHasCacheFlag(
   collectibleType: CollectibleType | int,
   cacheFlag: CacheFlag,
@@ -353,10 +357,10 @@ export function setCollectibleBlind(collectible: EntityPickup): void {
 
 /**
  * Helper function to remove the collectible from a collectible pedestal and make it appear as if a
- * player has already taken the item. This is accomplished by setting its sprite to an empty/missing
- * PNG file.
+ * player has already taken the item. This is accomplished by changing the sub-type to
+ * `CollectibleType.COLLECTIBLE_NULL` and then setting the sprite to an empty/missing PNG file.
  *
- * For more information, see the documentation for the "emptySprite" helper function.
+ * For more information, see the documentation for the "clearSprite" helper function.
  */
 export function setCollectibleEmpty(collectible: EntityPickup): void {
   if (collectible.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
@@ -366,23 +370,23 @@ export function setCollectibleEmpty(collectible: EntityPickup): void {
   }
 
   collectible.SubType = CollectibleType.COLLECTIBLE_NULL;
-  setCollectibleSprite(collectible);
+  clearCollectibleSprite(collectible);
 }
 
 /**
  * Helper function to change the sprite of a collectible pedestal entity.
  *
  * For more information about removing the collectible sprite, see the documentation for the
- * "emptySprite" helper function.
+ * "clearSprite" helper function.
  *
  * @param collectible The collectible whose sprite you want to modify.
- * @param pngPath Optional. Equal to the spritesheet path to load (e.g.
- * "gfx/items/collectibles/collectibles_001_thesadonion.png"). If not specified, will remove the
- * sprite, making it appear like the collectible has already been taken by the player.
+ * @param pngPath Equal to either the spritesheet path to load (e.g.
+ * "gfx/items/collectibles/collectibles_001_thesadonion.png") or undefined. If undefined, the sprite
+ * will be removed, making it appear like the collectible has already been taken by the player.
  */
 export function setCollectibleSprite(
   collectible: EntityPickup,
-  pngPath?: string,
+  pngPath: string | undefined,
 ): void {
   if (collectible.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
     error(

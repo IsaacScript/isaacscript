@@ -79,6 +79,8 @@ function storePickupsInMap(pickups: EntityPickup[]) {
     v.room.pickupMap.set(pickup.Index, {
       variant: pickup.Variant,
       subType: pickup.SubType,
+      position: pickup.Position,
+      velocity: pickup.Velocity,
       price: pickup.Price,
       initSeed: pickup.InitSeed,
     });
