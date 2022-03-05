@@ -4,7 +4,6 @@ import {
   CHARACTERS_WITH_NO_RED_HEARTS,
   CHARACTERS_WITH_NO_SOUL_HEARTS,
   LOST_STYLE_PLAYER_TYPES,
-  MAX_PLAYER_HEART_CONTAINERS,
   MAX_VANILLA_CHARACTER,
 } from "../constants";
 import { HealthType } from "../types/HealthType";
@@ -182,10 +181,22 @@ export function getBlackHearts(player: EntityPlayer): int {
 export function getCharacterMaxHeartContainers(
   character: PlayerType | int,
 ): int {
+  // 14
   if (character === PlayerType.PLAYER_KEEPER) {
     return 3;
   }
 
+  // 16
+  if (character === PlayerType.PLAYER_THEFORGOTTEN) {
+    return 6;
+  }
+
+  // 17
+  if (character === PlayerType.PLAYER_THESOUL) {
+    return 6;
+  }
+
+  // 33
   if (character === PlayerType.PLAYER_KEEPER_B) {
     return 2;
   }
@@ -531,25 +542,41 @@ export function getPlayerIndexVanilla(
  */
 export function getPlayerMaxHeartContainers(player: EntityPlayer): int {
   const character = player.GetPlayerType();
-  let maxHeartContainers = getCharacterMaxHeartContainers(character);
+  const characterMaxHeartContainers = getCharacterMaxHeartContainers(character);
 
+  // 1
+  // Magdalene can increase her maximum heart containers with Birthright
   if (
     character === PlayerType.PLAYER_MAGDALENE &&
     player.HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
   ) {
-    maxHeartContainers += 6;
+    const extraMaxHeartContainersFromBirthright = 6;
+    return characterMaxHeartContainers + extraMaxHeartContainersFromBirthright;
   }
 
-  const numMothersKisses = player.GetTrinketMultiplier(
-    TrinketType.TRINKET_MOTHERS_KISS,
-  );
-  maxHeartContainers += numMothersKisses;
+  // 14, 33
+  // Keeper and Tainted Keeper can increase their coin containers with Mother's Kiss and Greed's
+  // Gullet
+  if (isKeeper(player)) {
+    const numMothersKisses = player.GetTrinketMultiplier(
+      TrinketType.TRINKET_MOTHERS_KISS,
+    );
+    const hasGreedsGullet = player.HasCollectible(
+      CollectibleType.COLLECTIBLE_GREEDS_GULLET,
+    );
+    const coins = player.GetNumCoins();
+    const greedsGulletCoinContainers = hasGreedsGullet
+      ? Math.floor(coins / 25)
+      : 0;
 
-  if (maxHeartContainers > MAX_PLAYER_HEART_CONTAINERS) {
-    maxHeartContainers = MAX_PLAYER_HEART_CONTAINERS;
+    return (
+      characterMaxHeartContainers +
+      numMothersKisses +
+      greedsGulletCoinContainers
+    );
   }
 
-  return maxHeartContainers;
+  return characterMaxHeartContainers;
 }
 
 /**
