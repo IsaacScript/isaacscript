@@ -1,17 +1,12 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getPickups } from "../functions/pickups";
 import { getPlayerIndex, getPlayers } from "../functions/player";
+import { PickupDescription } from "../types/PickupDescription";
 import { PlayerIndex } from "../types/PlayerIndex";
 import {
   postPurchaseFire,
   postPurchaseHasSubscriptions,
 } from "./subscriptions/postPurchase";
-
-interface PickupDescription {
-  variant: PickupVariant | int;
-  subType: int;
-  price: int;
-}
 
 const v = {
   room: {
@@ -61,12 +56,7 @@ function checkPickupsPurchased(
     const player = getPlayerThatIsNoLongerHoldingAnItem(players);
     if (player !== undefined) {
       // Assume that this is the player that purchased the pickup
-      postPurchaseFire(
-        player,
-        pickupDescription.variant,
-        pickupDescription.subType,
-        pickupDescription.price,
-      );
+      postPurchaseFire(player, pickupDescription);
     }
   }
 }
@@ -90,6 +80,7 @@ function storePickupsInMap(pickups: EntityPickup[]) {
       variant: pickup.Variant,
       subType: pickup.SubType,
       price: pickup.Price,
+      initSeed: pickup.InitSeed,
     });
   }
 }

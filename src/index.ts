@@ -112,6 +112,7 @@ export * from "./types/JSONSpawn";
 export * from "./types/ModCallbacksCustom";
 export * from "./types/ModUpgraded";
 export * from "./types/PickingUpItem";
+export * from "./types/PickupDescription";
 export * from "./types/PillEffectClass";
 export * from "./types/PillEffectType";
 export * from "./types/PlayerHealth";
