@@ -382,10 +382,10 @@ function postTransformation(player: EntityPlayer, playerForm: PlayerForm, hasFor
 
 ### MC_POST_PURCHASE
 
-Fires on the MC_POST_UPDATE frame that a pickup with a price disappears. The player who purchased it is assumed to be the player that was not holding anything on the previous frame but is holding something now.
+Fires on the MC_POST_PEFFECT_UPDATE frame that a player first picks up a new item. The pickup returned in the callback is assumed to be the first pickup that no longer exists.
 
 - When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `PickupVariant` provided.
-- When registering the callback, takes an optional third argument that will make the callback only fire if it matches the subtype provided.
+- When registering the callback, takes an optional third argument that will make the callback only fire if it matches the sub-type provided.
 
 ```ts
 function postPurchase(
