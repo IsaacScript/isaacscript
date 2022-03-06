@@ -388,10 +388,7 @@ Fires on the MC_POST_PEFFECT_UPDATE frame that a player first picks up a new ite
 - When registering the callback, takes an optional third argument that will make the callback only fire if it matches the sub-type provided.
 
 ```ts
-function postPurchase(
-  player: EntityPlayer,
-  pickupDescription: PickupDescription,
-): void {}
+function postPurchase(player: EntityPlayer, pickupDescription: PickupDescription): void {}
 ```
 
 ### MC_POST_SACRIFICE
