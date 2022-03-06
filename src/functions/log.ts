@@ -181,17 +181,17 @@ export function logPlayerHealth(this: void, player: EntityPlayer): void {
   const playerHealth = getPlayerHealth(player);
 
   log(`Player health for ${playerName}:`);
-  log(`- Max hearts: ${playerHealth.maxHearts}`);
-  log(`- Hearts: ${playerHealth.hearts}`);
-  log(`- Eternal hearts: ${playerHealth.eternalHearts}`);
-  log(`- Soul hearts: ${playerHealth.soulHearts}`);
-  log(`- Bone hearts: ${playerHealth.boneHearts}`);
-  log(`- Golden hearts: ${playerHealth.goldenHearts}`);
-  log(`- Rotten hearts: ${playerHealth.rottenHearts}`);
-  log(`- Broken hearts: ${playerHealth.brokenHearts}`);
-  log(`- Soul charges: ${playerHealth.soulCharges}`);
-  log(`- Blood charges: ${playerHealth.bloodCharges}`);
-  log(`- Soul heart types: [${playerHealth.soulHeartTypes.join(",")}]`);
+  log(`  Max hearts: ${playerHealth.maxHearts}`);
+  log(`  Hearts: ${playerHealth.hearts}`);
+  log(`  Eternal hearts: ${playerHealth.eternalHearts}`);
+  log(`  Soul hearts: ${playerHealth.soulHearts}`);
+  log(`  Bone hearts: ${playerHealth.boneHearts}`);
+  log(`  Golden hearts: ${playerHealth.goldenHearts}`);
+  log(`  Rotten hearts: ${playerHealth.rottenHearts}`);
+  log(`  Broken hearts: ${playerHealth.brokenHearts}`);
+  log(`  Soul charges: ${playerHealth.soulCharges}`);
+  log(`  Blood charges: ${playerHealth.bloodCharges}`);
+  log(`  Soul heart types: [${playerHealth.soulHeartTypes.join(",")}]`);
 }
 
 /** Helper function for printing out information about the current room. */
