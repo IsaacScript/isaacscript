@@ -4,6 +4,8 @@
 
 import { MAX_PLAYER_HEART_CONTAINERS } from "../constants";
 import { PlayerHealth } from "../types/PlayerHealth";
+import { getHearts } from "./player";
+import { repeat } from "./utils";
 
 /**
  * Helper function to get an inventory of the player's health. Use this in combination with the
@@ -16,7 +18,7 @@ export function getPlayerHealth(player: EntityPlayer): PlayerHealth {
   const character = player.GetPlayerType();
   const soulHeartTypes: HeartSubType[] = [];
   let maxHearts = player.GetMaxHearts();
-  let hearts = player.GetHearts();
+  let hearts = getHearts(player); // We use the helper function to remove rotten hearts
   let soulHearts = player.GetSoulHearts();
   let boneHearts = player.GetBoneHearts();
   const goldenHearts = player.GetGoldenHearts();
@@ -46,9 +48,6 @@ export function getPlayerHealth(player: EntityPlayer): PlayerHealth {
     maxHearts = subPlayer.GetBoneHearts() * 2;
     hearts = subPlayer.GetHearts();
   }
-
-  // Rotten Hearts are included in the hearts value, so strip them out
-  hearts -= rottenHearts * 2;
 
   // This is the number of individual hearts shown in the HUD, minus heart containers
   const extraHearts = math.ceil(soulHearts / 2) + boneHearts;
@@ -115,6 +114,7 @@ export function setPlayerHealth(
 ): void {
   const character = player.GetPlayerType();
   const subPlayer = player.GetSubPlayer();
+  const isTaintedMagdalene = character === PlayerType.PLAYER_MAGDALENE_B;
 
   removeAllPlayerHealth(player);
 
@@ -159,8 +159,17 @@ export function setPlayerHealth(
   // Fill in the red heart containers
   // (Rotten Hearts must be filled in first in order for this to work properly,
   // since they conflict with half red hearts)
+  // The "AddRottenHearts" method is not like actually picking up a rotten heart, since it will only
+  // grant one rotten heart to Tainted Magdalene (whereas picking up a rotten heart would grant two)
   player.AddRottenHearts(playerHealth.rottenHearts);
-  player.AddHearts(playerHealth.hearts);
+  repeat(playerHealth.hearts, () => {
+    player.AddHearts(1);
+
+    // Adding 1 heart to Tainted Magdalene will actually add two hearts
+    if (isTaintedMagdalene) {
+      player.AddHearts(-1);
+    }
+  });
   player.AddGoldenHearts(playerHealth.goldenHearts);
   player.AddBrokenHearts(playerHealth.brokenHearts);
 
