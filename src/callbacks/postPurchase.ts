@@ -17,13 +17,6 @@ const v = {
     /** Indexed by EntityPickup.Index. Only tracks pickups with a price. */
     pickupMap: new Map<int, PickupDescription>(),
 
-    /** Indexed by EntityPickup.Index. Only tracks collectibles with a price. */
-    collectibleMap: new Map<int, PickupDescription>(),
-
-    /**
-     * Tracks whether or not the given player was holding an item on previous frames. The 0th
-     * element is 1 frame ago, and the 1st element is 2 frames ago.
-     */
     playersHoldingItemOnLastFrameMap: new DefaultMap<PlayerIndex, boolean>(
       false,
     ),
@@ -51,20 +44,10 @@ function postUpdate() {
   const pickupsWithPrice = pickups.filter(
     (pickup) => pickup.Exists() && pickup.Price !== 0,
   );
-  const nonCollectiblesWithPrice = pickupsWithPrice.filter(
-    (pickup) => pickup.Variant !== PickupVariant.PICKUP_COLLECTIBLE,
-  );
-  const collectiblesWithPrice = pickupsWithPrice.filter(
-    (pickup) => pickup.Variant === PickupVariant.PICKUP_COLLECTIBLE,
-  );
   const players = getPlayers();
 
-  checkPickupsPurchased(nonCollectiblesWithPrice, players);
-  checkCollectiblesPurchased(collectiblesWithPrice, players);
-
-  storePickupsInMap(nonCollectiblesWithPrice);
-  storeCollectiblesInMap(collectiblesWithPrice);
-
+  checkPickupsPurchased(pickupsWithPrice, players);
+  storePickupsInMap(pickupsWithPrice);
   storePlayersInMap(players);
 }
 
@@ -92,34 +75,6 @@ function checkPickupsPurchased(
   }
 }
 
-function checkCollectiblesPurchased(
-  collectiblesWithPrice: EntityPickup[],
-  players: EntityPlayer[],
-) {
-  // When a collectible is purchased, it's sub-type changes to 0
-  // Normally, it is removed on the subsequent frame
-  // If the player has Flip, the collectible will not be removed
-  // Thus, we can track when collectibles are purchased by scanning for when the sub-type changes
-  for (const collectible of collectiblesWithPrice) {
-    const pickupDescription = v.room.collectibleMap.get(collectible.Index);
-    if (pickupDescription === undefined) {
-      // This collectible did not exist last frame, so there is nothing to compare it to
-      continue;
-    }
-
-    if (
-      pickupDescription.subType !== collectible.SubType &&
-      collectible.SubType === CollectibleType.COLLECTIBLE_NULL
-    ) {
-      const player = getPlayerThatIsNoLongerHoldingAnItem(players);
-      if (player !== undefined) {
-        // Assume that this is the player that purchased the pickup
-        postPurchaseFire(player, pickupDescription);
-      }
-    }
-  }
-}
-
 /** Find a player that was not holding an item on the previous frame, but is holding an item now. */
 function getPlayerThatIsNoLongerHoldingAnItem(players: EntityPlayer[]) {
   return players.find((player) => {
@@ -136,14 +91,6 @@ function storePickupsInMap(nonCollectiblesWithPrice: EntityPickup[]) {
   for (const pickup of nonCollectiblesWithPrice) {
     const pickupDescription = getPickupDescription(pickup);
     v.room.pickupMap.set(pickup.Index, pickupDescription);
-  }
-}
-
-function storeCollectiblesInMap(collectiblesWithPrice: EntityPickup[]) {
-  v.room.collectibleMap.clear();
-  for (const collectible of collectiblesWithPrice) {
-    const pickupDescription = getPickupDescription(collectible);
-    v.room.collectibleMap.set(collectible.Index, pickupDescription);
   }
 }
 
