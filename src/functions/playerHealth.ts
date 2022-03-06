@@ -173,6 +173,7 @@ export function setPlayerHealth(
 }
 
 export function removeAllPlayerHealth(player: EntityPlayer): void {
+  const character = player.GetPlayerType();
   const goldenHearts = player.GetGoldenHearts();
   const eternalHearts = player.GetEternalHearts();
   const boneHearts = player.GetBoneHearts();
@@ -186,4 +187,14 @@ export function removeAllPlayerHealth(player: EntityPlayer): void {
   player.AddBrokenHearts(brokenHearts * -1);
   player.AddMaxHearts(MAX_PLAYER_HEART_CONTAINERS * -2, true);
   player.AddSoulHearts(MAX_PLAYER_HEART_CONTAINERS * -2);
+
+  // If we are The Soul, the "AddBoneHearts" method will not remove Forgotten's bone hearts,
+  // so we need to explicitly handle this
+  if (character === PlayerType.PLAYER_THESOUL) {
+    const forgotten = player.GetSubPlayer();
+    if (forgotten !== undefined) {
+      const forgottenBoneHearts = forgotten.GetBoneHearts();
+      forgotten.AddBoneHearts(forgottenBoneHearts * -1);
+    }
+  }
 }
