@@ -96,7 +96,7 @@ EntityType = {
 	ENTITY_PLAYER = 1,     --  1 player
 	ENTITY_TEAR = 2,       --  2 tear projectile
 	ENTITY_FAMILIAR = 3,   --  3 familiar
-	ENTITY_BOMBDROP = 4,   --  4 bomb drop
+	ENTITY_BOMB = 4,   --  4 bomb drop
 	ENTITY_PICKUP = 5,     --	 5 pickup item
 	ENTITY_SLOT = 6,			 --  6 slot machine
 	ENTITY_LASER = 7,      --  7 laser beam
@@ -123,7 +123,7 @@ EntityType = {
 	ENTITY_CHUB = 28,
 	ENTITY_HOPPER = 29,     -- 29 enemy: Hopper
 	ENTITY_BOIL = 30,	-- 30 enemy: Boil, variants: 1 - Gut, 2 - Sack
-	ENTITY_SPITY = 31,
+	ENTITY_SPITTY = 31,
 	ENTITY_BRAIN = 32,
 	ENTITY_FIREPLACE = 33,
 	ENTITY_LEAPER = 34,
@@ -311,6 +311,7 @@ EntityType = {
 	ENTITY_FISTULOID = 308,
 	ENTITY_GUSH = 309,
 	ENTITY_LEPER = 310,
+	ENTITY_MR_MINE = 311,
 
 	-- Afterbirth bosses
 	ENTITY_STAIN = 401,
@@ -916,12 +917,13 @@ NpcState = {
 	STATE_ATTACK2 = 9,
 	STATE_ATTACK3 = 10,
 	STATE_ATTACK4 = 11,
-	STATE_SUMMON = 12,
-	STATE_SUMMON2 = 13,
-	STATE_SUMMON3 = 14,
-	STATE_SPECIAL = 15,
-	STATE_UNIQUE_DEATH = 16,
-	STATE_DEATH = 17
+	STATE_ATTACK5 = 12,
+	STATE_SUMMON = 13,
+	STATE_SUMMON2 = 14,
+	STATE_SUMMON3 = 15,
+	STATE_SPECIAL = 16,
+	STATE_UNIQUE_DEATH = 17,
+	STATE_DEATH = 18
 }
 
 EntityGridCollisionClass = {
@@ -1601,8 +1603,8 @@ RoomType = {
 	ROOM_PLANETARIUM = 24,
 	ROOM_TELEPORTER = 25,		-- Mausoleum teleporter entrance, currently unused
 	ROOM_TELEPORTER_EXIT = 26,	-- Mausoleum teleporter exit, currently unused
-	ROOM_SECRET_EXIT,			-- Trapdoor room to the alt path floors
-	ROOM_BLUE,					-- Blue Womb rooms spawned by Blue Key
+	ROOM_SECRET_EXIT = 27,		-- Trapdoor room to the alt path floors
+	ROOM_BLUE = 28,				-- Blue Womb rooms spawned by Blue Key
 	ROOM_ULTRASECRET = 29,		-- Red secret rooms
 	NUM_ROOMTYPES = 30
 }
@@ -1653,10 +1655,10 @@ PlayerType = {
 	PLAYER_POSSESSOR = -1,
 
 	PLAYER_ISAAC = 0,
-	PLAYER_MAGDALENA = 1,
+	PLAYER_MAGDALENE = 1,
 	PLAYER_CAIN = 2,
 	PLAYER_JUDAS = 3,
-	PLAYER_XXX = 4,
+	PLAYER_BLUEBABY = 4,
 	PLAYER_EVE = 5,
 	PLAYER_SAMSON = 6,
 	PLAYER_AZAZEL = 7,
@@ -1677,10 +1679,10 @@ PlayerType = {
 	PLAYER_JACOB = 19,
 	PLAYER_ESAU = 20,
 	PLAYER_ISAAC_B = 21,
-	PLAYER_MAGDALENA_B = 22,
+	PLAYER_MAGDALENE_B = 22,
 	PLAYER_CAIN_B = 23,
 	PLAYER_JUDAS_B = 24,
-	PLAYER_XXX_B = 25,
+	PLAYER_BLUEBABY_B = 25,
 	PLAYER_EVE_B = 26,
 	PLAYER_SAMSON_B = 27,
 	PLAYER_AZAZEL_B = 28,
@@ -2247,7 +2249,7 @@ SoundEffect = {
 	SOUND_BONE_BOUNCE = 499,
 	SOUND_BONE_BREAK = 500,
 	SOUND_BISHOP_HIT = 501,
-	SOUND_PORTAL_LOOP = 502, -- unused
+
 	SOUND_CHAIN_LOOP = 503,
 	SOUND_CHAIN_BREAK = 504,
 	SOUND_MINECART_LOOP = 505,
@@ -3459,8 +3461,11 @@ CollectibleType = {
 	COLLECTIBLE_GHOST_BOMBS = 727,
 	COLLECTIBLE_GELLO = 728,
 	COLLECTIBLE_DECAP_ATTACK = 729,
+	COLLECTIBLE_GLASS_EYE = 730,
+	COLLECTIBLE_STYE = 731,
+	COLLECTIBLE_MOMS_RING = 732,
 
-	NUM_COLLECTIBLES = 730
+	NUM_COLLECTIBLES = 733
 }
 
 TrinketType = {
@@ -3611,8 +3616,8 @@ TrinketType = {
 	TRINKET_CHEWED_PEN = 130,
 	TRINKET_BLESSED_PENNY = 131,
 	TRINKET_BROKEN_SYRINGE = 132,
-	TRINKET_FIRECRACKER = 133,
-	TRINKET_GIANT_BEAN = 134,
+	TRINKET_SHORT_FUSE = 133,
+	TRINKET_GIGANTE_BEAN = 134,
 	TRINKET_LIGHTER = 135,
 	TRINKET_BROKEN_PADLOCK = 136,
 	TRINKET_MYOSOTIS = 137,
@@ -3897,7 +3902,7 @@ TearVariant = {
 }
 
 local function TEARFLAG(x)
-	return x >= 64 and BitSet128(0,1<<x) or BitSet128(1<<x,0)
+	return x >= 64 and BitSet128(0,1<<(x-64)) or BitSet128(1<<x,0)
 end
 
 TearFlags = {
@@ -4302,7 +4307,7 @@ ItemPoolType = {
 	POOL_KEY_MASTER = 13,
 	POOL_BATTERY_BUM = 14,
 	POOL_MOMS_CHEST = 15,
-	POOL_GREED_TREASUREL = 16,
+	POOL_GREED_TREASURE = 16,
 	POOL_GREED_BOSS = 17,
 	POOL_GREED_SHOP = 18,
 	POOL_GREED_DEVIL = 19,
@@ -4310,7 +4315,7 @@ ItemPoolType = {
 	POOL_GREED_CURSE = 21,
 	POOL_GREED_SECRET = 22,
 	POOL_CRANE_GAME = 23,
-	POOL_24 = 24, -- unused
+	POOL_ULTRA_SECRET = 24,
 	POOL_BOMB_BUM = 25,
 	POOL_PLANETARIUM = 26,
 	POOL_OLD_CHEST = 27,
@@ -4557,6 +4562,35 @@ BackdropType = {
 	NUM_BACKDROPS = 61
 }
 
+PoopSpellType = {
+	SPELL_NONE = 0,
+
+	SPELL_POOP = 1,
+	SPELL_CORNY = 2,
+	SPELL_BURNING = 3,
+	SPELL_STONE = 4,
+	SPELL_STINKY = 5,
+	SPELL_BLACK = 6,
+	SPELL_HOLY = 7,
+	SPELL_LIQUID = 8,
+	SPELL_FART = 9,
+	SPELL_BOMB = 10,
+	SPELL_DIARRHEA = 11,
+
+	NUM_POOP_SPELLS = 12,
+
+	SPELL_BAG_SIZE = 20,
+	SPELL_QUEUE_SIZE = 6
+}
+
+LaserSubType = {
+	LASER_SUBTYPE_LINEAR = 0,				-- Typical laser that has a start and end point.
+	LASER_SUBTYPE_RING_LUDOVICO = 1,		-- Controlled ring laser a la Tech+Ludovico, Brim+Ludovico
+	LASER_SUBTYPE_RING_PROJECTILE = 2,		-- Ring laser that travels like a projectile (Technology X)
+	LASER_SUBTYPE_RING_FOLLOW_PARENT = 3,	-- Ring lasers that encircle their parents (Maw of the Void)
+	LASER_SUBTYPE_NO_IMPACT = 4				-- For Technology Zero, doesn't create an impact
+}
+
 local function AddEnumToNamespace(namespace, enums)
 	for k,v in pairs(enums) do
 		rawset(namespace, k, v)
@@ -4608,10 +4642,68 @@ AddEnumToNamespace(ItemConfig, {
 	CARDTYPE_TAROT_REVERSE = 5, 	-- Reversed tarot cards
 })
 
+RenderMode = {
+	RENDER_NULL = 0,				-- Currently not rendering room entities
+	RENDER_NORMAL = 1,				-- Rendering room entities normally (in a dry room)
+	RENDER_SKIP = 2,				--
+	RENDER_WATER_ABOVE = 3,			-- Rendering room entities above the water in a flooded room
+	RENDER_WATER_REFRACT = 4,		-- Rendering room entities below the water in a flooded room
+	RENDER_WATER_REFLECT = 5		-- Rendering the reflection of room entities in a flooded room
+}
+
+AddEnumToNamespace(RoomDescriptor, {
+	-- RoomDescriptor.DISPLAY_*
+	DISPLAY_NONE = 0,
+	DISPLAY_BOX = 1,
+	DISPLAY_LOCK = 2,
+	DISPLAY_ICON = 4,
+	DISPLAY_ALL = 5,
+
+	-- RoomDescriptor.FLAG_*
+	FLAG_CLEAR = 1<<0,						-- Room is clear, don't spawn enemies when visiting
+	FLAG_PRESSURE_PLATES_TRIGGERED = 1<<1,	-- All pressure plates have been triggered in this room. This won't be set if there are no trigger pressure plates in the first place.
+	FLAG_SACRIFICE_DONE = 1<<2,				-- Sacrifice room has paid out
+	FLAG_CHALLENGE_DONE = 1<<3,				-- Challenge room finished
+	FLAG_SURPRISE_MINIBOSS = 1<<4,			-- Load Greed/Krampus instead of the room specified by Type, Variant
+	FLAG_HAS_WATER = 1<<5,					-- Pits in this room contain water
+	FLAG_ALT_BOSS_MUSIC = 1<<6,				-- Play alternate boss music in this room
+	FLAG_NO_REWARD = 1<<7,					-- Don't pay out with a reward when clearing this room, used for traps that lock the player in the room when triggered
+	FLAG_FLOODED = 1<<8,					-- Was flooded by an item (i.e. Flush)
+	FLAG_PITCH_BLACK = 1<<9,				-- Complete darkness
+	FLAG_RED_ROOM = 1<<10,					-- Room spawned by Red Key
+	FLAG_DEVIL_TREASURE = 1<<11,			-- Treasure room transformed by Devil's Crown
+	FLAG_USE_ALTERNATE_BACKDROP = 1<<12,	-- Use an alternate backdrop (this is used by some floors such as Dross and Ashpit)
+	FLAG_CURSED_MIST = 1<<13,				-- Room is covered in cursed mist, player is temporarily reduced to base items and stats
+	FLAG_MAMA_MEGA = 1<<14,					-- Mama Mega has activated in this room
+	FLAG_NO_WALLS = 1<<15,					-- Don't generate walls (for Beast arena)
+	FLAG_ROTGUT_CLEARED = 1<<16,			-- Rotgut's heart was killed, immediately play Rotgut's death animation when reentering this room
+	FLAG_PORTAL_LINKED = 1<<17,				-- A portal spawned by Lil Portal now links to this room, don't create more portals that link to it
+	FLAG_BLUE_REDIRECT = 1<<18,				-- If walking into this room through a door, redirect to a Blue Womb room instead (this is used by Blue Key)
+})
+
+SkinColor = {
+	SKIN_PINK = -1,
+	SKIN_WHITE = 0,
+	SKIN_BLACK = 1,
+	SKIN_BLUE = 2,
+	SKIN_RED = 3,
+	SKIN_GREEN = 4,
+	SKIN_GREY = 5,
+	SKIN_SHADOW = 6
+}
+
 -- The following enums are DEPRECATED and are only left in for AB+ backwards compatibility
 -- Do not use them!
 
+PlayerType.PLAYER_MAGDALENA = 1
+PlayerType.PLAYER_XXX = 4
+PlayerType.PLAYER_MAGDALENA_B = 22
+PlayerType.PLAYER_XXX_B = 25
+
 FamiliarVariant.LEPROCY = 121
+
+EntityType.ENTITY_BOMBDROP = 4
+EntityType.ENTITY_SPITY = 31
 
 CollectibleType.COLLECTIBLE_MAXS_HEAD = 4
 CollectibleType.COLLECTIBLE_BLOOD_MARTYR = 7
@@ -4642,5 +4734,8 @@ CollectibleType.COLLECTIBLE_LEPROCY = 525
 CollectibleType.COLLECTIBLE_LIL_HARBINGERS = 526
 CollectibleType.COLLECTIBLE_DEATH_LIST = 530
 CollectibleType.COLLECTIBLE_BROKEN_SHOVEL = 550
+
+TrinketType.TRINKET_FIRECRACKER = 133
+TrinketType.TRINKET_GIANT_BEAN = 134
 
 TearFlags.TEAR_MIGAN = TearFlags.TEAR_MULLIGAN

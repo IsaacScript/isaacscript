@@ -8,7 +8,7 @@ declare const enum PlayerVariant {
 
 // EntityType.ENTITY_FAMILIAR (2) has a vanilla FamiliarVariant enum
 
-// EntityType.ENTITY_BOMBDROP (4) has a vanilla BombVariant enum
+// EntityType.ENTITY_BOMB (4) has a vanilla BombVariant enum
 
 // EntityType.ENTITY_PICKUP (5) has a vanilla PickupVariant
 

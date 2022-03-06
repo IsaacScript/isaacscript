@@ -223,13 +223,16 @@ declare enum FamiliarVariant {
   FORGOTTEN_BODY = 900,
 }
 
-/** For EntityType.ENTITY_BOMBDROP (4) */
+/** For EntityType.ENTITY_BOMB (4) */
 declare enum BombVariant {
   BOMB_NORMAL = 0,
   BOMB_BIG = 1,
   BOMB_DECOY = 2,
   BOMB_TROLL = 3,
+
+  /** A Mega Troll Bomb. */
   BOMB_SUPERTROLL = 4,
+
   BOMB_POISON = 5,
   BOMB_POISON_BIG = 6,
   BOMB_SAD = 7,
