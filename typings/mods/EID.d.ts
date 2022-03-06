@@ -12,9 +12,9 @@ declare interface EIDDescriptionObject {
 }
 
 /**
- * @param LeftOffset Defaults to -1.
- * @param TopOffset Defaults to 0.
- * @param SpriteObject Defaults to `EID.InlineIconSprite`.
+ * @param LeftOffset Default is -1.
+ * @param TopOffset Default is 0.
+ * @param SpriteObject Default is `EID.InlineIconSprite`.
  */
 declare type EIDInlineIcon = [
   AnimationName: string,
@@ -115,8 +115,8 @@ declare interface EIDInterface {
    * Setting "animationFrame" to -1 will play the animation. The spriteObject needs to be of class
    * Sprite() and have an .anm2 loaded to do this.
    *
-   * @param leftOffset Defaults to -1.
-   * @param topOffset Defaults to 0.
+   * @param leftOffset Default is -1.
+   * @param topOffset Default is 0.
    */
   addIcon(
     shortcut: string,
