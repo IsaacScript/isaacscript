@@ -36,10 +36,10 @@ const NON_ALIVE_NPCS_TYPE_VARIANT_SUBTYPE: ReadonlySet<string> = new Set([
  * @param npc The NPC to fire the projectile from.
  * @param position The staring position of the projectile.
  * @param velocity The starting velocity of the projectile.
- * @param projectilesMode The mode of the projectile. Optional. Equal to
- * `ProjectilesMode.ONE_PROJECTILE` by default.
- * @param projectileParams The parameters of the projectile. Optional. Equal to `ProjectileParams()`
- * by default.
+ * @param projectilesMode The mode of the projectile. Optional. Default is
+ * `ProjectilesMode.ONE_PROJECTILE`.
+ * @param projectileParams The parameters of the projectile. Optional. Default is
+ * `ProjectileParams()`.
  * @returns The fired projectile.
  */
 export function fireProjectiles(

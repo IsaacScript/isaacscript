@@ -153,7 +153,7 @@ export function getMaxCards(): int {
  * - any objects like Dice Shard
  * - any modded cards.
  *
- * @param seed Optional. The seed with which to select the random card. `Random()` by default.
+ * @param seed Optional. The seed with which to select the random card. Default is `Random()`.
  * @param exceptions Optional. An array of cards to not select.
  */
 export function getRandomCard(seed = Random(), exceptions: Card[] = []): Card {
@@ -162,7 +162,7 @@ export function getRandomCard(seed = Random(), exceptions: Card[] = []): Card {
 
 /**
  * @param cardType The card type that represents the pool of cards to select from.
- * @param seed Optional. The seed with which to select the random card. `Random()` by default.
+ * @param seed Optional. The seed with which to select the random card. Default is `Random()`.
  * @param exceptions Optional. An array of cards to not select.
  */
 export function getRandomCardOfType(
@@ -178,7 +178,7 @@ export function getRandomCardOfType(
  * Has an equal chance of returning any rune (e.g. Rune of Hagalaz, Blank Rune, Black Rune, Soul of
  * Isaac, etc.). This will never return a Rune Shard.
  *
- * @param seed Optional. The seed with which to select the random rune. `Random()` by default.
+ * @param seed Optional. The seed with which to select the random rune. Default is `Random()`.
  * @param exceptions Optional. An array of runes to not select.
  */
 export function getRandomRune(seed = Random(), exceptions: Card[] = []): Card {

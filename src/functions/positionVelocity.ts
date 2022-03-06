@@ -14,7 +14,7 @@ const MAX_FIND_FREE_POSITION_ATTEMPTS = 100;
  *
  * @param startingPosition The position to start searching from. If this position is not overlapping
  * with anything, then it will be returned.
- * @param avoidActiveEntities Optional. False by default.
+ * @param avoidActiveEntities Optional. Default is false.
  */
 export function findFreePosition(
   startingPosition: Vector,

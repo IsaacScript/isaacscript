@@ -193,7 +193,7 @@ export function arrayRemoveInPlace<T>(
  * Helper function to get a random element from the provided array.
  *
  * @param array The array to get an element from.
- * @param seed Optional. The seed used to select the random element. `Random()` by default.
+ * @param seed Optional. The seed used to select the random element. Default is `Random()`.
  * @param exceptions Optional. An array of elements to skip over if selected.
  */
 export function getRandomArrayElement<T>(
@@ -211,7 +211,7 @@ export function getRandomArrayElement<T>(
  * decided, it is then removed from the array (in-place).
  *
  * @param array The array to get an element from.
- * @param seed Optional. The seed used to select the random element. `Random()` by default.
+ * @param seed Optional. The seed used to select the random element. Default is `Random()`.
  * @param exceptions Optional. An array of elements to skip over if selected.
  */
 export function getRandomArrayElementAndRemove<T>(

@@ -362,7 +362,7 @@ export function removeAllMatchingGridEntities(
  *
  * @param gridEntity The grid entity to remove.
  * @param updateRoom Optional. Whether or not to update the room after the grid entity is removed.
- * True by default. This is generally a good idea because if the room is not updated, you will be
+ * Default is true. This is generally a good idea because if the room is not updated, you will be
  * unable to spawn another grid entity on the same tile until a frame has passed. However, doing
  * this is expensive, since it involves a call to `Isaac.GetRoomEntities()`, so set it to false if
  * you need to invoke this function multiple times.

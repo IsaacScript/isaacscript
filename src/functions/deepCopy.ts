@@ -43,8 +43,8 @@ const TSTL_CLASS_KEYS: ReadonlySet<string> = new Set([
  *
  * @param oldObject The object to copy.
  * @param serializationType Has 3 possible values. Can leave TypeScriptToLua objects as-is, or can
- * serialize objects to Lua tables, or can deserialize Lua tables to objects. Will perform no
- * serialization by default.
+ * serialize objects to Lua tables, or can deserialize Lua tables to objects. Defaults to
+ * `SerializationType.NONE`.
  * @param traversalDescription Used to track the current key that we are operating on.
  */
 export function deepCopy(

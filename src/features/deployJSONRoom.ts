@@ -142,9 +142,9 @@ function respawnPersistentEntities() {
  * deployJSONRoom(firstJSONRoom);
  * ```
  * @param seed Optional. Specifies the seed that will be used for spawning every entity in the room.
- * Equal to `Random()` by default.
+ * Default is `Random()`.
  * @param verbose Optional. If specified, will write entries to the "log.txt" file that describe
- * what the function is doing. False by default.
+ * what the function is doing. Default is false.
  * @returns Before using the seed for spawning each entity, it is iterated with `nextSeed()`. The
  * function returns the final iterated seed after spawning everything, which can be used in
  * subsequent room deployments.
@@ -201,9 +201,9 @@ export function deployJSONRoom(
  * deployRandomJSONRoom(jsonRooms);
  * ```
  * @param seed Optional. Specifies the seed that will be used for determining the random room. After
- * that, it is also used for spawning every entity in the room. Equal to `Random()` by default.
+ * that, it is also used for spawning every entity in the room. Default is `Random()`.
  * @param verbose Optional. If specified, will write entries to the "log.txt" file that describe
- * what the function is doing. False by default.
+ * what the function is doing. Default is false.
  * @returns Before using the seed for spawning each entity, it is iterated with `nextSeed()`. The
  * function returns the final iterated seed after spawning everything, which can be used in
  * subsequent room deployments.
@@ -236,7 +236,7 @@ export function deployRandomJSONRoom(
  *
  * @param fillWithDecorations Optional. Set to true to fill every grid tile with an invisible
  * decoration, which prevents vanilla entities in the room from respawning the next time that the
- * player enters. False by default.
+ * player enters. Default is false.
  */
 export function emptyRoom(fillWithDecorations: boolean) {
   if (!initialized) {

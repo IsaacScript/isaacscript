@@ -11,7 +11,7 @@ import { getPlayers, getTotalCharge } from "./player";
  * - AAA Battery
  *
  * @param ignoreBigRoomDoubleCharge Optional. If set to true, it will treat the current room as a
- * 1x1 room for the purposes of calculating how much charge to grant. False by default.
+ * 1x1 room for the purposes of calculating how much charge to grant. Default is false.
  */
 export function addRoomClearCharges(ignoreBigRoomDoubleCharge = false): void {
   for (const player of getPlayers()) {
@@ -30,7 +30,7 @@ export function addRoomClearCharges(ignoreBigRoomDoubleCharge = false): void {
  *
  * @param player The player to grant the charges to.
  * @param ignoreBigRoomDoubleCharge Optional. If set to true, it will treat the current room as a
- * 1x1 room for the purposes of calculating how much charge to grant. False by default.
+ * 1x1 room for the purposes of calculating how much charge to grant. Default is false.
  */
 export function addRoomClearCharge(
   player: EntityPlayer,
@@ -57,7 +57,7 @@ export function addRoomClearCharge(
  * @param player The player to grant the charges to.
  * @param activeSlot The active item slot to grant the charges to.
  * @param ignoreBigRoomDoubleCharge Optional. If set to true, it will treat the current room as a
- * 1x1 room for the purposes of calculating how much charge to grant. False by default.
+ * 1x1 room for the purposes of calculating how much charge to grant. Default is false.
  */
 export function addRoomClearChargeToSlot(
   player: EntityPlayer,

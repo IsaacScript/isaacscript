@@ -668,7 +668,7 @@ export function getPlayerNumHitsRemaining(player: EntityPlayer): int {
  * If this is not desired, use the `getAllPlayers` helper function instead.
  *
  * @param performCharacterExclusions Whether or not to exclude characters that are not directly
- * controlled by the player (i.e. Esau & Tainted Soul). False by default.
+ * controlled by the player (i.e. Esau & Tainted Soul). Default is false.
  */
 export function getPlayers(performCharacterExclusions = false): EntityPlayer[] {
   const players = getAllPlayers();
@@ -986,7 +986,7 @@ export function removeTrinketCostume(
  * @param activeSlot The slot to set.
  * @param charge Optional. The argument of charges to set. If not specified, the item will be set
  * with maximum charges.
- * @param keepInPools Optional. Whether or not to remove the item from pools. False by default.
+ * @param keepInPools Optional. Whether or not to remove the item from pools. Default is false.
  */
 export function setActiveItem(
   player: EntityPlayer,
@@ -1071,7 +1071,7 @@ export function setActiveItem(
  *
  * @param player The player to apply or remove the blindfold state from.
  * @param enabled Whether or not to apply or remove the blindfold.
- * @param modifyCostume Optional. Whether to add or remove the blindfold costume. True by default.
+ * @param modifyCostume Optional. Whether to add or remove the blindfold costume. Default is true.
  */
 export function setBlindfold(
   player: EntityPlayer,

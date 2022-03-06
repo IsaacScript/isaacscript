@@ -99,7 +99,7 @@ export function getCurrentRoomDescriptorReadOnly(): RoomDescriptorReadOnly {
 /**
  * Helper function to get the room data for the provided room.
  *
- * @param roomGridIndex Optional. Equal to the current room index by default.
+ * @param roomGridIndex Optional. Default is the current room index.
  */
 export function getRoomData(roomGridIndex?: int): RoomConfig | undefined {
   const roomDescriptor = getRoomDescriptor(roomGridIndex);
@@ -109,7 +109,7 @@ export function getRoomData(roomGridIndex?: int): RoomConfig | undefined {
 /**
  * Helper function for getting the type of the room with the given grid index.
  *
- * @param roomGridIndex Optional. Equal to the current room index by default.
+ * @param roomGridIndex Optional. Default is the current room index.
  * @returns The room data type. Returns -1 if the type was not found.
  */
 export function getRoomType(roomGridIndex?: int): RoomType {
@@ -120,7 +120,7 @@ export function getRoomType(roomGridIndex?: int): RoomType {
 /**
  * Helper function to get the descriptor for a room.
  *
- * @param roomGridIndex Optional. Equal to the current room index by default.
+ * @param roomGridIndex Optional. Default is the current room index.
  */
 export function getRoomDescriptor(roomGridIndex?: int): RoomDescriptor {
   const game = Game();
@@ -209,7 +209,7 @@ export function getRoomItemPoolType(): ItemPoolType {
  * Use this as an index for data structures that store data per room, since it is unique across
  * different dimensions.
  *
- * @param roomGridIndex Optional. Equal to the current room index by default.
+ * @param roomGridIndex Optional. Default is the current room index.
  */
 export function getRoomListIndex(roomGridIndex?: int): int {
   const roomDescriptor = getRoomDescriptor(roomGridIndex);
@@ -219,7 +219,7 @@ export function getRoomListIndex(roomGridIndex?: int): int {
 /**
  * Helper function to get the name of the room as it appears in the STB/XML data.
  *
- * @param roomGridIndex Optional. Equal to the current room index by default.
+ * @param roomGridIndex Optional. Default is the current room index.
  * @returns The room name. Returns "Unknown" if the type was not found.
  */
 export function getRoomName(roomGridIndex?: int): string {
@@ -232,7 +232,7 @@ export function getRoomName(roomGridIndex?: int): string {
  * correspond to the first number in the filename of the XML/STB file. For example, a Depths room
  * would have a stage ID of 7.
  *
- * @param roomGridIndex Optional. Equal to the current room index by default.
+ * @param roomGridIndex Optional. Default is the current room index.
  * @returns The room stage ID. Returns -1 if the stage ID was not found.
  */
 export function getRoomStageID(roomGridIndex?: int): StageID {
@@ -246,7 +246,7 @@ export function getRoomStageID(roomGridIndex?: int): StageID {
  * "00.special rooms.stb" file, an Angel Room with a sub-type of 0 will correspond to a normal Angel
  * Room and a sub-type of 1 will correspond to an Angel Room shop for The Stairway.
  *
- * @param roomGridIndex Optional. Equal to the current room index by default.
+ * @param roomGridIndex Optional. Default is the current room index.
  * @returns The room sub-type. Returns -1 if the sub-type was not found.
  */
 export function getRoomSubType(roomGridIndex?: int): int {
@@ -259,7 +259,7 @@ export function getRoomSubType(roomGridIndex?: int): int {
  * variant as its identifier. For example, to go to Basement room #123, you would use a console
  * command of `goto d.123` while on the Basement.
  *
- * @param roomGridIndex Optional. Equal to the current room index by default.
+ * @param roomGridIndex Optional. Default is the current room index.
  * @returns The room variant. Returns -1 if the variant was not found.
  */
 export function getRoomVariant(roomGridIndex?: int): int {
@@ -272,7 +272,7 @@ export function getRoomVariant(roomGridIndex?: int): int {
  * callback has fired (i.e. when entities are initializing and performing their first update). This
  * is because the variable is only incremented immediately before the PostNewRoom callback fires.
  *
- * @param roomGridIndex Optional. Equal to the current room index by default.
+ * @param roomGridIndex Optional. Default is the current room index.
  */
 export function getRoomVisitedCount(roomGridIndex?: int): int {
   const roomDescriptor = getRoomDescriptor(roomGridIndex);
@@ -285,7 +285,7 @@ export function getRoomVisitedCount(roomGridIndex?: int): int {
  *
  * @param includeExtraDimensionalRooms Optional. On some floors (e.g. Downpour 2, Mines 2),
  * extra-dimensional rooms are automatically be generated and can be seen when you iterate over the
- * `RoomList`. False by default.
+ * `RoomList`. Default is false.
  */
 export function getRooms(
   includeExtraDimensionalRooms = false,
@@ -535,7 +535,7 @@ export function isAllRoomsClear(onlyCheckRoomTypes?: RoomType[]): boolean {
  * Helper function to detect if the provided room was created by the Red Key item. Under the hood,
  * this checks for the `RoomDescriptorFlag.FLAG_RED_ROOM` flag.
  *
- * @param roomGridIndex Optional. Equal to the current room index by default.
+ * @param roomGridIndex Optional. Default is the current room index.
  */
 export function isRedKeyRoom(roomGridIndex?: int): boolean {
   const roomDescriptor = getRoomDescriptor(roomGridIndex);
@@ -546,7 +546,7 @@ export function isRedKeyRoom(roomGridIndex?: int): boolean {
  * Helper function to determine if the provided room is part of the floor layout. For
  * example, Devil Rooms and the Mega Satan room are not considered to be inside the map.
  *
- * @param roomGridIndex Optional. Equal to the current room index by default.
+ * @param roomGridIndex Optional. Default is the current room index.
  */
 export function isRoomInsideMap(roomGridIndex?: int): boolean {
   if (roomGridIndex === undefined) {

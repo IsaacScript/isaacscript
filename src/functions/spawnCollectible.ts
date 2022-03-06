@@ -10,11 +10,11 @@ import { anyPlayerIs } from "./player";
  *
  * @param collectibleType The collectible type to spawn.
  * @param position The position to spawn the collectible at.
- * @param seed Optional. Random() by default.
+ * @param seed Optional. Default is `Random()`.
  * @param options Optional. Set to true to make the collectible a "There's Options" style
- * collectible. False by default.
+ * collectible. Default is false.
  * @param forceFreeItem Optional. Set to true to disable the logic that gives the item a price for
- * Tainted Keeper. False by default.
+ * Tainted Keeper. Default is false.
  */
 export function spawnCollectible(
   collectibleType: CollectibleType | int,

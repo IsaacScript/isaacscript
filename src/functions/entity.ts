@@ -18,10 +18,10 @@ export function anyEntityCloserThan(
  * `Isaac.CountEntities` method to avoid having to specify a spawner and to handle ignoring charmed
  * enemies.
  *
- * @param entityType -1 by default.
- * @param variant -1 by default.
- * @param subType -1 by default.
- * @param ignoreFriendly False by default.
+ * @param entityType Default is -1.
+ * @param variant Default is -1.
+ * @param subType Default is -1.
+ * @param ignoreFriendly Default is false.
  */
 export function countEntities(
   entityType: EntityType | int = -1,
@@ -118,7 +118,7 @@ export function getFilteredNewEntities<T extends AnyEntity>(
  * @param matchingVariant Optional. If specified, will only return NPCs that match this variant.
  * @param matchingSubType Optional. If specified, will only return NPCs that match this sub-type.
  * @param ignoreFriendly Optional. If set to true, it will exclude friendly NPCs from being
- * returned. False by default. Will only be taken into account if `matchingEntityType` is specified.
+ * returned. Default is false. Will only be taken into account if `matchingEntityType` is specified.
  */
 export function getEntities(
   matchingEntityType?: EntityType | int,
@@ -147,7 +147,7 @@ export function getEntityID(entity: Entity) {
  * Helper function to measure an entity's velocity to see if it is moving.
  *
  * @param entity The entity whose velocity to measure.
- * @param threshold Optional. The threshold from 0 to consider to be moving. 0.01 by default.
+ * @param threshold Optional. The threshold from 0 to consider to be moving. Default is 0.01.
  */
 export function isEntityMoving(entity: Entity, threshold = 0.01): boolean {
   return entity.Velocity.Length() >= threshold;
@@ -191,9 +191,9 @@ export function removeEntities(entities: Entity[], cap?: int): boolean {
  * Helper function to remove all of the matching entities in the room.
  *
  * @param entityType The entity type to match.
- * @param entityVariant Optional. The variant to match. -1 by default (which will match every
+ * @param entityVariant Optional. The variant to match. Default is -1 (which will match every
  * variant).
- * @param entitySubType Optional. The sub-type to match. -1 by default (which will match every
+ * @param entitySubType Optional. The sub-type to match. Default is -1 (which will match every
  * sub-type).
  * @param cap Optional. If specified, will only remove the given amount of collectibles.
  * @returns True if one or more entities was removed, false otherwise.
