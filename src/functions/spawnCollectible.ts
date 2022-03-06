@@ -82,7 +82,10 @@ export function spawnCollectible(
  * Instead, this function arbitrarily spawns a collectible with
  * `CollectibleType.COLLECTIBLE_SAD_ONION`, and then converts it to an empty pedestal afterward.
  */
-export function spawnEmptyCollectible(position: Vector, seed = Random()) {
+export function spawnEmptyCollectible(
+  position: Vector,
+  seed = Random(),
+): EntityPickup {
   const collectible = spawnCollectible(
     CollectibleType.COLLECTIBLE_SAD_ONION,
     position,
@@ -91,4 +94,6 @@ export function spawnEmptyCollectible(position: Vector, seed = Random()) {
     true,
   );
   setCollectibleEmpty(collectible);
+
+  return collectible;
 }

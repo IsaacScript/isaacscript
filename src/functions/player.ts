@@ -736,6 +736,23 @@ export function getSubPlayerParent(
 }
 
 /**
+ * Helper function to determine how many heart containers that Tainted Magdalene has that will not
+ * be automatically depleted over time. By default, this is 2, but this function will return 4 so
+ * that it is consistent with the `player.GetHearts` and `player.GetMaxHearts` methods.
+ *
+ * If Tainted Magdalene has Birthright, she will gained an additional non-temporary heart container.
+ *
+ * This function does not validate whether or not the provided player is Tainted Magdalene; that
+ * should be accomplished before invoking this function.
+ */
+export function getTaintedMagdaleneNonTemporaryMaxHearts(player: EntityPlayer) {
+  const hasBirthright = player.HasCollectible(
+    CollectibleType.COLLECTIBLE_BIRTHRIGHT,
+  );
+  return hasBirthright ? 6 : 4;
+}
+
+/**
  * Helper function to return the active charge and the battery charge combined. This is useful
  * because you are not able to set the battery charge directly.
  */
