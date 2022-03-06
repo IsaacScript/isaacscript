@@ -12,19 +12,6 @@ import { clearSprite } from "./sprite";
 const COLLECTIBLE_SPRITE_LAYER = 1;
 const COLLECTIBLE_SHADOW_LAYER = 4;
 
-const CHEST_COLLECTIBLE_PEDESTAL_TYPES = new Set([
-  CollectiblePedestalType.LOCKEDCHEST, // 4
-  CollectiblePedestalType.REDCHEST, // 5
-  CollectiblePedestalType.BOMBCHEST, // 6
-  CollectiblePedestalType.SPIKEDCHEST, // 7
-  CollectiblePedestalType.ETERNALCHEST, // 8
-  CollectiblePedestalType.CHEST, // 10
-  CollectiblePedestalType.MOMSCHEST, // 11
-  CollectiblePedestalType.OLDCHEST, // 12
-  CollectiblePedestalType.WOODENCHEST, // 13
-  CollectiblePedestalType.MEGACHEST, // 14
-]);
-
 // Glitched items start at id 4294967295 (the final 32-bit integer) and increment backwards
 const GLITCHED_ITEM_THRESHOLD = 4000000000;
 
@@ -58,11 +45,6 @@ export function collectibleHasCacheFlag(
   }
 
   return hasFlag(itemConfigItem.CacheFlags, cacheFlag);
-}
-
-export function collectibleHasChestPedestalType(collectible: EntityPickup) {
-  const collectiblePedestalType = getCollectiblePedestalType(collectible);
-  return CHEST_COLLECTIBLE_PEDESTAL_TYPES.has(collectiblePedestalType);
 }
 
 /**

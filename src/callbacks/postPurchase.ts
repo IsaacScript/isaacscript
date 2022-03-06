@@ -24,8 +24,8 @@ const v = {
      * Tracks whether or not the given player was holding an item on previous frames. The 0th
      * element is 1 frame ago, and the 1st element is 2 frames ago.
      */
-    playersHoldingItemLastFramesMap: new DefaultMap<PlayerIndex, boolean[]>(
-      () => [false, false],
+    playersHoldingItemOnLastFrameMap: new DefaultMap<PlayerIndex, boolean>(
+      false,
     ),
   },
 };
@@ -48,7 +48,9 @@ function postUpdate() {
   }
 
   const pickups = getPickups();
-  const pickupsWithPrice = pickups.filter((pickup) => pickup.Price !== 0);
+  const pickupsWithPrice = pickups.filter(
+    (pickup) => pickup.Exists() && pickup.Price !== 0,
+  );
   const nonCollectiblesWithPrice = pickupsWithPrice.filter(
     (pickup) => pickup.Variant !== PickupVariant.PICKUP_COLLECTIBLE,
   );
@@ -82,7 +84,7 @@ function checkPickupsPurchased(
       continue;
     }
 
-    const player = getPlayerThatIsNoLongerHoldingAnItem(players, 2);
+    const player = getPlayerThatIsNoLongerHoldingAnItem(players);
     if (player !== undefined) {
       // Assume that this is the player that purchased the pickup
       postPurchaseFire(player, pickupDescription);
@@ -94,8 +96,9 @@ function checkCollectiblesPurchased(
   collectiblesWithPrice: EntityPickup[],
   players: EntityPlayer[],
 ) {
-  // When a collectible is purchased, it's sub-type changes to 0 for a single frame before the
-  // pedestal is removed
+  // When a collectible is purchased, it's sub-type changes to 0
+  // Normally, it is removed on the subsequent frame
+  // If the player has Flip, the collectible will not be removed
   // Thus, we can track when collectibles are purchased by scanning for when the sub-type changes
   for (const collectible of collectiblesWithPrice) {
     const pickupDescription = v.room.collectibleMap.get(collectible.Index);
@@ -108,7 +111,7 @@ function checkCollectiblesPurchased(
       pickupDescription.subType !== collectible.SubType &&
       collectible.SubType === CollectibleType.COLLECTIBLE_NULL
     ) {
-      const player = getPlayerThatIsNoLongerHoldingAnItem(players, 1);
+      const player = getPlayerThatIsNoLongerHoldingAnItem(players);
       if (player !== undefined) {
         // Assume that this is the player that purchased the pickup
         postPurchaseFire(player, pickupDescription);
@@ -118,21 +121,13 @@ function checkCollectiblesPurchased(
 }
 
 /** Find a player that was not holding an item on the previous frame, but is holding an item now. */
-function getPlayerThatIsNoLongerHoldingAnItem(
-  players: EntityPlayer[],
-  numFramesAgo: int,
-) {
+function getPlayerThatIsNoLongerHoldingAnItem(players: EntityPlayer[]) {
   return players.find((player) => {
     const playerHoldingItemNow = player.IsHoldingItem();
     const playerIndex = getPlayerIndex(player);
-    const playerHoldingItemLastFrames =
-      v.room.playersHoldingItemLastFramesMap.getAndSetDefault(playerIndex);
-
-    // 0th element --> 1 frame ago
-    // 1st element --> 2 frames ago
-    const playerHoldingItemNFramesAgo =
-      playerHoldingItemLastFrames[numFramesAgo - 1];
-    return !playerHoldingItemNFramesAgo && playerHoldingItemNow;
+    const playerHoldingItemOnLastFrame =
+      v.room.playersHoldingItemOnLastFrameMap.getAndSetDefault(playerIndex);
+    return !playerHoldingItemOnLastFrame && playerHoldingItemNow;
   });
 }
 
@@ -156,10 +151,6 @@ function storePlayersInMap(players: EntityPlayer[]) {
   for (const player of players) {
     const playerIndex = getPlayerIndex(player);
     const holdingItem = player.IsHoldingItem();
-    const playerHoldingItemLastFrames =
-      v.room.playersHoldingItemLastFramesMap.getAndSetDefault(playerIndex);
-    const playerHoldingItemLastFrame = playerHoldingItemLastFrames[0];
-    const newArray = [holdingItem, playerHoldingItemLastFrame];
-    v.room.playersHoldingItemLastFramesMap.set(playerIndex, newArray);
+    v.room.playersHoldingItemOnLastFrameMap.set(playerIndex, holdingItem);
   }
 }
