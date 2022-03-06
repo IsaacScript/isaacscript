@@ -88,7 +88,6 @@ export function getPlayerHealth(player: EntityPlayer): PlayerHealth {
   }
 
   return {
-    soulHeartTypes,
     maxHearts,
     hearts,
     eternalHearts,
@@ -99,6 +98,7 @@ export function getPlayerHealth(player: EntityPlayer): PlayerHealth {
     brokenHearts,
     soulCharges,
     bloodCharges,
+    soulHeartTypes,
   };
 }
 

@@ -1,5 +1,4 @@
 export interface PlayerHealth {
-  soulHeartTypes: HeartSubType[];
   maxHearts: int;
   hearts: int;
   eternalHearts: int;
@@ -10,4 +9,5 @@ export interface PlayerHealth {
   brokenHearts: int;
   soulCharges: int;
   bloodCharges: int;
+  soulHeartTypes: HeartSubType[];
 }

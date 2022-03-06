@@ -1,7 +1,8 @@
 import { arrayToString } from "./array";
 import { getCollectibleName } from "./collectibles";
 import { hasFlag } from "./flag";
-import { getEffectsList } from "./player";
+import { getEffectsList, getPlayerName } from "./player";
+import { getPlayerHealth } from "./playerHealth";
 import { getRoomData, getRoomGridIndex, getRoomListIndex } from "./rooms";
 import { getSortedSetValues } from "./set";
 import { getTrinketName } from "./trinkets";
@@ -173,6 +174,24 @@ export function logMap(this: void, map: Map<AnyNotNil, unknown>): void {
   }
 
   log(`The size of the map was: ${map.size}`);
+}
+
+export function logPlayerHealth(this: void, player: EntityPlayer): void {
+  const playerName = getPlayerName(player);
+  const playerHealth = getPlayerHealth(player);
+
+  log(`Player health for ${playerName}:`);
+  log(`- Max hearts: ${playerHealth.maxHearts}`);
+  log(`- Hearts: ${playerHealth.hearts}`);
+  log(`- Eternal hearts: ${playerHealth.eternalHearts}`);
+  log(`- Soul hearts: ${playerHealth.soulHearts}`);
+  log(`- Bone hearts: ${playerHealth.boneHearts}`);
+  log(`- Golden hearts: ${playerHealth.goldenHearts}`);
+  log(`- Rotten hearts: ${playerHealth.rottenHearts}`);
+  log(`- Broken hearts: ${playerHealth.brokenHearts}`);
+  log(`- Soul charges: ${playerHealth.soulCharges}`);
+  log(`- Blood charges: ${playerHealth.bloodCharges}`);
+  log(`- Soul heart types: [${playerHealth.soulHeartTypes.join(",")}]`);
 }
 
 /** Helper function for printing out information about the current room. */
