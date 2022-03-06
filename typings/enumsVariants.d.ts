@@ -260,8 +260,8 @@ declare enum BombVariant {
   BOMB_BRIMSTONE = 15,
 
   /**
-   * This is very similar to the type of bombs that result from Sad Bombs + Blood Bombs, but has a
-   * slightly different mouth.
+   * A special bomb type rarely thrown by Hornfel. This looks very similar to the type of bombs that
+   * result from the player having Sad Bombs + Blood Bombs, but this has a slightly different mouth.
    */
   BOMB_SAD_BLOOD = 16,
 
