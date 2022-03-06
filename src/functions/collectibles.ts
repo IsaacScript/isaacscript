@@ -4,12 +4,26 @@ import {
 } from "../constants";
 import { COLLECTIBLE_DESCRIPTION_MAP } from "../maps/collectibleDescriptionMap";
 import { COLLECTIBLE_NAME_MAP } from "../maps/collectibleNameMap";
+import { CollectiblePedestalType } from "../types/CollectiblePedestalType";
 import { hasFlag } from "./flag";
 import { getPickups, removeAllPickups } from "./pickups";
 import { clearSprite } from "./sprite";
 
 const COLLECTIBLE_SPRITE_LAYER = 1;
 const COLLECTIBLE_SHADOW_LAYER = 4;
+
+const CHEST_COLLECTIBLE_PEDESTAL_TYPES = new Set([
+  CollectiblePedestalType.LOCKEDCHEST, // 4
+  CollectiblePedestalType.REDCHEST, // 5
+  CollectiblePedestalType.BOMBCHEST, // 6
+  CollectiblePedestalType.SPIKEDCHEST, // 7
+  CollectiblePedestalType.ETERNALCHEST, // 8
+  CollectiblePedestalType.CHEST, // 10
+  CollectiblePedestalType.MOMSCHEST, // 11
+  CollectiblePedestalType.OLDCHEST, // 12
+  CollectiblePedestalType.WOODENCHEST, // 13
+  CollectiblePedestalType.MEGACHEST, // 14
+]);
 
 // Glitched items start at id 4294967295 (the final 32-bit integer) and increment backwards
 const GLITCHED_ITEM_THRESHOLD = 4000000000;
@@ -44,6 +58,11 @@ export function collectibleHasCacheFlag(
   }
 
   return hasFlag(itemConfigItem.CacheFlags, cacheFlag);
+}
+
+export function collectibleHasChestPedestalType(collectible: EntityPickup) {
+  const collectiblePedestalType = getCollectiblePedestalType(collectible);
+  return CHEST_COLLECTIBLE_PEDESTAL_TYPES.has(collectiblePedestalType);
 }
 
 /**
@@ -231,6 +250,19 @@ export function getCollectibleName(
   return itemConfigItem.Name;
 }
 
+export function getCollectiblePedestalType(
+  collectible: EntityPickup,
+): CollectiblePedestalType {
+  if (collectible.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
+    error(
+      `You cannot get the pedestal type for pickups of variant: ${collectible.Variant}`,
+    );
+  }
+
+  const sprite = collectible.GetSprite();
+  return sprite.GetOverlayFrame();
+}
+
 /** Helper function to get all of the collectible entities in the room. */
 export function getCollectibles(matchingSubType = -1): EntityPickup[] {
   return getPickups(PickupVariant.PICKUP_COLLECTIBLE, matchingSubType);
@@ -246,11 +278,10 @@ export function getMaxCollectibleType(): int {
  * glitched items once a player has TMTRAINER. However, glitched items can also "naturally" appear
  * in secret rooms and I AM ERROR rooms if the "Corrupted Data" achievement is unlocked.
  */
-export function isGlitchedCollectible(entity: Entity): boolean {
+export function isGlitchedCollectible(pickup: EntityPickup): boolean {
   return (
-    entity.Type === EntityType.ENTITY_PICKUP &&
-    entity.Variant === PickupVariant.PICKUP_COLLECTIBLE &&
-    entity.SubType > GLITCHED_ITEM_THRESHOLD
+    pickup.Variant === PickupVariant.PICKUP_COLLECTIBLE &&
+    pickup.SubType > GLITCHED_ITEM_THRESHOLD
   );
 }
 

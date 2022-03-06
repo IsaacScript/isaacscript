@@ -3,6 +3,7 @@
 // and then assume that the next spawned collectible has this item pool type
 
 import { getUpgradeErrorMsg } from "../errors";
+import { getEntityID } from "../functions/entity";
 import { getRoomItemPoolType } from "../functions/rooms";
 import { ModUpgraded } from "../types/ModUpgraded";
 import { saveDataManager } from "./saveDataManager/exports";
@@ -57,8 +58,9 @@ export function getCollectibleItemPoolType(
     collectible.Type !== EntityType.ENTITY_PICKUP ||
     collectible.Variant !== PickupVariant.PICKUP_COLLECTIBLE
   ) {
+    const entityID = getEntityID(collectible);
     error(
-      `The "getCollectibleItemPoolType()" function was given a non-collectible: ${collectible.Type}.${collectible.Variant}.${collectible.SubType}`,
+      `The "getCollectibleItemPoolType()" function was given a non-collectible: ${entityID}`,
     );
   }
 

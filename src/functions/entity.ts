@@ -138,6 +138,11 @@ export function getEntities(
   );
 }
 
+/** Helper function to return a string containing an entity's type, variant, and sub-type. */
+export function getEntityID(entity: Entity) {
+  return `${entity.Type}.${entity.Variant}.${entity.SubType}`;
+}
+
 /**
  * Helper function to measure an entity's velocity to see if it is moving.
  *
