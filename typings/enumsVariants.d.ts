@@ -226,25 +226,45 @@ declare enum FamiliarVariant {
 /** For EntityType.ENTITY_BOMB (4) */
 declare enum BombVariant {
   BOMB_NORMAL = 0,
+
+  /** Mr. Boom bombs. */
   BOMB_BIG = 1,
+
+  /** The decoy object from Best Friend. */
   BOMB_DECOY = 2,
+
   BOMB_TROLL = 3,
 
   /** A Mega Troll Bomb. */
   BOMB_SUPERTROLL = 4,
 
+  /** Bob's Curse bombs. */
   BOMB_POISON = 5,
+
+  /** Bomb's Curse + Mr. Mega bombs. */
   BOMB_POISON_BIG = 6,
+
   BOMB_SAD = 7,
   BOMB_HOT = 8,
   BOMB_BUTT = 9,
   BOMB_MR_MEGA = 10,
   BOMB_BOBBY = 11,
   BOMB_GLITTER = 12,
+
+  /** The red bombs that are created on certain Repentance floors. */
   BOMB_THROWABLE = 13,
+
+  /** The small bombs from Scatter Bombs. */
   BOMB_SMALL = 14,
+
   BOMB_BRIMSTONE = 15,
+
+  /**
+   * This is very similar to the type of bombs that result from Sad Bombs + Blood Bombs, but has a
+   * slightly different mouth.
+   */
   BOMB_SAD_BLOOD = 16,
+
   BOMB_GIGA = 17,
   BOMB_GOLDENTROLL = 18,
   BOMB_ROCKET = 19,
