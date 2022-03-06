@@ -1,8 +1,6 @@
-import { PickupDescription } from "../../types/PickupDescription";
-
 export type PostPurchaseCallbackType = (
   player: EntityPlayer,
-  pickupDescription: PickupDescription,
+  pickup: EntityPickup,
 ) => void;
 
 const subscriptions: Array<
@@ -26,9 +24,9 @@ export function postPurchaseRegister(
 /** @internal */
 export function postPurchaseFire(
   player: EntityPlayer,
-  pickupDescription: PickupDescription,
+  pickup: EntityPickup,
 ): void {
   for (const [callback] of subscriptions) {
-    callback(player, pickupDescription);
+    callback(player, pickup);
   }
 }
