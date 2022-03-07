@@ -746,10 +746,13 @@ export function getSubPlayerParent(
  * should be accomplished before invoking this function.
  */
 export function getTaintedMagdaleneNonTemporaryMaxHearts(player: EntityPlayer) {
+  const maxHearts = player.GetMaxHearts();
   const hasBirthright = player.HasCollectible(
     CollectibleType.COLLECTIBLE_BIRTHRIGHT,
   );
-  return hasBirthright ? 6 : 4;
+  const maxNonTemporaryMaxHearts = hasBirthright ? 6 : 4;
+
+  return Math.min(maxHearts, maxNonTemporaryMaxHearts);
 }
 
 /**
