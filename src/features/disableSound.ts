@@ -53,6 +53,10 @@ export function enableAllSound(key: string): void {
     const musicManager = MusicManager();
     musicManager.Enable();
   }
+
+  // Stop all sound effects that were initialized prior to enabling sounds
+  // (in case there was a sound played played previously on this render frame)
+  stopAllSoundEffects();
 }
 
 /**
@@ -75,4 +79,7 @@ export function disableAllSound(key: string): void {
   }
 
   v.run.disableSoundSet.add(key);
+
+  // Stop all sound effects that were initialized prior to disabling sounds
+  stopAllSoundEffects();
 }

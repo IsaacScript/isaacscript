@@ -50,6 +50,9 @@ export const ensureAllCases = (obj: never): never => obj;
  *
  * For a more in depth explanation, see:
  * https://isaacscript.github.io/docs/gotchas#iterating-over-enums
+ *
+ * You can also use this function for vanilla enums, which can make code easier to read than using
+ * `pairs` or `Object.values()`.
  */
 export function getEnumValues<T>(transpiledEnum: T): Array<T[keyof T]> {
   const enumValues: Array<T[keyof T]> = [];
