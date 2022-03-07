@@ -1012,10 +1012,10 @@ declare enum CacheFlag {
   /** 1 << 13 */
   CACHE_PICKUP_VISION = 1 << 13,
 
-  /** 0xffff */
-  CACHE_ALL = 0xffff,
+  /** (1 << 16) - 1 */
+  CACHE_ALL = (1 << 16) - 1,
 
-  /** 0x80000000 */
+  /** 1 << 31 */
   CACHE_TWIN_SYNC = 0x80000000,
 }
 

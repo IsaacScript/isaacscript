@@ -1260,8 +1260,12 @@ declare enum TrinketType {
   TRINKET_SIGIL_OF_BAPHOMET = 189,
 
   NUM_TRINKETS = 190,
-  TRINKET_GOLDEN_FLAG = 0x8000,
-  TRINKET_ID_MASK = 0x7fff,
+
+  /** 1 << 15 */
+  TRINKET_GOLDEN_FLAG = 1 << 15,
+
+  /** (1 << 15) - 1 */
+  TRINKET_ID_MASK = (1 << 15) - 1,
 }
 
 /** For EntityType.ENTITY_PICKUP (5), PickupVariant.PICKUP_BED (380) */
