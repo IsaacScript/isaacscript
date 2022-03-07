@@ -1,6 +1,6 @@
 {
   "name": "isaacscript-common",
-  "version": "1.2.115",
+  "version": "1.2.116",
   "description": "Helper functions for IsaacScript mods",
   "keywords": [
     "isaac",
@@ -26,7 +26,7 @@
   ],
   "devDependencies": {
     "@zamiell/typescript-to-lua": "^1.4.2",
-    "isaac-typescript-definitions": "^1.0.358",
+    "isaac-typescript-definitions": "^1.0.359",
     "isaacscript-lint": "^1.0.84",
     "isaacscript-tsconfig": "^1.1.8",
     "typedoc": "^0.22.13",
