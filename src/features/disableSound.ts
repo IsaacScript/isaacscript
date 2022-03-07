@@ -16,7 +16,7 @@ const v = {
 /** @internal */
 export function disableSoundsInit(mod: Mod): void {
   initialized = true;
-  saveDataManager("disableInputs", v);
+  saveDataManager("disableSounds", v);
 
   mod.AddCallback(ModCallbacks.MC_POST_RENDER, postRender);
 }
