@@ -16,6 +16,7 @@ export {
   enableAllInputs,
   enableAllInputsExceptFor,
 } from "./features/disableInputs";
+export { disableAllSound, enableAllSound } from "./features/disableSound";
 export { forgottenSwitch } from "./features/forgottenSwitch";
 export { getCollectibleItemPoolType } from "./features/getCollectibleItemPoolType";
 export * from "./features/isPonyActive";

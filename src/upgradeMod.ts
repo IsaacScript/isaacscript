@@ -34,6 +34,7 @@ import { preNewLevelCallbackInit } from "./callbacks/preNewLevel";
 import { reorderedCallbacksInit } from "./callbacks/reorderedCallbacks";
 import { deployJSONRoomInit } from "./features/deployJSONRoom";
 import { disableInputsInit } from "./features/disableInputs";
+import { disableSoundsInit } from "./features/disableSound";
 import { forgottenSwitchInit } from "./features/forgottenSwitch";
 import { getCollectibleItemPoolTypeInit } from "./features/getCollectibleItemPoolType";
 import { isPonyActiveInit } from "./features/isPonyActive";
@@ -134,6 +135,7 @@ function initCustomCallbacks(mod: ModUpgraded) {
 function initFeatures(mod: ModUpgraded) {
   deployJSONRoomInit(mod);
   disableInputsInit(mod);
+  disableSoundsInit(mod);
   forgottenSwitchInit(mod);
   getCollectibleItemPoolTypeInit(mod);
   preventCollectibleRotateInit(mod);

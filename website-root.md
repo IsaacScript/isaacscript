@@ -72,6 +72,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [JSON Room Deployer](modules/features_deployJSONRoom.html)
 - [Run in N Frames](modules/features_runInNFrames.html)
 - [Input Disabler](modules/features_disableInputs.html)
+- [Sound Disabler](modules/features_disableSound.html)
 - [Get Collectible Item Pool Type](modules/features_getCollectibleItemPoolType.html)
 - [Prevent Collectible Rotate](modules/features_preventCollectibleRotate.html)
 - [Forgotten Switcher](modules/features_forgottenSwitch.html)

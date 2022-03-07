@@ -16,6 +16,7 @@ npx typedoc \
   --entryPoints "$DIR/src/constants.ts" \
   --entryPoints "$DIR/src/features/deployJSONRoom.ts" \
   --entryPoints "$DIR/src/features/disableInputs.ts" \
+  --entryPoints "$DIR/src/features/disableSound.ts" \
   --entryPoints "$DIR/src/features/forgottenSwitch.ts" \
   --entryPoints "$DIR/src/features/getCollectibleItemPoolType.ts" \
   --entryPoints "$DIR/src/features/isPonyActive.ts" \
