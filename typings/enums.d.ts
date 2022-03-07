@@ -1034,9 +1034,14 @@ declare enum PillColor {
   PILL_WHITE_YELLOW = 13,
   NUM_STANDARD_PILLS = 14,
   PILL_GOLD = 14,
+
   NUM_PILLS = 15,
-  PILL_GIANT_FLAG = 0x800,
-  PILL_COLOR_MASK = 0x7ff,
+
+  /** 1 << 11 */
+  PILL_GIANT_FLAG = 1 << 11,
+
+  /** (1 << 11) - 1 */
+  PILL_COLOR_MASK = (1 << 11) - 1,
 }
 
 declare enum Music {
