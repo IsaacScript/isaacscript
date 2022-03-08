@@ -201,6 +201,12 @@ export function getRandomArrayElement<T>(
   seed = Random(),
   exceptions: T[] | readonly T[] = [],
 ): T {
+  if (array.length === 0) {
+    error(
+      "Failed to get a random array element since the provided array is empty.",
+    );
+  }
+
   const arrayWithoutExceptions = arrayRemove(array, ...exceptions);
   const randomIndex = getRandomArrayIndex(arrayWithoutExceptions, seed);
   return arrayWithoutExceptions[randomIndex];
@@ -244,9 +250,15 @@ export function getRandomArrayIndex<T>(
  * - the table contains all numerical indexes that are contiguous, starting at 1
  * - the table has no keys (i.e. an "empty" table)
  */
-export function isArray(table: LuaTable): boolean {
+export function isArray(thing: unknown): boolean {
+  if (type(thing) !== "table") {
+    return false;
+  }
+
+  const thingTable = thing as LuaTable<AnyNotNil, unknown>;
+
   // First, if there is a metatable, this cannot be a simple array and must be a more complex object
-  const metatable = getmetatable(table);
+  const metatable = getmetatable(thingTable);
   if (metatable !== undefined) {
     return false;
   }
@@ -254,7 +266,7 @@ export function isArray(table: LuaTable): boolean {
   // Second, handle the case of non-numerical keys
   // (and count the entries in the table)
   let numEntries = 0;
-  for (const [key] of pairs(table)) {
+  for (const [key] of pairs(thingTable)) {
     numEntries += 1;
 
     if (typeof key !== "number") {
@@ -262,10 +274,14 @@ export function isArray(table: LuaTable): boolean {
     }
   }
 
+  if (numEntries === 0) {
+    return true;
+  }
+
   // Third, check for non-contiguous elements
   // (Lua tables start at an index of 1)
   for (let i = 1; i <= numEntries; i++) {
-    const element = table.get(i) as unknown | undefined;
+    const element = thingTable.get(i);
     if (element === undefined) {
       return false;
     }
