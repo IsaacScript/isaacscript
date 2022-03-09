@@ -466,9 +466,9 @@ declare interface EIDInterface {
   /**
    * Converts a given table into a string containing the crafting icons of the table.
    *
-   * Example input: `{1,2,3,4,5,6,7,8}`.
+   * Example input: `{1,2,3,4,5,6,7,8}`
    *
-   * Result: `"{{Crafting8}}{{Crafting7}}{{Crafting6}}{{Crafting5}}{{Crafting4}}{{Crafting3}}{{Crafting2}}{{Crafting1}}"`.
+   * Result: `"{{Crafting8}}{{Crafting7}}{{Crafting6}}{{Crafting5}}{{Crafting4}}{{Crafting3}}{{Crafting2}}{{Crafting1}}"`
    *
    * Prefer {@link EID.tableToCraftingIconsMerged tableToCraftingIconsMerged()},
    * due to improved render performance.

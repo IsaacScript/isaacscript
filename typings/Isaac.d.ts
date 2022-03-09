@@ -256,7 +256,13 @@ declare namespace Isaac {
    */
   function LoadModData(mod: Mod): string;
 
-  // function RegisterMod(mod: Mod, modName: string, APIVersion: int): void; // Should use the global RegisterMod() instead
+  /** This should never be used in favor of the global `RegisterMod()` function. */
+  function RegisterMod(
+    mod: Mod,
+    modName: string,
+    APIVersion: int,
+    fakeArg: never,
+  ): void;
 
   function RemoveCallback(
     mod: Mod,

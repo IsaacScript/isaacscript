@@ -130,7 +130,10 @@ declare interface Level {
 
   RemoveCompassEffect(): void;
 
-  /** This is currently bugged and maps internally to "RemoveCurse()". The old "RemoveCurses()" is not currently accessible. */
+  /**
+   * This is currently bugged and maps internally to "RemoveCurse()". The old "RemoveCurses()" is
+   * not currently accessible.
+   */
   RemoveCurses(levelCurse: LevelCurse | int): void;
 
   SetCanSeeEverything(value: boolean): void;
