@@ -153,7 +153,7 @@ export function deployJSONRoom(
   jsonRoom: JSONRoom,
   seed = Random(),
   verbose = false,
-): int {
+): Seed {
   if (!initialized) {
     const msg = getUpgradeErrorMsg(FEATURE_NAME);
     error(msg);
@@ -212,7 +212,7 @@ export function deployRandomJSONRoom(
   jsonRooms: JSONRoom[],
   seed = Random(),
   verbose = false,
-): int {
+): Seed {
   if (!initialized) {
     const msg = getUpgradeErrorMsg(FEATURE_NAME);
     error(msg);
