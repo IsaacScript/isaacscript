@@ -1,6 +1,9 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getPickups } from "../functions/pickups";
-import { getPlayerIndex } from "../functions/player";
+import {
+  defaultMapGetPlayer,
+  mapSetPlayer,
+} from "../functions/playerDataStructures";
 import { DefaultMap } from "../types/DefaultMap";
 import { PlayerIndex } from "../types/PlayerIndex";
 import {
@@ -34,10 +37,11 @@ function postPEffectUpdate(player: EntityPlayer) {
   }
 
   const isHoldingItem = player.IsHoldingItem();
-  const playerIndex = getPlayerIndex(player);
-  const wasHoldingItemOnLastFrame =
-    v.room.playersHoldingItemOnLastFrameMap.getAndSetDefault(playerIndex);
-  v.room.playersHoldingItemOnLastFrameMap.set(playerIndex, isHoldingItem);
+  const wasHoldingItemOnLastFrame = defaultMapGetPlayer(
+    v.room.playersHoldingItemOnLastFrameMap,
+    player,
+  );
+  mapSetPlayer(v.room.playersHoldingItemOnLastFrameMap, player, isHoldingItem);
 
   if (!wasHoldingItemOnLastFrame && isHoldingItem) {
     playerPickedUpNewItem(player);

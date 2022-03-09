@@ -1,5 +1,9 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { getPlayerIndex, isChildPlayer } from "../functions/player";
+import { isChildPlayer } from "../functions/player";
+import {
+  defaultMapGetPlayer,
+  mapSetPlayer,
+} from "../functions/playerDataStructures";
 import { isDamageToPlayerFatal, willPlayerRevive } from "../functions/revive";
 import { DefaultMap } from "../types/DefaultMap";
 import { ModUpgraded } from "../types/ModUpgraded";
@@ -12,11 +16,7 @@ import {
 const v = {
   run: {
     /** Needed to detect if Glass Cannon will kill the player or not. */
-    playersLastDamageGameFrame: new DefaultMap<
-      PlayerIndex,
-      int,
-      [gameFrameCount: int]
-    >((_key: PlayerIndex, gameFrameCount: int) => gameFrameCount),
+    playersLastDamageGameFrame: new DefaultMap<PlayerIndex, int | null>(null),
   },
 };
 
@@ -61,11 +61,11 @@ function entityTakeDmgPlayer(
 
   const game = Game();
   const gameFrameCount = game.GetFrameCount();
-  const playerIndex = getPlayerIndex(player);
-  const lastDamageGameFrame = v.run.playersLastDamageGameFrame.getAndSetDefault(
-    playerIndex,
-    gameFrameCount,
+  const lastDamageGameFrame = defaultMapGetPlayer(
+    v.run.playersLastDamageGameFrame,
+    player,
   );
+  mapSetPlayer(v.run.playersLastDamageGameFrame, player, gameFrameCount);
 
   // If the player has a revival item such as Dead Cat, this will not be fatal damage
   if (willPlayerRevive(player)) {

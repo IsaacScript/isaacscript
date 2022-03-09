@@ -63,6 +63,7 @@ export * from "./functions/npc";
 export * from "./functions/pickups";
 export * from "./functions/pills";
 export * from "./functions/player";
+export * from "./functions/playerDataStructures";
 export * from "./functions/playerHealth";
 export * from "./functions/pocketItems";
 export * from "./functions/positionVelocity";

@@ -1,5 +1,5 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { getPlayerIndex } from "../functions/player";
+import { setAddPlayer, setHasPlayer } from "../functions/playerDataStructures";
 import { PlayerIndex } from "../types/PlayerIndex";
 import {
   postPlayerInitLateFire,
@@ -8,7 +8,7 @@ import {
 
 const v = {
   run: {
-    firedSet: new Set<PlayerIndex>(),
+    playersFiredSet: new Set<PlayerIndex>(),
   },
 };
 
@@ -29,9 +29,8 @@ function postPlayerUpdate(player: EntityPlayer) {
     return;
   }
 
-  const playerIndex = getPlayerIndex(player);
-  if (!v.run.firedSet.has(playerIndex)) {
-    v.run.firedSet.add(playerIndex);
+  if (!setHasPlayer(v.run.playersFiredSet, player)) {
+    setAddPlayer(v.run.playersFiredSet, player);
     postPlayerInitLateFire(player);
   }
 }

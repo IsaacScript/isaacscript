@@ -51,6 +51,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/npc.ts" \
   --entryPoints "$DIR/src/functions/pickups.ts" \
   --entryPoints "$DIR/src/functions/player.ts" \
+  --entryPoints "$DIR/src/functions/playerDataStructures.ts" \
   --entryPoints "$DIR/src/functions/playerHealth.ts" \
   --entryPoints "$DIR/src/functions/pills.ts" \
   --entryPoints "$DIR/src/functions/pocketItems.ts" \

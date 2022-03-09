@@ -9,6 +9,11 @@
 import { getUpgradeErrorMsg } from "../errors";
 import { hasFlag } from "../functions/flag";
 import { getPlayerIndex } from "../functions/player";
+import {
+  setAddPlayer,
+  setDeletePlayer,
+  setHasPlayer,
+} from "../functions/playerDataStructures";
 import { PlayerIndex } from "../types/PlayerIndex";
 import { saveDataManager } from "./saveDataManager/exports";
 
@@ -46,17 +51,18 @@ function postPEffectUpdate(player: EntityPlayer) {
   const hasPonyCollectibleEffect =
     effects.HasCollectibleEffect(CollectibleType.COLLECTIBLE_PONY) ||
     effects.HasCollectibleEffect(CollectibleType.COLLECTIBLE_WHITE_PONY);
-  const playerIndex = getPlayerIndex(player);
-  const isPonyActiveOnPreviousFrame =
-    v.run.playersIsPonyActive.has(playerIndex);
+  const isPonyActiveOnPreviousFrame = setHasPlayer(
+    v.run.playersIsPonyActive,
+    player,
+  );
   const hasPonyFlags = hasFlag(entityFlags, ...FLAGS_WHEN_PONY_IS_ACTIVE);
 
   const isPonyActiveNow =
     hasPonyCollectibleEffect || (isPonyActiveOnPreviousFrame && hasPonyFlags);
   if (isPonyActiveNow) {
-    v.run.playersIsPonyActive.add(playerIndex);
+    setAddPlayer(v.run.playersIsPonyActive, player);
   } else {
-    v.run.playersIsPonyActive.delete(playerIndex);
+    setDeletePlayer(v.run.playersIsPonyActive, player);
   }
 }
 

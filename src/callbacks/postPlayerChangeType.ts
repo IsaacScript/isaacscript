@@ -1,5 +1,9 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { getPlayerIndex } from "../functions/player";
+import {
+  defaultMapGetPlayer,
+  mapSetPlayer,
+} from "../functions/playerDataStructures";
+import { DefaultMap } from "../types/DefaultMap";
 import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
 import { ModUpgraded } from "../types/ModUpgraded";
 import { PlayerIndex } from "../types/PlayerIndex";
@@ -10,7 +14,11 @@ import {
 
 const v = {
   run: {
-    characterMap: new Map<PlayerIndex, int>(),
+    playersCharacterMap: new DefaultMap<
+      PlayerIndex,
+      int,
+      [character: PlayerType]
+    >((_key: PlayerIndex, character: PlayerType) => character),
   },
 };
 
@@ -35,16 +43,13 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
   }
 
   const character = player.GetPlayerType();
-  const playerIndex = getPlayerIndex(player);
-
-  const storedCharacter = v.run.characterMap.get(playerIndex);
-  if (storedCharacter === undefined) {
-    v.run.characterMap.set(playerIndex, character);
-    return;
-  }
-
+  const storedCharacter = defaultMapGetPlayer(
+    v.run.playersCharacterMap,
+    player,
+    character,
+  );
   if (character !== storedCharacter) {
-    v.run.characterMap.set(playerIndex, character);
+    mapSetPlayer(v.run.playersCharacterMap, player, character);
     postPlayerChangeTypeFire(player, storedCharacter, character);
   }
 }

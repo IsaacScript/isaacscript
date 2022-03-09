@@ -16,7 +16,7 @@ export function isDamageToPlayerFatal(
   player: EntityPlayer,
   damageAmount: int,
   damageSource: EntityRef,
-  lastDamageGameFrame: int,
+  lastDamageGameFrame: int | null,
 ) {
   const game = Game();
   const gameFrameCount = game.GetFrameCount();

@@ -1,9 +1,10 @@
 /**
  * PlayerIndex is a specific type of string; see the documentation for the [[`getPlayerIndex`]]
- * function. Mods can signify that data structures handle EntityPlayers by using this type:
+ * function. Mods can signify that data structures handle EntityPlayers by using this type.
  *
+ * For example:
  * ```
- * const myPlayerMap = new Map<PlayerIndex, string>();
+ * const playersNameMap = new Map<PlayerIndex, string>();
  * ```
  *
  * This type is branded for extra type safety.

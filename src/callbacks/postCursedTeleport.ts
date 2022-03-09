@@ -1,7 +1,7 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { hasFlag } from "../functions/flag";
-import { getMapPlayer, setMapPlayer } from "../functions/map";
 import { getPlayerNumHitsRemaining } from "../functions/player";
+import { mapGetPlayer, mapSetPlayer } from "../functions/playerDataStructures";
 import { PlayerIndex } from "../types/PlayerIndex";
 import {
   postCursedTeleportFire,
@@ -69,7 +69,7 @@ function setDamageFrame(tookDamage: Entity, damageFlags: int) {
   }
 
   // Don't do anything if we already activated the callback on this frame
-  const trackingArray = getMapPlayer(v.run.playersDamageFrameMap, player);
+  const trackingArray = mapGetPlayer(v.run.playersDamageFrameMap, player);
   if (trackingArray !== undefined) {
     const [lastDamageFrame, callbackFiredOnThisFrame] = trackingArray;
     if (lastDamageFrame === gameFrameCount && callbackFiredOnThisFrame) {
@@ -83,7 +83,7 @@ function setDamageFrame(tookDamage: Entity, damageFlags: int) {
   }
 
   const newTrackingArray = [gameFrameCount, false];
-  setMapPlayer(v.run.playersDamageFrameMap, player, newTrackingArray);
+  mapSetPlayer(v.run.playersDamageFrameMap, player, newTrackingArray);
 }
 
 function isPotentialNaturalTeleportFromSacrificeRoom(damageFlags: int) {
@@ -120,7 +120,7 @@ function postPlayerRenderPlayer(player: EntityPlayer) {
   }
 
   // Retrieve information about this player
-  const trackingArray = getMapPlayer(v.run.playersDamageFrameMap, player);
+  const trackingArray = mapGetPlayer(v.run.playersDamageFrameMap, player);
   if (trackingArray === undefined) {
     return;
   }
@@ -138,7 +138,7 @@ function postPlayerRenderPlayer(player: EntityPlayer) {
   const game = Game();
   const gameFrameCount = game.GetFrameCount();
   const newTrackingArray = [gameFrameCount, true];
-  setMapPlayer(v.run.playersDamageFrameMap, player, newTrackingArray);
+  mapSetPlayer(v.run.playersDamageFrameMap, player, newTrackingArray);
 
   postCursedTeleportFire(player);
 }
