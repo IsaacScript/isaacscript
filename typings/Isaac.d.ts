@@ -34,7 +34,7 @@ declare namespace Isaac {
 
   /**
    * @param spawner
-   * @param entityType Default is EntityType.ENTITY_NULL.
+   * @param entityType Default is `EntityType.ENTITY_NULL`.
    * @param variant Specifying -1 will return all variants. Default is -1.
    * @param subType Specifying -1 will return all subtypes. Default is -1.
    */

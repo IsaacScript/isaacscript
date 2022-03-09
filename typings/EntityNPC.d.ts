@@ -33,14 +33,13 @@ declare interface EntityNPC extends Entity {
 
   /**
    * @param seed
-   * @param championColor The type of champion to turn this enemy into.
-   * (-1 results in a random champion type.)
-   * Default is -1.
-   * @param init Set to true when called while initializing the enemy, false otherwise.
-   * Default is false.
+   * @param championColor The type of champion to turn this enemy into. (-1 results in a random
+   * champion type.) Default is -1.
+   * @param init Set to true when called while initializing the enemy, false otherwise. Default is
+   * false.
    */
   MakeChampion(
-    seed: int,
+    seed: Seed,
     championColorIdx?: ChampionColor,
     init?: boolean,
   ): void;

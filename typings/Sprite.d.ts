@@ -20,7 +20,7 @@ declare interface Sprite {
   LoadGraphics(): void;
   Play(animationName: string, force: boolean): void;
   PlayOverlay(animationName: string, force: boolean): void;
-  PlayRandom(seed: int): void;
+  PlayRandom(seed: Seed): void;
   Reload(): void;
   RemoveOverlay(): void;
 
@@ -33,8 +33,8 @@ declare interface Sprite {
   /**
    * @param layerID
    * @param position
-   * @param topLeftClamp Default is Vector.Zero.
-   * @param bottomRightClamp Default is Vector.Zero.
+   * @param topLeftClamp Default is `Vector.Zero`.
+   * @param bottomRightClamp Default is `Vector.Zero`.
    */
   RenderLayer(
     layerID: int,

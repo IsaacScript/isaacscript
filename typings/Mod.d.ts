@@ -138,7 +138,7 @@ interface CallbackParameters {
       position: Vector,
       velocity: Vector,
       spawner: Entity,
-      initSeed: int,
+      initSeed: Seed,
     ) => [EntityType | int, int, int, int] | void,
   ];
   [ModCallbacks.MC_POST_FAMILIAR_RENDER]: [
@@ -325,7 +325,7 @@ interface CallbackParameters {
     callback: (
       itemPoolType: ItemPoolType,
       decrease: boolean,
-      seed: int,
+      seed: Seed,
     ) => CollectibleType | int | void,
   ];
   [ModCallbacks.MC_POST_GET_COLLECTIBLE]: [
@@ -333,10 +333,12 @@ interface CallbackParameters {
       collectibleType: CollectibleType | int,
       itemPoolType: ItemPoolType,
       decrease: boolean,
-      seed: int,
+      seed: Seed,
     ) => CollectibleType | int | void,
   ];
-  [ModCallbacks.MC_GET_PILL_COLOR]: [callback: (seed: int) => PillColor | void];
+  [ModCallbacks.MC_GET_PILL_COLOR]: [
+    callback: (seed: Seed) => PillColor | void,
+  ];
   [ModCallbacks.MC_GET_PILL_EFFECT]: [
     callback: (
       pillEffect: PillEffect | int,
@@ -370,7 +372,7 @@ interface CallbackParameters {
       variant: int,
       subType: int,
       gridIndex: int,
-      seed: int,
+      seed: Seed,
     ) => [EntityType | int, int, int] | void,
   ];
 }

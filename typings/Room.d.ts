@@ -39,7 +39,7 @@ declare interface Room {
   FindFreeTilePosition(position: Vector, distanceThreshold: float): Vector;
   GetAliveBossesCount(): int;
   GetAliveEnemiesCount(): int;
-  GetAwardSeed(): int;
+  GetAwardSeed(): Seed;
   GetBackdropType(): BackdropType;
   GetBossID(): BossID | int;
   GetBottomRightPos(): Vector;
@@ -47,7 +47,7 @@ declare interface Room {
   GetCenterPos(): Vector;
   GetClampedGridIndex(position: Vector): int;
   GetClampedPosition(position: Vector, margin: float): Vector;
-  GetDecorationSeed(): int;
+  GetDecorationSeed(): Seed;
   GetDeliriumDistance(): int;
   GetDevilRoomChance(): float;
   GetDoor(doorSlot: DoorSlot): GridEntityDoor | undefined;
@@ -90,7 +90,7 @@ declare interface Room {
 
   GetNextShockwaveId(): int;
   GetRandomPosition(margin: float): Vector;
-  GetRandomTileIndex(seed: int): int;
+  GetRandomTileIndex(seed: Seed): int;
   GetRedHeartDamage(): boolean;
 
   /**
@@ -104,9 +104,9 @@ declare interface Room {
   GetRoomConfigStage(): int;
   GetRoomShape(): RoomShape;
   GetSecondBossID(): BossID | int;
-  GetSeededCollectible(seed: int): CollectibleType | int;
+  GetSeededCollectible(seed: Seed): CollectibleType | int;
   GetShopLevel(): int;
-  GetSpawnSeed(): int;
+  GetSpawnSeed(): Seed;
   GetTintedRockIdx(): int;
   GetTopLeftPos(): Vector;
   GetType(): RoomType;
@@ -178,7 +178,7 @@ declare interface Room {
     gridIndex: int,
     gridEntityType: GridEntityType,
     variant: int,
-    seed: int,
+    seed: Seed,
     varData: int,
   ): boolean;
 
@@ -189,7 +189,7 @@ declare interface Room {
    * Triggers all room clear effects (e.g. Sack of Pennies dropping coins). Does not actually clear
    * the room.
    *
-   * @param silent Default is false. Set tp true to mute the door opening sounds.
+   * @param silent Default is false. Set to true to mute the door opening sounds.
    */
   TriggerClear(silent?: boolean): void;
 

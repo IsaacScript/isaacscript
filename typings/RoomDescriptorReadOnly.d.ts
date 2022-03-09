@@ -7,7 +7,7 @@ declare interface RoomDescriptorReadOnly {
    * To set this property, get a writable copy of the RoomDescriptor by using the
    * `Level.GetRoomByIdx()` method.
    */
-  AwardSeed: Readonly<int>;
+  AwardSeed: Readonly<Seed>;
 
   /**
    * To set this property, get a writable copy of the RoomDescriptor by using the
@@ -37,7 +37,7 @@ declare interface RoomDescriptorReadOnly {
    * To set this property, get a writable copy of the RoomDescriptor by using the
    * `Level.GetRoomByIdx()` method.
    */
-  DecorationSeed: Readonly<int>;
+  DecorationSeed: Readonly<Seed>;
 
   /**
    * To set this property, get a writable copy of the RoomDescriptor by using the
@@ -152,7 +152,7 @@ declare interface RoomDescriptorReadOnly {
    * To set this property, get a writable copy of the RoomDescriptor by using the
    * `Level.GetRoomByIdx()` method.
    */
-  SpawnSeed: Readonly<int>;
+  SpawnSeed: Readonly<Seed>;
 
   /**
    * To set this property, get a writable copy of the RoomDescriptor by using the

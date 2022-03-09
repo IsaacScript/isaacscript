@@ -16,8 +16,8 @@ declare interface Game {
    * @param radius
    * @param lineCheck Default is true.
    * @param source Default is undefined.
-   * @param tearFlags Default is TearFlags.TEAR_NORMAL.
-   * @param damageFlags Default is DamageFlag.DAMAGE_EXPLOSION.
+   * @param tearFlags Default is `TearFlags.TEAR_NORMAL`.
+   * @param damageFlags Default is `DamageFlag.DAMAGE_EXPLOSION`.
    * @param damageSource Default is false.
    */
   BombDamage(
@@ -38,13 +38,13 @@ declare interface Game {
    *
    * @param position
    * @param damage
-   * @param tearFlags Default is TearFlags.TEAR_NORMAL.
-   * @param color Default is Color.Default.
+   * @param tearFlags Default is `TearFlags.TEAR_NORMAL`.
+   * @param color Default is `Color.Default`.
    * @param source Default is undefined.
    * @param radiusMult Default is 1.
    * @param lineCheck Default is true.
    * @param damageSource Default is false.
-   * @param damageFlags Default is DamageFlag.DAMAGE_EXPLOSION.
+   * @param damageFlags Default is `DamageFlag.DAMAGE_EXPLOSION`.
    */
   BombExplosionEffects(
     position: Vector,
@@ -90,7 +90,7 @@ declare interface Game {
    * fxlayers properly.
    *
    * @param roomGridIndex The room grid index of the destination room.
-   * @param dimension Default is Dimension.CURRENT.
+   * @param dimension Default is `Dimension.CURRENT`.
    */
   ChangeRoom(roomGridIndex: int, dimension?: Dimension): void;
 
@@ -112,7 +112,7 @@ declare interface Game {
    * @param source Default is undefined.
    * @param fartScale Default is 1.
    * @param fartSubType Default is 0
-   * @param fartColor Default is Color.Default.
+   * @param fartColor Default is `Color.Default`.
    */
   Fart(
     position: Vector,
@@ -167,12 +167,12 @@ declare interface Game {
   /** Returns true if the game is paused or the console is open. */
   IsPaused(): boolean;
 
-  MoveToRandomRoom(IAmErrorRoom: boolean, seed: int): void;
+  MoveToRandomRoom(IAmErrorRoom: boolean, seed: Seed): void;
   NextVictoryLap(): void;
   Render(): void;
   RerollEnemy(entity: Entity): boolean;
   RerollLevelCollectibles(): void;
-  RerollLevelPickups(seed: int): void;
+  RerollLevelPickups(seed: Seed): void;
   SetLastDevilRoomStage(levelStage: LevelStage): void;
   SetLastLevelWithDamage(levelStage: LevelStage): void;
   SetLastLevelWithoutHalfHp(levelStage: LevelStage): void;
@@ -182,7 +182,7 @@ declare interface Game {
 
   /**
    * @param frameCount
-   * @param hallucinationBackdrop Default is BackdropType.NUM_BACKDROPS.
+   * @param hallucinationBackdrop Default is `BackdropType.NUM_BACKDROPS`.
    */
   ShowHallucination(
     frameCount: int,
@@ -198,7 +198,7 @@ declare interface Game {
     velocity: Vector,
     spawner: Entity | undefined,
     subType: int,
-    seed: int,
+    seed: Seed,
   ): Entity;
 
   /*
@@ -214,7 +214,7 @@ declare interface Game {
    * @param effectVariant
    * @param numParticles
    * @param speed
-   * @param color Default is Color.Default.
+   * @param color Default is `Color.Default`.
    * @param height Default is 100000.
    * @param subType Default is 0.
    */
@@ -234,9 +234,9 @@ declare interface Game {
    *
    * @param roomGridIndex The room grid index of the destination room.
    * @param direction
-   * @param roomTransition Default is RoomTransitionAnim.WALK.
+   * @param roomTransition Default is `RoomTransitionAnim.WALK`.
    * @param player Default is undefined.
-   * @param dimension Default is Dimension.CURRENT.
+   * @param dimension Default is `Dimension.CURRENT`.
    */
   StartRoomTransition(
     roomGridIndex: int,

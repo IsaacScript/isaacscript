@@ -1,12 +1,12 @@
 declare interface RoomDescriptor {
   // AllowedDoors: DoorSet; // DoorSet is not implemented
 
-  AwardSeed: int;
+  AwardSeed: Seed;
   ChallengeDone: boolean;
   Clear: boolean;
   ClearCount: int;
   Data: RoomConfig | undefined;
-  DecorationSeed: int;
+  DecorationSeed: Seed;
   DeliriumDistance: int;
 
   /**
@@ -65,7 +65,7 @@ declare interface RoomDescriptor {
 
   ShopItemDiscountIdx: int;
   ShopItemIdx: int;
-  SpawnSeed: int;
+  SpawnSeed: Seed;
   SurpriseMiniboss: boolean;
 
   /**

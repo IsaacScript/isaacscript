@@ -23,7 +23,7 @@ declare interface EntityFamiliar extends Entity {
    * 8: Prioritize enemies with lower HP
    * 16: Give lower priority to our current target
    * (this makes us more likely to switch between targets)
-   * @param coneDir Default is Vector.Zero.
+   * @param coneDir Default is `Vector.Zero`.
    * If ~= Vector.Zero, searches for targets in a cone pointing in this direction.
    * @param coneAngle Default is 15.
    * If ConeDir ~= Vector.Zero, sets the half angle of the search cone in degrees

@@ -219,10 +219,10 @@ declare interface StageAPIEntityData {
 declare interface StageAPILevelRoom {
   SetTypeOverride(typeOverride: RoomType): void;
   AvoidSpawning: unknown;
-  AwardSeed: int;
+  AwardSeed: Seed;
   ClearCount: int;
   Data: unknown;
-  DecorationSeed: int;
+  DecorationSeed: Seed;
   Dimension: Dimension;
   Doors: unknown;
   ExtraSpawn: unknown;
@@ -235,9 +235,9 @@ declare interface StageAPILevelRoom {
   PersistentData: unknown;
   RoomType: RoomType;
   RoomsListName: string;
-  Seed: int;
+  Seed: Seed;
   Shape: RoomShape;
-  SpawnSeed: int;
+  SpawnSeed: Seed;
   SurpriseMiniboss: boolean;
   VisitCount: int;
 }
@@ -254,7 +254,7 @@ declare interface StageAPIOverlay {
 
 declare interface StageAPIRemovedEntityData {
   Position: Vector;
-  Seed: number;
+  Seed: Seed;
   Spawner: Entity | undefined;
   SubType: int;
   Type: EntityType;

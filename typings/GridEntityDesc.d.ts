@@ -1,10 +1,10 @@
 declare interface GridEntityDesc {
   Initialized: boolean;
   SpawnCount: int;
-  SpawnSeed: int;
+  SpawnSeed: Seed;
   State: int;
   Type: GridEntityType;
   VarData: int;
-  VariableSeed: int;
+  VariableSeed: Seed;
   Variant: int;
 }

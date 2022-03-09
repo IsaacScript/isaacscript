@@ -1,8 +1,8 @@
 declare function RNG(this: void): RNG;
 
 declare interface RNG {
-  GetSeed(): int;
-  Next(): int;
+  GetSeed(): Seed;
+  Next(): Seed;
 
   /**
    * Generates a random float between 0 and 1.
@@ -18,5 +18,5 @@ declare interface RNG {
    */
   RandomInt(max: int): int;
 
-  SetSeed(seed: int, shiftIdx: int): void;
+  SetSeed(seed: Seed, shiftIdx: int): void;
 }

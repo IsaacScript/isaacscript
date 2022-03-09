@@ -4,7 +4,7 @@ declare interface HUD {
    * charges.
    *
    * @param player
-   * @param slot Default is ActiveSlot.SLOT_PRIMARY.
+   * @param slot Default is `ActiveSlot.SLOT_PRIMARY`.
    */
   FlashChargeBar(player: EntityPlayer, slot?: ActiveSlot): void;
 
@@ -13,7 +13,7 @@ declare interface HUD {
    * an active item slot without directly giving or removing items.
    *
    * @param player
-   * @param slot Default is ActiveSlot.SLOT_PRIMARY
+   * @param slot Default is `ActiveSlot.SLOT_PRIMARY`.
    */
   InvalidateActiveItem(player: EntityPlayer, slot?: ActiveSlot): void;
 

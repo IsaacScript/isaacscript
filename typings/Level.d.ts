@@ -13,12 +13,12 @@ declare interface Level {
    * method instead.
    *
    * @param roomGridIndex The room grid index of the destination room.
-   * @param dimension Default is Dimension.CURRENT.
+   * @param dimension Default is `Dimension.CURRENT`.
    */
   ChangeRoom(fakeArg: never, roomGridIndex: int, dimension?: Dimension): void;
 
   DisableDevilRoom(): void;
-  ForceHorsemanBoss(seed: int): boolean;
+  ForceHorsemanBoss(seed: Seed): boolean;
   GetAbsoluteStage(): LevelStage;
   GetAngelRoomChance(): float;
   GetCanSeeEverything(): boolean;
@@ -44,7 +44,7 @@ declare interface Level {
 
   GetCurses(): LevelCurse | int;
   GetDevilAngelRoomRNG(): RNG;
-  GetDungeonPlacementSeed(): int;
+  GetDungeonPlacementSeed(): Seed;
   GetEnterPosition(): Vector;
   GetHeartPicked(): boolean;
   GetLastBossRoomListIndex(): int;
@@ -78,11 +78,11 @@ declare interface Level {
   GetPreviousRoomIndex(): int;
 
   /** Returns a random grid index of the floor. */
-  GetRandomRoomIndex(IAmErrorRoom: boolean, seed: int): int;
+  GetRandomRoomIndex(IAmErrorRoom: boolean, seed: Seed): int;
 
   /**
    * @param roomGridIndex The grid index of the room to get.
-   * @param dimension Default is Dimension.CURRENT.
+   * @param dimension Default is `Dimension.CURRENT`.
    */
   GetRoomByIdx(roomGridIndex: int, dimension?: Dimension): RoomDescriptor;
 

@@ -13,7 +13,7 @@ declare interface GridEntity {
   GetType(): GridEntityType;
   GetVariant(): int;
   Hurt(damage: int): boolean;
-  Init(seed: int): void;
+  Init(seed: Seed): void;
   PostInit(): void;
   Render(offset: Vector): void;
   SetType(gridEntityType: GridEntityType): void;

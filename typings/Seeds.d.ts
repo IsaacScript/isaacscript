@@ -5,10 +5,10 @@ declare interface Seeds {
   ClearStartSeed(): void;
   CountSeedEffects(): int;
   ForgetStageSeed(levelStage: LevelStage): void;
-  GetNextSeed(): int;
-  GetPlayerInitSeed(): int;
-  GetStageSeed(levelStage: LevelStage): int;
-  GetStartSeed(): int;
+  GetNextSeed(): Seed;
+  GetPlayerInitSeed(): Seed;
+  GetStageSeed(levelStage: LevelStage): Seed;
+  GetStartSeed(): Seed;
   GetStartSeedString(): string;
   HasSeedEffect(seedEffect: SeedEffect): boolean;
   IsCustomRun(): boolean;
@@ -18,6 +18,8 @@ declare interface Seeds {
   RemoveSeedEffect(seedEffect: SeedEffect): void;
   Reset(): void;
   Restart(challenge: Challenge | int): void;
+
+  /** Passing an empty string will cause the game to pick a new random seed. */
   SetStartSeed(startSeed: string): void;
 }
 

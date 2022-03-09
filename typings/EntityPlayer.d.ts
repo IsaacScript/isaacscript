@@ -45,7 +45,7 @@ declare interface EntityPlayer extends Entity {
    * @param firstTimePickingUp Setting this to false will not spawn or add consumables for the item
    * and will not cause it to count towards transformations. Default is true.
    * @param activeSlot Sets the active slot this collectible should be added to.
-   * Default is ActiveSlot.SLOT_PRIMARY.
+   * Default is `ActiveSlot.SLOT_PRIMARY`.
    * @param varData Sets the variable data for this collectible (this is used to store extra data
    * for some active items like the number of uses for Jar of Wisps).
    * Default is 0.
@@ -275,7 +275,7 @@ declare interface EntityPlayer extends Entity {
   AreOpposingShootDirectionsPressed(): boolean;
 
   /**
-   * @param collectibleType Default is CollectibleType.COLLECTIBLE_NULL.
+   * @param collectibleType Default is `CollectibleType.COLLECTIBLE_NULL`.
    */
   CanAddCollectible(collectibleType?: CollectibleType): boolean;
 
@@ -351,7 +351,7 @@ declare interface EntityPlayer extends Entity {
   /**
    * Sets the charge of the active item to 0 without triggering the active item effect.
    *
-   * @param activeSlot Default is ActiveSlot.SLOT_PRIMARY.
+   * @param activeSlot Default is `ActiveSlot.SLOT_PRIMARY`.
    */
   DischargeActiveItem(activeSlot?: ActiveSlot): void;
 
@@ -459,21 +459,21 @@ declare interface EntityPlayer extends Entity {
   FlushQueueItem(): boolean;
 
   /**
-   * @param activeSlot Default is ActiveSlot.SLOT_PRIMARY.
+   * @param activeSlot Default is `ActiveSlot.SLOT_PRIMARY`.
    * @param force If set, items will always be charged even if they normally cannot be recharged by
    * batteries.
    */
   FullCharge(activeSlot?: ActiveSlot, force?: boolean): boolean;
 
   /**
-   * @param activeSlot Default is ActiveSlot.SLOT_PRIMARY.
+   * @param activeSlot Default is `ActiveSlot.SLOT_PRIMARY`.
    */
   GetActiveCharge(activeSlot?: ActiveSlot): int;
 
   /**
    * Returns 0 if no item is held.
    *
-   * @param activeSlot Default is ActiveSlot.SLOT_PRIMARY.
+   * @param activeSlot Default is `ActiveSlot.SLOT_PRIMARY`.
    */
   GetActiveItem(activeSlot?: ActiveSlot): CollectibleType | int;
 
@@ -656,7 +656,7 @@ declare interface EntityPlayer extends Entity {
    * Note that the only thing that you can do with MultiShotParams is feed it to the
    * `EntityPlayer.GetMultiShotPositionVelocity()` method.
    *
-   * @param weaponType Default is WeaponType.WEAPON_TEARS.
+   * @param weaponType Default is `WeaponType.WEAPON_TEARS`.
    */
   GetMultiShotParams(weaponType?: WeaponType): MultiShotParams;
 
@@ -847,7 +847,7 @@ declare interface EntityPlayer extends Entity {
   IsSubPlayer(): boolean;
 
   /**
-   * @param activeSlot Default is ActiveSlot.SLOT_PRIMARY.
+   * @param activeSlot Default is `ActiveSlot.SLOT_PRIMARY`.
    */
   NeedsCharge(activeSlot?: ActiveSlot): boolean;
 
@@ -884,7 +884,7 @@ declare interface EntityPlayer extends Entity {
    * @param ignoreModifiers Ignores collectible effects granted by other items (i.e. Void).
    * Default is false.
    * @param activeSlot Sets the active slot this collectible should be removed from.
-   * Default is ActiveSlot.SLOT_PRIMARY.
+   * Default is `ActiveSlot.SLOT_PRIMARY`.
    * @param removeFromPlayerForm If successfully removed and part of a transformation, decrease that
    * transformation's counter by 1. Default is true.
    */
@@ -927,7 +927,7 @@ declare interface EntityPlayer extends Entity {
 
   /**
    * @param charge
-   * @param activeSlot Default is ActiveSlot.SLOT_PRIMARY.
+   * @param activeSlot Default is `ActiveSlot.SLOT_PRIMARY`.
    */
   SetActiveCharge(charge: int, activeSlot?: ActiveSlot): void;
 
@@ -944,7 +944,8 @@ declare interface EntityPlayer extends Entity {
    * Items added to SLOT_POCKET2 will always be removed upon being used.
    *
    * @param collectibleType
-   * @param slot Can be either ActiveSlot.SLOT_POCKET or ActiveSlot.SLOT_POCKET2. Default is ActiveSlot.SLOT_POCKET.
+   * @param slot Can be either ActiveSlot.SLOT_POCKET or ActiveSlot.SLOT_POCKET2. Default is
+   * `ActiveSlot.SLOT_POCKET`.
    * @param keepInPools If true, the item will not be removed from the item pools. Default is false.
    */
   SetPocketActiveItem(
@@ -997,7 +998,7 @@ declare interface EntityPlayer extends Entity {
   /**
    * Triggers the extra effect granted by Book of Virtues for the given active item.
    *
-   * @param collectibleType Default is CollectibleType.COLLECTIBLE_NULL.
+   * @param collectibleType Default is `CollectibleType.COLLECTIBLE_NULL`.
    */
   TriggerBookOfVirtues(collectibleType?: CollectibleType): void;
 
@@ -1048,7 +1049,7 @@ declare interface EntityPlayer extends Entity {
    * @param useFlag Default is 0.
    * @param activeSlot The active slot this item was used from.
    * (Set to -1 if this item wasn't triggered by any active slot.)
-   * Default is ActiveSlot.SLOT_PRIMARY.
+   * Default is `ActiveSlot.SLOT_PRIMARY`.
    */
   UseActiveItem(
     collectibleType: CollectibleType | int,
@@ -1064,7 +1065,7 @@ declare interface EntityPlayer extends Entity {
    * @param toAddCostume
    * @param activeSlot The active slot this item was used from.
    * (Set to -1 if this item wasn't triggered by any active slot.)
-   * Default is ActiveSlot.SLOT_PRIMARY.
+   * Default is `ActiveSlot.SLOT_PRIMARY`.
    */
   UseActiveItem(
     collectibleType: CollectibleType | int,

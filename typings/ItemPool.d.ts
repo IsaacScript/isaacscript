@@ -4,7 +4,7 @@ declare interface ItemPool {
   ForceAddPillEffect(pillEffect: PillEffect | int): PillColor;
 
   GetCard(
-    seed: int,
+    seed: Seed,
     playing: boolean,
     rune: boolean,
     onlyRunes: boolean,
@@ -13,18 +13,18 @@ declare interface ItemPool {
   /**
    * @param itemPoolType
    * @param decrease Default is false.
-   * @param seed Default is Random().
-   * @param defaultItem Default is CollectibleType.COLLECTIBLE_NULL.
+   * @param seed Default is `Random()`.
+   * @param defaultItem Default is `CollectibleType.COLLECTIBLE_NULL`.
    */
   GetCollectible(
     itemPoolType: ItemPoolType,
     decrease?: boolean,
-    seed?: int,
+    seed?: Seed,
     defaultItem?: CollectibleType,
   ): CollectibleType | int;
 
   GetLastPool(): ItemPoolType;
-  GetPill(seed: int): PillColor;
+  GetPill(seed: Seed): PillColor;
 
   /**
    * @param pillColor
@@ -32,7 +32,7 @@ declare interface ItemPool {
    */
   GetPillEffect(pillColor: PillColor, player?: EntityPlayer): PillEffect | int;
 
-  GetPoolForRoom(roomType: RoomType, seed: int): ItemPoolType;
+  GetPoolForRoom(roomType: RoomType, seed: Seed): ItemPoolType;
 
   /**
    * @param dontAdvanceRNG Default is false.

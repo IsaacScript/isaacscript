@@ -7,7 +7,7 @@ interface StageAPICallbackParameters {
     callback: (
       this: void,
       roomList: unknown,
-      seed: int,
+      seed: Seed,
       shape: RoomShape,
       rType: RoomType,
       requireRoomType: unknown,

@@ -100,7 +100,7 @@ declare interface Entity {
   Child: Entity | undefined;
   CollisionDamage: float;
   DepthOffset: float;
-  readonly DropSeed: int;
+  readonly DropSeed: Seed;
   EntityCollisionClass: EntityCollisionClass;
   FlipX: boolean;
   readonly FrameCount: int;
@@ -108,7 +108,7 @@ declare interface Entity {
   GridCollisionClass: EntityGridCollisionClass;
   HitPoints: float;
   readonly Index: int;
-  readonly InitSeed: int;
+  readonly InitSeed: Seed;
   Mass: float;
   MaxHitPoints: float;
   Parent: Entity | undefined;
