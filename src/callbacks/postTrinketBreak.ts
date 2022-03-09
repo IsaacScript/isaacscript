@@ -1,5 +1,5 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { getPlayerIndex } from "../functions/player";
+import { defaultMapGetPlayer } from "../functions/playerDataStructures";
 import { DefaultMap } from "../types/DefaultMap";
 import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
 import { ModUpgraded } from "../types/ModUpgraded";
@@ -61,8 +61,7 @@ function entityTakeDmgPlayer(
     return;
   }
 
-  const playerIndex = getPlayerIndex(player);
-  const trinketMap = v.run.playersTrinketMap.getAndSetDefault(playerIndex);
+  const trinketMap = defaultMapGetPlayer(v.run.playersTrinketMap, player);
 
   for (const trinketType of TRINKETS_THAT_CAN_BREAK) {
     const numTrinketsHeld = player.GetTrinketMultiplier(trinketType);
@@ -95,8 +94,7 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
   }
 
   // On every frame, keep track of how many trinkets we have
-  const playerIndex = getPlayerIndex(player);
-  const trinketMap = v.run.playersTrinketMap.getAndSetDefault(playerIndex);
+  const trinketMap = defaultMapGetPlayer(v.run.playersTrinketMap, player);
 
   for (const trinketType of TRINKETS_THAT_CAN_BREAK) {
     const numTrinkets = player.GetTrinketMultiplier(trinketType);

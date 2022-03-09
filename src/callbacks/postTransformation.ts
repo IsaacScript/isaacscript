@@ -1,6 +1,6 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { range } from "../functions/math";
-import { getPlayerIndex } from "../functions/player";
+import { defaultMapGetPlayer } from "../functions/playerDataStructures";
 import { DefaultMap } from "../types/DefaultMap";
 import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
 import { ModUpgraded } from "../types/ModUpgraded";
@@ -51,9 +51,10 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
     return;
   }
 
-  const playerIndex = getPlayerIndex(player);
-  const playerTransformationsMap =
-    v.run.playersTransformationsMap.getAndSetDefault(playerIndex);
+  const playerTransformationsMap = defaultMapGetPlayer(
+    v.run.playersTransformationsMap,
+    player,
+  );
 
   for (const playerForm of VALID_TRANSFORMATIONS) {
     const hasForm = player.HasPlayerForm(playerForm);

@@ -8,7 +8,6 @@
 
 import { getUpgradeErrorMsg } from "../errors";
 import { hasFlag } from "../functions/flag";
-import { getPlayerIndex } from "../functions/player";
 import {
   setAddPlayer,
   setDeletePlayer,
@@ -76,6 +75,5 @@ export function isPonyActive(player: EntityPlayer): boolean {
     error(msg);
   }
 
-  const playerIndex = getPlayerIndex(player);
-  return v.run.playersIsPonyActive.has(playerIndex);
+  return setHasPlayer(v.run.playersIsPonyActive, player);
 }
