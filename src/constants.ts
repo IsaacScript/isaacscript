@@ -201,6 +201,22 @@ export const MINUTE_IN_MILLISECONDS = 60 * SECOND_IN_MILLISECONDS;
 
 export const ONE_BY_ONE_ROOM_GRID_SIZE = 135;
 
+/**
+ * In vanilla, this is part of the `PillColor` enum, but we implement it as a constant in
+ * IsaacScript since it is not a real pill color.
+ *
+ * 1 << 11
+ */
+export const PILL_GIANT_FLAG = 2048;
+
+/**
+ * In vanilla, this is part of the `PillColor` enum, but we implement it as a constant in
+ * IsaacScript since it is not a real pill color.
+ *
+ * (1 << 11) - 1
+ */
+export const PILL_COLOR_MASK = 2047;
+
 export const SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES: ReadonlySet<CollectibleType> =
   new Set([
     CollectibleType.COLLECTIBLE_FORGET_ME_NOW, // 127
