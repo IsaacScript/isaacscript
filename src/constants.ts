@@ -139,7 +139,6 @@ export const FINAL_STAGE = LevelStage.NUM_STAGES - 1;
  */
 export const FIRST_GLITCHED_COLLECTIBLE_TYPE = (1 << 32) - 1;
 
-export const GOLDEN_TRINKET_SHIFT = 1 << 15;
 export const GRID_INDEX_CENTER_OF_1X1_ROOM = 67;
 export const GAME_FRAMES_PER_SECOND = 30;
 export const ISAAC_FRAMES_PER_SECOND = 60;
@@ -229,6 +228,22 @@ export const STORY_BOSSES: ReadonlySet<EntityType> = new Set([
   EntityType.ENTITY_DOGMA, // 950
   EntityType.ENTITY_BEAST, // 951
 ]);
+
+/**
+ * In vanilla, this is part of the `TrinketType` enum, but we implement it as a constant in
+ * IsaacScript since it is not a real trinket type.
+ *
+ * 1 << 15
+ */
+export const TRINKET_GOLDEN_FLAG = 32768;
+
+/**
+ * In vanilla, this is part of the `TrinketType` enum, but we implement it as a constant in
+ * IsaacScript since it is not a real trinket type.
+ *
+ * (1 << 15) - 1
+ */
+export const TRINKET_ID_MASK = 32767;
 
 /**
  * This is the number of draw coordinates that each heart spans on the UI in the upper left hand
