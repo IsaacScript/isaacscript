@@ -840,6 +840,19 @@ export function isChildPlayer(player: EntityPlayer): boolean {
   return player.Parent !== undefined;
 }
 
+/**
+ * Helper function for detecting when a player is Eden or Tainted Eden. Useful for situations where
+ * you want to know if the starting stats were randomized, for example.
+ */
+export function isEden(player: EntityPlayer): boolean {
+  const character = player.GetPlayerType();
+
+  return (
+    character === PlayerType.PLAYER_EDEN ||
+    character === PlayerType.PLAYER_EDEN_B
+  );
+}
+
 export function isFirstPlayer(player: EntityPlayer): boolean {
   return getPlayerIndexVanilla(player) === 0;
 }
