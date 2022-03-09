@@ -485,7 +485,7 @@ export function getPlayerIndex(
   const collectibleRNG = playerToUse.GetCollectibleRNG(collectibleType);
   const seed = collectibleRNG.GetSeed();
 
-  return seed as PlayerIndex;
+  return seed as unknown as PlayerIndex;
 }
 
 function getPlayerIndexCollectibleType(

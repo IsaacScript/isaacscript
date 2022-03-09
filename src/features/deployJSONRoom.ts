@@ -346,7 +346,7 @@ function fillRoomWithDecorations() {
   }
 }
 
-function spawnAllEntities(jsonRoom: JSONRoom, seed: int, verbose = false) {
+function spawnAllEntities(jsonRoom: JSONRoom, seed: Seed, verbose = false) {
   let shouldUnclearRoom = false;
 
   for (const spawn of jsonRoom.spawn) {
@@ -483,7 +483,7 @@ function spawnNormalEntityForJSONRoom(
   subType: int,
   x: int,
   y: int,
-  seed: int,
+  seed: Seed,
 ) {
   const game = Game();
   const room = game.GetRoom();
