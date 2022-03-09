@@ -3,6 +3,7 @@
 
 /** For EntityType.ENTITY_PLAYER (1), PlayerVariant.PLAYER (0) */
 declare enum PlayerType {
+  /** Used in the secret Possessor Mode added in Repentance. */
   PLAYER_POSSESSOR = -1,
 
   PLAYER_ISAAC = 0,
@@ -16,10 +17,13 @@ declare enum PlayerType {
   PLAYER_LAZARUS = 8,
   PLAYER_EDEN = 9,
   PLAYER_THELOST = 10,
+
   /** Lazarus Risen, from the Lazarus' Rags collectible. */
   PLAYER_LAZARUS2 = 11,
+
   /** Dark Judas, from the Judas' Shadow collectible. */
   PLAYER_BLACKJUDAS = 12,
+
   PLAYER_LILITH = 13,
   PLAYER_KEEPER = 14,
   PLAYER_APOLLYON = 15,
@@ -28,46 +32,67 @@ declare enum PlayerType {
   PLAYER_BETHANY = 18,
   PLAYER_JACOB = 19,
   PLAYER_ESAU = 20,
+
   /** Tainted Isaac */
   PLAYER_ISAAC_B = 21,
+
   /** Tainted Magdalene */
   PLAYER_MAGDALENE_B = 22,
+
   /** Tainted Cain */
   PLAYER_CAIN_B = 23,
+
   /** Tainted Judas */
   PLAYER_JUDAS_B = 24,
+
   /** Tainted Blue Baby */
   PLAYER_BLUEBABY_B = 25,
+
   /** Tainted Eve */
   PLAYER_EVE_B = 26,
+
   /** Tainted Samson */
   PLAYER_SAMSON_B = 27,
+
   /** Tainted Azazel */
   PLAYER_AZAZEL_B = 28,
+
   /** Tainted Lazarus */
   PLAYER_LAZARUS_B = 29,
+
   /** Tainted Eden */
   PLAYER_EDEN_B = 30,
+
   /** Tainted Lost */
   PLAYER_THELOST_B = 31,
+
   /** Tainted Lilith */
   PLAYER_LILITH_B = 32,
+
   /** Tainted Keeper */
   PLAYER_KEEPER_B = 33,
+
   /** Tainted Apollyon */
   PLAYER_APOLLYON_B = 34,
+
   /** Tainted Forgotten */
   PLAYER_THEFORGOTTEN_B = 35,
+
   /** Tainted Bethany */
   PLAYER_BETHANY_B = 36,
+
   /** Tainted Jacob */
   PLAYER_JACOB_B = 37,
+
   /** Dead Tainted Lazarus */
   PLAYER_LAZARUS2_B = 38,
+
   /** Tainted Jacob in "Lost" form. */
   PLAYER_JACOB2_B = 39,
+
   /** Tainted Soul */
   PLAYER_THESOUL_B = 40,
+
   NUM_PLAYER_TYPES = 41,
 }
 
@@ -152,12 +177,16 @@ declare enum BabySubType {
 declare enum LocustSubtypes {
   /** Red (explosive) */
   LOCUST_OF_WRATH = 1,
+
   /** Green (poison) */
   LOCUST_OF_PESTILENCE = 2,
+
   /** Yellow (slowing) */
   LOCUST_OF_FAMINE = 3,
+
   /** Black (double-damage) */
   LOCUST_OF_DEATH = 4,
+
   /** White */
   LOCUST_OF_CONQUEST = 5,
 }
@@ -1277,12 +1306,16 @@ declare enum BedSubType {
 declare enum LaserSubType {
   /** A typical laser that has a start and end point. */
   LASER_SUBTYPE_LINEAR = 0,
+
   /** A controlled ring laser (e.g. Tech + Ludovico, Brim + Ludovico). */
   LASER_SUBTYPE_RING_LUDOVICO = 1,
+
   /** A ring laser that travels like a projectile (e.g. Tech X). */
   LASER_SUBTYPE_RING_PROJECTILE = 2,
+
   /** A ring laser that encircle their parents (e.g. Maw of the Void). */
   LASER_SUBTYPE_RING_FOLLOW_PARENT = 3,
+
   /** For Technology Zero; doesn't create an impact. */
   LASER_SUBTYPE_NO_IMPACT = 4,
 }

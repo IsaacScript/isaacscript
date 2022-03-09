@@ -265,10 +265,9 @@ declare enum EntityFlag {
 /**
  * For EntityType.ENTITY_TEAR (2)
  *
- * On the Lua side, these are implemented as `BitSet128` objects. Since we cannot use objects in
- * enum declarations, IsaacScript simply displays these as the raw numbers, but this is only
- * cosmetic. When you actually use these flags, they will be automatically converted to `BitSet128`
- * objects by the game.
+ * In Lua, the values of this enum are instantiated with `BitSet128` objects. Since we cannot use
+ * objects in enum declarations, IsaacScript simply displays these as the raw numbers. This is only
+ * cosmetic; when you actually use these flags, they will really be `BitSet128` objects.
  */
 declare enum TearFlags {
   /** Default tear (no special effects). */
@@ -1532,6 +1531,7 @@ declare enum GameStateFlag {
   STATE_MAUSOLEUM_HEART_KILLED = 46,
   STATE_BACKWARDS_PATH_INIT = 47,
   STATE_BACKWARDS_PATH = 48,
+
   NUM_STATE_FLAGS = 49,
 }
 
@@ -1560,6 +1560,7 @@ declare enum LevelStateFlag {
   STATE_VOID_DOOR_DISABLED = 21,
   STATE_MINESHAFT_ESCAPE = 22,
   STATE_MIRROR_BROKEN = 23,
+
   NUM_STATE_FLAGS = 24,
 }
 

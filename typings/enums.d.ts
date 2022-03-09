@@ -539,6 +539,7 @@ declare enum Challenge {
   CHALLENGE_CANTRIPPED = 43,
   CHALLENGE_RED_REDEMPTION = 44,
   CHALLENGE_DELETE_THIS = 45,
+
   NUM_CHALLENGES = 46,
 }
 
@@ -719,6 +720,7 @@ declare enum NullItemID {
   ID_HORSE_PUBERTY = 119,
   ID_SOUL_FORGOTTEN = 120,
   ID_SOUL_JACOB = 121,
+
   NUM_NULLITEMS = 122,
 }
 
@@ -738,6 +740,7 @@ declare enum WeaponType {
   WEAPON_SPIRIT_SWORD = 13,
   WEAPON_FETUS = 14,
   WEAPON_UMBILICAL_WHIP = 15,
+
   NUM_WEAPON_TYPES = 16,
 }
 
@@ -757,6 +760,7 @@ declare enum PlayerSpriteLayer {
   SPRITE_EXTRA = 12,
   SPRITE_GHOST = 13,
   SPRITE_BACK = 14,
+
   NUM_SPRITE_LAYERS = 15,
 }
 
@@ -824,7 +828,9 @@ declare enum LevelStage {
   STAGE6 = 11,
   STAGE7 = 12,
   STAGE8 = 13,
+
   NUM_STAGES = 14,
+
   STAGE1_GREED = 1,
   STAGE2_GREED = 2,
   STAGE3_GREED = 3,
@@ -832,6 +838,7 @@ declare enum LevelStage {
   STAGE5_GREED = 5,
   STAGE6_GREED = 6,
   STAGE7_GREED = 7,
+
   NUM_BACKWARDS_STAGES = 7,
 }
 
@@ -950,6 +957,7 @@ declare enum DoorSlot {
   UP1 = 5,
   RIGHT1 = 6,
   DOWN1 = 7,
+
   NUM_DOOR_SLOTS = 8,
 }
 
@@ -986,34 +994,49 @@ declare enum LevelCurse {
 declare enum PlayerForm {
   /** Guppy */
   PLAYERFORM_GUPPY = 0,
+
   /** Beelzebub */
   PLAYERFORM_LORD_OF_THE_FLIES = 1,
+
   /** Fun Guy */
   PLAYERFORM_MUSHROOM = 2,
+
   /** Seraphim */
   PLAYERFORM_ANGEL = 3,
+
   /** Bob */
   PLAYERFORM_BOB = 4,
+
   /** Spun */
   PLAYERFORM_DRUGS = 5,
+
   /** Yes Mother? */
   PLAYERFORM_MOM = 6,
+
   /** Conjoined */
   PLAYERFORM_BABY = 7,
+
   /** Leviathan */
   PLAYERFORM_EVIL_ANGEL = 8,
+
   /** Oh Crap */
   PLAYERFORM_POOP = 9,
+
   /** Bookworm */
   PLAYERFORM_BOOK_WORM = 10,
+
   /** Adult */
   PLAYERFORM_ADULTHOOD = 11,
+
   /** Spider Baby */
   PLAYERFORM_SPIDERBABY = 12,
+
   /** Stompy */
   PLAYERFORM_STOMPY = 13,
+
   /** This transformation is unused by the game. */
   PLAYERFORM_FLIGHT = 14,
+
   NUM_PLAYER_FORMS = 15,
 }
 
@@ -1032,16 +1055,12 @@ declare enum PillColor {
   PILL_BLACK_YELLOW = 11,
   PILL_WHITE_BLACK = 12,
   PILL_WHITE_YELLOW = 13,
+
   NUM_STANDARD_PILLS = 14,
+
   PILL_GOLD = 14,
 
   NUM_PILLS = 15,
-
-  /** 1 << 11 */
-  PILL_GIANT_FLAG = 1 << 11,
-
-  /** (1 << 11) - 1 */
-  PILL_COLOR_MASK = (1 << 11) - 1,
 }
 
 declare enum Music {
@@ -1143,6 +1162,7 @@ declare enum Music {
   MUSIC_MINESHAFT_AMBIENT = 116,
   MUSIC_MINESHAFT_ESCAPE = 117,
   MUSIC_REVERSE_GENESIS = 118,
+
   NUM_MUSIC = 119,
 }
 
@@ -1855,6 +1875,7 @@ declare enum SoundEffect {
   SOUND_BEAST_LAVABALL_RISE = 814,
   SOUND_BEAST_GROWL = 815,
   SOUND_BEAST_GRUMBLE = 816,
+
   NUM_SOUND_EFFECTS = 817,
 }
 
@@ -1925,6 +1946,7 @@ declare enum PillEffect {
   PILLEFFECT_SHOT_SPEED_DOWN = 47,
   PILLEFFECT_SHOT_SPEED_UP = 48,
   PILLEFFECT_EXPERIMENTAL = 49,
+
   NUM_PILL_EFFECTS = 50,
 }
 
@@ -2173,11 +2195,13 @@ declare enum SeedEffect {
   SEED_AXIS_ALIGNED_CONTROLS = 76,
   SEED_SUPER_HOT = 77,
   SEED_RETRO_VISION = 78,
+
   NUM_SEEDS = 79,
 }
 
 declare enum GridRooms {
   NO_ROOM_IDX = -99999,
+
   ROOM_DEVIL_IDX = -1,
   ROOM_ERROR_IDX = -2,
   ROOM_DEBUG_IDX = -3,
@@ -2196,9 +2220,12 @@ declare enum GridRooms {
   ROOM_BLUE_ROOM_IDX = -16,
   ROOM_EXTRA_BOSS_IDX = -17,
   ROOM_ANGEL_SHOP_IDX = -18,
+
   NUM_OFF_GRID_ROOMS = 18,
+
   MAX_GRID_ROOMS = 507,
   MAX_ROOMS = 525,
+
   ROOM_MIRROR_IDX = -100,
   ROOM_MINESHAFT_IDX = -101,
 }
@@ -2236,6 +2263,7 @@ declare enum ItemPoolType {
   POOL_BABY_SHOP = 28,
   POOL_WOODEN_CHEST = 29,
   POOL_ROTTEN_BEGGAR = 30,
+
   NUM_ITEMPOOLS = 31,
 }
 
@@ -2265,71 +2293,96 @@ declare enum EntityPartition {
 declare enum ChampionColor {
   /** 33% more life. Drops a red heart. */
   RED = 0,
+
   /** 33% increased movement speed. Drops a Lil Battery. */
   YELLOW = 1,
+
   /** Leaves green creep as it walks. Drops a pill. */
   GREEN = 2,
+
   /** Greed shot (causing dropped coins on hit). Drops 1-3 coins. */
   ORANGE = 3,
+
   /** Half speed. Spawns 3 blue flies on death. */
   BLUE = 4,
+
   /** Explodes on death. Drops a bomb. */
   BLACK = 5,
+
   /** Invincible until all other enemies are killed. Drops an eternal heart. */
   WHITE = 6,
+
   /** 33% health, half speed. Drops a key. */
   GREY = 7,
+
   /** Spectral projectiles and can move past environmental obstacles. Drops a locked chest. */
   TRANSPARENT = 8,
+
   /** Fades in and out of visibility. Drops a red chest. */
   FLICKER = 9,
+
   /** Random projectiles. No drop. */
   PINK = 10,
+
   /** Pulls the player (and tears) towards itself. Drops a trinket. */
   PURPLE = 11,
+
   /**
    * Collapses into a flesh pile upon death and regenerates if not finished off.
    * Drops a double heart.
    */
   DARK_RED = 12,
+
   /** Releases blood shots in 8 directions when killed. Drops a half red heart. */
   LIGHT_BLUE = 13,
+
   /**
    * The enemy blends into the background and briefly becomes visible when damaged.
    * Drops a rune.
    */
   CAMO = 14,
+
   /** Splits into two copies of itself upon death. */
   PULSE_GREEN = 15,
+
   /** Repels Isaac's tears while in the gray state. Drops a random pickup. */
   PULSE_GREY = 16,
+
   /** Has 1-2 Eternal Flies circling it. Spawns two attack flies on death. */
   FLY_PROTECTED = 17,
+
   /** Half size, 33% less HP, 33% faster. 20% chance to drop a pill. */
   TINY = 18,
+
   /** Double size, 50% more HP, does 2 hearts of damage, 10% slower. 20% chance to drop a pill. */
   GIANT = 19,
+
   /** Heals all enemies in the room (including itself) for 30 HP per second. Drops a heart. */
   PULSE_RED = 20,
+
   /**
    * Spawns an Attack Fly on hit. After each hit, there is a delay until the next hit results in
    * another Attack Fly. A single Pulsating enemy can have up to 5 Attack Flies at once.
    * Spawns 4-6 blue flies on death.
    */
   SIZE_PULSE = 21,
+
   /**
    * 3x HP. All enemies in the room that are not champions will turn yellow while the crowned enemy
    * is alive. The affected enemies will drop batteries like yellow champions upon dying.
    * Drops 2-3 random pickups.
    */
   KING = 22,
+
   /**
    * Does 2 hearts of damage when touched. Produces a Necronomicon effect upon death.
    * Deals two full hearts of damage.
    */
   DEATH = 23,
+
   /** Constantly poops. */
   BROWN = 24,
+
   /** Many champion effects combined, drops one of everything. */
   RAINBOW = 25,
 }
@@ -2337,10 +2390,13 @@ declare enum ChampionColor {
 declare enum ActiveSlot {
   /** The main slot for active items, in the top-left-hand corner. */
   SLOT_PRIMARY = 0,
+
   /** The SchoolBag slot, to the top-left of the active item. */
   SLOT_SECONDARY = 1,
+
   /** The permanent card/pill slot. (Several Tainted characters use this slot.) */
   SLOT_POCKET = 2,
+
   /** A single use card/pill slot (used by Dice Bag). */
   SLOT_POCKET2 = 3,
 }
@@ -2348,31 +2404,43 @@ declare enum ActiveSlot {
 declare enum RoomTransitionAnim {
   /** Mostly when using doors. */
   WALK = 0,
+
   /** The fade-in / fade-out used for Mom's Hand. */
   FADE = 1,
+
   /** The fade + pixelation effect used for secret item dungeon. */
   PIXELATION = 2,
+
   TELEPORT = 3,
+
   /** For Curse of the Maze. */
   MAZE = 4,
+
   ANKH = 5,
   DEAD_CAT = 6,
   ONE_UP = 7,
   COLLAR = 8,
   JUDAS_SHADOW = 9,
   LAZARUS = 10,
+
   /** For the Ventricle Razor teleport. */
   WOMB_TELEPORT = 11,
+
   /** For the Glowing Hour Glass teleport. */
   GLOWING_HOURGLASS = 12,
+
   D7 = 13,
   MISSING_POSTER = 14,
+
   /** No transition; goes directly to the boss intro cutscene (for the Backasswards challenge). */
   BOSS_FORCED = 15,
+
   /** For a Card Reading teleport. */
   PORTAL_TELEPORT = 16,
+
   /** For the Forgotten's Birthright effect. */
   FORGOTTEN_TELEPORT = 17,
+
   FADE_MIRROR = 18,
   MINECART = 19,
   DEATH_CERTIFICATE = 20,
@@ -2453,6 +2521,7 @@ declare enum BackdropType {
   MINES_SHAFT = 58,
   ASHPIT_SHAFT = 59,
   DARK_CLOSET = 60,
+
   NUM_BACKDROPS = 61,
 }
 
