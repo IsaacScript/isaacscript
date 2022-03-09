@@ -1,4 +1,4 @@
-import { GOLDEN_TRINKET_SHIFT } from "../constants";
+import { TRINKET_GOLDEN_FLAG } from "../constants";
 import { TRINKET_DESCRIPTION_MAP } from "../maps/trinketDescriptionMap";
 import { TRINKET_NAME_MAP } from "../maps/trinketNameMap";
 import { hasFlag } from "./flag";
@@ -130,7 +130,8 @@ export function hasOpenTrinketSlot(player: EntityPlayer): boolean {
 }
 
 export function isGoldenTrinket(trinketType: TrinketType | int): boolean {
-  return trinketType > GOLDEN_TRINKET_SHIFT;
+  // The first golden trinket is Golden Swallowed Penny (32769)
+  return trinketType > TRINKET_GOLDEN_FLAG;
 }
 
 /**

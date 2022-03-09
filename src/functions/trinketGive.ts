@@ -1,4 +1,4 @@
-import { GOLDEN_TRINKET_SHIFT } from "../constants";
+import { TRINKET_GOLDEN_FLAG } from "../constants";
 import { TrinketSituation } from "../types/TrinketSituation";
 import { useActiveItemTemp } from "./player";
 import { repeat } from "./utils";
@@ -32,12 +32,12 @@ export function temporarilyRemoveTrinket(
 
   let numSmeltedTrinkets = numTrinkets;
   const trinketWasInSlot1 =
-    trinket1 === trinketType || trinket1 + GOLDEN_TRINKET_SHIFT === trinketType;
+    trinket1 === trinketType || trinket1 + TRINKET_GOLDEN_FLAG === trinketType;
   if (trinketWasInSlot1) {
     numSmeltedTrinkets -= 1;
   }
   const trinketWasInSlot2 =
-    trinket2 === trinketType || trinket2 + GOLDEN_TRINKET_SHIFT === trinketType;
+    trinket2 === trinketType || trinket2 + TRINKET_GOLDEN_FLAG === trinketType;
   if (trinketWasInSlot2) {
     numSmeltedTrinkets -= 1;
   }
