@@ -128,7 +128,7 @@ declare namespace Isaac {
   function GetItemConfig(): ItemConfig;
 
   /** Returns -1 if no collectible with the specified name was found. */
-  function GetItemIdByName(entityName: string): CollectibleType | int;
+  function GetItemIdByName(collectibleName: string): CollectibleType | int;
 
   /** Returns -1 if no music with the specified name was found. */
   function GetMusicIdByName(musicName: string): Music | int;

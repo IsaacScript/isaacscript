@@ -1066,7 +1066,12 @@ declare enum Card {
   NUM_CARDS = 98,
 }
 
-/** For EntityType.ENTITY_PICKUP (5), PickupVariant.PICKUP_TRINKET (350) */
+/**
+ * For EntityType.ENTITY_PICKUP (5), PickupVariant.PICKUP_TRINKET (350)
+ *
+ * Note that the vanilla enum also has values of `TRINKET_GOLDEN_FLAG` and `TRINKET_ID_MASK`, but
+ * IsaacScript represents these as constants instead since they are not actually trinket types.
+ */
 declare enum TrinketType {
   TRINKET_NULL = 0,
   TRINKET_SWALLOWED_PENNY = 1,
@@ -1260,12 +1265,6 @@ declare enum TrinketType {
   TRINKET_SIGIL_OF_BAPHOMET = 189,
 
   NUM_TRINKETS = 190,
-
-  /** 1 << 15 */
-  TRINKET_GOLDEN_FLAG = 1 << 15,
-
-  /** (1 << 15) - 1 */
-  TRINKET_ID_MASK = (1 << 15) - 1,
 }
 
 /** For EntityType.ENTITY_PICKUP (5), PickupVariant.PICKUP_BED (380) */

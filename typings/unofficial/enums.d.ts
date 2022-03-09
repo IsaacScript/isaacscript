@@ -260,7 +260,9 @@ declare const enum ItemConfigTag {
    * This is not present in the vanilla enum.
    * 1 << 31
    */
-  LAZARUS_SHARED_GLOBAL = 1 << 31,
+  LAZARUS_SHARED_GLOBAL = 2147483648,
+  // (this cannot be represented as "1 << 31" because JavaScript only has 32-bit numbers and it will
+  // be converted to the wrong number)
 
   /**
    * Won't be a starting item for Eden and Tainted Eden.
@@ -269,8 +271,8 @@ declare const enum ItemConfigTag {
    * 1 << 32
    */
   NO_EDEN = 4294967296,
-  // (we can't represent this as "1 << 32" because JavaScript only has 32-bit numbers and it will be
-  // converted to 1)
+  // (this cannot be represented as "1 << 32" because JavaScript only has 32-bit numbers and it will
+  // be converted to the wrong number)
 }
 
 /**
