@@ -1,7 +1,7 @@
 // This provides the logic for PreItemPickup and PostItemPickup
 
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { getPlayerIndex } from "../functions/player";
+import { getDefaultMapPlayer } from "../functions/map";
 import { DefaultMap } from "../types/DefaultMap";
 import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
 import { ModUpgraded } from "../types/ModUpgraded";
@@ -48,9 +48,10 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
     return;
   }
 
-  const playerIndex = getPlayerIndex(player);
-  const pickingUpItem =
-    v.run.playerPickingUpItemMap.getAndSetDefault(playerIndex);
+  const pickingUpItem = getDefaultMapPlayer(
+    v.run.playerPickingUpItemMap,
+    player,
+  );
 
   if (player.IsItemQueueEmpty()) {
     queueEmpty(player, pickingUpItem);

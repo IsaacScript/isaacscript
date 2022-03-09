@@ -1,6 +1,7 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { hasFlag } from "../functions/flag";
-import { getPlayerIndex, getPlayerNumHitsRemaining } from "../functions/player";
+import { getMapPlayer, setMapPlayer } from "../functions/map";
+import { getPlayerNumHitsRemaining } from "../functions/player";
 import { PlayerIndex } from "../types/PlayerIndex";
 import {
   postCursedTeleportFire,
@@ -9,7 +10,7 @@ import {
 
 const v = {
   run: {
-    damageFrameMap: new Map<
+    playersDamageFrameMap: new Map<
       PlayerIndex,
       [lastDamageFrame: int, callbackFiredOnThisFrame: boolean]
     >(),
@@ -66,10 +67,9 @@ function setDamageFrame(tookDamage: Entity, damageFlags: int) {
   if (player === undefined) {
     return;
   }
-  const playerIndex = getPlayerIndex(player);
 
   // Don't do anything if we already activated the callback on this frame
-  const trackingArray = v.run.damageFrameMap.get(playerIndex);
+  const trackingArray = getMapPlayer(v.run.playersDamageFrameMap, player);
   if (trackingArray !== undefined) {
     const [lastDamageFrame, callbackFiredOnThisFrame] = trackingArray;
     if (lastDamageFrame === gameFrameCount && callbackFiredOnThisFrame) {
@@ -82,7 +82,8 @@ function setDamageFrame(tookDamage: Entity, damageFlags: int) {
     return;
   }
 
-  v.run.damageFrameMap.set(playerIndex, [gameFrameCount, false]);
+  const newTrackingArray = [gameFrameCount, false];
+  setMapPlayer(v.run.playersDamageFrameMap, player, newTrackingArray);
 }
 
 function isPotentialNaturalTeleportFromSacrificeRoom(damageFlags: int) {
@@ -119,10 +120,7 @@ function postPlayerRenderPlayer(player: EntityPlayer) {
   }
 
   // Retrieve information about this player
-  const game = Game();
-  const gameFrameCount = game.GetFrameCount();
-  const playerIndex = getPlayerIndex(player);
-  const trackingArray = v.run.damageFrameMap.get(playerIndex);
+  const trackingArray = getMapPlayer(v.run.playersDamageFrameMap, player);
   if (trackingArray === undefined) {
     return;
   }
@@ -137,7 +135,11 @@ function postPlayerRenderPlayer(player: EntityPlayer) {
     return;
   }
 
-  v.run.damageFrameMap.set(playerIndex, [gameFrameCount, true]);
+  const game = Game();
+  const gameFrameCount = game.GetFrameCount();
+  const newTrackingArray = [gameFrameCount, true];
+  setMapPlayer(v.run.playersDamageFrameMap, player, newTrackingArray);
+
   postCursedTeleportFire(player);
 }
 

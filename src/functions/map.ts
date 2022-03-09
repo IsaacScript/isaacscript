@@ -14,21 +14,21 @@ export function copyMap<K, V>(oldMap: Map<K, V>): Map<K, V> {
 
 /**
  * Helper function to make using default maps with an index of `PlayerIndex` easier. Use this
- * instead of the `DefaultMap.getAndSetDefault` method.
+ * instead of the `DefaultMap.getAndSetDefault` method if you have a default map of this type.
  */
-export function defaultMapGetPlayer<V>(
+export function getDefaultMapPlayer<V>(
   map: DefaultMap<PlayerIndex, V>,
   player: EntityPlayer,
-): V | undefined {
+): V {
   const playerIndex = getPlayerIndex(player);
   return map.getAndSetDefault(playerIndex);
 }
 
 /**
  * Helper function to make using maps with an index of `PlayerIndex` easier. Use this instead of the
- * `Map.get` method.
+ * `Map.get` method if you have a map of this type.
  */
-export function mapGetPlayer<V>(
+export function getMapPlayer<V>(
   map: Map<PlayerIndex, V>,
   player: EntityPlayer,
 ): V | undefined {
@@ -38,9 +38,9 @@ export function mapGetPlayer<V>(
 
 /**
  * Helper function to make using maps with an index of `PlayerIndex` easier. Use this instead of the
- * `Map.set` method.
+ * `Map.set` method if you have a map of this type.
  */
-export function mapSetPlayer<V>(
+export function setMapPlayer<V>(
   map: Map<PlayerIndex, V>,
   player: EntityPlayer,
   value: V,
