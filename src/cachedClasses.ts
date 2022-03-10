@@ -1,5 +1,5 @@
 /**
- * A cached version of the `Game()` constructor.
+ * A cached version of the class returned from the `Game()` constructor.
  *
  * Use this instead of invoking the constructor again for a miniscule performance increase.
  *
@@ -9,7 +9,7 @@
 export const game = Game();
 
 /**
- * A cached version of the `Isaac.GetItemConfig()()` constructor.
+ * A cached version of the class returned from the `Isaac.GetItemConfig()` constructor.
  *
  * Use this instead of invoking the constructor again for a miniscule performance increase.
  *
@@ -19,7 +19,7 @@ export const game = Game();
 export const itemConfig = Isaac.GetItemConfig();
 
 /**
- * A cached version of the `MusicManager()` constructor.
+ * A cached version of the class returned from the `MusicManager()` constructor.
  *
  * Use this instead of invoking the constructor again for a miniscule performance increase.
  *
@@ -29,7 +29,7 @@ export const itemConfig = Isaac.GetItemConfig();
 export const musicManager = MusicManager();
 
 /**
- * A cached version of the `SFXManager()` constructor.
+ * A cached version of the class returned from the `SFXManager()` constructor.
  *
  * Use this instead of invoking the constructor again for a miniscule performance increase.
  *
