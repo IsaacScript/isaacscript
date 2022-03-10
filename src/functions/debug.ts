@@ -19,7 +19,7 @@ export function getTraceback(): string {
 
 /**
  * Helper function to print a stack trace to the "log.txt" file, similar to JavaScript's
- * `console.trace()` function.
+ * `console.trace` function.
  *
  * This will only work if the `--luadebug` launch option is enabled or the Racing+ sandbox is
  * enabled.

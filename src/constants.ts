@@ -1,6 +1,6 @@
 /**
  * The distance of the laser when Azazel does not have any range up items yet.
- * For more info, see the documentation for the `getAzazelBrimstoneDistance()` function.
+ * For more info, see the documentation for the `getAzazelBrimstoneDistance` function.
  */
 export const AZAZEL_DEFAULT_BRIMSTONE_DISTANCE = 75.125;
 
@@ -113,7 +113,7 @@ export const EGGY_STATE_FRAME_OF_FINAL_SPIDER = 45;
 
 /**
  * A non-existent or completely transparent PNG file for use in clearing sprites. For more
- * information, see the documentation for the `clearSprite()` helper function.
+ * information, see the documentation for the `clearSprite` helper function.
  */
 export const EMPTY_PNG_PATH = "gfx/none.png";
 

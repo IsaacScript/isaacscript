@@ -97,8 +97,8 @@ export function isDamageToPlayerFatal(
 }
 
 /**
- * The `EntityPlayer.WillPlayerRevive()` function does not properly account for Mysterious Paper, so
- * use this helper function instead for more robust revival detection.
+ * The `EntityPlayer.WillPlayerRevive` method does not properly account for Mysterious Paper, so use
+ * this helper function instead for more robust revival detection.
  */
 export function willPlayerRevive(player: EntityPlayer): boolean {
   const trinketSituation = temporarilyRemoveTrinket(

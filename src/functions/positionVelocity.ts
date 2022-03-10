@@ -8,7 +8,7 @@ const MAX_FIND_FREE_POSITION_ATTEMPTS = 100;
 
 /**
  * Helper function to get a room position that is not overlapping with a grid entity, a heaven door,
- * or a player. The `Room.FindFreePickupSpawnPosition()` function will return locations that overlap
+ * or a player. The `Room.FindFreePickupSpawnPosition` method will return locations that overlap
  * with heaven doors and partially overlap with players, if the thing being spawned is bigger than a
  * tile (like a Blood Donation Machine). Use this function instead if you want to account for those
  * specific situations.
@@ -58,10 +58,10 @@ export function findFreePosition(
 /**
  * Helper function to get a map containing the positions of every entity in the current room.
  *
- * This is useful for rewinding entity positions at a later time. Also see `setEntityPositions()`.
+ * This is useful for rewinding entity positions at a later time. Also see `setEntityPositions`.
  *
- * @param entities Optional. If provided, will only get the positions of the provided entities. This
- * can be used to cache the entities to avoid invoking `Isaac.GetRoomEntities()` multiple times.
+ * @param entities Optional. If provided, will only get the positions of the provided entities. Use
+ * this with cached entities to avoid invoking the `Isaac.GetRoomEntities` method multiple times.
  */
 export function getEntityPositions(entities?: Entity[]): Map<PtrHash, Vector> {
   if (entities === undefined) {
@@ -80,11 +80,10 @@ export function getEntityPositions(entities?: Entity[]): Map<PtrHash, Vector> {
 /**
  * Helper function to get a map containing the velocities of every entity in the current room.
  *
- * This is useful for rewinding entity velocities at a later time. Also see `setEntityVelocities()`.
+ * This is useful for rewinding entity velocities at a later time. Also see `setEntityVelocities`.
  *
- * @param entities Optional. If provided, will only get the velocities of the provided entities.
- * This can be used to cache the entities to avoid invoking `Isaac.GetRoomEntities()` multiple
- * times.
+ * @param entities Optional. If provided, will only get the velocities of the provided entities. Use
+ * this with cached entities to avoid invoking the `Isaac.GetRoomEntities` method multiple times.
  */
 export function getEntityVelocities(entities?: Entity[]): Map<PtrHash, Vector> {
   if (entities === undefined) {
@@ -106,11 +105,11 @@ export function getEntityVelocities(entities?: Entity[]): Map<PtrHash, Vector> {
  * be skipped.
  *
  * This function is useful for rewinding entity positions at a later time. Also see
- * `getEntityPositions()`.
+ * `getEntityPositions`.
  *
  * @param entityPositions The map providing the positions for every entity.
- * @param entities Optional. If provided, will only set the positions of the provided entities. This
- * can be used to cache the entities to avoid invoking `Isaac.GetRoomEntities()` multiple times.
+ * @param entities Optional. If provided, will only set the positions of the provided entities. Use
+ * this with cached entities to avoid invoking the `Isaac.GetRoomEntities` method multiple times.
  */
 export function setEntityPositions(
   entityPositions: Map<PtrHash, Vector>,
@@ -135,12 +134,11 @@ export function setEntityPositions(
  * be skipped.
  *
  * This function is useful for rewinding entity velocities at a later time. Also see
- * `getEntityVelocities()`.
+ * `getEntityVelocities`.
  *
  * @param entityVelocities The map providing the velocities for every entity.
- * @param entities Optional. If provided, will only set the velocities of the provided entities.
- * This can be used to cache the entities to avoid invoking `Isaac.GetRoomEntities()` multiple
- * times.
+ * @param entities Optional. If provided, will only set the velocities of the provided entities. Use
+ * this with cached entities to avoid invoking the `Isaac.GetRoomEntities` method multiple times.
  */
 export function setEntityVelocities(
   entityVelocities: Map<PtrHash, Vector>,

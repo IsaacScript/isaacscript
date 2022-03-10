@@ -86,7 +86,7 @@ export function getCurrentDimension(): Dimension {
 }
 
 /**
- * Alias for the `Level.GetCurrentRoomDesc()` method. Use this to make it more clear what type of
+ * Alias for the `Level.GetCurrentRoomDesc` method. Use this to make it more clear what type of
  * `RoomDescriptor` object that you are retrieving.
  */
 export function getCurrentRoomDescriptorReadOnly(): RoomDescriptorReadOnly {
@@ -198,8 +198,8 @@ export function getRoomItemPoolType(): ItemPoolType {
 
 /**
  * Helper function to get the list grid index of the provided room, which is equal to the index in
- * the `Level.GetRooms().Get()` method. In other words, this is equal to the order that the room was
- * created by the floor generation algorithm.
+ * the `RoomList.Get` method. In other words, this is equal to the order that the room was created
+ * by the floor generation algorithm.
  *
  * Use this as an index for data structures that store data per room, since it is unique across
  * different dimensions.
@@ -275,8 +275,8 @@ export function getRoomVisitedCount(roomGridIndex?: int): int {
 }
 
 /**
- * Helper function to get the room descriptor for every room on the level. Uses the
- * `Level.GetRooms()` method to accomplish this.
+ * Helper function to get the room descriptor for every room on the level. Uses the `Level.GetRooms`
+ * method to accomplish this.
  *
  * @param includeExtraDimensionalRooms Optional. On some floors (e.g. Downpour 2, Mines 2),
  * extra-dimensional rooms are automatically be generated and can be seen when you iterate over the
@@ -541,10 +541,10 @@ export function isRoomInsideMap(roomGridIndex?: int): boolean {
 }
 
 /**
- * If `Room.Update()` is called in a PostNewRoom callback, then some entities will slide around
- * (such as the player). Since those entity velocities are already at zero, setting them to zero
- * will have no effect. Thus, a generic solution is to record all of the entity positions/velocities
- * before updating the room, and then restore those positions/velocities.
+ * If the `Room.Update` method is called in a PostNewRoom callback, then some entities will slide
+ * around (such as the player). Since those entity velocities are already at zero, setting them to
+ * zero will have no effect. Thus, a generic solution is to record all of the entity
+ * positions/velocities before updating the room, and then restore those positions/velocities.
  */
 export function roomUpdateSafe(): void {
   const room = game.GetRoom();
@@ -609,9 +609,9 @@ export function setRoomUncleared(): void {
 /**
  * Helper function to change the current room. It can be used for both teleportation and "normal"
  * room transitions, depending on what is passed for the `direction` and `roomTransitionAnim`
- * arguments. Use this function instead of invoking `Game.StartRoomTransition()` directly so that
- * you do not forget to set `Level.LeaveDoor` property and to prevent crashing on invalid room grid
- * indexes.
+ * arguments. Use this function instead of invoking the `Game.StartRoomTransition` method directly
+ * so that you do not forget to set `Level.LeaveDoor` property and to prevent crashing on invalid
+ * room grid indexes.
  *
  * @param roomGridIndex The room grid index of the destination room.
  * @param direction Optional. Default is `Direction.NO_DIRECTION`.
@@ -631,8 +631,8 @@ export function teleport(
     );
   }
 
-  // This must be set before every `Game.StartRoomTransition()` invocation or else the function can
-  // send you to the wrong room
+  // This must be set before every `Game.StartRoomTransition` method invocation or else the function
+  // can send you to the wrong room
   level.LeaveDoor = -1;
 
   game.StartRoomTransition(roomGridIndex, direction, roomTransitionAnim);

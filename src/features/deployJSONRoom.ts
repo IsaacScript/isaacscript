@@ -144,7 +144,7 @@ function respawnPersistentEntities() {
  * Default is `Random()`.
  * @param verbose Optional. If specified, will write entries to the "log.txt" file that describe
  * what the function is doing. Default is false.
- * @returns Before using the seed for spawning each entity, it is iterated with `nextSeed()`. The
+ * @returns Before using the seed for spawning each entity, it is iterated with `nextSeed`. The
  * function returns the final iterated seed after spawning everything, which can be used in
  * subsequent room deployments.
  */
@@ -203,7 +203,7 @@ export function deployJSONRoom(
  * that, it is also used for spawning every entity in the room. Default is `Random()`.
  * @param verbose Optional. If specified, will write entries to the "log.txt" file that describe
  * what the function is doing. Default is false.
- * @returns Before using the seed for spawning each entity, it is iterated with `nextSeed()`. The
+ * @returns Before using the seed for spawning each entity, it is iterated with `nextSeed`. The
  * function returns the final iterated seed after spawning everything, which can be used in
  * subsequent room deployments.
  */

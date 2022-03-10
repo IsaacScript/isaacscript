@@ -7,8 +7,8 @@ const RECOMMENDED_SHIFT_IDX = 35;
 
 /**
  * This returns a random float between 0 and 1. It is inclusive on the low end, but exclusive on
- * the high end. (This is because `RNG.RandomFloat()` can return a value of 0.999, but it will never
- * return a value of exactly 1.)
+ * the high end. (This is because the `RNG.RandomFloat` method can return a value of 0.999, but it
+ * will never return a value of exactly 1.)
  */
 export function getRandom(seed = Random()): float {
   const rng = initRNG(seed);
@@ -18,8 +18,8 @@ export function getRandom(seed = Random()): float {
 
 /**
  * This returns a random float between min and max. It is inclusive on the low end, but exclusive on
- * the high end. (This is because `RNG.RandomFloat()` can return a value of 0.999, but it will never
- * return a value of exactly 1.)
+ * the high end. (This is because the `RNG.RandomFloat` method can return a value of 0.999, but it
+ * will never return a value of exactly 1.)
  *
  * Example:
  * ```

@@ -12,7 +12,7 @@ import { repeat } from "./utils";
  * `setPlayerHealth` function to restore the player's health back to a certain configuration at a
  * later time.
  *
- * This is based on the `REVEL.StoreHealth()` function in the Revelations mod.
+ * This is based on the `REVEL.StoreHealth` function in the Revelations mod.
  */
 export function getPlayerHealth(player: EntityPlayer): PlayerHealth {
   const character = player.GetPlayerType();
@@ -106,7 +106,7 @@ export function getPlayerHealth(player: EntityPlayer): PlayerHealth {
  * with the `getPlayerHealth` function to restore the player's health back to a certain
  * configuration at a later time.
  *
- * Based on the `REVEL.LoadHealth()` function in the Revelations mod.
+ * Based on the `REVEL.LoadHealth` function in the Revelations mod.
  */
 export function setPlayerHealth(
   player: EntityPlayer,

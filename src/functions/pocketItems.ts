@@ -15,7 +15,7 @@ export function getFirstCardOrPill(
 }
 
 /**
- * Use this helper function as a workaround for `EntityPlayer.GetPocketItem()` not working
+ * Use this helper function as a workaround for the `EntityPlayer.GetPocketItem` method not working
  * correctly.
  *
  * Note that due to API limitations, there is no way to determine the location of a Dice Bag trinket

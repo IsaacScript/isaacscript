@@ -31,7 +31,7 @@ const NON_ALIVE_NPCS_TYPE_VARIANT_SUBTYPE: ReadonlySet<string> = new Set([
 
 /**
  * Helper function to make an NPC fire a projectile. Returns the fired projectile. Use this function
- * instead of `EntityNPC.FireProjectiles()`, since that returns void.
+ * instead of the `EntityNPC.FireProjectiles` method, since that returns void.
  *
  * @param npc The NPC to fire the projectile from.
  * @param position The staring position of the projectile.
@@ -114,7 +114,7 @@ export function getBosses(
   return npcs.filter((npc) => npc.IsBoss());
 }
 
-/** The same thing as the `getEntities()` function, but returns only NPCs. */
+/** The same thing as the `getEntities` function, but returns only NPCs. */
 export function getNPCs(
   matchingEntityType?: EntityType | int,
   matchingVariant?: int,

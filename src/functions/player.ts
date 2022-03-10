@@ -123,7 +123,7 @@ export function characterGetsBlackHeartFromEternalHeart(
  * `Isaac.GetPlayer`.
  *
  * This function is almost never what you want to use. For most intents and purposes, use the
- * `getPlayers()` helper function instead to get a more filtered list of players.
+ * `getPlayers` helper function instead to get a filtered list of players.
  */
 export function getAllPlayers(): EntityPlayer[] {
   const numPlayers = game.GetNumPlayers();
@@ -171,8 +171,8 @@ export function getBlackHearts(player: EntityPlayer): int {
 
 /**
  * Returns the maximum heart containers that the provided character can have. Normally, this is 12,
- * but with Keeper it is 3, with Tainted Keeper it is 2. Does not account for Birthright or Mother's
- * Kiss; use the `getPlayerMaxHeartContainers()` function for that.
+ * but with Keeper it is 3, and with Tainted Keeper it is 2. This does not account for Birthright or
+ * Mother's Kiss; use the `getPlayerMaxHeartContainers` helper function for that.
  */
 export function getCharacterMaxHeartContainers(
   character: PlayerType | int,
@@ -264,7 +264,7 @@ export function getEffectsList(player: EntityPlayer): TemporaryEffect[] {
 }
 
 /**
- * Helper function to return the player with the highest ID, according to the `Isaac.GetPlayer()`
+ * Helper function to return the player with the highest ID, according to the `Isaac.GetPlayer`
  * method.
  */
 export function getFinalPlayer(): EntityPlayer {
@@ -445,8 +445,8 @@ export function getPlayerFromIndex(
  * - We cannot use `EntityPlayer.InitSeed` because it is not consistent with additional players
  *   beyond the first.
  *
- * Instead, we use `EntityPlayer.GetCollectibleRNG()` with an arbitrary value of Sad Onion (1). This
- * works even if the player does not have any Sad Onions.
+ * Instead, we use the `EntityPlayer.GetCollectibleRNG` method with an arbitrary value of Sad Onion
+ * (1). This works even if the player does not have any Sad Onions.
  *
  * Since the RNG value is the same for both Tainted Lazarus and Dead Tainted Lazarus, we revert to
  * using the RNG of The Inner Eye (2) for Dead Tainted Lazarus.
@@ -515,7 +515,7 @@ function getPlayerIndexCollectibleType(
 
 /**
  * Helper function to return the index of this player with respect to the output of the
- * `Isaac.GetPlayer()` function.
+ * `Isaac.GetPlayer` method.
  */
 export function getPlayerIndexVanilla(
   playerToFind: EntityPlayer,
@@ -537,7 +537,8 @@ export function getPlayerIndexVanilla(
 /**
  * Returns the maximum heart containers that the provided player can have. Normally, this is 12, but
  * it can change depending on the character (e.g. Keeper) and other things (e.g. Mother's Kiss).
- * Does not account for Broken Hearts; use the `getPlayerAvailableHeartSlots()` function for that.
+ * This function does not account for Broken Hearts; use the `getPlayerAvailableHeartSlots` helper
+ * function for that.
  */
 export function getPlayerMaxHeartContainers(player: EntityPlayer): int {
   const character = player.GetPlayerType();
@@ -959,8 +960,8 @@ export function removeCollectibleCostume(
 /**
  * Helper function to remove the Dead Eye multiplier from a player.
  *
- * Note that each time the `EntityPlayer.ClearDeadEyeCharge()` function is called, it only has a
- * chance of working, so this function calls it 100 times to be safe.
+ * Note that each time the `EntityPlayer.ClearDeadEyeCharge` method is called, it only has a chance
+ * of working, so this function calls it 100 times to be safe.
  */
 export function removeDeadEyeMultiplier(player: EntityPlayer): void {
   repeat(100, () => {
@@ -986,8 +987,9 @@ export function removeTrinketCostume(
 
 /**
  * Helper function to set an active collectible to a particular slot. This has different behavior
- * than calling `player.AddCollectible()` with the `activeSlot` argument, because this function will
- * not shift existing items into the Schoolbag and it handles `ActiveSlot.SLOT_POCKET2`.
+ * than calling the `player.AddCollectible` method with the `activeSlot` argument, because this
+ * function will not shift existing items into the Schoolbag and it handles
+ * `ActiveSlot.SLOT_POCKET2`.
  *
  * Note that if an item is set to `ActiveSlot.SLOT_POCKET2`, it will disappear after being used and
  * will be automatically removed upon entering a new room.

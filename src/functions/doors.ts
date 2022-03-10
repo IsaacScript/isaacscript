@@ -8,8 +8,8 @@ export function closeAllDoors(): void {
 }
 
 /**
- * Use this instead of the `door.Close()` method if you want the door to immediately close without
- * an animation.
+ * Use this instead of the `GridEntityDoor.Close` method if you want the door to immediately close
+ * without an animation.
  */
 export function closeDoorFast(door: GridEntityDoor): void {
   door.State = DoorState.STATE_CLOSED;
@@ -191,9 +191,9 @@ export function isSecretRoomDoor(door: GridEntityDoor): boolean {
 
 /**
  * Helper function to reset an unlocked door back to a locked state. Doing this is non-trivial
- * because in addition to calling the `SetLocked()` method, you must also:
+ * because in addition to calling the `GridEntityDoor.SetLocked` method, you must also:
  *
- * - Modify the `VisitedCount` of the room's `RoomDescription` to be set to 0.
+ * - Set the `VisitedCount` of the room's `RoomDescription` to 0.
  * - Set the variant to `DoorVariant.DOOR_LOCKED`.
  * - Close the door.
  */
@@ -222,8 +222,8 @@ export function openAllDoors(): void {
 }
 
 /**
- * Use this instead of the `door.Open()` method if you want the door to immediately open without
- * an animation.
+ * Use this instead of the `GridEntityDoor.Open` method if you want the door to immediately open
+ * without an animation.
  */
 export function openDoorFast(door: GridEntityDoor): void {
   door.State = DoorState.STATE_OPEN;

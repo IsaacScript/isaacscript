@@ -54,7 +54,7 @@ export const ensureAllCases = (obj: never): never => obj;
  * https://isaacscript.github.io/docs/gotchas#iterating-over-enums
  *
  * You can also use this function for vanilla enums, which can make code easier to read than using
- * `pairs` or `Object.values()`.
+ * `pairs` or `Object.values`.
  */
 export function getEnumValues<T>(transpiledEnum: T): Array<T[keyof T]> {
   const enumValues: Array<T[keyof T]> = [];
@@ -137,9 +137,9 @@ export function onSetSeed(): boolean {
 }
 
 /**
- * Helper function to print something to the in-game console. Use this instead of invoking
- * `Isaac.ConsoleOutput()` directly because it will automatically insert a newline at the end of the
- * message (which `Isaac.ConsoleOutput()` does not do by default).
+ * Helper function to print something to the in-game console. Use this instead of invoking the
+ * `Isaac.ConsoleOutput` method directly because it will automatically insert a newline at the end
+ * of the message (which `Isaac.ConsoleOutput` does not do by default).
  */
 export function printConsole(msg: string): void {
   Isaac.ConsoleOutput(`${msg}\n`);

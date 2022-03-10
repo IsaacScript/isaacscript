@@ -102,9 +102,9 @@ export function getFilteredNewEntities<T extends AnyEntity>(
  * Helper function to get all of the entities in the room or all of the entities that match a
  * specific entity type / variant / sub-type.
  *
- * Due to bugs with `Isaac.FindInRadius()`, this function uses `Isaac.GetRoomEntities()`,
- * which is more expensive but also more robust. (If a matching entity type is provided, then
- * `Isaac.FindByType()` will be used instead.)
+ * Due to bugs with `Isaac.FindInRadius`, this function uses `Isaac.GetRoomEntities`, which is more
+ * expensive but also more robust. (If a matching entity type is provided, then `Isaac.FindByType`
+ * will be used instead.)
  *
  * Example:
  * ```

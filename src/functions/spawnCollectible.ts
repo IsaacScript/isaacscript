@@ -5,9 +5,10 @@ import { isQuestCollectible, setCollectibleEmpty } from "./collectibles";
 import { anyPlayerIs } from "./player";
 
 /**
- * Helper function to spawn a collectible. Use this instead of `Game.Spawn()` because it handles the
- * cases of Tainted Keeper collectibles costing coins and preventing quest items from being rotated
- * by Tainted Isaac's rotation mechanic.
+ * Helper function to spawn a collectible. Use this instead of the `Game.Spawn` method because it
+ * handles the cases of Tainted Keeper collectibles costing coins and preventing quest items from
+ * being rotated by Tainted Isaac's rotation mechanic. (Rotation prevention will only occur in
+ * upgraded mods.)
  *
  * @param collectibleType The collectible type to spawn.
  * @param position The position to spawn the collectible at.

@@ -67,7 +67,7 @@ import { ModUpgraded } from "./types/ModUpgraded";
  * For a list of all custom callbacks, check out the
  * [Function Signatures](https://isaacscript.github.io/docs/function-signatures#custom-callbacks).
  *
- * @param modVanilla The mod object returned by the `RegisterMod()` function.
+ * @param modVanilla The mod object returned by the `RegisterMod` function.
  * @param verbose Enables verbose logging for the purposes of crash troubleshooting.
  * Defaults to false.
  * @returns The upgraded mod object.

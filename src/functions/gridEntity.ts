@@ -360,8 +360,8 @@ export function removeAllMatchingGridEntities(
  * @param updateRoom Optional. Whether or not to update the room after the grid entity is removed.
  * Default is true. This is generally a good idea because if the room is not updated, you will be
  * unable to spawn another grid entity on the same tile until a frame has passed. However, doing
- * this is expensive, since it involves a call to `Isaac.GetRoomEntities()`, so set it to false if
- * you need to invoke this function multiple times.
+ * this is expensive, since it involves a call to `Isaac.GetRoomEntities`, so set it to false if you
+ * need to invoke this function multiple times.
  */
 export function removeGridEntity(
   gridEntity: GridEntity,
@@ -381,7 +381,7 @@ export function removeGridEntity(
  * Helper function to make a grid entity invisible. This is accomplished by setting its sprite to
  * an empty/missing PNG file.
  *
- * For more information, see the documentation for the `clearSprite()` helper function.
+ * For more information, see the documentation for the `clearSprite` helper function.
  */
 export function setGridEntityInvisible(gridEntity: GridEntity) {
   const sprite = gridEntity.GetSprite();
@@ -428,7 +428,7 @@ export function spawnGiantPoop(topLeftGridIndex: int): void {
  * This function assumes you want to give the grid entity a variant of 0. If you want to specify a
  * variant, use the `spawnGridEntityWithVariant` helper function instead.
  *
- * Use this instead of the `Isaac.GridSpawn()` method since it:
+ * Use this instead of the `Isaac.GridSpawn` method since it:
  * - handles giving pits collision
  * - removes existing grid entities on the same tile, if any
  * - allows you to specify the grid index instead of the position
@@ -443,7 +443,7 @@ export function spawnGridEntity(
 /**
  * Helper function to spawn a grid entity with a specific variant.
  *
- * Use this instead of the `Isaac.GridSpawn()` method since it:
+ * Use this instead of the `Isaac.GridSpawn` method since it:
  * - handles giving pits collision
  * - removes existing grid entities on the same tile, if any
  * - allows you to specify the grid index instead of the position

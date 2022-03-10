@@ -4,7 +4,7 @@ import { UI_HEART_WIDTH } from "../constants";
 /**
  * Helper function to get the width of the first player's hearts on the UI. This is useful for
  * drawing UI elements to the right of where the player's hearts are. Make sure to use this in
- * combination with the `getHUDOffsetVector()` helper function.
+ * combination with the the `getHUDOffsetVector` helper function.
  */
 export function getHeartsUIWidth(): int {
   const level = game.GetLevel();
