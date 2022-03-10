@@ -68,6 +68,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 
 ## Optional Features
 
+- [Cached Classes](modules/cachedClasses.html)
 - [Save Data Manager](modules/features_saveDataManager_exports.html)
 - [JSON Room Deployer](modules/features_deployJSONRoom.html)
 - [Run in N Frames](modules/features_runInNFrames.html)
