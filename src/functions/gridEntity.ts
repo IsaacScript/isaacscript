@@ -423,8 +423,12 @@ export function spawnGiantPoop(topLeftGridIndex: int): void {
 }
 
 /**
- * Helper function to spawn a grid entity. This function assumes you want to give the grid entity a
- * variant of 0. Use this instead of the `Isaac.GridSpawn()` method since it:
+ * Helper function to spawn a grid entity.
+ *
+ * This function assumes you want to give the grid entity a variant of 0. If you want to specify a
+ * variant, use the `spawnGridEntityWithVariant` helper function instead.
+ *
+ * Use this instead of the `Isaac.GridSpawn()` method since it:
  * - handles giving pits collision
  * - removes existing grid entities on the same tile, if any
  * - allows you to specify the grid index instead of the position
@@ -437,8 +441,9 @@ export function spawnGridEntity(
 }
 
 /**
- * Helper function to spawn a grid entity with a specific variant. Use this instead of the
- * `Isaac.GridSpawn()` method since it:
+ * Helper function to spawn a grid entity with a specific variant.
+ *
+ * Use this instead of the `Isaac.GridSpawn()` method since it:
  * - handles giving pits collision
  * - removes existing grid entities on the same tile, if any
  * - allows you to specify the grid index instead of the position
