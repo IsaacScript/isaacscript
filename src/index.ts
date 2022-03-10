@@ -1,3 +1,4 @@
+export * from "./cachedClasses";
 export {
   forceNewLevelCallback,
   forceNewRoomCallback,
