@@ -1,12 +1,8 @@
 import { game } from "../cachedClasses";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { isChildPlayer } from "../functions/player";
-import {
-  defaultMapGetPlayer,
-  mapSetPlayer,
-} from "../functions/playerDataStructures";
+import { mapGetPlayer, mapSetPlayer } from "../functions/playerDataStructures";
 import { isDamageToPlayerFatal, willPlayerRevive } from "../functions/revive";
-import { DefaultMap } from "../types/DefaultMap";
 import { ModUpgraded } from "../types/ModUpgraded";
 import { PlayerIndex } from "../types/PlayerIndex";
 import {
@@ -17,7 +13,9 @@ import {
 const v = {
   run: {
     /** Needed to detect if Glass Cannon will kill the player or not. */
-    playersLastDamageGameFrame: new DefaultMap<PlayerIndex, int | null>(null),
+    playersLastDamageGameFrame: new Map<PlayerIndex, int>(),
+    // (we can't use a default value of null since it will transpile to nil and cause a run-time
+    // error)
   },
 };
 
@@ -61,7 +59,7 @@ function entityTakeDmgPlayer(
   }
 
   const gameFrameCount = game.GetFrameCount();
-  const lastDamageGameFrame = defaultMapGetPlayer(
+  const lastDamageGameFrame = mapGetPlayer(
     v.run.playersLastDamageGameFrame,
     player,
   );
