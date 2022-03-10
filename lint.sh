@@ -30,4 +30,8 @@ npx eslint --max-warnings 0 typings
 npx cspell --no-progress --no-summary "typings/**/*.ts"
 npx cspell --no-progress --no-summary "scripts/**/*.py"
 
+# Step 4 - Check for unused imports
+# The "--error" flag makes it return an error code of 1 if unused exports are found
+npx ts-prune --error
+
 echo "Successfully linted in $SECONDS seconds."

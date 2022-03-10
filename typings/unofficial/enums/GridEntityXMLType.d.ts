@@ -58,26 +58,3 @@ declare const enum GridEntityXMLType {
   STAIRS = 9100,
   GRAVITY = 10000,
 }
-
-/** For GridEntityType.GRID_DOOR (16) */
-declare const enum DoorSlotFlag {
-  LEFT0 = 1 << DoorSlot.LEFT0,
-  UP0 = 1 << DoorSlot.UP0,
-  RIGHT0 = 1 << DoorSlot.RIGHT0,
-  DOWN0 = 1 << DoorSlot.DOWN0,
-  LEFT1 = 1 << DoorSlot.LEFT1,
-  UP1 = 1 << DoorSlot.UP1,
-  RIGHT1 = 1 << DoorSlot.RIGHT1,
-  DOWN1 = 1 << DoorSlot.DOWN1,
-}
-
-/**
- * GridPath is not an enum, but rather a variable integer that represents the cost it would take for
- * an entity to pass through a grid entity. This enum lists some standard cost values.
- */
-declare const enum GridPath {
-  NONE = 0,
-  FIREPLACE = 950,
-  ROCK = 1000,
-  PIT = 3000,
-}

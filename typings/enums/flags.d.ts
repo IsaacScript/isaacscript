@@ -1564,7 +1564,12 @@ declare enum LevelStateFlag {
   NUM_STATE_FLAGS = 24,
 }
 
-declare enum UseFlag {
+/**
+ * The `UseFlag.USE_ECHO_CHAMBER` value is missing from the vanilla enum, so this enum is
+ * temporarily marked as being a const enum. When it is added to the vanilla game, this will go back
+ * to being a normal enum.
+ */
+declare const enum UseFlag {
   /**
    * Don't play use animations.
    * 1 << 0
@@ -1632,4 +1637,12 @@ declare enum UseFlag {
    * 1 << 10
    */
   USE_CUSTOMVARDATA = 1 << 10,
+
+  /**
+   * This value is missing from the vanilla enum, but is included automatically in the IsaacScript
+   * definitions.
+   *
+   * 1 << 11
+   */
+  USE_ECHO_CHAMBER = 1 << 11,
 }

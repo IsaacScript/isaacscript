@@ -1,7 +1,11 @@
 // Enums from the "resources/scripts/enums.lua" file
 // (entity subtypes only)
 
-/** For EntityType.ENTITY_PLAYER (1), PlayerVariant.PLAYER (0) */
+/**
+ * For EntityType.ENTITY_PLAYER (1), PlayerVariant.PLAYER (0)
+ *
+ * This is the sub-type of a player.
+ */
 declare enum PlayerType {
   /** Used in the secret Possessor Mode added in Repentance. */
   PLAYER_POSSESSOR = -1,
@@ -255,6 +259,34 @@ declare enum SackSubType {
   SACK_BLACK = 2,
 }
 
+/**
+ * For EntityType.ENTITY_PICKUP (5), PickupVariant.PICKUP_PILL (70)
+ *
+ * This is the sub-type of a pill.
+ */
+declare enum PillColor {
+  PILL_NULL = 0,
+  PILL_BLUE_BLUE = 1,
+  PILL_WHITE_BLUE = 2,
+  PILL_ORANGE_ORANGE = 3,
+  PILL_WHITE_WHITE = 4,
+  PILL_REDDOTS_RED = 5,
+  PILL_PINK_RED = 6,
+  PILL_BLUE_CADETBLUE = 7,
+  PILL_YELLOW_ORANGE = 8,
+  PILL_ORANGEDOTS_WHITE = 9,
+  PILL_WHITE_AZURE = 10,
+  PILL_BLACK_YELLOW = 11,
+  PILL_WHITE_BLACK = 12,
+  PILL_WHITE_YELLOW = 13,
+
+  NUM_STANDARD_PILLS = 14,
+
+  PILL_GOLD = 14,
+
+  NUM_PILLS = 15,
+}
+
 /** For EntityType.ENTITY_PICKUP (5), PickupVariant.PICKUP_LIL_BATTERY (90) */
 declare enum BatterySubType {
   BATTERY_NORMAL = 1,
@@ -263,7 +295,11 @@ declare enum BatterySubType {
   BATTERY_GOLDEN = 4,
 }
 
-/** For EntityType.ENTITY_PICKUP (5), PickupVariant.PICKUP_COLLECTIBLE (100) */
+/**
+ * For EntityType.ENTITY_PICKUP (5), PickupVariant.PICKUP_COLLECTIBLE (100)
+ *
+ * This is the sub-type of a collectible.
+ */
 declare enum CollectibleType {
   COLLECTIBLE_NULL = 0,
   COLLECTIBLE_SAD_ONION = 1,
@@ -990,7 +1026,11 @@ declare enum CollectibleType {
   NUM_COLLECTIBLES = 733,
 }
 
-/** For EntityType.ENTITY_PICKUP (5), PickupVariant.PICKUP_TAROTCARD (300) */
+/**
+ * For EntityType.ENTITY_PICKUP (5), PickupVariant.PICKUP_TAROTCARD (300)
+ *
+ * This is the sub-type of a card.
+ */
 declare enum Card {
   CARD_RANDOM = -1,
   CARD_NULL = 0,
@@ -1097,6 +1137,8 @@ declare enum Card {
 
 /**
  * For EntityType.ENTITY_PICKUP (5), PickupVariant.PICKUP_TRINKET (350)
+ *
+ * This is the sub-type of a trinket.
  *
  * Note that the vanilla enum also has values of `TRINKET_GOLDEN_FLAG` and `TRINKET_ID_MASK`, but
  * IsaacScript represents these as constants instead since they are not actually trinket types.
