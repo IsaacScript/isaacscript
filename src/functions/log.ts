@@ -1,3 +1,4 @@
+import { game } from "../cachedClasses";
 import { arrayToString } from "./array";
 import { getCollectibleName } from "./collectibles";
 import { hasFlag } from "./flag";
@@ -83,8 +84,6 @@ export function logAllFlags(
  * Helper function for printing out every game state flag that is turned on. Useful when debugging.
  */
 export function logAllGameStateFlags(this: void): void {
-  const game = Game();
-
   log("Logging all game state flags:");
   let hasNoFlags = true;
   for (const [key, value] of pairs(GameStateFlag)) {
@@ -113,7 +112,6 @@ export function logAllProjectileFlags(this: void, flags: int): void {
  * particular run.
  */
 export function logAllSeedEffects(this: void): void {
-  const game = Game();
   const seeds = game.GetSeeds();
 
   log("Logging all seed effects:");

@@ -2,6 +2,7 @@
 // Thus, we scan for incoming item pool types in the PreGetCollectible callback,
 // and then assume that the next spawned collectible has this item pool type
 
+import { game } from "../cachedClasses";
 import { getUpgradeErrorMsg } from "../errors";
 import { getEntityID } from "../functions/entity";
 import { getRoomItemPoolType } from "../functions/rooms";
@@ -33,7 +34,6 @@ export function getCollectibleItemPoolTypeInit(mod: ModUpgraded): void {
 // ModCallbacks.MC_POST_PICKUP_INIT (34)
 // PickupVariant.PICKUP_COLLECTIBLE (100)
 function postPickupInitCollectible(pickup: EntityPickup) {
-  const game = Game();
   const itemPool = game.GetItemPool();
   const ptrHash = GetPtrHash(pickup);
   const lastItemPoolType = itemPool.GetLastPool();

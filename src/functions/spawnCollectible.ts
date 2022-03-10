@@ -1,3 +1,4 @@
+import { game } from "../cachedClasses";
 import { preventCollectibleRotate } from "../features/preventCollectibleRotate";
 import { areFeaturesInitialized } from "../featuresInitialized";
 import { isQuestCollectible, setCollectibleEmpty } from "./collectibles";
@@ -28,8 +29,6 @@ export function spawnCollectible(
       "Failed to spawn a collectible since the provided seed was 0, which is not allowed. (It will cause the game to crash.)",
     );
   }
-
-  const game = Game();
 
   const collectible = game
     .Spawn(

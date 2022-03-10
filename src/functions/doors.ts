@@ -1,3 +1,4 @@
+import { game } from "../cachedClasses";
 import { MAX_NUM_DOORS } from "../constants";
 
 export function closeAllDoors(): void {
@@ -23,7 +24,6 @@ export function closeDoorFast(door: GridEntityDoor): void {
  * room types.
  */
 export function getDoors(...roomTypes: RoomType[]): GridEntityDoor[] {
-  const game = Game();
   const room = game.GetRoom();
   const roomTypesSet = new Set(roomTypes);
 
@@ -198,7 +198,6 @@ export function isSecretRoomDoor(door: GridEntityDoor): boolean {
  * - Close the door.
  */
 export function lockDoor(door: GridEntityDoor): void {
-  const game = Game();
   const level = game.GetLevel();
 
   const roomDescriptor = level.GetRoomByIdx(door.TargetRoomIndex);
@@ -249,9 +248,7 @@ export function removeAllDoors(...roomTypes: RoomType[]): int {
 
 /** Helper function to remove a single door. */
 export function removeDoor(door: GridEntityDoor): void {
-  const game = Game();
   const room = game.GetRoom();
-
   room.RemoveDoor(door.Slot);
 }
 

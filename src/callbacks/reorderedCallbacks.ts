@@ -7,6 +7,7 @@
 // PostGameStarted --> PostNewLevel --> PostNewRoom
 // Manually reorganize the callback execution so that this is the case
 
+import { game } from "../cachedClasses";
 import {
   postGameStartedReorderedFire,
   postGameStartedReorderedHasSubscriptions,
@@ -73,7 +74,6 @@ function postNewLevelVanilla() {
     return;
   }
 
-  const game = Game();
   const gameFrameCount = game.GetFrameCount();
 
   if (gameFrameCount === 0 && !forceNewLevel) {
@@ -93,7 +93,6 @@ function postNewRoomVanilla() {
     return;
   }
 
-  const game = Game();
   const gameFrameCount = game.GetFrameCount();
   const level = game.GetLevel();
   const stage = level.GetStage();
@@ -127,7 +126,6 @@ function postNewRoomVanilla() {
 }
 
 function recordCurrentStage() {
-  const game = Game();
   const level = game.GetLevel();
   const stage = level.GetStage();
   const stageType = level.GetStageType();

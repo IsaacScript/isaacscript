@@ -1,3 +1,4 @@
+import { sfxManager } from "../cachedClasses";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { removeCollectibleFromItemTracker } from "../functions/collectibles";
 import { removeAllFamiliars } from "../functions/familiars";
@@ -60,8 +61,7 @@ function postRender() {
 
   // The 1-up sound will fire before the item holding animation begins,
   // so we mute it on every render frame
-  const sfx = SFXManager();
-  sfx.Stop(SoundEffect.SOUND_1UP);
+  sfxManager.Stop(SoundEffect.SOUND_1UP);
 }
 
 // ModCallbacksCustom.MC_POST_PEFFECT_UPDATE_REORDERED

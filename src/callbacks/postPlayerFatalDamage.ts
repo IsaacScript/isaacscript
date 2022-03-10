@@ -1,3 +1,4 @@
+import { game } from "../cachedClasses";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { isChildPlayer } from "../functions/player";
 import {
@@ -59,7 +60,6 @@ function entityTakeDmgPlayer(
     return undefined;
   }
 
-  const game = Game();
   const gameFrameCount = game.GetFrameCount();
   const lastDamageGameFrame = defaultMapGetPlayer(
     v.run.playersLastDamageGameFrame,

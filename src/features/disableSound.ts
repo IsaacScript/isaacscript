@@ -1,3 +1,4 @@
+import { musicManager } from "../cachedClasses";
 import { getUpgradeErrorMsg } from "../errors";
 import { stopAllSoundEffects } from "../functions/sound";
 import { saveDataManager } from "./saveDataManager/exports";
@@ -50,7 +51,6 @@ export function enableAllSound(key: string): void {
   v.run.disableSoundSet.delete(key);
 
   if (v.run.disableSoundSet.size === 0 && musicWasEnabled) {
-    const musicManager = MusicManager();
     musicManager.Enable();
   }
 
@@ -74,7 +74,6 @@ export function disableAllSound(key: string): void {
   }
 
   if (v.run.disableSoundSet.size === 0) {
-    const musicManager = MusicManager();
     musicWasEnabled = musicManager.IsEnabled();
   }
 

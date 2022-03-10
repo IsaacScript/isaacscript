@@ -1,3 +1,4 @@
+import { itemConfig } from "../cachedClasses";
 import { PILL_EFFECT_CLASS_MAP } from "../maps/pillEffectClassMap";
 import { PILL_EFFECT_NAME_MAP } from "../maps/pillEffectNameMap";
 import { PILL_EFFECT_TYPE_MAP } from "../maps/pillEffectTypeMap";
@@ -10,8 +11,11 @@ import {
   PillEffectType,
 } from "../types/PillEffectType";
 
+/**
+ * Helper function to get the final pill effect in the game. This cannot be reliably determined
+ * before run-time due to mods adding a variable amount of new pill effects.
+ */
 export function getMaxPillEffects(): int {
-  const itemConfig = Isaac.GetItemConfig();
   return itemConfig.GetPillEffects().Size - 1;
 }
 
@@ -46,7 +50,6 @@ export function getPillEffectClass(
  * ```
  */
 export function getPillEffectName(pillEffect: PillEffect | int): string {
-  const itemConfig = Isaac.GetItemConfig();
   const defaultName = "Unknown";
 
   if (type(pillEffect) !== "number") {

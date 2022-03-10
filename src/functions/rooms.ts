@@ -1,3 +1,4 @@
+import { game, sfxManager } from "../cachedClasses";
 import { MAX_ROOM_INDEX, NUM_DIMENSIONS } from "../constants";
 import {
   closeAllDoors,
@@ -17,11 +18,11 @@ import {
 
 /**
  * Helper function for quickly switching to a new room without playing a particular animation.
- * Use this helper function over invoking `Game().ChangeRoom()` directly to ensure that you do not
- * forget to set the LeaveDoor property and to prevent crashing on invalid room grid indexes.
+ * Use this helper function over invoking the `Game.ChangeRoom` method directly to ensure that you
+ * do not forget to set the `LeaveDoor` property and to prevent crashing on invalid room grid
+ * indexes.
  */
 export function changeRoom(roomGridIndex: int): void {
-  const game = Game();
   const level = game.GetLevel();
 
   const roomData = getRoomData(roomGridIndex);
@@ -51,7 +52,6 @@ export function getAllRoomGridIndexes(): int[] {
  * tricky to properly detect.
  */
 export function getCurrentDimension(): Dimension {
-  const game = Game();
   const level = game.GetLevel();
 
   // When in the Death Certificate dimension, the algorithm below will randomly return either
@@ -90,9 +90,7 @@ export function getCurrentDimension(): Dimension {
  * `RoomDescriptor` object that you are retrieving.
  */
 export function getCurrentRoomDescriptorReadOnly(): RoomDescriptorReadOnly {
-  const game = Game();
   const level = game.GetLevel();
-
   return level.GetCurrentRoomDesc();
 }
 
@@ -123,7 +121,6 @@ export function getRoomType(roomGridIndex?: int): RoomType {
  * @param roomGridIndex Optional. Default is the current room index.
  */
 export function getRoomDescriptor(roomGridIndex?: int): RoomDescriptor {
-  const game = Game();
   const level = game.GetLevel();
 
   if (roomGridIndex === undefined) {
@@ -150,7 +147,6 @@ export function getRoomDescriptor(roomGridIndex?: int): RoomDescriptor {
  * `SafeGridIndex`, since the former is unique across different dimensions.
  */
 export function getRoomGridIndex(): int {
-  const game = Game();
   const level = game.GetLevel();
   const currentRoomIndex = level.GetCurrentRoomIndex();
 
@@ -192,7 +188,6 @@ export function getRoomGridIndexesForType(...roomTypes: RoomType[]): int[] {
  * `ItemPoolType.ItemPoolType.POOL_ANGEL` if you are in an Angel Room.
  */
 export function getRoomItemPoolType(): ItemPoolType {
-  const game = Game();
   const itemPool = game.GetItemPool();
   const room = game.GetRoom();
   const roomType = room.GetType();
@@ -290,7 +285,6 @@ export function getRoomVisitedCount(roomGridIndex?: int): int {
 export function getRooms(
   includeExtraDimensionalRooms = false,
 ): RoomDescriptor[] {
-  const game = Game();
   const level = game.GetLevel();
   const roomList = level.GetRooms();
 
@@ -320,7 +314,6 @@ export function getRooms(
  * equal to `Vector(80, 160)`.
  */
 export function gridToPos(x: int, y: int): Vector {
-  const game = Game();
   const room = game.GetRoom();
 
   x += 1;
@@ -336,7 +329,6 @@ export function gridToPos(x: int, y: int): Vector {
  * `RoomShape.ROOMSHAPE_2x1`.
  */
 export function in2x1Room(): boolean {
-  const game = Game();
   const room = game.GetRoom();
   const roomShape = room.GetRoomShape();
 
@@ -347,7 +339,6 @@ export function in2x1Room(): boolean {
 }
 
 export function inAngelShop(): boolean {
-  const game = Game();
   const room = game.GetRoom();
   const roomType = room.GetType();
   const roomSubType = getRoomSubType();
@@ -358,7 +349,6 @@ export function inAngelShop(): boolean {
 }
 
 export function inBeastRoom(): boolean {
-  const game = Game();
   const room = game.GetRoom();
   const roomType = room.GetType();
   const roomSubType = getRoomSubType();
@@ -374,7 +364,6 @@ export function inBeastRoom(): boolean {
  * work for bosses that have dedicated boss rooms in the "00.special rooms.stb" file.
  */
 export function inBossRoomOf(bossID: BossID) {
-  const game = Game();
   const room = game.GetRoom();
   const roomType = room.GetType();
   const roomStageID = getRoomStageID();
@@ -393,7 +382,6 @@ export function inBossRoomOf(bossID: BossID) {
  * case of the player being in a boss fight that take place in a dungeon.
  */
 export function inCrawlspace(): boolean {
-  const game = Game();
   const room = game.GetRoom();
   const roomType = room.GetType();
   const roomSubType = getRoomSubType();
@@ -434,7 +422,6 @@ export function inDimension(dimension: Dimension): boolean {
 
 /** Helper function to determine if the current room shape is one of the four L room shapes. */
 export function inLRoom(): boolean {
-  const game = Game();
   const room = game.GetRoom();
   const roomShape = room.GetRoomShape();
 
@@ -447,7 +434,6 @@ export function inLRoom(): boolean {
 }
 
 export function inGenesisRoom(): boolean {
-  const game = Game();
   const room = game.GetRoom();
   const roomType = room.GetType();
   const roomSubType = getRoomSubType();
@@ -468,7 +454,6 @@ export function inMegaSatanRoom(): boolean {
  * will only work for minibosses that have dedicated boss rooms in the "00.special rooms.stb" file.
  */
 export function inMinibossRoomOf(minibossID: MinibossID) {
-  const game = Game();
   const room = game.GetRoom();
   const roomType = room.GetType();
   const roomStageID = getRoomStageID();
@@ -498,7 +483,6 @@ export function inSecretShop(): boolean {
  * starting room of the mirror world does not count).
  */
 export function inStartingRoom(): boolean {
-  const game = Game();
   const level = game.GetLevel();
   const startingRoomGridIndex = level.GetStartingRoomIndex();
   const roomGridIndex = getRoomGridIndex();
@@ -563,7 +547,6 @@ export function isRoomInsideMap(roomGridIndex?: int): boolean {
  * before updating the room, and then restore those positions/velocities.
  */
 export function roomUpdateSafe(): void {
-  const game = Game();
   const room = game.GetRoom();
   const entities = getEntities();
 
@@ -582,10 +565,8 @@ export function roomUpdateSafe(): void {
  * doors will start closed and then open.
  */
 export function setRoomCleared(): void {
-  const game = Game();
   const room = game.GetRoom();
   const roomClear = room.IsClear();
-  const sfx = SFXManager();
 
   // If the room is already cleared, we don't have to do anything
   if (roomClear) {
@@ -607,7 +588,7 @@ export function setRoomCleared(): void {
     door.ExtraVisible = false;
   }
 
-  sfx.Stop(SoundEffect.SOUND_DOOR_HEAVY_OPEN);
+  sfxManager.Stop(SoundEffect.SOUND_DOOR_HEAVY_OPEN);
 
   // If the room contained Mom's Hands, then a screen shake will be queued
   // Override it with a 0 frame shake
@@ -619,7 +600,6 @@ export function setRoomCleared(): void {
  * spawns an NPC.
  */
 export function setRoomUncleared(): void {
-  const game = Game();
   const room = game.GetRoom();
 
   room.SetClear(false);
@@ -642,7 +622,6 @@ export function teleport(
   direction = Direction.NO_DIRECTION,
   roomTransitionAnim = RoomTransitionAnim.TELEPORT,
 ): void {
-  const game = Game();
   const level = game.GetLevel();
 
   const roomData = getRoomData(roomGridIndex);

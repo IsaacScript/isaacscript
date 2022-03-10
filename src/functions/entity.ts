@@ -1,3 +1,4 @@
+import { game } from "../cachedClasses";
 import { STORY_BOSSES } from "../constants";
 import { AnyEntity } from "../types/AnyEntity";
 import { getRandom, nextSeed } from "./random";
@@ -217,8 +218,6 @@ export function removeAllMatchingEntities(
  * rerolled entity.
  */
 export function rerollEnemy(entity: Entity): Entity | undefined {
-  const game = Game();
-
   const oldEntities = getEntities();
   const wasRerolled = game.RerollEnemy(entity);
   if (!wasRerolled) {

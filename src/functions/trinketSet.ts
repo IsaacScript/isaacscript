@@ -1,3 +1,4 @@
+import { itemConfig } from "../cachedClasses";
 import { range } from "./math";
 import { copySet } from "./set";
 import { getMaxTrinketType } from "./trinkets";
@@ -5,7 +6,6 @@ import { getMaxTrinketType } from "./trinkets";
 const TRINKET_SET = new Set<TrinketType | int>();
 
 function initTrinketSet() {
-  const itemConfig = Isaac.GetItemConfig();
   const maxTrinketID = getMaxTrinketType();
 
   for (const trinketType of range(1, maxTrinketID)) {

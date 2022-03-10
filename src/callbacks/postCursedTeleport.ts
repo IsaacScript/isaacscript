@@ -1,3 +1,4 @@
+import { game } from "../cachedClasses";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { hasFlag } from "../functions/flag";
 import { getPlayerNumHitsRemaining } from "../functions/player";
@@ -60,7 +61,6 @@ function entityTakeDmgPlayer(
 }
 
 function setDamageFrame(tookDamage: Entity, damageFlags: int) {
-  const game = Game();
   const gameFrameCount = game.GetFrameCount();
 
   const player = tookDamage.ToPlayer();
@@ -87,7 +87,6 @@ function setDamageFrame(tookDamage: Entity, damageFlags: int) {
 }
 
 function isPotentialNaturalTeleportFromSacrificeRoom(damageFlags: int) {
-  const game = Game();
   const room = game.GetRoom();
   const roomType = room.GetType();
   const isSpikeDamage = hasFlag(damageFlags, DamageFlag.DAMAGE_SPIKES);
@@ -102,7 +101,6 @@ function isPotentialNaturalTeleportFromSacrificeRoom(damageFlags: int) {
 }
 
 function incrementNumSacrifices(damageFlags: int) {
-  const game = Game();
   const room = game.GetRoom();
   const roomType = room.GetType();
   const isSpikeDamage = hasFlag(damageFlags, DamageFlag.DAMAGE_SPIKES);
@@ -135,7 +133,6 @@ function postPlayerRenderPlayer(player: EntityPlayer) {
     return;
   }
 
-  const game = Game();
   const gameFrameCount = game.GetFrameCount();
   const newTrackingArray = [gameFrameCount, true];
   mapSetPlayer(v.run.playersDamageFrameMap, player, newTrackingArray);
@@ -148,7 +145,6 @@ function playerIsTeleportingFromCursedTeleport(
   lastDamageFrame: int,
 ) {
   // Check to see if this is the frame that we last took damage
-  const game = Game();
   const gameFrameCount = game.GetFrameCount();
   if (gameFrameCount !== lastDamageFrame) {
     return false;

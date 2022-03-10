@@ -3,6 +3,7 @@
 // Then, existing rooms can be manually replaced with a custom room by manually removing everything
 // in the room and rebuilding it from scratch based on the JSON data
 
+import { game } from "../cachedClasses";
 import { getUpgradeErrorMsg } from "../errors";
 import { removeAllMatchingEntities } from "../functions/entity";
 import { removeAllBombs } from "../functions/entitySpecific";
@@ -90,7 +91,6 @@ function postNewRoom() {
  * so we have to remove them again.
  */
 function setDecorationsInvisible() {
-  const game = Game();
   const room = game.GetRoom();
   const roomListIndex = getRoomListIndex();
 
@@ -107,7 +107,6 @@ function setDecorationsInvisible() {
 
 /** Some entities must be manually respawned every time the player re-enters the room. */
 function respawnPersistentEntities() {
-  const game = Game();
   const room = game.GetRoom();
   const roomListIndex = getRoomListIndex();
 
@@ -272,7 +271,6 @@ export function emptyRoom(fillWithDecorations: boolean) {
  * that they will not re-appear when we re-enter the room.
  */
 function removeSpecificNPCs() {
-  const game = Game();
   const room = game.GetRoom();
 
   for (const npc of getNPCs()) {
@@ -316,7 +314,6 @@ function removeSpecificNPCs() {
  * on top of pits). Thus, we use a decoration and remove its sprite to make it invisible.
  */
 function fillRoomWithDecorations() {
-  const game = Game();
   const room = game.GetRoom();
   const gridSize = room.GetGridSize();
   const roomListIndex = getRoomListIndex();
@@ -443,7 +440,6 @@ function spawnGridEntityForJSONRoom(
   x: int,
   y: int,
 ) {
-  const game = Game();
   const room = game.GetRoom();
 
   const gridEntityTuple = convertXMLGridEntityType(
@@ -485,7 +481,6 @@ function spawnNormalEntityForJSONRoom(
   y: int,
   seed: Seed,
 ) {
-  const game = Game();
   const room = game.GetRoom();
   const roomType = room.GetType();
   const position = gridToPos(x, y);
@@ -532,7 +527,6 @@ function storePersistentEntity(entity: Entity) {
     return;
   }
 
-  const game = Game();
   const room = game.GetRoom();
   const gridIndex = room.GetGridIndex(entity.Position);
   const roomListIndex = getRoomListIndex();
@@ -555,7 +549,6 @@ function storePersistentEntity(entity: Entity) {
  * pits in the room and manually fix their sprites, if necessary.
  */
 function fixPitGraphics() {
-  const game = Game();
   const room = game.GetRoom();
   const gridWidth = room.GetGridWidth();
   const pitMap = getPitMap();

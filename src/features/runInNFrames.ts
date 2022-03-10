@@ -1,3 +1,4 @@
+import { game } from "../cachedClasses";
 import { getUpgradeErrorMsg } from "../errors";
 import { saveDataManager } from "./saveDataManager/exports";
 
@@ -27,7 +28,6 @@ export function runInNFramesInit(mod: Mod): void {
 
 // ModCallbacks.MC_POST_UPDATE (1)
 function postUpdate() {
-  const game = Game();
   const gameFrameCount = game.GetFrameCount();
 
   checkExecuteQueuedFunctions(gameFrameCount, v.run.queuedGameFunctionTuples);
@@ -82,7 +82,6 @@ export function runInNGameFrames(func: () => void, frames: int): void {
     error(msg);
   }
 
-  const game = Game();
   const gameFrameCount = game.GetFrameCount();
   const functionFireFrame = gameFrameCount + frames;
   const tuple: [int, () => void] = [functionFireFrame, func];

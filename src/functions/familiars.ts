@@ -1,3 +1,4 @@
+import { game } from "../cachedClasses";
 import { FAMILIARS_THAT_SHOOT_PLAYER_TEARS } from "../constants";
 import { copyArray } from "./array";
 import { getEntities, removeEntities } from "./entity";
@@ -34,8 +35,6 @@ export function checkFamiliar(
   familiarVariant: int,
   familiarSubType?: int,
 ): int {
-  const game = Game();
-
   const familiarSubTypeToSearchFor =
     familiarSubType === undefined ? -1 : familiarSubType;
   const playerPtrHash = GetPtrHash(player);

@@ -1,3 +1,4 @@
+import { game } from "../cachedClasses";
 import {
   getTopLeftWallGridIndex,
   spawnGridEntity,
@@ -39,7 +40,6 @@ function preEntitySpawn() {
 }
 
 function checkRoomChanged() {
-  const game = Game();
   const room = game.GetRoom();
   const topLeftWallGridIndex = getTopLeftWallGridIndex();
 

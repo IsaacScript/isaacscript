@@ -1,3 +1,4 @@
+import { game } from "../cachedClasses";
 import { UI_HEART_WIDTH } from "../constants";
 
 /**
@@ -6,7 +7,6 @@ import { UI_HEART_WIDTH } from "../constants";
  * combination with the `getHUDOffsetVector()` helper function.
  */
 export function getHeartsUIWidth(): int {
-  const game = Game();
   const level = game.GetLevel();
   const curses = level.GetCurses();
   const player = Isaac.GetPlayer();

@@ -1,3 +1,4 @@
+import { game } from "../cachedClasses";
 import { DISTANCE_OF_GRID_TILE } from "../constants";
 import { anyEntityCloserThan, getEntities } from "./entity";
 import { getEffects } from "./entitySpecific";
@@ -20,7 +21,6 @@ export function findFreePosition(
   startingPosition: Vector,
   avoidActiveEntities = false,
 ): Vector {
-  const game = Game();
   const room = game.GetRoom();
   const heavenDoors = getEffects(
     EffectVariant.HEAVEN_LIGHT_DOOR,

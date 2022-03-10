@@ -1,3 +1,4 @@
+import { game } from "../cachedClasses";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { hasFlag } from "../functions/flag";
 import {
@@ -44,7 +45,6 @@ function entityTakeDmgPlayer(
     return;
   }
 
-  const game = Game();
   const room = game.GetRoom();
   const roomType = room.GetType();
   const isSpikeDamage = hasFlag(damageFlags, DamageFlag.DAMAGE_SPIKES);

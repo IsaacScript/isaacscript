@@ -1,3 +1,4 @@
+import { game } from "../cachedClasses";
 import {
   getDeathAnimationName,
   getPlayerMaxHeartContainers,
@@ -18,7 +19,6 @@ export function isDamageToPlayerFatal(
   damageSource: EntityRef,
   lastDamageGameFrame: int | null,
 ) {
-  const game = Game();
   const gameFrameCount = game.GetFrameCount();
   const character = player.GetPlayerType();
   const effects = player.GetEffects();
@@ -124,7 +124,6 @@ export function willPlayerRevive(player: EntityPlayer): boolean {
  * Mysterious Paper be Missing Power is: `gameFrameCount % 4 === 3`
  */
 export function willMysteriousPaperRevive(player: EntityPlayer): boolean {
-  const game = Game();
   const gameFrameCount = game.GetFrameCount();
   const sprite = player.GetSprite();
 

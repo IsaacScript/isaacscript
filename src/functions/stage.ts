@@ -1,3 +1,4 @@
+import { game } from "../cachedClasses";
 import { ensureAllCases } from "./utils";
 
 /**
@@ -6,7 +7,6 @@ import { ensureAllCases } from "./utils";
  * consider Downpour 2 to have a stage of 3.
  */
 export function getEffectiveStage(): int {
-  const game = Game();
   const level = game.GetLevel();
   const stage = level.GetStage();
 
@@ -19,7 +19,6 @@ export function getEffectiveStage(): int {
 
 /** Alias for the `Level.GetStage` method. */
 export function getStage(): LevelStage {
-  const game = Game();
   const level = game.GetLevel();
 
   return level.GetStage();
@@ -27,7 +26,6 @@ export function getStage(): LevelStage {
 
 /** Alias for the `Level.GetStageType` method. */
 export function getStageType(): StageType {
-  const game = Game();
   const level = game.GetLevel();
 
   return level.GetStageType();
@@ -48,7 +46,6 @@ export function isRepentanceStage(stageType: int): boolean {
 }
 
 export function onCathedral(): boolean {
-  const game = Game();
   const level = game.GetLevel();
   const stage = level.GetStage();
   const stageType = level.GetStageType();
@@ -57,7 +54,6 @@ export function onCathedral(): boolean {
 }
 
 export function onChest(): boolean {
-  const game = Game();
   const level = game.GetLevel();
   const stage = level.GetStage();
   const stageType = level.GetStageType();
@@ -66,7 +62,6 @@ export function onChest(): boolean {
 }
 
 export function onDarkRoom(): boolean {
-  const game = Game();
   const level = game.GetLevel();
   const stage = level.GetStage();
   const stageType = level.GetStageType();
@@ -83,7 +78,6 @@ export function onDarkRoom(): boolean {
  * I AM ERROR room is never entered into the list of possibilities.
  */
 export function onFinalFloor(): boolean {
-  const game = Game();
   const level = game.GetLevel();
   const stage = level.GetStage();
 
@@ -96,7 +90,6 @@ export function onFinalFloor(): boolean {
 }
 
 export function onRepentanceStage(): boolean {
-  const game = Game();
   const level = game.GetLevel();
   const stageType = level.GetStageType();
 
@@ -104,7 +97,6 @@ export function onRepentanceStage(): boolean {
 }
 
 export function onSheol(): boolean {
-  const game = Game();
   const level = game.GetLevel();
   const stage = level.GetStage();
   const stageType = level.GetStageType();

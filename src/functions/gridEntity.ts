@@ -1,3 +1,4 @@
+import { game } from "../cachedClasses";
 import { DISTANCE_OF_GRID_TILE } from "../constants";
 import { GRID_ENTITY_TYPE_TO_BROKEN_STATE_MAP } from "../maps/gridEntityTypeToBrokenStateMap";
 import { GRID_ENTITY_XML_MAP } from "../maps/gridEntityXMLMap";
@@ -140,7 +141,6 @@ export function getGridEntities(
 }
 
 function getAllGridEntities(): GridEntity[] {
-  const game = Game();
   const room = game.GetRoom();
   const gridSize = room.GetGridSize();
 
@@ -177,7 +177,6 @@ export function getGridEntitiesMap(
 }
 
 export function getTopLeftWall(): GridEntity | undefined {
-  const game = Game();
   const room = game.GetRoom();
   const topLeftWallGridIndex = getTopLeftWallGridIndex();
   return room.GetGridEntity(topLeftWallGridIndex);
@@ -188,7 +187,6 @@ export function getTopLeftWall(): GridEntity | undefined {
  * (This will depend on what the current room shape is.)
  */
 export function getTopLeftWallGridIndex(): int {
-  const game = Game();
   const room = game.GetRoom();
   const roomShape = room.GetRoomShape();
 
@@ -202,7 +200,6 @@ export function getTopLeftWallGridIndex(): int {
 export function getSurroundingGridEntities(
   gridEntity: GridEntity,
 ): GridEntity[] {
-  const game = Game();
   const room = game.GetRoom();
   const gridWidth = room.GetGridWidth();
   const gridIndex = gridEntity.GetGridIndex();
@@ -236,7 +233,6 @@ export function getSurroundingGridEntities(
  * Returns true if there are no pressure plates in the room.
  */
 export function isAllPressurePlatesPushed(): boolean {
-  const game = Game();
   const room = game.GetRoom();
   const hasPressurePlates = room.HasTriggerPressurePlates();
 
@@ -371,7 +367,6 @@ export function removeGridEntity(
   gridEntity: GridEntity,
   updateRoom = true,
 ): void {
-  const game = Game();
   const room = game.GetRoom();
 
   const gridIndex = gridEntity.GetGridIndex();
@@ -398,7 +393,6 @@ export function setGridEntityInvisible(gridEntity: GridEntity) {
  * grid entities in the appropriate positions.
  */
 export function spawnGiantPoop(topLeftGridIndex: int): void {
-  const game = Game();
   const room = game.GetRoom();
   const gridWidth = room.GetGridWidth();
 
@@ -454,7 +448,6 @@ export function spawnGridEntityWithVariant(
   variant: int,
   gridIndex: int,
 ): GridEntity | undefined {
-  const game = Game();
   const room = game.GetRoom();
 
   const existingGridEntity = room.GetGridEntity(gridIndex);

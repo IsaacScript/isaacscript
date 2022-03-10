@@ -1,3 +1,4 @@
+import { game, itemConfig } from "../cachedClasses";
 import {
   CHARACTERS_WITH_BLACK_HEART_FROM_ETERNAL_HEART,
   CHARACTERS_WITH_FREE_DEVIL_DEALS,
@@ -26,8 +27,6 @@ export function addCollectibleCostume(
   player: EntityPlayer,
   collectibleType: CollectibleType | int,
 ): void {
-  const itemConfig = Isaac.GetItemConfig();
-
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
     return;
@@ -40,8 +39,6 @@ export function addTrinketCostume(
   player: EntityPlayer,
   trinketType: TrinketType | int,
 ): void {
-  const itemConfig = Isaac.GetItemConfig();
-
   const itemConfigTrinket = itemConfig.GetTrinket(trinketType);
   if (itemConfigTrinket === undefined) {
     return;
@@ -129,7 +126,6 @@ export function characterGetsBlackHeartFromEternalHeart(
  * `getPlayers()` helper function instead to get a more filtered list of players.
  */
 export function getAllPlayers(): EntityPlayer[] {
-  const game = Game();
   const numPlayers = game.GetNumPlayers();
 
   const players: EntityPlayer[] = [];
@@ -520,7 +516,6 @@ function getPlayerIndexCollectibleType(
 export function getPlayerIndexVanilla(
   playerToFind: EntityPlayer,
 ): int | undefined {
-  const game = Game();
   const numPlayers = game.GetNumPlayers();
   const playerToFindHash = GetPtrHash(playerToFind);
 
@@ -949,8 +944,6 @@ export function removeCollectibleCostume(
   player: EntityPlayer,
   collectibleType: CollectibleType | int,
 ): void {
-  const itemConfig = Isaac.GetItemConfig();
-
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
     return;
@@ -979,8 +972,6 @@ export function removeTrinketCostume(
   player: EntityPlayer,
   trinketType: TrinketType | int,
 ): void {
-  const itemConfig = Isaac.GetItemConfig();
-
   const itemConfigTrinket = itemConfig.GetTrinket(trinketType);
   if (itemConfigTrinket === undefined) {
     return;
@@ -1011,7 +1002,6 @@ export function setActiveItem(
   charge?: int,
   keepInPools = false,
 ): void {
-  const game = Game();
   const itemPool = game.GetItemPool();
   const primaryCollectibleType = player.GetActiveItem(ActiveSlot.SLOT_PRIMARY);
   const primaryCharge = player.GetActiveCharge(ActiveSlot.SLOT_PRIMARY);
@@ -1094,7 +1084,6 @@ export function setBlindfold(
   enabled: boolean,
   modifyCostume = true,
 ): void {
-  const game = Game();
   const character = player.GetPlayerType();
   const challenge = Isaac.GetChallenge();
 

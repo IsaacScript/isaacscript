@@ -1,3 +1,5 @@
+import { game } from "../cachedClasses";
+
 const HEX_STRING_LENGTH = 6;
 
 /**
@@ -127,7 +129,6 @@ export function isLuaDebugEnabled(): boolean {
  * the game will not switch to a different seed.
  */
 export function onSetSeed(): boolean {
-  const game = Game();
   const seeds = game.GetSeeds();
   const customRun = seeds.IsCustomRun();
   const challenge = Isaac.GetChallenge();

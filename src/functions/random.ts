@@ -67,9 +67,10 @@ export function nextSeed(seed: Seed): Seed {
  * const fiftyFiftyChance = rng.RandomInt(2) === 0;
  * ```
  *
- * @param seed The seed to initialize it with.
- * (If you aren't initializing it with a seed, then don't use this function and instead simply call
- * the `RNG()` constructor.)
+ * It is recommended to not deal with RNG objects directly and instead use seeds. Also see the
+ * `getRandom`, `getRandomInt`, and `getRandomFloat` helper functions.
+ *
+ * @param seed The seed to initialize it with. Default is `Random()`.
  */
 export function initRNG(seed = Random()): RNG {
   if (seed === 0) {

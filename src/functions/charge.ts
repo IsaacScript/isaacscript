@@ -1,3 +1,4 @@
+import { game, sfxManager } from "../cachedClasses";
 import { getCollectibleMaxCharges } from "./collectibles";
 import { getPlayers, getTotalCharge } from "./player";
 
@@ -68,7 +69,6 @@ export function addRoomClearChargeToSlot(
     return;
   }
 
-  const game = Game();
   const hud = game.GetHUD();
 
   // Find out the new charge to set on the item
@@ -96,7 +96,6 @@ function getNumChargesToAdd(
   activeSlot: ActiveSlot,
   ignoreBigRoomDoubleCharge = false,
 ) {
-  const game = Game();
   const room = game.GetRoom();
   const roomShape = room.GetRoomShape();
   const activeItem = player.GetActiveItem(activeSlot);
@@ -170,19 +169,17 @@ export function playChargeSoundEffect(
   player: EntityPlayer,
   activeSlot: ActiveSlot,
 ): void {
-  const sfx = SFXManager();
-
   for (const soundEffect of [
     SoundEffect.SOUND_BATTERYCHARGE,
     SoundEffect.SOUND_BEEP,
   ]) {
-    sfx.Stop(soundEffect);
+    sfxManager.Stop(soundEffect);
   }
 
   const chargeSoundEffect = shouldPlayFullRechargeSound(player, activeSlot)
     ? SoundEffect.SOUND_BATTERYCHARGE
     : SoundEffect.SOUND_BEEP;
-  sfx.Play(chargeSoundEffect);
+  sfxManager.Play(chargeSoundEffect);
 }
 
 function shouldPlayFullRechargeSound(

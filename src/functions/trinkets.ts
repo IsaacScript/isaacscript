@@ -1,3 +1,4 @@
+import { itemConfig } from "../cachedClasses";
 import { TRINKET_GOLDEN_FLAG } from "../constants";
 import { TRINKET_DESCRIPTION_MAP } from "../maps/trinketDescriptionMap";
 import { TRINKET_NAME_MAP } from "../maps/trinketNameMap";
@@ -7,8 +8,11 @@ import { useActiveItemTemp } from "./player";
 import { giveTrinketsBack, temporarilyRemoveTrinkets } from "./trinketGive";
 import { repeat } from "./utils";
 
+/**
+ * Helper function to get the final trinket type in the game. This cannot be reliably determined
+ * before run-time due to mods adding a variable amount of new trinkets.
+ */
 export function getMaxTrinketType(): int {
-  const itemConfig = Isaac.GetItemConfig();
   return itemConfig.GetTrinkets().Size - 1;
 }
 
@@ -57,7 +61,6 @@ export function getTrinkets(matchingSubType = -1): EntityPickup[] {
  * trinket type was not valid.
  */
 export function getTrinketDescription(trinketType: TrinketType | int): string {
-  const itemConfig = Isaac.GetItemConfig();
   const defaultDescription = "Unknown";
 
   if (type(trinketType) !== "number") {
@@ -90,7 +93,6 @@ export function getTrinketDescription(trinketType: TrinketType | int): string {
  * ```
  */
 export function getTrinketName(trinketType: TrinketType | int): string {
-  const itemConfig = Isaac.GetItemConfig();
   const defaultName = "Unknown";
 
   if (type(trinketType) !== "number") {
@@ -163,8 +165,6 @@ export function trinketHasCacheFlag(
   trinketType: TrinketType | int,
   cacheFlag: CacheFlag,
 ): boolean {
-  const itemConfig = Isaac.GetItemConfig();
-
   const itemConfigItem = itemConfig.GetTrinket(trinketType);
   if (itemConfigItem === undefined) {
     return false;

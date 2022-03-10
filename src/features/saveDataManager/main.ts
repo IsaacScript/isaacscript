@@ -1,3 +1,4 @@
+import { game } from "../../cachedClasses";
 import { getUpgradeErrorMsg } from "../../errors";
 import { deepCopy, SerializationType } from "../../functions/deepCopy";
 import { clearTable } from "../../functions/table";
@@ -47,7 +48,6 @@ function postPlayerInit() {
   // that is not tied to an individual run
   loadFromDisk(mod, saveDataMap);
 
-  const game = Game();
   const gameFrameCount = game.GetFrameCount();
   const isContinued = gameFrameCount !== 0;
   if (!isContinued) {

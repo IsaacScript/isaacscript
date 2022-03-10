@@ -1,3 +1,4 @@
+import { itemConfig } from "../cachedClasses";
 import {
   BLIND_ITEM_PNG_PATH,
   SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES,
@@ -19,8 +20,6 @@ export function collectibleHasTag(
   collectibleType: CollectibleType | int,
   tag: ItemConfigTag,
 ): boolean {
-  const itemConfig = Isaac.GetItemConfig();
-
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
     return false;
@@ -37,8 +36,6 @@ export function collectibleHasCacheFlag(
   collectibleType: CollectibleType | int,
   cacheFlag: CacheFlag,
 ): boolean {
-  const itemConfig = Isaac.GetItemConfig();
-
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
     return false;
@@ -54,7 +51,6 @@ export function collectibleHasCacheFlag(
 export function getCollectibleDescription(
   collectibleType: CollectibleType | int,
 ): string {
-  const itemConfig = Isaac.GetItemConfig();
   const defaultDescription = "Unknown";
 
   if (type(collectibleType) !== "number") {
@@ -85,7 +81,6 @@ export function getCollectibleDevilHeartPrice(
   collectibleType: CollectibleType | int,
   player: EntityPlayer,
 ): PickupPrice {
-  const itemConfig = Isaac.GetItemConfig();
   const maxHearts = player.GetMaxHearts();
 
   if (collectibleType === CollectibleType.COLLECTIBLE_NULL) {
@@ -119,8 +114,6 @@ export function getCollectibleDevilHeartPrice(
 export function getCollectibleGfxFilename(
   collectibleType: CollectibleType | int,
 ): string {
-  const itemConfig = Isaac.GetItemConfig();
-
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
     return "unknown.png";
@@ -136,8 +129,6 @@ export function getCollectibleGfxFilename(
 export function getCollectibleInitCharges(
   collectibleType: CollectibleType | int,
 ): int {
-  const itemConfig = Isaac.GetItemConfig();
-
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
     return 0;
@@ -153,8 +144,6 @@ export function getCollectibleInitCharges(
 export function getCollectibleQuality(
   collectibleType: CollectibleType | int,
 ): int {
-  const itemConfig = Isaac.GetItemConfig();
-
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
     return 0;
@@ -170,8 +159,6 @@ export function getCollectibleQuality(
 export function getCollectibleItemType(
   collectibleType: CollectibleType | int,
 ): ItemType {
-  const itemConfig = Isaac.GetItemConfig();
-
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
     return ItemType.ITEM_NULL;
@@ -187,8 +174,6 @@ export function getCollectibleItemType(
 export function getCollectibleMaxCharges(
   collectibleType: CollectibleType | int,
 ): int {
-  const itemConfig = Isaac.GetItemConfig();
-
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
     return 0;
@@ -210,7 +195,6 @@ export function getCollectibleMaxCharges(
 export function getCollectibleName(
   collectibleType: CollectibleType | int,
 ): string {
-  const itemConfig = Isaac.GetItemConfig();
   const defaultName = "Unknown";
 
   if (type(collectibleType) !== "number") {
@@ -250,8 +234,13 @@ export function getCollectibles(matchingSubType = -1): EntityPickup[] {
   return getPickups(PickupVariant.PICKUP_COLLECTIBLE, matchingSubType);
 }
 
+/**
+ * Helper function to get the final collectible type in the game.
+ *
+ * This cannot be reliably determined before run-time due to mods adding a variable amount of new
+ * collectibles.
+ */
 export function getMaxCollectibleType(): int {
-  const itemConfig = Isaac.GetItemConfig();
   return itemConfig.GetCollectibles().Size - 1;
 }
 

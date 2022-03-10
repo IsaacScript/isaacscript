@@ -1,5 +1,6 @@
 // This provides the logic for PostEsauJr and PostFirstEsauJr
 
+import { game } from "../cachedClasses";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getPlayers } from "../functions/player";
 import {
@@ -41,7 +42,6 @@ function postUpdate() {
     return;
   }
 
-  const game = Game();
   const gameFrameCount = game.GetFrameCount();
 
   // Check to see if it is the frame after the player has used Esau Jr.
@@ -91,7 +91,6 @@ function useItemEsauJr(
     return;
   }
 
-  const game = Game();
   const gameFrameCount = game.GetFrameCount();
 
   // The player only changes to Esau Jr. on the frame after the item is used

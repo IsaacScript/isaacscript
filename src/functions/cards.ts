@@ -1,3 +1,4 @@
+import { itemConfig } from "../cachedClasses";
 import { CARD_DESCRIPTION_MAP } from "../maps/cardDescriptionMap";
 import { CARD_NAME_MAP } from "../maps/cardNameMap";
 import { CARD_TYPE_MAP, DEFAULT_CARD_TYPE } from "../maps/cardTypeMap";
@@ -55,7 +56,6 @@ function initCardObjects() {
  * ```
  */
 export function getCardDescription(card: Card | int): string {
-  const itemConfig = Isaac.GetItemConfig();
   const defaultDescription = "Unknown";
 
   if (type(card) !== "number") {
@@ -87,7 +87,6 @@ export function getCardDescription(card: Card | int): string {
  * ```
  */
 export function getCardName(card: Card | int): string {
-  const itemConfig = Isaac.GetItemConfig();
   const defaultName = "Unknown";
 
   if (type(card) !== "number") {
@@ -140,8 +139,13 @@ export function getCardType(card: Card | int): CardType {
   return cardType === undefined ? DEFAULT_CARD_TYPE : cardType;
 }
 
+/**
+ * Helper function to get the final card sub-type in the game.
+ *
+ * This cannot be reliably determined before run-time due to mods adding a variable amount of new
+ * cards.
+ */
 export function getMaxCards(): int {
-  const itemConfig = Isaac.GetItemConfig();
   return itemConfig.GetCards().Size - 1;
 }
 
