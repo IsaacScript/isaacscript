@@ -14,8 +14,6 @@ const v = {
   run: {
     /** Needed to detect if Glass Cannon will kill the player or not. */
     playersLastDamageGameFrame: new Map<PlayerIndex, int>(),
-    // (we can't use a default value of null since it will transpile to nil and cause a run-time
-    // error)
   },
 };
 
