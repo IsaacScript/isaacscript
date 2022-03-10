@@ -464,7 +464,11 @@ export function getPlayerIndex(
   // https://github.com/Meowlala/RepentanceAPIIssueTracker/issues/443
   // We can safely ignore the player's character because regardless of whether the main player ends
   // up being The Forgotten or The Soul, the collectible RNG values will be the same
-  const isSubPlayer = player.IsSubPlayer();
+  // However, the "EntityPlayer.IsSubPlayer" method can return true for Dead Tainted Lazarus during
+  // the PostPlayerInit callback, so we explicitly check for this case
+  const character = player.GetPlayerType();
+  const isSubPlayer =
+    player.IsSubPlayer() && character !== PlayerType.PLAYER_LAZARUS2_B;
   const playerToUse = isSubPlayer
     ? getSubPlayerParent(player as EntitySubPlayer)
     : player;
