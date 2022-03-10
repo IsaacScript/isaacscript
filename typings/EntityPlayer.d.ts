@@ -843,7 +843,13 @@ declare interface EntityPlayer extends Entity {
   IsP2Appearing(): boolean;
   IsPosInSpotLight(position: Vector): boolean;
 
-  /** Returns true for The Soul. Otherwise, returns false. */
+  /**
+   * Returns true for The Soul. Otherwise, returns false.
+   *
+   * Additionally, this also returns true for the player object representing Dead Tainted Lazarus
+   * that fires at the beginning of the run in the PostPlayerInit callback. (The PostPlayerInit
+   * callback fires first for Dead Tainted Lazarus before firing for the normal Tainted Lazarus.)
+   */
   IsSubPlayer(): boolean;
 
   /**
