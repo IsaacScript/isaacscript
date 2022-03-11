@@ -129,7 +129,7 @@ declare interface StageAPICustomStage {
   ): void;
 
   /** Sets the stage's music. */
-  SetStageMusic(music: number): void;
+  SetStageMusic(music: number, types: RoomType[]): void;
 
   /** Sets the stage's number. */
   SetStageNumber(num: int): void;
