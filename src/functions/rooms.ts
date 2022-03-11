@@ -479,7 +479,7 @@ export function inSecretShop(): boolean {
 
 /**
  * Helper function to determine whether or not the current room is the starting room of a floor.
- * Only returns true for the starting room of the primary dimension (meaning that being in the
+ * It only returns true for the starting room of the primary dimension (meaning that being in the
  * starting room of the mirror world does not count).
  */
 export function inStartingRoom(): boolean {

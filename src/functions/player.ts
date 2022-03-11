@@ -698,11 +698,21 @@ export function getPlayersOfType(
   });
 }
 
+/**
+ * Helper function to get only the players that have a certain collectible.
+ *
+ * This function is variadic, meaning that you can supply as many collectible types as you want to
+ * check for. It only returns the players that have all of the collectibles.
+ */
 export function getPlayersWithCollectible(
-  collectibleType: CollectibleType | int,
+  ...collectibleTypes: Array<CollectibleType | int>
 ): EntityPlayer[] {
   const players = getPlayers();
-  return players.filter((player) => player.HasCollectible(collectibleType));
+  return players.filter((player) =>
+    collectibleTypes.every((collectibleType) =>
+      player.HasCollectible(collectibleType),
+    ),
+  );
 }
 
 /**
