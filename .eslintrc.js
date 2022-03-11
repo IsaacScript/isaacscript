@@ -62,5 +62,21 @@ module.exports = {
         enforceInMethodNames: true,
       },
     ],
+
+    // TESTING
+
+    // Documentation:
+    // https://github.com/gajus/eslint-plugin-jsdoc#user-content-eslint-plugin-jsdoc-rules-match-description
+    // Not defined in parent configs
+    // Needed for catching trailing empty lines as documented here:
+    // https://github.com/gajus/eslint-plugin-jsdoc/issues/847
+    /*
+    "jsdoc/match-description": [
+      "warn",
+      {
+        matchDescription: "[\\s\\S]*\\S$",
+      },
+    ],
+    */
   },
 };

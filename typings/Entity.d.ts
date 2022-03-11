@@ -19,9 +19,11 @@ declare interface Entity {
 
   AddVelocity(velocity: Vector): void;
   BloodExplode(): void;
+
   // CanShutDoors is deliberately not implemented here because it conflicts with
   // EntityNPC.CanShutDoors
   // CanShutDoors(): boolean;
+
   ClearEntityFlags(entityFlags: EntityFlag): void;
   CollidesWithGrid(): boolean;
   Die(): void;
@@ -127,6 +129,7 @@ declare interface Entity {
    *
    * The Color of this property is read only, so if you want to change it, you have to replace the
    * entire thing with a new Color object.
+   *
    */
   SplatColor: Readonly<Color>;
 
