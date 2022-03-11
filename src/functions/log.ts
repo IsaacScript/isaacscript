@@ -135,8 +135,11 @@ export function logAllTearFlags(this: void, flags: int): void {
 }
 
 /** Helper function for printing out every use flag that is turned on. Useful when debugging. */
-export function logAllUseFlags(this: void, flags: int): void {
-  logAllFlags(flags, UseFlag as unknown as LuaTable, "use");
+export function logAllUseFlags(this: void, _flags: int): void {
+  log(
+    'The "logAllUseFlags" helper function is temporarily disabled while the UseFlag enum remains unpatched in vanilla.',
+  );
+  // logAllFlags(flags, UseFlag as unknown as LuaTable, "use");
 }
 
 export function logArray<T>(this: void, array: T[]): void {
