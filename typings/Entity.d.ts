@@ -61,7 +61,6 @@ declare interface Entity {
   RenderShadowLayer(offset: Vector): boolean;
 
   /**
-   *
    * @param color
    * @param duration
    * @param priority
@@ -129,7 +128,6 @@ declare interface Entity {
    *
    * The Color of this property is read only, so if you want to change it, you have to replace the
    * entire thing with a new Color object.
-   *
    */
   SplatColor: Readonly<Color>;
 
