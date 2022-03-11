@@ -85,6 +85,26 @@ export function anyPlayerIs(
 }
 
 /**
+ * Helper function to determine if a player will destroy a rock/pot/skull/etc. if they walk over it.
+ *
+ * The following things allow for this to be true:
+ * - the player has Leo (collectible 302)
+ * - the player has Thunder Thighs (collectible 314)
+ * - the player is under the effects of Mega Mush (collectible 625)
+ * - the player has Stompy (transformation 13)
+ */
+export function canPlayerCrushRocks(player: EntityPlayer): boolean {
+  const effects = player.GetEffects();
+
+  return (
+    player.HasCollectible(CollectibleType.COLLECTIBLE_LEO) ||
+    player.HasCollectible(CollectibleType.COLLECTIBLE_THUNDER_THIGHS) ||
+    effects.HasCollectibleEffect(CollectibleType.COLLECTIBLE_MEGA_MUSH) ||
+    player.HasPlayerForm(PlayerForm.PLAYERFORM_STOMPY)
+  );
+}
+
+/**
  * Helper function to determine if the provided character can have red heart containers. Returns
  * true for characters like Isaac, Magdalene, or Cain. Returns true for Keeper and Tainted Keeper,
  * even though coin containers are not technically the same as red heart containers. Returns false
