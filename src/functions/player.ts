@@ -698,6 +698,13 @@ export function getPlayersOfType(
   });
 }
 
+export function getPlayersWithCollectible(
+  collectibleType: CollectibleType | int,
+): EntityPlayer[] {
+  const players = getPlayers();
+  return players.filter((player) => player.HasCollectible(collectibleType));
+}
+
 /**
  * Returns the number of soul hearts that the player has, excluding any black hearts. For example,
  * if the player has one full black heart, one full soul heart, and one half black heart, this
