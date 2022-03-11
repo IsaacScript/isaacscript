@@ -229,7 +229,7 @@ function twoDimensionalSort<T>(a: T[], b: T[]) {
   return a[0] < b[0] ? -1 : 1;
 }
 
-export function logNewGlobals() {
+export function logNewGlobals(): void {
   const newGlobals = getNewGlobals();
 
   log("List of added global variables in the Isaac environment:");

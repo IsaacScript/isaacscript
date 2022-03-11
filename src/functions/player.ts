@@ -145,7 +145,7 @@ export function getAllPlayers(): EntityPlayer[] {
  */
 export function getAzazelBrimstoneDistance(
   playerOrTearHeight: EntityPlayer | float,
-) {
+): float {
   let tearHeight = tonumber(playerOrTearHeight);
   if (tearHeight === undefined) {
     const player = playerOrTearHeight as EntityPlayer;
@@ -201,7 +201,7 @@ export function getCharacterMaxHeartContainers(
 }
 
 /** Helper function to get an array containing the characters of all of the current players. */
-export function getCharacters() {
+export function getCharacters(): PlayerType[] {
   const players = getPlayers();
   return players.map((player) => player.GetPlayerType());
 }
@@ -752,7 +752,9 @@ export function getSubPlayerParent(
  * This function does not validate whether or not the provided player is Tainted Magdalene; that
  * should be accomplished before invoking this function.
  */
-export function getTaintedMagdaleneNonTemporaryMaxHearts(player: EntityPlayer) {
+export function getTaintedMagdaleneNonTemporaryMaxHearts(
+  player: EntityPlayer,
+): int {
   const maxHearts = player.GetMaxHearts();
   const hasBirthright = player.HasCollectible(
     CollectibleType.COLLECTIBLE_BIRTHRIGHT,

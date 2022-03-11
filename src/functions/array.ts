@@ -224,7 +224,7 @@ export function getRandomArrayElementAndRemove<T>(
   array: T[],
   seed = Random(),
   exceptions: T[] | readonly T[] = [],
-) {
+): T {
   const randomArrayElement = getRandomArrayElement(array, seed, exceptions);
   arrayRemoveInPlace(array, randomArrayElement);
   return randomArrayElement;

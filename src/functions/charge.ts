@@ -64,7 +64,7 @@ export function addRoomClearChargeToSlot(
   player: EntityPlayer,
   activeSlot: ActiveSlot,
   ignoreBigRoomDoubleCharge = false,
-) {
+): void {
   if (!player.NeedsCharge(activeSlot)) {
     return;
   }

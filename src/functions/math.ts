@@ -96,7 +96,7 @@ export function isCircleIntersectingRectangle(
   circleRadius: float,
   rectangleTopLeft: Vector,
   rectangleBottomRight: Vector,
-) {
+): boolean {
   const nearestX = Math.max(
     rectangleTopLeft.X,
     Math.min(circleCenter.X, rectangleBottomRight.X),

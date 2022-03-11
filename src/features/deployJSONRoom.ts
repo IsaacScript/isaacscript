@@ -237,7 +237,7 @@ export function deployRandomJSONRoom(
  * decoration, which prevents vanilla entities in the room from respawning the next time that the
  * player enters. Default is false.
  */
-export function emptyRoom(fillWithDecorations: boolean) {
+export function emptyRoom(fillWithDecorations: boolean): void {
   if (!initialized) {
     const msg = getUpgradeErrorMsg(FEATURE_NAME);
     error(msg);

@@ -383,7 +383,7 @@ export function removeGridEntity(
  *
  * For more information, see the documentation for the `clearSprite` helper function.
  */
-export function setGridEntityInvisible(gridEntity: GridEntity) {
+export function setGridEntityInvisible(gridEntity: GridEntity): void {
   const sprite = gridEntity.GetSprite();
   clearSprite(sprite);
 }

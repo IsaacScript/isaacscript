@@ -44,7 +44,10 @@ export function mapSetPlayer<V>(
  * Helper function to make using sets with an type of `PlayerIndex` easier. Use this instead of the
  * `Set.add` method if you have a set of this type.
  */
-export function setAddPlayer(set: Set<PlayerIndex>, player: EntityPlayer) {
+export function setAddPlayer(
+  set: Set<PlayerIndex>,
+  player: EntityPlayer,
+): Set<PlayerIndex> {
   const playerIndex = getPlayerIndex(player);
   return set.add(playerIndex);
 }
@@ -53,7 +56,10 @@ export function setAddPlayer(set: Set<PlayerIndex>, player: EntityPlayer) {
  * Helper function to make using sets with an type of `PlayerIndex` easier. Use this instead of the
  * `Set.delete` method if you have a set of this type.
  */
-export function setDeletePlayer(set: Set<PlayerIndex>, player: EntityPlayer) {
+export function setDeletePlayer(
+  set: Set<PlayerIndex>,
+  player: EntityPlayer,
+): boolean {
   const playerIndex = getPlayerIndex(player);
   return set.delete(playerIndex);
 }
@@ -62,7 +68,10 @@ export function setDeletePlayer(set: Set<PlayerIndex>, player: EntityPlayer) {
  * Helper function to make using sets with an type of `PlayerIndex` easier. Use this instead of the
  * `Set.has` method if you have a set of this type.
  */
-export function setHasPlayer(set: Set<PlayerIndex>, player: EntityPlayer) {
+export function setHasPlayer(
+  set: Set<PlayerIndex>,
+  player: EntityPlayer,
+): boolean {
   const playerIndex = getPlayerIndex(player);
   return set.has(playerIndex);
 }

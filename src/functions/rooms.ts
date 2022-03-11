@@ -363,7 +363,7 @@ export function inBeastRoom(): boolean {
  * Helper function to check if the current room is a boss room for a particular boss. This will only
  * work for bosses that have dedicated boss rooms in the "00.special rooms.stb" file.
  */
-export function inBossRoomOf(bossID: BossID) {
+export function inBossRoomOf(bossID: BossID): boolean {
   const room = game.GetRoom();
   const roomType = room.GetType();
   const roomStageID = getRoomStageID();
@@ -411,7 +411,7 @@ export function inDeathCertificateArea(): boolean {
  * Devil's Crown trinket. Under the hood, this checks for the `RoomDescriptorFlag.DEVIL_TREASURE`
  * flag.
  */
-export function inDevilsCrownTreasureRoom() {
+export function inDevilsCrownTreasureRoom(): boolean {
   const roomDescriptor = getCurrentRoomDescriptorReadOnly();
   return hasFlag(roomDescriptor.Flags, RoomDescriptorFlag.DEVIL_TREASURE);
 }
@@ -453,7 +453,7 @@ export function inMegaSatanRoom(): boolean {
  * Helper function to check if the current room is a miniboss room for a particular miniboss. This
  * will only work for minibosses that have dedicated boss rooms in the "00.special rooms.stb" file.
  */
-export function inMinibossRoomOf(minibossID: MinibossID) {
+export function inMinibossRoomOf(minibossID: MinibossID): boolean {
   const room = game.GetRoom();
   const roomType = room.GetType();
   const roomStageID = getRoomStageID();

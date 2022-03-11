@@ -94,7 +94,7 @@ export class DefaultMap<K, V, A extends unknown[] = []> extends Map<K, V> {
    * If the key exists, this will return the same thing as the `get` method. Otherwise, it will set
    * a default value to the key, and then return the default value.
    */
-  getAndSetDefault(key: K, ...extraArgs: A) {
+  getAndSetDefault(key: K, ...extraArgs: A): V {
     const value = this.get(key);
     if (value !== undefined) {
       return value;
@@ -109,7 +109,7 @@ export class DefaultMap<K, V, A extends unknown[] = []> extends Map<K, V> {
    * Returns the default value to be used for a new key. (If a factory function was provided during
    * instantiation, this will execute the factory function.)
    */
-  getDefaultValue(key: K, ...extraArgs: A) {
+  getDefaultValue(key: K, ...extraArgs: A): V {
     if (this.defaultValue !== undefined) {
       return this.defaultValue;
     }
@@ -125,7 +125,7 @@ export class DefaultMap<K, V, A extends unknown[] = []> extends Map<K, V> {
    * Helper method for cloning the map. Returns either the default value or a reference to the
    * factory function.
    */
-  getConstructorArg() {
+  getConstructorArg(): V | FactoryFunction<K, V, A> {
     if (this.defaultValue !== undefined) {
       return this.defaultValue;
     }

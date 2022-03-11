@@ -16,7 +16,7 @@ export function newPickingUpItem(): PickingUpItem {
   };
 }
 
-export function resetPickingUpItem(pickingUpItem: PickingUpItem) {
+export function resetPickingUpItem(pickingUpItem: PickingUpItem): void {
   pickingUpItem.itemType = DEFAULT_ITEM_TYPE;
   pickingUpItem.subType = DEFAULT_SUB_TYPE;
 }

@@ -9,7 +9,7 @@ import { getRandomArrayElement } from "./array";
 export function addSetsToSet<T>(
   mainSet: Set<T>,
   ...setsToAdd: Array<Set<T> | ReadonlySet<T>>
-) {
+): void {
   for (const set of setsToAdd) {
     for (const value of set.values()) {
       mainSet.add(value);
@@ -54,7 +54,7 @@ export function combineSets<T>(
 export function deleteSetsFromSet<T>(
   mainSet: Set<T>,
   ...setsToRemove: Array<Set<T> | ReadonlySet<T>>
-) {
+): void {
   for (const set of setsToRemove) {
     for (const value of set.values()) {
       mainSet.delete(value);

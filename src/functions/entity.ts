@@ -29,7 +29,7 @@ export function countEntities(
   variant = -1,
   subType = -1,
   ignoreFriendly = false,
-) {
+): int {
   if (!ignoreFriendly) {
     return Isaac.CountEntities(undefined, entityType, variant, subType);
   }
@@ -140,7 +140,7 @@ export function getEntities(
 }
 
 /** Helper function to return a string containing an entity's type, variant, and sub-type. */
-export function getEntityID(entity: Entity) {
+export function getEntityID(entity: Entity): string {
   return `${entity.Type}.${entity.Variant}.${entity.SubType}`;
 }
 
