@@ -1,7 +1,7 @@
 import yargs from "yargs";
 import { PROJECT_NAME } from "./constants";
 
-export function parseArgs() {
+export function parseArgs(): Record<string, unknown> {
   const yargsObject = yargs(process.argv.slice(2))
     .strict()
     .usage("usage: isaacscript <command> [options]")
@@ -112,5 +112,5 @@ export function parseArgs() {
     .alias("h", "help") // By default, only "--help" is enabled
     .alias("v", "version"); // By default, only "--version" is enabled
 
-  return yargsObject.argv;
+  return yargsObject.argv as Record<string, unknown>;
 }
