@@ -12,6 +12,7 @@ cd "$DIR"
 
 # Step 1 - Use Prettier to check formatting
 npx prettier --check "src/**/*.ts"
+npx prettier --check "mod/**/*.xml"
 
 # Step 2 - Use ESLint to lint the TypeScript
 # Since all ESLint errors are set to warnings,
@@ -23,7 +24,7 @@ npx eslint --max-warnings 0 src
 npx cspell --no-progress --no-summary "src/**/*.ts"
 npx cspell --no-progress --no-summary "mod/metadata.xml"
 
-# Step 4 - Check for incorrectly formatted XML files
+# Step 4 - Use xmllint to lint XML files
 # (and skip this step if xmllint is not currently installed for whatever reason)
 if ! command -v xmllint &> /dev/null; then
   find "$DIR/mod" -name "*.xml" -print0 | xargs -0 xmllint --noout

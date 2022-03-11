@@ -12,4 +12,9 @@ module.exports = {
   // Prettier will change the default in the future:
   // https://github.com/prettier/prettier/issues/9369
   trailingComma: "all",
+
+  // https://github.com/prettier/plugin-xml#configuration
+  // The default is "struct"
+  // However, whitespace cannot be reformatted unless this is set to "ignore"
+  xmlWhitespaceSensitivity: "ignore",
 };
