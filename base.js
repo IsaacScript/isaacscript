@@ -74,6 +74,10 @@ module.exports = {
     "@typescript-eslint/array-type": ["warn", { default: "array-simple" }],
 
     // Documentation:
+    // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/explicit-module-boundary-types.md
+    "@typescript-eslint/explicit-module-boundary-types": "on",
+
+    // Documentation:
     // https://eslint.org/docs/rules/lines-between-class-members
     // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/lines-between-class-members.md
     // Defined at:
