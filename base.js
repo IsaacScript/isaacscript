@@ -78,7 +78,7 @@ module.exports = {
     // Not defined in the parent configs
     // Specifying explicit return types can help prevent bugs, but only require it on exported
     // functions
-    "@typescript-eslint/explicit-module-boundary-types": "on",
+    "@typescript-eslint/explicit-module-boundary-types": "warn",
 
     // Documentation:
     // https://eslint.org/docs/rules/lines-between-class-members
