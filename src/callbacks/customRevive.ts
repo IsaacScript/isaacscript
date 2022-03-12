@@ -1,8 +1,9 @@
 import { sfxManager } from "../cachedClasses";
+import { runNextGameFrame } from "../features/runInNFrames";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { removeCollectibleFromItemTracker } from "../functions/collectibles";
 import { removeAllFamiliars } from "../functions/familiars";
-import { getPlayerIndex } from "../functions/player";
+import { getPlayerFromIndex, getPlayerIndex } from "../functions/player";
 import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
 import { ModUpgraded } from "../types/ModUpgraded";
 import { PlayerIndex } from "../types/PlayerIndex";
@@ -146,4 +147,32 @@ function playerIsAboutToDie(player: EntityPlayer) {
   player.AddCollectible(CollectibleType.COLLECTIBLE_1UP, 0, false);
   removeAllFamiliars(FamiliarVariant.ONE_UP);
   removeCollectibleFromItemTracker(CollectibleType.COLLECTIBLE_1UP);
+
+  // Handle the special case of the fatal damage activating Tainted Samson's berserk state
+  // In this case, the player will be invincible and can potentially not die if they are able to get
+  // a new heart before the berserk stat ends
+  // This is bad, because end-user code is already assuming that a custom revive is occurring
+  // To work around this, immediately end the berserk state, which will kill the player and make the
+  // 1-Up immediately activate
+  const character = player.GetPlayerType();
+  if (character !== PlayerType.PLAYER_SAMSON_B) {
+    return;
+  }
+  const playerIndex = getPlayerIndex(player);
+  runNextGameFrame(() => {
+    const taintedSamson = getPlayerFromIndex(playerIndex);
+    if (taintedSamson === undefined) {
+      return;
+    }
+
+    const effects = player.GetEffects();
+    const isBerserk = effects.HasCollectibleEffect(
+      CollectibleType.COLLECTIBLE_BERSERK,
+    );
+    if (!isBerserk) {
+      return;
+    }
+
+    effects.RemoveCollectibleEffect(CollectibleType.COLLECTIBLE_BERSERK, -1);
+  });
 }

@@ -87,7 +87,7 @@ export function anyPlayerIs(
 /**
  * Helper function to determine if a player will destroy a rock/pot/skull/etc. if they walk over it.
  *
- * The following things allow for this to be true:
+ * The following situations allow for this to be true:
  * - the player has Leo (collectible 302)
  * - the player has Thunder Thighs (collectible 314)
  * - the player is under the effects of Mega Mush (collectible 625)

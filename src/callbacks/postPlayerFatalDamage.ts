@@ -68,6 +68,9 @@ function entityTakeDmgPlayer(
     return undefined;
   }
 
+  // Note that this can fail in the edge-case of Tainted Samson taking damage that activates his
+  // Berserk state
+  // TODO: update this after the next vanilla patch
   if (
     !isDamageToPlayerFatal(
       player,
