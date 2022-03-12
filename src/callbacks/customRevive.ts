@@ -175,5 +175,8 @@ function playerIsAboutToDie(player: EntityPlayer) {
     }
 
     effects.RemoveCollectibleEffect(CollectibleType.COLLECTIBLE_BERSERK, -1);
+
+    // The familiar will show up again for some reason, so remove it again
+    removeAllFamiliars(FamiliarVariant.ONE_UP);
   });
 }
