@@ -154,6 +154,7 @@ function playerIsAboutToDie(player: EntityPlayer) {
   // This is bad, because end-user code is already assuming that a custom revive is occurring
   // To work around this, immediately end the berserk state, which will kill the player and make the
   // 1-Up immediately activate
+  // TODO: update this after the next vanilla patch
   const character = player.GetPlayerType();
   if (character !== PlayerType.PLAYER_SAMSON_B) {
     return;
