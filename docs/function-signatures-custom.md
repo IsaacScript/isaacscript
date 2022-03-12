@@ -290,7 +290,9 @@ function postPlayerChangeHealth(player: EntityPlayer, healthType: HealthType, am
 
 Fires from the MC_ENTITY_TAKE_DMG callback when a player takes fatal damage. Return false to prevent the fatal damage.
 
-Note that this function does properly take into account Guppy's Collar, Broken Ankh, Spirit Shackles, and Mysterious Paper.
+Note that:
+- This function does properly take into account Guppy's Collar, Broken Ankh, Spirit Shackles, and Mysterious Paper.
+- This function does not properly take into account the damage activating Tainted Samson's berserk state. (That is undetectable until the next vanilla patch.)
 
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `PlayerVariant` provided.
 
