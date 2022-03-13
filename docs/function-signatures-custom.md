@@ -533,7 +533,7 @@ function postBoneSwing(boneClub: EntityKnife): void {}
 
 ### MC_POST_CUSTOM_DOOR_ENTER
 
-Fires from the MC_POST_PEFFECT_UPDATE callback when a player eenters the loading zone of a custom door created with the `spawnCustomDoor` helper function.
+Fires from the MC_POST_PEFFECT_UPDATE callback when a player enters the loading zone of a custom door created with the `spawnCustomDoor` helper function.
 
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `DoorVariant` provided.
 
