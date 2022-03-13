@@ -1,6 +1,7 @@
 import { postBombInitLateRegister } from "../callbacks/subscriptions/postBombInitLate";
 import { postBoneSwingRegister } from "../callbacks/subscriptions/postBoneSwing";
 import { postCursedTeleportRegister } from "../callbacks/subscriptions/postCursedTeleport";
+import { postCustomDoorEnterRegister } from "../callbacks/subscriptions/postCustomDoorEnter";
 import { postCustomReviveRegister } from "../callbacks/subscriptions/postCustomRevive";
 import { postEffectInitLateRegister } from "../callbacks/subscriptions/postEffectInitLate";
 import { postEsauJrRegister } from "../callbacks/subscriptions/postEsauJr";
@@ -344,6 +345,10 @@ function getCallbackRegisterFunction(callbackID: ModCallbacksCustom) {
 
     case ModCallbacksCustom.MC_POST_BONE_SWING: {
       return postBoneSwingRegister;
+    }
+
+    case ModCallbacksCustom.MC_POST_CUSTOM_DOOR_ENTER: {
+      return postCustomDoorEnterRegister;
     }
 
     default: {

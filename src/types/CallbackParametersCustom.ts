@@ -1,6 +1,7 @@
 import { PostBombInitLateCallbackType } from "../callbacks/subscriptions/postBombInitLate";
 import { PostBoneSwingCallbackType } from "../callbacks/subscriptions/postBoneSwing";
 import { PostCursedTeleportCallbackType } from "../callbacks/subscriptions/postCursedTeleport";
+import { PostCustomDoorEnterCallbackType } from "../callbacks/subscriptions/postCustomDoorEnter";
 import { PostCustomReviveCallbackType } from "../callbacks/subscriptions/postCustomRevive";
 import { PostEffectInitLateCallbackType } from "../callbacks/subscriptions/postEffectInitLate";
 import { PostEsauJrCallbackType } from "../callbacks/subscriptions/postEsauJr";
@@ -273,6 +274,10 @@ export interface CallbackParametersCustom {
 
   [ModCallbacksCustom.MC_POST_BONE_SWING]: [
     callback: PostBoneSwingCallbackType,
+  ];
+
+  [ModCallbacksCustom.MC_POST_CUSTOM_DOOR_ENTER]: [
+    callback: PostCustomDoorEnterCallbackType,
   ];
 }
 

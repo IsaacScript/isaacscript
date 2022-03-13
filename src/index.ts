@@ -1,4 +1,5 @@
 export * from "./cachedClasses";
+export { spawnCustomDoor } from "./callbacks/postCustomDoorEnter";
 export {
   forceNewLevelCallback,
   forceNewRoomCallback,

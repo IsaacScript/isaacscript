@@ -3,6 +3,7 @@ import { itemPickupCallbacksInit } from "./callbacks/itemPickup";
 import { postBombInitLateCallbackInit } from "./callbacks/postBombInitLate";
 import { postBoneSwingCallbackInit } from "./callbacks/postBoneSwing";
 import { postCursedTeleportCallbackInit } from "./callbacks/postCursedTeleport";
+import { postCustomDoorEnterCallbackInit } from "./callbacks/postCustomDoorEnter";
 import { postEffectInitLateCallbackInit } from "./callbacks/postEffectInitLate";
 import { postEsauJrCallbacksInit } from "./callbacks/postEsauJr";
 import { postFamiliarInitLateCallbackInit } from "./callbacks/postFamiliarInitLate";
@@ -130,6 +131,7 @@ function initCustomCallbacks(mod: ModUpgraded) {
   postGridEntityCallbacksInit(mod);
   postGridEntityCollisionInit(mod);
   postBoneSwingCallbackInit(mod);
+  postCustomDoorEnterCallbackInit(mod);
 }
 
 function initFeatures(mod: ModUpgraded) {
