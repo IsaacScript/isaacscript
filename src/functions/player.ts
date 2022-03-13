@@ -308,8 +308,8 @@ export function getHearts(player: EntityPlayer): int {
 }
 
 /**
- * Helper function that returns the type of the rightmost heart, not including golden hearts since
- * they can't be damaged directly.
+ * Helper function that returns the type of the rightmost heart. This does not including golden
+ * hearts or broken hearts, since they cannot be damaged directly.
  */
 export function getLastHeart(player: EntityPlayer): HealthType {
   const hearts = player.GetHearts();

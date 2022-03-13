@@ -3,9 +3,67 @@
 // lua local p = Isaac.GetPlayer() p:AddEternalHearts(-1) p:AddBoneHearts(-1) p:AddRottenHearts(-1) p:AddBlackHearts(-2) p:AddSoulHearts(-2) p:AddBoneHearts(-1) p:AddBlackHearts(-3) p:AddBrokenHearts(-2)
 
 import { MAX_PLAYER_HEART_CONTAINERS } from "../constants";
+import { HealthType } from "../types/HealthType";
 import { PlayerHealth } from "../types/PlayerHealth";
-import { getHearts } from "./player";
-import { repeat } from "./utils";
+import { getBlackHearts, getHearts, getSoulHearts } from "./player";
+import { ensureAllCases, repeat } from "./utils";
+
+export function addPlayerHealthType(
+  player: EntityPlayer,
+  healthType: HealthType,
+  numHearts: int,
+): void {
+  switch (healthType) {
+    case HealthType.RED: {
+      player.AddHearts(numHearts);
+      return;
+    }
+
+    case HealthType.SOUL: {
+      player.AddSoulHearts(numHearts);
+      return;
+    }
+
+    case HealthType.ETERNAL: {
+      player.AddEternalHearts(numHearts);
+      return;
+    }
+
+    case HealthType.BLACK: {
+      player.AddBlackHearts(numHearts);
+      return;
+    }
+
+    case HealthType.GOLDEN: {
+      player.AddGoldenHearts(numHearts);
+      return;
+    }
+
+    case HealthType.BONE: {
+      player.AddBoneHearts(numHearts);
+      return;
+    }
+
+    case HealthType.ROTTEN: {
+      player.AddRottenHearts(numHearts);
+      return;
+    }
+
+    case HealthType.BROKEN: {
+      player.AddBrokenHearts(numHearts);
+      return;
+    }
+
+    case HealthType.MAX_HEARTS: {
+      player.AddMaxHearts(numHearts, false);
+      return;
+    }
+
+    default: {
+      ensureAllCases(healthType);
+    }
+  }
+}
 
 /**
  * Helper function to get an inventory of the player's health. Use this in combination with the
@@ -99,6 +157,66 @@ export function getPlayerHealth(player: EntityPlayer): PlayerHealth {
     bloodCharges,
     soulHeartTypes,
   };
+}
+
+export function getPlayerHealthType(
+  player: EntityPlayer,
+  healthType: HealthType,
+): int {
+  switch (healthType) {
+    // 5.10.1
+    case HealthType.RED: {
+      // We use the standard library helper function since the "EntityPlayer.GetHearts" method
+      // returns a value that includes rotten hearts
+      return getHearts(player);
+    }
+
+    // 5.10.3
+    case HealthType.SOUL: {
+      // We use the standard library helper function since the "EntityPlayer.GetSoulHearts" method
+      // returns a value that includes black hearts
+      return getSoulHearts(player);
+    }
+
+    // 5.10.4
+    case HealthType.ETERNAL: {
+      return player.GetEternalHearts();
+    }
+
+    // 5.10.6
+    case HealthType.BLACK: {
+      // We use the standard library helper function since the "EntityPlayer.GetBlackHearts" method
+      // returns a bit mask
+      return getBlackHearts(player);
+    }
+
+    // 5.10.7
+    case HealthType.GOLDEN: {
+      return player.GetGoldenHearts();
+    }
+
+    // 5.10.11
+    case HealthType.BONE: {
+      return player.GetBoneHearts();
+    }
+
+    // 5.10.12
+    case HealthType.ROTTEN: {
+      return player.GetRottenHearts();
+    }
+
+    case HealthType.BROKEN: {
+      return player.GetBrokenHearts();
+    }
+
+    case HealthType.MAX_HEARTS: {
+      return player.GetMaxHearts();
+    }
+
+    default: {
+      return ensureAllCases(healthType);
+    }
+  }
 }
 
 /**

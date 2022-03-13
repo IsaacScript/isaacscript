@@ -11,7 +11,8 @@ import {
 } from "../../functions/log";
 import { getMapPartialMatch } from "../../functions/map";
 import { getNPCs } from "../../functions/npc";
-import { getPlayers } from "../../functions/player";
+import { getPlayers, useActiveItemTemp } from "../../functions/player";
+import { addPlayerHealthType } from "../../functions/playerHealth";
 import {
   changeRoom,
   getRoomData,
@@ -24,6 +25,7 @@ import { directionToVector } from "../../functions/vector";
 import { CARD_MAP } from "../../maps/cardMap";
 import { CHARACTER_MAP } from "../../maps/characterMap";
 import { PILL_EFFECT_MAP } from "../../maps/pillEffectMap";
+import { HealthType } from "../../types/HealthType";
 import v from "./v";
 
 const DEFAULT_MOVE_UNITS = 0.5;
@@ -44,12 +46,48 @@ export function ascent(): void {
   printConsole("Set Ascent flags.");
 }
 
+/** Alias for the "blackhearts" command. */
+export function bh(params: string): void {
+  blackHearts(params);
+}
+
+/**
+ * Gives a half black heart. Provide a number to give a custom amount of hearts. (You can use
+ * negative numbers to remove hearts.)
+ */
+export function blackHearts(params: string): void {
+  addHeart(params, HealthType.BLACK);
+}
+
 /** Warps to the Black Market for the floor. */
 export function blackMarket(): void {
   changeRoom(GridRooms.ROOM_BLACK_MARKET_IDX);
 }
 
-/** Gives a bomb. Provide a number to give a custom amount of bombs. */
+/**
+ * Gives a blood charge. This only affects Bethany. Provide a number to give a custom amount of
+ * charges. (You can use negative numbers to remove charges.)
+ */
+export function bloodCharges(params: string): void {
+  let charges = 1;
+  if (params !== "") {
+    const num = tonumber(params);
+    if (num === undefined) {
+      printConsole("That is an invalid amount of charges to add.");
+      return;
+    }
+
+    charges = num;
+  }
+
+  const player = Isaac.GetPlayer();
+  player.AddBloodCharge(charges);
+}
+
+/**
+ * Gives a bomb. Provide a number to give a custom amount of bombs. (You can use negative numbers to
+ * remove bombs.)
+ */
 export function bomb(params: string): void {
   let numBombs = 1;
   if (params !== "") {
@@ -66,10 +104,32 @@ export function bomb(params: string): void {
   player.AddBombs(numBombs);
 }
 
-/** Gives 99 bombs. */
-export function bombs(): void {
+/**
+ * Gives 99 bombs. Provide a number to give a custom amount of bombs. (You can use negative numbers
+ * to remove bombs.)
+ */
+export function bombs(params: string): void {
+  let numBombs = 99;
+  if (params !== "") {
+    const num = tonumber(params);
+    if (num === undefined) {
+      printConsole("That is an invalid amount of bombs to add.");
+      return;
+    }
+
+    numBombs = num;
+  }
+
   const player = Isaac.GetPlayer();
-  player.AddBombs(99);
+  player.AddBombs(numBombs);
+}
+
+/**
+ * Gives a bone heart. Provide a number to give a custom amount of hearts. (You can use negative
+ * numbers to remove hearts.)
+ */
+export function boneHearts(params: string): void {
+  addHeart(params, HealthType.BONE);
 }
 
 /** Warps to the first Boss Room on the floor. */
@@ -80,6 +140,14 @@ export function boss(): void {
 /** Alias for the "blackmarket" command. */
 export function bm(): void {
   blackMarket();
+}
+
+/**
+ * Gives a broken heart. Provide a number to give a custom amount of hearts. (You can use negative
+ * numbers to remove hearts.)
+ */
+export function brokenHearts(params: string): void {
+  addHeart(params, HealthType.BROKEN);
 }
 
 /**
@@ -189,7 +257,10 @@ export function characterCommand(params: string): void {
   printConsole(`Restarting as character: ${match}`);
 }
 
-/** Gives a coin. Provide a number to give a custom amount of coins. */
+/**
+ * Gives a coin. Provide a number to give a custom amount of coins. (You can use negative numbers to
+ * remove coins.)
+ */
 export function coin(params: string): void {
   let numCoins = 1;
   if (params !== "") {
@@ -206,15 +277,41 @@ export function coin(params: string): void {
   player.AddCoins(numCoins);
 }
 
-/** Gives 999 coins. */
-export function coins(): void {
+/**
+ * Gives 999 coins. Provide a number to give a custom amount of coins. (You can use negative numbers
+ * to remove coins.)
+ */
+export function coins(params: string): void {
+  let numCoins = 999;
+  if (params !== "") {
+    const num = tonumber(params);
+    if (num === undefined) {
+      printConsole("That is an invalid amount of coins to add.");
+      return;
+    }
+
+    numCoins = num;
+  }
+
   const player = Isaac.GetPlayer();
-  player.AddCoins(999);
+  player.AddCoins(numCoins);
 }
 
 /** Creates a crawlspace next to the player. */
 export function crawlspace(): void {
   spawnTrapdoorOrCrawlspace(false);
+}
+
+/** Uses the D6. */
+export function d6(): void {
+  const player = Isaac.GetPlayer();
+  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_D6);
+}
+
+/** Uses the D20. */
+export function d20(): void {
+  const player = Isaac.GetPlayer();
+  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_D20);
 }
 
 /** Toggles extremely high-damage tears. */
@@ -248,9 +345,22 @@ export function effects(): void {
   printConsole('Logged the player\'s effects to the "log.txt" file.');
 }
 
+/** Alias for the "eternalhearts" command. */
+export function eh(params: string): void {
+  eternalHearts(params);
+}
+
 /** Alias for the "iamerror" command. */
 export function error(): void {
   IAMERROR();
+}
+
+/**
+ * Gives an eternal heart. Provide a number to give a custom amount of hearts. (You can use negative
+ * numbers to remove hearts.)
+ */
+export function eternalHearts(params: string): void {
+  addHeart(params, HealthType.ETERNAL);
 }
 
 /** Alias for the "startingroom" command. */
@@ -280,12 +390,28 @@ export function goldenKey(): void {
   player.AddGoldenKey();
 }
 
+/** Alias for the "hearts" command. */
+export function h(params: string): void {
+  hearts(params);
+}
+
+/**
+ * Gives a half red heart. Provide a number to give a custom amount of hearts. (You can use
+ * negative numbers to remove hearts.)
+ */
+export function hearts(params: string): void {
+  addHeart(params, HealthType.RED);
+}
+
 /** Warps to the I AM ERROR room for the floor. */
 export function IAMERROR(): void {
   changeRoom(GridRooms.ROOM_ERROR_IDX);
 }
 
-/** Gives a key. Provide a number to give a custom amount of key. */
+/**
+ * Gives a key. Provide a number to give a custom amount of key. (You can use negative numbers to
+ * remove keys.)
+ */
 export function key(params: string): void {
   let numKeys = 1;
   if (params !== "") {
@@ -302,10 +428,24 @@ export function key(params: string): void {
   player.AddKeys(numKeys);
 }
 
-/** Gives 99 keys. */
-export function keys(): void {
+/**
+ * Gives 99 keys. Provide a number to give a custom amount of coins. (You can use negative numbers
+ * to remove keys.)
+ */
+export function keys(params: string): void {
+  let numKeys = 99;
+  if (params !== "") {
+    const num = tonumber(params);
+    if (num === undefined) {
+      printConsole("That is an invalid amount of keys to add.");
+      return;
+    }
+
+    numKeys = num;
+  }
+
   const player = Isaac.GetPlayer();
-  player.AddKeys(99);
+  player.AddKeys(numKeys);
 }
 
 /**
@@ -358,6 +498,19 @@ export function lowHP(): void {
 /** Alias for "debug 9". */
 export function luck(): void {
   Isaac.ExecuteCommand("debug 9");
+}
+
+/**
+ * Gives a heart container. Provide a number to give a custom amount of heart containers. (You can
+ * use negative numbers to remove heart containers.)
+ */
+export function maxHearts(params: string): void {
+  addHeart(params, HealthType.MAX_HEARTS);
+}
+
+/** Alias for the "maxhearts" command. */
+export function mh(params: string): void {
+  maxHearts(params);
 }
 
 /**
@@ -462,9 +615,27 @@ export function positionCommand(): void {
   }
 }
 
+/** Alias for the "hearts" command. */
+export function redHearts(params: string): void {
+  hearts(params);
+}
+
+/** Alias for the "redhearts" command. */
+export function rh(params: string): void {
+  redHearts(params);
+}
+
 /** Logs information about the room to the "log.txt" file. */
 export function roomCommand(): void {
   logRoom();
+}
+
+/**
+ * Gives a rotten heart. Provide a number to give a custom amount of hearts. (You can use negative
+ * numbers to remove hearts.)
+ */
+export function rottenHearts(params: string): void {
+  addHeart(params, HealthType.ROTTEN);
 }
 
 /**
@@ -522,9 +693,48 @@ export function seeds(): void {
   printConsole('Logged the seed effects to the "log.txt" file.');
 }
 
+/** Alias for the "soulhearts" command. */
+export function sh(params: string): void {
+  soulHearts(params);
+}
+
 /** Warps to the first shop on the floor. */
 export function shop(): void {
   warpToRoomType(RoomType.ROOM_SHOP, "shop");
+}
+
+/** Uses the Smelter to smelt the current player's trinket. */
+export function smelt(): void {
+  const player = Isaac.GetPlayer();
+  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_SMELTER);
+}
+
+/**
+ * Gives a soul charge. This only affects Tainted Bethany. Provide a number to give a custom amount
+ * of charges. (You can use negative numbers to remove charges.)
+ */
+export function soulCharges(params: string): void {
+  let charges = 1;
+  if (params !== "") {
+    const num = tonumber(params);
+    if (num === undefined) {
+      printConsole("That is an invalid amount of charges to add.");
+      return;
+    }
+
+    charges = num;
+  }
+
+  const player = Isaac.GetPlayer();
+  player.AddSoulCharge(charges);
+}
+
+/**
+ * Gives a half soul heart. Provide a number to give a custom amount of hearts. (You can use
+ * negative numbers to remove hearts.)
+ */
+export function soulHearts(params: string): void {
+  addHeart(params, HealthType.SOUL);
 }
 
 /**
@@ -569,8 +779,8 @@ export function speed(): void {
     v.run.maxSpeed &&
     !player.HasCollectible(CollectibleType.COLLECTIBLE_FATE)
   ) {
-    const eternalHearts = player.GetEternalHearts();
-    if (eternalHearts === 0) {
+    const numEternalHearts = player.GetEternalHearts();
+    if (numEternalHearts === 0) {
       player.AddCollectible(CollectibleType.COLLECTIBLE_FATE);
       player.AddEternalHearts(-1);
     } else {
@@ -610,6 +820,22 @@ export function ultra(): void {
 // -----------
 // Subroutines
 // -----------
+
+function addHeart(params: string, healthType: HealthType) {
+  let numHearts = healthType === HealthType.MAX_HEARTS ? 2 : 1;
+  if (params !== "") {
+    const num = tonumber(params);
+    if (num === undefined) {
+      printConsole("That is an invalid amount of hearts to add.");
+      return;
+    }
+
+    numHearts = num;
+  }
+
+  const player = Isaac.GetPlayer();
+  addPlayerHealthType(player, healthType, numHearts);
+}
 
 function devilAngel(useDevil: boolean) {
   const level = game.GetLevel();
