@@ -168,6 +168,12 @@ export const MAX_NUM_FAMILIARS = 64;
 /** The game can only handle up to four different players. */
 export const MAX_NUM_INPUTS = 4;
 
+/**
+ * The maximum speed stat that a player can have. Any additional speed beyond this will not take
+ * effect.
+ */
+export const MAX_SPEED_STAT = 2.0;
+
 /** With Birthright, it is possible for Magdalene to have 18 heart containers. */
 export const MAX_PLAYER_HEART_CONTAINERS = 18;
 

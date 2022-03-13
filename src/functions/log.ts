@@ -1,12 +1,27 @@
-import { game } from "../cachedClasses";
+import { game, sfxManager } from "../cachedClasses";
 import { arrayToString } from "./array";
 import { getCollectibleName } from "./collectibles";
+import { getEntities, getEntityID } from "./entity";
 import { hasFlag } from "./flag";
+import { getGridEntities } from "./gridEntity";
+import { range } from "./math";
 import { getEffectsList, getPlayerName } from "./player";
 import { getPlayerHealth } from "./playerHealth";
 import { getRoomData, getRoomGridIndex, getRoomListIndex } from "./rooms";
 import { getSortedSetValues } from "./set";
 import { getTrinketName } from "./trinkets";
+
+const IGNORE_EFFECT_VARIANTS: ReadonlySet<EffectVariant> = new Set([
+  EffectVariant.BLOOD_EXPLOSION, // 2
+  EffectVariant.BLOOD_PARTICLE, // 5
+  EffectVariant.TINY_BUG, // 21
+  EffectVariant.TINY_FLY, // 33
+  EffectVariant.WATER_DROPLET, // 41
+  EffectVariant.WALL_BUG, // 68
+  EffectVariant.FALLING_EMBER, // 87
+  EffectVariant.LIGHT, // 121
+  EffectVariant.TADPOLE, // 158
+]);
 
 /**
  * Helper function to prefix the name of the function and the line number before a debug message.
@@ -157,6 +172,192 @@ export function logEntity(this: void, entity: Entity): void {
   log(`Entity: ${entity.Type}.${entity.Variant}.${entity.SubType}`);
 }
 
+export function logEntities(
+  this: void,
+  includeBackgroundEffects: boolean,
+  entityTypeFilter?: EntityType | int,
+): void {
+  let headerMsg = "Entities in the room";
+  if (entityTypeFilter !== undefined) {
+    headerMsg += ` (filtered to entity type ${entityTypeFilter})`;
+  }
+  if (!includeBackgroundEffects) {
+    headerMsg += " (not excluding background effects)";
+  }
+  headerMsg += ":";
+  log(headerMsg);
+
+  const entities = getEntities();
+  let numMatchedEntities = 0;
+  entities.forEach((entity, i) => {
+    // If a filter was specified, exclude all entities outside of the filter
+    if (entityTypeFilter !== undefined && entity.Type !== entityTypeFilter) {
+      return;
+    }
+
+    if (
+      !includeBackgroundEffects &&
+      entity.Type === EntityType.ENTITY_EFFECT &&
+      IGNORE_EFFECT_VARIANTS.has(entity.Variant)
+    ) {
+      return;
+    }
+
+    const entityID = getEntityID(entity);
+    let debugString = `${i + 1} - ${entityID}`;
+
+    const bomb = entity.ToBomb();
+    if (bomb !== undefined) {
+      debugString += " (bomb)";
+    }
+
+    const effect = entity.ToEffect();
+    if (effect !== undefined) {
+      debugString += `.${effect.State} (effect)`;
+    }
+
+    const familiar = entity.ToFamiliar();
+    if (familiar !== undefined) {
+      debugString += `.${familiar.State} (familiar)`;
+    }
+
+    const knife = entity.ToKnife();
+    if (knife !== undefined) {
+      debugString += " (knife)";
+    }
+
+    const laser = entity.ToLaser();
+    if (laser !== undefined) {
+      debugString += " (laser)";
+    }
+
+    const npc = entity.ToNPC();
+    if (npc !== undefined) {
+      debugString += `.${npc.State} (NPC) (CanShutDoors: ${npc.CanShutDoors})`;
+    }
+
+    const pickup = entity.ToPickup();
+    if (pickup !== undefined) {
+      debugString += `.${pickup.State} (pickup)`;
+    }
+
+    const player = entity.ToPlayer();
+    if (player !== undefined) {
+      debugString += " (player)";
+    }
+
+    const projectile = entity.ToProjectile();
+    if (projectile !== undefined) {
+      debugString += " (projectile)";
+    }
+
+    const tear = entity.ToTear();
+    if (tear !== undefined) {
+      debugString += " (tear)";
+    }
+
+    debugString += ` (InitSeed: ${entity.InitSeed})`;
+    debugString += ` (DropSeed: ${entity.DropSeed})`;
+    debugString += ` (Position: ${entity.Position.X}, ${entity.Position.Y})`;
+    debugString += ` (Velocity: ${entity.Velocity.X}, ${entity.Velocity.Y})`;
+    log(debugString);
+
+    numMatchedEntities += 1;
+  });
+
+  if (numMatchedEntities === 0) {
+    log("(no entities matched)");
+  }
+}
+
+export function logGridEntities(
+  this: void,
+  includeWalls: boolean,
+  gridEntityTypeFilter?: GridEntityType | int,
+): void {
+  let headerMsg = "Grid entities in the room";
+  if (gridEntityTypeFilter !== undefined) {
+    headerMsg += ` (filtered to grid entity type ${gridEntityTypeFilter})`;
+  }
+  if (!includeWalls) {
+    headerMsg += " (not including walls)";
+  }
+  log(headerMsg);
+
+  const gridEntities = getGridEntities();
+  let numMatchedEntities = 0;
+  gridEntities.forEach((gridEntity) => {
+    const gridEntityIndex = gridEntity.GetGridIndex();
+    const gridEntityType = gridEntity.GetType();
+    const gridEntityVariant = gridEntity.GetVariant();
+    const gridEntityDesc = gridEntity.GetSaveState();
+
+    // If a filter was specified, exclude all entities outside of the filter
+    if (
+      gridEntityTypeFilter !== undefined &&
+      gridEntityType !== gridEntityTypeFilter
+    ) {
+      return;
+    }
+
+    if (
+      !includeWalls &&
+      gridEntityType === GridEntityType.GRID_WALL &&
+      gridEntityTypeFilter !== GridEntityType.GRID_WALL
+    ) {
+      return;
+    }
+
+    let debugString = `${gridEntityIndex} - ${gridEntityType}.${gridEntityVariant}.${gridEntity.State}`;
+
+    const door = gridEntity.ToDoor();
+    if (door !== undefined) {
+      debugString += ` (door) (Slot: ${door.Slot}, Direction: ${door.Direction}, TargetRoomIndex: ${door.TargetRoomIndex}, TargetRoomType: ${door.TargetRoomType})`;
+    }
+
+    const pit = gridEntity.ToPit();
+    if (pit !== undefined) {
+      debugString += " (pit)";
+    }
+
+    const poop = gridEntity.ToPoop();
+    if (poop !== undefined) {
+      debugString += " (poop)";
+    }
+
+    const pressurePlate = gridEntity.ToPressurePlate();
+    if (pressurePlate !== undefined) {
+      debugString += " (pressurePlate)";
+    }
+
+    const rock = gridEntity.ToRock();
+    if (rock !== undefined) {
+      debugString += " (rock)";
+    }
+
+    const spikes = gridEntity.ToSpikes();
+    if (spikes !== undefined) {
+      debugString += " (spikes)";
+    }
+
+    const tnt = gridEntity.ToTNT();
+    if (tnt !== undefined) {
+      debugString += " (TNT)";
+    }
+
+    debugString += ` (VarData: ${gridEntity.VarData})`;
+    debugString += ` (Position: ${gridEntity.Position.X}, ${gridEntity.Position.Y})`;
+    debugString += ` (SpawnSeed: ${gridEntityDesc.SpawnSeed}, VariableSeed: ${gridEntityDesc.VariableSeed})`;
+    log(debugString);
+
+    numMatchedEntities += 1;
+  });
+
+  if (numMatchedEntities === 0) {
+    log("(no grid entities matched)");
+  }
+}
+
 export function logKColor(this: void, kColor: KColor): void {
   log(
     `Color: R${kColor.Red}, G${kColor.Green}, B${kColor.Blue}, A${kColor.Alpha}`,
@@ -195,7 +396,7 @@ export function logPlayerHealth(this: void, player: EntityPlayer): void {
   log(`  Soul heart types: [${playerHealth.soulHeartTypes.join(",")}]`);
 }
 
-/** Helper function for printing out information about the current room. */
+/** Helper function for logging information about the current room. */
 export function logRoom(this: void): void {
   const roomGridIndex = getRoomGridIndex();
   const roomListIndex = getRoomListIndex();
@@ -210,6 +411,15 @@ export function logRoom(this: void): void {
   }
   log(`Current room grid index: ${roomGridIndex}`);
   log(`Current room list index: ${roomListIndex}`);
+}
+
+/** Helper function for logging every sound effect that is currently playing. */
+export function logSounds(this: void): void {
+  for (const soundEffect of range(0, SoundEffect.NUM_SOUND_EFFECTS - 1)) {
+    if (sfxManager.IsPlaying(soundEffect)) {
+      log(`Currently playing sound effect: ${soundEffect}`);
+    }
+  }
 }
 
 export function logTable(this: void, table: unknown, parentTables = 0): void {
@@ -294,11 +504,14 @@ export function setLogFunctionsGlobal(): void {
   globals.logArray = logArray;
   globals.logColor = logColor;
   globals.logEntity = logEntity;
+  globals.logEntities = logEntities;
+  globals.logGridEntities = logGridEntities;
   globals.logKColor = logKColor;
   globals.logMap = logMap;
-  // globals.logRoom = logRoom;
+  globals.logRoom = logRoom;
   globals.logTable = logTable;
   globals.logTemporaryEffects = logTemporaryEffects;
   globals.logSet = logSet;
+  globals.logSounds = logSounds;
   globals.logVector = logVector;
 }

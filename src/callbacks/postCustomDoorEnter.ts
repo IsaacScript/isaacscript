@@ -1,4 +1,9 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
+import { getDoors } from "../functions/doors";
+import {
+  postCustomDoorEnterFire,
+  postCustomDoorEnterHasSubscriptions,
+} from "./subscriptions/postCustomDoorEnter";
 
 const v = {
   run: {
@@ -8,12 +13,29 @@ const v = {
 
 /** @internal */
 export function postCustomDoorEnterCallbackInit(mod: Mod): void {
-  saveDataManager("disableSounds", v);
+  saveDataManager("postCustomDoorEnter", v, hasSubscriptions);
 
   mod.AddCallback(ModCallbacks.MC_POST_RENDER, postRender);
 }
 
-function postRender() {}
+function hasSubscriptions() {
+  return postCustomDoorEnterHasSubscriptions();
+}
+
+// ModCallbacks.MC_POST_RENDER (2)
+function postRender() {
+  if (!hasSubscriptions()) {
+    return;
+  }
+
+  const doors = getDoors();
+  if (doors.length === 0) {
+    return;
+  }
+
+  const door = doors[0];
+  postCustomDoorEnterFire(door);
+}
 
 /**
  * Helper function to spawn a custom muting all sound effects and music.

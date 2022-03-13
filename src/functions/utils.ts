@@ -1,5 +1,3 @@
-import { game } from "../cachedClasses";
-
 const HEX_STRING_LENGTH = 6;
 
 /**
@@ -121,19 +119,6 @@ export function isLuaDebugEnabled(): boolean {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   return package !== undefined;
-}
-
-/**
- * Whether or not the player is playing on a set seed (i.e. that they entered in a specific seed by
- * pressing tab on the character selection screen). When the player resets the game on a set seed,
- * the game will not switch to a different seed.
- */
-export function onSetSeed(): boolean {
-  const seeds = game.GetSeeds();
-  const customRun = seeds.IsCustomRun();
-  const challenge = Isaac.GetChallenge();
-
-  return challenge === Challenge.CHALLENGE_NULL && customRun;
 }
 
 /**

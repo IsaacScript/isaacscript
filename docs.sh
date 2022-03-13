@@ -18,6 +18,8 @@ npx typedoc \
   --entryPoints "$DIR/src/features/deployJSONRoom.ts" \
   --entryPoints "$DIR/src/features/disableInputs.ts" \
   --entryPoints "$DIR/src/features/disableSound.ts" \
+  --entryPoints "$DIR/src/features/extraConsoleCommands/init.ts" \
+  --entryPoints "$DIR/src/features/extraConsoleCommands/commands.ts" \
   --entryPoints "$DIR/src/features/forgottenSwitch.ts" \
   --entryPoints "$DIR/src/features/getCollectibleItemPoolType.ts" \
   --entryPoints "$DIR/src/features/isPonyActive.ts" \
@@ -60,6 +62,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/random.ts" \
   --entryPoints "$DIR/src/functions/revive.ts" \
   --entryPoints "$DIR/src/functions/rooms.ts" \
+  --entryPoints "$DIR/src/functions/run.ts" \
   --entryPoints "$DIR/src/functions/seeds.ts" \
   --entryPoints "$DIR/src/functions/set.ts" \
   --entryPoints "$DIR/src/functions/sound.ts" \
@@ -78,13 +81,16 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/utils.ts" \
   --entryPoints "$DIR/src/functions/vector.ts" \
   --entryPoints "$DIR/src/maps/cardDescriptionMap.ts" \
+  --entryPoints "$DIR/src/maps/cardMap.ts" \
   --entryPoints "$DIR/src/maps/cardNameMap.ts" \
   --entryPoints "$DIR/src/maps/challengeNameMap.ts" \
+  --entryPoints "$DIR/src/maps/characterMap.ts" \
   --entryPoints "$DIR/src/maps/collectibleDescriptionMap.ts" \
   --entryPoints "$DIR/src/maps/collectibleNameMap.ts" \
   --entryPoints "$DIR/src/maps/gridEntityTypeToBrokenStateMap.ts" \
   --entryPoints "$DIR/src/maps/gridEntityXMLMap.ts" \
   --entryPoints "$DIR/src/maps/pillEffectClassMap.ts" \
+  --entryPoints "$DIR/src/maps/pillEffectMap.ts" \
   --entryPoints "$DIR/src/maps/pillEffectNameMap.ts" \
   --entryPoints "$DIR/src/maps/pillEffectTypeMap.ts" \
   --entryPoints "$DIR/src/maps/roomShapeToTopLeftWallGridIndexMap.ts" \

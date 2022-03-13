@@ -19,6 +19,11 @@ export {
   enableAllInputsExceptFor,
 } from "./features/disableInputs";
 export { disableAllSound, enableAllSound } from "./features/disableSound";
+export {
+  addConsoleCommand,
+  enableExtraConsoleCommands,
+  removeConsoleCommand,
+} from "./features/extraConsoleCommands/init";
 export { forgottenSwitch } from "./features/forgottenSwitch";
 export { getCollectibleItemPoolType } from "./features/getCollectibleItemPoolType";
 export * from "./features/isPonyActive";
@@ -72,6 +77,7 @@ export * from "./functions/positionVelocity";
 export * from "./functions/random";
 export * from "./functions/revive";
 export * from "./functions/rooms";
+export * from "./functions/run";
 export * from "./functions/seeds";
 export * from "./functions/set";
 export * from "./functions/sound";
@@ -90,13 +96,16 @@ export * from "./functions/ui";
 export * from "./functions/utils";
 export * from "./functions/vector";
 export * from "./maps/cardDescriptionMap";
+export * from "./maps/cardMap";
 export * from "./maps/cardNameMap";
 export * from "./maps/challengeNameMap";
+export * from "./maps/characterMap";
 export * from "./maps/collectibleDescriptionMap";
 export * from "./maps/collectibleNameMap";
 export * from "./maps/gridEntityTypeToBrokenStateMap";
 export * from "./maps/gridEntityXMLMap";
 export * from "./maps/pillEffectClassMap";
+export * from "./maps/pillEffectMap";
 export * from "./maps/pillEffectNameMap";
 export * from "./maps/pillEffectTypeMap";
 export * from "./maps/roomShapeToTopLeftWallGridIndexMap";

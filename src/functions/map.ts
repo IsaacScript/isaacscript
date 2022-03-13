@@ -33,6 +33,44 @@ export function defaultMapGetNextSeed<K, A extends unknown[]>(
 }
 
 /**
+ * Helper function to get the closest value from a map based on partial search text. For the
+ * purposes of this function, both search text and map keys are converted to lowercase before
+ * attempting to find a match.
+ *
+ * Example:
+ * ```ts
+ * const map = new <string, number>Map([
+ *   ["foo", 123],
+ *   ["bar", 456],
+ * ]);
+ * const searchText = "f";
+ * const match = getMapPartialMatch(map, searchText); // match is now equal to 123
+ * ```
+ */
+export function getMapPartialMatch<T>(
+  searchText: string,
+  map: ReadonlyMap<string, T>,
+): T | undefined {
+  const keys = [...map.keys()];
+  keys.sort();
+
+  searchText = searchText.toLowerCase();
+  searchText = searchText.replaceAll(" ", "");
+
+  const matchingKeys = keys.filter((key) =>
+    key.toLowerCase().startsWith(searchText),
+  );
+  matchingKeys.sort();
+
+  const matchingKey = matchingKeys[0];
+  if (matchingKey === undefined) {
+    return undefined;
+  }
+
+  return map.get(matchingKey);
+}
+
+/**
  * Helper function to make using maps with `Seed` values easier. Use this instead of manually
  * getting the current value, incrementing it, and then setting it.
  */
