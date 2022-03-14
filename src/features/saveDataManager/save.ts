@@ -2,6 +2,7 @@ import { deepCopy, SerializationType } from "../../functions/deepCopy";
 import { jsonEncode } from "../../functions/jsonHelpers";
 import { log } from "../../functions/log";
 import { SaveData, SaveDataWithoutRoom } from "../../types/private/SaveData";
+import { SAVE_DATA_MANAGER_FEATURE_NAME } from "./constants";
 
 export function saveToDisk(
   mod: Mod,
@@ -14,7 +15,9 @@ export function saveToDisk(
   );
   const jsonString = jsonEncode(allSaveData);
   mod.SaveData(jsonString); // Write it to the "save#.dat" file
-  log('The save data manager wrote data to the "save#.dat" file.');
+  log(
+    `The ${SAVE_DATA_MANAGER_FEATURE_NAME} wrote data to the "save#.dat" file.`,
+  );
 }
 
 function getAllSaveDataToWriteToDisk(

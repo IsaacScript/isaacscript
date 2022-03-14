@@ -4,6 +4,7 @@ import { clearTable } from "../../functions/table";
 import { ModCallbacksCustom } from "../../types/ModCallbacksCustom";
 import { ModUpgraded } from "../../types/ModUpgraded";
 import { SaveDataKeys } from "../../types/private/SaveData";
+import { SAVE_DATA_MANAGER_FEATURE_NAME } from "./constants";
 import { loadFromDisk } from "./load";
 import {
   saveDataConditionalFuncMap,
@@ -11,9 +12,6 @@ import {
   saveDataMap,
 } from "./maps";
 import { saveToDisk } from "./save";
-
-/** @internal */
-export const FEATURE_NAME = "save data manager";
 
 let mod: ModUpgraded | null = null;
 let loadedDataOnThisRun = false;
@@ -34,7 +32,9 @@ export function saveDataManagerInit(incomingMod: ModUpgraded): void {
 // ModCallbacks.MC_POST_PLAYER_INIT (9)
 function postPlayerInit() {
   if (mod === null) {
-    error(`The mod for the ${FEATURE_NAME} was not initialized.`);
+    error(
+      `The mod for the ${SAVE_DATA_MANAGER_FEATURE_NAME} was not initialized.`,
+    );
   }
 
   if (loadedDataOnThisRun) {
@@ -59,7 +59,9 @@ function postPlayerInit() {
 // ModCallbacks.MC_PRE_GAME_EXIT (17)
 function preGameExit() {
   if (mod === null) {
-    error(`The mod for the ${FEATURE_NAME} was not initialized.`);
+    error(
+      `The mod for the ${SAVE_DATA_MANAGER_FEATURE_NAME} was not initialized.`,
+    );
   }
 
   // We unconditionally save variables to disk

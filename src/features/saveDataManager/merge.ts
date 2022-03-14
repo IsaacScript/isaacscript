@@ -12,7 +12,7 @@ import {
   isSerializationBrand,
   SerializationBrand,
 } from "../../types/private/SerializationBrand";
-import { SAVE_DATA_MANAGER_DEBUG } from "./debug";
+import { SAVE_DATA_MANAGER_DEBUG } from "./constants";
 
 /**
  * merge takes the values from a new table and recursively merges them into an old object

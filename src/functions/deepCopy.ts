@@ -1,4 +1,4 @@
-import { SAVE_DATA_MANAGER_DEBUG } from "../features/saveDataManager/debug";
+import { SAVE_DATA_MANAGER_DEBUG } from "../features/saveDataManager/constants";
 import { DefaultMap } from "../types/DefaultMap";
 import {
   isSerializationBrand,

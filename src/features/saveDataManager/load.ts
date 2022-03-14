@@ -1,7 +1,10 @@
 import { jsonDecode } from "../../functions/jsonHelpers";
 import { log } from "../../functions/log";
 import { SaveData } from "../../types/private/SaveData";
-import { SAVE_DATA_MANAGER_DEBUG } from "./debug";
+import {
+  SAVE_DATA_MANAGER_DEBUG,
+  SAVE_DATA_MANAGER_FEATURE_NAME,
+} from "./constants";
 import { merge } from "./merge";
 
 const DEFAULT_MOD_DATA = "{}";
@@ -57,7 +60,9 @@ export function loadFromDisk(
     merge(oldSaveDataForSubscriber as LuaTable, value as LuaTable, key);
   }
 
-  log('The save data manager loaded data from the "save#.dat" file.');
+  log(
+    `The ${SAVE_DATA_MANAGER_FEATURE_NAME} loaded data from the "save#.dat" file.`,
+  );
 }
 
 function readSaveDatFile(mod: Mod) {

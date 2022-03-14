@@ -1,11 +1,8 @@
 import { errorIfFeaturesNotInitialized } from "../../featuresInitialized";
 import { deepCopy, SerializationType } from "../../functions/deepCopy";
 import { SaveData } from "../../types/private/SaveData";
-import {
-  FEATURE_NAME,
-  forceSaveDataManagerLoad,
-  forceSaveDataManagerSave,
-} from "./main";
+import { SAVE_DATA_MANAGER_FEATURE_NAME } from "./constants";
+import { forceSaveDataManagerLoad, forceSaveDataManagerSave } from "./main";
 import {
   saveDataConditionalFuncMap,
   saveDataDefaultsMap,
@@ -91,18 +88,18 @@ export function saveDataManager(
   saveData: SaveData,
   conditionalFunc?: () => boolean,
 ): void {
-  errorIfFeaturesNotInitialized(FEATURE_NAME);
+  errorIfFeaturesNotInitialized(SAVE_DATA_MANAGER_FEATURE_NAME);
 
   const keyType = type(key);
   if (keyType !== "string") {
     error(
-      `The save data manager requires that keys are strings. You tried to use a key of type: ${keyType}`,
+      `The ${SAVE_DATA_MANAGER_FEATURE_NAME} requires that keys are strings. You tried to use a key of type: ${keyType}`,
     );
   }
 
   if (saveDataMap.has(key)) {
     error(
-      `The save data manager is already managing save data for a key of: ${key}`,
+      `The ${SAVE_DATA_MANAGER_FEATURE_NAME} is already managing save data for a key of: ${key}`,
     );
   }
 
@@ -139,7 +136,7 @@ export function saveDataManager(
  * of its variables to disk immediately.
  */
 export function saveDataManagerSave(): void {
-  errorIfFeaturesNotInitialized(FEATURE_NAME);
+  errorIfFeaturesNotInitialized(SAVE_DATA_MANAGER_FEATURE_NAME);
   forceSaveDataManagerSave();
 }
 
@@ -151,7 +148,7 @@ export function saveDataManagerSave(): void {
  * Note that doing this will overwrite current data, which can potentially result in lost state.
  */
 export function saveDataManagerLoad(): void {
-  errorIfFeaturesNotInitialized(FEATURE_NAME);
+  errorIfFeaturesNotInitialized(SAVE_DATA_MANAGER_FEATURE_NAME);
   forceSaveDataManagerLoad();
 }
 
