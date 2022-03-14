@@ -1,11 +1,10 @@
 import { musicManager } from "../cachedClasses";
-import { getUpgradeErrorMsg } from "../errors";
+import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { stopAllSoundEffects } from "../functions/sound";
 import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "sound disabler";
 
-let initialized = false;
 let musicWasEnabled = false;
 
 const v = {
@@ -16,7 +15,6 @@ const v = {
 
 /** @internal */
 export function disableSoundsInit(mod: Mod): void {
-  initialized = true;
   saveDataManager("disableSounds", v);
 
   mod.AddCallback(ModCallbacks.MC_POST_RENDER, postRender);
@@ -40,10 +38,7 @@ function postRender() {
  * that multiple mod features can work in tandem.
  */
 export function enableAllSound(key: string): void {
-  if (!initialized) {
-    const msg = getUpgradeErrorMsg(FEATURE_NAME);
-    error(msg);
-  }
+  errorIfFeaturesNotInitialized(FEATURE_NAME);
 
   if (!v.run.disableSoundSet.has(key)) {
     return;
@@ -68,10 +63,7 @@ export function enableAllSound(key: string): void {
  * that multiple mod features can work in tandem.
  */
 export function disableAllSound(key: string): void {
-  if (!initialized) {
-    const msg = getUpgradeErrorMsg(FEATURE_NAME);
-    error(msg);
-  }
+  errorIfFeaturesNotInitialized(FEATURE_NAME);
 
   if (v.run.disableSoundSet.size === 0) {
     musicWasEnabled = musicManager.IsEnabled();

@@ -331,8 +331,8 @@ export function removeCollectibleFromItemTracker(
 ): void {
   const collectibleName = getCollectibleName(collectibleType);
 
-  // This cannot use the "log()" function since the prefix will prevent the Rebirth Item Tracker
-  // from recognizing the message
+  // This cannot use the "log" function since the prefix will prevent the Rebirth Item Tracker from
+  // recognizing the message
   Isaac.DebugString(
     `Removing collectible ${collectibleType} (${collectibleName}) on player 0 (Player)`,
   );
@@ -343,8 +343,8 @@ export function removeCollectibleFromItemTracker(
  * the build has been rerolled.
  */
 export function setCollectiblesRerolledForItemTracker(): void {
-  // This cannot use the "log()" function since the prefix will prevent the Rebirth Item Tracker
-  // from recognizing the message
+  // This cannot use the "log" function since the prefix will prevent the Rebirth Item Tracker from
+  // recognizing the message
   // The number here does not matter since the tracker does not check for a specific number
   Isaac.DebugString("Added 3 Collectibles");
 }

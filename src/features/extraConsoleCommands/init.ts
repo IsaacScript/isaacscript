@@ -7,6 +7,9 @@ import v from "./v";
 
 const commandFunctionsMap = new Map<string, (params: string) => void>();
 
+// Most features are turned on via invoking the "upgradeMod" function
+// However, this feature is turned on via invoking "enableExtraConsoleCommands",
+// so we need a separate variable to track whether it is initialized
 let initialized = false;
 
 /**
@@ -15,7 +18,7 @@ let initialized = false;
  */
 export function enableExtraConsoleCommands(mod: Mod): void {
   initialized = true;
-  saveDataManager("extraConsoleCommands", v);
+  saveDataManager("extraConsoleCommands", v, featureInitialized);
 
   mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate); // 1
   mod.AddCallback(
@@ -36,6 +39,10 @@ export function enableExtraConsoleCommands(mod: Mod): void {
   mod.AddCallback(ModCallbacks.MC_POST_CURSE_EVAL, postCurseEval); // 12
   mod.AddCallback(ModCallbacks.MC_EXECUTE_CMD, executeCmd); // 22
   mod.AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, postFireTear); // 61
+}
+
+function featureInitialized() {
+  return initialized;
 }
 
 // ModCallbacks.MC_POST_UPDATE (1)

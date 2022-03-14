@@ -1,11 +1,9 @@
-import { getUpgradeErrorMsg } from "../errors";
+import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { getMoveActions, getShootActions } from "../functions/input";
 import { ModUpgraded } from "../types/ModUpgraded";
 import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "input disabler";
-
-let initialized = false;
 
 const v = {
   run: {
@@ -25,7 +23,6 @@ const v = {
 
 /** @internal */
 export function disableInputsInit(mod: ModUpgraded): void {
-  initialized = true;
   saveDataManager("disableInputs", v);
 
   mod.AddCallback(
@@ -100,10 +97,7 @@ function getReturnValue(buttonAction: ButtonAction, booleanCallback: boolean) {
  * that multiple mod features can work in tandem.
  */
 export function enableAllInputs(key: string): void {
-  if (!initialized) {
-    const msg = getUpgradeErrorMsg(FEATURE_NAME);
-    error(msg);
-  }
+  errorIfFeaturesNotInitialized(FEATURE_NAME);
 
   v.run.disableInputsWithWhitelistMap.delete(key);
   v.run.enableInputsWithBlacklistMap.delete(key);
@@ -119,10 +113,7 @@ export function enableAllInputs(key: string): void {
  * that multiple mod features can work in tandem.
  */
 export function disableAllInputs(key: string): void {
-  if (!initialized) {
-    const msg = getUpgradeErrorMsg(FEATURE_NAME);
-    error(msg);
-  }
+  errorIfFeaturesNotInitialized(FEATURE_NAME);
 
   v.run.disableInputsWithWhitelistMap.set(key, new Set());
   v.run.enableInputsWithBlacklistMap.delete(key);
@@ -142,10 +133,7 @@ export function enableAllInputsExceptFor(
   key: string,
   blacklist: Set<ButtonAction> | ReadonlySet<ButtonAction>,
 ): void {
-  if (!initialized) {
-    const msg = getUpgradeErrorMsg(FEATURE_NAME);
-    error(msg);
-  }
+  errorIfFeaturesNotInitialized(FEATURE_NAME);
 
   v.run.disableInputsWithWhitelistMap.delete(key);
   v.run.enableInputsWithBlacklistMap.set(key, blacklist);
@@ -165,10 +153,7 @@ export function disableAllInputsExceptFor(
   key: string,
   whitelist: Set<ButtonAction>,
 ): void {
-  if (!initialized) {
-    const msg = getUpgradeErrorMsg(FEATURE_NAME);
-    error(msg);
-  }
+  errorIfFeaturesNotInitialized(FEATURE_NAME);
 
   v.run.disableInputsWithWhitelistMap.set(key, whitelist);
   v.run.enableInputsWithBlacklistMap.delete(key);

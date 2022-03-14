@@ -6,7 +6,7 @@
 // Thus, we can work around the problem by checking to see if the player has these entity flags and
 // has had a collectible effect on a previous frame
 
-import { getUpgradeErrorMsg } from "../errors";
+import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { hasFlag } from "../functions/flag";
 import {
   setAddPlayer,
@@ -24,8 +24,6 @@ const FLAGS_WHEN_PONY_IS_ACTIVE: readonly EntityFlag[] = [
   EntityFlag.FLAG_NO_DAMAGE_BLINK, // 1 << 36
 ];
 
-let initialized = false;
-
 const v = {
   run: {
     playersIsPonyActive: new Set<PlayerIndex>(),
@@ -34,7 +32,6 @@ const v = {
 
 /** @internal */
 export function isPonyActiveInit(mod: Mod): void {
-  initialized = true;
   saveDataManager("isPonyActive", v);
 
   mod.AddCallback(
@@ -70,10 +67,6 @@ function postPEffectUpdate(player: EntityPlayer) {
  * Forgotten. This takes 1 game frame to take effect.
  */
 export function isPonyActive(player: EntityPlayer): boolean {
-  if (!initialized) {
-    const msg = getUpgradeErrorMsg(FEATURE_NAME);
-    error(msg);
-  }
-
+  errorIfFeaturesNotInitialized(FEATURE_NAME);
   return setHasPlayer(v.run.playersIsPonyActive, player);
 }

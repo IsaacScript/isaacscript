@@ -1,10 +1,8 @@
 import { game } from "../cachedClasses";
-import { getUpgradeErrorMsg } from "../errors";
+import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "run in N frames";
-
-let initialized = false;
 
 /** The frame count to fire, paired with the corresponding function. */
 type FunctionTuple = [int, () => void];
@@ -19,7 +17,6 @@ const v = {
 
 /** @internal */
 export function runInNFramesInit(mod: Mod): void {
-  initialized = true;
   saveDataManager("runInNFrames", v);
 
   mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate); // 1
@@ -77,10 +74,7 @@ function checkExecuteQueuedFunctions(
  * functions manually using serializable data.
  */
 export function runInNGameFrames(func: () => void, frames: int): void {
-  if (!initialized) {
-    const msg = getUpgradeErrorMsg(FEATURE_NAME);
-    error(msg);
-  }
+  errorIfFeaturesNotInitialized(FEATURE_NAME);
 
   const gameFrameCount = game.GetFrameCount();
   const functionFireFrame = gameFrameCount + frames;
@@ -99,10 +93,7 @@ export function runInNGameFrames(func: () => void, frames: int): void {
  * functions manually using serializable data.
  */
 export function runInNRenderFrames(func: () => void, frames: int): void {
-  if (!initialized) {
-    const msg = getUpgradeErrorMsg(FEATURE_NAME);
-    error(msg);
-  }
+  errorIfFeaturesNotInitialized(FEATURE_NAME);
 
   const isaacFrameCount = Isaac.GetFrameCount();
   const functionFireFrame = isaacFrameCount + frames;
@@ -138,11 +129,7 @@ export function runInNRenderFrames(func: () => void, frames: int): void {
  * functions manually using serializable data.
  */
 export function runNextGameFrame(func: () => void): void {
-  if (!initialized) {
-    const msg = getUpgradeErrorMsg(FEATURE_NAME);
-    error(msg);
-  }
-
+  errorIfFeaturesNotInitialized(FEATURE_NAME);
   runInNGameFrames(func, 1);
 }
 
@@ -155,10 +142,6 @@ export function runNextGameFrame(func: () => void): void {
  * Note that this function will not handle saving and quitting.
  */
 export function runNextRenderFrame(func: () => void): void {
-  if (!initialized) {
-    const msg = getUpgradeErrorMsg(FEATURE_NAME);
-    error(msg);
-  }
-
+  errorIfFeaturesNotInitialized(FEATURE_NAME);
   runInNRenderFrames(func, 1);
 }

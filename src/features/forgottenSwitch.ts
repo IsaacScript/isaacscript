@@ -1,10 +1,8 @@
-import { getUpgradeErrorMsg } from "../errors";
+import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { ModUpgraded } from "../types/ModUpgraded";
 import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "forgotten switcher";
-
-let initialized = false;
 
 const v = {
   run: {
@@ -14,7 +12,6 @@ const v = {
 
 /** @internal */
 export function forgottenSwitchInit(mod: ModUpgraded): void {
-  initialized = true;
   saveDataManager("forgottenSwitch", v);
 
   mod.AddCallback(
@@ -44,10 +41,6 @@ function isActionTriggered(
  * Forgotten. This takes 1 game frame to take effect.
  */
 export function forgottenSwitch(): void {
-  if (!initialized) {
-    const msg = getUpgradeErrorMsg(FEATURE_NAME);
-    error(msg);
-  }
-
+  errorIfFeaturesNotInitialized(FEATURE_NAME);
   v.run.shouldSwitch = true;
 }

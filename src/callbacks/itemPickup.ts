@@ -76,7 +76,7 @@ function queueEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
 function queueNotEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
   const queuedItem = player.QueuedItem.Item;
   if (queuedItem === undefined) {
-    // This should never happen, since "player.IsItemQueueEmpty()" returned true
+    // This should never happen, since the "EntityPlayer.IsItemQueueEmpty" method returned true
     return;
   }
 

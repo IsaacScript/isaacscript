@@ -1,14 +1,12 @@
 // Keep specific items from being affected by the Glitched Crown, Binge Eater,
 // and the Tainted Isaac switching mechanic
 
-import { getUpgradeErrorMsg } from "../errors";
+import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { setCollectibleSubType } from "../functions/collectibles";
 import { ModUpgraded } from "../types/ModUpgraded";
 import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "prevent collectible rotation";
-
-let initialized = false;
 
 const v = {
   room: {
@@ -19,7 +17,6 @@ const v = {
 
 /** @internal */
 export function preventCollectibleRotateInit(mod: ModUpgraded): void {
-  initialized = true;
   saveDataManager("preventCollectibleRotate", v);
 
   mod.AddCallback(
@@ -74,10 +71,7 @@ export function preventCollectibleRotate(
   collectible: EntityPickup,
   collectibleType: CollectibleType | int,
 ): void {
-  if (!initialized) {
-    const msg = getUpgradeErrorMsg(FEATURE_NAME);
-    error(msg);
-  }
+  errorIfFeaturesNotInitialized(FEATURE_NAME);
 
   if (collectible.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
     error(

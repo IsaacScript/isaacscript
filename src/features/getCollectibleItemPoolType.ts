@@ -3,15 +3,13 @@
 // and then assume that the next spawned collectible has this item pool type
 
 import { game } from "../cachedClasses";
-import { getUpgradeErrorMsg } from "../errors";
+import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { getEntityID } from "../functions/entity";
 import { getRoomItemPoolType } from "../functions/rooms";
 import { ModUpgraded } from "../types/ModUpgraded";
 import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "get collectible item pool type";
-
-let initialized = false;
 
 const v = {
   run: {
@@ -21,7 +19,6 @@ const v = {
 
 /** @internal */
 export function getCollectibleItemPoolTypeInit(mod: ModUpgraded): void {
-  initialized = true;
   saveDataManager("getCollectibleItemPoolType", v);
 
   mod.AddCallback(
@@ -49,10 +46,7 @@ function postPickupInitCollectible(pickup: EntityPickup) {
 export function getCollectibleItemPoolType(
   collectible: EntityPickup,
 ): ItemPoolType {
-  if (!initialized) {
-    const msg = getUpgradeErrorMsg(FEATURE_NAME);
-    error(msg);
-  }
+  errorIfFeaturesNotInitialized(FEATURE_NAME);
 
   if (
     collectible.Type !== EntityType.ENTITY_PICKUP ||
@@ -60,7 +54,7 @@ export function getCollectibleItemPoolType(
   ) {
     const entityID = getEntityID(collectible);
     error(
-      `The "getCollectibleItemPoolType()" function was given a non-collectible: ${entityID}`,
+      `The "getCollectibleItemPoolType" function was given a non-collectible: ${entityID}`,
     );
   }
 

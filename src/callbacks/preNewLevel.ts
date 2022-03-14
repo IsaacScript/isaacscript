@@ -43,7 +43,7 @@ function postPlayerRender(player: EntityPlayer) {
     return;
   }
 
-  // We can't use the "sprite.IsFinished()" method to detect when we are at the end of the animation
+  // We can't use the "Sprite.IsFinished" method to detect when we are at the end of the animation
   // because the player will stop rendering at that point
   // Thus, revert for checking for the final frame manually
   const frame = sprite.GetFrame();

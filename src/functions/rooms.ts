@@ -575,7 +575,7 @@ export function setRoomCleared(): void {
       continue;
     }
 
-    // We don't use the "door.Open()" method since that will cause the door to play an animation
+    // We don't use the "EntityDoor.Open" method since that will cause the door to play an animation
     openDoorFast(door);
 
     // If this is a mini-boss room, then the door would be barred in addition to being closed

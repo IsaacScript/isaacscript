@@ -1,10 +1,8 @@
-import { getUpgradeErrorMsg } from "../errors";
+import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { getEntities } from "../functions/entity";
 import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "siren helpers";
-
-let initialized = false;
 
 const v = {
   run: {
@@ -14,7 +12,6 @@ const v = {
 
 /** @internal */
 export function sirenHelpersInit(mod: Mod): void {
-  initialized = true;
   saveDataManager("sirenHelpers", v);
 
   mod.AddCallback(
@@ -83,10 +80,7 @@ export function setFamiliarNoSirenSteal(
   familiarVariant: FamiliarVariant | int,
   familiarSubType?: int,
 ): void {
-  if (!initialized) {
-    const msg = getUpgradeErrorMsg(FEATURE_NAME);
-    error(msg);
-  }
+  errorIfFeaturesNotInitialized(FEATURE_NAME);
 
   if (blacklistEntryExists(familiarVariant, familiarSubType)) {
     return;
@@ -103,6 +97,7 @@ export function setFamiliarNoSirenSteal(
  * @returns Returns whether the familiar has been stolen by The Siren.
  */
 export function hasSirenStolenFamiliar(familiar: EntityFamiliar): boolean {
+  errorIfFeaturesNotInitialized(FEATURE_NAME);
   return getSirenHelper(familiar) !== undefined;
 }
 

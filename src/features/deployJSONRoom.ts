@@ -4,7 +4,7 @@
 // in the room and rebuilding it from scratch based on the JSON data
 
 import { game } from "../cachedClasses";
-import { getUpgradeErrorMsg } from "../errors";
+import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { removeAllMatchingEntities } from "../functions/entity";
 import { removeAllBombs } from "../functions/entitySpecific";
 import {
@@ -49,8 +49,6 @@ const PERSISTENT_ENTITY_TYPES: ReadonlySet<EntityType> = new Set([
   EntityType.ENTITY_WALL_HUGGER,
 ]);
 
-let initialized = false;
-
 const v = {
   level: {
     deployedRoomListIndexes: new Set<int>(),
@@ -68,7 +66,6 @@ const v = {
 
 /** @internal */
 export function deployJSONRoomInit(mod: ModUpgraded): void {
-  initialized = true;
   saveDataManager("deployJSONRoom", v);
 
   mod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoom); // 19
@@ -153,10 +150,7 @@ export function deployJSONRoom(
   seed = Random(),
   verbose = false,
 ): Seed {
-  if (!initialized) {
-    const msg = getUpgradeErrorMsg(FEATURE_NAME);
-    error(msg);
-  }
+  errorIfFeaturesNotInitialized(FEATURE_NAME);
 
   if (verbose) {
     log("Starting to empty the room of entities and grid entities.");
@@ -212,10 +206,7 @@ export function deployRandomJSONRoom(
   seed = Random(),
   verbose = false,
 ): Seed {
-  if (!initialized) {
-    const msg = getUpgradeErrorMsg(FEATURE_NAME);
-    error(msg);
-  }
+  errorIfFeaturesNotInitialized(FEATURE_NAME);
 
   const randomJSONRoom = getRandomJSONRoom(jsonRooms, seed, verbose);
   if (verbose) {
@@ -238,10 +229,7 @@ export function deployRandomJSONRoom(
  * player enters. Default is false.
  */
 export function emptyRoom(fillWithDecorations: boolean): void {
-  if (!initialized) {
-    const msg = getUpgradeErrorMsg(FEATURE_NAME);
-    error(msg);
-  }
+  errorIfFeaturesNotInitialized(FEATURE_NAME);
 
   const roomListIndex = getRoomListIndex();
 

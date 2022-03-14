@@ -68,7 +68,7 @@ export function getFlyingCollectibles(
  * conditionally, like Bat Wing.)
  */
 export function getFlyingTrinkets(): ReadonlySet<CollectibleType | int> {
-  // We use a different algorithm than the "getFlyingCollectibles()" function because Azazel's Stump
+  // We use a different algorithm than the "getFlyingCollectibles" function because Azazel's Stump
   // has a cache of "all"
   return copySet(FLYING_TRINKETS);
 }
