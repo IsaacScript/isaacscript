@@ -34,7 +34,7 @@ export function saveDataManagerInit(incomingMod: ModUpgraded): void {
 // ModCallbacks.MC_POST_PLAYER_INIT (9)
 function postPlayerInit() {
   if (mod === null) {
-    error("The mod was not initialized correctly for the save data manager.");
+    error(`The mod for the ${FEATURE_NAME} was not initialized.`);
   }
 
   if (loadedDataOnThisRun) {
@@ -59,7 +59,7 @@ function postPlayerInit() {
 // ModCallbacks.MC_PRE_GAME_EXIT (17)
 function preGameExit() {
   if (mod === null) {
-    error("The mod was not initialized correctly for the save data manager.");
+    error(`The mod for the ${FEATURE_NAME} was not initialized.`);
   }
 
   // We unconditionally save variables to disk
