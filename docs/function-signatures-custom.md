@@ -10,9 +10,9 @@ In order to use custom callbacks, you must first invoke the [`upgradeMod`](https
 
 ### MC_POST_GAME_STARTED_REORDERED
 
-Similar to the vanilla callback of the same name, but fires in the correct order with respect to the PostNewLevel and the PostNewRoom callbacks:
+Similar to the vanilla callback of the same name, but fires in the correct order with respect to the `MC_POST_NEW_LEVEL` and the `MC_POST_NEW_ROOM` callbacks:
 
-PostGameStarted --> PostNewLevel --> PostNewRoom
+`MC_POST_GAME_STARTED_REORDERED` --> `MC_POST_NEW_LEVEL_REORDERED` --> `MC_POST_NEW_ROOM_REORDERED`
 
 ```ts
 function postGameStartedReordered(isContinued: boolean): void {}
@@ -20,11 +20,11 @@ function postGameStartedReordered(isContinued: boolean): void {}
 
 ### MC_POST_NEW_LEVEL_REORDERED
 
-The same as the vanilla callback of the same name, but fires in the correct order with respect to the PostGameStarted and the PostNewRoom callbacks:
+The same as the vanilla callback of the same name, but fires in the correct order with respect to the `MC_POST_GAME_STARTED` and the `MC_POST_NEW_ROOM` callbacks:
 
-PostGameStarted --> PostNewLevel --> PostNewRoom
+`MC_POST_GAME_STARTED_REORDERED` --> `MC_POST_NEW_LEVEL_REORDERED` --> `MC_POST_NEW_ROOM_REORDERED`
 
-If some specific cases, mods can change the current level during run initialization (on the 0th frame). However, due to how the callback reordering works, the custom PostNewLevel callback will never fire on the 0th frame. To get around this, call the `forceNewLevelCallback()` function before changing levels to temporarily force the callback to fire.
+If some specific cases, mods can change the current level during run initialization (on the 0th frame). However, due to how the callback reordering works, the custom `MC_POST_NEW_LEVEL_REORDERED` callback will never fire on the 0th frame. To get around this, call the `forceNewLevelCallback()` function before changing levels to temporarily force the callback to fire.
 
 ```ts
 function postNewLevelReordered(): void {}
@@ -32,11 +32,11 @@ function postNewLevelReordered(): void {}
 
 ### MC_POST_NEW_ROOM_REORDERED
 
-The same as the vanilla callback of the same name, but fires in the correct order with respect to the PostGameStarted and the PostNewLevel callbacks:
+The same as the vanilla callback of the same name, but fires in the correct order with respect to the `MC_POST_GAME_STARTED` and the `MC_POST_NEW_LEVEL` callbacks:
 
-PostGameStarted --> PostNewLevel --> PostNewRoom
+`MC_POST_GAME_STARTED_REORDERED` --> `MC_POST_NEW_LEVEL_REORDERED` --> `MC_POST_NEW_ROOM_REORDERED`
 
-If some specific cases, mods can change the current room during run initialization (on the 0th frame). However, due to how the callback reordering works, the custom PostNewRoom callback will never fire on the 0th frame. To get around this, call the `forceNewRoomCallback()` function before changing levels to temporarily force the callback to fire.
+If some specific cases, mods can change the current room during run initialization (on the 0th frame). However, due to how the callback reordering works, the custom `MC_POST_NEW_ROOM_REORDERED` callback will never fire on the 0th frame. To get around this, call the `forceNewRoomCallback()` function before changing levels to temporarily force the callback to fire.
 
 ```ts
 function postNewRoomReordered(): void {}
@@ -44,12 +44,12 @@ function postNewRoomReordered(): void {}
 
 ### MC_POST_PLAYER_INIT_REORDERED
 
-Similar to the vanilla callback of the same name, but fires after the PostGameStarted callback fires (if the player is spawning on the 0th game frame of the run).
+Similar to the vanilla callback of the same name, but fires after the `MC_POST_GAME_STARTED` callback fires (if the player is spawning on the 0th game frame of the run).
 
 This callback is useful for two reasons:
 
-1. Normally, PostPlayerUpdate fires before PostGameStarted. Since mod variables are often initialized at the beginning of the PostGameStarted callback, this can cause problems.
-1. Some functions do not work (or crash the game) when called before the PostNewRoom callback. For example, since the level is not generated yet, you will not be able to access any rooms.
+1. Normally, `MC_POST_PLAYER_UPDATE` fires before `MC_POST_GAME_STARTED`. Since mod variables are often initialized at the beginning of the `MC_POST_GAME_STARTED` callback, this can cause problems.
+1. Some functions do not work (or crash the game) when called before the `MC_POST_NEW_ROOM` callback. For example, since the level is not generated yet, you will not be able to access any rooms.
 
 When registering the callback, takes an optional second argument that will make the callback only fire if the player matches the `PlayerVariant` provided.
 
@@ -59,12 +59,12 @@ function postPlayerInitReordered(player: EntityPlayer): void {}
 
 ### MC_POST_PLAYER_UPDATE_REORDERED
 
-Similar to the vanilla callback of the same name, but fires after the PostGameStarted callback fires (if the player is being updated on the 0th game frame of the run).
+Similar to the vanilla callback of the same name, but fires after the `MC_POST_GAME_STARTED` callback fires (if the player is being updated on the 0th game frame of the run).
 
 This callback is useful for two reasons:
 
-1. Normally, PostPlayerUpdate fires before PostGameStarted. Since mod variables are often initialized at the beginning of the PostGameStarted callback, this can cause problems.
-1. Some functions do not work (or crash the game) when called before the PostNewRoom callback. For example, since the level is not generated yet, you will not be able to access any rooms.
+1. Normally, PostPlayerUpdate fires before `MC_POST_GAME_STARTED`. Since mod variables are often initialized at the beginning of the `MC_POST_GAME_STARTED` callback, this can cause problems.
+1. Some functions do not work (or crash the game) when called before the `MC_POST_NEW_ROOM` callback. For example, since the level is not generated yet, you will not be able to access any rooms.
 
 When registering the callback, takes an optional second argument that will make the callback only fire if the player matches the `PlayerVariant` provided.
 
@@ -92,9 +92,9 @@ function preNewLevel(player: EntityPlayer): void {}
 
 ### MC_POST_PLAYER_INIT_LATE
 
-Fires on the first MC_POST_PLAYER_UPDATE frame for each player.
+Fires on the first `MC_POST_PLAYER_UPDATE` frame for each player.
 
-This callback is useful because many attributes cannot be set or retrieved properly in the normal MC_POST_PLAYER_INIT callback.
+This callback is useful because many attributes cannot be set or retrieved properly in the normal `MC_POST_PLAYER_INIT` callback.
 
 When registering the callback, takes an optional second argument that will make the callback only fire if the player variant matches the `PlayerVariant` provided.
 
@@ -104,9 +104,9 @@ function postPlayerInitLate(pickup: EntityPickup): void {}
 
 ### MC_POST_TEAR_INIT_LATE
 
-Fires on the first MC_POST_TEAR_UPDATE frame for each tear.
+Fires on the first `MC_POST_TEAR_UPDATE` frame for each tear.
 
-This callback is useful because many attributes cannot be set or retrieved properly in the normal MC_POST_TEAR_INIT callback.
+This callback is useful because many attributes cannot be set or retrieved properly in the normal `MC_POST_TEAR_INIT` callback.
 
 When registering the callback, takes an optional second argument that will make the callback only fire if the tear variant matches the `TearVariant` provided.
 
@@ -116,7 +116,7 @@ function postTearInitLate(tear: EntityTear): void {}
 
 ### MC_POST_TEAR_INIT_VERY_LATE
 
-Fires on the second MC_POST_TEAR_UPDATE frame for each tear (i.e. frame 1).
+Fires on the second `MC_POST_TEAR_UPDATE` frame for each tear (i.e. frame 1).
 
 This callback is useful because Incubus tears are not distinguishable until the second frame.
 
@@ -128,9 +128,9 @@ function postTearInitVeryLate(tear: EntityTear): void {}
 
 ### MC_POST_FAMILIAR_INIT_LATE
 
-Fires on the first MC_FAMILIAR_UPDATE frame for each familiar.
+Fires on the first `MC_FAMILIAR_UPDATE` frame for each familiar.
 
-This callback is useful because many attributes cannot be set or retrieved properly in the normal MC_POST_TEAR_INIT callback.
+This callback is useful because many attributes cannot be set or retrieved properly in the normal `MC_POST_TEAR_INIT` callback.
 
 When registering the callback, takes an optional second argument that will make the callback only fire if the familiar variant matches the `FamiliarVariant` provided.
 
@@ -140,9 +140,9 @@ function postTearInitLate(familiar: EntityFamiliar): void {}
 
 ### MC_POST_BOMB_INIT_LATE
 
-Fires on the first MC_POST_BOMB_UPDATE frame for each bomb.
+Fires on the first `MC_POST_BOMB_UPDATE` frame for each bomb.
 
-This callback is useful because many attributes cannot be set or retrieved properly in the normal MC_POST_BOMB_INIT callback.
+This callback is useful because many attributes cannot be set or retrieved properly in the normal `MC_POST_BOMB_INIT` callback.
 
 When registering the callback, takes an optional second argument that will make the callback only fire if the bomb variant matches the `BombVariant` provided.
 
@@ -152,9 +152,9 @@ function postBombInitLate(bomb: EntityBomb): void {}
 
 ### MC_POST_PICKUP_INIT_LATE
 
-Fires on the first MC_POST_PICKUP_UPDATE frame for each pickup.
+Fires on the first `MC_POST_PICKUP_UPDATE` frame for each pickup.
 
-This callback is useful because many attributes cannot be set or retrieved properly in the normal MC_POST_PICKUP_INIT callback.
+This callback is useful because many attributes cannot be set or retrieved properly in the normal `MC_POST_PICKUP_INIT` callback.
 
 When registering the callback, takes an optional second argument that will make the callback only fire if the pickup variant matches the `PickupVariant` provided.
 
@@ -164,9 +164,9 @@ function postPickupInitLate(pickup: EntityPickup): void {}
 
 ### MC_POST_LASER_INIT_LATE
 
-Fires on the first MC_POST_LASER_UPDATE frame for each laser.
+Fires on the first `MC_POST_LASER_UPDATE` frame for each laser.
 
-This callback is useful because many attributes cannot be set or retrieved properly in the normal MC_POST_LASER_INIT callback.
+This callback is useful because many attributes cannot be set or retrieved properly in the normal `MC_POST_LASER_INIT` callback.
 
 When registering the callback, takes an optional second argument that will make the callback only fire if the laser variant matches the `LaserVariant` provided.
 
@@ -176,9 +176,9 @@ function postLaserInitLate(laser: EntityLaser): void {}
 
 ### MC_POST_KNIFE_INIT_LATE
 
-Fires on the first MC_POST_KNIFE_UPDATE frame for each knife.
+Fires on the first `MC_POST_KNIFE_UPDATE` frame for each knife.
 
-This callback is useful because many attributes cannot be set or retrieved properly in the normal MC_POST_KNIFE_INIT callback.
+This callback is useful because many attributes cannot be set or retrieved properly in the normal `MC_POST_KNIFE_INIT` callback.
 
 When registering the callback, takes an optional second argument that will make the callback only fire if the knife variant matches the `KnifeVariant` provided.
 
@@ -188,9 +188,9 @@ function postKnifeInitLate(knife: EntityKnife): void {}
 
 ### MC_POST_PROJECTILE_INIT_LATE
 
-Fires on the first MC_POST_PROJECTILE_UPDATE frame for each projectile.
+Fires on the first `MC_POST_PROJECTILE_UPDATE` frame for each projectile.
 
-This callback is useful because many attributes cannot be set or retrieved properly in the normal MC_POST_PROJECTILE_INIT callback.
+This callback is useful because many attributes cannot be set or retrieved properly in the normal `MC_POST_PROJECTILE_INIT` callback.
 
 When registering the callback, takes an optional second argument that will make the callback only fire if the projectile variant matches the `ProjectileVariant` provided.
 
@@ -200,9 +200,9 @@ function postProjectileInitLate(projectile: EntityProjectile): void {}
 
 ### MC_POST_NPC_INIT_LATE
 
-Fires on the first MC_NPC_UPDATE frame for each NPC.
+Fires on the first `MC_NPC_UPDATE` frame for each NPC.
 
-This callback is useful because many attributes cannot be set or retrieved properly in the normal MC_POST_NPC_INIT callback.
+This callback is useful because many attributes cannot be set or retrieved properly in the normal `MC_POST_NPC_INIT` callback.
 
 When registering the callback, takes an optional second argument that will make the callback only fire if the NPC's entity type matches the entity type provided.
 
@@ -212,9 +212,9 @@ function postNPCInitLate(npc: EntityNPC): void {}
 
 ### MC_POST_EFFECT_INIT_LATE
 
-Fires on the first MC_POST_EFFECT_UPDATE frame for each effect.
+Fires on the first `MC_POST_EFFECT_UPDATE` frame for each effect.
 
-This callback is useful because many attributes cannot be set or retrieved properly in the normal MC_POST_EFFECT_INIT callback.
+This callback is useful because many attributes cannot be set or retrieved properly in the normal `MC_POST_EFFECT_INIT` callback.
 
 When registering the callback, takes an optional second argument that will make the callback only fire if the effect variant matches the `EffectVariant` provided.
 
@@ -224,7 +224,7 @@ function postEffectInitLate(effect: EntityEffect): void {}
 
 ### MC_POST_PICKUP_COLLECT
 
-Fires on the first MC_POST_RENDER frame that a pickup plays the "Collect" animation.
+Fires on the first `MC_POST_RENDER` frame that a pickup plays the "Collect" animation.
 
 Use this callback to know when a pickup is added to the player's inventory or health.
 
@@ -236,7 +236,7 @@ function postPickupCollect(pickup: EntityPickup, player: EntityPlayer): void {}
 
 ### MC_PRE_ITEM_PICKUP
 
-Fires on the first frame that an item becomes queued (i.e. when Isaac begins to hold the item above his head).
+Fires from the `MC_POST_PEFFECT_UPDATE` callback when an item becomes queued (i.e. when the player begins to hold the item above their head).
 
 Note that this callback will only fire once per Forgotten/Soul pair.
 
@@ -252,7 +252,7 @@ function preItemPickup(
 
 ### MC_POST_ITEM_PICKUP
 
-Fires on the first frame that an item is no longer queued (i.e. when the animation of Isaac holding the item above his head is finished and the item is actually added to the player's inventory).
+Fires from the `MC_POST_PEFFECT_UPDATE` callback when an item is no longer queued (i.e. when the animation of the player holding the item above their head is finished and the item is actually added to the player's inventory).
 
 Note that this callback will only fire once per Forgotten/Soul pair.
 
@@ -268,7 +268,7 @@ function postItemPickup(
 
 ### MC_POST_PLAYER_CHANGE_TYPE
 
-Fires when a player entity changes its player type (i.e. character). For example, it will fire after using Clicker, after dying with the Judas' Shadow item, etc.
+Fires from the `MC_POST_PEFFECT_UPDATE` callback when a player entity changes its player type (i.e. character). For example, it will fire after using Clicker, after dying with the Judas' Shadow collectible, etc.
 
 Notably, it does not fire after the player uses the Flip item or the Esau Jr. item, because those items cause separate player entities to be created. Use the `MC_POST_FLIP` and `MC_POST_ESAU_JR` callbacks to handle those situations.
 
@@ -278,7 +278,7 @@ function postPlayerChangeType(player: EntityPlayer, oldCharacter: PlayerType | i
 
 ### MC_POST_PLAYER_CHANGE_HEALTH
 
-Fires on the MC_POST_UPDATE frame when a player entity gains or loses any health (i.e. hearts).
+Fires from the `MC_POST_PEFFECT_UPDATE` callback when a player entity gains or loses any health (i.e. hearts). For more information, see the `PlayerHealth` enum.
 
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `PlayerVariant` provided.
 
@@ -288,11 +288,10 @@ function postPlayerChangeHealth(player: EntityPlayer, healthType: HealthType, am
 
 ### MC_POST_PLAYER_FATAL_DAMAGE
 
-Fires from the MC_ENTITY_TAKE_DMG callback when a player takes fatal damage. Return false to prevent the fatal damage.
+Fires from the `MC_ENTITY_TAKE_DMG` callback when a player takes fatal damage. Return false to prevent the fatal damage.
 
 Note that:
 - This function does properly take into account Guppy's Collar, Broken Ankh, Spirit Shackles, and Mysterious Paper.
-- This function does not properly take into account the damage activating Tainted Samson's berserk state. (That is undetectable until the next vanilla patch.)
 
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `PlayerVariant` provided.
 
@@ -302,7 +301,7 @@ function postPlayerFatalDamage(player: EntityPlayer) {}
 
 ### MC_PRE_BERSERK_DEATH
 
-Fires from the MC_POST_PEFFECT_UPDATE callback on the frame before a Berserk! effect ends when the player is predicted to die (e.g. they currently have no health left or they took damage in a "Lost" form).
+Fires from the `MC_POST_PEFFECT_UPDATE` callback on the frame before a Berserk! effect ends when the player is predicted to die (e.g. they currently have no health left or they took damage in a "Lost" form).
 
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `PlayerVariant` provided.
 
@@ -312,7 +311,7 @@ function preBerserkDeath(player: EntityPlayer) {}
 
 ### MC_PRE_CUSTOM_REVIVE
 
-Fires from the MC_POST_PLAYER_FATAL_DAMAGE callback. If you want to initiate a custom revival, return an integer that corresponds to the item or type of revival that you are doing. Otherwise, return undefined to continue the fatal damage.
+Fires from the `MC_POST_PLAYER_FATAL_DAMAGE` callback when a player is about to die. If you want to initiate a custom revival, return an integer that corresponds to the item or type of revival that you are doing. Otherwise, return undefined to continue the fatal damage.
 
 This callback is useful because reviving the player after the game things that player should have died will result in the save data for the run getting deleted.
 
@@ -322,7 +321,7 @@ function preCustomRevive(player: EntityPlayer) {}
 
 ### MC_POST_CUSTOM_REVIVE
 
-Fires from the MC_POST_PLAYER_UPDATE callback after the player has finished the death animation, has teleported to the previous room, and is ready to play the animation for the modded revival item. The `revivalType` will match the value returned from the `MC_PRE_CUSTOM_REVIVE` callback.
+Fires from the `MC_POST_PLAYER_UPDATE` callback after the player has finished the death animation, has teleported to the previous room, and is ready to play the animation for the modded revival item. The `revivalType` will match the value returned from the `MC_PRE_CUSTOM_REVIVE` callback.
 
 In this callback, you must play an animation with something along the lines of `player.AnimateCollectible(CollectibleTypeCustom.COLLECTIBLE_MY_REVIVAL_ITEM);`, otherwise the animation for a 1-Up will play.
 
@@ -334,7 +333,7 @@ function postCustomRevive(player: EntityPlayer, revivalType: int) {}
 
 ### MC_POST_FLIP
 
-Fires after the player has used the Flip item. Unlike the vanilla MC_USE_ITEM callback, this callback will return the player object for the new Lazarus (not the one who used the Flip item).
+Fires after the player has used the Flip item. Unlike the vanilla `MC_USE_ITEM` callback, this callback will return the player object for the new Lazarus (not the one who used the Flip item).
 
 This callback is useful because there is no way to get access to the "flipped" character entity before the player has actually used the Flip item.
 
@@ -344,7 +343,7 @@ function postFlip(player: EntityPlayer): void {}
 
 ### MC_POST_FIRST_FLIP
 
-Fires after the player has used the Flip item for the first time. Unlike the vanilla MC_USE_ITEM callback, this callback will return the player object for the new Lazarus (not the one who used the Flip item).
+Fires after the player has used the Flip item for the first time. Unlike the vanilla `MC_USE_ITEM` callback, this callback will return the player object for the new Lazarus (not the one who used the Flip item).
 
 This callback is useful because there is no way to get access to the "flipped" character entity before the player has actually used the Flip item.
 
@@ -354,7 +353,7 @@ function postFirstFlip(player: EntityPlayer): void {}
 
 ### MC_POST_ESAU_JR
 
-Fires one game frame after the player has used the Esau Jr. item. (The player is not updated to the new character until a game frame has passed.)
+Fires one `MC_POST_UPDATE` frame after the player has used the Esau Jr. item. (The player is not updated to the new character until a game frame has passed.)
 
 ```ts
 function postEsauJr(player: EntityPlayer): void {}
@@ -362,7 +361,7 @@ function postEsauJr(player: EntityPlayer): void {}
 
 ### MC_POST_FIRST_ESAU_JR
 
-Fires one game frame after the player has first used the Esau Jr. item. (The player is not updated to the new character until a game frame has passed.)
+Fires one `MC_POST_UPDATE` frame after the player has first used the Esau Jr. item. (The player is not updated to the new character until a game frame has passed.)
 
 This callback is useful because there is no way to get access to the Esau Jr. character entity before the player has actually used the Esau Jr. item.
 
@@ -372,7 +371,7 @@ function postFirstEsauJr(player: EntityPlayer): void {}
 
 ### MC_POST_TRANSFORMATION
 
-Fires on the frame that a player gains or loses a new transformation.
+Fires from the `MC_POST_PEFFECT_UPDATE` callback when a player gains or loses a new transformation.
 
 Note that this callback will only fire once per Forgotten/Soul pair.
 
@@ -384,7 +383,7 @@ function postTransformation(player: EntityPlayer, playerForm: PlayerForm, hasFor
 
 ### MC_POST_PURCHASE
 
-Fires on the MC_POST_PEFFECT_UPDATE frame that a player first picks up a new item. The pickup returned in the callback is assumed to be the first pickup that no longer exists.
+Fires from the `MC_POST_PEFFECT_UPDATE` callback when a player first picks up a new item. The pickup returned in the callback is assumed to be the first pickup that no longer exists.
 
 - When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `PickupVariant` provided.
 - When registering the callback, takes an optional third argument that will make the callback only fire if it matches the sub-type provided.
@@ -395,7 +394,7 @@ function postPurchase(player: EntityPlayer, pickup: EntityPickup): void {}
 
 ### MC_POST_SACRIFICE
 
-Fires on the frame that a player takes damage from spikes in a Sacrifice Room.
+Fires from the `MC_ENTITY_TAKE_DMG` callback when a player takes damage from spikes in a Sacrifice Room.
 
 ```ts
 function postSacrifice(player: EntityPlayer, numSacrifices: int): void {}
@@ -403,7 +402,7 @@ function postSacrifice(player: EntityPlayer, numSacrifices: int): void {}
 
 ### MC_POST_CURSED_TELEPORT
 
-Fires on the first frame that the "TeleportUp" animation begins playing after a player triggers a Cursed Eye teleport or a Cursed Skull teleport. (Both of these have the same effect in causing Isaac to be teleported to a random room.)
+Fires from the `MC_POST_PLAYER_RENDER` callback on the first frame that the "TeleportUp" animation begins playing after a player triggers a Cursed Eye teleport or a Cursed Skull teleport. (Both of these have the same effect in causing Isaac to be teleported to a random room.)
 
 ```ts
 function postCursedTeleport(player: EntityPlayer): void {}
@@ -411,7 +410,7 @@ function postCursedTeleport(player: EntityPlayer): void {}
 
 ### MC_POST_TRINKET_BREAK
 
-Fires from MC_ENTITY_TAKE_DMG callback when a Wishbone or a Walnut breaks.
+Fires from `MC_ENTITY_TAKE_DMG` callback when a Wishbone or a Walnut breaks.
 
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `TrinketType` provided.
 
@@ -422,8 +421,8 @@ function postTrinketBreak(player: EntityPlayer, trinketType: TrinketType | int):
 ### MC_POST_SLOT_INIT
 
 Fires when a new slot entity is initialized. Specifically, this is either:
-- in the MC_POST_NEW_ROOM callback (firing every time a room is entered, even if the entity was previously there on a previous room entry)
-- in the MC_POST_UPDATE callback (if the entity appeared midway through the room, like when a Wheel of Fortune card is used)
+- in the `MC_POST_NEW_ROOM` callback (firing every time a room is entered, even if the entity was previously there on a previous room entry)
+- in the `MC_POST_UPDATE` callback (if the entity appeared mid-way through the room, like when a Wheel of Fortune card is used)
 
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `SlotVariant` provided.
 
@@ -433,7 +432,7 @@ function postSlotInit(slot: Entity): void {}
 
 ### MC_POST_SLOT_UPDATE
 
-Fires on every MC_POST_UPDATE frame that a slot entity exists.
+Fires from the `MC_POST_UPDATE` callback on every frame that a slot entity exists.
 
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `SlotVariant` provided.
 
@@ -443,7 +442,7 @@ function postSlotUpdate(slot: Entity): void {}
 
 ### MC_POST_SLOT_RENDER
 
-Fires on every MC_POST_RENDER frame that a slot entity exists.
+Fires from the `MC_POST_RENDER` callback on every frame that a slot entity exists.
 
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `SlotVariant` provided.
 
@@ -453,7 +452,7 @@ function postSlotRender(slot: Entity): void {}
 
 ### MC_POST_SLOT_ANIMATION_CHANGED
 
-Fires from the MC_POST_RENDER frame that a slot entity's animation changes.
+Fires from the `MC_POST_RENDER` callback when a slot entity's animation changes.
 
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `SlotVariant` provided.
 
@@ -463,7 +462,7 @@ function postSlotAnimationChanged(slot: Entity): void {}
 
 ### MC_POST_SLOT_DESTROYED
 
-Fires on the first MC_POST_RENDER frame that a slot plays the animation that indicates that it has broken.
+Fires from the `MC_POST_RENDER` callback when a slot plays the animation that indicates that it has broken.
 
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `SlotVariant` provided.
 
@@ -474,8 +473,8 @@ function postSlotDestroyed(slot: Entity): void {}
 ### MC_POST_GRID_ENTITY_INIT
 
 Fires when a new grid entity is initialized. Specifically, this is either:
-- in the MC_POST_NEW_ROOM callback (firing every time a room is entered, even if the entity was previously there on a previous room entry)
-- in the MC_POST_UPDATE callback (if the entity appeared midway through the room, like when the trapdoor appears after defeating It Lives!)
+- in the `MC_POST_NEW_ROOM` callback (firing every time a room is entered, even if the entity was previously there on a previous room entry)
+- in the `MC_POST_UPDATE` callback (if the entity appeared mid-way through the room, like when the trapdoor appears after defeating It Lives!)
 
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `GridEntityType` provided.
 
@@ -485,7 +484,7 @@ function postGridEntityInit(gridEntity: GridEntity): void {}
 
 ### MC_POST_GRID_ENTITY_UPDATE
 
-Fires on every MC_POST_UPDATE frame that a grid entity exists.
+Fires from the `MC_POST_UPDATE` callback on every frame that a grid entity exists.
 
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `GridEntityType` provided.
 
@@ -495,7 +494,7 @@ function postGridEntityUpdate(gridEntity: GridEntity): void {}
 
 ### MC_POST_GRID_ENTITY_REMOVE
 
-Fires when a new grid entity is removed. Specifically, this on the MC_POST_UPDATE frame after a grid entity no longer exists (where it did exist a frame ago).
+Fires from the `MC_POST_UPDATE` callback when a new grid entity is removed. Specifically, this on the frame after it no longer exists (where it did exist a frame ago).
 
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `GridEntityType` provided.
 
@@ -505,7 +504,7 @@ function postGridEntityRemove(gridIndex: int, gridEntityType: GridEntityType): v
 
 ### MC_POST_GRID_ENTITY_STATE_CHANGE
 
-Fires on the MC_POST_UPDATE frame that a state change is detected.
+Fires from the `MC_POST_UPDATE` callback when a grid entity changes its state.
 
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `GridEntityType` provided.
 
@@ -515,7 +514,7 @@ function postGridEntityStateChange(gridEntity: GridEntity, oldState: int, newSta
 
 ### MC_POST_GRID_ENTITY_BROKEN
 
-Fires on the MC_POST_UPDATE frame that a grid entity first changes to a state that corresponds to the broken state for the respective grid entity type.
+Fires from the `MC_POST_UPDATE` update when a grid entity changes to a state that corresponds to the broken state for the respective grid entity type.
 
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `GridEntityType` provided.
 
@@ -525,7 +524,7 @@ function postGridEntityBroken(gridEntity: GridEntity): void {}
 
 ### MC_POST_GRID_ENTITY_COLLISION
 
-Fires from the MC_POST_UPDATE callback when a new entity collides with a grid entity.
+Fires from the `MC_POST_UPDATE` callback when a new entity collides with a grid entity.
 
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `GridEntityType` provided.
 
@@ -535,7 +534,7 @@ function postGridEntityCollision(gridEntity: GridEntity, entity: Entity): void {
 
 ### MC_POST_BONE_SWING
 
-Fires from the MC_POST_RENDER callback when one of Forgotten's bone clubs is swung or thrown.
+Fires from the `MC_POST_RENDER` callback when one of Forgotten's bone clubs is swung or thrown.
 
 ```ts
 function postBoneSwing(boneClub: EntityKnife): void {}
@@ -543,7 +542,7 @@ function postBoneSwing(boneClub: EntityKnife): void {}
 
 ### MC_POST_CUSTOM_DOOR_ENTER
 
-Fires from the MC_POST_PEFFECT_UPDATE callback when a player enters the loading zone of a custom door created with the `spawnCustomDoor` helper function.
+Fires from the `MC_POST_PEFFECT_UPDATE` callback when a player enters the loading zone of a custom door created with the `spawnCustomDoor` helper function.
 
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `DoorVariant` provided.
 
