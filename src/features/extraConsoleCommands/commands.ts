@@ -32,7 +32,10 @@ import { CARD_MAP } from "../../maps/cardMap";
 import { CHARACTER_MAP } from "../../maps/characterMap";
 import { PILL_EFFECT_MAP } from "../../maps/pillEffectMap";
 import { ROOM_TYPE_MAP } from "../../maps/roomTypeMap";
-import { ROOM_TYPE_NAME_MAP } from "../../maps/roomTypeNameMap";
+import {
+  DEFAULT_ROOM_TYPE_NAME,
+  ROOM_TYPE_NAME_MAP,
+} from "../../maps/roomTypeNameMap";
 import { HealthType } from "../../types/HealthType";
 import v from "./v";
 
@@ -1317,8 +1320,8 @@ function spawnTrapdoorOrCrawlspace(trapdoor: boolean) {
 }
 
 function warpToRoomType(roomType: RoomType) {
-  const roomTypeName = ROOM_TYPE_NAME_MAP.get(roomType);
-  if (roomTypeName === undefined) {
+  const roomTypeName = ROOM_TYPE_NAME_MAP[roomType];
+  if (roomTypeName === undefined || roomTypeName === DEFAULT_ROOM_TYPE_NAME) {
     printConsole(`Invalid room type: ${roomType}`);
   }
 

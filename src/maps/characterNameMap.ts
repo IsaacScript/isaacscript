@@ -1,3 +1,5 @@
+export const DEFAULT_CHARACTER_NAME = "Unknown";
+
 export const CHARACTER_NAME_MAP: { readonly [key in PlayerType]: string } = {
   [PlayerType.PLAYER_POSSESSOR]: "Possessor", // -1
   [PlayerType.PLAYER_ISAAC]: "Isaac", // 0
@@ -41,5 +43,5 @@ export const CHARACTER_NAME_MAP: { readonly [key in PlayerType]: string } = {
   [PlayerType.PLAYER_LAZARUS2_B]: "Dead Tainted Lazarus", // 38
   [PlayerType.PLAYER_JACOB2_B]: "Dead Tainted Jacob", // 39
   [PlayerType.PLAYER_THESOUL_B]: "Tainted Soul", // 40
-  [PlayerType.NUM_PLAYER_TYPES]: "undefined", // 41
+  [PlayerType.NUM_PLAYER_TYPES]: DEFAULT_CHARACTER_NAME, // 41
 };

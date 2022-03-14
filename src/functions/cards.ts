@@ -1,6 +1,9 @@
 import { itemConfig } from "../cachedClasses";
-import { CARD_DESCRIPTION_MAP } from "../maps/cardDescriptionMap";
-import { CARD_NAME_MAP } from "../maps/cardNameMap";
+import {
+  CARD_DESCRIPTION_MAP,
+  DEFAULT_CARD_DESCRIPTION,
+} from "../maps/cardDescriptionMap";
+import { CARD_NAME_MAP, DEFAULT_CARD_NAME } from "../maps/cardNameMap";
 import { CARD_TYPE_MAP, DEFAULT_CARD_TYPE } from "../maps/cardTypeMap";
 import { CardType } from "../types/CardType";
 import { range } from "./math";
@@ -56,25 +59,19 @@ function initCardObjects() {
  * ```
  */
 export function getCardDescription(card: Card | int): string {
-  const defaultDescription = "Unknown";
-
-  if (type(card) !== "number") {
-    return defaultDescription;
-  }
-
   // "ItemConfigCard.Description" is bugged with vanilla cards on patch v1.7.6,
   // so we use a hard-coded map as a workaround
-  const cardDescription = CARD_DESCRIPTION_MAP.get(card);
+  const cardDescription = CARD_DESCRIPTION_MAP[card as Card];
   if (cardDescription !== undefined) {
     return cardDescription;
   }
 
   const itemConfigCard = itemConfig.GetCard(card);
-  if (itemConfigCard === undefined) {
-    return defaultDescription;
+  if (itemConfigCard !== undefined) {
+    return itemConfigCard.Description;
   }
 
-  return itemConfigCard.Description;
+  return DEFAULT_CARD_DESCRIPTION;
 }
 
 /**
@@ -87,25 +84,19 @@ export function getCardDescription(card: Card | int): string {
  * ```
  */
 export function getCardName(card: Card | int): string {
-  const defaultName = "Unknown";
-
-  if (type(card) !== "number") {
-    return defaultName;
-  }
-
   // "ItemConfigCard.Name" is bugged with vanilla cards on patch v1.7.6,
   // so we use a hard-coded map as a workaround
-  const cardName = CARD_NAME_MAP.get(card);
-  if (cardName !== undefined) {
+  const cardName = CARD_NAME_MAP[card as Card];
+  if (cardName !== undefined && cardName !== DEFAULT_CARD_NAME) {
     return cardName;
   }
 
   const itemConfigCard = itemConfig.GetCard(card);
-  if (itemConfigCard === undefined) {
-    return defaultName;
+  if (itemConfigCard !== undefined) {
+    return itemConfigCard.Name;
   }
 
-  return itemConfigCard.Name;
+  return DEFAULT_CARD_NAME;
 }
 
 /**
@@ -135,7 +126,7 @@ export function getCardsOfType(...cardTypes: CardType[]): Set<Card> {
 }
 
 export function getCardType(card: Card | int): CardType {
-  const cardType = CARD_TYPE_MAP.get(card);
+  const cardType = CARD_TYPE_MAP[card as Card];
   return cardType === undefined ? DEFAULT_CARD_TYPE : cardType;
 }
 

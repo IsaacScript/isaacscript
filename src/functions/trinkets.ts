@@ -1,7 +1,10 @@
 import { itemConfig } from "../cachedClasses";
 import { TRINKET_GOLDEN_FLAG } from "../constants";
-import { TRINKET_DESCRIPTION_MAP } from "../maps/trinketDescriptionMap";
-import { TRINKET_NAME_MAP } from "../maps/trinketNameMap";
+import {
+  DEFAULT_TRINKET_DESCRIPTION,
+  TRINKET_DESCRIPTION_MAP,
+} from "../maps/trinketDescriptionMap";
+import { DEFAULT_TRINKET_NAME, TRINKET_NAME_MAP } from "../maps/trinketNameMap";
 import { hasFlag } from "./flag";
 import { getPickups } from "./pickups";
 import { useActiveItemTemp } from "./player";
@@ -61,12 +64,6 @@ export function getTrinkets(matchingSubType = -1): EntityPickup[] {
  * trinket type was not valid.
  */
 export function getTrinketDescription(trinketType: TrinketType | int): string {
-  const defaultDescription = "Unknown";
-
-  if (type(trinketType) !== "number") {
-    return defaultDescription;
-  }
-
   // "ItemConfigItem.Description" is bugged with vanilla items on patch v1.7.6,
   // so we use a hard-coded map as a workaround
   const trinketDescription = TRINKET_DESCRIPTION_MAP.get(trinketType);
@@ -75,11 +72,11 @@ export function getTrinketDescription(trinketType: TrinketType | int): string {
   }
 
   const itemConfigItem = itemConfig.GetCollectible(trinketType);
-  if (itemConfigItem === undefined) {
-    return defaultDescription;
+  if (itemConfigItem !== undefined) {
+    return itemConfigItem.Description;
   }
 
-  return itemConfigItem.Description;
+  return DEFAULT_TRINKET_DESCRIPTION;
 }
 
 /**
@@ -93,12 +90,6 @@ export function getTrinketDescription(trinketType: TrinketType | int): string {
  * ```
  */
 export function getTrinketName(trinketType: TrinketType | int): string {
-  const defaultName = "Unknown";
-
-  if (type(trinketType) !== "number") {
-    return defaultName;
-  }
-
   // "ItemConfigItem.Name" is bugged with vanilla items on patch v1.7.6,
   // so we use a hard-coded map as a workaround
   const trinketName = TRINKET_NAME_MAP.get(trinketType);
@@ -107,11 +98,11 @@ export function getTrinketName(trinketType: TrinketType | int): string {
   }
 
   const itemConfigItem = itemConfig.GetCollectible(trinketType);
-  if (itemConfigItem === undefined) {
-    return defaultName;
+  if (itemConfigItem !== undefined) {
+    return itemConfigItem.Name;
   }
 
-  return itemConfigItem.Name;
+  return DEFAULT_TRINKET_NAME;
 }
 
 /**

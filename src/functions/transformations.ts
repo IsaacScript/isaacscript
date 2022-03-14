@@ -1,4 +1,7 @@
-import { TRANSFORMATION_NAME_MAP } from "../maps/transformationNameMap";
+import {
+  DEFAULT_TRANSFORMATION_NAME,
+  TRANSFORMATION_NAME_MAP,
+} from "../maps/transformationNameMap";
 import { DefaultMap } from "../types/DefaultMap";
 import { collectibleHasTag, getMaxCollectibleType } from "./collectibles";
 import { range } from "./math";
@@ -133,10 +136,10 @@ export function getPlayerNumTransformationCollectibles(
  * ```
  */
 export function getTransformationName(playerForm: PlayerForm): string {
-  const defaultName = "Unknown";
-
-  const transformationName = TRANSFORMATION_NAME_MAP.get(playerForm);
-  return transformationName === undefined ? defaultName : transformationName;
+  const transformationName = TRANSFORMATION_NAME_MAP[playerForm];
+  return transformationName === undefined
+    ? DEFAULT_TRANSFORMATION_NAME
+    : transformationName;
 }
 
 export function getTransformationsForCollectibleType(

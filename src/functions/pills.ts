@@ -1,15 +1,18 @@
 import { itemConfig } from "../cachedClasses";
-import { PILL_EFFECT_CLASS_MAP } from "../maps/pillEffectClassMap";
-import { PILL_EFFECT_NAME_MAP } from "../maps/pillEffectNameMap";
-import { PILL_EFFECT_TYPE_MAP } from "../maps/pillEffectTypeMap";
 import {
   DEFAULT_PILL_EFFECT_CLASS,
-  PillEffectClass,
-} from "../types/PillEffectClass";
+  PILL_EFFECT_CLASS_MAP,
+} from "../maps/pillEffectClassMap";
+import {
+  DEFAULT_PILL_EFFECT_NAME,
+  PILL_EFFECT_NAME_MAP,
+} from "../maps/pillEffectNameMap";
 import {
   DEFAULT_PILL_EFFECT_TYPE,
-  PillEffectType,
-} from "../types/PillEffectType";
+  PILL_EFFECT_TYPE_MAP,
+} from "../maps/pillEffectTypeMap";
+import { PillEffectClass } from "../types/PillEffectClass";
+import { PillEffectType } from "../types/PillEffectType";
 
 /**
  * Helper function to get the final pill effect in the game. This cannot be reliably determined
@@ -34,7 +37,7 @@ export function getPillEffectClass(
   // ItemConfigPillEffect does not contain the "class" tag, so we must manually compile a map of
   // pill effect classes
   // Modded pill effects are not included in the map
-  const pillEffectClass = PILL_EFFECT_CLASS_MAP.get(pillEffect);
+  const pillEffectClass = PILL_EFFECT_CLASS_MAP[pillEffect as PillEffect];
   return pillEffectClass === undefined
     ? DEFAULT_PILL_EFFECT_CLASS
     : pillEffectClass;
@@ -50,25 +53,22 @@ export function getPillEffectClass(
  * ```
  */
 export function getPillEffectName(pillEffect: PillEffect | int): string {
-  const defaultName = "Unknown";
-
-  if (type(pillEffect) !== "number") {
-    return defaultName;
-  }
-
   // "ItemConfigPillEffect.Name" is bugged with vanilla pill effects on patch v1.7.6,
   // so we use a hard-coded map as a workaround
-  const pillEffectName = PILL_EFFECT_NAME_MAP.get(pillEffect);
-  if (pillEffectName !== undefined) {
+  const pillEffectName = PILL_EFFECT_NAME_MAP[pillEffect as PillEffect];
+  if (
+    pillEffectName !== undefined &&
+    pillEffectName !== DEFAULT_PILL_EFFECT_NAME
+  ) {
     return pillEffectName;
   }
 
   const itemConfigPillEffect = itemConfig.GetPillEffect(pillEffect);
-  if (itemConfigPillEffect === undefined) {
-    return defaultName;
+  if (itemConfigPillEffect !== undefined) {
+    return itemConfigPillEffect.Name;
   }
 
-  return itemConfigPillEffect.Name;
+  return DEFAULT_PILL_EFFECT_NAME;
 }
 
 /**
@@ -86,7 +86,7 @@ export function getPillEffectType(
   // ItemConfigPillEffect does not contain the "class" tag, so we must manually compile a map of
   // pill effect classes
   // Modded pill effects are not included in the map
-  const pillEffectClass = PILL_EFFECT_TYPE_MAP.get(pillEffect);
+  const pillEffectClass = PILL_EFFECT_TYPE_MAP[pillEffect as PillEffect];
   return pillEffectClass === undefined
     ? DEFAULT_PILL_EFFECT_TYPE
     : pillEffectClass;

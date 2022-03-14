@@ -3,10 +3,17 @@
  * tag is contained within the `PillEffectType` enum.
  */
 export enum PillEffectClass {
+  /** No valid pill will have this type. */
+  NULL,
+
   JOKE,
   MINOR,
   MEDIUM,
   MAJOR,
-}
 
-export const DEFAULT_PILL_EFFECT_CLASS = PillEffectClass.MEDIUM;
+  /**
+   * This is not a real `PillEffectClass`. Due to limitations in the API, getting the real class of
+   * modded pill effects is not possible, so this value is returned instead.
+   */
+  MODDED,
+}

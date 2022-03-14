@@ -1,5 +1,8 @@
 /** Matches the "type" attribute in the "pocketitems.xml" file. */
 export enum CardType {
+  /** No valid card will have this type. */
+  NULL,
+
   /** A normal card with a brown back, like "0 - The Fool". */
   TAROT,
 
@@ -37,7 +40,7 @@ export enum CardType {
   TAROT_REVERSE,
 
   /**
-   * This is not a real CardType. Due to limitations in the API, getting the real type of modded
+   * This is not a real `CardType`. Due to limitations in the API, getting the real type of modded
    * cards is not possible, so this value is returned instead.
    */
   MODDED,

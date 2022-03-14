@@ -7,7 +7,10 @@ import {
   LOST_STYLE_PLAYER_TYPES,
   MAX_VANILLA_CHARACTER,
 } from "../constants";
-import { CHARACTER_NAME_MAP } from "../maps/characterNameMap";
+import {
+  CHARACTER_NAME_MAP,
+  DEFAULT_CHARACTER_NAME,
+} from "../maps/characterNameMap";
 import { HealthType } from "../types/HealthType";
 import { PlayerIndex } from "../types/PlayerIndex";
 import { getLastElement, sumArray } from "./array";
@@ -227,7 +230,7 @@ export function getCharacterName(character: PlayerType | int): string {
   }
 
   const characterName = CHARACTER_NAME_MAP[character as PlayerType];
-  return characterName === undefined ? "unknown" : characterName;
+  return characterName === undefined ? DEFAULT_CHARACTER_NAME : characterName;
 }
 
 /** Helper function to get an array containing the characters of all of the current players. */

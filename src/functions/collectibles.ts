@@ -3,8 +3,14 @@ import {
   BLIND_ITEM_PNG_PATH,
   SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES,
 } from "../constants";
-import { COLLECTIBLE_DESCRIPTION_MAP } from "../maps/collectibleDescriptionMap";
-import { COLLECTIBLE_NAME_MAP } from "../maps/collectibleNameMap";
+import {
+  COLLECTIBLE_DESCRIPTION_MAP,
+  DEFAULT_COLLECTIBLE_DESCRIPTION,
+} from "../maps/collectibleDescriptionMap";
+import {
+  COLLECTIBLE_NAME_MAP,
+  DEFAULT_COLLECTIBLE_NAME,
+} from "../maps/collectibleNameMap";
 import { CollectiblePedestalType } from "../types/CollectiblePedestalType";
 import { hasFlag } from "./flag";
 import { getPickups, removeAllPickups } from "./pickups";
@@ -51,12 +57,6 @@ export function collectibleHasCacheFlag(
 export function getCollectibleDescription(
   collectibleType: CollectibleType | int,
 ): string {
-  const defaultDescription = "Unknown";
-
-  if (type(collectibleType) !== "number") {
-    return defaultDescription;
-  }
-
   // "ItemConfigItem.Description" is bugged with vanilla items on patch v1.7.6,
   // so we use a hard-coded map as a workaround
   const collectibleDescription =
@@ -66,11 +66,11 @@ export function getCollectibleDescription(
   }
 
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
-  if (itemConfigItem === undefined) {
-    return defaultDescription;
+  if (itemConfigItem !== undefined) {
+    return itemConfigItem.Description;
   }
 
-  return itemConfigItem.Description;
+  return DEFAULT_COLLECTIBLE_DESCRIPTION;
 }
 
 /**
@@ -195,12 +195,6 @@ export function getCollectibleMaxCharges(
 export function getCollectibleName(
   collectibleType: CollectibleType | int,
 ): string {
-  const defaultName = "Unknown";
-
-  if (type(collectibleType) !== "number") {
-    return defaultName;
-  }
-
   // "ItemConfigItem.Name" is bugged with vanilla items on patch v1.7.6,
   // so we use a hard-coded map as a workaround
   const collectibleName = COLLECTIBLE_NAME_MAP.get(collectibleType);
@@ -209,11 +203,11 @@ export function getCollectibleName(
   }
 
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
-  if (itemConfigItem === undefined) {
-    return defaultName;
+  if (itemConfigItem !== undefined) {
+    return itemConfigItem.Name;
   }
 
-  return itemConfigItem.Name;
+  return DEFAULT_COLLECTIBLE_NAME;
 }
 
 export function getCollectiblePedestalType(
