@@ -451,6 +451,16 @@ When registering the callback, takes an optional second argument that will make 
 function postSlotRender(slot: Entity): void {}
 ```
 
+### MC_POST_SLOT_ANIMATION_CHANGED
+
+Fires from the MC_POST_RENDER frame that a slot entity's animation changes.
+
+When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `SlotVariant` provided.
+
+```ts
+function postSlotAnimationChanged(slot: Entity): void {}
+```
+
 ### MC_POST_SLOT_DESTROYED
 
 Fires on the first MC_POST_RENDER frame that a slot plays the animation that indicates that it has broken.
