@@ -109,6 +109,8 @@ export * from "./maps/pillEffectMap";
 export * from "./maps/pillEffectNameMap";
 export * from "./maps/pillEffectTypeMap";
 export * from "./maps/roomShapeToTopLeftWallGridIndexMap";
+export * from "./maps/roomTypeMap";
+export * from "./maps/roomTypeNameMap";
 export * from "./maps/transformationNameMap";
 export * from "./maps/trinketDescriptionMap";
 export * from "./maps/trinketNameMap";

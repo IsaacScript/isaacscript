@@ -252,6 +252,8 @@ export const STORY_BOSSES: ReadonlySet<EntityType> = new Set([
 ]);
 
 /**
+ * Add this to a `TrinketType` to get the corresponding golden trinket type.
+ *
  * In vanilla, this is part of the `TrinketType` enum, but we implement it as a constant in
  * IsaacScript since it is not a real trinket type.
  *

@@ -434,14 +434,8 @@ export function inLRoom(): boolean {
 }
 
 export function inGenesisRoom(): boolean {
-  const room = game.GetRoom();
-  const roomType = room.GetType();
-  const roomSubType = getRoomSubType();
-
-  return (
-    roomType === RoomType.ROOM_ISAACS &&
-    roomSubType === IsaacsRoomSubType.GENESIS
-  );
+  const roomGridIndex = getRoomGridIndex();
+  return roomGridIndex === GridRooms.ROOM_GENESIS_IDX;
 }
 
 export function inMegaSatanRoom(): boolean {
@@ -474,7 +468,8 @@ export function inMinibossRoomOf(minibossID: MinibossID): boolean {
  * the only way to detect them is by using the grid index.
  */
 export function inSecretShop(): boolean {
-  return getRoomGridIndex() === GridRooms.ROOM_SECRET_SHOP_IDX;
+  const roomGridIndex = getRoomGridIndex();
+  return roomGridIndex === GridRooms.ROOM_SECRET_SHOP_IDX;
 }
 
 /**

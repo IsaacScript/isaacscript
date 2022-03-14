@@ -1,5 +1,5 @@
 import { game, sfxManager } from "../../cachedClasses";
-import { PILL_GIANT_FLAG } from "../../constants";
+import { PILL_GIANT_FLAG, TRINKET_GOLDEN_FLAG } from "../../constants";
 import { spawnGridEntityWithVariant } from "../../functions/gridEntity";
 import {
   logAllSeedEffects,
@@ -25,10 +25,64 @@ import { directionToVector } from "../../functions/vector";
 import { CARD_MAP } from "../../maps/cardMap";
 import { CHARACTER_MAP } from "../../maps/characterMap";
 import { PILL_EFFECT_MAP } from "../../maps/pillEffectMap";
+import { ROOM_TYPE_MAP } from "../../maps/roomTypeMap";
+import { ROOM_TYPE_NAME_MAP } from "../../maps/roomTypeNameMap";
 import { HealthType } from "../../types/HealthType";
 import v from "./v";
 
 const DEFAULT_MOVE_UNITS = 0.5;
+
+/**
+ * Adds a single charge to the player's specified active item. You must provide the active slot
+ * number. Provide a second number to give a custom amount of charges. (You can use negative numbers
+ * to remove charge.)
+ */
+export function addCharges(params: string): void {
+  if (params === "") {
+    printConsole(
+      "You must specify a slot number. (Use 0 for the primary slot, 1 for the Schoolbag slot, 2 for the pocket item slot, and 3 for the Dice Bag slot.)",
+    );
+    return;
+  }
+
+  const args = params.split(" ");
+
+  if (args.length !== 1 && args.length !== 2) {
+    printConsole("That is an invalid amount of arguments.");
+    return;
+  }
+
+  const [activeSlotString, chargeString] = args;
+
+  const activeSlot = tonumber(activeSlotString);
+  if (activeSlot === undefined) {
+    printConsole(`The provided slot number is invalid: ${activeSlotString}`);
+    return;
+  }
+
+  if (
+    activeSlot < ActiveSlot.SLOT_PRIMARY ||
+    activeSlot > ActiveSlot.SLOT_POCKET2
+  ) {
+    printConsole(`The provided slot number is invalid: ${activeSlot}`);
+    return;
+  }
+
+  let chargeNum = 1;
+  if (chargeString !== undefined) {
+    const chargeNumAttempt = tonumber(chargeString);
+    if (chargeNumAttempt === undefined) {
+      printConsole(`The provided charge amount is invalid: ${chargeString}`);
+      return;
+    }
+    chargeNum = chargeNumAttempt;
+  }
+
+  const player = Isaac.GetPlayer();
+  const currentCharge = player.GetActiveCharge(activeSlot);
+  const newCharge = currentCharge + chargeNum;
+  player.SetActiveCharge(newCharge, activeSlot);
+}
 
 /**
  * Warps to the Angel Room for the floor. If the Devil Room has already been visited or initialized,
@@ -44,6 +98,27 @@ export function ascent(): void {
   game.SetStateFlag(GameStateFlag.STATE_BACKWARDS_PATH, true);
 
   printConsole("Set Ascent flags.");
+}
+
+/** Warps to the first Clean Bedroom or Dirty Bedroom on the floor. */
+export function bedroom(): void {
+  const cleanBedroomGridIndexes = getRoomGridIndexesForType(
+    RoomType.ROOM_ISAACS,
+  );
+  if (cleanBedroomGridIndexes.length > 0) {
+    warpToRoomType(RoomType.ROOM_ISAACS);
+    return;
+  }
+
+  const dirtyBedroomGridIndexes = getRoomGridIndexesForType(
+    RoomType.ROOM_BARREN,
+  );
+  if (dirtyBedroomGridIndexes.length > 0) {
+    warpToRoomType(RoomType.ROOM_BARREN);
+    return;
+  }
+
+  printConsole("There are no Clean Bedrooms or Dirty Bedrooms on this floor.");
 }
 
 /** Alias for the "blackhearts" command. */
@@ -134,7 +209,12 @@ export function boneHearts(params: string): void {
 
 /** Warps to the first Boss Room on the floor. */
 export function boss(): void {
-  warpToRoomType(RoomType.ROOM_BOSS, "Boss Room");
+  warpToRoomType(RoomType.ROOM_BOSS);
+}
+
+/** Warps to the Boss Rush for the floor. */
+export function bossRush(): void {
+  changeRoom(GridRooms.ROOM_BOSSRUSH_IDX);
 }
 
 /** Alias for the "blackmarket" command. */
@@ -257,6 +337,16 @@ export function characterCommand(params: string): void {
   printConsole(`Restarting as character: ${match}`);
 }
 
+/** Alias for the "addcharges" command. */
+export function charge(params: string): void {
+  addCharges(params);
+}
+
+/** Warps to the first Clean Bedroom on the floor. */
+export function cleanBedroom(): void {
+  warpToRoomType(RoomType.ROOM_ISAACS);
+}
+
 /**
  * Gives a coin. Provide a number to give a custom amount of coins. (You can use negative numbers to
  * remove coins.)
@@ -333,9 +423,25 @@ export function devil(): void {
   devilAngel(true);
 }
 
+/** Warps to the first Dirty Bedroom on the floor. */
+export function dirtyBedroom(): void {
+  warpToRoomType(RoomType.ROOM_BARREN);
+}
+
+/** Toggles whether or not curses can appear. */
+export function disableCurses(): void {
+  v.persistent.disableCurses = !v.persistent.disableCurses;
+  printEnabled(!v.persistent.disableCurses, "curses");
+}
+
 /** Moves the player 0.5 units down. Provide a number to move a custom amount of units. */
 export function down(params: string): void {
   movePlayer(params, Direction.DOWN);
+}
+
+/** Warps to the Dungeon (i.e. Crawlspace) for the floor. */
+export function dungeon(): void {
+  changeRoom(GridRooms.ROOM_DUNGEON_IDX);
 }
 
 /** Logs the player's current temporary effects to the "log.txt" file. */
@@ -368,6 +474,36 @@ export function fool(): void {
   startingRoom();
 }
 
+/** Prints the current position of all players. */
+export function getPosition(): void {
+  for (const player of getPlayers()) {
+    const character = player.GetPlayerType();
+    printConsole(
+      `Player position for character ${character}: (${player.Position.X}, ${player.Position.Y})`,
+    );
+  }
+}
+
+/**
+ * Gives a Giga Bomb. Provide a number to give a custom amount of Giga Bombs. (You can use negative
+ * numbers to remove bombs.)
+ */
+export function gigaBomb(params: string): void {
+  let numBombs = 1;
+  if (params !== "") {
+    const num = tonumber(params);
+    if (num === undefined) {
+      printConsole("That is an invalid amount of Giga Bombs to add.");
+      return;
+    }
+
+    numBombs = num;
+  }
+
+  const player = Isaac.GetPlayer();
+  player.AddGigaBombs(numBombs);
+}
+
 /** Alias for the "goldenbomb" command. */
 export function goldBomb(): void {
   goldenBomb();
@@ -379,15 +515,38 @@ export function goldenBomb(): void {
   player.AddGoldenBomb();
 }
 
-/** Alias for the "goldenkey" command. */
-export function goldKey(): void {
-  goldenKey();
+/**
+ * Gives a golden heart. Provide a number to give a custom amount of hearts. (You can use negative
+ * numbers to remove hearts.)
+ */
+export function goldenHearts(params: string): void {
+  addHeart(params, HealthType.GOLDEN);
 }
 
 /** Gives the player a golden key. */
 export function goldenKey(): void {
   const player = Isaac.GetPlayer();
   player.AddGoldenKey();
+}
+
+/** Alias for the "goldenhearts" command. */
+export function goldHearts(params: string): void {
+  goldenHearts(params);
+}
+
+/** Alias for the "goldenkey" command. */
+export function goldKey(): void {
+  goldenKey();
+}
+
+/** Alias for the "debug 2" command. */
+export function grid(): void {
+  Isaac.ExecuteCommand("debug 2");
+}
+
+/** Alias for the "debug 11" command. */
+export function grid2(): void {
+  Isaac.ExecuteCommand("debug 11");
 }
 
 /** Alias for the "hearts" command. */
@@ -401,6 +560,11 @@ export function h(params: string): void {
  */
 export function hearts(params: string): void {
   addHeart(params, HealthType.RED);
+}
+
+/** Alias for the "debug 6" command. */
+export function hitboxes(): void {
+  Isaac.ExecuteCommand("debug 6");
 }
 
 /** Warps to the I AM ERROR room for the floor. */
@@ -446,6 +610,11 @@ export function keys(params: string): void {
 
   const player = Isaac.GetPlayer();
   player.AddKeys(numKeys);
+}
+
+/** Warps to the first Library on the floor. */
+export function library(): void {
+  warpToRoomType(RoomType.ROOM_LIBRARY);
 }
 
 /**
@@ -511,6 +680,16 @@ export function maxHearts(params: string): void {
 /** Alias for the "maxhearts" command. */
 export function mh(params: string): void {
   maxHearts(params);
+}
+
+/** Warps to the first Miniboss Room on the floor. */
+export function miniboss(): void {
+  warpToRoomType(RoomType.ROOM_MINIBOSS);
+}
+
+/** Alias for the "disablecurses" command. */
+export function noCurses(): void {
+  disableCurses();
 }
 
 /**
@@ -583,7 +762,12 @@ export function pills(): void {
 
 /** Warps to the first Planetarium on the floor. */
 export function planetarium(): void {
-  warpToRoomType(RoomType.ROOM_PLANETARIUM, "Planetarium");
+  warpToRoomType(RoomType.ROOM_PLANETARIUM);
+}
+
+/** Alias for the "sound" command. */
+export function playSound(params: string): void {
+  sound(params);
 }
 
 /** Sets the player's pocket item to the specified collectible type. */
@@ -605,14 +789,29 @@ export function pocket(params: string): void {
   player.SetPocketActiveItem(num, ActiveSlot.SLOT_POCKET);
 }
 
-/** Prints the current position of all players. */
-export function positionCommand(): void {
-  for (const player of getPlayers()) {
-    const character = player.GetPlayerType();
-    printConsole(
-      `Player position for character ${character}: (${player.Position.X}, ${player.Position.Y})`,
-    );
+/**
+ * Gives a poop mana charge. This only affects Tainted Blue Baby. Provide a number to give a custom
+ * amount of charges. (You can use negative numbers to remove charges.)
+ */
+export function poopMana(params: string): void {
+  let charges = 1;
+  if (params !== "") {
+    const num = tonumber(params);
+    if (num === undefined) {
+      printConsole("That is an invalid amount of mana to add.");
+      return;
+    }
+
+    charges = num;
   }
+
+  const player = Isaac.GetPlayer();
+  player.AddPoopMana(charges);
+}
+
+/** Alias for the "getposition" command. */
+export function positionCommand(): void {
+  getPosition();
 }
 
 /** Alias for the "hearts" command. */
@@ -687,10 +886,112 @@ export function s(params: string): void {
   Isaac.ExecuteCommand(`stage ${stage}${stageTypeLetter}`);
 }
 
+/** Warps to the first Sacrifice Room on the floor. */
+export function sacrifice(): void {
+  warpToRoomType(RoomType.ROOM_SACRIFICE);
+}
+
+/** Warps to the first Secret Room on the floor. */
+export function secret(): void {
+  warpToRoomType(RoomType.ROOM_SECRET);
+}
+
 /** Logs all of the current run's seed effects to the "log.txt" file. */
 export function seeds(): void {
   logAllSeedEffects();
   printConsole('Logged the seed effects to the "log.txt" file.');
+}
+
+/**
+ * Sets a charge to the player's specified active item. You must provide the active slot number and
+ * the number of charges to set.
+ */
+export function setCharges(params: string): void {
+  if (params === "") {
+    printConsole(
+      "You must specify a slot number and a charge amount. (Use 0 for the primary slot, 1 for the Schoolbag slot, 2 for the pocket item slot, and 3 for the Dice Bag slot.)",
+    );
+    return;
+  }
+
+  const args = params.split(" ");
+
+  if (args.length === 1) {
+    printConsole("You must specify the amount of charge to set.");
+    return;
+  }
+
+  if (args.length !== 2) {
+    printConsole("That is an invalid amount of arguments.");
+    return;
+  }
+
+  const [activeSlotString, chargeString] = args;
+
+  const activeSlot = tonumber(activeSlotString);
+  if (activeSlot === undefined) {
+    printConsole(`The provided slot number is invalid: ${activeSlotString}`);
+    return;
+  }
+
+  if (
+    activeSlot < ActiveSlot.SLOT_PRIMARY ||
+    activeSlot > ActiveSlot.SLOT_POCKET2
+  ) {
+    printConsole(`The provided slot number is invalid: ${activeSlot}`);
+    return;
+  }
+
+  const chargeNum = tonumber(chargeString);
+  if (chargeNum === undefined) {
+    printConsole(`The provided charge amount is invalid: ${chargeString}`);
+    return;
+  }
+
+  if (chargeNum < 0) {
+    printConsole(`The provided charge amount is invalid: ${chargeNum}`);
+    return;
+  }
+
+  const player = Isaac.GetPlayer();
+  player.SetActiveCharge(chargeNum, activeSlot);
+}
+
+/**
+ * Moves the first player to the specified position.
+ *
+ * Example:
+ * - setposition 100 50
+ */
+export function setPosition(params: string): void {
+  if (params === "") {
+    printConsole('You must specify a position. (e.g. "setposition 100 50")');
+    return;
+  }
+
+  const args = params.split(" ");
+  if (args.length !== 2) {
+    printConsole('You must specify a position. (e.g. "setposition 100 50")');
+    return;
+  }
+
+  const [xString, yString] = args;
+
+  const x = tonumber(xString);
+  if (x === undefined) {
+    printConsole(`That is an invalid x value: ${xString}`);
+    return;
+  }
+
+  const y = tonumber(yString);
+  if (y === undefined) {
+    printConsole(`That is an invalid y value: ${yString}`);
+    return;
+  }
+
+  const player = Isaac.GetPlayer();
+  const position = Vector(x, y);
+  player.Position = position;
 }
 
 /** Alias for the "soulhearts" command. */
@@ -700,7 +1001,7 @@ export function sh(params: string): void {
 
 /** Warps to the first shop on the floor. */
 export function shop(): void {
-  warpToRoomType(RoomType.ROOM_SHOP, "shop");
+  warpToRoomType(RoomType.ROOM_SHOP);
 }
 
 /** Uses the Smelter to smelt the current player's trinket. */
@@ -767,6 +1068,35 @@ export function sounds(): void {
  */
 export function spam(): void {
   v.run.spamBloodRights = !v.run.spamBloodRights;
+  printEnabled(v.run.maxSpeed, "spamming Blood Rights");
+}
+
+/** Spawns a golden version of the specified trinket type. */
+export function spawnGoldenTrinket(params: string): void {
+  if (params === "") {
+    printConsole(
+      "You must specify the number corresponding to the trinket type.",
+    );
+    return;
+  }
+
+  const trinketType = tonumber(params);
+  if (trinketType === undefined) {
+    printConsole(`That is an invalid trinket type: ${params}`);
+    return;
+  }
+
+  const goldenTrinketType = trinketType + TRINKET_GOLDEN_FLAG;
+  const room = game.GetRoom();
+  const centerPos = room.GetCenterPos();
+  Isaac.Spawn(
+    EntityType.ENTITY_PICKUP,
+    PickupVariant.PICKUP_TRINKET,
+    goldenTrinketType,
+    centerPos,
+    Vector.Zero,
+    undefined,
+  );
 }
 
 /** Toggles maximum movement speed and flight. */
@@ -802,6 +1132,22 @@ export function startingRoom(): void {
   changeRoom(startingRoomIndex);
 }
 
+/** Warps to the first Super Secret Room on the floor. */
+export function superSecret(): void {
+  warpToRoomType(RoomType.ROOM_SUPERSECRET);
+}
+
+/** Toggles extremely high tears stat (e.g. fire rate), equivalent of that to soy milk. */
+export function tears(): void {
+  v.run.maxTears = !v.run.maxTears;
+
+  const player = Isaac.GetPlayer();
+  player.AddCacheFlags(CacheFlag.CACHE_FIREDELAY);
+  player.EvaluateItems();
+
+  printEnabled(v.run.maxDamage, "debug tear-rate");
+}
+
 /** Creates a trapdoor next to the player. */
 export function trapdoorCommand(): void {
   spawnTrapdoorOrCrawlspace(true);
@@ -809,12 +1155,47 @@ export function trapdoorCommand(): void {
 
 /** Warps to the first Treasure Room on the floor. */
 export function treasure(): void {
-  warpToRoomType(RoomType.ROOM_TREASURE, "Treasure Room");
+  warpToRoomType(RoomType.ROOM_TREASURE);
 }
 
 /** Warps to the first Ultra Secret Room on the floor. */
-export function ultra(): void {
-  warpToRoomType(RoomType.ROOM_ULTRASECRET, "Ultra Secret Room");
+export function ultraSecret(): void {
+  warpToRoomType(RoomType.ROOM_ULTRASECRET);
+}
+
+/**
+ * Warps to the specified room type. Accepts either the room type number or the partial name of the
+ * room type.
+ *
+ * Example:
+ * - warp 5 - Warps to the first Boss Room on the floor, if any.
+ * - warp tr - Warps to the first Treasure Room on the floor, if any.
+ */
+export function warp(params: string): void {
+  if (params === "") {
+    printConsole("You must specify a room type name or number.");
+    return;
+  }
+
+  const num = tonumber(params);
+  if (num !== undefined) {
+    // Validate the room sub-type
+    if (num < 1 || num >= RoomType.NUM_ROOMTYPES) {
+      printConsole("That is an invalid room type.");
+      return;
+    }
+
+    warpToRoomType(num);
+    return;
+  }
+
+  const match = getMapPartialMatch(params, ROOM_TYPE_MAP);
+  if (match === undefined) {
+    printConsole(`Unknown room type: ${params}`);
+    return;
+  }
+
+  warpToRoomType(match);
 }
 
 // -----------
@@ -925,7 +1306,12 @@ function spawnTrapdoorOrCrawlspace(trapdoor: boolean) {
   spawnGridEntityWithVariant(gridEntityType, 0, gridIndex);
 }
 
-function warpToRoomType(roomType: RoomType, roomTypeName: string) {
+function warpToRoomType(roomType: RoomType) {
+  const roomTypeName = ROOM_TYPE_NAME_MAP.get(roomType);
+  if (roomTypeName === undefined) {
+    printConsole(`Invalid room type: ${roomType}`);
+  }
+
   const gridIndexes = getRoomGridIndexesForType(roomType);
   if (gridIndexes.length === 0) {
     printConsole(`There are no ${roomTypeName}s on this floor.`);
@@ -934,4 +1320,5 @@ function warpToRoomType(roomType: RoomType, roomTypeName: string) {
 
   const firstGridIndex = gridIndexes[0];
   changeRoom(firstGridIndex);
+  printConsole(`Warped to room type: ${roomTypeName} (${roomType})`);
 }

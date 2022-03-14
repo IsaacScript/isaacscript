@@ -20,14 +20,20 @@ export function enableExtraConsoleCommands(mod: Mod): void {
   mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate); // 1
   mod.AddCallback(
     ModCallbacks.MC_EVALUATE_CACHE,
+    evaluateCacheFireDelay,
+    CacheFlag.CACHE_FIREDELAY, // 1 << 1
+  ); // 8
+  mod.AddCallback(
+    ModCallbacks.MC_EVALUATE_CACHE,
     evaluateCacheSpeed,
-    CacheFlag.CACHE_SPEED,
+    CacheFlag.CACHE_SPEED, // 1 << 4
   ); // 8
   mod.AddCallback(
     ModCallbacks.MC_ENTITY_TAKE_DMG,
     entityTakeDmgPlayer,
     EntityType.ENTITY_PLAYER,
   ); // 11
+  mod.AddCallback(ModCallbacks.MC_POST_CURSE_EVAL, postCurseEval); // 12
   mod.AddCallback(ModCallbacks.MC_EXECUTE_CMD, executeCmd); // 22
   mod.AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, postFireTear); // 61
 }
@@ -37,6 +43,14 @@ function postUpdate() {
   if (v.run.spamBloodRights) {
     const player = Isaac.GetPlayer();
     player.UseActiveItem(CollectibleType.COLLECTIBLE_BLOOD_RIGHTS);
+  }
+}
+
+// ModCallbacks.MC_EVALUATE_CACHE (8)
+// CacheFlag.CACHE_FIREDELAY (1 << 1)
+function evaluateCacheFireDelay(player: EntityPlayer) {
+  if (v.run.maxTears) {
+    player.FireDelay = 1; // Equivalent to Soy Milk
   }
 }
 
@@ -56,6 +70,11 @@ function entityTakeDmgPlayer() {
   }
 
   return undefined;
+}
+
+// ModCallbacks.MC_POST_CURSE_EVAL (12)
+function postCurseEval(curses: int) {
+  return v.persistent.disableCurses ? LevelCurse.CURSE_NONE : curses;
 }
 
 // ModCallbacks.MC_EXECUTE_CMD (22)
@@ -136,8 +155,10 @@ export function removeConsoleCommand(commandName: string): void {
   commandFunctionsMap.delete(commandName);
 }
 
+commandFunctionsMap.set("addcharges", commands.addCharges);
 commandFunctionsMap.set("angel", commands.angel);
 commandFunctionsMap.set("ascent", commands.ascent);
+commandFunctionsMap.set("bedroom", commands.bedroom);
 commandFunctionsMap.set("bh", commands.bh);
 commandFunctionsMap.set("blackhearts", commands.blackHearts);
 commandFunctionsMap.set("blackmarket", commands.blackMarket);
@@ -146,6 +167,7 @@ commandFunctionsMap.set("bomb", commands.bomb);
 commandFunctionsMap.set("bombs", commands.bombs);
 commandFunctionsMap.set("bonehearts", commands.boneHearts);
 commandFunctionsMap.set("boss", commands.boss);
+commandFunctionsMap.set("bossrush", commands.bossRush);
 commandFunctionsMap.set("bm", commands.bm);
 commandFunctionsMap.set("brokenhearts", commands.brokenHearts);
 commandFunctionsMap.set("card", commands.card);
@@ -153,6 +175,8 @@ commandFunctionsMap.set("cards", commands.cards);
 commandFunctionsMap.set("cc", commands.cc);
 commandFunctionsMap.set("chaoscardtears", commands.chaosCardTears);
 commandFunctionsMap.set("character", commands.characterCommand);
+commandFunctionsMap.set("charge", commands.charge);
+commandFunctionsMap.set("cleanbedroom", commands.cleanBedroom);
 commandFunctionsMap.set("coin", commands.coin);
 commandFunctionsMap.set("coins", commands.coins);
 commandFunctionsMap.set("crawlspace", commands.crawlspace);
@@ -161,21 +185,32 @@ commandFunctionsMap.set("d20", commands.d20);
 commandFunctionsMap.set("damage", commands.damage);
 commandFunctionsMap.set("dd", commands.dd);
 commandFunctionsMap.set("devil", commands.devil);
+commandFunctionsMap.set("dirtybedroom", commands.dirtyBedroom);
+commandFunctionsMap.set("disablecurses", commands.disableCurses);
 commandFunctionsMap.set("down", commands.down);
+commandFunctionsMap.set("dungeon", commands.dungeon);
 commandFunctionsMap.set("effects", commands.effects);
 commandFunctionsMap.set("eh", commands.eh);
 commandFunctionsMap.set("error", commands.error);
 commandFunctionsMap.set("eternalhearts", commands.eternalHearts);
 commandFunctionsMap.set("fool", commands.fool);
+commandFunctionsMap.set("getposition", commands.getPosition);
+commandFunctionsMap.set("gigabomb", commands.gigaBomb);
 commandFunctionsMap.set("goldbomb", commands.goldBomb);
 commandFunctionsMap.set("goldenbomb", commands.goldenBomb);
-commandFunctionsMap.set("goldkey", commands.goldKey);
+commandFunctionsMap.set("goldenhearts", commands.goldenHearts);
 commandFunctionsMap.set("goldenkey", commands.goldenKey);
+commandFunctionsMap.set("goldhearts", commands.goldHearts);
+commandFunctionsMap.set("goldkey", commands.goldKey);
+commandFunctionsMap.set("grid", commands.grid);
+commandFunctionsMap.set("grid2", commands.grid2);
 commandFunctionsMap.set("h", commands.h);
 commandFunctionsMap.set("hearts", commands.hearts);
+commandFunctionsMap.set("hitboxes", commands.hitboxes);
 commandFunctionsMap.set("iamerror", commands.IAMERROR);
 commandFunctionsMap.set("key", commands.key);
 commandFunctionsMap.set("keys", commands.keys);
+commandFunctionsMap.set("library", commands.library);
 commandFunctionsMap.set("list", commands.list);
 commandFunctionsMap.set("listall", commands.listAll);
 commandFunctionsMap.set("listgrid", commands.listGrid);
@@ -184,17 +219,25 @@ commandFunctionsMap.set("lowhp", commands.lowHP);
 commandFunctionsMap.set("luck", commands.luck);
 commandFunctionsMap.set("maxhearts", commands.maxHearts);
 commandFunctionsMap.set("mh", commands.mh);
+commandFunctionsMap.set("miniboss", commands.miniboss);
+commandFunctionsMap.set("nocurses", commands.noCurses);
 commandFunctionsMap.set("pill", commands.pill);
 commandFunctionsMap.set("pills", commands.pills);
 commandFunctionsMap.set("planetarium", commands.planetarium);
+commandFunctionsMap.set("playsound", commands.playSound);
 commandFunctionsMap.set("pocket", commands.pocket);
+commandFunctionsMap.set("poopMana", commands.poopMana);
 commandFunctionsMap.set("position", commands.positionCommand);
 commandFunctionsMap.set("redhearts", commands.redHearts);
 commandFunctionsMap.set("rh", commands.rh);
 commandFunctionsMap.set("room", commands.roomCommand);
 commandFunctionsMap.set("rottenhearts", commands.rottenHearts);
 commandFunctionsMap.set("s", commands.s);
+commandFunctionsMap.set("sacrifice", commands.sacrifice);
+commandFunctionsMap.set("secret", commands.secret);
 commandFunctionsMap.set("seeds", commands.seeds);
+commandFunctionsMap.set("setcharges", commands.setCharges);
+commandFunctionsMap.set("setposition", commands.setPosition);
 commandFunctionsMap.set("sh", commands.sh);
 commandFunctionsMap.set("shop", commands.shop);
 commandFunctionsMap.set("smelt", commands.smelt);
@@ -203,8 +246,12 @@ commandFunctionsMap.set("soulhearts", commands.soulHearts);
 commandFunctionsMap.set("sound", commands.sound);
 commandFunctionsMap.set("sounds", commands.sounds);
 commandFunctionsMap.set("spam", commands.spam);
+commandFunctionsMap.set("spawngoldentrinket", commands.spawnGoldenTrinket);
 commandFunctionsMap.set("speed", commands.speed);
+commandFunctionsMap.set("supersecret", commands.superSecret);
 commandFunctionsMap.set("startingroom", commands.startingRoom);
+commandFunctionsMap.set("tears", commands.tears);
 commandFunctionsMap.set("trapdoor", commands.trapdoorCommand);
 commandFunctionsMap.set("treasure", commands.treasure);
-commandFunctionsMap.set("ultra", commands.ultra);
+commandFunctionsMap.set("ultrasecret", commands.ultraSecret);
+commandFunctionsMap.set("warp", commands.warp);

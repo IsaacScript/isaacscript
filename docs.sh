@@ -94,6 +94,8 @@ npx typedoc \
   --entryPoints "$DIR/src/maps/pillEffectNameMap.ts" \
   --entryPoints "$DIR/src/maps/pillEffectTypeMap.ts" \
   --entryPoints "$DIR/src/maps/roomShapeToTopLeftWallGridIndexMap.ts" \
+  --entryPoints "$DIR/src/maps/roomTypeMap.ts" \
+  --entryPoints "$DIR/src/maps/roomTypeNameMap.ts" \
   --entryPoints "$DIR/src/maps/transformationNameMap.ts" \
   --entryPoints "$DIR/src/maps/trinketDescriptionMap.ts" \
   --entryPoints "$DIR/src/maps/trinketNameMap.ts" \

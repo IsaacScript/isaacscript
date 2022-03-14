@@ -260,6 +260,7 @@ export function logEntities(
     debugString += ` (DropSeed: ${entity.DropSeed})`;
     debugString += ` (Position: ${entity.Position.X}, ${entity.Position.Y})`;
     debugString += ` (Velocity: ${entity.Velocity.X}, ${entity.Velocity.Y})`;
+    debugString += ` (HP: ${entity.HitPoints} / ${entity.MaxHitPoints})`;
     log(debugString);
 
     numMatchedEntities += 1;
@@ -405,9 +406,11 @@ export function logRoom(this: void): void {
   if (roomData === undefined) {
     log("Current room data is undefined.");
   } else {
+    log(`Current room stage ID: ${roomData.StageID}`);
     log(
       `Current room type/variant/sub-type: ${roomData.Type}.${roomData.Variant}.${roomData.Subtype}`,
     );
+    log(`Current room name: ${roomData.Name}`);
   }
   log(`Current room grid index: ${roomGridIndex}`);
   log(`Current room list index: ${roomListIndex}`);
