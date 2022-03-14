@@ -1,5 +1,4 @@
 import { game } from "../../cachedClasses";
-import { getUpgradeErrorMsg } from "../../errors";
 import { deepCopy, SerializationType } from "../../functions/deepCopy";
 import { clearTable } from "../../functions/table";
 import { ModCallbacksCustom } from "../../types/ModCallbacksCustom";
@@ -35,8 +34,7 @@ export function saveDataManagerInit(incomingMod: ModUpgraded): void {
 // ModCallbacks.MC_POST_PLAYER_INIT (9)
 function postPlayerInit() {
   if (mod === null) {
-    const msg = getUpgradeErrorMsg(FEATURE_NAME);
-    error(msg);
+    error("The mod was not initialized correctly for the save data manager.");
   }
 
   if (loadedDataOnThisRun) {
@@ -61,8 +59,7 @@ function postPlayerInit() {
 // ModCallbacks.MC_PRE_GAME_EXIT (17)
 function preGameExit() {
   if (mod === null) {
-    const msg = getUpgradeErrorMsg(FEATURE_NAME);
-    error(msg);
+    error("The mod was not initialized correctly for the save data manager.");
   }
 
   // We unconditionally save variables to disk
@@ -149,11 +146,6 @@ function clearAndCopyAllElements(oldTable: LuaTable, newTable: LuaTable) {
   for (const [key, value] of pairs(newTable)) {
     oldTable.set(key, value);
   }
-}
-
-/** @internal */
-export function isSaveDataManagerInitialized(): boolean {
-  return mod !== null;
 }
 
 /** @internal */

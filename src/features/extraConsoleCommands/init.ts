@@ -18,7 +18,7 @@ let initialized = false;
  */
 export function enableExtraConsoleCommands(mod: Mod): void {
   initialized = true;
-  saveDataManager("extraConsoleCommands", v, featureInitialized);
+  saveDataManager("extraConsoleCommands", v, featureEnabled);
 
   mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate); // 1
   mod.AddCallback(
@@ -41,7 +41,7 @@ export function enableExtraConsoleCommands(mod: Mod): void {
   mod.AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, postFireTear); // 61
 }
 
-function featureInitialized() {
+function featureEnabled() {
   return initialized;
 }
 

@@ -1,11 +1,10 @@
-import { getUpgradeErrorMsg } from "../../errors";
+import { errorIfFeaturesNotInitialized } from "../../featuresInitialized";
 import { deepCopy, SerializationType } from "../../functions/deepCopy";
 import { SaveData } from "../../types/private/SaveData";
 import {
   FEATURE_NAME,
   forceSaveDataManagerLoad,
   forceSaveDataManagerSave,
-  isSaveDataManagerInitialized,
 } from "./main";
 import {
   saveDataConditionalFuncMap,
@@ -92,10 +91,7 @@ export function saveDataManager(
   saveData: SaveData,
   conditionalFunc?: () => boolean,
 ): void {
-  if (!isSaveDataManagerInitialized()) {
-    const msg = getUpgradeErrorMsg(FEATURE_NAME);
-    error(msg);
-  }
+  errorIfFeaturesNotInitialized(FEATURE_NAME);
 
   const keyType = type(key);
   if (keyType !== "string") {
@@ -143,11 +139,7 @@ export function saveDataManager(
  * of its variables to disk immediately.
  */
 export function saveDataManagerSave(): void {
-  if (!isSaveDataManagerInitialized()) {
-    const msg = getUpgradeErrorMsg(FEATURE_NAME);
-    error(msg);
-  }
-
+  errorIfFeaturesNotInitialized(FEATURE_NAME);
   forceSaveDataManagerSave();
 }
 
@@ -159,11 +151,7 @@ export function saveDataManagerSave(): void {
  * Note that doing this will overwrite current data, which can potentially result in lost state.
  */
 export function saveDataManagerLoad(): void {
-  if (!isSaveDataManagerInitialized()) {
-    const msg = getUpgradeErrorMsg(FEATURE_NAME);
-    error(msg);
-  }
-
+  errorIfFeaturesNotInitialized(FEATURE_NAME);
   forceSaveDataManagerLoad();
 }
 
