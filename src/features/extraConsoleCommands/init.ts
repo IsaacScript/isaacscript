@@ -86,12 +86,15 @@ function postCurseEval(curses: int) {
 
 // ModCallbacks.MC_EXECUTE_CMD (22)
 function executeCmd(command: string, params: string) {
-  const commandFunction = getMapPartialMatch(command, commandFunctionsMap);
-  if (commandFunction === undefined) {
+  const resultTuple = getMapPartialMatch(command, commandFunctionsMap);
+  if (resultTuple === undefined) {
     printConsole("That is an invalid console command.");
-  } else {
-    commandFunction(params);
+    return;
   }
+
+  const [commandName, commandFunction] = resultTuple;
+  printConsole(`Command: ${commandName}`);
+  commandFunction(params);
 }
 
 // ModCallbacks.MC_POST_FIRE_TEAR (61)

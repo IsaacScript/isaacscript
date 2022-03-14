@@ -1,5 +1,6 @@
 import { game, sfxManager } from "../../cachedClasses";
 import { PILL_GIANT_FLAG, TRINKET_GOLDEN_FLAG } from "../../constants";
+import { getCardName } from "../../functions/cards";
 import { spawnGridEntityWithVariant } from "../../functions/gridEntity";
 import {
   logAllSeedEffects,
@@ -11,7 +12,12 @@ import {
 } from "../../functions/log";
 import { getMapPartialMatch } from "../../functions/map";
 import { getNPCs } from "../../functions/npc";
-import { getPlayers, useActiveItemTemp } from "../../functions/player";
+import { getPillEffectName } from "../../functions/pills";
+import {
+  getCharacterName,
+  getPlayers,
+  useActiveItemTemp,
+} from "../../functions/player";
 import { addPlayerHealthType } from "../../functions/playerHealth";
 import {
   changeRoom,
@@ -243,27 +249,28 @@ export function card(params: string): void {
     return;
   }
 
+  let cardNum: Card;
   const num = tonumber(params);
-  if (num !== undefined) {
-    // Validate the card sub-type
-    if (num < 1 || num >= Card.NUM_CARDS) {
-      printConsole("That is an invalid card sub-type.");
+  if (num === undefined) {
+    const match = getMapPartialMatch(params, CARD_MAP);
+    if (match === undefined) {
+      printConsole(`Unknown card: ${params}`);
       return;
     }
 
-    Isaac.ExecuteCommand(`g k${num}`);
-    printConsole(`Gave card: ${num}`);
-    return;
+    cardNum = match[1];
+  } else {
+    if (num < 1 || num >= Card.NUM_CARDS) {
+      printConsole(`Invalid card sub-type: ${num}`);
+      return;
+    }
+
+    cardNum = num;
   }
 
-  const match = getMapPartialMatch(params, CARD_MAP);
-  if (match === undefined) {
-    printConsole(`Unknown card: ${params}`);
-    return;
-  }
-
-  Isaac.ExecuteCommand(`g k${match}`);
-  printConsole(`Gave card: ${match}`);
+  const cardName = getCardName(cardNum);
+  Isaac.ExecuteCommand(`g k${cardNum}`);
+  printConsole(`Gave card: ${cardName} (${cardNum})`);
 }
 
 /** Spawns every card on the ground, starting at the top-left-most tile. */
@@ -314,27 +321,28 @@ export function characterCommand(params: string): void {
     return;
   }
 
+  let character: PlayerType;
   const num = tonumber(params);
-  if (num !== undefined) {
-    // Validate the character sub-type
-    if (num < 0 || num >= PlayerType.NUM_PLAYER_TYPES) {
-      printConsole("That is an invalid player sub-type.");
+  if (num === undefined) {
+    const match = getMapPartialMatch(params, CHARACTER_MAP);
+    if (match === undefined) {
+      printConsole(`Unknown character: ${params}`);
       return;
     }
 
-    printConsole(`Restarting as character: ${num}`);
-    restart(num);
-    return;
+    character = match[1];
+  } else {
+    if (num < 0 || num >= PlayerType.NUM_PLAYER_TYPES) {
+      printConsole(`Invalid player sub-type: ${num}`);
+      return;
+    }
+
+    character = num;
   }
 
-  const match = getMapPartialMatch(params, CHARACTER_MAP);
-  if (match === undefined) {
-    printConsole(`Unknown character: ${params}`);
-    return;
-  }
-
-  restart(match);
-  printConsole(`Restarting as character: ${match}`);
+  const characterName = getCharacterName(character);
+  restart(character);
+  printConsole(`Restarting as character: ${characterName} (${character})`);
 }
 
 /** Alias for the "addcharges" command. */
@@ -706,27 +714,28 @@ export function pill(params: string): void {
     return;
   }
 
+  let pillEffect: PillEffect;
   const num = tonumber(params);
-  if (num !== undefined) {
-    // Validate the pill ID
-    if (num < 1 || num >= PillEffect.NUM_PILL_EFFECTS) {
-      printConsole("That is an invalid pill effect ID.");
+  if (num === undefined) {
+    const match = getMapPartialMatch(params, PILL_EFFECT_MAP);
+    if (match === undefined) {
+      printConsole(`Unknown pill effect: ${params}`);
       return;
     }
 
-    Isaac.ExecuteCommand(`g p${num}`);
-    printConsole(`Gave pill: ${num}`);
-    return;
+    pillEffect = match[1];
+  } else {
+    if (num < 1 || num >= PillEffect.NUM_PILL_EFFECTS) {
+      printConsole(`Invalid pill effect ID: ${num}`);
+      return;
+    }
+
+    pillEffect = num;
   }
 
-  const match = getMapPartialMatch(params, PILL_EFFECT_MAP);
-  if (match === undefined) {
-    printConsole(`Unknown pill effect: ${params}`);
-    return;
-  }
-
-  Isaac.ExecuteCommand(`g p${match}`);
-  printConsole(`Gave pill: ${match}`);
+  const pillEffectName = getPillEffectName(pillEffect);
+  Isaac.ExecuteCommand(`g p${pillEffect}`);
+  printConsole(`Gave pill: ${pillEffectName} (${pillEffect})`);
 }
 
 /** Spawns every pill on the ground, starting at the top-left-most tile. */
@@ -1177,25 +1186,26 @@ export function warp(params: string): void {
     return;
   }
 
+  let roomType: RoomType;
   const num = tonumber(params);
-  if (num !== undefined) {
-    // Validate the room sub-type
-    if (num < 1 || num >= RoomType.NUM_ROOMTYPES) {
-      printConsole("That is an invalid room type.");
+  if (num === undefined) {
+    const match = getMapPartialMatch(params, ROOM_TYPE_MAP);
+    if (match === undefined) {
+      printConsole(`Unknown room type: ${params}`);
       return;
     }
 
-    warpToRoomType(num);
-    return;
+    roomType = match[1];
+  } else {
+    if (num < 1 || num >= RoomType.NUM_ROOMTYPES) {
+      printConsole(`Invalid room type: ${num}`);
+      return;
+    }
+
+    roomType = num;
   }
 
-  const match = getMapPartialMatch(params, ROOM_TYPE_MAP);
-  if (match === undefined) {
-    printConsole(`Unknown room type: ${params}`);
-    return;
-  }
-
-  warpToRoomType(match);
+  warpToRoomType(roomType);
 }
 
 // -----------

@@ -7,13 +7,13 @@ import {
   LOST_STYLE_PLAYER_TYPES,
   MAX_VANILLA_CHARACTER,
 } from "../constants";
+import { CHARACTER_NAME_MAP } from "../maps/characterNameMap";
 import { HealthType } from "../types/HealthType";
 import { PlayerIndex } from "../types/PlayerIndex";
 import { getLastElement, sumArray } from "./array";
 import { countSetBits, getKBitOfN, getNumBitsOfN } from "./bitwise";
 import { getCollectibleMaxCharges } from "./collectibles";
 import { getCollectibleSet } from "./collectibleSet";
-import { stringContains, trimPrefix } from "./string";
 import { ensureAllCases, repeat } from "./utils";
 
 const DEFAULT_COLLECTIBLE_TYPE = CollectibleType.COLLECTIBLE_SAD_ONION;
@@ -218,6 +218,16 @@ export function getCharacterMaxHeartContainers(
   }
 
   return 12;
+}
+
+/** Helper function to get the name of a character. Returns "unknown" for modded characters. */
+export function getCharacterName(character: PlayerType | int): string {
+  if (character >= PlayerType.NUM_PLAYER_TYPES) {
+    return "unknown";
+  }
+
+  const characterName = CHARACTER_NAME_MAP[character as PlayerType];
+  return characterName === undefined ? "unknown" : characterName;
 }
 
 /** Helper function to get an array containing the characters of all of the current players. */
@@ -605,61 +615,12 @@ export function getPlayerMaxHeartContainers(player: EntityPlayer): int {
  * characters.
  */
 export function getPlayerName(player: EntityPlayer): string {
-  const adjustedName = getAdjustedPlayerName(player);
-
-  if (!isTainted(player)) {
-    return adjustedName;
-  }
-
-  const baseName = trimPrefix(adjustedName, "The ");
-  return stringContains(baseName, "Tainted") ? baseName : `Tainted ${baseName}`;
-}
-
-function getAdjustedPlayerName(player: EntityPlayer) {
   const character = player.GetPlayerType();
 
-  switch (character) {
-    // 4, 25
-    // "???" --> "Blue Baby"
-    case PlayerType.PLAYER_BLUEBABY:
-    case PlayerType.PLAYER_BLUEBABY_B: {
-      return "Blue Baby";
-    }
-
-    // 11
-    // "Lazarus" --> "Lazarus II"
-    case PlayerType.PLAYER_LAZARUS2: {
-      return "Lazarus II";
-    }
-
-    // 12
-    // "Black Judas" --> "Dark Judas"
-    case PlayerType.PLAYER_BLACKJUDAS: {
-      return "Dark Judas";
-    }
-
-    // 19
-    // "Jacob" --> "Jacob & Esau"
-    case PlayerType.PLAYER_JACOB: {
-      return "Jacob & Esau";
-    }
-
-    // 38
-    // "Lazarus" --> "Dead Tainted Lazarus"
-    case PlayerType.PLAYER_LAZARUS2_B: {
-      return "Dead Tainted Lazarus";
-    }
-
-    // 39
-    // "Jacob" --> "Dead Tainted Jacob"
-    case PlayerType.PLAYER_JACOB2_B: {
-      return "Dead Tainted Jacob";
-    }
-
-    default: {
-      return player.GetName();
-    }
-  }
+  // Account for modded characters
+  return character >= PlayerType.NUM_PLAYER_TYPES
+    ? player.GetName()
+    : getCharacterName(character);
 }
 
 /**

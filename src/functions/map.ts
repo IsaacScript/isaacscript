@@ -45,12 +45,15 @@ export function defaultMapGetNextSeed<K, A extends unknown[]>(
  * ]);
  * const searchText = "f";
  * const match = getMapPartialMatch(map, searchText); // match is now equal to 123
+ *
+ * @returns If a match was found, returns a tuple of the map key and value. If a match was not
+ * found, returns undefined.
  * ```
  */
 export function getMapPartialMatch<T>(
   searchText: string,
   map: ReadonlyMap<string, T>,
-): T | undefined {
+): [string, T] | undefined {
   const keys = [...map.keys()];
   keys.sort();
 
@@ -67,7 +70,12 @@ export function getMapPartialMatch<T>(
     return undefined;
   }
 
-  return map.get(matchingKey);
+  const value = map.get(matchingKey);
+  if (value === undefined) {
+    return undefined;
+  }
+
+  return [matchingKey, value];
 }
 
 /**
