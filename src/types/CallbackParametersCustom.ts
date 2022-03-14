@@ -36,6 +36,7 @@ import { PostPlayerUpdateReorderedCallbackType } from "../callbacks/subscription
 import { PostProjectileInitLateCallbackType } from "../callbacks/subscriptions/postProjectileInitLate";
 import { PostPurchaseCallbackType } from "../callbacks/subscriptions/postPurchase";
 import { PostSacrificeCallbackType } from "../callbacks/subscriptions/postSacrifice";
+import { PostSlotAnimationChangedCallbackType } from "../callbacks/subscriptions/postSlotAnimationChanged";
 import { PostSlotDestroyedCallbackType } from "../callbacks/subscriptions/postSlotDestroyed";
 import { PostSlotInitCallbackType } from "../callbacks/subscriptions/postSlotInit";
 import { PostSlotRenderCallbackType } from "../callbacks/subscriptions/postSlotRender";
@@ -234,6 +235,11 @@ export interface CallbackParametersCustom {
 
   [ModCallbacksCustom.MC_POST_SLOT_RENDER]: [
     callback: PostSlotRenderCallbackType,
+    slotVariant?: SlotVariant,
+  ];
+
+  [ModCallbacksCustom.MC_POST_SLOT_ANIMATION_CHANGED]: [
+    callback: PostSlotAnimationChangedCallbackType,
     slotVariant?: SlotVariant,
   ];
 

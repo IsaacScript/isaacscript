@@ -25,7 +25,7 @@ import { postProjectileInitLateCallbackInit } from "./callbacks/postProjectileIn
 import { postPurchaseCallbackInit } from "./callbacks/postPurchase";
 import { postSacrificeCallbackInit } from "./callbacks/postSacrifice";
 import { postSlotInitUpdateCallbacksInit } from "./callbacks/postSlotInitUpdate";
-import { postSlotRenderBrokenCallbacksInit } from "./callbacks/postSlotRenderBroken";
+import { postSlotRenderCallbacksInit } from "./callbacks/postSlotRender";
 import { postTearInitLateCallbackInit } from "./callbacks/postTearInitLate";
 import { postTearInitVeryLateCallbackInit } from "./callbacks/postTearInitVeryLate";
 import { postTransformationCallbackInit } from "./callbacks/postTransformation";
@@ -127,7 +127,7 @@ function initCustomCallbacks(mod: ModUpgraded) {
   postTrinketBreakCallbackInit(mod);
   postCursedTeleportCallbackInit(mod);
   postSlotInitUpdateCallbacksInit(mod);
-  postSlotRenderBrokenCallbacksInit(mod);
+  postSlotRenderCallbacksInit(mod);
   postGridEntityCallbacksInit(mod);
   postGridEntityCollisionInit(mod);
   postBoneSwingCallbackInit(mod);

@@ -36,6 +36,7 @@ import { postPlayerUpdateReorderedRegister } from "../callbacks/subscriptions/po
 import { postProjectileInitLateRegister } from "../callbacks/subscriptions/postProjectileInitLate";
 import { postPurchaseRegister } from "../callbacks/subscriptions/postPurchase";
 import { postSacrificeRegister } from "../callbacks/subscriptions/postSacrifice";
+import { postSlotAnimationChangedRegister } from "../callbacks/subscriptions/postSlotAnimationChanged";
 import { postSlotDestroyedRegister } from "../callbacks/subscriptions/postSlotDestroyed";
 import { postSlotInitRegister } from "../callbacks/subscriptions/postSlotInit";
 import { postSlotRenderRegister } from "../callbacks/subscriptions/postSlotRender";
@@ -313,6 +314,10 @@ function getCallbackRegisterFunction(callbackID: ModCallbacksCustom) {
 
     case ModCallbacksCustom.MC_POST_SLOT_RENDER: {
       return postSlotRenderRegister;
+    }
+
+    case ModCallbacksCustom.MC_POST_SLOT_ANIMATION_CHANGED: {
+      return postSlotAnimationChangedRegister;
     }
 
     case ModCallbacksCustom.MC_POST_SLOT_DESTROYED: {
