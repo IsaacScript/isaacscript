@@ -114,7 +114,7 @@ declare interface Entity {
   MaxHitPoints: float;
   Parent: Entity | undefined;
   Position: Vector;
-  readonly PositionOffset: Readonly<Vector>;
+  PositionOffset: Readonly<Vector>;
   RenderZOffset: int;
   Size: float;
   SizeMulti: Vector;
