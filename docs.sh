@@ -22,6 +22,7 @@ npx typedoc \
   --entryPoints "$DIR/src/features/extraConsoleCommands/commands.ts" \
   --entryPoints "$DIR/src/features/forgottenSwitch.ts" \
   --entryPoints "$DIR/src/features/getCollectibleItemPoolType.ts" \
+  --entryPoints "$DIR/src/features/getPlayerInventory.ts" \
   --entryPoints "$DIR/src/features/isPonyActive.ts" \
   --entryPoints "$DIR/src/features/preventCollectibleRotate.ts" \
   --entryPoints "$DIR/src/features/runInNFrames.ts" \

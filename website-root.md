@@ -75,6 +75,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Run in N Frames](modules/features_runInNFrames.html)
 - [Input Disabler](modules/features_disableInputs.html)
 - [Sound Disabler](modules/features_disableSound.html)
+- [Player Inventory Tracker](modules/features_playerInventory.html)
 - [Extra Console Commands](modules/features_extraConsoleCommands_init.html) / [Command Documentation](modules/features_extraConsoleCommands_commands.html)
 - [Get Collectible Item Pool Type](modules/features_getCollectibleItemPoolType.html)
 - [Prevent Collectible Rotate](modules/features_preventCollectibleRotate.html)

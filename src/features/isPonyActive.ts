@@ -34,10 +34,7 @@ const v = {
 export function isPonyActiveInit(mod: Mod): void {
   saveDataManager("isPonyActive", v);
 
-  mod.AddCallback(
-    ModCallbacks.MC_POST_PEFFECT_UPDATE, // 4
-    postPEffectUpdate,
-  );
+  mod.AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, postPEffectUpdate); // 4
 }
 
 // ModCallbacks.MC_POST_PEFFECT_UPDATE (4)

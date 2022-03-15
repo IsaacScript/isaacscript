@@ -66,9 +66,9 @@ export function addPlayerHealthType(
 }
 
 /**
- * Helper function to get an inventory of the player's health. Use this in combination with the
- * `setPlayerHealth` function to restore the player's health back to a certain configuration at a
- * later time.
+ * Helper function to get an object representing the player's health. You can use this in
+ * combination with the `setPlayerHealth` function to restore the player's health back to a certain
+ * configuration at a later time.
  *
  * This is based on the `REVEL.StoreHealth` function in the Revelations mod.
  */
