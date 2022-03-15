@@ -1,6 +1,8 @@
 import { game } from "../cachedClasses";
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { doorSlotToDirection, getDoors } from "../functions/doors";
+import { doorSlotToDirection } from "../functions/doors";
+import { getClosestPlayer } from "../functions/player";
+import { ensureAllCases } from "../functions/utils";
 import { directionToVector } from "../functions/vector";
 import {
   postCustomDoorEnterFire,
@@ -8,6 +10,7 @@ import {
 } from "./subscriptions/postCustomDoorEnter";
 
 interface CustomDoorData {
+  slot: DoorSlot;
   state: DoorState;
 }
 
@@ -17,7 +20,7 @@ const initializedEffectVariants = new Set<int>();
 
 const v = {
   room: {
-    doors: new Map<DoorSlot, CustomDoorData>(),
+    doors: new Map<PtrHash, CustomDoorData>(),
   },
 };
 
@@ -64,18 +67,58 @@ export function initCustomDoor(mod: Mod, effectVariant: int): void {
 }
 
 // ModCallbacks.MC_POST_EFFECT_RENDER (56)
-function postEffectRenderCustomEntity() {
+function postEffectRenderCustomEntity(effect: EntityEffect) {
   if (!hasSubscriptions()) {
     return;
   }
 
-  const doors = getDoors();
-  if (doors.length === 0) {
+  const ptrHash = GetPtrHash(effect);
+  const doorData = v.room.doors.get(ptrHash);
+  if (doorData === undefined) {
     return;
   }
 
-  const door = doors[0];
-  postCustomDoorEnterFire(door);
+  const direction = doorSlotToDirection(doorData.slot);
+  const player = getClosestPlayer(effect.Position);
+  if (isPlayerPastDoorThreshold(effect, player, direction)) {
+    postCustomDoorEnterFire(player, effect.Variant, doorData.slot, direction);
+  }
+}
+
+function isPlayerPastDoorThreshold(
+  effect: EntityEffect,
+  player: EntityPlayer,
+  direction: Direction,
+) {
+  switch (direction) {
+    case Direction.NO_DIRECTION: {
+      return false;
+    }
+
+    // 1
+    case Direction.UP: {
+      return player.Position.Y <= effect.Position.Y;
+    }
+
+    // 2
+    case Direction.RIGHT: {
+      return player.Position.X >= effect.Position.X;
+    }
+
+    // 3
+    case Direction.DOWN: {
+      return player.Position.Y >= effect.Position.Y;
+    }
+
+    // 4
+    case Direction.LEFT: {
+      return player.Position.X <= effect.Position.X;
+    }
+
+    default: {
+      return ensureAllCases(direction);
+    }
+  }
 }
 
 /**

@@ -1,4 +1,9 @@
-export type PostCustomDoorEnterCallbackType = (door: GridEntityDoor) => void;
+export type PostCustomDoorEnterCallbackType = (
+  player: EntityPlayer,
+  effectVariant: int,
+  doorSlot: DoorSlot,
+  direction: Direction,
+) => void;
 
 const subscriptions: Array<
   [PostCustomDoorEnterCallbackType, DoorVariant | int]
@@ -12,19 +17,24 @@ export function postCustomDoorEnterHasSubscriptions(): boolean {
 /** @internal */
 export function postCustomDoorEnterRegister(
   callback: PostCustomDoorEnterCallbackType,
-  doorVariant: DoorVariant | int,
+  effectVariant: int,
 ): void {
-  subscriptions.push([callback, doorVariant]);
+  subscriptions.push([callback, effectVariant]);
 }
 
 /** @internal */
-export function postCustomDoorEnterFire(door: GridEntityDoor): void {
-  for (const [callback, doorVariant] of subscriptions) {
-    // Handle the optional 2nd callback argument
-    if (doorVariant !== undefined && doorVariant !== door.GetVariant()) {
+export function postCustomDoorEnterFire(
+  player: EntityPlayer,
+  effectVariant: int,
+  doorSlot: DoorSlot,
+  direction: Direction,
+): void {
+  for (const [callback, callbackEffectVariant] of subscriptions) {
+    // Handle the non-optional 2nd callback argument
+    if (effectVariant !== callbackEffectVariant) {
       continue;
     }
 
-    callback(door);
+    callback(player, effectVariant, doorSlot, direction);
   }
 }
