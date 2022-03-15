@@ -3,7 +3,7 @@ export const DIRECTION_TO_VECTOR: {
 } = {
   [Direction.NO_DIRECTION]: Vector.Zero, // -1
   [Direction.LEFT]: Vector(-1, 0), // 0
-  [Direction.UP]: Vector(0, 1), // 1
+  [Direction.UP]: Vector(0, -1), // 1
   [Direction.RIGHT]: Vector(1, 0), // 2
-  [Direction.DOWN]: Vector(0, -1), // 3
+  [Direction.DOWN]: Vector(0, 1), // 3
 };

@@ -32,14 +32,14 @@ export class ModUpgraded implements Mod {
   // ---------------
 
   AddCallback<T extends keyof CallbackParameters>(
-    callbackID: T,
+    modCallbacks: T,
     ...args: CallbackParameters[T]
   ): void {
     if (this.Verbose) {
       const callback = args[0] as any; // eslint-disable-line
       const optionalArg = args[1] as any; // eslint-disable-line
 
-      const callbackName = getCallbackName(callbackID);
+      const callbackName = getCallbackName(modCallbacks);
       const debugMsg = getDebugPrependString(callbackName);
 
       const callbackWithLogger = (...callbackArgs: unknown[]) => {
@@ -52,9 +52,9 @@ export class ModUpgraded implements Mod {
 
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      this.Mod.AddCallback(callbackID, callbackWithLogger, optionalArg); // eslint-disable-line
+      this.Mod.AddCallback(modCallbacks, callbackWithLogger, optionalArg); // eslint-disable-line
     } else {
-      this.Mod.AddCallback(callbackID, ...args);
+      this.Mod.AddCallback(modCallbacks, ...args);
     }
   }
 
@@ -84,13 +84,14 @@ export class ModUpgraded implements Mod {
 
   // eslint-disable-next-line class-methods-use-this
   AddCallbackCustom<T extends keyof CallbackParametersCustom>(
-    callbackID: T,
+    modCallbacksCustom: T,
     ...args: CallbackParametersCustom[T]
   ): void {
-    const callbackRegisterFunction = CALLBACK_REGISTER_FUNCTIONS[callbackID];
+    const callbackRegisterFunction =
+      CALLBACK_REGISTER_FUNCTIONS[modCallbacksCustom];
     if (callbackRegisterFunction === undefined) {
       error(
-        `Failed to find a callback registration function for custom callback: ${callbackID}`,
+        `Failed to find a callback registration function for custom callback: ${modCallbacksCustom}`,
       );
     }
 

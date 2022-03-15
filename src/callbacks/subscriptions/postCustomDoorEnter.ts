@@ -6,7 +6,7 @@ export type PostCustomDoorEnterCallbackType = (
 ) => void;
 
 const subscriptions: Array<
-  [PostCustomDoorEnterCallbackType, DoorVariant | int]
+  [PostCustomDoorEnterCallbackType, DoorVariant | int | undefined]
 > = [];
 
 /** @internal */
@@ -17,7 +17,7 @@ export function postCustomDoorEnterHasSubscriptions(): boolean {
 /** @internal */
 export function postCustomDoorEnterRegister(
   callback: PostCustomDoorEnterCallbackType,
-  effectVariant: int,
+  effectVariant?: int,
 ): void {
   subscriptions.push([callback, effectVariant]);
 }
@@ -30,8 +30,11 @@ export function postCustomDoorEnterFire(
   direction: Direction,
 ): void {
   for (const [callback, callbackEffectVariant] of subscriptions) {
-    // Handle the non-optional 2nd callback argument
-    if (effectVariant !== callbackEffectVariant) {
+    // Handle the optional 2nd callback argument
+    if (
+      callbackEffectVariant !== undefined &&
+      callbackEffectVariant !== effectVariant
+    ) {
       continue;
     }
 

@@ -909,9 +909,16 @@ export function secret(): void {
 }
 
 /** Logs all of the current run's seed effects to the "log.txt" file. */
-export function seeds(): void {
+export function seedsCommand(): void {
   logAllSeedEffects();
   printConsole('Logged the seed effects to the "log.txt" file.');
+}
+
+/** Changes to a seeded run, using the seed of the current run. */
+export function seedStick(): void {
+  const seeds = game.GetSeeds();
+  const startSeedString = seeds.GetStartSeedString();
+  Isaac.ExecuteCommand(`seed ${startSeedString}`);
 }
 
 /**

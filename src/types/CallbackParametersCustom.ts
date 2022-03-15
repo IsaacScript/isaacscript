@@ -284,6 +284,7 @@ export interface CallbackParametersCustom {
 
   [ModCallbacksCustom.MC_POST_CUSTOM_DOOR_ENTER]: [
     callback: PostCustomDoorEnterCallbackType,
+    effectVariant?: int,
   ];
 }
 

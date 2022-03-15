@@ -11,10 +11,9 @@ import {
 
 interface CustomDoorData {
   slot: DoorSlot;
-  state: DoorState;
 }
 
-const POSITION_OFFSET_MULTIPLIER = 23;
+const POSITION_OFFSET_MULTIPLIER = -23;
 
 const initializedEffectVariants = new Set<int>();
 
@@ -166,6 +165,12 @@ export function spawnCustomDoor(effectVariant: int, doorSlot: DoorSlot): void {
       wall.CollisionClass = GridCollisionClass.COLLISION_WALL_EXCEPT_PLAYER;
     }
   }
+
+  const ptrHash = GetPtrHash(effect);
+  const doorData: CustomDoorData = {
+    slot: doorSlot,
+  };
+  v.room.doors.set(ptrHash, doorData);
 }
 
 function getPositionOffset(doorSlot: DoorSlot) {
