@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install xmllint (which the "lint.sh" script uses)
-        run: sudo apt-get install libxml2-utils -y
+        run: sudo apt-get update && sudo apt-get install libxml2-utils -y
 
       - name: Checkout the repository
         uses: actions/checkout@v2

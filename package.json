@@ -44,6 +44,6 @@
     "@types/source-map-support": "^0.5.4",
     "@types/update-notifier": "^5.1.0",
     "@types/yargs": "^17.0.9",
-    "isaacscript-lint": "^1.0.87"
+    "isaacscript-lint": "^1.0.89"
   }
 }
