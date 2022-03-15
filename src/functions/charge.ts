@@ -1,6 +1,6 @@
 import { game, sfxManager } from "../cachedClasses";
 import { getCollectibleMaxCharges } from "./collectibles";
-import { getPlayers, getTotalCharge } from "./player";
+import { getPlayers } from "./player";
 
 /**
  * Helper function to add a charge to every player's active item, emulating what happens when a room
@@ -136,16 +136,17 @@ function getNumChargesToAdd(
 
 /**
  * Helper function to get the combined normal charge and the battery charge for the player's active
- * item. Use this to avoid having to manually retrieve these two values and add them together.
+ * item. This is useful because you have to add these two values together when setting the active
+ * charge.
  */
-export function getActiveCharge(
+export function getTotalCharge(
   player: EntityPlayer,
   activeSlot: ActiveSlot,
 ): int {
-  const charge = player.GetActiveCharge(activeSlot);
+  const activeCharge = player.GetActiveCharge(activeSlot);
   const batteryCharge = player.GetBatteryCharge(activeSlot);
 
-  return charge + batteryCharge;
+  return activeCharge + batteryCharge;
 }
 
 /**

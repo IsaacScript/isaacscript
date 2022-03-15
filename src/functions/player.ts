@@ -759,20 +759,6 @@ export function getTaintedMagdaleneNonTemporaryMaxHearts(
 }
 
 /**
- * Helper function to return the active charge and the battery charge combined. This is useful
- * because you are not able to set the battery charge directly.
- */
-export function getTotalCharge(
-  player: EntityPlayer,
-  activeSlot: ActiveSlot,
-): int {
-  const activeCharge = player.GetActiveCharge(activeSlot);
-  const batteryCharge = player.GetBatteryCharge(activeSlot);
-
-  return activeCharge + batteryCharge;
-}
-
-/**
  * Returns the total number of collectibles amongst all players. For example, if player 1 has 1 Sad
  * Onion and player 2 has 2 Sad Onions, then this function would return 3.
  */
@@ -819,6 +805,14 @@ export function hasOpenActiveItemSlot(player: EntityPlayer): boolean {
   }
 
   return activeItemPrimary === CollectibleType.COLLECTIBLE_NULL;
+}
+
+export function isActiveSlotEmpty(
+  player: EntityPlayer,
+  activeSlot: ActiveSlot,
+): boolean {
+  const activeCollectibleType = player.GetActiveItem(activeSlot);
+  return activeCollectibleType === CollectibleType.COLLECTIBLE_NULL;
 }
 
 /**
