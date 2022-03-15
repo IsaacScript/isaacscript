@@ -1,4 +1,5 @@
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
+import { copyArray } from "../functions/array";
 import { getCollectibleSet } from "../functions/collectibleSet";
 import { getPlayerIndex } from "../functions/player";
 import { repeat } from "../functions/utils";
@@ -91,5 +92,10 @@ function postItemPickup(player: EntityPlayer, pickingUpItem: PickingUpItem) {
 export function getPlayerInventory(player: EntityPlayer): CollectibleType[] {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
   const playerIndex = getPlayerIndex(player);
-  return v.run.playersInventory.getAndSetDefault(playerIndex, player);
+  const inventory = v.run.playersInventory.getAndSetDefault(
+    playerIndex,
+    player,
+  );
+
+  return copyArray(inventory);
 }
