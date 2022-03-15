@@ -198,17 +198,17 @@ declare interface EntityPlayer extends Entity {
 
   /**
    * @param card
-   * @param playerAnimationName Default is "Pickup".
+   * @param playerItemAnimation Default is "Pickup".
    */
   AnimateCard(
     card: Card | int,
-    playerAnimationName?: PlayerItemAnimation,
+    playerItemAnimation?: PlayerItemAnimation,
   ): void;
 
   /**
    * @param collectibleType
-   * @param playerAnimationName Default is "Pickup".
-   * @param spriteAnimationName Default is "PlayerPickupSparkle".
+   * @param playerItemAnimation Default is "Pickup".
+   * @param collectibleAnimation Default is "PlayerPickupSparkle".
    */
   AnimateCollectible(
     collectibleType: CollectibleType | int,
@@ -231,21 +231,17 @@ declare interface EntityPlayer extends Entity {
    * @param sprite
    * @param hideShadow Default is false. This should be usually set to true when rendering a sprite
    * with a custom shadow layer.
-   * @param animationName Default is "Pickup".
+   * @param animation Default is "Pickup".
    */
-  AnimatePickup(
-    sprite: Sprite,
-    hideShadow?: boolean,
-    animationName?: string,
-  ): void;
+  AnimatePickup(sprite: Sprite, hideShadow?: boolean, animation?: string): void;
 
   /**
    * @param pillColor
-   * @param playerAnimationName Default is "Pickup".
+   * @param playerItemAnimation Default is "Pickup".
    */
   AnimatePill(
     pillColor: PillColor | int,
-    playerAnimationName?: PlayerItemAnimation,
+    playerItemAnimation?: PlayerItemAnimation,
   ): void;
 
   AnimatePitfallIn(): void;
@@ -262,13 +258,13 @@ declare interface EntityPlayer extends Entity {
 
   /**
    * @param trinketType
-   * @param playerAnimationName Default is "Pickup".
-   * @param spriteAnimationName Default is "PlayerPickupSparkle".
+   * @param playerItemAnimation Default is "Pickup".
+   * @param spriteAnimation Default is "PlayerPickupSparkle".
    */
   AnimateTrinket(
     trinketType: TrinketType | int,
-    playerAnimationName?: PlayerItemAnimation,
-    spriteAnimationName?: string,
+    playerItemAnimation?: PlayerItemAnimation,
+    spriteAnimation?: string,
   ): void;
 
   AreControlsEnabled(): boolean;

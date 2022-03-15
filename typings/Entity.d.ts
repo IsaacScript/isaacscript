@@ -76,8 +76,8 @@ declare interface Entity {
   ): void;
 
   SetSize(size: float, sizeMulti: Vector, numGridCollisionPoints: int): void;
-  SetSpriteFrame(animationName: string, frameNum: int): void;
-  SetSpriteOverlayFrame(animationName: string, frameNum: int): void;
+  SetSpriteFrame(animation: string, frameNum: int): void;
+  SetSpriteOverlayFrame(animation: string, frameNum: int): void;
 
   TakeDamage(
     damage: float,

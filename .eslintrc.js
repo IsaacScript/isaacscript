@@ -74,7 +74,8 @@ module.exports = {
     "jsdoc/match-description": [
       "warn",
       {
-        matchDescription: "[\\s\\S]*\\S$",
+        matchDescription: "^\\S[\\s\\S]*\\S$",
+        contexts: ["any"],
       },
     ],
     */
