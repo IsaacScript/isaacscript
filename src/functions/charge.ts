@@ -138,9 +138,12 @@ function getNumChargesToAdd(
  * Helper function to get the combined normal charge and the battery charge for the player's active
  * item. Use this to avoid having to manually retrieve these two values and add them together.
  */
-export function getActiveCharge(player: EntityPlayer): int {
-  const charge = player.GetActiveCharge();
-  const batteryCharge = player.GetBatteryCharge();
+export function getActiveCharge(
+  player: EntityPlayer,
+  activeSlot: ActiveSlot,
+): int {
+  const charge = player.GetActiveCharge(activeSlot);
+  const batteryCharge = player.GetBatteryCharge(activeSlot);
 
   return charge + batteryCharge;
 }
