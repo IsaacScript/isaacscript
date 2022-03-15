@@ -547,5 +547,10 @@ Fires from the `MC_POST_PEFFECT_UPDATE` callback when a player enters the loadin
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `DoorVariant` provided.
 
 ```ts
-function postCustomDoorEnter(door: GridEntityDoor): void {}
+function postCustomDoorEnter(
+  player: EntityPlayer,
+  effectVariant: int,
+  doorSlot: DoorSlot,
+  direction: Direction,
+): void {}
 ```
