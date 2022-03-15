@@ -134,9 +134,16 @@ module.exports = {
     // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-unused-vars.md
     // Defined at:
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/variables.js
-    // We want to ignore function arguments that start with an underscore
+    // We want to lint unused arguments (the default is "after-used")
+    // We also want to ignore function arguments that start with an underscore
     // This matches the behavior of the TypeScript compiler flag "--noUnusedLocals"
-    "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        args: "all",
+        argsIgnorePattern: "^_",
+      },
+    ],
 
     // Documentation:
     // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-use-before-define.md
