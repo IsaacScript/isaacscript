@@ -27,7 +27,7 @@ export {
 export { forgottenSwitch } from "./features/forgottenSwitch";
 export { getCollectibleItemPoolType } from "./features/getCollectibleItemPoolType";
 export * from "./features/isPonyActive";
-export { getPlayerInventory } from "./features/playerInventory";
+export { addCollectible, getPlayerInventory } from "./features/playerInventory";
 export { preventCollectibleRotate } from "./features/preventCollectibleRotate";
 export {
   runInNGameFrames,
