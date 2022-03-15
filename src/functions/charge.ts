@@ -135,6 +135,17 @@ function getNumChargesToAdd(
 }
 
 /**
+ * Helper function to get the combined normal charge and the battery charge for the player's active
+ * item. Use this to avoid having to manually retrieve these two values and add them together.
+ */
+export function getActiveCharge(player: EntityPlayer): int {
+  const charge = player.GetActiveCharge();
+  const batteryCharge = player.GetBatteryCharge();
+
+  return charge + batteryCharge;
+}
+
+/**
  * The AAA Battery should grant an extra charge when the active item is one away from being fully
  * charged.
  */
@@ -163,6 +174,17 @@ function getNumChargesWithAAAModifier(
   }
 
   return chargesToAdd;
+}
+
+export function isActiveSlotDoubleCharged(
+  player: EntityPlayer,
+  activeSlot: ActiveSlot,
+): boolean {
+  const collectibleType = player.GetActiveItem(activeSlot);
+  const batteryCharge = player.GetBatteryCharge(activeSlot);
+  const maxCharges = getCollectibleMaxCharges(collectibleType);
+
+  return batteryCharge >= maxCharges;
 }
 
 export function playChargeSoundEffect(
@@ -202,15 +224,4 @@ function shouldPlayFullRechargeSound(
     !player.NeedsCharge(activeSlot) ||
     (activeCharge === maxCharges && batteryCharge === 0)
   );
-}
-
-export function isActiveSlotDoubleCharged(
-  player: EntityPlayer,
-  activeSlot: ActiveSlot,
-): boolean {
-  const collectibleType = player.GetActiveItem(activeSlot);
-  const batteryCharge = player.GetBatteryCharge(activeSlot);
-  const maxCharges = getCollectibleMaxCharges(collectibleType);
-
-  return batteryCharge >= maxCharges;
 }
