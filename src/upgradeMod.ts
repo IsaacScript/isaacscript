@@ -39,6 +39,7 @@ import { disableSoundsInit } from "./features/disableSound";
 import { forgottenSwitchInit } from "./features/forgottenSwitch";
 import { getCollectibleItemPoolTypeInit } from "./features/getCollectibleItemPoolType";
 import { isPonyActiveInit } from "./features/isPonyActive";
+import { playerInventoryInit } from "./features/playerInventory";
 import { preventCollectibleRotateInit } from "./features/preventCollectibleRotate";
 import { runInNFramesInit } from "./features/runInNFrames";
 import { saveDataManagerInit } from "./features/saveDataManager/main";
@@ -144,4 +145,5 @@ function initFeatures(mod: ModUpgraded) {
   runInNFramesInit(mod);
   sirenHelpersInit(mod);
   isPonyActiveInit(mod);
+  playerInventoryInit(mod);
 }
