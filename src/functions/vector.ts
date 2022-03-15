@@ -1,40 +1,11 @@
-import { ensureAllCases } from "./utils";
+import { DIRECTION_TO_VECTOR } from "../objects/directionToVector";
 
 export function copyVector(vector: Vector): Vector {
   return Vector(vector.X, vector.Y);
 }
 
 export function directionToVector(direction: Direction): Vector {
-  switch (direction) {
-    // -1
-    case Direction.NO_DIRECTION: {
-      return Vector.Zero;
-    }
-
-    // 0
-    case Direction.LEFT: {
-      return Vector(-1, 0);
-    }
-
-    // 1
-    case Direction.UP: {
-      return Vector(0, -1);
-    }
-
-    // 2
-    case Direction.RIGHT: {
-      return Vector(1, 0);
-    }
-
-    // 3
-    case Direction.DOWN: {
-      return Vector(0, 1);
-    }
-
-    default: {
-      return ensureAllCases(direction);
-    }
-  }
+  return DIRECTION_TO_VECTOR[direction];
 }
 
 /**

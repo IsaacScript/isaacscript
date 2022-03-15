@@ -1,5 +1,6 @@
 import { game } from "../cachedClasses";
 import { MAX_NUM_DOORS } from "../constants";
+import { DOOR_SLOT_TO_DIRECTION } from "../objects/doorSlotToDirection";
 
 export function closeAllDoors(): void {
   for (const door of getDoors()) {
@@ -16,6 +17,10 @@ export function closeDoorFast(door: GridEntityDoor): void {
 
   const sprite = door.GetSprite();
   sprite.Play("Closed", true);
+}
+
+export function doorSlotToDirection(doorSlot: DoorSlot): Direction {
+  return DOOR_SLOT_TO_DIRECTION[doorSlot];
 }
 
 /**

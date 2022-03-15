@@ -1,4 +1,4 @@
-import { ensureAllCases } from "./utils";
+import { directionToVector } from "./vector";
 
 export function getAngleDifference(angle1: float, angle2: float): float {
   const subtractedAngle = angle1 - angle2;
@@ -25,7 +25,8 @@ export function getCircleDiscretizedPoints(
   yMultiplier = 1,
   initialDirection = Direction.UP,
 ): Vector[] {
-  const initialPosition = getCircleInitialPosition(initialDirection, radius);
+  const vector = directionToVector(initialDirection);
+  const initialPosition = vector.mul(radius);
   const positions: Vector[] = [];
   for (let i = 0; i < numPoints; i++) {
     const rotatedPosition = initialPosition.Rotated((i * 360) / numPoints);
@@ -36,39 +37,6 @@ export function getCircleDiscretizedPoints(
   }
 
   return positions;
-}
-
-function getCircleInitialPosition(direction: Direction, radius: float) {
-  switch (direction) {
-    // -1
-    case Direction.NO_DIRECTION: {
-      return Vector.Zero;
-    }
-
-    // 0
-    case Direction.LEFT: {
-      return Vector(-radius, 0);
-    }
-
-    // 1
-    case Direction.UP: {
-      return Vector(0, -radius);
-    }
-
-    // 2
-    case Direction.RIGHT: {
-      return Vector(radius, 0);
-    }
-
-    // 3
-    case Direction.DOWN: {
-      return Vector(0, radius);
-    }
-
-    default: {
-      return ensureAllCases(direction);
-    }
-  }
 }
 
 /**

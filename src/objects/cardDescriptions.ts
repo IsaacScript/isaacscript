@@ -1,7 +1,7 @@
 export const DEFAULT_CARD_DESCRIPTION = "Unknown";
 
 // Temporary map due to missing features in the vanilla API
-export const CARD_DESCRIPTION_MAP: { readonly [key in Card]: string } = {
+export const CARD_DESCRIPTIONS: { readonly [key in Card]: string } = {
   [Card.CARD_RANDOM]: DEFAULT_CARD_DESCRIPTION, // -1
   [Card.CARD_NULL]: DEFAULT_CARD_DESCRIPTION, // 0
   [Card.CARD_FOOL]: "Where journey begins", // 1

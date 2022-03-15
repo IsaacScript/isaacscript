@@ -1,5 +1,5 @@
 import { game } from "../cachedClasses";
-import { ensureAllCases } from "./utils";
+import { STAGE_TYPE_TO_LETTER } from "../objects/stageTypeToLetter";
 
 /**
  * Helper function to account for Repentance floors being offset by 1. For example, Downpour 2 is
@@ -111,41 +111,5 @@ export function onSheol(): boolean {
  * `StageType.STAGETYPE_REPENTANCE` to "c".
  */
 export function stageTypeToLetter(stageType: StageType): string {
-  switch (stageType) {
-    // 0
-    case StageType.STAGETYPE_ORIGINAL: {
-      // e.g. To go to Basement 2, the command is simply "stage 2"
-      return "";
-    }
-
-    // 1
-    case StageType.STAGETYPE_WOTL: {
-      return "a";
-    }
-
-    // 2
-    case StageType.STAGETYPE_AFTERBIRTH: {
-      return "b";
-    }
-
-    // 3
-    case StageType.STAGETYPE_GREEDMODE: {
-      // There is no corresponding suffix
-      return "";
-    }
-
-    // 4
-    case StageType.STAGETYPE_REPENTANCE: {
-      return "c";
-    }
-
-    // 5
-    case StageType.STAGETYPE_REPENTANCE_B: {
-      return "d";
-    }
-
-    default: {
-      return ensureAllCases(stageType);
-    }
-  }
+  return STAGE_TYPE_TO_LETTER[stageType];
 }

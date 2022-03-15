@@ -1,6 +1,6 @@
 export const DEFAULT_PILL_EFFECT_NAME = "Unknown";
 
-export const PILL_EFFECT_NAME_MAP: { readonly [key in PillEffect]: string } = {
+export const PILL_EFFECT_NAMES: { readonly [key in PillEffect]: string } = {
   [PillEffect.PILLEFFECT_NULL]: DEFAULT_PILL_EFFECT_NAME,
   [PillEffect.PILLEFFECT_BAD_GAS]: "Bad Gas",
   [PillEffect.PILLEFFECT_BAD_TRIP]: "Bad Trip",

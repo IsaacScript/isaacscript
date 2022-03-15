@@ -1,10 +1,10 @@
 import { itemConfig } from "../cachedClasses";
 import {
-  CARD_DESCRIPTION_MAP,
+  CARD_DESCRIPTIONS,
   DEFAULT_CARD_DESCRIPTION,
-} from "../maps/cardDescriptionMap";
-import { CARD_NAME_MAP, DEFAULT_CARD_NAME } from "../maps/cardNameMap";
-import { CARD_TYPE_MAP, DEFAULT_CARD_TYPE } from "../maps/cardTypeMap";
+} from "../objects/cardDescriptions";
+import { CARD_NAMES, DEFAULT_CARD_NAME } from "../objects/cardNames";
+import { CARD_TYPES, DEFAULT_CARD_TYPE } from "../objects/cardTypes";
 import { CardType } from "../types/CardType";
 import { range } from "./math";
 import { addSetsToSet, getRandomSetElement } from "./set";
@@ -61,7 +61,7 @@ function initCardObjects() {
 export function getCardDescription(card: Card | int): string {
   // "ItemConfigCard.Description" is bugged with vanilla cards on patch v1.7.6,
   // so we use a hard-coded map as a workaround
-  const cardDescription = CARD_DESCRIPTION_MAP[card as Card];
+  const cardDescription = CARD_DESCRIPTIONS[card as Card];
   if (cardDescription !== undefined) {
     return cardDescription;
   }
@@ -86,7 +86,7 @@ export function getCardDescription(card: Card | int): string {
 export function getCardName(card: Card | int): string {
   // "ItemConfigCard.Name" is bugged with vanilla cards on patch v1.7.6,
   // so we use a hard-coded map as a workaround
-  const cardName = CARD_NAME_MAP[card as Card];
+  const cardName = CARD_NAMES[card as Card];
   if (cardName !== undefined && cardName !== DEFAULT_CARD_NAME) {
     return cardName;
   }
@@ -126,7 +126,7 @@ export function getCardsOfType(...cardTypes: CardType[]): Set<Card> {
 }
 
 export function getCardType(card: Card | int): CardType {
-  const cardType = CARD_TYPE_MAP[card as Card];
+  const cardType = CARD_TYPES[card as Card];
   return cardType === undefined ? DEFAULT_CARD_TYPE : cardType;
 }
 

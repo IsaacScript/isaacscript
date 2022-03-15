@@ -32,10 +32,10 @@ function postUpdate() {
 
 // ModCallbacks.MC_POST_RENDER (2)
 function postRender() {
-  const isaacFrameCount = Isaac.GetFrameCount();
+  const renderFrameCount = Isaac.GetFrameCount();
 
   checkExecuteQueuedFunctions(
-    isaacFrameCount,
+    renderFrameCount,
     v.run.queuedRenderFunctionTuples,
   );
 }
@@ -73,11 +73,11 @@ function checkExecuteQueuedFunctions(
  * before the deferred function fires would cause a bug in your mod, then you should handle deferred
  * functions manually using serializable data.
  */
-export function runInNGameFrames(func: () => void, frames: int): void {
+export function runInNGameFrames(func: () => void, gameFrames: int): void {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
 
   const gameFrameCount = game.GetFrameCount();
-  const functionFireFrame = gameFrameCount + frames;
+  const functionFireFrame = gameFrameCount + gameFrames;
   const tuple: [int, () => void] = [functionFireFrame, func];
   v.run.queuedGameFunctionTuples.push(tuple);
 }
@@ -92,11 +92,11 @@ export function runInNGameFrames(func: () => void, frames: int): void {
  * before the deferred function fires would cause a bug in your mod, then you should handle deferred
  * functions manually using serializable data.
  */
-export function runInNRenderFrames(func: () => void, frames: int): void {
+export function runInNRenderFrames(func: () => void, renderFrames: int): void {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
 
-  const isaacFrameCount = Isaac.GetFrameCount();
-  const functionFireFrame = isaacFrameCount + frames;
+  const renderFrameCount = Isaac.GetFrameCount();
+  const functionFireFrame = renderFrameCount + renderFrames;
   const tuple: [int, () => void] = [functionFireFrame, func];
   v.run.queuedRenderFunctionTuples.push(tuple);
 }

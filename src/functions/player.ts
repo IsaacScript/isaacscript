@@ -8,9 +8,9 @@ import {
   MAX_VANILLA_CHARACTER,
 } from "../constants";
 import {
-  CHARACTER_NAME_MAP,
+  CHARACTER_NAMES,
   DEFAULT_CHARACTER_NAME,
-} from "../maps/characterNameMap";
+} from "../objects/characterNames";
 import { HealthType } from "../types/HealthType";
 import { PlayerIndex } from "../types/PlayerIndex";
 import { getLastElement, sumArray } from "./array";
@@ -229,7 +229,7 @@ export function getCharacterName(character: PlayerType | int): string {
     return "unknown";
   }
 
-  const characterName = CHARACTER_NAME_MAP[character as PlayerType];
+  const characterName = CHARACTER_NAMES[character as PlayerType];
   return characterName === undefined ? DEFAULT_CHARACTER_NAME : characterName;
 }
 

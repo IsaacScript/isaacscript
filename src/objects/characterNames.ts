@@ -1,6 +1,6 @@
 export const DEFAULT_CHARACTER_NAME = "Unknown";
 
-export const CHARACTER_NAME_MAP: { readonly [key in PlayerType]: string } = {
+export const CHARACTER_NAMES: { readonly [key in PlayerType]: string } = {
   [PlayerType.PLAYER_POSSESSOR]: "Possessor", // -1
   [PlayerType.PLAYER_ISAAC]: "Isaac", // 0
   [PlayerType.PLAYER_MAGDALENE]: "Magdalene", // 1

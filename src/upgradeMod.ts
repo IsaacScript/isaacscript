@@ -132,7 +132,7 @@ function initCustomCallbacks(mod: ModUpgraded) {
   postGridEntityCallbacksInit(mod);
   postGridEntityCollisionInit(mod);
   postBoneSwingCallbackInit(mod);
-  postCustomDoorEnterCallbackInit(mod);
+  postCustomDoorEnterCallbackInit();
 }
 
 function initFeatures(mod: ModUpgraded) {

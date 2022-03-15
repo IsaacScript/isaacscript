@@ -1,5 +1,8 @@
 export * from "./cachedClasses";
-export { spawnCustomDoor } from "./callbacks/postCustomDoorEnter";
+export {
+  initCustomDoor,
+  spawnCustomDoor,
+} from "./callbacks/postCustomDoorEnter";
 export {
   forceNewLevelCallback,
   forceNewRoomCallback,
@@ -96,25 +99,6 @@ export * from "./functions/trinketSet";
 export * from "./functions/ui";
 export * from "./functions/utils";
 export * from "./functions/vector";
-export * from "./maps/cardDescriptionMap";
-export * from "./maps/cardMap";
-export * from "./maps/cardNameMap";
-export * from "./maps/challengeNameMap";
-export * from "./maps/characterMap";
-export * from "./maps/collectibleDescriptionMap";
-export * from "./maps/collectibleNameMap";
-export * from "./maps/gridEntityTypeToBrokenStateMap";
-export * from "./maps/gridEntityXMLMap";
-export * from "./maps/pillEffectClassMap";
-export * from "./maps/pillEffectMap";
-export * from "./maps/pillEffectNameMap";
-export * from "./maps/pillEffectTypeMap";
-export * from "./maps/roomShapeToTopLeftWallGridIndexMap";
-export * from "./maps/roomTypeMap";
-export * from "./maps/roomTypeNameMap";
-export * from "./maps/transformationNameMap";
-export * from "./maps/trinketDescriptionMap";
-export * from "./maps/trinketNameMap";
 export * from "./types/AnyEntity";
 export * from "./types/CallbackParametersCustom";
 export * from "./types/CardType";

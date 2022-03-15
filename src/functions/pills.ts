@@ -1,16 +1,16 @@
 import { itemConfig } from "../cachedClasses";
 import {
   DEFAULT_PILL_EFFECT_CLASS,
-  PILL_EFFECT_CLASS_MAP,
-} from "../maps/pillEffectClassMap";
+  PILL_EFFECT_CLASSES,
+} from "../objects/pillEffectClasses";
 import {
   DEFAULT_PILL_EFFECT_NAME,
-  PILL_EFFECT_NAME_MAP,
-} from "../maps/pillEffectNameMap";
+  PILL_EFFECT_NAMES,
+} from "../objects/pillEffectNames";
 import {
   DEFAULT_PILL_EFFECT_TYPE,
-  PILL_EFFECT_TYPE_MAP,
-} from "../maps/pillEffectTypeMap";
+  PILL_EFFECT_TYPES,
+} from "../objects/pillEffectTypes";
 import { PillEffectClass } from "../types/PillEffectClass";
 import { PillEffectType } from "../types/PillEffectType";
 
@@ -37,7 +37,7 @@ export function getPillEffectClass(
   // ItemConfigPillEffect does not contain the "class" tag, so we must manually compile a map of
   // pill effect classes
   // Modded pill effects are not included in the map
-  const pillEffectClass = PILL_EFFECT_CLASS_MAP[pillEffect as PillEffect];
+  const pillEffectClass = PILL_EFFECT_CLASSES[pillEffect as PillEffect];
   return pillEffectClass === undefined
     ? DEFAULT_PILL_EFFECT_CLASS
     : pillEffectClass;
@@ -55,7 +55,7 @@ export function getPillEffectClass(
 export function getPillEffectName(pillEffect: PillEffect | int): string {
   // "ItemConfigPillEffect.Name" is bugged with vanilla pill effects on patch v1.7.6,
   // so we use a hard-coded map as a workaround
-  const pillEffectName = PILL_EFFECT_NAME_MAP[pillEffect as PillEffect];
+  const pillEffectName = PILL_EFFECT_NAMES[pillEffect as PillEffect];
   if (
     pillEffectName !== undefined &&
     pillEffectName !== DEFAULT_PILL_EFFECT_NAME
@@ -86,7 +86,7 @@ export function getPillEffectType(
   // ItemConfigPillEffect does not contain the "class" tag, so we must manually compile a map of
   // pill effect classes
   // Modded pill effects are not included in the map
-  const pillEffectClass = PILL_EFFECT_TYPE_MAP[pillEffect as PillEffect];
+  const pillEffectClass = PILL_EFFECT_TYPES[pillEffect as PillEffect];
   return pillEffectClass === undefined
     ? DEFAULT_PILL_EFFECT_TYPE
     : pillEffectClass;

@@ -26,7 +26,7 @@
   ],
   "devDependencies": {
     "@zamiell/typescript-to-lua": "^1.4.2",
-    "isaac-typescript-definitions": "^1.0.364",
+    "isaac-typescript-definitions": "^1.0.366",
     "isaacscript-lint": "^1.0.89",
     "isaacscript-tsconfig": "^1.1.8",
     "typedoc": "^0.22.13",

@@ -66,12 +66,12 @@ export function loadFromDisk(
 }
 
 function readSaveDatFile(mod: Mod) {
-  const isaacFrameCount = Isaac.GetFrameCount();
+  const renderFrameCount = Isaac.GetFrameCount();
 
   const [ok, jsonStringOrErrMsg] = pcall(tryLoadModData, mod);
   if (!ok) {
     log(
-      `Failed to read from the "save#.dat" file on Isaac frame ${isaacFrameCount}: ${jsonStringOrErrMsg}`,
+      `Failed to read from the "save#.dat" file on render frame ${renderFrameCount}: ${jsonStringOrErrMsg}`,
     );
     return DEFAULT_MOD_DATA;
   }

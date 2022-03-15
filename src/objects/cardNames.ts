@@ -1,6 +1,6 @@
 export const DEFAULT_CARD_NAME = "Unknown";
 
-export const CARD_NAME_MAP: { readonly [key in Card]: string } = {
+export const CARD_NAMES: { readonly [key in Card]: string } = {
   [Card.CARD_RANDOM]: DEFAULT_CARD_NAME,
   [Card.CARD_NULL]: DEFAULT_CARD_NAME,
   [Card.CARD_FOOL]: "0 - The Fool",

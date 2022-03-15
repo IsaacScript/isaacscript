@@ -1,6 +1,6 @@
 export const DEFAULT_ROOM_TYPE_NAME = "Unknown";
 
-export const ROOM_TYPE_NAME_MAP: { readonly [key in RoomType]: string } = {
+export const ROOM_TYPE_NAMES: { readonly [key in RoomType]: string } = {
   [RoomType.ROOM_NULL]: "null room", // 0
   [RoomType.ROOM_DEFAULT]: "default room", // 1
   [RoomType.ROOM_SHOP]: "shop", // 2

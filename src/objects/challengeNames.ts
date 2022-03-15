@@ -1,6 +1,6 @@
 export const DEFAULT_CHALLENGE_NAME = "Unknown";
 
-export const CHALLENGE_NAME_MAP: { readonly [key in Challenge]: string } = {
+export const CHALLENGE_NAMES: { readonly [key in Challenge]: string } = {
   [Challenge.CHALLENGE_NULL]: DEFAULT_CHALLENGE_NAME, // 0
   [Challenge.CHALLENGE_PITCH_BLACK]: "Pitch Black", // 1
   [Challenge.CHALLENGE_HIGH_BROW]: "High Brow", // 2

@@ -2,7 +2,7 @@ import { PillEffectClass } from "../types/PillEffectClass";
 
 export const DEFAULT_PILL_EFFECT_CLASS = PillEffectClass.MODDED;
 
-export const PILL_EFFECT_CLASS_MAP: {
+export const PILL_EFFECT_CLASSES: {
   readonly [key in PillEffect]: PillEffectClass;
 } = {
   [PillEffect.PILLEFFECT_NULL]: PillEffectClass.NULL,

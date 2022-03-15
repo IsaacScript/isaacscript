@@ -2,7 +2,7 @@ import { CardType } from "../types/CardType";
 
 export const DEFAULT_CARD_TYPE = CardType.MODDED;
 
-export const CARD_TYPE_MAP: { readonly [key in Card]: CardType } = {
+export const CARD_TYPES: { readonly [key in Card]: CardType } = {
   [Card.CARD_RANDOM]: CardType.NULL, // -1
   [Card.CARD_NULL]: CardType.NULL, // 0
   [Card.CARD_FOOL]: CardType.TAROT, // 1
