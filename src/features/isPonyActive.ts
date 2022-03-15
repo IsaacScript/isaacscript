@@ -13,6 +13,8 @@ import {
   setDeletePlayer,
   setHasPlayer,
 } from "../functions/playerDataStructures";
+import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
+import { ModUpgraded } from "../types/ModUpgraded";
 import { PlayerIndex } from "../types/PlayerIndex";
 import { saveDataManager } from "./saveDataManager/exports";
 
@@ -31,14 +33,17 @@ const v = {
 };
 
 /** @internal */
-export function isPonyActiveInit(mod: Mod): void {
+export function isPonyActiveInit(mod: ModUpgraded): void {
   saveDataManager("isPonyActive", v);
 
-  mod.AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, postPEffectUpdate); // 4
+  mod.AddCallbackCustom(
+    ModCallbacksCustom.MC_POST_PEFFECT_UPDATE_REORDERED,
+    postPEffectUpdateReordered,
+  );
 }
 
-// ModCallbacks.MC_POST_PEFFECT_UPDATE (4)
-function postPEffectUpdate(player: EntityPlayer) {
+// ModCallbacksCustom.MC_POST_PEFFECT_UPDATE_REORDERED
+function postPEffectUpdateReordered(player: EntityPlayer) {
   const effects = player.GetEffects();
   const entityFlags = player.GetEntityFlags();
   const hasPonyCollectibleEffect =

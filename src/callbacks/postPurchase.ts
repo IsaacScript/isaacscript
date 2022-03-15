@@ -5,6 +5,8 @@ import {
   mapSetPlayer,
 } from "../functions/playerDataStructures";
 import { DefaultMap } from "../types/DefaultMap";
+import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
+import { ModUpgraded } from "../types/ModUpgraded";
 import { PlayerIndex } from "../types/PlayerIndex";
 import {
   postPurchaseFire,
@@ -20,18 +22,21 @@ const v = {
 };
 
 /** @internal */
-export function postPurchaseCallbackInit(mod: Mod): void {
+export function postPurchaseCallbackInit(mod: ModUpgraded): void {
   saveDataManager("postPurchase", v, hasSubscriptions);
 
-  mod.AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, postPEffectUpdate); // 4
+  mod.AddCallbackCustom(
+    ModCallbacksCustom.MC_POST_PEFFECT_UPDATE_REORDERED,
+    postPEffectUpdateReordered,
+  );
 }
 
 function hasSubscriptions() {
   return postPurchaseHasSubscriptions();
 }
 
-// ModCallbacks.MC_POST_PEFFECT_UPDATE (4)
-function postPEffectUpdate(player: EntityPlayer) {
+// ModCallbacksCustom.MC_POST_PEFFECT_UPDATE_REORDERED
+function postPEffectUpdateReordered(player: EntityPlayer) {
   if (!hasSubscriptions()) {
     return;
   }
