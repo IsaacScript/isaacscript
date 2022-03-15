@@ -81,5 +81,9 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/ui.ts" \
   --entryPoints "$DIR/src/functions/utils.ts" \
   --entryPoints "$DIR/src/functions/vector.ts" \
+  --entryPoints "$DIR/src/maps/cardMap.ts" \
+  --entryPoints "$DIR/src/maps/characterMap.ts" \
+  --entryPoints "$DIR/src/maps/pillEffectMap.ts" \
+  --entryPoints "$DIR/src/maps/roomTypeMap.ts" \
   --entryPoints "$DIR/src/types/DefaultMap.ts" \
   --entryPoints "$DIR/src/upgradeMod.ts" \
