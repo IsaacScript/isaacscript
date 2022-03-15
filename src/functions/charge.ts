@@ -203,3 +203,14 @@ function shouldPlayFullRechargeSound(
     (activeCharge === maxCharges && batteryCharge === 0)
   );
 }
+
+export function isActiveSlotDoubleCharged(
+  player: EntityPlayer,
+  activeSlot: ActiveSlot,
+): boolean {
+  const collectibleType = player.GetActiveItem(activeSlot);
+  const batteryCharge = player.GetBatteryCharge(activeSlot);
+  const maxCharges = getCollectibleMaxCharges(collectibleType);
+
+  return batteryCharge >= maxCharges;
+}
