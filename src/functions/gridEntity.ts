@@ -241,10 +241,10 @@ export function isAllPressurePlatesPushed(): boolean {
   }
 
   const pressurePlates = getGridEntities(GridEntityType.GRID_PRESSURE_PLATE);
-  return pressurePlates.every((pressurePlate) => {
-    const gridEntityDesc = pressurePlate.GetSaveState();
-    return gridEntityDesc.State === PressurePlateState.PRESSURE_PLATE_PRESSED;
-  });
+  return pressurePlates.every(
+    (pressurePlate) =>
+      pressurePlate.State === PressurePlateState.PRESSURE_PLATE_PRESSED,
+  );
 }
 
 export function isGridEntityBreakableByExplosion(
