@@ -43,7 +43,6 @@ export {
   hasSirenStolenFamiliar,
   setFamiliarNoSirenSteal,
 } from "./features/sirenHelpers";
-export { getTaintedLazarusSubPlayer } from "./features/taintedLazarusPlayers";
 export * from "./functions/array";
 export * from "./functions/bitwise";
 export * from "./functions/cards";

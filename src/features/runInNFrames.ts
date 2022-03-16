@@ -8,6 +8,7 @@ const FEATURE_NAME = "run in N frames";
 type FunctionTuple = [int, () => void];
 
 const v = {
+  dontSave: true,
   run: {
     queuedGameFunctionTuples: [] as FunctionTuple[],
     queuedRenderFunctionTuples: [] as FunctionTuple[],
@@ -16,7 +17,7 @@ const v = {
 
 /** @internal */
 export function runInNFramesInit(mod: Mod): void {
-  saveDataManager("runInNFrames", v, () => false);
+  saveDataManager("runInNFrames", v);
 
   mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate); // 1
   mod.AddCallback(ModCallbacks.MC_POST_RENDER, postRender); // 2
