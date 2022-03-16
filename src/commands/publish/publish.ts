@@ -30,13 +30,7 @@ export function publish(argv: Record<string, unknown>, config: Config): void {
   const modTargetDirectoryName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
 
-  if (setVersion !== undefined && /^\d+\.\d+\.\d+$/.exec(setVersion) === null) {
-    error(
-      chalk.red(
-        `The version of "${setVersion}" does not match the semantic versioning format.`,
-      ),
-    );
-  }
+  validateVersion(setVersion);
 
   if (onlyUpload) {
     uploadMod(modTargetPath, config.steamCmdPath, verbose);
@@ -52,6 +46,16 @@ export function publish(argv: Record<string, unknown>, config: Config): void {
     dryRun,
     verbose,
   );
+}
+
+function validateVersion(setVersion: string | undefined) {
+  if (setVersion !== undefined && /^\d+\.\d+\.\d+$/.exec(setVersion) === null) {
+    error(
+      chalk.red(
+        `The version of "${setVersion}" does not match the semantic versioning format.`,
+      ),
+    );
+  }
 }
 
 function startPublish(
