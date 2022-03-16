@@ -1,3 +1,11 @@
+export function capitalizeFirstLetter(string: string): string {
+  const firstCharacter = string.charAt(0);
+  const capitalizedFirstLetter = firstCharacter.toUpperCase();
+  const restOfString = string.slice(1);
+
+  return `${capitalizedFirstLetter}${restOfString}`;
+}
+
 export function stringContains(string: string, searchString: string): boolean {
   return string.indexOf(searchString) !== -1;
 }
