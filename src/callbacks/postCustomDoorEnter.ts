@@ -1,12 +1,12 @@
 import { game } from "../cachedClasses";
+import { ModUpgraded } from "../classes/ModUpgraded";
+import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { doorSlotToDirection } from "../functions/doors";
 import { getEffects } from "../functions/entitySpecific";
 import { getClosestPlayer } from "../functions/player";
 import { ensureAllCases } from "../functions/utils";
 import { directionToVector } from "../functions/vector";
-import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
-import { ModUpgraded } from "../types/ModUpgraded";
 import {
   postCustomDoorEnterFire,
   postCustomDoorEnterHasSubscriptions,

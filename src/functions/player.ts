@@ -7,11 +7,11 @@ import {
   LOST_STYLE_PLAYER_TYPES,
   MAX_VANILLA_CHARACTER,
 } from "../constants";
+import { HealthType } from "../enums/HealthType";
 import {
   CHARACTER_NAMES,
   DEFAULT_CHARACTER_NAME,
 } from "../objects/characterNames";
-import { HealthType } from "../types/HealthType";
 import { PlayerIndex } from "../types/PlayerIndex";
 import { getLastElement, sumArray } from "./array";
 import { countSetBits, getKBitOfN, getNumBitsOfN } from "./bitwise";

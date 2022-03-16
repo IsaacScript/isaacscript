@@ -34,6 +34,7 @@ import { preBerserkDeathCallbackInit } from "./callbacks/preBerserkDeath";
 import { preNewLevelCallbackInit } from "./callbacks/preNewLevel";
 import { reorderedCallbacksInit } from "./callbacks/reorderedCallbacks";
 import { roomClearChangeCallbackInit } from "./callbacks/roomClearChange";
+import { ModUpgraded } from "./classes/ModUpgraded";
 import { deployJSONRoomInit } from "./features/deployJSONRoom";
 import { disableInputsInit } from "./features/disableInputs";
 import { disableSoundsInit } from "./features/disableSound";
@@ -51,7 +52,6 @@ import {
   setFeaturesInitialized,
 } from "./featuresInitialized";
 import { patchErrorFunction } from "./patchErrorFunctions";
-import { ModUpgraded } from "./types/ModUpgraded";
 
 /**
  * Use this function to enable the custom features and callbacks provided by `isaacscript-common`.

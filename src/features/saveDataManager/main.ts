@@ -1,9 +1,9 @@
 import { game } from "../../cachedClasses";
+import { ModUpgraded } from "../../classes/ModUpgraded";
+import { ModCallbacksCustom } from "../../enums/ModCallbacksCustom";
+import { SaveDataKeys } from "../../enums/private/SaveDataKeys";
 import { deepCopy, SerializationType } from "../../functions/deepCopy";
 import { clearTable } from "../../functions/table";
-import { ModCallbacksCustom } from "../../types/ModCallbacksCustom";
-import { ModUpgraded } from "../../types/ModUpgraded";
-import { SaveDataKeys } from "../../types/private/SaveData";
 import { SAVE_DATA_MANAGER_FEATURE_NAME } from "./constants";
 import { loadFromDisk } from "./load";
 import {

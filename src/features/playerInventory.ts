@@ -1,11 +1,11 @@
+import { DefaultMap } from "../classes/DefaultMap";
+import { ModUpgraded } from "../classes/ModUpgraded";
+import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { copyArray } from "../functions/array";
 import { getCollectibleSet } from "../functions/collectibleSet";
 import { getPlayerIndex } from "../functions/player";
 import { repeat } from "../functions/utils";
-import { DefaultMap } from "../types/DefaultMap";
-import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
-import { ModUpgraded } from "../types/ModUpgraded";
 import { PickingUpItem } from "../types/PickingUpItem";
 import { PlayerIndex } from "../types/PlayerIndex";
 import { saveDataManager } from "./saveDataManager/exports";

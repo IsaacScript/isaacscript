@@ -3,7 +3,7 @@
 // lua local p = Isaac.GetPlayer() p:AddEternalHearts(-1) p:AddBoneHearts(-1) p:AddRottenHearts(-1) p:AddBlackHearts(-2) p:AddSoulHearts(-2) p:AddBoneHearts(-1) p:AddBlackHearts(-3) p:AddBrokenHearts(-2)
 
 import { MAX_PLAYER_HEART_CONTAINERS } from "../constants";
-import { HealthType } from "../types/HealthType";
+import { HealthType } from "../enums/HealthType";
 import { PlayerHealth } from "../types/PlayerHealth";
 import { getBlackHearts, getHearts, getSoulHearts } from "./player";
 import { ensureAllCases, repeat } from "./utils";

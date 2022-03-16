@@ -7,7 +7,16 @@ export {
   forceNewLevelCallback,
   forceNewRoomCallback,
 } from "./callbacks/reorderedCallbacks";
+export * from "./classes/DefaultMap";
+export * from "./classes/ModUpgraded";
 export * from "./constants";
+export * from "./enums/CardType";
+export * from "./enums/CollectiblePedestalType";
+export * from "./enums/HealthType";
+export * from "./enums/ModCallbacksCustom";
+export * from "./enums/PillEffectClass";
+export * from "./enums/PillEffectType";
+export * from "./enums/PocketItemType";
 export {
   deployJSONRoom,
   deployRandomJSONRoom,
@@ -106,22 +115,14 @@ export * from "./maps/pillEffectMap";
 export * from "./maps/roomTypeMap";
 export * from "./types/AddCallbackParametersCustom";
 export * from "./types/AnyEntity";
-export * from "./types/CardType";
-export * from "./types/DefaultMap";
-export * from "./types/HealthType";
 export * from "./types/JSONDoor";
 export * from "./types/JSONEntity";
 export * from "./types/JSONRoom";
 export * from "./types/JSONRooms";
 export * from "./types/JSONSpawn";
-export * from "./types/ModCallbacksCustom";
-export * from "./types/ModUpgraded";
 export * from "./types/PickingUpItem";
-export * from "./types/PillEffectClass";
-export * from "./types/PillEffectType";
 export * from "./types/PlayerHealth";
 export * from "./types/PlayerIndex";
 export * from "./types/PocketItemDescription";
-export * from "./types/PocketItemType";
 export * from "./types/TrinketSituation";
 export * from "./upgradeMod";

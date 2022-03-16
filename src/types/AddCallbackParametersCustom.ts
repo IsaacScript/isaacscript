@@ -50,7 +50,7 @@ import { PreCustomReviveCallbackType } from "../callbacks/subscriptions/preCusto
 import { PreItemPickupCallbackType } from "../callbacks/subscriptions/preItemPickup";
 import { PreNewLevelCallbackType } from "../callbacks/subscriptions/preNewLevel";
 import { RoomClearChangeCallbackType } from "../callbacks/subscriptions/roomClearChange";
-import { ModCallbacksCustom } from "./ModCallbacksCustom";
+import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
 
 export interface AddCallbackParametersCustom {
   [ModCallbacksCustom.MC_POST_GAME_STARTED_REORDERED]: [

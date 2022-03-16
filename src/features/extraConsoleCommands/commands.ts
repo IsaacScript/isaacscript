@@ -1,5 +1,6 @@
 import { game, sfxManager } from "../../cachedClasses";
 import { PILL_GIANT_FLAG, TRINKET_GOLDEN_FLAG } from "../../constants";
+import { HealthType } from "../../enums/HealthType";
 import { getCardName } from "../../functions/cards";
 import { spawnGridEntityWithVariant } from "../../functions/gridEntity";
 import {
@@ -36,7 +37,6 @@ import {
   DEFAULT_ROOM_TYPE_NAME,
   ROOM_TYPE_NAMES,
 } from "../../objects/roomTypeNames";
-import { HealthType } from "../../types/HealthType";
 import v from "./v";
 
 const DEFAULT_MOVE_UNITS = 0.5;

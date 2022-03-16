@@ -1,8 +1,8 @@
+import { DefaultMap } from "../classes/DefaultMap";
 import {
   DEFAULT_TRANSFORMATION_NAME,
   TRANSFORMATION_NAMES,
 } from "../objects/transformationNames";
-import { DefaultMap } from "../types/DefaultMap";
 import { collectibleHasTag, getMaxCollectibleType } from "./collectibles";
 import { range } from "./math";
 import { copySet } from "./set";

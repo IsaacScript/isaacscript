@@ -1,9 +1,9 @@
-import { SAVE_DATA_MANAGER_DEBUG } from "../features/saveDataManager/constants";
-import { DefaultMap } from "../types/DefaultMap";
+import { DefaultMap } from "../classes/DefaultMap";
 import {
   isSerializationBrand,
   SerializationBrand,
-} from "../types/private/SerializationBrand";
+} from "../enums/private/SerializationBrand";
+import { SAVE_DATA_MANAGER_DEBUG } from "../features/saveDataManager/constants";
 import { log } from "./log";
 import { isVector } from "./vector";
 

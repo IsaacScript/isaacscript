@@ -6,6 +6,8 @@
 // Thus, we can work around the problem by checking to see if the player has these entity flags and
 // has had a collectible effect on a previous frame
 
+import { ModUpgraded } from "../classes/ModUpgraded";
+import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { hasFlag } from "../functions/flag";
 import {
@@ -13,8 +15,6 @@ import {
   setDeletePlayer,
   setHasPlayer,
 } from "../functions/playerDataStructures";
-import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
-import { ModUpgraded } from "../types/ModUpgraded";
 import { PlayerIndex } from "../types/PlayerIndex";
 import { saveDataManager } from "./saveDataManager/exports";
 

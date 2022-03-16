@@ -1,4 +1,4 @@
-import { PillEffectClass } from "../types/PillEffectClass";
+import { PillEffectClass } from "../enums/PillEffectClass";
 
 export const DEFAULT_PILL_EFFECT_CLASS = PillEffectClass.MODDED;
 

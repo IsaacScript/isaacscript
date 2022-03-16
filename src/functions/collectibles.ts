@@ -3,6 +3,7 @@ import {
   BLIND_ITEM_PNG_PATH,
   SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES,
 } from "../constants";
+import { CollectiblePedestalType } from "../enums/CollectiblePedestalType";
 import {
   COLLECTIBLE_DESCRIPTION_MAP,
   DEFAULT_COLLECTIBLE_DESCRIPTION,
@@ -11,7 +12,6 @@ import {
   COLLECTIBLE_NAME_MAP,
   DEFAULT_COLLECTIBLE_NAME,
 } from "../maps/collectibleNameMap";
-import { CollectiblePedestalType } from "../types/CollectiblePedestalType";
 import { hasFlag } from "./flag";
 import { getPickups, removeAllPickups } from "./pickups";
 import { clearSprite } from "./sprite";

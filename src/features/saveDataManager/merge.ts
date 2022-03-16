@@ -1,3 +1,7 @@
+import {
+  isSerializationBrand,
+  SerializationBrand,
+} from "../../enums/private/SerializationBrand";
 import { isArray } from "../../functions/array";
 import {
   addTraversalDescription,
@@ -8,10 +12,6 @@ import {
 } from "../../functions/deepCopy";
 import { log } from "../../functions/log";
 import { clearTable } from "../../functions/table";
-import {
-  isSerializationBrand,
-  SerializationBrand,
-} from "../../types/private/SerializationBrand";
 import { SAVE_DATA_MANAGER_DEBUG } from "./constants";
 
 /**

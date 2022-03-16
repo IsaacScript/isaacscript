@@ -1,12 +1,12 @@
 import { sfxManager } from "../cachedClasses";
+import { ModUpgraded } from "../classes/ModUpgraded";
+import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
 import { runNextGameFrame } from "../features/runInNFrames";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { removeCollectibleFromItemTracker } from "../functions/collectibles";
 import { removeAllFamiliars } from "../functions/familiars";
 import { log } from "../functions/log";
 import { getPlayerFromIndex, getPlayerIndex } from "../functions/player";
-import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
-import { ModUpgraded } from "../types/ModUpgraded";
 import { PlayerIndex } from "../types/PlayerIndex";
 import {
   postCustomReviveFire,

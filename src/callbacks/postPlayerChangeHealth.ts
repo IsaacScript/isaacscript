@@ -1,11 +1,11 @@
+import { DefaultMap } from "../classes/DefaultMap";
+import { ModUpgraded } from "../classes/ModUpgraded";
+import { HealthType } from "../enums/HealthType";
+import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getPlayerIndex } from "../functions/player";
 import { getPlayerHealthType } from "../functions/playerHealth";
 import { getEnumValues } from "../functions/utils";
-import { DefaultMap } from "../types/DefaultMap";
-import { HealthType } from "../types/HealthType";
-import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
-import { ModUpgraded } from "../types/ModUpgraded";
 import { PlayerIndex } from "../types/PlayerIndex";
 import {
   postPlayerChangeHealthFire,

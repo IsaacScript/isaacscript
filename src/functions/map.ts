@@ -1,4 +1,4 @@
-import { DefaultMap } from "../types/DefaultMap";
+import { DefaultMap } from "../classes/DefaultMap";
 import { nextSeed } from "./random";
 
 /** Helper function to copy a map. (You can also use a Map constructor to accomplish this task.) */

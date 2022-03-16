@@ -50,8 +50,8 @@ import { preCustomReviveRegister } from "../callbacks/subscriptions/preCustomRev
 import { preItemPickupRegister } from "../callbacks/subscriptions/preItemPickup";
 import { preNewLevelRegister } from "../callbacks/subscriptions/preNewLevel";
 import { roomClearChangedRegister } from "../callbacks/subscriptions/roomClearChange";
+import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
 import { AddCallbackParametersCustom } from "../types/AddCallbackParametersCustom";
-import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
 
 export const CALLBACK_REGISTER_FUNCTIONS: {
   readonly [key in ModCallbacksCustom]: (

@@ -1,6 +1,6 @@
 import { MAX_PLAYER_POCKET_ITEM_SLOTS } from "../constants";
+import { PocketItemType } from "../enums/PocketItemType";
 import { PocketItemDescription } from "../types/PocketItemDescription";
-import { PocketItemType } from "../types/PocketItemType";
 import { range } from "./math";
 
 export function getFirstCardOrPill(

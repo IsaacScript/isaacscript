@@ -1,4 +1,4 @@
-import { DefaultMap } from "../types/DefaultMap";
+import { DefaultMap } from "../classes/DefaultMap";
 import { PlayerIndex } from "../types/PlayerIndex";
 import { getPlayerIndex } from "./player";
 

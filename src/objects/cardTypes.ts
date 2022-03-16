@@ -1,4 +1,4 @@
-import { CardType } from "../types/CardType";
+import { CardType } from "../enums/CardType";
 
 export const DEFAULT_CARD_TYPE = CardType.MODDED;
 

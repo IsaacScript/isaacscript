@@ -4,6 +4,7 @@
 // in the room and rebuilding it from scratch based on the JSON data
 
 import { game } from "../cachedClasses";
+import { DefaultMap } from "../classes/DefaultMap";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { removeAllMatchingEntities } from "../functions/entity";
 import { removeAllBombs } from "../functions/entitySpecific";
@@ -27,7 +28,6 @@ import {
   setRoomUncleared,
 } from "../functions/rooms";
 import { spawnCollectible } from "../functions/spawnCollectible";
-import { DefaultMap } from "../types/DefaultMap";
 import { JSONRoom } from "../types/JSONRoom";
 import { saveDataManager } from "./saveDataManager/exports";
 

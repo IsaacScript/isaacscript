@@ -1,4 +1,6 @@
 import { itemConfig } from "../cachedClasses";
+import { PillEffectClass } from "../enums/PillEffectClass";
+import { PillEffectType } from "../enums/PillEffectType";
 import {
   DEFAULT_PILL_EFFECT_CLASS,
   PILL_EFFECT_CLASSES,
@@ -11,8 +13,6 @@ import {
   DEFAULT_PILL_EFFECT_TYPE,
   PILL_EFFECT_TYPES,
 } from "../objects/pillEffectTypes";
-import { PillEffectClass } from "../types/PillEffectClass";
-import { PillEffectType } from "../types/PillEffectType";
 
 /**
  * Helper function to get the final pill effect in the game. This cannot be reliably determined

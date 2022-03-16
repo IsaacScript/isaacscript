@@ -1,11 +1,11 @@
 import { itemConfig } from "../cachedClasses";
+import { CardType } from "../enums/CardType";
 import {
   CARD_DESCRIPTIONS,
   DEFAULT_CARD_DESCRIPTION,
 } from "../objects/cardDescriptions";
 import { CARD_NAMES, DEFAULT_CARD_NAME } from "../objects/cardNames";
 import { CARD_TYPES, DEFAULT_CARD_TYPE } from "../objects/cardTypes";
-import { CardType } from "../types/CardType";
 import { range } from "./math";
 import { addSetsToSet, getRandomSetElement } from "./set";
 import { getEnumValues } from "./utils";

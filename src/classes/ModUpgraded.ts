@@ -1,7 +1,7 @@
+import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
 import { getDebugPrependString } from "../functions/log";
 import { CALLBACK_REGISTER_FUNCTIONS } from "../objects/callbackRegisterFunctions";
-import { AddCallbackParametersCustom } from "./AddCallbackParametersCustom";
-import { ModCallbacksCustom } from "./ModCallbacksCustom";
+import { AddCallbackParametersCustom } from "../types/AddCallbackParametersCustom";
 
 /** `isaacscript-common` allows for custom callbacks, so it provides an upgraded Mod object. */
 export class ModUpgraded implements Mod {

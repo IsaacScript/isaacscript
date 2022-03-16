@@ -1,9 +1,9 @@
+import { DefaultMap } from "../classes/DefaultMap";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import {
   getCollidingEntitiesWithGridEntity,
   getGridEntities,
 } from "../functions/gridEntity";
-import { DefaultMap } from "../types/DefaultMap";
 import {
   postGridEntityCollisionFire,
   postGridEntityCollisionHasSubscriptions,

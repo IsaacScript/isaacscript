@@ -3,9 +3,9 @@
 // - PostSlotAnimationChanged
 // - PostSlotBroken
 
+import { DefaultMap } from "../classes/DefaultMap";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getSlots } from "../functions/entitySpecific";
-import { DefaultMap } from "../types/DefaultMap";
 import {
   postSlotAnimationChangedFire,
   postSlotAnimationChangedHasSubscriptions,

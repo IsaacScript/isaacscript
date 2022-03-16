@@ -1,4 +1,4 @@
-import { PocketItemType } from "./PocketItemType";
+import { PocketItemType } from "../enums/PocketItemType";
 
 export interface PocketItemDescription {
   slot: PocketItemSlot;
