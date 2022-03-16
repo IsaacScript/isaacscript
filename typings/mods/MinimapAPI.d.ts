@@ -14,7 +14,7 @@ interface MinimapAPIInterface {
     sprite: Sprite,
     animationName: string,
     frame: number,
-    color: Color | undefined,
+    color?: Color,
   ): {
     Sprite: Sprite;
     animationName: string;
@@ -241,6 +241,11 @@ interface MinimapAPIInterface {
     ShowShadows: boolean | undefined;
     SmoothSlidingSpeed: number | undefined;
   };
+
+  PickupChestNotCollected: (pickup: EntityPickup) => boolean | undefined;
+  PickupNotCollected: (pickup: EntityPickup) => boolean | undefined;
+  PickupSlotMachineNotBroken: (slot: Entity) => boolean | undefined;
+
   ReleaseVersion: number | undefined;
   Version: string | number;
 }
