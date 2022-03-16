@@ -75,7 +75,11 @@ module.exports = {
       "warn",
       {
         matchDescription: "^\\S[\\s\\S]*\\S$",
-        contexts: ["any"],
+        contexts: [
+          {
+            comment: "JsdocBlock[endLine!=0]",
+          },
+        ],
       },
     ],
     */
