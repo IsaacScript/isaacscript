@@ -8,12 +8,17 @@ declare enum ModCallbacks {
   MC_FAMILIAR_UPDATE = 6,
   MC_FAMILIAR_INIT = 7,
   MC_EVALUATE_CACHE = 8,
+
+  /** This will fire at the beginning of a run and upon continuing a saved run. */
   MC_POST_PLAYER_INIT = 9,
+
   MC_USE_PILL = 10,
   MC_ENTITY_TAKE_DMG = 11,
   MC_POST_CURSE_EVAL = 12,
   MC_INPUT_ACTION = 13,
+
   // MC_LEVEL_GENERATOR = 14, // Not implemented
+
   MC_POST_GAME_STARTED = 15,
   MC_POST_GAME_END = 16,
   MC_PRE_GAME_EXIT = 17,

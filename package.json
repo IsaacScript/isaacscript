@@ -23,7 +23,7 @@
     "lua-types": "^2.11.0"
   },
   "devDependencies": {
-    "isaacscript-lint": "^1.0.89",
+    "isaacscript-lint": "^1.0.90",
     "isaacscript-tsconfig": "^1.1.8",
     "typescript": "4.5.5"
   }
