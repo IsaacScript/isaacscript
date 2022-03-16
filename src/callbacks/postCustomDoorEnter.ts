@@ -1,9 +1,12 @@
 import { game } from "../cachedClasses";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { doorSlotToDirection } from "../functions/doors";
+import { getEffects } from "../functions/entitySpecific";
 import { getClosestPlayer } from "../functions/player";
 import { ensureAllCases } from "../functions/utils";
 import { directionToVector } from "../functions/vector";
+import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
+import { ModUpgraded } from "../types/ModUpgraded";
 import {
   postCustomDoorEnterFire,
   postCustomDoorEnterHasSubscriptions,
@@ -57,7 +60,7 @@ function hasSubscriptions() {
  * initCustomDoor(mod, fooEffectVariant);
  * ```
  */
-export function initCustomDoor(mod: Mod, effectVariant: int): void {
+export function initCustomDoor(mod: ModUpgraded, effectVariant: int): void {
   initializedEffectVariants.add(effectVariant);
 
   mod.AddCallback(
@@ -65,11 +68,19 @@ export function initCustomDoor(mod: Mod, effectVariant: int): void {
     postEffectUpdaterCustomEntity,
     effectVariant,
   ); // 55
+
   mod.AddCallback(
     ModCallbacks.MC_POST_EFFECT_RENDER,
     postEffectRenderCustomEntity,
     effectVariant,
   ); // 56
+
+  mod.AddCallbackCustom(
+    ModCallbacksCustom.MC_ROOM_CLEAR_CHANGE,
+    (roomClear: boolean) => {
+      roomClearChange(roomClear, effectVariant);
+    },
+  );
 }
 
 // ModCallbacks.MC_POST_EFFECT_UPDATE (55)
@@ -171,6 +182,15 @@ function isPlayerPastDoorThreshold(
     default: {
       return ensureAllCases(direction);
     }
+  }
+}
+
+// ModCallbacksCustom.MC_ROOM_CLEAR_CHANGE
+function roomClearChange(roomClear: boolean, effectVariant: int) {
+  const state = roomClear ? DoorState.STATE_OPEN : DoorState.STATE_CLOSED;
+  const customDoors = getEffects(effectVariant);
+  for (const customDoor of customDoors) {
+    customDoor.State = state;
   }
 }
 
