@@ -179,6 +179,9 @@ function isPlayerPastDoorThreshold(
  * callback when the player enters a room that should have a custom door. (You could also call it
  * from another callback if you want the door to appear e.g. after clearing all enemies.)
  *
+ * Like other entities, the door is not persistent, so you must spawn it every time when re-entering
+ * the room.
+ *
  * Handle when a player enters the door by hooking the custom `MC_POST_CUSTOM_DOOR_ENTER` callback.
  *
  * The custom door is an `EntityEffect`. You can manually open or close the door by modifying its
