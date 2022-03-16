@@ -51,7 +51,7 @@ import { PreItemPickupCallbackType } from "../callbacks/subscriptions/preItemPic
 import { PreNewLevelCallbackType } from "../callbacks/subscriptions/preNewLevel";
 import { ModCallbacksCustom } from "./ModCallbacksCustom";
 
-export interface CallbackParametersCustom {
+export interface AddCallbackParametersCustom {
   [ModCallbacksCustom.MC_POST_GAME_STARTED_REORDERED]: [
     callback: PostGameStartedReorderedCallbackType,
   ];
@@ -290,7 +290,7 @@ export interface CallbackParametersCustom {
 
 // Make copies of the objects we need to verify so that we can easily re-use the code block below
 type EnumToCheck = ModCallbacksCustom;
-type InterfaceToCheck = CallbackParametersCustom;
+type InterfaceToCheck = AddCallbackParametersCustom;
 
 // Throw a compiler error if InterfaceToCheck does not match the values of EnumToCheck
 // From: https://stackoverflow.com/questions/51829842

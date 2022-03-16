@@ -1,6 +1,6 @@
 import { getDebugPrependString } from "../functions/log";
 import { CALLBACK_REGISTER_FUNCTIONS } from "../objects/callbackRegisterFunctions";
-import { CallbackParametersCustom } from "./CallbackParametersCustom";
+import { AddCallbackParametersCustom } from "./AddCallbackParametersCustom";
 import { ModCallbacksCustom } from "./ModCallbacksCustom";
 
 /** `isaacscript-common` allows for custom callbacks, so it provides an upgraded Mod object. */
@@ -34,18 +34,17 @@ export class ModUpgraded implements Mod {
 
   AddCallback<T extends ModCallbacks>(
     modCallbacks: T,
-    ...args: CallbackParameters[T]
+    ...args: AddCallbackParameters[T]
   ): void {
     if (this.Verbose) {
-      const callback = args[0] as any; // eslint-disable-line
-      const optionalArg = args[1] as any; // eslint-disable-line
+      const callback = args[0] as Function; // eslint-disable-line
+      const optionalArg = args[1] as unknown;
 
       const callbackName = getCallbackName(modCallbacks);
       const debugMsg = getDebugPrependString(callbackName);
 
       const callbackWithLogger = (...callbackArgs: unknown[]) => {
         Isaac.DebugString(`${debugMsg} - START`);
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         const value = callback(...callbackArgs) as unknown;
         Isaac.DebugString(`${debugMsg} - END - ${value}`);
         return value;
@@ -53,7 +52,7 @@ export class ModUpgraded implements Mod {
 
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      this.Mod.AddCallback(modCallbacks, callbackWithLogger, optionalArg); // eslint-disable-line
+      this.Mod.AddCallback(modCallbacks, callbackWithLogger, optionalArg);
     } else {
       this.Mod.AddCallback(modCallbacks, ...args);
     }
@@ -86,7 +85,7 @@ export class ModUpgraded implements Mod {
   // eslint-disable-next-line class-methods-use-this
   AddCallbackCustom<T extends ModCallbacksCustom>(
     modCallbacksCustom: T,
-    ...args: CallbackParametersCustom[T]
+    ...args: AddCallbackParametersCustom[T]
   ): void {
     const callbackRegisterFunction =
       CALLBACK_REGISTER_FUNCTIONS[modCallbacksCustom];
@@ -96,6 +95,10 @@ export class ModUpgraded implements Mod {
       );
     }
 
+    // TypeScript 4.5 is unable to resolve these types successfully
+    // Remove this hack when TypeScriptToLua upgrades to TypeScript 4.6
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     callbackRegisterFunction(...args);
   }
 }
