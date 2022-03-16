@@ -3,6 +3,7 @@
 
 /** Miscellaneous */
 
+/// <reference path="AddCallbackParameters.d.ts" />
 /// <reference path="functions.d.ts" />
 /// <reference path="json.d.ts" />
 /// <reference path="main.d.ts" />
