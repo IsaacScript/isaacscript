@@ -9,8 +9,13 @@ const FEATURE_NAME = "prevent collectible rotation";
 
 const v = {
   room: {
-    /** Index is the InitSeed of the collectible. */
-    trackedItems: new Map<int, CollectibleType | int>(),
+    /**
+     * Index is the PtrHash of the collectible.
+     *
+     * (We cannot use InitSeed as an index because multiple collectibles may have the same
+     * InitSeed.)
+     */
+    trackedItems: new Map<PtrHash, CollectibleType | int>(),
   },
 };
 
@@ -47,7 +52,8 @@ function postPickupUpdateCollectible(pickup: EntityPickup) {
     return;
   }
 
-  const trackedCollectibleType = v.room.trackedItems.get(pickup.InitSeed);
+  const ptrHash = GetPtrHash(pickup);
+  const trackedCollectibleType = v.room.trackedItems.get(ptrHash);
   if (
     trackedCollectibleType !== undefined &&
     pickup.SubType !== trackedCollectibleType
@@ -78,7 +84,8 @@ export function preventCollectibleRotate(
     );
   }
 
-  v.room.trackedItems.set(collectible.InitSeed, collectibleType);
+  const ptrHash = GetPtrHash(collectible);
+  v.room.trackedItems.set(ptrHash, collectibleType);
 
   // The item might have already shifted on the first frame that it spawns,
   // so change it back if necessary
