@@ -79,9 +79,11 @@ import {
  * manager. The save data manager will throw an error if the key is already registered.
  * @param saveData An object that corresponds to the `SaveData` interface. The object is
  * conventionally called "v" for brevity (which is short for "local variables").
- * @param conditionalFunc An optional function to run upon saving this key to disk. If the function
- * returns false, the key will not be written to disk. This allows mod features to avoid cluttering
- * the "save#.dat" file with unnecessary keys.
+ * @param conditionalFunc An optional function to run upon saving this key to disk. For example,
+ * this allows features to only save data to disk if the feature is enabled. Specify a value of
+ * `() => false` to completely disable saving this feature to disk. This is useful if you are using
+ * data that is not serializable, or you want to use the save data manager to automatically reset
+ * variables on run/level/room, but not clutter the the "save#.dat" file with unnecessary keys.
  */
 export function saveDataManager(
   key: string,
@@ -110,7 +112,7 @@ export function saveDataManager(
   // to disk (because the room would be reloaded upon resuming a continued run)
   const saveDataKeys = Object.keys(saveData);
   if (saveDataKeys.length === 1 && saveDataKeys[0] === "room") {
-    saveData.dontSave = true;
+    conditionalFunc = () => false;
   }
 
   // Make a copy of the initial save data so that we can use it to restore the default values later

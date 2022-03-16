@@ -65,8 +65,8 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
 }
 
 /**
- * When used on The Forgotten, switches to The Soul. When used on The Soul, switches to The
- * Forgotten. This takes 1 game frame to take effect.
+ * Helper function to see if the player is under the effects of A Pony or White Pony charge.
+ * Detecting this is difficult, as the temporary effect will disappear upon entering a new room.
  */
 export function isPonyActive(player: EntityPlayer): boolean {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
