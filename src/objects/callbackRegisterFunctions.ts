@@ -7,8 +7,6 @@ import { postEffectInitLateRegister } from "../callbacks/subscriptions/postEffec
 import { postEsauJrRegister } from "../callbacks/subscriptions/postEsauJr";
 import { postFamiliarInitLateRegister } from "../callbacks/subscriptions/postFamiliarInitLate";
 import { postFirstEsauJrRegister } from "../callbacks/subscriptions/postFirstEsauJr";
-import { postFirstFlipRegister } from "../callbacks/subscriptions/postFirstFlip";
-import { postFlipRegister } from "../callbacks/subscriptions/postFlip";
 import { postGameStartedReorderedRegister } from "../callbacks/subscriptions/postGameStartedReordered";
 import { postGridEntityBrokenRegister } from "../callbacks/subscriptions/postGridEntityBroken";
 import { postGridEntityCollisionRegister } from "../callbacks/subscriptions/postGridEntityCollision";
@@ -96,8 +94,6 @@ export const CALLBACK_REGISTER_FUNCTIONS: {
   [ModCallbacksCustom.MC_PRE_BERSERK_DEATH]: preBerserkDeathRegister,
   [ModCallbacksCustom.MC_PRE_CUSTOM_REVIVE]: preCustomReviveRegister,
   [ModCallbacksCustom.MC_POST_CUSTOM_REVIVE]: postCustomReviveRegister,
-  [ModCallbacksCustom.MC_POST_FLIP]: postFlipRegister,
-  [ModCallbacksCustom.MC_POST_FIRST_FLIP]: postFirstFlipRegister,
   [ModCallbacksCustom.MC_POST_ESAU_JR]: postEsauJrRegister,
   [ModCallbacksCustom.MC_POST_FIRST_ESAU_JR]: postFirstEsauJrRegister,
   [ModCallbacksCustom.MC_POST_TRANSFORMATION]: postTransformationRegister,

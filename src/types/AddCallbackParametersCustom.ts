@@ -7,8 +7,6 @@ import { PostEffectInitLateCallbackType } from "../callbacks/subscriptions/postE
 import { PostEsauJrCallbackType } from "../callbacks/subscriptions/postEsauJr";
 import { PostFamiliarInitLateCallbackType } from "../callbacks/subscriptions/postFamiliarInitLate";
 import { PostFirstEsauJrCallbackType } from "../callbacks/subscriptions/postFirstEsauJr";
-import { PostFirstFlipCallbackType } from "../callbacks/subscriptions/postFirstFlip";
-import { PostFlipCallbackType } from "../callbacks/subscriptions/postFlip";
 import { PostGameStartedReorderedCallbackType } from "../callbacks/subscriptions/postGameStartedReordered";
 import { PostGridEntityBrokenCallbackType } from "../callbacks/subscriptions/postGridEntityBroken";
 import { PostGridEntityCollisionCallbackType } from "../callbacks/subscriptions/postGridEntityCollision";
@@ -188,12 +186,6 @@ export interface AddCallbackParametersCustom {
   [ModCallbacksCustom.MC_POST_CUSTOM_REVIVE]: [
     callback: PostCustomReviveCallbackType,
     revivalType?: int,
-  ];
-
-  [ModCallbacksCustom.MC_POST_FLIP]: [callback: PostFlipCallbackType];
-
-  [ModCallbacksCustom.MC_POST_FIRST_FLIP]: [
-    callback: PostFirstFlipCallbackType,
   ];
 
   [ModCallbacksCustom.MC_POST_ESAU_JR]: [callback: PostEsauJrCallbackType];

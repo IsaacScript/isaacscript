@@ -7,7 +7,6 @@ import { postCustomDoorEnterCallbackInit } from "./callbacks/postCustomDoorEnter
 import { postEffectInitLateCallbackInit } from "./callbacks/postEffectInitLate";
 import { postEsauJrCallbacksInit } from "./callbacks/postEsauJr";
 import { postFamiliarInitLateCallbackInit } from "./callbacks/postFamiliarInitLate";
-import { postFlipCallbacksInit } from "./callbacks/postFlip";
 import { postGridEntityCallbacksInit } from "./callbacks/postGridEntity";
 import { postGridEntityCollisionInit } from "./callbacks/postGridEntityCollision";
 import { postKnifeInitLateCallbackInit } from "./callbacks/postKnifeInitLate";
@@ -44,6 +43,7 @@ import { preventCollectibleRotateInit } from "./features/preventCollectibleRotat
 import { runInNFramesInit } from "./features/runInNFrames";
 import { saveDataManagerInit } from "./features/saveDataManager/main";
 import { sirenHelpersInit } from "./features/sirenHelpers";
+import { taintedLazarusPlayersInit } from "./features/taintedLazarusPlayers";
 import {
   areFeaturesInitialized,
   setFeaturesInitialized,
@@ -120,7 +120,6 @@ function initCustomCallbacks(mod: ModUpgraded) {
   postPlayerFatalDamageCallbackInit(mod);
   preBerserkDeathCallbackInit(mod);
   customReviveCallbacksInit(mod);
-  postFlipCallbacksInit(mod);
   postEsauJrCallbacksInit(mod);
   postTransformationCallbackInit(mod);
   postPurchaseCallbackInit(mod);
@@ -146,4 +145,5 @@ function initFeatures(mod: ModUpgraded) {
   sirenHelpersInit(mod);
   isPonyActiveInit(mod);
   playerInventoryInit(mod);
+  taintedLazarusPlayersInit(mod);
 }
