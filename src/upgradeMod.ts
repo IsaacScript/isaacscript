@@ -44,6 +44,7 @@ import { preventCollectibleRotateInit } from "./features/preventCollectibleRotat
 import { runInNFramesInit } from "./features/runInNFrames";
 import { saveDataManagerInit } from "./features/saveDataManager/main";
 import { sirenHelpersInit } from "./features/sirenHelpers";
+import { taintedLazarusPlayersInit } from "./features/taintedLazarusPlayers";
 import {
   areFeaturesInitialized,
   setFeaturesInitialized,
@@ -146,4 +147,5 @@ function initFeatures(mod: ModUpgraded) {
   sirenHelpersInit(mod);
   isPonyActiveInit(mod);
   playerInventoryInit(mod);
+  taintedLazarusPlayersInit(mod);
 }
