@@ -270,7 +270,7 @@ function postItemPickup(
 
 Fires from the `MC_POST_PEFFECT_UPDATE` callback when a player entity changes its player type (i.e. character). For example, it will fire after using Clicker, after dying with the Judas' Shadow collectible, etc.
 
-Notably, it does not fire after the player uses the Flip item or the Esau Jr. item, because those items cause separate player entities to be created. Use the `MC_USE_ITEM` callback and the `MC_POST_ESAU_JR` callback to handle those situations.
+Notably, it does not fire after the player uses the Flip item or the Esau Jr. item, because those items cause separate player entities to be created. Use the `MC_POST_FLIP` and `MC_POST_ESAU_JR` callbacks to handle those situations.
 
 ```ts
 function postPlayerChangeType(player: EntityPlayer, oldCharacter: PlayerType | int, newCharacter: PlayerType | int) {}
@@ -329,6 +329,26 @@ When registering the callback, takes an optional second argument that will make 
 
 ```ts
 function postCustomRevive(player: EntityPlayer, revivalType: int) {}
+```
+
+### MC_POST_FLIP
+
+Fires after the player has used the Flip item. Unlike the vanilla `MC_USE_ITEM` callback, this callback will return the player object for the new Lazarus (not the one who used the Flip item).
+
+This callback is useful because there is no way to get access to the "flipped" character entity before the player has actually used the Flip item.
+
+```ts
+function postFlip(player: EntityPlayer): void {}
+```
+
+### MC_POST_FIRST_FLIP
+
+Fires after the player has used the Flip item for the first time. Unlike the vanilla `MC_USE_ITEM` callback, this callback will return the player object for the new Lazarus (not the one who used the Flip item).
+
+This callback is useful because there is no way to get access to the "flipped" character entity before the player has actually used the Flip item.
+
+```ts
+function postFirstFlip(player: EntityPlayer): void {}
 ```
 
 ### MC_POST_ESAU_JR
