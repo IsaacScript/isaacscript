@@ -74,17 +74,30 @@ export function logAllEntityFlags(this: void, flags: int): void {
 export function logAllFlags(
   this: void,
   flags: int,
-  flagEnum: LuaTable,
+  flagEnum?: LuaTable,
   description = "",
 ): void {
   if (description !== "") {
     description += " ";
   }
 
-  log(`Logging all ${description}flags:`);
+  if (flagEnum === undefined) {
+    flagEnum = new LuaTable();
+
+    // Bit shifts of 63 or greater do not work properly
+    for (let i = 0; i <= 62; i++) {
+      flagEnum.set(`1 << ${i}`, 1 << i);
+    }
+  }
+
+  log(`Logging all ${description}flags for value ${flags}:`);
   let hasNoFlags = true;
   for (const [key, value] of pairs(flagEnum)) {
-    if (hasFlag(flags, value as int)) {
+    if (typeof value !== "number") {
+      continue;
+    }
+
+    if (hasFlag(flags, value)) {
       log(`  Has flag: ${key} (${value})`);
       hasNoFlags = false;
     }
@@ -151,6 +164,7 @@ export function logAllTearFlags(this: void, flags: int): void {
 
 /** Helper function for printing out every use flag that is turned on. Useful when debugging. */
 export function logAllUseFlags(this: void, _flags: int): void {
+  // TODO: fix this after the next vanilla patch
   log(
     'The "logAllUseFlags" helper function is temporarily disabled while the UseFlag enum remains unpatched in vanilla.',
   );
