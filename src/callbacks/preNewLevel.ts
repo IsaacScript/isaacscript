@@ -1,6 +1,5 @@
 import { getFinalFrameOfAnimation } from "../functions/sprite";
 import { getEffectiveStage } from "../functions/stage";
-import { ModUpgraded } from "../types/ModUpgraded";
 import {
   preNewLevelFire,
   preNewLevelHasSubscriptions,
@@ -18,7 +17,7 @@ const TRAVELING_TO_NEXT_FLOOR_ANIMATIONS: ReadonlySet<string> = new Set([
 let firedOnStage: int | null = null;
 
 /** @internal */
-export function preNewLevelCallbackInit(mod: ModUpgraded): void {
+export function preNewLevelCallbackInit(mod: Mod): void {
   mod.AddCallback(ModCallbacks.MC_POST_PLAYER_RENDER, postPlayerRender); // 32
 }
 
@@ -45,7 +44,7 @@ function postPlayerRender(player: EntityPlayer) {
 
   // We can't use the "Sprite.IsFinished" method to detect when we are at the end of the animation
   // because the player will stop rendering at that point
-  // Thus, revert for checking for the final frame manually
+  // Thus, revert to checking for the final frame manually
   const frame = sprite.GetFrame();
   const finalFrame = getFinalFrameOfAnimation(sprite);
   if (frame === finalFrame) {

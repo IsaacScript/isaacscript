@@ -49,6 +49,7 @@ import { preBerserkDeathRegister } from "../callbacks/subscriptions/preBerserkDe
 import { preCustomReviveRegister } from "../callbacks/subscriptions/preCustomRevive";
 import { preItemPickupRegister } from "../callbacks/subscriptions/preItemPickup";
 import { preNewLevelRegister } from "../callbacks/subscriptions/preNewLevel";
+import { roomClearChangedRegister } from "../callbacks/subscriptions/roomClearChange";
 import { AddCallbackParametersCustom } from "../types/AddCallbackParametersCustom";
 import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
 
@@ -72,6 +73,7 @@ export const CALLBACK_REGISTER_FUNCTIONS: {
     postPlayerRenderReorderedRegister,
   [ModCallbacksCustom.MC_POST_NEW_ROOM_EARLY]: postNewRoomEarlyRegister,
   [ModCallbacksCustom.MC_PRE_NEW_LEVEL]: preNewLevelRegister,
+  [ModCallbacksCustom.MC_ROOM_CLEAR_CHANGE]: roomClearChangedRegister,
   [ModCallbacksCustom.MC_POST_PLAYER_INIT_LATE]: postPlayerInitLateRegister,
   [ModCallbacksCustom.MC_POST_TEAR_INIT_LATE]: postTearInitLateRegister,
   [ModCallbacksCustom.MC_POST_TEAR_INIT_VERY_LATE]:

@@ -3,7 +3,6 @@ import {
   getTopLeftWallGridIndex,
   spawnGridEntity,
 } from "../functions/gridEntity";
-import { ModUpgraded } from "../types/ModUpgraded";
 import {
   postNewRoomEarlyFire,
   postNewRoomEarlyHasSubscriptions,
@@ -12,7 +11,7 @@ import {
 let currentRoomTopLeftWallPtrHash: PtrHash | null = null;
 
 /** @internal */
-export function postNewRoomEarlyCallbackInit(mod: ModUpgraded): void {
+export function postNewRoomEarlyCallbackInit(mod: Mod): void {
   mod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoom); // 19
   mod.AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, preEntitySpawn); // 24
 }

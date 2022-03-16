@@ -6,7 +6,6 @@ import { game } from "../cachedClasses";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { getEntityID } from "../functions/entity";
 import { getRoomItemPoolType } from "../functions/rooms";
-import { ModUpgraded } from "../types/ModUpgraded";
 import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "get collectible item pool type";
@@ -18,7 +17,7 @@ const v = {
 };
 
 /** @internal */
-export function getCollectibleItemPoolTypeInit(mod: ModUpgraded): void {
+export function getCollectibleItemPoolTypeInit(mod: Mod): void {
   saveDataManager("getCollectibleItemPoolType", v);
 
   mod.AddCallback(

@@ -3,7 +3,6 @@
 
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { setCollectibleSubType } from "../functions/collectibles";
-import { ModUpgraded } from "../types/ModUpgraded";
 import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "prevent collectible rotation";
@@ -16,7 +15,7 @@ const v = {
 };
 
 /** @internal */
-export function preventCollectibleRotateInit(mod: ModUpgraded): void {
+export function preventCollectibleRotateInit(mod: Mod): void {
   saveDataManager("preventCollectibleRotate", v);
 
   mod.AddCallback(

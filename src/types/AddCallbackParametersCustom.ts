@@ -49,6 +49,7 @@ import { PreBerserkDeathCallbackType } from "../callbacks/subscriptions/preBerse
 import { PreCustomReviveCallbackType } from "../callbacks/subscriptions/preCustomRevive";
 import { PreItemPickupCallbackType } from "../callbacks/subscriptions/preItemPickup";
 import { PreNewLevelCallbackType } from "../callbacks/subscriptions/preNewLevel";
+import { RoomClearChangeCallbackType } from "../callbacks/subscriptions/roomClearChange";
 import { ModCallbacksCustom } from "./ModCallbacksCustom";
 
 export interface AddCallbackParametersCustom {
@@ -89,6 +90,10 @@ export interface AddCallbackParametersCustom {
   ];
 
   [ModCallbacksCustom.MC_PRE_NEW_LEVEL]: [callback: PreNewLevelCallbackType];
+
+  [ModCallbacksCustom.MC_ROOM_CLEAR_CHANGE]: [
+    callback: RoomClearChangeCallbackType,
+  ];
 
   [ModCallbacksCustom.MC_POST_PLAYER_INIT_LATE]: [
     callback: PostPlayerInitLateCallbackType,

@@ -33,6 +33,7 @@ import { postTrinketBreakCallbackInit } from "./callbacks/postTrinketBreak";
 import { preBerserkDeathCallbackInit } from "./callbacks/preBerserkDeath";
 import { preNewLevelCallbackInit } from "./callbacks/preNewLevel";
 import { reorderedCallbacksInit } from "./callbacks/reorderedCallbacks";
+import { roomClearChangeCallbackInit } from "./callbacks/roomClearChange";
 import { deployJSONRoomInit } from "./features/deployJSONRoom";
 import { disableInputsInit } from "./features/disableInputs";
 import { disableSoundsInit } from "./features/disableSound";
@@ -102,6 +103,7 @@ export function upgradeMod(modVanilla: Mod, verbose = false): ModUpgraded {
 function initCustomCallbacks(mod: ModUpgraded) {
   reorderedCallbacksInit(mod);
   preNewLevelCallbackInit(mod);
+  roomClearChangeCallbackInit(mod);
   postPlayerReorderedCallbacksInit(mod);
   postPlayerInitLateCallbackInit(mod); // 1
   postTearInitLateCallbackInit(mod); // 2

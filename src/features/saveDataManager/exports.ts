@@ -77,7 +77,7 @@ import {
  *
  * @param key The name of the file or feature that is submitting data to be managed by the save data
  * manager. The save data manager will throw an error if the key is already registered.
- * @param saveData An object that corresponds to the `SaveData` interface. The object is
+ * @param v An object that corresponds to the `SaveData` interface. The object is
  * conventionally called "v" for brevity (which is short for "local variables").
  * @param conditionalFunc An optional function to run upon saving this key to disk. For example,
  * this allows features to only save data to disk if the feature is enabled. Specify a value of
@@ -87,7 +87,7 @@ import {
  */
 export function saveDataManager(
   key: string,
-  saveData: SaveData,
+  v: SaveData,
   conditionalFunc?: () => boolean,
 ): void {
   errorIfFeaturesNotInitialized(SAVE_DATA_MANAGER_FEATURE_NAME);
@@ -106,18 +106,18 @@ export function saveDataManager(
   }
 
   // Add the new save data to the map
-  saveDataMap.set(key, saveData);
+  saveDataMap.set(key, v);
 
   // If the only key in the save data is "room", then we don't have to worry about saving this data
   // to disk (because the room would be reloaded upon resuming a continued run)
-  const saveDataKeys = Object.keys(saveData);
+  const saveDataKeys = Object.keys(v);
   if (saveDataKeys.length === 1 && saveDataKeys[0] === "room") {
     conditionalFunc = () => false;
   }
 
   // Make a copy of the initial save data so that we can use it to restore the default values later
   // on
-  const saveDataTable = saveData as LuaTable;
+  const saveDataTable = v as LuaTable;
   const saveDataTableCopy = deepCopy(
     saveDataTable,
     SerializationType.NONE,

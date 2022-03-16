@@ -3,7 +3,6 @@ import { saveDataManager } from "../features/saveDataManager/exports";
 import { isChildPlayer } from "../functions/player";
 import { mapGetPlayer, mapSetPlayer } from "../functions/playerDataStructures";
 import { isDamageToPlayerFatal, willPlayerRevive } from "../functions/revive";
-import { ModUpgraded } from "../types/ModUpgraded";
 import { PlayerIndex } from "../types/PlayerIndex";
 import {
   postPlayerFatalDamageFire,
@@ -18,7 +17,7 @@ const v = {
 };
 
 /** @internal */
-export function postPlayerFatalDamageCallbackInit(mod: ModUpgraded): void {
+export function postPlayerFatalDamageCallbackInit(mod: Mod): void {
   saveDataManager("postPlayerFatalDamage", v);
 
   mod.AddCallback(

@@ -1,6 +1,5 @@
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { getMoveActions, getShootActions } from "../functions/input";
-import { ModUpgraded } from "../types/ModUpgraded";
 import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "input disabler";
@@ -22,7 +21,7 @@ const v = {
 };
 
 /** @internal */
-export function disableInputsInit(mod: ModUpgraded): void {
+export function disableInputsInit(mod: Mod): void {
   saveDataManager("disableInputs", v);
 
   mod.AddCallback(

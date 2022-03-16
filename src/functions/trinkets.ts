@@ -8,8 +8,11 @@ import { DEFAULT_TRINKET_NAME, TRINKET_NAME_MAP } from "../maps/trinketNameMap";
 import { hasFlag } from "./flag";
 import { getPickups } from "./pickups";
 import { useActiveItemTemp } from "./player";
+import { clearSprite } from "./sprite";
 import { giveTrinketsBack, temporarilyRemoveTrinkets } from "./trinketGive";
 import { repeat } from "./utils";
+
+const TRINKET_SPRITE_LAYER = 0;
 
 /**
  * Helper function to get the final trinket type in the game. This cannot be reliably determined
@@ -125,6 +128,36 @@ export function hasOpenTrinketSlot(player: EntityPlayer): boolean {
 export function isGoldenTrinket(trinketType: TrinketType | int): boolean {
   // The first golden trinket is Golden Swallowed Penny (32769)
   return trinketType > TRINKET_GOLDEN_FLAG;
+}
+
+/**
+ * Helper function to change the sprite of a trinket entity.
+ *
+ * For more information about removing the trinket sprite, see the documentation for the
+ * "clearSprite" helper function.
+ *
+ * @param trinket The trinket whose sprite you want to modify.
+ * @param pngPath Equal to either the spritesheet path to load (e.g.
+ * "gfx/items/collectibles/collectibles_001_thesadonion.png") or undefined. If undefined, the sprite
+ * will be removed, making it appear like the collectible has already been taken by the player.
+ */
+export function setTrinketSprite(
+  trinket: EntityPickup,
+  pngPath: string | undefined,
+): void {
+  if (trinket.Variant !== PickupVariant.PICKUP_TRINKET) {
+    error(
+      `You cannot set a trinket sprite for pickups of variant: ${trinket.Variant}`,
+    );
+  }
+
+  const sprite = trinket.GetSprite();
+  if (pngPath === undefined) {
+    clearSprite(sprite, TRINKET_SPRITE_LAYER);
+  } else {
+    sprite.ReplaceSpritesheet(TRINKET_SPRITE_LAYER, pngPath);
+    sprite.LoadGraphics();
+  }
 }
 
 /**

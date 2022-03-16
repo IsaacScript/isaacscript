@@ -1,5 +1,4 @@
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
-import { ModUpgraded } from "../types/ModUpgraded";
 import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "forgotten switcher";
@@ -11,7 +10,7 @@ const v = {
 };
 
 /** @internal */
-export function forgottenSwitchInit(mod: ModUpgraded): void {
+export function forgottenSwitchInit(mod: Mod): void {
   saveDataManager("forgottenSwitch", v);
 
   mod.AddCallback(

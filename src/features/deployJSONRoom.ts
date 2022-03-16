@@ -29,7 +29,6 @@ import {
 import { spawnCollectible } from "../functions/spawnCollectible";
 import { DefaultMap } from "../types/DefaultMap";
 import { JSONRoom } from "../types/JSONRoom";
-import { ModUpgraded } from "../types/ModUpgraded";
 import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "JSON room deployer";
@@ -65,7 +64,7 @@ const v = {
 };
 
 /** @internal */
-export function deployJSONRoomInit(mod: ModUpgraded): void {
+export function deployJSONRoomInit(mod: Mod): void {
   saveDataManager("deployJSONRoom", v);
 
   mod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoom); // 19
