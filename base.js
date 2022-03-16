@@ -246,6 +246,23 @@ module.exports = {
     ],
 
     // Documentation:
+    // https://github.com/gajus/eslint-plugin-jsdoc#user-content-eslint-plugin-jsdoc-rules-match-description
+    // Not defined in parent configs
+    // Needed for catching superfluous leading and trailing newlines as documented here:
+    // https://github.com/gajus/eslint-plugin-jsdoc/issues/847
+    "jsdoc/match-description": [
+      "warn",
+      {
+        matchDescription: "^\\S[\\s\\S]*\\S$",
+        contexts: [
+          {
+            comment: "JsdocBlock[endLine!=0]:not(:has(JsdocTag))",
+          },
+        ],
+      },
+    ],
+
+    // Documentation:
     // https://github.com/gajus/eslint-plugin-jsdoc#eslint-plugin-jsdoc-rules-require-jsdoc
     // Defined at:
     // https://github.com/gajus/eslint-plugin-jsdoc/blob/master/src/index.js
