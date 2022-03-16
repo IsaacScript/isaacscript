@@ -113,6 +113,7 @@ export * from "./maps/cardMap";
 export * from "./maps/characterMap";
 export * from "./maps/pillEffectMap";
 export * from "./maps/roomTypeMap";
+export * from "./objects/directionNames";
 export * from "./types/AddCallbackParametersCustom";
 export * from "./types/AnyEntity";
 export * from "./types/JSONDoor";
