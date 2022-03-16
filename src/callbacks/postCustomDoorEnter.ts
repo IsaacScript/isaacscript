@@ -21,6 +21,7 @@ const initializedEffectVariants = new Set<int>();
 const v = {
   room: {
     customDoors: new Map<PtrHash, CustomDoorData>(),
+    customDoorSlots: new Set<DoorSlot>(),
   },
 };
 
@@ -91,28 +92,29 @@ function doorChangedState(effect: EntityEffect) {
   const room = game.GetRoom();
 
   const sprite = effect.GetSprite();
-  const animation = getAnimation(effect);
+  const animation = getAnimationForCustomDoor(effect);
   sprite.Play(animation, true);
 
-  if (effect.State === DoorState.STATE_OPEN) {
-    const gridIndex = room.GetGridIndex(effect.Position);
-    const wall = room.GetGridEntity(gridIndex);
-    if (wall !== undefined) {
-      wall.CollisionClass = GridCollisionClass.COLLISION_WALL_EXCEPT_PLAYER;
-    }
-  } else if (effect.State === DoorState.STATE_CLOSED) {
-    // TODO
+  const gridIndex = room.GetGridIndex(effect.Position);
+  const wall = room.GetGridEntity(gridIndex);
+  if (wall !== undefined) {
+    wall.CollisionClass =
+      effect.State === DoorState.STATE_OPEN
+        ? GridCollisionClass.COLLISION_WALL_EXCEPT_PLAYER
+        : GridCollisionClass.COLLISION_WALL;
   }
 }
 
-function getAnimation(effect: EntityEffect): string {
+function getAnimationForCustomDoor(effect: EntityEffect): string {
+  const freshlySpawned = effect.FrameCount === 0;
+
   switch (effect.State as DoorState) {
     case DoorState.STATE_OPEN: {
-      return "Opened";
+      return freshlySpawned ? "Opened" : "Open";
     }
 
     case DoorState.STATE_CLOSED: {
-      return "Closed";
+      return freshlySpawned ? "Closed" : "Close";
     }
 
     default: {
@@ -173,13 +175,22 @@ function isPlayerPastDoorThreshold(
 }
 
 /**
- * Helper function to spawn a custom door. Handle when a player enters the door by hooking the
- * custom `MC_POST_CUSTOM_DOOR_ENTER` callback.
+ * Helper function to spawn a custom door. This is intended to be called from the `MC_POST_NEW_ROOM`
+ * callback when the player enters a room that should have a custom door. (You could also call it
+ * from another callback if you want the door to appear e.g. after clearing all enemies.)
+ *
+ * Handle when a player enters the door by hooking the custom `MC_POST_CUSTOM_DOOR_ENTER` callback.
  *
  * The custom door is an `EntityEffect`. You can manually open or close the door by modifying its
  * state. (The values to use correspond to the `DoorState` enum.)
  *
- * Before using this function, you must first initialize it with the `initCustomDoor` function.
+ * This function will throw a runtime error if:
+ * - the door slot already has a vanilla door
+ * - the door slot already has a custom door
+ * - the tile at the door slot does not have a wall
+ *
+ * Before using this function, you must first initialize the effect/door variant with the
+ * `initCustomDoor` function.
  */
 export function spawnCustomDoor(
   effectVariant: int,
@@ -191,9 +202,29 @@ export function spawnCustomDoor(
     );
   }
 
+  if (v.room.customDoorSlots.has(doorSlot)) {
+    error(
+      `There is already a custom door initialized on door slot: ${doorSlot}`,
+    );
+  }
+
   const room = game.GetRoom();
   const roomClear = room.IsClear();
   const position = room.GetDoorSlotPosition(doorSlot);
+  const gridEntity = room.GetGridEntityFromPos(position);
+  if (gridEntity === undefined) {
+    error(
+      `Failed to initialize a custom door at slot ${doorSlot} because the wall on that tile does not exist.`,
+    );
+  }
+
+  const gridEntityType = gridEntity.GetType();
+  if (gridEntityType !== GridEntityType.GRID_WALL) {
+    error(
+      `Failed to initialize a custom door at slot ${doorSlot} because there is another grid entity on that tile with a type of: ${gridEntityType}`,
+    );
+  }
+
   const effect = Isaac.Spawn(
     EntityType.ENTITY_EFFECT,
     effectVariant,
@@ -220,6 +251,7 @@ export function spawnCustomDoor(
     state: effect.State,
   };
   v.room.customDoors.set(ptrHash, doorData);
+  v.room.customDoorSlots.add(doorSlot);
 
   doorChangedState(effect);
 
