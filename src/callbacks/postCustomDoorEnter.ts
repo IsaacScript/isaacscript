@@ -11,6 +11,7 @@ import {
 
 interface CustomDoorData {
   slot: DoorSlot;
+  state: DoorState;
 }
 
 const POSITION_OFFSET_MULTIPLIER = -23;
@@ -19,7 +20,7 @@ const initializedEffectVariants = new Set<int>();
 
 const v = {
   room: {
-    doors: new Map<PtrHash, CustomDoorData>(),
+    customDoors: new Map<PtrHash, CustomDoorData>(),
   },
 };
 
@@ -59,20 +60,71 @@ export function initCustomDoor(mod: Mod, effectVariant: int): void {
   initializedEffectVariants.add(effectVariant);
 
   mod.AddCallback(
+    ModCallbacks.MC_POST_EFFECT_UPDATE,
+    postEffectUpdaterCustomEntity,
+    effectVariant,
+  ); // 55
+  mod.AddCallback(
     ModCallbacks.MC_POST_EFFECT_RENDER,
     postEffectRenderCustomEntity,
     effectVariant,
   ); // 56
 }
 
-// ModCallbacks.MC_POST_EFFECT_RENDER (56)
-function postEffectRenderCustomEntity(effect: EntityEffect) {
-  if (!hasSubscriptions()) {
+// ModCallbacks.MC_POST_EFFECT_UPDATE (55)
+function postEffectUpdaterCustomEntity(effect: EntityEffect) {
+  const ptrHash = GetPtrHash(effect);
+  const doorData = v.room.customDoors.get(ptrHash);
+  if (doorData === undefined) {
     return;
   }
 
+  if (doorData.state === effect.State) {
+    return;
+  }
+  doorData.state = effect.State;
+
+  doorChangedState(effect);
+}
+
+function doorChangedState(effect: EntityEffect) {
+  const room = game.GetRoom();
+
+  const sprite = effect.GetSprite();
+  const animation = getAnimation(effect);
+  sprite.Play(animation, true);
+
+  if (effect.State === DoorState.STATE_OPEN) {
+    const gridIndex = room.GetGridIndex(effect.Position);
+    const wall = room.GetGridEntity(gridIndex);
+    if (wall !== undefined) {
+      wall.CollisionClass = GridCollisionClass.COLLISION_WALL_EXCEPT_PLAYER;
+    }
+  } else if (effect.State === DoorState.STATE_CLOSED) {
+    // TODO
+  }
+}
+
+function getAnimation(effect: EntityEffect): string {
+  switch (effect.State as DoorState) {
+    case DoorState.STATE_OPEN: {
+      return "Opened";
+    }
+
+    case DoorState.STATE_CLOSED: {
+      return "Closed";
+    }
+
+    default: {
+      return "Opened";
+    }
+  }
+}
+
+// ModCallbacks.MC_POST_EFFECT_RENDER (56)
+function postEffectRenderCustomEntity(effect: EntityEffect) {
   const ptrHash = GetPtrHash(effect);
-  const doorData = v.room.doors.get(ptrHash);
+  const doorData = v.room.customDoors.get(ptrHash);
   if (doorData === undefined) {
     return;
   }
@@ -124,9 +176,15 @@ function isPlayerPastDoorThreshold(
  * Helper function to spawn a custom door. Handle when a player enters the door by hooking the
  * custom `MC_POST_CUSTOM_DOOR_ENTER` callback.
  *
+ * The custom door is an `EntityEffect`. You can manually open or close the door by modifying its
+ * state. (The values to use correspond to the `DoorState` enum.)
+ *
  * Before using this function, you must first initialize it with the `initCustomDoor` function.
  */
-export function spawnCustomDoor(effectVariant: int, doorSlot: DoorSlot): void {
+export function spawnCustomDoor(
+  effectVariant: int,
+  doorSlot: DoorSlot,
+): EntityEffect {
   if (!initializedEffectVariants.has(effectVariant)) {
     error(
       'In order to spawn custom doors, you must first initialize them with the "initCustomDoor" function at the beginning of your mod.',
@@ -148,49 +206,28 @@ export function spawnCustomDoor(effectVariant: int, doorSlot: DoorSlot): void {
     error(`Failed to spawn a custom door with variant: ${effectVariant}`);
   }
 
+  // Do initial setup for the door
   effect.State = roomClear ? DoorState.STATE_OPEN : DoorState.STATE_CLOSED;
-
   effect.RenderZOffset = -10000;
   effect.PositionOffset = getPositionOffset(doorSlot);
-
   const sprite = effect.GetSprite();
-  const animation = getAnimation(effect);
-  sprite.Play(animation, true);
   sprite.Rotation = doorSlot * 90 - 90;
 
-  if (effect.State === DoorState.STATE_OPEN) {
-    const gridIndex = room.GetGridIndex(position);
-    const wall = room.GetGridEntity(gridIndex);
-    if (wall !== undefined) {
-      wall.CollisionClass = GridCollisionClass.COLLISION_WALL_EXCEPT_PLAYER;
-    }
-  }
-
+  // Keep track of metadata about this door
   const ptrHash = GetPtrHash(effect);
   const doorData: CustomDoorData = {
     slot: doorSlot,
+    state: effect.State,
   };
-  v.room.doors.set(ptrHash, doorData);
+  v.room.customDoors.set(ptrHash, doorData);
+
+  doorChangedState(effect);
+
+  return effect;
 }
 
 function getPositionOffset(doorSlot: DoorSlot) {
   const direction = doorSlotToDirection(doorSlot);
   const vector = directionToVector(direction);
   return vector.mul(POSITION_OFFSET_MULTIPLIER);
-}
-
-function getAnimation(effect: EntityEffect): string {
-  switch (effect.State as DoorState) {
-    case DoorState.STATE_OPEN: {
-      return "Opened";
-    }
-
-    case DoorState.STATE_CLOSED: {
-      return "Closed";
-    }
-
-    default: {
-      return "Opened";
-    }
-  }
 }

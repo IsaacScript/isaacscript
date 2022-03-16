@@ -49,11 +49,13 @@ import { preBerserkDeathRegister } from "../callbacks/subscriptions/preBerserkDe
 import { preCustomReviveRegister } from "../callbacks/subscriptions/preCustomRevive";
 import { preItemPickupRegister } from "../callbacks/subscriptions/preItemPickup";
 import { preNewLevelRegister } from "../callbacks/subscriptions/preNewLevel";
+import { CallbackParametersCustom } from "../types/CallbackParametersCustom";
 import { ModCallbacksCustom } from "../types/ModCallbacksCustom";
 
 export const CALLBACK_REGISTER_FUNCTIONS: {
-  readonly // eslint-disable-next-line @typescript-eslint/ban-types
-  [key in ModCallbacksCustom]: Function;
+  readonly [key in ModCallbacksCustom]: (
+    ...args: CallbackParametersCustom[key]
+  ) => void;
 } = {
   [ModCallbacksCustom.MC_POST_GAME_STARTED_REORDERED]:
     postGameStartedReorderedRegister,

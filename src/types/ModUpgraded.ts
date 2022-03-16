@@ -1,6 +1,7 @@
 import { getDebugPrependString } from "../functions/log";
 import { CALLBACK_REGISTER_FUNCTIONS } from "../objects/callbackRegisterFunctions";
 import { CallbackParametersCustom } from "./CallbackParametersCustom";
+import { ModCallbacksCustom } from "./ModCallbacksCustom";
 
 /** `isaacscript-common` allows for custom callbacks, so it provides an upgraded Mod object. */
 export class ModUpgraded implements Mod {
@@ -31,7 +32,7 @@ export class ModUpgraded implements Mod {
   // Vanilla methods
   // ---------------
 
-  AddCallback<T extends keyof CallbackParameters>(
+  AddCallback<T extends ModCallbacks>(
     modCallbacks: T,
     ...args: CallbackParameters[T]
   ): void {
@@ -83,7 +84,7 @@ export class ModUpgraded implements Mod {
   // --------------
 
   // eslint-disable-next-line class-methods-use-this
-  AddCallbackCustom<T extends keyof CallbackParametersCustom>(
+  AddCallbackCustom<T extends ModCallbacksCustom>(
     modCallbacksCustom: T,
     ...args: CallbackParametersCustom[T]
   ): void {
