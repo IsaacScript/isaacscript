@@ -77,7 +77,9 @@ function validateIsaacScriptOtherCopiesNotRunning(verbose: boolean) {
       !line.includes("isaacscript publish"),
   );
   if (otherCopiesOfRunningIsaacScript.length > 0) {
-    error();
+    error(
+      `Other copies of ${PROJECT_NAME} appear to be running. You must close those copies before publishing.`,
+    );
   }
 }
 
