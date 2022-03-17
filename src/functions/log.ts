@@ -444,13 +444,18 @@ export function logSounds(this: void): void {
 }
 
 export function logTable(this: void, table: unknown, parentTables = 0): void {
-  const numSpaces = (parentTables + 1) * 2; // 2, 4, 6, etc.
-
   if (parentTables === 0) {
     log("Printing out a Lua table:");
   }
 
+  const numSpaces = (parentTables + 1) * 2; // 2, 4, 6, etc.
   const indentation = " ".repeat(numSpaces);
+
+  if (table === undefined) {
+    log(`${indentation}n/a (the table was nil)`);
+    return;
+  }
+
   let numKeys = 0;
   for (const [key, value] of pairs(table)) {
     log(`${indentation}Key: ${key}, Value: ${value}`);
