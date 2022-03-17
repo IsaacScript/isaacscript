@@ -25,6 +25,33 @@ export function execExe(path: string, verbose = false, cwd = CWD): string {
   return stdout;
 }
 
+export function execPowershell(
+  command: string,
+  verbose = false,
+  cwd = CWD,
+): string {
+  if (verbose) {
+    console.log(`Executing PowerShell command: ${command}`);
+  }
+
+  let stdout: string;
+  try {
+    const buffer = execSync(command, {
+      shell: "powershell.exe",
+      cwd,
+    });
+    stdout = buffer.toString().trim();
+  } catch (err) {
+    error(`Failed to run PowerShell command "${chalk.green(command)}":`, err);
+  }
+
+  if (verbose) {
+    console.log(`Executed PowerShell command: ${command}`);
+  }
+
+  return stdout;
+}
+
 /** Returns an array of exit status and stdout. */
 export function execShell(
   command: string,

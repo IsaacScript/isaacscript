@@ -12,7 +12,7 @@ import {
   PUBLISH_PRE_COPY_PY_PATH,
   VERSION_TXT_PATH,
 } from "../../constants";
-import { execExe, execShell } from "../../exec";
+import { execExe, execPowershell, execShell } from "../../exec";
 import * as file from "../../file";
 import { Config } from "../../types/Config";
 import { error, getModTargetDirectoryName, parseIntSafe } from "../../utils";
@@ -31,6 +31,7 @@ export function publish(argv: Record<string, unknown>, config: Config): void {
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
 
   validateVersion(setVersion);
+  validateIsaacScriptOtherCopiesNotRunning(verbose);
 
   if (onlyUpload) {
     uploadMod(modTargetPath, config.steamCmdPath, verbose);
@@ -55,6 +56,28 @@ function validateVersion(setVersion: string | undefined) {
         `The version of "${setVersion}" does not match the semantic versioning format.`,
       ),
     );
+  }
+}
+
+function validateIsaacScriptOtherCopiesNotRunning(verbose: boolean) {
+  if (process.platform !== "win32") {
+    return;
+  }
+
+  // From: https://securityboulevard.com/2020/01/get-process-list-with-command-line-arguments/
+  const stdout = execPowershell(
+    "Get-WmiObject Win32_Process -Filter \"name = 'node.exe'\" | Select-Object -ExpandProperty CommandLine",
+    verbose,
+  );
+  const lines = stdout.split("\r\n");
+  const otherCopiesOfRunningIsaacScript = lines.filter(
+    (line) =>
+      line.includes("node.exe") &&
+      line.includes("isaacscript") &&
+      !line.includes("isaacscript publish"),
+  );
+  if (otherCopiesOfRunningIsaacScript.length > 0) {
+    error();
   }
 }
 
