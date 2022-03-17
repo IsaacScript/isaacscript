@@ -1,6 +1,7 @@
 // Keep specific items from being affected by the Glitched Crown, Binge Eater,
 // and the Tainted Isaac switching mechanic
 
+import { game } from "../cachedClasses";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { setCollectibleSubType } from "../functions/collectibles";
 import { saveDataManager } from "./saveDataManager/exports";
@@ -10,12 +11,16 @@ const FEATURE_NAME = "prevent collectible rotation";
 const v = {
   room: {
     /**
-     * Index is the PtrHash of the collectible.
+     * Index is a string containing the grid index and the InitSeed of the collectible.
+     * (e.g. "12,1123579202")
      *
-     * (We cannot use InitSeed as an index because multiple collectibles may have the same
-     * InitSeed.)
+     * (We cannot simply use the InitSeed of the collectible because Diplopia can cause multiple
+     * collectibles in the room to have the same InitSeed. However, no two collectibles should ever
+     * be on the same grid index.)
+     *
+     * (We cannot use PtrHash as an index because that stays the same when the item is rolled.)
      */
-    trackedItems: new Map<PtrHash, CollectibleType | int>(),
+    trackedCollectibles: new Map<string, CollectibleType | int>(),
   },
 };
 
@@ -41,25 +46,25 @@ export function preventCollectibleRotateInit(mod: Mod): void {
 function useCardSoulOfIsaac() {
   // Soul of Isaac causes items to flip
   // Delete all tracked items (assuming that the player deliberately wants to roll a quest item)
-  v.room.trackedItems.clear();
+  v.room.trackedCollectibles.clear();
 }
 
 // ModCallbacks.MC_POST_PICKUP_UPDATE (35)
 // PickupVariant.PICKUP_COLLECTIBLE (100)
-function postPickupUpdateCollectible(pickup: EntityPickup) {
+function postPickupUpdateCollectible(collectible: EntityPickup) {
   // Ignore empty pedestals (i.e. items that have already been taken by the player)
-  if (pickup.SubType === CollectibleType.COLLECTIBLE_NULL) {
+  if (collectible.SubType === CollectibleType.COLLECTIBLE_NULL) {
     return;
   }
 
-  const ptrHash = GetPtrHash(pickup);
-  const trackedCollectibleType = v.room.trackedItems.get(ptrHash);
+  const index = getMapIndex(collectible);
+  const trackedCollectibleType = v.room.trackedCollectibles.get(index);
   if (
     trackedCollectibleType !== undefined &&
-    pickup.SubType !== trackedCollectibleType
+    collectible.SubType !== trackedCollectibleType
   ) {
     // This item has switched, so restore it back to the way it was
-    setCollectibleSubType(pickup, trackedCollectibleType);
+    setCollectibleSubType(collectible, trackedCollectibleType);
   }
 }
 
@@ -84,10 +89,16 @@ export function preventCollectibleRotate(
     );
   }
 
-  const ptrHash = GetPtrHash(collectible);
-  v.room.trackedItems.set(ptrHash, collectibleType);
+  const index = getMapIndex(collectible);
+  v.room.trackedCollectibles.set(index, collectibleType);
 
   // The item might have already shifted on the first frame that it spawns,
   // so change it back if necessary
   postPickupUpdateCollectible(collectible);
+}
+
+function getMapIndex(collectible: EntityPickup) {
+  const room = game.GetRoom();
+  const gridIndex = room.GetGridIndex(collectible.Position);
+  return `${gridIndex},${collectible.InitSeed}`;
 }
