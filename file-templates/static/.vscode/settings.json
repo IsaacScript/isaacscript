@@ -10,6 +10,7 @@
 
   "files.associations": {
     "*.anm2": "xml", // anm2 files are just XML files
+    "*.dat": "json", // Nearly all mods save JSON to the "save#.dat" file
   },
 
   // Linux line endings are used in this project
