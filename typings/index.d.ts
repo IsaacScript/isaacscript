@@ -3,11 +3,9 @@
 
 /** Miscellaneous */
 
-/// <reference path="AddCallbackParameters.d.ts" />
 /// <reference path="functions.d.ts" />
 /// <reference path="json.d.ts" />
 /// <reference path="main.d.ts" />
-/// <reference path="primitives.d.ts" />
 /// <reference path="socket.d.ts" />
 
 /** Classes */
@@ -134,11 +132,15 @@
 /// <reference path="enums/StageType.d.ts" />
 /// <reference path="enums/WeaponType.d.ts" />
 
-/** Unofficial Classes */
+/** Unofficial Classes and Types */
 
+/// <reference path="unofficial/primitives.d.ts" />
+
+/// <reference path="unofficial/AddCallbackParameters.d.ts" />
 /// <reference path="unofficial/EntitySubPlayer.d.ts" />
-/// <reference path="unofficial/Seed.d.ts" />
 /// <reference path="unofficial/PtrHash.d.ts" />
+/// <reference path="unofficial/Seed.d.ts" />
+/// <reference path="unofficial/Userdata.d.ts" />
 
 /**
  * Unofficial Enums
