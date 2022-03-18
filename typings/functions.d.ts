@@ -1,11 +1,3 @@
-/** PtrHash is an integer between 0 and 2^32. It is branded for extra type safety. */
-declare type PtrHash = number & { __ptrHashBrand: unknown };
-
-/** Seed is an integer between 0 and 2^32. It is branded for extra type safety. */
-declare type Seed = number & { __seedBrand: unknown };
-
-declare function Game(this: void): Game;
-
 /**
  * Comparing two API objects directly in mod code will not work, even if the Lua metadata points to
  * the same pointer in memory. As a workaround, use this function to get a numerical hash of the

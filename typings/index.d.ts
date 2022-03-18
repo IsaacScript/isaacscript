@@ -137,6 +137,8 @@
 /** Unofficial Classes */
 
 /// <reference path="unofficial/EntitySubPlayer.d.ts" />
+/// <reference path="unofficial/Seed.d.ts" />
+/// <reference path="unofficial/PtrHash.d.ts" />
 
 /**
  * Unofficial Enums
