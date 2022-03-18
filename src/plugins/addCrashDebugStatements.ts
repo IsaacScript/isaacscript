@@ -1,4 +1,4 @@
-import * as tstl from "@zamiell/typescript-to-lua";
+import * as tstl from "typescript-to-lua";
 import * as crypto from "crypto";
 import { SourceNode } from "source-map";
 import * as ts from "typescript";
