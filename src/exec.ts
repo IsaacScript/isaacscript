@@ -52,7 +52,7 @@ export function execPowershell(
   return stdout;
 }
 
-/** Returns an array of exit status and stdout. */
+/** Returns a tuple of exit status and stdout. The stdout is trimmed for convenience. */
 export function execShell(
   command: string,
   args: string[] = [],

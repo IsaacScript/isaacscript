@@ -31,6 +31,7 @@ export function publish(argv: Record<string, unknown>, config: Config): void {
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
 
   validateVersion(setVersion);
+  validateGitNotDirty(verbose);
   validateIsaacScriptOtherCopiesNotRunning(verbose);
 
   if (onlyUpload) {
@@ -54,6 +55,16 @@ function validateVersion(setVersion: string | undefined) {
     error(
       chalk.red(
         `The version of "${setVersion}" does not match the semantic versioning format.`,
+      ),
+    );
+  }
+}
+
+function validateGitNotDirty(verbose: boolean) {
+  if (isGitDirty(verbose)) {
+    error(
+      chalk.red(
+        "Before publishing, you must push your current changes to git. (Version commits should be not contain any code changes.)",
       ),
     );
   }
@@ -280,16 +291,7 @@ function gitCommitIfChanges(version: string, verbose: boolean) {
   // Throw an error if this is not a git repository
   execShell("git", ["status"], verbose);
 
-  // Check to see if there are any changes
-  // https://stackoverflow.com/questions/3878624/how-do-i-programmatically-determine-if-there-are-uncommitted-changes
-  const [exitCode] = execShell(
-    "git",
-    ["diff-index", "--quiet", "HEAD", "--"],
-    verbose,
-    true,
-  );
-  if (exitCode === 0) {
-    // There are no changes
+  if (!isGitDirty(verbose)) {
     console.log("There are no changes to commit.");
     return;
   }
@@ -302,6 +304,12 @@ function gitCommitIfChanges(version: string, verbose: boolean) {
   console.log(
     `Committed and pushed to the git repository with a message of: ${commitMessage}`,
   );
+}
+
+function isGitDirty(verbose: boolean) {
+  // From: https://remarkablemark.org/blog/2017/10/12/check-git-dirty/
+  const [, stdout] = execShell("git", ["status", "--porcelain"], verbose);
+  return stdout !== "";
 }
 
 function purgeRoomXMLs(modTargetPath: string, verbose: boolean) {
