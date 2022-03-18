@@ -1,7 +1,7 @@
 import { deepCopy, SerializationType } from "../../functions/deepCopy";
 import { jsonEncode } from "../../functions/jsonHelpers";
 import { log } from "../../functions/log";
-import { SaveData, SaveDataWithoutRoom } from "../../types/private/SaveData";
+import { SaveData } from "../../types/private/SaveData";
 import { SAVE_DATA_MANAGER_FEATURE_NAME } from "./constants";
 
 export function saveToDisk(
@@ -38,7 +38,7 @@ function getAllSaveDataToWriteToDisk(
     }
 
     // Strip out the room part of the save data
-    const saveDataWithoutRoom: SaveDataWithoutRoom = {
+    const saveDataWithoutRoom: SaveData = {
       persistent: saveData.persistent,
       run: saveData.run,
       level: saveData.level,

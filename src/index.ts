@@ -9,6 +9,7 @@ export {
 } from "./callbacks/reorderedCallbacks";
 export * from "./classes/DefaultMap";
 export * from "./classes/ModUpgraded";
+export * from "./classes/Null";
 export * from "./constants";
 export * from "./enums/CardType";
 export * from "./enums/CollectiblePedestalType";

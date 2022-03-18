@@ -1,14 +1,21 @@
-export interface SaveData {
-  persistent?: Record<string, unknown>;
-  run?: Record<string, unknown>;
-  level?: Record<string, unknown>;
-  room?: Record<string, unknown>;
-}
+type Primitive = boolean | number | string;
 
-export interface SaveDataWithoutRoom {
-  persistent?: Record<string, unknown>;
-  run?: Record<string, unknown>;
-  level?: Record<string, unknown>;
-  // Room data does not need to be saved because the room will be reloaded as soon as they enter
-  // into a new run anyway
+// I don't know how to create a recursive type definition for only primitive values
+type Serializable = Primitive | unknown;
+
+/**
+ * Each sub-object of save data has a string as a key, without arbitrary data as a value. However,
+ * the data has to be serializable (i.e. no `userdata` objects).
+ */
+type SaveDataGroup = Record<string, Serializable>;
+
+/**
+ * The object that contains all of the variables that will be managed by the save data manager.
+ * Depending on which property is used, the variables will be reset at certain times.
+ */
+export interface SaveData {
+  persistent?: SaveDataGroup;
+  run?: SaveDataGroup;
+  level?: SaveDataGroup;
+  room?: SaveDataGroup;
 }
