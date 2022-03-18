@@ -71,7 +71,7 @@ function readSaveDatFile(mod: Mod) {
   const [ok, jsonStringOrErrMsg] = pcall(tryLoadModData, mod);
   if (!ok) {
     log(
-      `Failed to read from the "save#.dat" file on render frame ${renderFrameCount}: ${jsonStringOrErrMsg}`,
+      `Error: Failed to read from the "save#.dat" file on render frame ${renderFrameCount}: ${jsonStringOrErrMsg}`,
     );
     return DEFAULT_MOD_DATA;
   }

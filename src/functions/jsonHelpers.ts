@@ -31,11 +31,13 @@ export function jsonDecode(jsonString: string): LuaTable {
   const [ok, luaTableOrErrMsg] = pcall(tryDecode, jsonString);
   if (!ok) {
     // Instead of throwing an error, continue execution of the callback
-    log(`Failed to convert the JSON string to a Lua table: ${jsonString}`);
+    log(
+      `Error: Failed to convert the JSON string to a Lua table: ${jsonString}`,
+    );
     return new LuaTable();
   }
 
-  return luaTableOrErrMsg as LuaTable;
+  return luaTableOrErrMsg;
 }
 
 function tryDecode(this: void, jsonString: string) {
