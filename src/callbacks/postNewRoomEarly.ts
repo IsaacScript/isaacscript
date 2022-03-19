@@ -65,7 +65,7 @@ function checkRoomChanged() {
       );
       return;
     }
-    log("Spawned a new wall (2) for the PostNewRoomEarly callback.");
+    log("Spawned a new wall (1) for the PostNewRoomEarly callback.");
   }
 
   const rightOfTopWallGridIndex = topLeftWallGridIndex + 1;
@@ -79,7 +79,7 @@ function checkRoomChanged() {
     );
     if (topLeftWall2 === undefined) {
       log(
-        "Error: Failed to spawn a new wall (1) for the PostNewRoomEarly callback.",
+        "Error: Failed to spawn a new wall (2) for the PostNewRoomEarly callback.",
       );
       return;
     }
