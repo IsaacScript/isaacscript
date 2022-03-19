@@ -4,7 +4,7 @@ import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { copyArray } from "../functions/array";
 import { getCollectibleSet } from "../functions/collectibleSet";
-import { getPlayerIndex } from "../functions/player";
+import { getAllPlayers, getPlayerIndex } from "../functions/player";
 import { repeat } from "../functions/utils";
 import { PickingUpItem } from "../types/PickingUpItem";
 import { PlayerIndex } from "../types/PlayerIndex";
@@ -45,7 +45,7 @@ export function playerInventoryInit(mod: ModUpgraded): void {
     useItemD4,
     CollectibleType.COLLECTIBLE_D4,
   ); // 3
-  mod.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit); // 9
+  mod.AddCallback(ModCallbacks.MC_POST_GAME_STARTED, postGameStarted); // 15
   mod.AddCallbackCustom(ModCallbacksCustom.MC_POST_ITEM_PICKUP, postItemPickup);
 }
 
@@ -61,12 +61,16 @@ function useItemD4(
   v.run.playersInventory.set(playerIndex, inventory);
 }
 
-// ModCallbacks.MC_POST_PLAYER_INIT (9)
-function postPlayerInit(player: EntityPlayer) {
-  const playerIndex = getPlayerIndex(player);
-  if (!v.run.playersInventory.has(playerIndex)) {
-    const inventory = newPlayerInventory(player);
-    v.run.playersInventory.set(playerIndex, inventory);
+// ModCallbacks.MC_POST_GAME_STARTED (15)
+function postGameStarted() {
+  // We don't use the PostPlayerInit function because some items are not given to the player at that
+  // point
+  for (const player of getAllPlayers()) {
+    const playerIndex = getPlayerIndex(player);
+    if (!v.run.playersInventory.has(playerIndex)) {
+      const inventory = newPlayerInventory(player);
+      v.run.playersInventory.set(playerIndex, inventory);
+    }
   }
 }
 

@@ -68,6 +68,13 @@ export function convertXMLGridEntityType(
   return [gridEntityType, gridEntityVariant];
 }
 
+/**
+ * Gets the entities that have a hitbox that overlaps with any part of the square that the grid
+ * entity is on.
+ *
+ * Note that this function will not work properly in the PostNewRoom callback, since entities do not
+ * have collision yet in that callback.
+ */
 export function getCollidingEntitiesWithGridEntity(
   gridEntity: GridEntity,
 ): Entity[] {
@@ -86,19 +93,17 @@ export function getCollidingEntitiesWithGridEntity(
     DISTANCE_OF_GRID_TILE * 2,
   );
 
-  const closeEntitiesThatCollideWithGrid = closeEntities.filter((entity) =>
-    entity.CollidesWithGrid(),
-  );
-
-  return closeEntitiesThatCollideWithGrid.filter((entity) =>
-    isCircleIntersectingRectangle(
-      entity.Position,
-      // We arbitrarily add 0.1 to account for entities that are already pushed back by the time the
-      // PostUpdate callback fires
-      entity.Size + 0.1,
-      gridEntityCollisionTopLeft,
-      gridEntityCollisionBottomRight,
-    ),
+  return closeEntities.filter(
+    (entity) =>
+      entity.CollidesWithGrid() &&
+      isCircleIntersectingRectangle(
+        entity.Position,
+        // We arbitrarily add 0.1 to account for entities that are already pushed back by the time the
+        // PostUpdate callback fires
+        entity.Size + 0.1,
+        gridEntityCollisionTopLeft,
+        gridEntityCollisionBottomRight,
+      ),
   );
 }
 

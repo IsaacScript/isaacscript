@@ -145,8 +145,8 @@ export function characterGetsBlackHeartFromEternalHeart(
  * Helper function to get every player with no restrictions, by using `Game.GetNumPlayers` and
  * `Isaac.GetPlayer`.
  *
- * This function is almost never what you want to use. For most intents and purposes, use the
- * `getPlayers` helper function instead to get a filtered list of players.
+ * This function is almost never what you want to use. For most purposes, use the `getPlayers`
+ * helper function instead to get a filtered list of players.
  */
 export function getAllPlayers(): EntityPlayer[] {
   const numPlayers = game.GetNumPlayers();
