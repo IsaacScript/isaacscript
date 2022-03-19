@@ -75,7 +75,7 @@ function checkRoomChanged() {
   if (topLeftWall2 === undefined) {
     topLeftWall2 = spawnGridEntity(
       GridEntityType.GRID_WALL,
-      topLeftWallGridIndex,
+      rightOfTopWallGridIndex,
     );
     if (topLeftWall2 === undefined) {
       log(
