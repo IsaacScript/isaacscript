@@ -1,5 +1,6 @@
+import { SerializationType } from "../../enums/SerializationType";
 import { errorIfFeaturesNotInitialized } from "../../featuresInitialized";
-import { deepCopy, SerializationType } from "../../functions/deepCopy";
+import { deepCopy } from "../../functions/deepCopy";
 import { SaveData } from "../../types/private/SaveData";
 import { SAVE_DATA_MANAGER_FEATURE_NAME } from "./constants";
 import { forceSaveDataManagerLoad, forceSaveDataManagerSave } from "./main";

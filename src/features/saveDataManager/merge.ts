@@ -2,13 +2,13 @@ import {
   isSerializationBrand,
   SerializationBrand,
 } from "../../enums/private/SerializationBrand";
+import { SerializationType } from "../../enums/SerializationType";
 import { isArray } from "../../functions/array";
 import {
   addTraversalDescription,
   deepCopy,
   deserializeVector,
   isSerializedVector,
-  SerializationType,
 } from "../../functions/deepCopy";
 import { log } from "../../functions/log";
 import { clearTable } from "../../functions/table";
@@ -30,6 +30,10 @@ export function merge(
   newTable: LuaTable,
   traversalDescription: string,
 ): void {
+  if (SAVE_DATA_MANAGER_DEBUG) {
+    log(`merge is operating on: ${traversalDescription}`);
+  }
+
   const oldObjectType = type(oldObject);
   if (oldObjectType !== "table") {
     error("The first argument given to the merge function is not a table.");
@@ -38,10 +42,6 @@ export function merge(
   const newTableType = type(newTable);
   if (newTableType !== "table") {
     error("The second argument given to the merge function is not a table.");
-  }
-
-  if (SAVE_DATA_MANAGER_DEBUG) {
-    log(`merge is operating on: ${traversalDescription}`);
   }
 
   // First, handle the special case of an array with a shallow copy
@@ -130,7 +130,15 @@ function mergeTable(
   newTable: LuaTable,
   traversalDescription: string,
 ) {
+  if (SAVE_DATA_MANAGER_DEBUG) {
+    log("merge is operating on a table. Iterating through the keys...");
+  }
+
   for (const [key, value] of pairs(newTable)) {
+    if (SAVE_DATA_MANAGER_DEBUG) {
+      log(`merge is operating on: ${key} --> ${value}`);
+    }
+
     if (isSerializationBrand(key)) {
       continue;
     }
@@ -142,10 +150,16 @@ function mergeTable(
 
     const valueType = type(value);
     if (valueType === "table") {
-      // Recursively merge sub-tables, but only if the child table exists on the old table too
       const oldValue = oldTable.get(key) as LuaTable;
       const oldValueType = type(oldValue);
-      if (oldValueType === "table") {
+      if (oldValueType === "nil") {
+        // The child table does not exist on the old table
+        // We still need to copy over the new table, because we need to handle data types like
+        // "Foo | null"
+        const valueDeepCopy = deepCopy(value as LuaTable);
+        oldTable.set(key, valueDeepCopy);
+      } else if (oldValueType === "table") {
+        // Recursively merge sub-tables
         traversalDescription = addTraversalDescription(
           key,
           traversalDescription,

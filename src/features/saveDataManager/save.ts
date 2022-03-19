@@ -1,4 +1,5 @@
-import { deepCopy, SerializationType } from "../../functions/deepCopy";
+import { SerializationType } from "../../enums/SerializationType";
+import { deepCopy } from "../../functions/deepCopy";
 import { jsonEncode } from "../../functions/jsonHelpers";
 import { log } from "../../functions/log";
 import { SaveData } from "../../types/private/SaveData";

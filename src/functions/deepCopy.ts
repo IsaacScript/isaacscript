@@ -3,24 +3,11 @@ import {
   isSerializationBrand,
   SerializationBrand,
 } from "../enums/private/SerializationBrand";
+import { SerializationType } from "../enums/SerializationType";
 import { SAVE_DATA_MANAGER_DEBUG } from "../features/saveDataManager/constants";
+import { TSTLClassMetatable } from "../types/private/TSTLClassMetatable";
 import { log } from "./log";
 import { isVector } from "./vector";
-
-export enum SerializationType {
-  NONE,
-  SERIALIZE,
-  DESERIALIZE,
-}
-
-interface TSTLClassMetatable {
-  ____constructor: () => void;
-  __index: unknown;
-  constructor: {
-    prototype: unknown;
-    name: string;
-  };
-}
 
 const TSTL_CLASS_KEYS: ReadonlySet<string> = new Set([
   "____constructor",
@@ -52,13 +39,6 @@ export function deepCopy(
   serializationType = SerializationType.NONE,
   traversalDescription = "",
 ): LuaTable | Map<AnyNotNil, unknown> | Set<AnyNotNil> {
-  const oldObjectType = type(oldObject);
-  if (oldObjectType !== "table") {
-    error(
-      `The deepCopy function was given a ${oldObjectType} instead of a table.`,
-    );
-  }
-
   if (SAVE_DATA_MANAGER_DEBUG) {
     let logString = `deepCopy is operating on: ${traversalDescription}`;
     if (serializationType === SerializationType.SERIALIZE) {
@@ -67,6 +47,13 @@ export function deepCopy(
       logString += " (deserializing)";
     }
     log(logString);
+  }
+
+  const oldObjectType = type(oldObject);
+  if (oldObjectType !== "table") {
+    error(
+      `The deepCopy function was given a ${oldObjectType} instead of a table.`,
+    );
   }
 
   const oldTable = oldObject as unknown as LuaTable;

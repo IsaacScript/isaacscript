@@ -18,6 +18,7 @@ export * from "./enums/ModCallbacksCustom";
 export * from "./enums/PillEffectClass";
 export * from "./enums/PillEffectType";
 export * from "./enums/PocketItemType";
+export * from "./enums/SerializationType";
 export {
   deployJSONRoom,
   deployRandomJSONRoom,
@@ -81,6 +82,7 @@ export * from "./functions/language";
 export * from "./functions/log";
 export * from "./functions/map";
 export * from "./functions/math";
+export { mergeTests } from "./functions/mergeTests";
 export * from "./functions/npc";
 export * from "./functions/pickups";
 export * from "./functions/pills";

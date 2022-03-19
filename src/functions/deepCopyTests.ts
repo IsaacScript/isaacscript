@@ -1,7 +1,8 @@
 import { DefaultMap } from "../classes/DefaultMap";
 import { SerializationBrand } from "../enums/private/SerializationBrand";
+import { SerializationType } from "../enums/SerializationType";
 import { arrayEquals } from "./array";
-import { deepCopy, SerializationType } from "./deepCopy";
+import { deepCopy } from "./deepCopy";
 import { log } from "./log";
 
 export function deepCopyTests(): void {
@@ -24,7 +25,7 @@ export function deepCopyTests(): void {
   copiedDefaultMapHasChildDefaultMap();
   copiedDefaultMapHasBrand();
 
-  log("All tests passed!");
+  log("All deep copy tests passed!");
 }
 
 function copiedObjectIsTable() {
@@ -384,13 +385,6 @@ function copiedDefaultMapHasBrand() {
   if (!newTable.has(SerializationBrand.DEFAULT_MAP)) {
     error(
       `The copied DefaultMap does not have the brand: ${SerializationBrand.DEFAULT_MAP}`,
-    );
-  }
-
-  const serializedDefaultValue = newTable.get(SerializationBrand.DEFAULT_MAP);
-  if (serializedDefaultValue !== oldDefaultValue) {
-    error(
-      `The copied DefaultMap does not have a serialized default value of: ${oldDefaultValue}`,
     );
   }
 }
