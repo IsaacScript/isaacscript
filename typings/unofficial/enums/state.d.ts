@@ -4,7 +4,7 @@ declare const enum LostSoulState {
   DEAD = 4,
 }
 
-/* For EntityType.ENTITY_DEATH (66) */
+/** For EntityType.ENTITY_DEATH (66) */
 declare const enum DeathState {
   APPEAR = 1,
   SCYTHE_APPEAR = 3,
@@ -31,7 +31,7 @@ declare const enum DaddyLongLegsState {
   MULTI_STOMP_ATTACK_MAIN = 9,
 }
 
-/* For EntityType.ENTITY_BIG_HORN (411) */
+/** For EntityType.ENTITY_BIG_HORN (411) */
 declare const enum BigHornState {
   IDLE = 3,
   HEAD_GOING_UP_OR_GOING_DOWN_INTO_HOLE = 4,
@@ -50,7 +50,7 @@ declare const enum BigHornState {
   HEAD_BALL_ATTACK = 13,
 }
 
-/* For EntityType.ENTITY_REAP_CREEP (900) */
+/** For EntityType.ENTITY_REAP_CREEP (900) */
 declare const enum ReapCreepState {
   CRAWLING_FROM_SIDE_TO_SIDE = 3,
   JUMPING_TO_TOP_WALL = 6,
@@ -68,7 +68,7 @@ declare const enum ReapCreepState {
   TRANSFORMING_TO_NEXT_PHASE = 16,
 }
 
-/* For EntityType.ENTITY_COLOSTOMIA (917) */
+/** For EntityType.ENTITY_COLOSTOMIA (917) */
 declare const enum ColostomiaState {
   IDLE_PHASE_1 = 3,
   IDLE_PHASE_2 = 4,

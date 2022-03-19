@@ -832,7 +832,7 @@ declare interface EntityPlayer extends Entity {
   IsFullSpriteRendering(): boolean;
   IsHeldItemVisible(): boolean;
 
-  /* Is the player holding up an item (card/collectible/etc)? */
+  /** Is the player holding up an item (card/collectible/etc)? */
   IsHoldingItem(): boolean;
 
   IsItemQueueEmpty(): boolean;

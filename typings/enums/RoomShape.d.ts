@@ -7,10 +7,10 @@ declare enum RoomShape {
   /** Narrow 1x1 vertical. */
   ROOMSHAPE_IV = 3,
 
-  /* 2x1 vertical. */
+  /** 2x1 vertical. */
   ROOMSHAPE_1x2 = 4,
 
-  /* Narrow 2x1 vertical. */
+  /** Narrow 2x1 vertical. */
   ROOMSHAPE_IIV = 5,
 
   /** 2x1 horizontal. */
