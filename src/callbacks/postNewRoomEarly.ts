@@ -3,12 +3,19 @@ import {
   getTopLeftWallGridIndex,
   spawnGridEntity,
 } from "../functions/gridEntity";
+import { log } from "../functions/log";
 import {
   postNewRoomEarlyFire,
   postNewRoomEarlyHasSubscriptions,
 } from "./subscriptions/postNewRoomEarly";
 
 let currentRoomTopLeftWallPtrHash: PtrHash | null = null;
+
+/**
+ * The wall entity directly to the right of the top-left wall. We use this as a test to see if it
+ * improves the consistency of the callback firing.
+ */
+let currentRoomTopLeftWallPtrHash2: PtrHash | null = null;
 
 /** @internal */
 export function postNewRoomEarlyCallbackInit(mod: Mod): void {
@@ -53,13 +60,41 @@ function checkRoomChanged() {
       topLeftWallGridIndex,
     );
     if (topLeftWall === undefined) {
+      log(
+        "Error: Failed to spawn a new wall (1) for the PostNewRoomEarly callback.",
+      );
       return;
     }
+    log("Spawned a new wall (2) for the PostNewRoomEarly callback.");
+  }
+
+  const rightOfTopWallGridIndex = topLeftWallGridIndex + 1;
+  let topLeftWall2 = room.GetGridEntity(rightOfTopWallGridIndex);
+
+  // Duplicated code
+  if (topLeftWall2 === undefined) {
+    topLeftWall2 = spawnGridEntity(
+      GridEntityType.GRID_WALL,
+      topLeftWallGridIndex,
+    );
+    if (topLeftWall2 === undefined) {
+      log(
+        "Error: Failed to spawn a new wall (1) for the PostNewRoomEarly callback.",
+      );
+      return;
+    }
+    log("Spawned a new wall (2) for the PostNewRoomEarly callback.");
   }
 
   const topLeftWallPtrHash = GetPtrHash(topLeftWall);
-  if (topLeftWallPtrHash !== currentRoomTopLeftWallPtrHash) {
+  const topLeftWallPtrHash2 = GetPtrHash(topLeftWall2);
+  if (
+    topLeftWallPtrHash !== currentRoomTopLeftWallPtrHash ||
+    topLeftWallPtrHash2 !== currentRoomTopLeftWallPtrHash2
+  ) {
     currentRoomTopLeftWallPtrHash = topLeftWallPtrHash;
+    currentRoomTopLeftWallPtrHash2 = topLeftWallPtrHash2;
+
     postNewRoomEarlyFire();
   }
 }
