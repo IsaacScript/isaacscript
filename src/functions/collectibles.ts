@@ -250,6 +250,14 @@ export function isGlitchedCollectible(pickup: EntityPickup): boolean {
   );
 }
 
+/** Returns true if the item type in the item config is equal to `ItemType.ITEM_ACTIVE`. */
+export function isActiveCollectible(
+  collectibleType: CollectibleType | int,
+): boolean {
+  const itemType = getCollectibleItemType(collectibleType);
+  return itemType === ItemType.ITEM_ACTIVE;
+}
+
 /**
  * Returns true if the item type in the item config is equal to `ItemType.ITEM_PASSIVE` or
  * `ItemType.ITEM_FAMILIAR`.

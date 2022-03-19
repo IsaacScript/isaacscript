@@ -2,7 +2,8 @@ import { DefaultMap } from "../classes/DefaultMap";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
-import { copyArray } from "../functions/array";
+import { arrayRemoveInPlace, copyArray } from "../functions/array";
+import { isActiveCollectible } from "../functions/collectibles";
 import { getCollectibleSet } from "../functions/collectibleSet";
 import { getAllPlayers, getPlayerIndex } from "../functions/player";
 import { repeat } from "../functions/utils";
@@ -12,6 +13,12 @@ import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "player inventory tracker";
 
+const COLLECTIBLE_ITEM_TYPES: ReadonlySet<ItemType> = new Set([
+  ItemType.ITEM_PASSIVE, // 1
+  ItemType.ITEM_ACTIVE, // 3
+  ItemType.ITEM_FAMILIAR, // 4
+]);
+
 const v = {
   run: {
     playersInventory: new DefaultMap<
@@ -19,6 +26,15 @@ const v = {
       Array<CollectibleType | int>,
       [player: EntityPlayer]
     >((_key: PlayerIndex, player: EntityPlayer) => newPlayerInventory(player)),
+
+    /**
+     * We also keep track of the active items that the player has, so that we can easily flush them
+     * from the inventory when other active items are picked up.
+     */
+    playersActiveCollectibleTypes: new DefaultMap<
+      PlayerIndex,
+      Array<CollectibleType | int>
+    >(() => []),
   },
 };
 
@@ -76,32 +92,73 @@ function postGameStarted() {
 
 // ModCallbacksCustom.MC_POST_ITEM_PICKUP
 function postItemPickup(player: EntityPlayer, pickingUpItem: PickingUpItem) {
-  if (
-    pickingUpItem.itemType === ItemType.ITEM_PASSIVE ||
-    pickingUpItem.itemType === ItemType.ITEM_FAMILIAR
-  ) {
-    const playerIndex = getPlayerIndex(player);
-    const inventory = v.run.playersInventory.getAndSetDefault(
-      playerIndex,
-      player,
-    );
-    inventory.push(pickingUpItem.subType);
+  if (!COLLECTIBLE_ITEM_TYPES.has(pickingUpItem.itemType)) {
+    return;
+  }
+
+  addCollectibleToInventory(player, pickingUpItem.subType);
+}
+
+function addCollectibleToInventory(
+  player: EntityPlayer,
+  collectibleType: CollectibleType | int,
+) {
+  const playerIndex = getPlayerIndex(player);
+  const inventory = v.run.playersInventory.getAndSetDefault(
+    playerIndex,
+    player,
+  );
+  inventory.push(collectibleType);
+
+  if (!isActiveCollectible(collectibleType)) {
+    return;
+  }
+
+  const activeCollectibleTypes =
+    v.run.playersActiveCollectibleTypes.getAndSetDefault(playerIndex);
+  activeCollectibleTypes.push(collectibleType);
+
+  const droppedActiveCollectibleTypes = activeCollectibleTypes.filter(
+    (activeCollectibleType) => !player.HasCollectible(activeCollectibleType),
+  );
+  for (const activeCollectibleType of droppedActiveCollectibleTypes) {
+    arrayRemoveInPlace(inventory, activeCollectibleType);
+    arrayRemoveInPlace(activeCollectibleTypes, activeCollectibleType);
   }
 }
 
 /**
  * Helper function to get all of the collectibles that the player has gotten so far on this run, in
- * order. This does not include active items.
+ * order.
+ *
+ * Note that this does not include active collectibles that have since been dropped for other
+ * collectibles.
+ *
+ * In the case of inventory initialization or the case where the player rerolls their build in the
+ * middle of the run (e.g. with D4), the order of the inventory will not correspond to the order
+ * that the items were actually given to the player. In this case, the inventory will be in the
+ * order of the lowest `CollectibleType` to the highest.
  */
-export function getPlayerInventory(player: EntityPlayer): CollectibleType[] {
+export function getPlayerInventory(
+  player: EntityPlayer,
+  includeActiveCollectibles = true,
+): CollectibleType[] {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
+
   const playerIndex = getPlayerIndex(player);
   const inventory = v.run.playersInventory.getAndSetDefault(
     playerIndex,
     player,
   );
 
-  return copyArray(inventory);
+  const copiedInventory = copyArray(inventory);
+  if (includeActiveCollectibles) {
+    return copiedInventory;
+  }
+
+  return copiedInventory.filter(
+    (collectibleType) => !isActiveCollectible(collectibleType),
+  );
 }
 
 /**
@@ -125,10 +182,5 @@ export function addCollectible(
     varData,
   );
 
-  const playerIndex = getPlayerIndex(player);
-  const inventory = v.run.playersInventory.getAndSetDefault(
-    playerIndex,
-    player,
-  );
-  inventory.push(collectibleType);
+  addCollectibleToInventory(player, collectibleType);
 }
