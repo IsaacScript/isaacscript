@@ -150,22 +150,20 @@ function mergeTable(
 
     const valueType = type(value);
     if (valueType === "table") {
-      const oldValue = oldTable.get(key) as LuaTable;
+      let oldValue = oldTable.get(key) as LuaTable;
       const oldValueType = type(oldValue);
-      if (oldValueType === "nil") {
+
+      if (oldValueType !== "table") {
         // The child table does not exist on the old table
-        // We still need to copy over the new table, because we need to handle data types like
-        // "Foo | null"
-        const valueDeepCopy = deepCopy(value as LuaTable);
-        oldTable.set(key, valueDeepCopy);
-      } else if (oldValueType === "table") {
-        // Recursively merge sub-tables
-        traversalDescription = addTraversalDescription(
-          key,
-          traversalDescription,
-        );
-        merge(oldValue, value as LuaTable, traversalDescription);
+        // However, we still need to copy over the new table, because we need to handle data types
+        // like "Foo | null"
+        // Thus, set up a blank sub-table on the old table, and continue to recursively merge
+        oldValue = new LuaTable();
+        oldTable.set(key, oldValue);
       }
+
+      traversalDescription = addTraversalDescription(key, traversalDescription);
+      merge(oldValue, value as LuaTable, traversalDescription);
     } else {
       // Base case: copy the value
       if (SAVE_DATA_MANAGER_DEBUG) {
