@@ -48,8 +48,10 @@ function preEntitySpawn() {
 function checkRoomChanged() {
   const room = game.GetRoom();
   const topLeftWallGridIndex = getTopLeftWallGridIndex();
+  const rightOfTopWallGridIndex = topLeftWallGridIndex + 1;
 
   let topLeftWall = room.GetGridEntity(topLeftWallGridIndex);
+  let topLeftWall2 = room.GetGridEntity(rightOfTopWallGridIndex);
 
   // Sometimes, the PreEntitySpawn callback can fire before any grid entities in the room have
   // spawned, which means that the top-left wall will not exist
@@ -67,9 +69,6 @@ function checkRoomChanged() {
     }
     log("Spawned a new wall (1) for the PostNewRoomEarly callback.");
   }
-
-  const rightOfTopWallGridIndex = topLeftWallGridIndex + 1;
-  let topLeftWall2 = room.GetGridEntity(rightOfTopWallGridIndex);
 
   // Duplicated code
   if (topLeftWall2 === undefined) {
