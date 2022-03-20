@@ -139,8 +139,8 @@ export const FINAL_STAGE = LevelStage.NUM_STAGES - 1;
  */
 export const FIRST_GLITCHED_COLLECTIBLE_TYPE = (1 << 32) - 1;
 
-export const GRID_INDEX_CENTER_OF_1X1_ROOM = 67;
 export const GAME_FRAMES_PER_SECOND = 30;
+export const GRID_INDEX_CENTER_OF_1X1_ROOM = 67;
 export const ISAAC_FRAMES_PER_SECOND = 60;
 
 /**
@@ -168,12 +168,6 @@ export const MAX_NUM_FAMILIARS = 64;
 /** The game can only handle up to four different players. */
 export const MAX_NUM_INPUTS = 4;
 
-/**
- * The maximum speed stat that a player can have. Any additional speed beyond this will not take
- * effect.
- */
-export const MAX_SPEED_STAT = 2.0;
-
 /** With Birthright, it is possible for Magdalene to have 18 heart containers. */
 export const MAX_PLAYER_HEART_CONTAINERS = 18;
 
@@ -196,6 +190,12 @@ export const MAX_PLAYER_TRINKET_SLOTS = 2;
  */
 export const MAX_ROOM_INDEX = 168;
 
+/**
+ * The maximum speed stat that a player can have. Any additional speed beyond this will not take
+ * effect.
+ */
+export const MAX_SPEED_STAT = 2.0;
+
 export const MAX_VANILLA_CHARACTER = PlayerType.PLAYER_THESOUL_B;
 export const MAX_VANILLA_COLLECTIBLE_TYPE =
   CollectibleType.COLLECTIBLE_MOMS_RING;
@@ -203,17 +203,9 @@ export const MAX_VANILLA_COLLECTIBLE_TYPE =
 export const NUM_DIMENSIONS = 3;
 
 export const SECOND_IN_MILLISECONDS = 1000;
-export const MINUTE_IN_MILLISECONDS = 60 * SECOND_IN_MILLISECONDS;
+export const MINUTE_IN_MILLISECONDS = 60 * SECOND_IN_MILLISECONDS; // eslint-disable-line sort-exports/sort-exports
 
 export const ONE_BY_ONE_ROOM_GRID_SIZE = 135;
-
-/**
- * In vanilla, this is part of the `PillColor` enum, but we implement it as a constant in
- * IsaacScript since it is not a real pill color.
- *
- * 1 << 11
- */
-export const PILL_GIANT_FLAG = 2048;
 
 /**
  * In vanilla, this is part of the `PillColor` enum, but we implement it as a constant in
@@ -222,6 +214,14 @@ export const PILL_GIANT_FLAG = 2048;
  * (1 << 11) - 1
  */
 export const PILL_COLOR_MASK = 2047;
+
+/**
+ * In vanilla, this is part of the `PillColor` enum, but we implement it as a constant in
+ * IsaacScript since it is not a real pill color.
+ *
+ * 1 << 11
+ */
+export const PILL_GIANT_FLAG = 2048;
 
 export const SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES: ReadonlySet<CollectibleType> =
   new Set([

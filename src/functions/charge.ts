@@ -3,24 +3,6 @@ import { getCollectibleMaxCharges } from "./collectibles";
 import { getPlayers } from "./player";
 
 /**
- * Helper function to add a charge to every player's active item, emulating what happens when a room
- * is cleared.
- *
- * This function will take the following things into account:
- * - L rooms and 2x2 rooms granting a double charge
- * - The Battery
- * - AAA Battery
- *
- * @param ignoreBigRoomDoubleCharge Optional. If set to true, it will treat the current room as a
- * 1x1 room for the purposes of calculating how much charge to grant. Default is false.
- */
-export function addRoomClearCharges(ignoreBigRoomDoubleCharge = false): void {
-  for (const player of getPlayers()) {
-    addRoomClearCharge(player, ignoreBigRoomDoubleCharge);
-  }
-}
-
-/**
  * Helper function to add a charge to a player's active item, emulating what happens when a room is
  * cleared.
  *
@@ -135,21 +117,6 @@ function getNumChargesToAdd(
 }
 
 /**
- * Helper function to get the combined normal charge and the battery charge for the player's active
- * item. This is useful because you have to add these two values together when setting the active
- * charge.
- */
-export function getTotalCharge(
-  player: EntityPlayer,
-  activeSlot: ActiveSlot,
-): int {
-  const activeCharge = player.GetActiveCharge(activeSlot);
-  const batteryCharge = player.GetBatteryCharge(activeSlot);
-
-  return activeCharge + batteryCharge;
-}
-
-/**
  * The AAA Battery should grant an extra charge when the active item is one away from being fully
  * charged.
  */
@@ -178,6 +145,39 @@ function getNumChargesWithAAAModifier(
   }
 
   return chargesToAdd;
+}
+
+/**
+ * Helper function to add a charge to every player's active item, emulating what happens when a room
+ * is cleared.
+ *
+ * This function will take the following things into account:
+ * - L rooms and 2x2 rooms granting a double charge
+ * - The Battery
+ * - AAA Battery
+ *
+ * @param ignoreBigRoomDoubleCharge Optional. If set to true, it will treat the current room as a
+ * 1x1 room for the purposes of calculating how much charge to grant. Default is false.
+ */
+export function addRoomClearCharges(ignoreBigRoomDoubleCharge = false): void {
+  for (const player of getPlayers()) {
+    addRoomClearCharge(player, ignoreBigRoomDoubleCharge);
+  }
+}
+
+/**
+ * Helper function to get the combined normal charge and the battery charge for the player's active
+ * item. This is useful because you have to add these two values together when setting the active
+ * charge.
+ */
+export function getTotalCharge(
+  player: EntityPlayer,
+  activeSlot: ActiveSlot,
+): int {
+  const activeCharge = player.GetActiveCharge(activeSlot);
+  const batteryCharge = player.GetBatteryCharge(activeSlot);
+
+  return activeCharge + batteryCharge;
 }
 
 export function isActiveSlotDoubleCharged(

@@ -23,6 +23,30 @@ export function doorSlotToDirection(doorSlot: DoorSlot): Direction {
   return DOOR_SLOT_TO_DIRECTION[doorSlot];
 }
 
+export function getAngelRoomDoor(): GridEntityDoor | undefined {
+  const angelRoomDoors = getDoors(RoomType.ROOM_ANGEL);
+  return angelRoomDoors.length === 0 ? undefined : angelRoomDoors[0];
+}
+
+export function getDevilRoomDoor(): GridEntityDoor | undefined {
+  const devilRoomDoors = getDoors(RoomType.ROOM_DEVIL);
+  return devilRoomDoors.length === 0 ? undefined : devilRoomDoors[0];
+}
+
+/**
+ * If there is both a Devil Room and an Angel Room door, this function will return door with the
+ * lowest slot number.
+ */
+export function getDevilRoomOrAngelRoomDoor(): GridEntityDoor | undefined {
+  const devilRoomOrAngelRoomDoors = getDoors(
+    RoomType.ROOM_DEVIL,
+    RoomType.ROOM_ANGEL,
+  );
+  return devilRoomOrAngelRoomDoors.length === 0
+    ? undefined
+    : devilRoomOrAngelRoomDoors[0];
+}
+
 /**
  * Helper function to get all of the doors in the room. By default, it will return every door. You
  * can optionally specify one or more room types to return only the doors that match the specified
@@ -59,30 +83,6 @@ export function getDoorsToRoomIndex(...roomGridIndex: int[]): GridEntityDoor[] {
   return doors.filter((door) => roomGridIndexesSet.has(door.TargetRoomIndex));
 }
 
-export function getAngelRoomDoor(): GridEntityDoor | undefined {
-  const angelRoomDoors = getDoors(RoomType.ROOM_ANGEL);
-  return angelRoomDoors.length === 0 ? undefined : angelRoomDoors[0];
-}
-
-export function getDevilRoomDoor(): GridEntityDoor | undefined {
-  const devilRoomDoors = getDoors(RoomType.ROOM_DEVIL);
-  return devilRoomDoors.length === 0 ? undefined : devilRoomDoors[0];
-}
-
-/**
- * If there is both a Devil Room and an Angel Room door, this function will return door with the
- * lowest slot number.
- */
-export function getDevilRoomOrAngelRoomDoor(): GridEntityDoor | undefined {
-  const devilRoomOrAngelRoomDoors = getDoors(
-    RoomType.ROOM_DEVIL,
-    RoomType.ROOM_ANGEL,
-  );
-  return devilRoomOrAngelRoomDoors.length === 0
-    ? undefined
-    : devilRoomOrAngelRoomDoors[0];
-}
-
 export function getRepentanceDoor(): GridEntityDoor | undefined {
   const doors = getDoors();
   return doors.find((door) => isRepentanceDoor(door));
@@ -94,13 +94,6 @@ export function isAngelRoomDoor(door: GridEntityDoor): boolean {
 
 export function isDevilRoomDoor(door: GridEntityDoor): boolean {
   return door.TargetRoomType === RoomType.ROOM_DEVIL;
-}
-
-export function isHiddenSecretRoomDoor(door: GridEntityDoor): boolean {
-  const sprite = door.GetSprite();
-  const animation = sprite.GetAnimation();
-
-  return isSecretRoomDoor(door) && animation === "Hidden";
 }
 
 /**
@@ -181,6 +174,13 @@ export function isDoorToMomsHeart(door: GridEntityDoor): boolean {
   const filename = sprite.GetFilename();
 
   return filename === "gfx/grid/Door_MomsHeart.anm2";
+}
+
+export function isHiddenSecretRoomDoor(door: GridEntityDoor): boolean {
+  const sprite = door.GetSprite();
+  const animation = sprite.GetAnimation();
+
+  return isSecretRoomDoor(door) && animation === "Hidden";
 }
 
 export function isRepentanceDoor(door: GridEntityDoor): boolean {

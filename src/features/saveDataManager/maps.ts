@@ -1,3 +1,5 @@
+/* eslint-disable sort-exports/sort-exports */
+
 import { SaveData } from "../../types/private/SaveData";
 
 // The save data map is indexed by subscriber name

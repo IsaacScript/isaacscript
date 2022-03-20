@@ -4,6 +4,22 @@ export function copyVector(vector: Vector): Vector {
   return Vector(vector.X, vector.Y);
 }
 
+export function deserializeVector(vectorTable: LuaTable): Vector {
+  const xString = vectorTable.get("X") as string;
+  const x = tonumber(xString);
+  if (x === undefined) {
+    error("Failed to read the X value of a serialized vector.");
+  }
+
+  const yString = vectorTable.get("Y") as string;
+  const y = tonumber(yString);
+  if (y === undefined) {
+    error("Failed to read the Y value of a serialized vector.");
+  }
+
+  return Vector(x, y);
+}
+
 export function directionToVector(direction: Direction): Vector {
   return DIRECTION_TO_VECTOR[direction];
 }

@@ -28,4 +28,13 @@ module.exports = {
       },
     ],
   },
+
+  overrides: [
+    {
+      files: ["./src/callbacks/subscriptions/**"],
+      rules: {
+        "sort-exports/sort-exports": "off",
+      },
+    },
+  ],
 };

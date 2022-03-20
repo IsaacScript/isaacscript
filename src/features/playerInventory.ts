@@ -1,3 +1,5 @@
+/* eslint-disable sort-exports/sort-exports */
+
 import { DefaultMap } from "../classes/DefaultMap";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";

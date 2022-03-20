@@ -99,6 +99,11 @@ export function getCardName(card: Card | int): string {
   return DEFAULT_CARD_NAME;
 }
 
+export function getCardType(card: Card | int): CardType {
+  const cardType = CARD_TYPES[card as Card];
+  return cardType === undefined ? DEFAULT_CARD_TYPE : cardType;
+}
+
 /**
  * Helper function to get a set of cards matching the type. Also see the [[`CardType`]] enum.
  *
@@ -123,11 +128,6 @@ export function getCardsOfType(...cardTypes: CardType[]): Set<Card> {
   }
 
   return matchingCards;
-}
-
-export function getCardType(card: Card | int): CardType {
-  const cardType = CARD_TYPES[card as Card];
-  return cardType === undefined ? DEFAULT_CARD_TYPE : cardType;
 }
 
 /**
@@ -208,11 +208,6 @@ export function isPocketItemObject(card: Card): boolean {
   return isCardType(card, CardType.OBJECT);
 }
 
-/** Returns true for cards that have `CardType.TAROT`. */
-export function isTarotCard(card: Card): boolean {
-  return isCardType(card, CardType.TAROT);
-}
-
 /** Returns true for cards that have `CardType.TAROT_REVERSE`. */
 export function isReverseTarotCard(card: Card): boolean {
   return isCardType(card, CardType.TAROT_REVERSE);
@@ -231,4 +226,9 @@ export function isSpecialCard(card: Card): boolean {
 /** Returns true for cards that have `CardType.SUIT`. */
 export function isSuitCard(card: Card): boolean {
   return isCardType(card, CardType.SUIT);
+}
+
+/** Returns true for cards that have `CardType.TAROT`. */
+export function isTarotCard(card: Card): boolean {
+  return isCardType(card, CardType.TAROT);
 }

@@ -4,10 +4,10 @@ import { HealthType } from "../../enums/HealthType";
 import { getCardName } from "../../functions/cards";
 import { spawnGridEntityWithVariant } from "../../functions/gridEntity";
 import {
-  logAllSeedEffects,
   logEntities,
   logGridEntities,
   logRoom,
+  logSeedEffects,
   logSounds,
   logTemporaryEffects,
 } from "../../functions/log";
@@ -20,9 +20,9 @@ import {
   useActiveItemTemp,
 } from "../../functions/player";
 import { addPlayerHealthType } from "../../functions/playerHealth";
+import { getRoomData } from "../../functions/roomData";
 import {
   changeRoom,
-  getRoomData,
   getRoomGridIndexesForType,
   gridToPos,
 } from "../../functions/rooms";
@@ -168,6 +168,11 @@ export function bloodCharges(params: string): void {
   player.AddBloodCharge(charges);
 }
 
+/** Alias for the "blackmarket" command. */
+export function bm(): void {
+  blackMarket();
+}
+
 /**
  * Gives a bomb. Provide a number to give a custom amount of bombs. (You can use negative numbers to
  * remove bombs.)
@@ -224,11 +229,6 @@ export function boss(): void {
 /** Warps to the Boss Rush for the floor. */
 export function bossRush(): void {
   changeRoom(GridRooms.ROOM_BOSSRUSH_IDX);
-}
-
-/** Alias for the "blackmarket" command. */
-export function bm(): void {
-  blackMarket();
 }
 
 /**
@@ -403,16 +403,16 @@ export function crawlspace(): void {
   spawnTrapdoorOrCrawlspace(false);
 }
 
-/** Uses the D6. */
-export function d6(): void {
-  const player = Isaac.GetPlayer();
-  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_D6);
-}
-
 /** Uses the D20. */
 export function d20(): void {
   const player = Isaac.GetPlayer();
   useActiveItemTemp(player, CollectibleType.COLLECTIBLE_D20);
+}
+
+/** Uses the D6. */
+export function d6(): void {
+  const player = Isaac.GetPlayer();
+  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_D6);
 }
 
 /** Toggles extremely high-damage tears. */
@@ -469,7 +469,7 @@ export function eh(params: string): void {
 
 /** Alias for the "iamerror" command. */
 export function error(): void {
-  IAMERROR();
+  iAmError();
 }
 
 /**
@@ -520,6 +520,16 @@ export function goldBomb(): void {
   goldenBomb();
 }
 
+/** Alias for the "goldenhearts" command. */
+export function goldHearts(params: string): void {
+  goldenHearts(params);
+}
+
+/** Alias for the "goldenkey" command. */
+export function goldKey(): void {
+  goldenKey();
+}
+
 /** Gives the player a golden bomb. */
 export function goldenBomb(): void {
   const player = Isaac.GetPlayer();
@@ -538,16 +548,6 @@ export function goldenHearts(params: string): void {
 export function goldenKey(): void {
   const player = Isaac.GetPlayer();
   player.AddGoldenKey();
-}
-
-/** Alias for the "goldenhearts" command. */
-export function goldHearts(params: string): void {
-  goldenHearts(params);
-}
-
-/** Alias for the "goldenkey" command. */
-export function goldKey(): void {
-  goldenKey();
 }
 
 /** Alias for the "debug 2" command. */
@@ -579,7 +579,7 @@ export function hitboxes(): void {
 }
 
 /** Warps to the I AM ERROR room for the floor. */
-export function IAMERROR(): void {
+export function iAmError(): void {
   changeRoom(GridRooms.ROOM_ERROR_IDX);
 }
 
@@ -908,17 +908,17 @@ export function secret(): void {
   warpToRoomType(RoomType.ROOM_SECRET);
 }
 
-/** Logs all of the current run's seed effects to the "log.txt" file. */
-export function seedsCommand(): void {
-  logAllSeedEffects();
-  printConsole('Logged the seed effects to the "log.txt" file.');
-}
-
 /** Changes to a seeded run, using the seed of the current run. */
 export function seedStick(): void {
   const seeds = game.GetSeeds();
   const startSeedString = seeds.GetStartSeedString();
   Isaac.ExecuteCommand(`seed ${startSeedString}`);
+}
+
+/** Logs all of the current run's seed effects to the "log.txt" file. */
+export function seedsCommand(): void {
+  logSeedEffects();
+  printConsole('Logged the seed effects to the "log.txt" file.');
 }
 
 /**

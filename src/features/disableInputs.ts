@@ -1,3 +1,5 @@
+/* eslint-disable sort-exports/sort-exports */
+
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { getMoveActions, getShootActions } from "../functions/input";
 import { saveDataManager } from "./saveDataManager/exports";

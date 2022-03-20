@@ -1,3 +1,5 @@
+/* eslint-disable sort-exports/sort-exports */
+
 import { musicManager } from "../cachedClasses";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { stopAllSoundEffects } from "../functions/sound";

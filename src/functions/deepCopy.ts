@@ -7,7 +7,8 @@ import { SerializationType } from "../enums/SerializationType";
 import { SAVE_DATA_MANAGER_DEBUG } from "../features/saveDataManager/constants";
 import { TSTLClassMetatable } from "../types/private/TSTLClassMetatable";
 import { log } from "./log";
-import { isVector } from "./vector";
+import { getTraversalDescription } from "./utils";
+import { deserializeVector, isVector } from "./vector";
 
 const TSTL_CLASS_KEYS: ReadonlySet<string> = new Set([
   "____constructor",
@@ -301,7 +302,7 @@ function deepCopyValue(
     newValue = deserializeVector(serializedVector);
   } else if (valueType === "table") {
     const table = value as LuaTable;
-    traversalDescription = addTraversalDescription(key, traversalDescription);
+    traversalDescription = getTraversalDescription(key, traversalDescription);
     newValue = deepCopy(table, serializationType, traversalDescription);
   } else {
     newValue = value;
@@ -331,22 +332,6 @@ function copyVector(vector: Vector, serializationType: SerializationType) {
 
   const newVector = Vector(vector.X, vector.Y);
   return newVector;
-}
-
-export function deserializeVector(vectorTable: LuaTable): Vector {
-  const xString = vectorTable.get("X") as string;
-  const x = tonumber(xString);
-  if (x === undefined) {
-    error("Failed to read the X value of a serialized vector.");
-  }
-
-  const yString = vectorTable.get("Y") as string;
-  const y = tonumber(yString);
-  if (y === undefined) {
-    error("Failed to read the Y value of a serialized vector.");
-  }
-
-  return Vector(x, y);
 }
 
 function checkMetatable(table: LuaTable, traversalDescription: string) {
@@ -386,19 +371,6 @@ function validateValue(
       `The deepCopy function detected that "${traversalDescription}" is type ${valueType}, which is not supported.`,
     );
   }
-}
-
-export function addTraversalDescription(
-  key: AnyNotNil,
-  traversalDescription: string,
-): string {
-  if (traversalDescription !== "") {
-    traversalDescription += " --> ";
-  }
-
-  traversalDescription += tostring(key);
-
-  return traversalDescription;
 }
 
 /**

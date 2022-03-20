@@ -20,6 +20,61 @@ export function arrayEquals<T>(
 }
 
 /**
+ * Shallow copies and removes the specified element(s) from the array. Returns the copied array. If
+ * the specified element(s) are not found in the array, it will simply return a shallow copy of the
+ * array.
+ *
+ * This function is variadic, meaning that you can specify N arguments to remove N elements.
+ */
+export function arrayRemove<T>(
+  originalArray: T[] | readonly T[],
+  ...elementsToRemove: T[]
+): T[] {
+  const elementsToRemoveSet = new Set(elementsToRemove);
+
+  const array: T[] = [];
+  for (const element of originalArray) {
+    if (!elementsToRemoveSet.has(element)) {
+      array.push(element);
+    }
+  }
+
+  return array;
+}
+
+/**
+ * Removes the specified element(s) from the array. If the specified element(s) are not found in the
+ * array, this function will do nothing. Returns whether or not one or more elements were removed.
+ *
+ * This function is variadic, meaning that you can specify N arguments to remove N elements.
+ */
+export function arrayRemoveInPlace<T>(
+  array: T[],
+  ...elementsToRemove: T[]
+): boolean {
+  let removedOneOrMoreElements = false;
+  for (const element of elementsToRemove) {
+    const index = array.indexOf(element);
+    if (index > -1) {
+      removedOneOrMoreElements = true;
+      array.splice(index, 1);
+    }
+  }
+
+  return removedOneOrMoreElements;
+}
+
+export function arrayToString<T>(array: T[]): string {
+  if (array.length === 0) {
+    return "[]";
+  }
+
+  const strings = array.map((element) => tostring(element));
+  const commaSeparatedStrings = strings.join(", ");
+  return `[${commaSeparatedStrings}]`;
+}
+
+/**
  * Helper function to combine two or more arrays. Returns a new array that is the composition of all
  * of the specified arrays.
  *
@@ -68,125 +123,6 @@ export function emptyArray<T>(array: T[]): void {
 /** Helper function to return the last element of an array. */
 export function getLastElement<T>(array: T[]): T {
   return array[array.length - 1];
-}
-
-/**
- * Initializes an array with all elements containing the specified default value.
- *
- * Example:
- * ```
- * const playerTransformations = initArray(false, PlayerForm.NUM_PLAYER_FORMS - 1);
- * ```
- */
-export function initArray<T>(defaultValue: T, size: int): T[] {
-  const array: T[] = [];
-  repeat(size, () => {
-    array.push(defaultValue);
-  });
-
-  return array;
-}
-
-export function isArrayInArray<T>(
-  arrayToMatch: T[] | readonly T[],
-  parentArray: Array<T[] | readonly T[]>,
-): boolean {
-  return parentArray.some((element) => arrayEquals(element, arrayToMatch));
-}
-
-/**
- * Shallow copies and shuffles the array using the Fisher-Yates algorithm. Returns the copied array.
- *
- * From: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
- */
-export function shuffleArray<T>(
-  originalArray: T[] | readonly T[],
-  seed = Random(),
-): T[] {
-  const array = copyArray(originalArray);
-  shuffleArrayInPlace(array, seed);
-
-  return array;
-}
-
-/**
- * Shuffles the provided array in-place using the Fisher-Yates algorithm.
- *
- * From: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
- */
-export function shuffleArrayInPlace<T>(array: T[], seed = Random()): void {
-  let currentIndex = array.length;
-  let randomIndex: int;
-
-  while (currentIndex > 0) {
-    currentIndex -= 1;
-    seed = nextSeed(seed);
-    randomIndex = getRandomArrayIndex(array, seed);
-
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex],
-      array[currentIndex],
-    ];
-  }
-}
-
-export function sumArray(array: number[] | readonly number[]): number {
-  return array.reduce((accumulator, element) => accumulator + element, 0);
-}
-
-export function arrayToString<T>(array: T[]): string {
-  if (array.length === 0) {
-    return "[]";
-  }
-
-  const strings = array.map((element) => tostring(element));
-  const commaSeparatedStrings = strings.join(", ");
-  return `[${commaSeparatedStrings}]`;
-}
-
-/**
- * Shallow copies and removes the specified element(s) from the array. Returns the copied array. If
- * the specified element(s) are not found in the array, it will simply return a shallow copy of the
- * array.
- *
- * This function is variadic, meaning that you can specify N arguments to remove N elements.
- */
-export function arrayRemove<T>(
-  originalArray: T[] | readonly T[],
-  ...elementsToRemove: T[]
-): T[] {
-  const elementsToRemoveSet = new Set(elementsToRemove);
-
-  const array: T[] = [];
-  for (const element of originalArray) {
-    if (!elementsToRemoveSet.has(element)) {
-      array.push(element);
-    }
-  }
-
-  return array;
-}
-
-/**
- * Removes the specified element(s) from the array. If the specified element(s) are not found in the
- * array, this function will do nothing. Returns whether or not one or more elements were removed.
- *
- * This function is variadic, meaning that you can specify N arguments to remove N elements.
- */
-export function arrayRemoveInPlace<T>(
-  array: T[],
-  ...elementsToRemove: T[]
-): boolean {
-  let removedOneOrMoreElements = false;
-  for (const element of elementsToRemove) {
-    const index = array.indexOf(element);
-    if (index > -1) {
-      removedOneOrMoreElements = true;
-      array.splice(index, 1);
-    }
-  }
-
-  return removedOneOrMoreElements;
 }
 
 /**
@@ -244,6 +180,23 @@ export function getRandomArrayIndex<T>(
 }
 
 /**
+ * Initializes an array with all elements containing the specified default value.
+ *
+ * Example:
+ * ```
+ * const playerTransformations = initArray(false, PlayerForm.NUM_PLAYER_FORMS - 1);
+ * ```
+ */
+export function initArray<T>(defaultValue: T, size: int): T[] {
+  const array: T[] = [];
+  repeat(size, () => {
+    array.push(defaultValue);
+  });
+
+  return array;
+}
+
+/**
  * Since Lua uses tables for every non-primitive data structure, it is non-trivial to determine if a
  * particular table is being used as an array. isArray returns true if:
  *
@@ -288,4 +241,51 @@ export function isArray(thing: unknown): boolean {
   }
 
   return true;
+}
+
+export function isArrayInArray<T>(
+  arrayToMatch: T[] | readonly T[],
+  parentArray: Array<T[] | readonly T[]>,
+): boolean {
+  return parentArray.some((element) => arrayEquals(element, arrayToMatch));
+}
+
+/**
+ * Shallow copies and shuffles the array using the Fisher-Yates algorithm. Returns the copied array.
+ *
+ * From: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+ */
+export function shuffleArray<T>(
+  originalArray: T[] | readonly T[],
+  seed = Random(),
+): T[] {
+  const array = copyArray(originalArray);
+  shuffleArrayInPlace(array, seed);
+
+  return array;
+}
+
+/**
+ * Shuffles the provided array in-place using the Fisher-Yates algorithm.
+ *
+ * From: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+ */
+export function shuffleArrayInPlace<T>(array: T[], seed = Random()): void {
+  let currentIndex = array.length;
+  let randomIndex: int;
+
+  while (currentIndex > 0) {
+    currentIndex -= 1;
+    seed = nextSeed(seed);
+    randomIndex = getRandomArrayIndex(array, seed);
+
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
+  }
+}
+
+export function sumArray(array: number[] | readonly number[]): number {
+  return array.reduce((accumulator, element) => accumulator + element, 0);
 }

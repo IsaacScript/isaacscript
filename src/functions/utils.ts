@@ -71,6 +71,23 @@ export function getEnumValues<T>(transpiledEnum: T): Array<T[keyof T]> {
 }
 
 /**
+ * Helper function to log what is happening in functions that recursively move through nested data
+ * structures.
+ */
+export function getTraversalDescription(
+  key: AnyNotNil,
+  traversalDescription: string,
+): string {
+  if (traversalDescription !== "") {
+    traversalDescription += " --> ";
+  }
+
+  traversalDescription += tostring(key);
+
+  return traversalDescription;
+}
+
+/**
  * Converts a hex string like "#33aa33" to a KColor object.
  *
  * @param hexString A hex string like "#ffffff" or "ffffff". (The "#" character is optional.)

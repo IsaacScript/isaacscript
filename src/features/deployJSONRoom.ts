@@ -1,3 +1,5 @@
+/* eslint-disable sort-exports/sort-exports */
+
 // Basement Renovator can create custom rooms that are saved to XML files
 // These XML files can be converted to JSON so that they can be imported by TypeScript code
 // Then, existing rooms can be manually replaced with a custom room by manually removing everything
@@ -21,8 +23,8 @@ import { range } from "../functions/math";
 import { getNPCs } from "../functions/npc";
 import { removeAllPickups } from "../functions/pickups";
 import { nextSeed } from "../functions/random";
+import { getRoomListIndex } from "../functions/roomData";
 import {
-  getRoomListIndex,
   gridToPos,
   setRoomCleared,
   setRoomUncleared,

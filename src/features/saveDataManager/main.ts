@@ -1,3 +1,5 @@
+/* eslint-disable sort-exports/sort-exports */
+
 import { game } from "../../cachedClasses";
 import { ModUpgraded } from "../../classes/ModUpgraded";
 import { ModCallbacksCustom } from "../../enums/ModCallbacksCustom";

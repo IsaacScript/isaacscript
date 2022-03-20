@@ -134,16 +134,6 @@ export function saveDataManager(
 }
 
 /**
- * The save data manager will automatically save variables to disk at the appropriate times (i.e.
- * when the run is exited). Use this function to explicitly force the save data manager to write all
- * of its variables to disk immediately.
- */
-export function saveDataManagerSave(): void {
-  errorIfFeaturesNotInitialized(SAVE_DATA_MANAGER_FEATURE_NAME);
-  forceSaveDataManagerSave();
-}
-
-/**
  * The save data manager will automatically load variables from disk at the appropriate times (i.e.
  * when a new run is started). Use this function to explicitly force the save data manager to load
  * all of its variables from disk immediately.
@@ -153,6 +143,16 @@ export function saveDataManagerSave(): void {
 export function saveDataManagerLoad(): void {
   errorIfFeaturesNotInitialized(SAVE_DATA_MANAGER_FEATURE_NAME);
   forceSaveDataManagerLoad();
+}
+
+/**
+ * The save data manager will automatically save variables to disk at the appropriate times (i.e.
+ * when the run is exited). Use this function to explicitly force the save data manager to write all
+ * of its variables to disk immediately.
+ */
+export function saveDataManagerSave(): void {
+  errorIfFeaturesNotInitialized(SAVE_DATA_MANAGER_FEATURE_NAME);
+  forceSaveDataManagerSave();
 }
 
 declare let g: LuaTable<string, SaveData>; // Globals

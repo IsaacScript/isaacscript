@@ -4,14 +4,11 @@ import {
 } from "../../enums/private/SerializationBrand";
 import { SerializationType } from "../../enums/SerializationType";
 import { isArray } from "../../functions/array";
-import {
-  addTraversalDescription,
-  deepCopy,
-  deserializeVector,
-  isSerializedVector,
-} from "../../functions/deepCopy";
+import { deepCopy, isSerializedVector } from "../../functions/deepCopy";
 import { log } from "../../functions/log";
 import { clearTable } from "../../functions/table";
+import { getTraversalDescription } from "../../functions/utils";
+import { deserializeVector } from "../../functions/vector";
 import { SAVE_DATA_MANAGER_DEBUG } from "./constants";
 
 /**
@@ -162,7 +159,7 @@ function mergeTable(
         oldTable.set(key, oldValue);
       }
 
-      traversalDescription = addTraversalDescription(key, traversalDescription);
+      traversalDescription = getTraversalDescription(key, traversalDescription);
       merge(oldValue, value as LuaTable, traversalDescription);
     } else {
       // Base case: copy the value
