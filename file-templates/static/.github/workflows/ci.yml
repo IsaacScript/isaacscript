@@ -6,9 +6,6 @@ jobs:
   build_and_lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Install xmllint (which the "lint.sh" script uses)
-        run: sudo apt-get update && sudo apt-get install libxml2-utils -y
-
       - name: Checkout the repository
         uses: actions/checkout@v2
 
@@ -29,6 +26,9 @@ jobs:
       - name: Install dependencies (if the cached directory was not found)
         if: steps.node-cache.outputs.cache-hit != 'true'
         run: npm ci
+
+      - name: Install xmllint (which the "lint.sh" script uses)
+        run: sudo apt-get update && sudo apt-get install libxml2-utils -y
 
       - name: Test to see if the project compiles
         run: bash build.sh
