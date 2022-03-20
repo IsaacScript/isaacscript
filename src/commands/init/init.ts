@@ -8,6 +8,7 @@ import { checkModTargetDirectory } from "./checkModTargetDirectory";
 import { createMod } from "./createMod";
 import { getModsDir } from "./getModsDir";
 import { getProjectPath } from "./getProjectPath";
+import { promptGitHubRepoOrGitRemoteURL } from "./git";
 import { installVSCodeExtensions } from "./installVSCodeExtensions";
 import { promptSaveSlot } from "./promptSaveSlot";
 import { promptVSCode } from "./promptVSCode";
@@ -25,16 +26,22 @@ export async function init(argv: Record<string, unknown>): Promise<void> {
   const projectName = path.basename(projectPath);
   await checkModTargetDirectory(modsDirectory, projectName, verbose);
   const saveSlot = await promptSaveSlot(argv);
+  const gitRemoteURL = await promptGitHubRepoOrGitRemoteURL(
+    projectName,
+    verbose,
+  );
 
-  await createMod(
+  createMod(
     projectName,
     projectPath,
     createNewDir,
     modsDirectory,
     saveSlot,
+    gitRemoteURL,
     skipNPMInstall,
     verbose,
   );
+
   await openVSCode(projectPath, vscode, verbose);
   printFinishMessage(projectPath, projectName);
 }

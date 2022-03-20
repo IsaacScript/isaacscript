@@ -29,7 +29,7 @@ export async function getProjectPath(
     projectName = CURRENT_DIRECTORY_NAME;
     projectPath = CWD;
     createNewDir = false;
-  } else if (projectName !== null) {
+  } else if (projectName !== undefined) {
     // The project name was specified on the command-line
     projectPath = path.join(CWD, projectName);
     createNewDir = true;
@@ -48,8 +48,10 @@ export async function getProjectPath(
 
 function getProjectNameFromCommandLineArgument(
   argv: Record<string, unknown>,
-): string | null {
-  return typeof argv.name === "string" && argv.name !== "" ? argv.name : null;
+): string | undefined {
+  return typeof argv.name === "string" && argv.name !== ""
+    ? argv.name
+    : undefined;
 }
 
 async function getNewProjectName(): Promise<[string, string, boolean]> {

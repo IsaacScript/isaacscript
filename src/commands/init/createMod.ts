@@ -18,17 +18,18 @@ import {
 } from "../../constants";
 import { execShell } from "../../exec";
 import * as file from "../../file";
-import { getGitRemoteURL, initGitRepository } from "./git";
+import { initGitRepository } from "./git";
 
-export async function createMod(
+export function createMod(
   projectName: string,
   projectPath: string,
   createNewDir: boolean,
   modsDirectory: string,
   saveSlot: number,
+  gitRemoteURL: string | undefined,
   skipNPMInstall: boolean,
   verbose: boolean,
-): Promise<void> {
+): void {
   if (createNewDir) {
     file.makeDir(projectPath, verbose);
   }
@@ -37,9 +38,6 @@ export async function createMod(
   configFile.createFile(projectPath, config, verbose);
   const targetModDirectory = path.join(config.modsDirectory, projectName);
 
-  // We want to ask the user all of the questions before the time-intensive installation starts
-  const remoteURL = await getGitRemoteURL(projectName, verbose);
-
   makeSubdirectories(projectPath, verbose);
   copyStaticFiles(projectPath, verbose);
   copyDynamicFiles(projectName, projectPath, targetModDirectory, verbose);
@@ -47,7 +45,7 @@ export async function createMod(
   installNodeModules(projectPath, skipNPMInstall, verbose);
 
   // Only make the initial commit once all of the files have been copied
-  initGitRepository(projectPath, remoteURL, verbose);
+  initGitRepository(projectPath, gitRemoteURL, verbose);
 
   console.log(`Successfully created mod: ${chalk.green(projectName)}`);
 }

@@ -12,7 +12,7 @@ export async function get(argv: Record<string, unknown>): Promise<Config> {
   const verbose = argv.verbose === true;
 
   const existingConfig = readExistingConfig();
-  if (existingConfig !== null) {
+  if (existingConfig !== undefined) {
     return existingConfig;
   }
 
@@ -25,9 +25,9 @@ export async function get(argv: Record<string, unknown>): Promise<Config> {
   return config;
 }
 
-function readExistingConfig(): Config | null {
+function readExistingConfig(): Config | undefined {
   if (!file.exists(CONFIG_FILE_PATH)) {
-    return null;
+    return undefined;
   }
 
   const configRaw = file.read(CONFIG_FILE_PATH);

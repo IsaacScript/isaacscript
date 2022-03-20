@@ -12,30 +12,64 @@ import { error, parseSemVer } from "../../utils";
 const REQUIRED_GIT_MAJOR_VERSION = 2;
 const REQUIRED_GIT_MINOR_VERSION = 30;
 
-export async function getGitRemoteURL(
+export async function promptGitHubRepoOrGitRemoteURL(
   projectName: string,
   verbose: boolean,
-): Promise<string | null> {
+): Promise<string | undefined> {
   // We do not need to prompt the user if they do not have Git installed
   if (!commandExists.sync("git")) {
     console.log(
       'Git does not seem to be installed. (The "git" command is not in the path.) Skipping Git-related things.',
     );
-    return null;
+    return undefined;
   }
 
-  checkOldGitVersion(verbose);
+  validateNewGitVersion(verbose);
 
-  const guessedRemoteURL = guessRemoteURL(projectName);
-  if (guessedRemoteURL !== undefined) {
-    const shouldUseGuessedURL = await getInputYesNo(
-      `Do you want to use a Git remote URL of: ${chalk.green(
-        guessedRemoteURL,
+  const gitHubUsername = getGitHubUsername();
+  if (gitHubUsername !== undefined) {
+    const [exitStatus] = execShell(
+      "gh",
+      ["repo", "view", projectName],
+      verbose,
+      true,
+    );
+    const gitHubRepoExists = exitStatus === 0;
+    const url = `https://github.com/${gitHubUsername}/${projectName}`;
+
+    if (gitHubRepoExists) {
+      console.log(
+        `Detected an existing GitHub repository at: ${chalk.green(url)}`,
+      );
+      const guessedRemoteURL = getGitRemoteURL(projectName, gitHubUsername);
+      const shouldUseGuessedURL = await getInputYesNo(
+        `Do you want to use a Git remote URL of: ${chalk.green(
+          guessedRemoteURL,
+        )}`,
+      );
+      if (shouldUseGuessedURL) {
+        return guessedRemoteURL;
+      }
+
+      // Assume that since they do not want to connect this project to the existing GitHub
+      // repository, they do not want to initialize Git either
+      return undefined;
+    }
+
+    const createNewGitHubRepo = await getInputYesNo(
+      `Would you like to create a new GitHub repository at: ${chalk.green(
+        url,
       )}`,
     );
-    if (shouldUseGuessedURL) {
-      return guessedRemoteURL;
+    if (createNewGitHubRepo) {
+      execShell("gh", ["repo", "create", "poop", "--public"]);
+      console.log("Successfully created a new GitHub repository.");
+      return getGitRemoteURL(projectName, gitHubUsername);
     }
+
+    // Assume that since they do not want to create a new GitHub repository, they do not want to
+    // initialize Git either
+    return undefined;
   }
 
   const gitRemoteURL =
@@ -46,10 +80,11 @@ If you don't have an SSH key, it would be something like:
 ${chalk.green("https://github.com/Alice/green-candle.git")}
 If you don't want to initialize a Git repository for this project, press enter to skip.
 `);
-  return gitRemoteURL === "" ? null : gitRemoteURL;
+
+  return gitRemoteURL === "" ? undefined : gitRemoteURL;
 }
 
-function checkOldGitVersion(verbose: boolean) {
+function validateNewGitVersion(verbose: boolean) {
   const [, stdout] = execShell("git", ["--version"], verbose);
 
   const outputPrefix = "git version ";
@@ -79,15 +114,6 @@ function checkOldGitVersion(verbose: boolean) {
     `Please upgrade your version of Git before using ${PROJECT_NAME}.`,
   );
   process.exit(1);
-}
-
-function guessRemoteURL(projectName: string) {
-  const gitHubUsername = getGitHubUsername();
-  if (gitHubUsername === undefined) {
-    return undefined;
-  }
-
-  return `git@github.com:${gitHubUsername}/${projectName}.git`;
 }
 
 function getGitHubUsername() {
@@ -125,14 +151,18 @@ function getGitHubUsername() {
   return user;
 }
 
+function getGitRemoteURL(projectName: string, gitHubUsername: string) {
+  return `git@github.com:${gitHubUsername}/${projectName}.git`;
+}
+
 export function initGitRepository(
   projectPath: string,
-  remoteURL: string | null,
+  gitRemoteURL: string | undefined,
   verbose: boolean,
 ): void {
   // We already checked to see if the "git" command is installed earlier on in the initialization
   // process
-  if (remoteURL === null) {
+  if (gitRemoteURL === undefined) {
     return;
   }
 
@@ -140,11 +170,12 @@ export function initGitRepository(
   execShell("git", ["branch", "-M", "main"], verbose, false, projectPath);
   execShell(
     "git",
-    ["remote", "add", "origin", remoteURL],
+    ["remote", "add", "origin", gitRemoteURL],
     verbose,
     false,
     projectPath,
   );
+
   if (isGitNameAndEmailConfigured(verbose)) {
     execShell("git", ["add", "--all"], verbose, false, projectPath);
     execShell(
