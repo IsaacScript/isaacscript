@@ -1,3 +1,5 @@
+/* eslint-disable sort-exports/sort-exports */
+
 export * from "./cachedClasses";
 export {
   initCustomDoor,
@@ -93,6 +95,7 @@ export * from "./functions/pocketItems";
 export * from "./functions/positionVelocity";
 export * from "./functions/random";
 export * from "./functions/revive";
+export * from "./functions/roomData";
 export * from "./functions/rooms";
 export * from "./functions/run";
 export * from "./functions/seeds";
@@ -119,6 +122,7 @@ export * from "./maps/roomTypeMap";
 export * from "./objects/directionNames";
 export * from "./types/AddCallbackParametersCustom";
 export * from "./types/AnyEntity";
+export * from "./types/CollectibleIndex";
 export * from "./types/JSONDoor";
 export * from "./types/JSONEntity";
 export * from "./types/JSONRoom";

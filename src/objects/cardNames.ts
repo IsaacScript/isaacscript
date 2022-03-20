@@ -1,3 +1,5 @@
+/* eslint-disable sort-exports/sort-exports */
+
 export const DEFAULT_CARD_NAME = "Unknown";
 
 export const CARD_NAMES: { readonly [key in Card]: string } = {

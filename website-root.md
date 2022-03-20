@@ -50,6 +50,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Random Functions](modules/functions_random.html)
 - [Revive Functions](modules/functions_revive.html)
 - [Room Functions](modules/functions_rooms.html)
+- [Room Data Functions](modules/functions_roomData.html)
 - [Run Functions](modules/functions_run.html)
 - [Seed Functions](modules/functions_seeds.html)
 - [Set Functions](modules/functions_set.html)

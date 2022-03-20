@@ -1,4 +1,4 @@
-// cspell:disable
+/* cspell:disable */
 
 export const DEFAULT_TRINKET_DESCRIPTION = "Unknown";
 

@@ -1,4 +1,4 @@
-// cspell:disable
+/* cspell:disable */
 
 /** Maps character names to character sub-types. */
 export const CHARACTER_MAP = new Map<string, PlayerType>([

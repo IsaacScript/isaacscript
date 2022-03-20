@@ -1,4 +1,4 @@
-// cspell:disable
+/* cspell:disable */
 
 /** Maps card names to card sub-types. */
 export const CARD_MAP: ReadonlyMap<string, Card> = new Map([

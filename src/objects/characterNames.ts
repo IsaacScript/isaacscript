@@ -1,3 +1,5 @@
+/* eslint-disable sort-exports/sort-exports */
+
 export const DEFAULT_CHARACTER_NAME = "Unknown";
 
 export const CHARACTER_NAMES: { readonly [key in PlayerType]: string } = {

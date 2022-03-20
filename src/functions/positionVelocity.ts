@@ -1,10 +1,31 @@
 import { game } from "../cachedClasses";
 import { DISTANCE_OF_GRID_TILE } from "../constants";
-import { anyEntityCloserThan, getEntities } from "./entity";
+import { getEntities } from "./entity";
 import { getEffects } from "./entitySpecific";
-import { getPlayerCloserThan } from "./player";
+import { getPlayerCloserThan, getPlayers } from "./player";
 
 const MAX_FIND_FREE_POSITION_ATTEMPTS = 100;
+
+export function anyEntityCloserThan(
+  entities: Entity[],
+  position: Vector,
+  distance: int,
+): boolean {
+  return entities.some(
+    (entity) => position.Distance(entity.Position) <= distance,
+  );
+}
+
+/** Iterates over all players and checks if any player is close enough to the specified position. */
+export function anyPlayerCloserThan(
+  position: Vector,
+  distance: float,
+): boolean {
+  const players = getPlayers();
+  return players.some(
+    (player) => player.Position.Distance(position) <= distance,
+  );
+}
 
 /**
  * Helper function to get a room position that is not overlapping with a grid entity, a heaven door,

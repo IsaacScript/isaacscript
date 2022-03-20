@@ -1,3 +1,5 @@
+/* eslint-disable sort-exports/sort-exports */
+
 export const DEFAULT_CHALLENGE_NAME = "Unknown";
 
 export const CHALLENGE_NAMES: { readonly [key in Challenge]: string } = {

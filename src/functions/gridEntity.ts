@@ -181,27 +181,6 @@ export function getGridEntitiesMap(
   return gridEntityMap;
 }
 
-export function getTopLeftWall(): GridEntity | undefined {
-  const room = game.GetRoom();
-  const topLeftWallGridIndex = getTopLeftWallGridIndex();
-  return room.GetGridEntity(topLeftWallGridIndex);
-}
-
-/**
- * Helper function to get the grid index of the top left wall.
- * (This will depend on what the current room shape is.)
- */
-export function getTopLeftWallGridIndex(): int {
-  const room = game.GetRoom();
-  const roomShape = room.GetRoomShape();
-
-  const topLeftWallGridIndex =
-    ROOM_SHAPE_TO_TOP_LEFT_WALL_GRID_INDEX_MAP.get(roomShape);
-  return topLeftWallGridIndex === undefined
-    ? DEFAULT_TOP_LEFT_WALL_GRID_INDEX
-    : topLeftWallGridIndex;
-}
-
 export function getSurroundingGridEntities(
   gridEntity: GridEntity,
 ): GridEntity[] {
@@ -231,6 +210,27 @@ export function getSurroundingGridEntities(
   }
 
   return surroundingGridEntities;
+}
+
+export function getTopLeftWall(): GridEntity | undefined {
+  const room = game.GetRoom();
+  const topLeftWallGridIndex = getTopLeftWallGridIndex();
+  return room.GetGridEntity(topLeftWallGridIndex);
+}
+
+/**
+ * Helper function to get the grid index of the top left wall.
+ * (This will depend on what the current room shape is.)
+ */
+export function getTopLeftWallGridIndex(): int {
+  const room = game.GetRoom();
+  const roomShape = room.GetRoomShape();
+
+  const topLeftWallGridIndex =
+    ROOM_SHAPE_TO_TOP_LEFT_WALL_GRID_INDEX_MAP.get(roomShape);
+  return topLeftWallGridIndex === undefined
+    ? DEFAULT_TOP_LEFT_WALL_GRID_INDEX
+    : topLeftWallGridIndex;
 }
 
 /**

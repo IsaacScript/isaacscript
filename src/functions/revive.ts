@@ -97,25 +97,6 @@ export function isDamageToPlayerFatal(
 }
 
 /**
- * The `EntityPlayer.WillPlayerRevive` method does not properly account for Mysterious Paper, so use
- * this helper function instead for more robust revival detection.
- */
-export function willPlayerRevive(player: EntityPlayer): boolean {
-  const trinketSituation = temporarilyRemoveTrinket(
-    player,
-    TrinketType.TRINKET_MYSTERIOUS_PAPER,
-  );
-
-  const willRevive =
-    player.WillPlayerRevive() ||
-    (trinketSituation !== undefined && willMysteriousPaperRevive(player));
-
-  giveTrinketsBack(player, trinketSituation);
-
-  return willRevive;
-}
-
-/**
  * Assuming that we are on the frame of fatal damage, this function returns whether or not
  * Mysterious Paper would rotate to Missing Poster on the frame that the "Game Over" screen would
  * appear (which would subsequently save the player from fatal damage).
@@ -135,6 +116,25 @@ export function willMysteriousPaperRevive(player: EntityPlayer): boolean {
   // (we add 1 because it takes one frame for the death animation to begin)
 
   return frameOfDeath % 4 === 3;
+}
+
+/**
+ * The `EntityPlayer.WillPlayerRevive` method does not properly account for Mysterious Paper, so use
+ * this helper function instead for more robust revival detection.
+ */
+export function willPlayerRevive(player: EntityPlayer): boolean {
+  const trinketSituation = temporarilyRemoveTrinket(
+    player,
+    TrinketType.TRINKET_MYSTERIOUS_PAPER,
+  );
+
+  const willRevive =
+    player.WillPlayerRevive() ||
+    (trinketSituation !== undefined && willMysteriousPaperRevive(player));
+
+  giveTrinketsBack(player, trinketSituation);
+
+  return willRevive;
 }
 
 /**

@@ -1,4 +1,4 @@
-import { itemConfig } from "../cachedClasses";
+import { game, itemConfig } from "../cachedClasses";
 import {
   BLIND_ITEM_PNG_PATH,
   SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES,
@@ -12,8 +12,10 @@ import {
   COLLECTIBLE_NAME_MAP,
   DEFAULT_COLLECTIBLE_NAME,
 } from "../maps/collectibleNameMap";
+import { CollectibleIndex } from "../types/CollectibleIndex";
 import { hasFlag } from "./flag";
 import { getPickups, removeAllPickups } from "./pickups";
+import { getRoomListIndex } from "./roomData";
 import { clearSprite } from "./sprite";
 
 const COLLECTIBLE_SPRITE_LAYER = 1;
@@ -21,18 +23,6 @@ const COLLECTIBLE_SHADOW_LAYER = 4;
 
 // Glitched items start at id 4294967295 (the final 32-bit integer) and increment backwards
 const GLITCHED_ITEM_THRESHOLD = 4000000000;
-
-export function collectibleHasTag(
-  collectibleType: CollectibleType | int,
-  tag: ItemConfigTag,
-): boolean {
-  const itemConfigItem = itemConfig.GetCollectible(collectibleType);
-  if (itemConfigItem === undefined) {
-    return false;
-  }
-
-  return itemConfigItem.HasTags(tag);
-}
 
 export function clearCollectibleSprite(collectible: EntityPickup): void {
   setCollectibleSprite(collectible, undefined);
@@ -48,6 +38,18 @@ export function collectibleHasCacheFlag(
   }
 
   return hasFlag(itemConfigItem.CacheFlags, cacheFlag);
+}
+
+export function collectibleHasTag(
+  collectibleType: CollectibleType | int,
+  tag: ItemConfigTag,
+): boolean {
+  const itemConfigItem = itemConfig.GetCollectible(collectibleType);
+  if (itemConfigItem === undefined) {
+    return false;
+  }
+
+  return itemConfigItem.HasTags(tag);
 }
 
 /**
@@ -123,10 +125,34 @@ export function getCollectibleGfxFilename(
 }
 
 /**
+ * Mods often have to track variables relating to a collectible. Doing this is difficult, since
+ * collectibles are respawned every time a player re-enters a room, so the `PtrHash` will change.
+ * In order to work around this,
+ * be stored about the first player. However, in order to be robust, mods must handle up to 4
+ * players playing at the same time. This means that information must be stored on a map data
+ * structure. Finding a good index for these types of map data structures is difficult:
+ 
+ * Returns an index for a collectible that can be used in data
+ *
+ * talk about Diplopia, Crooked Penny, angels
+ *
+ * Note that in the Ascent
+ */
+export function getCollectibleIndex(
+  collectible: EntityPickup,
+): CollectibleIndex {
+  const room = game.GetRoom();
+  const gridIndex = room.GetGridIndex(collectible.Position);
+  const roomListIndex = getRoomListIndex();
+
+  return `${roomListIndex},${collectible.InitSeed},${gridIndex}` as CollectibleIndex;
+}
+
+/**
  * Helper function to get the initial amount of charges that a collectible has. Returns 0 if the
  * provided collectible type was not valid.
  */
-export function getCollectibleInitCharges(
+export function getCollectibleInitCharge(
   collectibleType: CollectibleType | int,
 ): int {
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
@@ -135,21 +161,6 @@ export function getCollectibleInitCharges(
   }
 
   return itemConfigItem.InitCharge;
-}
-
-/**
- * Helper function to get the path to a collectible's quality. Returns 0 if the provided collectible
- * type was not valid.
- */
-export function getCollectibleQuality(
-  collectibleType: CollectibleType | int,
-): int {
-  const itemConfigItem = itemConfig.GetCollectible(collectibleType);
-  if (itemConfigItem === undefined) {
-    return 0;
-  }
-
-  return itemConfigItem.Quality;
 }
 
 /**
@@ -223,6 +234,21 @@ export function getCollectiblePedestalType(
   return sprite.GetOverlayFrame();
 }
 
+/**
+ * Helper function to get the path to a collectible's quality. Returns 0 if the provided collectible
+ * type was not valid.
+ */
+export function getCollectibleQuality(
+  collectibleType: CollectibleType | int,
+): int {
+  const itemConfigItem = itemConfig.GetCollectible(collectibleType);
+  if (itemConfigItem === undefined) {
+    return 0;
+  }
+
+  return itemConfigItem.Quality;
+}
+
 /** Helper function to get all of the collectible entities in the room. */
 export function getCollectibles(matchingSubType = -1): EntityPickup[] {
   return getPickups(PickupVariant.PICKUP_COLLECTIBLE, matchingSubType);
@@ -238,6 +264,14 @@ export function getMaxCollectibleType(): int {
   return itemConfig.GetCollectibles().Size - 1;
 }
 
+/** Returns true if the item type in the item config is equal to `ItemType.ITEM_ACTIVE`. */
+export function isActiveCollectible(
+  collectibleType: CollectibleType | int,
+): boolean {
+  const itemType = getCollectibleItemType(collectibleType);
+  return itemType === ItemType.ITEM_ACTIVE;
+}
+
 /**
  * Returns whether or not the given collectible is a "glitched" item. All items are replaced by
  * glitched items once a player has TMTRAINER. However, glitched items can also "naturally" appear
@@ -248,14 +282,6 @@ export function isGlitchedCollectible(pickup: EntityPickup): boolean {
     pickup.Variant === PickupVariant.PICKUP_COLLECTIBLE &&
     pickup.SubType > GLITCHED_ITEM_THRESHOLD
   );
-}
-
-/** Returns true if the item type in the item config is equal to `ItemType.ITEM_ACTIVE`. */
-export function isActiveCollectible(
-  collectibleType: CollectibleType | int,
-): boolean {
-  const itemType = getCollectibleItemType(collectibleType);
-  return itemType === ItemType.ITEM_ACTIVE;
 }
 
 /**
@@ -308,20 +334,6 @@ export function removeAllCollectibles(
 }
 
 /**
- * Helper function to remove all pickup delay on a collectible. By default, collectibles have a 20
- * frame delay before they can be picked up by a player.
- */
-export function removeCollectiblePickupDelay(collectible: EntityPickup): void {
-  if (collectible.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
-    error(
-      `You cannot remove pickup delay for pickups of variant: ${collectible.Variant}`,
-    );
-  }
-
-  collectible.Wait = 0;
-}
-
-/**
  * Helper function to put a message in the log.txt file to let the Rebirth Item Tracker know that it
  * should remove an item.
  *
@@ -341,16 +353,23 @@ export function removeCollectibleFromItemTracker(
 }
 
 /**
- * Helper function to put a message in the log.txt file to let the Rebirth Item Tracker know that
- * the build has been rerolled.
+ * Helper function to remove all pickup delay on a collectible. By default, collectibles have a 20
+ * frame delay before they can be picked up by a player.
  */
-export function setCollectiblesRerolledForItemTracker(): void {
-  // This cannot use the "log" function since the prefix will prevent the Rebirth Item Tracker from
-  // recognizing the message
-  // The number here does not matter since the tracker does not check for a specific number
-  Isaac.DebugString("Added 3 Collectibles");
+export function removeCollectiblePickupDelay(collectible: EntityPickup): void {
+  if (collectible.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
+    error(
+      `You cannot remove pickup delay for pickups of variant: ${collectible.Variant}`,
+    );
+  }
+
+  collectible.Wait = 0;
 }
 
+/**
+ * Helper function to set a collectible sprite to a question mark (i.e. how collectibles look when
+ * the player has Curse of the Blind).
+ */
 export function setCollectibleBlind(collectible: EntityPickup): void {
   if (collectible.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
     error(
@@ -443,4 +462,15 @@ export function setCollectibleSubType(
     true,
     true,
   );
+}
+
+/**
+ * Helper function to put a message in the log.txt file to let the Rebirth Item Tracker know that
+ * the build has been rerolled.
+ */
+export function setCollectiblesRerolledForItemTracker(): void {
+  // This cannot use the "log" function since the prefix will prevent the Rebirth Item Tracker from
+  // recognizing the message
+  // The number here does not matter since the tracker does not check for a specific number
+  Isaac.DebugString("Added 3 Collectibles");
 }

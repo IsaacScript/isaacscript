@@ -57,11 +57,6 @@ export function getOpenTrinketSlot(player: EntityPlayer): int | undefined {
   );
 }
 
-/** Helper function to get all of the trinket entities in the room. */
-export function getTrinkets(matchingSubType = -1): EntityPickup[] {
-  return getPickups(PickupVariant.PICKUP_TRINKET, matchingSubType);
-}
-
 /**
  * Helper function to get the in-game description for a trinket. Returns "Unknown" if the provided
  * trinket type was not valid.
@@ -106,6 +101,11 @@ export function getTrinketName(trinketType: TrinketType | int): string {
   }
 
   return DEFAULT_TRINKET_NAME;
+}
+
+/** Helper function to get all of the trinket entities in the room. */
+export function getTrinkets(matchingSubType = -1): EntityPickup[] {
+  return getPickups(PickupVariant.PICKUP_TRINKET, matchingSubType);
 }
 
 /**

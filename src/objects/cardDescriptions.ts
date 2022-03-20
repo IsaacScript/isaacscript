@@ -1,3 +1,5 @@
+/* eslint-disable sort-exports/sort-exports */
+
 export const DEFAULT_CARD_DESCRIPTION = "Unknown";
 
 // Temporary map due to missing features in the vanilla API

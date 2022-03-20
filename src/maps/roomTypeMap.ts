@@ -1,4 +1,4 @@
-// cspell:disable
+/* cspell:disable */
 
 /** Maps room type names to room types. */
 export const ROOM_TYPE_MAP: ReadonlyMap<string, RoomType> = new Map([

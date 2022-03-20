@@ -50,17 +50,6 @@ export function addTrinketCostume(
   player.AddCostume(itemConfigTrinket, false);
 }
 
-/** Iterates over all players and checks if any player is close enough to the specified position. */
-export function anyPlayerCloserThan(
-  position: Vector,
-  distance: float,
-): boolean {
-  const players = getPlayers();
-  return players.some(
-    (player) => player.Position.Distance(position) <= distance,
-  );
-}
-
 export function anyPlayerHasCollectible(
   collectibleType: CollectibleType | int,
 ): boolean {
@@ -105,6 +94,15 @@ export function canPlayerCrushRocks(player: EntityPlayer): boolean {
     effects.HasCollectibleEffect(CollectibleType.COLLECTIBLE_MEGA_MUSH) ||
     player.HasPlayerForm(PlayerForm.PLAYERFORM_STOMPY)
   );
+}
+
+/**
+ * Helper function for detecting when a player is one of the characters that can take free Devil
+ * Deals. (e.g. The Lost, Tainted Lost, etc.)
+ */
+export function canTakeFreeDevilDeals(player: EntityPlayer): boolean {
+  const character = player.GetPlayerType();
+  return CHARACTERS_WITH_FREE_DEVIL_DEALS.has(character);
 }
 
 /**
@@ -890,13 +888,9 @@ export function isLost(player: EntityPlayer): boolean {
   );
 }
 
-/**
- * Helper function for detecting when a player is one of the characters that can take free Devil
- * Deals. (e.g. The Lost, Tainted Lost, etc.)
- */
-export function canTakeFreeDevilDeals(player: EntityPlayer): boolean {
+export function isModdedCharacter(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
-  return CHARACTERS_WITH_FREE_DEVIL_DEALS.has(character);
+  return character > MAX_VANILLA_CHARACTER;
 }
 
 /** Helper function for detecting if a player is one of the Tainted characters. */
@@ -927,11 +921,6 @@ export function isTaintedLazarus(player: EntityPlayer): boolean {
     character === PlayerType.PLAYER_LAZARUS_B ||
     character === PlayerType.PLAYER_LAZARUS2_B
   );
-}
-
-export function isModdedCharacter(player: EntityPlayer): boolean {
-  const character = player.GetPlayerType();
-  return character > MAX_VANILLA_CHARACTER;
 }
 
 export function isVanillaCharacter(player: EntityPlayer): boolean {

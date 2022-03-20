@@ -17,16 +17,6 @@ export function addSetsToSet<T>(
   }
 }
 
-/** Helper function to copy a set. (You can also use a Set constructor to accomplish this task.) */
-export function copySet<T>(oldSet: Set<T> | ReadonlySet<T>): Set<T> {
-  const newSet = new Set<T>();
-  for (const value of oldSet.values()) {
-    newSet.add(value);
-  }
-
-  return newSet;
-}
-
 /**
  * Helper function to create a new set that is the composition of two or more sets.
  *
@@ -40,6 +30,16 @@ export function combineSets<T>(
     for (const value of set.values()) {
       newSet.add(value);
     }
+  }
+
+  return newSet;
+}
+
+/** Helper function to copy a set. (You can also use a Set constructor to accomplish this task.) */
+export function copySet<T>(oldSet: Set<T> | ReadonlySet<T>): Set<T> {
+  const newSet = new Set<T>();
+  for (const value of oldSet.values()) {
+    newSet.add(value);
   }
 
   return newSet;

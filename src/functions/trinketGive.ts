@@ -4,12 +4,53 @@ import { useActiveItemTemp } from "./player";
 import { repeat } from "./utils";
 
 /**
+ * Helper function to restore the player's trinkets back to the way they were before the
+ * `temporarilyRemoveTrinket` function was used. It will re-smelt any smelted trinkets that were
+ * removed.
+ */
+export function giveTrinketsBack(
+  player: EntityPlayer,
+  trinketSituation: TrinketSituation | undefined,
+): void {
+  // A trinket situation of undefined signifies that we did not have to remove the trinket
+  // If this is the case, we do not have to give anything back
+  if (trinketSituation === undefined) {
+    return;
+  }
+
+  const trinket1 = player.GetTrinket(TrinketSlot.SLOT_1);
+  const trinket2 = player.GetTrinket(TrinketSlot.SLOT_2);
+
+  // Remove any existing trinkets
+  if (trinket1 !== TrinketType.TRINKET_NULL) {
+    player.TryRemoveTrinket(trinket1);
+  }
+  if (trinket2 !== TrinketType.TRINKET_NULL) {
+    player.TryRemoveTrinket(trinket2);
+  }
+
+  // First, add the smelted trinkets back
+  repeat(trinketSituation.numSmeltedTrinkets, () => {
+    player.AddTrinket(trinketSituation.trinketTypeRemoved, false);
+    useActiveItemTemp(player, CollectibleType.COLLECTIBLE_SMELTER);
+  });
+
+  // Second, add back the stored trinkets
+  if (trinketSituation.trinket1 !== TrinketType.TRINKET_NULL) {
+    player.AddTrinket(trinketSituation.trinket1, false);
+  }
+  if (trinketSituation.trinket2 !== TrinketType.TRINKET_NULL) {
+    player.AddTrinket(trinketSituation.trinket2, false);
+  }
+}
+
+/**
  * Helper function to temporarily remove a specific kind of trinket from the player. Use this in
  * combination with the `giveTrinketBack` function to take away and give back a trinket on the same
  * frame. This function correctly handles multiple trinket slots and ensures that all copies of the
  * trinket are removed, including smelted trinkets.
  *
- * Note that for simplicity, this function assumes that all smelted trinkets are non-golden.
+ * Note that one smelted golden trinket is the same as two smelted normal trinkets.
  *
  * @returns Undefined if the player does not have the trinket, or TrinketSituation if they do.
  */
@@ -84,45 +125,4 @@ export function temporarilyRemoveTrinkets(
     trinket2,
     numSmeltedTrinkets: 0,
   };
-}
-
-/**
- * Helper function to restore the player's trinkets back to the way they were before the
- * `temporarilyRemoveTrinket` function was used. It will re-smelt any smelted trinkets that were
- * removed.
- */
-export function giveTrinketsBack(
-  player: EntityPlayer,
-  trinketSituation: TrinketSituation | undefined,
-): void {
-  // A trinket situation of undefined signifies that we did not have to remove the trinket
-  // If this is the case, we do not have to give anything back
-  if (trinketSituation === undefined) {
-    return;
-  }
-
-  const trinket1 = player.GetTrinket(TrinketSlot.SLOT_1);
-  const trinket2 = player.GetTrinket(TrinketSlot.SLOT_2);
-
-  // Remove any existing trinkets
-  if (trinket1 !== TrinketType.TRINKET_NULL) {
-    player.TryRemoveTrinket(trinket1);
-  }
-  if (trinket2 !== TrinketType.TRINKET_NULL) {
-    player.TryRemoveTrinket(trinket2);
-  }
-
-  // First, add the smelted trinkets back
-  repeat(trinketSituation.numSmeltedTrinkets, () => {
-    player.AddTrinket(trinketSituation.trinketTypeRemoved, false);
-    useActiveItemTemp(player, CollectibleType.COLLECTIBLE_SMELTER);
-  });
-
-  // Second, add back the stored trinkets
-  if (trinketSituation.trinket1 !== TrinketType.TRINKET_NULL) {
-    player.AddTrinket(trinketSituation.trinket1, false);
-  }
-  if (trinketSituation.trinket2 !== TrinketType.TRINKET_NULL) {
-    player.AddTrinket(trinketSituation.trinket2, false);
-  }
 }

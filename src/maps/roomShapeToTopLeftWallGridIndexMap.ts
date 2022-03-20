@@ -1,3 +1,5 @@
+export const DEFAULT_TOP_LEFT_WALL_GRID_INDEX = 0;
+
 /**
  * Only used for special room shapes where the top left wall grid index is not equal to
  * `DEFAULT_TOP_LEFT_WALL_GRID_INDEX`.
@@ -12,5 +14,3 @@ export const ROOM_SHAPE_TO_TOP_LEFT_WALL_GRID_INDEX_MAP: ReadonlyMap<
   [RoomShape.ROOMSHAPE_IIH, 56], // 7
   [RoomShape.ROOMSHAPE_LTL, 13], // 9
 ]);
-
-export const DEFAULT_TOP_LEFT_WALL_GRID_INDEX = 0;

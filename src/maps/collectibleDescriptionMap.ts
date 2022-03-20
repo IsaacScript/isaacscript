@@ -1,4 +1,5 @@
-// cspell:disable
+/* eslint-disable sort-exports/sort-exports */
+/* cspell:disable */
 
 export const DEFAULT_COLLECTIBLE_DESCRIPTION = "Unknown";
 

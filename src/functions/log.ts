@@ -7,7 +7,7 @@ import { getGridEntities } from "./gridEntity";
 import { range } from "./math";
 import { getEffectsList, getPlayerName } from "./player";
 import { getPlayerHealth } from "./playerHealth";
-import { getRoomData, getRoomGridIndex, getRoomListIndex } from "./rooms";
+import { getRoomData, getRoomGridIndex, getRoomListIndex } from "./roomData";
 import { getSortedSetValues } from "./set";
 import { getTrinketName } from "./trinkets";
 
@@ -60,117 +60,6 @@ export function log(this: void, msg: string): void {
   Isaac.DebugString(debugMsg);
 }
 
-/** Helper function for printing out every damage flag that is turned on. Useful when debugging. */
-export function logAllDamageFlags(this: void, flags: int): void {
-  logAllFlags(flags, DamageFlag as unknown as LuaTable, "damage");
-}
-
-/** Helper function for printing out every entity flag that is turned on. Useful when debugging. */
-export function logAllEntityFlags(this: void, flags: int): void {
-  logAllFlags(flags, EntityFlag as unknown as LuaTable, "entity");
-}
-
-/** Helper function for printing out every flag that is turned on. Useful when debugging. */
-export function logAllFlags(
-  this: void,
-  flags: int,
-  flagEnum?: LuaTable,
-  description = "",
-): void {
-  if (description !== "") {
-    description += " ";
-  }
-
-  if (flagEnum === undefined) {
-    flagEnum = new LuaTable();
-
-    // Bit shifts of 63 or greater do not work properly
-    for (let i = 0; i <= 62; i++) {
-      flagEnum.set(`1 << ${i}`, 1 << i);
-    }
-  }
-
-  log(`Logging all ${description}flags for value ${flags}:`);
-  let hasNoFlags = true;
-  for (const [key, value] of pairs(flagEnum)) {
-    if (typeof value !== "number") {
-      continue;
-    }
-
-    if (hasFlag(flags, value)) {
-      log(`  Has flag: ${key} (${value})`);
-      hasNoFlags = false;
-    }
-  }
-
-  if (hasNoFlags) {
-    log("  n/a (no flags)");
-  }
-}
-
-/**
- * Helper function for printing out every game state flag that is turned on. Useful when debugging.
- */
-export function logAllGameStateFlags(this: void): void {
-  log("Logging all game state flags:");
-  let hasNoFlags = true;
-  for (const [key, value] of pairs(GameStateFlag)) {
-    const gameStateFlag = value as GameStateFlag;
-    const flagValue = game.GetStateFlag(gameStateFlag);
-    if (flagValue) {
-      log(`  Has flag: ${key} (${value})`);
-      hasNoFlags = false;
-    }
-  }
-
-  if (hasNoFlags) {
-    log("  n/a (no flags)");
-  }
-}
-
-/**
- * Helper function for printing out every projectile flag that is turned on. Useful when debugging.
- */
-export function logAllProjectileFlags(this: void, flags: int): void {
-  logAllFlags(flags, ProjectileFlags as unknown as LuaTable, "projectile");
-}
-
-/**
- * Helper function for printing out every seed effect (i.e. Easter Egg) that is turned on for the
- * particular run.
- */
-export function logAllSeedEffects(this: void): void {
-  const seeds = game.GetSeeds();
-
-  log("Logging all seed effects:");
-  let hasNoSeedEffects = true;
-  for (const [key, value] of pairs(SeedEffect)) {
-    const seedEffect = value as SeedEffect;
-    if (seeds.HasSeedEffect(seedEffect)) {
-      log(`  ${key} (${value})`);
-      hasNoSeedEffects = false;
-    }
-  }
-
-  if (hasNoSeedEffects) {
-    log("  n/a (no seed effects)");
-  }
-}
-
-/** Helper function for printing out every tear flag that is turned on. Useful when debugging. */
-export function logAllTearFlags(this: void, flags: int): void {
-  logAllFlags(flags, TearFlags as unknown as LuaTable, "tear");
-}
-
-/** Helper function for printing out every use flag that is turned on. Useful when debugging. */
-export function logAllUseFlags(this: void, _flags: int): void {
-  // TODO: fix this after the next vanilla patch
-  log(
-    'The "logAllUseFlags" helper function is temporarily disabled while the UseFlag enum remains unpatched in vanilla.',
-  );
-  // logAllFlags(flags, UseFlag as unknown as LuaTable, "use");
-}
-
 export function logArray<T>(this: void, array: T[]): void {
   const arrayString = arrayToString(array);
   log(`Array: ${arrayString}`);
@@ -182,8 +71,9 @@ export function logColor(this: void, color: Color): void {
   );
 }
 
-export function logEntity(this: void, entity: Entity): void {
-  log(`Entity: ${entity.Type}.${entity.Variant}.${entity.SubType}`);
+/** Helper function for printing out every damage flag that is turned on. Useful when debugging. */
+export function logDamageFlags(this: void, flags: int): void {
+  logFlags(flags, DamageFlag as unknown as LuaTable, "damage");
 }
 
 export function logEntities(
@@ -284,6 +174,73 @@ export function logEntities(
     log("(no entities matched)");
   } else {
     log(`(${numMatchedEntities} total entities)`);
+  }
+}
+
+export function logEntity(this: void, entity: Entity): void {
+  log(`Entity: ${entity.Type}.${entity.Variant}.${entity.SubType}`);
+}
+
+/** Helper function for printing out every entity flag that is turned on. Useful when debugging. */
+export function logEntityFlags(this: void, flags: int): void {
+  logFlags(flags, EntityFlag as unknown as LuaTable, "entity");
+}
+
+/** Helper function for printing out every flag that is turned on. Useful when debugging. */
+export function logFlags(
+  this: void,
+  flags: int,
+  flagEnum?: LuaTable,
+  description = "",
+): void {
+  if (description !== "") {
+    description += " ";
+  }
+
+  if (flagEnum === undefined) {
+    flagEnum = new LuaTable();
+
+    // Bit shifts of 63 or greater do not work properly
+    for (let i = 0; i <= 62; i++) {
+      flagEnum.set(`1 << ${i}`, 1 << i);
+    }
+  }
+
+  log(`Logging ${description}flags for value ${flags}:`);
+  let hasNoFlags = true;
+  for (const [key, value] of pairs(flagEnum)) {
+    if (typeof value !== "number") {
+      continue;
+    }
+
+    if (hasFlag(flags, value)) {
+      log(`  Has flag: ${key} (${value})`);
+      hasNoFlags = false;
+    }
+  }
+
+  if (hasNoFlags) {
+    log("  n/a (no flags)");
+  }
+}
+
+/**
+ * Helper function for printing out every game state flag that is turned on. Useful when debugging.
+ */
+export function logGameStateFlags(this: void): void {
+  log("Logging game state flags:");
+  let hasNoFlags = true;
+  for (const [key, value] of pairs(GameStateFlag)) {
+    const gameStateFlag = value as GameStateFlag;
+    const flagValue = game.GetStateFlag(gameStateFlag);
+    if (flagValue) {
+      log(`  Has flag: ${key} (${value})`);
+      hasNoFlags = false;
+    }
+  }
+
+  if (hasNoFlags) {
+    log("  n/a (no flags)");
   }
 }
 
@@ -415,6 +372,13 @@ export function logPlayerHealth(this: void, player: EntityPlayer): void {
   log(`  Soul heart types: [${playerHealth.soulHeartTypes.join(",")}]`);
 }
 
+/**
+ * Helper function for printing out every projectile flag that is turned on. Useful when debugging.
+ */
+export function logProjectileFlags(this: void, flags: int): void {
+  logFlags(flags, ProjectileFlags as unknown as LuaTable, "projectile");
+}
+
 /** Helper function for logging information about the current room. */
 export function logRoom(this: void): void {
   const roomGridIndex = getRoomGridIndex();
@@ -432,6 +396,39 @@ export function logRoom(this: void): void {
   }
   log(`Current room grid index: ${roomGridIndex}`);
   log(`Current room list index: ${roomListIndex}`);
+}
+
+/**
+ * Helper function for printing out every seed effect (i.e. Easter Egg) that is turned on for the
+ * particular run.
+ */
+export function logSeedEffects(this: void): void {
+  const seeds = game.GetSeeds();
+
+  log("Logging seed effects:");
+  let hasNoSeedEffects = true;
+  for (const [key, value] of pairs(SeedEffect)) {
+    const seedEffect = value as SeedEffect;
+    if (seeds.HasSeedEffect(seedEffect)) {
+      log(`  ${key} (${value})`);
+      hasNoSeedEffects = false;
+    }
+  }
+
+  if (hasNoSeedEffects) {
+    log("  n/a (no seed effects)");
+  }
+}
+
+export function logSet(this: void, set: Set<AnyNotNil>): void {
+  log("Printing out a TSTL Set:");
+
+  const setValues = getSortedSetValues(set);
+  for (const value of setValues) {
+    log(`  Value: ${value}`);
+  }
+
+  log(`The size of the set was: ${set.size}`);
 }
 
 /** Helper function for logging every sound effect that is currently playing. */
@@ -471,10 +468,15 @@ export function logTable(this: void, table: unknown, parentTables = 0): void {
   log(`The size of the table was: ${numKeys}`);
 }
 
+/** Helper function for printing out every tear flag that is turned on. Useful when debugging. */
+export function logTearFlags(this: void, flags: int): void {
+  logFlags(flags, TearFlags as unknown as LuaTable, "tear");
+}
+
 export function logTemporaryEffects(this: void, player: EntityPlayer): void {
   const effects = getEffectsList(player);
 
-  log("Logging all player temporary effects:");
+  log("Logging player temporary effects:");
 
   if (effects.length === 0) {
     log("  n/a (no temporary effects)");
@@ -496,15 +498,13 @@ export function logTemporaryEffects(this: void, player: EntityPlayer): void {
   });
 }
 
-export function logSet(this: void, set: Set<AnyNotNil>): void {
-  log("Printing out a TSTL Set:");
-
-  const setValues = getSortedSetValues(set);
-  for (const value of setValues) {
-    log(`  Value: ${value}`);
-  }
-
-  log(`The size of the set was: ${set.size}`);
+/** Helper function for printing out every use flag that is turned on. Useful when debugging. */
+export function logUseFlags(this: void, _flags: int): void {
+  // TODO: fix this after the next vanilla patch
+  log(
+    'The "logUseFlags" helper function is temporarily disabled while the UseFlag enum remains unpatched in vanilla.',
+  );
+  // logFlags(flags, UseFlag as unknown as LuaTable, "use");
 }
 
 export function logVector(this: void, vector: Vector): void {
@@ -519,25 +519,26 @@ export function setLogFunctionsGlobal(): void {
   const globals = _G as Record<string, unknown>;
 
   globals.log = log;
-  globals.logAllDamageFlags = logAllDamageFlags;
-  globals.logAllEntityFlags = logAllEntityFlags;
-  globals.logAllFlags = logAllFlags;
-  globals.logAllGameStateFlags = logAllGameStateFlags;
-  globals.logAllProjectileFlags = logAllProjectileFlags;
-  globals.logAllSeedEffects = logAllSeedEffects;
-  globals.logAllTearFlags = logAllTearFlags;
-  globals.logAllUseFlags = logAllUseFlags;
   globals.logArray = logArray;
   globals.logColor = logColor;
-  globals.logEntity = logEntity;
+  globals.logDamageFlags = logDamageFlags;
   globals.logEntities = logEntities;
+  globals.logEntity = logEntity;
+  globals.logEntityFlags = logEntityFlags;
+  globals.logFlags = logFlags;
+  globals.logGameStateFlags = logGameStateFlags;
   globals.logGridEntities = logGridEntities;
   globals.logKColor = logKColor;
   globals.logMap = logMap;
+  globals.logPlayerHealth = logPlayerHealth;
+  globals.logProjectileFlags = logProjectileFlags;
   globals.logRoom = logRoom;
-  globals.logTable = logTable;
-  globals.logTemporaryEffects = logTemporaryEffects;
+  globals.logSeedEffects = logSeedEffects;
   globals.logSet = logSet;
   globals.logSounds = logSounds;
+  globals.logTable = logTable;
+  globals.logTearFlags = logTearFlags;
+  globals.logTemporaryEffects = logTemporaryEffects;
+  globals.logUseFlags = logUseFlags;
   globals.logVector = logVector;
 }

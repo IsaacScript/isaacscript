@@ -19,5 +19,13 @@ module.exports = {
   },
 
   // We modify the linting rules from the base for some specific things
-  rules: {},
+  rules: {
+    // https://github.com/jrdrg/eslint-plugin-sort-exports
+    "sort-exports/sort-exports": [
+      "error",
+      {
+        sortDir: "asc",
+      },
+    ],
+  },
 };

@@ -1,3 +1,5 @@
+/* eslint-disable sort-exports/sort-exports */
+
 export const DEFAULT_COLLECTIBLE_NAME = "Unknown";
 
 // Temporary map due to missing features in the vanilla API

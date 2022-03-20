@@ -4,16 +4,6 @@ import { AnyEntity } from "../types/AnyEntity";
 import { getRandom, nextSeed } from "./random";
 import { repeat } from "./utils";
 
-export function anyEntityCloserThan(
-  entities: Entity[],
-  position: Vector,
-  distance: int,
-): boolean {
-  return entities.some(
-    (entity) => position.Distance(entity.Position) <= distance,
-  );
-}
-
 /**
  * Helper function to count the number of entities in room. Use this over the vanilla
  * `Isaac.CountEntities` method to avoid having to specify a spawner and to handle ignoring charmed
@@ -79,26 +69,6 @@ export function getClosestEntityTo<T extends AnyEntity>(
 }
 
 /**
- * Helper function to compare two different arrays of entities. Returns the entities that are in the
- * second array but not in the first array.
- */
-export function getFilteredNewEntities<T extends AnyEntity>(
-  oldEntities: T[],
-  newEntities: T[],
-): T[] {
-  const oldEntitiesSet = new Set<PtrHash>();
-  for (const entity of oldEntities) {
-    const ptrHash = GetPtrHash(entity);
-    oldEntitiesSet.add(ptrHash);
-  }
-
-  return newEntities.filter((entity) => {
-    const ptrHash = GetPtrHash(entity);
-    return !oldEntitiesSet.has(ptrHash);
-  });
-}
-
-/**
  * Helper function to get all of the entities in the room or all of the entities that match a
  * specific entity type / variant / sub-type.
  *
@@ -145,6 +115,26 @@ export function getEntityID(entity: Entity): string {
 }
 
 /**
+ * Helper function to compare two different arrays of entities. Returns the entities that are in the
+ * second array but not in the first array.
+ */
+export function getFilteredNewEntities<T extends AnyEntity>(
+  oldEntities: T[],
+  newEntities: T[],
+): T[] {
+  const oldEntitiesSet = new Set<PtrHash>();
+  for (const entity of oldEntities) {
+    const ptrHash = GetPtrHash(entity);
+    oldEntitiesSet.add(ptrHash);
+  }
+
+  return newEntities.filter((entity) => {
+    const ptrHash = GetPtrHash(entity);
+    return !oldEntitiesSet.has(ptrHash);
+  });
+}
+
+/**
  * Helper function to measure an entity's velocity to see if it is moving.
  *
  * @param entity The entity whose velocity to measure.
@@ -161,6 +151,27 @@ export function isEntityMoving(entity: Entity, threshold = 0.01): boolean {
  */
 export function isStoryBoss(entity: Entity): boolean {
   return STORY_BOSSES.has(entity.Type);
+}
+
+/**
+ * Helper function to remove all of the matching entities in the room.
+ *
+ * @param entityType The entity type to match.
+ * @param entityVariant Optional. The variant to match. Default is -1 (which will match every
+ * variant).
+ * @param entitySubType Optional. The sub-type to match. Default is -1 (which will match every
+ * sub-type).
+ * @param cap Optional. If specified, will only remove the given amount of collectibles.
+ * @returns True if one or more entities was removed, false otherwise.
+ */
+export function removeAllMatchingEntities(
+  entityType: int,
+  entityVariant = -1,
+  entitySubType = -1,
+  cap: int | undefined = undefined,
+): boolean {
+  const entities = getEntities(entityType, entityVariant, entitySubType);
+  return removeEntities(entities, cap);
 }
 
 /**
@@ -186,27 +197,6 @@ export function removeEntities(entities: Entity[], cap?: int): boolean {
   }
 
   return true;
-}
-
-/**
- * Helper function to remove all of the matching entities in the room.
- *
- * @param entityType The entity type to match.
- * @param entityVariant Optional. The variant to match. Default is -1 (which will match every
- * variant).
- * @param entitySubType Optional. The sub-type to match. Default is -1 (which will match every
- * sub-type).
- * @param cap Optional. If specified, will only remove the given amount of collectibles.
- * @returns True if one or more entities was removed, false otherwise.
- */
-export function removeAllMatchingEntities(
-  entityType: int,
-  entityVariant = -1,
-  entitySubType = -1,
-  cap: int | undefined = undefined,
-): boolean {
-  const entities = getEntities(entityType, entityVariant, entitySubType);
-  return removeEntities(entities, cap);
 }
 
 /**

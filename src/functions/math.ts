@@ -126,10 +126,6 @@ export function round(num: float, numDecimalPlaces = 0): float {
   return roundedNum === undefined ? 0 : roundedNum;
 }
 
-export function tanh(x: number): number {
-  return (Math.exp(x) - Math.exp(-x)) / (Math.exp(x) + Math.exp(-x));
-}
-
 /**
  * @returns 1 if n is positive, -1 if n is negative, or 0 if n is 0.
  */
@@ -143,4 +139,8 @@ export function sign(n: number): int {
   }
 
   return 0;
+}
+
+export function tanh(x: number): number {
+  return (Math.exp(x) - Math.exp(-x)) / (Math.exp(x) + Math.exp(-x));
 }
