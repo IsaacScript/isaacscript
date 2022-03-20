@@ -1,7 +1,5 @@
 import chalk from "chalk";
-import commandExists from "command-exists";
 import path from "path";
-import yaml from "yaml";
 import * as configFile from "../../configFile";
 import {
   GITIGNORE,
@@ -14,19 +12,13 @@ import {
   METADATA_XML_TEMPLATE_PATH,
   PACKAGE_JSON,
   PACKAGE_JSON_TEMPLATE_PATH,
-  PROJECT_NAME,
   README_MD,
   README_MD_TEMPLATES_PATH,
   TEMPLATES_STATIC_DIR,
 } from "../../constants";
 import { execShell } from "../../exec";
 import * as file from "../../file";
-import { getInputString, getInputYesNo } from "../../prompt";
-import { GitHubCLIHostsYAML } from "../../types/GitHubCLIHostsYAML";
-import { error, parseSemVer } from "../../utils";
-
-const REQUIRED_GIT_MAJOR_VERSION = 2;
-const REQUIRED_GIT_MINOR_VERSION = 30;
+import { getGitRemoteURL, initGitRepository } from "./git";
 
 export async function createMod(
   projectName: string,
@@ -45,54 +37,19 @@ export async function createMod(
   configFile.createFile(projectPath, config, verbose);
   const targetModDirectory = path.join(config.modsDirectory, projectName);
 
-  await initGitRepository(projectPath, projectName, verbose);
+  // We want to ask the user all of the questions before the time-intensive installation starts
+  const remoteURL = await getGitRemoteURL(projectName, verbose);
+
   makeSubdirectories(projectPath, verbose);
   copyStaticFiles(projectPath, verbose);
   copyDynamicFiles(projectName, projectPath, targetModDirectory, verbose);
   updateNodeModules(projectPath, verbose);
   installNodeModules(projectPath, skipNPMInstall, verbose);
 
+  // Only make the initial commit once all of the files have been copied
+  initGitRepository(projectPath, remoteURL, verbose);
+
   console.log(`Successfully created mod: ${chalk.green(projectName)}`);
-}
-
-async function initGitRepository(
-  projectPath: string,
-  projectName: string,
-  verbose: boolean,
-) {
-  if (!commandExists.sync("git")) {
-    console.log(
-      'Git does not seem to be installed. (The "git" command is not in the path.) Skipping Git-related things.',
-    );
-    return;
-  }
-
-  checkOldGitVersion(verbose);
-
-  const remoteURL = await getGitRemoteURL(projectName);
-  if (remoteURL === "") {
-    return;
-  }
-
-  execShell("git", ["init"], verbose, false, projectPath);
-  execShell("git", ["branch", "-M", "main"], verbose, false, projectPath);
-  execShell(
-    "git",
-    ["remote", "add", "origin", remoteURL],
-    verbose,
-    false,
-    projectPath,
-  );
-  if (isGitNameAndEmailConfigured(verbose)) {
-    execShell("git", ["add", "--all"], verbose, false, projectPath);
-    execShell(
-      "git",
-      ["commit", "--message", `${PROJECT_NAME} template`],
-      verbose,
-      false,
-      projectPath,
-    );
-  }
 }
 
 function makeSubdirectories(projectPath: string, verbose: boolean) {
@@ -207,122 +164,6 @@ function updateNodeModules(projectPath: string, verbose: boolean) {
     false,
     projectPath,
   );
-}
-
-async function getGitRemoteURL(projectName: string) {
-  const guessedRemoteURL = guessRemoteURL(projectName);
-  if (guessedRemoteURL !== undefined) {
-    const shouldUseGuessedURL = await getInputYesNo(
-      `Do you want to use a Git remote URL of: ${chalk.green(
-        guessedRemoteURL,
-      )}`,
-    );
-    if (shouldUseGuessedURL) {
-      return guessedRemoteURL;
-    }
-  }
-
-  return getInputString(`Paste in the remote Git URL for your project.
-For example, if you have an SSH key, it would be something like:
-${chalk.green("git@github.com:Alice/green-candle.git")}
-If you don't have an SSH key, it would be something like:
-${chalk.green("https://github.com/Alice/green-candle.git")}
-If you don't want to initialize a Git repository for this project, press enter to skip.
-`);
-}
-
-function checkOldGitVersion(verbose: boolean) {
-  const [, stdout] = execShell("git", ["--version"], verbose);
-
-  const outputPrefix = "git version ";
-  if (!stdout.startsWith(outputPrefix)) {
-    error(
-      `Failed to parse the output from the "git --version" command: ${stdout}`,
-    );
-  }
-
-  const gitVersionString = stdout.slice(outputPrefix.length);
-  const [majorVersion, minorVersion] = parseSemVer(gitVersionString);
-
-  if (
-    majorVersion >= REQUIRED_GIT_MAJOR_VERSION &&
-    minorVersion >= REQUIRED_GIT_MINOR_VERSION
-  ) {
-    return;
-  }
-
-  console.error(`Your Git version is: ${chalk.red(gitVersionString)}`);
-  console.error(
-    `${PROJECT_NAME} requires a Git version of ${chalk.red(
-      `${REQUIRED_GIT_MAJOR_VERSION}.${REQUIRED_GIT_MINOR_VERSION}.0`,
-    )} or greater.`,
-  );
-  console.error(
-    `Please upgrade your version of Git before using ${PROJECT_NAME}.`,
-  );
-  process.exit(1);
-}
-
-function guessRemoteURL(projectName: string) {
-  const gitHubUsername = getGitHubUsername();
-  if (gitHubUsername === undefined) {
-    return undefined;
-  }
-
-  return `git@github.com:${gitHubUsername}/${projectName}.git`;
-}
-
-function getGitHubUsername() {
-  // If the GitHub CLI is installed, we can derive the user's GitHub username
-  if (
-    !commandExists.sync("gh") ||
-    process.env.APPDATA === undefined ||
-    process.env.APPDATA === ""
-  ) {
-    return undefined;
-  }
-
-  const githubCLIHostsPath = path.join(
-    process.env.APPDATA,
-    "GitHub CLI",
-    "hosts.yml",
-  );
-  if (!file.exists(githubCLIHostsPath)) {
-    return undefined;
-  }
-
-  const configYAMLRaw = file.read(githubCLIHostsPath);
-  const configYAML = yaml.parse(configYAMLRaw) as GitHubCLIHostsYAML;
-
-  const githubCom = configYAML["github.com"];
-  if (githubCom === undefined) {
-    return undefined;
-  }
-
-  const { user } = githubCom;
-  if (user === "") {
-    return undefined;
-  }
-
-  return user;
-}
-
-function isGitNameAndEmailConfigured(verbose: boolean) {
-  const [nameExitStatus] = execShell(
-    "git",
-    ["config", "--global", "user.name"],
-    verbose,
-    true,
-  );
-
-  const [emailExitStatus] = execShell(
-    "git",
-    ["config", "--global", "user.email"],
-    verbose,
-    true,
-  );
-
-  return nameExitStatus === 0 && emailExitStatus === 0;
 }
 
 function installNodeModules(

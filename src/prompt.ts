@@ -63,6 +63,7 @@ export async function getInputYesNo(
   return false;
 }
 
+/** Returns trimmed input. */
 export async function getInputString(
   msg: string,
   defaultValue?: string,
