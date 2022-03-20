@@ -35,6 +35,7 @@ import { preNewLevelCallbackInit } from "./callbacks/preNewLevel";
 import { reorderedCallbacksInit } from "./callbacks/reorderedCallbacks";
 import { roomClearChangeCallbackInit } from "./callbacks/roomClearChange";
 import { ModUpgraded } from "./classes/ModUpgraded";
+import { collectiblesSeenInit } from "./features/collectiblesSeen";
 import { deployJSONRoomInit } from "./features/deployJSONRoom";
 import { disableInputsInit } from "./features/disableInputs";
 import { disableSoundsInit } from "./features/disableSound";
@@ -150,4 +151,5 @@ function initFeatures(mod: ModUpgraded) {
   isPonyActiveInit(mod);
   playerInventoryInit(mod);
   taintedLazarusPlayersInit(mod);
+  collectiblesSeenInit(mod);
 }

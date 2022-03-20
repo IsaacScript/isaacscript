@@ -125,27 +125,58 @@ export function getCollectibleGfxFilename(
 }
 
 /**
- * Mods often have to track variables relating to a collectible. Doing this is difficult, since
- * collectibles are respawned every time a player re-enters a room, so the `PtrHash` will change.
- * In order to work around this,
- * be stored about the first player. However, in order to be robust, mods must handle up to 4
- * players playing at the same time. This means that information must be stored on a map data
- * structure. Finding a good index for these types of map data structures is difficult:
- 
- * Returns an index for a collectible that can be used in data
+ * Mods often have to track variables relating to a collectible. Finding an index for these kinds of
+ * data structures is difficult, since collectibles are respawned every time a player re-enters a
+ * room, so the `PtrHash` will change. Instead, we use a 3-tuple of the room list index, the grid
+ * index of the collectible in the room, and the collectible's InitSeed.
  *
- * talk about Diplopia, Crooked Penny, angels
+ * When collectibles are rolled (e.g. with a D6), their InitSeed changes. If you want to track
+ * collectibles independently of any rerolls, then use the `PtrHash` as an index instead. (The
+ * `PtrHash` will not persist between rooms, however.)
  *
- * Note that in the Ascent
+ * Note that:
+ * - The grid index is a necessary part of the collectible index because Diplopia and Crooked Penny
+ * can cause two or more collectibles with the same sub-type and InitSeed to exist in the same room.
+ * - This index will fail in the case where the player uses Diplopia or a successful Crooked Penny
+ * seven or more times in the same room, since that will cause two or more collectibles with the
+ * same grid index and InitSeed to exist.
+ * - Using a collectible's position as part of the index is problematic, since players can push a
+ * pedestal. (Even using the grid index does not solve this problem, since it is possible in certain
+ * cases for collectibles to be spawned at a position that is not aligned with the grid, and the
+ * pedestal pushed to an adjacent tile, but this case should be extremely rare.)
+ * - Mega Chests spawn two collectibles on the exact same position. However, both of them will have
+ * different InitSeeds, so this is not a problem for this indexing scheme.
+ * - The indexing scheme used is different for collectibles that are inside of a Treasure Room, in
+ * order to handle the case of the player seeing the same collectible again in a post-Ascent
+ * Treasure Room. An 4-tuple of stage, stage type, grid index, and InitSeed is used in this case.
+ * (Using the room list index or the room grid index is not suitable for this purpose, since both
+ * of these values can change in the post-Ascent Treasure Room.) Even though there can be two
+ * Treasure Rooms on an XL floor, both Treasure Rooms should not have collectibles with the same
+ * InitSeed.
  */
 export function getCollectibleIndex(
   collectible: EntityPickup,
 ): CollectibleIndex {
+  if (collectible.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
+    error(
+      `You cannot get a collectible index for pickups of variant: ${collectible.Variant}`,
+    );
+  }
+
+  const level = game.GetLevel();
+  const stage = level.GetStage();
+  const stageType = level.GetStageType();
   const room = game.GetRoom();
+  const roomType = room.GetType();
   const gridIndex = room.GetGridIndex(collectible.Position);
   const roomListIndex = getRoomListIndex();
 
-  return `${roomListIndex},${collectible.InitSeed},${gridIndex}` as CollectibleIndex;
+  // Handle the special case of being in a Treasure Room
+  if (roomType === RoomType.ROOM_TREASURE) {
+    return `${stage},${stageType},${gridIndex},${collectible.InitSeed}` as CollectibleIndex;
+  }
+
+  return `${roomListIndex},${gridIndex},${collectible.InitSeed}` as CollectibleIndex;
 }
 
 /**
