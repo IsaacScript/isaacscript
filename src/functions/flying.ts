@@ -18,6 +18,7 @@ const FLYING_TRINKETS: ReadonlySet<TrinketType> = new Set([
 const FLYING_NULL_ITEMS: readonly NullItemID[] = [
   NullItemID.ID_REVERSE_SUN, // 66
   NullItemID.ID_SPIRIT_SHACKLES_SOUL, // 10
+  NullItemID.ID_LOST_CURSE, // 112
 ];
 
 /**
