@@ -89,7 +89,9 @@ function validateIsaacScriptOtherCopiesNotRunning(verbose: boolean) {
   );
   if (otherCopiesOfRunningIsaacScript.length > 0) {
     error(
-      `Other copies of ${PROJECT_NAME} appear to be running. You must close those copies before publishing.`,
+      chalk.red(
+        `Other copies of ${PROJECT_NAME} appear to be running. You must close those copies before publishing.`,
+      ),
     );
   }
 }
