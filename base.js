@@ -22,6 +22,10 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
 
+    // This provides a version of the "eqeqeq" rule that the "--fix" flag can fix
+    // https://github.com/Zamiell/eslint-plugin-eqeqeq-fix
+    "plugin:eqeqeq-fix/recommended",
+
     // Find unused "eslint-disable" comments
     // https://github.com/mysticatea/eslint-plugin-eslint-comments
     "plugin:eslint-comments/recommended",
@@ -30,14 +34,14 @@ module.exports = {
     // https://github.com/gajus/eslint-plugin-jsdoc
     "plugin:jsdoc/recommended",
 
-    // This provides a version of the "eqeqeq" rule that the "--fix" flag can fix
-    // https://github.com/Zamiell/eslint-plugin-eqeqeq-fix
-    "plugin:eqeqeq-fix/recommended",
-
     // This prevents implicit iteration of Maps and Sets,
     // which is helpful to prevent bugs when refactoring
     // https://github.com/Zamiell/eslint-plugin-no-implicit-map-set-loops
     "plugin:no-implicit-map-set-loops/recommended",
+
+    // This prevents declaring variables without a type
+    // https://github.com/Zamiell/eslint-plugin-no-let-any
+    "plugin:no-let-any/recommended",
 
     // This provides a version of the "no-template-curly-in-string" that the "--fix" flag can fix
     // https://github.com/Zamiell/eslint-plugin-no-template-curly-in-string-fix
@@ -46,10 +50,6 @@ module.exports = {
     // This prevents void return types on unexported functions
     // https://github.com/Zamiell/eslint-plugin-no-void-return-type
     "plugin:no-void-return-type/recommended",
-
-    // This prevents declaring variables without a type
-    // https://github.com/Zamiell/eslint-plugin-no-let-any
-    "plugin:no-let-any/recommended",
 
     // Disable any ESLint rules that conflict with Prettier
     // (otherwise, we will have unfixable ESLint errors)
@@ -62,6 +62,10 @@ module.exports = {
     // This allows the end-user to more easily distinguish between errors from the TypeScript
     // compiler (which show up in red) and ESLint rule violations (which show up in yellow)
     "only-warn",
+
+    // Activate the "sort-exports" plugin, which allows the "sort-exports" rule to be optionally
+    // enabled on a per-project basis
+    "sort-exports",
   ],
 
   // We modify the linting rules from the base for some specific things
