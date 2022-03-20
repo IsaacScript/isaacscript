@@ -271,8 +271,14 @@ declare enum BombVariant {
   BOMB_ROCKET_GIGA = 20,
 }
 
-/** For EntityType.ENTITY_PICKUP (5) */
-declare enum PickupVariant {
+/**
+ * For EntityType.ENTITY_PICKUP (5)
+ *
+ * The `PickupVariant.PICKUP_BROKEN_SHOVEL` value is missing from the vanilla enum, so this enum is
+ * temporarily marked as being a const enum. When it is added to the vanilla game, this will go back
+ * to being a normal enum.
+ */
+declare const enum PickupVariant {
   PICKUP_NULL = 0,
   PICKUP_HEART = 10,
   PICKUP_COIN = 20,
@@ -294,6 +300,7 @@ declare enum PickupVariant {
   PICKUP_PILL = 70,
   PICKUP_LIL_BATTERY = 90,
   PICKUP_COLLECTIBLE = 100,
+  PICKUP_BROKEN_SHOVEL = 110,
   PICKUP_SHOPITEM = 150,
   PICKUP_TAROTCARD = 300,
   PICKUP_BIGCHEST = 340,
