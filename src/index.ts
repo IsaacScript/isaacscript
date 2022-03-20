@@ -21,6 +21,7 @@ export * from "./enums/PillEffectClass";
 export * from "./enums/PillEffectType";
 export * from "./enums/PocketItemType";
 export * from "./enums/SerializationType";
+export { isCollectiblePreviouslySeen } from "./features/collectiblesSeen";
 export {
   deployJSONRoom,
   deployRandomJSONRoom,
