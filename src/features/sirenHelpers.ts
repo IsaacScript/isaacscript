@@ -1,5 +1,3 @@
-/* eslint-disable sort-exports/sort-exports */
-
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { getEntities } from "../functions/entity";
 import { saveDataManager } from "./saveDataManager/exports";

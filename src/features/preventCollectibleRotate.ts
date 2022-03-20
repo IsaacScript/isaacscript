@@ -1,5 +1,3 @@
-/* eslint-disable sort-exports/sort-exports */
-
 // Keep specific items from being affected by the Glitched Crown, Binge Eater,
 // and the Tainted Isaac switching mechanic
 

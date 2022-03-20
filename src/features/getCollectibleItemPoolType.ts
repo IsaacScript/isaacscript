@@ -1,5 +1,3 @@
-/* eslint-disable sort-exports/sort-exports */
-
 // The item pool type of a collectible is not stored on the collectible
 // Thus, we scan for incoming item pool types in the PreGetCollectible callback,
 // and then assume that the next spawned collectible has this item pool type

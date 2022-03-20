@@ -36,5 +36,11 @@ module.exports = {
         "sort-exports/sort-exports": "off",
       },
     },
+    {
+      files: ["./src/features/*.ts"],
+      rules: {
+        "sort-exports/sort-exports": "off",
+      },
+    },
   ],
 };

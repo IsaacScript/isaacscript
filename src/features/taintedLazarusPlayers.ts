@@ -1,5 +1,3 @@
-/* eslint-disable sort-exports/sort-exports */
-
 // This feature provides a way for end-users to get the `EntityPlayer` object for the other Tainted
 // Lazarus
 

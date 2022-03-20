@@ -1,5 +1,3 @@
-/* eslint-disable sort-exports/sort-exports */
-
 // Detecting whether or not A Pony or White Pony is active is difficult with the vanilla API
 // Normally, activation will cause the player to have the respective temporary collectible effect
 // However, this effect is lost if the player enters a new room (but the effect will still be

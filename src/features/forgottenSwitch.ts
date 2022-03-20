@@ -1,5 +1,3 @@
-/* eslint-disable sort-exports/sort-exports */
-
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { saveDataManager } from "./saveDataManager/exports";
 
