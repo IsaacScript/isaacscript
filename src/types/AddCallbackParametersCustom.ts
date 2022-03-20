@@ -1,5 +1,6 @@
 import { PostBombInitLateCallbackType } from "../callbacks/subscriptions/postBombInitLate";
 import { PostBoneSwingCallbackType } from "../callbacks/subscriptions/postBoneSwing";
+import { PostCollectibleInitFirstCallbackType } from "../callbacks/subscriptions/postCollectibleInitFirst";
 import { PostCursedTeleportCallbackType } from "../callbacks/subscriptions/postCursedTeleport";
 import { PostCustomDoorEnterCallbackType } from "../callbacks/subscriptions/postCustomDoorEnter";
 import { PostCustomReviveCallbackType } from "../callbacks/subscriptions/postCustomRevive";
@@ -147,7 +148,12 @@ export interface AddCallbackParametersCustom {
 
   [ModCallbacksCustom.MC_POST_EFFECT_INIT_LATE]: [
     callback: PostEffectInitLateCallbackType,
-    effectVariant?: EffectVariant,
+    effectVariant?: EffectVariant | int,
+  ];
+
+  [ModCallbacksCustom.MC_POST_COLLECTIBLE_INIT_FIRST]: [
+    callback: PostCollectibleInitFirstCallbackType,
+    collectibleType?: CollectibleType | int,
   ];
 
   [ModCallbacksCustom.MC_POST_PICKUP_COLLECT]: [

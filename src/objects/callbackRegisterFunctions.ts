@@ -1,5 +1,6 @@
 import { postBombInitLateRegister } from "../callbacks/subscriptions/postBombInitLate";
 import { postBoneSwingRegister } from "../callbacks/subscriptions/postBoneSwing";
+import { postCollectibleInitFirstRegister } from "../callbacks/subscriptions/postCollectibleInitFirst";
 import { postCursedTeleportRegister } from "../callbacks/subscriptions/postCursedTeleport";
 import { postCustomDoorEnterRegister } from "../callbacks/subscriptions/postCustomDoorEnter";
 import { postCustomReviveRegister } from "../callbacks/subscriptions/postCustomRevive";
@@ -87,6 +88,8 @@ export const CALLBACK_REGISTER_FUNCTIONS: {
     postProjectileInitLateRegister,
   [ModCallbacksCustom.MC_POST_NPC_INIT_LATE]: postNPCInitLateRegister,
   [ModCallbacksCustom.MC_POST_EFFECT_INIT_LATE]: postEffectInitLateRegister,
+  [ModCallbacksCustom.MC_POST_COLLECTIBLE_INIT_FIRST]:
+    postCollectibleInitFirstRegister,
   [ModCallbacksCustom.MC_POST_PICKUP_COLLECT]: postPickupCollectRegister,
   [ModCallbacksCustom.MC_PRE_ITEM_PICKUP]: preItemPickupRegister,
   [ModCallbacksCustom.MC_POST_ITEM_PICKUP]: postItemPickupRegister,

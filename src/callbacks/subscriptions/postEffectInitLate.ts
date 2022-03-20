@@ -1,7 +1,7 @@
 export type PostEffectInitLateCallbackType = (effect: EntityEffect) => void;
 
 const subscriptions: Array<
-  [PostEffectInitLateCallbackType, EffectVariant | undefined]
+  [PostEffectInitLateCallbackType, EffectVariant | int | undefined]
 > = [];
 
 /** @internal */
@@ -12,7 +12,7 @@ export function postEffectInitLateHasSubscriptions(): boolean {
 /** @internal */
 export function postEffectInitLateRegister(
   callback: PostEffectInitLateCallbackType,
-  effectVariant?: EffectVariant,
+  effectVariant?: EffectVariant | int,
 ): void {
   subscriptions.push([callback, effectVariant]);
 }

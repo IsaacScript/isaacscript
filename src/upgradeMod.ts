@@ -2,6 +2,7 @@ import { customReviveCallbacksInit } from "./callbacks/customRevive";
 import { itemPickupCallbacksInit } from "./callbacks/itemPickup";
 import { postBombInitLateCallbackInit } from "./callbacks/postBombInitLate";
 import { postBoneSwingCallbackInit } from "./callbacks/postBoneSwing";
+import { postCollectibleInitFirstCallbackInit } from "./callbacks/postCollectibleInitFirst";
 import { postCursedTeleportCallbackInit } from "./callbacks/postCursedTeleport";
 import { postCustomDoorEnterCallbackInit } from "./callbacks/postCustomDoorEnter";
 import { postEffectInitLateCallbackInit } from "./callbacks/postEffectInitLate";
@@ -35,7 +36,6 @@ import { preNewLevelCallbackInit } from "./callbacks/preNewLevel";
 import { reorderedCallbacksInit } from "./callbacks/reorderedCallbacks";
 import { roomClearChangeCallbackInit } from "./callbacks/roomClearChange";
 import { ModUpgraded } from "./classes/ModUpgraded";
-import { collectiblesSeenInit } from "./features/collectiblesSeen";
 import { deployJSONRoomInit } from "./features/deployJSONRoom";
 import { disableInputsInit } from "./features/disableInputs";
 import { disableSoundsInit } from "./features/disableSound";
@@ -117,6 +117,7 @@ function initCustomCallbacks(mod: ModUpgraded) {
   postProjectileInitLateCallbackInit(mod); // 9
   postNPCInitLateCallbackInit(mod);
   postEffectInitLateCallbackInit(mod); // 1000
+  postCollectibleInitFirstCallbackInit(mod);
   postPickupCollectCallbackInit(mod);
   itemPickupCallbacksInit(mod);
   postPlayerChangeTypeCallbackInit(mod);
@@ -151,5 +152,4 @@ function initFeatures(mod: ModUpgraded) {
   isPonyActiveInit(mod);
   playerInventoryInit(mod);
   taintedLazarusPlayersInit(mod);
-  collectiblesSeenInit(mod);
 }
