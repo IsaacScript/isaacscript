@@ -41,12 +41,6 @@ function afterEachSync(params?: {
     return;
   }
 
-  /*
-  if (params.relativePath === path.sep + MAIN_LUA) {
-    monkeyPatchMainLua(modTargetPath);
-  }
-  */
-
   if (params.eventType !== "init:copy") {
     send(`${FILE_SYNCED_MESSAGE} ${params.relativePath}`);
   }

@@ -20,7 +20,6 @@ export function compileAndCopy(
   verbose: boolean,
 ): void {
   compile(verbose);
-  // monkeyPatchMainLua(modSourcePath);
   copyMod(modSourcePath, modTargetPath, verbose);
 }
 
