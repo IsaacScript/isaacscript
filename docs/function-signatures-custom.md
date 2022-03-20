@@ -224,7 +224,7 @@ function postEffectInitLate(effect: EntityEffect): void {}
 
 ### MC_POST_COLLECTIBLE_INIT_FIRST
 
-Fires from the `MC_POST_PICKUP_INIT` callback on the first time that a player has seen the respective collectible on the run.
+Fires from the `MC_POST_PICKUP_INIT` callback on the first time that a player has seen the respective collectible on the run. For more details on how this is calculated, see the documentation for the `getCollectibleIndex` helper function.
 
 This callback is useful because collectibles will despawn upon leaving the room and respawn upon re-entering the room. Additionally, when playing as Tainted Isaac, the `MC_POST_PICKUP_INIT` callback will fire every time the item shifts.
 
