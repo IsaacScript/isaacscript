@@ -181,6 +181,7 @@
         "shootleft",
         "shootright",
         "shootup",
+        "SHOTSPEED",
         "soulcharges",
         "SOULHEARTS",
         "spawngoldentrinket",

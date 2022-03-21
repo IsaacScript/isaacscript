@@ -20,6 +20,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 
 - [Array Functions](modules/functions_array.html)
 - [Bitwise Functions](modules/functions_bitwise.html)
+- [Cache Flag Functions](modules/functions_cacheFlag.html)
 - [Card Functions](modules/functions_cards.html)
 - [Challenge Functions](modules/functions_challenges.html)
 - [Charge Functions](modules/functions_charge.html)
