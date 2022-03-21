@@ -130,19 +130,22 @@ export function getCollectibleGfxFilename(
  * room, so the `PtrHash` will change. Instead, we use a 4-tuple of the room list index, the grid
  * index of the collectible in the room, the collectible's SubType, and the collectible's InitSeed.
  *
- * When collectibles are rolled (e.g. with a D6), their InitSeed changes. If you want to track
- * collectibles independently of any rerolls, then use the `PtrHash` as an index instead. (The
- * `PtrHash` will not persist between rooms, however.)
+ * Collectibles that are shifted by Tainted Isaac's mechanic will have unique collectible indexes
+ * because the SubType is different. (The collectible entities share the same InitSeed.)
+ *
+ * Collectibles that are rolled (with e.g. a D6) will have unique collectible indexes because the
+ * SubType and InitSeed are different. If you want to track collectibles independently of any
+ * rerolls, then you can use the `PtrHash` as an index instead. (The `PtrHash` will not persist
+ * between rooms, however.)
  *
  * Note that:
  * - The grid index is a necessary part of the collectible index because Diplopia and Crooked Penny
- * can cause two or more collectibles with the same sub-type and InitSeed to exist in the same room.
+ * can cause two or more collectibles with the same SubType and InitSeed to exist in the same room.
  * - This index will fail in the case where the player uses Diplopia or a successful Crooked Penny
  * seven or more times in the same room, since that will cause two or more collectibles with the
- * same grid index and InitSeed to exist.
- * - The sub-type is a necessary part of the collectible index because Tainted Isaac will
- * continuously cause collectibles to morph into new sub-types with the same InitSeed. (For the
- * purposes of this index, the "shifted" items are considered to be separate collectibles.)
+ * same grid index, SubType, and InitSeed to exist.
+ * - The SubType is a necessary part of the collectible index because Tainted Isaac will
+ * continuously cause collectibles to morph into new sub-types with the same InitSeed.
  * - Using a collectible's position as part of the index is problematic, since players can push a
  * pedestal. (Even using the grid index does not solve this problem, since it is possible in certain
  * cases for collectibles to be spawned at a position that is not aligned with the grid, and the
@@ -155,7 +158,7 @@ export function getCollectibleGfxFilename(
  * case. (Using the room list index or the room grid index is not suitable for this purpose, since
  * both of these values can change in the post-Ascent Treasure Room.) Even though there can be two
  * Treasure Rooms on an XL floor, both Treasure Rooms should not have collectibles with the same
- * InitSeed.
+ * grid index, Subtype, and InitSeed.
  */
 export function getCollectibleIndex(
   collectible: EntityPickup,
