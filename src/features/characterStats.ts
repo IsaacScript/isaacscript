@@ -1,0 +1,89 @@
+import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
+import { getDefaultPlayerStat } from "../functions/cacheFlag";
+import { addTearsStat } from "../functions/tears";
+
+const FEATURE_NAME = "character stat manager";
+
+const charactersStatMap = new Map<PlayerType | int, Map<CacheFlag, number>>();
+
+/** @internal */
+export function characterStatsInit(mod: Mod): void {
+  mod.AddCallback(ModCallbacks.MC_EVALUATE_CACHE, evaluateCache); // 8
+}
+
+// ModCallbacks.MC_EVALUATE_CACHE (8)
+function evaluateCache(player: EntityPlayer, cacheFlag: CacheFlag) {
+  const character = player.GetPlayerType();
+  const statMap = charactersStatMap.get(character);
+  if (statMap === undefined) {
+    return;
+  }
+
+  const stat = statMap.get(cacheFlag);
+  const defaultStat = getDefaultPlayerStat(cacheFlag);
+  if (stat === undefined || defaultStat === undefined) {
+    return;
+  }
+  const delta = stat - defaultStat;
+
+  switch (cacheFlag) {
+    // 1 << 0
+    case CacheFlag.CACHE_DAMAGE: {
+      player.Damage += delta;
+      return;
+    }
+
+    // 1 << 1
+    case CacheFlag.CACHE_FIREDELAY: {
+      addTearsStat(player, delta);
+      return;
+    }
+
+    // 1 << 2
+    case CacheFlag.CACHE_SHOTSPEED: {
+      player.ShotSpeed += delta;
+      break;
+    }
+
+    // 1 << 3
+    case CacheFlag.CACHE_RANGE: {
+      player.TearHeight += delta;
+      break;
+    }
+
+    // 1 << 4
+    case CacheFlag.CACHE_SPEED: {
+      player.MoveSpeed += delta;
+      break;
+    }
+
+    default: {
+      break;
+    }
+  }
+}
+
+/**
+ * Helper function to manage the stats for a vanilla or custom character. Call this function once at
+ * the beginning of your mod to declare the starting stats.
+ *
+ * You must provide this function with a map of CacheFlag to the default stat amount. For example,
+ * the default amount of damage is 3.5. To make a custom character start with 4.5 damage:
+ *
+ * ```ts
+ * const fooDefaultStats = new Map<CacheFlag, number>([
+ *   [CacheFlag.CACHE_DAMAGE, 4.5],
+ * ])
+ * registerCharacterStats(PlayerTypeCustom.FOO, fooDefaultStats);
+ * ```
+ *
+ * Note that the format for the `CacheFlag.CACHE_FIREDELAY` value should be in the tears stat
+ * format, not the `MaxFireDelay` format.
+ */
+export function registerCharacterStats(
+  playerType: PlayerType | int,
+  statMap: Map<CacheFlag, number>,
+): void {
+  errorIfFeaturesNotInitialized(FEATURE_NAME);
+  charactersStatMap.set(playerType, statMap);
+}

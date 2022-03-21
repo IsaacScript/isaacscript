@@ -75,6 +75,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [JSON Room Deployer](modules/features_deployJSONRoom.html)
 - [Run in N Frames](modules/features_runInNFrames.html)
 - [Extra Console Commands](modules/features_extraConsoleCommands_init.html) / [Command Documentation](modules/features_extraConsoleCommands_commands.html)
+- [Character Stat Manager](modules/features_characterStats.html)
 
 <br>
 

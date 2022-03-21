@@ -36,6 +36,7 @@ import { preNewLevelCallbackInit } from "./callbacks/preNewLevel";
 import { reorderedCallbacksInit } from "./callbacks/reorderedCallbacks";
 import { roomClearChangeCallbackInit } from "./callbacks/roomClearChange";
 import { ModUpgraded } from "./classes/ModUpgraded";
+import { characterStatsInit } from "./features/characterStats";
 import { deployJSONRoomInit } from "./features/deployJSONRoom";
 import { disableInputsInit } from "./features/disableInputs";
 import { disableSoundsInit } from "./features/disableSound";
@@ -156,4 +157,5 @@ function initFeatures(mod: ModUpgraded) {
   taintedLazarusPlayersInit(mod);
   fastResetInit(mod);
   fadeInRemoverInit(mod);
+  characterStatsInit(mod);
 }
