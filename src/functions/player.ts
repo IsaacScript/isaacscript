@@ -17,7 +17,7 @@ import { getLastElement, sumArray } from "./array";
 import { countSetBits, getKBitOfN, getNumBitsOfN } from "./bitwise";
 import { getCollectibleMaxCharges } from "./collectibles";
 import { getCollectibleSet } from "./collectibleSet";
-import { ensureAllCases, repeat } from "./utils";
+import { ensureAllCases, getEnumValues, repeat } from "./utils";
 
 const DEFAULT_COLLECTIBLE_TYPE = CollectibleType.COLLECTIBLE_SAD_ONION;
 
@@ -137,6 +137,21 @@ export function characterGetsBlackHeartFromEternalHeart(
   character: PlayerType | int,
 ): boolean {
   return CHARACTERS_WITH_BLACK_HEART_FROM_ETERNAL_HEART.has(character);
+}
+
+/**
+ * Helper function to find the active slot that the player has the corresponding collectible type
+ * in. Returns undefined if the player does not have the collectible in any active slot.
+ */
+export function getActiveItemSlot(
+  player: EntityPlayer,
+  collectibleType: CollectibleType | int,
+): ActiveSlot | undefined {
+  const activeSlots = getEnumValues(ActiveSlot);
+  return activeSlots.find((activeSlot) => {
+    const activeItem = player.GetActiveItem(activeSlot);
+    return activeItem === collectibleType;
+  });
 }
 
 /**
