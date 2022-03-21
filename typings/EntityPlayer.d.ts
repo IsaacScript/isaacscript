@@ -951,7 +951,7 @@ declare interface EntityPlayer extends Entity {
    * @param keepInPools If true, the item will not be removed from the item pools. Default is false.
    */
   SetPocketActiveItem(
-    collectibleType: CollectibleType,
+    collectibleType: CollectibleType | int,
     slot?: ActiveSlot,
     keepInPools?: boolean,
   ): void;
