@@ -39,6 +39,7 @@ import { ModUpgraded } from "./classes/ModUpgraded";
 import { deployJSONRoomInit } from "./features/deployJSONRoom";
 import { disableInputsInit } from "./features/disableInputs";
 import { disableSoundsInit } from "./features/disableSound";
+import { fadeInRemoverInit } from "./features/fadeInRemover";
 import { fastResetInit } from "./features/fastReset";
 import { forgottenSwitchInit } from "./features/forgottenSwitch";
 import { getCollectibleItemPoolTypeInit } from "./features/getCollectibleItemPoolType";
@@ -154,4 +155,5 @@ function initFeatures(mod: ModUpgraded) {
   playerInventoryInit(mod);
   taintedLazarusPlayersInit(mod);
   fastResetInit(mod);
+  fadeInRemoverInit(mod);
 }

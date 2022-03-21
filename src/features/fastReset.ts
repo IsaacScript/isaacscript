@@ -16,7 +16,7 @@ export function fastResetInit(mod: Mod): void {
 }
 
 // ModCallbacks.MC_POST_RENDER (2)
-export function postRender(): void {
+function postRender() {
   if (!enabled) {
     return;
   }
@@ -62,7 +62,8 @@ function checkResetInput() {
 }
 
 /**
- * Enables the fast-reset feature, which allows you to restart the game instantaneously.
+ * Enables the fast-reset feature, which allows you to restart the game instantaneously. If this
+ * behavior is desired, call this function once at the beginning of your mod.
  *
  * This is useful for debugging, when you are resetting the game often.
  *
