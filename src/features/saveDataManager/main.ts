@@ -6,7 +6,6 @@ import { ModCallbacksCustom } from "../../enums/ModCallbacksCustom";
 import { SaveDataKeys } from "../../enums/private/SaveDataKeys";
 import { SerializationType } from "../../enums/SerializationType";
 import { deepCopy } from "../../functions/deepCopy";
-import { log } from "../../functions/log";
 import { clearTable } from "../../functions/table";
 import { SAVE_DATA_MANAGER_FEATURE_NAME } from "./constants";
 import { loadFromDisk } from "./load";
@@ -100,8 +99,6 @@ function restoreDefaults(childTableName: SaveDataKeys) {
   ) {
     error(`Unknown child table name of: ${childTableName}`);
   }
-
-  log(`Resetting data for type: ${childTableName}`);
 
   for (const [subscriberName, saveData] of pairs(saveDataMap)) {
     const childTable = saveData[childTableName];
