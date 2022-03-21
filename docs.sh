@@ -18,16 +18,19 @@ npx typedoc \
   --entryPoints "$DIR/src/features/deployJSONRoom.ts" \
   --entryPoints "$DIR/src/features/disableInputs.ts" \
   --entryPoints "$DIR/src/features/disableSound.ts" \
+  --entryPoints "$DIR/src/features/fadeInRemover.ts" \
+  --entryPoints "$DIR/src/features/fastReset.ts" \
   --entryPoints "$DIR/src/features/extraConsoleCommands/init.ts" \
   --entryPoints "$DIR/src/features/extraConsoleCommands/commands.ts" \
   --entryPoints "$DIR/src/features/forgottenSwitch.ts" \
   --entryPoints "$DIR/src/features/getCollectibleItemPoolType.ts" \
-  --entryPoints "$DIR/src/features/getPlayerInventory.ts" \
   --entryPoints "$DIR/src/features/isPonyActive.ts" \
+  --entryPoints "$DIR/src/features/playerInventory.ts" \
   --entryPoints "$DIR/src/features/preventCollectibleRotate.ts" \
   --entryPoints "$DIR/src/features/runInNFrames.ts" \
   --entryPoints "$DIR/src/features/saveDataManager/exports.ts" \
   --entryPoints "$DIR/src/features/sirenHelpers.ts" \
+  --entryPoints "$DIR/src/features/taintedLazarusPlayers.ts" \
   --entryPoints "$DIR/src/functions/array.ts" \
   --entryPoints "$DIR/src/functions/bitwise.ts" \
   --entryPoints "$DIR/src/functions/cards.ts" \

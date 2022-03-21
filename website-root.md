@@ -68,23 +68,29 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 
 <br>
 
-## Optional Features
+## Optional Features - Major
 
-- [Cached Classes](modules/cachedClasses.html)
 - [Save Data Manager](modules/features_saveDataManager_exports.html)
 - [JSON Room Deployer](modules/features_deployJSONRoom.html)
 - [Run in N Frames](modules/features_runInNFrames.html)
-- [Input Disabler](modules/features_disableInputs.html)
-- [Sound Disabler](modules/features_disableSound.html)
-- [Player Inventory Tracker](modules/features_playerInventory.html)
 - [Extra Console Commands](modules/features_extraConsoleCommands_init.html) / [Command Documentation](modules/features_extraConsoleCommands_commands.html)
-- [Get Collectible Item Pool Type](modules/features_getCollectibleItemPoolType.html)
-- [Prevent Collectible Rotate](modules/features_preventCollectibleRotate.html)
-- [Forgotten Switcher](modules/features_forgottenSwitch.html)
-- [Siren Boss Functions](modules/features_sirenHelpers.html)
-- [Pony Detection Functions](modules/features_isPonyActive.html)
 
 <br>
+
+## Optional Features - Minor
+
+- [Cached Classes](modules/cachedClasses.html)
+- [Input Disabler](modules/features_disableInputs.html)
+- [Sound Disabler](modules/features_disableSound.html)
+- [Fade-In Remover](modules/features_fadeInRemover.html)
+- [Fast-Reset](modules/features_fastReset.html)
+- [Forgotten Switcher](modules/features_forgottenSwitch.html)
+- [Get Collectible Item Pool Type](modules/features_getCollectibleItemPoolType.html)
+- [Pony Detection Functions](modules/features_isPonyActive.html)
+- [Player Inventory Tracker](modules/features_playerInventory.html)
+- [Prevent Collectible Rotate](modules/features_preventCollectibleRotate.html)
+- [Siren Boss Functions](modules/features_sirenHelpers.html)
+- [Tainted Lazarus Functions](modules/features_taintedLazarusPlayers.html)
 
 ## Extra Data Structures
 
