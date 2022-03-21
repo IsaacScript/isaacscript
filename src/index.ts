@@ -39,6 +39,7 @@ export {
   enableExtraConsoleCommands,
   removeConsoleCommand,
 } from "./features/extraConsoleCommands/init";
+export { disableFastReset, enableFastReset } from "./features/fastReset";
 export { forgottenSwitch } from "./features/forgottenSwitch";
 export { getCollectibleItemPoolType } from "./features/getCollectibleItemPoolType";
 export * from "./features/isPonyActive";
