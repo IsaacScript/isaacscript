@@ -127,8 +127,8 @@ export function getCollectibleGfxFilename(
 /**
  * Mods often have to track variables relating to a collectible. Finding an index for these kinds of
  * data structures is difficult, since collectibles are respawned every time a player re-enters a
- * room, so the `PtrHash` will change. Instead, we use a 3-tuple of the room list index, the grid
- * index of the collectible in the room, and the collectible's InitSeed.
+ * room, so the `PtrHash` will change. Instead, we use a 4-tuple of the room list index, the grid
+ * index of the collectible in the room, the collectible's SubType, and the collectible's InitSeed.
  *
  * When collectibles are rolled (e.g. with a D6), their InitSeed changes. If you want to track
  * collectibles independently of any rerolls, then use the `PtrHash` as an index instead. (The
@@ -140,6 +140,9 @@ export function getCollectibleGfxFilename(
  * - This index will fail in the case where the player uses Diplopia or a successful Crooked Penny
  * seven or more times in the same room, since that will cause two or more collectibles with the
  * same grid index and InitSeed to exist.
+ * - The sub-type is a necessary part of the collectible index because Tainted Isaac will
+ * continuously cause collectibles to morph into new sub-types with the same InitSeed. (For the
+ * purposes of this index, the "shifted" items are considered to be separate collectibles.)
  * - Using a collectible's position as part of the index is problematic, since players can push a
  * pedestal. (Even using the grid index does not solve this problem, since it is possible in certain
  * cases for collectibles to be spawned at a position that is not aligned with the grid, and the
@@ -148,9 +151,9 @@ export function getCollectibleGfxFilename(
  * different InitSeeds, so this is not a problem for this indexing scheme.
  * - The indexing scheme used is different for collectibles that are inside of a Treasure Room, in
  * order to handle the case of the player seeing the same collectible again in a post-Ascent
- * Treasure Room. An 4-tuple of stage, stage type, grid index, and InitSeed is used in this case.
- * (Using the room list index or the room grid index is not suitable for this purpose, since both
- * of these values can change in the post-Ascent Treasure Room.) Even though there can be two
+ * Treasure Room. A 5-tuple of stage, stage type, grid index, SubType, and InitSeed is used in this
+ * case. (Using the room list index or the room grid index is not suitable for this purpose, since
+ * both of these values can change in the post-Ascent Treasure Room.) Even though there can be two
  * Treasure Rooms on an XL floor, both Treasure Rooms should not have collectibles with the same
  * InitSeed.
  */
@@ -173,10 +176,10 @@ export function getCollectibleIndex(
 
   // Handle the special case of being in a Treasure Room
   if (roomType === RoomType.ROOM_TREASURE) {
-    return `${stage},${stageType},${gridIndex},${collectible.InitSeed}` as CollectibleIndex;
+    return `${stage},${stageType},${gridIndex},${collectible.SubType},${collectible.InitSeed}` as CollectibleIndex;
   }
 
-  return `${roomListIndex},${gridIndex},${collectible.InitSeed}` as CollectibleIndex;
+  return `${roomListIndex},${gridIndex},${collectible.SubType},${collectible.InitSeed}` as CollectibleIndex;
 }
 
 /**
