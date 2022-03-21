@@ -39,6 +39,7 @@ import { ModUpgraded } from "./classes/ModUpgraded";
 import { deployJSONRoomInit } from "./features/deployJSONRoom";
 import { disableInputsInit } from "./features/disableInputs";
 import { disableSoundsInit } from "./features/disableSound";
+import { fastResetInit } from "./features/fastReset";
 import { forgottenSwitchInit } from "./features/forgottenSwitch";
 import { getCollectibleItemPoolTypeInit } from "./features/getCollectibleItemPoolType";
 import { isPonyActiveInit } from "./features/isPonyActive";
@@ -152,4 +153,5 @@ function initFeatures(mod: ModUpgraded) {
   isPonyActiveInit(mod);
   playerInventoryInit(mod);
   taintedLazarusPlayersInit(mod);
+  fastResetInit(mod);
 }
