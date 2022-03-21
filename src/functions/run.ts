@@ -25,7 +25,7 @@ export function restart(character?: PlayerType | int): void {
     return;
   }
 
-  if (character < 0 || character >= PlayerType.NUM_PLAYER_TYPES) {
+  if (character < 0) {
     error(`Restarting as a character of ${character} would crash the game.`);
   }
 
