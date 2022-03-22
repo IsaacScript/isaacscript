@@ -88,9 +88,9 @@ export const MAX_ROOM_INDEX = 168;
  */
 export const MAX_SPEED_STAT = 2.0;
 
-export const MAX_VANILLA_CHARACTER = PlayerType.PLAYER_THESOUL_B;
+export const MAX_VANILLA_CHARACTER = PlayerType.NUM_PLAYER_TYPES - 1;
 export const MAX_VANILLA_COLLECTIBLE_TYPE =
-  CollectibleType.COLLECTIBLE_MOMS_RING;
+  CollectibleType.NUM_COLLECTIBLES - 1;
 
 export const NUM_DIMENSIONS = 3;
 
@@ -114,34 +114,6 @@ export const PILL_COLOR_MASK = 2047;
  * 1 << 11
  */
 export const PILL_GIANT_FLAG = 2048;
-
-export const SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES: ReadonlySet<CollectibleType> =
-  new Set([
-    CollectibleType.COLLECTIBLE_FORGET_ME_NOW, // 127
-    CollectibleType.COLLECTIBLE_EDENS_SOUL, // 490
-    CollectibleType.COLLECTIBLE_ALABASTER_BOX, // 585
-    CollectibleType.COLLECTIBLE_PLAN_C, // 475
-    CollectibleType.COLLECTIBLE_MAMA_MEGA, // 483
-    CollectibleType.COLLECTIBLE_SACRIFICIAL_ALTAR, // 536
-    CollectibleType.COLLECTIBLE_DEATH_CERTIFICATE, // 628
-    CollectibleType.COLLECTIBLE_R_KEY, // 636
-  ]);
-
-export const STORY_BOSSES: ReadonlySet<EntityType> = new Set([
-  EntityType.ENTITY_MOM, // 45
-  EntityType.ENTITY_MOMS_HEART, // 78
-  EntityType.ENTITY_SATAN, // 84
-  EntityType.ENTITY_ISAAC, // 102
-  EntityType.ENTITY_THE_LAMB, // 273
-  EntityType.ENTITY_MEGA_SATAN, // 274
-  EntityType.ENTITY_MEGA_SATAN_2, // 275
-  EntityType.ENTITY_ULTRA_GREED, // 406
-  EntityType.ENTITY_HUSH, // 407
-  EntityType.ENTITY_DELIRIUM, // 412
-  EntityType.ENTITY_MOTHER, // 912
-  EntityType.ENTITY_DOGMA, // 950
-  EntityType.ENTITY_BEAST, // 951
-]);
 
 /**
  * Add this to a `TrinketType` to get the corresponding golden trinket type.

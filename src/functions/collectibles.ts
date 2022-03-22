@@ -1,8 +1,5 @@
 import { game, itemConfig } from "../cachedClasses";
-import {
-  BLIND_ITEM_PNG_PATH,
-  SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES,
-} from "../constants";
+import { BLIND_ITEM_PNG_PATH } from "../constants";
 import { CollectiblePedestalType } from "../enums/CollectiblePedestalType";
 import {
   COLLECTIBLE_DESCRIPTION_MAP,
@@ -12,6 +9,7 @@ import {
   COLLECTIBLE_NAME_MAP,
   DEFAULT_COLLECTIBLE_NAME,
 } from "../maps/collectibleNameMap";
+import { SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES_SET } from "../sets/singleUseActiveCollectibleTypesSet";
 import { CollectibleIndex } from "../types/CollectibleIndex";
 import { hasFlag } from "./flag";
 import { getPickups, removeAllPickups } from "./pickups";
@@ -348,7 +346,7 @@ export function isQuestCollectible(
 export function isSingleUseCollectible(
   collectibleType: CollectibleType | int,
 ): boolean {
-  return SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES.has(collectibleType);
+  return SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES_SET.has(collectibleType);
 }
 
 /**

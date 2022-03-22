@@ -1,5 +1,5 @@
 import { game } from "../cachedClasses";
-import { STORY_BOSSES } from "../constants";
+import { STORY_BOSSES_SET } from "../sets/storyBossesSet";
 import { AnyEntity } from "../types/AnyEntity";
 import { getRandom, nextSeed } from "./random";
 import { repeat } from "./utils";
@@ -150,7 +150,7 @@ export function isEntityMoving(entity: Entity, threshold = 0.01): boolean {
  * to non-story bosses, like Vanishing Twin. Also see the `STORY_BOSSES` constant.
  */
 export function isStoryBoss(entity: Entity): boolean {
-  return STORY_BOSSES.has(entity.Type);
+  return STORY_BOSSES_SET.has(entity.Type);
 }
 
 /**
