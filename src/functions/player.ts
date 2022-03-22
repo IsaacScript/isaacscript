@@ -192,20 +192,6 @@ export function getAzazelBrimstoneDistance(
 }
 
 /**
- * Returns the number of black hearts that the player has, excluding any soul hearts. For example,
- * if the player has one full black heart, one full soul heart, and one half black heart, this
- * function returns 3.
- *
- * This is different from the `EntityPlayer.GetBlackHearts` method, since that returns a bitmask.
- */
-export function getBlackHearts(player: EntityPlayer): int {
-  const blackHeartsBitmask = player.GetBlackHearts();
-  const blackHeartBits = countSetBits(blackHeartsBitmask);
-
-  return blackHeartBits * 2;
-}
-
-/**
  * Returns the maximum heart containers that the provided character can have. Normally, this is 12,
  * but with Keeper it is 3, and with Tainted Keeper it is 2. This does not account for Birthright or
  * Mother's Kiss; use the `getPlayerMaxHeartContainers` helper function for that.
@@ -319,79 +305,6 @@ export function getFinalPlayer(): EntityPlayer {
 }
 
 /**
- * Returns the number of red hearts that the player has, excluding any rotten hearts. For example,
- * if the player has one full black heart, one full soul heart, and one half black heart, this
- * function returns 3.
- *
- * This is different from the `EntityPlayer.GetHearts` method, since that returns a value that
- * includes rotten hearts.
- */
-export function getHearts(player: EntityPlayer): int {
-  const rottenHearts = player.GetRottenHearts();
-  const hearts = player.GetHearts();
-
-  return hearts - rottenHearts * 2;
-}
-
-/**
- * Helper function that returns the type of the rightmost heart. This does not including golden
- * hearts or broken hearts, since they cannot be damaged directly.
- */
-export function getLastHeart(player: EntityPlayer): HealthType {
-  const hearts = player.GetHearts();
-  const effectiveMaxHearts = player.GetEffectiveMaxHearts();
-  const soulHearts = player.GetSoulHearts();
-  const blackHearts = player.GetBlackHearts();
-  const eternalHearts = player.GetEternalHearts();
-  const boneHearts = player.GetBoneHearts();
-  const rottenHearts = player.GetRottenHearts();
-
-  const soulHeartSlots = soulHearts / 2;
-  const lastHeartIndex = boneHearts + soulHeartSlots - 1;
-  const isLastHeartBone = player.IsBoneHeart(lastHeartIndex);
-
-  if (isLastHeartBone) {
-    const isLastContainerEmpty = hearts <= effectiveMaxHearts - 2;
-    if (isLastContainerEmpty) {
-      return HealthType.BONE;
-    }
-
-    if (rottenHearts > 0) {
-      return HealthType.ROTTEN;
-    }
-
-    if (eternalHearts > 0) {
-      return HealthType.ETERNAL;
-    }
-
-    return HealthType.RED;
-  }
-
-  if (soulHearts > 0) {
-    const numBits = getNumBitsOfN(blackHearts);
-    const finalBit = getKBitOfN(numBits - 1, blackHearts);
-    const isBlack = finalBit === 1;
-
-    if (isBlack) {
-      return HealthType.BLACK;
-    }
-
-    // If it is not a black heart, it must be a soul heart
-    return HealthType.SOUL;
-  }
-
-  if (eternalHearts > 0) {
-    return HealthType.ETERNAL;
-  }
-
-  if (rottenHearts > 0) {
-    return HealthType.ROTTEN;
-  }
-
-  return HealthType.RED;
-}
-
-/**
  * Helper function to get the first player with the lowest frame count. Useful to find a freshly
  * spawned player after using items like Esau Jr. Don't use this function if two or more players
  * will be spawned on the same frame.
@@ -433,6 +346,20 @@ export function getPlayerAvailableHeartSlots(player: EntityPlayer): int {
 }
 
 /**
+ * Returns the number of black hearts that the player has, excluding any soul hearts. For example,
+ * if the player has one full black heart, one full soul heart, and one half black heart, this
+ * function returns 3.
+ *
+ * This is different from the `EntityPlayer.GetBlackHearts` method, since that returns a bitmask.
+ */
+export function getPlayerBlackHearts(player: EntityPlayer): int {
+  const blackHeartsBitmask = player.GetBlackHearts();
+  const blackHeartBits = countSetBits(blackHeartsBitmask);
+
+  return blackHeartBits * 2;
+}
+
+/**
  * Iterates over all players and checks if any are close enough to the specified position.
  *
  * @returns The first player found when iterating upwards from index 0.
@@ -471,6 +398,21 @@ export function getPlayerFromIndex(
 ): EntityPlayer | undefined {
   const players = getPlayers();
   return players.find((player) => getPlayerIndex(player) === playerIndex);
+}
+
+/**
+ * Returns the number of red hearts that the player has, excluding any rotten hearts. For example,
+ * if the player has one full black heart, one full soul heart, and one half black heart, this
+ * function returns 3.
+ *
+ * This is different from the `EntityPlayer.GetHearts` method, since that returns a value that
+ * includes rotten hearts.
+ */
+export function getPlayerHearts(player: EntityPlayer): int {
+  const rottenHearts = player.GetRottenHearts();
+  const hearts = player.GetHearts();
+
+  return hearts - rottenHearts * 2;
 }
 
 /**
@@ -581,6 +523,64 @@ export function getPlayerIndexVanilla(
 }
 
 /**
+ * Helper function that returns the type of the rightmost heart. This does not including golden
+ * hearts or broken hearts, since they cannot be damaged directly.
+ */
+export function getPlayerLastHeart(player: EntityPlayer): HealthType {
+  const hearts = player.GetHearts();
+  const effectiveMaxHearts = player.GetEffectiveMaxHearts();
+  const soulHearts = player.GetSoulHearts();
+  const blackHearts = player.GetBlackHearts();
+  const eternalHearts = player.GetEternalHearts();
+  const boneHearts = player.GetBoneHearts();
+  const rottenHearts = player.GetRottenHearts();
+
+  const soulHeartSlots = soulHearts / 2;
+  const lastHeartIndex = boneHearts + soulHeartSlots - 1;
+  const isLastHeartBone = player.IsBoneHeart(lastHeartIndex);
+
+  if (isLastHeartBone) {
+    const isLastContainerEmpty = hearts <= effectiveMaxHearts - 2;
+    if (isLastContainerEmpty) {
+      return HealthType.BONE;
+    }
+
+    if (rottenHearts > 0) {
+      return HealthType.ROTTEN;
+    }
+
+    if (eternalHearts > 0) {
+      return HealthType.ETERNAL;
+    }
+
+    return HealthType.RED;
+  }
+
+  if (soulHearts > 0) {
+    const numBits = getNumBitsOfN(blackHearts);
+    const finalBit = getKBitOfN(numBits - 1, blackHearts);
+    const isBlack = finalBit === 1;
+
+    if (isBlack) {
+      return HealthType.BLACK;
+    }
+
+    // If it is not a black heart, it must be a soul heart
+    return HealthType.SOUL;
+  }
+
+  if (eternalHearts > 0) {
+    return HealthType.ETERNAL;
+  }
+
+  if (rottenHearts > 0) {
+    return HealthType.ROTTEN;
+  }
+
+  return HealthType.RED;
+}
+
+/**
  * Returns the maximum heart containers that the provided player can have. Normally, this is 12, but
  * it can change depending on the character (e.g. Keeper) and other things (e.g. Mother's Kiss).
  * This function does not account for Broken Hearts; use the `getPlayerAvailableHeartSlots` helper
@@ -659,6 +659,21 @@ export function getPlayerNumHitsRemaining(player: EntityPlayer): int {
 }
 
 /**
+ * Returns the number of soul hearts that the player has, excluding any black hearts. For example,
+ * if the player has one full black heart, one full soul heart, and one half black heart, this
+ * function returns 2.
+ *
+ * This is different from the `EntityPlayer.GetSoulHearts` method, since that returns the combined
+ * number of soul hearts and black hearts.
+ */
+export function getPlayerSoulHearts(player: EntityPlayer): int {
+  const soulHearts = player.GetSoulHearts();
+  const blackHearts = getPlayerBlackHearts(player);
+
+  return soulHearts - blackHearts;
+}
+
+/**
  * This function always excludes players with a non-undefined parent, since they are not real
  * players. (e.g. the Strawman Keeper)
  *
@@ -710,21 +725,6 @@ export function getPlayersWithCollectible(
       player.HasCollectible(collectibleType),
     ),
   );
-}
-
-/**
- * Returns the number of soul hearts that the player has, excluding any black hearts. For example,
- * if the player has one full black heart, one full soul heart, and one half black heart, this
- * function returns 2.
- *
- * This is different from the `EntityPlayer.GetSoulHearts` method, since that returns the combined
- * number of soul hearts and black hearts.
- */
-export function getSoulHearts(player: EntityPlayer): int {
-  const soulHearts = player.GetSoulHearts();
-  const blackHearts = getBlackHearts(player);
-
-  return soulHearts - blackHearts;
 }
 
 /**

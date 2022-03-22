@@ -5,7 +5,11 @@
 import { MAX_PLAYER_HEART_CONTAINERS } from "../constants";
 import { HealthType } from "../enums/HealthType";
 import { PlayerHealth } from "../types/PlayerHealth";
-import { getBlackHearts, getHearts, getSoulHearts } from "./player";
+import {
+  getPlayerBlackHearts,
+  getPlayerHearts,
+  getPlayerSoulHearts,
+} from "./player";
 import { ensureAllCases, repeat } from "./utils";
 
 export function addPlayerHealthType(
@@ -76,7 +80,7 @@ export function getPlayerHealth(player: EntityPlayer): PlayerHealth {
   const character = player.GetPlayerType();
   const soulHeartTypes: HeartSubType[] = [];
   let maxHearts = player.GetMaxHearts();
-  let hearts = getHearts(player); // We use the helper function to remove rotten hearts
+  let hearts = getPlayerHearts(player); // We use the helper function to remove rotten hearts
   let soulHearts = player.GetSoulHearts();
   let boneHearts = player.GetBoneHearts();
   const goldenHearts = player.GetGoldenHearts();
@@ -168,14 +172,14 @@ export function getPlayerHealthType(
     case HealthType.RED: {
       // We use the standard library helper function since the "EntityPlayer.GetHearts" method
       // returns a value that includes rotten hearts
-      return getHearts(player);
+      return getPlayerHearts(player);
     }
 
     // 5.10.3
     case HealthType.SOUL: {
       // We use the standard library helper function since the "EntityPlayer.GetSoulHearts" method
       // returns a value that includes black hearts
-      return getSoulHearts(player);
+      return getPlayerSoulHearts(player);
     }
 
     // 5.10.4
@@ -187,7 +191,7 @@ export function getPlayerHealthType(
     case HealthType.BLACK: {
       // We use the standard library helper function since the "EntityPlayer.GetBlackHearts" method
       // returns a bit mask
-      return getBlackHearts(player);
+      return getPlayerBlackHearts(player);
     }
 
     // 5.10.7

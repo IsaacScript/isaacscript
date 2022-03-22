@@ -2,10 +2,6 @@ import { CHEST_PICKUP_VARIANTS } from "../constants";
 import { RED_HEART_SUB_TYPES_SET } from "../sets/redHeartSubTypesSet";
 import { getEntities, removeEntities } from "./entity";
 
-export function getBombs(matchingSubType = -1): EntityPickup[] {
-  return getPickups(PickupVariant.PICKUP_BOMB, matchingSubType);
-}
-
 export function getCoins(matchingSubType = -1): EntityPickup[] {
   return getPickups(PickupVariant.PICKUP_COIN, matchingSubType);
 }
