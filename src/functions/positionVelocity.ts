@@ -2,7 +2,8 @@ import { game } from "../cachedClasses";
 import { DISTANCE_OF_GRID_TILE } from "../constants";
 import { getEntities } from "./entity";
 import { getEffects } from "./entitySpecific";
-import { getPlayerCloserThan, getPlayers } from "./player";
+import { getPlayerCloserThan } from "./player";
+import { getPlayers } from "./playerIndex";
 
 const MAX_FIND_FREE_POSITION_ATTEMPTS = 100;
 

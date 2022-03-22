@@ -23,6 +23,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Cache Flag Functions](modules/functions_cacheFlag.html)
 - [Card Functions](modules/functions_cards.html)
 - [Challenge Functions](modules/functions_challenges.html)
+- [Character Functions](modules/functions_character.html)
 - [Charge Functions](modules/functions_charge.html)
 - [Collectible Functions](modules/functions_collectibles.html) & [Spawn Collectible Functions](modules/functions_spawnCollectible.html) & [Collectible Set Functions](modules/functions_collectibleSet.html) & [Collectible Cache Flag Functions](modules/functions_collectibleCacheFlag.html)
 - [Color Functions](modules/functions_color.html)

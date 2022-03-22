@@ -36,6 +36,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/bitwise.ts" \
   --entryPoints "$DIR/src/functions/cacheFlag.ts" \
   --entryPoints "$DIR/src/functions/cards.ts" \
+  --entryPoints "$DIR/src/functions/character.ts" \
   --entryPoints "$DIR/src/functions/charge.ts" \
   --entryPoints "$DIR/src/functions/collectibles.ts" \
   --entryPoints "$DIR/src/functions/collectibleSet.ts" \

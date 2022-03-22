@@ -6,7 +6,7 @@ import { saveDataManager } from "../features/saveDataManager/exports";
 import { removeCollectibleFromItemTracker } from "../functions/collectibles";
 import { removeAllFamiliars } from "../functions/familiars";
 import { log } from "../functions/log";
-import { getPlayerFromIndex, getPlayerIndex } from "../functions/player";
+import { getPlayerFromIndex, getPlayerIndex } from "../functions/playerIndex";
 import { PlayerIndex } from "../types/PlayerIndex";
 import {
   postCustomReviveFire,

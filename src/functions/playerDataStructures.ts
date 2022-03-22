@@ -1,6 +1,6 @@
 import { DefaultMap } from "../classes/DefaultMap";
 import { PlayerIndex } from "../types/PlayerIndex";
-import { getPlayerIndex } from "./player";
+import { getPlayerIndex } from "./playerIndex";
 
 /**
  * Helper function to make using default maps with an index of `PlayerIndex` easier. Use this

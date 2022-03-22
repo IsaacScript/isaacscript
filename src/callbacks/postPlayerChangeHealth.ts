@@ -3,8 +3,8 @@ import { ModUpgraded } from "../classes/ModUpgraded";
 import { HealthType } from "../enums/HealthType";
 import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { getPlayerIndex } from "../functions/player";
 import { getPlayerHealthType } from "../functions/playerHealth";
+import { getPlayerIndex } from "../functions/playerIndex";
 import { getEnumValues } from "../functions/utils";
 import { PlayerIndex } from "../types/PlayerIndex";
 import {

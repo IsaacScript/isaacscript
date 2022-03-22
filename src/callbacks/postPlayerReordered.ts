@@ -1,6 +1,6 @@
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { emptyArray } from "../functions/array";
-import { getPlayerFromIndex, getPlayerIndex } from "../functions/player";
+import { getPlayerFromIndex, getPlayerIndex } from "../functions/playerIndex";
 import { PlayerIndex } from "../types/PlayerIndex";
 import {
   postPEffectUpdateReorderedFire,

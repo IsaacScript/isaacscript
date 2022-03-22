@@ -1,6 +1,6 @@
 import { game, sfxManager } from "../cachedClasses";
 import { getCollectibleMaxCharges } from "./collectibles";
-import { getPlayers } from "./player";
+import { getPlayers } from "./playerIndex";
 
 /**
  * Helper function to add a charge to a player's active item, emulating what happens when a room is

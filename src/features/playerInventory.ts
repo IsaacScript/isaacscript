@@ -5,7 +5,7 @@ import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { arrayRemoveInPlace, copyArray } from "../functions/array";
 import { isActiveCollectible } from "../functions/collectibles";
 import { getCollectibleSet } from "../functions/collectibleSet";
-import { getAllPlayers, getPlayerIndex } from "../functions/player";
+import { getAllPlayers, getPlayerIndex } from "../functions/playerIndex";
 import { repeat } from "../functions/utils";
 import { PickingUpItem } from "../types/PickingUpItem";
 import { PlayerIndex } from "../types/PlayerIndex";

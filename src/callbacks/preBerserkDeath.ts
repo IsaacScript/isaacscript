@@ -1,6 +1,7 @@
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
-import { getPlayerNumHitsRemaining, isChildPlayer } from "../functions/player";
+import { getPlayerNumHitsRemaining } from "../functions/player";
+import { isChildPlayer } from "../functions/playerIndex";
 import { willPlayerRevive } from "../functions/revive";
 import {
   preBerserkDeathFire,

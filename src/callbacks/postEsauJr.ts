@@ -2,7 +2,7 @@
 
 import { game } from "../cachedClasses";
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { getPlayers } from "../functions/player";
+import { getPlayers } from "../functions/playerIndex";
 import {
   postEsauJrFire,
   postEsauJrHasSubscriptions,

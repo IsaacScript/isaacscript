@@ -64,6 +64,7 @@ export * from "./functions/bitwise";
 export * from "./functions/cacheFlag";
 export * from "./functions/cards";
 export * from "./functions/challenges";
+export * from "./functions/character";
 export * from "./functions/charge";
 export * from "./functions/collectibleCacheFlag";
 export * from "./functions/collectibles";

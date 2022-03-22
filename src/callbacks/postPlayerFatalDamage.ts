@@ -1,7 +1,7 @@
 import { game } from "../cachedClasses";
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { isChildPlayer } from "../functions/player";
 import { mapGetPlayer, mapSetPlayer } from "../functions/playerDataStructures";
+import { isChildPlayer } from "../functions/playerIndex";
 import { isDamageToPlayerFatal, willPlayerRevive } from "../functions/revive";
 import { PlayerIndex } from "../types/PlayerIndex";
 import {

@@ -2,6 +2,7 @@ import { game, sfxManager } from "../../cachedClasses";
 import { PILL_GIANT_FLAG, TRINKET_GOLDEN_FLAG } from "../../constants";
 import { HealthType } from "../../enums/HealthType";
 import { getCardName } from "../../functions/cards";
+import { getCharacterName } from "../../functions/character";
 import { spawnGridEntityWithVariant } from "../../functions/gridEntity";
 import {
   logEntities,
@@ -14,12 +15,9 @@ import {
 import { getMapPartialMatch } from "../../functions/map";
 import { getNPCs } from "../../functions/npc";
 import { getPillEffectName } from "../../functions/pills";
-import {
-  getCharacterName,
-  getPlayers,
-  useActiveItemTemp,
-} from "../../functions/player";
+import { useActiveItemTemp } from "../../functions/player";
 import { addPlayerHealthType } from "../../functions/playerHealth";
+import { getPlayers } from "../../functions/playerIndex";
 import { getRoomData } from "../../functions/roomData";
 import {
   changeRoom,
