@@ -331,7 +331,7 @@ declare enum TearFlags {
   TEAR_GROW = 1 << 7,
 
   /**
-   * Returns backwards after travelling for a little while. Used by My Reflection.
+   * Returns backwards after traveling for a little while. Used by My Reflection.
    *
    * 1 << 8
    */
