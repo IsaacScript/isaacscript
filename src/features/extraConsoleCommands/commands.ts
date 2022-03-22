@@ -1122,10 +1122,7 @@ export function speed(): void {
 
   v.run.maxSpeed = !v.run.maxSpeed;
 
-  if (
-    v.run.maxSpeed &&
-    !player.HasCollectible(CollectibleType.COLLECTIBLE_FATE)
-  ) {
+  if (v.run.maxSpeed && !player.CanFly) {
     const numEternalHearts = player.GetEternalHearts();
     if (numEternalHearts === 0) {
       player.AddCollectible(CollectibleType.COLLECTIBLE_FATE);
