@@ -1,5 +1,5 @@
 import { game } from "../cachedClasses";
-import { FAMILIARS_THAT_SHOOT_PLAYER_TEARS } from "../constants";
+import { FAMILIARS_THAT_SHOOT_PLAYER_TEARS_SET } from "../sets/familiarsThatShootPlayerTearsSet";
 import { copyArray } from "./array";
 import { getEntities, removeEntities } from "./entity";
 import { repeat } from "./utils";
@@ -167,7 +167,7 @@ export function getFamiliars(
 export function isFamiliarThatShootsPlayerTears(
   familiar: EntityFamiliar,
 ): boolean {
-  return FAMILIARS_THAT_SHOOT_PLAYER_TEARS.has(familiar.Type);
+  return FAMILIARS_THAT_SHOOT_PLAYER_TEARS_SET.has(familiar.Type);
 }
 
 /**

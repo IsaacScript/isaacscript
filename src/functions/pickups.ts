@@ -1,4 +1,4 @@
-import { CHEST_PICKUP_VARIANTS } from "../constants";
+import { CHEST_PICKUP_VARIANTS } from "../sets/chestPickupVariantsSet";
 import { RED_HEART_SUB_TYPES_SET } from "../sets/redHeartSubTypesSet";
 import { getEntities, removeEntities } from "./entity";
 

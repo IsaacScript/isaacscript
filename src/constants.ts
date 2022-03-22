@@ -13,76 +13,6 @@ export const BLIND_ITEM_PNG_PATH = "gfx/items/collectibles/questionmark.png";
 /** Bombs explode when their frame count is equal to this value. */
 export const BOMB_EXPLODE_FRAME = 45;
 
-export const CHARACTERS_WITH_BLACK_HEART_FROM_ETERNAL_HEART: ReadonlySet<PlayerType> =
-  new Set([
-    PlayerType.PLAYER_BLACKJUDAS, // 12
-    PlayerType.PLAYER_JUDAS_B, // 24
-  ]);
-
-export const CHARACTERS_WITH_FREE_DEVIL_DEALS: ReadonlySet<PlayerType> =
-  new Set([
-    PlayerType.PLAYER_THELOST,
-    PlayerType.PLAYER_THELOST_B,
-    PlayerType.PLAYER_JACOB2_B,
-  ]);
-
-/**
- * The set of characters where red heart containers will be turned into soul hearts (e.g. Blue
- * Baby). This includes The Lost and Tainted Lost. This does not include Keeper or Tainted Keeper.
- */
-export const CHARACTERS_WITH_NO_RED_HEARTS: ReadonlySet<PlayerType> = new Set([
-  PlayerType.PLAYER_BLUEBABY, // 4
-  PlayerType.PLAYER_THELOST, // 10
-  PlayerType.PLAYER_BLACKJUDAS, // 12
-  PlayerType.PLAYER_JUDAS_B, // 24
-  PlayerType.PLAYER_BLUEBABY_B, // 25
-  PlayerType.PLAYER_THELOST_B, // 31
-  PlayerType.PLAYER_THEFORGOTTEN_B, // 35
-  PlayerType.PLAYER_BETHANY_B, // 36
-]);
-
-/**
- * The set of characters where soul hearts will be automatically stripped away (e.g. Bethany). This
- * includes The Lost and Tainted Lost.
- */
-export const CHARACTERS_WITH_NO_SOUL_HEARTS: ReadonlySet<PlayerType> = new Set([
-  PlayerType.PLAYER_THELOST, // 10
-  PlayerType.PLAYER_KEEPER, // 14
-  PlayerType.PLAYER_BETHANY, // 18
-  PlayerType.PLAYER_THELOST_B, // 31
-  PlayerType.PLAYER_KEEPER_B, // 33
-]);
-
-export const CHEST_PICKUP_VARIANTS: ReadonlySet<PickupVariant> = new Set([
-  PickupVariant.PICKUP_CHEST, // 50
-  PickupVariant.PICKUP_BOMBCHEST, // 51
-  PickupVariant.PICKUP_SPIKEDCHEST, // 52
-  PickupVariant.PICKUP_ETERNALCHEST, // 53
-  PickupVariant.PICKUP_MIMICCHEST, // 54
-  PickupVariant.PICKUP_OLDCHEST, // 55
-  PickupVariant.PICKUP_WOODENCHEST, // 56
-  PickupVariant.PICKUP_MEGACHEST, // 57
-  PickupVariant.PICKUP_HAUNTEDCHEST, // 58
-  PickupVariant.PICKUP_LOCKEDCHEST, // 60
-  PickupVariant.PICKUP_REDCHEST, // 360
-  PickupVariant.PICKUP_MOMSCHEST, // 390
-]);
-
-/**
- * A collection of common colors that can be reused. Note that if you want to further modify these
- * colors, you should copy them first with the `copyColor` function.
- */
-export const COLORS = {
-  Black: Color(1, 1, 1),
-  Red: Color(1, 0, 0),
-  Green: Color(0, 1, 0),
-  Blue: Color(0, 0, 1),
-  Yellow: Color(1, 1, 0),
-  Pink: Color(1, 0, 1),
-  Cyan: Color(0, 1, 1),
-  White: Color(1, 1, 1),
-};
-
 export const DEFAULT_ITEM_POOL_TYPE = ItemPoolType.POOL_TREASURE;
 
 /** This is also the distance that a player spawns from the door that they enter a room from. */
@@ -103,18 +33,6 @@ export const EGGY_STATE_FRAME_OF_FINAL_SPIDER = 45;
  */
 export const EMPTY_PNG_PATH = "gfx/none.png";
 
-export const FAMILIARS_THAT_SHOOT_PLAYER_TEARS: ReadonlySet<FamiliarVariant> =
-  new Set([
-    FamiliarVariant.SCISSORS,
-    FamiliarVariant.INCUBUS,
-    FamiliarVariant.FATES_REWARD,
-    FamiliarVariant.SPRINKLER,
-    FamiliarVariant.LOST_SOUL,
-    FamiliarVariant.TWISTED_BABY,
-    FamiliarVariant.BLOOD_BABY,
-    FamiliarVariant.DECAP_ATTACK,
-  ]);
-
 /** As of Repentance, the final stage is floor 13 (which is the Home floor). */
 export const FINAL_STAGE = LevelStage.NUM_STAGES - 1;
 
@@ -128,18 +46,6 @@ export const FIRST_GLITCHED_COLLECTIBLE_TYPE = (1 << 32) - 1;
 export const GAME_FRAMES_PER_SECOND = 30;
 export const GRID_INDEX_CENTER_OF_1X1_ROOM = 67;
 export const ISAAC_FRAMES_PER_SECOND = 60;
-
-/**
- * This is the set of characters that look like The Lost and play the "LostDeath" animation when
- * they die.
- */
-export const LOST_STYLE_PLAYER_TYPES: ReadonlySet<PlayerType> = new Set([
-  PlayerType.PLAYER_THELOST, // 10
-  PlayerType.PLAYER_THESOUL, // 17
-  PlayerType.PLAYER_THELOST_B, // 31
-  PlayerType.PLAYER_JACOB2_B, // 39
-  PlayerType.PLAYER_THESOUL_B, // 40
-]);
 
 /** In a 2x2 room, there can be 8 doors. */
 export const MAX_NUM_DOORS = 8;

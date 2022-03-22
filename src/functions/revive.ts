@@ -1,6 +1,6 @@
 import { game } from "../cachedClasses";
+import { getCharacterDeathAnimationName } from "./character";
 import {
-  getDeathAnimationName,
   getPlayerMaxHeartContainers,
   getPlayerNumHitsRemaining,
   hasLostCurse,
@@ -110,7 +110,8 @@ export function willMysteriousPaperRevive(player: EntityPlayer): boolean {
 
   // We want to explicitly check the length of the death animation because we might be playing on a
   // modded character that has a custom death animation
-  const animation = getDeathAnimationName(player);
+  const character = player.GetPlayerType();
+  const animation = getCharacterDeathAnimationName(character);
   const deathAnimationFrames = getFinalFrameOfAnimation(sprite, animation);
   const frameOfDeath = gameFrameCount + deathAnimationFrames + 1;
   // (we add 1 because it takes one frame for the death animation to begin)

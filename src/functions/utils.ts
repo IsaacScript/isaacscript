@@ -1,3 +1,5 @@
+import { DIRECTION_NAMES } from "../objects/directionNames";
+
 const HEX_STRING_LENGTH = 6;
 
 /**
@@ -36,6 +38,10 @@ const HEX_STRING_LENGTH = 6;
  * ```
  */
 export const ensureAllCases = (obj: never): never => obj;
+
+export function getDirectionName(direction: Direction): string | undefined {
+  return DIRECTION_NAMES[direction];
+}
 
 /**
  * TypeScriptToLua will transpile TypeScript enums to Lua tables that have a double mapping. Thus,

@@ -1,9 +1,5 @@
 import { game, itemConfig } from "../cachedClasses";
-import {
-  CHARACTERS_WITH_FREE_DEVIL_DEALS,
-  LOST_STYLE_PLAYER_TYPES,
-  MAX_VANILLA_CHARACTER,
-} from "../constants";
+import { MAX_VANILLA_CHARACTER } from "../constants";
 import { HealthType } from "../enums/HealthType";
 import { getLastElement, sumArray } from "./array";
 import { countSetBits, getKBitOfN, getNumBitsOfN } from "./bitwise";
@@ -84,15 +80,6 @@ export function canPlayerCrushRocks(player: EntityPlayer): boolean {
 }
 
 /**
- * Helper function for detecting when a player is one of the characters that can take free Devil
- * Deals. (e.g. The Lost, Tainted Lost, etc.)
- */
-export function canTakeFreeDevilDeals(player: EntityPlayer): boolean {
-  const character = player.GetPlayerType();
-  return CHARACTERS_WITH_FREE_DEVIL_DEALS.has(character);
-}
-
-/**
  * Helper function to find the active slot that the player has the corresponding collectible type
  * in. Returns undefined if the player does not have the collectible in any active slot.
  */
@@ -148,25 +135,6 @@ export function getClosestPlayer(position: Vector): EntityPlayer {
   }
 
   return closestPlayer;
-}
-
-/**
- * Most characters have a 56 frame death animation (i.e. the "Death" animation).
- * The Lost and Tainted Lost have a 38 frame death animation (i.e. the "LostDeath" animation).
- * Tainted Forgotten have a 20 frame death animation (i.e. the "ForgottenDeath" animation).
- */
-export function getDeathAnimationName(player: EntityPlayer): string {
-  const character = player.GetPlayerType();
-
-  if (LOST_STYLE_PLAYER_TYPES.has(character)) {
-    return "LostDeath";
-  }
-
-  if (character === PlayerType.PLAYER_THEFORGOTTEN_B) {
-    return "ForgottenDeath";
-  }
-
-  return "Death";
 }
 
 /**
