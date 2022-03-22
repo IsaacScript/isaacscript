@@ -9,7 +9,7 @@
   "license": "GPL-3.0",
   "author": "Zamiell",
   "dependencies": {
-    "@prettier/plugin-xml": "^2.0.0",
+    "@prettier/plugin-xml": "^2.0.1",
     "@typescript-eslint/eslint-plugin": "^5.16.0",
     "@typescript-eslint/parser": "^5.16.0",
     "cspell": "^5.19.2",
