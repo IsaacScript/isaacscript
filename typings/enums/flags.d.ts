@@ -1564,62 +1564,66 @@ declare enum LevelStateFlag {
   NUM_STATE_FLAGS = 24,
 }
 
-/**
- * The `UseFlag.USE_ECHO_CHAMBER` value is missing from the vanilla enum, so this enum is
- * temporarily marked as being a const enum. When it is added to the vanilla game, this will go back
- * to being a normal enum.
- */
-declare const enum UseFlag {
+declare enum UseFlag {
   /**
    * Don't play use animations.
+   *
    * 1 << 0
    */
   USE_NOANIM = 1 << 0,
 
   /**
    * Don't add costume.
+   *
    * 1 << 1
    */
   USE_NOCOSTUME = 1 << 1,
 
   /**
    * Effect was triggered by an active item owned by the player.
+   *
    * 1 << 2
    */
   USE_OWNED = 1 << 2,
 
   /**
    * Allow the effect to trigger on non-main players (i.e. coop babies).
+   *
    * 1 << 3
    */
   USE_ALLOWNONMAIN = 1 << 3,
 
   /**
    * D4 only: Reroll the player's active item.
+   *
    * 1 << 4
    */
   USE_REMOVEACTIVE = 1 << 4,
 
   /**
    * Effect was triggered a second time by Car Battery (or Tarot Cloth for cards).
+   *
    * 1 << 5
    */
   USE_CARBATTERY = 1 << 5,
 
   /**
    * Effect was triggered by Void.
+   *
    * 1 << 6
    */
   USE_VOID = 1 << 6,
 
   /**
    * Effect was mimicked by an active item (Blank Card, Placebo).
+   *
    * 1 << 7
    */
   USE_MIMIC = 1 << 7,
 
   /**
    * Never play announcer voice.
+   *
    * 1 << 8
    */
   USE_NOANNOUNCER = 1 << 8,
@@ -1627,6 +1631,7 @@ declare const enum UseFlag {
   /**
    * This allows an item to spawn wisps when called from another item usage as the wisps generator
    * checks for NOANIM, so usually you want to use this with NOANIM call.
+   *
    * 1 << 9
    */
   USE_ALLOWWISPSPAWN = 1 << 9,
@@ -1634,15 +1639,15 @@ declare const enum UseFlag {
   /**
    * If set, forces UseActiveItem to use the CustomVarData argument instead of the active item's
    * stored VarData.
+   *
    * 1 << 10
    */
   USE_CUSTOMVARDATA = 1 << 10,
 
   /**
-   * This value is missing from the vanilla enum, but is included automatically in the IsaacScript
-   * definitions.
+   * Don't display text in the HUD. (This is currently only used by Echo Chamber.)
    *
    * 1 << 11
    */
-  USE_ECHO_CHAMBER = 1 << 11,
+  USE_NOHUD = 1 << 11,
 }

@@ -1,5 +1,6 @@
 /**
  * Matches the RoomDescriptor.DISPLAY_* members of the RoomDescriptor class.
+ *
  * In IsaacScript, we reimplement this as an enum, since it is cleaner.
  */
 declare const enum RoomDescriptorDisplayType {

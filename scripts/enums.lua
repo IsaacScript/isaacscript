@@ -2774,7 +2774,7 @@ CollectibleType = {
 	COLLECTIBLE_LEMON_MISHAP = 56,
 	COLLECTIBLE_DISTANT_ADMIRATION = 57,
 	COLLECTIBLE_BOOK_OF_SHADOWS = 58,
-	-- 59
+	COLLECTIBLE_BOOK_OF_BELIAL_PASSIVE = 59,
 	COLLECTIBLE_LADDER = 60,
 	-- 61
 	COLLECTIBLE_CHARM_VAMPIRE = 62,
@@ -4471,6 +4471,8 @@ UseFlag = {
 
 	USE_ALLOWWISPSPAWN = 1 << 9, -- This allows an item to spawn wisps when called from another item usage as the wisps generator checks for NOANIM, so usually you want to use this with NOANIM call
 	USE_CUSTOMVARDATA = 1 << 10, -- If set, forces UseActiveItem to use the CustomVarData argument instead of the active item's stored VarData
+
+	USE_NOHUD = 1 << 11,		 -- Don't display text in the HUD (this is currently only used by Echo Chamber)
 }
 
 RoomTransitionAnim = {
@@ -4632,6 +4634,11 @@ AddEnumToNamespace(ItemConfig, {
 	TAG_NO_CANTRIP = 1<<25,			-- Can't be obtained in Cantripped challenge
 	TAG_WISP = 1<<26,				-- Active items that have wisps attached to them (automatically set)
 	TAG_UNIQUE_FAMILIAR = 1<<27,	-- Unique familiars that cannot be duplicated
+	TAG_NO_CHALLENGE = 1<<28,		-- Items that shouldn't be obtainable in challenges
+	TAG_NO_DAILY = 1<<29,			-- Items that shouldn't be obtainable in daily runs
+	TAG_LAZ_SHARED = 1<<30,			-- Items that should be shared between Tainted Lazarus' forms
+	TAG_LAZ_SHARED_GLOBAL = 1<<31,	-- Items that should be shared between Tainted Lazarus' forms but only through global checks (such as PlayerManager::HasCollectible)
+	TAG_NO_EDEN = 1<<32,			-- Items that can't be randomly rolled
 
 	-- ItemConfig.CARDTYPE_*
 	CARDTYPE_TAROT = 0,				-- Tarot cards
@@ -4722,6 +4729,7 @@ CollectibleType.COLLECTIBLE_BUCKET_LARD = 129
 CollectibleType.COLLECTIBLE_SPIRIT_NIGHT = 159
 CollectibleType.COLLECTIBLE_CAT_NINE_TAILS = 165
 CollectibleType.COLLECTIBLE_235 = 235
+CollectibleType.COLLECTIBLE_263 = 263
 CollectibleType.COLLECTIBLE_BLUEBABYS_ONLY_FRIEND = 320
 CollectibleType.COLLECTIBLE_MAW_OF_VOID = 399
 CollectibleType.COLLECTIBLE_MEGA_SATANS_BREATH = 441
@@ -4739,3 +4747,14 @@ TrinketType.TRINKET_FIRECRACKER = 133
 TrinketType.TRINKET_GIANT_BEAN = 134
 
 TearFlags.TEAR_MIGAN = TearFlags.TEAR_MULLIGAN
+TearFlags.TEAR_BOMBERANG = TearFlags.TEAR_BOOMERANG
+
+SoundEffect.SOUND_PORTAL_LOOP = 502
+
+ItemPoolType.POOL_GREED_TREASUREL = 16
+ItemPoolType.POOL_24 = 24
+ItemPoolType.POOL_CHALLENGE = 7
+ItemPoolType.POOL_BOSSRUSH = 14
+ItemPoolType.POOL_DUNGEON = 15
+ItemPoolType.POOL_GREED_LIBRARY = 23
+ItemPoolType.POOL_GREED_GOLDEN_CHEST = 24

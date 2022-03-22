@@ -1,5 +1,6 @@
 /**
  * Matches the ItemConfig.CARDTYPE_* members of the ItemConfig class.
+ *
  * In IsaacScript, we reimplement this as an enum, since it is cleaner.
  */
 declare const enum ItemConfigCardType {
