@@ -1,5 +1,22 @@
 import { CHEST_PICKUP_VARIANTS } from "../constants";
+import { RED_HEART_SUB_TYPES_SET } from "../sets/redHeartSubTypesSet";
 import { getEntities, removeEntities } from "./entity";
+
+export function getBombs(matchingSubType = -1): EntityPickup[] {
+  return getPickups(PickupVariant.PICKUP_BOMB, matchingSubType);
+}
+
+export function getCoins(matchingSubType = -1): EntityPickup[] {
+  return getPickups(PickupVariant.PICKUP_COIN, matchingSubType);
+}
+
+export function getHearts(matchingSubType = -1): EntityPickup[] {
+  return getPickups(PickupVariant.PICKUP_HEART, matchingSubType);
+}
+
+export function getKeys(matchingSubType = -1): EntityPickup[] {
+  return getPickups(PickupVariant.PICKUP_KEY, matchingSubType);
+}
 
 /**
  * Helper function to get all of the pickups in the room.
@@ -33,8 +50,20 @@ export function getPickups(
   return pickups;
 }
 
+export function getRedHearts(): EntityPickup[] {
+  const hearts = getHearts();
+  return hearts.filter((heart) => RED_HEART_SUB_TYPES_SET.has(heart.SubType));
+}
+
 export function isChest(pickup: EntityPickup): boolean {
   return CHEST_PICKUP_VARIANTS.has(pickup.Variant);
+}
+
+export function isRedHeart(pickup: EntityPickup): boolean {
+  return (
+    pickup.Variant === PickupVariant.PICKUP_HEART &&
+    RED_HEART_SUB_TYPES_SET.has(pickup.SubType)
+  );
 }
 
 /**
