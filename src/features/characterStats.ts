@@ -1,6 +1,6 @@
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { getDefaultPlayerStat } from "../functions/cacheFlag";
-import { addTearsStat } from "../functions/tears";
+import { addStat } from "../functions/player";
 
 const FEATURE_NAME = "character stat manager";
 
@@ -26,41 +26,7 @@ function evaluateCache(player: EntityPlayer, cacheFlag: CacheFlag) {
   }
   const delta = stat - defaultStat;
 
-  switch (cacheFlag) {
-    // 1 << 0
-    case CacheFlag.CACHE_DAMAGE: {
-      player.Damage += delta;
-      return;
-    }
-
-    // 1 << 1
-    case CacheFlag.CACHE_FIREDELAY: {
-      addTearsStat(player, delta);
-      return;
-    }
-
-    // 1 << 2
-    case CacheFlag.CACHE_SHOTSPEED: {
-      player.ShotSpeed += delta;
-      break;
-    }
-
-    // 1 << 3
-    case CacheFlag.CACHE_RANGE: {
-      player.TearHeight += delta;
-      break;
-    }
-
-    // 1 << 4
-    case CacheFlag.CACHE_SPEED: {
-      player.MoveSpeed += delta;
-      break;
-    }
-
-    default: {
-      break;
-    }
-  }
+  addStat(player, cacheFlag, delta);
 }
 
 /**

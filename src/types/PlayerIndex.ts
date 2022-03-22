@@ -3,7 +3,7 @@
  * function. Mods can signify that data structures handle `EntityPlayer` by using this type.
  *
  * Example:
- * ```
+ * ```ts
  * const playersNameMap = new Map<PlayerIndex, string>();
  * ```
  *

@@ -136,7 +136,7 @@ export function checkFamiliarFromCollectibles(
  * Helper function to get all of the familiars in the room.
  *
  * Example:
- * ```
+ * ```ts
  * // Make all of the familiars in the room invisible
  * for (const familiar of getFamiliars()) {
  *   familiar.Visible = false;

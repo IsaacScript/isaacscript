@@ -77,7 +77,7 @@ export function getClosestEntityTo<T extends AnyEntity>(
  * will be used instead.)
  *
  * Example:
- * ```
+ * ```ts
  * // Make all of the entities in the room invisible
  * for (const entity of getEntities()) {
  *   entity.Visible = false;

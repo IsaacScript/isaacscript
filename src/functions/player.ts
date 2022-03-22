@@ -7,7 +7,17 @@ import { getCharacterMaxHeartContainers, getCharacterName } from "./character";
 import { getCollectibleMaxCharges } from "./collectibles";
 import { getCollectibleSet } from "./collectibleSet";
 import { getPlayerIndexVanilla, getPlayers } from "./playerIndex";
+import { addTearsStat } from "./tears";
 import { ensureAllCases, getEnumValues, repeat } from "./utils";
+
+const STAT_CACHE_FLAGS_SET: ReadonlySet<CacheFlag> = new Set([
+  CacheFlag.CACHE_DAMAGE, // 1 << 0
+  CacheFlag.CACHE_FIREDELAY, // 1 << 1
+  CacheFlag.CACHE_SHOTSPEED, // 1 << 2
+  CacheFlag.CACHE_RANGE, // 1 << 3
+  CacheFlag.CACHE_SPEED, // 1 << 4
+  CacheFlag.CACHE_LUCK, // 1 << 10
+]);
 
 export function addCollectibleCostume(
   player: EntityPlayer,
@@ -19,6 +29,75 @@ export function addCollectibleCostume(
   }
 
   player.AddCostume(itemConfigItem, false);
+}
+
+/**
+ * Helper function to add a stat to a player based on the `CacheFlag` provided. Call this function
+ * from the EvaluateCache callback.
+ *
+ * Note that for `CacheFlag.CACHE_FIREDELAY`, the "amount" argument will be interpreted as the tear
+ * stat to add (and not the amount to mutate `EntityPlayer.MaxFireDelay` by).
+ *
+ * This function supports the following cache flags:
+ * - CacheFlag.CACHE_DAMAGE (1 << 0)
+ * - CacheFlag.CACHE_FIREDELAY (1 << 1)
+ * - CacheFlag.CACHE_SHOTSPEED (1 << 2)
+ * - CacheFlag.CACHE_RANGE (1 << 3)
+ * - CacheFlag.CACHE_SPEED (1 << 4)
+ * - CacheFlag.CACHE_LUCK (1 << 10)
+ */
+export function addStat(
+  player: EntityPlayer,
+  cacheFlag: CacheFlag,
+  amount: number,
+): void {
+  if (!STAT_CACHE_FLAGS_SET.has(cacheFlag)) {
+    error(
+      `You cannot add a stat to a player with the cache flag of: ${cacheFlag}`,
+    );
+  }
+
+  switch (cacheFlag) {
+    // 1 << 0
+    case CacheFlag.CACHE_DAMAGE: {
+      player.Damage += amount;
+      break;
+    }
+
+    // 1 << 1
+    case CacheFlag.CACHE_FIREDELAY: {
+      addTearsStat(player, amount);
+      break;
+    }
+
+    // 1 << 2
+    case CacheFlag.CACHE_SHOTSPEED: {
+      player.ShotSpeed += amount;
+      break;
+    }
+
+    // 1 << 3
+    case CacheFlag.CACHE_RANGE: {
+      player.TearHeight += amount;
+      break;
+    }
+
+    // 1 << 4
+    case CacheFlag.CACHE_SPEED: {
+      player.MoveSpeed += amount;
+      break;
+    }
+
+    // 1 << 10
+    case CacheFlag.CACHE_LUCK: {
+      player.Luck += amount;
+      break;
+    }
+
+    default: {
+      break;
+    }
+  }
 }
 
 export function addTrinketCostume(

@@ -4,7 +4,7 @@
  * using this type.
  *
  * Example:
- * ```
+ * ```ts
  * const collectiblesNameMap = new Map<CollectibleIndex, string>();
  * ```
  *

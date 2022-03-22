@@ -26,7 +26,7 @@ export function getMaxTrinketType(): int {
  * Returns the slot number corresponding to where a trinket can be safely inserted.
  *
  * Example:
- * ```
+ * ```ts
  * const player = Isaac.GetPlayer();
  * const trinketSlot = getOpenTrinketSlotNum(player);
  * if (trinketSlot !== undefined) {
@@ -82,7 +82,7 @@ export function getTrinketDescription(trinketType: TrinketType | int): string {
  * not valid.
  *
  * Example:
- * ```
+ * ```ts
  * const trinketType = TrinketType.TRINKET_SWALLOWED_PENNY;
  * const trinketName = getTrinketName(trinketType); // trinketName is "Swallowed Penny"
  * ```

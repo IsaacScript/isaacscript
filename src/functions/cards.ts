@@ -53,7 +53,7 @@ function initCardObjects() {
  * Helper function to get a card description from a Card enum value.
  *
  * Example:
- * ```
+ * ```ts
  * const card = Card.CARD_FOOL;
  * const cardDescription = getCardDescription(card); // cardDescription is "Where journey begins"
  * ```
@@ -78,7 +78,7 @@ export function getCardDescription(card: Card | int): string {
  * Helper function to get a card name from a Card.
  *
  * Example:
- * ```
+ * ```ts
  * const card = Card.CARD_FOOL;
  * const cardName = getCardName(card); // cardName is "0 - The Fool"
  * ```

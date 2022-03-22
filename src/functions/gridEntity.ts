@@ -114,14 +114,14 @@ export function getCollidingEntitiesWithGridEntity(
  * arguments to match specific grid entity types.
  *
  * Example:
- * ```
+ * ```ts
  * for (const gridEntity of getGridEntities()) {
  *   print(gridEntity.GetType())
  * }
  * ```
  *
  * Example:
- * ```
+ * ```ts
  * const rocks = getGridEntities(
  *   GridEntityType.GRID_ROCK,
  *   GridEntityType.GRID_ROCKB,
@@ -297,7 +297,7 @@ export function isPostBossVoidPortal(gridEntity: GridEntity): boolean {
  * provided.
  *
  * Example:
- * ```
+ * ```ts
  * removeAllGridEntitiesExceptFor(
  *   GridEntityType.GRID_WALL,
  *   GridEntityType.GRID_DOOR,
@@ -332,7 +332,7 @@ export function removeAllGridEntitiesExceptFor(
  * provided.
  *
  * Example:
- * ```
+ * ```ts
  * removeAllMatchingGridEntities(
  *   GridEntityType.GRID_ROCK,
  *   GridEntityType.GRID_ROCKB,

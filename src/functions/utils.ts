@@ -4,34 +4,34 @@ const HEX_STRING_LENGTH = 6;
 
 /**
  * Helper function to get type safety on a switch statement.
+ *
  * Very useful to be future-safe against people adding values to a type or an enum.
  *
  * Example:
- * ```
+ * ```ts
  * enum Situations {
- *   Situation1,
- *   Situation2,
- *   Situation3,
- *   // Situation4, // If we uncomment this line, the program will no longer compile
+ *   ONE,
+ *   TWO,
+ *   THREE,
+ *   // FOUR, // If we uncomment this line, the program will no longer compile
  * }
  *
  * function doThingBasedOnSituation(situation: Situation) {
  *   switch (situation) {
- *     case Situation1: {
+ *     case Situation.ONE: {
  *       return 41;
  *     }
  *
- *     case Situation2: {
+ *     case Situation.TWO: {
  *       return 68;
  *     }
  *
- *     case Situation3: {
+ *     case Situation.THREE: {
  *       return 12;
  *     }
  *
  *     default: {
- *       ensureAllCases(situation);
- *       return 0;
+ *       return ensureAllCases(situation);
  *     }
  *   }
  * }

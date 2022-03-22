@@ -130,7 +130,7 @@ export function getPlayerNumTransformationCollectibles(
  * Helper function to get a transformation name from a PlayerForm enum.
  *
  * Example:
- * ```
+ * ```ts
  * const transformationName = getTransformationName(PlayerForm.PLAYERFORM_LORD_OF_THE_FLIES);
  * // transformationName is "Beelzebub"
  * ```

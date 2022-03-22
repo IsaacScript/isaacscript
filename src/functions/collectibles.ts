@@ -233,7 +233,7 @@ export function getCollectibleMaxCharges(
  * type is not valid.
  *
  * Example:
- * ```
+ * ```ts
  * const collectibleType = CollectibleType.COLLECTIBLE_SAD_ONION;
  * const collectibleName = getCollectibleName(collectibleType); // collectibleName is "Sad Onion"
  * ```

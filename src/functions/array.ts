@@ -183,7 +183,7 @@ export function getRandomArrayIndex<T>(
  * Initializes an array with all elements containing the specified default value.
  *
  * Example:
- * ```
+ * ```ts
  * const playerTransformations = initArray(false, PlayerForm.NUM_PLAYER_FORMS - 1);
  * ```
  */

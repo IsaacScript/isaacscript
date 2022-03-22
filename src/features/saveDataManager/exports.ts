@@ -20,7 +20,7 @@ import {
  * variables that are properly scoped.
  *
  * Example:
- * ```
+ * ```ts
  * // in file: feature1.ts
  * import { saveDataManager } from "isaacscript-common";
  *

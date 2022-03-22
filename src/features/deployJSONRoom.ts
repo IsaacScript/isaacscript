@@ -130,7 +130,7 @@ function respawnPersistentEntities() {
  * This function is meant to be used in the PostNewRoom callback.
  *
  * @param jsonRoom The JSON room to deploy. In practice, this will be something like:
- * ```
+ * ```ts
  * import customRooms from "./customRooms";
  *
  * const firstJSONRoom = customRooms.rooms.room[0];
@@ -186,7 +186,7 @@ export function deployJSONRoom(
  *
  * @param jsonRooms An array of JSON rooms to randomly select from. In practice, this will be
  * something like:
- * ```
+ * ```ts
  * import customRooms from "./customRooms";
  *
  * const jsonRooms = customRooms.rooms.room;

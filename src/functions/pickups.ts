@@ -18,7 +18,7 @@ export function getKeys(matchingSubType = -1): EntityPickup[] {
  * Helper function to get all of the pickups in the room.
  *
  * Example:
- * ```
+ * ```ts
  * // Make all of the pickups in the room invisible
  * for (const pickup of getPickups()) {
  *   pickup.Visible = false;

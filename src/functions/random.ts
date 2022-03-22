@@ -22,7 +22,7 @@ export function getRandom(seed = Random()): float {
  * will never return a value of exactly 1.)
  *
  * Example:
- * ```
+ * ```ts
  * const realNumberBetweenOneAndThree = getRandomFloat(1, 3, seed);
  * ```
  */
@@ -35,7 +35,7 @@ export function getRandomFloat(min: int, max: int, seed = Random()): float {
  * This returns a random integer between min and max, inclusive.
  *
  * Example:
- * ```
+ * ```ts
  * const oneTwoOrThree = getRandomInt(1, 3, seed);
  * ```
  */
@@ -49,7 +49,7 @@ export function getRandomInt(min: int, max: int, seed = Random()): int {
  * Helper function to initialize an RNG object.
  *
  * Example:
- * ```
+ * ```ts
  * const startSeed = Game():GetSeeds():GetStartSeed();
  * const rng = initRNG(startSeed);
  * const fiftyFiftyChance = rng.RandomInt(2) === 0;

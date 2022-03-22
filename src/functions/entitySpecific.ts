@@ -4,7 +4,7 @@ import { getEntities, removeEntities } from "./entity";
  * Helper function to get all of the bombs in the room.
  *
  * Example:
- * ```
+ * ```ts
  * // Make all of the bombs in the room invisible
  * for (const bomb of getBombs()) {
  *   bomb.Visible = false;
@@ -36,7 +36,7 @@ export function getBombs(
  * Helper function to get all of the effects in the room.
  *
  * Example:
- * ```
+ * ```ts
  * // Make all of the effects in the room invisible
  * for (const effect of getEffects()) {
  *   effect.Visible = false;
@@ -68,7 +68,7 @@ export function getEffects(
  * Helper function to get all of the knives in the room.
  *
  * Example:
- * ```
+ * ```ts
  * // Make all of the knives in the room invisible
  * for (const knife of getKnives()) {
  *   knife.Visible = false;
@@ -100,7 +100,7 @@ export function getKnives(
  * Helper function to get all of the lasers in the room.
  *
  * Example:
- * ```
+ * ```ts
  * // Make all of the lasers in the room invisible
  * for (const laser of getLasers()) {
  *   laser.Visible = false;
@@ -132,7 +132,7 @@ export function getLasers(
  * Helper function to get all of the projectiles in the room.
  *
  * Example:
- * ```
+ * ```ts
  * // Make all of the projectiles in the room invisible
  * for (const projectile of getProjectiles()) {
  *   projectile.Visible = false;
@@ -164,7 +164,7 @@ export function getProjectiles(
  * Helper function to get all of the slots in the room.
  *
  * Example:
- * ```
+ * ```ts
  * // Make all of the slots in the room invisible
  * for (const slot of getSlots()) {
  *   slot.Visible = false;
@@ -188,7 +188,7 @@ export function getSlots(
  * Helper function to get all of the tears in the room.
  *
  * Example:
- * ```
+ * ```ts
  * // Make all of the tears in the room invisible
  * for (const tear of getTears()) {
  *   tear.Visible = false;

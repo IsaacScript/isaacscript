@@ -61,7 +61,7 @@ import { patchErrorFunction } from "./patchErrorFunctions";
  * Use this function to enable the custom features and callbacks provided by `isaacscript-common`.
  *
  * Example:
- * ```
+ * ```ts
  * const modVanilla = RegisterMod("My Mod", 1);
  * const mod = upgradeMod(modVanilla);
  *

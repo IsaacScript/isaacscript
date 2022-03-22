@@ -3,14 +3,14 @@
  * This is a variadic function, so pass as many flags as you want to add.
  *
  * Example 1:
- * ```
+ * ```ts
  * // Give the player spectral tears
  * const player = Isaac.GetPlayer();
  * player.TearFlags = addFlag(player.TearFlags, TearFlags.TEAR_SPECTRAL);
  * ```
  *
  * Example 2:
- * ```
+ * ```ts
  * // Give the player spectral and homing tears
  * const player = Isaac.GetPlayer();
  * player.TearFlags = addFlag(player.TearFlags, TearFlags.TEAR_SPECTRAL, TearFlags.TEAR_HOMING);
@@ -34,7 +34,7 @@ export function addFlag(flags: int, ...flag: int[]): int {
  * If passed multiple flags, it will only return true if all of the flags are set.
  *
  * Example:
- * ```
+ * ```ts
  * const player = Isaac.GetPlayer();
  * if (hasFlag(player.TearFlags, TearFlags.TEAR_SPECTRAL) {
  *   // The player currently has spectral tears
@@ -73,7 +73,7 @@ export function isSelfDamage(damageFlags: int): boolean {
  * This is a variadic function, so pass as many flags as you want to remove.
  *
  * Example:
- * ```
+ * ```ts
  * // Remove spectral tears from the player, if present
  * const player = Isaac.GetPlayer();
  * player.TearFlags = removeFlag(player.TearFlags, TearFlags.TEAR_SPECTRAL);
