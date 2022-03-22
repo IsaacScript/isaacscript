@@ -1,6 +1,6 @@
 {
   "name": "isaacscript-lint",
-  "version": "1.0.94",
+  "version": "1.0.95",
   "description": "An updatable linting dependency container for IsaacScript and TypeScript projects",
   "repository": {
     "type": "git",
