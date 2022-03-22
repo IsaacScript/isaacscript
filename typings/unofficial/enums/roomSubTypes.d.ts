@@ -194,6 +194,16 @@ declare const enum MinibossID {
 // BackdropType enum
 
 /**
+ * For StageID.SPECIAL_ROOMS (0), RoomType.ROOM_CURSE (10)
+ *
+ * This matches the sub-type in the "00.special rooms.stb" file.
+ */
+declare const enum CurseRoomSubType {
+  NORMAL = 0,
+  VOODOO_HEAD = 1,
+}
+
+/**
  * For StageID.SPECIAL_ROOMS (0), RoomType.ROOM_CHALLENGE (11)
  *
  * This matches the sub-type in the "00.special rooms.stb" file and elsewhere.
