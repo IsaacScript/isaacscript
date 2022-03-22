@@ -213,22 +213,24 @@ export function repeat(n: int, func: (i: int) => void): void {
  * because many methods of the Isaac class return -1 if they fail.
  */
 export function validateCustomEnum(
-  customEnumName: string,
-  customEnum: unknown,
+  transpiledEnumName: string,
+  transpiledEnum: unknown,
 ): void {
-  const customEnumType = type(customEnum);
+  const customEnumType = type(transpiledEnum);
   if (customEnumType !== "table") {
     return;
   }
 
-  const table = customEnum as LuaTable<AnyNotNil, unknown>;
-  const keys = Object.keys(table);
+  // We don't use the "getEnumValues" helper function because we want to know the name of the key
+  // that is invalid
+  const table = transpiledEnum as LuaTable<AnyNotNil, unknown>;
+  const keys = Object.keys(table).filter((key) => typeof key === "string");
   keys.sort();
 
   for (const key of keys) {
     const value = table.get(key);
     if (value === -1) {
-      error(`Failed to find: ${customEnumName}.${key}`);
+      error(`Failed to find: ${transpiledEnumName}.${key}`);
     }
   }
 }
