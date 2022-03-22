@@ -1,4 +1,8 @@
-declare enum NullItemID {
+/**
+ * Some values are missing from the vanilla enum, so this enum is temporarily marked as being a const
+ * enum. When they are added to the vanilla game, this will go back to being a normal enum.
+ */
+declare const enum NullItemID {
   ID_NULL = -1,
   ID_EXPLOSIVE_DIARRHEA = 0,
   ID_PUBERTY = 1,
@@ -48,6 +52,13 @@ declare enum NullItemID {
   ID_BRIMSTONE2 = 45,
   ID_HOLY_CARD = 46,
   ID_KEEPER = 47,
+
+  /** This value is missing from the vanilla enum. */
+  ID_CAMO_BOOST = 48,
+
+  /** This value is missing from the vanilla enum. */
+  ID_LAZARUS_BOOST = 49,
+
   ID_SPIN_TO_WIN = 50,
   ID_BETHANY = 51,
   ID_JACOB = 52,
