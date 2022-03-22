@@ -222,7 +222,11 @@ export function validateCustomEnum(
   }
 
   const table = customEnum as LuaTable<AnyNotNil, unknown>;
-  for (const [key, value] of Object.entries(table)) {
+  const keys = Object.keys(table);
+  keys.sort();
+
+  for (const key of keys) {
+    const value = table.get(key);
     if (value === -1) {
       error(`Failed to find: ${customEnumName}.${key}`);
     }
