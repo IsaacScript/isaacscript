@@ -207,3 +207,24 @@ export function repeat(n: int, func: (i: int) => void): void {
     func(i);
   }
 }
+
+/**
+ * Helper function to check every value of a custom enum for -1. This is helpful as a run-time check
+ * because many methods of the Isaac class return -1 if they fail.
+ */
+export function validateCustomEnum(
+  customEnumName: string,
+  customEnum: unknown,
+): void {
+  const customEnumType = type(customEnum);
+  if (customEnumType !== "table") {
+    return;
+  }
+
+  const table = customEnum as LuaTable<AnyNotNil, unknown>;
+  for (const [key, value] of Object.entries(table)) {
+    if (value === -1) {
+      error(`Failed to find: ${customEnumName}.${key}`);
+    }
+  }
+}
