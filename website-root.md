@@ -45,7 +45,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [NPC Functions](modules/functions_npc.html)
 - [Pickup Functions](modules/functions_pickups.html)
 - [Pill Functions](modules/functions_pills.html)
-- [Player Functions](modules/functions_player.html) & [Player Data Structure Functions](modules/functions_playerDataStructures.html) & [Player Health Functions](modules/functions_playerHealth.html)
+- [Player Functions](modules/functions_player.html) & [Player Index Functions](modules/functions_playerIndex.html) & [Player Health Functions](modules/functions_playerHealth.html) & [Player Data Structure Functions](modules/functions_playerDataStructures.html)
 - [Pocket Item Functions](modules/functions_pocketItems.html)
 - [Position & Velocity Functions](modules/functions_positionVelocity.html)
 - [Random Functions](modules/functions_random.html)
