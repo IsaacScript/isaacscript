@@ -25,12 +25,12 @@ declare const enum BloodClotSubType {
 /** For EntityType.ENTITY_PICKUP (5), PickupVariant.PICKUP_NULL (0) */
 declare const enum PickupNullSubType {
   /** Has a chance to spawn any possible pickup, including collectibles. */
-  ALL,
+  ALL = 0,
 
-  EXCLUDE_COLLECTIBLES_CHESTS,
-  EXCLUDE_COLLECTIBLES,
-  EXCLUDE_COLLECTIBLES_CHESTS_COINS,
-  EXCLUDE_COLLECTIBLES_TRINKETS_CHESTS,
+  EXCLUDE_COLLECTIBLES_CHESTS = 1,
+  EXCLUDE_COLLECTIBLES = 2,
+  EXCLUDE_COLLECTIBLES_CHESTS_COINS = 3,
+  EXCLUDE_COLLECTIBLES_TRINKETS_CHESTS = 4,
 }
 
 /** For EntityType.ENTITY_CHARGER (23), ChargerVariant.CHARGER (0) */
@@ -53,8 +53,18 @@ declare const enum ConstantStoneShooterSubType {
 
 /** For EntityType.ENTITY_MOTHER (912), MotherVariant.MOTHER_1 (0) */
 declare const enum MotherSubType {
-  PHASE_1,
-  PHASE_2,
+  PHASE_1 = 0,
+  PHASE_2 = 1,
+}
+
+/** For EntityType.ENTITY_EFFECT (1000), EffectVariant.BLOOD_EXPLOSION (2) */
+declare const enum BloodExplosionSubType {
+  MEDIUM_WITH_LEFTOVER_BLOOD = 0,
+  SMALL = 1,
+  MEDIUM = 2,
+  LARGE = 3,
+  GIANT = 4,
+  SWIRL = 5,
 }
 
 /** For EntityType.ENTITY_EFFECT (1000), EffectVariant.POOF01 (15) */
