@@ -107,3 +107,13 @@ export function hasOpenPocketItemSlot(player: EntityPlayer): boolean {
     (pocketItem) => pocketItem.type === PocketItemType.EMPTY,
   );
 }
+
+/**
+ * Helper function to determine whether or not the player's "active" pocket item slot is set to
+ * their pocket active item.
+ */
+export function isFirstSlotPocketActiveItem(player: EntityPlayer): boolean {
+  const pocketItems = getPocketItems(player);
+  const firstPocketItem = pocketItems[0];
+  return firstPocketItem.type === PocketItemType.ACTIVE_ITEM;
+}
