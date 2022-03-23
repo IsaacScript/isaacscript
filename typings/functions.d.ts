@@ -11,7 +11,7 @@ declare function GetPtrHash(
 ): PtrHash;
 
 /**
- * Returns a random integer between 0 and 2^32.
+ * Returns a random integer between 0 and 4294967296 (2^32).
  *
  * For most situations in which you need a random number, you should use the `getRandom`,
  * `getRandomInt`, and `getRandomFloat` helper functions from the standard library instead of this

@@ -55,6 +55,14 @@ declare interface Room {
   GetDungeonRockIdx(): int;
 
   /**
+   * Returns the total amount of HP lost by all enemies in the room between the last game frame and
+   * this one.
+   *
+   * This is used by items that charge on damage inflicted (e.g. Berserk!).
+   */
+  GetEnemyDamageInflicted(): int;
+
+  /**
    * Using this method can cause the game to crash, so it is forbidden.
    * Use "Isaac.GetRoomEntities()" instead.
    */

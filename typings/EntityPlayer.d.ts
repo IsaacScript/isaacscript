@@ -1001,8 +1001,9 @@ declare interface EntityPlayer extends Entity {
    * Triggers the extra effect granted by Book of Virtues for the given active item.
    *
    * @param collectibleType Default is `CollectibleType.COLLECTIBLE_NULL`.
+   * @param charge Default is 0.
    */
-  TriggerBookOfVirtues(collectibleType?: CollectibleType): void;
+  TriggerBookOfVirtues(collectibleType?: CollectibleType, charge?: int): void;
 
   /**
    * Attempts to pick up the given entity, returns true on success.
@@ -1113,8 +1114,14 @@ declare interface EntityPlayer extends Entity {
   Damage: float;
 
   FireDelay: int;
+
   // readonly FriendBallEnemy: Readonly<EntityDesc>; // EntityDesc is not implemented
+
   HeadFrameDelay: int;
+
+  /** Internally used by IBS. Increases based on damage dealt. Range is 0-1. */
+  IBSCharge: float;
+
   ItemHoldCooldown: int;
   LaserColor: Color;
 
@@ -1128,6 +1135,9 @@ declare interface EntityPlayer extends Entity {
   MoveSpeed: float;
 
   QueuedItem: QueueItemData;
+
+  /** Internally used by Tainted Samson. Increases based on damage dealt. Range is 0-100000. */
+  SamsonBerserkCharge: int;
 
   /** Only change this in the EvaluateCache callback. */
   ShotSpeed: float;
