@@ -88,6 +88,9 @@ export const MAX_ROOM_INDEX = 168;
  */
 export const MAX_SPEED_STAT = 2.0;
 
+/** Corresponds to the maximum value for `EntityPlayer.SamsonBerserkCharge`. */
+export const MAX_TAINTED_SAMSON_BERSERK_CHARGE = 100000;
+
 export const MAX_VANILLA_CHARACTER = PlayerType.NUM_PLAYER_TYPES - 1;
 export const MAX_VANILLA_COLLECTIBLE_TYPE =
   CollectibleType.NUM_COLLECTIBLES - 1;
@@ -114,6 +117,9 @@ export const PILL_COLOR_MASK = 2047;
  * 1 << 11
  */
 export const PILL_GIANT_FLAG = 2048;
+
+/** After taking damage, `EntityPlayer.SamsonBerserkCharge` is incremented by this amount. */
+export const TAINTED_SAMSON_BERSERK_CHARGE_FROM_TAKING_DAMAGE = 10000;
 
 /**
  * Add this to a `TrinketType` to get the corresponding golden trinket type.

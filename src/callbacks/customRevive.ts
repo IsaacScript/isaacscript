@@ -5,7 +5,7 @@ import { runNextGameFrame } from "../features/runInNFrames";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { removeCollectibleFromItemTracker } from "../functions/collectibles";
 import { removeAllFamiliars } from "../functions/familiars";
-import { log } from "../functions/log";
+import { log, logError } from "../functions/log";
 import { getPlayerFromIndex, getPlayerIndex } from "../functions/playerIndex";
 import { PlayerIndex } from "../types/PlayerIndex";
 import {
@@ -171,36 +171,26 @@ function playerIsAboutToDie(player: EntityPlayer) {
   removeAllFamiliars(FamiliarVariant.ONE_UP);
   removeCollectibleFromItemTracker(CollectibleType.COLLECTIBLE_1UP);
 
-  // Handle the special case of the fatal damage activating Tainted Samson's berserk state
-  // In this case, the player will be invincible and can potentially not die if they are able to get
-  // a new heart before the berserk stat ends
-  // This is bad, because end-user code is already assuming that a custom revive is occurring
-  // To work around this, immediately end the berserk state, which will kill the player and make the
-  // 1-Up immediately activate
-  // TODO: update this after the next vanilla patch
-  const character = player.GetPlayerType();
-  if (character !== PlayerType.PLAYER_SAMSON_B) {
-    return;
-  }
+  // The player should always be dead one frame from now
+  // If they are not, then something has gone wrong, probably with the `isDamageToPlayerFatal`
+  // function
+  // Since end-user code is already assuming that a custom revive is occurring, explicitly kill the
+  // player
   const playerIndex = getPlayerIndex(player);
   runNextGameFrame(() => {
-    const taintedSamson = getPlayerFromIndex(playerIndex);
-    if (taintedSamson === undefined) {
+    const futurePlayer = getPlayerFromIndex(playerIndex);
+    if (futurePlayer === undefined) {
       return;
     }
 
-    const effects = player.GetEffects();
-    const isBerserk = effects.HasCollectibleEffect(
-      CollectibleType.COLLECTIBLE_BERSERK,
+    if (futurePlayer.IsDead()) {
+      return;
+    }
+
+    logError(
+      "The player is still alive after initializing a custom revive. Explicitly killing the player.",
     );
-    if (!isBerserk) {
-      return;
-    }
-
-    effects.RemoveCollectibleEffect(CollectibleType.COLLECTIBLE_BERSERK, -1);
-
-    // The familiar will show up again for some reason, so remove it again
-    removeAllFamiliars(FamiliarVariant.ONE_UP);
+    futurePlayer.Kill();
   });
 }
 

@@ -6,7 +6,7 @@ import { ModCallbacksCustom } from "../../enums/ModCallbacksCustom";
 import { SaveDataKeys } from "../../enums/private/SaveDataKeys";
 import { SerializationType } from "../../enums/SerializationType";
 import { deepCopy } from "../../functions/deepCopy";
-import { log } from "../../functions/log";
+import { logError } from "../../functions/log";
 import { clearTable } from "../../functions/table";
 import { SAVE_DATA_MANAGER_FEATURE_NAME } from "./constants";
 import { loadFromDisk } from "./load";
@@ -111,8 +111,8 @@ function restoreDefaults(childTableName: SaveDataKeys) {
     // Get the default values for this feature
     const saveDataDefaults = saveDataDefaultsMap.get(subscriberName);
     if (saveDataDefaults === undefined) {
-      log(
-        `Error: Failed to find the default copy of the save data for subscriber: ${subscriberName}`,
+      logError(
+        `Failed to find the default copy of the save data for subscriber: ${subscriberName}`,
       );
       continue;
     }
@@ -120,8 +120,8 @@ function restoreDefaults(childTableName: SaveDataKeys) {
     // Get the default values for the specific sub-table of this feature
     const childTableDefaults = saveDataDefaults[childTableName];
     if (childTableDefaults === undefined) {
-      log(
-        `Error: Failed to find the default copy of the child table "${childTableName}" for subscriber: ${subscriberName}`,
+      logError(
+        `Failed to find the default copy of the child table "${childTableName}" for subscriber: ${subscriberName}`,
       );
       continue;
     }

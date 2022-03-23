@@ -10,6 +10,7 @@ import { getPlayerHealth } from "./playerHealth";
 import { getRoomData, getRoomGridIndex, getRoomListIndex } from "./roomData";
 import { getSortedSetValues } from "./set";
 import { getTrinketName } from "./trinkets";
+import { printConsole } from "./utils";
 
 const IGNORE_EFFECT_VARIANTS: ReadonlySet<EffectVariant> = new Set([
   EffectVariant.BLOOD_EXPLOSION, // 2
@@ -76,6 +77,7 @@ export function logDamageFlags(this: void, flags: int): void {
   logFlags(flags, DamageFlag as unknown as LuaTable, "damage");
 }
 
+/** Helper function for printing out every entity (or filtered entity) in the current room. */
 export function logEntities(
   this: void,
   includeBackgroundEffects: boolean,
@@ -186,6 +188,17 @@ export function logEntityFlags(this: void, flags: int): void {
   logFlags(flags, EntityFlag as unknown as LuaTable, "entity");
 }
 
+/**
+ * Helper function to log an error message and also print it to the console for better visibility.
+ * This is useful in combination with an early return when invoking the `error` function would be
+ * dangerous (since it prevents all of the subsequent code in the callback from running).
+ */
+export function logError(this: void, msg: string): void {
+  const errorMsg = `Error: ${msg}`;
+  log(errorMsg);
+  printConsole(errorMsg);
+}
+
 /** Helper function for printing out every flag that is turned on. Useful when debugging. */
 export function logFlags(
   this: void,
@@ -244,6 +257,10 @@ export function logGameStateFlags(this: void): void {
   }
 }
 
+/**
+ * Helper function for printing out every grid entity (or filtered grid entity) in the current
+ * room.
+ */
 export function logGridEntities(
   this: void,
   includeWalls: boolean,
@@ -521,6 +538,7 @@ export function setLogFunctionsGlobal(): void {
   globals.logEntities = logEntities;
   globals.logEntity = logEntity;
   globals.logEntityFlags = logEntityFlags;
+  globals.logError = logError;
   globals.logFlags = logFlags;
   globals.logGameStateFlags = logGameStateFlags;
   globals.logGridEntities = logGridEntities;

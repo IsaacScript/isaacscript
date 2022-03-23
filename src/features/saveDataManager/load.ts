@@ -1,5 +1,5 @@
 import { jsonDecode } from "../../functions/jsonHelpers";
-import { log } from "../../functions/log";
+import { log, logError } from "../../functions/log";
 import { SaveData } from "../../types/private/SaveData";
 import {
   SAVE_DATA_MANAGER_DEBUG,
@@ -70,8 +70,8 @@ function readSaveDatFile(mod: Mod) {
 
   const [ok, jsonStringOrErrMsg] = pcall(tryLoadModData, mod);
   if (!ok) {
-    log(
-      `Error: Failed to read from the "save#.dat" file on render frame ${renderFrameCount}: ${jsonStringOrErrMsg}`,
+    logError(
+      `Failed to read from the "save#.dat" file on render frame ${renderFrameCount}: ${jsonStringOrErrMsg}`,
     );
     return DEFAULT_MOD_DATA;
   }

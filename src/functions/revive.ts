@@ -1,4 +1,8 @@
 import { game } from "../cachedClasses";
+import {
+  MAX_TAINTED_SAMSON_BERSERK_CHARGE,
+  TAINTED_SAMSON_BERSERK_CHARGE_FROM_TAKING_DAMAGE,
+} from "../constants";
 import { getCharacterDeathAnimationName } from "./character";
 import {
   getPlayerMaxHeartContainers,
@@ -38,6 +42,18 @@ export function isDamageToPlayerFatal(
   // If we are berserk, no damage is fatal
   // (the death is deferred until the end of the berserk effect)
   if (isBerserk) {
+    return false;
+  }
+
+  // If we are playing Tainted Samson and the incoming hit will cause us to become Berserk, then
+  // this will not be fatal damage
+  const berserkChargeAfterHit =
+    player.SamsonBerserkCharge +
+    TAINTED_SAMSON_BERSERK_CHARGE_FROM_TAKING_DAMAGE;
+  if (
+    character === PlayerType.PLAYER_SAMSON_B &&
+    berserkChargeAfterHit >= MAX_TAINTED_SAMSON_BERSERK_CHARGE
+  ) {
     return false;
   }
 

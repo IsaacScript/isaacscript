@@ -3,7 +3,7 @@ import {
   getTopLeftWallGridIndex,
   spawnGridEntity,
 } from "../functions/gridEntity";
-import { log } from "../functions/log";
+import { logError } from "../functions/log";
 import {
   postNewRoomEarlyFire,
   postNewRoomEarlyHasSubscriptions,
@@ -62,12 +62,11 @@ function checkRoomChanged() {
       topLeftWallGridIndex,
     );
     if (topLeftWall === undefined) {
-      log(
-        "Error: Failed to spawn a new wall (1) for the PostNewRoomEarly callback.",
+      logError(
+        "Failed to spawn a new wall (1) for the PostNewRoomEarly callback.",
       );
       return;
     }
-    log("Spawned a new wall (1) for the PostNewRoomEarly callback.");
   }
 
   // Duplicated code
@@ -77,12 +76,11 @@ function checkRoomChanged() {
       rightOfTopWallGridIndex,
     );
     if (topLeftWall2 === undefined) {
-      log(
-        "Error: Failed to spawn a new wall (2) for the PostNewRoomEarly callback.",
+      logError(
+        "Failed to spawn a new wall (2) for the PostNewRoomEarly callback.",
       );
       return;
     }
-    log("Spawned a new wall (2) for the PostNewRoomEarly callback.");
   }
 
   const topLeftWallPtrHash = GetPtrHash(topLeftWall);

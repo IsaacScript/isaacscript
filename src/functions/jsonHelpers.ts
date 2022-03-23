@@ -1,5 +1,5 @@
 import * as json from "json";
-import { log } from "./log";
+import { logError } from "./log";
 
 function tryDecode(this: void, jsonString: string) {
   return json.decode(jsonString) as LuaTable;
@@ -20,9 +20,7 @@ export function jsonDecode(jsonString: string): LuaTable {
   const [ok, luaTableOrErrMsg] = pcall(tryDecode, jsonString);
   if (!ok) {
     // Instead of throwing an error, continue execution of the callback
-    log(
-      `Error: Failed to convert the JSON string to a Lua table: ${jsonString}`,
-    );
+    logError(`Failed to convert the JSON string to a Lua table: ${jsonString}`);
     return new LuaTable();
   }
 
