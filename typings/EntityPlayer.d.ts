@@ -78,6 +78,7 @@ declare interface EntityPlayer extends Entity {
 
   /**
    * Turns the given number of bombs into giga bombs.
+   *
    * This does not actually increase the number of bombs held. To actually add bombs, AddBombs()
    * should be called first.
    *
@@ -1151,19 +1152,22 @@ declare interface EntityPlayer extends Entity {
 
   /**
    * Only change this in the EvaluateCache callback.
-   * Be aware that this is really a BitSet128 instead of an integer.
-   * However, all of the TearFlags enums values use BitSet128 constructors.
+   *
+   * Be aware that this is really a BitSet128 instead of an integer. However, all of the TearFlags
+   * enums values use BitSet128 constructors.
    */
   TearFlags: int;
 
   /**
    * This is equal to the range stat multiplied by -1.
+   *
    * Only change this in the EvaluateCache callback.
    */
   TearHeight: float;
 
   /**
    * This is equal to the range stat multiplied by 40.
+   *
    * Only change this in the EvaluateCache callback.
    */
   TearRange: float;
