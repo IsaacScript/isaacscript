@@ -82,10 +82,8 @@ export function getRandomInt(min: int, max: int, seed = getRandomSeed()): int {
 /**
  * This returns a random integer between min and max, inclusive.
  *
- * Example:
- * ```ts
- * const oneTwoOrThree = getRandomInt(1, 3, seed);
- * ```
+ * Note that this function will invoke the `Next` method on the `RNG` object before returning the
+ * random number.
  */
 export function getRandomIntFromRNG(min: int, max: int, rng: RNG): int {
   if (min > max) {
@@ -119,8 +117,8 @@ export function getRandomSeed(): Seed {
  * const fiftyFiftyChance = rng.RandomInt(2) === 0;
  * ```
  *
- * It is recommended to not deal with RNG objects directly and instead use seeds. Also see the
- * `getRandom`, `getRandomInt`, and `getRandomFloat` helper functions.
+ * It is recommended to not deal with RNG objects directly and instead use seeds, since they are
+ * serializable. Also see the `getRandom`, `getRandomInt`, and `getRandomFloat` helper functions.
  *
  * @param seed The seed to initialize it with. Default is `getRandomSeed()`.
  */
