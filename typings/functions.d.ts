@@ -11,17 +11,18 @@ declare function GetPtrHash(
 ): PtrHash;
 
 /**
- * Returns a random integer between 0 and 4294967296 (2^32).
+ * Returns a random integer between 0 and 4294967296 (2^32). It is inclusive on the lower end and
+ * exclusive on the higher end.
  *
  * For most situations in which you need a random number, you should use the `getRandom`,
  * `getRandomInt`, and `getRandomFloat` helper functions from the standard library instead of this
  * function.
  *
- * Since this function is primarily used in generating new random seeds, the return type is
- * annotated as a `Seed`. In the rare case where you need the output of this function for purposes
- * other than a seed, cast it to an `int`.
+ * This function is mostly useful for generating a random seed. For this purposes, you should always
+ * use the `getRandomSeed` helper function instead of invoking this function directly, since it can
+ * return a value of 0 and crash the game.
  */
-declare function Random(this: void): Seed;
+declare function Random(this: void): int;
 
 /**
  * Returns a random vector between (-1, -1) and (1, 1).
