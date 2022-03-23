@@ -499,12 +499,8 @@ export function logTemporaryEffects(this: void, player: EntityPlayer): void {
 }
 
 /** Helper function for printing out every use flag that is turned on. Useful when debugging. */
-export function logUseFlags(this: void, _flags: int): void {
-  // TODO: fix this after the next vanilla patch
-  log(
-    'The "logUseFlags" helper function is temporarily disabled while the UseFlag enum remains unpatched in vanilla.',
-  );
-  // logFlags(flags, UseFlag as unknown as LuaTable, "use");
+export function logUseFlags(this: void, flags: int): void {
+  logFlags(flags, UseFlag as unknown as LuaTable, "use");
 }
 
 export function logVector(this: void, vector: Vector): void {
