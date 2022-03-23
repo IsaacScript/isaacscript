@@ -20,7 +20,7 @@ import { log } from "../functions/log";
 import { range } from "../functions/math";
 import { getNPCs } from "../functions/npc";
 import { removeAllPickups } from "../functions/pickups";
-import { nextSeed } from "../functions/random";
+import { getRandomSeed, nextSeed } from "../functions/random";
 import { getRoomListIndex } from "../functions/roomData";
 import {
   gridToPos,
@@ -137,7 +137,7 @@ function respawnPersistentEntities() {
  * deployJSONRoom(firstJSONRoom);
  * ```
  * @param seed Optional. Specifies the seed that will be used for spawning every entity in the room.
- * Default is `Random()`.
+ * Default is `getRandomSeed()`.
  * @param verbose Optional. If specified, will write entries to the "log.txt" file that describe
  * what the function is doing. Default is false.
  * @returns Before using the seed for spawning each entity, it is iterated with `nextSeed`. The
@@ -146,7 +146,7 @@ function respawnPersistentEntities() {
  */
 export function deployJSONRoom(
   jsonRoom: JSONRoom,
-  seed = Random(),
+  seed = getRandomSeed(),
   verbose = false,
 ): Seed {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
@@ -193,7 +193,7 @@ export function deployJSONRoom(
  * deployRandomJSONRoom(jsonRooms);
  * ```
  * @param seed Optional. Specifies the seed that will be used for determining the random room. After
- * that, it is also used for spawning every entity in the room. Default is `Random()`.
+ * that, it is also used for spawning every entity in the room. Default is `getRandomSeed()`.
  * @param verbose Optional. If specified, will write entries to the "log.txt" file that describe
  * what the function is doing. Default is false.
  * @returns Before using the seed for spawning each entity, it is iterated with `nextSeed`. The
@@ -202,7 +202,7 @@ export function deployJSONRoom(
  */
 export function deployRandomJSONRoom(
   jsonRooms: JSONRoom[],
-  seed = Random(),
+  seed = getRandomSeed(),
   verbose = false,
 ): Seed {
   errorIfFeaturesNotInitialized(FEATURE_NAME);

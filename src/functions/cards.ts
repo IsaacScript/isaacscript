@@ -7,6 +7,7 @@ import {
 import { CARD_NAMES, DEFAULT_CARD_NAME } from "../objects/cardNames";
 import { CARD_TYPES, DEFAULT_CARD_TYPE } from "../objects/cardTypes";
 import { range } from "./math";
+import { getRandomSeed } from "./random";
 import { addSetsToSet, getRandomSetElement } from "./set";
 import { getEnumValues } from "./utils";
 
@@ -148,21 +149,24 @@ export function getMaxCards(): int {
  * - any objects like Dice Shard
  * - any modded cards.
  *
- * @param seed Optional. The seed with which to select the random card. Default is `Random()`.
+ * @param seed Optional. The seed with which to select the random card. Default is `getRandomSeed()`.
  * @param exceptions Optional. An array of cards to not select.
  */
-export function getRandomCard(seed = Random(), exceptions: Card[] = []): Card {
+export function getRandomCard(
+  seed = getRandomSeed(),
+  exceptions: Card[] = [],
+): Card {
   return getRandomSetElement(CARD_SET, seed, exceptions);
 }
 
 /**
  * @param cardType The card type that represents the pool of cards to select from.
- * @param seed Optional. The seed with which to select the random card. Default is `Random()`.
+ * @param seed Optional. The seed with which to select the random card. Default is `getRandomSeed()`.
  * @param exceptions Optional. An array of cards to not select.
  */
 export function getRandomCardOfType(
   cardType: CardType,
-  seed = Random(),
+  seed = getRandomSeed(),
   exceptions: Card[] = [],
 ): Card {
   const cardSet = getCardsOfType(cardType);
@@ -173,10 +177,14 @@ export function getRandomCardOfType(
  * Has an equal chance of returning any rune (e.g. Rune of Hagalaz, Blank Rune, Black Rune, Soul of
  * Isaac, etc.). This will never return a Rune Shard.
  *
- * @param seed Optional. The seed with which to select the random rune. Default is `Random()`.
+ * @param seed Optional. The seed with which to select the random rune. Default is
+ * `getRandomSeed()`.
  * @param exceptions Optional. An array of runes to not select.
  */
-export function getRandomRune(seed = Random(), exceptions: Card[] = []): Card {
+export function getRandomRune(
+  seed = getRandomSeed(),
+  exceptions: Card[] = [],
+): Card {
   const runesSet = getCardsOfType(CardType.RUNE);
   runesSet.delete(Card.RUNE_SHARD);
   return getRandomSetElement(runesSet, seed, exceptions);

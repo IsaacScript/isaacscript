@@ -1,7 +1,7 @@
 import { JSONRoom } from "../types/JSONRoom";
 import { sumArray } from "./array";
 import { log } from "./log";
-import { getRandomFloat } from "./random";
+import { getRandomFloat, getRandomSeed } from "./random";
 
 export function getJSONRoomOfVariant(
   jsonRooms: JSONRoom[],
@@ -48,7 +48,7 @@ export function getJSONRoomsOfSubType(
  */
 export function getRandomJSONRoom(
   jsonRooms: JSONRoom[],
-  seed = Random(),
+  seed = getRandomSeed(),
   verbose = false,
 ): JSONRoom {
   const totalWeight = getTotalWeightOfJSONRooms(jsonRooms);

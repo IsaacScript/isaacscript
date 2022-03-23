@@ -3,6 +3,7 @@ import { preventCollectibleRotate } from "../features/preventCollectibleRotate";
 import { areFeaturesInitialized } from "../featuresInitialized";
 import { isQuestCollectible, setCollectibleEmpty } from "./collectibles";
 import { anyPlayerIs } from "./player";
+import { getRandomSeed } from "./random";
 
 /**
  * Helper function to spawn a collectible. Use this instead of the `Game.Spawn` method because it
@@ -12,7 +13,7 @@ import { anyPlayerIs } from "./player";
  *
  * @param collectibleType The collectible type to spawn.
  * @param position The position to spawn the collectible at.
- * @param seed Optional. Default is `Random()`.
+ * @param seed Optional. Default is `getRandomSeed()`.
  * @param options Optional. Set to true to make the collectible a "There's Options" style
  * collectible. Default is false.
  * @param forceFreeItem Optional. Set to true to disable the logic that gives the item a price for
@@ -21,7 +22,7 @@ import { anyPlayerIs } from "./player";
 export function spawnCollectible(
   collectibleType: CollectibleType | int,
   position: Vector,
-  seed = Random(),
+  seed = getRandomSeed(),
   options = false,
   forceFreeItem = false,
 ): EntityPickup {
@@ -84,7 +85,7 @@ export function spawnCollectible(
  */
 export function spawnEmptyCollectible(
   position: Vector,
-  seed = Random(),
+  seed = getRandomSeed(),
 ): EntityPickup {
   const collectible = spawnCollectible(
     CollectibleType.COLLECTIBLE_SAD_ONION,

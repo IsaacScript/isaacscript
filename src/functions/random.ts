@@ -10,7 +10,7 @@ const RECOMMENDED_SHIFT_IDX = 35;
  * the high end. (This is because the `RNG.RandomFloat` method can return a value of 0.999, but it
  * will never return a value of exactly 1.)
  */
-export function getRandom(seed = Random()): float {
+export function getRandom(seed = getRandomSeed()): float {
   const rng = initRNG(seed);
 
   return rng.RandomFloat();
@@ -26,7 +26,11 @@ export function getRandom(seed = Random()): float {
  * const realNumberBetweenOneAndThree = getRandomFloat(1, 3, seed);
  * ```
  */
-export function getRandomFloat(min: int, max: int, seed = Random()): float {
+export function getRandomFloat(
+  min: int,
+  max: int,
+  seed = getRandomSeed(),
+): float {
   // From: https://stackoverflow.com/questions/40431966
   return min + getRandom(seed) * (max - min);
 }
@@ -39,10 +43,21 @@ export function getRandomFloat(min: int, max: int, seed = Random()): float {
  * const oneTwoOrThree = getRandomInt(1, 3, seed);
  * ```
  */
-export function getRandomInt(min: int, max: int, seed = Random()): int {
+export function getRandomInt(min: int, max: int, seed = getRandomSeed()): int {
   const rng = initRNG(seed);
 
   return rng.RandomInt(max - min + 1) + min;
+}
+
+/**
+ * Helper function to get a random `Seed` value to be used in spawning entities and so on. Use this
+ * instead of calling the `Random` function directly since that can return a value of 0 and crash
+ * the game.
+ */
+export function getRandomSeed(): Seed {
+  const random = Random();
+  const safeRandomValue = random === 0 ? 1 : random;
+  return safeRandomValue as Seed;
 }
 
 /**
@@ -58,9 +73,9 @@ export function getRandomInt(min: int, max: int, seed = Random()): int {
  * It is recommended to not deal with RNG objects directly and instead use seeds. Also see the
  * `getRandom`, `getRandomInt`, and `getRandomFloat` helper functions.
  *
- * @param seed The seed to initialize it with. Default is `Random()`.
+ * @param seed The seed to initialize it with. Default is `getRandomSeed()`.
  */
-export function initRNG(seed = Random()): RNG {
+export function initRNG(seed = getRandomSeed()): RNG {
   if (seed === 0) {
     error(
       "You cannot initialize an RNG object with a seed of 0, or the game will crash.",
@@ -69,7 +84,7 @@ export function initRNG(seed = Random()): RNG {
 
   const rng = RNG();
 
-  // The game expects seeds in the range of 0 to 4294967295
+  // The game expects seeds in the range of 1 to 4294967295
   rng.SetSeed(seed, RECOMMENDED_SHIFT_IDX);
 
   return rng;
