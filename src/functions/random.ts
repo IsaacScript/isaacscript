@@ -55,9 +55,9 @@ export function getRandomInt(min: int, max: int, seed = getRandomSeed()): int {
  * the game.
  */
 export function getRandomSeed(): Seed {
-  const random = Random();
-  const safeRandomValue = random === 0 ? 1 : random;
-  return safeRandomValue as Seed;
+  const randomNumber = Random();
+  const safeRandomNumber = randomNumber === 0 ? 1 : randomNumber;
+  return safeRandomNumber as Seed;
 }
 
 /**
