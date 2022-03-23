@@ -1,6 +1,7 @@
 import { game } from "../cachedClasses";
 import { MAX_NUM_DOORS } from "../constants";
 import { DOOR_SLOT_TO_DIRECTION } from "../objects/doorSlotToDirection";
+import { ROOM_SHAPE_TO_DOOR_SLOTS } from "../objects/roomShapeToDoorSlots";
 
 export function closeAllDoors(): void {
   for (const door of getDoors()) {
@@ -94,6 +95,15 @@ export function isAngelRoomDoor(door: GridEntityDoor): boolean {
 
 export function isDevilRoomDoor(door: GridEntityDoor): boolean {
   return door.TargetRoomType === RoomType.ROOM_DEVIL;
+}
+
+/** Helper function to see if a door slot is valid for a given room shape. */
+export function isDoorSlotAllowed(
+  doorSlot: DoorSlot,
+  roomShape: RoomShape,
+): boolean {
+  const doorSlots = ROOM_SHAPE_TO_DOOR_SLOTS[roomShape];
+  return doorSlots.has(doorSlot);
 }
 
 /**
