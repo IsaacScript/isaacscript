@@ -1,4 +1,5 @@
 import { DIRECTION_TO_VECTOR } from "../objects/directionToVector";
+import { isUserdataObject } from "./utils";
 
 export function copyVector(vector: Vector): Vector {
   return Vector(vector.X, vector.Y);
@@ -40,19 +41,9 @@ export function getZeroVector(): Vector {
   return Vector(0, 0);
 }
 
+/** Helper function to check if something is an instantiated Vector object. */
 export function isVector(object: unknown): boolean {
-  const objectType = type(object);
-  if (objectType !== "userdata") {
-    return false;
-  }
-
-  const metatable = getmetatable(object);
-  if (metatable === undefined) {
-    return false;
-  }
-
-  const vectorMetatable = metatable as Record<string, string>;
-  return vectorMetatable.__type === "Vector"; // eslint-disable-line no-underscore-dangle
+  return isUserdataObject(object, "Vector");
 }
 
 /** Helper function for finding out which way a vector is pointing. */

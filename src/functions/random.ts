@@ -1,3 +1,5 @@
+import { isUserdataObject } from "./utils";
+
 /**
  * This is the ShiftIdx that Blade recommended after having reviewing the game's internal functions.
  * Any value between 0 and 80 should work equally well.
@@ -105,6 +107,11 @@ export function getRandomSeed(): Seed {
   const randomNumber = Random();
   const safeRandomNumber = randomNumber === 0 ? 1 : randomNumber;
   return safeRandomNumber as Seed;
+}
+
+/** Helper function to check if something is an instantiated RNG object. */
+export function isRNG(object: unknown): boolean {
+  return isUserdataObject(object, "RNG");
 }
 
 /**
