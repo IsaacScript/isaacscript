@@ -86,7 +86,7 @@ export function copyRNG(
 }
 
 /** Helper function to get the next seed value for the provided RNG object. */
-export function getNewSeed(rng: RNG): Seed {
+export function getNextSeed(rng: RNG): Seed {
   rng.Next();
   return rng.GetSeed();
 }
@@ -130,18 +130,6 @@ export function newRNG(seed = getRandomSeed()): RNG {
   const rng = RNG();
   setSeed(rng, seed);
   return rng;
-}
-
-/**
- * Helper function to get the next seed value.
- *
- * This function is useful if you are working with data structures that store seed values instead of
- * RNG objects.
- */
-export function nextSeed(seed: Seed): Seed {
-  const rng = newRNG(seed);
-  rng.Next();
-  return rng.GetSeed();
 }
 
 /**
