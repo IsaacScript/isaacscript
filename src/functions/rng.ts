@@ -145,3 +145,8 @@ export function nextSeed(seed: Seed): Seed {
   rng.Next();
   return rng.GetSeed();
 }
+
+/** Helper function to set a seed to an RNG object using Blade's recommended shift index. */
+export function setSeed(rng: RNG, seed: Seed): void {
+  rng.SetSeed(seed, RECOMMENDED_SHIFT_IDX);
+}
