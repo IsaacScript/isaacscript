@@ -65,7 +65,6 @@ export function checkFamiliar(
   const familiarSubTypeToUse =
     familiarSubType === undefined ? 0 : familiarSubType;
   repeat(numFamiliarsToSpawn, () => {
-    collectibleRNG.Next();
     const familiar = game
       .Spawn(
         EntityType.ENTITY_FAMILIAR,
@@ -74,7 +73,7 @@ export function checkFamiliar(
         Vector.Zero,
         player,
         familiarSubTypeToUse,
-        collectibleRNG.GetSeed(),
+        collectibleRNG.Next(),
       )
       .ToFamiliar();
     if (familiar !== undefined) {

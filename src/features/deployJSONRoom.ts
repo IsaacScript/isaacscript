@@ -460,6 +460,7 @@ function spawnNormalEntityForJSONRoom(
   const room = game.GetRoom();
   const roomType = room.GetType();
   const position = gridToPos(x, y);
+  const seed = rng.Next();
 
   let entity: Entity;
   if (
@@ -467,10 +468,8 @@ function spawnNormalEntityForJSONRoom(
     variant === PickupVariant.PICKUP_COLLECTIBLE
   ) {
     const options = roomType === RoomType.ROOM_ANGEL;
-    entity = spawnCollectible(subType, position, rng, options);
+    entity = spawnCollectible(subType, position, seed, options);
   } else {
-    rng.Next();
-    const seed = rng.GetSeed();
     entity = game.Spawn(
       entityType,
       variant,

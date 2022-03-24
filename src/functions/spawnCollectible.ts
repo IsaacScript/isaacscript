@@ -3,7 +3,7 @@ import { preventCollectibleRotate } from "../features/preventCollectibleRotate";
 import { areFeaturesInitialized } from "../featuresInitialized";
 import { isQuestCollectible, setCollectibleEmpty } from "./collectibles";
 import { anyPlayerIs } from "./player";
-import { newRNG } from "./rng";
+import { getRandomSeed } from "./rng";
 
 /**
  * Helper function to spawn a collectible. Use this instead of the `Game.Spawn` method because it
@@ -13,7 +13,7 @@ import { newRNG } from "./rng";
  *
  * @param collectibleType The collectible type to spawn.
  * @param position The position to spawn the collectible at.
- * @param rng Optional. Default is `newRNG()`.
+ * @param seed Optional. Default is `getRandomSeed()`.
  * @param options Optional. Set to true to make the collectible a "There's Options" style
  * collectible. Default is false.
  * @param forceFreeItem Optional. Set to true to disable the logic that gives the item a price for
@@ -22,12 +22,10 @@ import { newRNG } from "./rng";
 export function spawnCollectible(
   collectibleType: CollectibleType | int,
   position: Vector,
-  rng = newRNG(),
+  seed = getRandomSeed(),
   options = false,
   forceFreeItem = false,
 ): EntityPickup {
-  rng.Next();
-  const seed = rng.GetSeed();
   const collectible = game
     .Spawn(
       EntityType.ENTITY_PICKUP,
@@ -81,12 +79,12 @@ export function spawnCollectible(
  */
 export function spawnEmptyCollectible(
   position: Vector,
-  rng = newRNG(),
+  seed = getRandomSeed(),
 ): EntityPickup {
   const collectible = spawnCollectible(
     CollectibleType.COLLECTIBLE_SAD_ONION,
     position,
-    rng,
+    seed,
     false,
     true,
   );
