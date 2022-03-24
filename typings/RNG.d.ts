@@ -2,6 +2,11 @@ declare function RNG(this: void): RNG;
 
 declare interface RNG {
   GetSeed(): Seed;
+
+  /**
+   * "Iterates" the RNG object and returns the iterated seed, which will be a new random number
+   * between 1 and 4294967295 (2^32 - 1).
+   */
   Next(): Seed;
 
   /**
