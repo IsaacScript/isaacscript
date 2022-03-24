@@ -46,6 +46,7 @@ export const FIRST_GLITCHED_COLLECTIBLE_TYPE = (1 << 32) - 1;
 export const GAME_FRAMES_PER_SECOND = 30;
 export const GRID_INDEX_CENTER_OF_1X1_ROOM = 67;
 export const ISAAC_FRAMES_PER_SECOND = 60;
+export const LEVEL_GRID_ROW_LENGTH = 13;
 
 /** In a 2x2 room, there can be 8 doors. */
 export const MAX_NUM_DOORS = 8;

@@ -1,4 +1,5 @@
 import { EGGY_STATE_FRAME_OF_FINAL_SPIDER } from "../constants";
+import { SIN_ENTITY_TYPES_SET } from "../sets/sinEntityTypesSet";
 import { getEntities, getFilteredNewEntities, removeEntities } from "./entity";
 import { getProjectiles } from "./entitySpecific";
 
@@ -190,6 +191,11 @@ export function isRaglingDeathPatch(npc: EntityNPC): boolean {
     // They go to STATE_SPECIAL when they are patches on the ground
     npc.State === NpcState.STATE_SPECIAL
   );
+}
+
+/** Helper function to check if the provided NPC is a Sin miniboss, such as Sloth or Lust. */
+export function isSin(npc: EntityNPC): boolean {
+  return SIN_ENTITY_TYPES_SET.has(npc.Type);
 }
 
 /**
