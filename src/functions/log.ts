@@ -179,13 +179,13 @@ export function logEntities(
   }
 }
 
-export function logEntity(this: void, entity: Entity): void {
-  log(`Entity: ${entity.Type}.${entity.Variant}.${entity.SubType}`);
-}
-
 /** Helper function for printing out every entity flag that is turned on. Useful when debugging. */
 export function logEntityFlags(this: void, flags: int): void {
   logFlags(flags, EntityFlag as unknown as LuaTable, "entity");
+}
+
+export function logEntityID(this: void, entity: Entity): void {
+  log(`Entity: ${entity.Type}.${entity.Variant}.${entity.SubType}`);
 }
 
 /**
@@ -476,7 +476,13 @@ export function logTable(this: void, table: unknown, parentTables = 0): void {
 
     const valueType = type(value);
     if (valueType === "table") {
-      logTable(value, parentTables + 1);
+      if (key === "__class") {
+        log(
+          `${indentation}(skipping enumerating this key to avoid infinite recursion)`,
+        );
+      } else {
+        logTable(value, parentTables + 1);
+      }
     }
 
     numKeys += 1;
@@ -520,6 +526,27 @@ export function logUseFlags(this: void, flags: int): void {
   logFlags(flags, UseFlag as unknown as LuaTable, "use");
 }
 
+/**
+ * Helper function to enumerate all of the properties of a "userdata" object (i.e. an object from
+ * the Isaac API).
+ */
+export function logUserdata(this: void, userdata: unknown): void {
+  const userdataType = type(userdata);
+  if (userdataType !== "userdata") {
+    log("Userdata: [not userdata]");
+    return;
+  }
+
+  const metatable = getmetatable(userdata) as Record<string, string>;
+  if (metatable === undefined) {
+    log("Userdata: [no metatable]");
+    return;
+  }
+
+  log(`Userdata: ${metatable.__type}`); // eslint-disable-line no-underscore-dangle
+  logTable(metatable);
+}
+
 export function logVector(this: void, vector: Vector): void {
   log(`Vector: (${vector.X}, ${vector.Y})`);
 }
@@ -536,7 +563,7 @@ export function setLogFunctionsGlobal(): void {
   globals.logColor = logColor;
   globals.logDamageFlags = logDamageFlags;
   globals.logEntities = logEntities;
-  globals.logEntity = logEntity;
+  globals.logEntityID = logEntityID;
   globals.logEntityFlags = logEntityFlags;
   globals.logError = logError;
   globals.logFlags = logFlags;
@@ -554,5 +581,6 @@ export function setLogFunctionsGlobal(): void {
   globals.logTearFlags = logTearFlags;
   globals.logTemporaryEffects = logTemporaryEffects;
   globals.logUseFlags = logUseFlags;
+  globals.logUserdata = logUserdata;
   globals.logVector = logVector;
 }
