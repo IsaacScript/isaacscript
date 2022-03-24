@@ -17,6 +17,7 @@ export function getCurrentRoomDescriptorReadOnly(): RoomDescriptorReadOnly {
  */
 export function getRoomAllowedDoors(roomGridIndex?: int): Set<DoorSlot> {
   const allowedDoors = new Set<DoorSlot>();
+
   const roomData = getRoomData(roomGridIndex);
   if (roomData === undefined) {
     return allowedDoors;
