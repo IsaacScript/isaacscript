@@ -25,6 +25,9 @@ export function copyColor<
   C extends Color | SerializedColor,
   S extends SerializationType,
 >(color: C, serializationType: S): CopyColorReturn[S];
+export function copyColor<C extends Color | SerializedColor>(
+  color: C,
+): CopyColorReturn[SerializationType.NONE];
 export function copyColor(
   color: Color | SerializedColor,
   serializationType = SerializationType.NONE,

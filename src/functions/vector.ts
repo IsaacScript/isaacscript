@@ -26,6 +26,9 @@ export function copyVector<
   V extends Vector | SerializedVector,
   S extends SerializationType,
 >(vector: V, serializationType: S): CopyVectorReturn[S];
+export function copyVector<V extends Vector | SerializedVector>(
+  vector: V,
+): CopyVectorReturn[SerializationType.NONE];
 export function copyVector(
   vector: Vector | SerializedVector,
   serializationType = SerializationType.NONE,

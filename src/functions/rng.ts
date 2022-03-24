@@ -32,6 +32,9 @@ export function copyRNG<
   R extends RNG | SerializedRNG,
   S extends SerializationType,
 >(rng: R, serializationType: S): CopyRNGReturn[S];
+export function copyRNG<R extends RNG | SerializedRNG>(
+  rng: R,
+): CopyRNGReturn[SerializationType.NONE];
 export function copyRNG(
   rng: RNG | SerializedRNG,
   serializationType = SerializationType.NONE,
