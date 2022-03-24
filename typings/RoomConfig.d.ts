@@ -9,7 +9,9 @@ declare interface RoomConfig {
    */
   Difficulty: int;
 
+  /** A combination of `DoorSlotFlag`. */
   Doors: int;
+
   Height: int;
   InitialWeight: float;
   Name: string;
