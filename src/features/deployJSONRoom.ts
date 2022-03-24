@@ -20,7 +20,8 @@ import { log } from "../functions/log";
 import { range } from "../functions/math";
 import { getNPCs } from "../functions/npc";
 import { removeAllPickups } from "../functions/pickups";
-import { getRandomSeed, nextSeed } from "../functions/random";
+import { nextSeed } from "../functions/random";
+import { getRandomSeed } from "../functions/rng";
 import { getRoomListIndex } from "../functions/roomData";
 import {
   gridToPos,

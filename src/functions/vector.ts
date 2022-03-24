@@ -1,24 +1,95 @@
+import { SerializationBrand } from "../enums/private/SerializationBrand";
+import { SerializationType } from "../enums/SerializationType";
 import { DIRECTION_TO_VECTOR } from "../objects/directionToVector";
-import { isUserdataObject } from "./utils";
+import { ensureAllCases, isUserdataObject } from "./utils";
 
-export function copyVector(vector: Vector): Vector {
-  return Vector(vector.X, vector.Y);
+type SerializedVector = LuaTable<string, string | number>;
+
+interface CopyVectorReturn {
+  [SerializationType.NONE]: Vector;
+  [SerializationType.SERIALIZE]: SerializedVector;
+  [SerializationType.DESERIALIZE]: Vector;
 }
 
-export function deserializeVector(vectorTable: LuaTable): Vector {
-  const xString = vectorTable.get("X") as string;
-  const x = tonumber(xString);
-  if (x === undefined) {
-    error("Failed to read the X value of a serialized vector.");
-  }
+/**
+ * Helper function to copy a vector.
+ *
+ * @param vector The vector to copy. In the case of deserialization, this will actually be a Lua
+ * table instead of an instantiated Vector class.
+ * @param serializationType Default is `SerializationType.NONE`.
+ */
+export function copyVector<
+  V extends Vector | SerializedVector,
+  S extends SerializationType,
+>(vector: V, serializationType: S): CopyVectorReturn[S];
+export function copyVector(
+  vector: Vector | SerializedVector,
+  serializationType = SerializationType.NONE,
+): CopyVectorReturn[keyof CopyVectorReturn] {
+  switch (serializationType) {
+    case SerializationType.NONE: {
+      if (!isVector(vector)) {
+        error(
+          "Failed to copy a vector since the provided object was not a userdata Vector class.",
+        );
+      }
 
-  const yString = vectorTable.get("Y") as string;
-  const y = tonumber(yString);
-  if (y === undefined) {
-    error("Failed to read the Y value of a serialized vector.");
-  }
+      return Vector(vector.X, vector.Y);
+    }
 
-  return Vector(x, y);
+    case SerializationType.SERIALIZE: {
+      if (!isVector(vector)) {
+        error(
+          "Failed to serialize a vector since the provided object was not a userdata Vector class.",
+        );
+      }
+
+      const vectorTable = new LuaTable<string, string | number>();
+      vectorTable.set("X", vector.X);
+      vectorTable.set("Y", vector.Y);
+      vectorTable.set(SerializationBrand.VECTOR, "");
+      return vectorTable;
+    }
+
+    case SerializationType.DESERIALIZE: {
+      const vectorType = type(vector);
+      if (isVector(vector) || vectorType !== "table") {
+        error(
+          "Failed to deserialize a vector since the provided object was not a Lua table.",
+        );
+      }
+
+      const xString = vector.get("X") as string;
+      if (xString === undefined) {
+        error("Failed to find a value for X in a serialized vector.");
+      }
+
+      const x = tonumber(xString);
+      if (x === undefined) {
+        error(
+          `Failed to convert the X value of a serialized vector to a number: ${xString}`,
+        );
+      }
+
+      const yString = vector.get("Y") as string;
+      if (yString === undefined) {
+        error("Failed to find a value for Y in a serialized vector.");
+      }
+
+      const y = tonumber(yString);
+      if (y === undefined) {
+        error(
+          `Failed to convert the Y value of a serialized vector to a number: ${yString}`,
+        );
+      }
+
+      return Vector(x, y);
+    }
+
+    default: {
+      return ensureAllCases(serializationType);
+    }
+  }
 }
 
 export function directionToVector(direction: Direction): Vector {
@@ -41,8 +112,26 @@ export function getZeroVector(): Vector {
   return Vector(0, 0);
 }
 
+/**
+ * Used to determine is the given table is a serialized Vector created by the save data manager
+ * and/or the `deepCopy` function.
+ */
+export function isSerializedVector(
+  object: unknown,
+): object is SerializedVector {
+  const objectType = type(object);
+  if (objectType !== "table") {
+    return false;
+  }
+
+  const table = object as LuaTable;
+  return (
+    table.has(SerializationBrand.VECTOR) && table.has("X") && table.has("Y")
+  );
+}
+
 /** Helper function to check if something is an instantiated Vector object. */
-export function isVector(object: unknown): boolean {
+export function isVector(object: unknown): object is Vector {
   return isUserdataObject(object, "Vector");
 }
 

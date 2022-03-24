@@ -69,6 +69,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/position.ts" \
   --entryPoints "$DIR/src/functions/random.ts" \
   --entryPoints "$DIR/src/functions/revive.ts" \
+  --entryPoints "$DIR/src/functions/rng.ts" \
   --entryPoints "$DIR/src/functions/rooms.ts" \
   --entryPoints "$DIR/src/functions/roomData.ts" \
   --entryPoints "$DIR/src/functions/run.ts" \

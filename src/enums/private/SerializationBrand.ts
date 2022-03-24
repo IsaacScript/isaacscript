@@ -13,6 +13,7 @@ export enum SerializationBrand {
   SET = "__TSTL_SET",
   CLASS = "__TSTL_CLASS",
   OBJECT_WITH_NUMBER_KEYS = "__TSTL_OBJECT_WITH_NUMBER_KEYS",
+  RNG = "__RNG",
   VECTOR = "__VECTOR",
 }
 

@@ -100,6 +100,7 @@ export * from "./functions/pocketItems";
 export * from "./functions/positionVelocity";
 export * from "./functions/random";
 export * from "./functions/revive";
+export * from "./functions/rng";
 export * from "./functions/roomData";
 export * from "./functions/rooms";
 export * from "./functions/run";

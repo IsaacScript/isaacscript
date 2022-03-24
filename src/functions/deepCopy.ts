@@ -7,8 +7,9 @@ import { SerializationType } from "../enums/SerializationType";
 import { SAVE_DATA_MANAGER_DEBUG } from "../features/saveDataManager/constants";
 import { TSTLClassMetatable } from "../types/private/TSTLClassMetatable";
 import { log } from "./log";
+import { copyRNG, isRNG, isSerializedRNG } from "./rng";
 import { getTraversalDescription } from "./utils";
-import { deserializeVector, isVector } from "./vector";
+import { copyVector, isSerializedVector, isVector } from "./vector";
 
 const TSTL_CLASS_KEYS: ReadonlySet<string> = new Set([
   "____constructor",
@@ -22,16 +23,17 @@ const TSTL_CLASS_KEYS: ReadonlySet<string> = new Set([
  *
  * It supports the following object types:
  *
- * - LuaTables / basic TSTL objects
- * - TSTL Maps
- * - TSTL Sets
- * - TSTL Classes
- * - DefaultMaps
- * - Isaac Vectors
+ * - `LuaTable` / basic TSTL objects
+ * - TSTL `Map`
+ * - TSTL `Set`
+ * - TSTL classes
+ * - `DefaultMap`
+ * - Isaac `RNG` objects
+ * - Isaac `Vector` objects
  *
  * @param oldObject The object to copy.
  * @param serializationType Has 3 possible values. Can leave TypeScriptToLua objects as-is, or can
- * serialize objects to Lua tables, or can deserialize Lua tables to objects. Defaults to
+ * serialize objects to Lua tables, or can deserialize Lua tables to objects. Default is
  * `SerializationType.NONE`.
  * @param traversalDescription Used to track the current key that we are operating on.
  */
@@ -291,15 +293,18 @@ function deepCopyValue(
 
   // Get the value to set on the new object
   let newValue: unknown;
-  if (isVector(value)) {
-    const vector = value as Vector;
-    newValue = copyVector(vector, serializationType);
-  } else if (
-    isSerializedVector(value) &&
-    serializationType === SerializationType.DESERIALIZE
+  if (
+    isRNG(value) ||
+    (isSerializedRNG(value) &&
+      serializationType === SerializationType.DESERIALIZE)
   ) {
-    const serializedVector = value as LuaTable;
-    newValue = deserializeVector(serializedVector);
+    newValue = copyRNG(value, serializationType);
+  } else if (
+    isVector(value) ||
+    (isSerializedVector(value) &&
+      serializationType === SerializationType.DESERIALIZE)
+  ) {
+    newValue = copyVector(value, serializationType);
   } else if (valueType === "table") {
     const table = value as LuaTable;
     traversalDescription = getTraversalDescription(key, traversalDescription);
@@ -321,19 +326,6 @@ function deepCopyValue(
   }
 }
 
-function copyVector(vector: Vector, serializationType: SerializationType) {
-  if (serializationType === SerializationType.SERIALIZE) {
-    const vectorTable = new LuaTable();
-    vectorTable.set("X", vector.X);
-    vectorTable.set("Y", vector.Y);
-    vectorTable.set(SerializationBrand.VECTOR, "");
-    return vectorTable;
-  }
-
-  const newVector = Vector(vector.X, vector.Y);
-  return newVector;
-}
-
 function checkMetatable(table: LuaTable, traversalDescription: string) {
   // Lua tables can have metatables, which make writing a generic deep-cloner impossible
   // We will refuse to copy an unknown table type that has a metatable
@@ -348,7 +340,7 @@ function checkMetatable(table: LuaTable, traversalDescription: string) {
       : `"${traversalDescription}"`;
 
   error(
-    `The deepCopy function detected that ${tableDescription} has a metatable. Copying tables with metatables is not supported (unless they are TypeScriptToLua Maps, Sets, or Classes).`,
+    `The deepCopy function detected that "${tableDescription}" has a metatable. Copying tables with metatables is not supported, unless they are explicitly handled by the save data manager. (e.g. Vectors, TypeScriptToLua Maps, etc.)`,
   );
 }
 
@@ -368,23 +360,7 @@ function validateValue(
     valueType === "userdata"
   ) {
     error(
-      `The deepCopy function detected that "${traversalDescription}" is type ${valueType}, which is not supported.`,
+      `The deepCopy function detected that "${traversalDescription}" is of type "${valueType}", which is not supported.`,
     );
   }
-}
-
-/**
- * Used to determine is the given table is a serialized Vector created by the save data manager
- * and/or the `deepCopy` function.
- */
-export function isSerializedVector(object: unknown): boolean {
-  const objectType = type(object);
-  if (objectType !== "table") {
-    return false;
-  }
-
-  const table = object as LuaTable;
-  return (
-    table.has(SerializationBrand.VECTOR) && table.has("X") && table.has("Y")
-  );
 }

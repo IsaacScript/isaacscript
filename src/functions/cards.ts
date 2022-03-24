@@ -7,7 +7,7 @@ import {
 import { CARD_NAMES, DEFAULT_CARD_NAME } from "../objects/cardNames";
 import { CARD_TYPES, DEFAULT_CARD_TYPE } from "../objects/cardTypes";
 import { range } from "./math";
-import { getRandomSeed } from "./random";
+import { getRandomSeed } from "./rng";
 import { addSetsToSet, getRandomSetElement } from "./set";
 import { getEnumValues } from "./utils";
 

@@ -4,17 +4,27 @@ import {
 } from "../../enums/private/SerializationBrand";
 import { SerializationType } from "../../enums/SerializationType";
 import { isArray } from "../../functions/array";
-import { deepCopy, isSerializedVector } from "../../functions/deepCopy";
+import { deepCopy } from "../../functions/deepCopy";
 import { log } from "../../functions/log";
+import { copyRNG, isSerializedRNG } from "../../functions/rng";
 import { clearTable } from "../../functions/table";
 import { getTraversalDescription } from "../../functions/utils";
-import { deserializeVector } from "../../functions/vector";
+import { copyVector, isSerializedVector } from "../../functions/vector";
 import { SAVE_DATA_MANAGER_DEBUG } from "./constants";
 
 /**
- * merge takes the values from a new table and recursively merges them into an old object
- * (while performing appropriate deserialization).
- * This function handles Lua tables and TypeScriptToLua Maps/Sets/Classes.
+ * merge takes the values from a new table and recursively merges them into an old object (while
+ * performing appropriate deserialization).
+ *
+ * It supports the following object types:
+ *
+ * - `LuaTable` / basic TSTL objects
+ * - TSTL `Map`
+ * - TSTL `Set`
+ * - TSTL classes
+ * - `DefaultMap`
+ * - Isaac `RNG` objects
+ * - Isaac `Vector` objects
  *
  * Since it is common for a variable to have a type of `something | null`, we must iterate over the
  * new object and copy over all of the values. (A value of null transpiles to nil, which means the
@@ -140,8 +150,10 @@ function mergeTable(
       continue;
     }
 
-    // Handle the special case of a Vector
-    if (mergeVector(oldTable, key, value)) {
+    // Handle the special case of supported Isaac classes
+    const deserializedIsaacClass = tryDeserializeIsaacClass(value);
+    if (deserializedIsaacClass !== undefined) {
+      oldTable.set(key, deserializedIsaacClass);
       continue;
     }
 
@@ -171,14 +183,14 @@ function mergeTable(
   }
 }
 
-function mergeVector(oldTable: LuaTable, key: AnyNotNil, value: unknown) {
-  if (!isSerializedVector(value)) {
-    return false;
+function tryDeserializeIsaacClass(value: unknown) {
+  if (isSerializedVector(value)) {
+    return copyVector(value, SerializationType.DESERIALIZE);
   }
 
-  const serializedVector = value as LuaTable;
-  const vector = deserializeVector(serializedVector);
-  oldTable.set(key, vector);
+  if (isSerializedRNG(value)) {
+    return copyRNG(value, SerializationType.DESERIALIZE);
+  }
 
-  return true;
+  return undefined;
 }

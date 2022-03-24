@@ -1,5 +1,5 @@
 import { getRandomArrayElement } from "./array";
-import { getRandomSeed } from "./random";
+import { getRandomSeed } from "./rng";
 
 /**
  * Helper function to add all of the values in one set to another set. The first set passed will be

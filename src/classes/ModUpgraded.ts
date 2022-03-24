@@ -1,5 +1,4 @@
 import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
-import { getDebugPrependString } from "../functions/log";
 import { CALLBACK_REGISTER_FUNCTIONS } from "../objects/callbackRegisterFunctions";
 import { AddCallbackParametersCustom } from "../types/AddCallbackParametersCustom";
 
@@ -18,14 +17,10 @@ export class ModUpgraded implements Mod {
   /** We store a copy of the original mod object so that we can re-implement its functions. */
   Mod: Mod;
 
-  /** End-users can optionally enable verbose-mode, which helps troubleshoot crashes. */
-  Verbose: boolean;
-
-  constructor(mod: Mod, verbose: boolean) {
+  constructor(mod: Mod) {
     this.Name = mod.Name;
 
     this.Mod = mod;
-    this.Verbose = verbose;
   }
 
   // ---------------
@@ -36,26 +31,7 @@ export class ModUpgraded implements Mod {
     modCallbacks: T,
     ...args: AddCallbackParameters[T]
   ): void {
-    if (this.Verbose) {
-      const callback = args[0] as Function; // eslint-disable-line
-      const optionalArg = args[1] as unknown;
-
-      const callbackName = getCallbackName(modCallbacks);
-      const debugMsg = getDebugPrependString(callbackName);
-
-      const callbackWithLogger = (...callbackArgs: unknown[]) => {
-        Isaac.DebugString(`${debugMsg} - START`);
-        const value = callback(...callbackArgs) as unknown;
-        Isaac.DebugString(`${debugMsg} - END - ${value}`);
-        return value;
-      };
-
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      this.Mod.AddCallback(modCallbacks, callbackWithLogger, optionalArg);
-    } else {
-      this.Mod.AddCallback(modCallbacks, ...args);
-    }
+    this.Mod.AddCallback(modCallbacks, ...args);
   }
 
   HasData(): boolean {
@@ -95,20 +71,6 @@ export class ModUpgraded implements Mod {
       );
     }
 
-    // TypeScript 4.5 is unable to resolve these types successfully
-    // Remove this hack when TypeScriptToLua upgrades to TypeScript 4.6
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     callbackRegisterFunction(...args);
   }
-}
-
-function getCallbackName(callbackID: int) {
-  for (const [key, value] of Object.entries(ModCallbacks)) {
-    if (value === callbackID) {
-      return key;
-    }
-  }
-
-  return "MC_UNKNOWN";
 }

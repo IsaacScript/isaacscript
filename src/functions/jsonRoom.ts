@@ -1,7 +1,8 @@
 import { JSONRoom } from "../types/JSONRoom";
 import { sumArray } from "./array";
 import { log } from "./log";
-import { getRandomFloat, getRandomSeed } from "./random";
+import { getRandomFloat } from "./random";
+import { getRandomSeed } from "./rng";
 
 export function getJSONRoomOfVariant(
   jsonRooms: JSONRoom[],

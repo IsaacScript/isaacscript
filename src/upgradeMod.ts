@@ -76,14 +76,12 @@ import { patchErrorFunction } from "./patchErrorFunctions";
  * [Function Signatures](https://isaacscript.github.io/docs/function-signatures#custom-callbacks).
  *
  * @param modVanilla The mod object returned by the `RegisterMod` function.
- * @param verbose Enables verbose logging for the purposes of crash troubleshooting.
- * Default is false.
  * @returns The upgraded mod object.
  */
-export function upgradeMod(modVanilla: Mod, verbose = false): ModUpgraded {
+export function upgradeMod(modVanilla: Mod): ModUpgraded {
   patchErrorFunction();
 
-  const mod = new ModUpgraded(modVanilla, verbose);
+  const mod = new ModUpgraded(modVanilla);
 
   if (!areFeaturesInitialized()) {
     setFeaturesInitialized();

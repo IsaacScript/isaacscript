@@ -3,7 +3,7 @@ import { preventCollectibleRotate } from "../features/preventCollectibleRotate";
 import { areFeaturesInitialized } from "../featuresInitialized";
 import { isQuestCollectible, setCollectibleEmpty } from "./collectibles";
 import { anyPlayerIs } from "./player";
-import { getRandomSeed } from "./random";
+import { getRandomSeed } from "./rng";
 
 /**
  * Helper function to spawn a collectible. Use this instead of the `Game.Spawn` method because it

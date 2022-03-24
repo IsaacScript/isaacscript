@@ -1,4 +1,5 @@
-import { getRandomInt, getRandomSeed, nextSeed } from "./random";
+import { getRandomInt, nextSeed } from "./random";
+import { getRandomSeed } from "./rng";
 import { repeat } from "./utils";
 
 /**
