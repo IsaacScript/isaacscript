@@ -1,4 +1,6 @@
 import { game } from "../cachedClasses";
+import { hasFlag } from "./flag";
+import { getEnumValues } from "./utils";
 
 /**
  * Alias for the `Level.GetCurrentRoomDesc` method. Use this to make it more clear what type of
@@ -7,6 +9,35 @@ import { game } from "../cachedClasses";
 export function getCurrentRoomDescriptorReadOnly(): RoomDescriptorReadOnly {
   const level = game.GetLevel();
   return level.GetCurrentRoomDesc();
+}
+
+/**
+ * Helper function to get the set of allowed door slots for the room at the supplied grid index.
+ * This corresponds to the doors that are enabled in the STB/XML file for the room.
+ */
+export function getRoomAllowedDoors(roomGridIndex?: int): Set<DoorSlot> {
+  const allowedDoors = new Set<DoorSlot>();
+  const roomData = getRoomData(roomGridIndex);
+  if (roomData === undefined) {
+    return allowedDoors;
+  }
+
+  const doorSlots = getEnumValues(DoorSlot);
+  for (const doorSlot of doorSlots) {
+    if (
+      doorSlot === DoorSlot.NO_DOOR_SLOT ||
+      doorSlot === DoorSlot.NUM_DOOR_SLOTS
+    ) {
+      continue;
+    }
+
+    const doorSlotFlag = 1 << doorSlot;
+    if (hasFlag(roomData.Doors, doorSlotFlag)) {
+      allowedDoors.add(doorSlot);
+    }
+  }
+
+  return allowedDoors;
 }
 
 /**

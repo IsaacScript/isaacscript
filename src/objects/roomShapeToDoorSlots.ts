@@ -10,7 +10,7 @@ const ALL_DOOR_SLOTS_SET: ReadonlySet<DoorSlot> = new Set([
 ]);
 
 export const ROOM_SHAPE_TO_DOOR_SLOTS: {
-  readonly [key in RoomShape]: ReadonlySet<DoorSlot>;
+  readonly [key in RoomShape]: ReadonlySet<DoorSlot> | undefined;
 } = {
   // 1
   [RoomShape.ROOMSHAPE_1x1]: new Set([
@@ -80,5 +80,5 @@ export const ROOM_SHAPE_TO_DOOR_SLOTS: {
   [RoomShape.ROOMSHAPE_LBR]: ALL_DOOR_SLOTS_SET,
 
   // 13
-  [RoomShape.NUM_ROOMSHAPES]: new Set(),
+  [RoomShape.NUM_ROOMSHAPES]: undefined,
 };

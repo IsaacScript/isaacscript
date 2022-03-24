@@ -77,7 +77,7 @@ import { patchErrorFunction } from "./patchErrorFunctions";
  *
  * @param modVanilla The mod object returned by the `RegisterMod` function.
  * @param verbose Enables verbose logging for the purposes of crash troubleshooting.
- * Defaults to false.
+ * Default is false.
  * @returns The upgraded mod object.
  */
 export function upgradeMod(modVanilla: Mod, verbose = false): ModUpgraded {

@@ -48,6 +48,14 @@ export function getDevilRoomOrAngelRoomDoor(): GridEntityDoor | undefined {
     : devilRoomOrAngelRoomDoors[0];
 }
 
+/** Helper function to get the possible door slots that can exist for a given room shape. */
+export function getDoorSlotsForRoomShape(
+  roomShape: RoomShape,
+): ReadonlySet<DoorSlot> {
+  const doorSlots = ROOM_SHAPE_TO_DOOR_SLOTS[roomShape];
+  return doorSlots === undefined ? new Set() : doorSlots;
+}
+
 /**
  * Helper function to get all of the doors in the room. By default, it will return every door. You
  * can optionally specify one or more room types to return only the doors that match the specified
@@ -97,12 +105,12 @@ export function isDevilRoomDoor(door: GridEntityDoor): boolean {
   return door.TargetRoomType === RoomType.ROOM_DEVIL;
 }
 
-/** Helper function to see if a door slot is valid for a given room shape. */
-export function isDoorSlotAllowed(
+/** Helper function to see if a door slot could exist for a given room shape. */
+export function isDoorSlotInRoomShape(
   doorSlot: DoorSlot,
   roomShape: RoomShape,
 ): boolean {
-  const doorSlots = ROOM_SHAPE_TO_DOOR_SLOTS[roomShape];
+  const doorSlots = getDoorSlotsForRoomShape(roomShape);
   return doorSlots.has(doorSlot);
 }
 
