@@ -85,12 +85,6 @@ export function copyRNG(
   }
 }
 
-/** Helper function to get the next seed value for the provided RNG object. */
-export function getNextSeed(rng: RNG): Seed {
-  rng.Next();
-  return rng.GetSeed();
-}
-
 /**
  * Helper function to get a random `Seed` value to be used in spawning entities and so on. Use this
  * instead of calling the `Random` function directly since that can return a value of 0 and crash
