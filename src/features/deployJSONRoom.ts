@@ -20,8 +20,7 @@ import { log } from "../functions/log";
 import { range } from "../functions/math";
 import { getNPCs } from "../functions/npc";
 import { removeAllPickups } from "../functions/pickups";
-import { nextSeed } from "../functions/random";
-import { getRandomSeed } from "../functions/rng";
+import { newRNG } from "../functions/rng";
 import { getRoomListIndex } from "../functions/roomData";
 import {
   gridToPos,
@@ -137,19 +136,16 @@ function respawnPersistentEntities() {
  * const firstJSONRoom = customRooms.rooms.room[0];
  * deployJSONRoom(firstJSONRoom);
  * ```
- * @param seed Optional. Specifies the seed that will be used for spawning every entity in the room.
- * Default is `getRandomSeed()`.
+ * @param rng Optional. Specifies the RNG object that will be used for spawning every entity in the
+ * room. Default is `newRNG()`.
  * @param verbose Optional. If specified, will write entries to the "log.txt" file that describe
  * what the function is doing. Default is false.
- * @returns Before using the seed for spawning each entity, it is iterated with `nextSeed`. The
- * function returns the final iterated seed after spawning everything, which can be used in
- * subsequent room deployments.
  */
 export function deployJSONRoom(
   jsonRoom: JSONRoom,
-  seed = getRandomSeed(),
+  rng = newRNG(),
   verbose = false,
-): Seed {
+): void {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
 
   if (verbose) {
@@ -163,15 +159,13 @@ export function deployJSONRoom(
   if (verbose) {
     log("Starting to spawn all of the new entities and grid entities.");
   }
-  const newSeed = spawnAllEntities(jsonRoom, seed, verbose);
+  spawnAllEntities(jsonRoom, rng, verbose);
   if (verbose) {
     log("Finished spawning all of the new entities and grid entities.");
   }
 
   fixPitGraphics();
   fillRoomWithDecorations();
-
-  return newSeed;
 }
 
 /**
@@ -193,29 +187,26 @@ export function deployJSONRoom(
  * const jsonRooms = customRooms.rooms.room;
  * deployRandomJSONRoom(jsonRooms);
  * ```
- * @param seed Optional. Specifies the seed that will be used for determining the random room. After
- * that, it is also used for spawning every entity in the room. Default is `getRandomSeed()`.
+ * @param rng Optional. Specifies the RNG object that will be used for determining the random room.
+ * After that, it is also used for spawning every entity in the room. Default is `newRNG()`.
  * @param verbose Optional. If specified, will write entries to the "log.txt" file that describe
  * what the function is doing. Default is false.
- * @returns Before using the seed for spawning each entity, it is iterated with `nextSeed`. The
- * function returns the final iterated seed after spawning everything, which can be used in
- * subsequent room deployments.
  */
 export function deployRandomJSONRoom(
   jsonRooms: JSONRoom[],
-  seed = getRandomSeed(),
+  rng = newRNG(),
   verbose = false,
-): Seed {
+): void {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
 
-  const randomJSONRoom = getRandomJSONRoom(jsonRooms, seed, verbose);
+  const randomJSONRoom = getRandomJSONRoom(jsonRooms, rng, verbose);
   if (verbose) {
     log(
       `Randomly chose JSON room ${randomJSONRoom.$.type}.${randomJSONRoom.$.variant}.${randomJSONRoom.$.subtype} with name: ${randomJSONRoom.$.name}`,
     );
   }
 
-  return deployJSONRoom(randomJSONRoom, seed, verbose);
+  return deployJSONRoom(randomJSONRoom, rng, verbose);
 }
 
 /**
@@ -331,7 +322,7 @@ function fillRoomWithDecorations() {
   }
 }
 
-function spawnAllEntities(jsonRoom: JSONRoom, seed: Seed, verbose = false) {
+function spawnAllEntities(jsonRoom: JSONRoom, rng: RNG, verbose = false) {
   let shouldUnclearRoom = false;
 
   for (const spawn of jsonRoom.spawn) {
@@ -384,7 +375,6 @@ function spawnAllEntities(jsonRoom: JSONRoom, seed: Seed, verbose = false) {
       }
       spawnGridEntityForJSONRoom(entityType, variant, x, y);
     } else {
-      seed = nextSeed(seed);
       if (verbose) {
         log(
           `Spawning normal entity ${entityType}.${variant}.${subType} at: (${x}, ${y})`,
@@ -396,7 +386,7 @@ function spawnAllEntities(jsonRoom: JSONRoom, seed: Seed, verbose = false) {
         subType,
         x,
         y,
-        seed,
+        rng,
       );
       const npc = entity.ToNPC();
       if (npc !== undefined && npc.CanShutDoors) {
@@ -418,8 +408,6 @@ function spawnAllEntities(jsonRoom: JSONRoom, seed: Seed, verbose = false) {
   } else if (verbose) {
     log("Leaving the room cleared since there were no battle NPCs spawned.");
   }
-
-  return seed;
 }
 
 function spawnGridEntityForJSONRoom(
@@ -467,7 +455,7 @@ function spawnNormalEntityForJSONRoom(
   subType: int,
   x: int,
   y: int,
-  seed: Seed,
+  rng: RNG,
 ) {
   const room = game.GetRoom();
   const roomType = room.GetType();
@@ -479,8 +467,10 @@ function spawnNormalEntityForJSONRoom(
     variant === PickupVariant.PICKUP_COLLECTIBLE
   ) {
     const options = roomType === RoomType.ROOM_ANGEL;
-    entity = spawnCollectible(subType, position, seed, options);
+    entity = spawnCollectible(subType, position, rng, options);
   } else {
+    rng.Next();
+    const seed = rng.GetSeed();
     entity = game.Spawn(
       entityType,
       variant,

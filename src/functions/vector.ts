@@ -1,6 +1,7 @@
 import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
 import { DIRECTION_TO_VECTOR } from "../objects/directionToVector";
+import { copyValuesToTable, getNumbersFromTable, tableHasKeys } from "./table";
 import { ensureAllCases, isUserdataObject } from "./utils";
 
 type SerializedVector = LuaTable<string, string | number>;
@@ -11,8 +12,11 @@ interface CopyVectorReturn {
   [SerializationType.DESERIALIZE]: Vector;
 }
 
+const KEYS = ["X", "Y"];
+const OBJECT_NAME = "Vector";
+
 /**
- * Helper function to copy a vector.
+ * Helper function to copy a `Vector` object.
  *
  * @param vector The vector to copy. In the case of deserialization, this will actually be a Lua
  * table instead of an instantiated Vector class.
@@ -30,7 +34,7 @@ export function copyVector(
     case SerializationType.NONE: {
       if (!isVector(vector)) {
         error(
-          "Failed to copy a vector since the provided object was not a userdata Vector class.",
+          `Failed to copy a ${OBJECT_NAME} object since the provided object was not a userdata ${OBJECT_NAME} class.`,
         );
       }
 
@@ -40,13 +44,12 @@ export function copyVector(
     case SerializationType.SERIALIZE: {
       if (!isVector(vector)) {
         error(
-          "Failed to serialize a vector since the provided object was not a userdata Vector class.",
+          `Failed to serialize a ${OBJECT_NAME} object since the provided object was not a userdata ${OBJECT_NAME} class.`,
         );
       }
 
       const vectorTable = new LuaTable<string, string | number>();
-      vectorTable.set("X", vector.X);
-      vectorTable.set("Y", vector.Y);
+      copyValuesToTable(vector, KEYS, vectorTable);
       vectorTable.set(SerializationBrand.VECTOR, "");
       return vectorTable;
     }
@@ -55,34 +58,11 @@ export function copyVector(
       const vectorType = type(vector);
       if (isVector(vector) || vectorType !== "table") {
         error(
-          "Failed to deserialize a vector since the provided object was not a Lua table.",
+          `Failed to deserialize a ${OBJECT_NAME} object since the provided object was not a Lua table.`,
         );
       }
 
-      const xString = vector.get("X") as string;
-      if (xString === undefined) {
-        error("Failed to find a value for X in a serialized vector.");
-      }
-
-      const x = tonumber(xString);
-      if (x === undefined) {
-        error(
-          `Failed to convert the X value of a serialized vector to a number: ${xString}`,
-        );
-      }
-
-      const yString = vector.get("Y") as string;
-      if (yString === undefined) {
-        error("Failed to find a value for Y in a serialized vector.");
-      }
-
-      const y = tonumber(yString);
-      if (y === undefined) {
-        error(
-          `Failed to convert the Y value of a serialized vector to a number: ${yString}`,
-        );
-      }
-
+      const [x, y] = getNumbersFromTable(vector, OBJECT_NAME, ...KEYS);
       return Vector(x, y);
     }
 
@@ -125,14 +105,12 @@ export function isSerializedVector(
   }
 
   const table = object as LuaTable;
-  return (
-    table.has(SerializationBrand.VECTOR) && table.has("X") && table.has("Y")
-  );
+  return tableHasKeys(table, ...KEYS) && table.has(SerializationBrand.VECTOR);
 }
 
 /** Helper function to check if something is an instantiated Vector object. */
 export function isVector(object: unknown): object is Vector {
-  return isUserdataObject(object, "Vector");
+  return isUserdataObject(object, OBJECT_NAME);
 }
 
 /** Helper function for finding out which way a vector is pointing. */

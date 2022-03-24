@@ -1,5 +1,6 @@
 import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
+import { getNumbersFromTable, tableHasKeys } from "./table";
 import { ensureAllCases, isUserdataObject } from "./utils";
 
 type SerializedRNG = LuaTable<string, string | number>;
@@ -17,10 +18,13 @@ interface CopyRNGReturn {
  */
 const RECOMMENDED_SHIFT_IDX = 35;
 
+const KEYS = ["seed"];
+const OBJECT_NAME = "RNG";
+
 /**
- * Helper function to copy an RNG object.
+ * Helper function to copy an `RNG` object.
  *
- * @param vector The RNG object to copy. In the case of deserialization, this will actually be a Lua
+ * @param rng The RNG object to copy. In the case of deserialization, this will actually be a Lua
  * table instead of an instantiated RNG class.
  * @param serializationType Default is `SerializationType.NONE`.
  */
@@ -36,7 +40,7 @@ export function copyRNG(
     case SerializationType.NONE: {
       if (!isRNG(rng)) {
         error(
-          "Failed to copy an RNG object since the provided object was not a userdata RNG class.",
+          `Failed to copy a ${OBJECT_NAME} object since the provided object was not a userdata ${OBJECT_NAME} class.`,
         );
       }
 
@@ -47,7 +51,7 @@ export function copyRNG(
     case SerializationType.SERIALIZE: {
       if (!isRNG(rng)) {
         error(
-          "Failed to serialize an RNG object since the provided object was not a userdata RNG class.",
+          `Failed to serialize a ${OBJECT_NAME} object since the provided object was not a userdata ${OBJECT_NAME} class.`,
         );
       }
 
@@ -62,22 +66,11 @@ export function copyRNG(
       const rngType = type(rng);
       if (isRNG(rng) || rngType !== "table") {
         error(
-          "Failed to deserialize an RNG object since the provided object was not a Lua table.",
+          `Failed to deserialize a ${OBJECT_NAME} object since the provided object was not a Lua table.`,
         );
       }
 
-      const seedString = rng.get("seed") as string;
-      if (seedString === undefined) {
-        error('Failed to find the "seed" value of a serialized RNG object.');
-      }
-
-      const seedNumber = tonumber(seedString);
-      if (seedNumber === undefined) {
-        error(
-          `Failed to convert the "seed" value of a serialized RNG object to a number: ${seedString}`,
-        );
-      }
-
+      const [seedNumber] = getNumbersFromTable(rng, OBJECT_NAME, ...KEYS);
       const seed = seedNumber as Seed;
       return newRNG(seed);
     }
@@ -101,7 +94,7 @@ export function getRandomSeed(): Seed {
 
 /** Helper function to check if something is an instantiated RNG object. */
 export function isRNG(object: unknown): object is RNG {
-  return isUserdataObject(object, "RNG");
+  return isUserdataObject(object, OBJECT_NAME);
 }
 
 /**
@@ -115,21 +108,11 @@ export function isSerializedRNG(object: unknown): object is SerializedRNG {
   }
 
   const table = object as LuaTable;
-  return table.has(SerializationBrand.RNG) && table.has("seed");
+  return tableHasKeys(table, ...KEYS) && table.has(SerializationBrand.RNG);
 }
 
 /**
- * Helper function to initialize an RNG object.
- *
- * Example:
- * ```ts
- * const startSeed = Game():GetSeeds():GetStartSeed();
- * const rng = initRNG(startSeed);
- * const fiftyFiftyChance = rng.RandomInt(2) === 0;
- * ```
- *
- * It is recommended to not deal with RNG objects directly and instead use seeds, since they are
- * serializable. Also see the `getRandom`, `getRandomInt`, and `getRandomFloat` helper functions.
+ * Helper function to initialize an RNG object using Blade's recommended shift index.
  *
  * @param seed The seed to initialize it with. Default is `getRandomSeed()`.
  */
@@ -142,7 +125,7 @@ export function newRNG(seed = getRandomSeed()): RNG {
 
   const rng = RNG();
 
-  // The game expects seeds in the range of 1 to 4294967295
+  // The game expects seeds in the range of 1 to 4294967295 (1^32 - 1)
   rng.SetSeed(seed, RECOMMENDED_SHIFT_IDX);
 
   return rng;

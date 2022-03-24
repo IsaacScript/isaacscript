@@ -1,7 +1,8 @@
 import { game } from "../cachedClasses";
 import { STORY_BOSSES_SET } from "../sets/storyBossesSet";
 import { AnyEntity } from "../types/AnyEntity";
-import { getRandom, nextSeed } from "./random";
+import { getRandom } from "./random";
+import { newRNG } from "./rng";
 import { repeat } from "./utils";
 
 /**
@@ -227,10 +228,9 @@ export function rerollEnemy(entity: Entity): Entity | undefined {
 
 export function setEntityRandomColor(entity: Entity): void {
   const colorValues: int[] = [];
-  let seed = entity.InitSeed;
+  const rng = newRNG(entity.InitSeed);
   repeat(3, () => {
-    seed = nextSeed(seed);
-    const randomColorValue = getRandom(seed);
+    const randomColorValue = getRandom(rng);
     colorValues.push(randomColorValue);
   });
   const color = Color(colorValues[0], colorValues[1], colorValues[2]);

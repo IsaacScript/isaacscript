@@ -1,5 +1,5 @@
 import { getRandomArrayElement } from "./array";
-import { getRandomSeed } from "./rng";
+import { newRNG } from "./rng";
 
 /**
  * Helper function to add all of the values in one set to another set. The first set passed will be
@@ -67,16 +67,16 @@ export function deleteSetsFromSet<T>(
  * Helper function to get a random element from the provided set.
  *
  * @param set The set to get an element from.
- * @param seed Optional. The seed used to select the random element. Default is `getRandomSeed()`.
+ * @param rng Optional. The RNG object used to select the random element. Default is `newRNG()`.
  * @param exceptions Optional. An array of elements to skip over if selected.
  */
 export function getRandomSetElement<T>(
   set: Set<T> | ReadonlySet<T>,
-  seed = getRandomSeed(),
+  rng = newRNG(),
   exceptions: T[] | readonly T[] = [],
 ): T {
   const array = getSortedSetValues(set);
-  return getRandomArrayElement(array, seed, exceptions);
+  return getRandomArrayElement(array, rng, exceptions);
 }
 
 /**

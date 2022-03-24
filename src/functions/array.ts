@@ -1,5 +1,5 @@
-import { getRandomInt, nextSeed } from "./random";
-import { getRandomSeed } from "./rng";
+import { getRandomInt } from "./random";
+import { newRNG } from "./rng";
 import { repeat } from "./utils";
 
 /**
@@ -130,12 +130,12 @@ export function getLastElement<T>(array: T[]): T {
  * Helper function to get a random element from the provided array.
  *
  * @param array The array to get an element from.
- * @param seed Optional. The seed used to select the random element. Default is `getRandomSeed()`.
+ * @param rng Optional. The RNG object used to select the random element. Default is `newRNG()`.
  * @param exceptions Optional. An array of elements to skip over if selected.
  */
 export function getRandomArrayElement<T>(
   array: T[] | readonly T[],
-  seed = getRandomSeed(),
+  rng = newRNG(),
   exceptions: T[] | readonly T[] = [],
 ): T {
   if (array.length === 0) {
@@ -145,7 +145,7 @@ export function getRandomArrayElement<T>(
   }
 
   const arrayWithoutExceptions = arrayRemove(array, ...exceptions);
-  const randomIndex = getRandomArrayIndex(arrayWithoutExceptions, seed);
+  const randomIndex = getRandomArrayIndex(arrayWithoutExceptions, rng);
   return arrayWithoutExceptions[randomIndex];
 }
 
@@ -154,22 +154,22 @@ export function getRandomArrayElement<T>(
  * decided, it is then removed from the array (in-place).
  *
  * @param array The array to get an element from.
- * @param seed Optional. The seed used to select the random element. Default is `getRandomSeed()`.
+ * @param rng Optional. The RNG object used to select the random element. Default is `newRNG()`.
  * @param exceptions Optional. An array of elements to skip over if selected.
  */
 export function getRandomArrayElementAndRemove<T>(
   array: T[],
-  seed = getRandomSeed(),
+  rng = newRNG(),
   exceptions: T[] | readonly T[] = [],
 ): T {
-  const randomArrayElement = getRandomArrayElement(array, seed, exceptions);
+  const randomArrayElement = getRandomArrayElement(array, rng, exceptions);
   arrayRemoveInPlace(array, randomArrayElement);
   return randomArrayElement;
 }
 
 export function getRandomArrayIndex<T>(
   array: T[] | readonly T[],
-  seed = getRandomSeed(),
+  rng = newRNG(),
 ): int {
   if (array.length === 0) {
     error(
@@ -177,7 +177,7 @@ export function getRandomArrayIndex<T>(
     );
   }
 
-  return getRandomInt(0, array.length - 1, seed);
+  return getRandomInt(0, array.length - 1, rng);
 }
 
 /**
@@ -258,10 +258,10 @@ export function isArrayInArray<T>(
  */
 export function shuffleArray<T>(
   originalArray: T[] | readonly T[],
-  seed = getRandomSeed(),
+  rng = newRNG(),
 ): T[] {
   const array = copyArray(originalArray);
-  shuffleArrayInPlace(array, seed);
+  shuffleArrayInPlace(array, rng);
 
   return array;
 }
@@ -271,17 +271,13 @@ export function shuffleArray<T>(
  *
  * From: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
  */
-export function shuffleArrayInPlace<T>(
-  array: T[],
-  seed = getRandomSeed(),
-): void {
+export function shuffleArrayInPlace<T>(array: T[], rng = newRNG()): void {
   let currentIndex = array.length;
   let randomIndex: int;
 
   while (currentIndex > 0) {
     currentIndex -= 1;
-    seed = nextSeed(seed);
-    randomIndex = getRandomArrayIndex(array, seed);
+    randomIndex = getRandomArrayIndex(array, rng);
 
     [array[currentIndex], array[randomIndex]] = [
       array[randomIndex],
