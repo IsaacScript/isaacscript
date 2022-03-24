@@ -6,6 +6,7 @@ import {
 import { SerializationType } from "../enums/SerializationType";
 import { SAVE_DATA_MANAGER_DEBUG } from "../features/saveDataManager/constants";
 import { TSTLClassMetatable } from "../types/private/TSTLClassMetatable";
+import { isColor } from "./color";
 import { log } from "./log";
 import { copyRNG, isRNG, isSerializedRNG } from "./rng";
 import { getTraversalDescription } from "./utils";
@@ -28,6 +29,7 @@ const TSTL_CLASS_KEYS: ReadonlySet<string> = new Set([
  * - TSTL `Set`
  * - TSTL classes
  * - `DefaultMap`
+ * - Isaac `Color` objects
  * - Isaac `RNG` objects
  * - Isaac `Vector` objects
  *
@@ -349,7 +351,9 @@ function validateValue(
   valueType: string,
   traversalDescription: string,
 ) {
-  if (isVector(value)) {
+  // Isaac API classes are userdata
+  // Whitelist the ones that we can copy
+  if (isCopyableIsaacAPIClass(value)) {
     return;
   }
 
@@ -360,7 +364,11 @@ function validateValue(
     valueType === "userdata"
   ) {
     error(
-      `The deepCopy function detected that "${traversalDescription}" is of type "${valueType}", which is not supported.`,
+      `The deepCopy function detected that "${traversalDescription}" has a value of type "${valueType}", which is not supported.`,
     );
   }
+}
+
+function isCopyableIsaacAPIClass(value: unknown) {
+  return isColor(value) || isRNG(value) || isVector(value);
 }
