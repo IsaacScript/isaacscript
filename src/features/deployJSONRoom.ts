@@ -20,7 +20,7 @@ import { log } from "../functions/log";
 import { range } from "../functions/math";
 import { getNPCs } from "../functions/npc";
 import { removeAllPickups } from "../functions/pickups";
-import { newRNG } from "../functions/rng";
+import { getRandomSeed, isRNG, newRNG } from "../functions/rng";
 import { getRoomListIndex } from "../functions/roomData";
 import {
   gridToPos,
@@ -136,17 +136,19 @@ function respawnPersistentEntities() {
  * const firstJSONRoom = customRooms.rooms.room[0];
  * deployJSONRoom(firstJSONRoom);
  * ```
- * @param rng Optional. Specifies the RNG object that will be used for spawning every entity in the
- * room. Default is `newRNG()`.
+ * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ * `RNG.Next` method will be called. Default is `getRandomSeed()`.
  * @param verbose Optional. If specified, will write entries to the "log.txt" file that describe
  * what the function is doing. Default is false.
  */
 export function deployJSONRoom(
   jsonRoom: JSONRoom,
-  rng = newRNG(),
+  seedOrRNG: Seed | RNG = getRandomSeed(),
   verbose = false,
 ): void {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
+
+  const rng = isRNG(seedOrRNG) ? seedOrRNG : newRNG(seedOrRNG);
 
   if (verbose) {
     log("Starting to empty the room of entities and grid entities.");
@@ -187,17 +189,19 @@ export function deployJSONRoom(
  * const jsonRooms = customRooms.rooms.room;
  * deployRandomJSONRoom(jsonRooms);
  * ```
- * @param rng Optional. Specifies the RNG object that will be used for determining the random room.
- * After that, it is also used for spawning every entity in the room. Default is `newRNG()`.
+ * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ * `RNG.Next` method will be called. Default is `getRandomSeed()`.
  * @param verbose Optional. If specified, will write entries to the "log.txt" file that describe
  * what the function is doing. Default is false.
  */
 export function deployRandomJSONRoom(
   jsonRooms: JSONRoom[],
-  rng = newRNG(),
+  seedOrRNG: Seed | RNG = getRandomSeed(),
   verbose = false,
 ): void {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
+
+  const rng = isRNG(seedOrRNG) ? seedOrRNG : newRNG(seedOrRNG);
 
   const randomJSONRoom = getRandomJSONRoom(jsonRooms, rng, verbose);
   if (verbose) {

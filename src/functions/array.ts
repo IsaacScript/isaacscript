@@ -1,5 +1,5 @@
 import { getRandomInt } from "./random";
-import { newRNG } from "./rng";
+import { getRandomSeed } from "./rng";
 import { repeat } from "./utils";
 
 /**
@@ -130,12 +130,13 @@ export function getLastElement<T>(array: T[]): T {
  * Helper function to get a random element from the provided array.
  *
  * @param array The array to get an element from.
- * @param rng Optional. The RNG object used to select the random element. Default is `newRNG()`.
+ * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ * `RNG.Next` method will be called. Default is `getRandomSeed()`.
  * @param exceptions Optional. An array of elements to skip over if selected.
  */
 export function getRandomArrayElement<T>(
   array: T[] | readonly T[],
-  rng = newRNG(),
+  seedOrRNG: Seed | RNG = getRandomSeed(),
   exceptions: T[] | readonly T[] = [],
 ): T {
   if (array.length === 0) {
@@ -145,7 +146,7 @@ export function getRandomArrayElement<T>(
   }
 
   const arrayWithoutExceptions = arrayRemove(array, ...exceptions);
-  const randomIndex = getRandomArrayIndex(arrayWithoutExceptions, rng);
+  const randomIndex = getRandomArrayIndex(arrayWithoutExceptions, seedOrRNG);
   return arrayWithoutExceptions[randomIndex];
 }
 
@@ -154,22 +155,34 @@ export function getRandomArrayElement<T>(
  * decided, it is then removed from the array (in-place).
  *
  * @param array The array to get an element from.
- * @param rng Optional. The RNG object used to select the random element. Default is `newRNG()`.
+ * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ * `RNG.Next` method will be called. Default is `getRandomSeed()`.
  * @param exceptions Optional. An array of elements to skip over if selected.
  */
 export function getRandomArrayElementAndRemove<T>(
   array: T[],
-  rng = newRNG(),
+  seedOrRNG: Seed | RNG = getRandomSeed(),
   exceptions: T[] | readonly T[] = [],
 ): T {
-  const randomArrayElement = getRandomArrayElement(array, rng, exceptions);
+  const randomArrayElement = getRandomArrayElement(
+    array,
+    seedOrRNG,
+    exceptions,
+  );
   arrayRemoveInPlace(array, randomArrayElement);
   return randomArrayElement;
 }
 
+/**
+ * Helper function to get a random index from the provided array.
+ *
+ * @param array The array to get the index from.
+ * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ * `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ */
 export function getRandomArrayIndex<T>(
   array: T[] | readonly T[],
-  rng = newRNG(),
+  seedOrRNG: Seed | RNG = getRandomSeed(),
 ): int {
   if (array.length === 0) {
     error(
@@ -177,7 +190,7 @@ export function getRandomArrayIndex<T>(
     );
   }
 
-  return getRandomInt(0, array.length - 1, rng);
+  return getRandomInt(0, array.length - 1, seedOrRNG);
 }
 
 /**
@@ -244,6 +257,7 @@ export function isArray(thing: unknown): boolean {
   return true;
 }
 
+/** Checks if an array is in the provided 2-dimensional array. */
 export function isArrayInArray<T>(
   arrayToMatch: T[] | readonly T[],
   parentArray: Array<T[] | readonly T[]>,
@@ -255,13 +269,17 @@ export function isArrayInArray<T>(
  * Shallow copies and shuffles the array using the Fisher-Yates algorithm. Returns the copied array.
  *
  * From: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+ *
+ * @param originalArray The array to shuffle.
+ * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ * `RNG.Next` method will be called. Default is `getRandomSeed()`.
  */
 export function shuffleArray<T>(
   originalArray: T[] | readonly T[],
-  rng = newRNG(),
+  seedOrRNG: Seed | RNG = getRandomSeed(),
 ): T[] {
   const array = copyArray(originalArray);
-  shuffleArrayInPlace(array, rng);
+  shuffleArrayInPlace(array, seedOrRNG);
 
   return array;
 }
@@ -270,14 +288,21 @@ export function shuffleArray<T>(
  * Shuffles the provided array in-place using the Fisher-Yates algorithm.
  *
  * From: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+ *
+ * @param array The array to shuffle.
+ * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ * `RNG.Next` method will be called. Default is `getRandomSeed()`.
  */
-export function shuffleArrayInPlace<T>(array: T[], rng = newRNG()): void {
+export function shuffleArrayInPlace<T>(
+  array: T[],
+  seedOrRNG: Seed | RNG = getRandomSeed(),
+): void {
   let currentIndex = array.length;
   let randomIndex: int;
 
   while (currentIndex > 0) {
     currentIndex -= 1;
-    randomIndex = getRandomArrayIndex(array, rng);
+    randomIndex = getRandomArrayIndex(array, seedOrRNG);
 
     [array[currentIndex], array[randomIndex]] = [
       array[randomIndex],

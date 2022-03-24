@@ -7,7 +7,7 @@ import {
 import { CARD_NAMES, DEFAULT_CARD_NAME } from "../objects/cardNames";
 import { CARD_TYPES, DEFAULT_CARD_TYPE } from "../objects/cardTypes";
 import { range } from "./math";
-import { newRNG } from "./rng";
+import { getRandomSeed } from "./rng";
 import { addSetsToSet, getRandomSetElement } from "./set";
 import { getEnumValues } from "./utils";
 
@@ -149,38 +149,47 @@ export function getMaxCards(): int {
  * - any objects like Dice Shard
  * - any modded cards.
  *
- * @param rng Optional. The RNG object with which to select the random card. Default is `newRNG()`.
+ * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ * `RNG.Next` method will be called. Default is `getRandomSeed()`.
  * @param exceptions Optional. An array of cards to not select.
  */
-export function getRandomCard(rng = newRNG(), exceptions: Card[] = []): Card {
-  return getRandomSetElement(CARD_SET, rng, exceptions);
+export function getRandomCard(
+  seedOrRNG: Seed | RNG = getRandomSeed(),
+  exceptions: Card[] = [],
+): Card {
+  return getRandomSetElement(CARD_SET, seedOrRNG, exceptions);
 }
 
 /**
  * @param cardType The card type that represents the pool of cards to select from.
- * @param rng Optional. The RNG object with which to select the random card. Default is `newRNG()`.
+ * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ * `RNG.Next` method will be called. Default is `getRandomSeed()`.
  * @param exceptions Optional. An array of cards to not select.
  */
 export function getRandomCardOfType(
   cardType: CardType,
-  rng = newRNG(),
+  seedOrRNG: Seed | RNG = getRandomSeed(),
   exceptions: Card[] = [],
 ): Card {
   const cardSet = getCardsOfType(cardType);
-  return getRandomSetElement(cardSet, rng, exceptions);
+  return getRandomSetElement(cardSet, seedOrRNG, exceptions);
 }
 
 /**
  * Has an equal chance of returning any rune (e.g. Rune of Hagalaz, Blank Rune, Black Rune, Soul of
  * Isaac, etc.). This will never return a Rune Shard.
  *
- * @param rng Optional. The RNG object with which to select the random rune. Default is `newRNG()`.
+ * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ * `RNG.Next` method will be called. Default is `getRandomSeed()`.
  * @param exceptions Optional. An array of runes to not select.
  */
-export function getRandomRune(rng = newRNG(), exceptions: Card[] = []): Card {
+export function getRandomRune(
+  seedOrRNG: Seed | RNG = getRandomSeed(),
+  exceptions: Card[] = [],
+): Card {
   const runesSet = getCardsOfType(CardType.RUNE);
   runesSet.delete(Card.RUNE_SHARD);
-  return getRandomSetElement(runesSet, rng, exceptions);
+  return getRandomSetElement(runesSet, seedOrRNG, exceptions);
 }
 
 /**
