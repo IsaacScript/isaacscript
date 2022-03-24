@@ -1,3 +1,4 @@
+import { game } from "../cachedClasses";
 import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
 import { getNumbersFromTable, tableHasKeys } from "./table";
@@ -120,17 +121,8 @@ export function isSerializedRNG(object: unknown): object is SerializedRNG {
  * @param seed The seed to initialize it with. Default is `getRandomSeed()`.
  */
 export function newRNG(seed = getRandomSeed()): RNG {
-  if (seed === 0) {
-    error(
-      "You cannot initialize an RNG object with a seed of 0, or the game will crash.",
-    );
-  }
-
   const rng = RNG();
-
-  // The game expects seeds in the range of 1 to 4294967295 (1^32 - 1)
-  rng.SetSeed(seed, RECOMMENDED_SHIFT_IDX);
-
+  setSeed(rng, seed);
   return rng;
 }
 
@@ -146,7 +138,45 @@ export function nextSeed(seed: Seed): Seed {
   return rng.GetSeed();
 }
 
+/**
+ * Helper function to iterate over the provided object and set the seed for all of the values that
+ * are RNG objects equal to a particular seed.
+ */
+export function setAllRNGToSeed(object: unknown, seed: Seed): void {
+  const objectType = type(object);
+  if (objectType !== "table") {
+    error(
+      `Failed to iterate over the object containing RNG objects since the type of the provided object was: ${objectType}`,
+    );
+  }
+  const table = object as LuaTable<string, unknown>;
+
+  for (const value of Object.values(table)) {
+    if (isRNG(value)) {
+      setSeed(value, seed);
+    }
+  }
+}
+
+/**
+ * Helper function to iterate over the provided object and set the seed for all of the values that
+ * are RNG objects equal to the start seed for the current run.
+ */
+export function setAllRNGToStartSeed(object: unknown): void {
+  const seeds = game.GetSeeds();
+  const startSeed = seeds.GetStartSeed();
+
+  setAllRNGToSeed(object, startSeed);
+}
+
 /** Helper function to set a seed to an RNG object using Blade's recommended shift index. */
 export function setSeed(rng: RNG, seed: Seed): void {
+  if (seed === 0) {
+    error(
+      "You cannot set an RNG object to a seed of 0, or the game will crash.",
+    );
+  }
+
+  // The game expects seeds in the range of 1 to 4294967295 (1^32 - 1)
   rng.SetSeed(seed, RECOMMENDED_SHIFT_IDX);
 }
