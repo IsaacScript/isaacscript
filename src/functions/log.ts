@@ -89,17 +89,20 @@ export function logEffects(this: void, player: EntityPlayer): void {
   }
 
   effects.forEach((effect, i) => {
+    let effectDescription: string;
     if (effect.Item.IsCollectible()) {
       const collectibleName = getCollectibleName(effect.Item.ID);
-      log(`  ${i + 1}) Collectible: ${collectibleName}`);
+      effectDescription = `Collectible: ${collectibleName}`;
     } else if (effect.Item.IsTrinket()) {
       const trinketName = getTrinketName(effect.Item.ID);
-      log(`  ${i + 1}) Trinket: ${trinketName}`);
+      effectDescription = `Trinket: ${trinketName}`;
     } else if (effect.Item.IsNull()) {
-      log(`  ${i + 1}) Null item: ${effect.Item.ID}`);
+      effectDescription = `Null item: ${effect.Item.ID}`;
     } else {
-      log(`  ${i + 1}) Unknown type of effect: ${effect.Item.ID}`);
+      effectDescription = `Unknown type of effect: ${effect.Item.ID}`;
     }
+
+    log(`  ${i + 1}) ${effectDescription} (x${effect.Count})`);
   });
 }
 
