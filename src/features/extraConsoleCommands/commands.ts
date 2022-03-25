@@ -5,12 +5,12 @@ import { getCardName } from "../../functions/cards";
 import { getCharacterName } from "../../functions/character";
 import { spawnGridEntityWithVariant } from "../../functions/gridEntity";
 import {
+  logEffects,
   logEntities,
   logGridEntities,
   logRoom,
   logSeedEffects,
   logSounds,
-  logTemporaryEffects,
 } from "../../functions/log";
 import { getMapPartialMatch } from "../../functions/map";
 import { getNPCs } from "../../functions/npc";
@@ -456,7 +456,7 @@ export function dungeon(): void {
 /** Logs the player's current temporary effects to the "log.txt" file. */
 export function effects(): void {
   const player = Isaac.GetPlayer();
-  logTemporaryEffects(player);
+  logEffects(player);
   printConsole('Logged the player\'s effects to the "log.txt" file.');
 }
 

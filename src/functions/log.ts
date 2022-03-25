@@ -78,6 +78,31 @@ export function logDamageFlags(this: void, flags: int): void {
   logFlags(flags, DamageFlag as unknown as LuaTable, "damage");
 }
 
+export function logEffects(this: void, player: EntityPlayer): void {
+  const effects = getEffectsList(player);
+
+  log("Logging player effects:");
+
+  if (effects.length === 0) {
+    log("  n/a (no effects)");
+    return;
+  }
+
+  effects.forEach((effect, i) => {
+    if (effect.Item.IsCollectible()) {
+      const collectibleName = getCollectibleName(effect.Item.ID);
+      log(`  ${i + 1}) Collectible: ${collectibleName}`);
+    } else if (effect.Item.IsTrinket()) {
+      const trinketName = getTrinketName(effect.Item.ID);
+      log(`  ${i + 1}) Trinket: ${trinketName}`);
+    } else if (effect.Item.IsNull()) {
+      log(`  ${i + 1}) Null item: ${effect.Item.ID}`);
+    } else {
+      log(`  ${i + 1}) Unknown type of effect: ${effect.Item.ID}`);
+    }
+  });
+}
+
 /** Helper function for printing out every entity (or filtered entity) in the current room. */
 export function logEntities(
   this: void,
@@ -497,31 +522,6 @@ export function logTearFlags(this: void, flags: int): void {
   logFlags(flags, TearFlags as unknown as LuaTable, "tear");
 }
 
-export function logTemporaryEffects(this: void, player: EntityPlayer): void {
-  const effects = getEffectsList(player);
-
-  log("Logging player temporary effects:");
-
-  if (effects.length === 0) {
-    log("  n/a (no temporary effects)");
-    return;
-  }
-
-  effects.forEach((effect, i) => {
-    if (effect.Item.IsCollectible()) {
-      const collectibleName = getCollectibleName(effect.Item.ID);
-      log(`  ${i + 1}) ${collectibleName}`);
-    } else if (effect.Item.IsTrinket()) {
-      const trinketName = getTrinketName(effect.Item.ID);
-      log(`  ${i + 1}) ${trinketName}`);
-    } else if (effect.Item.IsNull()) {
-      log(`  ${i + 1}) Null item: ${effect.Item.ID}`);
-    } else {
-      log(`  ${i + 1}) Unknown type of temporary effect: ${effect.Item.ID}`);
-    }
-  });
-}
-
 /** Helper function for printing out every use flag that is turned on. Useful when debugging. */
 export function logUseFlags(this: void, flags: int): void {
   logFlags(flags, UseFlag as unknown as LuaTable, "use");
@@ -569,6 +569,7 @@ export function setLogFunctionsGlobal(): void {
   globals.logArray = logArray;
   globals.logColor = logColor;
   globals.logDamageFlags = logDamageFlags;
+  globals.logEffects = logEffects;
   globals.logEntities = logEntities;
   globals.logEntityID = logEntityID;
   globals.logEntityFlags = logEntityFlags;
@@ -586,7 +587,6 @@ export function setLogFunctionsGlobal(): void {
   globals.logSounds = logSounds;
   globals.logTable = logTable;
   globals.logTearFlags = logTearFlags;
-  globals.logTemporaryEffects = logTemporaryEffects;
   globals.logUseFlags = logUseFlags;
   globals.logUserdata = logUserdata;
   globals.logVector = logVector;
