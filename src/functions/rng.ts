@@ -2,7 +2,8 @@ import { game } from "../cachedClasses";
 import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
 import { getNumbersFromTable, tableHasKeys } from "./table";
-import { ensureAllCases, isUserdataObject } from "./utils";
+import { isUserdataObject } from "./userdata";
+import { ensureAllCases } from "./utils";
 
 type SerializedRNG = LuaTable<string, string | number>;
 

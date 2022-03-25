@@ -175,25 +175,6 @@ export function isLuaDebugEnabled(): boolean {
 }
 
 /**
- * Helper function to check if the something is an instantiated class from the Isaac API. (All
- * classes from the Isaac API have a type of "userdata" in Lua.)
- */
-export function isUserdataObject(object: unknown, objectName: string): boolean {
-  const objectType = type(object);
-  if (objectType !== "userdata") {
-    return false;
-  }
-
-  const metatable = getmetatable(object);
-  if (metatable === undefined) {
-    return false;
-  }
-
-  const vectorMetatable = metatable as Record<string, string>;
-  return vectorMetatable.__type === objectName; // eslint-disable-line no-underscore-dangle
-}
-
-/**
  * Helper function to print something to the in-game console. Use this instead of invoking the
  * `Isaac.ConsoleOutput` method directly because it will automatically insert a newline at the end
  * of the message (which `Isaac.ConsoleOutput` does not do by default).

@@ -2,7 +2,8 @@ import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
 import { DIRECTION_TO_VECTOR } from "../objects/directionToVector";
 import { copyValuesToTable, getNumbersFromTable, tableHasKeys } from "./table";
-import { ensureAllCases, isUserdataObject } from "./utils";
+import { isUserdataObject } from "./userdata";
+import { ensureAllCases } from "./utils";
 
 type SerializedVector = LuaTable<string, string | number>;
 

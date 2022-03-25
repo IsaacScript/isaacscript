@@ -10,6 +10,7 @@ import { getPlayerHealth } from "./playerHealth";
 import { getRoomData, getRoomGridIndex, getRoomListIndex } from "./roomData";
 import { getSortedSetValues } from "./set";
 import { getTrinketName } from "./trinkets";
+import { getUserdataType } from "./userdata";
 import { printConsole } from "./utils";
 
 const IGNORE_EFFECT_VARIANTS: ReadonlySet<EffectVariant> = new Set([
@@ -537,13 +538,19 @@ export function logUserdata(this: void, userdata: unknown): void {
     return;
   }
 
-  const metatable = getmetatable(userdata) as Record<string, string>;
+  const metatable = getmetatable(userdata) as LuaTable;
   if (metatable === undefined) {
     log("Userdata: [no metatable]");
     return;
   }
 
-  log(`Userdata: ${metatable.__type}`); // eslint-disable-line no-underscore-dangle
+  const classType = getUserdataType(userdata);
+  if (classType === undefined) {
+    log("Userdata: [no class type]");
+  } else {
+    log(`Userdata: ${classType}`);
+  }
+
   logTable(metatable);
 }
 

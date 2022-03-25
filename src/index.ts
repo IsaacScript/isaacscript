@@ -119,6 +119,7 @@ export * from "./functions/trinketGive";
 export * from "./functions/trinkets";
 export * from "./functions/trinketSet";
 export * from "./functions/ui";
+export * from "./functions/userdata";
 export * from "./functions/utils";
 export * from "./functions/vector";
 export * from "./maps/cardMap";
