@@ -2,6 +2,7 @@ import { MAX_PLAYER_POCKET_ITEM_SLOTS } from "../constants";
 import { PocketItemType } from "../enums/PocketItemType";
 import { PocketItemDescription } from "../types/PocketItemDescription";
 import { range } from "./math";
+import { isCharacter } from "./player";
 
 export function getFirstCardOrPill(
   player: EntityPlayer,
@@ -97,8 +98,7 @@ export function getPocketItems(player: EntityPlayer): PocketItemDescription[] {
  * items. (Only Tainted Forgotten can pick up items.)
  */
 export function hasOpenPocketItemSlot(player: EntityPlayer): boolean {
-  const character = player.GetPlayerType();
-  if (character === PlayerType.PLAYER_THESOUL_B) {
+  if (isCharacter(player, PlayerType.PLAYER_THESOUL_B)) {
     return false;
   }
 

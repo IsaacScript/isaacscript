@@ -7,7 +7,7 @@ import {
 import { DEFAULT_TRINKET_NAME, TRINKET_NAME_MAP } from "../maps/trinketNameMap";
 import { hasFlag } from "./flag";
 import { getPickups } from "./pickups";
-import { useActiveItemTemp } from "./player";
+import { isCharacter, useActiveItemTemp } from "./player";
 import { clearSprite } from "./sprite";
 import { giveTrinketsBack, temporarilyRemoveTrinkets } from "./trinketGive";
 import { repeat } from "./utils";
@@ -116,8 +116,7 @@ export function getTrinkets(matchingSubType = -1): EntityPickup[] {
  * items. (Only Tainted Forgotten can pick up items.)
  */
 export function hasOpenTrinketSlot(player: EntityPlayer): boolean {
-  const character = player.GetPlayerType();
-  if (character === PlayerType.PLAYER_THESOUL_B) {
+  if (isCharacter(player, PlayerType.PLAYER_THESOUL_B)) {
     return false;
   }
 

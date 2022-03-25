@@ -6,6 +6,7 @@ import { saveDataManager } from "../features/saveDataManager/exports";
 import { removeCollectibleFromItemTracker } from "../functions/collectibles";
 import { removeAllFamiliars } from "../functions/familiars";
 import { log, logError } from "../functions/log";
+import { isCharacter } from "../functions/player";
 import { getPlayerFromIndex, getPlayerIndex } from "../functions/playerIndex";
 import { PlayerIndex } from "../types/PlayerIndex";
 import {
@@ -100,15 +101,13 @@ function checkWaitingForItemAnimation(player: EntityPlayer) {
     return;
   }
 
-  const character = player.GetPlayerType();
   const playerIndex = getPlayerIndex(player);
-
   if (playerIndex !== v.run.dyingPlayerIndex) {
     return;
   }
 
   let playerToCheckHoldingItem = player;
-  if (character === PlayerType.PLAYER_THESOUL_B) {
+  if (isCharacter(player, PlayerType.PLAYER_THESOUL_B)) {
     const forgottenBody = player.GetOtherTwin();
     if (forgottenBody !== undefined) {
       playerToCheckHoldingItem = forgottenBody;

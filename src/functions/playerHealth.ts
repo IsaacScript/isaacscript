@@ -9,6 +9,7 @@ import {
   getPlayerBlackHearts,
   getPlayerHearts,
   getPlayerSoulHearts,
+  isCharacter,
 } from "./player";
 import { ensureAllCases, repeat } from "./utils";
 
@@ -224,7 +225,6 @@ export function getPlayerHealthType(
 }
 
 export function removeAllPlayerHealth(player: EntityPlayer): void {
-  const character = player.GetPlayerType();
   const goldenHearts = player.GetGoldenHearts();
   const eternalHearts = player.GetEternalHearts();
   const boneHearts = player.GetBoneHearts();
@@ -241,7 +241,7 @@ export function removeAllPlayerHealth(player: EntityPlayer): void {
 
   // If we are The Soul, the "AddBoneHearts" method will not remove Forgotten's bone hearts,
   // so we need to explicitly handle this
-  if (character === PlayerType.PLAYER_THESOUL) {
+  if (isCharacter(player, PlayerType.PLAYER_THESOUL)) {
     const forgotten = player.GetSubPlayer();
     if (forgotten !== undefined) {
       const forgottenBoneHearts = forgotten.GetBoneHearts();
@@ -263,7 +263,6 @@ export function setPlayerHealth(
 ): void {
   const character = player.GetPlayerType();
   const subPlayer = player.GetSubPlayer();
-  const isTaintedMagdalene = character === PlayerType.PLAYER_MAGDALENE_B;
 
   removeAllPlayerHealth(player);
 
@@ -315,7 +314,7 @@ export function setPlayerHealth(
     player.AddHearts(1);
 
     // Adding 1 heart to Tainted Magdalene will actually add two hearts
-    if (isTaintedMagdalene) {
+    if (character === PlayerType.PLAYER_MAGDALENE_B) {
       player.AddHearts(-1);
     }
   });

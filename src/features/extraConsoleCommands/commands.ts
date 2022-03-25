@@ -15,7 +15,7 @@ import {
 import { getMapPartialMatch } from "../../functions/map";
 import { getNPCs } from "../../functions/npc";
 import { getPillEffectName } from "../../functions/pills";
-import { useActiveItemTemp } from "../../functions/player";
+import { getPlayerName, useActiveItemTemp } from "../../functions/player";
 import { addPlayerHealthType } from "../../functions/playerHealth";
 import { getPlayers } from "../../functions/playerIndex";
 import { getRoomData } from "../../functions/roomData";
@@ -486,9 +486,9 @@ export function fool(): void {
 /** Prints the current position of all players. */
 export function getPosition(): void {
   for (const player of getPlayers()) {
-    const character = player.GetPlayerType();
+    const playerName = getPlayerName(player);
     printConsole(
-      `Player position for character ${character}: (${player.Position.X}, ${player.Position.Y})`,
+      `Player position for ${playerName}: (${player.Position.X}, ${player.Position.Y})`,
     );
   }
 }
