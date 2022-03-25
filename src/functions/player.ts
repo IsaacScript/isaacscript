@@ -627,6 +627,21 @@ export function isBethany(player: EntityPlayer): boolean {
 }
 
 /**
+ * Helper function to check if a player is a specific character (i.e. `PlayerType`).
+ *
+ * This function is variadic, meaning that you can supply as many characters as you want to check
+ * for. Returns true if the player is any of the supplied characters.
+ */
+export function isCharacter(
+  player: EntityPlayer,
+  ...characters: Array<PlayerType | int>
+): boolean {
+  const characterSet = new Set(characters);
+  const character = player.GetPlayerType();
+  return characterSet.has(character);
+}
+
+/**
  * Helper function for detecting when a player is Eden or Tainted Eden. Useful for situations where
  * you want to know if the starting stats were randomized, for example.
  */
