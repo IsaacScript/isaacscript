@@ -418,21 +418,21 @@ The main thing that TypeScript adds to JavaScript is type annotations. Here's a 
 
 ```lua
 -- Lua code
-function PostPlayerInit(player)
+function postPlayerInit(player)
   player:AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false)
 end
 ```
 
 ```javascript
 // JavaScript code
-function PostPlayerInit(player) {
+function postPlayerInit(player) {
   player.AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false);
 }
 ```
 
 ```ts
 // TypeScript code
-function PostPlayerInit(player: EntityPlayer) {
+function postPlayerInit(player: EntityPlayer) {
   player.AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false);
 }
 ```
