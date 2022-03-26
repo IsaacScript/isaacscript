@@ -363,14 +363,11 @@ function getNewValue(
   value: unknown,
   traversalDescription: string,
   serializationType: SerializationType,
-) {
-  if (isSerializableIsaacAPIClass(value)) {
-    return copySerializableIsaacAPIClass(value, serializationType);
-  }
-
+): unknown {
   if (
-    isSerializedIsaacAPIClass(value) &&
-    serializationType === SerializationType.DESERIALIZE
+    isSerializableIsaacAPIClass(value) ||
+    (isSerializedIsaacAPIClass(value) &&
+      serializationType === SerializationType.DESERIALIZE)
   ) {
     return copySerializableIsaacAPIClass(value, serializationType);
   }
