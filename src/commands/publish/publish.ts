@@ -17,6 +17,7 @@ import * as file from "../../file";
 import { Config } from "../../types/Config";
 import { error, getModTargetDirectoryName, parseIntSafe } from "../../utils";
 import { compileAndCopy } from "../copy/copy";
+import { gitCommitIfChanges, isGitDirty } from "../init/git";
 
 const UPDATE_SCRIPT_NAME = "update.sh";
 
@@ -287,31 +288,6 @@ function runReleaseScriptPostCopy(verbose: boolean) {
   if (stdout.length > 0) {
     console.log(stdout);
   }
-}
-
-function gitCommitIfChanges(version: string, verbose: boolean) {
-  // Throw an error if this is not a git repository
-  execShell("git", ["status"], verbose);
-
-  if (!isGitDirty(verbose)) {
-    console.log("There are no changes to commit.");
-    return;
-  }
-
-  const commitMessage = `v${version}`;
-  execShell("git", ["add", "-A"], verbose);
-  execShell("git", ["commit", "-m", commitMessage], verbose);
-  execShell("git", ["push"], verbose);
-
-  console.log(
-    `Committed and pushed to the git repository with a message of: ${commitMessage}`,
-  );
-}
-
-function isGitDirty(verbose: boolean) {
-  // From: https://remarkablemark.org/blog/2017/10/12/check-git-dirty/
-  const [, stdout] = execShell("git", ["status", "--porcelain"], verbose);
-  return stdout !== "";
 }
 
 function purgeRoomXMLs(modTargetPath: string, verbose: boolean) {

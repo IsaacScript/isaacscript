@@ -205,3 +205,28 @@ function isGitNameAndEmailConfigured(verbose: boolean) {
 
   return nameExitStatus === 0 && emailExitStatus === 0;
 }
+
+export function isGitDirty(verbose: boolean): boolean {
+  // From: https://remarkablemark.org/blog/2017/10/12/check-git-dirty/
+  const [, stdout] = execShell("git", ["status", "--porcelain"], verbose);
+  return stdout !== "";
+}
+
+export function gitCommitIfChanges(version: string, verbose: boolean): void {
+  // Throw an error if this is not a git repository
+  execShell("git", ["status"], verbose);
+
+  if (!isGitDirty(verbose)) {
+    console.log("There are no changes to commit.");
+    return;
+  }
+
+  const commitMessage = `v${version}`;
+  execShell("git", ["add", "-A"], verbose);
+  execShell("git", ["commit", "-m", commitMessage], verbose);
+  execShell("git", ["push"], verbose);
+
+  console.log(
+    `Committed and pushed to the git repository with a message of: ${commitMessage}`,
+  );
+}
