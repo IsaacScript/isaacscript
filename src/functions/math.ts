@@ -1,4 +1,9 @@
+import { DIRECTION_TO_DEGREES } from "../objects/directionToDegrees";
 import { directionToVector } from "./vector";
+
+export function directionToDegrees(direction: Direction): int {
+  return DIRECTION_TO_DEGREES[direction];
+}
 
 export function getAngleDifference(angle1: float, angle2: float): float {
   const subtractedAngle = angle1 - angle2;
