@@ -211,6 +211,15 @@ export function repeat(n: int, func: (i: int) => void): void {
 /**
  * Helper function to check every value of a custom enum for -1. This is helpful as a run-time check
  * because many methods of the Isaac class return -1 if they fail.
+ *
+ * Example:
+ * ```ts
+ * enum EntityTypeCustom {
+ *   FOO = Isaac.GetEntityTypeByName("Foo"),
+ * }
+ *
+ * validateCustomEnum("EntityTypeCustom", EntityTypeCustom);
+ * ```
  */
 export function validateCustomEnum(
   transpiledEnumName: string,

@@ -56,6 +56,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [RNG Object Functions](modules/functions_rng.html)
 - [Room Functions](modules/functions_rooms.html)
 - [Room Data Functions](modules/functions_roomData.html)
+- [Room Shape Functions](modules/functions_roomShape.html)
 - [Run Functions](modules/functions_run.html)
 - [Seed Functions](modules/functions_seeds.html)
 - [Serialization Functions](modules/functions_serialization.html)

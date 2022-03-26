@@ -1,6 +1,5 @@
 import { game, sfxManager } from "../cachedClasses";
 import { MAX_ROOM_INDEX, NUM_DIMENSIONS } from "../constants";
-import { ROOM_SHAPE_TO_DOOR_SLOTS_TO_GRID_INDEX_DELTA } from "../objects/roomShapeToGridIndexDelta";
 import {
   closeAllDoors,
   getDoors,
@@ -26,6 +25,7 @@ import {
   getRoomStageID,
   getRoomSubType,
 } from "./roomData";
+import { getGridIndexDelta } from "./roomShape";
 
 /**
  * Helper function for quickly switching to a new room without playing a particular animation.
@@ -94,25 +94,6 @@ export function getCurrentDimension(): Dimension {
   return error(
     `Failed to get the current dimension using the starting room index of: ${startingRoomGridIndex}`,
   );
-}
-
-/**
- * Helper function to get the grid index delta that a door out of the given room shape would lead
- * to. For example, if you went through the bottom door in a room of `RoomShape.ROOMSHAPE_1x2`, you
- * would end up in a room with a grid index that is +26 units from the `SafeGridIndex` of where you
- * started.
- */
-export function getGridIndexDelta(
-  roomShape: RoomShape,
-  doorSlot: DoorSlot,
-): int | undefined {
-  const doorSlotToGridIndexMap =
-    ROOM_SHAPE_TO_DOOR_SLOTS_TO_GRID_INDEX_DELTA[roomShape];
-  if (doorSlotToGridIndexMap === undefined) {
-    return undefined;
-  }
-
-  return doorSlotToGridIndexMap.get(doorSlot);
 }
 
 /**

@@ -76,6 +76,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/rng.ts" \
   --entryPoints "$DIR/src/functions/rooms.ts" \
   --entryPoints "$DIR/src/functions/roomData.ts" \
+  --entryPoints "$DIR/src/functions/roomShape.ts" \
   --entryPoints "$DIR/src/functions/run.ts" \
   --entryPoints "$DIR/src/functions/seeds.ts" \
   --entryPoints "$DIR/src/functions/serialization.ts" \

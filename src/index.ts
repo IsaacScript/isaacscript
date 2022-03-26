@@ -105,6 +105,7 @@ export * from "./functions/revive";
 export * from "./functions/rng";
 export * from "./functions/roomData";
 export * from "./functions/rooms";
+export * from "./functions/roomShape";
 export * from "./functions/run";
 export * from "./functions/seeds";
 export * from "./functions/serialization";
