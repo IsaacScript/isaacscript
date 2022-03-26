@@ -596,13 +596,14 @@ After doing this, we will be able to call `InfinityTrueCoopInterface.AddCharacte
 In Lua, some mods export functionality by using a global variable:
 
 ```lua
--- A Lua file in someone else's mod
+-- Lua code
 RevelationsVersion = "2.1" -- "RevelationsVersion" is now a global variable
 ```
 
 In TypeScript, you just have to declare it beforehand:
 
 ```ts
+// TypeScript code
 declare let RevelationsVersion: string;
 RevelationsVersion = "2.1"; // "RevelationsVersion" is now a global variable
 ```
