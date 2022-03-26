@@ -134,14 +134,14 @@ For very small functions, it is common to type them anonymously (i.e. without a 
 
 ```lua
 -- Lua code
-Revelations:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
+mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
   Isaac.DebugString("Arrived on a new floor.")
 end);
 ```
 
 ```ts
 // Typescript code
-Revelations.AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, () => {
+mod.AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, () => {
   Isaac.DebugString("Arrived on a new floor.");
 });
 ```
@@ -453,8 +453,8 @@ In Lua, you split your code into multiple files by using `require()`.
 -- main.lua
 local postPlayerInit = require("revelations.postPlayerInit")
 
-local Revelations = RegisterMod("Revelations", 1)
-Revelations:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit.main);
+local mod = RegisterMod("Revelations", 1)
+mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit.main);
 ```
 
 ```lua
@@ -475,8 +475,8 @@ In TypeScript, this is accomplished with `import`.<br />
 // main.ts
 import * as postPlayerInit from "./postPlayerInit";
 
-const Revelations = RegisterMod("Revelations", 1);
-Revelations.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit.main);
+const mod = RegisterMod("Revelations", 1);
+mod.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit.main);
 ```
 
 ```ts
