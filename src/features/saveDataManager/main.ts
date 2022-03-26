@@ -121,7 +121,7 @@ function restoreDefaults(childTableName: SaveDataKeys) {
     const childTableDefaults = saveDataDefaults[childTableName];
     if (childTableDefaults === undefined) {
       logError(
-        `Failed to find the default copy of the child table "${childTableName}" for subscriber: ${subscriberName}`,
+        `Failed to find the default copy of the child table "${childTableName}" for subscriber "${subscriberName}". This error usually means that your save data is out of date. You can try purging all of your save data by deleting the following directory: C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\data`,
       );
       continue;
     }
