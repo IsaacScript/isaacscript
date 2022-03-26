@@ -148,15 +148,15 @@ export function getCollectibleDevilHeartPrice(
 }
 
 /**
- * Helper function to get the path to a collectible's sprite. Returns
- * "gfx/items/collectibles/questionmark.png" if the provided collectible type was not valid.
+ * Helper function to get the path to a collectible's sprite. Returns the path to the question mark
+ * sprite (i.e. from Curse of the Blind) if the provided collectible type was not valid.
  */
 export function getCollectibleGfxFilename(
   collectibleType: CollectibleType | int,
 ): string {
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
-    return "unknown.png";
+    return BLIND_ITEM_PNG_PATH;
   }
 
   return itemConfigItem.GfxFileName;
