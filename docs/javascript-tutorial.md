@@ -489,7 +489,7 @@ postGameStartedInit(mod);
 // "export" makes it so that other files can use this function
 // "void" is an return-type annotation, meaning "this function returns nothing"
 export function postGameStartedInit(mod: Mod): void {
-  mod.AddCallback(ModCallbacks.MC_POST_GAME_STARTED, main);  
+  mod.AddCallback(ModCallbacks.MC_POST_GAME_STARTED, main);
 }
 
 function main() {
