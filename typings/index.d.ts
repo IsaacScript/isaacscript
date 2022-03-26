@@ -137,6 +137,7 @@
 /// <reference path="unofficial/primitives.d.ts" />
 
 /// <reference path="unofficial/AddCallbackParameters.d.ts" />
+/// <reference path="unofficial/APIVersion.d.ts" />
 /// <reference path="unofficial/EntitySubPlayer.d.ts" />
 /// <reference path="unofficial/PtrHash.d.ts" />
 /// <reference path="unofficial/Seed.d.ts" />
