@@ -17,7 +17,7 @@ declare interface Room {
     gridPathThreshold?: int,
     ignoreWalls?: boolean,
     ignoreCrushable?: boolean,
-  ): LuaMultiReturn<[boolean, Vector]>;
+  ): LuaMultiReturn<[Clear: boolean, collidePos: Vector]>;
 
   DamageGrid(index: int, damage: int): boolean;
   DestroyGrid(index: int, immediate: boolean): boolean;
