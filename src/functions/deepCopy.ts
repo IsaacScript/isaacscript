@@ -1,16 +1,28 @@
 import { DefaultMap } from "../classes/DefaultMap";
+import { SerializableIsaacAPIClassType } from "../enums/private/SerializableIsaacAPIClassType";
 import {
   isSerializationBrand,
   SerializationBrand,
 } from "../enums/private/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
 import { SAVE_DATA_MANAGER_DEBUG } from "../features/saveDataManager/constants";
+import { SerializableIsaacAPIClass } from "../types/private/SerializableIsaacAPIClass";
+import { SerializedIsaacAPIClass } from "../types/private/SerializedIsaacAPIClass";
 import { TSTLClassMetatable } from "../types/private/TSTLClassMetatable";
-import { isColor } from "./color";
+import { copyColor, isSerializedColor } from "./color";
+import {
+  getIsaacAPIClassType,
+  isSerializableIsaacAPIClass,
+} from "./isaacAPIClass";
+import { copyKColor, isSerializedKColor } from "./kColor";
 import { log } from "./log";
-import { copyRNG, isRNG, isSerializedRNG } from "./rng";
-import { getTraversalDescription } from "./utils";
-import { copyVector, isSerializedVector, isVector } from "./vector";
+import { copyRNG, isSerializedRNG } from "./rng";
+import {
+  ensureAllCases,
+  getEnumValues,
+  getTraversalDescription,
+} from "./utils";
+import { copyVector, isSerializedVector } from "./vector";
 
 const TSTL_CLASS_KEYS: ReadonlySet<string> = new Set([
   "____constructor",
@@ -30,6 +42,7 @@ const TSTL_CLASS_KEYS: ReadonlySet<string> = new Set([
  * - TSTL classes
  * - `DefaultMap`
  * - Isaac `Color` objects
+ * - Isaac `KColor` objects
  * - Isaac `RNG` objects
  * - Isaac `Vector` objects
  *
@@ -236,6 +249,24 @@ function isTSTLClass(object: LuaTable): boolean {
   return numKeys === TSTL_CLASS_KEYS.size;
 }
 
+function checkMetatable(table: LuaTable, traversalDescription: string) {
+  // Lua tables can have metatables, which make writing a generic deep-cloner impossible
+  // We will refuse to copy an unknown table type that has a metatable
+  const metatable = getmetatable(table);
+  if (metatable === undefined) {
+    return;
+  }
+
+  const tableDescription =
+    traversalDescription === ""
+      ? "the table to copy"
+      : `"${traversalDescription}"`;
+
+  error(
+    `The deepCopy function detected that "${tableDescription}" has a metatable. Copying tables with metatables is not supported, unless they are explicitly handled by the save data manager. (e.g. Vectors, TypeScriptToLua Maps, etc.)`,
+  );
+}
+
 function copyClass(oldClass: unknown) {
   const metatable = getmetatable(oldClass) as TSTLClassMetatable;
   const newClass = getNewClassFromMetatable(metatable);
@@ -293,27 +324,12 @@ function deepCopyValue(
     }
   }
 
-  // Get the value to set on the new object
-  let newValue: unknown;
-  if (
-    isRNG(value) ||
-    (isSerializedRNG(value) &&
-      serializationType === SerializationType.DESERIALIZE)
-  ) {
-    newValue = copyRNG(value, serializationType);
-  } else if (
-    isVector(value) ||
-    (isSerializedVector(value) &&
-      serializationType === SerializationType.DESERIALIZE)
-  ) {
-    newValue = copyVector(value, serializationType);
-  } else if (valueType === "table") {
-    const table = value as LuaTable;
-    traversalDescription = getTraversalDescription(key, traversalDescription);
-    newValue = deepCopy(table, serializationType, traversalDescription);
-  } else {
-    newValue = value;
-  }
+  const newValue = getNewValue(
+    key,
+    value,
+    traversalDescription,
+    serializationType,
+  );
 
   // Set the value on the new object
   // Even though the "set" invocations below are identical,
@@ -328,32 +344,14 @@ function deepCopyValue(
   }
 }
 
-function checkMetatable(table: LuaTable, traversalDescription: string) {
-  // Lua tables can have metatables, which make writing a generic deep-cloner impossible
-  // We will refuse to copy an unknown table type that has a metatable
-  const metatable = getmetatable(table);
-  if (metatable === undefined) {
-    return;
-  }
-
-  const tableDescription =
-    traversalDescription === ""
-      ? "the table to copy"
-      : `"${traversalDescription}"`;
-
-  error(
-    `The deepCopy function detected that "${tableDescription}" has a metatable. Copying tables with metatables is not supported, unless they are explicitly handled by the save data manager. (e.g. Vectors, TypeScriptToLua Maps, etc.)`,
-  );
-}
-
 function validateValue(
   value: unknown,
   valueType: string,
   traversalDescription: string,
 ) {
-  // Isaac API classes are userdata
+  // Isaac API classes are type "userdata"
   // Whitelist the ones that we can copy
-  if (isCopyableIsaacAPIClass(value)) {
+  if (isSerializableIsaacAPIClass(value)) {
     return;
   }
 
@@ -369,6 +367,120 @@ function validateValue(
   }
 }
 
-function isCopyableIsaacAPIClass(value: unknown) {
-  return isColor(value) || isRNG(value) || isVector(value);
+/** Returns the value to set on the new object. */
+function getNewValue(
+  key: AnyNotNil,
+  value: unknown,
+  traversalDescription: string,
+  serializationType: SerializationType,
+) {
+  if (isSerializableIsaacAPIClass(value)) {
+    return copySerializableIsaacAPIClass(value, serializationType);
+  }
+
+  if (
+    isSerializedIsaacAPIClass(value) &&
+    serializationType === SerializationType.DESERIALIZE
+  ) {
+    return copySerializableIsaacAPIClass(value, serializationType);
+  }
+
+  if (type(value) === "table") {
+    const table = value as LuaTable;
+    traversalDescription = getTraversalDescription(key, traversalDescription);
+    return deepCopy(table, serializationType, traversalDescription);
+  }
+
+  return value;
+}
+
+function copySerializableIsaacAPIClass(
+  isaacAPIClassOrSerializedTable:
+    | SerializableIsaacAPIClass
+    | SerializedIsaacAPIClass,
+  serializationType: SerializationType,
+) {
+  const isaacAPIClassType = getIsaacAPIClassType(
+    isaacAPIClassOrSerializedTable,
+  ) as SerializableIsaacAPIClassType;
+
+  switch (isaacAPIClassType) {
+    case SerializableIsaacAPIClassType.COLOR: {
+      const color = isaacAPIClassOrSerializedTable as unknown as Color;
+      return copyColor(color, serializationType);
+    }
+
+    case SerializableIsaacAPIClassType.KCOLOR: {
+      const kColor = isaacAPIClassOrSerializedTable as unknown as KColor;
+      return copyKColor(kColor, serializationType);
+    }
+
+    case SerializableIsaacAPIClassType.RNG: {
+      const rng = isaacAPIClassOrSerializedTable as unknown as RNG;
+      return copyRNG(rng);
+    }
+
+    case SerializableIsaacAPIClassType.VECTOR: {
+      const vector = isaacAPIClassOrSerializedTable as unknown as Vector;
+      return copyVector(vector);
+    }
+
+    default: {
+      return ensureAllCases(isaacAPIClassType);
+    }
+  }
+}
+
+export function isSerializedIsaacAPIClass(
+  object: unknown,
+): object is SerializedIsaacAPIClass {
+  const objectType = type(object);
+  if (objectType !== "table") {
+    return false;
+  }
+
+  const serializableIsaacAPIClassTypes = getEnumValues(
+    SerializableIsaacAPIClassType,
+  );
+  for (const serializableIsaacAPIClassType of serializableIsaacAPIClassTypes) {
+    switch (serializableIsaacAPIClassType) {
+      case SerializableIsaacAPIClassType.COLOR: {
+        if (isSerializedColor(object)) {
+          return true;
+        }
+
+        break;
+      }
+
+      case SerializableIsaacAPIClassType.KCOLOR: {
+        if (isSerializedKColor(object)) {
+          return true;
+        }
+
+        break;
+      }
+
+      case SerializableIsaacAPIClassType.RNG: {
+        if (isSerializedRNG(object)) {
+          return true;
+        }
+
+        break;
+      }
+
+      case SerializableIsaacAPIClassType.VECTOR: {
+        if (isSerializedVector(object)) {
+          return true;
+        }
+
+        break;
+      }
+
+      default: {
+        ensureAllCases(serializableIsaacAPIClassType);
+      }
+    }
+  }
+
+  return false;
 }

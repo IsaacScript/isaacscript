@@ -38,7 +38,9 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Globals Functions](modules/functions_globals.html)
 - [Grid Entity Functions](modules/functions_gridEntity.html)
 - [Input Functions](modules/functions_input.html)
+- [Isaac API Class Functions](modules/functions_userdata.html)
 - [JSON Functions](modules/functions_jsonHelpers.html)
+- [KColor Functions](modules/functions_kColor.html)
 - [Language Functions](modules/functions_language.html)
 - [Log Functions](modules/functions_log.html)
 - [Map Functions](modules/functions_map.html)
@@ -66,7 +68,6 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Transformation Functions](modules/functions_transformations.html)
 - [Trinket Functions](modules/functions_trinkets.html) & [Trinket Giving/Removing Functions](modules/functions_trinketGive.html) & [Trinket Set Functions](modules/functions_trinketSet.html) & [Trinket Cache Flag Functions](modules/functions_trinketCacheFlag.html)
 - [UI Functions](modules/functions_ui.html)
-- [Userdata Functions](modules/functions_userdata.html)
 - [Utility Functions](modules/functions_utils.html)
 - [Vector Functions](modules/functions_vector.html)
 

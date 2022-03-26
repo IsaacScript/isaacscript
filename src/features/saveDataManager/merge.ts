@@ -24,6 +24,7 @@ import { SAVE_DATA_MANAGER_DEBUG } from "./constants";
  * - TSTL classes
  * - `DefaultMap`
  * - Isaac `Color` objects
+ * - Isaac `KColor` objects
  * - Isaac `RNG` objects
  * - Isaac `Vector` objects
  *

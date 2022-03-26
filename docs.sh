@@ -53,7 +53,9 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/globals.ts" \
   --entryPoints "$DIR/src/functions/gridEntity.ts" \
   --entryPoints "$DIR/src/functions/input.ts" \
+  --entryPoints "$DIR/src/functions/isaacAPIClass.ts" \
   --entryPoints "$DIR/src/functions/jsonHelpers.ts" \
+  --entryPoints "$DIR/src/functions/kColor.ts" \
   --entryPoints "$DIR/src/functions/language.ts" \
   --entryPoints "$DIR/src/functions/log.ts" \
   --entryPoints "$DIR/src/functions/map.ts" \
@@ -88,7 +90,6 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/trinketGive.ts" \
   --entryPoints "$DIR/src/functions/trinketSet.ts" \
   --entryPoints "$DIR/src/functions/ui.ts" \
-  --entryPoints "$DIR/src/functions/userdata.ts" \
   --entryPoints "$DIR/src/functions/utils.ts" \
   --entryPoints "$DIR/src/functions/vector.ts" \
   --entryPoints "$DIR/src/maps/cardMap.ts" \

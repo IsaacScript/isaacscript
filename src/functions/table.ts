@@ -12,7 +12,7 @@ export function clearTable(table: LuaTable): void {
 export function copyValuesToTable(
   object: unknown,
   keys: string[],
-  table: LuaTable<string, string | number>,
+  table: LuaTable<string, unknown>,
 ): void {
   const otherTable = object as LuaTable<string, string | number>;
 
@@ -29,7 +29,7 @@ export function copyValuesToTable(
  * This function is variadic, meaning that you can specify N arguments to get N values.
  */
 export function getBooleansFromTable(
-  table: LuaTable<string, string | number>,
+  table: LuaTable<string, unknown>,
   objectName: string,
   ...keys: string[]
 ): boolean[] {
@@ -61,7 +61,7 @@ export function getBooleansFromTable(
  * This function is variadic, meaning that you can specify N arguments to get N values.
  */
 export function getNumbersFromTable(
-  table: LuaTable<string, string | number>,
+  table: LuaTable<string, unknown>,
   objectName: string,
   ...keys: string[]
 ): number[] {
@@ -101,7 +101,7 @@ export function getNumbersFromTable(
  * This function is variadic, meaning that you can specify N arguments to get N values.
  */
 export function getStringsFromTable(
-  table: LuaTable<string, string | number>,
+  table: LuaTable<string, unknown>,
   objectName: string,
   ...keys: string[]
 ): string[] {

@@ -1,11 +1,13 @@
 import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
 import { DIRECTION_TO_VECTOR } from "../objects/directionToVector";
+import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { copyValuesToTable, getNumbersFromTable, tableHasKeys } from "./table";
-import { isUserdataObject } from "./userdata";
 import { ensureAllCases } from "./utils";
 
-type SerializedVector = LuaTable<string, string | number>;
+type SerializedVector = LuaTable<string, unknown> & {
+  __serializedVectorBrand: unknown;
+};
 
 interface CopyVectorReturn {
   [SerializationType.NONE]: Vector;
@@ -52,10 +54,10 @@ export function copyVector(
         );
       }
 
-      const vectorTable = new LuaTable<string, string | number>();
+      const vectorTable = new LuaTable<string, unknown>();
       copyValuesToTable(vector, KEYS, vectorTable);
       vectorTable.set(SerializationBrand.VECTOR, "");
-      return vectorTable;
+      return vectorTable as SerializedVector;
     }
 
     case SerializationType.DESERIALIZE: {
@@ -97,8 +99,8 @@ export function getZeroVector(): Vector {
 }
 
 /**
- * Used to determine is the given table is a serialized Vector created by the save data manager
- * and/or the `deepCopy` function.
+ * Used to determine is the given table is a serialized `Vector` object created by the save data
+ * manager and/or the `deepCopy` function.
  */
 export function isSerializedVector(
   object: unknown,
@@ -114,7 +116,11 @@ export function isSerializedVector(
 
 /** Helper function to check if something is an instantiated Vector object. */
 export function isVector(object: unknown): object is Vector {
-  return isUserdataObject(object, OBJECT_NAME);
+  return isIsaacAPIClassOfType(object, OBJECT_NAME);
+}
+
+export function vectorEquals(vector1: Vector, vector2: Vector): boolean {
+  return isaacAPIClassEquals(vector1, vector2, KEYS);
 }
 
 /** Helper function for finding out which way a vector is pointing. */

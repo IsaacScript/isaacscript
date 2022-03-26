@@ -1,10 +1,12 @@
 import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
-import { copyValuesToTable, getNumbersFromTable } from "./table";
-import { isUserdataObject } from "./userdata";
+import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
+import { copyValuesToTable, getNumbersFromTable, tableHasKeys } from "./table";
 import { ensureAllCases } from "./utils";
 
-type SerializedColor = LuaTable<string, string | number>;
+type SerializedColor = LuaTable<string, unknown> & {
+  __serializedColorBrand: unknown;
+};
 
 interface CopyColorReturn {
   [SerializationType.NONE]: Color;
@@ -14,6 +16,10 @@ interface CopyColorReturn {
 
 const KEYS = ["R", "G", "B", "A", "RO", "GO", "BO"];
 const OBJECT_NAME = "Color";
+
+export function colorEquals(color1: Color, color2: Color): boolean {
+  return isaacAPIClassEquals(color1, color2, KEYS);
+}
 
 /**
  * Helper function to copy a `Color` object.
@@ -59,10 +65,10 @@ export function copyColor(
         );
       }
 
-      const colorTable = new LuaTable<string, string | number>();
+      const colorTable = new LuaTable<string, unknown>();
       copyValuesToTable(color, KEYS, colorTable);
       colorTable.set(SerializationBrand.COLOR, "");
-      return colorTable;
+      return colorTable as SerializedColor;
     }
 
     case SerializationType.DESERIALIZE: {
@@ -88,19 +94,25 @@ export function copyColor(
   }
 }
 
-export function copyKColor(kColor: KColor): KColor {
-  return KColor(kColor.Red, kColor.Green, kColor.Blue, kColor.Alpha);
-}
-
 export function getDefaultColor(): Color {
   return Color(1, 1, 1);
 }
 
-export function getDefaultKColor(): KColor {
-  return KColor(1, 1, 1, 1);
-}
-
 /** Helper function to check if something is an instantiated Color object. */
 export function isColor(object: unknown): object is Color {
-  return isUserdataObject(object, OBJECT_NAME);
+  return isIsaacAPIClassOfType(object, OBJECT_NAME);
+}
+
+/**
+ * Used to determine is the given table is a serialized `Color` object created by the save data
+ * manager and/or the `deepCopy` function.
+ */
+export function isSerializedColor(object: unknown): object is SerializedColor {
+  const objectType = type(object);
+  if (objectType !== "table") {
+    return false;
+  }
+
+  const table = object as LuaTable;
+  return tableHasKeys(table, ...KEYS) && table.has(SerializationBrand.COLOR);
 }

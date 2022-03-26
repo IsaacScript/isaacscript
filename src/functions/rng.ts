@@ -1,11 +1,13 @@
 import { game } from "../cachedClasses";
 import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
+import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { getNumbersFromTable, tableHasKeys } from "./table";
-import { isUserdataObject } from "./userdata";
 import { ensureAllCases } from "./utils";
 
-type SerializedRNG = LuaTable<string, string | number>;
+type SerializedRNG = LuaTable<string, unknown> & {
+  __serializedRNGBrand: unknown;
+};
 
 interface CopyRNGReturn {
   [SerializationType.NONE]: RNG;
@@ -61,10 +63,10 @@ export function copyRNG(
       }
 
       const seed = rng.GetSeed();
-      const rngTable = new LuaTable<string, string | number>();
+      const rngTable = new LuaTable<string, unknown>();
       rngTable.set("seed", seed);
       rngTable.set(SerializationBrand.RNG, "");
-      return rngTable;
+      return rngTable as SerializedRNG;
     }
 
     case SerializationType.DESERIALIZE: {
@@ -99,12 +101,12 @@ export function getRandomSeed(): Seed {
 
 /** Helper function to check if something is an instantiated RNG object. */
 export function isRNG(object: unknown): object is RNG {
-  return isUserdataObject(object, OBJECT_NAME);
+  return isIsaacAPIClassOfType(object, OBJECT_NAME);
 }
 
 /**
- * Used to determine is the given table is a serialized Vector created by the save data manager
- * and/or the `deepCopy` function.
+ * Used to determine is the given table is a serialized `RNG` object created by the save data
+ * manager and/or the `deepCopy` function.
  */
 export function isSerializedRNG(object: unknown): object is SerializedRNG {
   const objectType = type(object);
@@ -125,6 +127,10 @@ export function newRNG(seed = getRandomSeed()): RNG {
   const rng = RNG();
   setSeed(rng, seed);
   return rng;
+}
+
+export function rngEquals(rng1: RNG, rng2: RNG): boolean {
+  return isaacAPIClassEquals(rng1, rng2, KEYS);
 }
 
 /**

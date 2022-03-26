@@ -4,13 +4,13 @@ import { getCollectibleName } from "./collectibles";
 import { getEntities, getEntityID } from "./entity";
 import { hasFlag } from "./flag";
 import { getGridEntities } from "./gridEntity";
+import { getIsaacAPIClassType } from "./isaacAPIClass";
 import { range } from "./math";
 import { getEffectsList, getPlayerName } from "./player";
 import { getPlayerHealth } from "./playerHealth";
 import { getRoomData, getRoomGridIndex, getRoomListIndex } from "./roomData";
 import { getSortedSetValues } from "./set";
 import { getTrinketName } from "./trinkets";
-import { getUserdataType } from "./userdata";
 import { printConsole } from "./utils";
 
 const IGNORE_EFFECT_VARIANTS: ReadonlySet<EffectVariant> = new Set([
@@ -547,7 +547,7 @@ export function logUserdata(this: void, userdata: unknown): void {
     return;
   }
 
-  const classType = getUserdataType(userdata);
+  const classType = getIsaacAPIClassType(userdata);
   if (classType === undefined) {
     log("Userdata: [no class type]");
   } else {

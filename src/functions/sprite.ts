@@ -1,4 +1,5 @@
 import { EMPTY_PNG_PATH } from "../constants";
+import { kColorEquals } from "./kColor";
 import { range } from "./math";
 
 /**
@@ -59,4 +60,43 @@ export function getFinalFrameOfAnimation(
   sprite.SetFrame(currentFrame);
 
   return finalFrame;
+}
+
+/**
+ * Helper function to check if two sprite layers have the same sprite sheet by using the
+ * `Sprite.GetTexel` method. Optimized for collectible sprites, but might also work on other kinds
+ * of sprites. (Only specific texels are checked for equality on the sprite.)
+ */
+export function spriteEquals(
+  sprite1: Sprite,
+  sprite2: Sprite,
+  layerID: int,
+): boolean {
+  // Iterate over N columns of texels, checking for equality at each step
+  // The center of the sprite is equal to the "pivot" point in the anm2 file
+  // We start at negative 40 texels upwards, as by default we assume a collectible that is sitting
+  // on a pedestal
+  // We finish at positive 10 texels downwards, in order to make comparing shop items more accurate
+  for (let x = -1; x <= 1; x++) {
+    for (let y = -40; y <= 10; y += 3) {
+      const position = Vector(x, y);
+      if (!texelEquals(sprite1, sprite2, position, layerID)) {
+        return false;
+      }
+    }
+  }
+
+  return true;
+}
+
+/** Helper function to check if two texels on a sprite are equivalent to each other. */
+export function texelEquals(
+  sprite1: Sprite,
+  sprite2: Sprite,
+  position: Vector,
+  layerID: int,
+): boolean {
+  const kColor1 = sprite1.GetTexel(position, Vector.Zero, 1, layerID);
+  const kColor2 = sprite2.GetTexel(position, Vector.Zero, 1, layerID);
+  return kColorEquals(kColor1, kColor2);
 }

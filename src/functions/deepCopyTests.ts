@@ -102,7 +102,7 @@ function copiedTableDoesNotCoerceTypes() {
     error(`The copied object had a string key of: ${keyString}`);
   }
 
-  const value = newTable.get(keyToLookFor) as string | number;
+  const value = newTable.get(keyToLookFor) as unknown;
   if (value === valueString) {
     error(
       `The copied object had a value that incorrectly matched the string of: ${valueString}`,

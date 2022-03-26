@@ -14,13 +14,25 @@ import { CollectibleIndex } from "../types/CollectibleIndex";
 import { hasFlag } from "./flag";
 import { getPickups, removeAllPickups } from "./pickups";
 import { getRoomListIndex } from "./roomData";
-import { clearSprite } from "./sprite";
+import { clearSprite, spriteEquals } from "./sprite";
 
 const COLLECTIBLE_SPRITE_LAYER = 1;
 const COLLECTIBLE_SHADOW_LAYER = 4;
 
 // Glitched items start at id 4294967295 (the final 32-bit integer) and increment backwards
 const GLITCHED_ITEM_THRESHOLD = 4000000000;
+
+// The "isBlindCollectible" function needs a reference sprite to work properly
+const questionMarkSprite = initQuestionMarkSprite();
+
+function initQuestionMarkSprite() {
+  const sprite = Sprite();
+  sprite.Load("gfx/005.100_collectible.anm2", false);
+  sprite.ReplaceSpritesheet(1, "gfx/items/collectibles/questionmark.png");
+  sprite.LoadGraphics();
+
+  return sprite;
+}
 
 export function clearCollectibleSprite(collectible: EntityPickup): void {
   setCollectibleSprite(collectible, undefined);
@@ -305,6 +317,22 @@ export function isActiveCollectible(
 ): boolean {
   const itemType = getCollectibleItemType(collectibleType);
   return itemType === ItemType.ITEM_ACTIVE;
+}
+
+/** Returns true if the collectible has a red question mark sprite. */
+export function isBlindCollectible(collectible: EntityPickup): boolean {
+  if (collectible.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
+    error(
+      `You cannot get check for question mark sprites for pickups of variant: ${collectible.Variant}`,
+    );
+  }
+
+  const sprite = collectible.GetSprite();
+  const animation = sprite.GetAnimation();
+  const frame = sprite.GetFrame();
+
+  questionMarkSprite.SetFrame(animation, frame);
+  return spriteEquals(sprite, questionMarkSprite, COLLECTIBLE_SPRITE_LAYER);
 }
 
 /**

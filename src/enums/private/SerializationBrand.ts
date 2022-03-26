@@ -14,6 +14,7 @@ export enum SerializationBrand {
   CLASS = "__TSTL_CLASS",
   OBJECT_WITH_NUMBER_KEYS = "__TSTL_OBJECT_WITH_NUMBER_KEYS",
   COLOR = "__COLOR",
+  KCOLOR = "__KCOLOR",
   RNG = "__RNG",
   VECTOR = "__VECTOR",
 }
