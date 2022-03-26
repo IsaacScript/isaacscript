@@ -549,7 +549,7 @@ For example, to declare `InfinityTrueCoopInterface`, starting from the root of y
 declare const InfinityTrueCoopInterface: unknown | undefined;
 ```
 
-Now, your other TypeScript files will see it as a global variable without you having to do anything else.
+Now, your other TypeScript files will "see" it as a global variable without you having to do anything else.
 
 <br />
 
