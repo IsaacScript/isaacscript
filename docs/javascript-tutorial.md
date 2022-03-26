@@ -451,21 +451,26 @@ In Lua, you split your code into multiple files by using `require()`.
 
 ```lua
 -- main.lua
-local postPlayerInit = require("revelations.postPlayerInit")
+local postGameStarted = require("revelations.callbacks.postGameStarted") -- We must namespace the mod to avoid require conflicts
 
 local mod = RegisterMod("Revelations", 1)
-mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit.main);
+postGameStarted:init(mod)
 ```
 
 ```lua
--- postPlayerInit.lua
-local postPlayerInit = {}
+-- revelations/callbacks/postGameStarted.lua
+local postGameStarted = {}
 
-function postPlayerInit:main(player)
+function postGameStarted:init(mod)
+  mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, postGameStarted.main);
+end
+
+function postGameStarted:main()
+  local player = Isaac.GetPlayer()
   player:AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false)
 end
 
-return postPlayerInit
+return postGameStarted
 ```
 
 In TypeScript, this is accomplished with `import`.<br />
@@ -473,18 +478,27 @@ In TypeScript, this is accomplished with `import`.<br />
 
 ```ts
 // main.ts
-import * as postPlayerInit from "./postPlayerInit";
+import { postGameStartedInit } from "./callbacks/postGameStarted";
 
 const mod = RegisterMod("Revelations", 1);
-mod.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit.main);
+postGameStartedInit(mod);
 ```
 
 ```ts
-// postPlayerInit.ts
-export function main(player: EntityPlayer) {
+// callbacks/postGameStarted.ts
+// "export" makes it so that other files can use this function
+// "void" is an return-type annotation, meaning "this function returns nothing"
+export function postGameStartedInit(mod: Mod): void {
+  mod.AddCallback(ModCallbacks.MC_POST_GAME_STARTED, main);  
+}
+
+function main() {
+  const player = Isaac.GetPlayer();
   player.AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false);
 }
 ```
+
+(With TypeScript, there is no need to have a superfluous namespacing directory like in Lua.)
 
 <br />
 
