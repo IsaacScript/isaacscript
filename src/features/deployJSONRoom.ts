@@ -22,11 +22,8 @@ import { getNPCs } from "../functions/npc";
 import { removeAllPickups } from "../functions/pickups";
 import { getRandomSeed, isRNG, newRNG } from "../functions/rng";
 import { getRoomListIndex } from "../functions/roomData";
-import {
-  gridToPos,
-  setRoomCleared,
-  setRoomUncleared,
-} from "../functions/rooms";
+import { gridToPos } from "../functions/roomGrid";
+import { setRoomCleared, setRoomUncleared } from "../functions/rooms";
 import { spawnCollectible } from "../functions/spawnCollectible";
 import { JSONRoom } from "../types/JSONRoom";
 import { saveDataManager } from "./saveDataManager/exports";

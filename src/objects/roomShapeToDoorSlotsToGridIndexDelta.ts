@@ -10,7 +10,7 @@ const DOWN = LEVEL_GRID_ROW_LENGTH;
  * top right corner in the case of `RoomShape.ROOMSHAPE_LTL`).
  */
 export const ROOM_SHAPE_TO_DOOR_SLOTS_TO_GRID_INDEX_DELTA: {
-  readonly [key in RoomShape]: Map<DoorSlot, int> | undefined;
+  readonly [key in RoomShape]: Map<DoorSlot, int>;
 } = {
   // 1
   [RoomShape.ROOMSHAPE_1x1]: new Map([
@@ -125,5 +125,5 @@ export const ROOM_SHAPE_TO_DOOR_SLOTS_TO_GRID_INDEX_DELTA: {
   ]),
 
   // 13
-  [RoomShape.NUM_ROOMSHAPES]: undefined,
+  [RoomShape.NUM_ROOMSHAPES]: new Map(),
 };

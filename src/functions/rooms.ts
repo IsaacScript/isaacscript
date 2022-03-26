@@ -167,21 +167,6 @@ export function getRooms(
 }
 
 /**
- * Converts a room X and Y coordinate to a position. For example, the coordinates of 0, 0 are
- * equal to `Vector(80, 160)`.
- */
-export function gridToPos(x: int, y: int): Vector {
-  const room = game.GetRoom();
-
-  x += 1;
-  y += 1;
-
-  const gridIndex = y * room.GetGridWidth() + x;
-
-  return room.GetGridPosition(gridIndex);
-}
-
-/**
  * Helper function to determine if the current room shape is equal to `RoomShape.ROOMSHAPE_1x2` or
  * `RoomShape.ROOMSHAPE_2x1`.
  */

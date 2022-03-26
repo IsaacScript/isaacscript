@@ -1,7 +1,7 @@
 import { ROOM_SHAPE_BOUNDS } from "../objects/roomShapeBounds";
 import { ROOM_SHAPE_LAYOUT_SIZES } from "../objects/roomShapeLayoutSizes";
 import { ROOM_SHAPE_TO_BOTTOM_RIGHT_POSITION } from "../objects/roomShapeToBottomRightPosition";
-import { ROOM_SHAPE_TO_DOOR_SLOTS_TO_GRID_INDEX_DELTA } from "../objects/roomShapeToGridIndexDelta";
+import { ROOM_SHAPE_TO_DOOR_SLOTS_TO_GRID_INDEX_DELTA } from "../objects/roomShapeToDoorSlotsToGridIndexDelta";
 import { ROOM_SHAPE_TO_TOP_LEFT_POSITION } from "../objects/roomShapeToTopLeftPosition";
 import { ROOM_SHAPE_VOLUMES } from "../objects/roomShapeVolumes";
 
@@ -17,10 +17,6 @@ export function getGridIndexDelta(
 ): int | undefined {
   const doorSlotToGridIndexMap =
     ROOM_SHAPE_TO_DOOR_SLOTS_TO_GRID_INDEX_DELTA[roomShape];
-  if (doorSlotToGridIndexMap === undefined) {
-    return undefined;
-  }
-
   return doorSlotToGridIndexMap.get(doorSlot);
 }
 

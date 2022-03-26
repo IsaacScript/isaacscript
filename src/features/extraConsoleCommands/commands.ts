@@ -19,11 +19,8 @@ import { getPlayerName, useActiveItemTemp } from "../../functions/player";
 import { addPlayerHealthType } from "../../functions/playerHealth";
 import { getPlayers } from "../../functions/playerIndex";
 import { getRoomData, getRoomDescriptor } from "../../functions/roomData";
-import {
-  changeRoom,
-  getRoomGridIndexesForType,
-  gridToPos,
-} from "../../functions/rooms";
+import { gridToPos } from "../../functions/roomGrid";
+import { changeRoom, getRoomGridIndexesForType } from "../../functions/rooms";
 import { restart } from "../../functions/run";
 import { printConsole } from "../../functions/utils";
 import { directionToVector } from "../../functions/vector";
