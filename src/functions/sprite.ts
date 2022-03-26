@@ -64,21 +64,26 @@ export function getFinalFrameOfAnimation(
 
 /**
  * Helper function to check if two sprite layers have the same sprite sheet by using the
- * `Sprite.GetTexel` method. Optimized for collectible sprites, but might also work on other kinds
- * of sprites. (Only specific texels are checked for equality on the sprite.)
+ * `Sprite.GetTexel` method.
+ *
+ * Since checking every single texel in the entire sprite is very expensive, this function requires
+ * that you provide a range of specific texels to check.
  */
 export function spriteEquals(
   sprite1: Sprite,
   sprite2: Sprite,
   layerID: int,
+  xStart: int,
+  xFinish: int,
+  xIncrement: int,
+  yStart: int,
+  yFinish: int,
+  yIncrement: int,
 ): boolean {
-  // Iterate over N columns of texels, checking for equality at each step
+  // Iterate over N texels, checking for equality at each step
   // The center of the sprite is equal to the "pivot" point in the anm2 file
-  // We start at negative 40 texels upwards, as by default we assume a collectible that is sitting
-  // on a pedestal
-  // We finish at positive 10 texels downwards, in order to make comparing shop items more accurate
-  for (let x = -1; x <= 1; x++) {
-    for (let y = -40; y <= 10; y += 3) {
+  for (let x = xStart; x <= xFinish; x += xIncrement) {
+    for (let y = yStart; y <= yFinish; y += yIncrement) {
       const position = Vector(x, y);
       if (!texelEquals(sprite1, sprite2, position, layerID)) {
         return false;

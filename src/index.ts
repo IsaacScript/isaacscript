@@ -107,6 +107,7 @@ export * from "./functions/roomData";
 export * from "./functions/rooms";
 export * from "./functions/run";
 export * from "./functions/seeds";
+export * from "./functions/serialization";
 export * from "./functions/set";
 export * from "./functions/sound";
 export * from "./functions/spawnCollectible";

@@ -58,6 +58,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Room Data Functions](modules/functions_roomData.html)
 - [Run Functions](modules/functions_run.html)
 - [Seed Functions](modules/functions_seeds.html)
+- [Serialization Functions](modules/functions_serialization.html)
 - [Set Functions](modules/functions_set.html)
 - [Sound Functions](modules/functions_sound.html)
 - [Sprite Functions](modules/functions_sprite.html)

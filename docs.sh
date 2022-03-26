@@ -76,6 +76,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/roomData.ts" \
   --entryPoints "$DIR/src/functions/run.ts" \
   --entryPoints "$DIR/src/functions/seeds.ts" \
+  --entryPoints "$DIR/src/functions/serialization.ts" \
   --entryPoints "$DIR/src/functions/set.ts" \
   --entryPoints "$DIR/src/functions/sound.ts" \
   --entryPoints "$DIR/src/functions/spawnCollectible.ts" \

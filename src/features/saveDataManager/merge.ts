@@ -6,10 +6,12 @@ import { SerializationType } from "../../enums/SerializationType";
 import { isArray } from "../../functions/array";
 import { deepCopy } from "../../functions/deepCopy";
 import { log } from "../../functions/log";
-import { copyRNG, isSerializedRNG } from "../../functions/rng";
+import {
+  copySerializableIsaacAPIClass,
+  isSerializedIsaacAPIClass,
+} from "../../functions/serialization";
 import { clearTable } from "../../functions/table";
 import { getTraversalDescription } from "../../functions/utils";
-import { copyVector, isSerializedVector } from "../../functions/vector";
 import { SAVE_DATA_MANAGER_DEBUG } from "./constants";
 
 /**
@@ -152,10 +154,13 @@ function mergeTable(
       continue;
     }
 
-    // Handle the special case of supported Isaac classes
-    const deserializedIsaacClass = tryDeserializeIsaacClass(value);
-    if (deserializedIsaacClass !== undefined) {
-      oldTable.set(key, deserializedIsaacClass);
+    // Handle the special case of serialized Isaac API classes
+    if (isSerializedIsaacAPIClass(value)) {
+      const deserializedObject = copySerializableIsaacAPIClass(
+        value,
+        SerializationType.DESERIALIZE,
+      );
+      oldTable.set(key, deserializedObject);
       continue;
     }
 
@@ -183,16 +188,4 @@ function mergeTable(
       oldTable.set(key, value);
     }
   }
-}
-
-function tryDeserializeIsaacClass(value: unknown) {
-  if (isSerializedVector(value)) {
-    return copyVector(value, SerializationType.DESERIALIZE);
-  }
-
-  if (isSerializedRNG(value)) {
-    return copyRNG(value, SerializationType.DESERIALIZE);
-  }
-
-  return undefined;
 }

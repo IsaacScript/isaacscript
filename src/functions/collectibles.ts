@@ -62,6 +62,34 @@ export function collectibleHasTag(
   return itemConfigItem.HasTags(tag);
 }
 
+/** Helper function to check if two collectible sprites have the same sprite sheet loaded. */
+export function collectibleSpriteEquals(
+  sprite1: Sprite,
+  sprite2: Sprite,
+): boolean {
+  // We start at negative 40 texels upwards, as by default we assume a collectible that is sitting
+  // on a pedestal
+  // We finish at positive 10 texels downwards, in order to make comparing shop items more accurate
+  const xStart = -1;
+  const xFinish = 1;
+  const xIncrement = 1;
+  const yStart = -40;
+  const yFinish = 10;
+  const yIncrement = 3;
+
+  return spriteEquals(
+    sprite1,
+    sprite2,
+    COLLECTIBLE_SPRITE_LAYER,
+    xStart,
+    xFinish,
+    xIncrement,
+    yStart,
+    yFinish,
+    yIncrement,
+  );
+}
+
 /**
  * Helper function to get the in-game description for a collectible. Returns "Unknown" if the
  * provided collectible type was not valid.
@@ -332,7 +360,7 @@ export function isBlindCollectible(collectible: EntityPickup): boolean {
   const frame = sprite.GetFrame();
 
   questionMarkSprite.SetFrame(animation, frame);
-  return spriteEquals(sprite, questionMarkSprite, COLLECTIBLE_SPRITE_LAYER);
+  return collectibleSpriteEquals(sprite, questionMarkSprite);
 }
 
 /**
