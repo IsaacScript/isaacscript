@@ -667,7 +667,7 @@ const itemPrices = new Map<CollectibleType, ItemPrice>([
   [CollectibleType.COLLECTIBLE_INNER_EYE, ItemPrice.NORMAL],
   [CollectibleType.COLLECTIBLE_SPOON_BENDER, ItemPrice.SALE],
 ]);
-for (const [itemID, price] of itemPrices) {
+for (const [itemID, price] of itemPrices.entries()) {
   // Do something with "itemID" and "price"
 }
 ```
