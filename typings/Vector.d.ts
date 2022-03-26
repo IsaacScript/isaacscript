@@ -45,8 +45,10 @@ declare interface Vector {
   X: float;
   Y: float;
 
+  // ----------------------------------------
   // Helper functions for adding and so forth
   // https://typescripttolua.github.io/docs/advanced/language-extensions/#operator-map-types
+  // ----------------------------------------
 
   add: LuaAdditionMethod<Vector, Vector>;
 

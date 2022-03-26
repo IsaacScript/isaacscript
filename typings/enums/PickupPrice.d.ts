@@ -9,7 +9,13 @@ declare const enum PickupPrice {
   PRICE_THREE_SOULHEARTS = -3,
   PRICE_ONE_HEART_AND_TWO_SOULHEARTS = -4,
   PRICE_SPIKES = -5,
+
+  /**
+   * The price when you have the Your Soul trinket. (The collectible will be free and the trinket
+   * will be consumed.)
+   */
   PRICE_SOUL = -6,
+
   PRICE_ONE_SOUL_HEART = -7,
   PRICE_TWO_SOUL_HEARTS = -8,
   PRICE_ONE_HEART_AND_ONE_SOUL_HEART = -9,
