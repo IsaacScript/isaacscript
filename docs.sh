@@ -6,6 +6,8 @@ set -e # Exit on any errors
 # https://stackoverflow.com/questions/59895/getting-the-source-directory-of-a-bash-script-from-within
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+SECONDS=0
+
 DOCS_DIR="$DIR/docs"
 rm -rf "$DOCS_DIR"
 npx typedoc \
@@ -99,3 +101,5 @@ npx typedoc \
   --entryPoints "$DIR/src/maps/roomTypeMap.ts" \
   --entryPoints "$DIR/src/types/DefaultMap.ts" \
   --entryPoints "$DIR/src/upgradeMod.ts" \
+
+echo "Successfully created docs in $SECONDS seconds."
