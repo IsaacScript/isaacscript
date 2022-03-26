@@ -18,7 +18,7 @@ import { getPillEffectName } from "../../functions/pills";
 import { getPlayerName, useActiveItemTemp } from "../../functions/player";
 import { addPlayerHealthType } from "../../functions/playerHealth";
 import { getPlayers } from "../../functions/playerIndex";
-import { getRoomData } from "../../functions/roomData";
+import { getRoomData, getRoomDescriptor } from "../../functions/roomData";
 import {
   changeRoom,
   getRoomGridIndexesForType,
@@ -1244,8 +1244,8 @@ function devilAngel(useDevil: boolean) {
       : RoomType.ROOM_DEVIL;
     if (roomType === conflictingType) {
       // Delete the room data, which will allow the "Level.InitializeDevilAngelRoom" method to work
-      const roomDesc = level.GetRoomByIdx(GridRooms.ROOM_DEVIL_IDX);
-      roomDesc.Data = undefined;
+      const roomDescriptor = getRoomDescriptor(GridRooms.ROOM_DEVIL_IDX);
+      roomDescriptor.Data = undefined;
     }
   }
 

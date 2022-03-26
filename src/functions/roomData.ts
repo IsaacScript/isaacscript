@@ -124,6 +124,17 @@ export function getRoomName(roomGridIndex?: int): string {
 }
 
 /**
+ * Helper function to get the name of the room as it appears in the STB/XML data.
+ *
+ * @param roomGridIndex Optional. Default is the current room index.
+ * @returns The room name. Returns "Unknown" if the type was not found.
+ */
+export function getRoomShape(roomGridIndex?: int): RoomShape | undefined {
+  const roomData = getRoomData(roomGridIndex);
+  return roomData === undefined ? undefined : roomData.Shape;
+}
+
+/**
  * Helper function to get the stage ID for a room from the XML/STB data. The room stage ID will
  * correspond to the first number in the filename of the XML/STB file. For example, a Depths room
  * would have a stage ID of 7.

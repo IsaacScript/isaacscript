@@ -18,9 +18,11 @@ import {
 } from "./positionVelocity";
 import {
   getCurrentRoomDescriptorReadOnly,
+  getRoomAllowedDoors,
   getRoomData,
   getRoomDescriptor,
   getRoomGridIndex,
+  getRoomShape,
   getRoomStageID,
   getRoomSubType,
 } from "./roomData";
@@ -72,18 +74,18 @@ export function getCurrentDimension(): Dimension {
   }
 
   const startingRoomGridIndex = level.GetStartingRoomIndex();
-  const startingRoomDesc = level.GetRoomByIdx(
+  const startingRoomDescription = level.GetRoomByIdx(
     startingRoomGridIndex,
     Dimension.CURRENT,
   );
-  const startingRoomHash = GetPtrHash(startingRoomDesc);
+  const startingRoomHash = GetPtrHash(startingRoomDescription);
 
   for (const dimension of range(0, NUM_DIMENSIONS - 1)) {
-    const dimensionRoomDesc = level.GetRoomByIdx(
+    const dimensionRoomDescription = level.GetRoomByIdx(
       startingRoomGridIndex,
       dimension,
     );
-    const dimensionRoomHash = GetPtrHash(dimensionRoomDesc);
+    const dimensionRoomHash = GetPtrHash(dimensionRoomDescription);
     if (dimensionRoomHash === startingRoomHash) {
       return dimension;
     }
@@ -384,6 +386,40 @@ export function isAllRoomsClear(onlyCheckRoomTypes?: RoomType[]): boolean {
   return matchingRooms.every((roomDescriptor) => roomDescriptor.Clear);
 }
 
+export function isDoorSlotValidAtGridIndex(
+  doorSlot: DoorSlot,
+  roomGridIndex: int,
+): boolean {
+  const allowedDoors = getRoomAllowedDoors(roomGridIndex);
+  return allowedDoors.has(doorSlot);
+}
+
+export function isDoorSlotValidAtGridIndexForRedRoom(
+  doorSlot: DoorSlot,
+  roomGridIndex: int,
+): boolean {
+  const doorSlotValidAtGridIndex = isDoorSlotValidAtGridIndex(
+    doorSlot,
+    roomGridIndex,
+  );
+  if (!doorSlotValidAtGridIndex) {
+    return false;
+  }
+
+  const roomShape = getRoomShape(roomGridIndex);
+  if (roomShape === undefined) {
+    return false;
+  }
+
+  const delta = getGridIndexDelta(roomShape, doorSlot);
+  if (delta === undefined) {
+    return false;
+  }
+
+  const redRoomGridIndex = roomGridIndex + delta;
+  return !roomExists(redRoomGridIndex);
+}
+
 /**
  * Helper function to detect if the provided room was created by the Red Key item. Under the hood,
  * this checks for the `RoomDescriptorFlag.FLAG_RED_ROOM` flag.
@@ -407,6 +443,12 @@ export function isRoomInsideMap(roomGridIndex?: int): boolean {
   }
 
   return roomGridIndex >= 0;
+}
+
+/** Helper function to check if a room exists at the given room grid index. */
+export function roomExists(roomGridIndex: int): boolean {
+  const roomData = getRoomData(roomGridIndex);
+  return roomData !== undefined;
 }
 
 /**
