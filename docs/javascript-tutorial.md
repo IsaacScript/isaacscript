@@ -525,6 +525,8 @@ end
 
 ```ts
 // TypeScript code
+// "declare" means "the following variable exists outside of the context of this program, provided by some other code"
+// We annotate the type as "unknown | undefined", which in this context means that it is either "something" or "nil"
 declare const InfinityTrueCoopInterface: unknown | undefined;
 if (InfinityTrueCoopInterface !== undefined) {
   // The user has the True Co-op mod enabled, so now do something
