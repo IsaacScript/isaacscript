@@ -164,7 +164,7 @@ export function isStoryBoss(entity: Entity): boolean {
  * @param entitySubType Optional. The sub-type to match. Default is -1 (which will match every
  * sub-type).
  * @param cap Optional. If specified, will only remove the given amount of collectibles.
- * @returns True if one or more entities was removed, false otherwise.
+ * @returns True if one or more entities were removed, false otherwise.
  */
 export function removeAllMatchingEntities(
   entityType: int,
@@ -181,7 +181,7 @@ export function removeAllMatchingEntities(
  *
  * @param entities The array of entities to remove.
  * @param cap Optional. If specified, will only remove the given amount of entities.
- * @returns True if one or more entities was removed, false otherwise.
+ * @returns True if one or more entities were removed, false otherwise.
  */
 export function removeEntities(entities: Entity[], cap?: int): boolean {
   if (entities.length === 0) {

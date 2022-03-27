@@ -6,7 +6,6 @@ import {
 } from "../maps/trinketDescriptionMap";
 import { DEFAULT_TRINKET_NAME, TRINKET_NAME_MAP } from "../maps/trinketNameMap";
 import { hasFlag } from "./flag";
-import { getPickups } from "./pickups";
 import { isCharacter, useActiveItemTemp } from "./player";
 import { clearSprite } from "./sprite";
 import { giveTrinketsBack, temporarilyRemoveTrinkets } from "./trinketGive";
@@ -101,11 +100,6 @@ export function getTrinketName(trinketType: TrinketType | int): string {
   }
 
   return DEFAULT_TRINKET_NAME;
-}
-
-/** Helper function to get all of the trinket entities in the room. */
-export function getTrinkets(matchingSubType = -1): EntityPickup[] {
-  return getPickups(PickupVariant.PICKUP_TRINKET, matchingSubType);
 }
 
 /**

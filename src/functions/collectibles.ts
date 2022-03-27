@@ -12,7 +12,6 @@ import {
 import { SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES_SET } from "../sets/singleUseActiveCollectibleTypesSet";
 import { CollectibleIndex } from "../types/CollectibleIndex";
 import { hasFlag } from "./flag";
-import { getPickups, removeAllPickups } from "./pickups";
 import { getRoomListIndex } from "./roomData";
 import { clearSprite, spriteEquals } from "./sprite";
 
@@ -324,11 +323,6 @@ export function getCollectibleQuality(
   return itemConfigItem.Quality;
 }
 
-/** Helper function to get all of the collectible entities in the room. */
-export function getCollectibles(matchingSubType = -1): EntityPickup[] {
-  return getPickups(PickupVariant.PICKUP_COLLECTIBLE, matchingSubType);
-}
-
 /**
  * Helper function to get the final collectible type in the game.
  *
@@ -403,25 +397,6 @@ export function isSingleUseCollectible(
   collectibleType: CollectibleType | int,
 ): boolean {
   return SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES_SET.has(collectibleType);
-}
-
-/**
- * Helper function to remove all of the collectibles in the room.
- *
- * @param collectibleType Optional. If specified, will only remove collectibles that match this
- * collectible type.
- * @param cap Optional. If specified, will only remove the given amount of collectibles.
- * @returns True if one or more collectibles was removed, false otherwise.
- */
-export function removeAllCollectibles(
-  collectibleType?: CollectibleType | int,
-  cap?: int,
-): boolean {
-  return removeAllPickups(
-    PickupVariant.PICKUP_COLLECTIBLE,
-    collectibleType,
-    cap,
-  );
 }
 
 /**

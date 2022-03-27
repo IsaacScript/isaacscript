@@ -1,7 +1,7 @@
 import { EGGY_STATE_FRAME_OF_FINAL_SPIDER } from "../constants";
 import { SIN_ENTITY_TYPES_SET } from "../sets/sinEntityTypesSet";
-import { getEntities, getFilteredNewEntities, removeEntities } from "./entity";
-import { getProjectiles } from "./entitySpecific";
+import { getFilteredNewEntities } from "./entity";
+import { getNPCs, getProjectiles } from "./entitySpecific";
 
 /**
  * Used to filter out certain NPCs when determining of an NPC is "alive" and/or should keep the
@@ -115,31 +115,6 @@ export function getBosses(
   return npcs.filter((npc) => npc.IsBoss());
 }
 
-/** The same thing as the `getEntities` function, but returns only NPCs. */
-export function getNPCs(
-  matchingEntityType?: EntityType | int,
-  matchingVariant?: int,
-  matchingSubType?: int,
-  ignoreFriendly = false,
-): EntityNPC[] {
-  const entities = getEntities(
-    matchingEntityType,
-    matchingVariant,
-    matchingSubType,
-    ignoreFriendly,
-  );
-
-  const npcs: EntityNPC[] = [];
-  for (const entity of entities) {
-    const npc = entity.ToNPC();
-    if (npc !== undefined) {
-      npcs.push(npc);
-    }
-  }
-
-  return npcs;
-}
-
 /**
  * Checks for specific NPCs that have "CanShutDoors" set to true naturally by the game, but should
  * not actually keep the doors closed (like Death's scythes).
@@ -196,15 +171,4 @@ export function isRaglingDeathPatch(npc: EntityNPC): boolean {
 /** Helper function to check if the provided NPC is a Sin miniboss, such as Sloth or Lust. */
 export function isSin(npc: EntityNPC): boolean {
   return SIN_ENTITY_TYPES_SET.has(npc.Type);
-}
-
-/**
- * Helper function to remove all NPCs in the room.
- *
- * @param cap Optional. If specified, will only remove the given amount of NPCs.
- * @returns True if one or more NPCs was removed, false otherwise.
- */
-export function removeAllNPCs(cap?: int): boolean {
-  const npcs = getNPCs();
-  return removeEntities(npcs, cap);
 }

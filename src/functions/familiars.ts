@@ -3,6 +3,7 @@ import { VectorZero } from "../constants";
 import { FAMILIARS_THAT_SHOOT_PLAYER_TEARS_SET } from "../sets/familiarsThatShootPlayerTearsSet";
 import { copyArray } from "./array";
 import { removeEntities } from "./entity";
+import { getFamiliars } from "./entitySpecific";
 import { repeat } from "./utils";
 
 /**

@@ -304,7 +304,7 @@ export function isPostBossVoidPortal(gridEntity: GridEntity): boolean {
  * );
  * ```
  *
- * @returns True if one or more grid entities was removed, false otherwise.
+ * @returns True if one or more grid entities were removed, false otherwise.
  */
 export function removeAllGridEntitiesExceptFor(
   ...gridEntityTypes: GridEntityType[]
@@ -340,7 +340,7 @@ export function removeAllGridEntitiesExceptFor(
  * );
  * ```
  *
- * @returns True if one or more grid entities was removed, false otherwise.
+ * @returns True if one or more grid entities were removed, false otherwise.
  */
 export function removeAllMatchingGridEntities(
   ...gridEntityType: GridEntityType[]

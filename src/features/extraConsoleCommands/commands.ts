@@ -7,6 +7,7 @@ import {
 import { HealthType } from "../../enums/HealthType";
 import { getCardName } from "../../functions/cards";
 import { getCharacterName } from "../../functions/character";
+import { getNPCs } from "../../functions/entitySpecific";
 import { spawnGridEntityWithVariant } from "../../functions/gridEntity";
 import {
   logEffects,
@@ -17,7 +18,7 @@ import {
   logSounds,
 } from "../../functions/log";
 import { getMapPartialMatch } from "../../functions/map";
-import { getNPCs } from "../../functions/npc";
+import { spawnCard } from "../../functions/pickups";
 import { getPillEffectName } from "../../functions/pills";
 import { getPlayerName, useActiveItemTemp } from "../../functions/player";
 import { addPlayerHealthType } from "../../functions/playerHealth";
@@ -285,14 +286,7 @@ export function cards(): void {
       }
 
       const position = gridCoordinatesToWorldPosition(x, y);
-      Isaac.Spawn(
-        EntityType.ENTITY_PICKUP,
-        PickupVariant.PICKUP_TAROTCARD,
-        cardType,
-        position,
-        VectorZero,
-        undefined,
-      );
+      spawnCard(cardType, position);
       cardType += 1;
     }
   }

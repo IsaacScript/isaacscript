@@ -2,7 +2,7 @@ import { DefaultMap } from "../classes/DefaultMap";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { getPickups } from "../functions/pickups";
+import { getPickups } from "../functions/entitySpecific";
 import {
   defaultMapGetPlayer,
   mapSetPlayer,

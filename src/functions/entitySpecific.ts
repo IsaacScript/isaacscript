@@ -161,6 +161,31 @@ export function getLasers(
   return lasers;
 }
 
+/** The same thing as the `getEntities` function, but returns only NPCs. */
+export function getNPCs(
+  matchingEntityType?: EntityType | int,
+  matchingVariant?: int,
+  matchingSubType?: int,
+  ignoreFriendly = false,
+): EntityNPC[] {
+  const entities = getEntities(
+    matchingEntityType,
+    matchingVariant,
+    matchingSubType,
+    ignoreFriendly,
+  );
+
+  const npcs: EntityNPC[] = [];
+  for (const entity of entities) {
+    const npc = entity.ToNPC();
+    if (npc !== undefined) {
+      npcs.push(npc);
+    }
+  }
+
+  return npcs;
+}
+
 /**
  * Helper function to get all of the pickups in the room.
  *
@@ -287,7 +312,7 @@ export function getTears(
  * @param variant Optional. If specified, will only remove bombs that match this variant.
  * @param subType Optional. If specified, will only remove bombs that match this sub-type.
  * @param cap Optional. If specified, will only remove the given amount of bombs.
- * @returns True if one or more bombs was removed, false otherwise.
+ * @returns True if one or more bombs were removed, false otherwise.
  */
 export function removeAllBombs(
   variant?: BombVariant | int,
@@ -304,7 +329,7 @@ export function removeAllBombs(
  * @param variant Optional. If specified, will only remove effects that match this variant.
  * @param subType Optional. If specified, will only remove effects that match this sub-type.
  * @param cap Optional. If specified, will only remove the given amount of effects.
- * @returns True if one or more effects was removed, false otherwise.
+ * @returns True if one or more effects were removed, false otherwise.
  */
 export function removeAllEffects(
   variant?: EffectVariant | int,
@@ -321,7 +346,7 @@ export function removeAllEffects(
  * @param variant Optional. If specified, will only remove familiars that match this variant.
  * @param subType Optional. If specified, will only remove familiars that match this sub-type.
  * @param cap Optional. If specified, will only remove the given amount of familiars.
- * @returns True if one or more familiars was removed, false otherwise.
+ * @returns True if one or more familiars were removed, false otherwise.
  */
 export function removeAllFamiliars(
   variant?: FamiliarVariant | int,
@@ -338,7 +363,7 @@ export function removeAllFamiliars(
  * @param variant Optional. If specified, will only remove knives that match this variant.
  * @param subType Optional. If specified, will only remove knives that match this sub-type.
  * @param cap Optional. If specified, will only remove the given amount of knives.
- * @returns True if one or more knives was removed, false otherwise.
+ * @returns True if one or more knives were removed, false otherwise.
  */
 export function removeAllKnives(
   variant?: KnifeVariant | int,
@@ -355,7 +380,7 @@ export function removeAllKnives(
  * @param variant Optional. If specified, will only remove lasers that match this variant.
  * @param subType Optional. If specified, will only remove lasers that match this sub-type.
  * @param cap Optional. If specified, will only remove the given amount of lasers.
- * @returns True if one or more lasers was removed, false otherwise.
+ * @returns True if one or more lasers were removed, false otherwise.
  */
 export function removeAllLasers(
   variant?: LaserVariant | int,
@@ -367,12 +392,23 @@ export function removeAllLasers(
 }
 
 /**
+ * Helper function to remove all NPCs in the room.
+ *
+ * @param cap Optional. If specified, will only remove the given amount of NPCs.
+ * @returns True if one or more NPCs were removed, false otherwise.
+ */
+export function removeAllNPCs(cap?: int): boolean {
+  const npcs = getNPCs();
+  return removeEntities(npcs, cap);
+}
+
+/**
  * Helper function to remove all of the pickups in the room.
  *
  * @param variant Optional. If specified, will only remove pickups that match this variant.
  * @param subType Optional. If specified, will only remove pickups that match this sub-type.
  * @param cap Optional. If specified, will only remove the given amount of pickups.
- * @returns True if one or more pickups was removed, false otherwise.
+ * @returns True if one or more pickups were removed, false otherwise.
  */
 export function removeAllPickups(
   variant?: PickupVariant | int,
@@ -389,7 +425,7 @@ export function removeAllPickups(
  * @param variant Optional. If specified, will only remove projectiles that match this variant.
  * @param subType Optional. If specified, will only remove projectiles that match this sub-type.
  * @param cap Optional. If specified, will only remove the given amount of projectiles.
- * @returns True if one or more projectiles was removed, false otherwise.
+ * @returns True if one or more projectiles were removed, false otherwise.
  */
 export function removeAllProjectiles(
   variant?: ProjectileVariant | int,
@@ -406,7 +442,7 @@ export function removeAllProjectiles(
  * @param variant Optional. If specified, will only remove slots that match this variant.
  * @param subType Optional. If specified, will only remove slots that match this sub-type.
  * @param cap Optional. If specified, will only remove the given amount of slots.
- * @returns True if one or more slots was removed, false otherwise.
+ * @returns True if one or more slots were removed, false otherwise.
  */
 export function removeAllSlots(
   variant?: SlotVariant | int,
@@ -423,7 +459,7 @@ export function removeAllSlots(
  * @param variant Optional. If specified, will only remove tears that match this variant.
  * @param subType Optional. If specified, will only remove tears that match this sub-type.
  * @param cap Optional. If specified, will only remove the given amount of tears.
- * @returns True if one or more tears was removed, false otherwise.
+ * @returns True if one or more tears were removed, false otherwise.
  */
 export function removeAllTears(
   variant?: TearVariant | int,

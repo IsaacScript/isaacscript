@@ -1,8 +1,7 @@
-import { game } from "../cachedClasses";
-import { VectorZero } from "../constants";
 import { preventCollectibleRotate } from "../features/preventCollectibleRotate";
 import { areFeaturesInitialized } from "../featuresInitialized";
 import { isQuestCollectible, setCollectibleEmpty } from "./collectibles";
+import { spawnPickupWithSeed } from "./entitySpecific";
 import { anyPlayerIs } from "./player";
 import { getRandomSeed, isRNG } from "./rng";
 
@@ -29,20 +28,12 @@ export function spawnCollectible(
   forceFreeItem = false,
 ): EntityPickup {
   const seed = isRNG(seedOrRNG) ? seedOrRNG.Next() : seedOrRNG;
-  const collectible = game
-    .Spawn(
-      EntityType.ENTITY_PICKUP,
-      PickupVariant.PICKUP_COLLECTIBLE,
-      position,
-      VectorZero,
-      undefined,
-      collectibleType,
-      seed,
-    )
-    .ToPickup();
-  if (collectible === undefined) {
-    error("Failed to spawn a collectible.");
-  }
+  const collectible = spawnPickupWithSeed(
+    PickupVariant.PICKUP_COLLECTIBLE,
+    collectibleType,
+    position,
+    seed,
+  );
 
   if (options) {
     collectible.OptionsPickupIndex = 1;

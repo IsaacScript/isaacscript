@@ -5,10 +5,17 @@
 
 import { game } from "../cachedClasses";
 import { DefaultMap } from "../classes/DefaultMap";
-import { VectorZero } from "../constants";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
-import { removeAllMatchingEntities } from "../functions/entity";
-import { removeAllBombs } from "../functions/entitySpecific";
+import {
+  removeAllMatchingEntities,
+  spawn,
+  spawnWithSeed,
+} from "../functions/entity";
+import {
+  getNPCs,
+  removeAllBombs,
+  removeAllPickups,
+} from "../functions/entitySpecific";
 import {
   convertXMLGridEntityType,
   getGridEntities,
@@ -19,8 +26,6 @@ import {
 import { getRandomJSONRoom } from "../functions/jsonRoom";
 import { log } from "../functions/log";
 import { range } from "../functions/math";
-import { getNPCs } from "../functions/npc";
-import { removeAllPickups } from "../functions/pickups";
 import { getRandomSeed, isRNG, newRNG } from "../functions/rng";
 import { getRoomListIndex } from "../functions/roomData";
 import { gridCoordinatesToWorldPosition } from "../functions/roomGrid";
@@ -109,13 +114,11 @@ function respawnPersistentEntities() {
 
   for (const persistentEntity of persistentEntities) {
     const position = room.GetGridPosition(persistentEntity.gridIndex);
-    Isaac.Spawn(
+    spawn(
       persistentEntity.type,
       persistentEntity.variant,
       persistentEntity.subType,
       position,
-      VectorZero,
-      undefined,
     );
   }
 }
@@ -327,8 +330,8 @@ function fillRoomWithDecorations() {
 function spawnAllEntities(jsonRoom: JSONRoom, rng: RNG, verbose = false) {
   let shouldUnclearRoom = false;
 
-  for (const spawn of jsonRoom.spawn) {
-    const xString = spawn.$.x;
+  for (const jsonSpawn of jsonRoom.spawn) {
+    const xString = jsonSpawn.$.x;
     const x = tonumber(xString);
     if (x === undefined) {
       error(
@@ -336,7 +339,7 @@ function spawnAllEntities(jsonRoom: JSONRoom, rng: RNG, verbose = false) {
       );
     }
 
-    const yString = spawn.$.y;
+    const yString = jsonSpawn.$.y;
     const y = tonumber(yString);
     if (y === undefined) {
       error(
@@ -344,13 +347,13 @@ function spawnAllEntities(jsonRoom: JSONRoom, rng: RNG, verbose = false) {
       );
     }
 
-    if (spawn.entity.length > 1) {
+    if (jsonSpawn.entity.length > 1) {
       error("Stacked entities are not implemented for JSON rooms.");
     }
 
-    const xmlEntity = spawn.entity[0];
+    const firstXMLEntity = jsonSpawn.entity[0];
 
-    const entityTypeString = xmlEntity.$.type;
+    const entityTypeString = firstXMLEntity.$.type;
     const entityType = tonumber(entityTypeString);
     if (entityType === undefined) {
       error(
@@ -358,13 +361,13 @@ function spawnAllEntities(jsonRoom: JSONRoom, rng: RNG, verbose = false) {
       );
     }
 
-    const variantString = xmlEntity.$.variant;
+    const variantString = firstXMLEntity.$.variant;
     const variant = tonumber(variantString);
     if (variant === undefined) {
       error(`Failed to convert the entity variant to a number: ${variant}`);
     }
 
-    const subTypeString = xmlEntity.$.subtype;
+    const subTypeString = firstXMLEntity.$.subtype;
     const subType = tonumber(subTypeString);
     if (subType === undefined) {
       error(`Failed to convert the entity sub-type to a number: ${subType}`);
@@ -472,15 +475,7 @@ function spawnNormalEntityForJSONRoom(
     const options = roomType === RoomType.ROOM_ANGEL;
     entity = spawnCollectible(subType, position, seed, options);
   } else {
-    entity = game.Spawn(
-      entityType,
-      variant,
-      position,
-      VectorZero,
-      undefined,
-      subType,
-      seed,
-    );
+    entity = spawnWithSeed(entityType, variant, subType, position, seed);
   }
 
   // For some reason, Pitfalls do not spawn with the correct collision classes

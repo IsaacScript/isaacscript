@@ -4,7 +4,7 @@ import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
 import { runNextGameFrame } from "../features/runInNFrames";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { removeCollectibleFromItemTracker } from "../functions/collectibles";
-import { removeAllFamiliars } from "../functions/familiars";
+import { removeAllFamiliars } from "../functions/entitySpecific";
 import { log, logError } from "../functions/log";
 import { isCharacter } from "../functions/player";
 import { getPlayerFromIndex, getPlayerIndex } from "../functions/playerIndex";
