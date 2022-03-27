@@ -9,6 +9,7 @@ import {
 import { isCircleIntersectingRectangle, range } from "./math";
 import { roomUpdateSafe } from "./rooms";
 import { clearSprite } from "./sprite";
+import { isVector } from "./vector";
 
 const BREAKABLE_GRID_ENTITY_TYPES_BY_EXPLOSIONS: ReadonlySet<GridEntityType> =
   new Set([
@@ -306,7 +307,7 @@ export function isPostBossVoidPortal(gridEntity: GridEntity): boolean {
  *
  * @returns True if one or more grid entities were removed, false otherwise.
  */
-export function removeAllGridEntitiesExceptFor(
+export function removeAllGridExcept(
   ...gridEntityTypes: GridEntityType[]
 ): boolean {
   const gridEntityTypeExceptions = new Set(gridEntityTypes);
@@ -315,7 +316,7 @@ export function removeAllGridEntitiesExceptFor(
   for (const gridEntity of gridEntities) {
     const gridEntityType = gridEntity.GetType();
     if (!gridEntityTypeExceptions.has(gridEntityType)) {
-      removeGridEntity(gridEntity, false);
+      removeGrid(gridEntity, false);
       removedOneOrMoreGridEntities = true;
     }
   }
@@ -351,7 +352,7 @@ export function removeAllMatchingGridEntities(
   }
 
   for (const gridEntity of gridEntities) {
-    removeGridEntity(gridEntity, false);
+    removeGrid(gridEntity, false);
   }
 
   roomUpdateSafe();
@@ -368,10 +369,7 @@ export function removeAllMatchingGridEntities(
  * this is expensive, since it involves a call to `Isaac.GetRoomEntities`, so set it to false if you
  * need to invoke this function multiple times.
  */
-export function removeGridEntity(
-  gridEntity: GridEntity,
-  updateRoom = true,
-): void {
+export function removeGrid(gridEntity: GridEntity, updateRoom = true): void {
   const room = game.GetRoom();
 
   const gridIndex = gridEntity.GetGridIndex();
@@ -405,22 +403,22 @@ export function spawnGiantPoop(topLeftGridIndex: int): void {
   const bottomLeftGridIndex = topLeftGridIndex + gridWidth;
   const bottomRightGridIndex = bottomLeftGridIndex + 1;
 
-  spawnGridEntityWithVariant(
+  spawnGridWithVariant(
     GridEntityType.GRID_POOP,
     PoopGridEntityVariant.GIGA_TOP_LEFT,
     topLeftGridIndex,
   );
-  spawnGridEntityWithVariant(
+  spawnGridWithVariant(
     GridEntityType.GRID_POOP,
     PoopGridEntityVariant.GIGA_TOP_RIGHT,
     topRightGridIndex,
   );
-  spawnGridEntityWithVariant(
+  spawnGridWithVariant(
     GridEntityType.GRID_POOP,
     PoopGridEntityVariant.GIGA_BOTTOM_LEFT,
     bottomLeftGridIndex,
   );
-  spawnGridEntityWithVariant(
+  spawnGridWithVariant(
     GridEntityType.GRID_POOP,
     PoopGridEntityVariant.GIGA_BOTTOM_RIGHT,
     bottomRightGridIndex,
@@ -431,18 +429,18 @@ export function spawnGiantPoop(topLeftGridIndex: int): void {
  * Helper function to spawn a grid entity.
  *
  * This function assumes you want to give the grid entity a variant of 0. If you want to specify a
- * variant, use the `spawnGridEntityWithVariant` helper function instead.
+ * variant, use the `spawnGridWithVariant` helper function instead.
  *
  * Use this instead of the `Isaac.GridSpawn` method since it:
  * - handles giving pits collision
  * - removes existing grid entities on the same tile, if any
- * - allows you to specify the grid index instead of the position
+ * - allows you to specify either the grid index or the position
  */
-export function spawnGridEntity(
+export function spawnGrid(
   gridEntityType: GridEntityType,
-  gridIndex: int,
+  gridIndexOrPosition: int,
 ): GridEntity | undefined {
-  return spawnGridEntityWithVariant(gridEntityType, 0, gridIndex);
+  return spawnGridWithVariant(gridEntityType, 0, gridIndexOrPosition);
 }
 
 /**
@@ -451,21 +449,25 @@ export function spawnGridEntity(
  * Use this instead of the `Isaac.GridSpawn` method since it:
  * - handles giving pits collision
  * - removes existing grid entities on the same tile, if any
- * - allows you to specify the grid index instead of the position
+ * - allows you to specify the grid index or the position
  */
-export function spawnGridEntityWithVariant(
+export function spawnGridWithVariant(
   gridEntityType: GridEntityType,
   variant: int,
-  gridIndex: int,
+  gridIndexOrPosition: int,
 ): GridEntity | undefined {
   const room = game.GetRoom();
 
-  const existingGridEntity = room.GetGridEntity(gridIndex);
+  const existingGridEntity = isVector(gridIndexOrPosition)
+    ? room.GetGridEntityFromPos(gridIndexOrPosition)
+    : room.GetGridEntity(gridIndexOrPosition);
   if (existingGridEntity !== undefined) {
-    removeGridEntity(existingGridEntity);
+    removeGrid(existingGridEntity);
   }
 
-  const position = room.GetGridPosition(gridIndex);
+  const position = isVector(gridIndexOrPosition)
+    ? gridIndexOrPosition
+    : room.GetGridPosition(gridIndexOrPosition);
   const gridEntity = Isaac.GridSpawn(gridEntityType, variant, position);
   if (gridEntity === undefined) {
     return gridEntity;
@@ -492,7 +494,7 @@ export function spawnGridEntityWithVariant(
  * with the appropriate variant, as the game does not give it the correct sprite automatically.
  */
 export function spawnVoidPortal(gridIndex: int): GridEntity | undefined {
-  const voidPortal = spawnGridEntityWithVariant(
+  const voidPortal = spawnGridWithVariant(
     GridEntityType.GRID_TRAPDOOR,
     TrapdoorVariant.VOID_PORTAL,
     gridIndex,

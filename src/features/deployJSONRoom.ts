@@ -19,9 +19,9 @@ import {
 import {
   convertXMLGridEntityType,
   getGridEntities,
-  removeAllGridEntitiesExceptFor,
+  removeAllGridExcept,
   setGridEntityInvisible,
-  spawnGridEntityWithVariant,
+  spawnGridWithVariant,
 } from "../functions/gridEntity";
 import { getRandomJSONRoom } from "../functions/jsonRoom";
 import { log } from "../functions/log";
@@ -238,7 +238,7 @@ export function emptyRoom(fillWithDecorations: boolean): void {
   removeAllMatchingEntities(EntityType.ENTITY_EFFECT, EffectVariant.DEVIL);
   removeAllMatchingEntities(EntityType.ENTITY_EFFECT, EffectVariant.ANGEL);
 
-  removeAllGridEntitiesExceptFor(
+  removeAllGridExcept(
     GridEntityType.GRID_WALL, // 15
     GridEntityType.GRID_DOOR, // 16
   );
@@ -433,11 +433,7 @@ function spawnGridEntityForJSONRoom(
   const position = gridCoordinatesToWorldPosition(x, y);
   const gridIndex = room.GetGridIndex(position);
 
-  const gridEntity = spawnGridEntityWithVariant(
-    gridEntityType,
-    variant,
-    gridIndex,
-  );
+  const gridEntity = spawnGridWithVariant(gridEntityType, variant, gridIndex);
   if (gridEntity === undefined) {
     return gridEntity;
   }

@@ -4,7 +4,7 @@ import { HealthType } from "../../enums/HealthType";
 import { getCardName } from "../../functions/cards";
 import { getCharacterName } from "../../functions/character";
 import { getNPCs } from "../../functions/entitySpecific";
-import { spawnGridEntityWithVariant } from "../../functions/gridEntity";
+import { spawnGridWithVariant } from "../../functions/gridEntity";
 import {
   logEffects,
   logEntities,
@@ -1295,7 +1295,7 @@ function spawnTrapdoorOrCrawlspace(trapdoor: boolean) {
     ? GridEntityType.GRID_TRAPDOOR
     : GridEntityType.GRID_STAIRS;
 
-  spawnGridEntityWithVariant(gridEntityType, 0, gridIndex);
+  spawnGridWithVariant(gridEntityType, 0, gridIndex);
 }
 
 function warpToRoomType(roomType: RoomType) {

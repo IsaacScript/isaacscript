@@ -1,8 +1,5 @@
 import { game } from "../cachedClasses";
-import {
-  getTopLeftWallGridIndex,
-  spawnGridEntity,
-} from "../functions/gridEntity";
+import { getTopLeftWallGridIndex, spawnGrid } from "../functions/gridEntity";
 import { logError } from "../functions/log";
 import {
   postNewRoomEarlyFire,
@@ -57,10 +54,7 @@ function checkRoomChanged() {
   // spawned, which means that the top-left wall will not exist
   // If ths is the case, then simply spawn the top-left wall early
   if (topLeftWall === undefined) {
-    topLeftWall = spawnGridEntity(
-      GridEntityType.GRID_WALL,
-      topLeftWallGridIndex,
-    );
+    topLeftWall = spawnGrid(GridEntityType.GRID_WALL, topLeftWallGridIndex);
     if (topLeftWall === undefined) {
       logError(
         "Failed to spawn a new wall (1) for the PostNewRoomEarly callback.",
@@ -71,10 +65,7 @@ function checkRoomChanged() {
 
   // Duplicated code
   if (topLeftWall2 === undefined) {
-    topLeftWall2 = spawnGridEntity(
-      GridEntityType.GRID_WALL,
-      rightOfTopWallGridIndex,
-    );
+    topLeftWall2 = spawnGrid(GridEntityType.GRID_WALL, rightOfTopWallGridIndex);
     if (topLeftWall2 === undefined) {
       logError(
         "Failed to spawn a new wall (2) for the PostNewRoomEarly callback.",
