@@ -3,6 +3,11 @@ import { CHEST_PICKUP_VARIANTS } from "../sets/chestPickupVariantsSet";
 import { RED_HEART_SUB_TYPES_SET } from "../sets/redHeartSubTypesSet";
 import { getPickups, removeAllPickups, spawnPickup } from "./entitySpecific";
 
+/** Helper function to get all of the battery entities in the room. */
+export function getBatteries(matchingSubType = -1): EntityPickup[] {
+  return getPickups(PickupVariant.PICKUP_LIL_BATTERY, matchingSubType);
+}
+
 /** Helper function to get all of the card entities in the room. */
 export function getCards(matchingSubType = -1): EntityPickup[] {
   return getPickups(PickupVariant.PICKUP_TAROTCARD, matchingSubType);
@@ -52,6 +57,24 @@ export function isRedHeart(pickup: EntityPickup): boolean {
   return (
     pickup.Variant === PickupVariant.PICKUP_HEART &&
     RED_HEART_SUB_TYPES_SET.has(pickup.SubType)
+  );
+}
+
+/**
+ * Helper function to remove all of the batteries in the room.
+ *
+ * @param batterySubType Optional. If specified, will only remove cards that match this sub-type.
+ * @param cap Optional. If specified, will only remove the given amount of cards.
+ * @returns True if one or more cards were removed, false otherwise.
+ */
+export function removeAllBatteries(
+  batterySubType?: BatterySubType | int,
+  cap?: int,
+): boolean {
+  return removeAllPickups(
+    PickupVariant.PICKUP_LIL_BATTERY,
+    batterySubType,
+    cap,
   );
 }
 
@@ -155,10 +178,41 @@ export function removeAllTrinkets(
 
 /**
  * Helper function to spawn a `EntityType.ENTITY_PICKUP` (5) with variant
+ * `PickupVariant.PICKUP_LIL_BATTERY` (90).
+ */
+export function spawnBattery(
+  subType: BatterySubType | int,
+  position: Vector,
+  velocity = VectorZero,
+  spawner: Entity | undefined = undefined,
+  seed: Seed | undefined = undefined,
+): EntityPickup {
+  return spawnPickup(
+    PickupVariant.PICKUP_LIL_BATTERY,
+    subType,
+    position,
+    velocity,
+    spawner,
+    seed,
+  );
+}
+
+export function spawnBatteryWithSeed(
+  subType: BatterySubType | int,
+  position: Vector,
+  seed: Seed,
+  velocity = VectorZero,
+  spawner: Entity | undefined = undefined,
+): EntityPickup {
+  return spawnBattery(subType, position, velocity, spawner, seed);
+}
+
+/**
+ * Helper function to spawn a `EntityType.ENTITY_PICKUP` (5) with variant
  * `PickupVariant.PICKUP_TAROTCARD` (300).
  */
 export function spawnCard(
-  subType: int,
+  subType: Card | int,
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
@@ -175,7 +229,7 @@ export function spawnCard(
 }
 
 export function spawnCardWithSeed(
-  subType: int,
+  subType: Card | int,
   position: Vector,
   seed: Seed,
   velocity = VectorZero,
@@ -189,7 +243,7 @@ export function spawnCardWithSeed(
  * `PickupVariant.PICKUP_COIN` (20).
  */
 export function spawnCoin(
-  subType: int,
+  subType: CoinSubType | int,
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
@@ -206,7 +260,7 @@ export function spawnCoin(
 }
 
 export function spawnCoinWithSeed(
-  subType: int,
+  subType: CoinSubType | int,
   position: Vector,
   seed: Seed,
   velocity = VectorZero,
@@ -220,7 +274,7 @@ export function spawnCoinWithSeed(
  * `PickupVariant.PICKUP_HEART` (10).
  */
 export function spawnHeart(
-  subType: int,
+  subType: HeartSubType | int,
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
@@ -237,7 +291,7 @@ export function spawnHeart(
 }
 
 export function spawnHeartWithSeed(
-  subType: int,
+  subType: HeartSubType | int,
   position: Vector,
   seed: Seed,
   velocity = VectorZero,
@@ -251,7 +305,7 @@ export function spawnHeartWithSeed(
  * `PickupVariant.PICKUP_KEY` (30).
  */
 export function spawnKey(
-  subType: int,
+  subType: KeySubType | int,
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
@@ -268,7 +322,7 @@ export function spawnKey(
 }
 
 export function spawnKeyWithSeed(
-  subType: int,
+  subType: KeySubType | int,
   position: Vector,
   seed: Seed,
   velocity = VectorZero,
@@ -282,7 +336,7 @@ export function spawnKeyWithSeed(
  * `PickupVariant.PICKUP_PILL` (70).
  */
 export function spawnPill(
-  subType: int,
+  subType: PillColor | int,
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
@@ -299,7 +353,7 @@ export function spawnPill(
 }
 
 export function spawnPillWithSeed(
-  subType: int,
+  subType: PillColor | int,
   position: Vector,
   seed: Seed,
   velocity = VectorZero,
@@ -313,7 +367,7 @@ export function spawnPillWithSeed(
  * `PickupVariant.PICKUP_TRINKET` (350).
  */
 export function spawnTrinket(
-  subType: int,
+  subType: TrinketType | int,
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
@@ -330,7 +384,7 @@ export function spawnTrinket(
 }
 
 export function spawnTrinketWithSeed(
-  subType: int,
+  subType: TrinketType | int,
   position: Vector,
   seed: Seed,
   velocity = VectorZero,
