@@ -66,6 +66,7 @@ export * from "./functions/cards";
 export * from "./functions/challenges";
 export * from "./functions/character";
 export * from "./functions/charge";
+export * from "./functions/chargeBar";
 export * from "./functions/collectibleCacheFlag";
 export * from "./functions/collectibles";
 export * from "./functions/collectibleSet";
