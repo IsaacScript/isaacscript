@@ -232,13 +232,13 @@ declare namespace Isaac {
    * @param variant
    * @param position
    * @param forced Forced has no effect and will not override a grid entity on the given location.
-   * Remove any existing grid entities first.
+   * Remove any existing grid entities first. Defaults to false.
    */
   function GridSpawn(
     gridEntityType: GridEntityType,
     variant: int,
     position: Vector,
-    forced: boolean,
+    forced?: boolean,
   ): GridEntity | undefined;
 
   /**
