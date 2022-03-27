@@ -311,8 +311,8 @@ declare namespace Isaac {
 
   function Spawn(
     entityType: EntityType | int,
-    entityVariant: int,
-    entitySubType: int,
+    variant: int,
+    subType: int,
     position: Vector,
     velocity: Vector,
     spawner: Entity | undefined,
