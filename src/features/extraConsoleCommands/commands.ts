@@ -1,9 +1,5 @@
 import { game, sfxManager } from "../../cachedClasses";
-import {
-  PILL_GIANT_FLAG,
-  TRINKET_GOLDEN_FLAG,
-  VectorZero,
-} from "../../constants";
+import { PILL_GIANT_FLAG, TRINKET_GOLDEN_FLAG } from "../../constants";
 import { HealthType } from "../../enums/HealthType";
 import { getCardName } from "../../functions/cards";
 import { getCharacterName } from "../../functions/character";
@@ -18,7 +14,7 @@ import {
   logSounds,
 } from "../../functions/log";
 import { getMapPartialMatch } from "../../functions/map";
-import { spawnCard } from "../../functions/pickups";
+import { spawnCard, spawnPill, spawnTrinket } from "../../functions/pickups";
 import { getPillEffectName } from "../../functions/pills";
 import { getPlayerName, useActiveItemTemp } from "../../functions/player";
 import { addPlayerHealthType } from "../../functions/playerHealth";
@@ -751,14 +747,7 @@ export function pills(): void {
       const horsePillColor = pillColor + PILL_GIANT_FLAG;
       const subType = horse ? horsePillColor : pillColor;
       const position = gridCoordinatesToWorldPosition(x, y);
-      Isaac.Spawn(
-        EntityType.ENTITY_PICKUP,
-        PickupVariant.PICKUP_PILL,
-        subType,
-        position,
-        VectorZero,
-        undefined,
-      );
+      spawnPill(subType, position);
 
       pillColor += 1;
     }
@@ -1101,14 +1090,7 @@ export function spawnGoldenTrinket(params: string): void {
   const goldenTrinketType = trinketType + TRINKET_GOLDEN_FLAG;
   const room = game.GetRoom();
   const centerPos = room.GetCenterPos();
-  Isaac.Spawn(
-    EntityType.ENTITY_PICKUP,
-    PickupVariant.PICKUP_TRINKET,
-    goldenTrinketType,
-    centerPos,
-    VectorZero,
-    undefined,
-  );
+  spawnTrinket(goldenTrinketType, centerPos);
 }
 
 /** Toggles maximum movement speed and flight. */

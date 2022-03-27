@@ -1,9 +1,7 @@
-import { game } from "../cachedClasses";
-import { VectorZero } from "../constants";
 import { FAMILIARS_THAT_SHOOT_PLAYER_TEARS_SET } from "../sets/familiarsThatShootPlayerTearsSet";
 import { copyArray } from "./array";
 import { removeEntities } from "./entity";
-import { getFamiliars } from "./entitySpecific";
+import { getFamiliars, spawnFamiliarWithSeed } from "./entitySpecific";
 import { repeat } from "./utils";
 
 /**
@@ -68,20 +66,13 @@ export function checkFamiliar(
     familiarSubType === undefined ? 0 : familiarSubType;
   repeat(numFamiliarsToSpawn, () => {
     const seed = collectibleRNG.Next();
-    const familiar = game
-      .Spawn(
-        EntityType.ENTITY_FAMILIAR,
-        familiarVariant,
-        player.Position,
-        VectorZero,
-        player,
-        familiarSubTypeToUse,
-        seed,
-      )
-      .ToFamiliar();
-    if (familiar !== undefined) {
-      familiar.Player = player;
-    }
+    const familiar = spawnFamiliarWithSeed(
+      familiarVariant,
+      familiarSubTypeToUse,
+      player.Position,
+      seed,
+    );
+    familiar.Player = player;
   });
 
   return numFamiliarsToSpawn;
