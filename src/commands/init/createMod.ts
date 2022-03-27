@@ -38,16 +38,40 @@ export function createMod(
   configFile.createFile(projectPath, config, verbose);
   const targetModDirectory = path.join(config.modsDirectory, projectName);
 
+  updateNodeModules(projectPath, verbose);
+  installNodeModules(projectPath, skipNPMInstall, verbose);
   makeSubdirectories(projectPath, verbose);
   copyStaticFiles(projectPath, verbose);
   copyDynamicFiles(projectName, projectPath, targetModDirectory, verbose);
-  updateNodeModules(projectPath, verbose);
-  installNodeModules(projectPath, skipNPMInstall, verbose);
 
   // Only make the initial commit once all of the files have been copied
   initGitRepository(projectPath, gitRemoteURL, verbose);
 
   console.log(`Successfully created mod: ${chalk.green(projectName)}`);
+}
+
+function updateNodeModules(projectPath: string, verbose: boolean) {
+  console.log("Finding out the latest versions of the NPM packages...");
+  execShell(
+    "npx",
+    ["npm-check-updates", "--upgrade", "--packageFile", "package.json"],
+    verbose,
+    false,
+    projectPath,
+  );
+}
+
+function installNodeModules(
+  projectPath: string,
+  skipNPMInstall: boolean,
+  verbose: boolean,
+) {
+  if (skipNPMInstall) {
+    return;
+  }
+
+  console.log("Installing node modules... (This can take a long time.)");
+  execShell("npm", ["install"], verbose, false, projectPath);
 }
 
 function makeSubdirectories(projectPath: string, verbose: boolean) {
@@ -58,7 +82,7 @@ function makeSubdirectories(projectPath: string, verbose: boolean) {
   }
 }
 
-// Copy static files, like ".eslintrc.js", "tsconfig.json", etc.
+/** Copy static files, like ".eslintrc.js", "tsconfig.json", etc. */
 function copyStaticFiles(projectPath: string, verbose: boolean) {
   const staticFileList = file.getDirList(TEMPLATES_STATIC_DIR);
   staticFileList.forEach((fileName: string) => {
@@ -70,7 +94,7 @@ function copyStaticFiles(projectPath: string, verbose: boolean) {
   });
 }
 
-// Copy files that need to have text replaced inside of them
+/** Copy files that need to have text replaced inside of them. */
 function copyDynamicFiles(
   projectName: string,
   projectPath: string,
@@ -126,6 +150,7 @@ function copyDynamicFiles(
     const modPath = path.join(projectPath, "mod");
     const destinationPath = path.join(modPath, fileName);
     file.write(destinationPath, metadataXML, verbose);
+    execShell("npx", ["prettier", "--write", destinationPath]);
   }
 
   // "mod/metadata.vdf"
@@ -150,29 +175,6 @@ function copyDynamicFiles(
     const mainTS = template.replace(/MOD_NAME_TO_REPLACE/g, projectName);
     const destinationPath = path.join(srcPath, fileName);
     file.write(destinationPath, mainTS, verbose);
+    execShell("npx", ["prettier", "--write", destinationPath]);
   }
-}
-
-function updateNodeModules(projectPath: string, verbose: boolean) {
-  console.log("Finding out the latest versions of the NPM packages...");
-  execShell(
-    "npx",
-    ["npm-check-updates", "--upgrade", "--packageFile", "package.json"],
-    verbose,
-    false,
-    projectPath,
-  );
-}
-
-function installNodeModules(
-  projectPath: string,
-  skipNPMInstall: boolean,
-  verbose: boolean,
-) {
-  if (skipNPMInstall) {
-    return;
-  }
-
-  console.log("Installing node modules... (This can take a long time.)");
-  execShell("npm", ["install"], verbose, false, projectPath);
 }
