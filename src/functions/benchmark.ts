@@ -3,29 +3,23 @@ import { log } from "./log";
 /**
  * Helper function to benchmark the performance of a function.
  *
- * - If one function is supplied, it will simply report the average run time of the function.
- * - If two functions are supplied, it will compare the average run times of the functions.
+ * This function is variadic, which means that you can supply as many as you want to benchmark.
+ *
+ * @returns An array containing the average time in milliseconds for each function. (This will also
+ * be printed to the log.)
  */
 export function benchmark(
   numTrials: int,
-  function1: () => void,
-  function2?: () => void,
+  ...functions: Array<() => void>
 ): int[] {
-  const numFunctions = function2 === undefined ? 1 : 2;
-  const functionsText = numFunctions === 1 ? "1 function" : "2 functions";
-  log(`Benchmarking ${functionsText} with ${numTrials} trials.`);
+  log(`Benchmarking ${functions.length} function(s) with ${numTrials} trials.`);
 
   const averages: int[] = [];
-  for (let i = 1; i <= numFunctions; i++) {
-    const functionToUse = i === 1 ? function1 : function2;
-    if (functionToUse === undefined) {
-      error("Failed to find the benchmarking function to use.");
-    }
-
+  functions.forEach((func, i) => {
     let totalTimeMilliseconds = 0;
     for (let j = 0; j < numTrials; j++) {
       const startTimeMilliseconds = Isaac.GetTime();
-      functionToUse();
+      func();
       const endTimeMilliseconds = Isaac.GetTime();
       const elapsedTimeMilliseconds =
         endTimeMilliseconds - startTimeMilliseconds;
@@ -36,7 +30,7 @@ export function benchmark(
       `The average time of function ${i} is: ${averageTimeMilliseconds} milliseconds`,
     );
     averages.push(averageTimeMilliseconds);
-  }
+  });
 
   return averages;
 }
