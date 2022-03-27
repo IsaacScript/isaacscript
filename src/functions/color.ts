@@ -113,6 +113,6 @@ export function isSerializedColor(object: unknown): object is SerializedColor {
     return false;
   }
 
-  const table = object as LuaTable;
+  const table = object as LuaTable<AnyNotNil, unknown>;
   return tableHasKeys(table, ...KEYS) && table.has(SerializationBrand.COLOR);
 }

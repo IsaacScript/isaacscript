@@ -64,7 +64,7 @@ export function deepCopy(
     );
   }
 
-  const oldTable = oldObject as unknown as LuaTable;
+  const oldTable = oldObject as unknown as LuaTable<AnyNotNil, unknown>;
   const isClass = isTSTLClass(oldTable);
 
   let hasTSTLDefaultMapBrand = false;
@@ -130,7 +130,7 @@ export function deepCopy(
 
   // If we are serializing, brand TSTL objects
   if (serializationType === SerializationType.SERIALIZE) {
-    const newTable = newObject as LuaTable;
+    const newTable = newObject as LuaTable<AnyNotNil, unknown>;
 
     if (oldObject instanceof DefaultMap) {
       newTable.set(SerializationBrand.DEFAULT_MAP, "");
@@ -275,7 +275,7 @@ function getNewClassFromMetatable(metatable: TSTLClassMetatable) {
   const newClass = instance as TSTLClassMetatable;
   newClass.____constructor(); // eslint-disable-line no-underscore-dangle
 
-  return newClass as unknown as LuaTable;
+  return newClass as unknown as LuaTable<AnyNotNil, unknown>;
 }
 
 function deepCopyValue(
@@ -306,7 +306,7 @@ function deepCopyValue(
   ) {
     convertNumberKeysToString = true;
 
-    const newTable = newObject as LuaTable;
+    const newTable = newObject as LuaTable<AnyNotNil, unknown>;
     newTable.set(SerializationBrand.OBJECT_WITH_NUMBER_KEYS, "");
 
     if (SAVE_DATA_MANAGER_DEBUG) {
@@ -373,7 +373,7 @@ function getNewValue(
   }
 
   if (type(value) === "table") {
-    const table = value as LuaTable;
+    const table = value as LuaTable<AnyNotNil, unknown>;
     traversalDescription = getTraversalDescription(key, traversalDescription);
     return deepCopy(table, serializationType, traversalDescription);
   }

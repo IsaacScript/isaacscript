@@ -65,11 +65,11 @@ function copiedObjectHasKeyAndValueString() {
 function copiedTableHasKeyAndValueNumber() {
   const keyToLookFor = 123;
   const valueToLookFor = 456;
-  const oldTable = new LuaTable();
+  const oldTable = new LuaTable<AnyNotNil, unknown>();
   oldTable.set(keyToLookFor, valueToLookFor);
 
   const newObject = deepCopy(oldTable);
-  const newTable = newObject as LuaTable;
+  const newTable = newObject as LuaTable<AnyNotNil, unknown>;
 
   const value = newTable.get(keyToLookFor) as number | undefined;
   if (value === undefined) {
@@ -88,21 +88,21 @@ function copiedTableHasKeyAndValueNumber() {
 function copiedTableDoesNotCoerceTypes() {
   const keyToLookFor = 123;
   const valueToLookFor = 456;
-  const oldTable = new LuaTable();
+  const oldTable = new LuaTable<AnyNotNil, unknown>();
   oldTable.set(keyToLookFor, valueToLookFor);
 
   const newObject = deepCopy(oldTable);
-  const newTable = newObject as LuaTable;
+  const newTable = newObject as LuaTable<AnyNotNil, unknown>;
 
   const keyString = tostring(keyToLookFor);
   const valueString = tostring(valueToLookFor);
 
-  const valueFromString = newTable.get(keyString) as unknown | undefined;
+  const valueFromString = newTable.get(keyString);
   if (valueFromString !== undefined) {
     error(`The copied object had a string key of: ${keyString}`);
   }
 
-  const value = newTable.get(keyToLookFor) as unknown;
+  const value = newTable.get(keyToLookFor);
   if (value === valueString) {
     error(
       `The copied object had a value that incorrectly matched the string of: ${valueString}`,

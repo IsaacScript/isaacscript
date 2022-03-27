@@ -127,12 +127,15 @@ function restoreDefaults(childTableName: SaveDataKeys) {
     }
 
     // Make a new copy of the default child table
-    const childTableDefaultsTable = childTableDefaults as unknown as LuaTable;
+    const childTableDefaultsTable = childTableDefaults as unknown as LuaTable<
+      AnyNotNil,
+      unknown
+    >;
     const childTableDefaultsTableCopy = deepCopy(
       childTableDefaultsTable,
       SerializationType.NONE,
       `${subscriberName} --> ${childTableName}`,
-    ) as LuaTable;
+    ) as LuaTable<AnyNotNil, unknown>;
 
     // We do not want to blow away the existing child table because we don't want to break any
     // existing references

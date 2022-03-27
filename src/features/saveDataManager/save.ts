@@ -25,7 +25,7 @@ function getAllSaveDataToWriteToDisk(
   saveDataMap: LuaTable<string, SaveData>,
   saveDataConditionalFuncMap: Map<string, () => boolean>,
 ) {
-  const allSaveData = new LuaTable();
+  const allSaveData = new LuaTable<AnyNotNil, unknown>();
 
   for (const [subscriberName, saveData] of pairs(saveDataMap)) {
     // Handle the feature of the save data manager where certain mod features can conditionally

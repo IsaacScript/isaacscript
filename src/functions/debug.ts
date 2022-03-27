@@ -1,3 +1,5 @@
+import { log } from "./log";
+
 /**
  * Helper function to get a stack trace.
  *
@@ -26,7 +28,7 @@ export function getTraceback(): string {
  */
 export function traceback(): void {
   const tracebackOutput = getTraceback();
-  Isaac.DebugString(tracebackOutput);
+  log(tracebackOutput);
 }
 
 function setDebugFunctionsGlobal() {

@@ -16,7 +16,7 @@ function tryEncode(this: void, table: unknown) {
  * (This allows execution to continue in cases where users have no current save data or have
  * manually removed their existing save data.)
  */
-export function jsonDecode(jsonString: string): LuaTable {
+export function jsonDecode(jsonString: string): LuaTable<AnyNotNil, unknown> {
   const [ok, luaTableOrErrMsg] = pcall(tryDecode, jsonString);
   if (!ok) {
     // Instead of throwing an error, continue execution of the callback

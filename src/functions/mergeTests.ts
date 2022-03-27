@@ -21,10 +21,10 @@ function oldTableHasUpdatedValue() {
   const newValue = "baz";
   const oldTable = {
     foo: oldValue,
-  } as unknown as LuaTable;
+  } as unknown as LuaTable<AnyNotNil, unknown>;
   const newTable = {
     foo: newValue,
-  } as unknown as LuaTable;
+  } as unknown as LuaTable<AnyNotNil, unknown>;
 
   merge(oldTable, newTable, "oldTableHasUpdatedValue");
 
@@ -40,10 +40,10 @@ function newTableHasSameValue() {
   const newValue = "baz";
   const oldTable = {
     foo: oldValue,
-  } as unknown as LuaTable;
+  } as unknown as LuaTable<AnyNotNil, unknown>;
   const newTable = {
     foo: newValue,
-  } as unknown as LuaTable;
+  } as unknown as LuaTable<AnyNotNil, unknown>;
 
   merge(oldTable, newTable, "newTableHasSameValue");
 
@@ -58,10 +58,10 @@ function oldTableHasUpdatedValueFromNull() {
   const newValue = "baz";
   const oldTable = {
     foo: null as string | null,
-  } as unknown as LuaTable;
+  } as unknown as LuaTable<AnyNotNil, unknown>;
   const newTable = {
     foo: newValue,
-  } as unknown as LuaTable;
+  } as unknown as LuaTable<AnyNotNil, unknown>;
 
   merge(oldTable, newTable, "oldTableHasUpdatedValueFromNull");
 
@@ -80,13 +80,13 @@ function oldTableHasFilledInterface() {
   const newValue = "baz";
   const oldTable = {
     foo: null as Foo | null,
-  } as unknown as LuaTable;
+  } as unknown as LuaTable<AnyNotNil, unknown>;
   const foo: Foo = {
     bar: newValue,
   };
   const newTable = {
     foo,
-  } as unknown as LuaTable;
+  } as unknown as LuaTable<AnyNotNil, unknown>;
 
   merge(oldTable, newTable, "oldTableHasFilledInterface");
 
@@ -111,13 +111,13 @@ function oldTableHasVector() {
   const newValue = Vector(x, y);
   const oldTable = {
     foo: null as Foo | null,
-  } as unknown as LuaTable;
+  } as unknown as LuaTable<AnyNotNil, unknown>;
   const foo: Foo = {
     bar: newValue,
   };
   const newTable = {
     foo,
-  } as unknown as LuaTable;
+  } as unknown as LuaTable<AnyNotNil, unknown>;
 
   merge(oldTable, newTable, "oldTableHasVector");
 
@@ -150,17 +150,17 @@ function oldTableHasVectorSerialized() {
   const newValue = Vector(x, y);
   const oldTable = {
     foo: null as Foo | null,
-  } as unknown as LuaTable;
+  } as unknown as LuaTable<AnyNotNil, unknown>;
   const foo: Foo = {
     bar: newValue,
   };
   const newTable = {
     foo,
-  } as unknown as LuaTable;
+  } as unknown as LuaTable<AnyNotNil, unknown>;
   const newTableSerialized = deepCopy(
     newTable,
     SerializationType.SERIALIZE,
-  ) as LuaTable;
+  ) as LuaTable<AnyNotNil, unknown>;
 
   merge(oldTable, newTableSerialized, "oldTableHasVectorSerialized");
 

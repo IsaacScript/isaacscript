@@ -76,8 +76,8 @@ export function isaacAPIClassEquals(
   object2: unknown,
   keys: string[],
 ): boolean {
-  const table1 = object1 as LuaTable;
-  const table2 = object2 as LuaTable;
+  const table1 = object1 as LuaTable<AnyNotNil, unknown>;
+  const table2 = object2 as LuaTable<AnyNotNil, unknown>;
 
   return keys.every((key) => table1.get(key) === table2.get(key));
 }

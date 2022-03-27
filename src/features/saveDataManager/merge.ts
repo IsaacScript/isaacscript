@@ -73,7 +73,7 @@ function mergeArray(
   oldObject: LuaTable | Map<AnyNotNil, unknown> | Set<AnyNotNil>,
   newTable: LuaTable,
 ) {
-  const oldArray = oldObject as LuaTable;
+  const oldArray = oldObject as LuaTable<AnyNotNil, unknown>;
   if (!isArray(oldArray) || !isArray(newTable)) {
     return false;
   }
@@ -166,7 +166,7 @@ function mergeTable(
 
     const valueType = type(value);
     if (valueType === "table") {
-      let oldValue = oldTable.get(key) as LuaTable;
+      let oldValue = oldTable.get(key) as LuaTable<AnyNotNil, unknown>;
       const oldValueType = type(oldValue);
 
       if (oldValueType !== "table") {

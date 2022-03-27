@@ -99,7 +99,7 @@ export function isSerializedKColor(
     return false;
   }
 
-  const table = object as LuaTable;
+  const table = object as LuaTable<AnyNotNil, unknown>;
   return tableHasKeys(table, ...KEYS) && table.has(SerializationBrand.KCOLOR);
 }
 

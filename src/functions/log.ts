@@ -542,7 +542,7 @@ export function logUserdata(this: void, userdata: unknown): void {
     return;
   }
 
-  const metatable = getmetatable(userdata) as LuaTable;
+  const metatable = getmetatable(userdata) as LuaTable<AnyNotNil, unknown>;
   if (metatable === undefined) {
     log("Userdata: [no metatable]");
     return;
