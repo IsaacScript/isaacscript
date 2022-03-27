@@ -52,7 +52,7 @@ export async function promptGitHubRepoOrGitRemoteURL(
       }
 
       // Assume that since they do not want to connect this project to the existing GitHub
-      // repository, they do not want to initialize Git either
+      // repository, they do not want to initialize a remote Git URL at all
       return undefined;
     }
 
@@ -62,13 +62,13 @@ export async function promptGitHubRepoOrGitRemoteURL(
       )}`,
     );
     if (createNewGitHubRepo) {
-      execShell("gh", ["repo", "create", "poop", "--public"]);
+      execShell("gh", ["repo", "create", projectName, "--public"]);
       console.log("Successfully created a new GitHub repository.");
       return getGitRemoteURL(projectName, gitHubUsername);
     }
 
     // Assume that since they do not want to create a new GitHub repository, they do not want to
-    // initialize Git either
+    // initialize a remote Git URL at all
     return undefined;
   }
 
@@ -160,27 +160,28 @@ export function initGitRepository(
   gitRemoteURL: string | undefined,
   verbose: boolean,
 ): void {
-  // We already checked to see if the "git" command is installed earlier on in the initialization
-  // process
-  if (gitRemoteURL === undefined) {
+  if (!commandExists.sync("git")) {
     return;
   }
 
   execShell("git", ["init"], verbose, false, projectPath);
   execShell("git", ["branch", "-M", "main"], verbose, false, projectPath);
-  execShell(
-    "git",
-    ["remote", "add", "origin", gitRemoteURL],
-    verbose,
-    false,
-    projectPath,
-  );
 
   if (isGitNameAndEmailConfigured(verbose)) {
     execShell("git", ["add", "--all"], verbose, false, projectPath);
     execShell(
       "git",
       ["commit", "--message", `${PROJECT_NAME} template`],
+      verbose,
+      false,
+      projectPath,
+    );
+  }
+
+  if (gitRemoteURL !== undefined) {
+    execShell(
+      "git",
+      ["remote", "add", "origin", gitRemoteURL],
       verbose,
       false,
       projectPath,

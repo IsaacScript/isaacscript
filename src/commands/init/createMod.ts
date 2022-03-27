@@ -38,40 +38,17 @@ export function createMod(
   configFile.createFile(projectPath, config, verbose);
   const targetModDirectory = path.join(config.modsDirectory, projectName);
 
-  updateNodeModules(projectPath, verbose);
-  installNodeModules(projectPath, skipNPMInstall, verbose);
   makeSubdirectories(projectPath, verbose);
   copyStaticFiles(projectPath, verbose);
   copyDynamicFiles(projectName, projectPath, targetModDirectory, verbose);
+  updateNodeModules(projectPath, verbose);
+  installNodeModules(projectPath, skipNPMInstall, verbose);
+  formatFiles(projectPath, verbose);
 
-  // Only make the initial commit once all of the files have been copied
+  // Only make the initial commit once all of the files have been copied and formatted
   initGitRepository(projectPath, gitRemoteURL, verbose);
 
   console.log(`Successfully created mod: ${chalk.green(projectName)}`);
-}
-
-function updateNodeModules(projectPath: string, verbose: boolean) {
-  console.log("Finding out the latest versions of the NPM packages...");
-  execShell(
-    "npx",
-    ["npm-check-updates", "--upgrade", "--packageFile", "package.json"],
-    verbose,
-    false,
-    projectPath,
-  );
-}
-
-function installNodeModules(
-  projectPath: string,
-  skipNPMInstall: boolean,
-  verbose: boolean,
-) {
-  if (skipNPMInstall) {
-    return;
-  }
-
-  console.log("Installing node modules... (This can take a long time.)");
-  execShell("npm", ["install"], verbose, false, projectPath);
 }
 
 function makeSubdirectories(projectPath: string, verbose: boolean) {
@@ -150,7 +127,6 @@ function copyDynamicFiles(
     const modPath = path.join(projectPath, "mod");
     const destinationPath = path.join(modPath, fileName);
     file.write(destinationPath, metadataXML, verbose);
-    execShell("npx", ["prettier", "--write", destinationPath]);
   }
 
   // "mod/metadata.vdf"
@@ -175,6 +151,40 @@ function copyDynamicFiles(
     const mainTS = template.replace(/MOD_NAME_TO_REPLACE/g, projectName);
     const destinationPath = path.join(srcPath, fileName);
     file.write(destinationPath, mainTS, verbose);
-    execShell("npx", ["prettier", "--write", destinationPath]);
   }
+}
+
+/** The "package.json" file has to be copied first before this step. */
+function updateNodeModules(projectPath: string, verbose: boolean) {
+  console.log("Finding out the latest versions of the NPM packages...");
+  execShell(
+    "npx",
+    ["npm-check-updates", "--upgrade", "--packageFile", "package.json"],
+    verbose,
+    false,
+    projectPath,
+  );
+}
+
+function installNodeModules(
+  projectPath: string,
+  skipNPMInstall: boolean,
+  verbose: boolean,
+) {
+  if (skipNPMInstall) {
+    return;
+  }
+
+  console.log("Installing node modules... (This can take a long time.)");
+  execShell("npm", ["install"], verbose, false, projectPath);
+}
+
+function formatFiles(projectPath: string, verbose: boolean) {
+  execShell(
+    "npx",
+    ["prettier", "--write", projectPath],
+    verbose,
+    false,
+    projectPath,
+  );
 }
