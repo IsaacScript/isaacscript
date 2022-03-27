@@ -28,3 +28,17 @@ export function traceback(): void {
   const tracebackOutput = getTraceback();
   Isaac.DebugString(tracebackOutput);
 }
+
+function setDebugFunctionsGlobal() {
+  if (debug === undefined) {
+    return;
+  }
+
+  const globals = _G as Record<string, unknown>;
+
+  globals.getTraceback = getTraceback;
+  globals.traceback = traceback;
+}
+
+// Set the debug functions global by default
+setDebugFunctionsGlobal();
