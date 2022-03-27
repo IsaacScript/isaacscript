@@ -660,6 +660,54 @@ export function spawnLaserWithSeed(
   return spawnLaser(variant, subType, position, velocity, spawner, seed);
 }
 
+/** Helper function to spawn an NPC. */
+export function spawnNPC(
+  entityType: EntityType | int,
+  variant: int,
+  subType: int,
+  position: Vector,
+  velocity = VectorZero,
+  spawner: Entity | undefined = undefined,
+  seed: Seed | undefined = undefined,
+): EntityNPC {
+  const entity = spawn(
+    entityType,
+    variant,
+    subType,
+    position,
+    velocity,
+    spawner,
+    seed,
+  );
+
+  const npc = entity.ToNPC();
+  if (npc === undefined) {
+    error("Failed to spawn an NPC.");
+  }
+  return npc;
+}
+
+/** Helper function to spawn an NPC with a specific seed. */
+export function spawnNPCWithSeed(
+  entityType: EntityType | int,
+  variant: int,
+  subType: int,
+  position: Vector,
+  seed: Seed,
+  velocity = VectorZero,
+  spawner: Entity | undefined = undefined,
+): EntityNPC {
+  return spawnNPC(
+    entityType,
+    variant,
+    subType,
+    position,
+    velocity,
+    spawner,
+    seed,
+  );
+}
+
 /** Helper function to spawn a `EntityType.ENTITY_PICKUP` (5). */
 export function spawnPickup(
   variant: PickupVariant | int,
