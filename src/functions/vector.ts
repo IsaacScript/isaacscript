@@ -107,11 +107,6 @@ export function vectorEquals(vector1: Vector, vector2: Vector): boolean {
   return isaacAPIClassEquals(vector1, vector2, KEYS);
 }
 
-/** Helper function to get a new vector of length N. */
-export function vectorN(n: int): Vector {
-  return Vector(n, n);
-}
-
 /** Helper function for finding out which way a vector is pointing. */
 export function vectorToDirection(vector: Vector): Direction {
   const degrees = vector.GetAngleDegrees();
