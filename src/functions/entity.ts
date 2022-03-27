@@ -1,4 +1,5 @@
 import { game } from "../cachedClasses";
+import { VectorZero } from "../constants";
 import { STORY_BOSSES_SET } from "../sets/storyBossesSet";
 import { AnyEntity } from "../types/AnyEntity";
 import { getRandom } from "./random";
@@ -235,4 +236,19 @@ export function setEntityRandomColor(entity: Entity): void {
   });
   const color = Color(colorValues[0], colorValues[1], colorValues[2]);
   entity.SetColor(color, 100000, 100000, false, false);
+}
+
+/**
+ * Helper function to spawn an entity. Use this instead of the `Isaac.Spawn` method if you do not
+ * need to specify the velocity or spawner.
+ */
+export function spawn(
+  entityType: EntityType | int,
+  variant: int,
+  subType: int,
+  position: Vector,
+  velocity = VectorZero,
+  spawner = undefined,
+): Entity {
+  return Isaac.Spawn(entityType, variant, subType, position, velocity, spawner);
 }
