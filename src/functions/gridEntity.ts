@@ -466,7 +466,7 @@ export function spawnGridEntityWithVariant(
   }
 
   const position = room.GetGridPosition(gridIndex);
-  const gridEntity = Isaac.GridSpawn(gridEntityType, variant, position, true);
+  const gridEntity = Isaac.GridSpawn(gridEntityType, variant, position);
   if (gridEntity === undefined) {
     return gridEntity;
   }

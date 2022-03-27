@@ -316,7 +316,6 @@ function fillRoomWithDecorations() {
       GridEntityType.GRID_DECORATION,
       0,
       position,
-      true,
     );
 
     if (decoration !== undefined) {
