@@ -1,3 +1,5 @@
+import { VectorZero } from "../constants";
+
 const TWO_BY_TWO_BOTTOM_RIGHT = Vector(25, 13);
 
 /**
@@ -22,7 +24,7 @@ export const L_ROOM_SHAPE_TO_RECTANGLES: {
 
   // 10
   [RoomShape.ROOMSHAPE_LTR]: [
-    Vector.Zero,
+    VectorZero,
     Vector(12, 13),
     Vector(0, 7),
     TWO_BY_TWO_BOTTOM_RIGHT,
@@ -30,7 +32,7 @@ export const L_ROOM_SHAPE_TO_RECTANGLES: {
 
   // 11
   [RoomShape.ROOMSHAPE_LBL]: [
-    Vector.Zero,
+    VectorZero,
     Vector(25, 6),
     Vector(13, 0),
     TWO_BY_TWO_BOTTOM_RIGHT,
@@ -38,9 +40,9 @@ export const L_ROOM_SHAPE_TO_RECTANGLES: {
 
   // 12
   [RoomShape.ROOMSHAPE_LBR]: [
-    Vector.Zero,
+    VectorZero,
     Vector(25, 6),
-    Vector.Zero,
+    VectorZero,
     Vector(12, 13),
   ],
 };

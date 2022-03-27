@@ -1,3 +1,5 @@
+import { VectorZero } from "../constants";
+
 const CHARGE_BAR_ANM2 = "gfx/ui/ui_chargebar.anm2";
 
 /** A collection of the four sprites necessary in order to render a charge bar. */
@@ -49,21 +51,21 @@ export function renderChargeBar(
   normalCharges: int,
   batteryCharges: int,
 ): void {
-  sprites.back.Render(position, Vector.Zero, Vector.Zero);
+  sprites.back.Render(position, VectorZero, VectorZero);
 
   const normalChargesClamp = getChargeBarClamp(
     normalCharges,
     sprites.maxCharges,
   );
-  sprites.meter.Render(position, normalChargesClamp, Vector.Zero);
+  sprites.meter.Render(position, normalChargesClamp, VectorZero);
 
   const batteryChargesClamp = getChargeBarClamp(
     batteryCharges,
     sprites.maxCharges,
   );
-  sprites.meterBattery.Render(position, batteryChargesClamp, Vector.Zero);
+  sprites.meterBattery.Render(position, batteryChargesClamp, VectorZero);
 
-  sprites.lines.Render(position, Vector.Zero, Vector.Zero);
+  sprites.lines.Render(position, VectorZero, VectorZero);
 }
 
 function getChargeBarClamp(charges: int, maxCharges: int) {

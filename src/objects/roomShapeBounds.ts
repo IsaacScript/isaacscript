@@ -1,3 +1,4 @@
+import { VectorZero } from "../constants";
 import {
   NARROW_CONTENTS_HEIGHT,
   NARROW_CONTENTS_WIDTH,
@@ -75,5 +76,5 @@ export const ROOM_SHAPE_BOUNDS: {
   [RoomShape.ROOMSHAPE_LBR]: TWO_BY_TWO_BOUNDS,
 
   // 13
-  [RoomShape.NUM_ROOMSHAPES]: Vector.Zero,
+  [RoomShape.NUM_ROOMSHAPES]: VectorZero,
 };

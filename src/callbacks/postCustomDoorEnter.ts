@@ -2,6 +2,7 @@
 
 import { game } from "../cachedClasses";
 import { ModUpgraded } from "../classes/ModUpgraded";
+import { VectorZero } from "../constants";
 import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { doorSlotToDirection } from "../functions/doors";
@@ -255,7 +256,7 @@ export function spawnCustomDoor(
     effectVariant,
     0,
     position,
-    Vector.Zero,
+    VectorZero,
     undefined,
   ).ToEffect();
   if (effect === undefined) {

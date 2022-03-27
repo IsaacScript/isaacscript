@@ -1,4 +1,5 @@
 import { game } from "../cachedClasses";
+import { VectorZero } from "../constants";
 import { FAMILIARS_THAT_SHOOT_PLAYER_TEARS_SET } from "../sets/familiarsThatShootPlayerTearsSet";
 import { copyArray } from "./array";
 import { getEntities, removeEntities } from "./entity";
@@ -71,7 +72,7 @@ export function checkFamiliar(
         EntityType.ENTITY_FAMILIAR,
         familiarVariant,
         player.Position,
-        Vector.Zero,
+        VectorZero,
         player,
         familiarSubTypeToUse,
         seed,

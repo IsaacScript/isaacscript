@@ -1,4 +1,5 @@
 import { game } from "../cachedClasses";
+import { VectorZero } from "../constants";
 import { preventCollectibleRotate } from "../features/preventCollectibleRotate";
 import { areFeaturesInitialized } from "../featuresInitialized";
 import { isQuestCollectible, setCollectibleEmpty } from "./collectibles";
@@ -33,7 +34,7 @@ export function spawnCollectible(
       EntityType.ENTITY_PICKUP,
       PickupVariant.PICKUP_COLLECTIBLE,
       position,
-      Vector.Zero,
+      VectorZero,
       undefined,
       collectibleType,
       seed,

@@ -1,4 +1,4 @@
-import { EMPTY_PNG_PATH } from "../constants";
+import { EMPTY_PNG_PATH, VectorZero } from "../constants";
 import { kColorEquals } from "./kColor";
 import { range } from "./math";
 
@@ -101,7 +101,7 @@ export function texelEquals(
   position: Vector,
   layerID: int,
 ): boolean {
-  const kColor1 = sprite1.GetTexel(position, Vector.Zero, 1, layerID);
-  const kColor2 = sprite2.GetTexel(position, Vector.Zero, 1, layerID);
+  const kColor1 = sprite1.GetTexel(position, VectorZero, 1, layerID);
+  const kColor2 = sprite2.GetTexel(position, VectorZero, 1, layerID);
   return kColorEquals(kColor1, kColor2);
 }

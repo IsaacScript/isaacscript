@@ -5,6 +5,7 @@
 
 import { game } from "../cachedClasses";
 import { DefaultMap } from "../classes/DefaultMap";
+import { VectorZero } from "../constants";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { removeAllMatchingEntities } from "../functions/entity";
 import { removeAllBombs } from "../functions/entitySpecific";
@@ -113,7 +114,7 @@ function respawnPersistentEntities() {
       persistentEntity.variant,
       persistentEntity.subType,
       position,
-      Vector.Zero,
+      VectorZero,
       undefined,
     );
   }
@@ -475,7 +476,7 @@ function spawnNormalEntityForJSONRoom(
       entityType,
       variant,
       position,
-      Vector.Zero,
+      VectorZero,
       undefined,
       subType,
       seed,

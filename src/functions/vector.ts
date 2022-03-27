@@ -82,27 +82,6 @@ export function directionToVector(direction: Direction): Vector {
   return DIRECTION_TO_VECTOR[direction];
 }
 
-/** Helper function to get a vector of length N. */
-export function getVectorN(n: int): Vector {
-  return Vector(n, n);
-}
-
-/**
- * Helper function to get a new vector of length 1. Using this is safer than using the `Vector.One`
- * variable because the variable can be overwritten or modified.
- */
-export function getVectorOne(): Vector {
-  return Vector(1, 1);
-}
-
-/**
- * Helper function to get a new vector of length 0. Using this is safer than using the `Vector.Zero`
- * variable because the variable can be overwritten or modified.
- */
-export function getVectorZero(): Vector {
-  return Vector(0, 0);
-}
-
 /**
  * Used to determine is the given table is a serialized `Vector` object created by the save data
  * manager and/or the `deepCopy` function.
@@ -126,6 +105,11 @@ export function isVector(object: unknown): object is Vector {
 
 export function vectorEquals(vector1: Vector, vector2: Vector): boolean {
   return isaacAPIClassEquals(vector1, vector2, KEYS);
+}
+
+/** Helper function to get a new vector of length N. */
+export function vectorN(n: int): Vector {
+  return Vector(n, n);
 }
 
 /** Helper function for finding out which way a vector is pointing. */

@@ -1,5 +1,9 @@
 import { game, sfxManager } from "../../cachedClasses";
-import { PILL_GIANT_FLAG, TRINKET_GOLDEN_FLAG } from "../../constants";
+import {
+  PILL_GIANT_FLAG,
+  TRINKET_GOLDEN_FLAG,
+  VectorZero,
+} from "../../constants";
 import { HealthType } from "../../enums/HealthType";
 import { getCardName } from "../../functions/cards";
 import { getCharacterName } from "../../functions/character";
@@ -286,7 +290,7 @@ export function cards(): void {
         PickupVariant.PICKUP_TAROTCARD,
         cardType,
         position,
-        Vector.Zero,
+        VectorZero,
         undefined,
       );
       cardType += 1;
@@ -758,7 +762,7 @@ export function pills(): void {
         PickupVariant.PICKUP_PILL,
         subType,
         position,
-        Vector.Zero,
+        VectorZero,
         undefined,
       );
 
@@ -1108,7 +1112,7 @@ export function spawnGoldenTrinket(params: string): void {
     PickupVariant.PICKUP_TRINKET,
     goldenTrinketType,
     centerPos,
-    Vector.Zero,
+    VectorZero,
     undefined,
   );
 }

@@ -1,3 +1,5 @@
+import { VectorZero } from "../constants";
+
 const TWO_BY_TWO_BOTTOM_RIGHT_POSITION = Vector(25, 13);
 const ONE_BY_TWO_VERTICAL_BOTTOM_RIGHT_POSITION = Vector(12, 13);
 
@@ -20,5 +22,5 @@ export const ROOM_SHAPE_TO_BOTTOM_RIGHT_POSITION: {
   [RoomShape.ROOMSHAPE_LTR]: TWO_BY_TWO_BOTTOM_RIGHT_POSITION, // 10
   [RoomShape.ROOMSHAPE_LBL]: TWO_BY_TWO_BOTTOM_RIGHT_POSITION, // 11
   [RoomShape.ROOMSHAPE_LBR]: ONE_BY_TWO_VERTICAL_BOTTOM_RIGHT_POSITION, // 12
-  [RoomShape.NUM_ROOMSHAPES]: Vector.Zero, // 13
+  [RoomShape.NUM_ROOMSHAPES]: VectorZero, // 13
 };

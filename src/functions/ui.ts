@@ -1,5 +1,6 @@
 import { game } from "../cachedClasses";
-import { UI_HEART_WIDTH } from "../constants";
+import { UI_HEART_WIDTH, VectorZero } from "../constants";
+import { copyVector } from "./vector";
 
 /**
  * In the options menu, players have the ability to set a HUD offset. However, mods do not have
@@ -12,7 +13,7 @@ import { UI_HEART_WIDTH } from "../constants";
  * a HUD offset that should be added to the position of a UI element.
  */
 export function getHUDOffsetVector(): Vector {
-  const defaultVector = Vector.Zero;
+  const defaultVector = copyVector(VectorZero);
 
   // Convert e.g. 0.4 to 4
   const hudOffset = math.floor(Options.HUDOffset * 10);
@@ -107,7 +108,7 @@ export function getScreenCenterPos(): Vector {
 }
 
 export function getScreenTopLeftPos(): Vector {
-  return Vector.Zero;
+  return copyVector(VectorZero);
 }
 
 export function getScreenTopRightPos(): Vector {

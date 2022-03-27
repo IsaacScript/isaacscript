@@ -146,3 +146,6 @@ export const TRINKET_ID_MASK = 32767;
  * corner.
  */
 export const UI_HEART_WIDTH = 12;
+
+export const VectorOne: ReadonlyVector = Vector(1, 1);
+export const VectorZero: ReadonlyVector = Vector(0, 0);

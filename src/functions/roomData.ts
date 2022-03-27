@@ -6,7 +6,7 @@ import { getEnumValues } from "./utils";
  * Alias for the `Level.GetCurrentRoomDesc` method. Use this to make it more clear what type of
  * `RoomDescriptor` object that you are retrieving.
  */
-export function getCurrentRoomDescriptorReadOnly(): RoomDescriptorReadOnly {
+export function getCurrentRoomDescriptorReadOnly(): ReadonlyRoomDescriptor {
   const level = game.GetLevel();
   return level.GetCurrentRoomDesc();
 }
