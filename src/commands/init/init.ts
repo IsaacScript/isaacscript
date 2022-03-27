@@ -14,23 +14,31 @@ import { promptSaveSlot } from "./promptSaveSlot";
 import { promptVSCode } from "./promptVSCode";
 
 export async function init(argv: Record<string, unknown>): Promise<void> {
-  const vscode = argv.vscode === true;
   const skipNPMInstall = argv.skipNpmInstall === true;
+  const useCurrentDir = argv.useCurrentDir === true;
   const verbose = argv.verbose === true;
+  const vscode = argv.vscode === true;
+  const yes = argv.yes === true;
 
   // Prompt the end-user for some information (and validate it as we go)
-  const [projectPath, createNewDir] = await getProjectPath(argv);
-  await checkIfProjectPathExists(projectPath, verbose);
+  const [projectPath, createNewDir] = await getProjectPath(
+    argv,
+    useCurrentDir,
+    yes,
+  );
+  await checkIfProjectPathExists(projectPath, yes, verbose);
   const modsDirectory = await getModsDir(argv);
   checkModSubdirectory(projectPath, modsDirectory);
   const projectName = path.basename(projectPath);
-  await checkModTargetDirectory(modsDirectory, projectName, verbose);
-  const saveSlot = await promptSaveSlot(argv);
+  await checkModTargetDirectory(modsDirectory, projectName, yes, verbose);
+  const saveSlot = await promptSaveSlot(argv, yes);
   const gitRemoteURL = await promptGitHubRepoOrGitRemoteURL(
     projectName,
+    yes,
     verbose,
   );
 
+  // Now that we have asked the user all of the questions we need, we can create the project
   createMod(
     projectName,
     projectPath,

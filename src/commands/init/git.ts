@@ -14,6 +14,7 @@ const REQUIRED_GIT_MINOR_VERSION = 30;
 
 export async function promptGitHubRepoOrGitRemoteURL(
   projectName: string,
+  yes: boolean,
   verbose: boolean,
 ): Promise<string | undefined> {
   // We do not need to prompt the user if they do not have Git installed
@@ -42,6 +43,14 @@ export async function promptGitHubRepoOrGitRemoteURL(
         `Detected an existing GitHub repository at: ${chalk.green(url)}`,
       );
       const guessedRemoteURL = getGitRemoteURL(projectName, gitHubUsername);
+
+      if (yes) {
+        console.log(
+          `Using a Git remote URL of: ${chalk.green(guessedRemoteURL)}`,
+        );
+        return guessedRemoteURL;
+      }
+
       const shouldUseGuessedURL = await getInputYesNo(
         `Do you want to use a Git remote URL of: ${chalk.green(
           guessedRemoteURL,
@@ -54,6 +63,12 @@ export async function promptGitHubRepoOrGitRemoteURL(
       // Assume that since they do not want to connect this project to the existing GitHub
       // repository, they do not want to initialize a remote Git URL at all
       return undefined;
+    }
+
+    if (yes) {
+      execShell("gh", ["repo", "create", projectName, "--public"]);
+      console.log(`Created a new GitHub repository at: ${url}`);
+      return getGitRemoteURL(projectName, gitHubUsername);
     }
 
     const createNewGitHubRepo = await getInputYesNo(

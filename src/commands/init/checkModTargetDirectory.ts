@@ -8,6 +8,7 @@ import { error } from "../../utils";
 export async function checkModTargetDirectory(
   modsDirectory: string,
   projectName: string,
+  yes: boolean,
   verbose: boolean,
 ): Promise<void> {
   const modTargetPath = path.join(modsDirectory, projectName);
@@ -15,21 +16,26 @@ export async function checkModTargetDirectory(
     return;
   }
 
-  console.error(
-    `Error: The target mod path of "${chalk.green(
+  const fileType = file.isDir(modTargetPath) ? "directory" : "file";
+
+  if (yes) {
+    file.deleteFileOrDirectory(modTargetPath, verbose);
+    console.log(`Deleted ${fileType}: ${chalk.green(modTargetPath)}`);
+    return;
+  }
+
+  console.log(
+    `A ${fileType} already exists at at the mod path of: ${chalk.green(
       modTargetPath,
-    )}" already exists.`,
+    )}`,
   );
-  console.error(
-    `When you run ${PROJECT_NAME}, it will want to create a directory here so that it can sync it with your project folder.`,
+  console.log(
+    `${PROJECT_NAME} will need to sync your project folder with this directory.`,
   );
+  const shouldDelete = await getInputYesNo("Do you want me to delete it?");
 
-  const shouldDeleteDirectory = await getInputYesNo(
-    "Should I delete the existing directory for you? (Make sure that it does not contain anything important first.)",
-  );
-
-  if (!shouldDeleteDirectory) {
-    error("Ok then. You delete it yourself. Good bye.");
+  if (!shouldDelete) {
+    error("Ok then. Goodbye.");
   }
 
   file.deleteFileOrDirectory(modTargetPath, verbose);

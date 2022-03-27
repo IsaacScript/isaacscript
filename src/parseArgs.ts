@@ -32,6 +32,12 @@ export function parseArgs(): Record<string, unknown> {
       `Initialize a new ${PROJECT_NAME} mod.`,
       (builder) =>
         builder
+          .option("yes", {
+            alias: "y",
+            type: "boolean",
+            description:
+              'Answer yes to every dialog option, similar to how "npm init --yes" works.',
+          })
           .option("use-current-dir", {
             alias: "u",
             type: "boolean",
