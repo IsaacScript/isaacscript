@@ -248,7 +248,27 @@ export function spawn(
   subType: int,
   position: Vector,
   velocity = VectorZero,
-  spawner = undefined,
+  spawner: Entity | undefined = undefined,
 ): Entity {
   return Isaac.Spawn(entityType, variant, subType, position, velocity, spawner);
+}
+
+export function spawnWithSeed(
+  entityType: EntityType | int,
+  variant: int,
+  subType: int,
+  position: Vector,
+  seed: Seed,
+  velocity = VectorZero,
+  spawner: Entity | undefined = undefined,
+): Entity {
+  return game.Spawn(
+    entityType,
+    variant,
+    position,
+    velocity,
+    spawner,
+    subType,
+    seed,
+  );
 }
