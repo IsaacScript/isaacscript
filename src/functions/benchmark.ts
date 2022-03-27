@@ -27,7 +27,7 @@ export function benchmark(
     }
     const averageTimeMilliseconds = totalTimeMilliseconds / numTrials;
     log(
-      `The average time of function ${i} is: ${averageTimeMilliseconds} milliseconds`,
+      `The average time of the function at index ${i} is: ${averageTimeMilliseconds} milliseconds`,
     );
     averages.push(averageTimeMilliseconds);
   });

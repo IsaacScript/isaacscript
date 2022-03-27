@@ -312,5 +312,5 @@ export function shuffleArrayInPlace<T>(
 }
 
 export function sumArray(array: number[] | readonly number[]): number {
-  return array.reduce((accumulator, element) => accumulator + element, 0);
+  return array.reduce((accumulator, element) => accumulator + element);
 }

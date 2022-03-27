@@ -1,6 +1,7 @@
-type Primitive = boolean | number | string;
+import { Primitive } from "../Primitive";
 
 // I don't know how to create a recursive type definition for only primitive values
+// For now, just type this as "unknown", which provides no type safety
 type Serializable = Primitive | unknown;
 
 /**
