@@ -472,7 +472,7 @@ export function removeAllTears(
 
 /** Helper function to spawn a `EntityType.ENTITY_BOMB` (4). */
 export function spawnBomb(
-  variant: int,
+  variant: BombVariant | int,
   subType: int,
   position: Vector,
   velocity = VectorZero,
@@ -498,7 +498,7 @@ export function spawnBomb(
 
 /** Helper function to spawn a `EntityType.ENTITY_BOMB` (4) with a specific seed. */
 export function spawnBombWithSeed(
-  variant: int,
+  variant: BombVariant | int,
   subType: int,
   position: Vector,
   seed: Seed,
@@ -510,7 +510,7 @@ export function spawnBombWithSeed(
 
 /** Helper function to spawn a `EntityType.ENTITY_EFFECT` (1000). */
 export function spawnEffect(
-  variant: int,
+  variant: EffectVariant | int,
   subType: int,
   position: Vector,
   velocity = VectorZero,
@@ -536,7 +536,7 @@ export function spawnEffect(
 
 /** Helper function to spawn a `EntityType.ENTITY_EFFECT` (1000) with a specific seed. */
 export function spawnEffectWithSeed(
-  variant: int,
+  variant: EffectVariant | int,
   subType: int,
   position: Vector,
   seed: Seed,
@@ -548,7 +548,7 @@ export function spawnEffectWithSeed(
 
 /** Helper function to spawn a `EntityType.ENTITY_FAMILIAR` (3). */
 export function spawnFamiliar(
-  variant: int,
+  variant: FamiliarVariant | int,
   subType: int,
   position: Vector,
   velocity = VectorZero,
@@ -574,7 +574,7 @@ export function spawnFamiliar(
 
 /** Helper function to spawn a `EntityType.ENTITY_FAMILIAR` (3) with a specific seed. */
 export function spawnFamiliarWithSeed(
-  variant: int,
+  variant: FamiliarVariant | int,
   subType: int,
   position: Vector,
   seed: Seed,
@@ -586,7 +586,7 @@ export function spawnFamiliarWithSeed(
 
 /** Helper function to spawn a `EntityType.ENTITY_KNIFE` (8). */
 export function spawnKnife(
-  variant: int,
+  variant: KnifeVariant | int,
   subType: int,
   position: Vector,
   velocity = VectorZero,
@@ -612,7 +612,7 @@ export function spawnKnife(
 
 /** Helper function to spawn a `EntityType.ENTITY_KNIFE` (8) with a specific seed. */
 export function spawnKnifeWithSeed(
-  variant: int,
+  variant: KnifeVariant | int,
   subType: int,
   position: Vector,
   seed: Seed,
@@ -624,7 +624,7 @@ export function spawnKnifeWithSeed(
 
 /** Helper function to spawn a `EntityType.ENTITY_LASER` (7). */
 export function spawnLaser(
-  variant: int,
+  variant: LaserVariant | int,
   subType: int,
   position: Vector,
   velocity = VectorZero,
@@ -650,7 +650,7 @@ export function spawnLaser(
 
 /** Helper function to spawn a `EntityType.ENTITY_LASER` (7) with a specific seed. */
 export function spawnLaserWithSeed(
-  variant: int,
+  variant: LaserVariant | int,
   subType: int,
   position: Vector,
   seed: Seed,
@@ -662,7 +662,7 @@ export function spawnLaserWithSeed(
 
 /** Helper function to spawn a `EntityType.ENTITY_PICKUP` (5). */
 export function spawnPickup(
-  variant: int,
+  variant: PickupVariant | int,
   subType: int,
   position: Vector,
   velocity = VectorZero,
@@ -688,7 +688,7 @@ export function spawnPickup(
 
 /** Helper function to spawn a `EntityType.ENTITY_PICKUP` (5) with a specific seed. */
 export function spawnPickupWithSeed(
-  variant: int,
+  variant: PickupVariant | int,
   subType: int,
   position: Vector,
   seed: Seed,
@@ -700,7 +700,7 @@ export function spawnPickupWithSeed(
 
 /** Helper function to spawn a `EntityType.ENTITY_PROJECTILE` (9). */
 export function spawnProjectile(
-  variant: int,
+  variant: ProjectileVariant | int,
   subType: int,
   position: Vector,
   velocity = VectorZero,
@@ -726,7 +726,7 @@ export function spawnProjectile(
 
 /** Helper function to spawn a `EntityType.ENTITY_PROJECTILE` (9) with a specific seed. */
 export function spawnProjectileWithSeed(
-  variant: int,
+  variant: ProjectileVariant | int,
   subType: int,
   position: Vector,
   seed: Seed,
@@ -734,6 +734,38 @@ export function spawnProjectileWithSeed(
   spawner: Entity | undefined = undefined,
 ): EntityProjectile {
   return spawnProjectile(variant, subType, position, velocity, spawner, seed);
+}
+
+/** Helper function to spawn a `EntityType.ENTITY_SLOT` (6). */
+export function spawnSlot(
+  variant: SlotVariant | int,
+  subType: int,
+  position: Vector,
+  velocity = VectorZero,
+  spawner: Entity | undefined = undefined,
+  seed: Seed | undefined = undefined,
+): Entity {
+  return spawn(
+    EntityType.ENTITY_SLOT,
+    variant,
+    subType,
+    position,
+    velocity,
+    spawner,
+    seed,
+  );
+}
+
+/** Helper function to spawn a `EntityType.ENTITY_SLOT` (6) with a specific seed. */
+export function spawnSlotWithSeed(
+  variant: int | SlotVariant,
+  subType: int,
+  position: Vector,
+  seed: Seed,
+  velocity = VectorZero,
+  spawner: Entity | undefined = undefined,
+): Entity {
+  return spawnSlot(variant, subType, position, velocity, spawner, seed);
 }
 
 /** Helper function to spawn a `EntityType.ENTITY_TEAR` (2). */
@@ -764,7 +796,7 @@ export function spawnTear(
 
 /** Helper function to spawn a `EntityType.EntityType` (2) with a specific seed. */
 export function spawnTearWithSeed(
-  variant: int,
+  variant: TearVariant | int,
   subType: int,
   position: Vector,
   seed: Seed,
