@@ -288,13 +288,5 @@ export function spawnWithSeed(
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
 ): Entity {
-  return game.Spawn(
-    entityType,
-    variant,
-    position,
-    velocity,
-    spawner,
-    subType,
-    seed,
-  );
+  return spawn(entityType, variant, subType, position, velocity, spawner, seed);
 }
