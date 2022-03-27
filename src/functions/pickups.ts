@@ -44,6 +44,11 @@ export function getRedHearts(): EntityPickup[] {
   return hearts.filter((heart) => RED_HEART_SUB_TYPES_SET.has(heart.SubType));
 }
 
+/** Helper function to get all of the sack (i.e. grab bag) entities in the room. */
+export function getSacks(matchingSubType = -1): EntityPickup[] {
+  return getPickups(PickupVariant.PICKUP_GRAB_BAG, matchingSubType);
+}
+
 /** Helper function to get all of the trinket entities in the room. */
 export function getTrinkets(matchingSubType = -1): EntityPickup[] {
   return getPickups(PickupVariant.PICKUP_TRINKET, matchingSubType);
@@ -159,6 +164,20 @@ export function removeAllKeys(
  */
 export function removeAllPills(pillColor?: PillColor, cap?: int): boolean {
   return removeAllPickups(PickupVariant.PICKUP_PILL, pillColor, cap);
+}
+
+/**
+ * Helper function to remove all of the sacks (i.e. grab bags) in the room.
+ *
+ * @param sackSubType Optional. If specified, will only remove sacks that match this sub-type.
+ * @param cap Optional. If specified, will only remove the given amount of trinkets.
+ * @returns True if one or more trinkets were removed, false otherwise.
+ */
+export function removeAllSacks(
+  sackSubType?: SackSubType | int,
+  cap?: int,
+): boolean {
+  return removeAllPickups(PickupVariant.PICKUP_TRINKET, sackSubType, cap);
 }
 
 /**
@@ -360,6 +379,37 @@ export function spawnPillWithSeed(
   spawner: Entity | undefined = undefined,
 ): EntityPickup {
   return spawnPill(subType, position, velocity, spawner, seed);
+}
+
+/**
+ * Helper function to spawn a `EntityType.ENTITY_PICKUP` (5) with variant
+ * `PickupVariant.PICKUP_GRAB_BAG` (69).
+ */
+export function spawnSack(
+  subType: SackSubType | int,
+  position: Vector,
+  velocity = VectorZero,
+  spawner: Entity | undefined = undefined,
+  seed: Seed | undefined = undefined,
+): EntityPickup {
+  return spawnPickup(
+    PickupVariant.PICKUP_GRAB_BAG,
+    subType,
+    position,
+    velocity,
+    spawner,
+    seed,
+  );
+}
+
+export function spawnSackWithSeed(
+  subType: SackSubType | int,
+  position: Vector,
+  seed: Seed,
+  velocity = VectorZero,
+  spawner: Entity | undefined = undefined,
+): EntityPickup {
+  return spawnSack(subType, position, velocity, spawner, seed);
 }
 
 /**
