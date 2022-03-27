@@ -80,7 +80,7 @@ export function getCurrentDimension(): Dimension {
   );
   const startingRoomHash = GetPtrHash(startingRoomDescription);
 
-  for (const dimension of range(0, NUM_DIMENSIONS - 1)) {
+  for (const dimension of range(NUM_DIMENSIONS - 1)) {
     const dimensionRoomDescription = level.GetRoomByIdx(
       startingRoomGridIndex,
       dimension,

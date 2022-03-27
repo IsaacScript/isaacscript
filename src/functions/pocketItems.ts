@@ -37,7 +37,7 @@ export function getPocketItems(player: EntityPlayer): PocketItemDescription[] {
   const pocketItems: PocketItemDescription[] = [];
   let pocketItemIdentified = false;
   let pocketItem2Identified = false;
-  for (const slot of range(0, MAX_PLAYER_POCKET_ITEM_SLOTS - 1)) {
+  for (const slot of range(MAX_PLAYER_POCKET_ITEM_SLOTS - 1)) {
     const card = player.GetCard(slot as PocketItemSlot);
     const pillColor = player.GetPill(slot as PocketItemSlot);
 

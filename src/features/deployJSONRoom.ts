@@ -22,7 +22,7 @@ import { getNPCs } from "../functions/npc";
 import { removeAllPickups } from "../functions/pickups";
 import { getRandomSeed, isRNG, newRNG } from "../functions/rng";
 import { getRoomListIndex } from "../functions/roomData";
-import { gridToPos } from "../functions/roomGrid";
+import { gridCoordinatesToWorldPosition } from "../functions/roomGrid";
 import { setRoomCleared, setRoomUncleared } from "../functions/rooms";
 import { spawnCollectible } from "../functions/spawnCollectible";
 import { JSONRoom } from "../types/JSONRoom";
@@ -301,7 +301,7 @@ function fillRoomWithDecorations() {
   const decorationGridIndexes =
     v.level.roomToDecorationGridIndexesMap.getAndSetDefault(roomListIndex);
 
-  for (const gridIndex of range(0, gridSize - 1)) {
+  for (const gridIndex of range(gridSize - 1)) {
     const existingGridEntity = room.GetGridEntity(gridIndex);
     if (existingGridEntity !== undefined) {
       continue;
@@ -427,7 +427,7 @@ function spawnGridEntityForJSONRoom(
     return undefined;
   }
   const [gridEntityType, variant] = gridEntityTuple;
-  const position = gridToPos(x, y);
+  const position = gridCoordinatesToWorldPosition(x, y);
   const gridIndex = room.GetGridIndex(position);
 
   const gridEntity = spawnGridEntityWithVariant(
@@ -460,7 +460,7 @@ function spawnNormalEntityForJSONRoom(
 ) {
   const room = game.GetRoom();
   const roomType = room.GetType();
-  const position = gridToPos(x, y);
+  const position = gridCoordinatesToWorldPosition(x, y);
   const seed = rng.Next();
 
   let entity: Entity;

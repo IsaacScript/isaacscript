@@ -17,7 +17,7 @@ import { range } from "./math";
 export function clearSprite(sprite: Sprite, ...layerIDs: int[]): void {
   if (layerIDs.length === 0) {
     const numLayers = sprite.GetLayerCount();
-    layerIDs = range(0, numLayers - 1);
+    layerIDs = range(numLayers - 1);
   }
 
   for (const layerID of layerIDs) {

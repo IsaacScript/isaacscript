@@ -45,8 +45,10 @@ export function getCircleDiscretizedPoints(
 }
 
 /**
- * Helper function to check if a given position is within a given rectangle. This is an inclusive
- * check, meaning that it will return true if the position is on the border of the rectangle.
+ * Helper function to check if a given position is within a given rectangle.
+ *
+ * This is an inclusive check, meaning that it will return true if the position is on the border of
+ * the rectangle.
  */
 export function inRectangle(
   position: Vector,
@@ -109,8 +111,17 @@ export function lerpAngleDegrees(
   return aStart + getAngleDifference(aStart, aEnd) * percent;
 }
 
-/** Helper function to return an array with the elements from start to end, inclusive. */
-export function range(start: int, end: int): int[] {
+/**
+ * Helper function to return an array with the elements from start to end, inclusive.
+ *
+ * If only one argument is specified, then it will assume that the start is 0.
+ */
+export function range(start: int, end?: int): int[] {
+  if (end === undefined) {
+    end = start;
+    start = 0;
+  }
+
   const array: int[] = [];
   for (let i = start; i <= end; i++) {
     array.push(i);

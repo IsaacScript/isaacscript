@@ -19,6 +19,7 @@ The `isaacscript-common` package contains extra goodies that you can easily use 
 Don't copy-paste the same functions over and over in your mods. Simply use the standard library:
 
 - [Array Functions](modules/functions_array.html)
+- [Benchmark Functions](modules/functions_benchmark.html)
 - [Bitwise Functions](modules/functions_bitwise.html)
 - [Cache Flag Functions](modules/functions_cacheFlag.html)
 - [Card Functions](modules/functions_cards.html)

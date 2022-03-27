@@ -479,7 +479,7 @@ export function logSet(this: void, set: Set<AnyNotNil>): void {
 
 /** Helper function for logging every sound effect that is currently playing. */
 export function logSounds(this: void): void {
-  for (const soundEffect of range(0, SoundEffect.NUM_SOUND_EFFECTS - 1)) {
+  for (const soundEffect of range(SoundEffect.NUM_SOUND_EFFECTS - 1)) {
     if (sfxManager.IsPlaying(soundEffect)) {
       log(`Currently playing sound effect: ${soundEffect}`);
     }

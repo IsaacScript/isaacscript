@@ -150,7 +150,7 @@ function getAllGridEntities(): GridEntity[] {
   const gridSize = room.GetGridSize();
 
   const gridEntities: GridEntity[] = [];
-  for (const gridIndex of range(0, gridSize - 1)) {
+  for (const gridIndex of range(gridSize - 1)) {
     const gridEntity = room.GetGridEntity(gridIndex);
     if (gridEntity !== undefined) {
       gridEntities.push(gridEntity);

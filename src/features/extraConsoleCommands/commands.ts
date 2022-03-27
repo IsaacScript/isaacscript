@@ -19,7 +19,7 @@ import { getPlayerName, useActiveItemTemp } from "../../functions/player";
 import { addPlayerHealthType } from "../../functions/playerHealth";
 import { getPlayers } from "../../functions/playerIndex";
 import { getRoomData, getRoomDescriptor } from "../../functions/roomData";
-import { gridToPos } from "../../functions/roomGrid";
+import { gridCoordinatesToWorldPosition } from "../../functions/roomGrid";
 import { changeRoom, getRoomGridIndexesForType } from "../../functions/rooms";
 import { restart } from "../../functions/run";
 import { printConsole } from "../../functions/utils";
@@ -280,7 +280,7 @@ export function cards(): void {
         return;
       }
 
-      const position = gridToPos(x, y);
+      const position = gridCoordinatesToWorldPosition(x, y);
       Isaac.Spawn(
         EntityType.ENTITY_PICKUP,
         PickupVariant.PICKUP_TAROTCARD,
@@ -752,7 +752,7 @@ export function pills(): void {
 
       const horsePillColor = pillColor + PILL_GIANT_FLAG;
       const subType = horse ? horsePillColor : pillColor;
-      const position = gridToPos(x, y);
+      const position = gridCoordinatesToWorldPosition(x, y);
       Isaac.Spawn(
         EntityType.ENTITY_PICKUP,
         PickupVariant.PICKUP_PILL,

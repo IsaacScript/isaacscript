@@ -60,6 +60,7 @@ export {
 } from "./features/sirenHelpers";
 export { getTaintedLazarusSubPlayer } from "./features/taintedLazarusPlayers";
 export * from "./functions/array";
+export * from "./functions/benchmark";
 export * from "./functions/bitwise";
 export * from "./functions/cacheFlag";
 export * from "./functions/cards";

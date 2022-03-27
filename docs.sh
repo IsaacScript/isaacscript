@@ -35,6 +35,7 @@ npx typedoc \
   --entryPoints "$DIR/src/features/sirenHelpers.ts" \
   --entryPoints "$DIR/src/features/taintedLazarusPlayers.ts" \
   --entryPoints "$DIR/src/functions/array.ts" \
+  --entryPoints "$DIR/src/functions/benchmark.ts" \
   --entryPoints "$DIR/src/functions/bitwise.ts" \
   --entryPoints "$DIR/src/functions/cacheFlag.ts" \
   --entryPoints "$DIR/src/functions/cards.ts" \
