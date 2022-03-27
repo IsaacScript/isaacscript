@@ -7,7 +7,7 @@
  */
 declare function GetPtrHash(
   this: void,
-  pointer: Entity | GridEntity | RoomDescriptor | RoomDescriptorReadOnly,
+  pointer: Entity | GridEntity | RoomDescriptor | ReadonlyRoomDescriptor,
 ): PtrHash;
 
 /**

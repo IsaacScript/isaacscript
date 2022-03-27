@@ -29,7 +29,7 @@ declare interface Level {
    * properties will fail. If you need to update anything in this object, use the
    * `GetRoomByIdx(currentRoomIndex)` method instead.
    */
-  GetCurrentRoomDesc(): RoomDescriptorReadOnly;
+  GetCurrentRoomDesc(): ReadonlyRoomDescriptor;
 
   /** Returns the current room's grid index. */
   GetCurrentRoomIndex(): int;
@@ -48,7 +48,7 @@ declare interface Level {
   GetEnterPosition(): Vector;
   GetHeartPicked(): boolean;
   GetLastBossRoomListIndex(): int;
-  GetLastRoomDesc(): RoomDescriptorReadOnly;
+  GetLastRoomDesc(): ReadonlyRoomDescriptor;
 
   /**
    * @param levelStage Default value is the current stage.
