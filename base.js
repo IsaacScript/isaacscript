@@ -34,6 +34,10 @@ module.exports = {
     // https://github.com/gajus/eslint-plugin-jsdoc
     "plugin:jsdoc/recommended",
 
+    // This prevents declaring arrays without a type
+    // https://github.com/Zamiell/eslint-plugin-no-array-any
+    "plugin:no-array-any/recommended",
+
     // This prevents implicit iteration of Maps and Sets,
     // which is helpful to prevent bugs when refactoring
     // https://github.com/Zamiell/eslint-plugin-no-implicit-map-set-loops
