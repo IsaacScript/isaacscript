@@ -241,6 +241,8 @@ export function setEntityRandomColor(entity: Entity): void {
 /**
  * Helper function to spawn an entity. Use this instead of the `Isaac.Spawn` method if you do not
  * need to specify the velocity or spawner.
+ *
+ * Also see the `spawnWithSeed` helper function.
  */
 export function spawn(
   entityType: EntityType | int,
@@ -249,10 +251,34 @@ export function spawn(
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
+  seed: Seed | undefined = undefined,
 ): Entity {
-  return Isaac.Spawn(entityType, variant, subType, position, velocity, spawner);
+  if (seed === undefined) {
+    return Isaac.Spawn(
+      entityType,
+      variant,
+      subType,
+      position,
+      velocity,
+      spawner,
+    );
+  }
+
+  return game.Spawn(
+    entityType,
+    variant,
+    position,
+    velocity,
+    spawner,
+    subType,
+    seed,
+  );
 }
 
+/**
+ * Helper function to spawn an entity. Use this instead of the `Game.Spawn` method if you do not
+ * need to specify the velocity or spawner.
+ */
 export function spawnWithSeed(
   entityType: EntityType | int,
   variant: int,
