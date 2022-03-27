@@ -22,7 +22,7 @@
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-jsdoc": "^38.0.8",
-    "eslint-plugin-no-array-any": "^1.0.1",
+    "eslint-plugin-no-array-any": "^1.0.2",
     "eslint-plugin-no-implicit-map-set-loops": "^1.0.3",
     "eslint-plugin-no-let-any": "^1.0.3",
     "eslint-plugin-no-template-curly-in-string-fix": "^1.0.4",
