@@ -67,7 +67,7 @@ export async function promptGitHubRepoOrGitRemoteURL(
 
     if (yes) {
       execShell("gh", ["repo", "create", projectName, "--public"]);
-      console.log(`Created a new GitHub repository at: ${url}`);
+      console.log(`Created a new GitHub repository at: ${chalk.green(url)}`);
       return getGitRemoteURL(projectName, gitHubUsername);
     }
 
