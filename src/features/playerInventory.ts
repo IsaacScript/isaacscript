@@ -165,6 +165,9 @@ export function getPlayerInventory(
  * Helper function to add a collectible to a player. Use this instead of the
  * `EntityPlayer.AddCollectible` method if you want the collectible that is added to be
  * automatically tracked by the player inventory tracker feature.
+ *
+ * You only need to use this function if you are using the inventory feature from the standard
+ * library.
  */
 export function addCollectible(
   player: EntityPlayer,

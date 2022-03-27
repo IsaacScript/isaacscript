@@ -82,11 +82,16 @@ export function directionToVector(direction: Direction): Vector {
   return DIRECTION_TO_VECTOR[direction];
 }
 
+/** Helper function to get a vector of length N. */
+export function getVectorN(n: int): Vector {
+  return Vector(n, n);
+}
+
 /**
  * Helper function to get a new vector of length 1. Using this is safer than using the `Vector.One`
  * variable because the variable can be overwritten or modified.
  */
-export function getOneVector(): Vector {
+export function getVectorOne(): Vector {
   return Vector(1, 1);
 }
 
@@ -94,7 +99,7 @@ export function getOneVector(): Vector {
  * Helper function to get a new vector of length 0. Using this is safer than using the `Vector.Zero`
  * variable because the variable can be overwritten or modified.
  */
-export function getZeroVector(): Vector {
+export function getVectorZero(): Vector {
   return Vector(0, 0);
 }
 
@@ -144,4 +149,10 @@ export function vectorToDirection(vector: Vector): Direction {
   }
 
   return Direction.NO_DIRECTION;
+}
+
+export function vectorToString(vector: Vector, round = false): string {
+  const x = round ? Math.round(vector.X) : vector.X;
+  const y = round ? Math.round(vector.Y) : vector.Y;
+  return `(${x}, ${y})`;
 }

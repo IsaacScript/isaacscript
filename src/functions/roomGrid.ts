@@ -1,6 +1,7 @@
 import { L_ROOM_SHAPE_TO_RECTANGLES } from "../objects/LRoomShapeToRectangles";
 import { inRectangle } from "./math";
 import {
+  getRoomShapeBottomRightPosition,
   getRoomShapeTopLeftPosition,
   getRoomShapeWidth,
   isLRoom,
@@ -60,7 +61,7 @@ export function isValidGridPosition(
 
 function isValidGridPositionNormal(gridPosition: Vector, roomShape: RoomShape) {
   const topLeft = getRoomShapeTopLeftPosition(roomShape);
-  const bottomRight = getRoomShapeTopLeftPosition(roomShape);
+  const bottomRight = getRoomShapeBottomRightPosition(roomShape);
   return inRectangle(gridPosition, topLeft, bottomRight);
 }
 

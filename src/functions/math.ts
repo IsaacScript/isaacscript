@@ -58,8 +58,8 @@ export function inRectangle(
   return (
     position.X >= topLeft.X &&
     position.X <= bottomRight.X &&
-    position.Y <= topLeft.Y &&
-    position.Y >= bottomRight.Y
+    position.Y >= topLeft.Y &&
+    position.Y <= bottomRight.Y
   );
 }
 

@@ -12,6 +12,7 @@ import { getRoomData, getRoomGridIndex, getRoomListIndex } from "./roomData";
 import { getSortedSetValues } from "./set";
 import { getTrinketName } from "./trinkets";
 import { printConsole } from "./utils";
+import { vectorToString } from "./vector";
 
 const IGNORE_EFFECT_VARIANTS: ReadonlySet<EffectVariant> = new Set([
   EffectVariant.BLOOD_EXPLOSION, // 2
@@ -557,8 +558,9 @@ export function logUserdata(this: void, userdata: unknown): void {
   logTable(metatable);
 }
 
-export function logVector(this: void, vector: Vector): void {
-  log(`Vector: (${vector.X}, ${vector.Y})`);
+export function logVector(this: void, vector: Vector, round = false): void {
+  const vectorString = vectorToString(vector, round);
+  log(`Vector: ${vectorString}`);
 }
 
 /**
