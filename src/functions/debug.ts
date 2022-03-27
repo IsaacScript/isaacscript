@@ -32,7 +32,7 @@ export function traceback(): void {
 }
 
 function setDebugFunctionsGlobal() {
-  if (debug === undefined) {
+  if (debug === undefined && sandboxGetTraceback === undefined) {
     return;
   }
 
