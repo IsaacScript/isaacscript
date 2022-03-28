@@ -7,7 +7,7 @@ import { isArray } from "../../functions/array";
 import { deepCopy } from "../../functions/deepCopy";
 import { log } from "../../functions/log";
 import {
-  copySerializableIsaacAPIClass,
+  deserializeIsaacAPIClass,
   isSerializedIsaacAPIClass,
 } from "../../functions/serialization";
 import { clearTable } from "../../functions/table";
@@ -42,7 +42,7 @@ export function merge(
   traversalDescription: string,
 ): void {
   if (SAVE_DATA_MANAGER_DEBUG) {
-    log(`merge is operating on: ${traversalDescription}`);
+    log(`merge is traversing: ${traversalDescription}`);
   }
 
   const oldObjectType = type(oldObject);
@@ -147,7 +147,8 @@ function mergeTable(
 
   for (const [key, value] of pairs(newTable)) {
     if (SAVE_DATA_MANAGER_DEBUG) {
-      log(`merge is operating on: ${key} --> ${value}`);
+      const valueToPrint = value === "" ? "(empty string)" : `${value}`;
+      log(`merge is merging: ${traversalDescription} --> ${valueToPrint}`);
     }
 
     if (isSerializationBrand(key)) {
@@ -156,10 +157,11 @@ function mergeTable(
 
     // Handle the special case of serialized Isaac API classes
     if (isSerializedIsaacAPIClass(value)) {
-      const deserializedObject = copySerializableIsaacAPIClass(
-        value,
-        SerializationType.DESERIALIZE,
-      );
+      if (SAVE_DATA_MANAGER_DEBUG) {
+        log("merge found a serialized Isaac API class.");
+      }
+
+      const deserializedObject = deserializeIsaacAPIClass(value);
       oldTable.set(key, deserializedObject);
       continue;
     }
@@ -182,9 +184,6 @@ function mergeTable(
       merge(oldValue, value as LuaTable, traversalDescription);
     } else {
       // Base case: copy the value
-      if (SAVE_DATA_MANAGER_DEBUG) {
-        log(`Merging key "${key}" with value: ${value}`);
-      }
       oldTable.set(key, value);
     }
   }

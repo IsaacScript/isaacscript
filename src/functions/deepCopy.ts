@@ -6,10 +6,11 @@ import {
 import { SerializationType } from "../enums/SerializationType";
 import { SAVE_DATA_MANAGER_DEBUG } from "../features/saveDataManager/constants";
 import { TSTLClassMetatable } from "../types/private/TSTLClassMetatable";
-import { isSerializableIsaacAPIClass } from "./isaacAPIClass";
 import { log } from "./log";
 import {
-  copySerializableIsaacAPIClass,
+  copyIsaacAPIClass,
+  deserializeIsaacAPIClass,
+  isSerializableIsaacAPIClass,
   isSerializedIsaacAPIClass,
 } from "./serialization";
 import { getTraversalDescription } from "./utils";
@@ -364,12 +365,15 @@ function getNewValue(
   traversalDescription: string,
   serializationType: SerializationType,
 ): unknown {
+  if (isSerializableIsaacAPIClass(value)) {
+    return copyIsaacAPIClass(value, serializationType);
+  }
+
   if (
-    isSerializableIsaacAPIClass(value) ||
-    (isSerializedIsaacAPIClass(value) &&
-      serializationType === SerializationType.DESERIALIZE)
+    isSerializedIsaacAPIClass(value) &&
+    serializationType === SerializationType.DESERIALIZE
   ) {
-    return copySerializableIsaacAPIClass(value, serializationType);
+    return deserializeIsaacAPIClass(value);
   }
 
   if (type(value) === "table") {

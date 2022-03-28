@@ -5,7 +5,7 @@ import { copyKColor } from "../functions/kColor";
 import { copyRNG } from "../functions/rng";
 import { copyVector } from "../functions/vector";
 
-export const SERIALIZABLE_ISAAC_API_CLASS_TYPE_TO_COPY_FUNCTION: {
+export const ISAAC_API_CLASS_TYPE_TO_COPY_FUNCTION: {
   readonly [key in SerializableIsaacAPIClassType]: (
     object: unknown,
     serializationType: SerializationType,

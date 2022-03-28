@@ -1,11 +1,4 @@
-import { SerializableIsaacAPIClassType } from "../enums/private/SerializableIsaacAPIClassType";
 import { IsaacAPIClass } from "../types/private/IsaacAPIClass";
-import { SerializableIsaacAPIClass } from "../types/private/SerializableIsaacAPIClass";
-import { getEnumValues } from "./utils";
-
-const SERIALIZABLE_ISAAC_API_CLASS_TYPES_SET = new Set<string>(
-  getEnumValues(SerializableIsaacAPIClassType),
-);
 
 /**
  * Helper function to get the type of a class from the Isaac API. This is contained within the
@@ -54,17 +47,6 @@ export function isIsaacAPIClassOfType(
     isaacAPIClassType === classType ||
     isaacAPIClassType === `const ${classType}`
   );
-}
-
-export function isSerializableIsaacAPIClass(
-  object: unknown,
-): object is SerializableIsaacAPIClass {
-  const classType = getIsaacAPIClassType(object);
-  if (classType === undefined) {
-    return false;
-  }
-
-  return SERIALIZABLE_ISAAC_API_CLASS_TYPES_SET.has(classType);
 }
 
 /**

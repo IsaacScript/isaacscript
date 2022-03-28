@@ -2,15 +2,21 @@ import { SerializationType } from "../enums/SerializationType";
 import { merge } from "../features/saveDataManager/merge";
 import { deepCopy } from "./deepCopy";
 import { log } from "./log";
-import { isVector } from "./vector";
+import { isRNG, newRNG } from "./rng";
+import { isSerializedIsaacAPIClass } from "./serialization";
+import { copyVector, isVector } from "./vector";
 
 export function mergeTests(): void {
   oldTableHasUpdatedValue();
   newTableHasSameValue();
   oldTableHasUpdatedValueFromNull();
+  oldTableHasSerializedIsaacAPIClass();
+
   oldTableHasFilledInterface();
   oldTableHasVector();
   oldTableHasVectorSerialized();
+  oldTableHasRNG();
+  oldTableHasRNGSerialized();
 
   log("All merge tests passed!");
 }
@@ -71,6 +77,19 @@ function oldTableHasUpdatedValueFromNull() {
   }
 }
 
+function oldTableHasSerializedIsaacAPIClass() {
+  const x = 50;
+  const y = 60;
+  const vector = Vector(x, y);
+
+  const vectorSerialized = copyVector(vector, SerializationType.SERIALIZE);
+  if (!isSerializedIsaacAPIClass(vectorSerialized)) {
+    error(
+      'The "isSerializedIsaacAPIClass" function says that a serialized vector is not serialized.',
+    );
+  }
+}
+
 function oldTableHasFilledInterface() {
   interface Foo {
     bar: string;
@@ -101,6 +120,8 @@ function oldTableHasFilledInterface() {
 }
 
 function oldTableHasVector() {
+  log("Starting test: oldTableHasVector");
+
   interface Foo {
     bar: Vector;
   }
@@ -140,6 +161,8 @@ function oldTableHasVector() {
 }
 
 function oldTableHasVectorSerialized() {
+  log("Starting test: oldTableHasVectorSerialized");
+
   interface Foo {
     bar: Vector;
   }
@@ -178,6 +201,88 @@ function oldTableHasVectorSerialized() {
   }
 
   if (!isVector(oldTableValue.bar)) {
-    error("The old table's value is not a Vector object.");
+    error(
+      "The old table's value is not a Vector object (during the serialized test).",
+    );
+  }
+}
+
+function oldTableHasRNG() {
+  log("Starting test: oldTableHasRNG");
+
+  interface Foo {
+    bar: RNG;
+  }
+
+  const key = "foo";
+  const seed = 50 as Seed;
+  const newValue = newRNG(seed);
+  const oldTable = {
+    foo: null as Foo | null,
+  } as unknown as LuaTable<AnyNotNil, unknown>;
+  const foo: Foo = {
+    bar: newValue,
+  };
+  const newTable = {
+    foo,
+  } as unknown as LuaTable<AnyNotNil, unknown>;
+
+  merge(oldTable, newTable, "oldTableHasRNG");
+
+  const oldTableValue = oldTable.get(key) as Foo | undefined;
+  if (oldTableValue === undefined) {
+    error(`The old table's key of "${key}" was not filled.`);
+  }
+
+  if (!isRNG(oldTableValue.bar)) {
+    error("The old table's value is not an RNG object.");
+  }
+
+  const newSeed = oldTableValue.bar.GetSeed();
+  if (newSeed !== seed) {
+    error(`The old table's seed not match: ${seed}`);
+  }
+}
+
+function oldTableHasRNGSerialized() {
+  log("Starting test: oldTableHasRNGSerialized");
+
+  interface Foo {
+    bar: RNG;
+  }
+
+  const key = "foo";
+  const seed = 50 as Seed;
+  const newValue = newRNG(seed);
+  const oldTable = {
+    foo: null as Foo | null,
+  } as unknown as LuaTable<AnyNotNil, unknown>;
+  const foo: Foo = {
+    bar: newValue,
+  };
+  const newTable = {
+    foo,
+  } as unknown as LuaTable<AnyNotNil, unknown>;
+  const newTableSerialized = deepCopy(
+    newTable,
+    SerializationType.SERIALIZE,
+  ) as LuaTable<AnyNotNil, unknown>;
+
+  merge(oldTable, newTableSerialized, "oldTableHasRNGSerialized");
+
+  const oldTableValue = oldTable.get(key) as Foo | undefined;
+  if (oldTableValue === undefined) {
+    error(`The old table's key of "${key}" was not filled.`);
+  }
+
+  if (!isRNG(oldTableValue.bar)) {
+    error(
+      "The old table's value is not an RNG object (during the serialized test).",
+    );
+  }
+
+  const newSeed = oldTableValue.bar.GetSeed();
+  if (newSeed !== seed) {
+    error(`The old table's seed not match: ${seed}`);
   }
 }
