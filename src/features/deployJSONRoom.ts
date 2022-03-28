@@ -99,7 +99,12 @@ function setDecorationsInvisible() {
   for (const gridIndex of decorationGridIndexes) {
     const gridEntity = room.GetGridEntity(gridIndex);
     if (gridEntity !== undefined) {
-      setGridEntityInvisible(gridEntity);
+      // Other grid entities may have spawned, like trapdoors or crawlspaces
+      // Thus, only make decorations invisible
+      const gridEntityType = gridEntity.GetType();
+      if (gridEntityType === GridEntityType.GRID_DECORATION) {
+        setGridEntityInvisible(gridEntity);
+      }
     }
   }
 }
