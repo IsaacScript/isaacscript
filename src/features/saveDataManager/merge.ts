@@ -37,8 +37,11 @@ import { SAVE_DATA_MANAGER_DEBUG } from "./constants";
  * run-time errors. In such cases, users will have to manually delete their save data.
  */
 export function merge(
-  oldObject: LuaTable | Map<AnyNotNil, unknown> | Set<AnyNotNil>,
-  newTable: LuaTable,
+  oldObject:
+    | LuaTable<AnyNotNil, unknown>
+    | Map<AnyNotNil, unknown>
+    | Set<AnyNotNil>,
+  newTable: LuaTable<AnyNotNil, unknown>,
   traversalDescription: string,
 ): void {
   if (SAVE_DATA_MANAGER_DEBUG) {
@@ -70,8 +73,11 @@ export function merge(
 }
 
 function mergeArray(
-  oldObject: LuaTable | Map<AnyNotNil, unknown> | Set<AnyNotNil>,
-  newTable: LuaTable,
+  oldObject:
+    | LuaTable<AnyNotNil, unknown>
+    | Map<AnyNotNil, unknown>
+    | Set<AnyNotNil>,
+  newTable: LuaTable<AnyNotNil, unknown>,
 ) {
   const oldArray = oldObject as LuaTable<AnyNotNil, unknown>;
   if (!isArray(oldArray) || !isArray(newTable)) {

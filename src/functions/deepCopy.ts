@@ -39,10 +39,13 @@ import { getTraversalDescription } from "./utils";
  * @param traversalDescription Used to track the current key that we are operating on.
  */
 export function deepCopy(
-  oldObject: LuaTable | Map<AnyNotNil, unknown> | Set<AnyNotNil>,
+  oldObject:
+    | LuaTable<AnyNotNil, unknown>
+    | Map<AnyNotNil, unknown>
+    | Set<AnyNotNil>,
   serializationType = SerializationType.NONE,
   traversalDescription = "",
-): LuaTable | Map<AnyNotNil, unknown> | Set<AnyNotNil> {
+): LuaTable<AnyNotNil, unknown> | Map<AnyNotNil, unknown> | Set<AnyNotNil> {
   if (SAVE_DATA_MANAGER_DEBUG) {
     let logString = `deepCopy is operating on: ${traversalDescription}`;
     if (serializationType === SerializationType.SERIALIZE) {
@@ -231,8 +234,14 @@ function checkMetatable(table: LuaTable, traversalDescription: string) {
 }
 
 function deepCopyValue(
-  oldObject: LuaTable | Map<AnyNotNil, unknown> | Set<AnyNotNil>,
-  newObject: LuaTable | Map<AnyNotNil, unknown> | Set<AnyNotNil>,
+  oldObject:
+    | LuaTable<AnyNotNil, unknown>
+    | Map<AnyNotNil, unknown>
+    | Set<AnyNotNil>,
+  newObject:
+    | LuaTable<AnyNotNil, unknown>
+    | Map<AnyNotNil, unknown>
+    | Set<AnyNotNil>,
   key: AnyNotNil,
   value: unknown,
   traversalDescription: string,
