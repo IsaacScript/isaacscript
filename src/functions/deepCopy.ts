@@ -13,13 +13,8 @@ import {
   isSerializableIsaacAPIClass,
   isSerializedIsaacAPIClass,
 } from "./serialization";
+import { isTSTLClass } from "./tstlClass";
 import { getTraversalDescription } from "./utils";
-
-const TSTL_CLASS_KEYS: ReadonlySet<string> = new Set([
-  "____constructor",
-  "__index",
-  "constructor",
-]);
 
 /**
  * deepCopy is a semi-generic deep cloner. It will recursively copy all of the values so that none
@@ -211,33 +206,6 @@ export function deepCopy(
   }
 
   return newObject;
-}
-
-function isTSTLClass(object: LuaTable): boolean {
-  const metatable = getmetatable(object);
-  if (metatable === undefined) {
-    return false;
-  }
-
-  if (object instanceof Map || object instanceof Set) {
-    return false;
-  }
-
-  // TSTL classes have a metatable with a certain amount of keys
-  let numKeys = 0;
-  for (const [key] of pairs(metatable)) {
-    numKeys += 1;
-
-    if (typeof key !== "string") {
-      return false;
-    }
-
-    if (!TSTL_CLASS_KEYS.has(key)) {
-      return false;
-    }
-  }
-
-  return numKeys === TSTL_CLASS_KEYS.size;
 }
 
 function checkMetatable(table: LuaTable, traversalDescription: string) {
