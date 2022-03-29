@@ -49,6 +49,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/debug.ts" \
   --entryPoints "$DIR/src/functions/deepCopy.ts" \
   --entryPoints "$DIR/src/functions/doors.ts" \
+  --entryPoints "$DIR/src/functions/easing.ts" \
   --entryPoints "$DIR/src/functions/entity.ts" \
   --entryPoints "$DIR/src/functions/entitySpecific.ts" \
   --entryPoints "$DIR/src/functions/familiars.ts" \

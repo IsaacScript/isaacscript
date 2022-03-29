@@ -76,6 +76,7 @@ export * from "./functions/debug";
 export { deepCopy } from "./functions/deepCopy";
 export { deepCopyTests } from "./functions/deepCopyTests";
 export * from "./functions/doors";
+export * from "./functions/easing";
 export * from "./functions/entity";
 export * from "./functions/entitySpecific";
 export * from "./functions/familiars";
