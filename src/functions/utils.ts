@@ -9,14 +9,14 @@ const HEX_STRING_LENGTH = 6;
  *
  * Example:
  * ```ts
- * enum Situations {
+ * enum Situation {
  *   ONE,
  *   TWO,
  *   THREE,
  *   // FOUR, // If we uncomment this line, the program will no longer compile
  * }
  *
- * function doThingBasedOnSituation(situation: Situation) {
+ * function handleSituation(situation: Situation) {
  *   switch (situation) {
  *     case Situation.ONE: {
  *       return 41;

@@ -259,7 +259,11 @@ function checkMetatable(table: LuaTable, traversalDescription: string) {
 }
 
 function copyClass(oldClass: unknown) {
-  const metatable = getmetatable(oldClass) as TSTLClassMetatable;
+  const metatable = getmetatable(oldClass) as TSTLClassMetatable | undefined;
+  if (metatable === undefined) {
+    error("Failed to copy a class since the metatable was undefined.");
+  }
+
   const newClass = getNewClassFromMetatable(metatable);
 
   for (const [key, value] of pairs(oldClass)) {
