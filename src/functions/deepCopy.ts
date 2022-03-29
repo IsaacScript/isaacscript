@@ -5,7 +5,7 @@ import {
 } from "../enums/private/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
 import { SAVE_DATA_MANAGER_DEBUG } from "../features/saveDataManager/constants";
-import { TSTLClassMetatable } from "../types/private/TSTLClassMetatable";
+import { TSTLClass } from "../types/private/TSTLClass";
 import { log } from "./log";
 import {
   copyIsaacAPIClass,
@@ -13,7 +13,7 @@ import {
   isSerializableIsaacAPIClass,
   isSerializedIsaacAPIClass,
 } from "./serialization";
-import { isTSTLClass } from "./tstlClass";
+import { isTSTLClass, newTSTLClass } from "./tstlClass";
 import { getTraversalDescription } from "./utils";
 
 /**
@@ -66,18 +66,19 @@ export function deepCopy(
   let hasTSTLDefaultMapBrand = false;
   let hasTSTLMapBrand = false;
   let hasTSTLSetBrand = false;
-  let hasTSTLClassBrand = false;
   if (!(oldObject instanceof Map) && !(oldObject instanceof Set) && !isClass) {
     checkMetatable(oldTable, traversalDescription);
 
     hasTSTLDefaultMapBrand = oldTable.has(SerializationBrand.DEFAULT_MAP);
     hasTSTLMapBrand = oldTable.has(SerializationBrand.MAP);
     hasTSTLSetBrand = oldTable.has(SerializationBrand.SET);
-    hasTSTLClassBrand = oldTable.has(SerializationBrand.CLASS);
   }
 
   // Instantiate the new object
-  let newObject: LuaTable | Map<AnyNotNil, unknown> | Set<AnyNotNil>;
+  let newObject:
+    | LuaTable<AnyNotNil, unknown>
+    | Map<AnyNotNil, unknown>
+    | Set<AnyNotNil>;
   if (
     serializationType === SerializationType.NONE &&
     oldObject instanceof DefaultMap
@@ -115,11 +116,14 @@ export function deepCopy(
     (serializationType === SerializationType.DESERIALIZE && hasTSTLSetBrand)
   ) {
     newObject = new Set();
-  } else if (
-    (serializationType === SerializationType.NONE && isClass) ||
-    (serializationType === SerializationType.DESERIALIZE && hasTSTLClassBrand)
-  ) {
-    newObject = copyClass(oldObject);
+  } else if (serializationType === SerializationType.NONE && isClass) {
+    // We need to first invoke the constructor to initialize the class properly
+    // Then, we recursively copy the fields below as we would with a normal Lua table
+    const oldTSTLClass = oldObject as unknown as TSTLClass;
+    newObject = newTSTLClass(oldTSTLClass) as unknown as LuaTable<
+      AnyNotNil,
+      unknown
+    >;
   } else {
     newObject = new LuaTable();
   }
@@ -135,7 +139,9 @@ export function deepCopy(
       const defaultValue = oldDefaultMap.getConstructorArg();
 
       // The constructor argument can be a reference to a factory function
-      // If this is the case, then we can't serialize it
+      // If this is the case, then we cannot serialize it
+      // Do not throw a runtime error, since the merge function does not need to instantiate the
+      // DefaultMap class in most circumstances
       if (
         typeof defaultValue === "boolean" ||
         typeof defaultValue === "number" ||
@@ -147,8 +153,6 @@ export function deepCopy(
       newTable.set(SerializationBrand.MAP, "");
     } else if (oldObject instanceof Set) {
       newTable.set(SerializationBrand.SET, "");
-    } else if (isClass) {
-      newTable.set(SerializationBrand.CLASS, "");
     }
   }
 
@@ -224,31 +228,6 @@ function checkMetatable(table: LuaTable, traversalDescription: string) {
   error(
     `The deepCopy function detected that "${tableDescription}" has a metatable. Copying tables with metatables is not supported, unless they are explicitly handled by the save data manager. (e.g. Vectors, TypeScriptToLua Maps, etc.)`,
   );
-}
-
-function copyClass(oldClass: unknown) {
-  const metatable = getmetatable(oldClass) as TSTLClassMetatable | undefined;
-  if (metatable === undefined) {
-    error("Failed to copy a class since the metatable was undefined.");
-  }
-
-  const newClass = getNewClassFromMetatable(metatable);
-
-  for (const [key, value] of pairs(oldClass)) {
-    newClass.set(key, value);
-  }
-
-  return newClass;
-}
-
-function getNewClassFromMetatable(metatable: TSTLClassMetatable) {
-  // This is a re-implementation of the transpiled "__TS__New" function
-  // eslint-disable-next-line
-  const instance = setmetatable({}, metatable.constructor.prototype as any);
-  const newClass = instance as TSTLClassMetatable;
-  newClass.____constructor(); // eslint-disable-line no-underscore-dangle
-
-  return newClass as unknown as LuaTable<AnyNotNil, unknown>;
 }
 
 function deepCopyValue(
