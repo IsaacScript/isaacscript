@@ -404,7 +404,7 @@ TypeScript has a special feature that Lua does not have called *string templates
 
 In the previous section, we used the `+` operator to combine a bunch of variables with text. But it would probably be better written by using a string template, like this:
 
-```lua
+```ts
 // Typescript code
 const numPoops = 3;
 const numFarts = 4;
