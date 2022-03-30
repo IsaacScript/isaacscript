@@ -44,7 +44,7 @@ const COPYABLE_ISAAC_API_CLASS_TYPES_SET = new Set<string>(
  *
  * It does not support:
  * - objects with values of `null` (since that transpiles to `nil`)
- * - other Isaac API objects (that have a type of "userdata")
+ * - other Isaac API objects such as `EntityPtr` (that have a type of "userdata")
  *
  * @param value The primitive or object to copy.
  * @param serializationType Has 3 possible values. Can leave objects as-is, or can serialize objects
@@ -110,7 +110,7 @@ function deepCopyTable(
   serializationType: SerializationType,
   traversalDescription: string,
 ) {
-  // First, handle the cases of TSTL objects
+  // First, handle the cases of TSTL classes or serialized TSTL classes
   if (
     table instanceof DefaultMap ||
     table.has(SerializationBrand.DEFAULT_MAP)
@@ -128,13 +128,13 @@ function deepCopyTable(
 
   if (table instanceof WeakMap) {
     error(
-      `The deep copy function does not support copying the "WeakMap" class: ${traversalDescription}`,
+      `The deep copy function does not support copying the "WeakMap" class for: ${traversalDescription}`,
     );
   }
 
   if (table instanceof WeakSet) {
     error(
-      `The deep copy function does not support copying the "WeakSet" class: ${traversalDescription}`,
+      `The deep copy function does not support copying the "WeakSet" class for: ${traversalDescription}`,
     );
   }
 
@@ -142,7 +142,8 @@ function deepCopyTable(
     return deepCopyTSTLClass(table, serializationType, traversalDescription);
   }
 
-  // This is not a TSTL class, so it should not have a metatable
+  // This is not a TSTL class
+  // If it has a metatable, abort
   checkMetatable(table, traversalDescription);
 
   // Handle the special case of serialized Isaac API classes
@@ -154,22 +155,7 @@ function deepCopyTable(
   }
 
   // Base case: copy a normal Lua table
-  const newTable = new LuaTable<AnyNotNil, unknown>();
-  const { entries, convertedNumberKeysToStrings } = getCopiedEntries(
-    table,
-    serializationType,
-    traversalDescription,
-  );
-
-  if (convertedNumberKeysToStrings) {
-    newTable.set(SerializationBrand.OBJECT_WITH_NUMBER_KEYS, "");
-  }
-
-  for (const [key, value] of entries) {
-    newTable.set(key, value);
-  }
-
-  return newTable;
+  return deepCopyNormalLuaTable(table, serializationType, traversalDescription);
 }
 
 function deepCopyDefaultMap(
@@ -387,6 +373,33 @@ function deepCopyTSTLClass(
   return newClass;
 }
 
+function deepCopyNormalLuaTable(
+  table: LuaTable<AnyNotNil, unknown>,
+  serializationType: SerializationType,
+  traversalDescription: string,
+) {
+  const newTable = new LuaTable<AnyNotNil, unknown>();
+  const { entries, convertedNumberKeysToStrings } = getCopiedEntries(
+    table,
+    serializationType,
+    traversalDescription,
+  );
+
+  if (convertedNumberKeysToStrings) {
+    newTable.set(SerializationBrand.OBJECT_WITH_NUMBER_KEYS, "");
+  }
+
+  for (const [key, value] of entries) {
+    newTable.set(key, value);
+  }
+
+  return newTable;
+}
+
+/**
+ * Recursively clones the object's entries, automatically converting number keys to strings, if
+ * necessary.
+ */
 function getCopiedEntries(
   object: unknown,
   serializationType: SerializationType,
@@ -396,6 +409,7 @@ function getCopiedEntries(
   convertedNumberKeysToStrings: boolean;
 } {
   // First, shallow copy the entries
+  // We cannot use "pairs" to iterate over a Map or Set
   // We cannot use "[...pairs(object)]", as it results in a run-time error
   const entries: Array<[key: AnyNotNil, value: unknown]> = [];
   if (object instanceof Map || object instanceof Set) {
@@ -412,8 +426,11 @@ function getCopiedEntries(
   const convertNumberKeysToStrings =
     serializationType === SerializationType.SERIALIZE && hasNumberKeys;
 
+  // Second, deep copy the entries
   const copiedEntries: Array<[key: AnyNotNil, value: unknown]> = [];
   for (const [key, value] of entries) {
+    // When deserializing, we do not need to copy the serialization brands that are used to denote
+    // the object type
     if (isSerializationBrand(key)) {
       continue;
     }

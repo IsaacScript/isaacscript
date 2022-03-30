@@ -20,7 +20,7 @@ export function copyIsaacAPIClass(
   const isaacAPIClassType = getIsaacAPIClassType(isaacAPIClass);
   if (isaacAPIClassType === undefined) {
     error(
-      "Failed to copy an Isaac API class due to it not having a class type.",
+      "Failed to copy an Isaac API class since it does not have a class type.",
     );
   }
 
