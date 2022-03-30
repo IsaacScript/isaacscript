@@ -47,11 +47,11 @@ function afterEachSync(params?: {
 }
 
 function onError(err: Error) {
-  console.error("The directory syncer encountered an error:", err);
+  send(`The directory syncer encountered an error: ${err}`);
 }
 
 function send(msg: string) {
-  if (typeof process.send === "function") {
+  if (process.send !== undefined) {
     process.send(msg);
   }
 }

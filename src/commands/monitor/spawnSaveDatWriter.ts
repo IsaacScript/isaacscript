@@ -9,7 +9,7 @@ let saveDatWriter: ChildProcess | null = null;
 
 export function spawnSaveDatWriter(config: Config): void {
   const processName = "saveDatWriter";
-  const processDescription = "Save.dat writer";
+  const processDescription = "save#.dat writer";
   const processPath = path.join(__dirname, processName, processName);
   const modsDataPath = path.join(config.modsDirectory, "..", "data");
   const watcherModDataPath = path.join(modsDataPath, WATCHER_MOD_NAME);

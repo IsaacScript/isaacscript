@@ -1,9 +1,8 @@
-import chalk from "chalk";
 import * as JSONC from "jsonc-parser";
 import path from "path";
 import { PROJECT_NAME } from "../../../constants";
 import * as file from "../../../file";
-import { ensureAllCases, error } from "../../../utils";
+import { ensureAllCases } from "../../../utils";
 import { SaveDatMessage, SaveDatMessageType } from "./types";
 
 const MAX_MESSAGES = 100;
@@ -15,11 +14,12 @@ let saveDatFileName: string;
 init(VERBOSE);
 
 function init(verbose: boolean) {
-  const numArgs = 2;
+  const numArgs = 1;
   if (process.argv.length !== 2 + numArgs) {
-    throw new Error(
-      "The Save.dat writer process did not get the right amount of arguments.",
+    send(
+      "The save#.dat writer process did not get the right amount of arguments.",
     );
+    process.exit(1);
   }
 
   saveDatPath = process.argv[2];
@@ -61,7 +61,8 @@ function readSaveDatFromDisk(verbose: boolean) {
     try {
       saveDat = JSONC.parse(saveDatRaw) as SaveDatMessage[];
     } catch (err) {
-      error(`Failed to parse "${chalk.green(saveDatPath)}":`, err);
+      send(`Failed to parse "${saveDatPath}": ${err}`);
+      process.exit(1);
     }
   } else {
     saveDat = [];
@@ -120,19 +121,24 @@ function writeSaveDatToDisk(
     file.writeTry(saveDatPath, saveDatRaw, verbose);
   } catch (err) {
     if (numRetries > 4) {
-      console.error(
+      send(
         `Failed to write to the ${saveDatFileName} for 5 times in a row. Maybe the file got locked somehow. ${PROJECT_NAME} will now exit.`,
       );
-      console.error("The writing error is as follows:");
-      console.error(err);
+      send(`The writing error is as follows: ${err}`);
       process.exit(1);
     }
 
-    console.log(
+    send(
       `Writing to "${saveDatFileName}" failed. (The number of retries so far is ${numRetries}.) Trying again in 0.1 seconds...`,
     );
     setTimeout(() => {
       onMessage(type, data, numRetries + 1);
     }, 100);
+  }
+}
+
+function send(msg: string) {
+  if (process.send !== undefined) {
+    process.send(msg);
   }
 }
