@@ -46,7 +46,7 @@ function copiedObjectHasKeyAndValueString() {
     abc: valueToLookFor,
   };
   const newTable = deepCopy(oldObject as unknown as LuaTable);
-  const newObject = newTable as unknown as typeof oldObject;
+  const newObject = newTable as typeof oldObject;
 
   const value = newObject[keyToLookFor];
   if (value === undefined) {
@@ -118,7 +118,7 @@ function copiedObjectHasNoReferencesForPrimitivesForward() {
     def: originalNumberValue,
   };
   const newTable = deepCopy(oldObject as unknown as LuaTable);
-  const newObject = newTable as unknown as typeof oldObject;
+  const newObject = newTable as typeof oldObject;
 
   oldObject.abc = "newValue";
   if (oldObject.abc === newObject.abc) {
@@ -139,7 +139,7 @@ function copiedObjectHasNoReferencesForPrimitivesBackward() {
     def: originalNumberValue,
   };
   const newTable = deepCopy(oldObject as unknown as LuaTable);
-  const newObject = newTable as unknown as typeof oldObject;
+  const newObject = newTable as typeof oldObject;
 
   newObject.abc = "newValue";
   if (newObject.abc === oldObject.abc) {
@@ -157,7 +157,7 @@ function copiedObjectHasNoReferencesForArray() {
     abc: [1, 2, 3],
   };
   const newTable = deepCopy(oldObject as unknown as LuaTable);
-  const newObject = newTable as unknown as typeof oldObject;
+  const newObject = newTable as typeof oldObject;
 
   if (oldObject.abc === newObject.abc) {
     error("The copied object has the same point to the child array.");
@@ -194,7 +194,7 @@ function copiedObjectHasChildObject() {
     },
   };
   const newTable = deepCopy(oldObject as unknown as LuaTable);
-  const newObject = newTable as unknown as typeof oldObject;
+  const newObject = newTable as typeof oldObject;
 
   const childObject = newObject[childObjectIndex];
   if (childObject === undefined) {

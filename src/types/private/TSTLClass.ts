@@ -1,3 +1,3 @@
-export type TSTLClass = LuaTable<string, unknown> & {
+export type TSTLClass = LuaTable<AnyNotNil, unknown> & {
   __tstlClassBrand: unknown;
 };

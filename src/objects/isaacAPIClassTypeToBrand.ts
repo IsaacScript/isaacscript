@@ -1,11 +1,11 @@
-import { SerializableIsaacAPIClassType } from "../enums/private/SerializableIsaacAPIClassType";
+import { CopyableIsaacAPIClassType } from "../enums/private/CopyableIsaacAPIClassType";
 import { SerializationBrand } from "../enums/private/SerializationBrand";
 
 export const ISAAC_API_CLASS_TYPE_TO_BRAND: {
-  readonly [key in SerializableIsaacAPIClassType]: SerializationBrand;
+  readonly [key in CopyableIsaacAPIClassType]: SerializationBrand;
 } = {
-  [SerializableIsaacAPIClassType.COLOR]: SerializationBrand.COLOR,
-  [SerializableIsaacAPIClassType.KCOLOR]: SerializationBrand.KCOLOR,
-  [SerializableIsaacAPIClassType.RNG]: SerializationBrand.RNG,
-  [SerializableIsaacAPIClassType.VECTOR]: SerializationBrand.VECTOR,
+  [CopyableIsaacAPIClassType.COLOR]: SerializationBrand.COLOR,
+  [CopyableIsaacAPIClassType.KCOLOR]: SerializationBrand.KCOLOR,
+  [CopyableIsaacAPIClassType.RNG]: SerializationBrand.RNG,
+  [CopyableIsaacAPIClassType.VECTOR]: SerializationBrand.VECTOR,
 };

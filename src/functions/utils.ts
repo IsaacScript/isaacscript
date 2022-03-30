@@ -111,7 +111,7 @@ export function getEnumValues<T>(transpiledEnum: T): Array<T[keyof T]> {
  * structures.
  */
 export function getTraversalDescription(
-  key: AnyNotNil,
+  key: unknown,
   traversalDescription: string,
 ): string {
   if (traversalDescription !== "") {

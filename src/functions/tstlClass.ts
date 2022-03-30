@@ -1,3 +1,4 @@
+import { DefaultMap } from "../classes/DefaultMap";
 import { TSTLClass } from "../types/private/TSTLClass";
 import { TSTLClassMetatable } from "../types/private/TSTLClassMetatable";
 
@@ -8,18 +9,16 @@ const TSTL_CLASS_METATABLE_KEYS: ReadonlySet<string> = new Set([
 ]);
 
 /**
- * TypeScriptToLua classes are Lua tables that have a metatable with a certain amount of keys.
- *
- * For the purposes of this function, TSTL Maps, Sets, WeakMaps, and WeakSets do not count as TSTL
- * classes, because this function is intended to detect user-defined classes.
+ * Returns whether or not this is a class that is provided by the `isaacscript-common` library, such
+ * as a `DefaultMap`.
  */
-export function isTSTLClass(object: unknown): object is TSTLClass {
-  if (
-    object instanceof Map ||
-    object instanceof Set ||
-    object instanceof WeakMap ||
-    object instanceof WeakSet
-  ) {
+export function isIsaacScriptCommonClass(object: unknown): boolean {
+  return object instanceof DefaultMap;
+}
+
+/** TypeScriptToLua classes are Lua tables that have a metatable with a certain amount of keys. */
+export function isUserDefinedTSTLClass(object: unknown): object is TSTLClass {
+  if (isVanillaTSTLClass(object) || isIsaacScriptCommonClass(object)) {
     return false;
   }
 
@@ -47,6 +46,19 @@ export function isTSTLClass(object: unknown): object is TSTLClass {
   }
 
   return numKeys === TSTL_CLASS_METATABLE_KEYS.size;
+}
+
+/**
+ * Returns whether or not this is a class that is provided as part of the TypeScriptToLua
+ * transpiler, such as a `Map` or a `Set`.
+ */
+export function isVanillaTSTLClass(object: unknown): boolean {
+  return (
+    object instanceof Map ||
+    object instanceof Set ||
+    object instanceof WeakMap ||
+    object instanceof WeakSet
+  );
 }
 
 /**
