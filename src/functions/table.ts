@@ -131,6 +131,9 @@ export function getStringsFromTable(
  * This function is variadic, meaning that you can specify as many arguments as you want to check
  * for.
  */
-export function tableHasKeys(table: LuaTable, ...keys: string[]): boolean {
+export function tableHasKeys(
+  table: LuaTable<AnyNotNil, unknown>,
+  ...keys: string[]
+): boolean {
   return keys.every((key) => table.has(key));
 }

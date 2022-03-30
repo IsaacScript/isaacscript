@@ -233,7 +233,7 @@ export function logError(this: void, msg: string): void {
 export function logFlags(
   this: void,
   flags: int,
-  flagEnum?: LuaTable,
+  flagEnum?: LuaTable<AnyNotNil, unknown>,
   description = "",
 ): void {
   if (description !== "") {

@@ -119,12 +119,11 @@ export function saveDataManager(
   // Make a copy of the initial save data so that we can use it to restore the default values later
   // on
   const saveDataTable = v as LuaTable<AnyNotNil, unknown>;
-  const saveDataTableCopy = deepCopy(
+  const saveDataCopy = deepCopy(
     saveDataTable,
     SerializationType.NONE,
     key,
-  );
-  const saveDataCopy = saveDataTableCopy as unknown as SaveData;
+  ) as SaveData;
   saveDataDefaultsMap.set(key, saveDataCopy);
 
   // Store the conditional function for later, if present

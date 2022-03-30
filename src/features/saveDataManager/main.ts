@@ -127,12 +127,8 @@ function restoreDefaults(childTableName: SaveDataKeys) {
     }
 
     // Make a new copy of the default child table
-    const childTableDefaultsTable = childTableDefaults as unknown as LuaTable<
-      AnyNotNil,
-      unknown
-    >;
-    const childTableDefaultsTableCopy = deepCopy(
-      childTableDefaultsTable,
+    const childTableDefaultsCopy = deepCopy(
+      childTableDefaults,
       SerializationType.NONE,
       `${subscriberName} --> ${childTableName}`,
     ) as LuaTable<AnyNotNil, unknown>;
@@ -142,7 +138,7 @@ function restoreDefaults(childTableName: SaveDataKeys) {
     // Instead, empty the table and copy all of the elements from the copy of the defaults table
     clearAndCopyAllElements(
       childTable as unknown as LuaTable,
-      childTableDefaultsTableCopy,
+      childTableDefaultsCopy,
     );
   }
 }
@@ -151,7 +147,10 @@ function restoreDefaults(childTableName: SaveDataKeys) {
  * Will empty the old table of all elements, and then shallow copy all the elements from the new
  * table to the old table.
  */
-function clearAndCopyAllElements(oldTable: LuaTable, newTable: LuaTable) {
+function clearAndCopyAllElements(
+  oldTable: LuaTable<AnyNotNil, unknown>,
+  newTable: LuaTable<AnyNotNil, unknown>,
+) {
   clearTable(oldTable);
 
   for (const [key, value] of pairs(newTable)) {

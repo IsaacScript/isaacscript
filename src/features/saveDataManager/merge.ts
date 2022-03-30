@@ -95,7 +95,7 @@ function mergeArray(
 
 function mergeTSTLObject(
   oldObject: Map<AnyNotNil, unknown> | Set<AnyNotNil>,
-  newTable: LuaTable,
+  newTable: LuaTable<AnyNotNil, unknown>,
   traversalDescription: string,
 ) {
   // We blow away the old object and recursively copy over all of the incoming values
@@ -143,8 +143,8 @@ function mergeTSTLObject(
 }
 
 function mergeTable(
-  oldTable: LuaTable,
-  newTable: LuaTable,
+  oldTable: LuaTable<AnyNotNil, unknown>,
+  newTable: LuaTable<AnyNotNil, unknown>,
   traversalDescription: string,
 ) {
   if (SAVE_DATA_MANAGER_DEBUG) {
