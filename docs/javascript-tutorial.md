@@ -680,6 +680,9 @@ In this example, what "itemPrices" _really_ represents is a _map_ of a specific 
 ```ts
 // itemPrices has a type of "Map<CollectibleType, number>",
 // which makes much more sense than an anonymous object
+// The first value in the brackets corresponds to the map key type
+// The second value in the brackets corresponds to the map value type
+// We initialize the map by passing an array of key/value pairs to the constructor
 const itemPrices = new Map<CollectibleType, ItemPrice>([
   [CollectibleType.COLLECTIBLE_SAD_ONION, ItemPrice.NORMAL],
   [CollectibleType.COLLECTIBLE_INNER_EYE, ItemPrice.NORMAL],
