@@ -507,7 +507,7 @@ function main() {
 
 <br />
 
-### Importing Global Variables
+### Using Global Variables
 
 Sometimes, your mod might need to use a global variable exported by someone else's mod. For example, you might need to use the `InfinityTrueCoopInterface` global variable from the True Co-op Mod. (This mod is useless now in Repentance, but in Afterbirth+, most character mods would want to register their character with the True Co-op Mod.)
 
@@ -515,7 +515,7 @@ Sometimes, your mod might need to use a global variable exported by someone else
 
 #### Option 1 - Inline Declarations
 
-You can add the global declaration right before the code:
+In Lua, checking to see if the user has the True Co-op Mod installed would look something like this:
 
 ```lua
 -- Lua code
@@ -524,30 +524,37 @@ if InfinityTrueCoopInterface ~= nil then
 end
 ```
 
+The TypeScript equivlanet would look like this:
+
 ```ts
 // TypeScript code
-
-// First, we need to declare that the "InfinityTrueCoopInterface" variable exists
-// We do that by using the "declare" keyword
-// The "declare" keyword essentially means "the following variable exists outside of the context of
-// this program, provided by some other code"
-// "declare" statements do not actually result in any transpiled Lua code; they are purely messages
-// to the TypeScript compiler
-// In this context, we annotate the type of the variable as "unknown | undefined", which means that
-// it is either "something" or "nil"
-declare const InfinityTrueCoopInterface: unknown | undefined;
-
-// Now, we can use the "InfinityTrueCoopInterface" variable in the rest of our code
 if (InfinityTrueCoopInterface !== undefined) {
   // The user has the True Co-op mod enabled, so now do something
 }
 ```
 
+However, this exact code would result in an error, because the TypeScript compiler (rightly) complains that the "InfinityTrueCoopInterface" variable does not exist. Normally, this kind of thing is extremely useful, because when a variable "does not exist", it usually means we forgot to initialize a variable or made a typo somewhere. However, in this case, the "InfinityTrueCoopInterface" variable really does exist - it's just not a part of *our* code. So, we just need a way to tell the TypeScript compiler that.
+
+The way to do that is to use the `declare` keyword, like this:
+
+```ts
+// TypeScript code
+declare const InfinityTrueCoopInterface: unknown | undefined;
+
+if (InfinityTrueCoopInterface !== undefined) {
+  // The user has the True Co-op mod enabled, so now do something
+}
+```
+
+The `declare` keyword essentially means "the following variable exists outside of the context of this program, and is provided by some other running code". Importantly, `declare` statements do not actually result in any transpiled Lua code; they are purely messages to the TypeScript compiler.
+
+In this context, we annotate the type of the variable as `unknown | undefined`, which means that it is either "something" or "does not exist". (`unknown` is a special TypeScript type that you can use when you don't know what the real type of something is.)
+
 <br />
 
 #### Option 2 - A Declaration File
 
-If you need to check for `InfinityTrueCoopInterface !== undefined` in more than one place in your mod, then option 1 is bad, because you would be [need to repeat yourself before each check](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself). Instead, make a TypeScript definition file that corresponds to the variable / table.
+If you check for `InfinityTrueCoopInterface !== undefined` in more than one place in your mod, then option 1 is bad, because you would be [need to repeat yourself before each check](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself). Instead, make a TypeScript definition file that corresponds to the variable / table.
 
 For example, to declare `InfinityTrueCoopInterface`, starting from the root of your project:
 
@@ -563,11 +570,11 @@ Now, your other TypeScript files will "see" it as a global variable without you 
 
 <br />
 
-### Importing Complicated Global Variables
+### Using Complicated Global Variables
 
-First, see the previous section on [importing global variables](#importing-global-variables).
+First, see the previous section on [using global variables](#using-global-variables).
 
-In the True Co-op Mod, the exported global variable of `InfinityTrueCoopInterface` allows other mods to add new characters with the `AddCharacter` method. What if your mod creates a new character and you want to add it to the True Co-op Mod? If you try calling `InfinityTrueCoopInterface.AddCharacter()`, TypeScript will throw an error and say that it doesn't exist.
+In the True Co-op Mod, the exported global variable of `InfinityTrueCoopInterface` allows other mods to add new characters with the `AddCharacter` method. Imagine that your mod creates a new character and you want to add that character to the True Co-op Mod. If you try calling `InfinityTrueCoopInterface.AddCharacter()`, TypeScript will throw an error and say that it doesn't exist.
 
 The solution is to add the `AddCharacter()` method to our definition file. We need to flesh out the `src/types/InfinityTrueCoopInterface.d.ts` file a bit:
 
@@ -576,14 +583,15 @@ The solution is to add the `AddCharacter()` method to our definition file. We ne
 // which we will immediately define below
 declare const InfinityTrueCoopInterface: TrueCoop | undefined;
 
-// We declare a TrueCoop class that has as many methods as we need
+// We declare a TrueCoop class that has as many methods or members as we need
 // (but for now we will only add one)
 declare class TrueCoop() {
   AddCharacter(playerData: TrueCoopPlayerData)
 }
 
 // We also have to specify what the True Co-op mod expects to be passed for the
-// first argument of the "AddCharacter" method
+// first argument of the "AddCharacter" method (which is a table with a bunch of
+// things in it
 // This (partially) matches the documentation near the top of the "main.lua"
 // file for the True Co-op Mod
 interface TrueCoopPlayerData {
@@ -597,7 +605,7 @@ interface TrueCoopPlayerData {
 }
 ```
 
-After doing this, we will be able to call `InfinityTrueCoopInterface.AddCharacter(playerData)` successfully in our mod code.
+After doing this, we will be able to call `InfinityTrueCoopInterface.AddCharacter(playerData)` successfully in our code.
 
 <br />
 
