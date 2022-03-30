@@ -59,7 +59,9 @@ export function merge(
   }
 
   // First, handle the special case of an array with a shallow copy
-  if (mergeArray(oldObject, newTable)) {
+  if (isArray(oldObject) && isArray(newTable)) {
+    const oldTable = oldObject as LuaTable<AnyNotNil, unknown>;
+    mergeArray(oldTable, newTable);
     return;
   }
 
@@ -73,24 +75,14 @@ export function merge(
 }
 
 function mergeArray(
-  oldObject:
-    | LuaTable<AnyNotNil, unknown>
-    | Map<AnyNotNil, unknown>
-    | Set<AnyNotNil>,
-  newTable: LuaTable<AnyNotNil, unknown>,
+  oldArray: LuaTable<AnyNotNil, unknown>,
+  newArray: LuaTable<AnyNotNil, unknown>,
 ) {
-  const oldArray = oldObject as LuaTable<AnyNotNil, unknown>;
-  if (!isArray(oldArray) || !isArray(newTable)) {
-    return false;
-  }
-
   // Assume that we should blow away all array values with whatever is present in the incoming array
   clearTable(oldArray);
-  for (const [key, value] of pairs(newTable)) {
+  for (const [key, value] of pairs(newArray)) {
     oldArray.set(key, value);
   }
-
-  return true;
 }
 
 function mergeTSTLObject(
@@ -147,10 +139,6 @@ function mergeTable(
   newTable: LuaTable<AnyNotNil, unknown>,
   traversalDescription: string,
 ) {
-  if (SAVE_DATA_MANAGER_DEBUG) {
-    log("merge is operating on a table. Iterating through the keys...");
-  }
-
   for (const [key, value] of pairs(newTable)) {
     if (SAVE_DATA_MANAGER_DEBUG) {
       const valueToPrint = value === "" ? "(empty string)" : `${value}`;
