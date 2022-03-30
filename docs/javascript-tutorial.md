@@ -524,7 +524,7 @@ if InfinityTrueCoopInterface ~= nil then
 end
 ```
 
-The TypeScript equivlanet would look like this:
+The TypeScript equivalent would look like this:
 
 ```ts
 // TypeScript code
@@ -533,7 +533,7 @@ if (InfinityTrueCoopInterface !== undefined) {
 }
 ```
 
-However, this exact code would result in an error, because the TypeScript compiler (rightly) complains that the "InfinityTrueCoopInterface" variable does not exist. Normally, this kind of thing is extremely useful, because when a variable "does not exist", it usually means we forgot to initialize a variable or made a typo somewhere. However, in this case, the "InfinityTrueCoopInterface" variable really does exist - it's just not a part of *our* code. So, we just need a way to tell the TypeScript compiler that.
+However, this exact code would result in an error, because the TypeScript compiler (rightly) complains that the "InfinityTrueCoopInterface" variable does not exist. Normally, this kind of thing is extremely useful, because when a variable "does not exist", it usually means we forgot to initialize it or we made a typo somewhere. However, in this case, the "InfinityTrueCoopInterface" variable really does exist - it's just not a part of *our* code. So, we just need a way to tell the TypeScript compiler that.
 
 The way to do that is to use the `declare` keyword, like this:
 
