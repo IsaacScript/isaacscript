@@ -1,87 +1,58 @@
+import { itemConfig } from "../cachedClasses";
 import { FAMILIARS_THAT_SHOOT_PLAYER_TEARS_SET } from "../sets/familiarsThatShootPlayerTearsSet";
-import { copyArray } from "./array";
-import { removeEntities } from "./entity";
-import { getFamiliars, spawnFamiliarWithSeed } from "./entitySpecific";
-import { repeat } from "./utils";
 
 /**
- * Helper function to add and remove familiars based on a target amount that you specify. Use this
- * instead of the `EntityPlayer.CheckFamiliar` method so that the InitSeed of the spawned familiar
- * will be set properly. Note that when using this function, you need to manually account for Box of
- * Friends and Monster Manual (by looking at the number of collectible effects for the familiar).
+ * Helper function to add and remove familiars based on a target amount that you specify.
+ *
+ * This is a convenience wrapper around the `EntityPlayer.CheckFamiliar` method. Use this helper
+ * function instead so that you do not have to retrieve the `ItemConfigItem` and so that you do not
+ * specify an incorrect RNG object. (The vanilla method is bugged in that it does not increment the
+ * RNG object; see the documentation of the method for more details.)
  *
  * This function is meant to be called in the EvaluateCache callback (when the cache flag is equal
  * to `CacheFlag.CACHE_FAMILIARS`).
  *
- * Note that this function is only meant to be used in special circumstances. For general purpose
- * usage, please use the `checkFamiliarFromCollectibles` helper function instead.
+ * Note that this function is only meant to be used in special circumstances where the familiar
+ * count is completely custom and does not correspond to the amount of collectibles. For the general
+ * case, use the `checkFamiliarFromCollectibles` helper function instead.
+ *
+ * Note that this will spawn familiars with a completely random `InitSeed`. When calculating random
+ * events for this familiar, you should use a data structure that maps familiar `InitSeed` to RNG
+ * objects that are initialized based on the seed from
+ * `EntityPlayer.GetCollectibleRNG(collectibleType)`.
  *
  * @param player The player that owns the familiars.
  * @param collectibleType The collectible type of the collectible associated with this familiar.
- * @param numTargetFamiliars The number of familiars that should exist. This function will add or
- * remove familiars until it matches the target count.
+ * @param targetCount The number of familiars that should exist. This function will add or remove
+ * familiars until it matches the target count.
  * @param familiarVariant The variant of the familiar to spawn or remove.
  * @param familiarSubType Optional. The sub-type of the familiar to spawn or remove. If not
  * specified, it will search for existing familiars of all sub-types, and spawn new familiars with a
  * sub-type of 0.
- * @returns The amount of familiars that were added or removed. For example, the player has 0
- * collectibles and there were 2 familiars, this function would remove the 2 familiars and return
- * -2.
  */
 export function checkFamiliar(
   player: EntityPlayer,
   collectibleType: int,
-  numTargetFamiliars: int,
+  targetCount: int,
   familiarVariant: int,
   familiarSubType?: int,
-): int {
-  const familiarSubTypeToSearchFor =
-    familiarSubType === undefined ? -1 : familiarSubType;
-  const playerPtrHash = GetPtrHash(player);
-  const familiars = getFamiliars(familiarVariant, familiarSubTypeToSearchFor);
-  const familiarsForThisPlayer = familiars.filter(
-    (familiar) => GetPtrHash(familiar.Player) === playerPtrHash,
+): void {
+  const itemConfigItem = itemConfig.GetCollectible(collectibleType);
+  player.CheckFamiliar(
+    familiarVariant,
+    targetCount,
+    RNG(),
+    itemConfigItem,
+    familiarSubType,
   );
-
-  if (familiarsForThisPlayer.length === numTargetFamiliars) {
-    return 0;
-  }
-
-  if (familiarsForThisPlayer.length > numTargetFamiliars) {
-    const numFamiliarsToRemove =
-      familiarsForThisPlayer.length - numTargetFamiliars;
-    const familiarsToRemove = copyArray(
-      familiarsForThisPlayer,
-      numFamiliarsToRemove,
-    );
-    removeEntities(familiarsToRemove);
-
-    return numFamiliarsToRemove * -1;
-  }
-
-  const numFamiliarsToSpawn =
-    numTargetFamiliars - familiarsForThisPlayer.length;
-  const collectibleRNG = player.GetCollectibleRNG(collectibleType);
-  const familiarSubTypeToUse =
-    familiarSubType === undefined ? 0 : familiarSubType;
-  repeat(numFamiliarsToSpawn, () => {
-    const seed = collectibleRNG.Next();
-    const familiar = spawnFamiliarWithSeed(
-      familiarVariant,
-      familiarSubTypeToUse,
-      player.Position,
-      seed,
-    );
-    familiar.Player = player;
-  });
-
-  return numFamiliarsToSpawn;
 }
 
 /**
  * Helper function to add and remove familiars based on the amount of associated collectibles that a
- * player has. Use this instead of the `EntityPlayer.CheckFamiliar` method so that the InitSeed of
- * the spawned familiar will be set properly and Box of Friends is handled automatically.
+ * player has.
+ *
+ * Use this helper function instead of invoking the `EntityPlayer.CheckFamiliar` method directly so
+ * that the target count is handled automatically.
  *
  * This function is meant to be called in the EvaluateCache callback (when the cache flag is equal
  * to `CacheFlag.CACHE_FAMILIARS`).
@@ -91,22 +62,24 @@ export function checkFamiliar(
  * Manual). If you instead need to have a custom amount of familiars, use the `checkFamiliars`
  * function instead.
  *
+ * Note that this will spawn familiars with a completely random `InitSeed`. When calculating random
+ * events for this familiar, you should use a data structure that maps familiar `InitSeed` to RNG
+ * objects that are initialized based on the seed from
+ * `EntityPlayer.GetCollectibleRNG(collectibleType)`.
+ *
  * @param player The player that owns the familiars and collectibles.
  * @param collectibleType The collectible type of the collectible associated with this familiar.
  * @param familiarVariant The variant of the familiar to spawn or remove.
  * @param familiarSubType Optional. The sub-type of the familiar to spawn or remove. If not
  * specified, it will search for existing familiars of all sub-types, and spawn new familiars with a
  * sub-type of 0.
- * @returns The amount of familiars that were added or removed. For example, the player has 0
- * collectibles and there were 2 familiars, this function would remove the 2 familiars and return
- * -2.
  */
 export function checkFamiliarFromCollectibles(
   player: EntityPlayer,
   collectibleType: int,
   familiarVariant: int,
   familiarSubType?: int,
-): int {
+): void {
   const numCollectibles = player.GetCollectibleNum(collectibleType);
   const effects = player.GetEffects();
 
@@ -114,12 +87,12 @@ export function checkFamiliarFromCollectibles(
   // of collectible effects for this familiar
   const numCollectibleEffects =
     effects.GetCollectibleEffectNum(collectibleType);
-  const numTargetFamiliars = numCollectibles + numCollectibleEffects;
+  const targetCount = numCollectibles + numCollectibleEffects;
 
-  return checkFamiliar(
+  checkFamiliar(
     player,
     collectibleType,
-    numTargetFamiliars,
+    targetCount,
     familiarVariant,
     familiarSubType,
   );
