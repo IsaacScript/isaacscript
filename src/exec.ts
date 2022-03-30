@@ -103,9 +103,7 @@ export function execShell(
 
   const exitStatus = spawnSyncReturns.status;
   if (exitStatus === null) {
-    error(
-      `Failed to get the return status of th command: ${commandDescription}`,
-    );
+    error(`Failed to get the return status of command: ${commandDescription}`);
   }
 
   const stdout = spawnSyncReturns.output.join("\n").trim();

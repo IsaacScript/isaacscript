@@ -159,7 +159,7 @@ function getGitHubUsername(verbose: boolean) {
   }
 
   const { user } = githubCom;
-  if (user === "") {
+  if (user === undefined || user === "") {
     return undefined;
   }
 
