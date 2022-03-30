@@ -349,14 +349,16 @@ The way to concatenate strings is different:
 
 ```lua
 -- Lua code
-local poopString = "poop"
-poopString = poopString .. " modified" -- poopString is now equal to "poop modified"
+local poopString = "Poop"
+local fartString = "Fart"
+local combinedString = poopString .. fartString -- combinedString is now equal to "PoopFart"
 ```
 
 ```ts
 // TypeScript code
-let poopString = "poop";
-poopString += " modified"; // poopString is now equal to "poop modified"
+const poopString = "Poop";
+const fartString = "Fart";
+const combinedString = poopString + fartString; // combinedString is now equal to "PoopFart"
 ```
 
 (TypeScript uses the same operator for adding numbers and concatenating strings.)
