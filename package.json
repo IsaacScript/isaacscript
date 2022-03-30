@@ -23,7 +23,7 @@
     "lua-types": "^2.11.0"
   },
   "devDependencies": {
-    "isaacscript-lint": "^1.0.95",
+    "isaacscript-lint": "^1.0.99",
     "isaacscript-tsconfig": "^1.1.8",
     "typedoc": "^0.22.13",
     "typedoc-plugin-merge-modules": "^3.1.0",

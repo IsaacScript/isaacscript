@@ -319,15 +319,32 @@ declare interface EntityPlayer extends Entity {
    * - If the target count specified is than the current amount of familiars, it will despawn
    * familiars until the target count is met.
    *
-   * This function does not increment the provided RNG before spawning the familiar, which will
-   * result in multiple familiars having the same InitSeed. Thus, it is recommended to avoid using
-   * this method and use the `checkFamiliar` function from the IsaacScript standard library instead.
+   * Note that this function is bugged in that it will not increment the provided RNG. This is bad
+   * because if you provide the player's collectible RNG as the argument for `rng`, all of the
+   * resulting spawned familiars will have the same `InitSeed`. Since `InitSeed` is the main way to
+   * identiy unique familiars, it is important that each familiar has a unique `InitSeed`. Thus, a
+   * brand new RNG object should always be passed to the `EntityPlayer.CheckFamiliar` method so that
+   * each new spawned familiar will have a new, random `InitSeed`. Subsequently, you should handle
+   * random familiar events not with an RNG object based on the familiar's `InitSeed`, but with a
+   * data structure that maps familiar `InitSeed` to RNG objects that are initialized based on the
+   * seed from the `EntityPlayer.GetCollectibleRNG` method.
+   *
+   * It is recommended to avoid using this method directly and use the `checkFamiliar` or
+   * `checkFamiliarFromCollectible` helper functions from the IsaacScript standard library instead.
    *
    * @param familiarVariant In most cases, use the familiar variant for your custom familiar.
-   * @param targetCount In most cases, use the collectible count for the custom collectible.
-   * @param rng In most cases, use the RNG object returned from `EntityPlayer.GetCollectibleRNG()`.
-   * @param sourceItemConfigItem The ItemConfigItem that this familiar was created by. Default is
-   * undefined.
+   * @param targetCount The expected amount of this `FamiliarVariant` that this `EntityPlayer`
+   * should have. This argument can simply be how many of an item that the current EntityPlayer
+   * owns. However, if you want your familiar to synergize with Monster Manual and Box of Friends,
+   * then this argument should be `EntityPlayer.GetCollectibleNum(collectibleType) +
+   * EntityPlayer.GetEffects().GetCollectibleEffectNum(collectibleType)`.
+   * @param rng Always use a brand new RNG object. (See the previous explanation on why you should
+   * not use the RNG from the `EntityPlayer.GetCollectibleRNG` method.)
+   * @param sourceItemConfigItem The `ItemConfigItem` that this familiar was created by. Default is
+   * undefined. This should always be specified so that Sacrificial Altar will work properly. (It
+   * informs the game which collectible should be removed if the familiar is tagged with the
+   * "cansacrifice" entity tag.) This can be obtained with:
+   * `Isaac.GetItemConfig().GetCollectible(collectibleType)`
    * @param familiarSubType The subtype of the familiar to check. -1 matches any subtype. Default is
    * -1.
    */
