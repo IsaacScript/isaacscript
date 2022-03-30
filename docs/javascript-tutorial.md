@@ -526,9 +526,18 @@ end
 
 ```ts
 // TypeScript code
-// "declare" means "the following variable exists outside of the context of this program, provided by some other code"
-// We annotate the type as "unknown | undefined", which in this context means that it is either "something" or "nil"
+
+// First, we need to declare that the "InfinityTrueCoopInterface" variable exists
+// We do that by using the "declare" keyword
+// The "declare" keyword essentially means "the following variable exists outside of the context of
+// this program, provided by some other code"
+// "declare" statements do not actually result in any transpiled Lua code; they are purely messages
+// to the TypeScript compiler
+// In this context, we annotate the type of the variable as "unknown | undefined", which means that
+// it is either "something" or "nil"
 declare const InfinityTrueCoopInterface: unknown | undefined;
+
+// Now, we can use the "InfinityTrueCoopInterface" variable in the rest of our code
 if (InfinityTrueCoopInterface !== undefined) {
   // The user has the True Co-op mod enabled, so now do something
 }
