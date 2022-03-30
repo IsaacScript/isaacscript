@@ -175,6 +175,18 @@ export function isLuaDebugEnabled(): boolean {
 }
 
 /**
+ * Since this is a UI element, we do not want to draw it in water reflections. `renderOffset` will
+ * be a non-zero value in reflections.
+ */
+export function isReflectionRender(renderOffset: Vector): boolean {
+  // We cannot use the "vectorEquals" helper function because floating point numbers cause
+  // "Vector.Zero" to be represented as "(1.52587890625e-05, 0.0)"
+  const x = Math.round(renderOffset.X);
+  const y = Math.round(renderOffset.Y);
+  return x !== 0 || y !== 0;
+}
+
+/**
  * Helper function to print something to the in-game console. Use this instead of invoking the
  * `Isaac.ConsoleOutput` method directly because it will automatically insert a newline at the end
  * of the message (which `Isaac.ConsoleOutput` does not do by default).
