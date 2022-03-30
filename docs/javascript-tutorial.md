@@ -365,7 +365,7 @@ const combinedString = poopString + fartString; // combinedString is now equal t
 
 <br />
 
-### String Conversion & String Templates
+### String Conversion
 
 ```lua
 -- Lua code
@@ -376,41 +376,40 @@ local numPoopsString = tostring(numPoops)
 ```ts
 // TypeScript code
 const numPoops = 3;
-const numPoopsString = numPoops.toString();
+const numPoopsString1 = tostring(numPoops); // You can do the same thing as you would in Lua
+const numPoopsString2 = numPoops.toString(); // Or, you can use the typical JavaScript conversion method
 ```
 
-However, in TypeScript, you probably won't need to convert variables like this very often. Most of the time, you can use string templates, which are very convenient. They are denoted by the <code>`</code> character and will automatically convert any variable to a string.
+Feel free to use either the standard Lua method or the JavaScript conversion method - it will be transpiled to the same thing.
+
+Furthermore, when concatenating numbers to strings, TypeScript will automatically convert them to strings for you:
 
 ```lua
 -- Lua code
-Isaac.DebugString("The current number of poops is: " .. tostring(numPoops))
+local numPoops = 3
+local numFarts = 4
+Isaac.DebugString("numPoops: " .. tostring(numPoops) .. ", numFarts: " .. tostring(numFarts))
 ```
 
 ```ts
-// TypeScript code
-Isaac.DebugString(`The current number of poops is: ${numPoops}`);
+// Typescript code
+const numPoops = 3;
+const numFarts = 4;
+Isaac.DebugString("numPoops: " + numPoops + ", numFarts: " + numFarts); // No conversion necessary!
 ```
 
-Or, a slightly more complicated example:
+### String Templates
+
+TypeScript has a special feature that Lua does not have called *string templates*. String templates allow you to easily create a string that has a bunch of variables in it. They are denoted by the <code>`</code> character.
+
+In the previous section, we used the `+` operator to combine a bunch of variables with text. But it would probably be better written by using a string template, like this:
 
 ```lua
--- Lua code
-Isaac.DebugString(
-  "Entity found: "
-  .. tostring(entity.Type) .. "."
-  .. tostring(entity.Variant) .. "."
-  .. tostring(entity.SubType)
-)
+// Typescript code
+const numPoops = 3;
+const numFarts = 4;
+Isaac.DebugString(`numPoops: ${numPoops}, numFarts: ${numFarts}`);
 ```
-
-```ts
-// TypeScript code
-Isaac.DebugString(
-  `Entity found: ${entity.Type}.${entity.Variant}.${entity.SubType}`,
-);
-```
-
-Look at how compact and easier to read the TypeScript version is!
 
 <br />
 
