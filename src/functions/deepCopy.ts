@@ -7,6 +7,7 @@ import {
 import { SerializationType } from "../enums/SerializationType";
 import { SAVE_DATA_MANAGER_DEBUG } from "../features/saveDataManager/constants";
 import { TSTLClass } from "../types/private/TSTLClass";
+import { isArray } from "./array";
 import { getIsaacAPIClassType } from "./isaacAPIClass";
 import { log } from "./log";
 import {
@@ -152,6 +153,11 @@ function deepCopyTable(
     serializationType === SerializationType.DESERIALIZE
   ) {
     return deserializeIsaacAPIClass(table);
+  }
+
+  // Handle the special case of an array
+  if (isArray(table)) {
+    return deepCopyArray(table, serializationType, traversalDescription);
   }
 
   // Base case: copy a normal Lua table
@@ -371,6 +377,21 @@ function deepCopyTSTLClass(
   }
 
   return newClass;
+}
+
+function deepCopyArray(
+  array: unknown[],
+  serializationType: SerializationType,
+  traversalDescription: string,
+) {
+  const newArray: unknown[] = [];
+
+  for (const value of array) {
+    const newValue = deepCopy(value, serializationType, traversalDescription);
+    newArray.push(newValue);
+  }
+
+  return newArray;
 }
 
 function deepCopyNormalLuaTable(

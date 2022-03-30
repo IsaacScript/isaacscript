@@ -217,15 +217,15 @@ export function initArray<T>(defaultValue: T, size: int): T[] {
  * - the table contains all numerical indexes that are contiguous, starting at 1
  * - the table has no keys (i.e. an "empty" table)
  */
-export function isArray(thing: unknown): boolean {
-  if (type(thing) !== "table") {
+export function isArray(object: unknown): object is unknown[] {
+  if (type(object) !== "table") {
     return false;
   }
 
-  const thingTable = thing as LuaTable<AnyNotNil, unknown>;
+  const table = object as LuaTable<AnyNotNil, unknown>;
 
   // First, if there is a metatable, this cannot be a simple array and must be a more complex object
-  const metatable = getmetatable(thingTable);
+  const metatable = getmetatable(table);
   if (metatable !== undefined) {
     return false;
   }
@@ -233,7 +233,7 @@ export function isArray(thing: unknown): boolean {
   // Second, handle the case of non-numerical keys
   // (and count the entries in the table)
   let numEntries = 0;
-  for (const [key] of pairs(thingTable)) {
+  for (const [key] of pairs(table)) {
     numEntries += 1;
 
     if (typeof key !== "number") {
@@ -248,7 +248,7 @@ export function isArray(thing: unknown): boolean {
   // Third, check for non-contiguous elements
   // (Lua tables start at an index of 1)
   for (let i = 1; i <= numEntries; i++) {
-    const element = thingTable.get(i);
+    const element = table.get(i);
     if (element === undefined) {
       return false;
     }
