@@ -12,11 +12,11 @@ export async function checkModTargetDirectory(
   verbose: boolean,
 ): Promise<void> {
   const modTargetPath = path.join(modsDirectory, projectName);
-  if (!file.exists(modTargetPath)) {
+  if (!file.exists(modTargetPath, verbose)) {
     return;
   }
 
-  const fileType = file.isDir(modTargetPath) ? "directory" : "file";
+  const fileType = file.isDir(modTargetPath, verbose) ? "directory" : "file";
 
   if (yes) {
     file.deleteFileOrDirectory(modTargetPath, verbose);

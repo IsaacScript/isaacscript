@@ -11,7 +11,9 @@ const BASH_PROFILE_PATH = path.join(HOME_DIR, ".bash_profile");
 // By default, Git Bash for Windows uses MINGW64
 // This will not work correctly with the prompt library
 // Try to detect this and warn the end-user
-export async function checkForWindowsTerminalBugs(): Promise<void> {
+export async function checkForWindowsTerminalBugs(
+  verbose: boolean,
+): Promise<void> {
   if (process.platform !== "win32") {
     return;
   }
@@ -20,10 +22,10 @@ export async function checkForWindowsTerminalBugs(): Promise<void> {
     return;
   }
 
-  await checkForWindowsBugColor();
+  await checkForWindowsBugColor(verbose);
 }
 
-async function checkForWindowsBugColor() {
+async function checkForWindowsBugColor(verbose: boolean) {
   if (process.env.FORCE_COLOR === "true") {
     return;
   }
@@ -46,14 +48,14 @@ async function checkForWindowsBugColor() {
     return;
   }
 
-  applyFixesToBashProfile();
+  applyFixesToBashProfile(verbose);
 }
 
-function applyFixesToBashProfile() {
+function applyFixesToBashProfile(verbose: boolean) {
   // Check to see if the Bash profile has data
   let bashProfileContents: string;
-  if (file.exists(BASH_PROFILE_PATH)) {
-    bashProfileContents = file.read(BASH_PROFILE_PATH);
+  if (file.exists(BASH_PROFILE_PATH, verbose)) {
+    bashProfileContents = file.read(BASH_PROFILE_PATH, verbose);
   } else {
     bashProfileContents = "";
   }

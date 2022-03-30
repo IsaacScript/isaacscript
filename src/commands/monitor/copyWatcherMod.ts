@@ -12,11 +12,11 @@ export function copyWatcherMod(config: Config, verbose: boolean): void {
   // Check to see if this mod was disabled
   const watcherModPath = path.join(config.modsDirectory, WATCHER_MOD_NAME);
   const disableItPath = path.join(watcherModPath, DISABLE_IT_FILE);
-  const watcherModDisabled = file.exists(disableItPath);
+  const watcherModDisabled = file.exists(disableItPath, verbose);
 
   // Delete and re-copy the watcher mod every time IsaacScript starts
   // This ensures that it is always the latest version
-  if (file.exists(watcherModPath)) {
+  if (file.exists(watcherModPath, verbose)) {
     file.deleteFileOrDirectory(watcherModPath, verbose);
   }
 
@@ -45,7 +45,7 @@ function disableIsaacScriptWatcherAutomaticRestart(
   verbose: boolean,
 ) {
   const mainLuaPath = path.join(watcherModPath, MAIN_LUA);
-  const mainLua = file.read(mainLuaPath);
+  const mainLua = file.read(mainLuaPath, verbose);
 
   const modifiedMainLua = mainLua.replace(
     "local RESTART_GAME_ON_RECOMPILATION = true",

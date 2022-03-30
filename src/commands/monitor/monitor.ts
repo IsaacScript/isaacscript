@@ -29,7 +29,7 @@ export function monitor(argv: Record<string, unknown>, config: Config): void {
   }
 
   // Read the "tsconfig.json" file
-  const tsConfigInclude = getTSConfigInclude();
+  const tsConfigInclude = getTSConfigInclude(verbose);
   const resolvedIncludePath = path.resolve(CWD, tsConfigInclude);
   const modTargetDirectoryName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
@@ -40,7 +40,7 @@ export function monitor(argv: Record<string, unknown>, config: Config): void {
 
   // Delete and re-copy the mod every time IsaacScript starts
   // This ensures that it is always the latest version
-  if (file.exists(modTargetPath)) {
+  if (file.exists(modTargetPath, verbose)) {
     file.deleteFileOrDirectory(modTargetPath, true);
   }
 

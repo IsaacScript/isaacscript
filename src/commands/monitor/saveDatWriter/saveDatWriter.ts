@@ -7,14 +7,15 @@ import { ensureAllCases, error } from "../../../utils";
 import { SaveDatMessage, SaveDatMessageType } from "./types";
 
 const MAX_MESSAGES = 100;
+const VERBOSE = false;
 
 let saveDatPath: string;
 let saveDatFileName: string;
 
-init();
+init(VERBOSE);
 
-function init() {
-  const numArgs = 1;
+function init(verbose: boolean) {
+  const numArgs = 2;
   if (process.argv.length !== 2 + numArgs) {
     throw new Error(
       "The Save.dat writer process did not get the right amount of arguments.",
@@ -26,8 +27,8 @@ function init() {
 
   // Check to see if the data directory exists
   const watcherModDataPath = path.dirname(saveDatPath);
-  if (!file.exists(watcherModDataPath)) {
-    file.makeDir(watcherModDataPath, false);
+  if (!file.exists(watcherModDataPath, verbose)) {
+    file.makeDir(watcherModDataPath, verbose);
   }
 
   // Listen for messages from the parent process
@@ -37,7 +38,7 @@ function init() {
 }
 
 function onMessage(type: SaveDatMessageType, data: string, numRetries = 0) {
-  const saveDat = readSaveDatFromDisk();
+  const saveDat = readSaveDatFromDisk(VERBOSE);
   if (saveDat.length > MAX_MESSAGES) {
     // If IsaacScript is running and
     // 1) the game is not open
@@ -50,13 +51,13 @@ function onMessage(type: SaveDatMessageType, data: string, numRetries = 0) {
     return;
   }
   addMessageToSaveDat(type, saveDat, data); // Mutates saveDat
-  writeSaveDatToDisk(type, data, saveDat, numRetries);
+  writeSaveDatToDisk(type, data, saveDat, numRetries, VERBOSE);
 }
 
-function readSaveDatFromDisk() {
+function readSaveDatFromDisk(verbose: boolean) {
   let saveDat: SaveDatMessage[];
-  if (file.exists(saveDatPath)) {
-    const saveDatRaw = file.read(saveDatPath);
+  if (file.exists(saveDatPath, verbose)) {
+    const saveDatRaw = file.read(saveDatPath, verbose);
     try {
       saveDat = JSONC.parse(saveDatRaw) as SaveDatMessage[];
     } catch (err) {
@@ -111,11 +112,12 @@ function writeSaveDatToDisk(
   type: SaveDatMessageType,
   data: string,
   saveDat: SaveDatMessage[],
-  numRetries = 0,
+  numRetries: number,
+  verbose: boolean,
 ) {
   const saveDatRaw = JSON.stringify(saveDat, null, 2);
   try {
-    file.writeTry(saveDatPath, saveDatRaw);
+    file.writeTry(saveDatPath, saveDatRaw, verbose);
   } catch (err) {
     if (numRetries > 4) {
       console.error(

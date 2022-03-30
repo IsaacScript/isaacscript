@@ -3,7 +3,7 @@ import { execSync, spawnSync, SpawnSyncReturns } from "child_process";
 import { CWD } from "./constants";
 import { error } from "./utils";
 
-export function execExe(path: string, verbose = false, cwd = CWD): string {
+export function execExe(path: string, verbose: boolean, cwd = CWD): string {
   if (verbose) {
     console.log(`Executing binary: ${path}`);
   }

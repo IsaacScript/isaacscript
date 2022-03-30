@@ -27,7 +27,7 @@ export async function promptGitHubRepoOrGitRemoteURL(
 
   validateNewGitVersion(verbose);
 
-  const gitHubUsername = getGitHubUsername();
+  const gitHubUsername = getGitHubUsername(verbose);
   if (gitHubUsername !== undefined) {
     const [exitStatus] = execShell(
       "gh",
@@ -131,7 +131,7 @@ function validateNewGitVersion(verbose: boolean) {
   process.exit(1);
 }
 
-function getGitHubUsername() {
+function getGitHubUsername(verbose: boolean) {
   // If the GitHub CLI is installed, we can derive the user's GitHub username
   if (
     !commandExists.sync("gh") ||
@@ -146,11 +146,11 @@ function getGitHubUsername() {
     "GitHub CLI",
     "hosts.yml",
   );
-  if (!file.exists(githubCLIHostsPath)) {
+  if (!file.exists(githubCLIHostsPath, verbose)) {
     return undefined;
   }
 
-  const configYAMLRaw = file.read(githubCLIHostsPath);
+  const configYAMLRaw = file.read(githubCLIHostsPath, verbose);
   const configYAML = yaml.parse(configYAMLRaw) as GitHubCLIHostsYAML;
 
   const githubCom = configYAML["github.com"];

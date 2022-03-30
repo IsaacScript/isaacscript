@@ -61,11 +61,11 @@ function makeSubdirectories(projectPath: string, verbose: boolean) {
 
 /** Copy static files, like ".eslintrc.js", "tsconfig.json", etc. */
 function copyStaticFiles(projectPath: string, verbose: boolean) {
-  const staticFileList = file.getDirList(TEMPLATES_STATIC_DIR);
+  const staticFileList = file.getDirList(TEMPLATES_STATIC_DIR, verbose);
   staticFileList.forEach((fileName: string) => {
     const templateFilePath = path.join(TEMPLATES_STATIC_DIR, fileName);
     const destinationFilePath = path.join(projectPath, fileName);
-    if (!file.exists(destinationFilePath)) {
+    if (!file.exists(destinationFilePath, verbose)) {
       file.copy(templateFilePath, destinationFilePath, verbose);
     }
   });
@@ -82,7 +82,7 @@ function copyDynamicFiles(
   {
     const fileName = GITIGNORE;
     const templatePath = GITIGNORE_TEMPLATE_PATH;
-    const template = file.read(templatePath);
+    const template = file.read(templatePath, verbose);
 
     // Prepend a header with the project name
     let separatorLine = "# ";
@@ -102,7 +102,7 @@ function copyDynamicFiles(
     // Modify and copy the file
     const fileName = PACKAGE_JSON;
     const templatePath = PACKAGE_JSON_TEMPLATE_PATH;
-    const template = file.read(templatePath);
+    const template = file.read(templatePath, verbose);
     const packageJSON = template.replace(/MOD_NAME_TO_REPLACE/g, projectName);
     const destinationPath = path.join(projectPath, fileName);
     file.write(destinationPath, packageJSON, verbose);
@@ -112,7 +112,7 @@ function copyDynamicFiles(
   {
     const fileName = README_MD;
     const templatePath = README_MD_TEMPLATES_PATH;
-    const template = file.read(templatePath);
+    const template = file.read(templatePath, verbose);
     const readmeMD = template.replace(/MOD_NAME_TO_REPLACE/g, projectName);
     const destinationPath = path.join(projectPath, fileName);
     file.write(destinationPath, readmeMD, verbose);
@@ -122,7 +122,7 @@ function copyDynamicFiles(
   {
     const fileName = METADATA_XML;
     const templatePath = METADATA_XML_TEMPLATE_PATH;
-    const template = file.read(templatePath);
+    const template = file.read(templatePath, verbose);
     const metadataXML = template.replace(/MOD_NAME_TO_REPLACE/g, projectName);
     const modPath = path.join(projectPath, "mod");
     const destinationPath = path.join(modPath, fileName);
@@ -133,7 +133,7 @@ function copyDynamicFiles(
   {
     const fileName = METADATA_VDF;
     const templatePath = METADATA_VDF_TEMPLATE_PATH;
-    const template = file.read(templatePath);
+    const template = file.read(templatePath, verbose);
     const metadataVDF = template.replace(/MOD_TARGET_DIR/g, targetModDirectory);
     const modPath = path.join(projectPath, "mod");
     const destinationPath = path.join(modPath, fileName);
@@ -147,7 +147,7 @@ function copyDynamicFiles(
     const srcPath = path.join(projectPath, "src");
     const fileName = MAIN_TS;
     const templatePath = MAIN_TS_TEMPLATE_PATH;
-    const template = file.read(templatePath);
+    const template = file.read(templatePath, verbose);
     const mainTS = template.replace(/MOD_NAME_TO_REPLACE/g, projectName);
     const destinationPath = path.join(srcPath, fileName);
     file.write(destinationPath, mainTS, verbose);

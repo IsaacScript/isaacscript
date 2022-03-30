@@ -51,7 +51,11 @@ export function deleteFileOrDirectory(
   }
 }
 
-export function exists(filePath: string): boolean {
+export function exists(filePath: string, verbose: boolean): boolean {
+  if (verbose) {
+    console.log(`Checking to see if the following path exists: ${filePath}`);
+  }
+
   let pathExists: boolean;
   try {
     pathExists = fs.existsSync(filePath);
@@ -59,10 +63,18 @@ export function exists(filePath: string): boolean {
     error(`Failed to check to see if "${chalk.green(filePath)}" exists:`, err);
   }
 
+  if (verbose) {
+    console.log(`Path exists: ${pathExists}`);
+  }
+
   return pathExists;
 }
 
-export function getDirList(dirPath: string): string[] {
+export function getDirList(dirPath: string, verbose: boolean): string[] {
+  if (verbose) {
+    console.log(`Getting a directory list from: ${dirPath}`);
+  }
+
   let fileList: string[];
   try {
     fileList = fs.readdirSync(dirPath);
@@ -73,10 +85,18 @@ export function getDirList(dirPath: string): string[] {
     );
   }
 
+  if (verbose) {
+    console.log(`Got a directory list from: ${dirPath}`);
+  }
+
   return fileList;
 }
 
-function getFileStats(filePath: string): fs.Stats {
+function getFileStats(filePath: string, verbose: boolean): fs.Stats {
+  if (verbose) {
+    console.log(`Getting file stats from: ${filePath}`);
+  }
+
   let fileStats: fs.Stats;
   try {
     fileStats = fs.statSync(filePath);
@@ -84,11 +104,15 @@ function getFileStats(filePath: string): fs.Stats {
     error(`Failed to get the file stats for "${chalk.green(filePath)}":`, err);
   }
 
+  if (verbose) {
+    console.log(`Got file stats from: ${filePath}`);
+  }
+
   return fileStats;
 }
 
-export function isDir(filePath: string): boolean {
-  const fileStats = getFileStats(filePath);
+export function isDir(filePath: string, verbose: boolean): boolean {
+  const fileStats = getFileStats(filePath, verbose);
   return fileStats.isDirectory();
 }
 
@@ -117,12 +141,20 @@ export function makeDir(dirPath: string, verbose: boolean): void {
   }
 }
 
-export function read(filePath: string): string {
+export function read(filePath: string, verbose: boolean): string {
+  if (verbose) {
+    console.log(`Reading a file: ${filePath}`);
+  }
+
   let fileContents: string;
   try {
     fileContents = fs.readFileSync(filePath, "utf8");
   } catch (err) {
     error(`Failed to read the "${chalk.green(filePath)}" file:`, err);
+  }
+
+  if (verbose) {
+    console.log(`Read a file: ${filePath}`);
   }
 
   return fileContents;
@@ -161,6 +193,18 @@ export function write(filePath: string, data: string, verbose: boolean): void {
   }
 }
 
-export function writeTry(filePath: string, data: string): void {
+export function writeTry(
+  filePath: string,
+  data: string,
+  verbose: boolean,
+): void {
+  if (verbose) {
+    console.log(`Writing data to: ${filePath}`);
+  }
+
   fs.writeFileSync(filePath, data);
+
+  if (verbose) {
+    console.log(`Wrote data to: ${filePath}`);
+  }
 }

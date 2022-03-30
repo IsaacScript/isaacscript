@@ -33,7 +33,7 @@ function copyMod(
   modTargetPath: string,
   verbose: boolean,
 ) {
-  if (file.exists(modTargetPath)) {
+  if (file.exists(modTargetPath, verbose)) {
     file.deleteFileOrDirectory(modTargetPath, verbose);
   }
   file.copy(modSourcePath, modTargetPath, verbose);

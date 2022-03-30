@@ -2,7 +2,7 @@ import chalk from "chalk";
 import path from "path";
 import { CURRENT_DIRECTORY_NAME, CWD } from "../../constants";
 import { getInputString, getInputYesNo } from "../../prompt";
-import { hasWhiteSpace } from "../../utils";
+import { error, hasWhiteSpace, isKebabCase } from "../../utils";
 
 // From: https://gist.github.com/doctaphred/d01d05291546186941e1b7ddc02034d3
 const ILLEGAL_CHARACTERS_FOR_WINDOWS_FILENAMES = [
@@ -46,9 +46,7 @@ export async function getProjectPath(
     [projectName, projectPath, createNewDir] = await getNewProjectName();
   }
 
-  if (!validateProjectName(projectName)) {
-    process.exit(1);
-  }
+  validateProjectName(projectName);
 
   console.log(`Using a project name of: ${chalk.green(projectName)}`);
   return [projectPath, createNewDir];
@@ -82,27 +80,28 @@ async function getNewProjectName(): Promise<[string, string, boolean]> {
 
 function validateProjectName(projectName: string) {
   if (projectName === "") {
-    console.error("Error: You cannot have a blank project name.");
-    return false;
+    error("Error: You cannot have a blank project name.");
   }
 
   if (process.platform === "win32") {
     for (const character of ILLEGAL_CHARACTERS_FOR_WINDOWS_FILENAMES) {
       if (projectName.includes(character)) {
-        console.error(
+        error(
           `Error: The "${character}" character is not allowed in a Windows file name.`,
         );
-        return false;
       }
     }
   }
 
   if (hasWhiteSpace(projectName)) {
-    console.error(
+    error(
       'Error: The project name has whitespace in it, which is not allowed. Use kebab-case for your project name. (e.g. "green-candle")',
     );
-    return false;
   }
 
-  return true;
+  if (!isKebabCase(projectName)) {
+    error(
+      "Error: The project name is not in kebab-case. (Kebab-case is the style of using all lowercase letters, with words separated by hyphens.) Project names must use kebab-case to match GitHub repository standards.",
+    );
+  }
 }

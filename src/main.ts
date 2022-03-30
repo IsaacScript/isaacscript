@@ -36,6 +36,7 @@ async function main(): Promise<void> {
 
   // Get command line arguments
   const argv = parseArgs();
+  const verbose = argv.verbose === true;
 
   printBanner();
 
@@ -43,9 +44,9 @@ async function main(): Promise<void> {
   updateNotifier({ pkg }).notify();
 
   // Pre-flight checks
-  await checkForWindowsTerminalBugs();
+  await checkForWindowsTerminalBugs(verbose);
 
-  await handleCommands(argv);
+  await handleCommands(argv, verbose);
 }
 
 function loadEnvironmentVariables() {
@@ -62,7 +63,7 @@ function printBanner() {
   console.log();
 }
 
-async function handleCommands(argv: Record<string, unknown>) {
+async function handleCommands(argv: Record<string, unknown>, verbose: boolean) {
   const positionalArgs = argv._ as string[];
   let command: Command;
   if (positionalArgs.length > 0) {
@@ -73,7 +74,7 @@ async function handleCommands(argv: Record<string, unknown>) {
 
   let config = new Config();
   if (command !== "init") {
-    validateInIsaacScriptProject();
+    validateInIsaacScriptProject(verbose);
     config = await configFile.get(argv);
   }
 

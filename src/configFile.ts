@@ -12,13 +12,13 @@ export async function get(argv: Record<string, unknown>): Promise<Config> {
   const verbose = argv.verbose === true;
   const yes = argv.yes === true;
 
-  const existingConfig = readExistingConfig();
+  const existingConfig = readExistingConfig(verbose);
   if (existingConfig !== undefined) {
     return existingConfig;
   }
 
   // No config file exists, so prompt the user for some information and create one
-  const modsDirectory = await getModsDir(argv);
+  const modsDirectory = await getModsDir(argv, verbose);
   const saveSlot = await promptSaveSlot(argv, yes);
   const config = createObject(modsDirectory, saveSlot);
   createFile(CWD, config, verbose);
@@ -26,12 +26,12 @@ export async function get(argv: Record<string, unknown>): Promise<Config> {
   return config;
 }
 
-function readExistingConfig(): Config | undefined {
-  if (!file.exists(CONFIG_FILE_PATH)) {
+function readExistingConfig(verbose: boolean): Config | undefined {
+  if (!file.exists(CONFIG_FILE_PATH, verbose)) {
     return undefined;
   }
 
-  const configRaw = file.read(CONFIG_FILE_PATH);
+  const configRaw = file.read(CONFIG_FILE_PATH, verbose);
   let config: Config;
   try {
     config = JSONC.parse(configRaw) as Config;

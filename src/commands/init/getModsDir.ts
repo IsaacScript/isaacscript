@@ -31,6 +31,7 @@ const DEFAULT_MODS_PATH_LINUX = path.join(
 
 export async function getModsDir(
   argv: Record<string, unknown>,
+  verbose: boolean,
 ): Promise<string> {
   if (argv.modsDirectory !== undefined) {
     // They specified the "--mods-directory" command-line flag,
@@ -40,7 +41,10 @@ export async function getModsDir(
 
   const defaultModsPath = getDefaultModsPath(process.platform);
 
-  if (file.exists(defaultModsPath) && file.isDir(defaultModsPath)) {
+  if (
+    file.exists(defaultModsPath, verbose) &&
+    file.isDir(defaultModsPath, verbose)
+  ) {
     return defaultModsPath;
   }
 
@@ -55,7 +59,7 @@ export async function getModsDir(
     error("Error: You did not provide a response; exiting.");
   }
 
-  if (!file.exists(modsDir)) {
+  if (!file.exists(modsDir, verbose)) {
     error(
       `Error: The directory of "${chalk.green(
         modsDir,
@@ -63,7 +67,7 @@ export async function getModsDir(
     );
   }
 
-  if (!file.isDir(modsDir)) {
+  if (!file.isDir(modsDir, verbose)) {
     error(
       `Error: The path of "${chalk.green(
         modsDir,

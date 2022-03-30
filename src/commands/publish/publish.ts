@@ -109,7 +109,7 @@ function startPublish(
   updateDeps(verbose);
 
   let version =
-    setVersion === undefined ? getVersionFromPackageJSON() : setVersion;
+    setVersion === undefined ? getVersionFromPackageJSON(verbose) : setVersion;
   if (!skipVersionIncrement && setVersion === undefined) {
     version = bumpVersionInPackageJSON(version, verbose);
   } else if (setVersion !== undefined) {
@@ -134,7 +134,7 @@ function startPublish(
 }
 
 function updateDeps(verbose: boolean) {
-  if (!file.exists(UPDATE_SCRIPT_NAME)) {
+  if (!file.exists(UPDATE_SCRIPT_NAME, verbose)) {
     error(
       `The "${UPDATE_SCRIPT_NAME}" script does not exist in the current working directory.`,
     );
@@ -143,8 +143,8 @@ function updateDeps(verbose: boolean) {
   execShell("bash", [UPDATE_SCRIPT_NAME], verbose);
 }
 
-function getVersionFromPackageJSON() {
-  if (!file.exists(PACKAGE_JSON_PATH)) {
+function getVersionFromPackageJSON(verbose: boolean) {
+  if (!file.exists(PACKAGE_JSON_PATH, verbose)) {
     error(
       chalk.red(
         `A "${PACKAGE_JSON_PATH}" was not found in the current directory.`,
@@ -152,7 +152,7 @@ function getVersionFromPackageJSON() {
     );
   }
 
-  const packageJSONRaw = file.read(PACKAGE_JSON_PATH);
+  const packageJSONRaw = file.read(PACKAGE_JSON_PATH, verbose);
   let packageJSON: Record<string, unknown>;
   try {
     packageJSON = JSON.parse(packageJSONRaw) as Record<string, unknown>;
@@ -204,7 +204,7 @@ function bumpVersionInPackageJSON(version: string, verbose: boolean): string {
   const incrementedPatchVersion = patchVersion + 1;
   const incrementedVersion = `${versionPrefix}${incrementedPatchVersion}`;
 
-  const packageJSON = file.read(PACKAGE_JSON_PATH);
+  const packageJSON = file.read(PACKAGE_JSON_PATH, verbose);
   const newPackageJSON = packageJSON.replace(
     /"version": ".+",/,
     `"version": "${incrementedVersion}",`,
@@ -219,7 +219,7 @@ function bumpVersionInPackageJSON(version: string, verbose: boolean): string {
 }
 
 function writeVersionInPackageJSON(version: string, verbose: boolean) {
-  const packageJSON = file.read(PACKAGE_JSON_PATH);
+  const packageJSON = file.read(PACKAGE_JSON_PATH, verbose);
   const newPackageJSON = packageJSON.replace(
     /"version": ".+",/,
     `"version": "${version}",`,
@@ -230,14 +230,14 @@ function writeVersionInPackageJSON(version: string, verbose: boolean) {
 }
 
 function writeVersionToConstantsTS(version: string, verbose: boolean) {
-  if (!file.exists(CONSTANTS_TS_PATH)) {
+  if (!file.exists(CONSTANTS_TS_PATH, verbose)) {
     console.log(
       'Skipping writing the version to "constants.ts" since it was not found.',
     );
     return;
   }
 
-  const constantsTS = file.read(CONSTANTS_TS_PATH);
+  const constantsTS = file.read(CONSTANTS_TS_PATH, verbose);
   const newConstantsTS = constantsTS.replace(
     /const VERSION = ".+"/,
     `const VERSION = "${version}"`,
@@ -248,7 +248,7 @@ function writeVersionToConstantsTS(version: string, verbose: boolean) {
 }
 
 function writeVersionToMetadataXML(version: string, verbose: boolean) {
-  const metadataXML = file.read(METADATA_XML_PATH);
+  const metadataXML = file.read(METADATA_XML_PATH, verbose);
   const newMetadataXML = metadataXML.replace(
     /<version>.+<\/version>/,
     `<version>${version}</version>`,
@@ -265,7 +265,7 @@ function writeVersionToVersionTXT(version: string, verbose: boolean) {
 }
 
 function runReleaseScriptPreCopy(verbose: boolean) {
-  if (!file.exists(PUBLISH_PRE_COPY_PY_PATH)) {
+  if (!file.exists(PUBLISH_PRE_COPY_PY_PATH, verbose)) {
     return;
   }
 
@@ -278,7 +278,7 @@ function runReleaseScriptPreCopy(verbose: boolean) {
 }
 
 function runReleaseScriptPostCopy(verbose: boolean) {
-  if (!file.exists(PUBLISH_POST_COPY_PY_PATH)) {
+  if (!file.exists(PUBLISH_POST_COPY_PY_PATH, verbose)) {
     return;
   }
 
@@ -292,11 +292,11 @@ function runReleaseScriptPostCopy(verbose: boolean) {
 
 function purgeRoomXMLs(modTargetPath: string, verbose: boolean) {
   const roomsPath = path.join(modTargetPath, "resources", "rooms");
-  if (!file.exists(roomsPath) || !file.isDir(roomsPath)) {
+  if (!file.exists(roomsPath, verbose) || !file.isDir(roomsPath, verbose)) {
     return;
   }
 
-  const roomFileList = file.getDirList(roomsPath);
+  const roomFileList = file.getDirList(roomsPath, verbose);
   roomFileList.forEach((fileName: string) => {
     if (path.extname(fileName) === ".xml") {
       const roomFilePath = path.join(roomsPath, fileName);
@@ -327,7 +327,7 @@ function runSteamCmd(
   steamCmdPath: string,
   verbose: boolean,
 ) {
-  if (!file.exists(steamCmdPath)) {
+  if (!file.exists(steamCmdPath, verbose)) {
     error(
       chalk.red(
         `The path provided for "steamCmdPath" is "${steamCmdPath}", but that does not exist.`,
@@ -336,7 +336,7 @@ function runSteamCmd(
   }
 
   const metadataVDFPath = path.join(modTargetPath, "metadata.vdf");
-  if (!file.exists(metadataVDFPath)) {
+  if (!file.exists(metadataVDFPath, verbose)) {
     console.error(
       chalk.red(
         `A "metadata.vdf" file was not found in your mod directory. You must create this file in order for "steamcmd.exe" to work. Please see the ${PROJECT_NAME} docs:`,

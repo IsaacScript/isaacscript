@@ -2,6 +2,10 @@ import moment from "moment";
 import { CURRENT_DIRECTORY_NAME } from "./constants";
 import { Config } from "./types/Config";
 
+/** From: https://github.com/expandjs/expandjs/blob/master/lib/kebabCaseRegex.js */
+const KEBAB_CASE_REGEX =
+  /^([a-z](?![\d])|[\d](?![a-z]))+(-?([a-z](?![\d])|[\d](?![a-z])))*$|^$/;
+
 export const ensureAllCases = (obj: never): never => obj;
 
 export function error(...args: unknown[]): never {
@@ -22,6 +26,10 @@ export function getTime(): string {
 // From: https://stackoverflow.com/questions/1731190/check-if-a-string-has-white-space
 export function hasWhiteSpace(s: string): boolean {
   return /\s/g.test(s);
+}
+
+export function isKebabCase(s: string): boolean {
+  return KEBAB_CASE_REGEX.test(s);
 }
 
 /**

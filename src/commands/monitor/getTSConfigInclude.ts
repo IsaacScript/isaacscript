@@ -4,8 +4,8 @@ import { TSCONFIG_PATH } from "../../constants";
 import * as file from "../../file";
 import { error } from "../../utils";
 
-export function getTSConfigInclude(): string {
-  const tsConfigRaw = file.read(TSCONFIG_PATH);
+export function getTSConfigInclude(verbose: boolean): string {
+  const tsConfigRaw = file.read(TSCONFIG_PATH, verbose);
   let tsConfig: Record<string, string[]>;
   try {
     tsConfig = JSONC.parse(tsConfigRaw) as Record<string, string[]>;

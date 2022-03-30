@@ -10,7 +10,7 @@ export function installVSCodeExtensions(
   VSCodeCommand: string,
   verbose: boolean,
 ): void {
-  const extensions = getExtensionsFromJSON(projectPath);
+  const extensions = getExtensionsFromJSON(projectPath, verbose);
   for (const extensionName of extensions) {
     execShell(VSCodeCommand, ["--install-extension", extensionName], verbose);
   }
@@ -20,18 +20,18 @@ interface ExtensionsJSON {
   recommendations: string[];
 }
 
-function getExtensionsFromJSON(projectPath: string) {
+function getExtensionsFromJSON(projectPath: string, verbose: boolean) {
   const extensionsJSONPath = path.join(
     projectPath,
     ".vscode",
     "extensions.json",
   );
 
-  if (!file.exists(extensionsJSONPath)) {
+  if (!file.exists(extensionsJSONPath, verbose)) {
     return [];
   }
 
-  const extensionsJSONRaw = file.read(extensionsJSONPath);
+  const extensionsJSONRaw = file.read(extensionsJSONPath, verbose);
 
   let extensionsJSON: ExtensionsJSON;
   try {

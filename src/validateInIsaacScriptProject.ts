@@ -4,11 +4,14 @@ import { CWD, PROJECT_NAME } from "./constants";
 import * as file from "./file";
 
 // Validate that we are in a directory that looks like an IsaacScript project
-export function validateInIsaacScriptProject(): void {
+export function validateInIsaacScriptProject(verbose: boolean): void {
   const subdirectoriesToCheck = ["src", "mod", "node_modules"];
   for (const subdirectoryName of subdirectoriesToCheck) {
     const subdirectoryPath = path.join(CWD, subdirectoryName);
-    if (!file.exists(subdirectoryPath) || !file.isDir(subdirectoryPath)) {
+    if (
+      !file.exists(subdirectoryPath, verbose) ||
+      !file.isDir(subdirectoryPath, verbose)
+    ) {
       errorNotExists(subdirectoryPath);
     }
   }

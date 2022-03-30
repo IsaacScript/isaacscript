@@ -9,11 +9,11 @@ export async function checkIfProjectPathExists(
   yes: boolean,
   verbose: boolean,
 ): Promise<void> {
-  if (projectPath === CWD || !file.exists(projectPath)) {
+  if (projectPath === CWD || !file.exists(projectPath, verbose)) {
     return;
   }
 
-  const fileType = file.isDir(projectPath) ? "directory" : "file";
+  const fileType = file.isDir(projectPath, verbose) ? "directory" : "file";
 
   if (yes) {
     file.deleteFileOrDirectory(projectPath, verbose);

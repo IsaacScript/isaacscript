@@ -27,7 +27,7 @@ export async function init(argv: Record<string, unknown>): Promise<void> {
     yes,
   );
   await checkIfProjectPathExists(projectPath, yes, verbose);
-  const modsDirectory = await getModsDir(argv);
+  const modsDirectory = await getModsDir(argv, verbose);
   checkModSubdirectory(projectPath, modsDirectory);
   const projectName = path.basename(projectPath);
   await checkModTargetDirectory(modsDirectory, projectName, yes, verbose);

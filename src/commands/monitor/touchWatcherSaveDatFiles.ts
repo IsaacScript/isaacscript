@@ -9,12 +9,12 @@ export function touchWatcherSaveDatFiles(
 ): void {
   const modsDataPath = path.join(config.modsDirectory, "..", "data");
   const watcherModDataPath = path.join(modsDataPath, WATCHER_MOD_NAME);
-  if (!file.exists(watcherModDataPath)) {
+  if (!file.exists(watcherModDataPath, verbose)) {
     file.makeDir(watcherModDataPath, verbose);
   }
   const saveDatFileName = `save${config.saveSlot}.dat`;
   const saveDatPath = path.join(watcherModDataPath, saveDatFileName);
-  if (!file.exists(saveDatPath)) {
+  if (!file.exists(saveDatPath, verbose)) {
     file.touch(saveDatPath, verbose);
   }
 }
