@@ -1,4 +1,5 @@
 import { VectorZero } from "../constants";
+import { EntityTypeNonNPC } from "../types/EntityTypeNonNPC";
 import { getEntities, removeEntities, spawn } from "./entity";
 
 /**
@@ -661,8 +662,8 @@ export function spawnLaserWithSeed(
 }
 
 /** Helper function to spawn an NPC. */
-export function spawnNPC(
-  entityType: EntityType | int,
+export function spawnNPC<T extends number>(
+  entityType: T extends EntityTypeNonNPC ? never : T,
   variant: int,
   subType: int,
   position: Vector,
