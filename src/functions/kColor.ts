@@ -78,6 +78,7 @@ export function copyKColor(
   }
 }
 
+/** Returns `KColor(1, 1, 1, 1)`. */
 export function getDefaultKColor(): KColor {
   return KColor(1, 1, 1, 1);
 }

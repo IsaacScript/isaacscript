@@ -94,6 +94,7 @@ export function copyColor(
   }
 }
 
+/** Returns `Color(1, 1, 1)`. */
 export function getDefaultColor(): Color {
   return Color(1, 1, 1);
 }
