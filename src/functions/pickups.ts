@@ -1,4 +1,8 @@
 import { VectorZero } from "../constants";
+import {
+  COIN_SUBTYPE_TO_VALUE,
+  DEFAULT_COIN_VALUE,
+} from "../objects/coinSubTypeToValue";
 import { CHEST_PICKUP_VARIANTS } from "../sets/chestPickupVariantsSet";
 import { RED_HEART_SUB_TYPES_SET } from "../sets/redHeartSubTypesSet";
 import { getPickups, removeAllPickups, spawnPickup } from "./entitySpecific";
@@ -11,6 +15,15 @@ export function getBatteries(matchingSubType = -1): EntityPickup[] {
 /** Helper function to get all of the card entities in the room. */
 export function getCards(matchingSubType = -1): EntityPickup[] {
   return getPickups(PickupVariant.PICKUP_TAROTCARD, matchingSubType);
+}
+
+/**
+ * Helper function to get the corresponding coin amount from a `CoinSubType`. Returns 1 for modded
+ * sub-types.
+ */
+export function getCoinValue(coinSubType: CoinSubType): int {
+  const value = COIN_SUBTYPE_TO_VALUE[coinSubType];
+  return value === undefined ? DEFAULT_COIN_VALUE : value;
 }
 
 /** Helper function to get all of the coin pickup entities in the room. */
