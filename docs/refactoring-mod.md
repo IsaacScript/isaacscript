@@ -13,7 +13,7 @@ Let's say that in our example mod, we want to add a few more custom items, so th
 We don't want to have any logic in the "main.ts" file. This purpose of this file is to simply register the mod and glue together all of the callbacks.
 
 ```ts
-import * as postUpdate from "./callbacks/postUpdate";
+import { postUpdateInit } from "./callbacks/postUpdate";
 
 const MOD_NAME = "Green Candle";
 
@@ -23,16 +23,16 @@ export function main(): void {
 }
 
 function registerCallbacks(mod: Mod) {
-  mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate.main);
-  // TODO - Add code for new callbacks here
+  postUpdateInit();
+  // TODO: Add init functions for new callbacks here
 }
 ```
 
 <br />
 
-## 2) src/types/CollectibleTypeCustom.ts
+## 2) src/enums/CollectibleTypeCustom.ts
 
-Before, we had a `GREEN_CANDLE_COLLECTIBLE_TYPE` constant at the top of the file. This probably belongs in its own file. Furthermore, instead of having individual variables for every collectible type, we can put them all in a "CollectibleTypeCustom" enum, which helps us stay more organized.
+Before, we had a `GREEN_CANDLE_COLLECTIBLE_TYPE` constant at the top of the file. This probably belongs in its own file. Furthermore, instead of having individual variables for every collectible type, we can put them all in a `CollectibleTypeCustom` enum, which helps us stay more organized.
 
 ```ts
 export enum CollectibleTypeCustom {
@@ -40,7 +40,7 @@ export enum CollectibleTypeCustom {
 }
 ```
 
-Types, interfaces, and enums are typically stored in files of the same name in a "types" subdirectory.
+Enums are typically stored in files of the same name in an "enums" subdirectory.
 
 <br />
 
@@ -49,11 +49,15 @@ Types, interfaces, and enums are typically stored in files of the same name in a
 Each callback can have its own dedicated file in a "callbacks" subdirectory.
 
 ```ts
-import * as greenCandle from "../items/greenCandle";
+import { greenCandlePostUpdate } from "../items/greenCandle";
 
-export function main(): void {
-  greenCandle.checkApplyEffect();
-  // TODO - Add code for new items here
+export function postUpdateInit(mod: Mod): void {
+  mod.AddCallback(ModCallbacks.MC_POST_UPDATE, main);
+}
+
+function main() {
+  greenCandlePostUpdate();
+  // TODO: Add code for new items here
 }
 ```
 
@@ -65,6 +69,11 @@ Each item can have its own dedicated file in an "items" subdirectory.
 
 ```ts
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
+
+// ModCallbacks.MC_POST_UPDATE (1)
+export function greenCandlePostUpdate(): void {
+  checkApplyGreenCandleEffect();
+}
 
 export function checkApplyGreenCandleEffect(): void {
   for (const player of getPlayers()) {
@@ -98,6 +107,6 @@ src/
 │   └── postUpdate.ts
 ├── items/
 │   └── greenCandle.ts
-├── types/
+├── enums/
 │   └── CollectibleTypeCustom.ts
 ```
