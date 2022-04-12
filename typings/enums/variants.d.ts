@@ -285,7 +285,10 @@ declare const enum PickupVariant {
   PICKUP_KEY = 30,
   PICKUP_BOMB = 40,
   PICKUP_THROWABLEBOMB = 41,
+
+  /** The poop bombs that only spawn when the player is Tainted Blue Baby. */
   PICKUP_POOP = 42,
+
   PICKUP_CHEST = 50,
   PICKUP_BOMBCHEST = 51,
   PICKUP_SPIKEDCHEST = 52,

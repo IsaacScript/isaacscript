@@ -243,7 +243,10 @@ declare enum BombSubType {
 
 /** For EntityType.ENTITY_PICKUP (5), PickupVariant.PICKUP_POOP (42) */
 declare enum PoopPickupSubType {
+  /** Equal to "Poop Nugget" in "entities2.xml". */
   POOP_SMALL = 0,
+
+  /** Equal to "Big Poop Nugget" in "entities2.xml". */
   POOP_BIG = 1,
 }
 
