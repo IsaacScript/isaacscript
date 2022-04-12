@@ -51,8 +51,8 @@ export function countEntities(
 export function getClosestEntityTo<T extends AnyEntity>(
   referenceEntity: Entity,
   entities: T[],
-): T {
-  let closestEntity: T | null = null;
+): T | undefined {
+  let closestEntity: T | undefined;
   let closestDistance = math.huge;
   for (const entity of entities) {
     const distance = referenceEntity.Position.Distance(entity.Position);
@@ -61,10 +61,6 @@ export function getClosestEntityTo<T extends AnyEntity>(
       closestEntity = entity;
       closestDistance = distance;
     }
-  }
-
-  if (closestEntity === null) {
-    error("Failed to find the closest entity.");
   }
 
   return closestEntity;
