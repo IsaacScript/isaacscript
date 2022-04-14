@@ -149,12 +149,12 @@ export function logEntities(
 
     const effect = entity.ToEffect();
     if (effect !== undefined) {
-      debugString += `.${effect.State} (effect)`;
+      debugString += ` (effect) (State: ${effect.State})`;
     }
 
     const familiar = entity.ToFamiliar();
     if (familiar !== undefined) {
-      debugString += `.${familiar.State} (familiar)`;
+      debugString += ` (familiar) (State: ${familiar.State})`;
     }
 
     const knife = entity.ToKnife();
@@ -169,12 +169,12 @@ export function logEntities(
 
     const npc = entity.ToNPC();
     if (npc !== undefined) {
-      debugString += `.${npc.State} (NPC) (CanShutDoors: ${npc.CanShutDoors})`;
+      debugString += ` (NPC) (State: ${npc.State}) (CanShutDoors: ${npc.CanShutDoors})`;
     }
 
     const pickup = entity.ToPickup();
     if (pickup !== undefined) {
-      debugString += `.${pickup.State} (pickup)`;
+      debugString += ` (pickup) (State: ${pickup.State})`;
     }
 
     const player = entity.ToPlayer();
@@ -192,6 +192,7 @@ export function logEntities(
       debugString += " (tear)";
     }
 
+    debugString += ` (Index: ${entity.Index})`;
     debugString += ` (InitSeed: ${entity.InitSeed})`;
     debugString += ` (DropSeed: ${entity.DropSeed})`;
     debugString += ` (Position: ${entity.Position.X}, ${entity.Position.Y})`;
