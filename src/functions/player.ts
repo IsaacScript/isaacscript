@@ -733,6 +733,21 @@ export function isVanillaCharacter(player: EntityPlayer): boolean {
 }
 
 /**
+ * Helper function to check to see if a player has one or more collectibles.
+ *
+ * This function is variadic, meaning that you can supply as many collectible types as you want to
+ * check for. Returns true if the player has any of the supplied collectible types.
+ */
+export function playerHasCollectible(
+  player: EntityPlayer,
+  ...collectibleTypes: Array<CollectibleType | int>
+): boolean {
+  return collectibleTypes.some((collectibleType) =>
+    player.HasCollectible(collectibleType),
+  );
+}
+
+/**
  * Helper function to remove a collectible costume from a player. Use this helper function to avoid
  * having to request the collectible from the item config.
  */
