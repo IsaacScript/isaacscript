@@ -82,29 +82,24 @@ export function getClosestEntityTo<T extends AnyEntity>(
  * }
  * ```
  *
- * @param matchingEntityType Optional. If specified, will only return NPCs that match this entity
+ * @param entityType Optional. If specified, will only return NPCs that match this entity
  * type.
- * @param matchingVariant Optional. If specified, will only return NPCs that match this variant.
- * @param matchingSubType Optional. If specified, will only return NPCs that match this sub-type.
+ * @param variant Optional. If specified, will only return NPCs that match this variant.
+ * @param subType Optional. If specified, will only return NPCs that match this sub-type.
  * @param ignoreFriendly Optional. If set to true, it will exclude friendly NPCs from being
  * returned. Default is false. Will only be taken into account if `matchingEntityType` is specified.
  */
 export function getEntities(
-  matchingEntityType?: EntityType | int,
-  matchingVariant = -1,
-  matchingSubType = -1,
+  entityType?: EntityType | int,
+  variant = -1,
+  subType = -1,
   ignoreFriendly = false,
 ): Entity[] {
-  if (matchingEntityType === undefined) {
+  if (entityType === undefined) {
     return Isaac.GetRoomEntities();
   }
 
-  return Isaac.FindByType(
-    matchingEntityType,
-    matchingVariant,
-    matchingSubType,
-    ignoreFriendly,
-  );
+  return Isaac.FindByType(entityType, variant, subType, ignoreFriendly);
 }
 
 /** Helper function to return a string containing an entity's type, variant, and sub-type. */
