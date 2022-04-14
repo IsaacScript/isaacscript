@@ -143,9 +143,9 @@ export function isEntityMoving(entity: Entity, threshold = 0.01): boolean {
 }
 
 /**
- * Helper function to determine if the current entity is an end-game story boss, like Isaac, Blue
- * Baby, Mega Satan, The Beast, and so on. This is useful because certain effects should only apply
- * to non-story bosses, like Vanishing Twin. Also see the `STORY_BOSSES` constant.
+ * Helper function to determine if the specified entity type is an end-game story boss, like Isaac,
+ * Blue Baby, Mega Satan, The Beast, and so on. This is useful because certain effects should only
+ * apply to non-story bosses, like Vanishing Twin. Also see the `STORY_BOSSES` constant.
  */
 export function isStoryBoss(entityType: EntityType | int): boolean {
   return STORY_BOSSES_SET.has(entityType);
