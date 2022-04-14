@@ -4,22 +4,27 @@
 export const CARD_MAP: ReadonlyMap<string, Card> = new Map([
   ["fool", 1],
   ["magician", 2],
+  ["mag", 2], // Needed since we have "mag?"
   ["highpriestess", 3],
   ["priestess", 3],
+  ["priest", 3], // Needed since we have "priest?"
   ["hp", 3],
   ["empress", 4],
   ["emperor", 5],
+  ["emp", 5], // Needed since we have "hemp?"
   ["hierophant", 6],
-  ["hiero", 6], // Needed since we have "hiero?"
+  ["hi", 6], // Needed since we have "hiero?"
   ["lovers", 7],
   ["chariot", 8],
   ["justice", 9],
   ["hermit", 10],
   ["wheeloffortune", 11],
+  ["wheel", 11], // Needed since we have "wheel?"
   ["fortune", 11],
   ["strength", 12],
-  ["hanged", 13],
+  ["str", 12], // Needed since we have "str?"
   ["hangedman", 13],
+  ["hanged", 13],
   ["death", 14],
   ["temperance", 15],
   ["devil", 16],
@@ -28,6 +33,7 @@ export const CARD_MAP: ReadonlyMap<string, Card> = new Map([
   ["moon", 19],
   ["sun", 20],
   ["judgement", 21],
+  ["judge", 21], // Needed since we have "judge?"
   ["world", 22],
   ["2ofclubs", 23],
   ["2clubs", 23],
@@ -94,6 +100,7 @@ export const CARD_MAP: ReadonlyMap<string, Card> = new Map([
   ["mag?", 57],
   ["highpriestess?", 58],
   ["high?", 58],
+  ["hi?", 58],
   ["priestess?", 58],
   ["priest?", 58],
   ["hp?", 58],
