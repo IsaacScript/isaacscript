@@ -1,6 +1,13 @@
 declare interface Level {
   AddAngelRoomChance(chance: float): void;
+
+  /**
+   * Entries in the "curses.xml" file enumerate from 1 instead of 0. Thus, the `LevelCurse` bitmask
+   * for a new curse must be `1 << LevelCurseCustom.FOO - 1`. This value is also the return value of
+   * MC_POST_CURSE_EVAL.
+   */
   AddCurse(levelCurse: LevelCurse | int, showName: boolean): void;
+
   ApplyBlueMapEffect(): void;
   ApplyCompassEffect(persistent: boolean): void;
   ApplyMapEffect(): void;
@@ -19,7 +26,18 @@ declare interface Level {
 
   DisableDevilRoom(): void;
   ForceHorsemanBoss(seed: Seed): boolean;
+
+  /**
+   * In non-Greed Mode, returns the same thing as the `Level.GetStage` method. In Greed Mode,
+   * returns the adjusted stage similar to what it would be in non-Greed Mode.
+   *
+   * For example:
+   * - On Greed Mode Basement, `GetStage` returns 1, and `GetAbsoluteStage` returns 1.
+   * - On Greed Mode Caves, `GetStage` returns 2, and `GetAbsoluteStage` returns 3.
+   * - On Greed mode Depths, `GetStage` returns 3, and `GetAbsoluteStage` returns 5.
+   */
   GetAbsoluteStage(): LevelStage;
+
   GetAngelRoomChance(): float;
   GetCanSeeEverything(): boolean;
   GetCurrentRoom(): Room;
@@ -81,6 +99,8 @@ declare interface Level {
   GetRandomRoomIndex(IAmErrorRoom: boolean, seed: Seed): int;
 
   /**
+   *
+   *
    * @param roomGridIndex The grid index of the room to get.
    * @param dimension Default is `Dimension.CURRENT`.
    */
@@ -138,13 +158,28 @@ declare interface Level {
 
   SetCanSeeEverything(value: boolean): void;
   SetHeartPicked(): void;
+
+  /**
+   * Puts you in the next stage without applying any of the floor changes. You are meant to call
+   * `Level.StartStageTransition` after using this function.
+   */
   SetNextStage(): void;
+
   SetRedHeartDamage(): void;
   SetStage(levelStage: LevelStage, stageType: StageType): void;
   SetStateFlag(levelStateFlag: LevelStateFlag, val: boolean): void;
+
+  /**
+   * Reveals the entire map except for the Super Secret Room. (This is the same as the World card or
+   * Sun card.)
+   */
   ShowMap(): void;
+
   ShowName(sticky: boolean): void;
+
+  /** Uncovers the door on both sides by modifying the saved grid entities for neighboring room. */
   UncoverHiddenDoor(currentRoomIdx: int, doorSlot: DoorSlot): void;
+
   Update(): void;
 
   /**
@@ -158,7 +193,11 @@ declare interface Level {
   /** The grid index that the player will return to if they exit a crawlspace. */
   DungeonReturnRoomIndex: int;
 
-  EnterDoor: int;
+  /** The `DoorSlot` that the player entered the room at. */
+  EnterDoor: DoorSlot;
+
   GreedModeWave: int;
+
+  /** The `DoorSlot` that the player left the previous room at. */
   LeaveDoor: int;
 }
