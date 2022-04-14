@@ -147,7 +147,8 @@ export function getMaxCards(): int {
  * This will not return:
  * - any runes
  * - any objects like Dice Shard
- * - any modded cards.
+ * - any modded cards (since there is not a way to distinguish between modded cards and modded
+ * runes/objects)
  *
  * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
  * `RNG.Next` method will be called. Default is `getRandomSeed()`.
