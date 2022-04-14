@@ -10,6 +10,7 @@ export const CARD_MAP: ReadonlyMap<string, Card> = new Map([
   ["empress", 4],
   ["emperor", 5],
   ["hierophant", 6],
+  ["hiero", 6], // Needed since we have "hiero?"
   ["lovers", 7],
   ["chariot", 8],
   ["justice", 9],
