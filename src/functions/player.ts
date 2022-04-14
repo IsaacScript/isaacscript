@@ -733,6 +733,21 @@ export function isVanillaCharacter(player: EntityPlayer): boolean {
 }
 
 /**
+ * Helper function to add one or more collectibles to a player.
+ *
+ * This function is variadic, meaning that you can supply as many collectible types as you want to
+ * add.
+ */
+export function playerAddCollectible(
+  player: EntityPlayer,
+  ...collectibleTypes: Array<CollectibleType | int>
+): void {
+  for (const collectibleType of collectibleTypes) {
+    player.AddCollectible(collectibleType);
+  }
+}
+
+/**
  * Helper function to check to see if a player has one or more collectibles.
  *
  * This function is variadic, meaning that you can supply as many collectible types as you want to
