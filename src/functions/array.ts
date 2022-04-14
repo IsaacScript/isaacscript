@@ -65,6 +65,56 @@ export function arrayRemoveInPlace<T>(
   return removedOneOrMoreElements;
 }
 
+/**
+ * Shallow copies and removes the elements at the specified indexes from the array. Returns the
+ * copied array. If the specified indexes are not found in the array, it will simply return a
+ * shallow copy of the array.
+ *
+ * This function is variadic, meaning that you can specify N arguments to remove N elements.
+ */
+export function arrayRemoveIndex<T>(
+  originalArray: T[] | readonly T[],
+  ...indexesToRemove: int[]
+): T[] {
+  const indexesToRemoveSet = new Set(indexesToRemove);
+
+  const array: T[] = [];
+  originalArray.forEach((element, i) => {
+    if (!indexesToRemoveSet.has(i)) {
+      array.push(element);
+    }
+  });
+
+  return array;
+}
+
+/**
+ * Removes the elements at the specified indexes from the array. If the specified indexes are not
+ * found in the array, this function will do nothing. Returns whether or not one or more elements
+ * were removed.
+ *
+ * This function is variadic, meaning that you can specify N arguments to remove N elements.
+ */
+export function arrayRemoveIndexInPlace<T>(
+  array: T[],
+  ...indexesToRemove: int[]
+): boolean {
+  const legalIndexes = indexesToRemove.filter(
+    (i) => i >= 0 && i < array.length,
+  );
+  legalIndexes.sort();
+
+  if (legalIndexes.length === 0) {
+    return false;
+  }
+
+  for (let i = array.length - 1; i >= 0; i--) {
+    array.splice(i, 1);
+  }
+
+  return true;
+}
+
 export function arrayToString<T>(array: T[]): string {
   if (array.length === 0) {
     return "[]";
