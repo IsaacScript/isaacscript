@@ -428,3 +428,13 @@ export const STAGE_TO_COMBINED_BOSS_SET_MAP: ReadonlyMap<
   [10, ALL_STAGE_10_BOSSES_SET],
   [11, ALL_STAGE_11_BOSSES_SET],
 ]);
+
+export const ALL_BOSSES_SET: ReadonlySet<string> = new Set([
+  ...ALL_BASEMENT_BOSSES_SET.values(),
+  ...ALL_CAVES_BOSSES_SET.values(),
+  ...ALL_DEPTHS_BOSSES_SET.values(),
+  ...ALL_WOMB_BOSSES_SET.values(),
+  ...BLUE_WOMB_BOSSES_SET.values(),
+  ...ALL_STAGE_10_BOSSES_SET.values(),
+  ...ALL_STAGE_11_BOSSES_SET.values(),
+]);

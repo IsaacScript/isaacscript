@@ -1,10 +1,12 @@
 import {
+  ALL_BOSSES_SET,
   STAGE_TO_COMBINED_BOSS_SET_MAP,
   STAGE_TO_STAGE_TYPE_TO_BOSS_SET_MAP,
 } from "../sets/bossSets";
 import { SIN_ENTITY_TYPES_SET } from "../sets/sinEntityTypesSet";
 import { getNPCs } from "./entitySpecific";
 import { getAliveNPCs } from "./npc";
+import { copySet } from "./set";
 
 /**
  * Helper function to get all of the non-dead bosses in the room.
@@ -28,10 +30,23 @@ export function getAliveBosses(
 }
 
 /**
+ * Helper function to get the set of every boss in the game.
+ *
+ * The set contains strings with the entity type and variant, separated by a period.
+ *
+ * Also see the `getBossSet` and `getCombinedBossSet` functions.
+ */
+export function getAllBossesSet(): Set<string> {
+  return copySet(ALL_BOSSES_SET);
+}
+
+/**
  * Helper function to get the set of vanilla bosses for a particular stage and stage type
  * combination.
  *
- * Also see the `getCombinedBossSet` function.
+ * The set contains strings with the entity type and variant, separated by a period.
+ *
+ * Also see the `getAllBossesSet` and `getCombinedBossSet` functions.
  */
 export function getBossSet(
   stage: int,
@@ -42,7 +57,12 @@ export function getBossSet(
     return undefined;
   }
 
-  return stageTypeMap.get(stageType);
+  const bossSet = stageTypeMap.get(stageType);
+  if (bossSet === undefined) {
+    return undefined;
+  }
+
+  return copySet(bossSet);
 }
 
 /** Helper function to get all of the bosses in the room. */
@@ -66,12 +86,17 @@ export function getBosses(
  * types. For example, specifying a stage of 2 will return a set with all of the bosses for
  * Basement, Cellar, Burning Basement, Downpour, and Dross.
  *
- * Also see the `getBossSet` function.
+ * The set contains strings with the entity type and variant, separated by a period.
+ *
+ * Also see the `getAllBossesSet` and `getBossSet` functions.
  */
-export function getCombinedBossSet(
-  stage: int,
-): ReadonlySet<string> | undefined {
-  return STAGE_TO_COMBINED_BOSS_SET_MAP.get(stage);
+export function getCombinedBossSet(stage: int): Set<string> | undefined {
+  const bossSet = STAGE_TO_COMBINED_BOSS_SET_MAP.get(stage);
+  if (bossSet === undefined) {
+    return undefined;
+  }
+
+  return copySet(bossSet);
 }
 
 /** Helper function to check if the provided NPC is a Sin miniboss, such as Sloth or Lust. */
