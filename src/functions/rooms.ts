@@ -1,5 +1,6 @@
 import { game, sfxManager } from "../cachedClasses";
 import { MAX_ROOM_INDEX, NUM_DIMENSIONS } from "../constants";
+import { DOUBLE_TROUBLE_ROOM_VARIANTS } from "../sets/doubleTroubleRoomVariants";
 import {
   closeAllDoors,
   getDoors,
@@ -24,6 +25,7 @@ import {
   getRoomShape,
   getRoomStageID,
   getRoomSubType,
+  getRoomVariant,
 } from "./roomData";
 import { getGridIndexDelta } from "./roomShape";
 
@@ -260,6 +262,17 @@ export function inDevilsCrownTreasureRoom(): boolean {
 
 export function inDimension(dimension: Dimension): boolean {
   return dimension === getCurrentDimension();
+}
+
+export function inDoubleTrouble(): boolean {
+  const room = game.GetRoom();
+  const roomType = room.GetType();
+  const roomVariant = getRoomVariant();
+
+  return (
+    roomType === RoomType.ROOM_BOSS &&
+    DOUBLE_TROUBLE_ROOM_VARIANTS.has(roomVariant)
+  );
 }
 
 export function inGenesisRoom(): boolean {
