@@ -147,6 +147,73 @@ export function isStoryBoss(entityType: EntityType | int): boolean {
 }
 
 /**
+ * Helper function to parse a string that contains an entity type, a variant, and a sub-type,
+ * separated by periods.
+ *
+ * For example, passing "45.0.1" would return an array of [45, 0, 1].
+ *
+ * Returns undefined if the string cannot be parsed.
+ */
+export function parseEntityID(
+  entityID: string,
+): [entityType: EntityType | int, variant: int, subType: int] | undefined {
+  const entityIDArray = entityID.split(".");
+  if (entityIDArray.length !== 3) {
+    return undefined;
+  }
+
+  const [entityTypeString, variantString, subTypeString] = entityIDArray;
+
+  const entityType = tonumber(entityTypeString);
+  if (entityType === undefined) {
+    return undefined;
+  }
+
+  const variant = tonumber(variantString);
+  if (variant === undefined) {
+    return undefined;
+  }
+
+  const subType = tonumber(subTypeString);
+  if (subType === undefined) {
+    return undefined;
+  }
+
+  return [entityType, variant, subType];
+}
+
+/**
+ * Helper function to parse a string that contains an entity type and a variant separated by a
+ * period.
+ *
+ * For example, passing "45.0" would return an array of [45, 0].
+ *
+ * Returns undefined if the string cannot be parsed.
+ */
+export function parseEntityTypeVariantString(
+  entityTypeVariantString: string,
+): [entityType: EntityType | int, variant: int] | undefined {
+  const entityTypeVariantArray = entityTypeVariantString.split(".");
+  if (entityTypeVariantArray.length !== 2) {
+    return undefined;
+  }
+
+  const [entityTypeString, variantString] = entityTypeVariantArray;
+
+  const entityType = tonumber(entityTypeString);
+  if (entityType === undefined) {
+    return undefined;
+  }
+
+  const variant = tonumber(variantString);
+  if (variant === undefined) {
+    return undefined;
+  }
+
+  return [entityType, variant];
+}
+
+/**
  * Helper function to remove all of the matching entities in the room.
  *
  * @param entityType The entity type to match.
