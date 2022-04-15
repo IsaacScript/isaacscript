@@ -62,6 +62,7 @@ export { getTaintedLazarusSubPlayer } from "./features/taintedLazarusPlayers";
 export * from "./functions/array";
 export * from "./functions/benchmark";
 export * from "./functions/bitwise";
+export * from "./functions/boss";
 export * from "./functions/cacheFlag";
 export * from "./functions/cards";
 export * from "./functions/challenges";
