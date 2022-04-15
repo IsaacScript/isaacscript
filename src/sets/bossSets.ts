@@ -4,7 +4,7 @@
 // determined through experimentation on v1.7.8a
 
 /** Contains just the bosses in Basement (not e.g. Burning Basement). */
-export const BASEMENT_BOSSES_SET: ReadonlySet<string> = new Set([
+const BASEMENT_BOSSES_SET: ReadonlySet<string> = new Set([
   `${EntityType.ENTITY_LARRYJR}.${LarryJrVariant.LARRY_JR}`, // 19.0
   `${EntityType.ENTITY_MONSTRO}.0`, // 20.0
   `${EntityType.ENTITY_FAMINE}.0`, // 63.0
@@ -22,7 +22,7 @@ export const BASEMENT_BOSSES_SET: ReadonlySet<string> = new Set([
 ]);
 
 /** Contains just the bosses in Cellar (not e.g. Burning Basement). */
-export const CELLAR_BOSSES_SET: ReadonlySet<string> = new Set([
+const CELLAR_BOSSES_SET: ReadonlySet<string> = new Set([
   `${EntityType.ENTITY_PIN}.${PinVariant.PIN}`, // 62.0
   `${EntityType.ENTITY_FAMINE}.0`, // 63.0
   `${EntityType.ENTITY_DUKE}.${DukeVariant.DUKE_OF_FLIES}`, // 67.0
@@ -37,7 +37,7 @@ export const CELLAR_BOSSES_SET: ReadonlySet<string> = new Set([
 ]);
 
 /** Contains just the bosses in Burning Basement (not e.g. Cellar). */
-export const BURNING_BASEMENT_BOSSES_SET: ReadonlySet<string> = new Set([
+const BURNING_BASEMENT_BOSSES_SET: ReadonlySet<string> = new Set([
   `${EntityType.ENTITY_LARRYJR}.${LarryJrVariant.LARRY_JR}`, // 19.0
   `${EntityType.ENTITY_MONSTRO}.0`, // 20.0
   `${EntityType.ENTITY_FAMINE}.0`, // 63.0
@@ -56,7 +56,7 @@ export const BURNING_BASEMENT_BOSSES_SET: ReadonlySet<string> = new Set([
 ]);
 
 /** Contains just the bosses in Downpour (not e.g. Burning Basement). */
-export const DOWNPOUR_BOSSES_SET: ReadonlySet<string> = new Set([
+const DOWNPOUR_BOSSES_SET: ReadonlySet<string> = new Set([
   `${EntityType.ENTITY_PIN}.${PinVariant.WORMWOOD}`, // 62.3
   `${EntityType.ENTITY_LIL_BLUB}.0`, // 901.0
   `${EntityType.ENTITY_RAINMAKER}.0`, // 902.0
@@ -64,7 +64,7 @@ export const DOWNPOUR_BOSSES_SET: ReadonlySet<string> = new Set([
 ]);
 
 /** Contains just the bosses in Dross (not e.g. Burning Basement). */
-export const DROSS_BOSSES_SET: ReadonlySet<string> = new Set([
+const DROSS_BOSSES_SET: ReadonlySet<string> = new Set([
   `${EntityType.ENTITY_PIN}.${PinVariant.WORMWOOD}`, // 62.3
   `${EntityType.ENTITY_LIL_BLUB}.0`, // 901.0
   `${EntityType.ENTITY_CLOG}.0`, // 914.0
@@ -73,7 +73,7 @@ export const DROSS_BOSSES_SET: ReadonlySet<string> = new Set([
 ]);
 
 /** The set of unique bosses for Basement, Cellar, and so on. */
-export const ALL_BASEMENT_BOSSES_SET: ReadonlySet<string> = new Set([
+const ALL_BASEMENT_BOSSES_SET: ReadonlySet<string> = new Set([
   ...BASEMENT_BOSSES_SET.values(),
   ...CELLAR_BOSSES_SET.values(),
   ...BURNING_BASEMENT_BOSSES_SET.values(),
@@ -81,7 +81,7 @@ export const ALL_BASEMENT_BOSSES_SET: ReadonlySet<string> = new Set([
   ...DROSS_BOSSES_SET.values(),
 ]);
 
-export const BASEMENT_STAGE_TYPE_TO_BOSS_SET_MAP: ReadonlyMap<
+const BASEMENT_STAGE_TYPE_TO_BOSS_SET_MAP: ReadonlyMap<
   StageType,
   ReadonlySet<string>
 > = new Map([
@@ -93,7 +93,7 @@ export const BASEMENT_STAGE_TYPE_TO_BOSS_SET_MAP: ReadonlyMap<
 ]);
 
 /** Contains just the bosses in Caves (not e.g. Flooded Caves). */
-export const CAVES_BOSSES_SET: ReadonlySet<string> = new Set([
+const CAVES_BOSSES_SET: ReadonlySet<string> = new Set([
   `${EntityType.ENTITY_CHUB}.${ChubVariant.CHUB}`, // 28.0
   `${EntityType.ENTITY_CHUB}.${ChubVariant.CHAD}`, // 28.1
   `${EntityType.ENTITY_GURDY}.0`, // 36.0
@@ -112,7 +112,7 @@ export const CAVES_BOSSES_SET: ReadonlySet<string> = new Set([
 ]);
 
 /** Contains just the bosses in Catacombs (not e.g. Flooded Caves). */
-export const CATACOMBS_BOSSES_SET: ReadonlySet<string> = new Set([
+const CATACOMBS_BOSSES_SET: ReadonlySet<string> = new Set([
   `${EntityType.ENTITY_LARRYJR}.${LarryJrVariant.THE_HOLLOW}`, // 19.1
   `${EntityType.ENTITY_CHUB}.${ChubVariant.CARRION_QUEEN}`, // 28.2
   `${EntityType.ENTITY_PIN}.${PinVariant.FRAIL}`, // 62.2
@@ -132,7 +132,7 @@ export const CATACOMBS_BOSSES_SET: ReadonlySet<string> = new Set([
 ]);
 
 /** Contains just the bosses in Flooded Caves (not e.g. Catacombs). */
-export const FLOODED_CAVES_BOSSES_SET: ReadonlySet<string> = new Set([
+const FLOODED_CAVES_BOSSES_SET: ReadonlySet<string> = new Set([
   `${EntityType.ENTITY_CHUB}.${ChubVariant.CHUB}`, // 28.0
   `${EntityType.ENTITY_CHUB}.${ChubVariant.CHAD}`, // 28.1
   `${EntityType.ENTITY_GURDY}.0`, // 36.0
@@ -153,7 +153,7 @@ export const FLOODED_CAVES_BOSSES_SET: ReadonlySet<string> = new Set([
 ]);
 
 /** Contains just the bosses in Mines (not e.g. Flooded Caves). */
-export const MINES_BOSSES_SET: ReadonlySet<string> = new Set([
+const MINES_BOSSES_SET: ReadonlySet<string> = new Set([
   `${EntityType.ENTITY_LARRYJR}.${LarryJrVariant.TUFF_TWIN}`, // 19.2
   `${EntityType.ENTITY_REAP_CREEP}.0`, // 900.0
   `${EntityType.ENTITY_HORNFEL}.0`, // 906.0
@@ -161,7 +161,7 @@ export const MINES_BOSSES_SET: ReadonlySet<string> = new Set([
 ]);
 
 /** Contains just the bosses in Ashpit (not e.g. Flooded Caves). */
-export const ASHPIT_BOSSES_SET: ReadonlySet<string> = new Set([
+const ASHPIT_BOSSES_SET: ReadonlySet<string> = new Set([
   `${EntityType.ENTITY_LARRYJR}.${LarryJrVariant.THE_SHELL}`, // 19.3
   `${EntityType.ENTITY_POLYCEPHALUS}.${PolycephalusVariant.THE_PILE}`, // 269.1
   `${EntityType.ENTITY_GIDEON}.0`, // 907.0
@@ -170,7 +170,7 @@ export const ASHPIT_BOSSES_SET: ReadonlySet<string> = new Set([
 ]);
 
 /** The set of unique bosses for Caves, Catacombs, and so on. */
-export const ALL_CAVES_BOSSES_SET: ReadonlySet<string> = new Set([
+const ALL_CAVES_BOSSES_SET: ReadonlySet<string> = new Set([
   ...CAVES_BOSSES_SET.values(),
   ...CATACOMBS_BOSSES_SET.values(),
   ...FLOODED_CAVES_BOSSES_SET.values(),
@@ -178,7 +178,7 @@ export const ALL_CAVES_BOSSES_SET: ReadonlySet<string> = new Set([
   ...ASHPIT_BOSSES_SET.values(),
 ]);
 
-export const CAVES_STAGE_TYPE_TO_BOSS_SET_MAP: ReadonlyMap<
+const CAVES_STAGE_TYPE_TO_BOSS_SET_MAP: ReadonlyMap<
   StageType,
   ReadonlySet<string>
 > = new Map([
@@ -190,7 +190,7 @@ export const CAVES_STAGE_TYPE_TO_BOSS_SET_MAP: ReadonlyMap<
 ]);
 
 /** Contains just the bosses in Depths (not e.g. Dank Depths). */
-export const DEPTHS_BOSSES_SET: ReadonlySet<string> = new Set([
+const DEPTHS_BOSSES_SET: ReadonlySet<string> = new Set([
   `${EntityType.ENTITY_MONSTRO2}.${Monstro2Variant.MONSTRO_2}`, // 43.0
   `${EntityType.ENTITY_MONSTRO2}.${Monstro2Variant.GISH}`, // 43.1
   `${EntityType.ENTITY_MOM}.${MomVariant.MOM}`, // 45.0
@@ -206,7 +206,7 @@ export const DEPTHS_BOSSES_SET: ReadonlySet<string> = new Set([
 ]);
 
 /** Contains just the bosses in Necropolis (not e.g. Dank Depths). */
-export const NECROPOLIS_BOSSES_SET: ReadonlySet<string> = new Set([
+const NECROPOLIS_BOSSES_SET: ReadonlySet<string> = new Set([
   `${EntityType.ENTITY_MOM}.${MomVariant.MOM}`, // 45.0
   `${EntityType.ENTITY_WAR}.${WarVariant.WAR}`, // 65.0
   `${EntityType.ENTITY_PEEP}.${PeepVariant.BLOAT}`, // 68.1
@@ -221,7 +221,7 @@ export const NECROPOLIS_BOSSES_SET: ReadonlySet<string> = new Set([
 ]);
 
 /** Contains just the bosses in Dank Depths (not e.g. Necropolis). */
-export const DANK_DEPTHS_BOSSES_SET: ReadonlySet<string> = new Set([
+const DANK_DEPTHS_BOSSES_SET: ReadonlySet<string> = new Set([
   `${EntityType.ENTITY_MONSTRO2}.${Monstro2Variant.MONSTRO_2}`, // 43.0
   `${EntityType.ENTITY_MONSTRO2}.${Monstro2Variant.GISH}`, // 43.1
   `${EntityType.ENTITY_MOM}.${MomVariant.MOM}`, // 45.0
@@ -237,21 +237,21 @@ export const DANK_DEPTHS_BOSSES_SET: ReadonlySet<string> = new Set([
 ]);
 
 /** Contains just the bosses in Mausoleum (not e.g. Dank Depths). */
-export const MAUSOLEUM_BOSSES_SET: ReadonlySet<string> = new Set([
+const MAUSOLEUM_BOSSES_SET: ReadonlySet<string> = new Set([
   `${EntityType.ENTITY_MOM}.${MomVariant.MOM}`, // 45.0
   `${EntityType.ENTITY_SIREN}.0`, // 904.0
   `${EntityType.ENTITY_HERETIC}.0`, // 905.0
 ]);
 
 /** Contains just the bosses in Gehenna (not e.g. Dank Depths). */
-export const GEHENNA_BOSSES_SET: ReadonlySet<string> = new Set([
+const GEHENNA_BOSSES_SET: ReadonlySet<string> = new Set([
   `${EntityType.ENTITY_MOM}.${MomVariant.MOM}`, // 45.0
   `${EntityType.ENTITY_VISAGE}.0`, // 903.0
   `${EntityType.ENTITY_HORNY_BOYS}.0`, // 920.0
 ]);
 
 /** The set of unique bosses for Depths, Necropolis, and so on. */
-export const ALL_DEPTHS_BOSSES_SET: ReadonlySet<string> = new Set([
+const ALL_DEPTHS_BOSSES_SET: ReadonlySet<string> = new Set([
   ...DEPTHS_BOSSES_SET.values(),
   ...NECROPOLIS_BOSSES_SET.values(),
   ...DANK_DEPTHS_BOSSES_SET.values(),
@@ -259,7 +259,7 @@ export const ALL_DEPTHS_BOSSES_SET: ReadonlySet<string> = new Set([
   ...GEHENNA_BOSSES_SET.values(),
 ]);
 
-export const DEPTHS_STAGE_TYPE_TO_BOSS_SET_MAP: ReadonlyMap<
+const DEPTHS_STAGE_TYPE_TO_BOSS_SET_MAP: ReadonlyMap<
   StageType,
   ReadonlySet<string>
 > = new Map([
@@ -271,7 +271,7 @@ export const DEPTHS_STAGE_TYPE_TO_BOSS_SET_MAP: ReadonlyMap<
 ]);
 
 /** Contains just the bosses in Womb (not e.g. Scarred Womb). */
-export const WOMB_BOSSES_SET: ReadonlySet<string> = new Set([
+const WOMB_BOSSES_SET: ReadonlySet<string> = new Set([
   `${EntityType.ENTITY_PIN}.${PinVariant.SCOLEX}`, // 62.1
   `${EntityType.ENTITY_WAR}.${WarVariant.CONQUEST}`, // 65.1
   `${EntityType.ENTITY_DEATH}.0`, // 66.0
@@ -287,7 +287,7 @@ export const WOMB_BOSSES_SET: ReadonlySet<string> = new Set([
 ]);
 
 /** Contains just the bosses in Utero (not e.g. Scarred Womb). */
-export const UTERO_BOSSES_SET: ReadonlySet<string> = new Set([
+const UTERO_BOSSES_SET: ReadonlySet<string> = new Set([
   `${EntityType.ENTITY_WAR}.${WarVariant.CONQUEST}`, // 65.1
   `${EntityType.ENTITY_DEATH}.0`, // 66.0
   `${EntityType.ENTITY_DADDYLONGLEGS}.${DaddyLongLegsVariant.DADDY_LONG_LEGS}`, // 101.0
@@ -302,7 +302,7 @@ export const UTERO_BOSSES_SET: ReadonlySet<string> = new Set([
 ]);
 
 /** Contains just the bosses in Scarred Womb (not e.g. Utero). */
-export const SCARRED_WOMB_BOSSES_SET: ReadonlySet<string> = new Set([
+const SCARRED_WOMB_BOSSES_SET: ReadonlySet<string> = new Set([
   `${EntityType.ENTITY_PIN}.${PinVariant.SCOLEX}`, // 62.1
   `${EntityType.ENTITY_WAR}.${WarVariant.CONQUEST}`, // 65.1
   `${EntityType.ENTITY_DEATH}.0`, // 66.0
@@ -319,7 +319,7 @@ export const SCARRED_WOMB_BOSSES_SET: ReadonlySet<string> = new Set([
 ]);
 
 /** Contains just the bosses in Corpse (not e.g. Scarred Womb). */
-export const CORPSE_BOSSES_SET: ReadonlySet<string> = new Set([
+const CORPSE_BOSSES_SET: ReadonlySet<string> = new Set([
   `${EntityType.ENTITY_SCOURGE}.0`, // 909.0
   `${EntityType.ENTITY_CHIMERA}.0`, // 910.0
   `${EntityType.ENTITY_ROTGUT}.0`, // 911.0
@@ -327,7 +327,7 @@ export const CORPSE_BOSSES_SET: ReadonlySet<string> = new Set([
 ]);
 
 /** The set of unique bosses for Depths, Necropolis, and so on. */
-export const ALL_WOMB_BOSSES_SET: ReadonlySet<string> = new Set([
+const ALL_WOMB_BOSSES_SET: ReadonlySet<string> = new Set([
   ...WOMB_BOSSES_SET.values(),
   ...UTERO_BOSSES_SET.values(),
   ...SCARRED_WOMB_BOSSES_SET.values(),
@@ -335,7 +335,7 @@ export const ALL_WOMB_BOSSES_SET: ReadonlySet<string> = new Set([
   ...GEHENNA_BOSSES_SET.values(),
 ]);
 
-export const WOMB_STAGE_TYPE_TO_BOSS_SET_MAP: ReadonlyMap<
+const WOMB_STAGE_TYPE_TO_BOSS_SET_MAP: ReadonlyMap<
   StageType,
   ReadonlySet<string>
 > = new Map([
@@ -345,28 +345,28 @@ export const WOMB_STAGE_TYPE_TO_BOSS_SET_MAP: ReadonlyMap<
   [StageType.STAGETYPE_REPENTANCE, CORPSE_BOSSES_SET],
 ]);
 
-export const BLUE_WOMB_BOSSES_SET: ReadonlySet<string> = new Set([
+const BLUE_WOMB_BOSSES_SET: ReadonlySet<string> = new Set([
   `${EntityType.ENTITY_HUSH}.0`, // 407.0
 ]);
 
-export const BLUE_WOMB_STAGE_TYPE_TO_BOSS_SET_MAP: ReadonlyMap<
+const BLUE_WOMB_STAGE_TYPE_TO_BOSS_SET_MAP: ReadonlyMap<
   StageType,
   ReadonlySet<string>
 > = new Map([[StageType.STAGETYPE_ORIGINAL, BLUE_WOMB_BOSSES_SET]]);
 
-export const SHEOL_BOSSES_SET: ReadonlySet<string> = new Set([
+const SHEOL_BOSSES_SET: ReadonlySet<string> = new Set([
   `${EntityType.ENTITY_SATAN}.${SatanVariant.SATAN}`, // 84.0
 ]);
-export const CATHEDRAL_BOSSES_SET: ReadonlySet<string> = new Set([
+const CATHEDRAL_BOSSES_SET: ReadonlySet<string> = new Set([
   `${EntityType.ENTITY_ISAAC}.${IsaacVariant.ISAAC}`, // 102.0
 ]);
 
-export const ALL_STAGE_10_BOSSES_SET: ReadonlySet<string> = new Set([
+const ALL_STAGE_10_BOSSES_SET: ReadonlySet<string> = new Set([
   ...SHEOL_BOSSES_SET.values(),
   ...CATHEDRAL_BOSSES_SET.values(),
 ]);
 
-export const STAGE_10_STAGE_TYPE_TO_BOSS_SET_MAP: ReadonlyMap<
+const STAGE_10_STAGE_TYPE_TO_BOSS_SET_MAP: ReadonlyMap<
   StageType,
   ReadonlySet<string>
 > = new Map([
@@ -374,20 +374,20 @@ export const STAGE_10_STAGE_TYPE_TO_BOSS_SET_MAP: ReadonlyMap<
   [StageType.STAGETYPE_WOTL, CATHEDRAL_BOSSES_SET],
 ]);
 
-export const DARK_ROOM_BOSSES_SET: ReadonlySet<string> = new Set([
+const DARK_ROOM_BOSSES_SET: ReadonlySet<string> = new Set([
   `${EntityType.ENTITY_THE_LAMB}.${LambVariant.LAMB}`, // 273.0
 ]);
 
-export const CHEST_BOSSES_SET: ReadonlySet<string> = new Set([
+const CHEST_BOSSES_SET: ReadonlySet<string> = new Set([
   `${EntityType.ENTITY_ISAAC}.${IsaacVariant.BLUE_BABY}`, // 102.1
 ]);
 
-export const ALL_STAGE_11_BOSSES_SET: ReadonlySet<string> = new Set([
+const ALL_STAGE_11_BOSSES_SET: ReadonlySet<string> = new Set([
   ...DARK_ROOM_BOSSES_SET.values(),
   ...CHEST_BOSSES_SET.values(),
 ]);
 
-export const STAGE_11_STAGE_TYPE_TO_BOSS_SET_MAP: ReadonlyMap<
+const STAGE_11_STAGE_TYPE_TO_BOSS_SET_MAP: ReadonlyMap<
   StageType,
   ReadonlySet<string>
 > = new Map([
@@ -410,4 +410,21 @@ export const STAGE_TO_STAGE_TYPE_TO_BOSS_SET_MAP: ReadonlyMap<
   [9, BLUE_WOMB_STAGE_TYPE_TO_BOSS_SET_MAP],
   [10, STAGE_10_STAGE_TYPE_TO_BOSS_SET_MAP],
   [11, STAGE_11_STAGE_TYPE_TO_BOSS_SET_MAP],
+]);
+
+export const STAGE_TO_COMBINED_BOSS_SET_MAP: ReadonlyMap<
+  int,
+  ReadonlySet<string>
+> = new Map([
+  [1, ALL_BASEMENT_BOSSES_SET],
+  [2, ALL_BASEMENT_BOSSES_SET],
+  [3, ALL_CAVES_BOSSES_SET],
+  [4, ALL_CAVES_BOSSES_SET],
+  [5, ALL_DEPTHS_BOSSES_SET],
+  [6, ALL_DEPTHS_BOSSES_SET],
+  [7, ALL_WOMB_BOSSES_SET],
+  [8, ALL_WOMB_BOSSES_SET],
+  [9, BLUE_WOMB_BOSSES_SET],
+  [10, ALL_STAGE_10_BOSSES_SET],
+  [11, ALL_STAGE_11_BOSSES_SET],
 ]);
