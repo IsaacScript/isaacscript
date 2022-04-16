@@ -1,6 +1,5 @@
 import { game, sfxManager } from "../cachedClasses";
 import { MAX_ROOM_INDEX, NUM_DIMENSIONS } from "../constants";
-import { DOUBLE_TROUBLE_ROOM_VARIANTS } from "../sets/doubleTroubleRoomVariants";
 import {
   closeAllDoors,
   getDoors,
@@ -22,10 +21,10 @@ import {
   getRoomData,
   getRoomDescriptor,
   getRoomGridIndex,
+  getRoomName,
   getRoomShape,
   getRoomStageID,
   getRoomSubType,
-  getRoomVariant,
 } from "./roomData";
 import { getGridIndexDelta } from "./roomShape";
 
@@ -267,12 +266,9 @@ export function inDimension(dimension: Dimension): boolean {
 export function inDoubleTrouble(): boolean {
   const room = game.GetRoom();
   const roomType = room.GetType();
-  const roomVariant = getRoomVariant();
+  const roomName = getRoomName();
 
-  return (
-    roomType === RoomType.ROOM_BOSS &&
-    DOUBLE_TROUBLE_ROOM_VARIANTS.has(roomVariant)
-  );
+  return roomType === RoomType.ROOM_BOSS && roomName.includes("Double Trouble");
 }
 
 export function inGenesisRoom(): boolean {
