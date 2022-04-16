@@ -78,9 +78,11 @@ async function handleCommands(argv: Record<string, unknown>, verbose: boolean) {
     validateInIsaacScriptProject(verbose);
     config = await configFile.get(argv);
 
-    // Run "npm install" again to ensure that all of the dependencies are up to date
     // https://stackoverflow.com/questions/57016579/checking-if-package-json-dependencies-match-the-installed-dependencies
-    execShell("npm", ["install"]);
+    console.log(
+      'Running "npm install" to ensure that the project\'s dependencies are installed correctly.',
+    );
+    execShell("npm", ["install"], verbose);
   }
 
   switch (command) {
