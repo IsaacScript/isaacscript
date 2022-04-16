@@ -14,6 +14,7 @@ import { monitor } from "./commands/monitor/monitor";
 import { publish } from "./commands/publish/publish";
 import * as configFile from "./configFile";
 import { CWD, PROJECT_NAME } from "./constants";
+import { execShell } from "./exec";
 import { parseArgs } from "./parseArgs";
 import { promptInit } from "./prompt";
 import { Command, DEFAULT_COMMAND } from "./types/Command";
@@ -76,6 +77,10 @@ async function handleCommands(argv: Record<string, unknown>, verbose: boolean) {
   if (command !== "init") {
     validateInIsaacScriptProject(verbose);
     config = await configFile.get(argv);
+
+    // Run "npm install" again to ensure that all of the dependencies are up to date
+    // https://stackoverflow.com/questions/57016579/checking-if-package-json-dependencies-match-the-installed-dependencies
+    execShell("npm", ["install"]);
   }
 
   switch (command) {
