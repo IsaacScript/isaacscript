@@ -36,7 +36,13 @@ declare interface EntityTear extends Entity {
   HomingFriction: float;
   KnockbackMultiplier: float;
   ParentOffset: Vector;
+
+  /**
+   * Unlike other read-only `Vector` in the API, this is read-only in both the property and the
+   * attributes.
+   */
   readonly PosDisplacement: Readonly<Vector>;
+
   Rotation: float;
   Scale: float;
   StickDiff: Vector;

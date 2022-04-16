@@ -1189,5 +1189,5 @@ declare interface EntityPlayer extends Entity {
    */
   TearRange: float;
 
-  readonly TearsOffset: Readonly<Vector>;
+  TearsOffset: Readonly<Vector>;
 }

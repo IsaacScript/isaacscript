@@ -266,6 +266,6 @@ declare interface Game {
   BossRushParTime: int;
   Challenge: Challenge | int;
   readonly Difficulty: Difficulty;
-  readonly ScreenShakeOffset: Readonly<Vector>;
+  ScreenShakeOffset: Readonly<Vector>;
   TimeCounter: int;
 }

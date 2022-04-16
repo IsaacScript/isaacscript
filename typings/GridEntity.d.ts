@@ -35,7 +35,12 @@ declare interface GridEntity {
    */
   Desc: never; // GridEntityDesc;
 
+  /**
+   * The attributes of this property are technically not read-only, but changing them seems to have
+   * no effect. (Printing out the values after changing them reports that they were not changed.)
+   */
   readonly Position: Readonly<Vector>;
+
   State: int;
   VarData: int;
 }

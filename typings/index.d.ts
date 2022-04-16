@@ -140,7 +140,6 @@
 /// <reference path="unofficial/EntitySubPlayer.d.ts" />
 /// <reference path="unofficial/PtrHash.d.ts" />
 /// <reference path="unofficial/ReadonlyRoomDescriptor.d.ts" />
-/// <reference path="unofficial/ReadonlyVector.d.ts" />
 /// <reference path="unofficial/Seed.d.ts" />
 /// <reference path="unofficial/Userdata.d.ts" />
 
