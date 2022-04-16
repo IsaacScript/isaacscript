@@ -136,7 +136,7 @@ declare interface Entity {
   SpriteScale: Vector;
   SubType: int;
   Target: Entity | undefined;
-  readonly TargetPosition: Readonly<Vector>;
+  TargetPosition: Readonly<Vector>;
   readonly Type: EntityType | int;
   Variant: int;
   Velocity: Vector;
