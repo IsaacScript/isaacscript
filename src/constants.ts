@@ -151,10 +151,10 @@ export const UI_HEART_WIDTH = 12;
  * This is a safer version of the `Vector.One` constant. (Other mods can mutate this vector, so it
  * is not safe to use.)
  */
-export const VectorOne: ReadonlyVector = Vector(1, 1);
+export const VectorOne: Readonly<Vector> = Vector(1, 1);
 
 /**
  * This is a safer version of the `Vector.Zero` constant. (Other mods can mutate this vector, so it
  * is not safe to use.)
  */
-export const VectorZero: ReadonlyVector = Vector(0, 0);
+export const VectorZero: Readonly<Vector> = Vector(0, 0);
