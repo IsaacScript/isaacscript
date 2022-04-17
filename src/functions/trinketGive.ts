@@ -18,15 +18,15 @@ export function giveTrinketsBack(
     return;
   }
 
-  const trinket1 = player.GetTrinket(TrinketSlot.SLOT_1);
-  const trinket2 = player.GetTrinket(TrinketSlot.SLOT_2);
+  const trinketType1 = player.GetTrinket(TrinketSlot.SLOT_1);
+  const trinketType2 = player.GetTrinket(TrinketSlot.SLOT_2);
 
   // Remove any existing trinkets
-  if (trinket1 !== TrinketType.TRINKET_NULL) {
-    player.TryRemoveTrinket(trinket1);
+  if (trinketType1 !== TrinketType.TRINKET_NULL) {
+    player.TryRemoveTrinket(trinketType1);
   }
-  if (trinket2 !== TrinketType.TRINKET_NULL) {
-    player.TryRemoveTrinket(trinket2);
+  if (trinketType2 !== TrinketType.TRINKET_NULL) {
+    player.TryRemoveTrinket(trinketType2);
   }
 
   // First, add the smelted trinkets back
@@ -36,11 +36,11 @@ export function giveTrinketsBack(
   });
 
   // Second, add back the stored trinkets
-  if (trinketSituation.trinket1 !== TrinketType.TRINKET_NULL) {
-    player.AddTrinket(trinketSituation.trinket1, false);
+  if (trinketSituation.trinketType1 !== TrinketType.TRINKET_NULL) {
+    player.AddTrinket(trinketSituation.trinketType1, false);
   }
-  if (trinketSituation.trinket2 !== TrinketType.TRINKET_NULL) {
-    player.AddTrinket(trinketSituation.trinket2, false);
+  if (trinketSituation.trinketType2 !== TrinketType.TRINKET_NULL) {
+    player.AddTrinket(trinketSituation.trinketType2, false);
   }
 }
 
@@ -62,8 +62,8 @@ export function temporarilyRemoveTrinket(
     return undefined;
   }
 
-  const trinket1 = player.GetTrinket(TrinketSlot.SLOT_1);
-  const trinket2 = player.GetTrinket(TrinketSlot.SLOT_2);
+  const trinketType1 = player.GetTrinket(TrinketSlot.SLOT_1);
+  const trinketType2 = player.GetTrinket(TrinketSlot.SLOT_2);
 
   let numTrinkets = 0;
   while (player.HasTrinket(trinketType)) {
@@ -73,20 +73,22 @@ export function temporarilyRemoveTrinket(
 
   let numSmeltedTrinkets = numTrinkets;
   const trinketWasInSlot1 =
-    trinket1 === trinketType || trinket1 + TRINKET_GOLDEN_FLAG === trinketType;
+    trinketType1 === trinketType ||
+    trinketType1 + TRINKET_GOLDEN_FLAG === trinketType;
   if (trinketWasInSlot1) {
     numSmeltedTrinkets -= 1;
   }
   const trinketWasInSlot2 =
-    trinket2 === trinketType || trinket2 + TRINKET_GOLDEN_FLAG === trinketType;
+    trinketType2 === trinketType ||
+    trinketType2 + TRINKET_GOLDEN_FLAG === trinketType;
   if (trinketWasInSlot2) {
     numSmeltedTrinkets -= 1;
   }
 
   return {
     trinketTypeRemoved: trinketType,
-    trinket1,
-    trinket2,
+    trinketType1,
+    trinketType2,
     numSmeltedTrinkets,
   };
 }
@@ -101,28 +103,28 @@ export function temporarilyRemoveTrinket(
 export function temporarilyRemoveTrinkets(
   player: EntityPlayer,
 ): TrinketSituation | undefined {
-  const trinket1 = player.GetTrinket(TrinketSlot.SLOT_1);
-  const trinket2 = player.GetTrinket(TrinketSlot.SLOT_2);
+  const trinketType1 = player.GetTrinket(TrinketSlot.SLOT_1);
+  const trinketType2 = player.GetTrinket(TrinketSlot.SLOT_2);
 
   if (
-    trinket1 === TrinketType.TRINKET_NULL &&
-    trinket2 === TrinketType.TRINKET_NULL
+    trinketType1 === TrinketType.TRINKET_NULL &&
+    trinketType2 === TrinketType.TRINKET_NULL
   ) {
     return undefined;
   }
 
-  if (trinket1 !== TrinketType.TRINKET_NULL) {
-    player.TryRemoveTrinket(trinket1);
+  if (trinketType1 !== TrinketType.TRINKET_NULL) {
+    player.TryRemoveTrinket(trinketType1);
   }
 
-  if (trinket2 !== TrinketType.TRINKET_NULL) {
-    player.TryRemoveTrinket(trinket2);
+  if (trinketType2 !== TrinketType.TRINKET_NULL) {
+    player.TryRemoveTrinket(trinketType2);
   }
 
   return {
     trinketTypeRemoved: TrinketType.TRINKET_NULL,
-    trinket1,
-    trinket2,
+    trinketType1,
+    trinketType2,
     numSmeltedTrinkets: 0,
   };
 }
