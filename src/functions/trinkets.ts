@@ -36,19 +36,19 @@ export function getMaxTrinketType(): int {
  */
 export function getOpenTrinketSlot(player: EntityPlayer): int | undefined {
   const maxTrinkets = player.GetMaxTrinkets();
-  const trinket0 = player.GetTrinket(TrinketSlot.SLOT_1);
-  const trinket1 = player.GetTrinket(TrinketSlot.SLOT_2);
+  const trinketType1 = player.GetTrinket(TrinketSlot.SLOT_1);
+  const trinketType2 = player.GetTrinket(TrinketSlot.SLOT_2);
 
   if (maxTrinkets === 1) {
-    return trinket0 === TrinketType.TRINKET_NULL ? 0 : undefined;
+    return trinketType1 === TrinketType.TRINKET_NULL ? 0 : undefined;
   }
 
   if (maxTrinkets === 2) {
-    if (trinket0 === TrinketType.TRINKET_NULL) {
+    if (trinketType1 === TrinketType.TRINKET_NULL) {
       return 0;
     }
 
-    return trinket1 === TrinketType.TRINKET_NULL ? 1 : undefined;
+    return trinketType2 === TrinketType.TRINKET_NULL ? 1 : undefined;
   }
 
   return error(
