@@ -14,6 +14,7 @@ import { repeat } from "./utils";
 const BOSSES_THAT_REQUIRE_MULTIPLE_SPAWNS: ReadonlySet<EntityType> = new Set([
   EntityType.ENTITY_LARRYJR, // 19 (and The Hollow / Tuff Twins / The Shell)
   EntityType.ENTITY_CHUB, // 28 (and C.H.A.D. / The Carrion Queen)
+  EntityType.ENTITY_LOKI, // 69 (only for Lokii)
   EntityType.ENTITY_GURGLING, // 237 (and Turdling)
   EntityType.ENTITY_TURDLET, // 918
 ]);
@@ -122,9 +123,9 @@ export function isSin(npc: EntityNPC): boolean {
  * Use this function instead of `spawnNPC` since it handles automatically spawning multiple segments
  * for multi-segment bosses.
  *
- * By default, this will spawn Chub (and his variants) with 3 segments, Gurglings/Turdlings with 2
- * segments, and other multi-segment bosses with 4 segments. You can customize this via the
- * "numSegments" argument.
+ * By default, this will spawn Chub (and his variants) with 3 segments, Lokii with 2 copies,
+ * Gurglings/Turdlings with 2 copies, and other multi-segment bosses with 4 segments. You can
+ * customize this via the "numSegments" argument.
  */
 export function spawnBoss<T extends number>(
   entityType: T extends EntityTypeNonNPC ? never : T,
@@ -147,7 +148,11 @@ export function spawnBoss<T extends number>(
   );
 
   if (BOSSES_THAT_REQUIRE_MULTIPLE_SPAWNS.has(entityType)) {
-    const numBossSegments = getNumBossSegments(entityType, numSegments);
+    const numBossSegments = getNumBossSegments(
+      entityType,
+      variant,
+      numSegments,
+    );
     const remainingSegmentsToSpawn = numBossSegments - 1;
     repeat(remainingSegmentsToSpawn, () => {
       spawnNPC(entityType, variant, subType, position, velocity, spawner, seed);
@@ -159,6 +164,7 @@ export function spawnBoss<T extends number>(
 
 function getNumBossSegments(
   entityType: EntityType | int,
+  variant: int,
   numSegments: int | undefined,
 ) {
   if (numSegments !== undefined) {
@@ -170,6 +176,11 @@ function getNumBossSegments(
     case EntityType.ENTITY_CHUB: {
       // Chub is always composed of 3 segments
       return 3;
+    }
+
+    // 69
+    case EntityType.ENTITY_LOKI: {
+      return variant === LokiVariant.LOKII ? 2 : 1;
     }
 
     // 237
