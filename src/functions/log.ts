@@ -113,15 +113,13 @@ export function logEntities(
   includeBackgroundEffects: boolean,
   entityTypeFilter?: EntityType | int,
 ): void {
-  let headerMsg = "Entities in the room";
+  let msg = "Entities in the room";
   if (entityTypeFilter !== undefined) {
-    headerMsg += ` (filtered to entity type ${entityTypeFilter})`;
+    msg += ` (filtered to entity type ${entityTypeFilter})`;
+  } else if (!includeBackgroundEffects) {
+    msg += " (not including background effects)";
   }
-  if (!includeBackgroundEffects) {
-    headerMsg += " (not excluding background effects)";
-  }
-  headerMsg += ":";
-  log(headerMsg);
+  msg += ":\n";
 
   const entities = getEntities();
   let numMatchedEntities = 0;
@@ -140,74 +138,83 @@ export function logEntities(
     }
 
     const entityID = getEntityID(entity);
-    let debugString = `${i + 1} - ${entityID}`;
+    msg += `${i + 1}) ${entityID}`;
 
     const bomb = entity.ToBomb();
     if (bomb !== undefined) {
-      debugString += " (bomb)";
+      msg += " (bomb)";
     }
 
     const effect = entity.ToEffect();
     if (effect !== undefined) {
-      debugString += ` (effect) (State: ${effect.State})`;
+      msg += ` (effect) (State: ${effect.State})`;
     }
 
     const familiar = entity.ToFamiliar();
     if (familiar !== undefined) {
-      debugString += ` (familiar) (State: ${familiar.State})`;
+      msg += ` (familiar) (State: ${familiar.State})`;
     }
 
     const knife = entity.ToKnife();
     if (knife !== undefined) {
-      debugString += " (knife)";
+      msg += " (knife)";
     }
 
     const laser = entity.ToLaser();
     if (laser !== undefined) {
-      debugString += " (laser)";
+      msg += " (laser)";
     }
 
     const npc = entity.ToNPC();
     if (npc !== undefined) {
-      debugString += ` (NPC) (State: ${npc.State}) (CanShutDoors: ${npc.CanShutDoors})`;
+      msg += ` (NPC) (State: ${npc.State})`;
     }
 
     const pickup = entity.ToPickup();
     if (pickup !== undefined) {
-      debugString += ` (pickup) (State: ${pickup.State})`;
+      msg += ` (pickup) (State: ${pickup.State})`;
     }
 
     const player = entity.ToPlayer();
     if (player !== undefined) {
-      debugString += " (player)";
+      msg += " (player)";
     }
 
     const projectile = entity.ToProjectile();
     if (projectile !== undefined) {
-      debugString += " (projectile)";
+      msg += " (projectile)";
     }
 
     const tear = entity.ToTear();
     if (tear !== undefined) {
-      debugString += " (tear)";
+      msg += " (tear)";
     }
 
-    debugString += ` (Index: ${entity.Index})`;
-    debugString += ` (InitSeed: ${entity.InitSeed})`;
-    debugString += ` (DropSeed: ${entity.DropSeed})`;
-    debugString += ` (Position: ${entity.Position.X}, ${entity.Position.Y})`;
-    debugString += ` (Velocity: ${entity.Velocity.X}, ${entity.Velocity.Y})`;
-    debugString += ` (HP: ${entity.HitPoints} / ${entity.MaxHitPoints})`;
-    log(debugString);
+    msg += "\n";
+    msg += `  - Index: ${entity.Index}\n`;
+    msg += `  - InitSeed: ${entity.InitSeed}\n`;
+    msg += `  - DropSeed: ${entity.DropSeed}\n`;
+    msg += `  - Position: (${entity.Position.X}, ${entity.Position.Y})\n`;
+    msg += `  - Velocity: (${entity.Velocity.X}, ${entity.Velocity.Y})\n`;
+    msg += `  - HP: ${entity.HitPoints} / ${entity.MaxHitPoints}\n`;
+    msg += `  - Parent: ${entity.Parent}\n`;
+    msg += `  - Child: ${entity.Child}\n`;
+    msg += `  - SpawnerEntity: ${entity.SpawnerEntity}\n`;
+    msg += `  - SpawnerType / SpawnerVariant: ${entity.SpawnerType}.${entity.SpawnerVariant}\n`;
+    if (npc !== undefined) {
+      msg += `  - CanShutDoors: ${npc.CanShutDoors}\n`;
+    }
 
     numMatchedEntities += 1;
   });
 
   if (numMatchedEntities === 0) {
-    log("(no entities matched)");
+    msg += "(no entities matched)\n";
   } else {
-    log(`(${numMatchedEntities} total entities)`);
+    msg += `(${numMatchedEntities} total entities)\n`;
   }
+
+  log(msg);
 }
 
 /** Helper function for printing out every entity flag that is turned on. Useful when debugging. */
@@ -297,14 +304,13 @@ export function logGridEntities(
   includeWalls: boolean,
   gridEntityTypeFilter?: GridEntityType | int,
 ): void {
-  let headerMsg = "Grid entities in the room";
+  let msg = "Grid entities in the room";
   if (gridEntityTypeFilter !== undefined) {
-    headerMsg += ` (filtered to grid entity type ${gridEntityTypeFilter})`;
+    msg += ` (filtered to grid entity type ${gridEntityTypeFilter})`;
+  } else if (!includeWalls) {
+    msg += " (not including walls)";
   }
-  if (!includeWalls) {
-    headerMsg += " (not including walls)";
-  }
-  log(headerMsg);
+  msg += ":\n";
 
   const gridEntities = getGridEntities();
   let numMatchedEntities = 0;
@@ -330,56 +336,64 @@ export function logGridEntities(
       return;
     }
 
-    let debugString = `${gridEntityIndex} - ${gridEntityType}.${gridEntityVariant}.${gridEntity.State}`;
+    msg += `${gridEntityIndex}) ${gridEntityType}.${gridEntityVariant}.${gridEntity.State}`;
 
     const door = gridEntity.ToDoor();
     if (door !== undefined) {
-      debugString += ` (door) (Slot: ${door.Slot}, Direction: ${door.Direction}, TargetRoomIndex: ${door.TargetRoomIndex}, TargetRoomType: ${door.TargetRoomType})`;
+      msg += " (door)";
     }
 
     const pit = gridEntity.ToPit();
     if (pit !== undefined) {
-      debugString += " (pit)";
+      msg += " (pit)";
     }
 
     const poop = gridEntity.ToPoop();
     if (poop !== undefined) {
-      debugString += " (poop)";
+      msg += " (poop)";
     }
 
     const pressurePlate = gridEntity.ToPressurePlate();
     if (pressurePlate !== undefined) {
-      debugString += " (pressurePlate)";
+      msg += " (pressurePlate)";
     }
 
     const rock = gridEntity.ToRock();
     if (rock !== undefined) {
-      debugString += " (rock)";
+      msg += " (rock)";
     }
 
     const spikes = gridEntity.ToSpikes();
     if (spikes !== undefined) {
-      debugString += " (spikes)";
+      msg += " (spikes)";
     }
 
     const tnt = gridEntity.ToTNT();
     if (tnt !== undefined) {
-      debugString += " (TNT)";
+      msg += " (TNT)";
     }
 
-    debugString += ` (VarData: ${gridEntity.VarData})`;
-    debugString += ` (Position: ${gridEntity.Position.X}, ${gridEntity.Position.Y})`;
-    debugString += ` (SpawnSeed: ${gridEntityDesc.SpawnSeed}, VariableSeed: ${gridEntityDesc.VariableSeed})`;
-    log(debugString);
+    msg += `  - VarData: ${gridEntity.VarData}\n`;
+    msg += `  - Position: (${gridEntity.Position.X}, ${gridEntity.Position.Y})\n`;
+    msg += `  - SpawnSeed: ${gridEntityDesc.SpawnSeed}\n`;
+    msg += `  - VariableSeed: ${gridEntityDesc.VariableSeed})\n`;
+    if (door !== undefined) {
+      msg += `  - Slot: ${door.Slot}\n`;
+      msg += `  - Direction: ${door.Direction}\n`;
+      msg += `  - TargetRoomIndex: ${door.TargetRoomIndex}\n`;
+      msg += `  - TargetRoomType: ${door.TargetRoomType}\n`;
+    }
 
     numMatchedEntities += 1;
   });
 
   if (numMatchedEntities === 0) {
-    log("(no grid entities matched)");
+    msg += "(no grid entities matched)\n";
   } else {
-    log(`(${numMatchedEntities} total grid entities)`);
+    msg += `(${numMatchedEntities} total grid entities)\n`;
   }
+
+  log(msg);
 }
 
 export function logKColor(this: void, kColor: KColor): void {
