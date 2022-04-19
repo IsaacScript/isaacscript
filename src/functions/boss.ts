@@ -14,8 +14,11 @@ import { repeat } from "./utils";
 const BOSSES_THAT_REQUIRE_MULTIPLE_SPAWNS: ReadonlySet<EntityType> = new Set([
   EntityType.ENTITY_LARRYJR, // 19 (and The Hollow / Tuff Twins / The Shell)
   EntityType.ENTITY_CHUB, // 28 (and C.H.A.D. / The Carrion Queen)
+  EntityType.ENTITY_GURGLING, // 237 (and Turdling)
   EntityType.ENTITY_TURDLET, // 918
 ]);
+
+const DEFAULT_BOSS_MULTI_SEGMENTS = 4;
 
 /**
  * Helper function to get all of the non-dead bosses in the room.
@@ -119,8 +122,9 @@ export function isSin(npc: EntityNPC): boolean {
  * Use this function instead of `spawnNPC` since it handles automatically spawning multiple segments
  * for multi-segment bosses.
  *
- * By default, this will spawn Chub (and his variants) with 3 segments and other multi-segment
- * bosses with 4 segments. You can customize this via the "numSegments" argument.
+ * By default, this will spawn Chub (and his variants) with 3 segments, Gurglings/Turdlings with 2
+ * segments, and other multi-segment bosses with 4 segments. You can customize this via the
+ * "numSegments" argument.
  */
 export function spawnBoss<T extends number>(
   entityType: T extends EntityTypeNonNPC ? never : T,
@@ -143,17 +147,41 @@ export function spawnBoss<T extends number>(
   );
 
   if (BOSSES_THAT_REQUIRE_MULTIPLE_SPAWNS.has(entityType)) {
-    // Chub is always composed of 3 segments
-    const numSegmentsDefined = numSegments === undefined ? 4 : numSegments;
-    const numSegmentsToUse =
-      entityType === EntityType.ENTITY_CHUB ? 3 : numSegmentsDefined;
-    const remainingSegmentsToSpawn = numSegmentsToUse - 1;
+    const numBossSegments = getNumBossSegments(entityType, numSegments);
+    const remainingSegmentsToSpawn = numBossSegments - 1;
     repeat(remainingSegmentsToSpawn, () => {
       spawnNPC(entityType, variant, subType, position, velocity, spawner, seed);
     });
   }
 
   return npc;
+}
+
+function getNumBossSegments(
+  entityType: EntityType | int,
+  numSegments: int | undefined,
+) {
+  if (numSegments !== undefined) {
+    return numSegments;
+  }
+
+  switch (entityType) {
+    // 28
+    case EntityType.ENTITY_CHUB: {
+      // Chub is always composed of 3 segments
+      return 3;
+    }
+
+    // 237
+    case EntityType.ENTITY_GURGLING: {
+      // Gurglings & Turdlings are always encountered in groups of 2
+      return 2;
+    }
+
+    default: {
+      return DEFAULT_BOSS_MULTI_SEGMENTS;
+    }
+  }
 }
 
 /**
