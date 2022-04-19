@@ -2,6 +2,7 @@ import { game } from "../cachedClasses";
 import { MAX_NUM_DOORS } from "../constants";
 import { DOOR_SLOT_TO_DIRECTION } from "../objects/doorSlotToDirection";
 import { ROOM_SHAPE_TO_DOOR_SLOTS } from "../objects/roomShapeToDoorSlots";
+import { getEnumValues } from "./utils";
 
 export function closeAllDoors(): void {
   for (const door of getDoors()) {
@@ -95,6 +96,16 @@ export function getDoorsToRoomIndex(...roomGridIndex: int[]): GridEntityDoor[] {
 export function getRepentanceDoor(): GridEntityDoor | undefined {
   const doors = getDoors();
   return doors.find((door) => isRepentanceDoor(door));
+}
+
+/** Helper function to find unused door slots in the room that can be used to make custom doors. */
+export function getUnusedDoorSlots(): DoorSlot[] {
+  const room = game.GetRoom();
+  const doorSlots = getEnumValues(DoorSlot);
+  return doorSlots.filter(
+    (doorSlot) =>
+      room.IsDoorSlotAllowed(doorSlot) && room.GetDoor(doorSlot) === undefined,
+  );
 }
 
 export function isAngelRoomDoor(door: GridEntityDoor): boolean {
