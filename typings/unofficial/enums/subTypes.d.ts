@@ -18,6 +18,7 @@ declare const enum BloodClotSubType {
   GOLD = 4,
   BONE = 5,
   ROTTEN = 6,
+
   /** Spawned by the Blood Clot trinket; cannot be turned into health by Sumptorium. */
   RED_NO_SUMPTORIUM = 7,
 }
