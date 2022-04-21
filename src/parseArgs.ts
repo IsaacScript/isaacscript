@@ -66,6 +66,11 @@ export function parseArgs(): Record<string, unknown> {
             description:
               'Don\'t automatically run "npm install" after initializing the project',
           })
+          .option("force-name", {
+            alias: "f",
+            type: "boolean",
+            description: "Allow project names that are normally illegal",
+          })
           .option("verbose", {
             alias: "v",
             type: "boolean",

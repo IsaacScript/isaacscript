@@ -21,6 +21,7 @@ export async function getProjectPath(
   argv: Record<string, unknown>,
   useCurrentDir: boolean,
   yes: boolean,
+  forceName: boolean,
 ): Promise<[string, boolean]> {
   let projectName = getProjectNameFromCommandLineArgument(argv);
   let projectPath: string;
@@ -46,7 +47,7 @@ export async function getProjectPath(
     [projectName, projectPath, createNewDir] = await getNewProjectName();
   }
 
-  validateProjectName(projectName);
+  validateProjectName(projectName, forceName);
 
   console.log(`Using a project name of: ${chalk.green(projectName)}`);
   return [projectPath, createNewDir];
@@ -78,7 +79,7 @@ async function getNewProjectName(): Promise<[string, string, boolean]> {
   return [projectName, projectPath, true];
 }
 
-function validateProjectName(projectName: string) {
+function validateProjectName(projectName: string, forceName: boolean) {
   if (projectName === "") {
     error("Error: You cannot have a blank project name.");
   }
@@ -93,6 +94,10 @@ function validateProjectName(projectName: string) {
     }
   }
 
+  if (forceName) {
+    return;
+  }
+
   if (hasWhiteSpace(projectName)) {
     error(
       'Error: The project name has whitespace in it, which is not allowed. Use kebab-case for your project name. (e.g. "green-candle")',
@@ -101,7 +106,7 @@ function validateProjectName(projectName: string) {
 
   if (!isKebabCase(projectName)) {
     error(
-      "Error: The project name is not in kebab-case. (Kebab-case is the style of using all lowercase letters, with words separated by hyphens.) Project names must use kebab-case to match GitHub repository standards.",
+      'Error: The project name is not in kebab-case. (Kebab-case is the style of using all lowercase letters, with words separated by hyphens.) Project names must use kebab-case to match GitHub repository standards. If necessary, you can override this check with the "--force-name" flag.',
     );
   }
 }

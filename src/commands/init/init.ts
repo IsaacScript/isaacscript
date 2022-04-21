@@ -19,12 +19,14 @@ export async function init(argv: Record<string, unknown>): Promise<void> {
   const verbose = argv.verbose === true;
   const vscode = argv.vscode === true;
   const yes = argv.yes === true;
+  const forceName = argv.forceName === true;
 
   // Prompt the end-user for some information (and validate it as we go)
   const [projectPath, createNewDir] = await getProjectPath(
     argv,
     useCurrentDir,
     yes,
+    forceName,
   );
   await checkIfProjectPathExists(projectPath, yes, verbose);
   const modsDirectory = await getModsDir(argv, verbose);
