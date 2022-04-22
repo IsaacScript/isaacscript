@@ -7,6 +7,10 @@ declare const enum DipFamiliarSubType {
   RAINBOW = 4,
   BLACK = 5,
   WHITE = 6,
+  STONE = 12,
+  FLAMING = 13,
+  STINKY = 14,
+  BROWNIE = 20,
 }
 
 /** For EntityType.ENTITY_FAMILIAR (3), FamiliarVariant.BLOOD_BABY (238) */
