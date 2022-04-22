@@ -134,7 +134,8 @@ export function getRoomItemPoolType(): ItemPoolType {
 
 /**
  * Helper function to get the room descriptor for every room on the level. Uses the `Level.GetRooms`
- * method to accomplish this.
+ * method to accomplish this. Rooms without data are assumed to be non-existent and are not added to
+ * the list.
  *
  * @param includeExtraDimensionalRooms Optional. On some floors (e.g. Downpour 2, Mines 2),
  * extra-dimensional rooms are automatically be generated and can be seen when you iterate over the
@@ -151,14 +152,14 @@ export function getRooms(
   if (includeExtraDimensionalRooms) {
     for (let i = 0; i < roomList.Size; i++) {
       const roomDescriptor = roomList.Get(i);
-      if (roomDescriptor !== undefined) {
+      if (roomDescriptor !== undefined && roomDescriptor.Data !== undefined) {
         rooms.push(roomDescriptor);
       }
     }
   } else {
     for (let i = 0; i <= MAX_ROOM_INDEX; i++) {
       const roomDescriptor = level.GetRoomByIdx(i);
-      if (roomDescriptor !== undefined) {
+      if (roomDescriptor.Data !== undefined) {
         rooms.push(roomDescriptor);
       }
     }
@@ -169,7 +170,8 @@ export function getRooms(
 
 /**
  * Helper function to get the room descriptor for every room on the level in a specific dimension.
- * Uses the `Level.GetRooms` method to accomplish this.
+ * Uses the `Level.GetRooms` method to accomplish this. Rooms without data are assumed to be
+ * non-existent and are not added to the list.
  */
 export function getRoomsOfDimension(dimension: Dimension): RoomDescriptor[] {
   const level = game.GetLevel();
@@ -177,7 +179,7 @@ export function getRoomsOfDimension(dimension: Dimension): RoomDescriptor[] {
   const rooms: RoomDescriptor[] = [];
   for (let i = 0; i <= MAX_ROOM_INDEX; i++) {
     const roomDescriptor = level.GetRoomByIdx(i, dimension);
-    if (roomDescriptor !== undefined) {
+    if (roomDescriptor.Data !== undefined) {
       rooms.push(roomDescriptor);
     }
   }
