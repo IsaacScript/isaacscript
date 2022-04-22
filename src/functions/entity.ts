@@ -11,9 +11,9 @@ import { repeat } from "./utils";
  * `Isaac.CountEntities` method to avoid having to specify a spawner and to handle ignoring charmed
  * enemies.
  *
- * @param entityType Default is -1.
- * @param variant Default is -1.
- * @param subType Default is -1.
+ * @param entityType Default is -1. -1 matches every entity type.
+ * @param variant Default is -1. -1 matches every variant.
+ * @param subType Default is -1. -1 matches every sub-type.
  * @param ignoreFriendly Default is false.
  */
 export function countEntities(
@@ -84,8 +84,10 @@ export function getClosestEntityTo<T extends AnyEntity>(
  *
  * @param entityType Optional. If specified, will only return NPCs that match this entity
  * type.
- * @param variant Optional. If specified, will only return NPCs that match this variant.
- * @param subType Optional. If specified, will only return NPCs that match this sub-type.
+ * @param variant Optional. If specified, will only return NPCs that match this variant. Default is
+ * -1. -1 matches every variant.
+ * @param subType Optional. If specified, will only return NPCs that match this sub-type. Default is
+ * -1. -1 matches every sub-type.
  * @param ignoreFriendly Optional. If set to true, it will exclude friendly NPCs from being
  * returned. Default is false. Will only be taken into account if `matchingEntityType` is specified.
  */
@@ -217,10 +219,8 @@ export function parseEntityTypeVariantString(
  * Helper function to remove all of the matching entities in the room.
  *
  * @param entityType The entity type to match.
- * @param entityVariant Optional. The variant to match. Default is -1 (which will match every
- * variant).
- * @param entitySubType Optional. The sub-type to match. Default is -1 (which will match every
- * sub-type).
+ * @param entityVariant Optional. The variant to match. Default is -1. -1 matches every variant.
+ * @param entitySubType Optional. The sub-type to match. Default is -1. -1 matches every sub-type.
  * @param cap Optional. If specified, will only remove the given amount of collectibles.
  * @returns True if one or more entities were removed, false otherwise.
  */

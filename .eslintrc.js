@@ -3,7 +3,7 @@
 module.exports = {
   extends: [
     // The linter base is the shared IsaacScript config
-    // https://github.com/IsaacScript/eslint-config-isaacscript/blob/main/base.js
+    // https://github.com/IsaacScript/eslint-config-isaacscript/blob/main/mod.js
     "eslint-config-isaacscript/mod",
   ],
 

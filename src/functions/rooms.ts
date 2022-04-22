@@ -168,6 +168,24 @@ export function getRooms(
 }
 
 /**
+ * Helper function to get the room descriptor for every room on the level in a specific dimension.
+ * Uses the `Level.GetRooms` method to accomplish this.
+ */
+export function getRoomsOfDimension(dimension: Dimension): RoomDescriptor[] {
+  const level = game.GetLevel();
+
+  const rooms: RoomDescriptor[] = [];
+  for (let i = 0; i <= MAX_ROOM_INDEX; i++) {
+    const roomDescriptor = level.GetRoomByIdx(i, dimension);
+    if (roomDescriptor !== undefined) {
+      rooms.push(roomDescriptor);
+    }
+  }
+
+  return rooms;
+}
+
+/**
  * Helper function to determine if the current room shape is equal to `RoomShape.ROOMSHAPE_1x2` or
  * `RoomShape.ROOMSHAPE_2x1`.
  */
