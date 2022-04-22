@@ -309,7 +309,7 @@ declare interface EntityPlayer extends Entity {
    * characters like Jacob and Esau. This does not work correctly when changing from/to certain
    * characters (i.e. Tainted Isaac).
    */
-  ChangePlayerType(type: PlayerType): void;
+  ChangePlayerType(type: PlayerType | int): void;
 
   /**
    * Spawns the appropriate amount of familiars associated with a custom collectible.

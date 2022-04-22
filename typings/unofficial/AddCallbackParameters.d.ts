@@ -23,7 +23,7 @@ declare interface AddCallbackParameters {
   ];
   [ModCallbacks.MC_POST_PEFFECT_UPDATE]: [
     callback: (player: EntityPlayer) => void,
-    playerType?: PlayerType,
+    playerType?: PlayerType | int,
   ];
   [ModCallbacks.MC_USE_CARD]: [
     callback: (card: Card | int, player: EntityPlayer, useFlags: int) => void,

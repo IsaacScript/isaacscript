@@ -3,7 +3,7 @@ declare const Encyclopedia: EncyclopediaInterface | undefined;
 declare interface EncyclopediaInterface {
   AddCharacter(args: {
     CompletionTrackerFuncs: [() => EncyclopediaItemVars[]];
-    ID: PlayerType;
+    ID: PlayerType | int;
     ModName: string;
     Name: string;
   }): void;
@@ -11,7 +11,7 @@ declare interface EncyclopediaInterface {
   AddCharacterTainted(args: {
     CompletionTrackerFuncs: [() => EncyclopediaItemVars[]];
     Description: string;
-    ID: PlayerType;
+    ID: PlayerType | int;
     ModName: string;
     Name: string;
     UnlockFunc: (args: EncyclopediaItemVars) => EncyclopediaItemVars;
