@@ -147,44 +147,45 @@ export function getRooms(
   const level = game.GetLevel();
   const roomList = level.GetRooms();
 
-  const rooms: RoomDescriptor[] = [];
-
+  const roomsMap = new Map<int, RoomDescriptor>();
   if (includeExtraDimensionalRooms) {
     for (let i = 0; i < roomList.Size; i++) {
       const roomDescriptor = roomList.Get(i);
       if (roomDescriptor !== undefined && roomDescriptor.Data !== undefined) {
-        rooms.push(roomDescriptor);
+        roomsMap.set(roomDescriptor.ListIndex, roomDescriptor);
       }
     }
   } else {
     for (let i = 0; i <= MAX_ROOM_INDEX; i++) {
       const roomDescriptor = level.GetRoomByIdx(i);
       if (roomDescriptor.Data !== undefined) {
-        rooms.push(roomDescriptor);
+        roomsMap.set(roomDescriptor.ListIndex, roomDescriptor);
       }
     }
   }
 
-  return rooms;
+  return [...roomsMap.values()];
 }
 
 /**
  * Helper function to get the room descriptor for every room on the level in a specific dimension.
  * Uses the `Level.GetRooms` method to accomplish this. Rooms without data are assumed to be
  * non-existent and are not added to the list.
+ *
+ * @returns A map of room ListIndex to RoomDescriptor.
  */
 export function getRoomsOfDimension(dimension: Dimension): RoomDescriptor[] {
   const level = game.GetLevel();
 
-  const rooms: RoomDescriptor[] = [];
+  const roomsMap = new Map<int, RoomDescriptor>();
   for (let i = 0; i <= MAX_ROOM_INDEX; i++) {
     const roomDescriptor = level.GetRoomByIdx(i, dimension);
     if (roomDescriptor.Data !== undefined) {
-      rooms.push(roomDescriptor);
+      roomsMap.set(roomDescriptor.ListIndex, roomDescriptor);
     }
   }
 
-  return rooms;
+  return [...roomsMap.values()];
 }
 
 /**
