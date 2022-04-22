@@ -60,7 +60,7 @@ export function exists(filePath: string, verbose: boolean): boolean {
   try {
     pathExists = fs.existsSync(filePath);
   } catch (err) {
-    error(`Failed to check to see if "${chalk.green(filePath)}" exists:`, err);
+    error(`Failed to check if "${chalk.green(filePath)}" exists:`, err);
   }
 
   if (verbose) {

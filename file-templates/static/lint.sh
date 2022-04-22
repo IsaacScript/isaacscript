@@ -33,6 +33,6 @@ fi
 # Step 5 - Check for unused imports
 # The "--error" flag makes it return an error code of 1 if unused exports are found
 # (this starts out disabled by default, but you can uncomment the following line to find dead code)
-# npx ts-prune -error
+# npx ts-prune --error
 
 echo "Successfully linted in $SECONDS seconds."
