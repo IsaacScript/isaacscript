@@ -489,7 +489,7 @@ Fires from the `MC_POST_FAMILIAR_UPDATE` callback when a familiar's state has ch
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `FamiliarVariant` provided.
 
 ```ts
-function postFamiliarStateChanged(slot: Entity): void {}
+function postFamiliarStateChanged(familiar: EntityFamiliar, previousState: int, currentState: int): void {}
 ```
 
 ### MC_POST_PICKUP_STATE_CHANGED
@@ -499,7 +499,7 @@ Fires from the `MC_POST_PICKUP_UPDATE` callback when a pickup's state has change
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `PickupVariant` provided.
 
 ```ts
-function postPickupStateChanged(slot: Entity): void {}
+function postPickupStateChanged(pickup: EntityPickup, previousState: int, currentState: int): void {}
 ```
 
 ### MC_POST_EFFECT_STATE_CHANGED
@@ -509,7 +509,7 @@ Fires from the `MC_POST_EFFECT_UPDATE` callback when an effect's state has chang
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `EffectVariant` provided.
 
 ```ts
-function postEffectStateChanged(slot: Entity): void {}
+function postEffectStateChanged(effect: EntityEffect, previousState: int, currentState: int): void {}
 ```
 
 ### MC_POST_NPC_STATE_CHANGED
@@ -519,7 +519,7 @@ Fires from the `MC_POST_NPC_UPDATE` callback when an NPC's state has changed fro
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `EntityType` provided.
 
 ```ts
-function postNPCStateChanged(slot: Entity): void {}
+function postNPCStateChanged(npc: EntityNPC, previousState: int, currentState: int): void {}
 ```
 
 ### MC_POST_GRID_ENTITY_INIT
