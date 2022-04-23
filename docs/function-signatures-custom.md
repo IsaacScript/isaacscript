@@ -482,6 +482,46 @@ When registering the callback, takes an optional second argument that will make 
 function postSlotDestroyed(slot: Entity): void {}
 ```
 
+### MC_POST_FAMILIAR_STATE_CHANGED
+
+Fires from the `MC_POST_FAMILIAR_UPDATE` callback when a familiar's state has changed from what it was on the previous frame.
+
+When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `FamiliarVariant` provided.
+
+```ts
+function postFamiliarStateChanged(slot: Entity): void {}
+```
+
+### MC_POST_PICKUP_STATE_CHANGED
+
+Fires from the `MC_POST_PICKUP_UPDATE` callback when a pickup's state has changed from what it was on the previous frame.
+
+When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `PickupVariant` provided.
+
+```ts
+function postPickupStateChanged(slot: Entity): void {}
+```
+
+### MC_POST_EFFECT_STATE_CHANGED
+
+Fires from the `MC_POST_EFFECT_UPDATE` callback when an effect's state has changed from what it was on the previous frame.
+
+When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `EffectVariant` provided.
+
+```ts
+function postEffectStateChanged(slot: Entity): void {}
+```
+
+### MC_POST_NPC_STATE_CHANGED
+
+Fires from the `MC_POST_NPC_UPDATE` callback when an NPC's state has changed from what it was on the previous frame.
+
+When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `EntityType` provided.
+
+```ts
+function postNPCStateChanged(slot: Entity): void {}
+```
+
 ### MC_POST_GRID_ENTITY_INIT
 
 Fires when a new grid entity is initialized. Specifically, this is either:
