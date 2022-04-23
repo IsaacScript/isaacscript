@@ -14,7 +14,7 @@ const characterHealthReplacementMap = new Map<
 >();
 
 /** @internal */
-export function characterStatsInit(mod: Mod): void {
+export function characterHealthConversionInit(mod: Mod): void {
   mod.AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, postPEffectUpdate); // 4
   mod.AddCallback(
     ModCallbacks.MC_PRE_PICKUP_COLLISION,
