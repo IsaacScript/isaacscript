@@ -26,7 +26,7 @@ npx cspell --no-progress --no-summary "mod/metadata.xml"
 
 # Step 4 - Use xmllint to lint XML files
 # (and skip this step if xmllint is not currently installed for whatever reason)
-if ! command -v xmllint &> /dev/null; then
+if command -v xmllint &> /dev/null; then
   find "$DIR/mod" -name "*.xml" -print0 | xargs -0 xmllint --noout
 fi
 
