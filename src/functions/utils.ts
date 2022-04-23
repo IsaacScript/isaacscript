@@ -219,6 +219,9 @@ export function repeat(n: int, func: (i: int) => void): void {
   }
 }
 
+/** Helper function to prevent early returns from being deleted by ESLint. */
+export function todo(): void {}
+
 /**
  * Helper function to check every value of a custom enum for -1. This is helpful as a run-time check
  * because many methods of the Isaac class return -1 if they fail.
