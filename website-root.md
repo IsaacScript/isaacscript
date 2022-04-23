@@ -28,7 +28,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Character Functions](modules/functions_character.html)
 - [Charge Functions](modules/functions_charge.html)
 - [Charge Bar Functions](modules/functions_chargeBar.html)
-- [Collectible Functions](modules/functions_collectibles.html) & [Spawn Collectible Functions](modules/functions_spawnCollectible.html) & [Collectible Set Functions](modules/functions_collectibleSet.html) & [Collectible Cache Flag Functions](modules/functions_collectibleCacheFlag.html)
+- [Collectible Functions](modules/functions_collectibles.html) & [Spawn Collectible Functions](modules/functions_spawnCollectible.html) & [Collectible Cache Flag Functions](modules/functions_collectibleCacheFlag.html) & [Collectible Set Functions](modules/functions_collectibleSet.html) & [Collectible Tag Functions](modules/functions_collectibleTag.html)
 - [Color Functions](modules/functions_color.html)
 - [Debug Functions](modules/functions_debug.html)
 - [Deep Copy Functions](modules/functions_deepCopy.html)

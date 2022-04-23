@@ -1,11 +1,13 @@
-import { DefaultMap } from "../classes/DefaultMap";
+import { ItemConfigTag } from "../enums/ItemConfigTag";
 import {
   DEFAULT_TRANSFORMATION_NAME,
   TRANSFORMATION_NAMES,
 } from "../objects/transformationNames";
-import { collectibleHasTag, getMaxCollectibleType } from "./collectibles";
+import { getCollectibleTags } from "./collectibles";
+import { getCollectibleTypesWithTag } from "./collectibleTag";
+import { hasFlag } from "./flag";
 import { range } from "./math";
-import { copySet } from "./set";
+import { getPlayerCollectibleCount } from "./player";
 
 const TRANSFORMATION_TO_TAG_MAP: ReadonlyMap<PlayerForm, ItemConfigTag> =
   new Map([
@@ -20,14 +22,11 @@ const TRANSFORMATION_TO_TAG_MAP: ReadonlyMap<PlayerForm, ItemConfigTag> =
     [PlayerForm.PLAYERFORM_EVIL_ANGEL, ItemConfigTag.DEVIL], // 8
     [PlayerForm.PLAYERFORM_POOP, ItemConfigTag.POOP], // 9
     [PlayerForm.PLAYERFORM_BOOK_WORM, ItemConfigTag.BOOK], // 10
+    // PlayerForm.PLAYERFORM_ADULTHOOD (11) is based on pill usage
     [PlayerForm.PLAYERFORM_SPIDERBABY, ItemConfigTag.SPIDER], // 12
+    // PlayerForm.PLAYERFORM_STOMPY (13) is based on size
+    // PlayerForm.PLAYERFORM_FLIGHT (14) is an unused enum
   ]);
-
-const TRANSFORMATIONS_NOT_BASED_ON_ITEMS: ReadonlySet<PlayerForm> = new Set([
-  PlayerForm.PLAYERFORM_ADULTHOOD, // 11 (based on pill usage)
-  PlayerForm.PLAYERFORM_STOMPY, // 13 (based on size)
-  PlayerForm.PLAYERFORM_FLIGHT, // 14 (unused enum)
-]);
 
 const TRANSFORMATIONS_THAT_GRANT_FLYING: ReadonlySet<PlayerForm> = new Set([
   PlayerForm.PLAYERFORM_GUPPY, // 0
@@ -36,94 +35,36 @@ const TRANSFORMATIONS_THAT_GRANT_FLYING: ReadonlySet<PlayerForm> = new Set([
   PlayerForm.PLAYERFORM_EVIL_ANGEL, // 8
 ]);
 
-const TRANSFORMATION_TO_COLLECTIBLE_TYPES_MAP = new Map<
-  PlayerForm,
-  Set<CollectibleType | int>
->();
-
-const COLLECTIBLE_TYPE_TO_TRANSFORMATION_MAP = new DefaultMap<
-  CollectibleType | int,
-  Set<PlayerForm>
->(() => new Set());
-
-function initTransformationMaps() {
-  const maxCollectibleType = getMaxCollectibleType();
-
-  // The transformation to items map should be valid for every transformation based on items,
-  // so we initialize it with empty sets
-  for (const playerForm of TRANSFORMATION_TO_TAG_MAP.keys()) {
-    TRANSFORMATION_TO_COLLECTIBLE_TYPES_MAP.set(playerForm, new Set());
-  }
-
-  for (const collectibleType of range(1, maxCollectibleType)) {
-    for (const [playerForm, tag] of TRANSFORMATION_TO_TAG_MAP.entries()) {
-      if (!collectibleHasTag(collectibleType, tag)) {
-        continue;
-      }
-
-      // Update the first map
-      const collectibleTypesSet =
-        TRANSFORMATION_TO_COLLECTIBLE_TYPES_MAP.get(playerForm);
-      if (collectibleTypesSet === undefined) {
-        error(
-          `Failed to get the collectible types for transformation: ${playerForm}`,
-        );
-      }
-      collectibleTypesSet.add(collectibleType);
-
-      // Update the second map
-      const transformations =
-        COLLECTIBLE_TYPE_TO_TRANSFORMATION_MAP.getAndSetDefault(
-          collectibleType,
-        );
-      transformations.add(playerForm);
-    }
-  }
-}
-
+/**
+ * Helper function to get all of the collectible types in the game that count towards a particular
+ * transformation.
+ *
+ * For example, to get all of the collectible types that count towards Guppy:
+ *
+ * ```ts
+ * const guppyCollectibleTypes = getCollectibleTypesForTransformation(PlayerForm.PLAYERFORM_GUPPY);
+ * ```
+ */
 export function getCollectibleTypesForTransformation(
   playerForm: PlayerForm,
-): Set<PlayerForm> {
-  // Lazy initialize the map
-  if (TRANSFORMATION_TO_COLLECTIBLE_TYPES_MAP.size === 0) {
-    initTransformationMaps();
+): Set<CollectibleType | int> {
+  const itemConfigTag = TRANSFORMATION_TO_TAG_MAP.get(playerForm);
+  if (itemConfigTag === undefined) {
+    error(
+      `Failed to get the collectible types for the transformation of ${playerForm} because that transformation is not based on collectibles.`,
+    );
   }
 
-  const collectibleTypes =
-    TRANSFORMATION_TO_COLLECTIBLE_TYPES_MAP.get(playerForm);
-  return collectibleTypes === undefined ? new Set() : copySet(collectibleTypes);
+  return getCollectibleTypesWithTag(itemConfigTag);
 }
 
 /** Returns the number of items that a player has towards a particular transformation. */
-export function getPlayerNumTransformationCollectibles(
+export function getPlayerNumCollectiblesForTransformation(
   player: EntityPlayer,
   playerForm: PlayerForm,
 ): int {
-  if (TRANSFORMATIONS_NOT_BASED_ON_ITEMS.has(playerForm)) {
-    error(
-      `The transformation of ${playerForm} cannot be tracked by this function.`,
-    );
-  }
-
-  // Lazy initialize the map
-  if (TRANSFORMATION_TO_COLLECTIBLE_TYPES_MAP.size === 0) {
-    initTransformationMaps();
-  }
-
-  const itemsForTransformation =
-    TRANSFORMATION_TO_COLLECTIBLE_TYPES_MAP.get(playerForm);
-  if (itemsForTransformation === undefined) {
-    error(
-      `The transformation of ${playerForm} is not a valid value of the PlayerForm enum.`,
-    );
-  }
-
-  let numCollectibles = 0;
-  for (const collectibleType of itemsForTransformation.values()) {
-    numCollectibles += player.GetCollectibleNum(collectibleType);
-  }
-
-  return numCollectibles;
+  const collectibleTypes = getCollectibleTypesForTransformation(playerForm);
+  return getPlayerCollectibleCount(player, ...collectibleTypes.values());
 }
 
 /**
@@ -145,14 +86,21 @@ export function getTransformationName(playerForm: PlayerForm): string {
 export function getTransformationsForCollectibleType(
   collectibleType: CollectibleType | int,
 ): Set<PlayerForm> {
-  // Lazy initialize the map
-  if (COLLECTIBLE_TYPE_TO_TRANSFORMATION_MAP.size === 0) {
-    initTransformationMaps();
+  const itemConfigTags = getCollectibleTags(collectibleType);
+
+  const transformationSet = new Set<PlayerForm>();
+  for (const playerForm of range(0, PlayerForm.NUM_PLAYER_FORMS - 1)) {
+    const itemConfigTag = TRANSFORMATION_TO_TAG_MAP.get(playerForm);
+    if (itemConfigTag === undefined) {
+      continue;
+    }
+
+    if (hasFlag(itemConfigTags, itemConfigTag)) {
+      transformationSet.add(playerForm);
+    }
   }
 
-  const transformations =
-    COLLECTIBLE_TYPE_TO_TRANSFORMATION_MAP.get(collectibleType);
-  return transformations === undefined ? new Set() : copySet(transformations);
+  return transformationSet;
 }
 
 export function hasFlyingTransformation(player: EntityPlayer): boolean {

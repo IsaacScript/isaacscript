@@ -315,6 +315,24 @@ export function getPlayerCloserThan(
 }
 
 /**
+ * Helper function to return the total amount of collectibles that a player has that match the
+ * collectible type(s) provided.
+ *
+ * This function is variadic, meaning that you can specify N collectible types.
+ */
+export function getPlayerCollectibleCount(
+  player: EntityPlayer,
+  ...collectibleTypes: Array<CollectibleType | int>
+): int {
+  let numCollectibles = 0;
+  for (const collectibleType of collectibleTypes) {
+    numCollectibles += player.GetCollectibleNum(collectibleType, true);
+  }
+
+  return numCollectibles;
+}
+
+/**
  * Iterates over every item in the game and returns a map containing the number of each item that
  * the player has.
  */

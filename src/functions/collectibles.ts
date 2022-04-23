@@ -49,18 +49,6 @@ export function collectibleHasCacheFlag(
   return hasFlag(itemConfigItem.CacheFlags, cacheFlag);
 }
 
-export function collectibleHasTag(
-  collectibleType: CollectibleType | int,
-  tag: ItemConfigTag,
-): boolean {
-  const itemConfigItem = itemConfig.GetCollectible(collectibleType);
-  if (itemConfigItem === undefined) {
-    return false;
-  }
-
-  return itemConfigItem.HasTags(tag);
-}
-
 /** Helper function to check if two collectible sprites have the same sprite sheet loaded. */
 export function collectibleSpriteEquals(
   sprite1: Sprite,
@@ -324,6 +312,23 @@ export function getCollectibleQuality(
 }
 
 /**
+ * Helper function to get the tags of a collectible (which is the composition of zero or more
+ * `ItemConfigTag`). Returns 0 if the provided collectible type is not valid.
+ *
+ * Example:
+ * ```ts
+ * const collectibleType = CollectibleType.COLLECTIBLE_SAD_ONION;
+ * const itemConfigTags = getCollectibleTags(collectibleType); // itemConfigTags is "18350080"
+ * ```
+ */
+export function getCollectibleTags(
+  collectibleType: CollectibleType | int,
+): int {
+  const itemConfigItem = itemConfig.GetCollectible(collectibleType);
+  return itemConfigItem === undefined ? 0 : itemConfigItem.Tags;
+}
+
+/**
  * Helper function to get the final collectible type in the game.
  *
  * This cannot be reliably determined before run-time due to mods adding a variable amount of new
@@ -380,12 +385,6 @@ export function isPassiveCollectible(
   return (
     itemType === ItemType.ITEM_PASSIVE || itemType === ItemType.ITEM_FAMILIAR
   );
-}
-
-export function isQuestCollectible(
-  collectibleType: CollectibleType | int,
-): boolean {
-  return collectibleHasTag(collectibleType, ItemConfigTag.QUEST);
 }
 
 /**
