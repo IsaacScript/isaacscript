@@ -1,5 +1,12 @@
 declare interface ItemConfigItem {
-  HasTags(tags: ItemConfigTag): boolean;
+  /**
+   * Used to check if a collectible or trinket has an item tag, such as "offensive" or
+   * "monstermanual". These tags can be found in the "items_metadata.xml" file.
+   *
+   * @param tags The composition of one or more `ItemConfigTag`.
+   */
+  HasTags(tags: int): boolean;
+
   IsCollectible(): boolean;
   IsNull(): boolean;
   IsTrinket(): boolean;

@@ -176,7 +176,6 @@
 /// <reference path="unofficial/enums/GridPath.d.ts" />
 /// <reference path="unofficial/enums/ItemConfigCardType.d.ts" />
 /// <reference path="unofficial/enums/ItemConfigChargeType.d.ts" />
-/// <reference path="unofficial/enums/ItemConfigTag.d.ts" />
 /// <reference path="unofficial/enums/LanguageAbbreviation.d.ts" />
 /// <reference path="unofficial/enums/LineCheckMode.d.ts" />
 /// <reference path="unofficial/enums/PlayerItemAnimation.d.ts" />
