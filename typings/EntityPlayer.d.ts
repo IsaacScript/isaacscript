@@ -563,7 +563,7 @@ declare interface EntityPlayer extends Entity {
    */
   GetCollectibleNum(
     collectibleType: CollectibleType | int,
-    ignoreModifiers?: boolean,
+    onlyCountTrueItems?: boolean,
   ): int;
 
   GetCollectibleRNG(collectibleType: CollectibleType | int): RNG;
