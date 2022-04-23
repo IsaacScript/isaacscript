@@ -194,6 +194,12 @@ export function printConsole(msg: string): void {
   Isaac.ConsoleOutput(`${msg}\n`);
 }
 
+/** Helper function to print whether something was enabled or disabled to the in-game console. */
+export function printEnabled(enabled: boolean, description: string): void {
+  const enabledText = enabled ? "Enabled" : "Disabled";
+  printConsole(`${enabledText} ${description}.`);
+}
+
 /**
  * Helper function to repeat code N times. This is faster to type and cleaner than using a for loop.
  *

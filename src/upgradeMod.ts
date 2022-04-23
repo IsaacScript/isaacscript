@@ -38,6 +38,7 @@ import { roomClearChangeCallbackInit } from "./callbacks/roomClearChange";
 import { ModUpgraded } from "./classes/ModUpgraded";
 import { characterHealthConversionInit } from "./features/characterHealthConversion";
 import { characterStatsInit } from "./features/characterStats";
+import { debugDisplayInit } from "./features/debugDisplay";
 import { deployJSONRoomInit } from "./features/deployJSONRoom";
 import { disableInputsInit } from "./features/disableInputs";
 import { disableSoundsInit } from "./features/disableSound";
@@ -97,7 +98,8 @@ export function upgradeMod(modVanilla: Mod): ModUpgraded {
     // We initialize custom callbacks next since some features use custom callbacks
     initCustomCallbacks(mod);
 
-    initFeatures(mod);
+    initFeaturesMajor(mod);
+    initFeaturesMinor(mod);
   }
 
   return mod;
@@ -142,20 +144,24 @@ function initCustomCallbacks(mod: ModUpgraded) {
   postCustomDoorEnterCallbackInit();
 }
 
-function initFeatures(mod: ModUpgraded) {
+function initFeaturesMajor(mod: ModUpgraded) {
   deployJSONRoomInit(mod);
-  disableInputsInit(mod);
-  disableSoundsInit(mod);
-  forgottenSwitchInit(mod);
-  getCollectibleItemPoolTypeInit(mod);
-  preventCollectibleRotateInit(mod);
   runInNFramesInit(mod);
-  sirenHelpersInit(mod);
-  isPonyActiveInit(mod);
-  playerInventoryInit(mod);
-  taintedLazarusPlayersInit(mod);
-  fastResetInit(mod);
-  fadeInRemoverInit(mod);
   characterStatsInit(mod);
   characterHealthConversionInit(mod);
+}
+
+function initFeaturesMinor(mod: ModUpgraded) {
+  disableInputsInit(mod);
+  disableSoundsInit(mod);
+  fadeInRemoverInit(mod);
+  fastResetInit(mod);
+  debugDisplayInit(mod);
+  forgottenSwitchInit(mod);
+  getCollectibleItemPoolTypeInit(mod);
+  isPonyActiveInit(mod);
+  playerInventoryInit(mod);
+  preventCollectibleRotateInit(mod);
+  sirenHelpersInit(mod);
+  taintedLazarusPlayersInit(mod);
 }

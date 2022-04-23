@@ -99,6 +99,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Sound Disabler](modules/features_disableSound.html)
 - [Fade-In Remover](modules/features_fadeInRemover.html)
 - [Fast-Reset](modules/features_fastReset.html)
+- [Debug Display](modules/features_debugDisplay.html)
 - [Forgotten Switcher](modules/features_forgottenSwitch.html)
 - [Get Collectible Item Pool Type](modules/features_getCollectibleItemPoolType.html)
 - [Pony Detection Functions](modules/features_isPonyActive.html)

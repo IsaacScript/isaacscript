@@ -4,11 +4,8 @@ import { HealthType } from "../../enums/HealthType";
 import { getCardName } from "../../functions/cards";
 import { getCharacterName } from "../../functions/character";
 import { getNPCs } from "../../functions/entitySpecific";
-import { spawnGridWithVariant } from "../../functions/gridEntity";
 import {
   logEffects,
-  logEntities,
-  logGridEntities,
   logRoom,
   logSeedEffects,
   logSounds,
@@ -17,25 +14,25 @@ import { getMapPartialMatch } from "../../functions/map";
 import { spawnCard, spawnPill, spawnTrinket } from "../../functions/pickups";
 import { getPillEffectName } from "../../functions/pills";
 import { getPlayerName, useActiveItemTemp } from "../../functions/player";
-import { addPlayerHealthType } from "../../functions/playerHealth";
 import { getPlayers } from "../../functions/playerIndex";
-import { getRoomData, getRoomDescriptor } from "../../functions/roomData";
 import { gridCoordinatesToWorldPosition } from "../../functions/roomGrid";
 import { changeRoom, getRoomGridIndexesForType } from "../../functions/rooms";
 import { restart } from "../../functions/run";
-import { printConsole } from "../../functions/utils";
-import { directionToVector } from "../../functions/vector";
+import { printConsole, printEnabled } from "../../functions/utils";
 import { CARD_MAP } from "../../maps/cardMap";
 import { CHARACTER_MAP } from "../../maps/characterMap";
 import { PILL_EFFECT_MAP } from "../../maps/pillEffectMap";
 import { ROOM_TYPE_MAP } from "../../maps/roomTypeMap";
 import {
-  DEFAULT_ROOM_TYPE_NAME,
-  ROOM_TYPE_NAMES,
-} from "../../objects/roomTypeNames";
+  addHeart,
+  devilAngel,
+  listEntities,
+  listGridEntities,
+  movePlayer,
+  spawnTrapdoorOrCrawlspace,
+  warpToRoomType,
+} from "./commandsSubroutines";
 import v from "./v";
-
-const DEFAULT_MOVE_UNITS = 0.5;
 
 /**
  * Adds a single charge to the player's specified active item. You must provide the active slot
@@ -612,6 +609,11 @@ export function keys(params: string): void {
   player.AddKeys(numKeys);
 }
 
+/** Moves the player 0.5 units left. Provide a number to move a custom amount of units. */
+export function left(params: string): void {
+  movePlayer(params, Direction.LEFT);
+}
+
 /** Warps to the first Library on the floor. */
 export function library(): void {
   warpToRoomType(RoomType.ROOM_LIBRARY);
@@ -816,6 +818,11 @@ export function redHearts(params: string): void {
 /** Alias for the "redhearts" command. */
 export function rh(params: string): void {
   redHearts(params);
+}
+
+/** Moves the player 0.5 units right. Provide a number to move a custom amount of units. */
+export function right(params: string): void {
+  movePlayer(params, Direction.RIGHT);
 }
 
 /** Logs information about the room to the "log.txt" file. */
@@ -1154,6 +1161,11 @@ export function ultraSecret(): void {
   warpToRoomType(RoomType.ROOM_ULTRASECRET);
 }
 
+/** Moves the player 0.5 units up. Provide a number to move a custom amount of units. */
+export function up(params: string): void {
+  movePlayer(params, Direction.UP);
+}
+
 /**
  * Warps to the specified room type. Accepts either the room type number or the partial name of the
  * room type.
@@ -1188,129 +1200,4 @@ export function warp(params: string): void {
   }
 
   warpToRoomType(roomType);
-}
-
-// -----------
-// Subroutines
-// -----------
-
-function addHeart(params: string, healthType: HealthType) {
-  let numHearts = healthType === HealthType.MAX_HEARTS ? 2 : 1;
-  if (params !== "") {
-    const num = tonumber(params);
-    if (num === undefined) {
-      printConsole("That is an invalid amount of hearts to add.");
-      return;
-    }
-
-    numHearts = num;
-  }
-
-  const player = Isaac.GetPlayer();
-  addPlayerHealthType(player, healthType, numHearts);
-}
-
-function devilAngel(useDevil: boolean) {
-  const level = game.GetLevel();
-
-  const devilAngelRoomData = getRoomData(GridRooms.ROOM_DEVIL_IDX);
-  if (devilAngelRoomData !== undefined) {
-    const roomType = devilAngelRoomData.Type;
-    const conflictingType = useDevil
-      ? RoomType.ROOM_ANGEL
-      : RoomType.ROOM_DEVIL;
-    if (roomType === conflictingType) {
-      // Delete the room data, which will allow the "Level.InitializeDevilAngelRoom" method to work
-      const roomDescriptor = getRoomDescriptor(GridRooms.ROOM_DEVIL_IDX);
-      roomDescriptor.Data = undefined;
-    }
-  }
-
-  if (useDevil) {
-    level.InitializeDevilAngelRoom(false, true);
-  } else {
-    level.InitializeDevilAngelRoom(true, false);
-  }
-
-  changeRoom(GridRooms.ROOM_DEVIL_IDX);
-}
-
-function listEntities(params: string, includeBackgroundEffects: boolean) {
-  let entityTypeFilter: int | undefined;
-  if (params !== "") {
-    entityTypeFilter = tonumber(params);
-    if (entityTypeFilter === undefined) {
-      printConsole("That is an invalid entity type to filter by.");
-      return;
-    }
-  }
-
-  logEntities(includeBackgroundEffects, entityTypeFilter);
-  printConsole('Logged the entities in the room to the "log.txt" file.');
-}
-
-function listGridEntities(params: string, includeWalls: boolean) {
-  let gridEntityTypeFilter: int | undefined;
-  if (params !== "") {
-    gridEntityTypeFilter = tonumber(params);
-    if (gridEntityTypeFilter === undefined) {
-      printConsole("That is an invalid grid entity type to filter by.");
-      return;
-    }
-  }
-
-  logGridEntities(includeWalls, gridEntityTypeFilter);
-  printConsole('Logged the grid entities in the room to the "log.txt" file.');
-}
-
-function movePlayer(params: string, direction: Direction) {
-  let amount = DEFAULT_MOVE_UNITS;
-  if (params !== "") {
-    const num = tonumber(params);
-    if (num === undefined) {
-      printConsole("That is an invalid amount of units to move.");
-      return;
-    }
-
-    amount = num;
-  }
-
-  const player = Isaac.GetPlayer();
-  const vector = directionToVector(direction);
-  const modifiedVector = vector.mul(amount);
-  player.Position = player.Position.add(modifiedVector);
-}
-
-function printEnabled(enabled: boolean, description: string) {
-  const enabledText = enabled ? "Enabled" : "Disabled";
-  printConsole(`${enabledText} ${description}.`);
-}
-
-function spawnTrapdoorOrCrawlspace(trapdoor: boolean) {
-  const room = game.GetRoom();
-  const player = Isaac.GetPlayer();
-  const position = room.FindFreeTilePosition(player.Position, 0);
-  const gridIndex = room.GetGridIndex(position);
-  const gridEntityType = trapdoor
-    ? GridEntityType.GRID_TRAPDOOR
-    : GridEntityType.GRID_STAIRS;
-
-  spawnGridWithVariant(gridEntityType, 0, gridIndex);
-}
-
-function warpToRoomType(roomType: RoomType) {
-  const roomTypeName = ROOM_TYPE_NAMES[roomType];
-  if (roomTypeName === undefined || roomTypeName === DEFAULT_ROOM_TYPE_NAME) {
-    printConsole(`Invalid room type: ${roomType}`);
-  }
-
-  const gridIndexes = getRoomGridIndexesForType(roomType);
-  if (gridIndexes.length === 0) {
-    printConsole(`There are no ${roomTypeName}s on this floor.`);
-    return;
-  }
-
-  const firstGridIndex = gridIndexes[0];
-  changeRoom(firstGridIndex);
-  printConsole(`Warped to room type: ${roomTypeName} (${roomType})`);
 }
