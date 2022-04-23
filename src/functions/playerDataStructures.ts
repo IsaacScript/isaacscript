@@ -17,6 +17,21 @@ export function defaultMapGetPlayer<V, A extends unknown[]>(
 
 /**
  * Helper function to make using maps with an index of `PlayerIndex` easier. Use this instead of the
+ * `Map.set` method if you have a map of this type.
+ *
+ * Since `Map` and `DefaultMap` set values in the same way, this function is simply an alias for the
+ * `mapSetPlayer` helper function.
+ */
+export function defaultMapSetPlayer<V>(
+  map: Map<PlayerIndex, V>,
+  player: EntityPlayer,
+  value: V,
+): void {
+  mapSetPlayer(map, player, value);
+}
+
+/**
+ * Helper function to make using maps with an index of `PlayerIndex` easier. Use this instead of the
  * `Map.get` method if you have a map of this type.
  */
 export function mapGetPlayer<V>(
