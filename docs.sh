@@ -20,6 +20,7 @@ npx typedoc \
   --entryPoints "$DIR/src/features/deployJSONRoom.ts" \
   --entryPoints "$DIR/src/features/disableInputs.ts" \
   --entryPoints "$DIR/src/features/disableSound.ts" \
+  --entryPoints "$DIR/src/features/characterHealthConversion.ts" \
   --entryPoints "$DIR/src/features/characterStats.ts" \
   --entryPoints "$DIR/src/features/fadeInRemover.ts" \
   --entryPoints "$DIR/src/features/fastReset.ts" \

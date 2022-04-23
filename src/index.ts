@@ -20,7 +20,8 @@ export * from "./enums/PillEffectClass";
 export * from "./enums/PillEffectType";
 export * from "./enums/PocketItemType";
 export * from "./enums/SerializationType";
-export * from "./features/characterStats";
+export { registerCharacterHealthConversion } from "./features/characterHealthConversion";
+export { registerCharacterStats } from "./features/characterStats";
 export {
   deployJSONRoom,
   deployRandomJSONRoom,

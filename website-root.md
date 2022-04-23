@@ -88,6 +88,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Run in N Frames](modules/features_runInNFrames.html)
 - [Extra Console Commands](modules/features_extraConsoleCommands_init.html) / [Command Documentation](modules/features_extraConsoleCommands_commands.html)
 - [Character Stat Manager](modules/features_characterStats.html)
+- [Character Health Conversion Manager](modules/features_characterHealthConversion.html)
 
 <br>
 
