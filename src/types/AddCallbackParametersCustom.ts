@@ -5,8 +5,10 @@ import { PostCursedTeleportCallbackType } from "../callbacks/subscriptions/postC
 import { PostCustomDoorEnterCallbackType } from "../callbacks/subscriptions/postCustomDoorEnter";
 import { PostCustomReviveCallbackType } from "../callbacks/subscriptions/postCustomRevive";
 import { PostEffectInitLateCallbackType } from "../callbacks/subscriptions/postEffectInitLate";
+import { PostEffectStateChangedCallbackType } from "../callbacks/subscriptions/postEffectStateChanged";
 import { PostEsauJrCallbackType } from "../callbacks/subscriptions/postEsauJr";
 import { PostFamiliarInitLateCallbackType } from "../callbacks/subscriptions/postFamiliarInitLate";
+import { PostFamiliarStateChangedCallbackType } from "../callbacks/subscriptions/postFamiliarStateChanged";
 import { PostFirstEsauJrCallbackType } from "../callbacks/subscriptions/postFirstEsauJr";
 import { PostFirstFlipCallbackType } from "../callbacks/subscriptions/postFirstFlip";
 import { PostFlipCallbackType } from "../callbacks/subscriptions/postFlip";
@@ -24,9 +26,11 @@ import { PostNewLevelReorderedCallbackType } from "../callbacks/subscriptions/po
 import { PostNewRoomEarlyCallbackType } from "../callbacks/subscriptions/postNewRoomEarly";
 import { PostNewRoomReorderedCallbackType } from "../callbacks/subscriptions/postNewRoomReordered";
 import { PostNPCInitLateCallbackType } from "../callbacks/subscriptions/postNPCInitLate";
+import { PostNPCStateChangedCallbackType } from "../callbacks/subscriptions/postNPCStateChanged";
 import { PostPEffectUpdateReorderedCallbackType } from "../callbacks/subscriptions/postPEffectUpdateReordered";
 import { PostPickupCollectCallbackType } from "../callbacks/subscriptions/postPickupCollect";
 import { PostPickupInitLateCallbackType } from "../callbacks/subscriptions/postPickupInitLate";
+import { PostPickupStateChangedCallbackType } from "../callbacks/subscriptions/postPickupStateChanged";
 import { PostPlayerChangeHealthCallbackType } from "../callbacks/subscriptions/postPlayerChangeHealth";
 import { PostPlayerChangeTypeCallbackType } from "../callbacks/subscriptions/postPlayerChangeType";
 import { PostPlayerFatalDamageCallbackType } from "../callbacks/subscriptions/postPlayerFatalDamage";
@@ -257,6 +261,26 @@ export interface AddCallbackParametersCustom {
   [ModCallbacksCustom.MC_POST_SLOT_DESTROYED]: [
     callback: PostSlotDestroyedCallbackType,
     slotVariant?: SlotVariant,
+  ];
+
+  [ModCallbacksCustom.MC_POST_FAMILIAR_STATE_CHANGED]: [
+    callback: PostFamiliarStateChangedCallbackType,
+    familiarVariant?: FamiliarVariant,
+  ];
+
+  [ModCallbacksCustom.MC_POST_PICKUP_STATE_CHANGED]: [
+    callback: PostPickupStateChangedCallbackType,
+    pickupVariant?: PickupVariant,
+  ];
+
+  [ModCallbacksCustom.MC_POST_EFFECT_STATE_CHANGED]: [
+    callback: PostEffectStateChangedCallbackType,
+    effectVariant?: EffectVariant,
+  ];
+
+  [ModCallbacksCustom.MC_POST_NPC_STATE_CHANGED]: [
+    callback: PostNPCStateChangedCallbackType,
+    entityType?: EntityType,
   ];
 
   [ModCallbacksCustom.MC_POST_GRID_ENTITY_INIT]: [

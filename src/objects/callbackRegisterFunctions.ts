@@ -5,8 +5,10 @@ import { postCursedTeleportRegister } from "../callbacks/subscriptions/postCurse
 import { postCustomDoorEnterRegister } from "../callbacks/subscriptions/postCustomDoorEnter";
 import { postCustomReviveRegister } from "../callbacks/subscriptions/postCustomRevive";
 import { postEffectInitLateRegister } from "../callbacks/subscriptions/postEffectInitLate";
+import { postEffectStateChangedRegister } from "../callbacks/subscriptions/postEffectStateChanged";
 import { postEsauJrRegister } from "../callbacks/subscriptions/postEsauJr";
 import { postFamiliarInitLateRegister } from "../callbacks/subscriptions/postFamiliarInitLate";
+import { postFamiliarStateChangedRegister } from "../callbacks/subscriptions/postFamiliarStateChanged";
 import { postFirstEsauJrRegister } from "../callbacks/subscriptions/postFirstEsauJr";
 import { postFirstFlipRegister } from "../callbacks/subscriptions/postFirstFlip";
 import { postFlipRegister } from "../callbacks/subscriptions/postFlip";
@@ -24,9 +26,11 @@ import { postNewLevelReorderedRegister } from "../callbacks/subscriptions/postNe
 import { postNewRoomEarlyRegister } from "../callbacks/subscriptions/postNewRoomEarly";
 import { postNewRoomReorderedRegister } from "../callbacks/subscriptions/postNewRoomReordered";
 import { postNPCInitLateRegister } from "../callbacks/subscriptions/postNPCInitLate";
+import { postNPCStateChangedRegister } from "../callbacks/subscriptions/postNPCStateChanged";
 import { postPEffectUpdateReorderedRegister } from "../callbacks/subscriptions/postPEffectUpdateReordered";
 import { postPickupCollectRegister } from "../callbacks/subscriptions/postPickupCollect";
 import { postPickupInitLateRegister } from "../callbacks/subscriptions/postPickupInitLate";
+import { postPickupStateChangedRegister } from "../callbacks/subscriptions/postPickupStateChanged";
 import { postPlayerChangeHealthRegister } from "../callbacks/subscriptions/postPlayerChangeHealth";
 import { postPlayerChangeTypeRegister } from "../callbacks/subscriptions/postPlayerChangeType";
 import { postPlayerFatalDamageRegister } from "../callbacks/subscriptions/postPlayerFatalDamage";
@@ -116,6 +120,13 @@ export const CALLBACK_REGISTER_FUNCTIONS: {
   [ModCallbacksCustom.MC_POST_SLOT_ANIMATION_CHANGED]:
     postSlotAnimationChangedRegister,
   [ModCallbacksCustom.MC_POST_SLOT_DESTROYED]: postSlotDestroyedRegister,
+  [ModCallbacksCustom.MC_POST_FAMILIAR_STATE_CHANGED]:
+    postFamiliarStateChangedRegister,
+  [ModCallbacksCustom.MC_POST_PICKUP_STATE_CHANGED]:
+    postPickupStateChangedRegister,
+  [ModCallbacksCustom.MC_POST_EFFECT_STATE_CHANGED]:
+    postEffectStateChangedRegister,
+  [ModCallbacksCustom.MC_POST_NPC_STATE_CHANGED]: postNPCStateChangedRegister,
   [ModCallbacksCustom.MC_POST_GRID_ENTITY_INIT]: postGridEntityInitRegister,
   [ModCallbacksCustom.MC_POST_GRID_ENTITY_UPDATE]: postGridEntityUpdateRegister,
   [ModCallbacksCustom.MC_POST_GRID_ENTITY_REMOVE]: postGridEntityRemoveRegister,
