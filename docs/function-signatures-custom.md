@@ -430,6 +430,22 @@ When registering the callback, takes an optional second argument that will make 
 function postTrinketBreak(player: EntityPlayer, trinketType: TrinketType | int): void {}
 ```
 
+### MC_POST_ITEM_DISCHARGE
+
+Fires from `MC_POST_PEFFECT_UPDATE` callback when the player loses charge on their active collectible item, implying that the item was just used.
+
+This callback is useful because the `MC_USE_ITEM` callback does not fire when The Candle, Red Candle, and Bob's Rotten Brain are discharged.
+
+When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `CollectibleType` provided.
+
+```ts
+function postItemDischarge(
+  player: EntityPlayer,
+  collectibleType: CollectibleType | int,
+  activeSlot: ActiveSlot,
+): void {}
+```
+
 ### MC_POST_SLOT_INIT
 
 Fires when a new slot entity is initialized. Specifically, this is either:
