@@ -436,6 +436,8 @@ Fires from `MC_POST_PEFFECT_UPDATE` callback when the player loses charge on the
 
 This callback is useful because the `MC_USE_ITEM` callback does not fire when The Candle, Red Candle, and Bob's Rotten Brain are discharged.
 
+Note that this callback will not fire if the active item is both discharged and swapped for another item / discharged on the same frame, like in the case of Alabaster Box.
+
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `CollectibleType` provided.
 
 ```ts
