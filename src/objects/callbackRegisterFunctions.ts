@@ -19,6 +19,7 @@ import { postGridEntityInitRegister } from "../callbacks/subscriptions/postGridE
 import { postGridEntityRemoveRegister } from "../callbacks/subscriptions/postGridEntityRemove";
 import { postGridEntityStateChangeRegister } from "../callbacks/subscriptions/postGridEntityStateChange";
 import { postGridEntityUpdateRegister } from "../callbacks/subscriptions/postGridEntityUpdate";
+import { postItemDischargeRegister } from "../callbacks/subscriptions/postItemDischarged";
 import { postItemPickupRegister } from "../callbacks/subscriptions/postItemPickup";
 import { postKnifeInitLateRegister } from "../callbacks/subscriptions/postKnifeInitLate";
 import { postLaserInitLateRegister } from "../callbacks/subscriptions/postLaserInitLate";
@@ -114,6 +115,7 @@ export const CALLBACK_REGISTER_FUNCTIONS: {
   [ModCallbacksCustom.MC_POST_SACRIFICE]: postSacrificeRegister,
   [ModCallbacksCustom.MC_POST_CURSED_TELEPORT]: postCursedTeleportRegister,
   [ModCallbacksCustom.MC_POST_TRINKET_BREAK]: postTrinketBreakRegister,
+  [ModCallbacksCustom.MC_POST_ITEM_DISCHARGE]: postItemDischargeRegister,
   [ModCallbacksCustom.MC_POST_SLOT_INIT]: postSlotInitRegister,
   [ModCallbacksCustom.MC_POST_SLOT_UPDATE]: postSlotUpdateRegister,
   [ModCallbacksCustom.MC_POST_SLOT_RENDER]: postSlotRenderRegister,

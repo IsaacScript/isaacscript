@@ -19,6 +19,7 @@ import { PostGridEntityInitCallbackType } from "../callbacks/subscriptions/postG
 import { PostGridEntityRemoveCallbackType } from "../callbacks/subscriptions/postGridEntityRemove";
 import { PostGridEntityStateChangeCallbackType } from "../callbacks/subscriptions/postGridEntityStateChange";
 import { PostGridEntityUpdateCallbackType } from "../callbacks/subscriptions/postGridEntityUpdate";
+import { PostItemDischargedCallbackType } from "../callbacks/subscriptions/postItemDischarged";
 import { PostItemPickupCallbackType } from "../callbacks/subscriptions/postItemPickup";
 import { PostKnifeInitLateCallbackType } from "../callbacks/subscriptions/postKnifeInitLate";
 import { PostLaserInitLateCallbackType } from "../callbacks/subscriptions/postLaserInitLate";
@@ -238,6 +239,11 @@ export interface AddCallbackParametersCustom {
     trinketType?: TrinketType | int,
   ];
 
+  [ModCallbacksCustom.MC_POST_ITEM_DISCHARGE]: [
+    callback: PostItemDischargedCallbackType,
+    collectibleType?: CollectibleType | int,
+  ];
+
   [ModCallbacksCustom.MC_POST_SLOT_INIT]: [
     callback: PostSlotInitCallbackType,
     slotVariant?: SlotVariant,
@@ -280,7 +286,8 @@ export interface AddCallbackParametersCustom {
 
   [ModCallbacksCustom.MC_POST_NPC_STATE_CHANGED]: [
     callback: PostNPCStateChangedCallbackType,
-    entityType?: EntityType,
+    entityType?: EntityType | int,
+    variant?: int,
   ];
 
   [ModCallbacksCustom.MC_POST_GRID_ENTITY_INIT]: [

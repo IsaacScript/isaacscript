@@ -13,6 +13,7 @@ import { postFamiliarStateChangedCallbackInit } from "./callbacks/postFamiliarSt
 import { postFlipCallbacksInit } from "./callbacks/postFlip";
 import { postGridEntityCallbacksInit } from "./callbacks/postGridEntity";
 import { postGridEntityCollisionInit } from "./callbacks/postGridEntityCollision";
+import { postItemDischargeCallbackInit } from "./callbacks/postItemDischarged";
 import { postKnifeInitLateCallbackInit } from "./callbacks/postKnifeInitLate";
 import { postLaserInitLateCallbackInit } from "./callbacks/postLaserInitLate";
 import { postNewRoomEarlyCallbackInit } from "./callbacks/postNewRoomEarly";
@@ -139,6 +140,7 @@ function initCustomCallbacks(mod: ModUpgraded) {
   postPurchaseCallbackInit(mod);
   postSacrificeCallbackInit(mod);
   postTrinketBreakCallbackInit(mod);
+  postItemDischargeCallbackInit(mod);
   postCursedTeleportCallbackInit(mod);
   postSlotInitUpdateCallbacksInit(mod);
   postSlotRenderCallbacksInit(mod);

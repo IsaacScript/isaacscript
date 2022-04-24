@@ -5,7 +5,11 @@ export type PostNPCStateChangedCallbackType = (
 ) => void;
 
 const subscriptions: Array<
-  [PostNPCStateChangedCallbackType, EntityType | int | undefined]
+  [
+    PostNPCStateChangedCallbackType,
+    EntityType | int | undefined,
+    int | undefined,
+  ]
 > = [];
 
 /** @internal */
@@ -17,8 +21,9 @@ export function postNPCStateChangedHasSubscriptions(): boolean {
 export function postNPCStateChangedRegister(
   callback: PostNPCStateChangedCallbackType,
   entityType?: EntityType | int,
+  variant?: int,
 ): void {
-  subscriptions.push([callback, entityType]);
+  subscriptions.push([callback, entityType, variant]);
 }
 
 /** @internal */
@@ -27,9 +32,14 @@ export function postNPCStateChangedFire(
   previousState: int,
   currentState: int,
 ): void {
-  for (const [callback, entityType] of subscriptions) {
+  for (const [callback, entityType, variant] of subscriptions) {
     // Handle the optional 2nd callback argument
     if (entityType !== undefined && entityType !== npc.Type) {
+      continue;
+    }
+
+    // Handle the optional 3rd callback argument
+    if (variant !== undefined && variant !== npc.Variant) {
       continue;
     }
 
