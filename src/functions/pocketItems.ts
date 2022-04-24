@@ -4,6 +4,23 @@ import { PocketItemDescription } from "../types/PocketItemDescription";
 import { range } from "./math";
 import { isCharacter } from "./player";
 
+/**
+ * Helper function to get the `PocketItemSlot` that the player's pocket active item is in, if any.
+ * Returns undefined if the player does not have a pocket active item.
+ */
+export function getActivePocketItemSlot(
+  player: EntityPlayer,
+): PocketItemSlot | undefined {
+  const pocketItems = getPocketItems(player);
+  for (const pocketItem of pocketItems) {
+    if (pocketItem.type === PocketItemType.ACTIVE_ITEM) {
+      return pocketItem.slot;
+    }
+  }
+
+  return undefined;
+}
+
 export function getFirstCardOrPill(
   player: EntityPlayer,
 ): PocketItemDescription | undefined {

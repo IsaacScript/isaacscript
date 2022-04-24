@@ -15,11 +15,20 @@ import {
   postItemDischargeHasSubscriptions,
 } from "./subscriptions/postItemDischarged";
 
+type ActiveSlotToCollectibleTypeMap = DefaultMap<
+  ActiveSlot,
+  CollectibleType | int,
+  [int]
+>;
 type ActiveSlotToChargeMap = DefaultMap<ActiveSlot, int, [int]>;
 
 const v = {
   run: {
-    playersChargeMap: new DefaultMap<PlayerIndex, ActiveSlotToChargeMap>(
+    playersActiveItemMap: new DefaultMap<
+      PlayerIndex,
+      ActiveSlotToCollectibleTypeMap
+    >(() => new DefaultMap((_playerIndex, collectibleType) => collectibleType)),
+    playersActiveChargeMap: new DefaultMap<PlayerIndex, ActiveSlotToChargeMap>(
       () => new DefaultMap((_playerIndex, charge) => charge),
     ),
   },
@@ -50,9 +59,23 @@ function postPEffectUpdate(player: EntityPlayer) {
     return;
   }
 
-  const chargeMap = defaultMapGetPlayer(v.run.playersChargeMap, player);
+  const activeItemMap = defaultMapGetPlayer(v.run.playersActiveItemMap, player);
+  const chargeMap = defaultMapGetPlayer(v.run.playersActiveChargeMap, player);
 
   for (const activeSlot of getEnumValues(ActiveSlot)) {
+    const currentActiveItem = player.GetActiveItem();
+    const previousActiveItem = activeItemMap.getAndSetDefault(
+      activeSlot,
+      currentActiveItem,
+    );
+    activeItemMap.set(activeSlot, currentActiveItem);
+
+    if (currentActiveItem !== previousActiveItem) {
+      // The player swapped out their active item for something else, so it should be impossible for
+      // the discharge callback to fire on this frame
+      continue;
+    }
+
     const currentCharge = getTotalCharge(player, activeSlot);
     const previousCharge = chargeMap.getAndSetDefault(
       activeSlot,
