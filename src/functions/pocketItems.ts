@@ -5,8 +5,8 @@ import { range } from "./math";
 import { isCharacter } from "./player";
 
 /**
- * Helper function to get the `PocketItemSlot` that the player's pocket active item is in, if any.
- * Returns undefined if the player does not have a pocket active item.
+ * Helper function to get the `PocketItemSlot` that the player's pocket active collectible item is
+ * in, if any. Returns undefined if the player does not have a pocket active item.
  */
 export function getActivePocketItemSlot(
   player: EntityPlayer,
