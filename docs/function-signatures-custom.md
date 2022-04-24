@@ -532,7 +532,8 @@ function postEffectStateChanged(effect: EntityEffect, previousState: int, curren
 
 Fires from the `MC_POST_NPC_UPDATE` callback when an NPC's state has changed from what it was on the previous frame.
 
-When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `EntityType` provided.
+- When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `EntityType` provided.
+- When registering the callback, takes an optional third argument that will make the callback only fire if it matches the variant provided.
 
 ```ts
 function postNPCStateChanged(npc: EntityNPC, previousState: int, currentState: int): void {}
