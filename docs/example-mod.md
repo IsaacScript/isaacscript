@@ -62,7 +62,11 @@ In this file, add the following:
 
 ```xml
 <items gfxroot="gfx/items/" version="1">
-  <passive description="Mass poison" gfx="green-candle.png" name="Green Candle" />
+  <passive
+    description="Mass poison"
+    gfx="green-candle.png"
+    name="Green Candle"
+  />
 </items>
 ```
 
@@ -81,7 +85,7 @@ So, let's add the item to the Treasure Room pool. Make a blank file at `C:\Repos
 ```xml
 <ItemPools>
   <Pool Name="treasure">
-    <Item Name="Green Candle" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+    <Item Name="Green Candle" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
   </Pool>
 </ItemPools>
 ```
@@ -243,7 +247,7 @@ function applyGreenCandleEffect(player: EntityPlayer) {
 }
 ```
 
-This showcases the advantage of programming in TypeScript instead of Lua, because this is a common error. The TypeScript compiler tells us that we *actually* need to give the function an entity reference instead of an entity. This is accomplished by simply casting the player as an `EntityRef`. (The "EntityRef()" function is a global.)
+This showcases the advantage of programming in TypeScript instead of Lua, because this is a common error. The TypeScript compiler tells us that we _actually_ need to give the function an entity reference instead of an entity. This is accomplished by simply casting the player as an `EntityRef`. (The "EntityRef()" function is a global.)
 
 ```ts
 entity.AddPoison(EntityRef(player), 100, player.Damage);

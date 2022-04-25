@@ -164,7 +164,11 @@ function getShaderParams(shaderName: string): Record<string, unknown> {}
 ### MC_EXECUTE_CMD (22)
 
 ```ts
-function executeCmd(command: string, parameters: string, player: EntityPlayer): void {}
+function executeCmd(
+  command: string,
+  parameters: string,
+  player: EntityPlayer,
+): void {}
 ```
 
 ### MC_PRE_USE_ITEM (23)
