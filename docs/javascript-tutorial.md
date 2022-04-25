@@ -400,7 +400,7 @@ Isaac.DebugString("numPoops: " + numPoops + ", numFarts: " + numFarts); // No co
 
 ### String Templates
 
-TypeScript has a special feature that Lua does not have called *string templates*. String templates allow you to easily create a string that has a bunch of variables in it. They are denoted by the <code>`</code> character.
+TypeScript has a special feature that Lua does not have called _string templates_. String templates allow you to easily create a string that has a bunch of variables in it. They are denoted by the <code>`</code> character.
 
 In the previous section, we used the `+` operator to combine a bunch of variables with text. But it would probably be better written by using a string template, like this:
 
@@ -533,7 +533,7 @@ if (InfinityTrueCoopInterface !== undefined) {
 }
 ```
 
-However, this exact code would result in an error, because the TypeScript compiler (rightly) complains that the "InfinityTrueCoopInterface" variable does not exist. Normally, this kind of thing is extremely useful, because when a variable "does not exist", it usually means we forgot to initialize it or we made a typo somewhere. However, in this case, the "InfinityTrueCoopInterface" variable really does exist - it's just not a part of *our* code. So, we just need a way to tell the TypeScript compiler that.
+However, this exact code would result in an error, because the TypeScript compiler (rightly) complains that the "InfinityTrueCoopInterface" variable does not exist. Normally, this kind of thing is extremely useful, because when a variable "does not exist", it usually means we forgot to initialize it or we made a typo somewhere. However, in this case, the "InfinityTrueCoopInterface" variable really does exist - it's just not a part of _our_ code. So, we just need a way to tell the TypeScript compiler that.
 
 The way to do that is to use the `declare` keyword, like this:
 
@@ -615,7 +615,8 @@ In Lua, some mods export functionality by using a global variable:
 
 ```lua
 -- Lua code
-RevelationsVersion = "2.1" -- "RevelationsVersion" is now a global variable
+RevelationsVersion = "2.1"
+-- "RevelationsVersion" is now a global variable
 ```
 
 In TypeScript, you just have to declare it beforehand:
@@ -623,19 +624,21 @@ In TypeScript, you just have to declare it beforehand:
 ```ts
 // TypeScript code
 declare let RevelationsVersion: string;
-RevelationsVersion = "2.1"; // "RevelationsVersion" is now a global variable
+RevelationsVersion = "2.1";
+// "RevelationsVersion" is now a global variable
 ```
 
 Building on this example, you can also expose both variables and methods:
 
 ```ts
 declare let RevelationsExports: unknown;
-RevelationsExports = { // "RevelationsExports" is now a global variable
+RevelationsExports = {
   myVariable1,
   myVariable2,
   myFunction1,
   myFunction2,
-}
+};
+// "RevelationsExports" is now a global variable
 ```
 
 <br />
@@ -738,7 +741,7 @@ const player = entity.ToPlayer();
 player.AddMaxHearts(2); // Error: Object is possibly 'undefined'
 ```
 
-This error is because the return type of the `ToPlayer()` method is `EntityPlayer | undefined`. To solve this, we can use *type narrowing*:
+This error is because the return type of the `ToPlayer()` method is `EntityPlayer | undefined`. To solve this, we can use _type narrowing_:
 
 ```ts
 const player = entity.ToPlayer();
@@ -752,4 +755,4 @@ Here, we explicitly handle the error case and supply a helpful error message. Bu
 
 `error()` is a Lua function that causes execution of the function to immediately end. Thus, TypeScript is smart enough to realize that if the code gets to the `AddMaxHearts()` line, the type of `player` is no longer `EntityPlayer | undefined` - it would have to be a `EntityPlayer`. You can confirm this by mousing over the variable in VSCode.
 
-Since many of the Isaac API methods can fail, you will have to use *type narrowing* like this in many places in your code. Sometimes, it can be annoying to explicitly check to see if things go wrong. But *type narrowing* should be seen as a good thing: by handling errors in a sane way, you safely limit the damage that runtime errors can cause. And when things do go wrong, troubleshooting what happened becomes a lot easier.
+Since many of the Isaac API methods can fail, you will have to use _type narrowing_ like this in many places in your code. Sometimes, it can be annoying to explicitly check to see if things go wrong. But _type narrowing_ should be seen as a good thing: by handling errors in a sane way, you safely limit the damage that runtime errors can cause. And when things do go wrong, troubleshooting what happened becomes a lot easier.
