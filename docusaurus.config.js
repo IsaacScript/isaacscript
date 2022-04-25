@@ -13,9 +13,10 @@ module.exports = {
   projectName: "IsaacScript.github.io",
   themeConfig: {
     algolia: {
-      apiKey: "210ae7b73b3bbdd54c425ea1ecb7aa3c",
+      appId: "ZCC397CSMF", // cspell:disable-line
+      apiKey: "212a5e2442aa0e579f2f7bba22ee529a",
       indexName: "isaacscript",
-      contextualSearch: false, // Only useful for versioned sites, e.g. docs for v1, v2
+      contextualSearch: false, // Enabled by default; only useful for versioned sites
     },
     colorMode: {
       defaultMode: "dark",

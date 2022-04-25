@@ -15,17 +15,21 @@ fi
 
 cd "$DIR"
 
-# Step 1 - Use ESLint to lint the JavaScript
+# Step 1 - Use Prettier to check formatting
+npx prettier --check "src/**/*.ts"
+npx prettier --check "docs/**/*.md"
+
+# Step 2 - Use ESLint to lint the JavaScript
 # Since all ESLint errors are set to warnings,
 # we set max warnings to 0 so that warnings will fail in CI
 npx eslint --max-warnings 0 .
 
-# Step 2 - Use remark to check Markdown files for errors
+# Step 3 - Use remark to check Markdown files for errors
 # We set to quiet to output only warnings and errors
 # We set to frail to exit with 1 on warnings (for CI)
 npx remark --quiet --frail docs
 
-# Step 3 - Spell check every file using cspell
+# Step 4 - Spell check every file using cspell
 # We use no-progress and no-summary because we want to only output errors
 npx cspell --no-progress --no-summary "src/**/*.ts"
 npx cspell --no-progress --no-summary "docs/**/*.md"

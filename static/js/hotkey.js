@@ -1,89 +1,135 @@
-// Constants
+/* eslint-disable no-array-any/no-array-any */
+
 const FIRST_DOC_PAGE_TITLE = "Features | IsaacScript";
 
-// Variables
 const keyMap = new Map();
 
-document.onkeydown = (e) => {
+initHotkeys();
+
+function initHotkeys() {
+  initKeyMap();
+  document.onkeydown = onKeyDown;
+}
+
+function initKeyMap() {
+  keyMap.set("Enter", () => {
+    if (isOnLandingPage()) {
+      navigateForward();
+    }
+  });
+  keyMap.set("ArrowLeft", navigateBackward);
+  keyMap.set("ArrowRight", navigateForward);
+  keyMap.set("f", () => {
+    window.location = "/docs/function-signatures";
+  });
+}
+
+function onKeyDown(event) {
   // Debugging
   // console.log("Key pressed:", e.key);
 
   // Do not do anything if we have any modifier keys pressed down
-  if (e.ctrlKey || e.shiftKey || e.altKey || e.metaKey) {
+  if (event.ctrlKey || event.shiftKey || event.altKey || event.metaKey) {
     return;
   }
 
   // Do not do anything if we have the search box focused
+  if (isSearchBarFocused()) {
+    return;
+  }
+
+  const keyFunction = keyMap.get(event.key);
+  if (keyFunction !== undefined) {
+    keyFunction();
+  }
+}
+
+function isSearchBarFocused() {
   const searchInputElements =
     document.getElementsByClassName("DocSearch-Input");
   for (const searchInputElement of searchInputElements) {
     if (document.activeElement === searchInputElement) {
-      return;
+      return true;
     }
   }
 
-  const keyFunction = keyMap.get(e.key);
-  if (keyFunction !== undefined) {
-    keyFunction();
-  }
-};
+  return false;
+}
 
-keyMap.set("Enter", () => {
+function navigateBackward() {
   if (isOnLandingPage()) {
-    clickOnFirstLargeButton();
-  }
-});
-
-// Navigate backwards
-keyMap.set("ArrowLeft", () => {
-  if (isOnFirstDocPage()) {
-    // Click on the nav bar title
-    const navBarTitle = document.getElementsByClassName("navbar__title");
-    if (navBarTitle.length >= 1) {
-      navBarTitle[0].click();
-      return;
-    }
-  }
-
-  // Click on the left-most button
-  const buttons = document.getElementsByClassName("pagination-nav__link");
-  if (buttons.length >= 1) {
-    buttons[0].click();
-  }
-});
-
-// Navigate forwards
-keyMap.set("ArrowRight", () => {
-  if (isOnLandingPage()) {
-    clickOnFirstLargeButton();
     return;
   }
 
-  // Otherwise, assume that we are on a doc page
-  const buttons = document.getElementsByClassName("pagination-nav__link");
-  if (buttons.length >= 2) {
-    buttons[1].click();
-  } else if (buttons.length >= 1) {
-    buttons[0].click();
+  if (isOnFirstDocPage()) {
+    clickOnNavBarTitle();
+    return;
   }
-});
 
-function isOnLandingPage() {
-  const titles = document.getElementsByClassName("hero__title");
-  return titles.length >= 1;
+  clickFirstNavButton();
+}
+
+function navigateForward() {
+  if (isOnLandingPage()) {
+    clickOnFirstLandingPageButton();
+    return;
+  }
+
+  clickSecondNavButton();
 }
 
 function isOnFirstDocPage() {
   return document.title === FIRST_DOC_PAGE_TITLE;
 }
 
-function clickOnFirstLargeButton() {
-  const largeButtons = document.getElementsByClassName("button--lg");
-  if (largeButtons.length >= 1) {
-    largeButtons[0].click();
+function isOnLandingPage() {
+  const titles = document.getElementsByClassName("hero__title");
+  return titles.length >= 1;
+}
+
+function clickOnNavBarTitle() {
+  const navBarTitle = document.getElementsByClassName("navbar__title");
+  const navBarTitleElement = navBarTitle[0];
+  if (navBarTitleElement !== undefined) {
+    navBarTitleElement.click();
   }
 }
 
-keyMap.set("f", () => {
-  window.location = "/docs/function-signatures";
-});
+function clickOnFirstLandingPageButton() {
+  const buttons = document.getElementsByClassName("button--lg");
+  const firstButton = buttons[0];
+  if (firstButton === undefined) {
+    return;
+  }
+
+  firstButton.click();
+}
+
+function clickFirstNavButton() {
+  clickNavButton(0);
+}
+
+function clickSecondNavButton() {
+  clickNavButton(1);
+}
+
+function clickNavButton(i) {
+  const navButtonsCollection =
+    document.getElementsByClassName("pagination-nav");
+  const navButtons = navButtonsCollection[0];
+  if (navButtons === undefined) {
+    return;
+  }
+
+  const buttonDiv = navButtons.children[i];
+  if (buttonDiv === undefined) {
+    return;
+  }
+
+  const buttonLink = buttonDiv.children[0];
+  if (buttonLink === undefined) {
+    return;
+  }
+
+  buttonLink.click();
+}
