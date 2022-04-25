@@ -245,8 +245,12 @@ TestEnum[TestEnum.THREE] = "THREE"
 This is a great feature, because you can pretty print what an enum is super easily:
 
 ```ts
-const currentTestValue = TestEnum.TWO
-Isaac.DebugString(`currentTestValue = ${currentTestValue} - ${TestEnum[currentTestValue]}`); // Prints "currentTestValue = 2 (TWO)"
+const currentTestValue = TestEnum.TWO;
+
+Isaac.DebugString(
+  `currentTestValue = ${currentTestValue} - ${TestEnum[currentTestValue]}`,
+);
+// Prints "currentTestValue = 2 (TWO)"
 ```
 
 However, this means that if you want to iterate over your own enums in a way similar to the previous example, you have to use some type-checking:
