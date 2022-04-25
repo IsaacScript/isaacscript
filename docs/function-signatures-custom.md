@@ -285,7 +285,11 @@ Fires from the `MC_POST_PEFFECT_UPDATE` callback when a player entity changes it
 Notably, it does not fire after the player uses the Flip item or the Esau Jr. item, because those items cause separate player entities to be created. Use the `MC_POST_FLIP` and `MC_POST_ESAU_JR` callbacks to handle those situations.
 
 ```ts
-function postPlayerChangeType(player: EntityPlayer, oldCharacter: PlayerType | int, newCharacter: PlayerType | int) {}
+function postPlayerChangeType(
+  player: EntityPlayer,
+  oldCharacter: PlayerType | int,
+  newCharacter: PlayerType | int,
+) {}
 ```
 
 ### MC_POST_PLAYER_CHANGE_HEALTH
@@ -295,7 +299,11 @@ Fires from the `MC_POST_PEFFECT_UPDATE` callback when a player entity gains or l
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `PlayerVariant` provided.
 
 ```ts
-function postPlayerChangeHealth(player: EntityPlayer, healthType: HealthType, amount: int) {}
+function postPlayerChangeHealth(
+  player: EntityPlayer,
+  healthType: HealthType,
+  amount: int,
+) {}
 ```
 
 ### MC_POST_PLAYER_FATAL_DAMAGE
@@ -303,6 +311,7 @@ function postPlayerChangeHealth(player: EntityPlayer, healthType: HealthType, am
 Fires from the `MC_ENTITY_TAKE_DMG` callback when a player takes fatal damage. Return false to prevent the fatal damage.
 
 Note that:
+
 - This function does properly take into account Guppy's Collar, Broken Ankh, Spirit Shackles, and Mysterious Paper.
 
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `PlayerVariant` provided.
@@ -390,7 +399,11 @@ Note that this callback will only fire once per Forgotten/Soul pair.
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `PlayerForm` provided.
 
 ```ts
-function postTransformation(player: EntityPlayer, playerForm: PlayerForm, hasForm: boolean): void {}
+function postTransformation(
+  player: EntityPlayer,
+  playerForm: PlayerForm,
+  hasForm: boolean,
+): void {}
 ```
 
 ### MC_POST_PURCHASE
@@ -427,7 +440,10 @@ Fires from `MC_ENTITY_TAKE_DMG` callback when a Wishbone or a Walnut breaks.
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `TrinketType` provided.
 
 ```ts
-function postTrinketBreak(player: EntityPlayer, trinketType: TrinketType | int): void {}
+function postTrinketBreak(
+  player: EntityPlayer,
+  trinketType: TrinketType | int,
+): void {}
 ```
 
 ### MC_POST_ITEM_DISCHARGE
@@ -451,6 +467,7 @@ function postItemDischarge(
 ### MC_POST_SLOT_INIT
 
 Fires when a new slot entity is initialized. Specifically, this is either:
+
 - in the `MC_POST_NEW_ROOM` callback (firing every time a room is entered, even if the entity was previously there on a previous room entry)
 - in the `MC_POST_UPDATE` callback (if the entity appeared mid-way through the room, like when a Wheel of Fortune card is used)
 
@@ -507,7 +524,11 @@ Fires from the `MC_POST_FAMILIAR_UPDATE` callback when a familiar's state has ch
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `FamiliarVariant` provided.
 
 ```ts
-function postFamiliarStateChanged(familiar: EntityFamiliar, previousState: int, currentState: int): void {}
+function postFamiliarStateChanged(
+  familiar: EntityFamiliar,
+  previousState: int,
+  currentState: int,
+): void {}
 ```
 
 ### MC_POST_PICKUP_STATE_CHANGED
@@ -517,7 +538,11 @@ Fires from the `MC_POST_PICKUP_UPDATE` callback when a pickup's state has change
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `PickupVariant` provided.
 
 ```ts
-function postPickupStateChanged(pickup: EntityPickup, previousState: int, currentState: int): void {}
+function postPickupStateChanged(
+  pickup: EntityPickup,
+  previousState: int,
+  currentState: int,
+): void {}
 ```
 
 ### MC_POST_EFFECT_STATE_CHANGED
@@ -527,7 +552,11 @@ Fires from the `MC_POST_EFFECT_UPDATE` callback when an effect's state has chang
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `EffectVariant` provided.
 
 ```ts
-function postEffectStateChanged(effect: EntityEffect, previousState: int, currentState: int): void {}
+function postEffectStateChanged(
+  effect: EntityEffect,
+  previousState: int,
+  currentState: int,
+): void {}
 ```
 
 ### MC_POST_NPC_STATE_CHANGED
@@ -538,12 +567,17 @@ Fires from the `MC_POST_NPC_UPDATE` callback when an NPC's state has changed fro
 - When registering the callback, takes an optional third argument that will make the callback only fire if it matches the variant provided.
 
 ```ts
-function postNPCStateChanged(npc: EntityNPC, previousState: int, currentState: int): void {}
+function postNPCStateChanged(
+  npc: EntityNPC,
+  previousState: int,
+  currentState: int,
+): void {}
 ```
 
 ### MC_POST_GRID_ENTITY_INIT
 
 Fires when a new grid entity is initialized. Specifically, this is either:
+
 - in the `MC_POST_NEW_ROOM` callback (firing every time a room is entered, even if the entity was previously there on a previous room entry)
 - in the `MC_POST_UPDATE` callback (if the entity appeared mid-way through the room, like when the trapdoor appears after defeating It Lives!)
 
@@ -570,7 +604,10 @@ Fires from the `MC_POST_UPDATE` callback when a new grid entity is removed. Spec
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `GridEntityType` provided.
 
 ```ts
-function postGridEntityRemove(gridIndex: int, gridEntityType: GridEntityType): void {}
+function postGridEntityRemove(
+  gridIndex: int,
+  gridEntityType: GridEntityType,
+): void {}
 ```
 
 ### MC_POST_GRID_ENTITY_STATE_CHANGE
@@ -580,7 +617,11 @@ Fires from the `MC_POST_UPDATE` callback when a grid entity changes its state.
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `GridEntityType` provided.
 
 ```ts
-function postGridEntityStateChange(gridEntity: GridEntity, oldState: int, newState: int): void {}
+function postGridEntityStateChange(
+  gridEntity: GridEntity,
+  oldState: int,
+  newState: int,
+): void {}
 ```
 
 ### MC_POST_GRID_ENTITY_BROKEN
@@ -600,7 +641,10 @@ Fires from the `MC_POST_UPDATE` callback when a new entity collides with a grid 
 When registering the callback, takes an optional second argument that will make the callback only fire if it matches the `GridEntityType` provided.
 
 ```ts
-function postGridEntityCollision(gridEntity: GridEntity, entity: Entity): void {}
+function postGridEntityCollision(
+  gridEntity: GridEntity,
+  entity: Entity,
+): void {}
 ```
 
 ### MC_POST_BONE_SWING
