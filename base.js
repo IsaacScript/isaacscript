@@ -16,9 +16,9 @@ module.exports = {
     // We extend the Airbnb rules with the "recommended" and "recommended-requiring-type-checking"
     // rules from the "typescript-eslint" plugin, which is also recommended by Matt Turnbull,
     // the author of "airbnb-typescript/base"
-    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/src/configs/README.md#recommended
-    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/src/configs/recommended.ts
-    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/src/configs/recommended-requiring-type-checking.ts
+    // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/README.md#recommended
+    // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/recommended.ts
+    // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/recommended-requiring-type-checking.ts
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
 
@@ -76,7 +76,7 @@ module.exports = {
   // (listed in alphabetical order)
   rules: {
     // Documentation:
-    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/array-type.md
+    // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/array-type.md
     // Not defined in the parent configs
     // Prefer the "[]string" syntax over "Array<string>"
     "@typescript-eslint/array-type": ["warn", { default: "array-simple" }],
@@ -90,7 +90,7 @@ module.exports = {
 
     // Documentation:
     // https://eslint.org/docs/rules/lines-between-class-members
-    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/lines-between-class-members.md
+    // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/lines-between-class-members.md
     // Defined at:
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
     // Airbnb has "exceptAfterSingleLine" turned off by default
@@ -102,7 +102,7 @@ module.exports = {
     ],
 
     // Documentation:
-    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/naming-convention.md
+    // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/naming-convention.md
     // Defined at:
     // https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js
     // Modify the Airbnb config to allow for a leading underscore,
@@ -133,13 +133,13 @@ module.exports = {
     ],
 
     // Documentation:
-    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-unnecessary-boolean-literal-compare.md
+    // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unnecessary-boolean-literal-compare.md
     // Not defined in the parent configs
     // This prevents useless code after refactoring variables to pure booleans
     "@typescript-eslint/no-unnecessary-boolean-literal-compare": "warn",
 
     // Documentation:
-    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-unused-vars.md
+    // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unused-vars.md
     // Defined at:
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/variables.js
     // We want to lint unused arguments (the default is "after-used")
@@ -154,7 +154,7 @@ module.exports = {
     ],
 
     // Documentation:
-    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-use-before-define.md
+    // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-use-before-define.md
     // https://eslint.org/docs/rules/no-use-before-define
     // Defined at:
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/variables.js
@@ -162,7 +162,7 @@ module.exports = {
     "@typescript-eslint/no-use-before-define": "off",
 
     // Documentation:
-    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/quotes.md
+    // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/quotes.md
     // Defined at:
     // https://github.com/prettier/eslint-config-prettier/blob/main/%40typescript-eslint.js
     // In order to forbid unnecessary backticks, we must re-enable the "@typescript-eslint/quotes"
@@ -175,15 +175,15 @@ module.exports = {
     ],
 
     // Documentation:
-    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/restrict-template-expressions.md
+    // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/restrict-template-expressions.md
     // Defined at:
-    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/src/configs/recommended-requiring-type-checking.ts
+    // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/recommended-requiring-type-checking.ts
     // This rule disallows booleans and nulls in template expressions
     // However, a common use-case of template strings is to coerce everything to a string
     "@typescript-eslint/restrict-template-expressions": "off",
 
     // Documentation:
-    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/restrict-template-expressions.md
+    // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/restrict-template-expressions.md
     // Not defined in the parent configs
     // This rule prevents bugs when refactoring a boolean to a number
     "@typescript-eslint/strict-boolean-expressions": [
