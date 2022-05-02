@@ -7,10 +7,10 @@ mod/main.lua
 # MacOS artifacts
 .DS_Store
 
-# --------------------------------------------------------------
+# ------------------------------
 # GitHub Node.gitignore template
-# https://github.com/github/gitignore/blob/master/Node.gitignore
-# --------------------------------------------------------------
+# https://raw.githubusercontent.com/github/gitignore/master/Node.gitignore
+# ------------------------------
 
 # Logs
 logs

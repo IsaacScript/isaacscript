@@ -26,4 +26,10 @@ npx cspell --no-progress --no-summary "src/**/*.ts"
 # The "--error" flag makes it return an error code of 1 if unused exports are found
 npx ts-prune --error
 
+# Step 5 - Check for gitignore updates from GitHub
+tail -n +6 .gitignore > gitignore-template-local
+curl https://raw.githubusercontent.com/github/gitignore/master/Node.gitignore --output gitignore-template-github --silent
+diff gitignore-template-local gitignore-template-github
+rm -f gitignore-template-local gitignore-template-github
+
 echo "Successfully linted in $SECONDS seconds."
