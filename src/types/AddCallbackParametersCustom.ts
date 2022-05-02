@@ -13,7 +13,7 @@ import { PostFirstEsauJrRegisterParameters } from "../callbacks/subscriptions/po
 import { PostFirstFlipRegisterParameters } from "../callbacks/subscriptions/postFirstFlip";
 import { PostFlipRegisterParameters } from "../callbacks/subscriptions/postFlip";
 import { PostGameStartedReorderedRegisterParameters } from "../callbacks/subscriptions/postGameStartedReordered";
-import { PostGreedModeWaveRegisterParameters } from "../callbacks/subscriptions/postGreedWave";
+import { PostGreedModeWaveRegisterParameters } from "../callbacks/subscriptions/postGreedModeWave";
 import { PostGridEntityBrokenRegisterParameters } from "../callbacks/subscriptions/postGridEntityBroken";
 import { PostGridEntityCollisionRegisterParameters } from "../callbacks/subscriptions/postGridEntityCollision";
 import { PostGridEntityInitRegisterParameters } from "../callbacks/subscriptions/postGridEntityInit";

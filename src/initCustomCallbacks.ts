@@ -11,7 +11,7 @@ import { postEsauJrCallbacksInit } from "./callbacks/postEsauJr";
 import { postFamiliarInitLateCallbackInit } from "./callbacks/postFamiliarInitLate";
 import { postFamiliarStateChangedCallbackInit } from "./callbacks/postFamiliarStateChanged";
 import { postFlipCallbacksInit } from "./callbacks/postFlip";
-import { postGreedModeWaveCallbackInit } from "./callbacks/postGreedWave";
+import { postGreedModeWaveCallbackInit } from "./callbacks/postGreedModeWave";
 import { postGridEntityCallbacksInit } from "./callbacks/postGridEntity";
 import { postGridEntityCollisionInit } from "./callbacks/postGridEntityCollision";
 import { postHolyMantleRemovedCallbackInit } from "./callbacks/postHolyMantleRemoved";

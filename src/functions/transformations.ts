@@ -8,6 +8,7 @@ import { getCollectibleTypesWithTag } from "./collectibleTag";
 import { hasFlag } from "./flag";
 import { range } from "./math";
 import { getPlayerCollectibleCount } from "./player";
+import { getEnumValues } from "./utils";
 
 const TRANSFORMATION_TO_TAG_MAP: ReadonlyMap<PlayerForm, ItemConfigTag> =
   new Map([
@@ -65,6 +66,20 @@ export function getPlayerNumCollectiblesForTransformation(
 ): int {
   const collectibleTypes = getCollectibleTypesForTransformation(playerForm);
   return getPlayerCollectibleCount(player, ...collectibleTypes.values());
+}
+
+/** Returns a set of the player's current transformations. */
+export function getPlayerTransformations(
+  player: EntityPlayer,
+): Set<PlayerForm> {
+  const transformations = new Set<PlayerForm>();
+  for (const playerForm of getEnumValues(PlayerForm)) {
+    if (player.HasPlayerForm(playerForm)) {
+      transformations.add(playerForm);
+    }
+  }
+
+  return transformations;
 }
 
 /**
