@@ -1,8 +1,8 @@
-type CallbackType = (oldWave: int, newWave: int) => void;
+export type PostGreedModeWaveRegisterParameters = [
+  callback: (oldWave: int, newWave: int) => void,
+];
 
-export type PostGreedModeWaveRegisterParameters = [callback: CallbackType];
-
-const subscriptions: Array<[CallbackType]> = [];
+const subscriptions: PostGreedModeWaveRegisterParameters[] = [];
 
 /** @internal */
 export function postGreedModeWaveHasSubscriptions(): boolean {
@@ -10,8 +10,10 @@ export function postGreedModeWaveHasSubscriptions(): boolean {
 }
 
 /** @internal */
-export function postGreedModeWaveRegister(callback: CallbackType): void {
-  subscriptions.push([callback]);
+export function postGreedModeWaveRegister(
+  ...args: PostGreedModeWaveRegisterParameters
+): void {
+  subscriptions.push(args);
 }
 
 /** @internal */

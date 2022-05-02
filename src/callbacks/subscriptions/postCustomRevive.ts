@@ -1,11 +1,9 @@
-type CallbackType = (player: EntityPlayer, revivalType: int) => void;
-
 export type PostCustomReviveRegisterParameters = [
-  callback: CallbackType,
+  callback: (player: EntityPlayer, revivalType: int) => void,
   revivalType?: int,
 ];
 
-const subscriptions: Array<[CallbackType, int | undefined]> = [];
+const subscriptions: PostCustomReviveRegisterParameters[] = [];
 
 /** @internal */
 export function postCustomReviveHasSubscriptions(): boolean {
@@ -14,10 +12,9 @@ export function postCustomReviveHasSubscriptions(): boolean {
 
 /** @internal */
 export function postCustomReviveRegister(
-  callback: CallbackType,
-  revivalType?: int,
+  ...args: PostCustomReviveRegisterParameters
 ): void {
-  subscriptions.push([callback, revivalType]);
+  subscriptions.push(args);
 }
 
 /** @internal */

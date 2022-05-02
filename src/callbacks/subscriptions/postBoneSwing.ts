@@ -1,6 +1,6 @@
-type CallbackType = (boneClub: EntityKnife) => void;
-
-export type PostBoneSwingRegisterParameters = [callback: CallbackType];
+export type PostBoneSwingRegisterParameters = [
+  callback: (boneClub: EntityKnife) => void,
+];
 
 const subscriptions: PostBoneSwingRegisterParameters[] = [];
 
@@ -10,8 +10,10 @@ export function postBoneSwingHasSubscriptions(): boolean {
 }
 
 /** @internal */
-export function postBoneSwingRegister(callback: CallbackType): void {
-  subscriptions.push([callback]);
+export function postBoneSwingRegister(
+  ...args: PostBoneSwingRegisterParameters
+): void {
+  subscriptions.push(args);
 }
 
 /** @internal */

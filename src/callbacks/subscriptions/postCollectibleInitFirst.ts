@@ -1,7 +1,5 @@
-type CallbackType = (collectible: EntityPickup) => void;
-
 export type PostCollectibleInitFirstRegisterParameters = [
-  callback: CallbackType,
+  callback: (collectible: EntityPickup) => void,
   collectibleType?: CollectibleType | int,
 ];
 
@@ -14,10 +12,9 @@ export function postCollectibleInitFirstHasSubscriptions(): boolean {
 
 /** @internal */
 export function postCollectibleInitFirstRegister(
-  callback: CallbackType,
-  collectibleType?: CollectibleType | int,
+  ...args: PostCollectibleInitFirstRegisterParameters
 ): void {
-  subscriptions.push([callback, collectibleType]);
+  subscriptions.push(args);
 }
 
 /** @internal */

@@ -1,8 +1,8 @@
-type CallbackType = (player: EntityPlayer) => void;
+export type PostCursedTeleportRegisterParameters = [
+  callback: (player: EntityPlayer) => void,
+];
 
-export type PostCursedTeleportRegisterParameters = [callback: CallbackType];
-
-const subscriptions: Array<[CallbackType]> = [];
+const subscriptions: PostCursedTeleportRegisterParameters[] = [];
 
 /** @internal */
 export function postCursedTeleportHasSubscriptions(): boolean {
@@ -10,8 +10,10 @@ export function postCursedTeleportHasSubscriptions(): boolean {
 }
 
 /** @internal */
-export function postCursedTeleportRegister(callback: CallbackType): void {
-  subscriptions.push([callback]);
+export function postCursedTeleportRegister(
+  ...args: PostCursedTeleportRegisterParameters
+): void {
+  subscriptions.push(args);
 }
 
 /** @internal */
