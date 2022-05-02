@@ -1,8 +1,9 @@
-export type PostPlayerInitLateCallbackType = (player: EntityPlayer) => void;
+export type PostPlayerInitLateRegisterParameters = [
+  callback: (player: EntityPlayer) => void,
+  playerVariant?: PlayerVariant,
+];
 
-const subscriptions: Array<
-  [PostPlayerInitLateCallbackType, PlayerVariant | undefined]
-> = [];
+const subscriptions: PostPlayerInitLateRegisterParameters[] = [];
 
 /** @internal */
 export function postPlayerInitLateHasSubscriptions(): boolean {
@@ -11,10 +12,9 @@ export function postPlayerInitLateHasSubscriptions(): boolean {
 
 /** @internal */
 export function postPlayerInitLateRegister(
-  callback: PostPlayerInitLateCallbackType,
-  playerVariant?: PlayerVariant,
+  ...args: PostPlayerInitLateRegisterParameters
 ): void {
-  subscriptions.push([callback, playerVariant]);
+  subscriptions.push(args);
 }
 
 /** @internal */

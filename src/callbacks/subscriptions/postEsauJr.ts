@@ -1,6 +1,8 @@
-export type PostEsauJrCallbackType = (player: EntityPlayer) => void;
+type CallbackType = (player: EntityPlayer) => void;
 
-const subscriptions: Array<[PostEsauJrCallbackType]> = [];
+export type PostEsauJrRegisterParameters = [callback: CallbackType];
+
+const subscriptions: Array<[CallbackType]> = [];
 
 /** @internal */
 export function postEsauJrHasSubscriptions(): boolean {
@@ -8,7 +10,7 @@ export function postEsauJrHasSubscriptions(): boolean {
 }
 
 /** @internal */
-export function postEsauJrRegister(callback: PostEsauJrCallbackType): void {
+export function postEsauJrRegister(callback: CallbackType): void {
   subscriptions.push([callback]);
 }
 

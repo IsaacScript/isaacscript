@@ -1,14 +1,15 @@
-export type PostPlayerFatalDamageCallbackType = (
-  player: EntityPlayer,
-  damageAmount: float,
-  damageFlags: int,
-  damageSource: EntityRef,
-  damageCountdownFrames: int,
-) => boolean | void;
+export type PostPlayerFatalDamageRegisterParameters = [
+  callback: (
+    player: EntityPlayer,
+    damageAmount: float,
+    damageFlags: int,
+    damageSource: EntityRef,
+    damageCountdownFrames: int,
+  ) => boolean | void,
+  playerVariant?: PlayerVariant,
+];
 
-const subscriptions: Array<
-  [PostPlayerFatalDamageCallbackType, PlayerVariant | undefined]
-> = [];
+const subscriptions: PostPlayerFatalDamageRegisterParameters[] = [];
 
 /** @internal */
 export function postPlayerFatalDamageHasSubscriptions(): boolean {
@@ -17,10 +18,9 @@ export function postPlayerFatalDamageHasSubscriptions(): boolean {
 
 /** @internal */
 export function postPlayerFatalDamageRegister(
-  callback: PostPlayerFatalDamageCallbackType,
-  playerVariant?: PlayerVariant,
+  ...args: PostPlayerFatalDamageRegisterParameters
 ): void {
-  subscriptions.push([callback, playerVariant]);
+  subscriptions.push(args);
 }
 
 /** @internal */

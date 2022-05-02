@@ -1,14 +1,11 @@
 import { HealthType } from "../../enums/HealthType";
 
-export type PostPlayerChangeHealthCallbackType = (
-  player: EntityPlayer,
-  healthType: HealthType,
-  amount: int,
-) => void;
+export type PostPlayerChangeHealthRegisterParameters = [
+  callback: (player: EntityPlayer, healthType: HealthType, amount: int) => void,
+  playerVariant?: PlayerVariant,
+];
 
-const subscriptions: Array<
-  [PostPlayerChangeHealthCallbackType, PlayerVariant | undefined]
-> = [];
+const subscriptions: PostPlayerChangeHealthRegisterParameters[] = [];
 
 /** @internal */
 export function postPlayerChangeHealthHasSubscriptions(): boolean {
@@ -17,10 +14,9 @@ export function postPlayerChangeHealthHasSubscriptions(): boolean {
 
 /** @internal */
 export function postPlayerChangeHealthRegister(
-  callback: PostPlayerChangeHealthCallbackType,
-  playerVariant?: PlayerVariant,
+  ...args: PostPlayerChangeHealthRegisterParameters
 ): void {
-  subscriptions.push([callback, playerVariant]);
+  subscriptions.push(args);
 }
 
 /** @internal */

@@ -1,10 +1,12 @@
-export type PostFamiliarInitLateCallbackType = (
-  familiar: EntityFamiliar,
-) => void;
+type CallbackType = (familiar: EntityFamiliar) => void;
 
-const subscriptions: Array<
-  [PostFamiliarInitLateCallbackType, FamiliarVariant | int | undefined]
-> = [];
+export type PostFamiliarInitLateRegisterParameters = [
+  callback: CallbackType,
+  familiarVariant?: FamiliarVariant | int,
+];
+
+const subscriptions: Array<[CallbackType, FamiliarVariant | int | undefined]> =
+  [];
 
 /** @internal */
 export function postFamiliarInitLateHasSubscriptions(): boolean {
@@ -13,7 +15,7 @@ export function postFamiliarInitLateHasSubscriptions(): boolean {
 
 /** @internal */
 export function postFamiliarInitLateRegister(
-  callback: PostFamiliarInitLateCallbackType,
+  callback: CallbackType,
   familiarVariant?: FamiliarVariant | int,
 ): void {
   subscriptions.push([callback, familiarVariant]);

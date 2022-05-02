@@ -1,8 +1,9 @@
-export type PostSlotDestroyedCallbackType = (slot: Entity) => void;
+export type PostSlotDestroyedRegisterParameters = [
+  callback: (slot: Entity) => void,
+  slotVariant?: SlotVariant,
+];
 
-const subscriptions: Array<
-  [PostSlotDestroyedCallbackType, SlotVariant | undefined]
-> = [];
+const subscriptions: PostSlotDestroyedRegisterParameters[] = [];
 
 /** @internal */
 export function postSlotDestroyedHasSubscriptions(): boolean {
@@ -11,10 +12,9 @@ export function postSlotDestroyedHasSubscriptions(): boolean {
 
 /** @internal */
 export function postSlotDestroyedRegister(
-  callback: PostSlotDestroyedCallbackType,
-  slotVariant?: SlotVariant,
+  ...args: PostSlotDestroyedRegisterParameters
 ): void {
-  subscriptions.push([callback, slotVariant]);
+  subscriptions.push(args);
 }
 
 /** @internal */

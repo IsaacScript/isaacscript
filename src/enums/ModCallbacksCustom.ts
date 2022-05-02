@@ -21,6 +21,16 @@ export enum ModCallbacksCustom {
   MC_POST_FIRST_FLIP,
   MC_POST_FLIP,
   MC_POST_GAME_STARTED_REORDERED,
+
+  /**
+   * Fires from the `MC_POST_UPDATE` callback when the Greed Mode wave increases.
+   *
+   * ```ts
+   * function postGreedModeWave(oldWave: int, newWave: int) {}
+   * ```
+   */
+  MC_POST_GREED_MODE_WAVE,
+
   MC_POST_GRID_ENTITY_BROKEN,
   MC_POST_GRID_ENTITY_COLLISION,
   MC_POST_GRID_ENTITY_INIT,

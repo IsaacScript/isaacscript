@@ -1,12 +1,13 @@
-export type PostPickupStateChangedCallbackType = (
-  pickup: EntityPickup,
-  previousState: int,
-  currentState: int,
-) => void;
+export type PostPickupStateChangedRegisterParameters = [
+  callback: (
+    pickup: EntityPickup,
+    previousState: int,
+    currentState: int,
+  ) => void,
+  pickupVariant?: PickupVariant,
+];
 
-const subscriptions: Array<
-  [PostPickupStateChangedCallbackType, PickupVariant | int | undefined]
-> = [];
+const subscriptions: PostPickupStateChangedRegisterParameters[] = [];
 
 /** @internal */
 export function postPickupStateChangedHasSubscriptions(): boolean {
@@ -15,10 +16,9 @@ export function postPickupStateChangedHasSubscriptions(): boolean {
 
 /** @internal */
 export function postPickupStateChangedRegister(
-  callback: PostPickupStateChangedCallbackType,
-  pickupVariant?: PickupVariant | int,
+  ...args: PostPickupStateChangedRegisterParameters
 ): void {
-  subscriptions.push([callback, pickupVariant]);
+  subscriptions.push(args);
 }
 
 /** @internal */

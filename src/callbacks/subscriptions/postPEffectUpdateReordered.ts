@@ -1,10 +1,10 @@
-export type PostPEffectUpdateReorderedCallbackType = (
-  player: EntityPlayer,
-) => void;
+export type PostPEffectUpdateReorderedRegisterParameters = [
+  callback: (player: EntityPlayer) => void,
+  playerVariant?: PlayerVariant | int,
+  character?: PlayerType | int,
+];
 
-const subscriptions: Array<
-  [PostPEffectUpdateReorderedCallbackType, PlayerType | int | undefined]
-> = [];
+const subscriptions: PostPEffectUpdateReorderedRegisterParameters[] = [];
 
 /** @internal */
 export function postPEffectUpdateReorderedHasSubscriptions(): boolean {
@@ -13,10 +13,9 @@ export function postPEffectUpdateReorderedHasSubscriptions(): boolean {
 
 /** @internal */
 export function postPEffectUpdateReorderedRegister(
-  callback: PostPEffectUpdateReorderedCallbackType,
-  character?: PlayerType | int,
+  ...args: PostPEffectUpdateReorderedRegisterParameters
 ): void {
-  subscriptions.push([callback, character]);
+  subscriptions.push(args);
 }
 
 /** @internal */

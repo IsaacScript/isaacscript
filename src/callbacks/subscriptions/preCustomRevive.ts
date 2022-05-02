@@ -1,6 +1,8 @@
-export type PreCustomReviveCallbackType = (player: EntityPlayer) => int | void;
+export type PreCustomReviveRegisterParameters = [
+  callback: (player: EntityPlayer) => int | void,
+];
 
-const subscriptions: Array<[PreCustomReviveCallbackType]> = [];
+const subscriptions: PreCustomReviveRegisterParameters[] = [];
 
 /** @internal */
 export function preCustomReviveHasSubscriptions(): boolean {
@@ -9,9 +11,9 @@ export function preCustomReviveHasSubscriptions(): boolean {
 
 /** @internal */
 export function preCustomReviveRegister(
-  callback: PreCustomReviveCallbackType,
+  ...args: PreCustomReviveRegisterParameters
 ): void {
-  subscriptions.push([callback]);
+  subscriptions.push(args);
 }
 
 /** @internal */

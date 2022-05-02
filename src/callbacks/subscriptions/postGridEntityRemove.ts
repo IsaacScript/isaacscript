@@ -1,11 +1,9 @@
-export type PostGridEntityRemoveCallbackType = (
-  gridIndex: int,
-  gridEntityType: GridEntityType,
-) => void;
+export type PostGridEntityRemoveRegisterParameters = [
+  callback: (gridIndex: int, gridEntityType: GridEntityType) => void,
+  gridEntityType?: GridEntityType,
+];
 
-const subscriptions: Array<
-  [PostGridEntityRemoveCallbackType, GridEntityType | undefined]
-> = [];
+const subscriptions: PostGridEntityRemoveRegisterParameters[] = [];
 
 /** @internal */
 export function postGridEntityRemoveHasSubscriptions(): boolean {
@@ -14,10 +12,9 @@ export function postGridEntityRemoveHasSubscriptions(): boolean {
 
 /** @internal */
 export function postGridEntityRemoveRegister(
-  callback: PostGridEntityRemoveCallbackType,
-  gridEntityType?: GridEntityType,
+  ...args: PostGridEntityRemoveRegisterParameters
 ): void {
-  subscriptions.push([callback, gridEntityType]);
+  subscriptions.push(args);
 }
 
 /** @internal */

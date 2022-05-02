@@ -1,8 +1,9 @@
-export type PostPickupInitLateCallbackType = (pickup: EntityPickup) => void;
+export type PostPickupInitLateRegisterParameters = [
+  callback: (pickup: EntityPickup) => void,
+  pickupVariant?: PickupVariant | int,
+];
 
-const subscriptions: Array<
-  [PostPickupInitLateCallbackType, PickupVariant | int | undefined]
-> = [];
+const subscriptions: PostPickupInitLateRegisterParameters[] = [];
 
 /** @internal */
 export function postPickupInitLateHasSubscriptions(): boolean {
@@ -11,10 +12,9 @@ export function postPickupInitLateHasSubscriptions(): boolean {
 
 /** @internal */
 export function postPickupInitLateRegister(
-  callback: PostPickupInitLateCallbackType,
-  pickupVariant?: PickupVariant | int,
+  ...args: PostPickupInitLateRegisterParameters
 ): void {
-  subscriptions.push([callback, pickupVariant]);
+  subscriptions.push(args);
 }
 
 /** @internal */

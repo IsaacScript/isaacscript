@@ -1,12 +1,16 @@
-export type PostFamiliarStateChangedCallbackType = (
+type CallbackType = (
   familiar: EntityFamiliar,
   previousState: int,
   currentState: int,
 ) => void;
 
-const subscriptions: Array<
-  [PostFamiliarStateChangedCallbackType, FamiliarVariant | int | undefined]
-> = [];
+export type PostFamiliarStateChangedRegisterParameters = [
+  callback: CallbackType,
+  familiarVariant?: FamiliarVariant,
+];
+
+const subscriptions: Array<[CallbackType, FamiliarVariant | int | undefined]> =
+  [];
 
 /** @internal */
 export function postFamiliarStateChangedHasSubscriptions(): boolean {
@@ -15,7 +19,7 @@ export function postFamiliarStateChangedHasSubscriptions(): boolean {
 
 /** @internal */
 export function postFamiliarStateChangedRegister(
-  callback: PostFamiliarStateChangedCallbackType,
+  callback: CallbackType,
   familiarVariant?: FamiliarVariant | int,
 ): void {
   subscriptions.push([callback, familiarVariant]);

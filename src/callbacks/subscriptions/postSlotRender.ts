@@ -1,8 +1,9 @@
-export type PostSlotRenderCallbackType = (slot: Entity) => void;
+export type PostSlotRenderRegisterParameters = [
+  callback: (slot: Entity) => void,
+  slotVariant?: SlotVariant,
+];
 
-const subscriptions: Array<
-  [PostSlotRenderCallbackType, SlotVariant | undefined]
-> = [];
+const subscriptions: PostSlotRenderRegisterParameters[] = [];
 
 /** @internal */
 export function postSlotRenderHasSubscriptions(): boolean {
@@ -11,10 +12,9 @@ export function postSlotRenderHasSubscriptions(): boolean {
 
 /** @internal */
 export function postSlotRenderRegister(
-  callback: PostSlotRenderCallbackType,
-  slotVariant?: SlotVariant,
+  ...args: PostSlotRenderRegisterParameters
 ): void {
-  subscriptions.push([callback, slotVariant]);
+  subscriptions.push(args);
 }
 
 /** @internal */

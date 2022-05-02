@@ -1,13 +1,12 @@
 import { PickingUpItem } from "../../types/PickingUpItem";
 
-export type PreItemPickupCallbackType = (
-  player: EntityPlayer,
-  pickingUpItem: PickingUpItem,
-) => void;
+export type PreItemPickupRegisterParameters = [
+  callback: (player: EntityPlayer, pickingUpItem: PickingUpItem) => void,
+  itemType?: ItemType,
+  itemID?: CollectibleType | TrinketType | int,
+];
 
-const subscriptions: Array<
-  [PreItemPickupCallbackType, ItemType | undefined, int | undefined]
-> = [];
+const subscriptions: PreItemPickupRegisterParameters[] = [];
 
 /** @internal */
 export function preItemPickupHasSubscriptions(): boolean {
@@ -16,11 +15,9 @@ export function preItemPickupHasSubscriptions(): boolean {
 
 /** @internal */
 export function preItemPickupRegister(
-  callback: PreItemPickupCallbackType,
-  itemType?: ItemType,
-  itemID?: int,
+  ...args: PreItemPickupRegisterParameters
 ): void {
-  subscriptions.push([callback, itemType, itemID]);
+  subscriptions.push(args);
 }
 
 /** @internal */

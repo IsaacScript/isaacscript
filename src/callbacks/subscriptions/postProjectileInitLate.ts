@@ -1,10 +1,9 @@
-export type PostProjectileInitLateCallbackType = (
-  projectile: EntityProjectile,
-) => void;
+export type PostProjectileInitLateRegisterParameters = [
+  callback: (projectile: EntityProjectile) => void,
+  projectileVariant?: ProjectileVariant | int,
+];
 
-const subscriptions: Array<
-  [PostProjectileInitLateCallbackType, ProjectileVariant | int | undefined]
-> = [];
+const subscriptions: PostProjectileInitLateRegisterParameters[] = [];
 
 /** @internal */
 export function postProjectileInitLateHasSubscriptions(): boolean {
@@ -13,10 +12,9 @@ export function postProjectileInitLateHasSubscriptions(): boolean {
 
 /** @internal */
 export function postProjectileInitLateRegister(
-  callback: PostProjectileInitLateCallbackType,
-  projectileVariant?: ProjectileVariant | int,
+  ...args: PostProjectileInitLateRegisterParameters
 ): void {
-  subscriptions.push([callback, projectileVariant]);
+  subscriptions.push(args);
 }
 
 /** @internal */

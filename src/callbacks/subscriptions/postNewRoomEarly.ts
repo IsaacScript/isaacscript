@@ -1,6 +1,6 @@
-export type PostNewRoomEarlyCallbackType = () => void;
+export type PostNewRoomEarlyRegisterParameters = [callback: () => void];
 
-const subscriptions: Array<[PostNewRoomEarlyCallbackType]> = [];
+const subscriptions: PostNewRoomEarlyRegisterParameters[] = [];
 
 /** @internal */
 export function postNewRoomEarlyHasSubscriptions(): boolean {
@@ -9,9 +9,9 @@ export function postNewRoomEarlyHasSubscriptions(): boolean {
 
 /** @internal */
 export function postNewRoomEarlyRegister(
-  callback: PostNewRoomEarlyCallbackType,
+  ...args: PostNewRoomEarlyRegisterParameters
 ): void {
-  subscriptions.push([callback]);
+  subscriptions.push(args);
 }
 
 /** @internal */

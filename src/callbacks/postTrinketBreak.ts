@@ -36,7 +36,7 @@ export function postTrinketBreakCallbackInit(mod: ModUpgraded): void {
   mod.AddCallbackCustom(
     ModCallbacksCustom.MC_POST_PEFFECT_UPDATE_REORDERED,
     postPEffectUpdateReordered,
-  ); // 4
+  );
 }
 
 function hasSubscriptions() {

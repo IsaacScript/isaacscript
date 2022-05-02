@@ -1,13 +1,16 @@
-export type PostCustomDoorEnterCallbackType = (
+type CallbackType = (
   player: EntityPlayer,
   effectVariant: int,
   doorSlot: DoorSlot,
   direction: Direction,
 ) => void;
 
-const subscriptions: Array<
-  [PostCustomDoorEnterCallbackType, DoorVariant | int | undefined]
-> = [];
+export type PostCustomDoorEnterRegisterParameters = [
+  callback: CallbackType,
+  effectVariant?: int,
+];
+
+const subscriptions: Array<[CallbackType, DoorVariant | int | undefined]> = [];
 
 /** @internal */
 export function postCustomDoorEnterHasSubscriptions(): boolean {
@@ -16,7 +19,7 @@ export function postCustomDoorEnterHasSubscriptions(): boolean {
 
 /** @internal */
 export function postCustomDoorEnterRegister(
-  callback: PostCustomDoorEnterCallbackType,
+  callback: CallbackType,
   effectVariant?: int,
 ): void {
   subscriptions.push([callback, effectVariant]);

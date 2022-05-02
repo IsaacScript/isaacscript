@@ -1,13 +1,12 @@
 import { PickingUpItem } from "../../types/PickingUpItem";
 
-export type PostItemPickupCallbackType = (
-  player: EntityPlayer,
-  pickingUpItem: PickingUpItem,
-) => void;
+export type PostItemPickupRegisterParameters = [
+  callback: (player: EntityPlayer, pickingUpItem: PickingUpItem) => void,
+  itemType?: ItemType,
+  itemID?: CollectibleType | TrinketType | int,
+];
 
-const subscriptions: Array<
-  [PostItemPickupCallbackType, ItemType | undefined, int | undefined]
-> = [];
+const subscriptions: PostItemPickupRegisterParameters[] = [];
 
 /** @internal */
 export function postItemPickupHasSubscriptions(): boolean {
@@ -16,11 +15,9 @@ export function postItemPickupHasSubscriptions(): boolean {
 
 /** @internal */
 export function postItemPickupRegister(
-  callback: PostItemPickupCallbackType,
-  itemType?: ItemType,
-  itemID?: int,
+  ...args: PostItemPickupRegisterParameters
 ): void {
-  subscriptions.push([callback, itemType, itemID]);
+  subscriptions.push(args);
 }
 
 /** @internal */

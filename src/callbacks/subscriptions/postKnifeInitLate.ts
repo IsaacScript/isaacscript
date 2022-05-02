@@ -1,8 +1,9 @@
-export type PostKnifeInitLateCallbackType = (knife: EntityKnife) => void;
+export type PostKnifeInitLateRegisterParameters = [
+  callback: (knife: EntityKnife) => void,
+  knifeVariant?: KnifeVariant | int,
+];
 
-const subscriptions: Array<
-  [PostKnifeInitLateCallbackType, KnifeVariant | int | undefined]
-> = [];
+const subscriptions: PostKnifeInitLateRegisterParameters[] = [];
 
 /** @internal */
 export function postKnifeInitLateHasSubscriptions(): boolean {
@@ -11,10 +12,9 @@ export function postKnifeInitLateHasSubscriptions(): boolean {
 
 /** @internal */
 export function postKnifeInitLateRegister(
-  callback: PostKnifeInitLateCallbackType,
-  knifeVariant?: KnifeVariant | int,
+  ...args: PostKnifeInitLateRegisterParameters
 ): void {
-  subscriptions.push([callback, knifeVariant]);
+  subscriptions.push(args);
 }
 
 /** @internal */

@@ -1,8 +1,9 @@
-export type PostLaserInitLateCallbackType = (laser: EntityLaser) => void;
+export type PostLaserInitLateRegisterParameters = [
+  callback: (laser: EntityLaser) => void,
+  laserVariant?: LaserVariant | int,
+];
 
-const subscriptions: Array<
-  [PostLaserInitLateCallbackType, LaserVariant | int | undefined]
-> = [];
+const subscriptions: PostLaserInitLateRegisterParameters[] = [];
 
 /** @internal */
 export function postLaserInitLateHasSubscriptions(): boolean {
@@ -11,10 +12,9 @@ export function postLaserInitLateHasSubscriptions(): boolean {
 
 /** @internal */
 export function postLaserInitLateRegister(
-  callback: PostLaserInitLateCallbackType,
-  laserVariant?: LaserVariant | int,
+  ...args: PostLaserInitLateRegisterParameters
 ): void {
-  subscriptions.push([callback, laserVariant]);
+  subscriptions.push(args);
 }
 
 /** @internal */

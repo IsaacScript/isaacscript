@@ -1,12 +1,13 @@
-export type PostTransformationCallbackType = (
-  player: EntityPlayer,
+export type PostTransformationRegisterParameters = [
+  callback: (
+    player: EntityPlayer,
+    playerForm: PlayerForm,
+    hasForm: boolean,
+  ) => void,
   playerForm: PlayerForm,
-  hasForm: boolean,
-) => void;
+];
 
-const subscriptions: Array<
-  [PostTransformationCallbackType, PlayerForm | undefined]
-> = [];
+const subscriptions: PostTransformationRegisterParameters[] = [];
 
 /** @internal */
 export function postTransformationHasSubscriptions(): boolean {
@@ -15,10 +16,9 @@ export function postTransformationHasSubscriptions(): boolean {
 
 /** @internal */
 export function postTransformationRegister(
-  callback: PostTransformationCallbackType,
-  playerForm?: PlayerForm,
+  ...args: PostTransformationRegisterParameters
 ): void {
-  subscriptions.push([callback, playerForm]);
+  subscriptions.push(args);
 }
 
 /** @internal */

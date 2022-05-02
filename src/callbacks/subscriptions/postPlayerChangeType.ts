@@ -1,10 +1,12 @@
-export type PostPlayerChangeTypeCallbackType = (
-  player: EntityPlayer,
-  oldCharacter: PlayerType | int,
-  newCharacter: PlayerType | int,
-) => void;
+export type PostPlayerChangeTypeRegisterParameters = [
+  callback: (
+    player: EntityPlayer,
+    oldCharacter: PlayerType | int,
+    newCharacter: PlayerType | int,
+  ) => void,
+];
 
-const subscriptions: Array<[PostPlayerChangeTypeCallbackType]> = [];
+const subscriptions: PostPlayerChangeTypeRegisterParameters[] = [];
 
 /** @internal */
 export function postPlayerChangeTypeHasSubscriptions(): boolean {
@@ -13,9 +15,9 @@ export function postPlayerChangeTypeHasSubscriptions(): boolean {
 
 /** @internal */
 export function postPlayerChangeTypeRegister(
-  callback: PostPlayerChangeTypeCallbackType,
+  ...args: PostPlayerChangeTypeRegisterParameters
 ): void {
-  subscriptions.push([callback]);
+  subscriptions.push(args);
 }
 
 /** @internal */

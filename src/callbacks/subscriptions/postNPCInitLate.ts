@@ -1,8 +1,9 @@
-export type PostNPCInitLateCallbackType = (npc: EntityNPC) => void;
+export type PostNPCInitLateRegisterParameters = [
+  callback: (npc: EntityNPC) => void,
+  entityType?: EntityType | int,
+];
 
-const subscriptions: Array<
-  [PostNPCInitLateCallbackType, EntityType | int | undefined]
-> = [];
+const subscriptions: PostNPCInitLateRegisterParameters[] = [];
 
 /** @internal */
 export function postNPCInitLateHasSubscriptions(): boolean {
@@ -11,10 +12,9 @@ export function postNPCInitLateHasSubscriptions(): boolean {
 
 /** @internal */
 export function postNPCInitLateRegister(
-  callback: PostNPCInitLateCallbackType,
-  entityType?: EntityType | int,
+  ...args: PostNPCInitLateRegisterParameters
 ): void {
-  subscriptions.push([callback, entityType]);
+  subscriptions.push(args);
 }
 
 /** @internal */

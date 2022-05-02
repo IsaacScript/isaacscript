@@ -1,9 +1,8 @@
-export type PostSacrificeCallbackType = (
-  player: EntityPlayer,
-  numSacrifices: int,
-) => void;
+export type PostSacrificeRegisterParameters = [
+  callback: (player: EntityPlayer, numSacrifices: int) => void,
+];
 
-const subscriptions: Array<[PostSacrificeCallbackType]> = [];
+const subscriptions: PostSacrificeRegisterParameters[] = [];
 
 /** @internal */
 export function postSacrificeHasSubscriptions(): boolean {
@@ -12,9 +11,9 @@ export function postSacrificeHasSubscriptions(): boolean {
 
 /** @internal */
 export function postSacrificeRegister(
-  callback: PostSacrificeCallbackType,
+  ...args: PostSacrificeRegisterParameters
 ): void {
-  subscriptions.push([callback]);
+  subscriptions.push(args);
 }
 
 /** @internal */

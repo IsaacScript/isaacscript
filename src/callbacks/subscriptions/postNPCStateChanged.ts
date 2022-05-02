@@ -1,16 +1,10 @@
-export type PostNPCStateChangedCallbackType = (
-  npc: EntityNPC,
-  previousState: int,
-  currentState: int,
-) => void;
+export type PostNPCStateChangedRegisterParameters = [
+  callback: (npc: EntityNPC, previousState: int, currentState: int) => void,
+  entityType?: EntityType | int,
+  variant?: int,
+];
 
-const subscriptions: Array<
-  [
-    PostNPCStateChangedCallbackType,
-    EntityType | int | undefined,
-    int | undefined,
-  ]
-> = [];
+const subscriptions: PostNPCStateChangedRegisterParameters[] = [];
 
 /** @internal */
 export function postNPCStateChangedHasSubscriptions(): boolean {
@@ -19,11 +13,9 @@ export function postNPCStateChangedHasSubscriptions(): boolean {
 
 /** @internal */
 export function postNPCStateChangedRegister(
-  callback: PostNPCStateChangedCallbackType,
-  entityType?: EntityType | int,
-  variant?: int,
+  ...args: PostNPCStateChangedRegisterParameters
 ): void {
-  subscriptions.push([callback, entityType, variant]);
+  subscriptions.push(args);
 }
 
 /** @internal */

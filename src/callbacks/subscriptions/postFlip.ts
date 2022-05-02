@@ -1,6 +1,8 @@
-export type PostFlipCallbackType = (player: EntityPlayer) => void;
+type CallbackType = (player: EntityPlayer) => void;
 
-const subscriptions: Array<[PostFlipCallbackType]> = [];
+export type PostFlipRegisterParameters = [callback: CallbackType];
+
+const subscriptions: Array<[CallbackType]> = [];
 
 /** @internal */
 export function postFlipHasSubscriptions(): boolean {
@@ -8,7 +10,7 @@ export function postFlipHasSubscriptions(): boolean {
 }
 
 /** @internal */
-export function postFlipRegister(callback: PostFlipCallbackType): void {
+export function postFlipRegister(callback: CallbackType): void {
   subscriptions.push([callback]);
 }
 

@@ -1,11 +1,10 @@
-export type PostPurchaseCallbackType = (
-  player: EntityPlayer,
-  pickup: EntityPickup,
-) => void;
+export type PostPurchaseRegisterParameters = [
+  callback: (player: EntityPlayer, pickup: EntityPickup) => void,
+  pickupVariant?: PickupVariant | int,
+  pickupSubType?: int,
+];
 
-const subscriptions: Array<
-  [PostPurchaseCallbackType, PickupVariant | int | undefined, int | undefined]
-> = [];
+const subscriptions: PostPurchaseRegisterParameters[] = [];
 
 /** @internal */
 export function postPurchaseHasSubscriptions(): boolean {
@@ -14,11 +13,9 @@ export function postPurchaseHasSubscriptions(): boolean {
 
 /** @internal */
 export function postPurchaseRegister(
-  callback: PostPurchaseCallbackType,
-  pickupVariant?: PickupVariant | int,
-  pickupSubType?: int,
+  ...args: PostPurchaseRegisterParameters
 ): void {
-  subscriptions.push([callback, pickupVariant, pickupSubType]);
+  subscriptions.push(args);
 }
 
 /** @internal */

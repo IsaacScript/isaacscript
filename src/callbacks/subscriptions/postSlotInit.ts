@@ -1,8 +1,9 @@
-export type PostSlotInitCallbackType = (slot: Entity) => void;
+export type PostSlotInitRegisterParameters = [
+  callback: (slot: Entity) => void,
+  slotVariant?: SlotVariant,
+];
 
-const subscriptions: Array<
-  [PostSlotInitCallbackType, SlotVariant | undefined]
-> = [];
+const subscriptions: PostSlotInitRegisterParameters[] = [];
 
 /** @internal */
 export function postSlotInitHasSubscriptions(): boolean {
@@ -11,10 +12,9 @@ export function postSlotInitHasSubscriptions(): boolean {
 
 /** @internal */
 export function postSlotInitRegister(
-  callback: PostSlotInitCallbackType,
-  slotVariant?: SlotVariant,
+  ...args: PostSlotInitRegisterParameters
 ): void {
-  subscriptions.push([callback, slotVariant]);
+  subscriptions.push(args);
 }
 
 /** @internal */

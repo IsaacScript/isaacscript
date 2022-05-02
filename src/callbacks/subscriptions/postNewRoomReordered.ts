@@ -1,6 +1,6 @@
-export type PostNewRoomReorderedCallbackType = () => void;
+export type PostNewRoomReorderedRegisterParameters = [callback: () => void];
 
-const subscriptions: Array<[PostNewRoomReorderedCallbackType]> = [];
+const subscriptions: PostNewRoomReorderedRegisterParameters[] = [];
 
 /** @internal */
 export function postNewRoomReorderedHasSubscriptions(): boolean {
@@ -9,9 +9,9 @@ export function postNewRoomReorderedHasSubscriptions(): boolean {
 
 /** @internal */
 export function postNewRoomReorderedRegister(
-  callback: PostNewRoomReorderedCallbackType,
+  ...args: PostNewRoomReorderedRegisterParameters
 ): void {
-  subscriptions.push([callback]);
+  subscriptions.push(args);
 }
 
 /** @internal */

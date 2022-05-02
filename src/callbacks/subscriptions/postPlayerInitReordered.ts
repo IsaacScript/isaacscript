@@ -1,10 +1,9 @@
-export type PostPlayerInitReorderedCallbackType = (
-  player: EntityPlayer,
-) => void;
+export type PostPlayerInitReorderedRegisterParameters = [
+  callback: (player: EntityPlayer) => void,
+  playerVariant?: PlayerVariant,
+];
 
-const subscriptions: Array<
-  [PostPlayerInitReorderedCallbackType, PlayerVariant | undefined]
-> = [];
+const subscriptions: PostPlayerInitReorderedRegisterParameters[] = [];
 
 /** @internal */
 export function postPlayerInitReorderedHasSubscriptions(): boolean {
@@ -13,10 +12,9 @@ export function postPlayerInitReorderedHasSubscriptions(): boolean {
 
 /** @internal */
 export function postPlayerInitReorderedRegister(
-  callback: PostPlayerInitReorderedCallbackType,
-  playerVariant?: PlayerVariant,
+  ...args: PostPlayerInitReorderedRegisterParameters
 ): void {
-  subscriptions.push([callback, playerVariant]);
+  subscriptions.push(args);
 }
 
 /** @internal */

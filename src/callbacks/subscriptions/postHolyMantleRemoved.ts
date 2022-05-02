@@ -1,16 +1,14 @@
-export type PostHolyMantleRemovedCallbackType = (
-  player: EntityPlayer,
-  oldNumHolyMantles: int,
-  newNumHolyMantles: int,
-) => void;
+export type PostHolyMantleRemovedRegisterParameters = [
+  callback: (
+    player: EntityPlayer,
+    oldNumHolyMantles: int,
+    newNumHolyMantles: int,
+  ) => void,
+  playerVariant?: PlayerVariant | int,
+  character?: PlayerType | int,
+];
 
-const subscriptions: Array<
-  [
-    PostHolyMantleRemovedCallbackType,
-    PlayerVariant | int | undefined,
-    PlayerType | int | undefined,
-  ]
-> = [];
+const subscriptions: PostHolyMantleRemovedRegisterParameters[] = [];
 
 /** @internal */
 export function postHolyMantleRemovedHasSubscriptions(): boolean {
@@ -19,11 +17,9 @@ export function postHolyMantleRemovedHasSubscriptions(): boolean {
 
 /** @internal */
 export function postHolyMantleRemovedRegister(
-  callback: PostHolyMantleRemovedCallbackType,
-  playerVariant: PlayerVariant | int | undefined,
-  character: PlayerType | int | undefined,
+  ...args: PostHolyMantleRemovedRegisterParameters
 ): void {
-  subscriptions.push([callback, playerVariant, character]);
+  subscriptions.push(args);
 }
 
 /** @internal */

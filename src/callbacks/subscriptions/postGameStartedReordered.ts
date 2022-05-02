@@ -1,8 +1,10 @@
-export type PostGameStartedReorderedCallbackType = (
-  isContinued: boolean,
-) => void;
+type CallbackType = (isContinued: boolean) => void;
 
-const subscriptions: Array<[PostGameStartedReorderedCallbackType]> = [];
+export type PostGameStartedReorderedRegisterParameters = [
+  callback: CallbackType,
+];
+
+const subscriptions: Array<[CallbackType]> = [];
 
 /** @internal */
 export function postGameStartedReorderedHasSubscriptions(): boolean {
@@ -10,9 +12,7 @@ export function postGameStartedReorderedHasSubscriptions(): boolean {
 }
 
 /** @internal */
-export function postGameStartedReorderedRegister(
-  callback: PostGameStartedReorderedCallbackType,
-): void {
+export function postGameStartedReorderedRegister(callback: CallbackType): void {
   subscriptions.push([callback]);
 }
 

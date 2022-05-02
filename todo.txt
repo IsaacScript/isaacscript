@@ -1,3 +1,9 @@
+- check for "type CallbackType"
+
+- check every PlayerType --> PlayerVariant
+- add every PlayerType where missing on search of PlayerVariant
+- NEW DOCUMENTATION WEBSITE
+
 implement:
 MC_POST_GREED_WAVE
 MC_POST_PLAYER_COLLECTIBLE_ADDED

@@ -1,8 +1,9 @@
-export type PostGridEntityUpdateCallbackType = (gridEntity: GridEntity) => void;
+export type PostGridEntityUpdateRegisterParameters = [
+  callback: (gridEntity: GridEntity) => void,
+  gridEntityType?: GridEntityType,
+];
 
-const subscriptions: Array<
-  [PostGridEntityUpdateCallbackType, GridEntityType | undefined]
-> = [];
+const subscriptions: PostGridEntityUpdateRegisterParameters[] = [];
 
 /** @internal */
 export function postGridEntityUpdateHasSubscriptions(): boolean {
@@ -11,10 +12,9 @@ export function postGridEntityUpdateHasSubscriptions(): boolean {
 
 /** @internal */
 export function postGridEntityUpdateRegister(
-  callback: PostGridEntityUpdateCallbackType,
-  gridEntityType?: GridEntityType,
+  ...args: PostGridEntityUpdateRegisterParameters
 ): void {
-  subscriptions.push([callback, gridEntityType]);
+  subscriptions.push(args);
 }
 
 /** @internal */

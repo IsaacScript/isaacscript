@@ -1,6 +1,8 @@
-export type PostRoomClearChangedCallbackType = (roomClear: boolean) => void;
+export type PostRoomClearChangedRegisterParameters = [
+  callback: (roomClear: boolean) => void,
+];
 
-const subscriptions: Array<[PostRoomClearChangedCallbackType]> = [];
+const subscriptions: PostRoomClearChangedRegisterParameters[] = [];
 
 /** @internal */
 export function postRoomClearChangedHasSubscriptions(): boolean {
@@ -9,9 +11,9 @@ export function postRoomClearChangedHasSubscriptions(): boolean {
 
 /** @internal */
 export function postRoomClearChangedRegister(
-  callback: PostRoomClearChangedCallbackType,
+  ...args: PostRoomClearChangedRegisterParameters
 ): void {
-  subscriptions.push([callback]);
+  subscriptions.push(args);
 }
 
 /** @internal */

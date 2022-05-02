@@ -1,12 +1,16 @@
-export type PostEffectStateChangedCallbackType = (
+type CallbackType = (
   effect: EntityEffect,
   previousState: int,
   currentState: int,
 ) => void;
 
-const subscriptions: Array<
-  [PostEffectStateChangedCallbackType, EffectVariant | int | undefined]
-> = [];
+export type PostEffectStateChangedRegisterParameters = [
+  callback: CallbackType,
+  effectVariant?: EffectVariant,
+];
+
+const subscriptions: Array<[CallbackType, EffectVariant | int | undefined]> =
+  [];
 
 /** @internal */
 export function postEffectStateChangedHasSubscriptions(): boolean {
@@ -15,7 +19,7 @@ export function postEffectStateChangedHasSubscriptions(): boolean {
 
 /** @internal */
 export function postEffectStateChangedRegister(
-  callback: PostEffectStateChangedCallbackType,
+  callback: CallbackType,
   effectVariant?: EffectVariant | int,
 ): void {
   subscriptions.push([callback, effectVariant]);

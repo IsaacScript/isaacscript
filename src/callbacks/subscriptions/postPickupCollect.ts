@@ -1,11 +1,9 @@
-export type PostPickupCollectCallbackType = (
-  pickup: EntityPickup,
-  player: EntityPlayer,
-) => void;
+export type PostPickupCollectRegisterParameters = [
+  callback: (pickup: EntityPickup, player: EntityPlayer) => void,
+  pickupVariant?: PickupVariant | int,
+];
 
-const subscriptions: Array<
-  [PostPickupCollectCallbackType, PickupVariant | int | undefined]
-> = [];
+const subscriptions: PostPickupCollectRegisterParameters[] = [];
 
 /** @internal */
 export function postPickupCollectHasSubscriptions(): boolean {
@@ -14,10 +12,9 @@ export function postPickupCollectHasSubscriptions(): boolean {
 
 /** @internal */
 export function postPickupCollectRegister(
-  callback: PostPickupCollectCallbackType,
-  pickupVariant?: PickupVariant | int,
+  ...args: PostPickupCollectRegisterParameters
 ): void {
-  subscriptions.push([callback, pickupVariant]);
+  subscriptions.push(args);
 }
 
 /** @internal */

@@ -1,8 +1,9 @@
-export type PostTearInitVeryLateCallbackType = (tear: EntityTear) => void;
+export type PostTearInitVeryLateRegisterParameters = [
+  callback: (tear: EntityTear) => void,
+  tearVariant?: TearVariant | int,
+];
 
-const subscriptions: Array<
-  [PostTearInitVeryLateCallbackType, TearVariant | int | undefined]
-> = [];
+const subscriptions: PostTearInitVeryLateRegisterParameters[] = [];
 
 /** @internal */
 export function postTearInitVeryLateHasSubscriptions(): boolean {
@@ -11,10 +12,9 @@ export function postTearInitVeryLateHasSubscriptions(): boolean {
 
 /** @internal */
 export function postTearInitVeryLateRegister(
-  callback: PostTearInitVeryLateCallbackType,
-  tearVariant?: TearVariant | int,
+  ...args: PostTearInitVeryLateRegisterParameters
 ): void {
-  subscriptions.push([callback, tearVariant]);
+  subscriptions.push(args);
 }
 
 /** @internal */

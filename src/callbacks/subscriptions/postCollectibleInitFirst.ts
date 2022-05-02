@@ -1,10 +1,11 @@
-export type PostCollectibleInitFirstCallbackType = (
-  collectible: EntityPickup,
-) => void;
+type CallbackType = (collectible: EntityPickup) => void;
 
-const subscriptions: Array<
-  [PostCollectibleInitFirstCallbackType, CollectibleType | int | undefined]
-> = [];
+export type PostCollectibleInitFirstRegisterParameters = [
+  callback: CallbackType,
+  collectibleType?: CollectibleType | int,
+];
+
+const subscriptions: PostCollectibleInitFirstRegisterParameters[] = [];
 
 /** @internal */
 export function postCollectibleInitFirstHasSubscriptions(): boolean {
@@ -13,7 +14,7 @@ export function postCollectibleInitFirstHasSubscriptions(): boolean {
 
 /** @internal */
 export function postCollectibleInitFirstRegister(
-  callback: PostCollectibleInitFirstCallbackType,
+  callback: CallbackType,
   collectibleType?: CollectibleType | int,
 ): void {
   subscriptions.push([callback, collectibleType]);

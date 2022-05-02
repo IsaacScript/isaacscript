@@ -1,6 +1,8 @@
-export type PreNewLevelCallbackType = (player: EntityPlayer) => void;
+export type PreNewLevelRegisterParameters = [
+  callback: (player: EntityPlayer) => void,
+];
 
-const subscriptions: Array<[PreNewLevelCallbackType]> = [];
+const subscriptions: PreNewLevelRegisterParameters[] = [];
 
 /** @internal */
 export function preNewLevelHasSubscriptions(): boolean {
@@ -8,8 +10,10 @@ export function preNewLevelHasSubscriptions(): boolean {
 }
 
 /** @internal */
-export function preNewLevelRegister(callback: PreNewLevelCallbackType): void {
-  subscriptions.push([callback]);
+export function preNewLevelRegister(
+  ...args: PreNewLevelRegisterParameters
+): void {
+  subscriptions.push(args);
 }
 
 /** @internal */

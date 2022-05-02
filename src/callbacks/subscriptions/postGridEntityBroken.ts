@@ -1,8 +1,11 @@
-export type PostGridEntityBrokenCallbackType = (gridEntity: GridEntity) => void;
+type CallbackType = (gridEntity: GridEntity) => void;
 
-const subscriptions: Array<
-  [PostGridEntityBrokenCallbackType, GridEntityType | undefined]
-> = [];
+export type PostGridEntityBrokenRegisterParameters = [
+  callback: CallbackType,
+  gridEntityType?: GridEntityType,
+];
+
+const subscriptions: Array<[CallbackType, GridEntityType | undefined]> = [];
 
 /** @internal */
 export function postGridEntityBrokenHasSubscriptions(): boolean {
@@ -11,7 +14,7 @@ export function postGridEntityBrokenHasSubscriptions(): boolean {
 
 /** @internal */
 export function postGridEntityBrokenRegister(
-  callback: PostGridEntityBrokenCallbackType,
+  callback: CallbackType,
   gridEntityType?: GridEntityType,
 ): void {
   subscriptions.push([callback, gridEntityType]);

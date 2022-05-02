@@ -1,8 +1,9 @@
-export type PostBombInitLateCallbackType = (bomb: EntityBomb) => void;
+export type PostBombInitRegisterParameters = [
+  callback: (bomb: EntityBomb) => void,
+  bombVariant?: BombVariant | int,
+];
 
-const subscriptions: Array<
-  [PostBombInitLateCallbackType, BombVariant | int | undefined]
-> = [];
+const subscriptions: PostBombInitRegisterParameters[] = [];
 
 /** @internal */
 export function postBombInitLateHasSubscriptions(): boolean {
@@ -11,10 +12,9 @@ export function postBombInitLateHasSubscriptions(): boolean {
 
 /** @internal */
 export function postBombInitLateRegister(
-  callback: PostBombInitLateCallbackType,
-  bombVariant?: BombVariant | int,
+  ...args: PostBombInitRegisterParameters
 ): void {
-  subscriptions.push([callback, bombVariant]);
+  subscriptions.push(args);
 }
 
 /** @internal */

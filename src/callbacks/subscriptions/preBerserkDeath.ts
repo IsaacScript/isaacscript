@@ -1,10 +1,9 @@
-export type PreBerserkDeathCallbackType = (
-  player: EntityPlayer,
-) => boolean | void;
+export type PreBerserkDeathRegisterParameters = [
+  callback: (player: EntityPlayer) => boolean | void,
+  playerVariant?: PlayerVariant,
+];
 
-const subscriptions: Array<
-  [PreBerserkDeathCallbackType, PlayerVariant | undefined]
-> = [];
+const subscriptions: PreBerserkDeathRegisterParameters[] = [];
 
 /** @internal */
 export function preBerserkDeathHasSubscriptions(): boolean {
@@ -13,10 +12,9 @@ export function preBerserkDeathHasSubscriptions(): boolean {
 
 /** @internal */
 export function preBerserkDeathRegister(
-  callback: PreBerserkDeathCallbackType,
-  playerVariant?: PlayerVariant,
+  ...args: PreBerserkDeathRegisterParameters
 ): void {
-  subscriptions.push([callback, playerVariant]);
+  subscriptions.push(args);
 }
 
 /** @internal */

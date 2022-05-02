@@ -1,12 +1,13 @@
-export type PostSlotAnimationChangedCallbackType = (
-  slot: Entity,
-  previousAnimation: string,
-  currentAnimation: string,
-) => void;
+export type PostSlotAnimationChangedRegisterParameters = [
+  callback: (
+    slot: Entity,
+    previousAnimation: string,
+    currentAnimation: string,
+  ) => void,
+  slotVariant?: SlotVariant,
+];
 
-const subscriptions: Array<
-  [PostSlotAnimationChangedCallbackType, SlotVariant | undefined]
-> = [];
+const subscriptions: PostSlotAnimationChangedRegisterParameters[] = [];
 
 /** @internal */
 export function postSlotAnimationChangedHasSubscriptions(): boolean {
@@ -15,10 +16,9 @@ export function postSlotAnimationChangedHasSubscriptions(): boolean {
 
 /** @internal */
 export function postSlotAnimationChangedRegister(
-  callback: PostSlotAnimationChangedCallbackType,
-  slotVariant?: SlotVariant,
+  ...args: PostSlotAnimationChangedRegisterParameters
 ): void {
-  subscriptions.push([callback, slotVariant]);
+  subscriptions.push(args);
 }
 
 /** @internal */

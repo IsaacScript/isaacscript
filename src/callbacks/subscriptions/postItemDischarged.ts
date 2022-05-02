@@ -1,12 +1,13 @@
-export type PostItemDischargedCallbackType = (
-  player: EntityPlayer,
-  collectibleType: CollectibleType | int,
-  activeSlot: ActiveSlot,
-) => void;
+export type PostItemDischargedRegisterParameters = [
+  callback: (
+    player: EntityPlayer,
+    collectibleType: CollectibleType | int,
+    activeSlot: ActiveSlot,
+  ) => void,
+  collectibleType?: CollectibleType | int,
+];
 
-const subscriptions: Array<
-  [PostItemDischargedCallbackType, CollectibleType | int | undefined]
-> = [];
+const subscriptions: PostItemDischargedRegisterParameters[] = [];
 
 /** @internal */
 export function postItemDischargeHasSubscriptions(): boolean {
@@ -15,10 +16,9 @@ export function postItemDischargeHasSubscriptions(): boolean {
 
 /** @internal */
 export function postItemDischargeRegister(
-  callback: PostItemDischargedCallbackType,
-  activeSlot?: ActiveSlot,
+  ...args: PostItemDischargedRegisterParameters
 ): void {
-  subscriptions.push([callback, activeSlot]);
+  subscriptions.push(args);
 }
 
 /** @internal */

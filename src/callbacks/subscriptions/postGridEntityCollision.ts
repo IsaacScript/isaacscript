@@ -1,11 +1,11 @@
-export type PostGridEntityCollisionCallbackType = (
-  gridEntity: GridEntity,
-  entity: Entity,
-) => void;
+type CallbackType = (gridEntity: GridEntity, entity: Entity) => void;
 
-const subscriptions: Array<
-  [PostGridEntityCollisionCallbackType, GridEntityType | undefined]
-> = [];
+export type PostGridEntityCollisionRegisterParameters = [
+  callback: CallbackType,
+  gridEntityType?: GridEntityType,
+];
+
+const subscriptions: Array<[CallbackType, GridEntityType | undefined]> = [];
 
 /** @internal */
 export function postGridEntityCollisionHasSubscriptions(): boolean {
@@ -14,7 +14,7 @@ export function postGridEntityCollisionHasSubscriptions(): boolean {
 
 /** @internal */
 export function postGridEntityCollisionRegister(
-  callback: PostGridEntityCollisionCallbackType,
+  callback: CallbackType,
   gridEntityType?: GridEntityType,
 ): void {
   subscriptions.push([callback, gridEntityType]);
