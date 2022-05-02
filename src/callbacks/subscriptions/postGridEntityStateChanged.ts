@@ -1,28 +1,28 @@
-export type PostGridEntityStateChangeCallbackType = (
+export type PostGridEntityStateChangedCallbackType = (
   gridEntity: GridEntity,
   oldState: int,
   newState: int,
 ) => void;
 
 const subscriptions: Array<
-  [PostGridEntityStateChangeCallbackType, GridEntityType | undefined]
+  [PostGridEntityStateChangedCallbackType, GridEntityType | undefined]
 > = [];
 
 /** @internal */
-export function postGridEntityStateChangeHasSubscriptions(): boolean {
+export function postGridEntityStateChangedHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
 /** @internal */
-export function postGridEntityStateChangeRegister(
-  callback: PostGridEntityStateChangeCallbackType,
+export function postGridEntityStateChangedRegister(
+  callback: PostGridEntityStateChangedCallbackType,
   gridEntityType?: GridEntityType,
 ): void {
   subscriptions.push([callback, gridEntityType]);
 }
 
 /** @internal */
-export function postGridEntityStateChangeFire(
+export function postGridEntityStateChangedFire(
   gridEntity: GridEntity,
   oldState: int,
   newState: int,

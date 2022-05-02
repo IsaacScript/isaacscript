@@ -2,7 +2,7 @@
 // - PostGridEntityInit
 // - PostGridEntityUpdate
 // - PostGridEntityRemove
-// - PostGridEntityStateChange
+// - PostGridEntityStateChanged
 // - PostGridEntityBroken
 
 import { saveDataManager } from "../features/saveDataManager/exports";
@@ -23,9 +23,9 @@ import {
   postGridEntityRemoveHasSubscriptions,
 } from "./subscriptions/postGridEntityRemove";
 import {
-  postGridEntityStateChangeFire,
-  postGridEntityStateChangeHasSubscriptions,
-} from "./subscriptions/postGridEntityStateChange";
+  postGridEntityStateChangedFire,
+  postGridEntityStateChangedHasSubscriptions,
+} from "./subscriptions/postGridEntityStateChanged";
 import {
   postGridEntityUpdateFire,
   postGridEntityUpdateHasSubscriptions,
@@ -53,7 +53,7 @@ function hasSubscriptions() {
     postGridEntityInitHasSubscriptions() ||
     postGridEntityUpdateHasSubscriptions() ||
     postGridEntityRemoveHasSubscriptions() ||
-    postGridEntityStateChangeHasSubscriptions() ||
+    postGridEntityStateChangedHasSubscriptions() ||
     postGridEntityBrokenHasSubscriptions()
   );
 }
@@ -97,7 +97,7 @@ function checkGridEntitiesRemoved(gridEntitiesMap: Map<int, GridEntity>) {
 function checkGridEntityStateChanged(gridIndex: int, gridEntity: GridEntity) {
   const gridEntityTuple = v.room.initializedGridEntities.get(gridIndex);
   if (gridEntityTuple === undefined) {
-    // This grid entity did not exist a frame ago; we don't want to fire the state change callback
+    // This grid entity did not exist a frame ago; we don't want to fire the state changed callback
     // on the first frame that it exists
     return;
   }
@@ -106,7 +106,7 @@ function checkGridEntityStateChanged(gridIndex: int, gridEntity: GridEntity) {
   const newState = gridEntity.State;
   if (oldState !== newState) {
     updateTupleInMap(gridEntity);
-    postGridEntityStateChangeFire(gridEntity, oldState, newState);
+    postGridEntityStateChangedFire(gridEntity, oldState, newState);
 
     if (isGridEntityBroken(gridEntity)) {
       postGridEntityBrokenFire(gridEntity);

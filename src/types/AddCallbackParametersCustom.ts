@@ -17,7 +17,7 @@ import { PostGridEntityBrokenCallbackType } from "../callbacks/subscriptions/pos
 import { PostGridEntityCollisionCallbackType } from "../callbacks/subscriptions/postGridEntityCollision";
 import { PostGridEntityInitCallbackType } from "../callbacks/subscriptions/postGridEntityInit";
 import { PostGridEntityRemoveCallbackType } from "../callbacks/subscriptions/postGridEntityRemove";
-import { PostGridEntityStateChangeCallbackType } from "../callbacks/subscriptions/postGridEntityStateChange";
+import { PostGridEntityStateChangedCallbackType } from "../callbacks/subscriptions/postGridEntityStateChanged";
 import { PostGridEntityUpdateCallbackType } from "../callbacks/subscriptions/postGridEntityUpdate";
 import { PostItemDischargedCallbackType } from "../callbacks/subscriptions/postItemDischarged";
 import { PostItemPickupCallbackType } from "../callbacks/subscriptions/postItemPickup";
@@ -41,6 +41,7 @@ import { PostPlayerRenderReorderedCallbackType } from "../callbacks/subscription
 import { PostPlayerUpdateReorderedCallbackType } from "../callbacks/subscriptions/postPlayerUpdateReordered";
 import { PostProjectileInitLateCallbackType } from "../callbacks/subscriptions/postProjectileInitLate";
 import { PostPurchaseCallbackType } from "../callbacks/subscriptions/postPurchase";
+import { PostRoomClearChangedCallbackType } from "../callbacks/subscriptions/postRoomClearChanged";
 import { PostSacrificeCallbackType } from "../callbacks/subscriptions/postSacrifice";
 import { PostSlotAnimationChangedCallbackType } from "../callbacks/subscriptions/postSlotAnimationChanged";
 import { PostSlotDestroyedCallbackType } from "../callbacks/subscriptions/postSlotDestroyed";
@@ -55,105 +56,16 @@ import { PreBerserkDeathCallbackType } from "../callbacks/subscriptions/preBerse
 import { PreCustomReviveCallbackType } from "../callbacks/subscriptions/preCustomRevive";
 import { PreItemPickupCallbackType } from "../callbacks/subscriptions/preItemPickup";
 import { PreNewLevelCallbackType } from "../callbacks/subscriptions/preNewLevel";
-import { RoomClearChangeCallbackType } from "../callbacks/subscriptions/roomClearChange";
 import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
 
 export interface AddCallbackParametersCustom {
-  [ModCallbacksCustom.MC_POST_GAME_STARTED_REORDERED]: [
-    callback: PostGameStartedReorderedCallbackType,
-  ];
-
-  [ModCallbacksCustom.MC_POST_NEW_LEVEL_REORDERED]: [
-    callback: PostNewLevelReorderedCallbackType,
-  ];
-
-  [ModCallbacksCustom.MC_POST_NEW_ROOM_REORDERED]: [
-    callback: PostNewRoomReorderedCallbackType,
-  ];
-
-  [ModCallbacksCustom.MC_POST_PLAYER_INIT_REORDERED]: [
-    callback: PostPlayerInitReorderedCallbackType,
-    playerVariant?: PlayerVariant,
-  ];
-
-  [ModCallbacksCustom.MC_POST_PEFFECT_UPDATE_REORDERED]: [
-    callback: PostPEffectUpdateReorderedCallbackType,
-    character?: PlayerType | int,
-  ];
-
-  [ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED]: [
-    callback: PostPlayerUpdateReorderedCallbackType,
-    playerVariant?: PlayerVariant,
-  ];
-
-  [ModCallbacksCustom.MC_POST_PLAYER_RENDER_REORDERED]: [
-    callback: PostPlayerRenderReorderedCallbackType,
-    playerVariant?: PlayerVariant,
-  ];
-
-  [ModCallbacksCustom.MC_POST_NEW_ROOM_EARLY]: [
-    callback: PostNewRoomEarlyCallbackType,
-  ];
-
-  [ModCallbacksCustom.MC_PRE_NEW_LEVEL]: [callback: PreNewLevelCallbackType];
-
-  [ModCallbacksCustom.MC_ROOM_CLEAR_CHANGE]: [
-    callback: RoomClearChangeCallbackType,
-  ];
-
-  [ModCallbacksCustom.MC_POST_PLAYER_INIT_LATE]: [
-    callback: PostPlayerInitLateCallbackType,
-    playerVariant?: PlayerVariant,
-  ];
-
-  [ModCallbacksCustom.MC_POST_TEAR_INIT_LATE]: [
-    callback: PostTearInitLateCallbackType,
-    tearVariant?: TearVariant | int,
-  ];
-
-  [ModCallbacksCustom.MC_POST_TEAR_INIT_VERY_LATE]: [
-    callback: PostTearInitVeryLateCallbackType,
-    tearVariant?: TearVariant | int,
-  ];
-
-  [ModCallbacksCustom.MC_POST_FAMILIAR_INIT_LATE]: [
-    callback: PostFamiliarInitLateCallbackType,
-    familiarVariant?: FamiliarVariant | int,
-  ];
-
   [ModCallbacksCustom.MC_POST_BOMB_INIT_LATE]: [
     callback: PostBombInitLateCallbackType,
     bombVariant?: BombVariant | int,
   ];
 
-  [ModCallbacksCustom.MC_POST_PICKUP_INIT_LATE]: [
-    callback: PostPickupInitLateCallbackType,
-    pickupVariant?: PickupVariant | int,
-  ];
-
-  [ModCallbacksCustom.MC_POST_LASER_INIT_LATE]: [
-    callback: PostLaserInitLateCallbackType,
-    laserVariant?: LaserVariant | int,
-  ];
-
-  [ModCallbacksCustom.MC_POST_KNIFE_INIT_LATE]: [
-    callback: PostKnifeInitLateCallbackType,
-    knifeVariant?: KnifeVariant | int,
-  ];
-
-  [ModCallbacksCustom.MC_POST_PROJECTILE_INIT_LATE]: [
-    callback: PostProjectileInitLateCallbackType,
-    projectileVariant?: ProjectileVariant | int,
-  ];
-
-  [ModCallbacksCustom.MC_POST_NPC_INIT_LATE]: [
-    callback: PostNPCInitLateCallbackType,
-    entityType?: EntityType | int,
-  ];
-
-  [ModCallbacksCustom.MC_POST_EFFECT_INIT_LATE]: [
-    callback: PostEffectInitLateCallbackType,
-    effectVariant?: EffectVariant | int,
+  [ModCallbacksCustom.MC_POST_BONE_SWING]: [
+    callback: PostBoneSwingCallbackType,
   ];
 
   [ModCallbacksCustom.MC_POST_COLLECTIBLE_INIT_FIRST]: [
@@ -161,44 +73,13 @@ export interface AddCallbackParametersCustom {
     collectibleType?: CollectibleType | int,
   ];
 
-  [ModCallbacksCustom.MC_POST_PICKUP_COLLECT]: [
-    callback: PostPickupCollectCallbackType,
-    pickupVariant?: PickupVariant | int,
+  [ModCallbacksCustom.MC_POST_CURSED_TELEPORT]: [
+    callback: PostCursedTeleportCallbackType,
   ];
 
-  [ModCallbacksCustom.MC_PRE_ITEM_PICKUP]: [
-    callback: PreItemPickupCallbackType,
-    itemType?: ItemType,
-    itemID?: CollectibleType | TrinketType | int,
-  ];
-
-  [ModCallbacksCustom.MC_POST_ITEM_PICKUP]: [
-    callback: PostItemPickupCallbackType,
-    itemType?: ItemType,
-    itemID?: CollectibleType | TrinketType | int,
-  ];
-
-  [ModCallbacksCustom.MC_POST_PLAYER_CHANGE_TYPE]: [
-    callback: PostPlayerChangeTypeCallbackType,
-  ];
-
-  [ModCallbacksCustom.MC_POST_PLAYER_CHANGE_HEALTH]: [
-    callback: PostPlayerChangeHealthCallbackType,
-    playerVariant?: PlayerVariant,
-  ];
-
-  [ModCallbacksCustom.MC_POST_PLAYER_FATAL_DAMAGE]: [
-    callback: PostPlayerFatalDamageCallbackType,
-    playerVariant?: PlayerVariant,
-  ];
-
-  [ModCallbacksCustom.MC_PRE_BERSERK_DEATH]: [
-    callback: PreBerserkDeathCallbackType,
-    playerVariant?: PlayerVariant,
-  ];
-
-  [ModCallbacksCustom.MC_PRE_CUSTOM_REVIVE]: [
-    callback: PreCustomReviveCallbackType,
+  [ModCallbacksCustom.MC_POST_CUSTOM_DOOR_ENTER]: [
+    callback: PostCustomDoorEnterCallbackType,
+    effectVariant?: int,
   ];
 
   [ModCallbacksCustom.MC_POST_CUSTOM_REVIVE]: [
@@ -206,77 +87,9 @@ export interface AddCallbackParametersCustom {
     revivalType?: int,
   ];
 
-  [ModCallbacksCustom.MC_POST_FLIP]: [callback: PostFlipCallbackType];
-
-  [ModCallbacksCustom.MC_POST_FIRST_FLIP]: [
-    callback: PostFirstFlipCallbackType,
-  ];
-
-  [ModCallbacksCustom.MC_POST_ESAU_JR]: [callback: PostEsauJrCallbackType];
-
-  [ModCallbacksCustom.MC_POST_FIRST_ESAU_JR]: [
-    callback: PostFirstEsauJrCallbackType,
-  ];
-
-  [ModCallbacksCustom.MC_POST_TRANSFORMATION]: [
-    callback: PostTransformationCallbackType,
-  ];
-
-  [ModCallbacksCustom.MC_POST_PURCHASE]: [
-    callback: PostPurchaseCallbackType,
-    pickupVariant?: PickupVariant | int,
-    pickupSubType?: int,
-  ];
-
-  [ModCallbacksCustom.MC_POST_SACRIFICE]: [callback: PostSacrificeCallbackType];
-
-  [ModCallbacksCustom.MC_POST_CURSED_TELEPORT]: [
-    callback: PostCursedTeleportCallbackType,
-  ];
-
-  [ModCallbacksCustom.MC_POST_TRINKET_BREAK]: [
-    callback: PostTrinketBreakCallbackType,
-    trinketType?: TrinketType | int,
-  ];
-
-  [ModCallbacksCustom.MC_POST_ITEM_DISCHARGE]: [
-    callback: PostItemDischargedCallbackType,
-    collectibleType?: CollectibleType | int,
-  ];
-
-  [ModCallbacksCustom.MC_POST_SLOT_INIT]: [
-    callback: PostSlotInitCallbackType,
-    slotVariant?: SlotVariant,
-  ];
-
-  [ModCallbacksCustom.MC_POST_SLOT_UPDATE]: [
-    callback: PostSlotUpdateCallbackType,
-    slotVariant?: SlotVariant,
-  ];
-
-  [ModCallbacksCustom.MC_POST_SLOT_RENDER]: [
-    callback: PostSlotRenderCallbackType,
-    slotVariant?: SlotVariant,
-  ];
-
-  [ModCallbacksCustom.MC_POST_SLOT_ANIMATION_CHANGED]: [
-    callback: PostSlotAnimationChangedCallbackType,
-    slotVariant?: SlotVariant,
-  ];
-
-  [ModCallbacksCustom.MC_POST_SLOT_DESTROYED]: [
-    callback: PostSlotDestroyedCallbackType,
-    slotVariant?: SlotVariant,
-  ];
-
-  [ModCallbacksCustom.MC_POST_FAMILIAR_STATE_CHANGED]: [
-    callback: PostFamiliarStateChangedCallbackType,
-    familiarVariant?: FamiliarVariant,
-  ];
-
-  [ModCallbacksCustom.MC_POST_PICKUP_STATE_CHANGED]: [
-    callback: PostPickupStateChangedCallbackType,
-    pickupVariant?: PickupVariant,
+  [ModCallbacksCustom.MC_POST_EFFECT_INIT_LATE]: [
+    callback: PostEffectInitLateCallbackType,
+    effectVariant?: EffectVariant | int,
   ];
 
   [ModCallbacksCustom.MC_POST_EFFECT_STATE_CHANGED]: [
@@ -284,30 +97,30 @@ export interface AddCallbackParametersCustom {
     effectVariant?: EffectVariant,
   ];
 
-  [ModCallbacksCustom.MC_POST_NPC_STATE_CHANGED]: [
-    callback: PostNPCStateChangedCallbackType,
-    entityType?: EntityType | int,
-    variant?: int,
+  [ModCallbacksCustom.MC_POST_ESAU_JR]: [callback: PostEsauJrCallbackType];
+
+  [ModCallbacksCustom.MC_POST_FAMILIAR_INIT_LATE]: [
+    callback: PostFamiliarInitLateCallbackType,
+    familiarVariant?: FamiliarVariant | int,
   ];
 
-  [ModCallbacksCustom.MC_POST_GRID_ENTITY_INIT]: [
-    callback: PostGridEntityInitCallbackType,
-    gridEntityType?: GridEntityType,
+  [ModCallbacksCustom.MC_POST_FAMILIAR_STATE_CHANGED]: [
+    callback: PostFamiliarStateChangedCallbackType,
+    familiarVariant?: FamiliarVariant,
   ];
 
-  [ModCallbacksCustom.MC_POST_GRID_ENTITY_UPDATE]: [
-    callback: PostGridEntityUpdateCallbackType,
-    gridEntityType?: GridEntityType,
+  [ModCallbacksCustom.MC_POST_FIRST_ESAU_JR]: [
+    callback: PostFirstEsauJrCallbackType,
   ];
 
-  [ModCallbacksCustom.MC_POST_GRID_ENTITY_REMOVE]: [
-    callback: PostGridEntityRemoveCallbackType,
-    gridEntityType?: GridEntityType,
+  [ModCallbacksCustom.MC_POST_FIRST_FLIP]: [
+    callback: PostFirstFlipCallbackType,
   ];
 
-  [ModCallbacksCustom.MC_POST_GRID_ENTITY_STATE_CHANGE]: [
-    callback: PostGridEntityStateChangeCallbackType,
-    gridEntityType?: GridEntityType,
+  [ModCallbacksCustom.MC_POST_FLIP]: [callback: PostFlipCallbackType];
+
+  [ModCallbacksCustom.MC_POST_GAME_STARTED_REORDERED]: [
+    callback: PostGameStartedReorderedCallbackType,
   ];
 
   [ModCallbacksCustom.MC_POST_GRID_ENTITY_BROKEN]: [
@@ -320,14 +133,201 @@ export interface AddCallbackParametersCustom {
     gridEntityType?: GridEntityType,
   ];
 
-  [ModCallbacksCustom.MC_POST_BONE_SWING]: [
-    callback: PostBoneSwingCallbackType,
+  [ModCallbacksCustom.MC_POST_GRID_ENTITY_INIT]: [
+    callback: PostGridEntityInitCallbackType,
+    gridEntityType?: GridEntityType,
   ];
 
-  [ModCallbacksCustom.MC_POST_CUSTOM_DOOR_ENTER]: [
-    callback: PostCustomDoorEnterCallbackType,
-    effectVariant?: int,
+  [ModCallbacksCustom.MC_POST_GRID_ENTITY_REMOVE]: [
+    callback: PostGridEntityRemoveCallbackType,
+    gridEntityType?: GridEntityType,
   ];
+
+  [ModCallbacksCustom.MC_POST_GRID_ENTITY_STATE_CHANGED]: [
+    callback: PostGridEntityStateChangedCallbackType,
+    gridEntityType?: GridEntityType,
+  ];
+
+  [ModCallbacksCustom.MC_POST_GRID_ENTITY_UPDATE]: [
+    callback: PostGridEntityUpdateCallbackType,
+    gridEntityType?: GridEntityType,
+  ];
+
+  [ModCallbacksCustom.MC_POST_ITEM_DISCHARGE]: [
+    callback: PostItemDischargedCallbackType,
+    collectibleType?: CollectibleType | int,
+  ];
+
+  [ModCallbacksCustom.MC_POST_ITEM_PICKUP]: [
+    callback: PostItemPickupCallbackType,
+    itemType?: ItemType,
+    itemID?: CollectibleType | TrinketType | int,
+  ];
+
+  [ModCallbacksCustom.MC_POST_KNIFE_INIT_LATE]: [
+    callback: PostKnifeInitLateCallbackType,
+    knifeVariant?: KnifeVariant | int,
+  ];
+
+  [ModCallbacksCustom.MC_POST_LASER_INIT_LATE]: [
+    callback: PostLaserInitLateCallbackType,
+    laserVariant?: LaserVariant | int,
+  ];
+
+  [ModCallbacksCustom.MC_POST_NEW_LEVEL_REORDERED]: [
+    callback: PostNewLevelReorderedCallbackType,
+  ];
+
+  [ModCallbacksCustom.MC_POST_NEW_ROOM_EARLY]: [
+    callback: PostNewRoomEarlyCallbackType,
+  ];
+
+  [ModCallbacksCustom.MC_POST_NEW_ROOM_REORDERED]: [
+    callback: PostNewRoomReorderedCallbackType,
+  ];
+
+  [ModCallbacksCustom.MC_POST_NPC_INIT_LATE]: [
+    callback: PostNPCInitLateCallbackType,
+    entityType?: EntityType | int,
+  ];
+
+  [ModCallbacksCustom.MC_POST_NPC_STATE_CHANGED]: [
+    callback: PostNPCStateChangedCallbackType,
+    entityType?: EntityType | int,
+    variant?: int,
+  ];
+
+  [ModCallbacksCustom.MC_POST_PEFFECT_UPDATE_REORDERED]: [
+    callback: PostPEffectUpdateReorderedCallbackType,
+    character?: PlayerType | int,
+  ];
+
+  [ModCallbacksCustom.MC_POST_PICKUP_COLLECT]: [
+    callback: PostPickupCollectCallbackType,
+    pickupVariant?: PickupVariant | int,
+  ];
+
+  [ModCallbacksCustom.MC_POST_PICKUP_INIT_LATE]: [
+    callback: PostPickupInitLateCallbackType,
+    pickupVariant?: PickupVariant | int,
+  ];
+
+  [ModCallbacksCustom.MC_POST_PICKUP_STATE_CHANGED]: [
+    callback: PostPickupStateChangedCallbackType,
+    pickupVariant?: PickupVariant,
+  ];
+
+  [ModCallbacksCustom.MC_POST_PLAYER_CHANGE_HEALTH]: [
+    callback: PostPlayerChangeHealthCallbackType,
+    playerVariant?: PlayerVariant,
+  ];
+
+  [ModCallbacksCustom.MC_POST_PLAYER_CHANGE_TYPE]: [
+    callback: PostPlayerChangeTypeCallbackType,
+  ];
+
+  [ModCallbacksCustom.MC_POST_PLAYER_FATAL_DAMAGE]: [
+    callback: PostPlayerFatalDamageCallbackType,
+    playerVariant?: PlayerVariant,
+  ];
+
+  [ModCallbacksCustom.MC_POST_PLAYER_INIT_LATE]: [
+    callback: PostPlayerInitLateCallbackType,
+    playerVariant?: PlayerVariant,
+  ];
+
+  [ModCallbacksCustom.MC_POST_PLAYER_INIT_REORDERED]: [
+    callback: PostPlayerInitReorderedCallbackType,
+    playerVariant?: PlayerVariant,
+  ];
+
+  [ModCallbacksCustom.MC_POST_PLAYER_RENDER_REORDERED]: [
+    callback: PostPlayerRenderReorderedCallbackType,
+    playerVariant?: PlayerVariant,
+  ];
+
+  [ModCallbacksCustom.MC_POST_PLAYER_UPDATE_REORDERED]: [
+    callback: PostPlayerUpdateReorderedCallbackType,
+    playerVariant?: PlayerVariant,
+  ];
+
+  [ModCallbacksCustom.MC_POST_PROJECTILE_INIT_LATE]: [
+    callback: PostProjectileInitLateCallbackType,
+    projectileVariant?: ProjectileVariant | int,
+  ];
+
+  [ModCallbacksCustom.MC_POST_PURCHASE]: [
+    callback: PostPurchaseCallbackType,
+    pickupVariant?: PickupVariant | int,
+    pickupSubType?: int,
+  ];
+
+  [ModCallbacksCustom.MC_POST_ROOM_CLEAR_CHANGED]: [
+    callback: PostRoomClearChangedCallbackType,
+  ];
+
+  [ModCallbacksCustom.MC_POST_SACRIFICE]: [callback: PostSacrificeCallbackType];
+
+  [ModCallbacksCustom.MC_POST_SLOT_ANIMATION_CHANGED]: [
+    callback: PostSlotAnimationChangedCallbackType,
+    slotVariant?: SlotVariant,
+  ];
+
+  [ModCallbacksCustom.MC_POST_SLOT_DESTROYED]: [
+    callback: PostSlotDestroyedCallbackType,
+    slotVariant?: SlotVariant,
+  ];
+
+  [ModCallbacksCustom.MC_POST_SLOT_INIT]: [
+    callback: PostSlotInitCallbackType,
+    slotVariant?: SlotVariant,
+  ];
+
+  [ModCallbacksCustom.MC_POST_SLOT_RENDER]: [
+    callback: PostSlotRenderCallbackType,
+    slotVariant?: SlotVariant,
+  ];
+
+  [ModCallbacksCustom.MC_POST_SLOT_UPDATE]: [
+    callback: PostSlotUpdateCallbackType,
+    slotVariant?: SlotVariant,
+  ];
+
+  [ModCallbacksCustom.MC_POST_TEAR_INIT_LATE]: [
+    callback: PostTearInitLateCallbackType,
+    tearVariant?: TearVariant | int,
+  ];
+
+  [ModCallbacksCustom.MC_POST_TEAR_INIT_VERY_LATE]: [
+    callback: PostTearInitVeryLateCallbackType,
+    tearVariant?: TearVariant | int,
+  ];
+
+  [ModCallbacksCustom.MC_POST_TRANSFORMATION]: [
+    callback: PostTransformationCallbackType,
+  ];
+
+  [ModCallbacksCustom.MC_POST_TRINKET_BREAK]: [
+    callback: PostTrinketBreakCallbackType,
+    trinketType?: TrinketType | int,
+  ];
+
+  [ModCallbacksCustom.MC_PRE_BERSERK_DEATH]: [
+    callback: PreBerserkDeathCallbackType,
+    playerVariant?: PlayerVariant,
+  ];
+
+  [ModCallbacksCustom.MC_PRE_CUSTOM_REVIVE]: [
+    callback: PreCustomReviveCallbackType,
+  ];
+
+  [ModCallbacksCustom.MC_PRE_ITEM_PICKUP]: [
+    callback: PreItemPickupCallbackType,
+    itemType?: ItemType,
+    itemID?: CollectibleType | TrinketType | int,
+  ];
+
+  [ModCallbacksCustom.MC_PRE_NEW_LEVEL]: [callback: PreNewLevelCallbackType];
 }
 
 // Make copies of the objects we need to verify so that we can easily re-use the code block below
@@ -344,6 +344,8 @@ type ExtraKeys = {
 }[keyof InterfaceToCheck];
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type Verify<
-  _Missing extends never = KeysMissing, // eslint-disable-line
-  _Extra extends never = ExtraKeys, // eslint-disable-line
+  // eslint-disable-next-line @typescript-eslint/naming-convention,@typescript-eslint/no-unused-vars
+  _Missing extends never = KeysMissing,
+  // eslint-disable-next-line @typescript-eslint/naming-convention,@typescript-eslint/no-unused-vars
+  _Extra extends never = ExtraKeys,
 > = 0;

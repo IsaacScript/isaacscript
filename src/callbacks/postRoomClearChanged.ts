@@ -1,9 +1,9 @@
 import { game } from "../cachedClasses";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import {
-  roomClearChangedFire,
-  roomClearChangedHasSubscriptions,
-} from "./subscriptions/roomClearChange";
+  postRoomClearChangedFire,
+  postRoomClearChangedHasSubscriptions,
+} from "./subscriptions/postRoomClearChanged";
 
 const v = {
   room: {
@@ -12,15 +12,15 @@ const v = {
 };
 
 /** @internal */
-export function roomClearChangeCallbackInit(mod: Mod): void {
-  saveDataManager("roomClearChange", v, hasSubscriptions);
+export function postRoomClearChangedCallbackInit(mod: Mod): void {
+  saveDataManager("postRoomClearChanged", v, hasSubscriptions);
 
   mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate); // 1
   mod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoom); // 19
 }
 
 function hasSubscriptions() {
-  return roomClearChangedHasSubscriptions();
+  return postRoomClearChangedHasSubscriptions();
 }
 
 // ModCallbacks.MC_POST_UPDATE (1)
@@ -34,7 +34,7 @@ function postUpdate() {
 
   if (roomClear !== v.room.cleared) {
     v.room.cleared = roomClear;
-    roomClearChangedFire(roomClear);
+    postRoomClearChangedFire(roomClear);
   }
 }
 

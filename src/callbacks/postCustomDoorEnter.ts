@@ -78,9 +78,9 @@ export function initCustomDoor(mod: ModUpgraded, effectVariant: int): void {
   ); // 56
 
   mod.AddCallbackCustom(
-    ModCallbacksCustom.MC_ROOM_CLEAR_CHANGE,
+    ModCallbacksCustom.MC_POST_ROOM_CLEAR_CHANGED,
     (roomClear: boolean) => {
-      roomClearChange(roomClear, effectVariant);
+      postRoomClearChanged(roomClear, effectVariant);
     },
   );
 }
@@ -187,8 +187,8 @@ function isPlayerPastDoorThreshold(
   }
 }
 
-// ModCallbacksCustom.MC_ROOM_CLEAR_CHANGE
-function roomClearChange(roomClear: boolean, effectVariant: int) {
+// ModCallbacksCustom.MC_POST_ROOM_CLEAR_CHANGED
+function postRoomClearChanged(roomClear: boolean, effectVariant: int) {
   const state = roomClear ? DoorState.STATE_OPEN : DoorState.STATE_CLOSED;
   const customDoors = getEffects(effectVariant);
   for (const customDoor of customDoors) {

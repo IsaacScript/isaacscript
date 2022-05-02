@@ -29,6 +29,7 @@ import { postPlayerInitLateCallbackInit } from "./callbacks/postPlayerInitLate";
 import { postPlayerReorderedCallbacksInit } from "./callbacks/postPlayerReordered";
 import { postProjectileInitLateCallbackInit } from "./callbacks/postProjectileInitLate";
 import { postPurchaseCallbackInit } from "./callbacks/postPurchase";
+import { postRoomClearChangedCallbackInit } from "./callbacks/postRoomClearChanged";
 import { postSacrificeCallbackInit } from "./callbacks/postSacrifice";
 import { postSlotInitUpdateCallbacksInit } from "./callbacks/postSlotInitUpdate";
 import { postSlotRenderCallbacksInit } from "./callbacks/postSlotRender";
@@ -39,7 +40,6 @@ import { postTrinketBreakCallbackInit } from "./callbacks/postTrinketBreak";
 import { preBerserkDeathCallbackInit } from "./callbacks/preBerserkDeath";
 import { preNewLevelCallbackInit } from "./callbacks/preNewLevel";
 import { reorderedCallbacksInit } from "./callbacks/reorderedCallbacks";
-import { roomClearChangeCallbackInit } from "./callbacks/roomClearChange";
 import { ModUpgraded } from "./classes/ModUpgraded";
 import { characterHealthConversionInit } from "./features/characterHealthConversion";
 import { characterStatsInit } from "./features/characterStats";
@@ -111,47 +111,47 @@ export function upgradeMod(modVanilla: Mod): ModUpgraded {
 }
 
 function initCustomCallbacks(mod: ModUpgraded) {
-  reorderedCallbacksInit(mod);
-  preNewLevelCallbackInit(mod);
-  roomClearChangeCallbackInit(mod);
-  postPlayerReorderedCallbacksInit(mod);
-  postPlayerInitLateCallbackInit(mod); // 1
-  postTearInitLateCallbackInit(mod); // 2
-  postTearInitVeryLateCallbackInit(mod); // 2
-  postFamiliarInitLateCallbackInit(mod); // 3
-  postBombInitLateCallbackInit(mod); // 4
-  postPickupInitLateCallbackInit(mod); // 5
-  postLaserInitLateCallbackInit(mod); // 7
-  postKnifeInitLateCallbackInit(mod); // 8
-  postProjectileInitLateCallbackInit(mod); // 9
-  postNPCInitLateCallbackInit(mod);
-  postEffectInitLateCallbackInit(mod); // 1000
-  postCollectibleInitFirstCallbackInit(mod);
-  postPickupCollectCallbackInit(mod);
-  itemPickupCallbacksInit(mod);
-  postPlayerChangeTypeCallbackInit(mod);
-  postPlayerChangeHealthCallbackInit(mod);
-  postPlayerFatalDamageCallbackInit(mod);
-  preBerserkDeathCallbackInit(mod);
   customReviveCallbacksInit(mod);
-  postFlipCallbacksInit(mod);
-  postEsauJrCallbacksInit(mod);
-  postTransformationCallbackInit(mod);
-  postPurchaseCallbackInit(mod);
-  postSacrificeCallbackInit(mod);
-  postTrinketBreakCallbackInit(mod);
-  postItemDischargeCallbackInit(mod);
+  itemPickupCallbacksInit(mod);
+  postBombInitLateCallbackInit(mod);
+  postBoneSwingCallbackInit(mod);
+  postCollectibleInitFirstCallbackInit(mod);
   postCursedTeleportCallbackInit(mod);
-  postSlotInitUpdateCallbacksInit(mod);
-  postSlotRenderCallbacksInit(mod);
-  postFamiliarStateChangedCallbackInit(mod);
-  postPickupStateChangedCallbackInit(mod);
+  postCustomDoorEnterCallbackInit();
+  postEffectInitLateCallbackInit(mod);
   postEffectStateChangedCallbackInit(mod);
-  postNPCStateChangedCallbackInit(mod);
+  postEsauJrCallbacksInit(mod);
+  postFamiliarInitLateCallbackInit(mod);
+  postFamiliarStateChangedCallbackInit(mod);
+  postFlipCallbacksInit(mod);
   postGridEntityCallbacksInit(mod);
   postGridEntityCollisionInit(mod);
-  postBoneSwingCallbackInit(mod);
-  postCustomDoorEnterCallbackInit();
+  postItemDischargeCallbackInit(mod);
+  postLaserInitLateCallbackInit(mod);
+  postKnifeInitLateCallbackInit(mod);
+  postNPCInitLateCallbackInit(mod);
+  postNPCStateChangedCallbackInit(mod);
+  postPickupCollectCallbackInit(mod);
+  postPickupInitLateCallbackInit(mod);
+  postPickupStateChangedCallbackInit(mod);
+  postPlayerChangeHealthCallbackInit(mod);
+  postPlayerChangeTypeCallbackInit(mod);
+  postPlayerFatalDamageCallbackInit(mod);
+  postPlayerInitLateCallbackInit(mod);
+  postPlayerReorderedCallbacksInit(mod);
+  postProjectileInitLateCallbackInit(mod);
+  postPurchaseCallbackInit(mod);
+  postRoomClearChangedCallbackInit(mod);
+  postSacrificeCallbackInit(mod);
+  postSlotInitUpdateCallbacksInit(mod);
+  postSlotRenderCallbacksInit(mod);
+  postTearInitLateCallbackInit(mod);
+  postTearInitVeryLateCallbackInit(mod);
+  postTransformationCallbackInit(mod);
+  postTrinketBreakCallbackInit(mod);
+  preBerserkDeathCallbackInit(mod);
+  preNewLevelCallbackInit(mod);
+  reorderedCallbacksInit(mod);
 }
 
 function initFeaturesMajor(mod: ModUpgraded) {

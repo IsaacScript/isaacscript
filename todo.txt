@@ -1,0 +1,21 @@
+implement:
+MC_POST_HOLY_MANTLE_REMOVED
+MC_POST_GREED_WAVE
+MC_POST_PLAYER_COLLECTIBLE_ADDED
+MC_POST_PLAYER_COLLECTIBLE_REMOVED
+MC_POST_AMBUSH_DONE
+
+check for item unlocked
+https://github.com/Zamiell/racing-plus/blob/main/src/features/mandatory/errors.ts#L80-L165
+
+bible detection for POST FATAL DAMAGE
+
+isNewPickup
+compareEntity
+
+MC_DICE_ROOM_ACTIVATED
+
+shallowCompare with 2 entities
+(to see what changes with dice room effect)
+
+intercept shovel for decorations
