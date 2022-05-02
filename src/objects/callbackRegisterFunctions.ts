@@ -19,6 +19,7 @@ import { postGridEntityInitRegister } from "../callbacks/subscriptions/postGridE
 import { postGridEntityRemoveRegister } from "../callbacks/subscriptions/postGridEntityRemove";
 import { postGridEntityStateChangedRegister } from "../callbacks/subscriptions/postGridEntityStateChanged";
 import { postGridEntityUpdateRegister } from "../callbacks/subscriptions/postGridEntityUpdate";
+import { postHolyMantleRemovedRegister } from "../callbacks/subscriptions/postHolyMantleRemoved";
 import { postItemDischargeRegister } from "../callbacks/subscriptions/postItemDischarged";
 import { postItemPickupRegister } from "../callbacks/subscriptions/postItemPickup";
 import { postKnifeInitLateRegister } from "../callbacks/subscriptions/postKnifeInitLate";
@@ -91,6 +92,8 @@ export const CALLBACK_REGISTER_FUNCTIONS: {
   [ModCallbacksCustom.MC_POST_GRID_ENTITY_STATE_CHANGED]:
     postGridEntityStateChangedRegister,
   [ModCallbacksCustom.MC_POST_GRID_ENTITY_UPDATE]: postGridEntityUpdateRegister,
+  [ModCallbacksCustom.MC_POST_HOLY_MANTLE_REMOVED]:
+    postHolyMantleRemovedRegister,
   [ModCallbacksCustom.MC_POST_ITEM_DISCHARGE]: postItemDischargeRegister,
   [ModCallbacksCustom.MC_POST_ITEM_PICKUP]: postItemPickupRegister,
   [ModCallbacksCustom.MC_POST_KNIFE_INIT_LATE]: postKnifeInitLateRegister,

@@ -1,5 +1,4 @@
 implement:
-MC_POST_HOLY_MANTLE_REMOVED
 MC_POST_GREED_WAVE
 MC_POST_PLAYER_COLLECTIBLE_ADDED
 MC_POST_PLAYER_COLLECTIBLE_REMOVED
@@ -19,3 +18,5 @@ shallowCompare with 2 entities
 (to see what changes with dice room effect)
 
 intercept shovel for decorations
+
+make character args for every PlayerVariant callback

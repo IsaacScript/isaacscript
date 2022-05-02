@@ -27,7 +27,30 @@ export enum ModCallbacksCustom {
   MC_POST_GRID_ENTITY_REMOVE,
   MC_POST_GRID_ENTITY_STATE_CHANGED,
   MC_POST_GRID_ENTITY_UPDATE,
-  // MC_POST_HOLY_MANTLE_REMOVED,
+
+  /**
+   * Fires from the `MC_POST_PEFFECT_UPDATE` callback when the player loses a Holy Mantle temporary
+   * collectible effect.
+   *
+   * This callback is useful because you might want to have code that happens when the player is hit
+   * from an enemy. Normally, you would accomplish this via the `MC_ENTITY_TAKE_DMG` callback, but
+   * that callback never fires if the player has a Holy Mantle shield.
+   *
+   * - When registering the callback, takes an optional second argument that will make the callback
+   * only fire if the player matches the `PlayerVariant` provided.
+   * - When registering the callback, takes an optional third argument that will make the callback
+   * only fire if the player matches the `PlayerType` provided.
+   *
+   * ```ts
+   * function postPlayerInitReordered(
+   *   player: EntityPlayer,
+   *   oldNumHolyMantles: int,
+   *   newNumHolyMantles: int,
+   * ): void {}
+   * ```
+   */
+  MC_POST_HOLY_MANTLE_REMOVED,
+
   MC_POST_ITEM_DISCHARGE,
   MC_POST_ITEM_PICKUP,
   MC_POST_KNIFE_INIT_LATE,
@@ -61,7 +84,6 @@ export enum ModCallbacksCustom {
   MC_POST_TEAR_INIT_VERY_LATE,
   MC_POST_TRANSFORMATION,
   MC_POST_TRINKET_BREAK,
-
   MC_PRE_BERSERK_DEATH,
   MC_PRE_CUSTOM_REVIVE,
   MC_PRE_ITEM_PICKUP,

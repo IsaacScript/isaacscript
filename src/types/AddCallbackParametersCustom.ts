@@ -19,6 +19,7 @@ import { PostGridEntityInitCallbackType } from "../callbacks/subscriptions/postG
 import { PostGridEntityRemoveCallbackType } from "../callbacks/subscriptions/postGridEntityRemove";
 import { PostGridEntityStateChangedCallbackType } from "../callbacks/subscriptions/postGridEntityStateChanged";
 import { PostGridEntityUpdateCallbackType } from "../callbacks/subscriptions/postGridEntityUpdate";
+import { PostHolyMantleRemovedCallbackType } from "../callbacks/subscriptions/postHolyMantleRemoved";
 import { PostItemDischargedCallbackType } from "../callbacks/subscriptions/postItemDischarged";
 import { PostItemPickupCallbackType } from "../callbacks/subscriptions/postItemPickup";
 import { PostKnifeInitLateCallbackType } from "../callbacks/subscriptions/postKnifeInitLate";
@@ -151,6 +152,12 @@ export interface AddCallbackParametersCustom {
   [ModCallbacksCustom.MC_POST_GRID_ENTITY_UPDATE]: [
     callback: PostGridEntityUpdateCallbackType,
     gridEntityType?: GridEntityType,
+  ];
+
+  [ModCallbacksCustom.MC_POST_HOLY_MANTLE_REMOVED]: [
+    callback: PostHolyMantleRemovedCallbackType,
+    playerVariant?: PlayerVariant | int,
+    character?: PlayerType | int,
   ];
 
   [ModCallbacksCustom.MC_POST_ITEM_DISCHARGE]: [
