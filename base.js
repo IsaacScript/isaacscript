@@ -23,7 +23,7 @@ module.exports = {
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
 
     // This provides rules for max comment length that the "--fix" flag can fix
-    "plugin:comment-length/recommended",
+    "plugin:comment-length-2/recommended",
 
     // This provides a version of the "eqeqeq" rule that the "--fix" flag can fix
     // https://github.com/Zamiell/eslint-plugin-eqeqeq-fix
@@ -207,7 +207,7 @@ module.exports = {
     // Defined at:
     // https://github.com/lasselupe33/eslint-plugin-comment-length/blob/master/rules/src/index.ts
     // Auto-fix long comments. We specify 100 to match the ruler and the Airbnb style guide.
-    "comment-length/limit-multi-line-comments": [
+    "comment-length-2/limit-multi-line-comments": [
       "warn",
       {
         maxLength: 100,
@@ -219,7 +219,7 @@ module.exports = {
     // Defined at:
     // https://github.com/lasselupe33/eslint-plugin-comment-length/blob/master/rules/src/index.ts
     // Auto-fix long comments. We specify 100 to match the ruler and the Airbnb style guide.
-    "comment-length/limit-single-line-comments": [
+    "comment-length-2/limit-single-line-comments": [
       "warn",
       {
         maxLength: 100,
