@@ -16,7 +16,7 @@ See the [installation instructions](#installation-instructions-for-typescript-pr
 
 <br>
 
-## For Use With an Isaacscript Mod
+## For Use in an Isaacscript Mod
 
 Use the `isaacscript init` tool to automatically set up a new mod that has `isaacscript-lint` as a dependency and a starting `eslintrc.js` config file.
 
