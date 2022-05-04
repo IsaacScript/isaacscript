@@ -6,7 +6,7 @@
 
 For more information about IsaacScript, see the [webpage](https://isaacscript.github.io/).
 
-<br />
+<br>
 
 ## For Use in a TypeScript / TypeScriptToLua Project
 
@@ -14,13 +14,13 @@ For more information about IsaacScript, see the [webpage](https://isaacscript.gi
 
 See the [installation instructions](#installation-instructions-for-typescript-projects) below.
 
-<br />
+<br>
 
 ## For Use With an Isaacscript Mod
 
 Use the `isaacscript init` tool to automatically set up a new mod that has `isaacscript-lint` as a dependency and a starting `eslintrc.js` config file.
 
-<br />
+<br>
 
 ## Why Code Formatting is Important
 
@@ -38,7 +38,7 @@ When Rob says that everyone loves `gofmt`, he isn't lying. Programmers across th
 
 The root of the problem here is that when people try out a new programming language, they often use the same formatting and conventions that they used in their previous language. This fractures the ecosystem and makes everyone's code inconsistent and hard to read. The lesson of Go is that whenever you code in a new language, you should use the standard style that everyone else uses for that language. In this way, every language can have the superpower that Go has.
 
-<br />
+<br>
 
 ## TypeScript Code Formatting - ESLint & Prettier
 
@@ -56,7 +56,7 @@ Finally, some specific Airbnb rules are disabled, since they don't make much sen
 
 In order to avoid running two different tools, we could use [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) to run Prettier as an ESLint rule. However, doing this [is not recommended by Prettier](https://prettier.io/docs/en/integrating-with-linters.html). Thus, in order to use `isaacscript-lint`, you should be running both Prettier and ESLint on save. (More info on that is below.)
 
-<br />
+<br>
 
 ## Installation Instructions for TypeScript Projects
 
@@ -119,7 +119,7 @@ Create a `tsconfig.eslint.json` file in the root of your repository:
 }
 ```
 
-<br />
+<br>
 
 ## Adding or Removing Rules
 
@@ -132,13 +132,13 @@ You can add extra rules (or ignore existing rules) by editing the `rules` sectio
   },
 ```
 
-<br />
+<br>
 
 ## Integration with VSCode
 
 [Visual Studio Code](https://code.visualstudio.com/), or VSCode for short, is the most popular TypeScript editor / IDE.
 
-<br />
+<br>
 
 ### Extensions
 
@@ -193,7 +193,7 @@ Optionally, you can also provide a hint to anyone cloning your repository that t
 }
 ```
 
-<br />
+<br>
 
 ## Package Documentation
 
@@ -206,10 +206,12 @@ Optionally, you can also provide a hint to anyone cloning your repository that t
 - [`eslint-config-airbnb-typescript`](https://github.com/iamturns/eslint-config-airbnb-typescript) - Enhances the Airbnb rules with TypeScript support.
 - [`eslint-config-isaacscript`](https://github.com/IsaacScript/eslint-config-isaacscript) - Contains the master ESLint configuration.
 - [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier) - Turns off all rules that conflict with Prettier.
+- [`eslint-plugin-comment-length`](https://github.com/lasselupe33/eslint-plugin-comment-length) - A plugin that provides rules for automatically fixing long comments.
 - [`eslint-plugin-eqeqeq-fix`](https://github.com/Zamiell/eslint-plugin-eqeqeq-fix) - A plugin that provides a better [`eqeqeq`](https://eslint.org/docs/rules/eqeqeq) rule.
 - [`eslint-plugin-eslint-comments`](https://github.com/mysticatea/eslint-plugin-eslint-comments) - A plugin that provides rules relating to ESLint comments.
 - [`eslint-plugin-import`](https://github.com/benmosher/eslint-plugin-import) - Required as a peer dependency for `eslint-config-airbnb-base`.
 - [`eslint-plugin-jsdoc`](https://github.com/gajus/eslint-plugin-jsdoc) - A plugin that provides rules for [JSDoc](https://en.wikipedia.org/wiki/JSDoc).
+- [`eslint-plugin-no-array-any`](https://github.com/Zamiell/eslint-plugin-no-array-any) - A plugin to prevent unsafe array declarations.
 - [`eslint-plugin-no-implicit-map-set-loops`](https://github.com/Zamiell/eslint-plugin-no-implicit-map-set-loops) - A plugin that prevents unsafe iteration.
 - [`eslint-plugin-no-let-any`](https://github.com/Zamiell/eslint-plugin-no-let-any) - A plugin to prevent unsafe variable declarations.
 - [`eslint-plugin-no-template-curly-in-string-fix`](https://github.com/Zamiell/eslint-plugin-no-template-curly-in-string-fix) - A plugin that provides a better [`no-template-curly-in-string`](https://eslint.org/docs/rules/no-template-curly-in-string) rule.
@@ -220,4 +222,4 @@ Optionally, you can also provide a hint to anyone cloning your repository that t
 - [`prettier-plugin-organize-imports`](https://github.com/simonhaenisch/prettier-plugin-organize-imports) - A plugin used because Prettier will not organize imports automatically. (It has no configuration and is automatically applied to Prettier if it is installed.)
 - [`ts-prune`](https://github.com/nadeesha/ts-prune) - A tool to look for unused exports, which catches bugs that the `import/no-unused-modules` rule cannot find.
 
-<br />
+<br>
