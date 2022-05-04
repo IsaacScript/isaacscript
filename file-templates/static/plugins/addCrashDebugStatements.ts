@@ -1,3 +1,15 @@
+/**
+ * When you write code that causes the game to crash, it can be difficult to find the exact line of
+ * code that is causing the crash.
+ *
+ * In these situations, you can enable this plugin, which will add a log statement in between every
+ * line of Lua code with a randomly-generated UUID. That way, you can cause the crash, and then look
+ * at the bottom of the "log.txt" for the final UUID that shows up.
+ *
+ * Next, you can Ctrl + f in the "main.lua" file for the matching UUID, which will bring you to the
+ * exact point in the code where the crash happened.
+ */
+
 import * as crypto from "crypto";
 import { SourceNode } from "source-map";
 import * as ts from "typescript";

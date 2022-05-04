@@ -15,4 +15,4 @@ rm -rf "$NODE_MODULES"
 echo "Successfully deleted: $NODE_MODULES"
 
 npm install
-echo "Successfully reinstalled Node depedencies."
+echo "Successfully reinstalled Node dependencies."

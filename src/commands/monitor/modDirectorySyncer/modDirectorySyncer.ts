@@ -1,21 +1,31 @@
 import syncDirectory from "sync-directory";
 import { FILE_SYNCED_MESSAGE } from "../../../constants";
 
+const SUBPROCESS_NAME = "directory syncer";
+const BASE_ARGV_LENGTH = 2;
+
 let modSourcePath: string;
 let modTargetPath: string;
 
 init();
 
 function init() {
-  const numArgs = 2;
-  if (process.argv.length !== 2 + numArgs) {
+  const firstArg = process.argv[BASE_ARGV_LENGTH];
+  if (firstArg === undefined) {
     throw new Error(
-      "The directory syncer process did not get the right amount of arguments.",
+      `The ${SUBPROCESS_NAME} process did not get a valid first argument.`,
     );
   }
 
-  modSourcePath = process.argv[2];
-  modTargetPath = process.argv[3];
+  const secondArg = process.argv[BASE_ARGV_LENGTH + 1];
+  if (secondArg === undefined) {
+    throw new Error(
+      `The ${SUBPROCESS_NAME} process did not get the right amount of arguments.`,
+    );
+  }
+
+  modSourcePath = firstArg;
+  modTargetPath = secondArg;
 
   syncDirectory(modSourcePath, modTargetPath, {
     watch: true,

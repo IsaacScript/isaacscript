@@ -13,5 +13,9 @@ OLD_HASH=$(md5sum "$PACKAGE_JSON")
 npx npm-check-updates --upgrade --packageFile "$PACKAGE_JSON" --reject chalk
 NEW_HASH=$(md5sum "$PACKAGE_JSON")
 if [[ $OLD_HASH != $NEW_HASH ]]; then
-  npm install
+  if test -f "$DIR/yarn.lock"; then
+    yarn
+  else
+    npm install
+  fi
 fi

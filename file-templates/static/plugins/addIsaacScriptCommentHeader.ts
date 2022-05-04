@@ -1,3 +1,5 @@
+/** This plugin adds an explanatory header to the top of the generated Lua code. */
+
 import * as ts from "typescript";
 import * as tstl from "typescript-to-lua";
 

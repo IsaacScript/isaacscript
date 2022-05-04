@@ -21,8 +21,11 @@
     "luaBundle": "./mod/main.lua", // Will bundle all output Lua files into a single file
     "luaBundleEntry": "./src/bundleEntry.ts", // This invokes the "main.ts" file
     "luaPlugins": [
-      // A plugin to emit a helper comment at the top of the compiled "main.lua" file
+      // A plugin to add an explanatory comment at the top of the compiled "main.lua" file
       { "name": "./plugins/addIsaacScriptCommentHeader.ts" },
+
+      // A plugin to make enums safe from global variables
+      { "name": "./plugins/noExtendedEnums.ts" },
 
       // Uncomment this and recompile the mod to enable crash debugging, which will tell you the
       // exact line of the mod that is causing the crash

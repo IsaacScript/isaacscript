@@ -36,7 +36,7 @@ export function isKebabCase(s: string): boolean {
  * parseIntSafe is a more reliable version of parseInt. By default, "parseInt('1a')" will return
  * "1", which is unexpected. This returns either an integer or NaN.
  */
-export function parseIntSafe(input: string): number {
+export function parseIntSafe(input: unknown): number {
   if (typeof input !== "string") {
     return NaN;
   }
@@ -65,7 +65,7 @@ export function parseIntSafe(input: string): number {
 
 export function parseSemVer(
   versionString: string,
-): [major: number, minor: number, patch: number] {
+): [majorVersion: number, minorVersion: number, patchVersion: number] {
   const match = /^v*(\d+)\.(\d+)\.(\d+)/g.exec(versionString);
   if (match === null) {
     error(`Failed to parse the version string of: ${versionString}`);
@@ -78,12 +78,12 @@ export function parseSemVer(
     error(`Failed to parse the major version number from: ${versionString}`);
   }
 
-  const minorVersion = parseInt(minorVersionString, 10);
+  const minorVersion = parseIntSafe(minorVersionString);
   if (Number.isNaN(minorVersion)) {
     error(`Failed to parse the minor version number from: ${versionString}`);
   }
 
-  const patchVersion = parseInt(patchVersionString, 10);
+  const patchVersion = parseIntSafe(patchVersionString);
   if (Number.isNaN(patchVersion)) {
     error(`Failed to parse the patch version number from: ${versionString}`);
   }

@@ -7,7 +7,7 @@ module.exports = {
   // The Airbnb style guide agrees:
   // https://github.com/airbnb/javascript#commas--dangling
   // Prettier itself also acknowledges Nik Graf's blog in their official blog:
-  // https://prettier.io/blog/2020/03/21/2.0.0.html#change-default-value-for-trailingcomma-to-es5-6963httpsgithubcomprettierprettierpull6963-by-fiskerhttpsgithubcomfisker
+  // https://prettier.io/blog/2020/03/21/2.0.0.html
   // https://medium.com/@nikgraf/why-you-should-enforce-dangling-commas-for-multiline-statements-d034c98e36f8
   // Prettier will change the default in the future:
   // https://github.com/prettier/prettier/issues/9369

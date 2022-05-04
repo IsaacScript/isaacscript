@@ -1,5 +1,6 @@
 import chalk from "chalk";
 import { fork, spawn } from "child_process";
+import * as JSONC from "jsonc-parser";
 import path from "path";
 import {
   CWD,
@@ -7,12 +8,12 @@ import {
   MAIN_LUA,
   MOD_SOURCE_PATH,
   PROJECT_NAME,
+  TSCONFIG_PATH,
 } from "../../constants";
 import * as file from "../../file";
 import { Config } from "../../types/Config";
 import { error, getModTargetDirectoryName } from "../../utils";
 import { copyWatcherMod } from "./copyWatcherMod";
-import { getTSConfigInclude } from "./getTSConfigInclude";
 import * as notifyGame from "./notifyGame";
 import { spawnSaveDatWriter } from "./spawnSaveDatWriter";
 import { touchWatcherSaveDatFiles } from "./touchWatcherSaveDatFiles";
@@ -29,7 +30,7 @@ export function monitor(argv: Record<string, unknown>, config: Config): void {
   }
 
   // Read the "tsconfig.json" file
-  const tsConfigInclude = getTSConfigInclude(verbose);
+  const tsConfigInclude = getFirstTSConfigIncludePath(verbose);
   const resolvedIncludePath = path.resolve(CWD, tsConfigInclude);
   const modTargetDirectoryName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
@@ -139,4 +140,42 @@ function spawnTSTLWatcher() {
   tstl.on("exit", (code) => {
     error(`Error: ${processDescription} subprocess exited with code: ${code}`);
   });
+}
+
+function getFirstTSConfigIncludePath(verbose: boolean): string {
+  const tsConfigRaw = file.read(TSCONFIG_PATH, verbose);
+  let tsConfig: Record<string, string[]>;
+  try {
+    tsConfig = JSONC.parse(tsConfigRaw) as Record<string, string[]>;
+  } catch (err) {
+    error(`Failed to parse "${chalk.green(TSCONFIG_PATH)}":`, err);
+  }
+
+  const include = tsConfig.include;
+  if (include === undefined) {
+    error(
+      `Your "${chalk.green(
+        TSCONFIG_PATH,
+      )}" file does not have an "include" property, which is surely a mistake. Delete the file and re-run ${PROJECT_NAME}.`,
+    );
+  }
+
+  if (!Array.isArray(include)) {
+    error(
+      `Your "${chalk.green(
+        TSCONFIG_PATH,
+      )}" file has an "include" property that is not an array, which is surely a mistake. Delete the file and re-run ${PROJECT_NAME}.`,
+    );
+  }
+
+  const firstInclude = include[0];
+  if (firstInclude === undefined) {
+    error(
+      `Your "${chalk.green(
+        TSCONFIG_PATH,
+      )}" file has an empty "include" property, which is surely a mistake. Delete the file and re-run ${PROJECT_NAME}.`,
+    );
+  }
+
+  return firstInclude;
 }

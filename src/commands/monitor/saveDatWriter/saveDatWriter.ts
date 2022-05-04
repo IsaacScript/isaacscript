@@ -5,6 +5,8 @@ import * as file from "../../../file";
 import { ensureAllCases } from "../../../utils";
 import { SaveDatMessage, SaveDatMessageType } from "./types";
 
+const SUBPROCESS_NAME = "save#.dat writer";
+const BASE_ARGV_LENGTH = 2;
 const MAX_MESSAGES = 100;
 const VERBOSE = false;
 
@@ -14,15 +16,14 @@ let saveDatFileName: string;
 init(VERBOSE);
 
 function init(verbose: boolean) {
-  const numArgs = 1;
-  if (process.argv.length !== 2 + numArgs) {
-    send(
-      "The save#.dat writer process did not get the right amount of arguments.",
+  const firstArg = process.argv[BASE_ARGV_LENGTH];
+  if (firstArg === undefined) {
+    throw new Error(
+      `The ${SUBPROCESS_NAME} process did not get a valid first argument.`,
     );
-    process.exit(1);
   }
 
-  saveDatPath = process.argv[2];
+  saveDatPath = firstArg;
   saveDatFileName = path.basename(saveDatPath);
 
   // Check to see if the data directory exists

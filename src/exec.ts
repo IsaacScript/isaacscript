@@ -69,7 +69,8 @@ export function execShell(
     );
   }
   for (let i = 0; i < args.length; i++) {
-    if (args[i].includes('"')) {
+    const arg = args[i];
+    if (arg !== undefined && arg.includes('"')) {
       error(
         "execShell cannot execute commands with double quotes in the arguments.",
       );

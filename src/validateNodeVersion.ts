@@ -8,14 +8,14 @@ const REQUIRED_NODE_JS_MAJOR_VERSION = 16;
 // since that is the version that added the "fs.rmSync()" function
 // (I tested on Node v15.0.0 and it failed)
 export function validateNodeVersion(): void {
-  const nodeJSVersionString = process.version;
-  const [majorVersion] = parseSemVer(nodeJSVersionString);
+  const { version } = process;
+  const [majorVersion] = parseSemVer(version);
 
   if (majorVersion >= REQUIRED_NODE_JS_MAJOR_VERSION) {
     return;
   }
 
-  console.error(`Your Node.js version is: ${chalk.red(nodeJSVersionString)}`);
+  console.error(`Your Node.js version is: ${chalk.red(version)}`);
   console.error(
     `${PROJECT_NAME} requires a Node.js version of ${chalk.red(
       `${REQUIRED_NODE_JS_MAJOR_VERSION}.0.0`,
