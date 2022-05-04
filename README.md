@@ -70,6 +70,8 @@ It should have a `package.json` file, a `tsconfig.json` file, and so on.
 npm install isaacscript-lint --save-dev
 ```
 
+(It should be a development dependency because it is only used to lint your code pre-production.)
+
 ### Step 2 - `eslintrc.js`
 
 Create a `eslintrc.js` file in the root of your repository:
