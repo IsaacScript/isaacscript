@@ -1,0 +1,24 @@
+{
+  "name": "eslint-plugin-isaacscript",
+  "version": "0.0.0",
+  "description": "",
+  "homepage": "https://github.com/Zamiell/eslint-plugin-isaacscript",
+  "bugs": {
+    "url": "https://github.com/Zamiell/eslint-plugin-isaacscript/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zamiell/eslint-plugin-isaacscript.git"
+  },
+  "license": "GPL-3.0",
+  "author": "Zamiell",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/main"
+  },
+  "devDependencies": {
+    "typescript": "^4.6.4",
+    "isaacscript-lint": "^1.0.104",
+    "isaacscript-tsconfig": "^1.1.10"
+  }
+}

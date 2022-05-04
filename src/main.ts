@@ -1,0 +1,3 @@
+main();
+
+function main() {}
