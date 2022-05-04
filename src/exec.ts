@@ -68,18 +68,16 @@ export function execShell(
       "execShell cannot execute commands with double quotes in the command.",
     );
   }
-  for (let i = 0; i < args.length; i++) {
-    const arg = args[i];
-    if (arg !== undefined && arg.includes('"')) {
-      error(
-        "execShell cannot execute commands with double quotes in the arguments.",
-      );
-    }
 
-    args[i] = `"${args[i]}"`; // eslint-disable-line no-param-reassign
+  const argsHasDoubleQuotes = args.some((arg) => arg.includes('"'));
+  if (argsHasDoubleQuotes) {
+    error(
+      "execShell cannot execute commands with double quotes in the arguments.",
+    );
   }
 
-  const commandDescription = `${command} ${args.join(" ")}`.trim();
+  const quotedArgs = args.map((arg) => `"${arg}"`);
+  const commandDescription = `${command} ${quotedArgs.join(" ")}`.trim();
 
   if (verbose) {
     console.log(`Executing command: ${commandDescription}`);
