@@ -37,7 +37,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsdoc": "^39.2.9",
     "eslint-plugin-only-warn": "^1.0.3",
-    "isaacscript-tsconfig": "^1.1.12",
+    "isaacscript-tsconfig": "^1.1.13",
     "jest": "^28.0.3",
     "prettier": "^2.6.2",
     "prettier-plugin-organize-imports": "^2.3.4",
