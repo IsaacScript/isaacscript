@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/Zamiell/eslint-plugin-isaacscript.git"
   },
-  "license": "GPL-3.0",
+  "license": "MIT",
   "author": "Zamiell",
   "main": "dist/index.js",
   "scripts": {

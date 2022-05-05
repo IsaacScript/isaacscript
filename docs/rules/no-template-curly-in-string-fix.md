@@ -1,12 +1,12 @@
 # `no-template-curly-in-string-fix`
 
-Disallows template literal placeholder syntax in regular strings (and automatically fixes the problem).
+Disallows template literal placeholder syntax in regular strings (and automatically fixes).
 
-This is a replacement for the ESLint [no-template-curly-in-string rule](https://eslint.org/docs/rules/no-template-curly-in-string) that includes the ability for `--fix` to work properly.
+This is a replacement for the ESLint [`no-template-curly-in-string`](https://eslint.org/docs/rules/no-template-curly-in-string) rule that includes the ability for `--fix` to work properly.
 
 ## Rule Details
 
-The official ESLint [no-template-curly-in-string](https://eslint.org/docs/rules/no-template-curly-in-string) rule works like this:
+The official ESLint [`no-template-curly-in-string`](https://eslint.org/docs/rules/no-template-curly-in-string) rule works like this:
 
 ```ts
 // Bad

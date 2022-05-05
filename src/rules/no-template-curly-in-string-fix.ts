@@ -11,7 +11,7 @@ export const noTemplateCurlyInStringFix = createRule({
     type: "problem",
     docs: {
       description:
-        "Disallows template literal placeholder syntax in regular strings (and automatically fixes the problem)",
+        "Disallows template literal placeholder syntax in regular strings (and automatically fixes)",
       recommended: "error",
     },
     schema: [],
