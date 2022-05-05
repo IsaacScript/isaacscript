@@ -5,10 +5,33 @@ ruleTester.run("no-let-any", noLetAny, {
   valid: [
     {
       code: `
-function error(a: string);
-function error(b: number);
+let foo: string[];
+      `,
+    },
+    {
+      code: `
+let foo: unknown;
+      `,
+    },
+    {
+      code: `
+const myArray = [0, 1];
+let [, secondElement] = myArray;
       `,
     },
   ],
-  invalid: [],
+  invalid: [
+    {
+      code: `
+let foo;
+      `,
+      errors: [{ messageId: "noType" }],
+    },
+    {
+      code: `
+let foo: any;
+      `,
+      errors: [{ messageId: "noType" }],
+    },
+  ],
 });

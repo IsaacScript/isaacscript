@@ -36,21 +36,13 @@ export const noLetAny = createRule({
           const tsNode = parserServices.esTreeNodeToTSNodeMap.get(declaration);
 
           /**
-           * Skip declarations like:
-           *
-           * ```ts
-           * let [, b] = myArray;
-           * ```
-           *
-           * Situations like this will cause a runtime error in the "getTypeAtLocation" method below.
+           * We have to use `leftTSNode.name` instead of `leftTSNode` to avoid
+           * runtime errors because the `typeChecker.getTypeAtLocation` method
+           * expects a `ts.BindingName` instead of a`ts.VariableDeclaration`.
+           * https://github.com/microsoft/TypeScript/issues/48878
            */
-          /*
-          if (declaration) {
-            continue;
-          }
-          */
+          const type = checker.getTypeAtLocation(tsNode.name);
 
-          const type = checker.getTypeAtLocation(tsNode);
           if (isAny(type)) {
             context.report({
               node,
