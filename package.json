@@ -22,7 +22,8 @@
   ],
   "scripts": {
     "build": "tsc",
-    "generate:configs": "ts-node tools/generate-config.ts",
+    "generate-configs": "ts-node tools/generate-configs.ts",
+    "generate-rules-table": "ts-node tools/generate-rules-table.ts",
     "test": "jest"
   },
   "dependencies": {
@@ -35,7 +36,6 @@
     "@types/node": "^17.0.31",
     "@typescript-eslint/eslint-plugin": "^5.22.0",
     "@typescript-eslint/parser": "^5.22.0",
-    "chalk": "4.1.2",
     "cspell": "^5.20.0",
     "eslint": "^8.14.0",
     "eslint-config-airbnb-base": "^15.0.0",

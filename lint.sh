@@ -29,4 +29,10 @@ npx cspell --no-progress --no-summary "docs/**/*.md"
 # (this starts out disabled by default, but you can uncomment the following line to find dead code)
 npx ts-prune --error
 
+# Step 5 - Check repository-specific scripts
+echo "Checking if generation scripts modify files..."
+npm run generate-configs
+npm run generate-rules-table
+git diff-index --quiet HEAD -- # Returns 1 if any files have changed
+
 echo "Successfully linted in $SECONDS seconds."
