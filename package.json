@@ -6,7 +6,7 @@
     "type": "git",
     "url": "git+https://github.com/IsaacScript/isaacscript-lint.git"
   },
-  "license": "GPL-3.0",
+  "license": "MIT",
   "author": "Zamiell",
   "dependencies": {
     "@prettier/plugin-xml": "^2.1.0",
