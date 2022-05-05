@@ -26,9 +26,10 @@ Each rule has emojis denoting:
 - :wrench: - if some problems reported by the rule are automatically fixable by the `--fix` [command line option](https://eslint.org/docs/user-guide/command-line-interface#fixing-problems)
 - :thought_balloon: - if it requires type information
 
-| Name                                                   | Description                                                  | :white_check_mark: | :wrench: | :thought_balloon: |
-| ------------------------------------------------------ | ------------------------------------------------------------ | ------------------ | -------- | ----------------- |
-| [`isaacscript/no-let-any`](./docs/rules/no-let-any.md) | Prevent declaring variables with let that do not have a type | :white_check_mark: |          | :thought_balloon: |
+| Name | Description | :white_check_mark: | :wrench: | :thought_balloon: |
+| ---- | ----------- | ------------------ | -------- | ----------------- |
+| [`isaacscript/no-let-any`](./docs/rules/no-let-any.md) | Disallows declaring variables with let that do not have a type | :white_check_mark: | | :thought_balloon: |
+| [`isaacscript/no-template-curly-in-string-fix`](./docs/rules/no-template-curly-in-string-fix.md) | Disallows template literal placeholder syntax in regular strings (and automatically fixes the problem) | :white_check_mark: | | |
 
 ## Configs
 

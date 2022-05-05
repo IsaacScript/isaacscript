@@ -1,6 +1,6 @@
 # `no-let-any`
 
-Prevent declaring variables with let that do not have a type.
+Disallows declaring variables with let that do not have a type.
 
 This is useful because the `noImplicitAny` TypeScript compiler flag does not always catch this pattern. If you want to purge all of the `any` from your code base, you need this rule.
 

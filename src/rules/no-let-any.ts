@@ -9,7 +9,7 @@ export const noLetAny = createRule({
     type: "problem",
     docs: {
       description:
-        "Prevent declaring variables with let that do not have a type",
+        "Disallows declaring variables with let that do not have a type",
       recommended: "error",
     },
     schema: [],
