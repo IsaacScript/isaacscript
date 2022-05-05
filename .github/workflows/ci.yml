@@ -30,8 +30,11 @@ jobs:
       - name: Test to see if the project compiles
         run: bash build.sh
 
-      - name: Perform automated checks
+      - name: Lint
         run: bash lint.sh
+
+      - name: Test
+        run: bash test.sh
 
   # To enable CI failure notifications over Discord, add a "DISCORD_WEBHOOK" secret to the
   # repository equal to the URL for the webhook, and then uncomment the lines below
