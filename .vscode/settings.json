@@ -19,15 +19,15 @@
     "dist/**": true
   },
 
-  // -----------------------
-  // JavaScript / TypeScript
-  // -----------------------
+  // -----------------
+  // Language settings
+  // -----------------
 
   // By default, VSCode will not automatically fill-in function arguments
   "javascript.suggest.completeFunctionCalls": true,
   "typescript.suggest.completeFunctionCalls": true,
 
-  // Automatically run the formatter when a JavaScript or TypeScript file is saved
+  // Automatically run the formatter when certain files are saved
   "[javascript]": {
     "editor.codeActionsOnSave": ["source.fixAll.eslint"],
     "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -39,5 +39,10 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
     "editor.tabSize": 2
-  }
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2
+  },
 }

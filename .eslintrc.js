@@ -88,35 +88,5 @@ module.exports = {
     // Defined at:
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
     "no-param-reassign": "off",
-
-    // Documentation:
-    // https://eslint.org/docs/rules/no-restricted-syntax
-    // Defined at:
-    // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
-    // We move the selector for "for..of" loops, since they are commonly used
-    // We add a selector for "empty" invocations of the "array.push()" method
-    "no-restricted-syntax": [
-      "warn",
-      {
-        selector: "ForInStatement",
-        message:
-          "for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array.",
-      },
-      {
-        selector: "LabeledStatement",
-        message:
-          "Labels are a form of GOTO; using them makes code confusing and hard to maintain and understand.",
-      },
-      {
-        selector: "WithStatement",
-        message:
-          "`with` is disallowed in strict mode because it makes code impossible to predict and optimize.",
-      },
-      {
-        selector:
-          "CallExpression[callee.property.name='push'][arguments.length=0]",
-        message: "push must always be called with at least one argument.",
-      },
-    ],
   },
 };

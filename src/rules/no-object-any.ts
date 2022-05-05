@@ -1,18 +1,20 @@
+import { isTypeReferenceType } from "@typescript-eslint/type-utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
-import { createRule, isAny } from "../utils";
+import { createRule, getOrdinalSuffix, isAny } from "../utils";
 
-export const noLetAny = createRule({
-  name: "no-let-any",
+export const noObjectAny = createRule({
+  name: "no-object-any",
   meta: {
     type: "problem",
     docs: {
       description:
-        "Disallows declaring variables with let that do not have a type",
+        "Disallows declaring objects and arrays that do not have a type",
       recommended: "error",
     },
     schema: [],
     messages: {
-      noType: "Variables must be declared with a type.",
+      noType:
+        "Objects/arrays must be declared with a type. (The {{ ordinal }} type parameter is `any`.)",
     },
   },
   defaultOptions: [],
@@ -22,11 +24,8 @@ export const noLetAny = createRule({
 
     return {
       VariableDeclaration(node) {
-        if (node.kind !== "let") {
-          return;
-        }
-
         node.declarations.forEach((declaration) => {
+          // From: https://github.com/typescript-eslint/typescript-eslint/issues/781
           const tsNode = parserServices.esTreeNodeToTSNodeMap.get(declaration);
 
           /**
@@ -37,12 +36,22 @@ export const noLetAny = createRule({
            */
           const type = checker.getTypeAtLocation(tsNode.name);
 
-          if (isAny(type)) {
-            context.report({
-              node,
-              messageId: "noType",
-            });
+          if (!isTypeReferenceType(type)) {
+            return;
           }
+
+          const typeArguments = checker.getTypeArguments(type);
+          typeArguments.forEach((typeArgument, i) => {
+            if (isAny(typeArgument)) {
+              context.report({
+                node,
+                messageId: "noType",
+                data: {
+                  ordinal: getOrdinalSuffix(i + 1), // e.g. 0 --> 1st
+                },
+              });
+            }
+          });
         });
       },
     };

@@ -6,9 +6,17 @@ This is a replacement for the ESLint [no-template-curly-in-string rule](https://
 
 ## Rule Details
 
-The official ESLint [no-template-curly-in-string](https://eslint.org/docs/rules/no-template-curly-in-string) rule will throw an error if you use `"foo: ${foo}"`, complaining that you should convert it to ``foo: ${foo}``. This is a fantastic rule, as the use of the former is almost always a bug.
+The official ESLint [no-template-curly-in-string](https://eslint.org/docs/rules/no-template-curly-in-string) rule works like this:
 
-However, when using the `--fix` flag, ESLint will not automatically fix this for you, unlike other rules. This is because ESLint does not want to break code in the extremely rare case where the programmer did this intentionally.
+```ts
+// Bad
+console.log("foo: ${foo}");
+
+// Good
+console.log(`foo: ${foo}`);
+```
+
+This is a fantastic rule, as the use of quotes in this situation is almost always a bug. However, ESLint will not automatically fix this for you when using the `--fix` flag, unlike other rules. This is because ESLint does not want to break code in the extremely rare case where the programmer did this intentionally.
 
 To get around this, use this rule instead.
 
