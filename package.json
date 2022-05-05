@@ -6,7 +6,7 @@
     "type": "git",
     "url": "git+https://github.com/IsaacScript/eslint-config-isaacscript.git"
   },
-  "license": "GPL-3.0",
+  "license": "MIT",
   "author": "Zamiell",
   "devDependencies": {
     "prettier": "^2.6.2"
