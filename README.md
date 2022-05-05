@@ -21,7 +21,7 @@ This project is written in [TypeScript](https://www.typescriptlang.org/).
 ## Configs
 
 - `recommended` - Enables just the recommended rules.
-- `all` - Enables all rules.
+- `all` - Enables all the rules.
 
 <br>
 

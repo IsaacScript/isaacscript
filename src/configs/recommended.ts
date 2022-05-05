@@ -3,6 +3,7 @@
 // YOU CAN REGENERATE IT USING npm run generate:configs
 
 export const recommended = {
+  plugins: ["isaacscript"],
   rules: {
     "isaacscript/eqeqeq-fix": "error",
     "isaacscript/no-let-any": "error",

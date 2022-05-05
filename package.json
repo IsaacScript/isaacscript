@@ -13,10 +13,17 @@
   "license": "MIT",
   "author": "Zamiell",
   "main": "dist/index.js",
+  "files": [
+    "dist",
+    "docs",
+    "package.json",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsc",
-    "test": "jest",
-    "generate:configs": "ts-node tools/generate-config.ts"
+    "generate:configs": "ts-node tools/generate-config.ts",
+    "test": "jest"
   },
   "dependencies": {
     "@typescript-eslint/type-utils": "^5.22.0",
