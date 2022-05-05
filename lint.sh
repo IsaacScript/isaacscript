@@ -30,9 +30,6 @@ npx cspell --no-progress --no-summary "docs/**/*.md"
 npx ts-prune --error
 
 # Step 5 - Check repository-specific scripts
-echo "Checking if generation scripts modify files..."
-npm run generate-configs
-npm run generate-rules-table
-git diff-index --quiet HEAD -- # Returns 1 if any files have changed
+bash "$DIR/generate.sh"
 
 echo "Successfully linted in $SECONDS seconds."

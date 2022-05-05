@@ -3,6 +3,7 @@
 import { TSESLint } from "@typescript-eslint/utils";
 import fs from "fs";
 import path from "path";
+import { PROJECT_NAME } from "./constants";
 import {
   formatWithPrettier,
   getAlphabeticalRuleEntries,
@@ -25,6 +26,10 @@ interface LinterConfig extends TSESLint.Linter.Config {
 const DEFAULT_RULE_LEVEL = "error";
 const RULE_ENTRIES = getAlphabeticalRuleEntries();
 
+const BASE_CONFIG: LinterConfig = {
+  plugins: [PROJECT_NAME],
+};
+
 generateConfigs();
 
 function generateConfigs() {
@@ -35,12 +40,13 @@ function generateConfigs() {
 
 function all() {
   const allConfig: LinterConfig = {
+    ...BASE_CONFIG,
     rules: RULE_ENTRIES.reduce<LinterConfigRules>(
       (config, entry) => reducer(config, entry),
       {},
     ),
   };
-  logAndGenerateConfig("all", allConfig);
+  writeConfig("all", allConfig);
 }
 
 function recommended() {
@@ -48,16 +54,10 @@ function recommended() {
     isRecommendedRule(entry[1]),
   ).reduce<LinterConfigRules>((config, entry) => reducer(config, entry), {});
   const recommendedConfig: LinterConfig = {
+    ...BASE_CONFIG,
     rules: recommendedRules,
   };
-  logAndGenerateConfig("recommended", recommendedConfig);
-}
-
-function logAndGenerateConfig(name: string, config: LinterConfig) {
-  const hyphens = "--------------------";
-  console.log(`${hyphens} ${name}.ts ${hyphens}`);
-  writeConfig("all", config);
-  console.log();
+  writeConfig("recommended", recommendedConfig);
 }
 
 function writeConfig(name: string, config: LinterConfig): void {
