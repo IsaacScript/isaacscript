@@ -48,7 +48,11 @@ function postPEffectUpdate(player: EntityPlayer): void {}
 ### MC_USE_CARD (5)
 
 ```ts
-function useCard(card: Card | int, player: EntityPlayer, useFlags: BitFlags<UseFlag>): void {}
+function useCard(
+  card: Card | int,
+  player: EntityPlayer,
+  useFlags: BitFlags<UseFlag>,
+): void {}
 ```
 
 ### MC_FAMILIAR_UPDATE (6)
