@@ -1,0 +1,5 @@
+// THIS CODE WAS AUTOMATICALLY GENERATED
+// DO NOT EDIT THIS CODE BY HAND
+// YOU CAN REGENERATE IT USING npm run generate:configs
+
+export = { rules: {} };

@@ -12,5 +12,6 @@
     "Turnbull",
     "unfixable",
     "Zamiell"
-  ]
+  ],
+  "files": ["**"]
 }

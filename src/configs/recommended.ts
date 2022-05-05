@@ -1,7 +1,8 @@
-import { PROJECT_NAME } from "../constants";
+// THIS CODE WAS AUTOMATICALLY GENERATED
+// DO NOT EDIT THIS CODE BY HAND
+// YOU CAN REGENERATE IT USING npm run generate:configs
 
 export const recommended = {
-  plugins: [PROJECT_NAME],
   rules: {
     "isaacscript/eqeqeq-fix": "error",
     "isaacscript/no-let-any": "error",

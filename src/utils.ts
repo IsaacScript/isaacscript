@@ -6,14 +6,6 @@ const urlCreator = (name: string) =>
   `https://github.com/IsaacScript/eslint-plugin-isaacscript/blob/main/docs/rules/${name}.md`;
 export const createRule = ESLintUtils.RuleCreator(urlCreator);
 
-export const ruleTester = new ESLintUtils.RuleTester({
-  parser: "@typescript-eslint/parser",
-  parserOptions: {
-    project: "./tsconfig.json",
-    tsconfigRootDir: `${__dirname}/fixtures`,
-  },
-});
-
 /**
  * From: https://stackoverflow.com/questions/13627308/add-st-nd-rd-and-th-ordinal-suffix-to-a-number
  */

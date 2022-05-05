@@ -8,5 +8,7 @@
     // These are ESLint-only inclusions
     "./.eslintrc.js",
     "./jest.config.js",
+    "./tests/**/*.ts",
+    "./tools/**/*.ts",
   ],
 }

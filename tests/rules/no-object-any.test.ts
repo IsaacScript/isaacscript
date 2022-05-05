@@ -1,16 +1,16 @@
+import { noObjectAny } from "../../src/rules/no-object-any";
 import { ruleTester } from "../utils";
-import { noLetAny } from "./no-let-any";
 
-ruleTester.run("no-let-any", noLetAny, {
+ruleTester.run("no-object-any", noObjectAny, {
   valid: [
     {
       code: `
-let foo: string[];
+const myMap = new Map<string, string>();
       `,
     },
     {
       code: `
-let foo: unknown;
+const myArray: string[] = [];
       `,
     },
     {
@@ -23,13 +23,13 @@ let [, secondElement] = myArray;
   invalid: [
     {
       code: `
-let foo;
+const myMap = new Map();
       `,
-      errors: [{ messageId: "noType" }],
+      errors: [{ messageId: "noType" }, { messageId: "noType" }],
     },
     {
       code: `
-let foo: any;
+const myArray = [];
       `,
       errors: [{ messageId: "noType" }],
     },
