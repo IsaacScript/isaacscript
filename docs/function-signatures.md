@@ -33,7 +33,7 @@ function useItem(
   collectibleType: CollectibleType | int,
   rng: RNG,
   player: EntityPlayer,
-  useFlags: int,
+  useFlags: BitFlags<UseFlag>,
   activeSlot: int,
   customVarData: int,
 ): boolean | { Discharge: boolean; Remove: boolean; ShowAnim: boolean } | void;
@@ -48,7 +48,7 @@ function postPEffectUpdate(player: EntityPlayer): void {}
 ### MC_USE_CARD (5)
 
 ```ts
-function useCard(card: Card | int, player: EntityPlayer, useFlags: int): void {}
+function useCard(card: Card | int, player: EntityPlayer, useFlags: BitFlags<UseFlag>): void {}
 ```
 
 ### MC_FAMILIAR_UPDATE (6)
@@ -81,7 +81,7 @@ function postPlayerInit(player: EntityPlayer): void {}
 function usePill(
   pillEffect: PillEffect | int,
   player: EntityPlayer,
-  useFlags: int,
+  useFlags: BitFlags<UseFlag>,
 ): void {}
 ```
 
@@ -91,7 +91,7 @@ function usePill(
 function entityTakeDmg(
   tookDamage: Entity,
   damageAmount: float,
-  damageFlags: DamageFlag,
+  damageFlags: BitFlags<DamageFlag>,
   damageSource: EntityRef,
   damageCountdownFrames: int,
 ): boolean | void {}
