@@ -7,8 +7,6 @@ ruleTester.run("no-let-any", noLetAny, {
       code: `
 function error(a: string);
 function error(b: number);
-function error(ab: string | number) {}
-export { error };
       `,
     },
   ],
