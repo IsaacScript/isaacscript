@@ -25,9 +25,8 @@ module.exports = {
     // This provides rules for max comment length that the "--fix" flag can fix
     "plugin:comment-length-2/recommended",
 
-    // This provides a version of the "eqeqeq" rule that the "--fix" flag can fix
-    // https://github.com/Zamiell/eslint-plugin-eqeqeq-fix
-    "plugin:eqeqeq-fix/recommended",
+    // This provides extra miscellaneous rules to keep code safe
+    "plugin:isaacscript/recommended",
 
     // Find unused "eslint-disable" comments
     // https://github.com/mysticatea/eslint-plugin-eslint-comments
@@ -37,22 +36,10 @@ module.exports = {
     // https://github.com/gajus/eslint-plugin-jsdoc
     "plugin:jsdoc/recommended",
 
-    // This prevents declaring arrays without a type
-    // https://github.com/Zamiell/eslint-plugin-no-array-any
-    "plugin:no-array-any/recommended",
-
     // This prevents implicit iteration of Maps and Sets,
     // which is helpful to prevent bugs when refactoring
     // https://github.com/Zamiell/eslint-plugin-no-implicit-map-set-loops
     "plugin:no-implicit-map-set-loops/recommended",
-
-    // This prevents declaring variables without a type
-    // https://github.com/Zamiell/eslint-plugin-no-let-any
-    "plugin:no-let-any/recommended",
-
-    // This provides a version of the "no-template-curly-in-string" that the "--fix" flag can fix
-    // https://github.com/Zamiell/eslint-plugin-no-template-curly-in-string-fix
-    "plugin:no-template-curly-in-string-fix/recommended",
 
     // This prevents void return types on unexported functions
     // https://github.com/Zamiell/eslint-plugin-no-void-return-type
