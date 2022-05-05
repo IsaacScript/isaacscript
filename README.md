@@ -209,14 +209,11 @@ Optionally, you can also provide a hint to anyone cloning your repository that t
 - [`eslint-config-isaacscript`](https://github.com/IsaacScript/eslint-config-isaacscript) - Contains the master ESLint configuration.
 - [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier) - Turns off all rules that conflict with Prettier.
 - [`eslint-plugin-comment-length`](https://github.com/lasselupe33/eslint-plugin-comment-length) - A plugin that provides rules for automatically fixing long comments.
-- [`eslint-plugin-eqeqeq-fix`](https://github.com/Zamiell/eslint-plugin-eqeqeq-fix) - A plugin that provides a better [`eqeqeq`](https://eslint.org/docs/rules/eqeqeq) rule.
+- [`eslint-plugin-isaacscript`](https://github.com/IsaacScript/eslint-plugin-isaacscript) - A plugin that provides a collection of miscellaneous rules that help keep code safe.
 - [`eslint-plugin-eslint-comments`](https://github.com/mysticatea/eslint-plugin-eslint-comments) - A plugin that provides rules relating to ESLint comments.
 - [`eslint-plugin-import`](https://github.com/benmosher/eslint-plugin-import) - Required as a peer dependency for `eslint-config-airbnb-base`.
 - [`eslint-plugin-jsdoc`](https://github.com/gajus/eslint-plugin-jsdoc) - A plugin that provides rules for [JSDoc](https://en.wikipedia.org/wiki/JSDoc).
-- [`eslint-plugin-no-array-any`](https://github.com/Zamiell/eslint-plugin-no-array-any) - A plugin to prevent unsafe array declarations.
 - [`eslint-plugin-no-implicit-map-set-loops`](https://github.com/Zamiell/eslint-plugin-no-implicit-map-set-loops) - A plugin that prevents unsafe iteration.
-- [`eslint-plugin-no-let-any`](https://github.com/Zamiell/eslint-plugin-no-let-any) - A plugin to prevent unsafe variable declarations.
-- [`eslint-plugin-no-template-curly-in-string-fix`](https://github.com/Zamiell/eslint-plugin-no-template-curly-in-string-fix) - A plugin that provides a better [`no-template-curly-in-string`](https://eslint.org/docs/rules/no-template-curly-in-string) rule.
 - [`eslint-plugin-no-void-return-type`](https://github.com/Zamiell/eslint-plugin-no-void-return-type) - A plugin that disallows void return types on unexported functions.
 - [`eslint-plugin-only-warn`](https://github.com/bfanger/eslint-plugin-only-warn) - A plugin that turns all errors to warnings.
 - [`eslint-plugin-sort-exports`](https://github.com/jrdrg/eslint-plugin-sort-exports) - A plugin that allows exports to be sorted alphabetically.
