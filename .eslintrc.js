@@ -2,9 +2,30 @@
 // https://eslint.org/docs/user-guide/configuring
 module.exports = {
   extends: [
-    // The linter base is the shared IsaacScript config
-    // https://github.com/IsaacScript/eslint-config-isaacscript/blob/main/base.js
-    "eslint-config-isaacscript/base",
+    // The linter base is the Airbnb style guide,
+    // which is the most popular JavaScript style guide in the world:
+    // https://github.com/airbnb/javascript
+    // The actual ESLint config is located here:
+    // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules
+    // The TypeScript config extends it:
+    // https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js
+    // This includes the "parser" declaration of "@typescript-eslint/parser"
+    "airbnb-base",
+    "airbnb-typescript/base",
+
+    // We extend the Airbnb rules with the "recommended" and "recommended-requiring-type-checking"
+    // rules from the "typescript-eslint" plugin, which is also recommended by Matt Turnbull,
+    // the author of "airbnb-typescript/base"
+    // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/README.md#recommended
+    // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/recommended.ts
+    // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/recommended-requiring-type-checking.ts
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+
+    // Disable any ESLint rules that conflict with Prettier
+    // (otherwise, we will have unfixable ESLint errors)
+    // https://github.com/prettier/eslint-config-prettier
+    "prettier",
   ],
 
   parserOptions: {
@@ -15,6 +36,87 @@ module.exports = {
     project: "./tsconfig.eslint.json",
   },
 
+  plugins: [
+    // Use the "eslint-plugin-only-warn" plugin to change all errors to warnings
+    // This allows the end-user to more easily distinguish between errors from the TypeScript
+    // compiler (which show up in red) and ESLint rule violations (which show up in yellow)
+    "only-warn",
+  ],
+
   // We modify the linting rules from the base for some specific things
-  rules: {},
+  rules: {
+    // Documentation:
+    // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unused-vars.md
+    // Defined at:
+    // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/variables.js
+    // We want to lint unused arguments (the default is "after-used")
+    // We also want to ignore function arguments that start with an underscore
+    // This matches the behavior of the TypeScript compiler flag "--noUnusedLocals"
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        args: "all",
+        argsIgnorePattern: "^_",
+      },
+    ],
+
+    // Documentation:
+    // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-use-before-define.md
+    // https://eslint.org/docs/rules/no-use-before-define
+    // Defined at:
+    // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/variables.js
+    // This allows code to be structured in a more logical order
+    "@typescript-eslint/no-use-before-define": "off",
+
+    // Documentation:
+    // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/prefer-default-export.md
+    // Defined at:
+    // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/imports.js
+    // The case against default exports is layed out here:
+    // https://basarat.gitbook.io/typescript/main-1/defaultisbad
+    "import/prefer-default-export": "off",
+
+    // Documentation:
+    // https://eslint.org/docs/rules/no-console
+    // Defined at:
+    // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/errors.js
+    // Command-line programs commonly write to standard out and standard error
+    "no-console": "off",
+
+    // Documentation:
+    // https://eslint.org/docs/rules/no-param-reassign
+    // Defined at:
+    // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+    "no-param-reassign": "off",
+
+    // Documentation:
+    // https://eslint.org/docs/rules/no-restricted-syntax
+    // Defined at:
+    // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
+    // We move the selector for "for..of" loops, since they are commonly used
+    // We add a selector for "empty" invocations of the "array.push()" method
+    "no-restricted-syntax": [
+      "warn",
+      {
+        selector: "ForInStatement",
+        message:
+          "for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array.",
+      },
+      {
+        selector: "LabeledStatement",
+        message:
+          "Labels are a form of GOTO; using them makes code confusing and hard to maintain and understand.",
+      },
+      {
+        selector: "WithStatement",
+        message:
+          "`with` is disallowed in strict mode because it makes code impossible to predict and optimize.",
+      },
+      {
+        selector:
+          "CallExpression[callee.property.name='push'][arguments.length=0]",
+        message: "push must always be called with at least one argument.",
+      },
+    ],
+  },
 };

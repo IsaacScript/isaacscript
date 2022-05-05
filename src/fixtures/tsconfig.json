@@ -1,0 +1,15 @@
+// Copied from: https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/tests/fixtures/tsconfig.json
+{
+  "compilerOptions": {
+    "jsx": "preserve",
+    "target": "es5",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "lib": ["es2015", "es2017", "esnext"],
+    "experimentalDecorators": true,
+  },
+  "include": [
+    "file.ts",
+  ],
+}
