@@ -6,6 +6,45 @@ This page lists several "gotchas" or things that might be weird about IsaacScrip
 
 <br />
 
+### `int` and `float`
+
+In Lua, there is only one type of number. (The programming language does not differentiate between integers, floats, etc.)
+
+TypeScript works the same way as Lua. There is only one type of number: `number`.
+
+However, the official Isaac API documentation uses integers and floats. For example, this is the entry for the `EntityPlayer.AddHearts` function:
+
+```c++
+void AddHearts(int hearts)
+```
+
+In order to more closely match the API, the TypeScript API definitions use `int` and `float` types. Thus, the above function is declared like this:
+
+```ts
+AddHearts(hearts: int): void;
+```
+
+If you want, you can use the `int` and `float` types in your own code too (instead of just using `number`, like you would in other typical TypeScript code). But if you do use `int` and `float`, be aware that they are simply aliases for `number`, so they don't provide any actual type safety.
+
+In other words, it is possible to do this, so beware:
+
+```ts
+// Give the player a Sad Onion
+player.AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false);
+
+// Find out how many Sad Onions they have
+let numSadOnions = player.GetCollectibleNum(
+  CollectibleType.COLLECTIBLE_SAD_ONION,
+);
+// numSadOnions is now an "int" with a value of "1"
+
+numSadOnions += 0.5;
+// numSadOnions is still an "int", but now it has a value of "1.5"
+// This is a bug and TypeScript won't catch this for you!
+```
+
+<br />
+
 ### Extending Enums --> Custom Enums
 
 In your Lua mods, you may have extended the game's built-in enums. For example:
@@ -41,45 +80,6 @@ if (
 ```
 
 Note that you don't have to worry about polluting the global namespace: due to how the transpiler works, your enum will be local to your own project.
-
-<br />
-
-### `int` and `float`
-
-In Lua, there is only one type of number. (The programming language doesn't differentiate between integers, floats, etc.)
-
-TypeScript works the same way as Lua. There is only one type of number: `number`.
-
-However, the official Isaac API documentation uses integers and floats. For example, this is the entry for the `EntityPlayer:AddCollectible()` function:
-
-```c++
-AddCollectible (CollectibleType Type, integer Charge, boolean AddConsumables)
-```
-
-In order to more closely match the API, the TypeScript API definitions use `int` and `float` types. Thus, the above function is declared like this:
-
-```ts
-AddCollectible(collectibleType: int, charge: int, addConsumables: boolean): void;
-```
-
-If you want, you can use the `int` and `float` types in your own code too (instead of just using `number`, like you would in other typical TypeScript code). But if you do use `int` and `float`, be aware that they are simply aliases for `number`, so they don't provide any actual type safety.
-
-In other words, it is possible to do this, so beware:
-
-```ts
-// Give the player a Sad Onion
-player.AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false);
-
-// Find out how many Sad Onions they have
-let numSadOnions = player.GetCollectibleNum(
-  CollectibleType.COLLECTIBLE_SAD_ONION,
-);
-// numSadOnions is now an "int" with a value of "1"
-
-numSadOnions += 0.5;
-// numSadOnions is still an "int", but now it has a value of "1.5"
-// This is a bug and TypeScript won't catch this for you!
-```
 
 <br />
 
