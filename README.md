@@ -1,8 +1,8 @@
 # eslint-plugin-isaacscript
 
-`eslint-plugin-isaacscript` is a collectible of [ESLint](https://eslint.org/) rules that can help make your JavaScript/TypeScript code more safe.
+`eslint-plugin-isaacscript` is a collection of [ESLint](https://eslint.org/) rules that can help make your JavaScript/TypeScript code more safe.
 
-This plugin is named after (and used in) the [IsaacScript](https://isaacscript.github.io/) framework. But you don't have to know anything about IsaacScript to use it - you can use it with any JavaScript/TypeScript project.
+This plugin is named after (and used in) the [IsaacScript](https://isaacscript.github.io/) framework. But you don't have to know anything about IsaacScript to use it - you can use this plugin with any JavaScript/TypeScript project.
 
 If you want to get off the ground and running with ESLint + TypeScript in a new project, then you should check out the [`isaacscript-lint`](https://github.com/IsaacScript/isaacscript-lint) meta-package.
 
