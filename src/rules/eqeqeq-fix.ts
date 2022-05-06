@@ -1,7 +1,14 @@
-// Original code from:
-// https://github.com/eslint/eslint/blob/main/lib/rules/eqeqeq.js
+/* eslint-disable */
+// @ts-nocheck
 
-import { TSESTree } from "@typescript-eslint/utils";
+/**
+ * This rule is slightly modified from the original ESLint version:
+ * https://github.com/eslint/eslint/blob/main/lib/rules/eqeqeq.js
+ *
+ * We disable all type-checking in this file in order to keep the code as close as possible to the
+ * original.
+ */
+
 import { createRule } from "../utils";
 
 export const eqeqeqFix = createRule({
@@ -22,29 +29,21 @@ export const eqeqeqFix = createRule({
   },
   defaultOptions: [],
   create(context) {
+    const config = context.options[0] || "always";
+    const options = context.options[1] || {};
     const sourceCode = context.getSourceCode();
-    const enforceRuleForNull = true;
-    const enforceInverseRuleForNull = true;
 
-    /**
-     * Checks if one of the operands is a literal null
-     * @param {ASTNode} node The node to check
-     * @returns {boolean} if operands are null
-     * @private
-     */
-    function isNullCheck(node: TSESTree.BinaryExpression) {
-      return isNullLiteral(node.right) || isNullLiteral(node.left);
-    }
+    const nullOption =
+      config === "always" ? options.null || "always" : "ignore";
+    const enforceRuleForNull = nullOption === "always";
+    const enforceInverseRuleForNull = nullOption === "never";
 
     /**
      * Determines whether the given node is a `null` literal.
      * @param {ASTNode} node The node to check
      * @returns {boolean} `true` if the node is a `null` literal
-     * @private
      */
-    function isNullLiteral(
-      node: any, // eslint-disable-line @typescript-eslint/no-explicit-any
-    ) {
+    function isNullLiteral(node) {
       /*
        * Checking `node.value === null` does not guarantee that a literal is a null literal.
        * When parsing values that cannot be represented in the current environment (e.g. unicode
@@ -53,11 +52,54 @@ export const eqeqeqFix = createRule({
        * `node.regex` instead. Also see: https://github.com/eslint/eslint/issues/8020
        */
       return (
-        node.type === "Literal" && // eslint-disable-line @typescript-eslint/no-unsafe-member-access
-        node.value === null && // eslint-disable-line @typescript-eslint/no-unsafe-member-access
-        !node.regex && // eslint-disable-line @typescript-eslint/no-unsafe-member-access
-        !node.bigint // eslint-disable-line @typescript-eslint/no-unsafe-member-access
+        node.type === "Literal" &&
+        node.value === null &&
+        !node.regex &&
+        !node.bigint
       );
+    }
+
+    /**
+     * Checks if an expression is a typeof expression
+     * @param {ASTNode} node The node to check
+     * @returns {boolean} if the node is a typeof expression
+     */
+    function isTypeOf(node) {
+      return node.type === "UnaryExpression" && node.operator === "typeof";
+    }
+
+    /**
+     * Checks if either operand of a binary expression is a typeof operation
+     * @param {ASTNode} node The node to check
+     * @returns {boolean} if one of the operands is typeof
+     * @private
+     */
+    function isTypeOfBinary(node) {
+      return isTypeOf(node.left) || isTypeOf(node.right);
+    }
+
+    /**
+     * Checks if operands are literals of the same type (via typeof)
+     * @param {ASTNode} node The node to check
+     * @returns {boolean} if operands are of same type
+     * @private
+     */
+    function areLiteralsAndSameType(node) {
+      return (
+        node.left.type === "Literal" &&
+        node.right.type === "Literal" &&
+        typeof node.left.value === typeof node.right.value
+      );
+    }
+
+    /**
+     * Checks if one of the operands is a literal null
+     * @param {ASTNode} node The node to check
+     * @returns {boolean} if operands are null
+     * @private
+     */
+    function isNullCheck(node) {
+      return isNullLiteral(node.right) || isNullLiteral(node.left);
     }
 
     /**
@@ -67,15 +109,12 @@ export const eqeqeqFix = createRule({
      * @returns {void}
      * @private
      */
-    function report(node: TSESTree.BinaryExpression, expectedOperator: string) {
+    function report(node, expectedOperator) {
       const operatorToken = sourceCode.getFirstTokenBetween(
         node.left,
         node.right,
         (token) => token.value === node.operator,
       );
-      if (operatorToken === null) {
-        return;
-      }
 
       context.report({
         node,
@@ -83,6 +122,14 @@ export const eqeqeqFix = createRule({
         messageId: "unexpected",
         data: { expectedOperator, actualOperator: node.operator },
         fix(fixer) {
+          /*
+          // If the comparison is a `typeof` comparison or both sides are literals with the same type, then it's safe to fix.
+          if (isTypeOfBinary(node) || areLiteralsAndSameType(node)) {
+            return fixer.replaceText(operatorToken, expectedOperator);
+          }
+          return null;
+          */
+
           // Fix everything regardless of whether or not it is safe to fix
           return fixer.replaceText(operatorToken, expectedOperator);
         },
@@ -97,6 +144,13 @@ export const eqeqeqFix = createRule({
           if (enforceInverseRuleForNull && isNull) {
             report(node, node.operator.slice(0, -1));
           }
+          return;
+        }
+
+        if (
+          config === "smart" &&
+          (isTypeOfBinary(node) || areLiteralsAndSameType(node) || isNull)
+        ) {
           return;
         }
 
