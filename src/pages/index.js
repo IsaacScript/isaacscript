@@ -81,11 +81,11 @@ export default function Home() {
           <div className="row">
             <div className={`col col--6 ${styles.example}`}>
               <h3 style={centerStyle}>TypeScript Input</h3>
-              <CodeBlock className="typescript">{exampleSource}</CodeBlock>
+              <CodeBlock language="typescript">{exampleSource}</CodeBlock>
             </div>
             <div className={`col col--6 ${styles.example}`}>
               <h3 style={centerStyle}>Lua Output</h3>
-              <CodeBlock className="lua">{exampleOutput}</CodeBlock>
+              <CodeBlock language="lua">{exampleOutput}</CodeBlock>
             </div>
           </div>
         </section>

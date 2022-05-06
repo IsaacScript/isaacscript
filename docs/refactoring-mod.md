@@ -8,7 +8,7 @@ Let's say that in our example mod, we want to add a few more custom items, so th
 
 <br />
 
-## 1) src/main.ts
+## 1) `src/main.ts`
 
 We don't want to have any logic in the "main.ts" file. This purpose of this file is to simply register the mod and glue together all of the callbacks.
 
@@ -30,13 +30,13 @@ function registerCallbacks(mod: Mod) {
 
 <br />
 
-## 2) src/enums/CollectibleTypeCustom.ts
+## 2) `src/enums/CollectibleTypeCustom.ts`
 
 Before, we had a `GREEN_CANDLE_COLLECTIBLE_TYPE` constant at the top of the file. This probably belongs in its own file. Furthermore, instead of having individual variables for every collectible type, we can put them all in a `CollectibleTypeCustom` enum, which helps us stay more organized.
 
 ```ts
 export enum CollectibleTypeCustom {
-  COLLECTIBLE_GREEN_CANDLE = Isaac.GetItemIdByName("Green Candle"),
+  GREEN_CANDLE = Isaac.GetItemIdByName("Green Candle"),
 }
 ```
 
@@ -49,6 +49,7 @@ Enums are typically stored in files of the same name in an "enums" subdirectory.
 Each callback can have its own dedicated file in a "callbacks" subdirectory.
 
 ```ts
+import { ModCallbacks } from "isaac-typescript-definitions";
 import { greenCandlePostUpdate } from "../items/greenCandle";
 
 export function postUpdateInit(mod: Mod): void {
@@ -96,7 +97,7 @@ function shouldApplyGreenCandleEffectToEntity(entity: Entity) {
 }
 ```
 
-## 5) Done!
+## 5) Done
 
 Now, our project looks like this:
 

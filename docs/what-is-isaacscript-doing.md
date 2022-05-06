@@ -2,7 +2,7 @@
 title: What is IsaacScript Doing?
 ---
 
-The `isaacscript` program will run forever, monitoring for changes in your project. In summary, it will:
+The `isaacscript` program will run forever until you close the terminal window or cancel it with `Ctrl + c`. While it runs, it monitors for changes in your project. In summary, it will:
 
 1. automatically recompile your TypeScript
 1. automatically copy over any files in the `mod` directory
@@ -12,7 +12,7 @@ As a new user, you might want to confirm that each of these functions is working
 
 <br />
 
-### Confirm That Auto-Mod-Reloading Works
+### 🔄 Confirm That Auto-Mod-Reloading Works
 
 The moment that you save a TypeScript file, `isaacscript` will detect that something has changed, and it will automatically perform the following steps:
 
@@ -35,7 +35,7 @@ Note that `isaacscript` will automatically install the `isaacscript-watcher` hel
 
 <br />
 
-### Confirm That File Cloning Works
+### 📁 Confirm That File Cloning Works
 
 `isaacscript` will automatically sync the contents of the `mod` directory in your project to the corresponding folder in `mods`.
 

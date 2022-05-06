@@ -11,15 +11,15 @@ This page lists several "gotchas" or things that might be weird about IsaacScrip
 In the Isaac Lua environment, several enums are declared as global variables. In typical Lua code, you would just use them directly, like the following:
 
 ```lua
-local player = Isaac.GetPlayer()
-player:AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION)
+local player = Isaac.GetPlayer() -- The "Isaac" class is a global
+player:AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION) -- The "CollectibleType" enum is a global
 ```
 
 However, relying on global variables is dangerous, as other mods can change the contents of the enums. (We have observed this happening in the past from time to time.) Thus, as an extra safety feature, IsaacScript includes a local copy of every enum for your personal use.
 
 Additionally, since we don't have to rely on using the official enums, the local version of the IsaacScript enums can fix all of the spelling errors and inconsistencies that have gone unfixed in the official game. Furthermore, as a big quality of life improvement, we also remove the prefix from every enum to make them easy to type. (For example, `CollectibleType.COLLECTIBLE_SAD_ONION` is changed to `CollectibleType.SAD_ONION`.)
 
-Since enums are not global variables, you must import them in your code whenever you need to use them. For example, to write the Lua code snippet above in TypeScript:
+Since enums are no longer global variables, you must import them in your code whenever you need to use them. For example, to write the Lua code snippet above in TypeScript:
 
 ```ts
 import { CollectibleType } from "isaac-typescript-definitions";
@@ -28,7 +28,7 @@ const player = Isaac.GetPlayer();
 player.AddCollectible(CollectibleType.SAD_ONION);
 ```
 
-However, don't ever type the imports manually, because that's a big waste of time! If you tab-complete the name of an enum, it should automatically import it for you. If you already have an enum that is written out, then you can auto-import it by putting the text cursor on the right-side of the enum and hitting `Ctrl + Space + Enter`.
+However, don't ever type the imports manually, because that's a big waste of time! If you tab-complete the name of an enum, it should automatically import it for you. If you already have an enum that is written out, then you can auto-import it by putting the text cursor on the right-side of the enum and hit `Ctrl + space + enter`.
 
 <br />
 
@@ -227,26 +227,32 @@ Sometimes, you might want to iterate over an enum. For example, the following Lu
 -- "Keyboard" is an enum provided by the game
 for keyName, keyCode in pairs(Keyboard) do
   if Input.IsButtonPressed(keyCode, 0) then
-    Isaac.DebugString("Player pressed: " .. keyName)
+    print("Player pressed: " .. keyName)
   end
 end
 ```
 
-In TypeScript, it would be exactly like iterating over any other object:
+In TypeScript, we can use the `getEnumEntries` helper function:
 
 ```ts
 // TypeScript code
 // "Keyboard" is an enum provided by the game
-for (const [keyName, keyCode] of Object.entries(Keyboard)) {
+for (const [keyName, keyCode] of getEnumEntries(Keyboard)) {
   if (Input.IsButtonPressed(keyCode, 0)) {
-    Isaac.DebugString(`Player pressed: ${keyName}`);
+    print(`Player pressed: ${keyName}`);
   }
 }
 ```
 
-One important thing to note about this is that iterating over enums **will not happen in order**. This is because `Object.entries()` (and the other related functions) transpile to use Lua's `pairs()` function, and that is designed to return table entries in a random order. If you need to get the contents of a Lua enum in order, then either sort the keys before you iterate over them, or re-create the data as an array.
+You can also use the `getEnumKeys` and `getEnumValues` helper functions, depending on what you need to do.
 
-Furthermore, it is important that in the previous example, we are iterating over a "normal" enum provided by the game. You **will not be able to iterate over your own enums** in this way because of how TypeScriptToLua transpiles them. TypeScriptToLua creates a double mapping of key to value and value to key. For example:
+If you stick with these helper functions, everything should work great. If you want to know more about what is happening under-the-hood, then read the next section.
+
+### Enum Reverse Mappings
+
+First, see the previous section on [iterating over enums](#iterating-over-enums).
+
+Normally, TypeScript transpiles enums to JavaScript with a double mapping of key to value and value to key. TypeScriptToLua also copies this behavior when transpiling TypeScript to Lua. For example:
 
 ```ts
 enum TestEnum {
@@ -259,7 +265,7 @@ enum TestEnum {
 Will transpile to:
 
 ```lua
-local TestEnum = TestEnum or ({})
+local TestEnum = {}
 TestEnum.ONE = 1
 TestEnum[TestEnum.ONE] = "ONE"
 TestEnum.TWO = 2
@@ -268,38 +274,52 @@ TestEnum.THREE = 3
 TestEnum[TestEnum.THREE] = "THREE"
 ```
 
-This is a great feature, because you can pretty print what an enum is super easily:
+This is a great feature, because you can get the key name of an enum value super easily:
 
 ```ts
 const currentTestValue = TestEnum.TWO;
-
-Isaac.DebugString(
-  `currentTestValue = ${currentTestValue} - ${TestEnum[currentTestValue]}`,
-);
-// Prints "currentTestValue = 2 (TWO)"
+print(`currentTestValue = ${currentTestValue}: ${TestEnum[currentTestValue]}`);
+// Prints "currentTestValue: 2 (TWO)"
 ```
 
-However, this means that if you want to iterate over your own enums in a way similar to the previous example, you have to use some type-checking:
+However, this means that if you were to naively iterate over the enum with `Object.entries` or `pairs`, you have to use some type-checking:
 
 ```ts
 for (const [key, value] of Object.entries(TestEnum)) {
+  // Ignore the reverse mappings created by TypeScriptToLua
   if (type(key) !== "string") {
-    // Ignore the reverse mappings created by TypeScriptToLua
     continue;
   }
 
-  Isaac.DebugString(`Key: ${key}`);
-  Isaac.DebugString(`Value: ${value}`);
+  print(`Key: ${key}`);
+  print(`Value: ${value}`);
 }
 ```
 
-Or, simply use `getEnumValues`, which is a provided convenience function from `isaacscript-common`:
+This is exactly what the `getEnumValues` helper function does.
+
+Finally, there are some other small things to mention:
+
+1. Reverse mappings are not created for string-based enums, so you only have to worry about this for number-based enums.
+
+1. All of the "flag" enums (e.g. `EntityFlag`, `TearFlag`, etc.) do not have a reverse mapping. This is because they are not "real" TypeScript enums, but are instead objects that are branded with a `BitFlag` type. If you want to get the key of a "fake" enum like this, use the `getEnumKey` helper function. (The compiler won't let you index these types of enums, so the problem should be obvious if you ever come across it.)
+
+1. The `getEnumEntries` (and related) helper functions will return the entries sorted by value. This may be surprising to you. For example:
 
 ```ts
-for (const value of getEnumValues(TestEnum)) {
-  Isaac.DebugString(`Value: ${value}`);
+enum MyEnum {
+  ThirdValue = "third-value",
+  FourthValue = "fourth-value",
+}
+
+for (const key of getEnumKeys(MyEnum)) {
+  print(key); // Will print "fourth-value", then "third-value"
 }
 ```
+
+Instead, you might expect that the enum helper functions would return the entries in the order that they were defined in. However, it is impossible to determine declaration order at runtime. This is because under-the-hood, the `pairs` function is used to iterate over an enum table, and it will always return the results in a random order.
+
+Since number enums are always declared in order of value, you would probably only ever observe this oddity with an enum that has string values.
 
 <br />
 
@@ -307,7 +327,7 @@ for (const value of getEnumValues(TestEnum)) {
 
 Unfortunately, you can't use JavaScript or TypeScript libraries from NPM, since TypeScriptToLua does not support that. However, if you need a specific function, then you can simply copy paste it into your own code.
 
-On the other hand, if you want to split IsaacScript code between repositories or share a library with others, TypeScriptToLua does allow [using and creating npm packages containing .lua files](https://typescripttolua.github.io/docs/external-lua-code). Check out the TypeScriptToLua docs for more details.
+On the other hand, if you want to split IsaacScript code between repositories or share a library with others, TypeScriptToLua does allow [using and creating npm packages containing .lua files](https://typescripttolua.github.io/docs/external-lua-code). This is exactly what the `isaacscript-common` package does. Check out the TypeScriptToLua docs for more details.
 
 <br />
 

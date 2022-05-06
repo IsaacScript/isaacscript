@@ -108,7 +108,7 @@ Next, open `C:\Repositories\green-candle\src\main.ts` in VSCode, which contains 
 
 The bootstrapper created a skeleton of a mod for us. As you can see, it calls the `Isaac.DebugString()` function when the `MC_POST_GAME_STARTED` callback is fired.
 
-(`Isaac` is a global class provided by the game with helpful general-purpose methods on it. `Isaac.DebugString()` simply writes something to the log.txt file, which is located at `C:\Users\[username]\Documents\My Games\Binding of Isaac Repentance\log.txt`.)
+(`Isaac` is a global class provided by the game with helpful general-purpose methods on it. `Isaac.DebugString()` simply writes something to the "log.txt" file, which is located at `C:\Users\[username]\Documents\My Games\Binding of Isaac Repentance\log.txt`.)
 
 First, change the `MOD_NAME` constant to "Green Candle".
 
@@ -146,7 +146,15 @@ Add the following code to the "main" function:
 mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate);
 ```
 
-And then add the corresponding function:
+As you type the `ModCallbacks` enum, it should automatically create an import statement for the enum at the top of the file, which will look like this:
+
+```ts
+import { ModCallbacks } from "isaac-typescript-definitions";
+```
+
+If you pasted the code in from this website, then it wouldn't have gotten the chance to automatically import. Handily, VSCode has a feature to automatically import whatever the text cursor happens to be over. So, put the text cursor at the end of the "ModCallbacks" word, and then hit `Ctrl + space + enter`.
+
+After importing the enum, we have to add the corresponding function that will be called when the callback fires:
 
 ```ts
 function postUpdate() {
@@ -154,7 +162,7 @@ function postUpdate() {
 }
 ```
 
-Now, we can run the mod and confirm that this code makes tons of messages in the log.txt file at the rate of 30 times a second.
+Now, we can run the mod and confirm that this code makes tons of messages in the "log.txt" file at the rate of 30 times a second.
 
 <br />
 
@@ -231,7 +239,7 @@ function shouldApplyGreenCandleEffectToEntity(entity: Entity) {
 
 ## 10) Applying the Poison
 
-Adding the poison is done with the `AddPoison` method. However, notice that your IDE will give you an error if you try to supply the player as the source:
+Adding the poison is done with the `AddPoison` method. However, notice that VSCode will show you an error if you try to supply the player as the source:
 
 ```ts
 function applyGreenCandleEffect(player: EntityPlayer) {
@@ -273,12 +281,13 @@ function shouldApplyGreenCandleEffectToEntity(entity: Entity) {
 
 <br />
 
-## 12) Done!
+## 12) Done
 
 The mod is now complete. It looks like the following:
 
 ```ts
 import { getEntities, getPlayers, getRandomInt } from "isaacscript-common";
+import { ModCallbacks } from "isaac-typescript-definitions";
 
 const MOD_NAME = "Green Candle";
 const GREEN_CANDLE_COLLECTIBLE_TYPE = Isaac.GetItemIdByName("Green Candle");
