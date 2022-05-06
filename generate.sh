@@ -8,6 +8,9 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd "$DIR"
 
+echo "Checking to see if git is dirty before generating..."
+git diff-index --quiet HEAD -- # Returns 1 if any files have changed
+
 npm run generate
 git diff-index --quiet HEAD -- # Returns 1 if any files have changed
 

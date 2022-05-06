@@ -9,6 +9,8 @@ export function generateAll() {
     script.startsWith("generate:"),
   );
   generateScripts.forEach((script) => {
-    execSync(`npm run ${script}`);
+    const command = `npm run ${script}`;
+    console.log(`Running: ${command}`);
+    execSync(command);
   });
 }
