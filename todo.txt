@@ -1,3 +1,5 @@
+- canary
+
 - check for "type CallbackType"
 
 - check every PlayerType --> PlayerVariant
