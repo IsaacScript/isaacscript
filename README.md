@@ -1,6 +1,6 @@
-[![npm version](https://img.shields.io/npm/v/isaacscript-lint.svg)](https://www.npmjs.com/package/isaacscript-lint)
-
 # isaacscript-lint
+
+[![npm version](https://img.shields.io/npm/v/isaacscript-lint.svg)](https://www.npmjs.com/package/isaacscript-lint)
 
 `isaacscript-lint` is a helper package to install all of the dependencies necessary for ESLint to work with a typical TypeScript project or a typical IsaacScript mod.
 
@@ -66,7 +66,7 @@ It should have a `package.json` file, a `tsconfig.json` file, and so on.
 
 ### Step 1 - Install the Dependency
 
-```
+```sh
 npm install isaacscript-lint --save-dev
 ```
 
@@ -214,7 +214,6 @@ Optionally, you can also provide a hint to anyone cloning your repository that t
 - [`eslint-plugin-import`](https://github.com/benmosher/eslint-plugin-import) - Required as a peer dependency for `eslint-config-airbnb-base`.
 - [`eslint-plugin-jsdoc`](https://github.com/gajus/eslint-plugin-jsdoc) - A plugin that provides rules for [JSDoc](https://en.wikipedia.org/wiki/JSDoc).
 - [`eslint-plugin-no-implicit-map-set-loops`](https://github.com/Zamiell/eslint-plugin-no-implicit-map-set-loops) - A plugin that prevents unsafe iteration.
-- [`eslint-plugin-no-void-return-type`](https://github.com/Zamiell/eslint-plugin-no-void-return-type) - A plugin that disallows void return types on unexported functions.
 - [`eslint-plugin-only-warn`](https://github.com/bfanger/eslint-plugin-only-warn) - A plugin that turns all errors to warnings.
 - [`eslint-plugin-sort-exports`](https://github.com/jrdrg/eslint-plugin-sort-exports) - A plugin that allows exports to be sorted alphabetically.
 - [`prettier`](https://github.com/prettier/prettier) - This is the main code formatter, as explained above.
