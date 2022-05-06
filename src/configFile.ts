@@ -9,8 +9,8 @@ import { Config } from "./types/Config";
 import { error } from "./utils";
 
 export async function get(argv: Record<string, unknown>): Promise<Config> {
-  const verbose = argv.verbose === true;
-  const yes = argv.yes === true;
+  const verbose = argv["verbose"] === true;
+  const yes = argv["yes"] === true;
 
   const existingConfig = readExistingConfig(verbose);
   if (existingConfig !== undefined) {

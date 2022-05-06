@@ -56,9 +56,8 @@ export async function getProjectPath(
 function getProjectNameFromCommandLineArgument(
   argv: Record<string, unknown>,
 ): string | undefined {
-  return typeof argv.name === "string" && argv.name !== ""
-    ? argv.name
-    : undefined;
+  const name = argv["name"];
+  return typeof name === "string" && name !== "" ? name : undefined;
 }
 
 async function getNewProjectName(): Promise<[string, string, boolean]> {

@@ -19,14 +19,14 @@ import { spawnSaveDatWriter } from "./spawnSaveDatWriter";
 import { touchWatcherSaveDatFiles } from "./touchWatcherSaveDatFiles";
 
 export function monitor(argv: Record<string, unknown>, config: Config): void {
-  const verbose = argv.verbose === true;
+  const verbose = argv["verbose"] === true;
 
   // If they specified some command-line flags, override the values found in the config file
-  if (argv.modsDirectory !== undefined) {
-    config.modsDirectory = argv.modsDirectory as string; // eslint-disable-line no-param-reassign
+  if (argv["modsDirectory"] !== undefined) {
+    config.modsDirectory = argv["modsDirectory"] as string; // eslint-disable-line no-param-reassign
   }
-  if (argv.saveSlot !== undefined) {
-    config.saveSlot = argv.saveSlot as number; // eslint-disable-line no-param-reassign
+  if (argv["saveSlot"] !== undefined) {
+    config.saveSlot = argv["saveSlot"] as number; // eslint-disable-line no-param-reassign
   }
 
   // Read the "tsconfig.json" file
@@ -151,7 +151,7 @@ function getFirstTSConfigIncludePath(verbose: boolean): string {
     error(`Failed to parse "${chalk.green(TSCONFIG_PATH)}":`, err);
   }
 
-  const include = tsConfig.include;
+  const include = tsConfig["include"];
   if (include === undefined) {
     error(
       `Your "${chalk.green(

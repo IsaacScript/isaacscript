@@ -33,10 +33,10 @@ export async function getModsDir(
   argv: Record<string, unknown>,
   verbose: boolean,
 ): Promise<string> {
-  if (argv.modsDirectory !== undefined) {
+  if (argv["modsDirectory"] !== undefined) {
     // They specified the "--mods-directory" command-line flag,
     // so there is no need to prompt the user for it
-    return argv.modsDirectory as string;
+    return argv["modsDirectory"] as string;
   }
 
   const defaultModsPath = getDefaultModsPath(process.platform);

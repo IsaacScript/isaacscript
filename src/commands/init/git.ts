@@ -133,19 +133,16 @@ function validateNewGitVersion(verbose: boolean) {
 
 function getGitHubUsername(verbose: boolean) {
   // If the GitHub CLI is installed, we can derive the user's GitHub username
-  if (
-    !commandExists.sync("gh") ||
-    process.env.APPDATA === undefined ||
-    process.env.APPDATA === ""
-  ) {
+  if (!commandExists.sync("gh")) {
     return undefined;
   }
 
-  const githubCLIHostsPath = path.join(
-    process.env.APPDATA,
-    "GitHub CLI",
-    "hosts.yml",
-  );
+  const appData = process.env["APPDATA"];
+  if (appData === undefined || appData === "") {
+    return undefined;
+  }
+
+  const githubCLIHostsPath = path.join(appData, "GitHub CLI", "hosts.yml");
   if (!file.exists(githubCLIHostsPath, verbose)) {
     return undefined;
   }

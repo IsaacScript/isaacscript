@@ -18,7 +18,7 @@ export async function checkForWindowsTerminalBugs(
     return;
   }
 
-  if (process.env.SHELL !== "C:\\Program Files\\Git\\usr\\bin\\bash.exe") {
+  if (process.env["SHELL"] !== "C:\\Program Files\\Git\\usr\\bin\\bash.exe") {
     return;
   }
 
@@ -26,7 +26,7 @@ export async function checkForWindowsTerminalBugs(
 }
 
 async function checkForWindowsBugColor(verbose: boolean) {
-  if (process.env.FORCE_COLOR === "true") {
+  if (process.env["FORCE_COLOR"] === "true") {
     return;
   }
 

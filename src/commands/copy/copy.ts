@@ -6,7 +6,7 @@ import { Config } from "../../types/Config";
 import { getModTargetDirectoryName } from "../../utils";
 
 export function copy(argv: Record<string, unknown>, config: Config): void {
-  const verbose = argv.verbose === true;
+  const verbose = argv["verbose"] === true;
 
   const modTargetDirectoryName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);

@@ -22,11 +22,11 @@ import { gitCommitIfChanges, isGitDirty } from "../init/git";
 const UPDATE_SCRIPT_NAME = "update.sh";
 
 export function publish(argv: Record<string, unknown>, config: Config): void {
-  const skipVersionIncrement = argv.skip === true;
-  const setVersion = argv.setVersion as string | undefined;
-  const dryRun = argv.dryRun === true;
-  const onlyUpload = argv.onlyUpload === true;
-  const verbose = argv.verbose === true;
+  const skipVersionIncrement = argv["skip"] === true;
+  const setVersion = argv["setVersion"] as string | undefined;
+  const dryRun = argv["dryRun"] === true;
+  const onlyUpload = argv["onlyUpload"] === true;
+  const verbose = argv["verbose"] === true;
 
   const modTargetDirectoryName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
@@ -168,7 +168,7 @@ function getVersionFromPackageJSON(verbose: boolean) {
     );
   }
 
-  if (typeof packageJSON.version !== "string") {
+  if (typeof packageJSON["version"] !== "string") {
     error(
       `The "${chalk.green(
         PACKAGE_JSON_PATH,
@@ -176,7 +176,7 @@ function getVersionFromPackageJSON(verbose: boolean) {
     );
   }
 
-  return packageJSON.version;
+  return packageJSON["version"];
 }
 
 function bumpVersionInPackageJSON(version: string, verbose: boolean): string {

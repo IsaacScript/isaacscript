@@ -5,10 +5,11 @@ export async function promptSaveSlot(
   argv: Record<string, unknown>,
   yes: boolean,
 ): Promise<number> {
-  if (argv.saveSlot !== undefined) {
+  if (argv["saveSlot"] !== undefined) {
     // They specified the "--save-slot" command-line flag,
     // so there is no need to prompt the user for it
-    return argv.saveSlot as number;
+    // (yargs converts this to a number)
+    return argv["saveSlot"] as number;
   }
 
   if (yes) {
