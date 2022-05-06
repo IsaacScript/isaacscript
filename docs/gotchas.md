@@ -17,7 +17,7 @@ player:AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION) -- The "Collectible
 
 However, relying on global variables is dangerous, as other mods can change the contents of the enums. (We have observed this happening in the past from time to time.) Thus, as an extra safety feature, IsaacScript includes a local copy of every enum for your personal use.
 
-Additionally, since we don't have to rely on using the official enums, the local version of the IsaacScript enums can fix all of the spelling errors and inconsistencies that have gone unfixed in the official game. Furthermore, as a big quality of life improvement, we also remove the prefix from every enum to make them easy to type. (For example, `CollectibleType.COLLECTIBLE_SAD_ONION` is changed to `CollectibleType.SAD_ONION`.)
+Additionally, since we don't have to rely on using the official enums, the local version of the IsaacScript enums can fix all of the spelling errors and inconsistencies that have gone unfixed in the official game. We can also remove all of the "fake" enum values that pollute the enum and destroy the type safety, like `CollectibleType.NUM_COLLECTIBLES`. Furthermore, as a big quality of life improvement, we also remove the prefix from every enum to make them easy to type. (For example, `CollectibleType.COLLECTIBLE_SAD_ONION` is changed to `CollectibleType.SAD_ONION`.)
 
 Since enums are no longer global variables, you must import them in your code whenever you need to use them. For example, to write the Lua code snippet above in TypeScript:
 
@@ -38,7 +38,7 @@ First, familiarize yourself with what [bit flags are](http://www.cplusplus.com/f
 
 Several things in Isaac use bit flags, such as tears and projectiles.
 
-In IsaacScript, working with bit flags is different (and easier!) than it is in Lua. We have the benefit of bit flags being completely type safe - it is impossible to represent an invalid combination.
+In IsaacScript, working with bit flags is different than it is in Lua. We have the benefit of bit flags being completely type safe - it is impossible to represent an invalid combination.
 
 For example, the following is possible in Lua:
 
@@ -48,11 +48,11 @@ For example, the following is possible in Lua:
 player.TearFlags = TearFlag.TEAR_PIERCING | TearFlag.TEAR_SPECTRAL | 5
 ```
 
-This isn't a valid combination of bit flags, because `5` does not represent any valid tear flag. Thus, this code would have undefined behavior.
+This is not a valid combination of bit flags, because `5` is a valid tear flag. Thus, this code would have undefined behavior.
 
 In IsaacScript, assigning some arbitrary number to the `player.TearFlags` field would cause a compiler error.
 
-In order to get type safety, all enums that are bit flags are extended from the `BitFlag` type. And a collection of 0 or more bit flags is represented by the `BitFlags` type. `BitFlags` takes a generic type parameter, so you can have `BitFlags<TearFlag>`, `BitFlags<ParameterFlag>`, and so on.
+In order to get type safety, all enums that are bit flags are extended from the `BitFlag` type. And a collection of 0 or more bit flags is represented by the `BitFlags` type. `BitFlags` takes a generic type parameter, so you can have `BitFlags<TearFlag>`, `BitFlags<ProjectileFlag>`, and so on.
 
 To compose `BitFlags` yourself, you can use the `addFlag` and `removeFlag` helper functions, like so:
 
@@ -67,7 +67,36 @@ player.TearFlags = addFlags(
 // (addFlags is variadic)
 ```
 
-You can also use the `hasFlag` helper function to check for the presence of a flag.
+If you want to assign a specific flag to a `BitFlags` property, then simply assigning it won't work:
+
+```ts
+// TypeScript code
+player.TearFlags = TearFlag.PIERCING; // Error
+```
+
+Doing this would give the following error:
+
+```text
+Type 'TearFlagValue' is not assignable to type 'BitFlags<TearFlagValue>'.
+Property '__bitFlagsBrand' is missing in type 'TearFlagValue' but required in type '{ readonly __bitFlagsBrand: TearFlagValue; }'.
+```
+
+This error is because `TearFlag` is not exactly the same thing as `BitFlags<TearFlag>`. To solve this problem, you can use the `bitFlags` helper function, which will cast the flag for you:
+
+```ts
+// TypeScript code
+player.TearFlags = bitFlags(TearFlag.PIERCING);
+```
+
+Finally, note that you can also use the `hasFlag` helper function to check for the presence of a flag:
+
+```ts
+// TypeScript code
+if (hasFlag(player.TearFlags, TearFlag.PIERCING)) {
+  // Handle piercing synergy
+  // TODO
+}
+```
 
 <br />
 
