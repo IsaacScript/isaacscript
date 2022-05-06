@@ -48,19 +48,15 @@ const plugin: tstl.Plugin = {
       // Call the normal TSTL enum transpilation method
       const statements = context.superTransformStatements(node);
 
-      // Create a new element, which will be equal to:
-      // local ____exports.Foo = {}
-      const name = node.name.escapedText as string;
-      const identifier = tstl.createIdentifier(name, node.name);
-      const table = tstl.createTableExpression();
-      const declaration = tstl.createVariableDeclarationStatement(
-        identifier,
-        table,
-      );
-
-      // Swap the old first element, which will be equal to:
+      // Get the first element, which will be equal to something like:
       // local ____exports.Foo = Foo or ({})
-      statements[0] = declaration;
+      const oldDeclaration = statements[0];
+      if (tstl.isAssignmentStatement(oldDeclaration)) {
+        // Replace the right side of the assignment with a blank Lua table, e.g.
+        // local ____exports.Foo = {}
+        const blankTable = tstl.createTableExpression();
+        oldDeclaration.right = [blankTable];
+      }
 
       return statements;
     },
