@@ -41,10 +41,6 @@ module.exports = {
     // https://github.com/Zamiell/eslint-plugin-no-implicit-map-set-loops
     "plugin:no-implicit-map-set-loops/recommended",
 
-    // This prevents void return types on unexported functions
-    // https://github.com/Zamiell/eslint-plugin-no-void-return-type
-    "plugin:no-void-return-type/recommended",
-
     // Disable any ESLint rules that conflict with Prettier
     // (otherwise, we will have unfixable ESLint errors)
     // https://github.com/prettier/eslint-config-prettier
@@ -68,7 +64,7 @@ module.exports = {
     // Documentation:
     // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/array-type.md
     // Not defined in the parent configs
-    // Prefer the "[]string" syntax over "Array<string>"
+    // Prefer the "string[]" syntax over "Array<string>"
     "@typescript-eslint/array-type": ["warn", { default: "array-simple" }],
 
     // Documentation:
