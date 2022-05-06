@@ -75,6 +75,11 @@ function navigateForward() {
     return;
   }
 
+  if (isOnFirstDocPage()) {
+    clickFirstNavButton();
+    return;
+  }
+
   clickSecondNavButton();
 }
 
