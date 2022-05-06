@@ -10,6 +10,15 @@ export type RuleDefinition = TSESLint.RuleModule<string, unknown[]>;
 const RULE_NAME_PREFIX = `${PROJECT_NAME}/`;
 const PRETTIER_CONFIG = prettier.resolveConfig.sync(__dirname);
 
+export function kebabCaseToCamelCase(text: string) {
+  return text.replace(/-./g, (match) => {
+    const firstLetterOfWord = match[1];
+    return firstLetterOfWord === undefined
+      ? ""
+      : firstLetterOfWord.toUpperCase();
+  });
+}
+
 export function formatWithPrettier(
   text: string,
   language: "typescript" | "markdown",
@@ -34,4 +43,13 @@ export function isRecommendedRule(rule: RuleDefinition) {
   }
 
   return rule.meta.docs.recommended !== false;
+}
+
+/** Intended to be used on file content that needs to have a trailing newline. */
+export function removeFirstAndLastLine(text: string) {
+  const lines = text.trim().split("\n");
+  lines.shift(); // Remove first line
+  lines.pop(); // Remove last line
+  lines.push(""); // Add a trailing newline
+  return lines.join("\n");
 }

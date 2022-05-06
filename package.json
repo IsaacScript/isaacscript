@@ -22,8 +22,10 @@
   ],
   "scripts": {
     "build": "tsc",
-    "generate-configs": "ts-node tools/generate-configs.ts",
-    "generate-rules-table": "ts-node tools/generate-rules-table.ts",
+    "create-rule": "ts-node tools/create-rule.ts",
+    "generate": "ts-node tools/generate.ts",
+    "generate:configs": "ts-node tools/generate-configs.ts",
+    "generate:rules-table": "ts-node tools/generate-rules-table.ts",
     "test": "jest"
   },
   "dependencies": {

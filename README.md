@@ -33,7 +33,7 @@ Each rule has emojis denoting:
 - :wrench: - if some problems reported by the rule are automatically fixable by the `--fix` [command line option](https://eslint.org/docs/user-guide/command-line-interface#fixing-problems)
 - :thought_balloon: - if it requires type information
 
-<!-- Do not manually modify RULES_TABLE section. Instead, run: npm run generate-rules-table -->
+<!-- Do not manually modify RULES_TABLE section. Instead, run: npm run generate:rules-table -->
 <!-- RULES_TABLE -->
 
 | Name                                                                                      | Description                                                                                | :white_check_mark: | :wrench: | :thought_balloon: |
@@ -42,6 +42,7 @@ Each rule has emojis denoting:
 | [isaacscript/no-let-any](docs/rules/no-let-any)                                           | Disallows declaring variables with let that do not have a type                             | :white_check_mark: |          |                   |
 | [isaacscript/no-object-any](docs/rules/no-object-any)                                     | Disallows declaring objects and arrays that do not have a type                             | :white_check_mark: |          |                   |
 | [isaacscript/no-template-curly-in-string-fix](docs/rules/no-template-curly-in-string-fix) | Disallows template literal placeholder syntax in regular strings (and automatically fixes) | :white_check_mark: |          |                   |
+| [isaacscript/no-void-return-type](docs/rules/no-void-return-type)                         | Disallows void return types on non-exported functions                                      | :white_check_mark: |          |                   |
 
 <!-- /RULES_TABLE -->
 

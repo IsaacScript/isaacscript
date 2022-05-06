@@ -10,6 +10,9 @@
     // By default, it will put the compiled ".js" next to the respective ".ts" file,
     // which will clutter the "src" directory
     "outDir": "./dist",
+
+    // Necessary since we scripts reference the "package.json" file
+    "resolveJsonModule": true,
   },
 
   // A list of the TypeScript files to compile

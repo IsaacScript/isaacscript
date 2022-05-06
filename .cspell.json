@@ -10,8 +10,11 @@
     "technote",
     "TSES",
     "Turnbull",
+    "unexported",
     "unfixable",
     "Zamiell"
   ],
-  "files": ["**"]
+  "files": [
+    "**"
+  ]
 }
