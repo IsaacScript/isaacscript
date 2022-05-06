@@ -11,7 +11,7 @@ This page lists several "gotchas" or things that might be weird about IsaacScrip
 In the Isaac Lua environment, several enums are declared as global variables. In typical Lua code, you would just use them directly, like the following:
 
 ```lua
-local player = Isaac.GetPlayer() -- The "Isaac" class is a global
+local player = Isaac.GetPlayer()
 player:AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION) -- The "CollectibleType" enum is a global
 ```
 
