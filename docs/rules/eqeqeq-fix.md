@@ -22,6 +22,22 @@ This is a fantastic rule, as the use of `==` is almost always a bug. However, ES
 
 To get around this, use this rule instead.
 
+## Gotchas
+
+If you use this rule, make sure to turn off the vanilla ESLint rule, like this:
+
+```json
+{
+  "rules": {
+    "eqeqeq": "off"
+  }
+}
+```
+
+Otherwise, the two rules will conflict with each other.
+
+Note that if you use the `recommended` config that comes with this plugin, then the vanilla ESLint rule will be turned off automatically.
+
 ## Options
 
 ```json

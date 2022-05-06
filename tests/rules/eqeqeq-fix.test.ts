@@ -9,6 +9,12 @@ if (foo === bar) {
 }
       `,
     },
+    {
+      code: `
+if (foo !== bar) {
+}
+      `,
+    },
   ],
   invalid: [
     {
@@ -19,6 +25,17 @@ if (foo == bar) {
       errors: [{ messageId: "unexpected" }],
       output: `
 if (foo === bar) {
+}
+      `,
+    },
+    {
+      code: `
+if (foo != bar) {
+}
+      `,
+      errors: [{ messageId: "unexpected" }],
+      output: `
+if (foo !== bar) {
 }
       `,
     },

@@ -5,6 +5,7 @@
 export const recommended = {
   plugins: ["isaacscript"],
   rules: {
+    eqeqeq: "off",
     "isaacscript/eqeqeq-fix": "error",
     "isaacscript/no-let-any": "error",
     "isaacscript/no-object-any": "error",

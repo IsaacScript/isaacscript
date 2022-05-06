@@ -28,6 +28,9 @@ const RULE_ENTRIES = getAlphabeticalRuleEntries();
 
 const BASE_CONFIG: LinterConfig = {
   plugins: [PROJECT_NAME],
+  rules: {
+    eqeqeq: "off", // This will conflict with the "eqeqeq-fix" rule
+  },
 };
 
 generateConfigs();
@@ -38,12 +41,16 @@ function generateConfigs() {
 }
 
 function all() {
+  const allRules = RULE_ENTRIES.reduce<LinterConfigRules>(
+    (config, entry) => reducer(config, entry),
+    {},
+  );
   const allConfig: LinterConfig = {
     ...BASE_CONFIG,
-    rules: RULE_ENTRIES.reduce<LinterConfigRules>(
-      (config, entry) => reducer(config, entry),
-      {},
-    ),
+    rules: {
+      ...BASE_CONFIG.rules,
+      ...allRules,
+    },
   };
   writeConfig("all", allConfig);
 }
@@ -54,7 +61,10 @@ function recommended() {
   ).reduce<LinterConfigRules>((config, entry) => reducer(config, entry), {});
   const recommendedConfig: LinterConfig = {
     ...BASE_CONFIG,
-    rules: recommendedRules,
+    rules: {
+      ...BASE_CONFIG.rules,
+      ...recommendedRules,
+    },
   };
   writeConfig("recommended", recommendedConfig);
 }
