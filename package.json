@@ -21,7 +21,7 @@
     "eslint-plugin-comment-length-2": "^0.5.8",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-isaacscript": "^1.0.3",
+    "eslint-plugin-isaacscript": "^1.0.4",
     "eslint-plugin-jsdoc": "^39.2.9",
     "eslint-plugin-no-implicit-map-set-loops": "^1.0.3",
     "eslint-plugin-only-warn": "^1.0.3",
