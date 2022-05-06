@@ -27,6 +27,11 @@ module.exports = {
         sortDir: "asc",
       },
     ],
+
+    // TODO
+    "comment-length-2/limit-single-line-comments": "off",
+    "comment-length-2/limit-multi-line-comments": "off",
+    "isaacscript/no-object-any": "off",
   },
 
   overrides: [
