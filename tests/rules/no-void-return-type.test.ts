@@ -15,6 +15,9 @@ function foo() {}
 function foo(): void {}
       `,
       errors: [{ messageId: "voidReturnType" }],
+      output: `
+function foo() {}
+      `,
     },
   ],
 });
