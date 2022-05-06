@@ -179,6 +179,10 @@ export function initGitRepository(
     return;
   }
 
+  if (gitRemoteURL === undefined) {
+    return;
+  }
+
   execShell("git", ["init"], verbose, false, projectPath);
   execShell("git", ["branch", "-M", "main"], verbose, false, projectPath);
 
