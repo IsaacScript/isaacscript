@@ -31,6 +31,6 @@ npx ts-prune --error
 
 # Step 5 - Check repository-specific scripts
 echo "Checking if the generation scripts modify any files..."
-bash "$DIR/generate.sh"
+bash "$DIR/generate.sh" check
 
 echo "Successfully linted in $SECONDS seconds."

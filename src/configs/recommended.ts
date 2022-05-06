@@ -6,6 +6,7 @@ export const recommended = {
   plugins: ["isaacscript"],
   rules: {
     eqeqeq: "off",
+    "no-template-curly-in-string": "off",
     "isaacscript/eqeqeq-fix": "error",
     "isaacscript/no-let-any": "error",
     "isaacscript/no-object-any": "error",

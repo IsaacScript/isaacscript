@@ -29,7 +29,11 @@ const RULE_ENTRIES = getAlphabeticalRuleEntries();
 const BASE_CONFIG: LinterConfig = {
   plugins: [PROJECT_NAME],
   rules: {
-    eqeqeq: "off", // This will conflict with the "eqeqeq-fix" rule
+    // This will conflict with the "eqeqeq-fix" rule
+    eqeqeq: "off",
+
+    // This will conflict with the "no-template-curly-in-string-fix" rule
+    "no-template-curly-in-string": "off",
   },
 };
 
