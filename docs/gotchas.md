@@ -32,6 +32,45 @@ However, don't ever type the imports manually, because that's a big waste of tim
 
 <br />
 
+### Bit Flags
+
+First, familiarize yourself with what [bit flags are](http://www.cplusplus.com/forum/general/1590/), if you haven't already.
+
+Several things in Isaac use bit flags, such as tears and projectiles.
+
+In IsaacScript, working with bit flags is different (and easier!) than it is in Lua. We have the benefit of bit flags being completely type safe - it is impossible to represent an invalid combination.
+
+For example, the following is possible in Lua:
+
+```lua
+-- Lua code
+-- Combine 3 tear flags together
+player.TearFlags = TearFlag.TEAR_PIERCING | TearFlag.TEAR_SPECTRAL | 5
+```
+
+This isn't a valid combination of bit flags, because `5` does not represent any valid tear flag. Thus, this code would have undefined behavior.
+
+In IsaacScript, assigning some arbitrary number to the `player.TearFlags` field would cause a compiler error.
+
+In order to get type safety, all enums that are bit flags are extended from the `BitFlag` type. And a collection of 0 or more bit flags is represented by the `BitFlags` type. `BitFlags` takes a generic type parameter, so you can have `BitFlags<TearFlag>`, `BitFlags<ParameterFlag>`, and so on.
+
+To compose `BitFlags` yourself, you can use the `addFlag` and `removeFlag` helper functions, like so:
+
+```ts
+// TypeScript code
+// Combine 3 tear flags together
+player.TearFlags = addFlags(
+  TearFlag.PIERCING,
+  TearFlag.SPECTRAL,
+  TearFlag.FREEZE,
+);
+// (addFlags is variadic)
+```
+
+You can also use the `hasFlag` helper function to check for the presence of a flag.
+
+<br />
+
 ### `int` and `float`
 
 In Lua, there is only one type of number. (The programming language does not differentiate between integers, floats, etc.)

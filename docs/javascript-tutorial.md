@@ -260,16 +260,16 @@ In Lua, the typical way to iterate over a key/value table is with `pairs`.
 
 ```lua
 -- Lua code
--- Define a table of item prices
--- (we must put "[]" around the item IDs since the table keys are numbers)
-local itemPrices = {
-  [CollectibleType.COLLECTIBLE_SAD_ONION] = 15,
-  [CollectibleType.COLLECTIBLE_INNER_EYE] = 15,
-  [CollectibleType.COLLECTIBLE_SPOON_BENDER] = 7,
+-- Define a table of collectible prices
+-- (we must put "[]" around the collectible types since the table keys are numbers)
+local collectiblePrices = {
+  [1] = 15, -- Sad Onion
+  [2] = 15, -- The Inner Eye
+  [3] = 7, -- Spoon Bender
 }
 
-for itemID, price in pairs(itemPrices) do
-  -- Do something with "itemID" and "price"
+for collectibleType, price in pairs(collectiblePrices) do
+  -- Do something with "collectibleType" and "price"
 end
 ```
 
@@ -277,24 +277,24 @@ In TypeScript, you have a few different options.
 
 ```ts
 // TypeScript code
-// Define an anonymous object containing item prices
-const itemPrices = {
-  [CollectibleType.COLLECTIBLE_SAD_ONION]: 15,
-  [CollectibleType.COLLECTIBLE_INNER_EYE]: 15,
-  [CollectibleType.COLLECTIBLE_SPOON_BENDER]: 7,
+// Define an anonymous object containing collectible prices
+const collectiblePrices = {
+  [1]: 15, // Sad Onion
+  [2]: 15, // The Inner Eye
+  [3]: 7, // Spoon Bender
 };
 
-for (const [itemID, price] of Object.entries(itemPrices)) {
-  // Do something with "itemID" and "price"
+for (const [collectibleType, price] of Object.entries(collectiblePrices)) {
+  // Do something with "collectibleType" and "price"
 }
 
-// Or, if you just need the item ID, you would use the "keys()" method
-for (const itemID of Object.keys(itemPrices)) {
-  // Do something with "itemID"
+// Or, if you just need the collectible type, you would use the "keys()" method
+for (const collectibleType of Object.keys(collectiblePrices)) {
+  // Do something with "collectibleType"
 }
 
 // Or, if you just need the price, you would use the "values()" method
-for (const price of Object.values(itemPrices)) {
+for (const price of Object.values(collectiblePrices)) {
   // Do something with "price"
 }
 ```
@@ -420,25 +420,28 @@ The main thing that TypeScript adds to JavaScript is type annotations. Here's a 
 ```lua
 -- Lua code
 function postPlayerInit(player)
-  player:AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false)
+  -- Add Sad Onion
+  player:AddCollectible(1, 0, false)
 end
 ```
 
 ```javascript
 // JavaScript code
 function postPlayerInit(player) {
-  player.AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false);
+  // Add Sad Onion
+  player.AddCollectible(1, 0, false);
 }
 ```
 
 ```ts
 // TypeScript code
 function postPlayerInit(player: EntityPlayer) {
-  player.AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false);
+  // Add Sad Onion
+  player.AddCollectible(1, 0, false);
 }
 ```
 
-In the TypeScript code snippet, you can see that we marked "player" as the "EntityPlayer" type by using a colon. The "EntityPlayer" type is automatically provided by the `isaac-typescript-definitions` package, and corresponds to "EntityPlayer" in the official docs. (The `isaac-typescript-definitions` package is automatically imported in any IsaacScript project.)
+In the TypeScript code snippet, you can see that we marked "player" as the "EntityPlayer" type by using a colon. The "EntityPlayer" type is automatically provided by the `isaac-typescript-definitions` package, and corresponds to "EntityPlayer" in the official docs. (The `isaac-typescript-definitions` package is automatically added to any IsaacScript project.)
 
 Once the type has been annotated, your editor will know about all of the legal methods for the "player" variable. If you make a typo on the "AddCollectible" method, the editor will immediately tell you by drawing a squiggly line underneath it.
 
@@ -468,8 +471,9 @@ function postGameStarted:init(mod)
 end
 
 function postGameStarted:main()
+  -- Add Sad Onion
   local player = Isaac.GetPlayer()
-  player:AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false)
+  player:AddCollectible(1, 0, false)
 end
 
 return postGameStarted
@@ -495,8 +499,9 @@ export function postGameStartedInit(mod: Mod): void {
 }
 
 function main() {
+  // Add Sad Onion
   const player = Isaac.GetPlayer();
-  player.AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false);
+  player.AddCollectible(1, 0, false);
 }
 ```
 
@@ -646,28 +651,28 @@ RevelationsExports = {
 
 ### Enums
 
-In the previous [`for` loop section](#for-statements-for-keyvalue-tables), we defined a mapping of items to prices.
+In the previous [`for` loop section](#for-statements-for-keyvalue-tables), we defined a mapping of collectibles to prices.
 
-Imagine that in our mod, items can only be sold for three different prices:
+Imagine that in our mod, collectibles can only be sold for three different prices:
 
 - 15 coins (normal)
 - 30 coins (double)
 - 7 coins (on sale)
 
-This means that we can get even more specific with our item prices definition by using an `enum`. Unlike Lua, TypeScript has a built-in `enum` data type.
+This means that we can get even more specific with our collectible prices definition by using an `enum`. Unlike Lua, TypeScript has a built-in `enum` data type.
 
 ```ts
-enum ItemPrice {
+enum CollectiblePrice {
   NORMAL = 15,
   DOUBLE = 30,
   SALE = 7,
 }
 
-// itemPrices now only has values of ItemPrice, which is even safer than before!
-const itemPrices = {
-  [CollectibleType.COLLECTIBLE_SAD_ONION]: ItemPrice.NORMAL,
-  [CollectibleType.COLLECTIBLE_INNER_EYE]: ItemPrice.NORMAL,
-  [CollectibleType.COLLECTIBLE_SPOON_BENDER]: ItemPrice.SALE,
+// collectiblePrices now only has values of CollectiblePrice, which is even safer than before!
+const collectiblePrices = {
+  [1]: CollectiblePrice.NORMAL, // Sad Onion
+  [2]: CollectiblePrice.NORMAL, // The Inner Eye
+  [3]: CollectiblePrice.SALE, // Spoon Bender
 };
 ```
 
@@ -675,36 +680,38 @@ const itemPrices = {
 
 ### Maps
 
-In the previous [enums](#enums) section, we defined "itemPrices" as an anonymous object, which is roughly equivalent to a Lua table.
+In the previous [enums](#enums) section, we defined "collectiblePrices" as an anonymous object, which is roughly equivalent to a Lua table.
 
-Anonymous objects are good for cases where you won't use variables to access the data. But this isn't the case for "itemPrices". Here, we are only specifying the prices for _some_ of the collectibles in the game. If a collectible isn't in the list, we'll probably want to ignore it, or give it a default value, or something along those lines.
+Anonymous objects are good for cases where you won't use variables to access the data. But this isn't the case for "collectiblePrices". Here, we are only specifying the prices for _some_ of the collectibles in the game. If a collectible isn't in the list, we'll probably want to ignore it, or give it a default value, or something along those lines.
 
-In this example, what "itemPrices" _really_ represents is a _map_ of a specific item ID to a price. Unlike Lua, TypeScript has a `Map` data type. So, the example would be better written like this:
+In this example, what "collectiblePrices" _really_ represents is a _map_ of a specific collectible type to a price. Unlike Lua, TypeScript has a `Map` data type. So, the example would be better written like this:
 
 ```ts
-// itemPrices has a type of "Map<CollectibleType, number>",
-// which makes much more sense than an anonymous object
-// The first value in the brackets corresponds to the map key type
-// The second value in the brackets corresponds to the map value type
-// We initialize the map by passing an array of key/value pairs to the constructor
-const itemPrices = new Map<CollectibleType, ItemPrice>([
-  [CollectibleType.COLLECTIBLE_SAD_ONION, ItemPrice.NORMAL],
-  [CollectibleType.COLLECTIBLE_INNER_EYE, ItemPrice.NORMAL],
-  [CollectibleType.COLLECTIBLE_SPOON_BENDER, ItemPrice.SALE],
+const collectiblePrices = new Map<int, CollectiblePrice>([
+  [1, CollectiblePrice.NORMAL], // Sad Onion
+  [2, CollectiblePrice.NORMAL], // The Inner Eye
+  [3, CollectiblePrice.SALE], // Spoon Bender
 ]);
-for (const [itemID, price] of itemPrices.entries()) {
-  // Do something with "itemID" and "price"
+for (const [collectibleType, price] of collectiblePrices.entries()) {
+  // Do something with "collectibleType" and "price"
 }
 ```
+
+In this example, collectiblePrices has a type of `Map<int, number>`, which makes much more sense than an anonymous object.
+
+- The first value in the angle brackets corresponds to the map key type.
+- The second value in the angle brackets corresponds to the map value type.
+
+We initialize the map by passing an array of key/value pairs to the constructor.
 
 With a map, you can use all of the handy methods [shown in the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) (listed on the left side). Here's an example of using the `get()` method to emulate checking for a value in a Lua table:
 
 ```lua
 -- Lua code
-function pickingUpItem(player, pickingUpItemID)
-  -- If the player picked up a new item,
-  -- subtract the price of that item from their coin amount
-  local price = itemPrices[pickingUpItemID]
+function pickingUpCollectible(player, collectibleType)
+  -- If the player picked up a new collectible,
+  -- subtract the price of that collectible from their coin amount
+  local price = collectiblePrices[collectibleType]
   if price ~= nil then
     player:AddCoins(price * -1)
   end
@@ -713,10 +720,10 @@ end
 
 ```ts
 // TypeScript code
-function pickingUpItem(player: EntityPlayer, pickingUpItemID: number) {
-  // If the player picked up a new item,
-  // subtract the price of that item from their coin amount
-  const price = itemPrices.get(pickingUpItemID);
+function pickingUpCollectible(player: EntityPlayer, collectibleType: int) {
+  // If the player picked up a new collectible,
+  // subtract the price of that collectible from their coin amount
+  const price = collectiblePrices.get(collectibleType);
   if (price !== undefined) {
     player.AddCoins(price * -1);
   }
