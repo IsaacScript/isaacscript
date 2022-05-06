@@ -6,6 +6,32 @@ This page lists several "gotchas" or things that might be weird about IsaacScrip
 
 <br />
 
+### Local Enums and Importing
+
+In the Isaac Lua environment, several enums are declared as global variables. In typical Lua code, you would just use them directly, like the following:
+
+```lua
+local player = Isaac.GetPlayer()
+player:AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION)
+```
+
+However, relying on global variables is dangerous, as other mods can change the contents of the enums. (We have observed this happening in the past from time to time.) Thus, as an extra safety feature, IsaacScript includes a local copy of every enum for your personal use.
+
+Additionally, since we don't have to rely on using the official enums, the local version of the IsaacScript enums can fix all of the spelling errors and inconsistencies that have gone unfixed in the official game. Furthermore, as a big quality of life improvement, we also remove the prefix from every enum to make them easy to type. (For example, `CollectibleType.COLLECTIBLE_SAD_ONION` is changed to `CollectibleType.SAD_ONION`.)
+
+Since enums are not global variables, you must import them in your code whenever you need to use them. For example, to write the Lua code snippet above in TypeScript:
+
+```ts
+import { CollectibleType } from "isaac-typescript-definitions";
+
+const player = Isaac.GetPlayer();
+player.AddCollectible(CollectibleType.SAD_ONION);
+```
+
+However, don't ever type the imports manually, because that's a big waste of time! If you tab-complete the name of an enum, it should automatically import it for you. If you already have an enum that is written out, then you can auto-import it by putting the text cursor on the right-side of the enum and hitting `Ctrl + Space + Enter`.
+
+<br />
+
 ### `int` and `float`
 
 In Lua, there is only one type of number. (The programming language does not differentiate between integers, floats, etc.)
@@ -67,13 +93,13 @@ In TypeScript, you cannot extend existing enums for safety reasons. Instead, cre
 ```ts
 // At the top of your TypeScript mod:
 enum CollectibleTypeCustom {
-  COLLECTIBLE_MY_CUSTOM_ITEM = Isaac.GetItemIdByName("My Custom Item"),
+  MY_CUSTOM_ITEM = Isaac.GetItemIdByName("My Custom Item"),
 }
 
 // Elsewhere in the code:
 if (
-  player.HasCollectible(CollectibleTypeCustom.COLLECTIBLE_MY_CUSTOM_ITEM) &&
-  player.HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS)
+  player.HasCollectible(CollectibleTypeCustom.MY_CUSTOM_ITEM) &&
+  player.HasCollectible(CollectibleType.EPIC_FETUS)
 ) {
   // Handle the specific synergy with My Custom Item + Epic Fetus
 }
@@ -136,7 +162,7 @@ Note that if you really need to, you can restore operator overloading for Vector
 type Vector = number & { __intBrand: unknown };
 ```
 
-But this is **not recommend** because it destroys type-safety.
+But this is **not recommended** because vectors won't be type-safe anymore.
 
 <br />
 

@@ -1,4 +1,4 @@
-/* eslint-disable no-array-any/no-array-any */
+/* eslint-disable isaacscript/no-object-any */
 
 const FIRST_DOC_PAGE_TITLE = "Features | IsaacScript";
 
