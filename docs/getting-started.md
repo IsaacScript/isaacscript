@@ -67,7 +67,7 @@ npx isaacscript
 
 (This is shorthand for `npx isaacscript monitor`.)
 
-The program will run forever, monitoring for changes in your project. If you want to cancel it, you can press `Ctrl + C` to return to your shell.
+The program will run forever, monitoring for changes in your project. If you want to cancel it, you can press `Ctrl + C` to return to your shell (or close the terminal window entirely).
 
 IsaacScript needs to be running in order for your code changes to propagate to the real mod directory, so you will need to start it up in the same way every time that you begin coding. (You could also [automate the invocation with a VSCode task](https://code.visualstudio.com/docs/editor/tasks) if you find it annoying to run it manually.)
 
