@@ -18,7 +18,7 @@ In order to program in TypeScript, we need [Node.js](https://nodejs.org/en/), a 
 
 [Visual Studio Code](https://code.visualstudio.com/) (or VSCode, for short) is probably the best text editor for TypeScript. If you don't have it installed already, download and install it from the [VSCode download page](https://code.visualstudio.com/download).
 
-(If you usually use a different TypeScript editor like [WebStorm](https://www.jetbrains.com/webstorm/)), then feel free to use that instead if you want.)
+(If you usually use a different TypeScript editor like [WebStorm](https://www.jetbrains.com/webstorm/), then feel free to use that instead if you want.)
 
 <br />
 
