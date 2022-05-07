@@ -10,13 +10,13 @@ You can go from zero to up-and-running with a new mod in around 5 minutes.
 
 ### 1) Install Node.js
 
-In order to program in TypeScript, we need [Node.js](https://nodejs.org/en/), a JavaScript runtime. If you don't have it installed already, download and install from the [Node.js download page](https://nodejs.org/en/download/).
+In order to program in TypeScript, we need [Node.js](https://nodejs.org/en/), a JavaScript runtime. If you don't have it installed already, download and install it from the [Node.js download page](https://nodejs.org/en/download/).
 
 <br />
 
 ### 2) Install VSCode
 
-[Visual Studio Code](https://code.visualstudio.com/) (or VSCode, for short) is probably the best text editor for TypeScript. If you don't have it installed already, download and install from the [VSCode download page](https://code.visualstudio.com/download).
+[Visual Studio Code](https://code.visualstudio.com/) (or VSCode, for short) is probably the best text editor for TypeScript. If you don't have it installed already, download and install it from the [VSCode download page](https://code.visualstudio.com/download).
 
 Of course, if you usually use a different editor than VSCode to program TypeScript (e.g. [WebStorm](https://www.jetbrains.com/webstorm/)), feel free to use that instead if you want.
 
