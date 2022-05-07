@@ -4,6 +4,8 @@ title: Getting Started
 
 `isaacscript` will currently work on Windows and Linux.
 
+You can go from zero to up-and-running with a new mod in around 5 minutes.
+
 <br />
 
 ### 1) Install Node.js
