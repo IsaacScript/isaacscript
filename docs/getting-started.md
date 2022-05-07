@@ -30,7 +30,7 @@ Open a new [command prompt window](https://www.howtogeek.com/235101/10-ways-to-o
 
 ### 4) Create and Change to Your Project Directory
 
-Make a new directory for your new mod, and then change the current working directory to it. (Use [lowercase and kebab-case](https://stackoverflow.com/questions/11947587/is-there-a-naming-convention-for-git-repositories).)
+Make a new directory for your mod, and then change the current working directory to it. (Use [lowercase and kebab-case](https://stackoverflow.com/questions/11947587/is-there-a-naming-convention-for-git-repositories).)
 
 For example, if your mod is named "Revelations":
 
