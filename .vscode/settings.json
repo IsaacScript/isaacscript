@@ -14,7 +14,7 @@
   // Automatically removing all trailing whitespace when saving a file
   "files.trimTrailingWhitespace": true,
 
-  // Configure glob patterns for excluding files and folders in full text searches and quick open
+  // Configure glob patterns for excluding files and folders in full text searches and quick open aa
   "search.exclude": {
     "dist/**": true
   },

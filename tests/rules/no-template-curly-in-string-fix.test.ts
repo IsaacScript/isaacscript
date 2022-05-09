@@ -5,18 +5,18 @@ ruleTester.run("no-template-curly-in-string-fix", noTemplateCurlyInStringFix, {
   valid: [
     {
       code: `
-console.log(\`foo: \${foo}\`);
+const fooString = \`foo: \${foo}\`;
       `,
     },
   ],
   invalid: [
     {
       code: `
-console.log("foo: \${foo}");
+const fooString = "foo: \${foo}";
       `,
       errors: [{ messageId: "unexpectedTemplateExpression" }],
       output: `
-console.log(\`foo: \${foo}\`);
+const fooString = \`foo: \${foo}\`;
       `,
     },
   ],

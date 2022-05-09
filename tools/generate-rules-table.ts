@@ -73,6 +73,12 @@ function getRuleTableRow(ruleEntry: [string, RuleDefinition]) {
   const requiresTypeInformation =
     "requiresTypeChecking" in rule.meta ? EMOJI_REQUIRES_TYPE_INFORMATION : "";
 
+  if (description.endsWith(".")) {
+    throw new Error(
+      `The "${ruleName}" rule ends with a period, which is incorrect and should be deleted.`,
+    );
+  }
+
   const ruleCells = [
     name,
     description,

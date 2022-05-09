@@ -46,17 +46,49 @@ module.exports = {
   // We modify the linting rules from the base for some specific things
   rules: {
     // Documentation:
+    // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/naming-convention.md
+    // Defined at:
+    // https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js
+    // Modify the Airbnb config to allow for a leading underscore,
+    // which signifies that it is temporarily not being used
+    "@typescript-eslint/naming-convention": [
+      "warn",
+      // Allow camelCase variables (23.2), PascalCase variables (23.8),
+      // and UPPER_CASE variables (23.10)
+      {
+        selector: "variable",
+        format: ["camelCase", "PascalCase", "UPPER_CASE"],
+        leadingUnderscore: "allow",
+      },
+      // Allow camelCase functions (23.2), and PascalCase functions (23.8)
+      {
+        selector: "function",
+        format: ["camelCase", "PascalCase"],
+        leadingUnderscore: "allow",
+      },
+      // Airbnb recommends PascalCase for classes (23.3),
+      // and although Airbnb does not make TypeScript recommendations,
+      // we are assuming this rule would similarly apply to anything "type like",
+      // including interfaces, type aliases, and enums
+      {
+        selector: "typeLike",
+        format: ["PascalCase"],
+      },
+    ],
+
+    // Documentation:
     // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unused-vars.md
     // Defined at:
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/variables.js
     // We want to lint unused arguments (the default is "after-used")
-    // We also want to ignore function arguments that start with an underscore
+    // We also want to ignore arguments/variables that start with an underscore
     // This matches the behavior of the TypeScript compiler flag "--noUnusedLocals"
     "@typescript-eslint/no-unused-vars": [
       "warn",
       {
         args: "all",
         argsIgnorePattern: "^_",
+        varsIgnorePattern: "^_",
       },
     ],
 
@@ -84,9 +116,24 @@ module.exports = {
     "no-console": "off",
 
     // Documentation:
+    // https://eslint.org/docs/rules/no-continue
+    // Defined at:
+    // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
+    // Proper use of continues can reduce indentation for long blocks of code
+    "no-continue": "off",
+
+    // Documentation:
     // https://eslint.org/docs/rules/no-param-reassign
     // Defined at:
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
     "no-param-reassign": "off",
+
+    // Documentation:
+    // https://eslint.org/docs/rules/no-plusplus
+    // Defined at:
+    // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
+    // Airbnb disallows these because it can lead to errors with minified code;
+    // we don't have to worry about this in for loops though
+    "no-plusplus": ["warn", { allowForLoopAfterthoughts: true }],
   },
 };

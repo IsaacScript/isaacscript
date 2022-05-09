@@ -39,6 +39,8 @@ Each rule has emojis denoting:
 | Name                                                                                      | Description                                                                                | :white_check_mark: | :wrench: | :thought_balloon: |
 | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ | ------------------ | -------- | ----------------- |
 | [isaacscript/eqeqeq-fix](docs/rules/eqeqeq-fix)                                           | Requires the use of `===` and `!==` (and automatically fixes)                              | :white_check_mark: |          |                   |
+| [isaacscript/limit-slash-asterisk-comments](docs/rules/limit-slash-asterisk-comments)     | Disallows "/\*" comments longer than N characters                                          | :white_check_mark: |          |                   |
+| [isaacscript/limit-slash-slash-comments](docs/rules/limit-slash-slash-comments)           | Disallows "//" comments longer than N characters                                           | :white_check_mark: |          |                   |
 | [isaacscript/no-let-any](docs/rules/no-let-any)                                           | Disallows declaring variables with let that do not have a type                             | :white_check_mark: |          |                   |
 | [isaacscript/no-object-any](docs/rules/no-object-any)                                     | Disallows declaring objects and arrays that do not have a type                             | :white_check_mark: |          |                   |
 | [isaacscript/no-template-curly-in-string-fix](docs/rules/no-template-curly-in-string-fix) | Disallows template literal placeholder syntax in regular strings (and automatically fixes) | :white_check_mark: |          |                   |
@@ -47,3 +49,16 @@ Each rule has emojis denoting:
 <!-- /RULES_TABLE -->
 
 <br>
+
+## Contributing
+
+Thanks for helping out with this open-source project!
+
+If you are adding a new rule, start by using the NPM script to automate a few things:
+
+```sh
+npm run create-rule
+git status # Show what the NPM script did
+```
+
+Additionally, You can contact me [on Discord](https://discord.gg/KapmKQ2gUD) if you are doing a PR and have questions.

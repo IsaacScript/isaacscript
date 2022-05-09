@@ -19,6 +19,11 @@ const myArray = [0, 1];
 let [, secondElement] = myArray;
       `,
     },
+    {
+      code: `
+const mySet: Set<string> = new Set();
+      `,
+    },
   ],
   invalid: [
     {

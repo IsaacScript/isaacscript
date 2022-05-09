@@ -2,9 +2,10 @@ import fs from "fs";
 import path from "path";
 import { rules } from "../src/rules";
 import { PROJECT_NAME } from "./constants";
-import { generateAll } from "./generate";
+import { generateAll } from "./generateAll";
 import {
   formatWithPrettier,
+  isKebabCase,
   kebabCaseToCamelCase,
   removeFirstAndLastLine,
 } from "./utils";
@@ -38,6 +39,16 @@ function createRule() {
 
   const ruleName = firstArg;
   const description = secondArg;
+
+  if (!isKebabCase(ruleName)) {
+    throw new Error("The rule name must be in kebab-case.");
+  }
+
+  if (description.endsWith(".")) {
+    throw new Error(
+      `The rule description ends with a period, which is incorrect and should be deleted.`,
+    );
+  }
 
   createDocFile(ruleName, description);
   createSourceFile(ruleName, description);
