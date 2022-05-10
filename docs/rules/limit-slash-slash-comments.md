@@ -26,6 +26,12 @@ This rule will automatically fix the problem by shifting the offending words dow
 // I love cookies. But not cake.
 ```
 
+TypeScript triple slash directives are ignored. For example:
+
+```ts
+/// <reference path="foo1.d.ts" />
+```
+
 ## Options
 
 ```json
@@ -34,8 +40,7 @@ This rule will automatically fix the problem by shifting the offending words dow
     "isaacscript/limit-slash-slash-comments": [
       "error",
       {
-        "maxLength": 100,
-        "ignoreUrls": true
+        "maxLength": 100
       }
     ]
   }

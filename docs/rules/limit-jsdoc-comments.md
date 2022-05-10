@@ -44,8 +44,7 @@ Non JSDoc-style comments that begin with `/* ` are ignored. For example: <!-- ma
     "isaacscript/limit-jsdoc-comments": [
       "error",
       {
-        "maxLength": 100,
-        "ignoreUrls": true
+        "maxLength": 100
       }
     ]
   }
