@@ -36,15 +36,15 @@ Each rule has emojis denoting:
 <!-- Do not manually modify RULES_TABLE section. Instead, run: npm run generate:rules-table -->
 <!-- RULES_TABLE -->
 
-| Name                                                                                      | Description                                                                                | :white_check_mark: | :wrench: | :thought_balloon: |
-| ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ | ------------------ | -------- | ----------------- |
-| [isaacscript/eqeqeq-fix](docs/rules/eqeqeq-fix)                                           | Requires the use of `===` and `!==` (and automatically fixes)                              | :white_check_mark: |          |                   |
-| [isaacscript/limit-jsdoc-comments](docs/rules/limit-jsdoc-comments)                       | Disallows "/\*" comments longer than N characters                                          | :white_check_mark: |          |                   |
-| [isaacscript/limit-slash-slash-comments](docs/rules/limit-slash-slash-comments)           | Disallows "//" comments longer than N characters                                           | :white_check_mark: |          |                   |
-| [isaacscript/no-let-any](docs/rules/no-let-any)                                           | Disallows declaring variables with let that do not have a type                             | :white_check_mark: |          |                   |
-| [isaacscript/no-object-any](docs/rules/no-object-any)                                     | Disallows declaring objects and arrays that do not have a type                             | :white_check_mark: |          |                   |
-| [isaacscript/no-template-curly-in-string-fix](docs/rules/no-template-curly-in-string-fix) | Disallows template literal placeholder syntax in regular strings (and automatically fixes) | :white_check_mark: |          |                   |
-| [isaacscript/no-void-return-type](docs/rules/no-void-return-type)                         | Disallows void return types on non-exported functions                                      | :white_check_mark: |          |                   |
+| Name                                                                                         | Description                                                                                | :white_check_mark: | :wrench: | :thought_balloon: |
+| -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ | ------------------ | -------- | ----------------- |
+| [isaacscript/eqeqeq-fix](docs/rules/eqeqeq-fix.md)                                           | Requires the use of `===` and `!==` (and automatically fixes)                              | :white_check_mark: |          |                   |
+| [isaacscript/limit-jsdoc-comments](docs/rules/limit-jsdoc-comments.md)                       | Disallows "/\*" comments longer than N characters                                          | :white_check_mark: |          |                   |
+| [isaacscript/limit-slash-slash-comments](docs/rules/limit-slash-slash-comments.md)           | Disallows "//" comments longer than N characters                                           | :white_check_mark: |          |                   |
+| [isaacscript/no-let-any](docs/rules/no-let-any.md)                                           | Disallows declaring variables with let that do not have a type                             | :white_check_mark: |          | :thought_balloon: |
+| [isaacscript/no-object-any](docs/rules/no-object-any.md)                                     | Disallows declaring objects and arrays that do not have a type                             | :white_check_mark: |          | :thought_balloon: |
+| [isaacscript/no-template-curly-in-string-fix](docs/rules/no-template-curly-in-string-fix.md) | Disallows template literal placeholder syntax in regular strings (and automatically fixes) | :white_check_mark: |          |                   |
+| [isaacscript/no-void-return-type](docs/rules/no-void-return-type.md)                         | Disallows void return types on non-exported functions                                      | :white_check_mark: |          |                   |
 
 <!-- /RULES_TABLE -->
 

@@ -66,12 +66,14 @@ function getRuleTableRow(ruleEntry: [string, RuleDefinition]) {
 
   const fullRuleName = getFullRuleName(ruleName);
 
-  const name = `[${fullRuleName}](docs/rules/${ruleName})`;
+  const name = `[${fullRuleName}](docs/rules/${ruleName}.md)`;
   const { description } = rule.meta.docs;
   const isRecommended = isRecommendedRule(rule) ? EMOJI_RECOMMENDED : "";
   const isFixable = rule.meta.hasSuggestions ? EMOJI_FIXABLE : "";
   const requiresTypeInformation =
-    "requiresTypeChecking" in rule.meta ? EMOJI_REQUIRES_TYPE_INFORMATION : "";
+    "requiresTypeChecking" in rule.meta.docs
+      ? EMOJI_REQUIRES_TYPE_INFORMATION
+      : "";
 
   if (description.endsWith(".")) {
     throw new Error(
