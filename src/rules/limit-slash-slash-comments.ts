@@ -164,6 +164,7 @@ function getStandaloneSlashSlashComments(
     (comment) =>
       comment.type === TSESTree.AST_TOKEN_TYPES.Line && // i.e. a "//" comment
       comment.value.trim() !== "" &&
+      comment.value[0] !== "/" && // Filter out triple slash directives
       isCommentOnOwnLine(sourceCode, comment),
   );
 }

@@ -364,6 +364,42 @@ invalid.push({
   `,
 });
 
+// TODO
+valid.push({
+  name: "ZZ Using triple slash directives",
+  code: `
+/// <reference path="foo1.d.ts" />
+/// <reference path="foo2.d.ts" />
+  `,
+});
+
+valid.push({
+  name: "Using triple slash directives with a leading comment",
+  code: `
+// This is my directive.
+/// <reference path="foo1.d.ts" />
+  `,
+});
+
+valid.push({
+  name: "Using triple slash directives with a trailing comment",
+  code: `
+/// <reference path="foo1.d.ts" />
+// This is my directive.
+  `,
+});
+
+valid.push({
+  name: "Using triple slash directives with a mix of comments",
+  code: `
+// This is my directive.
+/// <reference path="foo1.d.ts" />
+// This is my directive.
+/// <reference path="foo2.d.ts" />
+// This is my directive.
+  `,
+});
+
 ruleTester.run("limit-slash-slash-comments", limitSlashSlashComments, {
   valid,
   invalid,
