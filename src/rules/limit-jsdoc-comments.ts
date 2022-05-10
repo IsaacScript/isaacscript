@@ -297,7 +297,9 @@ function canFitIOnSingleJSDocLine(
 ) {
   const singleLineLength =
     leftWhitespaceLength + "/** ".length + text.length + " */".length;
-  return singleLineLength <= maxLength;
+  const hasJSDocTag = text.startsWith("@");
+
+  return singleLineLength <= maxLength && !hasJSDocTag;
 }
 
 function getFormattedJSDocCommentSingleLine(

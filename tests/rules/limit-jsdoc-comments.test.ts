@@ -495,6 +495,15 @@ invalid.push({
   `,
 });
 
+valid.push({
+  name: "Using a multi-line comment with a short JSDoc tag",
+  code: `
+/**
+ * @param foo This is foo.
+ */
+  `,
+});
+
 ruleTester.run("limit-jsdoc-comments", limitJSDocComments, {
   valid,
   invalid,
