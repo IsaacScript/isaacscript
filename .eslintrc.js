@@ -46,6 +46,13 @@ module.exports = {
   // We modify the linting rules from the base for some specific things
   rules: {
     // Documentation:
+    // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/explicit-module-boundary-types.md
+    // Not defined in the parent configs
+    // Specifying explicit return types can help prevent bugs, but only require it on exported
+    // functions
+    "@typescript-eslint/explicit-module-boundary-types": "warn",
+
+    // Documentation:
     // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/naming-convention.md
     // Defined at:
     // https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js

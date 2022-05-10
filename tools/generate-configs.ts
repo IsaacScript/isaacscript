@@ -3,7 +3,7 @@
 import { TSESLint } from "@typescript-eslint/utils";
 import fs from "fs";
 import path from "path";
-import { PROJECT_NAME } from "./constants";
+import { PLUGIN_NAME } from "./constants";
 import {
   formatWithPrettier,
   getAlphabeticalRuleEntries,
@@ -27,7 +27,7 @@ const DEFAULT_RULE_LEVEL = "error";
 const RULE_ENTRIES = getAlphabeticalRuleEntries();
 
 const BASE_CONFIG: LinterConfig = {
-  plugins: [PROJECT_NAME],
+  plugins: [PLUGIN_NAME],
   rules: {
     // This will conflict with the "eqeqeq-fix" rule
     eqeqeq: "off",

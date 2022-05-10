@@ -1,8 +1,8 @@
-# `limit-slash-asterisk-comments`
+# `limit-jsdoc-comments`
 
-Disallows `\*` comments longer than N characters.
+Disallows `\**` comments longer than N characters.
 
-This rule will automatically fixes the problem by shifting the offending words down to the next line. Additionally, for multi-line comments, if it is possible for a two lines to be merged together in a single line without going past N characters, it will automatically do so.
+This rule will automatically fix the problem by shifting the offending words down to the next line. Additionally, for multi-line comments, if it is possible for a two lines to be merged together in a single line without going past N characters, it will automatically do so.
 
 ## Rule Details
 
@@ -41,7 +41,7 @@ Non JSDoc-style comments that begin with `/* ` are ignored. For example: <!-- ma
 ```json
 {
   "rules": {
-    "isaacscript/limit-slash-asterisk-comments": [
+    "isaacscript/limit-jsdoc-comments": [
       "error",
       {
         "maxLength": 100,

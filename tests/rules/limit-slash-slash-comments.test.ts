@@ -1,15 +1,19 @@
-import {
-  InvalidTestCase,
-  ValidTestCase,
-} from "@typescript-eslint/utils/dist/ts-eslint";
+import { TSESLint } from "@typescript-eslint/utils";
 import {
   limitSlashSlashComments,
   MessageIds,
 } from "../../src/rules/limit-slash-slash-comments";
 import { ruleTester } from "../utils";
 
-const valid: ValidTestCase<unknown[]>[] = [];
-const invalid: InvalidTestCase<MessageIds, unknown[]>[] = [];
+const valid: TSESLint.ValidTestCase<unknown[]>[] = [];
+const invalid: TSESLint.InvalidTestCase<MessageIds, unknown[]>[] = [];
+
+valid.push({
+  name: "Using a single-line JSDoc comment that is too long",
+  code: `
+/** But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will */
+  `,
+});
 
 valid.push({
   name: "Using a single-line comment with exactly 100 characters",
@@ -161,6 +165,7 @@ invalid.push({
 // and I will give you a complete account of the system, and expound the actual teachings of the great
 // explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure
 
+
 // itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally
 // encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or
 // desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur
@@ -177,6 +182,7 @@ invalid.push({
 // and I will give you a complete account of the system, and expound the actual teachings of the
 // great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or
 // avoids pleasure
+
 
 // itself, because it is pleasure, but because those who do not know how to pursue pleasure
 // rationally encounter consequences that are extremely painful. Nor again is there anyone who loves
@@ -218,6 +224,143 @@ function foo() {
   // loves or pursues or desires to obtain pain of itself, because it is pain, but because
   // occasionally circumstances occur
 }
+  `,
+});
+
+invalid.push({
+  name: "Using a multi-line comment with bullet points (with a newline before the bullets)",
+  code: `
+// Here is my list of things:
+//
+// - But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and
+// - I will give you a complete account of the system, and expound the actual teachings of the great explorer of the
+// truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure
+// - itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter
+  `,
+  errors: [
+    { messageId: "incorrectlyFormatted" },
+    { messageId: "incorrectlyFormatted" },
+    { messageId: "incorrectlyFormatted" },
+  ],
+  output: `
+// Here is my list of things:
+//
+// - But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain
+//   was born and
+// - I will give you a complete account of the system, and expound the actual teachings of the great
+//   explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or
+//   avoids pleasure
+// - itself, because it is pleasure, but because those who do not know how to pursue pleasure
+//   rationally encounter
+  `,
+});
+
+invalid.push({
+  name: "Using a multi-line comment with bullet points (with no newline before the bullets)",
+  code: `
+// Here is my list of things:
+// - But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and
+// - I will give you a complete account of the system, and expound the actual teachings of the great explorer of the
+// truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure
+// - itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter
+  `,
+  errors: [
+    { messageId: "incorrectlyFormatted" },
+    { messageId: "incorrectlyFormatted" },
+    { messageId: "incorrectlyFormatted" },
+  ],
+  output: `
+// Here is my list of things:
+// - But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain
+//   was born and
+// - I will give you a complete account of the system, and expound the actual teachings of the great
+//   explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or
+//   avoids pleasure
+// - itself, because it is pleasure, but because those who do not know how to pursue pleasure
+//   rationally encounter
+  `,
+});
+
+invalid.push({
+  name: "Using a multi-line comment with sub-bullet points",
+  code: `
+// Here is my list of things:
+//
+// - But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and
+//   - I will give you a complete account of the system, and expound the actual teachings of the great explorer of the
+// truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure
+//   - itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter
+// - consequences that are extremely painful.
+  `,
+  errors: [
+    { messageId: "incorrectlyFormatted" },
+    { messageId: "incorrectlyFormatted" },
+    { messageId: "incorrectlyFormatted" },
+  ],
+  output: `
+// Here is my list of things:
+//
+// - But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain
+//   was born and
+//   - I will give you a complete account of the system, and expound the actual teachings of the
+//     great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes,
+//     or avoids pleasure
+//   - itself, because it is pleasure, but because those who do not know how to pursue pleasure
+//     rationally encounter
+// - consequences that are extremely painful.
+  `,
+});
+
+invalid.push({
+  name: "Using a multi-line comment with bullet points with newlines in-between",
+  code: `
+// Here is my list of things:
+//
+// - But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and
+//
+// - I will give you a complete account of the system, and expound the actual teachings of the great explorer of the
+// truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure
+//
+// - itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter
+  `,
+  errors: [
+    { messageId: "incorrectlyFormatted" },
+    { messageId: "incorrectlyFormatted" },
+    { messageId: "incorrectlyFormatted" },
+  ],
+  output: `
+// Here is my list of things:
+//
+// - But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain
+//   was born and
+//
+// - I will give you a complete account of the system, and expound the actual teachings of the great
+//   explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or
+//   avoids pleasure
+//
+// - itself, because it is pleasure, but because those who do not know how to pursue pleasure
+//   rationally encounter
+  `,
+});
+
+valid.push({
+  name: "Using a single-line comment with an unbreakable line",
+  code: `
+// AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+  `,
+});
+
+invalid.push({
+  name: "Using a single-line comment with an unbreakable line and other overflowing text",
+  code: `
+// But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA I will give you a complete account of the system
+  `,
+  errors: [{ messageId: "incorrectlyFormatted" }],
+  output: `
+// But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was
+// born and
+// AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+// I will give you a complete account of the system
   `,
 });
 

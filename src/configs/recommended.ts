@@ -8,7 +8,7 @@ export const recommended = {
     eqeqeq: "off",
     "no-template-curly-in-string": "off",
     "isaacscript/eqeqeq-fix": "error",
-    "isaacscript/limit-slash-asterisk-comments": "error",
+    "isaacscript/limit-jsdoc-comments": "error",
     "isaacscript/limit-slash-slash-comments": "error",
     "isaacscript/no-let-any": "error",
     "isaacscript/no-object-any": "error",

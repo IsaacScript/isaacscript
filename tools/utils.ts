@@ -2,8 +2,8 @@
 
 import { TSESLint } from "@typescript-eslint/utils";
 import * as prettier from "prettier";
-import { PLUGIN_NAME } from "../src/constants";
 import { rules } from "../src/rules";
+import { PLUGIN_NAME } from "./constants";
 
 export type RuleDefinition = TSESLint.RuleModule<string, unknown[]>;
 

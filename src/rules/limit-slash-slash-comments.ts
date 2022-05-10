@@ -1,6 +1,10 @@
-import { TSESTree } from "@typescript-eslint/utils";
-import { SourceCode } from "@typescript-eslint/utils/dist/ts-eslint";
-import { isCommentOnOwnLine } from "../comments";
+import { TSESLint, TSESTree } from "@typescript-eslint/utils";
+import {
+  getFormattedCommentText,
+  getSpacesBeforeBulletPoint,
+  isCommentOnOwnLine,
+  startsWithBulletPoint,
+} from "../comments";
 import { createRule } from "../utils";
 
 type Options = [
@@ -9,6 +13,7 @@ type Options = [
   },
 ];
 
+// ts-prune-ignore-next
 export type MessageIds = "incorrectlyFormatted";
 
 /**
@@ -22,6 +27,15 @@ export type MessageIds = "incorrectlyFormatted";
 interface CommentBlock {
   mergedText: string;
   originalComments: TSESTree.Comment[];
+
+  /**
+   * The amount of spaces before a sub bullet. For example, the following bullet points would have
+   * a `subBulletIndentLength` of "" and "  " respectively:
+   *
+   * - First bullet point.
+   *   - Sub bullet point.
+   */
+  subBulletIndent: string;
 }
 
 const RULE_NAME = "limit-slash-slash-comments";
@@ -73,7 +87,18 @@ export const limitSlashSlashComments = createRule<Options, MessageIds>({
 
     const sourceCode = context.getSourceCode();
     const comments = sourceCode.getAllComments();
-    const commentBlocks = getCommentBlocks(sourceCode, comments);
+
+    /**
+     * We only look at `//` style comments on their own line. `/*` style comments are handled by the
+     * "limit-jsdoc-comment" rule.
+     */
+    const slashSlashComments = getStandaloneSlashSlashComments(
+      sourceCode,
+      comments,
+    );
+
+    // Sort the comments by blocks
+    const commentBlocks = getCommentBlocks(slashSlashComments);
 
     commentBlocks.forEach((commentBlock) => {
       const firstComment = commentBlock.originalComments.at(0);
@@ -86,13 +111,21 @@ export const limitSlashSlashComments = createRule<Options, MessageIds>({
         throw new Error("Failed to get the last comment");
       }
 
-      const leftWhitespace = firstComment.loc.start.column;
-      const originalText = getTextFromComments(commentBlock.originalComments);
-      const formattedText = getFormattedText(
-        commentBlock.mergedText,
+      const leftWhitespaceLength = firstComment.loc.start.column;
+      const leftWhitespace = " ".repeat(leftWhitespaceLength);
+
+      const originalText = getTextFromComments(
+        commentBlock.originalComments,
         leftWhitespace,
+      );
+      const text = commentBlock.subBulletIndent + commentBlock.mergedText;
+      const linePrefix = `${leftWhitespace}${SLASH_SLASH} `;
+      const formattedText = getFormattedCommentText(
+        text,
+        linePrefix,
         maxLength,
       );
+
       if (originalText !== formattedText) {
         context.report({
           loc: {
@@ -106,10 +139,13 @@ export const limitSlashSlashComments = createRule<Options, MessageIds>({
           fix: (fixer) => {
             const [firstCommentStart, _firstCommentEnd] = firstComment.range;
             const [_lastCommentStart, lastCommentEnd] = lastComment.range;
+            const firstCommentBeginningOfLine =
+              firstCommentStart - firstComment.loc.start.column;
             const range: readonly [number, number] = [
-              firstCommentStart,
+              firstCommentBeginningOfLine,
               lastCommentEnd,
             ];
+
             return fixer.replaceTextRange(range, formattedText);
           },
         });
@@ -120,35 +156,56 @@ export const limitSlashSlashComments = createRule<Options, MessageIds>({
   },
 });
 
+function getStandaloneSlashSlashComments(
+  sourceCode: TSESLint.SourceCode,
+  comments: TSESTree.Comment[],
+) {
+  return comments.filter(
+    (comment) =>
+      comment.type === TSESTree.AST_TOKEN_TYPES.Line && // i.e. a "//" comment
+      comment.value.trim() !== "" &&
+      isCommentOnOwnLine(sourceCode, comment),
+  );
+}
+
 /**
  * Returns an array of grouped comments. For example, the following code would return an array of
  * three comment blocks:
  *
  * ```ts
- * // This is a comment.
+ * // This is the first block.
  *
- * // This is another comment.
- * // This is yet another comment.
+ * // This is the second block.
+ * // We are still in the second block, because there has not been a newline separator yet.
  *
- * // This is a variable.
- * const abc = 123;
+ * // This is the third block.
  * ```
  */
-function getCommentBlocks(
-  sourceCode: SourceCode,
-  comments: TSESTree.Comment[],
-): CommentBlock[] {
+function getCommentBlocks(comments: TSESTree.Comment[]): CommentBlock[] {
   const commentBlocks: CommentBlock[] = [];
 
   for (let i = 0; i < comments.length; i++) {
     const comment = comments[i];
-    if (comment === undefined || !shouldLintComment(sourceCode, comment)) {
+    if (comment === undefined) {
       continue;
     }
+
+    /**
+     * Remove the initial space that will always live in front of comment line.
+     *
+     * For example, the comment of:
+     *
+     * // Foo
+     *
+     * Has a comment value of " Foo".
+     */
+    const text = comment.value.slice(1);
+    const subBulletIndent = getSpacesBeforeBulletPoint(text);
 
     const commentBlock: CommentBlock = {
       mergedText: comment.value.trim(),
       originalComments: [comment],
+      subBulletIndent,
     };
 
     const commentIndex = i; // Make a copy of the comment index since we will mutate i later
@@ -157,16 +214,19 @@ function getCommentBlocks(
     // Look for one or more "connecting" comments on the next subsequent lines
     for (let j = i + 1; j < comments.length; j++) {
       const nextComment = comments[j];
-      if (
-        nextComment === undefined ||
-        !shouldLintComment(sourceCode, nextComment)
-      ) {
+      if (nextComment === undefined) {
         break;
       }
 
+      // Break if we are on a non-contiguous line
       const nextCommentStartLine = nextComment.loc.start.line;
       const lineDelta = j - commentIndex;
       if (nextCommentStartLine !== firstCommentStartLine + lineDelta) {
+        break;
+      }
+
+      // Break if the next line starts with a bullet point
+      if (startsWithBulletPoint(nextComment.value)) {
         break;
       }
 
@@ -184,60 +244,24 @@ function getCommentBlocks(
   return commentBlocks;
 }
 
-function shouldLintComment(sourceCode: SourceCode, comment: TSESTree.Comment) {
-  return (
-    comment !== undefined &&
-    comment.value.trim() !== "" &&
-    comment.type === TSESTree.AST_TOKEN_TYPES.Line &&
-    isCommentOnOwnLine(sourceCode, comment)
-  );
-}
-
-function getFormattedText(
-  text: string,
-  leftWhitespaceLength: number,
-  maxLength: number,
-): string {
-  const lineStartSize = leftWhitespaceLength + SLASH_SLASH.length;
-  const whitespace = " ".repeat(leftWhitespaceLength);
-  const words = text.split(" ");
-
-  const formattedWordsObject = words.reduce(
-    (accumulator, word) => {
-      const numAddedCharacters = " ".length + word.length;
-      const lineLengthIfAdded =
-        accumulator.currentLineLength + numAddedCharacters;
-
-      // We can safely split to a new line if:
-      // 1) we are reaching an overflowing line
-      // 2) and there is at least one word on the current line
-      const splitToNewline =
-        lineLengthIfAdded > maxLength &&
-        accumulator.currentLineLength !== lineStartSize;
-
-      if (splitToNewline) {
-        return {
-          value: `${accumulator.value}\n${whitespace}${SLASH_SLASH} ${word}`,
-          currentLineLength: lineStartSize + numAddedCharacters,
-        };
-      }
-
-      return {
-        value: `${accumulator.value} ${word}`,
-        currentLineLength: lineLengthIfAdded,
-      };
-    },
-    { value: SLASH_SLASH, currentLineLength: lineStartSize },
-  );
-
-  return formattedWordsObject.value;
-}
-
 /**
  * Given an array of comments, transform the text back into how it would look in the real source
  * code.
+ *
+ * Note that this should not include the left whitespace before the comment actually begins, because
+ * we need to compare the vanilla source code to the formatted source code without worrying about
+ * any leading whitespace.
  */
-function getTextFromComments(comments: TSESTree.Comment[]) {
-  const lines = comments.map((comment) => `${SLASH_SLASH}${comment.value}`);
+function getTextFromComments(
+  comments: TSESTree.Comment[],
+  leftWhitespace: string,
+) {
+  const lines = comments.map(
+    /**
+     * It is assumed that `comment.value` will always have a leading space, due to Prettier
+     * changing `//Comment` to `// Comment`.
+     */
+    (comment) => `${leftWhitespace}${SLASH_SLASH}${comment.value}`,
+  );
   return lines.join("\n");
 }

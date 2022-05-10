@@ -2,7 +2,7 @@
 
 Disallows `//` comments longer than N characters.
 
-This rule will automatically fixes the problem by shifting the offending words down to the next line. Additionally, for multi-line comments, if it is possible for a two lines to be merged together in a single line without going past N characters, it will automatically do so.
+This rule will automatically fix the problem by shifting the offending words down to the next line. Additionally, for multi-line comments, if it is possible for a two lines to be merged together in a single line without going past N characters, it will automatically do so.
 
 ## Rule Details
 
