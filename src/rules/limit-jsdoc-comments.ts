@@ -297,9 +297,17 @@ function canFitIOnSingleJSDocLine(
 ) {
   const singleLineLength =
     leftWhitespaceLength + "/** ".length + text.length + " */".length;
-  const hasJSDocTag = text.startsWith("@");
 
-  return singleLineLength <= maxLength && !hasJSDocTag;
+  // JSDoc comments that specify parameter documentation should never be moved to a single line
+  const hasJSDocTag = text.startsWith("@");
+  if (hasJSDocTag) {
+    const tagHasSomethingAfterIt = text.includes(" ");
+    if (tagHasSomethingAfterIt) {
+      return false;
+    }
+  }
+
+  return singleLineLength <= maxLength;
 }
 
 function getFormattedJSDocCommentSingleLine(

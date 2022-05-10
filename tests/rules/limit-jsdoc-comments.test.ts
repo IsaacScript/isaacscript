@@ -495,12 +495,20 @@ invalid.push({
   `,
 });
 
+// TODO
 valid.push({
-  name: "Using a multi-line comment with a short JSDoc tag",
+  name: "ZZ Using a multi-line comment with a short JSDoc tag with text",
   code: `
 /**
  * @param foo This is foo.
  */
+  `,
+});
+
+valid.push({
+  name: "Using a multi-line comment with a short JSDoc tag without text",
+  code: `
+/** @foo */
   `,
 });
 
