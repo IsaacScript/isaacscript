@@ -398,7 +398,7 @@ invalid.push({
 });
 
 valid.push({
-  name: "Using a multi-line with nested code blocks",
+  name: "Using a multi-line comment with nested code blocks",
   code: `
 /**
  * For example:
@@ -408,6 +408,51 @@ valid.push({
  *   const abc = 123;
  * }
  * \`\`\`
+ */
+  `,
+});
+
+valid.push({
+  name: "Using a multi-line comment with nested code blocks and a trailing text",
+  code: `
+/**
+ * For example:
+ *
+ * \`\`\`ts
+ * function foo() {
+ *   const abc = 123;
+ * }
+ * \`\`\` (this is a trailing message)
+ */
+  `,
+});
+
+invalid.push({
+  name: "Using a multi-line comment with nested code blocks and a trailing line",
+  code: `
+/**
+ * For example:
+ *
+ * \`\`\`ts
+ * function foo() {
+ *   const abc = 123;
+ * }
+ * \`\`\`
+ * (this is a trailing message)
+ */
+  `,
+  errors: [{ messageId: "incorrectlyFormatted" }],
+  output: `
+/**
+ * For example:
+ *
+ * \`\`\`ts
+ * function foo() {
+ *   const abc = 123;
+ * }
+ * \`\`\`
+ *
+ * (this is a trailing message)
  */
   `,
 });

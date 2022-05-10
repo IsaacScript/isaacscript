@@ -207,6 +207,7 @@ function getTextBlocksFromJSDocComment(comment: TSESTree.Comment): TextBlock[] {
   let partialText = "";
   let partialSubBulletIndent = "";
   let insideCodeBlock = false;
+  let previousLineHadCodeBlock = false;
   for (let i = 0; i < linesWithRemovedAsterisk.length; i++) {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const lineRaw = linesWithRemovedAsterisk[i]!;
@@ -236,7 +237,8 @@ function getTextBlocksFromJSDocComment(comment: TSESTree.Comment): TextBlock[] {
       isBulletPoint ||
       hasJSDocTag ||
       insideCodeBlock ||
-      hasCodeBlock
+      hasCodeBlock ||
+      previousLineHadCodeBlock
     ) {
       // Before processing this line, record the block that we have been building
       // But don't record empty blocks
@@ -258,6 +260,8 @@ function getTextBlocksFromJSDocComment(comment: TSESTree.Comment): TextBlock[] {
       }
       partialText += line;
     }
+
+    previousLineHadCodeBlock = hasCodeBlock;
   }
 
   // In some cases, there may not be a blank line at the end of the JSDoc comment
