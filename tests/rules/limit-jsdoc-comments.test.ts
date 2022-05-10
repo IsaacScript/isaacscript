@@ -495,9 +495,8 @@ invalid.push({
   `,
 });
 
-// TODO
 valid.push({
-  name: "ZZ Using a multi-line comment with a short JSDoc tag with text",
+  name: "Using a multi-line comment with a short JSDoc tag with text",
   code: `
 /**
  * @param foo This is foo.

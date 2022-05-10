@@ -212,31 +212,35 @@ function getCommentBlocks(comments: TSESTree.Comment[]): CommentBlock[] {
     const commentIndex = i; // Make a copy of the comment index since we will mutate i later
     const firstCommentStartLine = comment.loc.start.line;
 
-    // Look for one or more "connecting" comments on the next subsequent lines
-    for (let j = i + 1; j < comments.length; j++) {
-      const nextComment = comments[j];
-      if (nextComment === undefined) {
-        break;
+    // Ignore "block" comments
+    const hasAllHyphens = /^\s*-+\s*$/.test(text);
+    if (!hasAllHyphens) {
+      // Look for one or more "connecting" comments on the next subsequent lines
+      for (let j = i + 1; j < comments.length; j++) {
+        const nextComment = comments[j];
+        if (nextComment === undefined) {
+          break;
+        }
+
+        // Break if we are on a non-contiguous line
+        const nextCommentStartLine = nextComment.loc.start.line;
+        const lineDelta = j - commentIndex;
+        if (nextCommentStartLine !== firstCommentStartLine + lineDelta) {
+          break;
+        }
+
+        // Break if the next line starts with a bullet point
+        if (startsWithBulletPoint(nextComment.value)) {
+          break;
+        }
+
+        commentBlock.mergedText += " ";
+        commentBlock.mergedText += nextComment.value.trim();
+        commentBlock.originalComments.push(nextComment);
+
+        // Since we merged this comment, we can skip over examining it in the parent for loop
+        i += 1;
       }
-
-      // Break if we are on a non-contiguous line
-      const nextCommentStartLine = nextComment.loc.start.line;
-      const lineDelta = j - commentIndex;
-      if (nextCommentStartLine !== firstCommentStartLine + lineDelta) {
-        break;
-      }
-
-      // Break if the next line starts with a bullet point
-      if (startsWithBulletPoint(nextComment.value)) {
-        break;
-      }
-
-      commentBlock.mergedText += " ";
-      commentBlock.mergedText += nextComment.value.trim();
-      commentBlock.originalComments.push(nextComment);
-
-      // Since we merged this comment, we can skip over examining it in the parent for loop
-      i += 1;
     }
 
     commentBlocks.push(commentBlock);

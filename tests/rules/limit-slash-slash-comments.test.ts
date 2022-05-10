@@ -364,9 +364,8 @@ invalid.push({
   `,
 });
 
-// TODO
 valid.push({
-  name: "ZZ Using triple slash directives",
+  name: "Using triple slash directives",
   code: `
 /// <reference path="foo1.d.ts" />
 /// <reference path="foo2.d.ts" />
@@ -397,6 +396,15 @@ valid.push({
 // This is my directive.
 /// <reference path="foo2.d.ts" />
 // This is my directive.
+  `,
+});
+
+valid.push({
+  name: "Using a block comment specified with hyphens",
+  code: `
+// ----------------
+// Getter functions
+// ----------------
   `,
 });
 
