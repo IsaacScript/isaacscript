@@ -45,6 +45,7 @@ Each rule has emojis denoting:
 | [isaacscript/no-let-any](docs/rules/no-let-any.md)                                           | Disallows declaring variables with let that do not have a type                             | :white_check_mark: |          | :thought_balloon: |
 | [isaacscript/no-object-any](docs/rules/no-object-any.md)                                     | Disallows declaring objects and arrays that do not have a type                             | :white_check_mark: |          | :thought_balloon: |
 | [isaacscript/no-template-curly-in-string-fix](docs/rules/no-template-curly-in-string-fix.md) | Disallows template literal placeholder syntax in regular strings (and automatically fixes) | :white_check_mark: |          |                   |
+| [isaacscript/no-useless-return-no-fix](docs/rules/no-useless-return-no-fix.md)               | Disallows redundant return statements (and does not automatically fix)                     | :white_check_mark: |          |                   |
 | [isaacscript/no-void-return-type](docs/rules/no-void-return-type.md)                         | Disallows void return types on non-exported functions                                      | :white_check_mark: |          |                   |
 
 <!-- /RULES_TABLE -->

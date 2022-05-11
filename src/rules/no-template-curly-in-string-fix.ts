@@ -1,5 +1,7 @@
-// Original code from:
-// https://github.com/eslint/eslint/blob/main/lib/rules/no-template-curly-in-string.js
+/**
+ * This rule is slightly modified from the original ESLint version:
+ * https://github.com/eslint/eslint/blob/main/lib/rules/no-template-curly-in-string.js
+ */
 
 import { createRule } from "../utils";
 
