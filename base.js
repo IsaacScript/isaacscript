@@ -22,9 +22,6 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
 
-    // This provides rules for max comment length that the "--fix" flag can fix
-    "plugin:comment-length-2/recommended",
-
     // This provides extra miscellaneous rules to keep code safe
     "plugin:isaacscript/recommended",
 
@@ -32,14 +29,8 @@ module.exports = {
     // https://github.com/mysticatea/eslint-plugin-eslint-comments
     "plugin:eslint-comments/recommended",
 
-    // Lint JSDoc style comments
-    // https://github.com/gajus/eslint-plugin-jsdoc
-    "plugin:jsdoc/recommended",
-
-    // This prevents implicit iteration of Maps and Sets,
-    // which is helpful to prevent bugs when refactoring
-    // https://github.com/Zamiell/eslint-plugin-no-implicit-map-set-loops
-    "plugin:no-implicit-map-set-loops/recommended",
+    // This provides rules to lint JSDoc comments
+    "./jsdoc",
 
     // Disable any ESLint rules that conflict with Prettier
     // (otherwise, we will have unfixable ESLint errors)
@@ -129,13 +120,14 @@ module.exports = {
     // Defined at:
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/variables.js
     // We want to lint unused arguments (the default is "after-used")
-    // We also want to ignore function arguments that start with an underscore
+    // We also want to ignore arguments/variables that start with an underscore
     // This matches the behavior of the TypeScript compiler flag "--noUnusedLocals"
     "@typescript-eslint/no-unused-vars": [
       "warn",
       {
         args: "all",
         argsIgnorePattern: "^_",
+        varsIgnorePattern: "^_",
       },
     ],
 
@@ -243,77 +235,6 @@ module.exports = {
     // The case against default exports is layed out here:
     // https://basarat.gitbook.io/typescript/main-1/defaultisbad
     "import/prefer-default-export": "off",
-
-    // Documentation:
-    // https://github.com/gajus/eslint-plugin-jsdoc#eslint-plugin-jsdoc-rules-check-tag-names
-    // Defined at:
-    // https://github.com/gajus/eslint-plugin-jsdoc/blob/master/src/index.js
-    // Allow the use of TypeScriptToLua compiler annotations as documented here:
-    // https://typescripttolua.github.io/docs/advanced/compiler-annotations
-    "jsdoc/check-tag-names": [
-      "warn",
-      {
-        definedTags: [
-          "category", // Used in TypeDoc
-          "hidden", // Used in TypeDoc
-          "internal", // Used by TypeScript
-          "noResolution", // Used in TypeScriptToLua as a compiler annotation
-          "noSelf", // Used in TypeScriptToLua as a compiler annotation
-        ],
-      },
-    ],
-
-    // Documentation:
-    // https://github.com/gajus/eslint-plugin-jsdoc#user-content-eslint-plugin-jsdoc-rules-match-description
-    // Not defined in parent configs
-    // Needed for catching superfluous leading and trailing newlines as documented here:
-    // https://github.com/gajus/eslint-plugin-jsdoc/issues/847
-    "jsdoc/match-description": [
-      "warn",
-      {
-        matchDescription: "^\\S[\\s\\S]*\\S$",
-        contexts: [
-          {
-            comment: "JsdocBlock[endLine!=0]:not(:has(JsdocTag))",
-          },
-        ],
-      },
-    ],
-
-    // Documentation:
-    // https://github.com/gajus/eslint-plugin-jsdoc#eslint-plugin-jsdoc-rules-require-jsdoc
-    // Defined at:
-    // https://github.com/gajus/eslint-plugin-jsdoc/blob/master/src/index.js
-    // Do not require JSDoc comments for every function, as that is excessive
-    "jsdoc/require-jsdoc": "off",
-
-    // Documentation:
-    // https://github.com/gajus/eslint-plugin-jsdoc#eslint-plugin-jsdoc-rules-require-param
-    // Defined at:
-    // https://github.com/gajus/eslint-plugin-jsdoc/blob/master/src/index.js
-    // Do not require parameters for every function, as that is excessive when using TypeScript
-    "jsdoc/require-param": "off",
-
-    // Documentation:
-    // https://github.com/gajus/eslint-plugin-jsdoc#eslint-plugin-jsdoc-rules-require-param-type
-    // Defined at:
-    // https://github.com/gajus/eslint-plugin-jsdoc/blob/master/src/index.js
-    // Since we are using TypeScript, requiring parameter types would be superfluous
-    "jsdoc/require-param-type": "off",
-
-    // Documentation:
-    // https://github.com/gajus/eslint-plugin-jsdoc#eslint-plugin-jsdoc-rules-require-returns
-    // Defined at:
-    // https://github.com/gajus/eslint-plugin-jsdoc/blob/master/src/index.js
-    // Do not require return listing for every function, as that is excessive when using TypeScript
-    "jsdoc/require-returns": "off",
-
-    // Documentation:
-    // https://github.com/gajus/eslint-plugin-jsdoc#eslint-plugin-jsdoc-rules-require-returns-type
-    // Defined at:
-    // https://github.com/gajus/eslint-plugin-jsdoc/blob/master/src/index.js
-    // Since we are using TypeScript, requiring parameter types would be superfluous
-    "jsdoc/require-returns-type": "off",
 
     // Documentation:
     // https://eslint.org/docs/rules/no-console
