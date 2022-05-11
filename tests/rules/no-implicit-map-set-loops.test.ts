@@ -23,6 +23,10 @@ const myMap = new Map();
 for (const [key, value] of myMap) {}
       `,
       errors: [{ messageId: "noImplicitMap" }],
+      output: `
+const myMap = new Map();
+for (const [key, value] of myMap.entries()) {}
+      `,
     },
     {
       code: `
@@ -30,6 +34,10 @@ const mySet = new Set();
 for (const value of mySet) {}
       `,
       errors: [{ messageId: "noImplicitSet" }],
+      output: `
+const mySet = new Set();
+for (const value of mySet.values()) {}
+      `,
     },
   ],
 });
