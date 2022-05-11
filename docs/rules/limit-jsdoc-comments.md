@@ -50,3 +50,8 @@ Non JSDoc-style comments that begin with `/* ` are ignored. For example: <!-- ma
   }
 }
 ```
+
+## Resources
+
+- [Rule source](../../src/rules/limit-jsdoc-comments.ts)
+- [Test source](../../tests/rules/limit-jsdoc-comments.test.ts)

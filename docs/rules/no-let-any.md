@@ -25,3 +25,8 @@ let foo: string;
 ```
 
 This rule is not configurable.
+
+## Resources
+
+- [Rule source](../../src/rules/no-let-any.ts)
+- [Test source](../../tests/rules/no-let-any.test.ts)

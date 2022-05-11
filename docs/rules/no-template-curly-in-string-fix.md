@@ -47,3 +47,8 @@ Note that if you use the `recommended` config that comes with this plugin, then 
 ```
 
 This rule is not configurable.
+
+## Resources
+
+- [Rule source](../../src/rules/no-template-curly-in-string-fix.ts)
+- [Test source](../../tests/rules/no-template-curly-in-string-fix.test.ts)

@@ -66,3 +66,8 @@ Enforces complete sentences for JSDoc comments.
 ```
 
 This rule is not configurable.
+
+## Resources
+
+- [Rule source](../../src/rules/jsdoc-full-sentences.ts)
+- [Test source](../../tests/rules/jsdoc-full-sentences.test.ts)

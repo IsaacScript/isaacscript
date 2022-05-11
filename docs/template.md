@@ -24,5 +24,5 @@ This rule is not configurable.
 
 ## Resources
 
-- [Rule source](../src/rules/RULE_NAME.ts)
-- [Test source](../tests/rules/RULE_NAME.test.ts)
+- [Rule source](../../src/rules/RULE_NAME.ts)
+- [Test source](../../tests/rules/RULE_NAME.test.ts)

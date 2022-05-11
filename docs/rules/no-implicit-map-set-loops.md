@@ -29,3 +29,8 @@ for (const [key, value] of myMap.entries()) {
 ```
 
 This rule is not configurable.
+
+## Resources
+
+- [Rule source](../../src/rules/no-implicit-map-set-loops.ts)
+- [Test source](../../tests/rules/no-implicit-map-set-loops.test.ts)

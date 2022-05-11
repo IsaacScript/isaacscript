@@ -33,3 +33,8 @@ const myArray: string[] = [];
 ```
 
 This rule is not configurable.
+
+## Resources
+
+- [Rule source](../../src/rules/no-object-any.ts)
+- [Test source](../../tests/rules/no-object-any.test.ts)

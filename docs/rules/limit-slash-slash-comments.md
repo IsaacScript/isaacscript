@@ -46,3 +46,8 @@ TypeScript triple slash directives are ignored. For example:
   }
 }
 ```
+
+## Resources
+
+- [Rule source](../../src/rules/limit-slash-slash-comments.ts)
+- [Test source](../../tests/rules/limit-slash-slash-comments.test.ts)

@@ -30,3 +30,8 @@ function foo() {
 ```
 
 This rule is not configurable.
+
+## Resources
+
+- [Rule source](../../src/rules/no-useless-return-no-fix.ts)
+- [Test source](../../tests/rules/no-useless-return-no-fix.test.ts)
