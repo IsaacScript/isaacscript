@@ -66,7 +66,7 @@ function getRuleTableRow(ruleEntry: [string, RuleDefinition]) {
 
   const fullRuleName = getFullRuleName(ruleName);
 
-  const name = `[${fullRuleName}](docs/rules/${ruleName}.md)`;
+  const name = `[\`${fullRuleName}\`](docs/rules/${ruleName}.md)`;
   const { description } = rule.meta.docs;
   const isRecommended = isRecommendedRule(rule) ? EMOJI_RECOMMENDED : "";
   const isFixable = rule.meta.hasSuggestions ? EMOJI_FIXABLE : "";
