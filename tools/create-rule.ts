@@ -95,7 +95,7 @@ function replaceTemplateText(
   ruleName: string,
   ruleDescription: string,
 ) {
-  const ruleNameCamelCase = kebabCaseToCamelCase(ruleName);
+  const ruleNameCamelCase = getRuleCamelCaseName(ruleName);
 
   return text
     .replace(/RULE_NAME_CAMEL_CASE/g, ruleNameCamelCase)

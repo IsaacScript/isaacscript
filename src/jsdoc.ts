@@ -1,8 +1,6 @@
 import { TSESTree } from "@typescript-eslint/types";
-import { TSESLint } from "@typescript-eslint/utils";
 import {
   getSpacesBeforeBulletPoint,
-  isCommentOnOwnLine,
   startsWithBulletPoint,
   startsWithExample,
 } from "./comments";
@@ -36,15 +34,13 @@ export interface TextBlock {
   insideCodeBlock: boolean;
 }
 
-export function getStandaloneJSDocComments(
-  sourceCode: TSESLint.SourceCode,
+export function getJSDocComments(
   comments: TSESTree.Comment[],
 ): TSESTree.Comment[] {
   return comments.filter(
     (comment) =>
       comment.type === TSESTree.AST_TOKEN_TYPES.Block && // i.e. a "/*" comment
-      comment.value.trim().startsWith("*") && // i.e. a "/**" comment
-      isCommentOnOwnLine(sourceCode, comment),
+      comment.value.startsWith("*"), // i.e. a "/**" comment
   );
 }
 

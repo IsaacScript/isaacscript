@@ -1,11 +1,8 @@
-import {
-  getStandaloneJSDocComments,
-  getTextBlocksFromJSDocComment,
-} from "../jsdoc";
+import { getJSDocComments, getTextBlocksFromJSDocComment } from "../jsdoc";
 import { createRule, hasURL } from "../utils";
 
-export const jsdocFullSentences = createRule({
-  name: "jsdoc-full-sentences",
+export const jsdocCompleteSentences = createRule({
+  name: "jsdoc-complete-sentences",
   meta: {
     type: "problem",
     docs: {
@@ -31,8 +28,8 @@ export const jsdocFullSentences = createRule({
     const sourceCode = context.getSourceCode();
     const comments = sourceCode.getAllComments();
 
-    // We only look at `/**` style comments on their own line.
-    const jsDocComments = getStandaloneJSDocComments(sourceCode, comments);
+    // We only look at `/**` style comments.
+    const jsDocComments = getJSDocComments(comments);
 
     jsDocComments.forEach((comment) => {
       const textBlocks = getTextBlocksFromJSDocComment(comment);

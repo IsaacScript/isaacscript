@@ -1,6 +1,6 @@
-import { getFormattedCommentText } from "../comments";
+import { getFormattedCommentText, isCommentOnOwnLine } from "../comments";
 import {
-  getStandaloneJSDocComments,
+  getJSDocComments,
   getTextBlocksFromJSDocComment,
   TextBlock,
 } from "../jsdoc";
@@ -70,7 +70,10 @@ export const limitJSDocComments = createRule<Options, MessageIds>({
      * - `/*` style comments are explicitly ignored, since those are conventionally used to comment
      *   out code. (Actual code documentation conventionally uses JSDoc-style comments, like `/**`.)
      */
-    const jsDocComments = getStandaloneJSDocComments(sourceCode, comments);
+    const jsDocCommentsAll = getJSDocComments(comments);
+    const jsDocComments = jsDocCommentsAll.filter((comment) =>
+      isCommentOnOwnLine(sourceCode, comment),
+    );
 
     jsDocComments.forEach((comment) => {
       const textBlocks = getTextBlocksFromJSDocComment(comment);

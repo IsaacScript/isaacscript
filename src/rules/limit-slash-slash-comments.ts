@@ -198,7 +198,7 @@ function getCommentBlocks(comments: TSESTree.Comment[]): CommentBlock[] {
       continue;
     }
 
-    // eslint-disable-next-line isaacscript/jsdoc-full-sentences
+    // eslint-disable-next-line isaacscript/jsdoc-complete-sentences
     /**
      * Remove the initial space that will always live in front of comment line.
      *

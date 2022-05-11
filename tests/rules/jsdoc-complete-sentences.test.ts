@@ -1,7 +1,7 @@
-import { jsdocFullSentences } from "../../src/rules/jsdoc-full-sentences";
+import { jsdocCompleteSentences } from "../../src/rules/jsdoc-complete-sentences";
 import { ruleTester } from "../utils";
 
-ruleTester.run("jsdoc-full-sentences", jsdocFullSentences, {
+ruleTester.run("jsdoc-complete-sentences", jsdocCompleteSentences, {
   valid: [
     {
       code: `
