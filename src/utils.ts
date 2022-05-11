@@ -2,6 +2,9 @@ import { isTypeFlagSet } from "@typescript-eslint/type-utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import * as ts from "typescript";
 
+/** Taken from ESLint: https://github.com/eslint/eslint/blob/main/lib/rules/max-len.js */
+const URL_REGEXP = /[^:/?#]:\/\/[^?#]/u;
+
 const urlCreator = (name: string) =>
   `https://github.com/IsaacScript/eslint-plugin-isaacscript/blob/main/docs/rules/${name}.md`;
 export const createRule = ESLintUtils.RuleCreator(urlCreator);
@@ -22,6 +25,10 @@ export function getOrdinalSuffix(i: number): string {
     return `${i}rd`;
   }
   return `${i}th`;
+}
+
+export function hasURL(text: string): boolean {
+  return URL_REGEXP.test(text);
 }
 
 export function isAny(type: ts.Type): boolean {

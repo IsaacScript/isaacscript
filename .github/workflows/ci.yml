@@ -12,8 +12,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          # The default version is 14
-          # The ESLint config requires Node 16 to work properly
+          # The default version is 14. The ESLint config requires Node 16 to work properly.
           node-version: "16"
 
       - name: Retrieve the cached "node_modules" directory (if present)
@@ -39,7 +38,7 @@ jobs:
   discord:
     name: Discord Failure Notification
     needs: [build_and_lint]
-    if: always() # This is needed to always run this job, even if the other jobs fail
+    if: always() # This is needed to always run this job, even if the other jobs fail.
     runs-on: ubuntu-latest
     steps:
       - uses: technote-space/workflow-conclusion-action@v2

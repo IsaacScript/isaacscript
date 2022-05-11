@@ -5,7 +5,7 @@ import {
   isCommentOnOwnLine,
   startsWithBulletPoint,
 } from "../comments";
-import { createRule } from "../utils";
+import { createRule, hasURL } from "../utils";
 
 type Options = [
   {
@@ -96,7 +96,7 @@ export const limitSlashSlashComments = createRule<Options, MessageIds>({
       comments,
     );
 
-    // Sort the comments by blocks
+    // Sort the comments by blocks.
     const commentBlocks = getCommentBlocks(slashSlashComments);
 
     commentBlocks.forEach((commentBlock) => {
@@ -208,27 +208,30 @@ function getCommentBlocks(comments: TSESTree.Comment[]): CommentBlock[] {
       subBulletIndent,
     };
 
-    const commentIndex = i; // Make a copy of the comment index since we will mutate i later
+    const commentIndex = i; // Make a copy of the comment index since we will mutate i later.
     const firstCommentStartLine = comment.loc.start.line;
 
-    // Ignore "block" comments
+    // Always put certain kinds of comments on their own blocks.
     const hasAllHyphens = /^\s*-+\s*$/.test(text);
-    if (!hasAllHyphens) {
-      // Look for one or more "connecting" comments on the next subsequent lines
+    const hasURLInside = hasURL(text);
+    const shouldBeInSelfContainedBlock = hasAllHyphens || hasURLInside;
+
+    if (!shouldBeInSelfContainedBlock) {
+      // Look for one or more "connecting" comments on the next subsequent lines.
       for (let j = i + 1; j < comments.length; j++) {
         const nextComment = comments[j];
         if (nextComment === undefined) {
           break;
         }
 
-        // Break if we are on a non-contiguous line
+        // Break if we are on a non-contiguous line.
         const nextCommentStartLine = nextComment.loc.start.line;
         const lineDelta = j - commentIndex;
         if (nextCommentStartLine !== firstCommentStartLine + lineDelta) {
           break;
         }
 
-        // Break if the next line starts with a bullet point
+        // Break if the next line starts with a bullet point.
         if (startsWithBulletPoint(nextComment.value)) {
           break;
         }
@@ -237,8 +240,13 @@ function getCommentBlocks(comments: TSESTree.Comment[]): CommentBlock[] {
         commentBlock.mergedText += nextComment.value.trim();
         commentBlock.originalComments.push(nextComment);
 
-        // Since we merged this comment, we can skip over examining it in the parent for loop
+        // Since we merged this comment, we can skip over examining it in the parent for loop.
         i += 1;
+
+        // If we just merged a URL, then we need to break, since text should never follow URLs.
+        if (hasURL(nextComment.value)) {
+          break;
+        }
       }
     }
 

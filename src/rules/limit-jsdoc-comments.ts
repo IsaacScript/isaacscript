@@ -7,7 +7,7 @@ import {
   isCommentOnOwnLine,
   startsWithBulletPoint,
 } from "../comments";
-import { createRule } from "../utils";
+import { createRule, hasURL } from "../utils";
 
 type Options = [
   {
@@ -206,12 +206,13 @@ function getTextBlocksFromJSDocComment(comment: TSESTree.Comment): TextBlock[] {
   let partialText = "";
   let partialSubBulletIndent = "";
   let insideCodeBlock = false;
+  let previousLineHadURL = false;
   let previousLineHadCodeBlock = false;
   for (let i = 0; i < linesWithRemovedAsterisk.length; i++) {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const lineRaw = linesWithRemovedAsterisk[i]!;
 
-    // Remove the leading space from the line, if any
+    // Remove the leading space from the line, if any.
     // e.g. " Foo" --> "Foo"
     const firstCharacter = lineRaw[0];
     const lineBeforeTrim = firstCharacter === " " ? lineRaw.slice(1) : lineRaw;
@@ -219,6 +220,7 @@ function getTextBlocksFromJSDocComment(comment: TSESTree.Comment): TextBlock[] {
     const isBlankLine = lineBeforeTrim.trim() === "";
     const isBulletPoint = startsWithBulletPoint(lineBeforeTrim);
     const hasJSDocTag = lineBeforeTrim.startsWith("@");
+    const hasURLInside = hasURL(lineBeforeTrim);
     const hasCodeBlock = lineBeforeTrim.includes("```");
     if (hasCodeBlock) {
       insideCodeBlock = !insideCodeBlock;
@@ -230,23 +232,29 @@ function getTextBlocksFromJSDocComment(comment: TSESTree.Comment): TextBlock[] {
     // A blank line marks the end of the current block
     // (or a line that starts with a bullet point)
     // (or a line that starts with a JSDoc tag)
+    // (or the end of a line that had a URL)
     // (or every line, if we are inside of a code block)
     if (
       isBlankLine ||
       isBulletPoint ||
       hasJSDocTag ||
+      previousLineHadURL ||
       insideCodeBlock ||
       hasCodeBlock ||
       previousLineHadCodeBlock
     ) {
-      // Before processing this line, record the block that we have been building
-      // But don't record empty blocks
+      // Before processing this line, record the block that we have been building. (But don't record
+      // empty blocks.)
       if (partialText !== "") {
         const textBlock: TextBlock = {
           text: partialText,
           subBulletIndent: partialSubBulletIndent,
           insertBlankLineBelow:
-            !isBulletPoint && !hasJSDocTag && !insideCodeBlock && !hasCodeBlock,
+            !isBulletPoint &&
+            !hasJSDocTag &&
+            !previousLineHadURL &&
+            !insideCodeBlock &&
+            !hasCodeBlock,
         };
         textBlocks.push(textBlock);
       }
@@ -260,11 +268,12 @@ function getTextBlocksFromJSDocComment(comment: TSESTree.Comment): TextBlock[] {
       partialText += line;
     }
 
+    previousLineHadURL = hasURLInside;
     previousLineHadCodeBlock = hasCodeBlock;
   }
 
-  // In some cases, there may not be a blank line at the end of the JSDoc comment
-  // Finish writing the section if this is the case
+  // In some cases, there may not be a blank line at the end of the JSDoc comment. Finish writing
+  // the section if this is the case
   if (partialText !== "") {
     const textBlock: TextBlock = {
       text: partialText,
@@ -297,8 +306,8 @@ function canFitIOnSingleJSDocLine(
   const singleLineLength =
     leftWhitespaceLength + "/** ".length + text.length + " */".length;
 
-  // JSDoc comments that specify parameter documentation should never be moved to a single line
-  // (but JSDoc tags with no additional information are okay to be in a single line)
+  // JSDoc comments that specify parameter documentation should never be moved to a single line.
+  // (But JSDoc tags with no additional information are okay to be in a single line.)
   const hasJSDocTag = text.startsWith("@");
   if (hasJSDocTag) {
     const tagHasSomethingAfterIt = text.includes(" ");

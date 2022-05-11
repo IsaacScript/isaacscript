@@ -408,6 +408,28 @@ valid.push({
   `,
 });
 
+valid.push({
+  name: "Using a multi-line comment with a URL",
+  code: `
+// Documentation: https://github.com/jrdrg/eslint-plugin-sort-exports
+// Not defined in parent configs.
+  `,
+});
+
+invalid.push({
+  name: "Using a multi-line comment with a URL that can be combined",
+  code: `
+// Documentation:
+// https://github.com/jrdrg/eslint-plugin-sort-exports
+// Not defined in parent configs.
+  `,
+  errors: [{ messageId: "incorrectlyFormatted" }],
+  output: `
+// Documentation: https://github.com/jrdrg/eslint-plugin-sort-exports
+// Not defined in parent configs.
+  `,
+});
+
 ruleTester.run("limit-slash-slash-comments", limitSlashSlashComments, {
   valid,
   invalid,
