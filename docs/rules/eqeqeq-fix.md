@@ -49,3 +49,8 @@ Note that if you use the `recommended` config that comes with this plugin, then 
 ```
 
 This rule is not configurable. (All of the unsafe options from the original have been removed.)
+
+## Resources
+
+- [Rule source](../src/rules/eqeqeq-fix.ts)
+- [Test source](../tests/rules/eqeqeq-fix.test.ts)
