@@ -428,3 +428,13 @@ player.AddSoulHearts(1); // The type of player is now "EntityPlayer"
 (TypeScript is smart enough to know that `error()` can constrain the type of player in the same way that `throw` normally would.)
 
 <br />
+
+### Circular Dependencies
+
+In some programming languages, [circular dependencies](https://en.wikipedia.org/wiki/Circular_dependency) are allowed. JavaScript is one of those languages. However, Lua is not. Thus, if you compile a program with circular dependencies, it may turn cause a stack overflow at run-time.
+
+By default, IsaacScript projects ship with the [`import/no-cycle`](https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-cycle.md) ESLint rule turned on, which should immediately alert you to this problem if it happens.
+
+Programs with circular dependencies are generally considered to be spaghetti. If you have circular dependencies in your Isaac mod, it is a sign that you almost certainly need to rethink your architecture to something more sane.
+
+<br />
