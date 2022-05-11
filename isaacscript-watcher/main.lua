@@ -1,9 +1,6 @@
 -- Includes
 local json = require("json")
 
--- Register the mod
-local IsaacScriptWatcher = RegisterMod("IsaacScript Watcher", 1)
-
 -- Constants
 local MOD_NAME = "isaacscript-watcher"
 local RESTART_GAME_ON_RECOMPILATION = true
@@ -13,19 +10,21 @@ local SPRITE_BOTTOM_RIGHT_OFFSET = Vector(-35, -60)
 -- (enough so that it does not overlap with a pocket active + 2 pocket items)
 
 -- Mod variables
-local saveData = {} -- An array of message objects
+local saveData = {} -- An array of message objects.
 local restartFrame = 0
 local messageArray = {}
 local frameOfLastMsg = 0
 local frameOfLastSuccessfulLoad = 0
 local game = Game()
 local font = Font()
-font:Load("font/pftempestasevencondensed.fnt") -- A vanilla font good for this kind of text
+font:Load("font/pftempestasevencondensed.fnt") -- A vanilla font good for this kind of text.
 local connected = false
 local sprite = nil
 
+local IsaacScriptWatcher = RegisterMod("IsaacScript Watcher", 1)
+
 -- On mod initialization, nuke the "save#.dat" folder to get rid of old messages that might be left
--- there from IsaacScript
+-- there from IsaacScript.
 IsaacScriptWatcher:SaveData("")
 
 local function pushMessageArray(msg)
@@ -33,15 +32,21 @@ local function pushMessageArray(msg)
 
   messageArray[#messageArray + 1] = msg
   if #messageArray > 10 then
-    -- We only want to show 10 messages at a time
-    -- Remove the first elemenent
+    -- We only want to show 10 messages at a time.
     table.remove(messageArray, 1)
   end
 end
 
+local function getScreenBottomRightPos()
+  local screenWidth = Isaac.GetScreenWidth();
+  local screenHeight = Isaac.GetScreenHeight();
+
+  return Vector(screenWidth, screenHeight)
+end
+
 -- ModCallbacks.MC_POST_RENDER (2)
 function IsaacScriptWatcher:PostRender()
-  -- Don't do anything while the gade is fading in to prevent crashes
+  -- Don't do anything while the gade is fading in to prevent crashes.
   if game:GetFrameCount() < 1 then
     return
   end
@@ -54,7 +59,7 @@ function IsaacScriptWatcher:PostRender()
 end
 
 function IsaacScriptWatcher:RenderSprite()
-  -- Determine if IsaacScript is connected or not
+  -- Determine if IsaacScript is connected or not.
   local frameCount = Isaac.GetFrameCount()
   connected = frameCount - frameOfLastSuccessfulLoad <= FRAMES_BEFORE_DISCONNECTED
 
@@ -73,13 +78,14 @@ function IsaacScriptWatcher:RenderSprite()
 
   -- Render it
   if sprite ~= nil then
-    local position = IsaacScriptWatcher:GetBottomRightCorner() + SPRITE_BOTTOM_RIGHT_OFFSET
+    local bottomRightPos = getScreenBottomRightPos()
+    local position = bottomRightPos + SPRITE_BOTTOM_RIGHT_OFFSET
     sprite:RenderLayer(0, position)
   end
 end
 
 function IsaacScriptWatcher:RenderText()
-  -- Don't draw IsaacScript text when custom consoles are open
+  -- Don't draw IsaacScript text when custom consoles are open.
   if AwaitingTextInput then
     return
   end
@@ -104,7 +110,7 @@ function IsaacScriptWatcher:RenderText()
   local scale = 1
   local lineHeight = font:GetLineHeight() * scale
 
-  -- The text will slowly fade out
+  -- The text will slowly fade out.
   local elapsedFrames = Isaac.GetFrameCount() - frameOfLastMsg
   local alpha
   if elapsedFrames <= FRAMES_BEFORE_TEXT_FADE then
@@ -122,7 +128,7 @@ function IsaacScriptWatcher:RenderText()
   local red = KColor(1, 0, 0, alpha)
   local green = KColor(0, 1, 0, alpha)
 
-  -- Go through each message
+  -- Go through each message.
   for i, msg in ipairs(messageArray) do
     local color = white
 
@@ -153,21 +159,21 @@ function IsaacScriptWatcher:LoadSaveDat()
   -- Local variables
   local isaacFrameCount = Isaac.GetFrameCount()
 
-  -- Read the "save.dat" file every third second, since file reads are expensive
+  -- Read the "save.dat" file every third second, since file reads are expensive.
   if isaacFrameCount % 20 ~= 0 then
     return
   end
 
-  -- Check to see if there a "save.dat" file for this save slot
+  -- Check to see if there a "save.dat" file for this save slot.
   if not Isaac.HasModData(IsaacScriptWatcher) then
     IsaacScriptWatcher:ClearSaveDat()
     return
   end
 
-  -- The server will write JSON data for us to the "save#.dat" file in the mod subdirectory
+  -- The server will write JSON data for us to the "save#.dat" file in the mod subdirectory.
   if not pcall(IsaacScriptWatcher.Load) then
-    -- Sometimes loading can fail if the file is currently being being written to,
-    -- so give up for now and try again on the next interval
+    -- Sometimes loading can fail if the file is currently being being written to, so give up for
+    -- now and try again on the next interval.
     Isaac.DebugString(
       MOD_NAME
       .. " - Failed to load the TypeScript Watcher \"save.dat\" on frame: "
@@ -190,7 +196,7 @@ function IsaacScriptWatcher:LoadSuccessful(saveDatContents)
     -- Entry is e.g. { type: "command", data: "luamod revelations" }
     if entry.type == "command" then
       if entry.data == "restart" then
-        -- If we restart on the first frame that a run is loading, then the game can crash
+        -- If we restart on the first frame that a run is loading, then the game can crash.
         restartFrame = Isaac.GetFrameCount() + 1
       else
         Isaac.DebugString(MOD_NAME .. " - Executing command: " .. entry.data)
@@ -214,15 +220,15 @@ function IsaacScriptWatcher:Save()
 end
 
 function IsaacScriptWatcher:Load()
-  -- Read the "save#.dat" file into a string
+  -- Read the "save#.dat" file into a string.
   local saveDataJSON = Isaac.LoadModData(IsaacScriptWatcher)
 
-  -- Handle the case of a 0 byte file
+  -- Handle the case of a 0 byte file.
   if saveDataJSON == "" then
     saveDataJSON = "{}"
   end
 
-  -- Convert a JSON string to a Lua table
+  -- Convert a JSON string to a Lua table.
   saveData = json.decode(saveDataJSON)
 end
 
@@ -232,12 +238,12 @@ function IsaacScriptWatcher:CheckInput()
   end
 
   -- Ensure that this feature does not overlap with custom consoles by checking for the
-  -- "AwaitingTextInput" global variable
+  -- "AwaitingTextInput" global variable.
   if AwaitingTextInput then
     return
   end
 
-  -- Manually show the log when the user presses the "I" key on the keyboard
+  -- Manually show the log when the user presses the "I" key on the keyboard.
   if Input.IsButtonPressed(Keyboard.KEY_I, 0) then
     frameOfLastMsg = Isaac.GetFrameCount()
   end
@@ -255,22 +261,6 @@ function IsaacScriptWatcher:CheckRestart()
 
   Isaac.DebugString(MOD_NAME .. " - Restarting the run.")
   Isaac.ExecuteCommand("restart")
-end
-
--- Kilburn's function (pinned in the Isaac Discord server)
--- (originally called "GetScreenSize()")
-function IsaacScriptWatcher:GetBottomRightCorner()
-  local room = game:GetRoom()
-  local pos = (
-    room:WorldToScreenPosition(Vector.Zero)
-    - room:GetRenderScrollOffset()
-    - Game().ScreenShakeOffset
-  )
-
-  local rx = pos.X + 60 * 26 / 40
-  local ry = pos.Y + 140 * (26 / 40)
-
-  return Vector(rx * 2 + 13 * 26, ry * 2 + 7 * 26)
 end
 
 IsaacScriptWatcher:AddCallback(ModCallbacks.MC_POST_RENDER, IsaacScriptWatcher.PostRender)
