@@ -1,7 +1,19 @@
 import { getJSDocComments, getTextBlocksFromJSDocComment } from "../jsdoc";
 import { createRule, hasURL } from "../utils";
 
-export const jsdocCompleteSentences = createRule({
+type Options = [];
+
+// ts-prune-ignore-next
+export type MessageIds = "notComplete";
+
+/**
+ * From:
+ * https://stackoverflow.com/questions/69335072/javascript-regex-to-match-jsdoc-tags-inside-a-documentation-block
+ */
+const JSDOC_TAG_REGEX =
+  /^@(?<tag>\w+)(?:[ \t]+{(?<type>[^{}]*)})?[ \t]+(?<name>\w+)(?:[ \t]+(?<desc>.*(?:\n(?!\/{3} @\w).*)*))?/gm;
+
+export const jsdocCompleteSentences = createRule<Options, MessageIds>({
   name: "jsdoc-complete-sentences",
   meta: {
     type: "problem",
@@ -36,9 +48,11 @@ export const jsdocCompleteSentences = createRule({
 
       textBlocks.forEach((textBlock) => {
         const { text, insideCodeBlock } = textBlock;
-        const hasJSDocTag = text.trim().startsWith("@");
 
-        if (!isCompleteSentence(text) && !insideCodeBlock && !hasJSDocTag) {
+        // If this is a JSDoc tag, we need to extract the description out of it
+        const sentence = getSentenceFromJSDocTag(text);
+
+        if (!isCompleteSentence(sentence) && !insideCodeBlock) {
           context.report({
             loc: {
               start: comment.loc.start,
@@ -56,6 +70,32 @@ export const jsdocCompleteSentences = createRule({
     return {};
   },
 });
+
+function getSentenceFromJSDocTag(text: string) {
+  text = text.trim();
+
+  const hasJSDocTag = text.startsWith("@");
+  if (!hasJSDocTag) {
+    return text;
+  }
+
+  const match = JSDOC_TAG_REGEX.exec(text);
+  if (match === null) {
+    return text;
+  }
+
+  const { groups } = match;
+  if (groups === undefined) {
+    return text;
+  }
+
+  const description = groups["desc"];
+  if (description === undefined) {
+    return text;
+  }
+
+  return description;
+}
 
 function isCompleteSentence(text: string) {
   // Trim the parenthesis and quotes surrounding the sentence, if any.
