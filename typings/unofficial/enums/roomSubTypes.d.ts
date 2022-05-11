@@ -161,8 +161,8 @@ declare const enum BossID {
 
   HORNY_BOYS = 101,
 
-  /** This boss is currently unfinished and there are no boss rooms for it. */
-  POSSESSOR = 102,
+  /** In the "00.special rooms.stb" file, the room names are listed as "The Possessor" instead of "Clutch". */
+  CLUTCH = 102,
 }
 
 /**
@@ -319,7 +319,7 @@ declare const enum MinesRoomSubType {
   MINESHAFT_LOBBY = 11,
   MINESHAFT_KNIFE_PIECE = 20,
   MINESHAFT_ROOM_PRE_CHASE = 30,
-  MINESHAFT_ROOM_POST_CHASE = 30,
+  MINESHAFT_ROOM_POST_CHASE = 31,
 }
 
 /**
