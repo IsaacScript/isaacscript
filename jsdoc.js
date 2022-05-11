@@ -40,7 +40,7 @@ module.exports = {
       },
     ],
 
-    // jsdoc/check-types  - Not needed in TypeScript.
+    // jsdoc/check-types - Not needed in TypeScript.
 
     // Documentation:
     // https://github.com/gajus/eslint-plugin-jsdoc#check-values
@@ -57,9 +57,6 @@ module.exports = {
     // Reports issues with incorrect usage of @implements
     "jsdoc/implements-on-classes": "warn",
 
-    // Documentation:
-    // https://github.com/gajus/eslint-plugin-jsdoc#match-description
-    // JSDoc comments should always be full sentences
-    "jsdoc/match-description": ["warn"],
+    // jsdoc/match-description - Overlaps with `isaacscript-jsdoc-full-sentences`.
   },
 };
