@@ -12,6 +12,7 @@ export const recommended = {
     "no-template-curly-in-string": "off",
     "no-useless-return": "off",
     "isaacscript/eqeqeq-fix": "error",
+    "isaacscript/jsdoc-full-sentences": "error",
     "isaacscript/limit-jsdoc-comments": "error",
     "isaacscript/limit-slash-slash-comments": "error",
     "isaacscript/no-implicit-map-set-loops": "error",

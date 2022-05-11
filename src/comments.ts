@@ -2,16 +2,15 @@ import { TSESLint, TSESTree } from "@typescript-eslint/utils";
 
 // eslint-disable-next-line isaacscript/limit-jsdoc-comments
 /**
- *
  * For example:
  *
- * "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will"
+ * "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will."
  *
  * -->
  *
  * ```ts
  * // But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain
- * // was born and I will
+ * // was born and I will.
  * ```
  *
  * @param linePrefix The characters to the left of the text in the comment. For example, the line

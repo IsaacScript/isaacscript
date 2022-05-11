@@ -198,14 +198,15 @@ function getCommentBlocks(comments: TSESTree.Comment[]): CommentBlock[] {
       continue;
     }
 
+    // eslint-disable-next-line isaacscript/jsdoc-full-sentences
     /**
      * Remove the initial space that will always live in front of comment line.
      *
      * For example, the comment of:
      *
-     * // Foo
+     * // Foo.
      *
-     * Has a comment value of " Foo".
+     * Has a comment value of: " Foo."
      */
     const text = comment.value.slice(1);
     const subBulletIndent = getSpacesBeforeBulletPoint(text);

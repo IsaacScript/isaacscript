@@ -1,4 +1,5 @@
 import { eqeqeqFix } from "./rules/eqeqeq-fix";
+import { jsdocFullSentences } from "./rules/jsdoc-full-sentences";
 import { limitJSDocComments } from "./rules/limit-jsdoc-comments";
 import { limitSlashSlashComments } from "./rules/limit-slash-slash-comments";
 import { noImplicitMapSetLoops } from "./rules/no-implicit-map-set-loops";
@@ -10,6 +11,7 @@ import { noVoidReturnType } from "./rules/no-void-return-type";
 
 export const rules = {
   "eqeqeq-fix": eqeqeqFix,
+  "jsdoc-full-sentences": jsdocFullSentences,
   "limit-jsdoc-comments": limitJSDocComments,
   "limit-slash-slash-comments": limitSlashSlashComments,
   "no-implicit-map-set-loops": noImplicitMapSetLoops,

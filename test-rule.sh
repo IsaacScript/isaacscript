@@ -8,7 +8,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd "$DIR"
 
-RULE_NAME="limit-slash-slash-comments"
+RULE_NAME="jsdoc-full-sentences"
 
 echo "Running all tests for rule: $RULE_NAME"
 TEST_SUMMARY_THRESHOLD=1 npx jest "$DIR/tests/rules/$RULE_NAME.test.ts" --reporters jest-summarizing-reporter
