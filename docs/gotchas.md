@@ -81,7 +81,9 @@ Type 'TearFlagValue' is not assignable to type 'BitFlags<TearFlagValue>'.
 Property '__bitFlagsBrand' is missing in type 'TearFlagValue' but required in type '{ readonly __bitFlagsBrand: TearFlagValue; }'.
 ```
 
-This error is because `TearFlag` is not exactly the same thing as `BitFlags<TearFlag>`. To solve this problem, you can use the `bitFlags` helper function, which will cast the flag for you:
+This error is because `TearFlag` is not exactly the same thing as `BitFlags<TearFlag>`. (The former must be equal to one specific flag, and the latter can be 0 or more flags.)
+
+To solve this problem, you can use the `bitFlags` helper function, which will cast the flag for you:
 
 ```ts
 // TypeScript code
