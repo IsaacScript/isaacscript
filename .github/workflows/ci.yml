@@ -36,19 +36,16 @@ jobs:
       - name: Test
         run: bash test.sh
 
-  # To enable CI failure notifications over Discord, add a "DISCORD_WEBHOOK" secret to the
-  # repository equal to the URL for the webhook, and then uncomment the lines below
-
-  #discord:
-  #  name: Discord Failure Notification
-  #  needs: [build_and_lint]
-  #  if: always() # This is needed to always run this job, even if the other jobs fail
-  #  runs-on: ubuntu-latest
-  #  steps:
-  #    - uses: technote-space/workflow-conclusion-action@v2
-  #    - if: ${{ secrets.DISCORD_WEBHOOK }} != '' && env.WORKFLOW_CONCLUSION != 'success' && env.WORKFLOW_CONCLUSION != 'cancelled'
-  #      uses: sarisia/actions-status-discord@v1
-  #      with:
-  #        webhook: ${{ secrets.DISCORD_WEBHOOK }}
-  #        status: ${{ env.WORKFLOW_CONCLUSION }}
-  #        title: ""
+  discord:
+    name: Discord Failure Notification
+    needs: [build_and_lint]
+    if: always() # This is needed to always run this job, even if the other jobs fail
+    runs-on: ubuntu-latest
+    steps:
+      - uses: technote-space/workflow-conclusion-action@v2
+      - if: ${{ secrets.DISCORD_WEBHOOK }} != '' && env.WORKFLOW_CONCLUSION != 'success' && env.WORKFLOW_CONCLUSION != 'cancelled'
+        uses: sarisia/actions-status-discord@v1
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          status: ${{ env.WORKFLOW_CONCLUSION }}
+          title: ""
