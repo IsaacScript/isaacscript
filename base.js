@@ -178,30 +178,6 @@ module.exports = {
     ],
 
     // Documentation:
-    // https://github.com/lasselupe33/eslint-plugin-comment-length
-    // Defined at:
-    // https://github.com/lasselupe33/eslint-plugin-comment-length/blob/master/rules/src/index.ts
-    // Auto-fix long comments. We specify 100 to match the ruler and the Airbnb style guide.
-    "comment-length-2/limit-multi-line-comments": [
-      "warn",
-      {
-        maxLength: 100,
-      },
-    ],
-
-    // Documentation:
-    // https://github.com/lasselupe33/eslint-plugin-comment-length
-    // Defined at:
-    // https://github.com/lasselupe33/eslint-plugin-comment-length/blob/master/rules/src/index.ts
-    // Auto-fix long comments. We specify 100 to match the ruler and the Airbnb style guide.
-    "comment-length-2/limit-single-line-comments": [
-      "warn",
-      {
-        maxLength: 100,
-      },
-    ],
-
-    // Documentation:
     // https://github.com/mysticatea/eslint-plugin-eslint-comments/blob/master/docs/rules/disable-enable-pair.md
     // Defined at:
     // https://github.com/mysticatea/eslint-plugin-eslint-comments/blob/master/lib/configs/recommended.js
