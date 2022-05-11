@@ -1,24 +1,12 @@
 {
-    "version": "0.1",
-    "language": "en",
-    "dictionaries": [
-        "en_US"
-    ],
+    "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+    "version": "0.2",
     "words": [
         "backticks",
-        "chdir",
-        "config",
-        "deno",
-        "eqeqeq",
-        "eslint",
         "isaacscript",
         "plusplus",
-        "sarisia",
-        "technote",
-        "turnbull",
-        "unexported",
+        "Turnbull",
         "unfixable",
-        "winpty",
-        "zamiell"
+        "Zamiell"
     ]
 }

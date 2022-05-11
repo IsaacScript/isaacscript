@@ -1,8 +1,8 @@
-// This is a shared configuration file for ESLint
+// This is a shared configuration file for ESLint:
 // https://eslint.org/docs/user-guide/configuring
 module.exports = {
   plugins: [
-    // Lint JSDoc style comments
+    // Lint JSDoc style comments:
     // https://github.com/gajus/eslint-plugin-jsdoc
     "jsdoc",
   ],
@@ -44,17 +44,17 @@ module.exports = {
 
     // Documentation:
     // https://github.com/gajus/eslint-plugin-jsdoc#check-values
-    // Validates the content of some uncommon JSDoc tags
+    // Validates the content of some uncommon JSDoc tags.
     "jsdoc/check-values": "warn",
 
     // Documentation:
     // https://github.com/gajus/eslint-plugin-jsdoc#check-values
-    // Validates the content of some uncommon JSDoc tags
+    // Validates that specific tags are never empty.
     "jsdoc/empty-tags": "warn",
 
     // Documentation:
     // https://github.com/gajus/eslint-plugin-jsdoc#implements-on-classes
-    // Reports issues with incorrect usage of @implements
+    // Reports issues with incorrect usage of `@implements`.
     "jsdoc/implements-on-classes": "warn",
 
     // jsdoc/match-description - Overlaps with `isaacscript-jsdoc-full-sentences`.
