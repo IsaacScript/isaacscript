@@ -52,7 +52,7 @@ export const limitJSDocComments = createRule<Options, MessageIds>({
   meta: {
     type: "layout",
     docs: {
-      description: 'Disallows "/*" comments longer than N characters',
+      description: "Disallows `/*` comments longer than N characters",
       recommended: "error",
     },
     schema: [

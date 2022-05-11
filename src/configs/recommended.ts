@@ -10,6 +10,7 @@ export const recommended = {
     "isaacscript/eqeqeq-fix": "error",
     "isaacscript/limit-jsdoc-comments": "error",
     "isaacscript/limit-slash-slash-comments": "error",
+    "isaacscript/no-implicit-map-set-loops": "error",
     "isaacscript/no-let-any": "error",
     "isaacscript/no-object-any": "error",
     "isaacscript/no-template-curly-in-string-fix": "error",

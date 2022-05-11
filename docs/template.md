@@ -15,7 +15,7 @@ RULE_DESCRIPTION.
 ```json
 {
   "rules": {
-    "PROJECT_NAME/RULE_NAME": "error"
+    "PLUGIN_NAME/RULE_NAME": "error"
   }
 }
 ```

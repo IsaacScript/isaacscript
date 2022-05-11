@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { rules } from "../src/rules";
-import { PROJECT_NAME } from "./constants";
+import { PLUGIN_NAME } from "./constants";
 import { generateAll } from "./generateAll";
 import {
   formatWithPrettier,
@@ -53,7 +53,7 @@ function createRule() {
   createDocFile(ruleName, description);
   createSourceFile(ruleName, description);
   createTestFile(ruleName, description);
-  addRuleToRules(ruleName);
+  addRuleToRulesTS(ruleName);
   generateAll();
 
   console.log(`Successfully created rule: ${ruleName}`);
@@ -101,20 +101,20 @@ function replaceTemplateText(
     .replace(/RULE_NAME_CAMEL_CASE/g, ruleNameCamelCase)
     .replace(/RULE_NAME/g, ruleName)
     .replace(/RULE_DESCRIPTION/g, ruleDescription)
-    .replace(/PROJECT_NAME/g, PROJECT_NAME);
+    .replace(/PLUGIN_NAME/g, PLUGIN_NAME);
 }
 
-function addRuleToRules(newRuleName: string) {
+function addRuleToRulesTS(newRuleName: string) {
   const ruleNames = Object.keys(rules);
   ruleNames.push(newRuleName);
   ruleNames.sort();
   const ruleImports = ruleNames.map((ruleName) => {
-    const ruleNameCamelCase = kebabCaseToCamelCase(ruleName);
+    const ruleNameCamelCase = getRuleCamelCaseName(ruleName);
     return `import { ${ruleNameCamelCase} } from "./rules/${ruleName}";`;
   });
 
   const ruleLines = ruleNames.map((ruleName) => {
-    const ruleNameCamelCase = kebabCaseToCamelCase(ruleName);
+    const ruleNameCamelCase = getRuleCamelCaseName(ruleName);
     return `  "${ruleName}": ${ruleNameCamelCase},`;
   });
 
@@ -126,4 +126,9 @@ ${ruleLines.join("\n")}\n
   `.trim();
   const formattedContent = formatWithPrettier(content, "typescript");
   fs.writeFileSync(RULES_PATH, formattedContent);
+}
+
+function getRuleCamelCaseName(kebabCaseName: string) {
+  const ruleNameCamelCase = kebabCaseToCamelCase(kebabCaseName);
+  return ruleNameCamelCase.replace("Jsdoc", "JSDoc");
 }

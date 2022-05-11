@@ -1,7 +1,7 @@
 import { execSync } from "child_process";
 import packageJSON from "../package.json";
 
-export function generateAll() {
+export function generateAll(): void {
   const scripts = Object.keys(packageJSON.scripts);
   const generateScripts = scripts.filter((script) =>
     script.startsWith("generate:"),

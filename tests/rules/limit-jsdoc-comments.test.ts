@@ -511,6 +511,32 @@ valid.push({
   `,
 });
 
+invalid.push({
+  name: "Using a single-line comment with a duplicate asterisk",
+  code: `
+/** * Foo */
+  `,
+  errors: [{ messageId: "incorrectlyFormatted" }],
+  output: `
+/** Foo */
+  `,
+});
+
+invalid.push({
+  name: "Using a multi-line comment with a duplicate asterisk",
+  code: `
+/**
+ * * Foo
+ */
+  `,
+  errors: [{ messageId: "incorrectlyFormatted" }],
+  output: `
+/**
+ * Foo
+ */
+  `,
+});
+
 ruleTester.run("limit-jsdoc-comments", limitJSDocComments, {
   valid,
   invalid,

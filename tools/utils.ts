@@ -14,7 +14,7 @@ const PRETTIER_CONFIG = prettier.resolveConfig.sync(__dirname);
 const KEBAB_CASE_REGEX =
   /^([a-z](?![\d])|[\d](?![a-z]))+(-?([a-z](?![\d])|[\d](?![a-z])))*$|^$/;
 
-export function kebabCaseToCamelCase(text: string) {
+export function kebabCaseToCamelCase(text: string): string {
   return text.replace(/-./g, (match) => {
     const firstLetterOfWord = match[1];
     return firstLetterOfWord === undefined
@@ -26,7 +26,7 @@ export function kebabCaseToCamelCase(text: string) {
 export function formatWithPrettier(
   text: string,
   language: "typescript" | "markdown",
-) {
+): string {
   return prettier.format(text, {
     parser: language,
     ...PRETTIER_CONFIG,
@@ -37,7 +37,7 @@ export function getAlphabeticalRuleEntries(): Array<[string, RuleDefinition]> {
   return Object.entries(rules).sort((a, b) => a[0].localeCompare(b[0]));
 }
 
-export function getFullRuleName(ruleName: string) {
+export function getFullRuleName(ruleName: string): string {
   return `${RULE_NAME_PREFIX}${ruleName}`;
 }
 
@@ -45,7 +45,7 @@ export function isKebabCase(s: string): boolean {
   return KEBAB_CASE_REGEX.test(s);
 }
 
-export function isRecommendedRule(rule: RuleDefinition) {
+export function isRecommendedRule(rule: RuleDefinition): boolean {
   if (rule.meta.docs === undefined) {
     return false;
   }
@@ -54,7 +54,7 @@ export function isRecommendedRule(rule: RuleDefinition) {
 }
 
 /** Intended to be used on file content that needs to have a trailing newline. */
-export function removeFirstAndLastLine(text: string) {
+export function removeFirstAndLastLine(text: string): string {
   const lines = text.trim().split("\n");
   lines.shift(); // Remove first line
   lines.pop(); // Remove last line
