@@ -526,13 +526,13 @@ invalid.push({
   name: "Using a multi-line comment with a duplicate asterisk",
   code: `
 /**
- * * Foo
+ * * But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain
  */
   `,
   errors: [{ messageId: "incorrectlyFormatted" }],
   output: `
 /**
- * Foo
+ * But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain
  */
   `,
 });

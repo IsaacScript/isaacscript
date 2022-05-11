@@ -298,6 +298,7 @@ function canFitIOnSingleJSDocLine(
     leftWhitespaceLength + "/** ".length + text.length + " */".length;
 
   // JSDoc comments that specify parameter documentation should never be moved to a single line
+  // (but JSDoc tags with no additional information are okay to be in a single line)
   const hasJSDocTag = text.startsWith("@");
   if (hasJSDocTag) {
     const tagHasSomethingAfterIt = text.includes(" ");
@@ -313,6 +314,7 @@ function getFormattedJSDocCommentSingleLine(
   text: string,
   leftWhitespace: string,
 ) {
+  text = removeDuplicateAsterisks(text);
   return `${leftWhitespace}/** ${text} */`;
 }
 
@@ -339,8 +341,9 @@ function getFormattedJSDocCommentMultiLine(
 
     const linePrefixWithExtraIndent = linePrefix + block.subBulletIndent;
 
+    const text = removeDuplicateAsterisks(block.text);
     const formattedText = getFormattedCommentText(
-      block.text,
+      text,
       linePrefixWithExtraIndent,
       maxLength,
     );
@@ -360,4 +363,19 @@ function getFormattedJSDocCommentMultiLine(
   }
 
   return `${header}\n${lines}${footer}`;
+}
+
+/**
+ * Fix comments like:
+ *
+ * ```ts
+ * /* * Foo * /
+ * ```
+ */
+function removeDuplicateAsterisks(text: string) {
+  while (text.startsWith("* ")) {
+    text = text.replace(/^\* /, "");
+  }
+
+  return text;
 }
