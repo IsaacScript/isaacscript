@@ -52,5 +52,5 @@ This rule is not configurable. (All of the unsafe options from the original have
 
 ## Resources
 
-- [Rule source](../src/rules/eqeqeq-fix.ts)
-- [Test source](../tests/rules/eqeqeq-fix.test.ts)
+- [Rule source](../../src/rules/eqeqeq-fix.ts)
+- [Test source](../../tests/rules/eqeqeq-fix.test.ts)
