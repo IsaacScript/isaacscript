@@ -6,8 +6,12 @@ import {
   getSpacesBeforeBulletPoint,
   isCommentOnOwnLine,
   startsWithBulletPoint,
+  startsWithExample,
 } from "../comments";
 import { createRule, hasURL } from "../utils";
+
+const RULE_NAME = "limit-jsdoc-comments";
+const DEBUG = false;
 
 type Options = [
   {
@@ -34,8 +38,8 @@ interface TextBlock {
   text: string;
 
   /**
-   * The amount of spaces before a sub bullet. For example, the following bullet points would have
-   * a `subBulletIndentLength` of "" and "  " respectively:
+   * The amount of spaces before a sub bullet. For example, the following bullet points would have a
+   * `subBulletIndentLength` of "" and "  " respectively:
    *
    * - First bullet point.
    *   - Sub bullet point.
@@ -44,8 +48,6 @@ interface TextBlock {
 
   insertBlankLineBelow: boolean;
 }
-
-const RULE_NAME = "limit-jsdoc-comments";
 
 export const limitJSDocComments = createRule<Options, MessageIds>({
   name: RULE_NAME,
@@ -97,7 +99,7 @@ export const limitJSDocComments = createRule<Options, MessageIds>({
      *
      * - `//` style comments are handled by the "limit-slash-slash-comment" rule.
      * - `/*` style comments are explicitly ignored, since those are conventionally used to comment
-     * out code. (Actual code documentation conventionally uses JSDoc-style comments, like `/**`.)
+     *   out code. (Actual code documentation conventionally uses JSDoc-style comments, like `/**`.)
      */
     const jsDocComments = getStandaloneJSDocComments(sourceCode, comments);
 
@@ -126,6 +128,13 @@ export const limitJSDocComments = createRule<Options, MessageIds>({
             leftWhitespace,
             maxLength,
           );
+
+      if (DEBUG) {
+        console.log("originalText:");
+        console.log(originalText);
+        console.log("formattedText:");
+        console.log(formattedText);
+      }
 
       if (originalText !== formattedText) {
         context.report({
@@ -184,8 +193,8 @@ function getStandaloneJSDocComments(
  *  * /
  * ```
  *
- * The following code would return an array of four comment blocks, because bullets are
- * treated as a separate block:
+ * The following code would return an array of four comment blocks, because bullets are treated as a
+ * separate block:
  *
  * ```ts
  * /**
@@ -212,31 +221,32 @@ function getTextBlocksFromJSDocComment(comment: TSESTree.Comment): TextBlock[] {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const lineRaw = linesWithRemovedAsterisk[i]!;
 
-    // Remove the leading space from the line, if any.
-    // e.g. " Foo" --> "Foo"
+    // Remove the leading space from the line, if any. e.g. " Foo" --> "Foo"
     const firstCharacter = lineRaw[0];
     const lineBeforeTrim = firstCharacter === " " ? lineRaw.slice(1) : lineRaw;
 
+    // Gather information about this line.
     const isBlankLine = lineBeforeTrim.trim() === "";
     const isBulletPoint = startsWithBulletPoint(lineBeforeTrim);
+    const hasExample = startsWithExample(lineBeforeTrim);
     const hasJSDocTag = lineBeforeTrim.startsWith("@");
     const hasURLInside = hasURL(lineBeforeTrim);
     const hasCodeBlock = lineBeforeTrim.includes("```");
-    if (hasCodeBlock) {
-      insideCodeBlock = !insideCodeBlock;
-    }
-
     const spacesBeforeBulletPoint = getSpacesBeforeBulletPoint(lineBeforeTrim);
+
     const line = insideCodeBlock ? lineBeforeTrim : lineBeforeTrim.trim();
 
-    // A blank line marks the end of the current block
-    // (or a line that starts with a bullet point)
-    // (or a line that starts with a JSDoc tag)
-    // (or the end of a line that had a URL)
-    // (or every line, if we are inside of a code block)
+    // Certain things mark the end of the current block:
+    // - a blank line
+    // - a line that starts with a bullet point
+    // - a line that starts with an example
+    // - a line that starts with a JSDoc tag
+    // - the end of a line that had a URL
+    // - every line, if we are inside of a code block
     if (
       isBlankLine ||
       isBulletPoint ||
+      hasExample ||
       hasJSDocTag ||
       previousLineHadURL ||
       insideCodeBlock ||
@@ -244,17 +254,22 @@ function getTextBlocksFromJSDocComment(comment: TSESTree.Comment): TextBlock[] {
       previousLineHadCodeBlock
     ) {
       // Before processing this line, record the block that we have been building. (But don't record
-      // empty blocks.)
-      if (partialText !== "") {
+      // empty blocks, unless we are inside of a code block.)
+      if (partialText !== "" || insideCodeBlock) {
+        const insertBlankLineBelow = shouldInsertBlankLineBelowTextBlock(
+          isBulletPoint,
+          hasExample,
+          hasJSDocTag,
+          insideCodeBlock,
+          hasCodeBlock,
+          previousLineHadURL,
+          isBlankLine,
+        );
+
         const textBlock: TextBlock = {
           text: partialText,
           subBulletIndent: partialSubBulletIndent,
-          insertBlankLineBelow:
-            !isBulletPoint &&
-            !hasJSDocTag &&
-            !previousLineHadURL &&
-            !insideCodeBlock &&
-            !hasCodeBlock,
+          insertBlankLineBelow,
         };
         textBlocks.push(textBlock);
       }
@@ -269,11 +284,14 @@ function getTextBlocksFromJSDocComment(comment: TSESTree.Comment): TextBlock[] {
     }
 
     previousLineHadURL = hasURLInside;
+    if (hasCodeBlock) {
+      insideCodeBlock = !insideCodeBlock;
+    }
     previousLineHadCodeBlock = hasCodeBlock;
   }
 
   // In some cases, there may not be a blank line at the end of the JSDoc comment. Finish writing
-  // the section if this is the case
+  // the section if this is the case.
   if (partialText !== "") {
     const textBlock: TextBlock = {
       text: partialText,
@@ -284,6 +302,41 @@ function getTextBlocksFromJSDocComment(comment: TSESTree.Comment): TextBlock[] {
   }
 
   return textBlocks;
+}
+
+/**
+ * By default, text blocks should be separated by a blank line. This function has logic for all of
+ * the exceptions to the rule.
+ */
+function shouldInsertBlankLineBelowTextBlock(
+  nextLineIsBulletPoint: boolean,
+  nextLineHasExample: boolean,
+  nextLineHasJSDocTag: boolean,
+  insideCodeBlock: boolean,
+  nextLineHasCodeBlock: boolean,
+  thisBlockHasURL: boolean,
+  isBlankLine: boolean,
+): boolean {
+  if (
+    nextLineHasExample ||
+    nextLineHasJSDocTag ||
+    insideCodeBlock ||
+    nextLineHasCodeBlock
+  ) {
+    return false;
+  }
+
+  // It is valid to have blank lines between bullet points (or not). Match the existing comment.
+  if (nextLineIsBulletPoint) {
+    return isBlankLine;
+  }
+
+  // It is valid to have blank lines after URLs (or not). Match the existing comment.
+  if (thisBlockHasURL) {
+    return isBlankLine;
+  }
+
+  return true;
 }
 
 /**
@@ -357,7 +410,11 @@ function getFormattedJSDocCommentMultiLine(
       maxLength,
     );
 
-    const unformattedText = linePrefixWithExtraIndent + block.text;
+    let unformattedText = linePrefixWithExtraIndent + block.text;
+    if (block.text === "") {
+      // Since this is an empty line, we need to remove the superfluous trailing space
+      unformattedText = unformattedText.slice(0, -1);
+    }
 
     const textToUse = insideCodeBlock ? unformattedText : formattedText;
 

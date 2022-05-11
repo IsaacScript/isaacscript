@@ -3,8 +3,7 @@
 module.exports = {
   extends: [
     // The linter base is the Airbnb style guide, which is the most popular JavaScript style guide
-    // in the world:
-    // https://github.com/airbnb/javascript
+    // in the world: https://github.com/airbnb/javascript
     // The actual ESLint config is located here:
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules
     // The TypeScript config extends it:
@@ -22,12 +21,12 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
 
-    // We use our own rules, since you should always eat your own dog food.
-    "isaacscript/all",
+    // We eat our own dog food.
+    "plugin:isaacscript/all",
 
-    // Disable any ESLint rules that conflict with Prettier. (Otherwise, we will have unfixable
-    // ESLint errors.)
+    // Disable any ESLint rules that conflict with Prettier:
     // https://github.com/prettier/eslint-config-prettier
+    // (Otherwise, we will have unfixable ESLint errors.)
     "prettier",
   ],
 
@@ -108,6 +107,14 @@ module.exports = {
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/variables.js
     // This allows code to be structured in a more logical order.
     "@typescript-eslint/no-use-before-define": "off",
+
+    // Documentation:
+    // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/restrict-template-expressions.md
+    // Defined at:
+    // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/recommended-requiring-type-checking.ts
+    // This rule disallows booleans and nulls in template expressions. However, a common use-case of
+    // template strings is to coerce everything to a string.
+    "@typescript-eslint/restrict-template-expressions": "off",
 
     // Documentation:
     // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/prefer-default-export.md

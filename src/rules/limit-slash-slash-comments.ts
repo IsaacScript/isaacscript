@@ -4,8 +4,13 @@ import {
   getSpacesBeforeBulletPoint,
   isCommentOnOwnLine,
   startsWithBulletPoint,
+  startsWithExample,
 } from "../comments";
 import { createRule, hasURL } from "../utils";
+
+const RULE_NAME = "limit-slash-slash-comments";
+const SLASH_SLASH = "//";
+const DEBUG = false;
 
 type Options = [
   {
@@ -29,18 +34,14 @@ interface CommentBlock {
   originalComments: TSESTree.Comment[];
 
   /**
-   * The amount of spaces before a sub bullet. For example, the following bullet points would have
-   * a `subBulletIndentLength` of "" and "  " respectively:
+   * The amount of spaces before a sub bullet. For example, the following bullet points would have a
+   * `subBulletIndentLength` of "" and "  " respectively:
    *
    * - First bullet point.
    *   - Sub bullet point.
    */
   subBulletIndent: string;
 }
-
-const RULE_NAME = "limit-slash-slash-comments";
-
-const SLASH_SLASH = "//";
 
 export const limitSlashSlashComments = createRule<Options, MessageIds>({
   name: RULE_NAME,
@@ -124,6 +125,13 @@ export const limitSlashSlashComments = createRule<Options, MessageIds>({
         linePrefix,
         maxLength,
       );
+
+      if (DEBUG) {
+        console.log("originalText:");
+        console.log(originalText);
+        console.log("formattedText:");
+        console.log(formattedText);
+      }
 
       if (originalText !== formattedText) {
         context.report({
@@ -236,6 +244,11 @@ function getCommentBlocks(comments: TSESTree.Comment[]): CommentBlock[] {
           break;
         }
 
+        // Break if the next line is an example.
+        if (startsWithExample(nextComment.value)) {
+          break;
+        }
+
         commentBlock.mergedText += " ";
         commentBlock.mergedText += nextComment.value.trim();
         commentBlock.originalComments.push(nextComment);
@@ -270,8 +283,8 @@ function getTextFromComments(
 ) {
   const lines = comments.map(
     /**
-     * It is assumed that `comment.value` will always have a leading space, due to Prettier
-     * changing `//Comment` to `// Comment`.
+     * It is assumed that `comment.value` will always have a leading space, due to Prettier changing
+     * `//Comment` to `// Comment`.
      */
     (comment) => `${leftWhitespace}${SLASH_SLASH}${comment.value}`,
   );

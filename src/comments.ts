@@ -1,5 +1,6 @@
 import { TSESLint, TSESTree } from "@typescript-eslint/utils";
 
+// eslint-disable-next-line isaacscript/limit-jsdoc-comments
 /**
  *
  * For example:
@@ -11,10 +12,10 @@ import { TSESLint, TSESTree } from "@typescript-eslint/utils";
  * ```ts
  * // But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain
  * // was born and I will
+ * ```
  *
  * @param linePrefix The characters to the left of the text in the comment. For example, the line
  * prefix for "  // This is a comment." is equal to "  // ".
- * ```
  */
 export function getFormattedCommentText(
   text: string,
@@ -93,7 +94,31 @@ export function getSpacesBeforeBulletPoint(text: string): string {
 }
 
 export function startsWithBulletPoint(text: string): boolean {
-  return text.trim().startsWith("-");
+  const trimmedText = text.trim();
+  return (
+    // e.g. "- A bullet point can start with a hyphen."
+    trimmedText.startsWith("-") ||
+    // e.g. "1) A bullet point can start with a number and a parenthesis."
+    /^\d+\)/.test(trimmedText) ||
+    // e.g. "1. A bullet point can start with a number and a period."
+    /^\d+\./.test(trimmedText)
+  );
+}
+
+export function startsWithExample(text: string): boolean {
+  const trimmedText = text.trim();
+
+  return (
+    // e.g. "e.g. Foo"
+    trimmedText.startsWith("e.g. ") ||
+    // e.g. "(e.g. Foo)"
+    trimmedText.startsWith("(e.g. ") ||
+    // e.g. "i.e. Foo"
+    trimmedText.startsWith("i.e. ") ||
+    // e.g. "(i.e. Foo)"
+    trimmedText.startsWith("(i.e. ")
+    // e.g. "e.g. Foo"
+  );
 }
 
 /**
