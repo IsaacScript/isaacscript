@@ -142,8 +142,8 @@ function copyDynamicFiles(
 
   // "src/main.ts"
   {
-    // Convert snake_case and kebab-case to camelCase
-    // (kebab-case in particular will make the example TypeScript file fail to compile)
+    // Convert snake_case and kebab-case to camelCase. (Kebab-case in particular will make the
+    // example TypeScript file fail to compile.)
     const srcPath = path.join(projectPath, "src");
     const fileName = MAIN_TS;
     const templatePath = MAIN_TS_TEMPLATE_PATH;

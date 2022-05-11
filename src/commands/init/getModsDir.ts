@@ -17,7 +17,7 @@ const DEFAULT_MODS_PATH_WINDOWS = path.join(
   MODS,
 );
 
-// This is a subdirectory of $HOME
+/** This is a subdirectory of `$HOME`. */
 const DEFAULT_MODS_PATH_LINUX = path.join(
   HOME_DIR,
   ".local",
@@ -34,8 +34,8 @@ export async function getModsDir(
   verbose: boolean,
 ): Promise<string> {
   if (argv["modsDirectory"] !== undefined) {
-    // They specified the "--mods-directory" command-line flag,
-    // so there is no need to prompt the user for it
+    // They specified the "--mods-directory" command-line flag, so there is no need to prompt the
+    // user for it.
     return argv["modsDirectory"] as string;
   }
 
@@ -97,12 +97,11 @@ function getDefaultModsPath(platform: string) {
     }
 
     default: {
-      error(
+      return error(
         `There does not exist a default mod path for the platform of: ${chalk.green(
           platform,
         )}`,
       );
-      return "";
     }
   }
 }

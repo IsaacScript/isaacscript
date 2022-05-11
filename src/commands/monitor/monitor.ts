@@ -39,8 +39,8 @@ export function monitor(argv: Record<string, unknown>, config: Config): void {
   copyWatcherMod(config, verbose);
   touchWatcherSaveDatFiles(config, verbose);
 
-  // Delete and re-copy the mod every time IsaacScript starts
-  // This ensures that it is always the latest version
+  // Delete and re-copy the mod every time IsaacScript starts. This ensures that it is always the
+  // latest version.
   if (file.exists(modTargetPath, verbose)) {
     file.deleteFileOrDirectory(modTargetPath, true);
   }
@@ -82,8 +82,7 @@ function spawnModDirectorySyncer(config: Config) {
     notifyGame.msg(msg);
 
     // If the "main.lua" file was successfully copied over, we also have to tell isaacscript-watcher
-    // to reload the mod
-    // Look for something like: "File synced: \main.lua"
+    // to reload the mod. Look for something like: "File synced: \main.lua"
     if (msg === `${FILE_SYNCED_MESSAGE} ${path.sep}${MAIN_LUA}`) {
       notifyGame.command(`luamod ${modTargetName}`);
       notifyGame.command("restart");

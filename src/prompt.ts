@@ -1,6 +1,5 @@
 // Both the Inquirer.js library and the Prompts library have a bug where text is duplicated in a Git
-// Bash terminal
-// Thus, we revert to using the simpler Prompt library
+// Bash terminal. Thus, we revert to using the simpler Prompt library.
 
 import chalk from "chalk";
 import prompt from "prompt";
@@ -10,7 +9,7 @@ const VALID_YES_RESPONSES = new Set(["yes", "ye", "y"]);
 const VALID_NO_RESPONSES = new Set(["no", "n"]);
 
 export function promptInit(): void {
-  // Override some of the prompt library's default values
+  // Override some of the prompt library's default values:
   // https://github.com/flatiron/prompt#customizing-your-prompt
   prompt.message = chalk.green("?");
   prompt.delimiter = " ";
@@ -23,7 +22,7 @@ export async function getInputYesNo(
 ): Promise<boolean> {
   prompt.start();
 
-  // Capitalize the letter that represents the default option
+  // Capitalize the letter that represents the default option.
   const y = defaultValue ? "Y" : "y";
   const n = defaultValue ? "n" : "N";
 
@@ -46,7 +45,7 @@ export async function getInputYesNo(
 
   const cleanedResponse = response.toLowerCase().trim();
 
-  // Default to true
+  // Default to true.
   if (cleanedResponse === "") {
     return defaultValue;
   }
@@ -59,8 +58,7 @@ export async function getInputYesNo(
     return false;
   }
 
-  error('Invalid response; must answer "yes" or "no".');
-  return false;
+  return error('Invalid response; must answer "yes" or "no".');
 }
 
 /** Returns trimmed input. */

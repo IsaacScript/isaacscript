@@ -10,8 +10,7 @@ export async function promptVSCode(
   verbose: boolean,
 ): Promise<void> {
   if (vscode) {
-    // They supplied the "--vscode" command-line flag,
-    // so there is no need to prompt the user
+    // They supplied the "--vscode" command-line flag, so there is no need to prompt the user.
     openVSCode(projectPath, VSCodeCommand, verbose);
     return;
   }

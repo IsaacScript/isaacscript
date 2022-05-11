@@ -8,9 +8,10 @@ import { error } from "./utils";
 
 const BASH_PROFILE_PATH = path.join(HOME_DIR, ".bash_profile");
 
-// By default, Git Bash for Windows uses MINGW64
-// This will not work correctly with the prompt library
-// Try to detect this and warn the end-user
+/**
+ * By default, Git Bash for Windows uses MINGW64. This will not work correctly with the prompt
+ * library. Try to detect this and warn the end-user.
+ */
 export async function checkForWindowsTerminalBugs(
   verbose: boolean,
 ): Promise<void> {
@@ -52,7 +53,7 @@ async function checkForWindowsBugColor(verbose: boolean) {
 }
 
 function applyFixesToBashProfile(verbose: boolean) {
-  // Check to see if the Bash profile has data
+  // Check to see if the Bash profile has data.
   let bashProfileContents: string;
   if (file.exists(BASH_PROFILE_PATH, verbose)) {
     bashProfileContents = file.read(BASH_PROFILE_PATH, verbose);
@@ -87,14 +88,14 @@ function getBashProfileAppendText(bashProfileContents: string) {
     bashProfileContents !== "" &&
     bashProfileContents[bashProfileContents.length - 1] !== "\n"
   ) {
-    // If the Bash profile exists and has data, it should end in a newline
-    // Add an extra newline if this is not the case
+    // If the Bash profile exists and has data, it should end in a newline. Add an extra newline if
+    // this is not the case.
     newText += "\n";
   }
 
   if (bashProfileContents !== "") {
     // If the Bash profile exists and has data, add an extra newline between the existing stuff and
-    // the new lines added by us
+    // the new lines added by us.
     newText += "\n";
   }
 
