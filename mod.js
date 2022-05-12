@@ -12,6 +12,48 @@ module.exports = {
   rules: {
     /**
      * Documentation:
+     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/naming-convention.md
+     *
+     * Defined at:
+     * https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js
+     *
+     * Modify the Airbnb config to allow for a leading underscore, which signifies that it is
+     * temporarily not being used.
+     *
+     * Additionally, ensure that all enums match the Isaac convention of using UPPER_CASE.
+     */
+    "@typescript-eslint/naming-convention": [
+      "warn",
+      // Allow camelCase variables (23.2), PascalCase variables (23.8), and UPPER_CASE variables
+      // (23.10).
+      {
+        selector: "variable",
+        format: ["camelCase", "PascalCase", "UPPER_CASE"],
+        leadingUnderscore: "allow",
+      },
+      // Allow camelCase functions (23.2), and PascalCase functions (23.8).
+      {
+        selector: "function",
+        format: ["camelCase", "PascalCase"],
+        leadingUnderscore: "allow",
+      },
+      // Airbnb recommends PascalCase for classes (23.3), and although Airbnb does not make
+      // TypeScript recommendations, we are assuming this rule would similarly apply to anything
+      // "type like", including interfaces, type aliases, and enums.
+      {
+        selector: "typeLike",
+        format: ["PascalCase"],
+      },
+      // The vanilla Isaac enums all use UPPER_CASE:
+      // https://wofsauge.github.io/IsaacDocs/rep/enums/CollectibleType.html
+      {
+        selector: "enumMember",
+        format: ["UPPER_CASE"],
+      },
+    ],
+
+    /**
+     * Documentation:
      * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-loop-func.md
      *
      * Defined at:
