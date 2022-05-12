@@ -4,7 +4,9 @@ Disallows `/**` comments longer than N characters and multi-line comments that c
 
 Much like [Prettier](https://prettier.io/), this rule is designed to auto-format your comments so that you don't have to think about it. Try [configuring your IDE](../../README.md#automatic-fixing) to run `eslint --fix` on save.
 
-Also see the [`format-slash-slash-commands`](format-slash-slash-comments.md) rule.
+Also see the [`format-line-comments`](format-line-comments.md) rule.
+
+For more information on why you should use this rule, see the [comment formatting discussion](../comments.md).
 
 ## Rule Details
 

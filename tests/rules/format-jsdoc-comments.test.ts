@@ -378,6 +378,7 @@ invalid.push({
   output: `
 /**
  * Here is my list of things:
+ *
  * - But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain
  *   was born and
  * - I will give you a complete account of the system, and expound the actual teachings of the great
@@ -475,6 +476,19 @@ function foo() {
    * was closed before the transmission was completed or the string "timeout" in case there was a
    * timeout during the operation. Also, after the error message, the function returns the partial
    * result of the transmission.
+   */
+}
+  `,
+});
+
+valid.push({
+  name: "Using a multi-line comment that looks like a numbered bullet point",
+  code: `
+function foo() {
+  /**
+   * This method will crash the game if you provide it an invalid collectible type, such as -1 or
+   * 43. (Using 0 will not cause a crash.) Thus, it is safer to use the \`RemoveCostume\` method
+   * instead.
    */
 }
   `,

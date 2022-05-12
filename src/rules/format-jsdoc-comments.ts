@@ -67,7 +67,7 @@ export const formatJSDocComments = createRule<Options, MessageIds>({
     /**
      * We only look at `/**` style comments on their own line.
      *
-     * - `//` style comments are handled by the "format-slash-slash-comment" rule.
+     * - `//` style comments are handled by the "format-line-comments" rule.
      * - `/*` style comments are explicitly ignored, since those are conventionally used to comment
      *   out code. (Actual code documentation conventionally uses JSDoc-style comments, like `/**`.)
      */

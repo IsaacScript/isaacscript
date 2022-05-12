@@ -10,7 +10,7 @@ import {
 } from "../comments";
 import { createRule, hasURL } from "../utils";
 
-const RULE_NAME = "format-slash-slash-comments";
+const RULE_NAME = "format-line-comments";
 const SLASH_SLASH = "//";
 const DEBUG = false;
 
@@ -46,7 +46,7 @@ interface CommentBlock {
   subBulletIndent: string;
 }
 
-export const formatSlashSlashComments = createRule<Options, MessageIds>({
+export const formatLineComments = createRule<Options, MessageIds>({
   name: RULE_NAME,
   meta: {
     type: "layout",

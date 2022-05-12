@@ -1,6 +1,6 @@
 # eslint-plugin-isaacscript
 
-`eslint-plugin-isaacscript` is a collection of [ESLint](https://eslint.org/) rules that can help make your JavaScript/TypeScript code more safe.
+`eslint-plugin-isaacscript` is a collection of miscellaneous [ESLint](https://eslint.org/) rules that can help make your JavaScript/TypeScript code more safe or more strict.
 
 This plugin is named after (and used in) the [IsaacScript](https://isaacscript.github.io/) framework. But you don't have to know anything about IsaacScript to use it - you can use this plugin with any JavaScript/TypeScript project.
 
@@ -42,7 +42,7 @@ Each rule has emojis denoting:
 | [`isaacscript/enum-member-number-separation`](docs/rules/enum-member-number-separation.md)     | Disallows numbers next to letters in enum members                                                     |                    |          |                   |
 | [`isaacscript/eqeqeq-fix`](docs/rules/eqeqeq-fix.md)                                           | Requires the use of `===` and `!==` (and automatically fixes)                                         | :white_check_mark: | :wrench: |                   |
 | [`isaacscript/format-jsdoc-comments`](docs/rules/format-jsdoc-comments.md)                     | Disallows `/**` comments longer than N characters and multi-line comments that can be merged together | :white_check_mark: | :wrench: |                   |
-| [`isaacscript/format-slash-slash-comments`](docs/rules/format-slash-slash-comments.md)         | Disallows `//` comments longer than N characters and multi-line comments that can be merged together  | :white_check_mark: | :wrench: |                   |
+| [`isaacscript/format-line-comments`](docs/rules/format-line-comments.md)                       | Disallows `//` comments longer than N characters and multi-line comments that can be merged together  | :white_check_mark: | :wrench: |                   |
 | [`isaacscript/no-empty-jsdoc`](docs/rules/no-empty-jsdoc.md)                                   | Disallows empty JSDoc comments                                                                        | :white_check_mark: | :wrench: |                   |
 | [`isaacscript/no-implicit-map-set-loops`](docs/rules/no-implicit-map-set-loops.md)             | Disallows implicit iteration for `Maps` and `Sets`                                                    | :white_check_mark: | :wrench: | :thought_balloon: |
 | [`isaacscript/no-let-any`](docs/rules/no-let-any.md)                                           | Disallows declaring variables with let that do not have a type                                        | :white_check_mark: |          | :thought_balloon: |
@@ -57,7 +57,7 @@ Each rule has emojis denoting:
 
 ## Automatic Fixing
 
-You probably already use [Prettier](https://prettier.io/), which is helpful to automatically format files. You probably even have your IDE set up to run Prettier every time your save a file. This kind of thing saves you a tremendous amount of time - you can type out a bunch of code completely unformatted, and then press `Ctrl + s` at the end to automatically fix everything.
+You probably already use [Prettier](https://prettier.io/), which is helpful to automatically format files. You probably even have your IDE set up to run Prettier every time your save a file. This kind of thing saves you a tremendous amount of time - you can type out a bunch of code completely unformatted, and then press `Ctrl + s` at the end to automatically fix everything. (Alternatively, you could press `Ctrl + shift + f` to format the file without saving it, but it's simpler to just use one hotkey for everything.)
 
 In a similar way to Prettier, this ESLint plugin contains several rules that are designed to automatically apply whenever you save the file (like the [`format-jsdoc-comments`](docs/rules/format-jsdoc-comments.md) rule). These rules contain "fix" functions, which are applied when ESLint is executed with the "--fix" flag. So, in the same way that you configure Prettier to run on save, you should also configure `eslint --fix` to run on save.
 
@@ -82,6 +82,10 @@ For example, if you use [VSCode](https://code.visualstudio.com/), and you have t
 ```
 
 <br>
+
+## Comment Formatting
+
+For a discussion around comments and the motivations for some of the comment rules in the plugin, see [this page](docs/comments.md).
 
 ## Contributing
 

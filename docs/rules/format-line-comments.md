@@ -1,10 +1,12 @@
-# `format-slash-slash-comments`
+# `format-line-comments`
 
 Disallows `//` comments longer than N characters and multi-line comments that can be merged together.
 
 Much like [Prettier](https://prettier.io/), this rule is designed to auto-format your comments so that you don't have to think about it. Try [configuring your IDE](../../README.md#automatic-fixing) to run `eslint --fix` on save.
 
 Also see the [`format-jsdoc-comments`](format-jsdoc-comments.md) rule.
+
+For more information on why you should use this rule, see the [comment formatting discussion](../comments.md).
 
 ## Rule Details
 
@@ -45,7 +47,7 @@ You can open a GitHub issue if you find a situation where this rule should be sm
 ```json
 {
   "rules": {
-    "isaacscript/format-slash-slash-comments": [
+    "isaacscript/format-line-comments": [
       "error",
       {
         "maxLength": 100
@@ -57,5 +59,5 @@ You can open a GitHub issue if you find a situation where this rule should be sm
 
 ## Resources
 
-- [Rule source](../../src/rules/format-slash-slash-comments.ts)
-- [Test source](../../tests/rules/format-slash-slash-comments.test.ts)
+- [Rule source](../../src/rules/format-line-comments.ts)
+- [Test source](../../tests/rules/format-line-comments.test.ts)

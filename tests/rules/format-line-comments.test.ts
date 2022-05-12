@@ -1,8 +1,8 @@
 import { TSESLint } from "@typescript-eslint/utils";
 import {
-  formatSlashSlashComments,
+  formatLineComments,
   MessageIds,
-} from "../../src/rules/format-slash-slash-comments";
+} from "../../src/rules/format-line-comments";
 import { ruleTester } from "../utils";
 
 const valid: Array<TSESLint.ValidTestCase<unknown[]>> = [];
@@ -506,9 +506,9 @@ valid.push({
   `,
 });
 
-// ------------------------
-// SLASH-SLASH UNIQUE TESTS
-// ------------------------
+// -----------------
+// LINE UNIQUE TESTS
+// -----------------
 
 valid.push({
   name: "Using triple slash directives",
@@ -562,7 +562,7 @@ valid.push({
   `,
 });
 
-ruleTester.run("format-slash-slash-comments", formatSlashSlashComments, {
+ruleTester.run("format-line-comments", formatLineComments, {
   valid,
   invalid,
 });
