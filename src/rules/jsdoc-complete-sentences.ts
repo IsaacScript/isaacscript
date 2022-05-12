@@ -93,38 +93,56 @@ export const jsdocCompleteSentences = createRule<Options, MessageIds>({
 function getSentenceFromJSDocTag(text: string) {
   text = text.trim();
 
+  // Base case: ignore non-JSDoc tags.
   const hasJSDocTag = text.startsWith("@");
   if (!hasJSDocTag) {
     return text;
   }
 
-  /**
-   * From:
-   * https://stackoverflow.com/questions/69335072/javascript-regex-to-match-jsdoc-tags-inside-a-documentation-block
-   *
-   * This regex must be re-instantiated each time in order to prevent bugs with the lookahead
-   * characters.
-   */
-  const JSDOC_TAG_REGEX =
-    /^@(?<tag>\w+)(?:[ \t]+{(?<type>[^{}]*)})?[ \t]+(?<name>\w+)(?:[ \t]+(?<desc>.*(?:\n(?!\/{3} @\w).*)*))?/gm;
-
-  // We can't use `text.match` because the named match groups won't work properly.
-  const match = JSDOC_TAG_REGEX.exec(text);
-  if (match === null) {
-    return text;
+  // Lone JSDoc tags do not contain any sentences that we want to parse.
+  const loneTagMatch = text.match(/^@\w+$/);
+  if (loneTagMatch !== null) {
+    return "";
   }
 
-  const { groups } = match;
-  if (groups === undefined) {
-    return text;
+  // Extract the name of the JSDoc tag.
+  const tagMatch = text.match(/^@(\w+) /);
+  if (tagMatch === null) {
+    return "";
   }
 
-  const description = groups["desc"];
-  if (description === undefined) {
-    return text;
+  const tag = tagMatch[1];
+  if (tag === undefined) {
+    return "";
   }
 
-  return description;
+  // Specific JSDoc tags have words after them that we want to ignore. For example, we want to
+  // ignore the variable name after a "@param" tag.
+  if (tag === "param") {
+    const paramMatch = text.match(/^@\w+ \w+ (.*)/);
+    if (paramMatch === null) {
+      return "";
+    }
+
+    const sentence = paramMatch[1];
+    if (sentence === undefined) {
+      return "";
+    }
+
+    return sentence;
+  }
+
+  const sentenceMatch = text.match(/^@\w+ (.*)/);
+  if (sentenceMatch === null) {
+    return "";
+  }
+
+  const sentence = sentenceMatch[1];
+  if (sentence === undefined) {
+    return "";
+  }
+
+  return sentence;
 }
 
 function getSentenceKind(text: string): SentenceKind {
@@ -166,7 +184,9 @@ function getSentenceKind(text: string): SentenceKind {
     !text.endsWith(".") &&
     // Allow ending with a colon, since it is implied that there is an example of something on the
     // subsequent block.
-    !text.endsWith(":")
+    !text.endsWith(":") &&
+    // Allow ending with a backtick if this is an example, like: "Use the following code: `foo()`"
+    !(text.includes(":") && text.endsWith("`"))
   ) {
     return SentenceKind.MissingPeriod;
   }

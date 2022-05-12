@@ -194,9 +194,29 @@ function foo(bar: number) {}
 });
 
 valid.push({
+  name: "Function comment with param tag and return tag",
+  code: `
+/**
+ * This is the foo function.
+ *
+ * @param bar This is bar.
+ * @returns Either the bar or the baz.
+ */
+function foo(bar: number): number | undefined {}
+  `,
+});
+
+valid.push({
   name: "Only JSDoc tag",
   code: `
 /** @noSelf */
+  `,
+});
+
+valid.push({
+  name: "Comment ending with code",
+  code: `
+/** For example: \`foo()\` */
   `,
 });
 
