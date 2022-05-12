@@ -4,6 +4,8 @@ Disallows numbers next to letters in enum members.
 
 If your TypeScript project has a convention to use SHOUTING_SNAKE_CASE style for enum members, then use rule to ensure grammatically-correct enum member names.
 
+This rule is not part of the `recommended` config because by default, your TypeScript project should use [PascalCase as the naming convention for your enum members](https://www.typescriptlang.org/docs/handbook/enums.html).
+
 ## Rule Details
 
 ```ts
