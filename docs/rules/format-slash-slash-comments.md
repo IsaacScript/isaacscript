@@ -38,7 +38,7 @@ The rule tries to be as smart as possible. For example, it won't complain about 
 /// <reference path="foo1.d.ts" />
 ```
 
-You can open GitHub issues if you find situations where this rule should be smarter.
+You can open a GitHub issue if you find a situation where this rule should be smarter.
 
 ## Options and Defaults
 

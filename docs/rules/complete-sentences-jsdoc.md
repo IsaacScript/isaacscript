@@ -50,13 +50,22 @@ generate less false positives. (See the cases outlined below.)
 ````ts
 // Good
 /**
- * Putting code blocks inside a JSDoc comment is also okay:
+ * Putting code blocks inside a JSDoc comment is okay:
  *
  * ```ts
  * function foo() {}
  * ```
  */
 ````
+
+```ts
+// Good
+/**
+ * Asking questions is okay. What is the meaning of life?
+ */
+```
+
+The rule tries to be as smart as possible. You can open a GitHub issue if you find a situation where this rule should be smarter.
 
 ## Options and Defaults
 
