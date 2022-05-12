@@ -38,7 +38,7 @@ Each rule has emojis denoting:
 
 | Name                                                                                           | Description                                                                                | :white_check_mark: | :wrench: | :thought_balloon: |
 | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ | ------------------ | -------- | ----------------- |
-| [`isaacscript/enum-member-number-separation`](docs/rules/enum-member-number-separation.md)     | Disallows numbers next to letters in enum members                                          |                    |          | :thought_balloon: |
+| [`isaacscript/enum-member-number-separation`](docs/rules/enum-member-number-separation.md)     | Disallows numbers next to letters in enum members                                          |                    |          |                   |
 | [`isaacscript/eqeqeq-fix`](docs/rules/eqeqeq-fix.md)                                           | Requires the use of `===` and `!==` (and automatically fixes)                              | :white_check_mark: | :wrench: |                   |
 | [`isaacscript/jsdoc-complete-sentences`](docs/rules/jsdoc-complete-sentences.md)               | Enforces complete sentences for JSDoc comments                                             | :white_check_mark: |          |                   |
 | [`isaacscript/limit-jsdoc-comments`](docs/rules/limit-jsdoc-comments.md)                       | Disallows `/*` comments longer than N characters                                           | :white_check_mark: | :wrench: |                   |
