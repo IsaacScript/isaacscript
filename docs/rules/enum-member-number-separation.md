@@ -2,7 +2,7 @@
 
 Disallows numbers next to letters in enum members.
 
-If your TypeScript project has a convention to use SHOUTING_SNAKE_CASE style for enum members, then this rule is useful to ensure grammatically-correct enum member names.
+If your TypeScript project has a convention to use SHOUTING_SNAKE_CASE style for enum members, then use rule to ensure grammatically-correct enum member names.
 
 ## Rule Details
 
