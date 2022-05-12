@@ -1,7 +1,8 @@
 import { TSESTree } from "@typescript-eslint/types";
 import {
+  BulletPointKind,
+  getBulletPointKind,
   getSpacesBeforeBulletPoint,
-  startsWithBulletPoint,
   startsWithExample,
 } from "./comments";
 import { hasURL } from "./utils";
@@ -83,6 +84,7 @@ export function getTextBlocksFromJSDocComment(
   const textBlocks: TextBlock[] = [];
   let partialText = "";
   let partialSubBulletIndent = "";
+  let previousLineBulletPointKind = BulletPointKind.NonBulletPoint;
   let insideCodeBlock = false;
   let previousLineHadURL = false;
   let previousLineHadCodeBlock = false;
@@ -96,7 +98,11 @@ export function getTextBlocksFromJSDocComment(
 
     // Gather information about this line.
     const isBlankLine = lineBeforeTrim.trim() === "";
-    const isBulletPoint = startsWithBulletPoint(lineBeforeTrim);
+    const bulletPointKind = getBulletPointKind(lineBeforeTrim);
+    const isNewOrContinuingBulletPoint =
+      bulletPointKind !== BulletPointKind.NonBulletPoint &&
+      (previousLineBulletPointKind === BulletPointKind.NonBulletPoint ||
+        previousLineBulletPointKind === bulletPointKind);
     const hasExample = startsWithExample(lineBeforeTrim);
     const hasJSDocTag = lineBeforeTrim.startsWith("@");
     const hasURLInside = hasURL(lineBeforeTrim);
@@ -114,7 +120,7 @@ export function getTextBlocksFromJSDocComment(
     // - every line, if we are inside of a code block
     if (
       isBlankLine ||
-      isBulletPoint ||
+      isNewOrContinuingBulletPoint ||
       hasExample ||
       hasJSDocTag ||
       previousLineHadURL ||
@@ -126,7 +132,7 @@ export function getTextBlocksFromJSDocComment(
       // empty blocks, unless we are inside of a code block.)
       if (partialText !== "" || insideCodeBlock) {
         const insertBlankLineBelow = shouldInsertBlankLineBelowTextBlock(
-          isBulletPoint,
+          isNewOrContinuingBulletPoint,
           hasExample,
           hasJSDocTag,
           insideCodeBlock,
@@ -153,6 +159,7 @@ export function getTextBlocksFromJSDocComment(
       partialText += line;
     }
 
+    previousLineBulletPointKind = bulletPointKind;
     previousLineHadURL = hasURLInside;
     if (hasCodeBlock) {
       insideCodeBlock = !insideCodeBlock;

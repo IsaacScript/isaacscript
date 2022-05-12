@@ -1,14 +1,15 @@
 import { TSESLint, TSESTree } from "@typescript-eslint/utils";
 import {
+  BulletPointKind,
+  getBulletPointKind,
   getFormattedCommentText,
   getSpacesBeforeBulletPoint,
   isCommentOnOwnLine,
-  startsWithBulletPoint,
   startsWithExample,
 } from "../comments";
 import { createRule, hasURL } from "../utils";
 
-const RULE_NAME = "limit-slash-slash-comments";
+const RULE_NAME = "format-slash-slash-comments";
 const SLASH_SLASH = "//";
 const DEBUG = false;
 
@@ -32,6 +33,7 @@ export type MessageIds = "incorrectlyFormatted";
 interface CommentBlock {
   mergedText: string;
   originalComments: TSESTree.Comment[];
+  bulletPointKind: BulletPointKind;
 
   /**
    * The amount of spaces before a sub bullet. For example, the following bullet points would have a
@@ -43,12 +45,13 @@ interface CommentBlock {
   subBulletIndent: string;
 }
 
-export const limitSlashSlashComments = createRule<Options, MessageIds>({
+export const formatSlashSlashComments = createRule<Options, MessageIds>({
   name: RULE_NAME,
   meta: {
     type: "layout",
     docs: {
-      description: "Disallows `//` comments longer than N characters",
+      description:
+        "Disallows `//` comments longer than N characters and multi-line comments that can be merged together",
       recommended: "error",
     },
     schema: [
@@ -61,7 +64,7 @@ export const limitSlashSlashComments = createRule<Options, MessageIds>({
       },
     ],
     messages: {
-      incorrectlyFormatted: `Comment is not formatted properly to the line length of {{ maxLength }} characters.`,
+      incorrectlyFormatted: "Comment is not formatted correctly.",
     },
     fixable: "whitespace",
   },
@@ -90,7 +93,7 @@ export const limitSlashSlashComments = createRule<Options, MessageIds>({
 
     /**
      * We only look at `//` style comments on their own line. `/*` style comments are handled by the
-     * "limit-jsdoc-comment" rule.
+     * "format-jsdoc-comment" rule.
      */
     const slashSlashComments = getStandaloneSlashSlashComments(
       sourceCode,
@@ -140,9 +143,6 @@ export const limitSlashSlashComments = createRule<Options, MessageIds>({
             end: lastComment.loc.end,
           },
           messageId: "incorrectlyFormatted",
-          data: {
-            maxLength,
-          },
           fix: (fixer) => {
             const [firstCommentStart, _firstCommentEnd] = firstComment.range;
             const [_lastCommentStart, lastCommentEnd] = lastComment.range;
@@ -198,7 +198,6 @@ function getCommentBlocks(comments: TSESTree.Comment[]): CommentBlock[] {
       continue;
     }
 
-    // eslint-disable-next-line isaacscript/jsdoc-complete-sentences
     /**
      * Remove the initial space that will always live in front of comment line.
      *
@@ -209,11 +208,14 @@ function getCommentBlocks(comments: TSESTree.Comment[]): CommentBlock[] {
      * Has a comment value of: " Foo."
      */
     const text = comment.value.slice(1);
+
+    const bulletPointKind = getBulletPointKind(text);
     const subBulletIndent = getSpacesBeforeBulletPoint(text);
 
     const commentBlock: CommentBlock = {
       mergedText: comment.value.trim(),
       originalComments: [comment],
+      bulletPointKind,
       subBulletIndent,
     };
 
@@ -240,8 +242,22 @@ function getCommentBlocks(comments: TSESTree.Comment[]): CommentBlock[] {
           break;
         }
 
-        // Break if the next line starts with a bullet point.
-        if (startsWithBulletPoint(nextComment.value)) {
+        // Break if we are not in a bullet point list and we encounter a bullet point.
+        const nextCommentBulletPointKind = getBulletPointKind(
+          nextComment.value,
+        );
+        if (
+          bulletPointKind === BulletPointKind.NonBulletPoint &&
+          nextCommentBulletPointKind !== BulletPointKind.NonBulletPoint
+        ) {
+          break;
+        }
+
+        // Break if we are in a bullet point list and we encounter the same kind of bullet point
+        if (
+          bulletPointKind !== BulletPointKind.NonBulletPoint &&
+          nextCommentBulletPointKind === bulletPointKind
+        ) {
           break;
         }
 

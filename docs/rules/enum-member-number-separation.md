@@ -22,7 +22,7 @@ enum Foo {
 }
 ```
 
-## Options
+## Options and Defaults
 
 ```json
 {

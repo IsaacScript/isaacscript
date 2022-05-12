@@ -10,6 +10,13 @@ const urlCreator = (name: string) =>
 export const createRule = ESLintUtils.RuleCreator(urlCreator);
 
 /**
+ * Helper function to get type safety on a switch statement.
+ *
+ * Very useful to be future-safe against people adding values to a type or an enum.
+ */
+export const ensureAllCases = (obj: never): never => obj;
+
+/**
  * From: https://stackoverflow.com/questions/13627308/add-st-nd-rd-and-th-ordinal-suffix-to-a-number
  */
 export function getOrdinalSuffix(i: number): string {

@@ -34,7 +34,6 @@ export const noTemplateCurlyInStringFix = createRule({
             node,
             messageId: "unexpectedTemplateExpression",
             fix(fixer) {
-              // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
               return fixer.replaceText(node, `\`${node.value}\``);
             },
           });

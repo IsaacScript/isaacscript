@@ -38,7 +38,7 @@ Otherwise, the two rules will conflict with each other.
 
 Note that if you use the `recommended` config that comes with this plugin, then the vanilla ESLint rule will be turned off automatically.
 
-## Options
+## Options and Defaults
 
 ```json
 {

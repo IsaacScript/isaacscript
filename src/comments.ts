@@ -1,6 +1,13 @@
 import { TSESLint, TSESTree } from "@typescript-eslint/utils";
 
-// eslint-disable-next-line isaacscript/limit-jsdoc-comments
+export enum BulletPointKind {
+  NonBulletPoint,
+  Hyphen,
+  NumberParenthesis,
+  NumberPeriod,
+}
+
+// eslint-disable-next-line isaacscript/format-jsdoc-comments
 /**
  * For example:
  *
@@ -23,7 +30,8 @@ export function getFormattedCommentText(
 ): string {
   // We want to preserve the spaces before sub-bullet points
   const spacesBeforeBulletPoint = getSpacesBeforeBulletPoint(text);
-  const bulletPointSecondLineIndent = startsWithBulletPoint(text) ? "  " : "";
+  const bulletPointSecondLineIndent =
+    getBulletPointKind(text) === BulletPointKind.NonBulletPoint ? "" : "  ";
 
   const firstLinePrefix = linePrefix + spacesBeforeBulletPoint;
   const firstLineStartLength = firstLinePrefix.length;
@@ -92,16 +100,25 @@ export function getSpacesBeforeBulletPoint(text: string): string {
   return spaces;
 }
 
-export function startsWithBulletPoint(text: string): boolean {
+export function getBulletPointKind(text: string): BulletPointKind {
   const trimmedText = text.trim();
-  return (
-    // e.g. "- A bullet point can start with a hyphen."
-    trimmedText.startsWith("-") ||
-    // e.g. "1) A bullet point can start with a number and a parenthesis."
-    /^\d+\)/.test(trimmedText) ||
-    // e.g. "1. A bullet point can start with a number and a period."
-    /^\d+\./.test(trimmedText)
-  );
+
+  // e.g. "- A bullet point can start with a hyphen."
+  if (trimmedText.startsWith("-")) {
+    return BulletPointKind.Hyphen;
+  }
+
+  // e.g. "1) A bullet point can start with a number and a parenthesis."
+  if (/^\d+\)/.test(trimmedText)) {
+    return BulletPointKind.NumberParenthesis;
+  }
+
+  // e.g. "1. A bullet point can start with a number and a period."
+  if (/^\d+\./.test(trimmedText)) {
+    return BulletPointKind.NumberPeriod;
+  }
+
+  return BulletPointKind.NonBulletPoint;
 }
 
 export function startsWithExample(text: string): boolean {

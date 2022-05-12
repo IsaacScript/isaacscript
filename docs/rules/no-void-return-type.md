@@ -20,7 +20,7 @@ function foo(): void {}
 function foo() {}
 ```
 
-## Options
+## Options and Defaults
 
 ```json
 {

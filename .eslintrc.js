@@ -69,6 +69,21 @@ module.exports = {
   rules: {
     /**
      * Documentation:
+     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/array-type.md
+     *
+     * Not defined in the parent configs.
+     *
+     * Prefer the "string[]" syntax over "Array<string>".
+     */
+    "@typescript-eslint/array-type": [
+      "warn",
+      {
+        default: "array-simple",
+      },
+    ],
+
+    /**
+     * Documentation:
      * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/explicit-module-boundary-types.md
      *
      * Not defined in the parent configs.
@@ -77,6 +92,24 @@ module.exports = {
      * functions.
      */
     "@typescript-eslint/explicit-module-boundary-types": "warn",
+
+    /**
+     * Documentation:
+     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/lines-between-class-members.md
+     *
+     * Defined at:
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
+     *
+     * Airbnb has "exceptAfterSingleLine" turned off by default. A list of single-line variable
+     * declarations at the top of a class is common in TypeScript.
+     */
+    "@typescript-eslint/lines-between-class-members": [
+      "warn",
+      "always",
+      {
+        exceptAfterSingleLine: true,
+      },
+    ],
 
     /**
      * Documentation:
@@ -114,6 +147,16 @@ module.exports = {
 
     /**
      * Documentation:
+     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unnecessary-boolean-literal-compare.md
+     *
+     * Not defined in the parent configs.
+     *
+     * This prevents useless code after refactoring variables to pure booleans.
+     */
+    "@typescript-eslint/no-unnecessary-boolean-literal-compare": "warn",
+
+    /**
+     * Documentation:
      * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unused-vars.md
      *
      * Defined at:
@@ -145,6 +188,26 @@ module.exports = {
 
     /**
      * Documentation:
+     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/quotes.md
+     *
+     * Defined at:
+     * https://github.com/prettier/eslint-config-prettier/blob/main/%40typescript-eslint.js
+     *
+     * In order to forbid unnecessary backticks, we must re-enable the "@typescript-eslint/quotes"
+     * rule as specified in the eslint-config-prettier documentation:
+     * https://github.com/prettier/eslint-config-prettier#enforce-backticks
+     */
+    "@typescript-eslint/quotes": [
+      "warn",
+      "double",
+      {
+        avoidEscape: true,
+        allowTemplateLiterals: false,
+      },
+    ],
+
+    /**
+     * Documentation:
      * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/restrict-template-expressions.md
      *
      * Defined at:
@@ -154,6 +217,27 @@ module.exports = {
      * template strings is to coerce everything to a string.
      */
     "@typescript-eslint/restrict-template-expressions": "off",
+
+    /**
+     * Documentation:
+     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/restrict-template-expressions.md
+     *
+     * Not defined in the parent configs.
+     *
+     * This rule prevents bugs when refactoring a boolean to a number.
+     */
+    "@typescript-eslint/strict-boolean-expressions": [
+      "warn",
+      {
+        allowString: false,
+        allowNumber: false,
+        allowNullableObject: false,
+        allowNullableBoolean: false,
+        allowNullableString: false,
+        allowNullableNumber: false,
+        allowAny: false,
+      },
+    ],
 
     /**
      * Documentation:
@@ -183,6 +267,16 @@ module.exports = {
      * comment.
      */
     "eslint-comments/no-unlimited-disable": "off",
+
+    /**
+     * Documentation:
+     * https://github.com/mysticatea/eslint-plugin-eslint-comments/blob/master/docs/rules/no-unused-disable.md
+     *
+     * Not defined in the parent configs.
+     *
+     * This can help clean up unnecessary comments.
+     */
+    "eslint-comments/no-unused-disable": "warn",
 
     /**
      * Documentation:
@@ -233,6 +327,55 @@ module.exports = {
      * Airbnb disallows these because it can lead to errors with minified code. We don't have to
      * worry about this in for loops though.
      */
-    "no-plusplus": ["warn", { allowForLoopAfterthoughts: true }],
+    "no-plusplus": [
+      "warn",
+      {
+        allowForLoopAfterthoughts: true,
+      },
+    ],
+
+    /**
+     * Documentation: https://eslint.org/docs/rules/no-restricted-syntax
+     *
+     * Defined at:
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
+     *
+     * - We move the selector for "for..of" loops, since they are commonly used.
+     * - We add a selector for "empty" invocations of the "array.push()" method.
+     */
+    "no-restricted-syntax": [
+      "warn",
+      {
+        selector: "ForInStatement",
+        message:
+          "for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array.",
+      },
+      {
+        selector: "LabeledStatement",
+        message:
+          "Labels are a form of GOTO; using them makes code confusing and hard to maintain and understand.",
+      },
+      {
+        selector: "WithStatement",
+        message:
+          "`with` is disallowed in strict mode because it makes code impossible to predict and optimize.",
+      },
+      {
+        selector:
+          "CallExpression[callee.property.name='push'][arguments.length=0]",
+        message: "push must always be called with at least one argument.",
+      },
+    ],
+
+    /**
+     * Documentation: https://eslint.org/docs/rules/prefer-destructuring
+     *
+     * Defined at:
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/es6.js
+     *
+     * - Array destructuring can result in non-intuitive code.
+     * - Object destructuring is disgustingly verbose in TypeScript.
+     */
+    "prefer-destructuring": "off",
   },
 };

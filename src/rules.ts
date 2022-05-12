@@ -1,8 +1,8 @@
 import { enumMemberNumberSeparation } from "./rules/enum-member-number-separation";
 import { eqeqeqFix } from "./rules/eqeqeq-fix";
+import { formatJSDocComments } from "./rules/format-jsdoc-comments";
+import { formatSlashSlashComments } from "./rules/format-slash-slash-comments";
 import { jsdocCompleteSentences } from "./rules/jsdoc-complete-sentences";
-import { limitJSDocComments } from "./rules/limit-jsdoc-comments";
-import { limitSlashSlashComments } from "./rules/limit-slash-slash-comments";
 import { noEmptyJSDoc } from "./rules/no-empty-jsdoc";
 import { noImplicitMapSetLoops } from "./rules/no-implicit-map-set-loops";
 import { noLetAny } from "./rules/no-let-any";
@@ -15,8 +15,8 @@ export const rules = {
   "enum-member-number-separation": enumMemberNumberSeparation,
   "eqeqeq-fix": eqeqeqFix,
   "jsdoc-complete-sentences": jsdocCompleteSentences,
-  "limit-jsdoc-comments": limitJSDocComments,
-  "limit-slash-slash-comments": limitSlashSlashComments,
+  "format-jsdoc-comments": formatJSDocComments,
+  "format-slash-slash-comments": formatSlashSlashComments,
   "no-empty-jsdoc": noEmptyJSDoc,
   "no-implicit-map-set-loops": noImplicitMapSetLoops,
   "no-let-any": noLetAny,

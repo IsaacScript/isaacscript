@@ -46,7 +46,7 @@ function createRule() {
 
   if (description.endsWith(".")) {
     throw new Error(
-      `The rule description ends with a period, which is incorrect and should be deleted.`,
+      "The rule description ends with a period, which is incorrect and should be deleted.",
     );
   }
 

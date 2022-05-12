@@ -6,7 +6,7 @@ import {
 } from "../jsdoc";
 import { createRule } from "../utils";
 
-const RULE_NAME = "limit-jsdoc-comments";
+const RULE_NAME = "format-jsdoc-comments";
 const DEBUG = false;
 
 type Options = [
@@ -18,12 +18,13 @@ type Options = [
 // ts-prune-ignore-next
 export type MessageIds = "incorrectlyFormatted";
 
-export const limitJSDocComments = createRule<Options, MessageIds>({
+export const formatJSDocComments = createRule<Options, MessageIds>({
   name: RULE_NAME,
   meta: {
     type: "layout",
     docs: {
-      description: "Disallows `/*` comments longer than N characters",
+      description:
+        "Disallows `/**` comments longer than N characters and multi-line comments that can be merged together",
       recommended: "error",
     },
     schema: [
@@ -36,7 +37,7 @@ export const limitJSDocComments = createRule<Options, MessageIds>({
       },
     ],
     messages: {
-      incorrectlyFormatted: `Comment is not formatted properly to the line length of {{ maxLength }} characters.`,
+      incorrectlyFormatted: "Comment is not formatted correctly.",
     },
     fixable: "whitespace",
   },
@@ -66,7 +67,7 @@ export const limitJSDocComments = createRule<Options, MessageIds>({
     /**
      * We only look at `/**` style comments on their own line.
      *
-     * - `//` style comments are handled by the "limit-slash-slash-comment" rule.
+     * - `//` style comments are handled by the "format-slash-slash-comment" rule.
      * - `/*` style comments are explicitly ignored, since those are conventionally used to comment
      *   out code. (Actual code documentation conventionally uses JSDoc-style comments, like `/**`.)
      */
@@ -115,9 +116,6 @@ export const limitJSDocComments = createRule<Options, MessageIds>({
             end: comment.loc.end,
           },
           messageId: "incorrectlyFormatted",
-          data: {
-            maxLength,
-          },
           fix: (fixer) => {
             const [commentStart, commentEnd] = comment.range;
             const commentBeginningOfLine =

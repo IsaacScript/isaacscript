@@ -18,7 +18,7 @@ for (const [key, value] of myMap.entries()) {
 }
 ```
 
-## Options
+## Options and Defaults
 
 ```json
 {

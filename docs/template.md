@@ -10,7 +10,7 @@ RULE_DESCRIPTION.
 // Good
 ```
 
-## Options
+## Options and Defaults
 
 ```json
 {

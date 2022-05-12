@@ -36,22 +36,50 @@ Each rule has emojis denoting:
 <!-- Do not manually modify RULES_TABLE section. Instead, run: npm run generate:rules-table -->
 <!-- RULES_TABLE -->
 
-| Name                                                                                           | Description                                                                                | :white_check_mark: | :wrench: | :thought_balloon: |
-| ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ | ------------------ | -------- | ----------------- |
-| [`isaacscript/enum-member-number-separation`](docs/rules/enum-member-number-separation.md)     | Disallows numbers next to letters in enum members                                          |                    |          |                   |
-| [`isaacscript/eqeqeq-fix`](docs/rules/eqeqeq-fix.md)                                           | Requires the use of `===` and `!==` (and automatically fixes)                              | :white_check_mark: | :wrench: |                   |
-| [`isaacscript/jsdoc-complete-sentences`](docs/rules/jsdoc-complete-sentences.md)               | Enforces complete sentences for JSDoc comments                                             | :white_check_mark: |          |                   |
-| [`isaacscript/limit-jsdoc-comments`](docs/rules/limit-jsdoc-comments.md)                       | Disallows `/*` comments longer than N characters                                           | :white_check_mark: | :wrench: |                   |
-| [`isaacscript/limit-slash-slash-comments`](docs/rules/limit-slash-slash-comments.md)           | Disallows `//` comments longer than N characters                                           | :white_check_mark: | :wrench: |                   |
-| [`isaacscript/no-empty-jsdoc`](docs/rules/no-empty-jsdoc.md)                                   | Disallows empty JSDoc comments                                                             | :white_check_mark: | :wrench: |                   |
-| [`isaacscript/no-implicit-map-set-loops`](docs/rules/no-implicit-map-set-loops.md)             | Disallows implicit iteration for `Maps` and `Sets`                                         | :white_check_mark: | :wrench: | :thought_balloon: |
-| [`isaacscript/no-let-any`](docs/rules/no-let-any.md)                                           | Disallows declaring variables with let that do not have a type                             | :white_check_mark: |          | :thought_balloon: |
-| [`isaacscript/no-object-any`](docs/rules/no-object-any.md)                                     | Disallows declaring objects and arrays that do not have a type                             | :white_check_mark: |          | :thought_balloon: |
-| [`isaacscript/no-template-curly-in-string-fix`](docs/rules/no-template-curly-in-string-fix.md) | Disallows template literal placeholder syntax in regular strings (and automatically fixes) | :white_check_mark: | :wrench: |                   |
-| [`isaacscript/no-useless-return-no-fix`](docs/rules/no-useless-return-no-fix.md)               | Disallows redundant return statements (and does not automatically fix)                     | :white_check_mark: |          |                   |
-| [`isaacscript/no-void-return-type`](docs/rules/no-void-return-type.md)                         | Disallows void return types on non-exported functions                                      | :white_check_mark: | :wrench: |                   |
+| Name                                                                                           | Description                                                                                           | :white_check_mark: | :wrench: | :thought_balloon: |
+| ---------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------ | -------- | ----------------- |
+| [`isaacscript/enum-member-number-separation`](docs/rules/enum-member-number-separation.md)     | Disallows numbers next to letters in enum members                                                     |                    |          |                   |
+| [`isaacscript/eqeqeq-fix`](docs/rules/eqeqeq-fix.md)                                           | Requires the use of `===` and `!==` (and automatically fixes)                                         | :white_check_mark: | :wrench: |                   |
+| [`isaacscript/format-jsdoc-comments`](docs/rules/format-jsdoc-comments.md)                     | Disallows `/**` comments longer than N characters and multi-line comments that can be merged together | :white_check_mark: | :wrench: |                   |
+| [`isaacscript/format-slash-slash-comments`](docs/rules/format-slash-slash-comments.md)         | Disallows `//` comments longer than N characters and multi-line comments that can be merged together  | :white_check_mark: | :wrench: |                   |
+| [`isaacscript/jsdoc-complete-sentences`](docs/rules/jsdoc-complete-sentences.md)               | Enforces complete sentences for JSDoc comments                                                        | :white_check_mark: |          |                   |
+| [`isaacscript/no-empty-jsdoc`](docs/rules/no-empty-jsdoc.md)                                   | Disallows empty JSDoc comments                                                                        | :white_check_mark: | :wrench: |                   |
+| [`isaacscript/no-implicit-map-set-loops`](docs/rules/no-implicit-map-set-loops.md)             | Disallows implicit iteration for `Maps` and `Sets`                                                    | :white_check_mark: | :wrench: | :thought_balloon: |
+| [`isaacscript/no-let-any`](docs/rules/no-let-any.md)                                           | Disallows declaring variables with let that do not have a type                                        | :white_check_mark: |          | :thought_balloon: |
+| [`isaacscript/no-object-any`](docs/rules/no-object-any.md)                                     | Disallows declaring objects and arrays that do not have a type                                        | :white_check_mark: |          | :thought_balloon: |
+| [`isaacscript/no-template-curly-in-string-fix`](docs/rules/no-template-curly-in-string-fix.md) | Disallows template literal placeholder syntax in regular strings (and automatically fixes)            | :white_check_mark: | :wrench: |                   |
+| [`isaacscript/no-useless-return-no-fix`](docs/rules/no-useless-return-no-fix.md)               | Disallows redundant return statements (and does not automatically fix)                                | :white_check_mark: |          |                   |
+| [`isaacscript/no-void-return-type`](docs/rules/no-void-return-type.md)                         | Disallows void return types on non-exported functions                                                 | :white_check_mark: | :wrench: |                   |
 
 <!-- /RULES_TABLE -->
+
+<br>
+
+## Automatic Fixing
+
+You probably already use [Prettier](https://prettier.io/), which is helpful to automatically format files. You probably even have your IDE set up to run Prettier every time your save a file. This kind of thing saves you a tremendous amount of time - you can type out a bunch of code completely unformatted, and then press `Ctrl + s` at the end to automatically fix everything.
+
+In a similar way to Prettier, this ESLint plugin contains several rules that are designed to automatically apply whenever you save the file (like the [`format-jsdoc-comments`](docs/rules/format-jsdoc-comments.md) rule). These rules contain "fix" functions, which are applied when ESLint is executed with the "--fix" flag. So, in the same way that you configure Prettier to run on save, you should also configure `eslint --fix` to run on save.
+
+For example, if you use [VSCode](https://code.visualstudio.com/), and you have the [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) and the [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) extensions installed, you can add the following to your repository's `.vscode/settings.json` file:
+
+```jsonc
+{
+  // Automatically run the formatter when certain files are saved.
+  "[javascript]": {
+    "editor.codeActionsOnSave": ["source.fixAll.eslint"],
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2
+  },
+  "[typescript]": {
+    "editor.codeActionsOnSave": ["source.fixAll.eslint"],
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2
+  }
+}
+```
 
 <br>
 

@@ -19,7 +19,7 @@ function foo() {
 }
 ```
 
-## Options
+## Options and Defaults
 
 ```json
 {

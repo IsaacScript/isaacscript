@@ -1,12 +1,12 @@
 import { TSESLint } from "@typescript-eslint/utils";
 import {
-  limitSlashSlashComments,
+  formatSlashSlashComments,
   MessageIds,
-} from "../../src/rules/limit-slash-slash-comments";
+} from "../../src/rules/format-slash-slash-comments";
 import { ruleTester } from "../utils";
 
-const valid: TSESLint.ValidTestCase<unknown[]>[] = [];
-const invalid: TSESLint.InvalidTestCase<MessageIds, unknown[]>[] = [];
+const valid: Array<TSESLint.ValidTestCase<unknown[]>> = [];
+const invalid: Array<TSESLint.InvalidTestCase<MessageIds, unknown[]>> = [];
 
 // ----------------------
 // COVERED BY OTHER RULES
@@ -44,7 +44,7 @@ invalid.push({
 
 invalid.push({
   name: "Using a single-line comment with no preceding or trailing whitespace",
-  code: `// But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will`,
+  code: "// But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will",
   errors: [{ messageId: "incorrectlyFormatted" }],
   output: `// But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was
 // born and I will`,
@@ -391,6 +391,35 @@ invalid.push({
 });
 
 valid.push({
+  name: "Using a multi-line comment with different kinds of bullet points",
+  code: `
+function foo() {
+  // Reads data from a client object, according to the specified read pattern. Patterns follow the
+  // Lua file I/O format, and the difference in performance between all patterns is negligible.
+  //
+  // Pattern can be any of the following:
+  //
+  // - '*a': reads from the socket until the connection is closed. No end-of-line translation is
+  //   performed.
+  // - '*l': reads a line of text from the socket. The line is terminated by a LF character (ASCII
+  //   10), optionally preceded by a CR character (ASCII 13). The CR and LF characters are not
+  //   included in the returned line. In fact, all CR characters are ignored by the pattern. This is
+  //   the default pattern.
+  // - number: causes the method to read a specified number of bytes from the socket.
+  //
+  // Prefix is an optional string to be concatenated to the beginning of any received data before
+  // return.
+  //
+  // If successful, the method returns the received pattern. In case of error, the method returns
+  // undefined followed by an error message which can be the string "closed" in case the connection
+  // was closed before the transmission was completed or the string "timeout" in case there was a
+  // timeout during the operation. Also, after the error message, the function returns the partial
+  // result of the transmission.
+}
+  `,
+});
+
+valid.push({
   name: "Using a single-line comment with an unbreakable line",
   code: `
 // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -525,7 +554,7 @@ valid.push({
   `,
 });
 
-ruleTester.run("limit-slash-slash-comments", limitSlashSlashComments, {
+ruleTester.run("format-slash-slash-comments", formatSlashSlashComments, {
   valid,
   invalid,
 });

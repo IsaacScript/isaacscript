@@ -5,8 +5,8 @@ import {
 } from "../../src/rules/jsdoc-complete-sentences";
 import { ruleTester } from "../utils";
 
-const valid: TSESLint.ValidTestCase<unknown[]>[] = [];
-const invalid: TSESLint.InvalidTestCase<MessageIds, unknown[]>[] = [];
+const valid: Array<TSESLint.ValidTestCase<unknown[]>> = [];
+const invalid: Array<TSESLint.InvalidTestCase<MessageIds, unknown[]>> = [];
 
 valid.push({
   name: "Single-line comment with complete sentence",
@@ -20,7 +20,7 @@ invalid.push({
   code: `
 /** sometimes I forget to capitalize my sentences. */
   `,
-  errors: [{ messageId: "notComplete" }],
+  errors: [{ messageId: "missingCapital" }],
 });
 
 invalid.push({
@@ -28,7 +28,7 @@ invalid.push({
   code: `
 /** Sometimes I forget to put a period on my comments */
   `,
-  errors: [{ messageId: "notComplete" }],
+  errors: [{ messageId: "missingPeriod" }],
 });
 
 valid.push({
@@ -47,7 +47,7 @@ invalid.push({
 * Sometimes I forget to put a period on my comments
 */
   `,
-  errors: [{ messageId: "notComplete" }],
+  errors: [{ messageId: "missingPeriod" }],
 });
 
 invalid.push({
@@ -57,7 +57,7 @@ invalid.push({
  * sometimes I forget to capitalize my sentences.
  */
   `,
-  errors: [{ messageId: "notComplete" }],
+  errors: [{ messageId: "missingCapital" }],
 });
 
 valid.push({
@@ -82,7 +82,16 @@ invalid.push({
 * between two lines
 */
   `,
-  errors: [{ messageId: "notComplete" }, { messageId: "notComplete" }],
+  errors: [{ messageId: "missingPeriod" }, { messageId: "missingPeriod" }],
+});
+
+valid.push({
+  name: "Multi-line comment with blank lines",
+  code: `
+/**
+ *
+ */
+  `,
 });
 
 valid.push({
@@ -143,7 +152,7 @@ invalid.push({
   code: `
 /** "This is not a complete sentence" */
   `,
-  errors: [{ messageId: "notComplete" }],
+  errors: [{ messageId: "missingPeriod" }],
 });
 
 valid.push({
@@ -168,7 +177,7 @@ invalid.push({
  */
 function foo(bar: number) {}
   `,
-  errors: [{ messageId: "notComplete" }],
+  errors: [{ messageId: "missingPeriod" }],
 });
 
 invalid.push({
@@ -181,7 +190,7 @@ invalid.push({
  */
 function foo(bar: number) {}
   `,
-  errors: [{ messageId: "notComplete" }],
+  errors: [{ messageId: "missingCapital" }],
 });
 
 ruleTester.run("jsdoc-complete-sentences", jsdocCompleteSentences, {

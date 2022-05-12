@@ -30,7 +30,7 @@ Disallows empty JSDoc comments (and automatically removes them).
  */
 ```
 
-## Options
+## Options and Defaults
 
 ```json
 {

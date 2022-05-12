@@ -1,6 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies */
-
-// Generates the rules table in "README.md"
+// Generates the rules table in "README.md".
 
 import fs from "fs";
 import path from "path";
@@ -69,7 +67,7 @@ function getRuleTableRow(ruleEntry: [string, RuleDefinition]) {
   const name = `[\`${fullRuleName}\`](docs/rules/${ruleName}.md)`;
   const { description } = rule.meta.docs;
   const isRecommended = isRecommendedRule(rule) ? EMOJI_RECOMMENDED : "";
-  const isFixable = rule.meta.fixable ? EMOJI_FIXABLE : "";
+  const isFixable = rule.meta.fixable === undefined ? "" : EMOJI_FIXABLE;
   const requiresTypeInformation =
     "requiresTypeChecking" in rule.meta.docs
       ? EMOJI_REQUIRES_TYPE_INFORMATION
@@ -136,7 +134,7 @@ function replaceContentInsideMark(
     throw new Error(`'${marker.start}' should used before '${marker.end}'.`);
   }
 
-  if (text) {
+  if (text !== "") {
     text = `${text}\n`;
   }
 

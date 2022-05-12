@@ -1,10 +1,19 @@
+import { TSESTree } from "@typescript-eslint/types";
+import { TSESLint } from "@typescript-eslint/utils";
 import { getJSDocComments, getTextBlocksFromJSDocComment } from "../jsdoc";
-import { createRule, hasURL } from "../utils";
+import { createRule, ensureAllCases, hasURL } from "../utils";
 
 type Options = [];
 
 // ts-prune-ignore-next
-export type MessageIds = "notComplete";
+export type MessageIds = "missingCapital" | "missingPeriod";
+
+enum SentenceKind {
+  Complete,
+  MissingCapital,
+  MissingPeriod,
+  NonSentence,
+}
 
 /**
  * From:
@@ -23,8 +32,10 @@ export const jsdocCompleteSentences = createRule<Options, MessageIds>({
     },
     schema: [],
     messages: {
-      notComplete:
-        "JSDoc comments must contain complete sentences with a capital letter and a period.\n{{ sentence }}",
+      missingCapital:
+        "JSDoc comments must contain complete sentences with a capital letter.\n{{ sentence }}",
+      missingPeriod:
+        "JSDoc comments must contain complete sentences with a trailing period.\n{{ sentence }}",
     },
   },
   defaultOptions: [],
@@ -49,20 +60,34 @@ export const jsdocCompleteSentences = createRule<Options, MessageIds>({
       textBlocks.forEach((textBlock) => {
         const { text, insideCodeBlock } = textBlock;
 
+        // Everything in a code block is whitelisted
+        if (insideCodeBlock) {
+          return;
+        }
+
         // If this is a JSDoc tag, we need to extract the description out of it
         const sentence = getSentenceFromJSDocTag(text);
 
-        if (!isCompleteSentence(sentence) && !insideCodeBlock) {
-          context.report({
-            loc: {
-              start: comment.loc.start,
-              end: comment.loc.end,
-            },
-            messageId: "notComplete",
-            data: {
-              sentence: textBlock.text,
-            },
-          });
+        const sentenceKind = getSentenceKind(sentence);
+        switch (sentenceKind) {
+          case SentenceKind.Complete:
+          case SentenceKind.NonSentence: {
+            return;
+          }
+
+          case SentenceKind.MissingCapital: {
+            report(context, comment, "missingCapital", sentence);
+            return;
+          }
+
+          case SentenceKind.MissingPeriod: {
+            report(context, comment, "missingPeriod", sentence);
+            return;
+          }
+
+          default: {
+            ensureAllCases(sentenceKind);
+          }
         }
       });
     });
@@ -97,7 +122,7 @@ function getSentenceFromJSDocTag(text: string) {
   return description;
 }
 
-function isCompleteSentence(text: string) {
+function getSentenceKind(text: string): SentenceKind {
   // Trim the parenthesis and quotes surrounding the sentence, if any.
   text = text
     .trim()
@@ -109,6 +134,10 @@ function isCompleteSentence(text: string) {
     .replace(/"*$/, "")
     .trim();
 
+  if (text === "") {
+    return SentenceKind.NonSentence;
+  }
+
   if (
     // Whitelist bullets.
     text.startsWith("-") ||
@@ -117,19 +146,39 @@ function isCompleteSentence(text: string) {
     // Whitelist code blocks.
     text.includes("```")
   ) {
-    return true;
+    return SentenceKind.NonSentence;
   }
 
-  // Starts with a capital letter or a number.
-  if (!/^[A-Z0-9]/.test(text)) {
-    return false;
+  if (/^[a-z]/.test(text)) {
+    return SentenceKind.MissingCapital;
   }
 
-  return (
-    // Ends with a period.
-    text.endsWith(".") ||
+  if (
+    !text.endsWith(".") &&
     // Allow ending with a colon, since it is implied that there is an example of something on the
     // subsequent block.
-    text.endsWith(":")
-  );
+    !text.endsWith(":")
+  ) {
+    return SentenceKind.MissingPeriod;
+  }
+
+  return SentenceKind.Complete;
+}
+
+function report(
+  context: TSESLint.RuleContext<MessageIds, []>,
+  comment: TSESTree.Comment,
+  messageId: MessageIds,
+  sentence: string,
+) {
+  context.report({
+    loc: {
+      start: comment.loc.start,
+      end: comment.loc.end,
+    },
+    messageId,
+    data: {
+      sentence,
+    },
+  });
 }

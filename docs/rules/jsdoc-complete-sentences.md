@@ -58,7 +58,7 @@ generate less false positives. (See the cases outlined below.)
  */
 ````
 
-## Options
+## Options and Defaults
 
 ```json
 {
