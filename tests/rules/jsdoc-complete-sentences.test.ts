@@ -86,11 +86,51 @@ invalid.push({
 });
 
 valid.push({
-  name: "Multi-line comment with blank lines",
+  name: "Single-line blank comments",
   code: `
+/**/
+/***/
+/****/
+/*****/
+
+/* */
+/*  */
+/*   */
+
+/* **/
+/*  **/
+/*   **/
+
+/** */
+/**  */
+/**   */
+
+/** **/
+/**  **/
+/**   **/
+  `,
+});
+
+valid.push({
+  name: "Multi-line blank comments",
+  code: `
+/**
+ */
+
 /**
  *
  */
+
+ /**
+  *
+  *
+  */
+
+  /**
+   *
+   *
+   *
+   */
   `,
 });
 
@@ -98,6 +138,36 @@ valid.push({
   name: "Single-line comment with a URL",
   code: `
 /** Taken from ESLint: https://github.com/eslint/eslint/blob/main/lib/rules/max-len.js */
+    `,
+});
+
+valid.push({
+  name: "Multi-line comment with a URL (combined)",
+  code: `
+/**
+ * Taken from ESLint: https://github.com/eslint/eslint/blob/main/lib/rules/max-len.js
+ */
+    `,
+});
+
+valid.push({
+  name: "Multi-line comment with a URL (separated)",
+  code: `
+/**
+ * Taken from ESLint:
+ * https://github.com/eslint/eslint/blob/main/lib/rules/max-len.js
+ */
+    `,
+});
+
+valid.push({
+  name: "Multi-line comment with a URL and trailing text",
+  code: `
+/**
+ * The TypeScript config extends it:
+ * https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js
+ * (This includes the "parser" declaration of "@typescript-eslint/parser".)
+ */
     `,
 });
 
@@ -115,6 +185,22 @@ valid.push({
     `,
 });
 
+invalid.push({
+  name: "Multi-line comment with a code block and trailing incomplete sentence",
+  code: `
+/**
+ * An object containing one or more contiguous comments. For example:
+ *
+ * \`\`\`ts
+ * // A comment.
+ * // Another comment.
+ * \`\`\`
+ * this is an incomplete sentence.
+ */
+    `,
+  errors: [{ messageId: "missingCapital" }],
+});
+
 valid.push({
   name: "Multi-line comment with a colon and bullet points",
   code: `
@@ -125,17 +211,18 @@ valid.push({
  * - First bullet point.
  *   - Sub bullet point.
  */
-
     `,
 });
 
 valid.push({
-  name: "Multi-line comment with a URL and trailing text",
+  name: "Multi-line comment with a colon and bullet points of non-complete items",
   code: `
 /**
- * The TypeScript config extends it:
- * https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js
- * (This includes the "parser" declaration of "@typescript-eslint/parser".)
+ * This is my list of things:
+ *
+ * - first thing
+ *   - sub-first thing
+ * - second thing
  */
     `,
 });
@@ -143,81 +230,87 @@ valid.push({
 valid.push({
   name: "Single-line comment with complete sentence in quotes",
   code: `
-/** "This is not a complete sentence." */
+/** "foo" refers to "baz". */
   `,
 });
 
 invalid.push({
   name: "Single-line comment with incomplete sentence in quotes",
   code: `
-/** "This is not a complete sentence" */
+/** "foo" refers to "baz" */
   `,
   errors: [{ messageId: "missingPeriod" }],
 });
 
 valid.push({
-  name: "Function comment with param tag and complete sentence",
+  name: "Function comment",
   code: `
 /**
  * This is the foo function.
  *
  * @param bar This is bar.
+ * @returns This is a return value.
  */
 function foo(bar: number) {}
   `,
 });
 
 invalid.push({
-  name: "Function comment with param tag and missing period",
+  name: "Function comment with missing periods",
   code: `
 /**
  * This is the foo function.
  *
  * @param bar This is bar
+ * @returns This is a return value
  */
 function foo(bar: number) {}
   `,
-  errors: [{ messageId: "missingPeriod" }],
+  errors: [{ messageId: "missingPeriod" }, { messageId: "missingPeriod" }],
 });
 
 invalid.push({
-  name: "Function comment with param tag and missing capital",
+  name: "Function comment with missing capitals",
   code: `
 /**
  * This is the foo function.
  *
  * @param bar this is bar.
+ * @returns this is a return value.
  */
 function foo(bar: number) {}
   `,
-  errors: [{ messageId: "missingCapital" }],
+  errors: [{ messageId: "missingCapital" }, { messageId: "missingCapital" }],
 });
 
 valid.push({
-  name: "Function comment with param tag and return tag",
-  code: `
-/**
- * This is the foo function.
- *
- * @param bar This is bar.
- * @returns Either the bar or the baz.
- */
-function foo(bar: number): number | undefined {}
-  `,
-});
-
-valid.push({
-  name: "Only JSDoc tag",
+  name: "Comment with lone JSDoc tag",
   code: `
 /** @noSelf */
   `,
 });
 
+invalid.push({
+  name: "Comment with non-lone JSDoc tag",
+  code: `
+/** @noSelf Incomplete */
+  `,
+  errors: [{ messageId: "missingPeriod" }],
+});
+
 valid.push({
-  name: "Comment ending with code",
+  name: "Comment with colon ending with code",
   code: `
 /** For example: \`foo()\` */
   `,
+});
+
+invalid.push({
+  name: "Comment without colon ending with code",
+  code: `
+/** For example \`foo()\` */
+  `,
+  errors: [{ messageId: "missingPeriod" }],
 });
 
 ruleTester.run("jsdoc-complete-sentences", jsdocCompleteSentences, {

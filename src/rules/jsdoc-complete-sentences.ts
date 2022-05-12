@@ -146,18 +146,22 @@ function getSentenceFromJSDocTag(text: string) {
 }
 
 function getSentenceKind(text: string): SentenceKind {
-  // Trim the parenthesis and quotes surrounding the sentence, if any.
-  text = text
-    .trim()
-    .replace(/^\(*/, "")
-    .replace(/^'*/, "")
-    .replace(/^"*/, "")
-    .replace(/\)*$/, "")
-    .replace(/'*$/, "")
-    .replace(/"*$/, "")
-    .trim();
+  // Trim the parenthesis surrounding the sentence, if any.
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    const textBeforeModifications = text;
+    text = text.trim().replace(/^\(*/, "").replace(/\)*$/, "").trim();
+    if (text === textBeforeModifications) {
+      break;
+    }
+  }
 
   if (text === "") {
+    return SentenceKind.NonSentence;
+  }
+
+  // Ignore comments that only contain asterisks.
+  if (/^\*+$/.test(text)) {
     return SentenceKind.NonSentence;
   }
 
@@ -185,8 +189,12 @@ function getSentenceKind(text: string): SentenceKind {
     // Allow ending with a colon, since it is implied that there is an example of something on the
     // subsequent block.
     !text.endsWith(":") &&
-    // Allow ending with a backtick if this is an example, like: "Use the following code: `foo()`"
-    !(text.includes(":") && text.endsWith("`"))
+    // Allow ending with a quote or backtick if this is an example of something indicated with a
+    // colon, like: "Use the following code: `foo()`"
+    !(
+      text.includes(":") &&
+      (text.endsWith('"') || text.endsWith("'") || text.endsWith("`"))
+    )
   ) {
     return SentenceKind.MissingPeriod;
   }

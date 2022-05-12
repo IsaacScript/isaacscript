@@ -554,6 +554,14 @@ valid.push({
   `,
 });
 
+valid.push({
+  name: "Using an eslint-disable-next-line comment",
+  code: `
+// Trim the parenthesis and quotes surrounding the sentence, if any.
+// eslint-disable-next-line no-constant-condition
+  `,
+});
+
 ruleTester.run("format-slash-slash-comments", formatSlashSlashComments, {
   valid,
   invalid,

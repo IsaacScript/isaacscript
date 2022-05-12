@@ -160,3 +160,13 @@ export function isCommentOnOwnLine(
 
   return startLine !== previousTokenEndLine && endLine !== nextTokenStartLine;
 }
+
+export function isSpecialComment(text: string): boolean {
+  text = text.trim();
+
+  return (
+    text.startsWith("eslint-enable") ||
+    text.startsWith("eslint-disable") ||
+    text.startsWith("cspell:")
+  );
+}

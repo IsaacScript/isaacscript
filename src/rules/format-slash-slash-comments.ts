@@ -5,6 +5,7 @@ import {
   getFormattedCommentText,
   getSpacesBeforeBulletPoint,
   isCommentOnOwnLine,
+  isSpecialComment,
   startsWithExample,
 } from "../comments";
 import { createRule, hasURL } from "../utils";
@@ -263,6 +264,11 @@ function getCommentBlocks(comments: TSESTree.Comment[]): CommentBlock[] {
 
         // Break if the next line is an example.
         if (startsWithExample(nextComment.value)) {
+          break;
+        }
+
+        // Break if the next line is a "special" comment like "eslint-disable-next-line".
+        if (isSpecialComment(nextComment.value)) {
           break;
         }
 
