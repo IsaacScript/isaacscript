@@ -190,10 +190,13 @@ function getSentenceKind(text: string): SentenceKind {
 
   if (
     !text.endsWith(".") &&
+    !text.endsWith("?") &&
     // Allow ending with a period inside of a single quote or double quote, since it is implied that
     // this is a fully quoted sentence.
     !text.endsWith('."') &&
+    !text.endsWith('?"') &&
     !text.endsWith(".'") &&
+    !text.endsWith("?'") &&
     // Allow ending with a colon, since it is implied that there is an example of something on the
     // subsequent block.
     !text.endsWith(":") &&

@@ -348,6 +348,13 @@ valid.push({
   `,
 });
 
+valid.push({
+  name: "Comment using a question",
+  code: `
+/** What is the meaning of life? */
+  `,
+});
+
 ruleTester.run("complete-sentences-jsdoc", completeSentencesJSDoc, {
   valid,
   invalid,
