@@ -11,6 +11,7 @@ export const all = {
     eqeqeq: "off",
     "no-template-curly-in-string": "off",
     "no-useless-return": "off",
+    "isaacscript/enum-member-number-separation": "error",
     "isaacscript/eqeqeq-fix": "error",
     "isaacscript/jsdoc-complete-sentences": "error",
     "isaacscript/limit-jsdoc-comments": "error",

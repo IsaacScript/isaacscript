@@ -1,3 +1,4 @@
+import { enumMemberNumberSeparation } from "./rules/enum-member-number-separation";
 import { eqeqeqFix } from "./rules/eqeqeq-fix";
 import { jsdocCompleteSentences } from "./rules/jsdoc-complete-sentences";
 import { limitJSDocComments } from "./rules/limit-jsdoc-comments";
@@ -11,6 +12,7 @@ import { noUselessReturnNoFix } from "./rules/no-useless-return-no-fix";
 import { noVoidReturnType } from "./rules/no-void-return-type";
 
 export const rules = {
+  "enum-member-number-separation": enumMemberNumberSeparation,
   "eqeqeq-fix": eqeqeqFix,
   "jsdoc-complete-sentences": jsdocCompleteSentences,
   "limit-jsdoc-comments": limitJSDocComments,

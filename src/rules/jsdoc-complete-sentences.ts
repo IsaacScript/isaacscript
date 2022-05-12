@@ -24,7 +24,7 @@ export const jsdocCompleteSentences = createRule<Options, MessageIds>({
     schema: [],
     messages: {
       notComplete:
-        "JSDoc comments must contain complete sentences with a capital letter and a period: {{ sentence }}",
+        "JSDoc comments must contain complete sentences with a capital letter and a period.\n{{ sentence }}",
     },
   },
   defaultOptions: [],
