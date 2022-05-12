@@ -156,7 +156,7 @@ invalid.push({
 });
 
 valid.push({
-  name: "Function comment with @param and complete sentence",
+  name: "Function comment with param tag and complete sentence",
   code: `
 /**
  * This is the foo function.
@@ -168,7 +168,7 @@ function foo(bar: number) {}
 });
 
 invalid.push({
-  name: "Function comment with @param and missing period",
+  name: "Function comment with param tag and missing period",
   code: `
 /**
  * This is the foo function.
@@ -181,7 +181,7 @@ function foo(bar: number) {}
 });
 
 invalid.push({
-  name: "Function comment with @param and missing capital",
+  name: "Function comment with param tag and missing capital",
   code: `
 /**
  * This is the foo function.
@@ -191,6 +191,13 @@ invalid.push({
 function foo(bar: number) {}
   `,
   errors: [{ messageId: "missingCapital" }],
+});
+
+valid.push({
+  name: "Only JSDoc tag",
+  code: `
+/** @noSelf */
+  `,
 });
 
 ruleTester.run("jsdoc-complete-sentences", jsdocCompleteSentences, {

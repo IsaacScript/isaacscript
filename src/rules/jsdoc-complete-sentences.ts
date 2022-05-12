@@ -1,5 +1,6 @@
 import { TSESTree } from "@typescript-eslint/types";
 import { TSESLint } from "@typescript-eslint/utils";
+import { BulletPointKind, getBulletPointKind } from "../comments";
 import { getJSDocComments, getTextBlocksFromJSDocComment } from "../jsdoc";
 import { createRule, ensureAllCases, hasURL } from "../utils";
 
@@ -14,13 +15,6 @@ enum SentenceKind {
   MissingPeriod,
   NonSentence,
 }
-
-/**
- * From:
- * https://stackoverflow.com/questions/69335072/javascript-regex-to-match-jsdoc-tags-inside-a-documentation-block
- */
-const JSDOC_TAG_REGEX =
-  /^@(?<tag>\w+)(?:[ \t]+{(?<type>[^{}]*)})?[ \t]+(?<name>\w+)(?:[ \t]+(?<desc>.*(?:\n(?!\/{3} @\w).*)*))?/gm;
 
 export const jsdocCompleteSentences = createRule<Options, MessageIds>({
   name: "jsdoc-complete-sentences",
@@ -104,6 +98,17 @@ function getSentenceFromJSDocTag(text: string) {
     return text;
   }
 
+  /**
+   * From:
+   * https://stackoverflow.com/questions/69335072/javascript-regex-to-match-jsdoc-tags-inside-a-documentation-block
+   *
+   * This regex must be re-instantiated each time in order to prevent bugs with the lookahead
+   * characters.
+   */
+  const JSDOC_TAG_REGEX =
+    /^@(?<tag>\w+)(?:[ \t]+{(?<type>[^{}]*)})?[ \t]+(?<name>\w+)(?:[ \t]+(?<desc>.*(?:\n(?!\/{3} @\w).*)*))?/gm;
+
+  // We can't use `text.match` because the named match groups won't work properly.
   const match = JSDOC_TAG_REGEX.exec(text);
   if (match === null) {
     return text;
@@ -138,13 +143,17 @@ function getSentenceKind(text: string): SentenceKind {
     return SentenceKind.NonSentence;
   }
 
+  const bulletPointKind = getBulletPointKind(text);
+
   if (
     // Whitelist bullets.
-    text.startsWith("-") ||
+    bulletPointKind !== BulletPointKind.NonBulletPoint ||
     // Whitelist text with URLS.
     hasURL(text) ||
     // Whitelist code blocks.
-    text.includes("```")
+    text.includes("```") ||
+    // Whitelist single JSDoc tags.
+    /^@\w+$/.test(text)
   ) {
     return SentenceKind.NonSentence;
   }
