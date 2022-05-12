@@ -180,7 +180,11 @@ function getSentenceKind(text: string): SentenceKind {
     return SentenceKind.NonSentence;
   }
 
-  if (/^[a-z]/.test(text)) {
+  if (
+    /^[a-z]/.test(text) &&
+    !text.startsWith("e.g.") &&
+    !text.startsWith("i.e.")
+  ) {
     return SentenceKind.MissingCapital;
   }
 
@@ -194,9 +198,13 @@ function getSentenceKind(text: string): SentenceKind {
     // subsequent block.
     !text.endsWith(":") &&
     // Allow ending with a quote or backtick if this is an example of something indicated with a
-    // colon, like: "Use the following code: `foo()`"
+    // colon or an "e.g" or an "i.e.", like:
+    // - Use the following code: `foo()`
+    // - e.g. `Foo.Bar()`
     !(
-      text.includes(":") &&
+      (text.includes(":") ||
+        text.startsWith("e.g.") ||
+        text.startsWith("i.e.")) &&
       (text.endsWith('"') || text.endsWith("'") || text.endsWith("`"))
     )
   ) {

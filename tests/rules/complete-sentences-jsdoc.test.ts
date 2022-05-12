@@ -255,6 +255,18 @@ valid.push({
 });
 
 valid.push({
+  name: "Multi-line comment with a complete sentence in quotes",
+  code: `
+/**
+ * The following is a quote:
+ *
+ * "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain
+ * was born and I will."
+ */
+  `,
+});
+
+valid.push({
   name: "Function comment",
   code: `
 /**
@@ -323,6 +335,17 @@ invalid.push({
 /** For example \`foo()\` */
   `,
   errors: [{ messageId: "missingPeriod" }],
+});
+
+valid.push({
+  name: "Comment using e.g. and no period",
+  code: `
+/**
+ * The static methods in this class can only be called by a global variable.
+ *
+ * e.g. \`Foo.Bar()\`
+ */
+  `,
 });
 
 ruleTester.run("complete-sentences-jsdoc", completeSentencesJSDoc, {
