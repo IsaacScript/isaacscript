@@ -22,8 +22,6 @@ const EMOJI_REQUIRES_TYPE_INFORMATION = ":thought_balloon:";
 const README_MD_PATH = path.join(__dirname, "..", "README.md");
 const RULES_TABLE_MARKER = newMarker("RULES_TABLE");
 
-generateRulesTable();
-
 function newMarker(marker: string): Marker {
   return {
     start: newHTMLComment(marker),
@@ -35,7 +33,7 @@ function newHTMLComment(comment: string) {
   return `<!-- ${comment} -->`;
 }
 
-function generateRulesTable() {
+export function generateReadme(): void {
   const rulesTable = getRulesTable();
   updateFileContentInsideMark(README_MD_PATH, rulesTable, RULES_TABLE_MARKER);
 }

@@ -1,14 +1,14 @@
-import { execSync } from "child_process";
-import packageJSON from "../package.json";
+import { generateConfigs } from "./generateConfigs";
+import { generateReadme } from "./generateReadme";
+import { generateRules } from "./generateRules";
 
 export function generateAll(): void {
-  const scripts = Object.keys(packageJSON.scripts);
-  const generateScripts = scripts.filter((script) =>
-    script.startsWith("generate:"),
-  );
-  generateScripts.forEach((script) => {
-    const command = `npm run ${script}`;
-    console.log(`Running: ${command}`);
-    execSync(command);
-  });
+  console.log("Generating rules...");
+  generateRules(); // Rules must be generated before configs/readme
+
+  console.log("Generating configs...");
+  generateConfigs();
+
+  console.log("Generating readme...");
+  generateReadme();
 }

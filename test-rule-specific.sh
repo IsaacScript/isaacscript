@@ -8,8 +8,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd "$DIR"
 
-RULE_NAME="jsdoc-complete-sentences"
-TEST_NAME="Multi-line comment with a code block and trailing incomplete sentence"
+RULE_NAME="complete-sentences-jsdoc"
+TEST_NAME="Multi-line comment with a complete sentence in quotes"
 
 echo "Running test: $RULE_NAME --> $TEST_NAME"
 TEST_SUMMARY_THRESHOLD=1 npx jest "$DIR/tests/rules/$RULE_NAME.test.ts" --verbose=false -t "$TEST_NAME"

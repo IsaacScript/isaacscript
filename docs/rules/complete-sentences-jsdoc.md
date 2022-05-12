@@ -1,4 +1,4 @@
-# `jsdoc-complete-sentences`
+# `complete-sentences-jsdoc`
 
 Enforces complete sentences for JSDoc comments.
 
@@ -63,7 +63,7 @@ generate less false positives. (See the cases outlined below.)
 ```json
 {
   "rules": {
-    "isaacscript/jsdoc-complete-sentences": "error"
+    "isaacscript/complete-sentences-jsdoc": "error"
   }
 }
 ```
@@ -72,5 +72,5 @@ This rule is not configurable.
 
 ## Resources
 
-- [Rule source](../../src/rules/jsdoc-complete-sentences.ts)
-- [Test source](../../tests/rules/jsdoc-complete-sentences.test.ts)
+- [Rule source](../../src/rules/complete-sentences-jsdoc.ts)
+- [Test source](../../tests/rules/complete-sentences-jsdoc.test.ts)

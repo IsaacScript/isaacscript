@@ -16,7 +16,8 @@
 
   // Configure glob patterns for excluding files and folders in full text searches and quick open.
   "search.exclude": {
-    "dist/**": true
+    "dist/**/*.js": true,
+    "dist/**/*.ts": true,
   },
 
   // -----------------

@@ -1,8 +1,8 @@
 import { TSESLint } from "@typescript-eslint/utils";
 import {
-  jsdocCompleteSentences,
+  completeSentencesJSDoc,
   MessageIds,
-} from "../../src/rules/jsdoc-complete-sentences";
+} from "../../src/rules/complete-sentences-jsdoc";
 import { ruleTester } from "../utils";
 
 const valid: Array<TSESLint.ValidTestCase<unknown[]>> = [];
@@ -243,6 +243,18 @@ invalid.push({
 });
 
 valid.push({
+  name: "Multi-line comment with a complete sentence in quotes",
+  code: `
+/**
+ * The following is a quote:
+ *
+ * "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain
+ * was born and I will."
+ */
+  `,
+});
+
+valid.push({
   name: "Function comment",
   code: `
 /**
@@ -313,7 +325,7 @@ invalid.push({
   errors: [{ messageId: "missingPeriod" }],
 });
 
-ruleTester.run("jsdoc-complete-sentences", jsdocCompleteSentences, {
+ruleTester.run("complete-sentences-jsdoc", completeSentencesJSDoc, {
   valid,
   invalid,
 });

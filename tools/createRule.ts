@@ -1,12 +1,10 @@
 import fs from "fs";
 import path from "path";
-import { rules } from "../src/rules";
 import { PLUGIN_NAME } from "./constants";
 import { generateAll } from "./generateAll";
 import {
-  formatWithPrettier,
+  getCamelCaseRuleName,
   isKebabCase,
-  kebabCaseToCamelCase,
   removeFirstAndLastLine,
 } from "./utils";
 
@@ -20,11 +18,7 @@ const TEMPLATE_SRC_PATH = path.join(SRC_PATH, "template.ts");
 const TESTS_PATH = path.join(REPO_ROOT, "tests");
 const TEMPLATE_TEST_PATH = path.join(TESTS_PATH, "template.ts");
 
-const RULES_PATH = path.join(SRC_PATH, "rules.ts");
-
-createRule();
-
-function createRule() {
+export function createRule(): void {
   const firstArg = process.argv[2];
   if (firstArg === undefined || firstArg === "") {
     throw new Error("You must provide the rule name as the first argument.");
@@ -45,15 +39,12 @@ function createRule() {
   }
 
   if (description.endsWith(".")) {
-    throw new Error(
-      "The rule description ends with a period, which is incorrect and should be deleted.",
-    );
+    throw new Error("The rule description cannot end with a period.");
   }
 
   createDocFile(ruleName, description);
   createSourceFile(ruleName, description);
   createTestFile(ruleName, description);
-  addRuleToRulesTS(ruleName);
   generateAll();
 
   console.log(`Successfully created rule: ${ruleName}`);
@@ -95,40 +86,11 @@ function replaceTemplateText(
   ruleName: string,
   ruleDescription: string,
 ) {
-  const ruleNameCamelCase = getRuleCamelCaseName(ruleName);
+  const ruleNameCamelCase = getCamelCaseRuleName(ruleName);
 
   return text
     .replace(/RULE_NAME_CAMEL_CASE/g, ruleNameCamelCase)
     .replace(/RULE_NAME/g, ruleName)
     .replace(/RULE_DESCRIPTION/g, ruleDescription)
     .replace(/PLUGIN_NAME/g, PLUGIN_NAME);
-}
-
-function addRuleToRulesTS(newRuleName: string) {
-  const ruleNames = Object.keys(rules);
-  ruleNames.push(newRuleName);
-  ruleNames.sort();
-  const ruleImports = ruleNames.map((ruleName) => {
-    const ruleNameCamelCase = getRuleCamelCaseName(ruleName);
-    return `import { ${ruleNameCamelCase} } from "./rules/${ruleName}";`;
-  });
-
-  const ruleLines = ruleNames.map((ruleName) => {
-    const ruleNameCamelCase = getRuleCamelCaseName(ruleName);
-    return `  "${ruleName}": ${ruleNameCamelCase},`;
-  });
-
-  const content = `
-${ruleImports.join("\n")}\n
-export const rules = {
-${ruleLines.join("\n")}\n
-};
-  `.trim();
-  const formattedContent = formatWithPrettier(content, "typescript");
-  fs.writeFileSync(RULES_PATH, formattedContent);
-}
-
-function getRuleCamelCaseName(kebabCaseName: string) {
-  const ruleNameCamelCase = kebabCaseToCamelCase(kebabCaseName);
-  return ruleNameCamelCase.replace("Jsdoc", "JSDoc");
 }
