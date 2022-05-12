@@ -9,7 +9,7 @@ module.exports = {
   /**
    * Instead of using the recommended config, we specifically turn on every rule that is useful.
    *
-   * We must specify `context: "any"` for every rule because by default, the JSDoc rules will only
+   * We must specify `contexts: "any"` for every rule because by default, the JSDoc rules will only
    * affect a subset of AST node types.
    */
   rules: {
@@ -28,7 +28,7 @@ module.exports = {
     "jsdoc/check-param-names": [
       "warn",
       {
-        context: "any",
+        contexts: "any",
       },
     ],
 
@@ -43,7 +43,7 @@ module.exports = {
     "jsdoc/check-tag-names": [
       "warn",
       {
-        context: "any",
+        contexts: "any",
         definedTags: [
           // Used by the TypeScript compiler:
           // https://www.typescriptlang.org/tsconfig#stripInternal
@@ -72,7 +72,7 @@ module.exports = {
     "jsdoc/check-values": [
       "warn",
       {
-        context: "any",
+        contexts: "any",
       },
     ],
 
@@ -84,7 +84,7 @@ module.exports = {
     "jsdoc/empty-tags": [
       "warn",
       {
-        context: "any",
+        contexts: "any",
       },
     ],
 
@@ -96,7 +96,7 @@ module.exports = {
     "jsdoc/implements-on-classes": [
       "warn",
       {
-        context: "any",
+        contexts: "any",
       },
     ],
 
@@ -119,7 +119,7 @@ module.exports = {
     "jsdoc/no-types": [
       "warn",
       {
-        context: "any",
+        contexts: "any",
       },
     ],
 
@@ -133,7 +133,7 @@ module.exports = {
     "jsdoc/require-asterisk-prefix": [
       "warn",
       {
-        context: "any",
+        contexts: "any",
       },
     ],
 
@@ -153,7 +153,7 @@ module.exports = {
       "warn",
       "never",
       {
-        context: "any",
+        contexts: "any",
       },
     ],
 
@@ -168,7 +168,7 @@ module.exports = {
     "jsdoc/require-param-description": [
       "warn",
       {
-        context: "any",
+        contexts: "any",
       },
     ],
 
@@ -181,7 +181,7 @@ module.exports = {
     "jsdoc/require-param-name": [
       "warn",
       {
-        context: "any",
+        contexts: "any",
       },
     ],
 
@@ -198,7 +198,7 @@ module.exports = {
     "jsdoc/require-property-description": [
       "warn",
       {
-        context: "any",
+        contexts: "any",
       },
     ],
 
@@ -211,7 +211,7 @@ module.exports = {
     "jsdoc/require-property-name": [
       "warn",
       {
-        context: "any",
+        contexts: "any",
       },
     ],
 
@@ -228,7 +228,7 @@ module.exports = {
     "jsdoc/require-returns-description": [
       "warn",
       {
-        context: "any",
+        contexts: "any",
       },
     ],
 
@@ -249,7 +249,7 @@ module.exports = {
     "jsdoc/tag-lines": [
       "warn",
       {
-        context: "any",
+        contexts: "any",
       },
     ],
 
