@@ -2,7 +2,10 @@
 // https://eslint.org/docs/user-guide/configuring
 module.exports = {
   plugins: [
-    /** Lint JSDoc style comments: https://github.com/gajus/eslint-plugin-jsdoc */
+    /**
+     * Lint JSDoc style comments:
+     * https://github.com/gajus/eslint-plugin-jsdoc
+     */
     "jsdoc",
   ],
 
@@ -32,7 +35,8 @@ module.exports = {
     // - jsdoc/check-syntax - Not needed in TypeScript.
 
     /**
-     * Documentation: https://github.com/gajus/eslint-plugin-jsdoc#check-tag-names
+     * Documentation:
+     * https://github.com/gajus/eslint-plugin-jsdoc#check-tag-names
      *
      * Reports invalid block tag names.
      */

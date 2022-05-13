@@ -66,7 +66,8 @@ module.exports = {
     "@typescript-eslint/no-loop-func": "off",
 
     /**
-     * Documentation: https://github.com/eslint/eslint/blob/master/docs/rules/no-bitwise.md
+     * Documentation:
+     * https://github.com/eslint/eslint/blob/master/docs/rules/no-bitwise.md
      *
      * Defined at:
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
@@ -76,7 +77,8 @@ module.exports = {
     "no-bitwise": "off",
 
     /**
-     * Documentation: https://eslint.org/docs/rules/no-param-reassign
+     * Documentation:
+     * https://eslint.org/docs/rules/no-param-reassign
      *
      * Defined at:
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
@@ -86,7 +88,8 @@ module.exports = {
     "no-param-reassign": "off",
 
     /**
-     * Documentation: https://eslint.org/docs/rules/no-restricted-globals
+     * Documentation:
+     * https://eslint.org/docs/rules/no-restricted-globals
      *
      * Defined at:
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/variables.js
@@ -96,7 +99,8 @@ module.exports = {
     "no-restricted-globals": "off",
 
     /**
-     * Documentation: https://eslint.org/docs/rules/no-underscore-dangle
+     * Documentation:
+     * https://eslint.org/docs/rules/no-underscore-dangle
      *
      * Defined at:
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
