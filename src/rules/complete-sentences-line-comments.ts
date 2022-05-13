@@ -4,6 +4,7 @@ import {
   CommentBlock,
   getCommentBlocks,
   getLeadingLineComments,
+  isSeparatorLine,
 } from "../leadingLineComments";
 import { createRule, hasURL } from "../utils";
 
@@ -62,6 +63,14 @@ export const completeSentencesLineComments = createRule<Options, MessageIds>({
       if (
         nextCommentBlock !== undefined &&
         hasURL(nextCommentBlock.mergedText)
+      ) {
+        continue;
+      }
+
+      // Comments in-between separators are whitelisted.
+      if (
+        nextCommentBlock !== undefined &&
+        isSeparatorLine(nextCommentBlock.mergedText)
       ) {
         continue;
       }

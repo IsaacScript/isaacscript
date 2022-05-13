@@ -9,7 +9,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 cd "$DIR"
 
 RULE_NAME="complete-sentences-line-comments"
-TEST_NAME="Single-line comment without complete sentence"
+TEST_NAME="Comment using separators"
 
 echo "Running test: $RULE_NAME --> $TEST_NAME"
 npx jest "$DIR/tests/rules/$RULE_NAME.test.ts" --verbose=false -t "$TEST_NAME"

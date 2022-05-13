@@ -198,6 +198,15 @@ valid.push({
   `,
 });
 
+valid.push({
+  name: "Comment using separators",
+  code: `
+// ------------
+// SHARED TESTS
+// ------------
+  `,
+});
+
 ruleTester.run(
   "complete-sentences-line-comments",
   completeSentencesLineComments,

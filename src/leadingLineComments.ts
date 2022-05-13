@@ -189,6 +189,6 @@ export function getLeadingLineComments(
  * // ----------------
  * ```
  */
-function isSeparatorLine(text: string) {
+export function isSeparatorLine(text: string): boolean {
   return /^\s*-+\s*$/.test(text);
 }
