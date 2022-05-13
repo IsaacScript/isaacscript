@@ -2,7 +2,7 @@ import { TSESTree } from "@typescript-eslint/types";
 import { TSESLint } from "@typescript-eslint/utils";
 import { getMessageIDFromSentenceKind, getSentenceKind } from "../comments";
 import { getJSDocComments, getTextBlocksFromJSDocComment } from "../jsdoc";
-import { createRule } from "../utils";
+import { createRule, hasURL } from "../utils";
 
 type Options = [];
 
@@ -44,12 +44,27 @@ export const completeSentencesJSDoc = createRule<Options, MessageIds>({
     jsDocComments.forEach((comment) => {
       const textBlocks = getTextBlocksFromJSDocComment(comment);
 
-      textBlocks.forEach((textBlock) => {
+      for (let i = 0; i < textBlocks.length; i++) {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const textBlock = textBlocks[i]!;
         const { text, insideCodeBlock } = textBlock;
 
         // Everything in a code block is whitelisted
         if (insideCodeBlock) {
-          return;
+          continue;
+        }
+
+        // URLs are whitelisted
+        const nextTextBlock = textBlocks[i + 1];
+        if (hasURL(text)) {
+          continue;
+        }
+        if (
+          !textBlock.insertBlankLineBelow &&
+          nextTextBlock !== undefined &&
+          hasURL(nextTextBlock.text)
+        ) {
+          continue;
         }
 
         // If this is a JSDoc tag, we need to extract the description out of it
@@ -60,7 +75,7 @@ export const completeSentencesJSDoc = createRule<Options, MessageIds>({
         if (messageId !== undefined) {
           report(context, comment, messageId as MessageIds, sentence);
         }
-      });
+      }
     });
 
     return {};

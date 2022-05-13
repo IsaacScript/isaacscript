@@ -19,7 +19,7 @@ import { hasURL } from "./utils";
  * // Another comment.
  * ```
  */
-interface CommentBlock {
+export interface CommentBlock {
   mergedText: string;
   originalComments: TSESTree.Comment[];
   bulletPointKind: BulletPointKind;
@@ -51,10 +51,8 @@ export function getCommentBlocks(comments: TSESTree.Comment[]): CommentBlock[] {
   const commentBlocks: CommentBlock[] = [];
 
   for (let i = 0; i < comments.length; i++) {
-    const comment = comments[i];
-    if (comment === undefined) {
-      continue;
-    }
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const comment = comments[i]!;
 
     /**
      * Remove the initial space that will always live in front of comment line.

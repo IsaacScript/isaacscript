@@ -33,7 +33,7 @@ export const noLetAny = createRule({
           /**
            * We have to use `leftTSNode.name` instead of `leftTSNode` to avoid runtime errors
            * because the `typeChecker.getTypeAtLocation` method expects a `ts.BindingName` instead
-           * of a`ts.VariableDeclaration`: https://github.com/microsoft/TypeScript/issues/48878
+           * of a `ts.VariableDeclaration`: https://github.com/microsoft/TypeScript/issues/48878
            */
           const type = checker.getTypeAtLocation(tsNode.name);
 

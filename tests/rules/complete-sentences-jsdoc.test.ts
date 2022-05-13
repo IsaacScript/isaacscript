@@ -388,6 +388,25 @@ valid.push({
   `,
 });
 
+valid.push({
+  name: "Comment using an in-line URL",
+  code: `
+{
+  {
+    {
+      {
+        /**
+        * We have to use \`leftTSNode.name\` instead of \`leftTSNode\` to avoid runtime errors
+        * because the \`typeChecker.getTypeAtLocation\` method expects a \`ts.BindingName\` instead
+        * of a \`ts.VariableDeclaration\`: https://github.com/microsoft/TypeScript/issues/48878
+        */
+      }
+    }
+  }
+}
+  `,
+});
+
 ruleTester.run("complete-sentences-jsdoc", completeSentencesJSDoc, {
   valid,
   invalid,

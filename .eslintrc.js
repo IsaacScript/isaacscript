@@ -4,7 +4,8 @@ module.exports = {
   extends: [
     /**
      * The linter base is the Airbnb style guide, which is the most popular JavaScript style guide
-     * in the world: https://github.com/airbnb/javascript
+     * in the world:
+     * https://github.com/airbnb/javascript
      *
      * The actual ESLint config is located here:
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules
@@ -291,7 +292,8 @@ module.exports = {
     "import/prefer-default-export": "off",
 
     /**
-     * Documentation: https://eslint.org/docs/rules/no-continue
+     * Documentation:
+     * https://eslint.org/docs/rules/no-continue
      *
      * Defined at:
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
@@ -301,7 +303,8 @@ module.exports = {
     "no-continue": "off",
 
     /**
-     * Documentation: https://eslint.org/docs/rules/no-param-reassign
+     * Documentation:
+     * https://eslint.org/docs/rules/no-param-reassign
      *
      * Defined at:
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
@@ -309,7 +312,8 @@ module.exports = {
     "no-param-reassign": "off",
 
     /**
-     * Documentation: https://eslint.org/docs/rules/no-plusplus
+     * Documentation:
+     * https://eslint.org/docs/rules/no-plusplus
      *
      * Defined at:
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
@@ -325,7 +329,8 @@ module.exports = {
     ],
 
     /**
-     * Documentation: https://eslint.org/docs/rules/no-restricted-syntax
+     * Documentation:
+     * https://eslint.org/docs/rules/no-restricted-syntax
      *
      * Defined at:
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
@@ -358,7 +363,8 @@ module.exports = {
     ],
 
     /**
-     * Documentation: https://eslint.org/docs/rules/prefer-destructuring
+     * Documentation:
+     * https://eslint.org/docs/rules/prefer-destructuring
      *
      * Defined at:
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/es6.js

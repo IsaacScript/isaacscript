@@ -169,6 +169,35 @@ valid.push({
   `,
 });
 
+valid.push({
+  name: "Comment using a trailing number expression",
+  code: `
+// For EntityType.TEAR (2)
+//
+// This is an object instead of a TypeScript enum because we need to specify that it contains bit
+// flags. Furthermore, enums cannot be instantiated with \`BitSet128\` objects.
+//
+// This enum was renamed from "TearFlags" to be consistent with the other flag enums.
+  `,
+});
+
+valid.push({
+  name: "Comment using an in-line URL",
+  code: `
+{
+  {
+    {
+      {
+        // We have to use \`leftTSNode.name\` instead of \`leftTSNode\` to avoid runtime errors
+        // because the \`typeChecker.getTypeAtLocation\` method expects a \`ts.BindingName\` instead
+        // of a \`ts.VariableDeclaration\`: https://github.com/microsoft/TypeScript/issues/48878
+      }
+    }
+  }
+}
+  `,
+});
+
 ruleTester.run(
   "complete-sentences-line-comments",
   completeSentencesLineComments,

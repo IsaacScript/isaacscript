@@ -1,10 +1,11 @@
 import { TSESLint, TSESTree } from "@typescript-eslint/utils";
 import { getMessageIDFromSentenceKind, getSentenceKind } from "../comments";
 import {
+  CommentBlock,
   getCommentBlocks,
   getLeadingLineComments,
 } from "../leadingLineComments";
-import { createRule } from "../utils";
+import { createRule, hasURL } from "../utils";
 
 type Options = [];
 
@@ -38,14 +39,31 @@ export const completeSentencesLineComments = createRule<Options, MessageIds>({
 
     // Sort the comments by blocks.
     const commentBlocks = getCommentBlocks(leadingLineComments);
-    const multiLineCommentBlocks = commentBlocks.filter(
-      (commentBlock) => commentBlock.originalComments.length > 1,
-    );
 
-    multiLineCommentBlocks.forEach((commentBlock) => {
+    for (let i = 0; i < commentBlocks.length; i++) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const commentBlock = commentBlocks[i]!;
+
       const firstComment = commentBlock.originalComments[0];
       if (firstComment === undefined) {
-        return;
+        continue;
+      }
+
+      // Single line comments are whitelisted.
+      const nextCommentBlock = commentBlocks[i + 1];
+      if (isSingleLineComment(commentBlock, nextCommentBlock)) {
+        continue;
+      }
+
+      // URLs are whitelisted.
+      if (hasURL(commentBlock.mergedText)) {
+        continue;
+      }
+      if (
+        nextCommentBlock !== undefined &&
+        hasURL(nextCommentBlock.mergedText)
+      ) {
+        continue;
       }
 
       const sentence = commentBlock.mergedText;
@@ -54,11 +72,38 @@ export const completeSentencesLineComments = createRule<Options, MessageIds>({
       if (messageId !== undefined) {
         report(context, firstComment, messageId as MessageIds, sentence);
       }
-    });
+    }
 
     return {};
   },
 });
+
+function isSingleLineComment(
+  commentBlock: CommentBlock,
+  nextCommentBlock: CommentBlock | undefined,
+) {
+  if (commentBlock.originalComments.length > 1) {
+    return false;
+  }
+
+  const comment = commentBlock.originalComments[0];
+  if (comment === undefined) {
+    return true;
+  }
+
+  if (nextCommentBlock === undefined) {
+    return true;
+  }
+
+  const nextComment = nextCommentBlock.originalComments[0];
+  if (nextComment === undefined) {
+    return true;
+  }
+
+  const nextCommentIsOnNextLine =
+    comment.loc.end.line + 1 === nextComment.loc.start.line;
+  return !nextCommentIsOnNextLine;
+}
 
 function report(
   context: TSESLint.RuleContext<MessageIds, []>,
