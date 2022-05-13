@@ -23,7 +23,6 @@ module.exports = {
       options: {
         parser: "json5",
         quoteProps: "preserve",
-        trailingComma: "all",
       },
     },
   ],
