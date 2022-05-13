@@ -2,6 +2,8 @@ import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 import { createRule } from "../utils";
 
 type Options = [];
+
+// ts-prune-ignore-next
 export type MessageIds = "noExplicitArray";
 
 export const noExplicitArrayLoops = createRule<Options, MessageIds>({

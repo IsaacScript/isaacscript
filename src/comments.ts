@@ -8,7 +8,7 @@ export enum BulletPointKind {
   NumberPeriod,
 }
 
-export enum SentenceKind {
+enum SentenceKind {
   NonSentence,
   MissingCapital,
   MissingPeriod,
@@ -187,8 +187,13 @@ export function getSentenceKind(text: string): SentenceKind {
     return SentenceKind.NonSentence;
   }
 
-  // Ignore comments that do not contain any letters
+  // Ignore comments that do not contain any letters.
   if (!/[a-zA-Z]/.test(text)) {
+    return SentenceKind.NonSentence;
+  }
+
+  // Ignore comments that begin with an example.
+  if (text.startsWith("e.g.") || text.startsWith("i.e.")) {
     return SentenceKind.NonSentence;
   }
 
@@ -207,16 +212,13 @@ export function getSentenceKind(text: string): SentenceKind {
     return SentenceKind.NonSentence;
   }
 
-  if (
-    /^[a-z]/.test(text) &&
-    !text.startsWith("e.g.") &&
-    !text.startsWith("i.e.")
-  ) {
+  if (/^[a-z]/.test(text)) {
     return SentenceKind.MissingCapital;
   }
 
   if (
     !text.endsWith(".") &&
+    // Allow questions.
     !text.endsWith("?") &&
     // Allow ending with a period inside of a single quote or double quote, since it is implied that
     // this is a fully quoted sentence.
@@ -227,16 +229,9 @@ export function getSentenceKind(text: string): SentenceKind {
     // Allow ending with a colon, since it is implied that there is an example of something on the
     // subsequent block.
     !text.endsWith(":") &&
-    // Allow ending with a quote or backtick if this is an example of something indicated with a
-    // colon or an "e.g" or an "i.e.", like:
-    // - Use the following code: `foo()`
-    // - e.g. `Foo.Bar()`
-    !(
-      (text.includes(":") ||
-        text.startsWith("e.g.") ||
-        text.startsWith("i.e.")) &&
-      (text.endsWith('"') || text.endsWith("'") || text.endsWith("`"))
-    )
+    // Allow ending with anything if there is a colon in the middle of the sentence, since it is
+    // implied that this is an example of something.
+    !text.includes(": ")
   ) {
     return SentenceKind.MissingPeriod;
   }
