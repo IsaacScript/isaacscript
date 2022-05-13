@@ -1,0 +1,7 @@
+{
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+  "version": "0.2",
+  "import": ["./.cspell-base.json"],
+  "files": ["**"],
+  "ignorePaths": [".cspell-temp.json", ".git/**", "dist/**", "node_modules/**"]
+}

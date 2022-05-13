@@ -13,7 +13,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           # The default version is 14. The ESLint config requires Node 16 to work properly.
-          node-version: '16'
+          node-version: "16"
 
       - name: Retrieve the cached "node_modules" directory (if present)
         uses: actions/cache@v2

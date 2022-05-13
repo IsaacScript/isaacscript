@@ -6,6 +6,11 @@
     "type": "git",
     "url": "git+https://github.com/IsaacScript/eslint-config-isaacscript.git"
   },
+  "files": [
+    "base.js",
+    "mod.js",
+    "jsdoc.js"
+  ],
   "license": "MIT",
   "author": "Zamiell",
   "devDependencies": {
