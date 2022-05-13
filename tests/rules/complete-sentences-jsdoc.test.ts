@@ -367,6 +367,20 @@ valid.push({
   `,
 });
 
+valid.push({
+  name: "Comment using a trailing number expression",
+  code: `
+/**
+ * For EntityType.TEAR (2)
+ *
+ * This is an object instead of a TypeScript enum because we need to specify that it contains bit
+ * flags. Furthermore, enums cannot be instantiated with \`BitSet128\` objects.
+ *
+ * This enum was renamed from "TearFlags" to be consistent with the other flag enums.
+ */
+  `,
+});
+
 ruleTester.run("complete-sentences-jsdoc", completeSentencesJSDoc, {
   valid,
   invalid,

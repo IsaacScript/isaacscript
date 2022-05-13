@@ -172,7 +172,9 @@ export function getMessageIDFromSentenceKind(
   }
 }
 
-export function getSentenceKind(text: string): SentenceKind {
+export function getSentenceKind(originalText: string): SentenceKind {
+  let text = originalText;
+
   // Trim the parenthesis surrounding the sentence, if any.
   // eslint-disable-next-line no-constant-condition
   while (true) {
@@ -194,6 +196,12 @@ export function getSentenceKind(text: string): SentenceKind {
 
   // Ignore comments that begin with an example.
   if (text.startsWith("e.g.") || text.startsWith("i.e.")) {
+    return SentenceKind.NonSentence;
+  }
+
+  // Ignore comments that end with a number in parenthesis, since this indicates some kind of
+  // expression.
+  if (/ \(\d+\)$/.test(originalText.trimEnd())) {
     return SentenceKind.NonSentence;
   }
 
