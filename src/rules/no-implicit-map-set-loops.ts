@@ -16,9 +16,9 @@ export const noImplicitMapSetLoops = createRule<Options, MessageIds>({
     schema: [],
     messages: {
       noImplicitMap:
-        "Implicit iteration over Maps is disallowed. (Use .entries() instead.)",
+        'Implicit iteration over Maps is disallowed. (Use ".entries()" instead.)',
       noImplicitSet:
-        "Implicit iteration over Sets is disallowed. (Use .values() instead.)",
+        'Implicit iteration over Sets is disallowed. (Use ".values()" instead.)',
     },
     fixable: "code",
   },

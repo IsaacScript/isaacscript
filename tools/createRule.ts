@@ -47,7 +47,7 @@ export function createRule(): void {
   createTestFile(ruleName, description);
   generateAll();
 
-  console.log(`Successfully created rule: ${ruleName}`);
+  console.log(`Successfully created rule: ${ruleName}`); // eslint-disable-line no-console
 }
 
 function createDocFile(ruleName: string, description: string) {

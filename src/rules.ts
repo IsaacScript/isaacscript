@@ -12,6 +12,7 @@ import { eqeqeqFix } from "./rules/eqeqeq-fix";
 import { formatJSDocComments } from "./rules/format-jsdoc-comments";
 import { formatLineComments } from "./rules/format-line-comments";
 import { noEmptyJSDoc } from "./rules/no-empty-jsdoc";
+import { noExplicitArrayLoops } from "./rules/no-explicit-array-loops";
 import { noImplicitMapSetLoops } from "./rules/no-implicit-map-set-loops";
 import { noLetAny } from "./rules/no-let-any";
 import { noObjectAny } from "./rules/no-object-any";
@@ -27,6 +28,7 @@ export const rules = {
   "format-jsdoc-comments": formatJSDocComments,
   "format-line-comments": formatLineComments,
   "no-empty-jsdoc": noEmptyJSDoc,
+  "no-explicit-array-loops": noExplicitArrayLoops,
   "no-implicit-map-set-loops": noImplicitMapSetLoops,
   "no-let-any": noLetAny,
   "no-object-any": noObjectAny,

@@ -4,6 +4,8 @@ Disallows implicit iteration for `Maps` and `Sets`.
 
 This can make code easier to read.
 
+Also see the [`no-explicit-array-loops`](no-explicit-array-loops.md) rule.
+
 ## Rule Details
 
 Using implicit iteration for arrays is extremely common. For example:
@@ -32,7 +34,7 @@ for (const value of thing.values()) {
 }
 ```
 
-The idea is that you should use implicit iteration for arrays, and explicit iteration for everything else.
+The idea is that you should use [implicit iteration for arrays](no-explicit-array-loops.md), and explicit iteration for everything else.
 
 ## Options and Defaults
 
