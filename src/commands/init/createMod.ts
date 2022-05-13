@@ -103,7 +103,7 @@ function copyDynamicFiles(
     const fileName = PACKAGE_JSON;
     const templatePath = PACKAGE_JSON_TEMPLATE_PATH;
     const template = file.read(templatePath, verbose);
-    const packageJSON = template.replace(/MOD_NAME_TO_REPLACE/g, projectName);
+    const packageJSON = template.replace(/MOD-NAME-TO-REPLACE/g, projectName);
     const destinationPath = path.join(projectPath, fileName);
     file.write(destinationPath, packageJSON, verbose);
   }
@@ -113,7 +113,7 @@ function copyDynamicFiles(
     const fileName = README_MD;
     const templatePath = README_MD_TEMPLATES_PATH;
     const template = file.read(templatePath, verbose);
-    const readmeMD = template.replace(/MOD_NAME_TO_REPLACE/g, projectName);
+    const readmeMD = template.replace(/MOD-NAME-TO-REPLACE/g, projectName);
     const destinationPath = path.join(projectPath, fileName);
     file.write(destinationPath, readmeMD, verbose);
   }
@@ -123,7 +123,7 @@ function copyDynamicFiles(
     const fileName = METADATA_XML;
     const templatePath = METADATA_XML_TEMPLATE_PATH;
     const template = file.read(templatePath, verbose);
-    const metadataXML = template.replace(/MOD_NAME_TO_REPLACE/g, projectName);
+    const metadataXML = template.replace(/MOD-NAME-TO-REPLACE/g, projectName);
     const modPath = path.join(projectPath, "mod");
     const destinationPath = path.join(modPath, fileName);
     file.write(destinationPath, metadataXML, verbose);
@@ -134,7 +134,7 @@ function copyDynamicFiles(
     const fileName = METADATA_VDF;
     const templatePath = METADATA_VDF_TEMPLATE_PATH;
     const template = file.read(templatePath, verbose);
-    const metadataVDF = template.replace(/MOD_TARGET_DIR/g, targetModDirectory);
+    const metadataVDF = template.replace(/MOD-TARGET-DIR/g, targetModDirectory);
     const modPath = path.join(projectPath, "mod");
     const destinationPath = path.join(modPath, fileName);
     file.write(destinationPath, metadataVDF, verbose);
@@ -148,7 +148,7 @@ function copyDynamicFiles(
     const fileName = MAIN_TS;
     const templatePath = MAIN_TS_TEMPLATE_PATH;
     const template = file.read(templatePath, verbose);
-    const mainTS = template.replace(/MOD_NAME_TO_REPLACE/g, projectName);
+    const mainTS = template.replace(/MOD-NAME-TO-REPLACE/g, projectName);
     const destinationPath = path.join(srcPath, fileName);
     file.write(destinationPath, mainTS, verbose);
   }

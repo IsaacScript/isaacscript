@@ -14,9 +14,9 @@
   // Automatically removing all trailing whitespace when saving a file.
   "files.trimTrailingWhitespace": true,
 
-  // ----------
-  // JavaScript
-  // ----------
+  // -----------------
+  // Language settings
+  // -----------------
 
   // Automatically run the formatter when certain files are saved.
   "[javascript]": {
@@ -31,6 +31,16 @@
     "editor.tabSize": 2,
   },
   "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+  },
+  "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
     "editor.tabSize": 2,

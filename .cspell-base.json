@@ -3,19 +3,19 @@
   "version": "0.2",
   "loadDefaultConfiguration": true,
   "import": [
-      "@cspell/dict-companies/cspell-ext.json",
-      "@cspell/dict-en_us/cspell-ext.json",
-      "@cspell/dict-public-licenses/cspell-ext.json",
-      "@cspell/dict-software-terms/cspell-ext.json",
-      "@cspell/dict-typescript/cspell-ext.json"
+    "@cspell/dict-companies/cspell-ext.json",
+    "@cspell/dict-en_us/cspell-ext.json",
+    "@cspell/dict-public-licenses/cspell-ext.json",
+    "@cspell/dict-software-terms/cspell-ext.json",
+    "@cspell/dict-typescript/cspell-ext.json"
   ],
   "dictionaries": [
-      "companies",
-      "en_US",
-      "networking-terms",
-      "public-licenses",
-      "software-terms",
-      "typescript"
+    "companies",
+    "en_US",
+    "networking-terms",
+    "public-licenses",
+    "software-terms",
+    "typescript"
   ],
   "ignoreRegExpList": [
     "Base64MultiLine",

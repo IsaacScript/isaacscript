@@ -1,10 +1,10 @@
 {
-    "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
-    "version": "0.2",
-    "import": [
-        "./node_modules/isaac-typescript-definitions/.cspell-isaacscript.json"
-    ],
-    "files": ["**"],
-    "ignorePaths": [".git/**", "node_modules/**"],
-    "words": []
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+  "version": "0.2",
+  "import": [
+    "./node_modules/isaac-typescript-definitions/.cspell-isaacscript.json"
+  ],
+  "files": ["**"],
+  "ignorePaths": [".git/**", "node_modules/**"],
+  "words": []
 }

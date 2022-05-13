@@ -1,4 +1,4 @@
-const MOD_NAME = "MOD_NAME_TO_REPLACE";
+const MOD_NAME = "MOD-NAME-TO-REPLACE";
 
 export function main(): void {
   // Instantiate a new mod object, which grants the ability to add callback functions that

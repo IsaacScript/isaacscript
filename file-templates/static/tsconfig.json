@@ -11,9 +11,7 @@
   },
 
   // A list of the TypeScript files to compile.
-  "include": [
-    "./src/**/*.ts",
-  ],
+  "include": ["./src/**/*.ts"],
 
   // TypeScriptToLua settings
   "tstl": {
