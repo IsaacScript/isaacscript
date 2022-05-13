@@ -1,11 +1,10 @@
 {
+    "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
     "version": "0.2",
-    "words": [
-        "dbaeumer",
-        "isaacscript",
-        "sarisia",
-        "steamapps",
-        "technote",
-        "tstl"
-    ]
+    "import": [
+        "./node_modules/isaac-typescript-definitions/.cspell-isaacscript.json"
+    ],
+    "files": ["**"],
+    "ignorePaths": [".git/**", "node_modules/**"],
+    "words": []
 }
