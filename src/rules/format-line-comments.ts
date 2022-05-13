@@ -227,9 +227,13 @@ function getCommentBlocks(comments: TSESTree.Comment[]): CommentBlock[] {
     const commentIndex = i; // Make a copy of the comment index since we will mutate i later.
     const firstCommentStartLine = comment.loc.start.line;
 
-    // Always put certain kinds of comments on their own blocks.
+    // Gather information about this line.
+    const isBlankLine = text.trim() === "";
+    const endsWithColon = text.trimEnd().endsWith(":");
     const separatorLine = isSeparatorLine(text);
     const hasURLInside = hasURL(text);
+
+    // Always put certain kinds of comments on their own blocks.
     const shouldBeInSelfContainedBlock = separatorLine || hasURLInside;
 
     if (!shouldBeInSelfContainedBlock) {
@@ -247,15 +251,15 @@ function getCommentBlocks(comments: TSESTree.Comment[]): CommentBlock[] {
           break;
         }
 
-        // Break if we are not in a bulleted list and we encounter a bullet point, but only if the
-        // previous line is terminated by a colon.
         const nextCommentBulletPointKind = getBulletPointKind(
           nextComment.value,
         );
+
+        // Break if we are not in a bulleted list and we encounter a hyphen bullet point.
         if (
           bulletPointKind === BulletPointKind.NonBulletPoint &&
           nextCommentBulletPointKind !== BulletPointKind.NonBulletPoint &&
-          text.endsWith(":")
+          endsWithColon
         ) {
           break;
         }

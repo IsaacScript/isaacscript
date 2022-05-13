@@ -138,7 +138,7 @@ valid.push({
   name: "Single-line comment with a URL",
   code: `
 /** Taken from ESLint: https://github.com/eslint/eslint/blob/main/lib/rules/max-len.js */
-    `,
+  `,
 });
 
 valid.push({
@@ -147,7 +147,7 @@ valid.push({
 /**
  * Taken from ESLint: https://github.com/eslint/eslint/blob/main/lib/rules/max-len.js
  */
-    `,
+  `,
 });
 
 valid.push({
@@ -157,7 +157,7 @@ valid.push({
  * Taken from ESLint:
  * https://github.com/eslint/eslint/blob/main/lib/rules/max-len.js
  */
-    `,
+  `,
 });
 
 valid.push({
@@ -168,7 +168,7 @@ valid.push({
  * https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js
  * (This includes the "parser" declaration of "@typescript-eslint/parser".)
  */
-    `,
+  `,
 });
 
 valid.push({
@@ -182,7 +182,7 @@ valid.push({
  * // Another comment.
  * \`\`\`
  */
-    `,
+  `,
 });
 
 invalid.push({
@@ -197,7 +197,7 @@ invalid.push({
  * \`\`\`
  * this is an incomplete sentence.
  */
-    `,
+  `,
   errors: [{ messageId: "missingCapital" }],
 });
 
@@ -211,7 +211,7 @@ valid.push({
  * - First bullet point.
  *   - Sub bullet point.
  */
-    `,
+  `,
 });
 
 valid.push({
@@ -224,7 +224,7 @@ valid.push({
  *   - sub-first thing
  * - second thing
  */
-    `,
+  `,
 });
 
 valid.push({

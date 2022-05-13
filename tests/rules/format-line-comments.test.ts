@@ -462,6 +462,16 @@ function foo() {
 });
 
 valid.push({
+  name: "Multi-line comment with bullet points with colons and e.g.",
+  code: `
+// Allow ending with a quote or backtick if this is an example of something indicated with a colon
+// or an "e.g" or an "i.e.", like:
+// - Use the following code: \`foo()\`
+// - e.g. \`Foo.Bar()\`
+  `,
+});
+
+valid.push({
   name: "Using a multi-line comment that looks like a numbered bullet point",
   code: `
 function foo() {
