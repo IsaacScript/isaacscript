@@ -357,6 +357,13 @@ valid.push({
 });
 
 valid.push({
+  name: "Comment using an exclamation point",
+  code: `
+/** I love linting! */
+  `,
+});
+
+valid.push({
   name: "Comment using a numeric literal",
   code: `
 /**
