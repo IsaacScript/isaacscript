@@ -32,9 +32,4 @@ module.exports = {
       },
     },
   ],
-
-  // https://github.com/prettier/plugin-xml#configuration
-  // The default is "struct".
-  // Whitespace cannot be reformatted unless this is set to "ignore".
-  xmlWhitespaceSensitivity: "ignore",
 };

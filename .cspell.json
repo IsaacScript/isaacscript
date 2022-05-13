@@ -1,6 +1,17 @@
 {
     "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
     "version": "0.2",
+    "import": [
+        "./.cspell-base.json"
+    ],
+    "files": [
+        "**"
+    ],
+    "ignorePaths": [
+        ".git/**",
+        "dist/**",
+        "node_modules/**"
+    ],
     "words": [
         "APPDATA",
         "backticks",
