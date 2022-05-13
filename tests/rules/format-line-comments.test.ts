@@ -551,20 +551,6 @@ valid.push({
   `,
 });
 
-invalid.push({
-  name: "Using a multi-line comment with a URL that can be combined",
-  code: `
-// Documentation:
-// https://github.com/jrdrg/eslint-plugin-sort-exports
-// Not defined in parent configs.
-  `,
-  errors: [{ messageId: "incorrectlyFormatted" }],
-  output: `
-// Documentation: https://github.com/jrdrg/eslint-plugin-sort-exports
-// Not defined in parent configs.
-  `,
-});
-
 valid.push({
   name: "Using a multi-line comment with a URL and a blank line",
   code: `
@@ -628,6 +614,15 @@ valid.push({
 // 2) and there is at least one word on the current line
 // (i.e. there could be a very long URL that exceeds the maximum length, but since there are no
 // spaces in the URL, it can't be split up and has to exceed the maximum length)
+  `,
+});
+
+valid.push({
+  name: "Using an URL in the subsequent line",
+  code: `
+// Allow proper formatting of JSONC files:
+// https://github.com/prettier/prettier/issues/5708
+// (this is an extra line)
   `,
 });
 

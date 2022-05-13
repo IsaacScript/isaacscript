@@ -143,6 +143,12 @@ export function getCommentBlocks(comments: TSESTree.Comment[]): CommentBlock[] {
           break;
         }
 
+        // Break if the next line has a URL.
+        const nextCommentHasURL = hasURL(nextComment.value);
+        if (nextCommentHasURL) {
+          break;
+        }
+
         commentBlock.mergedText += " ";
         commentBlock.mergedText += nextComment.value.trim();
         commentBlock.originalComments.push(nextComment);

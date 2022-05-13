@@ -108,7 +108,6 @@ export function getTextBlocksFromJSDocComment(
       previousLineEndedInColon,
       insideBulletedListKind,
     );
-
     const isNewOrContinuingBulletPoint =
       bulletPointKind !== BulletPointKind.NonBulletPoint &&
       (previousLineBulletPointKind === BulletPointKind.NonBulletPoint ||
@@ -129,13 +128,14 @@ export function getTextBlocksFromJSDocComment(
     // - a line that starts with a bullet point
     // - a line that starts with an example
     // - a line that starts with a JSDoc tag
-    // - the end of a line that had a URL
+    // - a URL
     // - every line, if we are inside of a code block
     if (
       isBlankLine ||
       isNewOrContinuingBulletPoint ||
       hasExample ||
       hasJSDocTag ||
+      hasURLInside ||
       previousLineHadURL ||
       insideCodeBlock ||
       hasCodeBlock ||
@@ -152,6 +152,7 @@ export function getTextBlocksFromJSDocComment(
           insideCodeBlock,
           hasCodeBlock,
           previousLineHadURL,
+          hasURLInside,
           isBlankLine,
           previousLineEndedInColon,
         );
@@ -212,6 +213,7 @@ function shouldInsertBlankLineBelowTextBlock(
   insideCodeBlock: boolean,
   nextLineHasCodeBlock: boolean,
   thisBlockHasURL: boolean,
+  nextLineHasURL: boolean,
   nextLineIsBlank: boolean,
   endsInColon: boolean,
 ): boolean {
@@ -222,6 +224,11 @@ function shouldInsertBlankLineBelowTextBlock(
     nextLineHasCodeBlock
   ) {
     return false;
+  }
+
+  if (nextLineHasURL) {
+    // It is optional to have blank lines between URLs. Match the existing comment.
+    return nextLineIsBlank;
   }
 
   if (nextLineIsBulletPoint) {
