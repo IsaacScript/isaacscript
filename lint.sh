@@ -10,7 +10,6 @@ cd "$DIR"
 
 # Step 1 - Use Prettier to check formatting.
 npx prettier --check .
-echo "Success!"
 
 # Step 2 - Check for base file updates.
 "$DIR/check-file-updates.sh"
