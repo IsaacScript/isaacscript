@@ -12,5 +12,5 @@ cd "$DIR"
 npx prettier --check .
 echo "Success!"
 
-# Step 2 - Check for base file updates
+# Step 2 - Check for base file updates.
 "$DIR/check-file-updates.sh"
