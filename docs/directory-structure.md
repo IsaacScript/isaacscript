@@ -143,6 +143,12 @@ This contains a list of files that should not be added to a Git repository, if p
 
 <br />
 
+### `.prettierignore`
+
+This contains a list of files that should not be automatically formatted. By default, it includes stuff from [Basement Renovator](https://github.com/Basement-Renovator/basement-renovator/) and the animation editor.
+
+<br />
+
 ### `.prettierrc.js`
 
 This is the configuration file for Prettier (which is invoked as an ESLint plugin).
