@@ -1,20 +1,13 @@
 import { TSESTree } from "@typescript-eslint/types";
 import { TSESLint } from "@typescript-eslint/utils";
-import { BulletPointKind, getBulletPointKind } from "../comments";
+import { getMessageIDFromSentenceKind, getSentenceKind } from "../comments";
 import { getJSDocComments, getTextBlocksFromJSDocComment } from "../jsdoc";
-import { createRule, ensureAllCases, hasURL } from "../utils";
+import { createRule } from "../utils";
 
 type Options = [];
 
 // ts-prune-ignore-next
 export type MessageIds = "missingCapital" | "missingPeriod";
-
-enum SentenceKind {
-  Complete,
-  MissingCapital,
-  MissingPeriod,
-  NonSentence,
-}
 
 export const completeSentencesJSDoc = createRule<Options, MessageIds>({
   name: "complete-sentences-jsdoc",
@@ -63,25 +56,9 @@ export const completeSentencesJSDoc = createRule<Options, MessageIds>({
         const sentence = getSentenceFromJSDocTag(text);
 
         const sentenceKind = getSentenceKind(sentence);
-        switch (sentenceKind) {
-          case SentenceKind.Complete:
-          case SentenceKind.NonSentence: {
-            return;
-          }
-
-          case SentenceKind.MissingCapital: {
-            report(context, comment, "missingCapital", sentence);
-            return;
-          }
-
-          case SentenceKind.MissingPeriod: {
-            report(context, comment, "missingPeriod", sentence);
-            return;
-          }
-
-          default: {
-            ensureAllCases(sentenceKind);
-          }
+        const messageId = getMessageIDFromSentenceKind(sentenceKind);
+        if (messageId !== undefined) {
+          report(context, comment, messageId as MessageIds, sentence);
         }
       });
     });
@@ -143,78 +120,6 @@ function getSentenceFromJSDocTag(text: string) {
   }
 
   return sentence;
-}
-
-function getSentenceKind(text: string): SentenceKind {
-  // Trim the parenthesis surrounding the sentence, if any.
-  // eslint-disable-next-line no-constant-condition
-  while (true) {
-    const textBeforeModifications = text;
-    text = text.trim().replace(/^\(*/, "").replace(/\)*$/, "").trim();
-    if (text === textBeforeModifications) {
-      break;
-    }
-  }
-
-  if (text === "") {
-    return SentenceKind.NonSentence;
-  }
-
-  // Ignore comments that do not contain any letters
-  if (!/[a-zA-Z]/.test(text)) {
-    return SentenceKind.NonSentence;
-  }
-
-  const bulletPointKind = getBulletPointKind(text);
-
-  if (
-    // Whitelist bullets.
-    bulletPointKind !== BulletPointKind.NonBulletPoint ||
-    // Whitelist text with URLS.
-    hasURL(text) ||
-    // Whitelist code blocks.
-    text.includes("```") ||
-    // Whitelist single JSDoc tags.
-    /^@\w+$/.test(text)
-  ) {
-    return SentenceKind.NonSentence;
-  }
-
-  if (
-    /^[a-z]/.test(text) &&
-    !text.startsWith("e.g.") &&
-    !text.startsWith("i.e.")
-  ) {
-    return SentenceKind.MissingCapital;
-  }
-
-  if (
-    !text.endsWith(".") &&
-    !text.endsWith("?") &&
-    // Allow ending with a period inside of a single quote or double quote, since it is implied that
-    // this is a fully quoted sentence.
-    !text.endsWith('."') &&
-    !text.endsWith('?"') &&
-    !text.endsWith(".'") &&
-    !text.endsWith("?'") &&
-    // Allow ending with a colon, since it is implied that there is an example of something on the
-    // subsequent block.
-    !text.endsWith(":") &&
-    // Allow ending with a quote or backtick if this is an example of something indicated with a
-    // colon or an "e.g" or an "i.e.", like:
-    // - Use the following code: `foo()`
-    // - e.g. `Foo.Bar()`
-    !(
-      (text.includes(":") ||
-        text.startsWith("e.g.") ||
-        text.startsWith("i.e.")) &&
-      (text.endsWith('"') || text.endsWith("'") || text.endsWith("`"))
-    )
-  ) {
-    return SentenceKind.MissingPeriod;
-  }
-
-  return SentenceKind.Complete;
 }
 
 function report(

@@ -1,10 +1,74 @@
 import { TSESLint, TSESTree } from "@typescript-eslint/utils";
+import { ensureAllCases, hasURL } from "./utils";
 
 export enum BulletPointKind {
   NonBulletPoint,
   Hyphen,
   NumberParenthesis,
   NumberPeriod,
+}
+
+export enum SentenceKind {
+  NonSentence,
+  MissingCapital,
+  MissingPeriod,
+  Complete,
+}
+
+/**
+ * The bullet point reported may not be accurate if this is a line that is continuing from the
+ * previous line. For example:
+ *
+ * ```ts
+ * /**
+ *  * This method will crash the game if you provide it an invalid collectible type, such as or
+ *  * 43. (Using 0 will not cause a crash.) Thus, it is safer to use the \`RemoveCostume\`
+ *  * method instead.
+ *  * /
+ * ```
+ *
+ * In this example, "43. " is incorrectly interpreted as a bullet point.
+ */
+export function getAdjustedBulletPointKind(
+  line: string,
+  previousLineWasBlank: boolean,
+  previousLineEndedInColon: boolean,
+  insideBulletedListKind: BulletPointKind,
+): BulletPointKind {
+  const rawBulletPointKind = getBulletPointKind(line);
+
+  switch (rawBulletPointKind) {
+    case BulletPointKind.NonBulletPoint: {
+      return BulletPointKind.NonBulletPoint;
+    }
+
+    case BulletPointKind.Hyphen: {
+      return BulletPointKind.Hyphen;
+    }
+
+    case BulletPointKind.NumberPeriod:
+    case BulletPointKind.NumberParenthesis: {
+      // If we are already inside of a numbered list, then do not require blank lines in between the
+      // bullets.
+      if (rawBulletPointKind === insideBulletedListKind) {
+        return rawBulletPointKind;
+      }
+
+      // If the previous line had a colon, then do not require blank lines in between the bullets.
+      if (previousLineEndedInColon) {
+        return rawBulletPointKind;
+      }
+
+      // Otherwise, only interpret this as a bulleted list if the previous line was blank.
+      return previousLineWasBlank
+        ? rawBulletPointKind
+        : BulletPointKind.NonBulletPoint;
+    }
+
+    default: {
+      return ensureAllCases(rawBulletPointKind);
+    }
+  }
 }
 
 // eslint-disable-next-line isaacscript/format-jsdoc-comments
@@ -85,6 +149,101 @@ export function getFormattedCommentText(
   return formattedWordsObject.value;
 }
 
+export function getMessageIDFromSentenceKind(
+  sentenceKind: SentenceKind,
+): string | undefined {
+  switch (sentenceKind) {
+    case SentenceKind.NonSentence:
+    case SentenceKind.Complete: {
+      return undefined;
+    }
+
+    case SentenceKind.MissingCapital: {
+      return "missingCapital";
+    }
+
+    case SentenceKind.MissingPeriod: {
+      return "missingPeriod";
+    }
+
+    default: {
+      return ensureAllCases(sentenceKind);
+    }
+  }
+}
+
+export function getSentenceKind(text: string): SentenceKind {
+  // Trim the parenthesis surrounding the sentence, if any.
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    const textBeforeModifications = text;
+    text = text.trim().replace(/^\(*/, "").replace(/\)*$/, "").trim();
+    if (text === textBeforeModifications) {
+      break;
+    }
+  }
+
+  if (text === "") {
+    return SentenceKind.NonSentence;
+  }
+
+  // Ignore comments that do not contain any letters
+  if (!/[a-zA-Z]/.test(text)) {
+    return SentenceKind.NonSentence;
+  }
+
+  const bulletPointKind = getBulletPointKind(text);
+
+  if (
+    // Whitelist bullets.
+    bulletPointKind !== BulletPointKind.NonBulletPoint ||
+    // Whitelist text with URLS.
+    hasURL(text) ||
+    // Whitelist code blocks.
+    text.includes("```") ||
+    // Whitelist single JSDoc tags.
+    /^@\w+$/.test(text)
+  ) {
+    return SentenceKind.NonSentence;
+  }
+
+  if (
+    /^[a-z]/.test(text) &&
+    !text.startsWith("e.g.") &&
+    !text.startsWith("i.e.")
+  ) {
+    return SentenceKind.MissingCapital;
+  }
+
+  if (
+    !text.endsWith(".") &&
+    !text.endsWith("?") &&
+    // Allow ending with a period inside of a single quote or double quote, since it is implied that
+    // this is a fully quoted sentence.
+    !text.endsWith('."') &&
+    !text.endsWith('?"') &&
+    !text.endsWith(".'") &&
+    !text.endsWith("?'") &&
+    // Allow ending with a colon, since it is implied that there is an example of something on the
+    // subsequent block.
+    !text.endsWith(":") &&
+    // Allow ending with a quote or backtick if this is an example of something indicated with a
+    // colon or an "e.g" or an "i.e.", like:
+    // - Use the following code: `foo()`
+    // - e.g. `Foo.Bar()`
+    !(
+      (text.includes(":") ||
+        text.startsWith("e.g.") ||
+        text.startsWith("i.e.")) &&
+      (text.endsWith('"') || text.endsWith("'") || text.endsWith("`"))
+    )
+  ) {
+    return SentenceKind.MissingPeriod;
+  }
+
+  return SentenceKind.Complete;
+}
+
 /** In this context, a string with a hyphen represents a bullet point. */
 export function getSpacesBeforeBulletPoint(text: string): string {
   const match = text.match(/^( *)-/);
@@ -121,22 +280,6 @@ export function getBulletPointKind(text: string): BulletPointKind {
   return BulletPointKind.NonBulletPoint;
 }
 
-export function startsWithExample(text: string): boolean {
-  const trimmedText = text.trim();
-
-  return (
-    // e.g. "e.g. Foo"
-    trimmedText.startsWith("e.g. ") ||
-    // e.g. "(e.g. Foo)"
-    trimmedText.startsWith("(e.g. ") ||
-    // e.g. "i.e. Foo"
-    trimmedText.startsWith("i.e. ") ||
-    // e.g. "(i.e. Foo)"
-    trimmedText.startsWith("(i.e. ")
-    // e.g. "e.g. Foo"
-  );
-}
-
 /**
  * Returns false for trailing comments like:
  *
@@ -168,5 +311,21 @@ export function isSpecialComment(text: string): boolean {
     text.startsWith("eslint-enable") ||
     text.startsWith("eslint-disable") ||
     text.startsWith("cspell:")
+  );
+}
+
+export function startsWithExample(text: string): boolean {
+  const trimmedText = text.trim();
+
+  return (
+    // e.g. "e.g. Foo"
+    trimmedText.startsWith("e.g. ") ||
+    // e.g. "(e.g. Foo)"
+    trimmedText.startsWith("(e.g. ") ||
+    // e.g. "i.e. Foo"
+    trimmedText.startsWith("i.e. ") ||
+    // e.g. "(i.e. Foo)"
+    trimmedText.startsWith("(i.e. ")
+    // e.g. "e.g. Foo"
   );
 }

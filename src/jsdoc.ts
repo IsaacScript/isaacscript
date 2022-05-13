@@ -1,11 +1,11 @@
 import { TSESTree } from "@typescript-eslint/types";
 import {
   BulletPointKind,
-  getBulletPointKind,
+  getAdjustedBulletPointKind,
   getSpacesBeforeBulletPoint,
   startsWithExample,
 } from "./comments";
-import { ensureAllCases, hasURL } from "./utils";
+import { hasURL } from "./utils";
 
 /**
  * An object containing one or more lines of text. For example:
@@ -198,62 +198,6 @@ export function getTextBlocksFromJSDocComment(
   }
 
   return textBlocks;
-}
-
-/**
- * The bullet point reported may not be accurate if this is a line that is continuing from the
- * previous line. For example:
- *
- * ```ts
- * /**
- *  * This method will crash the game if you provide it an invalid collectible type, such as or
- *  * 43. (Using 0 will not cause a crash.) Thus, it is safer to use the \`RemoveCostume\`
- *  * method instead.
- *  * /
- * ```
- *
- * In this example, "43. " is incorrectly interpreted as a bullet point.
- */
-function getAdjustedBulletPointKind(
-  line: string,
-  previousLineWasBlank: boolean,
-  previousLineEndedInColon: boolean,
-  insideBulletedListKind: BulletPointKind,
-): BulletPointKind {
-  const rawBulletPointKind = getBulletPointKind(line);
-
-  switch (rawBulletPointKind) {
-    case BulletPointKind.NonBulletPoint: {
-      return BulletPointKind.NonBulletPoint;
-    }
-
-    case BulletPointKind.Hyphen: {
-      return BulletPointKind.Hyphen;
-    }
-
-    case BulletPointKind.NumberPeriod:
-    case BulletPointKind.NumberParenthesis: {
-      // If we are already inside of a numbered list, then do not require blank lines in between the
-      // bullets.
-      if (rawBulletPointKind === insideBulletedListKind) {
-        return rawBulletPointKind;
-      }
-
-      // If the previous line had a colon, then do not require blank lines in between the bullets.
-      if (previousLineEndedInColon) {
-        return rawBulletPointKind;
-      }
-
-      // Otherwise, only interpret this as a bulleted list if the previous line was blank.
-      return previousLineWasBlank
-        ? rawBulletPointKind
-        : BulletPointKind.NonBulletPoint;
-    }
-
-    default: {
-      return ensureAllCases(rawBulletPointKind);
-    }
-  }
 }
 
 /**

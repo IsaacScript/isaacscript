@@ -11,7 +11,7 @@ const invalid: Array<TSESLint.InvalidTestCase<MessageIds, unknown[]>> = [];
 valid.push({
   name: "Single-line comment with complete sentence",
   code: `
-/** Sometimes I forget to put a period on my comments. */
+/** This is a complete sentence. */
   `,
 });
 
@@ -64,7 +64,7 @@ valid.push({
   name: "Multi-line comment with complete sentences and two blocks",
   code: `
 /**
-* Sometimes I forget to put a period on my comments.
+* This is a complete sentence.
 *
 * This is another block that stretches
 * between two lines.
@@ -135,7 +135,7 @@ valid.push({
 });
 
 valid.push({
-  name: "Single-line comment with a URL",
+  name: "Single-line comment with a URL (simple)",
   code: `
 /** Taken from ESLint: https://github.com/eslint/eslint/blob/main/lib/rules/max-len.js */
   `,
@@ -254,16 +254,17 @@ valid.push({
   `,
 });
 
-valid.push({
-  name: "Multi-line comment with a complete sentence in quotes",
+invalid.push({
+  name: "Multi-line comment with a incomplete sentence in quotes",
   code: `
 /**
  * The following is a quote:
  *
  * "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain
- * was born and I will."
+ * was born and I will"
  */
   `,
+  errors: [{ messageId: "missingPeriod" }],
 });
 
 valid.push({

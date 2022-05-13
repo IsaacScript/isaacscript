@@ -1,3 +1,9 @@
+import { TSESLint, TSESTree } from "@typescript-eslint/utils";
+import { getMessageIDFromSentenceKind, getSentenceKind } from "../comments";
+import {
+  getCommentBlocks,
+  getLeadingLineComments,
+} from "../leadingLineComments";
 import { createRule } from "../utils";
 
 type Options = [];
@@ -23,7 +29,51 @@ export const completeSentencesLineComments = createRule<Options, MessageIds>({
     },
   },
   defaultOptions: [],
-  create(_context) {
+  create(context) {
+    const sourceCode = context.getSourceCode();
+    const comments = sourceCode.getAllComments();
+
+    // We only look at `//` style comments on their own line.
+    const leadingLineComments = getLeadingLineComments(sourceCode, comments);
+
+    // Sort the comments by blocks.
+    const commentBlocks = getCommentBlocks(leadingLineComments);
+    const multiLineCommentBlocks = commentBlocks.filter(
+      (commentBlock) => commentBlock.originalComments.length > 1,
+    );
+
+    multiLineCommentBlocks.forEach((commentBlock) => {
+      const firstComment = commentBlock.originalComments[0];
+      if (firstComment === undefined) {
+        return;
+      }
+
+      const sentence = commentBlock.mergedText;
+      const sentenceKind = getSentenceKind(sentence);
+      const messageId = getMessageIDFromSentenceKind(sentenceKind);
+      if (messageId !== undefined) {
+        report(context, firstComment, messageId as MessageIds, sentence);
+      }
+    });
+
     return {};
   },
 });
+
+function report(
+  context: TSESLint.RuleContext<MessageIds, []>,
+  comment: TSESTree.Comment,
+  messageId: MessageIds,
+  sentence: string,
+) {
+  context.report({
+    loc: {
+      start: comment.loc.start,
+      end: comment.loc.end,
+    },
+    messageId,
+    data: {
+      sentence,
+    },
+  });
+}
