@@ -9,8 +9,8 @@ module.exports = {
   /**
    * Instead of using the recommended config, we specifically turn on every rule that is useful.
    *
-   * We must specify `contexts: ["any"]` for every rule because by default, the JSDoc rules will only
-   * affect a subset of AST node types.
+   * We must specify `contexts: ["any"]` for some rules because by default, only a subset of AST
+   * node types will be affected.
    */
   rules: {
     // - jsdoc/check-access - Not needed in TypeScript.
@@ -21,16 +21,12 @@ module.exports = {
     //   not recommended by the plugin.
 
     /**
-     * Documentation: https://github.com/gajus/eslint-plugin-jsdoc#check-param-names
+     * Documentation:
+     * https://github.com/gajus/eslint-plugin-jsdoc#check-param-names
      *
      * Ensures that parameter names in JSDoc match those in the function declaration.
      */
-    "jsdoc/check-param-names": [
-      "warn",
-      {
-        contexts: ["any"],
-      },
-    ],
+    "jsdoc/check-param-names": "warn",
 
     // - jsdoc/check-property-names - Not needed in TypeScript.
     // - jsdoc/check-syntax - Not needed in TypeScript.
@@ -43,7 +39,6 @@ module.exports = {
     "jsdoc/check-tag-names": [
       "warn",
       {
-        contexts: ["any"],
         definedTags: [
           // Used by the TypeScript compiler:
           // https://www.typescriptlang.org/tsconfig#stripInternal
@@ -65,40 +60,28 @@ module.exports = {
     // - jsdoc/check-types - Not needed in TypeScript.
 
     /**
-     * Documentation: https://github.com/gajus/eslint-plugin-jsdoc#check-values
+     * Documentation:
+     * https://github.com/gajus/eslint-plugin-jsdoc#check-values
      *
      * Validates the content of some uncommon JSDoc tags.
      */
-    "jsdoc/check-values": [
-      "warn",
-      {
-        contexts: ["any"],
-      },
-    ],
+    "jsdoc/check-values": "warn",
 
     /**
-     * Documentation: https://github.com/gajus/eslint-plugin-jsdoc#check-values
+     * Documentation:
+     * https://github.com/gajus/eslint-plugin-jsdoc#check-values
      *
      * Validates that specific tags are never empty.
      */
-    "jsdoc/empty-tags": [
-      "warn",
-      {
-        contexts: ["any"],
-      },
-    ],
+    "jsdoc/empty-tags": "warn",
 
     /**
-     * Documentation: https://github.com/gajus/eslint-plugin-jsdoc#implements-on-classes
+     * Documentation:
+     * https://github.com/gajus/eslint-plugin-jsdoc#implements-on-classes
      *
      * Reports issues with incorrect usage of `@implements`.
      */
-    "jsdoc/implements-on-classes": [
-      "warn",
-      {
-        contexts: ["any"],
-      },
-    ],
+    "jsdoc/implements-on-classes": "warn",
 
     // - jsdoc/match-description - Overlaps with `isaacscript/jsdoc-full-sentences`.
     // - jsdoc/match-name - Only needed for projects with specific JSDoc requirements.
@@ -112,7 +95,8 @@ module.exports = {
     // - jsdoc/no-restricted-syntax - Not generally relevant.
 
     /**
-     * Documentation: https://github.com/gajus/eslint-plugin-jsdoc#no-types
+     * Documentation:
+     * https://github.com/gajus/eslint-plugin-jsdoc#no-types
      *
      * Disallows types being used on `@param` or `@returns`.
      */
@@ -126,16 +110,12 @@ module.exports = {
     // - jsdoc/no-undefined-types - Not needed in TypeScript.
 
     /**
-     * Documentation: https://github.com/gajus/eslint-plugin-jsdoc#require-asterisk-prefix
+     * Documentation:
+     * https://github.com/gajus/eslint-plugin-jsdoc#require-asterisk-prefix
      *
      * Requires that each JSDoc line starts with an `*`.
      */
-    "jsdoc/require-asterisk-prefix": [
-      "warn",
-      {
-        contexts: ["any"],
-      },
-    ],
+    "jsdoc/require-asterisk-prefix": "warn",
 
     // - jsdoc/require-description-complete-sentence - Overlaps with
     //   `isaacscript/jsdoc-complete-sentences`.
@@ -149,13 +129,7 @@ module.exports = {
      *
      * Disallow hyphens before parameter descriptions, as it is non-standard syntax.
      */
-    "jsdoc/require-hyphen-before-param-description": [
-      "warn",
-      "never",
-      {
-        contexts: ["any"],
-      },
-    ],
+    "jsdoc/require-hyphen-before-param-description": ["warn", "never"],
 
     // - jsdoc/require-jsdoc - It's overboard for every function to have a JSDoc comment.
 
@@ -195,12 +169,7 @@ module.exports = {
      *
      * Requires that each `@property` tag has a description.
      */
-    "jsdoc/require-property-description": [
-      "warn",
-      {
-        contexts: ["any"],
-      },
-    ],
+    "jsdoc/require-property-description": "warn",
 
     /**
      * Documentation:
@@ -208,16 +177,11 @@ module.exports = {
      *
      * Requires that each `@property` tag has a name.
      */
-    "jsdoc/require-property-name": [
-      "warn",
-      {
-        contexts: ["any"],
-      },
-    ],
+    "jsdoc/require-property-name": "warn",
 
     // - jsdoc/require-property-type - Not needed in TypeScript.
     // - jsdoc/require-returns-check - It's overboard for every function to document every return
-    // value.
+    //   value.
 
     /**
      * Documentation:
@@ -238,7 +202,7 @@ module.exports = {
     // - jsdoc/require-yields - It's overboard to document every yield.
     // - jsdoc/require-yields-check - It's overboard to document every yield.
     // - jsdoc/sort-tags - Not very useful since there are typically only `@param` and `@return`
-    // tags.
+    //   tags.
 
     /**
      * Documentation:
@@ -246,12 +210,7 @@ module.exports = {
      *
      * Enforces no lines between tags.
      */
-    "jsdoc/tag-lines": [
-      "warn",
-      {
-        contexts: ["any"],
-      },
-    ],
+    "jsdoc/tag-lines": "warn",
 
     // - jsdoc/valid-types - Not needed in TypeScript.
   },

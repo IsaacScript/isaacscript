@@ -42,7 +42,7 @@ module.exports = {
     "plugin:eslint-comments/recommended",
 
     /** Lint JSDoc comments. */
-    //"./jsdoc",
+    "./jsdoc",
 
     /**
      * Disable any ESLint rules that conflict with Prettier:
