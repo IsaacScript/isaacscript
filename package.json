@@ -33,6 +33,7 @@
     "@typescript-eslint/type-utils": "^5.23.0",
     "@typescript-eslint/types": "^5.23.0",
     "@typescript-eslint/utils": "^5.23.0",
+    "eslint": "^8.15.0",
     "typescript": "^4.6.4"
   },
   "devDependencies": {
@@ -42,7 +43,6 @@
     "@typescript-eslint/eslint-plugin": "^5.23.0",
     "@typescript-eslint/parser": "^5.23.0",
     "cspell": "^5.20.0",
-    "eslint": "^8.15.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",
