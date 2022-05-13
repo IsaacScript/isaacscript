@@ -160,8 +160,8 @@ function getSentenceKind(text: string): SentenceKind {
     return SentenceKind.NonSentence;
   }
 
-  // Ignore comments that only contain asterisks.
-  if (/^\*+$/.test(text)) {
+  // Ignore comments that do not contain any letters
+  if (!/[a-zA-Z]/.test(text)) {
     return SentenceKind.NonSentence;
   }
 

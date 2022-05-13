@@ -8,7 +8,11 @@ import {
   isSpecialComment,
   startsWithExample,
 } from "../comments";
-import { createRule, hasURL } from "../utils";
+import {
+  createRule,
+  hasURL,
+  isStringsEqualExcludingTrailingSpaces,
+} from "../utils";
 
 const RULE_NAME = "format-line-comments";
 const SLASH_SLASH = "//";
@@ -131,13 +135,13 @@ export const formatLineComments = createRule<Options, MessageIds>({
       );
 
       if (DEBUG) {
-        console.log("originalText:");
-        console.log(originalText);
-        console.log("formattedText:");
-        console.log(formattedText);
+        console.log("originalText:"); // eslint-disable-line no-console
+        console.log(originalText); // eslint-disable-line no-console
+        console.log("formattedText:"); // eslint-disable-line no-console
+        console.log(formattedText); // eslint-disable-line no-console
       }
 
-      if (originalText !== formattedText) {
+      if (!isStringsEqualExcludingTrailingSpaces(originalText, formattedText)) {
         context.report({
           loc: {
             start: firstComment.loc.start,
@@ -224,9 +228,9 @@ function getCommentBlocks(comments: TSESTree.Comment[]): CommentBlock[] {
     const firstCommentStartLine = comment.loc.start.line;
 
     // Always put certain kinds of comments on their own blocks.
-    const hasAllHyphens = /^\s*-+\s*$/.test(text);
+    const separatorLine = isSeparatorLine(text);
     const hasURLInside = hasURL(text);
-    const shouldBeInSelfContainedBlock = hasAllHyphens || hasURLInside;
+    const shouldBeInSelfContainedBlock = separatorLine || hasURLInside;
 
     if (!shouldBeInSelfContainedBlock) {
       // Look for one or more "connecting" comments on the next subsequent lines.
@@ -243,13 +247,15 @@ function getCommentBlocks(comments: TSESTree.Comment[]): CommentBlock[] {
           break;
         }
 
-        // Break if we are not in a bullet point list and we encounter a bullet point.
+        // Break if we are not in a bulleted list and we encounter a bullet point, but only if the
+        // previous line is terminated by a colon.
         const nextCommentBulletPointKind = getBulletPointKind(
           nextComment.value,
         );
         if (
           bulletPointKind === BulletPointKind.NonBulletPoint &&
-          nextCommentBulletPointKind !== BulletPointKind.NonBulletPoint
+          nextCommentBulletPointKind !== BulletPointKind.NonBulletPoint &&
+          text.endsWith(":")
         ) {
           break;
         }
@@ -269,6 +275,12 @@ function getCommentBlocks(comments: TSESTree.Comment[]): CommentBlock[] {
 
         // Break if the next line is a "special" comment like "eslint-disable-next-line".
         if (isSpecialComment(nextComment.value)) {
+          break;
+        }
+
+        // Break if the next line is a "separator" line.
+        const nextCommentIsSeparator = isSeparatorLine(nextComment.value);
+        if (nextCommentIsSeparator) {
           break;
         }
 
@@ -312,4 +324,17 @@ function getTextFromComments(
     (comment) => `${leftWhitespace}${SLASH_SLASH}${comment.value}`,
   );
   return lines.join("\n");
+}
+
+/**
+ * A "separator" line is a line with all hyphens like the following:
+ *
+ * ```ts
+ * // ----------------
+ * // Getter functions
+ * // ----------------
+ * ```
+ */
+function isSeparatorLine(text: string) {
+  return /^\s*-+\s*$/.test(text);
 }

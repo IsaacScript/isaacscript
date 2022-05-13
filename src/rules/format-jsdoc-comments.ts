@@ -4,7 +4,7 @@ import {
   getTextBlocksFromJSDocComment,
   TextBlock,
 } from "../jsdoc";
-import { createRule } from "../utils";
+import { createRule, isStringsEqualExcludingTrailingSpaces } from "../utils";
 
 const RULE_NAME = "format-jsdoc-comments";
 const DEBUG = false;
@@ -103,13 +103,13 @@ export const formatJSDocComments = createRule<Options, MessageIds>({
           );
 
       if (DEBUG) {
-        console.log("originalText:");
-        console.log(originalText);
-        console.log("formattedText:");
-        console.log(formattedText);
+        console.log("originalText:"); // eslint-disable-line no-console
+        console.log(originalText); // eslint-disable-line no-console
+        console.log("formattedText:"); // eslint-disable-line no-console
+        console.log(formattedText); // eslint-disable-line no-console
       }
 
-      if (originalText !== formattedText) {
+      if (!isStringsEqualExcludingTrailingSpaces(originalText, formattedText)) {
         context.report({
           loc: {
             start: comment.loc.start,

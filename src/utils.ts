@@ -41,3 +41,29 @@ export function hasURL(text: string): boolean {
 export function isAny(type: ts.Type): boolean {
   return isTypeFlagSet(type, ts.TypeFlags.Any);
 }
+
+export function isStringsEqualExcludingTrailingSpaces(
+  string1: string,
+  string2: string,
+): boolean {
+  const string1Lines = string1.split("\n");
+  const string2Lines = string2.split("\n");
+
+  if (string1Lines.length !== string2Lines.length) {
+    return false;
+  }
+
+  for (let i = 0; i < string1Lines.length; i++) {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const line1 = string1Lines[i]!;
+
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const line2 = string2Lines[i]!;
+
+    if (line1.trimEnd() !== line2.trimEnd()) {
+      return false;
+    }
+  }
+
+  return true;
+}

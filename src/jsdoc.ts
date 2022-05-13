@@ -5,7 +5,7 @@ import {
   getSpacesBeforeBulletPoint,
   startsWithExample,
 } from "./comments";
-import { hasURL } from "./utils";
+import { ensureAllCases, hasURL } from "./utils";
 
 /**
  * An object containing one or more lines of text. For example:
@@ -84,7 +84,10 @@ export function getTextBlocksFromJSDocComment(
   const textBlocks: TextBlock[] = [];
   let partialText = "";
   let partialSubBulletIndent = "";
+  let previousLineWasBlank = false;
+  let previousLineEndedInColon = false;
   let previousLineBulletPointKind = BulletPointKind.NonBulletPoint;
+  let insideBulletedListKind = BulletPointKind.NonBulletPoint;
   let insideCodeBlock = false;
   let previousLineHadURL = false;
   let previousLineHadCodeBlock = false;
@@ -98,11 +101,21 @@ export function getTextBlocksFromJSDocComment(
 
     // Gather information about this line.
     const isBlankLine = lineBeforeTrim.trim() === "";
-    const bulletPointKind = getBulletPointKind(lineBeforeTrim);
+    const endsInColon = lineBeforeTrim.trimEnd().endsWith(":");
+    const bulletPointKind = getAdjustedBulletPointKind(
+      lineBeforeTrim,
+      previousLineWasBlank,
+      previousLineEndedInColon,
+      insideBulletedListKind,
+    );
+
     const isNewOrContinuingBulletPoint =
       bulletPointKind !== BulletPointKind.NonBulletPoint &&
       (previousLineBulletPointKind === BulletPointKind.NonBulletPoint ||
         previousLineBulletPointKind === bulletPointKind);
+    const isFirstBulletPoint =
+      bulletPointKind !== BulletPointKind.NonBulletPoint &&
+      insideBulletedListKind === BulletPointKind.NonBulletPoint;
     const hasExample = startsWithExample(lineBeforeTrim);
     const hasJSDocTag = lineBeforeTrim.startsWith("@");
     const hasURLInside = hasURL(lineBeforeTrim);
@@ -133,12 +146,14 @@ export function getTextBlocksFromJSDocComment(
       if (partialText !== "" || insideCodeBlock) {
         const insertBlankLineBelow = shouldInsertBlankLineBelowTextBlock(
           isNewOrContinuingBulletPoint,
+          isFirstBulletPoint,
           hasExample,
           hasJSDocTag,
           insideCodeBlock,
           hasCodeBlock,
           previousLineHadURL,
           isBlankLine,
+          previousLineEndedInColon,
         );
 
         const textBlock: TextBlock = {
@@ -152,6 +167,7 @@ export function getTextBlocksFromJSDocComment(
 
       partialText = line;
       partialSubBulletIndent = spacesBeforeBulletPoint;
+      insideBulletedListKind = bulletPointKind;
     } else {
       if (partialText !== "") {
         partialText += " ";
@@ -159,6 +175,8 @@ export function getTextBlocksFromJSDocComment(
       partialText += line;
     }
 
+    previousLineWasBlank = isBlankLine;
+    previousLineEndedInColon = endsInColon;
     previousLineBulletPointKind = bulletPointKind;
     previousLineHadURL = hasURLInside;
     if (hasCodeBlock) {
@@ -183,17 +201,75 @@ export function getTextBlocksFromJSDocComment(
 }
 
 /**
+ * The bullet point reported may not be accurate if this is a line that is continuing from the
+ * previous line. For example:
+ *
+ * ```ts
+ * /**
+ *  * This method will crash the game if you provide it an invalid collectible type, such as or
+ *  * 43. (Using 0 will not cause a crash.) Thus, it is safer to use the \`RemoveCostume\`
+ *  * method instead.
+ *  * /
+ * ```
+ *
+ * In this example, "43. " is incorrectly interpreted as a bullet point.
+ */
+function getAdjustedBulletPointKind(
+  line: string,
+  previousLineWasBlank: boolean,
+  previousLineEndedInColon: boolean,
+  insideBulletedListKind: BulletPointKind,
+): BulletPointKind {
+  const rawBulletPointKind = getBulletPointKind(line);
+
+  switch (rawBulletPointKind) {
+    case BulletPointKind.NonBulletPoint: {
+      return BulletPointKind.NonBulletPoint;
+    }
+
+    case BulletPointKind.Hyphen: {
+      return BulletPointKind.Hyphen;
+    }
+
+    case BulletPointKind.NumberPeriod:
+    case BulletPointKind.NumberParenthesis: {
+      // If we are already inside of a numbered list, then do not require blank lines in between the
+      // bullets.
+      if (rawBulletPointKind === insideBulletedListKind) {
+        return rawBulletPointKind;
+      }
+
+      // If the previous line had a colon, then do not require blank lines in between the bullets.
+      if (previousLineEndedInColon) {
+        return rawBulletPointKind;
+      }
+
+      // Otherwise, only interpret this as a bulleted list if the previous line was blank.
+      return previousLineWasBlank
+        ? rawBulletPointKind
+        : BulletPointKind.NonBulletPoint;
+    }
+
+    default: {
+      return ensureAllCases(rawBulletPointKind);
+    }
+  }
+}
+
+/**
  * By default, text blocks should be separated by a blank line. This function has logic for all of
  * the exceptions to the rule.
  */
 function shouldInsertBlankLineBelowTextBlock(
   nextLineIsBulletPoint: boolean,
+  nextLineIsFirstBulletPoint: boolean,
   nextLineHasExample: boolean,
   nextLineHasJSDocTag: boolean,
   insideCodeBlock: boolean,
   nextLineHasCodeBlock: boolean,
   thisBlockHasURL: boolean,
-  isBlankLine: boolean,
+  nextLineIsBlank: boolean,
+  endsInColon: boolean,
 ): boolean {
   if (
     nextLineHasExample ||
@@ -204,14 +280,21 @@ function shouldInsertBlankLineBelowTextBlock(
     return false;
   }
 
-  // It is valid to have blank lines between bullet points (or not). Match the existing comment.
   if (nextLineIsBulletPoint) {
-    return isBlankLine;
+    // It is mandatory to have a blank line in between a non-bullet point and the first bullet point
+    // in a list, unless the previous line ended in a colon. (This is because without a blank line,
+    // it is difficult to tell where bulleted lists begin.)
+    if (nextLineIsFirstBulletPoint && !endsInColon) {
+      return true;
+    }
+
+    // It is optional to have blank lines between bullet points. Match the existing comment.
+    return nextLineIsBlank;
   }
 
   // It is valid to have blank lines after URLs (or not). Match the existing comment.
   if (thisBlockHasURL) {
-    return isBlankLine;
+    return nextLineIsBlank;
   }
 
   return true;

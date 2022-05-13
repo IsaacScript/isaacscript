@@ -3,12 +3,13 @@ import { generateReadme } from "./generateReadme";
 import { generateRules } from "./generateRules";
 
 export function generateAll(): void {
-  console.log("Generating rules...");
-  generateRules(); // Rules must be generated before configs/readme
+  // Rules must be generated before configs/readme
+  console.log("Generating rules..."); // eslint-disable-line no-console
+  generateRules();
 
-  console.log("Generating configs...");
+  console.log("Generating configs..."); // eslint-disable-line no-console
   generateConfigs();
 
-  console.log("Generating readme...");
+  console.log("Generating readme..."); // eslint-disable-line no-console
   generateReadme();
 }

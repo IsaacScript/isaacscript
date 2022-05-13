@@ -104,18 +104,18 @@ export function getBulletPointKind(text: string): BulletPointKind {
   const trimmedText = text.trim();
 
   // e.g. "- A bullet point can start with a hyphen."
-  if (trimmedText.startsWith("-")) {
+  if (trimmedText.startsWith("- ")) {
     return BulletPointKind.Hyphen;
   }
 
-  // e.g. "1) A bullet point can start with a number and a parenthesis."
-  if (/^\d+\)/.test(trimmedText)) {
-    return BulletPointKind.NumberParenthesis;
+  // e.g. "1. A bullet point can start with a number and a period."
+  if (/^\d+\. /.test(trimmedText)) {
+    return BulletPointKind.NumberPeriod;
   }
 
-  // e.g. "1. A bullet point can start with a number and a period."
-  if (/^\d+\./.test(trimmedText)) {
-    return BulletPointKind.NumberPeriod;
+  // e.g. "1) A bullet point can start with a number and a parenthesis."
+  if (/^\d+\) /.test(trimmedText)) {
+    return BulletPointKind.NumberParenthesis;
   }
 
   return BulletPointKind.NonBulletPoint;

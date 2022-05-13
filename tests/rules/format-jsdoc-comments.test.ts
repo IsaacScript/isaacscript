@@ -336,7 +336,7 @@ function foo() {
 });
 
 invalid.push({
-  name: "Using a multi-line comment with bullet points (with a newline before the bullets)",
+  name: "Using a multi-line comment with bullet points with a newline before the bullets",
   code: `
 /**
  * Here is my list of things:
@@ -364,7 +364,7 @@ invalid.push({
 });
 
 invalid.push({
-  name: "Using a multi-line comment with bullet points (with no newline before the bullets)",
+  name: "Using a multi-line comment with bullet points with no newline before the bullets",
   code: `
 /**
  * Here is my list of things:
@@ -378,7 +378,6 @@ invalid.push({
   output: `
 /**
  * Here is my list of things:
- *
  * - But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain
  *   was born and
  * - I will give you a complete account of the system, and expound the actual teachings of the great
@@ -451,6 +450,56 @@ invalid.push({
 });
 
 valid.push({
+  name: "Using a multi-line comment with number period bullet points and no spacing",
+  code: `
+/**
+ * This is my list:
+ * 1. foo
+ * 2. bar
+ * 3. baz
+ */
+  `,
+});
+
+valid.push({
+  name: "Using a multi-line comment with number parenthesis bullet points and no spacing",
+  code: `
+/**
+ * This is my list:
+ * 1) foo
+ * 2) bar
+ * 3) baz
+ */
+  `,
+});
+
+valid.push({
+  name: "Using a multi-line comment with number period bullet points and spacing",
+  code: `
+/**
+ * This is my list:
+ *
+ * 1. foo
+ * 2. bar
+ * 3. baz
+ */
+  `,
+});
+
+valid.push({
+  name: "Using a multi-line comment with number parenthesis bullet points and spacing",
+  code: `
+/**
+ * This is my list:
+ *
+ * 1) foo
+ * 2) bar
+ * 3) baz
+ */
+  `,
+});
+
+valid.push({
   name: "Using a multi-line comment with different kinds of bullet points",
   code: `
 function foo() {
@@ -489,6 +538,47 @@ function foo() {
    * This method will crash the game if you provide it an invalid collectible type, such as -1 or
    * 43. (Using 0 will not cause a crash.) Thus, it is safer to use the \`RemoveCostume\` method
    * instead.
+   */
+}
+  `,
+});
+
+invalid.push({
+  name: "Using a multi-line comment with very long bullet points",
+  code: `
+function foo() {
+  /**
+   * This is my list:
+   *
+   * - But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I
+   * will give you a complete account of the system, and expound the actual teachings of the great explorer of the
+   * truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it
+   * is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences
+   * - that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself,
+   * because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great
+   * pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some
+   * advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no
+   * annoying consequences, or one who avoids a pain that produces no resultant pleasure?
+   */
+}
+  `,
+  errors: [{ messageId: "incorrectlyFormatted" }],
+  output: `
+function foo() {
+  /**
+   * This is my list:
+   *
+   * - But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain
+   *   was born and I will give you a complete account of the system, and expound the actual
+   *   teachings of the great explorer of the truth, the master-builder of human happiness. No one
+   *   rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who
+   *   do not know how to pursue pleasure rationally encounter consequences
+   * - that are extremely painful. Nor again is there anyone who loves or pursues or desires to
+   *   obtain pain of itself, because it is pain, but because occasionally circumstances occur in
+   *   which toil and pain can procure him some great pleasure. To take a trivial example, which of
+   *   us ever undertakes laborious physical exercise, except to obtain some advantage from it? But
+   *   who has any right to find fault with a man who chooses to enjoy a pleasure that has no
+   *   annoying consequences, or one who avoids a pain that produces no resultant pleasure?
    */
 }
   `,
@@ -574,7 +664,7 @@ valid.push({
 });
 
 valid.push({
-  name: "Using a multi-line comment with e.g. Foo",
+  name: "Using a multi-line comment with e.g. Foo without parenthesis",
   code: `
 /**
  * We split to a new line if:
@@ -587,13 +677,39 @@ valid.push({
 });
 
 valid.push({
-  name: "Using a multi-line comment with (e.g. Foo)",
+  name: "Using a multi-line comment with e.g. Foo in parenthesis",
   code: `
 /**
  * We split to a new line if:
  * 1) adding the word would make it overflow past the maximum length
  * 2) and there is at least one word on the current line
  * (e.g. there could be a very long URL that exceeds the maximum length, but since there are no
+ * spaces in the URL, it can't be split up and has to exceed the maximum length)
+ */
+  `,
+});
+
+valid.push({
+  name: "Using a multi-line comment with i.e. Foo",
+  code: `
+/**
+ * We split to a new line if:
+ * 1) adding the word would make it overflow past the maximum length
+ * 2) and there is at least one word on the current line
+ * i.e. there could be a very long URL that exceeds the maximum length, but since there are no
+ * spaces in the URL, it can't be split up and has to exceed the maximum length
+ */
+  `,
+});
+
+valid.push({
+  name: "Using a multi-line comment with i.e. Foo in parenthesis",
+  code: `
+/**
+ * We split to a new line if:
+ * 1) adding the word would make it overflow past the maximum length
+ * 2) and there is at least one word on the current line
+ * (i.e. there could be a very long URL that exceeds the maximum length, but since there are no
  * spaces in the URL, it can't be split up and has to exceed the maximum length)
  */
   `,

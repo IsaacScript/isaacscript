@@ -11,4 +11,4 @@ cd "$DIR"
 RULE_NAME="format-jsdoc-comments"
 
 echo "Running all tests for rule: $RULE_NAME"
-TEST_SUMMARY_THRESHOLD=1 npx jest "$DIR/tests/rules/$RULE_NAME.test.ts" --reporters jest-summarizing-reporter
+npx jest "$DIR/tests/rules/$RULE_NAME.test.ts" --reporters jest-summarizing-reporter

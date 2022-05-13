@@ -355,6 +355,17 @@ valid.push({
   `,
 });
 
+valid.push({
+  name: "Comment using a numeric literal",
+  code: `
+/**
+ * This is a foo.
+ *
+ * 1 << 1
+ */
+  `,
+});
+
 ruleTester.run("complete-sentences-jsdoc", completeSentencesJSDoc, {
   valid,
   invalid,

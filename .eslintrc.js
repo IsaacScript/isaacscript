@@ -291,16 +291,6 @@ module.exports = {
     "import/prefer-default-export": "off",
 
     /**
-     * Documentation: https://eslint.org/docs/rules/no-console
-     *
-     * Defined at:
-     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/errors.js
-     *
-     * Command-line programs commonly write to standard out and standard error.
-     */
-    "no-console": "off",
-
-    /**
      * Documentation: https://eslint.org/docs/rules/no-continue
      *
      * Defined at:

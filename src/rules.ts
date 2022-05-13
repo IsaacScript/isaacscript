@@ -6,6 +6,7 @@
 // npm run generate:rules
 
 import { completeSentencesJSDoc } from "./rules/complete-sentences-jsdoc";
+import { completeSentencesLineComments } from "./rules/complete-sentences-line-comments";
 import { enumMemberNumberSeparation } from "./rules/enum-member-number-separation";
 import { eqeqeqFix } from "./rules/eqeqeq-fix";
 import { formatJSDocComments } from "./rules/format-jsdoc-comments";
@@ -20,6 +21,7 @@ import { noVoidReturnType } from "./rules/no-void-return-type";
 
 export const rules = {
   "complete-sentences-jsdoc": completeSentencesJSDoc,
+  "complete-sentences-line-comments": completeSentencesLineComments,
   "enum-member-number-separation": enumMemberNumberSeparation,
   "eqeqeq-fix": eqeqeqFix,
   "format-jsdoc-comments": formatJSDocComments,

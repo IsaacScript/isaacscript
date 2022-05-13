@@ -205,7 +205,7 @@ In this style, line breaks are used instead of periods. This kind of style can l
 // This is how we do things here I don't know why It's just the way it is
 ```
 
-In order to prevent this from happening, the [`isaacscript/complete-sentences-line-line-comments`](rules/complete-sentences-line-comments.md) rule forces you to use complete sentences for any multi-line _leading line comment_. In the previous example, once we use complete sentences, it gets auto-formatted to this:
+In order to prevent this from happening, the [`isaacscript/complete-sentences-line-comments`](rules/complete-sentences-line-comments.md) rule forces you to use complete sentences for any multi-line _leading line comment_. In the previous example, once we use complete sentences, it gets auto-formatted to this:
 
 ```ts
 // This is how we do things here. I don't know why. It's just the way it is.
