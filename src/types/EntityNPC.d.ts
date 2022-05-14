@@ -118,8 +118,8 @@ declare global {
   namespace EntityNPC {
     /**
      * This function is bugged and returns a read-only version of the EntityNPC class. If you need
-     * to mutate the properties of the spider, then you should spawn it with `Isaac.Spawn()` or
-     * `Game.Spawn()` instead.
+     * to mutate the properties of the spider, then you should spawn it with `Isaac.Spawn` or
+     * `Game.Spawn` instead.
      */
     function ThrowSpider(
       this: void,

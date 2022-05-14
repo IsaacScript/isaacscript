@@ -101,7 +101,7 @@ declare global {
     ): void;
 
     /**
-     * This method is the same thing as the `Level.ChangeRoom()` method, but it will update the
+     * This method is the same thing as the `Level.ChangeRoom` method, but it will update the
      * "fxlayers" of the room properly.
      *
      * ("fxlayers" stands for "effect layers". It refers to overlays, light effect from
@@ -143,7 +143,9 @@ declare global {
     ): void;
 
     FinishChallenge(): void;
-    // GetAmbush(): Ambush; // Ambush is not implemented
+
+    // GetAmbush is not implemented.
+
     GetDarknessModifier(): float;
     GetDevilRoomDeals(): int;
     GetDonationModAngel(): int;
@@ -152,11 +154,15 @@ declare global {
     GetFrameCount(): int;
     GetGreedBossWaveNum(): int;
     GetGreedWavesNum(): int;
-    // GetItemOverlay(): ItemOverlay; // ItemOverlay is not implemented
+
+    // GetItemOverlay is not implemented.
+
     GetHUD(): HUD;
     GetItemPool(): ItemPool;
 
-    /** This function is bugged and returns useless userdata. */
+    /**
+     * @deprecated This function is bugged and returns useless userdata.
+     */
     GetLastDevilRoomStage(fakeArg: never): LevelStage;
 
     GetLastLevelWithDamage(): LevelStage;
@@ -166,8 +172,10 @@ declare global {
     GetNumEncounteredBosses(): int;
     GetNumPlayers(): int;
 
-    /** Use `Isaac.GetPlayer()` instead of this function. */
-    GetPlayer(fakeArg: never): EntityPlayer | undefined;
+    /**
+     * @deprecated Use the `Isaac.GetPlayer` method instead.
+     */
+    GetPlayer(index: int, fakeArg: never): EntityPlayer | undefined;
 
     GetRandomPlayer(position: Vector, radius: float): EntityPlayer;
     GetRoom(): Room;
@@ -220,13 +228,7 @@ declare global {
       seed: Seed,
     ): Entity;
 
-    /*
-    SpawnEntityDesc(
-      entityDesc: EntityDesc, // EntityDesc is not implemented
-      position: Vector,
-      spawner: Entity,
-    ): EntityNPC;
-    */
+    // SpawnEntityDesc is not implemented.
 
     /**
      * @param position

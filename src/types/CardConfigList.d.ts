@@ -1,6 +1,8 @@
 declare interface CardConfigList {
-  /** This function is bugged and returns useless userdata. */
-  Get(idx: int): never;
+  /**
+   * @deprecated This function is bugged and returns useless userdata.
+   */
+  Get(idx: int, fakeArg: never): never;
 
   readonly Size: int;
 }

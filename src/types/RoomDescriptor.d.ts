@@ -3,7 +3,7 @@ import { RoomDescriptorFlag } from "../enums/flags/RoomDescriptorFlag";
 
 declare global {
   interface RoomDescriptor {
-    // AllowedDoors: DoorSet; // DoorSet is not implemented
+    // AllowedDoors is not implemented.
 
     AwardSeed: Seed;
     ChallengeDone: boolean;
@@ -14,7 +14,8 @@ declare global {
     DeliriumDistance: int;
 
     /**
-     * After modifying this value, you must call `Level.UpdateVisibility()` for it to take effect.
+     * After modifying this value, you must call the `Level.UpdateVisibility` method for it to take
+     * effect.
      */
     DisplayFlags: BitFlags<DisplayFlag>;
 
@@ -26,8 +27,8 @@ declare global {
      * - For `RoomShape.LTL` rooms (i.e. rooms that look like a "J"), this is equal to the 1x1
      *   quadrant where the gap in the room is. In other words, it is a 1x1 quadrant that is not
      *   actually contained within the room.
-     * - Note that this value **is different** than the value returned by
-     *   `Level.GetCurrentRoomIndex()`. (That function returns the 1x1 quadrant that the room was
+     * - Note that this value **is different** than the value returned by the
+     *   `Level.GetCurrentRoomIndex` method. (That method returns the 1x1 quadrant that the room was
      *   entered in.)
      * - Data structures that store data per room should use `ListIndex` as a key instead of
      *   `GridIndex`, since the former is unique across different dimensions.
@@ -37,8 +38,8 @@ declare global {
     HasWater: boolean;
 
     /**
-     * The index for this room corresponding to the `Level.GetRooms().Get()` method. This is equal
-     * to the order that the room was created by the floor generation algorithm.
+     * The index for this room corresponding to the `RoomList.Get` method. This is equal to the
+     * order that the room was created by the floor generation algorithm.
      *
      * Use this as an index for data structures that store data per room, since it is unique across
      * different dimensions.
@@ -57,8 +58,8 @@ declare global {
      * - For a room bigger than a 1x1 room, this is equal to the top left 1x1 quadrant.
      * - For `RoomType.LTL` rooms (i.e. rooms that look like a "J"), this is equal to the top right
      *   1x1 quadrant.
-     * - Note that this value **is different** than the value returned by
-     *   `Level.GetCurrentRoomIndex()`. (That function returns the 1x1 quadrant that the room was
+     * - Note that this value **is different** than the value returned by the
+     *   `Level.GetCurrentRoomIndex` method. (That method returns the 1x1 quadrant that the room was
      *   entered in.)
      * - Data structures that store data per room should use `ListIndex` as a key instead of
      *   `SafeGridIndex`, since the former is unique across different dimensions.

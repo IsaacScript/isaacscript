@@ -112,11 +112,14 @@ declare interface EIDInterface {
    * Shortcuts are case-sensitive! Shortcuts can be overridden with this function to allow for full
    * control over everything.
    *
-   * Setting "animationFrame" to -1 will play the animation. The spriteObject needs to be of class
-   * Sprite() and have an .anm2 loaded to do this.
-   *
+   * @param shortcut
+   * @param animationName
+   * @param animationFrame Setting to -1 will play the animation.
+   * @param width
+   * @param height
    * @param leftOffset Default is -1.
    * @param topOffset Default is 0.
+   * @param spriteObject Needs to be a `Sprite` with an .anm2 loaded.
    */
   addIcon(
     shortcut: string,

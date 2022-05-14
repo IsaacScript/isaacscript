@@ -27,19 +27,7 @@ declare interface Vector {
   Resized(newLength: float): Vector;
   Rotated(angleDegrees: float): Vector;
 
-  /** Use the "add()" method instead. */
-  __add(right: never): Vector;
-
-  /** Use the "div()" method instead. */
-  __div(modifier: never): Vector;
-
-  /** Use the "mul()" method instead. */
-  __mul(modifier: never): Vector;
-
-  /** Use the "sub()" method instead. */
-  __sub(right: never): Vector;
-
-  // __unm is not implemented since it can cause the game to crash
+  // The underscore methods like "__add" are not implemented in favor of having `add` and so on.
 
   X: float;
   Y: float;
@@ -59,6 +47,8 @@ declare interface Vector {
 
   mul: LuaMultiplicationMethod<number | Vector, Vector>;
   sub: LuaSubtractionMethod<Vector, Vector>;
+
+  // unm is not implemented since it can cause the game to crash.
 }
 
 declare namespace Vector {

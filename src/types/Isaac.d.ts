@@ -95,12 +95,12 @@ declare global {
 
     /**
      * Beware:
-     * - this function does not work in the PostNewRoom callback
-     * - it excludes effects, even when the effect partition is selected
-     * - it can exclude dead enemies
+     * - This function does not work in the PostNewRoom callback.
+     * - It excludes effects, even when the effect partition is selected.
+     * - It can exclude dead enemies.
      *
-     * It is recommended to never use this function and instead use `Isaac.FindByType()` or
-     * `Isaac.GetRoomEntities()`.
+     * It is recommended to never use this function and instead use `Isaac.FindByType` or
+     * `Isaac.GetRoomEntities`.
      *
      * @param position
      * @param radius
@@ -219,7 +219,7 @@ declare global {
 
     /**
      * Returns the width of the given string in pixels based on the "terminus8" font. (This is the
-     * same font used in the `Isaac.RenderText()` function.)
+     * same font used in the `Isaac.RenderText` method.)
      */
     function GetTextWidth(str: string): int;
 
@@ -259,22 +259,24 @@ declare global {
     ): GridEntity | undefined;
 
     /**
-     * Returns true if your mod has data stored from the `Isaac.SaveModData()` function.
+     * Returns true if your mod has data stored from the `Isaac.SaveModData` method.
      *
      * (This corresponds to "save#.dat" files existing in the mod's save data folder.)
      */
     function HasModData(mod: Mod): boolean;
 
     /**
-     * Returns a string that was stored in a "save#.dat" file from the `Isaac.SaveModData()`
-     * function. If there is no "save#.dat" file for your mod, this function will return an empty
-     * string. There are 3 "save#.dat" files, one per save slot. The number will be determined
-     * automatically by the game. In Repentance, these files are located in the "data" folder next
-     * to the "mods" folder.
+     * Returns a string that was stored in a "save#.dat" file from the `Isaac.SaveModData` method.
+     * If there is no "save#.dat" file for your mod, this function will return an empty string.
+     * There are 3 "save#.dat" files, one per save slot. The number will be determined automatically
+     * by the game. In Repentance, these files are located in the "data" folder next to the "mods"
+     * folder.
      */
     function LoadModData(mod: Mod): string;
 
-    /** This should never be used in favor of the global `RegisterMod()` function. */
+    /**
+     * @deprecated Use the global `RegisterMod` function instead.
+     */
     function RegisterMod(
       mod: Mod,
       modName: string,
@@ -290,7 +292,7 @@ declare global {
 
     /**
      * Will delete a "save#.dat" file, if it exists. For more information, see the
-     * `Isaac.SaveModData()` function.
+     * `Isaac.SaveModData` method.
      */
     function RemoveModData(mod: Mod): void;
 

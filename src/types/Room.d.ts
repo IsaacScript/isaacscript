@@ -78,8 +78,7 @@ declare global {
     GetEnemyDamageInflicted(): int;
 
     /**
-     * Using this method can cause the game to crash, so it is forbidden. Use
-     * "Isaac.GetRoomEntities()" instead.
+     * @deprecated Use the `Isaac.GetRoomEntities` method instead.
      */
     GetEntities(fakeArg: never): EntityList;
 

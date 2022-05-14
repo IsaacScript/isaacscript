@@ -42,7 +42,7 @@ declare global {
      * current jingle's ID and the current room's track ID.
      *
      * WARNING: Using this in an uncleared boss room will return ONLY the boss jingle. If you want
-     * the intended boss music, use `GetBossTrack()`.
+     * the intended boss music, use the `GetBossTrack` method.
      */
     GetMusicTrack(): LuaMultiReturn<
       [currentRoomMusicOrJingle: Music, currentRoomMusic?: Music]
@@ -71,7 +71,7 @@ declare global {
      *
      * Change to true if your mod does not support layers.
      *
-     * This is not associated with the `MusicManager.DisableLayer()` command and takes priority if
+     * This is not associated with the `MusicManager.DisableLayer` method. It takes priority if
      * true.
      */
     DisableMusicLayers: boolean;

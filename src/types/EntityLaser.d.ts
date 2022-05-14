@@ -6,9 +6,13 @@ declare global {
     AddTearFlags(flags: TearFlag | BitFlags<TearFlag>): void;
     ClearTearFlags(flags: TearFlag | BitFlags<TearFlag>): void;
     GetEndPoint(): Readonly<Vector>;
-    // GetNonOptimizedSamples(): Readonly<HomingLaserSampleList>; // HomingLaser is not implemented
+
+    // GetNonOptimizedSamples is not implemented.
+
     GetRenderZ(): int;
-    // GetSamples(): Readonly<HomingLaserSampleList>; // HomingLaser is not implemented
+
+    // GetSamples is not implemented.
+
     HasTearFlags(flags: TearFlag | BitFlags<TearFlag>): boolean;
     IsCircleLaser(): boolean;
     IsSampleLaser(): boolean;
@@ -21,7 +25,9 @@ declare global {
     ): void;
 
     SetBlackHpDropChance(chance: float): void;
-    // SetHomingType(laserHomingType: LaserHomingType): void; // LaserHomingType is not implemented
+
+    // SetHomingType is not implemented.
+
     SetMaxDistance(distance: float): void;
     SetMultidimensionalTouched(value: boolean): void;
     SetOneHit(value: boolean): void;

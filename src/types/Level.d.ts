@@ -25,13 +25,8 @@ declare global {
     CanStageHaveCurseOfLabyrinth(levelStage: LevelStage): boolean;
 
     /**
-     * This function is bugged and does not update the "fxlayers" properly. Use the
-     * `Game.ChangeRoom` method instead.
-     *
-     * ("fxlayers" stands for "effect layers". It refers to overlays, light effect from
-     * Basement/Cathedral, the Dogma static background, and so on. It is specified in the
-     * "fxlayers.xml" file.)
-     *
+     * @deprecated This method does not update the "fxlayers" properly. Use the `Game.ChangeRoom`
+     * method instead.
      * @param roomGridIndex The room grid index of the destination room.
      * @param dimension Default is `Dimension.CURRENT`.
      */
@@ -164,8 +159,8 @@ declare global {
     RemoveCompassEffect(): void;
 
     /**
-     * This is currently bugged and maps internally to "RemoveCurse()". The old "RemoveCurses()" is
-     * not currently accessible.
+     * This is currently bugged and maps internally to `Level.RemoveCurse`. The old
+     * `Level.RemoveCurses` is not currently accessible.
      */
     RemoveCurses(levelCurse: LevelCurse | int): void;
 

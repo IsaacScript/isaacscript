@@ -33,11 +33,7 @@ declare global {
 
     CollisionClass: GridCollisionClass;
 
-    /**
-     * Use the `GetSaveState()` method instead of accessing Desc directly, as it is a deprecated
-     * property.
-     */
-    Desc: never; // GridEntityDesc;
+    // Desc is not implemented since it is deprecated by the `GridEntity.GetSaveState` method.
 
     /**
      * The attributes of this property are technically not read-only, but changing them seems to

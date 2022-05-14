@@ -42,7 +42,9 @@ declare global {
     LockedAnimation: string;
     OpenAnimation: string;
     OpenLockedAnimation: string;
-    // PreviousState: never; // Instead of returning DoorState, it returns userdata
+
+    // PreviousState is not implemented since it returns useless userdata.
+
     PreviousVariant: DoorVariant;
     Slot: DoorSlot;
 

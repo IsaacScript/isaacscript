@@ -60,8 +60,8 @@ declare global {
     AddBrokenHearts(hearts: int): void;
 
     /**
-     * Used to specify the kinds of stats that should be evaluated the next time `EvaluateCache()`
-     * is run.
+     * Used to specify the kinds of stats that should be evaluated the next time
+     * `EntityPlayer.EvaluateCache` is run.
      */
     AddCacheFlags(cacheFlags: CacheFlag | BitFlags<CacheFlag>): void;
 
@@ -112,8 +112,8 @@ declare global {
     /**
      * Turns the given number of bombs into giga bombs.
      *
-     * This does not actually increase the number of bombs held. To actually add bombs, AddBombs()
-     * should be called first.
+     * This does not actually increase the number of bombs held. To actually add bombs, the
+     * `EntityPlayer.AddBombs` method should be called first.
      *
      * @param num
      */
@@ -697,7 +697,7 @@ declare global {
 
     /**
      * Note that the only thing that you can do with MultiShotParams is feed it to the
-     * `EntityPlayer.GetMultiShotPositionVelocity()` method.
+     * `EntityPlayer.GetMultiShotPositionVelocity` method.
      *
      * @param weaponType Default is `WeaponType.WEAPON_TEARS`.
      */
