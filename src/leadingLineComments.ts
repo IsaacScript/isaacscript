@@ -5,6 +5,8 @@ import {
   getAdjustedBulletPointKind,
   getBulletPointKind,
   getSpacesBeforeBulletPoint,
+} from "./bulletPoints";
+import {
   isCommentOnOwnLine,
   isSpecialComment,
   startsWithExample,

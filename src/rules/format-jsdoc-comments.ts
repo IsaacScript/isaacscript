@@ -1,4 +1,5 @@
-import { getFormattedCommentText, isCommentOnOwnLine } from "../comments";
+import { isCommentOnOwnLine } from "../comments";
+import { getFormattedCommentText } from "../format";
 import {
   getJSDocComments,
   getTextBlocksFromJSDocComment,

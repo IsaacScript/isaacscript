@@ -1,6 +1,9 @@
 import { TSESTree } from "@typescript-eslint/types";
 import { TSESLint } from "@typescript-eslint/utils";
-import { getMessageIDFromSentenceKind, getSentenceKind } from "../comments";
+import {
+  getMessageIDFromSentenceKind,
+  getSentenceKind,
+} from "../completeSentence";
 import { getJSDocComments, getTextBlocksFromJSDocComment } from "../jsdoc";
 import { createRule, hasURL } from "../utils";
 

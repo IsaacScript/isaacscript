@@ -1,5 +1,5 @@
 import { TSESTree } from "@typescript-eslint/utils";
-import { getFormattedCommentText } from "../comments";
+import { getFormattedCommentText } from "../format";
 import {
   getCommentBlocks,
   getLeadingLineComments,

@@ -1,5 +1,8 @@
 import { TSESLint, TSESTree } from "@typescript-eslint/utils";
-import { getMessageIDFromSentenceKind, getSentenceKind } from "../comments";
+import {
+  getMessageIDFromSentenceKind,
+  getSentenceKind,
+} from "../completeSentence";
 import {
   CommentBlock,
   getCommentBlocks,

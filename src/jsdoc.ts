@@ -3,8 +3,8 @@ import {
   BulletPointKind,
   getAdjustedBulletPointKind,
   getSpacesBeforeBulletPoint,
-  startsWithExample,
-} from "./comments";
+} from "./bulletPoints";
+import { startsWithExample } from "./comments";
 import { hasURL } from "./utils";
 
 /**
