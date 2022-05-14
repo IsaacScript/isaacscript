@@ -207,6 +207,24 @@ valid.push({
   `,
 });
 
+valid.push({
+  name: "Comment with eslint-disable and ts-ignore",
+  code: `
+function foo() {
+  // eslint-disable-next-line no-useless-return
+  // @ts-ignore
+}
+  `,
+});
+
+valid.push({
+  name: "Comment with spillover number in parenthesis",
+  code: `
+// For EntityType.CONSTANT_STONE_SHOOTER (202), ConstantStoneShooterVariant.CONSTANT_STONE_SHOOTER
+// (0)
+  `,
+});
+
 ruleTester.run(
   "complete-sentences-line-comments",
   completeSentencesLineComments,

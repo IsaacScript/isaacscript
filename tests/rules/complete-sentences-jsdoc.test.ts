@@ -408,12 +408,14 @@ valid.push({
 });
 
 valid.push({
-  name: "Comment with eslint-disable and ts-ignore",
+  name: "Comment with spillover number in parenthesis",
   code: `
-function foo() {
-  // eslint-disable-next-line no-useless-return
-  // @ts-ignore
-}
+/**
+ * For EntityType.CONSTANT_STONE_SHOOTER (202), ConstantStoneShooterVariant.CONSTANT_STONE_SHOOTER
+ * (0)
+ *
+ * This is the same as the \`Direction\` enum.
+ */
   `,
 });
 

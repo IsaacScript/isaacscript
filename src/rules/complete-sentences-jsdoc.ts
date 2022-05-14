@@ -52,6 +52,7 @@ export const completeSentencesJSDoc = createRule<Options, MessageIds>({
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const textBlock = textBlocks[i]!;
         const { text, insideCodeBlock } = textBlock;
+        const nextTextBlock = textBlocks[i + 1];
 
         // Everything in a code block is whitelisted.
         if (insideCodeBlock) {
@@ -59,7 +60,6 @@ export const completeSentencesJSDoc = createRule<Options, MessageIds>({
         }
 
         // URLs are whitelisted.
-        const nextTextBlock = textBlocks[i + 1];
         if (hasURL(text)) {
           continue;
         }
@@ -73,6 +73,14 @@ export const completeSentencesJSDoc = createRule<Options, MessageIds>({
 
         // Special comments are whitelisted.
         if (isSpecialComment(text)) {
+          continue;
+        }
+
+        // Whitelist blocks where the next line ends in a number parenthesis.
+        if (
+          nextTextBlock !== undefined &&
+          /\(\d+\)$/.test(nextTextBlock.text.trimEnd())
+        ) {
           continue;
         }
 
