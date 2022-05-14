@@ -1,3 +1,5 @@
+/// <reference path="types/MusicManager.d.ts" />
+
 /* eslint-disable sort-exports/sort-exports */
 
 export * from "./enums/ActiveSlot";
