@@ -44,7 +44,11 @@ export const noExplicitArrayLoops = createRule<Options, MessageIds>({
           parserServices.esTreeNodeToTSNodeMap.get(potentialArray);
         const potentialArrayType =
           checker.getTypeAtLocation(potentialArrayTSNode);
-        const potentialArrayName = potentialArrayType.symbol.escapedName;
+        const potentialArraySymbol = potentialArrayType.symbol;
+        if (potentialArraySymbol === undefined) {
+          return;
+        }
+        const potentialArrayName = potentialArraySymbol.escapedName;
 
         if (potentialArrayName !== "Array") {
           return;

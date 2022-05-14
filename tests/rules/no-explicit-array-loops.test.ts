@@ -45,6 +45,14 @@ for (const element of myArray) {}
   `,
 });
 
+valid.push({
+  name: "Iterating over a method with an argument",
+  code: `
+const data = "1a2a3";
+for (const line of data.split("a")) {}
+  `,
+});
+
 ruleTester.run("no-explicit-array-loops", noExplicitArrayLoops, {
   valid,
   invalid,
