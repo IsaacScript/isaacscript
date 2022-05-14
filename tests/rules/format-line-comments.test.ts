@@ -692,7 +692,15 @@ valid.push({
 });
 
 valid.push({
-  name: "Using a trailing number",
+  name: "Using a simple trailing number",
+  code: `
+// 1
+// Magdalene can increase her maximum heart containers with Birthright.
+  `,
+});
+
+valid.push({
+  name: "Using a complicated trailing number",
   code: `
 // 14, 33
 // Keeper and Tainted Keeper can increase their coin containers with Mother's Kiss and Greed's
