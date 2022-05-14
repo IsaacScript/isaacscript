@@ -11,5 +11,12 @@ cd "$DIR"
 # Step 1 - Use Prettier to check formatting.
 npx prettier --check .
 
-# Step 2 - Check for base file updates.
-"$DIR/check-file-updates.sh"
+# Step 2 - Spell check every file using cspell.
+# We use "--no-progress" and "--no-summary" because we want to only output errors.
+npx cspell --no-progress --no-summary
+
+# Step 3 - Check for orphaned words.
+bash "$DIR/check-orphaned-words.sh"
+
+# Step 4 - Check for base file updates.
+bash "$DIR/check-file-updates.sh"
