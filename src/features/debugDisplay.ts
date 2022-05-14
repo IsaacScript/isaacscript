@@ -1,6 +1,6 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { ModUpgraded } from "../classes/ModUpgraded";
-import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
+import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { getEntityID } from "../functions/entity";
 import { isReflectionRender, printEnabled } from "../functions/utils";
 import { saveDataManager } from "./saveDataManager/exports";
@@ -54,7 +54,7 @@ export function debugDisplayInit(mod: ModUpgraded): void {
   mod.AddCallback(ModCallback.POST_KNIFE_RENDER, postKnifeRender); // 52
   mod.AddCallback(ModCallback.POST_EFFECT_RENDER, postEffectRender); // 56
   mod.AddCallback(ModCallback.POST_BOMB_RENDER, postBombRender); // 59
-  mod.AddCallbackCustom(ModCallbacksCustom.POST_SLOT_RENDER, postSlotRender);
+  mod.AddCallbackCustom(ModCallbackCustom.POST_SLOT_RENDER, postSlotRender);
 }
 
 // EntityType.PLAYER (1)
@@ -222,7 +222,7 @@ function postBombRender(bomb: EntityBomb) {
   renderTextOnEntity(bomb, text);
 }
 
-// ModCallbacksCustom.POST_SLOT_RENDER
+// ModCallbackCustom.POST_SLOT_RENDER
 function postSlotRender(slot: Entity) {
   if (!v.run.slot) {
     return;

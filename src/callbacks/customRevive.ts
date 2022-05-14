@@ -7,7 +7,7 @@ import {
 } from "isaac-typescript-definitions";
 import { sfxManager } from "../cachedClasses";
 import { ModUpgraded } from "../classes/ModUpgraded";
-import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
+import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { runNextGameFrame } from "../features/runInNFrames";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { removeCollectibleFromItemTracker } from "../functions/collectibles";
@@ -54,14 +54,14 @@ export function customReviveCallbacksInit(mod: ModUpgraded): void {
   mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
   mod.AddCallback(ModCallback.POST_NEW_ROOM, postNewRoom); // 19
   mod.AddCallbackCustom(
-    ModCallbacksCustom.POST_PEFFECT_UPDATE_REORDERED,
+    ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
     postPEffectUpdateReordered,
   );
   mod.AddCallbackCustom(
-    ModCallbacksCustom.POST_PLAYER_FATAL_DAMAGE,
+    ModCallbackCustom.POST_PLAYER_FATAL_DAMAGE,
     postPlayerFatalDamage,
   );
-  mod.AddCallbackCustom(ModCallbacksCustom.PRE_BERSERK_DEATH, preBerserkDeath);
+  mod.AddCallbackCustom(ModCallbackCustom.PRE_BERSERK_DEATH, preBerserkDeath);
 }
 
 function hasSubscriptions() {
@@ -91,7 +91,7 @@ function postNewRoom() {
   logStateChanged();
 }
 
-// ModCallbacksCustom.POST_PEFFECT_UPDATE_REORDERED
+// ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
 function postPEffectUpdateReordered(player: EntityPlayer) {
   checkWaitingForItemAnimation(player);
 }
@@ -137,7 +137,7 @@ function checkWaitingForItemAnimation(player: EntityPlayer) {
   logStateChanged();
 }
 
-// ModCallbacksCustom.POST_PLAYER_FATAL_DAMAGE
+// ModCallbackCustom.POST_PLAYER_FATAL_DAMAGE
 function postPlayerFatalDamage(player: EntityPlayer) {
   if (!hasSubscriptions()) {
     return;
@@ -146,7 +146,7 @@ function postPlayerFatalDamage(player: EntityPlayer) {
   playerIsAboutToDie(player);
 }
 
-// ModCallbacksCustom.PRE_BERSERK_DEATH
+// ModCallbackCustom.PRE_BERSERK_DEATH
 function preBerserkDeath(player: EntityPlayer) {
   if (!hasSubscriptions()) {
     return;

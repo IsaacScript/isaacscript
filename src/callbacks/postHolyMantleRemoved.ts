@@ -1,7 +1,7 @@
 import { CollectibleType } from "isaac-typescript-definitions";
 import { DefaultMap } from "../classes/DefaultMap";
 import { ModUpgraded } from "../classes/ModUpgraded";
-import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
+import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import {
   defaultMapGetPlayer,
@@ -24,7 +24,7 @@ export function postHolyMantleRemovedCallbackInit(mod: ModUpgraded): void {
   saveDataManager("postHolyMantleRemoved", v, hasSubscriptions);
 
   mod.AddCallbackCustom(
-    ModCallbacksCustom.POST_PEFFECT_UPDATE_REORDERED,
+    ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
     postPEffectUpdateReordered,
   );
 }
@@ -33,7 +33,7 @@ function hasSubscriptions() {
   return postHolyMantleRemovedHasSubscriptions();
 }
 
-// ModCallbacksCustom.POST_PEFFECT_UPDATE_REORDERED
+// ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
 function postPEffectUpdateReordered(player: EntityPlayer) {
   if (!hasSubscriptions()) {
     return;

@@ -1,6 +1,6 @@
 import { CollectibleType } from "isaac-typescript-definitions";
 import { ModUpgraded } from "../classes/ModUpgraded";
-import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
+import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { getPlayerNumHitsRemaining } from "../functions/player";
 import { isChildPlayer } from "../functions/playerIndex";
 import { willPlayerRevive } from "../functions/revive";
@@ -12,7 +12,7 @@ import {
 /** @internal */
 export function preBerserkDeathCallbackInit(mod: ModUpgraded): void {
   mod.AddCallbackCustom(
-    ModCallbacksCustom.POST_PEFFECT_UPDATE_REORDERED,
+    ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
     postPEffectUpdateReordered,
   );
 }
@@ -21,7 +21,7 @@ function hasSubscriptions() {
   return preBerserkDeathHasSubscriptions();
 }
 
-// ModCallbacksCustom.POST_PEFFECT_UPDATE_REORDERED
+// ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
 function postPEffectUpdateReordered(player: EntityPlayer) {
   if (!hasSubscriptions()) {
     return;

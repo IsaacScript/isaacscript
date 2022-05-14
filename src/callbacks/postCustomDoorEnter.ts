@@ -10,7 +10,7 @@ import {
 } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { ModUpgraded } from "../classes/ModUpgraded";
-import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
+import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { directionToVector } from "../functions/direction";
 import { doorSlotToDirection } from "../functions/doors";
@@ -86,7 +86,7 @@ export function initCustomDoor(mod: ModUpgraded, effectVariant: int): void {
   ); // 56
 
   mod.AddCallbackCustom(
-    ModCallbacksCustom.POST_ROOM_CLEAR_CHANGED,
+    ModCallbackCustom.POST_ROOM_CLEAR_CHANGED,
     (roomClear: boolean) => {
       postRoomClearChanged(roomClear, effectVariant);
     },
@@ -195,7 +195,7 @@ function isPlayerPastDoorThreshold(
   }
 }
 
-// ModCallbacksCustom.POST_ROOM_CLEAR_CHANGED
+// ModCallbackCustom.POST_ROOM_CLEAR_CHANGED
 function postRoomClearChanged(roomClear: boolean, effectVariant: int) {
   const state = roomClear ? DoorState.OPEN : DoorState.CLOSED;
   const customDoors = getEffects(effectVariant);

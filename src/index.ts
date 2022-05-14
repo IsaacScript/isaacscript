@@ -14,7 +14,7 @@ export * from "./classes/ModUpgraded";
 export * from "./constants";
 export * from "./constantsMax";
 export * from "./enums/HealthType";
-export * from "./enums/ModCallbacksCustom";
+export * from "./enums/ModCallbackCustom";
 export * from "./enums/PocketItemType";
 export * from "./enums/SerializationType";
 export { registerCharacterHealthConversion } from "./features/characterHealthConversion";

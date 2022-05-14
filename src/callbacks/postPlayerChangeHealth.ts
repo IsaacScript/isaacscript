@@ -1,7 +1,7 @@
 import { DefaultMap } from "../classes/DefaultMap";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { HealthType } from "../enums/HealthType";
-import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
+import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getEnumValues } from "../functions/enums";
 import { getPlayerHealthType } from "../functions/playerHealth";
@@ -25,7 +25,7 @@ export function postPlayerChangeHealthCallbackInit(mod: ModUpgraded): void {
   saveDataManager("postPlayerChangeHealth", v, hasSubscriptions);
 
   mod.AddCallbackCustom(
-    ModCallbacksCustom.POST_PEFFECT_UPDATE_REORDERED,
+    ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
     postPEffectUpdateReordered,
   );
 }
@@ -34,7 +34,7 @@ function hasSubscriptions() {
   return postPlayerChangeHealthHasSubscriptions();
 }
 
-// ModCallbacksCustom.POST_PEFFECT_UPDATE_REORDERED
+// ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
 function postPEffectUpdateReordered(player: EntityPlayer) {
   if (!hasSubscriptions()) {
     return;

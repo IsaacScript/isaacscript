@@ -6,7 +6,7 @@ import {
 } from "isaac-typescript-definitions";
 import { DefaultMap } from "../classes/DefaultMap";
 import { ModUpgraded } from "../classes/ModUpgraded";
-import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
+import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { arrayRemoveInPlace, copyArray } from "../functions/array";
 import { isActiveCollectible } from "../functions/collectibles";
@@ -64,7 +64,7 @@ export function playerInventoryInit(mod: ModUpgraded): void {
 
   mod.AddCallback(ModCallback.POST_USE_ITEM, useItemD4, CollectibleType.D4); // 3
   mod.AddCallback(ModCallback.POST_GAME_STARTED, postGameStarted); // 15
-  mod.AddCallbackCustom(ModCallbacksCustom.POST_ITEM_PICKUP, postItemPickup);
+  mod.AddCallbackCustom(ModCallbackCustom.POST_ITEM_PICKUP, postItemPickup);
 }
 
 // ModCallback.POST_USE_ITEM (3)
@@ -92,7 +92,7 @@ function postGameStarted() {
   }
 }
 
-// ModCallbacksCustom.POST_ITEM_PICKUP
+// ModCallbackCustom.POST_ITEM_PICKUP
 function postItemPickup(player: EntityPlayer, pickingUpItem: PickingUpItem) {
   if (!COLLECTIBLE_ITEM_TYPES.has(pickingUpItem.itemType)) {
     return;

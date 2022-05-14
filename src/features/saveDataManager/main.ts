@@ -3,7 +3,7 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { game } from "../../cachedClasses";
 import { ModUpgraded } from "../../classes/ModUpgraded";
-import { ModCallbacksCustom } from "../../enums/ModCallbacksCustom";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { SaveDataKeys } from "../../enums/private/SaveDataKeys";
 import { SerializationType } from "../../enums/SerializationType";
 import { deepCopy } from "../../functions/deepCopy";
@@ -29,7 +29,7 @@ export function saveDataManagerInit(incomingMod: ModUpgraded): void {
   mod.AddCallback(ModCallback.PRE_GAME_EXIT, preGameExit); // 17
   mod.AddCallback(ModCallback.POST_NEW_LEVEL, postNewLevel); // 18
   mod.AddCallbackCustom(
-    ModCallbacksCustom.POST_NEW_ROOM_EARLY,
+    ModCallbackCustom.POST_NEW_ROOM_EARLY,
     postNewRoomEarly,
   ); // 19
 }
@@ -82,7 +82,7 @@ function postNewLevel() {
   restoreDefaults(SaveDataKeys.LEVEL);
 }
 
-// ModCallbacksCustom.POST_NEW_ROOM_EARLY
+// ModCallbackCustom.POST_NEW_ROOM_EARLY
 function postNewRoomEarly() {
   restoreDefaults(SaveDataKeys.ROOM);
 }

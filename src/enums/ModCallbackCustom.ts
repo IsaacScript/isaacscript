@@ -5,7 +5,7 @@
  * For a better listing of all custom callbacks, check out the
  * [Function Signatures](https://isaacscript.github.io/docs/function-signatures#custom-callbacks).
  */
-export enum ModCallbacksCustom {
+export enum ModCallbackCustom {
   POST_BOMB_INIT_LATE,
   POST_BONE_SWING,
   POST_COLLECTIBLE_INIT_FIRST,

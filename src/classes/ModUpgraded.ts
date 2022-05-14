@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
+import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { CALLBACK_REGISTER_FUNCTIONS } from "../objects/callbackRegisterFunctions";
 import { AddCallbackParameterCustom } from "../types/AddCallbackParameterCustom";
 
@@ -60,7 +60,7 @@ export class ModUpgraded implements Mod {
   // --------------
 
   // eslint-disable-next-line class-methods-use-this
-  AddCallbackCustom<T extends ModCallbacksCustom>(
+  AddCallbackCustom<T extends ModCallbackCustom>(
     modCallbacksCustom: T,
     ...args: AddCallbackParameterCustom[T]
   ): void {

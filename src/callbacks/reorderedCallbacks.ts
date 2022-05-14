@@ -138,7 +138,7 @@ function recordCurrentStage() {
 }
 
 /**
- * This is a utility function for users of the `ModCallbacksCustom.POST_NEW_LEVEL_REORDERED` custom
+ * This is a utility function for users of the `ModCallbackCustom.POST_NEW_LEVEL_REORDERED` custom
  * callback.
  *
  * If some specific cases, mods can change the current level during run initialization on the 0th
@@ -151,7 +151,7 @@ export function forceNewLevelCallback(): void {
 }
 
 /**
- * This is a utility function for users of the `ModCallbacksCustom.POST_NEW_ROOM_REORDERED` custom
+ * This is a utility function for users of the `ModCallbackCustom.POST_NEW_ROOM_REORDERED` custom
  * callback.
  *
  * If some specific cases, mods can change the current room during run initialization on the 0th

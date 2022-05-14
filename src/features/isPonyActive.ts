@@ -7,7 +7,7 @@
 
 import { CollectibleType, EntityFlag } from "isaac-typescript-definitions";
 import { ModUpgraded } from "../classes/ModUpgraded";
-import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
+import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { hasFlag } from "../functions/flag";
 import {
@@ -37,12 +37,12 @@ export function isPonyActiveInit(mod: ModUpgraded): void {
   saveDataManager("isPonyActive", v);
 
   mod.AddCallbackCustom(
-    ModCallbacksCustom.POST_PEFFECT_UPDATE_REORDERED,
+    ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
     postPEffectUpdateReordered,
   );
 }
 
-// ModCallbacksCustom.POST_PEFFECT_UPDATE_REORDERED
+// ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
 function postPEffectUpdateReordered(player: EntityPlayer) {
   const effects = player.GetEffects();
   const entityFlags = player.GetEntityFlags();
