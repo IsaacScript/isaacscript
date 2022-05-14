@@ -1,0 +1,17 @@
+dbaeumer
+dotenv
+esbenp
+eslintcache
+isaacscript
+jscoverage
+jspm
+lcov
+Microbundle
+Nuxt
+pids
+prettierignore
+prettierrc
+reimplement
+tstl
+typedoc
+Zamiell

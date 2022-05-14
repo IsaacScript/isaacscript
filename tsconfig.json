@@ -1,26 +1,46 @@
-// The configuration file for TypeScript
+// The configuration file for TypeScript.
 {
-  // We extend the standard IsaacScript compiler flags
+  // We extend the standard IsaacScript compiler flags:
   // https://github.com/IsaacScript/isaacscript-tsconfig/blob/main/tsconfig.base.json
+  // (We can't extend "tsconfig.mod.json" since it references this repository.)
   "extends": "isaacscript-tsconfig/tsconfig.base.json",
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    // "target" specifies the ECMAScript target version
-    // By default, it is "ES3"
-    "target": "ESNext",
+    // Specifies the root folder within your source files.
+    "rootDir": "./src",
 
-    // We use TypeScript definitions for the Lua standard library
+    // Specifies the directory of the output.
+    "outDir": "./dist",
+
+    // Needed since this is a Lua library.
+    "declaration": true,
+
+    // Needed to hide internal functions from the auto-complete of end-users.
+    "stripInternal": true,
+
+    // Recommended as per TypeScriptToLua:
+    // https://typescripttolua.github.io/docs/getting-started/
+    "target": "ESNext",
+    "lib": ["ESNext"],
+    "moduleResolution": "Node",
+
+    // We use TypeScript definitions for the Lua standard library:
     // https://github.com/TypeScriptToLua/lua-types
     "types": ["lua-types/5.3"],
-
-    // The "lua-types" library requires Node module resolution
-    // By default, it is "Classic"
-    "moduleResolution": "Node",
   },
 
-  // A list of the TypeScript files to compile
-  "include": [
-    "./typings/**/*.ts",
-  ],
+  // A list of the TypeScript files to compile.
+  "include": ["./src/**/*.ts"],
+
+  // TypeScriptToLua settings
+  "tstl": {
+    "luaTarget": "5.3",
+    "buildMode": "library",
+    "noHeader": true,
+    "luaPlugins": [
+      // A plugin to make enums safe from global variables.
+      { "name": "./plugins/noExtendedEnums.ts" },
+    ],
+  },
 }
