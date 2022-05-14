@@ -46,6 +46,18 @@ export function getHorsePillColor(pillColor: PillColor): PillColor {
 }
 
 /**
+ * Helper function to get the corresponding normal pill color from a horse pill color.
+ *
+ * For example, passing 2049 would result in `PillColor.BLUE_BLUE`.
+ *
+ * If called with a non-horse pill color, this function will return back the same color.
+ */
+export function getNormalPillColorFromHorse(pillColor: PillColor): PillColor {
+  const normalPillColor = pillColor - HORSE_PILL_ADJUSTMENT;
+  return normalPillColor > PillColor.NULL ? normalPillColor : pillColor;
+}
+
+/**
  * Helper function to get a pill effect class from a PillEffect enum value. In this context, the
  * class is equal to the numerical prefix in the "class" tag in the "pocketitems.xml" file. Use the
  * `getPillEffectType` helper function to determine whether or not the pill effect is positive,

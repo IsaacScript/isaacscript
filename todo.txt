@@ -92,6 +92,9 @@ implement in isaacscript-common:
 
 
 IsaacScript announcements:
+- Added the appropriate `HORSE_` enum values to the `PillColor` enum.
 - Added the following constants:
   - `MAX_VANILLA_PLAYER_TYPE`
   - `MAX_NORMAL_PILL_COLOR`
+- Added the following helper functions:
+  - `getNormalPillColorFromHorse`
