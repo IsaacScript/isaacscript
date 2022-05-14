@@ -48,7 +48,10 @@ export enum TearVariant {
   BALLOON_BRIMSTONE = 37,
   BALLOON_BOMB = 38,
   FIST = 39,
+
+  /** Used by Mom's Bracelet. */
   GRID_ENTITY = 40,
+
   ICE = 41,
   ROCK = 42,
   KEY = 43,
