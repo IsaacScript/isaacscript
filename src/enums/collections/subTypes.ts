@@ -1451,8 +1451,8 @@ export enum ChargerSubType {
 }
 
 /**
- * For EntityType.CONSTANT_STONE_SHOOTER (202), ConstantStoneShooterVariant.CONSTANT_STONE_SHOOTER
- * (0)
+ * For EntityType.CONSTANT_STONE_SHOOTER (202)
+ * ConstantStoneShooterVariant.CONSTANT_STONE_SHOOTER (0)
  *
  * This is the same as the `Direction` enum.
  */
