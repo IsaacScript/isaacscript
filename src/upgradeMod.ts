@@ -21,7 +21,7 @@ import { patchErrorFunction } from "./patchErrorFunctions";
  * mod.AddCallback(ModCallback.POST_UPDATE, postUpdate);
  *
  * // Subscribe to custom callbacks
- * mod.AddCallbackCustom(ModCallbacksCustom.MC_POST_ITEM_PICKUP, postItemPickup);
+ * mod.AddCallbackCustom(ModCallbacksCustom.POST_ITEM_PICKUP, postItemPickup);
  * ```
  *
  * For a list of all custom callbacks, check out the

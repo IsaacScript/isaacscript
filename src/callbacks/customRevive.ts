@@ -54,17 +54,14 @@ export function customReviveCallbacksInit(mod: ModUpgraded): void {
   mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
   mod.AddCallback(ModCallback.POST_NEW_ROOM, postNewRoom); // 19
   mod.AddCallbackCustom(
-    ModCallbacksCustom.MC_POST_PEFFECT_UPDATE_REORDERED,
+    ModCallbacksCustom.POST_PEFFECT_UPDATE_REORDERED,
     postPEffectUpdateReordered,
   );
   mod.AddCallbackCustom(
-    ModCallbacksCustom.MC_POST_PLAYER_FATAL_DAMAGE,
+    ModCallbacksCustom.POST_PLAYER_FATAL_DAMAGE,
     postPlayerFatalDamage,
   );
-  mod.AddCallbackCustom(
-    ModCallbacksCustom.MC_PRE_BERSERK_DEATH,
-    preBerserkDeath,
-  );
+  mod.AddCallbackCustom(ModCallbacksCustom.PRE_BERSERK_DEATH, preBerserkDeath);
 }
 
 function hasSubscriptions() {
@@ -94,7 +91,7 @@ function postNewRoom() {
   logStateChanged();
 }
 
-// ModCallbacksCustom.MC_POST_PEFFECT_UPDATE_REORDERED
+// ModCallbacksCustom.POST_PEFFECT_UPDATE_REORDERED
 function postPEffectUpdateReordered(player: EntityPlayer) {
   checkWaitingForItemAnimation(player);
 }
@@ -140,7 +137,7 @@ function checkWaitingForItemAnimation(player: EntityPlayer) {
   logStateChanged();
 }
 
-// ModCallbacksCustom.MC_POST_PLAYER_FATAL_DAMAGE
+// ModCallbacksCustom.POST_PLAYER_FATAL_DAMAGE
 function postPlayerFatalDamage(player: EntityPlayer) {
   if (!hasSubscriptions()) {
     return;
@@ -149,7 +146,7 @@ function postPlayerFatalDamage(player: EntityPlayer) {
   playerIsAboutToDie(player);
 }
 
-// ModCallbacksCustom.MC_PRE_BERSERK_DEATH
+// ModCallbacksCustom.PRE_BERSERK_DEATH
 function preBerserkDeath(player: EntityPlayer) {
   if (!hasSubscriptions()) {
     return;

@@ -16,42 +16,47 @@ import {
  * 1. automatic resetting of variables on a new run, on a new level, or on a new room (as desired)
  * 2. automatic saving and loading of all tracked data to the "save#.dat" file
  *
- * The save data manager never exposes any data, ensuring that all of the files in your mod have
- * variables that are properly scoped.
+ * You feed this function with an anonymous object containing your variables, and then it will
+ * automatically manage them for you. (See below for an example.)
  *
- * Example:
+ * The save data manager is meant to be called once for each feature of your mod. In other words,
+ * you should not put all of the data for your mod on the same object. Instead, scope your variables
+ * locally to a single file that contains a mod feature, and then call this function to register
+ * them. For example:
+ *
  * ```ts
  * // in file: feature1.ts
  * import { saveDataManager } from "isaacscript-common";
  *
- * // Declare local variables for this file or feature
+ * // Declare local variables for this file or feature.
  * const v = {
- *   // These variables are never reset; manage them yourself at will
+ *   // These variables are never reset; manage them yourself at will.
  *   persistent: {
  *     foo1: 0,
  *   },
  *
- *   // These variables are reset at the beginning of every run
+ *   // These variables are reset at the beginning of every run.
  *   run: {
  *     foo2: 0,
  *   },
  *
- *   // These variables are reset at the beginning of every level
+ *   // These variables are reset at the beginning of every level.
  *   level: {
  *     foo3: 0,
  *   },
  *
- *   // These variables are reset at the beginning of every room
+ *   // These variables are reset at the beginning of every room.
  *   room: {
  *     foo2: 0,
  *   },
  * };
- * // (every child object is optional; only create the ones that you need)
+ * // Every child object is optional; only create the ones that you need.
  *
- * // Register the variables with the save data manager
- * // (we need to provide a string key so that it can save the variables properly in the
- * // "save#.dat" file)
- * saveDataManager("feature1", v);
+ * // Register the variables with the save data manager. (We need to provide a string key that
+ * // matches the name of this file.)
+ * function feature1Init() {
+ *   saveDataManager("feature1", v);
+ * }
  *
  * // Elsewhere in the file, use your variables
  * function feature1Function() {
@@ -61,13 +66,13 @@ import {
  * }
  * ```
  *
- * - Save data is loaded from disk in the MC_POST_PLAYER_INIT callback (i.e. the first callback that
+ * - Save data is loaded from disk in the `POST_PLAYER_INIT` callback (i.e. the first callback that
  *   can possibly run).
- * - Save data is recorded to disk in the MC_PRE_GAME_EXIT callback.
+ * - Save data is recorded to disk in the `PRE_GAME_EXIT` callback.
  *
  * Note that before using the save data manager, you must call the [[`upgradeMod`]] function.
  *
- * If you want the save data manager to load data before the MC_POST_PLAYER_INIT callback (i.e. in
+ * If you want the save data manager to load data before the `POST_PLAYER_INIT` callback (i.e. in
  * the main menu), then you should explicitly call the [[`saveDataManagerLoad`]] function. (The save
  * data manager cannot do this on its own because it cannot know when your mod features are finished
  * initializing.)

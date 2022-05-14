@@ -37,12 +37,12 @@ export function isPonyActiveInit(mod: ModUpgraded): void {
   saveDataManager("isPonyActive", v);
 
   mod.AddCallbackCustom(
-    ModCallbacksCustom.MC_POST_PEFFECT_UPDATE_REORDERED,
+    ModCallbacksCustom.POST_PEFFECT_UPDATE_REORDERED,
     postPEffectUpdateReordered,
   );
 }
 
-// ModCallbacksCustom.MC_POST_PEFFECT_UPDATE_REORDERED
+// ModCallbacksCustom.POST_PEFFECT_UPDATE_REORDERED
 function postPEffectUpdateReordered(player: EntityPlayer) {
   const effects = player.GetEffects();
   const entityFlags = player.GetEntityFlags();

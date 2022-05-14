@@ -29,7 +29,7 @@ export function saveDataManagerInit(incomingMod: ModUpgraded): void {
   mod.AddCallback(ModCallback.PRE_GAME_EXIT, preGameExit); // 17
   mod.AddCallback(ModCallback.POST_NEW_LEVEL, postNewLevel); // 18
   mod.AddCallbackCustom(
-    ModCallbacksCustom.MC_POST_NEW_ROOM_EARLY,
+    ModCallbacksCustom.POST_NEW_ROOM_EARLY,
     postNewRoomEarly,
   ); // 19
 }
@@ -82,7 +82,7 @@ function postNewLevel() {
   restoreDefaults(SaveDataKeys.LEVEL);
 }
 
-// ModCallbacksCustom.MC_POST_NEW_ROOM_EARLY
+// ModCallbacksCustom.POST_NEW_ROOM_EARLY
 function postNewRoomEarly() {
   restoreDefaults(SaveDataKeys.ROOM);
 }

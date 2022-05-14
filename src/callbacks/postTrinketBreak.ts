@@ -41,7 +41,7 @@ export function postTrinketBreakCallbackInit(mod: ModUpgraded): void {
   ); // 11
 
   mod.AddCallbackCustom(
-    ModCallbacksCustom.MC_POST_PEFFECT_UPDATE_REORDERED,
+    ModCallbacksCustom.POST_PEFFECT_UPDATE_REORDERED,
     postPEffectUpdateReordered,
   );
 }
@@ -94,7 +94,7 @@ function entityTakeDmgPlayer(
   }
 }
 
-// ModCallbacksCustom.MC_POST_PEFFECT_UPDATE_REORDERED
+// ModCallbacksCustom.POST_PEFFECT_UPDATE_REORDERED
 function postPEffectUpdateReordered(player: EntityPlayer) {
   if (!hasSubscriptions()) {
     return;

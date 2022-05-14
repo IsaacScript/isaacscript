@@ -74,16 +74,16 @@ implement in isaacscript-common:
 - test getCurrentDimension() function to see if Xalum is right // cspell:disable-line
 - PHD_PILL_CONVERSIONS to isaacscript-common
 - make character args for every PlayerVariant callback
-- MC_POST_GREED_WAVE
-- MC_POST_PLAYER_COLLECTIBLE_ADDED
-- MC_POST_PLAYER_COLLECTIBLE_REMOVED
-- MC_POST_AMBUSH_DONE
-- MC_POST_BOMB_DETONATE
+- POST_GREED_WAVE
+- POST_PLAYER_COLLECTIBLE_ADDED
+- POST_PLAYER_COLLECTIBLE_REMOVED
+- POST_AMBUSH_DONE
+- POST_BOMB_DETONATE
 - check for item unlocked - https://github.com/Zamiell/racing-plus/blob/main/src/features/mandatory/errors.ts#L80-L165
 - bible detection for POST FATAL DAMAGE
 - isNewPickup
 - compareEntity (to see what changes with dice room effect)
-- MC_DICE_ROOM_ACTIVATED
+- DICE_ROOM_ACTIVATED
 - intercept shovel for decorations
 - collectible morph to glitched item
 - getRoomNeighbors

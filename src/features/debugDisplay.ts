@@ -54,7 +54,7 @@ export function debugDisplayInit(mod: ModUpgraded): void {
   mod.AddCallback(ModCallback.POST_KNIFE_RENDER, postKnifeRender); // 52
   mod.AddCallback(ModCallback.POST_EFFECT_RENDER, postEffectRender); // 56
   mod.AddCallback(ModCallback.POST_BOMB_RENDER, postBombRender); // 59
-  mod.AddCallbackCustom(ModCallbacksCustom.MC_POST_SLOT_RENDER, postSlotRender);
+  mod.AddCallbackCustom(ModCallbacksCustom.POST_SLOT_RENDER, postSlotRender);
 }
 
 // EntityType.PLAYER (1)
@@ -222,7 +222,7 @@ function postBombRender(bomb: EntityBomb) {
   renderTextOnEntity(bomb, text);
 }
 
-// ModCallbacksCustom.MC_POST_SLOT_RENDER
+// ModCallbacksCustom.POST_SLOT_RENDER
 function postSlotRender(slot: Entity) {
   if (!v.run.slot) {
     return;

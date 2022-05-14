@@ -86,7 +86,7 @@ export function initCustomDoor(mod: ModUpgraded, effectVariant: int): void {
   ); // 56
 
   mod.AddCallbackCustom(
-    ModCallbacksCustom.MC_POST_ROOM_CLEAR_CHANGED,
+    ModCallbacksCustom.POST_ROOM_CLEAR_CHANGED,
     (roomClear: boolean) => {
       postRoomClearChanged(roomClear, effectVariant);
     },
@@ -195,7 +195,7 @@ function isPlayerPastDoorThreshold(
   }
 }
 
-// ModCallbacksCustom.MC_POST_ROOM_CLEAR_CHANGED
+// ModCallbacksCustom.POST_ROOM_CLEAR_CHANGED
 function postRoomClearChanged(roomClear: boolean, effectVariant: int) {
   const state = roomClear ? DoorState.OPEN : DoorState.CLOSED;
   const customDoors = getEffects(effectVariant);
@@ -205,14 +205,14 @@ function postRoomClearChanged(roomClear: boolean, effectVariant: int) {
 }
 
 /**
- * Helper function to spawn a custom door. This is intended to be called from the `MC_POST_NEW_ROOM`
+ * Helper function to spawn a custom door. This is intended to be called from the `POST_NEW_ROOM`
  * callback when the player enters a room that should have a custom door. (You could also call it
  * from another callback if you want the door to appear e.g. after clearing all enemies.)
  *
  * Like other entities, the door is not persistent, so you must spawn it every time when re-entering
  * the room.
  *
- * Handle when a player enters the door by hooking the custom `MC_POST_CUSTOM_DOOR_ENTER` callback.
+ * Handle when a player enters the door by hooking the custom `POST_CUSTOM_DOOR_ENTER` callback.
  *
  * The custom door is an `EntityEffect`. You can manually open or close the door by modifying its
  * state. (The values to use correspond to the `DoorState` enum.)
