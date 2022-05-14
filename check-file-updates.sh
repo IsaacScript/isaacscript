@@ -5,7 +5,6 @@ FILES_TO_CHECK=(
   ".vscode/settings.json:.vscode/settings-typescript.json"
   ".cspell-base.json:.cspell-base.json"
   ".gitattributes"
-  ".prettierignore:.prettierignore-base"
   ".prettierrc.js:.prettierrc-base.js"
 )
 

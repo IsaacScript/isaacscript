@@ -1,5 +1,6 @@
 dbaeumer
 dotenv
+contentfolder
 esbenp
 eslintcache
 isaacscript
@@ -7,11 +8,14 @@ jscoverage
 jspm
 lcov
 Microbundle
+noout
 Nuxt
 pids
 prettierignore
 prettierrc
+publishedfileid
 reimplement
 tstl
 typedoc
+workshopitem
 Zamiell

@@ -1,6 +1,9 @@
 #!/bin/bash
 
-DICTIONARIES_TO_CHECK=("isaac" "isaacscript")
+DICTIONARIES_TO_CHECK=("isaac")
+# The "isaacscript" dictionary contains words that do not live in this repository, so we skip
+# checking it.
+# TODO: Remove this check when this lives in a monorepo.
 
 set -e # Exit on any errors
 
@@ -11,10 +14,11 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 REPO_ROOT="$DIR/.."
 cd "$REPO_ROOT"
 
-# Make a list of every misspelled word without any custom dictionaries
+# Make a list of every misspelled word without any custom dictionaries.
+# We need to move the configuration path temporarily or else the cspell command won't work properly.
 CSPELL_CONFIGURATION_PATH="$REPO_ROOT/.cspell.json"
 CSPELL_CONFIGURATION_PATH_TEMP="$REPO_ROOT/.cspell-temp.json"
-mv "$CSPELL_CONFIGURATION_PATH" "$CSPELL_CONFIGURATION_PATH_TEMP" # Otherwise the below command won't work properly
+mv "$CSPELL_CONFIGURATION_PATH" "$CSPELL_CONFIGURATION_PATH_TEMP"
 MISSPELLED_WORDS_PATH="/tmp/misspelled-words.txt"
 CSPELL_CONFIGURATION_TEST_PATH="$REPO_ROOT/.cspell-check-unused.json"
 npx cspell lint --config "$CSPELL_CONFIGURATION_TEST_PATH" --dot --no-progress --no-summary --unique --words-only | sort --ignore-case --unique > "$MISSPELLED_WORDS_PATH"
