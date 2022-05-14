@@ -6,6 +6,7 @@ FILES_TO_CHECK=(
   ".cspell-base.json:.cspell-base.json"
   ".cspell-check-unused.json:.cspell-check-unused-base.json"
   ".gitattributes"
+  ".prettierignore:.prettierignore-base"
   ".prettierrc.js:.prettierrc-base.js"
 )
 
