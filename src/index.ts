@@ -1,11 +1,5 @@
 /* eslint-disable sort-exports/sort-exports */
 
-// `isaac-typescript-definitions` exports a mix of declarations and real Lua code. We export the
-// declarations first with a triple slash directive; they must come before the normal code exports.
-// (Triple slash directives must be at the top of the file.)
-
-import "./types/MusicManager";
-
 export * from "./enums/ActiveSlot";
 export * from "./enums/BackdropType";
 export * from "./enums/BrokenWatchState";
