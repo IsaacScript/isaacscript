@@ -214,6 +214,6 @@ declare global {
     GreedModeWave: int;
 
     /** The `DoorSlot` that the player left the previous room at. */
-    LeaveDoor: int;
+    LeaveDoor: DoorSlot;
   }
 }
