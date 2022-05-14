@@ -708,6 +708,18 @@ valid.push({
   `,
 });
 
+valid.push({
+  name: "Using a number at the end of the line",
+  code: `
+{
+  {
+    // If the room contained Mom's Hands, then a screen shake will be queued. Override it with a 0
+    // frame shake.
+  }
+}
+  `,
+});
+
 ruleTester.run("format-line-comments", formatLineComments, {
   valid,
   invalid,
