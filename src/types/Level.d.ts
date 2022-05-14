@@ -13,7 +13,7 @@ declare global {
     /**
      * Entries in the "curses.xml" file enumerate from 1 instead of 0. Thus, the `LevelCurse`
      * bitmask for a new curse must be `1 << LevelCurseCustom.FOO - 1`. This value is also the
-     * return value of MC_POST_CURSE_EVAL.
+     * return value of `POST_CURSE_EVAL`.
      */
     AddCurse(levelCurse: LevelCurse | int, showName: boolean): void;
 

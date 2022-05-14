@@ -5,7 +5,8 @@ FILES_TO_CHECK=(
   ".vscode/settings.json:.vscode/settings-typescript.json"
   ".cspell-base.json:.cspell-base.json"
   ".gitattributes"
-  ".prettierrc.js:.prettierrc-base.js"
+  ".prettierignore"
+  ".prettierrc.js"
 )
 
 set -e # Exit on any errors

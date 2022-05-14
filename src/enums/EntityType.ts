@@ -100,7 +100,10 @@ export enum EntityType {
   DADDY_LONG_LEGS = 101,
   ISAAC = 102,
 
-  // Rebirth enemies
+  // ---------------
+  // Rebirth Enemies
+  // ---------------
+
   STONE_EYE = 201,
   CONSTANT_STONE_SHOOTER = 202,
   BRIMSTONE_HEAD = 203,
@@ -133,9 +136,9 @@ export enum EntityType {
   CAMILLO_JR = 230,
   NERVE_ENDING = 231,
 
-  // SKINBALL = 232, // Non-existent entity
+  // SKINBALL = 232, // This is a non-existent entity.
 
-  // MOM_HEAD = 233, // Non-existent entity
+  // MOM_HEAD = 233, // This is a non-existent entity.
 
   ONE_TOOTH = 234,
   GAPING_MAW = 235,
@@ -160,13 +163,19 @@ export enum EntityType {
   FLOATING_KNIGHT = 254,
   NIGHT_CRAWLER = 255,
 
-  // Afterbirth enemies
+  // ------------------
+  // Afterbirth Enemies
+  // ------------------
+
   DART_FLY = 256,
   CONJOINED_FATTY = 257,
   FAT_BAT = 258,
   IMP = 259,
 
-  // Rebirth bosses
+  // --------------
+  // Rebirth Bosses
+  // --------------
+
   THE_HAUNT = 260,
   DINGLE = 261,
   MEGA_MAW = 262,
@@ -184,7 +193,10 @@ export enum EntityType {
   MEGA_SATAN = 274,
   MEGA_SATAN_2 = 275,
 
-  // Afterbirth enemies (2)
+  // -------------------
+  // Afterbirth+ Enemies
+  // -------------------
+
   ROUNDY = 276,
   BLACK_BONY = 277,
   BLACK_GLOBIN = 278,
@@ -217,14 +229,20 @@ export enum EntityType {
   MINISTRO = 305,
   PORTAL = 306,
 
-  // Booster Pack enemies
+  // --------------------
+  // Booster Pack Enemies
+  // --------------------
+
   TAR_BOY = 307,
   FISTULOID = 308,
   GUSH = 309,
   LEPER = 310,
   MR_MINE = 311,
 
-  // Afterbirth bosses
+  // -----------------
+  // Afterbirth Bosses
+  // -----------------
+
   STAIN = 401,
   BROWNIE = 402,
   FORSAKEN = 403,
@@ -239,7 +257,10 @@ export enum EntityType {
   DELIRIUM = 412,
   MATRIARCH = 413,
 
-  // Repentance
+  // ------------------
+  // Repentance Enemies
+  // ------------------
+
   BONE_WORM = 801,
   BLOOD_PUPPY = 802,
   QUAKE_GRIMACE = 804,
@@ -357,7 +378,10 @@ export enum EntityType {
   TRIGGER_OUTPUT = 969,
   ENVIRONMENT = 970,
 
-  // Special effects
+  // ---------------
+  // Special Effects
+  // ---------------
+
   EFFECT = 1000,
   TEXT = 9001,
 }

@@ -108,9 +108,9 @@ declare global {
 
     GetLightingAlpha(): float;
 
-    // GetLRoomAreaDesc is not implemented
+    // GetLRoomAreaDesc is not implemented.
 
-    // GetLRoomTileDesc is not implemented
+    // GetLRoomTileDesc is not implemented.
 
     GetNextShockwaveId(): int;
     GetRandomPosition(margin: float): Vector;

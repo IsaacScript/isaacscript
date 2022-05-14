@@ -6,17 +6,20 @@
  */
 
 // The Isaac definitions automatically bundle the definitions for Lua 5.3 as a convenience.
-
 /// <reference types="lua-types/5.3" />
 
+// -------------
 // Miscellaneous
+// -------------
 
 /// <reference path="functions.d.ts" />
 /// <reference path="json.d.ts" />
 /// <reference path="main.d.ts" />
 /// <reference path="socket.d.ts" />
 
+// -------
 // Classes
+// -------
 
 /// <reference path="ActiveItemDesc.d.ts" />
 /// <reference path="BitSet128.d.ts" />
@@ -87,7 +90,9 @@
 /// <reference path="Vector.d.ts" />
 /// <reference path="VectorList.d.ts" />
 
+// ----------------------------
 // Unofficial Classes and Types
+// ----------------------------
 
 /// <reference path="unofficial/enumHelpers.d.ts" />
 /// <reference path="unofficial/primitives.d.ts" />
@@ -103,7 +108,9 @@
 /// <reference path="unofficial/Seed.d.ts" />
 /// <reference path="unofficial/ZodiacCollectibles.d.ts" />
 
+// ----------------------------
 // Definitions for Popular Mods
+// ----------------------------
 
 /// <reference path="mods/EID.d.ts" />
 /// <reference path="mods/Encyclopedia.d.ts" />

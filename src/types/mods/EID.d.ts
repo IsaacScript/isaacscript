@@ -343,7 +343,7 @@ declare interface EIDInterface {
   /**
    * Gets the transformation uniqueName / ID of a given entity.
    *
-   * Example: `EID:getTransformation(5,100,34)`  will return `"12"` which is the id for Bookworm.
+   * Example: `EID:getTransformation(5,100,34)` will return `"12"` which is the id for Bookworm.
    */
   getTransformation(Type: int, Variant: int, SubType: int): string;
 

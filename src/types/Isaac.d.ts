@@ -21,15 +21,15 @@ declare global {
     /**
      * Your mod can't do much of anything unless you attach some callback functions that can run
      * code when certain things happen. The different types of callbacks are represented in the
-     * ModCallbacks enum.
+     * `ModCallback` enum.
      *
      * Some callbacks take an optional third argument to specify that you only want it the function
      * to fire on a specific thing. For example:
      * ```
      * mod.AddCallback(
-     *   ModCallbacks.MC_POST_EFFECT_UPDATE,
-     *   postEffectUpdatePoof01,
-     *   EffectVariant.POOF01,
+     *   ModCallback.POST_EFFECT_UPDATE,
+     *   postEffectUpdatePoof1,
+     *   EffectVariant.POOF_1,
      * )
      * ```
      */

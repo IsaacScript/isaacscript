@@ -7,7 +7,7 @@ declare global {
    */
   interface Mod {
     AddCallback<T extends keyof AddCallbackParameter>(
-      modCallbacks: T,
+      modCallback: T,
       ...args: AddCallbackParameter[T]
     ): void;
 

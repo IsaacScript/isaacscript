@@ -1,4 +1,4 @@
-// This is the Racing+ sandbox provided by the Electron client
+// This is the Racing+ sandbox provided by the Electron client.
 
 /** @noSelf */
 declare interface Sandbox {

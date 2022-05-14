@@ -414,8 +414,8 @@ declare global {
     DropTrinket(dropPos: Vector, replaceTick: boolean): void;
 
     /**
-     * Triggers the MC_EVALUATE_CACHE callback. Before calling this function, you need to set the
-     * appropriate cache flags by using the `AddCacheFlag()` method.
+     * Triggers the `EVALUATE_CACHE` callback. Before calling this function, you need to set the
+     * appropriate cache flags by using the `EntityPlayer.AddCacheFlag` method.
      */
     EvaluateItems(): void;
 
@@ -749,7 +749,7 @@ declare global {
     GetPillRNG(pillEffect: PillEffect | int): RNG;
     GetPlayerType(): PlayerType | int;
 
-    // GetPocketItem is not implemented
+    // GetPocketItem is not implemented.
 
     /** Returns how many poop consumables the player is currently holding. */
     GetPoopMana(): int;
@@ -1167,7 +1167,7 @@ declare global {
 
     FireDelay: int;
 
-    // readonly FriendBallEnemy: Readonly<EntityDesc>; // EntityDesc is not implemented
+    // FriendBallEnemy is not implemented.
 
     HeadFrameDelay: int;
 

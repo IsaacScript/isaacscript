@@ -37,9 +37,9 @@ declare global {
     FirstUpdate: boolean;
     GridHit: boolean;
 
-    // HomingLaser is not implemented
+    // HomingLaser is not implemented.
 
-    // HomingType is not implemented
+    // HomingType is not implemented.
 
     IsActiveRotating: boolean;
     LaserLength: float;
@@ -52,7 +52,7 @@ declare global {
     RotationDelay: int;
     RotationSpd: float;
 
-    // SampleLaser is not implemented; use `EntityLaser.IsSampleLaser` instead
+    // SampleLaser is not implemented; use `EntityLaser.IsSampleLaser` instead.
 
     Shrink: boolean;
     StartAngleDegrees: float;

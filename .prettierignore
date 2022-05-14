@@ -1,2 +1,14 @@
 # Ignore compiled output.
 dist
+
+# The VSCode CSpell plugin causes the file to become unformatted whenever a new word is added.
+.cspell.json
+
+# Ignore all of the XML files created by Basement Renovator.
+mod/content/rooms/**/*.xml
+mod/content/luarooms/**/*.xml
+mod/resources/rooms/**/*.xml
+mod/resources/luarooms/**/*.xml
+
+# Ignore all of the XML files created by the animation editor.
+mod/resources/**/*.anm2
