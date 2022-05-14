@@ -1,6 +1,7 @@
+import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
 import { CALLBACK_REGISTER_FUNCTIONS } from "../objects/callbackRegisterFunctions";
-import { AddCallbackParametersCustom } from "../types/AddCallbackParametersCustom";
+import { AddCallbackParameterCustom } from "../types/AddCallbackParameterCustom";
 
 /** `isaacscript-common` allows for custom callbacks, so it provides an upgraded Mod object. */
 export class ModUpgraded implements Mod {
@@ -27,9 +28,9 @@ export class ModUpgraded implements Mod {
   // Vanilla methods
   // ---------------
 
-  AddCallback<T extends ModCallbacks>(
+  AddCallback<T extends ModCallback>(
     modCallbacks: T,
-    ...args: AddCallbackParameters[T]
+    ...args: AddCallbackParameter[T]
   ): void {
     this.Mod.AddCallback(modCallbacks, ...args);
   }
@@ -42,7 +43,7 @@ export class ModUpgraded implements Mod {
     return this.Mod.LoadData();
   }
 
-  RemoveCallback(callbackID: ModCallbacks, callback: () => void): void {
+  RemoveCallback(callbackID: ModCallback, callback: () => void): void {
     this.Mod.RemoveCallback(callbackID, callback);
   }
 
@@ -61,7 +62,7 @@ export class ModUpgraded implements Mod {
   // eslint-disable-next-line class-methods-use-this
   AddCallbackCustom<T extends ModCallbacksCustom>(
     modCallbacksCustom: T,
-    ...args: AddCallbackParametersCustom[T]
+    ...args: AddCallbackParameterCustom[T]
   ): void {
     const callbackRegisterFunction =
       CALLBACK_REGISTER_FUNCTIONS[modCallbacksCustom];

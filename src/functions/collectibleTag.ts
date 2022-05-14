@@ -1,10 +1,11 @@
+import { CollectibleType, ItemConfigTag } from "isaac-typescript-definitions";
 import { itemConfig } from "../cachedClasses";
-import { ItemConfigTag } from "../enums/ItemConfigTag";
-import { getMaxCollectibleType } from "./collectibles";
-import { range } from "./math";
+import { MAX_COLLECTIBLE_TYPE } from "../constantsMax";
+import { getEnumValues } from "./enums";
+import { getFlagName } from "./flag";
+import { irange } from "./math";
 import { getPlayerCollectibleCount } from "./player";
 import { copySet } from "./set";
-import { getEnumValues } from "./utils";
 
 const TAG_TO_COLLECTIBLE_TYPES_MAP = new Map<
   ItemConfigTag,
@@ -12,15 +13,13 @@ const TAG_TO_COLLECTIBLE_TYPES_MAP = new Map<
 >();
 
 function initTagMap() {
-  const maxCollectibleType = getMaxCollectibleType();
-
   // The tag to collectible types map should be valid for every tag, so we initialize it with empty
-  // sets
+  // sets.
   for (const itemConfigTag of getEnumValues(ItemConfigTag)) {
     TAG_TO_COLLECTIBLE_TYPES_MAP.set(itemConfigTag, new Set());
   }
 
-  for (const collectibleType of range(1, maxCollectibleType)) {
+  for (const collectibleType of irange(1, MAX_COLLECTIBLE_TYPE)) {
     for (const itemConfigTag of getEnumValues(ItemConfigTag)) {
       if (!collectibleHasTag(collectibleType, itemConfigTag)) {
         continue;
@@ -29,9 +28,8 @@ function initTagMap() {
       const collectibleTypesSet =
         TAG_TO_COLLECTIBLE_TYPES_MAP.get(itemConfigTag);
       if (collectibleTypesSet === undefined) {
-        error(
-          `Failed to get the collectible types for item tag: ${ItemConfigTag[itemConfigTag]}`,
-        );
+        const flagName = getFlagName(itemConfigTag, ItemConfigTag);
+        error(`Failed to get the collectible types for item tag: ${flagName}`);
       }
       collectibleTypesSet.add(collectibleType);
     }

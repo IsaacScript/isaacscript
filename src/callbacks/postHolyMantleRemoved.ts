@@ -1,3 +1,4 @@
+import { CollectibleType } from "isaac-typescript-definitions";
 import { DefaultMap } from "../classes/DefaultMap";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
@@ -40,7 +41,7 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
 
   const effects = player.GetEffects();
   const newNumHolyMantles = effects.GetCollectibleEffectNum(
-    CollectibleType.COLLECTIBLE_HOLY_MANTLE,
+    CollectibleType.HOLY_MANTLE,
   );
   const oldNumHolyMantles = defaultMapGetPlayer(
     v.run.playersHolyMantleMap,

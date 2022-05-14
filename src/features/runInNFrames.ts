@@ -1,3 +1,4 @@
+import { ModCallback } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { saveDataManager } from "./saveDataManager/exports";
@@ -18,18 +19,18 @@ const v = {
 export function runInNFramesInit(mod: Mod): void {
   saveDataManager("runInNFrames", v, () => false);
 
-  mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate); // 1
-  mod.AddCallback(ModCallbacks.MC_POST_RENDER, postRender); // 2
+  mod.AddCallback(ModCallback.POST_UPDATE, postUpdate); // 1
+  mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
 }
 
-// ModCallbacks.MC_POST_UPDATE (1)
+// ModCallback.POST_UPDATE (1)
 function postUpdate() {
   const gameFrameCount = game.GetFrameCount();
 
   checkExecuteQueuedFunctions(gameFrameCount, v.run.queuedGameFunctionTuples);
 }
 
-// ModCallbacks.MC_POST_RENDER (2)
+// ModCallback.POST_RENDER (2)
 function postRender() {
   const renderFrameCount = Isaac.GetFrameCount();
 

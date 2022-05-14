@@ -1,3 +1,5 @@
+import { EntityType } from "isaac-typescript-definitions";
+
 export type PostNPCInitLateRegisterParameters = [
   callback: (npc: EntityNPC) => void,
   entityType?: EntityType | int,

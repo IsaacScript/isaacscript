@@ -3,6 +3,7 @@
 // - PostSlotAnimationChanged
 // - PostSlotBroken
 
+import { ModCallback } from "isaac-typescript-definitions";
 import { DefaultMap } from "../classes/DefaultMap";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getSlots } from "../functions/entitySpecific";
@@ -40,7 +41,7 @@ const v = {
 export function postSlotRenderCallbacksInit(mod: Mod): void {
   saveDataManager("postSlotRender", v, hasSubscriptions);
 
-  mod.AddCallback(ModCallbacks.MC_POST_RENDER, postRender); // 2
+  mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
 }
 
 function hasSubscriptions() {
@@ -51,7 +52,7 @@ function hasSubscriptions() {
   );
 }
 
-// ModCallbacks.MC_POST_UPDATE (1)
+// ModCallback.POST_UPDATE (1)
 function postRender() {
   if (!hasSubscriptions()) {
     return;

@@ -1,5 +1,6 @@
+import { erange } from "./math";
 import { getRandomInt } from "./random";
-import { getRandomSeed } from "./rng";
+import { getRandomSeed, isRNG, newRNG } from "./rng";
 import { repeat } from "./utils";
 
 /**
@@ -161,7 +162,9 @@ export function copyArray<T>(
   const newArray: T[] = [];
   for (let i = 0; i < numElements; i++) {
     const oldElement = oldArray[i];
-    newArray.push(oldElement);
+    if (oldElement !== undefined) {
+      newArray.push(oldElement);
+    }
   }
 
   return newArray;
@@ -171,8 +174,21 @@ export function emptyArray<T>(array: T[]): void {
   array.splice(0, array.length);
 }
 
-/** Helper function to return the last element of an array. */
-export function getLastElement<T>(array: T[]): T {
+/**
+ * Helper function to get an array containing the indexes of an array.
+ *
+ * For example, an array of `["Apple", "Banana"]` would return an array of: `[0, 1]`
+ */
+export function getArrayIndexes<T>(array: T[] | readonly T[]): int[] {
+  return erange(array.length);
+}
+
+/**
+ * Helper function to return the last element of an array.
+ *
+ * If the array is empty, this will return undefined.
+ */
+export function getLastElement<T>(array: T[]): T | undefined {
   return array[array.length - 1];
 }
 
@@ -197,7 +213,14 @@ export function getRandomArrayElement<T>(
 
   const arrayWithoutExceptions = arrayRemove(array, ...exceptions);
   const randomIndex = getRandomArrayIndex(arrayWithoutExceptions, seedOrRNG);
-  return arrayWithoutExceptions[randomIndex];
+  const randomElement = arrayWithoutExceptions[randomIndex];
+  if (randomElement === undefined) {
+    error(
+      `Failed to get a random array element since the random index of ${randomIndex} was not valid.`,
+    );
+  }
+
+  return randomElement;
 }
 
 /**
@@ -274,14 +297,14 @@ export function isArray(object: unknown): object is unknown[] {
 
   const table = object as LuaTable<AnyNotNil, unknown>;
 
-  // First, if there is a metatable, this cannot be a simple array and must be a more complex object
+  // First, if there is a metatable, this cannot be a simple array and must be a more complex
+  // object.
   const metatable = getmetatable(table);
   if (metatable !== undefined) {
     return false;
   }
 
-  // Second, handle the case of non-numerical keys
-  // (and count the entries in the table)
+  // Second, handle the case of non-numerical keys (and count the entries in the table).
   let numEntries = 0;
   for (const [key] of pairs(table)) {
     numEntries += 1;
@@ -295,11 +318,30 @@ export function isArray(object: unknown): object is unknown[] {
     return true;
   }
 
-  // Third, check for non-contiguous elements
-  // (Lua tables start at an index of 1)
+  // Third, check for non-contiguous elements. (Lua tables start at an index of 1.)
   for (let i = 1; i <= numEntries; i++) {
     const element = table.get(i);
     if (element === undefined) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+/**
+ * Helper function to see if every element in the array is N + 1.
+ *
+ * For example, `[2, 3, 4]` would return true, and `[2, 3, 5]` would return false.
+ */
+export function isArrayContiguous(array: int[]): boolean {
+  let lastValue: int | null = null;
+  for (const element of array) {
+    if (lastValue === null) {
+      lastValue = element - 1;
+    }
+
+    if (element !== lastValue - 1) {
       return false;
     }
   }
@@ -350,10 +392,14 @@ export function shuffleArrayInPlace<T>(
   let currentIndex = array.length;
   let randomIndex: int;
 
+  const rng = isRNG(seedOrRNG) ? seedOrRNG : newRNG(seedOrRNG);
+
   while (currentIndex > 0) {
     currentIndex -= 1;
-    randomIndex = getRandomArrayIndex(array, seedOrRNG);
 
+    randomIndex = getRandomArrayIndex(array, rng);
+
+    // @ts-expect-error The array elements can never be undefined here
     [array[currentIndex], array[randomIndex]] = [
       array[randomIndex],
       array[currentIndex],

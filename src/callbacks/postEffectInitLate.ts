@@ -1,3 +1,4 @@
+import { ModCallback } from "isaac-typescript-definitions";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import {
   postEffectInitLateFire,
@@ -14,14 +15,14 @@ const v = {
 export function postEffectInitLateCallbackInit(mod: Mod): void {
   saveDataManager("postEffectInitLate", v, hasSubscriptions);
 
-  mod.AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, postEffectUpdate); // 55
+  mod.AddCallback(ModCallback.POST_EFFECT_UPDATE, postEffectUpdate); // 55
 }
 
 function hasSubscriptions() {
   return postEffectInitLateHasSubscriptions();
 }
 
-// ModCallbacks.MC_POST_EFFECT_UPDATE (55)
+// ModCallback.POST_EFFECT_UPDATE (55)
 function postEffectUpdate(effect: EntityEffect) {
   if (!hasSubscriptions()) {
     return;

@@ -1,3 +1,8 @@
+import {
+  EntityType,
+  LokiVariant,
+  StageType,
+} from "isaac-typescript-definitions";
 import { VectorZero } from "../constants";
 import {
   ALL_BOSSES_SET,
@@ -12,11 +17,11 @@ import { copySet } from "./set";
 import { repeat } from "./utils";
 
 const BOSSES_THAT_REQUIRE_MULTIPLE_SPAWNS: ReadonlySet<EntityType> = new Set([
-  EntityType.ENTITY_LARRYJR, // 19 (and The Hollow / Tuff Twins / The Shell)
-  EntityType.ENTITY_CHUB, // 28 (and C.H.A.D. / The Carrion Queen)
-  EntityType.ENTITY_LOKI, // 69 (only for Lokii)
-  EntityType.ENTITY_GURGLING, // 237 (and Turdling)
-  EntityType.ENTITY_TURDLET, // 918
+  EntityType.LARRY_JR, // 19 (and The Hollow / Tuff Twins / The Shell)
+  EntityType.CHUB, // 28 (and C.H.A.D. / The Carrion Queen)
+  EntityType.LOKI, // 69 (only for Lokii)
+  EntityType.GURGLING, // 237 (and Turdling)
+  EntityType.TURDLET, // 918
 ]);
 
 const DEFAULT_BOSS_MULTI_SEGMENTS = 4;
@@ -173,18 +178,18 @@ function getNumBossSegments(
 
   switch (entityType) {
     // 28
-    case EntityType.ENTITY_CHUB: {
+    case EntityType.CHUB: {
       // Chub is always composed of 3 segments
       return 3;
     }
 
     // 69
-    case EntityType.ENTITY_LOKI: {
+    case EntityType.LOKI: {
       return variant === LokiVariant.LOKII ? 2 : 1;
     }
 
     // 237
-    case EntityType.ENTITY_GURGLING: {
+    case EntityType.GURGLING: {
       // Gurglings & Turdlings are always encountered in groups of 2
       return 2;
     }

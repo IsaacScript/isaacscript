@@ -6,8 +6,25 @@ export function capitalizeFirstLetter(string: string): string {
   return `${capitalizedFirstLetter}${restOfString}`;
 }
 
-export function stringContains(string: string, searchString: string): boolean {
-  return string.indexOf(searchString) !== -1;
+export function removeAllCharacters(string: string, character: string): string {
+  return string.replaceAll(character, "");
+}
+
+/**
+ * Helper function to remove one or more substrings from a string, if they exist. Returns the
+ * modified string.
+ *
+ * This function is variadic, meaning that you can pass as many substrings as you want to remove.
+ */
+export function removeSubstring(
+  string: string,
+  ...substrings: string[]
+): string {
+  for (const substring of substrings) {
+    string = string.replaceAll(substring, "");
+  }
+
+  return string;
 }
 
 /** Helper function to trim a prefix from a string, if it exists. Returns the trimmed string. */

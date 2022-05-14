@@ -1,14 +1,21 @@
+import {
+  ActiveSlot,
+  CollectibleType,
+  EntityType,
+  ModCallback,
+  SuckerVariant,
+} from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { DefaultMap } from "../classes/DefaultMap";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getTotalCharge } from "../functions/charge";
+import { getEnumValues } from "../functions/enums";
 import {
   defaultMapGetPlayer,
   mapGetPlayer,
   mapSetPlayer,
 } from "../functions/playerDataStructures";
-import { getEnumValues } from "../functions/utils";
 import { PlayerIndex } from "../types/PlayerIndex";
 import {
   postItemDischargeFire,
@@ -41,11 +48,11 @@ const v = {
 export function postItemDischargeCallbackInit(mod: ModUpgraded): void {
   saveDataManager("postItemDischarge", v, hasSubscriptions);
 
-  mod.AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, postPEffectUpdate); // 4
+  mod.AddCallback(ModCallback.POST_PEFFECT_UPDATE, postPEffectUpdate); // 4
   mod.AddCallback(
-    ModCallbacks.MC_PRE_NPC_COLLISION,
+    ModCallback.PRE_NPC_COLLISION,
     preNPCCollision,
-    EntityType.ENTITY_SUCKER,
+    EntityType.SUCKER,
   ); // 30
 }
 
@@ -53,7 +60,7 @@ function hasSubscriptions(): boolean {
   return postItemDischargeHasSubscriptions();
 }
 
-// ModCallbacks.MC_POST_PEFFECT_UPDATE (4)
+// ModCallback.POST_PEFFECT_UPDATE (4)
 function postPEffectUpdate(player: EntityPlayer) {
   if (!hasSubscriptions()) {
     return;
@@ -72,7 +79,7 @@ function postPEffectUpdate(player: EntityPlayer) {
 
     if (currentActiveItem !== previousActiveItem) {
       // The player swapped out their active item for something else, so it should be impossible for
-      // the discharge callback to fire on this frame
+      // the discharge callback to fire on this frame.
       continue;
     }
 
@@ -110,8 +117,8 @@ function playerRecentlyCollidedWithBulb(player: EntityPlayer) {
 }
 
 /**
- * ModCallbacks.MC_PRE_NPC_COLLISION (30)
- * EntityType.ENTITY_SUCKER (61)
+ * ModCallback.PRE_NPC_COLLISION (30)
+ * EntityType.SUCKER (61)
  *
  * The algorithm for detecting a discharge is checking if the current charge is less than the charge
  * on the previous frame. Thus, when a Bulb zaps a player and drains their charge, this will be a
@@ -120,8 +127,8 @@ function playerRecentlyCollidedWithBulb(player: EntityPlayer) {
  * When Bulbs zap a player, they go to `NpcState.STATE_JUMP` for a frame. However, this only happens
  * on the frame after the player is discharged, which is too late to be of any use.
  *
- * Instead, we track the frames that Bulbs collide with players and assume that a collision means
- * a zap has occurred.
+ * Instead, we track the frames that Bulbs collide with players and assume that a collision means a
+ * zap has occurred.
  */
 function preNPCCollision(npc: EntityNPC, collider: Entity) {
   if (!hasSubscriptions()) {

@@ -1,9 +1,11 @@
 /* eslint-disable sort-exports/sort-exports */
 
+import { CollectibleType } from "isaac-typescript-definitions";
+
 export const DEFAULT_COLLECTIBLE_NAME = "Unknown";
 
-// Temporary map due to missing features in the vanilla API
-// (otherwise this would be converted to a type-safe object)
+// This is a temporary map due to missing features in the vanilla API. (Otherwise, this would be
+// converted to a type-safe object.)
 export const COLLECTIBLE_NAME_MAP: ReadonlyMap<CollectibleType, string> =
   new Map([
     [1, "The Sad Onion"],

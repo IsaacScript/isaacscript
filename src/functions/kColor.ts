@@ -55,7 +55,7 @@ export function copyKColor(
 
       const kColorTable = new LuaTable<string, unknown>();
       copyValuesToTable(kColor, KEYS, kColorTable);
-      kColorTable.set(SerializationBrand.KCOLOR, "");
+      kColorTable.set(SerializationBrand.K_COLOR, "");
       return kColorTable as SerializedKColor;
     }
 
@@ -68,6 +68,27 @@ export function copyKColor(
       }
 
       const [r, g, b, a] = getNumbersFromTable(kColor, OBJECT_NAME, ...KEYS);
+
+      if (r === undefined) {
+        error(
+          `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: r`,
+        );
+      }
+      if (g === undefined) {
+        error(
+          `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: g`,
+        );
+      }
+      if (b === undefined) {
+        error(
+          `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: b`,
+        );
+      }
+      if (a === undefined) {
+        error(
+          `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: a`,
+        );
+      }
 
       return KColor(r, g, b, a);
     }
@@ -101,7 +122,7 @@ export function isSerializedKColor(
   }
 
   const table = object as LuaTable<AnyNotNil, unknown>;
-  return tableHasKeys(table, ...KEYS) && table.has(SerializationBrand.KCOLOR);
+  return tableHasKeys(table, ...KEYS) && table.has(SerializationBrand.K_COLOR);
 }
 
 export function kColorEquals(kColor1: KColor, kColor2: KColor): boolean {

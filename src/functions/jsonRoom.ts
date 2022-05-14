@@ -14,8 +14,8 @@ export function getJSONRoomOfVariant(
     return roomVariant === variant;
   });
 
-  // The room variant acts as an ID for the room
-  // We assume that there should only be a single room per variant
+  // The room variant acts as an ID for the room. We assume that there should only be a single room
+  // per variant.
   if (jsonRoomsOfVariant.length === 0) {
     return undefined;
   }

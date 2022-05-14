@@ -1,5 +1,7 @@
 /* cspell:disable */
 
+import { PlayerType } from "isaac-typescript-definitions";
+
 /** Maps character names to character sub-types. */
 export const CHARACTER_MAP = new Map<string, PlayerType>([
   ["isaac", 0],

@@ -1,7 +1,10 @@
-import { collectibleHasCacheFlag, getMaxCollectibleType } from "./collectibles";
-import { range } from "./math";
+import { CacheFlag, CollectibleType } from "isaac-typescript-definitions";
+import { MAX_COLLECTIBLE_TYPE } from "../constantsMax";
+import { collectibleHasCacheFlag } from "./collectibles";
+import { getEnumValues } from "./enums";
+import { irange } from "./math";
 import { copySet, getSortedSetValues } from "./set";
-import { getEnumValues, repeat } from "./utils";
+import { repeat } from "./utils";
 
 const CACHE_FLAG_TO_COLLECTIBLES_MAP = new Map<
   CacheFlag,
@@ -9,12 +12,10 @@ const CACHE_FLAG_TO_COLLECTIBLES_MAP = new Map<
 >();
 
 function initCacheFlagMap() {
-  const maxCollectibleType = getMaxCollectibleType();
-
   for (const cacheFlag of getEnumValues(CacheFlag)) {
     const collectiblesSet = new Set<CollectibleType | int>();
 
-    for (const collectibleType of range(1, maxCollectibleType)) {
+    for (const collectibleType of irange(1, MAX_COLLECTIBLE_TYPE)) {
       if (collectibleHasCacheFlag(collectibleType, cacheFlag)) {
         collectiblesSet.add(collectibleType);
       }
@@ -53,9 +54,9 @@ export function getCollectiblesForCacheFlag(
  *
  * ```ts
  * [
- *   CollectibleType.COLLECTIBLE_LORD_OF_THE_PIT,
- *   CollectibleType.COLLECTIBLE_TRANSCENDENCE,
- *   CollectibleType.COLLECTIBLE_TRANSCENDENCE,
+ *   CollectibleType.LORD_OF_THE_PIT,
+ *   CollectibleType.TRANSCENDENCE,
+ *   CollectibleType.TRANSCENDENCE,
  * ]
  * ```
  */

@@ -1,3 +1,5 @@
+import { PlayerType } from "isaac-typescript-definitions";
+import { MAX_VANILLA_CHARACTER } from "../constants";
 import {
   CHARACTER_NAMES,
   DEFAULT_CHARACTER_NAME,
@@ -66,9 +68,9 @@ export function characterStartsWithActiveItem(
 }
 
 /**
- * Most characters have a 56 frame death animation (i.e. the "Death" animation).
- * The Lost and Tainted Lost have a 38 frame death animation (i.e. the "LostDeath" animation).
- * Tainted Forgotten have a 20 frame death animation (i.e. the "ForgottenDeath" animation).
+ * - Most characters have a 56 frame death animation (i.e. the "Death" animation).
+ * - The Lost and Tainted Lost have a 38 frame death animation (i.e. the "LostDeath" animation).
+ * - Tainted Forgotten have a 20 frame death animation (i.e. the "ForgottenDeath" animation).
  */
 export function getCharacterDeathAnimationName(
   character: PlayerType | int,
@@ -77,7 +79,7 @@ export function getCharacterDeathAnimationName(
     return "LostDeath";
   }
 
-  if (character === PlayerType.PLAYER_THEFORGOTTEN_B) {
+  if (character === PlayerType.THE_FORGOTTEN_B) {
     return "ForgottenDeath";
   }
 
@@ -93,22 +95,22 @@ export function getCharacterMaxHeartContainers(
   character: PlayerType | int,
 ): int {
   // 14
-  if (character === PlayerType.PLAYER_KEEPER) {
+  if (character === PlayerType.KEEPER) {
     return 3;
   }
 
   // 16
-  if (character === PlayerType.PLAYER_THEFORGOTTEN) {
+  if (character === PlayerType.THE_FORGOTTEN) {
     return 6;
   }
 
   // 17
-  if (character === PlayerType.PLAYER_THESOUL) {
+  if (character === PlayerType.THE_SOUL) {
     return 6;
   }
 
   // 33
-  if (character === PlayerType.PLAYER_KEEPER_B) {
+  if (character === PlayerType.KEEPER_B) {
     return 2;
   }
 
@@ -117,10 +119,18 @@ export function getCharacterMaxHeartContainers(
 
 /** Helper function to get the name of a character. Returns "unknown" for modded characters. */
 export function getCharacterName(character: PlayerType | int): string {
-  if (character >= PlayerType.NUM_PLAYER_TYPES) {
+  if (isVanillaCharacter(character)) {
     return "unknown";
   }
 
   const characterName = CHARACTER_NAMES[character as PlayerType];
   return characterName === undefined ? DEFAULT_CHARACTER_NAME : characterName;
+}
+
+export function isModdedCharacter(character: PlayerType | int): boolean {
+  return !isVanillaCharacter(character);
+}
+
+export function isVanillaCharacter(character: PlayerType | int): boolean {
+  return character <= MAX_VANILLA_CHARACTER;
 }

@@ -29,7 +29,7 @@ function getAllSaveDataToWriteToDisk(
 
   for (const [subscriberName, saveData] of pairs(saveDataMap)) {
     // Handle the feature of the save data manager where certain mod features can conditionally
-    // write their data to disk
+    // write their data to disk.
     const conditionalFunc = saveDataConditionalFuncMap.get(subscriberName);
     if (conditionalFunc !== undefined) {
       const shouldSave = conditionalFunc();
@@ -50,9 +50,9 @@ function getAllSaveDataToWriteToDisk(
       continue;
     }
 
-    // If we encode TypeScriptToLua Maps into JSON,
-    // it will result in a lot of extraneous data that is unnecessary
-    // Make a copy of the data and recursively convert all TypeScriptToLua Maps into Lua tables
+    // If we encode TypeScriptToLua Maps into JSON, it will result in a lot of extraneous data that
+    // is unnecessary. Make a copy of the data and recursively convert all TypeScriptToLua Maps into
+    // Lua tables.
     const saveDataCopy = deepCopy(
       saveDataWithoutRoom as LuaTable,
       SerializationType.SERIALIZE,

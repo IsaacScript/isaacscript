@@ -1,14 +1,13 @@
+import { TrinketType } from "isaac-typescript-definitions";
 import { itemConfig } from "../cachedClasses";
-import { range } from "./math";
+import { MAX_TRINKET_TYPE } from "../constantsMax";
+import { irange } from "./math";
 import { copySet } from "./set";
-import { getMaxTrinketType } from "./trinkets";
 
 const TRINKET_SET = new Set<TrinketType | int>();
 
 function initTrinketSet() {
-  const maxTrinketID = getMaxTrinketType();
-
-  for (const trinketType of range(1, maxTrinketID)) {
+  for (const trinketType of irange(1, MAX_TRINKET_TYPE)) {
     const itemConfigTrinket = itemConfig.GetTrinket(trinketType);
     if (itemConfigTrinket !== undefined) {
       TRINKET_SET.add(trinketType);

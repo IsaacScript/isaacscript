@@ -1,6 +1,6 @@
+import { isLuaDebugEnabled } from "./debug";
 import { log } from "./log";
 import { addSetsToSet, copySet } from "./set";
-import { isLuaDebugEnabled } from "./utils";
 
 const DEFAULT_GLOBALS: ReadonlySet<string> = new Set([
   "ActionTriggers",
@@ -220,8 +220,15 @@ export function getNewGlobals(): Array<[AnyNotNil, unknown]> {
   return newGlobals;
 }
 
-// From: https://stackoverflow.com/questions/16096872/how-to-sort-2-dimensional-array-by-column-value
+// From:
+// https://stackoverflow.com/questions/16096872/how-to-sort-2-dimensional-array-by-column-value
 function twoDimensionalSort<T>(a: T[], b: T[]) {
+  if (a[0] === undefined || b[0] === undefined) {
+    error(
+      "Failed to two-dimensional sort since the first element of the array was undefined.",
+    );
+  }
+
   if (a[0] === b[0]) {
     return 0;
   }

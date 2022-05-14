@@ -1,3 +1,10 @@
+import {
+  CollectibleType,
+  EntityType,
+  NullItemID,
+  PlayerType,
+  TrinketType,
+} from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import {
   MAX_TAINTED_SAMSON_BERSERK_CHARGE,
@@ -10,7 +17,7 @@ import {
   hasLostCurse,
   isKeeper,
 } from "./player";
-import { getFinalFrameOfAnimation } from "./sprite";
+import { getLastFrameOfAnimation } from "./sprite";
 import { giveTrinketsBack, temporarilyRemoveTrinket } from "./trinketGive";
 
 /**
@@ -26,49 +33,47 @@ export function isDamageToPlayerFatal(
   const gameFrameCount = game.GetFrameCount();
   const character = player.GetPlayerType();
   const effects = player.GetEffects();
-  const isBerserk = effects.HasCollectibleEffect(
-    CollectibleType.COLLECTIBLE_BERSERK,
-  );
+  const isBerserk = effects.HasCollectibleEffect(CollectibleType.BERSERK);
 
   // If we are Tainted Jacob and the damage source is Dark Esau, this will not be fatal damage
-  // (because we will transform into Tainted Jacob's lost form)
+  // (because we will transform into Tainted Jacob's lost form).
   if (
-    character === PlayerType.PLAYER_JACOB_B &&
-    damageSource.Type === EntityType.ENTITY_DARK_ESAU
+    character === PlayerType.JACOB_B &&
+    damageSource.Type === EntityType.DARK_ESAU
   ) {
     return false;
   }
 
-  // If we are berserk, no damage is fatal
-  // (the death is deferred until the end of the berserk effect)
+  // If we are berserk, no damage is fatal. (The death is deferred until the end of the berserk
+  // effect.)
   if (isBerserk) {
     return false;
   }
 
   // If we are playing Tainted Samson and the incoming hit will cause us to become Berserk, then
-  // this will not be fatal damage
+  // this will not be fatal damage.
   const berserkChargeAfterHit =
     player.SamsonBerserkCharge +
     TAINTED_SAMSON_BERSERK_CHARGE_FROM_TAKING_DAMAGE;
   if (
-    character === PlayerType.PLAYER_SAMSON_B &&
+    character === PlayerType.SAMSON_B &&
     berserkChargeAfterHit >= MAX_TAINTED_SAMSON_BERSERK_CHARGE
   ) {
     return false;
   }
 
-  // If Spirit Shackles is activated, no damage is fatal
+  // If Spirit Shackles is activated, no damage is fatal.
   if (willReviveFromSpiritShackles(player)) {
     return false;
   }
 
   // If we are Tainted Jacob in the Lost Form, we may have plenty of health left, but we will still
-  // die in one hit to anything
-  if (character === PlayerType.PLAYER_JACOB2_B) {
+  // die in one hit to anything.
+  if (character === PlayerType.JACOB_2_B) {
     return true;
   }
 
-  // If we are in the "Lost Curse" form from touching a white fire, all damage will be fatal
+  // If we are in the "Lost Curse" form from touching a white fire, all damage will be fatal.
   if (hasLostCurse(player)) {
     return true;
   }
@@ -78,23 +83,24 @@ export function isDamageToPlayerFatal(
     return false;
   }
 
-  // This will not be fatal damage if the player has Heartbreak and two slots open for broken hearts
+  // This will not be fatal damage if the player has Heartbreak and two slots open for broken
+  // hearts.
   if (willReviveFromHeartbreak(player)) {
     return false;
   }
 
   // This will not be fatal damage if we have Glass Cannon and this is the second time we are taking
-  // damage on the same frame
+  // damage on the same frame.
   if (
-    player.HasCollectible(CollectibleType.COLLECTIBLE_BROKEN_GLASS_CANNON) &&
+    player.HasCollectible(CollectibleType.BROKEN_GLASS_CANNON) &&
     gameFrameCount === lastDamageGameFrame
   ) {
     return false;
   }
 
-  // This will not be fatal damage if we have two different kinds of hearts
-  // For example, a bomb explosion deals 2 damage, but if the player has one half soul heart and one
-  // half red heart, the game will only remove the soul heart
+  // This will not be fatal damage if we have two different kinds of hearts. For example, a bomb
+  // explosion deals 2 damage, but if the player has one half soul heart and one half red heart, the
+  // game will only remove the soul heart.
   const hearts = player.GetHearts();
   const eternalHearts = player.GetEternalHearts();
   const soulHearts = player.GetSoulHearts();
@@ -125,10 +131,10 @@ export function willMysteriousPaperRevive(player: EntityPlayer): boolean {
   const sprite = player.GetSprite();
 
   // We want to explicitly check the length of the death animation because we might be playing on a
-  // modded character that has a custom death animation
+  // modded character that has a custom death animation.
   const character = player.GetPlayerType();
   const animation = getCharacterDeathAnimationName(character);
-  const deathAnimationFrames = getFinalFrameOfAnimation(sprite, animation);
+  const deathAnimationFrames = getLastFrameOfAnimation(sprite, animation);
   const frameOfDeath = gameFrameCount + deathAnimationFrames + 1;
   // (we add 1 because it takes one frame for the death animation to begin)
 
@@ -142,7 +148,7 @@ export function willMysteriousPaperRevive(player: EntityPlayer): boolean {
 export function willPlayerRevive(player: EntityPlayer): boolean {
   const trinketSituation = temporarilyRemoveTrinket(
     player,
-    TrinketType.TRINKET_MYSTERIOUS_PAPER,
+    TrinketType.MYSTERIOUS_PAPER,
   );
 
   const willRevive =
@@ -160,7 +166,7 @@ export function willPlayerRevive(player: EntityPlayer): boolean {
  * broken hearts that they already have.
  */
 export function willReviveFromHeartbreak(player: EntityPlayer): boolean {
-  if (!player.HasCollectible(CollectibleType.COLLECTIBLE_HEARTBREAK)) {
+  if (!player.HasCollectible(CollectibleType.HEARTBREAK)) {
     return false;
   }
 
@@ -178,17 +184,17 @@ export function willReviveFromHeartbreak(player: EntityPlayer): boolean {
  * either enabled or disabled.)
  */
 export function willReviveFromSpiritShackles(player: EntityPlayer): boolean {
-  if (!player.HasCollectible(CollectibleType.COLLECTIBLE_SPIRIT_SHACKLES)) {
+  if (!player.HasCollectible(CollectibleType.SPIRIT_SHACKLES)) {
     return false;
   }
 
   const effects = player.GetEffects();
 
   const spiritShacklesEnabled = !effects.HasNullEffect(
-    NullItemID.ID_SPIRIT_SHACKLES_DISABLED,
+    NullItemID.SPIRIT_SHACKLES_DISABLED,
   );
   const playerInSoulForm = effects.HasNullEffect(
-    NullItemID.ID_SPIRIT_SHACKLES_SOUL,
+    NullItemID.SPIRIT_SHACKLES_SOUL,
   );
 
   return spiritShacklesEnabled && !playerInSoulForm;

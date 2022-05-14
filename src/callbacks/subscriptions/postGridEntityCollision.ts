@@ -1,3 +1,5 @@
+import { GridEntityType } from "isaac-typescript-definitions";
+
 export type PostGridEntityCollisionRegisterParameters = [
   callback: (gridEntity: GridEntity, entity: Entity) => void,
   gridEntityType?: GridEntityType,

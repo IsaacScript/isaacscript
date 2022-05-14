@@ -1,14 +1,16 @@
+import { PlayerType } from "isaac-typescript-definitions";
+
 export const CHARACTERS_THAT_START_WITH_AN_ACTIVE_ITEM_SET: ReadonlySet<PlayerType> =
   new Set([
-    PlayerType.PLAYER_ISAAC, // 0
-    PlayerType.PLAYER_MAGDALENE, // 1
-    PlayerType.PLAYER_JUDAS, // 3
-    PlayerType.PLAYER_BLUEBABY, // 4
-    PlayerType.PLAYER_EVE, // 5
-    PlayerType.PLAYER_EDEN, // 9
-    PlayerType.PLAYER_THELOST, // 10
-    PlayerType.PLAYER_LILITH, // 13
-    PlayerType.PLAYER_KEEPER, // 14
-    PlayerType.PLAYER_APOLLYON, // 15
-    PlayerType.PLAYER_EDEN_B, // 30
+    PlayerType.ISAAC, // 0
+    PlayerType.MAGDALENE, // 1
+    PlayerType.JUDAS, // 3
+    PlayerType.BLUE_BABY, // 4
+    PlayerType.EVE, // 5
+    PlayerType.EDEN, // 9
+    PlayerType.THE_LOST, // 10
+    PlayerType.LILITH, // 13
+    PlayerType.KEEPER, // 14
+    PlayerType.APOLLYON, // 15
+    PlayerType.EDEN_B, // 30
   ]);

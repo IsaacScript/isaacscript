@@ -1,11 +1,25 @@
+import {
+  DamageFlag,
+  EffectVariant,
+  EntityFlag,
+  EntityType,
+  GameStateFlag,
+  GridEntityType,
+  LevelStateFlag,
+  ProjectileFlag,
+  SeedEffect,
+  SoundEffect,
+  TearFlag,
+  UseFlag,
+} from "isaac-typescript-definitions";
 import { game, sfxManager } from "../cachedClasses";
 import { arrayToString } from "./array";
 import { getCollectibleName } from "./collectibles";
 import { getEntities, getEntityID } from "./entity";
+import { getEnumEntries } from "./enums";
 import { hasFlag } from "./flag";
 import { getGridEntities } from "./gridEntity";
 import { getIsaacAPIClassType } from "./isaacAPIClass";
-import { range } from "./math";
 import { getEffectsList, getPlayerName } from "./player";
 import { getPlayerHealth } from "./playerHealth";
 import { getRoomData, getRoomGridIndex, getRoomListIndex } from "./roomData";
@@ -32,13 +46,13 @@ const IGNORE_EFFECT_VARIANTS: ReadonlySet<EffectVariant> = new Set([
 export function getDebugPrependString(
   msg: string,
   // We use 3 as a default because:
-  // 1 - getDebugPrependString
-  // 2 - calling function
-  // 3 - the function that calls the calling function
+  // - 1 - getDebugPrependString
+  // - 2 - calling function
+  // - 3 - the function that calls the calling function
   numParentFunctions = 3,
 ): string {
   if (debug !== undefined) {
-    // The --luadebug launch flag is enabled
+    // The "--luadebug" launch flag is enabled
     const debugTable = debug.getinfo(numParentFunctions);
     if (debugTable !== undefined) {
       return `${debugTable.name}:${debugTable.linedefined} - ${msg}`;
@@ -54,9 +68,10 @@ export function getDebugPrependString(
 }
 
 /**
- * Helper function to avoid typing out `Isaac.DebugString()`. If you have the --luadebug launch flag
- * turned on or the Racing+ sandbox enabled, then this function will also prepend the function name
- * and the line number before the string.
+ * Helper function to avoid typing out `Isaac.DebugString()`.
+ *
+ * If you have the "--luadebug" launch flag turned on or the Racing+ sandbox enabled, then this
+ * function will also prepend the function name and the line number before the string.
  */
 export function log(this: void, msg: string): void {
   const debugMsg = getDebugPrependString(msg);
@@ -75,8 +90,11 @@ export function logColor(this: void, color: Color): void {
 }
 
 /** Helper function for printing out every damage flag that is turned on. Useful when debugging. */
-export function logDamageFlags(this: void, flags: int): void {
-  logFlags(flags, DamageFlag as unknown as LuaTable, "damage");
+export function logDamageFlags(
+  this: void,
+  flags: DamageFlag | BitFlags<DamageFlag>,
+): void {
+  logFlags(flags, DamageFlag, "damage");
 }
 
 export function logEffects(this: void, player: EntityPlayer): void {
@@ -131,7 +149,7 @@ export function logEntities(
 
     if (
       !includeBackgroundEffects &&
-      entity.Type === EntityType.ENTITY_EFFECT &&
+      entity.Type === EntityType.EFFECT &&
       IGNORE_EFFECT_VARIANTS.has(entity.Variant)
     ) {
       return;
@@ -218,8 +236,11 @@ export function logEntities(
 }
 
 /** Helper function for printing out every entity flag that is turned on. Useful when debugging. */
-export function logEntityFlags(this: void, flags: int): void {
-  logFlags(flags, EntityFlag as unknown as LuaTable, "entity");
+export function logEntityFlags(
+  this: void,
+  flags: EntityFlag | BitFlags<EntityFlag>,
+): void {
+  logFlags(flags, EntityFlag, "entity");
 }
 
 export function logEntityID(this: void, entity: Entity): void {
@@ -228,8 +249,9 @@ export function logEntityID(this: void, entity: Entity): void {
 
 /**
  * Helper function to log an error message and also print it to the console for better visibility.
- * This is useful in combination with an early return when invoking the `error` function would be
- * dangerous (since it prevents all of the subsequent code in the callback from running).
+ *
+ * This is useful in situations where using the `error` function would be dangerous (since it
+ * prevents all of the subsequent code in the callback from running).
  */
 export function logError(this: void, msg: string): void {
   const errorMsg = `Error: ${msg}`;
@@ -238,32 +260,19 @@ export function logError(this: void, msg: string): void {
 }
 
 /** Helper function for printing out every flag that is turned on. Useful when debugging. */
-export function logFlags(
+export function logFlags<T extends BitFlag | BitFlag128>(
   this: void,
-  flags: int,
-  flagEnum?: LuaTable<AnyNotNil, unknown>,
+  flags: T | BitFlags<T>,
+  flagEnum: Record<string, T>,
   description = "",
 ): void {
   if (description !== "") {
-    description += " ";
+    description = "flag";
   }
 
-  if (flagEnum === undefined) {
-    flagEnum = new LuaTable();
-
-    // Bit shifts of 63 or greater do not work properly
-    for (let i = 0; i <= 62; i++) {
-      flagEnum.set(`1 << ${i}`, 1 << i);
-    }
-  }
-
-  log(`Logging ${description}flags for value ${flags}:`);
+  log(`Logging ${description} values for: ${flags}`);
   let hasNoFlags = true;
-  for (const [key, value] of pairs(flagEnum)) {
-    if (typeof value !== "number") {
-      continue;
-    }
-
+  for (const [key, value] of getEnumEntries(flagEnum)) {
     if (hasFlag(flags, value)) {
       log(`  Has flag: ${key} (${value})`);
       hasNoFlags = false;
@@ -280,12 +289,14 @@ export function logFlags(
  */
 export function logGameStateFlags(this: void): void {
   log("Logging game state flags:");
+
+  const gameStateFlagEntries = getEnumEntries(GameStateFlag);
+
   let hasNoFlags = true;
-  for (const [key, value] of pairs(GameStateFlag)) {
-    const gameStateFlag = value as GameStateFlag;
+  for (const [key, gameStateFlag] of gameStateFlagEntries) {
     const flagValue = game.GetStateFlag(gameStateFlag);
     if (flagValue) {
-      log(`  Has flag: ${key} (${value})`);
+      log(`  Has flag: ${key} (${gameStateFlag})`);
       hasNoFlags = false;
     }
   }
@@ -296,8 +307,7 @@ export function logGameStateFlags(this: void): void {
 }
 
 /**
- * Helper function for printing out every grid entity (or filtered grid entity) in the current
- * room.
+ * Helper function for printing out every grid entity (or filtered grid entity) in the current room.
  */
 export function logGridEntities(
   this: void,
@@ -330,8 +340,8 @@ export function logGridEntities(
 
     if (
       !includeWalls &&
-      gridEntityType === GridEntityType.GRID_WALL &&
-      gridEntityTypeFilter !== GridEntityType.GRID_WALL
+      gridEntityType === GridEntityType.WALL &&
+      gridEntityTypeFilter !== GridEntityType.WALL
     ) {
       return;
     }
@@ -402,6 +412,29 @@ export function logKColor(this: void, kColor: KColor): void {
   );
 }
 
+/**
+ * Helper function for printing out every level state flag that is turned on. Useful when debugging.
+ */
+export function logLevelStateFlags(this: void): void {
+  const level = game.GetLevel();
+
+  const levelStateFlagEntries = getEnumEntries(LevelStateFlag);
+
+  log("Logging level state flags:");
+  let hasNoFlags = true;
+  for (const [key, levelStateFlag] of levelStateFlagEntries) {
+    const flagValue = level.GetStateFlag(levelStateFlag);
+    if (flagValue) {
+      log(`  Has flag: ${key} (${levelStateFlag})`);
+      hasNoFlags = false;
+    }
+  }
+
+  if (hasNoFlags) {
+    log("  n/a (no flags)");
+  }
+}
+
 export function logMap(this: void, map: Map<AnyNotNil, unknown>): void {
   log("Printing out a TSTL Map:");
 
@@ -437,8 +470,11 @@ export function logPlayerHealth(this: void, player: EntityPlayer): void {
 /**
  * Helper function for printing out every projectile flag that is turned on. Useful when debugging.
  */
-export function logProjectileFlags(this: void, flags: int): void {
-  logFlags(flags, ProjectileFlags as unknown as LuaTable, "projectile");
+export function logProjectileFlags(
+  this: void,
+  flags: ProjectileFlag | BitFlags<ProjectileFlag>,
+): void {
+  logFlags(flags, ProjectileFlag, "projectile");
 }
 
 /** Helper function for logging information about the current room. */
@@ -467,12 +503,13 @@ export function logRoom(this: void): void {
 export function logSeedEffects(this: void): void {
   const seeds = game.GetSeeds();
 
+  const seedEffectEntries = getEnumEntries(SeedEffect);
+
   log("Logging seed effects:");
   let hasNoSeedEffects = true;
-  for (const [key, value] of pairs(SeedEffect)) {
-    const seedEffect = value as SeedEffect;
+  for (const [key, seedEffect] of seedEffectEntries) {
     if (seeds.HasSeedEffect(seedEffect)) {
-      log(`  ${key} (${value})`);
+      log(`  ${key} (${seedEffect})`);
       hasNoSeedEffects = false;
     }
   }
@@ -495,9 +532,11 @@ export function logSet(this: void, set: Set<AnyNotNil>): void {
 
 /** Helper function for logging every sound effect that is currently playing. */
 export function logSounds(this: void): void {
-  for (const soundEffect of range(SoundEffect.NUM_SOUND_EFFECTS - 1)) {
+  const soundEffects = getEnumEntries(SoundEffect);
+
+  for (const [key, soundEffect] of soundEffects) {
     if (sfxManager.IsPlaying(soundEffect)) {
-      log(`Currently playing sound effect: ${soundEffect}`);
+      log(`Currently playing sound effect: ${key} (${soundEffect})`);
     }
   }
 }
@@ -537,13 +576,19 @@ export function logTable(this: void, table: unknown, parentTables = 0): void {
 }
 
 /** Helper function for printing out every tear flag that is turned on. Useful when debugging. */
-export function logTearFlags(this: void, flags: int): void {
-  logFlags(flags, TearFlags as unknown as LuaTable, "tear");
+export function logTearFlags(
+  this: void,
+  flags: TearFlag | BitFlags<TearFlag>,
+): void {
+  logFlags(flags, TearFlag, "tear");
 }
 
 /** Helper function for printing out every use flag that is turned on. Useful when debugging. */
-export function logUseFlags(this: void, flags: int): void {
-  logFlags(flags, UseFlag as unknown as LuaTable, "use");
+export function logUseFlags(
+  this: void,
+  flags: UseFlag | BitFlags<UseFlag>,
+): void {
+  logFlags(flags, UseFlag, "use");
 }
 
 /**
@@ -580,34 +625,36 @@ export function logVector(this: void, vector: Vector, round = false): void {
 
 /**
  * Converts every `isaacscript-common` function that begins with "log" to a global function.
- * This is useful for printing out variables from the in-game debug console.
+ *
+ * This is useful when printing out variables from the in-game debug console.
  */
 export function setLogFunctionsGlobal(): void {
   const globals = _G as Record<string, unknown>;
 
-  globals.log = log;
-  globals.logArray = logArray;
-  globals.logColor = logColor;
-  globals.logDamageFlags = logDamageFlags;
-  globals.logEffects = logEffects;
-  globals.logEntities = logEntities;
-  globals.logEntityID = logEntityID;
-  globals.logEntityFlags = logEntityFlags;
-  globals.logError = logError;
-  globals.logFlags = logFlags;
-  globals.logGameStateFlags = logGameStateFlags;
-  globals.logGridEntities = logGridEntities;
-  globals.logKColor = logKColor;
-  globals.logMap = logMap;
-  globals.logPlayerHealth = logPlayerHealth;
-  globals.logProjectileFlags = logProjectileFlags;
-  globals.logRoom = logRoom;
-  globals.logSeedEffects = logSeedEffects;
-  globals.logSet = logSet;
-  globals.logSounds = logSounds;
-  globals.logTable = logTable;
-  globals.logTearFlags = logTearFlags;
-  globals.logUseFlags = logUseFlags;
-  globals.logUserdata = logUserdata;
-  globals.logVector = logVector;
+  globals["log"] = log;
+  globals["logArray"] = logArray;
+  globals["logColor"] = logColor;
+  globals["logDamageFlags"] = logDamageFlags;
+  globals["logEffects"] = logEffects;
+  globals["logEntities"] = logEntities;
+  globals["logEntityID"] = logEntityID;
+  globals["logEntityFlags"] = logEntityFlags;
+  globals["logError"] = logError;
+  globals["logFlags"] = logFlags;
+  globals["logGameStateFlags"] = logGameStateFlags;
+  globals["logGridEntities"] = logGridEntities;
+  globals["logKColor"] = logKColor;
+  globals["logLevelStateFlags"] = logLevelStateFlags;
+  globals["logMap"] = logMap;
+  globals["logPlayerHealth"] = logPlayerHealth;
+  globals["logProjectileFlags"] = logProjectileFlags;
+  globals["logRoom"] = logRoom;
+  globals["logSeedEffects"] = logSeedEffects;
+  globals["logSet"] = logSet;
+  globals["logSounds"] = logSounds;
+  globals["logTable"] = logTable;
+  globals["logTearFlags"] = logTearFlags;
+  globals["logUseFlags"] = logUseFlags;
+  globals["logUserdata"] = logUserdata;
+  globals["logVector"] = logVector;
 }

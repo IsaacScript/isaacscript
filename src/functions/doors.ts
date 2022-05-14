@@ -1,8 +1,21 @@
+import {
+  Direction,
+  DoorSlot,
+  DoorSlotFlag,
+  DoorState,
+  DoorVariant,
+  GridRoom,
+  RoomShape,
+  RoomType,
+} from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
-import { MAX_NUM_DOORS } from "../constants";
+import {
+  DEFAULT_DOOR_SLOT,
+  DOOR_SLOT_FLAG_TO_DOOR_SLOT,
+} from "../objects/doorSlotFlagToDoorSlot";
 import { DOOR_SLOT_TO_DIRECTION } from "../objects/doorSlotToDirection";
 import { ROOM_SHAPE_TO_DOOR_SLOTS } from "../objects/roomShapeToDoorSlots";
-import { getEnumValues } from "./utils";
+import { getEnumValues } from "./enums";
 
 export function closeAllDoors(): void {
   for (const door of getDoors()) {
@@ -15,10 +28,15 @@ export function closeAllDoors(): void {
  * without an animation.
  */
 export function closeDoorFast(door: GridEntityDoor): void {
-  door.State = DoorState.STATE_CLOSED;
+  door.State = DoorState.CLOSED;
 
   const sprite = door.GetSprite();
   sprite.Play("Closed", true);
+}
+
+export function doorSlotFlagToDoorSlot(doorSlotFlag: DoorSlotFlag): DoorSlot {
+  const doorSlot = DOOR_SLOT_FLAG_TO_DOOR_SLOT[doorSlotFlag];
+  return doorSlot === undefined ? DEFAULT_DOOR_SLOT : doorSlot;
 }
 
 export function doorSlotToDirection(doorSlot: DoorSlot): Direction {
@@ -26,12 +44,12 @@ export function doorSlotToDirection(doorSlot: DoorSlot): Direction {
 }
 
 export function getAngelRoomDoor(): GridEntityDoor | undefined {
-  const angelRoomDoors = getDoors(RoomType.ROOM_ANGEL);
+  const angelRoomDoors = getDoors(RoomType.ANGEL);
   return angelRoomDoors.length === 0 ? undefined : angelRoomDoors[0];
 }
 
 export function getDevilRoomDoor(): GridEntityDoor | undefined {
-  const devilRoomDoors = getDoors(RoomType.ROOM_DEVIL);
+  const devilRoomDoors = getDoors(RoomType.DEVIL);
   return devilRoomDoors.length === 0 ? undefined : devilRoomDoors[0];
 }
 
@@ -40,10 +58,7 @@ export function getDevilRoomDoor(): GridEntityDoor | undefined {
  * lowest slot number.
  */
 export function getDevilRoomOrAngelRoomDoor(): GridEntityDoor | undefined {
-  const devilRoomOrAngelRoomDoors = getDoors(
-    RoomType.ROOM_DEVIL,
-    RoomType.ROOM_ANGEL,
-  );
+  const devilRoomOrAngelRoomDoors = getDoors(RoomType.DEVIL, RoomType.ANGEL);
   return devilRoomOrAngelRoomDoors.length === 0
     ? undefined
     : devilRoomOrAngelRoomDoors[0];
@@ -66,14 +81,15 @@ export function getDoors(...roomTypes: RoomType[]): GridEntityDoor[] {
   const room = game.GetRoom();
   const roomTypesSet = new Set(roomTypes);
 
+  const doorSlots = getEnumValues(DoorSlot);
   const doors: GridEntityDoor[] = [];
-  for (let i = 0; i < MAX_NUM_DOORS; i++) {
-    const door = room.GetDoor(i);
+  for (const doorSlot of doorSlots) {
+    const door = room.GetDoor(doorSlot);
     if (door === undefined) {
       continue;
     }
 
-    if (roomTypes.length === 0 || roomTypesSet.has(door.TargetRoomType)) {
+    if (roomTypesSet.size === 0 || roomTypesSet.has(door.TargetRoomType)) {
       doors.push(door);
     }
   }
@@ -109,11 +125,11 @@ export function getUnusedDoorSlots(): DoorSlot[] {
 }
 
 export function isAngelRoomDoor(door: GridEntityDoor): boolean {
-  return door.TargetRoomType === RoomType.ROOM_ANGEL;
+  return door.TargetRoomType === RoomType.ANGEL;
 }
 
 export function isDevilRoomDoor(door: GridEntityDoor): boolean {
-  return door.TargetRoomType === RoomType.ROOM_DEVIL;
+  return door.TargetRoomType === RoomType.DEVIL;
 }
 
 /** Helper function to see if a door slot could exist for a given room shape. */
@@ -126,9 +142,8 @@ export function isDoorSlotInRoomShape(
 }
 
 /**
- * This refers to the Repentance door that spawns in a boss room after defeating the boss.
- * You have to spend one key to open it.
- * It has a sprite filename of "gfx/grid/Door_Downpour.anm2".
+ * This refers to the Repentance door that spawns in a boss room after defeating the boss. You have
+ * to spend one key to open it. It has a sprite filename of "gfx/grid/Door_Downpour.anm2".
  */
 export function isDoorToDownpour(door: GridEntityDoor): boolean {
   if (!isRepentanceDoor(door)) {
@@ -142,9 +157,8 @@ export function isDoorToDownpour(door: GridEntityDoor): boolean {
 }
 
 /**
- * This refers to the Repentance door that spawns in a boss room after defeating the boss.
- * You have to spend two hearts to open it.
- * It has a sprite filename of "gfx/grid/Door_Mausoleum.anm2".
+ * This refers to the Repentance door that spawns in a boss room after defeating the boss. You have
+ * to spend two hearts to open it. It has a sprite filename of "gfx/grid/Door_Mausoleum.anm2".
  */
 export function isDoorToMausoleum(door: GridEntityDoor): boolean {
   if (!isRepentanceDoor(door)) {
@@ -158,9 +172,8 @@ export function isDoorToMausoleum(door: GridEntityDoor): boolean {
 }
 
 /**
- * This refers to the "strange door" located on the first room of Depths 2.
- * You open it with either a Polaroid or a Negative.
- * It has a sprite filename of "gfx/grid/Door_Mausoleum_Alt.anm2".
+ * This refers to the "strange door" located on the first room of Depths 2. You open it with either
+ * a Polaroid or a Negative. It has a sprite filename of "gfx/grid/Door_Mausoleum_Alt.anm2".
  */
 export function isDoorToMausoleumAscent(door: GridEntityDoor): boolean {
   if (!isRepentanceDoor(door)) {
@@ -174,9 +187,8 @@ export function isDoorToMausoleumAscent(door: GridEntityDoor): boolean {
 }
 
 /**
- * This refers to the Repentance door that spawns in a boss room after defeating the boss.
- * You have to spend two bombs to open it.
- * It has a sprite filename of "gfx/grid/Door_Mines.anm2".
+ * This refers to the Repentance door that spawns in a boss room after defeating the boss. You have
+ * to spend two bombs to open it. It has a sprite filename of "gfx/grid/Door_Mines.anm2".
  */
 export function isDoorToMines(door: GridEntityDoor): boolean {
   if (!isRepentanceDoor(door)) {
@@ -190,9 +202,8 @@ export function isDoorToMines(door: GridEntityDoor): boolean {
 }
 
 /**
- * This refers to the Repentance door that spawns after defeating Mom.
- * You open it with the completed knife.
- * It has a sprite filename of "gfx/grid/Door_MomsHeart.anm2".
+ * This refers to the Repentance door that spawns after defeating Mom. You open it with the
+ * completed knife. It has a sprite filename of "gfx/grid/Door_MomsHeart.anm2".
  */
 export function isDoorToMomsHeart(door: GridEntityDoor): boolean {
   if (!isRepentanceDoor(door)) {
@@ -213,7 +224,7 @@ export function isHiddenSecretRoomDoor(door: GridEntityDoor): boolean {
 }
 
 export function isRepentanceDoor(door: GridEntityDoor): boolean {
-  return door.TargetRoomIndex === GridRooms.ROOM_SECRET_EXIT_IDX;
+  return door.TargetRoomIndex === GridRoom.SECRET_EXIT;
 }
 
 export function isSecretRoomDoor(door: GridEntityDoor): boolean {
@@ -238,7 +249,7 @@ export function lockDoor(door: GridEntityDoor): void {
   // (we can't use the "getRoomDescriptor" function since it will cause a dependency cycle)
   roomDescriptor.VisitedCount = 0;
 
-  door.SetVariant(DoorVariant.DOOR_LOCKED);
+  door.SetVariant(DoorVariant.LOCKED);
   door.SetLocked(true);
   door.Close(true);
 }
@@ -249,8 +260,8 @@ export function lockDoor(door: GridEntityDoor): void {
  */
 export function openAllDoors(): void {
   for (const door of getDoors()) {
-    // If we try to open a hidden Secret Room door (or Super Secret Room door),
-    // then nothing will happen
+    // If we try to open a hidden Secret Room door (or Super Secret Room door), then nothing will
+    // happen.
     door.Open();
   }
 }
@@ -260,7 +271,7 @@ export function openAllDoors(): void {
  * without an animation.
  */
 export function openDoorFast(door: GridEntityDoor): void {
-  door.State = DoorState.STATE_OPEN;
+  door.State = DoorState.OPEN;
 
   const sprite = door.GetSprite();
   sprite.Play("Opened", true);

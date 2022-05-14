@@ -3,9 +3,9 @@ import { ModUpgraded } from "../classes/ModUpgraded";
 import { HealthType } from "../enums/HealthType";
 import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
 import { saveDataManager } from "../features/saveDataManager/exports";
+import { getEnumValues } from "../functions/enums";
 import { getPlayerHealthType } from "../functions/playerHealth";
 import { getPlayerIndex } from "../functions/playerIndex";
-import { getEnumValues } from "../functions/utils";
 import { PlayerIndex } from "../types/PlayerIndex";
 import {
   postPlayerChangeHealthFire,
@@ -40,9 +40,9 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
     return;
   }
 
-  // We call the "getPlayerIndex" function with the "differentiateForgottenAndSoul" argument
-  // If we don't differentiate between The Forgotten and The Soul,
-  // the callback will fire every time the player switches between the two
+  // We call the "getPlayerIndex" function with the "differentiateForgottenAndSoul" argument. If we
+  // don't differentiate between The Forgotten and The Soul, the callback will fire every time the
+  // player switches between the two.
   const playerIndex = getPlayerIndex(player, true);
   const playerHealthMap = v.run.playersHealthMap.getAndSetDefault(playerIndex);
 

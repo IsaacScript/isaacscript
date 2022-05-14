@@ -1,12 +1,18 @@
+import {
+  Direction,
+  GridEntityType,
+  GridRoom,
+  RoomType,
+} from "isaac-typescript-definitions";
 import { game } from "../../cachedClasses";
 import { HealthType } from "../../enums/HealthType";
+import { directionToVector } from "../../functions/direction";
 import { spawnGridWithVariant } from "../../functions/gridEntity";
 import { logEntities, logGridEntities } from "../../functions/log";
 import { addPlayerHealthType } from "../../functions/playerHealth";
 import { getRoomData, getRoomDescriptor } from "../../functions/roomData";
 import { changeRoom, getRoomGridIndexesForType } from "../../functions/rooms";
 import { printConsole } from "../../functions/utils";
-import { directionToVector } from "../../functions/vector";
 import {
   DEFAULT_ROOM_TYPE_NAME,
   ROOM_TYPE_NAMES,
@@ -33,15 +39,13 @@ export function addHeart(params: string, healthType: HealthType): void {
 export function devilAngel(useDevil: boolean): void {
   const level = game.GetLevel();
 
-  const devilAngelRoomData = getRoomData(GridRooms.ROOM_DEVIL_IDX);
+  const devilAngelRoomData = getRoomData(GridRoom.DEVIL);
   if (devilAngelRoomData !== undefined) {
     const roomType = devilAngelRoomData.Type;
-    const conflictingType = useDevil
-      ? RoomType.ROOM_ANGEL
-      : RoomType.ROOM_DEVIL;
+    const conflictingType = useDevil ? RoomType.ANGEL : RoomType.DEVIL;
     if (roomType === conflictingType) {
       // Delete the room data, which will allow the "Level.InitializeDevilAngelRoom" method to work
-      const roomDescriptor = getRoomDescriptor(GridRooms.ROOM_DEVIL_IDX);
+      const roomDescriptor = getRoomDescriptor(GridRoom.DEVIL);
       roomDescriptor.Data = undefined;
     }
   }
@@ -52,7 +56,7 @@ export function devilAngel(useDevil: boolean): void {
     level.InitializeDevilAngelRoom(true, false);
   }
 
-  changeRoom(GridRooms.ROOM_DEVIL_IDX);
+  changeRoom(GridRoom.DEVIL);
 }
 
 export function listEntities(
@@ -110,8 +114,8 @@ export function spawnTrapdoorOrCrawlspace(trapdoor: boolean): void {
   const position = room.FindFreeTilePosition(player.Position, 0);
   const gridIndex = room.GetGridIndex(position);
   const gridEntityType = trapdoor
-    ? GridEntityType.GRID_TRAPDOOR
-    : GridEntityType.GRID_STAIRS;
+    ? GridEntityType.TRAPDOOR
+    : GridEntityType.CRAWL_SPACE;
 
   spawnGridWithVariant(gridEntityType, 0, gridIndex);
 }
@@ -123,12 +127,12 @@ export function warpToRoomType(roomType: RoomType): void {
   }
 
   const gridIndexes = getRoomGridIndexesForType(roomType);
-  if (gridIndexes.length === 0) {
+  const firstGridIndex = gridIndexes[0];
+  if (firstGridIndex === undefined) {
     printConsole(`There are no ${roomTypeName}s on this floor.`);
     return;
   }
 
-  const firstGridIndex = gridIndexes[0];
   changeRoom(firstGridIndex);
   printConsole(`Warped to room type: ${roomTypeName} (${roomType})`);
 }

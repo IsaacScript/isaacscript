@@ -17,8 +17,10 @@ npx typedoc \
   --entryPoints "$DIR/src/cachedClasses.ts" \
   --entryPoints "$DIR/src/challenges.ts" \
   --entryPoints "$DIR/src/constants.ts" \
+  --entryPoints "$DIR/src/constantsMax.ts" \
   --entryPoints "$DIR/src/features/debugDisplay.ts" \
   --entryPoints "$DIR/src/features/deployJSONRoom.ts" \
+  --entryPoints "$DIR/src/features/direction.ts" \
   --entryPoints "$DIR/src/features/disableInputs.ts" \
   --entryPoints "$DIR/src/features/disableSound.ts" \
   --entryPoints "$DIR/src/features/characterHealthConversion.ts" \
@@ -56,6 +58,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/easing.ts" \
   --entryPoints "$DIR/src/functions/entity.ts" \
   --entryPoints "$DIR/src/functions/entitySpecific.ts" \
+  --entryPoints "$DIR/src/functions/enums.ts" \
   --entryPoints "$DIR/src/functions/familiars.ts" \
   --entryPoints "$DIR/src/functions/flag.ts" \
   --entryPoints "$DIR/src/functions/flying.ts" \

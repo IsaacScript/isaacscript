@@ -1,11 +1,12 @@
+import { CollectibleType, PlayerType } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { PlayerIndex } from "../types/PlayerIndex";
 
-const DEFAULT_COLLECTIBLE_TYPE = CollectibleType.COLLECTIBLE_SAD_ONION;
+const DEFAULT_COLLECTIBLE_TYPE = CollectibleType.SAD_ONION;
 
 const EXCLUDED_CHARACTERS: ReadonlySet<PlayerType> = new Set([
-  PlayerType.PLAYER_ESAU, // 20
-  PlayerType.PLAYER_THESOUL_B, // 40
+  PlayerType.ESAU, // 20
+  PlayerType.THE_SOUL_B, // 40
 ]);
 
 /**
@@ -67,18 +68,19 @@ export function getPlayerIndex(
   player: EntityPlayer,
   differentiateForgottenAndSoul = false,
 ): PlayerIndex {
-  // Sub-players use separate RNG values for some reason, so we need to always use the main player
+  // Sub-players use separate RNG values for some reason, so we need to always use the main player:
   // https://github.com/Meowlala/RepentanceAPIIssueTracker/issues/443
+
   // We can safely ignore the player's character because regardless of whether the main player ends
-  // up being The Forgotten or The Soul, the collectible RNG values will be the same
-  // The "EntityPlayer.IsSubPlayer" method can return true for Dead Tainted Lazarus during the
+  // up being The Forgotten or The Soul, the collectible RNG values will be the same. The
+  // "EntityPlayer.IsSubPlayer" method can return true for Dead Tainted Lazarus during the
   // PostPlayerInit callback, but since we fall back to the player in the case of
-  // "getSubPlayerParent" returning undefined, we do not need to explicitly check for this case
+  // "getSubPlayerParent" returning undefined, we do not need to explicitly check for this case.
   let playerToUse = player;
   const isSubPlayer = player.IsSubPlayer();
   if (isSubPlayer) {
-    // The "getSubPlayerParent" function will return undefined in the situation where we are on
-    // Dead Tainted Lazarus in the PostPlayerInit callback
+    // The "getSubPlayerParent" function will return undefined in the situation where we are on Dead
+    // Tainted Lazarus in the PostPlayerInit callback.
     const playerParent = getSubPlayerParent(player as EntitySubPlayer);
     if (playerParent !== undefined) {
       playerToUse = playerParent;
@@ -103,15 +105,15 @@ function getPlayerIndexCollectibleType(
 
   switch (character) {
     // 17
-    case PlayerType.PLAYER_THESOUL: {
+    case PlayerType.THE_SOUL: {
       return differentiateForgottenAndSoul
-        ? CollectibleType.COLLECTIBLE_SPOON_BENDER
+        ? CollectibleType.SPOON_BENDER
         : DEFAULT_COLLECTIBLE_TYPE;
     }
 
     // 38
-    case PlayerType.PLAYER_LAZARUS2_B: {
-      return CollectibleType.COLLECTIBLE_INNER_EYE;
+    case PlayerType.LAZARUS_2_B: {
+      return CollectibleType.INNER_EYE;
     }
 
     default: {
@@ -143,7 +145,7 @@ export function getPlayerIndexVanilla(
 
 /**
  * This function always excludes players with a non-undefined parent, since they are not real
- * players. (e.g. the Strawman Keeper)
+ * players (e.g. the Strawman Keeper).
  *
  * If this is not desired, use the `getAllPlayers` helper function instead.
  *
@@ -184,8 +186,8 @@ export function getSubPlayerParent(
 }
 
 /**
- * Some players are "child" players, meaning that they have a non-undefined Parent property.
- * (For example, the Strawman Keeper.)
+ * Some players are "child" players, meaning that they have a non-undefined Parent property. (For
+ * example, the Strawman Keeper.)
  */
 export function isChildPlayer(player: EntityPlayer): boolean {
   return player.Parent !== undefined;

@@ -1,3 +1,4 @@
+import { ModCallback } from "isaac-typescript-definitions";
 import { DefaultMap } from "../classes/DefaultMap";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import {
@@ -17,14 +18,14 @@ const v = {
 export function postNPCStateChangedCallbackInit(mod: Mod): void {
   saveDataManager("postNPCStateChanged", v, hasSubscriptions);
 
-  mod.AddCallback(ModCallbacks.MC_NPC_UPDATE, postNPCUpdate); // 0
+  mod.AddCallback(ModCallback.POST_NPC_UPDATE, postNPCUpdate); // 0
 }
 
 function hasSubscriptions() {
   return postNPCStateChangedHasSubscriptions();
 }
 
-// ModCallbacks.MC_NPC_UPDATE (0)
+// ModCallback.POST_NPC_UPDATE (0)
 function postNPCUpdate(npc: EntityNPC) {
   if (!hasSubscriptions()) {
     return;

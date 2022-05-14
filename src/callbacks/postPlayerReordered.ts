@@ -1,3 +1,4 @@
+import { ModCallback } from "isaac-typescript-definitions";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { emptyArray } from "../functions/array";
 import { getPlayerFromIndex, getPlayerIndex } from "../functions/playerIndex";
@@ -34,12 +35,12 @@ const v = {
 export function postPlayerReorderedCallbacksInit(mod: Mod): void {
   saveDataManager("postPlayerReordered", v, hasSubscriptions);
 
-  mod.AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, postPEffectUpdate); // 4
-  mod.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit); // 9
-  mod.AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, postPlayerUpdate); // 31
-  mod.AddCallback(ModCallbacks.MC_POST_PLAYER_RENDER, postPlayerRender); // 32
+  mod.AddCallback(ModCallback.POST_PEFFECT_UPDATE, postPEffectUpdate); // 4
+  mod.AddCallback(ModCallback.POST_PLAYER_INIT, postPlayerInit); // 9
+  mod.AddCallback(ModCallback.POST_PLAYER_UPDATE, postPlayerUpdate); // 31
+  mod.AddCallback(ModCallback.POST_PLAYER_RENDER, postPlayerRender); // 32
 
-  mod.AddCallback(ModCallbacks.MC_POST_GAME_STARTED, postGameStarted); // 15
+  mod.AddCallback(ModCallback.POST_GAME_STARTED, postGameStarted); // 15
 }
 
 function hasSubscriptions() {
@@ -51,7 +52,7 @@ function hasSubscriptions() {
   );
 }
 
-// ModCallbacks.MC_POST_PEFFECT_UPDATE (4)
+// ModCallback.POST_PEFFECT_UPDATE (4)
 function postPEffectUpdate(player: EntityPlayer) {
   if (!hasSubscriptions()) {
     return;
@@ -66,7 +67,7 @@ function postPEffectUpdate(player: EntityPlayer) {
   }
 }
 
-// ModCallbacks.MC_POST_PLAYER_INIT (9)
+// ModCallback.POST_PLAYER_INIT (9)
 function postPlayerInit(player: EntityPlayer) {
   if (!hasSubscriptions()) {
     return;
@@ -81,7 +82,7 @@ function postPlayerInit(player: EntityPlayer) {
   }
 }
 
-// ModCallbacks.MC_POST_PLAYER_UPDATE (31)
+// ModCallback.POST_PLAYER_UPDATE (31)
 function postPlayerUpdate(player: EntityPlayer) {
   if (!hasSubscriptions()) {
     return;
@@ -96,7 +97,7 @@ function postPlayerUpdate(player: EntityPlayer) {
   }
 }
 
-// ModCallbacks.MC_POST_PLAYER_RENDER (32)
+// ModCallback.POST_PLAYER_RENDER (32)
 function postPlayerRender(player: EntityPlayer) {
   if (!hasSubscriptions()) {
     return;
@@ -111,7 +112,7 @@ function postPlayerRender(player: EntityPlayer) {
   }
 }
 
-// ModCallbacks.MC_POST_GAME_STARTED (15)
+// ModCallback.POST_GAME_STARTED (15)
 function postGameStarted() {
   if (!hasSubscriptions()) {
     return;

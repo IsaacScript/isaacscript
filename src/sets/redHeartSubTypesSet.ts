@@ -1,5 +1,7 @@
+import { HeartSubType } from "isaac-typescript-definitions";
+
 export const RED_HEART_SUB_TYPES_SET: ReadonlySet<HeartSubType> = new Set([
-  HeartSubType.HEART_FULL, // 1
-  HeartSubType.HEART_HALF, // 2
-  HeartSubType.HEART_DOUBLEPACK, // 5
+  HeartSubType.FULL, // 1
+  HeartSubType.HALF, // 2
+  HeartSubType.DOUBLE_PACK, // 5
 ]);

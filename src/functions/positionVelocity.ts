@@ -1,3 +1,7 @@
+import {
+  EffectVariant,
+  HeavenLightDoorSubType,
+} from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { DISTANCE_OF_GRID_TILE } from "../constants";
 import { getEntities } from "./entity";

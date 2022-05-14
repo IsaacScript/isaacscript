@@ -1,3 +1,5 @@
+import { TrinketType } from "isaac-typescript-definitions";
+
 export type PostTrinketBreakRegisterParameters = [
   callback: (player: EntityPlayer, trinketType: TrinketType | int) => void,
   trinketType?: TrinketType | int,

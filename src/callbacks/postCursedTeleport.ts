@@ -1,3 +1,12 @@
+import {
+  CollectibleType,
+  DamageFlag,
+  EntityType,
+  ModCallback,
+  PlayerVariant,
+  RoomType,
+  TrinketType,
+} from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { hasFlag } from "../functions/flag";
@@ -27,13 +36,13 @@ export function postCursedTeleportCallbackInit(mod: Mod): void {
   saveDataManager("postCursedTeleport", v, hasSubscriptions);
 
   mod.AddCallback(
-    ModCallbacks.MC_ENTITY_TAKE_DMG,
+    ModCallback.ENTITY_TAKE_DMG,
     entityTakeDmgPlayer,
-    EntityType.ENTITY_PLAYER,
+    EntityType.PLAYER,
   ); // 11
 
   mod.AddCallback(
-    ModCallbacks.MC_POST_PLAYER_RENDER,
+    ModCallback.POST_PLAYER_RENDER,
     postPlayerRenderPlayer,
     PlayerVariant.PLAYER, // Co-op babies cannot perform Cursed Eye teleports
   ); // 32
@@ -43,12 +52,12 @@ function hasSubscriptions() {
   return postCursedTeleportHasSubscriptions();
 }
 
-// ModCallbacks.MC_ENTITY_TAKE_DMG (11)
-// EntityType.ENTITY_PLAYER (1)
+// ModCallback.ENTITY_TAKE_DMG (11)
+// EntityType.PLAYER (1)
 function entityTakeDmgPlayer(
   tookDamage: Entity,
   _damageAmount: float,
-  damageFlags: int,
+  damageFlags: BitFlags<DamageFlag>,
   _damageSource: EntityRef,
   _damageCountdownFrames: int,
 ) {
@@ -60,7 +69,7 @@ function entityTakeDmgPlayer(
   setDamageFrame(tookDamage, damageFlags);
 }
 
-function setDamageFrame(tookDamage: Entity, damageFlags: int) {
+function setDamageFrame(tookDamage: Entity, damageFlags: BitFlags<DamageFlag>) {
   const gameFrameCount = game.GetFrameCount();
 
   const player = tookDamage.ToPlayer();
@@ -86,31 +95,33 @@ function setDamageFrame(tookDamage: Entity, damageFlags: int) {
   mapSetPlayer(v.run.playersDamageFrameMap, player, newTrackingArray);
 }
 
-function isPotentialNaturalTeleportFromSacrificeRoom(damageFlags: int) {
+function isPotentialNaturalTeleportFromSacrificeRoom(
+  damageFlags: BitFlags<DamageFlag>,
+) {
   const room = game.GetRoom();
   const roomType = room.GetType();
-  const isSpikeDamage = hasFlag(damageFlags, DamageFlag.DAMAGE_SPIKES);
+  const isSpikeDamage = hasFlag(damageFlags, DamageFlag.SPIKES);
 
   // Don't record the frame if we are potentially going to the Angel Room or the Dark Room from a
-  // Sacrifice Room
+  // Sacrifice Room.
   return (
-    roomType === RoomType.ROOM_SACRIFICE &&
+    roomType === RoomType.SACRIFICE &&
     isSpikeDamage &&
     (v.level.numSacrifices === 6 || v.level.numSacrifices >= 12)
   );
 }
 
-function incrementNumSacrifices(damageFlags: int) {
+function incrementNumSacrifices(damageFlags: BitFlags<DamageFlag>) {
   const room = game.GetRoom();
   const roomType = room.GetType();
-  const isSpikeDamage = hasFlag(damageFlags, DamageFlag.DAMAGE_SPIKES);
+  const isSpikeDamage = hasFlag(damageFlags, DamageFlag.SPIKES);
 
-  if (roomType === RoomType.ROOM_SACRIFICE && isSpikeDamage) {
+  if (roomType === RoomType.SACRIFICE && isSpikeDamage) {
     v.level.numSacrifices += 1;
   }
 }
 
-// ModCallbacks.MC_POST_PLAYER_RENDER (32)
+// ModCallback.POST_PLAYER_RENDER (32)
 // PlayerVariant.PLAYER (0)
 function postPlayerRenderPlayer(player: EntityPlayer) {
   if (!hasSubscriptions()) {
@@ -160,16 +171,13 @@ function playerIsTeleportingFromCursedTeleport(
   }
 
   // Cursed Eye
-  if (player.HasCollectible(CollectibleType.COLLECTIBLE_CURSED_EYE)) {
+  if (player.HasCollectible(CollectibleType.CURSED_EYE)) {
     return true;
   }
 
   // Cursed Skull
   const numHitsRemaining = getPlayerNumHitsRemaining(player);
-  if (
-    player.HasTrinket(TrinketType.TRINKET_CURSED_SKULL) &&
-    numHitsRemaining === 1
-  ) {
+  if (player.HasTrinket(TrinketType.CURSED_SKULL) && numHitsRemaining === 1) {
     return true;
   }
 

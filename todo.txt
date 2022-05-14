@@ -1,30 +1,132 @@
-- canary
+- checkLocalWords in isaacscript-common until all valid
 
-- check for "type CallbackType"
+- solve problem where double importing happens because of the `/// <reference path="types/index.d.ts" />`
 
+- write getNumCards function, should have option for modded cards and not
+- write getNumPillEffects function, should have option for modded cards and not
+
+- check extending enums with enum repeat
+
+- check spawning every entity type to see if game crashes, remove any bad enums
+
+- after enum transition is complete, search for all irange and erange to see if code can be better written with getEnumValues
+
+- check to see if implicit map/set iteration works in TSTL
+
+confirm that this works:
+
+enum MyEnum {
+  ThirdValue = "third-value",
+  FourthValue = "fourth-value",
+}
+
+for (const key of getEnumKeys(MyEnum)) {
+  print(key); // Will print "fourth-value", then "third-value"
+}
+
+- search for all eRange replacement (from range)
+
+CSPELL:
+- get CSPELL extension to spell check all files
+- write script to check to see if every word in both new dictionaries is being used
+  - put script in isaacscript + zamTS
+
+LINTER:
+- make lint rule for "declare something that is not global in file with one or more imports"
+- make lint rule for exporting something marked as Internal
+- make lint rule for capital letter on const as const
+- make lint rule about moving words to the previous line
+- make lint rule about reformatting /** ONE LINE */ to
+  /**
+   * TWO LINES
+   */
+- lint rule for naming functions camelCase
+- lint rule to check for "BOSS2" --> "BOSS_2" and "BOSS2_WATER_THRASHING" --> "BOSS2_WATER_THRASHING" and "BOSS2INTRO_WATER_EXPLOSION" --> "BOSS_2_INTRO_WATER_EXPLOSION", has to be 4 characters or more
+- eslint reorganize messes up JSDoc, insert test with:
+/**
+ * Helper function to remove all of the `EntityType.PROJECTILE` in the room.
+ *
+ * @param projectileVariant Optional. If specified, will only remove projectiles that match this
+ * variant.
+ * @param subType Optional. If specified, will only remove projectiles that match this
+ * sub-type.
+ * @param cap Optional. If specified, will only remove the given amount of projectiles.
+ * @returns True if one or more projectiles were removed, false otherwise.
+ */
+- linter rule audit (xo etc)
+- lint audit on JSDoc rules specifically
+
+TODO:
+- in isaac-typescript-definitions, search for all "| int" and make type safe
 - check every PlayerType --> PlayerVariant
 - add every PlayerType where missing on search of PlayerVariant
 - NEW DOCUMENTATION WEBSITE
 
-implement:
-MC_POST_GREED_WAVE
-MC_POST_PLAYER_COLLECTIBLE_ADDED
-MC_POST_PLAYER_COLLECTIBLE_REMOVED
-MC_POST_AMBUSH_DONE
+implement in isaacscript-common:
+- use tem's entity check function
+- make spawn never spawn non-existent entities
+- write test for isHorsePill, test every valid horse pill value
+- write test for isGoldenTrinket, test every valid horse trinket value
+- test getCurrentDimension() function to see if Xalum is right // cspell:disable-line
+- PHD_PILL_CONVERSIONS to isaacscript-common
+- make character args for every PlayerVariant callback
+- MC_POST_GREED_WAVE
+- MC_POST_PLAYER_COLLECTIBLE_ADDED
+- MC_POST_PLAYER_COLLECTIBLE_REMOVED
+- MC_POST_AMBUSH_DONE
+- MC_POST_BOMB_DETONATE
+- check for item unlocked - https://github.com/Zamiell/racing-plus/blob/main/src/features/mandatory/errors.ts#L80-L165
+- bible detection for POST FATAL DAMAGE
+- isNewPickup
+- compareEntity (to see what changes with dice room effect)
+- MC_DICE_ROOM_ACTIVATED
+- intercept shovel for decorations
+- collectible morph to glitched item
+- getRoomNeighbors
+- function getRandomEnumValue
+- function to start challenge room
+- think about how to track a custom entity that emulates a collectible (pseudo-persistent)
+  - add isaacscript-common functionality for persistent entities
+- make isValidCollectible (from isaac-typescript-definitions) for mods
+- StageAPI2
 
-check for item unlocked
-https://github.com/Zamiell/racing-plus/blob/main/src/features/mandatory/errors.ts#L80-L165
 
-bible detection for POST FATAL DAMAGE
+```
+IsaacScript announcement
+```
 
-isNewPickup
-compareEntity
+Breaking changes:
 
-MC_DICE_ROOM_ACTIVATED
+- All enums are now local instead of global. The global declarations have been removed, which forces you to use the local ones. Doing this has several advantages, at the small cost of having to auto-import more things. See the docs for more info: https://isaacscript.github.io/docs/gotchas#local-enums-and-importing
+- Bit flags are now represented as a `BitFlags` type. This means that the Isaac API now has real type safety for all bit flags! See the docs for more info: https://isaacscript.github.io/docs/gotchas#bit-flags
+- When registering the `MC_POST_PEFFECT_UPDATE_REORDERED` callback, the second argument is now a `PlayerVariant` instead of a `PlayerType`.  It now takes a `PlayerType` as a third argument.
+- The `CardType` enum was deleted, since it was (almost) the same thing as the `ItemConfigCardType` enum.
+- The `PillEffectClass` enum was renamed to `ItemConfigPillEffectClass`.
+- The `PillEffectType` enum was renamed to `ItemConfigPillEffectType`.
+- Renamed the `range` helper function to `irange`.
+- Removed the `keyboardToString` helper functions. Simply use `Keyboard[value]` instead.
 
-shallowCompare with 2 entities
-(to see what changes with dice room effect)
+Non-breaking changes:
 
-intercept shovel for decorations
-
-make character args for every PlayerVariant callback
+- `isaac-typescript-definitions` now ships with an official Isaac word dictionary that can be imported into CSpell. See the new template for more information: <https://github.com/IsaacScript/isaacscript/blob/main/file-templates/static/.cspell.json>
+- Added the following helper constants since the corollary enum values were purged:
+  - `NUM_CARDS` / `MAX_CARD` / `NUM_VANILLA_CARDS` / `MAX_VANILLA_CARD`
+  - `NUM_COLLECTIBLE_TYPES` / `MAX_COLLECTIBLE_TYPE` / `NUM_VANILLA_COLLECTIBLE_TYPES` / `MAX_VANILLA_COLLECTIBLE_TYPE`
+  - `NUM_PILL_EFFECTS` / `MAX_PILL_EFFECT` / `NUM_VANILLA_PILL_EFFECTS` / `MAX_VANILLA_PILL_EFFECT`
+  - `NUM_TRINKET_TYPES` / `MAX_TRINKET_TYPE` / `NUM_VANILLA_TRINKET_TYPES` / `MAX_VANILLA_TRINKET_TYPE`
+- Added the following custom callbacks:
+  - `MC_POST_GREED_MODE_WAVE`
+  - `MC_POST_HOLY_MANTLE_REMOVED`
+- Added the `DoorSlotFlag` enum.
+- Added the following helper functions:
+  - `doorSlotFlagToDoorSlot`
+  - `erange` (for exclusive ranges)
+  - `getArrayIndexes`
+  - `getEnumEntries`
+  - `getGridEntityID`
+  - `getRoomTypeName`
+  - `isModdedPlayer`
+  - `isVanillaPlayer`
+  - `logLevelStateFlags`
+  - `removeAllCharacters`
+  - `removeSubstring`

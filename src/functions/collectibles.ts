@@ -1,6 +1,16 @@
+import {
+  CacheFlag,
+  CollectiblePedestalType,
+  CollectibleType,
+  EntityType,
+  ItemConfigTag,
+  ItemType,
+  PickupPrice,
+  PickupVariant,
+  RoomType,
+} from "isaac-typescript-definitions";
 import { game, itemConfig } from "../cachedClasses";
 import { BLIND_ITEM_PNG_PATH } from "../constants";
-import { CollectiblePedestalType } from "../enums/CollectiblePedestalType";
 import {
   COLLECTIBLE_DESCRIPTION_MAP,
   DEFAULT_COLLECTIBLE_DESCRIPTION,
@@ -55,8 +65,8 @@ export function collectibleSpriteEquals(
   sprite2: Sprite,
 ): boolean {
   // We start at negative 40 texels upwards, as by default we assume a collectible that is sitting
-  // on a pedestal
-  // We finish at positive 10 texels downwards, in order to make comparing shop items more accurate
+  // on a pedestal. We finish at positive 10 texels downwards, in order to make comparing shop items
+  // more accurate.
   const xStart = -1;
   const xFinish = 1;
   const xIncrement = 1;
@@ -84,8 +94,8 @@ export function collectibleSpriteEquals(
 export function getCollectibleDescription(
   collectibleType: CollectibleType | int,
 ): string {
-  // "ItemConfigItem.Description" is bugged with vanilla items on patch v1.7.6,
-  // so we use a hard-coded map as a workaround
+  // "ItemConfigItem.Description" is bugged with vanilla items on patch v1.7.6, so we use a
+  // hard-coded map as a workaround.
   const collectibleDescription =
     COLLECTIBLE_DESCRIPTION_MAP.get(collectibleType);
   if (collectibleDescription !== undefined) {
@@ -102,7 +112,7 @@ export function getCollectibleDescription(
 
 /**
  * Helper function to get the heart cost that a collectible item would be if it were being offered
- * in a Devil Room deal. Returns 0 if passed CollectibleType.COLLECTIBLE_NULL.
+ * in a Devil Room deal. Returns 0 if passed CollectibleType.NULL.
  */
 export function getCollectibleDevilHeartPrice(
   collectibleType: CollectibleType | int,
@@ -110,15 +120,15 @@ export function getCollectibleDevilHeartPrice(
 ): PickupPrice {
   const maxHearts = player.GetMaxHearts();
 
-  if (collectibleType === CollectibleType.COLLECTIBLE_NULL) {
+  if (collectibleType === CollectibleType.NULL) {
     return 0;
   }
 
   if (maxHearts === 0) {
-    return PickupPrice.PRICE_THREE_SOULHEARTS;
+    return PickupPrice.THREE_SOUL_HEARTS;
   }
 
-  const defaultPickupPrice = PickupPrice.PRICE_ONE_HEART;
+  const defaultPickupPrice = PickupPrice.ONE_HEART;
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
     return defaultPickupPrice;
@@ -126,12 +136,12 @@ export function getCollectibleDevilHeartPrice(
 
   const twoHeartPrice =
     maxHearts === 2
-      ? PickupPrice.PRICE_ONE_HEART_AND_TWO_SOULHEARTS
-      : PickupPrice.PRICE_TWO_HEARTS;
+      ? PickupPrice.ONE_HEART_AND_TWO_SOUL_HEARTS
+      : PickupPrice.TWO_HEARTS;
 
   return itemConfigItem.DevilPrice === 2
     ? twoHeartPrice
-    : PickupPrice.PRICE_ONE_HEART;
+    : PickupPrice.ONE_HEART;
 }
 
 /**
@@ -165,30 +175,31 @@ export function getCollectibleGfxFilename(
  *
  * Note that:
  * - The grid index is a necessary part of the collectible index because Diplopia and Crooked Penny
- * can cause two or more collectibles with the same SubType and InitSeed to exist in the same room.
+ *   can cause two or more collectibles with the same SubType and InitSeed to exist in the same
+ *   room.
  * - This index will fail in the case where the player uses Diplopia or a successful Crooked Penny
- * seven or more times in the same room, since that will cause two or more collectibles with the
- * same grid index, SubType, and InitSeed to exist.
+ *   seven or more times in the same room, since that will cause two or more collectibles with the
+ *   same grid index, SubType, and InitSeed to exist.
  * - The SubType is a necessary part of the collectible index because Tainted Isaac will
- * continuously cause collectibles to morph into new sub-types with the same InitSeed.
+ *   continuously cause collectibles to morph into new sub-types with the same InitSeed.
  * - Using a collectible's position as part of the index is problematic, since players can push a
- * pedestal. (Even using the grid index does not solve this problem, since it is possible in certain
- * cases for collectibles to be spawned at a position that is not aligned with the grid, and the
- * pedestal pushed to an adjacent tile, but this case should be extremely rare.)
+ *   pedestal. (Even using the grid index does not solve this problem, since it is possible in
+ *   certain cases for collectibles to be spawned at a position that is not aligned with the grid,
+ *   and the pedestal pushed to an adjacent tile, but this case should be extremely rare.)
  * - Mega Chests spawn two collectibles on the exact same position. However, both of them will have
- * different InitSeeds, so this is not a problem for this indexing scheme.
+ *   different InitSeeds, so this is not a problem for this indexing scheme.
  * - The indexing scheme used is different for collectibles that are inside of a Treasure Room, in
- * order to handle the case of the player seeing the same collectible again in a post-Ascent
- * Treasure Room. A 5-tuple of stage, stage type, grid index, SubType, and InitSeed is used in this
- * case. (Using the room list index or the room grid index is not suitable for this purpose, since
- * both of these values can change in the post-Ascent Treasure Room.) Even though there can be two
- * Treasure Rooms on an XL floor, both Treasure Rooms should not have collectibles with the same
- * grid index, Subtype, and InitSeed.
+ *   order to handle the case of the player seeing the same collectible again in a post-Ascent
+ *   Treasure Room. A 5-tuple of stage, stage type, grid index, SubType, and InitSeed is used in
+ *   this case. (Using the room list index or the room grid index is not suitable for this purpose,
+ *   since both of these values can change in the post-Ascent Treasure Room.) Even though there can
+ *   be two Treasure Rooms on an XL floor, both Treasure Rooms should not have collectibles with the
+ *   same grid index, Subtype, and InitSeed.
  */
 export function getCollectibleIndex(
   collectible: EntityPickup,
 ): CollectibleIndex {
-  if (collectible.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
+  if (collectible.Variant !== PickupVariant.COLLECTIBLE) {
     error(
       `You cannot get a collectible index for pickups of variant: ${collectible.Variant}`,
     );
@@ -203,7 +214,7 @@ export function getCollectibleIndex(
   const roomListIndex = getRoomListIndex();
 
   // Handle the special case of being in a Treasure Room
-  if (roomType === RoomType.ROOM_TREASURE) {
+  if (roomType === RoomType.TREASURE) {
     return `${stage},${stageType},${gridIndex},${collectible.SubType},${collectible.InitSeed}` as CollectibleIndex;
   }
 
@@ -234,7 +245,7 @@ export function getCollectibleItemType(
 ): ItemType {
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
-    return ItemType.ITEM_NULL;
+    return ItemType.NULL;
   }
 
   return itemConfigItem.Type;
@@ -261,15 +272,15 @@ export function getCollectibleMaxCharges(
  *
  * Example:
  * ```ts
- * const collectibleType = CollectibleType.COLLECTIBLE_SAD_ONION;
+ * const collectibleType = CollectibleType.SAD_ONION;
  * const collectibleName = getCollectibleName(collectibleType); // collectibleName is "Sad Onion"
  * ```
  */
 export function getCollectibleName(
   collectibleType: CollectibleType | int,
 ): string {
-  // "ItemConfigItem.Name" is bugged with vanilla items on patch v1.7.6,
-  // so we use a hard-coded map as a workaround
+  // "ItemConfigItem.Name" is bugged with vanilla items on patch v1.7.6, so we use a hard-coded map
+  // as a workaround.
   const collectibleName = COLLECTIBLE_NAME_MAP.get(collectibleType);
   if (collectibleName !== undefined) {
     return collectibleName;
@@ -286,7 +297,7 @@ export function getCollectibleName(
 export function getCollectiblePedestalType(
   collectible: EntityPickup,
 ): CollectiblePedestalType {
-  if (collectible.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
+  if (collectible.Variant !== PickupVariant.COLLECTIBLE) {
     error(
       `You cannot get the pedestal type for pickups of variant: ${collectible.Variant}`,
     );
@@ -317,25 +328,17 @@ export function getCollectibleQuality(
  *
  * Example:
  * ```ts
- * const collectibleType = CollectibleType.COLLECTIBLE_SAD_ONION;
+ * const collectibleType = CollectibleType.SAD_ONION;
  * const itemConfigTags = getCollectibleTags(collectibleType); // itemConfigTags is "18350080"
  * ```
  */
 export function getCollectibleTags(
   collectibleType: CollectibleType | int,
-): int {
+): BitFlags<ItemConfigTag> {
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
-  return itemConfigItem === undefined ? 0 : itemConfigItem.Tags;
-}
-
-/**
- * Helper function to get the final collectible type in the game.
- *
- * This cannot be reliably determined before run-time due to mods adding a variable amount of new
- * collectibles.
- */
-export function getMaxCollectibleType(): int {
-  return itemConfig.GetCollectibles().Size - 1;
+  return itemConfigItem === undefined
+    ? (0 as BitFlags<ItemConfigTag>)
+    : itemConfigItem.Tags;
 }
 
 /** Returns true if the item type in the item config is equal to `ItemType.ITEM_ACTIVE`. */
@@ -343,12 +346,12 @@ export function isActiveCollectible(
   collectibleType: CollectibleType | int,
 ): boolean {
   const itemType = getCollectibleItemType(collectibleType);
-  return itemType === ItemType.ITEM_ACTIVE;
+  return itemType === ItemType.ACTIVE;
 }
 
 /** Returns true if the collectible has a red question mark sprite. */
 export function isBlindCollectible(collectible: EntityPickup): boolean {
-  if (collectible.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
+  if (collectible.Variant !== PickupVariant.COLLECTIBLE) {
     error(
       `You cannot get check for question mark sprites for pickups of variant: ${collectible.Variant}`,
     );
@@ -369,7 +372,7 @@ export function isBlindCollectible(collectible: EntityPickup): boolean {
  */
 export function isGlitchedCollectible(pickup: EntityPickup): boolean {
   return (
-    pickup.Variant === PickupVariant.PICKUP_COLLECTIBLE &&
+    pickup.Variant === PickupVariant.COLLECTIBLE &&
     pickup.SubType > GLITCHED_ITEM_THRESHOLD
   );
 }
@@ -382,9 +385,7 @@ export function isPassiveCollectible(
   collectibleType: CollectibleType | int,
 ): boolean {
   const itemType = getCollectibleItemType(collectibleType);
-  return (
-    itemType === ItemType.ITEM_PASSIVE || itemType === ItemType.ITEM_FAMILIAR
-  );
+  return itemType === ItemType.PASSIVE || itemType === ItemType.FAMILIAR;
 }
 
 /**
@@ -411,7 +412,7 @@ export function removeCollectibleFromItemTracker(
   const collectibleName = getCollectibleName(collectibleType);
 
   // This cannot use the "log" function since the prefix will prevent the Rebirth Item Tracker from
-  // recognizing the message
+  // recognizing the message.
   Isaac.DebugString(
     `Removing collectible ${collectibleType} (${collectibleName}) on player 0 (Player)`,
   );
@@ -422,7 +423,7 @@ export function removeCollectibleFromItemTracker(
  * frame delay before they can be picked up by a player.
  */
 export function removeCollectiblePickupDelay(collectible: EntityPickup): void {
-  if (collectible.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
+  if (collectible.Variant !== PickupVariant.COLLECTIBLE) {
     error(
       `You cannot remove pickup delay for pickups of variant: ${collectible.Variant}`,
     );
@@ -436,7 +437,7 @@ export function removeCollectiblePickupDelay(collectible: EntityPickup): void {
  * the player has Curse of the Blind).
  */
 export function setCollectibleBlind(collectible: EntityPickup): void {
-  if (collectible.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
+  if (collectible.Variant !== PickupVariant.COLLECTIBLE) {
     error(
       `You cannot set a collectible to be blind for pickups of variant: ${collectible.Variant}`,
     );
@@ -448,18 +449,18 @@ export function setCollectibleBlind(collectible: EntityPickup): void {
 /**
  * Helper function to remove the collectible from a collectible pedestal and make it appear as if a
  * player has already taken the item. This is accomplished by changing the sub-type to
- * `CollectibleType.COLLECTIBLE_NULL` and then setting the sprite to an empty/missing PNG file.
+ * `CollectibleType.NULL` and then setting the sprite to an empty/missing PNG file.
  *
  * For more information, see the documentation for the "clearSprite" helper function.
  */
 export function setCollectibleEmpty(collectible: EntityPickup): void {
-  if (collectible.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
+  if (collectible.Variant !== PickupVariant.COLLECTIBLE) {
     error(
       `You cannot set a collectible to be empty for pickups of variant: ${collectible.Variant}`,
     );
   }
 
-  collectible.SubType = CollectibleType.COLLECTIBLE_NULL;
+  collectible.SubType = CollectibleType.NULL;
   clearCollectibleSprite(collectible);
 }
 
@@ -478,7 +479,7 @@ export function setCollectibleSprite(
   collectible: EntityPickup,
   pngPath: string | undefined,
 ): void {
-  if (collectible.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
+  if (collectible.Variant !== PickupVariant.COLLECTIBLE) {
     error(
       `You cannot set a collectible sprite for pickups of variant: ${collectible.Variant}`,
     );
@@ -501,27 +502,26 @@ export function setCollectibleSubType(
   collectible: EntityPickup,
   newCollectibleType: CollectibleType | int,
 ): void {
-  if (collectible.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
+  if (collectible.Variant !== PickupVariant.COLLECTIBLE) {
     error(
       `You cannot set a collectible sub-type for pickups of variant: ${collectible.Variant}`,
     );
   }
 
-  // You cannot morph a pedestal to "CollectibleType.COLLECTIBLE_NULL";
-  // it would instead create a new random collectible item
-  if (newCollectibleType === CollectibleType.COLLECTIBLE_NULL) {
+  // You cannot morph a pedestal to "CollectibleType.NULL"; it would instead create a new random
+  // collectible item.
+  if (newCollectibleType === CollectibleType.NULL) {
     setCollectibleEmpty(collectible);
     return;
   }
 
-  // The naive way to change a collectible's sub-type is to set it directly
-  // However, doing this will not update the sprite
-  // Manually updating the sprite works in most situations, but does not work when the pedestal is
-  // empty
-  // Instead, we can simply morph the collectible, which seems to work in all situations
+  // The naive way to change a collectible's sub-type is to set it directly. However, doing this
+  // will not update the sprite. Manually updating the sprite works in most situations, but does not
+  // work when the pedestal is empty. Instead, we can simply morph the collectible, which seems to
+  // work in all situations.
   collectible.Morph(
-    EntityType.ENTITY_PICKUP,
-    PickupVariant.PICKUP_COLLECTIBLE,
+    EntityType.PICKUP,
+    PickupVariant.COLLECTIBLE,
     newCollectibleType,
     true,
     true,
@@ -535,7 +535,7 @@ export function setCollectibleSubType(
  */
 export function setCollectiblesRerolledForItemTracker(): void {
   // This cannot use the "log" function since the prefix will prevent the Rebirth Item Tracker from
-  // recognizing the message
-  // The number here does not matter since the tracker does not check for a specific number
+  // recognizing the message. The number here does not matter since the tracker does not check for a
+  // specific number.
   Isaac.DebugString("Added 3 Collectibles");
 }

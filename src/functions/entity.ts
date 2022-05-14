@@ -1,10 +1,10 @@
+import { EntityType } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { VectorZero } from "../constants";
 import { STORY_BOSSES_SET } from "../sets/storyBossesSet";
 import { AnyEntity } from "../types/AnyEntity";
 import { getRandom } from "./random";
 import { newRNG } from "./rng";
-import { repeat } from "./utils";
 
 /**
  * Helper function to count the number of entities in room. Use this over the vanilla
@@ -44,7 +44,7 @@ export function countEntities(
  * Example:
  * ```ts
  * const player = Isaac.GetPlayer();
- * const gapers = getEntities(EntityType.ENTITY_GAPER);
+ * const gapers = getEntities(EntityType.GAPER);
  * const closestGaper = getClosestEntityTo(player, gapers);
  * ```
  */
@@ -82,8 +82,7 @@ export function getClosestEntityTo<T extends AnyEntity>(
  * }
  * ```
  *
- * @param entityType Optional. If specified, will only return NPCs that match this entity
- * type.
+ * @param entityType Optional. If specified, will only return NPCs that match this entity type.
  * @param variant Optional. If specified, will only return NPCs that match this variant. Default is
  * -1. -1 matches every variant.
  * @param subType Optional. If specified, will only return NPCs that match this sub-type. Default is
@@ -104,7 +103,7 @@ export function getEntities(
   return Isaac.FindByType(entityType, variant, subType, ignoreFriendly);
 }
 
-/** Helper function to return a string containing an entity's type, variant, and sub-type. */
+/** Helper function to return a string containing the entity's type, variant, and sub-type. */
 export function getEntityID(entity: Entity): string {
   return `${entity.Type}.${entity.Variant}.${entity.SubType}`;
 }
@@ -286,13 +285,13 @@ export function rerollEnemy(entity: Entity): Entity | undefined {
 }
 
 export function setEntityRandomColor(entity: Entity): void {
-  const colorValues: int[] = [];
   const rng = newRNG(entity.InitSeed);
-  repeat(3, () => {
-    const randomColorValue = getRandom(rng);
-    colorValues.push(randomColorValue);
-  });
-  const color = Color(colorValues[0], colorValues[1], colorValues[2]);
+
+  const r = getRandom(rng);
+  const g = getRandom(rng);
+  const b = getRandom(rng);
+
+  const color = Color(r, g, b);
   entity.SetColor(color, 100000, 100000, false, false);
 }
 

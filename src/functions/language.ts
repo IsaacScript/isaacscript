@@ -1,3 +1,5 @@
+import { LanguageAbbreviation } from "isaac-typescript-definitions";
+
 type LanguageNames = {
   [Value in LanguageAbbreviation]: string;
 };

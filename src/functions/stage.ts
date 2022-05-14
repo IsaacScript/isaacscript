@@ -1,3 +1,4 @@
+import { LevelStage, StageType } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { STAGE_TYPE_TO_LETTER } from "../objects/stageTypeToLetter";
 
@@ -40,8 +41,7 @@ export function goToStage(stage: LevelStage, stageType: StageType): void {
 
 export function isRepentanceStage(stageType: int): boolean {
   return (
-    stageType === StageType.STAGETYPE_REPENTANCE ||
-    stageType === StageType.STAGETYPE_REPENTANCE_B
+    stageType === StageType.REPENTANCE || stageType === StageType.REPENTANCE_B
   );
 }
 
@@ -106,9 +106,9 @@ export function onSheol(): boolean {
 
 /**
  * Helper function to convert a numerical `StageType` into the letter suffix supplied to the "stage"
- * console command. For example, `StageType.STAGETYPE_REPENTANCE` is the stage type for Downpour,
- * and the console command to go to Downpour is "stage 1c", so this function converts
- * `StageType.STAGETYPE_REPENTANCE` to "c".
+ * console command. For example, `StageType.REPENTANCE` is the stage type for Downpour, and the
+ * console command to go to Downpour is "stage 1c", so this function converts `StageType.REPENTANCE`
+ * to "c".
  */
 export function stageTypeToLetter(stageType: StageType): string {
   return STAGE_TYPE_TO_LETTER[stageType];

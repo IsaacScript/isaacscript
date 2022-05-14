@@ -1,7 +1,7 @@
 // Some pickup properties cannot be retrieved properly in the PostPickupInit callback and must be
-// checked in the PostPickupUpdate callback
-// This fires on the first update frame
+// checked in the PostPickupUpdate callback. This fires on the first update frame.
 
+import { ModCallback } from "isaac-typescript-definitions";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getClosestPlayer } from "../functions/player";
 import {
@@ -19,14 +19,14 @@ const v = {
 export function postPickupCollectCallbackInit(mod: Mod): void {
   saveDataManager("postPickupCollect", v, hasSubscriptions);
 
-  mod.AddCallback(ModCallbacks.MC_POST_PICKUP_RENDER, postPickupRender); // 36
+  mod.AddCallback(ModCallback.POST_PICKUP_RENDER, postPickupRender); // 36
 }
 
 function hasSubscriptions() {
   return postPickupCollectHasSubscriptions();
 }
 
-// ModCallbacks.MC_POST_PICKUP_RENDER (36)
+// ModCallback.POST_PICKUP_RENDER (36)
 function postPickupRender(pickup: EntityPickup) {
   if (!hasSubscriptions()) {
     return;

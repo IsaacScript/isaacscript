@@ -1,7 +1,13 @@
-// The item pool type of a collectible is not stored on the collectible
-// Thus, we scan for incoming item pool types in the PreGetCollectible callback,
-// and then assume that the next spawned collectible has this item pool type
+// The item pool type of a collectible is not stored on the collectible. Thus, we scan for incoming
+// item pool types in the PreGetCollectible callback, and then assume that the next spawned
+// collectible has this item pool type.
 
+import {
+  EntityType,
+  ItemPoolType,
+  ModCallback,
+  PickupVariant,
+} from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { getEntityID } from "../functions/entity";
@@ -21,14 +27,14 @@ export function getCollectibleItemPoolTypeInit(mod: Mod): void {
   saveDataManager("getCollectibleItemPoolType", v);
 
   mod.AddCallback(
-    ModCallbacks.MC_POST_PICKUP_INIT,
+    ModCallback.POST_PICKUP_INIT,
     postPickupInitCollectible,
-    PickupVariant.PICKUP_COLLECTIBLE,
+    PickupVariant.COLLECTIBLE,
   ); // 34
 }
 
-// ModCallbacks.MC_POST_PICKUP_INIT (34)
-// PickupVariant.PICKUP_COLLECTIBLE (100)
+// ModCallback.POST_PICKUP_INIT (34)
+// PickupVariant.COLLECTIBLE (100)
 function postPickupInitCollectible(pickup: EntityPickup) {
   const itemPool = game.GetItemPool();
   const ptrHash = GetPtrHash(pickup);
@@ -48,8 +54,8 @@ export function getCollectibleItemPoolType(
   errorIfFeaturesNotInitialized(FEATURE_NAME);
 
   if (
-    collectible.Type !== EntityType.ENTITY_PICKUP ||
-    collectible.Variant !== PickupVariant.PICKUP_COLLECTIBLE
+    collectible.Type !== EntityType.PICKUP ||
+    collectible.Variant !== PickupVariant.COLLECTIBLE
   ) {
     const entityID = getEntityID(collectible);
     error(

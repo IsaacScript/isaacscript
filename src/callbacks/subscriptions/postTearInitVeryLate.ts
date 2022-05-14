@@ -1,3 +1,5 @@
+import { TearVariant } from "isaac-typescript-definitions";
+
 export type PostTearInitVeryLateRegisterParameters = [
   callback: (tear: EntityTear) => void,
   tearVariant?: TearVariant | int,

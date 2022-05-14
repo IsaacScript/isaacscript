@@ -1,3 +1,10 @@
+import {
+  ActiveSlot,
+  CollectibleType,
+  RoomShape,
+  SoundEffect,
+  TrinketType,
+} from "isaac-typescript-definitions";
 import { game, sfxManager } from "../cachedClasses";
 import { getCollectibleMaxCharges } from "./collectibles";
 import { getPlayers } from "./playerIndex";
@@ -20,9 +27,9 @@ export function addRoomClearCharge(
   ignoreBigRoomDoubleCharge = false,
 ): void {
   for (const activeSlot of [
-    ActiveSlot.SLOT_PRIMARY,
-    ActiveSlot.SLOT_SECONDARY,
-    ActiveSlot.SLOT_POCKET,
+    ActiveSlot.PRIMARY,
+    ActiveSlot.SECONDARY,
+    ActiveSlot.POCKET,
   ]) {
     addRoomClearChargeToSlot(player, activeSlot, ignoreBigRoomDoubleCharge);
   }
@@ -83,7 +90,7 @@ function getNumChargesToAdd(
   const activeItem = player.GetActiveItem(activeSlot);
   const activeCharge = player.GetActiveCharge(activeSlot);
   const batteryCharge = player.GetBatteryCharge(activeSlot);
-  const hasBattery = player.HasCollectible(CollectibleType.COLLECTIBLE_BATTERY);
+  const hasBattery = player.HasCollectible(CollectibleType.BATTERY);
   const maxCharges = getCollectibleMaxCharges(activeItem);
 
   if (!hasBattery && activeCharge === maxCharges) {
@@ -95,19 +102,18 @@ function getNumChargesToAdd(
   }
 
   if (!hasBattery && activeCharge + 1 === maxCharges) {
-    // We are only 1 charge away from a full charge,
-    // so only add one charge to avoid an overcharge
-    // (it is possible to set orange charges without the player actually having The Battery)
+    // We are only 1 charge away from a full charge, so only add one charge to avoid an overcharge.
+    // (It is possible to set orange charges without the player actually having The Battery.)
     return 1;
   }
 
   if (hasBattery && batteryCharge + 1 === maxCharges) {
-    // We are only 1 charge away from a full double-charge
-    // so only add one charge to avoid an overcharge
+    // We are only 1 charge away from a full double-charge, so only add one charge to avoid an
+    // overcharge.
     return 1;
   }
 
-  if (roomShape >= RoomShape.ROOMSHAPE_2x2 && !ignoreBigRoomDoubleCharge) {
+  if (roomShape >= RoomShape.SHAPE_2x2 && !ignoreBigRoomDoubleCharge) {
     // 2x2 rooms and L rooms should grant 2 charges
     return 2;
   }
@@ -128,8 +134,8 @@ function getNumChargesWithAAAModifier(
   const activeItem = player.GetActiveItem(activeSlot);
   const activeCharge = player.GetActiveCharge(activeSlot);
   const batteryCharge = player.GetBatteryCharge(activeSlot);
-  const hasBattery = player.HasCollectible(CollectibleType.COLLECTIBLE_BATTERY);
-  const hasAAABattery = player.HasTrinket(TrinketType.TRINKET_AAA_BATTERY);
+  const hasBattery = player.HasCollectible(CollectibleType.BATTERY);
+  const hasAAABattery = player.HasTrinket(TrinketType.AAA_BATTERY);
   const maxCharges = getCollectibleMaxCharges(activeItem);
 
   if (!hasAAABattery) {
@@ -195,16 +201,13 @@ export function playChargeSoundEffect(
   player: EntityPlayer,
   activeSlot: ActiveSlot,
 ): void {
-  for (const soundEffect of [
-    SoundEffect.SOUND_BATTERYCHARGE,
-    SoundEffect.SOUND_BEEP,
-  ]) {
+  for (const soundEffect of [SoundEffect.BATTERY_CHARGE, SoundEffect.BEEP]) {
     sfxManager.Stop(soundEffect);
   }
 
   const chargeSoundEffect = shouldPlayFullRechargeSound(player, activeSlot)
-    ? SoundEffect.SOUND_BATTERYCHARGE
-    : SoundEffect.SOUND_BEEP;
+    ? SoundEffect.BATTERY_CHARGE
+    : SoundEffect.BEEP;
   sfxManager.Play(chargeSoundEffect);
 }
 
@@ -215,7 +218,7 @@ function shouldPlayFullRechargeSound(
   const activeItem = player.GetActiveItem(activeSlot);
   const activeCharge = player.GetActiveCharge(activeSlot);
   const batteryCharge = player.GetBatteryCharge(activeSlot);
-  const hasBattery = player.HasCollectible(CollectibleType.COLLECTIBLE_BATTERY);
+  const hasBattery = player.HasCollectible(CollectibleType.BATTERY);
   const maxCharges = getCollectibleMaxCharges(activeItem);
 
   if (!hasBattery) {

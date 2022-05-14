@@ -1,3 +1,4 @@
+import { ModCallback } from "isaac-typescript-definitions";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
 import { getEntityID } from "../functions/entity";
@@ -43,74 +44,74 @@ const v = {
 export function debugDisplayInit(mod: ModUpgraded): void {
   saveDataManager("debugDisplay", v, () => false);
 
-  mod.AddCallback(ModCallbacks.MC_POST_FAMILIAR_RENDER, postFamiliarRender); // 25
-  mod.AddCallback(ModCallbacks.MC_POST_NPC_RENDER, postNPCRender); // 28
-  mod.AddCallback(ModCallbacks.MC_POST_PLAYER_RENDER, postPlayerRender); // 32
-  mod.AddCallback(ModCallbacks.MC_POST_PICKUP_RENDER, postPickupRender); // 36
-  mod.AddCallback(ModCallbacks.MC_POST_TEAR_RENDER, postTearRender); // 41
-  mod.AddCallback(ModCallbacks.MC_POST_PROJECTILE_RENDER, postProjectileRender); // 45
-  mod.AddCallback(ModCallbacks.MC_POST_LASER_RENDER, postLaserRender); // 49
-  mod.AddCallback(ModCallbacks.MC_POST_KNIFE_RENDER, postKnifeRender); // 52
-  mod.AddCallback(ModCallbacks.MC_POST_EFFECT_RENDER, postEffectRender); // 56
-  mod.AddCallback(ModCallbacks.MC_POST_BOMB_RENDER, postBombRender); // 59
+  mod.AddCallback(ModCallback.POST_FAMILIAR_RENDER, postFamiliarRender); // 25
+  mod.AddCallback(ModCallback.POST_NPC_RENDER, postNPCRender); // 28
+  mod.AddCallback(ModCallback.POST_PLAYER_RENDER, postPlayerRender); // 32
+  mod.AddCallback(ModCallback.POST_PICKUP_RENDER, postPickupRender); // 36
+  mod.AddCallback(ModCallback.POST_TEAR_RENDER, postTearRender); // 41
+  mod.AddCallback(ModCallback.POST_PROJECTILE_RENDER, postProjectileRender); // 45
+  mod.AddCallback(ModCallback.POST_LASER_RENDER, postLaserRender); // 49
+  mod.AddCallback(ModCallback.POST_KNIFE_RENDER, postKnifeRender); // 52
+  mod.AddCallback(ModCallback.POST_EFFECT_RENDER, postEffectRender); // 56
+  mod.AddCallback(ModCallback.POST_BOMB_RENDER, postBombRender); // 59
   mod.AddCallbackCustom(ModCallbacksCustom.MC_POST_SLOT_RENDER, postSlotRender);
 }
 
-// EntityType.ENTITY_PLAYER (1)
+// EntityType.PLAYER (1)
 export function togglePlayerDisplay(): void {
   v.run.player = !v.run.player;
   printEnabled(v.run.player, "player display");
 }
 
-// EntityType.ENTITY_TEAR (2)
+// EntityType.TEAR (2)
 export function toggleTearDisplay(): void {
   v.run.tear = !v.run.tear;
   printEnabled(v.run.tear, "tear display");
 }
 
-// EntityType.ENTITY_FAMILIAR (3)
+// EntityType.FAMILIAR (3)
 export function toggleFamiliarDisplay(): void {
   v.run.familiar = !v.run.familiar;
   printEnabled(v.run.familiar, "familiar display");
 }
 
-// EntityType.ENTITY_BOMB (4)
+// EntityType.BOMB (4)
 export function toggleBombDisplay(): void {
   v.run.bomb = !v.run.bomb;
   printEnabled(v.run.bomb, "bomb display");
 }
 
-// EntityType.ENTITY_PICKUP (5)
+// EntityType.PICKUP (5)
 export function togglePickupDisplay(): void {
   v.run.pickup = !v.run.pickup;
   printEnabled(v.run.pickup, "pickup display");
 }
 
-// EntityType.ENTITY_SLOT (6)
+// EntityType.SLOT (6)
 export function toggleSlotDisplay(): void {
   v.run.slot = !v.run.slot;
   printEnabled(v.run.slot, "slot display");
 }
 
-// EntityType.ENTITY_LASER (7)
+// EntityType.LASER (7)
 export function toggleLaserDisplay(): void {
   v.run.laser = !v.run.laser;
   printEnabled(v.run.laser, "laser display");
 }
 
-// EntityType.ENTITY_KNIFE (8)
+// EntityType.KNIFE (8)
 export function toggleKnifeDisplay(): void {
   v.run.knife = !v.run.knife;
   printEnabled(v.run.knife, "knife display");
 }
 
-// EntityType.ENTITY_PROJECTILE (9)
+// EntityType.PROJECTILE (9)
 export function toggleProjectileDisplay(): void {
   v.run.projectile = !v.run.projectile;
   printEnabled(v.run.projectile, "projectile display");
 }
 
-// EntityType.ENTITY_EFFECT (1000)
+// EntityType.EFFECT (1000)
 export function toggleEffectDisplay(): void {
   v.run.effect = !v.run.effect;
   printEnabled(v.run.effect, "effect display");
@@ -121,7 +122,7 @@ export function toggleNPCDisplay(): void {
   printEnabled(v.run.npc, "NPC display");
 }
 
-// ModCallbacks.MC_POST_FAMILIAR_RENDER (25)
+// ModCallback.POST_FAMILIAR_RENDER (25)
 function postFamiliarRender(familiar: EntityFamiliar) {
   if (!v.run.familiar) {
     return;
@@ -131,7 +132,7 @@ function postFamiliarRender(familiar: EntityFamiliar) {
   renderTextOnEntity(familiar, text);
 }
 
-// ModCallbacks.MC_POST_NPC_RENDER (28)
+// ModCallback.POST_NPC_RENDER (28)
 function postNPCRender(npc: EntityNPC) {
   if (!v.run.npc) {
     return;
@@ -141,7 +142,7 @@ function postNPCRender(npc: EntityNPC) {
   renderTextOnEntity(npc, text);
 }
 
-// ModCallbacks.MC_POST_PLAYER_RENDER (32)
+// ModCallback.POST_PLAYER_RENDER (32)
 function postPlayerRender(player: EntityPlayer) {
   if (!v.run.player) {
     return;
@@ -151,7 +152,7 @@ function postPlayerRender(player: EntityPlayer) {
   renderTextOnEntity(player, text);
 }
 
-// ModCallbacks.MC_POST_PICKUP_RENDER (36)
+// ModCallback.POST_PICKUP_RENDER (36)
 function postPickupRender(pickup: EntityPickup) {
   if (!v.run.pickup) {
     return;
@@ -161,7 +162,7 @@ function postPickupRender(pickup: EntityPickup) {
   renderTextOnEntity(pickup, text);
 }
 
-// ModCallbacks.MC_POST_TEAR_RENDER (41)
+// ModCallback.POST_TEAR_RENDER (41)
 function postTearRender(tear: EntityTear) {
   if (!v.run.tear) {
     return;
@@ -171,7 +172,7 @@ function postTearRender(tear: EntityTear) {
   renderTextOnEntity(tear, text);
 }
 
-// ModCallbacks.MC_POST_PROJECTILE_RENDER (45)
+// ModCallback.POST_PROJECTILE_RENDER (45)
 function postProjectileRender(projectile: EntityProjectile) {
   if (!v.run.projectile) {
     return;
@@ -181,7 +182,7 @@ function postProjectileRender(projectile: EntityProjectile) {
   renderTextOnEntity(projectile, text);
 }
 
-// ModCallbacks.MC_POST_LASER_RENDER (49)
+// ModCallback.POST_LASER_RENDER (49)
 function postLaserRender(laser: EntityLaser) {
   if (!v.run.laser) {
     return;
@@ -191,7 +192,7 @@ function postLaserRender(laser: EntityLaser) {
   renderTextOnEntity(laser, text);
 }
 
-// ModCallbacks.MC_POST_KNIFE_RENDER (52)
+// ModCallback.POST_KNIFE_RENDER (52)
 function postKnifeRender(knife: EntityKnife) {
   if (!v.run.knife) {
     return;
@@ -201,7 +202,7 @@ function postKnifeRender(knife: EntityKnife) {
   renderTextOnEntity(knife, text);
 }
 
-// ModCallbacks.MC_POST_EFFECT_RENDER (56)
+// ModCallback.POST_EFFECT_RENDER (56)
 function postEffectRender(effect: EntityEffect) {
   if (!v.run.effect) {
     return;
@@ -211,7 +212,7 @@ function postEffectRender(effect: EntityEffect) {
   renderTextOnEntity(effect, text);
 }
 
-// ModCallbacks.MC_POST_BOMB_RENDER (59)
+// ModCallback.POST_BOMB_RENDER (59)
 function postBombRender(bomb: EntityBomb) {
   if (!v.run.bomb) {
     return;

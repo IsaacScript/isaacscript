@@ -20,7 +20,9 @@ module.exports = {
 
   // We modify the linting rules from the base for some specific things
   rules: {
+    // Documentation:
     // https://github.com/jrdrg/eslint-plugin-sort-exports
+    // Not defined in parent configs
     "sort-exports/sort-exports": [
       "error",
       {

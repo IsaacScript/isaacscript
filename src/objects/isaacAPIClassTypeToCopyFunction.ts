@@ -12,7 +12,7 @@ export const ISAAC_API_CLASS_TYPE_TO_COPY_FUNCTION: {
   ) => boolean;
 } = {
   [CopyableIsaacAPIClassType.COLOR]: copyColor,
-  [CopyableIsaacAPIClassType.KCOLOR]: copyKColor,
+  [CopyableIsaacAPIClassType.K_COLOR]: copyKColor,
   [CopyableIsaacAPIClassType.RNG]: copyRNG,
   [CopyableIsaacAPIClassType.VECTOR]: copyVector,
 };

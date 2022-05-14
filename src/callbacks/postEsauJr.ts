@@ -1,5 +1,10 @@
 // This provides the logic for PostEsauJr and PostFirstEsauJr
 
+import {
+  CollectibleType,
+  ModCallback,
+  UseFlag,
+} from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getPlayers } from "../functions/playerIndex";
@@ -24,11 +29,11 @@ const v = {
 export function postEsauJrCallbacksInit(mod: Mod): void {
   saveDataManager("postEsauJr", v, hasSubscriptions);
 
-  mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate); // 1
+  mod.AddCallback(ModCallback.POST_UPDATE, postUpdate); // 1
   mod.AddCallback(
-    ModCallbacks.MC_USE_ITEM,
+    ModCallback.POST_USE_ITEM,
     useItemEsauJr,
-    CollectibleType.COLLECTIBLE_ESAU_JR,
+    CollectibleType.ESAU_JR,
   ); // 3
 }
 
@@ -53,8 +58,8 @@ function postUpdate() {
   }
   v.run.usedEsauJrFrame = null;
 
-  // Find the player corresponding to the player who used Esau Jr. a frame ago
-  // (via matching the ControllerIndex)
+  // Find the player corresponding to the player who used Esau Jr. a frame ago (via matching the
+  // ControllerIndex).
   if (v.run.usedEsauJrControllerIndex === null) {
     return;
   }
@@ -78,12 +83,12 @@ function getPlayerWithControllerIndex(controllerIndex: int) {
 }
 
 // ModCallbacks.USE_ITEM (3)
-// CollectibleType.COLLECTIBLE_ESAU_JR (703)
+// CollectibleType.ESAU_JR (703)
 function useItemEsauJr(
   _collectibleType: CollectibleType | int,
   _rng: RNG,
   player: EntityPlayer,
-  _useFlags: int,
+  _useFlags: BitFlags<UseFlag>,
   _activeSlot: int,
   _customVarData: int,
 ) {

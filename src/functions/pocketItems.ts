@@ -1,7 +1,14 @@
-import { MAX_PLAYER_POCKET_ITEM_SLOTS } from "../constants";
+import {
+  ActiveSlot,
+  Card,
+  CollectibleType,
+  PillColor,
+  PlayerType,
+  PocketItemSlot,
+} from "isaac-typescript-definitions";
 import { PocketItemType } from "../enums/PocketItemType";
 import { PocketItemDescription } from "../types/PocketItemDescription";
-import { range } from "./math";
+import { getEnumValues } from "./enums";
 import { isCharacter } from "./player";
 
 /**
@@ -43,28 +50,29 @@ export function getFirstCardOrPill(
  * `PocketItemType.UNDETERMINABLE`.
  */
 export function getPocketItems(player: EntityPlayer): PocketItemDescription[] {
-  const pocketItem = player.GetActiveItem(ActiveSlot.SLOT_POCKET);
-  const hasPocketItem = pocketItem !== CollectibleType.COLLECTIBLE_NULL;
+  const pocketItem = player.GetActiveItem(ActiveSlot.POCKET);
+  const hasPocketItem = pocketItem !== CollectibleType.NULL;
 
-  const pocketItem2 = player.GetActiveItem(ActiveSlot.SLOT_POCKET2);
-  const hasPocketItem2 = pocketItem2 !== CollectibleType.COLLECTIBLE_NULL;
+  const pocketItem2 = player.GetActiveItem(ActiveSlot.POCKET_SINGLE_USE);
+  const hasPocketItem2 = pocketItem2 !== CollectibleType.NULL;
 
   const maxPocketItems = player.GetMaxPocketItems();
+  const pocketItemSlots = getEnumValues(PocketItemSlot);
 
   const pocketItems: PocketItemDescription[] = [];
   let pocketItemIdentified = false;
   let pocketItem2Identified = false;
-  for (const slot of range(MAX_PLAYER_POCKET_ITEM_SLOTS - 1)) {
+  for (const slot of pocketItemSlots) {
     const card = player.GetCard(slot as PocketItemSlot);
     const pillColor = player.GetPill(slot as PocketItemSlot);
 
-    if (card !== Card.CARD_NULL) {
+    if (card !== Card.NULL) {
       pocketItems.push({
         slot,
         type: PocketItemType.CARD,
         subType: card,
       });
-    } else if (pillColor !== PillColor.PILL_NULL) {
+    } else if (pillColor !== PillColor.NULL) {
       pocketItems.push({
         slot,
         type: PocketItemType.PILL,
@@ -115,7 +123,7 @@ export function getPocketItems(player: EntityPlayer): PocketItemDescription[] {
  * items. (Only Tainted Forgotten can pick up items.)
  */
 export function hasOpenPocketItemSlot(player: EntityPlayer): boolean {
-  if (isCharacter(player, PlayerType.PLAYER_THESOUL_B)) {
+  if (isCharacter(player, PlayerType.THE_SOUL_B)) {
     return false;
   }
 
@@ -132,5 +140,9 @@ export function hasOpenPocketItemSlot(player: EntityPlayer): boolean {
 export function isFirstSlotPocketActiveItem(player: EntityPlayer): boolean {
   const pocketItems = getPocketItems(player);
   const firstPocketItem = pocketItems[0];
+  if (firstPocketItem === undefined) {
+    return false;
+  }
+
   return firstPocketItem.type === PocketItemType.ACTIVE_ITEM;
 }

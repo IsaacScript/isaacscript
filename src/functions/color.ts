@@ -85,6 +85,22 @@ export function copyColor(
         ...KEYS,
       );
 
+      if (r === undefined) {
+        error(
+          `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: r`,
+        );
+      }
+      if (g === undefined) {
+        error(
+          `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: g`,
+        );
+      }
+      if (b === undefined) {
+        error(
+          `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: b`,
+        );
+      }
+
       return Color(r, g, b, a, ro, go, bo);
     }
 

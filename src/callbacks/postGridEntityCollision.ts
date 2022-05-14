@@ -1,3 +1,4 @@
+import { GridCollisionClass, ModCallback } from "isaac-typescript-definitions";
 import { DefaultMap } from "../classes/DefaultMap";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import {
@@ -22,14 +23,14 @@ const v = {
 export function postGridEntityCollisionInit(mod: Mod): void {
   saveDataManager("postGridEntityCollision", v, hasSubscriptions);
 
-  mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate); // 1
+  mod.AddCallback(ModCallback.POST_UPDATE, postUpdate); // 1
 }
 
 function hasSubscriptions() {
   return postGridEntityCollisionHasSubscriptions();
 }
 
-// ModCallbacks.MC_POST_UPDATE (1)
+// ModCallback.POST_UPDATE (1)
 function postUpdate() {
   if (!hasSubscriptions()) {
     return;
@@ -37,8 +38,7 @@ function postUpdate() {
 
   const gridEntities = getGridEntities();
   const gridEntitiesWithCollision = gridEntities.filter(
-    (gridEntity) =>
-      gridEntity.CollisionClass !== GridCollisionClass.COLLISION_NONE,
+    (gridEntity) => gridEntity.CollisionClass !== GridCollisionClass.NONE,
   );
   for (const gridEntity of gridEntitiesWithCollision) {
     const gridEntityPtrHash = GetPtrHash(gridEntity);

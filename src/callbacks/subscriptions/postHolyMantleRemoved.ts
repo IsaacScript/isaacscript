@@ -1,3 +1,5 @@
+import { PlayerType, PlayerVariant } from "isaac-typescript-definitions";
+
 export type PostHolyMantleRemovedRegisterParameters = [
   callback: (
     player: EntityPlayer,
@@ -28,7 +30,19 @@ export function postHolyMantleRemovedFire(
   oldNumHolyMantles: int,
   newNumHolyMantles: int,
 ): void {
-  for (const [callback] of subscriptions) {
+  const character = player.GetPlayerType();
+
+  for (const [callback, callbackVariant, callbackCharacter] of subscriptions) {
+    // Handle the optional 2nd callback argument
+    if (callbackVariant !== undefined && callbackVariant !== player.Variant) {
+      continue;
+    }
+
+    // Handle the optional 3rd callback argument
+    if (callbackCharacter !== undefined && callbackCharacter !== character) {
+      continue;
+    }
+
     callback(player, oldNumHolyMantles, newNumHolyMantles);
   }
 }

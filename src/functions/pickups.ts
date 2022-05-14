@@ -1,3 +1,15 @@
+import {
+  BatterySubType,
+  Card,
+  CoinSubType,
+  CollectibleType,
+  HeartSubType,
+  KeySubType,
+  PickupVariant,
+  PillColor,
+  SackSubType,
+  TrinketType,
+} from "isaac-typescript-definitions";
 import { VectorZero } from "../constants";
 import {
   COIN_SUBTYPE_TO_VALUE,
@@ -9,12 +21,12 @@ import { getPickups, removeAllPickups, spawnPickup } from "./entitySpecific";
 
 /** Helper function to get all of the battery entities in the room. */
 export function getBatteries(matchingSubType = -1): EntityPickup[] {
-  return getPickups(PickupVariant.PICKUP_LIL_BATTERY, matchingSubType);
+  return getPickups(PickupVariant.LIL_BATTERY, matchingSubType);
 }
 
 /** Helper function to get all of the card entities in the room. */
 export function getCards(matchingSubType = -1): EntityPickup[] {
-  return getPickups(PickupVariant.PICKUP_TAROTCARD, matchingSubType);
+  return getPickups(PickupVariant.TAROT_CARD, matchingSubType);
 }
 
 /**
@@ -28,27 +40,27 @@ export function getCoinValue(coinSubType: CoinSubType): int {
 
 /** Helper function to get all of the coin pickup entities in the room. */
 export function getCoins(matchingSubType = -1): EntityPickup[] {
-  return getPickups(PickupVariant.PICKUP_COIN, matchingSubType);
+  return getPickups(PickupVariant.COIN, matchingSubType);
 }
 
 /** Helper function to get all of the collectible entities in the room. */
 export function getCollectibles(matchingSubType = -1): EntityPickup[] {
-  return getPickups(PickupVariant.PICKUP_COLLECTIBLE, matchingSubType);
+  return getPickups(PickupVariant.COLLECTIBLE, matchingSubType);
 }
 
 /** Helper function to get all of the heart pickup entities in the room. */
 export function getHearts(matchingSubType = -1): EntityPickup[] {
-  return getPickups(PickupVariant.PICKUP_HEART, matchingSubType);
+  return getPickups(PickupVariant.HEART, matchingSubType);
 }
 
 /** Helper function to get all of the key pickup entities in the room. */
 export function getKeys(matchingSubType = -1): EntityPickup[] {
-  return getPickups(PickupVariant.PICKUP_KEY, matchingSubType);
+  return getPickups(PickupVariant.KEY, matchingSubType);
 }
 
 /** Helper function to get all of the pill entities in the room. */
 export function getPills(matchingSubType = -1): EntityPickup[] {
-  return getPickups(PickupVariant.PICKUP_PILL, matchingSubType);
+  return getPickups(PickupVariant.PILL, matchingSubType);
 }
 
 /** Helper function to get all of the red heart pickup entities in the room. */
@@ -59,12 +71,12 @@ export function getRedHearts(): EntityPickup[] {
 
 /** Helper function to get all of the sack (i.e. grab bag) entities in the room. */
 export function getSacks(matchingSubType = -1): EntityPickup[] {
-  return getPickups(PickupVariant.PICKUP_GRAB_BAG, matchingSubType);
+  return getPickups(PickupVariant.GRAB_BAG, matchingSubType);
 }
 
 /** Helper function to get all of the trinket entities in the room. */
 export function getTrinkets(matchingSubType = -1): EntityPickup[] {
-  return getPickups(PickupVariant.PICKUP_TRINKET, matchingSubType);
+  return getPickups(PickupVariant.TRINKET, matchingSubType);
 }
 
 export function isChest(pickup: EntityPickup): boolean {
@@ -73,7 +85,7 @@ export function isChest(pickup: EntityPickup): boolean {
 
 export function isRedHeart(pickup: EntityPickup): boolean {
   return (
-    pickup.Variant === PickupVariant.PICKUP_HEART &&
+    pickup.Variant === PickupVariant.HEART &&
     RED_HEART_SUB_TYPES_SET.has(pickup.SubType)
   );
 }
@@ -89,11 +101,7 @@ export function removeAllBatteries(
   batterySubType?: BatterySubType | int,
   cap?: int,
 ): boolean {
-  return removeAllPickups(
-    PickupVariant.PICKUP_LIL_BATTERY,
-    batterySubType,
-    cap,
-  );
+  return removeAllPickups(PickupVariant.LIL_BATTERY, batterySubType, cap);
 }
 
 /**
@@ -104,7 +112,7 @@ export function removeAllBatteries(
  * @returns True if one or more cards were removed, false otherwise.
  */
 export function removeAllCards(card?: Card | int, cap?: int): boolean {
-  return removeAllPickups(PickupVariant.PICKUP_TAROTCARD, card, cap);
+  return removeAllPickups(PickupVariant.TAROT_CARD, card, cap);
 }
 
 /**
@@ -118,7 +126,7 @@ export function removeAllCoins(
   coinSubType?: CoinSubType | int,
   cap?: int,
 ): boolean {
-  return removeAllPickups(PickupVariant.PICKUP_COIN, coinSubType, cap);
+  return removeAllPickups(PickupVariant.COIN, coinSubType, cap);
 }
 
 /**
@@ -133,11 +141,7 @@ export function removeAllCollectibles(
   collectibleType?: CollectibleType | int,
   cap?: int,
 ): boolean {
-  return removeAllPickups(
-    PickupVariant.PICKUP_COLLECTIBLE,
-    collectibleType,
-    cap,
-  );
+  return removeAllPickups(PickupVariant.COLLECTIBLE, collectibleType, cap);
 }
 
 /**
@@ -151,7 +155,7 @@ export function removeAllHearts(
   heartSubType?: HeartSubType | int,
   cap?: int,
 ): boolean {
-  return removeAllPickups(PickupVariant.PICKUP_HEART, heartSubType, cap);
+  return removeAllPickups(PickupVariant.HEART, heartSubType, cap);
 }
 
 /**
@@ -165,7 +169,7 @@ export function removeAllKeys(
   keySubType?: KeySubType | int,
   cap?: int,
 ): boolean {
-  return removeAllPickups(PickupVariant.PICKUP_KEY, keySubType, cap);
+  return removeAllPickups(PickupVariant.KEY, keySubType, cap);
 }
 
 /**
@@ -176,7 +180,7 @@ export function removeAllKeys(
  * @returns True if one or more pills were removed, false otherwise.
  */
 export function removeAllPills(pillColor?: PillColor, cap?: int): boolean {
-  return removeAllPickups(PickupVariant.PICKUP_PILL, pillColor, cap);
+  return removeAllPickups(PickupVariant.PILL, pillColor, cap);
 }
 
 /**
@@ -190,7 +194,7 @@ export function removeAllSacks(
   sackSubType?: SackSubType | int,
   cap?: int,
 ): boolean {
-  return removeAllPickups(PickupVariant.PICKUP_TRINKET, sackSubType, cap);
+  return removeAllPickups(PickupVariant.TRINKET, sackSubType, cap);
 }
 
 /**
@@ -205,12 +209,11 @@ export function removeAllTrinkets(
   trinketType?: TrinketType | int,
   cap?: int,
 ): boolean {
-  return removeAllPickups(PickupVariant.PICKUP_TRINKET, trinketType, cap);
+  return removeAllPickups(PickupVariant.TRINKET, trinketType, cap);
 }
 
 /**
- * Helper function to spawn a `EntityType.ENTITY_PICKUP` (5) with variant
- * `PickupVariant.PICKUP_LIL_BATTERY` (90).
+ * Helper function to spawn a `EntityType.PICKUP` (5) with variant `PickupVariant.LIL_BATTERY` (90).
  */
 export function spawnBattery(
   subType: BatterySubType | int,
@@ -220,7 +223,7 @@ export function spawnBattery(
   seed: Seed | undefined = undefined,
 ): EntityPickup {
   return spawnPickup(
-    PickupVariant.PICKUP_LIL_BATTERY,
+    PickupVariant.LIL_BATTERY,
     subType,
     position,
     velocity,
@@ -240,8 +243,7 @@ export function spawnBatteryWithSeed(
 }
 
 /**
- * Helper function to spawn a `EntityType.ENTITY_PICKUP` (5) with variant
- * `PickupVariant.PICKUP_TAROTCARD` (300).
+ * Helper function to spawn a `EntityType.PICKUP` (5) with variant `PickupVariant.TAROT_CARD` (300).
  */
 export function spawnCard(
   subType: Card | int,
@@ -251,7 +253,7 @@ export function spawnCard(
   seed: Seed | undefined = undefined,
 ): EntityPickup {
   return spawnPickup(
-    PickupVariant.PICKUP_TAROTCARD,
+    PickupVariant.TAROT_CARD,
     subType,
     position,
     velocity,
@@ -270,10 +272,7 @@ export function spawnCardWithSeed(
   return spawnCard(subType, position, velocity, spawner, seed);
 }
 
-/**
- * Helper function to spawn a `EntityType.ENTITY_PICKUP` (5) with variant
- * `PickupVariant.PICKUP_COIN` (20).
- */
+/** Helper function to spawn a `EntityType.PICKUP` (5) with variant `PickupVariant.COIN` (20). */
 export function spawnCoin(
   subType: CoinSubType | int,
   position: Vector,
@@ -282,7 +281,7 @@ export function spawnCoin(
   seed: Seed | undefined = undefined,
 ): EntityPickup {
   return spawnPickup(
-    PickupVariant.PICKUP_COIN,
+    PickupVariant.COIN,
     subType,
     position,
     velocity,
@@ -301,10 +300,7 @@ export function spawnCoinWithSeed(
   return spawnCoin(subType, position, velocity, spawner, seed);
 }
 
-/**
- * Helper function to spawn a `EntityType.ENTITY_PICKUP` (5) with variant
- * `PickupVariant.PICKUP_HEART` (10).
- */
+/** Helper function to spawn a `EntityType.PICKUP` (5) with variant `PickupVariant.HEART` (10). */
 export function spawnHeart(
   subType: HeartSubType | int,
   position: Vector,
@@ -313,7 +309,7 @@ export function spawnHeart(
   seed: Seed | undefined = undefined,
 ): EntityPickup {
   return spawnPickup(
-    PickupVariant.PICKUP_HEART,
+    PickupVariant.HEART,
     subType,
     position,
     velocity,
@@ -332,10 +328,7 @@ export function spawnHeartWithSeed(
   return spawnHeart(subType, position, velocity, spawner, seed);
 }
 
-/**
- * Helper function to spawn a `EntityType.ENTITY_PICKUP` (5) with variant
- * `PickupVariant.PICKUP_KEY` (30).
- */
+/** Helper function to spawn a `EntityType.PICKUP` (5) with variant `PickupVariant.KEY` (30). */
 export function spawnKey(
   subType: KeySubType | int,
   position: Vector,
@@ -344,7 +337,7 @@ export function spawnKey(
   seed: Seed | undefined = undefined,
 ): EntityPickup {
   return spawnPickup(
-    PickupVariant.PICKUP_KEY,
+    PickupVariant.KEY,
     subType,
     position,
     velocity,
@@ -363,20 +356,17 @@ export function spawnKeyWithSeed(
   return spawnKey(subType, position, velocity, spawner, seed);
 }
 
-/**
- * Helper function to spawn a `EntityType.ENTITY_PICKUP` (5) with variant
- * `PickupVariant.PICKUP_PILL` (70).
- */
+/** Helper function to spawn a `EntityType.PICKUP` (5) with variant `PickupVariant.PILL` (70). */
 export function spawnPill(
-  subType: PillColor | int,
+  pillColor: PillColor | int,
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
   seed: Seed | undefined = undefined,
 ): EntityPickup {
   return spawnPickup(
-    PickupVariant.PICKUP_PILL,
-    subType,
+    PickupVariant.PILL,
+    pillColor,
     position,
     velocity,
     spawner,
@@ -395,8 +385,7 @@ export function spawnPillWithSeed(
 }
 
 /**
- * Helper function to spawn a `EntityType.ENTITY_PICKUP` (5) with variant
- * `PickupVariant.PICKUP_GRAB_BAG` (69).
+ * Helper function to spawn a `EntityType.PICKUP` (5) with variant `PickupVariant.GRAB_BAG` (69).
  */
 export function spawnSack(
   subType: SackSubType | int,
@@ -406,7 +395,7 @@ export function spawnSack(
   seed: Seed | undefined = undefined,
 ): EntityPickup {
   return spawnPickup(
-    PickupVariant.PICKUP_GRAB_BAG,
+    PickupVariant.GRAB_BAG,
     subType,
     position,
     velocity,
@@ -426,8 +415,7 @@ export function spawnSackWithSeed(
 }
 
 /**
- * Helper function to spawn a `EntityType.ENTITY_PICKUP` (5) with variant
- * `PickupVariant.PICKUP_TRINKET` (350).
+ * Helper function to spawn a `EntityType.PICKUP` (5) with variant `PickupVariant.TRINKET` (350).
  */
 export function spawnTrinket(
   subType: TrinketType | int,
@@ -437,7 +425,7 @@ export function spawnTrinket(
   seed: Seed | undefined = undefined,
 ): EntityPickup {
   return spawnPickup(
-    PickupVariant.PICKUP_TRINKET,
+    PickupVariant.TRINKET,
     subType,
     position,
     velocity,

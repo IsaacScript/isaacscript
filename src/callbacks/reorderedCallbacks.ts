@@ -1,14 +1,17 @@
 /* eslint-disable sort-exports/sort-exports */
 
 // This provides the logic for PostGameStartedReordered, PostNewLevelReordered, and
-// PostNewRoomReordered
+// PostNewRoomReordered.
 
 // By default, callbacks fire in the following order:
-// PostNewRoom --> PostNewLevel --> PostGameStarted
-// It is easier to write mod code if the callbacks run in a more logical order:
-// PostGameStarted --> PostNewLevel --> PostNewRoom
-// Manually reorganize the callback execution so that this is the case
+// - PostNewRoom --> PostNewLevel --> PostGameStarted
 
+// It is easier to write mod code if the callbacks run in a more logical order:
+// - PostGameStarted --> PostNewLevel --> PostNewRoom
+
+// Manually reorganize the callback execution so that this is the case.
+
+import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import {
   postGameStartedReorderedFire,
@@ -32,13 +35,13 @@ let forceNewRoom = false;
 /** @internal */
 export function reorderedCallbacksInit(mod: Mod): void {
   mod.AddCallback(
-    ModCallbacks.MC_USE_ITEM,
+    ModCallback.POST_USE_ITEM,
     useItemGlowingHourGlass,
-    CollectibleType.COLLECTIBLE_GLOWING_HOUR_GLASS,
+    CollectibleType.GLOWING_HOUR_GLASS,
   ); // 3
-  mod.AddCallback(ModCallbacks.MC_POST_GAME_STARTED, postGameStartedVanilla); // 15
-  mod.AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, postNewLevelVanilla); // 18
-  mod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoomVanilla); // 19
+  mod.AddCallback(ModCallback.POST_GAME_STARTED, postGameStartedVanilla); // 15
+  mod.AddCallback(ModCallback.POST_NEW_LEVEL, postNewLevelVanilla); // 18
+  mod.AddCallback(ModCallback.POST_NEW_ROOM, postNewRoomVanilla); // 19
 }
 
 function hasSubscriptions() {
@@ -49,16 +52,15 @@ function hasSubscriptions() {
   );
 }
 
-// ModCallbacks.MC_USE_ITEM (3)
-// CollectibleType.COLLECTIBLE_GLOWING_HOUR_GLASS (422)
+// ModCallback.POST_USE_ITEM (3)
+// CollectibleType.GLOWING_HOUR_GLASS (422)
 function useItemGlowingHourGlass() {
-  // If Glowing Hour Glass is used on the first room of a floor,
-  // it will send the player to the previous floor without triggering the PostNewLevel callback
-  // Manually check for this
+  // If Glowing Hour Glass is used on the first room of a floor, it will send the player to the
+  // previous floor without triggering the PostNewLevel callback. Manually check for this.
   usedGlowingHourGlass = true;
 }
 
-// ModCallbacks.MC_POST_GAME_STARTED (15)
+// ModCallback.POST_GAME_STARTED (15)
 function postGameStartedVanilla(isContinued: boolean) {
   if (!hasSubscriptions()) {
     return;
@@ -70,7 +72,7 @@ function postGameStartedVanilla(isContinued: boolean) {
   postNewRoomReorderedFire();
 }
 
-// ModCallbacks.MC_POST_NEW_LEVEL (18)
+// ModCallback.POST_NEW_LEVEL (18)
 function postNewLevelVanilla() {
   if (!hasSubscriptions()) {
     return;
@@ -89,7 +91,7 @@ function postNewLevelVanilla() {
   postNewRoomReorderedFire();
 }
 
-// ModCallbacks.MC_POST_NEW_ROOM (19)
+// ModCallback.POST_NEW_ROOM (19)
 function postNewRoomVanilla() {
   if (!hasSubscriptions()) {
     return;
@@ -104,9 +106,8 @@ function postNewRoomVanilla() {
     usedGlowingHourGlass = false;
 
     if (currentStage !== stage || currentStageType !== stageType) {
-      // The player has used the Glowing Hour Glass to take them to the previous floor
-      // (which does not trigger the PostNewLevel callback)
-      // Emulate what happens in the PostNewLevel callback
+      // The player has used the Glowing Hour Glass to take them to the previous floor (which does
+      // not trigger the PostNewLevel callback). Emulate what happens in the PostNewLevel callback.
       recordCurrentStage();
       postNewLevelReorderedFire();
       postNewRoomReorderedFire();

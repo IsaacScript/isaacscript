@@ -1,3 +1,12 @@
+import {
+  EntityType,
+  GridCollisionClass,
+  GridEntityType,
+  PoopGridEntityVariant,
+  PressurePlateState,
+  StatueVariant,
+  TrapdoorVariant,
+} from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { DISTANCE_OF_GRID_TILE } from "../constants";
 import { GRID_ENTITY_TYPE_TO_BROKEN_STATE_MAP } from "../maps/gridEntityTypeToBrokenStateMap";
@@ -6,44 +15,44 @@ import {
   DEFAULT_TOP_LEFT_WALL_GRID_INDEX,
   ROOM_SHAPE_TO_TOP_LEFT_WALL_GRID_INDEX_MAP,
 } from "../maps/roomShapeToTopLeftWallGridIndexMap";
-import { isCircleIntersectingRectangle, range } from "./math";
+import { erange, isCircleIntersectingRectangle } from "./math";
 import { roomUpdateSafe } from "./rooms";
 import { clearSprite } from "./sprite";
 import { isVector } from "./vector";
 
 const BREAKABLE_GRID_ENTITY_TYPES_BY_EXPLOSIONS: ReadonlySet<GridEntityType> =
   new Set([
-    GridEntityType.GRID_ROCK, // 2
-    GridEntityType.GRID_ROCKT, // 4
-    GridEntityType.GRID_ROCK_BOMB, // 5
-    GridEntityType.GRID_ROCK_ALT, // 6
-    GridEntityType.GRID_SPIDERWEB, // 10
-    GridEntityType.GRID_TNT, // 12
+    GridEntityType.ROCK, // 2
+    GridEntityType.ROCK_TINTED, // 4
+    GridEntityType.ROCK_BOMB, // 5
+    GridEntityType.ROCK_ALT, // 6
+    GridEntityType.SPIDER_WEB, // 10
+    GridEntityType.TNT, // 12
 
-    // GridEntityType.GRID_FIREPLACE (13) does not count since it is turned into a non-grid entity
-    // upon spawning
+    // GridEntityType.FIREPLACE (13) does not count since it is turned into a non-grid entity upon
+    // spawning.
 
-    GridEntityType.GRID_POOP, // 14
-    GridEntityType.GRID_ROCK_SS, // 22
-    GridEntityType.GRID_ROCK_SPIKED, // 25
-    GridEntityType.GRID_ROCK_ALT2, // 26
-    GridEntityType.GRID_ROCK_GOLD, // 27
+    GridEntityType.POOP, // 14
+    GridEntityType.ROCK_SUPER_SPECIAL, // 22
+    GridEntityType.ROCK_SPIKED, // 25
+    GridEntityType.ROCK_ALT_2, // 26
+    GridEntityType.ROCK_GOLD, // 27
   ]);
 
 const BREAKABLE_GRID_ENTITY_TYPES_VARIANTS_BY_EXPLOSIONS: ReadonlySet<string> =
-  new Set([`${GridEntityType.GRID_STATUE}.${StatueVariant.ANGEL}`]);
+  new Set([`${GridEntityType.STATUE}.${StatueVariant.ANGEL}`]);
 
 /**
  * Helper function to convert the grid entity type found in a room XML file to the corresponding
  * grid entity type and variant normally used by the game. For example, a rock is represented as
- * 1000.0 in a room XML file, but `GridEntityType.GRID_ROCK` is equal to 2.
+ * 1000.0 in a room XML file, but `GridEntityType.ROCK` is equal to 2.
  */
 export function convertXMLGridEntityType(
   gridEntityXMLType: int,
   gridEntityXMLVariant: int,
 ): [int, int] | undefined {
   // Triggers are bugged; spawning one will immediately crash the game
-  if (gridEntityXMLType === EntityType.ENTITY_TRIGGER_OUTPUT) {
+  if (gridEntityXMLType === EntityType.TRIGGER_OUTPUT) {
     return undefined;
   }
 
@@ -57,11 +66,11 @@ export function convertXMLGridEntityType(
   let gridEntityVariant = gridEntityArray[1];
 
   // For some specific grid entities, the variant defined in the XML is what is used by the actual
-  // game (which is not the case for e.g. poops)
+  // game (which is not the case for e.g. poops).
   if (
-    gridEntityType === GridEntityType.GRID_SPIKES_ONOFF || // 9
-    gridEntityType === GridEntityType.GRID_PRESSURE_PLATE || // 20
-    gridEntityType === GridEntityType.GRID_TELEPORTER // 23
+    gridEntityType === GridEntityType.SPIKES_ON_OFF || // 9
+    gridEntityType === GridEntityType.PRESSURE_PLATE || // 20
+    gridEntityType === GridEntityType.TELEPORTER // 23
   ) {
     gridEntityVariant = gridEntityXMLVariant;
   }
@@ -99,8 +108,8 @@ export function getCollidingEntitiesWithGridEntity(
       entity.CollidesWithGrid() &&
       isCircleIntersectingRectangle(
         entity.Position,
-        // We arbitrarily add 0.1 to account for entities that are already pushed back by the time the
-        // PostUpdate callback fires
+        // We arbitrarily add 0.1 to account for entities that are already pushed back by the time
+        // the PostUpdate callback fires.
         entity.Size + 0.1,
         gridEntityCollisionTopLeft,
         gridEntityCollisionBottomRight,
@@ -124,9 +133,9 @@ export function getCollidingEntitiesWithGridEntity(
  * Example:
  * ```ts
  * const rocks = getGridEntities(
- *   GridEntityType.GRID_ROCK,
- *   GridEntityType.GRID_ROCKB,
- *   GridEntityType.GRID_ROCKT,
+ *   GridEntityType.ROCK,
+ *   GridEntityType.BLOCK,
+ *   GridEntityType.ROCK_TINTED,
  * );
  * ```
  */
@@ -151,7 +160,7 @@ function getAllGridEntities(): GridEntity[] {
   const gridSize = room.GetGridSize();
 
   const gridEntities: GridEntity[] = [];
-  for (const gridIndex of range(gridSize - 1)) {
+  for (const gridIndex of erange(gridSize)) {
     const gridEntity = room.GetGridEntity(gridIndex);
     if (gridEntity !== undefined) {
       gridEntities.push(gridEntity);
@@ -180,6 +189,13 @@ export function getGridEntitiesMap(
   }
 
   return gridEntityMap;
+}
+
+/** Helper function to return a string containing the grid entity's type and variant. */
+export function getGridEntityID(gridEntity: GridEntity): string {
+  const gridEntityType = gridEntity.GetType();
+  const gridEntityVariant = gridEntity.GetVariant();
+  return `${gridEntityType}.${gridEntityVariant}`;
 }
 
 export function getSurroundingGridEntities(
@@ -220,8 +236,8 @@ export function getTopLeftWall(): GridEntity | undefined {
 }
 
 /**
- * Helper function to get the grid index of the top left wall.
- * (This will depend on what the current room shape is.)
+ * Helper function to get the grid index of the top left wall. (This will depend on what the current
+ * room shape is.)
  */
 export function getTopLeftWallGridIndex(): int {
   const room = game.GetRoom();
@@ -246,7 +262,7 @@ export function isAllPressurePlatesPushed(): boolean {
     return true;
   }
 
-  const pressurePlates = getGridEntities(GridEntityType.GRID_PRESSURE_PLATE);
+  const pressurePlates = getGridEntities(GridEntityType.PRESSURE_PLATE);
   return pressurePlates.every(
     (pressurePlate) =>
       pressurePlate.State === PressurePlateState.PRESSURE_PLATE_PRESSED,
@@ -272,8 +288,8 @@ export function isGridEntityBreakableByExplosion(
  * Helper function to see if the provided gridEntity is in its respective broken state. See the
  * `GRID_ENTITY_TYPE_TO_BROKEN_STATE_MAP` constant for more details.
  *
- * Note that in the case of `GridEntityType.GRID_LOCK` (11), the state will turn to being broken
- * before the actual collision for the entity is removed.
+ * Note that in the case of `GridEntityType.LOCK` (11), the state will turn to being broken before
+ * the actual collision for the entity is removed.
  */
 export function isGridEntityBroken(gridEntity: GridEntity): boolean {
   const gridEntityType = gridEntity.GetType();
@@ -287,8 +303,8 @@ export function isGridEntityBroken(gridEntity: GridEntity): boolean {
  * at the VarData of the entity.)
  */
 export function isPostBossVoidPortal(gridEntity: GridEntity): boolean {
-  // The VarData of Void Portals that are spawned after bosses will be equal to 1
-  // The VarData of the Void Portal in the room after Hush is equal to 0
+  // - The VarData of Void Portals that are spawned after bosses will be equal to 1.
+  // - The VarData of the Void Portal in the room after Hush is equal to 0.
   const saveState = gridEntity.GetSaveState();
   return saveState.VarData === 1;
 }
@@ -300,8 +316,8 @@ export function isPostBossVoidPortal(gridEntity: GridEntity): boolean {
  * Example:
  * ```ts
  * removeAllGridEntitiesExceptFor(
- *   GridEntityType.GRID_WALL,
- *   GridEntityType.GRID_DOOR,
+ *   GridEntityType.WALL,
+ *   GridEntityType.DOOR,
  * );
  * ```
  *
@@ -335,9 +351,9 @@ export function removeAllGridExcept(
  * Example:
  * ```ts
  * removeAllMatchingGridEntities(
- *   GridEntityType.GRID_ROCK,
- *   GridEntityType.GRID_ROCKB,
- *   GridEntityType.GRID_ROCKT,
+ *   GridEntityType.ROCK,
+ *   GridEntityType.BLOCK,
+ *   GridEntityType.ROCK_TINTED,
  * );
  * ```
  *
@@ -381,8 +397,8 @@ export function removeGrid(gridEntity: GridEntity, updateRoom = true): void {
 }
 
 /**
- * Helper function to make a grid entity invisible. This is accomplished by setting its sprite to
- * an empty/missing PNG file.
+ * Helper function to make a grid entity invisible. This is accomplished by setting its sprite to an
+ * empty/missing PNG file.
  *
  * For more information, see the documentation for the `clearSprite` helper function.
  */
@@ -404,22 +420,22 @@ export function spawnGiantPoop(topLeftGridIndex: int): void {
   const bottomRightGridIndex = bottomLeftGridIndex + 1;
 
   spawnGridWithVariant(
-    GridEntityType.GRID_POOP,
+    GridEntityType.POOP,
     PoopGridEntityVariant.GIGA_TOP_LEFT,
     topLeftGridIndex,
   );
   spawnGridWithVariant(
-    GridEntityType.GRID_POOP,
+    GridEntityType.POOP,
     PoopGridEntityVariant.GIGA_TOP_RIGHT,
     topRightGridIndex,
   );
   spawnGridWithVariant(
-    GridEntityType.GRID_POOP,
+    GridEntityType.POOP,
     PoopGridEntityVariant.GIGA_BOTTOM_LEFT,
     bottomLeftGridIndex,
   );
   spawnGridWithVariant(
-    GridEntityType.GRID_POOP,
+    GridEntityType.POOP,
     PoopGridEntityVariant.GIGA_BOTTOM_RIGHT,
     bottomRightGridIndex,
   );
@@ -473,17 +489,17 @@ export function spawnGridWithVariant(
     return gridEntity;
   }
 
-  if (gridEntityType === GridEntityType.GRID_PIT) {
-    // For some reason, spawned pits start with a collision class of COLLISION_NONE,
-    // so we have to manually set it
+  if (gridEntityType === GridEntityType.PIT) {
+    // For some reason, spawned pits start with a collision class of NONE, so we have to manually
+    // set it.
     const pit = gridEntity.ToPit();
     if (pit !== undefined) {
       pit.UpdateCollision();
     }
-  } else if (gridEntityType === GridEntityType.GRID_WALL) {
-    // For some reason, spawned walls start with a collision class of COLLISION_NONE,
-    // so we have to manually set it
-    gridEntity.CollisionClass = GridCollisionClass.COLLISION_WALL;
+  } else if (gridEntityType === GridEntityType.WALL) {
+    // For some reason, spawned walls start with a collision class of NONE, so we have to manually
+    // set it.
+    gridEntity.CollisionClass = GridCollisionClass.WALL;
   }
 
   return gridEntity;
@@ -495,7 +511,7 @@ export function spawnGridWithVariant(
  */
 export function spawnVoidPortal(gridIndex: int): GridEntity | undefined {
   const voidPortal = spawnGridWithVariant(
-    GridEntityType.GRID_TRAPDOOR,
+    GridEntityType.TRAPDOOR,
     TrapdoorVariant.VOID_PORTAL,
     gridIndex,
   );
@@ -504,7 +520,7 @@ export function spawnVoidPortal(gridIndex: int): GridEntity | undefined {
   }
 
   // If Void Portals are not given a VarData of 1, they will send the player to the next floor
-  // instead of The Void
+  // instead of The Void.
   voidPortal.VarData = 1;
 
   const sprite = voidPortal.GetSprite();

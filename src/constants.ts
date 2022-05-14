@@ -1,6 +1,16 @@
+import {
+  Dimension,
+  ItemPoolType,
+  LevelStage,
+  PlayerType,
+  RoomType,
+  TrinketSlot,
+} from "isaac-typescript-definitions";
+import { getEnumLength, getLastEnumValue } from "./functions/enums";
+
 /**
- * The distance of the laser when Azazel does not have any range up items yet.
- * For more info, see the documentation for the `getAzazelBrimstoneDistance` function.
+ * The distance of the laser when Azazel does not have any range up items yet. For more info, see
+ * the documentation for the `getAzazelBrimstoneDistance` function.
  */
 export const AZAZEL_DEFAULT_BRIMSTONE_DISTANCE = 75.125;
 
@@ -13,7 +23,7 @@ export const BLIND_ITEM_PNG_PATH = "gfx/items/collectibles/questionmark.png";
 /** Bombs explode when their frame count is equal to this value. */
 export const BOMB_EXPLODE_FRAME = 45;
 
-export const DEFAULT_ITEM_POOL_TYPE = ItemPoolType.POOL_TREASURE;
+export const DEFAULT_ITEM_POOL_TYPE = ItemPoolType.TREASURE;
 
 /** This is also the distance that a player spawns from the door that they enter a room from. */
 export const DISTANCE_OF_GRID_TILE = 40;
@@ -33,9 +43,6 @@ export const EGGY_STATE_FRAME_OF_FINAL_SPIDER = 45;
  */
 export const EMPTY_PNG_PATH = "gfx/none.png";
 
-/** As of Repentance, the final stage is floor 13 (which is the Home floor). */
-export const FINAL_STAGE = LevelStage.NUM_STAGES - 1;
-
 /**
  * The random items that appear when the player has TMTRAINER are generated on the fly as they are
  * encountered by the player. The first TMTRAINER item takes the final possible 32 bit number. The
@@ -48,9 +55,6 @@ export const GRID_INDEX_CENTER_OF_1X1_ROOM = 67;
 export const ISAAC_FRAMES_PER_SECOND = 60;
 export const LEVEL_GRID_COLUMN_HEIGHT = 13;
 export const LEVEL_GRID_ROW_LENGTH = 13;
-
-/** In a 2x2 room, there can be 8 doors. */
-export const MAX_NUM_DOORS = 8;
 
 /**
  * The game has a limit on the number of currently spawned familiars and will refuse to spawn any
@@ -65,8 +69,6 @@ export const MAX_NUM_INPUTS = 4;
 /** With Birthright, it is possible for Magdalene to have 18 heart containers. */
 export const MAX_PLAYER_HEART_CONTAINERS = 18;
 
-export const MAX_PLAYER_POCKET_ITEM_SLOTS = 4;
-
 /**
  * As the player continues to move in a direction, they will accelerate. When going from one wall to
  * another in a 2x2 room at 2.0 speed (the maximum that the speed stat can rise to), the amount of
@@ -75,7 +77,7 @@ export const MAX_PLAYER_POCKET_ITEM_SLOTS = 4;
  */
 export const MAX_PLAYER_SPEED_IN_UNITS = 9.8;
 
-export const MAX_PLAYER_TRINKET_SLOTS = 2;
+export const MAX_PLAYER_TRINKET_SLOTS = getEnumLength(TrinketSlot);
 
 /**
  * The floor is represented by a 13x13 grid. Room indexes start at 0. The first row is represented
@@ -84,62 +86,29 @@ export const MAX_PLAYER_TRINKET_SLOTS = 2;
  */
 export const MAX_ROOM_INDEX = 168;
 
+export const MAX_ROOM_TYPE = getLastEnumValue(RoomType);
+
 /**
  * The maximum speed stat that a player can have. Any additional speed beyond this will not take
  * effect.
  */
 export const MAX_SPEED_STAT = 2.0;
 
+export const MAX_STAGE = getLastEnumValue(LevelStage);
+
 /** Corresponds to the maximum value for `EntityPlayer.SamsonBerserkCharge`. */
 export const MAX_TAINTED_SAMSON_BERSERK_CHARGE = 100000;
 
-export const MAX_VANILLA_CHARACTER = PlayerType.NUM_PLAYER_TYPES - 1;
-export const MAX_VANILLA_COLLECTIBLE_TYPE =
-  CollectibleType.NUM_COLLECTIBLES - 1;
-
-export const NUM_DIMENSIONS = 3;
+export const MAX_VANILLA_CHARACTER = getLastEnumValue(PlayerType);
+export const NUM_DIMENSIONS = getEnumLength(Dimension) - 1; // Account for "Dimension.CURRENT"
 
 export const SECOND_IN_MILLISECONDS = 1000;
 export const MINUTE_IN_MILLISECONDS = 60 * SECOND_IN_MILLISECONDS; // eslint-disable-line sort-exports/sort-exports
 
 export const ONE_BY_ONE_ROOM_GRID_SIZE = 135;
 
-/**
- * In vanilla, this is part of the `PillColor` enum, but we implement it as a constant in
- * IsaacScript since it is not a real pill color.
- *
- * (1 << 11) - 1
- */
-export const PILL_COLOR_MASK = 2047;
-
-/**
- * In vanilla, this is part of the `PillColor` enum, but we implement it as a constant in
- * IsaacScript since it is not a real pill color.
- *
- * 1 << 11
- */
-export const PILL_GIANT_FLAG = 2048;
-
 /** After taking damage, `EntityPlayer.SamsonBerserkCharge` is incremented by this amount. */
 export const TAINTED_SAMSON_BERSERK_CHARGE_FROM_TAKING_DAMAGE = 10000;
-
-/**
- * Add this to a `TrinketType` to get the corresponding golden trinket type.
- *
- * In vanilla, this is part of the `TrinketType` enum, but we implement it as a constant in
- * IsaacScript since it is not a real trinket type.
- *
- * 1 << 15
- */
-export const TRINKET_GOLDEN_FLAG = 32768;
-
-/**
- * In vanilla, this is part of the `TrinketType` enum, but we implement it as a constant in
- * IsaacScript since it is not a real trinket type.
- *
- * (1 << 15) - 1
- */
-export const TRINKET_ID_MASK = 32767;
 
 /**
  * This is the number of draw coordinates that each heart spans on the UI in the upper left hand

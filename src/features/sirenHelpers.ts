@@ -1,3 +1,8 @@
+import {
+  EntityType,
+  FamiliarVariant,
+  ModCallback,
+} from "isaac-typescript-definitions";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { getEntities } from "../functions/entity";
 import { saveDataManager } from "./saveDataManager/exports";
@@ -15,14 +20,14 @@ export function sirenHelpersInit(mod: Mod): void {
   saveDataManager("sirenHelpers", v);
 
   mod.AddCallback(
-    ModCallbacks.MC_POST_NPC_INIT,
+    ModCallback.POST_NPC_INIT,
     postNPCInitSirenHelper,
-    EntityType.ENTITY_SIREN_HELPER,
+    EntityType.SIREN_HELPER,
   );
 }
 
-// ModCallbacks.MC_POST_NPC_INIT (27)
-// EntityType.ENTITY_SIREN_HELPER (966)
+// ModCallback.POST_NPC_INIT (27)
+// EntityType.SIREN_HELPER (966)
 function postNPCInitSirenHelper(npc: EntityNPC) {
   checkReturnFamiliarToPlayer(npc);
 }
@@ -113,7 +118,7 @@ export function hasSirenStolenFamiliar(familiar: EntityFamiliar): boolean {
 function getSirenHelper(familiar: EntityFamiliar): Entity | undefined {
   const familiarPtrHash = GetPtrHash(familiar);
 
-  const sirenHelpers = getEntities(EntityType.ENTITY_SIREN_HELPER);
+  const sirenHelpers = getEntities(EntityType.SIREN_HELPER);
   return sirenHelpers.find(
     (sirenHelper) =>
       sirenHelper.Target !== undefined &&

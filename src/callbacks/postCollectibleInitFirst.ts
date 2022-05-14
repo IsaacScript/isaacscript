@@ -1,3 +1,4 @@
+import { ModCallback, PickupVariant } from "isaac-typescript-definitions";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getCollectibleIndex } from "../functions/collectibles";
 import { CollectibleIndex } from "../types/CollectibleIndex";
@@ -17,9 +18,9 @@ export function postCollectibleInitFirstCallbackInit(mod: Mod): void {
   saveDataManager("postCollectibleInitFirst", v, hasSubscriptions);
 
   mod.AddCallback(
-    ModCallbacks.MC_POST_PICKUP_INIT,
+    ModCallback.POST_PICKUP_INIT,
     postPickupInitCollectible,
-    PickupVariant.PICKUP_COLLECTIBLE,
+    PickupVariant.COLLECTIBLE,
   ); // 34
 }
 

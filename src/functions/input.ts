@@ -1,43 +1,30 @@
+import {
+  ButtonAction,
+  Controller,
+  ControllerIndex,
+  Keyboard,
+} from "isaac-typescript-definitions";
 import { MAX_NUM_INPUTS } from "../constants";
-import { range } from "./math";
+import { erange } from "./math";
 import { copySet } from "./set";
+import { trimPrefix } from "./string";
 
-/**
- * This is a copied version of the Control enum from `isaac-typescript-definitions`. We need a
- * non-constant version of the enum so that we can iterate over it.
- */
-enum ControllerLiteral {
-  DPAD_LEFT = 0,
-  DPAD_RIGHT = 1,
-  DPAD_UP = 2,
-  DPAD_DOWN = 3,
-  /** A, X and B on Xbox, Playstation and Nintendo respectively. */
-  BUTTON_A = 4,
-  /** B, O and A on Xbox, Playstation and Nintendo respectively. */
-  BUTTON_B = 5,
-  /** X, □ and Y on Xbox, Playstation and Nintendo respectively. */
-  BUTTON_X = 6,
-  /** Y, Δ and X on Xbox, Playstation and Nintendo respectively. */
-  BUTTON_Y = 7,
-  /** Left shoulder button. */
-  BUMPER_LEFT = 8,
-  TRIGGER_LEFT = 9,
-  STICK_LEFT = 10,
-  /** Right shoulder button. */
-  BUMPER_RIGHT = 11,
-  TRIGGER_RIGHT = 12,
-  STICK_RIGHT = 13,
-  /** Select, Share and - on Xbox, Playstation and Nintendo respectively. */
-  BUTTON_BACK = 14,
-  /** Start, Options and + on Xbox, Playstation and Nintendo respectively. */
-  BUTTON_START = 15,
-}
+const MODIFIER_KEYS: readonly Keyboard[] = [
+  Keyboard.LEFT_SHIFT, // 340
+  Keyboard.LEFT_CONTROL, // 341
+  Keyboard.LEFT_ALT, // 342
+  Keyboard.LEFT_SUPER, // 343
+  Keyboard.RIGHT_SHIFT, // 344
+  Keyboard.RIGHT_CONTROL, // 345
+  Keyboard.RIGHT_ALT, // 346
+  Keyboard.RIGHT_SUPER, // 347
+];
 
 const MOVEMENT_ACTIONS: readonly ButtonAction[] = [
-  ButtonAction.ACTION_LEFT, // 0
-  ButtonAction.ACTION_RIGHT, // 1
-  ButtonAction.ACTION_UP, // 2
-  ButtonAction.ACTION_DOWN, // 3
+  ButtonAction.LEFT, // 0
+  ButtonAction.RIGHT, // 1
+  ButtonAction.UP, // 2
+  ButtonAction.DOWN, // 3
 ];
 
 const MOVEMENT_ACTIONS_SET: ReadonlySet<ButtonAction> = new Set(
@@ -45,10 +32,10 @@ const MOVEMENT_ACTIONS_SET: ReadonlySet<ButtonAction> = new Set(
 );
 
 const SHOOTING_ACTIONS: readonly ButtonAction[] = [
-  ButtonAction.ACTION_SHOOTLEFT, // 4
-  ButtonAction.ACTION_SHOOTRIGHT, // 5
-  ButtonAction.ACTION_SHOOTUP, // 6
-  ButtonAction.ACTION_SHOOTDOWN, // 7
+  ButtonAction.SHOOT_LEFT, // 4
+  ButtonAction.SHOOT_RIGHT, // 5
+  ButtonAction.SHOOT_UP, // 6
+  ButtonAction.SHOOT_DOWN, // 7
 ];
 
 const SHOOTING_ACTIONS_SET: ReadonlySet<ButtonAction> = new Set(
@@ -57,34 +44,12 @@ const SHOOTING_ACTIONS_SET: ReadonlySet<ButtonAction> = new Set(
 
 /** Helper function to get the enum name for the specified `Controller` value. */
 export function controllerToString(controller: Controller): string {
-  for (const [key, controllerLiteralCode] of Object.entries(
-    ControllerLiteral,
-  )) {
-    if (type(key) !== "string") {
-      // Ignore the reverse mappings created by TypeScriptToLua
-      continue;
-    }
-
-    const controllerCode = controllerLiteralCode as unknown as Controller;
-    if (controllerCode !== controller) {
-      continue;
-    }
-
-    let controllerName = key;
-    for (const prefix of [
-      "DPAD_",
-      "BUTTON_",
-      "BUMPER_",
-      "TRIGGER_",
-      "STICK_",
-    ]) {
-      controllerName = controllerName.replace(prefix, "");
-    }
-
-    return controllerName;
+  const key = Controller[controller];
+  if (key === undefined) {
+    return "unknown";
   }
 
-  return "unknown";
+  return trimPrefix(key, "BUTTON_");
 }
 
 export function getMoveActions(): Set<ButtonAction> {
@@ -97,7 +62,7 @@ export function getShootActions(): Set<ButtonAction> {
 
 /** Iterates over all inputs to determine if a particular button is pressed (i.e. held down). */
 export function isActionPressedOnAnyInput(buttonAction: ButtonAction): boolean {
-  const validInputs = range(MAX_NUM_INPUTS - 1);
+  const validInputs = erange(MAX_NUM_INPUTS);
   return validInputs.some((input) =>
     Input.IsActionPressed(buttonAction, input),
   );
@@ -110,14 +75,31 @@ export function isActionPressedOnAnyInput(buttonAction: ButtonAction): boolean {
 export function isActionTriggeredOnAnyInput(
   buttonAction: ButtonAction,
 ): boolean {
-  const validInputs = range(MAX_NUM_INPUTS - 1);
+  const validInputs = erange(MAX_NUM_INPUTS);
   return validInputs.some((input) =>
     Input.IsActionTriggered(buttonAction, input),
   );
 }
 
-export function isKeyboardPressed(key: Keyboard): boolean {
-  return Input.IsButtonPressed(key, ControllerIndex.KEYBOARD);
+/**
+ * Helper function to see if a particular keyboard key is being pressed down by the player.
+ *
+ * This function is variadic, meaning you can pass as many keyboard values as you want to check for.
+ * This function will return true if any of the values are pressed.
+ */
+export function isKeyboardPressed(...keys: Keyboard[]): boolean {
+  return keys.some((key) =>
+    Input.IsButtonPressed(key, ControllerIndex.KEYBOARD),
+  );
+}
+
+/**
+ * Helper function to check if one or more modifier keys are being pressed down on the keyboard.
+ *
+ * A modifier key is defined as shift, control, alt, or Windows.
+ */
+export function isModifierKeyPressed(): boolean {
+  return isKeyboardPressed(...MODIFIER_KEYS);
 }
 
 export function isMoveAction(buttonAction: ButtonAction): boolean {
@@ -150,17 +132,4 @@ export function isShootActionTriggeredOnAnyInput(): boolean {
   return SHOOTING_ACTIONS.some((shootAction) =>
     isActionTriggeredOnAnyInput(shootAction),
   );
-}
-
-/** Helper function to get the enum name for the specified `Keyboard` value. */
-export function keyboardToString(keyboard: Keyboard): string {
-  for (const [keyName, keyCode] of Object.entries(Keyboard)) {
-    if (keyCode === keyboard) {
-      const withoutPrefix = keyName.slice("KEY_".length);
-      const [withoutUnderscores] = string.gsub(withoutPrefix, "_", " ");
-      return withoutUnderscores;
-    }
-  }
-
-  return "unknown";
 }

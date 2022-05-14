@@ -1,8 +1,26 @@
-import { DIRECTION_TO_DEGREES } from "../objects/directionToDegrees";
-import { directionToVector } from "./vector";
+import { Direction } from "isaac-typescript-definitions";
+import { directionToVector } from "./direction";
 
-export function directionToDegrees(direction: Direction): int {
-  return DIRECTION_TO_DEGREES[direction];
+/**
+ * Helper function to return an array with the elements from start to end. It is inclusive at the
+ * start and exclusive at the end. (The "e" stands for exclusive.)
+ *
+ * For example, `erange(1, 3)` will return `[1, 2]`.
+ *
+ * If only one argument is specified, then it will assume that the start is 0.
+ */
+export function erange(start: int, end?: int): int[] {
+  if (end === undefined) {
+    end = start;
+    start = 0;
+  }
+
+  const array: int[] = [];
+  for (let i = start; i < end; i++) {
+    array.push(i);
+  }
+
+  return array;
 }
 
 export function getAngleDifference(angle1: float, angle2: float): float {
@@ -64,6 +82,28 @@ export function inRectangle(
 }
 
 /**
+ * Helper function to return an array with the elements from start to end, inclusive. (The "i"
+ * stands for inclusive.)
+ *
+ * For example, `irange(1, 3)` will return `[1, 2, 3]`.
+ *
+ * If only one argument is specified, then it will assume that the start is 0.
+ */
+export function irange(start: int, end?: int): int[] {
+  if (end === undefined) {
+    end = start;
+    start = 0;
+  }
+
+  const array: int[] = [];
+  for (let i = start; i <= end; i++) {
+    array.push(i);
+  }
+
+  return array;
+}
+
+/**
  * From: https://www.geeksforgeeks.org/check-if-any-point-overlaps-the-given-circle-and-rectangle/
  */
 export function isCircleIntersectingRectangle(
@@ -109,25 +149,6 @@ export function lerpAngleDegrees(
   percent: float,
 ): number {
   return aStart + getAngleDifference(aStart, aEnd) * percent;
-}
-
-/**
- * Helper function to return an array with the elements from start to end, inclusive.
- *
- * If only one argument is specified, then it will assume that the start is 0.
- */
-export function range(start: int, end?: int): int[] {
-  if (end === undefined) {
-    end = start;
-    start = 0;
-  }
-
-  const array: int[] = [];
-  for (let i = start; i <= end; i++) {
-    array.push(i);
-  }
-
-  return array;
 }
 
 /**

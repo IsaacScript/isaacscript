@@ -1,4 +1,5 @@
-import { getFinalFrameOfAnimation } from "../functions/sprite";
+import { ModCallback } from "isaac-typescript-definitions";
+import { getLastFrameOfAnimation } from "../functions/sprite";
 import { getEffectiveStage } from "../functions/stage";
 import {
   preNewLevelFire,
@@ -18,14 +19,14 @@ let firedOnStage: int | null = null;
 
 /** @internal */
 export function preNewLevelCallbackInit(mod: Mod): void {
-  mod.AddCallback(ModCallbacks.MC_POST_PLAYER_RENDER, postPlayerRender); // 32
+  mod.AddCallback(ModCallback.POST_PLAYER_RENDER, postPlayerRender); // 32
 }
 
 function hasSubscriptions() {
   return preNewLevelHasSubscriptions();
 }
 
-// ModCallbacks.MC_POST_PLAYER_RENDER (32)
+// ModCallback.POST_PLAYER_RENDER (32)
 function postPlayerRender(player: EntityPlayer) {
   if (!hasSubscriptions()) {
     return;
@@ -42,11 +43,11 @@ function postPlayerRender(player: EntityPlayer) {
     return;
   }
 
-  // We can't use the "Sprite.IsFinished" method to detect when we are at the end of the animation
-  // because the player will stop rendering at that point
-  // Thus, revert to checking for the final frame manually
+  // We can't use the `Sprite.IsFinished` method to detect when we are at the end of the animation
+  // because the player will stop rendering at that point. Thus, revert to checking for the final
+  // frame manually.
   const frame = sprite.GetFrame();
-  const finalFrame = getFinalFrameOfAnimation(sprite);
+  const finalFrame = getLastFrameOfAnimation(sprite);
   if (frame === finalFrame) {
     firedOnStage = effectiveStage;
     preNewLevelFire(player);

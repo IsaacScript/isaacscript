@@ -1,5 +1,8 @@
+import { DamageFlag } from "isaac-typescript-definitions";
+
 /**
  * Helper function to add a bit flag to an existing set of bit flags.
+ *
  * This is a variadic function, so pass as many flags as you want to add.
  *
  * Example 1:
@@ -17,21 +20,64 @@
  * ```
  *
  * @param flags The existing set of bit flags.
- * @param flag One or more bit flags to add, each as a separate argument.
+ * @param flagsToAdd One or more bit flags to add, each as a separate argument.
  * @returns The combined bit flags.
  */
-export function addFlag(flags: int, ...flag: int[]): int {
-  for (const f of flag) {
-    flags |= f;
+export function addFlag<T extends BitFlag | BitFlag128>(
+  flags: T | BitFlags<T>,
+  ...flagsToAdd: T[]
+): BitFlags<T> {
+  let flagsAsInt = flags as int;
+
+  for (const flagToAdd of flagsToAdd) {
+    flagsAsInt |= flagToAdd as int;
   }
 
-  return flags;
+  return flagsAsInt as BitFlags<T>;
+}
+
+/**
+ * Helper function for casting a flag enum value to a `BitFlags` object.
+ *
+ * This is useful because the compiler will prevent you from assigning a specific flag to a
+ * `BitFlags` property. (It does this to ensure type safety, since `BitFlags` can represent a zero
+ * value or a composition of N flags.)
+ *
+ * For example:
+ *
+ * ```ts
+ * player.TearFlags = bitFlags(TearFlag.SPECTRAL);
+ * ```
+ */
+export function bitFlags<T extends BitFlag | BitFlag128>(flag: T): BitFlags<T> {
+  return flag as BitFlags<T>;
+}
+
+/**
+ * Helper function to get the key associated with a particular flag.
+ *
+ * (Since bit flags are represented by custom objects instead of normal TypeScript enums, you cannot
+ * use the reverse mapping to find the associated key of a given enum value. Use this helper
+ * function instead of indexing the enum directly.)
+ */
+export function getFlagName<T extends BitFlag | BitFlag128>(
+  flag: BitFlag,
+  flagEnum: Record<string, T>,
+): string | undefined {
+  for (const [key, value] of pairs(flagEnum)) {
+    if (value === flag) {
+      return key;
+    }
+  }
+
+  return undefined;
 }
 
 /**
  * Helper function to determine if a particular bit flag is set to true.
- * This is a variadic function, so pass as many flags as you want to check for.
- * If passed multiple flags, it will only return true if all of the flags are set.
+ *
+ * This is a variadic function, so pass as many flags as you want to check for. If passed multiple
+ * flags, it will only return true if all of the flags are set.
  *
  * Example:
  * ```ts
@@ -42,11 +88,16 @@ export function addFlag(flags: int, ...flag: int[]): int {
  * ```
  *
  * @param flags The existing set of bit flags.
- * @param flag One or more bit flags to check for, each as a separate argument.
+ * @param flagsToCheck One or more bit flags to check for, each as a separate argument.
  */
-export function hasFlag(flags: int, ...flag: int[]): boolean {
-  for (const f of flag) {
-    if (!((flags & f) === f)) {
+export function hasFlag<T extends BitFlag | BitFlag128>(
+  flags: T | BitFlags<T>,
+  ...flagsToCheck: T[]
+): boolean {
+  const flagsAsInt = flags as int;
+
+  for (const flagToCheck of flagsToCheck) {
+    if (!((flagsAsInt & (flagToCheck as int)) === flagToCheck)) {
       return false;
     }
   }
@@ -55,21 +106,34 @@ export function hasFlag(flags: int, ...flag: int[]): boolean {
 }
 
 /**
+ * Helper function to check if every bit in the flag is turned off.
+ *
+ * (This is equivalent to checking if the flag is equal to 0, but this is not possible without
+ * casting the flag to a number.)
+ */
+export function isEmptyFlag<T extends BitFlag | BitFlag128>(flag: T): boolean {
+  return flag === 0;
+}
+
+/**
  * Helper function to determine whether damage to a player in the EntityTakeDmg callback was
  * self-inflicted. For example, damage from a Curse Room door, a Razor, or a Blood Donation Machine
  * would count as self-inflicted damage.
  */
-export function isSelfDamage(damageFlags: int): boolean {
+export function isSelfDamage(
+  damageFlags: DamageFlag | BitFlags<DamageFlag>,
+): boolean {
   return (
     // Exclude self-damage from e.g. Curse Room door spikes
-    hasFlag(damageFlags, DamageFlag.DAMAGE_NO_PENALTIES) ||
+    hasFlag(damageFlags, DamageFlag.NO_PENALTIES) ||
     // Exclude self-damage from e.g. Razor
-    hasFlag(damageFlags, DamageFlag.DAMAGE_RED_HEARTS)
+    hasFlag(damageFlags, DamageFlag.RED_HEARTS)
   );
 }
 
 /**
  * Helper function to remove a bit flag from an existing set of bit flags.
+ *
  * This is a variadic function, so pass as many flags as you want to remove.
  *
  * Example:
@@ -80,13 +144,18 @@ export function isSelfDamage(damageFlags: int): boolean {
  * ```
  *
  * @param flags The existing set of bit flags.
- * @param flag One or more bit flags to remove, each as a separate argument.
+ * @param flagsToRemove One or more bit flags to remove, each as a separate argument.
  * @returns The combined bit flags.
  */
-export function removeFlag(flags: int, ...flag: int[]): int {
-  for (const f of flag) {
-    flags &= ~f;
+export function removeFlag<T extends BitFlag | BitFlag128>(
+  flags: T | BitFlags<T>,
+  ...flagsToRemove: T[]
+): BitFlags<T> {
+  let flagsAsInt = flags as int;
+
+  for (const flagToRemove of flagsToRemove) {
+    flagsAsInt &= ~flagToRemove;
   }
 
-  return flags;
+  return flagsAsInt as BitFlags<T>;
 }

@@ -1,5 +1,3 @@
-import { getEnumValues } from "../../functions/utils";
-
 /**
  * During serialization, we write an arbitrary string key to the object with a value of an empty
  * string. This is used during deserialization to instantiate the correct type of object.
@@ -15,7 +13,7 @@ export enum SerializationBrand {
 
   // Specific Isaac API class brands
   COLOR = "__COLOR",
-  KCOLOR = "__KCOLOR",
+  K_COLOR = "__K_COLOR",
   RNG = "__RNG",
   VECTOR = "__VECTOR",
 
@@ -34,24 +32,11 @@ export enum SerializationBrand {
    * assume that both of these are an array. Thus, in the case of a map with number keys, it will
    * insert null in every empty spot, leading to crashes.
    *
-   * For example, a map with keys of 5 and 10 would be converted to the following array:
-   * `[null, null, null, null, "myValueForKey5", null, null, null, null, "myValueForKey10"]`
+   * For example, a map with keys of 5 and 10 would be converted to the following array: `[null,
+   * null, null, null, "myValueForKey5", null, null, null, null, "myValueForKey10"]`
    *
    * The deep copier works around this by converting number keys to strings. It inserts this brand
    * to keep track of the mutation.
    */
   OBJECT_WITH_NUMBER_KEYS = "__TSTL_OBJECT_WITH_NUMBER_KEYS",
-}
-
-const SERIALIZATION_BRANDS = getEnumValues(SerializationBrand);
-const SERIALIZATION_BRAND_SET: ReadonlySet<string> = new Set(
-  SERIALIZATION_BRANDS,
-);
-
-export function isSerializationBrand(key: unknown): boolean {
-  if (typeof key !== "string") {
-    return false;
-  }
-
-  return SERIALIZATION_BRAND_SET.has(key);
 }

@@ -1,3 +1,8 @@
+import {
+  CollectibleType,
+  ItemType,
+  TrinketType,
+} from "isaac-typescript-definitions";
 import { PickingUpItem } from "../../types/PickingUpItem";
 
 export type PreItemPickupRegisterParameters = [

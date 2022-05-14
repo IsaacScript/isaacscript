@@ -1,3 +1,5 @@
+import { GridEntityType } from "isaac-typescript-definitions";
+
 export type PostGridEntityRemoveRegisterParameters = [
   callback: (gridIndex: int, gridEntityType: GridEntityType) => void,
   gridEntityType?: GridEntityType,

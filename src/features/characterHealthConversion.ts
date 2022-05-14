@@ -1,12 +1,16 @@
+import {
+  HeartSubType,
+  ModCallback,
+  PickupVariant,
+  PlayerType,
+} from "isaac-typescript-definitions";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { isRedHeart } from "../functions/pickups";
 import { ensureAllCases } from "../functions/utils";
 
 const FEATURE_NAME = "character health manager";
 
-type ConversionHeartSubType =
-  | HeartSubType.HEART_SOUL
-  | HeartSubType.HEART_BLACK;
+type ConversionHeartSubType = HeartSubType.SOUL | HeartSubType.BLACK;
 
 const characterHealthReplacementMap = new Map<
   PlayerType,
@@ -15,15 +19,15 @@ const characterHealthReplacementMap = new Map<
 
 /** @internal */
 export function characterHealthConversionInit(mod: Mod): void {
-  mod.AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, postPEffectUpdate); // 4
+  mod.AddCallback(ModCallback.POST_PEFFECT_UPDATE, postPEffectUpdate); // 4
   mod.AddCallback(
-    ModCallbacks.MC_PRE_PICKUP_COLLISION,
+    ModCallback.PRE_PICKUP_COLLISION,
     prePickupCollisionHeart,
-    PickupVariant.PICKUP_HEART,
+    PickupVariant.HEART,
   ); // 38
 }
 
-// ModCallbacks.MC_POST_PEFFECT_UPDATE (4)
+// ModCallback.POST_PEFFECT_UPDATE (4)
 function postPEffectUpdate(player: EntityPlayer) {
   const character = player.GetPlayerType();
   const conversionHeartSubType = characterHealthReplacementMap.get(character);
@@ -47,12 +51,12 @@ function convertRedHeartContainers(
   player.AddMaxHearts(maxHearts * -1, false);
 
   switch (heartSubType) {
-    case HeartSubType.HEART_SOUL: {
+    case HeartSubType.SOUL: {
       player.AddSoulHearts(maxHearts);
       return;
     }
 
-    case HeartSubType.HEART_BLACK: {
+    case HeartSubType.BLACK: {
       player.AddBlackHearts(maxHearts);
       return;
     }
@@ -74,8 +78,8 @@ function removeRedHearts(player: EntityPlayer) {
   }
 }
 
-// ModCallbacks.MC_PRE_PICKUP_COLLISION (38)
-// PickupVariant.PICKUP_HEART (10)
+// ModCallback.PRE_PICKUP_COLLISION (38)
+// PickupVariant.HEART (10)
 function prePickupCollisionHeart(pickup: EntityPickup, collider: Entity) {
   if (!isRedHeart(pickup)) {
     return undefined;
@@ -93,7 +97,7 @@ function prePickupCollisionHeart(pickup: EntityPickup, collider: Entity) {
   }
 
   // Prevent internal code from running, which will prevent the player from picking up the heart,
-  // but will still allow the heart to bounce off of the player
+  // but will still allow the heart to bounce off of the player.
   return false;
 }
 

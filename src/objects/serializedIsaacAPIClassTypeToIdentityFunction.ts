@@ -8,7 +8,7 @@ export const SERIALIZED_ISAAC_API_CLASS_TYPE_TO_IDENTITY_FUNCTION: {
   readonly [key in CopyableIsaacAPIClassType]: (object: unknown) => boolean;
 } = {
   [CopyableIsaacAPIClassType.COLOR]: isSerializedColor,
-  [CopyableIsaacAPIClassType.KCOLOR]: isSerializedKColor,
+  [CopyableIsaacAPIClassType.K_COLOR]: isSerializedKColor,
   [CopyableIsaacAPIClassType.RNG]: isSerializedRNG,
   [CopyableIsaacAPIClassType.VECTOR]: isSerializedVector,
 };

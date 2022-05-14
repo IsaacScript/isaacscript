@@ -1,5 +1,13 @@
 /* eslint-disable sort-exports/sort-exports */
 
+import {
+  CacheFlag,
+  CollectibleType,
+  EntityType,
+  LevelCurse,
+  ModCallback,
+  TearVariant,
+} from "isaac-typescript-definitions";
 import { MAX_SPEED_STAT } from "../../constants";
 import { getMapPartialMatch } from "../../functions/map";
 import { printConsole } from "../../functions/utils";
@@ -10,9 +18,9 @@ import v from "./v";
 
 const commandFunctionsMap = new Map<string, (params: string) => void>();
 
-// Most features are turned on via invoking the "upgradeMod" function
-// However, this feature is turned on via invoking "enableExtraConsoleCommands",
-// so we need a separate variable to track whether it is initialized
+// Most features are turned on via invoking the "upgradeMod" function. However, this feature is
+// turned on via invoking "enableExtraConsoleCommands", so we need a separate variable to track
+// whether it is initialized.
 let initialized = false;
 
 /**
@@ -23,57 +31,57 @@ export function enableExtraConsoleCommands(mod: Mod): void {
   initialized = true;
   saveDataManager("extraConsoleCommands", v, featureEnabled);
 
-  mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate); // 1
+  mod.AddCallback(ModCallback.POST_UPDATE, postUpdate); // 1
   mod.AddCallback(
-    ModCallbacks.MC_EVALUATE_CACHE,
+    ModCallback.EVALUATE_CACHE,
     evaluateCacheFireDelay,
-    CacheFlag.CACHE_FIREDELAY, // 1 << 1
+    CacheFlag.FIRE_DELAY, // 1 << 1
   ); // 8
   mod.AddCallback(
-    ModCallbacks.MC_EVALUATE_CACHE,
+    ModCallback.EVALUATE_CACHE,
     evaluateCacheSpeed,
-    CacheFlag.CACHE_SPEED, // 1 << 4
+    CacheFlag.SPEED, // 1 << 4
   ); // 8
   mod.AddCallback(
-    ModCallbacks.MC_ENTITY_TAKE_DMG,
+    ModCallback.ENTITY_TAKE_DMG,
     entityTakeDmgPlayer,
-    EntityType.ENTITY_PLAYER,
+    EntityType.PLAYER,
   ); // 11
-  mod.AddCallback(ModCallbacks.MC_POST_CURSE_EVAL, postCurseEval); // 12
-  mod.AddCallback(ModCallbacks.MC_EXECUTE_CMD, executeCmd); // 22
-  mod.AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, postFireTear); // 61
+  mod.AddCallback(ModCallback.POST_CURSE_EVAL, postCurseEval); // 12
+  mod.AddCallback(ModCallback.EXECUTE_CMD, executeCmd); // 22
+  mod.AddCallback(ModCallback.POST_FIRE_TEAR, postFireTear); // 61
 }
 
 function featureEnabled() {
   return initialized;
 }
 
-// ModCallbacks.MC_POST_UPDATE (1)
+// ModCallback.POST_UPDATE (1)
 function postUpdate() {
   if (v.run.spamBloodRights) {
     const player = Isaac.GetPlayer();
-    player.UseActiveItem(CollectibleType.COLLECTIBLE_BLOOD_RIGHTS);
+    player.UseActiveItem(CollectibleType.BLOOD_RIGHTS);
   }
 }
 
-// ModCallbacks.MC_EVALUATE_CACHE (8)
-// CacheFlag.CACHE_FIREDELAY (1 << 1)
+// ModCallback.EVALUATE_CACHE (8)
+// CacheFlag.FIRE_DELAY (1 << 1)
 function evaluateCacheFireDelay(player: EntityPlayer) {
   if (v.run.maxTears) {
     player.FireDelay = 1; // Equivalent to Soy Milk
   }
 }
 
-// ModCallbacks.MC_EVALUATE_CACHE (8)
-// CacheFlag.CACHE_SPEED (1 << 4)
+// ModCallback.EVALUATE_CACHE (8)
+// CacheFlag.SPEED (1 << 4)
 function evaluateCacheSpeed(player: EntityPlayer) {
   if (v.run.maxSpeed) {
     player.MoveSpeed = MAX_SPEED_STAT;
   }
 }
 
-// ModCallbacks.MC_ENTITY_TAKE_DMG (11)
-// EntityType.ENTITY_PLAYER (1)
+// ModCallback.ENTITY_TAKE_DMG (11)
+// EntityType.PLAYER (1)
 function entityTakeDmgPlayer() {
   if (v.run.spamBloodRights) {
     return false;
@@ -82,12 +90,12 @@ function entityTakeDmgPlayer() {
   return undefined;
 }
 
-// ModCallbacks.MC_POST_CURSE_EVAL (12)
+// ModCallback.POST_CURSE_EVAL (12)
 function postCurseEval(curses: int) {
-  return v.persistent.disableCurses ? LevelCurse.CURSE_NONE : curses;
+  return v.persistent.disableCurses ? LevelCurse.NONE : curses;
 }
 
-// ModCallbacks.MC_EXECUTE_CMD (22)
+// ModCallback.EXECUTE_CMD (22)
 function executeCmd(command: string, params: string) {
   const resultTuple = getMapPartialMatch(command, commandFunctionsMap);
   if (resultTuple === undefined) {
@@ -100,15 +108,15 @@ function executeCmd(command: string, params: string) {
   commandFunction(params);
 }
 
-// ModCallbacks.MC_POST_FIRE_TEAR (61)
+// ModCallback.POST_FIRE_TEAR (61)
 function postFireTear(tear: EntityTear) {
   if (v.run.chaosCardTears) {
     tear.ChangeVariant(TearVariant.CHAOS_CARD);
   }
 
   if (v.run.maxDamage) {
-    // If we increase the damage stat too high, then the tears will become bigger than the screen
-    // Instead, increase the collision damage of the tear
+    // If we increase the damage stat too high, then the tears will become bigger than the screen.
+    // Instead, increase the collision damage of the tear.
     tear.CollisionDamage *= 1000;
 
     // Change the visual of the tear so that it is more clear that we have debug-damage turned on
@@ -168,6 +176,7 @@ export function removeConsoleCommand(commandName: string): void {
   commandFunctionsMap.delete(commandName);
 }
 
+commandFunctionsMap.set("1hp", commands.oneHP);
 commandFunctionsMap.set("addcharges", commands.addCharges);
 commandFunctionsMap.set("angel", commands.angel);
 commandFunctionsMap.set("ascent", commands.ascent);

@@ -1,5 +1,6 @@
 // This provides the logic for PreItemPickup and PostItemPickup
 
+import { CollectibleType } from "isaac-typescript-definitions";
 import { DefaultMap } from "../classes/DefaultMap";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
@@ -57,15 +58,15 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
     queueEmpty(player, pickingUpItem);
     // If a player enters a room with a trinket next to the entrance, the player will pick up the
     // trinket, but it will not become queued (it will be deposited into their inventory
-    // immediately)
-    // Since we don't know what type of item the player is holding, don't account for this bug
+    // immediately). Since we don't know what type of item the player is holding, don't account for
+    // this bug.
   } else {
     queueNotEmpty(player, pickingUpItem);
   }
 }
 
 function queueEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
-  if (pickingUpItem.subType === CollectibleType.COLLECTIBLE_NULL) {
+  if (pickingUpItem.subType === CollectibleType.NULL) {
     return;
   }
 

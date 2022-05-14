@@ -1,3 +1,5 @@
+import { PlayerVariant } from "isaac-typescript-definitions";
+
 export type PostPlayerRenderReorderedRegisterParameters = [
   callback: (player: EntityPlayer) => void,
   playerVariant?: PlayerVariant,

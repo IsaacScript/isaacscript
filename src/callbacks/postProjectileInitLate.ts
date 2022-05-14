@@ -1,3 +1,4 @@
+import { ModCallback } from "isaac-typescript-definitions";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import {
   postProjectileInitLateFire,
@@ -14,14 +15,14 @@ const v = {
 export function postProjectileInitLateCallbackInit(mod: Mod): void {
   saveDataManager("postProjectileInitLate", v, hasSubscriptions);
 
-  mod.AddCallback(ModCallbacks.MC_POST_PROJECTILE_UPDATE, postProjectileUpdate); // 44
+  mod.AddCallback(ModCallback.POST_PROJECTILE_UPDATE, postProjectileUpdate); // 44
 }
 
 function hasSubscriptions() {
   return postProjectileInitLateHasSubscriptions();
 }
 
-// ModCallbacks.MC_POST_PROJECTILE_UPDATE (44)
+// ModCallback.POST_PROJECTILE_UPDATE (44)
 function postProjectileUpdate(projectile: EntityProjectile) {
   if (!hasSubscriptions()) {
     return;

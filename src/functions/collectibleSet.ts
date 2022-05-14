@@ -1,14 +1,13 @@
+import { CollectibleType } from "isaac-typescript-definitions";
 import { itemConfig } from "../cachedClasses";
-import { getMaxCollectibleType } from "./collectibles";
-import { range } from "./math";
+import { MAX_COLLECTIBLE_TYPE } from "../constantsMax";
+import { irange } from "./math";
 import { copySet } from "./set";
 
 const COLLECTIBLE_SET = new Set<CollectibleType | int>();
 
 function initCollectibleSet() {
-  const maxCollectibleType = getMaxCollectibleType();
-
-  for (const collectibleType of range(1, maxCollectibleType)) {
+  for (const collectibleType of irange(1, MAX_COLLECTIBLE_TYPE)) {
     const itemConfigItem = itemConfig.GetCollectible(collectibleType);
     if (itemConfigItem !== undefined) {
       COLLECTIBLE_SET.add(collectibleType);

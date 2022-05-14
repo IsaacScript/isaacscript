@@ -1,3 +1,5 @@
+import { HeartSubType } from "isaac-typescript-definitions";
+
 export interface PlayerHealth {
   maxHearts: int;
   hearts: int;

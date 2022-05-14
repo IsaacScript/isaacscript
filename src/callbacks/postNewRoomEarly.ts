@@ -1,3 +1,4 @@
+import { GridEntityType, ModCallback } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { getTopLeftWallGridIndex, spawnGrid } from "../functions/gridEntity";
 import { logError } from "../functions/log";
@@ -16,15 +17,15 @@ let currentRoomTopLeftWallPtrHash2: PtrHash | null = null;
 
 /** @internal */
 export function postNewRoomEarlyCallbackInit(mod: Mod): void {
-  mod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoom); // 19
-  mod.AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, preEntitySpawn); // 24
+  mod.AddCallback(ModCallback.POST_NEW_ROOM, postNewRoom); // 19
+  mod.AddCallback(ModCallback.PRE_ENTITY_SPAWN, preEntitySpawn); // 24
 }
 
 function hasSubscriptions() {
   return postNewRoomEarlyHasSubscriptions();
 }
 
-// ModCallbacks.MC_POST_NEW_ROOM (19)
+// ModCallback.POST_NEW_ROOM (19)
 function postNewRoom() {
   if (!hasSubscriptions()) {
     return;
@@ -33,7 +34,7 @@ function postNewRoom() {
   checkRoomChanged();
 }
 
-// ModCallbacks.MC_PRE_ENTITY_SPAWN (24)
+// ModCallback.PRE_ENTITY_SPAWN (24)
 function preEntitySpawn() {
   if (!hasSubscriptions()) {
     return;
@@ -51,10 +52,10 @@ function checkRoomChanged() {
   let topLeftWall2 = room.GetGridEntity(rightOfTopWallGridIndex);
 
   // Sometimes, the PreEntitySpawn callback can fire before any grid entities in the room have
-  // spawned, which means that the top-left wall will not exist
-  // If ths is the case, then simply spawn the top-left wall early
+  // spawned, which means that the top-left wall will not exist. If ths is the case, then simply
+  // spawn the top-left wall early.
   if (topLeftWall === undefined) {
-    topLeftWall = spawnGrid(GridEntityType.GRID_WALL, topLeftWallGridIndex);
+    topLeftWall = spawnGrid(GridEntityType.WALL, topLeftWallGridIndex);
     if (topLeftWall === undefined) {
       logError(
         "Failed to spawn a new wall (1) for the PostNewRoomEarly callback.",
@@ -65,7 +66,7 @@ function checkRoomChanged() {
 
   // Duplicated code
   if (topLeftWall2 === undefined) {
-    topLeftWall2 = spawnGrid(GridEntityType.GRID_WALL, rightOfTopWallGridIndex);
+    topLeftWall2 = spawnGrid(GridEntityType.WALL, rightOfTopWallGridIndex);
     if (topLeftWall2 === undefined) {
       logError(
         "Failed to spawn a new wall (2) for the PostNewRoomEarly callback.",

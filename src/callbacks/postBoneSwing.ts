@@ -1,3 +1,4 @@
+import { KnifeVariant, ModCallback } from "isaac-typescript-definitions";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import {
   postBoneSwingFire,
@@ -20,14 +21,14 @@ const v = {
 export function postBoneSwingCallbackInit(mod: Mod): void {
   saveDataManager("postBoneSwing", v, hasSubscriptions);
 
-  mod.AddCallback(ModCallbacks.MC_POST_KNIFE_RENDER, postKnifeRender); // 52
+  mod.AddCallback(ModCallback.POST_KNIFE_RENDER, postKnifeRender); // 52
 }
 
 function hasSubscriptions() {
   return postBoneSwingHasSubscriptions();
 }
 
-// ModCallbacks.MC_POST_KNIFE_RENDER (52)
+// ModCallback.POST_KNIFE_RENDER (52)
 function postKnifeRender(knife: EntityKnife) {
   if (!hasSubscriptions()) {
     return;

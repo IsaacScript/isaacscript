@@ -1,6 +1,6 @@
+import { Direction } from "isaac-typescript-definitions";
 import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
-import { DIRECTION_TO_VECTOR } from "../objects/directionToVector";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { copyValuesToTable, getNumbersFromTable, tableHasKeys } from "./table";
 import { ensureAllCases } from "./utils";
@@ -69,6 +69,18 @@ export function copyVector(
       }
 
       const [x, y] = getNumbersFromTable(vector, OBJECT_NAME, ...KEYS);
+
+      if (x === undefined) {
+        error(
+          `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: x`,
+        );
+      }
+      if (y === undefined) {
+        error(
+          `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: y`,
+        );
+      }
+
       return Vector(x, y);
     }
 
@@ -76,10 +88,6 @@ export function copyVector(
       return ensureAllCases(serializationType);
     }
   }
-}
-
-export function directionToVector(direction: Direction): Vector {
-  return DIRECTION_TO_VECTOR[direction];
 }
 
 /**

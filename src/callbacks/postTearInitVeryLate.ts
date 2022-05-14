@@ -1,3 +1,4 @@
+import { ModCallback } from "isaac-typescript-definitions";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import {
   postTearInitVeryLateFire,
@@ -14,14 +15,14 @@ const v = {
 export function postTearInitVeryLateCallbackInit(mod: Mod): void {
   saveDataManager("postTearInitVeryLate", v, hasSubscriptions);
 
-  mod.AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, postTearUpdate); // 40
+  mod.AddCallback(ModCallback.POST_TEAR_UPDATE, postTearUpdate); // 40
 }
 
 function hasSubscriptions() {
   return postTearInitVeryLateHasSubscriptions();
 }
 
-// ModCallbacks.MC_POST_TEAR_UPDATE (40)
+// ModCallback.POST_TEAR_UPDATE (40)
 function postTearUpdate(tear: EntityTear) {
   if (!hasSubscriptions()) {
     return;

@@ -1,3 +1,8 @@
+import {
+  ButtonAction,
+  InputHook,
+  ModCallback,
+} from "isaac-typescript-definitions";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { getMoveActions, getShootActions } from "../functions/input";
 import { saveDataManager } from "./saveDataManager/exports";
@@ -25,19 +30,19 @@ export function disableInputsInit(mod: Mod): void {
   saveDataManager("disableInputs", v);
 
   mod.AddCallback(
-    ModCallbacks.MC_INPUT_ACTION,
+    ModCallback.INPUT_ACTION,
     isActionPressed,
     InputHook.IS_ACTION_PRESSED, // 0
   );
 
   mod.AddCallback(
-    ModCallbacks.MC_INPUT_ACTION,
+    ModCallback.INPUT_ACTION,
     isActionTriggered,
     InputHook.IS_ACTION_TRIGGERED, // 1
   );
 
   mod.AddCallback(
-    ModCallbacks.MC_INPUT_ACTION,
+    ModCallback.INPUT_ACTION,
     getActionValue,
     InputHook.GET_ACTION_VALUE, // 2
   );

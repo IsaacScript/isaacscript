@@ -1,3 +1,9 @@
+import {
+  DamageFlag,
+  EntityType,
+  ModCallback,
+  RoomType,
+} from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { hasFlag } from "../functions/flag";
@@ -17,9 +23,9 @@ export function postSacrificeCallbackInit(mod: Mod): void {
   saveDataManager("postSacrifice", v, hasSubscriptions);
 
   mod.AddCallback(
-    ModCallbacks.MC_ENTITY_TAKE_DMG,
+    ModCallback.ENTITY_TAKE_DMG,
     entityTakeDmgPlayer,
-    EntityType.ENTITY_PLAYER,
+    EntityType.PLAYER,
   ); // 11
 }
 
@@ -27,12 +33,12 @@ function hasSubscriptions() {
   return postSacrificeHasSubscriptions();
 }
 
-// ModCallbacks.MC_ENTITY_TAKE_DMG (11)
-// EntityType.ENTITY_PLAYER (1)
+// ModCallback.ENTITY_TAKE_DMG (11)
+// EntityType.PLAYER (1)
 function entityTakeDmgPlayer(
   tookDamage: Entity,
   _damageAmount: float,
-  damageFlags: int,
+  damageFlags: BitFlags<DamageFlag>,
   _damageSource: EntityRef,
   _damageCountdownFrames: int,
 ) {
@@ -47,9 +53,9 @@ function entityTakeDmgPlayer(
 
   const room = game.GetRoom();
   const roomType = room.GetType();
-  const isSpikeDamage = hasFlag(damageFlags, DamageFlag.DAMAGE_SPIKES);
+  const isSpikeDamage = hasFlag(damageFlags, DamageFlag.SPIKES);
 
-  if (roomType === RoomType.ROOM_SACRIFICE && isSpikeDamage) {
+  if (roomType === RoomType.SACRIFICE && isSpikeDamage) {
     v.level.numSacrifices += 1;
     postSacrificeFire(player, v.level.numSacrifices);
   }

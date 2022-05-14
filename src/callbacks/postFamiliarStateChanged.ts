@@ -1,3 +1,4 @@
+import { ModCallback } from "isaac-typescript-definitions";
 import { DefaultMap } from "../classes/DefaultMap";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import {
@@ -17,14 +18,14 @@ const v = {
 export function postFamiliarStateChangedCallbackInit(mod: Mod): void {
   saveDataManager("postFamiliarStateChanged", v, hasSubscriptions);
 
-  mod.AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, postFamiliarUpdate); // 6
+  mod.AddCallback(ModCallback.POST_FAMILIAR_UPDATE, postFamiliarUpdate); // 6
 }
 
 function hasSubscriptions() {
   return postFamiliarStateChangedHasSubscriptions();
 }
 
-// ModCallbacks.MC_FAMILIAR_UPDATE (6)
+// ModCallback.POST_FAMILIAR_UPDATE (6)
 function postFamiliarUpdate(familiar: EntityFamiliar) {
   if (!hasSubscriptions()) {
     return;

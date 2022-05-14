@@ -1,3 +1,10 @@
+import {
+  CollectibleType,
+  FamiliarVariant,
+  ModCallback,
+  PlayerType,
+  SoundEffect,
+} from "isaac-typescript-definitions";
 import { sfxManager } from "../cachedClasses";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
@@ -44,8 +51,8 @@ const v = {
 export function customReviveCallbacksInit(mod: ModUpgraded): void {
   saveDataManager("customRevive", v, hasSubscriptions);
 
-  mod.AddCallback(ModCallbacks.MC_POST_RENDER, postRender); // 2
-  mod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoom); // 19
+  mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
+  mod.AddCallback(ModCallback.POST_NEW_ROOM, postNewRoom); // 19
   mod.AddCallbackCustom(
     ModCallbacksCustom.MC_POST_PEFFECT_UPDATE_REORDERED,
     postPEffectUpdateReordered,
@@ -66,18 +73,18 @@ function hasSubscriptions() {
   );
 }
 
-// ModCallbacks.MC_POST_RENDER (2)
+// ModCallback.POST_RENDER (2)
 function postRender() {
   if (v.run.state !== CustomReviveState.WAITING_FOR_ITEM_ANIMATION) {
     return;
   }
 
-  // The 1-up sound will fire before the item holding animation begins,
-  // so we mute it on every render frame
-  sfxManager.Stop(SoundEffect.SOUND_1UP);
+  // The 1-up sound will fire before the item holding animation begins, so we mute it on every
+  // render frame.
+  sfxManager.Stop(SoundEffect.ONE_UP);
 }
 
-// ModCallbacks.MC_POST_NEW_ROOM (19)
+// ModCallback.POST_NEW_ROOM (19)
 function postNewRoom() {
   if (v.run.state !== CustomReviveState.WAITING_FOR_ROOM_TRANSITION) {
     return;
@@ -107,7 +114,7 @@ function checkWaitingForItemAnimation(player: EntityPlayer) {
   }
 
   let playerToCheckHoldingItem = player;
-  if (isCharacter(player, PlayerType.PLAYER_THESOUL_B)) {
+  if (isCharacter(player, PlayerType.THE_SOUL_B)) {
     const forgottenBody = player.GetOtherTwin();
     if (forgottenBody !== undefined) {
       playerToCheckHoldingItem = forgottenBody;
@@ -118,10 +125,10 @@ function checkWaitingForItemAnimation(player: EntityPlayer) {
     return;
   }
 
-  // The player is now playing the animation where they hold the 1-Up item overhead
-  // The "EntityPlayer.StopExtraAnimation" method will not work to stop this animation
-  // End-users are expected to play a new animation in the PostCustomRevive callback,
-  // which will overwrite the 1-Up animation
+  // The player is now playing the animation where they hold the 1-Up item overhead. The
+  // "EntityPlayer.StopExtraAnimation" method will not work to stop this animation. End-users are
+  // expected to play a new animation in the PostCustomRevive callback, which will overwrite the
+  // 1-Up animation.
 
   if (v.run.revivalType !== null) {
     postCustomReviveFire(playerToCheckHoldingItem, v.run.revivalType);
@@ -166,15 +173,13 @@ function playerIsAboutToDie(player: EntityPlayer) {
   v.run.dyingPlayerIndex = getPlayerIndex(player);
   logStateChanged();
 
-  player.AddCollectible(CollectibleType.COLLECTIBLE_1UP, 0, false);
+  player.AddCollectible(CollectibleType.ONE_UP, 0, false);
   removeAllFamiliars(FamiliarVariant.ONE_UP);
-  removeCollectibleFromItemTracker(CollectibleType.COLLECTIBLE_1UP);
+  removeCollectibleFromItemTracker(CollectibleType.ONE_UP);
 
-  // The player should always be dead one frame from now
-  // If they are not, then something has gone wrong, probably with the `isDamageToPlayerFatal`
-  // function
-  // Since end-user code is already assuming that a custom revive is occurring, explicitly kill the
-  // player
+  // The player should always be dead one frame from now. If they are not, then something has gone
+  // wrong, probably with the `isDamageToPlayerFatal` function. Since end-user code is already
+  // assuming that a custom revive is occurring, explicitly kill the player.
   const playerIndex = getPlayerIndex(player);
   runNextGameFrame(() => {
     const futurePlayer = getPlayerFromIndex(playerIndex);

@@ -1,6 +1,6 @@
 import { EMPTY_PNG_PATH, VectorZero } from "../constants";
 import { kColorEquals } from "./kColor";
-import { range } from "./math";
+import { erange } from "./math";
 
 /**
  * Helper function to clear a specific layer from a sprite.
@@ -17,7 +17,7 @@ import { range } from "./math";
 export function clearSprite(sprite: Sprite, ...layerIDs: int[]): void {
   if (layerIDs.length === 0) {
     const numLayers = sprite.GetLayerCount();
-    layerIDs = range(numLayers - 1);
+    layerIDs = erange(numLayers);
   }
 
   for (const layerID of layerIDs) {
@@ -38,7 +38,7 @@ export function clearSprite(sprite: Sprite, ...layerIDs: int[]): void {
  * to use this function on animations that are not slowed down by Stop Watch or Broken Watch, such
  * as player animations.
  */
-export function getFinalFrameOfAnimation(
+export function getLastFrameOfAnimation(
   sprite: Sprite,
   animation?: string,
 ): int {
@@ -80,8 +80,8 @@ export function spriteEquals(
   yFinish: int,
   yIncrement: int,
 ): boolean {
-  // Iterate over N texels, checking for equality at each step
-  // The center of the sprite is equal to the "pivot" point in the anm2 file
+  // Iterate over N texels, checking for equality at each step. The center of the sprite is equal to
+  // the "pivot" point in the anm2 file.
   for (let x = xStart; x <= xFinish; x += xIncrement) {
     for (let y = yStart; y <= yFinish; y += yIncrement) {
       const position = Vector(x, y);

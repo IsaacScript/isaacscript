@@ -1,6 +1,12 @@
-// Keep specific items from being affected by the Glitched Crown, Binge Eater,
-// and the Tainted Isaac switching mechanic
+// Keep specific items from being affected by the Glitched Crown, Binge Eater, and the Tainted Isaac
+// switching mechanic.
 
+import {
+  Card,
+  CollectibleType,
+  ModCallback,
+  PickupVariant,
+} from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { setCollectibleSubType } from "../functions/collectibles";
@@ -29,31 +35,31 @@ export function preventCollectibleRotateInit(mod: Mod): void {
   saveDataManager("preventCollectibleRotate", v);
 
   mod.AddCallback(
-    ModCallbacks.MC_USE_CARD,
+    ModCallback.POST_USE_CARD,
     useCardSoulOfIsaac,
-    Card.CARD_SOUL_ISAAC,
+    Card.SOUL_ISAAC,
   ); // 5
 
   mod.AddCallback(
-    ModCallbacks.MC_POST_PICKUP_UPDATE,
+    ModCallback.POST_PICKUP_UPDATE,
     postPickupUpdateCollectible,
-    PickupVariant.PICKUP_COLLECTIBLE,
+    PickupVariant.COLLECTIBLE,
   ); // 35
 }
 
-// ModCallbacks.MC_USE_CARD (5)
-// Card.CARD_SOUL_ISAAC (81)
+// ModCallback.POST_USE_CARD (5)
+// Card.SOUL_ISAAC (81)
 function useCardSoulOfIsaac() {
-  // Soul of Isaac causes items to flip
-  // Delete all tracked items (assuming that the player deliberately wants to roll a quest item)
+  // Soul of Isaac causes items to flip. Delete all tracked items (assuming that the player
+  // deliberately wants to roll a quest item).
   v.room.trackedCollectibles.clear();
 }
 
-// ModCallbacks.MC_POST_PICKUP_UPDATE (35)
-// PickupVariant.PICKUP_COLLECTIBLE (100)
+// ModCallback.POST_PICKUP_UPDATE (35)
+// PickupVariant.COLLECTIBLE (100)
 function postPickupUpdateCollectible(collectible: EntityPickup) {
   // Ignore empty pedestals (i.e. items that have already been taken by the player)
-  if (collectible.SubType === CollectibleType.COLLECTIBLE_NULL) {
+  if (collectible.SubType === CollectibleType.NULL) {
     return;
   }
 
@@ -83,7 +89,7 @@ export function preventCollectibleRotate(
 ): void {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
 
-  if (collectible.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
+  if (collectible.Variant !== PickupVariant.COLLECTIBLE) {
     error(
       `You cannot prevent the rotation for pickups of variant: ${collectible.Variant}`,
     );
@@ -92,8 +98,8 @@ export function preventCollectibleRotate(
   const index = getMapIndex(collectible);
   v.room.trackedCollectibles.set(index, collectibleType);
 
-  // The item might have already shifted on the first frame that it spawns,
-  // so change it back if necessary
+  // The item might have already shifted on the first frame that it spawns, so change it back if
+  // necessary.
   postPickupUpdateCollectible(collectible);
 }
 

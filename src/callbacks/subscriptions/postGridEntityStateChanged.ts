@@ -1,3 +1,5 @@
+import { GridEntityType } from "isaac-typescript-definitions";
+
 export type PostGridEntityStateChangedRegisterParameters = [
   callback: (gridEntity: GridEntity, oldState: int, newState: int) => void,
   gridEntityType?: GridEntityType,

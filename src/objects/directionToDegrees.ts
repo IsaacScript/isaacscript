@@ -1,3 +1,5 @@
+import { Direction } from "isaac-typescript-definitions";
+
 export const DIRECTION_TO_DEGREES: {
   readonly [key in Direction]: int;
 } = {

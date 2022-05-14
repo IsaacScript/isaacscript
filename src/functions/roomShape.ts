@@ -1,3 +1,4 @@
+import { DoorSlot, RoomShape } from "isaac-typescript-definitions";
 import { ROOM_SHAPE_BOUNDS } from "../objects/roomShapeBounds";
 import { ROOM_SHAPE_LAYOUT_SIZES } from "../objects/roomShapeLayoutSizes";
 import { ROOM_SHAPE_TO_BOTTOM_RIGHT_POSITION } from "../objects/roomShapeToBottomRightPosition";
@@ -9,7 +10,7 @@ import { L_ROOM_SHAPES_SET } from "../sets/LRoomShapesSet";
 
 /**
  * Helper function to get the grid index delta that a door out of the given room shape would lead
- * to. For example, if you went through the bottom door in a room of `RoomShape.ROOMSHAPE_1x2`, you
+ * to. For example, if you went through the bottom door in a room of `RoomShape.SHAPE_1x2`, you
  * would end up in a room with a grid index that is +26 units from the `SafeGridIndex` of where you
  * started.
  */

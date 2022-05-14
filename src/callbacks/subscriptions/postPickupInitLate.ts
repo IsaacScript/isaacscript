@@ -1,3 +1,5 @@
+import { PickupVariant } from "isaac-typescript-definitions";
+
 export type PostPickupInitLateRegisterParameters = [
   callback: (pickup: EntityPickup) => void,
   pickupVariant?: PickupVariant | int,

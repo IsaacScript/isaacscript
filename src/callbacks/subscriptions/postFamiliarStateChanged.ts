@@ -1,3 +1,5 @@
+import { FamiliarVariant } from "isaac-typescript-definitions";
+
 export type PostFamiliarStateChangedRegisterParameters = [
   callback: (
     familiar: EntityFamiliar,

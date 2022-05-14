@@ -1,3 +1,5 @@
+import { PlayerType } from "isaac-typescript-definitions";
+
 export type PostPlayerChangeTypeRegisterParameters = [
   callback: (
     player: EntityPlayer,

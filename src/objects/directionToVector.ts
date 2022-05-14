@@ -1,3 +1,4 @@
+import { Direction } from "isaac-typescript-definitions";
 import { VectorZero } from "../constants";
 
 export const DIRECTION_TO_VECTOR: {

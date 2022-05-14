@@ -1,8 +1,10 @@
+import { DamageFlag, PlayerVariant } from "isaac-typescript-definitions";
+
 export type PostPlayerFatalDamageRegisterParameters = [
   callback: (
     player: EntityPlayer,
     damageAmount: float,
-    damageFlags: int,
+    damageFlags: BitFlags<DamageFlag>,
     damageSource: EntityRef,
     damageCountdownFrames: int,
   ) => boolean | void,
@@ -27,7 +29,7 @@ export function postPlayerFatalDamageRegister(
 export function postPlayerFatalDamageFire(
   player: EntityPlayer,
   damageAmount: float,
-  damageFlags: int,
+  damageFlags: BitFlags<DamageFlag>,
   damageSource: EntityRef,
   damageCountdownFrames: int,
 ): boolean | void {

@@ -10,7 +10,7 @@ import { FAMILIARS_THAT_SHOOT_PLAYER_TEARS_SET } from "../sets/familiarsThatShoo
  * RNG object; see the documentation of the method for more details.)
  *
  * This function is meant to be called in the EvaluateCache callback (when the cache flag is equal
- * to `CacheFlag.CACHE_FAMILIARS`).
+ * to `CacheFlag.FAMILIARS`).
  *
  * Note that this function is only meant to be used in special circumstances where the familiar
  * count is completely custom and does not correspond to the amount of collectibles. For the general
@@ -55,7 +55,7 @@ export function checkFamiliar(
  * that the target count is handled automatically.
  *
  * This function is meant to be called in the EvaluateCache callback (when the cache flag is equal
- * to `CacheFlag.CACHE_FAMILIARS`).
+ * to `CacheFlag.FAMILIARS`).
  *
  * Use this function when the amount of familiars should be equal to the amount of associated
  * collectibles that the player has (plus any extras from having used Box of Friends or Monster
@@ -84,7 +84,7 @@ export function checkFamiliarFromCollectibles(
   const effects = player.GetEffects();
 
   // Whenever Box of Friends or Monster Manual is used, it will automatically increment the number
-  // of collectible effects for this familiar
+  // of collectible effects for this familiar.
   const numCollectibleEffects =
     effects.GetCollectibleEffectNum(collectibleType);
   const targetCount = numCollectibles + numCollectibleEffects;

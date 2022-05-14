@@ -1,13 +1,15 @@
+import { StageType } from "isaac-typescript-definitions";
+
 export const STAGE_TYPE_TO_LETTER: { readonly [key in StageType]: string } = {
   // e.g. To go to Basement 2, the command is simply "stage 2" without a letter suffix
-  [StageType.STAGETYPE_ORIGINAL]: "", // 0
+  [StageType.ORIGINAL]: "", // 0
 
-  [StageType.STAGETYPE_WOTL]: "a", // 1
-  [StageType.STAGETYPE_AFTERBIRTH]: "b", // 2
+  [StageType.WRATH_OF_THE_LAMB]: "a", // 1
+  [StageType.AFTERBIRTH]: "b", // 2
 
   // There is no corresponding suffix
-  [StageType.STAGETYPE_GREEDMODE]: "", // 3
+  [StageType.GREED_MODE]: "", // 3
 
-  [StageType.STAGETYPE_REPENTANCE]: "c", // 4
-  [StageType.STAGETYPE_REPENTANCE_B]: "d", // 5
+  [StageType.REPENTANCE]: "c", // 4
+  [StageType.REPENTANCE_B]: "d", // 5
 };

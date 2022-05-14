@@ -1,7 +1,7 @@
 /**
- * This represents the type of health that is either given or taken away from a player. Note that
- * we cannot use the HeartSubType enum for this purpose this since it has no value for broken hearts
- * or max hearts.
+ * This represents the type of health that is either given or taken away from a player. Note that we
+ * cannot use the HeartSubType enum for this purpose this since it has no value for broken hearts or
+ * max hearts.
  */
 export enum HealthType {
   RED, // 5.10.1

@@ -1,3 +1,8 @@
+import {
+  ButtonAction,
+  InputHook,
+  ModCallback,
+} from "isaac-typescript-definitions";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { saveDataManager } from "./saveDataManager/exports";
 
@@ -14,20 +19,20 @@ export function forgottenSwitchInit(mod: Mod): void {
   saveDataManager("forgottenSwitch", v);
 
   mod.AddCallback(
-    ModCallbacks.MC_INPUT_ACTION, // 13
+    ModCallback.INPUT_ACTION, // 13
     isActionTriggered,
     InputHook.IS_ACTION_TRIGGERED, // 1
   );
 }
 
-// ModCallbacks.MC_INPUT_ACTION (13)
+// ModCallback.INPUT_ACTION (13)
 // InputHook.IS_ACTION_TRIGGERED (1)
 function isActionTriggered(
   _entity: Entity | undefined,
   _inputHook: InputHook,
   buttonAction: ButtonAction,
 ) {
-  if (buttonAction === ButtonAction.ACTION_DROP && v.run.shouldSwitch) {
+  if (buttonAction === ButtonAction.DROP && v.run.shouldSwitch) {
     v.run.shouldSwitch = false;
     return true;
   }

@@ -1,3 +1,4 @@
+import { ModCallback } from "isaac-typescript-definitions";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import {
   postKnifeInitLateFire,
@@ -14,14 +15,14 @@ const v = {
 export function postKnifeInitLateCallbackInit(mod: Mod): void {
   saveDataManager("postKnifeInitLate", v, hasSubscriptions);
 
-  mod.AddCallback(ModCallbacks.MC_POST_KNIFE_UPDATE, postKnifeUpdate); // 51
+  mod.AddCallback(ModCallback.POST_KNIFE_UPDATE, postKnifeUpdate); // 51
 }
 
 function hasSubscriptions() {
   return postKnifeInitLateHasSubscriptions();
 }
 
-// ModCallbacks.MC_POST_KNIFE_UPDATE (51)
+// ModCallback.POST_KNIFE_UPDATE (51)
 function postKnifeUpdate(knife: EntityKnife) {
   if (!hasSubscriptions()) {
     return;

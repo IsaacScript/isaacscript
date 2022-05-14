@@ -1,3 +1,5 @@
+import { ActiveSlot, CollectibleType } from "isaac-typescript-definitions";
+
 export type PostItemDischargedRegisterParameters = [
   callback: (
     player: EntityPlayer,

@@ -1,3 +1,8 @@
+import {
+  DamageFlag,
+  EntityType,
+  ModCallback,
+} from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { mapGetPlayer, mapSetPlayer } from "../functions/playerDataStructures";
@@ -21,9 +26,9 @@ export function postPlayerFatalDamageCallbackInit(mod: Mod): void {
   saveDataManager("postPlayerFatalDamage", v);
 
   mod.AddCallback(
-    ModCallbacks.MC_ENTITY_TAKE_DMG,
+    ModCallback.ENTITY_TAKE_DMG,
     entityTakeDmgPlayer,
-    EntityType.ENTITY_PLAYER,
+    EntityType.PLAYER,
   );
 }
 
@@ -31,12 +36,12 @@ function hasSubscriptions() {
   return postPlayerFatalDamageHasSubscriptions();
 }
 
-// ModCallbacks.MC_ENTITY_TAKE_DMG (11)
-// EntityType.ENTITY_PLAYER (1)
+// ModCallback.ENTITY_TAKE_DMG (11)
+// EntityType.PLAYER (1)
 function entityTakeDmgPlayer(
   tookDamage: Entity,
   damageAmount: float,
-  damageFlags: int,
+  damageFlags: BitFlags<DamageFlag>,
   damageSource: EntityRef,
   damageCountdownFrames: int,
 ): boolean | void {
@@ -50,7 +55,7 @@ function entityTakeDmgPlayer(
   }
 
   // This callback should not trigger for the Strawman Keeper and other players that are "child"
-  // players
+  // players.
   if (isChildPlayer(player)) {
     return undefined;
   }

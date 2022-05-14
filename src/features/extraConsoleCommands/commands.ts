@@ -1,9 +1,28 @@
+import {
+  ActiveSlot,
+  CacheFlag,
+  Card,
+  CollectibleType,
+  Direction,
+  GameStateFlag,
+  GridRoom,
+  PillColor,
+  PillEffect,
+  PlayerType,
+  RoomType,
+} from "isaac-typescript-definitions";
 import { game, sfxManager } from "../../cachedClasses";
-import { PILL_GIANT_FLAG, TRINKET_GOLDEN_FLAG } from "../../constants";
+import {
+  MAX_ROOM_TYPE,
+  MAX_STAGE,
+  MAX_VANILLA_CHARACTER,
+} from "../../constants";
+import { MAX_CARD, MAX_PILL_EFFECT } from "../../constantsMax";
 import { HealthType } from "../../enums/HealthType";
 import { getCardName } from "../../functions/cards";
 import { getCharacterName } from "../../functions/character";
 import { getNPCs } from "../../functions/entitySpecific";
+import { getEnumValues, getLastEnumValue } from "../../functions/enums";
 import {
   logEffects,
   logRoom,
@@ -12,12 +31,13 @@ import {
 } from "../../functions/log";
 import { getMapPartialMatch } from "../../functions/map";
 import { spawnCard, spawnPill, spawnTrinket } from "../../functions/pickups";
-import { getPillEffectName } from "../../functions/pills";
+import { getHorsePillColor, getPillEffectName } from "../../functions/pills";
 import { getPlayerName, useActiveItemTemp } from "../../functions/player";
 import { getPlayers } from "../../functions/playerIndex";
 import { gridCoordinatesToWorldPosition } from "../../functions/roomGrid";
 import { changeRoom, getRoomGridIndexesForType } from "../../functions/rooms";
 import { restart } from "../../functions/run";
+import { getGoldenTrinketType } from "../../functions/trinkets";
 import { printConsole, printEnabled } from "../../functions/utils";
 import { CARD_MAP } from "../../maps/cardMap";
 import { CHARACTER_MAP } from "../../maps/characterMap";
@@ -63,8 +83,8 @@ export function addCharges(params: string): void {
   }
 
   if (
-    activeSlot < ActiveSlot.SLOT_PRIMARY ||
-    activeSlot > ActiveSlot.SLOT_POCKET2
+    activeSlot < ActiveSlot.PRIMARY ||
+    activeSlot > ActiveSlot.POCKET_SINGLE_USE
   ) {
     printConsole(`The provided slot number is invalid: ${activeSlot}`);
     return;
@@ -96,8 +116,8 @@ export function angel(): void {
 
 /** Activates the flags for the Ascent (i.e. Backwards Path). */
 export function ascent(): void {
-  game.SetStateFlag(GameStateFlag.STATE_BACKWARDS_PATH_INIT, true);
-  game.SetStateFlag(GameStateFlag.STATE_BACKWARDS_PATH, true);
+  game.SetStateFlag(GameStateFlag.BACKWARDS_PATH_INIT, true);
+  game.SetStateFlag(GameStateFlag.BACKWARDS_PATH, true);
 
   printConsole("Set Ascent flags.");
 }
@@ -105,18 +125,18 @@ export function ascent(): void {
 /** Warps to the first Clean Bedroom or Dirty Bedroom on the floor. */
 export function bedroom(): void {
   const cleanBedroomGridIndexes = getRoomGridIndexesForType(
-    RoomType.ROOM_ISAACS,
+    RoomType.CLEAN_BEDROOM,
   );
   if (cleanBedroomGridIndexes.length > 0) {
-    warpToRoomType(RoomType.ROOM_ISAACS);
+    warpToRoomType(RoomType.CLEAN_BEDROOM);
     return;
   }
 
   const dirtyBedroomGridIndexes = getRoomGridIndexesForType(
-    RoomType.ROOM_BARREN,
+    RoomType.DIRTY_BEDROOM,
   );
   if (dirtyBedroomGridIndexes.length > 0) {
-    warpToRoomType(RoomType.ROOM_BARREN);
+    warpToRoomType(RoomType.DIRTY_BEDROOM);
     return;
   }
 
@@ -138,7 +158,7 @@ export function blackHearts(params: string): void {
 
 /** Warps to the Black Market for the floor. */
 export function blackMarket(): void {
-  changeRoom(GridRooms.ROOM_BLACK_MARKET_IDX);
+  changeRoom(GridRoom.BLACK_MARKET);
 }
 
 /**
@@ -216,12 +236,12 @@ export function boneHearts(params: string): void {
 
 /** Warps to the first Boss Room on the floor. */
 export function boss(): void {
-  warpToRoomType(RoomType.ROOM_BOSS);
+  warpToRoomType(RoomType.BOSS);
 }
 
 /** Warps to the Boss Rush for the floor. */
 export function bossRush(): void {
-  changeRoom(GridRooms.ROOM_BOSSRUSH_IDX);
+  changeRoom(GridRoom.BOSS_RUSH);
 }
 
 /**
@@ -256,7 +276,7 @@ export function card(params: string): void {
 
     cardNum = match[1];
   } else {
-    if (num < 1 || num >= Card.NUM_CARDS) {
+    if (num <= Card.NULL || num > MAX_CARD) {
       printConsole(`Invalid card sub-type: ${num}`);
       return;
     }
@@ -274,7 +294,7 @@ export function cards(): void {
   let cardType = 1;
   for (let y = 0; y <= 6; y++) {
     for (let x = 0; x <= 12; x++) {
-      if (cardType === Card.NUM_CARDS) {
+      if (cardType === MAX_CARD) {
         return;
       }
 
@@ -321,7 +341,7 @@ export function characterCommand(params: string): void {
 
     character = match[1];
   } else {
-    if (num < 0 || num >= PlayerType.NUM_PLAYER_TYPES) {
+    if (num < 0 || num > MAX_VANILLA_CHARACTER) {
       printConsole(`Invalid player sub-type: ${num}`);
       return;
     }
@@ -341,7 +361,7 @@ export function charge(params: string): void {
 
 /** Warps to the first Clean Bedroom on the floor. */
 export function cleanBedroom(): void {
-  warpToRoomType(RoomType.ROOM_ISAACS);
+  warpToRoomType(RoomType.CLEAN_BEDROOM);
 }
 
 /**
@@ -392,13 +412,13 @@ export function crawlspace(): void {
 /** Uses the D20. */
 export function d20(): void {
   const player = Isaac.GetPlayer();
-  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_D20);
+  useActiveItemTemp(player, CollectibleType.D20);
 }
 
 /** Uses the D6. */
 export function d6(): void {
   const player = Isaac.GetPlayer();
-  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_D6);
+  useActiveItemTemp(player, CollectibleType.D6);
 }
 
 /** Toggles extremely high-damage tears. */
@@ -422,7 +442,7 @@ export function devil(): void {
 
 /** Warps to the first Dirty Bedroom on the floor. */
 export function dirtyBedroom(): void {
-  warpToRoomType(RoomType.ROOM_BARREN);
+  warpToRoomType(RoomType.DIRTY_BEDROOM);
 }
 
 /** Toggles whether or not curses can appear. */
@@ -438,7 +458,7 @@ export function down(params: string): void {
 
 /** Warps to the Dungeon (i.e. Crawlspace) for the floor. */
 export function dungeon(): void {
-  changeRoom(GridRooms.ROOM_DUNGEON_IDX);
+  changeRoom(GridRoom.DUNGEON);
 }
 
 /** Logs the player's current temporary effects to the "log.txt" file. */
@@ -552,8 +572,8 @@ export function h(params: string): void {
 }
 
 /**
- * Gives a half red heart. Provide a number to give a custom amount of hearts. (You can use
- * negative numbers to remove hearts.)
+ * Gives a half red heart. Provide a number to give a custom amount of hearts. (You can use negative
+ * numbers to remove hearts.)
  */
 export function hearts(params: string): void {
   addHeart(params, HealthType.RED);
@@ -566,7 +586,7 @@ export function hitboxes(): void {
 
 /** Warps to the I AM ERROR room for the floor. */
 export function iAmError(): void {
-  changeRoom(GridRooms.ROOM_ERROR_IDX);
+  changeRoom(GridRoom.ERROR);
 }
 
 /**
@@ -616,7 +636,7 @@ export function left(params: string): void {
 
 /** Warps to the first Library on the floor. */
 export function library(): void {
-  warpToRoomType(RoomType.ROOM_LIBRARY);
+  warpToRoomType(RoomType.LIBRARY);
 }
 
 /**
@@ -657,13 +677,9 @@ export function listGridAll(params: string): void {
   listGridEntities(params, true);
 }
 
-/** Sets every NPC in the room to 1 HP. */
+/** Alias for the "1hp" command. */
 export function lowHP(): void {
-  for (const npc of getNPCs()) {
-    npc.HitPoints = 1;
-  }
-
-  printConsole("Set every NPC to 1 HP.");
+  oneHP();
 }
 
 /** Alias for "debug 9". */
@@ -686,12 +702,21 @@ export function mh(params: string): void {
 
 /** Warps to the first Miniboss Room on the floor. */
 export function miniboss(): void {
-  warpToRoomType(RoomType.ROOM_MINIBOSS);
+  warpToRoomType(RoomType.MINI_BOSS);
 }
 
 /** Alias for the "disablecurses" command. */
 export function noCurses(): void {
   disableCurses();
+}
+
+/** Sets every NPC in the room to 1 HP. */
+export function oneHP(): void {
+  for (const npc of getNPCs()) {
+    npc.HitPoints = 1;
+  }
+
+  printConsole("Set every NPC to 1 HP.");
 }
 
 /**
@@ -719,7 +744,7 @@ export function pill(params: string): void {
 
     pillEffect = match[1];
   } else {
-    if (num < 1 || num >= PillEffect.NUM_PILL_EFFECTS) {
+    if (num < 0 || num > MAX_PILL_EFFECT) {
       printConsole(`Invalid pill effect ID: ${num}`);
       return;
     }
@@ -734,11 +759,13 @@ export function pill(params: string): void {
 
 /** Spawns every pill on the ground, starting at the top-left-most tile. */
 export function pills(): void {
+  const maxPillColor = getLastEnumValue(PillColor);
+
   let pillColor = 1;
   let horse = false;
   for (let y = 0; y <= 6; y++) {
     for (let x = 0; x <= 12; x++) {
-      if (pillColor === PillColor.NUM_PILLS) {
+      if (pillColor === maxPillColor) {
         if (horse) {
           return;
         }
@@ -746,10 +773,10 @@ export function pills(): void {
         pillColor = 1;
       }
 
-      const horsePillColor = pillColor + PILL_GIANT_FLAG;
-      const subType = horse ? horsePillColor : pillColor;
+      const horsePillColor = getHorsePillColor(pillColor);
+      const pillColorToUse = horse ? horsePillColor : pillColor;
       const position = gridCoordinatesToWorldPosition(x, y);
-      spawnPill(subType, position);
+      spawnPill(pillColorToUse, position);
 
       pillColor += 1;
     }
@@ -758,7 +785,7 @@ export function pills(): void {
 
 /** Warps to the first Planetarium on the floor. */
 export function planetarium(): void {
-  warpToRoomType(RoomType.ROOM_PLANETARIUM);
+  warpToRoomType(RoomType.PLANETARIUM);
 }
 
 /** Alias for the "sound" command. */
@@ -782,7 +809,7 @@ export function pocket(params: string): void {
   }
 
   const player = Isaac.GetPlayer();
-  player.SetPocketActiveItem(num, ActiveSlot.SLOT_POCKET);
+  player.SetPocketActiveItem(num, ActiveSlot.POCKET);
 }
 
 /**
@@ -876,10 +903,9 @@ export function s(params: string): void {
   }
 
   const minStage = 1;
-  const maxStage = 13;
-  if (stage < minStage || stage > maxStage) {
+  if (stage < minStage || stage > MAX_STAGE) {
     printConsole(
-      `Invalid stage number; must be between ${minStage} and ${maxStage}.`,
+      `Invalid stage number; must be between ${minStage} and ${MAX_STAGE}.`,
     );
     return;
   }
@@ -889,12 +915,12 @@ export function s(params: string): void {
 
 /** Warps to the first Sacrifice Room on the floor. */
 export function sacrifice(): void {
-  warpToRoomType(RoomType.ROOM_SACRIFICE);
+  warpToRoomType(RoomType.SACRIFICE);
 }
 
 /** Warps to the first Secret Room on the floor. */
 export function secret(): void {
-  warpToRoomType(RoomType.ROOM_SECRET);
+  warpToRoomType(RoomType.SECRET);
 }
 
 /** Changes to a seeded run, using the seed of the current run. */
@@ -942,10 +968,8 @@ export function setCharges(params: string): void {
     return;
   }
 
-  if (
-    activeSlot < ActiveSlot.SLOT_PRIMARY ||
-    activeSlot > ActiveSlot.SLOT_POCKET2
-  ) {
+  const activeSlots = getEnumValues(ActiveSlot);
+  if (!activeSlots.includes(activeSlot)) {
     printConsole(`The provided slot number is invalid: ${activeSlot}`);
     return;
   }
@@ -1009,13 +1033,13 @@ export function sh(params: string): void {
 
 /** Warps to the first shop on the floor. */
 export function shop(): void {
-  warpToRoomType(RoomType.ROOM_SHOP);
+  warpToRoomType(RoomType.SHOP);
 }
 
 /** Uses the Smelter to smelt the current player's trinket. */
 export function smelt(): void {
   const player = Isaac.GetPlayer();
-  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_SMELTER);
+  useActiveItemTemp(player, CollectibleType.SMELTER);
 }
 
 /**
@@ -1094,7 +1118,7 @@ export function spawnGoldenTrinket(params: string): void {
     return;
   }
 
-  const goldenTrinketType = trinketType + TRINKET_GOLDEN_FLAG;
+  const goldenTrinketType = getGoldenTrinketType(trinketType);
   const room = game.GetRoom();
   const centerPos = room.GetCenterPos();
   spawnTrinket(goldenTrinketType, centerPos);
@@ -1109,15 +1133,15 @@ export function speed(): void {
   if (v.run.maxSpeed && !player.CanFly) {
     const numEternalHearts = player.GetEternalHearts();
     if (numEternalHearts === 0) {
-      player.AddCollectible(CollectibleType.COLLECTIBLE_FATE);
+      player.AddCollectible(CollectibleType.FATE);
       player.AddEternalHearts(-1);
     } else {
       player.AddEternalHearts(-1);
-      player.AddCollectible(CollectibleType.COLLECTIBLE_FATE);
+      player.AddCollectible(CollectibleType.FATE);
     }
   }
 
-  player.AddCacheFlags(CacheFlag.CACHE_SPEED);
+  player.AddCacheFlags(CacheFlag.SPEED);
   player.EvaluateItems();
 
   printEnabled(v.run.maxSpeed, "max speed");
@@ -1132,7 +1156,7 @@ export function startingRoom(): void {
 
 /** Warps to the first Super Secret Room on the floor. */
 export function superSecret(): void {
-  warpToRoomType(RoomType.ROOM_SUPERSECRET);
+  warpToRoomType(RoomType.SUPER_SECRET);
 }
 
 /** Toggles extremely high tears stat (e.g. fire rate), equivalent of that to soy milk. */
@@ -1140,7 +1164,7 @@ export function tears(): void {
   v.run.maxTears = !v.run.maxTears;
 
   const player = Isaac.GetPlayer();
-  player.AddCacheFlags(CacheFlag.CACHE_FIREDELAY);
+  player.AddCacheFlags(CacheFlag.FIRE_DELAY);
   player.EvaluateItems();
 
   printEnabled(v.run.maxDamage, "debug tear-rate");
@@ -1153,12 +1177,12 @@ export function trapdoorCommand(): void {
 
 /** Warps to the first Treasure Room on the floor. */
 export function treasure(): void {
-  warpToRoomType(RoomType.ROOM_TREASURE);
+  warpToRoomType(RoomType.TREASURE);
 }
 
 /** Warps to the first Ultra Secret Room on the floor. */
 export function ultraSecret(): void {
-  warpToRoomType(RoomType.ROOM_ULTRASECRET);
+  warpToRoomType(RoomType.ULTRA_SECRET);
 }
 
 /** Moves the player 0.5 units up. Provide a number to move a custom amount of units. */
@@ -1191,7 +1215,7 @@ export function warp(params: string): void {
 
     roomType = match[1];
   } else {
-    if (num < 1 || num >= RoomType.NUM_ROOMTYPES) {
+    if (num < 1 || num > MAX_ROOM_TYPE) {
       printConsole(`Invalid room type: ${num}`);
       return;
     }

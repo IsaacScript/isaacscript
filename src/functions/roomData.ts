@@ -1,6 +1,14 @@
+import {
+  DoorSlot,
+  DoorSlotFlag,
+  RoomShape,
+  RoomType,
+  StageID,
+} from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
+import { doorSlotFlagToDoorSlot } from "./doors";
+import { getEnumValues } from "./enums";
 import { hasFlag } from "./flag";
-import { getEnumValues } from "./utils";
 
 /**
  * Alias for the `Level.GetCurrentRoomDesc` method. Use this to make it more clear what type of
@@ -23,17 +31,10 @@ export function getRoomAllowedDoors(roomGridIndex?: int): Set<DoorSlot> {
     return allowedDoors;
   }
 
-  const doorSlots = getEnumValues(DoorSlot);
-  for (const doorSlot of doorSlots) {
-    if (
-      doorSlot === DoorSlot.NO_DOOR_SLOT ||
-      doorSlot === DoorSlot.NUM_DOOR_SLOTS
-    ) {
-      continue;
-    }
-
-    const doorSlotFlag = 1 << doorSlot;
+  const doorSlotFlags = getEnumValues(DoorSlotFlag);
+  for (const doorSlotFlag of doorSlotFlags) {
     if (hasFlag(roomData.Doors, doorSlotFlag)) {
+      const doorSlot = doorSlotFlagToDoorSlot(doorSlotFlag);
       allowedDoors.add(doorSlot);
     }
   }
@@ -71,7 +72,7 @@ export function getRoomDescriptor(roomGridIndex?: int): RoomDescriptor {
  *
  * - If the current room is inside of the grid, this function will return the `SafeGridIndex` from
  *   the room descriptor. (The safe grid index is defined as the top-left 1x1 section that the room
- *   overlaps with, or the top-right 1x1 section of a `RoomType.ROOMSHAPE_LTL` room.)
+ *   overlaps with, or the top-right 1x1 section of a `RoomType.SHAPE_LTL` room.)
  * - If the current room is outside of the grid, it will return the index from the
  *   `Level.GetCurrentRoomIndex` method (since `SafeGridIndex` is bugged for these cases).
  *
@@ -87,8 +88,8 @@ export function getRoomGridIndex(): int {
   const currentRoomIndex = level.GetCurrentRoomIndex();
 
   // Both `RoomDescriptor.GridIndex` and `RoomDescriptor.SafeGridIndex` will always be equal to -1
-  // for rooms outside of the grid
-  // Thus, we revert to using the `Level.GetCurrentRoomIndex` method for these cases
+  // for rooms outside of the grid. Thus, we revert to using the `Level.GetCurrentRoomIndex` method
+  // for these cases.
   if (currentRoomIndex < 0) {
     return currentRoomIndex;
   }

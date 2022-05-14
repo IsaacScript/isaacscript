@@ -1,8 +1,20 @@
-// Basement Renovator can create custom rooms that are saved to XML files
-// These XML files can be converted to JSON so that they can be imported by TypeScript code
-// Then, existing rooms can be manually replaced with a custom room by manually removing everything
-// in the room and rebuilding it from scratch based on the JSON data
+// Basement Renovator can create custom rooms that are saved to XML files. These XML files can be
+// converted to JSON so that they can be imported by TypeScript code. Then, existing rooms can be
+// manually replaced with a custom room by manually removing everything in the room and rebuilding
+// it from scratch based on the JSON data.
 
+import {
+  EffectVariant,
+  EntityCollisionClass,
+  EntityFlag,
+  EntityGridCollisionClass,
+  EntityType,
+  GridEntityType,
+  ModCallback,
+  PickupVariant,
+  PitfallVariant,
+  RoomType,
+} from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { DefaultMap } from "../classes/DefaultMap";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
@@ -25,7 +37,7 @@ import {
 } from "../functions/gridEntity";
 import { getRandomJSONRoom } from "../functions/jsonRoom";
 import { log } from "../functions/log";
-import { range } from "../functions/math";
+import { erange } from "../functions/math";
 import { getRandomSeed, isRNG, newRNG } from "../functions/rng";
 import { getRoomListIndex } from "../functions/roomData";
 import { gridCoordinatesToWorldPosition } from "../functions/roomGrid";
@@ -44,11 +56,11 @@ interface PersistentEntityDescription {
 }
 
 const NPC_TYPES_TO_NOT_REMOVE: ReadonlySet<EntityType> = new Set([
-  EntityType.ENTITY_DARK_ESAU,
+  EntityType.DARK_ESAU,
 ]);
 
 const PERSISTENT_ENTITY_TYPES: ReadonlySet<EntityType> = new Set([
-  EntityType.ENTITY_WALL_HUGGER,
+  EntityType.WALL_HUGGER,
 ]);
 
 const v = {
@@ -70,10 +82,10 @@ const v = {
 export function deployJSONRoomInit(mod: Mod): void {
   saveDataManager("deployJSONRoom", v);
 
-  mod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoom); // 19
+  mod.AddCallback(ModCallback.POST_NEW_ROOM, postNewRoom); // 19
 }
 
-// ModCallbacks.MC_POST_NEW_ROOM (19)
+// ModCallback.POST_NEW_ROOM (19)
 function postNewRoom() {
   const roomListIndex = getRoomListIndex();
 
@@ -86,8 +98,8 @@ function postNewRoom() {
 }
 
 /**
- * Every time we re-enter a deployed room, the sprites for all of the decorations will come back,
- * so we have to remove them again.
+ * Every time we re-enter a deployed room, the sprites for all of the decorations will come back, so
+ * we have to remove them again.
  */
 function setDecorationsInvisible() {
   const room = game.GetRoom();
@@ -99,10 +111,10 @@ function setDecorationsInvisible() {
   for (const gridIndex of decorationGridIndexes) {
     const gridEntity = room.GetGridEntity(gridIndex);
     if (gridEntity !== undefined) {
-      // Other grid entities may have spawned, like trapdoors or crawlspaces
-      // Thus, only make decorations invisible
+      // Other grid entities may have spawned, like trapdoors or crawlspaces. Thus, only make
+      // decorations invisible.
       const gridEntityType = gridEntity.GetType();
-      if (gridEntityType === GridEntityType.GRID_DECORATION) {
+      if (gridEntityType === GridEntityType.DECORATION) {
         setGridEntityInvisible(gridEntity);
       }
     }
@@ -221,9 +233,9 @@ export function deployRandomJSONRoom(
 
 /**
  * Helper function to remove all naturally spawning entities and grid entities from a room. Notably,
- * this will not remove players (1), tears (2), familiars (3), lasers (7), knives (8),
- * projectiles (9), blacklisted NPCs such as Dark Esau, charmed NPCs, friendly NPCs, persistent
- * NPCs, most effects (1000), doors, and walls.
+ * this will not remove players (1), tears (2), familiars (3), lasers (7), knives (8), projectiles
+ * (9), blacklisted NPCs such as Dark Esau, charmed NPCs, friendly NPCs, persistent NPCs, most
+ * effects (1000), doors, and walls.
  *
  * @param fillWithDecorations Optional. Set to true to fill every grid tile with an invisible
  * decoration, which prevents vanilla entities in the room from respawning the next time that the
@@ -238,14 +250,14 @@ export function emptyRoom(fillWithDecorations: boolean): void {
 
   removeAllBombs(); // 4
   removeAllPickups(); // 5
-  removeAllMatchingEntities(EntityType.ENTITY_SLOT); // 6
+  removeAllMatchingEntities(EntityType.SLOT); // 6
   removeSpecificNPCs();
-  removeAllMatchingEntities(EntityType.ENTITY_EFFECT, EffectVariant.DEVIL);
-  removeAllMatchingEntities(EntityType.ENTITY_EFFECT, EffectVariant.ANGEL);
+  removeAllMatchingEntities(EntityType.EFFECT, EffectVariant.DEVIL);
+  removeAllMatchingEntities(EntityType.EFFECT, EffectVariant.ANGEL);
 
   removeAllGridExcept(
-    GridEntityType.GRID_WALL, // 15
-    GridEntityType.GRID_DOOR, // 16
+    GridEntityType.WALL, // 15
+    GridEntityType.DOOR, // 16
   );
 
   setRoomCleared();
@@ -268,20 +280,20 @@ function removeSpecificNPCs() {
     }
 
     if (
-      npc.HasEntityFlags(EntityFlag.FLAG_CHARM) ||
-      npc.HasEntityFlags(EntityFlag.FLAG_FRIENDLY) ||
-      npc.HasEntityFlags(EntityFlag.FLAG_PERSISTENT)
+      npc.HasEntityFlags(EntityFlag.CHARM) ||
+      npc.HasEntityFlags(EntityFlag.FRIENDLY) ||
+      npc.HasEntityFlags(EntityFlag.PERSISTENT)
     ) {
       continue;
     }
 
-    npc.ClearEntityFlags(EntityFlag.FLAG_APPEAR);
+    npc.ClearEntityFlags(EntityFlag.APPEAR);
     npc.Remove();
 
     // When fire places are removed, they will leave behind a "path" that will prevent future grid
-    // entities from being spawned on the same tile
-    // Thus, reset the path for this tile if this is a fire place
-    if (npc.Type === EntityType.ENTITY_FIREPLACE) {
+    // entities from being spawned on the same tile. Thus, reset the path for this tile if this is a
+    // fire place.
+    if (npc.Type === EntityType.FIREPLACE) {
       const gridIndex = room.GetGridIndex(npc.Position);
       room.SetGridPath(gridIndex, 0);
     }
@@ -310,18 +322,14 @@ function fillRoomWithDecorations() {
   const decorationGridIndexes =
     v.level.roomToDecorationGridIndexesMap.getAndSetDefault(roomListIndex);
 
-  for (const gridIndex of range(gridSize - 1)) {
+  for (const gridIndex of erange(gridSize)) {
     const existingGridEntity = room.GetGridEntity(gridIndex);
     if (existingGridEntity !== undefined) {
       continue;
     }
 
     const position = room.GetGridPosition(gridIndex);
-    const decoration = Isaac.GridSpawn(
-      GridEntityType.GRID_DECORATION,
-      0,
-      position,
-    );
+    const decoration = Isaac.GridSpawn(GridEntityType.DECORATION, 0, position);
 
     if (decoration !== undefined) {
       setGridEntityInvisible(decoration);
@@ -356,6 +364,9 @@ function spawnAllEntities(jsonRoom: JSONRoom, rng: RNG, verbose = false) {
     }
 
     const firstXMLEntity = jsonSpawn.entity[0];
+    if (firstXMLEntity === undefined) {
+      error('Failed to get the first JSON entity from an "entity" array.');
+    }
 
     const entityTypeString = firstXMLEntity.$.type;
     const entityType = tonumber(entityTypeString);
@@ -404,9 +415,8 @@ function spawnAllEntities(jsonRoom: JSONRoom, rng: RNG, verbose = false) {
     }
   }
 
-  // After emptying the room, we manually cleared the room
-  // However, if the room layout contains an battle NPC,
-  // then we need to reset the clear state and close the doors again
+  // After emptying the room, we manually cleared the room. However, if the room layout contains an
+  // battle NPC, then we need to reset the clear state and close the doors again.
   if (shouldUnclearRoom) {
     if (verbose) {
       log(
@@ -443,9 +453,9 @@ function spawnGridEntityForJSONRoom(
     return gridEntity;
   }
 
-  // Prevent poops from playing an appear animation,
-  // since that is not supposed to normally happen when entering a new room
-  if (gridEntityType === GridEntityType.GRID_POOP) {
+  // Prevent poops from playing an appear animation, since that is not supposed to normally happen
+  // when entering a new room.
+  if (gridEntityType === GridEntityType.POOP) {
     const sprite = gridEntity.GetSprite();
     sprite.Play("State1", true);
     sprite.SetLastFrame();
@@ -469,22 +479,19 @@ function spawnNormalEntityForJSONRoom(
 
   let entity: Entity;
   if (
-    entityType === EntityType.ENTITY_PICKUP &&
-    variant === PickupVariant.PICKUP_COLLECTIBLE
+    entityType === EntityType.PICKUP &&
+    variant === PickupVariant.COLLECTIBLE
   ) {
-    const options = roomType === RoomType.ROOM_ANGEL;
+    const options = roomType === RoomType.ANGEL;
     entity = spawnCollectible(subType, position, seed, options);
   } else {
     entity = spawnWithSeed(entityType, variant, subType, position, seed);
   }
 
   // For some reason, Pitfalls do not spawn with the correct collision classes
-  if (
-    entityType === EntityType.ENTITY_PITFALL &&
-    variant === PitfallVariant.PITFALL
-  ) {
-    entity.EntityCollisionClass = EntityCollisionClass.ENTCOLL_ENEMIES;
-    entity.GridCollisionClass = EntityGridCollisionClass.GRIDCOLL_WALLS;
+  if (entityType === EntityType.PITFALL && variant === PitfallVariant.PITFALL) {
+    entity.EntityCollisionClass = EntityCollisionClass.ENEMIES;
+    entity.GridCollisionClass = EntityGridCollisionClass.WALLS;
   }
 
   storePersistentEntity(entity);
@@ -553,7 +560,7 @@ function fixPitGraphics() {
 
 function getPitMap() {
   const pitMap = new Map<int, GridEntity>();
-  for (const gridEntity of getGridEntities(GridEntityType.GRID_PIT)) {
+  for (const gridEntity of getGridEntities(GridEntityType.PIT)) {
     const gridIndex = gridEntity.GetGridIndex();
     pitMap.set(gridIndex, gridEntity);
   }

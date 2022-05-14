@@ -1,3 +1,20 @@
+import {
+  BegottenVariant,
+  BigHornVariant,
+  ChargerSubType,
+  ChargerVariant,
+  DarkEsauVariant,
+  DeathVariant,
+  EntityType,
+  MamaGurdyVariant,
+  MotherSubType,
+  MotherVariant,
+  NpcState,
+  PeepVariant,
+  ProjectilesMode,
+  RaglingVariant,
+  VisVariant,
+} from "isaac-typescript-definitions";
 import { EGGY_STATE_FRAME_OF_FINAL_SPIDER } from "../constants";
 import { getFilteredNewEntities } from "./entity";
 import { getNPCs, getProjectiles } from "./entitySpecific";
@@ -7,17 +24,17 @@ import { getNPCs, getProjectiles } from "./entitySpecific";
  * doors open.
  */
 const NON_ALIVE_NPCS_TYPE_VARIANT: ReadonlySet<string> = new Set([
-  `${EntityType.ENTITY_VIS}.${VisVariant.CHUBBER_PROJECTILE}`, // 39.22
-  `${EntityType.ENTITY_DEATH}.${DeathVariant.DEATH_SCYTHE}`, // 66.10
-  `${EntityType.ENTITY_PEEP}.${PeepVariant.PEEP_EYE}`, // 68.10
-  `${EntityType.ENTITY_PEEP}.${PeepVariant.BLOAT_EYE}`, // 68.11
-  `${EntityType.ENTITY_BEGOTTEN}.${BegottenVariant.BEGOTTEN_CHAIN}`, // 251.10
-  `${EntityType.ENTITY_MAMA_GURDY}.${MamaGurdyVariant.LEFT_HAND}`, // 266.1
-  `${EntityType.ENTITY_MAMA_GURDY}.${MamaGurdyVariant.RIGHT_HAND}`, // 266.2
-  `${EntityType.ENTITY_BIG_HORN}.${BigHornVariant.SMALL_HOLE}`, // 411.1
-  `${EntityType.ENTITY_BIG_HORN}.${BigHornVariant.BIG_HOLE}`, // 411.2
-  `${EntityType.ENTITY_DARK_ESAU}.${DarkEsauVariant.DARK_ESAU}`, // 866.0
-  `${EntityType.ENTITY_DARK_ESAU}.${DarkEsauVariant.PIT}`, // 866.1
+  `${EntityType.VIS}.${VisVariant.CHUBBER_PROJECTILE}`, // 39.22
+  `${EntityType.DEATH}.${DeathVariant.DEATH_SCYTHE}`, // 66.10
+  `${EntityType.PEEP}.${PeepVariant.PEEP_EYE}`, // 68.10
+  `${EntityType.PEEP}.${PeepVariant.BLOAT_EYE}`, // 68.11
+  `${EntityType.BEGOTTEN}.${BegottenVariant.BEGOTTEN_CHAIN}`, // 251.10
+  `${EntityType.MAMA_GURDY}.${MamaGurdyVariant.LEFT_HAND}`, // 266.1
+  `${EntityType.MAMA_GURDY}.${MamaGurdyVariant.RIGHT_HAND}`, // 266.2
+  `${EntityType.BIG_HORN}.${BigHornVariant.SMALL_HOLE}`, // 411.1
+  `${EntityType.BIG_HORN}.${BigHornVariant.BIG_HOLE}`, // 411.2
+  `${EntityType.DARK_ESAU}.${DarkEsauVariant.DARK_ESAU}`, // 866.0
+  `${EntityType.DARK_ESAU}.${DarkEsauVariant.PIT}`, // 866.1
 ]);
 
 /**
@@ -25,8 +42,8 @@ const NON_ALIVE_NPCS_TYPE_VARIANT: ReadonlySet<string> = new Set([
  * doors open.
  */
 const NON_ALIVE_NPCS_TYPE_VARIANT_SUBTYPE: ReadonlySet<string> = new Set([
-  `${EntityType.ENTITY_CHARGER}.${ChargerVariant.CHARGER}.${ChargerSubType.MY_SHADOW}`, // 23.0.1
-  `${EntityType.ENTITY_MOTHER}.${MotherVariant.MOTHER_1}.${MotherSubType.PHASE_2}`, // 912
+  `${EntityType.CHARGER}.${ChargerVariant.CHARGER}.${ChargerSubType.MY_SHADOW}`, // 23.0.1
+  `${EntityType.MOTHER}.${MotherVariant.MOTHER_1}.${MotherSubType.PHASE_2}`, // 912
 ]);
 
 /**
@@ -110,7 +127,7 @@ export function isAliveExceptionNPC(npc: EntityNPC): boolean {
  */
 export function isDyingEggyWithNoSpidersLeft(npc: EntityNPC): boolean {
   return (
-    npc.State === NpcState.STATE_SUICIDE &&
+    npc.State === NpcState.SUICIDE &&
     npc.StateFrame >= EGGY_STATE_FRAME_OF_FINAL_SPIDER
   );
 }
@@ -123,9 +140,9 @@ export function isDyingEggyWithNoSpidersLeft(npc: EntityNPC): boolean {
  */
 export function isRaglingDeathPatch(npc: EntityNPC): boolean {
   return (
-    npc.Type === EntityType.ENTITY_RAGLING &&
+    npc.Type === EntityType.RAGLING &&
     npc.Variant === RaglingVariant.RAG_MANS_RAGLING &&
     // They go to STATE_SPECIAL when they are patches on the ground
-    npc.State === NpcState.STATE_SPECIAL
+    npc.State === NpcState.SPECIAL
   );
 }

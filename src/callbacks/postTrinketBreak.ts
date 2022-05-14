@@ -1,3 +1,10 @@
+import {
+  DamageFlag,
+  EntityType,
+  ModCallback,
+  PickupVariant,
+  TrinketType,
+} from "isaac-typescript-definitions";
 import { DefaultMap } from "../classes/DefaultMap";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
@@ -10,8 +17,8 @@ import {
 } from "./subscriptions/postTrinketBreak";
 
 const TRINKETS_THAT_CAN_BREAK: readonly TrinketType[] = [
-  TrinketType.TRINKET_WISH_BONE,
-  TrinketType.TRINKET_WALNUT,
+  TrinketType.WISH_BONE,
+  TrinketType.WALNUT,
 ];
 
 const v = {
@@ -28,9 +35,9 @@ export function postTrinketBreakCallbackInit(mod: ModUpgraded): void {
   saveDataManager("postTrinketBreak", v, hasSubscriptions);
 
   mod.AddCallback(
-    ModCallbacks.MC_ENTITY_TAKE_DMG,
+    ModCallback.ENTITY_TAKE_DMG,
     entityTakeDmgPlayer,
-    EntityType.ENTITY_PLAYER,
+    EntityType.PLAYER,
   ); // 11
 
   mod.AddCallbackCustom(
@@ -43,12 +50,12 @@ function hasSubscriptions() {
   return postTrinketBreakHasSubscriptions();
 }
 
-// ModCallbacks.MC_ENTITY_TAKE_DMG (11)
-// EntityType.ENTITY_PLAYER (1)
+// ModCallback.ENTITY_TAKE_DMG (11)
+// EntityType.PLAYER (1)
 function entityTakeDmgPlayer(
   tookDamage: Entity,
   _damageAmount: float,
-  _damageFlags: int,
+  _damageFlags: BitFlags<DamageFlag>,
   _damageSource: EntityRef,
   _damageCountdownFrames: int,
 ) {
@@ -75,8 +82,8 @@ function entityTakeDmgPlayer(
     // Ensure that the trinket was not dropped on the ground
     const numTrinketsOnGround = Isaac.CountEntities(
       undefined,
-      EntityType.ENTITY_PICKUP,
-      PickupVariant.PICKUP_TRINKET,
+      EntityType.PICKUP,
+      PickupVariant.TRINKET,
       trinketType,
     );
     if (numTrinketsOnGround > 0) {

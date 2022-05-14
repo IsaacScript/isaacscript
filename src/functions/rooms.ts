@@ -1,5 +1,27 @@
+import {
+  AngelRoomSubType,
+  BossID,
+  Dimension,
+  Direction,
+  DoorSlot,
+  DungeonSubType,
+  GridRoom,
+  HomeRoomSubType,
+  ItemPoolType,
+  MinibossID,
+  RoomDescriptorFlag,
+  RoomShape,
+  RoomTransitionAnim,
+  RoomType,
+  SoundEffect,
+  StageID,
+} from "isaac-typescript-definitions";
 import { game, sfxManager } from "../cachedClasses";
 import { MAX_ROOM_INDEX, NUM_DIMENSIONS } from "../constants";
+import {
+  DEFAULT_ROOM_TYPE_NAME,
+  ROOM_TYPE_NAMES,
+} from "../objects/roomTypeNames";
 import {
   closeAllDoors,
   getDoors,
@@ -8,7 +30,7 @@ import {
 } from "./doors";
 import { getEntities } from "./entity";
 import { hasFlag } from "./flag";
-import { range } from "./math";
+import { erange } from "./math";
 import {
   getEntityPositions,
   getEntityVelocities,
@@ -29,10 +51,9 @@ import {
 import { getGridIndexDelta } from "./roomShape";
 
 /**
- * Helper function for quickly switching to a new room without playing a particular animation.
- * Use this helper function over invoking the `Game.ChangeRoom` method directly to ensure that you
- * do not forget to set the `LeaveDoor` property and to prevent crashing on invalid room grid
- * indexes.
+ * Helper function for quickly switching to a new room without playing a particular animation. Use
+ * this helper function over invoking the `Game.ChangeRoom` method directly to ensure that you do
+ * not forget to set the `LeaveDoor` property and to prevent crashing on invalid room grid indexes.
  */
 export function changeRoom(roomGridIndex: int): void {
   const level = game.GetLevel();
@@ -44,8 +65,8 @@ export function changeRoom(roomGridIndex: int): void {
     );
   }
 
-  // LeaveDoor must be set before every ChangeRoom() invocation or else the function can send you to
-  // the wrong room
+  // LeaveDoor must be set before every `Game.ChangeRoom` invocation or else the function can send
+  // you to the wrong room.
   level.LeaveDoor = -1;
 
   game.ChangeRoom(roomGridIndex);
@@ -67,9 +88,8 @@ export function getCurrentDimension(): Dimension {
   const level = game.GetLevel();
 
   // When in the Death Certificate dimension, the algorithm below will randomly return either
-  // "Dimension.SECONDARY" or "Dimension.DEATH_CERTIFICATE"
-  // Thus, we revert to an alternate technique to determine if we are in the Death Certificate
-  // dimension
+  // "Dimension.SECONDARY" or "Dimension.DEATH_CERTIFICATE". Thus, we revert to an alternate
+  // technique to determine if we are in the Death Certificate dimension.
   if (inDeathCertificateArea()) {
     return Dimension.DEATH_CERTIFICATE;
   }
@@ -81,7 +101,7 @@ export function getCurrentDimension(): Dimension {
   );
   const startingRoomHash = GetPtrHash(startingRoomDescription);
 
-  for (const dimension of range(NUM_DIMENSIONS - 1)) {
+  for (const dimension of erange(NUM_DIMENSIONS)) {
     const dimensionRoomDescription = level.GetRoomByIdx(
       startingRoomGridIndex,
       dimension,
@@ -130,6 +150,16 @@ export function getRoomItemPoolType(): ItemPoolType {
   const roomSeed = room.GetSpawnSeed();
 
   return itemPool.GetPoolForRoom(roomType, roomSeed);
+}
+
+/**
+ * Helper function to get the proper name of a room type.
+ *
+ * For example, `RoomType.TREASURE` will return "Treasure Room".
+ */
+export function getRoomTypeName(roomType: RoomType): string {
+  const roomTypeName = ROOM_TYPE_NAMES[roomType];
+  return roomTypeName === undefined ? DEFAULT_ROOM_TYPE_NAME : roomTypeName;
 }
 
 /**
@@ -189,17 +219,14 @@ export function getRoomsOfDimension(dimension: Dimension): RoomDescriptor[] {
 }
 
 /**
- * Helper function to determine if the current room shape is equal to `RoomShape.ROOMSHAPE_1x2` or
- * `RoomShape.ROOMSHAPE_2x1`.
+ * Helper function to determine if the current room shape is equal to `RoomShape.1x2` or
+ * `RoomShape.2x1`.
  */
 export function in2x1Room(): boolean {
   const room = game.GetRoom();
   const roomShape = room.GetRoomShape();
 
-  return (
-    roomShape === RoomShape.ROOMSHAPE_1x2 ||
-    roomShape === RoomShape.ROOMSHAPE_2x1
-  );
+  return roomShape === RoomShape.SHAPE_1x2 || roomShape === RoomShape.SHAPE_2x1;
 }
 
 export function inAngelShop(): boolean {
@@ -207,9 +234,7 @@ export function inAngelShop(): boolean {
   const roomType = room.GetType();
   const roomSubType = getRoomSubType();
 
-  return (
-    roomType === RoomType.ROOM_ANGEL && roomSubType === AngelRoomSubType.SHOP
-  );
+  return roomType === RoomType.ANGEL && roomSubType === AngelRoomSubType.SHOP;
 }
 
 export function inBeastRoom(): boolean {
@@ -218,8 +243,7 @@ export function inBeastRoom(): boolean {
   const roomSubType = getRoomSubType();
 
   return (
-    roomType === RoomType.ROOM_DUNGEON &&
-    roomSubType === DungeonSubType.BEAST_ROOM
+    roomType === RoomType.DUNGEON && roomSubType === DungeonSubType.BEAST_ROOM
   );
 }
 
@@ -234,7 +258,7 @@ export function inBossRoomOf(bossID: BossID): boolean {
   const roomSubType = getRoomSubType();
 
   return (
-    roomType === RoomType.ROOM_BOSS &&
+    roomType === RoomType.BOSS &&
     roomStageID === StageID.SPECIAL_ROOMS &&
     roomSubType === bossID
   );
@@ -242,17 +266,15 @@ export function inBossRoomOf(bossID: BossID): boolean {
 
 /**
  * Helper function for determining whether the current room is a crawlspace. Use this function over
- * comparing to `RoomType.ROOM_DUNGEON` or `GridRooms.ROOM_DUNGEON_IDX` since there is a special
- * case of the player being in a boss fight that take place in a dungeon.
+ * comparing to `RoomType.DUNGEON` or `GridRoom.DUNGEON_IDX` since there is a special case of the
+ * player being in a boss fight that take place in a dungeon.
  */
 export function inCrawlspace(): boolean {
   const room = game.GetRoom();
   const roomType = room.GetType();
   const roomSubType = getRoomSubType();
 
-  return (
-    roomType === RoomType.ROOM_DUNGEON && roomSubType === DungeonSubType.NORMAL
-  );
+  return roomType === RoomType.DUNGEON && roomSubType === DungeonSubType.NORMAL;
 }
 
 /**
@@ -289,12 +311,12 @@ export function inDoubleTrouble(): boolean {
   const roomType = room.GetType();
   const roomName = getRoomName();
 
-  return roomType === RoomType.ROOM_BOSS && roomName.includes("Double Trouble");
+  return roomType === RoomType.BOSS && roomName.includes("Double Trouble");
 }
 
 export function inGenesisRoom(): boolean {
   const roomGridIndex = getRoomGridIndex();
-  return roomGridIndex === GridRooms.ROOM_GENESIS_IDX;
+  return roomGridIndex === GridRoom.GENESIS;
 }
 
 /** Helper function to determine if the current room shape is one of the four L room shapes. */
@@ -303,21 +325,21 @@ export function inLRoom(): boolean {
   const roomShape = room.GetRoomShape();
 
   return (
-    roomShape === RoomShape.ROOMSHAPE_LTL ||
-    roomShape === RoomShape.ROOMSHAPE_LTR ||
-    roomShape === RoomShape.ROOMSHAPE_LBL ||
-    roomShape === RoomShape.ROOMSHAPE_LBR
+    roomShape === RoomShape.LTL ||
+    roomShape === RoomShape.LTR ||
+    roomShape === RoomShape.LBL ||
+    roomShape === RoomShape.LBR
   );
 }
 
 export function inMegaSatanRoom(): boolean {
   const roomGridIndex = getRoomGridIndex();
-  return roomGridIndex === GridRooms.ROOM_MEGA_SATAN_IDX;
+  return roomGridIndex === GridRoom.MEGA_SATAN;
 }
 
 /**
  * Helper function to check if the current room is a miniboss room for a particular miniboss. This
- * will only work for minibosses that have dedicated boss rooms in the "00.special rooms.stb" file.
+ * will only work for mini-bosses that have dedicated boss rooms in the "00.special rooms.stb" file.
  */
 export function inMinibossRoomOf(minibossID: MinibossID): boolean {
   const room = game.GetRoom();
@@ -326,7 +348,7 @@ export function inMinibossRoomOf(minibossID: MinibossID): boolean {
   const roomSubType = getRoomSubType();
 
   return (
-    roomType === RoomType.ROOM_MINIBOSS &&
+    roomType === RoomType.MINI_BOSS &&
     roomStageID === StageID.SPECIAL_ROOMS &&
     roomSubType === minibossID
   );
@@ -341,12 +363,12 @@ export function inMinibossRoomOf(minibossID: MinibossID): boolean {
  */
 export function inSecretShop(): boolean {
   const roomGridIndex = getRoomGridIndex();
-  return roomGridIndex === GridRooms.ROOM_SECRET_SHOP_IDX;
+  return roomGridIndex === GridRoom.SECRET_SHOP;
 }
 
 /**
- * Helper function to determine whether or not the current room is the starting room of a floor.
- * It only returns true for the starting room of the primary dimension (meaning that being in the
+ * Helper function to determine whether or not the current room is the starting room of a floor. It
+ * only returns true for the starting room of the primary dimension (meaning that being in the
  * starting room of the mirror world does not count).
  */
 export function inStartingRoom(): boolean {
@@ -428,8 +450,8 @@ export function isRedKeyRoom(roomGridIndex?: int): boolean {
 }
 
 /**
- * Helper function to determine if the provided room is part of the floor layout. For
- * example, Devil Rooms and the Mega Satan room are not considered to be inside the map.
+ * Helper function to determine if the provided room is part of the floor layout. For example, Devil
+ * Rooms and the Mega Satan room are not considered to be inside the map.
  *
  * @param roomGridIndex Optional. Default is the current room index.
  */
@@ -490,15 +512,15 @@ export function setRoomCleared(): void {
     // We don't use the "EntityDoor.Open" method since that will cause the door to play an animation
     openDoorFast(door);
 
-    // If this is a mini-boss room, then the door would be barred in addition to being closed
-    // Ensure that the bar is not visible
+    // If this is a mini-boss room, then the door would be barred in addition to being closed.
+    // Ensure that the bar is not visible.
     door.ExtraVisible = false;
   }
 
-  sfxManager.Stop(SoundEffect.SOUND_DOOR_HEAVY_OPEN);
+  sfxManager.Stop(SoundEffect.DOOR_HEAVY_OPEN);
 
-  // If the room contained Mom's Hands, then a screen shake will be queued
-  // Override it with a 0 frame shake
+  // If the room contained Mom's Hands, then a screen shake will be queued. Override it with a 0
+  // frame shake.
   game.ShakeScreen(0);
 }
 
@@ -539,7 +561,7 @@ export function teleport(
   }
 
   // This must be set before every `Game.StartRoomTransition` method invocation or else the function
-  // can send you to the wrong room
+  // can send you to the wrong room.
   level.LeaveDoor = -1;
 
   game.StartRoomTransition(roomGridIndex, direction, roomTransitionAnim);

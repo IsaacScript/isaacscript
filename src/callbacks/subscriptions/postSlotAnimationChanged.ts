@@ -1,3 +1,5 @@
+import { SlotVariant } from "isaac-typescript-definitions";
+
 export type PostSlotAnimationChangedRegisterParameters = [
   callback: (
     slot: Entity,

@@ -1,3 +1,4 @@
+import { ModCallback } from "isaac-typescript-definitions";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import {
   postLaserInitLateFire,
@@ -14,14 +15,14 @@ const v = {
 export function postLaserInitLateCallbackInit(mod: Mod): void {
   saveDataManager("postLaserInitLate", v, hasSubscriptions);
 
-  mod.AddCallback(ModCallbacks.MC_POST_LASER_UPDATE, postLaserUpdate); // 35
+  mod.AddCallback(ModCallback.POST_LASER_UPDATE, postLaserUpdate); // 35
 }
 
 function hasSubscriptions() {
   return postLaserInitLateHasSubscriptions();
 }
 
-// ModCallbacks.MC_POST_LASER_UPDATE (48)
+// ModCallback.POST_LASER_UPDATE (48)
 function postLaserUpdate(laser: EntityLaser) {
   if (!hasSubscriptions()) {
     return;

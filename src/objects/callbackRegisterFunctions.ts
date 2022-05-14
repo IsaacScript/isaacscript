@@ -59,11 +59,11 @@ import { preCustomReviveRegister } from "../callbacks/subscriptions/preCustomRev
 import { preItemPickupRegister } from "../callbacks/subscriptions/preItemPickup";
 import { preNewLevelRegister } from "../callbacks/subscriptions/preNewLevel";
 import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
-import { AddCallbackParametersCustom } from "../types/AddCallbackParametersCustom";
+import { AddCallbackParameterCustom } from "../types/AddCallbackParameterCustom";
 
 export const CALLBACK_REGISTER_FUNCTIONS: {
   readonly [key in ModCallbacksCustom]: (
-    ...args: AddCallbackParametersCustom[key]
+    ...args: AddCallbackParameterCustom[key]
   ) => void;
 } = {
   [ModCallbacksCustom.MC_POST_BOMB_INIT_LATE]: postBombInitLateRegister,

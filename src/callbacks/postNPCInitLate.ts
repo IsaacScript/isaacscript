@@ -1,3 +1,4 @@
+import { ModCallback } from "isaac-typescript-definitions";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import {
   postNPCInitLateFire,
@@ -14,14 +15,14 @@ const v = {
 export function postNPCInitLateCallbackInit(mod: Mod): void {
   saveDataManager("postNPCInitLate", v, hasSubscriptions);
 
-  mod.AddCallback(ModCallbacks.MC_NPC_UPDATE, postNPCUpdate); // 0
+  mod.AddCallback(ModCallback.POST_NPC_UPDATE, postNPCUpdate); // 0
 }
 
 function hasSubscriptions() {
   return postNPCInitLateHasSubscriptions();
 }
 
-// ModCallbacks.MC_NPC_UPDATE (0)
+// ModCallback.POST_NPC_UPDATE (0)
 function postNPCUpdate(npc: EntityNPC) {
   if (!hasSubscriptions()) {
     return;

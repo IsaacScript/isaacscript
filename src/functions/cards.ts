@@ -1,37 +1,36 @@
+import { Card, ItemConfigCardType } from "isaac-typescript-definitions";
 import { itemConfig } from "../cachedClasses";
-import { CardType } from "../enums/CardType";
+import { MAX_CARD } from "../constantsMax";
 import {
   CARD_DESCRIPTIONS,
   DEFAULT_CARD_DESCRIPTION,
 } from "../objects/cardDescriptions";
 import { CARD_NAMES, DEFAULT_CARD_NAME } from "../objects/cardNames";
 import { CARD_TYPES, DEFAULT_CARD_TYPE } from "../objects/cardTypes";
-import { range } from "./math";
+import { getEnumValues } from "./enums";
+import { irange } from "./math";
 import { getRandomSeed } from "./rng";
 import { addSetsToSet, getRandomSetElement } from "./set";
-import { getEnumValues } from "./utils";
 
-const CARD_TYPE_TO_CARDS_MAP: Map<CardType, Set<Card>> = new Map();
+const CARD_TYPE_TO_CARDS_MAP: Map<ItemConfigCardType, Set<Card>> = new Map();
 
 /**
  * Contains all of the entries in the `Card` enum with the following types:
- * - CardType.TAROT
- * - CardType.SUIT
- * - CardType.SPECIAL
- * - CardType.TAROT_REVERSE
+ * - ItemConfigCardType.TAROT
+ * - ItemConfigCardType.SUIT
+ * - ItemConfigCardType.SPECIAL
+ * - ItemConfigCardType.TAROT_REVERSE
  */
 const CARD_SET: Set<Card> = new Set();
 
 function initCardObjects() {
-  const maxCards = getMaxCards();
-
-  // The card type to cards map should be valid for every card type,
-  // so we initialize it with empty sets
-  for (const cardType of getEnumValues(CardType)) {
+  // The card type to cards map should be valid for every card type, so we initialize it with empty
+  // sets.
+  for (const cardType of getEnumValues(ItemConfigCardType)) {
     CARD_TYPE_TO_CARDS_MAP.set(cardType, new Set<Card>());
   }
 
-  for (const card of range(1, maxCards)) {
+  for (const card of irange(1, MAX_CARD)) {
     const cardType = getCardType(card);
     const cardTypeSet = CARD_TYPE_TO_CARDS_MAP.get(cardType);
     if (cardTypeSet === undefined) {
@@ -40,12 +39,15 @@ function initCardObjects() {
     cardTypeSet.add(card);
   }
 
-  // i.e. everything except for CardType.RUNE, CardType.OBJECT, and CardType.MODDED
+  // i.e. everything except for:
+  // - ItemConfigCardType.RUNE
+  // - ItemConfigCardType.SPECIAL_OBJECT
+  // - ItemConfigCardType.MODDED
   const cards = getCardsOfType(
-    CardType.TAROT,
-    CardType.SUIT,
-    CardType.SPECIAL,
-    CardType.TAROT_REVERSE,
+    ItemConfigCardType.TAROT,
+    ItemConfigCardType.SUIT,
+    ItemConfigCardType.SPECIAL,
+    ItemConfigCardType.TAROT_REVERSE,
   );
   addSetsToSet(CARD_SET, cards);
 }
@@ -55,13 +57,13 @@ function initCardObjects() {
  *
  * Example:
  * ```ts
- * const card = Card.CARD_FOOL;
+ * const card = Card.FOOL;
  * const cardDescription = getCardDescription(card); // cardDescription is "Where journey begins"
  * ```
  */
 export function getCardDescription(card: Card | int): string {
-  // "ItemConfigCard.Description" is bugged with vanilla cards on patch v1.7.6,
-  // so we use a hard-coded map as a workaround
+  // "ItemConfigCard.Description" is bugged with vanilla cards on patch v1.7.6, so we use a
+  // hard-coded map as a workaround.
   const cardDescription = CARD_DESCRIPTIONS[card as Card];
   if (cardDescription !== undefined) {
     return cardDescription;
@@ -80,13 +82,13 @@ export function getCardDescription(card: Card | int): string {
  *
  * Example:
  * ```ts
- * const card = Card.CARD_FOOL;
+ * const card = Card.FOOL;
  * const cardName = getCardName(card); // cardName is "0 - The Fool"
  * ```
  */
 export function getCardName(card: Card | int): string {
-  // "ItemConfigCard.Name" is bugged with vanilla cards on patch v1.7.6,
-  // so we use a hard-coded map as a workaround
+  // "ItemConfigCard.Name" is bugged with vanilla cards on patch v1.7.6, so we use a hard-coded map
+  // as a workaround.
   const cardName = CARD_NAMES[card as Card];
   if (cardName !== undefined && cardName !== DEFAULT_CARD_NAME) {
     return cardName;
@@ -100,7 +102,7 @@ export function getCardName(card: Card | int): string {
   return DEFAULT_CARD_NAME;
 }
 
-export function getCardType(card: Card | int): CardType {
+export function getCardType(card: Card | int): ItemConfigCardType {
   const cardType = CARD_TYPES[card as Card];
   return cardType === undefined ? DEFAULT_CARD_TYPE : cardType;
 }
@@ -111,7 +113,7 @@ export function getCardType(card: Card | int): CardType {
  * This function is variadic, meaning that you can you can specify N card types to get a set
  * containing cards that match any of the specified types.
  */
-export function getCardsOfType(...cardTypes: CardType[]): Set<Card> {
+export function getCardsOfType(...cardTypes: ItemConfigCardType[]): Set<Card> {
   if (CARD_TYPE_TO_CARDS_MAP.size === 0) {
     initCardObjects();
   }
@@ -132,23 +134,13 @@ export function getCardsOfType(...cardTypes: CardType[]): Set<Card> {
 }
 
 /**
- * Helper function to get the final card sub-type in the game.
- *
- * This cannot be reliably determined before run-time due to mods adding a variable amount of new
- * cards.
- */
-export function getMaxCards(): int {
-  return itemConfig.GetCards().Size - 1;
-}
-
-/**
  * Has an equal chance of returning any card (e.g. Fool, Reverse Fool, Wild Card, etc.).
  *
  * This will not return:
  * - any runes
  * - any objects like Dice Shard
  * - any modded cards (since there is not a way to distinguish between modded cards and modded
- * runes/objects)
+ *   runes/objects)
  *
  * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
  * `RNG.Next` method will be called. Default is `getRandomSeed()`.
@@ -168,7 +160,7 @@ export function getRandomCard(
  * @param exceptions Optional. An array of cards to not select.
  */
 export function getRandomCardOfType(
-  cardType: CardType,
+  cardType: ItemConfigCardType,
   seedOrRNG: Seed | RNG = getRandomSeed(),
   exceptions: Card[] = [],
 ): Card {
@@ -188,7 +180,7 @@ export function getRandomRune(
   seedOrRNG: Seed | RNG = getRandomSeed(),
   exceptions: Card[] = [],
 ): Card {
-  const runesSet = getCardsOfType(CardType.RUNE);
+  const runesSet = getCardsOfType(ItemConfigCardType.RUNE);
   runesSet.delete(Card.RUNE_SHARD);
   return getRandomSetElement(runesSet, seedOrRNG, exceptions);
 }
@@ -205,41 +197,41 @@ export function isCard(card: Card): boolean {
 }
 
 /** Returns whether or not the given card matches the specified card type. */
-export function isCardType(card: Card, cardType: CardType): boolean {
+export function isCardType(card: Card, cardType: ItemConfigCardType): boolean {
   return cardType === getCardType(card);
 }
 
 /** Returns true for cards that have `CardType.MODDED`. */
 export function isModdedCard(card: Card): boolean {
-  return isCardType(card, CardType.MODDED);
+  return isCardType(card, ItemConfigCardType.MODDED);
 }
 
-/** Returns true for cards that have `CardType.OBJECT`. */
+/** Returns true for cards that have `CardType.SPECIAL_OBJECT`. */
 export function isPocketItemObject(card: Card): boolean {
-  return isCardType(card, CardType.OBJECT);
+  return isCardType(card, ItemConfigCardType.SPECIAL_OBJECT);
 }
 
 /** Returns true for cards that have `CardType.TAROT_REVERSE`. */
 export function isReverseTarotCard(card: Card): boolean {
-  return isCardType(card, CardType.TAROT_REVERSE);
+  return isCardType(card, ItemConfigCardType.TAROT_REVERSE);
 }
 
 /** Returns true for cards that have `CardType.RUNE`. */
 export function isRune(card: Card): boolean {
-  return isCardType(card, CardType.RUNE);
+  return isCardType(card, ItemConfigCardType.RUNE);
 }
 
 /** Returns true for cards that have `CardType.SPECIAL`. */
 export function isSpecialCard(card: Card): boolean {
-  return isCardType(card, CardType.SPECIAL);
+  return isCardType(card, ItemConfigCardType.SPECIAL);
 }
 
 /** Returns true for cards that have `CardType.SUIT`. */
 export function isSuitCard(card: Card): boolean {
-  return isCardType(card, CardType.SUIT);
+  return isCardType(card, ItemConfigCardType.SUIT);
 }
 
 /** Returns true for cards that have `CardType.TAROT`. */
 export function isTarotCard(card: Card): boolean {
-  return isCardType(card, CardType.TAROT);
+  return isCardType(card, ItemConfigCardType.TAROT);
 }

@@ -1,3 +1,5 @@
+import { Direction } from "isaac-typescript-definitions";
+
 export const DIRECTION_NAMES: {
   readonly [key in Direction]: string | undefined;
 } = {

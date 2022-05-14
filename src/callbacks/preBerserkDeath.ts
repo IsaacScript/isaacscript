@@ -1,3 +1,4 @@
+import { CollectibleType } from "isaac-typescript-definitions";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
 import { getPlayerNumHitsRemaining } from "../functions/player";
@@ -27,15 +28,13 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
   }
 
   // This callback should not trigger for the Strawman Keeper and other players that are "child"
-  // players
+  // players.
   if (isChildPlayer(player)) {
     return;
   }
 
   const effects = player.GetEffects();
-  const berserkEffect = effects.GetCollectibleEffect(
-    CollectibleType.COLLECTIBLE_BERSERK,
-  );
+  const berserkEffect = effects.GetCollectibleEffect(CollectibleType.BERSERK);
   const numHitsRemaining = getPlayerNumHitsRemaining(player);
 
   // If the Berserk! effect will end on the next frame and we have no hearts left

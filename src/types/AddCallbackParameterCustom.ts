@@ -60,7 +60,7 @@ import { PreItemPickupRegisterParameters } from "../callbacks/subscriptions/preI
 import { PreNewLevelRegisterParameters } from "../callbacks/subscriptions/preNewLevel";
 import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
 
-export interface AddCallbackParametersCustom {
+export interface AddCallbackParameterCustom {
   [ModCallbacksCustom.MC_POST_BOMB_INIT_LATE]: PostBombInitRegisterParameters;
   [ModCallbacksCustom.MC_POST_BONE_SWING]: PostBoneSwingRegisterParameters;
   [ModCallbacksCustom.MC_POST_COLLECTIBLE_INIT_FIRST]: PostCollectibleInitFirstRegisterParameters;
@@ -125,7 +125,7 @@ export interface AddCallbackParametersCustom {
 
 // Make copies of the objects we need to verify so that we can easily re-use the code block below
 type EnumToCheck = ModCallbacksCustom;
-type InterfaceToCheck = AddCallbackParametersCustom;
+type InterfaceToCheck = AddCallbackParameterCustom;
 
 // Throw a compiler error if InterfaceToCheck does not match the values of EnumToCheck
 // From: https://stackoverflow.com/questions/51829842
@@ -137,8 +137,8 @@ type ExtraKeys = {
 }[keyof InterfaceToCheck];
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type Verify<
-  // eslint-disable-next-line @typescript-eslint/naming-convention,@typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   _Missing extends never = KeysMissing,
-  // eslint-disable-next-line @typescript-eslint/naming-convention,@typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   _Extra extends never = ExtraKeys,
 > = 0;

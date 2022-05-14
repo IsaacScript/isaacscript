@@ -1,24 +1,48 @@
+import {
+  CacheFlag,
+  PickupVariant,
+  PlayerType,
+  TrinketSlot,
+  TrinketType,
+} from "isaac-typescript-definitions";
 import { itemConfig } from "../cachedClasses";
-import { TRINKET_GOLDEN_FLAG } from "../constants";
 import {
   DEFAULT_TRINKET_DESCRIPTION,
   TRINKET_DESCRIPTION_MAP,
 } from "../maps/trinketDescriptionMap";
 import { DEFAULT_TRINKET_NAME, TRINKET_NAME_MAP } from "../maps/trinketNameMap";
 import { hasFlag } from "./flag";
-import { isCharacter, useActiveItemTemp } from "./player";
+import { isCharacter } from "./player";
 import { clearSprite } from "./sprite";
-import { giveTrinketsBack, temporarilyRemoveTrinkets } from "./trinketGive";
-import { repeat } from "./utils";
+
+/**
+ * Corresponds to the vanilla `PillColor.TRINKET_ID_MASK` value.
+ *
+ * (1 << 15) - 1
+ */
+const GOLDEN_TRINKET_FLAG = 32767 as BitFlag;
+
+/**
+ * Add this to a `TrinketType` to get the corresponding golden trinket type.
+ *
+ * Corresponds to the vanilla `PillColor.TRINKET_GOLDEN_FLAG` value.
+ *
+ * 1 << 15
+ */
+const GOLDEN_TRINKET_ADJUSTMENT = 32768;
 
 const TRINKET_SPRITE_LAYER = 0;
 
 /**
- * Helper function to get the final trinket type in the game. This cannot be reliably determined
- * before run-time due to mods adding a variable amount of new trinkets.
+ * Helper function to get the corresponding golden trinket type from a normal trinket type.
+ *
+ * For example, passing `TrinketType.SWALLOWED_PENNY` would result in 32769, which is the value that
+ * corresponds to the golden trinket sub-type for Swallowed Penny.
  */
-export function getMaxTrinketType(): int {
-  return itemConfig.GetTrinkets().Size - 1;
+export function getGoldenTrinketType(
+  trinketType: TrinketType | int,
+): TrinketType | int {
+  return trinketType + GOLDEN_TRINKET_ADJUSTMENT;
 }
 
 /**
@@ -30,7 +54,7 @@ export function getMaxTrinketType(): int {
  * const trinketSlot = getOpenTrinketSlotNum(player);
  * if (trinketSlot !== undefined) {
  *   // They have one or more open trinket slots
- *   player.AddTrinket(TrinketType.TRINKET_SWALLOWED_PENNY);
+ *   player.AddTrinket(TrinketType.SWALLOWED_PENNY);
  * }
  * ```
  */
@@ -40,15 +64,15 @@ export function getOpenTrinketSlot(player: EntityPlayer): int | undefined {
   const trinketType2 = player.GetTrinket(TrinketSlot.SLOT_2);
 
   if (maxTrinkets === 1) {
-    return trinketType1 === TrinketType.TRINKET_NULL ? 0 : undefined;
+    return trinketType1 === TrinketType.NULL ? 0 : undefined;
   }
 
   if (maxTrinkets === 2) {
-    if (trinketType1 === TrinketType.TRINKET_NULL) {
+    if (trinketType1 === TrinketType.NULL) {
       return 0;
     }
 
-    return trinketType2 === TrinketType.TRINKET_NULL ? 1 : undefined;
+    return trinketType2 === TrinketType.NULL ? 1 : undefined;
   }
 
   return error(
@@ -61,8 +85,8 @@ export function getOpenTrinketSlot(player: EntityPlayer): int | undefined {
  * trinket type was not valid.
  */
 export function getTrinketDescription(trinketType: TrinketType | int): string {
-  // "ItemConfigItem.Description" is bugged with vanilla items on patch v1.7.6,
-  // so we use a hard-coded map as a workaround
+  // "ItemConfigItem.Description" is bugged with vanilla items on patch v1.7.6, so we use a
+  // hard-coded map as a workaround.
   const trinketDescription = TRINKET_DESCRIPTION_MAP.get(trinketType);
   if (trinketDescription !== undefined) {
     return trinketDescription;
@@ -82,13 +106,13 @@ export function getTrinketDescription(trinketType: TrinketType | int): string {
  *
  * Example:
  * ```ts
- * const trinketType = TrinketType.TRINKET_SWALLOWED_PENNY;
+ * const trinketType = TrinketType.SWALLOWED_PENNY;
  * const trinketName = getTrinketName(trinketType); // trinketName is "Swallowed Penny"
  * ```
  */
 export function getTrinketName(trinketType: TrinketType | int): string {
-  // "ItemConfigItem.Name" is bugged with vanilla items on patch v1.7.6,
-  // so we use a hard-coded map as a workaround
+  // "ItemConfigItem.Name" is bugged with vanilla items on patch v1.7.6, so we use a hard-coded map
+  // as a workaround.
   const trinketName = TRINKET_NAME_MAP.get(trinketType);
   if (trinketName !== undefined) {
     return trinketName;
@@ -110,7 +134,7 @@ export function getTrinketName(trinketType: TrinketType | int): string {
  * items. (Only Tainted Forgotten can pick up items.)
  */
 export function hasOpenTrinketSlot(player: EntityPlayer): boolean {
-  if (isCharacter(player, PlayerType.PLAYER_THESOUL_B)) {
+  if (isCharacter(player, PlayerType.THE_SOUL_B)) {
     return false;
   }
 
@@ -119,8 +143,7 @@ export function hasOpenTrinketSlot(player: EntityPlayer): boolean {
 }
 
 export function isGoldenTrinket(trinketType: TrinketType | int): boolean {
-  // The first golden trinket is Golden Swallowed Penny (32769)
-  return trinketType > TRINKET_GOLDEN_FLAG;
+  return hasFlag(trinketType as BitFlag, GOLDEN_TRINKET_FLAG);
 }
 
 /**
@@ -138,7 +161,7 @@ export function setTrinketSprite(
   trinket: EntityPickup,
   pngPath: string | undefined,
 ): void {
-  if (trinket.Variant !== PickupVariant.PICKUP_TRINKET) {
+  if (trinket.Variant !== PickupVariant.TRINKET) {
     error(
       `You cannot set a trinket sprite for pickups of variant: ${trinket.Variant}`,
     );
@@ -151,31 +174,6 @@ export function setTrinketSprite(
     sprite.ReplaceSpritesheet(TRINKET_SPRITE_LAYER, pngPath);
     sprite.LoadGraphics();
   }
-}
-
-/**
- * Helper function to smelt a trinket. Before smelting, this function will automatically remove the
- * trinkets that the player is holding, if any, and then give them back after the new trinket is
- * smelted.
- *
- * @param player The player to smelt the trinkets to.
- * @param trinketType The trinket type to smelt.
- * @param numTrinkets Optional. If specified, will smelt the given number of trinkets. Use this to
- * avoid calling this function multiple times. Default is 1.
- */
-export function smeltTrinket(
-  player: EntityPlayer,
-  trinketType: TrinketType | int,
-  numTrinkets = 1,
-): void {
-  const trinketSituation = temporarilyRemoveTrinkets(player);
-
-  repeat(numTrinkets, () => {
-    player.AddTrinket(trinketType);
-    useActiveItemTemp(player, CollectibleType.COLLECTIBLE_SMELTER);
-  });
-
-  giveTrinketsBack(player, trinketSituation);
 }
 
 export function trinketHasCacheFlag(

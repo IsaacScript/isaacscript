@@ -1,3 +1,4 @@
+import { PlayerVariant } from "isaac-typescript-definitions";
 import { HealthType } from "../../enums/HealthType";
 
 export type PostPlayerChangeHealthRegisterParameters = [

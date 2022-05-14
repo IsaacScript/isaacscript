@@ -1,3 +1,4 @@
+import { CollectibleType, LevelCurse } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { UI_HEART_WIDTH, VectorZero } from "../constants";
 import { copyVector } from "./vector";
@@ -63,26 +64,26 @@ export function getHeartsUIWidth(): int {
   const extraLives = player.GetExtraLives();
   const effects = player.GetEffects();
   const hasHolyMantleEffect = effects.HasCollectibleEffect(
-    CollectibleType.COLLECTIBLE_HOLY_MANTLE,
+    CollectibleType.HOLY_MANTLE,
   );
 
   let heartRowLength = getHeartRowLength(player);
   if (hasHolyMantleEffect) {
     heartRowLength += 1;
   }
-  if (curses === LevelCurse.CURSE_OF_THE_UNKNOWN) {
+  if (curses === LevelCurse.UNKNOWN) {
     heartRowLength = 1;
   }
 
   let width = heartRowLength * UI_HEART_WIDTH;
   if (extraLives > 9) {
     width += 20;
-    if (player.HasCollectible(CollectibleType.COLLECTIBLE_GUPPYS_COLLAR)) {
+    if (player.HasCollectible(CollectibleType.GUPPYS_COLLAR)) {
       width += 6;
     }
   } else if (extraLives > 0) {
     width += 16;
-    if (player.HasCollectible(CollectibleType.COLLECTIBLE_GUPPYS_COLLAR)) {
+    if (player.HasCollectible(CollectibleType.GUPPYS_COLLAR)) {
       width += 4;
     }
   }

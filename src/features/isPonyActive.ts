@@ -1,11 +1,11 @@
-// Detecting whether or not A Pony or White Pony is active is difficult with the vanilla API
+// Detecting whether or not A Pony or White Pony is active is difficult with the vanilla API.
 // Normally, activation will cause the player to have the respective temporary collectible effect
 // However, this effect is lost if the player enters a new room (but the effect will still be
-// active)
-// When the effect is active, the player will have some specific entity flags
-// Thus, we can work around the problem by checking to see if the player has these entity flags and
-// has had a collectible effect on a previous frame
+// active). When the effect is active, the player will have some specific entity flags. Thus, we can
+// work around the problem by checking to see if the player has these entity flags and has had a
+// collectible effect on a previous frame.
 
+import { CollectibleType, EntityFlag } from "isaac-typescript-definitions";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
@@ -21,9 +21,9 @@ import { saveDataManager } from "./saveDataManager/exports";
 const FEATURE_NAME = "pony activation detector";
 
 const FLAGS_WHEN_PONY_IS_ACTIVE: readonly EntityFlag[] = [
-  EntityFlag.FLAG_NO_KNOCKBACK, // 1 << 26
-  EntityFlag.FLAG_NO_PHYSICS_KNOCKBACK, // 1 << 30
-  EntityFlag.FLAG_NO_DAMAGE_BLINK, // 1 << 36
+  EntityFlag.NO_KNOCKBACK, // 1 << 26
+  EntityFlag.NO_PHYSICS_KNOCKBACK, // 1 << 30
+  EntityFlag.NO_DAMAGE_BLINK, // 1 << 36
 ];
 
 const v = {
@@ -47,8 +47,8 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
   const effects = player.GetEffects();
   const entityFlags = player.GetEntityFlags();
   const hasPonyCollectibleEffect =
-    effects.HasCollectibleEffect(CollectibleType.COLLECTIBLE_PONY) ||
-    effects.HasCollectibleEffect(CollectibleType.COLLECTIBLE_WHITE_PONY);
+    effects.HasCollectibleEffect(CollectibleType.PONY) ||
+    effects.HasCollectibleEffect(CollectibleType.WHITE_PONY);
   const isPonyActiveOnPreviousFrame = setHasPlayer(
     v.run.playersIsPonyActive,
     player,

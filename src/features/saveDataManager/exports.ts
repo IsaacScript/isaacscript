@@ -62,7 +62,7 @@ import {
  * ```
  *
  * - Save data is loaded from disk in the MC_POST_PLAYER_INIT callback (i.e. the first callback that
- * can possibly run).
+ *   can possibly run).
  * - Save data is recorded to disk in the MC_PRE_GAME_EXIT callback.
  *
  * Note that before using the save data manager, you must call the [[`upgradeMod`]] function.
@@ -78,12 +78,12 @@ import {
  *
  * @param key The name of the file or feature that is submitting data to be managed by the save data
  * manager. The save data manager will throw an error if the key is already registered.
- * @param v An object that corresponds to the `SaveData` interface. The object is
- * conventionally called "v" for brevity (which is short for "local variables").
+ * @param v An object that corresponds to the `SaveData` interface. The object is conventionally
+ * called "v" for brevity (which is short for "local variables").
  * @param conditionalFunc An optional function to run upon saving this key to disk. For example,
- * this allows features to only save data to disk if the feature is enabled. Specify a value of
- * `() => false` to completely disable saving this feature to disk. This is useful if you are using
- * data that is not serializable, or you want to use the save data manager to automatically reset
+ * this allows features to only save data to disk if the feature is enabled. Specify a value of `()
+ * => false` to completely disable saving this feature to disk. This is useful if you are using data
+ * that is not serializable, or you want to use the save data manager to automatically reset
  * variables on run/level/room, but not clutter the the "save#.dat" file with unnecessary keys.
  */
 export function saveDataManager(
@@ -110,14 +110,14 @@ export function saveDataManager(
   saveDataMap.set(key, v);
 
   // If the only key in the save data is "room", then we don't have to worry about saving this data
-  // to disk (because the room would be reloaded upon resuming a continued run)
+  // to disk (because the room would be reloaded upon resuming a continued run).
   const saveDataKeys = Object.keys(v);
   if (saveDataKeys.length === 1 && saveDataKeys[0] === "room") {
     conditionalFunc = () => false;
   }
 
   // Make a copy of the initial save data so that we can use it to restore the default values later
-  // on
+  // on.
   const saveDataTable = v as LuaTable<AnyNotNil, unknown>;
   const saveDataCopy = deepCopy(
     saveDataTable,
@@ -158,8 +158,9 @@ declare let g: LuaTable<string, SaveData>; // Globals
 declare let gd: LuaTable<string, SaveData>; // Globals defaults
 
 /**
- * Sets the global variable of "g" equal to all of the save data variables for this mod.
- * Sets the global variable of "gd" equal to all of the save data default variables for this mod.
+ * - Sets the global variable of "g" equal to all of the save data variables for this mod.
+ * - Sets the global variable of "gd" equal to all of the save data default variables for this mod.
+ *
  * This can make debugging easier, as you can access the variables from the game's debug console.
  * e.g. `l print(g.feature1.foo)`
  */

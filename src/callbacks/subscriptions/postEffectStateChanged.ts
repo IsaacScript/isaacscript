@@ -1,3 +1,5 @@
+import { EffectVariant } from "isaac-typescript-definitions";
+
 export type PostEffectStateChangedRegisterParameters = [
   callback: (
     effect: EntityEffect,

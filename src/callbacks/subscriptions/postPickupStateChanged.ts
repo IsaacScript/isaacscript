@@ -1,3 +1,5 @@
+import { PickupVariant } from "isaac-typescript-definitions";
+
 export type PostPickupStateChangedRegisterParameters = [
   callback: (
     pickup: EntityPickup,

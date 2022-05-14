@@ -1,3 +1,8 @@
+import {
+  CacheFlag,
+  ModCallback,
+  PlayerType,
+} from "isaac-typescript-definitions";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { getDefaultPlayerStat } from "../functions/cacheFlag";
 import { addStat } from "../functions/player";
@@ -9,10 +14,10 @@ const charactersStatMap = new Map<PlayerType | int, StatMap>();
 
 /** @internal */
 export function characterStatsInit(mod: Mod): void {
-  mod.AddCallback(ModCallbacks.MC_EVALUATE_CACHE, evaluateCache); // 8
+  mod.AddCallback(ModCallback.EVALUATE_CACHE, evaluateCache); // 8
 }
 
-// ModCallbacks.MC_EVALUATE_CACHE (8)
+// ModCallback.EVALUATE_CACHE (8)
 function evaluateCache(player: EntityPlayer, cacheFlag: CacheFlag) {
   const character = player.GetPlayerType();
   const statMap = charactersStatMap.get(character);
@@ -39,13 +44,13 @@ function evaluateCache(player: EntityPlayer, cacheFlag: CacheFlag) {
  *
  * ```ts
  * const fooDefaultStats = new Map<CacheFlag, number>([
- *   [CacheFlag.CACHE_DAMAGE, 4.5],
+ *   [CacheFlag.DAMAGE, 4.5],
  * ])
  * registerCharacterStats(PlayerTypeCustom.FOO, fooDefaultStats);
  * ```
  *
- * Note that the format for the `CacheFlag.CACHE_FIREDELAY` value should be in the tears stat
- * format, not the `MaxFireDelay` format.
+ * Note that the format for the `CacheFlag.FIRE_DELAY` value should be in the tears stat format, not
+ * the `MaxFireDelay` format.
  */
 export function registerCharacterStats(
   playerType: PlayerType | int,

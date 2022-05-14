@@ -1,5 +1,7 @@
 /* cspell:disable */
 
+import { Card } from "isaac-typescript-definitions";
+
 /** Maps card names to card sub-types. */
 export const CARD_MAP: ReadonlyMap<string, Card> = new Map([
   ["fool", 1],

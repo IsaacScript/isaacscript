@@ -1,3 +1,5 @@
+import { TrinketType } from "isaac-typescript-definitions";
+
 export interface TrinketSituation {
   trinketTypeRemoved: TrinketType | int;
   trinketType1: TrinketType | int;

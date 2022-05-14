@@ -1,3 +1,4 @@
+import { ModCallback } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { saveDataManager } from "../features/saveDataManager/exports";
@@ -16,14 +17,14 @@ const v = {
 export function postGreedModeWaveCallbackInit(mod: ModUpgraded): void {
   saveDataManager("postModeGreedWave", v, hasSubscriptions);
 
-  mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate); // 1
+  mod.AddCallback(ModCallback.POST_UPDATE, postUpdate); // 1
 }
 
 function hasSubscriptions() {
   return postGreedModeWaveHasSubscriptions();
 }
 
-// ModCallbacks.MC_POST_UPDATE (1)
+// ModCallback.POST_UPDATE (1)
 function postUpdate() {
   if (!hasSubscriptions()) {
     return;

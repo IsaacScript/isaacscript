@@ -1,10 +1,12 @@
+import { PlayerForm } from "isaac-typescript-definitions";
+
 export type PostTransformationRegisterParameters = [
   callback: (
     player: EntityPlayer,
     playerForm: PlayerForm,
     hasForm: boolean,
   ) => void,
-  playerForm: PlayerForm,
+  playerForm?: PlayerForm,
 ];
 
 const subscriptions: PostTransformationRegisterParameters[] = [];

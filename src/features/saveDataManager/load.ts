@@ -29,15 +29,13 @@ export function loadFromDisk(
   // Second, iterate over all the fields of the new table
   for (const [key, value] of pairs(newSaveData)) {
     // All elements of loaded save data should have keys that are strings equal to the name of the
-    // subscriber/feature
-    // Ignore elements with other types of keys
+    // subscriber/feature. Ignore elements with other types of keys.
     if (typeof key !== "string") {
       continue;
     }
 
     // All elements of loaded save data should be tables that contain fields corresponding to the
-    // SaveData interface
-    // Ignore elements that are not tables
+    // SaveData interface. Ignore elements that are not tables.
     const valueType = type(value);
     if (valueType !== "table") {
       continue;
@@ -53,10 +51,9 @@ export function loadFromDisk(
       log(`Merging in stored data for feature: ${key}`);
     }
 
-    // We do not want to blow away the child tables of the existing map,
-    // because save data could contain out-of-date fields
-    // Instead, merge it one field at a time in a recursive way
-    // (and convert Lua tables back to TypeScriptToLua Maps, if necessary)
+    // We do not want to blow away the child tables of the existing map, because save data could
+    // contain out-of-date fields. Instead, merge it one field at a time in a recursive way (and
+    // convert Lua tables back to TypeScriptToLua Maps, if necessary).
     merge(oldSaveDataForSubscriber as LuaTable, value as LuaTable, key);
   }
 

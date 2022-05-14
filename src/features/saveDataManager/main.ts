@@ -1,5 +1,6 @@
 /* eslint-disable sort-exports/sort-exports */
 
+import { ModCallback } from "isaac-typescript-definitions";
 import { game } from "../../cachedClasses";
 import { ModUpgraded } from "../../classes/ModUpgraded";
 import { ModCallbacksCustom } from "../../enums/ModCallbacksCustom";
@@ -24,16 +25,16 @@ let loadedDataOnThisRun = false;
 export function saveDataManagerInit(incomingMod: ModUpgraded): void {
   mod = incomingMod;
 
-  mod.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit); // 9
-  mod.AddCallback(ModCallbacks.MC_PRE_GAME_EXIT, preGameExit); // 17
-  mod.AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, postNewLevel); // 18
+  mod.AddCallback(ModCallback.POST_PLAYER_INIT, postPlayerInit); // 9
+  mod.AddCallback(ModCallback.PRE_GAME_EXIT, preGameExit); // 17
+  mod.AddCallback(ModCallback.POST_NEW_LEVEL, postNewLevel); // 18
   mod.AddCallbackCustom(
     ModCallbacksCustom.MC_POST_NEW_ROOM_EARLY,
     postNewRoomEarly,
   ); // 19
 }
 
-// ModCallbacks.MC_POST_PLAYER_INIT (9)
+// ModCallback.POST_PLAYER_INIT (9)
 function postPlayerInit() {
   if (mod === null) {
     error(
@@ -47,7 +48,7 @@ function postPlayerInit() {
   loadedDataOnThisRun = true;
 
   // We want to unconditionally load save data on every new run since there might be persistent data
-  // that is not tied to an individual run
+  // that is not tied to an individual run.
   loadFromDisk(mod, saveDataMap);
 
   const gameFrameCount = game.GetFrameCount();
@@ -57,10 +58,10 @@ function postPlayerInit() {
   }
 
   // On continued runs, the PostNewLevel callback will not fire, so we do not have to worry about
-  // saved data based on level getting overwritten
+  // saved data based on level getting overwritten.
 }
 
-// ModCallbacks.MC_PRE_GAME_EXIT (17)
+// ModCallback.PRE_GAME_EXIT (17)
 function preGameExit() {
   if (mod === null) {
     error(
@@ -68,35 +69,35 @@ function preGameExit() {
     );
   }
 
-  // We unconditionally save variables to disk
-  // (because regardless of a save & quit or a death, persistent variables should be recorded)
+  // We unconditionally save variables to disk (because regardless of a save & quit or a death,
+  // persistent variables should be recorded).
   saveToDisk(mod, saveDataMap, saveDataConditionalFuncMap);
 
   restoreDefaultsAll();
   loadedDataOnThisRun = false;
 }
 
-// ModCallbacks.MC_POST_NEW_LEVEL (18)
+// ModCallback.POST_NEW_LEVEL (18)
 function postNewLevel() {
-  restoreDefaults(SaveDataKeys.Level);
+  restoreDefaults(SaveDataKeys.LEVEL);
 }
 
 // ModCallbacksCustom.MC_POST_NEW_ROOM_EARLY
 function postNewRoomEarly() {
-  restoreDefaults(SaveDataKeys.Room);
+  restoreDefaults(SaveDataKeys.ROOM);
 }
 
 function restoreDefaultsAll() {
-  restoreDefaults(SaveDataKeys.Run);
-  restoreDefaults(SaveDataKeys.Level);
-  restoreDefaults(SaveDataKeys.Room);
+  restoreDefaults(SaveDataKeys.RUN);
+  restoreDefaults(SaveDataKeys.LEVEL);
+  restoreDefaults(SaveDataKeys.ROOM);
 }
 
 function restoreDefaults(childTableName: SaveDataKeys) {
   if (
-    childTableName !== SaveDataKeys.Run &&
-    childTableName !== SaveDataKeys.Level &&
-    childTableName !== SaveDataKeys.Room
+    childTableName !== SaveDataKeys.RUN &&
+    childTableName !== SaveDataKeys.LEVEL &&
+    childTableName !== SaveDataKeys.ROOM
   ) {
     error(`Unknown child table name of: ${childTableName}`);
   }
@@ -134,8 +135,8 @@ function restoreDefaults(childTableName: SaveDataKeys) {
     ) as LuaTable<AnyNotNil, unknown>;
 
     // We do not want to blow away the existing child table because we don't want to break any
-    // existing references
-    // Instead, empty the table and copy all of the elements from the copy of the defaults table
+    // existing references. Instead, empty the table and copy all of the elements from the copy of
+    // the defaults table.
     clearAndCopyAllElements(
       childTable as unknown as LuaTable,
       childTableDefaultsCopy,

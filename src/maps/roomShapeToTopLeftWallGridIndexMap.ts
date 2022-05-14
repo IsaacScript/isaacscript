@@ -1,3 +1,5 @@
+import { RoomShape } from "isaac-typescript-definitions";
+
 export const DEFAULT_TOP_LEFT_WALL_GRID_INDEX = 0;
 
 /**
@@ -8,9 +10,9 @@ export const ROOM_SHAPE_TO_TOP_LEFT_WALL_GRID_INDEX_MAP: ReadonlyMap<
   RoomShape,
   int
 > = new Map([
-  [RoomShape.ROOMSHAPE_IH, 30], // 2
-  [RoomShape.ROOMSHAPE_IV, 4], // 3
-  [RoomShape.ROOMSHAPE_IIV, 4], // 5
-  [RoomShape.ROOMSHAPE_IIH, 56], // 7
-  [RoomShape.ROOMSHAPE_LTL, 13], // 9
+  [RoomShape.IH, 30], // 2
+  [RoomShape.IV, 4], // 3
+  [RoomShape.IIV, 4], // 5
+  [RoomShape.IIH, 56], // 7
+  [RoomShape.LTL, 13], // 9
 ]);

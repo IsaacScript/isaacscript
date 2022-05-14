@@ -1,8 +1,9 @@
+import { PlayerForm } from "isaac-typescript-definitions";
 import { DefaultMap } from "../classes/DefaultMap";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { range } from "../functions/math";
+import { getEnumValues } from "../functions/enums";
 import { defaultMapGetPlayer } from "../functions/playerDataStructures";
 import { PlayerIndex } from "../types/PlayerIndex";
 import {
@@ -10,17 +11,7 @@ import {
   postTransformationHasSubscriptions,
 } from "./subscriptions/postTransformation";
 
-const UNUSED_TRANSFORMATIONS: ReadonlySet<PlayerForm> = new Set([
-  PlayerForm.PLAYERFORM_FLIGHT,
-]);
-
-const ALL_TRANSFORMATIONS: readonly PlayerForm[] = range(
-  0,
-  PlayerForm.NUM_PLAYER_FORMS - 1,
-);
-const VALID_TRANSFORMATIONS: readonly PlayerForm[] = ALL_TRANSFORMATIONS.filter(
-  (playerForm) => !UNUSED_TRANSFORMATIONS.has(playerForm),
-);
+const PLAYER_FORMS: readonly PlayerForm[] = getEnumValues(PlayerForm);
 
 const v = {
   run: {
@@ -56,7 +47,7 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
     player,
   );
 
-  for (const playerForm of VALID_TRANSFORMATIONS) {
+  for (const playerForm of PLAYER_FORMS) {
     const hasForm = player.HasPlayerForm(playerForm);
     const storedForm = playerTransformationsMap.getAndSetDefault(playerForm);
 

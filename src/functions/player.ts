@@ -1,22 +1,36 @@
+import {
+  ActiveSlot,
+  CacheFlag,
+  Challenge,
+  CollectibleType,
+  NullItemID,
+  PlayerForm,
+  PlayerType,
+  TrinketType,
+} from "isaac-typescript-definitions";
 import { game, itemConfig } from "../cachedClasses";
-import { MAX_VANILLA_CHARACTER } from "../constants";
 import { HealthType } from "../enums/HealthType";
 import { getLastElement, sumArray } from "./array";
 import { countSetBits, getKBitOfN, getNumBitsOfN } from "./bitwise";
-import { getCharacterMaxHeartContainers, getCharacterName } from "./character";
+import {
+  getCharacterMaxHeartContainers,
+  getCharacterName,
+  isVanillaCharacter,
+} from "./character";
 import { getCollectibleMaxCharges } from "./collectibles";
 import { getCollectibleSet } from "./collectibleSet";
+import { getEnumValues } from "./enums";
 import { getPlayerIndexVanilla, getPlayers } from "./playerIndex";
 import { addTearsStat } from "./tears";
-import { ensureAllCases, getEnumValues, repeat } from "./utils";
+import { ensureAllCases, repeat } from "./utils";
 
 const STAT_CACHE_FLAGS_SET: ReadonlySet<CacheFlag> = new Set([
-  CacheFlag.CACHE_DAMAGE, // 1 << 0
-  CacheFlag.CACHE_FIREDELAY, // 1 << 1
-  CacheFlag.CACHE_SHOTSPEED, // 1 << 2
-  CacheFlag.CACHE_RANGE, // 1 << 3
-  CacheFlag.CACHE_SPEED, // 1 << 4
-  CacheFlag.CACHE_LUCK, // 1 << 10
+  CacheFlag.DAMAGE, // 1 << 0
+  CacheFlag.FIRE_DELAY, // 1 << 1
+  CacheFlag.SHOT_SPEED, // 1 << 2
+  CacheFlag.RANGE, // 1 << 3
+  CacheFlag.SPEED, // 1 << 4
+  CacheFlag.LUCK, // 1 << 10
 ]);
 
 export function addCollectibleCostume(
@@ -35,16 +49,16 @@ export function addCollectibleCostume(
  * Helper function to add a stat to a player based on the `CacheFlag` provided. Call this function
  * from the EvaluateCache callback.
  *
- * Note that for `CacheFlag.CACHE_FIREDELAY`, the "amount" argument will be interpreted as the tear
- * stat to add (and not the amount to mutate `EntityPlayer.MaxFireDelay` by).
+ * Note that for `CacheFlag.FIRE_DELAY`, the "amount" argument will be interpreted as the tear stat
+ * to add (and not the amount to mutate `EntityPlayer.MaxFireDelay` by).
  *
  * This function supports the following cache flags:
- * - CacheFlag.CACHE_DAMAGE (1 << 0)
- * - CacheFlag.CACHE_FIREDELAY (1 << 1)
- * - CacheFlag.CACHE_SHOTSPEED (1 << 2)
- * - CacheFlag.CACHE_RANGE (1 << 3)
- * - CacheFlag.CACHE_SPEED (1 << 4)
- * - CacheFlag.CACHE_LUCK (1 << 10)
+ * - CacheFlag.DAMAGE (1 << 0)
+ * - CacheFlag.FIRE_DELAY (1 << 1)
+ * - CacheFlag.SHOT_SPEED (1 << 2)
+ * - CacheFlag.RANGE (1 << 3)
+ * - CacheFlag.SPEED (1 << 4)
+ * - CacheFlag.LUCK (1 << 10)
  */
 export function addStat(
   player: EntityPlayer,
@@ -59,37 +73,37 @@ export function addStat(
 
   switch (cacheFlag) {
     // 1 << 0
-    case CacheFlag.CACHE_DAMAGE: {
+    case CacheFlag.DAMAGE: {
       player.Damage += amount;
       break;
     }
 
     // 1 << 1
-    case CacheFlag.CACHE_FIREDELAY: {
+    case CacheFlag.FIRE_DELAY: {
       addTearsStat(player, amount);
       break;
     }
 
     // 1 << 2
-    case CacheFlag.CACHE_SHOTSPEED: {
+    case CacheFlag.SHOT_SPEED: {
       player.ShotSpeed += amount;
       break;
     }
 
     // 1 << 3
-    case CacheFlag.CACHE_RANGE: {
+    case CacheFlag.RANGE: {
       player.TearHeight += amount;
       break;
     }
 
     // 1 << 4
-    case CacheFlag.CACHE_SPEED: {
+    case CacheFlag.SPEED: {
       player.MoveSpeed += amount;
       break;
     }
 
     // 1 << 10
-    case CacheFlag.CACHE_LUCK: {
+    case CacheFlag.LUCK: {
       player.Luck += amount;
       break;
     }
@@ -151,10 +165,10 @@ export function canPlayerCrushRocks(player: EntityPlayer): boolean {
   const effects = player.GetEffects();
 
   return (
-    player.HasCollectible(CollectibleType.COLLECTIBLE_LEO) ||
-    player.HasCollectible(CollectibleType.COLLECTIBLE_THUNDER_THIGHS) ||
-    effects.HasCollectibleEffect(CollectibleType.COLLECTIBLE_MEGA_MUSH) ||
-    player.HasPlayerForm(PlayerForm.PLAYERFORM_STOMPY)
+    player.HasCollectible(CollectibleType.LEO) ||
+    player.HasCollectible(CollectibleType.THUNDER_THIGHS) ||
+    effects.HasCollectibleEffect(CollectibleType.MEGA_MUSH) ||
+    player.HasPlayerForm(PlayerForm.STOMPY)
   );
 }
 
@@ -241,7 +255,13 @@ export function getEffectsList(player: EntityPlayer): TemporaryEffect[] {
  */
 export function getFinalPlayer(): EntityPlayer {
   const players = getPlayers();
-  return getLastElement(players);
+
+  const lastPlayer = getLastElement(players);
+  if (lastPlayer === undefined) {
+    error("Failed to get the final player since there were 0 players.");
+  }
+
+  return lastPlayer;
 }
 
 /**
@@ -435,10 +455,10 @@ export function getPlayerMaxHeartContainers(player: EntityPlayer): int {
   const characterMaxHeartContainers = getCharacterMaxHeartContainers(character);
 
   // 1
-  // Magdalene can increase her maximum heart containers with Birthright
+  // Magdalene can increase her maximum heart containers with Birthright.
   if (
-    character === PlayerType.PLAYER_MAGDALENE &&
-    player.HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
+    character === PlayerType.MAGDALENE &&
+    player.HasCollectible(CollectibleType.BIRTHRIGHT)
   ) {
     const extraMaxHeartContainersFromBirthright = 6;
     return characterMaxHeartContainers + extraMaxHeartContainersFromBirthright;
@@ -446,13 +466,13 @@ export function getPlayerMaxHeartContainers(player: EntityPlayer): int {
 
   // 14, 33
   // Keeper and Tainted Keeper can increase their coin containers with Mother's Kiss and Greed's
-  // Gullet
+  // Gullet.
   if (isKeeper(player)) {
     const numMothersKisses = player.GetTrinketMultiplier(
-      TrinketType.TRINKET_MOTHERS_KISS,
+      TrinketType.MOTHERS_KISS,
     );
     const hasGreedsGullet = player.HasCollectible(
-      CollectibleType.COLLECTIBLE_GREEDS_GULLET,
+      CollectibleType.GREEDS_GULLET,
     );
     const coins = player.GetNumCoins();
     const greedsGulletCoinContainers = hasGreedsGullet
@@ -478,7 +498,7 @@ export function getPlayerName(player: EntityPlayer): string {
   const character = player.GetPlayerType();
 
   // Account for modded characters
-  return character >= PlayerType.NUM_PLAYER_TYPES
+  return isModdedPlayer(player)
     ? player.GetName()
     : getCharacterName(character);
 }
@@ -565,9 +585,7 @@ export function getTaintedMagdaleneNonTemporaryMaxHearts(
   player: EntityPlayer,
 ): int {
   const maxHearts = player.GetMaxHearts();
-  const hasBirthright = player.HasCollectible(
-    CollectibleType.COLLECTIBLE_BIRTHRIGHT,
-  );
+  const hasBirthright = player.HasCollectible(CollectibleType.BIRTHRIGHT);
   const maxNonTemporaryMaxHearts = hasBirthright ? 6 : 4;
 
   return Math.min(maxHearts, maxNonTemporaryMaxHearts);
@@ -590,7 +608,7 @@ export function getTotalPlayerCollectibles(
 /** After touching a white fire, a player will turn into The Lost until they clear a room. */
 export function hasLostCurse(player: EntityPlayer): boolean {
   const effects = player.GetEffects();
-  return effects.HasNullEffect(NullItemID.ID_LOST_CURSE);
+  return effects.HasNullEffect(NullItemID.LOST_CURSE);
 }
 
 /**
@@ -601,24 +619,22 @@ export function hasLostCurse(player: EntityPlayer): boolean {
  * items. (Only Tainted Forgotten can pick up items.)
  */
 export function hasOpenActiveItemSlot(player: EntityPlayer): boolean {
-  if (isCharacter(player, PlayerType.PLAYER_THESOUL_B)) {
+  if (isCharacter(player, PlayerType.THE_SOUL_B)) {
     return false;
   }
 
-  const activeItemPrimary = player.GetActiveItem(ActiveSlot.SLOT_PRIMARY);
-  const activeItemSecondary = player.GetActiveItem(ActiveSlot.SLOT_SECONDARY);
-  const hasSchoolbag = player.HasCollectible(
-    CollectibleType.COLLECTIBLE_SCHOOLBAG,
-  );
+  const activeItemPrimary = player.GetActiveItem(ActiveSlot.PRIMARY);
+  const activeItemSecondary = player.GetActiveItem(ActiveSlot.SECONDARY);
+  const hasSchoolbag = player.HasCollectible(CollectibleType.SCHOOLBAG);
 
   if (hasSchoolbag) {
     return (
-      activeItemPrimary === CollectibleType.COLLECTIBLE_NULL ||
-      activeItemSecondary === CollectibleType.COLLECTIBLE_NULL
+      activeItemPrimary === CollectibleType.NULL ||
+      activeItemSecondary === CollectibleType.NULL
     );
   }
 
-  return activeItemPrimary === CollectibleType.COLLECTIBLE_NULL;
+  return activeItemPrimary === CollectibleType.NULL;
 }
 
 export function isActiveSlotEmpty(
@@ -626,7 +642,7 @@ export function isActiveSlotEmpty(
   activeSlot: ActiveSlot,
 ): boolean {
   const activeCollectibleType = player.GetActiveItem(activeSlot);
-  return activeCollectibleType === CollectibleType.COLLECTIBLE_NULL;
+  return activeCollectibleType === CollectibleType.NULL;
 }
 
 /**
@@ -637,10 +653,7 @@ export function isActiveSlotEmpty(
 export function isBethany(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
 
-  return (
-    character === PlayerType.PLAYER_BETHANY ||
-    character === PlayerType.PLAYER_BETHANY_B
-  );
+  return character === PlayerType.BETHANY || character === PlayerType.BETHANY_B;
 }
 
 /**
@@ -665,10 +678,7 @@ export function isCharacter(
 export function isEden(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
 
-  return (
-    character === PlayerType.PLAYER_EDEN ||
-    character === PlayerType.PLAYER_EDEN_B
-  );
+  return character === PlayerType.EDEN || character === PlayerType.EDEN_B;
 }
 
 export function isFirstPlayer(player: EntityPlayer): boolean {
@@ -682,10 +692,7 @@ export function isFirstPlayer(player: EntityPlayer): boolean {
 export function isJacobOrEsau(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
 
-  return (
-    character === PlayerType.PLAYER_JACOB ||
-    character === PlayerType.PLAYER_ESAU
-  );
+  return character === PlayerType.JACOB || character === PlayerType.ESAU;
 }
 
 /**
@@ -695,10 +702,7 @@ export function isJacobOrEsau(player: EntityPlayer): boolean {
 export function isKeeper(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
 
-  return (
-    character === PlayerType.PLAYER_KEEPER ||
-    character === PlayerType.PLAYER_KEEPER_B
-  );
+  return character === PlayerType.KEEPER || character === PlayerType.KEEPER_B;
 }
 
 /** Helper function for detecting when a player is The Lost or Tainted Lost. */
@@ -706,22 +710,20 @@ export function isLost(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
 
   return (
-    character === PlayerType.PLAYER_THELOST ||
-    character === PlayerType.PLAYER_THELOST_B
+    character === PlayerType.THE_LOST || character === PlayerType.THE_LOST_B
   );
 }
 
-export function isModdedCharacter(player: EntityPlayer): boolean {
-  const character = player.GetPlayerType();
-  return character > MAX_VANILLA_CHARACTER;
+export function isModdedPlayer(player: EntityPlayer): boolean {
+  return !isVanillaPlayer(player);
 }
 
 /** Helper function for detecting if a player is one of the Tainted characters. */
 export function isTainted(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
 
-  return isVanillaCharacter(player)
-    ? character >= PlayerType.PLAYER_ISAAC_B
+  return isVanillaPlayer(player)
+    ? character >= PlayerType.ISAAC_B
     : isTaintedModded(player);
 }
 
@@ -741,13 +743,13 @@ export function isTaintedLazarus(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
 
   return (
-    character === PlayerType.PLAYER_LAZARUS_B ||
-    character === PlayerType.PLAYER_LAZARUS2_B
+    character === PlayerType.LAZARUS_B || character === PlayerType.LAZARUS_2_B
   );
 }
 
-export function isVanillaCharacter(player: EntityPlayer): boolean {
-  return !isModdedCharacter(player);
+export function isVanillaPlayer(player: EntityPlayer): boolean {
+  const character = player.GetPlayerType();
+  return isVanillaCharacter(character);
 }
 
 /**
@@ -848,11 +850,9 @@ export function setActiveItem(
   keepInPools = false,
 ): void {
   const itemPool = game.GetItemPool();
-  const primaryCollectibleType = player.GetActiveItem(ActiveSlot.SLOT_PRIMARY);
-  const primaryCharge = player.GetActiveCharge(ActiveSlot.SLOT_PRIMARY);
-  const secondaryCollectibleType = player.GetActiveItem(
-    ActiveSlot.SLOT_SECONDARY,
-  );
+  const primaryCollectibleType = player.GetActiveItem(ActiveSlot.PRIMARY);
+  const primaryCharge = player.GetActiveCharge(ActiveSlot.PRIMARY);
+  const secondaryCollectibleType = player.GetActiveItem(ActiveSlot.SECONDARY);
 
   if (charge === undefined) {
     charge = getCollectibleMaxCharges(collectibleType);
@@ -863,26 +863,26 @@ export function setActiveItem(
   }
 
   switch (activeSlot) {
-    case ActiveSlot.SLOT_PRIMARY: {
+    case ActiveSlot.PRIMARY: {
       // If there is a Schoolbag item, removing the primary item will shift the Schoolbag item to
-      // the primary slot
-      if (primaryCollectibleType !== CollectibleType.COLLECTIBLE_NULL) {
+      // the primary slot.
+      if (primaryCollectibleType !== CollectibleType.NULL) {
         player.RemoveCollectible(primaryCollectibleType);
       }
 
       // If there was a Schoolbag item, adding a new primary item will shift it back into the
-      // secondary slot
+      // secondary slot.
       player.AddCollectible(collectibleType, charge, false);
 
       break;
     }
 
-    case ActiveSlot.SLOT_SECONDARY: {
-      if (primaryCollectibleType !== CollectibleType.COLLECTIBLE_NULL) {
+    case ActiveSlot.SECONDARY: {
+      if (primaryCollectibleType !== CollectibleType.NULL) {
         player.RemoveCollectible(primaryCollectibleType);
       }
 
-      if (secondaryCollectibleType !== CollectibleType.COLLECTIBLE_NULL) {
+      if (secondaryCollectibleType !== CollectibleType.NULL) {
         player.RemoveCollectible(secondaryCollectibleType);
       }
 
@@ -890,21 +890,21 @@ export function setActiveItem(
       player.AddCollectible(secondaryCollectibleType, charge, false);
 
       // Add back the original primary item, if any
-      if (primaryCollectibleType !== CollectibleType.COLLECTIBLE_NULL) {
+      if (primaryCollectibleType !== CollectibleType.NULL) {
         player.AddCollectible(primaryCollectibleType, primaryCharge, false);
       }
 
       break;
     }
 
-    case ActiveSlot.SLOT_POCKET: {
+    case ActiveSlot.POCKET: {
       player.SetPocketActiveItem(collectibleType, activeSlot, keepInPools);
       player.SetActiveCharge(charge, activeSlot);
 
       break;
     }
 
-    case ActiveSlot.SLOT_POCKET2: {
+    case ActiveSlot.POCKET_SINGLE_USE: {
       player.SetPocketActiveItem(collectibleType, activeSlot, keepInPools);
       break;
     }
@@ -933,21 +933,21 @@ export function setBlindfold(
   const challenge = Isaac.GetChallenge();
 
   if (enabled) {
-    game.Challenge = Challenge.CHALLENGE_SOLAR_SYSTEM; // This challenge has a blindfold
+    game.Challenge = Challenge.SOLAR_SYSTEM; // This challenge has a blindfold
     player.ChangePlayerType(character);
     game.Challenge = challenge;
 
     // The costume is applied automatically
     if (!modifyCostume) {
-      player.TryRemoveNullCostume(NullItemID.ID_BLINDFOLD);
+      player.TryRemoveNullCostume(NullItemID.BLINDFOLD);
     }
   } else {
-    game.Challenge = Challenge.CHALLENGE_NULL;
+    game.Challenge = Challenge.NULL;
     player.ChangePlayerType(character);
     game.Challenge = challenge;
 
     if (modifyCostume) {
-      player.TryRemoveNullCostume(NullItemID.ID_BLINDFOLD);
+      player.TryRemoveNullCostume(NullItemID.BLINDFOLD);
     }
   }
 }

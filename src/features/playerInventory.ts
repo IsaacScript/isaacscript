@@ -1,3 +1,9 @@
+import {
+  ActiveSlot,
+  CollectibleType,
+  ItemType,
+  ModCallback,
+} from "isaac-typescript-definitions";
 import { DefaultMap } from "../classes/DefaultMap";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
@@ -14,9 +20,9 @@ import { saveDataManager } from "./saveDataManager/exports";
 const FEATURE_NAME = "player inventory tracker";
 
 const COLLECTIBLE_ITEM_TYPES: ReadonlySet<ItemType> = new Set([
-  ItemType.ITEM_PASSIVE, // 1
-  ItemType.ITEM_ACTIVE, // 3
-  ItemType.ITEM_FAMILIAR, // 4
+  ItemType.PASSIVE, // 1
+  ItemType.ACTIVE, // 3
+  ItemType.FAMILIAR, // 4
 ]);
 
 const v = {
@@ -56,17 +62,13 @@ function newPlayerInventory(player: EntityPlayer) {
 export function playerInventoryInit(mod: ModUpgraded): void {
   saveDataManager("playerInventory", v);
 
-  mod.AddCallback(
-    ModCallbacks.MC_USE_ITEM,
-    useItemD4,
-    CollectibleType.COLLECTIBLE_D4,
-  ); // 3
-  mod.AddCallback(ModCallbacks.MC_POST_GAME_STARTED, postGameStarted); // 15
+  mod.AddCallback(ModCallback.POST_USE_ITEM, useItemD4, CollectibleType.D4); // 3
+  mod.AddCallback(ModCallback.POST_GAME_STARTED, postGameStarted); // 15
   mod.AddCallbackCustom(ModCallbacksCustom.MC_POST_ITEM_PICKUP, postItemPickup);
 }
 
-// ModCallbacks.MC_USE_ITEM (3)
-// CollectibleType.COLLECTIBLE_D4 (284)
+// ModCallback.POST_USE_ITEM (3)
+// CollectibleType.D4 (284)
 function useItemD4(
   _collectibleType: CollectibleType,
   _rng: RNG,
@@ -77,10 +79,10 @@ function useItemD4(
   v.run.playersInventory.set(playerIndex, inventory);
 }
 
-// ModCallbacks.MC_POST_GAME_STARTED (15)
+// ModCallback.POST_GAME_STARTED (15)
 function postGameStarted() {
   // We don't use the PostPlayerInit function because some items are not given to the player at that
-  // point
+  // point.
   for (const player of getAllPlayers()) {
     const playerIndex = getPlayerIndex(player);
     if (!v.run.playersInventory.has(playerIndex)) {

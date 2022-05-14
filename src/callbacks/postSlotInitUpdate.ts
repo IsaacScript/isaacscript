@@ -1,6 +1,7 @@
-// This provides the logic for the PostSlotInit and PostSlotUpdate callbacks
-// (the PostSlotRender and PostSlotDestroyed callbacks are handled in a different file)
+// This provides the logic for the PostSlotInit and PostSlotUpdate callbacks. (The PostSlotRender
+// and PostSlotDestroyed callbacks are handled in a different file.)
 
+import { ModCallback } from "isaac-typescript-definitions";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getSlots } from "../functions/entitySpecific";
 import {
@@ -22,15 +23,15 @@ const v = {
 export function postSlotInitUpdateCallbacksInit(mod: Mod): void {
   saveDataManager("postSlotInitUpdate", v, hasSubscriptions);
 
-  mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate); // 1
-  mod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoom); // 9
+  mod.AddCallback(ModCallback.POST_UPDATE, postUpdate); // 1
+  mod.AddCallback(ModCallback.POST_NEW_ROOM, postNewRoom); // 9
 }
 
 function hasSubscriptions() {
   return postSlotInitHasSubscriptions() || postSlotUpdateHasSubscriptions();
 }
 
-// ModCallbacks.MC_POST_UPDATE (1)
+// ModCallback.POST_UPDATE (1)
 function postUpdate() {
   if (!hasSubscriptions()) {
     return;
@@ -42,7 +43,7 @@ function postUpdate() {
   }
 }
 
-// ModCallbacks.MC_POST_NEW_ROOM (9)
+// ModCallback.POST_NEW_ROOM (9)
 function postNewRoom() {
   if (!hasSubscriptions()) {
     return;

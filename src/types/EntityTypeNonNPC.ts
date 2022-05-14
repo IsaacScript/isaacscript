@@ -1,11 +1,11 @@
 /** We cannot use EntityType values directly since it will break the exclusion hack. */
 export type EntityTypeNonNPC =
-  | 1 // EntityType.ENTITY_PLAYER
-  | 2 // EntityType.ENTITY_TEAR
-  | 3 // EntityType.ENTITY_FAMILIAR
-  | 4 // EntityType.ENTITY_BOMB
-  | 5 // EntityType.ENTITY_PICKUP
-  | 7 // EntityType.ENTITY_LASER
-  | 8 // EntityType.ENTITY_KNIFE
-  | 9 // EntityType.ENTITY_PROJECTILE
-  | 1000; // EntityType.ENTITY_EFFECT
+  | 1 // EntityType.PLAYER
+  | 2 // EntityType.TEAR
+  | 3 // EntityType.FAMILIAR
+  | 4 // EntityType.BOMB
+  | 5 // EntityType.PICKUP
+  | 7 // EntityType.LASER
+  | 8 // EntityType.KNIFE
+  | 9 // EntityType.PROJECTILE
+  | 1000; // EntityType.EFFECT

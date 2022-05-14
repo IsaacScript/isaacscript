@@ -1,3 +1,5 @@
+import { FamiliarVariant } from "isaac-typescript-definitions";
+
 export const FAMILIARS_THAT_SHOOT_PLAYER_TEARS_SET: ReadonlySet<FamiliarVariant> =
   new Set([
     FamiliarVariant.SCISSORS,

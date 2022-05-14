@@ -18,7 +18,7 @@ import { patchErrorFunction } from "./patchErrorFunctions";
  * const mod = upgradeMod(modVanilla);
  *
  * // Subscribe to vanilla callbacks
- * mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate);
+ * mod.AddCallback(ModCallback.POST_UPDATE, postUpdate);
  *
  * // Subscribe to custom callbacks
  * mod.AddCallbackCustom(ModCallbacksCustom.MC_POST_ITEM_PICKUP, postItemPickup);
@@ -38,14 +38,14 @@ export function upgradeMod(modVanilla: Mod): ModUpgraded {
   if (!areFeaturesInitialized()) {
     setFeaturesInitialized();
 
-    // We initialize the PostNewRoomEarly callback first since it is used by the save data manager
+    // We initialize the PostNewRoomEarly callback first since it is used by the save data manager.
     postNewRoomEarlyCallbackInit(mod);
 
     // We initialized the save data manager second since it is used by the other custom callbacks
-    // and features
+    // and features.
     saveDataManagerInit(mod);
 
-    // We initialize custom callbacks next since some features use custom callbacks
+    // We initialize custom callbacks next since some features use custom callbacks.
     initCustomCallbacks(mod);
 
     initFeaturesMajor(mod);

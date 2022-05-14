@@ -1,3 +1,4 @@
+import { ModCallback } from "isaac-typescript-definitions";
 import { DefaultMap } from "../classes/DefaultMap";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import {
@@ -17,14 +18,14 @@ const v = {
 export function postEffectStateChangedCallbackInit(mod: Mod): void {
   saveDataManager("postEffectStateChanged", v, hasSubscriptions);
 
-  mod.AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, postEffectUpdate); // 55
+  mod.AddCallback(ModCallback.POST_EFFECT_UPDATE, postEffectUpdate); // 55
 }
 
 function hasSubscriptions() {
   return postEffectStateChangedHasSubscriptions();
 }
 
-// ModCallbacks.MC_POST_EFFECT_UPDATE (55)
+// ModCallback.POST_EFFECT_UPDATE (55)
 function postEffectUpdate(effect: EntityEffect) {
   if (!hasSubscriptions()) {
     return;

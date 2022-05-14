@@ -1,3 +1,4 @@
+import { ModCallback } from "isaac-typescript-definitions";
 import { musicManager } from "../cachedClasses";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { stopAllSoundEffects } from "../functions/sound";
@@ -17,10 +18,10 @@ const v = {
 export function disableSoundsInit(mod: Mod): void {
   saveDataManager("disableSounds", v);
 
-  mod.AddCallback(ModCallbacks.MC_POST_RENDER, postRender);
+  mod.AddCallback(ModCallback.POST_RENDER, postRender);
 }
 
-// ModCallbacks.MC_POST_RENDER (2)
+// ModCallback.POST_RENDER (2)
 function postRender() {
   if (v.run.disableSoundSet.size === 0) {
     return;
@@ -49,8 +50,8 @@ export function enableAllSound(key: string): void {
     musicManager.Enable();
   }
 
-  // Stop all sound effects that were initialized prior to enabling sounds
-  // (in case there was a sound played played previously on this render frame)
+  // Stop all sound effects that were initialized prior to enabling sounds (in case there was a
+  // sound played played previously on this render frame).
   stopAllSoundEffects();
 }
 

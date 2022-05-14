@@ -5,6 +5,7 @@
 // - PostGridEntityStateChanged
 // - PostGridEntityBroken
 
+import { GridEntityType, ModCallback } from "isaac-typescript-definitions";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import {
   getGridEntitiesMap,
@@ -44,8 +45,8 @@ const v = {
 export function postGridEntityCallbacksInit(mod: Mod): void {
   saveDataManager("postGridEntity", v, hasSubscriptions);
 
-  mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate); // 1
-  mod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoom); // 9
+  mod.AddCallback(ModCallback.POST_UPDATE, postUpdate); // 1
+  mod.AddCallback(ModCallback.POST_NEW_ROOM, postNewRoom); // 9
 }
 
 function hasSubscriptions() {
@@ -58,7 +59,7 @@ function hasSubscriptions() {
   );
 }
 
-// ModCallbacks.MC_POST_UPDATE (1)
+// ModCallback.POST_UPDATE (1)
 function postUpdate() {
   if (!hasSubscriptions()) {
     return;
@@ -67,7 +68,7 @@ function postUpdate() {
   const gridEntitiesMap = getGridEntitiesMap();
 
   // We check for removed grid entities first so that grid entities that change type will count as
-  // being removed and fire the PostGridEntityRemoved callback
+  // being removed and fire the PostGridEntityRemoved callback.
   checkGridEntitiesRemoved(gridEntitiesMap);
 
   for (const [gridIndex, gridEntity] of gridEntitiesMap.entries()) {
@@ -98,7 +99,7 @@ function checkGridEntityStateChanged(gridIndex: int, gridEntity: GridEntity) {
   const gridEntityTuple = v.room.initializedGridEntities.get(gridIndex);
   if (gridEntityTuple === undefined) {
     // This grid entity did not exist a frame ago; we don't want to fire the state changed callback
-    // on the first frame that it exists
+    // on the first frame that it exists.
     return;
   }
 
@@ -131,7 +132,7 @@ function updateTupleInMap(gridEntity: GridEntity) {
   v.room.initializedGridEntities.set(gridIndex, newTuple);
 }
 
-// ModCallbacks.MC_POST_NEW_ROOM (9)
+// ModCallback.POST_NEW_ROOM (9)
 function postNewRoom() {
   if (!hasSubscriptions()) {
     return;

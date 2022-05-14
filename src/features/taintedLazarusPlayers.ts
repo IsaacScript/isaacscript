@@ -1,6 +1,7 @@
 // This feature provides a way for end-users to get the `EntityPlayer` object for the other Tainted
-// Lazarus
+// Lazarus.
 
+import { ModCallback, PlayerType } from "isaac-typescript-definitions";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { saveDataManager } from "./saveDataManager/exports";
 
@@ -26,17 +27,17 @@ const v = {
 export function taintedLazarusPlayersInit(mod: Mod): void {
   saveDataManager("taintedLazarusPlayers", v, () => false);
 
-  mod.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit);
+  mod.AddCallback(ModCallback.POST_PLAYER_INIT, postPlayerInit);
 }
 
-// ModCallbacks.MC_POST_PLAYER_INIT (9)
+// ModCallback.POST_PLAYER_INIT (9)
 function postPlayerInit(player: EntityPlayer) {
   const entityPtr = EntityPtr(player);
   const character = player.GetPlayerType();
 
-  if (character === PlayerType.PLAYER_LAZARUS_B) {
+  if (character === PlayerType.LAZARUS_B) {
     v.run.queuedTaintedLazarus.push(entityPtr);
-  } else if (character === PlayerType.PLAYER_LAZARUS2_B) {
+  } else if (character === PlayerType.LAZARUS_2_B) {
     v.run.queuedDeadTaintedLazarus.push(entityPtr);
   } else {
     return;

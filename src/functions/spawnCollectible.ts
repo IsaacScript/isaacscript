@@ -1,3 +1,8 @@
+import {
+  CollectibleType,
+  PickupVariant,
+  PlayerType,
+} from "isaac-typescript-definitions";
 import { preventCollectibleRotate } from "../features/preventCollectibleRotate";
 import { areFeaturesInitialized } from "../featuresInitialized";
 import { setCollectibleEmpty } from "./collectibles";
@@ -30,7 +35,7 @@ export function spawnCollectible(
 ): EntityPickup {
   const seed = isRNG(seedOrRNG) ? seedOrRNG.Next() : seedOrRNG;
   const collectible = spawnPickupWithSeed(
-    PickupVariant.PICKUP_COLLECTIBLE,
+    PickupVariant.COLLECTIBLE,
     collectibleType,
     position,
     seed,
@@ -41,19 +46,19 @@ export function spawnCollectible(
   }
 
   if (
-    anyPlayerIs(PlayerType.PLAYER_KEEPER_B) &&
+    anyPlayerIs(PlayerType.KEEPER_B) &&
     !isQuestCollectible(collectibleType) &&
     !forceFreeItem
   ) {
-    // When playing Tainted Keeper, collectibles are supposed to have a price,
-    // and manually spawned items will not have a price, so we have to set it manually
+    // When playing Tainted Keeper, collectibles are supposed to have a price, and manually spawned
+    // items will not have a price, so we have to set it manually.
 
     // Setting the shop item ID in this way prevents the bug where the item will sometimes change to
-    // 99 cents
+    // 99 cents.
     collectible.ShopItemId = -1;
 
-    // We can set the price to any arbitrary value;
-    // it will auto-update to the true price on the next frame
+    // We can set the price to any arbitrary value; it will auto-update to the true price on the
+    // next frame.
     collectible.Price = 15;
   }
 
@@ -66,11 +71,11 @@ export function spawnCollectible(
 
 /**
  * Helper function to spawn an empty collectible. Doing this is tricky since spawning a collectible
- * with `CollectibleType.COLLECTIBLE_NULL` will result in spawning a collectible with a random type
- * from the current room's item pool.
+ * with `CollectibleType.NULL` will result in spawning a collectible with a random type from the
+ * current room's item pool.
  *
- * Instead, this function arbitrarily spawns a collectible with
- * `CollectibleType.COLLECTIBLE_SAD_ONION`, and then converts it to an empty pedestal afterward.
+ * Instead, this function arbitrarily spawns a collectible with `CollectibleType.SAD_ONION`, and
+ * then converts it to an empty pedestal afterward.
  *
  * @param position The position to spawn the empty collectible at.
  * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
@@ -81,7 +86,7 @@ export function spawnEmptyCollectible(
   seedOrRNG: Seed | RNG = getRandomSeed(),
 ): EntityPickup {
   const collectible = spawnCollectible(
-    CollectibleType.COLLECTIBLE_SAD_ONION,
+    CollectibleType.SAD_ONION,
     position,
     seedOrRNG,
     false,

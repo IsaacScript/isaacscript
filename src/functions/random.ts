@@ -1,9 +1,8 @@
 import { getRandomSeed, isRNG, newRNG } from "./rng";
 
 /**
- * This returns a random float between 0 and 1. It is inclusive on the low end, but exclusive on
- * the high end. (This is because the `RNG.RandomFloat` method will never return a value of exactly
- * 1.)
+ * This returns a random float between 0 and 1. It is inclusive on the low end, but exclusive on the
+ * high end. (This is because the `RNG.RandomFloat` method will never return a value of exactly 1.)
  *
  * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
  * `RNG.Next` method will be called. Default is `getRandomSeed()`.

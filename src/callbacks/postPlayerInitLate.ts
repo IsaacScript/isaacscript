@@ -1,3 +1,4 @@
+import { ModCallback } from "isaac-typescript-definitions";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { setAddPlayer, setHasPlayer } from "../functions/playerDataStructures";
 import { PlayerIndex } from "../types/PlayerIndex";
@@ -16,14 +17,14 @@ const v = {
 export function postPlayerInitLateCallbackInit(mod: Mod): void {
   saveDataManager("postPlayerInitLate", v, hasSubscriptions);
 
-  mod.AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, postPlayerUpdate); // 31
+  mod.AddCallback(ModCallback.POST_PLAYER_UPDATE, postPlayerUpdate); // 31
 }
 
 function hasSubscriptions() {
   return postPlayerInitLateHasSubscriptions();
 }
 
-// ModCallbacks.MC_POST_PLAYER_UPDATE (31)
+// ModCallback.POST_PLAYER_UPDATE (31)
 function postPlayerUpdate(player: EntityPlayer) {
   if (!hasSubscriptions()) {
     return;

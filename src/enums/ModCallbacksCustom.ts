@@ -1,6 +1,6 @@
 /**
- * These are the custom callbacks available for use once the mod object has been upgraded.
- * Also see the [[`upgradeMod`]] function.
+ * These are the custom callbacks available for use once the mod object has been upgraded. Also see
+ * the [[`upgradeMod`]] function.
  *
  * For a better listing of all custom callbacks, check out the
  * [Function Signatures](https://isaacscript.github.io/docs/function-signatures#custom-callbacks).
@@ -47,9 +47,9 @@ export enum ModCallbacksCustom {
    * that callback never fires if the player has a Holy Mantle shield.
    *
    * - When registering the callback, takes an optional second argument that will make the callback
-   * only fire if the player matches the `PlayerVariant` provided.
+   *   only fire if the player matches the `PlayerVariant` provided.
    * - When registering the callback, takes an optional third argument that will make the callback
-   * only fire if the player matches the `PlayerType` provided.
+   *   only fire if the player matches the `PlayerType` provided.
    *
    * ```ts
    * function postPlayerInitReordered(

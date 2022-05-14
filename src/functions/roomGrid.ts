@@ -1,3 +1,4 @@
+import { RoomShape } from "isaac-typescript-definitions";
 import { L_ROOM_SHAPE_TO_RECTANGLES } from "../objects/LRoomShapeToRectangles";
 import { inRectangle } from "./math";
 import {
@@ -46,7 +47,7 @@ export function gridPositionToWorldPosition(gridPosition: Vector): Vector {
 }
 
 /**
- * Test if a grid position is actually in the given `RoomShape`
+ * Test if a grid position is actually in the given `RoomShape`.
  *
  * In this context, the grid position of the top-left wall is "Vector(-1, -1)".
  */

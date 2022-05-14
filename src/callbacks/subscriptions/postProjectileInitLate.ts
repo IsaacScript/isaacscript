@@ -1,3 +1,5 @@
+import { ProjectileVariant } from "isaac-typescript-definitions";
+
 export type PostProjectileInitLateRegisterParameters = [
   callback: (projectile: EntityProjectile) => void,
   projectileVariant?: ProjectileVariant | int,

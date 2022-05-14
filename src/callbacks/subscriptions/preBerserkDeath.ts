@@ -1,3 +1,5 @@
+import { PlayerVariant } from "isaac-typescript-definitions";
+
 export type PreBerserkDeathRegisterParameters = [
   callback: (player: EntityPlayer) => boolean | void,
   playerVariant?: PlayerVariant,

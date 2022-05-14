@@ -1,3 +1,5 @@
+import { SlotVariant } from "isaac-typescript-definitions";
+
 export type PostSlotInitRegisterParameters = [
   callback: (slot: Entity) => void,
   slotVariant?: SlotVariant,

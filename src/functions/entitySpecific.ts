@@ -1,9 +1,21 @@
+import {
+  BombVariant,
+  EffectVariant,
+  EntityType,
+  FamiliarVariant,
+  KnifeVariant,
+  LaserVariant,
+  PickupVariant,
+  ProjectileVariant,
+  SlotVariant,
+  TearVariant,
+} from "isaac-typescript-definitions";
 import { VectorZero } from "../constants";
 import { EntityTypeNonNPC } from "../types/EntityTypeNonNPC";
 import { getEntities, removeEntities, spawn } from "./entity";
 
 /**
- * Helper function to get all of the `EntityType.ENTITY_BOMB` in the room.
+ * Helper function to get all of the `EntityType.BOMB` in the room.
  *
  * Example:
  * ```ts
@@ -17,7 +29,7 @@ export function getBombs(
   bombVariant: BombVariant | int = -1,
   subType = -1,
 ): EntityBomb[] {
-  const entities = getEntities(EntityType.ENTITY_BOMB, bombVariant, subType);
+  const entities = getEntities(EntityType.BOMB, bombVariant, subType);
 
   const bombs: EntityBomb[] = [];
   for (const entity of entities) {
@@ -31,7 +43,7 @@ export function getBombs(
 }
 
 /**
- * Helper function to get all of the `EntityType.ENTITY_EFFECT` in the room.
+ * Helper function to get all of the `EntityType.EFFECT` in the room.
  *
  * Example:
  * ```ts
@@ -45,11 +57,7 @@ export function getEffects(
   effectVariant: EffectVariant | int = -1,
   subType = -1,
 ): EntityEffect[] {
-  const entities = getEntities(
-    EntityType.ENTITY_EFFECT,
-    effectVariant,
-    subType,
-  );
+  const entities = getEntities(EntityType.EFFECT, effectVariant, subType);
 
   const effects: EntityEffect[] = [];
   for (const entity of entities) {
@@ -77,11 +85,7 @@ export function getFamiliars(
   familiarVariant: FamiliarVariant | int = -1,
   subType = -1,
 ): EntityFamiliar[] {
-  const entities = getEntities(
-    EntityType.ENTITY_FAMILIAR,
-    familiarVariant,
-    subType,
-  );
+  const entities = getEntities(EntityType.FAMILIAR, familiarVariant, subType);
 
   const familiars: EntityFamiliar[] = [];
   for (const entity of entities) {
@@ -95,7 +99,7 @@ export function getFamiliars(
 }
 
 /**
- * Helper function to get all of the `EntityType.ENTITY_KNIFE` in the room.
+ * Helper function to get all of the `EntityType.KNIFE` in the room.
  *
  * Example:
  * ```ts
@@ -109,7 +113,7 @@ export function getKnives(
   knifeVariant: KnifeVariant | int = -1,
   subType = -1,
 ): EntityKnife[] {
-  const entities = getEntities(EntityType.ENTITY_KNIFE, knifeVariant, subType);
+  const entities = getEntities(EntityType.KNIFE, knifeVariant, subType);
 
   const knives: EntityKnife[] = [];
   for (const entity of entities) {
@@ -123,7 +127,7 @@ export function getKnives(
 }
 
 /**
- * Helper function to get all of the `EntityType.ENTITY_LASER` in the room.
+ * Helper function to get all of the `EntityType.LASER` in the room.
  *
  * Example:
  * ```ts
@@ -137,7 +141,7 @@ export function getLasers(
   laserVariant: LaserVariant | int = -1,
   subType = -1,
 ): EntityLaser[] {
-  const entities = getEntities(EntityType.ENTITY_LASER, laserVariant, subType);
+  const entities = getEntities(EntityType.LASER, laserVariant, subType);
 
   const lasers: EntityLaser[] = [];
   for (const entity of entities) {
@@ -185,11 +189,7 @@ export function getPickups(
   pickupVariant: PickupVariant | int = -1,
   subType = -1,
 ): EntityPickup[] {
-  const entities = getEntities(
-    EntityType.ENTITY_PICKUP,
-    pickupVariant,
-    subType,
-  );
+  const entities = getEntities(EntityType.PICKUP, pickupVariant, subType);
 
   const pickups: EntityPickup[] = [];
   for (const entity of entities) {
@@ -203,7 +203,7 @@ export function getPickups(
 }
 
 /**
- * Helper function to get all of the `EntityType.ENTITY_PROJECTILE` in the room.
+ * Helper function to get all of the `EntityType.PROJECTILE` in the room.
  *
  * Example:
  * ```ts
@@ -218,7 +218,7 @@ export function getProjectiles(
   subType = -1,
 ): EntityProjectile[] {
   const entities = getEntities(
-    EntityType.ENTITY_PROJECTILE,
+    EntityType.PROJECTILE,
     projectileVariant,
     subType,
   );
@@ -235,7 +235,7 @@ export function getProjectiles(
 }
 
 /**
- * Helper function to get all of the `EntityType.ENTITY_SLOT` in the room.
+ * Helper function to get all of the `EntityType.SLOT` in the room.
  *
  * Example:
  * ```ts
@@ -249,13 +249,13 @@ export function getSlots(
   slotVariant: SlotVariant | int = -1,
   subType = -1,
 ): Entity[] {
-  const slots = getEntities(EntityType.ENTITY_SLOT, slotVariant, subType);
+  const slots = getEntities(EntityType.SLOT, slotVariant, subType);
 
   return slots;
 }
 
 /**
- * Helper function to get all of the `EntityType.ENTITY_TEAR` in the room.
+ * Helper function to get all of the `EntityType.TEAR` in the room.
  *
  * Example:
  * ```ts
@@ -269,7 +269,7 @@ export function getTears(
   tearVariant: TearVariant | int = -1,
   subType = -1,
 ): EntityTear[] {
-  const entities = getEntities(EntityType.ENTITY_TEAR, tearVariant, subType);
+  const entities = getEntities(EntityType.TEAR, tearVariant, subType);
 
   const tears: EntityTear[] = [];
   for (const entity of entities) {
@@ -283,7 +283,7 @@ export function getTears(
 }
 
 /**
- * Helper function to remove all of the `EntityType.ENTITY_BOMB` in the room.
+ * Helper function to remove all of the `EntityType.BOMB` in the room.
  *
  * @param bombVariant Optional. If specified, will only remove bombs that match this variant.
  * @param subType Optional. If specified, will only remove bombs that match this sub-type.
@@ -319,7 +319,8 @@ export function removeAllEffects(
 /**
  * Helper function to remove all of the familiars in the room.
  *
- * @param familiarVariant Optional. If specified, will only remove familiars that match this variant.
+ * @param familiarVariant Optional. If specified, will only remove familiars that match this
+ * variant.
  * @param subType Optional. If specified, will only remove familiars that match this sub-type.
  * @param cap Optional. If specified, will only remove the given amount of familiars.
  * @returns True if one or more familiars were removed, false otherwise.
@@ -334,7 +335,7 @@ export function removeAllFamiliars(
 }
 
 /**
- * Helper function to remove all of the `EntityType.ENTITY_KNIFE` in the room.
+ * Helper function to remove all of the `EntityType.KNIFE` in the room.
  *
  * @param knifeVariant Optional. If specified, will only remove knives that match this variant.
  * @param subType Optional. If specified, will only remove knives that match this sub-type.
@@ -351,7 +352,7 @@ export function removeAllKnives(
 }
 
 /**
- * Helper function to remove all of the `EntityType.ENTITY_LASER` in the room.
+ * Helper function to remove all of the `EntityType.LASER` in the room.
  *
  * @param laserVariant Optional. If specified, will only remove lasers that match this variant.
  * @param subType Optional. If specified, will only remove lasers that match this sub-type.
@@ -396,9 +397,10 @@ export function removeAllPickups(
 }
 
 /**
- * Helper function to remove all of the `EntityType.ENTITY_PROJECTILE` in the room.
+ * Helper function to remove all of the `EntityType.PROJECTILE` in the room.
  *
- * @param projectileVariant Optional. If specified, will only remove projectiles that match this variant.
+ * @param projectileVariant Optional. If specified, will only remove projectiles that match this
+ * variant.
  * @param subType Optional. If specified, will only remove projectiles that match this sub-type.
  * @param cap Optional. If specified, will only remove the given amount of projectiles.
  * @returns True if one or more projectiles were removed, false otherwise.
@@ -413,7 +415,7 @@ export function removeAllProjectiles(
 }
 
 /**
- * Helper function to remove all of the `EntityType.ENTITY_SLOT` in the room.
+ * Helper function to remove all of the `EntityType.SLOT` in the room.
  *
  * @param slotVariant Optional. If specified, will only remove slots that match this variant.
  * @param subType Optional. If specified, will only remove slots that match this sub-type.
@@ -430,7 +432,7 @@ export function removeAllSlots(
 }
 
 /**
- * Helper function to remove all of the `EntityType.ENTITY_TEAR` in the room.
+ * Helper function to remove all of the `EntityType.TEAR` in the room.
  *
  * @param tearVariant Optional. If specified, will only remove tears that match this variant.
  * @param subType Optional. If specified, will only remove tears that match this sub-type.
@@ -446,7 +448,7 @@ export function removeAllTears(
   return removeEntities(tears, cap);
 }
 
-/** Helper function to spawn a `EntityType.ENTITY_BOMB` (4). */
+/** Helper function to spawn a `EntityType.BOMB` (4). */
 export function spawnBomb(
   bombVariant: BombVariant | int,
   subType: int,
@@ -456,7 +458,7 @@ export function spawnBomb(
   seed: Seed | undefined = undefined,
 ): EntityBomb {
   const entity = spawn(
-    EntityType.ENTITY_BOMB,
+    EntityType.BOMB,
     bombVariant,
     subType,
     position,
@@ -472,7 +474,7 @@ export function spawnBomb(
   return bomb;
 }
 
-/** Helper function to spawn a `EntityType.ENTITY_BOMB` (4) with a specific seed. */
+/** Helper function to spawn a `EntityType.BOMB` (4) with a specific seed. */
 export function spawnBombWithSeed(
   bombVariant: BombVariant | int,
   subType: int,
@@ -484,7 +486,7 @@ export function spawnBombWithSeed(
   return spawnBomb(bombVariant, subType, position, velocity, spawner, seed);
 }
 
-/** Helper function to spawn a `EntityType.ENTITY_EFFECT` (1000). */
+/** Helper function to spawn a `EntityType.EFFECT` (1000). */
 export function spawnEffect(
   effectVariant: EffectVariant | int,
   subType: int,
@@ -494,7 +496,7 @@ export function spawnEffect(
   seed: Seed | undefined = undefined,
 ): EntityEffect {
   const entity = spawn(
-    EntityType.ENTITY_EFFECT,
+    EntityType.EFFECT,
     effectVariant,
     subType,
     position,
@@ -510,7 +512,7 @@ export function spawnEffect(
   return effect;
 }
 
-/** Helper function to spawn a `EntityType.ENTITY_EFFECT` (1000) with a specific seed. */
+/** Helper function to spawn a `EntityType.EFFECT` (1000) with a specific seed. */
 export function spawnEffectWithSeed(
   effectVariant: EffectVariant | int,
   subType: int,
@@ -522,7 +524,7 @@ export function spawnEffectWithSeed(
   return spawnEffect(effectVariant, subType, position, velocity, spawner, seed);
 }
 
-/** Helper function to spawn a `EntityType.ENTITY_FAMILIAR` (3). */
+/** Helper function to spawn a `EntityType.FAMILIAR` (3). */
 export function spawnFamiliar(
   familiarVariant: FamiliarVariant | int,
   subType: int,
@@ -532,7 +534,7 @@ export function spawnFamiliar(
   seed: Seed | undefined = undefined,
 ): EntityFamiliar {
   const entity = spawn(
-    EntityType.ENTITY_FAMILIAR,
+    EntityType.FAMILIAR,
     familiarVariant,
     subType,
     position,
@@ -548,7 +550,7 @@ export function spawnFamiliar(
   return familiar;
 }
 
-/** Helper function to spawn a `EntityType.ENTITY_FAMILIAR` (3) with a specific seed. */
+/** Helper function to spawn a `EntityType.FAMILIAR` (3) with a specific seed. */
 export function spawnFamiliarWithSeed(
   familiarVariant: FamiliarVariant | int,
   subType: int,
@@ -567,7 +569,7 @@ export function spawnFamiliarWithSeed(
   );
 }
 
-/** Helper function to spawn a `EntityType.ENTITY_KNIFE` (8). */
+/** Helper function to spawn a `EntityType.KNIFE` (8). */
 export function spawnKnife(
   knifeVariant: KnifeVariant | int,
   subType: int,
@@ -577,7 +579,7 @@ export function spawnKnife(
   seed: Seed | undefined = undefined,
 ): EntityKnife {
   const entity = spawn(
-    EntityType.ENTITY_KNIFE,
+    EntityType.KNIFE,
     knifeVariant,
     subType,
     position,
@@ -593,7 +595,7 @@ export function spawnKnife(
   return knife;
 }
 
-/** Helper function to spawn a `EntityType.ENTITY_KNIFE` (8) with a specific seed. */
+/** Helper function to spawn a `EntityType.KNIFE` (8) with a specific seed. */
 export function spawnKnifeWithSeed(
   knifeVariant: KnifeVariant | int,
   subType: int,
@@ -605,7 +607,7 @@ export function spawnKnifeWithSeed(
   return spawnKnife(knifeVariant, subType, position, velocity, spawner, seed);
 }
 
-/** Helper function to spawn a `EntityType.ENTITY_LASER` (7). */
+/** Helper function to spawn a `EntityType.LASER` (7). */
 export function spawnLaser(
   laserVariant: LaserVariant | int,
   subType: int,
@@ -615,7 +617,7 @@ export function spawnLaser(
   seed: Seed | undefined = undefined,
 ): EntityLaser {
   const entity = spawn(
-    EntityType.ENTITY_LASER,
+    EntityType.LASER,
     laserVariant,
     subType,
     position,
@@ -631,7 +633,7 @@ export function spawnLaser(
   return laser;
 }
 
-/** Helper function to spawn a `EntityType.ENTITY_LASER` (7) with a specific seed. */
+/** Helper function to spawn a `EntityType.LASER` (7) with a specific seed. */
 export function spawnLaserWithSeed(
   laserVariant: LaserVariant | int,
   subType: int,
@@ -691,7 +693,7 @@ export function spawnNPCWithSeed(
   );
 }
 
-/** Helper function to spawn a `EntityType.ENTITY_PICKUP` (5). */
+/** Helper function to spawn a `EntityType.PICKUP` (5). */
 export function spawnPickup(
   pickupVariant: PickupVariant | int,
   subType: int,
@@ -701,7 +703,7 @@ export function spawnPickup(
   seed: Seed | undefined = undefined,
 ): EntityPickup {
   const entity = spawn(
-    EntityType.ENTITY_PICKUP,
+    EntityType.PICKUP,
     pickupVariant,
     subType,
     position,
@@ -717,7 +719,7 @@ export function spawnPickup(
   return pickup;
 }
 
-/** Helper function to spawn a `EntityType.ENTITY_PICKUP` (5) with a specific seed. */
+/** Helper function to spawn a `EntityType.PICKUP` (5) with a specific seed. */
 export function spawnPickupWithSeed(
   pickupVariant: PickupVariant | int,
   subType: int,
@@ -729,7 +731,7 @@ export function spawnPickupWithSeed(
   return spawnPickup(pickupVariant, subType, position, velocity, spawner, seed);
 }
 
-/** Helper function to spawn a `EntityType.ENTITY_PROJECTILE` (9). */
+/** Helper function to spawn a `EntityType.PROJECTILE` (9). */
 export function spawnProjectile(
   projectileVariant: ProjectileVariant | int,
   subType: int,
@@ -739,7 +741,7 @@ export function spawnProjectile(
   seed: Seed | undefined = undefined,
 ): EntityProjectile {
   const entity = spawn(
-    EntityType.ENTITY_PROJECTILE,
+    EntityType.PROJECTILE,
     projectileVariant,
     subType,
     position,
@@ -755,7 +757,7 @@ export function spawnProjectile(
   return projectile;
 }
 
-/** Helper function to spawn a `EntityType.ENTITY_PROJECTILE` (9) with a specific seed. */
+/** Helper function to spawn a `EntityType.PROJECTILE` (9) with a specific seed. */
 export function spawnProjectileWithSeed(
   projectileVariant: ProjectileVariant | int,
   subType: int,
@@ -774,7 +776,7 @@ export function spawnProjectileWithSeed(
   );
 }
 
-/** Helper function to spawn a `EntityType.ENTITY_SLOT` (6). */
+/** Helper function to spawn a `EntityType.SLOT` (6). */
 export function spawnSlot(
   slotVariant: SlotVariant | int,
   subType: int,
@@ -784,7 +786,7 @@ export function spawnSlot(
   seed: Seed | undefined = undefined,
 ): Entity {
   return spawn(
-    EntityType.ENTITY_SLOT,
+    EntityType.SLOT,
     slotVariant,
     subType,
     position,
@@ -794,7 +796,7 @@ export function spawnSlot(
   );
 }
 
-/** Helper function to spawn a `EntityType.ENTITY_SLOT` (6) with a specific seed. */
+/** Helper function to spawn a `EntityType.SLOT` (6) with a specific seed. */
 export function spawnSlotWithSeed(
   slotVariant: int | SlotVariant,
   subType: int,
@@ -806,7 +808,7 @@ export function spawnSlotWithSeed(
   return spawnSlot(slotVariant, subType, position, velocity, spawner, seed);
 }
 
-/** Helper function to spawn a `EntityType.ENTITY_TEAR` (2). */
+/** Helper function to spawn a `EntityType.TEAR` (2). */
 export function spawnTear(
   tearVariant: TearVariant | int,
   subType: int,
@@ -816,7 +818,7 @@ export function spawnTear(
   seed: Seed | undefined = undefined,
 ): EntityTear {
   const entity = spawn(
-    EntityType.ENTITY_TEAR,
+    EntityType.TEAR,
     tearVariant,
     subType,
     position,

@@ -1,3 +1,5 @@
+import { Direction, DoorSlot } from "isaac-typescript-definitions";
+
 export type PostCustomDoorEnterRegisterParameters = [
   callback: (
     player: EntityPlayer,

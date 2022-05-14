@@ -1,5 +1,7 @@
 /* cspell:disable */
 
+import { PillEffect } from "isaac-typescript-definitions";
+
 /** Maps pill effect names to the values of the `PillEffect` enum. */
 export const PILL_EFFECT_MAP: ReadonlyMap<string, PillEffect> = new Map([
   ["badgas", 0],

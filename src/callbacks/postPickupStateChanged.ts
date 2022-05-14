@@ -1,3 +1,4 @@
+import { ModCallback } from "isaac-typescript-definitions";
 import { DefaultMap } from "../classes/DefaultMap";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import {
@@ -17,14 +18,14 @@ const v = {
 export function postPickupStateChangedCallbackInit(mod: Mod): void {
   saveDataManager("postPickupStateChanged", v, hasSubscriptions);
 
-  mod.AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, postPickupUpdate); // 35
+  mod.AddCallback(ModCallback.POST_PICKUP_UPDATE, postPickupUpdate); // 35
 }
 
 function hasSubscriptions() {
   return postPickupStateChangedHasSubscriptions();
 }
 
-// ModCallbacks.MC_POST_PICKUP_UPDATE (35)
+// ModCallback.POST_PICKUP_UPDATE (35)
 function postPickupUpdate(pickup: EntityPickup) {
   if (!hasSubscriptions()) {
     return;

@@ -1,3 +1,5 @@
+import { BombVariant } from "isaac-typescript-definitions";
+
 export type PostBombInitRegisterParameters = [
   callback: (bomb: EntityBomb) => void,
   bombVariant?: BombVariant | int,

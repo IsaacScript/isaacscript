@@ -1,3 +1,4 @@
+import { Challenge, PlayerType } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { log } from "./log";
 
@@ -11,7 +12,7 @@ export function onSetSeed(): boolean {
   const customRun = seeds.IsCustomRun();
   const challenge = Isaac.GetChallenge();
 
-  return challenge === Challenge.CHALLENGE_NULL && customRun;
+  return challenge === Challenge.NULL && customRun;
 }
 
 /**

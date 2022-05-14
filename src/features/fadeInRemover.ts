@@ -1,3 +1,4 @@
+import { ModCallback } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { saveDataManager } from "./saveDataManager/exports";
@@ -17,7 +18,7 @@ const v = {
 export function fadeInRemoverInit(mod: Mod): void {
   saveDataManager("fadeInRemover", v, () => false);
 
-  mod.AddCallback(ModCallbacks.MC_POST_RENDER, postRender); // 2
+  mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
 }
 
 function postRender() {

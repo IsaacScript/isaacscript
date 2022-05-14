@@ -25,17 +25,16 @@
   },
 
   // A list of the TypeScript files to compile
-  "include": [
-    "./src/**/*.ts",
-  ],
+  "include": ["./src/**/*.ts"],
 
   // TypeScriptToLua settings
   "tstl": {
     "luaTarget": "5.3",
     "buildMode": "library",
-
+    "noHeader": true,
     "luaPlugins": [
-      // { "name": "./plugins/addCrashDebugStatements.ts" },
+      // A plugin to make enums safe from global variables
+      { "name": "./plugins/noExtendedEnums.ts" },
     ],
   },
 }

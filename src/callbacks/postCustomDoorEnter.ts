@@ -1,14 +1,22 @@
 /* eslint-disable sort-exports/sort-exports */
 
+import {
+  Direction,
+  DoorSlot,
+  DoorState,
+  GridCollisionClass,
+  GridEntityType,
+  ModCallback,
+} from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { ModCallbacksCustom } from "../enums/ModCallbacksCustom";
 import { saveDataManager } from "../features/saveDataManager/exports";
+import { directionToVector } from "../functions/direction";
 import { doorSlotToDirection } from "../functions/doors";
 import { getEffects, spawnEffect } from "../functions/entitySpecific";
 import { getClosestPlayer } from "../functions/player";
 import { ensureAllCases } from "../functions/utils";
-import { directionToVector } from "../functions/vector";
 import {
   postCustomDoorEnterFire,
   postCustomDoorEnterHasSubscriptions,
@@ -66,13 +74,13 @@ export function initCustomDoor(mod: ModUpgraded, effectVariant: int): void {
   initializedEffectVariants.add(effectVariant);
 
   mod.AddCallback(
-    ModCallbacks.MC_POST_EFFECT_UPDATE,
+    ModCallback.POST_EFFECT_UPDATE,
     postEffectUpdaterCustomEntity,
     effectVariant,
   ); // 55
 
   mod.AddCallback(
-    ModCallbacks.MC_POST_EFFECT_RENDER,
+    ModCallback.POST_EFFECT_RENDER,
     postEffectRenderCustomEntity,
     effectVariant,
   ); // 56
@@ -85,7 +93,7 @@ export function initCustomDoor(mod: ModUpgraded, effectVariant: int): void {
   );
 }
 
-// ModCallbacks.MC_POST_EFFECT_UPDATE (55)
+// ModCallback.POST_EFFECT_UPDATE (55)
 function postEffectUpdaterCustomEntity(effect: EntityEffect) {
   const ptrHash = GetPtrHash(effect);
   const doorData = v.room.customDoors.get(ptrHash);
@@ -112,9 +120,9 @@ function doorChangedState(effect: EntityEffect) {
   const wall = room.GetGridEntity(gridIndex);
   if (wall !== undefined) {
     wall.CollisionClass =
-      effect.State === DoorState.STATE_OPEN
-        ? GridCollisionClass.COLLISION_WALL_EXCEPT_PLAYER
-        : GridCollisionClass.COLLISION_WALL;
+      effect.State === DoorState.OPEN
+        ? GridCollisionClass.WALL_EXCEPT_PLAYER
+        : GridCollisionClass.WALL;
   }
 }
 
@@ -122,11 +130,11 @@ function getAnimationForCustomDoor(effect: EntityEffect): string {
   const freshlySpawned = effect.FrameCount === 0;
 
   switch (effect.State as DoorState) {
-    case DoorState.STATE_OPEN: {
+    case DoorState.OPEN: {
       return freshlySpawned ? "Opened" : "Open";
     }
 
-    case DoorState.STATE_CLOSED: {
+    case DoorState.CLOSED: {
       return freshlySpawned ? "Closed" : "Close";
     }
 
@@ -136,7 +144,7 @@ function getAnimationForCustomDoor(effect: EntityEffect): string {
   }
 }
 
-// ModCallbacks.MC_POST_EFFECT_RENDER (56)
+// ModCallback.POST_EFFECT_RENDER (56)
 function postEffectRenderCustomEntity(effect: EntityEffect) {
   const ptrHash = GetPtrHash(effect);
   const doorData = v.room.customDoors.get(ptrHash);
@@ -189,7 +197,7 @@ function isPlayerPastDoorThreshold(
 
 // ModCallbacksCustom.MC_POST_ROOM_CLEAR_CHANGED
 function postRoomClearChanged(roomClear: boolean, effectVariant: int) {
-  const state = roomClear ? DoorState.STATE_OPEN : DoorState.STATE_CLOSED;
+  const state = roomClear ? DoorState.OPEN : DoorState.CLOSED;
   const customDoors = getEffects(effectVariant);
   for (const customDoor of customDoors) {
     customDoor.State = state;
@@ -244,7 +252,7 @@ export function spawnCustomDoor(
   }
 
   const gridEntityType = gridEntity.GetType();
-  if (gridEntityType !== GridEntityType.GRID_WALL) {
+  if (gridEntityType !== GridEntityType.WALL) {
     error(
       `Failed to initialize a custom door at slot ${doorSlot} because there is another grid entity on that tile with a type of: ${gridEntityType}`,
     );
@@ -253,7 +261,7 @@ export function spawnCustomDoor(
   const effect = spawnEffect(effectVariant, 0, position);
 
   // Do initial setup for the door
-  effect.State = roomClear ? DoorState.STATE_OPEN : DoorState.STATE_CLOSED;
+  effect.State = roomClear ? DoorState.OPEN : DoorState.CLOSED;
   effect.RenderZOffset = -10000;
   effect.PositionOffset = getPositionOffset(doorSlot);
   const sprite = effect.GetSprite();

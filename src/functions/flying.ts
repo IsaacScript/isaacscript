@@ -1,29 +1,43 @@
+import {
+  CacheFlag,
+  CollectibleType,
+  NullItemID,
+  PlayerType,
+  TrinketType,
+} from "isaac-typescript-definitions";
 import { getCollectiblesForCacheFlag } from "./collectibleCacheFlag";
 import { copySet, deleteSetsFromSet } from "./set";
 
 const FLYING_CHARACTERS: ReadonlySet<PlayerType> = new Set([
-  PlayerType.PLAYER_AZAZEL, // 7
-  PlayerType.PLAYER_THELOST, // 10
-  PlayerType.PLAYER_THESOUL, // 17
-  PlayerType.PLAYER_THELOST_B, // 31
-  PlayerType.PLAYER_JACOB2_B, // 39
-  PlayerType.PLAYER_THESOUL_B, // 40
+  PlayerType.AZAZEL, // 7
+  PlayerType.THE_LOST, // 10
+  PlayerType.THE_SOUL, // 17
+  PlayerType.THE_LOST_B, // 31
+  PlayerType.JACOB_2_B, // 39
+  PlayerType.THE_SOUL_B, // 40
 ]);
 
 const FLYING_TRINKETS: ReadonlySet<TrinketType> = new Set([
-  TrinketType.TRINKET_BAT_WING, // 118
-  TrinketType.TRINKET_AZAZELS_STUMP, // 162
+  TrinketType.BAT_WING, // 118
+  TrinketType.AZAZELS_STUMP, // 162
 ]);
 
 const FLYING_NULL_ITEMS: readonly NullItemID[] = [
-  NullItemID.ID_REVERSE_SUN, // 66
-  NullItemID.ID_SPIRIT_SHACKLES_SOUL, // 10
-  NullItemID.ID_LOST_CURSE, // 112
+  NullItemID.REVERSE_SUN, // 66
+  NullItemID.SPIRIT_SHACKLES_SOUL, // 10
+  NullItemID.LOST_CURSE, // 112
+];
+
+const CONDITIONAL_FLYING_COLLECTIBLE_TYPES: readonly CollectibleType[] = [
+  CollectibleType.BIBLE,
+  CollectibleType.EMPTY_VESSEL,
+  CollectibleType.ASTRAL_PROJECTION,
+  CollectibleType.RECALL,
 ];
 
 /**
  * Returns a set of all of the collectibles that grant flight. This is derived from collectibles
- * that have `CacheFlag.CACHE_FLYING` set in the "items.xml" file.
+ * that have `CacheFlag.FLYING` set in the "items.xml" file.
  *
  * Collectibles that only grant flight conditionally are manually pruned. Collectibles such as Empty
  * Vessel should be checked for via the `hasFlyingTemporaryEffect` function.
@@ -34,16 +48,16 @@ const FLYING_NULL_ITEMS: readonly NullItemID[] = [
 export function getFlyingCollectibles(
   pruneConditionalItems: boolean,
 ): Set<CollectibleType | int> {
-  // Instead of manually compiling a list of collectibles that grant flying,
-  // we can instead dynamically look for collectibles that have "CacheFlag.CACHE_FLYING"
+  // Instead of manually compiling a list of collectibles that grant flying, we can instead
+  // dynamically look for collectibles that have `CacheFlag.FLYING`.
   const collectiblesWithFlyingCacheFlag = getCollectiblesForCacheFlag(
-    CacheFlag.CACHE_FLYING,
+    CacheFlag.FLYING,
   );
 
-  // None of the collectibles with a cache of "all" grant flying,
-  // so we can safely remove them from the list
+  // None of the collectibles with a cache of "all" grant flying, so we can safely remove them from
+  // the list.
   const collectiblesWithAllCacheFlag = getCollectiblesForCacheFlag(
-    CacheFlag.CACHE_ALL,
+    CacheFlag.ALL,
   );
   deleteSetsFromSet(
     collectiblesWithFlyingCacheFlag,
@@ -51,14 +65,9 @@ export function getFlyingCollectibles(
   );
 
   if (pruneConditionalItems) {
-    collectiblesWithFlyingCacheFlag.delete(CollectibleType.COLLECTIBLE_BIBLE);
-    collectiblesWithFlyingCacheFlag.delete(
-      CollectibleType.COLLECTIBLE_EMPTY_VESSEL,
-    );
-    collectiblesWithFlyingCacheFlag.delete(
-      CollectibleType.COLLECTIBLE_ASTRAL_PROJECTION,
-    );
-    collectiblesWithFlyingCacheFlag.delete(CollectibleType.COLLECTIBLE_RECALL);
+    for (const collectibleType of CONDITIONAL_FLYING_COLLECTIBLE_TYPES) {
+      collectiblesWithFlyingCacheFlag.delete(collectibleType);
+    }
   }
 
   return collectiblesWithFlyingCacheFlag;
@@ -70,15 +79,15 @@ export function getFlyingCollectibles(
  */
 export function getFlyingTrinkets(): ReadonlySet<CollectibleType | int> {
   // We use a different algorithm than the "getFlyingCollectibles" function because Azazel's Stump
-  // has a cache of "all"
+  // has a cache of "all".
   return copySet(FLYING_TRINKETS);
 }
 
 export function hasFlyingTemporaryEffect(player: EntityPlayer): boolean {
   const effects = player.GetEffects();
 
-  // Hanged Man card gives a Transcendence temporary effect
-  // Pinking Shears gives a Transcendence temporary effect
+  // - Hanged Man card gives a Transcendence temporary effect.
+  // - Pinking Shears gives a Transcendence temporary effect.
   const flyingCollectibles = getFlyingCollectibles(false);
   for (const collectibleType of flyingCollectibles.values()) {
     if (effects.HasCollectibleEffect(collectibleType)) {

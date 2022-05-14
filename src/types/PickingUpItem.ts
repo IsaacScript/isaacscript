@@ -1,3 +1,9 @@
+import {
+  CollectibleType,
+  ItemType,
+  TrinketType,
+} from "isaac-typescript-definitions";
+
 export interface PickingUpItem {
   /** Needed so that we can distinguish between picking up a collectible and a trinket. */
   itemType: ItemType;
@@ -6,8 +12,8 @@ export interface PickingUpItem {
   subType: CollectibleType | TrinketType | int;
 }
 
-const DEFAULT_ITEM_TYPE = ItemType.ITEM_NULL;
-const DEFAULT_SUB_TYPE = CollectibleType.COLLECTIBLE_NULL;
+const DEFAULT_ITEM_TYPE = ItemType.NULL;
+const DEFAULT_SUB_TYPE = CollectibleType.NULL;
 
 export function newPickingUpItem(): PickingUpItem {
   return {

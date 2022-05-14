@@ -1,7 +1,4 @@
-import {
-  isSerializationBrand,
-  SerializationBrand,
-} from "../../enums/private/SerializationBrand";
+import { SerializationBrand } from "../../enums/private/SerializationBrand";
 import { SerializationType } from "../../enums/SerializationType";
 import { isArray } from "../../functions/array";
 import { deepCopy } from "../../functions/deepCopy";
@@ -13,9 +10,10 @@ import {
 import { clearTable } from "../../functions/table";
 import { getTraversalDescription } from "../../functions/utils";
 import { SAVE_DATA_MANAGER_DEBUG } from "./constants";
+import { isSerializationBrand } from "./serializationBrand";
 
 /**
- * merge takes the values from a new table and recursively merges them into an old object (while
+ * `merge` takes the values from a new table and recursively merges them into an old object (while
  * performing appropriate deserialization).
  *
  * It supports the following object types:
@@ -65,8 +63,8 @@ export function merge(
     return;
   }
 
-  // Depending on whether we are working on a Lua table or a TypeScriptToLua object,
-  // we need to iterate in a specific way
+  // Depending on whether we are working on a Lua table or a TypeScriptToLua object, we need to
+  // iterate in a specific way.
   if (oldObject instanceof Map || oldObject instanceof Set) {
     mergeTSTLObject(oldObject, newTable, traversalDescription);
   } else {
@@ -94,7 +92,7 @@ function mergeTSTLObject(
   oldObject.clear();
 
   // During serialization, we brand some Lua tables with a special identifier to signify that it has
-  // keys that should be deserialized to numbers
+  // keys that should be deserialized to numbers.
   const convertStringKeysToNumbers = newTable.has(
     SerializationBrand.OBJECT_WITH_NUMBER_KEYS,
   );
@@ -166,10 +164,9 @@ function mergeTable(
       const oldValueType = type(oldValue);
 
       if (oldValueType !== "table") {
-        // The child table does not exist on the old table
-        // However, we still need to copy over the new table, because we need to handle data types
-        // like "Foo | null"
-        // Thus, set up a blank sub-table on the old table, and continue to recursively merge
+        // The child table does not exist on the old table. However, we still need to copy over the
+        // new table, because we need to handle data types like "Foo | null". Thus, set up a blank
+        // sub-table on the old table, and continue to recursively merge..
         oldValue = new LuaTable();
         oldTable.set(key, oldValue);
       }

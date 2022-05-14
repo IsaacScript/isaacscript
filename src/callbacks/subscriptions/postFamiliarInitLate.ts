@@ -1,3 +1,5 @@
+import { FamiliarVariant } from "isaac-typescript-definitions";
+
 export type PostFamiliarInitLateRegisterParameters = [
   callback: (familiar: EntityFamiliar) => void,
   familiarVariant?: FamiliarVariant | int,
