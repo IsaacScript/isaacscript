@@ -22,16 +22,19 @@ npx eslint --max-warnings 0 tests
 
 # Step 3 - Spell check every file using cspell.
 # We use "--no-progress" and "--no-summary" because we want to only output errors.
-npx cspell --no-progress --no-summary "src/**/*.ts"
-npx cspell --no-progress --no-summary "docs/**/*.md"
-npx cspell --no-progress --no-summary "tools/**/*.ts"
-npx cspell --no-progress --no-summary "tests/**/*.ts"
+npx cspell --no-progress --no-summary
 
 # Step 4 - Check for unused imports.
 # The "--error" flag makes it return an error code of 1 if unused exports are found.
 npx ts-prune --error
 
-# Step 5 - Check repository-specific scripts.
+# Step 5 - Check for base file updates.
+bash "$DIR/check-file-updates.sh"
+
+# Step 6 - Check for orphaned words.
+bash "$DIR/check-orphaned-words.sh"
+
+# Step 7 - Check repository-specific scripts.
 echo "Checking if the generation scripts modify any files..."
 bash "$DIR/generate.sh" check
 

@@ -1,22 +1,31 @@
 {
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
   "version": "0.2",
+  "import": [
+    "./.cspell-base.json"
+  ],
+  "files": [
+    "**"
+  ],
+  "ignorePaths": [
+    ".git/**",
+    "dist/**",
+    "node_modules/**"
+  ],
   "words": [
     "dbaeumer",
     "eqeqeq",
     "esbenp",
     "isaacscript",
     "nocheck",
-    "outdent",
+    "prettierignore",
+    "prettierrc",
     "regexes",
     "sarisia",
     "technote",
     "TSES",
     "Turnbull",
-    "unexported",
     "unfixable",
     "Zamiell"
-  ],
-  "files": [
-    "**"
   ]
 }
