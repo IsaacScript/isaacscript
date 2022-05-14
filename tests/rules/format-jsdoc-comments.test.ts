@@ -724,9 +724,8 @@ valid.push({
 // JSDOC UNIQUE TESTS
 // ------------------
 
-// Valid since we ignore "/* "
 valid.push({
-  name: 'Using a single-line "/*" comment with over 100 characters',
+  name: "Using a non-JSDoc comment with over 100 characters",
   code: `
 /* But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will */
   `,

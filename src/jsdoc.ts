@@ -95,7 +95,7 @@ export function getTextBlocksFromJSDocComment(
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const lineRaw = linesWithRemovedAsterisk[i]!;
 
-    // Remove the leading space from the line, if any. e.g. " Foo" --> "Foo"
+    // Remove the leading space from the line, if any. e.g.: " Foo" --> "Foo"
     const firstCharacter = lineRaw[0];
     const lineBeforeTrim = firstCharacter === " " ? lineRaw.slice(1) : lineRaw;
 

@@ -208,7 +208,7 @@ function getFormattedJSDocCommentMultiLine(
 
     let unformattedText = linePrefixWithExtraIndent + block.text;
     if (block.text === "") {
-      // Since this is an empty line, we need to remove the superfluous trailing space
+      // Since this is an empty line, we need to remove the superfluous trailing space.
       unformattedText = unformattedText.slice(0, -1);
     }
 

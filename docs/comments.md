@@ -1,5 +1,7 @@
 # Comments
 
+<!-- markdownlint-disable MD033 -->
+
 `eslint-plugin-isaacscript` contains several rules that make working with comments very strict. Why would anyone want to subject themselves to that?
 
 Let's have a short discussion on the motivation for these rules.

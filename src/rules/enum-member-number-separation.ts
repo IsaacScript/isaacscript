@@ -24,7 +24,7 @@ export const enumMemberNumberSeparation = createRule({
 
         const memberName = node.id.name;
 
-        // Search through the name for numbers
+        // Search through the name for numbers.
         for (let i = 0; i < memberName.length; i++) {
           const character = memberName[i];
           if (character === undefined) {

@@ -92,7 +92,7 @@ export function getFormattedCommentText(
   linePrefix: string,
   maxLength: number,
 ): string {
-  // We want to preserve the spaces before sub-bullet points
+  // We want to preserve the spaces before sub-bullet points.
   const spacesBeforeBulletPoint = getSpacesBeforeBulletPoint(text);
   const bulletPointSecondLineIndent =
     getBulletPointKind(text) === BulletPointKind.NonBulletPoint ? "" : "  ";
@@ -100,13 +100,13 @@ export function getFormattedCommentText(
   const firstLinePrefix = linePrefix + spacesBeforeBulletPoint;
   const firstLineStartLength = firstLinePrefix.length;
 
-  // Used for the 2nd line, 3rd line, and so on
+  // Used for the 2nd line, 3rd line, and so on.
   const secondLinePrefix = `${firstLinePrefix}${bulletPointSecondLineIndent}`;
   const secondLineStartLength = secondLinePrefix.length;
 
   const words = text.split(" ");
 
-  // Build a multi-line string that contains newlines when the words exceed the maximum line length
+  // Build a multi-line string that contains newlines when the words exceed the maximum line length.
   const formattedWordsObject = words.reduce(
     (accumulator, word) => {
       const onFirstLine = accumulator.numLines === 1;
@@ -378,6 +378,7 @@ export function isSpecialComment(text: string): boolean {
     text.startsWith("eslint-enable") ||
     text.startsWith("eslint-disable") ||
     text.startsWith("cspell:") ||
+    text.startsWith("ts-prune-") ||
     text.startsWith("@ts-")
   );
 }

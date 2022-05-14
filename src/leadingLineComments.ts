@@ -123,7 +123,7 @@ export function getCommentBlocks(comments: TSESTree.Comment[]): CommentBlock[] {
           break;
         }
 
-        // Break if we are in a bullet point list and we encounter the same kind of bullet point
+        // Break if we are in a bullet point list and we encounter the same kind of bullet point.
         if (
           bulletPointKind !== BulletPointKind.NonBulletPoint &&
           nextCommentBulletPointKind === bulletPointKind

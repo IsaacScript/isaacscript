@@ -50,9 +50,17 @@ export const completeSentencesLineComments = createRule<Options, MessageIds>({
         continue;
       }
 
-      // Single line comments are whitelisted.
       const nextCommentBlock = commentBlocks[i + 1];
+
+      /*
+      // Single line comments are whitelisted.
       if (isSingleLineComment(commentBlock, nextCommentBlock)) {
+        continue;
+      }
+      */
+
+      // Filter out comments that represent an enum.
+      if (/^\w+\.\w+$/.test(commentBlock.mergedText)) {
         continue;
       }
 
@@ -87,6 +95,7 @@ export const completeSentencesLineComments = createRule<Options, MessageIds>({
   },
 });
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function isSingleLineComment(
   commentBlock: CommentBlock,
   nextCommentBlock: CommentBlock | undefined,

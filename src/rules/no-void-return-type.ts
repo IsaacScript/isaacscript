@@ -18,7 +18,7 @@ export const noVoidReturnType = createRule({
   create(context) {
     return {
       FunctionDeclaration(node) {
-        // Exported functions are exempt from this rule
+        // Exported functions are exempt from this rule.
         const { parent } = node;
         if (
           parent !== undefined &&
