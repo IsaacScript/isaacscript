@@ -9,7 +9,6 @@ import { LineCheckMode } from "../enums/LineCheckMode";
 import { RenderMode } from "../enums/RenderMode";
 import { RoomShape } from "../enums/RoomShape";
 import { RoomType } from "../enums/RoomType";
-import { GridEntityDoor } from "./GridEntityDoor";
 
 declare global {
   interface Room {

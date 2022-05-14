@@ -1,6 +1,5 @@
 import { GridCollisionClass } from "../enums/GridCollisionClass";
 import { GridEntityType } from "../enums/GridEntityType";
-import { GridEntityDoor } from "./GridEntityDoor";
 
 declare global {
   interface GridEntity {

@@ -27,7 +27,6 @@ import { SkinColor } from "../enums/SkinColor";
 import { TrinketSlot } from "../enums/TrinketSlot";
 import { WeaponType } from "../enums/WeaponType";
 import { TemporaryEffects } from "./TemporaryEffects";
-import { EntitySubPlayer } from "./unofficial/EntitySubPlayer";
 
 declare global {
   interface EntityPlayer extends Entity {
