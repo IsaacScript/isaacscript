@@ -427,7 +427,6 @@ function getCopiedEntries(
   // use "[...pairs(object)]", as it results in a run-time error.
   const entries: Array<[key: AnyNotNil, value: unknown]> = [];
   if (object instanceof Map || object instanceof Set) {
-    // eslint-disable-next-line isaacscript/no-object-any
     for (const [key, value] of object.entries()) {
       entries.push([key, value]);
     }

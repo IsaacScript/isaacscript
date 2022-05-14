@@ -399,7 +399,7 @@ export function shuffleArrayInPlace<T>(
 
     randomIndex = getRandomArrayIndex(array, rng);
 
-    // @ts-expect-error The array elements can never be undefined here
+    // @ts-expect-error The shuffle can never be undefined.
     [array[currentIndex], array[randomIndex]] = [
       array[randomIndex],
       array[currentIndex],

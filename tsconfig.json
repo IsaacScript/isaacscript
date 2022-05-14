@@ -17,11 +17,6 @@
 
     // Needed to hide internal functions from the auto-complete of end-users
     "stripInternal": true,
-
-    // TODO
-    "noImplicitOverride": false,
-    "noPropertyAccessFromIndexSignature": false,
-    "noUncheckedIndexedAccess": false,
   },
 
   // A list of the TypeScript files to compile
