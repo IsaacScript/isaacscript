@@ -3,6 +3,7 @@
 import {
   Card,
   CollectibleType,
+  PillColor,
   PillEffect,
   PlayerType,
   TrinketType,
@@ -37,3 +38,5 @@ export const MAX_VANILLA_TRINKET_TYPE = NUM_VANILLA_COLLECTIBLE_TYPES;
 
 export const MAX_VANILLA_PLAYER_TYPE = getLastEnumValue(PlayerType);
 // It is not possible to determine "MAX_PLAYER_TYPE", since there is no associated config.
+
+export const MAX_NORMAL_PILL_COLOR = PillColor.WHITE_YELLOW;

@@ -92,4 +92,6 @@ implement in isaacscript-common:
 
 
 IsaacScript announcements:
-- Added `MAX_VANILLA_PLAYER_TYPE` constant.
+- Added the following constants:
+  - `MAX_VANILLA_PLAYER_TYPE`
+  - `MAX_NORMAL_PILL_COLOR`
