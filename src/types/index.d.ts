@@ -61,7 +61,7 @@
 /// <reference path="KColor.d.ts" />
 /// <reference path="Level.d.ts" />
 /// <reference path="Mod.d.ts" />
-/// <reference path="MusicManager.d.ts" />
+/* <reference path="MusicManager.d.ts" /> */
 /// <reference path="PathFinder.d.ts" />
 /// <reference path="PillConfigList.d.ts" />
 /// <reference path="PosVel.d.ts" />
