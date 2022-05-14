@@ -15,7 +15,15 @@ import {
 } from "../objects/doorSlotFlagToDoorSlot";
 import { DOOR_SLOT_TO_DIRECTION } from "../objects/doorSlotToDirection";
 import { ROOM_SHAPE_TO_DOOR_SLOTS } from "../objects/roomShapeToDoorSlots";
+import { directionToVector } from "./direction";
 import { getEnumValues } from "./enums";
+
+/**
+ * When players enter a room, they do not appear exactly on the location of the door, because then
+ * they would immediately collide with the loading zone. Instead, they are offset by this amount of
+ * units.
+ */
+const ROOM_ENTRY_OFFSET_FROM_DOOR = 40;
 
 export function closeAllDoors(): void {
   for (const door of getDoors()) {
@@ -62,6 +70,31 @@ export function getDevilRoomOrAngelRoomDoor(): GridEntityDoor | undefined {
   return devilRoomOrAngelRoomDoors.length === 0
     ? undefined
     : devilRoomOrAngelRoomDoors[0];
+}
+
+/**
+ * Helper function to get the position that a player will enter a room at.
+ *
+ * When players enter a room, they do not appear exactly on the location of the door, because then
+ * they would immediately collide with the loading zone. Instead, they are offset by a certain
+ * amount of units.
+ */
+export function getDoorEnterPosition(door: GridEntityDoor): Vector {
+  const offset = getDoorEnterPositionOffset(door.Slot);
+  return door.Position.add(offset);
+}
+
+/**
+ * Helper function to help calculate the position that a player will enter a room at.
+ *
+ * When players enter a room, they do not appear exactly on the location of the door, because then
+ * they would immediately collide with the loading zone. Instead, they are offset by a certain
+ * amount of units.
+ */
+export function getDoorEnterPositionOffset(doorSlot: DoorSlot): Vector {
+  const direction = doorSlotToDirection(doorSlot);
+  const vector = directionToVector(direction);
+  return vector.mul(ROOM_ENTRY_OFFSET_FROM_DOOR);
 }
 
 /** Helper function to get the possible door slots that can exist for a given room shape. */

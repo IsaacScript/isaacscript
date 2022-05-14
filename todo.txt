@@ -1,3 +1,9 @@
+- remove optional feature for custom collectible icons such as 20/20
+
+- redo docs so that function examples are in JSDoc
+  - confirm that POST_USE_CARD and POST_USE_PILL and POST_NPC_UPDATE and POST_FAMILIAR_UPDATE and POST_FAMILIAR_INIT are documented
+  - confirm that ModCallback is documented
+
 - checkLocalWords in isaacscript-common until all valid
 
 - solve problem where double importing happens because of the `/// <reference path="types/index.d.ts" />`
@@ -97,4 +103,6 @@ IsaacScript announcements:
   - `MAX_VANILLA_PLAYER_TYPE`
   - `MAX_NORMAL_PILL_COLOR`
 - Added the following helper functions:
+  - `getDoorEnterPosition`
+  - `getDoorEnterPositionOffset`
   - `getNormalPillColorFromHorse`
