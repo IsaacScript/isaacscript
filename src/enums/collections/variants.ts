@@ -239,9 +239,7 @@ export enum BombVariant {
   DECOY = 2,
 
   TROLL = 3,
-
-  /** A Mega Troll Bomb. */
-  SUPER_TROLL = 4,
+  MEGA_TROLL = 4,
 
   /** Bob's Curse bombs. */
   POISON = 5,

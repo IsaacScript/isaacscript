@@ -315,7 +315,7 @@ export enum BombSubType {
   DOUBLE_PACK = 2,
   TROLL = 3,
   GOLDEN = 4,
-  SUPER_TROLL = 5,
+  MEGA_TROLL = 5,
   GOLDEN_TROLL = 6,
   GIGA = 7,
 }
