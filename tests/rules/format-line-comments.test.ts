@@ -691,6 +691,15 @@ valid.push({
   `,
 });
 
+valid.push({
+  name: "Using a trailing number",
+  code: `
+// 14, 33
+// Keeper and Tainted Keeper can increase their coin containers with Mother's Kiss and Greed's
+// Gullet.
+  `,
+});
+
 ruleTester.run("format-line-comments", formatLineComments, {
   valid,
   invalid,

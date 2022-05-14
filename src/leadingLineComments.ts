@@ -83,11 +83,15 @@ export function getCommentBlocks(comments: TSESTree.Comment[]): CommentBlock[] {
     const endsWithColon = text.trimEnd().endsWith(":");
     const separatorLine = isSeparatorLine(text);
     const hasURLInside = hasURL(text);
+    const hasNumberSuffix = / \d+$/.test(text.trimEnd());
     const hasNumberParenthesisSuffix = / \(\d+\)$/.test(text.trimEnd());
 
     // Always put certain kinds of comments on their own blocks.
     const shouldBeInSelfContainedBlock =
-      separatorLine || hasURLInside || hasNumberParenthesisSuffix;
+      separatorLine ||
+      hasURLInside ||
+      hasNumberSuffix ||
+      hasNumberParenthesisSuffix;
 
     if (!shouldBeInSelfContainedBlock) {
       // Look for one or more "connecting" comments on the next subsequent lines.
