@@ -682,6 +682,15 @@ valid.push({
   `,
 });
 
+valid.push({
+  name: "Using a callback trace list",
+  code: `
+// ModCallback.POST_PLAYER_RENDER (32)
+// PlayerVariant.PLAYER (0)
+// BabySubType.SUBTYPE (1)
+  `,
+});
+
 ruleTester.run("format-line-comments", formatLineComments, {
   valid,
   invalid,
