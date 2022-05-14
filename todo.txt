@@ -89,3 +89,7 @@ implement in isaacscript-common:
   - add isaacscript-common functionality for persistent entities
 - make isValidCollectible (from isaac-typescript-definitions) for mods
 - StageAPI2
+
+
+IsaacScript announcements:
+- Added `MAX_VANILLA_PLAYER_TYPE` constant.
