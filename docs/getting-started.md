@@ -32,7 +32,7 @@ Open a new [command prompt window](https://www.howtogeek.com/235101/10-ways-to-o
 
 Make a new directory for your mod, and then change the current working directory to it. (Use [lowercase and kebab-case](https://stackoverflow.com/questions/11947587/is-there-a-naming-convention-for-git-repositories).)
 
-For example, if your mod is named "Revelations":
+For example, if your mod is named "Revelations", you would type the following into the command prompt:
 
 ```batch
 mkdir C:\Repositories\revelations
