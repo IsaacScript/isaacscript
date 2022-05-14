@@ -13,8 +13,9 @@ import { init } from "./commands/init/init";
 import { monitor } from "./commands/monitor/monitor";
 import { publish } from "./commands/publish/publish";
 import * as configFile from "./configFile";
-import { CWD, PROJECT_NAME } from "./constants";
+import { CWD, PROJECT_NAME, YARN_LOCK_PATH } from "./constants";
 import { execShell } from "./exec";
+import * as file from "./file";
 import { parseArgs } from "./parseArgs";
 import { promptInit } from "./prompt";
 import { Command, DEFAULT_COMMAND } from "./types/Command";
@@ -78,11 +79,7 @@ async function handleCommands(argv: Record<string, unknown>, verbose: boolean) {
     validateInIsaacScriptProject(verbose);
     config = await configFile.get(argv);
 
-    // https://stackoverflow.com/questions/57016579/checking-if-package-json-dependencies-match-the-installed-dependencies
-    console.log(
-      'Running "npm install" to ensure that the project\'s dependencies are installed correctly.',
-    );
-    execShell("npm", ["install"], verbose);
+    ensureDepsAreInstalled(verbose);
   }
 
   switch (command) {
@@ -115,4 +112,20 @@ async function handleCommands(argv: Record<string, unknown>, verbose: boolean) {
   if (command !== "monitor") {
     process.exit(0);
   }
+}
+
+function ensureDepsAreInstalled(verbose: boolean) {
+  if (file.exists(YARN_LOCK_PATH, verbose)) {
+    console.log(
+      'Running "yarn" to ensure that the project\'s dependencies are installed correctly.',
+    );
+    execShell("yarn");
+    return;
+  }
+
+  // https://stackoverflow.com/questions/57016579/checking-if-package-json-dependencies-match-the-installed-dependencies
+  console.log(
+    'Running "npm install" to ensure that the project\'s dependencies are installed correctly.',
+  );
+  execShell("npm", ["install"], verbose);
 }

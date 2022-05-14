@@ -8,6 +8,7 @@ FILES_TO_CHECK=(
   ".prettierrc.js"
   ".prettierignore:.prettierignore-base"
   "tsconfig.eslint.json"
+  "check-orphaned-words.sh"
 )
 
 set -e # Exit on any errors

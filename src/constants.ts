@@ -65,6 +65,7 @@ export const CONFIG_FILE_PATH = path.join(CWD, CONFIG_FILE_NAME);
 export const TSCONFIG_PATH = path.join(CWD, "tsconfig.json");
 export const PACKAGE_JSON_PATH = path.join(CWD, "package.json");
 export const CONSTANTS_TS_PATH = path.join(CWD, "src", "constants.ts");
+export const YARN_LOCK_PATH = path.join(CWD, "yarn.lock");
 
 // project/mod
 export const MOD_SOURCE_PATH = path.join(CWD, "mod");
