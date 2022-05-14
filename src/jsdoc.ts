@@ -118,18 +118,15 @@ export function getTextBlocksFromJSDocComment(
     const hasExample = startsWithExample(lineBeforeTrim);
     const hasJSDocTag = lineBeforeTrim.startsWith("@");
     const hasURLInside = hasURL(lineBeforeTrim);
+    const hasNumberParenthesisSuffix = /\(\d+\)$/.test(
+      lineBeforeTrim.trimEnd(),
+    );
     const hasCodeBlock = lineBeforeTrim.includes("```");
     const spacesBeforeBulletPoint = getSpacesBeforeBulletPoint(lineBeforeTrim);
 
     const line = insideCodeBlock ? lineBeforeTrim : lineBeforeTrim.trim();
 
     // Certain things mark the end of the current block:
-    // - a blank line
-    // - a line that starts with a bullet point
-    // - a line that starts with an example
-    // - a line that starts with a JSDoc tag
-    // - a URL
-    // - every line, if we are inside of a code block
     if (
       isBlankLine ||
       isNewOrContinuingBulletPoint ||
@@ -138,6 +135,7 @@ export function getTextBlocksFromJSDocComment(
       hasURLInside ||
       previousLineHadURL ||
       insideCodeBlock ||
+      hasNumberParenthesisSuffix ||
       hasCodeBlock ||
       previousLineHadCodeBlock
     ) {
@@ -155,6 +153,7 @@ export function getTextBlocksFromJSDocComment(
           hasURLInside,
           isBlankLine,
           previousLineEndedInColon,
+          hasNumberParenthesisSuffix,
         );
 
         const textBlock: TextBlock = {
@@ -216,6 +215,7 @@ function shouldInsertBlankLineBelowTextBlock(
   nextLineHasURL: boolean,
   nextLineIsBlank: boolean,
   endsInColon: boolean,
+  nextLineHasNumberParenthesisSuffix: boolean,
 ): boolean {
   if (
     nextLineHasExample ||
@@ -228,6 +228,12 @@ function shouldInsertBlankLineBelowTextBlock(
 
   if (nextLineHasURL) {
     // It is optional to have blank lines between URLs. Match the existing comment.
+    return nextLineIsBlank;
+  }
+
+  if (nextLineHasNumberParenthesisSuffix) {
+    // It is optional to have blank lines between number parenthesis suffixes. Match the existing
+    // comment.
     return nextLineIsBlank;
   }
 

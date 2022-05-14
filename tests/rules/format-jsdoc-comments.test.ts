@@ -880,6 +880,20 @@ invalid.push({
   `,
 });
 
+valid.push({
+  name: "Using a multi-line comment with a duplicate asterisk",
+  code: `
+/**
+ * ModCallback.PRE_NPC_COLLISION (30)
+ * EntityType.SUCKER (61)
+ *
+ * The algorithm for detecting a discharge is checking if the current charge is less than the charge
+ * on the previous frame. Thus, when a Bulb zaps a player and drains their charge, this will be a
+ * false position, so Bulbs have to be handled.
+ */
+  `,
+});
+
 ruleTester.run("format-jsdoc-comments", formatJSDocComments, {
   valid,
   invalid,

@@ -1,5 +1,9 @@
 import { TSESLint, TSESTree } from "@typescript-eslint/utils";
-import { getMessageIDFromSentenceKind, getSentenceKind } from "../comments";
+import {
+  getMessageIDFromSentenceKind,
+  getSentenceKind,
+  isSpecialComment,
+} from "../comments";
 import {
   CommentBlock,
   getCommentBlocks,
@@ -72,6 +76,11 @@ export const completeSentencesLineComments = createRule<Options, MessageIds>({
         nextCommentBlock !== undefined &&
         isSeparatorLine(nextCommentBlock.mergedText)
       ) {
+        continue;
+      }
+
+      // Special comments are whitelisted.
+      if (isSpecialComment(commentBlock.mergedText)) {
         continue;
       }
 

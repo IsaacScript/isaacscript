@@ -1,6 +1,10 @@
 import { TSESTree } from "@typescript-eslint/types";
 import { TSESLint } from "@typescript-eslint/utils";
-import { getMessageIDFromSentenceKind, getSentenceKind } from "../comments";
+import {
+  getMessageIDFromSentenceKind,
+  getSentenceKind,
+  isSpecialComment,
+} from "../comments";
 import { getJSDocComments, getTextBlocksFromJSDocComment } from "../jsdoc";
 import { createRule, hasURL } from "../utils";
 
@@ -49,12 +53,12 @@ export const completeSentencesJSDoc = createRule<Options, MessageIds>({
         const textBlock = textBlocks[i]!;
         const { text, insideCodeBlock } = textBlock;
 
-        // Everything in a code block is whitelisted
+        // Everything in a code block is whitelisted.
         if (insideCodeBlock) {
           continue;
         }
 
-        // URLs are whitelisted
+        // URLs are whitelisted.
         const nextTextBlock = textBlocks[i + 1];
         if (hasURL(text)) {
           continue;
@@ -67,7 +71,12 @@ export const completeSentencesJSDoc = createRule<Options, MessageIds>({
           continue;
         }
 
-        // If this is a JSDoc tag, we need to extract the description out of it
+        // Special comments are whitelisted.
+        if (isSpecialComment(text)) {
+          continue;
+        }
+
+        // If this is a JSDoc tag, we need to extract the description out of it.
         const sentence = getSentenceFromJSDocTag(text);
 
         const sentenceKind = getSentenceKind(sentence);

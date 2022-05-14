@@ -316,7 +316,8 @@ export function isSpecialComment(text: string): boolean {
   return (
     text.startsWith("eslint-enable") ||
     text.startsWith("eslint-disable") ||
-    text.startsWith("cspell:")
+    text.startsWith("cspell:") ||
+    text.startsWith("@ts-")
   );
 }
 
