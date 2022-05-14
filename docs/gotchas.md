@@ -50,7 +50,7 @@ For example, the following is possible in Lua:
 player.TearFlags = TearFlag.TEAR_PIERCING | TearFlag.TEAR_SPECTRAL | 5
 ```
 
-This is not a valid combination of bit flags, because `5` is a valid tear flag. Thus, this code would have undefined behavior.
+This is not a valid combination of bit flags, because `5` is not a tear flag. Thus, this code would have undefined behavior.
 
 In IsaacScript, assigning some arbitrary number to the `player.TearFlags` field would cause a compiler error.
 
