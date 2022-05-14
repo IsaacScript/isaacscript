@@ -8,11 +8,12 @@ import { ruleTester } from "../utils";
 const valid: Array<TSESLint.ValidTestCase<unknown[]>> = [];
 const invalid: Array<TSESLint.InvalidTestCase<MessageIds, unknown[]>> = [];
 
-valid.push({
+invalid.push({
   name: "Single-line comment without complete sentence",
   code: `
 // this is not a complete sentence.
   `,
+  errors: [{ messageId: "missingCapital" }],
 });
 
 valid.push({
@@ -222,6 +223,27 @@ valid.push({
   code: `
 // For EntityType.CONSTANT_STONE_SHOOTER (202), ConstantStoneShooterVariant.CONSTANT_STONE_SHOOTER
 // (0)
+  `,
+});
+
+valid.push({
+  name: "Enum block comment type 1",
+  code: `
+// CollectibleType.SAD_ONION
+  `,
+});
+
+valid.push({
+  name: "Enum block comment type 2",
+  code: `
+// CollectibleType.SAD_ONION (1)
+  `,
+});
+
+valid.push({
+  name: "Enum block comment type 3",
+  code: `
+// CacheFlag.FIRE_DELAY (1 << 1)
   `,
 });
 
