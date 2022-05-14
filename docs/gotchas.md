@@ -11,6 +11,7 @@ This page lists several "gotchas" or things that might be weird about IsaacScrip
 In the Isaac Lua environment, several enums are declared as global variables. In typical Lua code, you would just use them directly, like the following:
 
 ```lua
+-- Lua code
 local player = Isaac.GetPlayer()
 player:AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION) -- The "CollectibleType" enum is a global
 ```
@@ -22,6 +23,7 @@ Additionally, since we don't have to rely on using the official enums, the local
 Since enums are no longer global variables, you must import them in your code whenever you need to use them. For example, to write the Lua code snippet above in TypeScript:
 
 ```ts
+// TypeScript code
 import { CollectibleType } from "isaac-typescript-definitions";
 
 const player = Isaac.GetPlayer();
