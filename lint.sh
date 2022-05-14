@@ -20,16 +20,19 @@ npx eslint --max-warnings 0 src
 
 # Step 3 - Spell check every file using cspell.
 # We use "--no-progress" and "--no-summary" because we want to only output errors.
-npx cspell --no-progress --no-summary "src/**/*.ts"
+npx cspell --no-progress --no-summary
 
 # Step 4 - Check for unused imports.
 # The "--error" flag makes it return an error code of 1 if unused exports are found.
 npx ts-prune --error
 
-# Step 5 - Check for gitignore updates from GitHub.
-tail -n +6 .gitignore > gitignore-template-local
-curl https://raw.githubusercontent.com/github/gitignore/master/Node.gitignore --output gitignore-template-github --silent
-diff gitignore-template-local gitignore-template-github
-rm -f gitignore-template-local gitignore-template-github
+# Step 5 - Check for base file updates.
+bash "$DIR/check-file-updates.sh"
+
+# Step 6 - Check for orphaned words.
+bash "$DIR/check-orphaned-words.sh"
+
+# Step 7 - Check for gitignore updates from GitHub.
+bash "$DIR/check-gitignore.sh"
 
 echo "Successfully linted in $SECONDS seconds."

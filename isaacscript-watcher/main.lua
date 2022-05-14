@@ -46,7 +46,7 @@ end
 
 -- ModCallbacks.MC_POST_RENDER (2)
 function IsaacScriptWatcher:PostRender()
-  -- Don't do anything while the gade is fading in to prevent crashes.
+  -- Don't do anything while fading in to a new run to prevent crashes.
   if game:GetFrameCount() < 1 then
     return
   end

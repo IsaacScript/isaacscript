@@ -52,7 +52,7 @@ export function createMod(
 }
 
 function makeSubdirectories(projectPath: string, verbose: boolean) {
-  // The "src" directory is created during copying of static files
+  // The "src" directory is created during copying of static files.
   for (const subdirectory of ["mod"]) {
     const srcPath = path.join(projectPath, subdirectory);
     file.makeDir(srcPath, verbose);
@@ -69,6 +69,12 @@ function copyStaticFiles(projectPath: string, verbose: boolean) {
       file.copy(templateFilePath, destinationFilePath, verbose);
     }
   });
+
+  // Rename ".cspell.json.template" to ".cspell.json.template". (If it is kept as ".cspell.json",
+  // then local spell checking will fail.)
+  const cSpellConfigPath = path.join(projectPath, ".cspell.json.template");
+  const correctCSpellConfigPath = path.join(projectPath, ".cspell.json");
+  file.rename(cSpellConfigPath, correctCSpellConfigPath, verbose);
 }
 
 /** Copy files that need to have text replaced inside of them. */

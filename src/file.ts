@@ -160,6 +160,31 @@ export function read(filePath: string, verbose: boolean): string {
   return fileContents;
 }
 
+export function rename(
+  srcPath: string,
+  dstPath: string,
+  verbose: boolean,
+): void {
+  if (verbose) {
+    console.log(`Renaming: ${srcPath} --> ${dstPath}`);
+  }
+
+  try {
+    fs.renameSync(srcPath, dstPath);
+  } catch (err) {
+    error(
+      `Failed to rename "${chalk.green(srcPath)}" to "${chalk.green(
+        dstPath,
+      )}":`,
+      err,
+    );
+  }
+
+  if (verbose) {
+    console.log(`Renamed: ${srcPath} --> ${dstPath}`);
+  }
+}
+
 export function touch(filePath: string, verbose: boolean): void {
   if (verbose) {
     console.log(`Touching: ${filePath}`);
