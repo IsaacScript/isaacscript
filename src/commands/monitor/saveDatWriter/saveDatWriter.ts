@@ -41,7 +41,7 @@ function init(verbose: boolean) {
 function onMessage(type: SaveDatMessageType, data: string, numRetries = 0) {
   const saveDat = readSaveDatFromDisk(VERBOSE);
   if (saveDat.length > MAX_MESSAGES) {
-    // If IsaacScript is running and
+    // If IsaacScript is running and:
     // - the game is not open
     // - or the game is open but the IsaacScript Watcher mod is disabled
     //

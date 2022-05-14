@@ -13,12 +13,12 @@ export function msg(data: string): void {
       continue;
     }
 
-    // Ignore the final message from tstl upon exiting the program
+    // Ignore the final message from tstl upon exiting the program.
     if (trimmedLine === "Terminate batch job (Y/N)?") {
       return;
     }
 
-    // Add a time prefix
+    // Add a time prefix.
     const formattedLine = `[${getTime()}] ${trimmedLine}`;
 
     sendMsgToSaveDatWriter({
@@ -27,7 +27,7 @@ export function msg(data: string): void {
     });
 
     // We also print the message to standard out so that the end-user can choose between reading
-    // tstl errors from the IsaacScript terminal window or from looking at the in-game output
+    // tstl errors from the IsaacScript terminal window or from looking at the in-game output.
     printMsgToStandardOut(formattedLine);
   }
 }

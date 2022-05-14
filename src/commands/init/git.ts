@@ -61,7 +61,7 @@ export async function promptGitHubRepoOrGitRemoteURL(
       }
 
       // Assume that since they do not want to connect this project to the existing GitHub
-      // repository, they do not want to initialize a remote Git URL at all
+      // repository, they do not want to initialize a remote Git URL at all.
       return undefined;
     }
 
@@ -83,7 +83,7 @@ export async function promptGitHubRepoOrGitRemoteURL(
     }
 
     // Assume that since they do not want to create a new GitHub repository, they do not want to
-    // initialize a remote Git URL at all
+    // initialize a remote Git URL at all.
     return undefined;
   }
 
