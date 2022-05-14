@@ -8,5 +8,6 @@ import { SaveData } from "../../types/private/SaveData";
  * debugging. (TSTL Maps don't expose the map keys as normal keys.)
  */
 export const saveDataMap = new LuaTable<string, SaveData>();
+
 export const saveDataDefaultsMap = new LuaTable<string, SaveData>();
 export const saveDataConditionalFuncMap = new Map<string, () => boolean>();

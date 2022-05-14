@@ -36,4 +36,10 @@ npx cspell --no-progress --no-summary "*.md"
 # end-users
 npx ts-prune --error --ignore index.ts
 
+# Step 5 - Check for orphaned words.
+bash "$DIR/check-orphaned-words.sh"
+
+# Step 6 - Check for base file updates.
+bash "$DIR/check-file-updates.sh"
+
 echo "Successfully linted in $SECONDS seconds."

@@ -1,4 +1,3 @@
-/* eslint-disable sort-exports/sort-exports */
 /* cspell:disable */
 
 import { CollectibleType } from "isaac-typescript-definitions";

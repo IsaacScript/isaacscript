@@ -1,5 +1,3 @@
-/* eslint-disable sort-exports/sort-exports */
-
 import { RoomShape } from "isaac-typescript-definitions";
 
 export const ONE_BY_ONE_CONTENTS_WIDTH = 13;

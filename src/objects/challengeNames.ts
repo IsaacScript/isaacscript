@@ -1,5 +1,3 @@
-/* eslint-disable sort-exports/sort-exports */
-
 import { Challenge } from "isaac-typescript-definitions";
 
 export const DEFAULT_CHALLENGE_NAME = "Unknown";

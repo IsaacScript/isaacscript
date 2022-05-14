@@ -1,5 +1,3 @@
-/* eslint-disable sort-exports/sort-exports */
-
 import { PlayerType } from "isaac-typescript-definitions";
 
 export const DEFAULT_CHARACTER_NAME = "Unknown";

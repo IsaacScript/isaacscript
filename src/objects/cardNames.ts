@@ -1,5 +1,3 @@
-/* eslint-disable sort-exports/sort-exports */
-
 import { Card } from "isaac-typescript-definitions";
 
 export const DEFAULT_CARD_NAME = "Unknown";

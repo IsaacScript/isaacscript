@@ -1,23 +1,23 @@
+- lint rule - double space between word
+
+- trophy can move to isaacscript common for respawning purposes
+  - when respawning, don't play appear animation
+
+- experiment with isaacscript monorepo
+
+- make test linter rule to find single line non-complete sentences
+
 - remove optional feature for custom collectible icons such as 20/20
 
 - redo docs so that function examples are in JSDoc
   - confirm that POST_USE_CARD and POST_USE_PILL and POST_NPC_UPDATE and POST_FAMILIAR_UPDATE and POST_FAMILIAR_INIT are documented
   - confirm that ModCallback is documented
 
-- checkLocalWords in isaacscript-common until all valid
-
-- solve problem where double importing happens because of the `/// <reference path="types/index.d.ts" />`
-
-- write getNumCards function, should have option for modded cards and not
-- write getNumPillEffects function, should have option for modded cards and not
-
 - check extending enums with enum repeat
-
 - check spawning every entity type to see if game crashes, remove any bad enums
-
 - after enum transition is complete, search for all irange and erange to see if code can be better written with getEnumValues
-
 - check to see if implicit map/set iteration works in TSTL
+- search for all eRange replacement (from range)
 
 confirm that this works:
 
@@ -29,8 +29,6 @@ enum MyEnum {
 for (const key of getEnumKeys(MyEnum)) {
   print(key); // Will print "fourth-value", then "third-value"
 }
-
-- search for all eRange replacement (from range)
 
 CSPELL:
 - get CSPELL extension to spell check all files

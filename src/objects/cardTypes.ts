@@ -1,5 +1,3 @@
-/* eslint-disable sort-exports/sort-exports */
-
 import { Card, ItemConfigCardType } from "isaac-typescript-definitions";
 
 export const DEFAULT_CARD_TYPE = ItemConfigCardType.MODDED;

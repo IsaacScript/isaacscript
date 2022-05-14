@@ -1,5 +1,3 @@
-/* eslint-disable sort-exports/sort-exports */
-
 import { CollectibleType } from "isaac-typescript-definitions";
 
 export const DEFAULT_COLLECTIBLE_NAME = "Unknown";

@@ -1,5 +1,3 @@
-/* eslint-disable sort-exports/sort-exports */
-
 import {
   BigHornVariant,
   ChubVariant,

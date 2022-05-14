@@ -1,5 +1,3 @@
-/* eslint-disable sort-exports/sort-exports */
-
 import { CoinSubType } from "isaac-typescript-definitions";
 
 export const DEFAULT_COIN_VALUE = 1;
