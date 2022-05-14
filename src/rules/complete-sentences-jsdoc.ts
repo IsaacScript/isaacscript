@@ -1,10 +1,6 @@
 import { TSESTree } from "@typescript-eslint/types";
 import { TSESLint } from "@typescript-eslint/utils";
-import {
-  getMessageIDFromSentenceKind,
-  getSentenceKind,
-  isSpecialComment,
-} from "../comments";
+import { getMessageIDFromSentenceKind, getSentenceKind } from "../comments";
 import { getJSDocComments, getTextBlocksFromJSDocComment } from "../jsdoc";
 import { createRule, hasURL } from "../utils";
 
@@ -68,11 +64,6 @@ export const completeSentencesJSDoc = createRule<Options, MessageIds>({
           nextTextBlock !== undefined &&
           hasURL(nextTextBlock.text)
         ) {
-          continue;
-        }
-
-        // Special comments are whitelisted.
-        if (isSpecialComment(text)) {
           continue;
         }
 

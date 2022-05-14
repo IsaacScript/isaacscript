@@ -199,6 +199,16 @@ export function getSentenceKind(originalText: string): SentenceKind {
     return SentenceKind.NonSentence;
   }
 
+  // Ignore special comments.
+  if (isSpecialComment(text)) {
+    return SentenceKind.NonSentence;
+  }
+
+  // Ignore dates.
+  if (isDate(text)) {
+    return SentenceKind.NonSentence;
+  }
+
   // Ignore comments that end with a number in parenthesis, since this indicates some kind of
   // expression.
   if (/ \(\d+\)$/.test(originalText.trimEnd())) {
@@ -248,6 +258,57 @@ export function getSentenceKind(originalText: string): SentenceKind {
   }
 
   return SentenceKind.Complete;
+}
+
+const MONTHS_SET = new Set([
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+]);
+
+const ORDINALS_SET = new Set(["st", "nd", "rd", "th"]);
+
+function isDate(text: string) {
+  text = text.trim();
+
+  const match1 = text.match(/^(\w+) \d+(\w+)$/);
+  if (match1 !== null) {
+    const month = match1[1];
+    const ordinal = match1[2];
+    if (
+      month !== undefined &&
+      MONTHS_SET.has(month) &&
+      ordinal !== undefined &&
+      ORDINALS_SET.has(ordinal)
+    ) {
+      return true;
+    }
+  }
+
+  const match2 = text.match(/^(\w+) \d+(\w+), \d+$/);
+  if (match2 !== null) {
+    const month = match2[1];
+    const ordinal = match2[2];
+    if (
+      month !== undefined &&
+      MONTHS_SET.has(month) &&
+      ordinal !== undefined &&
+      ORDINALS_SET.has(ordinal)
+    ) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 /** In this context, a string with a hyphen represents a bullet point. */

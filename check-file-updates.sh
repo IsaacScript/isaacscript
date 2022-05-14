@@ -8,6 +8,7 @@ FILES_TO_CHECK=(
   ".gitattributes"
   ".prettierrc.js:.prettierrc-base.js"
   ".prettierignore:.prettierignore-base"
+  "check-orphaned-words.sh"
 )
 
 set -e # Exit on any errors

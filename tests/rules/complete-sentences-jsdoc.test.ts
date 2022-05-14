@@ -419,6 +419,13 @@ valid.push({
   `,
 });
 
+valid.push({
+  name: "Comment with date",
+  code: `
+/** January 1st */
+  `,
+});
+
 ruleTester.run("complete-sentences-jsdoc", completeSentencesJSDoc, {
   valid,
   invalid,
