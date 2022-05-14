@@ -24,6 +24,7 @@
     "**/mod/main.lua": true,
     "**/*.png": true,
     "**/*.wav": true,
+    "dist/**": true,
   },
 
   // -----------------

@@ -14,12 +14,27 @@
   // Automatically removing all trailing whitespace when saving a file.
   "files.trimTrailingWhitespace": true,
 
+  // Configure glob patterns for excluding files and folders in full text searches and quick open.
+  "search.exclude": {
+    "dist/**": true,
+  },
+
   // -----------------
   // Language settings
   // -----------------
 
+  // By default, VSCode will not automatically fill-in function arguments.
+  "javascript.suggest.completeFunctionCalls": true,
+  "typescript.suggest.completeFunctionCalls": true,
+
   // Automatically run the formatter when certain files are saved.
   "[javascript]": {
+    "editor.codeActionsOnSave": ["source.fixAll.eslint"],
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+  },
+  "[typescript]": {
     "editor.codeActionsOnSave": ["source.fixAll.eslint"],
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
