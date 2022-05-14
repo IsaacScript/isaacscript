@@ -1,4 +1,4 @@
-/// <reference path="types/MusicManager.d.ts" />
+/// <reference path="types/index.d.ts" />
 
 /* eslint-disable sort-exports/sort-exports */
 
