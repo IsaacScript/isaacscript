@@ -32,7 +32,7 @@ function initCacheFlagMap() {
 export function getCollectiblesForCacheFlag(
   cacheFlag: CacheFlag,
 ): Set<CollectibleType | int> {
-  // Lazy initialize the map
+  // Lazy initialize the map.
   if (CACHE_FLAG_TO_COLLECTIBLES_MAP.size === 0) {
     initCacheFlagMap();
   }

@@ -29,10 +29,10 @@ export class ModUpgraded implements Mod {
   // ---------------
 
   AddCallback<T extends ModCallback>(
-    modCallbacks: T,
+    modCallback: T,
     ...args: AddCallbackParameter[T]
   ): void {
-    this.Mod.AddCallback(modCallbacks, ...args);
+    this.Mod.AddCallback(modCallback, ...args);
   }
 
   HasData(): boolean {
@@ -61,14 +61,14 @@ export class ModUpgraded implements Mod {
 
   // eslint-disable-next-line class-methods-use-this
   AddCallbackCustom<T extends ModCallbackCustom>(
-    modCallbacksCustom: T,
+    modCallbackCustom: T,
     ...args: AddCallbackParameterCustom[T]
   ): void {
     const callbackRegisterFunction =
-      CALLBACK_REGISTER_FUNCTIONS[modCallbacksCustom];
+      CALLBACK_REGISTER_FUNCTIONS[modCallbackCustom];
     if (callbackRegisterFunction === undefined) {
       error(
-        `Failed to find a callback registration function for custom callback: ${modCallbacksCustom}`,
+        `Failed to find a callback registration function for custom callback: ${modCallbackCustom}`,
       );
     }
 

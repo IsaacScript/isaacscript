@@ -136,7 +136,7 @@ export function willMysteriousPaperRevive(player: EntityPlayer): boolean {
   const animation = getCharacterDeathAnimationName(character);
   const deathAnimationFrames = getLastFrameOfAnimation(sprite, animation);
   const frameOfDeath = gameFrameCount + deathAnimationFrames + 1;
-  // (we add 1 because it takes one frame for the death animation to begin)
+  // (We add 1 because it takes one frame for the death animation to begin.)
 
   return frameOfDeath % 4 === 3;
 }

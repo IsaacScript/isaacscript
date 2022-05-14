@@ -22,7 +22,7 @@ export function preBerserkDeathRegister(
 /** @internal */
 export function preBerserkDeathFire(player: EntityPlayer): boolean | void {
   for (const [callback, playerVariant] of subscriptions) {
-    // Handle the optional 2nd callback argument
+    // Handle the optional 2nd callback argument.
     if (playerVariant !== undefined && playerVariant !== player.Variant) {
       continue;
     }

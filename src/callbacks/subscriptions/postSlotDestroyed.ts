@@ -22,7 +22,7 @@ export function postSlotDestroyedRegister(
 /** @internal */
 export function postSlotDestroyedFire(slot: Entity): void {
   for (const [callback, slotVariant] of subscriptions) {
-    // Handle the optional 2nd callback argument
+    // Handle the optional 2nd callback argument.
     if (slotVariant !== undefined && slotVariant !== slot.Variant) {
       continue;
     }

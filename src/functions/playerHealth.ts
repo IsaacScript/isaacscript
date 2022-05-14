@@ -105,7 +105,7 @@ export function getPlayerHealth(player: EntityPlayer): PlayerHealth {
     hearts = subPlayer.GetHearts();
   }
 
-  // This is the number of individual hearts shown in the HUD, minus heart containers
+  // This is the number of individual hearts shown in the HUD, minus heart containers.
   const extraHearts = math.ceil(soulHearts / 2) + boneHearts;
 
   // Since bone hearts can be inserted anywhere between soul hearts, we need a separate counter to
@@ -253,18 +253,18 @@ export function setPlayerHealth(
 
   removeAllPlayerHealth(player);
 
-  // Add the red heart containers
+  // Add the red heart containers.
   if (character === PlayerType.THE_SOUL && subPlayer !== undefined) {
-    // Adding health to The Soul is a special case
+    // Adding health to The Soul is a special case.
     subPlayer.AddMaxHearts(playerHealth.maxHearts, false);
   } else {
     player.AddMaxHearts(playerHealth.maxHearts, false);
   }
 
-  // Add the eternal hearts
+  // Add the eternal hearts.
   player.AddEternalHearts(playerHealth.eternalHearts);
 
-  // Add the soul / black / bone hearts
+  // Add the soul / black / bone hearts.
   let soulHeartsRemaining = playerHealth.soulHearts;
   playerHealth.soulHeartTypes.forEach((heartType, i) => {
     const isHalf =
@@ -301,7 +301,7 @@ export function setPlayerHealth(
   repeat(playerHealth.hearts, () => {
     player.AddHearts(1);
 
-    // Adding 1 heart to Tainted Magdalene will actually add two hearts
+    // Adding 1 heart to Tainted Magdalene will actually add two hearts.
     if (character === PlayerType.MAGDALENE_B) {
       player.AddHearts(-1);
     }
@@ -309,7 +309,7 @@ export function setPlayerHealth(
   player.AddGoldenHearts(playerHealth.goldenHearts);
   player.AddBrokenHearts(playerHealth.brokenHearts);
 
-  // Set the Bethany / Tainted Bethany charges
+  // Set the Bethany / Tainted Bethany charges.
   if (character === PlayerType.BETHANY) {
     player.SetSoulCharge(playerHealth.soulCharges);
   } else if (character === PlayerType.BETHANY_B) {

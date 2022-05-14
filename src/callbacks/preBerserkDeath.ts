@@ -37,7 +37,7 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
   const berserkEffect = effects.GetCollectibleEffect(CollectibleType.BERSERK);
   const numHitsRemaining = getPlayerNumHitsRemaining(player);
 
-  // If the Berserk! effect will end on the next frame and we have no hearts left
+  // If the Berserk! effect will end on the next frame and we have no hearts left.
   if (
     berserkEffect !== undefined &&
     berserkEffect.Cooldown === 1 &&

@@ -1,7 +1,9 @@
 /* eslint-disable sort-exports/sort-exports */
 
-// This provides the logic for PostGameStartedReordered, PostNewLevelReordered, and
-// PostNewRoomReordered.
+// This provides the logic for:
+// - PostGameStartedReordered
+// - PostNewLevelReordered
+// - PostNewRoomReordered
 
 // By default, callbacks fire in the following order:
 // - PostNewRoom --> PostNewLevel --> PostGameStarted
@@ -81,7 +83,7 @@ function postNewLevelVanilla() {
   const gameFrameCount = game.GetFrameCount();
 
   if (gameFrameCount === 0 && !forceNewLevel) {
-    // Wait for the PostGameStarted callback to fire
+    // Wait for the PostGameStarted callback to fire.
     return;
   }
   forceNewLevel = false;

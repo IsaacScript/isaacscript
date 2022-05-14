@@ -77,7 +77,7 @@ export function findFreePosition(
     return position;
   }
 
-  // We failed to find a free position in N iterations
+  // We failed to find a free position in N iterations.
   return room.FindFreePickupSpawnPosition(startingPosition);
 }
 

@@ -45,7 +45,7 @@ function postUpdate() {
     const oldCollidingEntities =
       v.room.collidingEntitiesMap.getAndSetDefault(gridEntityPtrHash);
 
-    // Check for new colliding entities
+    // Check for new colliding entities.
     const collidingEntities = getCollidingEntitiesWithGridEntity(gridEntity);
     for (const entity of collidingEntities) {
       const entityPtrHash = GetPtrHash(entity);
@@ -55,7 +55,7 @@ function postUpdate() {
       }
     }
 
-    // Remove old colliding entities
+    // Remove old colliding entities.
     const collidingEntitiesPtrHashes = collidingEntities.map((entity) =>
       GetPtrHash(entity),
     );

@@ -60,7 +60,7 @@ export function addRoomClearChargeToSlot(
 
   const hud = game.GetHUD();
 
-  // Find out the new charge to set on the item
+  // Find out the new charge to set on the item.
   const totalCharge = getTotalCharge(player, activeSlot);
   const chargesToAdd = getNumChargesToAdd(
     player,
@@ -114,11 +114,11 @@ function getNumChargesToAdd(
   }
 
   if (roomShape >= RoomShape.SHAPE_2x2 && !ignoreBigRoomDoubleCharge) {
-    // 2x2 rooms and L rooms should grant 2 charges
+    // 2x2 rooms and L rooms should grant 2 charges.
     return 2;
   }
 
-  // Clearing a room grants 1 charge by default
+  // Clearing a room grants 1 charge by default.
   return 1;
 }
 
@@ -222,11 +222,11 @@ function shouldPlayFullRechargeSound(
   const maxCharges = getCollectibleMaxCharges(activeItem);
 
   if (!hasBattery) {
-    // Play the full recharge sound if we are now fully charged
+    // Play the full recharge sound if we are now fully charged.
     return !player.NeedsCharge(activeSlot);
   }
 
-  // Play the full recharge sound if we are now fully charged or we are exactly half-way charged
+  // Play the full recharge sound if we are now fully charged or we are exactly half-way charged.
   return (
     !player.NeedsCharge(activeSlot) ||
     (activeCharge === maxCharges && batteryCharge === 0)

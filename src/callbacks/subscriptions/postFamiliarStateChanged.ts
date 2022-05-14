@@ -30,7 +30,7 @@ export function postFamiliarStateChangedFire(
   currentState: int,
 ): void {
   for (const [callback, familiarVariant] of subscriptions) {
-    // Handle the optional 2nd callback argument
+    // Handle the optional 2nd callback argument.
     if (familiarVariant !== undefined && familiarVariant !== familiar.Variant) {
       continue;
     }

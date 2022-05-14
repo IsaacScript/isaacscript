@@ -30,7 +30,7 @@ export function postItemDischargeFire(
   activeSlot: ActiveSlot,
 ): void {
   for (const [callback, callbackCollectibleType] of subscriptions) {
-    // Handle the optional 2nd callback argument
+    // Handle the optional 2nd callback argument.
     if (
       callbackCollectibleType !== undefined &&
       callbackCollectibleType !== collectibleType

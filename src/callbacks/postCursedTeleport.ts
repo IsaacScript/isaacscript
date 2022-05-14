@@ -77,7 +77,7 @@ function setDamageFrame(tookDamage: Entity, damageFlags: BitFlags<DamageFlag>) {
     return;
   }
 
-  // Don't do anything if we already activated the callback on this frame
+  // Don't do anything if we already activated the callback on this frame.
   const trackingArray = mapGetPlayer(v.run.playersDamageFrameMap, player);
   if (trackingArray !== undefined) {
     const [lastDamageFrame, callbackFiredOnThisFrame] = trackingArray;
@@ -86,7 +86,7 @@ function setDamageFrame(tookDamage: Entity, damageFlags: BitFlags<DamageFlag>) {
     }
   }
 
-  // Don't do anything if this could be a Sacrifice Room teleport
+  // Don't do anything if this could be a Sacrifice Room teleport.
   if (isPotentialNaturalTeleportFromSacrificeRoom(damageFlags)) {
     return;
   }
@@ -128,7 +128,7 @@ function postPlayerRenderPlayer(player: EntityPlayer) {
     return;
   }
 
-  // Retrieve information about this player
+  // Retrieve information about this player.
   const trackingArray = mapGetPlayer(v.run.playersDamageFrameMap, player);
   if (trackingArray === undefined) {
     return;
@@ -139,7 +139,7 @@ function postPlayerRenderPlayer(player: EntityPlayer) {
     return;
   }
 
-  // Do nothing if the callback already fired on this frame
+  // Do nothing if the callback already fired on this frame.
   if (callbackActivatedOnThisFrame) {
     return;
   }
@@ -155,13 +155,13 @@ function playerIsTeleportingFromCursedTeleport(
   player: EntityPlayer,
   lastDamageFrame: int,
 ) {
-  // Check to see if this is the frame that we last took damage
+  // Check to see if this is the frame that we last took damage.
   const gameFrameCount = game.GetFrameCount();
   if (gameFrameCount !== lastDamageFrame) {
     return false;
   }
 
-  // Check to see if this is the 1st frame that we are teleporting
+  // Check to see if this is the 1st frame that we are teleporting.
   const sprite = player.GetSprite();
   if (
     !sprite.IsPlaying("TeleportUp") ||
@@ -170,12 +170,10 @@ function playerIsTeleportingFromCursedTeleport(
     return false;
   }
 
-  // Cursed Eye
   if (player.HasCollectible(CollectibleType.CURSED_EYE)) {
     return true;
   }
 
-  // Cursed Skull
   const numHitsRemaining = getPlayerNumHitsRemaining(player);
   if (player.HasTrinket(TrinketType.CURSED_SKULL) && numHitsRemaining === 1) {
     return true;

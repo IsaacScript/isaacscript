@@ -17,7 +17,7 @@ function initCollectibleSet() {
 
 /** Returns a set containing every valid collectible type in the game, including modded items. */
 export function getCollectibleSet(): Set<CollectibleType | int> {
-  // Lazy initialize the set
+  // Lazy initialize the set.
   if (COLLECTIBLE_SET.size === 0) {
     initCollectibleSet();
   }

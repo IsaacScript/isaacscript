@@ -52,7 +52,7 @@ export function getDebugPrependString(
   numParentFunctions = 3,
 ): string {
   if (debug !== undefined) {
-    // The "--luadebug" launch flag is enabled
+    // The "--luadebug" launch flag is enabled.
     const debugTable = debug.getinfo(numParentFunctions);
     if (debugTable !== undefined) {
       return `${debugTable.name}:${debugTable.linedefined} - ${msg}`;
@@ -60,7 +60,7 @@ export function getDebugPrependString(
   }
 
   if (getParentFunctionDescription !== undefined) {
-    // The Racing+ sandbox is enabled
+    // The Racing+ sandbox is enabled.
     return `${getParentFunctionDescription(numParentFunctions + 1)} - ${msg}`;
   }
 
@@ -142,7 +142,7 @@ export function logEntities(
   const entities = getEntities();
   let numMatchedEntities = 0;
   entities.forEach((entity, i) => {
-    // If a filter was specified, exclude all entities outside of the filter
+    // If a filter was specified, exclude all entities outside of the filter.
     if (entityTypeFilter !== undefined && entity.Type !== entityTypeFilter) {
       return;
     }
@@ -330,7 +330,7 @@ export function logGridEntities(
     const gridEntityVariant = gridEntity.GetVariant();
     const gridEntityDesc = gridEntity.GetSaveState();
 
-    // If a filter was specified, exclude all entities outside of the filter
+    // If a filter was specified, exclude all entities outside of the filter.
     if (
       gridEntityTypeFilter !== undefined &&
       gridEntityType !== gridEntityTypeFilter

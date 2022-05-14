@@ -34,7 +34,7 @@ function postKnifeRender(knife: EntityKnife) {
     return;
   }
 
-  // The PostKnifeRender callback cannot be registered with knife variants for some reason
+  // The PostKnifeRender callback cannot be registered with knife variants for some reason.
   if (knife.Variant !== KnifeVariant.BONE_CLUB) {
     return;
   }

@@ -44,7 +44,7 @@ export function devilAngel(useDevil: boolean): void {
     const roomType = devilAngelRoomData.Type;
     const conflictingType = useDevil ? RoomType.ANGEL : RoomType.DEVIL;
     if (roomType === conflictingType) {
-      // Delete the room data, which will allow the "Level.InitializeDevilAngelRoom" method to work
+      // Delete the room data, which will allow the `Level.InitializeDevilAngelRoom` method to work.
       const roomDescriptor = getRoomDescriptor(GridRoom.DEVIL);
       roomDescriptor.Data = undefined;
     }

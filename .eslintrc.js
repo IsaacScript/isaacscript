@@ -20,7 +20,7 @@ module.exports = {
   rules: {
     // Documentation:
     // https://github.com/jrdrg/eslint-plugin-sort-exports
-    // Not defined in parent configs
+    // Not defined in parent configs.
     "sort-exports/sort-exports": [
       "error",
       {

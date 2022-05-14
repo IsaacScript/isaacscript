@@ -34,7 +34,7 @@ export function postPlayerFatalDamageFire(
   damageCountdownFrames: int,
 ): boolean | void {
   for (const [callback, playerVariant] of subscriptions) {
-    // Handle the optional 2nd callback argument
+    // Handle the optional 2nd callback argument.
     if (playerVariant !== undefined && playerVariant !== player.Variant) {
       continue;
     }

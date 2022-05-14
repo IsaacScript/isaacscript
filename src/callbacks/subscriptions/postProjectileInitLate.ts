@@ -22,7 +22,7 @@ export function postProjectileInitLateRegister(
 /** @internal */
 export function postProjectileInitLateFire(projectile: EntityProjectile): void {
   for (const [callback, projectileVariant] of subscriptions) {
-    // Handle the optional 2nd callback argument
+    // Handle the optional 2nd callback argument.
     if (
       projectileVariant !== undefined &&
       projectileVariant !== projectile.Variant

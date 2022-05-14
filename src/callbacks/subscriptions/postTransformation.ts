@@ -30,7 +30,7 @@ export function postTransformationFire(
   hasForm: boolean,
 ): void {
   for (const [callback, callbackPlayerForm] of subscriptions) {
-    // Handle the optional 2nd callback argument
+    // Handle the optional 2nd callback argument.
     if (callbackPlayerForm !== undefined && callbackPlayerForm !== playerForm) {
       continue;
     }

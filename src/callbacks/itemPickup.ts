@@ -1,4 +1,6 @@
-// This provides the logic for PreItemPickup and PostItemPickup
+// This provides the logic for:
+// - PreItemPickup
+// - PostItemPickup
 
 import { CollectibleType } from "isaac-typescript-definitions";
 import { DefaultMap } from "../classes/DefaultMap";
@@ -77,7 +79,7 @@ function queueEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
 function queueNotEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
   const queuedItem = player.QueuedItem.Item;
   if (queuedItem === undefined) {
-    // This should never happen, since the "EntityPlayer.IsItemQueueEmpty" method returned true
+    // This should never happen, since the "EntityPlayer.IsItemQueueEmpty" method returned true.
     return;
   }
 
@@ -85,7 +87,7 @@ function queueNotEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
     queuedItem.Type !== pickingUpItem.itemType ||
     queuedItem.ID !== pickingUpItem.subType
   ) {
-    // Record which item we are picking up
+    // Record which item we are picking up.
     pickingUpItem.itemType = queuedItem.Type;
     pickingUpItem.subType = queuedItem.ID;
 

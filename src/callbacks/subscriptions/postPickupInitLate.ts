@@ -22,7 +22,7 @@ export function postPickupInitLateRegister(
 /** @internal */
 export function postPickupInitLateFire(pickup: EntityPickup): void {
   for (const [callback, pickupVariant] of subscriptions) {
-    // Handle the optional 2nd callback argument
+    // Handle the optional 2nd callback argument.
     if (pickupVariant !== undefined && pickupVariant !== pickup.Variant) {
       continue;
     }

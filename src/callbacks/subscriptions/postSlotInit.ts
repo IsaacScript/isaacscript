@@ -22,7 +22,7 @@ export function postSlotInitRegister(
 /** @internal */
 export function postSlotInitFire(slot: Entity): void {
   for (const [callback, slotVariant] of subscriptions) {
-    // Handle the optional 2nd callback argument
+    // Handle the optional 2nd callback argument.
     if (slotVariant !== undefined && slotVariant !== slot.Variant) {
       continue;
     }

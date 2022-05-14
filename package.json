@@ -25,6 +25,7 @@
     "dist/**/*.d.ts"
   ],
   "dependencies": {
+    "eslint-plugin-isaacscript": "file:../eslint-plugin-isaacscript",
     "isaac-typescript-definitions": "^2.0.10"
   },
   "devDependencies": {

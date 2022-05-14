@@ -52,7 +52,7 @@ export function getPlayerTrinketsForCacheFlag(
 export function getTrinketsForCacheFlag(
   cacheFlag: CacheFlag,
 ): Set<TrinketType | int> {
-  // Lazy initialize the map
+  // Lazy initialize the map.
   if (CACHE_FLAG_TO_TRINKETS_MAP.size === 0) {
     initCacheFlagMap();
   }

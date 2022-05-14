@@ -1,4 +1,6 @@
-// This provides the logic for PostFlip and PostFirstFlip
+// This provides the logic for:
+// - PostFlip
+// - PostFirstFlip
 
 import {
   CollectibleType,
@@ -34,7 +36,7 @@ function hasSubscriptions() {
   return postFlipHasSubscriptions() || postFirstFlipHasSubscriptions();
 }
 
-// ModCallbacks.USE_ITEM (3)
+// ModCallback.USE_ITEM (3)
 // CollectibleType.FLIP (711)
 function useItemFlip(
   _collectibleType: CollectibleType | int,

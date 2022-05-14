@@ -22,7 +22,7 @@ export function postEffectInitLateRegister(
 /** @internal */
 export function postEffectInitLateFire(effect: EntityEffect): void {
   for (const [callback, effectVariant] of subscriptions) {
-    // Handle the optional 2nd callback argument
+    // Handle the optional 2nd callback argument.
     if (effectVariant !== undefined && effectVariant !== effect.Variant) {
       continue;
     }

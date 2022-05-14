@@ -179,7 +179,7 @@ function getNumBossSegments(
   switch (entityType) {
     // 28
     case EntityType.CHUB: {
-      // Chub is always composed of 3 segments
+      // Chub is always composed of 3 segments.
       return 3;
     }
 
@@ -190,7 +190,7 @@ function getNumBossSegments(
 
     // 237
     case EntityType.GURGLING: {
-      // Gurglings & Turdlings are always encountered in groups of 2
+      // Gurglings & Turdlings are always encountered in groups of 2.
       return 2;
     }
 

@@ -12,11 +12,11 @@ const LINE_SEPARATOR = "\n";
  * won't be properly removed.
  */
 const USELESS_TRACEBACK_MESSAGES: readonly string[] = [
-  // The second line of the traceback will always be the "getTraceback" function
+  // The second line of the traceback will always be the "getTraceback" function.
   "in upvalue 'getTraceback'",
   "in function 'sandbox.GetTraceback'",
 
-  // The third line of the traceback will always be a line within the "errorWithTraceback" function
+  // The third line of the traceback will always be a line within the "errorWithTraceback" function.
   "in function 'error'",
 ];
 
@@ -33,12 +33,12 @@ let vanillaError: ErrorFunction | undefined;
  * @internal
  */
 export function patchErrorFunction(): void {
-  // Only replace the function if the "--luadebug" launch flag is enabled
+  // Only replace the function if the "--luadebug" launch flag is enabled.
   if (!isLuaDebugEnabled()) {
     return;
   }
 
-  // Do nothing if the function was already patched
+  // Do nothing if the function was already patched.
   if (__PATCHED_ERROR !== undefined) {
     return;
   }
@@ -66,7 +66,7 @@ function errorWithTraceback(
   message += "\n";
   message += slimmedTracebackOutput;
 
-  // We add one to the level so that the error message appears to originate at the parent function
+  // We add one to the level so that the error message appears to originate at the parent function.
   return vanillaError(message, level + 1);
 }
 

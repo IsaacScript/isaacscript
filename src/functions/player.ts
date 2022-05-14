@@ -429,7 +429,7 @@ export function getPlayerLastHeart(player: EntityPlayer): HealthType {
       return HealthType.BLACK;
     }
 
-    // If it is not a black heart, it must be a soul heart
+    // If it is not a black heart, it must be a soul heart.
     return HealthType.SOUL;
   }
 
@@ -497,7 +497,7 @@ export function getPlayerMaxHeartContainers(player: EntityPlayer): int {
 export function getPlayerName(player: EntityPlayer): string {
   const character = player.GetPlayerType();
 
-  // Account for modded characters
+  // Account for modded characters.
   return isModdedPlayer(player)
     ? player.GetName()
     : getCharacterName(character);
@@ -886,10 +886,10 @@ export function setActiveItem(
         player.RemoveCollectible(secondaryCollectibleType);
       }
 
-      // Add the new item, which will go to the primary slot
+      // Add the new item, which will go to the primary slot.
       player.AddCollectible(secondaryCollectibleType, charge, false);
 
-      // Add back the original primary item, if any
+      // Add back the original primary item, if any.
       if (primaryCollectibleType !== CollectibleType.NULL) {
         player.AddCollectible(primaryCollectibleType, primaryCharge, false);
       }
@@ -937,7 +937,7 @@ export function setBlindfold(
     player.ChangePlayerType(character);
     game.Challenge = challenge;
 
-    // The costume is applied automatically
+    // The costume is applied automatically.
     if (!modifyCostume) {
       player.TryRemoveNullCostume(NullItemID.BLINDFOLD);
     }

@@ -20,7 +20,7 @@ function tryEncode(this: void, table: unknown) {
 export function jsonDecode(jsonString: string): LuaTable<AnyNotNil, unknown> {
   const [ok, luaTableOrErrMsg] = pcall(tryDecode, jsonString);
   if (!ok) {
-    // Instead of throwing an error, continue execution of the callback
+    // Instead of throwing an error, continue execution of the callback.
     logError(`Failed to convert the JSON string to a Lua table: ${jsonString}`);
     return new LuaTable();
   }

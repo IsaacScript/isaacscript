@@ -42,18 +42,18 @@ export function getLastFrameOfAnimation(
   sprite: Sprite,
   animation?: string,
 ): int {
-  // Record the current sprite status
+  // Record the current sprite status.
   const currentAnimation = sprite.GetAnimation();
   const currentFrame = sprite.GetFrame();
 
-  // Get the final frame
+  // Get the final frame.
   if (animation !== undefined && animation !== currentAnimation) {
     sprite.SetAnimation(animation);
   }
   sprite.SetLastFrame();
   const finalFrame = sprite.GetFrame();
 
-  // Set the sprite back to the way it was
+  // Set the sprite back to the way it was.
   if (animation !== undefined && animation !== currentAnimation) {
     sprite.Play(currentAnimation, true);
   }

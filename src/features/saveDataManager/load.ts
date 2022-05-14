@@ -14,11 +14,11 @@ export function loadFromDisk(
   oldSaveData: LuaTable<string, SaveData>,
 ): void {
   if (!mod.HasData()) {
-    // There is no "save#.dat" file for this save slot
+    // There is no "save#.dat" file for this save slot.
     return;
   }
 
-  // First, read the "save#.dat" file into a Lua table
+  // First, read the "save#.dat" file into a Lua table.
   const jsonString = readSaveDatFile(mod);
   const newSaveData = jsonDecode(jsonString);
 
@@ -26,7 +26,7 @@ export function loadFromDisk(
     log('Converted data from the "save#.dat" to a Lua table.');
   }
 
-  // Second, iterate over all the fields of the new table
+  // Second, iterate over all the fields of the new table.
   for (const [key, value] of pairs(newSaveData)) {
     // All elements of loaded save data should have keys that are strings equal to the name of the
     // subscriber/feature. Ignore elements with other types of keys.
@@ -41,7 +41,7 @@ export function loadFromDisk(
       continue;
     }
 
-    // Ignore elements that represent subscriptions that no longer exist in the current save data
+    // Ignore elements that represent subscriptions that no longer exist in the current save data.
     const oldSaveDataForSubscriber = oldSaveData.get(key);
     if (oldSaveDataForSubscriber === undefined) {
       continue;

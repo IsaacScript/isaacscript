@@ -57,7 +57,7 @@ function blacklistEntryExists(
       incomingFamiliarVariant === familiarVariant &&
       familiarSubType === incomingFamiliarSubType
     ) {
-      // There is an entry that matches the variant and sub-type exactly
+      // There is an entry that matches the variant and sub-type exactly.
       return true;
     }
 
@@ -65,7 +65,7 @@ function blacklistEntryExists(
       incomingFamiliarVariant === familiarVariant &&
       familiarSubType === undefined
     ) {
-      // There is an entry that matches all sub-types for this variant
+      // There is an entry that matches all sub-types for this variant.
       return true;
     }
   }

@@ -28,7 +28,7 @@ function postTearUpdate(tear: EntityTear) {
     return;
   }
 
-  // This callback fires on frame 1
+  // This callback fires on frame 1.
   if (tear.FrameCount === 0) {
     return;
   }

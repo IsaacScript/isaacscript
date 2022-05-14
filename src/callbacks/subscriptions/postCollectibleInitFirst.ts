@@ -22,7 +22,7 @@ export function postCollectibleInitFirstRegister(
 /** @internal */
 export function postCollectibleInitFirstFire(collectible: EntityPickup): void {
   for (const [callback, collectibleType] of subscriptions) {
-    // Handle the optional 2nd callback argument
+    // Handle the optional 2nd callback argument.
     if (
       collectibleType !== undefined &&
       collectibleType !== collectible.SubType

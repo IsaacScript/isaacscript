@@ -6,12 +6,12 @@
  * constructor during deserialization.
  */
 export enum SerializationBrand {
-  // Specific TSTL class brands
+  // Specific TSTL class brands:
   DEFAULT_MAP = "__TSTL_DEFAULT_MAP",
   MAP = "__TSTL_MAP",
   SET = "__TSTL_SET",
 
-  // Specific Isaac API class brands
+  // Specific Isaac API class brands:
   COLOR = "__COLOR",
   K_COLOR = "__K_COLOR",
   RNG = "__RNG",

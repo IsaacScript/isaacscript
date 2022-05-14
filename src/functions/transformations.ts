@@ -26,9 +26,9 @@ const TRANSFORMATION_TO_TAG_MAP: ReadonlyMap<PlayerForm, ItemConfigTag> =
     [PlayerForm.LEVIATHAN, ItemConfigTag.DEVIL], // 8
     [PlayerForm.OH_CRAP, ItemConfigTag.POOP], // 9
     [PlayerForm.BOOKWORM, ItemConfigTag.BOOK], // 10
-    // PlayerForm.ADULTHOOD (11) is based on pill usage
+    // PlayerForm.ADULTHOOD (11) is based on pill usage.
     [PlayerForm.SPIDER_BABY, ItemConfigTag.SPIDER], // 12
-    // PlayerForm.STOMPY (13) is based on size
+    // PlayerForm.STOMPY (13) is based on size.
   ]);
 
 const TRANSFORMATIONS_THAT_GRANT_FLYING: ReadonlySet<PlayerForm> = new Set([

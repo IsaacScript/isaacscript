@@ -111,7 +111,7 @@ export function saveDataManager(
     );
   }
 
-  // Add the new save data to the map
+  // Add the new save data to the map.
   saveDataMap.set(key, v);
 
   // If the only key in the save data is "room", then we don't have to worry about saving this data
@@ -131,7 +131,7 @@ export function saveDataManager(
   ) as SaveData;
   saveDataDefaultsMap.set(key, saveDataCopy);
 
-  // Store the conditional function for later, if present
+  // Store the conditional function for later, if present.
   if (conditionalFunc !== undefined) {
     saveDataConditionalFuncMap.set(key, conditionalFunc);
   }

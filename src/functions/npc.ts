@@ -142,7 +142,7 @@ export function isRaglingDeathPatch(npc: EntityNPC): boolean {
   return (
     npc.Type === EntityType.RAGLING &&
     npc.Variant === RaglingVariant.RAG_MANS_RAGLING &&
-    // They go to STATE_SPECIAL when they are patches on the ground
+    // They go to `STATE_SPECIAL` when they are patches on the ground.
     npc.State === NpcState.SPECIAL
   );
 }

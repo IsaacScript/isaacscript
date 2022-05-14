@@ -61,7 +61,7 @@ export function collectibleHasTag(
 export function getCollectibleTypesWithTag(
   itemConfigTag: ItemConfigTag,
 ): Set<CollectibleType | int> {
-  // Lazy initialize the map
+  // Lazy initialize the map.
   if (TAG_TO_COLLECTIBLE_TYPES_MAP.size === 0) {
     initTagMap();
   }

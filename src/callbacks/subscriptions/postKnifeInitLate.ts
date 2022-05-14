@@ -22,7 +22,7 @@ export function postKnifeInitLateRegister(
 /** @internal */
 export function postKnifeInitLateFire(knife: EntityKnife): void {
   for (const [callback, knifeVariant] of subscriptions) {
-    // Handle the optional 2nd callback argument
+    // Handle the optional 2nd callback argument.
     if (knifeVariant !== undefined && knifeVariant !== knife.Variant) {
       continue;
     }

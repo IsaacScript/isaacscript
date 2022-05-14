@@ -123,11 +123,11 @@ export interface AddCallbackParameterCustom {
   [ModCallbackCustom.PRE_NEW_LEVEL]: PreNewLevelRegisterParameters;
 }
 
-// Make copies of the objects we need to verify so that we can easily re-use the code block below
+// Make copies of the objects we need to verify so that we can easily re-use the code block below.
 type EnumToCheck = ModCallbackCustom;
 type InterfaceToCheck = AddCallbackParameterCustom;
 
-// Throw a compiler error if InterfaceToCheck does not match the values of EnumToCheck
+// Throw a compiler error if InterfaceToCheck does not match the values of EnumToCheck.
 // From: https://stackoverflow.com/questions/51829842
 type KeysMissing = Exclude<EnumToCheck, keyof InterfaceToCheck>;
 type ExtraKeys = {

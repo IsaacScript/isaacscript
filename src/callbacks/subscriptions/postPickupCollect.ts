@@ -25,7 +25,7 @@ export function postPickupCollectFire(
   player: EntityPlayer,
 ): void {
   for (const [callback, pickupVariant] of subscriptions) {
-    // Handle the optional 2nd callback argument
+    // Handle the optional 2nd callback argument.
     if (pickupVariant !== undefined && pickupVariant !== pickup.Variant) {
       continue;
     }

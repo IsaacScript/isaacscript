@@ -278,8 +278,8 @@ export function isSecretRoomDoor(door: GridEntityDoor): boolean {
 export function lockDoor(door: GridEntityDoor): void {
   const level = game.GetLevel();
 
+  // We can't use the "getRoomDescriptor" function since it will cause a dependency cycle.
   const roomDescriptor = level.GetRoomByIdx(door.TargetRoomIndex);
-  // (we can't use the "getRoomDescriptor" function since it will cause a dependency cycle)
   roomDescriptor.VisitedCount = 0;
 
   door.SetVariant(DoorVariant.LOCKED);

@@ -27,12 +27,12 @@ export function postNPCStateChangedFire(
   currentState: int,
 ): void {
   for (const [callback, entityType, variant] of subscriptions) {
-    // Handle the optional 2nd callback argument
+    // Handle the optional 2nd callback argument.
     if (entityType !== undefined && entityType !== npc.Type) {
       continue;
     }
 
-    // Handle the optional 3rd callback argument
+    // Handle the optional 3rd callback argument.
     if (variant !== undefined && variant !== npc.Variant) {
       continue;
     }

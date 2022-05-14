@@ -388,7 +388,7 @@ function spawnAllEntities(jsonRoom: JSONRoom, rng: RNG, verbose = false) {
       error(`Failed to convert the entity sub-type to a number: ${subType}`);
     }
 
-    // Note that XML entity type 1000 is a rock, not an effect
+    // Note that XML entity type 1000 is a rock, not an effect.
     if (entityType >= 1000) {
       if (verbose) {
         log(`Spawning grid entity ${entityType}.${variant} at: (${x}, ${y})`);
@@ -488,7 +488,7 @@ function spawnNormalEntityForJSONRoom(
     entity = spawnWithSeed(entityType, variant, subType, position, seed);
   }
 
-  // For some reason, Pitfalls do not spawn with the correct collision classes
+  // For some reason, Pitfalls do not spawn with the correct collision classes.
   if (entityType === EntityType.PITFALL && variant === PitfallVariant.PITFALL) {
     entity.EntityCollisionClass = EntityCollisionClass.ENEMIES;
     entity.GridCollisionClass = EntityGridCollisionClass.WALLS;
@@ -581,7 +581,7 @@ function getPitFrame(
 ) {
   let F = 0;
 
-  // First bitwise frames (works for all combinations of just left up right and down)
+  // First, check for bitwise frames. (It works for all combinations of just left/up/right/down.)
   if (L) {
     F |= 1;
   }
@@ -595,7 +595,7 @@ function getPitFrame(
     F |= 8;
   }
 
-  // Then a bunch of other combinations
+  // Then, check for other combinations.
   if (U && L && !UL && !R && !D) {
     F = 17;
   }

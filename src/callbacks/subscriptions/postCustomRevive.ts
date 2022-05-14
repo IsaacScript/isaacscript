@@ -23,7 +23,7 @@ export function postCustomReviveFire(
   revivalType: int,
 ): void {
   for (const [callback, callbackRevivalType] of subscriptions) {
-    // Handle the optional 2nd callback argument
+    // Handle the optional 2nd callback argument.
     if (
       callbackRevivalType !== undefined &&
       callbackRevivalType !== revivalType

@@ -32,7 +32,7 @@ export function postCustomDoorEnterFire(
   direction: Direction,
 ): void {
   for (const [callback, callbackEffectVariant] of subscriptions) {
-    // Handle the optional 2nd callback argument
+    // Handle the optional 2nd callback argument.
     if (
       callbackEffectVariant !== undefined &&
       callbackEffectVariant !== effectVariant

@@ -1,4 +1,6 @@
-// This provides the logic for PostEsauJr and PostFirstEsauJr
+// This provides the logic for:
+// - PostEsauJr
+// - PostFirstEsauJr
 
 import {
   CollectibleType,
@@ -41,7 +43,7 @@ function hasSubscriptions() {
   return postEsauJrHasSubscriptions() || postFirstEsauJrHasSubscriptions();
 }
 
-// ModCallbacks.POST_UPDATE (1)
+// ModCallback.POST_UPDATE (1)
 function postUpdate() {
   if (!hasSubscriptions()) {
     return;
@@ -82,7 +84,7 @@ function getPlayerWithControllerIndex(controllerIndex: int) {
   return players.find((player) => player.ControllerIndex === controllerIndex);
 }
 
-// ModCallbacks.USE_ITEM (3)
+// ModCallback.USE_ITEM (3)
 // CollectibleType.ESAU_JR (703)
 function useItemEsauJr(
   _collectibleType: CollectibleType | int,
@@ -98,7 +100,7 @@ function useItemEsauJr(
 
   const gameFrameCount = game.GetFrameCount();
 
-  // The player only changes to Esau Jr. on the frame after the item is used
+  // The player only changes to Esau Jr. on the frame after the item is used.
   v.run.usedEsauJrFrame = gameFrameCount + 1;
   v.run.usedEsauJrControllerIndex = player.ControllerIndex;
 }

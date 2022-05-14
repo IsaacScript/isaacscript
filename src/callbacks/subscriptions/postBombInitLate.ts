@@ -22,7 +22,7 @@ export function postBombInitLateRegister(
 /** @internal */
 export function postBombInitLateFire(bomb: EntityBomb): void {
   for (const [callback, bombVariant] of subscriptions) {
-    // Handle the optional 2nd callback argument
+    // Handle the optional 2nd callback argument.
     if (bombVariant !== undefined && bombVariant !== bomb.Variant) {
       continue;
     }

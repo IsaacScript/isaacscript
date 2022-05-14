@@ -16,10 +16,10 @@ import { copyVector } from "./vector";
 export function getHUDOffsetVector(): Vector {
   const defaultVector = copyVector(VectorZero);
 
-  // Convert e.g. 0.4 to 4
+  // Convert e.g. 0.4 to 4.
   const hudOffset = math.floor(Options.HUDOffset * 10);
 
-  // Expected values are integers between 1 and 10
+  // Expected values are integers between 1 and 10.
   if (hudOffset < 1 || hudOffset > 10) {
     return defaultVector;
   }
@@ -48,7 +48,7 @@ export function getHeartRowLength(player: EntityPlayer): int {
   const combinedHearts = maxHearts + soulHearts + boneHearts * 2; // There are no half bone hearts
   const heartRowLength = combinedHearts / 2;
 
-  // After 6 hearts, the hearts wrap to a second row
+  // After 6 hearts, the hearts wrap to a second row.
   return Math.min(heartRowLength, 6);
 }
 

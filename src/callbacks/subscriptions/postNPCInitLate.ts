@@ -22,7 +22,7 @@ export function postNPCInitLateRegister(
 /** @internal */
 export function postNPCInitLateFire(npc: EntityNPC): void {
   for (const [callback, entityType] of subscriptions) {
-    // Handle the optional 2nd callback argument
+    // Handle the optional 2nd callback argument.
     if (entityType !== undefined && entityType !== npc.Type) {
       continue;
     }

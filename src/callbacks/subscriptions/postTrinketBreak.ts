@@ -25,7 +25,7 @@ export function postTrinketBreakFire(
   trinketType: TrinketType | int,
 ): void {
   for (const [callback, callbackTrinketType] of subscriptions) {
-    // Handle the optional 2nd callback argument
+    // Handle the optional 2nd callback argument.
     if (
       callbackTrinketType !== undefined &&
       callbackTrinketType !== trinketType

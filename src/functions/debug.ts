@@ -8,7 +8,7 @@ import { log } from "./log";
  */
 export function getTraceback(): string {
   if (debug !== undefined) {
-    // The --luadebug launch flag is enabled
+    // The --luadebug launch flag is enabled.
     return debug.traceback();
   }
 
@@ -59,5 +59,7 @@ function setDebugFunctionsGlobal() {
   globals["traceback"] = traceback;
 }
 
-// Set the debug functions global by default
-setDebugFunctionsGlobal();
+// If the debug functions will provide useful output, make them global by default.
+if (isLuaDebugEnabled() || sandboxGetTraceback !== undefined) {
+  setDebugFunctionsGlobal();
+}

@@ -25,7 +25,7 @@ function postRender() {
   checkResetInput();
 }
 
-// Check for fast-reset inputs
+/** Check for fast-reset inputs. */
 function checkResetInput() {
   const isPaused = game.IsPaused();
 
@@ -35,12 +35,12 @@ function checkResetInput() {
     return;
   }
 
-  // Disable the fast-reset feature if the custom console is open
+  // Disable the fast-reset feature if the custom console is open.
   if (AwaitingTextInput) {
     return;
   }
 
-  // Don't fast-reset if any modifiers are pressed
+  // Don't fast-reset if any modifiers are pressed.
   if (isModifierKeyPressed()) {
     return;
   }

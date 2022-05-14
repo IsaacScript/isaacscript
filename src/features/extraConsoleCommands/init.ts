@@ -119,7 +119,7 @@ function postFireTear(tear: EntityTear) {
     // Instead, increase the collision damage of the tear.
     tear.CollisionDamage *= 1000;
 
-    // Change the visual of the tear so that it is more clear that we have debug-damage turned on
+    // Change the visual of the tear so that it is more clear that we have debug-damage turned on.
     tear.ChangeVariant(TearVariant.TOOTH);
   }
 }

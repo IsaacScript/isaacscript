@@ -26,7 +26,7 @@ export function giveTrinketsBack(
   const trinketType1 = player.GetTrinket(TrinketSlot.SLOT_1);
   const trinketType2 = player.GetTrinket(TrinketSlot.SLOT_2);
 
-  // Remove any existing trinkets
+  // Remove any existing trinkets.
   if (trinketType1 !== TrinketType.NULL) {
     player.TryRemoveTrinket(trinketType1);
   }
@@ -34,13 +34,13 @@ export function giveTrinketsBack(
     player.TryRemoveTrinket(trinketType2);
   }
 
-  // First, add the smelted trinkets back
+  // First, add the smelted trinkets back.
   repeat(trinketSituation.numSmeltedTrinkets, () => {
     player.AddTrinket(trinketSituation.trinketTypeRemoved, false);
     useActiveItemTemp(player, CollectibleType.SMELTER);
   });
 
-  // Second, add back the stored trinkets
+  // Second, add back the stored trinkets.
   if (trinketSituation.trinketType1 !== TrinketType.NULL) {
     player.AddTrinket(trinketSituation.trinketType1, false);
   }

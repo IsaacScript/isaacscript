@@ -25,7 +25,7 @@ export function postGridEntityRemoveFire(
   gridEntityType: GridEntityType,
 ): void {
   for (const [callback, callbackGridEntityType] of subscriptions) {
-    // Handle the optional 2nd callback argument
+    // Handle the optional 2nd callback argument.
     if (
       callbackGridEntityType !== undefined &&
       callbackGridEntityType !== gridEntityType

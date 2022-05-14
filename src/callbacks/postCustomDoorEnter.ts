@@ -260,14 +260,14 @@ export function spawnCustomDoor(
 
   const effect = spawnEffect(effectVariant, 0, position);
 
-  // Do initial setup for the door
+  // Do initial setup for the door.
   effect.State = roomClear ? DoorState.OPEN : DoorState.CLOSED;
   effect.RenderZOffset = -10000;
   effect.PositionOffset = getPositionOffset(doorSlot);
   const sprite = effect.GetSprite();
   sprite.Rotation = doorSlot * 90 - 90;
 
-  // Keep track of metadata about this door
+  // Keep track of metadata about this door.
   const ptrHash = GetPtrHash(effect);
   const doorData: CustomDoorData = {
     slot: doorSlot,

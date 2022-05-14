@@ -51,7 +51,7 @@ export function convertXMLGridEntityType(
   gridEntityXMLType: int,
   gridEntityXMLVariant: int,
 ): [int, int] | undefined {
-  // Triggers are bugged; spawning one will immediately crash the game
+  // Triggers are bugged; spawning one will immediately crash the game.
   if (gridEntityXMLType === EntityType.TRIGGER_OUTPUT) {
     return undefined;
   }

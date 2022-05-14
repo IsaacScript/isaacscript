@@ -67,7 +67,7 @@ function entityTakeDmgPlayer(
   );
   mapSetPlayer(v.run.playersLastDamageGameFrame, player, gameFrameCount);
 
-  // If the player has a revival item such as Dead Cat, this will not be fatal damage
+  // If the player has a revival item such as Dead Cat, this will not be fatal damage.
   if (willPlayerRevive(player)) {
     return undefined;
   }

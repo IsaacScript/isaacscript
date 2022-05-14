@@ -56,7 +56,7 @@ export function merge(
     error("The second argument given to the merge function is not a table.");
   }
 
-  // First, handle the special case of an array with a shallow copy
+  // First, handle the special case of an array with a shallow copy.
   if (isArray(oldObject) && isArray(newTable)) {
     const oldTable = oldObject as LuaTable<AnyNotNil, unknown>;
     mergeArray(oldTable, newTable);
@@ -76,7 +76,8 @@ function mergeArray(
   oldArray: LuaTable<AnyNotNil, unknown>,
   newArray: LuaTable<AnyNotNil, unknown>,
 ) {
-  // Assume that we should blow away all array values with whatever is present in the incoming array
+  // Assume that we should blow away all array values with whatever is present in the incoming
+  // array.
   clearTable(oldArray);
   for (const [key, value] of pairs(newArray)) {
     oldArray.set(key, value);
@@ -88,7 +89,7 @@ function mergeTSTLObject(
   newTable: LuaTable<AnyNotNil, unknown>,
   traversalDescription: string,
 ) {
-  // We blow away the old object and recursively copy over all of the incoming values
+  // We blow away the old object and recursively copy over all of the incoming values.
   oldObject.clear();
 
   // During serialization, we brand some Lua tables with a special identifier to signify that it has
@@ -147,7 +148,7 @@ function mergeTable(
       continue;
     }
 
-    // Handle the special case of serialized Isaac API classes
+    // Handle the special case of serialized Isaac API classes.
     if (isSerializedIsaacAPIClass(value)) {
       if (SAVE_DATA_MANAGER_DEBUG) {
         log("merge found a serialized Isaac API class.");

@@ -7,7 +7,7 @@ const DEFAULT_MAX_FIRE_DELAY = 10;
 export const DEFAULT_PLAYER_STAT_MAP: ReadonlyMap<CacheFlag, number> = new Map([
   [CacheFlag.DAMAGE, 3.5], // 1 << 0
 
-  // The default tears stat is 2.73
+  // The default tears stat is 2.73.
   [CacheFlag.FIRE_DELAY, getTearsStat(DEFAULT_MAX_FIRE_DELAY)], // 1 << 1
 
   [CacheFlag.SHOT_SPEED, 1.0], // 1 << 2

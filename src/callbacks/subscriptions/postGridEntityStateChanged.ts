@@ -26,7 +26,7 @@ export function postGridEntityStateChangedFire(
   newState: int,
 ): void {
   for (const [callback, gridEntityType] of subscriptions) {
-    // Handle the optional 2nd callback argument
+    // Handle the optional 2nd callback argument.
     if (
       gridEntityType !== undefined &&
       gridEntityType !== gridEntity.GetType()

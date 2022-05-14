@@ -58,7 +58,7 @@ function useCardSoulOfIsaac() {
 // ModCallback.POST_PICKUP_UPDATE (35)
 // PickupVariant.COLLECTIBLE (100)
 function postPickupUpdateCollectible(collectible: EntityPickup) {
-  // Ignore empty pedestals (i.e. items that have already been taken by the player)
+  // Ignore empty pedestals (i.e. items that have already been taken by the player).
   if (collectible.SubType === CollectibleType.NULL) {
     return;
   }
@@ -69,7 +69,7 @@ function postPickupUpdateCollectible(collectible: EntityPickup) {
     trackedCollectibleType !== undefined &&
     collectible.SubType !== trackedCollectibleType
   ) {
-    // This item has switched, so restore it back to the way it was
+    // This item has switched, so restore it back to the way it was.
     setCollectibleSubType(collectible, trackedCollectibleType);
   }
 }

@@ -38,14 +38,14 @@ function getAllSaveDataToWriteToDisk(
       }
     }
 
-    // Strip out the room part of the save data
+    // Strip out the room part of the save data.
     const saveDataWithoutRoom: SaveData = {
       persistent: saveData.persistent,
       run: saveData.run,
       level: saveData.level,
     };
 
-    // If there is no data, then we can move on to the next feature
+    // If there is no data, then we can move on to the next feature.
     if (Object.keys(saveDataWithoutRoom).length === 0) {
       continue;
     }

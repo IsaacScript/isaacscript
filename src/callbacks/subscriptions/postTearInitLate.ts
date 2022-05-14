@@ -22,7 +22,7 @@ export function postTearInitLateRegister(
 /** @internal */
 export function postTearInitLateFire(tear: EntityTear): void {
   for (const [callback, tearVariant] of subscriptions) {
-    // Handle the optional 2nd callback argument
+    // Handle the optional 2nd callback argument.
     if (tearVariant !== undefined && tearVariant !== tear.Variant) {
       continue;
     }

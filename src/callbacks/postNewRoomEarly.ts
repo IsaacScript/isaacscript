@@ -64,7 +64,8 @@ function checkRoomChanged() {
     }
   }
 
-  // Duplicated code
+  // For some reason, the above check will rarely fail. We duplicate the check with another wall
+  // segment to go from 99% to 100% reliability.
   if (topLeftWall2 === undefined) {
     topLeftWall2 = spawnGrid(GridEntityType.WALL, rightOfTopWallGridIndex);
     if (topLeftWall2 === undefined) {

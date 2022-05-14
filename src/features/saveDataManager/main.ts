@@ -105,11 +105,11 @@ function restoreDefaults(childTableName: SaveDataKeys) {
   for (const [subscriberName, saveData] of pairs(saveDataMap)) {
     const childTable = saveData[childTableName];
     if (childTable === undefined) {
-      // This feature does not happen to store any variables on this particular child table
+      // This feature does not happen to store any variables on this particular child table.
       continue;
     }
 
-    // Get the default values for this feature
+    // Get the default values for this feature.
     const saveDataDefaults = saveDataDefaultsMap.get(subscriberName);
     if (saveDataDefaults === undefined) {
       logError(
@@ -118,7 +118,7 @@ function restoreDefaults(childTableName: SaveDataKeys) {
       continue;
     }
 
-    // Get the default values for the specific sub-table of this feature
+    // Get the default values for the specific sub-table of this feature.
     const childTableDefaults = saveDataDefaults[childTableName];
     if (childTableDefaults === undefined) {
       logError(
@@ -127,7 +127,7 @@ function restoreDefaults(childTableName: SaveDataKeys) {
       continue;
     }
 
-    // Make a new copy of the default child table
+    // Make a new copy of the default child table.
     const childTableDefaultsCopy = deepCopy(
       childTableDefaults,
       SerializationType.NONE,

@@ -79,7 +79,7 @@ function entityTakeDmgPlayer(
 
     trinketMap.set(trinketType, numTrinketsHeld);
 
-    // Ensure that the trinket was not dropped on the ground
+    // Ensure that the trinket was not dropped on the ground.
     const numTrinketsOnGround = Isaac.CountEntities(
       undefined,
       EntityType.PICKUP,
@@ -100,7 +100,7 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
     return;
   }
 
-  // On every frame, keep track of how many trinkets we have
+  // On every frame, keep track of how many trinkets we have.
   const trinketMap = defaultMapGetPlayer(v.run.playersTrinketMap, player);
 
   for (const trinketType of TRINKETS_THAT_CAN_BREAK) {

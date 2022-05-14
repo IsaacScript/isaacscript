@@ -28,10 +28,10 @@ import { clearSprite, spriteEquals } from "./sprite";
 const COLLECTIBLE_SPRITE_LAYER = 1;
 const COLLECTIBLE_SHADOW_LAYER = 4;
 
-// Glitched items start at id 4294967295 (the final 32-bit integer) and increment backwards
+// Glitched items start at id 4294967295 (the final 32-bit integer) and increment backwards.
 const GLITCHED_ITEM_THRESHOLD = 4000000000;
 
-// The "isBlindCollectible" function needs a reference sprite to work properly
+// The `isBlindCollectible` function needs a reference sprite to work properly.
 const questionMarkSprite = initQuestionMarkSprite();
 
 function initQuestionMarkSprite() {
@@ -213,7 +213,7 @@ export function getCollectibleIndex(
   const gridIndex = room.GetGridIndex(collectible.Position);
   const roomListIndex = getRoomListIndex();
 
-  // Handle the special case of being in a Treasure Room
+  // Handle the special case of being in a Treasure Room.
   if (roomType === RoomType.TREASURE) {
     return `${stage},${stageType},${gridIndex},${collectible.SubType},${collectible.InitSeed}` as CollectibleIndex;
   }

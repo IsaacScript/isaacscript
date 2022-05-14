@@ -17,7 +17,7 @@ function initTrinketSet() {
 
 /** Returns a set containing every valid trinket type in the game, including modded items. */
 export function getTrinketSet(): Set<TrinketType | int> {
-  // Lazy initialize the set
+  // Lazy initialize the set.
   if (TRINKET_SET.size === 0) {
     initTrinketSet();
   }

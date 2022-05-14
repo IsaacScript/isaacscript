@@ -172,6 +172,6 @@ export function setSeed(rng: RNG, seed: Seed): void {
     );
   }
 
-  // The game expects seeds in the range of 1 to 4294967295 (1^32 - 1)
+  // The game expects seeds in the range of 1 to 4294967295 (1^32 - 1).
   rng.SetSeed(seed, RECOMMENDED_SHIFT_IDX);
 }

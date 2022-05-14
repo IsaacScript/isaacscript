@@ -72,6 +72,6 @@ export function disableAllSound(key: string): void {
 
   v.run.disableSoundSet.add(key);
 
-  // Stop all sound effects that were initialized prior to disabling sounds
+  // Stop all sound effects that were initialized prior to disabling sounds.
   stopAllSoundEffects();
 }

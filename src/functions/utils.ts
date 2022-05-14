@@ -86,7 +86,7 @@ export function hexToKColor(hexString: string, alpha: float): KColor {
     error(`Failed to convert \`0x${bString}\` to a number.`);
   }
 
-  // KColor values should be between 0 and 1
+  // KColor values should be between 0 and 1.
   const base = 255;
   return KColor(R / base, G / base, B / base, alpha);
 }
