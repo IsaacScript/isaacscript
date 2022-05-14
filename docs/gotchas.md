@@ -46,7 +46,7 @@ For example, the following is possible in Lua:
 
 ```lua
 -- Lua code
--- Combine 3 tear flags together
+-- Combine 3 tear flags together and assign it to the player.
 player.TearFlags = TearFlag.TEAR_PIERCING | TearFlag.TEAR_SPECTRAL | 5
 ```
 
@@ -60,13 +60,13 @@ To compose `BitFlags` yourself, you can use the `addFlag` and `removeFlag` helpe
 
 ```ts
 // TypeScript code
-// Combine 3 tear flags together
+// Combine 3 tear flags together and assign it to the player.
 player.TearFlags = addFlags(
   TearFlag.PIERCING,
   TearFlag.SPECTRAL,
   TearFlag.FREEZE,
 );
-// (addFlags is variadic)
+// (The "addFlags" function is variadic.)
 ```
 
 If you want to assign a specific flag to a `BitFlags` property, then simply assigning it won't work:
