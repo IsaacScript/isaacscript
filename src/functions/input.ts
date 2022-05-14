@@ -133,3 +133,7 @@ export function isShootActionTriggeredOnAnyInput(): boolean {
     isActionTriggeredOnAnyInput(shootAction),
   );
 }
+
+export function keyboardToString(keyboard: Keyboard): string {
+  return Keyboard[keyboard] ?? "unknown";
+}
