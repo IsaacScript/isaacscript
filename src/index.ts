@@ -144,7 +144,7 @@ declare global {
 
     Pause(): void;
     PitchSlide(targetPitch: float): void;
-    Play(music: Music | int, volume: float): void;
+    Play(music: Music, volume: float): void;
     Queue(music: Music | int): void;
     ResetPitch(): void;
     Resume(): void;
