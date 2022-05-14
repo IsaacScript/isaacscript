@@ -5,5 +5,5 @@
     "./node_modules/isaac-typescript-definitions/.cspell-isaacscript.json"
   ],
   "files": ["**"],
-  "ignorePaths": [".git/**", "node_modules/**"]
+  "ignorePaths": [".git/**", "dist/**", "node_modules/**", "main.lua"]
 }
