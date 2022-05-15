@@ -4,7 +4,7 @@ title: Updating IsaacScript
 
 IsaacScript is occasionally updated with new TypeScript definitions, new helper functions, new linting rules, and so on. However, these new updates are not automatically pushed to your mod.
 
-In a TypeScript project, you can see your project dependencies and their current versions by looking at the `package.json` file. More information can be found in the [package.json documentation](directory-structure.md#packagejson).
+In a TypeScript project, you can see your project dependencies and their current versions by looking at the `package.json` file. More information can be found in the [package.json documentation](directory-structure.md#packagejson). You can upgrade the dependencies in your IsaacScript mod in the same way that you would upgrade the dependencies for any other TypeScript program.
 
 A helper script called `update.sh` is included in IsaacScript projects to help you update your dependencies. You can run it in a Git Bash shell like this:
 
