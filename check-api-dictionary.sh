@@ -22,8 +22,9 @@ MISSPELLED_WORDS_PATH="/tmp/misspelled-words.txt"
 npx cspell lint --no-progress --no-summary --unique --words-only | sort --ignore-case --unique > "$MISSPELLED_WORDS_PATH"
 mv "$CSPELL_CONFIG_PATH_TEMP" "$CSPELL_CONFIG_PATH"
 
-TXT_PATH="$DIR/node_modules/isaacscript-spell/dictionaries/isaac/api.txt"
-DICTIONARY_WORDS=$(cat "$TXT_PATH")
+DICTIONARY_NAME="api.txt"
+TXT_PATH="$DIR/node_modules/isaacscript-spell/dictionaries/isaac/$DICTIONARY_NAME"
+DICTIONARY_WORDS=$(cat "$TXT_PATH" | grep . | grep -v "^#")
 echo "Checking for every word in: $TXT_PATH"
 
 ONE_OR_MORE_FAILURES=0
@@ -32,7 +33,7 @@ for LINE in $DICTIONARY_WORDS; do
   LINE_TRIMMED=$(echo "$LINE" | xargs)
 
   if ! grep "$LINE_TRIMMED" "$MISSPELLED_WORDS_PATH" --ignore-case --quiet; then
-    echo "The following word in the CSpell config is not being used: $LINE_TRIMMED"
+    echo "The following word in \"$DICTIONARY_NAME\" is not being used: $LINE_TRIMMED"
     ONE_OR_MORE_FAILURES=1
   fi
 done
