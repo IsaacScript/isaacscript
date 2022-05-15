@@ -720,6 +720,15 @@ valid.push({
   `,
 });
 
+valid.push({
+  name: "Using two or more enum headers",
+  code: `
+// ModCallbacksCustom.MC_POST_GRID_ENTITY_UPDATE
+// GridEntityType.PRESSURE_PLATE (20)
+// GridEntityType.PRESSURE_PLATE
+  `,
+});
+
 ruleTester.run("format-line-comments", formatLineComments, {
   valid,
   invalid,

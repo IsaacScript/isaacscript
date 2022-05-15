@@ -24,6 +24,19 @@ export function isCommentOnOwnLine(
   return startLine !== previousTokenEndLine && endLine !== nextTokenStartLine;
 }
 
+export function isEnumBlockLabel(text: string): boolean {
+  text = text.trim();
+
+  return (
+    // e.g. CollectibleType.SAD_ONION
+    /^\w+\.\w+$/.test(text) ||
+    // e.g. CollectibleType.SAD_ONION (1)
+    /^\w+\.\w+ \(\d+\)$/.test(text) ||
+    // e.g. CacheFlag.FIRE_DELAY (1 << 1)
+    /^\w+\.\w+ \(\d+ << \d+\)$/.test(text)
+  );
+}
+
 export function isSpecialComment(text: string): boolean {
   text = text.trim();
 

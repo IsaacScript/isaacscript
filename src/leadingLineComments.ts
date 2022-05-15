@@ -8,6 +8,7 @@ import {
 } from "./bulletPoints";
 import {
   isCommentOnOwnLine,
+  isEnumBlockLabel,
   isSpecialComment,
   startsWithExample,
 } from "./comments";
@@ -87,13 +88,15 @@ export function getCommentBlocks(comments: TSESTree.Comment[]): CommentBlock[] {
     const hasURLInside = hasURL(text);
     const hasNoLetters = !/[a-zA-z]/.test(text);
     const hasNumberParenthesisSuffix = / \(\d+\)$/.test(text.trimEnd());
+    const enumBlockLabel = isEnumBlockLabel(text);
 
     // Always put certain kinds of comments on their own blocks.
     const shouldBeInSelfContainedBlock =
       separatorLine ||
       hasURLInside ||
       hasNoLetters ||
-      hasNumberParenthesisSuffix;
+      hasNumberParenthesisSuffix ||
+      enumBlockLabel;
 
     if (!shouldBeInSelfContainedBlock) {
       // Look for one or more "connecting" comments on the next subsequent lines.

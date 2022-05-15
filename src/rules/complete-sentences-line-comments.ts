@@ -1,4 +1,5 @@
 import { TSESLint, TSESTree } from "@typescript-eslint/utils";
+import { isEnumBlockLabel } from "../comments";
 import {
   getMessageIDFromSentenceKind,
   getSentenceKind,
@@ -142,17 +143,4 @@ function report(
       sentence,
     },
   });
-}
-
-function isEnumBlockLabel(text: string) {
-  text = text.trim();
-
-  return (
-    // e.g. CollectibleType.SAD_ONION
-    /^\w+\.\w+$/.test(text) ||
-    // e.g. CollectibleType.SAD_ONION (1)
-    /^\w+\.\w+ \(\d+\)$/.test(text) ||
-    // e.g. CacheFlag.FIRE_DELAY (1 << 1)
-    /^\w+\.\w+ \(\d+ << \d+\)$/.test(text)
-  );
 }
