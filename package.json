@@ -51,6 +51,7 @@
     "eslint-plugin-isaacscript": "file:.",
     "eslint-plugin-jsdoc": "^39.2.9",
     "eslint-plugin-only-warn": "^1.0.3",
+    "isaacscript-spell": "^1.0.1",
     "isaacscript-tsconfig": "^1.1.16",
     "jest": "^28.1.0",
     "jest-summarizing-reporter": "^1.1.4",

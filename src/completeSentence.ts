@@ -54,8 +54,27 @@ export function getSentenceKind(originalText: string): SentenceKind {
     return SentenceKind.NonSentence;
   }
 
+  // Ignore single words, double words, and triple words.
+  if (
+    /^\w+$/.test(text) ||
+    /^\w+ \w+$/.test(text) ||
+    /^\w+ \w+ \w+$/.test(text)
+  ) {
+    return SentenceKind.NonSentence;
+  }
+
   // Ignore comments that begin with an example.
   if (text.startsWith("e.g.") || text.startsWith("i.e.")) {
+    return SentenceKind.NonSentence;
+  }
+
+  // Ignore constructs with an arrow, like: "Alice --> Bob"
+  if (text.includes("--> ")) {
+    return SentenceKind.NonSentence;
+  }
+
+  // Ignore "n/a".
+  if (text === "n/a") {
     return SentenceKind.NonSentence;
   }
 

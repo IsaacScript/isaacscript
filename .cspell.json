@@ -2,31 +2,26 @@
   "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
   "version": "0.2",
   "import": [
-    "./.cspell-base.json"
+    "isaacscript-spell/.cspell-isaacscript.json"
   ],
   "files": [
     "**"
   ],
   "ignorePaths": [
+    "*.pyc",
+    "*.wav",
     ".git/**",
     "dist/**",
-    "node_modules/**"
+    "node_modules/**",
+    "mod/**/*.anm2",
+    "mod/main.lua",
+    "mod/resources/rooms/**"
   ],
   "words": [
-    "dbaeumer",
     "eqeqeq",
-    "esbenp",
-    "isaacscript",
     "jsdoc",
     "nocheck",
-    "prettierignore",
-    "prettierrc",
     "regexes",
-    "sarisia",
-    "technote",
-    "TSES",
-    "Turnbull",
-    "unfixable",
-    "Zamiell"
+    "TSES"
   ]
 }

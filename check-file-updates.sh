@@ -3,11 +3,9 @@
 FILES_TO_CHECK=(
   ".vscode/extensions.json:.vscode/extensions-typescript.json"
   ".vscode/settings.json:.vscode/settings-typescript.json"
-  ".cspell-base.json:.cspell-base.json"
-  ".cspell-check-unused.json:.cspell-check-unused-base.json"
   ".gitattributes"
-  ".prettierrc.js:.prettierrc-base.js"
   ".prettierignore:.prettierignore-base"
+  ".prettierrc.js:.prettierrc-base.js"
   "check-orphaned-words.sh"
 )
 
