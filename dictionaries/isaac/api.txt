@@ -1,6 +1,8 @@
+# These are words from the Lua API. Misspelled enums are not included, since those are fixed in the
+# IsaacScript enum re-implementation.
+
 Akeldama
 ALGIZ
-announcerdelay
 Ansuz
 APOLLYONS
 Ashpit
@@ -30,7 +32,6 @@ CAMBION
 CAMILLO
 CAMO
 cansacrifice
-canshoot
 Cantripped
 CARDTYPE
 CHILDS
@@ -46,7 +47,6 @@ CYCLOPIA
 DAGAZ
 datagrams
 DATAMINER
-deathanm
 DECAP
 DERP
 despawn
@@ -57,12 +57,10 @@ ECOLI
 EGGY
 EHWAZ
 ELLEECH
-endstage
 EVIS
 Explosivo
 Explossion
 eyepatch
-fadecolor
 Fadein
 FCUK
 FISTULOID
@@ -73,11 +71,9 @@ GELLO
 getpeername
 getsockname
 gettime
-gfxroot
 GIDEONS
 Giga
 GIGANTE
-greedmode
 gridspawn
 GUPPYS
 GURDY
@@ -111,11 +107,9 @@ luamod
 Ludovico
 MAGGY
 MAGGYS
-maxcharges
 MECONIUM
 MEMBRAIN
 MERCURIUS
-mimiccharge
 MINECART
 Miniboss
 Minisaac
@@ -178,7 +172,6 @@ setsockname
 settimeout
 SHAKEY
 SHOOP
-shutdoors
 SKINBALL
 SPIDERBABY
 SPIKEBALL
@@ -186,7 +179,6 @@ SPINDOWN
 SPITTY
 SPLURT
 Spritesheet
-Spritesheets
 SQUEEZY
 steamapps
 STOMPY
@@ -220,6 +212,5 @@ VURP
 WAKA
 WILLO
 WIZOOB
-XLAX
 XXXXXXXXL
 YBAB

@@ -1,0 +1,12 @@
+announcerdelay
+canshoot
+deathanm
+endstage
+fadecolor
+gfxroot
+greedmode
+maxcharges
+mimiccharge
+shutdoors
+Spritesheets
+XLAX

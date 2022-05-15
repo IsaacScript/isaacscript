@@ -10,6 +10,7 @@ lcov
 Microbundle
 noout
 Nuxt
+pathlib
 pids
 prettierignore
 prettierrc
