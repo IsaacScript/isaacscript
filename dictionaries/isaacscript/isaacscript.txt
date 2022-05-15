@@ -1,6 +1,6 @@
+contentfolder
 dbaeumer
 dotenv
-contentfolder
 esbenp
 eslintcache
 isaacscript
