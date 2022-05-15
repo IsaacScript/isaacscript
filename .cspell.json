@@ -8,14 +8,9 @@
     "**"
   ],
   "ignorePaths": [
-    "*.pyc",
-    "*.wav",
     ".git/**",
     "dist/**",
-    "node_modules/**",
-    "mod/**/*.anm2",
-    "mod/main.lua",
-    "mod/resources/rooms/**"
+    "node_modules/**"
   ],
   "words": [
     "eqeqeq",
