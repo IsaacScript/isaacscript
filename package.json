@@ -1,0 +1,28 @@
+{
+  "name": "isaacscript-spell",
+  "version": "1.0.0",
+  "description": "Spelling dictionaries for The Binding of Isaac: Repentance",
+  "keywords": [
+    "isaac",
+    "rebirth",
+    "afterbirth",
+    "repentance"
+  ],
+  "homepage": "https://github.com/IsaacScript/isaacscript-spell#readme",
+  "bugs": {
+    "url": "https://github.com/IsaacScript/isaacscript-spell/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IsaacScript/isaacscript-spell.git"
+  },
+  "license": "GPL-3.0",
+  "author": "Zamiell",
+  "files": [
+    ".cspell-isaacscript.json",
+    "dictionaries/**"
+  ],
+  "devDependencies": {
+    "prettier": "^2.6.2"
+  }
+}
