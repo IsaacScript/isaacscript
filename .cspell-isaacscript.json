@@ -5,15 +5,5 @@
   "import": [
     "./dictionaries/isaac/cspell-ext.json",
     "./dictionaries/isaacscript/cspell-ext.json"
-  ],
-  "ignorePaths": [
-    "*.pyc",
-    "*.wav",
-    "**/.git/**",
-    "**/dist/**",
-    "**/node_modules/**",
-    "**/mod/**/*.anm2",
-    "**/mod/main.lua",
-    "**/mod/resources/rooms/**"
   ]
 }

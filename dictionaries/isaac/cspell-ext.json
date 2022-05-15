@@ -6,9 +6,9 @@
   "readonly": true,
   "dictionaryDefinitions": [
     {
-      "name": "isaac",
-      "path": "./isaac.txt",
-      "description": "Words for The Binding of Isaac: Repentance"
+      "name": "api",
+      "path": "./api.txt",
+      "description": "Words from the API"
     }
   ],
   "dictionaries": [],
@@ -17,8 +17,7 @@
       "languageId": "*",
       "locale": "*",
       "includeRegExpList": [],
-      "dictionaries": ["isaac"],
-      "dictionaryDefinitions": []
+      "dictionaries": ["api"]
     }
   ]
 }

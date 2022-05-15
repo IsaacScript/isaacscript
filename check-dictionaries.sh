@@ -13,20 +13,21 @@ for DICTIONARY_DIR in $DIR/dictionaries/*; do
     DICTIONARY_NAME=$(basename "$DICTIONARY_DIR")
     echo "Checking alphabetically sorted and unique for dictionary: $DICTIONARY_NAME"
 
-    DICTIONARY_PATH="$DICTIONARY_DIR/$DICTIONARY_NAME.txt"
-    TEMP_DICTIONARY_PATH="/tmp/$DICTIONARY_NAME.txt"
-    cat "$DICTIONARY_PATH" | sort --ignore-case --unique > "$TEMP_DICTIONARY_PATH"
+    for DICTIONARY_TXT in $DICTIONARY_DIR/*.txt; do
+      TMP_DICTIONARY_TXT="/tmp/$DICTIONARY_NAME.txt"
+      cat "$DICTIONARY_TXT" | sort --ignore-case --unique > "$TMP_DICTIONARY_TXT"
 
-    set +e
-    if ! cmp "$DICTIONARY_PATH" "$TEMP_DICTIONARY_PATH" --silent; then
-      echo
-      echo "Dictionary \"$DICTIONARY_NAME\" is not sorted:"
-      echo
-      diff "$DICTIONARY_PATH" "$TEMP_DICTIONARY_PATH"
-      ONE_OR_MORE_FAILURES=1
-    fi
+      set +e
+      if ! cmp "$DICTIONARY_TXT" "$TMP_DICTIONARY_TXT" --silent; then
+        echo
+        echo "File \"$DICTIONARY_TXT\" is not sorted:"
+        echo
+        diff "$DICTIONARY_TXT" "$TMP_DICTIONARY_TXT"
+        ONE_OR_MORE_FAILURES=1
+      fi
+    done
 
-    rm -f "$TEMP_DICTIONARY_PATH"
+    rm -f "$TMP_DICTIONARY_TXT"
   fi
 done
 
