@@ -19,7 +19,7 @@ export const MAX_VANILLA_CARD = NUM_VANILLA_CARDS;
 
 // We subtract one to account for `CollectibleType.NULL`.
 export const NUM_COLLECTIBLE_TYPES = itemConfig.GetCollectibles().Size - 1;
-export const MAX_COLLECTIBLE_TYPE = NUM_COLLECTIBLE_TYPES - 1;
+export const MAX_COLLECTIBLE_TYPE = NUM_COLLECTIBLE_TYPES;
 // To get the number of vanilla collectibles, we cannot get the length of the `CollectibleType`
 // enum, because unlike all of the other enums, the values are not contiguous.
 export const NUM_VANILLA_COLLECTIBLE_TYPES = getLastEnumValue(CollectibleType);
@@ -34,9 +34,9 @@ export const MAX_VANILLA_PILL_EFFECT = NUM_VANILLA_PILL_EFFECTS;
 
 // We subtract one to account for `TrinketType.NULL`.
 export const NUM_TRINKET_TYPES = itemConfig.GetTrinkets().Size - 1;
-export const MAX_TRINKET_TYPE = NUM_COLLECTIBLE_TYPES - 1;
+export const MAX_TRINKET_TYPE = NUM_TRINKET_TYPES;
 export const NUM_VANILLA_TRINKET_TYPES = getEnumLength(TrinketType) - 1;
-export const MAX_VANILLA_TRINKET_TYPE = NUM_VANILLA_COLLECTIBLE_TYPES;
+export const MAX_VANILLA_TRINKET_TYPE = NUM_VANILLA_TRINKET_TYPES;
 
 export const MAX_VANILLA_PLAYER_TYPE = getLastEnumValue(PlayerType);
 // It is not possible to determine "MAX_PLAYER_TYPE", since there is no associated config.
