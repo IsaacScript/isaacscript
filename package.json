@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "isaacscript-lint": "^1.0.140",
+    "isaacscript-spell": "^1.0.1",
     "isaacscript-tsconfig": "^1.1.16",
     "ts-node": "^10.7.0",
     "typedoc": "^0.22.15",

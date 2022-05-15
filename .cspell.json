@@ -2,15 +2,20 @@
   "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
   "version": "0.2",
   "import": [
-    "./node_modules/isaac-typescript-definitions/.cspell-isaacscript.json"
+    "isaacscript-spell/.cspell-isaacscript.json"
   ],
   "files": [
     "**"
   ],
   "ignorePaths": [
+    "*.pyc",
+    "*.wav",
     ".git/**",
     "dist/**",
-    "node_modules/**"
+    "node_modules/**",
+    "mod/**/*.anm2",
+    "mod/main.lua",
+    "mod/resources/rooms/**"
   ],
   "words": [
     "addcharges",
@@ -93,7 +98,6 @@
     "respawn",
     "respawned",
     "rottenhearts",
-    "sarisia",
     "seedstick",
     "setcharges",
     "setmetatable",
@@ -106,7 +110,6 @@
     "startingroom",
     "teardisplay",
     "tearsdisplay",
-    "technote",
     "teleporting",
     "texels",
     "thesadonion",

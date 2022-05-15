@@ -3,7 +3,6 @@
 FILES_TO_CHECK=(
   ".vscode/extensions.json"
   ".vscode/settings.json"
-  ".cspell-check-unused.json"
   ".gitattributes"
   ".prettierignore"
   ".prettierrc.js"

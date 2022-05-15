@@ -26,6 +26,12 @@ module.exports = {
         quoteProps: "preserve",
       },
     },
+    {
+      files: ["**/*.xml"],
+      options: {
+        printWidth: 1000000,
+      },
+    },
   ],
 
   // Allow proper formatting of XML files:
