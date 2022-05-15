@@ -2,9 +2,7 @@
 <metadata>
   <name>MOD-NAME-TO-REPLACE</name>
   <directory>MOD-NAME-TO-REPLACE</directory>
-  <description>
-    MOD-NAME-TO-REPLACE is a currently a work in progress.
-  </description>
+  <description>MOD-NAME-TO-REPLACE is a currently a work in progress.</description>
   <version>1.0</version>
   <visibility />
 </metadata>
