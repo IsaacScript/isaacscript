@@ -1,9 +1,0 @@
-{
-  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
-  "version": "0.2",
-  "import": [
-    "./node_modules/isaac-typescript-definitions/.cspell-isaacscript.json"
-  ],
-  "files": ["**"],
-  "ignorePaths": [".cspell-temp.json", ".git/**", "dist/**", "node_modules/**"]
-}

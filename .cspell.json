@@ -2,52 +2,12 @@
   "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
   "version": "0.2",
   "import": [
-    "./.cspell-base.json"
+    "isaacscript-spell/.cspell-isaacscript.json"
   ],
   "files": [
     "**"
   ],
-  "ignorePaths": [
-    ".git/**",
-    "dist/**",
-    "node_modules/**"
-  ],
+  "ignorePaths": [],
   "words": [
-    "APPDATA",
-    "contentfolder",
-    "dbaeumer",
-    "dotenv",
-    "eslintcache",
-    "isaacscript",
-    "jscoverage",
-    "jspm",
-    "lcov",
-    "luamod",
-    "Microbundle",
-    "noout",
-    "npmignore",
-    "nuxt",
-    "pftempestasevencondensed",
-    "pids",
-    "pnpm",
-    "prettierignore",
-    "prettierrc",
-    "publishedfileid",
-    "sarisia",
-    "Spritesheet",
-    "Spritesheets",
-    "steamapps",
-    "steamcmd",
-    "stylelint",
-    "stylelintcache",
-    "subprocesses",
-    "sycner",
-    "syncer",
-    "technote",
-    "tstl",
-    "vuepress",
-    "workshopitem",
-    "wscript",
-    "zamiell"
   ]
 }
