@@ -10,13 +10,16 @@ REPO_ROOT="$DIR"
 cd "$REPO_ROOT"
 
 # Do nothing if the configuration file does not exist.
-CSPELL_CONFIG_PATH="$REPO_ROOT/.cspell.json"
+CSPELL_CONFIG_NAME=".cspell.json"
+CSPELL_CONFIG_PATH="$REPO_ROOT/$CSPELL_CONFIG_NAME"
 if ! test -f "$CSPELL_CONFIG_PATH"; then
+  echo "The \"$CSPELL_CONFIG_NAME\" file does not exist. Skipping checks."
   exit 0
 fi
 
 # Do nothing if the configuration file does not have any words in it.
 if ! grep -q '"words": ' "$CSPELL_CONFIG_PATH"; then
+  echo "The \"$CSPELL_CONFIG_NAME\" file does not have any whitelisted words in it. Skipping checks."
   exit 0
 fi
 

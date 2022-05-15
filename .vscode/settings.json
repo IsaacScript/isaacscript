@@ -21,7 +21,6 @@
 
   // Configure glob patterns for excluding files and folders in full text searches and quick open.
   "search.exclude": {
-    "**/mod/main.lua": true,
     "**/*.png": true,
     "**/*.wav": true,
     "dist/**": true,
@@ -63,12 +62,12 @@
     "editor.formatOnSave": true,
     "editor.tabSize": 2,
   },
-  "[markdown]": {
+  "[xml]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
     "editor.tabSize": 2,
   },
-  "[xml]": {
+  "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
     "editor.tabSize": 2,
