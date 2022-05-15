@@ -1,10 +1,8 @@
 #!/bin/bash
 
 FILES_TO_CHECK=(
-  ".vscode/extensions.json:.vscode/extensions-typescript.json"
+  ".vscode/extensions.json:.vscode/extensions-format.json"
   ".vscode/settings.json:.vscode/settings-typescript.json"
-  ".cspell-base.json:.cspell-base.json"
-  ".cspell-check-unused.json:.cspell-check-unused-base.json"
   ".gitattributes"
   ".prettierignore:.prettierignore-base"
   ".prettierrc.js:.prettierrc-base.js"

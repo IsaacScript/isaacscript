@@ -14,6 +14,8 @@
   "license": "MIT",
   "author": "Zamiell",
   "devDependencies": {
+    "cspell": "^5.20.0",
+    "isaacscript-spell": "^1.0.0",
     "prettier": "^2.6.2"
   }
 }
