@@ -1,3 +1,5 @@
+- rewrite lint rules to be unified
+
 - lint rule - double space between word
 
 - trophy can move to isaacscript common for respawning purposes
