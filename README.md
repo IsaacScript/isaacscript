@@ -1,0 +1,1 @@
+# isaacscript-spell
