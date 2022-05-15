@@ -729,6 +729,28 @@ valid.push({
   `,
 });
 
+invalid.push({
+  name: "Double spaces between sentences",
+  code: `
+// This is the first sentence.  This is the second sentence.
+  `,
+  errors: [{ messageId: "incorrectlyFormatted" }],
+  output: `
+// This is the first sentence. This is the second sentence.
+  `,
+});
+
+invalid.push({
+  name: "Double spaces between words",
+  code: `
+// This is  the first sentence.
+  `,
+  errors: [{ messageId: "incorrectlyFormatted" }],
+  output: `
+// This is the first sentence.
+  `,
+});
+
 ruleTester.run("format-line-comments", formatLineComments, {
   valid,
   invalid,
