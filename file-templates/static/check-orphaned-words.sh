@@ -20,10 +20,10 @@ if ! grep -q '"words": ' "$CSPELL_CONFIG_PATH"; then
   exit 0
 fi
 
-# Make a list of every misspelled word without any custom dictionaries.
+# Make a list of every misspelled word without any custom words.
 # We need to move the configuration path temporarily or else the cspell command won't work properly.
 CSPELL_CONFIG_WORDS=$(cat "$CSPELL_CONFIG_PATH" | python -c "import sys, json; print('\n'.join(json.load(sys.stdin)['words']))")
-CSPELL_CONFIG_WITHOUT_WORDS=$(cat "$CSPELL_CONFIG_PATH" | python -c "import sys, json; config = json.load(sys.stdin); del config['words']; print(config)")
+CSPELL_CONFIG_WITHOUT_WORDS=$(cat "$CSPELL_CONFIG_PATH" | python -c "import sys, json; config = json.load(sys.stdin); del config['words']; print(json.dumps(config))")
 CSPELL_CONFIG_PATH_TEMP="$REPO_ROOT/.cspell-temp.json"
 mv "$CSPELL_CONFIG_PATH" "$CSPELL_CONFIG_PATH_TEMP"
 echo "$CSPELL_CONFIG_WITHOUT_WORDS" > "$CSPELL_CONFIG_PATH"
