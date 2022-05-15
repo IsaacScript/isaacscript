@@ -1,5 +1,5 @@
-# These are words from the Lua API. Misspelled enums are not included, since those are fixed in the
-# IsaacScript enum re-implementation.
+# These are words from the Lua API. Words from misspelled enums are not included, since those are
+# fixed in the reimplemented IsaacScript enums.
 
 Akeldama
 ALGIZ

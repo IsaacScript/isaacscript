@@ -15,14 +15,17 @@ for DICTIONARY_DIR in $DIR/dictionaries/*; do
 
     for DICTIONARY_TXT in $DICTIONARY_DIR/*.txt; do
       TMP_DICTIONARY_TXT="/tmp/$DICTIONARY_NAME.txt"
-      cat "$DICTIONARY_TXT" | sort --ignore-case --unique > "$TMP_DICTIONARY_TXT"
+      TMP_DICTIONARY_TXT_SORTED="/tmp/$DICTIONARY_NAME-sorted.txt"
+
+      cat "$DICTIONARY_TXT" | grep . | grep -v "^#" > "$TMP_DICTIONARY_TXT"
+      cat "$TMP_DICTIONARY_TXT" | sort --ignore-case --unique > "$TMP_DICTIONARY_TXT_SORTED"
 
       set +e
-      if ! cmp "$DICTIONARY_TXT" "$TMP_DICTIONARY_TXT" --silent; then
+      if ! cmp "$TMP_DICTIONARY_TXT" "$TMP_DICTIONARY_TXT_SORTED" --silent; then
         echo
         echo "File \"$DICTIONARY_TXT\" is not sorted:"
         echo
-        diff "$DICTIONARY_TXT" "$TMP_DICTIONARY_TXT"
+        diff "$TMP_DICTIONARY_TXT" "$TMP_DICTIONARY_TXT_SORTED"
         ONE_OR_MORE_FAILURES=1
       fi
     done

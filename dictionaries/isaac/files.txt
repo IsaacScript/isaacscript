@@ -1,3 +1,5 @@
+# These are words from files in the "resources" directory, like "entities2.xml".
+
 announcerdelay
 canshoot
 deathanm
