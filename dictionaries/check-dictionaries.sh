@@ -1,9 +1,10 @@
 #!/bin/bash
 
-DICTIONARIES_TO_CHECK=("isaac")
-# The "isaacscript" dictionary contains words that do not live in this repository, so we skip
-# checking it.
+# Both dictionaries now contain words that are not in this repository, so we skip dictionary checks.
 # TODO: Remove this check when this lives in a monorepo.
+exit 0
+
+DICTIONARIES_TO_CHECK=("isaac isaacscript")
 
 set -e # Exit on any errors
 

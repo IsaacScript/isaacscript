@@ -29,6 +29,7 @@ CAMBION
 CAMILLO
 CAMO
 cansacrifice
+canshoot
 Cantripped
 CARDTYPE
 CHILDS
@@ -44,6 +45,7 @@ CYCLOPIA
 DAGAZ
 datagrams
 DATAMINER
+deathanm
 DECAP
 DERP
 despawn
@@ -54,6 +56,7 @@ ECOLI
 EGGY
 EHWAZ
 ELLEECH
+endstage
 EVIS
 Explosivo
 Explossion
@@ -68,6 +71,7 @@ GELLO
 getpeername
 getsockname
 gettime
+gfxroot
 GIDEONS
 Giga
 GIGANTE
@@ -104,6 +108,7 @@ luamod
 Ludovico
 MAGGY
 MAGGYS
+maxcharges
 MECONIUM
 MEMBRAIN
 MERCURIUS
@@ -176,6 +181,7 @@ SPINDOWN
 SPITTY
 SPLURT
 Spritesheet
+Spritesheets
 SQUEEZY
 steamapps
 STOMPY
