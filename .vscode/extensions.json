@@ -4,5 +4,5 @@
   "recommendations": [
     "esbenp.prettier-vscode", // The TypeScript formatter
     "streetsidesoftware.code-spell-checker", // A spell-checker extension based on cspell
-  ]
+  ],
 }

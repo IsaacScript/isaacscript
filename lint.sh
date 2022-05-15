@@ -16,4 +16,7 @@ npx prettier --check .
 # Step 2 - Check dictionaries.
 bash "$DIR/check-dictionaries.sh"
 
+# Step 3 - Check for base file updates.
+bash "$DIR/check-file-updates.sh"
+
 echo "Successfully linted in $SECONDS seconds."

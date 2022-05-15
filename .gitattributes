@@ -1,0 +1,9 @@
+# Prevent Windows systems from cloning this repository with "\r\n" line endings.
+core.autocrlf=false
+
+# Prevent people from making merge commits:
+# https://www.endoflineblog.com/gitflow-considered-harmful
+pull.rebase=true
+
+# Convert all files to use "\n" line endings.
+* text=auto eol=lf
