@@ -8,17 +8,18 @@
     "**"
   ],
   "ignorePaths": [
+    "*.anm2",
     "*.pyc",
     "*.wav",
     ".git/**",
     "dist/**",
     "node_modules/**",
-    "mod/**/*.anm2",
     "mod/main.lua",
     "mod/resources/rooms/**"
   ],
   "words": [
     "APPDATA",
+    "npmignore",
     "syncer"
   ]
 }

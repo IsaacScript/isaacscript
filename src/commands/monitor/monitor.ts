@@ -76,9 +76,9 @@ function spawnModDirectorySyncer(config: Config) {
   const processPath = path.join(__dirname, processName, processName);
   const modTargetName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetName);
-  const directorySycner = fork(processPath, [MOD_SOURCE_PATH, modTargetPath]);
+  const directorySyncer = fork(processPath, [MOD_SOURCE_PATH, modTargetPath]);
 
-  directorySycner.on("message", (msg: string) => {
+  directorySyncer.on("message", (msg: string) => {
     notifyGame.msg(msg);
 
     // If the "main.lua" file was successfully copied over, we also have to tell isaacscript-watcher
@@ -90,11 +90,11 @@ function spawnModDirectorySyncer(config: Config) {
     }
   });
 
-  directorySycner.on("close", (code: number | null) => {
+  directorySyncer.on("close", (code: number | null) => {
     error(`Error: ${processDescription} subprocess closed with code: ${code}`);
   });
 
-  directorySycner.on("exit", (code: number | null) => {
+  directorySyncer.on("exit", (code: number | null) => {
     error(`Error: ${processDescription} subprocess exited with code: ${code}`);
   });
 }
