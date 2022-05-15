@@ -58,10 +58,10 @@ import {
  *   saveDataManager("feature1", v);
  * }
  *
- * // Elsewhere in the file, use your variables
+ * // Elsewhere in the file, use your variables.
  * function feature1Function() {
  *   if (v.run.foo1 > 0) {
- *     // Do stuff
+ *     // TODO
  *   }
  * }
  * ```
@@ -84,7 +84,7 @@ import {
  * @param key The name of the file or feature that is submitting data to be managed by the save data
  * manager. The save data manager will throw an error if the key is already registered.
  * @param v An object that corresponds to the `SaveData` interface. The object is conventionally
- * called "v" for brevity (which is short for "local variables").
+ * called "v" for brevity. ("v" is short for "local variables").
  * @param conditionalFunc An optional function to run upon saving this key to disk. For example,
  * this allows features to only save data to disk if the feature is enabled. Specify a value of `()
  * => false` to completely disable saving this feature to disk. This is useful if you are using data
