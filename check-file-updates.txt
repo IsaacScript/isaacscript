@@ -1,0 +1,6 @@
+.vscode/extensions.json:.vscode/extensions-format.json
+.vscode/settings.json:.vscode/settings-typescript.json
+.gitattributes
+.prettierignore:.prettierignore-base
+.prettierrc.js:.prettierrc-base.js
+check-file-updates.sh:check-file-updates.sh
