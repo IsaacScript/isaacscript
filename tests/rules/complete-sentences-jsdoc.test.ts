@@ -273,7 +273,7 @@ valid.push({
 /**
  * This is the foo function.
  *
- * @param bar This is bar.
+ * @param bar This is a bar.
  * @returns This is a return value.
  */
 function foo(bar: number) {}
@@ -286,7 +286,7 @@ invalid.push({
 /**
  * This is the foo function.
  *
- * @param bar This is bar
+ * @param bar This is a bar
  * @returns This is a return value
  */
 function foo(bar: number) {}
@@ -300,7 +300,7 @@ invalid.push({
 /**
  * This is the foo function.
  *
- * @param bar this is bar.
+ * @param bar this is a bar.
  * @returns this is a return value.
  */
 function foo(bar: number) {}
@@ -318,7 +318,7 @@ valid.push({
 invalid.push({
   name: "Comment with non-lone JSDoc tag",
   code: `
-/** @noSelf Incomplete */
+/** @noSelf Incomplete sentence here oh my */
   `,
   errors: [{ messageId: "missingPeriod" }],
 });
