@@ -20,7 +20,9 @@ export const MAX_VANILLA_CARD = NUM_VANILLA_CARDS;
 // We subtract one to account for `CollectibleType.NULL`.
 export const NUM_COLLECTIBLE_TYPES = itemConfig.GetCollectibles().Size - 1;
 export const MAX_COLLECTIBLE_TYPE = NUM_COLLECTIBLE_TYPES - 1;
-export const NUM_VANILLA_COLLECTIBLE_TYPES = getEnumLength(CollectibleType) - 1;
+// To get the number of vanilla collectibles, we cannot get the length of the `CollectibleType`
+// enum, because unlike all of the other enums, the values are not contiguous.
+export const NUM_VANILLA_COLLECTIBLE_TYPES = getLastEnumValue(CollectibleType);
 export const MAX_VANILLA_COLLECTIBLE_TYPE = NUM_VANILLA_COLLECTIBLE_TYPES;
 
 // We subtract one to account for `PillEffect.NULL`.
