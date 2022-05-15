@@ -26,10 +26,7 @@ npx cspell --no-progress --no-summary
 # The "--error" flag makes it return an error code of 1 if unused exports are found.
 npx ts-prune --error --ignore 'index.ts'
 
-# Step 5 - Check dictionaries.
-bash "$DIR/dictionaries/check-dictionaries.sh"
-
-# Step 6 - Check for base file updates.
+# Step 5 - Check for base file updates.
 bash "$DIR/check-file-updates.sh"
 
 echo "Successfully linted in $SECONDS seconds."

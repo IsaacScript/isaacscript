@@ -3,7 +3,6 @@
 FILES_TO_CHECK=(
   ".vscode/extensions.json"
   ".vscode/settings.json:.vscode/settings-typescript.json"
-  ".cspell-base.json:.cspell-base.json"
   ".gitattributes"
   ".prettierignore"
   ".prettierrc.js"

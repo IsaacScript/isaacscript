@@ -1,7 +1,21 @@
 {
   "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
   "version": "0.2",
-  "import": ["./.cspell-isaacscript.json"],
-  "files": ["**"],
-  "ignorePaths": [".git/**", "dist/**", "node_modules/**"]
+  "import": [
+    "isaacscript-spell/.cspell-isaacscript.json"
+  ],
+  "files": [
+    "**"
+  ],
+  "ignorePaths": [
+    "*.pyc",
+    "*.wav",
+    ".git/**",
+    "dist/**",
+    "node_modules/**",
+    "mod/**/*.anm2",
+    "mod/main.lua",
+    "mod/resources/rooms/**"
+  ],
+  "words": []
 }
