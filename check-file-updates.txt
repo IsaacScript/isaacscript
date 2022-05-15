@@ -1,0 +1,8 @@
+.vscode/extensions.json:.vscode/extensions-typescript.json
+.vscode/settings.json
+.gitattributes
+.prettierrc.js
+.prettierignore:.prettierignore-base
+tsconfig.eslint.json
+check-file-updates.sh:check-file-updates.sh
+check-orphaned-words.sh
