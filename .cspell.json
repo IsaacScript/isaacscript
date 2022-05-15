@@ -17,5 +17,8 @@
     "mod/main.lua",
     "mod/resources/rooms/**"
   ],
-  "words": []
+  "words": [
+    "APPDATA",
+    "syncer"
+  ]
 }
