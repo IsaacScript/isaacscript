@@ -1,14 +1,14 @@
 # These are words from files in the "resources" directory, like "entities2.xml".
 
-announcerdelay
-canshoot
-deathanm
-endstage
-fadecolor
-gfxroot
-greedmode
-maxcharges
-mimiccharge
-shutdoors
-Spritesheets
-XLAX
+announcerdelay # pocketitems.xml
+canshoot # challenges.xml
+deathanm # items.xml
+endstage # challenges.xml
+fadecolor # cutscenes.xml
+gfxroot # items.xml
+greedmode # pocketitems.xml
+maxcharges # items.xml
+mimiccharge # pocketitems.xml
+pftempestasevencondensed # font
+shutdoors # entities2.xml
+XLAX # pocketitems.xml

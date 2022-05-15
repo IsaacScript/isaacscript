@@ -1,22 +1,16 @@
-contentfolder
-dbaeumer
-dotenv
-esbenp
-eslintcache
+# These are words contained within IsaacScript template files.
+
+contentfolder # metadata.vdf
+dbaeumer # extensions.json
+esbenp # extensions.json
 isaacscript
-jscoverage
-jspm
-lcov
-Microbundle
-noout
-Nuxt
-pathlib
-pids
-prettierignore
-prettierrc
-publishedfileid
-reimplement
+noout # lint.sh
+pathlib # check-api-dictionary.sh
+prettierignore # check-file-updates.sh
+prettierrc # check-file-updates.sh
+publishedfileid # metadata.vdf
+steamcmd # For publishing
 tstl
 typedoc
-workshopitem
+workshopitem # metadata.vdf
 Zamiell

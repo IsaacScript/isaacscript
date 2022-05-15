@@ -9,6 +9,16 @@
       "name": "isaacscript",
       "path": "./isaacscript.txt",
       "description": "Words for IsaacScript"
+    },
+    {
+      "name": "gitignore",
+      "path": "./gitignore.txt",
+      "description": "Words for gitignore template"
+    },
+    {
+      "name": "missing-words",
+      "path": "./missing-words.txt",
+      "description": "Missing English words"
     }
   ],
   "dictionaries": [],
@@ -17,7 +27,7 @@
       "languageId": "*",
       "locale": "*",
       "includeRegExpList": [],
-      "dictionaries": ["isaacscript"],
+      "dictionaries": ["isaacscript", "gitignore", "missing-words"],
       "dictionaryDefinitions": []
     }
   ]
