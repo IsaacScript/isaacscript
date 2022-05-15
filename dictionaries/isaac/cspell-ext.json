@@ -9,6 +9,11 @@
       "name": "api",
       "path": "./api.txt",
       "description": "Words from the API"
+    },
+    {
+      "name": "files",
+      "path": "./files.txt",
+      "description": "Words from resource files"
     }
   ],
   "dictionaries": [],
@@ -17,7 +22,7 @@
       "languageId": "*",
       "locale": "*",
       "includeRegExpList": [],
-      "dictionaries": ["api"]
+      "dictionaries": ["api", "files"]
     }
   ]
 }
