@@ -109,12 +109,6 @@ If VSCode incorrectly reports that a file is misspelled, you can right-click on 
 
 <br />
 
-### `.cspell-check-unused.json`
-
-This is a configuration file used by the script that checks for orphaned / unused words. If you don't care about orphaned words in your CSpell configuration file, you can delete it.
-
-<br />
-
 ### `.env_template`
 
 This is a template for a `.env` file; you are intended to copy it to `.env` and then fill in the values.
