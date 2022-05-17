@@ -27,15 +27,11 @@ declare interface Vector {
   Resized(newLength: float): Vector;
   Rotated(angleDegrees: float): Vector;
 
-  // The underscore methods like "__add" are not implemented in favor of having `add` and so on.
-
   X: float;
   Y: float;
 
-  // ----------------------------------------
-  // Helper functions for adding and so forth
+  // The underscore methods like "__add" are not implemented in favor of having `add` and so on.
   // https://typescripttolua.github.io/docs/advanced/language-extensions/#operator-map-types
-  // ----------------------------------------
 
   add: LuaAdditionMethod<Vector, Vector>;
 
@@ -47,8 +43,6 @@ declare interface Vector {
 
   mul: LuaMultiplicationMethod<number | Vector, Vector>;
   sub: LuaSubtractionMethod<Vector, Vector>;
-
-  // unm is not implemented since it can cause the game to crash.
 }
 
 declare namespace Vector {
