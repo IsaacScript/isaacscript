@@ -100,7 +100,6 @@ function reducer(
     rule.meta.docs === undefined || rule.meta.docs.recommended === false
       ? DEFAULT_RULE_LEVEL
       : rule.meta.docs.recommended;
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
   const ruleLevel = ruleLevelRaw as "error" | "warn";
   config[fullRuleName] = ruleLevel;
 
