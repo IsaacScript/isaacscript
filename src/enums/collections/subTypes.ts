@@ -39,82 +39,63 @@ export enum PlayerType {
   JACOB = 19,
   ESAU = 20,
 
-  // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
   /** Tainted Isaac */
   ISAAC_B = 21,
 
-  // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
   /** Tainted Magdalene */
   MAGDALENE_B = 22,
 
-  // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
   /** Tainted Cain */
   CAIN_B = 23,
 
-  // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
   /** Tainted Judas */
   JUDAS_B = 24,
 
-  // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
   /** Tainted Blue Baby */
   BLUE_BABY_B = 25,
 
-  // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
   /** Tainted Eve */
   EVE_B = 26,
 
-  // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
   /** Tainted Samson */
   SAMSON_B = 27,
 
-  // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
   /** Tainted Azazel */
   AZAZEL_B = 28,
 
-  // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
   /** Tainted Lazarus */
   LAZARUS_B = 29,
 
-  // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
   /** Tainted Eden */
   EDEN_B = 30,
 
-  // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
   /** Tainted Lost */
   THE_LOST_B = 31,
 
-  // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
   /** Tainted Lilith */
   LILITH_B = 32,
 
-  // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
   /** Tainted Keeper */
   KEEPER_B = 33,
 
-  // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
   /** Tainted Apollyon */
   APOLLYON_B = 34,
 
-  // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
   /** Tainted Forgotten */
   THE_FORGOTTEN_B = 35,
 
-  // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
   /** Tainted Bethany */
   BETHANY_B = 36,
 
-  // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
   /** Tainted Jacob */
   JACOB_B = 37,
 
-  // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
   /** Dead Tainted Lazarus */
   LAZARUS_2_B = 38,
 
   /** Tainted Jacob in "Lost" form. */
   JACOB_2_B = 39,
 
-  // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
   /** Tainted Soul */
   THE_SOUL_B = 40,
 }
@@ -217,7 +198,6 @@ export enum BlueFlySubType {
   /** Black (double-damage) */
   DEATH = 4,
 
-  // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
   /** White */
   CONQUEST = 5,
 }

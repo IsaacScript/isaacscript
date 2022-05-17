@@ -93,20 +93,17 @@ export enum BossID {
   DINGLE = 44,
   MEGA_MAW = 45,
 
-  // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
   /** The Gate */
   MEGA_MAW_II = 46,
 
   MEGA_FATTY = 47,
 
-  // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
   /** The Cage */
   MEGA_FATTY_II = 48,
 
   MEGA_GURDY = 49,
   DARK_ONE = 50,
 
-  // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
   /** The Adversary */
   DARK_ONE_II = 51,
 
