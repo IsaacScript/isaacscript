@@ -1,10 +1,10 @@
 import { TSESTree } from "@typescript-eslint/utils";
-import { getFormattedCommentText } from "../format";
+import { formatText } from "../format";
 import {
   getCommentBlocks,
   getLeadingLineComments,
 } from "../leadingLineComments";
-import { createRule, isStringsEqualExcludingTrailingSpaces } from "../utils";
+import { areStringsEqualExcludingTrailingSpaces, createRule } from "../utils";
 
 const RULE_NAME = "format-line-comments";
 const SLASH_SLASH = "//";
@@ -65,10 +65,7 @@ export const formatLineComments = createRule<Options, MessageIds>({
     const sourceCode = context.getSourceCode();
     const comments = sourceCode.getAllComments();
 
-    /**
-     * We only look at `//` style comments on their own line. `/*` style comments are handled by the
-     * "format-jsdoc-comment" rule.
-     */
+    // We only look at `//` style comments on their own line.
     const leadingLineComments = getLeadingLineComments(sourceCode, comments);
 
     // Sort the comments by blocks.
@@ -92,12 +89,16 @@ export const formatLineComments = createRule<Options, MessageIds>({
         commentBlock.originalComments,
         leftWhitespace,
       );
-      const text = commentBlock.subBulletIndent + commentBlock.mergedText;
-      const linePrefix = `${leftWhitespace}${SLASH_SLASH} `;
-      const formattedText = getFormattedCommentText(
-        text,
-        linePrefix,
-        maxLength,
+
+      const effectiveMaxLength =
+        maxLength - leftWhitespaceLength - "// ".length;
+      const formattedTextRaw = formatText(
+        commentBlock.mergedText,
+        effectiveMaxLength,
+      );
+      const formattedText = convertTextToLeadingLineComments(
+        formattedTextRaw,
+        leftWhitespace,
       );
 
       if (DEBUG) {
@@ -107,7 +108,9 @@ export const formatLineComments = createRule<Options, MessageIds>({
         console.log(formattedText); // eslint-disable-line no-console
       }
 
-      if (!isStringsEqualExcludingTrailingSpaces(originalText, formattedText)) {
+      if (
+        !areStringsEqualExcludingTrailingSpaces(originalText, formattedText)
+      ) {
         context.report({
           loc: {
             start: firstComment.loc.start,
@@ -154,4 +157,16 @@ function getTextFromComments(
     (comment) => `${leftWhitespace}${SLASH_SLASH}${comment.value}`,
   );
   return lines.join("\n");
+}
+
+/** Converts "Foo" to "// Foo". */
+function convertTextToLeadingLineComments(
+  text: string,
+  leftWhitespace: string,
+) {
+  const lines = text.split("\n");
+  const linesWithPrefix = lines.map(
+    (line) => `${leftWhitespace}${SLASH_SLASH} ${line}`,
+  );
+  return linesWithPrefix.join("\n");
 }

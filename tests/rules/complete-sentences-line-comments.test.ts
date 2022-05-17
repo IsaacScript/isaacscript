@@ -209,6 +209,24 @@ valid.push({
 });
 
 valid.push({
+  name: "Comment with eslint-disable",
+  code: `
+function foo() {
+  // eslint-disable-next-line no-useless-return
+}
+  `,
+});
+
+valid.push({
+  name: "Comment with ts-ignore",
+  code: `
+function foo() {
+  // @ts-ignore
+}
+  `,
+});
+
+valid.push({
   name: "Comment with eslint-disable and ts-ignore",
   code: `
 function foo() {
@@ -245,6 +263,14 @@ valid.push({
   code: `
 // CacheFlag.FIRE_DELAY (1 << 1)
   `,
+});
+
+invalid.push({
+  name: "Text that looks like an enum block comment",
+  code: `
+// This variable uses CollectibleType.SAD_ONION
+  `,
+  errors: [{ messageId: "missingPeriod" }],
 });
 
 ruleTester.run(

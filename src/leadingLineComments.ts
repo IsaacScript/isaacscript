@@ -1,182 +1,6 @@
 import { TSESTree } from "@typescript-eslint/types";
 import { TSESLint } from "@typescript-eslint/utils";
-import {
-  BulletPointKind,
-  getAdjustedBulletPointKind,
-  getBulletPointKind,
-  getSpacesBeforeBulletPoint,
-} from "./bulletPoints";
-import {
-  isCommentOnOwnLine,
-  isEnumBlockLabel,
-  isSpecialComment,
-  startsWithExample,
-} from "./comments";
-import { hasURL } from "./utils";
-
-/**
- * An object containing one or more contiguous comments. For example:
- *
- * ```ts
- * // A comment.
- * // Another comment.
- * ```
- */
-export interface CommentBlock {
-  mergedText: string;
-  originalComments: TSESTree.Comment[];
-  bulletPointKind: BulletPointKind;
-
-  /**
-   * The amount of spaces before a sub bullet. For example, the following bullet points would have a
-   * `subBulletIndentLength` of "" and "  " respectively:
-   *
-   * - First bullet point.
-   *   - Sub bullet point.
-   */
-  subBulletIndent: string;
-}
-
-/**
- * Returns an array of grouped comments. For example, the following code would return an array of
- * three comment blocks:
- *
- * ```ts
- * // This is the first block.
- *
- * // This is the second block.
- * // We are still in the second block, because there has not been a newline separator yet.
- *
- * // This is the third block.
- * ```
- */
-export function getCommentBlocks(comments: TSESTree.Comment[]): CommentBlock[] {
-  const commentBlocks: CommentBlock[] = [];
-
-  for (let i = 0; i < comments.length; i++) {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const comment = comments[i]!;
-
-    /**
-     * Remove the initial space that will always live in front of comment line.
-     *
-     * For example, the comment of:
-     *
-     * // Foo.
-     *
-     * Has a comment value of: " Foo."
-     */
-    const text = comment.value.slice(1);
-
-    const bulletPointKind = getBulletPointKind(text);
-    const subBulletIndent = getSpacesBeforeBulletPoint(text);
-
-    const commentBlock: CommentBlock = {
-      mergedText: comment.value.trim(),
-      originalComments: [comment],
-      bulletPointKind,
-      subBulletIndent,
-    };
-
-    const commentIndex = i; // Make a copy of the comment index since we will mutate i later.
-    const firstCommentStartLine = comment.loc.start.line;
-
-    // Gather information about this line.
-    const isBlankLine = text.trim() === "";
-    const endsWithColon = text.trimEnd().endsWith(":");
-    const separatorLine = isSeparatorLine(text);
-    const hasURLInside = hasURL(text);
-    const hasNoLetters = !/[a-zA-z]/.test(text);
-    const hasNumberParenthesisSuffix = / \(\d+\)$/.test(text.trimEnd());
-    const enumBlockLabel = isEnumBlockLabel(text);
-
-    // Always put certain kinds of comments on their own blocks.
-    const shouldBeInSelfContainedBlock =
-      separatorLine ||
-      hasURLInside ||
-      hasNoLetters ||
-      hasNumberParenthesisSuffix ||
-      enumBlockLabel;
-
-    if (!shouldBeInSelfContainedBlock) {
-      // Look for one or more "connecting" comments on the next subsequent lines.
-      for (let j = i + 1; j < comments.length; j++) {
-        const nextComment = comments[j];
-        if (nextComment === undefined) {
-          break;
-        }
-
-        // Break if we are on a non-contiguous line.
-        const nextCommentStartLine = nextComment.loc.start.line;
-        const lineDelta = j - commentIndex;
-        if (nextCommentStartLine !== firstCommentStartLine + lineDelta) {
-          break;
-        }
-
-        const nextCommentBulletPointKind = getAdjustedBulletPointKind(
-          nextComment.value,
-          isBlankLine,
-          endsWithColon,
-          bulletPointKind,
-        );
-
-        // Break if we are not in a bulleted list and we encounter a bullet point.
-        if (
-          bulletPointKind === BulletPointKind.NonBulletPoint &&
-          nextCommentBulletPointKind !== BulletPointKind.NonBulletPoint
-        ) {
-          break;
-        }
-
-        // Break if we are in a bullet point list and we encounter the same kind of bullet point.
-        if (
-          bulletPointKind !== BulletPointKind.NonBulletPoint &&
-          nextCommentBulletPointKind === bulletPointKind
-        ) {
-          break;
-        }
-
-        // Break if the next line is an example.
-        if (startsWithExample(nextComment.value)) {
-          break;
-        }
-
-        // Break if the next line is a "special" comment like "eslint-disable-next-line".
-        if (isSpecialComment(nextComment.value)) {
-          break;
-        }
-
-        // Break if the next line is a "separator" line.
-        const nextCommentIsSeparator = isSeparatorLine(nextComment.value);
-        if (nextCommentIsSeparator) {
-          break;
-        }
-
-        // Break if the next line has a URL.
-        const nextCommentHasURL = hasURL(nextComment.value);
-        if (nextCommentHasURL) {
-          break;
-        }
-
-        commentBlock.mergedText += " ";
-        commentBlock.mergedText += nextComment.value.trim();
-        commentBlock.originalComments.push(nextComment);
-
-        // Since we merged this comment, we can skip over examining it in the parent for loop.
-        i += 1;
-
-        // If we just merged a URL, then we need to break, since text should never follow URLs.
-        if (hasURL(nextComment.value)) {
-          break;
-        }
-      }
-    }
-
-    commentBlocks.push(commentBlock);
-  }
-
-  return commentBlocks;
-}
+import { isCommentOnOwnLine, isSeparatorLine } from "./comments";
 
 export function getLeadingLineComments(
   sourceCode: TSESLint.SourceCode,
@@ -192,14 +16,90 @@ export function getLeadingLineComments(
 }
 
 /**
- * A "separator" line is a line with all hyphens like the following:
+ * An object containing one or more contiguous leading line comments. For example:
  *
  * ```ts
- * // ----------------
- * // Getter functions
- * // ----------------
+ * // The first line of the block.
+ * // The second line of the block.
  * ```
  */
-export function isSeparatorLine(text: string): boolean {
-  return /^\s*-+\s*$/.test(text);
+interface LeadingLineCommentBlock {
+  mergedText: string;
+  originalComments: TSESTree.Comment[];
+}
+
+/**
+ * Returns an array of grouped comments. For example, the following code would return an array of
+ * three comment blocks:
+ *
+ * ```ts
+ * // This is the first block.
+ *
+ * // This is the second block.
+ * // We are still in the second block, because there has not been a newline separator yet.
+ *
+ * // This is the third block.
+ * ```
+ */
+export function getCommentBlocks(
+  comments: TSESTree.Comment[],
+): LeadingLineCommentBlock[] {
+  const commentBlocks: LeadingLineCommentBlock[] = [];
+
+  for (let i = 0; i < comments.length; i++) {
+    const comment = comments[i]!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+
+    /**
+     * Remove the initial space that will always live in front of comment line.
+     *
+     * For example, the comment of:
+     *
+     * ```
+     * // Foo.
+     * ```
+     *
+     * Has a comment value of: " Foo."
+     */
+    const text = comment.value.slice(1);
+
+    const commentBlock: LeadingLineCommentBlock = {
+      mergedText: text,
+      originalComments: [comment],
+    };
+
+    const commentIndex = i; // Make a copy of the comment index since we will mutate i later.
+    const firstCommentStartLine = comment.loc.start.line;
+
+    // Look for one or more "connecting" comments on the next subsequent lines.
+    for (let j = i + 1; j < comments.length; j++) {
+      const nextComment = comments[j];
+      if (nextComment === undefined) {
+        break;
+      }
+
+      // Break if we are on a non-contiguous line.
+      const nextCommentStartLine = nextComment.loc.start.line;
+      const lineDelta = j - commentIndex;
+      if (nextCommentStartLine !== firstCommentStartLine + lineDelta) {
+        break;
+      }
+
+      // Break if this is a "separator" line.
+      if (isSeparatorLine(nextComment.value)) {
+        break;
+      }
+
+      commentBlock.mergedText += "\n";
+      const nextText = nextComment.value.slice(1);
+      commentBlock.mergedText += nextText;
+      commentBlock.originalComments.push(nextComment);
+
+      // Since we merged this comment, we can skip over examining it in the parent loop.
+      i += 1;
+    }
+
+    commentBlocks.push(commentBlock);
+  }
+
+  return commentBlocks;
 }

@@ -8,20 +8,12 @@ import { ruleTester } from "../utils";
 const valid: Array<TSESLint.ValidTestCase<unknown[]>> = [];
 const invalid: Array<TSESLint.InvalidTestCase<MessageIds, unknown[]>> = [];
 
-// ----------------------
-// COVERED BY OTHER RULES
-// ----------------------
-
 valid.push({
   name: "Using a single-line JSDoc comment that is too long",
   code: `
 /** But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will */
   `,
 });
-
-// ------------
-// SHARED TESTS
-// ------------
 
 valid.push({
   name: "Using a single-line comment with exactly 100 characters",
@@ -51,29 +43,10 @@ invalid.push({
 });
 
 valid.push({
-  name: "Using a multi-line comment with exactly 100 characters",
-  code: `
-// But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was
-    `,
-});
-
-valid.push({
   name: "Using a multi-line comment with exactly 100 characters and potential spillover",
   code: `
 // But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was
 // born and I will give you a complete account of the system
-    `,
-});
-
-invalid.push({
-  name: "Using a multi-line comment with exactly 101 characters",
-  code: `
-// But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain kept
-    `,
-  errors: [{ messageId: "incorrectlyFormatted" }],
-  output: `
-// But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain
-// kept
     `,
 });
 
@@ -172,32 +145,10 @@ function foo() {
   `,
 });
 
-invalid.push({
-  name: "Using a multi-line comment that can be combined (2 lines --> 1 line)",
-  code: `
-// I love cookies.
-// But not cake.
-  `,
-  errors: [{ messageId: "incorrectlyFormatted" }],
-  output: `
-// I love cookies. But not cake.
-  `,
-});
-
-invalid.push({
-  name: "Using a multi-line comment that can be combined (3 lines --> 2 lines)",
-  code: `
-// I love cookies. But not cake. Actually, I love a lot of different foods. But mostly cookies.
-// And definitely not cake.
-// Except on my birthday.
-  `,
-  errors: [{ messageId: "incorrectlyFormatted" }],
-  output: `
-// I love cookies. But not cake. Actually, I love a lot of different foods. But mostly cookies. And
-// definitely not cake. Except on my birthday.
-  `,
-});
-
+// The extra newline in the expected output cannot be removed because this rule operates on
+// individual comment blocks, and it has no notion of the whitespace in between comment blocks.
+// Prettier will automatically remove extra trailing newlines between comments like this, so we do
+// not have to make a rule to handle that in this plugin.
 invalid.push({
   name: "Using a multi-line comment that has many code blocks and block separation",
   code: `
@@ -232,10 +183,6 @@ invalid.push({
   `,
 });
 
-// The extra newline in the expected output cannot be removed because this rule operates on
-// individual comment blocks, and it has no notion of the whitespace in between comment blocks.
-// Prettier will automatically remove extra trailing newlines between comments like this, so we do
-// not have to make a rule to handle that in this plugin.
 invalid.push({
   name: "Using a multi-line comment that has many code blocks and block separation inside a function",
   code: `
@@ -275,7 +222,7 @@ function foo() {
 });
 
 invalid.push({
-  name: "Using a multi-line comment with bullet points (with a newline before the bullets)",
+  name: "Using a multi-line comment with bullet points with a newline before the bullets",
   code: `
 // Here is my list of things:
 //
@@ -284,11 +231,7 @@ invalid.push({
 // truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure
 // - itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter
   `,
-  errors: [
-    { messageId: "incorrectlyFormatted" },
-    { messageId: "incorrectlyFormatted" },
-    { messageId: "incorrectlyFormatted" },
-  ],
+  errors: [{ messageId: "incorrectlyFormatted" }],
   output: `
 // Here is my list of things:
 //
@@ -303,7 +246,7 @@ invalid.push({
 });
 
 invalid.push({
-  name: "Using a multi-line comment with bullet points (with no newline before the bullets)",
+  name: "Using a multi-line comment with bullet points with no newline before the bullets",
   code: `
 // Here is my list of things:
 // - But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and
@@ -311,11 +254,7 @@ invalid.push({
 // truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure
 // - itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter
   `,
-  errors: [
-    { messageId: "incorrectlyFormatted" },
-    { messageId: "incorrectlyFormatted" },
-    { messageId: "incorrectlyFormatted" },
-  ],
+  errors: [{ messageId: "incorrectlyFormatted" }],
   output: `
 // Here is my list of things:
 // - But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain
@@ -339,11 +278,7 @@ invalid.push({
 //   - itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter
 // - consequences that are extremely painful.
   `,
-  errors: [
-    { messageId: "incorrectlyFormatted" },
-    { messageId: "incorrectlyFormatted" },
-    { messageId: "incorrectlyFormatted" },
-  ],
+  errors: [{ messageId: "incorrectlyFormatted" }],
   output: `
 // Here is my list of things:
 //
@@ -387,48 +322,6 @@ invalid.push({
 //
 // - itself, because it is pleasure, but because those who do not know how to pursue pleasure
 //   rationally encounter
-  `,
-});
-
-valid.push({
-  name: "Using a multi-line comment with number period bullet points and no spacing",
-  code: `
-// This is my list:
-// 1. foo
-// 2. bar
-// 3. baz
-  `,
-});
-
-valid.push({
-  name: "Using a multi-line comment with number parenthesis bullet points and no spacing",
-  code: `
-// This is my list:
-// 1) foo
-// 2) bar
-// 3) baz
-  `,
-});
-
-valid.push({
-  name: "Using a multi-line comment with number period bullet points and spacing",
-  code: `
-// This is my list:
-//
-// 1. foo
-// 2. bar
-// 3. baz
-  `,
-});
-
-valid.push({
-  name: "Using a multi-line comment with number parenthesis bullet points and spacing",
-  code: `
-// This is my list:
-//
-// 1) foo
-// 2) bar
-// 3) baz
   `,
 });
 
@@ -499,10 +392,7 @@ function foo() {
   // annoying consequences, or one who avoids a pain that produces no resultant pleasure?
 }
   `,
-  errors: [
-    { messageId: "incorrectlyFormatted" },
-    { messageId: "incorrectlyFormatted" },
-  ],
+  errors: [{ messageId: "incorrectlyFormatted" }],
   output: `
 function foo() {
   // This is my list:
@@ -574,50 +464,6 @@ valid.push({
 });
 
 valid.push({
-  name: "Using a multi-line comment with e.g. Foo without parenthesis",
-  code: `
-// We split to a new line if:
-// 1) adding the word would make it overflow past the maximum length
-// 2) and there is at least one word on the current line
-// e.g. there could be a very long URL that exceeds the maximum length, but since there are no
-// spaces in the URL, it can't be split up and has to exceed the maximum length
-  `,
-});
-
-valid.push({
-  name: "Using a multi-line comment with e.g. Foo in parenthesis",
-  code: `
-// We split to a new line if:
-// 1) adding the word would make it overflow past the maximum length
-// 2) and there is at least one word on the current line
-// (e.g. there could be a very long URL that exceeds the maximum length, but since there are no
-// spaces in the URL, it can't be split up and has to exceed the maximum length)
-  `,
-});
-
-valid.push({
-  name: "Using a multi-line comment with i.e. Foo without parenthesis",
-  code: `
-// We split to a new line if:
-// 1) adding the word would make it overflow past the maximum length
-// 2) and there is at least one word on the current line
-// i.e. there could be a very long URL that exceeds the maximum length, but since there are no
-// spaces in the URL, it can't be split up and has to exceed the maximum length
-  `,
-});
-
-valid.push({
-  name: "Using a multi-line comment with i.e. Foo in parenthesis",
-  code: `
-// We split to a new line if:
-// 1) adding the word would make it overflow past the maximum length
-// 2) and there is at least one word on the current line
-// (i.e. there could be a very long URL that exceeds the maximum length, but since there are no
-// spaces in the URL, it can't be split up and has to exceed the maximum length)
-  `,
-});
-
-valid.push({
   name: "Using an URL in the subsequent line",
   code: `
 // Allow proper formatting of JSONC files:
@@ -625,10 +471,6 @@ valid.push({
 // (this is an extra line)
   `,
 });
-
-// -----------------
-// LINE UNIQUE TESTS
-// -----------------
 
 valid.push({
   name: "Using triple slash directives",

@@ -1,18 +1,16 @@
-import { TSESTree } from "@typescript-eslint/types";
-import { TSESLint } from "@typescript-eslint/utils";
 import {
-  getMessageIDFromSentenceKind,
-  getSentenceKind,
+  CompleteSentenceMessageIds,
+  getIncompleteSentences,
 } from "../completeSentence";
-import { getJSDocComments, getTextBlocksFromJSDocComment } from "../jsdoc";
-import { createRule, hasURL } from "../utils";
+import { getJSDocComments, getTextFromJSDocComment } from "../jsdoc";
+import { createRule } from "../utils";
 
 type Options = [];
 
-// ts-prune-ignore-next
-export type MessageIds = "missingCapital" | "missingPeriod";
-
-export const completeSentencesJSDoc = createRule<Options, MessageIds>({
+export const completeSentencesJSDoc = createRule<
+  Options,
+  CompleteSentenceMessageIds
+>({
   name: "complete-sentences-jsdoc",
   meta: {
     type: "problem",
@@ -45,123 +43,22 @@ export const completeSentencesJSDoc = createRule<Options, MessageIds>({
     const jsDocComments = getJSDocComments(comments);
 
     jsDocComments.forEach((comment) => {
-      const textBlocks = getTextBlocksFromJSDocComment(comment);
-
-      for (let i = 0; i < textBlocks.length; i++) {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const textBlock = textBlocks[i]!;
-        const { text, insideCodeBlock } = textBlock;
-        const nextTextBlock = textBlocks[i + 1];
-
-        // Everything in a code block is whitelisted.
-        if (insideCodeBlock) {
-          continue;
-        }
-
-        // URLs are whitelisted.
-        if (hasURL(text)) {
-          continue;
-        }
-        if (
-          !textBlock.insertBlankLineBelow &&
-          nextTextBlock !== undefined &&
-          hasURL(nextTextBlock.text)
-        ) {
-          continue;
-        }
-
-        // Whitelist blocks where the next line ends in a number parenthesis.
-        if (
-          nextTextBlock !== undefined &&
-          /\(\d+\)$/.test(nextTextBlock.text.trimEnd())
-        ) {
-          continue;
-        }
-
-        // If this is a JSDoc tag, we need to extract the description out of it.
-        const sentence = getSentenceFromJSDocTag(text);
-
-        const sentenceKind = getSentenceKind(sentence);
-        const messageId = getMessageIDFromSentenceKind(sentenceKind);
-        if (messageId !== undefined) {
-          report(context, comment, messageId as MessageIds, sentence);
-        }
-      }
+      const text = getTextFromJSDocComment(comment.value);
+      const incompleteSentences = getIncompleteSentences(text);
+      incompleteSentences.forEach((incompleteSentence) => {
+        context.report({
+          loc: {
+            start: comment.loc.start,
+            end: comment.loc.end,
+          },
+          messageId: incompleteSentence.messageId,
+          data: {
+            sentence: incompleteSentence.sentence,
+          },
+        });
+      });
     });
 
     return {};
   },
 });
-
-function getSentenceFromJSDocTag(text: string) {
-  text = text.trim();
-
-  // Base case: ignore non-JSDoc tags.
-  const hasJSDocTag = text.startsWith("@");
-  if (!hasJSDocTag) {
-    return text;
-  }
-
-  // Lone JSDoc tags do not contain any sentences that we want to parse.
-  const loneTagMatch = text.match(/^@\w+$/);
-  if (loneTagMatch !== null) {
-    return "";
-  }
-
-  // Extract the name of the JSDoc tag.
-  const tagMatch = text.match(/^@(\w+) /);
-  if (tagMatch === null) {
-    return "";
-  }
-
-  const tag = tagMatch[1];
-  if (tag === undefined) {
-    return "";
-  }
-
-  // Specific JSDoc tags have words after them that we want to ignore. For example, we want to
-  // ignore the variable name after a "@param" tag.
-  if (tag === "param") {
-    const paramMatch = text.match(/^@\w+ \w+ (.*)/);
-    if (paramMatch === null) {
-      return "";
-    }
-
-    const sentence = paramMatch[1];
-    if (sentence === undefined) {
-      return "";
-    }
-
-    return sentence;
-  }
-
-  const sentenceMatch = text.match(/^@\w+ (.*)/);
-  if (sentenceMatch === null) {
-    return "";
-  }
-
-  const sentence = sentenceMatch[1];
-  if (sentence === undefined) {
-    return "";
-  }
-
-  return sentence;
-}
-
-function report(
-  context: TSESLint.RuleContext<MessageIds, []>,
-  comment: TSESTree.Comment,
-  messageId: MessageIds,
-  sentence: string,
-) {
-  context.report({
-    loc: {
-      start: comment.loc.start,
-      end: comment.loc.end,
-    },
-    messageId,
-    data: {
-      sentence,
-    },
-  });
-}

@@ -27,11 +27,11 @@ Lines that are too short will be merged together:
 
 ```ts
 // Bad
-// I love cookies.
-// But not cake.
+// Lorem ipsum dolor sit amet,
+// consectetur adipiscing elit
 
 // Good
-// I love cookies. But not cake.
+// Lorem ipsum dolor sit amet, consectetur adipiscing elit
 ```
 
 The rule tries to be as smart as possible. For example, it won't complain about TypeScript [triple slash directives](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html):

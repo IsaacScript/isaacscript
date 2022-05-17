@@ -1,13 +1,9 @@
-import { isCommentOnOwnLine } from "../comments";
-import { getFormattedCommentText } from "../format";
-import {
-  getJSDocComments,
-  getTextBlocksFromJSDocComment,
-  TextBlock,
-} from "../jsdoc";
-import { createRule, isStringsEqualExcludingTrailingSpaces } from "../utils";
+import { formatText } from "../format";
+import { getJSDocComments, getTextFromJSDocComment } from "../jsdoc";
+import { areStringsEqualExcludingTrailingSpaces, createRule } from "../utils";
 
 const RULE_NAME = "format-jsdoc-comments";
+const EXTRA_NUM_CHARACTERS_TO_FIT_ON_JSDOC_SINGLE_LINE = 4;
 const DEBUG = false;
 
 type Options = [
@@ -65,52 +61,41 @@ export const formatJSDocComments = createRule<Options, MessageIds>({
     const sourceCode = context.getSourceCode();
     const comments = sourceCode.getAllComments();
 
-    /**
-     * We only look at `/**` style comments on their own line.
-     *
-     * - `//` style comments are handled by the "format-line-comments" rule.
-     * - `/*` style comments are explicitly ignored, since those are conventionally used to comment
-     *   out code. (Actual code documentation conventionally uses JSDoc-style comments, like `/**`.)
-     */
-    const jsDocCommentsAll = getJSDocComments(comments);
-    const jsDocComments = jsDocCommentsAll.filter((comment) =>
-      isCommentOnOwnLine(sourceCode, comment),
-    );
+    // We only look at `/**` style comments on their own line.
+    const jsDocComments = getJSDocComments(comments);
 
     jsDocComments.forEach((comment) => {
-      const textBlocks = getTextBlocksFromJSDocComment(comment);
-
-      const firstBlock = textBlocks[0];
-      if (firstBlock === undefined) {
-        return;
-      }
-
       const leftWhitespaceLength = comment.loc.start.column;
       const leftWhitespace = " ".repeat(leftWhitespaceLength);
-      const originalText = `${leftWhitespace}/*${comment.value}*/`;
-      const canFitOnSingleLine =
-        textBlocks.length === 1 &&
-        canFitIOnSingleJSDocLine(
-          firstBlock.text,
-          leftWhitespaceLength,
-          maxLength,
-        );
-      const formattedText = canFitOnSingleLine
-        ? getFormattedJSDocCommentSingleLine(firstBlock.text, leftWhitespace)
-        : getFormattedJSDocCommentMultiLine(
-            textBlocks,
-            leftWhitespace,
-            maxLength,
-          );
+      const originalComment = `${leftWhitespace}/*${comment.value}*/`;
+
+      const text = getTextFromJSDocComment(comment.value);
+      const effectiveMaxLength =
+        maxLength - leftWhitespaceLength - " * ".length;
+      const formattedText = formatText(text, effectiveMaxLength);
+
+      const canFitOnSingleLine = canFitOnSingleJSDocLine(
+        formattedText,
+        effectiveMaxLength,
+      );
+
+      const formattedComment = canFitOnSingleLine
+        ? getJSDocCommentSingleLine(formattedText, leftWhitespace)
+        : getJSDocCommentMultiLine(formattedText, leftWhitespace);
 
       if (DEBUG) {
-        console.log("originalText:"); // eslint-disable-line no-console
-        console.log(originalText); // eslint-disable-line no-console
-        console.log("formattedText:"); // eslint-disable-line no-console
-        console.log(formattedText); // eslint-disable-line no-console
+        console.log("originalComment:"); // eslint-disable-line no-console
+        console.log(originalComment); // eslint-disable-line no-console
+        console.log("formattedComment:"); // eslint-disable-line no-console
+        console.log(formattedComment); // eslint-disable-line no-console
       }
 
-      if (!isStringsEqualExcludingTrailingSpaces(originalText, formattedText)) {
+      if (
+        !areStringsEqualExcludingTrailingSpaces(
+          originalComment,
+          formattedComment,
+        )
+      ) {
         context.report({
           loc: {
             start: comment.loc.start,
@@ -126,7 +111,7 @@ export const formatJSDocComments = createRule<Options, MessageIds>({
               commentEnd,
             ];
 
-            return fixer.replaceTextRange(range, formattedText);
+            return fixer.replaceTextRange(range, formattedComment);
           },
         });
       }
@@ -137,27 +122,19 @@ export const formatJSDocComments = createRule<Options, MessageIds>({
 });
 
 /**
- * JSDoc can be either single-line or multi-line.
- *
- * For example:
+ * JSDoc can be either single-line or multi-line. For example:
  *
  * ```ts
  * /** This is a single-line JSDoc comment. * /
+ *
  * /**
  *  * This is a multi-line JSDoc comment.
  *  * /
  * ```
  */
-function canFitIOnSingleJSDocLine(
-  text: string,
-  leftWhitespaceLength: number,
-  maxLength: number,
-) {
-  const singleLineLength =
-    leftWhitespaceLength + "/** ".length + text.length + " */".length;
-
-  // JSDoc comments that specify parameter documentation should never be moved to a single line.
-  // (But JSDoc tags with no additional information are okay to be in a single line.)
+function canFitOnSingleJSDocLine(text: string, effectiveMaxLength: number) {
+  // As a special case, JSDoc comments that specify parameter documentation should never be moved to
+  // a single line. (But JSDoc tags with no additional information are okay to be in a single line.)
   const hasJSDocTag = text.startsWith("@");
   if (hasJSDocTag) {
     const tagHasSomethingAfterIt = text.includes(" ");
@@ -166,79 +143,30 @@ function canFitIOnSingleJSDocLine(
     }
   }
 
-  return singleLineLength <= maxLength;
+  const textLines = text.split("\n");
+  return (
+    textLines.length === 1 &&
+    text.length + EXTRA_NUM_CHARACTERS_TO_FIT_ON_JSDOC_SINGLE_LINE <=
+      effectiveMaxLength
+  );
 }
 
-function getFormattedJSDocCommentSingleLine(
-  text: string,
-  leftWhitespace: string,
-) {
-  text = removeDuplicateAsterisks(text);
+function getJSDocCommentSingleLine(text: string, leftWhitespace: string) {
   return `${leftWhitespace}/** ${text} */`;
 }
 
-function getFormattedJSDocCommentMultiLine(
-  textBlocks: TextBlock[],
-  leftWhitespace: string,
-  maxLength: number,
-) {
+function getJSDocCommentMultiLine(text: string, leftWhitespace: string) {
   const header = `${leftWhitespace}/**`;
   const emptyLine = `${leftWhitespace} *`;
   const footer = `${leftWhitespace} */`;
 
   const linePrefix = `${emptyLine} `;
 
-  let lines = "";
-  let insideCodeBlock = false;
-  for (let i = 0; i < textBlocks.length; i++) {
-    const block = textBlocks[i]!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+  const lines = text.split("\n");
+  const commentLines = lines.map((line) =>
+    line.trim() === "" ? emptyLine : `${linePrefix}${line}`,
+  );
+  const comments = commentLines.join("\n");
 
-    const hasCodeBlock = block.text.includes("```");
-    if (hasCodeBlock) {
-      insideCodeBlock = !insideCodeBlock;
-    }
-
-    const linePrefixWithExtraIndent = linePrefix + block.subBulletIndent;
-
-    const text = removeDuplicateAsterisks(block.text);
-    const formattedText = getFormattedCommentText(
-      text,
-      linePrefixWithExtraIndent,
-      maxLength,
-    );
-
-    let unformattedText = linePrefixWithExtraIndent + block.text;
-    if (block.text === "") {
-      // Since this is an empty line, we need to remove the superfluous trailing space.
-      unformattedText = unformattedText.slice(0, -1);
-    }
-
-    const textToUse = insideCodeBlock ? unformattedText : formattedText;
-
-    lines += textToUse;
-    lines += "\n";
-
-    const onLastElement = i === textBlocks.length - 1;
-    if (!onLastElement && block.insertBlankLineBelow) {
-      lines += emptyLine;
-      lines += "\n";
-    }
-  }
-
-  return `${header}\n${lines}${footer}`;
-}
-
-/**
- * Fix comments like:
- *
- * ```ts
- * /* * Foo * /
- * ```
- */
-function removeDuplicateAsterisks(text: string) {
-  while (text.startsWith("* ")) {
-    text = text.replace(/^\* /, "");
-  }
-
-  return text;
+  return `${header}\n${comments}\n${footer}`;
 }

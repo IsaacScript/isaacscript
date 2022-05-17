@@ -1,16 +1,10 @@
-import { TSESLint, TSESTree } from "@typescript-eslint/utils";
-import { isEnumBlockLabel } from "../comments";
+import { isSeparatorLine } from "../comments";
+import { getIncompleteSentences } from "../completeSentence";
 import {
-  getMessageIDFromSentenceKind,
-  getSentenceKind,
-} from "../completeSentence";
-import {
-  CommentBlock,
   getCommentBlocks,
   getLeadingLineComments,
-  isSeparatorLine,
 } from "../leadingLineComments";
-import { createRule, hasURL } from "../utils";
+import { createRule } from "../utils";
 
 type Options = [];
 
@@ -49,37 +43,25 @@ export const completeSentencesLineComments = createRule<Options, MessageIds>({
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const commentBlock = commentBlocks[i]!;
 
-      const firstComment = commentBlock.originalComments[0];
+      const firstComment = commentBlock.originalComments.at(0);
       if (firstComment === undefined) {
-        continue;
+        throw new Error("Failed to get the first comment.");
       }
 
-      const nextCommentBlock = commentBlocks[i + 1];
-
-      /*
-      // Single line comments are whitelisted.
-      if (isSingleLineComment(commentBlock, nextCommentBlock)) {
-        continue;
-      }
-      */
-
-      // Filter out comments that represent an enum.
-      if (isEnumBlockLabel(commentBlock.mergedText)) {
-        continue;
+      const lastComment = commentBlock.originalComments.at(-1);
+      if (lastComment === undefined) {
+        throw new Error("Failed to get the last comment");
       }
 
-      // URLs are whitelisted.
-      if (hasURL(commentBlock.mergedText)) {
-        continue;
-      }
+      // Comments in-between "separator lines" are whitelisted.
+      const previousCommentBlock = commentBlocks[i - 1];
       if (
-        nextCommentBlock !== undefined &&
-        hasURL(nextCommentBlock.mergedText)
+        previousCommentBlock !== undefined &&
+        isSeparatorLine(previousCommentBlock.mergedText)
       ) {
         continue;
       }
-
-      // Comments in-between separators are whitelisted.
+      const nextCommentBlock = commentBlocks[i + 1];
       if (
         nextCommentBlock !== undefined &&
         isSeparatorLine(nextCommentBlock.mergedText)
@@ -87,60 +69,22 @@ export const completeSentencesLineComments = createRule<Options, MessageIds>({
         continue;
       }
 
-      const sentence = commentBlock.mergedText;
-      const sentenceKind = getSentenceKind(sentence);
-      const messageId = getMessageIDFromSentenceKind(sentenceKind);
-      if (messageId !== undefined) {
-        report(context, firstComment, messageId as MessageIds, sentence);
-      }
+      const text = commentBlock.mergedText;
+      const incompleteSentences = getIncompleteSentences(text);
+      incompleteSentences.forEach((incompleteSentence) => {
+        context.report({
+          loc: {
+            start: firstComment.loc.start,
+            end: lastComment.loc.end,
+          },
+          messageId: incompleteSentence.messageId,
+          data: {
+            sentence: incompleteSentence.sentence,
+          },
+        });
+      });
     }
 
     return {};
   },
 });
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function isSingleLineComment(
-  commentBlock: CommentBlock,
-  nextCommentBlock: CommentBlock | undefined,
-) {
-  if (commentBlock.originalComments.length > 1) {
-    return false;
-  }
-
-  const comment = commentBlock.originalComments[0];
-  if (comment === undefined) {
-    return true;
-  }
-
-  if (nextCommentBlock === undefined) {
-    return true;
-  }
-
-  const nextComment = nextCommentBlock.originalComments[0];
-  if (nextComment === undefined) {
-    return true;
-  }
-
-  const nextCommentIsOnNextLine =
-    comment.loc.end.line + 1 === nextComment.loc.start.line;
-  return !nextCommentIsOnNextLine;
-}
-
-function report(
-  context: TSESLint.RuleContext<MessageIds, []>,
-  comment: TSESTree.Comment,
-  messageId: MessageIds,
-  sentence: string,
-) {
-  context.report({
-    loc: {
-      start: comment.loc.start,
-      end: comment.loc.end,
-    },
-    messageId,
-    data: {
-      sentence,
-    },
-  });
-}

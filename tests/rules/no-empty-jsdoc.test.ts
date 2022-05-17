@@ -8,6 +8,13 @@ ruleTester.run("no-empty-jsdoc", noEmptyJSDoc, {
 /** A */
       `,
     },
+    {
+      code: `
+/**
+ * A
+ */
+      `,
+    },
   ],
   invalid: [
     {

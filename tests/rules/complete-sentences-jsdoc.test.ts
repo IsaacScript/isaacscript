@@ -1,12 +1,12 @@
 import { TSESLint } from "@typescript-eslint/utils";
-import {
-  completeSentencesJSDoc,
-  MessageIds,
-} from "../../src/rules/complete-sentences-jsdoc";
+import { CompleteSentenceMessageIds } from "../../src/completeSentence";
+import { completeSentencesJSDoc } from "../../src/rules/complete-sentences-jsdoc";
 import { ruleTester } from "../utils";
 
 const valid: Array<TSESLint.ValidTestCase<unknown[]>> = [];
-const invalid: Array<TSESLint.InvalidTestCase<MessageIds, unknown[]>> = [];
+const invalid: Array<
+  TSESLint.InvalidTestCase<CompleteSentenceMessageIds, unknown[]>
+> = [];
 
 valid.push({
   name: "Single-line comment with complete sentence",
@@ -82,7 +82,7 @@ invalid.push({
 * between two lines
 */
   `,
-  errors: [{ messageId: "missingPeriod" }, { messageId: "missingPeriod" }],
+  errors: [{ messageId: "missingPeriod" }],
 });
 
 valid.push({
@@ -246,8 +246,6 @@ valid.push({
   name: "Multi-line comment with a complete sentence in quotes",
   code: `
 /**
- * The following is a quote:
- *
  * "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain
  * was born and I will."
  */
@@ -258,8 +256,6 @@ invalid.push({
   name: "Multi-line comment with a incomplete sentence in quotes",
   code: `
 /**
- * The following is a quote:
- *
  * "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain
  * was born and I will"
  */
@@ -281,31 +277,59 @@ function foo(bar: number) {}
 });
 
 invalid.push({
-  name: "Function comment with missing periods",
+  name: "Function comment with missing period in param tag",
   code: `
 /**
  * This is the foo function.
  *
  * @param bar This is a bar
+ * @returns This is a return value.
+ */
+function foo(bar: number) {}
+  `,
+  errors: [{ messageId: "missingPeriod" }],
+});
+
+invalid.push({
+  name: "Function comment with missing period in returns tag",
+  code: `
+/**
+ * This is the foo function.
+ *
+ * @param bar This is a bar.
  * @returns This is a return value
  */
 function foo(bar: number) {}
   `,
-  errors: [{ messageId: "missingPeriod" }, { messageId: "missingPeriod" }],
+  errors: [{ messageId: "missingPeriod" }],
 });
 
 invalid.push({
-  name: "Function comment with missing capitals",
+  name: "Function comment with missing capital in param tag",
   code: `
 /**
  * This is the foo function.
  *
  * @param bar this is a bar.
+ * @returns This is a return value.
+ */
+function foo(bar: number) {}
+  `,
+  errors: [{ messageId: "missingCapital" }],
+});
+
+invalid.push({
+  name: "Function comment with missing capital in returns tag",
+  code: `
+/**
+ * This is the foo function.
+ *
+ * @param bar This is a bar.
  * @returns this is a return value.
  */
 function foo(bar: number) {}
   `,
-  errors: [{ messageId: "missingCapital" }, { messageId: "missingCapital" }],
+  errors: [{ messageId: "missingCapital" }],
 });
 
 valid.push({
@@ -333,7 +357,7 @@ valid.push({
 invalid.push({
   name: "Comment without colon ending with code",
   code: `
-/** For example \`foo()\` */
+/** The following is an example of foo \`foo()\` */
   `,
   errors: [{ messageId: "missingPeriod" }],
 });
@@ -396,10 +420,10 @@ valid.push({
     {
       {
         /**
-        * We have to use \`leftTSNode.name\` instead of \`leftTSNode\` to avoid runtime errors
-        * because the \`typeChecker.getTypeAtLocation\` method expects a \`ts.BindingName\` instead
-        * of a \`ts.VariableDeclaration\`: https://github.com/microsoft/TypeScript/issues/48878
-        */
+         * We have to use \`leftTSNode.name\` instead of \`leftTSNode\` to avoid runtime errors
+         * because the \`typeChecker.getTypeAtLocation\` method expects a \`ts.BindingName\` instead
+         * of a \`ts.VariableDeclaration\`: https://github.com/microsoft/TypeScript/issues/48878
+         */
       }
     }
   }

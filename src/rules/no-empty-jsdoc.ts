@@ -1,4 +1,3 @@
-import { isCommentOnOwnLine } from "../comments";
 import { getJSDocComments } from "../jsdoc";
 import { createRule } from "../utils";
 
@@ -30,10 +29,7 @@ export const noEmptyJSDoc = createRule({
     const comments = sourceCode.getAllComments();
 
     // We only look at `/**` style comments on their own line.
-    const jsDocCommentsAll = getJSDocComments(comments);
-    const jsDocComments = jsDocCommentsAll.filter((comment) =>
-      isCommentOnOwnLine(sourceCode, comment),
-    );
+    const jsDocComments = getJSDocComments(comments);
 
     jsDocComments.forEach((comment) => {
       const text = comment.value.trim();
