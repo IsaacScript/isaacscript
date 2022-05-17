@@ -1,5 +1,7 @@
 # eslint-plugin-isaacscript
 
+<!-- markdownlint-disable MD033 -->
+
 <img src="https://isaacscript.github.io/img/items/magic-mushroom.png">
 
 `eslint-plugin-isaacscript` is a collection of miscellaneous [ESLint](https://eslint.org/) rules that can help make your JavaScript/TypeScript code more safe or more strict.
