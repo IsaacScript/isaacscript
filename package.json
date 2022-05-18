@@ -20,7 +20,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-isaacscript": "^1.0.35",
+    "eslint-plugin-isaacscript": "^1.0.36",
     "eslint-plugin-jsdoc": "^39.2.9",
     "eslint-plugin-no-implicit-map-set-loops": "^1.0.3",
     "eslint-plugin-only-warn": "^1.0.3",
