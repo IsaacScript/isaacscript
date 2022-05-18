@@ -197,3 +197,21 @@ function getJSDocTagName(text: string) {
 
   return `@${tagName}`;
 }
+
+/**
+ * When iterating over lines of text, by default, we want to keep the existing list object, if any.
+ */
+export function reachedNewList(
+  insideList: List | undefined,
+  list: List | undefined,
+): boolean {
+  if (list === undefined) {
+    return false;
+  }
+
+  return (
+    insideList === undefined || // Going from a non-list to list
+    insideList.numLeadingSpaces !== list.numLeadingSpaces || // Going from a list to a sub-list
+    insideList.jsDocTagName !== list.jsDocTagName // Going from a JSDoc to a different JSDoc tag
+  );
+}

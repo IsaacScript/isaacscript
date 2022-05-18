@@ -171,11 +171,19 @@ Add the word. (\`numLeadingSpaces\` will be set.)
   testIncompleteSentence(text, undefined);
 });
 
-test("List", () => {
+test("Numbered list with incomplete sentences", () => {
   const text = `
 We split to a new line if:
 1. adding the word would make it overflow past the maximum length
 2. and there is at least one word on the current line
+  `;
+  testIncompleteSentence(text, undefined);
+});
+
+test("Text that looks like a numbered list", () => {
+  const text = `
+This method will crash the game if you provide it an invalid type, such as -1, 0, or
+500. Thus, it is safer to use the \`foo\` method instead.
   `;
   testIncompleteSentence(text, undefined);
 });

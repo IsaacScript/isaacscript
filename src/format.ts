@@ -3,7 +3,7 @@ import {
   isSeparatorLine,
   isSpecialComment,
 } from "./comments";
-import { getAdjustedList, List } from "./list";
+import { getAdjustedList, List, reachedNewList } from "./list";
 import { hasURL } from "./utils";
 
 /**
@@ -125,16 +125,9 @@ export function formatText(text: string, maxLength: number): string {
       previousLineEndedInColon,
       insideList,
     );
-    if (list !== undefined) {
-      // By default, we want to keep the existing list object, if any.
-      if (
-        insideList === undefined || // Going from a non-list to list
-        insideList.numLeadingSpaces !== list.numLeadingSpaces || // Going from a list to a sub-list
-        insideList.jsDocTagName !== list.jsDocTagName // Going from a JSDoc to a different JSDoc tag
-      ) {
-        // Keep track that we have begun a list (or a new sub-list).
-        insideList = list;
-      }
+    if (reachedNewList(insideList, list)) {
+      // Keep track that we have begun a list (or a new sub-list).
+      insideList = list;
     }
 
     // Lists and some other specific text elements indicate that we should always insert a new line,

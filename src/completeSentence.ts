@@ -1,5 +1,5 @@
 import { isEnumBlockLabel, isSpecialComment } from "./comments";
-import { getList } from "./list";
+import { getAdjustedList, List, reachedNewList } from "./list";
 import { hasURL } from "./utils";
 
 export type CompleteSentenceMessageIds = "missingCapital" | "missingPeriod";
@@ -70,7 +70,11 @@ function splitOnSpecialText(text: string): string[] {
   text = text.replace(/```[\s\S]*```/gm, SENTENCE_SEPARATOR_IDENTIFIER);
 
   const lines = text.split("\n");
-  const filteredLines = lines.map((line) => {
+  const newLines: string[] = [];
+  let insideList: List | undefined;
+  for (let i = 0; i < lines.length; i++) {
+    let line = lines[i]!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+
     // Remove any JSDoc tags. (But leave the descriptions following the tags, if any.) "@param" tags
     // are followed by variable names, which will not be part of the sentence.
     line = line.replace(/^\s*@param \w+ /, SENTENCE_SEPARATOR_IDENTIFIER);
@@ -91,7 +95,21 @@ function splitOnSpecialText(text: string): string[] {
     // Doing this allows short lists like:
     // - apple
     // - banana
-    const list = getList(line);
+    const previousLine = lines[i - 1];
+    const previousLineWasBlank =
+      previousLine === undefined || previousLine.trim() === "";
+    const previousLineEndedInColon =
+      previousLine !== undefined && previousLine.trimEnd().endsWith(":");
+    const list = getAdjustedList(
+      line,
+      previousLineWasBlank,
+      previousLineEndedInColon,
+      insideList,
+    );
+    if (reachedNewList(insideList, list)) {
+      // Keep track that we have begun a list (or a new sub-list).
+      insideList = list;
+    }
     if (list !== undefined) {
       line = line.slice(list.markerSize);
       line = SENTENCE_SEPARATOR_IDENTIFIER + LIST_ELEMENT_IDENTIFIER + line;
@@ -102,12 +120,10 @@ function splitOnSpecialText(text: string): string[] {
       line += SENTENCE_SEPARATOR_IDENTIFIER;
     }
 
-    return line;
-  });
+    newLines.push(line);
+  }
 
-  const textBlocks = filteredLines
-    .join("\n")
-    .split(SENTENCE_SEPARATOR_IDENTIFIER);
+  const textBlocks = newLines.join("\n").split(SENTENCE_SEPARATOR_IDENTIFIER);
 
   return textBlocks.filter((textBlock) => !isEnumBlockLabel(textBlock));
 }
