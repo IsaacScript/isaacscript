@@ -20,10 +20,14 @@
   "files.trimTrailingWhitespace": true,
 
   // Configure glob patterns for excluding files and folders in full text searches and quick open.
+  // (File extensions must be specified or the glob won't work properly.)
   "search.exclude": {
     "**/*.png": true,
     "**/*.wav": true,
-    "dist/**": true,
+    "dist/**/*.ts": true,
+    "dist/**/*.js": true,
+    "dist/**/*.json": true,
+    "dist/**/*.lua": true,
   },
 
   // -----------------
