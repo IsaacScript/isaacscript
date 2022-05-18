@@ -154,3 +154,5 @@ export const RoomDescriptorFlag =
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export type RoomDescriptorFlag =
   RoomDescriptorFlagType[keyof RoomDescriptorFlagType];
+
+export const RoomDescriptorFlagZero = 0 as BitFlags<RoomDescriptorFlag>;

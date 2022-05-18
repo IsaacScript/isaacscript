@@ -97,3 +97,5 @@ type UseFlagType = {
 export const UseFlag = UseFlagInternal as UseFlagType;
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export type UseFlag = UseFlagType[keyof UseFlagType];
+
+export const UseFlagZero = 0 as BitFlags<UseFlag>;

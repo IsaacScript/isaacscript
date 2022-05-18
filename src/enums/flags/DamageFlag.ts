@@ -110,3 +110,5 @@ type DamageFlagType = {
 export const DamageFlag = DamageFlagInternal as DamageFlagType;
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export type DamageFlag = DamageFlagType[keyof DamageFlagType];
+
+export const DamageFlagZero = 0 as BitFlags<DamageFlag>;

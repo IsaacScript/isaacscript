@@ -37,3 +37,5 @@ type LevelCurseType = {
 export const LevelCurse = LevelCurseInternal as LevelCurseType;
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export type LevelCurse = LevelCurseType[keyof LevelCurseType];
+
+export const LevelCurseZero = 0 as BitFlags<LevelCurse>;

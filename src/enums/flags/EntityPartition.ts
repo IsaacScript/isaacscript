@@ -32,3 +32,5 @@ type EntityPartitionType = {
 export const EntityPartition = EntityPartitionInternal as EntityPartitionType;
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export type EntityPartition = EntityPartitionType[keyof EntityPartitionType];
+
+export const EntityPartitionZero = 0 as BitFlags<EntityPartition>;
