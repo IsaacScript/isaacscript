@@ -92,13 +92,13 @@ function splitOnSpecialText(text: string): string[] {
 
     // Remove the periods from some common abbreviations so that they do not mess up the sentence
     // parsing.
-    line = line.replaceAll(/\bDr\./g, "Dr");
-    line = line.replaceAll(/\bJr\./g, "Jr");
-    line = line.replaceAll(/\bMr\./g, "Mr");
-    line = line.replaceAll(/\bMrs\./g, "Mrs");
-    line = line.replaceAll(/\bMs\./g, "Ms");
-    line = line.replaceAll(/\bSr\./g, "Sr");
-    line = line.replaceAll(/\bSt\./g, "St");
+    line = line.replaceAll(/\bDr\.\s+/g, "Dr");
+    line = line.replaceAll(/\bJr\.\s+/g, "Jr");
+    line = line.replaceAll(/\bMr\.\s+/g, "Mr");
+    line = line.replaceAll(/\bMrs\.\s+/g, "Mrs");
+    line = line.replaceAll(/\bMs\.\s+/g, "Ms");
+    line = line.replaceAll(/\bSr\.\s+/g, "Sr");
+    line = line.replaceAll(/\bSt\.\s+/g, "St");
 
     // Replace list bullet headers, since they are never part of a sentence. We also need to mark
     // that this sentence is a list element for the purposes of ignoring any incomplete sentences.

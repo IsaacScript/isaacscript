@@ -202,9 +202,16 @@ eslint-disable-next-line isaacscript/complete-sentences-jsdoc
   testIncompleteSentence(text, undefined);
 });
 
-test("Text with Jr.", () => {
+test("Text with Jr. in the middle of text", () => {
   const text = `
 The player only changes to Esau Jr. on the frame after the item is used.
+  `;
+  testIncompleteSentence(text, undefined);
+});
+
+test("Text with Jr. in the end of text", () => {
+  const text = `
+Check to see if it is the frame after the player has used Esau Jr.
   `;
   testIncompleteSentence(text, undefined);
 });
