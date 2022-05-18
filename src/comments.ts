@@ -67,7 +67,7 @@ export function isSeparatorLine(text: string): boolean {
 }
 
 export function isSpecialComment(text: string): boolean {
-  text = text.trimStart();
+  text = text.trim();
 
   return (
     text.startsWith("eslint-") ||
@@ -75,6 +75,8 @@ export function isSpecialComment(text: string): boolean {
     text.startsWith("ts-prune-") ||
     text.startsWith("@ts-") ||
     text.startsWith("TODO:") ||
-    text.startsWith("FIXME:")
+    text.startsWith("FIXME:") ||
+    text === "TODO" ||
+    text === "FIXME"
   );
 }
