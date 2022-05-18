@@ -13,9 +13,10 @@ declare global {
      * @param subType
      * @param keepPrice Default is false.
      * @param keepSeed If set to true, keeps the initial RNG seed of the pickup instead of rerolling
-     * it. Default is false.
+     *                 it. Default is false.
      * @param ignoreModifiers If set to true, ignores item effects that might turn this pickup into
-     * something other than the specified variant and subtype. Default is false.
+     *                        something other than the specified variant and subtype. Default is
+     *                        false.
      */
     Morph(
       entityType: EntityType | int,

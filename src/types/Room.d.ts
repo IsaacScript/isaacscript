@@ -100,7 +100,7 @@ declare global {
     GetLaserTarget(position: Vector, direction: Vector): Vector;
 
     /**
-     * Usually returns 1, unless the lava is in the process of being cooled down by Flush! or other
+     * Usually returns 1, unless the lava is in the process of being cooled down by Flush or other
      * room flooding effects, in which case this will gradually decrease down to 0.
      */
     GetLavaIntensity(): float;

@@ -60,7 +60,7 @@ declare interface ItemConfig {
 declare namespace ItemConfig {
   /**
    * @deprecated This method does not work properly for modded items, so it should never be used.
-   * Use the `isValidCollectible` helper function instead.
+   *             Use the `isValidCollectible` helper function instead.
    */
   function IsValidCollectible(fakeArg: never): boolean;
 

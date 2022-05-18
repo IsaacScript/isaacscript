@@ -25,6 +25,7 @@ declare global {
      *
      * Some callbacks take an optional third argument to specify that you only want it the function
      * to fire on a specific thing. For example:
+     *
      * ```
      * mod.AddCallback(
      *   ModCallback.POST_EFFECT_UPDATE,
@@ -186,7 +187,7 @@ declare global {
      *
      * @param playerName
      * @param tainted Default is false. This only works with modded characters. For example,
-     * `Isaac.GetPlayerTypeByName("Isaac", true)` will return -1.
+     *                `Isaac.GetPlayerTypeByName("Isaac", true)` will return -1.
      */
     function GetPlayerTypeByName(
       playerName: string,
@@ -249,7 +250,7 @@ declare global {
      * @param variant
      * @param position
      * @param forced Forced has no effect and will not override a grid entity on the given location.
-     * Remove any existing grid entities first. Defaults to false.
+     *               Remove any existing grid entities first. Defaults to false.
      */
     function GridSpawn(
       gridEntityType: GridEntityType,

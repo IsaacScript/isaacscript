@@ -50,15 +50,15 @@ declare namespace Vector {
 
   /**
    * @deprecated This can be mutated by other mods, so it is never safe to use. Use the `VectorOne`
-   * constant from the standard library instead. Alternatively, you can create your own constant
-   * that is local to your own mod.
+   *             constant from the standard library instead. Alternatively, you can create your own
+   *             constant that is local to your own mod.
    */
   const One: never;
 
   /**
    * @deprecated This can be mutated by other mods, so it is never safe to use. Use the `VectorZero`
-   * constant from the standard library instead. Alternatively, you can create your own constant
-   * that is local to your own mod.
+   *             constant from the standard library instead. Alternatively, you can create your own
+   *             constant that is local to your own mod.
    */
   const Zero: never;
 }

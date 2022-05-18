@@ -26,7 +26,7 @@ declare global {
 
     /**
      * @deprecated This method does not update the "fxlayers" properly. Use the `Game.ChangeRoom`
-     * method instead.
+     *             method instead.
      * @param roomGridIndex The room grid index of the destination room.
      * @param dimension Default is `Dimension.CURRENT`.
      */
@@ -147,7 +147,7 @@ declare global {
      * @param visited
      * @param rng
      * @param ignoreGroup If set to true, includes rooms that do not have the same group ID as the
-     * current room. Default is false.
+     *                    current room. Default is false.
      */
     QueryRoomTypeIndex(
       roomType: RoomType,

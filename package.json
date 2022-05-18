@@ -31,9 +31,10 @@
     "lua-types": "^2.11.0"
   },
   "devDependencies": {
-    "isaacscript-lint": "^1.0.142",
+    "isaacscript-lint": "^1.0.147",
     "isaacscript-spell": "^1.0.3",
     "isaacscript-tsconfig": "^1.1.16",
+    "npm-check-updates": "^13.0.1",
     "ts-node": "^10.7.0",
     "typedoc": "^0.22.15",
     "typedoc-plugin-merge-modules": "^3.1.0",

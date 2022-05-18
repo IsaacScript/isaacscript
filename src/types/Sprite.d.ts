@@ -74,7 +74,8 @@ declare interface Sprite {
    * You cannot modify the values of this `Color` class directly. Instead, replace the entire class
    * with a new object.
    *
-   * Example:
+   * For example:
+   *
    * ```
    * const faded = copyColor(sprite.Color);
    * faded.A = 0.5;

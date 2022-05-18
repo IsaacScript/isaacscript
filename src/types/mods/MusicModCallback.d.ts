@@ -10,14 +10,14 @@ declare global {
      *
      * @param mod The `Mod` object of your mod.
      * @param callback A function that is called every time a track is about to play. The function
-     * should return one of the following:
+     *                 should return one of the following:
      * - a track ID to play that instead
      * - a LuaMultiReturn<[jingleID: Music, trackID: Music]> to play a jingle and queue the track
      * - 0 to prevent the track from playing, and allow the current one to continue
      * - -1 to stop all music
      * - undefined to continue to internal code
      * @param tracks The tracks that will trigger your function call. If this argument is omitted,
-     * all music changes will trigger this callback.
+     *               all music changes will trigger this callback.
      */
     AddMusicCallback(
       mod: Mod,
@@ -33,13 +33,13 @@ declare global {
 
     /**
      * @returns The ID of the intended boss room entry music for this room (e.g. Satan, Mom). If not
-     * in a boss room, it will simply return one of the two generic themes.
+     *          in a boss room, it will simply return one of the two generic themes.
      */
     GetBossTrack(): Music;
 
     /**
      * @returns Either the ID of the current room's music, or a `LuaMultiReturn` containing the
-     * current jingle's ID and the current room's track ID.
+     *          current jingle's ID and the current room's track ID.
      *
      * WARNING: Using this in an uncleared boss room will return ONLY the boss jingle. If you want
      * the intended boss music, use the `GetBossTrack` method.
@@ -53,8 +53,8 @@ declare global {
 
     /**
      * @returns A table that behaves identically to the MusicManager class, except that it will call
-     * all mod callbacks. Useful if you want to allow others to change the music of your custom room
-     * or stage with Music API.
+     *          all mod callbacks. Useful if you want to allow others to change the music of your
+     *          custom room or stage with Music API.
      */
     Manager(): MusicManager;
 

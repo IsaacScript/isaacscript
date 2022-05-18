@@ -82,7 +82,7 @@ declare interface EIDInterface {
    * Tarot Cloth, etc.
    *
    * @param condition A function that returns `true` if `callback` should be called on the given
-   * description string.
+   *                  description string.
    * @param callback A function that returns a modified version of the given description string.
    */
   addDescriptionModifier(
@@ -214,7 +214,7 @@ declare interface EIDInterface {
    * by them.
    *
    * @returns An array of tables containing subsections of the text, their respective `KColor`, and
-   * the width of the subsection.
+   *          the width of the subsection.
    */
   filterColorMarkup(
     text: string,
@@ -257,7 +257,7 @@ declare interface EIDInterface {
    * Gets a `KColor` from a Markup-string (example Input: `"{{ColorText}}"`).
    *
    * @returns The `KColor` object and a `boolean` value indicating if the given string was a color
-   * markup or not.
+   *          markup or not.
    */
   getColor(str: string, baseKColor: KColor): LuaMultiReturn<[KColor, boolean]>;
 
@@ -314,7 +314,7 @@ declare interface EIDInterface {
    * Fetches description table from the legacy mod descriptions if they exist.
    *
    * @returns ["", "", description], ["", name, description], or `undefined` (if there is no legacy
-   * description).
+   *          description).
    */
   getLegacyModDescription(
     Type: int,

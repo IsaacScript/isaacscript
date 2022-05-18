@@ -224,7 +224,7 @@ declare global {
      * you.
      *
      * @param prefix The path to the directory containing the backdrop sprite sheets, as well as any
-     * shared prefix. Example: `gfx/backdrop/revel1/glacier/main_`
+     *               shared prefix. Example: `gfx/backdrop/revel1/glacier/main_`
      * @param suffix Generally the file extension, e.g.: `".png"`
      */
     BackdropHelper(

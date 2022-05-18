@@ -17,7 +17,7 @@ export enum GridRoom {
   /** Mega Satan's boss room. */
   MEGA_SATAN = -7,
 
-  /** The room after defeating It Lives! that leads to Blue Womb. */
+  /** The room after defeating It Lives that leads to Blue Womb. */
   BLUE_WOMB = -8,
 
   /** The room after defeating Hush that leads to The Void. */
@@ -44,7 +44,7 @@ export enum GridRoom {
   /** The room before a Treasure Room that appears if you have Blue Key. */
   BLUE_ROOM = -16,
 
-  /** The room that you are teleported to when you use an Emperor? card. */
+  /** The room that you are teleported to when you use a Reverse Emperor card. */
   EXTRA_BOSS = -17,
 
   /** The shop that you go to when you climb the ladder from The Stairway. */

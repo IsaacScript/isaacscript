@@ -40,7 +40,7 @@ declare global {
      * @param amount
      * @param position
      * @param target This argument is not optional. If you want to spawn a fly without a target,
-     * then you must explicitly pass undefined.
+     *               then you must explicitly pass undefined.
      */
     AddBlueFlies(
       amount: int,
@@ -74,11 +74,12 @@ declare global {
      * @param collectibleType
      * @param charge Default is 0.
      * @param firstTimePickingUp Setting this to false will not spawn or add consumables for the
-     * item and will not cause it to count towards transformations. Default is true.
+     *                           item and will not cause it to count towards transformations.
+     *                           Default is true.
      * @param activeSlot Sets the active slot this collectible should be added to. Default is
-     * `ActiveSlot.SLOT_PRIMARY`.
+     *                   `ActiveSlot.SLOT_PRIMARY`.
      * @param varData Sets the variable data for this collectible (this is used to store extra data
-     * for some active items like the number of uses for Jar of Wisps). Default is 0.
+     *                for some active items like the number of uses for Jar of Wisps). Default is 0.
      */
     AddCollectible(
       collectibleType: CollectibleType | int,
@@ -178,7 +179,7 @@ declare global {
      * Remove them with negative numbers.
      *
      * @param hearts Rotten hearts must be specified in a multiple of 2. For example,
-     * `AddRottenHearts(4)` will add 2 rotten hearts.
+     *               `AddRottenHearts(4)` will add 2 rotten hearts.
      */
     AddRottenHearts(hearts: int): void;
 
@@ -199,7 +200,8 @@ declare global {
      *
      * @param trinketType
      * @param firstTimePickingUp Setting this to false will not spawn or add pickups for the item
-     * and will not cause it to count towards transformations. Default is true.
+     *                           and will not cause it to count towards transformations. Default is
+     *                           true.
      */
     AddTrinket(
       trinketType: TrinketType | int,
@@ -210,14 +212,14 @@ declare global {
      * Spawns a Book of Virtues wisp.
      *
      * @param subType The ID of the active item to spawn a wisp from. Wisps with a special ID (for
-     * example "s0" in wisps.xml) can be spawned with the subtype 65536 + X where X is the number
-     * after the "s".
+     *                example "s0" in wisps.xml) can be spawned with the subtype 65536 + X where X
+     *                is the number after the "s".
      * @param position
      * @param adjustOrbitLayer If true, allows wisps to spawn outside of their usual orbit if their
-     * assigned orbit is full. Default is false.
+     *                         assigned orbit is full. Default is false.
      * @param dontUpdate If true, the spawned wisp will not update immediately. This allows certain
-     * properties to be set on the first frame before the wisp is fully initialized. Default is
-     * false.
+     *                   properties to be set on the first frame before the wisp is fully
+     *                   initialized. Default is false.
      */
     AddWisp(
       subType: int,
@@ -263,7 +265,7 @@ declare global {
      *
      * @param sprite
      * @param hideShadow Default is false. This should be usually set to true when rendering a
-     * sprite with a custom shadow layer.
+     *                   sprite with a custom shadow layer.
      * @param animation Default is "Pickup".
      */
     AnimatePickup(
@@ -371,19 +373,21 @@ declare global {
      *
      * @param familiarVariant In most cases, use the familiar variant for your custom familiar.
      * @param targetCount The expected amount of this `FamiliarVariant` that this `EntityPlayer`
-     * should have. This argument can simply be how many of an item that the current EntityPlayer
-     * owns. However, if you want your familiar to synergize with Monster Manual and Box of Friends,
-     * then this argument should be `EntityPlayer.GetCollectibleNum(collectibleType) +
-     * EntityPlayer.GetEffects().GetCollectibleEffectNum(collectibleType)`.
+     *                    should have. This argument can simply be how many of an item that the
+     *                    current EntityPlayer owns. However, if you want your familiar to synergize
+     *                    with Monster Manual and Box of Friends, then this argument should be
+     *                    `EntityPlayer.GetCollectibleNum(collectibleType) +
+     *                    EntityPlayer.GetEffects().GetCollectibleEffectNum(collectibleType)`.
      * @param rng Always use a brand new RNG object. (See the previous explanation on why you should
-     * not use the RNG from the `EntityPlayer.GetCollectibleRNG` method.)
+     *            not use the RNG from the `EntityPlayer.GetCollectibleRNG` method.)
      * @param sourceItemConfigItem The `ItemConfigItem` that this familiar was created by. Default
-     * is undefined. This should always be specified so that Sacrificial Altar will work properly.
-     * (It informs the game which collectible should be removed if the familiar is tagged with the
-     * "cansacrifice" entity tag.) This can be obtained with:
-     * `Isaac.GetItemConfig().GetCollectible(collectibleType)`
+     *                             is undefined. This should always be specified so that Sacrificial
+     *                             Altar will work properly. (It informs the game which collectible
+     *                             should be removed if the familiar is tagged with the
+     *                             "cansacrifice" entity tag.) This can be obtained with:
+     *                             `Isaac.GetItemConfig().GetCollectible(collectibleType)`
      * @param familiarSubType The subtype of the familiar to check. -1 matches any subtype. Default
-     * is -1.
+     *                        is -1.
      */
     CheckFamiliar(
       familiarVariant: FamiliarVariant | int,
@@ -512,7 +516,7 @@ declare global {
     /**
      * @param activeSlot Default is `ActiveSlot.SLOT_PRIMARY`.
      * @param force If set, items will always be charged even if they normally cannot be recharged
-     * by batteries.
+     *              by batteries.
      */
     FullCharge(activeSlot?: ActiveSlot, force?: boolean): boolean;
 
@@ -586,8 +590,8 @@ declare global {
     /**
      * @param collectibleType
      * @param onlyCountTrueItems If set to true, the function only counts collectibles that the
-     * player actually owns and ignores things like Lilith's Incubus, items granted by 3 Dollar
-     * Bill, and so forth.
+     *                           player actually owns and ignores things like Lilith's Incubus,
+     *                           items granted by 3 Dollar Bill, and so forth.
      */
     GetCollectibleNum(
       collectibleType: CollectibleType | int,
@@ -835,7 +839,8 @@ declare global {
     /**
      * @param collectibleType
      * @param ignoreModifiers If set to true, only counts collectibles the player actually owns and
-     * ignores effects granted by items like Zodiac, 3 Dollar Bill and Lemegeton. Default is false.
+     *                        ignores effects granted by items like Zodiac, 3 Dollar Bill and
+     *                        Lemegeton. Default is false.
      */
     HasCollectible(
       collectibleType: CollectibleType | int,
@@ -861,7 +866,7 @@ declare global {
     /**
      * @param trinketType
      * @param ignoreModifiers If set to true, only counts trinkets the player actually holds and
-     * ignores effects granted by other items. Default is false.
+     *                        ignores effects granted by other items. Default is false.
      */
     HasTrinket(
       trinketType: TrinketType | int,
@@ -935,11 +940,11 @@ declare global {
     /**
      * @param collectibleType
      * @param ignoreModifiers Ignores collectible effects granted by other items (i.e. Void).
-     * Default is false.
+     *                        Default is false.
      * @param activeSlot Sets the active slot this collectible should be removed from. Default is
-     * `ActiveSlot.SLOT_PRIMARY`.
+     *                   `ActiveSlot.SLOT_PRIMARY`.
      * @param removeFromPlayerForm If successfully removed and part of a transformation, decrease
-     * that transformation's counter by 1. Default is true.
+     *                             that transformation's counter by 1. Default is true.
      */
     RemoveCollectible(
       collectibleType: CollectibleType | int,
@@ -999,9 +1004,9 @@ declare global {
      *
      * @param collectibleType
      * @param slot Can be either ActiveSlot.SLOT_POCKET or ActiveSlot.SLOT_POCKET2. Default is
-     * `ActiveSlot.SLOT_POCKET`.
+     *             `ActiveSlot.SLOT_POCKET`.
      * @param keepInPools If true, the item will not be removed from the item pools. Default is
-     * false.
+     *                    false.
      */
     SetPocketActiveItem(
       collectibleType: CollectibleType | int,
@@ -1034,7 +1039,7 @@ declare global {
      * @param subType
      * @param position
      * @param target If Vector.Zero, throws the spawned dip in a random direction. Default is
-     * Vector.Zero.
+     *               Vector.Zero.
      */
     ThrowFriendlyDip(
       subType: DipFamiliarSubType,
@@ -1087,7 +1092,7 @@ declare global {
      * trinkets.
      *
      * @param trinketType If you provide an argument of 0 or an otherwise invalid trinket ID, the
-     * game will crash.
+     *                    game will crash.
      * @returns Whether or not the specified trinket was removed successfully.
      */
     TryRemoveTrinket(trinketType: TrinketType | int): boolean;
@@ -1105,7 +1110,7 @@ declare global {
      * @param collectibleType
      * @param useFlag Default is 0.
      * @param activeSlot The active slot this item was used from. (Set to -1 if this item was not
-     * triggered by any active slot.) Default is `ActiveSlot.SLOT_PRIMARY`.
+     *                   triggered by any active slot.) Default is `ActiveSlot.SLOT_PRIMARY`.
      */
     UseActiveItem(
       collectibleType: CollectibleType | int,
@@ -1120,7 +1125,7 @@ declare global {
      * @param allowNonMainPlayer
      * @param toAddCostume
      * @param activeSlot The active slot this item was used from. (Set to -1 if this item was not
-     * triggered by any active slot.) Default is `ActiveSlot.SLOT_PRIMARY`.
+     *                   triggered by any active slot.) Default is `ActiveSlot.SLOT_PRIMARY`.
      */
     UseActiveItem(
       collectibleType: CollectibleType | int,

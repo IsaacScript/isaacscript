@@ -51,7 +51,7 @@ declare global {
      * @param name
      * @param description Default is "".
      * @param paper If set to true, displays the description on a small piece of paper, similar to
-     * curses. Default is false.
+     *              curses. Default is false.
      */
     ShowItemText(name: string, description?: string, paper?: boolean): void;
   }

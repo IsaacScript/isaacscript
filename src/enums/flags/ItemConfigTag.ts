@@ -13,7 +13,7 @@ const ItemConfigTagInternal = {
   DEAD: 1 << 0,
 
   /**
-   * Syringes (for Little Baggy and the Spun! transformation).
+   * Syringes (for Little Baggy and the Spun transformation).
    *
    * Equal to "syringe" in "items_metadata.xml".
    *
@@ -22,7 +22,7 @@ const ItemConfigTagInternal = {
   SYRINGE: 1 << 1,
 
   /**
-   * Mom's things (for Mom's Contact and the Yes Mother? transformation).
+   * Mom's things (for Mom's Contact and the Yes Mother transformation).
    *
    * Equal to "mom" in "items_metadata.xml".
    *

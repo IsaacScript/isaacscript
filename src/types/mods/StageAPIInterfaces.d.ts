@@ -72,7 +72,7 @@ declare global {
      * Indicates that this stage overrides alt rock effects.
      *
      * @param rooms If present, only overrides rock alt effects for the specified RoomTypes. If
-     * absent, overrides alt rocks everywhere.
+     *              absent, overrides alt rocks everywhere.
      *
      * DOES NOT add any new effects on its own.
      */
@@ -190,7 +190,7 @@ declare global {
      * Alt Pits are used where water pits would be.
      *
      * @param hasExtraFrames Controls for situations where the base game would not normally tile
-     * pits specially.
+     *                       pits specially.
      */
     SetPits(
       filename: string,
