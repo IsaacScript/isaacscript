@@ -13,7 +13,7 @@
     "*.dat": "json", // Nearly all mods save JSON to the "save#.dat" file
   },
 
-  // Linux line endings are used in this project.
+  // We want to always use "lf" to be consistent with all platforms.
   "files.eol": "\n",
 
   // Automatically removing all trailing whitespace when saving a file.
