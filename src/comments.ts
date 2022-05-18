@@ -73,6 +73,8 @@ export function isSpecialComment(text: string): boolean {
     text.startsWith("eslint-") ||
     text.startsWith("cspell:") ||
     text.startsWith("ts-prune-") ||
-    text.startsWith("@ts-")
+    text.startsWith("@ts-") ||
+    text.startsWith("TODO:") ||
+    text.startsWith("FIXME:")
   );
 }

@@ -232,8 +232,8 @@ This is my example:
 \`\`\`
 const foo = 123;
 const bar = 456;
-function foo() {
-  console.log("FOO");
+function fooFunction() {
+  barFunction();
 }
 
 
@@ -360,6 +360,14 @@ test("Line with number list", () => {
   const text = `
 14, 33
 This is the first and second values.
+  `;
+  testFormatText(text);
+});
+
+test("TODO", () => {
+  const text = `
+The boost is the amount of damage granted by Dim Candle.
+TODO: DELETE
   `;
   testFormatText(text);
 });
