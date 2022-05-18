@@ -3,7 +3,10 @@ import path from "path";
 
 const cwd = process.cwd();
 
-// https://stackoverflow.com/questions/9080085/node-js-find-home-directory-in-platform-agnostic-way
+/**
+ * From:
+ * https://stackoverflow.com/questions/9080085/node-js-find-home-directory-in-platform-agnostic-way
+ */
 const homeDir = os.homedir();
 
 // Miscellaneous

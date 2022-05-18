@@ -33,7 +33,7 @@ export function isKebabCase(s: string): boolean {
 }
 
 /**
- * `parseIntSafe` is a more reliable version of `parseInt`. By default, "parseInt('1a')" will return
+ * `parseIntSafe` is a more reliable version of `parseInt`. By default, `parseInt('1a')` will return
  * "1", which is unexpected. This returns either an integer or NaN.
  */
 export function parseIntSafe(input: unknown): number {
