@@ -21,9 +21,6 @@
   "main": "dist/index",
   "types": "dist/index.d.ts",
   "files": [
-    ".cspell-base.json",
-    ".cspell-isaacscript.json",
-    "dictionaries/**",
     "dist/**/*.lua",
     "dist/**/*.d.ts"
   ],
