@@ -36,6 +36,12 @@ export function getIncompleteSentences(text: string): IncompleteSentence[] {
     // Handle text that "spills over" to the next line by simply converting all newlines to spaces.
     const squishedText = textBlock.split("\n").join(" ");
 
+    // Handling all edge cases for "e.g." or "i.e." is very difficult, since sometimes it is correct
+    // to put a period after them, and sometimes not. Thus, ignore all text that contains them.
+    if (squishedText.includes("e.g.") || squishedText.includes("i.e.")) {
+      return;
+    }
+
     const sentences = getSentences(squishedText);
     const loneSentence = sentences.length === 1;
     sentences.forEach((sentence) => {
@@ -79,14 +85,6 @@ function splitOnSpecialText(text: string): string[] {
     // Remove any URLs present in the string, as the periods will count as sentence terminators.
     // e.g. "This is my URL: https://stackoverflow."
     line = line.replace(FULL_URL_REGEX, "");
-
-    // Remove any examples present in the string, since:
-    // 1. The periods will count as sentence terminators.
-    // 2. Trailing examples should be allowed to be to incomplete sentences.
-    line = line.replace(/\(e\.g\..+\)/, ""); // Parenthetical e.g.
-    line = line.replace(/\(i\.e\..+\)/, ""); // Parenthetical i.e.
-    line = line.replace(/^e\.g\..+$/, SENTENCE_SEPARATOR_IDENTIFIER); // e.g. on separate line
-    line = line.replace(/^i\.e\..+$/, SENTENCE_SEPARATOR_IDENTIFIER); // i.e. on separate line
 
     // Replace list bullet headers, since they are never part of a sentence. We also need to mark
     // that this sentence is a list element for the purposes of ignoring any incomplete sentences.
@@ -146,9 +144,6 @@ function getIncompleteSentenceKind(
     text === "" ||
     // Sentences that do not contain any letters.
     !/[a-zA-Z]/.test(text) ||
-    // Beginning with an example.
-    text.startsWith("e.g.") ||
-    text.startsWith("i.e.") ||
     // Sentences with an arrow, like: "Alice --> Bob"
     text.includes("-->") ||
     // Placeholder text.

@@ -139,6 +139,14 @@ test("Parenthetical i.e. on separate line does not count as sentence", () => {
   );
 });
 
+test("Example on same line", () => {
+  const text = `
+A list of strings. This is only shown when the player does not know the room's type (e.g.
+locked shop, dice room).
+  `;
+  testIncompleteSentence(text, undefined);
+});
+
 test("Date", () => {
   testIncompleteSentence("January 1st", undefined);
 });
