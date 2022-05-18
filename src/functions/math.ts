@@ -1,6 +1,16 @@
 import { Direction } from "isaac-typescript-definitions";
 import { directionToVector } from "./direction";
 
+/**
+ * Helper function to normalize an integer.
+ *
+ * - If `x` is less than `min`, then it will be clamped to `min`.
+ * - If `x` is greater than `max`, then it will be clamped to `max`.
+ */
+export function clamp(x: int, min: int, max: int): int {
+  return Math.max(min, Math.min(x, max));
+}
+
 export function getAngleDifference(angle1: float, angle2: float): float {
   const subtractedAngle = angle1 - angle2;
   return ((subtractedAngle + 180) % 360) - 180;
