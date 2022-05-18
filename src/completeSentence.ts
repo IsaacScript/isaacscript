@@ -84,11 +84,21 @@ function splitOnSpecialText(text: string): string[] {
     // Replace any single-line code snippets with custom text. The custom text begins with an
     // underscore, which means that it will count towards the sentence starting with a capital
     // letter. (This is only relevant if the code block is the first word in the sentence.)
-    line = line.replace(/`.+`/, IN_LINE_CODE_IDENTIFIER);
+    line = line.replaceAll(/`.+`/g, IN_LINE_CODE_IDENTIFIER);
 
     // Remove any URLs present in the string, as the periods will count as sentence terminators.
     // e.g. "This is my URL: https://stackoverflow."
-    line = line.replace(FULL_URL_REGEX, "");
+    line = line.replaceAll(FULL_URL_REGEX, "");
+
+    // Remove the periods from some common abbreviations so that they do not mess up the sentence
+    // parsing.
+    line = line.replaceAll(/\bDr\./g, "Dr");
+    line = line.replaceAll(/\bJr\./g, "Jr");
+    line = line.replaceAll(/\bMr\./g, "Mr");
+    line = line.replaceAll(/\bMrs\./g, "Mrs");
+    line = line.replaceAll(/\bMs\./g, "Ms");
+    line = line.replaceAll(/\bSr\./g, "Sr");
+    line = line.replaceAll(/\bSt\./g, "St");
 
     // Replace list bullet headers, since they are never part of a sentence. We also need to mark
     // that this sentence is a list element for the purposes of ignoring any incomplete sentences.
