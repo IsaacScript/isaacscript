@@ -30,7 +30,6 @@ import {
 } from "./doors";
 import { getEntities } from "./entity";
 import { hasFlag } from "./flag";
-import { erange } from "./math";
 import {
   getEntityPositions,
   getEntityVelocities,
@@ -49,6 +48,7 @@ import {
   getRoomSubType,
 } from "./roomData";
 import { getGridIndexDelta } from "./roomShape";
+import { erange } from "./utils";
 
 /**
  * Helper function for quickly switching to a new room without playing a particular animation. Use

@@ -5,9 +5,9 @@ import {
   Keyboard,
 } from "isaac-typescript-definitions";
 import { MAX_NUM_INPUTS } from "../constants";
-import { erange } from "./math";
 import { copySet } from "./set";
 import { trimPrefix } from "./string";
+import { erange } from "./utils";
 
 const MODIFIER_KEYS: readonly Keyboard[] = [
   Keyboard.LEFT_SHIFT, // 340

@@ -495,8 +495,8 @@ export function setCollectibleSprite(
 }
 
 /**
- * Helper function to change the collectible on a pedestal. Simply updating the SubType property is
- * not sufficient because the sprite will not change.
+ * Helper function to change the collectible on a pedestal. Simply updating the `SubType` property
+ * is not sufficient because the sprite will not change.
  */
 export function setCollectibleSubType(
   collectible: EntityPickup,

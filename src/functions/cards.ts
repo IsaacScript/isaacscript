@@ -8,9 +8,9 @@ import {
 import { CARD_NAMES, DEFAULT_CARD_NAME } from "../objects/cardNames";
 import { CARD_TYPES, DEFAULT_CARD_TYPE } from "../objects/cardTypes";
 import { getEnumValues } from "./enums";
-import { irange } from "./math";
 import { getRandomSeed } from "./rng";
 import { addSetsToSet, getRandomSetElement } from "./set";
+import { irange } from "./utils";
 
 const CARD_TYPE_TO_CARDS_MAP: Map<ItemConfigCardType, Set<Card>> = new Map();
 

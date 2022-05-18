@@ -37,12 +37,12 @@ import {
 } from "../functions/gridEntity";
 import { getRandomJSONRoom } from "../functions/jsonRoom";
 import { log } from "../functions/log";
-import { erange } from "../functions/math";
 import { getRandomSeed, isRNG, newRNG } from "../functions/rng";
 import { getRoomListIndex } from "../functions/roomData";
 import { gridCoordinatesToWorldPosition } from "../functions/roomGrid";
 import { setRoomCleared, setRoomUncleared } from "../functions/rooms";
 import { spawnCollectible } from "../functions/spawnCollectible";
+import { erange } from "../functions/utils";
 import { JSONRoom } from "../types/JSONRoom";
 import { saveDataManager } from "./saveDataManager/exports";
 

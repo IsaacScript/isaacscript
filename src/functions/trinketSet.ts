@@ -1,8 +1,8 @@
 import { TrinketType } from "isaac-typescript-definitions";
 import { itemConfig } from "../cachedClasses";
 import { MAX_TRINKET_TYPE } from "../constantsMax";
-import { irange } from "./math";
 import { copySet } from "./set";
+import { irange } from "./utils";
 
 const TRINKET_SET = new Set<TrinketType | int>();
 

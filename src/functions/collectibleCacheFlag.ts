@@ -2,9 +2,8 @@ import { CacheFlag, CollectibleType } from "isaac-typescript-definitions";
 import { MAX_COLLECTIBLE_TYPE } from "../constantsMax";
 import { collectibleHasCacheFlag } from "./collectibles";
 import { getEnumValues } from "./enums";
-import { irange } from "./math";
 import { copySet, getSortedSetValues } from "./set";
-import { repeat } from "./utils";
+import { irange, repeat } from "./utils";
 
 const CACHE_FLAG_TO_COLLECTIBLES_MAP = new Map<
   CacheFlag,

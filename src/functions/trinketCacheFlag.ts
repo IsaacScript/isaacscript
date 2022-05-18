@@ -5,9 +5,9 @@ import {
 } from "isaac-typescript-definitions";
 import { MAX_TRINKET_TYPE } from "../constantsMax";
 import { getEnumValues } from "./enums";
-import { irange } from "./math";
 import { copySet } from "./set";
 import { trinketHasCacheFlag } from "./trinkets";
+import { irange } from "./utils";
 
 const CACHE_FLAG_TO_TRINKETS_MAP = new Map<CacheFlag, Set<TrinketType | int>>();
 

@@ -3,9 +3,9 @@ import { itemConfig } from "../cachedClasses";
 import { MAX_COLLECTIBLE_TYPE } from "../constantsMax";
 import { getEnumValues } from "./enums";
 import { getFlagName } from "./flag";
-import { irange } from "./math";
 import { getPlayerCollectibleCount } from "./player";
 import { copySet } from "./set";
+import { irange } from "./utils";
 
 const TAG_TO_COLLECTIBLE_TYPES_MAP = new Map<
   ItemConfigTag,

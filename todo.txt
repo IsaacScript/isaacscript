@@ -1,3 +1,7 @@
+- inMineShaft
+
+- roomGridIndexToXY
+
 - rewrite lint rules to be unified
 
 - lint rule - double space between word
@@ -106,3 +110,5 @@ IsaacScript announcements:
   - `getDoorEnterPosition`
   - `getDoorEnterPositionOffset`
   - `getNormalPillColorFromHorse`
+  - `getRandomEnumValue`
+- `Vector.Zero` and `Vector.One` are now deprecated and will cause compiler errors. Use the `VectorZero` and `VectorOne` constants from the standard library instead, which are guaranteed to be safe. (Alternatively, you can create your own constants that are local to your mod.)

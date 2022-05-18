@@ -1,7 +1,6 @@
-import { erange } from "./math";
 import { getRandomInt } from "./random";
 import { getRandomSeed, isRNG, newRNG } from "./rng";
-import { repeat } from "./utils";
+import { erange, repeat } from "./utils";
 
 /**
  * Helper function for determining if two arrays contain the exact same elements. Note that this

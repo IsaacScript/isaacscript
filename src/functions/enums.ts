@@ -1,3 +1,6 @@
+import { getRandomArrayElement } from "./array";
+import { getRandomSeed } from "./rng";
+
 /**
  * TypeScriptToLua will transpile TypeScript enums to Lua tables that have a double mapping. Thus,
  * when you iterate over them, you will get both the names of the enums and the values of the enums,
@@ -18,6 +21,7 @@
 export function getEnumEntries<T>(
   transpiledEnum: T,
 ): Array<[key: string, value: T[keyof T]]> {
+  // The values cannot simply be type `T` due to the special construction of bit flag enums.
   const enumEntries: Array<[key: string, value: T[keyof T]]> = [];
   for (const [key, value] of pairs(transpiledEnum)) {
     // Ignore the reverse mappings created by TypeScriptToLua. Note that reverse mappings are not
@@ -27,7 +31,7 @@ export function getEnumEntries<T>(
     }
   }
 
-  // The enums will be in a random order (because of "pairs"), so sort them based on the values
+  // The enums will be in a random order (because of "pairs"), so sort them based on the values.
   // https://stackoverflow.com/questions/5199901/how-to-sort-an-associative-array-by-its-values-in-javascript
   enumEntries.sort(
     ([_key1, value1], [_key2, value2]) =>
@@ -96,6 +100,23 @@ export function getLastEnumValue<T>(transpiledEnum: T): T[keyof T] {
   }
 
   return lastElement;
+}
+
+/**
+ * Helper function to get a random element from the provided enum.
+ *
+ * @param transpiledEnum The enum to get an element from.
+ * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ * `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ * @param exceptions Optional. An array of elements to skip over if selected.
+ */
+export function getRandomEnumElement<T>(
+  transpiledEnum: T,
+  seedOrRNG: Seed | RNG = getRandomSeed(),
+  exceptions: Array<T[keyof T]> | ReadonlyArray<T[keyof T]> = [],
+): T[keyof T] {
+  const enumValues = getEnumValues(transpiledEnum);
+  return getRandomArrayElement(enumValues, seedOrRNG, exceptions);
 }
 
 /**

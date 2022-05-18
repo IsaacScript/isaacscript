@@ -1,6 +1,6 @@
 import { EMPTY_PNG_PATH, VectorZero } from "../constants";
 import { kColorEquals } from "./kColor";
-import { erange } from "./math";
+import { erange } from "./utils";
 
 /**
  * Helper function to clear a specific layer from a sprite.

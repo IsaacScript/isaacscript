@@ -1,8 +1,8 @@
 import { CollectibleType } from "isaac-typescript-definitions";
 import { itemConfig } from "../cachedClasses";
 import { MAX_COLLECTIBLE_TYPE } from "../constantsMax";
-import { irange } from "./math";
 import { copySet } from "./set";
+import { irange } from "./utils";
 
 const COLLECTIBLE_SET = new Set<CollectibleType | int>();
 
