@@ -99,7 +99,7 @@ export function getAdjustedList(
   }
 }
 
-export function getList(line: string): List | undefined {
+function getList(line: string): List | undefined {
   const originalLength = line.length;
   line = line.trimStart();
   const trimmedLength = line.length;
