@@ -99,6 +99,7 @@ function splitOnSpecialText(text: string): string[] {
     line = line.replaceAll(/\bMs\.\s+/g, "Ms");
     line = line.replaceAll(/\bSr\.\s+/g, "Sr");
     line = line.replaceAll(/\bSt\.\s+/g, "St");
+    line = line.replaceAll(/\betc\.\s+/g, "etc");
 
     // Replace list bullet headers, since they are never part of a sentence. We also need to mark
     // that this sentence is a list element for the purposes of ignoring any incomplete sentences.

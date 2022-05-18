@@ -209,9 +209,23 @@ The player only changes to Esau Jr. on the frame after the item is used.
   testIncompleteSentence(text, undefined);
 });
 
-test("Text with Jr. in the end of text", () => {
+test("Text with Jr. at the end of text", () => {
   const text = `
 Check to see if it is the frame after the player has used Esau Jr.
+  `;
+  testIncompleteSentence(text, undefined);
+});
+
+test("Text with etc. in the middle of text", () => {
+  const text = `
+This is the sprite for "1st", "2nd", etc. on the left side of the screen.
+  `;
+  testIncompleteSentence(text, undefined);
+});
+
+test("Text with etc. at the end of text", () => {
+  const text = `
+This is the sprite for "1st", "2nd", etc.
   `;
   testIncompleteSentence(text, undefined);
 });
