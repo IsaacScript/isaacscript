@@ -364,10 +364,18 @@ This is the first and second values.
   testFormatText(text);
 });
 
-test("TODO", () => {
+test("TODO after a line", () => {
   const text = `
 The boost is the amount of damage granted by Dim Candle.
 TODO: DELETE
+  `;
+  testFormatText(text);
+});
+
+test("TODO before a line", () => {
+  const text = `
+TODO: DELETE
+The boost is the amount of damage granted by Dim Candle.
   `;
   testFormatText(text);
 });
