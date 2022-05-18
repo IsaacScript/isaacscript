@@ -261,7 +261,8 @@ export enum EntityType {
   // Repentance Enemies
   // ------------------
 
-  BONE_WORM = 801,
+  // BONE_WORM = 801, // This is a non-existent entity.
+
   BLOOD_PUPPY = 802,
   QUAKE_GRIMACE = 804,
   BISHOP = 805,
@@ -366,7 +367,9 @@ export enum EntityType {
   RAGLICH = 919,
   HORNY_BOYS = 920,
   CLUTCH = 921,
-  CADAVRA = 922,
+
+  // CADAVRA = 922, // This is a non-existent entity.
+
   DOGMA = 950,
   BEAST = 951,
   GENERIC_PROP = 960,
@@ -375,8 +378,10 @@ export enum EntityType {
   MINECART = 965,
   SIREN_HELPER = 966,
   HORNFEL_DOOR = 967,
-  TRIGGER_OUTPUT = 969,
-  ENVIRONMENT = 970,
+
+  // TRIGGER_OUTPUT = 969, // This is a non-existent entity.
+
+  // ENVIRONMENT = 970, // This is a non-existent entity.
 
   // ---------------
   // Special Effects
