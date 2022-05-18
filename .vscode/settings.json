@@ -8,6 +8,11 @@
   "editor.rulers": [100],
   "editor.tabSize": 2,
 
+  "files.associations": {
+    "*.anm2": "xml", // anm2 files are just XML files
+    "*.dat": "json", // Nearly all mods save JSON to the "save#.dat" file
+  },
+
   // We want to always use "lf" to be consistent with all platforms.
   "files.eol": "\n",
 
@@ -15,8 +20,14 @@
   "files.trimTrailingWhitespace": true,
 
   // Configure glob patterns for excluding files and folders in full text searches and quick open.
+  // (File extensions must be specified or the glob won't work properly.)
   "search.exclude": {
-    "dist/**": true,
+    "**/*.png": true,
+    "**/*.wav": true,
+    "dist/**/*.ts": true,
+    "dist/**/*.js": true,
+    "dist/**/*.json": true,
+    "dist/**/*.lua": true,
   },
 
   // -----------------
@@ -51,6 +62,11 @@
     "editor.tabSize": 2,
   },
   "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+  },
+  "[xml]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
     "editor.tabSize": 2,

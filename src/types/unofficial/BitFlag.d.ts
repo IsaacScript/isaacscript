@@ -1,1 +1,1 @@
-type BitFlag = number & { readonly __bitFlagBrand: void };
+declare type BitFlag = number & { readonly __bitFlagBrand: void };

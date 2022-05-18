@@ -5,6 +5,6 @@
  * guaranteed to contain exactly one bit flag and a variable that has two or more bit flags (or zero
  * bit flags).
  */
-type BitFlags<T extends BitFlag | BitFlag128> = T & {
+declare type BitFlags<T extends BitFlag | BitFlag128> = T & {
   readonly __bitFlagsBrand: T;
 };

@@ -94,7 +94,6 @@
 // Unofficial Classes and Types
 // ----------------------------
 
-/// <reference path="unofficial/enumHelpers.d.ts" />
 /// <reference path="unofficial/primitives.d.ts" />
 
 /// <reference path="unofficial/AddCallbackParameter.d.ts" />
