@@ -9,7 +9,7 @@ export function copy(srcPath: string, dstPath: string, verbose: boolean): void {
   }
 
   try {
-    // "copySync()" is a "fs-extra" method for copying directories recursively
+    // `copySync` is a `fs-extra` method for copying directories recursively.
     fs.copySync(srcPath, dstPath, {
       recursive: true,
     });

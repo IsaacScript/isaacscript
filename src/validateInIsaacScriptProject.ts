@@ -3,7 +3,7 @@ import path from "path";
 import { CWD, PROJECT_NAME } from "./constants";
 import * as file from "./file";
 
-// Validate that we are in a directory that looks like an IsaacScript project
+// Validate that we are in a directory that looks like an IsaacScript project.
 export function validateInIsaacScriptProject(verbose: boolean): void {
   const subdirectoriesToCheck = ["src", "mod", "node_modules"];
   for (const subdirectoryName of subdirectoriesToCheck) {

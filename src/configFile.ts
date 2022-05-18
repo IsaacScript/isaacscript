@@ -17,7 +17,7 @@ export async function get(argv: Record<string, unknown>): Promise<Config> {
     return existingConfig;
   }
 
-  // No config file exists, so prompt the user for some information and create one
+  // No config file exists, so prompt the user for some information and create one.
   const modsDirectory = await getModsDir(argv, verbose);
   const saveSlot = await promptSaveSlot(argv, yes);
   const config = createObject(modsDirectory, saveSlot);

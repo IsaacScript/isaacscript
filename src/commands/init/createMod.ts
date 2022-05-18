@@ -45,7 +45,7 @@ export function createMod(
   installNodeModules(projectPath, skipNPMInstall, verbose);
   formatFiles(projectPath, verbose);
 
-  // Only make the initial commit once all of the files have been copied and formatted
+  // Only make the initial commit once all of the files have been copied and formatted.
   initGitRepository(projectPath, gitRemoteURL, verbose);
 
   console.log(`Successfully created mod: ${chalk.green(projectName)}`);
@@ -84,13 +84,13 @@ function copyDynamicFiles(
   targetModDirectory: string,
   verbose: boolean,
 ) {
-  // ".gitignore"
+  // `.gitignore`
   {
     const fileName = GITIGNORE;
     const templatePath = GITIGNORE_TEMPLATE_PATH;
     const template = file.read(templatePath, verbose);
 
-    // Prepend a header with the project name
+    // Prepend a header with the project name.
     let separatorLine = "# ";
     for (let i = 0; i < projectName.length; i++) {
       separatorLine += "-";
@@ -103,9 +103,9 @@ function copyDynamicFiles(
     file.write(destinationPath, gitignore, verbose);
   }
 
-  // "package.json"
+  // `package.json`
   {
-    // Modify and copy the file
+    // Modify and copy the file.
     const fileName = PACKAGE_JSON;
     const templatePath = PACKAGE_JSON_TEMPLATE_PATH;
     const template = file.read(templatePath, verbose);
@@ -114,7 +114,7 @@ function copyDynamicFiles(
     file.write(destinationPath, packageJSON, verbose);
   }
 
-  // "README.md"
+  // `README.md`
   {
     const fileName = README_MD;
     const templatePath = README_MD_TEMPLATES_PATH;
@@ -124,7 +124,7 @@ function copyDynamicFiles(
     file.write(destinationPath, readmeMD, verbose);
   }
 
-  // "mod/metadata.xml"
+  // `mod/metadata.xml`
   {
     const fileName = METADATA_XML;
     const templatePath = METADATA_XML_TEMPLATE_PATH;
@@ -135,7 +135,7 @@ function copyDynamicFiles(
     file.write(destinationPath, metadataXML, verbose);
   }
 
-  // "mod/metadata.vdf"
+  // `mod/metadata.vdf`
   {
     const fileName = METADATA_VDF;
     const templatePath = METADATA_VDF_TEMPLATE_PATH;
@@ -146,7 +146,7 @@ function copyDynamicFiles(
     file.write(destinationPath, metadataVDF, verbose);
   }
 
-  // "src/main.ts"
+  // `src/main.ts`
   {
     // Convert snake_case and kebab-case to camelCase. (Kebab-case in particular will make the
     // example TypeScript file fail to compile.)

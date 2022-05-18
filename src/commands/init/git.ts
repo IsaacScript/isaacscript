@@ -17,7 +17,7 @@ export async function promptGitHubRepoOrGitRemoteURL(
   yes: boolean,
   verbose: boolean,
 ): Promise<string | undefined> {
-  // We do not need to prompt the user if they do not have Git installed
+  // We do not need to prompt the user if they do not have Git installed.
   if (!commandExists.sync("git")) {
     console.log(
       'Git does not seem to be installed. (The "git" command is not in the path.) Skipping Git-related things.',
@@ -132,7 +132,7 @@ function validateNewGitVersion(verbose: boolean) {
 }
 
 function getGitHubUsername(verbose: boolean) {
-  // If the GitHub CLI is installed, we can derive the user's GitHub username
+  // If the GitHub CLI is installed, we can derive the user's GitHub username.
   if (!commandExists.sync("gh")) {
     return undefined;
   }
@@ -230,7 +230,7 @@ export function isGitDirty(verbose: boolean): boolean {
 }
 
 export function gitCommitIfChanges(version: string, verbose: boolean): void {
-  // Throw an error if this is not a git repository
+  // Throw an error if this is not a git repository.
   execShell("git", ["status"], verbose);
 
   if (!isGitDirty(verbose)) {

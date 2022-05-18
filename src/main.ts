@@ -36,16 +36,16 @@ async function main(): Promise<void> {
   validateOS();
   loadEnvironmentVariables();
 
-  // Get command line arguments
+  // Get command line arguments.
   const argv = parseArgs();
   const verbose = argv["verbose"] === true;
 
   printBanner();
 
-  // Check for a new version
+  // Check for a new version.
   updateNotifier({ pkg }).notify();
 
-  // Pre-flight checks
+  // Pre-flight checks.
   await checkForWindowsTerminalBugs(verbose);
 
   await handleCommands(argv, verbose);

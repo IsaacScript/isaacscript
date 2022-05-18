@@ -21,7 +21,7 @@ export async function init(argv: Record<string, unknown>): Promise<void> {
   const yes = argv["yes"] === true;
   const forceName = argv["forceName"] === true;
 
-  // Prompt the end-user for some information (and validate it as we go)
+  // Prompt the end-user for some information (and validate it as we go).
   const [projectPath, createNewDir] = await getProjectPath(
     argv,
     useCurrentDir,
@@ -40,7 +40,7 @@ export async function init(argv: Record<string, unknown>): Promise<void> {
     verbose,
   );
 
-  // Now that we have asked the user all of the questions we need, we can create the project
+  // Now that we have asked the user all of the questions we need, we can create the project.
   createMod(
     projectName,
     projectPath,

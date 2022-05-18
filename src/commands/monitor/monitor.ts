@@ -21,7 +21,7 @@ import { touchWatcherSaveDatFiles } from "./touchWatcherSaveDatFiles";
 export function monitor(argv: Record<string, unknown>, config: Config): void {
   const verbose = argv["verbose"] === true;
 
-  // If they specified some command-line flags, override the values found in the config file
+  // If they specified some command-line flags, override the values found in the config file.
   if (argv["modsDirectory"] !== undefined) {
     config.modsDirectory = argv["modsDirectory"] as string; // eslint-disable-line no-param-reassign
   }
@@ -29,13 +29,13 @@ export function monitor(argv: Record<string, unknown>, config: Config): void {
     config.saveSlot = argv["saveSlot"] as number; // eslint-disable-line no-param-reassign
   }
 
-  // Read the "tsconfig.json" file
+  // Read the "tsconfig.json" file.
   const tsConfigInclude = getFirstTSConfigIncludePath(verbose);
   const resolvedIncludePath = path.resolve(CWD, tsConfigInclude);
   const modTargetDirectoryName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
 
-  // Prepare the IsaacScript watcher mod
+  // Prepare the IsaacScript watcher mod.
   copyWatcherMod(config, verbose);
   touchWatcherSaveDatFiles(config, verbose);
 
@@ -45,16 +45,16 @@ export function monitor(argv: Record<string, unknown>, config: Config): void {
     file.deleteFileOrDirectory(modTargetPath, true);
   }
 
-  // Subprocess #1 - The "save#.dat" file writer
+  // Subprocess #1 - The "save#.dat" file writer.
   spawnSaveDatWriter(config);
 
-  // Subprocess #2 - The mod directory syncer
+  // Subprocess #2 - The mod directory syncer.
   spawnModDirectorySyncer(config);
 
-  // Subprocess #3 - tstl --watch (to automatically convert TypeScript to Lua)
+  // Subprocess #3 - tstl --watch (to automatically convert TypeScript to Lua).
   spawnTSTLWatcher();
 
-  // Also, start constantly pinging the watcher mod
+  // Also, start constantly pinging the watcher mod.
   setInterval(() => {
     notifyGame.ping();
   }, 1000); // Every second
@@ -67,7 +67,7 @@ export function monitor(argv: Record<string, unknown>, config: Config): void {
   console.log("");
   console.log(`Copying files to:            ${chalk.green(modTargetPath)}`);
   console.log("");
-  // (the process will now continue indefinitely for as long as the subprocesses exist)
+  // (The process will now continue indefinitely for as long as the subprocesses exist.)
 }
 
 function spawnModDirectorySyncer(config: Config) {
@@ -126,7 +126,7 @@ function spawnTSTLWatcher() {
   tstl.stderr.on("data", (data: Buffer[]) => {
     const msg = data.toString().trim();
     if (msg === "^C") {
-      // Hide the line that appears when you cancel the program with Ctrl + c
+      // Hide the line that appears when you cancel the program with `Ctrl + c`.
       return;
     }
     notifyGame.msg(`Error: ${msg}`);

@@ -26,13 +26,13 @@ function init(verbose: boolean) {
   saveDatPath = firstArg;
   saveDatFileName = path.basename(saveDatPath);
 
-  // Check to see if the data directory exists
+  // Check to see if the data directory exists.
   const watcherModDataPath = path.dirname(saveDatPath);
   if (!file.exists(watcherModDataPath, verbose)) {
     file.makeDir(watcherModDataPath, verbose);
   }
 
-  // Listen for messages from the parent process
+  // Listen for messages from the parent process.
   process.on("message", (msg: SaveDatMessage) => {
     onMessage(msg.type, msg.data);
   });

@@ -15,21 +15,21 @@ export const MOD_UPLOADER_PATH =
   "C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\tools\\ModUploader\\ModUploader.exe";
 export const PROJECT_NAME = "IsaacScript";
 
-// isaacscript
+// `isaacscript`
 const REPO_ROOT = path.join(__dirname, "..", "..");
 
-// isaacscript/isaacscript-watcher
+// `isaacscript/isaacscript-watcher`
 export const DISABLE_IT_FILE = "disable.it";
 export const WATCHER_MOD_NAME = "isaacscript-watcher";
 export const WATCHER_MOD_SOURCE_PATH = path.join(REPO_ROOT, WATCHER_MOD_NAME);
 
-// isaacscript/file-templates
+// `isaacscript/file-templates`
 const TEMPLATES_DIR = path.join(REPO_ROOT, "file-templates");
 
-// isaacscript/file-templates/static
+// `isaacscript/file-templates/static`
 export const TEMPLATES_STATIC_DIR = path.join(TEMPLATES_DIR, "static");
 
-// isaacscript/file-templates/dynamic
+// `isaacscript/file-templates/dynamic`
 const TEMPLATES_DYNAMIC_DIR = path.join(TEMPLATES_DIR, "dynamic");
 export const GITIGNORE = "gitignore"; // Not named ".gitignore" to prevent NPM from deleting it
 export const GITIGNORE_TEMPLATE_PATH = path.join(
@@ -59,7 +59,7 @@ export const README_MD_TEMPLATES_PATH = path.join(
   README_MD,
 );
 
-// project
+// `project`
 export const CONFIG_FILE_NAME = "isaacscript.json";
 export const CONFIG_FILE_PATH = path.join(CWD, CONFIG_FILE_NAME);
 export const TSCONFIG_PATH = path.join(CWD, "tsconfig.json");
@@ -67,13 +67,13 @@ export const PACKAGE_JSON_PATH = path.join(CWD, "package.json");
 export const CONSTANTS_TS_PATH = path.join(CWD, "src", "constants.ts");
 export const YARN_LOCK_PATH = path.join(CWD, "yarn.lock");
 
-// project/mod
+// `project/mod`
 export const MOD_SOURCE_PATH = path.join(CWD, "mod");
 export const MAIN_LUA = "main.lua";
 export const METADATA_XML_PATH = path.join(MOD_SOURCE_PATH, "metadata.xml");
 export const VERSION_TXT_PATH = path.join(MOD_SOURCE_PATH, "version.txt");
 
-// project/scripts
+// `project/scripts`
 const SCRIPTS_PATH = path.join(CWD, "scripts");
 export const PUBLISH_PRE_COPY_PY_PATH = path.join(
   SCRIPTS_PATH,
