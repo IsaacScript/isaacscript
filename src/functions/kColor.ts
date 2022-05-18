@@ -21,7 +21,7 @@ const OBJECT_NAME = "KColor";
  * Helper function to copy a `KColor` object.
  *
  * @param kColor The KColor object to copy. In the case of deserialization, this will actually be a
- * Lua table instead of an instantiated KColor class.
+ *               Lua table instead of an instantiated KColor class.
  * @param serializationType Default is `SerializationType.NONE`.
  */
 export function copyKColor<

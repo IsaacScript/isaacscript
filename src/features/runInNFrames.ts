@@ -104,7 +104,8 @@ export function runInNRenderFrames(func: () => void, renderFrames: int): void {
 /**
  * Supply a function to run on the next PostUpdate callback.
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * const NUM_EXPLODER_EXPLOSIONS = 5;
  *

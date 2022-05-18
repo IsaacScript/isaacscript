@@ -79,7 +79,7 @@ function blacklistEntryExists(
  *
  * @param familiarVariant The familiar variant to blacklist.
  * @param familiarSubType The sub-type to blacklist. Optional. The default is to blacklist all
- * sub-types of the given variant.
+ *                        sub-types of the given variant.
  */
 export function setFamiliarNoSirenSteal(
   familiarVariant: FamiliarVariant | int,
@@ -113,7 +113,7 @@ export function hasSirenStolenFamiliar(familiar: EntityFamiliar): boolean {
  *
  * @param familiar The familiar to be checked.
  * @returns Returns the hidden "Siren Helper" entity corresponding to the given familiar, if it
- * exists. Returns undefined otherwise.
+ *          exists. Returns undefined otherwise.
  */
 function getSirenHelper(familiar: EntityFamiliar): Entity | undefined {
   const familiarPtrHash = GetPtrHash(familiar);

@@ -40,7 +40,7 @@ export function anyPlayerCloserThan(
  * specific situations.
  *
  * @param startingPosition The position to start searching from. If this position is not overlapping
- * with anything, then it will be returned.
+ *                         with anything, then it will be returned.
  * @param avoidActiveEntities Optional. Default is false.
  */
 export function findFreePosition(
@@ -87,7 +87,8 @@ export function findFreePosition(
  * This is useful for rewinding entity positions at a later time. Also see `setEntityPositions`.
  *
  * @param entities Optional. If provided, will only get the positions of the provided entities. Use
- * this with cached entities to avoid invoking the `Isaac.GetRoomEntities` method multiple times.
+ *                 this with cached entities to avoid invoking the `Isaac.GetRoomEntities` method
+ *                 multiple times.
  */
 export function getEntityPositions(entities?: Entity[]): Map<PtrHash, Vector> {
   if (entities === undefined) {
@@ -109,7 +110,8 @@ export function getEntityPositions(entities?: Entity[]): Map<PtrHash, Vector> {
  * This is useful for rewinding entity velocities at a later time. Also see `setEntityVelocities`.
  *
  * @param entities Optional. If provided, will only get the velocities of the provided entities. Use
- * this with cached entities to avoid invoking the `Isaac.GetRoomEntities` method multiple times.
+ *                 this with cached entities to avoid invoking the `Isaac.GetRoomEntities` method
+ *                 multiple times.
  */
 export function getEntityVelocities(entities?: Entity[]): Map<PtrHash, Vector> {
   if (entities === undefined) {
@@ -135,7 +137,8 @@ export function getEntityVelocities(entities?: Entity[]): Map<PtrHash, Vector> {
  *
  * @param entityPositions The map providing the positions for every entity.
  * @param entities Optional. If provided, will only set the positions of the provided entities. Use
- * this with cached entities to avoid invoking the `Isaac.GetRoomEntities` method multiple times.
+ *                 this with cached entities to avoid invoking the `Isaac.GetRoomEntities` method
+ *                 multiple times.
  */
 export function setEntityPositions(
   entityPositions: Map<PtrHash, Vector>,
@@ -164,7 +167,8 @@ export function setEntityPositions(
  *
  * @param entityVelocities The map providing the velocities for every entity.
  * @param entities Optional. If provided, will only set the velocities of the provided entities. Use
- * this with cached entities to avoid invoking the `Isaac.GetRoomEntities` method multiple times.
+ *                 this with cached entities to avoid invoking the `Isaac.GetRoomEntities` method
+ *                 multiple times.
  */
 export function setEntityVelocities(
   entityVelocities: Map<PtrHash, Vector>,

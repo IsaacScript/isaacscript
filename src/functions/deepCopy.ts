@@ -44,7 +44,8 @@ const COPYABLE_ISAAC_API_CLASS_TYPES_SET = new Set<string>(
  *
  * @param value The primitive or object to copy.
  * @param serializationType Has 3 possible values. Can leave objects as-is, or can serialize objects
- * to Lua tables, or can deserialize Lua tables to objects. Default is `SerializationType.NONE`.
+ *                          to Lua tables, or can deserialize Lua tables to objects. Default is
+ *                          `SerializationType.NONE`.
  * @param traversalDescription Used to track the current key that we are operating on.
  */
 export function deepCopy(

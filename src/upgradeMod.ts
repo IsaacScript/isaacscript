@@ -12,7 +12,8 @@ import { patchErrorFunction } from "./patchErrorFunctions";
 /**
  * Use this function to enable the custom features and callbacks provided by `isaacscript-common`.
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * const modVanilla = RegisterMod("My Mod", 1);
  * const mod = upgradeMod(modVanilla);
@@ -23,9 +24,6 @@ import { patchErrorFunction } from "./patchErrorFunctions";
  * // Subscribe to custom callbacks
  * mod.AddCallbackCustom(ModCallbackCustom.POST_ITEM_PICKUP, postItemPickup);
  * ```
- *
- * For a list of all custom callbacks, check out the
- * [Function Signatures](https://isaacscript.github.io/docs/function-signatures#custom-callbacks).
  *
  * @param modVanilla The mod object returned by the `RegisterMod` function.
  * @returns The upgraded mod object.

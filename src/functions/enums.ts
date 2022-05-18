@@ -107,7 +107,7 @@ export function getLastEnumValue<T>(transpiledEnum: T): T[keyof T] {
  *
  * @param transpiledEnum The enum to get an element from.
  * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- * `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
  * @param exceptions Optional. An array of elements to skip over if selected.
  */
 export function getRandomEnumElement<T>(
@@ -123,7 +123,8 @@ export function getRandomEnumElement<T>(
  * Helper function to check every value of a custom enum for -1. This is helpful as a run-time check
  * because many methods of the Isaac class return -1 if they fail.
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * enum EntityTypeCustom {
  *   FOO = Isaac.GetEntityTypeByName("Foo"),

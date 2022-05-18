@@ -25,7 +25,7 @@ export function colorEquals(color1: Color, color2: Color): boolean {
  * Helper function to copy a `Color` object.
  *
  * @param color The Color object to copy. In the case of deserialization, this will actually be a
- * Lua table instead of an instantiated Color class.
+ *              Lua table instead of an instantiated Color class.
  * @param serializationType Default is `SerializationType.NONE`.
  */
 export function copyColor<

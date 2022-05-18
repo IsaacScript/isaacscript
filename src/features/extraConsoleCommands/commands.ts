@@ -255,7 +255,7 @@ export function brokenHearts(params: string): void {
 /**
  * Gives the specified card. Accepts either the card sub-type or the partial name of the card.
  *
- * Example:
+ * For example:
  * - card 5 - Gives The Emperor.
  * - card spa - Gives 2 of Spades.
  */
@@ -320,7 +320,7 @@ export function chaosCardTears(): void {
  * Restart as the specified character. Accepts either the character sub-type or the partial name of
  * the character.
  *
- * Example:
+ * For example:
  * - character 2 - Restarts as Cain.
  * - character ta - Restarts as Tainted Azazel.
  */
@@ -723,9 +723,10 @@ export function oneHP(): void {
  * Gives a pill with the specified pill effect. Accepts either the effect ID or the partial name of
  * the effect.
  *
- * Example:
- * - pill 5 - Gives a Full Health pill.
- * - pill suns - Gives a Feels like I'm walking on sunshine! pill.
+ * For example:
+ *
+ * - `pill 5` - Gives a "Full Health" pill.
+ * - `pill suns` - Gives a "Feels like I'm walking on sunshine" pill.
  */
 export function pill(params: string): void {
   if (params === "") {
@@ -868,7 +869,7 @@ export function rottenHearts(params: string): void {
 /**
  * Alias for the "stage" command.
  *
- * Example:
+ * For example:
  * - s 3 - Warps to Caves 1.
  * - s 1c - Warps to Downpour 1.
  */
@@ -992,7 +993,7 @@ export function setCharges(params: string): void {
 /**
  * Moves the first player to the specified position.
  *
- * Example:
+ * For example:
  * - setposition 100 50
  */
 export function setPosition(params: string): void {
@@ -1073,7 +1074,7 @@ export function soulHearts(params: string): void {
 /**
  * Play the supplied sound effect.
  *
- * Example:
+ * For example:
  * - sound 1 - Plays the 1-Up sound effect.
  */
 export function sound(params: string): void {
@@ -1194,7 +1195,7 @@ export function up(params: string): void {
  * Warps to the specified room type. Accepts either the room type number or the partial name of the
  * room type.
  *
- * Example:
+ * For example:
  * - warp 5 - Warps to the first Boss Room on the floor, if any.
  * - warp tr - Warps to the first Treasure Room on the floor, if any.
  */

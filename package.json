@@ -28,9 +28,10 @@
     "isaac-typescript-definitions": "^2.0.14"
   },
   "devDependencies": {
-    "isaacscript-lint": "^1.0.145",
+    "isaacscript-lint": "^1.0.149",
     "isaacscript-spell": "^1.0.3",
     "isaacscript-tsconfig": "^1.1.16",
+    "npm-check-updates": "^13.0.1",
     "ts-node": "^10.7.0",
     "typedoc": "^0.22.15",
     "typescript": "^4.6.4",

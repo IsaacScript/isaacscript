@@ -48,7 +48,8 @@ export function getGoldenTrinketType(
 /**
  * Returns the slot number corresponding to where a trinket can be safely inserted.
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * const player = Isaac.GetPlayer();
  * const trinketSlot = getOpenTrinketSlotNum(player);
@@ -104,7 +105,8 @@ export function getTrinketDescription(trinketType: TrinketType | int): string {
  * Helper function to get the name of a trinket. Returns "Unknown" if the provided trinket type is
  * not valid.
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * const trinketType = TrinketType.SWALLOWED_PENNY;
  * const trinketName = getTrinketName(trinketType); // trinketName is "Swallowed Penny"
@@ -154,8 +156,9 @@ export function isGoldenTrinket(trinketType: TrinketType | int): boolean {
  *
  * @param trinket The trinket whose sprite you want to modify.
  * @param pngPath Equal to either the spritesheet path to load (e.g.
- * "gfx/items/collectibles/collectibles_001_thesadonion.png") or undefined. If undefined, the sprite
- * will be removed, making it appear like the collectible has already been taken by the player.
+ *                "gfx/items/collectibles/collectibles_001_thesadonion.png") or undefined. If
+ *                undefined, the sprite will be removed, making it appear like the collectible has
+ *                already been taken by the player.
  */
 export function setTrinketSprite(
   trinket: EntityPickup,

@@ -6,6 +6,7 @@ import { DamageFlag } from "isaac-typescript-definitions";
  * This is a variadic function, so pass as many flags as you want to add.
  *
  * Example 1:
+ *
  * ```ts
  * // Give the player spectral tears
  * const player = Isaac.GetPlayer();
@@ -13,6 +14,7 @@ import { DamageFlag } from "isaac-typescript-definitions";
  * ```
  *
  * Example 2:
+ *
  * ```ts
  * // Give the player spectral and homing tears
  * const player = Isaac.GetPlayer();
@@ -79,7 +81,8 @@ export function getFlagName<T extends BitFlag | BitFlag128>(
  * This is a variadic function, so pass as many flags as you want to check for. If passed multiple
  * flags, it will only return true if all of the flags are set.
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * const player = Isaac.GetPlayer();
  * if (hasFlag(player.TearFlags, TearFlags.TEAR_SPECTRAL) {
@@ -136,7 +139,8 @@ export function isSelfDamage(
  *
  * This is a variadic function, so pass as many flags as you want to remove.
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * // Remove spectral tears from the player, if present
  * const player = Isaac.GetPlayer();

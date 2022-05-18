@@ -6,7 +6,7 @@ import { log } from "./log";
  * This function is variadic, which means that you can supply as many as you want to benchmark.
  *
  * @returns An array containing the average time in milliseconds for each function. (This will also
- * be printed to the log.)
+ *          be printed to the log.)
  */
 export function benchmark(
   numTrials: int,

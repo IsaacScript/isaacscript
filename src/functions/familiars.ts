@@ -24,11 +24,11 @@ import { FAMILIARS_THAT_SHOOT_PLAYER_TEARS_SET } from "../sets/familiarsThatShoo
  * @param player The player that owns the familiars.
  * @param collectibleType The collectible type of the collectible associated with this familiar.
  * @param targetCount The number of familiars that should exist. This function will add or remove
- * familiars until it matches the target count.
+ *                    familiars until it matches the target count.
  * @param familiarVariant The variant of the familiar to spawn or remove.
  * @param familiarSubType Optional. The sub-type of the familiar to spawn or remove. If not
- * specified, it will search for existing familiars of all sub-types, and spawn new familiars with a
- * sub-type of 0.
+ *                        specified, it will search for existing familiars of all sub-types, and
+ *                        spawn new familiars with a sub-type of 0.
  */
 export function checkFamiliar(
   player: EntityPlayer,
@@ -71,8 +71,8 @@ export function checkFamiliar(
  * @param collectibleType The collectible type of the collectible associated with this familiar.
  * @param familiarVariant The variant of the familiar to spawn or remove.
  * @param familiarSubType Optional. The sub-type of the familiar to spawn or remove. If not
- * specified, it will search for existing familiars of all sub-types, and spawn new familiars with a
- * sub-type of 0.
+ *                        specified, it will search for existing familiars of all sub-types, and
+ *                        spawn new familiars with a sub-type of 0.
  */
 export function checkFamiliarFromCollectibles(
   player: EntityPlayer,

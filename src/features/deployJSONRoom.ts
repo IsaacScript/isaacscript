@@ -147,17 +147,21 @@ function respawnPersistentEntities() {
  *
  * This function is meant to be used in the PostNewRoom callback.
  *
- * @param jsonRoom The JSON room to deploy. In practice, this will be something like:
+ * For example:
+ *
  * ```ts
+ *
  * import customRooms from "./customRooms";
  *
  * const firstJSONRoom = customRooms.rooms.room[0];
  * deployJSONRoom(firstJSONRoom);
  * ```
+ *
+ * @param jsonRoom The JSON room to deploy. *
  * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- * `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
  * @param verbose Optional. If specified, will write entries to the "log.txt" file that describe
- * what the function is doing. Default is false.
+ *                what the function is doing. Default is false.
  */
 export function deployJSONRoom(
   jsonRoom: JSONRoom,
@@ -199,18 +203,21 @@ export function deployJSONRoom(
  * properly account for each room weight using the algorithm from:
  * https://stackoverflow.com/questions/1761626/weighted-random-numbers
  *
- * @param jsonRooms An array of JSON rooms to randomly select from. In practice, this will be
- * something like:
+ * For example:
+ *
  * ```ts
  * import customRooms from "./customRooms";
  *
  * const jsonRooms = customRooms.rooms.room;
  * deployRandomJSONRoom(jsonRooms);
  * ```
+ *
+ * @param jsonRooms An array of JSON rooms to randomly select from. In practice, this will be
+ *                  something like.
  * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- * `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
  * @param verbose Optional. If specified, will write entries to the "log.txt" file that describe
- * what the function is doing. Default is false.
+ *                what the function is doing. Default is false.
  */
 export function deployRandomJSONRoom(
   jsonRooms: JSONRoom[],
@@ -238,8 +245,8 @@ export function deployRandomJSONRoom(
  * effects (1000), doors, and walls.
  *
  * @param fillWithDecorations Optional. Set to true to fill every grid tile with an invisible
- * decoration, which prevents vanilla entities in the room from respawning the next time that the
- * player enters. Default is false.
+ *                            decoration, which prevents vanilla entities in the room from
+ *                            respawning the next time that the player enters. Default is false.
  */
 export function emptyRoom(fillWithDecorations: boolean): void {
   errorIfFeaturesNotInitialized(FEATURE_NAME);

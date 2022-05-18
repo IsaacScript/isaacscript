@@ -270,7 +270,8 @@ export function getCollectibleMaxCharges(
  * Helper function to get the name of a collectible. Returns "Unknown" if the provided collectible
  * type is not valid.
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * const collectibleType = CollectibleType.SAD_ONION;
  * const collectibleName = getCollectibleName(collectibleType); // collectibleName is "Sad Onion"
@@ -326,7 +327,8 @@ export function getCollectibleQuality(
  * Helper function to get the tags of a collectible (which is the composition of zero or more
  * `ItemConfigTag`). Returns 0 if the provided collectible type is not valid.
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * const collectibleType = CollectibleType.SAD_ONION;
  * const itemConfigTags = getCollectibleTags(collectibleType); // itemConfigTags is "18350080"
@@ -472,8 +474,9 @@ export function setCollectibleEmpty(collectible: EntityPickup): void {
  *
  * @param collectible The collectible whose sprite you want to modify.
  * @param pngPath Equal to either the spritesheet path to load (e.g.
- * "gfx/items/collectibles/collectibles_001_thesadonion.png") or undefined. If undefined, the sprite
- * will be removed, making it appear like the collectible has already been taken by the player.
+ *                "gfx/items/collectibles/collectibles_001_thesadonion.png") or undefined. If
+ *                undefined, the sprite will be removed, making it appear like the collectible has
+ *                already been taken by the player.
  */
 export function setCollectibleSprite(
   collectible: EntityPickup,

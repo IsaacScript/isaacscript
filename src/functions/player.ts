@@ -153,7 +153,7 @@ export function anyPlayerIs(
 }
 
 /**
- * Helper function to determine if a player will destroy a rock/pot/skull/etc. if they walk over it.
+ * Helper function to determine if a player will destroy a rock/pot/skull if they walk over it.
  *
  * The following situations allow for this to be true:
  * - the player has Leo (collectible 302)
@@ -728,8 +728,8 @@ export function isTainted(player: EntityPlayer): boolean {
 }
 
 function isTaintedModded(player: EntityPlayer) {
-  // This algorithm only works for modded characters because the "Isaac.GetPlayerTypeByName" method
-  // is bugged
+  // This algorithm only works for modded characters because the `Isaac.GetPlayerTypeByName` method
+  // is bugged.
   // https://github.com/Meowlala/RepentanceAPIIssueTracker/issues/117
   const character = player.GetPlayerType();
   const name = player.GetName();
@@ -839,7 +839,7 @@ export function removeTrinketCostume(
  * @param collectibleType The collectible type of the item to give.
  * @param activeSlot The slot to set.
  * @param charge Optional. The argument of charges to set. If not specified, the item will be set
- * with maximum charges.
+ *               with maximum charges.
  * @param keepInPools Optional. Whether or not to remove the item from pools. Default is false.
  */
 export function setActiveItem(

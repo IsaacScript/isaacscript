@@ -82,14 +82,16 @@ import {
  * data.) For these cases, set a special key of "dontSave" alongside "run", "level", and so forth.
  *
  * @param key The name of the file or feature that is submitting data to be managed by the save data
- * manager. The save data manager will throw an error if the key is already registered.
+ *            manager. The save data manager will throw an error if the key is already registered.
  * @param v An object that corresponds to the `SaveData` interface. The object is conventionally
- * called "v" for brevity. ("v" is short for "local variables").
+ *          called "v" for brevity. ("v" is short for "local variables").
  * @param conditionalFunc An optional function to run upon saving this key to disk. For example,
- * this allows features to only save data to disk if the feature is enabled. Specify a value of `()
- * => false` to completely disable saving this feature to disk. This is useful if you are using data
- * that is not serializable, or you want to use the save data manager to automatically reset
- * variables on run/level/room, but not clutter the the "save#.dat" file with unnecessary keys.
+ *                        this allows features to only save data to disk if the feature is enabled.
+ *                        Specify a value of `() => false` to completely disable saving this feature
+ *                        to disk. This is useful if you are using data that is not serializable, or
+ *                        you want to use the save data manager to automatically reset variables on
+ *                        run/level/room, but not clutter the the "save#.dat" file with unnecessary
+ *                        keys.
  */
 export function saveDataManager(
   key: string,

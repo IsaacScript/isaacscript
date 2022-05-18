@@ -98,7 +98,7 @@ function getReturnValue(buttonAction: ButtonAction, booleanCallback: boolean) {
  * used one of the other helper functions to disable inputs.
  *
  * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
- * that multiple mod features can work in tandem.
+ *            that multiple mod features can work in tandem.
  */
 export function enableAllInputs(key: string): void {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
@@ -114,7 +114,7 @@ export function enableAllInputs(key: string): void {
  * Use the [[`enableAllInputs`]] helper function to set things back to normal.
  *
  * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
- * that multiple mod features can work in tandem.
+ *            that multiple mod features can work in tandem.
  */
 export function disableAllInputs(key: string): void {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
@@ -130,7 +130,7 @@ export function disableAllInputs(key: string): void {
  * Use the [[`enableAllInputs`]] helper function to set things back to normal.
  *
  * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
- * that multiple mod features can work in tandem.
+ *            that multiple mod features can work in tandem.
  * @param blacklist A set of ButtonActions to disallow.
  */
 export function enableAllInputsExceptFor(
@@ -150,7 +150,7 @@ export function enableAllInputsExceptFor(
  * Use the [[`enableAllInputs`]] helper function to set things back to normal.
  *
  * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
- * that multiple mod features can work in tandem.
+ *            that multiple mod features can work in tandem.
  * @param whitelist A set of ButtonActions to allow.
  */
 export function disableAllInputsExceptFor(
@@ -171,7 +171,7 @@ export function disableAllInputsExceptFor(
  * Use the [[`enableAllInputs`]] helper function to set things back to normal.
  *
  * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
- * that multiple mod features can work in tandem.
+ *            that multiple mod features can work in tandem.
  */
 export function disableMovementInputs(key: string): void {
   const moveActions = getMoveActions();
@@ -185,7 +185,7 @@ export function disableMovementInputs(key: string): void {
  * Use the [[`enableAllInputs`]] helper function to set things back to normal.
  *
  * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
- * that multiple mod features can work in tandem.
+ *            that multiple mod features can work in tandem.
  */
 export function disableShootingInputs(key: string): void {
   const shootActions = getShootActions();

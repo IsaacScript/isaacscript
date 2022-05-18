@@ -54,9 +54,9 @@ const NON_ALIVE_NPCS_TYPE_VARIANT_SUBTYPE: ReadonlySet<string> = new Set([
  * @param position The staring position of the projectile.
  * @param velocity The starting velocity of the projectile.
  * @param projectilesMode The mode of the projectile. Optional. Default is
- * `ProjectilesMode.ONE_PROJECTILE`.
+ *                        `ProjectilesMode.ONE_PROJECTILE`.
  * @param projectileParams The parameters of the projectile. Optional. Default is
- * `ProjectileParams()`.
+ *                         `ProjectileParams()`.
  * @returns The fired projectile.
  */
 export function fireProjectiles(

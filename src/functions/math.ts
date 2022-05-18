@@ -16,7 +16,7 @@ export function getAngleDifference(angle1: float, angle2: float): float {
  * @param xMultiplier An optional multiplier to get the points around an oval. Default is 1.
  * @param yMultiplier An optional multiplier to get the points around an oval. Default is 1.
  * @param initialDirection By default, the first point on the circle will be on the top center, but
- * this can be optionally changed by specifying this argument.
+ *                         this can be optionally changed by specifying this argument.
  */
 export function getCircleDiscretizedPoints(
   centerPos: Vector,

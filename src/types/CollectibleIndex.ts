@@ -3,7 +3,8 @@
  * [[`getCollectibleIndex`]] function. Mods can signify that data structures handle collectibles by
  * using this type.
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * const collectiblesNameMap = new Map<CollectibleIndex, string>();
  * ```

@@ -8,7 +8,8 @@ const HEX_STRING_LENGTH = 6;
  *
  * Very useful to be future-safe against people adding values to a type or an enum.
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * enum Situation {
  *   ONE,
@@ -163,7 +164,8 @@ export function printEnabled(enabled: boolean, description: string): void {
 /**
  * Helper function to repeat code N times. This is faster to type and cleaner than using a for loop.
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * const player = Isaac.GetPlayer();
  * repeat(10, () => {

@@ -1,9 +1,6 @@
 /**
  * These are the custom callbacks available for use once the mod object has been upgraded. Also see
  * the [[`upgradeMod`]] function.
- *
- * For a better listing of all custom callbacks, check out the
- * [Function Signatures](https://isaacscript.github.io/docs/function-signatures#custom-callbacks).
  */
 export enum ModCallbackCustom {
   POST_BOMB_INIT_LATE,

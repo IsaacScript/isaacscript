@@ -13,7 +13,8 @@ export function copyMap<K, V>(oldMap: Map<K, V>): Map<K, V> {
  * purposes of this function, both search text and map keys are converted to lowercase before
  * attempting to find a match.
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * const map = new <string, number>Map([
  *   ["foo", 123],

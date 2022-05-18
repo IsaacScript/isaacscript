@@ -36,7 +36,7 @@ function postRender() {
  * Use this function to set things back to normal after having used [[`disableAllSounds`]].
  *
  * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
- * that multiple mod features can work in tandem.
+ *            that multiple mod features can work in tandem.
  */
 export function enableAllSound(key: string): void {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
@@ -61,7 +61,7 @@ export function enableAllSound(key: string): void {
  * Use the [[`enableAllSounds`]] helper function to set things back to normal.
  *
  * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
- * that multiple mod features can work in tandem.
+ *            that multiple mod features can work in tandem.
  */
 export function disableAllSound(key: string): void {
   errorIfFeaturesNotInitialized(FEATURE_NAME);

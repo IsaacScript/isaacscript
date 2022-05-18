@@ -5,7 +5,7 @@ import { getRandomSeed, isRNG, newRNG } from "./rng";
  * high end. (This is because the `RNG.RandomFloat` method will never return a value of exactly 1.)
  *
  * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- * `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
  */
 export function getRandom(seedOrRNG: Seed | RNG = getRandomSeed()): float {
   const rng = isRNG(seedOrRNG) ? seedOrRNG : newRNG(seedOrRNG);
@@ -15,7 +15,8 @@ export function getRandom(seedOrRNG: Seed | RNG = getRandomSeed()): float {
 /**
  * This returns a random float between min and max.
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * const realNumberBetweenOneAndThree = getRandomFloat(1, 3);
  * ```
@@ -23,7 +24,7 @@ export function getRandom(seedOrRNG: Seed | RNG = getRandomSeed()): float {
  * @param min The lower bound for the random number (inclusive).
  * @param max The upper bound for the random number (exclusive).
  * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- * `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
  */
 export function getRandomFloat(
   min: int,
@@ -47,7 +48,8 @@ export function getRandomFloat(
  * Note that this function will invoke the `Next` method on the `RNG` object before returning the
  * random number.
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * const oneTwoOrThree = getRandomInt(1, 3);
  * ```
@@ -55,7 +57,7 @@ export function getRandomFloat(
  * @param min The lower bound for the random number (inclusive).
  * @param max The upper bound for the random number (inclusive).
  * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- * `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
  */
 export function getRandomInt(
   min: int,

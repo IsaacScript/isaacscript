@@ -124,14 +124,16 @@ export function getCollidingEntitiesWithGridEntity(
  * Use this function with no arguments to get every grid entity, or specify a variadic amount of
  * arguments to match specific grid entity types.
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * for (const gridEntity of getGridEntities()) {
  *   print(gridEntity.GetType())
  * }
  * ```
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * const rocks = getGridEntities(
  *   GridEntityType.ROCK,
@@ -314,7 +316,8 @@ export function isPostBossVoidPortal(gridEntity: GridEntity): boolean {
  * Helper function to all grid entities in the room except for ones matching the grid entity types
  * provided.
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * removeAllGridEntitiesExceptFor(
  *   GridEntityType.WALL,
@@ -349,7 +352,8 @@ export function removeAllGridExcept(
  * Helper function to remove all of the grid entities in the room that match the grid entity types
  * provided.
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * removeAllMatchingGridEntities(
  *   GridEntityType.ROCK,
@@ -381,10 +385,11 @@ export function removeAllMatchingGridEntities(
  *
  * @param gridEntity The grid entity to remove.
  * @param updateRoom Optional. Whether or not to update the room after the grid entity is removed.
- * Default is true. This is generally a good idea because if the room is not updated, you will be
- * unable to spawn another grid entity on the same tile until a frame has passed. However, doing
- * this is expensive, since it involves a call to `Isaac.GetRoomEntities`, so set it to false if you
- * need to invoke this function multiple times.
+ *                   Default is true. This is generally a good idea because if the room is not
+ *                   updated, you will be unable to spawn another grid entity on the same tile until
+ *                   a frame has passed. However, doing this is expensive, since it involves a call
+ *                   to `Isaac.GetRoomEntities`, so set it to false if you need to invoke this
+ *                   function multiple times.
  */
 export function removeGrid(gridEntity: GridEntity, updateRoom = true): void {
   const room = game.GetRoom();

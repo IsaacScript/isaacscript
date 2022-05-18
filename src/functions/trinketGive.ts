@@ -57,7 +57,7 @@ export function giveTrinketsBack(
  * @param player The player to smelt the trinkets to.
  * @param trinketType The trinket type to smelt.
  * @param numTrinkets Optional. If specified, will smelt the given number of trinkets. Use this to
- * avoid calling this function multiple times. Default is 1.
+ *                    avoid calling this function multiple times. Default is 1.
  */
 export function smeltTrinket(
   player: EntityPlayer,

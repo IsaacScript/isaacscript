@@ -10,8 +10,8 @@ import { copyVector } from "./vector";
  * offset setting so that mods can render UI elements to the screen in the correct position.
  *
  * @returns If the user does not have Mod Config Menu enabled, or does not have this option set,
- * then this function will return `Vector.Zero.` Otherwise, it will return a Vector that represents
- * a HUD offset that should be added to the position of a UI element.
+ *          then this function will return `Vector.Zero.` Otherwise, it will return a Vector that
+ *          represents a HUD offset that should be added to the position of a UI element.
  */
 export function getHUDOffsetVector(): Vector {
   const defaultVector = copyVector(VectorZero);

@@ -68,7 +68,7 @@ export function deleteSetsFromSet<T>(
  *
  * @param set The set to get an element from.
  * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- * `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
  * @param exceptions Optional. An array of elements to skip over if selected.
  */
 export function getRandomSetElement<T>(

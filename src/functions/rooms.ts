@@ -168,8 +168,9 @@ export function getRoomTypeName(roomType: RoomType): string {
  * the list.
  *
  * @param includeExtraDimensionalRooms Optional. On some floors (e.g. Downpour 2, Mines 2),
- * extra-dimensional rooms are automatically be generated and can be seen when you iterate over the
- * `RoomList`. Default is false.
+ *                                     extra-dimensional rooms are automatically be generated and
+ *                                     can be seen when you iterate over the `RoomList`. Default is
+ *                                     false.
  */
 export function getRooms(
   includeExtraDimensionalRooms = false,
@@ -385,8 +386,8 @@ export function inStartingRoom(): boolean {
  * This function will only check rooms in the current dimension.
  *
  * @param onlyCheckRoomTypes Optional. A whitelist of room types. If specified, room types not in
- * the array will be ignored. If not specified, then all rooms will be checked. Undefined by
- * default.
+ *                           the array will be ignored. If not specified, then all rooms will be
+ *                           checked. Undefined by default.
  */
 export function isAllRoomsClear(onlyCheckRoomTypes?: RoomType[]): boolean {
   const roomTypeWhitelist =

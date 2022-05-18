@@ -17,7 +17,8 @@ import { getEntities, removeEntities, spawn } from "./entity";
 /**
  * Helper function to get all of the `EntityType.BOMB` in the room.
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * // Make all of the bombs in the room invisible
  * for (const bomb of getBombs()) {
@@ -45,7 +46,8 @@ export function getBombs(
 /**
  * Helper function to get all of the `EntityType.EFFECT` in the room.
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * // Make all of the effects in the room invisible
  * for (const effect of getEffects()) {
@@ -73,7 +75,8 @@ export function getEffects(
 /**
  * Helper function to get all of the familiars in the room.
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * // Make all of the familiars in the room invisible
  * for (const familiar of getFamiliars()) {
@@ -101,7 +104,8 @@ export function getFamiliars(
 /**
  * Helper function to get all of the `EntityType.KNIFE` in the room.
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * // Make all of the knives in the room invisible
  * for (const knife of getKnives()) {
@@ -129,7 +133,8 @@ export function getKnives(
 /**
  * Helper function to get all of the `EntityType.LASER` in the room.
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * // Make all of the lasers in the room invisible
  * for (const laser of getLasers()) {
@@ -177,7 +182,8 @@ export function getNPCs(
 /**
  * Helper function to get all of the pickups in the room.
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * // Make all of the pickups in the room invisible
  * for (const pickup of getPickups()) {
@@ -205,7 +211,8 @@ export function getPickups(
 /**
  * Helper function to get all of the `EntityType.PROJECTILE` in the room.
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * // Make all of the projectiles in the room invisible
  * for (const projectile of getProjectiles()) {
@@ -237,7 +244,8 @@ export function getProjectiles(
 /**
  * Helper function to get all of the `EntityType.SLOT` in the room.
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * // Make all of the slots in the room invisible
  * for (const slot of getSlots()) {
@@ -257,7 +265,8 @@ export function getSlots(
 /**
  * Helper function to get all of the `EntityType.TEAR` in the room.
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * // Make all of the tears in the room invisible
  * for (const tear of getTears()) {
@@ -320,7 +329,7 @@ export function removeAllEffects(
  * Helper function to remove all of the familiars in the room.
  *
  * @param familiarVariant Optional. If specified, will only remove familiars that match this
- * variant.
+ *                        variant.
  * @param subType Optional. If specified, will only remove familiars that match this sub-type.
  * @param cap Optional. If specified, will only remove the given amount of familiars.
  * @returns True if one or more familiars were removed, false otherwise.
@@ -400,7 +409,7 @@ export function removeAllPickups(
  * Helper function to remove all of the `EntityType.PROJECTILE` in the room.
  *
  * @param projectileVariant Optional. If specified, will only remove projectiles that match this
- * variant.
+ *                          variant.
  * @param subType Optional. If specified, will only remove projectiles that match this sub-type.
  * @param cap Optional. If specified, will only remove the given amount of projectiles.
  * @returns True if one or more projectiles were removed, false otherwise.

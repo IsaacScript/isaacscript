@@ -55,7 +55,8 @@ function initCardObjects() {
 /**
  * Helper function to get a card description from a Card enum value.
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * const card = Card.FOOL;
  * const cardDescription = getCardDescription(card); // cardDescription is "Where journey begins"
@@ -80,7 +81,8 @@ export function getCardDescription(card: Card | int): string {
 /**
  * Helper function to get a card name from a Card.
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * const card = Card.FOOL;
  * const cardName = getCardName(card); // cardName is "0 - The Fool"
@@ -143,7 +145,7 @@ export function getCardsOfType(...cardTypes: ItemConfigCardType[]): Set<Card> {
  *   runes/objects)
  *
  * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- * `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
  * @param exceptions Optional. An array of cards to not select.
  */
 export function getRandomCard(
@@ -156,7 +158,7 @@ export function getRandomCard(
 /**
  * @param cardType The card type that represents the pool of cards to select from.
  * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- * `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
  * @param exceptions Optional. An array of cards to not select.
  */
 export function getRandomCardOfType(
@@ -173,7 +175,7 @@ export function getRandomCardOfType(
  * Isaac, etc.). This will never return a Rune Shard.
  *
  * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- * `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
  * @param exceptions Optional. An array of runes to not select.
  */
 export function getRandomRune(

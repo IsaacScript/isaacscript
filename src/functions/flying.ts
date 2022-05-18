@@ -43,7 +43,7 @@ const CONDITIONAL_FLYING_COLLECTIBLE_TYPES: readonly CollectibleType[] = [
  * Vessel should be checked for via the `hasFlyingTemporaryEffect` function.
  *
  * @param pruneConditionalItems Whether or not collectibles that only grant flight conditionally
- * should be included in the set (like Empty Vessel).
+ *                              should be included in the set (like Empty Vessel).
  */
 export function getFlyingCollectibles(
   pruneConditionalItems: boolean,

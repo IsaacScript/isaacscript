@@ -20,11 +20,11 @@ import { getRandomSeed, isRNG } from "./rng";
  * @param collectibleType The collectible type to spawn.
  * @param position The position to spawn the collectible at.
  * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- * `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
  * @param options Optional. Set to true to make the collectible a "There's Options" style
- * collectible. Default is false.
+ *                collectible. Default is false.
  * @param forceFreeItem Optional. Set to true to disable the logic that gives the item a price for
- * Tainted Keeper. Default is false.
+ *                      Tainted Keeper. Default is false.
  */
 export function spawnCollectible(
   collectibleType: CollectibleType | int,
@@ -79,7 +79,7 @@ export function spawnCollectible(
  *
  * @param position The position to spawn the empty collectible at.
  * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- * `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
  */
 export function spawnEmptyCollectible(
   position: Vector,

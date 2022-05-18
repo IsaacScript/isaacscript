@@ -158,14 +158,14 @@ export function getPlayerHealthType(
   switch (healthType) {
     // 5.10.1
     case HealthType.RED: {
-      // We use the standard library helper function since the "EntityPlayer.GetHearts" method
+      // We use the standard library helper function since the `EntityPlayer.GetHearts` method
       // returns a value that includes rotten hearts.
       return getPlayerHearts(player);
     }
 
     // 5.10.3
     case HealthType.SOUL: {
-      // We use the standard library helper function since the "EntityPlayer.GetSoulHearts" method
+      // We use the standard library helper function since the `EntityPlayer.GetSoulHearts` method
       // returns a value that includes black hearts.
       return getPlayerSoulHearts(player);
     }
@@ -177,7 +177,7 @@ export function getPlayerHealthType(
 
     // 5.10.6
     case HealthType.BLACK: {
-      // We use the standard library helper function since the "EntityPlayer.GetBlackHearts" method
+      // We use the standard library helper function since the `EntityPlayer.GetBlackHearts` method
       // returns a bit mask.
       return getPlayerBlackHearts(player);
     }
@@ -226,8 +226,8 @@ export function removeAllPlayerHealth(player: EntityPlayer): void {
   player.AddMaxHearts(MAX_PLAYER_HEART_CONTAINERS * -2, true);
   player.AddSoulHearts(MAX_PLAYER_HEART_CONTAINERS * -2);
 
-  // If we are The Soul, the "AddBoneHearts" method will not remove Forgotten's bone hearts, so we
-  // need to explicitly handle this.
+  // If we are The Soul, the `EntityPlayer.AddBoneHearts` method will not remove Forgotten's bone
+  // hearts, so we need to explicitly handle this.
   if (isCharacter(player, PlayerType.THE_SOUL)) {
     const forgotten = player.GetSubPlayer();
     if (forgotten !== undefined) {
@@ -293,9 +293,9 @@ export function setPlayerHealth(
    * (Rotten Hearts must be filled in first in order for this to work properly, since they conflict
    * with half red hearts.)
    *
-   * The "AddRottenHearts" method is not like actually picking up a rotten heart, since it will only
-   * grant one rotten heart to Tainted Magdalene (whereas picking up a rotten heart would grant
-   * two).
+   * The `EntityPlayer.AddRottenHearts` method is not like actually picking up a rotten heart, since
+   * it will only grant one rotten heart to Tainted Magdalene (whereas picking up a rotten heart
+   * would grant two).
    */
   player.AddRottenHearts(playerHealth.rottenHearts);
   repeat(playerHealth.hearts, () => {

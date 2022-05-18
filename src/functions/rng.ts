@@ -29,7 +29,7 @@ const OBJECT_NAME = "RNG";
  * Helper function to copy an `RNG` object.
  *
  * @param rng The RNG object to copy. In the case of deserialization, this will actually be a Lua
- * table instead of an instantiated RNG class.
+ *            table instead of an instantiated RNG class.
  * @param serializationType Default is `SerializationType.NONE`.
  */
 export function copyRNG<

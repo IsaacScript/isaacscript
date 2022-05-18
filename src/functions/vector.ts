@@ -22,7 +22,7 @@ const OBJECT_NAME = "Vector";
  * Helper function to copy a `Vector` object.
  *
  * @param vector The vector to copy. In the case of deserialization, this will actually be a Lua
- * table instead of an instantiated Vector class.
+ *               table instead of an instantiated Vector class.
  * @param serializationType Default is `SerializationType.NONE`.
  */
 export function copyVector<

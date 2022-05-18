@@ -123,7 +123,7 @@ function checkWaitingForItemAnimation(player: EntityPlayer) {
   }
 
   // The player is now playing the animation where they hold the 1-Up item overhead. The
-  // "EntityPlayer.StopExtraAnimation" method will not work to stop this animation. End-users are
+  // `EntityPlayer.StopExtraAnimation` method will not work to stop this animation. End-users are
   // expected to play a new animation in the PostCustomRevive callback, which will overwrite the
   // 1-Up animation.
 

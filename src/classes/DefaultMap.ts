@@ -24,7 +24,8 @@ interface ParsedArgs<K, V, A extends unknown[]> {
  * When instantiating a new DefaultMap, you must specify either a default value or a function that
  * returns a default value.
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * // Initializes a new empty DefaultMap with a default value of "foo"
  * const defaultMapWithPrimitive = new DefaultMap<string, string>("foo");

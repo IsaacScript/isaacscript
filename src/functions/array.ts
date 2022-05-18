@@ -148,7 +148,7 @@ export function combineArrays<T>(...arrays: Array<T[] | readonly T[]>): T[] {
  *
  * @param oldArray The array to copy.
  * @param numElements Optional. If specified, will only copy the first N elements. By default, the
- * entire array will be copied.
+ *                    entire array will be copied.
  */
 export function copyArray<T>(
   oldArray: T[] | readonly T[],
@@ -176,7 +176,7 @@ export function emptyArray<T>(array: T[]): void {
 /**
  * Helper function to get an array containing the indexes of an array.
  *
- * For example, an array of `["Apple", "Banana"]` would return an array of: `[0, 1]`
+ * For example, an array of `["Apple", "Banana"]` would return an array of `[0, 1]`.
  */
 export function getArrayIndexes<T>(array: T[] | readonly T[]): int[] {
   return erange(array.length);
@@ -196,7 +196,7 @@ export function getLastElement<T>(array: T[]): T | undefined {
  *
  * @param array The array to get an element from.
  * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- * `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
  * @param exceptions Optional. An array of elements to skip over if selected.
  */
 export function getRandomArrayElement<T>(
@@ -228,7 +228,7 @@ export function getRandomArrayElement<T>(
  *
  * @param array The array to get an element from.
  * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- * `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
  * @param exceptions Optional. An array of elements to skip over if selected.
  */
 export function getRandomArrayElementAndRemove<T>(
@@ -250,7 +250,7 @@ export function getRandomArrayElementAndRemove<T>(
  *
  * @param array The array to get the index from.
  * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- * `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
  */
 export function getRandomArrayIndex<T>(
   array: T[] | readonly T[],
@@ -268,7 +268,8 @@ export function getRandomArrayIndex<T>(
 /**
  * Initializes an array with all elements containing the specified default value.
  *
- * Example:
+ * For example:
+ *
  * ```ts
  * const playerTransformations = initArray(false, PlayerForm.NUM_PLAYER_FORMS - 1);
  * ```
@@ -284,7 +285,7 @@ export function initArray<T>(defaultValue: T, size: int): T[] {
 
 /**
  * Since Lua uses tables for every non-primitive data structure, it is non-trivial to determine if a
- * particular table is being used as an array. isArray returns true if:
+ * particular table is being used as an array. `isArray` returns true if:
  *
  * - the table contains all numerical indexes that are contiguous, starting at 1
  * - the table has no keys (i.e. an "empty" table)
@@ -363,7 +364,7 @@ export function isArrayInArray<T>(
  *
  * @param originalArray The array to shuffle.
  * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- * `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
  */
 export function shuffleArray<T>(
   originalArray: T[] | readonly T[],
@@ -382,7 +383,7 @@ export function shuffleArray<T>(
  *
  * @param array The array to shuffle.
  * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- * `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
  */
 export function shuffleArrayInPlace<T>(
   array: T[],

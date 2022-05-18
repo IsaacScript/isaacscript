@@ -73,7 +73,7 @@ export function getPlayerIndex(
 
   // We can safely ignore the player's character because regardless of whether the main player ends
   // up being The Forgotten or The Soul, the collectible RNG values will be the same. The
-  // "EntityPlayer.IsSubPlayer" method can return true for Dead Tainted Lazarus during the
+  // `EntityPlayer.IsSubPlayer` method can return true for Dead Tainted Lazarus during the
   // PostPlayerInit callback, but since we fall back to the player in the case of
   // "getSubPlayerParent" returning undefined, we do not need to explicitly check for this case.
   let playerToUse = player;
@@ -150,7 +150,8 @@ export function getPlayerIndexVanilla(
  * If this is not desired, use the `getAllPlayers` helper function instead.
  *
  * @param performCharacterExclusions Whether or not to exclude characters that are not directly
- * controlled by the player (i.e. Esau & Tainted Soul). Default is false.
+ *                                   controlled by the player (i.e. Esau & Tainted Soul). Default is
+ *                                   false.
  */
 export function getPlayers(performCharacterExclusions = false): EntityPlayer[] {
   const players = getAllPlayers();

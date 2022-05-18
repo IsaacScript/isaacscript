@@ -133,7 +133,7 @@ export function removeAllCoins(
  * Helper function to remove all of the collectibles in the room.
  *
  * @param collectibleType Optional. If specified, will only remove collectibles that match this
- * collectible type.
+ *                        collectible type.
  * @param cap Optional. If specified, will only remove the given amount of collectibles.
  * @returns True if one or more collectibles were removed, false otherwise.
  */
@@ -201,7 +201,7 @@ export function removeAllSacks(
  * Helper function to remove all of the trinkets in the room.
  *
  * @param trinketType Optional. If specified, will only remove trinkets that match this trinket
- * type.
+ *                    type.
  * @param cap Optional. If specified, will only remove the given amount of trinkets.
  * @returns True if one or more trinkets were removed, false otherwise.
  */
