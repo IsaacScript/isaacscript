@@ -103,14 +103,14 @@ export function getLastEnumValue<T>(transpiledEnum: T): T[keyof T] {
 }
 
 /**
- * Helper function to get a random element from the provided enum.
+ * Helper function to get a random value from the provided enum.
  *
- * @param transpiledEnum The enum to get an element from.
+ * @param transpiledEnum The enum to get the value from.
  * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
  *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
  * @param exceptions Optional. An array of elements to skip over if selected.
  */
-export function getRandomEnumElement<T>(
+export function getRandomEnumValue<T>(
   transpiledEnum: T,
   seedOrRNG: Seed | RNG = getRandomSeed(),
   exceptions: Array<T[keyof T]> | ReadonlyArray<T[keyof T]> = [],
