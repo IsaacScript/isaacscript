@@ -1,5 +1,4 @@
 export enum ItemPoolType {
-  NULL = -1,
   TREASURE = 0,
   SHOP = 1,
   BOSS = 2,
