@@ -1,15 +1,38 @@
+/* eslint-disable sort-exports/sort-exports */
+
 import {
   CollectibleType,
   ItemType,
   TrinketType,
 } from "isaac-typescript-definitions";
 
-export interface PickingUpItem {
-  /** Needed so that we can distinguish between picking up a collectible and a trinket. */
-  itemType: ItemType;
+export type PickingUpItem =
+  | PickingUpItemNull
+  | PickingUpItemCollectible
+  | PickingUpItemTrinket;
 
-  /** Equal to either the collectible type or the trinket type. */
-  subType: CollectibleType | TrinketType;
+export interface PickingUpItemNull {
+  /** Needed so that we can distinguish between picking up a collectible and a trinket. */
+  itemType: ItemType.NULL;
+
+  /** Equal to either the collectible type, the trinket type, or 0. */
+  subType: 0;
+}
+
+export interface PickingUpItemCollectible {
+  /** Needed so that we can distinguish between picking up a collectible and a trinket. */
+  itemType: ItemType.PASSIVE | ItemType.ACTIVE | ItemType.FAMILIAR;
+
+  /** Equal to either the collectible type, the trinket type, or 0. */
+  subType: CollectibleType;
+}
+
+export interface PickingUpItemTrinket {
+  /** Needed so that we can distinguish between picking up a collectible and a trinket. */
+  itemType: ItemType.TRINKET;
+
+  /** Equal to either the collectible type, the trinket type, or 0. */
+  subType: TrinketType;
 }
 
 const DEFAULT_ITEM_TYPE = ItemType.NULL;
