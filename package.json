@@ -15,6 +15,10 @@
   "bin": {
     "isaacscript": "./dist/src/main.js"
   },
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.d.ts"
+  ],
   "dependencies": {
     "@types/node": "^17.0.34",
     "chalk": "4.1.2",
