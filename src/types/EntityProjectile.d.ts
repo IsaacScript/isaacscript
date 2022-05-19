@@ -1,3 +1,4 @@
+import { ProjectileVariant } from "../enums/collections/variants";
 import { ProjectileFlag } from "../enums/flags/ProjectileFlag";
 
 declare global {
@@ -63,6 +64,7 @@ declare global {
     HomingStrength: float;
     ProjectileFlags: BitFlags<ProjectileFlag>;
     Scale: float;
+    Variant: ProjectileVariant;
     WiggleFrameOffset: int;
   }
 }

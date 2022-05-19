@@ -1,3 +1,4 @@
+import { KnifeVariant } from "../enums/collections/variants";
 import { TearFlag } from "../enums/flags/TearFlag";
 
 declare global {
@@ -21,5 +22,6 @@ declare global {
     RotationOffset: float;
     Scale: float;
     TearFlags: BitFlags<TearFlag>;
+    Variant: KnifeVariant;
   }
 }

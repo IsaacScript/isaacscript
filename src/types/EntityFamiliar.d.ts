@@ -1,3 +1,4 @@
+import { FamiliarVariant } from "../enums/collections/variants";
 import { Direction } from "../enums/Direction";
 import { TargetFlag } from "../enums/flags/TargetFlag";
 
@@ -62,6 +63,7 @@ declare global {
     RoomClearCount: int;
     ShootDirection: Direction;
     State: int;
+    Variant: FamiliarVariant;
   }
 
   namespace EntityFamiliar {

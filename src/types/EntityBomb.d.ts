@@ -1,3 +1,4 @@
+import { BombVariant } from "../enums/collections/variants";
 import { TearFlag } from "../enums/flags/TearFlag";
 
 declare global {
@@ -15,5 +16,6 @@ declare global {
 
     IsFetus: boolean;
     RadiusMultiplier: float;
+    Variant: BombVariant;
   }
 }

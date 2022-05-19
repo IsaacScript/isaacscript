@@ -64,6 +64,7 @@ declare global {
     StartAngleDegrees: float;
     TearFlags: BitFlags<TearFlag>;
     Timeout: int;
+    Variant: LaserVariant;
   }
 
   namespace EntityLaser {

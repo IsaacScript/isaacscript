@@ -47,6 +47,7 @@ declare global {
      */
     readonly TearIndex: int;
 
+    Variant: TearVariant;
     WaitFrames: int;
   }
 }

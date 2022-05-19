@@ -1,3 +1,4 @@
+import { PickupVariant } from "../enums/collections/variants";
 import { EntityType } from "../enums/EntityType";
 
 declare global {
@@ -54,6 +55,7 @@ declare global {
     State: int;
     Timeout: int;
     Touched: boolean;
+    Variant: PickupVariant;
     Wait: int;
   }
 }

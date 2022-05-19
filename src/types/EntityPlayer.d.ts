@@ -9,7 +9,11 @@ import {
   PlayerType,
   TrinketType,
 } from "../enums/collections/subTypes";
-import { BombVariant, FamiliarVariant } from "../enums/collections/variants";
+import {
+  BombVariant,
+  FamiliarVariant,
+  PlayerVariant,
+} from "../enums/collections/variants";
 import { ControllerIndex } from "../enums/ControllerIndex";
 import { Direction } from "../enums/Direction";
 import { CacheFlag } from "../enums/flags/CacheFlag";
@@ -1215,5 +1219,6 @@ declare global {
     TearRange: float;
 
     TearsOffset: Readonly<Vector>;
+    Variant: PlayerVariant;
   }
 }

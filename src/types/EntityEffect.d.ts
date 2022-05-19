@@ -1,3 +1,4 @@
+import { EffectVariant } from "../enums/collections/variants";
 import { EntityType } from "../enums/EntityType";
 
 declare global {
@@ -19,6 +20,7 @@ declare global {
     Scale: float;
     State: int;
     Timeout: int;
+    Variant: EffectVariant;
     m_Height: float;
   }
 
