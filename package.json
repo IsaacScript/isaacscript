@@ -8,6 +8,7 @@
   },
   "license": "MIT",
   "author": "Zamiell",
+  "files": [],
   "dependencies": {
     "@prettier/plugin-xml": "^2.2.0",
     "@typescript-eslint/eslint-plugin": "^5.25.0",
