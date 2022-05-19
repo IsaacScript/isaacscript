@@ -8,7 +8,7 @@ However, for large mods, there are often other tasks that need to be performed b
 
 - Update all NPM dependencies (e.g. in the "package.json" file)
 - Bump the version in the "src/constants.ts" file (if it exists).
-  - It looks for a line that looks something like `export const VERSION = "v1.0.0";`.
+  - It looks for a line that looks something like: `export const VERSION = "v1.0.0";`
 - Bump the version in the "mod/metadata.xml" file.
 - Bump the version in the "mod/version.txt" file.
 - Compile the TypeScript.
