@@ -24,6 +24,11 @@ export const enumMemberNumberSeparation = createRule({
 
         const memberName = node.id.name;
 
+        // Whitelist member names that 4 characters or less.
+        if (memberName.length <= 4) {
+          return;
+        }
+
         // Search through the name for numbers.
         for (let i = 0; i < memberName.length; i++) {
           const character = memberName[i];
