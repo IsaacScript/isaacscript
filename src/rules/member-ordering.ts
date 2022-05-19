@@ -14,7 +14,7 @@ import {
 } from "../typeUtils";
 import { createRule } from "../utils";
 
-export type MessageIds = "incorrectGroupOrder" | "incorrectOrder";
+type MessageIds = "incorrectGroupOrder" | "incorrectOrder";
 
 type Order =
   | "alphabetically"
@@ -34,7 +34,7 @@ type Member =
   | TSESTree.TypeElement
   | TSESTree.TSEnumMember;
 
-export type Options = [
+type Options = [
   {
     default?: OrderConfig;
     classes?: OrderConfig;

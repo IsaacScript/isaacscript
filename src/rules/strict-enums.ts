@@ -39,14 +39,16 @@ const ALLOWED_TYPES_FOR_ANY_ENUM_ARGUMENT =
   ts.TypeFlags.Number |
   ts.TypeFlags.String;
 
-export type Options = [];
+type Options = [];
+
+// ts-prune-ignore-next
 export type MessageIds =
   | "incorrectIncrement"
   | "mismatchedAssignment"
   | "mismatchedComparison"
   | "mismatchedFunctionArgument";
 
-export const strictEnums = createRule({
+export const strictEnums = createRule<Options, MessageIds>({
   name: "strict-enums",
   meta: {
     type: "problem",

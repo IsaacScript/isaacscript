@@ -118,7 +118,7 @@ export function getNameFromIndexSignature(
 }
 
 /** Gets all of the type flags in a type, iterating through unions automatically. */
-export function getTypeFlags(type: ts.Type): number | ts.TypeFlags {
+function getTypeFlags(type: ts.Type): number | ts.TypeFlags {
   let flags = 0;
   for (const t of unionTypeParts(type)) {
     flags |= t.flags;
