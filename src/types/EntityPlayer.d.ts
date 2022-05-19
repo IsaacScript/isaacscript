@@ -821,7 +821,7 @@ declare global {
     GetTractorBeam(): Entity;
 
     /** Returns 0 if there is no trinket. */
-    GetTrinket(trinketSlot: TrinketSlot): int;
+    GetTrinket(trinketSlot: TrinketSlot): TrinketType;
 
     /**
      * This is the number of times that the trinket effect is applied.
