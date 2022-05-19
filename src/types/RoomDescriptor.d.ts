@@ -9,7 +9,7 @@ declare global {
     ChallengeDone: boolean;
     Clear: boolean;
     ClearCount: int;
-    Data: RoomConfig | undefined;
+    Data?: RoomConfig;
     DecorationSeed: Seed;
     DeliriumDistance: int;
 

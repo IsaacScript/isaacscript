@@ -46,11 +46,7 @@ declare global {
      * @param target This argument is not optional. If you want to spawn a fly without a target,
      *               then you must explicitly pass undefined.
      */
-    AddBlueFlies(
-      amount: int,
-      position: Vector,
-      target: Entity | undefined,
-    ): Entity;
+    AddBlueFlies(amount: int, position: Vector, target?: Entity): Entity;
 
     AddBlueSpider(position: Vector): Entity;
 

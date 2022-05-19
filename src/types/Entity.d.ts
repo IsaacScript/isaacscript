@@ -105,7 +105,7 @@ declare global {
     ToTear(): EntityTear | undefined;
     Update(): void;
 
-    Child: Entity | undefined;
+    Child?: Entity;
     CollisionDamage: float;
     DepthOffset: float;
     readonly DropSeed: Seed;
@@ -119,14 +119,14 @@ declare global {
     readonly InitSeed: Seed;
     Mass: float;
     MaxHitPoints: float;
-    Parent: Entity | undefined;
+    Parent?: Entity;
     Position: Vector;
     PositionOffset: Readonly<Vector>;
     RenderZOffset: int;
     Size: float;
     SizeMulti: Vector;
     readonly SpawnGridIndex: int;
-    SpawnerEntity: Entity | undefined;
+    SpawnerEntity?: Entity;
     SpawnerType: EntityType;
     SpawnerVariant: int;
 
@@ -142,7 +142,7 @@ declare global {
     SpriteRotation: float;
     SpriteScale: Vector;
     SubType: int;
-    Target: Entity | undefined;
+    Target?: Entity;
     TargetPosition: Readonly<Vector>;
     readonly Type: EntityType;
     Variant: int;

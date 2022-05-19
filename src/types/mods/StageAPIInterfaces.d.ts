@@ -131,10 +131,10 @@ declare global {
      * sprites in the pre-boss cutscene.
      */
     SetSpots(
-      bossSpot: string | undefined,
-      playerSpot: string | undefined,
-      bgColor: Color | undefined,
-      dirtColor: Color | undefined,
+      bossSpot?: string,
+      playerSpot?: string,
+      bgColor?: Color,
+      dirtColor?: Color,
     ): void;
 
     /** Sets the stage's music. */
@@ -260,15 +260,15 @@ declare global {
     Render(noCenterCorrect: boolean): void;
     SetAlpha(alpha: int, noCancelFade: boolean): void;
     Anm2: string;
-    Offset: Vector | undefined;
-    Size: Vector | undefined;
-    Velocity: Vector | undefined;
+    Offset?: Vector;
+    Size?: Vector;
+    Velocity?: Vector;
   }
 
   interface StageAPIRemovedEntityData {
     Position: Vector;
     Seed: Seed;
-    Spawner: Entity | undefined;
+    Spawner?: Entity;
     SubType: int;
     Type: EntityType;
     Variant: int;
@@ -308,17 +308,17 @@ declare global {
   };
 
   interface StageAPITextStreakParams {
-    Color: Color | undefined;
-    ExtraFontScale: Vector | undefined;
-    ExtraOffset: Vector | undefined;
-    Font: Font | undefined;
-    Hold: boolean | undefined;
-    HoldFrames: int | undefined;
-    LineSpacing: int | undefined;
-    RenderPos: Vector | undefined;
-    SmallFont: Font | undefined;
-    SpriteOffset: Vector | undefined;
-    Spritesheet: string | undefined;
+    Color?: Color;
+    ExtraFontScale?: Vector;
+    ExtraOffset?: Vector;
+    Font?: Font;
+    Hold?: boolean;
+    HoldFrames?: int;
+    LineSpacing?: int;
+    RenderPos?: Vector;
+    SmallFont?: Font;
+    SpriteOffset?: Vector;
+    Spritesheet?: string;
     Text: string;
     TextOffset: Vector;
   }
@@ -337,11 +337,11 @@ declare global {
   }
 
   interface StageAPIPoolEntry {
-    AlwaysReplaceHorsemen?: boolean | undefined;
-    AlwaysReplaceSubtype?: int | undefined;
+    AlwaysReplaceHorsemen?: boolean;
+    AlwaysReplaceSubtype?: int;
     BossID: string;
-    Horseman?: boolean | undefined;
-    OnlyReplaceSubtype?: int | undefined;
-    Weight?: int | undefined;
+    Horseman?: boolean;
+    OnlyReplaceSubtype?: int;
+    Weight?: int;
   }
 }

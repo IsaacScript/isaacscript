@@ -1,7 +1,7 @@
 import { EntityType } from "../enums/EntityType";
 
 declare global {
-  function EntityRef(this: void, entity: Entity | undefined): EntityRef;
+  function EntityRef(this: void, entity: Entity): EntityRef;
 
   interface EntityRef {
     Entity: Entity;

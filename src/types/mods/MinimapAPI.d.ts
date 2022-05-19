@@ -26,7 +26,7 @@ declare global {
     ): {
       Sprite: Sprite;
       animationName: string;
-      color: Color | undefined;
+      color?: Color;
       frame: number;
       id: number | string;
     };
@@ -156,7 +156,7 @@ declare global {
       largeIconPositions: Vector[],
       largeIconPositionCenter: Vector[],
       adjacentCoords: Vector,
-      doorSlots: DoorSlot[] | undefined,
+      doorSlots?: DoorSlot[],
     ): void;
 
     GetConfig(configOption: string): boolean | number | undefined;
@@ -184,10 +184,7 @@ declare global {
 
     IsPositionFree(position: Vector): boolean;
 
-    IsPositionFreeNoAlign(
-      position: Vector,
-      roomShape: RoomShape | undefined,
-    ): boolean;
+    IsPositionFreeNoAlign(position: Vector, roomShape?: RoomShape): boolean;
 
     IsRoomAdjacent(
       room1: MinimapAPIRoomDescriptor,
@@ -233,29 +230,29 @@ declare global {
     Levels: Map<Dimension, MinimapAPIRoomDescriptor[]>;
 
     OverrideConfig: {
-      Disable: boolean | undefined;
-      DisplayExploredRooms: boolean | undefined;
-      DisplayMode: 0 | 1 | 2 | undefined;
-      DisplayOnNoHUD: boolean | undefined;
-      HideInCombat: boolean | undefined;
-      MapFrameHeight: number | undefined;
-      MapFrameWidth: number | undefined;
-      OverrideLost: boolean | undefined;
-      OverrideVoid: boolean | undefined;
-      PositionX: number | undefined;
-      PositionY: number | undefined;
-      ShowCurrentRoomItems: boolean | undefined;
-      ShowIcons: boolean | undefined;
-      ShowLevelFlags: boolean | undefined;
-      ShowShadows: boolean | undefined;
-      SmoothSlidingSpeed: number | undefined;
+      Disable?: boolean;
+      DisplayExploredRooms?: boolean;
+      DisplayMode?: 0 | 1 | 2;
+      DisplayOnNoHUD?: boolean;
+      HideInCombat?: boolean;
+      MapFrameHeight?: number;
+      MapFrameWidth?: number;
+      OverrideLost?: boolean;
+      OverrideVoid?: boolean;
+      PositionX?: number;
+      PositionY?: number;
+      ShowCurrentRoomItems?: boolean;
+      ShowIcons?: boolean;
+      ShowLevelFlags?: boolean;
+      ShowShadows?: boolean;
+      SmoothSlidingSpeed?: number;
     };
 
     PickupChestNotCollected: (pickup: EntityPickup) => boolean | undefined;
     PickupNotCollected: (pickup: EntityPickup) => boolean | undefined;
     PickupSlotMachineNotBroken: (slot: Entity) => boolean | undefined;
 
-    ReleaseVersion: number | undefined;
+    ReleaseVersion?: number;
     Version: string | number;
   }
 

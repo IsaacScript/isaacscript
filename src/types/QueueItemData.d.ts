@@ -1,5 +1,5 @@
 declare interface QueueItemData {
   Charge: int;
-  Item: ItemConfigItem | undefined;
+  Item?: ItemConfigItem;
   Touched: boolean;
 }

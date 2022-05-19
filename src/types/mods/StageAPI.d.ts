@@ -68,9 +68,7 @@ declare global {
         this: void,
         gridIndex: int,
         grid: GridEntity,
-        justBrokenGridSpawns:
-          | LuaTable<int, StageAPIRemovedEntityData>
-          | undefined,
+        justBrokenGridSpawns?: LuaTable<int, StageAPIRemovedEntityData>,
       ) => false | void,
     ];
 
@@ -248,14 +246,14 @@ declare global {
     ChangeDoor(
       container: StageAPIGridContainer,
       doorInfo: StageAPIDoorInfo,
-      payToPlayFile: string | undefined,
+      payToPlayFile?: string,
     ): void;
 
     ChangePit(
       gridContainer: StageAPIGridContainer,
-      fileName: string | undefined,
-      bridgeFileName: string | undefined,
-      altFileName: string | undefined,
+      fileName?: string,
+      bridgeFileName?: string,
+      altFileName?: string,
     ): void;
 
     ChangeRock(container: StageAPIGridContainer): void;
@@ -401,7 +399,7 @@ declare global {
       position: Vector,
       goesTo: StageAPICustomStage,
       anm2: string | undefined,
-      size: int | undefined,
+      size?: int,
     ): Entity;
 
     /** Unregisters all mod callbacks, should be used when a mod loads, useful for `luamod`. */

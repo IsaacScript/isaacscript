@@ -1,5 +1,5 @@
 declare interface GridEntityPit extends GridEntity {
-  MakeBridge(bridgeSource: GridEntity | undefined): void;
+  MakeBridge(bridgeSource?: GridEntity): void;
   SetLadder(value: boolean): void;
   UpdateCollision(): void;
 

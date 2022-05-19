@@ -59,7 +59,7 @@ declare global {
      * @param subType Specifying -1 will return all subtypes. Default is -1.
      */
     function CountEntities(
-      spawner: Entity | undefined,
+      spawner?: Entity,
       entityType?: EntityType,
       variant?: int,
       subType?: int,
@@ -338,7 +338,7 @@ declare global {
       subType: int,
       position: Vector,
       velocity: Vector,
-      spawner: Entity | undefined,
+      spawner?: Entity,
     ): Entity;
 
     /**
