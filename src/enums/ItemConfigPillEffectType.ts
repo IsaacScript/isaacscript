@@ -1,3 +1,5 @@
+/* eslint-disable isaacscript/member-ordering */
+
 /**
  * This corresponds to the suffix of the "class" tag in the "pocketitems.xml" file. "+" is equal to
  * `POSITIVE`, "-" is equal to `NEGATIVE`, and no suffix is equal to `NEUTRAL`.

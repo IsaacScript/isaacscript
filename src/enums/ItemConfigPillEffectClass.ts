@@ -1,3 +1,5 @@
+/* eslint-disable isaacscript/member-ordering */
+
 /**
  * This corresponds to the number in the "class" tag in the "pocketitems.xml" file. The "+" or "-"
  * part of the tag is contained within the `ItemConfigPillEffectType` enum.

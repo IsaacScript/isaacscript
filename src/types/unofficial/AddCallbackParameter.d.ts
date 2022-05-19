@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/member-ordering */
+/* eslint-disable isaacscript/member-ordering */
 
 import { ActiveSlot } from "../../enums/ActiveSlot";
 import { ButtonAction } from "../../enums/ButtonAction";

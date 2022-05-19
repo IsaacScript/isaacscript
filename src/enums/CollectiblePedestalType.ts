@@ -1,3 +1,5 @@
+/* eslint-disable isaacscript/member-ordering */
+
 /** Corresponds to the overlay frame number in "005.100_collectible.anm2". */
 export enum CollectiblePedestalType {
   /**

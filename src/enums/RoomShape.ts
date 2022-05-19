@@ -4,7 +4,7 @@ export enum RoomShape {
    *
    * The "SHAPE_" prefix is necessary because enums cannot start with a number.
    */
-  SHAPE_1x1 = 1, // eslint-disable-line @typescript-eslint/naming-convention
+  SHAPE_1x1 = 1, // eslint-disable-line @typescript-eslint/naming-convention,isaacscript/enum-member-number-separation
 
   /** Narrow 1x1 horizontal. */
   IH = 2,
@@ -17,7 +17,7 @@ export enum RoomShape {
    *
    * The "SHAPE_" prefix is necessary because enums cannot start with a number.
    */
-  SHAPE_1x2 = 4, // eslint-disable-line @typescript-eslint/naming-convention
+  SHAPE_1x2 = 4, // eslint-disable-line @typescript-eslint/naming-convention,isaacscript/enum-member-number-separation
 
   /** Narrow 2x1 vertical. */
   IIV = 5,
@@ -27,7 +27,7 @@ export enum RoomShape {
    *
    * The "SHAPE_" prefix is necessary because enums cannot start with a number.
    */
-  SHAPE_2x1 = 6, // eslint-disable-line @typescript-eslint/naming-convention
+  SHAPE_2x1 = 6, // eslint-disable-line @typescript-eslint/naming-convention,isaacscript/enum-member-number-separation
 
   /** Narrow 2x1 horizontal. */
   IIH = 7,
@@ -37,7 +37,7 @@ export enum RoomShape {
    *
    * The "SHAPE_" prefix is necessary because enums cannot start with a number.
    */
-  SHAPE_2x2 = 8, // eslint-disable-line @typescript-eslint/naming-convention
+  SHAPE_2x2 = 8, // eslint-disable-line @typescript-eslint/naming-convention,isaacscript/enum-member-number-separation
 
   /** Looks like a "⅃" with a gap in the top-left-hand corner. */
   LTL = 9,

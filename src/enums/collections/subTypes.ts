@@ -988,7 +988,7 @@ export enum CollectibleType {
   OCULAR_RIFT = 606,
   BOILED_BABY = 607,
   FREEZER_BABY = 608,
-  ETERNAL_D6 = 609,
+  ETERNAL_D6 = 609, // eslint-disable-line isaacscript/enum-member-number-separation
   BIRD_CAGE = 610,
   LARYNX = 611,
   LOST_SOUL = 612,
@@ -1401,7 +1401,7 @@ export enum TrinketType {
   STRANGE_KEY = 175,
   LIL_CLOT = 176,
   TEMPORARY_TATTOO = 177,
-  SWALLOWED_M80 = 178,
+  SWALLOWED_M80 = 178, // eslint-disable-line isaacscript/enum-member-number-separation
   RC_REMOTE = 179,
   FOUND_SOUL = 180,
   EXPANSION_PACK = 181,

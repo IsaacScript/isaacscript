@@ -23,7 +23,7 @@ const ActionTriggerInternal = {
 
 type ActionTriggerValue = number & {
   readonly __bitFlagBrand: void;
-  readonly __actionTriggerBrand: void; // eslint-disable-line @typescript-eslint/member-ordering
+  readonly __actionTriggerBrand: void; // eslint-disable-line isaacscript/member-ordering
 };
 type ActionTriggerType = {
   [K in keyof typeof ActionTriggerInternal]: ActionTriggerValue;

@@ -21,15 +21,22 @@ module.exports = {
   rules: {
     /**
      * Documentation:
-     * https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/member-ordering.md.
+     * https://github.com/IsaacScript/eslint-plugin-isaacscript/blob/main/docs/rules/member-ordering.md
+     *
+     * Not defined in the parent configs.
      *
      * We want class and interface definitions to be alphabetically ordered so that they match the
      * Isaac documentation.
      */
-    "@typescript-eslint/member-ordering": [
+    "isaacscript/member-ordering": [
       "warn",
       {
         default: {
+          order: "alphabetically",
+        },
+
+        enums: {
+          memberTypes: ["method", "field"],
           order: "alphabetically",
         },
 

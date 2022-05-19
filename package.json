@@ -25,10 +25,11 @@
     "dist/**/*.d.ts"
   ],
   "dependencies": {
+    "eslint-plugin-isaacscript": "file:../eslint-plugin-isaacscript",
     "lua-types": "^2.11.0"
   },
   "devDependencies": {
-    "isaacscript-lint": "^1.0.150",
+    "isaacscript-lint": "^1.0.153",
     "isaacscript-spell": "^1.0.3",
     "isaacscript-tsconfig": "^1.1.16",
     "npm-check-updates": "^13.0.1",

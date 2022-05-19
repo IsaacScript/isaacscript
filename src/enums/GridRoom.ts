@@ -36,10 +36,10 @@ export enum GridRoom {
   SECRET_SHOP = -13,
 
   /** The boss room for the 2nd phase of Rotgut. */
-  ROTGUT_DUNGEON1 = -14,
+  ROTGUT_DUNGEON_1 = -14,
 
   /** The boss room for the 3rd phase of Rotgut. */
-  ROTGUT_DUNGEON2 = -15,
+  ROTGUT_DUNGEON_2 = -15,
 
   /** The room before a Treasure Room that appears if you have Blue Key. */
   BLUE_ROOM = -16,
