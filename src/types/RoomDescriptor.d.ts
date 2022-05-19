@@ -63,6 +63,8 @@ declare global {
      *   entered in.)
      * - Data structures that store data per room should use `ListIndex` as a key instead of
      *   `SafeGridIndex`, since the former is unique across different dimensions.
+     * - Historically, `SafeGridIndex` was bugged for rooms outside of the grid, but it now works
+     *   properly for these cases.
      */
     SafeGridIndex: int;
 
