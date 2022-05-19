@@ -10,7 +10,7 @@ import { createRule } from "../utils";
 /**
  * TypeScript only allows number enums, string enums, or mixed enums with both numbers and strings.
  *
- * Mixed enums are be a union of a number enum and a string enum, so there is no separate kind for
+ * Mixed enums are a union of a number enum and a string enum, so there is no separate kind for
  * them.
  */
 enum EnumKind {
@@ -20,7 +20,16 @@ enum EnumKind {
 }
 
 /** These operators are always considered to be safe. */
-const ALLOWED_ENUM_OPERATORS = new Set(["in", "|", "&", "|=", "&="]);
+const ALLOWED_ENUM_OPERATORS = new Set([
+  "in",
+  "|",
+  "&",
+  "|=",
+  "&=",
+  ">>",
+  "<<",
+  ">>>",
+]);
 
 /**
  * See the comment for `EnumKind`.
