@@ -67,6 +67,16 @@ module.exports = {
 
     /**
      * Documentation:
+     * https://github.com/IsaacScript/eslint-plugin-isaacscript/blob/main/docs/rules/enum-member-number-separation.md
+     *
+     * Not defined in the parent configs.
+     *
+     * Since Isaac enums use the `SHOUTING_SNAKE_CASE` convention, this rule ensures correctness.
+     */
+    "enum-member-number-separation": "on",
+
+    /**
+     * Documentation:
      * https://github.com/eslint/eslint/blob/master/docs/rules/no-bitwise.md
      *
      * Defined at:
