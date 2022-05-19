@@ -49,3 +49,21 @@ export function resetPickingUpItem(pickingUpItem: PickingUpItem): void {
   pickingUpItem.itemType = DEFAULT_ITEM_TYPE;
   pickingUpItem.subType = DEFAULT_SUB_TYPE;
 }
+
+const COLLECTIBLE_ITEM_TYPES: ReadonlySet<ItemType> = new Set([
+  ItemType.PASSIVE, // 1
+  ItemType.ACTIVE, // 3
+  ItemType.FAMILIAR, // 4
+]);
+
+export function pickingUpItemIsCollectible(
+  pickingUpItem: PickingUpItem,
+): pickingUpItem is PickingUpItemCollectible {
+  return COLLECTIBLE_ITEM_TYPES.has(pickingUpItem.itemType);
+}
+
+export function pickingUpItemIsTrinket(
+  pickingUpItem: PickingUpItem,
+): pickingUpItem is PickingUpItemTrinket {
+  return pickingUpItem.itemType === ItemType.TRINKET;
+}

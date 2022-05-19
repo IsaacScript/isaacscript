@@ -2,7 +2,7 @@
 // - PreItemPickup
 // - PostItemPickup
 
-import { CollectibleType } from "isaac-typescript-definitions";
+import { ItemType } from "isaac-typescript-definitions";
 import { DefaultMap } from "../classes/DefaultMap";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
@@ -68,7 +68,7 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
 }
 
 function queueEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
-  if (pickingUpItem.subType === CollectibleType.NULL) {
+  if (pickingUpItem.itemType === ItemType.NULL || pickingUpItem.subType === 0) {
     return;
   }
 
@@ -78,7 +78,7 @@ function queueEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
 
 function queueNotEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
   const queuedItem = player.QueuedItem.Item;
-  if (queuedItem === undefined) {
+  if (queuedItem === undefined || queuedItem.Type === ItemType.NULL) {
     // This should never happen, since the `EntityPlayer.IsItemQueueEmpty` method returned true.
     return;
   }

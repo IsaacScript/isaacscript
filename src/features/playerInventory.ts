@@ -1,7 +1,6 @@
 import {
   ActiveSlot,
   CollectibleType,
-  ItemType,
   ModCallback,
 } from "isaac-typescript-definitions";
 import { DefaultMap } from "../classes/DefaultMap";
@@ -13,17 +12,14 @@ import { isActiveCollectible } from "../functions/collectibles";
 import { getCollectibleSet } from "../functions/collectibleSet";
 import { getAllPlayers, getPlayerIndex } from "../functions/playerIndex";
 import { repeat } from "../functions/utils";
-import { PickingUpItem } from "../types/PickingUpItem";
+import {
+  PickingUpItem,
+  pickingUpItemIsCollectible,
+} from "../types/PickingUpItem";
 import { PlayerIndex } from "../types/PlayerIndex";
 import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "player inventory tracker";
-
-const COLLECTIBLE_ITEM_TYPES: ReadonlySet<ItemType> = new Set([
-  ItemType.PASSIVE, // 1
-  ItemType.ACTIVE, // 3
-  ItemType.FAMILIAR, // 4
-]);
 
 const v = {
   run: {
@@ -94,11 +90,11 @@ function postGameStarted() {
 
 // ModCallbackCustom.POST_ITEM_PICKUP
 function postItemPickup(player: EntityPlayer, pickingUpItem: PickingUpItem) {
-  if (!COLLECTIBLE_ITEM_TYPES.has(pickingUpItem.itemType)) {
+  if (!pickingUpItemIsCollectible(pickingUpItem)) {
     return;
   }
 
-  addCollectibleToInventory(player, pickingUpItem.subType as CollectibleType);
+  addCollectibleToInventory(player, pickingUpItem.subType);
 }
 
 function addCollectibleToInventory(
