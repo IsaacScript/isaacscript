@@ -836,6 +836,14 @@ function flatten<T>(arr: T[][]): T[] {
         `,
 });
 
+valid.push({
+  name: "Using a number literal in a function that takes a number literal",
+  code: `${fruitEnumDefinition}
+function useFruit(fruit: Fruit | -1) {}
+useFruit(-1);
+        `,
+});
+
 ruleTester.run("strict-enums-functions", strictEnums, {
   valid,
   invalid,

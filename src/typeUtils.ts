@@ -128,26 +128,14 @@ function getTypeFlags(type: ts.Type): number | ts.TypeFlags {
 
 /**
  * Note that if the type is a union, this function will decompose it into the parts and get the
- * flags of every union constituent. If this is not desired, use the `isTypeFlagSetSimple` function
- * instead.
+ * flags of every union constituent.
  *
  * @param flagsToCheck The composition of one or more `ts.TypeFlags`.
- * @param isReceiver True if the type is a receiving type (i.e. the type of a called function's
- *                   parameter).
  */
 export function isTypeFlagSet(
   type: ts.Type,
   flagsToCheck: number | ts.TypeFlags,
-  isReceiver?: boolean,
 ): boolean {
   const flags = getTypeFlags(type);
-
-  if (
-    isReceiver === true &&
-    isFlagSet(flags, ts.TypeFlags.Any | ts.TypeFlags.Unknown)
-  ) {
-    return true;
-  }
-
   return isFlagSet(flags, flagsToCheck);
 }

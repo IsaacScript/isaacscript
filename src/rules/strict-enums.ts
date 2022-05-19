@@ -34,7 +34,7 @@ const ALLOWED_ENUM_OPERATORS = new Set([
 /**
  * See the comment for `EnumKind`.
  *
- * This rule can safely ignore other kinds of types (and leave the validation in question to the
+ * This rule can safely ignore specific kinds of types (and leave the validation in question to the
  * TypeScript compiler).
  */
 const IMPOSSIBLE_ENUM_TYPES =
@@ -444,16 +444,11 @@ export const strictEnums = createRule<Options, MessageIds>({
       return intersectingTypes.size === 0;
     }
 
-    function isMismatchedEnumComparison(
-      operator: string,
+    /** Returns whether or not the two provided types have a shared enum. */
+    function typesHaveLooseEnumUsage(
       leftType: ts.Type,
       rightType: ts.Type,
     ): boolean {
-      /** Allow comparisons with whitelisted operators. */
-      if (ALLOWED_ENUM_OPERATORS.has(operator)) {
-        return false;
-      }
-
       /** Allow comparisons that don't have anything to do with enums. */
       const leftEnumTypes = getEnumTypes(leftType);
       const rightEnumTypes = getEnumTypes(rightType);
@@ -485,8 +480,8 @@ export const strictEnums = createRule<Options, MessageIds>({
       /**
        * Allow exact comparisons to some standard types, like null and undefined.
        *
-       * The TypeScript compiler should properly type-check these cases, so the lint rule is
-       * unneeded.
+       * (The TypeScript compiler should properly type-check these cases, so the lint rule is
+       * unneeded.)
        */
       if (isNullOrUndefinedOrAnyOrUnknownOrNever(leftType, rightType)) {
         return false;
@@ -635,7 +630,14 @@ export const strictEnums = createRule<Options, MessageIds>({
        */
       const argumentSubTypes = unionTypeParts(argumentType);
       for (const argumentSubType of argumentSubTypes) {
-        if (argumentSubType.isLiteral() && !isEnum(argumentSubType)) {
+        if (
+          argumentSubType.isLiteral() &&
+          !isEnum(argumentSubType) &&
+          // Allow passing number literals if there are number literals in the actual function type.
+          !parameterSubTypes.some(
+            (parameterSubType) => parameterSubType === argumentSubType,
+          )
+        ) {
           return true;
         }
       }
@@ -690,10 +692,15 @@ export const strictEnums = createRule<Options, MessageIds>({
 
       /** When a comparison between two things happen. */
       BinaryExpression(node): void {
+        /** Allow comparisons with whitelisted operators. */
+        if (ALLOWED_ENUM_OPERATORS.has(node.operator)) {
+          return;
+        }
+
         const leftType = getTypeFromNode(node.left);
         const rightType = getTypeFromNode(node.right);
 
-        if (isMismatchedEnumComparison(node.operator, leftType, rightType)) {
+        if (typesHaveLooseEnumUsage(leftType, rightType)) {
           context.report({
             node,
             messageId: "mismatchedComparison",
