@@ -3,6 +3,7 @@ import { CacheFlag } from "../enums/flags/CacheFlag";
 import { ItemConfigTag } from "../enums/flags/ItemConfigTag";
 import { ItemConfigChargeType } from "../enums/ItemConfigChargeType";
 import { ItemType } from "../enums/ItemType";
+import { NullItemID } from "../enums/NullItemID";
 
 declare global {
   interface ItemConfigItem {
@@ -14,9 +15,9 @@ declare global {
      */
     HasTags(tags: ItemConfigTag): boolean;
 
-    IsCollectible(): boolean;
-    IsNull(): boolean;
-    IsTrinket(): boolean;
+    IsCollectible(): this is ItemConfigItemCollectible;
+    IsNull(): this is ItemConfigItemNull;
+    IsTrinket(): this is ItemConfigItemCollectible;
 
     AchievementID: int;
     AddBlackHearts: int;
@@ -36,7 +37,7 @@ declare global {
     Discharged: boolean;
     GfxFileName: string;
     Hidden: boolean;
-    ID: CollectibleType | TrinketType;
+    ID: CollectibleType | TrinketType | NullItemID;
     InitCharge: int;
     MaxCharges: int;
     MaxCooldown: int;
@@ -48,5 +49,17 @@ declare global {
     Special: boolean;
     Tags: BitFlags<ItemConfigTag>;
     Type: ItemType;
+  }
+
+  interface ItemConfigItemCollectible extends ItemConfigItem {
+    ID: CollectibleType;
+  }
+
+  interface ItemConfigItemTrinket extends ItemConfigItem {
+    ID: TrinketType;
+  }
+
+  interface ItemConfigItemNull extends ItemConfigItem {
+    ID: NullItemID;
   }
 }
