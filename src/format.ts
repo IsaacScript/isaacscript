@@ -178,9 +178,22 @@ export function formatText(text: string, maxLength: number): string {
         // Overflowed lists should be indented so that the list items can be more easily
         // distinguished.
         if (insideList !== undefined) {
+          // It is possible for JSDoc comments to have really long variable names, which would make
+          // the indent be really big. Thus, we need to hard-cap the effective marker size at a
+          // third of the width of the remaining space.
+          const amountOfSpacesToWorkWith =
+            maxLength - insideList.numLeadingSpaces;
+          const thirdOfRemainingSpace = Math.floor(
+            amountOfSpacesToWorkWith / 3,
+          );
+          const effectiveMarkerSize = Math.min(
+            insideList.markerSize,
+            thirdOfRemainingSpace,
+          );
+
           // We subtract one since we will add an extra space below when adding the first word.
           const numSpacesToAdd =
-            insideList.numLeadingSpaces + insideList.markerSize - 1;
+            insideList.numLeadingSpaces + effectiveMarkerSize - 1;
           formattedLine += " ".repeat(numSpacesToAdd);
         }
       }

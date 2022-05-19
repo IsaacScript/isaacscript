@@ -266,7 +266,7 @@ It is a good example.
   testFormatText(text, formattedText);
 });
 
-test("JSDoc tags", () => {
+test("JSDoc tags normal", () => {
   const text = `
 Here is my function.
 
@@ -281,6 +281,29 @@ Here is my function.
 @param bar But I must explain to you how all this mistaken idea of denouncing pleasure and praising
            pain was born and I will give you a complete account of the system, and expound the
            actual teachings of the great
+@returns explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or
+         avoids pleasure explorer of the truth, the master-builder of human happiness. No one
+         rejects, dislikes, or avoids pleasure itself
+  `;
+  testFormatText(text, formattedText);
+});
+
+test("JSDoc tags with long variable names", () => {
+  const text = `
+Here is my function.
+
+@param thisIsAReallyLongVariableNameThatGoesToHalfTheScreen But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and
+I will give you a complete account of the system, and expound the actual teachings of the great
+@returns explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure
+explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself
+  `;
+  const formattedText = `
+Here is my function.
+
+@param thisIsAReallyLongVariableNameThatGoesToHalfTheScreen But I must explain to you how all this
+                                 mistaken idea of denouncing pleasure and praising pain was born and
+                                 I will give you a complete account of the system, and expound the
+                                 actual teachings of the great
 @returns explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or
          avoids pleasure explorer of the truth, the master-builder of human happiness. No one
          rejects, dislikes, or avoids pleasure itself
