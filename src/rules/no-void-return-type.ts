@@ -1,3 +1,4 @@
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import { createRule } from "../utils";
 
 export const noVoidReturnType = createRule({
@@ -22,8 +23,8 @@ export const noVoidReturnType = createRule({
         const { parent } = node;
         if (
           parent !== undefined &&
-          (parent.type === "ExportNamedDeclaration" ||
-            parent.type === "ExportDefaultDeclaration")
+          (parent.type === AST_NODE_TYPES.ExportNamedDeclaration ||
+            parent.type === AST_NODE_TYPES.ExportDefaultDeclaration)
         ) {
           return;
         }
@@ -31,7 +32,7 @@ export const noVoidReturnType = createRule({
         const { returnType } = node;
         if (
           returnType === undefined ||
-          returnType.type !== "TSTypeAnnotation"
+          returnType.type !== AST_NODE_TYPES.TSTypeAnnotation
         ) {
           return;
         }
@@ -39,7 +40,7 @@ export const noVoidReturnType = createRule({
         const { typeAnnotation } = returnType;
         if (
           typeAnnotation === undefined ||
-          typeAnnotation.type !== "TSVoidKeyword"
+          typeAnnotation.type !== AST_NODE_TYPES.TSVoidKeyword
         ) {
           return;
         }

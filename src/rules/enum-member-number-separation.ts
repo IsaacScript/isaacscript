@@ -31,15 +31,19 @@ export const enumMemberNumberSeparation = createRule({
             continue;
           }
 
-          if (!/^[0-9]$/.test(character)) {
+          if (!isNumber(character)) {
             continue;
           }
 
           const lastCharacter = memberName[i - 1];
           const nextCharacter = memberName[i + 1];
           if (
-            (lastCharacter !== undefined && lastCharacter !== "_") ||
-            (nextCharacter !== undefined && nextCharacter !== "_")
+            (lastCharacter !== undefined &&
+              !isNumber(lastCharacter) &&
+              lastCharacter !== "_") ||
+            (nextCharacter !== undefined &&
+              !isNumber(nextCharacter) &&
+              nextCharacter !== "_")
           ) {
             context.report({
               loc: {
@@ -57,3 +61,7 @@ export const enumMemberNumberSeparation = createRule({
     };
   },
 });
+
+function isNumber(character: string) {
+  return /^[0-9]$/.test(character);
+}

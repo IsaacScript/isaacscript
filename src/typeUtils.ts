@@ -1,4 +1,6 @@
-import { isTypeFlagSet } from "@typescript-eslint/type-utils";
+// Some of the functions are copy-pasted here from the `typescript-eslint` repository and slightly
+// modified.
+
 import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/types";
 import { TSESLint } from "@typescript-eslint/utils";
 import * as ts from "typescript";
@@ -113,4 +115,39 @@ export function getNameFromIndexSignature(
   return propName !== null && propName !== undefined
     ? propName.name
     : "(index signature)";
+}
+
+/** Gets all of the type flags in a type, iterating through unions automatically. */
+export function getTypeFlags(type: ts.Type): number | ts.TypeFlags {
+  let flags = 0;
+  for (const t of unionTypeParts(type)) {
+    flags |= t.flags;
+  }
+  return flags;
+}
+
+/**
+ * Note that if the type is a union, this function will decompose it into the parts and get the
+ * flags of every union constituent. If this is not desired, use the `isTypeFlagSetSimple` function
+ * instead.
+ *
+ * @param flagsToCheck The composition of one or more `ts.TypeFlags`.
+ * @param isReceiver True if the type is a receiving type (i.e. the type of a called function's
+ *                   parameter).
+ */
+export function isTypeFlagSet(
+  type: ts.Type,
+  flagsToCheck: number | ts.TypeFlags,
+  isReceiver?: boolean,
+): boolean {
+  const flags = getTypeFlags(type);
+
+  if (
+    isReceiver === true &&
+    isFlagSet(flags, ts.TypeFlags.Any | ts.TypeFlags.Unknown)
+  ) {
+    return true;
+  }
+
+  return isFlagSet(flags, flagsToCheck);
 }

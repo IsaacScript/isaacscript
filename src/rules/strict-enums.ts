@@ -1,11 +1,10 @@
 import {
   getTypeName,
-  isTypeFlagSet,
   isTypeReferenceType,
 } from "@typescript-eslint/type-utils";
 import { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import * as ts from "typescript";
-import { isSymbolFlagSet, unionTypeParts } from "../typeUtils";
+import { isSymbolFlagSet, isTypeFlagSet, unionTypeParts } from "../typeUtils";
 import { createRule } from "../utils";
 
 /**
