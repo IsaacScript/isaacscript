@@ -103,7 +103,13 @@ declare global {
     ProjectileCooldown: int;
     ProjectileDelay: int;
     Scale: float;
-    State: NpcState;
+
+    /**
+     * `int` is used as a type so that we can use state enums like `DaddyLongLegsState` without
+     * casting to `NpcState`.
+     */
+    State: NpcState | int;
+
     StateFrame: int;
     V1: Vector;
     V2: Vector;
