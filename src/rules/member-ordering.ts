@@ -81,7 +81,7 @@ const objectConfig = (memberTypes: MemberType[]): JSONSchema.JSONSchema4 => ({
   additionalProperties: false,
 });
 
-export const defaultOrder = [
+const defaultOrder = [
   // Index signature
   "signature",
   "call-signature",
