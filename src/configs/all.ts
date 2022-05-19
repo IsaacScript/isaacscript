@@ -8,6 +8,7 @@
 export const all = {
   plugins: ["isaacscript"],
   rules: {
+    "@typescript-eslint/member-ordering": "off",
     eqeqeq: "off",
     "no-template-curly-in-string": "off",
     "no-useless-return": "off",
@@ -17,6 +18,7 @@ export const all = {
     "isaacscript/eqeqeq-fix": "error",
     "isaacscript/format-jsdoc-comments": "error",
     "isaacscript/format-line-comments": "error",
+    "isaacscript/member-ordering": "error",
     "isaacscript/no-empty-jsdoc": "error",
     "isaacscript/no-explicit-array-loops": "error",
     "isaacscript/no-implicit-map-set-loops": "error",
@@ -25,5 +27,6 @@ export const all = {
     "isaacscript/no-template-curly-in-string-fix": "error",
     "isaacscript/no-useless-return-no-fix": "error",
     "isaacscript/no-void-return-type": "error",
+    "isaacscript/strict-enums": "error",
   },
 };

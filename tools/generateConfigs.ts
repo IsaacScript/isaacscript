@@ -31,6 +31,10 @@ const CONFIGS_DIRECTORY_PATH = path.join(__dirname, "..", "src", "configs");
 const BASE_CONFIG: LinterConfig = {
   plugins: [PLUGIN_NAME],
   rules: {
+    // The "@typescript-eslint/member-ordering" rule will conflict with the
+    // "isaacscript/member-ordering" rule.
+    "@typescript-eslint/member-ordering": "off",
+
     // The ESLint "eqeqeq" rule will conflict with the "isaacscript/eqeqeq-fix" rule.
     eqeqeq: "off",
 

@@ -1,6 +1,7 @@
 import { isTypeReferenceType } from "@typescript-eslint/type-utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
-import { createRule, getOrdinalSuffix, isAny } from "../utils";
+import { isAny } from "../typeUtils";
+import { createRule, getOrdinalSuffix } from "../utils";
 
 export const noObjectAny = createRule({
   name: "no-object-any",

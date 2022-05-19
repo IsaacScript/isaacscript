@@ -1,6 +1,4 @@
-import { isTypeFlagSet } from "@typescript-eslint/type-utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
-import * as ts from "typescript";
 
 /** Taken from ESLint: https://github.com/eslint/eslint/blob/main/lib/rules/max-len.js */
 const URL_REGEXP = /[^:/?#]:\/\/[^?#]/u;
@@ -62,8 +60,4 @@ export function getOrdinalSuffix(i: number): string {
 
 export function hasURL(text: string): boolean {
   return URL_REGEXP.test(text);
-}
-
-export function isAny(type: ts.Type): boolean {
-  return isTypeFlagSet(type, ts.TypeFlags.Any);
 }

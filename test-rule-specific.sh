@@ -8,8 +8,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd "$DIR"
 
-RULE_NAME="complete-sentences-line-comments"
-TEST_NAME="Function comment with missing period in returns tag"
+RULE_NAME="strict-enums"
+TEST_NAME="Assigning a number enum literal to a variable with a union type of number enum or null with const"
 
 echo "Running test: $RULE_NAME --> $TEST_NAME"
-npx jest "$DIR/tests/rules/$RULE_NAME.test.ts" --verbose=false -t "$TEST_NAME"
+npx jest "$DIR/tests/rules/$RULE_NAME*" --verbose=false -t "$TEST_NAME"

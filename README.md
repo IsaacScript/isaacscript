@@ -25,7 +25,7 @@ This project is written in [TypeScript](https://www.typescriptlang.org/).
 ## Configs
 
 - `recommended` - Enables just the recommended rules.
-- `all` - Enables all the rules.
+- `all` - Enables all the rules. You probably wouldn't ever want to use this config.
 
 <br>
 
@@ -48,6 +48,7 @@ Each rule has emojis denoting:
 | [`isaacscript/eqeqeq-fix`](docs/rules/eqeqeq-fix.md)                                             | Requires the use of `===` and `!==` (and automatically fixes)                                         | :white_check_mark: | :wrench: |                   |
 | [`isaacscript/format-jsdoc-comments`](docs/rules/format-jsdoc-comments.md)                       | Disallows `/**` comments longer than N characters and multi-line comments that can be merged together | :white_check_mark: | :wrench: |                   |
 | [`isaacscript/format-line-comments`](docs/rules/format-line-comments.md)                         | Disallows `//` comments longer than N characters and multi-line comments that can be merged together  | :white_check_mark: | :wrench: |                   |
+| [`isaacscript/member-ordering`](docs/rules/member-ordering.md)                                   | Require a consistent member declaration order                                                         |                    |          |                   |
 | [`isaacscript/no-empty-jsdoc`](docs/rules/no-empty-jsdoc.md)                                     | Disallows empty JSDoc comments                                                                        | :white_check_mark: | :wrench: |                   |
 | [`isaacscript/no-explicit-array-loops`](docs/rules/no-explicit-array-loops.md)                   | Disallows explicit iteration for arrays                                                               | :white_check_mark: | :wrench: | :thought_balloon: |
 | [`isaacscript/no-implicit-map-set-loops`](docs/rules/no-implicit-map-set-loops.md)               | Disallows implicit iteration for `Maps` and `Sets`                                                    | :white_check_mark: | :wrench: | :thought_balloon: |
@@ -56,6 +57,7 @@ Each rule has emojis denoting:
 | [`isaacscript/no-template-curly-in-string-fix`](docs/rules/no-template-curly-in-string-fix.md)   | Disallows template literal placeholder syntax in regular strings (and automatically fixes)            | :white_check_mark: | :wrench: |                   |
 | [`isaacscript/no-useless-return-no-fix`](docs/rules/no-useless-return-no-fix.md)                 | Disallows redundant return statements (and does not automatically fix)                                | :white_check_mark: |          |                   |
 | [`isaacscript/no-void-return-type`](docs/rules/no-void-return-type.md)                           | Disallows void return types on non-exported functions                                                 | :white_check_mark: | :wrench: |                   |
+| [`isaacscript/strict-enums`](docs/rules/strict-enums.md)                                         | Disallows the usage of unsafe enum patterns                                                           | :white_check_mark: |          | :thought_balloon: |
 
 <!-- /RULES_TABLE -->
 

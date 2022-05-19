@@ -8,6 +8,7 @@
 export const recommended = {
   plugins: ["isaacscript"],
   rules: {
+    "@typescript-eslint/member-ordering": "off",
     eqeqeq: "off",
     "no-template-curly-in-string": "off",
     "no-useless-return": "off",
@@ -24,5 +25,6 @@ export const recommended = {
     "isaacscript/no-template-curly-in-string-fix": "error",
     "isaacscript/no-useless-return-no-fix": "error",
     "isaacscript/no-void-return-type": "error",
+    "isaacscript/strict-enums": "error",
   },
 };

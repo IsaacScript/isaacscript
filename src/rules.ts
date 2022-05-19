@@ -11,6 +11,7 @@ import { enumMemberNumberSeparation } from "./rules/enum-member-number-separatio
 import { eqeqeqFix } from "./rules/eqeqeq-fix";
 import { formatJSDocComments } from "./rules/format-jsdoc-comments";
 import { formatLineComments } from "./rules/format-line-comments";
+import { memberOrdering } from "./rules/member-ordering";
 import { noEmptyJSDoc } from "./rules/no-empty-jsdoc";
 import { noExplicitArrayLoops } from "./rules/no-explicit-array-loops";
 import { noImplicitMapSetLoops } from "./rules/no-implicit-map-set-loops";
@@ -19,6 +20,7 @@ import { noObjectAny } from "./rules/no-object-any";
 import { noTemplateCurlyInStringFix } from "./rules/no-template-curly-in-string-fix";
 import { noUselessReturnNoFix } from "./rules/no-useless-return-no-fix";
 import { noVoidReturnType } from "./rules/no-void-return-type";
+import { strictEnums } from "./rules/strict-enums";
 
 export const rules = {
   "complete-sentences-jsdoc": completeSentencesJSDoc,
@@ -27,6 +29,7 @@ export const rules = {
   "eqeqeq-fix": eqeqeqFix,
   "format-jsdoc-comments": formatJSDocComments,
   "format-line-comments": formatLineComments,
+  "member-ordering": memberOrdering,
   "no-empty-jsdoc": noEmptyJSDoc,
   "no-explicit-array-loops": noExplicitArrayLoops,
   "no-implicit-map-set-loops": noImplicitMapSetLoops,
@@ -35,4 +38,5 @@ export const rules = {
   "no-template-curly-in-string-fix": noTemplateCurlyInStringFix,
   "no-useless-return-no-fix": noUselessReturnNoFix,
   "no-void-return-type": noVoidReturnType,
+  "strict-enums": strictEnums,
 };

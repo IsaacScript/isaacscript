@@ -293,6 +293,17 @@ module.exports = {
 
     /**
      * Documentation:
+     * https://github.com/eslint/eslint/blob/master/docs/rules/no-bitwise.md
+     *
+     * Defined at:
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
+     *
+     * Some rules use bitwise operators to deal with TypeScript bit flags.
+     */
+    "no-bitwise": "off",
+
+    /**
+     * Documentation:
      * https://eslint.org/docs/rules/no-continue
      *
      * Defined at:
