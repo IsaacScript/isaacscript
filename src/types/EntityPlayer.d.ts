@@ -1106,7 +1106,7 @@ declare global {
     UseActiveItem(
       collectibleType: CollectibleType,
       useFlag?: UseFlag | BitFlags<UseFlag>,
-      activeSlot?: ActiveSlot,
+      activeSlot?: ActiveSlot | -1,
     ): void;
 
     /**
@@ -1124,7 +1124,7 @@ declare global {
       keepActiveItem: boolean,
       allowNonMainPlayer: boolean,
       toAddCostume: boolean,
-      activeSlot?: ActiveSlot,
+      activeSlot?: ActiveSlot | -1,
     ): void;
 
     /**
