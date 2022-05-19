@@ -1,4 +1,4 @@
-.vscode/extensions.json:.vscode/extensions-format.json
+.vscode/extensions.json:.vscode/extensions-typescript.json
 .vscode/settings.json:.vscode/settings-typescript.json
 .gitattributes
 .prettierignore:.prettierignore-base
