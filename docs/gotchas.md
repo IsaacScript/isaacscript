@@ -30,7 +30,7 @@ const player = Isaac.GetPlayer();
 player.AddCollectible(CollectibleType.SAD_ONION);
 ```
 
-However, don't ever type the imports manually, because that's a big waste of time! If you tab-complete the name of an enum, it should automatically import it for you. If you already have an enum that is written out, then you can auto-import it by putting the text cursor on the right-side of the enum and hit `Ctrl + space + enter`.
+However, don't ever type the imports manually, because that's a big waste of time! If you tab-complete the name of an enum, VSCode should automatically import it for you. If you already have an enum that is written out, then you can auto-import it by putting the text cursor on the right-side of the enum and typing `Ctrl + space + enter`.
 
 <br />
 
@@ -160,13 +160,13 @@ if (
 end
 ```
 
-In TypeScript, you cannot extend existing enums for safety reasons. Instead, create your own enum:
+In TypeScript, you cannot extend existing enums, because enums are immutable. (This is a good thing; it's how enums work in all sane programming languages.) Instead, create your own enum:
 
 ```ts
 // At the top of your TypeScript mod:
-enum CollectibleTypeCustom {
-  MY_CUSTOM_ITEM = Isaac.GetItemIdByName("My Custom Item"),
-}
+const CollectibleTypeCustom {
+  MY_CUSTOM_ITEM: Isaac.GetItemIdByName("My Custom Item"),
+} as const;
 
 // Elsewhere in the code:
 if (
@@ -177,7 +177,7 @@ if (
 }
 ```
 
-Note that you don't have to worry about polluting the global namespace: due to how the transpiler works, your enum will be local to your own project.
+As a side note, you might be wondiering why you can't use `enum CollectibleTypeCustom` instead of `const CollectibleTypeCustom`. The reason is that due to a quirk in TypeScript, enums can only have `number` or `string` types, and the result from the `Isaac.GetItemIdByName` function is a `CollectibleType` type. So, instead we use a `const` object as a stand-in, which more-or-less is the same thing.
 
 <br />
 
