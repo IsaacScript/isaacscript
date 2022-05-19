@@ -73,7 +73,7 @@ module.exports = {
      *
      * Since Isaac enums use the `SHOUTING_SNAKE_CASE` convention, this rule ensures correctness.
      */
-    "enum-member-number-separation": "on",
+    "enum-member-number-separation": "warn",
 
     /**
      * Documentation:
