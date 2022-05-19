@@ -35,12 +35,14 @@ function registerCallbacks(mod: Mod) {
 Before, we had a `GREEN_CANDLE_COLLECTIBLE_TYPE` constant at the top of the file. This probably belongs in its own file. Furthermore, instead of having individual variables for every collectible type, we can put them all in a `CollectibleTypeCustom` enum, which helps us stay more organized.
 
 ```ts
-export enum CollectibleTypeCustom {
-  GREEN_CANDLE = Isaac.GetItemIdByName("Green Candle"),
-}
+export const CollectibleTypeCustom {
+  GREEN_CANDLE: Isaac.GetItemIdByName("Green Candle"),
+} as const;
 ```
 
 Enums are typically stored in files of the same name in an "enums" subdirectory.
+
+(More technical information: Here, we use a normal object as a stand-in for a "real" TypeScript enum. This is because enums have the quirk that they must have only number or string values. However, using an object for this purpose is conventional in IsaacScript mods, and works just fine.)
 
 <br />
 
