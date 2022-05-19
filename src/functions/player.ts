@@ -35,7 +35,7 @@ const STAT_CACHE_FLAGS_SET: ReadonlySet<CacheFlag> = new Set([
 
 export function addCollectibleCostume(
   player: EntityPlayer,
-  collectibleType: CollectibleType | int,
+  collectibleType: CollectibleType,
 ): void {
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
@@ -116,7 +116,7 @@ export function addStat(
 
 export function addTrinketCostume(
   player: EntityPlayer,
-  trinketType: TrinketType | int,
+  trinketType: TrinketType,
 ): void {
   const itemConfigTrinket = itemConfig.GetTrinket(trinketType);
   if (itemConfigTrinket === undefined) {
@@ -127,13 +127,13 @@ export function addTrinketCostume(
 }
 
 export function anyPlayerHasCollectible(
-  collectibleType: CollectibleType | int,
+  collectibleType: CollectibleType,
 ): boolean {
   const players = getPlayers();
   return players.some((player) => player.HasCollectible(collectibleType));
 }
 
-export function anyPlayerHasTrinket(trinketType: TrinketType | int): boolean {
+export function anyPlayerHasTrinket(trinketType: TrinketType): boolean {
   const players = getPlayers();
   return players.some((player) => player.HasTrinket(trinketType));
 }
@@ -144,9 +144,7 @@ export function anyPlayerHasTrinket(trinketType: TrinketType | int): boolean {
  * This function is variadic, meaning that you can supply as many characters as you want to check
  * for. Returns true if any of the characters supplied are present.
  */
-export function anyPlayerIs(
-  ...matchingCharacters: Array<PlayerType | int>
-): boolean {
+export function anyPlayerIs(...matchingCharacters: PlayerType[]): boolean {
   const matchingCharacterSet = new Set(matchingCharacters);
   const characters = getCharacters();
   return characters.some((character) => matchingCharacterSet.has(character));
@@ -178,7 +176,7 @@ export function canPlayerCrushRocks(player: EntityPlayer): boolean {
  */
 export function getActiveItemSlot(
   player: EntityPlayer,
-  collectibleType: CollectibleType | int,
+  collectibleType: CollectibleType,
 ): ActiveSlot | undefined {
   const activeSlots = getEnumValues(ActiveSlot);
   return activeSlots.find((activeSlot) => {
@@ -342,7 +340,7 @@ export function getPlayerCloserThan(
  */
 export function getPlayerCollectibleCount(
   player: EntityPlayer,
-  ...collectibleTypes: Array<CollectibleType | int>
+  ...collectibleTypes: CollectibleType[]
 ): int {
   let numCollectibles = 0;
   for (const collectibleType of collectibleTypes) {
@@ -358,9 +356,9 @@ export function getPlayerCollectibleCount(
  */
 export function getPlayerCollectibleMap(
   player: EntityPlayer,
-): Map<CollectibleType | int, int> {
+): Map<CollectibleType, int> {
   const collectibleSet = getCollectibleSet();
-  const collectibleMap = new Map<CollectibleType | int, int>();
+  const collectibleMap = new Map<CollectibleType, int>();
   for (const collectibleType of collectibleSet.values()) {
     const collectibleNum = player.GetCollectibleNum(collectibleType, true);
     if (collectibleNum > 0) {
@@ -543,9 +541,7 @@ export function getPlayerSoulHearts(player: EntityPlayer): int {
  * This function is variadic, meaning that you can supply as many characters as you want to check
  * for. Returns true if any of the characters supplied are present.
  */
-export function getPlayersOfType(
-  ...characters: Array<PlayerType | int>
-): EntityPlayer[] {
+export function getPlayersOfType(...characters: PlayerType[]): EntityPlayer[] {
   const charactersSet = new Set(characters);
   const players = getPlayers();
   return players.filter((player) => {
@@ -561,7 +557,7 @@ export function getPlayersOfType(
  * check for. It only returns the players that have all of the collectibles.
  */
 export function getPlayersWithCollectible(
-  ...collectibleTypes: Array<CollectibleType | int>
+  ...collectibleTypes: CollectibleType[]
 ): EntityPlayer[] {
   const players = getPlayers();
   return players.filter((player) =>
@@ -596,7 +592,7 @@ export function getTaintedMagdaleneNonTemporaryMaxHearts(
  * Onion and player 2 has 2 Sad Onions, then this function would return 3.
  */
 export function getTotalPlayerCollectibles(
-  collectibleType: CollectibleType | int,
+  collectibleType: CollectibleType,
 ): int {
   const players = getPlayers();
   const numCollectiblesArray = players.map((player) =>
@@ -664,7 +660,7 @@ export function isBethany(player: EntityPlayer): boolean {
  */
 export function isCharacter(
   player: EntityPlayer,
-  ...characters: Array<PlayerType | int>
+  ...characters: PlayerType[]
 ): boolean {
   const characterSet = new Set(characters);
   const character = player.GetPlayerType();
@@ -760,7 +756,7 @@ export function isVanillaPlayer(player: EntityPlayer): boolean {
  */
 export function playerAddCollectible(
   player: EntityPlayer,
-  ...collectibleTypes: Array<CollectibleType | int>
+  ...collectibleTypes: CollectibleType[]
 ): void {
   for (const collectibleType of collectibleTypes) {
     player.AddCollectible(collectibleType);
@@ -775,7 +771,7 @@ export function playerAddCollectible(
  */
 export function playerHasCollectible(
   player: EntityPlayer,
-  ...collectibleTypes: Array<CollectibleType | int>
+  ...collectibleTypes: CollectibleType[]
 ): boolean {
   return collectibleTypes.some((collectibleType) =>
     player.HasCollectible(collectibleType),
@@ -788,7 +784,7 @@ export function playerHasCollectible(
  */
 export function removeCollectibleCostume(
   player: EntityPlayer,
-  collectibleType: CollectibleType | int,
+  collectibleType: CollectibleType,
 ): void {
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
@@ -816,7 +812,7 @@ export function removeDeadEyeMultiplier(player: EntityPlayer): void {
  */
 export function removeTrinketCostume(
   player: EntityPlayer,
-  trinketType: TrinketType | int,
+  trinketType: TrinketType,
 ): void {
   const itemConfigTrinket = itemConfig.GetTrinket(trinketType);
   if (itemConfigTrinket === undefined) {
@@ -958,7 +954,7 @@ export function setBlindfold(
  */
 export function useActiveItemTemp(
   player: EntityPlayer,
-  collectibleType: CollectibleType | int,
+  collectibleType: CollectibleType,
 ): void {
   player.UseActiveItem(collectibleType, false, false, true, false, -1);
 }

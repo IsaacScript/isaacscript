@@ -3,8 +3,8 @@ import { PlayerType } from "isaac-typescript-definitions";
 export type PostPlayerChangeTypeRegisterParameters = [
   callback: (
     player: EntityPlayer,
-    oldCharacter: PlayerType | int,
-    newCharacter: PlayerType | int,
+    oldCharacter: PlayerType,
+    newCharacter: PlayerType,
   ) => void,
 ];
 
@@ -25,8 +25,8 @@ export function postPlayerChangeTypeRegister(
 /** @internal */
 export function postPlayerChangeTypeFire(
   player: EntityPlayer,
-  oldCharacter: PlayerType | int,
-  newCharacter: PlayerType | int,
+  oldCharacter: PlayerType,
+  newCharacter: PlayerType,
 ): void {
   for (const [callback] of subscriptions) {
     callback(player, oldCharacter, newCharacter);

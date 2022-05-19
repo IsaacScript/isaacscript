@@ -1,7 +1,7 @@
 import {
-  EntityType,
   GridCollisionClass,
   GridEntityType,
+  GridEntityXMLType,
   PoopGridEntityVariant,
   PressurePlateState,
   StatueVariant,
@@ -49,14 +49,9 @@ const BREAKABLE_GRID_ENTITY_TYPES_VARIANTS_BY_EXPLOSIONS: ReadonlySet<string> =
  * 1000.0 in a room XML file, but `GridEntityType.ROCK` is equal to 2.
  */
 export function convertXMLGridEntityType(
-  gridEntityXMLType: int,
+  gridEntityXMLType: GridEntityXMLType,
   gridEntityXMLVariant: int,
-): [int, int] | undefined {
-  // Triggers are bugged; spawning one will immediately crash the game.
-  if (gridEntityXMLType === EntityType.TRIGGER_OUTPUT) {
-    return undefined;
-  }
-
+): [GridEntityType, int] | undefined {
   const gridEntityArray = GRID_ENTITY_XML_MAP.get(gridEntityXMLType);
   if (gridEntityArray === undefined) {
     error(

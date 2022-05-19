@@ -17,11 +17,17 @@ import {
   StageID,
 } from "isaac-typescript-definitions";
 import { game, sfxManager } from "../cachedClasses";
-import { MAX_ROOM_INDEX, NUM_DIMENSIONS } from "../constants";
+import {
+  LEVEL_GRID_ROW_WIDTH,
+  MAX_LEVEL_GRID_INDEX,
+  NUM_DIMENSIONS,
+} from "../constants";
+import { ROOM_SHAPE_TO_DOOR_SLOTS_TO_GRID_INDEX_DELTA } from "../objects/roomShapeToDoorSlotsToGridIndexDelta";
 import {
   DEFAULT_ROOM_TYPE_NAME,
   ROOM_TYPE_NAMES,
 } from "../objects/roomTypeNames";
+import { MINE_SHAFT_ROOM_SUB_TYPE_SET } from "../sets/mineShaftRoomSubTypesSet";
 import {
   closeAllDoors,
   getDoors,
@@ -48,7 +54,7 @@ import {
   getRoomSubType,
 } from "./roomData";
 import { getGridIndexDelta } from "./roomShape";
-import { erange } from "./utils";
+import { erange, irange } from "./utils";
 
 /**
  * Helper function for quickly switching to a new room without playing a particular animation. Use
@@ -118,6 +124,15 @@ export function getCurrentDimension(): Dimension {
 }
 
 /**
+ * Helper function to get the number of rooms that are currently on the floor layout. This does not
+ * include off-grid rooms, like the Devil Room.
+ */
+export function getNumRooms(): int {
+  const rooms = getRooms();
+  return rooms.length;
+}
+
+/**
  * Helper function to get an array of all of the safe grid indexes for rooms that match the
  * specified room type.
  *
@@ -150,6 +165,40 @@ export function getRoomItemPoolType(): ItemPoolType {
   const roomSeed = room.GetSpawnSeed();
 
   return itemPool.GetPoolForRoom(roomType, roomSeed);
+}
+
+/**
+ * Helper function to get the grid indexes of all the rooms connected to the given room index.
+ *
+ * @param roomGridIndex Optional. Default is the current room index.
+ */
+export function getRoomNeighbors(roomGridIndex?: int): int[] {
+  const roomDescriptor = getRoomDescriptor(roomGridIndex);
+
+  if (
+    roomDescriptor.SafeGridIndex < 0 ||
+    roomDescriptor.SafeGridIndex > MAX_LEVEL_GRID_INDEX
+  ) {
+    return [];
+  }
+
+  const roomData = roomDescriptor.Data;
+  if (roomData === undefined) {
+    return [];
+  }
+
+  const roomShape = roomData.Shape;
+  const gridIndexDeltas = getRoomShapeNeighborGridIndexDeltas(roomShape);
+  const gridIndexes = gridIndexDeltas.map(
+    (gridIndexDelta) => roomDescriptor.SafeGridIndex + gridIndexDelta,
+  );
+  return gridIndexes.filter((gridIndex) => roomExists(gridIndex));
+}
+
+export function getRoomShapeNeighborGridIndexDeltas(
+  roomShape: RoomShape,
+): int[] {
+  return [...ROOM_SHAPE_TO_DOOR_SLOTS_TO_GRID_INDEX_DELTA[roomShape].values()];
 }
 
 /**
@@ -187,8 +236,8 @@ export function getRooms(
       }
     }
   } else {
-    for (let i = 0; i <= MAX_ROOM_INDEX; i++) {
-      const roomDescriptor = level.GetRoomByIdx(i);
+    for (const roomGridIndex of irange(MAX_LEVEL_GRID_INDEX)) {
+      const roomDescriptor = level.GetRoomByIdx(roomGridIndex);
       if (roomDescriptor.Data !== undefined) {
         roomsMap.set(roomDescriptor.ListIndex, roomDescriptor);
       }
@@ -209,8 +258,8 @@ export function getRoomsOfDimension(dimension: Dimension): RoomDescriptor[] {
   const level = game.GetLevel();
 
   const roomsMap = new Map<int, RoomDescriptor>();
-  for (let i = 0; i <= MAX_ROOM_INDEX; i++) {
-    const roomDescriptor = level.GetRoomByIdx(i, dimension);
+  for (const roomGridIndex of irange(MAX_LEVEL_GRID_INDEX)) {
+    const roomDescriptor = level.GetRoomByIdx(roomGridIndex, dimension);
     if (roomDescriptor.Data !== undefined) {
       roomsMap.set(roomDescriptor.ListIndex, roomDescriptor);
     }
@@ -339,6 +388,20 @@ export function inMegaSatanRoom(): boolean {
 }
 
 /**
+ * Helper function to determine if the current room is part of the Repentance "escape sequence" in
+ * the Mines/Ashpit.
+ */
+export function inMineShaft(): boolean {
+  const roomStageID = getRoomStageID();
+  const roomSubType = getRoomSubType();
+
+  return (
+    (roomStageID === StageID.MINES || roomStageID === StageID.ASHPIT) &&
+    MINE_SHAFT_ROOM_SUB_TYPE_SET.has(roomSubType)
+  );
+}
+
+/**
  * Helper function to check if the current room is a miniboss room for a particular miniboss. This
  * will only work for mini-bosses that have dedicated boss rooms in the "00.special rooms.stb" file.
  */
@@ -436,7 +499,11 @@ export function isDoorSlotValidAtGridIndexForRedRoom(
   }
 
   const redRoomGridIndex = roomGridIndex + delta;
-  return !roomExists(redRoomGridIndex);
+  return (
+    !roomExists(redRoomGridIndex) &&
+    redRoomGridIndex >= 0 &&
+    redRoomGridIndex <= MAX_LEVEL_GRID_INDEX
+  );
 }
 
 /**
@@ -468,6 +535,18 @@ export function isRoomInsideMap(roomGridIndex?: int): boolean {
 export function roomExists(roomGridIndex: int): boolean {
   const roomData = getRoomData(roomGridIndex);
   return roomData !== undefined;
+}
+
+/**
+ * Helper function to get the coordinates of a given grid index. The floor is represented by a 13x13
+ * grid. For example, since the starting room is in the center, the starting room grid index of 84
+ * be equal to coordinates of (?, ?).
+ */
+export function roomGridIndexToXY(roomGridIndex: int): [x: int, y: int] {
+  const x = roomGridIndex % LEVEL_GRID_ROW_WIDTH;
+  const y = Math.floor(roomGridIndex / LEVEL_GRID_ROW_WIDTH);
+
+  return [x, y];
 }
 
 /**

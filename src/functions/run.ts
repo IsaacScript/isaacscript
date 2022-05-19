@@ -19,7 +19,7 @@ export function onSetSeed(): boolean {
  * Helper function to restart the game using the console command of "restart". You can optionally
  * specify a `PlayerType` to restart the game as that character.
  */
-export function restart(character?: PlayerType | int): void {
+export function restart(character?: PlayerType): void {
   if (character === undefined) {
     log("Restarting.");
     Isaac.ExecuteCommand("restart");

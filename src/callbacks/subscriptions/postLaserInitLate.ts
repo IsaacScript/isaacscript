@@ -2,7 +2,7 @@ import { LaserVariant } from "isaac-typescript-definitions";
 
 export type PostLaserInitLateRegisterParameters = [
   callback: (laser: EntityLaser) => void,
-  laserVariant?: LaserVariant | int,
+  laserVariant?: LaserVariant,
 ];
 
 const subscriptions: PostLaserInitLateRegisterParameters[] = [];

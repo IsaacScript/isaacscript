@@ -61,7 +61,7 @@ export function giveTrinketsBack(
  */
 export function smeltTrinket(
   player: EntityPlayer,
-  trinketType: TrinketType | int,
+  trinketType: TrinketType,
   numTrinkets = 1,
 ): void {
   const trinketSituation = temporarilyRemoveTrinkets(player);
@@ -86,7 +86,7 @@ export function smeltTrinket(
  */
 export function temporarilyRemoveTrinket(
   player: EntityPlayer,
-  trinketType: TrinketType | int,
+  trinketType: TrinketType,
 ): TrinketSituation | undefined {
   if (!player.HasTrinket(trinketType)) {
     return undefined;

@@ -24,7 +24,7 @@ import {
 
 type ActiveSlotToCollectibleTypeMap = DefaultMap<
   ActiveSlot,
-  CollectibleType | int,
+  CollectibleType,
   [int]
 >;
 type ActiveSlotToChargeMap = DefaultMap<ActiveSlot, int, [int]>;

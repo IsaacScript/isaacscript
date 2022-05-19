@@ -39,7 +39,7 @@ function hasSubscriptions() {
 // ModCallback.USE_ITEM (3)
 // CollectibleType.FLIP (711)
 function useItemFlip(
-  _collectibleType: CollectibleType | int,
+  _collectibleType: CollectibleType,
   _rng: RNG,
   player: EntityPlayer,
   _useFlags: BitFlags<UseFlag>,

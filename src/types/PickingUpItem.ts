@@ -9,7 +9,7 @@ export interface PickingUpItem {
   itemType: ItemType;
 
   /** Equal to either the collectible type or the trinket type. */
-  subType: CollectibleType | TrinketType | int;
+  subType: CollectibleType | TrinketType;
 }
 
 const DEFAULT_ITEM_TYPE = ItemType.NULL;

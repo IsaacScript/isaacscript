@@ -49,7 +49,7 @@ function checkReturnFamiliarToPlayer(npc: EntityNPC) {
 }
 
 function blacklistEntryExists(
-  incomingFamiliarVariant: FamiliarVariant | int,
+  incomingFamiliarVariant: FamiliarVariant,
   incomingFamiliarSubType: int | undefined,
 ): boolean {
   for (const [familiarVariant, familiarSubType] of v.run.familiarBlacklist) {
@@ -82,7 +82,7 @@ function blacklistEntryExists(
  *                        sub-types of the given variant.
  */
 export function setFamiliarNoSirenSteal(
-  familiarVariant: FamiliarVariant | int,
+  familiarVariant: FamiliarVariant,
   familiarSubType?: int,
 ): void {
   errorIfFeaturesNotInitialized(FEATURE_NAME);

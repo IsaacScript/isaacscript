@@ -67,11 +67,11 @@ export function getNormalPillColorFromHorse(pillColor: PillColor): PillColor {
  * will always return `DEFAULT_PILL_EFFECT_CLASS` in those cases.
  */
 export function getPillEffectClass(
-  pillEffect: PillEffect | int,
+  pillEffect: PillEffect,
 ): ItemConfigPillEffectClass {
   // `ItemConfigPillEffect` does not contain the "class" tag, so we must manually compile a map of
   // pill effect classes. Modded pill effects are not included in the map.
-  const pillEffectClass = PILL_EFFECT_CLASSES[pillEffect as PillEffect];
+  const pillEffectClass = PILL_EFFECT_CLASSES[pillEffect];
   return pillEffectClass === undefined
     ? DEFAULT_PILL_EFFECT_CLASS
     : pillEffectClass;
@@ -87,10 +87,10 @@ export function getPillEffectClass(
  * const pillEffectName = getPillEffectName(pillEffect); // trinketName is "Bad Gas"
  * ```
  */
-export function getPillEffectName(pillEffect: PillEffect | int): string {
+export function getPillEffectName(pillEffect: PillEffect): string {
   // `ItemConfigPillEffect.Name` is bugged with vanilla pill effects on patch v1.7.6, so we use a
   // hard-coded map as a workaround.
-  const pillEffectName = PILL_EFFECT_NAMES[pillEffect as PillEffect];
+  const pillEffectName = PILL_EFFECT_NAMES[pillEffect];
   if (
     pillEffectName !== undefined &&
     pillEffectName !== DEFAULT_PILL_EFFECT_NAME
@@ -116,11 +116,11 @@ export function getPillEffectName(pillEffect: PillEffect | int): string {
  * will always return `DEFAULT_PILL_EFFECT_TYPE` in those cases.
  */
 export function getPillEffectType(
-  pillEffect: PillEffect | int,
+  pillEffect: PillEffect,
 ): ItemConfigPillEffectType {
   // `ItemConfigPillEffect` does not contain the "class" tag, so we must manually compile a map of
   // pill effect classes. Modded pill effects are not included in the map.
-  const pillEffectClass = PILL_EFFECT_TYPES[pillEffect as PillEffect];
+  const pillEffectClass = PILL_EFFECT_TYPES[pillEffect];
   return pillEffectClass === undefined
     ? DEFAULT_PILL_EFFECT_TYPE
     : pillEffectClass;

@@ -98,7 +98,7 @@ export function isRedHeart(pickup: EntityPickup): boolean {
  * @returns True if one or more cards were removed, false otherwise.
  */
 export function removeAllBatteries(
-  batterySubType?: BatterySubType | int,
+  batterySubType?: BatterySubType,
   cap?: int,
 ): boolean {
   return removeAllPickups(PickupVariant.LIL_BATTERY, batterySubType, cap);
@@ -111,7 +111,7 @@ export function removeAllBatteries(
  * @param cap Optional. If specified, will only remove the given amount of cards.
  * @returns True if one or more cards were removed, false otherwise.
  */
-export function removeAllCards(card?: Card | int, cap?: int): boolean {
+export function removeAllCards(card?: Card, cap?: int): boolean {
   return removeAllPickups(PickupVariant.TAROT_CARD, card, cap);
 }
 
@@ -122,10 +122,7 @@ export function removeAllCards(card?: Card | int, cap?: int): boolean {
  * @param cap Optional. If specified, will only remove the given amount of coins.
  * @returns True if one or more coins were removed, false otherwise.
  */
-export function removeAllCoins(
-  coinSubType?: CoinSubType | int,
-  cap?: int,
-): boolean {
+export function removeAllCoins(coinSubType?: CoinSubType, cap?: int): boolean {
   return removeAllPickups(PickupVariant.COIN, coinSubType, cap);
 }
 
@@ -138,7 +135,7 @@ export function removeAllCoins(
  * @returns True if one or more collectibles were removed, false otherwise.
  */
 export function removeAllCollectibles(
-  collectibleType?: CollectibleType | int,
+  collectibleType?: CollectibleType,
   cap?: int,
 ): boolean {
   return removeAllPickups(PickupVariant.COLLECTIBLE, collectibleType, cap);
@@ -152,7 +149,7 @@ export function removeAllCollectibles(
  * @returns True if one or more hearts were removed, false otherwise.
  */
 export function removeAllHearts(
-  heartSubType?: HeartSubType | int,
+  heartSubType?: HeartSubType,
   cap?: int,
 ): boolean {
   return removeAllPickups(PickupVariant.HEART, heartSubType, cap);
@@ -165,10 +162,7 @@ export function removeAllHearts(
  * @param cap Optional. If specified, will only remove the given amount of keys.
  * @returns True if one or more keys were removed, false otherwise.
  */
-export function removeAllKeys(
-  keySubType?: KeySubType | int,
-  cap?: int,
-): boolean {
+export function removeAllKeys(keySubType?: KeySubType, cap?: int): boolean {
   return removeAllPickups(PickupVariant.KEY, keySubType, cap);
 }
 
@@ -190,10 +184,7 @@ export function removeAllPills(pillColor?: PillColor, cap?: int): boolean {
  * @param cap Optional. If specified, will only remove the given amount of trinkets.
  * @returns True if one or more trinkets were removed, false otherwise.
  */
-export function removeAllSacks(
-  sackSubType?: SackSubType | int,
-  cap?: int,
-): boolean {
+export function removeAllSacks(sackSubType?: SackSubType, cap?: int): boolean {
   return removeAllPickups(PickupVariant.TRINKET, sackSubType, cap);
 }
 
@@ -206,7 +197,7 @@ export function removeAllSacks(
  * @returns True if one or more trinkets were removed, false otherwise.
  */
 export function removeAllTrinkets(
-  trinketType?: TrinketType | int,
+  trinketType?: TrinketType,
   cap?: int,
 ): boolean {
   return removeAllPickups(PickupVariant.TRINKET, trinketType, cap);
@@ -216,7 +207,7 @@ export function removeAllTrinkets(
  * Helper function to spawn a `EntityType.PICKUP` (5) with variant `PickupVariant.LIL_BATTERY` (90).
  */
 export function spawnBattery(
-  subType: BatterySubType | int,
+  subType: BatterySubType,
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
@@ -233,7 +224,7 @@ export function spawnBattery(
 }
 
 export function spawnBatteryWithSeed(
-  subType: BatterySubType | int,
+  subType: BatterySubType,
   position: Vector,
   seed: Seed,
   velocity = VectorZero,
@@ -246,7 +237,7 @@ export function spawnBatteryWithSeed(
  * Helper function to spawn a `EntityType.PICKUP` (5) with variant `PickupVariant.TAROT_CARD` (300).
  */
 export function spawnCard(
-  subType: Card | int,
+  subType: Card,
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
@@ -263,7 +254,7 @@ export function spawnCard(
 }
 
 export function spawnCardWithSeed(
-  subType: Card | int,
+  subType: Card,
   position: Vector,
   seed: Seed,
   velocity = VectorZero,
@@ -274,7 +265,7 @@ export function spawnCardWithSeed(
 
 /** Helper function to spawn a `EntityType.PICKUP` (5) with variant `PickupVariant.COIN` (20). */
 export function spawnCoin(
-  subType: CoinSubType | int,
+  subType: CoinSubType,
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
@@ -291,7 +282,7 @@ export function spawnCoin(
 }
 
 export function spawnCoinWithSeed(
-  subType: CoinSubType | int,
+  subType: CoinSubType,
   position: Vector,
   seed: Seed,
   velocity = VectorZero,
@@ -302,7 +293,7 @@ export function spawnCoinWithSeed(
 
 /** Helper function to spawn a `EntityType.PICKUP` (5) with variant `PickupVariant.HEART` (10). */
 export function spawnHeart(
-  subType: HeartSubType | int,
+  subType: HeartSubType,
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
@@ -319,7 +310,7 @@ export function spawnHeart(
 }
 
 export function spawnHeartWithSeed(
-  subType: HeartSubType | int,
+  subType: HeartSubType,
   position: Vector,
   seed: Seed,
   velocity = VectorZero,
@@ -330,7 +321,7 @@ export function spawnHeartWithSeed(
 
 /** Helper function to spawn a `EntityType.PICKUP` (5) with variant `PickupVariant.KEY` (30). */
 export function spawnKey(
-  subType: KeySubType | int,
+  subType: KeySubType,
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
@@ -347,7 +338,7 @@ export function spawnKey(
 }
 
 export function spawnKeyWithSeed(
-  subType: KeySubType | int,
+  subType: KeySubType,
   position: Vector,
   seed: Seed,
   velocity = VectorZero,
@@ -358,7 +349,7 @@ export function spawnKeyWithSeed(
 
 /** Helper function to spawn a `EntityType.PICKUP` (5) with variant `PickupVariant.PILL` (70). */
 export function spawnPill(
-  pillColor: PillColor | int,
+  pillColor: PillColor,
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
@@ -375,7 +366,7 @@ export function spawnPill(
 }
 
 export function spawnPillWithSeed(
-  subType: PillColor | int,
+  subType: PillColor,
   position: Vector,
   seed: Seed,
   velocity = VectorZero,
@@ -388,7 +379,7 @@ export function spawnPillWithSeed(
  * Helper function to spawn a `EntityType.PICKUP` (5) with variant `PickupVariant.GRAB_BAG` (69).
  */
 export function spawnSack(
-  subType: SackSubType | int,
+  subType: SackSubType,
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
@@ -405,7 +396,7 @@ export function spawnSack(
 }
 
 export function spawnSackWithSeed(
-  subType: SackSubType | int,
+  subType: SackSubType,
   position: Vector,
   seed: Seed,
   velocity = VectorZero,
@@ -418,7 +409,7 @@ export function spawnSackWithSeed(
  * Helper function to spawn a `EntityType.PICKUP` (5) with variant `PickupVariant.TRINKET` (350).
  */
 export function spawnTrinket(
-  subType: TrinketType | int,
+  subType: TrinketType,
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
@@ -435,7 +426,7 @@ export function spawnTrinket(
 }
 
 export function spawnTrinketWithSeed(
-  subType: TrinketType | int,
+  subType: TrinketType,
   position: Vector,
   seed: Seed,
   velocity = VectorZero,

@@ -53,8 +53,26 @@ export const FIRST_GLITCHED_COLLECTIBLE_TYPE = (1 << 32) - 1;
 export const GAME_FRAMES_PER_SECOND = 30;
 export const GRID_INDEX_CENTER_OF_1X1_ROOM = 67;
 export const ISAAC_FRAMES_PER_SECOND = 60;
+
+/**
+ * The floor is represented by a 13x13 grid. Room indexes start at 0. The first column is
+ * represented by grid indexes 0, 13, 26, and so on.
+ */
 export const LEVEL_GRID_COLUMN_HEIGHT = 13;
-export const LEVEL_GRID_ROW_LENGTH = 13;
+
+/**
+ * The floor is represented by a 13x13 grid. Room indexes start at 0. The first row is represented
+ * by grid indexes from 0 to 12. The second row is represented by grid indexes from 13 to 25, and so
+ * on.
+ */
+export const LEVEL_GRID_ROW_WIDTH = 13;
+
+/**
+ * The floor is represented by a 13x13 grid. Room indexes start at 0. The first row is represented
+ * by grid indexes from 0 to 12. The second row is represented by grid indexes from 13 to 25, and so
+ * on. The maximum room index possible is 168. (It is not 169 because we start at 0 instead of 1.)
+ */
+export const MAX_LEVEL_GRID_INDEX = 168;
 
 /**
  * The game has a limit on the number of currently spawned familiars and will refuse to spawn any
@@ -78,13 +96,6 @@ export const MAX_PLAYER_HEART_CONTAINERS = 18;
 export const MAX_PLAYER_SPEED_IN_UNITS = 9.8;
 
 export const MAX_PLAYER_TRINKET_SLOTS = getEnumLength(TrinketSlot);
-
-/**
- * The floor is represented by a 13x13 grid. Room indexes start at 0. The first row is represented
- * by grid indexes from 0 to 12. The second row is represented by grid indexes from 13 to 25, and so
- * on. The maximum room index possible is 168. (It is not 169 because we start at 0 instead of 1.)
- */
-export const MAX_ROOM_INDEX = 168;
 
 export const MAX_ROOM_TYPE = getLastEnumValue(RoomType);
 

@@ -129,7 +129,7 @@ export function logEffects(this: void, player: EntityPlayer): void {
 export function logEntities(
   this: void,
   includeBackgroundEffects: boolean,
-  entityTypeFilter?: EntityType | int,
+  entityTypeFilter?: EntityType,
 ): void {
   let msg = "Entities in the room";
   if (entityTypeFilter !== undefined) {
@@ -312,7 +312,7 @@ export function logGameStateFlags(this: void): void {
 export function logGridEntities(
   this: void,
   includeWalls: boolean,
-  gridEntityTypeFilter?: GridEntityType | int,
+  gridEntityTypeFilter?: GridEntityType,
 ): void {
   let msg = "Grid entities in the room";
   if (gridEntityTypeFilter !== undefined) {

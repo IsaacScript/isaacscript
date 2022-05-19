@@ -2,7 +2,7 @@ import { KnifeVariant } from "isaac-typescript-definitions";
 
 export type PostKnifeInitLateRegisterParameters = [
   callback: (knife: EntityKnife) => void,
-  knifeVariant?: KnifeVariant | int,
+  knifeVariant?: KnifeVariant,
 ];
 
 const subscriptions: PostKnifeInitLateRegisterParameters[] = [];

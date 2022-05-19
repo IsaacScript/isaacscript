@@ -80,7 +80,7 @@ export function fireProjectiles(
  * holes.
  */
 export function getAliveNPCs(
-  matchingEntityType?: EntityType | int,
+  matchingEntityType?: EntityType,
   matchingVariant?: int,
   matchingSubType?: int,
   ignoreFriendly = false,

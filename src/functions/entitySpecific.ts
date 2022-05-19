@@ -27,7 +27,7 @@ import { getEntities, removeEntities, spawn } from "./entity";
  * ```
  */
 export function getBombs(
-  bombVariant: BombVariant | int = -1,
+  bombVariant: BombVariant = -1,
   subType = -1,
 ): EntityBomb[] {
   const entities = getEntities(EntityType.BOMB, bombVariant, subType);
@@ -56,7 +56,7 @@ export function getBombs(
  * ```
  */
 export function getEffects(
-  effectVariant: EffectVariant | int = -1,
+  effectVariant: EffectVariant = -1,
   subType = -1,
 ): EntityEffect[] {
   const entities = getEntities(EntityType.EFFECT, effectVariant, subType);
@@ -85,7 +85,7 @@ export function getEffects(
  * ```
  */
 export function getFamiliars(
-  familiarVariant: FamiliarVariant | int = -1,
+  familiarVariant: FamiliarVariant = -1,
   subType = -1,
 ): EntityFamiliar[] {
   const entities = getEntities(EntityType.FAMILIAR, familiarVariant, subType);
@@ -114,7 +114,7 @@ export function getFamiliars(
  * ```
  */
 export function getKnives(
-  knifeVariant: KnifeVariant | int = -1,
+  knifeVariant: KnifeVariant = -1,
   subType = -1,
 ): EntityKnife[] {
   const entities = getEntities(EntityType.KNIFE, knifeVariant, subType);
@@ -143,7 +143,7 @@ export function getKnives(
  * ```
  */
 export function getLasers(
-  laserVariant: LaserVariant | int = -1,
+  laserVariant: LaserVariant = -1,
   subType = -1,
 ): EntityLaser[] {
   const entities = getEntities(EntityType.LASER, laserVariant, subType);
@@ -161,7 +161,7 @@ export function getLasers(
 
 /** The same thing as the `getEntities` function, but returns only NPCs. */
 export function getNPCs(
-  entityType?: EntityType | int,
+  entityType?: EntityType,
   variant?: int,
   subType?: int,
   ignoreFriendly = false,
@@ -192,7 +192,7 @@ export function getNPCs(
  * ```
  */
 export function getPickups(
-  pickupVariant: PickupVariant | int = -1,
+  pickupVariant: PickupVariant = -1,
   subType = -1,
 ): EntityPickup[] {
   const entities = getEntities(EntityType.PICKUP, pickupVariant, subType);
@@ -221,7 +221,7 @@ export function getPickups(
  * ```
  */
 export function getProjectiles(
-  projectileVariant: ProjectileVariant | int = -1,
+  projectileVariant: ProjectileVariant = -1,
   subType = -1,
 ): EntityProjectile[] {
   const entities = getEntities(
@@ -254,7 +254,7 @@ export function getProjectiles(
  * ```
  */
 export function getSlots(
-  slotVariant: SlotVariant | int = -1,
+  slotVariant: SlotVariant = -1,
   subType = -1,
 ): Entity[] {
   const slots = getEntities(EntityType.SLOT, slotVariant, subType);
@@ -275,7 +275,7 @@ export function getSlots(
  * ```
  */
 export function getTears(
-  tearVariant: TearVariant | int = -1,
+  tearVariant: TearVariant = -1,
   subType = -1,
 ): EntityTear[] {
   const entities = getEntities(EntityType.TEAR, tearVariant, subType);
@@ -300,7 +300,7 @@ export function getTears(
  * @returns True if one or more bombs were removed, false otherwise.
  */
 export function removeAllBombs(
-  bombVariant?: BombVariant | int,
+  bombVariant?: BombVariant,
   subType?: int,
   cap?: int,
 ): boolean {
@@ -317,7 +317,7 @@ export function removeAllBombs(
  * @returns True if one or more effects were removed, false otherwise.
  */
 export function removeAllEffects(
-  effectVariant?: EffectVariant | int,
+  effectVariant?: EffectVariant,
   subType?: int,
   cap?: int,
 ): boolean {
@@ -335,7 +335,7 @@ export function removeAllEffects(
  * @returns True if one or more familiars were removed, false otherwise.
  */
 export function removeAllFamiliars(
-  familiarVariant?: FamiliarVariant | int,
+  familiarVariant?: FamiliarVariant,
   subType?: int,
   cap?: int,
 ): boolean {
@@ -352,7 +352,7 @@ export function removeAllFamiliars(
  * @returns True if one or more knives were removed, false otherwise.
  */
 export function removeAllKnives(
-  knifeVariant?: KnifeVariant | int,
+  knifeVariant?: KnifeVariant,
   subType?: int,
   cap?: int,
 ): boolean {
@@ -369,7 +369,7 @@ export function removeAllKnives(
  * @returns True if one or more lasers were removed, false otherwise.
  */
 export function removeAllLasers(
-  laserVariant?: LaserVariant | int,
+  laserVariant?: LaserVariant,
   subType?: int,
   cap?: int,
 ): boolean {
@@ -397,7 +397,7 @@ export function removeAllNPCs(cap?: int): boolean {
  * @returns True if one or more pickups were removed, false otherwise.
  */
 export function removeAllPickups(
-  pickupVariant?: PickupVariant | int,
+  pickupVariant?: PickupVariant,
   subType?: int,
   cap?: int,
 ): boolean {
@@ -415,7 +415,7 @@ export function removeAllPickups(
  * @returns True if one or more projectiles were removed, false otherwise.
  */
 export function removeAllProjectiles(
-  projectileVariant?: ProjectileVariant | int,
+  projectileVariant?: ProjectileVariant,
   subType?: int,
   cap?: int,
 ): boolean {
@@ -432,7 +432,7 @@ export function removeAllProjectiles(
  * @returns True if one or more slots were removed, false otherwise.
  */
 export function removeAllSlots(
-  slotVariant?: SlotVariant | int,
+  slotVariant?: SlotVariant,
   subType?: int,
   cap?: int,
 ): boolean {
@@ -449,7 +449,7 @@ export function removeAllSlots(
  * @returns True if one or more tears were removed, false otherwise.
  */
 export function removeAllTears(
-  tearVariant?: TearVariant | int,
+  tearVariant?: TearVariant,
   subType?: int,
   cap?: int,
 ): boolean {
@@ -459,7 +459,7 @@ export function removeAllTears(
 
 /** Helper function to spawn a `EntityType.BOMB` (4). */
 export function spawnBomb(
-  bombVariant: BombVariant | int,
+  bombVariant: BombVariant,
   subType: int,
   position: Vector,
   velocity = VectorZero,
@@ -485,7 +485,7 @@ export function spawnBomb(
 
 /** Helper function to spawn a `EntityType.BOMB` (4) with a specific seed. */
 export function spawnBombWithSeed(
-  bombVariant: BombVariant | int,
+  bombVariant: BombVariant,
   subType: int,
   position: Vector,
   seed: Seed,
@@ -497,7 +497,7 @@ export function spawnBombWithSeed(
 
 /** Helper function to spawn a `EntityType.EFFECT` (1000). */
 export function spawnEffect(
-  effectVariant: EffectVariant | int,
+  effectVariant: EffectVariant,
   subType: int,
   position: Vector,
   velocity = VectorZero,
@@ -523,7 +523,7 @@ export function spawnEffect(
 
 /** Helper function to spawn a `EntityType.EFFECT` (1000) with a specific seed. */
 export function spawnEffectWithSeed(
-  effectVariant: EffectVariant | int,
+  effectVariant: EffectVariant,
   subType: int,
   position: Vector,
   seed: Seed,
@@ -535,7 +535,7 @@ export function spawnEffectWithSeed(
 
 /** Helper function to spawn a `EntityType.FAMILIAR` (3). */
 export function spawnFamiliar(
-  familiarVariant: FamiliarVariant | int,
+  familiarVariant: FamiliarVariant,
   subType: int,
   position: Vector,
   velocity = VectorZero,
@@ -561,7 +561,7 @@ export function spawnFamiliar(
 
 /** Helper function to spawn a `EntityType.FAMILIAR` (3) with a specific seed. */
 export function spawnFamiliarWithSeed(
-  familiarVariant: FamiliarVariant | int,
+  familiarVariant: FamiliarVariant,
   subType: int,
   position: Vector,
   seed: Seed,
@@ -580,7 +580,7 @@ export function spawnFamiliarWithSeed(
 
 /** Helper function to spawn a `EntityType.KNIFE` (8). */
 export function spawnKnife(
-  knifeVariant: KnifeVariant | int,
+  knifeVariant: KnifeVariant,
   subType: int,
   position: Vector,
   velocity = VectorZero,
@@ -606,7 +606,7 @@ export function spawnKnife(
 
 /** Helper function to spawn a `EntityType.KNIFE` (8) with a specific seed. */
 export function spawnKnifeWithSeed(
-  knifeVariant: KnifeVariant | int,
+  knifeVariant: KnifeVariant,
   subType: int,
   position: Vector,
   seed: Seed,
@@ -618,7 +618,7 @@ export function spawnKnifeWithSeed(
 
 /** Helper function to spawn a `EntityType.LASER` (7). */
 export function spawnLaser(
-  laserVariant: LaserVariant | int,
+  laserVariant: LaserVariant,
   subType: int,
   position: Vector,
   velocity = VectorZero,
@@ -644,7 +644,7 @@ export function spawnLaser(
 
 /** Helper function to spawn a `EntityType.LASER` (7) with a specific seed. */
 export function spawnLaserWithSeed(
-  laserVariant: LaserVariant | int,
+  laserVariant: LaserVariant,
   subType: int,
   position: Vector,
   seed: Seed,
@@ -655,7 +655,7 @@ export function spawnLaserWithSeed(
 }
 
 /** Helper function to spawn an NPC. */
-export function spawnNPC<T extends number>(
+export function spawnNPC<T extends EntityType>(
   entityType: T extends EntityTypeNonNPC ? never : T,
   variant: int,
   subType: int,
@@ -682,8 +682,8 @@ export function spawnNPC<T extends number>(
 }
 
 /** Helper function to spawn an NPC with a specific seed. */
-export function spawnNPCWithSeed(
-  entityType: EntityType | int,
+export function spawnNPCWithSeed<T extends EntityType>(
+  entityType: T extends EntityTypeNonNPC ? never : T,
   variant: int,
   subType: int,
   position: Vector,
@@ -704,7 +704,7 @@ export function spawnNPCWithSeed(
 
 /** Helper function to spawn a `EntityType.PICKUP` (5). */
 export function spawnPickup(
-  pickupVariant: PickupVariant | int,
+  pickupVariant: PickupVariant,
   subType: int,
   position: Vector,
   velocity = VectorZero,
@@ -730,7 +730,7 @@ export function spawnPickup(
 
 /** Helper function to spawn a `EntityType.PICKUP` (5) with a specific seed. */
 export function spawnPickupWithSeed(
-  pickupVariant: PickupVariant | int,
+  pickupVariant: PickupVariant,
   subType: int,
   position: Vector,
   seed: Seed,
@@ -742,7 +742,7 @@ export function spawnPickupWithSeed(
 
 /** Helper function to spawn a `EntityType.PROJECTILE` (9). */
 export function spawnProjectile(
-  projectileVariant: ProjectileVariant | int,
+  projectileVariant: ProjectileVariant,
   subType: int,
   position: Vector,
   velocity = VectorZero,
@@ -768,7 +768,7 @@ export function spawnProjectile(
 
 /** Helper function to spawn a `EntityType.PROJECTILE` (9) with a specific seed. */
 export function spawnProjectileWithSeed(
-  projectileVariant: ProjectileVariant | int,
+  projectileVariant: ProjectileVariant,
   subType: int,
   position: Vector,
   seed: Seed,
@@ -787,7 +787,7 @@ export function spawnProjectileWithSeed(
 
 /** Helper function to spawn a `EntityType.SLOT` (6). */
 export function spawnSlot(
-  slotVariant: SlotVariant | int,
+  slotVariant: SlotVariant,
   subType: int,
   position: Vector,
   velocity = VectorZero,
@@ -819,7 +819,7 @@ export function spawnSlotWithSeed(
 
 /** Helper function to spawn a `EntityType.TEAR` (2). */
 export function spawnTear(
-  tearVariant: TearVariant | int,
+  tearVariant: TearVariant,
   subType: int,
   position: Vector,
   velocity = VectorZero,
@@ -845,7 +845,7 @@ export function spawnTear(
 
 /** Helper function to spawn a `EntityType.EntityType` (2) with a specific seed. */
 export function spawnTearWithSeed(
-  tearVariant: TearVariant | int,
+  tearVariant: TearVariant,
   subType: int,
   position: Vector,
   seed: Seed,

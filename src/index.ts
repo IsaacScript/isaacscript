@@ -105,6 +105,7 @@ export * from "./functions/jsonHelpers";
 export * from "./functions/jsonRoom";
 export * from "./functions/kColor";
 export * from "./functions/language";
+export * from "./functions/level";
 export * from "./functions/log";
 export * from "./functions/map";
 export * from "./functions/math";

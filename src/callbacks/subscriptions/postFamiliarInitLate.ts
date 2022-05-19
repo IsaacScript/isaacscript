@@ -2,7 +2,7 @@ import { FamiliarVariant } from "isaac-typescript-definitions";
 
 export type PostFamiliarInitLateRegisterParameters = [
   callback: (familiar: EntityFamiliar) => void,
-  familiarVariant?: FamiliarVariant | int,
+  familiarVariant?: FamiliarVariant,
 ];
 
 const subscriptions: PostFamiliarInitLateRegisterParameters[] = [];

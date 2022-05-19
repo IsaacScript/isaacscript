@@ -2,7 +2,7 @@ import { PickupVariant } from "isaac-typescript-definitions";
 
 export type PostPurchaseRegisterParameters = [
   callback: (player: EntityPlayer, pickup: EntityPickup) => void,
-  pickupVariant?: PickupVariant | int,
+  pickupVariant?: PickupVariant,
   pickupSubType?: int,
 ];
 

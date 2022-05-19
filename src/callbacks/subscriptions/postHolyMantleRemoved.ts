@@ -6,8 +6,8 @@ export type PostHolyMantleRemovedRegisterParameters = [
     oldNumHolyMantles: int,
     newNumHolyMantles: int,
   ) => void,
-  playerVariant?: PlayerVariant | int,
-  character?: PlayerType | int,
+  playerVariant?: PlayerVariant,
+  character?: PlayerType,
 ];
 
 const subscriptions: PostHolyMantleRemovedRegisterParameters[] = [];

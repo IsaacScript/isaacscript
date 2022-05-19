@@ -39,9 +39,7 @@ const TRINKET_SPRITE_LAYER = 0;
  * For example, passing `TrinketType.SWALLOWED_PENNY` would result in 32769, which is the value that
  * corresponds to the golden trinket sub-type for Swallowed Penny.
  */
-export function getGoldenTrinketType(
-  trinketType: TrinketType | int,
-): TrinketType | int {
+export function getGoldenTrinketType(trinketType: TrinketType): TrinketType {
   return trinketType + GOLDEN_TRINKET_ADJUSTMENT;
 }
 
@@ -85,7 +83,7 @@ export function getOpenTrinketSlot(player: EntityPlayer): int | undefined {
  * Helper function to get the in-game description for a trinket. Returns "Unknown" if the provided
  * trinket type was not valid.
  */
-export function getTrinketDescription(trinketType: TrinketType | int): string {
+export function getTrinketDescription(trinketType: TrinketType): string {
   // "ItemConfigItem.Description" is bugged with vanilla items on patch v1.7.6, so we use a
   // hard-coded map as a workaround.
   const trinketDescription = TRINKET_DESCRIPTION_MAP.get(trinketType);
@@ -93,7 +91,7 @@ export function getTrinketDescription(trinketType: TrinketType | int): string {
     return trinketDescription;
   }
 
-  const itemConfigItem = itemConfig.GetCollectible(trinketType);
+  const itemConfigItem = itemConfig.GetTrinket(trinketType);
   if (itemConfigItem !== undefined) {
     return itemConfigItem.Description;
   }
@@ -112,7 +110,7 @@ export function getTrinketDescription(trinketType: TrinketType | int): string {
  * const trinketName = getTrinketName(trinketType); // trinketName is "Swallowed Penny"
  * ```
  */
-export function getTrinketName(trinketType: TrinketType | int): string {
+export function getTrinketName(trinketType: TrinketType): string {
   // "ItemConfigItem.Name" is bugged with vanilla items on patch v1.7.6, so we use a hard-coded map
   // as a workaround.
   const trinketName = TRINKET_NAME_MAP.get(trinketType);
@@ -120,7 +118,7 @@ export function getTrinketName(trinketType: TrinketType | int): string {
     return trinketName;
   }
 
-  const itemConfigItem = itemConfig.GetCollectible(trinketType);
+  const itemConfigItem = itemConfig.GetTrinket(trinketType);
   if (itemConfigItem !== undefined) {
     return itemConfigItem.Name;
   }
@@ -144,7 +142,7 @@ export function hasOpenTrinketSlot(player: EntityPlayer): boolean {
   return openTrinketSlot !== undefined;
 }
 
-export function isGoldenTrinket(trinketType: TrinketType | int): boolean {
+export function isGoldenTrinket(trinketType: TrinketType): boolean {
   return hasFlag(trinketType as BitFlag, GOLDEN_TRINKET_FLAG);
 }
 
@@ -180,7 +178,7 @@ export function setTrinketSprite(
 }
 
 export function trinketHasCacheFlag(
-  trinketType: TrinketType | int,
+  trinketType: TrinketType,
   cacheFlag: CacheFlag,
 ): boolean {
   const itemConfigItem = itemConfig.GetTrinket(trinketType);

@@ -27,7 +27,7 @@ import { getRandomSeed, isRNG } from "./rng";
  *                      Tainted Keeper. Default is false.
  */
 export function spawnCollectible(
-  collectibleType: CollectibleType | int,
+  collectibleType: CollectibleType,
   position: Vector,
   seedOrRNG: Seed | RNG = getRandomSeed(),
   options = false,

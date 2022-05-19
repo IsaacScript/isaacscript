@@ -101,5 +101,5 @@ export function checkFamiliarFromCollectibles(
 export function isFamiliarThatShootsPlayerTears(
   familiar: EntityFamiliar,
 ): boolean {
-  return FAMILIARS_THAT_SHOOT_PLAYER_TEARS_SET.has(familiar.Type);
+  return FAMILIARS_THAT_SHOOT_PLAYER_TEARS_SET.has(familiar.Variant);
 }

@@ -250,6 +250,7 @@ commandFunctionsMap.set("listgrid", commands.listGrid);
 commandFunctionsMap.set("listgridall", commands.listGridAll);
 commandFunctionsMap.set("lowhp", commands.lowHP);
 commandFunctionsMap.set("luck", commands.luck);
+commandFunctionsMap.set("map", commands.map);
 commandFunctionsMap.set("maxhearts", commands.maxHearts);
 commandFunctionsMap.set("mh", commands.mh);
 commandFunctionsMap.set("miniboss", commands.miniboss);

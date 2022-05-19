@@ -10,6 +10,7 @@ import {
   EntityGridCollisionClass,
   EntityType,
   GridEntityType,
+  GridEntityXMLType,
   ModCallback,
   PickupVariant,
   PitfallVariant,
@@ -437,16 +438,16 @@ function spawnAllEntities(jsonRoom: JSONRoom, rng: RNG, verbose = false) {
 }
 
 function spawnGridEntityForJSONRoom(
-  xmlEntityType: int,
-  xmlEntityVariant: int,
+  gridEntityXMLType: GridEntityXMLType,
+  gridEntityXMLVariant: int,
   x: int,
   y: int,
 ) {
   const room = game.GetRoom();
 
   const gridEntityTuple = convertXMLGridEntityType(
-    xmlEntityType,
-    xmlEntityVariant,
+    gridEntityXMLType,
+    gridEntityXMLVariant,
   );
   if (gridEntityTuple === undefined) {
     return undefined;
@@ -472,7 +473,7 @@ function spawnGridEntityForJSONRoom(
 }
 
 function spawnNormalEntityForJSONRoom(
-  entityType: int,
+  entityType: EntityType,
   variant: int,
   subType: int,
   x: int,

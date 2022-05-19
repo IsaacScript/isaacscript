@@ -33,7 +33,7 @@ const DEFAULT_BOSS_MULTI_SEGMENTS = 4;
  * Horn holes.
  */
 export function getAliveBosses(
-  matchingEntityType?: EntityType | int,
+  matchingEntityType?: EntityType,
   matchingVariant?: int,
   matchingSubType?: int,
   ignoreFriendly = false,
@@ -85,7 +85,7 @@ export function getBossSet(
 
 /** Helper function to get all of the bosses in the room. */
 export function getBosses(
-  matchingEntityType?: EntityType | int,
+  matchingEntityType?: EntityType,
   matchingVariant?: int,
   matchingSubType?: int,
   ignoreFriendly = false,
@@ -168,7 +168,7 @@ export function spawnBoss<T extends number>(
 }
 
 function getNumBossSegments(
-  entityType: EntityType | int,
+  entityType: EntityType,
   variant: int,
   numSegments: int | undefined,
 ) {
@@ -205,8 +205,8 @@ function getNumBossSegments(
  *
  * For more information, see the documentation for the `spawnBoss` function.
  */
-export function spawnBossWithSeed(
-  entityType: EntityType | int,
+export function spawnBossWithSeed<T extends number>(
+  entityType: T extends EntityTypeNonNPC ? never : T,
   variant: int,
   subType: int,
   position: Vector,

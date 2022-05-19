@@ -49,6 +49,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [JSON Functions](modules/functions_jsonHelpers.html)
 - [KColor Functions](modules/functions_kColor.html)
 - [Language Functions](modules/functions_language.html)
+- [Level Functions](modules/functions_level.html)
 - [Log Functions](modules/functions_log.html)
 - [Map Functions](modules/functions_map.html)
 - [Math Functions](modules/functions_math.html)

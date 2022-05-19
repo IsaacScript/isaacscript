@@ -17,7 +17,7 @@ import { newRNG } from "./rng";
  * @param ignoreFriendly Default is false.
  */
 export function countEntities(
-  entityType: EntityType | int = -1,
+  entityType: EntityType = -1,
   variant = -1,
   subType = -1,
   ignoreFriendly = false,
@@ -94,7 +94,7 @@ export function getClosestEntityTo<T extends AnyEntity>(
  *                       `matchingEntityType` is specified.
  */
 export function getEntities(
-  entityType?: EntityType | int,
+  entityType?: EntityType,
   variant = -1,
   subType = -1,
   ignoreFriendly = false,
@@ -146,7 +146,7 @@ export function isEntityMoving(entity: Entity, threshold = 0.01): boolean {
  * Blue Baby, Mega Satan, The Beast, and so on. This is useful because certain effects should only
  * apply to non-story bosses, like Vanishing Twin. Also see the `STORY_BOSSES` constant.
  */
-export function isStoryBoss(entityType: EntityType | int): boolean {
+export function isStoryBoss(entityType: EntityType): boolean {
   return STORY_BOSSES_SET.has(entityType);
 }
 
@@ -160,7 +160,7 @@ export function isStoryBoss(entityType: EntityType | int): boolean {
  */
 export function parseEntityID(
   entityID: string,
-): [entityType: EntityType | int, variant: int, subType: int] | undefined {
+): [entityType: EntityType, variant: int, subType: int] | undefined {
   const entityIDArray = entityID.split(".");
   if (entityIDArray.length !== 3) {
     return undefined;
@@ -196,7 +196,7 @@ export function parseEntityID(
  */
 export function parseEntityTypeVariantString(
   entityTypeVariantString: string,
-): [entityType: EntityType | int, variant: int] | undefined {
+): [entityType: EntityType, variant: int] | undefined {
   const entityTypeVariantArray = entityTypeVariantString.split(".");
   if (entityTypeVariantArray.length !== 2) {
     return undefined;
@@ -305,7 +305,7 @@ export function setEntityRandomColor(entity: Entity): void {
  * Also see the `spawnWithSeed` helper function.
  */
 export function spawn(
-  entityType: EntityType | int,
+  entityType: EntityType,
   variant: int,
   subType: int,
   position: Vector,
@@ -340,7 +340,7 @@ export function spawn(
  * need to specify the velocity or spawner.
  */
 export function spawnWithSeed(
-  entityType: EntityType | int,
+  entityType: EntityType,
   variant: int,
   subType: int,
   position: Vector,

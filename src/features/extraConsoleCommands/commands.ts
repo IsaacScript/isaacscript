@@ -4,6 +4,7 @@ import {
   Card,
   CollectibleType,
   Direction,
+  DisplayFlag,
   GameStateFlag,
   GridRoom,
   PillColor,
@@ -13,6 +14,7 @@ import {
 } from "isaac-typescript-definitions";
 import { game, sfxManager } from "../../cachedClasses";
 import {
+  MAX_LEVEL_GRID_INDEX,
   MAX_ROOM_TYPE,
   MAX_STAGE,
   MAX_VANILLA_CHARACTER,
@@ -23,6 +25,7 @@ import { getCardName } from "../../functions/cards";
 import { getCharacterName } from "../../functions/character";
 import { getNPCs } from "../../functions/entitySpecific";
 import { getEnumValues, getLastEnumValue } from "../../functions/enums";
+import { addFlag } from "../../functions/flag";
 import {
   logEffects,
   logRoom,
@@ -38,7 +41,7 @@ import { gridCoordinatesToWorldPosition } from "../../functions/roomGrid";
 import { changeRoom, getRoomGridIndexesForType } from "../../functions/rooms";
 import { restart } from "../../functions/run";
 import { getGoldenTrinketType } from "../../functions/trinkets";
-import { printConsole, printEnabled } from "../../functions/utils";
+import { irange, printConsole, printEnabled } from "../../functions/utils";
 import { CARD_MAP } from "../../maps/cardMap";
 import { CHARACTER_MAP } from "../../maps/characterMap";
 import { PILL_EFFECT_MAP } from "../../maps/pillEffectMap";
@@ -685,6 +688,25 @@ export function lowHP(): void {
 /** Alias for "debug 9". */
 export function luck(): void {
   Isaac.ExecuteCommand("debug 9");
+}
+
+/** Completely reveals the entire map, including the Ultra Secret Room. */
+export function map(): void {
+  const level = game.GetLevel();
+
+  const displayFlags = addFlag(
+    DisplayFlag.VISIBLE, // 1 << 0
+    DisplayFlag.SHADOW, // 1 << 1
+    DisplayFlag.SHOW_ICON, // 1 << 2
+  );
+
+  for (const roomGridIndex of irange(MAX_LEVEL_GRID_INDEX)) {
+    const roomDesc = level.GetRoomByIdx(roomGridIndex);
+    roomDesc.DisplayFlags = displayFlags;
+  }
+
+  // Setting the display flag will not actually update the map.
+  level.UpdateVisibility();
 }
 
 /**

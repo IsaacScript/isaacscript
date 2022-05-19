@@ -69,6 +69,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/jsonHelpers.ts" \
   --entryPoints "$DIR/src/functions/kColor.ts" \
   --entryPoints "$DIR/src/functions/language.ts" \
+  --entryPoints "$DIR/src/functions/level.ts" \
   --entryPoints "$DIR/src/functions/log.ts" \
   --entryPoints "$DIR/src/functions/map.ts" \
   --entryPoints "$DIR/src/functions/math.ts" \

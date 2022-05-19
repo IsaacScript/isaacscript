@@ -1,8 +1,8 @@
 import { TrinketType } from "isaac-typescript-definitions";
 
 export type PostTrinketBreakRegisterParameters = [
-  callback: (player: EntityPlayer, trinketType: TrinketType | int) => void,
-  trinketType?: TrinketType | int,
+  callback: (player: EntityPlayer, trinketType: TrinketType) => void,
+  trinketType?: TrinketType,
 ];
 
 const subscriptions: PostTrinketBreakRegisterParameters[] = [];
@@ -22,7 +22,7 @@ export function postTrinketBreakRegister(
 /** @internal */
 export function postTrinketBreakFire(
   player: EntityPlayer,
-  trinketType: TrinketType | int,
+  trinketType: TrinketType,
 ): void {
   for (const [callback, callbackTrinketType] of subscriptions) {
     // Handle the optional 2nd callback argument.

@@ -87,7 +87,7 @@ function getPlayerWithControllerIndex(controllerIndex: int) {
 // ModCallback.USE_ITEM (3)
 // CollectibleType.ESAU_JR (703)
 function useItemEsauJr(
-  _collectibleType: CollectibleType | int,
+  _collectibleType: CollectibleType,
   _rng: RNG,
   player: EntityPlayer,
   _useFlags: BitFlags<UseFlag>,

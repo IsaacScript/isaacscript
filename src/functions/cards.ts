@@ -62,10 +62,10 @@ function initCardObjects() {
  * const cardDescription = getCardDescription(card); // cardDescription is "Where journey begins"
  * ```
  */
-export function getCardDescription(card: Card | int): string {
+export function getCardDescription(card: Card): string {
   // "ItemConfigCard.Description" is bugged with vanilla cards on patch v1.7.6, so we use a
   // hard-coded map as a workaround.
-  const cardDescription = CARD_DESCRIPTIONS[card as Card];
+  const cardDescription = CARD_DESCRIPTIONS[card];
   if (cardDescription !== undefined) {
     return cardDescription;
   }
@@ -88,10 +88,10 @@ export function getCardDescription(card: Card | int): string {
  * const cardName = getCardName(card); // cardName is "0 - The Fool"
  * ```
  */
-export function getCardName(card: Card | int): string {
+export function getCardName(card: Card): string {
   // "ItemConfigCard.Name" is bugged with vanilla cards on patch v1.7.6, so we use a hard-coded map
   // as a workaround.
-  const cardName = CARD_NAMES[card as Card];
+  const cardName = CARD_NAMES[card];
   if (cardName !== undefined && cardName !== DEFAULT_CARD_NAME) {
     return cardName;
   }
@@ -104,8 +104,8 @@ export function getCardName(card: Card | int): string {
   return DEFAULT_CARD_NAME;
 }
 
-export function getCardType(card: Card | int): ItemConfigCardType {
-  const cardType = CARD_TYPES[card as Card];
+export function getCardType(card: Card): ItemConfigCardType {
+  const cardType = CARD_TYPES[card];
   return cardType === undefined ? DEFAULT_CARD_TYPE : cardType;
 }
 

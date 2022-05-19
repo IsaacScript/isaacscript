@@ -108,7 +108,7 @@ function prePickupCollisionHeart(pickup: EntityPickup, collider: Entity) {
  * Call this function once at the beginning of your mod to declare the health conversion type.
  */
 export function registerCharacterHealthConversion(
-  playerType: PlayerType | int,
+  playerType: PlayerType,
   conversionHeartSubType: ConversionHeartSubType,
 ): void {
   errorIfFeaturesNotInitialized(FEATURE_NAME);

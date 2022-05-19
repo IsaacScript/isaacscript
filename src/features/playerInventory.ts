@@ -29,7 +29,7 @@ const v = {
   run: {
     playersInventory: new DefaultMap<
       PlayerIndex,
-      Array<CollectibleType | int>,
+      CollectibleType[],
       [player: EntityPlayer]
     >((_key: PlayerIndex, player: EntityPlayer) => newPlayerInventory(player)),
 
@@ -39,13 +39,13 @@ const v = {
      */
     playersActiveCollectibleTypes: new DefaultMap<
       PlayerIndex,
-      Array<CollectibleType | int>
+      CollectibleType[]
     >(() => []),
   },
 };
 
 function newPlayerInventory(player: EntityPlayer) {
-  const inventory: Array<CollectibleType | int> = [];
+  const inventory: CollectibleType[] = [];
 
   const collectibleSet = getCollectibleSet();
   for (const collectibleType of collectibleSet.values()) {
@@ -98,12 +98,12 @@ function postItemPickup(player: EntityPlayer, pickingUpItem: PickingUpItem) {
     return;
   }
 
-  addCollectibleToInventory(player, pickingUpItem.subType);
+  addCollectibleToInventory(player, pickingUpItem.subType as CollectibleType);
 }
 
 function addCollectibleToInventory(
   player: EntityPlayer,
-  collectibleType: CollectibleType | int,
+  collectibleType: CollectibleType,
 ) {
   const playerIndex = getPlayerIndex(player);
   const inventory = v.run.playersInventory.getAndSetDefault(

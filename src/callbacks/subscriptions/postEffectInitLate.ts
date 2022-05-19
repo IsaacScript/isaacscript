@@ -2,7 +2,7 @@ import { EffectVariant } from "isaac-typescript-definitions";
 
 export type PostEffectInitLateRegisterParameters = [
   callback: (effect: EntityEffect) => void,
-  effectVariant?: EffectVariant | int,
+  effectVariant?: EffectVariant,
 ];
 
 const subscriptions: PostEffectInitLateRegisterParameters[] = [];

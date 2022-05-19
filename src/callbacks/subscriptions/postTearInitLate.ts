@@ -2,7 +2,7 @@ import { TearVariant } from "isaac-typescript-definitions";
 
 export type PostTearInitLateRegisterParameters = [
   callback: (tear: EntityTear) => void,
-  tearVariant?: TearVariant | int,
+  tearVariant?: TearVariant,
 ];
 
 const subscriptions: PostTearInitLateRegisterParameters[] = [];

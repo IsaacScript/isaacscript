@@ -2,7 +2,7 @@ import { CollectibleType } from "isaac-typescript-definitions";
 
 export type PostCollectibleInitFirstRegisterParameters = [
   callback: (collectible: EntityPickup) => void,
-  collectibleType?: CollectibleType | int,
+  collectibleType?: CollectibleType,
 ];
 
 const subscriptions: PostCollectibleInitFirstRegisterParameters[] = [];

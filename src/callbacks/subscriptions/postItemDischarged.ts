@@ -3,10 +3,10 @@ import { ActiveSlot, CollectibleType } from "isaac-typescript-definitions";
 export type PostItemDischargedRegisterParameters = [
   callback: (
     player: EntityPlayer,
-    collectibleType: CollectibleType | int,
+    collectibleType: CollectibleType,
     activeSlot: ActiveSlot,
   ) => void,
-  collectibleType?: CollectibleType | int,
+  collectibleType?: CollectibleType,
 ];
 
 const subscriptions: PostItemDischargedRegisterParameters[] = [];
@@ -26,7 +26,7 @@ export function postItemDischargeRegister(
 /** @internal */
 export function postItemDischargeFire(
   player: EntityPlayer,
-  collectibleType: CollectibleType | int,
+  collectibleType: CollectibleType,
   activeSlot: ActiveSlot,
 ): void {
   for (const [callback, callbackCollectibleType] of subscriptions) {

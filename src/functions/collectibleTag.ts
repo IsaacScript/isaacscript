@@ -9,7 +9,7 @@ import { irange } from "./utils";
 
 const TAG_TO_COLLECTIBLE_TYPES_MAP = new Map<
   ItemConfigTag,
-  Set<CollectibleType | int>
+  Set<CollectibleType>
 >();
 
 function initTagMap() {
@@ -37,7 +37,7 @@ function initTagMap() {
 }
 
 export function collectibleHasTag(
-  collectibleType: CollectibleType | int,
+  collectibleType: CollectibleType,
   tag: ItemConfigTag,
 ): boolean {
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
@@ -60,7 +60,7 @@ export function collectibleHasTag(
  */
 export function getCollectibleTypesWithTag(
   itemConfigTag: ItemConfigTag,
-): Set<CollectibleType | int> {
+): Set<CollectibleType> {
   // Lazy initialize the map.
   if (TAG_TO_COLLECTIBLE_TYPES_MAP.size === 0) {
     initTagMap();
@@ -85,8 +85,6 @@ export function getPlayerNumCollectiblesWithTag(
   return getPlayerCollectibleCount(player, ...collectibleTypesSet.values());
 }
 
-export function isQuestCollectible(
-  collectibleType: CollectibleType | int,
-): boolean {
+export function isQuestCollectible(collectibleType: CollectibleType): boolean {
   return collectibleHasTag(collectibleType, ItemConfigTag.QUEST);
 }

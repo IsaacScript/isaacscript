@@ -2,8 +2,8 @@ import { PlayerType, PlayerVariant } from "isaac-typescript-definitions";
 
 export type PostPEffectUpdateReorderedRegisterParameters = [
   callback: (player: EntityPlayer) => void,
-  playerVariant?: PlayerVariant | int,
-  character?: PlayerType | int,
+  playerVariant?: PlayerVariant,
+  character?: PlayerType,
 ];
 
 const subscriptions: PostPEffectUpdateReorderedRegisterParameters[] = [];

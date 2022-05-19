@@ -7,12 +7,12 @@ import { irange, repeat } from "./utils";
 
 const CACHE_FLAG_TO_COLLECTIBLES_MAP = new Map<
   CacheFlag,
-  Set<CollectibleType | int>
+  Set<CollectibleType>
 >();
 
 function initCacheFlagMap() {
   for (const cacheFlag of getEnumValues(CacheFlag)) {
-    const collectiblesSet = new Set<CollectibleType | int>();
+    const collectiblesSet = new Set<CollectibleType>();
 
     for (const collectibleType of irange(1, MAX_COLLECTIBLE_TYPE)) {
       if (collectibleHasCacheFlag(collectibleType, cacheFlag)) {
@@ -30,7 +30,7 @@ function initCacheFlagMap() {
  */
 export function getCollectiblesForCacheFlag(
   cacheFlag: CacheFlag,
-): Set<CollectibleType | int> {
+): Set<CollectibleType> {
   // Lazy initialize the map.
   if (CACHE_FLAG_TO_COLLECTIBLES_MAP.size === 0) {
     initCacheFlagMap();
@@ -62,10 +62,10 @@ export function getCollectiblesForCacheFlag(
 export function getPlayerCollectiblesForCacheFlag(
   player: EntityPlayer,
   cacheFlag: CacheFlag,
-): Array<CollectibleType | int> {
+): CollectibleType[] {
   const collectiblesForCacheFlag = getCollectiblesForCacheFlag(cacheFlag);
 
-  const playerCollectibles: Array<CollectibleType | int> = [];
+  const playerCollectibles: CollectibleType[] = [];
   for (const collectibleType of getSortedSetValues(collectiblesForCacheFlag)) {
     const numCollectibles = player.GetCollectibleNum(collectibleType);
     repeat(numCollectibles, () => {

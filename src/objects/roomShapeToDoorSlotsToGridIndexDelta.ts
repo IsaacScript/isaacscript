@@ -1,10 +1,10 @@
 import { DoorSlot, RoomShape } from "isaac-typescript-definitions";
-import { LEVEL_GRID_ROW_LENGTH } from "../constants";
+import { LEVEL_GRID_ROW_WIDTH } from "../constants";
 
 const LEFT = -1;
-const UP = -LEVEL_GRID_ROW_LENGTH;
+const UP = -LEVEL_GRID_ROW_WIDTH;
 const RIGHT = 1;
-const DOWN = LEVEL_GRID_ROW_LENGTH;
+const DOWN = LEVEL_GRID_ROW_WIDTH;
 
 /**
  * Deltas are considered to be from the safe grid index of the room (i.e. the top left corner, or

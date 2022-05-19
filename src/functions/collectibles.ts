@@ -4,6 +4,7 @@ import {
   CollectibleType,
   EntityType,
   ItemConfigTag,
+  ItemConfigTagZero,
   ItemType,
   PickupPrice,
   PickupVariant,
@@ -48,7 +49,7 @@ export function clearCollectibleSprite(collectible: EntityPickup): void {
 }
 
 export function collectibleHasCacheFlag(
-  collectibleType: CollectibleType | int,
+  collectibleType: CollectibleType,
   cacheFlag: CacheFlag,
 ): boolean {
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
@@ -92,7 +93,7 @@ export function collectibleSpriteEquals(
  * provided collectible type was not valid.
  */
 export function getCollectibleDescription(
-  collectibleType: CollectibleType | int,
+  collectibleType: CollectibleType,
 ): string {
   // "ItemConfigItem.Description" is bugged with vanilla items on patch v1.7.6, so we use a
   // hard-coded map as a workaround.
@@ -115,7 +116,7 @@ export function getCollectibleDescription(
  * in a Devil Room deal. Returns 0 if passed CollectibleType.NULL.
  */
 export function getCollectibleDevilHeartPrice(
-  collectibleType: CollectibleType | int,
+  collectibleType: CollectibleType,
   player: EntityPlayer,
 ): PickupPrice {
   const maxHearts = player.GetMaxHearts();
@@ -149,7 +150,7 @@ export function getCollectibleDevilHeartPrice(
  * sprite (i.e. from Curse of the Blind) if the provided collectible type was not valid.
  */
 export function getCollectibleGfxFilename(
-  collectibleType: CollectibleType | int,
+  collectibleType: CollectibleType,
 ): string {
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
@@ -226,7 +227,7 @@ export function getCollectibleIndex(
  * provided collectible type was not valid.
  */
 export function getCollectibleInitCharge(
-  collectibleType: CollectibleType | int,
+  collectibleType: CollectibleType,
 ): int {
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
@@ -241,7 +242,7 @@ export function getCollectibleInitCharge(
  * provided collectible type was not valid.
  */
 export function getCollectibleItemType(
-  collectibleType: CollectibleType | int,
+  collectibleType: CollectibleType,
 ): ItemType {
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
@@ -256,7 +257,7 @@ export function getCollectibleItemType(
  * provided collectible type was not valid.
  */
 export function getCollectibleMaxCharges(
-  collectibleType: CollectibleType | int,
+  collectibleType: CollectibleType,
 ): int {
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
@@ -277,9 +278,7 @@ export function getCollectibleMaxCharges(
  * const collectibleName = getCollectibleName(collectibleType); // collectibleName is "Sad Onion"
  * ```
  */
-export function getCollectibleName(
-  collectibleType: CollectibleType | int,
-): string {
+export function getCollectibleName(collectibleType: CollectibleType): string {
   // "ItemConfigItem.Name" is bugged with vanilla items on patch v1.7.6, so we use a hard-coded map
   // as a workaround.
   const collectibleName = COLLECTIBLE_NAME_MAP.get(collectibleType);
@@ -312,9 +311,7 @@ export function getCollectiblePedestalType(
  * Helper function to get the path to a collectible's quality. Returns 0 if the provided collectible
  * type was not valid.
  */
-export function getCollectibleQuality(
-  collectibleType: CollectibleType | int,
-): int {
+export function getCollectibleQuality(collectibleType: CollectibleType): int {
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
     return 0;
@@ -335,18 +332,14 @@ export function getCollectibleQuality(
  * ```
  */
 export function getCollectibleTags(
-  collectibleType: CollectibleType | int,
+  collectibleType: CollectibleType,
 ): BitFlags<ItemConfigTag> {
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
-  return itemConfigItem === undefined
-    ? (0 as BitFlags<ItemConfigTag>)
-    : itemConfigItem.Tags;
+  return itemConfigItem === undefined ? ItemConfigTagZero : itemConfigItem.Tags;
 }
 
 /** Returns true if the item type in the item config is equal to `ItemType.ITEM_ACTIVE`. */
-export function isActiveCollectible(
-  collectibleType: CollectibleType | int,
-): boolean {
+export function isActiveCollectible(collectibleType: CollectibleType): boolean {
   const itemType = getCollectibleItemType(collectibleType);
   return itemType === ItemType.ACTIVE;
 }
@@ -384,7 +377,7 @@ export function isGlitchedCollectible(pickup: EntityPickup): boolean {
  * `ItemType.ITEM_FAMILIAR`.
  */
 export function isPassiveCollectible(
-  collectibleType: CollectibleType | int,
+  collectibleType: CollectibleType,
 ): boolean {
   const itemType = getCollectibleItemType(collectibleType);
   return itemType === ItemType.PASSIVE || itemType === ItemType.FAMILIAR;
@@ -396,7 +389,7 @@ export function isPassiveCollectible(
  * dynamically know if a modded item will disappear.
  */
 export function isSingleUseCollectible(
-  collectibleType: CollectibleType | int,
+  collectibleType: CollectibleType,
 ): boolean {
   return SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES_SET.has(collectibleType);
 }
@@ -409,7 +402,7 @@ export function isSingleUseCollectible(
  * Python program located at: https://github.com/Rchardon/RebirthItemTracker
  */
 export function removeCollectibleFromItemTracker(
-  collectibleType: CollectibleType | int,
+  collectibleType: CollectibleType,
 ): void {
   const collectibleName = getCollectibleName(collectibleType);
 
@@ -503,7 +496,7 @@ export function setCollectibleSprite(
  */
 export function setCollectibleSubType(
   collectible: EntityPickup,
-  newCollectibleType: CollectibleType | int,
+  newCollectibleType: CollectibleType,
 ): void {
   if (collectible.Variant !== PickupVariant.COLLECTIBLE) {
     error(

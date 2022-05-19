@@ -1,73 +1,23 @@
-- inMineShaft
+- lint rule change: Math.floor(max-line-length / 3)
 
-- roomGridIndexToXY
-
-- rewrite lint rules to be unified
-
-- lint rule - double space between word
+- add strict enum rule to isaacscript plugin
 
 - trophy can move to isaacscript common for respawning purposes
   - when respawning, don't play appear animation
 
 - experiment with isaacscript monorepo
 
-- make test linter rule to find single line non-complete sentences
-
-- remove optional feature for custom collectible icons such as 20/20
-
 - redo docs so that function examples are in JSDoc
   - confirm that POST_USE_CARD and POST_USE_PILL and POST_NPC_UPDATE and POST_FAMILIAR_UPDATE and POST_FAMILIAR_INIT are documented
   - confirm that ModCallback is documented
 
-- check extending enums with enum repeat
-- check spawning every entity type to see if game crashes, remove any bad enums
-- after enum transition is complete, search for all irange and erange to see if code can be better written with getEnumValues
-- check to see if implicit map/set iteration works in TSTL
-- search for all eRange replacement (from range)
-
-confirm that this works:
-
-enum MyEnum {
-  ThirdValue = "third-value",
-  FourthValue = "fourth-value",
-}
-
-for (const key of getEnumKeys(MyEnum)) {
-  print(key); // Will print "fourth-value", then "third-value"
-}
-
-CSPELL:
-- get CSPELL extension to spell check all files
-- write script to check to see if every word in both new dictionaries is being used
-  - put script in isaacscript + zamTS
-
 LINTER:
 - make lint rule for "declare something that is not global in file with one or more imports"
-- make lint rule for exporting something marked as Internal
 - make lint rule for capital letter on const as const
-- make lint rule about moving words to the previous line
-- make lint rule about reformatting /** ONE LINE */ to
-  /**
-   * TWO LINES
-   */
-- lint rule for naming functions camelCase
 - lint rule to check for "BOSS2" --> "BOSS_2" and "BOSS2_WATER_THRASHING" --> "BOSS2_WATER_THRASHING" and "BOSS2INTRO_WATER_EXPLOSION" --> "BOSS_2_INTRO_WATER_EXPLOSION", has to be 4 characters or more
-- eslint reorganize messes up JSDoc, insert test with:
-/**
- * Helper function to remove all of the `EntityType.PROJECTILE` in the room.
- *
- * @param projectileVariant Optional. If specified, will only remove projectiles that match this
- * variant.
- * @param subType Optional. If specified, will only remove projectiles that match this
- * sub-type.
- * @param cap Optional. If specified, will only remove the given amount of projectiles.
- * @returns True if one or more projectiles were removed, false otherwise.
- */
 - linter rule audit (xo etc)
-- lint audit on JSDoc rules specifically
 
 TODO:
-- in isaac-typescript-definitions, search for all "| int" and make type safe
 - check every PlayerType --> PlayerVariant
 - add every PlayerType where missing on search of PlayerVariant
 - NEW DOCUMENTATION WEBSITE
@@ -92,7 +42,6 @@ implement in isaacscript-common:
 - DICE_ROOM_ACTIVATED
 - intercept shovel for decorations
 - collectible morph to glitched item
-- getRoomNeighbors
 - function getRandomEnumValue
 - function to start challenge room
 - think about how to track a custom entity that emulates a collectible (pseudo-persistent)
@@ -103,12 +52,20 @@ implement in isaacscript-common:
 
 IsaacScript announcements:
 - Added the appropriate `HORSE_` enum values to the `PillColor` enum.
+- Added a `Zero` constant for every flag enum. (e.g. `EntityFlagZero`, `TearFlagZero`, and so on.)
 - Added the following constants:
   - `MAX_VANILLA_PLAYER_TYPE`
   - `MAX_NORMAL_PILL_COLOR`
 - Added the following helper functions:
+  - `fillLevelWithRedRooms`
   - `getDoorEnterPosition`
   - `getDoorEnterPositionOffset`
   - `getNormalPillColorFromHorse`
   - `getRandomEnumValue`
+  - `getRoomNeighbors`
+  - `getRoomShapeNeighborGridIndexDeltas`
+  - `inMineShaft`
+  - `roomGridIndexToXY`
+- Added the following custom console commands:
+  - `map`
 - `Vector.Zero` and `Vector.One` are now deprecated and will cause compiler errors. Use the `VectorZero` and `VectorOne` constants from the standard library instead, which are guaranteed to be safe. (Alternatively, you can create your own constants that are local to your mod.)

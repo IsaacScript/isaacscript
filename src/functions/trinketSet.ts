@@ -4,7 +4,7 @@ import { MAX_TRINKET_TYPE } from "../constantsMax";
 import { copySet } from "./set";
 import { irange } from "./utils";
 
-const TRINKET_SET = new Set<TrinketType | int>();
+const TRINKET_SET = new Set<TrinketType>();
 
 function initTrinketSet() {
   for (const trinketType of irange(1, MAX_TRINKET_TYPE)) {
@@ -16,7 +16,7 @@ function initTrinketSet() {
 }
 
 /** Returns a set containing every valid trinket type in the game, including modded items. */
-export function getTrinketSet(): Set<TrinketType | int> {
+export function getTrinketSet(): Set<TrinketType> {
   // Lazy initialize the set.
   if (TRINKET_SET.size === 0) {
     initTrinketSet();

@@ -10,7 +10,7 @@ import { addStat } from "../functions/player";
 const FEATURE_NAME = "character stat manager";
 
 type StatMap = Map<CacheFlag, number> | ReadonlyMap<CacheFlag, number>;
-const charactersStatMap = new Map<PlayerType | int, StatMap>();
+const charactersStatMap = new Map<PlayerType, StatMap>();
 
 /** @internal */
 export function characterStatsInit(mod: Mod): void {
@@ -53,7 +53,7 @@ function evaluateCache(player: EntityPlayer, cacheFlag: CacheFlag) {
  * the `MaxFireDelay` format.
  */
 export function registerCharacterStats(
-  playerType: PlayerType | int,
+  playerType: PlayerType,
   statMap: Map<CacheFlag, number> | ReadonlyMap<CacheFlag, number>,
 ): void {
   errorIfFeaturesNotInitialized(FEATURE_NAME);

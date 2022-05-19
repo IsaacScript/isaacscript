@@ -2,7 +2,7 @@ import { BombVariant } from "isaac-typescript-definitions";
 
 export type PostBombInitRegisterParameters = [
   callback: (bomb: EntityBomb) => void,
-  bombVariant?: BombVariant | int,
+  bombVariant?: BombVariant,
 ];
 
 const subscriptions: PostBombInitRegisterParameters[] = [];

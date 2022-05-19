@@ -8,7 +8,7 @@ import { PickingUpItem } from "../../types/PickingUpItem";
 export type PreItemPickupRegisterParameters = [
   callback: (player: EntityPlayer, pickingUpItem: PickingUpItem) => void,
   itemType?: ItemType,
-  itemID?: CollectibleType | TrinketType | int,
+  itemID?: CollectibleType | TrinketType,
 ];
 
 const subscriptions: PreItemPickupRegisterParameters[] = [];

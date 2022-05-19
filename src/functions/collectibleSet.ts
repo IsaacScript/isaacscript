@@ -4,7 +4,7 @@ import { MAX_COLLECTIBLE_TYPE } from "../constantsMax";
 import { copySet } from "./set";
 import { irange } from "./utils";
 
-const COLLECTIBLE_SET = new Set<CollectibleType | int>();
+const COLLECTIBLE_SET = new Set<CollectibleType>();
 
 function initCollectibleSet() {
   for (const collectibleType of irange(1, MAX_COLLECTIBLE_TYPE)) {
@@ -16,7 +16,7 @@ function initCollectibleSet() {
 }
 
 /** Returns a set containing every valid collectible type in the game, including modded items. */
-export function getCollectibleSet(): Set<CollectibleType | int> {
+export function getCollectibleSet(): Set<CollectibleType> {
   // Lazy initialize the set.
   if (COLLECTIBLE_SET.size === 0) {
     initCollectibleSet();

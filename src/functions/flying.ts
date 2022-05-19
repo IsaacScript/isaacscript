@@ -47,7 +47,7 @@ const CONDITIONAL_FLYING_COLLECTIBLE_TYPES: readonly CollectibleType[] = [
  */
 export function getFlyingCollectibles(
   pruneConditionalItems: boolean,
-): Set<CollectibleType | int> {
+): Set<CollectibleType> {
   // Instead of manually compiling a list of collectibles that grant flying, we can instead
   // dynamically look for collectibles that have `CacheFlag.FLYING`.
   const collectiblesWithFlyingCacheFlag = getCollectiblesForCacheFlag(
@@ -77,7 +77,7 @@ export function getFlyingCollectibles(
  * Returns a set of all of the trinkets that grant flight. (All trinkets that grant flight do so
  * conditionally, like Bat Wing.)
  */
-export function getFlyingTrinkets(): ReadonlySet<CollectibleType | int> {
+export function getFlyingTrinkets(): ReadonlySet<TrinketType> {
   // We use a different algorithm than the "getFlyingCollectibles" function because Azazel's Stump
   // has a cache of "all".
   return copySet(FLYING_TRINKETS);

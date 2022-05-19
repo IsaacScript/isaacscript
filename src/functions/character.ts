@@ -17,9 +17,7 @@ import { LOST_STYLE_CHARACTERS_SET } from "../sets/lostStyleCharactersSet";
  * though coin containers are not technically the same as red heart containers. Returns false for
  * characters like Blue Baby. Returns false for The Lost and Tainted Lost.
  */
-export function characterCanHaveRedHearts(
-  character: PlayerType | int,
-): boolean {
+export function characterCanHaveRedHearts(character: PlayerType): boolean {
   return !CHARACTERS_WITH_NO_RED_HEARTS_SET.has(character);
 }
 
@@ -28,9 +26,7 @@ export function characterCanHaveRedHearts(
  * characters like Isaac, Magdalene, or Cain. Returns false for characters like Bethany. Returns
  * false for The Lost and Tainted Lost.
  */
-export function characterCanHaveSoulHearts(
-  character: PlayerType | int,
-): boolean {
+export function characterCanHaveSoulHearts(character: PlayerType): boolean {
   return !CHARACTERS_WITH_NO_SOUL_HEARTS_SET.has(character);
 }
 
@@ -38,9 +34,7 @@ export function characterCanHaveSoulHearts(
  * Helper function for determining whether the given character can take free Devil Deals. (e.g. The
  * Lost, Tainted Lost, etc.)
  */
-export function characterCanTakeFreeDevilDeals(
-  character: PlayerType | int,
-): boolean {
+export function characterCanTakeFreeDevilDeals(character: PlayerType): boolean {
   return CHARACTERS_WITH_FREE_DEVIL_DEALS_SET.has(character);
 }
 
@@ -50,7 +44,7 @@ export function characterCanTakeFreeDevilDeals(
  * Otherwise, returns false.
  */
 export function characterGetsBlackHeartFromEternalHeart(
-  character: PlayerType | int,
+  character: PlayerType,
 ): boolean {
   return CHARACTERS_WITH_BLACK_HEART_FROM_ETERNAL_HEART_SET.has(character);
 }
@@ -61,9 +55,7 @@ export function characterGetsBlackHeartFromEternalHeart(
  * For the purposes of this function, the save file is considered to be fully unlocked (e.g. Isaac
  * is considered to starts with the D6, but this is not the case on a brand new save file).
  */
-export function characterStartsWithActiveItem(
-  character: PlayerType | int,
-): boolean {
+export function characterStartsWithActiveItem(character: PlayerType): boolean {
   return CHARACTERS_THAT_START_WITH_AN_ACTIVE_ITEM_SET.has(character);
 }
 
@@ -72,9 +64,7 @@ export function characterStartsWithActiveItem(
  * - The Lost and Tainted Lost have a 38 frame death animation (i.e. the "LostDeath" animation).
  * - Tainted Forgotten have a 20 frame death animation (i.e. the "ForgottenDeath" animation).
  */
-export function getCharacterDeathAnimationName(
-  character: PlayerType | int,
-): string {
+export function getCharacterDeathAnimationName(character: PlayerType): string {
   if (LOST_STYLE_CHARACTERS_SET.has(character)) {
     return "LostDeath";
   }
@@ -91,9 +81,7 @@ export function getCharacterDeathAnimationName(
  * but with Keeper it is 3, and with Tainted Keeper it is 2. This does not account for Birthright or
  * Mother's Kiss; use the `getPlayerMaxHeartContainers` helper function for that.
  */
-export function getCharacterMaxHeartContainers(
-  character: PlayerType | int,
-): int {
+export function getCharacterMaxHeartContainers(character: PlayerType): int {
   // 14
   if (character === PlayerType.KEEPER) {
     return 3;
@@ -118,19 +106,19 @@ export function getCharacterMaxHeartContainers(
 }
 
 /** Helper function to get the name of a character. Returns "unknown" for modded characters. */
-export function getCharacterName(character: PlayerType | int): string {
+export function getCharacterName(character: PlayerType): string {
   if (isVanillaCharacter(character)) {
     return "unknown";
   }
 
-  const characterName = CHARACTER_NAMES[character as PlayerType];
+  const characterName = CHARACTER_NAMES[character];
   return characterName === undefined ? DEFAULT_CHARACTER_NAME : characterName;
 }
 
-export function isModdedCharacter(character: PlayerType | int): boolean {
+export function isModdedCharacter(character: PlayerType): boolean {
   return !isVanillaCharacter(character);
 }
 
-export function isVanillaCharacter(character: PlayerType | int): boolean {
+export function isVanillaCharacter(character: PlayerType): boolean {
   return character <= MAX_VANILLA_CHARACTER;
 }

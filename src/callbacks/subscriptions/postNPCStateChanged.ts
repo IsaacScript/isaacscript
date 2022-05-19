@@ -2,7 +2,7 @@ import { EntityType } from "isaac-typescript-definitions";
 
 export type PostNPCStateChangedRegisterParameters = [
   callback: (npc: EntityNPC, previousState: int, currentState: int) => void,
-  entityType?: EntityType | int,
+  entityType?: EntityType,
   variant?: int,
 ];
 

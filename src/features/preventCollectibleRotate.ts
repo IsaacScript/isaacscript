@@ -26,7 +26,7 @@ const v = {
      *
      * (We cannot use PtrHash as an index because that stays the same when the item is rolled.)
      */
-    trackedCollectibles: new Map<string, CollectibleType | int>(),
+    trackedCollectibles: new Map<string, CollectibleType>(),
   },
 };
 
@@ -85,7 +85,7 @@ function postPickupUpdateCollectible(collectible: EntityPickup) {
  */
 export function preventCollectibleRotate(
   collectible: EntityPickup,
-  collectibleType: CollectibleType | int,
+  collectibleType: CollectibleType,
 ): void {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
 

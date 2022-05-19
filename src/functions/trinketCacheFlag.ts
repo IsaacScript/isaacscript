@@ -1,19 +1,15 @@
-import {
-  CacheFlag,
-  CollectibleType,
-  TrinketType,
-} from "isaac-typescript-definitions";
+import { CacheFlag, TrinketType } from "isaac-typescript-definitions";
 import { MAX_TRINKET_TYPE } from "../constantsMax";
 import { getEnumValues } from "./enums";
 import { copySet } from "./set";
 import { trinketHasCacheFlag } from "./trinkets";
 import { irange } from "./utils";
 
-const CACHE_FLAG_TO_TRINKETS_MAP = new Map<CacheFlag, Set<TrinketType | int>>();
+const CACHE_FLAG_TO_TRINKETS_MAP = new Map<CacheFlag, Set<TrinketType>>();
 
 function initCacheFlagMap() {
   for (const cacheFlag of getEnumValues(CacheFlag)) {
-    const trinketsSet = new Set<CollectibleType | int>();
+    const trinketsSet = new Set<TrinketType>();
 
     for (const trinketType of irange(1, MAX_TRINKET_TYPE)) {
       if (trinketHasCacheFlag(trinketType, cacheFlag)) {
@@ -32,10 +28,10 @@ function initCacheFlagMap() {
 export function getPlayerTrinketsForCacheFlag(
   player: EntityPlayer,
   cacheFlag: CacheFlag,
-): Map<TrinketType | int, int> {
+): Map<TrinketType, int> {
   const trinketsForCacheFlag = getTrinketsForCacheFlag(cacheFlag);
 
-  const playerTrinkets = new Map<TrinketType | int, int>();
+  const playerTrinkets = new Map<TrinketType, int>();
   for (const trinketType of trinketsForCacheFlag.values()) {
     const trinketMultiplier = player.GetTrinketMultiplier(trinketType);
     if (trinketMultiplier > 0) {
@@ -51,7 +47,7 @@ export function getPlayerTrinketsForCacheFlag(
  */
 export function getTrinketsForCacheFlag(
   cacheFlag: CacheFlag,
-): Set<TrinketType | int> {
+): Set<TrinketType> {
   // Lazy initialize the map.
   if (CACHE_FLAG_TO_TRINKETS_MAP.size === 0) {
     initCacheFlagMap();
