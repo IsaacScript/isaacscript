@@ -13,7 +13,7 @@ In the Isaac Lua environment, several enums are declared as global variables. In
 ```lua
 -- Lua code
 local player = Isaac.GetPlayer()
-player:AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION) -- The "CollectibleType" enum is a global
+player:AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION) -- The "CollectibleType" enum is a global.
 ```
 
 However, relying on global variables is dangerous, as other mods can change the contents of the enums. (We have observed this happening in the past from time to time.) Thus, as an extra safety feature, IsaacScript includes a local copy of every enum for your personal use.
@@ -97,7 +97,7 @@ Finally, note that you can also use the `hasFlag` helper function to check for t
 ```ts
 // TypeScript code
 if (hasFlag(player.TearFlags, TearFlag.PIERCING)) {
-  // Handle piercing synergy
+  // Handle the piercing synergy.
   // TODO
 }
 ```
@@ -127,17 +127,17 @@ If you want, you can use the `int` and `float` types in your own code too (inste
 In other words, it is possible to do this, so beware:
 
 ```ts
-// Give the player a Sad Onion
+// Give the player a Sad Onion.
 player.AddCollectible(CollectibleType.COLLECTIBLE_SAD_ONION, 0, false);
 
-// Find out how many Sad Onions they have
+// Find out how many Sad Onions they have.
 let numSadOnions = player.GetCollectibleNum(
   CollectibleType.COLLECTIBLE_SAD_ONION,
 );
-// numSadOnions is now an "int" with a value of "1"
+// numSadOnions is now an "int" with a value of "1".
 
 numSadOnions += 0.5;
-// numSadOnions is still an "int", but now it has a value of "1.5"
+// numSadOnions is still an "int", but now it has a value of "1.5".
 // This is a bug and TypeScript won't catch this for you!
 ```
 
@@ -156,7 +156,7 @@ if (
   player:HasCollectible(CollectibleType.COLLECTIBLE_MY_CUSTOM_ITEM)
   and player:HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS)
 ) then
-  -- Handle the specific synergy with My Custom Item + Epic Fetus
+  -- Handle the specific synergy with My Custom Item + Epic Fetus.
 end
 ```
 
@@ -173,7 +173,7 @@ if (
   player.HasCollectible(CollectibleTypeCustom.MY_CUSTOM_ITEM) &&
   player.HasCollectible(CollectibleType.EPIC_FETUS)
 ) {
-  // Handle the specific synergy with My Custom Item + Epic Fetus
+  // Handle the specific synergy with My Custom Item + Epic Fetus.
 }
 ```
 
@@ -187,7 +187,7 @@ In Isaac modding, working with Vectors is common. For example, you might want to
 
 ```lua
 -- Lua code
--- Double the speed of the projectile
+-- Double the speed of the projectile.
 projectile.Velocity = projectile.Velocity * 2
 ```
 
@@ -195,7 +195,7 @@ This code is the actually the same as writing:
 
 ```lua
 -- Lua code
--- Double the speed of the projectile
+-- Double the speed of the projectile.
 projectile.Velocity = projectile.Velocity:__mul(2)
 ```
 
@@ -250,10 +250,10 @@ Handily, Lua functions to accomplish this are provided with the game in the `C:\
 -- Lua code
 local json = require("json")
 
--- Register the mod
+-- Register the mod.
 local Revelations = RegisterMod("Revelations", 1)
 
--- Define default values for the save data
+-- Define default values for the save data.
 local RevelationsSaveData = {
   currentHP = 3,
   currentNumFamiliars = 4,
@@ -272,10 +272,10 @@ In TypeScript, we can directly call the Lua code in the same way. Note that Isaa
 // TypeScript code
 import * as json from "json";
 
-// Register the mod
+// Register the mod.
 const Revelations = RegisterMod("Revelations", 1);
 
-// Define default values for the save data
+// Define default values for the save data.
 const RevelationsSaveData = {
   currentHP = 3,
   currentNumFamiliars = 4,
@@ -296,7 +296,7 @@ Sometimes, you might want to iterate over an enum. For example, the following Lu
 
 ```lua
 -- Lua code
--- "Keyboard" is an enum provided by the game
+-- "Keyboard" is an enum provided by the game.
 for keyName, keyCode in pairs(Keyboard) do
   if Input.IsButtonPressed(keyCode, 0) then
     print("Player pressed: " .. keyName)
@@ -308,7 +308,7 @@ In TypeScript, we can use the `getEnumEntries` helper function:
 
 ```ts
 // TypeScript code
-// "Keyboard" is an enum provided by the game
+// "Keyboard" is an enum provided by the game.
 for (const [keyName, keyCode] of getEnumEntries(Keyboard)) {
   if (Input.IsButtonPressed(keyCode, 0)) {
     print(`Player pressed: ${keyName}`);
@@ -358,7 +358,7 @@ However, this means that if you were to naively iterate over the enum with `Obje
 
 ```ts
 for (const [key, value] of Object.entries(TestEnum)) {
-  // Ignore the reverse mappings created by TypeScriptToLua
+  // Ignore the reverse mappings created by TypeScriptToLua.
   if (type(key) !== "string") {
     continue;
   }
@@ -385,7 +385,7 @@ enum MyEnum {
 }
 
 for (const key of getEnumKeys(MyEnum)) {
-  print(key); // Will print "fourth-value", then "third-value"
+  print(key); // Will print "fourth-value", then "third-value".
 }
 ```
 
@@ -408,11 +408,11 @@ On the other hand, if you want to split IsaacScript code between repositories or
 Normally, in TypeScript programs, you would handle errors with `throw new Error("foo")`. For example:
 
 ```ts
-const player = entity.ToPlayer(); // The type of player is "EntityPlayer | undefined"
+const player = entity.ToPlayer(); // The type of player is "EntityPlayer | undefined".
 if (player === undefined) {
   throw new Error("Failed to convert the player!");
 }
-player.AddSoulHearts(1); // The type of player is now "EntityPlayer"
+player.AddSoulHearts(1); // The type of player is now "EntityPlayer".
 ```
 
 However, in Isaac mods, this code won't work. It will error with something along the lines of the following:
@@ -422,11 +422,11 @@ However, in Isaac mods, this code won't work. It will error with something along
 This is because TypeScriptToLua transpiles `throw` to a function that uses Lua's `debug` library, and Isaac does not normally have access to `debug` for sandboxing reasons. But not to worry, because we can simply use Lua's `error()` function instead. For example:
 
 ```ts
-const player = Isaac.ToPlayer(); // The type of player is "EntityPlayer | undefined"
+const player = Isaac.ToPlayer(); // The type of player is "EntityPlayer | undefined".
 if (player === undefined) {
   error("Failed to convert the player!");
 }
-player.AddSoulHearts(1); // The type of player is now "EntityPlayer"
+player.AddSoulHearts(1); // The type of player is now "EntityPlayer".
 ```
 
 (TypeScript is smart enough to know that `error()` can constrain the type of player in the same way that `throw` normally would.)
