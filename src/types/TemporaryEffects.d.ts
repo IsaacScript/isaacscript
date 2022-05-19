@@ -10,7 +10,7 @@ declare interface TemporaryEffects {
    * @param count Default is 1.
    */
   AddCollectibleEffect(
-    collectibleType: CollectibleType | int,
+    collectibleType: CollectibleType,
     addCostume?: boolean,
     count?: int,
   ): void;
@@ -20,11 +20,7 @@ declare interface TemporaryEffects {
    * @param addCostume
    * @param count Default is 1.
    */
-  AddNullEffect(
-    nullItemID: NullItemID | int,
-    addCostume: boolean,
-    count?: int,
-  ): void;
+  AddNullEffect(nullItemID: NullItemID, addCostume: boolean, count?: int): void;
 
   /**
    * @param trinketType
@@ -32,7 +28,7 @@ declare interface TemporaryEffects {
    * @param count Default is 1.
    */
   AddTrinketEffect(
-    trinketType: TrinketType | int,
+    trinketType: TrinketType,
     addCostume: boolean,
     count?: int,
   ): void;
@@ -40,45 +36,40 @@ declare interface TemporaryEffects {
   ClearEffects(): void;
 
   GetCollectibleEffect(
-    collectibleType: CollectibleType | int,
+    collectibleType: CollectibleType,
   ): Readonly<TemporaryEffect> | undefined;
 
-  GetCollectibleEffectNum(collectibleType: CollectibleType | int): int;
+  GetCollectibleEffectNum(collectibleType: CollectibleType): int;
   GetEffectsList(): Readonly<EffectList>;
 
-  GetNullEffect(
-    nullItemID: NullItemID | int,
-  ): Readonly<TemporaryEffect> | undefined;
+  GetNullEffect(nullItemID: NullItemID): Readonly<TemporaryEffect> | undefined;
 
-  GetNullEffectNum(nullItemID: NullItemID | int): int;
+  GetNullEffectNum(nullItemID: NullItemID): int;
 
   GetTrinketEffect(
-    trinketType: TrinketType | int,
+    trinketType: TrinketType,
   ): Readonly<TemporaryEffect> | undefined;
 
-  GetTrinketEffectNum(trinketType: TrinketType | int): int;
-  HasCollectibleEffect(collectibleType: CollectibleType | int): boolean;
-  HasNullEffect(nullItemID: NullItemID | int): boolean;
-  HasTrinketEffect(trinketType: TrinketType | int): boolean;
+  GetTrinketEffectNum(trinketType: TrinketType): int;
+  HasCollectibleEffect(collectibleType: CollectibleType): boolean;
+  HasNullEffect(nullItemID: NullItemID): boolean;
+  HasTrinketEffect(trinketType: TrinketType): boolean;
 
   /**
    * @param collectibleType
    * @param count Use -1 to remove all instances. Default is 1.
    */
-  RemoveCollectibleEffect(
-    collectibleType: CollectibleType | int,
-    count?: int,
-  ): void;
+  RemoveCollectibleEffect(collectibleType: CollectibleType, count?: int): void;
 
   /**
    * @param nullItemID
    * @param count Use -1 to remove all instances. Default is 1.
    */
-  RemoveNullEffect(nullItemID: NullItemID | int, count?: int): void;
+  RemoveNullEffect(nullItemID: NullItemID, count?: int): void;
 
   /**
    * @param trinketType
    * @param count Use -1 to remove all instances. Default is 1.
    */
-  RemoveTrinketEffect(trinketType: TrinketType | int, count?: int): void;
+  RemoveTrinketEffect(trinketType: TrinketType, count?: int): void;
 }

@@ -4,7 +4,7 @@ declare global {
   interface ActiveItemDesc {
     BatteryCharge: int;
     Charge: int;
-    Item: CollectibleType | int;
+    Item: CollectibleType;
 
     /** How close the item is to gaining another charge (0-1 range, used by 4.5 Volt). */
     PartialCharge: float;

@@ -50,7 +50,7 @@ declare interface Seeds {
   Reset(): void;
 
   /** Re-selects a random start seed, but only if the start seed was not custom. */
-  Restart(challenge: Challenge | int): void;
+  Restart(challenge: Challenge): void;
 
   /** Passing an empty string will cause the game to pick a new random seed. */
   SetStartSeed(startSeed: string): void;

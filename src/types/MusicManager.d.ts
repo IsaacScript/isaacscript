@@ -8,7 +8,7 @@ declare global {
      * @param music
      * @param fadeRate Default is 0.08.
      */
-    Crossfade(music: Music | int, fadeRate?: float): void;
+    Crossfade(music: Music, fadeRate?: float): void;
 
     Disable(): void;
 
@@ -30,15 +30,15 @@ declare global {
      * @param volume Default is 1.
      * @param fadeRate Default is 0.08.
      */
-    Fadein(music: Music | int, volume?: float, fadeRate?: float): void;
+    Fadein(music: Music, volume?: float, fadeRate?: float): void;
 
     /**
      * @param fadeRate Default is 0.08.
      */
     Fadeout(fadeRate?: float): void;
 
-    GetCurrentMusicID(): Music | int;
-    GetQueuedMusicID(): Music | int;
+    GetCurrentMusicID(): Music;
+    GetQueuedMusicID(): Music;
     IsEnabled(): boolean;
 
     /**
@@ -48,8 +48,8 @@ declare global {
 
     Pause(): void;
     PitchSlide(targetPitch: float): void;
-    Play(music: Music | int, volume: float): void;
-    Queue(music: Music | int): void;
+    Play(music: Music, volume: float): void;
+    Queue(music: Music): void;
     ResetPitch(): void;
     Resume(): void;
     UpdateVolume(): void;

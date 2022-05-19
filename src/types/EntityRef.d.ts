@@ -8,9 +8,9 @@ declare global {
     IsCharmed: boolean;
     IsFriendly: boolean;
     Position: Vector;
-    SpawnerType: EntityType | int;
+    SpawnerType: EntityType;
     SpawnerVariant: int;
-    Type: EntityType | int;
+    Type: EntityType;
     Variant: int;
   }
 }

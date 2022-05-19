@@ -65,7 +65,7 @@ declare global {
      */
     AddCacheFlags(cacheFlags: CacheFlag | BitFlags<CacheFlag>): void;
 
-    AddCard(card: Card | int): void;
+    AddCard(card: Card): void;
 
     /** Remove them with negative numbers. */
     AddCoins(amount: int): void;
@@ -82,7 +82,7 @@ declare global {
      *                for some active items like the number of uses for Jar of Wisps). Default is 0.
      */
     AddCollectible(
-      collectibleType: CollectibleType | int,
+      collectibleType: CollectibleType,
       charge?: int,
       firstTimePickingUp?: boolean,
       activeSlot?: ActiveSlot,
@@ -166,8 +166,8 @@ declare global {
      */
     AddMinisaac(position: Vector, playAnim?: boolean): EntityFamiliar;
 
-    AddNullCostume(nullItemID: NullItemID | int): void;
-    AddPill(pillColor: PillColor | int): void;
+    AddNullCostume(nullItemID: NullItemID): void;
+    AddPill(pillColor: PillColor): void;
     AddPlayerFormCostume(playerForm: PlayerForm): void;
 
     /** Adds (or removes) poop consumables from the player. */
@@ -203,10 +203,7 @@ declare global {
      *                           and will not cause it to count towards transformations. Default is
      *                           true.
      */
-    AddTrinket(
-      trinketType: TrinketType | int,
-      firstTimePickingUp?: boolean,
-    ): void;
+    AddTrinket(trinketType: TrinketType, firstTimePickingUp?: boolean): void;
 
     /**
      * Spawns a Book of Virtues wisp.
@@ -238,10 +235,7 @@ declare global {
      * @param card
      * @param playerItemAnimation Default is "Pickup".
      */
-    AnimateCard(
-      card: Card | int,
-      playerItemAnimation?: PlayerItemAnimation,
-    ): void;
+    AnimateCard(card: Card, playerItemAnimation?: PlayerItemAnimation): void;
 
     /**
      * @param collectibleType
@@ -249,7 +243,7 @@ declare global {
      * @param collectibleAnimation Default is "PlayerPickupSparkle".
      */
     AnimateCollectible(
-      collectibleType: CollectibleType | int,
+      collectibleType: CollectibleType,
       playerItemAnimation?: PlayerItemAnimation,
       collectibleAnimation?: CollectibleAnimation,
     ): void;
@@ -279,7 +273,7 @@ declare global {
      * @param playerItemAnimation Default is "Pickup".
      */
     AnimatePill(
-      pillColor: PillColor | int,
+      pillColor: PillColor,
       playerItemAnimation?: PlayerItemAnimation,
     ): void;
 
@@ -301,7 +295,7 @@ declare global {
      * @param spriteAnimation Default is "PlayerPickupSparkle".
      */
     AnimateTrinket(
-      trinketType: TrinketType | int,
+      trinketType: TrinketType,
       playerItemAnimation?: PlayerItemAnimation,
       spriteAnimation?: string,
     ): void;
@@ -347,7 +341,7 @@ declare global {
      * characters like Jacob and Esau. This does not work correctly when changing from/to certain
      * characters (i.e. Tainted Isaac).
      */
-    ChangePlayerType(type: PlayerType | int): void;
+    ChangePlayerType(type: PlayerType): void;
 
     /**
      * Spawns the appropriate amount of familiars associated with a custom collectible.
@@ -390,7 +384,7 @@ declare global {
      *                        is -1.
      */
     CheckFamiliar(
-      familiarVariant: FamiliarVariant | int,
+      familiarVariant: FamiliarVariant,
       targetCount: int,
       rng: RNG,
       sourceItemConfigItem?: ItemConfigItem,
@@ -530,7 +524,7 @@ declare global {
      *
      * @param activeSlot Default is `ActiveSlot.SLOT_PRIMARY`.
      */
-    GetActiveItem(activeSlot?: ActiveSlot): CollectibleType | int;
+    GetActiveItem(activeSlot?: ActiveSlot): CollectibleType;
 
     /**
      * Returns 0 if there is no active item in the specified slot.
@@ -541,7 +535,7 @@ declare global {
 
     GetActiveWeaponEntity(): Entity;
     GetAimDirection(): Readonly<Vector>;
-    GetBabySkin(): BabySubType | int;
+    GetBabySkin(): BabySubType;
 
     /**
      * @param activeSlot Default is ActiveSlot.SLOT_PRIMARY.
@@ -565,7 +559,7 @@ declare global {
     GetBombVariant(
       tearFlags: TearFlag | BitFlags<TearFlag>,
       forceSmallBomb: boolean,
-    ): BombVariant | int;
+    ): BombVariant;
 
     /**
      * Returns the amount of bone hearts that the player has. This is not doubled like the
@@ -582,9 +576,9 @@ declare global {
     GetBrokenHearts(): int;
 
     /** Returns 0 if there is no card. */
-    GetCard(pocketItemSlot: PocketItemSlot): Card | int;
+    GetCard(pocketItemSlot: PocketItemSlot): Card;
 
-    GetCardRNG(card: Card | int): RNG;
+    GetCardRNG(card: Card): RNG;
     GetCollectibleCount(): int;
 
     /**
@@ -594,11 +588,11 @@ declare global {
      *                           items granted by 3 Dollar Bill, and so forth.
      */
     GetCollectibleNum(
-      collectibleType: CollectibleType | int,
+      collectibleType: CollectibleType,
       onlyCountTrueItems?: boolean,
     ): int;
 
-    GetCollectibleRNG(collectibleType: CollectibleType | int): RNG;
+    GetCollectibleRNG(collectibleType: CollectibleType): RNG;
 
     GetCostumeNullPos(
       nullFrameName: string,
@@ -750,8 +744,8 @@ declare global {
     /** Returns 0 if there is no pill. */
     GetPill(pocketItemSlot: PocketItemSlot): PillColor;
 
-    GetPillRNG(pillEffect: PillEffect | int): RNG;
-    GetPlayerType(): PlayerType | int;
+    GetPillRNG(pillEffect: PillEffect): RNG;
+    GetPlayerType(): PlayerType;
 
     // GetPocketItem is not implemented.
 
@@ -830,9 +824,9 @@ declare global {
      *
      * Returns 0 if the player does not have the particular trinket.
      */
-    GetTrinketMultiplier(trinketType: TrinketType | int): int;
+    GetTrinketMultiplier(trinketType: TrinketType): int;
 
-    GetTrinketRNG(trinketType: TrinketType | int): RNG;
+    GetTrinketRNG(trinketType: TrinketType): RNG;
     GetVelocityBeforeUpdate(): Readonly<Vector>;
     GetZodiacEffect(): ZodiacCollectibles;
 
@@ -843,7 +837,7 @@ declare global {
      *                        Lemegeton. Default is false.
      */
     HasCollectible(
-      collectibleType: CollectibleType | int,
+      collectibleType: CollectibleType,
       ignoreModifiers?: boolean,
     ): boolean;
 
@@ -868,10 +862,7 @@ declare global {
      * @param ignoreModifiers If set to true, only counts trinkets the player actually holds and
      *                        ignores effects granted by other items. Default is false.
      */
-    HasTrinket(
-      trinketType: TrinketType | int,
-      ignoreModifiers?: boolean,
-    ): boolean;
+    HasTrinket(trinketType: TrinketType, ignoreModifiers?: boolean): boolean;
 
     HasWeaponType(weaponType: WeaponType): boolean;
     InitBabySkin(): void;
@@ -947,7 +938,7 @@ declare global {
      *                             that transformation's counter by 1. Default is true.
      */
     RemoveCollectible(
-      collectibleType: CollectibleType | int,
+      collectibleType: CollectibleType,
       ignoreModifiers?: boolean,
       activeSlot?: ActiveSlot,
       removeFromPlayerForm?: boolean,
@@ -992,10 +983,10 @@ declare global {
     /** This sets Tainted Bethany's blood charges. Only works on Tainted Bethany. */
     SetBloodCharge(num: int): void;
 
-    SetCard(pocketItemSlot: PocketItemSlot, card: Card | int): void;
+    SetCard(pocketItemSlot: PocketItemSlot, card: Card): void;
     SetFullHearts(): void;
     SetMinDamageCooldown(damageCooldown: int): void;
-    SetPill(pocketItemSlot: PocketItemSlot, pillColor: PillColor | int): void;
+    SetPill(pocketItemSlot: PocketItemSlot, pillColor: PillColor): void;
 
     /**
      * Sets the player's pocket active item to the given active item.
@@ -1009,7 +1000,7 @@ declare global {
      *                    false.
      */
     SetPocketActiveItem(
-      collectibleType: CollectibleType | int,
+      collectibleType: CollectibleType,
       slot?: ActiveSlot,
       keepInPools?: boolean,
     ): void;
@@ -1070,7 +1061,7 @@ declare global {
      */
     TryHoldEntity(entity: Entity): boolean;
 
-    TryHoldTrinket(trinketType: TrinketType | int): boolean;
+    TryHoldTrinket(trinketType: TrinketType): boolean;
 
     /**
      * This method will crash the game if you provide it an invalid collectible type, such as -1 or
@@ -1081,11 +1072,11 @@ declare global {
      * @param keepPersistent If set to false, this method will only remove temporary costumes.
      */
     TryRemoveCollectibleCostume(
-      collectibleType: CollectibleType | int,
+      collectibleType: CollectibleType,
       keepPersistent: boolean,
     ): void;
 
-    TryRemoveNullCostume(nullItemID: NullItemID | int): void;
+    TryRemoveNullCostume(nullItemID: NullItemID): void;
 
     /**
      * Will remove the specified trinket, if it exists. This will also remove The Tick and smelted
@@ -1095,13 +1086,13 @@ declare global {
      *                    game will crash.
      * @returns Whether or not the specified trinket was removed successfully.
      */
-    TryRemoveTrinket(trinketType: TrinketType | int): boolean;
+    TryRemoveTrinket(trinketType: TrinketType): boolean;
 
     /**
      * This method will crash the game if you provide it an invalid trinket type, such as -1, 0, or
      * 500. Thus, it is safer to use the `RemoveCostume` method instead.
      */
-    TryRemoveTrinketCostume(trinketType: TrinketType | int): void;
+    TryRemoveTrinketCostume(trinketType: TrinketType): void;
 
     TryUseKey(): boolean;
     UpdateCanShoot(): void;
@@ -1113,7 +1104,7 @@ declare global {
      *                   triggered by any active slot.) Default is `ActiveSlot.SLOT_PRIMARY`.
      */
     UseActiveItem(
-      collectibleType: CollectibleType | int,
+      collectibleType: CollectibleType,
       useFlag?: UseFlag | BitFlags<UseFlag>,
       activeSlot?: ActiveSlot,
     ): void;
@@ -1128,7 +1119,7 @@ declare global {
      *                   triggered by any active slot.) Default is `ActiveSlot.SLOT_PRIMARY`.
      */
     UseActiveItem(
-      collectibleType: CollectibleType | int,
+      collectibleType: CollectibleType,
       showAnim: boolean,
       keepActiveItem: boolean,
       allowNonMainPlayer: boolean,
@@ -1140,7 +1131,7 @@ declare global {
      * @param card
      * @param useFlag Default is 0.
      */
-    UseCard(card: Card | int, useFlag?: UseFlag | BitFlags<UseFlag>): void;
+    UseCard(card: Card, useFlag?: UseFlag | BitFlags<UseFlag>): void;
 
     /**
      * @param pillEffect
@@ -1148,8 +1139,8 @@ declare global {
      * @param useFlag Default is 0.
      */
     UsePill(
-      pillEffect: PillEffect | int,
-      pillColor: PillColor | int,
+      pillEffect: PillEffect,
+      pillColor: PillColor,
       useFlag?: UseFlag | BitFlags<UseFlag>,
     ): void;
 
@@ -1158,7 +1149,7 @@ declare global {
 
     WillPlayerRevive(): boolean;
 
-    BabySkin: BabySubType | int;
+    BabySkin: BabySubType;
 
     /** Only change this in the EvaluateCache callback. */
     CanFly: boolean;

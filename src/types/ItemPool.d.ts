@@ -10,15 +10,15 @@ import { RoomType } from "../enums/RoomType";
 
 declare interface ItemPool {
   AddBibleUpgrade(add: int, itemPoolType: ItemPoolType): void;
-  AddRoomBlacklist(collectibleType: CollectibleType | int): void;
-  ForceAddPillEffect(pillEffect: PillEffect | int): PillColor;
+  AddRoomBlacklist(collectibleType: CollectibleType): void;
+  ForceAddPillEffect(pillEffect: PillEffect): PillColor;
 
   GetCard(
     seed: Seed,
     playing: boolean,
     rune: boolean,
     onlyRunes: boolean,
-  ): Card | int;
+  ): Card;
 
   /**
    * @param itemPoolType
@@ -31,7 +31,7 @@ declare interface ItemPool {
     decrease?: boolean,
     seed?: Seed,
     defaultItem?: CollectibleType,
-  ): CollectibleType | int;
+  ): CollectibleType;
 
   GetLastPool(): ItemPoolType;
   GetPill(seed: Seed): PillColor;
@@ -40,19 +40,19 @@ declare interface ItemPool {
    * @param pillColor
    * @param player Default is undefined.
    */
-  GetPillEffect(pillColor: PillColor, player?: EntityPlayer): PillEffect | int;
+  GetPillEffect(pillColor: PillColor, player?: EntityPlayer): PillEffect;
 
   GetPoolForRoom(roomType: RoomType, seed: Seed): ItemPoolType;
 
   /**
    * @param dontAdvanceRNG Default is false.
    */
-  GetTrinket(dontAdvanceRNG?: boolean): TrinketType | int;
+  GetTrinket(dontAdvanceRNG?: boolean): TrinketType;
 
   IdentifyPill(pillColor: PillColor): void;
   IsPillIdentified(pillColor: PillColor): boolean;
-  RemoveCollectible(collectibleType: CollectibleType | int): boolean;
-  RemoveTrinket(trinketType: TrinketType | int): boolean;
+  RemoveCollectible(collectibleType: CollectibleType): boolean;
+  RemoveTrinket(trinketType: TrinketType): boolean;
   ResetRoomBlacklist(): void;
   ResetTrinkets(): void;
 }

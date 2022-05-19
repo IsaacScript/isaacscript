@@ -65,7 +65,7 @@ declare global {
      */
     InheritInit(name: string, noSetAlias?: boolean): void;
 
-    /** If this {@link CustomStage} is, in fact, a stage. */
+    /** If this CustomStage is, in fact, a stage. */
     IsStage(noAlias: boolean): boolean;
 
     /**
@@ -112,15 +112,15 @@ declare global {
     SetReplace(stageOverrideStage: StageAPIStageOverrideStage): void;
 
     /**
-     * Sets the {@link RoomGfx} used by the stage.
+     * Sets the RoomGfx used by the stage.
      *
      * @param RoomTypes The room types these gfx apply to.
      *
-     * Can be a string identifier, a {@link RoomType}, or an array of either.
+     * Can be a string identifier, a `RoomType`, or an array of either.
      */
     SetRoomGfx(
       roomGfx: StageAPIRoomGfx,
-      roomTypes: string | int | string[] | int[],
+      roomTypes: string | RoomType | string[] | RoomType[],
     ): void;
 
     /** Sets the list room layouts used by the stage. */
@@ -174,7 +174,7 @@ declare global {
     /** Sets the path to the decoration gfx sprite sheet. */
     SetDecorations(filename: string): void;
 
-    /** Sets the path to the gfx sprite sheet for the specified {@link GridEntity}. */
+    /** Sets the path to the gfx sprite sheet for the specified `GridEntityType`. */
     SetGrid(
       filename: string,
       GridEntityType: GridEntityType,

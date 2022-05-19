@@ -35,7 +35,7 @@ declare global {
     CollidesWithGrid(): boolean;
     Die(): void;
     Exists(): boolean;
-    GetBossID(): BossID | int;
+    GetBossID(): BossID;
     GetColor(): Readonly<Color>;
     GetData(): Record<string, unknown>;
     GetDropRNG(): RNG;
@@ -127,7 +127,7 @@ declare global {
     SizeMulti: Vector;
     readonly SpawnGridIndex: int;
     SpawnerEntity: Entity | undefined;
-    SpawnerType: EntityType | int;
+    SpawnerType: EntityType;
     SpawnerVariant: int;
 
     /**
@@ -144,7 +144,7 @@ declare global {
     SubType: int;
     Target: Entity | undefined;
     TargetPosition: Readonly<Vector>;
-    readonly Type: EntityType | int;
+    readonly Type: EntityType;
     Variant: int;
     Velocity: Vector;
     Visible: boolean;

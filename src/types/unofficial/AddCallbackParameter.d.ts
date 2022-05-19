@@ -32,13 +32,13 @@ declare global {
   interface AddCallbackParameter {
     [ModCallback.POST_NPC_UPDATE]: [
       callback: (npc: EntityNPC) => void,
-      entityType?: EntityType | int,
+      entityType?: EntityType,
     ];
     [ModCallback.POST_UPDATE]: [callback: () => void];
     [ModCallback.POST_RENDER]: [callback: () => void];
     [ModCallback.POST_USE_ITEM]: [
       callback: (
-        collectibleType: CollectibleType | int,
+        collectibleType: CollectibleType,
         rng: RNG,
         player: EntityPlayer,
         useFlags: BitFlags<UseFlag>,
@@ -48,27 +48,27 @@ declare global {
         | boolean
         | { Discharge: boolean; Remove: boolean; ShowAnim: boolean }
         | void,
-      collectibleType?: CollectibleType | int,
+      collectibleType?: CollectibleType,
     ];
     [ModCallback.POST_PEFFECT_UPDATE]: [
       callback: (player: EntityPlayer) => void,
-      playerType?: PlayerType | int,
+      playerType?: PlayerType,
     ];
     [ModCallback.POST_USE_CARD]: [
       callback: (
-        card: Card | int,
+        card: Card,
         player: EntityPlayer,
         useFlags: BitFlags<UseFlag>,
       ) => void,
-      card?: Card | int,
+      card?: Card,
     ];
     [ModCallback.POST_FAMILIAR_UPDATE]: [
       callback: (familiar: EntityFamiliar) => void,
-      familiarVariant?: FamiliarVariant | int,
+      familiarVariant?: FamiliarVariant,
     ];
     [ModCallback.POST_FAMILIAR_INIT]: [
       callback: (familiar: EntityFamiliar) => void,
-      familiarVariant?: FamiliarVariant | int,
+      familiarVariant?: FamiliarVariant,
     ];
     [ModCallback.EVALUATE_CACHE]: [
       callback: (player: EntityPlayer, cacheFlag: CacheFlag) => void,
@@ -80,11 +80,11 @@ declare global {
     ];
     [ModCallback.POST_USE_PILL]: [
       callback: (
-        pillEffect: PillEffect | int,
+        pillEffect: PillEffect,
         player: EntityPlayer,
         useFlags: BitFlags<UseFlag>,
       ) => void,
-      pillEffect?: PillEffect | int,
+      pillEffect?: PillEffect,
     ];
     [ModCallback.ENTITY_TAKE_DMG]: [
       callback: (
@@ -94,7 +94,7 @@ declare global {
         damageSource: EntityRef,
         damageCountdownFrames: int,
       ) => boolean | void,
-      entityType?: EntityType | int,
+      entityType?: EntityType,
     ];
     [ModCallback.POST_CURSE_EVAL]: [callback: (curses: int) => int | void];
     [ModCallback.INPUT_ACTION]: [
@@ -113,11 +113,11 @@ declare global {
     [ModCallback.GET_CARD]: [
       callback: (
         rng: RNG,
-        card: Card | int,
+        card: Card,
         includePlayingCards: boolean,
         includeRunes: boolean,
         onlyRunes: boolean,
-      ) => Card | int | void,
+      ) => Card | void,
     ];
     [ModCallback.GET_SHADER_PARAMS]: [
       callback: (shaderName: string) => Record<string, unknown> | void,
@@ -131,29 +131,29 @@ declare global {
     ];
     [ModCallback.PRE_USE_ITEM]: [
       callback: (
-        collectibleType: CollectibleType | int,
+        collectibleType: CollectibleType,
         rng: RNG,
         player: EntityPlayer,
         useFlags: BitFlags<UseFlag>,
         activeSlot: ActiveSlot,
         customVarData: int,
       ) => boolean | void,
-      collectibleType?: CollectibleType | int,
+      collectibleType?: CollectibleType,
     ];
     [ModCallback.PRE_ENTITY_SPAWN]: [
       callback: (
-        entityType: EntityType | int,
+        entityType: EntityType,
         variant: int,
         subType: int,
         position: Vector,
         velocity: Vector,
         spawner: Entity,
         initSeed: Seed,
-      ) => [EntityType | int, int, int, int] | void,
+      ) => [EntityType, int, int, int] | void,
     ];
     [ModCallback.POST_FAMILIAR_RENDER]: [
       callback: (entityFamiliar: EntityFamiliar, renderOffset: Vector) => void,
-      familiarVariant?: FamiliarVariant | int,
+      familiarVariant?: FamiliarVariant,
     ];
     [ModCallback.PRE_FAMILIAR_COLLISION]: [
       callback: (
@@ -161,19 +161,19 @@ declare global {
         collider: Entity,
         low: boolean,
       ) => boolean | void,
-      familiarVariant?: FamiliarVariant | int,
+      familiarVariant?: FamiliarVariant,
     ];
     [ModCallback.POST_NPC_INIT]: [
       callback: (npc: EntityNPC) => void,
-      entityType?: EntityType | int,
+      entityType?: EntityType,
     ];
     [ModCallback.POST_NPC_RENDER]: [
       callback: (npc: EntityNPC, renderOffset: Vector) => void,
-      entityType?: EntityType | int,
+      entityType?: EntityType,
     ];
     [ModCallback.POST_NPC_DEATH]: [
       callback: (npc: EntityNPC) => void,
-      entityType?: EntityType | int,
+      entityType?: EntityType,
     ];
     [ModCallback.PRE_NPC_COLLISION]: [
       callback: (
@@ -181,7 +181,7 @@ declare global {
         collider: Entity,
         low: boolean,
       ) => boolean | void,
-      entityType?: EntityType | int,
+      entityType?: EntityType,
     ];
     [ModCallback.POST_PLAYER_UPDATE]: [
       callback: (player: EntityPlayer) => void,
@@ -201,22 +201,22 @@ declare global {
     ];
     [ModCallback.POST_PICKUP_INIT]: [
       callback: (pickup: EntityPickup) => void,
-      pickupVariant?: PickupVariant | int,
+      pickupVariant?: PickupVariant,
     ];
     [ModCallback.POST_PICKUP_UPDATE]: [
       callback: (pickup: EntityPickup) => void,
-      pickupVariant?: PickupVariant | int,
+      pickupVariant?: PickupVariant,
     ];
     [ModCallback.POST_PICKUP_RENDER]: [
       callback: (pickup: EntityPickup, renderOffset: Vector) => void,
-      pickupVariant?: PickupVariant | int,
+      pickupVariant?: PickupVariant,
     ];
     [ModCallback.POST_PICKUP_SELECTION]: [
       callback: (
         pickup: EntityPickup,
-        variant: PickupVariant | int,
+        variant: PickupVariant,
         subType: int,
-      ) => [PickupVariant | int, int] | void,
+      ) => [PickupVariant, int] | void,
     ];
     [ModCallback.PRE_PICKUP_COLLISION]: [
       callback: (
@@ -224,19 +224,19 @@ declare global {
         collider: Entity,
         low: boolean,
       ) => boolean | void,
-      pickupVariant?: PickupVariant | int,
+      pickupVariant?: PickupVariant,
     ];
     [ModCallback.POST_TEAR_INIT]: [
       callback: (tear: EntityTear) => void,
-      tearVariant?: TearVariant | int,
+      tearVariant?: TearVariant,
     ];
     [ModCallback.POST_TEAR_UPDATE]: [
       callback: (tear: EntityTear) => void,
-      tearVariant?: TearVariant | int,
+      tearVariant?: TearVariant,
     ];
     [ModCallback.POST_TEAR_RENDER]: [
       callback: (tear: EntityTear, renderOffset: Vector) => void,
-      tearVariant?: TearVariant | int,
+      tearVariant?: TearVariant,
     ];
     [ModCallback.PRE_TEAR_COLLISION]: [
       callback: (
@@ -244,19 +244,19 @@ declare global {
         collider: Entity,
         low: boolean,
       ) => boolean | void,
-      tearVariant?: TearVariant | int,
+      tearVariant?: TearVariant,
     ];
     [ModCallback.POST_PROJECTILE_INIT]: [
       callback: (projectile: EntityProjectile) => void,
-      projectileVariant?: ProjectileVariant | int,
+      projectileVariant?: ProjectileVariant,
     ];
     [ModCallback.POST_PROJECTILE_UPDATE]: [
       callback: (projectile: EntityProjectile) => void,
-      projectileVariant?: ProjectileVariant | int,
+      projectileVariant?: ProjectileVariant,
     ];
     [ModCallback.POST_PROJECTILE_RENDER]: [
       callback: (projectile: EntityProjectile, renderOffset: Vector) => void,
-      projectileVariant?: ProjectileVariant | int,
+      projectileVariant?: ProjectileVariant,
     ];
     [ModCallback.PRE_PROJECTILE_COLLISION]: [
       callback: (
@@ -264,19 +264,19 @@ declare global {
         collider: Entity,
         low: boolean,
       ) => boolean | void,
-      projectileVariant?: ProjectileVariant | int,
+      projectileVariant?: ProjectileVariant,
     ];
     [ModCallback.POST_LASER_INIT]: [
       callback: (laser: EntityLaser) => void,
-      laserVariant?: LaserVariant | int,
+      laserVariant?: LaserVariant,
     ];
     [ModCallback.POST_LASER_UPDATE]: [
       callback: (laser: EntityLaser) => void,
-      laserVariant?: LaserVariant | int,
+      laserVariant?: LaserVariant,
     ];
     [ModCallback.POST_LASER_RENDER]: [
       callback: (laser: EntityLaser, renderOffset: Vector) => void,
-      laserVariant?: LaserVariant | int,
+      laserVariant?: LaserVariant,
     ];
     [ModCallback.POST_KNIFE_INIT]: [
       callback: (knife: EntityKnife) => void,
@@ -300,27 +300,27 @@ declare global {
     ];
     [ModCallback.POST_EFFECT_INIT]: [
       callback: (effect: EntityEffect) => void,
-      effectVariant?: EffectVariant | int,
+      effectVariant?: EffectVariant,
     ];
     [ModCallback.POST_EFFECT_UPDATE]: [
       callback: (effect: EntityEffect) => void,
-      effectVariant?: EffectVariant | int,
+      effectVariant?: EffectVariant,
     ];
     [ModCallback.POST_EFFECT_RENDER]: [
       callback: (effect: EntityEffect, renderOffset: Vector) => void,
-      effectVariant?: EffectVariant | int,
+      effectVariant?: EffectVariant,
     ];
     [ModCallback.POST_BOMB_INIT]: [
       callback: (bomb: EntityBomb) => void,
-      bombVariant?: BombVariant | int,
+      bombVariant?: BombVariant,
     ];
     [ModCallback.POST_BOMB_UPDATE]: [
       callback: (bomb: EntityBomb) => void,
-      bombVariant?: BombVariant | int,
+      bombVariant?: BombVariant,
     ];
     [ModCallback.POST_BOMB_RENDER]: [
       callback: (bomb: EntityBomb, renderOffset: Vector) => void,
-      bombVariant?: BombVariant | int,
+      bombVariant?: BombVariant,
     ];
     [ModCallback.PRE_BOMB_COLLISION]: [
       callback: (
@@ -328,7 +328,7 @@ declare global {
         collider: Entity,
         low: boolean,
       ) => boolean | void,
-      bombVariant?: BombVariant | int,
+      bombVariant?: BombVariant,
     ];
     [ModCallback.POST_FIRE_TEAR]: [callback: (tear: EntityTear) => void];
     [ModCallback.PRE_GET_COLLECTIBLE]: [
@@ -336,52 +336,49 @@ declare global {
         itemPoolType: ItemPoolType,
         decrease: boolean,
         seed: Seed,
-      ) => CollectibleType | int | void,
+      ) => CollectibleType | void,
     ];
     [ModCallback.POST_GET_COLLECTIBLE]: [
       callback: (
-        collectibleType: CollectibleType | int,
+        collectibleType: CollectibleType,
         itemPoolType: ItemPoolType,
         decrease: boolean,
         seed: Seed,
-      ) => CollectibleType | int | void,
+      ) => CollectibleType | void,
     ];
     [ModCallback.GET_PILL_COLOR]: [callback: (seed: Seed) => PillColor | void];
     [ModCallback.GET_PILL_EFFECT]: [
       callback: (
-        pillEffect: PillEffect | int,
+        pillEffect: PillEffect,
         pillColor: PillColor,
-      ) => PillEffect | int | void,
+      ) => PillEffect | void,
     ];
     [ModCallback.GET_TRINKET]: [
-      callback: (
-        trinketType: TrinketType | int,
-        rng: RNG,
-      ) => TrinketType | int | void,
+      callback: (trinketType: TrinketType, rng: RNG) => TrinketType | void,
     ];
     [ModCallback.POST_ENTITY_REMOVE]: [
       callback: (entity: Entity) => void,
-      entityType?: EntityType | int,
+      entityType?: EntityType,
     ];
     [ModCallback.POST_ENTITY_KILL]: [
       callback: (entity: Entity) => void,
-      entityType?: EntityType | int,
+      entityType?: EntityType,
     ];
     [ModCallback.PRE_NPC_UPDATE]: [
       callback: (npc: EntityNPC) => boolean | void,
-      entityType?: EntityType | int,
+      entityType?: EntityType,
     ];
     [ModCallback.PRE_SPAWN_CLEAN_AWARD]: [
       callback: (rng: RNG, spawnPosition: Vector) => boolean | void,
     ];
     [ModCallback.PRE_ROOM_ENTITY_SPAWN]: [
       callback: (
-        entityType: EntityType | int,
+        entityType: EntityType,
         variant: int,
         subType: int,
         gridIndex: int,
         seed: Seed,
-      ) => [EntityType | int, int, int] | void,
+      ) => [EntityType, int, int] | void,
     ];
   }
 }

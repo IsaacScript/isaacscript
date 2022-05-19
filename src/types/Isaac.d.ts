@@ -3,14 +3,15 @@ import {
   Card,
   CollectibleType,
   PillColor,
+  PlayerType,
   TrinketType,
 } from "../enums/collections/subTypes";
-import { PlayerVariant } from "../enums/collections/variants";
 import { EntityType } from "../enums/EntityType";
 import { LevelCurse } from "../enums/flags/LevelCurse";
 import { GridEntityType } from "../enums/GridEntityType";
 import { ModCallback } from "../enums/ModCallback";
 import { Music } from "../enums/Music";
+import { NullItemID } from "../enums/NullItemID";
 import { PillEffect } from "../enums/PillEffect";
 import { SoundEffect } from "../enums/SoundEffect";
 import { ItemConfig } from "./ItemConfig";
@@ -41,7 +42,7 @@ declare global {
       entityID?: int,
     ): void;
 
-    function AddPillEffectToPool(pillEffect: PillEffect | int): PillColor;
+    function AddPillEffectToPool(pillEffect: PillEffect): PillColor;
 
     /**
      * Puts a string into the debug console. (You can open the debug console with the tilde key.)
@@ -59,7 +60,7 @@ declare global {
      */
     function CountEntities(
       spawner: Entity | undefined,
-      entityType?: EntityType | int,
+      entityType?: EntityType,
       variant?: int,
       subType?: int,
     ): int;
@@ -87,7 +88,7 @@ declare global {
      * @param ignoreFriendly Default is false.
      */
     function FindByType(
-      entityType: EntityType | int,
+      entityType: EntityType,
       variant?: int,
       subType?: int,
       cache?: boolean,
@@ -114,22 +115,22 @@ declare global {
     ): Entity[];
 
     /** Returns -1 if no card with the specified name was found. */
-    function GetCardIdByName(cardName: string): Card | int;
+    function GetCardIdByName(cardName: string): Card;
 
     /** Returns 0 if the current run is not a challenge. */
-    function GetChallenge(): Challenge | int;
+    function GetChallenge(): Challenge;
 
     /** Returns -1 if the specified challenge name does not exist. */
-    function GetChallengeIdByName(challengeName: string): Challenge | int;
+    function GetChallengeIdByName(challengeName: string): Challenge;
 
     /** Returns -1 if no costume with the specified name was found. */
-    function GetCostumeIdByPath(path: string): int;
+    function GetCostumeIdByPath(path: string): NullItemID;
 
     /** Returns -1 if no curse with the specified name was found. */
-    function GetCurseIdByName(curseName: string): LevelCurse | int;
+    function GetCurseIdByName(curseName: string): LevelCurse;
 
     /** Returns 0 if no entity with the specified name was found. */
-    function GetEntityTypeByName(entityName: string): EntityType | int;
+    function GetEntityTypeByName(entityName: string): EntityType;
 
     /** Returns -1 if no entity with the specified name was found. */
     function GetEntityVariantByName(entityName: string): int;
@@ -147,13 +148,13 @@ declare global {
     function GetItemConfig(): ItemConfig;
 
     /** Returns -1 if no collectible with the specified name was found. */
-    function GetItemIdByName(collectibleName: string): CollectibleType | int;
+    function GetItemIdByName(collectibleName: string): CollectibleType;
 
     /** Returns -1 if no music with the specified name was found. */
-    function GetMusicIdByName(musicName: string): Music | int;
+    function GetMusicIdByName(musicName: string): Music;
 
     /** Returns -1 if no pill with the specified name was found. */
-    function GetPillEffectByName(pillName: string): PillEffect | int;
+    function GetPillEffectByName(pillName: string): PillEffect;
 
     /**
      * With no argument, it returns the 0th player.
@@ -192,7 +193,7 @@ declare global {
     function GetPlayerTypeByName(
       playerName: string,
       tainted?: boolean,
-    ): PlayerVariant | int;
+    ): PlayerType;
 
     /**
      * Returns a random position in the current room in world coordinates (not render coordinates).
@@ -216,7 +217,7 @@ declare global {
     function GetScreenWidth(): int;
 
     /** Returns -1 if no sound with the specified name was found. */
-    function GetSoundIdByName(soundName: string): SoundEffect | int;
+    function GetSoundIdByName(soundName: string): SoundEffect;
 
     /**
      * Returns the width of the given string in pixels based on the "terminus8" font. (This is the
@@ -237,14 +238,14 @@ declare global {
     function GetTime(): int;
 
     /** Returns -1 if the specified trinket was not found. */
-    function GetTrinketIdByName(trinketName: string): TrinketType | int;
+    function GetTrinketIdByName(trinketName: string): TrinketType;
 
     /**
      * Used to spawn a grid entity (e.g. a rock or a pot). Grid entities are different than normal
      * entities, as they follow different rules and are always aligned with the grid.
      *
      * Normally, this function will always return a `GridEntity`, even if the spawned grid entity
-     * will not actually be placed. it fails. However, in very rare cases, it can return undefined.
+     * will not actually be placed. However, in very rare cases, it can return undefined.
      *
      * @param gridEntityType
      * @param variant
@@ -332,7 +333,7 @@ declare global {
     function ScreenToWorldDistance(position: Vector): Vector;
 
     function Spawn(
-      entityType: EntityType | int,
+      entityType: EntityType,
       variant: int,
       subType: int,
       position: Vector,

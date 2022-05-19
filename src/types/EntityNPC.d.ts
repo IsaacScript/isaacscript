@@ -62,14 +62,14 @@ declare global {
      * @param championColorIdx Pass -1 to morph into a non-champion.
      */
     Morph(
-      entityType: EntityType | int,
+      entityType: EntityType,
       variant: int,
       subType: int,
       championColorIdx: ChampionColor,
     ): boolean;
 
     PlaySound(
-      soundEffect: SoundEffect | int,
+      soundEffect: SoundEffect,
       volume: float,
       frameDelay: int,
       loop: boolean,
@@ -79,8 +79,8 @@ declare global {
     QueryNPCsGroup(groupIdx: int): EntityList;
 
     QueryNPCsSpawnerType(
-      spawnerType: EntityType | int,
-      entityType: EntityType | int,
+      spawnerType: EntityType,
+      entityType: EntityType,
       onlyEnemies: boolean,
     ): EntityList;
 
@@ -103,13 +103,7 @@ declare global {
     ProjectileCooldown: int;
     ProjectileDelay: int;
     Scale: float;
-
-    /**
-     * This has a type of `NpcState | int` so that other enums can be used to represent more
-     * specific entities.
-     */
-    State: NpcState | int;
-
+    State: NpcState;
     StateFrame: int;
     V1: Vector;
     V2: Vector;

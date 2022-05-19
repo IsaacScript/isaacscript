@@ -220,8 +220,7 @@ declare global {
     ): void;
 
     /**
-     * Convenience function that assembles filenames and packages them in a {@link Backdrop} for
-     * you.
+     * Convenience function that assembles filenames and packages them in a Backdrop for you.
      *
      * @param prefix The path to the directory containing the backdrop sprite sheets, as well as any
      *               shared prefix. Example: `gfx/backdrop/revel1/glacier/main_`

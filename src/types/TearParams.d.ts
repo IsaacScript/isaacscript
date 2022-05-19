@@ -9,6 +9,6 @@ declare global {
     TearFlags: BitFlags<TearFlag>;
     TearHeight: float;
     TearScale: float;
-    TearVariant: TearVariant | int;
+    TearVariant: TearVariant;
   }
 }

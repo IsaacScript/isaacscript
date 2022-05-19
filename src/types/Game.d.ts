@@ -21,7 +21,7 @@ declare global {
 
   interface Game {
     AddDevilRoomDeal(): void;
-    AddEncounteredBoss(entityType: EntityType | int, variant: int): void;
+    AddEncounteredBoss(entityType: EntityType, variant: int): void;
     AddPixelation(duration: int): void;
     AddStageWithoutDamage(): void;
     AddStageWithoutHeartsPicked(): void;
@@ -187,7 +187,7 @@ declare global {
     GetTargetDarkness(): float;
     GetTreasureRoomVisitCount(): int;
     GetVictoryLap(): int;
-    HasEncounteredBoss(entityType: EntityType | int, variant: int): boolean;
+    HasEncounteredBoss(entityType: EntityType, variant: int): boolean;
     HasHallucination(): int;
     IsGreedMode(): boolean;
 
@@ -219,7 +219,7 @@ declare global {
     ShowRule(): void;
 
     Spawn(
-      entityType: EntityType | int,
+      entityType: EntityType,
       variant: int,
       position: Vector,
       velocity: Vector,
@@ -241,7 +241,7 @@ declare global {
      */
     SpawnParticles(
       position: Vector,
-      effectVariant: EffectVariant | int,
+      effectVariant: EffectVariant,
       numParticles: int,
       speed: float,
       color?: Color,
@@ -287,7 +287,7 @@ declare global {
 
     BlueWombParTime: int;
     BossRushParTime: int;
-    Challenge: Challenge | int;
+    Challenge: Challenge;
     readonly Difficulty: Difficulty;
     ScreenShakeOffset: Readonly<Vector>;
     TimeCounter: int;

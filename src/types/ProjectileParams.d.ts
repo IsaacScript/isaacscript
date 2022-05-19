@@ -25,7 +25,7 @@ declare global {
     Scale: float;
     Spread: float;
     TargetPosition: Vector;
-    Variant: ProjectileVariant | int;
+    Variant: ProjectileVariant;
     VelocityMulti: float;
     WiggleFrameOffset: int;
   }

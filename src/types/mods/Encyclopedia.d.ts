@@ -6,7 +6,7 @@ declare global {
   interface EncyclopediaInterface {
     AddCharacter(args: {
       CompletionTrackerFuncs: [() => EncyclopediaItemVars[]];
-      ID: PlayerType | int;
+      ID: PlayerType;
       ModName: string;
       Name: string;
     }): void;
@@ -14,7 +14,7 @@ declare global {
     AddCharacterTainted(args: {
       CompletionTrackerFuncs: [() => EncyclopediaItemVars[]];
       Description: string;
-      ID: PlayerType | int;
+      ID: PlayerType;
       ModName: string;
       Name: string;
       UnlockFunc: (args: EncyclopediaItemVars) => EncyclopediaItemVars;

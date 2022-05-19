@@ -78,7 +78,7 @@ declare global {
 
     function ShootAngle(
       this: void,
-      variant: LaserVariant | int,
+      variant: LaserVariant,
       sourcePos: Vector,
       angleDegrees: float,
       timeout: int,

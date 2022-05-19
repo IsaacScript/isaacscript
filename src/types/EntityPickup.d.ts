@@ -19,7 +19,7 @@ declare global {
      *                        false.
      */
     Morph(
-      entityType: EntityType | int,
+      entityType: EntityType,
       variant: int,
       subType: int,
       keepPrice?: boolean,

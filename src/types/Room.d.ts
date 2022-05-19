@@ -56,7 +56,7 @@ declare global {
     GetAliveEnemiesCount(): int;
     GetAwardSeed(): Seed;
     GetBackdropType(): BackdropType;
-    GetBossID(): BossID | int;
+    GetBossID(): BossID;
     GetBottomRightPos(): Vector;
     GetBrokenWatchState(): int;
     GetCenterPos(): Vector;
@@ -126,8 +126,8 @@ declare global {
     GetRenderSurfaceTopLeft(): Readonly<Vector>;
     GetRoomConfigStage(): int;
     GetRoomShape(): RoomShape;
-    GetSecondBossID(): BossID | int;
-    GetSeededCollectible(seed: Seed): CollectibleType | int;
+    GetSecondBossID(): BossID;
+    GetSeededCollectible(seed: Seed): CollectibleType;
     GetShopLevel(): int;
     GetSpawnSeed(): Seed;
     GetTintedRockIdx(): int;

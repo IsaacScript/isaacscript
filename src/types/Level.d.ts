@@ -15,7 +15,7 @@ declare global {
      * bitmask for a new curse must be `1 << LevelCurseCustom.FOO - 1`. This value is also the
      * return value of `POST_CURSE_EVAL`.
      */
-    AddCurse(levelCurse: LevelCurse | int, showName: boolean): void;
+    AddCurse(levelCurse: LevelCurse, showName: boolean): void;
 
     ApplyBlueMapEffect(): void;
     ApplyCompassEffect(persistent: boolean): void;
@@ -70,7 +70,7 @@ declare global {
      */
     GetCurseName(): string;
 
-    GetCurses(): LevelCurse | int;
+    GetCurses(): LevelCurse;
     GetDevilAngelRoomRNG(): RNG;
     GetDungeonPlacementSeed(): Seed;
     GetEnterPosition(): Vector;
@@ -162,7 +162,7 @@ declare global {
      * This is currently bugged and maps internally to `Level.RemoveCurse`. The old
      * `Level.RemoveCurses` is not currently accessible.
      */
-    RemoveCurses(levelCurse: LevelCurse | int): void;
+    RemoveCurses(levelCurse: LevelCurse): void;
 
     SetCanSeeEverything(value: boolean): void;
     SetHeartPicked(): void;
