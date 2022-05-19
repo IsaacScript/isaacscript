@@ -17,7 +17,7 @@ declare global {
 
     IsCollectible(): this is ItemConfigItemCollectible;
     IsNull(): this is ItemConfigItemNull;
-    IsTrinket(): this is ItemConfigItemCollectible;
+    IsTrinket(): this is ItemConfigItemTrinket;
 
     AchievementID: int;
     AddBlackHearts: int;
