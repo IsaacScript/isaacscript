@@ -25,7 +25,6 @@
     "dist/**/*.d.ts"
   ],
   "dependencies": {
-    "eslint-plugin-isaacscript": "file:../eslint-plugin-isaacscript",
     "lua-types": "^2.11.0"
   },
   "devDependencies": {
