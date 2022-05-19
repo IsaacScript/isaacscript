@@ -568,6 +568,21 @@ export function getPlayersWithCollectible(
 }
 
 /**
+ * Helper function to get only the players that have a certain trinket.
+ *
+ * This function is variadic, meaning that you can supply as many trinket types as you want to check
+ * for. It only returns the players that have all of the trinkets.
+ */
+export function getPlayersWithTrinket(
+  ...trinketTypes: TrinketType[]
+): EntityPlayer[] {
+  const players = getPlayers();
+  return players.filter((player) =>
+    trinketTypes.every((trinketType) => player.HasTrinket(trinketType)),
+  );
+}
+
+/**
  * Helper function to determine how many heart containers that Tainted Magdalene has that will not
  * be automatically depleted over time. By default, this is 2, but this function will return 4 so
  * that it is consistent with the `player.GetHearts` and `player.GetMaxHearts` methods.
