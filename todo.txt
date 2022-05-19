@@ -1,10 +1,3 @@
-- lint rule change: Math.floor(max-line-length / 3)
-
-- add strict enum rule to isaacscript plugin
-
-- trophy can move to isaacscript common for respawning purposes
-  - when respawning, don't play appear animation
-
 - experiment with isaacscript monorepo
 
 - redo docs so that function examples are in JSDoc
@@ -12,17 +5,20 @@
   - confirm that ModCallback is documented
 
 LINTER:
+- add strict enum rule to isaacscript plugin
 - make lint rule for "declare something that is not global in file with one or more imports"
 - make lint rule for capital letter on const as const
 - lint rule to check for "BOSS2" --> "BOSS_2" and "BOSS2_WATER_THRASHING" --> "BOSS2_WATER_THRASHING" and "BOSS2INTRO_WATER_EXPLOSION" --> "BOSS_2_INTRO_WATER_EXPLOSION", has to be 4 characters or more
 - linter rule audit (xo etc)
 
 TODO:
-- check every PlayerType --> PlayerVariant
-- add every PlayerType where missing on search of PlayerVariant
+- check every PlayerType --> PlayerVariant for callbacks
+- add every PlayerType where missing on search of PlayerVariant for callbacks
 - NEW DOCUMENTATION WEBSITE
 
 implement in isaacscript-common:
+- trophy can move to isaacscript common for respawning purposes
+  - when respawning, don't play appear animation
 - use tem's entity check function
 - make spawn never spawn non-existent entities
 - write test for isHorsePill, test every valid horse pill value
@@ -51,6 +47,8 @@ implement in isaacscript-common:
 
 
 IsaacScript announcements:
+- Breaking changes:
+  - All functions that take a specific kind of type (e.g. `EntityType`, `PlayerVariant`, etc.) are now no longer in a union with `int`. This makes the API much more type-safe than before. The flip side of this is that you must change any self-defined enums like `CollectibleTypeCustom` to an object instead. See the docs for more details: https://isaacscript.github.io/docs/gotchas#extending-enums----custom-enums
 - Added the appropriate `HORSE_` enum values to the `PillColor` enum.
 - Added a `Zero` constant for every flag enum. (e.g. `EntityFlagZero`, `TearFlagZero`, and so on.)
 - Added the following constants:
