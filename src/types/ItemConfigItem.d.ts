@@ -1,3 +1,4 @@
+import { CollectibleType, TrinketType } from "../enums/collections/subTypes";
 import { CacheFlag } from "../enums/flags/CacheFlag";
 import { ItemConfigTag } from "../enums/flags/ItemConfigTag";
 import { ItemConfigChargeType } from "../enums/ItemConfigChargeType";
@@ -35,7 +36,7 @@ declare global {
     Discharged: boolean;
     GfxFileName: string;
     Hidden: boolean;
-    ID: int;
+    ID: CollectibleType | TrinketType;
     InitCharge: int;
     MaxCharges: int;
     MaxCooldown: int;
