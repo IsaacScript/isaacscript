@@ -1,10 +1,9 @@
-import { PickupVariant } from "isaac-typescript-definitions";
+export type PostPickupInitLateRegisterParameters = PickupRegisterParameters<
+  [],
+  void
+>;
 
-export type PostPickupInitLateRegisterParameters = [
-  callback: (pickup: EntityPickup) => void,
-  pickupVariant?: PickupVariant,
-];
-
+// eslint-disable-next-line isaacscript/no-object-any
 const subscriptions: PostPickupInitLateRegisterParameters[] = [];
 
 /** @internal */
@@ -27,6 +26,7 @@ export function postPickupInitLateFire(pickup: EntityPickup): void {
       continue;
     }
 
-    callback(pickup);
+    // @ts-expect-error TypeScript isn't smart enough to treat the above checks as type narrowing.
+    callback(pickup); // eslint-disable-line @typescript-eslint/no-unsafe-call
   }
 }

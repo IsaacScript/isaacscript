@@ -1,10 +1,9 @@
-import { PickupVariant } from "isaac-typescript-definitions";
+export type PostPickupCollectRegisterParameters = PickupRegisterParameters<
+  [player: EntityPlayer],
+  void
+>;
 
-export type PostPickupCollectRegisterParameters = [
-  callback: (pickup: EntityPickup, player: EntityPlayer) => void,
-  pickupVariant?: PickupVariant,
-];
-
+// eslint-disable-next-line isaacscript/no-object-any
 const subscriptions: PostPickupCollectRegisterParameters[] = [];
 
 /** @internal */
@@ -30,6 +29,7 @@ export function postPickupCollectFire(
       continue;
     }
 
-    callback(pickup, player);
+    // @ts-expect-error TypeScript isn't smart enough to treat the above checks as type narrowing.
+    callback(pickup, player); // eslint-disable-line @typescript-eslint/no-unsafe-call
   }
 }

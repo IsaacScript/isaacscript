@@ -1,14 +1,9 @@
-import { PickupVariant } from "isaac-typescript-definitions";
+export type PostPickupStateChangedRegisterParameters = PickupRegisterParameters<
+  [previousState: int, currentState: int],
+  void
+>;
 
-export type PostPickupStateChangedRegisterParameters = [
-  callback: (
-    pickup: EntityPickup,
-    previousState: int,
-    currentState: int,
-  ) => void,
-  pickupVariant?: PickupVariant,
-];
-
+// eslint-disable-next-line isaacscript/no-object-any
 const subscriptions: PostPickupStateChangedRegisterParameters[] = [];
 
 /** @internal */
@@ -35,6 +30,7 @@ export function postPickupStateChangedFire(
       continue;
     }
 
-    callback(pickup, previousState, currentState);
+    // @ts-expect-error TypeScript isn't smart enough to treat the above checks as type narrowing.
+    callback(pickup, previousState, currentState); // eslint-disable-line @typescript-eslint/no-unsafe-call
   }
 }
