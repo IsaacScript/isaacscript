@@ -175,7 +175,14 @@ declare global {
       callback: (npc: EntityNPC) => void,
       entityType?: EntityType,
     ];
-    [ModCallback.PRE_NPC_COLLISION]: PreNPCCollisionRegisterParameters;
+    [ModCallback.PRE_NPC_COLLISION]: [
+      callback: (
+        npc: EntityNPC,
+        collider: Entity,
+        low: boolean,
+      ) => boolean | void,
+      entityType?: EntityType,
+    ];
     [ModCallback.POST_PLAYER_UPDATE]: [
       callback: (player: EntityPlayer) => void,
       playerVariant?: PlayerVariant,
@@ -366,26 +373,6 @@ declare global {
     ];
   }
 }
-
-// ModCallback.PRE_NPC_COLLISION (30)
-// ts-prune-ignore-next
-type PreNPCCollisionRegisterParameters =
-  | [
-      callback: (
-        npc: EntityNPC,
-        collider: Entity,
-        low: boolean,
-      ) => boolean | void,
-      entityType?: EntityType,
-    ]
-  | [
-      callback: (
-        npc: EntityNPCSucker,
-        collider: Entity,
-        low: boolean,
-      ) => boolean | void,
-      entityType: EntityType.SUCKER,
-    ];
 
 // ModCallback.POST_PICKUP_INIT (34)
 // ModCallback.POST_PICKUP_UPDATE (35)
