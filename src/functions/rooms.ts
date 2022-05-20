@@ -73,7 +73,7 @@ export function changeRoom(roomGridIndex: int): void {
 
   // LeaveDoor must be set before every `Game.ChangeRoom` invocation or else the function can send
   // you to the wrong room.
-  level.LeaveDoor = -1;
+  level.LeaveDoor = DoorSlot.NO_DOOR_SLOT;
 
   game.ChangeRoom(roomGridIndex);
 }
@@ -107,7 +107,8 @@ export function getCurrentDimension(): Dimension {
   );
   const startingRoomHash = GetPtrHash(startingRoomDescription);
 
-  for (const dimension of erange(NUM_DIMENSIONS)) {
+  for (const dimensionInt of erange(NUM_DIMENSIONS)) {
+    const dimension = dimensionInt as Dimension;
     const dimensionRoomDescription = level.GetRoomByIdx(
       startingRoomGridIndex,
       dimension,
@@ -217,9 +218,8 @@ export function getRoomTypeName(roomType: RoomType): string {
  * the list.
  *
  * @param includeExtraDimensionalRooms Optional. On some floors (e.g. Downpour 2, Mines 2),
- *                                     extra-dimensional rooms are automatically be generated and
- *                                     can be seen when you iterate over the `RoomList`. Default is
- *                                     false.
+ *                                 extra-dimensional rooms are automatically be generated and can be
+ *                                 seen when you iterate over the `RoomList`. Default is false.
  */
 export function getRooms(
   includeExtraDimensionalRooms = false,
@@ -284,6 +284,7 @@ export function inAngelShop(): boolean {
   const roomType = room.GetType();
   const roomSubType = getRoomSubType();
 
+  // eslint-disable-next-line isaacscript/strict-enums
   return roomType === RoomType.ANGEL && roomSubType === AngelRoomSubType.SHOP;
 }
 
@@ -293,6 +294,7 @@ export function inBeastRoom(): boolean {
   const roomSubType = getRoomSubType();
 
   return (
+    // eslint-disable-next-line isaacscript/strict-enums
     roomType === RoomType.DUNGEON && roomSubType === DungeonSubType.BEAST_ROOM
   );
 }
@@ -310,7 +312,7 @@ export function inBossRoomOf(bossID: BossID): boolean {
   return (
     roomType === RoomType.BOSS &&
     roomStageID === StageID.SPECIAL_ROOMS &&
-    roomSubType === bossID
+    roomSubType === bossID // eslint-disable-line isaacscript/strict-enums
   );
 }
 
@@ -324,6 +326,7 @@ export function inCrawlspace(): boolean {
   const roomType = room.GetType();
   const roomSubType = getRoomSubType();
 
+  // eslint-disable-next-line isaacscript/strict-enums
   return roomType === RoomType.DUNGEON && roomSubType === DungeonSubType.NORMAL;
 }
 
@@ -337,7 +340,9 @@ export function inDeathCertificateArea(): boolean {
 
   return (
     roomStageID === StageID.HOME &&
+    // eslint-disable-next-line isaacscript/strict-enums
     (roomSubType === HomeRoomSubType.DEATH_CERTIFICATE_ENTRANCE ||
+      // eslint-disable-next-line isaacscript/strict-enums
       roomSubType === HomeRoomSubType.DEATH_CERTIFICATE_ITEMS)
   );
 }
@@ -366,6 +371,8 @@ export function inDoubleTrouble(): boolean {
 
 export function inGenesisRoom(): boolean {
   const roomGridIndex = getRoomGridIndex();
+
+  // eslint-disable-next-line isaacscript/strict-enums
   return roomGridIndex === GridRoom.GENESIS;
 }
 
@@ -384,6 +391,8 @@ export function inLRoom(): boolean {
 
 export function inMegaSatanRoom(): boolean {
   const roomGridIndex = getRoomGridIndex();
+
+  // eslint-disable-next-line isaacscript/strict-enums
   return roomGridIndex === GridRoom.MEGA_SATAN;
 }
 
@@ -397,6 +406,7 @@ export function inMineShaft(): boolean {
 
   return (
     (roomStageID === StageID.MINES || roomStageID === StageID.ASHPIT) &&
+    // eslint-disable-next-line isaacscript/strict-enums
     MINE_SHAFT_ROOM_SUB_TYPE_SET.has(roomSubType)
   );
 }
@@ -414,7 +424,7 @@ export function inMinibossRoomOf(minibossID: MinibossID): boolean {
   return (
     roomType === RoomType.MINI_BOSS &&
     roomStageID === StageID.SPECIAL_ROOMS &&
-    roomSubType === minibossID
+    roomSubType === minibossID // eslint-disable-line isaacscript/strict-enums
   );
 }
 
@@ -427,6 +437,8 @@ export function inMinibossRoomOf(minibossID: MinibossID): boolean {
  */
 export function inSecretShop(): boolean {
   const roomGridIndex = getRoomGridIndex();
+
+  // eslint-disable-next-line isaacscript/strict-enums
   return roomGridIndex === GridRoom.SECRET_SHOP;
 }
 
@@ -643,7 +655,7 @@ export function teleport(
 
   // This must be set before every `Game.StartRoomTransition` method invocation or else the function
   // can send you to the wrong room.
-  level.LeaveDoor = -1;
+  level.LeaveDoor = DoorSlot.NO_DOOR_SLOT;
 
   game.StartRoomTransition(roomGridIndex, direction, roomTransitionAnim);
 }

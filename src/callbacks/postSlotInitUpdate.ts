@@ -1,5 +1,5 @@
-// This provides the logic for the PostSlotInit and PostSlotUpdate callbacks. (The PostSlotRender
-// and PostSlotDestroyed callbacks are handled in a different file.)
+// This provides the logic for the PostSlotInit and PostSlotUpdate callbacks. (The other slot
+// callbacks are handled in a different file.)
 
 import { ModCallback } from "isaac-typescript-definitions";
 import { saveDataManager } from "../features/saveDataManager/exports";
@@ -54,7 +54,7 @@ function postNewRoom() {
   }
 }
 
-function checkNewEntity(slot: Entity) {
+function checkNewEntity(slot: EntitySlot) {
   const ptrHash = GetPtrHash(slot);
   if (!v.room.initializedSlots.has(ptrHash)) {
     v.room.initializedSlots.add(ptrHash);

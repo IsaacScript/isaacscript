@@ -1,3 +1,5 @@
+/* eslint-disable isaacscript/strict-enums */
+
 import { TrinketType } from "isaac-typescript-definitions";
 
 export const DEFAULT_TRINKET_NAME = "Unknown";

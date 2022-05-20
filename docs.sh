@@ -58,12 +58,14 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/easing.ts" \
   --entryPoints "$DIR/src/functions/entity.ts" \
   --entryPoints "$DIR/src/functions/entitySpecific.ts" \
+  --entryPoints "$DIR/src/functions/entityTypes.ts" \
   --entryPoints "$DIR/src/functions/enums.ts" \
   --entryPoints "$DIR/src/functions/familiars.ts" \
   --entryPoints "$DIR/src/functions/flag.ts" \
   --entryPoints "$DIR/src/functions/flying.ts" \
   --entryPoints "$DIR/src/functions/globals.ts" \
   --entryPoints "$DIR/src/functions/gridEntity.ts" \
+  --entryPoints "$DIR/src/functions/gridEntitySpecific.ts" \
   --entryPoints "$DIR/src/functions/input.ts" \
   --entryPoints "$DIR/src/functions/isaacAPIClass.ts" \
   --entryPoints "$DIR/src/functions/jsonHelpers.ts" \
@@ -75,6 +77,7 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/math.ts" \
   --entryPoints "$DIR/src/functions/npc.ts" \
   --entryPoints "$DIR/src/functions/pickups.ts" \
+  --entryPoints "$DIR/src/functions/pickupVariants.ts" \
   --entryPoints "$DIR/src/functions/player.ts" \
   --entryPoints "$DIR/src/functions/playerIndex.ts" \
   --entryPoints "$DIR/src/functions/playerDataStructures.ts" \

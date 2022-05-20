@@ -1,7 +1,7 @@
 import { SlotVariant } from "isaac-typescript-definitions";
 
 export type PostSlotDestroyedRegisterParameters = [
-  callback: (slot: Entity) => void,
+  callback: (slot: EntitySlot) => void,
   slotVariant?: SlotVariant,
 ];
 
@@ -20,7 +20,7 @@ export function postSlotDestroyedRegister(
 }
 
 /** @internal */
-export function postSlotDestroyedFire(slot: Entity): void {
+export function postSlotDestroyedFire(slot: EntitySlot): void {
   for (const [callback, slotVariant] of subscriptions) {
     // Handle the optional 2nd callback argument.
     if (slotVariant !== undefined && slotVariant !== slot.Variant) {

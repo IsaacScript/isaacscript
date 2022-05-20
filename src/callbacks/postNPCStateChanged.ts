@@ -1,4 +1,4 @@
-import { ModCallback } from "isaac-typescript-definitions";
+import { ModCallback, NpcState } from "isaac-typescript-definitions";
 import { DefaultMap } from "../classes/DefaultMap";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import {
@@ -8,8 +8,8 @@ import {
 
 const v = {
   run: {
-    npcStateMap: new DefaultMap<PtrHash, int, [int]>(
-      (_ptrHash, state) => state,
+    npcStateMap: new DefaultMap<PtrHash, NpcState, [NpcState]>(
+      (state) => state, // eslint-disable-line isaacscript/strict-enums
     ),
   },
 };

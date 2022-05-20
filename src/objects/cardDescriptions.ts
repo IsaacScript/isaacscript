@@ -49,7 +49,7 @@ export const CARD_DESCRIPTIONS: { readonly [key in Card]: string } = {
   [Card.CHAOS]: "???", // 42
   [Card.CREDIT]: "Charge it!", // 43
   [Card.RULES]: "???", // 44
-  [Card.HUMANITY]: "Something stinks...", // 45
+  [Card.AGAINST_HUMANITY]: "Something stinks...", // 45
   [Card.SUICIDE_KING]: "A true ending?", // 46
   [Card.GET_OUT_OF_JAIL_FREE]: "Open Sesame", // 47
   [Card.QUESTION_MARK]: "Double active", // 48

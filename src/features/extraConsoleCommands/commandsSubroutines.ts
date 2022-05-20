@@ -1,5 +1,6 @@
 import {
   Direction,
+  EntityType,
   GridEntityType,
   GridRoom,
   RoomType,
@@ -63,7 +64,7 @@ export function listEntities(
   params: string,
   includeBackgroundEffects: boolean,
 ): void {
-  let entityTypeFilter: int | undefined;
+  let entityTypeFilter: EntityType | undefined;
   if (params !== "") {
     entityTypeFilter = tonumber(params);
     if (entityTypeFilter === undefined) {
@@ -77,7 +78,7 @@ export function listEntities(
 }
 
 export function listGridEntities(params: string, includeWalls: boolean): void {
-  let gridEntityTypeFilter: int | undefined;
+  let gridEntityTypeFilter: GridEntityType | undefined;
   if (params !== "") {
     gridEntityTypeFilter = tonumber(params);
     if (gridEntityTypeFilter === undefined) {

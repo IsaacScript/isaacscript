@@ -18,6 +18,7 @@ import {
 import { CHEST_PICKUP_VARIANTS } from "../sets/chestPickupVariantsSet";
 import { RED_HEART_SUB_TYPES_SET } from "../sets/redHeartSubTypesSet";
 import { getPickups, removeAllPickups, spawnPickup } from "./entitySpecific";
+import { isHeart } from "./pickupVariants";
 
 /** Helper function to get all of the battery entities in the room. */
 export function getBatteries(matchingSubType = -1): EntityPickup[] {
@@ -66,7 +67,9 @@ export function getPills(matchingSubType = -1): EntityPickup[] {
 /** Helper function to get all of the red heart pickup entities in the room. */
 export function getRedHearts(): EntityPickup[] {
   const hearts = getHearts();
-  return hearts.filter((heart) => RED_HEART_SUB_TYPES_SET.has(heart.SubType));
+  return hearts.filter((heart) =>
+    RED_HEART_SUB_TYPES_SET.has(heart.SubType as HeartSubType),
+  );
 }
 
 /** Helper function to get all of the sack (i.e. grab bag) entities in the room. */
@@ -84,10 +87,7 @@ export function isChest(pickup: EntityPickup): boolean {
 }
 
 export function isRedHeart(pickup: EntityPickup): boolean {
-  return (
-    pickup.Variant === PickupVariant.HEART &&
-    RED_HEART_SUB_TYPES_SET.has(pickup.SubType)
-  );
+  return isHeart(pickup) && RED_HEART_SUB_TYPES_SET.has(pickup.SubType);
 }
 
 /**

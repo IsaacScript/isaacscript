@@ -3,6 +3,7 @@ import { GridEntityType } from "isaac-typescript-definitions";
 export type PostGridEntityStateChangedRegisterParameters = [
   callback: (gridEntity: GridEntity, oldState: int, newState: int) => void,
   gridEntityType?: GridEntityType,
+  gridEntityVariant?: int,
 ];
 
 const subscriptions: PostGridEntityStateChangedRegisterParameters[] = [];
@@ -25,11 +26,26 @@ export function postGridEntityStateChangedFire(
   oldState: int,
   newState: int,
 ): void {
-  for (const [callback, gridEntityType] of subscriptions) {
+  const gridEntityType = gridEntity.GetType();
+  const gridEntityVariant = gridEntity.GetVariant();
+
+  for (const [
+    callback,
+    callbackGridEntityType,
+    callbackGridEntityVariant,
+  ] of subscriptions) {
     // Handle the optional 2nd callback argument.
     if (
-      gridEntityType !== undefined &&
-      gridEntityType !== gridEntity.GetType()
+      callbackGridEntityType !== undefined &&
+      callbackGridEntityType !== gridEntityType
+    ) {
+      continue;
+    }
+
+    // Handle the optional 3rd callback argument.
+    if (
+      callbackGridEntityVariant !== undefined &&
+      callbackGridEntityVariant !== gridEntityVariant
     ) {
       continue;
     }

@@ -32,7 +32,11 @@ import {
   postGridEntityUpdateHasSubscriptions,
 } from "./subscriptions/postGridEntityUpdate";
 
-type GridEntityTuple = [gridEntityType: GridEntityType, state: int];
+type GridEntityTuple = [
+  gridEntityType: GridEntityType,
+  gridEntityVariant: int,
+  state: int,
+];
 
 const v = {
   room: {
@@ -83,14 +87,18 @@ function checkGridEntitiesRemoved(gridEntitiesMap: Map<int, GridEntity>) {
     gridIndex,
     gridEntityTuple,
   ] of v.room.initializedGridEntities.entries()) {
-    const [storedGridEntityType] = gridEntityTuple;
+    const [storedGridEntityType, storedGridEntityVariant] = gridEntityTuple;
     const gridEntity = gridEntitiesMap.get(gridIndex);
     if (
       gridEntity === undefined ||
       gridEntity.GetType() !== storedGridEntityType
     ) {
       v.room.initializedGridEntities.delete(gridIndex);
-      postGridEntityRemoveFire(gridIndex, storedGridEntityType);
+      postGridEntityRemoveFire(
+        gridIndex,
+        storedGridEntityType,
+        storedGridEntityVariant,
+      );
     }
   }
 }
@@ -103,7 +111,7 @@ function checkGridEntityStateChanged(gridIndex: int, gridEntity: GridEntity) {
     return;
   }
 
-  const [, oldState] = gridEntityTuple;
+  const [_gridEntityType, _gridEntityVariant, oldState] = gridEntityTuple;
   const newState = gridEntity.State;
   if (oldState !== newState) {
     updateTupleInMap(gridEntity);
@@ -127,8 +135,13 @@ function checkNewGridEntity(gridIndex: int, gridEntity: GridEntity) {
 
 function updateTupleInMap(gridEntity: GridEntity) {
   const gridEntityType = gridEntity.GetType();
+  const gridEntityVariant = gridEntity.GetVariant();
   const gridIndex = gridEntity.GetGridIndex();
-  const newTuple: GridEntityTuple = [gridEntityType, gridEntity.State];
+  const newTuple: GridEntityTuple = [
+    gridEntityType,
+    gridEntityVariant,
+    gridEntity.State,
+  ];
   v.room.initializedGridEntities.set(gridIndex, newTuple);
 }
 

@@ -1,15 +1,22 @@
 import {
   toggleBombDisplay,
+  toggleDoorDisplay,
   toggleEffectDisplay,
   toggleFamiliarDisplay,
   toggleKnifeDisplay,
   toggleLaserDisplay,
   toggleNPCDisplay,
   togglePickupDisplay,
+  togglePitDisplay,
   togglePlayerDisplay,
+  togglePoopDisplay,
+  togglePressurePlateDisplay,
   toggleProjectileDisplay,
+  toggleRockDisplay,
   toggleSlotDisplay,
+  toggleSpikesDisplay,
   toggleTearDisplay,
+  toggleTNTDisplay,
 } from "../debugDisplay";
 
 /**
@@ -25,6 +32,21 @@ export function bombDisplay(): void {
 /** Alias for the "bombdisplay" command. */
 export function bombsDisplay(): void {
   bombDisplay();
+}
+
+/**
+ * Toggles custom text to appear next to every door. Useful for debugging.
+ *
+ * By default, the grid entity ID will be displayed. Use the `setDoorDisplay` helper function to
+ * assign the text that you want to appear.
+ */
+export function doorDisplay(): void {
+  toggleDoorDisplay();
+}
+
+/** Alias for the "doordisplay" function. */
+export function doorsDisplay(): void {
+  doorDisplay();
 }
 
 /**
@@ -118,6 +140,21 @@ export function pickupsDisplay(): void {
 }
 
 /**
+ * Toggles custom text to appear next to every pit. Useful for debugging.
+ *
+ * By default, the grid entity ID will be displayed. Use the `setPitDisplay` helper function to
+ * assign the text that you want to appear.
+ */
+export function pitDisplay(): void {
+  togglePitDisplay();
+}
+
+/** Alias for the "pitdisplay" function. */
+export function pitsDisplay(): void {
+  pitDisplay();
+}
+
+/**
  * Toggles custom text to appear next to every player. Useful for debugging.
  *
  * By default, the entity ID will be displayed. Use the `setPlayerDisplay` helper function to assign
@@ -130,6 +167,36 @@ export function playerDisplay(): void {
 /** Alias for the "playerdisplay" command. */
 export function playersDisplay(): void {
   playerDisplay();
+}
+
+/**
+ * Toggles custom text to appear next to every poop. Useful for debugging.
+ *
+ * By default, the grid entity ID will be displayed. Use the `setPoopDisplay` helper function to
+ * assign the text that you want to appear.
+ */
+export function poopDisplay(): void {
+  togglePoopDisplay();
+}
+
+/** Alias for the "poopdisplay" function. */
+export function poopsDisplay(): void {
+  poopDisplay();
+}
+
+/**
+ * Toggles custom text to appear next to every pressure plate. Useful for debugging.
+ *
+ * By default, the grid entity ID will be displayed. Use the `setPressurePlateDisplay` helper
+ * function to assign the text that you want to appear.
+ */
+export function pressurePlateDisplay(): void {
+  togglePressurePlateDisplay();
+}
+
+/** Alias for the "pressureplatedisplay" function. */
+export function pressurePlatesDisplay(): void {
+  pressurePlateDisplay();
 }
 
 /**
@@ -148,6 +215,21 @@ export function projectilesDisplay(): void {
 }
 
 /**
+ * Toggles custom text to appear next to every rock. Useful for debugging.
+ *
+ * By default, the grid entity ID will be displayed. Use the `setRockDisplay` helper function to
+ * assign the text that you want to appear.
+ */
+export function rockDisplay(): void {
+  toggleRockDisplay();
+}
+
+/** Alias for the "rockdisplay" function. */
+export function rocksDisplay(): void {
+  rockDisplay();
+}
+
+/**
  * Toggles custom text to appear next to every slot. Useful for debugging.
  *
  * By default, the entity ID will be displayed. Use the `setSlotDisplay` helper function to assign
@@ -160,6 +242,21 @@ export function slotDisplay(): void {
 /** Alias for the "slotdisplay" command. */
 export function slotsDisplay(): void {
   slotDisplay();
+}
+
+/** Alias for the "spikesdisplay" function. */
+export function spikeDisplay(): void {
+  spikesDisplay();
+}
+
+/**
+ * Toggles custom text to appear next to every spikes. Useful for debugging.
+ *
+ * By default, the grid entity ID will be displayed. Use the `setSpikesDisplay` helper function to
+ * assign the text that you want to appear.
+ */
+export function spikesDisplay(): void {
+  toggleSpikesDisplay();
 }
 
 /**
@@ -175,4 +272,19 @@ export function tearDisplay(): void {
 /** Alias for the "teardisplay" command. */
 export function tearsDisplay(): void {
   tearDisplay();
+}
+
+/**
+ * Toggles custom text to appear next to every TNT. Useful for debugging.
+ *
+ * By default, the grid entity ID will be displayed. Use the `setTNTDisplay` helper function to
+ * assign the text that you want to appear.
+ */
+export function tntDisplay(): void {
+  toggleTNTDisplay();
+}
+
+/** Alias for the "tntdisplay" function. */
+export function tntsDisplay(): void {
+  tntDisplay();
 }

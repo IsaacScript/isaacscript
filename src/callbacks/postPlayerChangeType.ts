@@ -17,9 +17,9 @@ const v = {
   run: {
     playersCharacterMap: new DefaultMap<
       PlayerIndex,
-      int,
+      PlayerType,
       [character: PlayerType]
-    >((_key: PlayerIndex, character: PlayerType) => character),
+    >((character: PlayerType) => character), // eslint-disable-line isaacscript/strict-enums
   },
 };
 

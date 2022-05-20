@@ -1,6 +1,5 @@
 import {
   CacheFlag,
-  PickupVariant,
   PlayerType,
   TrinketSlot,
   TrinketType,
@@ -11,7 +10,9 @@ import {
   TRINKET_DESCRIPTION_MAP,
 } from "../maps/trinketDescriptionMap";
 import { DEFAULT_TRINKET_NAME, TRINKET_NAME_MAP } from "../maps/trinketNameMap";
+import { getEntityID } from "./entity";
 import { hasFlag } from "./flag";
+import { isTrinket } from "./pickupVariants";
 import { isCharacter } from "./player";
 import { clearSprite } from "./sprite";
 
@@ -40,7 +41,7 @@ const TRINKET_SPRITE_LAYER = 0;
  * corresponds to the golden trinket sub-type for Swallowed Penny.
  */
 export function getGoldenTrinketType(trinketType: TrinketType): TrinketType {
-  return trinketType + GOLDEN_TRINKET_ADJUSTMENT;
+  return trinketType + GOLDEN_TRINKET_ADJUSTMENT; // eslint-disable-line isaacscript/strict-enums
 }
 
 /**
@@ -162,9 +163,10 @@ export function setTrinketSprite(
   trinket: EntityPickup,
   pngPath: string | undefined,
 ): void {
-  if (trinket.Variant !== PickupVariant.TRINKET) {
+  if (!isTrinket(trinket)) {
+    const entityID = getEntityID(trinket);
     error(
-      `You cannot set a trinket sprite for pickups of variant: ${trinket.Variant}`,
+      `The "setTrinketSprite" function was given a non-trinket: ${entityID}`,
     );
   }
 

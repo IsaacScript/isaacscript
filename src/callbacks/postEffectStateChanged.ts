@@ -8,9 +8,7 @@ import {
 
 const v = {
   run: {
-    effectStateMap: new DefaultMap<PtrHash, int, [int]>(
-      (_ptrHash, state) => state,
-    ),
+    effectStateMap: new DefaultMap<PtrHash, int, [int]>((state) => state),
   },
 };
 

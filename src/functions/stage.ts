@@ -12,7 +12,7 @@ export function getEffectiveStage(): int {
   const stage = level.GetStage();
 
   if (onRepentanceStage()) {
-    return stage + 1;
+    return stage + 1; // eslint-disable-line isaacscript/strict-enums
   }
 
   return stage;
@@ -39,7 +39,7 @@ export function goToStage(stage: LevelStage, stageType: StageType): void {
   Isaac.ExecuteCommand(command);
 }
 
-export function isRepentanceStage(stageType: int): boolean {
+export function isRepentanceStage(stageType: StageType): boolean {
   return (
     stageType === StageType.REPENTANCE || stageType === StageType.REPENTANCE_B
   );
@@ -50,7 +50,10 @@ export function onCathedral(): boolean {
   const stage = level.GetStage();
   const stageType = level.GetStageType();
 
-  return stage === 10 && stageType === 1;
+  return (
+    stage === LevelStage.SHEOL_CATHEDRAL &&
+    stageType === StageType.WRATH_OF_THE_LAMB
+  );
 }
 
 export function onChest(): boolean {
@@ -58,7 +61,10 @@ export function onChest(): boolean {
   const stage = level.GetStage();
   const stageType = level.GetStageType();
 
-  return stage === 11 && stageType === 1;
+  return (
+    stage === LevelStage.DARK_ROOM_CHEST &&
+    stageType === StageType.WRATH_OF_THE_LAMB
+  );
 }
 
 export function onDarkRoom(): boolean {
@@ -66,7 +72,9 @@ export function onDarkRoom(): boolean {
   const stage = level.GetStage();
   const stageType = level.GetStageType();
 
-  return stage === 11 && stageType === 0;
+  return (
+    stage === LevelStage.DARK_ROOM_CHEST && stageType === StageType.ORIGINAL
+  );
 }
 
 /**
@@ -82,10 +90,10 @@ export function onFinalFloor(): boolean {
   const stage = level.GetStage();
 
   return (
-    stage === 11 || // The Chest / Dark Room
-    stage === 12 || // The Void
-    stage === 13 || // Home
-    (stage === 8 && onRepentanceStage()) // Corpse 2
+    stage === LevelStage.DARK_ROOM_CHEST ||
+    stage === LevelStage.THE_VOID ||
+    stage === LevelStage.HOME ||
+    (stage === LevelStage.WOMB_2 && onRepentanceStage()) // Corpse 2
   );
 }
 
@@ -101,7 +109,9 @@ export function onSheol(): boolean {
   const stage = level.GetStage();
   const stageType = level.GetStageType();
 
-  return stage === 10 && stageType === 0;
+  return (
+    stage === LevelStage.SHEOL_CATHEDRAL && stageType === StageType.ORIGINAL
+  );
 }
 
 /**

@@ -22,7 +22,9 @@ import {
 } from "../maps/collectibleNameMap";
 import { SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES_SET } from "../sets/singleUseActiveCollectibleTypesSet";
 import { CollectibleIndex } from "../types/CollectibleIndex";
+import { getEntityID } from "./entity";
 import { hasFlag } from "./flag";
+import { isCollectible } from "./pickupVariants";
 import { getRoomListIndex } from "./roomData";
 import { clearSprite, spriteEquals } from "./sprite";
 
@@ -200,9 +202,10 @@ export function getCollectibleGfxFilename(
 export function getCollectibleIndex(
   collectible: EntityPickup,
 ): CollectibleIndex {
-  if (collectible.Variant !== PickupVariant.COLLECTIBLE) {
+  if (!isCollectible(collectible)) {
+    const entityID = getEntityID(collectible);
     error(
-      `You cannot get a collectible index for pickups of variant: ${collectible.Variant}`,
+      `The "getCollectibleIndex" function was given a non-collectible: ${entityID}`,
     );
   }
 
@@ -297,9 +300,10 @@ export function getCollectibleName(collectibleType: CollectibleType): string {
 export function getCollectiblePedestalType(
   collectible: EntityPickup,
 ): CollectiblePedestalType {
-  if (collectible.Variant !== PickupVariant.COLLECTIBLE) {
+  if (!isCollectible(collectible)) {
+    const entityID = getEntityID(collectible);
     error(
-      `You cannot get the pedestal type for pickups of variant: ${collectible.Variant}`,
+      `The "getCollectiblePedestalType" function was given a non-collectible: ${entityID}`,
     );
   }
 
@@ -346,9 +350,10 @@ export function isActiveCollectible(collectibleType: CollectibleType): boolean {
 
 /** Returns true if the collectible has a red question mark sprite. */
 export function isBlindCollectible(collectible: EntityPickup): boolean {
-  if (collectible.Variant !== PickupVariant.COLLECTIBLE) {
+  if (!isCollectible(collectible)) {
+    const entityID = getEntityID(collectible);
     error(
-      `You cannot get check for question mark sprites for pickups of variant: ${collectible.Variant}`,
+      `The "isBlindCollectible" function was given a non-collectible: ${entityID}`,
     );
   }
 
@@ -394,6 +399,13 @@ export function isSingleUseCollectible(
   return SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES_SET.has(collectibleType);
 }
 
+export function isValidCollectibleType(
+  collectibleType: CollectibleType,
+): boolean {
+  const itemConfigItem = itemConfig.GetCollectible(collectibleType);
+  return itemConfigItem !== undefined;
+}
+
 /**
  * Helper function to put a message in the log.txt file to let the Rebirth Item Tracker know that it
  * should remove an item.
@@ -418,9 +430,10 @@ export function removeCollectibleFromItemTracker(
  * frame delay before they can be picked up by a player.
  */
 export function removeCollectiblePickupDelay(collectible: EntityPickup): void {
-  if (collectible.Variant !== PickupVariant.COLLECTIBLE) {
+  if (!isCollectible(collectible)) {
+    const entityID = getEntityID(collectible);
     error(
-      `You cannot remove pickup delay for pickups of variant: ${collectible.Variant}`,
+      `The "removeCollectiblePickupDelay" function was given a non-collectible: ${entityID}`,
     );
   }
 
@@ -432,9 +445,10 @@ export function removeCollectiblePickupDelay(collectible: EntityPickup): void {
  * the player has Curse of the Blind).
  */
 export function setCollectibleBlind(collectible: EntityPickup): void {
-  if (collectible.Variant !== PickupVariant.COLLECTIBLE) {
+  if (!isCollectible(collectible)) {
+    const entityID = getEntityID(collectible);
     error(
-      `You cannot set a collectible to be blind for pickups of variant: ${collectible.Variant}`,
+      `The "setCollectibleBlind" function was given a non-collectible: ${entityID}`,
     );
   }
 
@@ -449,9 +463,10 @@ export function setCollectibleBlind(collectible: EntityPickup): void {
  * For more information, see the documentation for the "clearSprite" helper function.
  */
 export function setCollectibleEmpty(collectible: EntityPickup): void {
-  if (collectible.Variant !== PickupVariant.COLLECTIBLE) {
+  if (!isCollectible(collectible)) {
+    const entityID = getEntityID(collectible);
     error(
-      `You cannot set a collectible to be empty for pickups of variant: ${collectible.Variant}`,
+      `The "setCollectibleEmpty" function was given a non-collectible: ${entityID}`,
     );
   }
 
@@ -475,9 +490,10 @@ export function setCollectibleSprite(
   collectible: EntityPickup,
   pngPath: string | undefined,
 ): void {
-  if (collectible.Variant !== PickupVariant.COLLECTIBLE) {
+  if (!isCollectible(collectible)) {
+    const entityID = getEntityID(collectible);
     error(
-      `You cannot set a collectible sprite for pickups of variant: ${collectible.Variant}`,
+      `The "setCollectibleSprite" function was given a non-collectible: ${entityID}`,
     );
   }
 
@@ -498,9 +514,10 @@ export function setCollectibleSubType(
   collectible: EntityPickup,
   newCollectibleType: CollectibleType,
 ): void {
-  if (collectible.Variant !== PickupVariant.COLLECTIBLE) {
+  if (!isCollectible(collectible)) {
+    const entityID = getEntityID(collectible);
     error(
-      `You cannot set a collectible sub-type for pickups of variant: ${collectible.Variant}`,
+      `The "setCollectibleSubType" function was given a non-collectible: ${entityID}`,
     );
   }
 

@@ -28,7 +28,7 @@ function hasSubscriptions() {
   return postCollectibleInitFirstHasSubscriptions();
 }
 
-function postPickupInitCollectible(collectible: EntityPickup) {
+function postPickupInitCollectible(collectible: EntityPickupCollectible) {
   const collectibleIndex = getCollectibleIndex(collectible);
   if (v.run.seenCollectibles.has(collectibleIndex)) {
     return;

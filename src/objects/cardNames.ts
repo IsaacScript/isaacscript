@@ -49,7 +49,7 @@ export const CARD_NAMES: { readonly [key in Card]: string } = {
   [Card.CHAOS]: "Chaos Card",
   [Card.CREDIT]: "Credit Card",
   [Card.RULES]: "Rules Card",
-  [Card.HUMANITY]: "A Card Against Humanity",
+  [Card.AGAINST_HUMANITY]: "A Card Against Humanity",
   [Card.SUICIDE_KING]: "Suicide King",
   [Card.GET_OUT_OF_JAIL_FREE]: "Get Out Of Jail Free Card",
   [Card.QUESTION_MARK]: "? Card",

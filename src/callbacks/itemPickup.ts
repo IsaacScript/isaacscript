@@ -2,7 +2,11 @@
 // - PreItemPickup
 // - PostItemPickup
 
-import { ItemType } from "isaac-typescript-definitions";
+import {
+  CollectibleType,
+  ItemType,
+  TrinketType,
+} from "isaac-typescript-definitions";
 import { DefaultMap } from "../classes/DefaultMap";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
@@ -68,6 +72,7 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
 }
 
 function queueEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
+  // eslint-disable-next-line isaacscript/strict-enums
   if (pickingUpItem.itemType === ItemType.NULL || pickingUpItem.subType === 0) {
     return;
   }
@@ -89,7 +94,7 @@ function queueNotEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
   ) {
     // Record which item we are picking up.
     pickingUpItem.itemType = queuedItem.Type;
-    pickingUpItem.subType = queuedItem.ID;
+    pickingUpItem.subType = queuedItem.ID as CollectibleType | TrinketType;
 
     preItemPickupFire(player, pickingUpItem);
   }

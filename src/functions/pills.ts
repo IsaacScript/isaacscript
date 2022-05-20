@@ -42,7 +42,7 @@ const HORSE_PILL_ADJUSTMENT = 2048;
  * corresponds to the horse pill color for blue/blue.
  */
 export function getHorsePillColor(pillColor: PillColor): PillColor {
-  return pillColor + HORSE_PILL_ADJUSTMENT;
+  return pillColor + HORSE_PILL_ADJUSTMENT; // eslint-disable-line isaacscript/strict-enums
 }
 
 /**
@@ -53,7 +53,9 @@ export function getHorsePillColor(pillColor: PillColor): PillColor {
  * If called with a non-horse pill color, this function will return back the same color.
  */
 export function getNormalPillColorFromHorse(pillColor: PillColor): PillColor {
-  const normalPillColor = pillColor - HORSE_PILL_ADJUSTMENT;
+  // eslint-disable-next-line isaacscript/strict-enums
+  const normalPillColor = (pillColor - HORSE_PILL_ADJUSTMENT) as PillColor;
+
   return normalPillColor > PillColor.NULL ? normalPillColor : pillColor;
 }
 

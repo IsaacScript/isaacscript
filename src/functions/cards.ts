@@ -1,6 +1,6 @@
 import { Card, ItemConfigCardType } from "isaac-typescript-definitions";
 import { itemConfig } from "../cachedClasses";
-import { MAX_CARD } from "../constantsMax";
+import { FIRST_CARD, MAX_CARD } from "../constantsMax";
 import {
   CARD_DESCRIPTIONS,
   DEFAULT_CARD_DESCRIPTION,
@@ -30,7 +30,8 @@ function initCardObjects() {
     CARD_TYPE_TO_CARDS_MAP.set(cardType, new Set<Card>());
   }
 
-  for (const card of irange(1, MAX_CARD)) {
+  for (const cardInt of irange(FIRST_CARD, MAX_CARD)) {
+    const card = cardInt as Card;
     const cardType = getCardType(card);
     const cardTypeSet = CARD_TYPE_TO_CARDS_MAP.get(cardType);
     if (cardTypeSet === undefined) {

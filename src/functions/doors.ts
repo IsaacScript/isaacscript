@@ -257,6 +257,7 @@ export function isHiddenSecretRoomDoor(door: GridEntityDoor): boolean {
 }
 
 export function isRepentanceDoor(door: GridEntityDoor): boolean {
+  // eslint-disable-next-line isaacscript/strict-enums
   return door.TargetRoomIndex === GridRoom.SECRET_EXIT;
 }
 

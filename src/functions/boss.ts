@@ -10,7 +10,6 @@ import {
   STAGE_TO_STAGE_TYPE_TO_BOSS_SET_MAP,
 } from "../sets/bossSets";
 import { SIN_ENTITY_TYPES_SET } from "../sets/sinEntityTypesSet";
-import { EntityTypeNonNPC } from "../types/EntityTypeNonNPC";
 import { getNPCs, spawnNPC } from "./entitySpecific";
 import { getAliveNPCs } from "./npc";
 import { copySet } from "./set";
@@ -132,8 +131,8 @@ export function isSin(npc: EntityNPC): boolean {
  * Gurglings/Turdlings with 2 copies, and other multi-segment bosses with 4 segments. You can
  * customize this via the "numSegments" argument.
  */
-export function spawnBoss<T extends number>(
-  entityType: T extends EntityTypeNonNPC ? never : T,
+export function spawnBoss(
+  entityType: EntityType,
   variant: int,
   subType: int,
   position: Vector,
@@ -185,7 +184,7 @@ function getNumBossSegments(
 
     // 69
     case EntityType.LOKI: {
-      return variant === LokiVariant.LOKII ? 2 : 1;
+      return (variant as LokiVariant) === LokiVariant.LOKII ? 2 : 1;
     }
 
     // 237
@@ -205,8 +204,8 @@ function getNumBossSegments(
  *
  * For more information, see the documentation for the `spawnBoss` function.
  */
-export function spawnBossWithSeed<T extends number>(
-  entityType: T extends EntityTypeNonNPC ? never : T,
+export function spawnBossWithSeed(
+  entityType: EntityType,
   variant: int,
   subType: int,
   position: Vector,

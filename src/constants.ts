@@ -2,7 +2,6 @@ import {
   Dimension,
   ItemPoolType,
   LevelStage,
-  PlayerType,
   RoomType,
   TrinketSlot,
 } from "isaac-typescript-definitions";
@@ -97,6 +96,7 @@ export const MAX_PLAYER_SPEED_IN_UNITS = 9.8;
 
 export const MAX_PLAYER_TRINKET_SLOTS = getEnumLength(TrinketSlot);
 
+export const FIRST_ROOM_TYPE = RoomType.DEFAULT; // eslint-disable-line sort-exports/sort-exports
 export const MAX_ROOM_TYPE = getLastEnumValue(RoomType);
 
 /**
@@ -105,12 +105,12 @@ export const MAX_ROOM_TYPE = getLastEnumValue(RoomType);
  */
 export const MAX_SPEED_STAT = 2.0;
 
+export const FIRST_STAGE = LevelStage.BASEMENT_1; // eslint-disable-line sort-exports/sort-exports
 export const MAX_STAGE = getLastEnumValue(LevelStage);
 
 /** Corresponds to the maximum value for `EntityPlayer.SamsonBerserkCharge`. */
 export const MAX_TAINTED_SAMSON_BERSERK_CHARGE = 100000;
 
-export const MAX_VANILLA_CHARACTER = getLastEnumValue(PlayerType);
 export const NUM_DIMENSIONS = getEnumLength(Dimension) - 1; // Account for "Dimension.CURRENT"
 
 export const SECOND_IN_MILLISECONDS = 1000;

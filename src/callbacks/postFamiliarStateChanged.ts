@@ -8,9 +8,7 @@ import {
 
 const v = {
   run: {
-    familiarStateMap: new DefaultMap<PtrHash, int, [int]>(
-      (_initSeed, state) => state,
-    ),
+    familiarStateMap: new DefaultMap<PtrHash, int, [int]>((state) => state),
   },
 };
 

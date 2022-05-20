@@ -8,9 +8,11 @@ import {
   ModCallback,
   TearVariant,
 } from "isaac-typescript-definitions";
+import { ModUpgraded } from "../../classes/ModUpgraded";
 import { MAX_SPEED_STAT } from "../../constants";
 import { getMapPartialMatch } from "../../functions/map";
 import { printConsole } from "../../functions/utils";
+import { debugDisplayInit } from "../debugDisplay";
 import { saveDataManager } from "../saveDataManager/exports";
 import * as commands from "./commands";
 import * as commandsDisplay from "./commandsDisplay";
@@ -27,9 +29,10 @@ let initialized = false;
  * Enables extra console commands which are useful for debugging. See the `isaacscript-common`
  * documentation for details on the commands that are added.
  */
-export function enableExtraConsoleCommands(mod: Mod): void {
+export function enableExtraConsoleCommands(mod: ModUpgraded): void {
   initialized = true;
   saveDataManager("extraConsoleCommands", v, featureEnabled);
+  debugDisplayInit(mod);
 
   mod.AddCallback(ModCallback.POST_UPDATE, postUpdate); // 1
   mod.AddCallback(
@@ -211,6 +214,8 @@ commandFunctionsMap.set("dd", commands.dd);
 commandFunctionsMap.set("devil", commands.devil);
 commandFunctionsMap.set("dirtybedroom", commands.dirtyBedroom);
 commandFunctionsMap.set("disablecurses", commands.disableCurses);
+commandFunctionsMap.set("doordisplay", commandsDisplay.doorDisplay);
+commandFunctionsMap.set("doorsdisplay", commandsDisplay.doorsDisplay);
 commandFunctionsMap.set("down", commands.down);
 commandFunctionsMap.set("dungeon", commands.dungeon);
 commandFunctionsMap.set("effectdisplay", commandsDisplay.effectDisplay);
@@ -261,13 +266,19 @@ commandFunctionsMap.set("pickupdisplay", commandsDisplay.pickupDisplay);
 commandFunctionsMap.set("pickupsdisplay", commandsDisplay.pickupsDisplay);
 commandFunctionsMap.set("pill", commands.pill);
 commandFunctionsMap.set("pills", commands.pills);
+commandFunctionsMap.set("pitdisplay", commandsDisplay.pitDisplay);
 commandFunctionsMap.set("planetarium", commands.planetarium);
 commandFunctionsMap.set("playerdisplay", commandsDisplay.playerDisplay);
 commandFunctionsMap.set("playersdisplay", commandsDisplay.playersDisplay);
 commandFunctionsMap.set("playsound", commands.playSound);
 commandFunctionsMap.set("pocket", commands.pocket);
-commandFunctionsMap.set("poopMana", commands.poopMana);
+commandFunctionsMap.set("poopdisplay", commandsDisplay.poopDisplay);
+commandFunctionsMap.set("poopmana", commands.poopMana);
 commandFunctionsMap.set("position", commands.positionCommand);
+commandFunctionsMap.set(
+  "pressureplatedisplay",
+  commandsDisplay.pressurePlateDisplay,
+);
 commandFunctionsMap.set("projectiledisplay", commandsDisplay.projectileDisplay);
 commandFunctionsMap.set(
   "projectilesdisplay",
@@ -276,6 +287,7 @@ commandFunctionsMap.set(
 commandFunctionsMap.set("redhearts", commands.redHearts);
 commandFunctionsMap.set("rh", commands.rh);
 commandFunctionsMap.set("right", commands.right);
+commandFunctionsMap.set("rockdisplay", commandsDisplay.rockDisplay);
 commandFunctionsMap.set("room", commands.roomCommand);
 commandFunctionsMap.set("rottenhearts", commands.rottenHearts);
 commandFunctionsMap.set("s", commands.s);
@@ -297,11 +309,13 @@ commandFunctionsMap.set("sounds", commands.sounds);
 commandFunctionsMap.set("spam", commands.spam);
 commandFunctionsMap.set("spawngoldentrinket", commands.spawnGoldenTrinket);
 commandFunctionsMap.set("speed", commands.speed);
+commandFunctionsMap.set("spikesdisplay", commandsDisplay.spikesDisplay);
 commandFunctionsMap.set("supersecret", commands.superSecret);
 commandFunctionsMap.set("startingroom", commands.startingRoom);
 commandFunctionsMap.set("teardisplay", commandsDisplay.tearDisplay);
 commandFunctionsMap.set("tears", commands.tears);
 commandFunctionsMap.set("tearsdisplay", commandsDisplay.tearsDisplay);
+commandFunctionsMap.set("tntdisplay", commandsDisplay.tntDisplay);
 commandFunctionsMap.set("trapdoor", commands.trapdoorCommand);
 commandFunctionsMap.set("treasure", commands.treasure);
 commandFunctionsMap.set("ultrasecret", commands.ultraSecret);

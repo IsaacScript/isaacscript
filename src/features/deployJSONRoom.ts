@@ -4,6 +4,7 @@
 // it from scratch based on the JSON data.
 
 import {
+  CollectibleType,
   EffectVariant,
   EntityCollisionClass,
   EntityFlag,
@@ -51,7 +52,7 @@ const FEATURE_NAME = "JSON room deployer";
 
 interface PersistentEntityDescription {
   gridIndex: int;
-  type: int;
+  entityType: EntityType;
   variant: int;
   subType: int;
 }
@@ -133,7 +134,7 @@ function respawnPersistentEntities() {
   for (const persistentEntity of persistentEntities) {
     const position = room.GetGridPosition(persistentEntity.gridIndex);
     spawn(
-      persistentEntity.type,
+      persistentEntity.entityType,
       persistentEntity.variant,
       persistentEntity.subType,
       position,
@@ -401,7 +402,12 @@ function spawnAllEntities(jsonRoom: JSONRoom, rng: RNG, verbose = false) {
       if (verbose) {
         log(`Spawning grid entity ${entityType}.${variant} at: (${x}, ${y})`);
       }
-      spawnGridEntityForJSONRoom(entityType, variant, x, y);
+      spawnGridEntityForJSONRoom(
+        entityType as GridEntityXMLType,
+        variant,
+        x,
+        y,
+      );
     } else {
       if (verbose) {
         log(
@@ -409,7 +415,7 @@ function spawnAllEntities(jsonRoom: JSONRoom, rng: RNG, verbose = false) {
         );
       }
       const entity = spawnNormalEntityForJSONRoom(
-        entityType,
+        entityType as EntityType,
         variant,
         subType,
         x,
@@ -488,16 +494,24 @@ function spawnNormalEntityForJSONRoom(
   let entity: Entity;
   if (
     entityType === EntityType.PICKUP &&
-    variant === PickupVariant.COLLECTIBLE
+    (variant as PickupVariant) === PickupVariant.COLLECTIBLE
   ) {
     const options = roomType === RoomType.ANGEL;
-    entity = spawnCollectible(subType, position, seed, options);
+    entity = spawnCollectible(
+      subType as CollectibleType,
+      position,
+      seed,
+      options,
+    );
   } else {
     entity = spawnWithSeed(entityType, variant, subType, position, seed);
   }
 
   // For some reason, Pitfalls do not spawn with the correct collision classes.
-  if (entityType === EntityType.PITFALL && variant === PitfallVariant.PITFALL) {
+  if (
+    entityType === EntityType.PITFALL &&
+    (variant as PitfallVariant) === PitfallVariant.PITFALL
+  ) {
     entity.EntityCollisionClass = EntityCollisionClass.ENEMIES;
     entity.GridCollisionClass = EntityGridCollisionClass.WALLS;
   }
@@ -520,9 +534,9 @@ function storePersistentEntity(entity: Entity) {
   const gridIndex = room.GetGridIndex(entity.Position);
   const roomListIndex = getRoomListIndex();
 
-  const persistentEntity = {
+  const persistentEntity: PersistentEntityDescription = {
     gridIndex,
-    type: entity.Type,
+    entityType: entity.Type,
     variant: entity.Variant,
     subType: entity.SubType,
   };

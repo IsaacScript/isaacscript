@@ -11,7 +11,6 @@ import {
   TearVariant,
 } from "isaac-typescript-definitions";
 import { VectorZero } from "../constants";
-import { EntityTypeNonNPC } from "../types/EntityTypeNonNPC";
 import { getEntities, removeEntities, spawn } from "./entity";
 
 /**
@@ -256,10 +255,10 @@ export function getProjectiles(
 export function getSlots(
   slotVariant: SlotVariant = -1,
   subType = -1,
-): Entity[] {
+): EntitySlot[] {
   const slots = getEntities(EntityType.SLOT, slotVariant, subType);
 
-  return slots;
+  return slots as EntitySlot[];
 }
 
 /**
@@ -655,8 +654,8 @@ export function spawnLaserWithSeed(
 }
 
 /** Helper function to spawn an NPC. */
-export function spawnNPC<T extends EntityType>(
-  entityType: T extends EntityTypeNonNPC ? never : T,
+export function spawnNPC(
+  entityType: EntityType,
   variant: int,
   subType: int,
   position: Vector,
@@ -682,8 +681,8 @@ export function spawnNPC<T extends EntityType>(
 }
 
 /** Helper function to spawn an NPC with a specific seed. */
-export function spawnNPCWithSeed<T extends EntityType>(
-  entityType: T extends EntityTypeNonNPC ? never : T,
+export function spawnNPCWithSeed(
+  entityType: EntityType,
   variant: int,
   subType: int,
   position: Vector,
@@ -807,7 +806,7 @@ export function spawnSlot(
 
 /** Helper function to spawn a `EntityType.SLOT` (6) with a specific seed. */
 export function spawnSlotWithSeed(
-  slotVariant: int | SlotVariant,
+  slotVariant: SlotVariant,
   subType: int,
   position: Vector,
   seed: Seed,

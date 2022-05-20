@@ -34,9 +34,9 @@ const v = {
     playersActiveItemMap: new DefaultMap<
       PlayerIndex,
       ActiveSlotToCollectibleTypeMap
-    >(() => new DefaultMap((_playerIndex, collectibleType) => collectibleType)),
+    >(() => new DefaultMap((collectibleType) => collectibleType)),
     playersActiveChargeMap: new DefaultMap<PlayerIndex, ActiveSlotToChargeMap>(
-      () => new DefaultMap((_playerIndex, charge) => charge),
+      () => new DefaultMap((charge) => charge),
     ),
   },
 
@@ -51,7 +51,7 @@ export function postItemDischargeCallbackInit(mod: ModUpgraded): void {
   mod.AddCallback(ModCallback.POST_PEFFECT_UPDATE, postPEffectUpdate); // 4
   mod.AddCallback(
     ModCallback.PRE_NPC_COLLISION,
-    preNPCCollision,
+    preNPCCollisionSucker,
     EntityType.SUCKER,
   ); // 30
 }
@@ -130,7 +130,7 @@ function playerRecentlyCollidedWithBulb(player: EntityPlayer) {
  * Instead, we track the frames that Bulbs collide with players and assume that a collision means a
  * zap has occurred.
  */
-function preNPCCollision(npc: EntityNPC, collider: Entity) {
+function preNPCCollisionSucker(npc: EntityNPCSucker, collider: Entity) {
   if (!hasSubscriptions()) {
     return;
   }

@@ -3,7 +3,6 @@ import {
   GridEntityType,
   GridEntityXMLType,
   PoopGridEntityVariant,
-  PressurePlateState,
   StatueVariant,
   TrapdoorVariant,
 } from "isaac-typescript-definitions";
@@ -246,25 +245,6 @@ export function getTopLeftWallGridIndex(): int {
   return topLeftWallGridIndex === undefined
     ? DEFAULT_TOP_LEFT_WALL_GRID_INDEX
     : topLeftWallGridIndex;
-}
-
-/**
- * Helper function to determine if all of the pressure plates in the current room are pushed.
- * Returns true if there are no pressure plates in the room.
- */
-export function isAllPressurePlatesPushed(): boolean {
-  const room = game.GetRoom();
-  const hasPressurePlates = room.HasTriggerPressurePlates();
-
-  if (!hasPressurePlates) {
-    return true;
-  }
-
-  const pressurePlates = getGridEntities(GridEntityType.PRESSURE_PLATE);
-  return pressurePlates.every(
-    (pressurePlate) =>
-      pressurePlate.State === PressurePlateState.PRESSURE_PLATE_PRESSED,
-  );
 }
 
 export function isGridEntityBreakableByExplosion(

@@ -8,9 +8,7 @@ import {
 
 const v = {
   run: {
-    pickupStateMap: new DefaultMap<PtrHash, int, [int]>(
-      (_ptrHash, state) => state,
-    ),
+    pickupStateMap: new DefaultMap<PtrHash, int, [int]>((state) => state),
   },
 };
 

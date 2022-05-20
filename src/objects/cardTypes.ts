@@ -48,7 +48,7 @@ export const CARD_TYPES: { readonly [key in Card]: ItemConfigCardType } = {
   [Card.CHAOS]: ItemConfigCardType.SPECIAL, // 42
   [Card.CREDIT]: ItemConfigCardType.SPECIAL, // 43
   [Card.RULES]: ItemConfigCardType.SPECIAL, // 44
-  [Card.HUMANITY]: ItemConfigCardType.SPECIAL, // 45
+  [Card.AGAINST_HUMANITY]: ItemConfigCardType.SPECIAL, // 45
   [Card.SUICIDE_KING]: ItemConfigCardType.SPECIAL, // 46
   [Card.GET_OUT_OF_JAIL_FREE]: ItemConfigCardType.SPECIAL, // 47
   [Card.QUESTION_MARK]: ItemConfigCardType.SPECIAL, // 48

@@ -147,10 +147,11 @@ export function logEntities(
       return;
     }
 
+    const effect = entity.ToEffect();
     if (
       !includeBackgroundEffects &&
-      entity.Type === EntityType.EFFECT &&
-      IGNORE_EFFECT_VARIANTS.has(entity.Variant)
+      effect !== undefined &&
+      IGNORE_EFFECT_VARIANTS.has(effect.Variant)
     ) {
       return;
     }
@@ -163,7 +164,6 @@ export function logEntities(
       msg += " (bomb)";
     }
 
-    const effect = entity.ToEffect();
     if (effect !== undefined) {
       msg += ` (effect) (State: ${effect.State})`;
     }

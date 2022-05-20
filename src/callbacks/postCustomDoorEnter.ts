@@ -4,6 +4,7 @@ import {
   Direction,
   DoorSlot,
   DoorState,
+  EffectVariant,
   GridCollisionClass,
   GridEntityType,
   ModCallback,
@@ -69,8 +70,13 @@ function hasSubscriptions() {
  * const fooEffectVariant = Isaac.GetEntityVariantByName("Foo Custom Door");
  * initCustomDoor(mod, fooEffectVariant);
  * ```
+ *
+ * Also see the `spawnCustomDoor` function.
  */
-export function initCustomDoor(mod: ModUpgraded, effectVariant: int): void {
+export function initCustomDoor(
+  mod: ModUpgraded,
+  effectVariant: EffectVariant,
+): void {
   initializedEffectVariants.add(effectVariant);
 
   mod.AddCallback(
@@ -101,10 +107,10 @@ function postEffectUpdaterCustomEntity(effect: EntityEffect) {
     return;
   }
 
-  if (doorData.state === effect.State) {
+  if (doorData.state === (effect.State as DoorState)) {
     return;
   }
-  doorData.state = effect.State;
+  doorData.state = effect.State as DoorState;
 
   doorChangedState(effect);
 }
@@ -120,7 +126,7 @@ function doorChangedState(effect: EntityEffect) {
   const wall = room.GetGridEntity(gridIndex);
   if (wall !== undefined) {
     wall.CollisionClass =
-      effect.State === DoorState.OPEN
+      (effect.State as DoorState) === DoorState.OPEN
         ? GridCollisionClass.WALL_EXCEPT_PLAYER
         : GridCollisionClass.WALL;
   }
@@ -196,7 +202,10 @@ function isPlayerPastDoorThreshold(
 }
 
 // ModCallbackCustom.POST_ROOM_CLEAR_CHANGED
-function postRoomClearChanged(roomClear: boolean, effectVariant: int) {
+function postRoomClearChanged(
+  roomClear: boolean,
+  effectVariant: EffectVariant,
+) {
   const state = roomClear ? DoorState.OPEN : DoorState.CLOSED;
   const customDoors = getEffects(effectVariant);
   for (const customDoor of customDoors) {
@@ -226,7 +235,7 @@ function postRoomClearChanged(roomClear: boolean, effectVariant: int) {
  * `initCustomDoor` function.
  */
 export function spawnCustomDoor(
-  effectVariant: int,
+  effectVariant: EffectVariant,
   doorSlot: DoorSlot,
 ): EntityEffect {
   if (!initializedEffectVariants.has(effectVariant)) {
@@ -265,7 +274,7 @@ export function spawnCustomDoor(
   effect.RenderZOffset = -10000;
   effect.PositionOffset = getPositionOffset(doorSlot);
   const sprite = effect.GetSprite();
-  sprite.Rotation = doorSlot * 90 - 90;
+  sprite.Rotation = (doorSlot as int) * 90 - 90;
 
   // Keep track of metadata about this door.
   const ptrHash = GetPtrHash(effect);

@@ -28,7 +28,7 @@ const BROKEN_ANIMATIONS: ReadonlySet<string> = new Set([
 const v = {
   room: {
     slotAnimations: new DefaultMap<PtrHash, string, [slot: Entity]>(
-      (_key: PtrHash, slot: Entity) => {
+      (slot: Entity) => {
         const sprite = slot.GetSprite();
         return sprite.GetAnimation();
       },
@@ -65,7 +65,7 @@ function postRender() {
   }
 }
 
-function checkSlotAnimationChanged(slot: Entity) {
+function checkSlotAnimationChanged(slot: EntitySlot) {
   const sprite = slot.GetSprite();
   const currentAnimation = sprite.GetAnimation();
   const ptrHash = GetPtrHash(slot);
@@ -80,7 +80,7 @@ function checkSlotAnimationChanged(slot: Entity) {
   }
 }
 
-function checkSlotBroken(slot: Entity) {
+function checkSlotBroken(slot: EntitySlot) {
   const ptrHash = GetPtrHash(slot);
   const alreadyBroken = v.room.brokenSlots.has(ptrHash);
   if (alreadyBroken) {

@@ -4,6 +4,8 @@ import { postCollectibleInitFirstRegister } from "../callbacks/subscriptions/pos
 import { postCursedTeleportRegister } from "../callbacks/subscriptions/postCursedTeleport";
 import { postCustomDoorEnterRegister } from "../callbacks/subscriptions/postCustomDoorEnter";
 import { postCustomReviveRegister } from "../callbacks/subscriptions/postCustomRevive";
+import { postDoorRenderRegister } from "../callbacks/subscriptions/postDoorRender";
+import { postDoorUpdateRegister } from "../callbacks/subscriptions/postDoorUpdate";
 import { postEffectInitLateRegister } from "../callbacks/subscriptions/postEffectInitLate";
 import { postEffectStateChangedRegister } from "../callbacks/subscriptions/postEffectStateChanged";
 import { postEsauJrRegister } from "../callbacks/subscriptions/postEsauJr";
@@ -18,6 +20,7 @@ import { postGridEntityBrokenRegister } from "../callbacks/subscriptions/postGri
 import { postGridEntityCollisionRegister } from "../callbacks/subscriptions/postGridEntityCollision";
 import { postGridEntityInitRegister } from "../callbacks/subscriptions/postGridEntityInit";
 import { postGridEntityRemoveRegister } from "../callbacks/subscriptions/postGridEntityRemove";
+import { postGridEntityRenderRegister } from "../callbacks/subscriptions/postGridEntityRender";
 import { postGridEntityStateChangedRegister } from "../callbacks/subscriptions/postGridEntityStateChanged";
 import { postGridEntityUpdateRegister } from "../callbacks/subscriptions/postGridEntityUpdate";
 import { postHolyMantleRemovedRegister } from "../callbacks/subscriptions/postHolyMantleRemoved";
@@ -34,6 +37,8 @@ import { postPEffectUpdateReorderedRegister } from "../callbacks/subscriptions/p
 import { postPickupCollectRegister } from "../callbacks/subscriptions/postPickupCollect";
 import { postPickupInitLateRegister } from "../callbacks/subscriptions/postPickupInitLate";
 import { postPickupStateChangedRegister } from "../callbacks/subscriptions/postPickupStateChanged";
+import { postPitRenderRegister } from "../callbacks/subscriptions/postPitRender";
+import { postPitUpdateRegister } from "../callbacks/subscriptions/postPitUpdate";
 import { postPlayerChangeHealthRegister } from "../callbacks/subscriptions/postPlayerChangeHealth";
 import { postPlayerChangeTypeRegister } from "../callbacks/subscriptions/postPlayerChangeType";
 import { postPlayerFatalDamageRegister } from "../callbacks/subscriptions/postPlayerFatalDamage";
@@ -41,8 +46,14 @@ import { postPlayerInitLateRegister } from "../callbacks/subscriptions/postPlaye
 import { postPlayerInitReorderedRegister } from "../callbacks/subscriptions/postPlayerInitReordered";
 import { postPlayerRenderReorderedRegister } from "../callbacks/subscriptions/postPlayerRenderReordered";
 import { postPlayerUpdateReorderedRegister } from "../callbacks/subscriptions/postPlayerUpdateReordered";
+import { postPoopRenderRegister } from "../callbacks/subscriptions/postPoopRender";
+import { postPoopUpdateRegister } from "../callbacks/subscriptions/postPoopUpdate";
+import { postPressurePlateRenderRegister } from "../callbacks/subscriptions/postPressurePlateRender";
+import { postPressurePlateUpdateRegister } from "../callbacks/subscriptions/postPressurePlateUpdate";
 import { postProjectileInitLateRegister } from "../callbacks/subscriptions/postProjectileInitLate";
 import { postPurchaseRegister } from "../callbacks/subscriptions/postPurchase";
+import { postRockRenderRegister } from "../callbacks/subscriptions/postRockRender";
+import { postRockUpdateRegister } from "../callbacks/subscriptions/postRockUpdate";
 import { postRoomClearChangedRegister } from "../callbacks/subscriptions/postRoomClearChanged";
 import { postSacrificeRegister } from "../callbacks/subscriptions/postSacrifice";
 import { postSlotAnimationChangedRegister } from "../callbacks/subscriptions/postSlotAnimationChanged";
@@ -50,8 +61,12 @@ import { postSlotDestroyedRegister } from "../callbacks/subscriptions/postSlotDe
 import { postSlotInitRegister } from "../callbacks/subscriptions/postSlotInit";
 import { postSlotRenderRegister } from "../callbacks/subscriptions/postSlotRender";
 import { postSlotUpdateRegister } from "../callbacks/subscriptions/postSlotUpdate";
+import { postSpikesRenderRegister } from "../callbacks/subscriptions/postSpikesRender";
+import { postSpikesUpdateRegister } from "../callbacks/subscriptions/postSpikesUpdate";
 import { postTearInitLateRegister } from "../callbacks/subscriptions/postTearInitLate";
 import { postTearInitVeryLateRegister } from "../callbacks/subscriptions/postTearInitVeryLate";
+import { postTNTRenderRegister } from "../callbacks/subscriptions/postTNTRender";
+import { postTNTUpdateRegister } from "../callbacks/subscriptions/postTNTUpdate";
 import { postTransformationRegister } from "../callbacks/subscriptions/postTransformation";
 import { postTrinketBreakRegister } from "../callbacks/subscriptions/postTrinketBreak";
 import { preBerserkDeathRegister } from "../callbacks/subscriptions/preBerserkDeath";
@@ -73,6 +88,8 @@ export const CALLBACK_REGISTER_FUNCTIONS: {
   [ModCallbackCustom.POST_CURSED_TELEPORT]: postCursedTeleportRegister,
   [ModCallbackCustom.POST_CUSTOM_DOOR_ENTER]: postCustomDoorEnterRegister,
   [ModCallbackCustom.POST_CUSTOM_REVIVE]: postCustomReviveRegister,
+  [ModCallbackCustom.POST_DOOR_RENDER]: postDoorRenderRegister,
+  [ModCallbackCustom.POST_DOOR_UPDATE]: postDoorUpdateRegister,
   [ModCallbackCustom.POST_EFFECT_INIT_LATE]: postEffectInitLateRegister,
   [ModCallbackCustom.POST_EFFECT_STATE_CHANGED]: postEffectStateChangedRegister,
   [ModCallbackCustom.POST_ESAU_JR]: postEsauJrRegister,
@@ -90,6 +107,7 @@ export const CALLBACK_REGISTER_FUNCTIONS: {
     postGridEntityCollisionRegister,
   [ModCallbackCustom.POST_GRID_ENTITY_INIT]: postGridEntityInitRegister,
   [ModCallbackCustom.POST_GRID_ENTITY_REMOVE]: postGridEntityRemoveRegister,
+  [ModCallbackCustom.POST_GRID_ENTITY_RENDER]: postGridEntityRenderRegister,
   [ModCallbackCustom.POST_GRID_ENTITY_STATE_CHANGED]:
     postGridEntityStateChangedRegister,
   [ModCallbackCustom.POST_GRID_ENTITY_UPDATE]: postGridEntityUpdateRegister,
@@ -108,6 +126,8 @@ export const CALLBACK_REGISTER_FUNCTIONS: {
   [ModCallbackCustom.POST_PICKUP_COLLECT]: postPickupCollectRegister,
   [ModCallbackCustom.POST_PICKUP_INIT_LATE]: postPickupInitLateRegister,
   [ModCallbackCustom.POST_PICKUP_STATE_CHANGED]: postPickupStateChangedRegister,
+  [ModCallbackCustom.POST_PIT_RENDER]: postPitRenderRegister,
+  [ModCallbackCustom.POST_PIT_UPDATE]: postPitUpdateRegister,
   [ModCallbackCustom.POST_PLAYER_CHANGE_HEALTH]: postPlayerChangeHealthRegister,
   [ModCallbackCustom.POST_PLAYER_CHANGE_TYPE]: postPlayerChangeTypeRegister,
   [ModCallbackCustom.POST_PLAYER_FATAL_DAMAGE]: postPlayerFatalDamageRegister,
@@ -118,8 +138,16 @@ export const CALLBACK_REGISTER_FUNCTIONS: {
     postPlayerRenderReorderedRegister,
   [ModCallbackCustom.POST_PLAYER_UPDATE_REORDERED]:
     postPlayerUpdateReorderedRegister,
+  [ModCallbackCustom.POST_POOP_RENDER]: postPoopRenderRegister,
+  [ModCallbackCustom.POST_POOP_UPDATE]: postPoopUpdateRegister,
+  [ModCallbackCustom.POST_PRESSURE_PLATE_RENDER]:
+    postPressurePlateRenderRegister,
+  [ModCallbackCustom.POST_PRESSURE_PLATE_UPDATE]:
+    postPressurePlateUpdateRegister,
   [ModCallbackCustom.POST_PROJECTILE_INIT_LATE]: postProjectileInitLateRegister,
   [ModCallbackCustom.POST_PURCHASE]: postPurchaseRegister,
+  [ModCallbackCustom.POST_ROCK_RENDER]: postRockRenderRegister,
+  [ModCallbackCustom.POST_ROCK_UPDATE]: postRockUpdateRegister,
   [ModCallbackCustom.POST_ROOM_CLEAR_CHANGED]: postRoomClearChangedRegister,
   [ModCallbackCustom.POST_SACRIFICE]: postSacrificeRegister,
   [ModCallbackCustom.POST_SLOT_ANIMATION_CHANGED]:
@@ -128,8 +156,12 @@ export const CALLBACK_REGISTER_FUNCTIONS: {
   [ModCallbackCustom.POST_SLOT_INIT]: postSlotInitRegister,
   [ModCallbackCustom.POST_SLOT_RENDER]: postSlotRenderRegister,
   [ModCallbackCustom.POST_SLOT_UPDATE]: postSlotUpdateRegister,
+  [ModCallbackCustom.POST_SPIKES_RENDER]: postSpikesRenderRegister,
+  [ModCallbackCustom.POST_SPIKES_UPDATE]: postSpikesUpdateRegister,
   [ModCallbackCustom.POST_TEAR_INIT_LATE]: postTearInitLateRegister,
   [ModCallbackCustom.POST_TEAR_INIT_VERY_LATE]: postTearInitVeryLateRegister,
+  [ModCallbackCustom.POST_TNT_RENDER]: postTNTRenderRegister,
+  [ModCallbackCustom.POST_TNT_UPDATE]: postTNTUpdateRegister,
   [ModCallbackCustom.POST_TRANSFORMATION]: postTransformationRegister,
   [ModCallbackCustom.POST_TRINKET_BREAK]: postTrinketBreakRegister,
   [ModCallbackCustom.PRE_BERSERK_DEATH]: preBerserkDeathRegister,

@@ -3,6 +3,7 @@ import { GridEntityType } from "isaac-typescript-definitions";
 export type PostGridEntityCollisionRegisterParameters = [
   callback: (gridEntity: GridEntity, entity: Entity) => void,
   gridEntityType?: GridEntityType,
+  gridEntityVariant?: int,
 ];
 
 const subscriptions: PostGridEntityCollisionRegisterParameters[] = [];
@@ -25,12 +26,25 @@ export function postGridEntityCollisionFire(
   entity: Entity,
 ): void {
   const gridEntityType = gridEntity.GetType();
+  const gridEntityVariant = gridEntity.GetVariant();
 
-  for (const [callback, callbackGridEntityType] of subscriptions) {
+  for (const [
+    callback,
+    callbackGridEntityType,
+    callbackGridEntityVariant,
+  ] of subscriptions) {
     // Handle the optional 2nd callback argument.
     if (
       callbackGridEntityType !== undefined &&
       callbackGridEntityType !== gridEntityType
+    ) {
+      continue;
+    }
+
+    // Handle the optional 3rd callback argument.
+    if (
+      callbackGridEntityVariant !== undefined &&
+      callbackGridEntityVariant !== gridEntityVariant
     ) {
       continue;
     }

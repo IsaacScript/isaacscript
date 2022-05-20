@@ -7,24 +7,36 @@ import {
   DisplayFlag,
   GameStateFlag,
   GridRoom,
+  LevelStage,
   PillColor,
   PillEffect,
   PlayerType,
   RoomType,
+  SoundEffect,
+  TrinketType,
 } from "isaac-typescript-definitions";
 import { game, sfxManager } from "../../cachedClasses";
 import {
+  FIRST_ROOM_TYPE,
+  FIRST_STAGE,
   MAX_LEVEL_GRID_INDEX,
   MAX_ROOM_TYPE,
   MAX_STAGE,
-  MAX_VANILLA_CHARACTER,
 } from "../../constants";
-import { MAX_CARD, MAX_PILL_EFFECT } from "../../constantsMax";
+import {
+  FIRST_CARD,
+  FIRST_CHARACTER,
+  FIRST_PILL_EFFECT,
+  MAX_CARD,
+  MAX_PILL_EFFECT,
+  MAX_VANILLA_CHARACTER,
+} from "../../constantsMax";
 import { HealthType } from "../../enums/HealthType";
 import { getCardName } from "../../functions/cards";
 import { getCharacterName } from "../../functions/character";
+import { isValidCollectibleType } from "../../functions/collectibles";
 import { getNPCs } from "../../functions/entitySpecific";
-import { getEnumValues, getLastEnumValue } from "../../functions/enums";
+import { getEnumValues } from "../../functions/enums";
 import { addFlag } from "../../functions/flag";
 import {
   logEffects,
@@ -34,7 +46,7 @@ import {
 } from "../../functions/log";
 import { getMapPartialMatch } from "../../functions/map";
 import { spawnCard, spawnPill, spawnTrinket } from "../../functions/pickups";
-import { getHorsePillColor, getPillEffectName } from "../../functions/pills";
+import { getPillEffectName } from "../../functions/pills";
 import { getPlayerName, useActiveItemTemp } from "../../functions/player";
 import { getPlayers } from "../../functions/playerIndex";
 import { gridCoordinatesToWorldPosition } from "../../functions/roomGrid";
@@ -79,7 +91,7 @@ export function addCharges(params: string): void {
 
   const [activeSlotString, chargeString] = args;
 
-  const activeSlot = tonumber(activeSlotString);
+  const activeSlot = tonumber(activeSlotString) as ActiveSlot | undefined;
   if (activeSlot === undefined) {
     printConsole(`The provided slot number is invalid: ${activeSlotString}`);
     return;
@@ -269,7 +281,7 @@ export function card(params: string): void {
   }
 
   let cardNum: Card;
-  const num = tonumber(params);
+  const num = tonumber(params) as Card | undefined;
   if (num === undefined) {
     const match = getMapPartialMatch(params, CARD_MAP);
     if (match === undefined) {
@@ -279,7 +291,7 @@ export function card(params: string): void {
 
     cardNum = match[1];
   } else {
-    if (num <= Card.NULL || num > MAX_CARD) {
+    if (num < FIRST_CARD || num > MAX_CARD) {
       printConsole(`Invalid card sub-type: ${num}`);
       return;
     }
@@ -297,12 +309,12 @@ export function cards(): void {
   let cardType = 1;
   for (let y = 0; y <= 6; y++) {
     for (let x = 0; x <= 12; x++) {
-      if (cardType === MAX_CARD) {
+      if ((cardType as Card) === MAX_CARD) {
         return;
       }
 
       const position = gridCoordinatesToWorldPosition(x, y);
-      spawnCard(cardType, position);
+      spawnCard(cardType as Card, position);
       cardType += 1;
     }
   }
@@ -334,7 +346,7 @@ export function characterCommand(params: string): void {
   }
 
   let character: PlayerType;
-  const num = tonumber(params);
+  const num = tonumber(params) as PlayerType | undefined;
   if (num === undefined) {
     const match = getMapPartialMatch(params, CHARACTER_MAP);
     if (match === undefined) {
@@ -344,7 +356,7 @@ export function characterCommand(params: string): void {
 
     character = match[1];
   } else {
-    if (num < 0 || num > MAX_VANILLA_CHARACTER) {
+    if (num < FIRST_CHARACTER || num > MAX_VANILLA_CHARACTER) {
       printConsole(`Invalid player sub-type: ${num}`);
       return;
     }
@@ -757,7 +769,7 @@ export function pill(params: string): void {
   }
 
   let pillEffect: PillEffect;
-  const num = tonumber(params);
+  const num = tonumber(params) as PillEffect | undefined;
   if (num === undefined) {
     const match = getMapPartialMatch(params, PILL_EFFECT_MAP);
     if (match === undefined) {
@@ -767,7 +779,7 @@ export function pill(params: string): void {
 
     pillEffect = match[1];
   } else {
-    if (num < 0 || num > MAX_PILL_EFFECT) {
+    if (num < FIRST_PILL_EFFECT || num > MAX_PILL_EFFECT) {
       printConsole(`Invalid pill effect ID: ${num}`);
       return;
     }
@@ -782,26 +794,21 @@ export function pill(params: string): void {
 
 /** Spawns every pill on the ground, starting at the top-left-most tile. */
 export function pills(): void {
-  const maxPillColor = getLastEnumValue(PillColor);
+  const pillColors = getEnumValues(PillColor).filter(
+    (pillColor) => pillColor !== PillColor.NULL,
+  );
 
-  let pillColor = 1;
-  let horse = false;
+  let pillColorIndex = -1;
   for (let y = 0; y <= 6; y++) {
     for (let x = 0; x <= 12; x++) {
-      if (pillColor === maxPillColor) {
-        if (horse) {
-          return;
-        }
-        horse = true;
-        pillColor = 1;
+      pillColorIndex += 1;
+      const pillColor = pillColors[pillColorIndex];
+      if (pillColor === undefined) {
+        return;
       }
 
-      const horsePillColor = getHorsePillColor(pillColor);
-      const pillColorToUse = horse ? horsePillColor : pillColor;
       const position = gridCoordinatesToWorldPosition(x, y);
-      spawnPill(pillColorToUse, position);
-
-      pillColor += 1;
+      spawnPill(pillColor, position);
     }
   }
 }
@@ -825,14 +832,19 @@ export function pocket(params: string): void {
     return;
   }
 
-  const num = tonumber(params);
-  if (num === undefined) {
+  const collectibleType = tonumber(params) as CollectibleType | undefined;
+  if (collectibleType === undefined) {
+    printConsole("That is an invalid collectible type.");
+    return;
+  }
+
+  if (!isValidCollectibleType(collectibleType)) {
     printConsole("That is an invalid collectible type.");
     return;
   }
 
   const player = Isaac.GetPlayer();
-  player.SetPocketActiveItem(num, ActiveSlot.POCKET);
+  player.SetPocketActiveItem(collectibleType, ActiveSlot.POCKET);
 }
 
 /**
@@ -919,16 +931,15 @@ export function s(params: string): void {
     stageTypeLetter = "";
   }
 
-  const stage = tonumber(stageString);
+  const stage = tonumber(stageString) as LevelStage | undefined;
   if (stage === undefined) {
     printConsole(`That is an invalid stage number: ${stage}`);
     return;
   }
 
-  const minStage = 1;
-  if (stage < minStage || stage > MAX_STAGE) {
+  if (stage < FIRST_STAGE || stage > MAX_STAGE) {
     printConsole(
-      `Invalid stage number; must be between ${minStage} and ${MAX_STAGE}.`,
+      `Invalid stage number; must be between ${FIRST_STAGE} and ${MAX_STAGE}.`,
     );
     return;
   }
@@ -985,7 +996,7 @@ export function setCharges(params: string): void {
 
   const [activeSlotString, chargeString] = args;
 
-  const activeSlot = tonumber(activeSlotString);
+  const activeSlot = tonumber(activeSlotString) as ActiveSlot | undefined;
   if (activeSlot === undefined) {
     printConsole(`The provided slot number is invalid: ${activeSlotString}`);
     return;
@@ -1100,7 +1111,7 @@ export function soulHearts(params: string): void {
  * - sound 1 - Plays the 1-Up sound effect.
  */
 export function sound(params: string): void {
-  const soundEffect = tonumber(params);
+  const soundEffect = tonumber(params) as SoundEffect | undefined;
   if (soundEffect === undefined) {
     printConsole("That is an invalid sound effect ID.");
     return;
@@ -1135,7 +1146,7 @@ export function spawnGoldenTrinket(params: string): void {
     return;
   }
 
-  const trinketType = tonumber(params);
+  const trinketType = tonumber(params) as TrinketType | undefined;
   if (trinketType === undefined) {
     printConsole(`That is an invalid trinket type: ${params}`);
     return;
@@ -1228,7 +1239,7 @@ export function warp(params: string): void {
   }
 
   let roomType: RoomType;
-  const num = tonumber(params);
+  const num = tonumber(params) as RoomType | undefined;
   if (num === undefined) {
     const match = getMapPartialMatch(params, ROOM_TYPE_MAP);
     if (match === undefined) {
@@ -1238,7 +1249,7 @@ export function warp(params: string): void {
 
     roomType = match[1];
   } else {
-    if (num < 1 || num > MAX_ROOM_TYPE) {
+    if (num < FIRST_ROOM_TYPE || num > MAX_ROOM_TYPE) {
       printConsole(`Invalid room type: ${num}`);
       return;
     }

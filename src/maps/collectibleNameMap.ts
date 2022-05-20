@@ -1,3 +1,5 @@
+/* eslint-disable isaacscript/strict-enums */
+
 import { CollectibleType } from "isaac-typescript-definitions";
 
 export const DEFAULT_COLLECTIBLE_NAME = "Unknown";

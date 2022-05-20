@@ -1,3 +1,4 @@
+import { CollectibleType, FamiliarVariant } from "isaac-typescript-definitions";
 import { itemConfig } from "../cachedClasses";
 import { FAMILIARS_THAT_SHOOT_PLAYER_TEARS_SET } from "../sets/familiarsThatShootPlayerTearsSet";
 
@@ -32,9 +33,9 @@ import { FAMILIARS_THAT_SHOOT_PLAYER_TEARS_SET } from "../sets/familiarsThatShoo
  */
 export function checkFamiliar(
   player: EntityPlayer,
-  collectibleType: int,
+  collectibleType: CollectibleType,
   targetCount: int,
-  familiarVariant: int,
+  familiarVariant: FamiliarVariant,
   familiarSubType?: int,
 ): void {
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
@@ -76,8 +77,8 @@ export function checkFamiliar(
  */
 export function checkFamiliarFromCollectibles(
   player: EntityPlayer,
-  collectibleType: int,
-  familiarVariant: int,
+  collectibleType: CollectibleType,
+  familiarVariant: FamiliarVariant,
   familiarSubType?: int,
 ): void {
   const numCollectibles = player.GetCollectibleNum(collectibleType);

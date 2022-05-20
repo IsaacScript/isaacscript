@@ -1,3 +1,4 @@
+/* eslint-disable isaacscript/strict-enums */
 /* cspell:disable */
 
 import { CollectibleType } from "isaac-typescript-definitions";

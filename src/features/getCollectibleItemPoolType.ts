@@ -3,7 +3,6 @@
 // collectible has this item pool type.
 
 import {
-  EntityType,
   ItemPoolType,
   ModCallback,
   PickupVariant,
@@ -11,6 +10,7 @@ import {
 import { game } from "../cachedClasses";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { getEntityID } from "../functions/entity";
+import { isCollectible } from "../functions/pickupVariants";
 import { getRoomItemPoolType } from "../functions/rooms";
 import { saveDataManager } from "./saveDataManager/exports";
 
@@ -53,10 +53,7 @@ export function getCollectibleItemPoolType(
 ): ItemPoolType {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
 
-  if (
-    collectible.Type !== EntityType.PICKUP ||
-    collectible.Variant !== PickupVariant.COLLECTIBLE
-  ) {
+  if (!isCollectible(collectible)) {
     const entityID = getEntityID(collectible);
     error(
       `The "getCollectibleItemPoolType" function was given a non-collectible: ${entityID}`,

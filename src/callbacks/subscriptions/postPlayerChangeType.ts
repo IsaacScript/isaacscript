@@ -1,4 +1,4 @@
-import { PlayerType } from "isaac-typescript-definitions";
+import { PlayerType, PlayerVariant } from "isaac-typescript-definitions";
 
 export type PostPlayerChangeTypeRegisterParameters = [
   callback: (
@@ -6,6 +6,7 @@ export type PostPlayerChangeTypeRegisterParameters = [
     oldCharacter: PlayerType,
     newCharacter: PlayerType,
   ) => void,
+  playerVariant?: PlayerVariant,
 ];
 
 const subscriptions: PostPlayerChangeTypeRegisterParameters[] = [];
@@ -28,7 +29,12 @@ export function postPlayerChangeTypeFire(
   oldCharacter: PlayerType,
   newCharacter: PlayerType,
 ): void {
-  for (const [callback] of subscriptions) {
+  for (const [callback, playerVariant] of subscriptions) {
+    // Handle the optional 2nd callback argument.
+    if (playerVariant !== undefined && playerVariant !== player.Variant) {
+      continue;
+    }
+
     callback(player, oldCharacter, newCharacter);
   }
 }

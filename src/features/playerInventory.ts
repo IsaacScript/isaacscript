@@ -27,7 +27,7 @@ const v = {
       PlayerIndex,
       CollectibleType[],
       [player: EntityPlayer]
-    >((_key: PlayerIndex, player: EntityPlayer) => newPlayerInventory(player)),
+    >((player: EntityPlayer) => newPlayerInventory(player)),
 
     /**
      * We also keep track of the active items that the player has, so that we can easily flush them

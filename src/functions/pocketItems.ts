@@ -106,6 +106,7 @@ export function getPocketItems(player: EntityPlayer): PocketItemDescription[] {
       });
     }
 
+    // eslint-disable-next-line isaacscript/strict-enums
     if (slot + 1 === maxPocketItems) {
       break;
     }

@@ -4,6 +4,7 @@
 
 import {
   CollectibleType,
+  ControllerIndex,
   ModCallback,
   UseFlag,
 } from "isaac-typescript-definitions";
@@ -22,7 +23,7 @@ import {
 const v = {
   run: {
     usedEsauJrFrame: null as int | null,
-    usedEsauJrControllerIndex: null as int | null,
+    usedEsauJrControllerIndex: null as ControllerIndex | null,
     usedEsauJrAtLeastOnce: false,
   },
 };
@@ -79,7 +80,7 @@ function postUpdate() {
   postEsauJrFire(player);
 }
 
-function getPlayerWithControllerIndex(controllerIndex: int) {
+function getPlayerWithControllerIndex(controllerIndex: ControllerIndex) {
   const players = getPlayers();
   return players.find((player) => player.ControllerIndex === controllerIndex);
 }

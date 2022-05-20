@@ -11,7 +11,9 @@ const FEATURE_NAME = "siren helpers";
 
 const v = {
   run: {
-    familiarBlacklist: [] as Array<[variant: int, subType: int | undefined]>,
+    familiarBlacklist: [] as Array<
+      [variant: FamiliarVariant, subType: int | undefined]
+    >,
   },
 };
 

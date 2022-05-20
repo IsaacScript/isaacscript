@@ -2,7 +2,7 @@ import { SlotVariant } from "isaac-typescript-definitions";
 
 export type PostSlotAnimationChangedRegisterParameters = [
   callback: (
-    slot: Entity,
+    slot: EntitySlot,
     previousAnimation: string,
     currentAnimation: string,
   ) => void,
@@ -25,7 +25,7 @@ export function postSlotAnimationChangedRegister(
 
 /** @internal */
 export function postSlotAnimationChangedFire(
-  slot: Entity,
+  slot: EntitySlot,
   previousAnimation: string,
   currentAnimation: string,
 ): void {

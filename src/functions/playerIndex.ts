@@ -150,8 +150,8 @@ export function getPlayerIndexVanilla(
  * If this is not desired, use the `getAllPlayers` helper function instead.
  *
  * @param performCharacterExclusions Whether or not to exclude characters that are not directly
- *                                   controlled by the player (i.e. Esau & Tainted Soul). Default is
- *                                   false.
+ *                                 controlled by the player (i.e. Esau & Tainted Soul). Default is
+ *                                 false.
  */
 export function getPlayers(performCharacterExclusions = false): EntityPlayer[] {
   const players = getAllPlayers();

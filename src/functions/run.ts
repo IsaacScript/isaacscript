@@ -1,5 +1,6 @@
 import { Challenge, PlayerType } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
+import { FIRST_CHARACTER } from "../constantsMax";
 import { log } from "./log";
 
 /**
@@ -26,7 +27,7 @@ export function restart(character?: PlayerType): void {
     return;
   }
 
-  if (character < 0) {
+  if (character < FIRST_CHARACTER) {
     error(`Restarting as a character of ${character} would crash the game.`);
   }
 

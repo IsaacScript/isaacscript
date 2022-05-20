@@ -335,9 +335,9 @@ export function isArray(object: unknown): object is unknown[] {
  * For example, `[2, 3, 4]` would return true, and `[2, 3, 5]` would return false.
  */
 export function isArrayContiguous(array: int[]): boolean {
-  let lastValue: int | null = null;
+  let lastValue: int | undefined;
   for (const element of array) {
-    if (lastValue === null) {
+    if (lastValue === undefined) {
       lastValue = element - 1;
     }
 

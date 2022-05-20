@@ -2,27 +2,46 @@ import { ModCallback } from "isaac-typescript-definitions";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { getEntityID } from "../functions/entity";
+import { getGridEntityID } from "../functions/gridEntity";
 import { isReflectionRender, printEnabled } from "../functions/utils";
 import { saveDataManager } from "./saveDataManager/exports";
 
 const textCallbacks = {
-  player: defaultDisplayCallback as (player: EntityPlayer) => string, // 1
-  tear: defaultDisplayCallback as (tear: EntityTear) => string, // 2
-  familiar: defaultDisplayCallback as (familiar: EntityFamiliar) => string, // 3
-  bomb: defaultDisplayCallback as (bomb: EntityBomb) => string, // 4
-  pickup: defaultDisplayCallback as (pickup: EntityPickup) => string, // 5
-  slot: defaultDisplayCallback as (familiar: Entity) => string, // 6
-  laser: defaultDisplayCallback as (laser: EntityLaser) => string, // 7
-  knife: defaultDisplayCallback as (knife: EntityKnife) => string, // 8
-  projectile: defaultDisplayCallback as (
+  player: defaultEntityDisplayCallback as (player: EntityPlayer) => string, // 1
+  tear: defaultEntityDisplayCallback as (tear: EntityTear) => string, // 2
+  familiar: defaultEntityDisplayCallback as (
+    familiar: EntityFamiliar,
+  ) => string, // 3
+  bomb: defaultEntityDisplayCallback as (bomb: EntityBomb) => string, // 4
+  pickup: defaultEntityDisplayCallback as (pickup: EntityPickup) => string, // 5
+  slot: defaultEntityDisplayCallback as (familiar: Entity) => string, // 6
+  laser: defaultEntityDisplayCallback as (laser: EntityLaser) => string, // 7
+  knife: defaultEntityDisplayCallback as (knife: EntityKnife) => string, // 8
+  projectile: defaultEntityDisplayCallback as (
     projectile: EntityProjectile,
   ) => string, // 9
-  effect: defaultDisplayCallback as (effect: EntityEffect) => string, // 1000
-  npc: defaultDisplayCallback as (effect: EntityNPC) => string,
+  effect: defaultEntityDisplayCallback as (effect: EntityEffect) => string, // 1000
+  npc: defaultEntityDisplayCallback as (effect: EntityNPC) => string,
+
+  rock: defaultGridEntityDisplayCallback as (rock: GridEntityRock) => string, // 2 ??
+  pit: defaultGridEntityDisplayCallback as (pit: GridEntityPit) => string, // 7
+  spikes: defaultGridEntityDisplayCallback as (
+    spikes: GridEntitySpikes,
+  ) => string, // 8 ??
+  tnt: defaultGridEntityDisplayCallback as (tnt: GridEntityTNT) => string, // 12
+  poop: defaultGridEntityDisplayCallback as (poop: GridEntityPoop) => string, // 14
+  door: defaultGridEntityDisplayCallback as (door: GridEntityDoor) => string, // 16
+  pressurePlate: defaultGridEntityDisplayCallback as (
+    pressurePlate: GridEntityPressurePlate,
+  ) => string, // 20
 };
 
-function defaultDisplayCallback(entity: Entity) {
+function defaultEntityDisplayCallback(entity: Entity) {
   return getEntityID(entity);
+}
+
+function defaultGridEntityDisplayCallback(gridEntity: GridEntity) {
+  return getGridEntityID(gridEntity);
 }
 
 const v = {
@@ -38,6 +57,14 @@ const v = {
     projectile: false, // 9
     effect: false, // 1000
     npc: false,
+
+    rock: false, // 2 and others ??
+    pit: false, // 7
+    spikes: false, // 8 and others ??
+    tnt: false, // 12
+    poop: false, // 14
+    door: false, // 16
+    pressurePlate: false, // 20
   },
 };
 
@@ -55,6 +82,16 @@ export function debugDisplayInit(mod: ModUpgraded): void {
   mod.AddCallback(ModCallback.POST_EFFECT_RENDER, postEffectRender); // 56
   mod.AddCallback(ModCallback.POST_BOMB_RENDER, postBombRender); // 59
   mod.AddCallbackCustom(ModCallbackCustom.POST_SLOT_RENDER, postSlotRender);
+  mod.AddCallbackCustom(ModCallbackCustom.POST_ROCK_RENDER, postRockRender);
+  mod.AddCallbackCustom(ModCallbackCustom.POST_PIT_RENDER, postPitRender);
+  mod.AddCallbackCustom(ModCallbackCustom.POST_SPIKES_RENDER, postSpikesRender);
+  mod.AddCallbackCustom(ModCallbackCustom.POST_TNT_RENDER, postTNTRender);
+  mod.AddCallbackCustom(ModCallbackCustom.POST_POOP_RENDER, postPoopRender);
+  mod.AddCallbackCustom(ModCallbackCustom.POST_DOOR_RENDER, postDoorRender);
+  mod.AddCallbackCustom(
+    ModCallbackCustom.POST_PRESSURE_PLATE_RENDER,
+    postPressurePlateRender,
+  );
 }
 
 // EntityType.PLAYER (1)
@@ -120,6 +157,48 @@ export function toggleEffectDisplay(): void {
 export function toggleNPCDisplay(): void {
   v.run.npc = !v.run.npc;
   printEnabled(v.run.npc, "NPC display");
+}
+
+// GridEntityType.ROCK (2) ??
+export function toggleRockDisplay(): void {
+  v.run.rock = !v.run.rock;
+  printEnabled(v.run.rock, "rock display");
+}
+
+// GridEntityType.PIT (7)
+export function togglePitDisplay(): void {
+  v.run.pit = !v.run.pit;
+  printEnabled(v.run.pit, "pit display");
+}
+
+// GridEntityType.SPIKES (8) ??
+export function toggleSpikesDisplay(): void {
+  v.run.spikes = !v.run.spikes;
+  printEnabled(v.run.spikes, "spikes display");
+}
+
+// GridEntityType.TNT (12)
+export function toggleTNTDisplay(): void {
+  v.run.tnt = !v.run.tnt;
+  printEnabled(v.run.tnt, "TNT display");
+}
+
+// GridEntityType.POOP (14)
+export function togglePoopDisplay(): void {
+  v.run.poop = !v.run.poop;
+  printEnabled(v.run.poop, "poop display");
+}
+
+// GridEntityType.DOOR (16)
+export function toggleDoorDisplay(): void {
+  v.run.door = !v.run.door;
+  printEnabled(v.run.door, "door display");
+}
+
+// GridEntityType.PRESSURE_PLATE (20)
+export function togglePressurePlateDisplay(): void {
+  v.run.pressurePlate = !v.run.pressurePlate;
+  printEnabled(v.run.pressurePlate, "pressure plate display");
 }
 
 // ModCallback.POST_FAMILIAR_RENDER (25)
@@ -232,7 +311,77 @@ function postSlotRender(slot: Entity) {
   renderTextOnEntity(slot, text);
 }
 
-function renderTextOnEntity(entity: Entity, text: string) {
+// ModCallbackCustom.POST_ROCK_RENDER
+function postRockRender(rock: GridEntityRock) {
+  if (!v.run.rock) {
+    return;
+  }
+
+  const text = textCallbacks.rock(rock);
+  renderTextOnEntity(rock, text);
+}
+
+// ModCallbackCustom.POST_PIT_RENDER
+function postPitRender(pit: GridEntityPit) {
+  if (!v.run.pit) {
+    return;
+  }
+
+  const text = textCallbacks.pit(pit);
+  renderTextOnEntity(pit, text);
+}
+
+// ModCallbackCustom.POST_SPIKES_RENDER
+function postSpikesRender(spikes: GridEntitySpikes) {
+  if (!v.run.spikes) {
+    return;
+  }
+
+  const text = textCallbacks.spikes(spikes);
+  renderTextOnEntity(spikes, text);
+}
+
+// ModCallbackCustom.POST_TNT_RENDER
+function postTNTRender(tnt: GridEntityTNT) {
+  if (!v.run.tnt) {
+    return;
+  }
+
+  const text = textCallbacks.tnt(tnt);
+  renderTextOnEntity(tnt, text);
+}
+
+// ModCallbackCustom.POST_POOP_RENDER
+function postPoopRender(poop: GridEntityPoop) {
+  if (!v.run.poop) {
+    return;
+  }
+
+  const text = textCallbacks.poop(poop);
+  renderTextOnEntity(poop, text);
+}
+
+// ModCallbackCustom.POST_DOOR_RENDER
+function postDoorRender(door: GridEntityDoor) {
+  if (!v.run.door) {
+    return;
+  }
+
+  const text = textCallbacks.door(door);
+  renderTextOnEntity(door, text);
+}
+
+// ModCallbackCustom.POST_PRESSURE_PLATE_RENDER
+function postPressurePlateRender(pressurePlate: GridEntityPressurePlate) {
+  if (!v.run.pressurePlate) {
+    return;
+  }
+
+  const text = textCallbacks.pressurePlate(pressurePlate);
+  renderTextOnEntity(pressurePlate, text);
+}
+
+function renderTextOnEntity(entity: Entity | GridEntity, text: string) {
   if (isReflectionRender()) {
     return;
   }

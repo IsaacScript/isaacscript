@@ -1,5 +1,5 @@
 import { CacheFlag, CollectibleType } from "isaac-typescript-definitions";
-import { MAX_COLLECTIBLE_TYPE } from "../constantsMax";
+import { FIRST_COLLECTIBLE_TYPE, MAX_COLLECTIBLE_TYPE } from "../constantsMax";
 import { collectibleHasCacheFlag } from "./collectibles";
 import { getEnumValues } from "./enums";
 import { copySet, getSortedSetValues } from "./set";
@@ -14,7 +14,11 @@ function initCacheFlagMap() {
   for (const cacheFlag of getEnumValues(CacheFlag)) {
     const collectiblesSet = new Set<CollectibleType>();
 
-    for (const collectibleType of irange(1, MAX_COLLECTIBLE_TYPE)) {
+    for (const collectibleTypeInt of irange(
+      FIRST_COLLECTIBLE_TYPE,
+      MAX_COLLECTIBLE_TYPE,
+    )) {
+      const collectibleType = collectibleTypeInt as CollectibleType;
       if (collectibleHasCacheFlag(collectibleType, cacheFlag)) {
         collectiblesSet.add(collectibleType);
       }

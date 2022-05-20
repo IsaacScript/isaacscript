@@ -1,7 +1,6 @@
 import { ModUpgraded } from "./classes/ModUpgraded";
 import { characterHealthConversionInit } from "./features/characterHealthConversion";
 import { characterStatsInit } from "./features/characterStats";
-import { debugDisplayInit } from "./features/debugDisplay";
 import { deployJSONRoomInit } from "./features/deployJSONRoom";
 import { disableInputsInit } from "./features/disableInputs";
 import { disableSoundsInit } from "./features/disableSound";
@@ -28,7 +27,6 @@ export function initFeaturesMinor(mod: ModUpgraded): void {
   disableSoundsInit(mod);
   fadeInRemoverInit(mod);
   fastResetInit(mod);
-  debugDisplayInit(mod);
   forgottenSwitchInit(mod);
   getCollectibleItemPoolTypeInit(mod);
   isPonyActiveInit(mod);

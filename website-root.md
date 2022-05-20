@@ -1,5 +1,7 @@
 # `isaacscript-common`
 
+<!-- markdownlint-disable MD033 -->
+
 The `isaacscript-common` package contains extra goodies that you can easily use in your [IsaacScript](https://isaacscript.github.io/) mods. Think of it as an expanded standard library beyond what the official Isaac API offers.
 
 - For more information about IsaacScript, see the [official website](https://isaacscript.github.io/).
@@ -38,12 +40,14 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Easing Functions](modules/functions_easing.html)
 - [Entity Functions](modules/functions_entity.html)
 - [Entity Specific-Type Functions](modules/functions_entitySpecific.html)
+- [Entity Type Functions](modules/functions_entity_types.html)
 - [Enum Functions](modules/functions_enums.html)
 - [Familiar Functions](modules/functions_familiars.html)
 - [Flag Functions](modules/functions_flag.html)
 - [Flying Functions](modules/functions_flying.html)
 - [Globals Functions](modules/functions_globals.html)
 - [Grid Entity Functions](modules/functions_gridEntity.html)
+- [Grid Entity Specific-Type Functions](modules/functions_gridEntitySpecific.html)
 - [Input Functions](modules/functions_input.html)
 - [Isaac API Class Functions](modules/functions_isaacAPIClass.html)
 - [JSON Functions](modules/functions_jsonHelpers.html)
@@ -55,6 +59,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Math Functions](modules/functions_math.html)
 - [NPC Functions](modules/functions_npc.html)
 - [Pickup Functions](modules/functions_pickups.html)
+- [Pickup Variant Functions](modules/functions_pickup_variants.html)
 - [Pill Functions](modules/functions_pills.html)
 - [Player Functions](modules/functions_player.html) & [Player Index Functions](modules/functions_playerIndex.html) & [Player Health Functions](modules/functions_playerHealth.html) & [Player Data Structure Functions](modules/functions_playerDataStructures.html)
 - [Pocket Item Functions](modules/functions_pocketItems.html)

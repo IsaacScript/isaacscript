@@ -1,5 +1,5 @@
 import { PlayerType } from "isaac-typescript-definitions";
-import { MAX_VANILLA_CHARACTER } from "../constants";
+import { MAX_VANILLA_CHARACTER } from "../constantsMax";
 import {
   CHARACTER_NAMES,
   DEFAULT_CHARACTER_NAME,

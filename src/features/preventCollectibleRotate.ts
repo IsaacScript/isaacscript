@@ -10,6 +10,8 @@ import {
 import { game } from "../cachedClasses";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { setCollectibleSubType } from "../functions/collectibles";
+import { getEntityID } from "../functions/entity";
+import { isCollectible } from "../functions/pickupVariants";
 import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "prevent collectible rotation";
@@ -57,7 +59,7 @@ function useCardSoulOfIsaac() {
 
 // ModCallback.POST_PICKUP_UPDATE (35)
 // PickupVariant.COLLECTIBLE (100)
-function postPickupUpdateCollectible(collectible: EntityPickup) {
+function postPickupUpdateCollectible(collectible: EntityPickupCollectible) {
   // Ignore empty pedestals (i.e. items that have already been taken by the player).
   if (collectible.SubType === CollectibleType.NULL) {
     return;
@@ -89,9 +91,10 @@ export function preventCollectibleRotate(
 ): void {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
 
-  if (collectible.Variant !== PickupVariant.COLLECTIBLE) {
+  if (!isCollectible(collectible)) {
+    const entityID = getEntityID(collectible);
     error(
-      `You cannot prevent the rotation for pickups of variant: ${collectible.Variant}`,
+      `The "preventCollectibleRotate" function was given a non-collectible: ${entityID}`,
     );
   }
 

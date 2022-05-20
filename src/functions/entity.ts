@@ -227,7 +227,7 @@ export function parseEntityTypeVariantString(
  * @returns True if one or more entities were removed, false otherwise.
  */
 export function removeAllMatchingEntities(
-  entityType: int,
+  entityType: EntityType,
   entityVariant = -1,
   entitySubType = -1,
   cap: int | undefined = undefined,
