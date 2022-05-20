@@ -18,7 +18,8 @@
   "files": [
     "dist/**/*.js",
     "dist/**/*.d.ts",
-    "dist/**/*.json"
+    "dist/**/*.json",
+    "isaacscript-watcher/**"
   ],
   "dependencies": {
     "@types/node": "^17.0.35",
