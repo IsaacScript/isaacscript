@@ -1,4 +1,5 @@
 import { BossID } from "../enums/collections/roomSubTypes";
+import { SlotVariant } from "../enums/collections/variants";
 import { EntityCollisionClass } from "../enums/EntityCollisionClass";
 import { EntityGridCollisionClass } from "../enums/EntityGridCollisionClass";
 import { EntityType } from "../enums/EntityType";
@@ -148,5 +149,11 @@ declare global {
     Variant: int;
     Velocity: Vector;
     Visible: boolean;
+  }
+
+  /** For EntityType.RAGLING (246) */
+  interface EntitySlot extends Entity {
+    Type: EntityType.SLOT;
+    Variant: SlotVariant;
   }
 }

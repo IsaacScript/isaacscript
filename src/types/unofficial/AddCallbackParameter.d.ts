@@ -175,14 +175,7 @@ declare global {
       callback: (npc: EntityNPC) => void,
       entityType?: EntityType,
     ];
-    [ModCallback.PRE_NPC_COLLISION]: [
-      callback: (
-        npc: EntityNPC,
-        collider: Entity,
-        low: boolean,
-      ) => boolean | void,
-      entityType?: EntityType,
-    ];
+    [ModCallback.PRE_NPC_COLLISION]: PreNPCCollisionRegisterParameters;
     [ModCallback.POST_PLAYER_UPDATE]: [
       callback: (player: EntityPlayer) => void,
       playerVariant?: PlayerVariant,
@@ -199,18 +192,9 @@ declare global {
       ) => boolean | void,
       playerVariant?: PlayerVariant,
     ];
-    [ModCallback.POST_PICKUP_INIT]: [
-      callback: (pickup: EntityPickup) => void,
-      pickupVariant?: PickupVariant,
-    ];
-    [ModCallback.POST_PICKUP_UPDATE]: [
-      callback: (pickup: EntityPickup) => void,
-      pickupVariant?: PickupVariant,
-    ];
-    [ModCallback.POST_PICKUP_RENDER]: [
-      callback: (pickup: EntityPickup, renderOffset: Vector) => void,
-      pickupVariant?: PickupVariant,
-    ];
+    [ModCallback.POST_PICKUP_INIT]: PickupRegisterParameters;
+    [ModCallback.POST_PICKUP_UPDATE]: PickupRegisterParameters;
+    [ModCallback.POST_PICKUP_RENDER]: PickupRenderRegisterParameters;
     [ModCallback.POST_PICKUP_SELECTION]: [
       callback: (
         pickup: EntityPickup,
@@ -382,3 +366,85 @@ declare global {
     ];
   }
 }
+
+// ModCallback.PRE_NPC_COLLISION (30)
+// ts-prune-ignore-next
+type PreNPCCollisionRegisterParameters =
+  | [
+      callback: (
+        npc: EntityNPC,
+        collider: Entity,
+        low: boolean,
+      ) => boolean | void,
+      entityType?: EntityType,
+    ]
+  | [
+      callback: (
+        npc: EntityNPCSucker,
+        collider: Entity,
+        low: boolean,
+      ) => boolean | void,
+      entityType: EntityType.SUCKER,
+    ];
+
+// ModCallback.POST_PICKUP_INIT (34)
+// ModCallback.POST_PICKUP_UPDATE (35)
+// ts-prune-ignore-next
+type PickupRegisterParameters =
+  | [callback: (pickup: EntityPickup) => void, pickupVariant?: PickupVariant]
+  | [
+      callback: (pickup: EntityPickupHeart) => void,
+      pickupVariant: PickupVariant.HEART,
+    ]
+  | [
+      callback: (pickup: EntityPickupCoin) => void,
+      pickupVariant: PickupVariant.COIN,
+    ]
+  | [
+      callback: (pickup: EntityPickupKey) => void,
+      pickupVariant: PickupVariant.KEY,
+    ]
+  | [
+      callback: (pickup: EntityPickupBomb) => void,
+      pickupVariant: PickupVariant.BOMB,
+    ]
+  | [
+      callback: (pickup: EntityPickupCollectible) => void,
+      pickupVariant: PickupVariant.COLLECTIBLE,
+    ]
+  | [
+      callback: (pickup: EntityPickupTrinket) => void,
+      pickupVariant: PickupVariant.TRINKET,
+    ];
+
+// ModCallback.POST_PICKUP_RENDER (36)
+// ts-prune-ignore-next
+type PickupRenderRegisterParameters =
+  | [
+      callback: (pickup: EntityPickup, renderOffset: Vector) => void,
+      pickupVariant?: PickupVariant,
+    ]
+  | [
+      callback: (pickup: EntityPickupHeart, renderOffset: Vector) => void,
+      pickupVariant: PickupVariant.HEART,
+    ]
+  | [
+      callback: (pickup: EntityPickupCoin, renderOffset: Vector) => void,
+      pickupVariant: PickupVariant.COIN,
+    ]
+  | [
+      callback: (pickup: EntityPickupKey, renderOffset: Vector) => void,
+      pickupVariant: PickupVariant.KEY,
+    ]
+  | [
+      callback: (pickup: EntityPickupBomb, renderOffset: Vector) => void,
+      pickupVariant: PickupVariant.BOMB,
+    ]
+  | [
+      callback: (pickup: EntityPickupCollectible, renderOffset: Vector) => void,
+      pickupVariant: PickupVariant.COLLECTIBLE,
+    ]
+  | [
+      callback: (pickup: EntityPickupTrinket, renderOffset: Vector) => void,
+      pickupVariant: PickupVariant.TRINKET,
+    ];

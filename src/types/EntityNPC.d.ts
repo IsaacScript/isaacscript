@@ -1,5 +1,9 @@
 import { ChampionColor } from "../enums/ChampionColor";
-import { RaglingVariant } from "../enums/collections/variants";
+import {
+  GaperVariant,
+  RaglingVariant,
+  SuckerVariant,
+} from "../enums/collections/variants";
 import { EntityType } from "../enums/EntityType";
 import { NpcState } from "../enums/NpcState";
 import { ProjectilesMode } from "../enums/ProjectilesMode";
@@ -125,6 +129,18 @@ declare global {
       big: boolean,
       yOffset: float,
     ): Readonly<EntityNPC>;
+  }
+
+  /** For EntityType.GAPER (10) */
+  interface EntityNPCGaper extends EntityNPC {
+    Type: EntityType.GAPER;
+    Variant: GaperVariant;
+  }
+
+  /** For EntityType.SUCKER (61) */
+  interface EntityNPCSucker extends EntityNPC {
+    Type: EntityType.SUCKER;
+    Variant: SuckerVariant;
   }
 
   /** For EntityType.RAGLING (246) */
