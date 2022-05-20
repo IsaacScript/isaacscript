@@ -107,7 +107,6 @@ npx typedoc \
   --entryPoints "$DIR/src/functions/trinkets.ts" \
   --entryPoints "$DIR/src/functions/trinketCacheFlag.ts" \
   --entryPoints "$DIR/src/functions/trinketGive.ts" \
-  --entryPoints "$DIR/src/functions/trinketSet.ts" \
   --entryPoints "$DIR/src/functions/tstlClass.ts" \
   --entryPoints "$DIR/src/functions/ui.ts" \
   --entryPoints "$DIR/src/functions/utils.ts" \

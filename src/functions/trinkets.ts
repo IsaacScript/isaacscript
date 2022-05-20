@@ -5,7 +5,12 @@ import {
   TrinketType,
 } from "isaac-typescript-definitions";
 import { itemConfig } from "../cachedClasses";
-import { FIRST_TRINKET_TYPE, MAX_TRINKET_TYPE } from "../constantsMax";
+import {
+  FIRST_MODDED_TRINKET_TYPE,
+  FIRST_TRINKET_TYPE,
+  LAST_TRINKET_TYPE,
+  LAST_VANILLA_TRINKET_TYPE,
+} from "../constantsMax";
 import {
   DEFAULT_TRINKET_DESCRIPTION,
   TRINKET_DESCRIPTION_MAP,
@@ -44,6 +49,19 @@ const TRINKET_SPRITE_LAYER = 0;
  */
 export function getGoldenTrinketType(trinketType: TrinketType): TrinketType {
   return trinketType + GOLDEN_TRINKET_ADJUSTMENT; // eslint-disable-line isaacscript/strict-enums
+}
+
+/**
+ * Helper function to get an array that represents every modded trinket type.
+ *
+ * Returns an empty array if there are no modded trinket types.
+ */
+export function getModdedTrinketTypes(): TrinketType[] {
+  if (LAST_VANILLA_TRINKET_TYPE === LAST_TRINKET_TYPE) {
+    return [];
+  }
+
+  return irange(FIRST_MODDED_TRINKET_TYPE, LAST_TRINKET_TYPE) as TrinketType[];
 }
 
 /**
@@ -129,15 +147,14 @@ export function getTrinketName(trinketType: TrinketType): string {
   return DEFAULT_TRINKET_NAME;
 }
 
-/**
- * Helper function to get an array that represents the range from the first trinket type to the last
- * trinket type. This will include integers that do not represent any valid trinket types.
- *
- * This function is only useful when building trinket type objects. For most purposes, you should
- * use the `getTrinketSet` helper function instead.
- */
-export function getTrinketTypeRange(): TrinketType[] {
-  return irange(FIRST_TRINKET_TYPE, MAX_TRINKET_TYPE) as TrinketType[];
+/** Helper function to get an array that contains every trinket type. */
+export function getTrinketTypes(): TrinketType[] {
+  return irange(FIRST_TRINKET_TYPE, LAST_TRINKET_TYPE) as TrinketType[];
+}
+
+/** Helper function to get an array that represents every vanilla trinket type. */
+export function getVanillaTrinketTypes(): TrinketType[] {
+  return irange(FIRST_TRINKET_TYPE, LAST_VANILLA_TRINKET_TYPE) as TrinketType[];
 }
 
 /**

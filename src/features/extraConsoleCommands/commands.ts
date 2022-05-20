@@ -19,17 +19,17 @@ import { game, sfxManager } from "../../cachedClasses";
 import {
   FIRST_ROOM_TYPE,
   FIRST_STAGE,
+  LAST_ROOM_TYPE,
+  LAST_STAGE,
   MAX_LEVEL_GRID_INDEX,
-  MAX_ROOM_TYPE,
-  MAX_STAGE,
 } from "../../constants";
 import {
   FIRST_CARD,
   FIRST_CHARACTER,
   FIRST_PILL_EFFECT,
-  MAX_CARD,
-  MAX_PILL_EFFECT,
-  MAX_VANILLA_CHARACTER,
+  LAST_CARD,
+  LAST_PILL_EFFECT,
+  LAST_VANILLA_CHARACTER,
 } from "../../constantsMax";
 import { HealthType } from "../../enums/HealthType";
 import { getCardName } from "../../functions/cards";
@@ -291,7 +291,7 @@ export function card(params: string): void {
 
     cardNum = match[1];
   } else {
-    if (num < FIRST_CARD || num > MAX_CARD) {
+    if (num < FIRST_CARD || num > LAST_CARD) {
       printConsole(`Invalid card sub-type: ${num}`);
       return;
     }
@@ -309,7 +309,7 @@ export function cards(): void {
   let cardType = 1;
   for (let y = 0; y <= 6; y++) {
     for (let x = 0; x <= 12; x++) {
-      if ((cardType as Card) === MAX_CARD) {
+      if ((cardType as Card) === LAST_CARD) {
         return;
       }
 
@@ -356,7 +356,7 @@ export function characterCommand(params: string): void {
 
     character = match[1];
   } else {
-    if (num < FIRST_CHARACTER || num > MAX_VANILLA_CHARACTER) {
+    if (num < FIRST_CHARACTER || num > LAST_VANILLA_CHARACTER) {
       printConsole(`Invalid player sub-type: ${num}`);
       return;
     }
@@ -779,7 +779,7 @@ export function pill(params: string): void {
 
     pillEffect = match[1];
   } else {
-    if (num < FIRST_PILL_EFFECT || num > MAX_PILL_EFFECT) {
+    if (num < FIRST_PILL_EFFECT || num > LAST_PILL_EFFECT) {
       printConsole(`Invalid pill effect ID: ${num}`);
       return;
     }
@@ -937,9 +937,9 @@ export function s(params: string): void {
     return;
   }
 
-  if (stage < FIRST_STAGE || stage > MAX_STAGE) {
+  if (stage < FIRST_STAGE || stage > LAST_STAGE) {
     printConsole(
-      `Invalid stage number; must be between ${FIRST_STAGE} and ${MAX_STAGE}.`,
+      `Invalid stage number; must be between ${FIRST_STAGE} and ${LAST_STAGE}.`,
     );
     return;
   }
@@ -1249,7 +1249,7 @@ export function warp(params: string): void {
 
     roomType = match[1];
   } else {
-    if (num < FIRST_ROOM_TYPE || num > MAX_ROOM_TYPE) {
+    if (num < FIRST_ROOM_TYPE || num > LAST_ROOM_TYPE) {
       printConsole(`Invalid room type: ${num}`);
       return;
     }

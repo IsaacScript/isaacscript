@@ -11,7 +11,12 @@ import {
 } from "isaac-typescript-definitions";
 import { game, itemConfig } from "../cachedClasses";
 import { BLIND_ITEM_PNG_PATH } from "../constants";
-import { FIRST_COLLECTIBLE_TYPE, MAX_COLLECTIBLE_TYPE } from "../constantsMax";
+import {
+  FIRST_COLLECTIBLE_TYPE,
+  FIRST_MODDED_COLLECTIBLE_TYPE,
+  LAST_COLLECTIBLE_TYPE,
+  LAST_VANILLA_COLLECTIBLE_TYPE,
+} from "../constantsMax";
 import {
   COLLECTIBLE_DESCRIPTION_MAP,
   DEFAULT_COLLECTIBLE_DESCRIPTION,
@@ -341,7 +346,45 @@ export function getCollectibleTags(
 export function getCollectibleTypeRange(): CollectibleType[] {
   return irange(
     FIRST_COLLECTIBLE_TYPE,
-    MAX_COLLECTIBLE_TYPE,
+    LAST_COLLECTIBLE_TYPE,
+  ) as CollectibleType[];
+}
+
+/**
+ * Helper function to get an array that represents the all modded collectible types.
+ *
+ * This function is only useful when building collectible type objects. For most purposes, you
+ * should use the `getModdedCollectibleSet` helper function instead.
+ *
+ * Returns an empty array if there are no modded collectible types.
+ *
+ * (This function is named differently from the `getVanillaCollectibleTypeRange` function because
+ * all modded collectible types are contiguous. Thus, each value represents a real
+ * `CollectibleType`.)
+ */
+export function getModdedCollectibleTypes(): CollectibleType[] {
+  if (LAST_VANILLA_COLLECTIBLE_TYPE === LAST_COLLECTIBLE_TYPE) {
+    return [];
+  }
+
+  return irange(
+    FIRST_MODDED_COLLECTIBLE_TYPE,
+    LAST_COLLECTIBLE_TYPE,
+  ) as CollectibleType[];
+}
+
+/**
+ * Helper function to get an array that represents the range from the first collectible type to the
+ * last vanilla collectible type. This will include integers that do not represent any valid
+ * collectible types.
+ *
+ * This function is only useful when building collectible type objects. For most purposes, you
+ * should use the `getVanillaCollectibleSet` helper function instead.
+ */
+export function getVanillaCollectibleTypeRange(): CollectibleType[] {
+  return irange(
+    FIRST_COLLECTIBLE_TYPE,
+    LAST_VANILLA_COLLECTIBLE_TYPE,
   ) as CollectibleType[];
 }
 

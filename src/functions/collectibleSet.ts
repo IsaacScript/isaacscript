@@ -1,41 +1,55 @@
 import { CollectibleType } from "isaac-typescript-definitions";
 import { itemConfig } from "../cachedClasses";
+import { LAST_VANILLA_COLLECTIBLE_TYPE } from "../constantsMax";
 import { getCollectibleTypeRange } from "./collectibles";
 import { copySet } from "./set";
 
-const COLLECTIBLE_SET = new Set<CollectibleType>();
+const ALL_COLLECTIBLES_SET = new Set<CollectibleType>();
+const VANILLA_COLLECTIBLES_SET = new Set<CollectibleType>();
+const MODDED_COLLECTIBLES_SET = new Set<CollectibleType>();
 
-function initCollectibleSet() {
+function initCollectibleSets() {
   for (const collectibleType of getCollectibleTypeRange()) {
     const itemConfigItem = itemConfig.GetCollectible(collectibleType);
     if (itemConfigItem !== undefined) {
-      COLLECTIBLE_SET.add(collectibleType);
+      ALL_COLLECTIBLES_SET.add(collectibleType);
+      if (collectibleType <= LAST_VANILLA_COLLECTIBLE_TYPE) {
+        VANILLA_COLLECTIBLES_SET.add(collectibleType);
+      } else {
+        MODDED_COLLECTIBLES_SET.add(collectibleType);
+      }
     }
   }
 }
 
-/** Returns a set containing every valid collectible type in the game, including modded items. */
+/**
+ * Returns a set containing every valid collectible type in the game, including modded collectibles.
+ */
 export function getCollectibleSet(): Set<CollectibleType> {
   // Lazy initialize the set.
-  if (COLLECTIBLE_SET.size === 0) {
-    initCollectibleSet();
+  if (ALL_COLLECTIBLES_SET.size === 0) {
+    initCollectibleSets();
   }
 
-  return copySet(COLLECTIBLE_SET);
+  return copySet(ALL_COLLECTIBLES_SET);
 }
 
-/**
- * Helper function to get the number of valid collectibles that exist. (This is not simply equal to
- * the highest collectible type, because collectible types are not contiguous.)
- *
- * Note that there is no corresponding `getTrinketsNum` function because trinket types are
- * contiguous. Use the `NUM_TRINKET_TYPES` constant instead.
- */
-export function getCollectiblesNum(): int {
+/** Returns a set containing every modded collectible type in the game. */
+export function getModdedCollectibleSet(): Set<CollectibleType> {
   // Lazy initialize the set.
-  if (COLLECTIBLE_SET.size === 0) {
-    initCollectibleSet();
+  if (ALL_COLLECTIBLES_SET.size === 0) {
+    initCollectibleSets();
   }
 
-  return COLLECTIBLE_SET.size;
+  return copySet(MODDED_COLLECTIBLES_SET);
+}
+
+/** Returns a set containing every valid vanilla collectible type in the game. */
+export function getVanillaCollectibleSet(): Set<CollectibleType> {
+  // Lazy initialize the set.
+  if (ALL_COLLECTIBLES_SET.size === 0) {
+    initCollectibleSets();
+  }
+
+  return copySet(VANILLA_COLLECTIBLES_SET);
 }

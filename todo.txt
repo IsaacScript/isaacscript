@@ -54,29 +54,72 @@ IsaacScript announcements:
   - DefaultMap no longer passes the key to the factory function. This means you can clean up the unused `_key` argument in all of your default maps. In the rare case that you are actually using the key in the factory, you can pass it explicitly as a normal argument.
 - Added the appropriate `HORSE_` enum values to the `PillColor` enum.
 - Added a `Zero` constant for every flag enum. (e.g. `EntityFlagZero`, `TearFlagZero`, and so on.)
-- Added the following constants:
-  - `MAX_VANILLA_PLAYER_TYPE`
-  - `MAX_NORMAL_PILL_COLOR`
-  - `FIRST_CARD`
-  - `FIRST_COLLECTIBLE_TYPE`
-  - `FIRST_PILL_EFFECT`
-  - `FIRST_TRINKET_TYPE`
-  - `FIRST_PLAYER_TYPE`
-  - `FIRST_PILL_COLOR`
-  - `FIRST_STAGE`
-  - `FIRST_ROOM_TYPE`
-  - `FIRST_HORSE_PILL_COLOR`
-  - `MAX_HORSE_PILL_COLOR`
+- The "max" constants are changed, with many new ones added:
+  - Collectibles:
+    - `FIRST_COLLECTIBLE_TYPE`
+    - `LAST_COLLECTIBLE_TYPE`
+    - `LAST_VANILLA_COLLECTIBLE_TYPE`
+    - `FIRST_MODDED_COLLECTIBLE_TYPE`
+    - `NUM_VANILLA_COLLECTIBLE_TYPES`
+    - `NUM_MODDED_COLLECTIBLE_TYPES`
+    - `NUM_COLLECTIBLE_TYPES`
+  - Trinkets:
+    - `NUM_TRINKET_TYPES`
+    - `NUM_VANILLA_TRINKET_TYPES`
+    - `NUM_MODDED_TRINKET_TYPES`
+    - `FIRST_TRINKET_TYPE`
+    - `LAST_TRINKET_TYPE`
+    - `LAST_VANILLA_TRINKET_TYPE`
+    - `FIRST_MODDED_TRINKET_TYPE`
+  - Cards:
+    - `NUM_CARDS`
+    - `NUM_VANILLA_CARDS`
+    - `NUM_MODDED_CARDS`
+    - `FIRST_CARD`
+    - `LAST_CARD`
+    - `MAX_VANILLA_CARD`
+    - `FIRST_MODDED_CARD`
+  - Pill effects:
+    - `NUM_PILL_EFFECTS`
+    - `NUM_VANILLA_PILL_EFFECTS`
+    - `NUM_MODDED_PILL_EFFECTS`
+    - `FIRST_PILL_EFFECT`
+    - `LAST_PILL_EFFECT`
+    - `LAST_VANILLA_PILL_EFFECT`
+    - `FIRST_MODDED_PILL_EFFECT`
+  - Pill colors:
+    - `FIRST_PILL_COLOR`
+    - `LAST_NORMAL_PILL_COLOR`
+    - `FIRST_HORSE_PILL_COLOR`
+    - `LAST_HORSE_PILL_COLOR`
+    - `NUM_NORMAL_PILL_COLORS`
+  - Players:
+    - `FIRST_CHARACTER`
+    - `LAST_VANILLA_CHARACTER`
+    - `FIRST_MODDED_CHARACTER`
+  - Other:
+    - `FIRST_STAGE`
+    - `LAST_STAGE`
+    - `FIRST_ROOM_TYPE`
+    - `LAST_ROOM_TYPE`
 - Added the following helper functions:
   - `fillLevelWithRedRooms`
-  - `getAllCards`
   - `getAllDimensions`
+  - `getAllCards`
+  - `getModdedCards`
+  - `getVanillaCards`
   - `getAllPillEffects`
+  - `getModdedPillEffects`
+  - `getVanillaPillEffects`
   - `getAllPillColors`
-  - `getAllNormalPillColors`
-  - `getAllHorsePillColors`
-  - `getCollectiblesNum`
+  - `getNormalPillColors`
+  - `getHorsePillColors`
   - `getCollectibleTypeRange`
+  - `getVanillaCollectibleTypeRange`
+  - `getModdedCollectibleTypes`
+  - `getTrinketTypes`
+  - `getVanillaTrinketTypes`
+  - `getModdedTrinketTypes`
   - `getDoorEnterPosition`
   - `getDoorEnterPositionOffset`
   - `getNormalPillColorFromHorse`
@@ -90,7 +133,6 @@ IsaacScript announcements:
   - `getRoomShapeNeighborGridIndexDeltas`
   - `getSpikes`
   - `getTNT`
-  - `getTrinketTypeRange`
   - `inMineShaft`
   - `isHeart`
   - `isCoin`

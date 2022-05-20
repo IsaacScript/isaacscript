@@ -82,7 +82,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Table Functions](modules/functions_table.html)
 - [Tears Functions](modules/functions_tears.html)
 - [Transformation Functions](modules/functions_transformations.html)
-- [Trinket Functions](modules/functions_trinkets.html) & [Trinket Giving/Removing Functions](modules/functions_trinketGive.html) & [Trinket Set Functions](modules/functions_trinketSet.html) & [Trinket Cache Flag Functions](modules/functions_trinketCacheFlag.html)
+- [Trinket Functions](modules/functions_trinkets.html) & [Trinket Giving/Removing Functions](modules/functions_trinketGive.html) & [Trinket Cache Flag Functions](modules/functions_trinketCacheFlag.html)
 - [TSTL Class Functions](modules/functions_tstlClass.html)
 - [UI Functions](modules/functions_ui.html)
 - [Utility Functions](modules/functions_utils.html)

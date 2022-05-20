@@ -1,7 +1,7 @@
 import { CacheFlag, TrinketType } from "isaac-typescript-definitions";
 import { getEnumValues } from "./enums";
 import { copySet } from "./set";
-import { getTrinketTypeRange, trinketHasCacheFlag } from "./trinkets";
+import { getTrinketTypes, trinketHasCacheFlag } from "./trinkets";
 
 const CACHE_FLAG_TO_TRINKETS_MAP = new Map<CacheFlag, Set<TrinketType>>();
 
@@ -9,7 +9,7 @@ function initCacheFlagMap() {
   for (const cacheFlag of getEnumValues(CacheFlag)) {
     const trinketsSet = new Set<TrinketType>();
 
-    for (const trinketType of getTrinketTypeRange()) {
+    for (const trinketType of getTrinketTypes()) {
       if (trinketHasCacheFlag(trinketType, cacheFlag)) {
         trinketsSet.add(trinketType);
       }

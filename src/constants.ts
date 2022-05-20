@@ -97,7 +97,7 @@ export const MAX_PLAYER_SPEED_IN_UNITS = 9.8;
 export const MAX_PLAYER_TRINKET_SLOTS = getEnumLength(TrinketSlot);
 
 export const FIRST_ROOM_TYPE = RoomType.DEFAULT; // eslint-disable-line sort-exports/sort-exports
-export const MAX_ROOM_TYPE = getLastEnumValue(RoomType);
+export const LAST_ROOM_TYPE = getLastEnumValue(RoomType);
 
 /**
  * The maximum speed stat that a player can have. Any additional speed beyond this will not take
@@ -106,7 +106,7 @@ export const MAX_ROOM_TYPE = getLastEnumValue(RoomType);
 export const MAX_SPEED_STAT = 2.0;
 
 export const FIRST_STAGE = LevelStage.BASEMENT_1; // eslint-disable-line sort-exports/sort-exports
-export const MAX_STAGE = getLastEnumValue(LevelStage);
+export const LAST_STAGE = getLastEnumValue(LevelStage);
 
 /** Corresponds to the maximum value for `EntityPlayer.SamsonBerserkCharge`. */
 export const MAX_TAINTED_SAMSON_BERSERK_CHARGE = 100000;

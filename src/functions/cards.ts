@@ -1,6 +1,11 @@
 import { Card, ItemConfigCardType } from "isaac-typescript-definitions";
 import { itemConfig } from "../cachedClasses";
-import { FIRST_CARD, MAX_CARD } from "../constantsMax";
+import {
+  FIRST_CARD,
+  FIRST_MODDED_CARD,
+  LAST_CARD,
+  MAX_VANILLA_CARD,
+} from "../constantsMax";
 import {
   CARD_DESCRIPTIONS,
   DEFAULT_CARD_DESCRIPTION,
@@ -54,7 +59,7 @@ function initCardObjects() {
 
 /** Helper function to get an array with every valid card sub-type. This includes modded cards. */
 export function getAllCards(): Card[] {
-  return irange(FIRST_CARD, MAX_CARD) as Card[];
+  return irange(FIRST_CARD, LAST_CARD) as Card[];
 }
 
 /**
@@ -141,6 +146,19 @@ export function getCardsOfType(...cardTypes: ItemConfigCardType[]): Set<Card> {
 }
 
 /**
+ * Helper function to get an array with every modded card sub-type.
+ *
+ * Returns an empty array if there are no modded cards.
+ */
+export function getModdedCards(): Card[] {
+  if (MAX_VANILLA_CARD === LAST_CARD) {
+    return [];
+  }
+
+  return irange(FIRST_MODDED_CARD, LAST_CARD) as Card[];
+}
+
+/**
  * Has an equal chance of returning any card (e.g. Fool, Reverse Fool, Wild Card, etc.).
  *
  * This will not return:
@@ -190,6 +208,11 @@ export function getRandomRune(
   const runesSet = getCardsOfType(ItemConfigCardType.RUNE);
   runesSet.delete(Card.RUNE_SHARD);
   return getRandomSetElement(runesSet, seedOrRNG, exceptions);
+}
+
+/** Helper function to get an array with every valid vanilla card sub-type. */
+export function getVanillaCards(): Card[] {
+  return irange(FIRST_CARD, MAX_VANILLA_CARD) as Card[];
 }
 
 /**

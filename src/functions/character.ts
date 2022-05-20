@@ -1,5 +1,5 @@
 import { PlayerType } from "isaac-typescript-definitions";
-import { MAX_VANILLA_CHARACTER } from "../constantsMax";
+import { LAST_VANILLA_CHARACTER } from "../constantsMax";
 import {
   CHARACTER_NAMES,
   DEFAULT_CHARACTER_NAME,
@@ -120,5 +120,5 @@ export function isModdedCharacter(character: PlayerType): boolean {
 }
 
 export function isVanillaCharacter(character: PlayerType): boolean {
-  return character <= MAX_VANILLA_CHARACTER;
+  return character <= LAST_VANILLA_CHARACTER;
 }

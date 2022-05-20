@@ -7,11 +7,13 @@ import {
 import { itemConfig } from "../cachedClasses";
 import {
   FIRST_HORSE_PILL_COLOR,
+  FIRST_MODDED_PILL_EFFECT,
   FIRST_PILL_COLOR,
   FIRST_PILL_EFFECT,
-  MAX_HORSE_PILL_COLOR,
-  MAX_NORMAL_PILL_COLOR,
-  MAX_PILL_EFFECT,
+  LAST_HORSE_PILL_COLOR,
+  LAST_NORMAL_PILL_COLOR,
+  LAST_PILL_EFFECT,
+  LAST_VANILLA_PILL_EFFECT,
 } from "../constantsMax";
 import {
   DEFAULT_PILL_EFFECT_CLASS,
@@ -45,16 +47,6 @@ const HORSE_PILL_FLAG = 2047 as BitFlag;
  */
 const HORSE_PILL_ADJUSTMENT = 2048;
 
-/** Helper function to get an array with every non-gold horse pill color. */
-export function getAllHorsePillColors(): PillColor[] {
-  return irange(FIRST_HORSE_PILL_COLOR, MAX_HORSE_PILL_COLOR) as PillColor[];
-}
-
-/** Helper function to get an array with every non-gold and non-horse pill color. */
-export function getAllNormalPillColors(): PillColor[] {
-  return irange(FIRST_PILL_COLOR, MAX_NORMAL_PILL_COLOR) as PillColor[];
-}
-
 /**
  * Helper function to get an array with every non-null pill color. This includes all gold colors and
  * all horse colors.
@@ -69,7 +61,7 @@ export function getAllPillColors(): PillColor[] {
  * Helper function to get an array with every valid pill effect. This includes modded pill effects.
  */
 export function getAllPillEffects(): PillEffect[] {
-  return irange(FIRST_PILL_EFFECT, MAX_PILL_EFFECT) as PillEffect[];
+  return irange(FIRST_PILL_EFFECT, LAST_PILL_EFFECT) as PillEffect[];
 }
 
 /**
@@ -80,6 +72,24 @@ export function getAllPillEffects(): PillEffect[] {
  */
 export function getHorsePillColor(pillColor: PillColor): PillColor {
   return pillColor + HORSE_PILL_ADJUSTMENT; // eslint-disable-line isaacscript/strict-enums
+}
+
+/** Helper function to get an array with every non-gold horse pill color. */
+export function getHorsePillColors(): PillColor[] {
+  return irange(FIRST_HORSE_PILL_COLOR, LAST_HORSE_PILL_COLOR) as PillColor[];
+}
+
+/**
+ * Helper function to get an array with every modded pill effect.
+ *
+ * Returns an empty array if there are no modded pill effects.
+ */
+export function getModdedPillEffects(): PillEffect[] {
+  if (LAST_VANILLA_PILL_EFFECT === LAST_PILL_EFFECT) {
+    return [];
+  }
+
+  return irange(FIRST_MODDED_PILL_EFFECT, LAST_PILL_EFFECT) as PillEffect[];
 }
 
 /**
@@ -94,6 +104,11 @@ export function getNormalPillColorFromHorse(pillColor: PillColor): PillColor {
   const normalPillColor = (pillColor - HORSE_PILL_ADJUSTMENT) as PillColor;
 
   return normalPillColor > PillColor.NULL ? normalPillColor : pillColor;
+}
+
+/** Helper function to get an array with every non-gold and non-horse pill color. */
+export function getNormalPillColors(): PillColor[] {
+  return irange(FIRST_PILL_COLOR, LAST_NORMAL_PILL_COLOR) as PillColor[];
 }
 
 /**
@@ -163,6 +178,11 @@ export function getPillEffectType(
   return pillEffectClass === undefined
     ? DEFAULT_PILL_EFFECT_TYPE
     : pillEffectClass;
+}
+
+/** Helper function to get an array with every vanilla pill effect. */
+export function getVanillaPillEffects(): PillEffect[] {
+  return irange(FIRST_PILL_EFFECT, LAST_VANILLA_PILL_EFFECT) as PillEffect[];
 }
 
 export function isHorsePill(pillColor: PillColor): boolean {

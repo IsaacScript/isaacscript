@@ -144,7 +144,6 @@ export * from "./functions/transformations";
 export * from "./functions/trinketCacheFlag";
 export * from "./functions/trinketGive";
 export * from "./functions/trinkets";
-export * from "./functions/trinketSet";
 export * from "./functions/tstlClass";
 export * from "./functions/ui";
 export * from "./functions/utils";
