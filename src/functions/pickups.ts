@@ -79,7 +79,7 @@ export function getPills(matchingSubType = -1): EntityPickupPill[] {
 }
 
 /** Helper function to get all of the red heart pickup entities in the room. */
-export function getRedHearts(): EntityPickup[] {
+export function getRedHearts(): EntityPickupHeart[] {
   const hearts = getHearts();
   return hearts.filter((heart) => RED_HEART_SUB_TYPES_SET.has(heart.SubType));
 }
