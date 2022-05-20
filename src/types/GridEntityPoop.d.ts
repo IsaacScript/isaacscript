@@ -1,9 +1,14 @@
-declare interface GridEntityPoop extends GridEntity {
-  ReduceSpawnRate(): void;
-  RespawnRedPoop(): void;
+import { PoopState } from "../enums/collections/gridEntityState";
 
-  ReducedSpawnRate: boolean;
-  ReviveTimer: int;
-  StateAnimation: string;
-  UnderPlayer: boolean;
+declare global {
+  interface GridEntityPoop extends GridEntity {
+    ReduceSpawnRate(): void;
+    RespawnRedPoop(): void;
+
+    ReducedSpawnRate: boolean;
+    ReviveTimer: int;
+    State: PoopState;
+    StateAnimation: string;
+    UnderPlayer: boolean;
+  }
 }

@@ -1,10 +1,15 @@
-declare interface GridEntityRock extends GridEntity {
-  GetBigRockFrame(): int;
-  GetRubbleAnim(): string;
-  SetBigRockFrame(frame: int): void;
-  UpdateAnimFrame(): void;
+import { RockState } from "../enums/collections/gridEntityState";
 
-  Anim: string;
-  FrameCnt: int;
-  RubbleAnim: string;
+declare global {
+  interface GridEntityRock extends GridEntity {
+    GetBigRockFrame(): int;
+    GetRubbleAnim(): string;
+    SetBigRockFrame(frame: int): void;
+    UpdateAnimFrame(): void;
+
+    Anim: string;
+    FrameCnt: int;
+    RubbleAnim: string;
+    State: RockState;
+  }
 }

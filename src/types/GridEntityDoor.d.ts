@@ -1,3 +1,4 @@
+import { DoorState } from "../enums/collections/gridEntityState";
 import { DoorVariant } from "../enums/collections/gridEntityVariants";
 import { Direction } from "../enums/Direction";
 import { DoorSlot } from "../enums/DoorSlot";
@@ -47,6 +48,7 @@ declare global {
 
     PreviousVariant: DoorVariant;
     Slot: DoorSlot;
+    State: DoorState;
 
     /** This corresponds to the room grid index. */
     TargetRoomIndex: int;

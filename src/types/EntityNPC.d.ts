@@ -1,4 +1,5 @@
 import { ChampionColor } from "../enums/ChampionColor";
+import { RaglingVariant } from "../enums/collections/variants";
 import { EntityType } from "../enums/EntityType";
 import { NpcState } from "../enums/NpcState";
 import { ProjectilesMode } from "../enums/ProjectilesMode";
@@ -103,12 +104,7 @@ declare global {
     ProjectileCooldown: int;
     ProjectileDelay: int;
     Scale: float;
-
-    /**
-     * `int` is used as a type so that we can use state enums like `DaddyLongLegsState` without
-     * casting to `NpcState`.
-     */
-    State: NpcState | int;
+    State: NpcState;
 
     StateFrame: int;
     V1: Vector;
@@ -129,5 +125,11 @@ declare global {
       big: boolean,
       yOffset: float,
     ): Readonly<EntityNPC>;
+  }
+
+  /** For EntityType.RAGLING (246) */
+  interface EntityNPCRagling extends EntityNPC {
+    Type: EntityType.RAGLING;
+    Variant: RaglingVariant;
   }
 }

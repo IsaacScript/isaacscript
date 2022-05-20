@@ -1,7 +1,12 @@
-declare interface GridEntityPressurePlate extends GridEntity {
-  Reward(): void;
+import { PressurePlateState } from "../enums/collections/gridEntityState";
 
-  GreedModeRNG: RNG;
-  NextGreedAnimation: string;
-  TimerPlate: Sprite;
+declare global {
+  interface GridEntityPressurePlate extends GridEntity {
+    Reward(): void;
+
+    GreedModeRNG: RNG;
+    NextGreedAnimation: string;
+    State: PressurePlateState;
+    TimerPlate: Sprite;
+  }
 }

@@ -15,12 +15,12 @@ declare interface ItemConfig {
   /** Returns undefined if the collectible type was not found. */
   GetCollectible(
     collectibleType: CollectibleType,
-  ): Readonly<ItemConfigItem> | undefined;
+  ): Readonly<ItemConfigItemCollectible> | undefined;
 
   GetCollectibles(): Readonly<ItemConfigList>;
 
   /** Returns undefined if the item was not found. */
-  GetNullItem(nullItemID: NullItemID): Readonly<ItemConfigItem> | undefined;
+  GetNullItem(nullItemID: NullItemID): Readonly<ItemConfigItemNull> | undefined;
 
   GetNullItems(): Readonly<ItemConfigList>;
 
@@ -32,7 +32,9 @@ declare interface ItemConfig {
   GetPillEffects(): Readonly<PillConfigList>;
 
   /** Returns undefined if the trinket was not found. */
-  GetTrinket(trinketType: TrinketType): Readonly<ItemConfigItem> | undefined;
+  GetTrinket(
+    trinketType: TrinketType,
+  ): Readonly<ItemConfigItemTrinket> | undefined;
 
   GetTrinkets(): Readonly<ItemConfigList>;
 

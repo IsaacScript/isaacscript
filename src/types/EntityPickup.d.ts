@@ -1,3 +1,9 @@
+import {
+  BombSubType,
+  CoinSubType,
+  HeartSubType,
+  KeySubType,
+} from "../enums/collections/subTypes";
 import { PickupVariant } from "../enums/collections/variants";
 import { EntityType } from "../enums/EntityType";
 
@@ -57,5 +63,29 @@ declare global {
     Touched: boolean;
     Variant: PickupVariant;
     Wait: int;
+  }
+
+  /** For PickupVariant.HEART (10) */
+  interface EntityPickupHeart extends EntityPickup {
+    SubType: HeartSubType;
+    Variant: PickupVariant.HEART;
+  }
+
+  /** For PickupVariant.COIN (20) */
+  interface EntityPickupCoin extends EntityPickup {
+    SubType: CoinSubType;
+    Variant: PickupVariant.COIN;
+  }
+
+  /** For PickupVariant.KEY (30) */
+  interface EntityPickupKey extends EntityPickup {
+    SubType: KeySubType;
+    Variant: PickupVariant.KEY;
+  }
+
+  /** For PickupVariant.BOMB (40) */
+  interface EntityPickupBomb extends EntityPickup {
+    SubType: BombSubType;
+    Variant: PickupVariant.BOMB;
   }
 }
