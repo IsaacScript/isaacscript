@@ -36,7 +36,7 @@ export function msg(data: string): void {
 function printMsgToStandardOut(data: string) {
   let coloredData = data;
 
-  if (data.includes(COMPILATION_SUCCESSFUL) !== null) {
+  if (data.includes(COMPILATION_SUCCESSFUL)) {
     coloredData = chalk.green(data);
   } else if (data.match(/error/g) !== null) {
     coloredData = chalk.red(data);
