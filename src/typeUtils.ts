@@ -146,6 +146,7 @@ export function isTypeFlagSet(
  *
  * Useful for debugging and inspecting the AST.
  */
+// ts-prune-ignore-next
 export function getTypeFlagNames(type: ts.Type): string[] {
   const flagNames: string[] = [];
   for (const flag of getEnumValues(ts.TypeFlags)) {
