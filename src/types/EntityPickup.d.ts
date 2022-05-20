@@ -7,6 +7,7 @@ import {
   HeartSubType,
   KeySubType,
   PillColor,
+  PoopPickupSubType,
   SackSubType,
   TrinketType,
 } from "../enums/collections/subTypes";
@@ -94,6 +95,12 @@ declare global {
   interface EntityPickupBomb extends EntityPickup {
     SubType: BombSubType;
     Variant: PickupVariant.BOMB;
+  }
+
+  /** For PickupVariant.POOP (42) */
+  interface EntityPickupPoop extends EntityPickup {
+    SubType: PoopPickupSubType;
+    Variant: PickupVariant.POOP;
   }
 
   /** For PickupVariant.SACK (69) */

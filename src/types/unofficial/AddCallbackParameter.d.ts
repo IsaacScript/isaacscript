@@ -381,43 +381,47 @@ type PickupRegisterParameters =
   | [callback: (pickup: EntityPickup) => void, pickupVariant?: PickupVariant]
   | [
       callback: (pickup: EntityPickupHeart) => void,
-      pickupVariant: PickupVariant.HEART,
+      pickupVariant: PickupVariant.HEART, // 10
     ]
   | [
       callback: (pickup: EntityPickupCoin) => void,
-      pickupVariant: PickupVariant.COIN,
+      pickupVariant: PickupVariant.COIN, // 20
     ]
   | [
       callback: (pickup: EntityPickupKey) => void,
-      pickupVariant: PickupVariant.KEY,
+      pickupVariant: PickupVariant.KEY, // 30
     ]
   | [
       callback: (pickup: EntityPickupBomb) => void,
-      pickupVariant: PickupVariant.BOMB,
+      pickupVariant: PickupVariant.BOMB, // 40
+    ]
+  | [
+      callback: (pickup: EntityPickupPoop) => void,
+      pickupVariant: PickupVariant.POOP, // 42
     ]
   | [
       callback: (pickup: EntityPickupSack) => void,
-      pickupVariant: PickupVariant.SACK,
+      pickupVariant: PickupVariant.SACK, // 69
     ]
   | [
       callback: (pickup: EntityPickupPill) => void,
-      pickupVariant: PickupVariant.PILL,
+      pickupVariant: PickupVariant.PILL, // 70
     ]
   | [
       callback: (pickup: EntityPickupBattery) => void,
-      pickupVariant: PickupVariant.LIL_BATTERY,
+      pickupVariant: PickupVariant.LIL_BATTERY, // 90
     ]
   | [
       callback: (pickup: EntityPickupCollectible) => void,
-      pickupVariant: PickupVariant.COLLECTIBLE,
+      pickupVariant: PickupVariant.COLLECTIBLE, // 100
     ]
   | [
       callback: (pickup: EntityPickupCard) => void,
-      pickupVariant: PickupVariant.TAROT_CARD,
+      pickupVariant: PickupVariant.TAROT_CARD, // 300
     ]
   | [
       callback: (pickup: EntityPickupTrinket) => void,
-      pickupVariant: PickupVariant.TRINKET,
+      pickupVariant: PickupVariant.TRINKET, // 350
     ];
 
 // ModCallback.POST_PICKUP_RENDER (36)
@@ -429,41 +433,45 @@ type PickupRenderRegisterParameters =
     ]
   | [
       callback: (pickup: EntityPickupHeart, renderOffset: Vector) => void,
-      pickupVariant: PickupVariant.HEART,
+      pickupVariant: PickupVariant.HEART, // 10
     ]
   | [
       callback: (pickup: EntityPickupCoin, renderOffset: Vector) => void,
-      pickupVariant: PickupVariant.COIN,
+      pickupVariant: PickupVariant.COIN, // 20
     ]
   | [
       callback: (pickup: EntityPickupKey, renderOffset: Vector) => void,
-      pickupVariant: PickupVariant.KEY,
+      pickupVariant: PickupVariant.KEY, // 30
     ]
   | [
       callback: (pickup: EntityPickupBomb, renderOffset: Vector) => void,
-      pickupVariant: PickupVariant.BOMB,
+      pickupVariant: PickupVariant.BOMB, // 40
+    ]
+  | [
+      callback: (pickup: EntityPickupPoop, renderOffset: Vector) => void,
+      pickupVariant: PickupVariant.POOP, // 42
     ]
   | [
       callback: (pickup: EntityPickupSack, renderOffset: Vector) => void,
-      pickupVariant: PickupVariant.SACK,
+      pickupVariant: PickupVariant.SACK, // 69
     ]
   | [
       callback: (pickup: EntityPickupPill, renderOffset: Vector) => void,
-      pickupVariant: PickupVariant.PILL,
+      pickupVariant: PickupVariant.PILL, // 70
     ]
   | [
       callback: (pickup: EntityPickupBattery, renderOffset: Vector) => void,
-      pickupVariant: PickupVariant.LIL_BATTERY,
+      pickupVariant: PickupVariant.LIL_BATTERY, // 90
     ]
   | [
       callback: (pickup: EntityPickupCollectible, renderOffset: Vector) => void,
-      pickupVariant: PickupVariant.COLLECTIBLE,
+      pickupVariant: PickupVariant.COLLECTIBLE, // 100
     ]
   | [
       callback: (pickup: EntityPickupCard, renderOffset: Vector) => void,
-      pickupVariant: PickupVariant.TAROT_CARD,
+      pickupVariant: PickupVariant.TAROT_CARD, // 300
     ]
   | [
       callback: (pickup: EntityPickupTrinket, renderOffset: Vector) => void,
-      pickupVariant: PickupVariant.TRINKET,
+      pickupVariant: PickupVariant.TRINKET, // 350
     ];
