@@ -16,6 +16,7 @@ import { postFlipCallbacksInit } from "./callbacks/postFlip";
 import { postGreedModeWaveCallbackInit } from "./callbacks/postGreedModeWave";
 import { postGridEntityCallbacksInit } from "./callbacks/postGridEntity";
 import { postGridEntityCollisionInit } from "./callbacks/postGridEntityCollision";
+import { postGridEntityRenderInit } from "./callbacks/postGridEntityRender";
 import { postHolyMantleRemovedCallbackInit } from "./callbacks/postHolyMantleRemoved";
 import { postItemDischargeCallbackInit } from "./callbacks/postItemDischarged";
 import { postKnifeInitLateCallbackInit } from "./callbacks/postKnifeInitLate";
@@ -76,6 +77,7 @@ export function initCustomCallbacks(mod: ModUpgraded): void {
   postGreedModeWaveCallbackInit(mod);
   postGridEntityCallbacksInit(mod);
   postGridEntityCollisionInit(mod);
+  postGridEntityRenderInit(mod);
   postHolyMantleRemovedCallbackInit(mod);
   postItemDischargeCallbackInit(mod);
   postLaserInitLateCallbackInit(mod);

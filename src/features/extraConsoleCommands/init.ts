@@ -267,6 +267,7 @@ commandFunctionsMap.set("pickupsdisplay", commandsDisplay.pickupsDisplay);
 commandFunctionsMap.set("pill", commands.pill);
 commandFunctionsMap.set("pills", commands.pills);
 commandFunctionsMap.set("pitdisplay", commandsDisplay.pitDisplay);
+commandFunctionsMap.set("pitsdisplay", commandsDisplay.pitsDisplay);
 commandFunctionsMap.set("planetarium", commands.planetarium);
 commandFunctionsMap.set("playerdisplay", commandsDisplay.playerDisplay);
 commandFunctionsMap.set("playersdisplay", commandsDisplay.playersDisplay);
@@ -274,10 +275,15 @@ commandFunctionsMap.set("playsound", commands.playSound);
 commandFunctionsMap.set("pocket", commands.pocket);
 commandFunctionsMap.set("poopdisplay", commandsDisplay.poopDisplay);
 commandFunctionsMap.set("poopmana", commands.poopMana);
+commandFunctionsMap.set("poopsdisplay", commandsDisplay.poopsDisplay);
 commandFunctionsMap.set("position", commands.positionCommand);
 commandFunctionsMap.set(
   "pressureplatedisplay",
   commandsDisplay.pressurePlateDisplay,
+);
+commandFunctionsMap.set(
+  "pressureplatesdisplay",
+  commandsDisplay.pressurePlatesDisplay,
 );
 commandFunctionsMap.set("projectiledisplay", commandsDisplay.projectileDisplay);
 commandFunctionsMap.set(
@@ -288,6 +294,7 @@ commandFunctionsMap.set("redhearts", commands.redHearts);
 commandFunctionsMap.set("rh", commands.rh);
 commandFunctionsMap.set("right", commands.right);
 commandFunctionsMap.set("rockdisplay", commandsDisplay.rockDisplay);
+commandFunctionsMap.set("rocksdisplay", commandsDisplay.rocksDisplay);
 commandFunctionsMap.set("room", commands.roomCommand);
 commandFunctionsMap.set("rottenhearts", commands.rottenHearts);
 commandFunctionsMap.set("s", commands.s);
@@ -309,6 +316,7 @@ commandFunctionsMap.set("sounds", commands.sounds);
 commandFunctionsMap.set("spam", commands.spam);
 commandFunctionsMap.set("spawngoldentrinket", commands.spawnGoldenTrinket);
 commandFunctionsMap.set("speed", commands.speed);
+commandFunctionsMap.set("spikedisplay", commandsDisplay.spikeDisplay);
 commandFunctionsMap.set("spikesdisplay", commandsDisplay.spikesDisplay);
 commandFunctionsMap.set("supersecret", commands.superSecret);
 commandFunctionsMap.set("startingroom", commands.startingRoom);
@@ -316,6 +324,7 @@ commandFunctionsMap.set("teardisplay", commandsDisplay.tearDisplay);
 commandFunctionsMap.set("tears", commands.tears);
 commandFunctionsMap.set("tearsdisplay", commandsDisplay.tearsDisplay);
 commandFunctionsMap.set("tntdisplay", commandsDisplay.tntDisplay);
+commandFunctionsMap.set("tntsdisplay", commandsDisplay.tntsDisplay);
 commandFunctionsMap.set("trapdoor", commands.trapdoorCommand);
 commandFunctionsMap.set("treasure", commands.treasure);
 commandFunctionsMap.set("ultrasecret", commands.ultraSecret);
