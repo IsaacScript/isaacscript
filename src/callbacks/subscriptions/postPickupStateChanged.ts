@@ -3,7 +3,6 @@ export type PostPickupStateChangedRegisterParameters = PickupRegisterParameters<
   void
 >;
 
-// eslint-disable-next-line isaacscript/no-object-any
 const subscriptions: PostPickupStateChangedRegisterParameters[] = [];
 
 /** @internal */
@@ -31,6 +30,6 @@ export function postPickupStateChangedFire(
     }
 
     // @ts-expect-error TypeScript isn't smart enough to treat the above checks as type narrowing.
-    callback(pickup, previousState, currentState); // eslint-disable-line @typescript-eslint/no-unsafe-call
+    callback(pickup, previousState, currentState);
   }
 }
