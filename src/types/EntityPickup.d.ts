@@ -1,6 +1,7 @@
 import {
   BombSubType,
   CoinSubType,
+  CollectibleType,
   HeartSubType,
   KeySubType,
 } from "../enums/collections/subTypes";
@@ -87,5 +88,11 @@ declare global {
   interface EntityPickupBomb extends EntityPickup {
     SubType: BombSubType;
     Variant: PickupVariant.BOMB;
+  }
+
+  /** For PickupVariant.COLLECTIBLE (100) */
+  interface EntityPickupCollectible extends EntityPickup {
+    SubType: CollectibleType;
+    Variant: PickupVariant.COLLECTIBLE;
   }
 }
