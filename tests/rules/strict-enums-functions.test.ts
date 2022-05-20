@@ -1005,10 +1005,18 @@ const myDefaultMap = new DefaultMap<Fruit, Fruit, [Fruit]>(
 });
 
 valid.push({
-  name: "Using a function with this void",
+  name: "Using a function with this void and 2 arguments",
   code: `${fruitEnumDefinition}
 function foo(this: void, arg1: Fruit, arg2: number) {}
 foo(Fruit.Apple, 123);
+  `,
+});
+
+valid.push({
+  name: "Using a function with this void and 3 arguments",
+  code: `${fruitEnumDefinition}
+function foo(this: void, arg1: Fruit, arg2: number, arg3: number) {}
+foo(Fruit.Apple, 123, 456);
   `,
 });
 

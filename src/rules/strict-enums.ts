@@ -335,7 +335,6 @@ export const strictEnums = createRule<Options, MessageIds>({
         const parameterName = firstParameter.name.getText();
         firstParamIsThis = parameterName === "this";
       }
-      const paramIndexModifier = firstParamIsThis ? -1 : 0;
 
       /**
        * Iterate through the arguments provided to the call function and cross reference their types
@@ -360,14 +359,18 @@ export const strictEnums = createRule<Options, MessageIds>({
          *
          * Here, we want to compare `Fruit.Apple` to `Fruit`, not `FruitType`, because `FruitType`
          * would just be equal to 0 in this case (and would be unsafe).
+         *
+         * Finally, if the function has a `this` parameter, getting a constraint will mess things
+         * up, so we skip checking for a constraint if this is the case.
          */
-        const effectiveParameterIndex = i + paramIndexModifier;
-        const parameter = declaration.parameters[effectiveParameterIndex];
-        if (parameter !== undefined) {
-          const parameterTSNode = getTypeFromTSNode(parameter);
-          const constraint = parameterTSNode.getConstraint();
-          if (constraint !== undefined) {
-            parameterType = constraint;
+        if (!firstParamIsThis) {
+          const parameter = declaration.parameters[i];
+          if (parameter !== undefined) {
+            const parameterTSNode = getTypeFromTSNode(parameter);
+            const constraint = parameterTSNode.getConstraint();
+            if (constraint !== undefined) {
+              parameterType = constraint;
+            }
           }
         }
 
