@@ -64,6 +64,9 @@ IsaacScript announcements:
   - `FIRST_ROOM_TYPE`
 - Added the following helper functions:
   - `fillLevelWithRedRooms`
+  - `getAllCards`
+  - `getAllDimensions`
+  - `getCollectibleTypeRange`
   - `getDoorEnterPosition`
   - `getDoorEnterPositionOffset`
   - `getNormalPillColorFromHorse`
@@ -77,6 +80,7 @@ IsaacScript announcements:
   - `getRoomShapeNeighborGridIndexDeltas`
   - `getSpikes`
   - `getTNT`
+  - `getTrinketTypeRange`
   - `inMineShaft`
   - `isValidCollectibleType`
   - `pickingUpItemIsCollectible`

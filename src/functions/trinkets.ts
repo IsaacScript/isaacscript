@@ -5,6 +5,7 @@ import {
   TrinketType,
 } from "isaac-typescript-definitions";
 import { itemConfig } from "../cachedClasses";
+import { FIRST_TRINKET_TYPE, MAX_TRINKET_TYPE } from "../constantsMax";
 import {
   DEFAULT_TRINKET_DESCRIPTION,
   TRINKET_DESCRIPTION_MAP,
@@ -15,6 +16,7 @@ import { hasFlag } from "./flag";
 import { isTrinket } from "./pickupVariants";
 import { isCharacter } from "./player";
 import { clearSprite } from "./sprite";
+import { irange } from "./utils";
 
 /**
  * Corresponds to the vanilla `PillColor.TRINKET_ID_MASK` value.
@@ -125,6 +127,17 @@ export function getTrinketName(trinketType: TrinketType): string {
   }
 
   return DEFAULT_TRINKET_NAME;
+}
+
+/**
+ * Helper function to get an array that represents the range from the first trinket type to the last
+ * trinket type. This will include integers that do not represent any valid trinket types.
+ *
+ * This function is only useful when building trinket type objects. For most purposes, you should
+ * use the `getTrinketSet` helper function instead.
+ */
+export function getTrinketTypeRange(): TrinketType[] {
+  return irange(FIRST_TRINKET_TYPE, MAX_TRINKET_TYPE) as TrinketType[];
 }
 
 /**

@@ -12,6 +12,7 @@ import {
 } from "isaac-typescript-definitions";
 import { game, itemConfig } from "../cachedClasses";
 import { BLIND_ITEM_PNG_PATH } from "../constants";
+import { FIRST_COLLECTIBLE_TYPE, MAX_COLLECTIBLE_TYPE } from "../constantsMax";
 import {
   COLLECTIBLE_DESCRIPTION_MAP,
   DEFAULT_COLLECTIBLE_DESCRIPTION,
@@ -27,6 +28,7 @@ import { hasFlag } from "./flag";
 import { isCollectible } from "./pickupVariants";
 import { getRoomListIndex } from "./roomData";
 import { clearSprite, spriteEquals } from "./sprite";
+import { irange } from "./utils";
 
 const COLLECTIBLE_SPRITE_LAYER = 1;
 const COLLECTIBLE_SHADOW_LAYER = 4;
@@ -340,6 +342,21 @@ export function getCollectibleTags(
 ): BitFlags<ItemConfigTag> {
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   return itemConfigItem === undefined ? ItemConfigTagZero : itemConfigItem.Tags;
+}
+
+/**
+ * Helper function to get an array that represents the range from the first collectible type to the
+ * last collectible type. This will include integers that do not represent any valid collectible
+ * types.
+ *
+ * This function is only useful when building collectible type objects. For most purposes, you
+ * should use the `getCollectibleSet` helper function instead.
+ */
+export function getCollectibleTypeRange(): CollectibleType[] {
+  return irange(
+    FIRST_COLLECTIBLE_TYPE,
+    MAX_COLLECTIBLE_TYPE,
+  ) as CollectibleType[];
 }
 
 /** Returns true if the item type in the item config is equal to `ItemType.ITEM_ACTIVE`. */

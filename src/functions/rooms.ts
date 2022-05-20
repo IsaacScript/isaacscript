@@ -78,6 +78,13 @@ export function changeRoom(roomGridIndex: int): void {
   game.ChangeRoom(roomGridIndex);
 }
 
+/**
+ * Helper function to get an array with every valid `Dimension` (not including `Dimension.CURRENT`).
+ */
+export function getAllDimensions(): Dimension[] {
+  return erange(NUM_DIMENSIONS) as Dimension[];
+}
+
 export function getAllRoomGridIndexes(): int[] {
   const rooms = getRooms();
   return rooms.map((roomDescriptor) => roomDescriptor.SafeGridIndex);
@@ -107,8 +114,7 @@ export function getCurrentDimension(): Dimension {
   );
   const startingRoomHash = GetPtrHash(startingRoomDescription);
 
-  for (const dimensionInt of erange(NUM_DIMENSIONS)) {
-    const dimension = dimensionInt as Dimension;
+  for (const dimension of getAllDimensions()) {
     const dimensionRoomDescription = level.GetRoomByIdx(
       startingRoomGridIndex,
       dimension,

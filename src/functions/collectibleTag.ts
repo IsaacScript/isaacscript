@@ -1,11 +1,10 @@
 import { CollectibleType, ItemConfigTag } from "isaac-typescript-definitions";
 import { itemConfig } from "../cachedClasses";
-import { FIRST_COLLECTIBLE_TYPE, MAX_COLLECTIBLE_TYPE } from "../constantsMax";
+import { getCollectibleTypeRange } from "./collectibles";
 import { getEnumValues } from "./enums";
 import { getFlagName } from "./flag";
 import { getPlayerCollectibleCount } from "./player";
 import { copySet } from "./set";
-import { irange } from "./utils";
 
 const TAG_TO_COLLECTIBLE_TYPES_MAP = new Map<
   ItemConfigTag,
@@ -19,12 +18,7 @@ function initTagMap() {
     TAG_TO_COLLECTIBLE_TYPES_MAP.set(itemConfigTag, new Set());
   }
 
-  for (const collectibleTypeInt of irange(
-    FIRST_COLLECTIBLE_TYPE,
-    MAX_COLLECTIBLE_TYPE,
-  )) {
-    const collectibleType = collectibleTypeInt as CollectibleType;
-
+  for (const collectibleType of getCollectibleTypeRange()) {
     for (const itemConfigTag of getEnumValues(ItemConfigTag)) {
       if (!collectibleHasTag(collectibleType, itemConfigTag)) {
         continue;

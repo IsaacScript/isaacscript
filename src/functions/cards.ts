@@ -30,8 +30,7 @@ function initCardObjects() {
     CARD_TYPE_TO_CARDS_MAP.set(cardType, new Set<Card>());
   }
 
-  for (const cardInt of irange(FIRST_CARD, MAX_CARD)) {
-    const card = cardInt as Card;
+  for (const card of getAllCards()) {
     const cardType = getCardType(card);
     const cardTypeSet = CARD_TYPE_TO_CARDS_MAP.get(cardType);
     if (cardTypeSet === undefined) {
@@ -51,6 +50,11 @@ function initCardObjects() {
     ItemConfigCardType.TAROT_REVERSE,
   );
   addSetsToSet(CARD_SET, cards);
+}
+
+/** Helper function to get an array with every valid card sub-type. This includes modded cards. */
+export function getAllCards(): Card[] {
+  return irange(FIRST_CARD, MAX_CARD) as Card[];
 }
 
 /**
