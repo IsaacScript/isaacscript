@@ -48,7 +48,7 @@ implement in isaacscript-common:
 IsaacScript announcements:
 - Breaking changes:
   - All functions that take a specific kind of type (e.g. `EntityType`, `PlayerVariant`, etc.) are now no longer in a union with `int`. This makes the API much more type-safe than before. The flip side of this is that you must change any self-defined enums like `CollectibleTypeCustom` to an object instead. See the docs for more details: https://isaacscript.github.io/docs/gotchas#extending-enums----custom-enums
-  - DefaultMap no longer passes the key to the factory function. This means you can clean up all of the unused `_key` argument in all of your default maps. In the rare case that you are actually using the key, you can simply pass it explicitly as a normal argument.
+  - DefaultMap no longer passes the key to the factory function. This means you can clean up the unused `_key` argument in all of your default maps. In the rare case that you are actually using the key in the factory, you can pass it explicitly as a normal argument.
 - Added the appropriate `HORSE_` enum values to the `PillColor` enum.
 - Added a `Zero` constant for every flag enum. (e.g. `EntityFlagZero`, `TearFlagZero`, and so on.)
 - Added the following constants:
@@ -62,10 +62,16 @@ IsaacScript announcements:
   - `FIRST_PILL_COLOR`
   - `FIRST_STAGE`
   - `FIRST_ROOM_TYPE`
+  - `FIRST_HORSE_PILL_COLOR`
+  - `MAX_HORSE_PILL_COLOR`
 - Added the following helper functions:
   - `fillLevelWithRedRooms`
   - `getAllCards`
   - `getAllDimensions`
+  - `getAllPillEffects`
+  - `getAllPillColors`
+  - `getAllNormalPillColors`
+  - `getAllHorsePillColors`
   - `getCollectibleTypeRange`
   - `getDoorEnterPosition`
   - `getDoorEnterPositionOffset`

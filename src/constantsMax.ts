@@ -50,3 +50,5 @@ export const MAX_VANILLA_CHARACTER = getLastEnumValue(PlayerType);
 
 export const FIRST_PILL_COLOR = PillColor.BLUE_BLUE;
 export const MAX_NORMAL_PILL_COLOR = PillColor.WHITE_YELLOW;
+export const FIRST_HORSE_PILL_COLOR = PillColor.HORSE_BLUE_BLUE;
+export const MAX_HORSE_PILL_COLOR = PillColor.HORSE_WHITE_YELLOW;

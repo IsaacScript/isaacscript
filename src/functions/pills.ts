@@ -6,6 +6,14 @@ import {
 } from "isaac-typescript-definitions";
 import { itemConfig } from "../cachedClasses";
 import {
+  FIRST_HORSE_PILL_COLOR,
+  FIRST_PILL_COLOR,
+  FIRST_PILL_EFFECT,
+  MAX_HORSE_PILL_COLOR,
+  MAX_NORMAL_PILL_COLOR,
+  MAX_PILL_EFFECT,
+} from "../constantsMax";
+import {
   DEFAULT_PILL_EFFECT_CLASS,
   PILL_EFFECT_CLASSES,
 } from "../objects/pillEffectClasses";
@@ -17,7 +25,9 @@ import {
   DEFAULT_PILL_EFFECT_TYPE,
   PILL_EFFECT_TYPES,
 } from "../objects/pillEffectTypes";
+import { getEnumValues } from "./enums";
 import { hasFlag } from "./flag";
+import { irange } from "./utils";
 
 /**
  * Corresponds to the vanilla `PillColor.COLOR_MASK` value.
@@ -34,6 +44,33 @@ const HORSE_PILL_FLAG = 2047 as BitFlag;
  * 1 << 11
  */
 const HORSE_PILL_ADJUSTMENT = 2048;
+
+/** Helper function to get an array with every non-gold horse pill color. */
+export function getAllHorsePillColors(): PillColor[] {
+  return irange(FIRST_HORSE_PILL_COLOR, MAX_HORSE_PILL_COLOR) as PillColor[];
+}
+
+/** Helper function to get an array with every non-gold and non-horse pill color. */
+export function getAllNormalPillColors(): PillColor[] {
+  return irange(FIRST_PILL_COLOR, MAX_NORMAL_PILL_COLOR) as PillColor[];
+}
+
+/**
+ * Helper function to get an array with every non-null pill color. This includes all gold colors and
+ * all horse colors.
+ */
+export function getAllPillColors(): PillColor[] {
+  const pillColors = getEnumValues(PillColor);
+  pillColors.slice(); // Remove `PillColor.NULL`
+  return pillColors;
+}
+
+/**
+ * Helper function to get an array with every valid pill effect. This includes modded pill effects.
+ */
+export function getAllPillEffects(): PillEffect[] {
+  return irange(FIRST_PILL_EFFECT, MAX_PILL_EFFECT) as PillEffect[];
+}
 
 /**
  * Helper function to get the corresponding horse pill color from a normal pill color.
