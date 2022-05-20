@@ -328,6 +328,15 @@ export const strictEnums = createRule<Options, MessageIds>({
         return;
       }
 
+      // First, determine if this is a function with a `this` parameter.
+      let firstParamIsThis = false;
+      const firstParameter = declaration.parameters[0];
+      if (firstParameter !== undefined) {
+        const parameterName = firstParameter.name.getText();
+        firstParamIsThis = parameterName === "this";
+      }
+      const paramIndexModifier = firstParamIsThis ? -1 : 0;
+
       /**
        * Iterate through the arguments provided to the call function and cross reference their types
        * to the types of the "real" function parameters.
@@ -352,7 +361,8 @@ export const strictEnums = createRule<Options, MessageIds>({
          * Here, we want to compare `Fruit.Apple` to `Fruit`, not `FruitType`, because `FruitType`
          * would just be equal to 0 in this case (and would be unsafe).
          */
-        const parameter = declaration.parameters[i];
+        const effectiveParameterIndex = i + paramIndexModifier;
+        const parameter = declaration.parameters[effectiveParameterIndex];
         if (parameter !== undefined) {
           const parameterTSNode = getTypeFromTSNode(parameter);
           const constraint = parameterTSNode.getConstraint();

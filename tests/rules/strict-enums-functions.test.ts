@@ -1004,6 +1004,14 @@ const myDefaultMap = new DefaultMap<Fruit, Fruit, [Fruit]>(
   errors: [{ messageId: "mismatchedFunctionArgument" }],
 });
 
+valid.push({
+  name: "Using a function with this void",
+  code: `${fruitEnumDefinition}
+function foo(this: void, arg1: Fruit, arg2: number) {}
+foo(Fruit.Apple, 123);
+  `,
+});
+
 ruleTester.run("strict-enums-functions", strictEnums, {
   valid,
   invalid,
