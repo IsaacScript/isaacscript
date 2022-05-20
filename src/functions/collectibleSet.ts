@@ -23,3 +23,19 @@ export function getCollectibleSet(): Set<CollectibleType> {
 
   return copySet(COLLECTIBLE_SET);
 }
+
+/**
+ * Helper function to get the number of valid collectibles that exist. (This is not simply equal to
+ * the highest collectible type, because collectible types are not contiguous.)
+ *
+ * Note that there is no corresponding `getTrinketsNum` function because trinket types are
+ * contiguous. Use the `NUM_TRINKET_TYPES` constant instead.
+ */
+export function getCollectiblesNum(): int {
+  // Lazy initialize the set.
+  if (COLLECTIBLE_SET.size === 0) {
+    initCollectibleSet();
+  }
+
+  return COLLECTIBLE_SET.size;
+}

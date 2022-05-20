@@ -1,5 +1,4 @@
 import {
-  CacheFlag,
   CollectiblePedestalType,
   CollectibleType,
   EntityType,
@@ -24,7 +23,6 @@ import {
 import { SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES_SET } from "../sets/singleUseActiveCollectibleTypesSet";
 import { CollectibleIndex } from "../types/CollectibleIndex";
 import { getEntityID } from "./entity";
-import { hasFlag } from "./flag";
 import { isCollectible } from "./pickupVariants";
 import { getRoomListIndex } from "./roomData";
 import { clearSprite, spriteEquals } from "./sprite";
@@ -50,18 +48,6 @@ function initQuestionMarkSprite() {
 
 export function clearCollectibleSprite(collectible: EntityPickup): void {
   setCollectibleSprite(collectible, undefined);
-}
-
-export function collectibleHasCacheFlag(
-  collectibleType: CollectibleType,
-  cacheFlag: CacheFlag,
-): boolean {
-  const itemConfigItem = itemConfig.GetCollectible(collectibleType);
-  if (itemConfigItem === undefined) {
-    return false;
-  }
-
-  return hasFlag(itemConfigItem.CacheFlags, cacheFlag);
 }
 
 /** Helper function to check if two collectible sprites have the same sprite sheet loaded. */

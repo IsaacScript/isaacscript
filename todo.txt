@@ -1,4 +1,7 @@
 TODO:
+- finish writing comments for constantsMax.ts
+- finish fixing Forgotten Fables
+
 - move passive items for eden set to isaacscript-common
 
 - clarify specific GridEntityType(s) for: GridEntityRock & GridEntitySpikes
@@ -72,6 +75,7 @@ IsaacScript announcements:
   - `getAllPillColors`
   - `getAllNormalPillColors`
   - `getAllHorsePillColors`
+  - `getCollectiblesNum`
   - `getCollectibleTypeRange`
   - `getDoorEnterPosition`
   - `getDoorEnterPositionOffset`

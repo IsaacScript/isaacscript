@@ -1,9 +1,8 @@
 import { CacheFlag, CollectibleType } from "isaac-typescript-definitions";
-import {
-  collectibleHasCacheFlag,
-  getCollectibleTypeRange,
-} from "./collectibles";
+import { itemConfig } from "../cachedClasses";
+import { getCollectibleTypeRange } from "./collectibles";
 import { getEnumValues } from "./enums";
+import { hasFlag } from "./flag";
 import { copySet, getSortedSetValues } from "./set";
 import { repeat } from "./utils";
 
@@ -24,6 +23,18 @@ function initCacheFlagMap() {
 
     CACHE_FLAG_TO_COLLECTIBLES_MAP.set(cacheFlag, collectiblesSet);
   }
+}
+
+export function collectibleHasCacheFlag(
+  collectibleType: CollectibleType,
+  cacheFlag: CacheFlag,
+): boolean {
+  const itemConfigItem = itemConfig.GetCollectible(collectibleType);
+  if (itemConfigItem === undefined) {
+    return false;
+  }
+
+  return hasFlag(itemConfigItem.CacheFlags, cacheFlag);
 }
 
 /**
