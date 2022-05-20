@@ -396,8 +396,24 @@ type PickupRegisterParameters =
       pickupVariant: PickupVariant.BOMB,
     ]
   | [
+      callback: (pickup: EntityPickupSack) => void,
+      pickupVariant: PickupVariant.SACK,
+    ]
+  | [
+      callback: (pickup: EntityPickupPill) => void,
+      pickupVariant: PickupVariant.PILL,
+    ]
+  | [
+      callback: (pickup: EntityPickupBattery) => void,
+      pickupVariant: PickupVariant.LIL_BATTERY,
+    ]
+  | [
       callback: (pickup: EntityPickupCollectible) => void,
       pickupVariant: PickupVariant.COLLECTIBLE,
+    ]
+  | [
+      callback: (pickup: EntityPickupCard) => void,
+      pickupVariant: PickupVariant.TAROT_CARD,
     ]
   | [
       callback: (pickup: EntityPickupTrinket) => void,
@@ -428,8 +444,24 @@ type PickupRenderRegisterParameters =
       pickupVariant: PickupVariant.BOMB,
     ]
   | [
+      callback: (pickup: EntityPickupSack, renderOffset: Vector) => void,
+      pickupVariant: PickupVariant.SACK,
+    ]
+  | [
+      callback: (pickup: EntityPickupPill, renderOffset: Vector) => void,
+      pickupVariant: PickupVariant.PILL,
+    ]
+  | [
+      callback: (pickup: EntityPickupBattery, renderOffset: Vector) => void,
+      pickupVariant: PickupVariant.LIL_BATTERY,
+    ]
+  | [
       callback: (pickup: EntityPickupCollectible, renderOffset: Vector) => void,
       pickupVariant: PickupVariant.COLLECTIBLE,
+    ]
+  | [
+      callback: (pickup: EntityPickupCard, renderOffset: Vector) => void,
+      pickupVariant: PickupVariant.TAROT_CARD,
     ]
   | [
       callback: (pickup: EntityPickupTrinket, renderOffset: Vector) => void,
