@@ -130,12 +130,12 @@ function playerRecentlyCollidedWithBulb(player: EntityPlayer) {
  * Instead, we track the frames that Bulbs collide with players and assume that a collision means a
  * zap has occurred.
  */
-function preNPCCollisionSucker(npc: EntityNPCSucker, collider: Entity) {
+function preNPCCollisionSucker(npc: EntityNPC, collider: Entity) {
   if (!hasSubscriptions()) {
     return;
   }
 
-  if (npc.Variant !== SuckerVariant.BULB) {
+  if (npc.Variant !== (SuckerVariant.BULB as int)) {
     return;
   }
 

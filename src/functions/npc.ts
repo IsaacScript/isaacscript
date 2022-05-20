@@ -18,7 +18,6 @@ import {
 import { EGGY_STATE_FRAME_OF_FINAL_SPIDER } from "../constants";
 import { getFilteredNewEntities } from "./entity";
 import { getNPCs, getProjectiles } from "./entitySpecific";
-import { isRagling } from "./entityTypes";
 
 /**
  * Used to filter out certain NPCs when determining of an NPC is "alive" and/or should keep the
@@ -141,8 +140,8 @@ export function isDyingEggyWithNoSpidersLeft(npc: EntityNPC): boolean {
  */
 export function isRaglingDeathPatch(npc: EntityNPC): boolean {
   return (
-    isRagling(npc) &&
-    npc.Variant === RaglingVariant.RAG_MANS_RAGLING &&
+    npc.Type === EntityType.RAGLING &&
+    npc.Variant === (RaglingVariant.RAG_MANS_RAGLING as int) &&
     // They go to `STATE_SPECIAL` when they are patches on the ground.
     npc.State === NpcState.SPECIAL
   );

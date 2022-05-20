@@ -25,10 +25,10 @@
     "dist/**/*.d.ts"
   ],
   "dependencies": {
-    "isaac-typescript-definitions": "^2.0.35"
+    "isaac-typescript-definitions": "^2.0.36"
   },
   "devDependencies": {
-    "isaacscript-lint": "^1.0.156",
+    "isaacscript-lint": "^1.0.157",
     "isaacscript-spell": "^1.0.3",
     "isaacscript-tsconfig": "^1.1.16",
     "npm-check-updates": "^13.0.1",
