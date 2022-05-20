@@ -1,4 +1,7 @@
 export enum PickupPrice {
+  /** `Pickup.Price` will be equal to 0 for non-purchasable pickups. */
+  NULL = 0,
+
   ONE_HEART = -1,
   TWO_HEARTS = -2,
   THREE_SOUL_HEARTS = -3,
