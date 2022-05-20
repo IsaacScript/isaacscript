@@ -4,6 +4,7 @@ import {
   PickupVariant,
   PlayerType,
 } from "isaac-typescript-definitions";
+import { VectorZero } from "../constants";
 import { preventCollectibleRotate } from "../features/preventCollectibleRotate";
 import { areFeaturesInitialized } from "../featuresInitialized";
 import { setCollectibleEmpty } from "./collectibles";
@@ -26,6 +27,7 @@ import { getRandomSeed, isRNG } from "./rng";
  *                collectible. Default is false.
  * @param forceFreeItem Optional. Set to true to disable the logic that gives the item a price for
  *                      Tainted Keeper. Default is false.
+ * @param spawner Optional.
  */
 export function spawnCollectible(
   collectibleType: CollectibleType,
@@ -33,14 +35,17 @@ export function spawnCollectible(
   seedOrRNG: Seed | RNG = getRandomSeed(),
   options = false,
   forceFreeItem = false,
-): EntityPickup {
+  spawner?: Entity,
+): EntityPickupCollectible {
   const seed = isRNG(seedOrRNG) ? seedOrRNG.Next() : seedOrRNG;
   const collectible = spawnPickupWithSeed(
     PickupVariant.COLLECTIBLE,
     collectibleType,
     position,
     seed,
-  );
+    VectorZero,
+    spawner,
+  ) as EntityPickupCollectible;
 
   if (options) {
     collectible.OptionsPickupIndex = 1;
