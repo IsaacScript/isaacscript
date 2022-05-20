@@ -362,6 +362,8 @@ export enum PillColor {
   HORSE_BLACK_YELLOW = 2059,
   HORSE_WHITE_BLACK = 2060,
   HORSE_WHITE_YELLOW = 2061,
+
+  HORSE_GOLD = 2062,
 }
 
 /** For EntityType.PICKUP (5), PickupVariant.LIL_BATTERY (90) */
