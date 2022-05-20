@@ -324,6 +324,14 @@ mixed === 1;
   ],
 });
 
+valid.push({
+  name: "Comparing a number literal to a type that contains a number literal",
+  code: `${fruitEnumDefinition}
+declare const fruitOrInt: Fruit | -1;
+fruitOrInt === -1;
+    `,
+});
+
 ruleTester.run("strict-enums-comparison", strictEnums, {
   valid,
   invalid,

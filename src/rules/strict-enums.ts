@@ -525,6 +525,20 @@ export const strictEnums = createRule<Options, MessageIds>({
         return false;
       }
 
+      // Allow passing number literals if there are number literals in the actual function type.
+      if (isNumber(leftType)) {
+        const rightTypeSubTypes = unionTypeParts(rightType);
+        if (rightTypeSubTypes.some((subType) => subType === leftType)) {
+          return false;
+        }
+      }
+      if (isNumber(rightType)) {
+        const leftTypeSubTypes = unionTypeParts(leftType);
+        if (leftTypeSubTypes.some((subType) => subType === rightType)) {
+          return false;
+        }
+      }
+
       /**
        * Disallow mismatched comparisons, like the following:
        *
