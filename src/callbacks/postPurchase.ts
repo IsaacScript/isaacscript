@@ -1,4 +1,3 @@
-import { PickupPrice } from "isaac-typescript-definitions";
 import { DefaultMap } from "../classes/DefaultMap";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
@@ -57,7 +56,7 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
 function playerPickedUpNewItem(player: EntityPlayer) {
   const pickups = getPickups();
   const disappearingPickup = pickups.find(
-    (pickup) => !pickup.Exists() && pickup.Price !== PickupPrice.NULL,
+    (pickup) => !pickup.Exists() && pickup.Price !== 0,
   );
   if (disappearingPickup !== undefined) {
     postPurchaseFire(player, disappearingPickup);

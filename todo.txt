@@ -1,4 +1,6 @@
 TODO:
+- move passive items for eden set to isaacscript-common
+
 - clarify specific GridEntityType(s) for: GridEntityRock & GridEntitySpikes
 - make state enum for GridEntitySpikes
 - make state enum for GridEntityPit
@@ -23,8 +25,6 @@ implement in isaacscript-common:
 - write test for isGoldenTrinket, test every valid horse trinket value
 - test getCurrentDimension() function to see if Xalum is right // cspell:disable-line
 - PHD_PILL_CONVERSIONS to isaacscript-common
-- make character args for every PlayerVariant callback
-- POST_GREED_WAVE
 - POST_PLAYER_COLLECTIBLE_ADDED
 - POST_PLAYER_COLLECTIBLE_REMOVED
 - POST_AMBUSH_DONE
