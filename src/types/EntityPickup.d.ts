@@ -4,6 +4,7 @@ import {
   CollectibleType,
   HeartSubType,
   KeySubType,
+  TrinketType,
 } from "../enums/collections/subTypes";
 import { PickupVariant } from "../enums/collections/variants";
 import { EntityType } from "../enums/EntityType";
@@ -94,5 +95,11 @@ declare global {
   interface EntityPickupCollectible extends EntityPickup {
     SubType: CollectibleType;
     Variant: PickupVariant.COLLECTIBLE;
+  }
+
+  /** For PickupVariant.TRINKET (350) */
+  interface EntityPickupTrinket extends EntityPickup {
+    SubType: TrinketType;
+    Variant: PickupVariant.TRINKET;
   }
 }
