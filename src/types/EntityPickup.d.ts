@@ -12,6 +12,7 @@ import {
 } from "../enums/collections/subTypes";
 import { PickupVariant } from "../enums/collections/variants";
 import { EntityType } from "../enums/EntityType";
+import { PickupPrice } from "../enums/PickupPrice";
 
 declare global {
   interface EntityPickup extends Entity {
@@ -62,7 +63,7 @@ declare global {
      */
     OptionsPickupIndex: int;
 
-    Price: int;
+    Price: PickupPrice;
     ShopItemId: int;
     State: int;
     Timeout: int;
