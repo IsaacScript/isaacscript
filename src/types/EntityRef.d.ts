@@ -1,7 +1,11 @@
 import { EntityType } from "../enums/EntityType";
 
 declare global {
-  function EntityRef(this: void, entity: Entity): EntityRef;
+  /**
+   * It is possible to pass undefined to the constructor, which will result in an `EntityRef` object
+   * that has no associated entity.
+   */
+  function EntityRef(this: void, entity: Entity | undefined): EntityRef;
 
   interface EntityRef {
     Entity: Entity;
