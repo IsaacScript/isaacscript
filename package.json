@@ -35,6 +35,6 @@
     "typescript-to-lua": "^1.4.4"
   },
   "dependencies": {
-    "isaac-typescript-definitions": "^2.0.34"
+    "isaac-typescript-definitions": "^2.0.35"
   }
 }
