@@ -88,6 +88,17 @@ IsaacScript announcements:
   - `getTNT`
   - `getTrinketTypeRange`
   - `inMineShaft`
+  - `isHeart`
+  - `isCoin`
+  - `isKey`
+  - `isBomb`
+  - `isPoop`
+  - `isSack`
+  - `isPill`
+  - `isBattery`
+  - `isCollectible`
+  - `isCardPickup`
+  - `isTrinket`
   - `isValidCollectibleType`
   - `pickingUpItemIsCollectible`
   - `pickingUpItemIsTrinket`
