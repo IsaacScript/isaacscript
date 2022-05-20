@@ -64,7 +64,12 @@ declare global {
      */
     OptionsPickupIndex: int;
 
-    Price: PickupPrice;
+    /**
+     * The price can be from 0 to 99. Special kinds of prices (like Devil Deal prices) are
+     * represented by the `PickupPrice` enum.
+     */
+    Price: int | PickupPrice;
+
     ShopItemId: int;
     State: int;
     Timeout: int;
