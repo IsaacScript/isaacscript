@@ -13,10 +13,13 @@ import {
 import * as file from "../../file";
 import { Config } from "../../types/Config";
 import { error, getModTargetDirectoryName } from "../../utils";
+import { COMPILATION_SUCCESSFUL } from "./constants";
 import { copyWatcherMod } from "./copyWatcherMod";
 import * as notifyGame from "./notifyGame";
 import { spawnSaveDatWriter } from "./spawnSaveDatWriter";
 import { touchWatcherSaveDatFiles } from "./touchWatcherSaveDatFiles";
+
+let compilationStartTime = new Date();
 
 export function monitor(argv: Record<string, unknown>, config: Config): void {
   const verbose = argv["verbose"] === true;
@@ -113,10 +116,15 @@ function spawnTSTLWatcher() {
     } else if (
       msg.includes("File change detected. Starting incremental compilation...")
     ) {
+      compilationStartTime = new Date();
       const newMsg = "TypeScript change detected. Compiling...";
       notifyGame.msg(newMsg);
     } else if (msg.includes("Found 0 errors. Watching for file changes.")) {
-      const newMsg = "Compilation successful.";
+      const compilationFinishTime = new Date();
+      const elapsedTimeMilliseconds =
+        compilationFinishTime.getTime() - compilationStartTime.getTime();
+      const elapsedTimeSeconds = elapsedTimeMilliseconds / 1000;
+      const newMsg = `${COMPILATION_SUCCESSFUL} (in ${elapsedTimeSeconds} seconds)`;
       notifyGame.msg(newMsg);
     } else {
       notifyGame.msg(msg);
