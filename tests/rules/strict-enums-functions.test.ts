@@ -844,6 +844,166 @@ useFruit(-1);
         `,
 });
 
+// It looks like it isn't possible for the rule to be smart enough to handle this.
+invalid.push({
+  name: "Using a default map",
+  code: `${fruitEnumDefinition}
+
+type FactoryFunction<V, A extends unknown[]> = (...extraArgs: A) => V;
+type FirstArg<K, V, A extends unknown[]> =
+  | Iterable<[K, V]>
+  | V
+  | FactoryFunction<V, A>;
+type SecondArg<V, A extends unknown[]> = V | FactoryFunction<V, A>;
+
+interface ParsedArgs<K, V, A extends unknown[]> {
+  iterable: Iterable<[K, V]> | undefined;
+  defaultValue: V | undefined;
+  defaultValueFactory: FactoryFunction<V, A> | undefined;
+}
+
+export class DefaultMap<K, V, A extends unknown[] = []> extends Map<K, V> {
+  private defaultValue: V | undefined;
+  private defaultValueFactory: FactoryFunction<V, A> | undefined;
+
+  constructor(
+    iterableOrDefaultValueOrDefaultValueFactory: FirstArg<K, V, A>,
+    defaultValueOrDefaultValueFactory?: SecondArg<V, A>,
+  ) {
+    const { iterable, defaultValue, defaultValueFactory } = parseArguments(
+      iterableOrDefaultValueOrDefaultValueFactory,
+      defaultValueOrDefaultValueFactory,
+    );
+
+    if (defaultValue === undefined && defaultValueFactory === undefined) {
+      throw new Error(
+        "A DefaultMap must be instantiated with either a default value or a function that returns a default value.",
+      );
+    }
+
+    if (iterable === undefined) {
+      super();
+    } else {
+      super(iterable);
+    }
+
+    this.defaultValue = defaultValue;
+    this.defaultValueFactory = defaultValueFactory;
+  }
+
+  getAndSetDefault(key: K, ...extraArgs: A): V {
+    const value = this.get(key);
+    if (value !== undefined) {
+      return value;
+    }
+
+    const defaultValue = this.getDefaultValue(...extraArgs);
+    this.set(key, defaultValue);
+    return defaultValue;
+  }
+
+  getDefaultValue(...extraArgs: A): V {
+    if (this.defaultValue !== undefined) {
+      return this.defaultValue;
+    }
+
+    if (this.defaultValueFactory !== undefined) {
+      return this.defaultValueFactory(...extraArgs);
+    }
+
+    throw new Error("A DefaultMap was incorrectly instantiated.");
+  }
+
+  getConstructorArg(): V | FactoryFunction<V, A> {
+    if (this.defaultValue !== undefined) {
+      return this.defaultValue;
+    }
+
+    if (this.defaultValueFactory !== undefined) {
+      return this.defaultValueFactory;
+    }
+
+    throw new Error("A DefaultMap was incorrectly instantiated.");
+  }
+}
+
+function parseArguments<K, V, A extends unknown[]>(
+  firstArg: FirstArg<K, V, A>,
+  secondArg?: SecondArg<V, A>,
+): ParsedArgs<K, V, A> {
+  return secondArg === undefined
+    ? parseArgumentsOne(firstArg)
+    : parseArgumentsTwo(firstArg, secondArg);
+}
+
+function parseArgumentsOne<K, V, A extends unknown[]>(
+  firstArg: FirstArg<K, V, A>,
+): ParsedArgs<K, V, A> {
+  const arg = firstArg as SecondArg<V, A>;
+  const { defaultValue, defaultValueFactory } =
+    parseDefaultValueOrDefaultValueFactory(arg);
+  return {
+    iterable: undefined,
+    defaultValue,
+    defaultValueFactory,
+  };
+}
+
+function parseArgumentsTwo<K, V, A extends unknown[]>(
+  firstArg: FirstArg<K, V, A>,
+  secondArg: SecondArg<V, A>,
+): ParsedArgs<K, V, A> {
+  if (!Array.isArray(firstArg)) {
+    throw new Error(
+      "A DefaultMap constructor with two arguments must have the first argument be the initializer list.",
+    );
+  }
+
+  const { defaultValue, defaultValueFactory } =
+    parseDefaultValueOrDefaultValueFactory(secondArg);
+  return {
+    iterable: firstArg as Iterable<[K, V]>,
+    defaultValue,
+    defaultValueFactory,
+  };
+}
+
+function parseDefaultValueOrDefaultValueFactory<V, A extends unknown[]>(
+  arg: SecondArg<V, A>,
+): {
+  defaultValue: V | undefined;
+  defaultValueFactory: FactoryFunction<V, A> | undefined;
+} {
+  if (typeof arg === "function") {
+    return {
+      defaultValue: undefined,
+      defaultValueFactory: arg as FactoryFunction<V, A>,
+    };
+  }
+
+  if (
+    typeof arg === "boolean" ||
+    typeof arg === "number" ||
+    typeof arg === "string"
+  ) {
+    return {
+      defaultValue: arg as V,
+      defaultValueFactory: undefined,
+    };
+  }
+
+  throw new Error(
+    \`A DefaultMap was instantiated with an unknown type of: \${typeof arg}\`,
+  );
+}
+
+const myDefaultMap = new DefaultMap<Fruit, Fruit, [Fruit]>(
+  (fruit: Fruit) => fruit,
+);
+      `,
+  errors: [{ messageId: "mismatchedFunctionArgument" }],
+});
+
 ruleTester.run("strict-enums-functions", strictEnums, {
   valid,
   invalid,

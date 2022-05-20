@@ -74,7 +74,7 @@ export const strictEnums = createRule<Options, MessageIds>({
       mismatchedComparison:
         "The two things in the comparison do not have a shared enum type.",
       mismatchedFunctionArgument:
-        "The {{ ordinal }} argument in the function call does not match the declared enum type of the function signature.",
+        "The {{ ordinal }} argument in the function call does not match the declared enum type of the function signature.\nArgument: {{ type1 }}\nParameter: {{ type2 }}",
     },
   },
   defaultOptions: [],
@@ -375,8 +375,8 @@ export const strictEnums = createRule<Options, MessageIds>({
             messageId: "mismatchedFunctionArgument",
             data: {
               ordinal: getOrdinalSuffix(i + 1), // e.g. 0 --> 1st
-              argumentType: getTypeName(checker, argumentType),
-              parameterType: getTypeName(checker, parameterType),
+              type1: getTypeName(checker, argumentType),
+              type2: getTypeName(checker, parameterType),
             },
           });
         }
