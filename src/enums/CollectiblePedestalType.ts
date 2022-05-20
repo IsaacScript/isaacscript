@@ -38,7 +38,7 @@ export enum CollectiblePedestalType {
   /** From SlotVariant.MOMS_DRESSING_TABLE (12) */
   MOMS_DRESSING_TABLE,
 
-  /** From PickupVariant.PICKUP_CHEST (50) */
+  /** From PickupVariant.CHEST (50) */
   CHEST,
 
   /** From PickupVariant.MOMS_CHEST (390) */

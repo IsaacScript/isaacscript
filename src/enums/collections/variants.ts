@@ -299,7 +299,7 @@ export enum PickupVariant {
   MEGA_CHEST = 57,
   HAUNTED_CHEST = 58,
   LOCKED_CHEST = 60,
-  GRAB_BAG = 69,
+  SACK = 69,
   PILL = 70,
   LIL_BATTERY = 90,
   COLLECTIBLE = 100,
