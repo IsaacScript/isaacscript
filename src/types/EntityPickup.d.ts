@@ -1,9 +1,11 @@
 import {
   BombSubType,
+  Card,
   CoinSubType,
   CollectibleType,
   HeartSubType,
   KeySubType,
+  PillColor,
   TrinketType,
 } from "../enums/collections/subTypes";
 import { PickupVariant } from "../enums/collections/variants";
@@ -91,10 +93,22 @@ declare global {
     Variant: PickupVariant.BOMB;
   }
 
+  /** For PickupVariant.PILL (70) */
+  interface EntityPickupPill extends EntityPickup {
+    SubType: PillColor;
+    Variant: PickupVariant.PILL;
+  }
+
   /** For PickupVariant.COLLECTIBLE (100) */
   interface EntityPickupCollectible extends EntityPickup {
     SubType: CollectibleType;
     Variant: PickupVariant.COLLECTIBLE;
+  }
+
+  /** For PickupVariant.TAROT_CARD (300) */
+  interface EntityPickupTarotCard extends EntityPickup {
+    SubType: Card;
+    Variant: PickupVariant.TAROT_CARD;
   }
 
   /** For PickupVariant.TRINKET (350) */
