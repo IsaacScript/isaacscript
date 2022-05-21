@@ -1,7 +1,12 @@
-declare interface GridEntityPit extends GridEntity {
-  MakeBridge(bridgeSource?: GridEntity): void;
-  SetLadder(value: boolean): void;
-  UpdateCollision(): void;
+import { PitState } from "../enums/collections/gridEntityState";
 
-  HasLadder: boolean;
+declare global {
+  interface GridEntityPit extends GridEntity {
+    MakeBridge(bridgeSource?: GridEntity): void;
+    SetLadder(value: boolean): void;
+    UpdateCollision(): void;
+
+    HasLadder: boolean;
+    State: PitState;
+  }
 }

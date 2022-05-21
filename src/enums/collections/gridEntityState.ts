@@ -26,6 +26,18 @@ export enum RockState {
   HALF_BROKEN = 4,
 }
 
+/** For GridEntityType.PIT (7) */
+export enum PitState {
+  NORMAL = 0,
+
+  /**
+   * Pits can become filled when nearby rocks are bombed into them.
+   *
+   * Note that the ladder collectible does not change the state to this.
+   */
+  FILLED = 1,
+}
+
 /** For GridEntityType.SPIKES_ON_OFF (9) */
 export enum SpikesOnOffState {
   ON = 0,
