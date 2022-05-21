@@ -2,7 +2,7 @@
 {
   // We extend the standard IsaacScript config:
   // https://github.com/IsaacScript/isaacscript-tsconfig/blob/main/tsconfig.node.json
-  "extends": "isaacscript-tsconfig/tsconfig.node.json",
+  // "extends": "isaacscript-tsconfig/tsconfig.node.json",
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {

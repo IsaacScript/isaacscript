@@ -16,7 +16,11 @@
     "baseUrl": ".",
     "paths": {
       "isaacscript": ["packages/isaacscript-cli/src/index.ts"]
-    }
+    },
+
+    // Added stuff
+    "esModuleInterop": true,
+    "resolveJsonModule": true
   },
   "exclude": ["node_modules", "tmp"]
 }
