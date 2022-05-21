@@ -57,11 +57,20 @@ function loadEnvironmentVariables() {
 }
 
 function printBanner() {
-  console.log(chalk.green(figlet.textSync(PROJECT_NAME)));
-  const bannerLength = 55; // From measuring the banner created by Figlet
+  const banner = figlet.textSync(PROJECT_NAME);
+  console.log(chalk.green(banner));
+
+  const bannerLines = banner.split("\n");
+  const firstBannerLine = bannerLines[0];
+  if (firstBannerLine === undefined) {
+    throw new Error("Failed to get the first line of the banner text.");
+  }
+  const bannerLineLength = firstBannerLine.length;
   const version = `v${pkg.version}`;
-  const leftPaddingAmount = Math.floor((bannerLength + version.length) / 2);
-  console.log(version.padStart(leftPaddingAmount));
+  const leftPaddingAmount = Math.floor((bannerLineLength + version.length) / 2);
+  const versionLine = version.padStart(leftPaddingAmount);
+  console.log(versionLine);
+
   console.log();
 }
 
