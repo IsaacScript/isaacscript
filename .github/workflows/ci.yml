@@ -24,7 +24,7 @@ jobs:
 
       - name: Install dependencies (if the cached directory was not found)
         if: steps.node-cache.outputs.cache-hit != 'true'
-        run: yarn
+        run: yarn install --frozen-lockfile
 
       - name: Perform automated checks
         run: bash lint.sh
