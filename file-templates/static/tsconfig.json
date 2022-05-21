@@ -13,11 +13,11 @@
   // A list of the TypeScript files to compile.
   "include": ["./src/**/*.ts"],
 
-  // TypeScriptToLua settings
+  // TypeScriptToLua settings.
   "tstl": {
     "luaTarget": "5.3",
-    "luaBundle": "./mod/main.lua", // Will bundle all output Lua files into a single file
-    "luaBundleEntry": "./src/bundleEntry.ts", // This invokes the "main.ts" file
+    "luaBundle": "./mod/main.lua", // Will bundle all output Lua files into a single file.
+    "luaBundleEntry": "./src/bundleEntry.ts", // This invokes the "main.ts" file.
     "luaPlugins": [
       // A plugin to add an explanatory comment at the top of the compiled "main.lua" file.
       { "name": "./plugins/addIsaacScriptCommentHeader.ts" },
