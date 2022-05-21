@@ -1,4 +1,4 @@
-# These are words contained within IsaacScript template files.
+# These are words contained within IsaacScript template files and elsewhere.
 
 contentfolder # metadata.vdf
 dbaeumer # extensions.json
