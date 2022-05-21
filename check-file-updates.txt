@@ -5,4 +5,5 @@
 .prettierrc.js
 check-file-updates.sh:check-file-updates.sh
 check-orphaned-words.sh
+plugins/noExtendedEnums.ts
 tsconfig.eslint.json

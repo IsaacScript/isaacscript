@@ -47,4 +47,4 @@ implement in isaacscript-common:
   - wait for JSONC fix: https://github.com/nrwl/nx/issues/10393
 
 IsaacScript announcements:
--
+- IsaacScript now shows how many seconds it took to compile.
