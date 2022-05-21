@@ -65,7 +65,7 @@ declare global {
       entityType: EntityType,
       variant: int,
       subType: int,
-      championColorIdx: ChampionColor,
+      championColorIdx: ChampionColor | -1,
     ): boolean;
 
     PlaySound(
