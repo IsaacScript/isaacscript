@@ -11,13 +11,15 @@ const MODDED_COLLECTIBLES_SET = new Set<CollectibleType>();
 function initCollectibleSets() {
   for (const collectibleType of getCollectibleTypeRange()) {
     const itemConfigItem = itemConfig.GetCollectible(collectibleType);
-    if (itemConfigItem !== undefined) {
-      ALL_COLLECTIBLES_SET.add(collectibleType);
-      if (collectibleType <= LAST_VANILLA_COLLECTIBLE_TYPE) {
-        VANILLA_COLLECTIBLES_SET.add(collectibleType);
-      } else {
-        MODDED_COLLECTIBLES_SET.add(collectibleType);
-      }
+    if (itemConfigItem === undefined) {
+      continue;
+    }
+
+    ALL_COLLECTIBLES_SET.add(collectibleType);
+    if (collectibleType <= LAST_VANILLA_COLLECTIBLE_TYPE) {
+      VANILLA_COLLECTIBLES_SET.add(collectibleType);
+    } else {
+      MODDED_COLLECTIBLES_SET.add(collectibleType);
     }
   }
 }
@@ -26,7 +28,7 @@ function initCollectibleSets() {
  * Returns a set containing every valid collectible type in the game, including modded collectibles.
  */
 export function getCollectibleSet(): Set<CollectibleType> {
-  // Lazy initialize the set.
+  // Lazy initialize the sets.
   if (ALL_COLLECTIBLES_SET.size === 0) {
     initCollectibleSets();
   }
@@ -36,7 +38,7 @@ export function getCollectibleSet(): Set<CollectibleType> {
 
 /** Returns a set containing every modded collectible type in the game. */
 export function getModdedCollectibleSet(): Set<CollectibleType> {
-  // Lazy initialize the set.
+  // Lazy initialize the sets.
   if (ALL_COLLECTIBLES_SET.size === 0) {
     initCollectibleSets();
   }
@@ -46,7 +48,7 @@ export function getModdedCollectibleSet(): Set<CollectibleType> {
 
 /** Returns a set containing every valid vanilla collectible type in the game. */
 export function getVanillaCollectibleSet(): Set<CollectibleType> {
-  // Lazy initialize the set.
+  // Lazy initialize the sets.
   if (ALL_COLLECTIBLES_SET.size === 0) {
     initCollectibleSets();
   }

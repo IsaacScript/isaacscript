@@ -424,6 +424,16 @@ export function isGlitchedCollectible(pickup: EntityPickup): boolean {
 }
 
 /**
+ * Returns true if the collectible has the "Hidden" attribute in the item config.
+ *
+ * Hidden collectibles will not show up in any pools and Eden will not start with them.
+ */
+export function isHiddenCollectible(collectibleType: CollectibleType): boolean {
+  const itemConfigItem = itemConfig.GetCollectible(collectibleType);
+  return itemConfigItem !== undefined && itemConfigItem.Hidden;
+}
+
+/**
  * Returns true if the item type in the item config is equal to `ItemType.ITEM_PASSIVE` or
  * `ItemType.ITEM_FAMILIAR`.
  */

@@ -1,6 +1,4 @@
 TODO:
-- finish fixing Forgotten Fables
-
 - move passive items for eden set to isaacscript-common
 
 - clarify specific GridEntityType(s) for: GridEntityRock & GridEntitySpikes
@@ -23,7 +21,6 @@ implement in isaacscript-common:
 - use tem's entity check function
 - make spawn never spawn non-existent entities
 - write test for isHorsePill, test every valid horse pill value
-- write test for isGoldenTrinket, test every valid horse trinket value
 - test getCurrentDimension() function to see if Xalum is right // cspell:disable-line
 - PHD_PILL_CONVERSIONS to isaacscript-common
 - POST_PLAYER_COLLECTIBLE_ADDED
@@ -49,3 +46,7 @@ implement in isaacscript-common:
 IsaacScript announcements:
 - IsaacScript now shows how many seconds it took to compile.
 - Added a `saveDataManagerReset` to force the save data manager to reset a specific set of variables.
+- Added the following helper functions:
+  - `isHiddenCollectible`
+  - `getEdenPassives`
+  - `getRandomEdenPassive`

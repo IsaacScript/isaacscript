@@ -38,6 +38,7 @@ Don't copy-paste the same functions over and over in your mods. Simply use the s
 - [Deep Copy Functions](modules/functions_deepCopy.html)
 - [Door Functions](modules/functions_doors.html)
 - [Easing Functions](modules/functions_easing.html)
+- [Eden Functions](modules/functions_eden.html)
 - [Entity Functions](modules/functions_entity.html)
 - [Entity Specific-Type Functions](modules/functions_entitySpecific.html)
 - [Entity Type Functions](modules/functions_entity_types.html)

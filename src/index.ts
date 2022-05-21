@@ -91,6 +91,7 @@ export { deepCopyTests } from "./functions/deepCopyTests";
 export * from "./functions/direction";
 export * from "./functions/doors";
 export * from "./functions/easing";
+export * from "./functions/eden";
 export * from "./functions/entity";
 export * from "./functions/entitySpecific";
 export * from "./functions/entityTypes";

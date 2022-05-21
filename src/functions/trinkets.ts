@@ -24,13 +24,6 @@ import { clearSprite } from "./sprite";
 import { irange } from "./utils";
 
 /**
- * Corresponds to the vanilla `PillColor.TRINKET_ID_MASK` value.
- *
- * (1 << 15) - 1
- */
-const GOLDEN_TRINKET_FLAG = 32767 as BitFlag;
-
-/**
  * Add this to a `TrinketType` to get the corresponding golden trinket type.
  *
  * Corresponds to the vanilla `PillColor.TRINKET_GOLDEN_FLAG` value.
@@ -174,7 +167,7 @@ export function hasOpenTrinketSlot(player: EntityPlayer): boolean {
 }
 
 export function isGoldenTrinket(trinketType: TrinketType): boolean {
-  return hasFlag(trinketType as BitFlag, GOLDEN_TRINKET_FLAG);
+  return trinketType > (GOLDEN_TRINKET_ADJUSTMENT as TrinketType);
 }
 
 /**

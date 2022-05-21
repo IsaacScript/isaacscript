@@ -28,15 +28,7 @@ import {
   PILL_EFFECT_TYPES,
 } from "../objects/pillEffectTypes";
 import { getEnumValues } from "./enums";
-import { hasFlag } from "./flag";
 import { irange } from "./utils";
-
-/**
- * Corresponds to the vanilla `PillColor.COLOR_MASK` value.
- *
- * (1 << 11) - 1
- */
-const HORSE_PILL_FLAG = 2047 as BitFlag;
 
 /**
  * Add this to a `PillColor` to get the corresponding giant pill color.
@@ -186,5 +178,5 @@ export function getVanillaPillEffects(): PillEffect[] {
 }
 
 export function isHorsePill(pillColor: PillColor): boolean {
-  return hasFlag(pillColor as BitFlag, HORSE_PILL_FLAG);
+  return pillColor > (HORSE_PILL_ADJUSTMENT as PillColor);
 }
