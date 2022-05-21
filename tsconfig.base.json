@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "isaacscript": ["packages/isaacscript-cli/src/index.ts"]
+      "isaacscript": ["packages/isaacscript-cli/src/main.ts"]
     },
 
     // Added stuff

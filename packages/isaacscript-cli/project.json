@@ -8,7 +8,7 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/packages/isaacscript-cli",
-        "main": "packages/isaacscript-cli/src/index.ts",
+        "main": "packages/isaacscript-cli/src/main.ts",
         "tsConfig": "packages/isaacscript-cli/tsconfig.lib.json",
         "assets": ["packages/isaacscript-cli/*.md"]
       }
