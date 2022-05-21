@@ -51,7 +51,10 @@ const plugin: tstl.Plugin = {
       // Get the first element, which will be equal to something like:
       // local ____exports.Foo = Foo or ({})
       const oldDeclaration = statements[0];
-      if (tstl.isAssignmentStatement(oldDeclaration)) {
+      if (
+        oldDeclaration !== undefined &&
+        tstl.isAssignmentStatement(oldDeclaration)
+      ) {
         // Replace the right side of the assignment with a blank Lua table, e.g.
         // local ____exports.Foo = {}
         const blankTable = tstl.createTableExpression();
