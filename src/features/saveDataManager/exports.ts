@@ -1,9 +1,16 @@
+/* eslint-disable sort-exports/sort-exports */
+
+import { SaveDataKey } from "../../enums/private/SaveDataKey";
 import { SerializationType } from "../../enums/SerializationType";
 import { errorIfFeaturesNotInitialized } from "../../featuresInitialized";
 import { deepCopy } from "../../functions/deepCopy";
 import { SaveData } from "../../types/private/SaveData";
 import { SAVE_DATA_MANAGER_FEATURE_NAME } from "./constants";
-import { forceSaveDataManagerLoad, forceSaveDataManagerSave } from "./main";
+import {
+  forceSaveDataManagerLoad,
+  forceSaveDataManagerSave,
+  restoreDefaultSaveData,
+} from "./main";
 import {
   saveDataConditionalFuncMap,
   saveDataDefaultsMap,
@@ -174,4 +181,47 @@ declare let gd: LuaTable<string, SaveData>; // Globals defaults
 export function saveDataManagerSetGlobal(): void {
   g = saveDataMap; // eslint-disable-line @typescript-eslint/no-unused-vars
   gd = saveDataDefaultsMap; // eslint-disable-line @typescript-eslint/no-unused-vars
+}
+
+/**
+ * The save data manager will automatically reset variables at the appropriate times (i.e. when a
+ * player enters a new room). Use this function to explicitly force the save data manager to reset a
+ * specific variable group.
+ *
+ * For example:
+ *
+ * ```
+ * const v = {
+ *   room: {
+ *     foo: 123,
+ *   },
+ * };
+ *
+ * saveDataManager("file1", v);
+ *
+ * // Then, later on, to explicit reset all of the "room" variables:
+ * saveDataManagerReset("file1", "room");
+ * ```
+ */
+export function saveDataManagerReset(
+  key: string,
+  childObjectKey: string,
+): void {
+  errorIfFeaturesNotInitialized(SAVE_DATA_MANAGER_FEATURE_NAME);
+
+  const keyType = type(key);
+  if (keyType !== "string") {
+    error(
+      `The ${SAVE_DATA_MANAGER_FEATURE_NAME} requires that keys are strings. You tried to use a key of type: ${keyType}`,
+    );
+  }
+
+  const saveData = saveDataMap.get(key) as Record<string, unknown> | undefined;
+  if (saveData === undefined) {
+    error(
+      `The ${SAVE_DATA_MANAGER_FEATURE_NAME} is not managing save data for a key of: ${key}`,
+    );
+  }
+
+  restoreDefaultSaveData(key, saveData, childObjectKey as SaveDataKey);
 }

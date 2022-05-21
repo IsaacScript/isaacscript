@@ -48,3 +48,4 @@ implement in isaacscript-common:
 
 IsaacScript announcements:
 - IsaacScript now shows how many seconds it took to compile.
+- Added a `saveDataManagerReset` to force the save data manager to reset a specific set of variables.
