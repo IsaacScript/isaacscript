@@ -23,6 +23,7 @@
     "dictionaries/**"
   ],
   "devDependencies": {
+    "npm-check-updates": "^13.0.3",
     "prettier": "^2.6.2"
   }
 }
