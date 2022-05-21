@@ -1,8 +1,9 @@
 {
   "recommendations": [
-    "nrwl.angular-console",
-    "esbenp.prettier-vscode",
-    "dbaeumer.vscode-eslint",
-    "firsttris.vscode-jest-runner"
+    "nrwl.angular-console", // For monorepo management.
+    "esbenp.prettier-vscode", // The TypeScript formatter
+    "dbaeumer.vscode-eslint", // The TypeScript linter
+    "firsttris.vscode-jest-runner", // The TypeScript tester
+    "streetsidesoftware.code-spell-checker" // A spell-checker extension based on cspell
   ]
 }
