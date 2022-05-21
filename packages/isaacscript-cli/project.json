@@ -16,7 +16,7 @@
     "publish": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "node tools/scripts/publish.mjs isaacscript-cli {args.ver} {args.tag}"
+        "command": "ts-node tools/scripts/publish.ts isaacscript-cli {args.ver} {args.tag}"
       },
       "dependsOn": [
         {
