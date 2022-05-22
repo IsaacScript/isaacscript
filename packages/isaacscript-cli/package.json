@@ -1,6 +1,22 @@
 {
   "name": "isaacscript",
-  "version": "0.0.1",
+  "version": "2.0.14-dev.7",
+  "description": "A command line tool for managing Isaac mods written in TypeScript",
+  "homepage": "https://isaacscript.github.io/",
+  "bugs": {
+    "url": "https://github.com/IsaacScript/isaacscript/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IsaacScript/isaacscript.git"
+  },
   "license": "GPL-3.0",
-  "type": "commonjs"
+  "author": "Zamiell",
+  "type": "commonjs",
+  "bin": {
+    "isaacscript": "./src/main.js"
+  },
+  "dependencies": {
+    "typescript": "^4.6.2"
+  }
 }

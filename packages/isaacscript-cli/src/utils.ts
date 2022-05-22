@@ -66,7 +66,7 @@ export function parseIntSafe(input: unknown): number {
 export function parseSemVer(
   versionString: string,
 ): [majorVersion: number, minorVersion: number, patchVersion: number] {
-  const match = /^v*(\d+)\.(\d+)\.(\d+)/g.exec(versionString);
+  const match = versionString.match(/^v*(\d+)\.(\d+)\.(\d+)/);
   if (match === null) {
     error(`Failed to parse the version string of: ${versionString}`);
   }

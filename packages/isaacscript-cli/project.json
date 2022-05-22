@@ -1,5 +1,5 @@
 {
-  "$schema": "..\\..\\node_modules\\nx\\schemas\\project-schema.json",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/isaacscript-cli/src",
   "projectType": "library",
   "targets": {
@@ -10,13 +10,18 @@
         "outputPath": "dist/packages/isaacscript-cli",
         "main": "packages/isaacscript-cli/src/main.ts",
         "tsConfig": "packages/isaacscript-cli/tsconfig.lib.json",
-        "assets": ["packages/isaacscript-cli/*.md"]
+        "assets": [
+          "packages/isaacscript-cli/*.md",
+          "packages/isaacscript-cli/file-templates/**",
+          "packages/isaacscript-cli/isaacscript-watcher/**"
+        ],
+        "buildableProjectDepsInPackageJsonType": "dependencies"
       }
     },
     "publish": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "ts-node tools/scripts/publish.ts isaacscript-cli {args.ver} {args.tag}"
+        "command": "ts-node --project tools/scripts/tsconfig.json tools/scripts/publish.ts isaacscript-cli"
       },
       "dependsOn": [
         {
