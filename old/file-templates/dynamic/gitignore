@@ -4,6 +4,9 @@ isaacscript.json
 # The transpiled Lua output
 mod/main.lua
 
+# Windows artifacts
+thumbs.db
+
 # MacOS artifacts
 .DS_Store
 

@@ -1,6 +1,6 @@
 {
   "name": "isaacscript",
-  "version": "2.0.14-dev.7",
+  "version": "2.0.14-dev.8",
   "description": "A command line tool for managing Isaac mods written in TypeScript",
   "homepage": "https://isaacscript.github.io/",
   "bugs": {
@@ -17,6 +17,10 @@
     "isaacscript": "./src/main.js"
   },
   "dependencies": {
-    "typescript": "^4.6.2"
+    "isaacscript-tsconfig": "^1.1.16",
+    "npm-check-updates": "^13.0.1",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.2",
+    "typescript-to-lua": "^1.4.4"
   }
 }
