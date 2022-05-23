@@ -1,0 +1,21 @@
+{
+  "name": "eslint-config-isaacscript",
+  "version": "1.0.79",
+  "description": "An ESLint config for IsaacScript projects.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IsaacScript/eslint-config-isaacscript.git"
+  },
+  "license": "MIT",
+  "author": "Zamiell",
+  "files": [
+    "base.js",
+    "mod.js",
+    "jsdoc.js"
+  ],
+  "devDependencies": {
+    "cspell": "^5.21.0",
+    "isaacscript-spell": "^1.0.3",
+    "prettier": "^2.6.2"
+  }
+}
