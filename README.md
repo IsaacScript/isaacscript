@@ -1,4 +1,4 @@
-# isaacscript-cli
+# IsaacScript
 
 IsaacScript is a tool to help you create _Binding of Isaac: Repentance_ mods using [TypeScript](https://www.typescriptlang.org/).
 
