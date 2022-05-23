@@ -11,10 +11,10 @@
         "main": "packages/isaacscript-cli/src/main.ts",
         "tsConfig": "packages/isaacscript-cli/tsconfig.json",
         "assets": [
-          "packages/isaacscript-cli/LICENSE",
           "packages/isaacscript-cli/*.md",
           "packages/isaacscript-cli/file-templates/**",
-          "packages/isaacscript-cli/isaacscript-watcher/**"
+          "packages/isaacscript-cli/isaacscript-watcher/**",
+          "packages/isaacscript-cli/LICENSE"
         ],
         "buildableProjectDepsInPackageJsonType": "dependencies"
       }

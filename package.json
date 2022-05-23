@@ -5,6 +5,9 @@
   "license": "GPL-3.0",
   "scripts": {},
   "dependencies": {
+    "@typescript-eslint/type-utils": "^5.25.0",
+    "@typescript-eslint/types": "^5.25.0",
+    "@typescript-eslint/utils": "^5.25.0",
     "chalk": "4.1.2",
     "command-exists": "^1.2.9",
     "dotenv": "^16.0.1",

@@ -14,13 +14,6 @@
   "author": "Zamiell",
   "type": "commonjs",
   "main": "src/index.js",
-  "files": [
-    "dist",
-    "docs",
-    "package.json",
-    "README.md",
-    "LICENSE"
-  ],
   "scripts": {
     "create-rule": "ts-node tools/scripts/create-rule.ts",
     "generate": "ts-node tools/scripts/generate.ts",

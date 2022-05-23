@@ -11,8 +11,9 @@
         "main": "packages/eslint-plugin-isaacscript/src/main.ts",
         "tsConfig": "packages/eslint-plugin-isaacscript/tsconfig.json",
         "assets": [
-          "packages/eslint-plugin-isaacscript/LICENSE",
-          "packages/eslint-plugin-isaacscript/*.md"
+          "packages/eslint-plugin-isaacscript/*.md",
+          "packages/eslint-plugin-isaacscript/docs",
+          "packages/eslint-plugin-isaacscript/LICENSE"
         ],
         "buildableProjectDepsInPackageJsonType": "dependencies"
       }
