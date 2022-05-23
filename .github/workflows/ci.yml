@@ -28,10 +28,10 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Build every package in the monorepo
-        run: nx run-many --target=build --all
+        run: yarn nx run-many --target=build --all
 
       - name: Lint every package in the monorepo
-        run: nx run-many --target=build --all
+        run: yarn nx run-many --target=build --all
 
       # TODO: docs
 
