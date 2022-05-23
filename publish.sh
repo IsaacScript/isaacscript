@@ -30,5 +30,9 @@ fi
 # Bump the version.
 nx version "$1" --push --skipProjectChangelog $PRE_ID
 
+# Temporary fix for @jscutlery/semver not appending a newline to the "package.json" files.
+npx prettier "$DIR/packages/$1/package.json" --write
+git commit --amend --no-edit
+
 # Upload it to NPM.
 nx publish "$1"
