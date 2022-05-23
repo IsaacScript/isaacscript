@@ -1,0 +1,39 @@
+{
+  "name": "isaacscript-lint",
+  "version": "1.0.159",
+  "description": "An updatable linting dependency container for IsaacScript and TypeScript projects",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IsaacScript/isaacscript-lint.git"
+  },
+  "license": "MIT",
+  "author": "Zamiell",
+  "files": [],
+  "dependencies": {
+    "@prettier/plugin-xml": "^2.2.0",
+    "@typescript-eslint/eslint-plugin": "^5.25.0",
+    "@typescript-eslint/parser": "^5.25.0",
+    "cspell": "^5.21.1",
+    "eslint": "^8.15.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-isaacscript": "^1.0.79",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-isaacscript": "^1.0.45",
+    "eslint-plugin-jsdoc": "^39.3.0",
+    "eslint-plugin-no-implicit-map-set-loops": "^1.0.3",
+    "eslint-plugin-only-warn": "^1.0.3",
+    "eslint-plugin-sort-exports": "^0.6.0",
+    "prettier": "^2.6.2",
+    "prettier-plugin-organize-imports": "^2.3.4",
+    "ts-prune": "^0.10.3"
+  },
+  "devDependencies": {
+    "npm-check-updates": "^13.0.1"
+  },
+  "peerDependencies": {
+    "typescript": "^4.6.2"
+  }
+}
