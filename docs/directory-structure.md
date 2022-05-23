@@ -101,14 +101,6 @@ This is the TypeScript source directory. All of the TypeScript files for your mo
 
 ## Files
 
-### `.cspell.json`
-
-This is the configuration file for [CSpell](https://github.com/streetsidesoftware/cspell), a spell-checker for code.
-
-If VSCode incorrectly reports that a file is misspelled, you can right-click on the word and say "Add Words to CSpell Configuration". The word will then be recorded in this file and the squiggly line will go away.
-
-<br />
-
 ### `.env_template`
 
 This is a template for a `.env` file; you are intended to copy it to `.env` and then fill in the values.
@@ -154,6 +146,14 @@ If you need to modify a specific option of Prettier, you can edit this file.
 ### `build.sh`
 
 This is a helper script to compile the project. (It is also used in CI.)
+
+<br />
+
+### `cspell.json`
+
+This is the configuration file for [CSpell](https://github.com/streetsidesoftware/cspell), a spell-checker for code.
+
+If VSCode incorrectly reports that a file is misspelled, you can right-click on the word and say "Add Words to CSpell Configuration". The word will then be recorded in this file and the squiggly line will go away.
 
 <br />
 
