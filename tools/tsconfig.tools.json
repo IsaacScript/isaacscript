@@ -6,7 +6,7 @@
     "module": "commonjs",
     "target": "es5",
     "types": ["node"],
-    "importHelpers": false
+    "importHelpers": false,
   },
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts"],
 }
