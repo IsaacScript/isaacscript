@@ -23,6 +23,12 @@ jobs:
           path: node_modules
           key: node-modules-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
 
+      # Since the entry for the "eslint-plugin-isaacscript" package in the "package.json" file
+      # refers to the local "dist" folder, yarn installation will fail unless the directory exists.
+      # (It will be populated once we build the package.)
+      - name: Create the directory for the local "eslint-plugin-isaacscript" package
+        run: mkdir -p dist/packages/eslint-plugin-isaacscript
+
       - name: Install dependencies (if the cached directory was not found)
         if: steps.node-cache.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile
