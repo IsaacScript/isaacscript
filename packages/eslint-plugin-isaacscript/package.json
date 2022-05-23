@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-isaacscript",
-  "version": "1.0.46-dev.0",
+  "version": "1.0.46-dev.1",
   "description": "An ESLint plugin that contains useful rules.",
   "homepage": "https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-plugin-isaacscript",
   "bugs": {
