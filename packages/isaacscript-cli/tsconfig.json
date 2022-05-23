@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.node.json",
+
+  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
+  "compilerOptions": {
+    "outDir": "../../dist/packages/isaacscript-cli"
+  },
+
+  "include": ["./src/**/*.ts"]
+}

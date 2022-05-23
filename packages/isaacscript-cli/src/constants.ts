@@ -19,7 +19,7 @@ export const MOD_UPLOADER_PATH =
 export const PROJECT_NAME = "IsaacScript";
 
 // `isaacscript`
-const REPO_ROOT = path.join(__dirname, "..", "..");
+const REPO_ROOT = path.join(__dirname, "..");
 
 // `isaacscript/isaacscript-watcher`
 export const DISABLE_IT_FILE = "disable.it";

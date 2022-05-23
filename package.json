@@ -1,57 +1,53 @@
 {
   "name": "isaacscript",
-  "version": "2.0.11",
-  "description": "A command line tool for managing Isaac mods written in TypeScript",
-  "homepage": "https://isaacscript.github.io/",
-  "bugs": {
-    "url": "https://github.com/IsaacScript/isaacscript/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/IsaacScript/isaacscript.git"
-  },
+  "version": "0.0.0",
+  "private": true,
   "license": "GPL-3.0",
-  "author": "Zamiell",
-  "bin": {
-    "isaacscript": "./dist/src/main.js"
-  },
-  "files": [
-    "dist/**/*.js",
-    "dist/**/*.d.ts",
-    "dist/**/*.json",
-    "isaacscript-watcher/**"
-  ],
+  "scripts": {},
   "dependencies": {
-    "@types/node": "^17.0.35",
     "chalk": "4.1.2",
     "command-exists": "^1.2.9",
     "dotenv": "^16.0.1",
     "figlet": "^1.5.2",
     "fs-extra": "^10.1.0",
-    "isaacscript-tsconfig": "^1.1.16",
     "jsonc-parser": "^3.0.0",
     "moment": "^2.29.3",
-    "npm-check-updates": "^13.0.1",
     "prompt": "^1.3.0",
-    "source-map": "^0.7.3",
     "source-map-support": "^0.5.21",
     "sync-directory": "^5.0.8",
-    "ts-node": "^10.7.0",
-    "typescript": "^4.6.4",
-    "typescript-to-lua": "^1.4.4",
+    "tslib": "^2.3.0",
     "update-notifier": "^5.1.0",
     "yaml": "^2.1.0",
     "yargs": "^17.5.1"
   },
   "devDependencies": {
+    "@nrwl/cli": "^14.1.7",
+    "@nrwl/eslint-plugin-nx": "^14.1.7",
+    "@nrwl/jest": "^14.1.7",
+    "@nrwl/js": "^14.1.7",
+    "@nrwl/linter": "^14.1.7",
+    "@nrwl/node": "^14.1.7",
+    "@nrwl/nx-cloud": "latest",
+    "@nrwl/workspace": "^14.1.7",
     "@types/command-exists": "^1.2.0",
     "@types/figlet": "^1.5.4",
     "@types/fs-extra": "^9.0.13",
+    "@types/jest": "^27.4.1",
+    "@types/node": "^16.11.7",
     "@types/prompt": "^1.1.2",
     "@types/source-map-support": "^0.5.4",
     "@types/update-notifier": "^5.1.0",
     "@types/yargs": "^17.0.10",
-    "isaacscript-lint": "^1.0.159",
-    "isaacscript-spell": "^1.0.3"
+    "@typescript-eslint/eslint-plugin": "^5.18.0",
+    "@typescript-eslint/parser": "^5.18.0",
+    "eslint": "^8.12.0",
+    "eslint-config-prettier": "^8.1.0",
+    "jest": "^27.5.1",
+    "npm-check-updates": "^13.0.3",
+    "nx": "^14.1.7",
+    "prettier": "^2.5.1",
+    "ts-jest": "^27.1.4",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.6.2"
   }
 }

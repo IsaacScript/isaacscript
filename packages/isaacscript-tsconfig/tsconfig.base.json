@@ -1,0 +1,47 @@
+// This is a tsconfig.json intended to be used as a base for all TypeScript projects.
+{
+  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
+  "compilerOptions": {
+    // We want the compiler to be as strict as possible to catch all the things.
+    // By default, this is false.
+    "strict": true,
+
+    // "allowUnreachableCode" throws a compiler error when it detects unreachable code.
+    // By default, this is true.
+    "allowUnreachableCode": false,
+
+    // "forceConsistentCasingInFileNames" forces import casing to match the file name, which is
+    // useful when developing on Windows.
+    // By default, this is false.
+    "forceConsistentCasingInFileNames": true,
+
+    // We prefer the "no-fallthrough" ESLint rule over the "noFallthroughCasesInSwitch" compiler
+    // flags.
+
+    // "noImplicitOverride" forces the "override" modifier when overriding class methods.
+    // By default, this is false.
+    "noImplicitOverride": true,
+
+    // We prefer the "consistent-return" ESLint rule over the "noImplicitReturns" compiler flag,
+    // since it is more exhaustive.
+
+    // "noPropertyAccessFromIndexSignature" disallows accessing undefined properties with dot
+    // syntax.
+    // By default, this is false.
+    "noPropertyAccessFromIndexSignature": true,
+
+    // "noUncheckedIndexedAccess" forces type narrowing on types with an index of "string".
+    // By default, this is false.
+    "noUncheckedIndexedAccess": true,
+
+    // We prefer the "@typescript-eslint/no-unused-vars" ESLint rule over the "noUnusedLocals" and
+    // "noUnusedParameters" compiler flags, since unused local variables can be useful while
+    // debugging.
+
+    // "newLine" specifies the end of line sequence.
+    // By default, this is "crlf" on Windows.
+    // We want to always use "lf" to be consistent with all platforms and reduce the file size of
+    // the output.
+    "newLine": "lf",
+  },
+}

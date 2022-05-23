@@ -7,5 +7,5 @@ set -e # Exit on any errors
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd "$DIR"
-
-nx publish isaacscript-cli --dev
+pip install publish-npm --upgrade --quiet
+publish-npm "$@"

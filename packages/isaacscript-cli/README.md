@@ -1,7 +1,9 @@
 # isaacscript-cli
 
+[![npm version](https://img.shields.io/npm/v/isaacscript.svg)](https://www.npmjs.com/package/isaacscript)
+
 IsaacScript is a tool to help you create _Binding of Isaac: Repentance_ mods using [TypeScript](https://www.typescriptlang.org/).
 
 Please visit the [official website](https://isaacscript.github.io/) for more information.
 
-This is the [monorepo](https://en.wikipedia.org/wiki/Monorepo) that houses the various packages in the ecosystem.
+This package contains the command-line tool that initializes new mods and monitors the current project.

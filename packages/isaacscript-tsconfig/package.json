@@ -1,0 +1,16 @@
+{
+  "name": "isaacscript-tsconfig",
+  "version": "0.0.0",
+  "type": "commonjs",
+  "description": "Shared TypeScript configuration files.",
+  "homepage": "https://github.com/Zamiell/isaacscript-tsconfig#readme",
+  "bugs": {
+    "url": "https://github.com/Zamiell/isaacscript-tsconfig/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zamiell/isaacscript-tsconfig.git"
+  },
+  "license": "MIT",
+  "author": "Zamiell"
+}

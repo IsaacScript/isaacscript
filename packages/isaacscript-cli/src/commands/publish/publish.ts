@@ -15,7 +15,7 @@ import {
 import { execExe, execPowershell, execShell } from "../../exec";
 import * as file from "../../file";
 import { Config } from "../../types/Config";
-import { error, getModTargetDirectoryName, parseIntSafe } from "../../utils";
+import { error, getModTargetDirectoryName, parseSemVer } from "../../utils";
 import { compileAndCopy } from "../copy/copy";
 import { gitCommitIfChanges, isGitDirty } from "../init/git";
 
@@ -152,10 +152,10 @@ function getVersionFromPackageJSON(verbose: boolean) {
     );
   }
 
-  const packageJSONRaw = file.read(PACKAGE_JSON_PATH, verbose);
+  const packageJSONString = file.read(PACKAGE_JSON_PATH, verbose);
   let packageJSON: Record<string, unknown>;
   try {
-    packageJSON = JSON.parse(packageJSONRaw) as Record<string, unknown>;
+    packageJSON = JSON.parse(packageJSONString) as Record<string, unknown>;
   } catch (err) {
     error(`Failed to parse "${chalk.green(PACKAGE_JSON_PATH)}":`, err);
   }
@@ -181,28 +181,10 @@ function getVersionFromPackageJSON(verbose: boolean) {
 
 function bumpVersionInPackageJSON(version: string, verbose: boolean): string {
   // Get the patch version (i.e. the third number)
-  const matches = /(\d+\.\d+\.)(\d+)/.exec(version);
-  if (matches === null) {
-    error(`Failed to parse the version of: ${version}`);
-  }
-
-  const versionPrefix = matches[1];
-  if (versionPrefix === undefined) {
-    error(`Failed to parse the first part of the version: ${version}`);
-  }
-
-  const patchVersionString = matches[2];
-  if (patchVersionString === undefined) {
-    error(`Failed to parse the second part of the version: ${version}`);
-  }
-
-  const patchVersion = parseIntSafe(patchVersionString);
-  if (Number.isNaN(patchVersion)) {
-    error(`Failed to convert "${patchVersionString}" to a number.`);
-  }
+  const [majorVersion, minorVersion, patchVersion] = parseSemVer(version);
 
   const incrementedPatchVersion = patchVersion + 1;
-  const incrementedVersion = `${versionPrefix}${incrementedPatchVersion}`;
+  const incrementedVersion = `${majorVersion}.${minorVersion}.${incrementedPatchVersion}`;
 
   const packageJSON = file.read(PACKAGE_JSON_PATH, verbose);
   const newPackageJSON = packageJSON.replace(
