@@ -12,5 +12,10 @@
     "dist/**",
     "node_modules/**"
   ],
-  "words": []
+  "words": [
+    "ENCYCLOPEDIARARY",
+    "fsize",
+    "halign",
+    "ITEMPOOLS"
+  ]
 }
