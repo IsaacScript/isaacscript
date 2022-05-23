@@ -20,6 +20,13 @@ module.exports = {
   // https://github.com/prettier/prettier/issues/5708
   overrides: [
     {
+      files: ["**/.vscode/*.json", "**/tsconfig.json", "**/tsconfig.*.json"],
+      options: {
+        parser: "json5",
+        quoteProps: "preserve",
+      },
+    },
+    {
       files: ["**/*.xml"],
       options: {
         printWidth: 1000000,

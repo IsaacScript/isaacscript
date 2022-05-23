@@ -1,11 +1,9 @@
 # isaacscript-cli
 
-This library was generated with [Nx](https://nx.dev).
+[![npm version](https://img.shields.io/npm/v/isaacscript.svg)](https://www.npmjs.com/package/isaacscript)
 
-## Building
+IsaacScript is a tool to help you create _Binding of Isaac: Repentance_ mods using [TypeScript](https://www.typescriptlang.org/).
 
-Run `nx build isaacscript-cli` to build the library.
+Please visit the [official website](https://isaacscript.github.io/) for more information.
 
-## Running unit tests
-
-Run `nx test isaacscript-cli` to execute the unit tests via [Jest](https://jestjs.io).
+This package contains the command-line tool that initializes new mods and monitors the current project.

@@ -2,6 +2,7 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
-    "isaacscript-cli": "packages/isaacscript-cli"
+    "isaacscript-cli": "packages/isaacscript-cli",
+    "isaacscript-tsconfig": "packages/isaacscript-tsconfig"
   }
 }

@@ -1,0 +1,19 @@
+// This is a tsconfig.json intended to be used by packages in this monorepo.
+{
+  // We extend the base IsaacScript config:
+  // https://github.com/IsaacScript/isaacscript/blog/main/packages/isaacscript-tsconfig/tsconfig.base.json
+  "extends": "./packages/isaacscript-tsconfig/tsconfig.base.json",
+
+  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
+  "compilerOptions": {
+    "rootDir": ".",
+    "importHelpers": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "isaacscript": ["packages/isaacscript-cli/src/main.ts"],
+      "isaacscript-tsconfig": ["packages/isaacscript-tsconfig/src/index.ts"]
+    }
+  }
+}

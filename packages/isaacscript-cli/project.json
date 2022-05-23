@@ -1,7 +1,7 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/isaacscript-cli/src",
-  "projectType": "library",
+  "projectType": "application",
   "targets": {
     "build": {
       "executor": "@nrwl/js:tsc",
@@ -9,8 +9,9 @@
       "options": {
         "outputPath": "dist/packages/isaacscript-cli",
         "main": "packages/isaacscript-cli/src/main.ts",
-        "tsConfig": "packages/isaacscript-cli/tsconfig.lib.json",
+        "tsConfig": "packages/isaacscript-cli/tsconfig.json",
         "assets": [
+          "packages/isaacscript-cli/LICENSE",
           "packages/isaacscript-cli/*.md",
           "packages/isaacscript-cli/file-templates/**",
           "packages/isaacscript-cli/isaacscript-watcher/**"
@@ -31,18 +32,9 @@
       ]
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "lintFilePatterns": ["packages/isaacscript-cli/**/*.ts"]
-      }
-    },
-    "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/isaacscript-cli"],
-      "options": {
-        "jestConfig": "packages/isaacscript-cli/jest.config.ts",
-        "passWithNoTests": true
+        "command": "bash packages/isaacscript-cli/lint.sh"
       }
     }
   },

@@ -1,9 +1,10 @@
+// These are Visual Studio Code extensions that are intended to be used with this particular
+// repository: https://go.microsoft.com/fwlink/?LinkId=827846
 {
   "recommendations": [
-    "nrwl.angular-console", // For monorepo management.
+    "nrwl.angular-console", // Monorepo management.
     "esbenp.prettier-vscode", // The TypeScript formatter
     "dbaeumer.vscode-eslint", // The TypeScript linter
-    "firsttris.vscode-jest-runner", // The TypeScript tester
-    "streetsidesoftware.code-spell-checker" // A spell-checker extension based on cspell
-  ]
+    "streetsidesoftware.code-spell-checker", // A spell-checker extension based on cspell
+  ],
 }

@@ -71,7 +71,7 @@ function main() {
   }
 
   process.chdir(buildPath);
-  const tag = args.dev ? "next" : "latest";
+  const tag = args.production ? "next" : "latest";
   execSync(`yarn publish --access public --tag ${tag}`);
 
   console.log(`Successfully published: ${name}@${newVersion}`);
@@ -86,10 +86,10 @@ function parseArgs() {
           type: "string",
           description: "The name of the monorepo project to publish",
         })
-        .option("dev", {
-          alias: "d",
+        .option("production", {
+          alias: "p",
           type: "boolean",
-          description: "Publish with a dev tag",
+          description: 'Publish to "latest" instead of "next"',
         })
         .option("skip-increment", {
           alias: "s",
@@ -126,7 +126,7 @@ function getNewVersion(
 
   const [majorVersion, minorVersion, patchVersion] = parseSemVer(oldVersion);
 
-  if (!args.dev) {
+  if (args.production) {
     const incrementedPatchVersion = patchVersion + 1;
     return `${majorVersion}.${minorVersion}.${incrementedPatchVersion}`;
   }
