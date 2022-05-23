@@ -25,12 +25,11 @@ function main() {
     `Failed to find project "${name}" in the monorepo. Is the "project.json" configured correctly?`,
   );
 
-  const outputPath = project.data?.targets?.build?.options?.outputPath;
+  const buildPath = path.join(REPO_ROOT, "dist", "packages", name);
   invariant(
-    outputPath,
-    `Failed to find "build.options.outputPath" of project "${name}". Is the "project.json" configured correctly?`,
+    file.exists(buildPath, false),
+    `Failed to find the build directory at: ${buildPath}`,
   );
-  const buildPath = path.join(REPO_ROOT, outputPath);
 
   const packageJSONPath = path.join(buildPath, PACKAGE_JSON);
   invariant(
