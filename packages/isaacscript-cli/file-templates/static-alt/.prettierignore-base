@@ -2,4 +2,4 @@
 dist
 
 # The VSCode CSpell plugin causes the file to become unformatted whenever a new word is added.
-.cspell.json
+cspell.json

@@ -5,19 +5,19 @@
     "build": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "bash packages/isaacscript-tsconfig/build.sh"
+        "command": "bash packages/isaacscript-lint/build.sh"
       }
     },
     "lint": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "bash packages/isaacscript-tsconfig/lint.sh"
+        "command": "bash packages/isaacscript-lint/lint.sh"
       }
     },
     "publish": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "ts-node --project tools/scripts/tsconfig.json tools/scripts/publish.ts isaacscript-tsconfig"
+        "command": "ts-node --project tools/scripts/tsconfig.json tools/scripts/publish.ts isaacscript-lint"
       },
       "dependsOn": [
         {

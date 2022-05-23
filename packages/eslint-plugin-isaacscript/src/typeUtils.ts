@@ -18,6 +18,7 @@ function isFlagSet(flags: number, flag: number): boolean {
 }
 
 /**
+ * @param symbol The symbol to check.
  * @param flagsToCheck The composition of one or more `ts.SymbolFlags`.
  */
 export function isSymbolFlagSet(
@@ -131,6 +132,7 @@ function getTypeFlags(type: ts.Type): number | ts.TypeFlags {
  * Note that if the type is a union, this function will decompose it into the parts and get the
  * flags of every union constituent.
  *
+ * @param type The type to check.
  * @param flagsToCheck The composition of one or more `ts.TypeFlags`.
  */
 export function isTypeFlagSet(

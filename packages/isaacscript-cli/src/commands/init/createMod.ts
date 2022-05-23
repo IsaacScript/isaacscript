@@ -70,10 +70,10 @@ function copyStaticFiles(projectPath: string, verbose: boolean) {
     }
   });
 
-  // Rename ".cspell.json.template" to ".cspell.json". (If it is kept as ".cspell.json", then local
+  // Rename "cspell.json.template" to "cspell.json". (If it is kept as "cspell.json", then local
   // spell checking will fail.)
-  const cSpellConfigPath = path.join(projectPath, ".cspell.json.template");
-  const correctCSpellConfigPath = path.join(projectPath, ".cspell.json");
+  const cSpellConfigPath = path.join(projectPath, "cspell.json.template");
+  const correctCSpellConfigPath = path.join(projectPath, "cspell.json");
   file.rename(cSpellConfigPath, correctCSpellConfigPath, verbose);
 
   // Rename ".eslintrc.js.template" to ".eslintrc.js". (If it is kept as ".eslintrc.js", then local

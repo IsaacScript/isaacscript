@@ -11,6 +11,6 @@
     "target": "ESNext",
     "lib": ["ESNext"],
     "moduleResolution": "Node",
-    "types": ["isaac-typescript-definitions"]
-  }
+    "types": ["isaac-typescript-definitions"],
+  },
 }

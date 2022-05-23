@@ -1,5 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
-
 import { TSESLint } from "@typescript-eslint/utils";
 import * as prettier from "prettier";
 import { rules } from "../src/rules";
@@ -14,7 +12,7 @@ const PRETTIER_CONFIG = prettier.resolveConfig.sync(__dirname);
 const KEBAB_CASE_REGEX =
   /^([a-z](?![\d])|[\d](?![a-z]))+(-?([a-z](?![\d])|[\d](?![a-z])))*$|^$/;
 
-export function kebabCaseToCamelCase(text: string): string {
+function kebabCaseToCamelCase(text: string): string {
   return text.replace(/-./g, (match) => {
     const firstLetterOfWord = match[1];
     return firstLetterOfWord === undefined

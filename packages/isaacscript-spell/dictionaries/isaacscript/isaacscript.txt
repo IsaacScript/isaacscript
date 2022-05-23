@@ -5,8 +5,10 @@ buildable # Monorepo word
 contentfolder # metadata.vdf
 corepack # To install Yarn
 dbaeumer # extensions.json
+eqeqeq # For linting
 esbenp # extensions.json
 isaacscript
+nocheck # For @ts-nocheck
 noout # lint.sh
 nrwl # Monorepo word
 pathlib # check-api-dictionary.sh
@@ -15,6 +17,7 @@ prettierignore # check-file-updates.sh
 prettierrc # check-file-updates.sh
 publishedfileid # metadata.vdf
 steamcmd # For publishing
+TSES # For TSESTree
 tstl
 Turnbull # Author of "airbnb-typescript/base"
 typedoc

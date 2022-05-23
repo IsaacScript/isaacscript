@@ -1,0 +1,12 @@
+// For "eslint-plugin-isaacscript", we create a separate TypeScript configuration for production so
+// that the "tests" and "tools" directories are not published to NPM.
+{
+  "extends": "../../tsconfig.node.json",
+
+  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
+  "compilerOptions": {
+    "outDir": "../../dist/packages/isaacscript-cli",
+  },
+
+  "include": ["./src/**/*.ts"],
+}

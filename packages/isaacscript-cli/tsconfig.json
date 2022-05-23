@@ -6,5 +6,7 @@
     "outDir": "../../dist/packages/isaacscript-cli",
   },
 
-  "include": ["./src/**/*.ts"],
+  // Nx will not include ".eslintrc.js" in the build output, so there is no need for a
+  // "tsconfig.eslint.rc" file.
+  "include": ["./src/**/*.ts", ".eslintrc.js"],
 }

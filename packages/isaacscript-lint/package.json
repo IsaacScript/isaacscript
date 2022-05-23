@@ -8,7 +8,7 @@
   },
   "license": "MIT",
   "author": "Zamiell",
-  "files": [],
+  "type": "commonjs",
   "dependencies": {
     "@prettier/plugin-xml": "^2.2.0",
     "@typescript-eslint/eslint-plugin": "^5.25.0",
@@ -28,9 +28,6 @@
     "prettier": "^2.6.2",
     "prettier-plugin-organize-imports": "^2.3.4",
     "ts-prune": "^0.10.3"
-  },
-  "devDependencies": {
-    "npm-check-updates": "^13.0.1"
   },
   "peerDependencies": {
     "typescript": "^4.6.2"

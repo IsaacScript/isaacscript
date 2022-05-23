@@ -9,13 +9,19 @@
       "options": {
         "outputPath": "dist/packages/eslint-plugin-isaacscript",
         "main": "packages/eslint-plugin-isaacscript/src/main.ts",
-        "tsConfig": "packages/eslint-plugin-isaacscript/tsconfig.json",
+        "tsConfig": "packages/eslint-plugin-isaacscript/tsconfig.prod.json",
         "assets": [
           "packages/eslint-plugin-isaacscript/*.md",
           "packages/eslint-plugin-isaacscript/docs",
           "packages/eslint-plugin-isaacscript/LICENSE"
         ],
         "buildableProjectDepsInPackageJsonType": "dependencies"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "bash packages/isaacscript-cli/lint.sh"
       }
     },
     "publish": {
@@ -29,12 +35,6 @@
           "target": "build"
         }
       ]
-    },
-    "lint": {
-      "executor": "@nrwl/workspace:run-commands",
-      "options": {
-        "command": "bash packages/isaacscript-cli/lint.sh"
-      }
     }
   },
   "tags": []

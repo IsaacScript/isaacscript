@@ -4,12 +4,12 @@ import { generateRules } from "./generateRules";
 
 export function generateAll(): void {
   // The rules must be generated before the configs/readme.
-  console.log("Generating rules..."); // eslint-disable-line no-console
+  console.log("Generating rules...");
   generateRules();
 
-  console.log("Generating configs..."); // eslint-disable-line no-console
+  console.log("Generating configs...");
   generateConfigs();
 
-  console.log("Generating readme..."); // eslint-disable-line no-console
+  console.log("Generating readme...");
   generateReadme();
 }

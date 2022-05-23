@@ -102,10 +102,10 @@ export const formatLineComments = createRule<Options, MessageIds>({
       );
 
       if (DEBUG) {
-        console.log("originalText:"); // eslint-disable-line no-console
-        console.log(originalText); // eslint-disable-line no-console
-        console.log("formattedText:"); // eslint-disable-line no-console
-        console.log(formattedText); // eslint-disable-line no-console
+        console.log("originalText:");
+        console.log(originalText);
+        console.log("formattedText:");
+        console.log(formattedText);
       }
 
       if (

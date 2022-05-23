@@ -84,10 +84,10 @@ export const formatJSDocComments = createRule<Options, MessageIds>({
         : getJSDocCommentMultiLine(formattedText, leftWhitespace);
 
       if (DEBUG) {
-        console.log("originalComment:"); // eslint-disable-line no-console
-        console.log(originalComment); // eslint-disable-line no-console
-        console.log("formattedComment:"); // eslint-disable-line no-console
-        console.log(formattedComment); // eslint-disable-line no-console
+        console.log("originalComment:");
+        console.log(originalComment);
+        console.log("formattedComment:");
+        console.log(formattedComment);
       }
 
       if (

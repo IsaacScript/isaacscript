@@ -19,6 +19,12 @@
         "buildableProjectDepsInPackageJsonType": "dependencies"
       }
     },
+    "lint": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "bash packages/isaacscript-cli/lint.sh"
+      }
+    },
     "publish": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
@@ -30,12 +36,6 @@
           "target": "build"
         }
       ]
-    },
-    "lint": {
-      "executor": "@nrwl/workspace:run-commands",
-      "options": {
-        "command": "bash packages/isaacscript-cli/lint.sh"
-      }
     }
   },
   "tags": []

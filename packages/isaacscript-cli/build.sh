@@ -10,11 +10,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 # https://stackoverflow.com/questions/23162299/how-to-get-the-last-part-of-dirname-in-bash/23162553
 REPO_NAME="$(basename "$DIR")"
 
-cd "$DIR"
+REPO_ROOT="$DIR/../.."
+cd "$REPO_ROOT"
 
-OUT_DIR="$DIR/../../dist/packages/$REPO_NAME"
-
-mkdir -p "$OUT_DIR"
-cp $DIR/*.md "$OUT_DIR/" # Globs don't work in quotes
-cp "$DIR/LICENSE" "$OUT_DIR/"
-cp $DIR/tsconfig.*.json "$OUT_DIR/" # Globs don't work in quotes
+yarn nx build "$REPO_NAME"
