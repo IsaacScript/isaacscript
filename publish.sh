@@ -19,7 +19,7 @@ if [ -z "$2" ]; then
 fi
 
 if [ $2 = "dev" ]; then
-  PRE_ID="--preid dev"
+  PRE_ID="--releaseAs=prerelease --preid=dev"
 elif [ $2 = "prod" ]; then
   PRE_ID=""
 else
@@ -27,6 +27,8 @@ else
   exit 1
 fi
 
-nx version "$1" --push --skipProjectChangelog "$PRE_ID"
-nx build "$1"
+# Bump the version.
+nx version "$1" --push --skipProjectChangelog $PRE_ID
+
+# Upload it to NPM.
 nx publish "$1"

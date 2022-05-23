@@ -54,10 +54,10 @@ function main() {
   }
 
   process.chdir(buildPath);
-  const tag = version.includes("dev") ? "latest" : "next";
-  execSync(`yarn publish --access public --tag ${tag}`);
+  const tag = version.includes("dev") ? "next" : "latest";
+  execSync(`yarn publish --non-interactive --access public --tag ${tag}`);
 
-  console.log(`Successfully published: ${name}@${version}`);
+  console.log(`Successfully published: ${name}@${version} (w/ tag: ${tag})`);
 }
 
 function invariant(condition: unknown, msg: string) {

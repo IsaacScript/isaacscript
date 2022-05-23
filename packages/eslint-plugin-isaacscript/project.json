@@ -21,13 +21,13 @@
     "lint": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "bash packages/isaacscript-cli/lint.sh"
+        "command": "bash packages/eslint-plugin-isaacscript/lint.sh"
       }
     },
     "publish": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "ts-node --project tools/scripts/tsconfig.json tools/scripts/publish.ts isaacscript-cli"
+        "command": "ts-node --project tools/scripts/tsconfig.json tools/scripts/publish.ts eslint-plugin-isaacscript"
       },
       "dependsOn": [
         {

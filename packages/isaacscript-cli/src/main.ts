@@ -138,5 +138,3 @@ function ensureDepsAreInstalled(verbose: boolean) {
   );
   execShell("npm", ["install"], verbose);
 }
-
-console.log("Canary");
