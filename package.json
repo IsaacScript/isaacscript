@@ -24,6 +24,7 @@
     "yargs": "^17.5.1"
   },
   "devDependencies": {
+    "@jscutlery/semver": "^2.23.4",
     "@nrwl/cli": "^14.1.7",
     "@nrwl/eslint-plugin-nx": "^14.1.7",
     "@nrwl/jest": "^14.1.7",
