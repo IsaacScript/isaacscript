@@ -33,6 +33,7 @@ jobs:
       - name: Lint every package in the monorepo
         run: yarn nx run-many --target=build --all
 
+      # TODO: test eslint-plugin
       # TODO: docs
 
   discord:

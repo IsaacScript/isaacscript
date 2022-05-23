@@ -2,6 +2,7 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "eslint-plugin-isaacscript": "packages/eslint-plugin-isaacscript",
     "isaacscript-cli": "packages/isaacscript-cli",
     "isaacscript-tsconfig": "packages/isaacscript-tsconfig"
   }

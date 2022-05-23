@@ -12,8 +12,13 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "eslint-plugin-isaacscript": [
+        "packages/eslint-plugin-isaacscript/src/index.ts",
+      ],
       "isaacscript": ["packages/isaacscript-cli/src/main.ts"],
-      "isaacscript-tsconfig": ["packages/isaacscript-tsconfig/src/index.ts"]
-    }
-  }
+      "isaacscript-tsconfig": ["packages/isaacscript-tsconfig/src/index.ts"],
+    },
+  },
+
+  "exclude": ["node_modules", "tmp"],
 }

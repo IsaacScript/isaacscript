@@ -1,37 +1,10 @@
-// This is the configuration file for ESLint, the TypeScript linter:
-// https://eslint.org/docs/user-guide/configuring
 module.exports = {
-  "root": true,
-  "ignorePatterns": ["**/*"],
-  "plugins": ["@nrwl/nx"],
-  "overrides": [
-    {
-      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "rules": {
-        "@nrwl/nx/enforce-module-boundaries": [
-          "error",
-          {
-            "enforceBuildableLibDependency": true,
-            "allow": [],
-            "depConstraints": [
-              {
-                "sourceTag": "*",
-                "onlyDependOnLibsWithTags": ["*"]
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nrwl/nx/typescript"],
-      "rules": {}
-    },
-    {
-      "files": ["*.js", "*.jsx"],
-      "extends": ["plugin:@nrwl/nx/javascript"],
-      "rules": {}
-    }
-  ]
-}
+  root: true,
+
+  extends: [
+    "./packages/eslint-config/isaacscript/base.js",
+    "./packages/eslint-config/isaacscript/monorepo.js",
+  ],
+
+  ignorePatterns: ["**/packages/*"],
+};

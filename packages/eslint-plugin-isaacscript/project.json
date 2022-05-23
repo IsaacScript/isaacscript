@@ -1,0 +1,40 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/eslint-plugin-isaacscript/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/eslint-plugin-isaacscript",
+        "main": "packages/eslint-plugin-isaacscript/src/main.ts",
+        "tsConfig": "packages/eslint-plugin-isaacscript/tsconfig.json",
+        "assets": [
+          "packages/eslint-plugin-isaacscript/LICENSE",
+          "packages/eslint-plugin-isaacscript/*.md"
+        ],
+        "buildableProjectDepsInPackageJsonType": "dependencies"
+      }
+    },
+    "publish": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "ts-node --project tools/scripts/tsconfig.json tools/scripts/publish.ts isaacscript-cli"
+      },
+      "dependsOn": [
+        {
+          "projects": "self",
+          "target": "build"
+        }
+      ]
+    },
+    "lint": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "bash packages/isaacscript-cli/lint.sh"
+      }
+    }
+  },
+  "tags": []
+}

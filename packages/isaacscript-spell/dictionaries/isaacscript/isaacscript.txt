@@ -1,10 +1,12 @@
 # These are words contained within IsaacScript template files and elsewhere.
 
+buildable # Monorepo word
 contentfolder # metadata.vdf
 dbaeumer # extensions.json
 esbenp # extensions.json
 isaacscript
 noout # lint.sh
+nrwl # Monorepo word
 pathlib # check-api-dictionary.sh
 prettierignore # check-file-updates.sh
 prettierrc # check-file-updates.sh
