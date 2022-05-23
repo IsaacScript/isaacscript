@@ -1,4 +1,6 @@
-{
+// This is the configuration file for ESLint, the TypeScript linter:
+// https://eslint.org/docs/user-guide/configuring
+module.exports = {
   "root": true,
   "ignorePatterns": ["**/*"],
   "plugins": ["@nrwl/nx"],
