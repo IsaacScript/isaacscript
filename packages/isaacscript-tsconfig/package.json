@@ -2,7 +2,7 @@
   "name": "isaacscript-tsconfig",
   "version": "0.0.0",
   "type": "commonjs",
-  "description": "Shared TypeScript configuration files.",
+  "description": "A sharable TypeScript config for TypeScript and IsaacScript projects.",
   "homepage": "https://github.com/Zamiell/isaacscript-tsconfig#readme",
   "bugs": {
     "url": "https://github.com/Zamiell/isaacscript-tsconfig/issues"

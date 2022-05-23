@@ -1,4 +1,6 @@
 # These are words that should be in the CSpell base dictionary.
 
+backticks
 reimplement
 subprocesses
+unfixable

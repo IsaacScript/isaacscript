@@ -6,7 +6,24 @@ IsaacScript is a tool to help you create _Binding of Isaac: Repentance_ mods usi
 
 Please visit the [official website](https://isaacscript.github.io/) for more information.
 
-This is the [monorepo](https://en.wikipedia.org/wiki/Monorepo) that houses the various packages in the ecosystem.
+This is the [monorepo](https://en.wikipedia.org/wiki/Monorepo) that houses the various packages in the ecosystem. It is powered by [Nx](https://nx.dev/).
+
+<br>
+
+## Packages
+
+Each project in the monorepo is contained within the "packages" directory.
+
+| Name                                                                      | Description                                                                |
+| ------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| [eslint-config-isaacscript](tree/main/packages/eslint-config-isaacscript) | A sharable ESLint config for TypeScript and IsaacScript projects.          |
+| [eslint-plugin-isaacscript](tree/main/packages/eslint-plugin-isaacscript) | An ESLint plugin that contains useful rules.                               |
+| [isaacscript-cli](tree/main/packages/isaacscript-cli)                     | The command-line tool for managing Isaac mods written in TypeScript.       |
+| [isaacscript-lint](tree/main/packages/isaacscript-lint)                   | A linting dependency meta-package for IsaacScript and TypeScript projects. |
+| [isaacscript-spell](tree/main/packages/isaacscript-spell)                 | Spelling dictionaries for _The Binding of Isaac: Repentance_.              |
+| [isaacscript-tsconfig](tree/main/packages/isaacscript-tsconfig)           | A sharable TypeScript config for TypeScript and IsaacScript projects.      |
+
+TODO: add isaacscript-common & isaac-typescript-definitions & docs
 
 <br>
 
@@ -20,7 +37,7 @@ This is the [monorepo](https://en.wikipedia.org/wiki/Monorepo) that houses the v
   - `git config --global user.name "Your_Username"`
   - `git config --global user.email "your@email.com"`
 - Clone the repository:
-  - `cd [the path where you want the code to live]` (optional)
+  - `cd [the path where you want the code to live]`
   - If you already have an SSH key pair and have the public key attached to your GitHub profile, then use the following command to clone the repository via SSH:
     - `git clone git@github.com:IsaacScript/isaacscript.git`
   - If you do not already have an SSH key pair, then use the following command to clone the repository via HTTPS:
@@ -30,7 +47,7 @@ This is the [monorepo](https://en.wikipedia.org/wiki/Monorepo) that houses the v
 - Enter the cloned repository:
   - `cd isaacscript`
 - Ensure that [Yarn](https://classic.yarnpkg.com/lang/en/) (v1) is installed:
-  - `npm install --global yarn`
+  - `corepack enable`
 - Install dependencies:
   - `yarn`
 - Open the monorepo in VSCode:

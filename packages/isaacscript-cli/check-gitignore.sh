@@ -11,7 +11,7 @@ cd "$DIR"
 LOCAL_GITIGNORE="/tmp/gitignore-template-local"
 REMOTE_GITIGNORE="/tmp/gitignore-template-remote"
 URL="https://raw.githubusercontent.com/github/gitignore/master/Node.gitignore"
-tail -n +17 "$DIR/files-templates/dynamic/gitignore" > $LOCAL_GITIGNORE
+tail -n +18 "$DIR/file-templates/dynamic/gitignore" > $LOCAL_GITIGNORE
 curl "$URL" --output "$REMOTE_GITIGNORE" --silent
 set +e
 cmp --silent "$LOCAL_GITIGNORE" "$REMOTE_GITIGNORE"

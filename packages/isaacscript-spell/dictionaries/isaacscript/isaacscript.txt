@@ -1,18 +1,22 @@
 # These are words contained within IsaacScript template files and elsewhere.
 
+airbnb # Part of the linting config
 buildable # Monorepo word
 contentfolder # metadata.vdf
+corepack # To install Yarn
 dbaeumer # extensions.json
 esbenp # extensions.json
 isaacscript
 noout # lint.sh
 nrwl # Monorepo word
 pathlib # check-api-dictionary.sh
+plusplus # Part of the linting config
 prettierignore # check-file-updates.sh
 prettierrc # check-file-updates.sh
 publishedfileid # metadata.vdf
 steamcmd # For publishing
 tstl
+Turnbull # Author of "airbnb-typescript/base"
 typedoc
 workshopitem # metadata.vdf
 Zamiell

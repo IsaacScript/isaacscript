@@ -7,12 +7,11 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2020,
     sourceType: "module",
-    tsconfigRootDir: "../..",
   },
 
   rules: {
     "@nrwl/nx/enforce-module-boundaries": [
-      "error",
+      "warn",
       {
         enforceBuildableLibDependency: true,
         allow: [],
@@ -22,6 +21,14 @@ module.exports = {
             onlyDependOnLibsWithTags: ["*"],
           },
         ],
+      },
+    ],
+
+    // This rule has to be told which "package.json" file that the dependencies are located in.
+    "import/no-extraneous-dependencies": [
+      "warn",
+      {
+        packageDir: "../..",
       },
     ],
   },
