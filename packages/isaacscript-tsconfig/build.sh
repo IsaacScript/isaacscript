@@ -17,4 +17,5 @@ OUT_DIR="$DIR/../../dist/packages/$REPO_NAME"
 mkdir -p "$OUT_DIR"
 cp $DIR/*.md "$OUT_DIR/" # Globs don't work in quotes
 cp "$DIR/LICENSE" "$OUT_DIR/"
+cp "$DIR/package.json" "$OUT_DIR/"
 cp $DIR/tsconfig.*.json "$OUT_DIR/" # Globs don't work in quotes

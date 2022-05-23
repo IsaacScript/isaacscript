@@ -18,3 +18,4 @@ mkdir -p "$OUT_DIR"
 cp $DIR/*.js "$OUT_DIR/" # Globs don't work in quotes
 cp $DIR/*.md "$OUT_DIR/" # Globs don't work in quotes
 cp "$DIR/LICENSE" "$OUT_DIR/"
+cp "$DIR/package.json" "$OUT_DIR/"

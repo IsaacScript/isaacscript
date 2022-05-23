@@ -17,5 +17,6 @@ OUT_DIR="$DIR/../../dist/packages/$REPO_NAME"
 mkdir -p "$OUT_DIR"
 cp $DIR/*.md "$OUT_DIR/" # Globs don't work in quotes
 cp "$DIR/cspell-isaacscript.json" "$OUT_DIR/"
-cp "$DIR/LICENSE" "$OUT_DIR/"
 cp -r "$DIR/dictionaries" "$OUT_DIR/"
+cp "$DIR/LICENSE" "$OUT_DIR/"
+cp "$DIR/package.json" "$OUT_DIR/"
