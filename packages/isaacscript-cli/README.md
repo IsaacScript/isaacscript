@@ -6,4 +6,4 @@ IsaacScript is a tool to help you create _Binding of Isaac: Repentance_ mods usi
 
 Please visit the [official website](https://isaacscript.github.io/) for more information.
 
-This package contains the command-line tool that initializes new mods and monitors the current project.
+This package contains the command-line tool that initializes new mods and monitors the current project. (The binary is called `isaacscript`, not `isaacscript-cli`. The package is named `isaacscript-cli` to disambiguate it from the other projects in this monorepo.)

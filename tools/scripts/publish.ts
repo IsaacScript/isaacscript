@@ -1,22 +1,18 @@
 import { readCachedProjectGraph } from "@nrwl/devkit";
 import { execSync } from "child_process";
 import path from "path";
-import yargs from "yargs";
-import {
-  error,
-  parseIntSafe,
-  parseSemVer,
-} from "../../packages/isaacscript-cli/src/utils";
 import * as file from "../../packages/isaacscript-cli/src/file";
+import { error } from "../../packages/isaacscript-cli/src/utils";
 
 const PACKAGE_JSON = "package.json";
+const REPO_ROOT = path.join(__dirname, "..", "..");
 
 main();
 
 function main() {
-  const args = parseArgs();
+  const args = process.argv.slice(2);
 
-  const name = args._[0];
+  const name = args[0];
   if (typeof name !== "string" || name === "undefined" || name === "") {
     error("The name of the project must be provided as the first argument.");
   }
@@ -29,13 +25,14 @@ function main() {
     `Failed to find project "${name}" in the monorepo. Is the "project.json" configured correctly?`,
   );
 
-  const projectPath = path.join(__dirname, "..", "..", "packages", name);
+  const outputPath = project.data?.targets?.build?.options?.outputPath;
   invariant(
-    file.exists(projectPath, false),
-    `Failed to find the project directory at: ${projectPath}`,
+    outputPath,
+    `Failed to find "build.options.outputPath" of project "${name}". Is the "project.json" configured correctly?`,
   );
+  const buildPath = path.join(REPO_ROOT, outputPath);
 
-  const packageJSONPath = path.join(projectPath, PACKAGE_JSON);
+  const packageJSONPath = path.join(buildPath, PACKAGE_JSON);
   invariant(
     file.exists(packageJSONPath, false),
     `Failed to find the "${PACKAGE_JSON}" file at: ${packageJSONPath}`,
@@ -49,122 +46,18 @@ function main() {
     error(`Failed to parse the "${PACKAGE_JSON}" file:`, err);
   }
 
-  const oldVersion = packageJSON.version;
-  if (typeof oldVersion !== "string") {
+  const version = packageJSON.version;
+  if (typeof version !== "string") {
     error(
-      `Failed to read the version of the "${PACKAGE_JSON}" file since the version was of type: ${typeof oldVersion}`,
+      `Failed to read the version of the "${PACKAGE_JSON}" file since the version was of type: ${typeof version}`,
     );
-  }
-
-  const outputPath = project.data?.targets?.build?.options?.outputPath;
-  invariant(
-    outputPath,
-    `Failed to find "build.options.outputPath" of project "${name}". Is the "project.json" configured correctly?`,
-  );
-  const buildPath = path.join(__dirname, "..", "..", outputPath);
-  const packageJSONBuildPath = path.join(buildPath, PACKAGE_JSON);
-
-  const newVersion = getNewVersion(args, oldVersion);
-  if (newVersion !== undefined) {
-    writeVersionInPackageJSON(packageJSONPath, newVersion, false);
-    writeVersionInPackageJSON(packageJSONBuildPath, newVersion, false);
   }
 
   process.chdir(buildPath);
-  const tag = args.production ? "next" : "latest";
+  const tag = version.includes("dev") ? "latest" : "next";
   execSync(`yarn publish --access public --tag ${tag}`);
 
-  console.log(`Successfully published: ${name}@${newVersion}`);
-}
-
-function parseArgs() {
-  const yargsObject = yargs(process.argv.slice(2))
-    .usage("usage: $0 [project-name] [options]")
-    .command("publish", "Publish a project to NPM. (default)", (builder) =>
-      builder
-        .positional("project", {
-          type: "string",
-          description: "The name of the monorepo project to publish",
-        })
-        .option("production", {
-          alias: "p",
-          type: "boolean",
-          description: 'Publish to "latest" instead of "next"',
-        })
-        .option("skip-increment", {
-          alias: "s",
-          type: "boolean",
-          description: `Do not increment the version number in the "${PACKAGE_JSON}" file`,
-        })
-        .option("skip-commit", {
-          alias: "c",
-          type: "boolean",
-          description: "Do not make a commit to the git repository",
-        })
-        .option("set-version", {
-          alias: "t",
-          type: "string",
-          description: "Set the version number to a specific string",
-        }),
-    )
-    .parseSync();
-
-  return yargsObject;
-}
-
-function getNewVersion(
-  args: Record<string, unknown>,
-  oldVersion: string,
-): string | undefined {
-  if (typeof args.setVersion === "string" && args.setVersion !== "") {
-    return args.setVersion;
-  }
-
-  if (args.skipIncrement) {
-    return undefined;
-  }
-
-  const [majorVersion, minorVersion, patchVersion] = parseSemVer(oldVersion);
-
-  if (args.production) {
-    const incrementedPatchVersion = patchVersion + 1;
-    return `${majorVersion}.${minorVersion}.${incrementedPatchVersion}`;
-  }
-
-  let devNumberString = "0";
-  if (oldVersion.includes("dev")) {
-    const match = oldVersion.match(/^\d+\.\d+\.\d+-dev\.(\d+)/);
-    if (match === null) {
-      error(
-        `Failed to parse the dev version in the "${PACKAGE_JSON}" file: ${oldVersion}`,
-      );
-    }
-    devNumberString = match[1];
-  }
-
-  const devNumber = parseIntSafe(devNumberString);
-  if (Number.isNaN(devNumber)) {
-    error(
-      `Failed to parse the dev version in the "${PACKAGE_JSON}" file: ${oldVersion}`,
-    );
-  }
-
-  const incrementedDevNumber = devNumber + 1;
-  const suffix = `-dev.${incrementedDevNumber}`;
-  return `${majorVersion}.${minorVersion}.${patchVersion}${suffix}`;
-}
-
-function writeVersionInPackageJSON(
-  packageJSONPath: string,
-  version: string,
-  verbose: boolean,
-) {
-  const packageJSON = file.read(packageJSONPath, verbose);
-  const newPackageJSON = packageJSON.replace(
-    /"version": ".+",/,
-    `"version": "${version}",`,
-  );
-  file.write(packageJSONPath, newPackageJSON, verbose);
+  console.log(`Successfully published: ${name}@${version}`);
 }
 
 function invariant(condition: unknown, msg: string) {

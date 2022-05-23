@@ -35,6 +35,12 @@
           "target": "build"
         }
       ]
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "conventional"
+      }
     }
   },
   "tags": []

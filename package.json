@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "license": "GPL-3.0",
-  "scripts": {},
+  "scripts": {
+    "prepare": "husky install"
+  },
   "dependencies": {
     "@typescript-eslint/type-utils": "^5.25.0",
     "@typescript-eslint/types": "^5.25.0",
@@ -24,6 +26,8 @@
     "yargs": "^17.5.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^16.2.4",
+    "@commitlint/config-conventional": "^16.2.4",
     "@jscutlery/semver": "^2.23.4",
     "@nrwl/cli": "^14.1.7",
     "@nrwl/eslint-plugin-nx": "^14.1.7",
@@ -56,6 +60,7 @@
     "eslint-plugin-jsdoc": "^39.3.0",
     "eslint-plugin-only-warn": "^1.0.3",
     "eslint-plugin-sort-exports": "^0.6.0",
+    "husky": "^7.0.4",
     "jest": "^27.5.1",
     "npm-check-updates": "^13.0.3",
     "nx": "^14.1.7",
