@@ -27,7 +27,7 @@ TODO: add isaacscript-common & isaac-typescript-definitions & docs
 
 <br>
 
-## Installation for Development (Windows)
+## Getting Started with Development
 
 - Download and install [Node.js](https://nodejs.org/en/download/), if you don't have it already.
 - Download and install [Git](https://git-scm.com/), if you don't have it already.
