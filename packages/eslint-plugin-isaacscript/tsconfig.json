@@ -6,8 +6,7 @@
     "outDir": "../../dist/packages/isaacscript-cli",
   },
 
-  // Nx will not include ".eslintrc.js" in the build output, so there is no need for a
-  // "tsconfig.eslint.rc" file.
+  // We have a separate "tsconfig.prod.json" that is used for production output.
   "include": [
     "./src/**/*.ts",
     "./tests/**/*.ts",
