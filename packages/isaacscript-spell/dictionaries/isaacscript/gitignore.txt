@@ -1,0 +1,16 @@
+# These are words contained in the .gitignore template from GitHub.
+
+dotenv
+eslintcache
+jscoverage
+jspm
+lcov
+Microbundle
+Nuxt
+pids
+pnpm
+stylelint
+stylelintcache
+tsbuildinfo
+vuepress
+wscript

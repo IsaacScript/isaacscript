@@ -1,0 +1,28 @@
+{
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+  "id": "isaac",
+  "name": "isaac",
+  "description": "Words for The Binding of Isaac: Repentance",
+  "readonly": true,
+  "dictionaryDefinitions": [
+    {
+      "name": "api",
+      "path": "./api.txt",
+      "description": "Words from the API"
+    },
+    {
+      "name": "files",
+      "path": "./files.txt",
+      "description": "Words from resource files"
+    }
+  ],
+  "dictionaries": [],
+  "languageSettings": [
+    {
+      "languageId": "*",
+      "locale": "*",
+      "includeRegExpList": [],
+      "dictionaries": ["api", "files"]
+    }
+  ]
+}

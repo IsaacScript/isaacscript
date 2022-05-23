@@ -1,0 +1,16 @@
+# These are words contained within IsaacScript template files and elsewhere.
+
+contentfolder # metadata.vdf
+dbaeumer # extensions.json
+esbenp # extensions.json
+isaacscript
+noout # lint.sh
+pathlib # check-api-dictionary.sh
+prettierignore # check-file-updates.sh
+prettierrc # check-file-updates.sh
+publishedfileid # metadata.vdf
+steamcmd # For publishing
+tstl
+typedoc
+workshopitem # metadata.vdf
+Zamiell

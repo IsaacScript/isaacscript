@@ -1,0 +1,34 @@
+{
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+  "id": "isaacscript",
+  "name": "isaacscript",
+  "description": "Words for IsaacScript",
+  "readonly": true,
+  "dictionaryDefinitions": [
+    {
+      "name": "isaacscript",
+      "path": "./isaacscript.txt",
+      "description": "Words for IsaacScript"
+    },
+    {
+      "name": "gitignore",
+      "path": "./gitignore.txt",
+      "description": "Words for gitignore template"
+    },
+    {
+      "name": "missing-words",
+      "path": "./missing-words.txt",
+      "description": "Missing English words"
+    }
+  ],
+  "dictionaries": [],
+  "languageSettings": [
+    {
+      "languageId": "*",
+      "locale": "*",
+      "includeRegExpList": [],
+      "dictionaries": ["isaacscript", "gitignore", "missing-words"],
+      "dictionaryDefinitions": []
+    }
+  ]
+}
