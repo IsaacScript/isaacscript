@@ -8,4 +8,10 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd "$DIR"
 
-yarn nx run-many --target=build --all
+if command -v nx &> /dev/null; then
+  # We want to invoke nx directly, if available. (Otherwise, the colors will not work properly.)
+  nx run-many --target=build --all
+else
+  # The "nx" command does not work in CI, so we revert to calling Nx through Yarn.
+  yarn nx run-many --target=build --all
+fi
