@@ -20,7 +20,7 @@ If you want more fine-grained control over converting your code, then you can do
 
 ### 1) Install the ssmacro Extension
 
-[ssmacro](https://marketplace.visualstudio.com/items?itemName=joekon.ssmacro) is a popular VSCode extension that allows you to make macros. <!-- cspell:ignore ssmacro -->
+[ssmacro](https://marketplace.visualstudio.com/items?itemName=joekon.ssmacro) is a popular VSCode extension that allows you to make macros.
 
 <br />
 

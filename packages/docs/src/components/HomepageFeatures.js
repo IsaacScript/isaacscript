@@ -1,6 +1,5 @@
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import clsx from "clsx";
-import React from "react";
 import styles from "./HomepageFeatures.module.css";
 
 const FeatureList = [
@@ -42,6 +41,7 @@ function Feature({ title, img, description }) {
     width: "7.5em",
   };
 
+  // cspell:ignore horiz
   return (
     <div className={clsx("col col--6")}>
       <div className="text--center">
