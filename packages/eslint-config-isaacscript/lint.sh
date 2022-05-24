@@ -11,7 +11,7 @@ SECONDS=0
 cd "$DIR"
 
 # Step 1 - Use Prettier to check formatting.
-npx prettier --check .
+npx prettier --ignore-path="$DIR/../../.prettierignore" --check .
 
 # Step 2 - Use ESLint to lint the JavaScript.
 # Since all ESLint errors are set to warnings, we set max warnings to 0 so that warnings will fail

@@ -28,13 +28,7 @@ else
 fi
 
 # Bump the version.
-nx version "$1" --allowEmptyRelease --skipProjectChangelog $PRE_ID $3
-# (add back the "--push" flag when @jscutlery/semver is fixed)
-
-# Temporary fix for @jscutlery/semver not appending a newline to the "package.json" files.
-npx prettier "$DIR/packages/$1/package.json" --write
-git commit -a -C HEAD --amend # We need to take the metadata from the last commit to avoid blowing away the tag
-git push
+nx version "$1" --push --allowEmptyRelease --skipProjectChangelog $PRE_ID $3
 
 # Upload it to NPM.
 nx publish "$1"

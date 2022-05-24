@@ -6,3 +6,7 @@ cspell.json
 
 # Ignore NX temporary directory.
 tmp
+
+# Ignore package.json files, since @jscutlery/semver is bugged:
+# https://github.com/jscutlery/semver/pull/511
+package.json

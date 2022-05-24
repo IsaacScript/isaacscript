@@ -9,7 +9,13 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 cd "$DIR"
 
 # Lint each package.
-yarn nx run-many --target=lint --all
+if command -v nx &> /dev/null; then
+  # We want to invoke nx directly, if available. (Otherwise, the colors will not work properly.)
+  nx run-many --target=lint --all $NO_CACHE
+else
+  # The "nx" command does not work in CI, so we revert to calling Nx through Yarn.
+  yarn nx run-many --target=lint --all $NO_CACHE
+fi
 
 # Lint monorepo things.
 npx ts-node --project "$DIR/tools/tsconfig.json" "$DIR/tools/packageJSONLint.ts"

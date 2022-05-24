@@ -11,7 +11,7 @@ SECONDS=0
 cd "$DIR"
 
 # Step 1 - Use Prettier to check formatting.
-npx prettier --check .
+npx prettier --ignore-path="$DIR/../../.prettierignore" --check .
 
 # Step 2 - Use ESLint to lint the TypeScript.
 # Since all ESLint errors are set to warnings, we set max warnings to 0 so that warnings will fail
@@ -29,7 +29,9 @@ npx cspell --no-progress --no-summary
 npx ts-prune --error
 
 # Step 5 - Check repository-specific scripts.
-echo "Checking if the generation scripts modify any files..."
-bash "$DIR/generate.sh" check
+if [ ! -z "$GITHUB_ACTIONS" ]; then
+  echo "Checking if the generation scripts modify any files..."
+  bash "$DIR/generate.sh" check
+fi
 
 echo "Successfully linted in $SECONDS seconds."

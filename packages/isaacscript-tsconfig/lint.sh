@@ -11,7 +11,7 @@ SECONDS=0
 cd "$DIR"
 
 # Step 1 - Use Prettier to check formatting.
-npx prettier --check .
+npx prettier --ignore-path="$DIR/../../.prettierignore" --check .
 
 # Step 2 - Spell check every file using cspell.
 # We use "--no-progress" and "--no-summary" because we want to only output errors.
