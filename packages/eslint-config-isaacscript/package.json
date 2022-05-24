@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-isaacscript",
-  "version": "1.0.81",
+  "version": "1.0.82",
   "description": "A sharable ESLint config for TypeScript and IsaacScript projects.",
   "repository": {
     "type": "git",
