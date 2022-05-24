@@ -26,7 +26,7 @@
     "isaacscript": "./src/main.js"
   },
   "dependencies": {
-    "isaacscript-tsconfig": "^1.1.16",
+    "isaacscript-tsconfig": "^1.1.17",
     "npm-check-updates": "^13.0.3",
     "ts-node": "^10.7.0",
     "typescript": "^4.6.2",

@@ -6,8 +6,9 @@ import sortPackageJson from "sort-package-json";
 import * as file from "../packages/isaacscript-cli/src/file";
 import { error, isKebabCase } from "../packages/isaacscript-cli/src/utils";
 
+const PACKAGE_JSON = "package.json";
 const REPO_ROOT = path.join(__dirname, "..");
-const REPO_ROOT_PACKAGE_JSON_PATH = path.join(REPO_ROOT, "package.json");
+const REPO_ROOT_PACKAGE_JSON_PATH = path.join(REPO_ROOT, PACKAGE_JSON);
 
 main();
 
@@ -19,7 +20,7 @@ function main() {
   }
   const rootDeps = getDeps(REPO_ROOT_PACKAGE_JSON_PATH);
 
-  const packageJSONPaths = glob.sync("./packages/**/package.json", {
+  const packageJSONPaths = glob.sync(`./packages/**/${PACKAGE_JSON}`, {
     ignore: ["node_modules/**", "dist/**"],
   });
 
@@ -33,6 +34,8 @@ function main() {
   if (atLeastOneError) {
     process.exit(1);
   }
+
+  console.log('All "package.json" files are valid.');
 }
 
 function packageJSONLint(
@@ -43,12 +46,7 @@ function packageJSONLint(
   const isTemplateFile = packageJSONPath.includes("dynamic");
 
   const packageJSONString = file.read(packageJSONPath, false);
-  let packageJSON: Record<string, unknown>;
-  try {
-    packageJSON = JSON.parse(packageJSONString);
-  } catch (err) {
-    error(`Failed to parse: ${packageJSONPath}`);
-  }
+  const packageJSON = getPackageJSON(packageJSONString);
 
   const { name } = packageJSON;
   if (typeof name !== "string" || name === "") {
@@ -273,12 +271,7 @@ function packageJSONLint(
 
 function getDeps(packageJSONPath: string): Record<string, string> {
   const packageJSONString = file.read(packageJSONPath, false);
-  let packageJSON: Record<string, unknown>;
-  try {
-    packageJSON = JSON.parse(packageJSONString);
-  } catch (err) {
-    error(`Failed to parse: ${packageJSONPath}`);
-  }
+  const packageJSON = getPackageJSON(packageJSONString);
 
   let { dependencies, devDependencies, peerDependencies } = packageJSON;
   if (typeof dependencies !== "object") {
@@ -311,14 +304,44 @@ function checkDeps(
 
   let atLeastOneError = false;
   for (const [key, value] of Object.entries(deps)) {
-    const rootDepValue = rootDeps[key];
+    let rootDepValue = rootDeps[key];
+    if (rootDepValue === undefined) {
+      // This is an internal dependency; thus, we need to look up the correct version in the
+      // respective "package.json" file.
+      const depPackageJSONPath = path.join(
+        REPO_ROOT,
+        "packages",
+        key,
+        PACKAGE_JSON,
+      );
+      const depPackageJSONString = file.read(depPackageJSONPath, false);
+      const depPackageJSON = getPackageJSON(depPackageJSONString);
+      const depVersion = depPackageJSON["version"];
+      if (typeof depVersion !== "string") {
+        error(`Failed to get the version from: ${depPackageJSONPath}`);
+      }
+
+      rootDepValue = `^${depVersion}`;
+    }
+
     if (value !== rootDepValue) {
       console.error(
-        `Incorrect dependency: ${key}: ${rootDepValue} --> ${value} (${packageJSONPath})`,
+        `Incorrect dependency: ${packageJSONPath} - ${key}: ${value}`,
       );
       atLeastOneError = true;
     }
   }
 
   return !atLeastOneError;
+}
+
+function getPackageJSON(packageJSONString: string): Record<string, unknown> {
+  let packageJSON: Record<string, unknown>;
+  try {
+    packageJSON = JSON.parse(packageJSONString);
+  } catch (err) {
+    error(`Failed to parse: ${path}`);
+  }
+
+  return packageJSON;
 }
