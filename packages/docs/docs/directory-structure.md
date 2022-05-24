@@ -2,8 +2,6 @@
 title: Project Directory Structure
 ---
 
-<!-- markdownlint-disable MD033 -->
-
 When you use `isaacscript init`, it will automatically create a directory with some files for you. The basic folder structure is:
 
 ```n/a

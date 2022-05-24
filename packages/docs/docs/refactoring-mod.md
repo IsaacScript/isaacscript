@@ -2,8 +2,6 @@
 title: Refactoring an Example Mod
 ---
 
-<!-- markdownlint-disable MD033 -->
-
 As your mod grows larger and larger, you will want to stay organized. Splitting up your mod into different files is easy with TypeScript by using `import` and `export`. There are many ways to structure a big mod, so think about a hierarchy that makes sense for you.
 
 Let's say that in our example mod, we want to add a few more custom items, so that the mod becomes an item pack. Before we continue to clutter our "main.ts" file, let's refactor our code to keep things clean.

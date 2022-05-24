@@ -2,8 +2,6 @@
 title: Function Signatures (Vanilla)
 ---
 
-<!-- markdownlint-disable MD033 -->
-
 For reference, this is a handy list of all possible callback functions.
 
 For the list of custom callbacks, see [this page](function-signatures-custom.md).
