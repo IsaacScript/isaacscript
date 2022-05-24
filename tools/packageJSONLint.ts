@@ -44,6 +44,7 @@ function packageJSONLint(
 ): boolean {
   const isRoot = rootDeps === undefined;
   const isTemplateFile = packageJSONPath.includes("dynamic");
+  const shouldBePrivate = isRoot || packageJSONPath.includes("docs");
 
   const packageJSONString = file.read(packageJSONPath, false);
   const packageJSON = getPackageJSON(packageJSONString);
@@ -69,20 +70,18 @@ function packageJSONLint(
     return false;
   }
 
-  if (isRoot && version !== "0.0.0") {
-    console.error(
-      `Root file must have a version of "0.0.0": ${packageJSONPath}`,
-    );
+  if (shouldBePrivate && version !== "0.0.0") {
+    console.error(`File must have a version of "0.0.0": ${packageJSONPath}`);
     return false;
   }
 
   const privateField = packageJSON["private"];
-  if (isRoot && privateField !== true) {
+  if (shouldBePrivate && privateField !== true) {
     console.error(
-      `Root file must have a private field equal to true: ${packageJSONPath}`,
+      `File must have a private field equal to true: ${packageJSONPath}`,
     );
     return false;
-  } else if (!isRoot && privateField !== undefined) {
+  } else if (!shouldBePrivate && privateField !== undefined) {
     console.error(`File must not have a private field: ${packageJSONPath}`);
     return false;
   }
@@ -100,7 +99,7 @@ function packageJSONLint(
     return false;
   }
 
-  if (!isRoot) {
+  if (!shouldBePrivate) {
     const { keywords } = packageJSON;
     if (typeof keywords !== "object") {
       console.error(`File is missing a "keywords" field: ${packageJSONPath}`);
