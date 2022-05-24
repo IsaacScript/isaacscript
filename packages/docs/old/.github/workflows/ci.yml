@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build_lint_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          # The default version is 14
+          # The ESLint config requires Node 16 to work properly
+          node-version: '16'
+
+      - name: Retrieve the cached "node_modules" directory (if present)
+        uses: actions/cache@v2
+        id: node-cache
+        with:
+          path: node_modules
+          key: node-modules-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Install dependencies (if the cached directory was not found)
+        if: steps.node-cache.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: Use Docusaurus to build the website
+        run: bash build.sh
+
+      - name: Perform automated checks
+        run: bash lint.sh
+
+      - name: Deploy to GitHub pages
+        if: github.event_name != 'pull_request'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
+
+  discord:
+    name: Discord Failure Notification
+    needs: [build_lint_deploy]
+    # "always()" is needed to always run this job, even if the other jobs fail
+    # We don't want to spam the "#conventions-new" channel when people have failing pull requests
+    if: always() && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      # The "workflow-conclusion-action" creates a "WORKFLOW_CONCLUSION" environment variable
+      - uses: technote-space/workflow-conclusion-action@v2
+      - if: env.WORKFLOW_CONCLUSION != 'success' && env.WORKFLOW_CONCLUSION != 'cancelled'
+        uses: sarisia/actions-status-discord@v1
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          status: ${{ env.WORKFLOW_CONCLUSION }}
+          title: ""
