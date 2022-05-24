@@ -28,7 +28,7 @@ else
 fi
 
 # Bump the version.
-nx version "$1" --allowEmptyRelease --skipProjectChangelog $PRE_ID
+nx version "$1" --allowEmptyRelease --skipProjectChangelog $PRE_ID $3
 # (add back the "--push" flag when @jscutlery/semver is fixed)
 
 # Temporary fix for @jscutlery/semver not appending a newline to the "package.json" files.
