@@ -11,6 +11,7 @@ eqeqeq # For linting
 esbenp # extensions.json
 isaacscript
 jscutlery # For version control
+nocache # Monorepo word
 nocheck # For @ts-nocheck
 noout # lint.sh
 nrwl # Monorepo word
