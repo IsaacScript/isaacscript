@@ -375,8 +375,19 @@ module.exports = {
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/es6.js
      *
      * - Array destructuring can result in non-intuitive code.
-     * - Object destructuring is disgustingly verbose in TypeScript.
      */
-    "prefer-destructuring": "off",
+    "prefer-destructuring": [
+      "warn",
+      {
+        VariableDeclarator: {
+          array: false,
+          object: true,
+        },
+        AssignmentExpression: {
+          array: false,
+          object: false,
+        },
+      },
+    ],
   },
 };
