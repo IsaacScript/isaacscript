@@ -18,6 +18,12 @@
         "buildableProjectDepsInPackageJsonType": "dependencies"
       }
     },
+    "test": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "bash packages/eslint-plugin-isaacscript/test.sh"
+      }
+    },
     "lint": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {

@@ -30,10 +30,12 @@ jobs:
       - name: Build every package in the monorepo
         run: bash build.sh
 
+      - name: Test every package in the monorepo
+        run: bash test.sh
+
       - name: Lint every package in the monorepo
         run: bash lint.sh
 
-      # TODO: test eslint-plugin
       # TODO: docs
 
   discord:
