@@ -7,7 +7,7 @@ import * as file from "../packages/isaacscript-cli/src/file";
 import { error } from "../packages/isaacscript-cli/src/utils";
 
 const PACKAGE_JSON = "package.json";
-const REPO_ROOT = path.join(__dirname, "..", "..");
+const REPO_ROOT = path.join(__dirname, "..");
 
 main();
 
