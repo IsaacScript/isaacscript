@@ -1,4 +1,9 @@
 # These are words that apply to Isaac modding in general.
 
 hitbox
+gameplay
+giveitem
+ipairs
 modders
+Stonies
+tostring

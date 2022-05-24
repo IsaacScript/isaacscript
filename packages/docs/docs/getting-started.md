@@ -2,6 +2,8 @@
 title: Getting Started
 ---
 
+<!-- markdownlint-disable MD033 -->
+
 `isaacscript` will currently work on Windows and Linux.
 
 You can go from zero to up-and-running with a new mod in around 5 minutes.
@@ -47,7 +49,7 @@ Note that your project directory should **not** be a subdirectory of the Isaac `
 
 Run:
 
-```bash
+```sh
 npx isaacscript init
 ```
 
@@ -61,7 +63,7 @@ At the end, it will ask you if it should launch VSCode for you. Answer yes.
 
 Back in your command prompt, start `isaacscript`:
 
-```bash
+```sh
 npx isaacscript
 ```
 

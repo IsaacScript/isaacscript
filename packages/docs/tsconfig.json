@@ -1,0 +1,20 @@
+{
+  "extends": "../../tsconfig.node.json",
+
+  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
+  "compilerOptions": {
+    "outDir": "../../dist/packages/docs",
+  },
+
+  // We have a separate "tsconfig.prod.json" that is used for production output.
+  "include": [
+    ".eslintrc.js",
+    ".remarkrc.mjs",
+    "babel.config.js",
+    "docusaurus.config.js",
+    "sidebars.js",
+    "src/**/*.js",
+    "src/**/*.ts",
+    "static/**/*.js",
+  ],
+}

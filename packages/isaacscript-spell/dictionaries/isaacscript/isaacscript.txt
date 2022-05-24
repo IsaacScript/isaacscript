@@ -13,6 +13,7 @@ eqeqeq # For linting
 esbenp # extensions.json
 isaacscript
 jscutlery # For version control
+markdownlint # Monorepo word
 nocache # Monorepo word
 nocheck # For @ts-nocheck
 noout # lint.sh
@@ -23,6 +24,7 @@ preid # Monorepo word
 prettierignore # check-file-updates.sh
 prettierrc # check-file-updates.sh
 publishedfileid # metadata.vdf
+remarkrc # Monorepo word
 retext # Monorepo word
 steamcmd # For publishing
 svgr # Monorepo word

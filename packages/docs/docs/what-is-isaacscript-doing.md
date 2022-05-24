@@ -2,6 +2,8 @@
 title: What is IsaacScript Doing?
 ---
 
+<!-- markdownlint-disable MD033 -->
+
 The `isaacscript` program will run forever until you close the terminal window or cancel it with `Ctrl + c`. While it runs, it monitors for changes in your project. In summary, it will:
 
 1. automatically recompile your TypeScript

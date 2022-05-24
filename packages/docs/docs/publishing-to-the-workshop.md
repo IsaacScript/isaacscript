@@ -2,6 +2,8 @@
 title: Publishing to the Workshop
 ---
 
+<!-- markdownlint-disable MD033 -->
+
 Isaac mods are published to the [Steam Workshop](https://steamcommunity.com/app/250900/workshop/), which allows others to easily download them. This is accomplished by running the "ModUploader.exe" tool provided with the game, which is located at `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\tools\ModUploader.exe`.
 
 However, for large mods, there are often other tasks that need to be performed before pushing the files to the Steam Workshop. `isaacscript` contains a `publish` command that may be useful to you. It will perform the following steps:

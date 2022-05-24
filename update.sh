@@ -10,7 +10,7 @@ cd "$DIR"
 
 PACKAGE_JSON="$DIR/package.json"
 OLD_HASH=$(md5sum "$PACKAGE_JSON")
-npx npm-check-updates --upgrade --packageFile "$PACKAGE_JSON" --reject "chalk,typescript,@mdx-js/react"
+npx npm-check-updates --upgrade --packageFile "$PACKAGE_JSON" --reject "typescript,chalk,@mdx-js/react,react,react-dom"
 NEW_HASH=$(md5sum "$PACKAGE_JSON")
 if [[ $OLD_HASH != $NEW_HASH ]]; then
   if test -f "$DIR/yarn.lock"; then

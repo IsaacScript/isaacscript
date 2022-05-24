@@ -8,7 +8,7 @@ Sometimes, you might want to convert an old mod written in Lua to TypeScript. Th
 
 ## LuaToTypeScript
 
-Hazzard993 wrote [a tool to automatically convert Lua to TypeScript](https://github.com/hazzard993/LuaToTypeScript). Unfortunately, this does not convert comments.
+Hazzard993 wrote [a tool to automatically convert Lua to TypeScript](https://github.com/hazzard993/LuaToTypeScript). Unfortunately, this does not convert comments. <!-- cspell:ignore Hazzard -->
 
 <br />
 
@@ -20,7 +20,7 @@ If you want more fine-grained control over converting your code, then you can do
 
 ### 1) Install the ssmacro Extension
 
-[ssmacro](https://marketplace.visualstudio.com/items?itemName=joekon.ssmacro) is a popular VSCode extension that allows you to make macros.
+[ssmacro](https://marketplace.visualstudio.com/items?itemName=joekon.ssmacro) is a popular VSCode extension that allows you to make macros. <!-- cspell:ignore ssmacro -->
 
 <br />
 
@@ -28,7 +28,7 @@ If you want more fine-grained control over converting your code, then you can do
 
 I've written [a short macro](https://isaacscript.github.io/convert-lua-to-typescript.json) that does some basic conversions. For example, it converts `local` to `let`, `and` to `&&`, and so forth. (Feel free to customize it to your liking.)
 
-Download it to the following directory: `C:\Users\[Username]\.vscode\extensions\joekon.ssmacro-0.6.0\macros`
+Download it to the following directory: `C:\Users\[Username]\.vscode\extensions\joekon.ssmacro-0.6.0\macros` <!-- cspell:ignore joekon -->
 
 <br />
 

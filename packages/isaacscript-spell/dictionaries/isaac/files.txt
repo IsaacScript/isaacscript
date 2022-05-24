@@ -7,6 +7,7 @@ endstage # challenges.xml
 fadecolor # cutscenes.xml
 gfxroot # items.xml
 greedmode # pocketitems.xml
+itempools # itempools.xml
 maxcharges # items.xml
 mimiccharge # pocketitems.xml
 pftempestasevencondensed # font

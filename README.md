@@ -1,7 +1,5 @@
 # IsaacScript
 
-<!-- markdownlint-disable MD033 -->
-
 IsaacScript is a tool to help you create _Binding of Isaac: Repentance_ mods using [TypeScript](https://www.typescriptlang.org/).
 
 Please visit the [official website](https://isaacscript.github.io/) for more information.

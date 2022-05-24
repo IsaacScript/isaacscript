@@ -2,6 +2,8 @@
 
 <!-- cspell:ignore Somdudewillson,Siramok -->
 
+This page lists the changes to the IsaacScript framework.
+
 ## TODO
 
 - [Fill in the rest of the history here.]

@@ -2,6 +2,8 @@
 title: Gotchas
 ---
 
+<!-- markdownlint-disable MD033 -->
+
 This page lists several "gotchas" or things that might be weird about IsaacScript.
 
 <br />

@@ -22,3 +22,4 @@ fi
 
 # Lint monorepo things.
 npx ts-node --project "$DIR/tools/tsconfig.json" "$DIR/tools/packageJSONLint.ts"
+npx markdownlint .

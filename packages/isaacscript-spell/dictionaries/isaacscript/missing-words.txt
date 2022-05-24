@@ -2,9 +2,16 @@
 
 autoformat
 backticks
+bootstrapper
 cacheable
+LICENCE
+mkdir
+namespacing
+transpiles
+transpiling
 regexes
 reimplement
+sandboxing
 subprocesses
 unexported
 unfixable

@@ -2,6 +2,8 @@
 title: Function Signatures (Custom)
 ---
 
+<!-- markdownlint-disable MD033 -->
+
 The [`isaacscript-common`](https://isaacscript.github.io/isaacscript-common/) package provides access to some custom callbacks, which are listed below.
 
 In order to use custom callbacks, you must first invoke the [`upgradeMod`](https://isaacscript.github.io/isaacscript-common/modules/upgradeMod.html) function.

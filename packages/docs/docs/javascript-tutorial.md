@@ -651,7 +651,7 @@ RevelationsExports = {
 
 ### Enums
 
-In the previous [`for` loop section](#for-statements-for-keyvalue-tables), we defined a mapping of collectibles to prices.
+In the previous [`for` loop section](#for-statements-for-keyvalue-tables), we defined a mapping of collectibles to prices. <!-- cspell:ignore keyvalue -->
 
 Imagine that in our mod, collectibles can only be sold for three different prices:
 

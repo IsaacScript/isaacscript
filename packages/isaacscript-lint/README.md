@@ -1,7 +1,5 @@
 # isaacscript-lint
 
-<!-- markdownlint-disable MD033 -->
-
 [![npm version](https://img.shields.io/npm/v/isaacscript-lint.svg)](https://www.npmjs.com/package/isaacscript-lint)
 
 `isaacscript-lint` is a helper package to install all of the dependencies necessary for ESLint to work with a typical TypeScript project or a typical IsaacScript mod.
