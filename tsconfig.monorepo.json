@@ -15,7 +15,7 @@
       "eslint-plugin-isaacscript": [
         "packages/eslint-plugin-isaacscript/src/index.ts",
       ],
-      // TODO: remove this since it doesn't export anything
+      // TODO: remove this after adding isaac-typescript-definitions, since it doesn't export anything
       "isaacscript": ["packages/isaacscript-cli/src/main.ts"],
     },
   },

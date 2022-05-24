@@ -2,9 +2,20 @@
   "name": "isaacscript-lint",
   "version": "1.0.160",
   "description": "A linting dependency meta-package for IsaacScript and TypeScript projects.",
+  "keywords": [
+    "isaacscript",
+    "lint",
+    "linting",
+    "prettier",
+    "eslint"
+  ],
+  "homepage": "https://isaacscript.github.io/",
+  "bugs": {
+    "url": "https://github.com/IsaacScript/isaacscript/issues"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/IsaacScript/isaacscript-lint.git"
+    "url": "git+https://github.com/IsaacScript/isaacscript.git"
   },
   "license": "MIT",
   "author": "Zamiell",

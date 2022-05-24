@@ -1,8 +1,10 @@
+// Publishes a package to NPM using "yarn publish".
+
 import { readCachedProjectGraph } from "@nrwl/devkit";
 import { execSync } from "child_process";
 import path from "path";
-import * as file from "../../packages/isaacscript-cli/src/file";
-import { error } from "../../packages/isaacscript-cli/src/utils";
+import * as file from "../packages/isaacscript-cli/src/file";
+import { error } from "../packages/isaacscript-cli/src/utils";
 
 const PACKAGE_JSON = "package.json";
 const REPO_ROOT = path.join(__dirname, "..", "..");
@@ -45,7 +47,7 @@ function main() {
     error(`Failed to parse the "${PACKAGE_JSON}" file:`, err);
   }
 
-  const version = packageJSON.version;
+  const version = packageJSON["version"];
   if (typeof version !== "string") {
     error(
       `Failed to read the version of the "${PACKAGE_JSON}" file since the version was of type: ${typeof version}`,

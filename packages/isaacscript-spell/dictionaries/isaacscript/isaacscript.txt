@@ -6,6 +6,7 @@ commitlint # Monorepo word
 contentfolder # metadata.vdf
 corepack # To install Yarn
 dbaeumer # extensions.json
+devkit # Monorepo word
 eqeqeq # For linting
 esbenp # extensions.json
 isaacscript

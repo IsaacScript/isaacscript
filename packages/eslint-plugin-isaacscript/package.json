@@ -2,13 +2,30 @@
   "name": "eslint-plugin-isaacscript",
   "version": "1.0.48",
   "description": "An ESLint plugin that contains useful rules.",
-  "homepage": "https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-plugin-isaacscript",
+  "keywords": [
+    "eslint",
+    "plugin",
+    "isaacscript",
+    "lint",
+    "linting",
+    "prettier",
+    "rules",
+    "enum",
+    "enums",
+    "comment",
+    "comments",
+    "format",
+    "autoformat",
+    "complete",
+    "sentences"
+  ],
+  "homepage": "https://isaacscript.github.io/",
   "bugs": {
     "url": "https://github.com/IsaacScript/isaacscript/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/IsaacScript/eslint-plugin-isaacscript.git"
+    "url": "git+https://github.com/IsaacScript/isaacscript.git"
   },
   "license": "MIT",
   "author": "Zamiell",

@@ -17,7 +17,7 @@
     "publish": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "ts-node --project tools/scripts/tsconfig.json tools/scripts/publish.ts isaacscript-tsconfig"
+        "command": "ts-node --project tools/tsconfig.node.json tools/publish.ts isaacscript-tsconfig"
       },
       "dependsOn": [
         {

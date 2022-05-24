@@ -1,16 +1,23 @@
 {
   "name": "isaacscript-tsconfig",
   "version": "1.1.17",
-  "type": "commonjs",
   "description": "A sharable TypeScript config for TypeScript and IsaacScript projects.",
-  "homepage": "https://github.com/Zamiell/isaacscript-tsconfig#readme",
+  "keywords": [
+    "isaacscript",
+    "tsconfig",
+    "typescript",
+    "config",
+    "configs"
+  ],
+  "homepage": "https://isaacscript.github.io/",
   "bugs": {
-    "url": "https://github.com/Zamiell/isaacscript-tsconfig/issues"
+    "url": "https://github.com/IsaacScript/isaacscript/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Zamiell/isaacscript-tsconfig.git"
+    "url": "git+https://github.com/IsaacScript/isaacscript.git"
   },
   "license": "MIT",
-  "author": "Zamiell"
+  "author": "Zamiell",
+  "type": "commonjs"
 }

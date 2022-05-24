@@ -13,4 +13,4 @@ REPO_NAME="$(basename "$DIR")"
 REPO_ROOT="$DIR/../.."
 cd "$REPO_ROOT"
 
-"$REPO_ROOT/publish.sh" "$REPO_NAME" "$@"
+"$REPO_ROOT/release.sh" "$REPO_NAME" "$@"
