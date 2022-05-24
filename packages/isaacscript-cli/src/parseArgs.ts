@@ -1,11 +1,39 @@
 import yargs from "yargs";
 import { PROJECT_NAME } from "./constants";
 
-export function parseArgs(): Record<string, unknown> {
+export interface Args {
+  _: string[];
+
+  // monitor
+  modsDirectory?: string;
+  saveSlot?: number;
+
+  // init
+  name?: string;
+  yes?: boolean;
+  useCurrentDir?: boolean;
+  vscode?: boolean;
+  skipInstall?: boolean;
+  forceName?: boolean;
+
+  // publish
+  skip?: boolean;
+  setVersion?: string;
+  dryRun?: boolean;
+  onlyUpload?: boolean;
+
+  // shared
+  verbose?: boolean;
+}
+
+export function parseArgs(): Args {
   const yargsObject = yargs(process.argv.slice(2))
     .strict()
     .usage("usage: isaacscript <command> [options]")
     .scriptName("isaacscript")
+
+    .alias("h", "help") // By default, only "--help" is enabled
+    .alias("v", "version") // By default, only "--version" is enabled
 
     .command("monitor", "Monitor a project for changes. (default)", (builder) =>
       builder
@@ -60,11 +88,11 @@ export function parseArgs(): Record<string, unknown> {
             type: "boolean",
             description: "Open the project in VSCode after initialization",
           })
-          .option("skip-npm-install", {
+          .option("skip-install", {
             alias: "i",
             type: "boolean",
             description:
-              'Don\'t automatically run "npm install" after initializing the project',
+              "Don't automatically install the dependencies after initializing the project",
           })
           .option("force-name", {
             alias: "f",
@@ -120,8 +148,7 @@ export function parseArgs(): Record<string, unknown> {
           }),
     )
 
-    .alias("h", "help") // By default, only "--help" is enabled
-    .alias("v", "version"); // By default, only "--version" is enabled
+    .parseSync();
 
-  return yargsObject.argv as Record<string, unknown>;
+  return yargsObject as Args;
 }

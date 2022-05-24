@@ -2,6 +2,7 @@ import chalk from "chalk";
 import path from "path";
 import { HOME_DIR } from "../../constants";
 import * as file from "../../file";
+import { Args } from "../../parseArgs";
 import { getInputString } from "../../prompt";
 import { error } from "../../utils";
 
@@ -30,13 +31,13 @@ const DEFAULT_MODS_PATH_LINUX = path.join(
 );
 
 export async function getModsDir(
-  argv: Record<string, unknown>,
+  args: Args,
   verbose: boolean,
 ): Promise<string> {
-  if (argv["modsDirectory"] !== undefined) {
+  if (args.modsDirectory !== undefined) {
     // They specified the "--mods-directory" command-line flag, so there is no need to prompt the
     // user for it.
-    return argv["modsDirectory"] as string;
+    return args.modsDirectory;
   }
 
   const defaultModsPath = getDefaultModsPath(process.platform);

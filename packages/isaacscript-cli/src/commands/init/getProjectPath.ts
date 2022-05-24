@@ -1,6 +1,7 @@
 import chalk from "chalk";
 import path from "path";
 import { CURRENT_DIRECTORY_NAME, CWD } from "../../constants";
+import { Args } from "../../parseArgs";
 import { getInputString, getInputYesNo } from "../../prompt";
 import { error, hasWhiteSpace, isKebabCase } from "../../utils";
 
@@ -18,12 +19,12 @@ const ILLEGAL_CHARACTERS_FOR_WINDOWS_FILENAMES = [
 ];
 
 export async function getProjectPath(
-  argv: Record<string, unknown>,
+  args: Args,
   useCurrentDir: boolean,
   yes: boolean,
   forceName: boolean,
 ): Promise<[string, boolean]> {
-  let projectName = getProjectNameFromCommandLineArgument(argv);
+  let projectName = getProjectNameFromCommandLineArgument(args);
   let projectPath: string;
   let createNewDir: boolean;
   if (useCurrentDir) {
@@ -53,10 +54,8 @@ export async function getProjectPath(
   return [projectPath, createNewDir];
 }
 
-function getProjectNameFromCommandLineArgument(
-  argv: Record<string, unknown>,
-): string | undefined {
-  const name = argv["name"];
+function getProjectNameFromCommandLineArgument(args: Args): string | undefined {
+  const { name } = args;
   return typeof name === "string" && name !== "" ? name : undefined;
 }
 

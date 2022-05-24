@@ -16,7 +16,7 @@ import * as configFile from "./configFile";
 import { CWD, PROJECT_NAME, YARN_LOCK_PATH } from "./constants";
 import { execShell } from "./exec";
 import * as file from "./file";
-import { parseArgs } from "./parseArgs";
+import { Args, parseArgs } from "./parseArgs";
 import { promptInit } from "./prompt";
 import { Command, DEFAULT_COMMAND } from "./types/Command";
 import { Config } from "./types/Config";
@@ -37,8 +37,8 @@ async function main(): Promise<void> {
   loadEnvironmentVariables();
 
   // Get command line arguments.
-  const argv = parseArgs();
-  const verbose = argv["verbose"] === true;
+  const args = parseArgs();
+  const verbose = args.verbose === true;
 
   printBanner();
 
@@ -48,7 +48,7 @@ async function main(): Promise<void> {
   // Pre-flight checks.
   await checkForWindowsTerminalBugs(verbose);
 
-  await handleCommands(argv, verbose);
+  await handleCommands(args);
 }
 
 function loadEnvironmentVariables() {
@@ -74,41 +74,42 @@ function printBanner() {
   console.log();
 }
 
-async function handleCommands(argv: Record<string, unknown>, verbose: boolean) {
-  const positionalArgs = argv["_"] as string[];
-  let command: Command;
-  if (positionalArgs.length > 0) {
-    command = positionalArgs[0] as Command;
-  } else {
-    command = DEFAULT_COMMAND;
-  }
+async function handleCommands(args: Args) {
+  const verbose = args.verbose === true;
+
+  const positionalArgs = args._;
+  const firstPositionArg = positionalArgs[0];
+  const command: Command =
+    firstPositionArg === undefined || firstPositionArg === ""
+      ? DEFAULT_COMMAND
+      : (firstPositionArg as Command);
 
   let config = new Config();
   if (command !== "init") {
     validateInIsaacScriptProject(verbose);
-    config = await configFile.get(argv);
+    config = await configFile.get(args);
 
     ensureDepsAreInstalled(verbose);
   }
 
   switch (command) {
     case "monitor": {
-      monitor(argv, config);
+      monitor(args, config);
       break;
     }
 
     case "init": {
-      await init(argv);
+      await init(args);
       break;
     }
 
     case "copy": {
-      copy(argv, config);
+      copy(args, config);
       break;
     }
 
     case "publish": {
-      publish(argv, config);
+      publish(args, config);
       break;
     }
 

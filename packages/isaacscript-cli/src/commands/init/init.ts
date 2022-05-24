@@ -2,6 +2,7 @@ import chalk from "chalk";
 import commandExists from "command-exists";
 import path from "path";
 import { CWD, PROJECT_NAME } from "../../constants";
+import { Args } from "../../parseArgs";
 import { checkIfProjectPathExists } from "./checkIfProjectPathExists";
 import { checkModSubdirectory } from "./checkModSubdirectory";
 import { checkModTargetDirectory } from "./checkModTargetDirectory";
@@ -13,27 +14,27 @@ import { installVSCodeExtensions } from "./installVSCodeExtensions";
 import { promptSaveSlot } from "./promptSaveSlot";
 import { promptVSCode } from "./promptVSCode";
 
-export async function init(argv: Record<string, unknown>): Promise<void> {
-  const skipNPMInstall = argv["skipNpmInstall"] === true;
-  const useCurrentDir = argv["useCurrentDir"] === true;
-  const verbose = argv["verbose"] === true;
-  const vscode = argv["vscode"] === true;
-  const yes = argv["yes"] === true;
-  const forceName = argv["forceName"] === true;
+export async function init(args: Args): Promise<void> {
+  const skipInstall = args.skipInstall === true;
+  const useCurrentDir = args.useCurrentDir === true;
+  const verbose = args.verbose === true;
+  const vscode = args.vscode === true;
+  const yes = args.yes === true;
+  const forceName = args.forceName === true;
 
   // Prompt the end-user for some information (and validate it as we go).
   const [projectPath, createNewDir] = await getProjectPath(
-    argv,
+    args,
     useCurrentDir,
     yes,
     forceName,
   );
   await checkIfProjectPathExists(projectPath, yes, verbose);
-  const modsDirectory = await getModsDir(argv, verbose);
+  const modsDirectory = await getModsDir(args, verbose);
   checkModSubdirectory(projectPath, modsDirectory);
   const projectName = path.basename(projectPath);
   await checkModTargetDirectory(modsDirectory, projectName, yes, verbose);
-  const saveSlot = await promptSaveSlot(argv, yes);
+  const saveSlot = await promptSaveSlot(args, yes);
   const gitRemoteURL = await promptGitHubRepoOrGitRemoteURL(
     projectName,
     yes,
@@ -48,7 +49,7 @@ export async function init(argv: Record<string, unknown>): Promise<void> {
     modsDirectory,
     saveSlot,
     gitRemoteURL,
-    skipNPMInstall,
+    skipInstall,
     verbose,
   );
 

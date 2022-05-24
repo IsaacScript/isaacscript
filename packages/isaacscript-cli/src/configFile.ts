@@ -5,12 +5,13 @@ import { getModsDir } from "./commands/init/getModsDir";
 import { promptSaveSlot } from "./commands/init/promptSaveSlot";
 import { CONFIG_FILE_NAME, CONFIG_FILE_PATH, CWD } from "./constants";
 import * as file from "./file";
+import { Args } from "./parseArgs";
 import { Config } from "./types/Config";
 import { error } from "./utils";
 
-export async function get(argv: Record<string, unknown>): Promise<Config> {
-  const verbose = argv["verbose"] === true;
-  const yes = argv["yes"] === true;
+export async function get(args: Args): Promise<Config> {
+  const verbose = args.verbose === true;
+  const yes = args.yes === true;
 
   const existingConfig = readExistingConfig(verbose);
   if (existingConfig !== undefined) {
@@ -18,8 +19,8 @@ export async function get(argv: Record<string, unknown>): Promise<Config> {
   }
 
   // No config file exists, so prompt the user for some information and create one.
-  const modsDirectory = await getModsDir(argv, verbose);
-  const saveSlot = await promptSaveSlot(argv, yes);
+  const modsDirectory = await getModsDir(args, verbose);
+  const saveSlot = await promptSaveSlot(args, yes);
   const config = createObject(modsDirectory, saveSlot);
   createFile(CWD, config, verbose);
 

@@ -2,11 +2,12 @@ import path from "path";
 import { MOD_SOURCE_PATH } from "../../constants";
 import { execShell } from "../../exec";
 import * as file from "../../file";
+import { Args } from "../../parseArgs";
 import { Config } from "../../types/Config";
 import { getModTargetDirectoryName } from "../../utils";
 
-export function copy(argv: Record<string, unknown>, config: Config): void {
-  const verbose = argv["verbose"] === true;
+export function copy(args: Args, config: Config): void {
+  const verbose = args.verbose === true;
 
   const modTargetDirectoryName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);

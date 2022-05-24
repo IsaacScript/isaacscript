@@ -14,6 +14,7 @@ import {
 } from "../../constants";
 import { execExe, execPowershell, execShell } from "../../exec";
 import * as file from "../../file";
+import { Args } from "../../parseArgs";
 import { Config } from "../../types/Config";
 import { error, getModTargetDirectoryName, parseSemVer } from "../../utils";
 import { compileAndCopy } from "../copy/copy";
@@ -21,12 +22,12 @@ import { gitCommitIfChanges, isGitDirty } from "../init/git";
 
 const UPDATE_SCRIPT_NAME = "update.sh";
 
-export function publish(argv: Record<string, unknown>, config: Config): void {
-  const skipVersionIncrement = argv["skip"] === true;
-  const setVersion = argv["setVersion"] as string | undefined;
-  const dryRun = argv["dryRun"] === true;
-  const onlyUpload = argv["onlyUpload"] === true;
-  const verbose = argv["verbose"] === true;
+export function publish(args: Args, config: Config): void {
+  const skipVersionIncrement = args.skip === true;
+  const { setVersion } = args;
+  const dryRun = args.dryRun === true;
+  const onlyUpload = args.onlyUpload === true;
+  const verbose = args.verbose === true;
 
   const modTargetDirectoryName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);

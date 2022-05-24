@@ -11,6 +11,7 @@ import {
   TSCONFIG_PATH,
 } from "../../constants";
 import * as file from "../../file";
+import { Args } from "../../parseArgs";
 import { Config } from "../../types/Config";
 import { error, getModTargetDirectoryName } from "../../utils";
 import { COMPILATION_SUCCESSFUL } from "./constants";
@@ -21,15 +22,15 @@ import { touchWatcherSaveDatFiles } from "./touchWatcherSaveDatFiles";
 
 let compilationStartTime = new Date();
 
-export function monitor(argv: Record<string, unknown>, config: Config): void {
-  const verbose = argv["verbose"] === true;
+export function monitor(args: Args, config: Config): void {
+  const verbose = args.verbose === true;
 
   // If they specified some command-line flags, override the values found in the config file.
-  if (argv["modsDirectory"] !== undefined) {
-    config.modsDirectory = argv["modsDirectory"] as string; // eslint-disable-line no-param-reassign
+  if (args.modsDirectory !== undefined) {
+    config.modsDirectory = args.modsDirectory; // eslint-disable-line no-param-reassign
   }
-  if (argv["saveSlot"] !== undefined) {
-    config.saveSlot = argv["saveSlot"] as number; // eslint-disable-line no-param-reassign
+  if (args.saveSlot !== undefined) {
+    config.saveSlot = args.saveSlot; // eslint-disable-line no-param-reassign
   }
 
   // Read the "tsconfig.json" file.
@@ -158,7 +159,7 @@ function getFirstTSConfigIncludePath(verbose: boolean): string {
     error(`Failed to parse "${chalk.green(TSCONFIG_PATH)}":`, err);
   }
 
-  const include = tsConfig["include"];
+  const { include } = tsConfig;
   if (include === undefined) {
     error(
       `Your "${chalk.green(

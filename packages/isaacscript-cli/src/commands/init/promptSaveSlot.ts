@@ -1,14 +1,15 @@
+import { Args } from "../../parseArgs";
 import { getInputInt } from "../../prompt";
 import { error } from "../../utils";
 
 export async function promptSaveSlot(
-  argv: Record<string, unknown>,
+  args: Args,
   yes: boolean,
 ): Promise<number> {
-  if (argv["saveSlot"] !== undefined) {
+  if (args.saveSlot !== undefined) {
     // They specified the "--save-slot" command-line flag, so there is no need to prompt the user
     // for it.
-    return argv["saveSlot"] as number; // yargs converts this to a number
+    return args.saveSlot;
   }
 
   if (yes) {
