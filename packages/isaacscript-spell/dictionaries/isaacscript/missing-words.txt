@@ -7,11 +7,11 @@ cacheable
 LICENCE
 mkdir
 namespacing
-transpiles
-transpiling
 regexes
 reimplement
 sandboxing
 subprocesses
+transpiles
+transpiling
 unexported
 unfixable
