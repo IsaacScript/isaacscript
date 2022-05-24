@@ -17,8 +17,8 @@ import { promptVSCode } from "./promptVSCode";
 
 export async function init(args: Args): Promise<void> {
   const npm = args.npm === true;
-  let packageManager = npm ? PackageManager.NPM : PackageManager.Yarn;
-  if (packageManager === PackageManager.Yarn && !commandExists.sync("yarn")) {
+  let packageManager = npm ? PackageManager.NPM : PackageManager.YARN;
+  if (packageManager === PackageManager.YARN && !commandExists.sync("yarn")) {
     packageManager = PackageManager.NPM;
   }
   const skipInstall = args.skipInstall === true;

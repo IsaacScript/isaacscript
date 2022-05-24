@@ -34,21 +34,35 @@ export const TEMPLATES_STATIC_DIR = path.join(TEMPLATES_DIR, "static");
 
 // `isaacscript/file-templates/dynamic`
 const TEMPLATES_DYNAMIC_DIR = path.join(TEMPLATES_DIR, "dynamic");
+export const CI_YML = "ci.yml";
+export const CI_YML_TEMPLATE_PATH = path.join(
+  TEMPLATES_DYNAMIC_DIR,
+  ".github",
+  "workflows",
+  CI_YML,
+);
+
 export const GITIGNORE = "gitignore"; // Not named ".gitignore" to prevent NPM from deleting it.
 export const GITIGNORE_TEMPLATE_PATH = path.join(
   TEMPLATES_DYNAMIC_DIR,
   GITIGNORE,
 );
 export const MAIN_TS = "main.ts";
-export const MAIN_TS_TEMPLATE_PATH = path.join(TEMPLATES_DYNAMIC_DIR, MAIN_TS);
+export const MAIN_TS_TEMPLATE_PATH = path.join(
+  TEMPLATES_DYNAMIC_DIR,
+  "src",
+  MAIN_TS,
+);
 export const METADATA_XML = "metadata.xml";
 export const METADATA_XML_TEMPLATE_PATH = path.join(
   TEMPLATES_DYNAMIC_DIR,
+  "mod",
   METADATA_XML,
 );
 export const METADATA_VDF = "metadata.vdf";
 export const METADATA_VDF_TEMPLATE_PATH = path.join(
   TEMPLATES_DYNAMIC_DIR,
+  "mod",
   METADATA_VDF,
 );
 export const PACKAGE_JSON = "package.json";

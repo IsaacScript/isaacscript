@@ -2,6 +2,8 @@ import chalk from "chalk";
 import path from "path";
 import * as configFile from "../../configFile";
 import {
+  CI_YML,
+  CI_YML_TEMPLATE_PATH,
   GITIGNORE,
   GITIGNORE_TEMPLATE_PATH,
   MAIN_TS,
@@ -18,8 +20,12 @@ import {
 } from "../../constants";
 import { execShell } from "../../exec";
 import * as file from "../../file";
+import {
+  getPackageManagerInstallCICommand,
+  getPackageManagerInstallCommand,
+  getPackageManagerLockFileName,
+} from "../../packageManager";
 import { PackageManager } from "../../types/PackageManager";
-import { ensureAllCases } from "../../utils";
 import { initGitRepository } from "./git";
 
 export function createMod(
@@ -41,9 +47,14 @@ export function createMod(
   configFile.createFile(projectPath, config, verbose);
   const targetModDirectory = path.join(config.modsDirectory, projectName);
 
-  makeSubdirectories(projectPath, verbose);
   copyStaticFiles(projectPath, verbose);
-  copyDynamicFiles(projectName, projectPath, targetModDirectory, verbose);
+  copyDynamicFiles(
+    projectName,
+    projectPath,
+    targetModDirectory,
+    packageManager,
+    verbose,
+  );
   updateNodeModules(projectPath, verbose);
   installNodeModules(projectPath, skipInstall, packageManager, verbose);
   formatFiles(projectPath, verbose);
@@ -52,14 +63,6 @@ export function createMod(
   initGitRepository(projectPath, gitRemoteURL, verbose);
 
   console.log(`Successfully created mod: ${chalk.green(projectName)}`);
-}
-
-function makeSubdirectories(projectPath: string, verbose: boolean) {
-  // The "src" directory is created during copying of static files.
-  for (const subdirectory of ["mod"]) {
-    const srcPath = path.join(projectPath, subdirectory);
-    file.makeDir(srcPath, verbose);
-  }
 }
 
 /** Copy static files, like ".eslintrc.js", "tsconfig.json", etc. */
@@ -91,8 +94,29 @@ function copyDynamicFiles(
   projectName: string,
   projectPath: string,
   targetModDirectory: string,
+  packageManager: PackageManager,
   verbose: boolean,
 ) {
+  const workflowsPath = path.join(projectPath, ".github", "workflows");
+  file.makeDir(workflowsPath, verbose);
+
+  // `.github/workflows/ci.yml`
+  {
+    const fileName = CI_YML;
+    const templatePath = CI_YML_TEMPLATE_PATH;
+    const template = file.read(templatePath, verbose);
+
+    const lockFileName = getPackageManagerLockFileName(packageManager);
+    const installCommand = getPackageManagerInstallCICommand(packageManager);
+    const ciYML = template
+      .replace(/PACKAGE-MANAGER-NAME/g, packageManager)
+      .replace(/PACKAGE-MANAGER-LOCK-FILE-NAME/, lockFileName)
+      .replace(/PACKAGE-MANAGER-INSTALL/, installCommand);
+
+    const destinationPath = path.join(workflowsPath, fileName);
+    file.write(destinationPath, ciYML, verbose);
+  }
+
   // `.gitignore`
   {
     const fileName = GITIGNORE;
@@ -133,13 +157,15 @@ function copyDynamicFiles(
     file.write(destinationPath, readmeMD, verbose);
   }
 
+  const modPath = path.join(projectPath, "mod");
+  file.makeDir(modPath, verbose);
+
   // `mod/metadata.xml`
   {
     const fileName = METADATA_XML;
     const templatePath = METADATA_XML_TEMPLATE_PATH;
     const template = file.read(templatePath, verbose);
     const metadataXML = template.replace(/MOD-NAME-TO-REPLACE/g, projectName);
-    const modPath = path.join(projectPath, "mod");
     const destinationPath = path.join(modPath, fileName);
     file.write(destinationPath, metadataXML, verbose);
   }
@@ -150,16 +176,17 @@ function copyDynamicFiles(
     const templatePath = METADATA_VDF_TEMPLATE_PATH;
     const template = file.read(templatePath, verbose);
     const metadataVDF = template.replace(/MOD-TARGET-DIR/g, targetModDirectory);
-    const modPath = path.join(projectPath, "mod");
     const destinationPath = path.join(modPath, fileName);
     file.write(destinationPath, metadataVDF, verbose);
   }
+
+  const srcPath = path.join(projectPath, "src");
+  file.makeDir(srcPath, verbose);
 
   // `src/main.ts`
   {
     // Convert snake_case and kebab-case to camelCase. (Kebab-case in particular will make the
     // example TypeScript file fail to compile.)
-    const srcPath = path.join(projectPath, "src");
     const fileName = MAIN_TS;
     const templatePath = MAIN_TS_TEMPLATE_PATH;
     const template = file.read(templatePath, verbose);
@@ -171,7 +198,9 @@ function copyDynamicFiles(
 
 /** The "package.json" file has to be copied first before this step. */
 function updateNodeModules(projectPath: string, verbose: boolean) {
-  console.log("Finding out the latest versions of the NPM packages...");
+  console.log(
+    'Finding out the latest versions of the NPM packages with "npm-check-updates"...',
+  );
   execShell(
     "npx",
     ["npm-check-updates", "--upgrade", "--packageFile", "package.json"],
@@ -191,23 +220,11 @@ function installNodeModules(
     return;
   }
 
-  console.log("Installing node modules... (This can take a long time.)");
-
-  switch (packageManager) {
-    case PackageManager.NPM: {
-      execShell("npm", ["install"], verbose, false, projectPath);
-      break;
-    }
-
-    case PackageManager.Yarn: {
-      execShell("yarn", [], verbose, false, projectPath);
-      break;
-    }
-
-    default: {
-      ensureAllCases(packageManager);
-    }
-  }
+  const [command, args] = getPackageManagerInstallCommand(packageManager);
+  console.log(
+    `Installing node modules with "${command}"... (This can take a long time.)`,
+  );
+  execShell(command, args, verbose, false, projectPath);
 }
 
 function formatFiles(projectPath: string, verbose: boolean) {

@@ -14,18 +14,18 @@ jobs:
         with:
           # The default version is 14. The ESLint config requires Node 16 to work properly.
           node-version: "16"
-          cache: "npm"
+          cache: "PACKAGE-MANAGER-NAME"
 
       - name: Retrieve the cached "node_modules" directory (if present)
         uses: actions/cache@v3
         id: node-cache
         with:
           path: node_modules
-          key: node-modules-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          key: node-modules-${{ runner.os }}-${{ hashFiles('PACKAGE-MANAGER-LOCK-FILE-NAME') }}
 
       - name: Install dependencies (if the cached directory was not found)
         if: steps.node-cache.outputs.cache-hit != 'true'
-        run: npm ci
+        run: PACKAGE-MANAGER-INSTALL
 
       - name: Install xmllint (which the "lint.sh" script uses)
         run: sudo apt-get update && sudo apt-get install libxml2-utils -y
