@@ -33,7 +33,7 @@ nx version "$1" --allowEmptyRelease --skipProjectChangelog $PRE_ID
 
 # Temporary fix for @jscutlery/semver not appending a newline to the "package.json" files.
 npx prettier "$DIR/packages/$1/package.json" --write
-git commit -C HEAD --amend # We need to take the metadata from the last commit to avoid blowing away the tag
+git commit -a -C HEAD --amend # We need to take the metadata from the last commit to avoid blowing away the tag
 git push
 
 # Upload it to NPM.
