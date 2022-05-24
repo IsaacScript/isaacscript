@@ -1,0 +1,4 @@
+# These are words that apply to Isaac modding in general.
+
+hitbox
+modders
