@@ -9,13 +9,4 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 cd "$DIR"
 
 PACKAGE_JSON="$DIR/package.json"
-OLD_HASH=$(md5sum "$PACKAGE_JSON")
-npx npm-check-updates --upgrade --packageFile "$PACKAGE_JSON" --reject "chalk,typescript"
-NEW_HASH=$(md5sum "$PACKAGE_JSON")
-if [[ $OLD_HASH != $NEW_HASH ]]; then
-  if test -f "$DIR/yarn.lock"; then
-    yarn
-  else
-    npm install
-  fi
-fi
+npx npm-check-updates --upgrade --packageFile "$PACKAGE_JSON"
