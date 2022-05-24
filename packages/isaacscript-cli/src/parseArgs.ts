@@ -13,6 +13,7 @@ export interface Args {
   yes?: boolean;
   useCurrentDir?: boolean;
   vscode?: boolean;
+  npm?: boolean;
   skipInstall?: boolean;
   forceName?: boolean;
 

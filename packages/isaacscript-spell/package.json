@@ -16,7 +16,7 @@
     "type": "git",
     "url": "git+https://github.com/IsaacScript/isaacscript.git"
   },
-  "license": "GPL-3.0",
+  "license": "MIT",
   "author": "Zamiell",
   "type": "commonjs"
 }

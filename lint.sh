@@ -8,4 +8,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd "$DIR"
 
+# Lint each package.
 yarn nx run-many --target=lint --all
+
+# Lint monorepo things.
+npx ts-node --project "$DIR/tools/tsconfig.json" "$DIR/tools/packageJSONLint.ts"

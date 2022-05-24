@@ -3,6 +3,7 @@ import commandExists from "command-exists";
 import path from "path";
 import { CWD, PROJECT_NAME } from "../../constants";
 import { Args } from "../../parseArgs";
+import { PackageManager } from "../../types/PackageManager";
 import { checkIfProjectPathExists } from "./checkIfProjectPathExists";
 import { checkModSubdirectory } from "./checkModSubdirectory";
 import { checkModTargetDirectory } from "./checkModTargetDirectory";
@@ -15,6 +16,11 @@ import { promptSaveSlot } from "./promptSaveSlot";
 import { promptVSCode } from "./promptVSCode";
 
 export async function init(args: Args): Promise<void> {
+  const npm = args.npm === true;
+  let packageManager = npm ? PackageManager.NPM : PackageManager.Yarn;
+  if (packageManager === PackageManager.Yarn && !commandExists.sync("yarn")) {
+    packageManager = PackageManager.NPM;
+  }
   const skipInstall = args.skipInstall === true;
   const useCurrentDir = args.useCurrentDir === true;
   const verbose = args.verbose === true;
@@ -50,6 +56,7 @@ export async function init(args: Args): Promise<void> {
     saveSlot,
     gitRemoteURL,
     skipInstall,
+    packageManager,
     verbose,
   );
 
