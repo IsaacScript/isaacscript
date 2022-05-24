@@ -6,7 +6,6 @@ import { ensureAllCases } from "../../../utils";
 import { SaveDatMessage, SaveDatMessageType } from "./types";
 
 const SUBPROCESS_NAME = "save#.dat writer";
-const BASE_ARGV_LENGTH = 2;
 const MAX_MESSAGES = 100;
 const VERBOSE = false;
 
@@ -16,7 +15,9 @@ let saveDatFileName: string;
 init(VERBOSE);
 
 function init(verbose: boolean) {
-  const firstArg = process.argv[BASE_ARGV_LENGTH];
+  const args = process.argv.slice(2);
+
+  const firstArg = args[0];
   if (firstArg === undefined) {
     throw new Error(
       `The ${SUBPROCESS_NAME} process did not get a valid first argument.`,
