@@ -451,9 +451,18 @@ valid.push({
 });
 
 valid.push({
-  name: "Comment with JSDoc type",
+  name: "Comment with JSDoc type on single line",
   code: `
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
+  `,
+});
+
+valid.push({
+  name: "Comment with JSDoc type on multi line",
+  code: `
+/**
+ * @type {import('@docusaurus/types').DocusaurusConfig}
+ */
   `,
 });
 
