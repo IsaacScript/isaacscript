@@ -3,7 +3,10 @@
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    "outDir": "../../dist",
+    "outDir": "../../dist/packages/isaacscript-common",
+
+    // Needed since TSTL does not work properly with the monorepo "rootDir" setting.
+    "rootDir": "./src",
 
     // Needed since this is a library.
     "declaration": true,

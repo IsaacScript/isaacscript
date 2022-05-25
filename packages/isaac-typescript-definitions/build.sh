@@ -19,10 +19,6 @@ OUT_DIR="$DIR/../../dist/packages/$REPO_NAME"
 rm -rf "$OUT_DIR"
 npx tstl
 
-# The compiled output goes to a "src" subdirectory; move it to the root and delete it.
-mv "$OUT_DIR/src/"* "$OUT_DIR/"
-rmdir "$OUT_DIR/src"
-
 # Copy the declarations into place. (The TypeScript compiler does not do this automatically for some
 # reason.)
 cp -R "$DIR/src/types" "$OUT_DIR/"

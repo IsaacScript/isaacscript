@@ -19,13 +19,6 @@ OUT_DIR="$DIR/../../dist/packages/$REPO_NAME"
 rm -rf "$OUT_DIR"
 npx tstl
 
-# The compiled output goes to a "src" subdirectory; move it to the root and delete it.
-mv "$OUT_DIR/src/"* "$OUT_DIR/"
-rmdir "$OUT_DIR/src"
-
-# The compiled output includes a "lualib_bundle.lua" file, but it gets put in the wrong place.
-mv "$OUT_DIR/../../lualib_bundle.lua" "$OUT_DIR/"
-
 # Copy the rest of the files needed for NPM.
 cp "$DIR/LICENSE" "$OUT_DIR/"
 cp "$DIR/package.json" "$OUT_DIR/"
