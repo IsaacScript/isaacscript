@@ -46,7 +46,7 @@ export function monitor(args: Args, config: Config): void {
   // Delete and re-copy the mod every time IsaacScript starts. This ensures that it is always the
   // latest version.
   if (file.exists(modTargetPath, verbose)) {
-    file.deleteFileOrDirectory(modTargetPath, true);
+    file.deleteFileOrDirectory(modTargetPath, verbose);
   }
 
   // Subprocess #1 - The "save#.dat" file writer.
