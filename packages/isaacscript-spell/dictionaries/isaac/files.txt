@@ -1,18 +1,25 @@
 # These are words from files in the "resources" directory, like "entities2.xml".
 
+altpath # challenges.xml
 announcerdelay # pocketitems.xml
+BLCK # BLCK CNDL seed
 canshoot # challenges.xml
+CNDL # BLCK CNDL seed
 deathanm # items.xml
 endstage # challenges.xml
 fadecolor # cutscenes.xml
 gfxroot # items.xml
+giantbook # giantbook.xml
 greedmode # pocketitems.xml
+hudpickups # hudpickups.png
 Humbleing # items.xml
+itemdungeon # 00.special rooms.xml
 itempools # itempools.xml
 maxcharges # items.xml
 mimiccharge # pocketitems.xml
 Onan # challenges.xml
 pftempestasevencondensed # font
+pilleffect # pocketitems.xml
 shutdoors # entities2.xml
-thesadonion # collectibles_001_thesadonion.png
+teammeatfont # font
 XLAX # pocketitems.xml

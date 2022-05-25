@@ -1,7 +1,21 @@
 # These are words that apply to Isaac modding in general.
 
+Antibirth
+Begottens
+Bethanys
+Chronometrics # Creator of Basement Renovator
+debuff
+despawning
+despawns
 dofile # Lua global
+Dollys
+Dreamcatcher
 Eggies
+esaus
+Fallens
+fistuloids
+forgottens
+Gabriels
 gameplay
 getinfo # Debug library method
 getmetatable # Lua global
@@ -9,23 +23,46 @@ giveitem # Console command
 hitbox
 hitboxes
 ipairs # Lua global
+Kilburn # Repentance developer
+Kinetis
 loadfile # Lua global
+Losts
 metatable # Lua word
 metatables # Lua word
 modders
+Mullibooms
+nerfed
+nerfs
+Nicalis
 pcall # Lua global
+polties
+pooters
 Raglings
 rawequal # Lua global
 rawget # Lua global
 rawlen # Lua global
 rawset # Lua global
 respawned
+satans
+scolexes
 setmetatable # Lua global
+softlock
+softlocked
+softlocking
+softlocks
+speedrun
+speedrunner
+speedrunners
+speedrunning
+speedruns
 Stonies
+teleporters
 teleporting
 texels
 tonumber # Lua global
 tostring # Lua global
+trites
 Turdlings
 upvalue # Debug library word
+Uriels
 xpcall # Lua global
