@@ -13,6 +13,8 @@ const REPO_ROOT_PACKAGE_JSON_PATH = path.join(REPO_ROOT, PACKAGE_JSON);
 main();
 
 function main() {
+  console.log('Checking "package.json" files...');
+
   process.chdir(REPO_ROOT);
 
   if (!packageJSONLint(REPO_ROOT_PACKAGE_JSON_PATH, undefined)) {
