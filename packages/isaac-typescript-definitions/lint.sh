@@ -29,6 +29,7 @@ npx cspell --no-progress --no-summary
 npx ts-prune --error --ignore "index.ts"
 
 # Step 5 - Check the API dictionary.
-bash "$DIR/check-api-dictionary.sh"
+# (Commented out because it causes race conditions in CI.)
+#bash "$DIR/check-api-dictionary.sh"
 
 echo "Successfully linted in $SECONDS seconds."

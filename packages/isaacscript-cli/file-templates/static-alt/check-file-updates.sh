@@ -29,7 +29,7 @@ for FILE_SPECIFICATION in $(cat "$TEMPLATE_FILES_PATH"); do
 
   echo "Checking for an updated version of: $LOCAL_FILE"
   TMP_FILE_PATH="/tmp/base-file"
-  URL="https://raw.githubusercontent.com/IsaacScript/isaacscript/main/file-templates/$STATIC_DIRECTORY/$REMOTE_FILE"
+  URL="https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/file-templates/$STATIC_DIRECTORY/$REMOTE_FILE"
   curl "$URL" --output "$TMP_FILE_PATH" --silent --show-error
   if grep "^404: Not Found" "$TMP_FILE_PATH" --silent; then
     echo
