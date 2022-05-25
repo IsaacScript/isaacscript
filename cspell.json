@@ -15,7 +15,8 @@
     "dist/**",
     "node_modules/**",
     "mod/main.lua",
-    "mod/resources/rooms/**"
+    "mod/resources/rooms/**",
+    "packages/docs/build/**"
   ],
   "words": [
     "APPDATA",
