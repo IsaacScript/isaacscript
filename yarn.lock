@@ -3589,7 +3589,7 @@
     "@typescript-eslint/types" "5.26.0"
     "@typescript-eslint/visitor-keys" "5.26.0"
 
-"@typescript-eslint/type-utils@5.26.0", "@typescript-eslint/type-utils@^5.25.0", "@typescript-eslint/type-utils@^5.26.0":
+"@typescript-eslint/type-utils@5.26.0", "@typescript-eslint/type-utils@^5.26.0":
   version "5.26.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/type-utils/-/type-utils-5.26.0.tgz#937dee97702361744a3815c58991acf078230013"
   integrity sha512-7ccbUVWGLmcRDSA1+ADkDBl5fP87EJt0fnijsMFTVHXKGduYMgienC/i3QwoVhDADUAPoytgjbZbCOMj4TY55A==
@@ -3603,7 +3603,7 @@
   resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-5.18.0.tgz#4f0425d85fdb863071680983853c59a62ce9566e"
   integrity sha512-bhV1+XjM+9bHMTmXi46p1Led5NP6iqQcsOxgx7fvk6gGiV48c6IynY0apQb7693twJDsXiVzNXTflhplmaiJaw==
 
-"@typescript-eslint/types@5.26.0", "@typescript-eslint/types@^5.25.0", "@typescript-eslint/types@^5.26.0":
+"@typescript-eslint/types@5.26.0", "@typescript-eslint/types@^5.26.0":
   version "5.26.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-5.26.0.tgz#cb204bb154d3c103d9cc4d225f311b08219469f3"
   integrity sha512-8794JZFE1RN4XaExLWLI2oSXsVImNkl79PzTOOWt9h0UHROwJedNOD2IJyfL0NbddFllcktGIO2aOu10avQQyA==
@@ -3646,7 +3646,7 @@
     eslint-scope "^5.1.1"
     eslint-utils "^3.0.0"
 
-"@typescript-eslint/utils@5.26.0", "@typescript-eslint/utils@^5.25.0", "@typescript-eslint/utils@^5.26.0":
+"@typescript-eslint/utils@5.26.0", "@typescript-eslint/utils@^5.26.0":
   version "5.26.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/utils/-/utils-5.26.0.tgz#896b8480eb124096e99c8b240460bb4298afcfb4"
   integrity sha512-PJFwcTq2Pt4AMOKfe3zQOdez6InIDOjUJJD3v3LyEtxHGVVRK3Vo7Dd923t/4M9hSH2q2CLvcTdxlLPjcIk3eg==
@@ -6451,15 +6451,15 @@ eslint-plugin-import@^2.26.0:
     resolve "^1.22.0"
     tsconfig-paths "^3.14.1"
 
-eslint-plugin-isaacscript@^1.0.48:
-  version "1.0.48"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-isaacscript/-/eslint-plugin-isaacscript-1.0.48.tgz#f3aa8c11c15fcf15903c2f4f309dcb0a3bf85194"
-  integrity sha512-hB+oz6lxvG4Ufn+52MF5y1rFcgyI8rmfwPiLlgDbTpzcllPQUwW0CVM/CRU9yYzKyEwms9KjCXhzWQUeyfrhcw==
+eslint-plugin-isaacscript@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-isaacscript/-/eslint-plugin-isaacscript-1.1.0.tgz#dafb6c71bfbf567552f99b90e6119f82e8fadabb"
+  integrity sha512-5WKt5TGtiK+GqCeQpRUqKVux8iwGg4Iathe6vlsOXwFF4MhvUIWKEMqwXoe/b0gq8vSCsQETSU6zRrh8t/D+Ug==
   dependencies:
-    "@typescript-eslint/type-utils" "^5.25.0"
-    "@typescript-eslint/types" "^5.25.0"
-    "@typescript-eslint/utils" "^5.25.0"
-    tslib "^2.3.0"
+    "@typescript-eslint/type-utils" "^5.26.0"
+    "@typescript-eslint/types" "^5.26.0"
+    "@typescript-eslint/utils" "^5.26.0"
+    tslib "^2.4.0"
 
 eslint-plugin-jsdoc@^39.3.2:
   version "39.3.2"
@@ -14778,6 +14778,18 @@ unified@^8.4.2:
   dependencies:
     bail "^1.0.0"
     extend "^3.0.0"
+    is-plain-obj "^2.0.0"
+    trough "^1.0.0"
+    vfile "^4.0.0"
+
+unified@^9.2.2:
+  version "9.2.2"
+  resolved "https://registry.yarnpkg.com/unified/-/unified-9.2.2.tgz#67649a1abfc3ab85d2969502902775eb03146975"
+  integrity sha512-Sg7j110mtefBD+qunSLO1lqOEKdrwBFBrR6Qd8f4uwkhWNlbkaqwHse6e7QvD3AP/MNoJdEDLaf8OxYyoWgorQ==
+  dependencies:
+    bail "^1.0.0"
+    extend "^3.0.0"
+    is-buffer "^2.0.0"
     is-plain-obj "^2.0.0"
     trough "^1.0.0"
     vfile "^4.0.0"

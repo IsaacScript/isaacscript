@@ -3,7 +3,12 @@
 # -----------
 
 # NX artifacts
-tmp/
+tmp
+
+# Docusaurus artifacts
+build
+.docusaurus
+.cache-loader
 
 # Windows artifacts
 thumbs.db

@@ -1,7 +1,9 @@
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/vsDark");
 
-/** @type {import('@docusaurus/types').DocusaurusConfig} */
+/**
+ * @type {import('@docusaurus/types').DocusaurusConfig}
+ */
 module.exports = {
   title: "IsaacScript",
   url: "https://isaacscript.github.io",

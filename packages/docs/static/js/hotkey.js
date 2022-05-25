@@ -1,5 +1,3 @@
-/* eslint-disable isaacscript/no-object-any */
-
 const FIRST_DOC_PAGE_TITLE = "Features | IsaacScript";
 
 const keyMap = new Map();
@@ -26,14 +24,14 @@ function initKeyMap() {
 
 function onKeyDown(event) {
   // Debugging
-  // console.log("Key pressed:", e.key);
+  /// console.log("Key pressed:", e.key);
 
-  // Do not do anything if we have any modifier keys pressed down
+  // Do not do anything if we have any modifier keys pressed down.
   if (event.ctrlKey || event.shiftKey || event.altKey || event.metaKey) {
     return;
   }
 
-  // Do not do anything if we have the search box focused
+  // Do not do anything if we have the search box focused.
   if (isSearchBarFocused()) {
     return;
   }

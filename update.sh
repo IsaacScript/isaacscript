@@ -10,7 +10,13 @@ cd "$DIR"
 
 PACKAGE_JSON="$DIR/package.json"
 OLD_HASH=$(md5sum "$PACKAGE_JSON")
-npx npm-check-updates --upgrade --packageFile "$PACKAGE_JSON" --reject "typescript,chalk,@mdx-js/react,react,react-dom"
+# Old versions:
+# - typescript - Stuck until TSTL updates.
+# - chalk - Stuck until TypeScript supports ESM.
+# - @mdx-js/react,react,react-dom - Stuck until Docusaurus upgrades.
+# - unified - Does not work with the current Markdown linting setup because it requires a "module"
+#   type in "package.json", and Docusaurus does not support this yet.
+npx npm-check-updates --upgrade --packageFile "$PACKAGE_JSON" --reject "typescript,chalk,@mdx-js/react,react,react-dom,unified"
 NEW_HASH=$(md5sum "$PACKAGE_JSON")
 if [[ $OLD_HASH != $NEW_HASH ]]; then
   if test -f "$DIR/yarn.lock"; then

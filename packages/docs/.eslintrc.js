@@ -1,4 +1,4 @@
-const path = require("path"); // eslint-disable-line @typescript-eslint/no-var-requires
+const path = require("path");
 
 const REPO_ROOT = path.join(__dirname, "..", "..");
 const ESLINT_CONFIG_ISAACSCRIPT_PATH = path.join(
@@ -15,7 +15,6 @@ module.exports = {
 
   parserOptions: {
     project: path.join(__dirname, "tsconfig.json"),
-    // extraFileExtensions: [".mjs"], // Is this needed?
   },
 
   env: {
@@ -26,12 +25,14 @@ module.exports = {
 
   rules: {
     "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-unsafe-argument": "off",
     "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/no-unsafe-call": "off",
     "@typescript-eslint/no-unsafe-member-access": "off",
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/strict-boolean-expressions": "off",
     "import/no-unresolved": "off",
+    "isaacscript/no-object-any": "off",
     "no-alert": "off",
   },
 };

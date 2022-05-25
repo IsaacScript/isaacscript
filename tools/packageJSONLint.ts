@@ -44,7 +44,8 @@ function packageJSONLint(
 ): boolean {
   const isRoot = rootDeps === undefined;
   const isTemplateFile = packageJSONPath.includes("dynamic");
-  const shouldBePrivate = isRoot || packageJSONPath.includes("docs");
+  const isDocs = packageJSONPath.includes("docs");
+  const shouldBePrivate = isRoot || isDocs;
 
   const packageJSONString = file.read(packageJSONPath, false);
   const packageJSON = getPackageJSON(packageJSONString);
@@ -225,15 +226,19 @@ function packageJSONLint(
     }
   }
 
-  const { type } = packageJSON;
-  if (typeof type !== "string" || type === "") {
-    console.error(`File is missing a "type" field: ${packageJSONPath}`);
-    return false;
-  }
+  // Docusaurus is bugged with the type field. Building will fail regardless of whether you specify
+  // "commonjs" or "module".
+  if (!isDocs) {
+    const { type } = packageJSON;
+    if (typeof type !== "string" || type === "") {
+      console.error(`File is missing a "type" field: ${packageJSONPath}`);
+      return false;
+    }
 
-  if (type !== "commonjs") {
-    console.error(`File has an invalid "type" field: ${packageJSONPath}`);
-    return false;
+    if (type !== "commonjs") {
+      console.error(`File has an invalid "type" field: ${packageJSONPath}`);
+      return false;
+    }
   }
 
   const { files } = packageJSON;
