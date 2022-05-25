@@ -8,6 +8,10 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 ONE_OR_MORE_FAILURES=0
 
+# Check for alphabetically sorted and unique.
+ALL_WORDS="/tmp/all-words.txt"
+rm -f "$ALL_WORDS"
+touch "$ALL_WORDS"
 for DICTIONARY_DIR in $DIR/dictionaries/*; do
   if [ -d "$DICTIONARY_DIR" ]; then
     DICTIONARY_NAME=$(basename "$DICTIONARY_DIR")
@@ -28,11 +32,31 @@ for DICTIONARY_DIR in $DIR/dictionaries/*; do
         diff "$TMP_DICTIONARY_TXT" "$TMP_DICTIONARY_TXT_SORTED"
         ONE_OR_MORE_FAILURES=1
       fi
+      set -e
+
+      grep -v "^#" "$DICTIONARY_TXT" >> "$ALL_WORDS"
     done
 
     rm -f "$TMP_DICTIONARY_TXT"
   fi
 done
+
+echo "Checking for uniqueness across all dictionaries."
+sed -i 's/#.*//' "$ALL_WORDS" # Remove comments
+sed -i 's/^\s*//' "$ALL_WORDS" # Remove leading whitespace
+sed -i 's/\s*$//' "$ALL_WORDS" # Remove trailing whitespace
+sed -i '/^$/d' "$ALL_WORDS" # Remove empty lines
+ALL_WORDS_SORTED="/tmp/all-words-sorted.txt"
+sort --ignore-case "$ALL_WORDS" > "$ALL_WORDS_SORTED"
+ALL_WORDS_SORTED_UNIQUE="/tmp/all-words-sorted-unique.txt"
+sort --ignore-case --unique "$ALL_WORDS" > "$ALL_WORDS_SORTED_UNIQUE"
+set +e
+if ! cmp "$ALL_WORDS_SORTED" "$ALL_WORDS_SORTED_UNIQUE" --silent; then
+  echo
+  diff "$ALL_WORDS_SORTED" "$ALL_WORDS_SORTED_UNIQUE"
+  ONE_OR_MORE_FAILURES=1
+fi
+set -e
 
 if [ $ONE_OR_MORE_FAILURES -ne "0" ]; then
   echo "Dictionary check failed."

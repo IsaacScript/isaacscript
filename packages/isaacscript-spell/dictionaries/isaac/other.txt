@@ -19,7 +19,6 @@ rawequal # Lua global
 rawget # Lua global
 rawlen # Lua global
 rawset # Lua global
-respawn
 respawned
 setmetatable # Lua global
 Stonies
