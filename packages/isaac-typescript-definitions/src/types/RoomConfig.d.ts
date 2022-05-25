@@ -11,7 +11,10 @@ declare global {
   interface RoomConfig {
     Difficulty: RoomDifficulty;
 
-    /* This does not match the actual doors in the door, but rather the valid door positions from the STB for this room. */
+    /**
+     * This does not match the actual doors in the door, but rather the valid door positions from
+     * the STB for this room.
+     */
     Doors: BitFlags<DoorSlotFlag>;
 
     Height: int;
