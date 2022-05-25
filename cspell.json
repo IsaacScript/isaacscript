@@ -17,10 +17,5 @@
     "mod/main.lua",
     "mod/resources/rooms/**",
     "packages/docs/build/**"
-  ],
-  "words": [
-    "APPDATA",
-    "npmignore",
-    "syncer"
   ]
 }

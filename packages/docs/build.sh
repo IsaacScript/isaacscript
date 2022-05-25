@@ -6,7 +6,10 @@ set -e # Exit on any errors
 # https://stackoverflow.com/questions/59895/getting-the-source-directory-of-a-bash-script-from-within
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-# Build the website, which will go into the "build" subdirectory
 cd "$DIR"
-rm -rf "$DIR/build"
+
+OUT_DIR="$DIR/../../dist/packages/docs"
+
+rm -rf "$OUT_DIR"
+mkdir -p "$OUT_DIR"
 npm run build

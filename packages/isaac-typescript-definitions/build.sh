@@ -6,18 +6,35 @@ set -e # Exit on any errors
 # https://stackoverflow.com/questions/59895/getting-the-source-directory-of-a-bash-script-from-within
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+# Get the name of the repository:
+# https://stackoverflow.com/questions/23162299/how-to-get-the-last-part-of-dirname-in-bash/23162553
+REPO_NAME="$(basename "$DIR")"
+
 SECONDS=0
 
 cd "$DIR"
 
-# Compile the project, which will result in Lua files & TypeScript definition files.
+OUT_DIR="$DIR/../../dist/packages/$REPO_NAME"
+
+rm -rf "$OUT_DIR"
+
+# The compiled output will automatically go to the right place (because of the setting in the
+# "tsconfig.json" file).
 npx tstl
 
 # Copy the declarations into place. (The TypeScript compiler does not do this automatically for some
 # reason.)
-cp -R "$DIR/src/types" "$DIR/dist/"
+cp -R "$DIR/src/types" "$OUT_DIR/"
 
 # TypeScript messes up the path inside of the triple slash directive, so we must manually repair it.
-sed --in-place 's/\.\.\/src\///g' "$DIR/dist/index.d.ts"
+# /// <reference types="packages/isaac-typescript-definitions/src/types" />
+# -->
+# /// <reference types="types/index.d.ts" />
+sed --in-place 's/packages\/isaac-typescript-definitions\/src\/types/types\/index.d.ts/' "$OUT_DIR/index.d.ts"
+
+# Copy the rest of the files needed for NPM.
+cp "$DIR/LICENSE" "$OUT_DIR/"
+cp "$DIR/package.json" "$OUT_DIR/"
+cp "$DIR/README.md" "$OUT_DIR/"
 
 echo "Successfully built in $SECONDS seconds."

@@ -14,6 +14,7 @@ cd "$DIR"
 
 OUT_DIR="$DIR/../../dist/packages/$REPO_NAME"
 
+rm -rf "$OUT_DIR"
 mkdir -p "$OUT_DIR"
 cp $DIR/*.js "$OUT_DIR/" # Globs don't work in quotes
 cp $DIR/*.md "$OUT_DIR/" # Globs don't work in quotes

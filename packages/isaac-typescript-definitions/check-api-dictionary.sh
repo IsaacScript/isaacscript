@@ -6,16 +6,18 @@ set -e # Exit on any errors
 # https://stackoverflow.com/questions/59895/getting-the-source-directory-of-a-bash-script-from-within
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-# Do nothing if the configuration file does not exist.
-CSPELL_CONFIG_PATH="$DIR/.cspell.json"
+REPO_ROOT="$DIR/../.."
+
+CSPELL_CONFIG_PATH="$REPO_ROOT/cspell.json"
 if ! test -f "$CSPELL_CONFIG_PATH"; then
-  exit 0
+  echo "CSpell configuration file not found: $CSPELL_CONFIG_PATH"
+  exit 1
 fi
 
 # Make a list of every misspelled word without any custom dictionaries.
 # We need to move the configuration path temporarily or else the cspell command won't work properly.
-CSPELL_CONFIG_WITHOUT_IMPORT=$(python -c "import json; from pathlib import Path; config_text = Path('.cspell.json').read_text(); config = json.loads(config_text); del config['import']; new_config = json.dumps(config); print(new_config); ")
-CSPELL_CONFIG_PATH_TEMP="$DIR/.cspell-temp.json"
+CSPELL_CONFIG_WITHOUT_IMPORT=$(python -c "import json; from pathlib import Path; config_text = Path('../../cspell.json').read_text(); config = json.loads(config_text); del config['import']; new_config = json.dumps(config); print(new_config); ")
+CSPELL_CONFIG_PATH_TEMP="$REPO_ROOT/cspell-temp.json"
 mv "$CSPELL_CONFIG_PATH" "$CSPELL_CONFIG_PATH_TEMP"
 echo "$CSPELL_CONFIG_WITHOUT_IMPORT" > "$CSPELL_CONFIG_PATH"
 MISSPELLED_WORDS_PATH="/tmp/misspelled-words.txt"
@@ -23,7 +25,7 @@ npx cspell lint --no-progress --no-summary --unique --words-only | sort --ignore
 mv "$CSPELL_CONFIG_PATH_TEMP" "$CSPELL_CONFIG_PATH"
 
 DICTIONARY_NAME="api.txt"
-TXT_PATH="$DIR/node_modules/isaacscript-spell/dictionaries/isaac/$DICTIONARY_NAME"
+TXT_PATH="$DIR/../isaacscript-spell/dictionaries/isaac/$DICTIONARY_NAME"
 DICTIONARY_WORDS=$(cat "$TXT_PATH" | grep . | grep -v "^#")
 echo "Checking for every word in: $TXT_PATH"
 

@@ -12,11 +12,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "eslint-plugin-isaacscript": [
-        "packages/eslint-plugin-isaacscript/src/index.ts",
-      ],
-      // TODO: remove this after adding isaac-typescript-definitions, since it doesn't export anything
-      "isaacscript": ["packages/isaacscript-cli/src/main.ts"],
+      "isaac-typescript-definitions": ["packages/isaac-typescript-definitions/src/index.ts"],
     },
   },
 

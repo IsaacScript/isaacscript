@@ -1,19 +1,14 @@
-// The configuration file for TypeScript.
 {
-  // We extend the standard IsaacScript compiler flags:
-  // https://github.com/IsaacScript/isaacscript-tsconfig/blob/main/tsconfig.base.json
-  // (We can't extend "tsconfig.mod.json" since it references this repository.)
-  "extends": "isaacscript-tsconfig/tsconfig.base.json",
+  "extends": "../../tsconfig.monorepo.json",
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    // Specifies the root folder within your source files.
+    "outDir": "../../dist/packages/isaac-typescript-definitions",
+
+    // Needed or else the "outDir" won't work properly. (It is only needed in TSTL projects.)
     "rootDir": "./src",
 
-    // Specifies the directory of the output.
-    "outDir": "./dist",
-
-    // Needed since this is a Lua library.
+    // Needed since this is a library.
     "declaration": true,
 
     // Needed to hide internal functions from the auto-complete of end-users.
@@ -30,8 +25,9 @@
     "types": ["lua-types/5.3"],
   },
 
-  // A list of the TypeScript files to compile.
-  "include": ["./src/**/*.ts"],
+  // Nx will not include ".eslintrc.js" in the build output, so there is no need for a
+  // "tsconfig.eslint.rc" file.
+  "include": ["./src/**/*.ts", ".eslintrc.js"],
 
   // TypeScriptToLua settings
   "tstl": {
@@ -40,7 +36,9 @@
     "noHeader": true,
     "luaPlugins": [
       // A plugin to make enums safe from global variables.
-      { "name": "./plugins/noExtendedEnums.ts" },
+      {
+        "name": "../isaacscript-cli/file-templates/static/plugins/noExtendedEnums.ts",
+      },
     ],
   },
 }

@@ -13,4 +13,4 @@ REPO_NAME="$(basename "$DIR")"
 REPO_ROOT="$DIR/../.."
 cd "$REPO_ROOT"
 
-yarn nx build "$REPO_NAME"
+nx build "$REPO_NAME"
