@@ -6,26 +6,28 @@ set -e # Exit on any errors
 # https://stackoverflow.com/questions/59895/getting-the-source-directory-of-a-bash-script-from-within
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+# The website repository will be already cloned at this point by the parent GitHub action. See
+# "ci.yml" for more information.
+REPO_ROOT="$DIR/../.."
+BUILD_PATH="$REPO_ROOT/dist/packages/docs"
 DOCS_REPO_NAME="isaacscript.github.io"
-cd "$DIR"
-rm -rf "$DIR/$DOCS_REPO_NAME"
-git clone --depth 1 --branch gh-pages "git@github.com:IsaacScript/$DOCS_REPO_NAME.git"
-cp -R "$DIR/build/"* "$DIR/$DOCS_REPO_NAME/"
-cd "$DIR/$DOCS_REPO_NAME"
+DOCS_REPO="$REPO_ROOT/$DOCS_REPO_NAME"
+
+cp -R "$BUILD_PATH/"* "$DOCS_REPO/"
+cd "$DOCS_REPO"
 
 set +e
 if npx git-dirty; then
-  # There are no changes to deploy.
+  echo "There are no docs changes to deploy."
   exit 0
 fi
 set -e
 
-echo "PUBLIC KEY:"
-echo "~/.ssh/id_rsa.pub"
+echo "Deploying changes to the docs website: $DOCS_REPO_NAME"
 
-echo 1) git add -A
+git config --global user.email "github-actions@users.noreply.github.com"
+git config --global user.name "github-actions"
+
 git add -A
-echo 2) git commit -m "deploy"
 git commit -m "deploy"
-echo 3) git push
 git push

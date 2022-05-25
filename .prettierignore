@@ -8,7 +8,6 @@ cspell.json
 tmp
 
 # Docusaurus artifacts
-build
 .docusaurus
 .cache-loader
 

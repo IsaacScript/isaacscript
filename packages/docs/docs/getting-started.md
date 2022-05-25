@@ -80,5 +80,3 @@ That's it! Now, start coding by editing the `src/main.ts` file.
 Note that when you are editing the code in your project, you should always have VSCode opened to the project directory (i.e. by clicking on File --> Open Folder), as opposed to just editing a single file. Otherwise, ESLint and Prettier won't work.
 
 <br />
-
-Canary.

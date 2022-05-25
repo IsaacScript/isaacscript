@@ -36,6 +36,20 @@ jobs:
       - name: Lint every package in the monorepo
         run: bash lint.sh
 
+      - name: Checkout the docs repository
+        uses: actions/checkout@v3
+        if: github.event_name != 'pull_request'
+        with:
+          ssh-key: ${{ secrets.DOCS_SSH_PRIVATE_KEY }}
+          repository: IsaacScript/isaacscript.github.io
+          ref: gh-pages
+          # The current working directory is:
+          # /home/runner/work/isaacscript/isaacscript
+          # Thus, the following path is equivalent to:
+          # /home/runner/work/isaacscript/isaacscript/isaacscript.github.io
+          # (it is not possible to clone the repo in the parent directory for security reasons)
+          path: isaacscript.github.io
+
       - name: Deploy the documentation website
         run: bash packages/docs/deploy.sh
         if: github.event_name != 'pull_request'
