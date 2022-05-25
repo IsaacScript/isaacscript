@@ -20,6 +20,7 @@ mimiccharge # pocketitems.xml
 Onan # challenges.xml
 pftempestasevencondensed # font
 pilleffect # pocketitems.xml
+shotspeed # items.xml
 shutdoors # entities2.xml
 teammeatfont # font
 XLAX # pocketitems.xml
