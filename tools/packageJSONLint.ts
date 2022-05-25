@@ -26,6 +26,8 @@ function main() {
     ignore: ["node_modules/**", "dist/**"],
   });
 
+  checkRootDepsUpToDate(rootDeps, packageJSONPaths);
+
   let atLeastOneError = false;
   for (const packageJSONPath of packageJSONPaths) {
     if (!packageJSONLint(packageJSONPath, rootDeps)) {
@@ -339,6 +341,41 @@ function checkDeps(
   }
 
   return !atLeastOneError;
+}
+
+function checkRootDepsUpToDate(
+  rootDeps: Record<string, string>,
+  packageJSONPaths: string[],
+) {
+  for (const [rootDepName, rootDepVersion] of Object.entries(rootDeps)) {
+    if (rootDepName === undefined) {
+      continue;
+    }
+
+    const matchingPackageJSONPath = packageJSONPaths.find((packageJSONPath) =>
+      packageJSONPath.includes(`/${rootDepName}/`),
+    );
+    if (matchingPackageJSONPath === undefined) {
+      continue;
+    }
+
+    const packageJSONString = file.read(matchingPackageJSONPath, false);
+    const packageJSON = getPackageJSON(packageJSONString);
+
+    const { version } = packageJSON;
+    if (typeof version !== "string" || version === "") {
+      throw new Error(
+        `Failed to find the version for file: ${matchingPackageJSONPath}`,
+      );
+    }
+
+    const versionString = `^${version}`;
+    if (rootDepVersion !== versionString) {
+      error(
+        `Root dependency "${rootDepName}" is not up to date: ${rootDepVersion} --> ${versionString}`,
+      );
+    }
+  }
 }
 
 function getPackageJSON(packageJSONString: string): Record<string, unknown> {

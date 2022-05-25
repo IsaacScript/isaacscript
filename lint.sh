@@ -10,7 +10,6 @@ SECONDS=0
 
 cd "$DIR"
 
-# Allow the "json" argument to skip linting each package.
 if [ "$1" != "json" ]; then
   # Lint each package.
   if command -v nx &> /dev/null; then
@@ -22,9 +21,12 @@ if [ "$1" != "json" ]; then
   fi
 fi
 
-# Lint monorepo things.
+# Checking "package.json" files
 npx ts-node --project "$DIR/tools/tsconfig.json" "$DIR/tools/packageJSONLint.ts"
-echo "Checking markdown..."
-npx markdownlint .
+
+if [ "$1" != "json" ]; then
+  echo "Checking markdown..."
+  npx markdownlint .
+fi
 
 echo "Successfully linted in $SECONDS seconds."
