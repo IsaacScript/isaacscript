@@ -2,6 +2,7 @@
 
 airbnb # Part of the linting config
 APPDATA # Monorepo word
+autocrlf # gitattributes
 browserslist # Monorepo word
 buildable # Monorepo word
 clsx # Monorepo word
