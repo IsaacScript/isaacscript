@@ -36,7 +36,9 @@ jobs:
       - name: Lint every package in the monorepo
         run: bash lint.sh
 
-      # TODO: docs
+      - name: Deploy the documentation website
+        run: bash packages/docs/deploy.sh
+        if: github.event_name != 'pull_request'
 
   discord:
     name: Discord Failure Notification

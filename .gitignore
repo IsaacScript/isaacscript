@@ -9,6 +9,7 @@ tmp
 build
 .docusaurus
 .cache-loader
+isaacscript.github.io
 
 # Windows artifacts
 thumbs.db

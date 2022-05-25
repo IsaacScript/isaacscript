@@ -7235,6 +7235,11 @@ get-symbol-description@^1.0.0:
     call-bind "^1.0.2"
     get-intrinsic "^1.1.1"
 
+git-dirty@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/git-dirty/-/git-dirty-1.0.2.tgz#fbbd2cfd36fb5f87cb36e95c508e2e896724e116"
+  integrity sha1-+70s/Tb7X4fLNulcUI4uiWck4RY=
+
 git-hooks-list@1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/git-hooks-list/-/git-hooks-list-1.0.3.tgz#be5baaf78203ce342f2f844a9d2b03dba1b45156"
