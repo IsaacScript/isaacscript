@@ -334,7 +334,7 @@ function checkDeps(
 
     if (value !== rootDepValue) {
       console.error(
-        `Incorrect dependency: ${packageJSONPath} - ${key}: ${value}`,
+        `Incorrect dependency: ${packageJSONPath} - ${key}: ${value} --> ${rootDepValue}`,
       );
       atLeastOneError = true;
     }
