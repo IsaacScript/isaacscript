@@ -15,6 +15,10 @@ thumbs.db
 # MacOS artifacts
 .DS_Store
 
+# Ignore the auto-generated API docs from TypeDoc (since it will just contain duplicate information
+# from what is already in the JSDoc comments of the source code).
+packages/docs/docs/api
+
 # ------------------------------
 # GitHub Node.gitignore template
 # https://raw.githubusercontent.com/github/gitignore/master/Node.gitignore

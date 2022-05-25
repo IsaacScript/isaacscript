@@ -70,4 +70,13 @@ module.exports = {
     ],
   ],
   scripts: ["/js/hotkey.js"],
+  plugins: [
+    [
+      "docusaurus-plugin-typedoc",
+      {
+        entryPoints: ["../isaacscript-common/src/index.ts"],
+        tsconfig: "../isaacscript-common/tsconfig.json",
+      },
+    ],
+  ],
 };
