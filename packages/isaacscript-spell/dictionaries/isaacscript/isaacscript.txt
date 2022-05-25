@@ -39,4 +39,5 @@ tstl
 Turnbull # Author of "airbnb-typescript/base"
 typedoc
 workshopitem # metadata.vdf
+Zamiel
 Zamiell
