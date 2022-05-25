@@ -30,7 +30,7 @@ cp -R "$DIR/src/types" "$OUT_DIR/"
 # /// <reference types="packages/isaac-typescript-definitions/src/types" />
 # -->
 # /// <reference types="types/index.d.ts" />
-sed --in-place 's/packages\/isaac-typescript-definitions\/src\/types/types\/index.d.ts/' "$OUT_DIR/index.d.ts"
+sed --in-place 's/types="packages\/isaac-typescript-definitions\/src\/types"/path="types\/index.d.ts"/' "$OUT_DIR/index.d.ts"
 
 # Copy the rest of the files needed for NPM.
 cp "$DIR/LICENSE" "$OUT_DIR/"

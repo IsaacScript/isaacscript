@@ -28,6 +28,10 @@
     "dist/**/*.js": true,
     "dist/**/*.json": true,
     "dist/**/*.lua": true,
+    "node_modules/**/*.ts": true,
+    "node_modules/**/*.js": true,
+    "node_modules/**/*.json": true,
+    "node_modules/**/*.lua": true,
   },
 
   // -----------------
