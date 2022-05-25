@@ -6,6 +6,7 @@ import {
   Direction,
   DisplayFlag,
   GameStateFlag,
+  GridEntityType,
   GridRoom,
   LevelStage,
   PillColor,
@@ -38,6 +39,7 @@ import { isValidCollectibleType } from "../../functions/collectibles";
 import { getNPCs } from "../../functions/entitySpecific";
 import { getEnumValues } from "../../functions/enums";
 import { addFlag } from "../../functions/flag";
+import { spawnGrid } from "../../functions/gridEntity";
 import {
   logEffects,
   logRoom,
@@ -579,6 +581,25 @@ export function grid(): void {
 /** Alias for the "debug 11" command. */
 export function grid2(): void {
   Isaac.ExecuteCommand("debug 11");
+}
+
+/** Spawns every grid entity, starting at the top-left-most tile. */
+export function gridEntities(): void {
+  const gridEntityTypes = getEnumValues(GridEntityType);
+
+  let gridEntityTypeIndex = -1;
+  for (let y = 0; y <= 6; y++) {
+    for (let x = 0; x <= 12; x++) {
+      gridEntityTypeIndex += 1;
+      const gridEntityType = gridEntityTypes[gridEntityTypeIndex];
+      if (gridEntityType === undefined) {
+        return;
+      }
+
+      const position = gridCoordinatesToWorldPosition(x, y);
+      spawnGrid(gridEntityType, position);
+    }
+  }
 }
 
 /** Alias for the "hearts" command. */

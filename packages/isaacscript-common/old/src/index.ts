@@ -19,19 +19,7 @@ export * from "./enums/PocketItemType";
 export * from "./enums/SerializationType";
 export { registerCharacterHealthConversion } from "./features/characterHealthConversion";
 export { registerCharacterStats } from "./features/characterStats";
-export {
-  setBombDisplay,
-  setEffectDisplay,
-  setFamiliarDisplay,
-  setKnifeDisplay,
-  setLaserDisplay,
-  setNPCDisplay,
-  setPickupDisplay,
-  setPlayerDisplay,
-  setProjectileDisplay,
-  setSlotDisplay,
-  setTearDisplay,
-} from "./features/debugDisplay";
+export * from "./features/debugDisplay/exports";
 export {
   deployJSONRoom,
   deployRandomJSONRoom,

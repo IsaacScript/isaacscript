@@ -435,7 +435,7 @@ export function spawnGiantPoop(topLeftGridIndex: int): void {
  */
 export function spawnGrid(
   gridEntityType: GridEntityType,
-  gridIndexOrPosition: int,
+  gridIndexOrPosition: int | Vector,
 ): GridEntity | undefined {
   return spawnGridWithVariant(gridEntityType, 0, gridIndexOrPosition);
 }
@@ -451,7 +451,7 @@ export function spawnGrid(
 export function spawnGridWithVariant(
   gridEntityType: GridEntityType,
   variant: int,
-  gridIndexOrPosition: int,
+  gridIndexOrPosition: int | Vector,
 ): GridEntity | undefined {
   const room = game.GetRoom();
 

@@ -17,7 +17,7 @@ import {
   toggleSpikesDisplay,
   toggleTearDisplay,
   toggleTNTDisplay,
-} from "../debugDisplay";
+} from "../debugDisplay/exports";
 
 /**
  * Toggles custom text to appear next to every bomb. Useful for debugging.
