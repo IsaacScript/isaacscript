@@ -12,17 +12,17 @@ This is the [monorepo](https://en.wikipedia.org/wiki/Monorepo) that houses the v
 
 Each project in the monorepo is contained within the "packages" directory.
 
-| Name                                                                            | Description                                                                |
-| ------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| [docs](tree/main/packages/docs)                                                 | The Docusaurus website.                                                    |
-| [eslint-config-isaacscript](tree/main/packages/eslint-config-isaacscript)       | A sharable ESLint config for TypeScript and IsaacScript projects.          |
-| [eslint-plugin-isaacscript](tree/main/packages/eslint-plugin-isaacscript)       | An ESLint plugin that contains useful rules.                               |
-| [isaacscript-cli](tree/main/packages/isaacscript-cli)                           | The command-line tool for managing Isaac mods written in TypeScript.       |
-| [isaacscript-common](tree/main/packages/isaacscript-common)                     | Helper functions and features for IsaacScript mods.                        |
-| [isaacscript-lint](tree/main/packages/isaacscript-lint)                         | A linting dependency meta-package for IsaacScript and TypeScript projects. |
-| [isaacscript-spell](tree/main/packages/isaacscript-spell)                       | Spelling dictionaries for _The Binding of Isaac: Repentance_.              |
-| [isaacscript-tsconfig](tree/main/packages/isaacscript-tsconfig)                 | A sharable TypeScript config for TypeScript and IsaacScript projects.      |
-| [isaac-typescript-definitions](tree/main/packages/isaac-typescript-definitions) | TypeScript definitions for the _The Binding of Isaac: Repentance_ API.     |
+| Name                                                                            | Description                                                                | Version                                                                                                                                     |
+| ------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| [docs](tree/main/packages/docs)                                                 | The Docusaurus website.                                                    | n/a                                                                                                                                         |
+| [eslint-config-isaacscript](tree/main/packages/eslint-config-isaacscript)       | A sharable ESLint config for TypeScript and IsaacScript projects.          | [![npm version](https://img.shields.io/npm/v/eslint-config-isaacscript.svg)](https://www.npmjs.com/package/eslint-config-isaacscript)       |
+| [eslint-plugin-isaacscript](tree/main/packages/eslint-plugin-isaacscript)       | An ESLint plugin that contains useful rules.                               | [![npm version](https://img.shields.io/npm/v/eslint-plugin-isaacscript.svg)](https://www.npmjs.com/package/eslint-plugin-isaacscript)       |
+| [isaacscript-cli](tree/main/packages/isaacscript-cli)                           | The command-line tool for managing Isaac mods written in TypeScript.       | [![npm version](https://img.shields.io/npm/v/isaacscript.svg)](https://www.npmjs.com/package/isaacscript)                                   |
+| [isaacscript-common](tree/main/packages/isaacscript-common)                     | Helper functions and features for IsaacScript mods.                        | [![npm version](https://img.shields.io/npm/v/isaacscript-common.svg)](https://www.npmjs.com/package/isaacscript-common)                     |
+| [isaacscript-lint](tree/main/packages/isaacscript-lint)                         | A linting dependency meta-package for IsaacScript and TypeScript projects. | [![npm version](https://img.shields.io/npm/v/isaacscript-lint.svg)](https://www.npmjs.com/package/isaacscript-lint)                         |
+| [isaacscript-spell](tree/main/packages/isaacscript-spell)                       | Spelling dictionaries for _The Binding of Isaac: Repentance_.              | [![npm version](https://img.shields.io/npm/v/isaacscript-spell.svg)](https://www.npmjs.com/package/isaacscript-spell)                       |
+| [isaacscript-tsconfig](tree/main/packages/isaacscript-tsconfig)                 | A sharable TypeScript config for TypeScript and IsaacScript projects.      | [![npm version](https://img.shields.io/npm/v/isaacscript-tsconfig.svg)](https://www.npmjs.com/package/isaacscript-tsconfig)                 |
+| [isaac-typescript-definitions](tree/main/packages/isaac-typescript-definitions) | TypeScript definitions for the _The Binding of Isaac: Repentance_ API.     | [![npm version](https://img.shields.io/npm/v/isaac-typescript-definitions.svg)](https://www.npmjs.com/package/isaac-typescript-definitions) |
 
 <br>
 
