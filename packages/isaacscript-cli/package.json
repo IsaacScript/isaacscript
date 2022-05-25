@@ -26,6 +26,7 @@
     "isaacscript": "./src/main.js"
   },
   "dependencies": {
+    "@types/node": "^17.0.35",
     "git-dirty": "^1.0.2",
     "isaacscript-tsconfig": "^1.1.17",
     "npm-check-updates": "^13.0.3",
