@@ -14,6 +14,7 @@ Each project in the monorepo is contained within the "packages" directory.
 
 | Name                                                                      | Description                                                                |
 | ------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| [docs](tree/main/packages/docs)                                           | The Docusaurus website.                                                    |
 | [eslint-config-isaacscript](tree/main/packages/eslint-config-isaacscript) | A sharable ESLint config for TypeScript and IsaacScript projects.          |
 | [eslint-plugin-isaacscript](tree/main/packages/eslint-plugin-isaacscript) | An ESLint plugin that contains useful rules.                               |
 | [isaacscript-cli](tree/main/packages/isaacscript-cli)                     | The command-line tool for managing Isaac mods written in TypeScript.       |
@@ -21,7 +22,7 @@ Each project in the monorepo is contained within the "packages" directory.
 | [isaacscript-spell](tree/main/packages/isaacscript-spell)                 | Spelling dictionaries for _The Binding of Isaac: Repentance_.              |
 | [isaacscript-tsconfig](tree/main/packages/isaacscript-tsconfig)           | A sharable TypeScript config for TypeScript and IsaacScript projects.      |
 
-TODO: add isaacscript-common & isaac-typescript-definitions & docs
+TODO: isaac-typescript-definitions & add isaacscript-common
 
 <br>
 
