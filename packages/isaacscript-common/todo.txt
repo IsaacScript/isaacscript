@@ -1,9 +1,6 @@
 Monorepo TODO:
-- merge isaac-typescript-definitions
-  - after merging isaac-typescript-definitions, get rid of words in .cspell.json for isaac-typescript-definitions and add comments
-  - update monorepo README.md
-- delete and recreate local repo after migrating isaacscript-common and isaac-typescript-definitions
 
+- Create docs:
       - name: Create the docs locally in CI
         if: github.event_name != 'pull_request'
         run: bash docs.sh
@@ -17,11 +14,12 @@ Monorepo TODO:
 
 TODO:
 - NEW DOCUMENTATION WEBSITE - defer until monorepo
+- "typedoc-plugin-merge-modules": "^3.1.0",
+
 - redo docs so that function examples are in JSDoc
   - confirm that POST_USE_CARD and POST_USE_PILL and POST_NPC_UPDATE and POST_FAMILIAR_UPDATE and POST_FAMILIAR_INIT are documented
   - confirm that ModCallback is documented
 - change bundleEntry.ts to "export {}" with comment - actually, wait until perry merges
-- "typedoc-plugin-merge-modules": "^3.1.0",
 
 LINTER:
 - make lint rule for "declare something that is not global in file with one or more imports"
