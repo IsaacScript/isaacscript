@@ -114,8 +114,8 @@ declare global {
     POOL_DEVIL = 4,
     POOL_ANGEL = 5,
     POOL_SECRET = 6,
-    POOL_ENCYCLOPEDIARARY = 7,
-    POOL_SHELL_GAME = 8, // unused (for now)
+    POOL_ENCYCLOPEDIARARY = 7, // cspell:ignore ENCYCLOPEDIARARY
+    POOL_SHELL_GAME = 8,
     POOL_GOLDEN_CHEST = 9,
     POOL_RED_CHEST = 10,
     POOL_BEGGAR = 11,
@@ -134,7 +134,7 @@ declare global {
     POOL_GREED_SECRET = 23,
 
     POOL_CRANE_GAME = 24,
-    POOL_ULTRA_SECRET = 25, // unused
+    POOL_ULTRA_SECRET = 25,
     POOL_BOMB_BUM = 26,
     POOL_PLANETARIUM = 27,
     POOL_OLD_CHEST = 28,
@@ -152,8 +152,8 @@ declare global {
 
   type EncyclopediaWikiDescriptionLine = {
     clr?: number;
-    fsize?: number;
-    halign?: number;
+    fsize?: number; // cspell:ignore fsize
+    halign?: number; // cspell:ignore halign
     str: string;
   };
 
