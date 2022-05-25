@@ -79,11 +79,11 @@
     "eslint-plugin-jsdoc": "^39.3.2",
     "eslint-plugin-only-warn": "^1.0.3",
     "eslint-plugin-sort-exports": "^0.6.0",
-    "file-loader": "^6.2.0",
     "git-dirty": "^1.0.2",
     "glob": "^8.0.3",
     "husky": "^8.0.1",
     "jest": "^28.1.0",
+    "lua-types": "^2.11.0",
     "markdownlint": "^0.25.1",
     "markdownlint-cli": "^0.31.1",
     "npm-check-updates": "^13.0.3",
@@ -115,7 +115,6 @@
     "ts-node": "^10.8.0",
     "ts-prune": "^0.10.3",
     "typescript": "^4.6.2",
-    "unified": "^9.2.2",
-    "url-loader": "^4.1.1"
+    "unified": "^9.2.2"
   }
 }
