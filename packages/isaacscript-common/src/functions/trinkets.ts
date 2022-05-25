@@ -170,6 +170,7 @@ export function isGoldenTrinket(trinketType: TrinketType): boolean {
   return trinketType > (GOLDEN_TRINKET_ADJUSTMENT as TrinketType);
 }
 
+// cspell:ignore swallowedpenny
 /**
  * Helper function to change the sprite of a trinket entity.
  *
@@ -178,9 +179,9 @@ export function isGoldenTrinket(trinketType: TrinketType): boolean {
  *
  * @param trinket The trinket whose sprite you want to modify.
  * @param pngPath Equal to either the spritesheet path to load (e.g.
- *                "gfx/items/collectibles/collectibles_001_thesadonion.png") or undefined. If
- *                undefined, the sprite will be removed, making it appear like the collectible has
- *                already been taken by the player.
+ *                "gfx/items/trinkets/trinket_001_swallowedpenny.png") or undefined. If undefined,
+ *                the sprite will be removed, making it appear like the collectible has already been
+ *                taken by the player.
  */
 export function setTrinketSprite(
   trinket: EntityPickup,

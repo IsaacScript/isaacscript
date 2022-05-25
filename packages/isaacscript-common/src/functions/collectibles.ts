@@ -530,6 +530,7 @@ export function setCollectibleEmpty(collectible: EntityPickup): void {
   clearCollectibleSprite(collectible);
 }
 
+// cspell:ignore thesadonion
 /**
  * Helper function to change the sprite of a collectible pedestal entity.
  *
