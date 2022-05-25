@@ -1,6 +1,7 @@
 # These are words contained within IsaacScript template files and elsewhere.
 
 airbnb # Part of the linting config
+APPDATA # Monorepo word
 browserslist # Monorepo word
 buildable # Monorepo word
 clsx # Monorepo word
@@ -31,6 +32,7 @@ retext # Monorepo word
 ssmacro # Monorepo word
 steamcmd # For publishing
 svgr # Monorepo word
+syncer # Monorepo word
 TSES # For TSESTree
 tstl
 Turnbull # Author of "airbnb-typescript/base"
