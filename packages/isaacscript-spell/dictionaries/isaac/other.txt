@@ -2,8 +2,8 @@
 
 dofile # Lua global
 Eggies
-getinfo # Debug library method
 gameplay
+getinfo # Debug library method
 getmetatable # Lua global
 giveitem # Console command
 hitbox
