@@ -450,6 +450,13 @@ valid.push({
   `,
 });
 
+valid.push({
+  name: "Comment with JSDoc type",
+  code: `
+/** @type {import('@docusaurus/types').DocusaurusConfig} */
+  `,
+});
+
 ruleTester.run("complete-sentences-jsdoc", completeSentencesJSDoc, {
   valid,
   invalid,
