@@ -15,3 +15,5 @@ transpiles
 transpiling
 unexported
 unfixable
+uninitialize
+unopenable

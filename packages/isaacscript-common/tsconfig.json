@@ -1,0 +1,39 @@
+{
+  "extends": "../../tsconfig.monorepo.json",
+
+  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
+  "compilerOptions": {
+    "outDir": "../../dist",
+
+    // Needed since this is a library.
+    "declaration": true,
+
+    // Needed to hide internal functions from the auto-complete of end-users.
+    "stripInternal": true,
+
+    // Recommended as per TypeScriptToLua:
+    // https://typescripttolua.github.io/docs/getting-started/
+    "target": "ESNext",
+    "lib": ["ESNext"],
+    "moduleResolution": "Node",
+    // "types": ["dist/packages/isaac-typescript-definitions/index.d.ts"],
+    "types": ["isaac-typescript-definitions"],
+  },
+
+  // Nx will not include ".eslintrc.js" in the build output, so there is no need for a
+  // "tsconfig.eslint.rc" file.
+  "include": ["./src/**/*.ts", ".eslintrc.js"],
+
+  // TypeScriptToLua settings
+  "tstl": {
+    "luaTarget": "5.3",
+    "buildMode": "library",
+    "noHeader": true,
+    "luaPlugins": [
+      // A plugin to make enums safe from global variables.
+      {
+        "name": "../isaacscript-cli/file-templates/static/plugins/noExtendedEnums.ts",
+      },
+    ],
+  },
+}

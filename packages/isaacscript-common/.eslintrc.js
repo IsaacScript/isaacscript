@@ -1,24 +1,24 @@
-// This is the configuration file for ESLint, the TypeScript linter:
-// https://eslint.org/docs/user-guide/configuring
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+
+const path = require("path"); // eslint-disable-line @typescript-eslint/no-var-requires
+
+const REPO_ROOT = path.join(__dirname, "..", "..");
+const ESLINT_CONFIG_ISAACSCRIPT_PATH = path.join(
+  REPO_ROOT,
+  "packages",
+  "eslint-config-isaacscript",
+);
+
 module.exports = {
   extends: [
-    /**
-     * The linter base is the shared IsaacScript config:
-     * https://github.com/IsaacScript/eslint-config-isaacscript/blob/main/mod.js
-     */
-    "eslint-config-isaacscript/mod",
+    path.join(ESLINT_CONFIG_ISAACSCRIPT_PATH, "mod.js"),
+    path.join(ESLINT_CONFIG_ISAACSCRIPT_PATH, "monorepo.js"),
   ],
 
-  // Don't bother linting the compiled output.
-  ignorePatterns: ["./dist/**"],
-
   parserOptions: {
-    /**
-     * ESLint needs to know about the project's TypeScript settings in order for TypeScript-specific
-     * things to lint correctly. We do not point this at "./tsconfig.json" because certain files
-     * (such at this file) should be linted but not included in the actual project output.
-     */
-    project: "./tsconfig.eslint.json",
+    project: path.join(__dirname, "tsconfig.json"),
   },
 
   rules: {

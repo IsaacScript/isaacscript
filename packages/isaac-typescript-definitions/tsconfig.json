@@ -3,10 +3,9 @@
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    "outDir": "../../dist/packages/isaac-typescript-definitions",
-
-    // Needed or else the "outDir" won't work properly. (It is only needed in TSTL projects.)
-    "rootDir": "./src",
+    // It really gets output to "dist/packages/isaac-typescript-definitions/src" because of a quirk
+    // with how Nx interacts with TSTL.
+    "outDir": "../../dist",
 
     // Needed since this is a library.
     "declaration": true,

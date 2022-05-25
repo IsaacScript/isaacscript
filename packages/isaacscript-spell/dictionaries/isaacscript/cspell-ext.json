@@ -11,6 +11,11 @@
       "description": "Words for IsaacScript"
     },
     {
+      "name": "stdlib",
+      "path": "./stdlib.txt",
+      "description": "Words from the standard library"
+    },
+    {
       "name": "gitignore",
       "path": "./gitignore.txt",
       "description": "Words for gitignore template"
@@ -21,13 +26,12 @@
       "description": "Missing English words"
     }
   ],
-  "dictionaries": [],
   "languageSettings": [
     {
       "languageId": "*",
       "locale": "*",
       "includeRegExpList": [],
-      "dictionaries": ["isaacscript", "gitignore", "missing-words"],
+      "dictionaries": ["isaacscript", "stdlib", "gitignore", "missing-words"],
       "dictionaryDefinitions": []
     }
   ]

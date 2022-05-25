@@ -11,9 +11,15 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
+
+    // Commented out since TypeScript paths don't work properly with TSTL.
+    /*
     "paths": {
-      "isaac-typescript-definitions": ["packages/isaac-typescript-definitions/src/index.ts"],
+      "isaac-typescript-definitions": [
+        "dist/packages/isaac-typescript-definitions",
+      ],
     },
+    */
   },
 
   "exclude": ["node_modules", "tmp"],

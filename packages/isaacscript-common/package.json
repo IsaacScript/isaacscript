@@ -1,0 +1,27 @@
+{
+  "name": "isaacscript-common",
+  "version": "2.0.32",
+  "description": "Helper functions and features for IsaacScript mods.",
+  "keywords": [
+    "isaac",
+    "rebirth",
+    "afterbirth",
+    "repentance"
+  ],
+  "homepage": "https://isaacscript.github.io/",
+  "bugs": {
+    "url": "https://github.com/IsaacScript/isaacscript/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IsaacScript/isaacscript.git"
+  },
+  "license": "GPL-3.0",
+  "author": "Zamiell",
+  "type": "commonjs",
+  "main": "index",
+  "types": "index.d.ts",
+  "dependencies": {
+    "isaac-typescript-definitions": "^2.0.52"
+  }
+}

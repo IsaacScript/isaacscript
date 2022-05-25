@@ -1,9 +1,32 @@
 # These are words that apply to Isaac modding in general.
 
+dofile # Lua global
+Eggies
+getinfo # Debug library method
 gameplay
-giveitem
+getmetatable # Lua global
+giveitem # Console command
 hitbox
-ipairs
+hitboxes
+ipairs # Lua global
+loadfile # Lua global
+metatable # Lua word
+metatables # Lua word
 modders
+pcall # Lua global
+Raglings
+rawequal # Lua global
+rawget # Lua global
+rawlen # Lua global
+rawset # Lua global
+respawn
+respawned
+setmetatable # Lua global
 Stonies
-tostring
+teleporting
+texels
+tonumber # Lua global
+tostring # Lua global
+Turdlings
+upvalue # Debug library word
+xpcall # Lua global

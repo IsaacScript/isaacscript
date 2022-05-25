@@ -7,9 +7,12 @@ endstage # challenges.xml
 fadecolor # cutscenes.xml
 gfxroot # items.xml
 greedmode # pocketitems.xml
+Humbleing # items.xml
 itempools # itempools.xml
 maxcharges # items.xml
 mimiccharge # pocketitems.xml
+Onan # challenges.xml
 pftempestasevencondensed # font
 shutdoors # entities2.xml
+thesadonion # collectibles_001_thesadonion.png
 XLAX # pocketitems.xml

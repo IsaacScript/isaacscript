@@ -17,10 +17,11 @@ cd "$DIR"
 OUT_DIR="$DIR/../../dist/packages/$REPO_NAME"
 
 rm -rf "$OUT_DIR"
-
-# The compiled output will automatically go to the right place (because of the setting in the
-# "tsconfig.json" file).
 npx tstl
+
+# The compiled output goes to a "src" subdirectory; move it to the root and delete it.
+mv "$OUT_DIR/src/"* "$OUT_DIR/"
+rmdir "$OUT_DIR/src"
 
 # Copy the declarations into place. (The TypeScript compiler does not do this automatically for some
 # reason.)
@@ -29,7 +30,7 @@ cp -R "$DIR/src/types" "$OUT_DIR/"
 # TypeScript messes up the path inside of the triple slash directive, so we must manually repair it.
 # /// <reference types="packages/isaac-typescript-definitions/src/types" />
 # -->
-# /// <reference types="types/index.d.ts" />
+# /// <reference path="types/index.d.ts" />
 sed --in-place 's/types="packages\/isaac-typescript-definitions\/src\/types"/path="types\/index.d.ts"/' "$OUT_DIR/index.d.ts"
 
 # Copy the rest of the files needed for NPM.

@@ -28,7 +28,9 @@ else
 fi
 
 # Bump the version.
-nx version "$1" --push --allowEmptyRelease --skipProjectChangelog $PRE_ID $3
+nx version "$1" --allowEmptyRelease --skipProjectChangelog $PRE_ID $3
+# (We don't want to add the "--push" flag because CI might fail if other packages depend on this
+# package, since the version now out of date.)
 
 # Upload it to NPM.
 nx publish "$1"
