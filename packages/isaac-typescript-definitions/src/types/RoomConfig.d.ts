@@ -12,7 +12,7 @@ declare global {
     Difficulty: RoomDifficulty;
 
     /**
-     * This does not match the actual doors in the door, but rather the valid door positions from
+     * This does not match the actual doors in the room, but rather the valid door positions from
      * the STB for this room.
      */
     Doors: BitFlags<DoorSlotFlag>;
