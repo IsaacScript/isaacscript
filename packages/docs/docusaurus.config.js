@@ -61,7 +61,7 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
           editUrl:
-            "https://github.com/IsaacScript/isaacscript.github.io/edit/main/",
+            "https://github.com/IsaacScript/isaacscript/edit/main/packages/docs/",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
