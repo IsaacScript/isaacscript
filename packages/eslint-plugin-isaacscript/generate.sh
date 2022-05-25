@@ -11,13 +11,14 @@ cd "$DIR"
 # Only do git dirty checks if this script was called with the "check" argument.
 if [ "$1" = "check" ]; then
   echo "Checking to see if git is dirty before generating..."
-  git diff --quiet # Returns 1 if any files have changed
+  npx git-dirty
 fi
 
 npm run generate
 
 if [ "$1" = "check" ]; then
-  git diff --quiet # Returns 1 if any files have changed
+  echo "Checking to see if any files have changed..."
+  npx git-dirty
 fi
 
 echo "All generation scripts were successful."
