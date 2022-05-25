@@ -20,6 +20,12 @@ if npx git-dirty; then
 fi
 set -e
 
+echo "PUBLIC KEY:"
+echo "~/.ssh/id_rsa.pub"
+
+echo 1) git add -A
 git add -A
+echo 2) git commit -m "deploy"
 git commit -m "deploy"
+echo 3) git push
 git push
