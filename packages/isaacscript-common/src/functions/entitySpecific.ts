@@ -291,7 +291,6 @@ export function getTears(
   return tears;
 }
 
-
 /**
  * The base game EntityNPC.FireProjectiles method does not return anything, which is a problem in
  * situations where you need to work with the fired projectiles. This function invokes that method,
