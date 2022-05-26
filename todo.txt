@@ -1,0 +1,92 @@
+Monorepo TODO:
+
+- Create docs:
+      - name: Create the docs locally in CI
+        if: github.event_name != 'pull_request'
+        run: bash docs.sh
+
+      - name: Deploy 🚀
+        if: github.event_name != 'pull_request'
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages
+          folder: docs
+
+TODO:
+- NEW DOCUMENTATION WEBSITE - defer until monorepo
+- "typedoc-plugin-merge-modules": "^3.1.0",
+
+- redo docs so that function examples are in JSDoc
+  - confirm that POST_USE_CARD and POST_USE_PILL and POST_NPC_UPDATE and POST_FAMILIAR_UPDATE and POST_FAMILIAR_INIT are documented
+  - confirm that ModCallback is documented
+- change bundleEntry.ts to "export {}" with comment - actually, wait until perry merges
+
+LINTER:
+- make lint rule for "declare something that is not global in file with one or more imports"
+- make lint rule for capital letter on const as const
+
+implement in isaacscript-common:
+- isaacscript function to recalculate item ids
+- isDamageFromPlayer
+
+function findPlayerFromTear(tear)
+  if not tear then return end
+  local parent = tear.Parent
+  if not parent then return end
+
+  if parent:ToPlayer() then
+    return parent:ToPlayer()
+  elseif parent:ToFamiliar() and parent.Variant == FamiliarVariant.INCUBUS then
+    return parent:ToFamiliar().Player
+  end
+end
+
+- trophy can move to isaacscript common for respawning purposes
+  - when respawning, don't play appear animation
+- use tem's entity check function
+- make spawn never spawn non-existent entities
+- test getCurrentDimension() function to see if Xalum is right // cspell:disable-line
+- PHD_PILL_CONVERSIONS to isaacscript-common
+- POST_PLAYER_COLLECTIBLE_ADDED
+- POST_PLAYER_COLLECTIBLE_REMOVED
+- POST_AMBUSH_DONE
+- POST_BOMB_DETONATE
+- check for item unlocked - https://github.com/Zamiell/racing-plus/blob/main/src/features/mandatory/errors.ts#L80-L165
+- bible detection for POST FATAL DAMAGE
+- isNewPickup
+- compareEntity (to see what changes with dice room effect)
+- DICE_ROOM_ACTIVATED
+- intercept shovel for decorations
+- collectible morph to glitched item
+- function getRandomEnumValue
+- function to start challenge room
+- think about how to track a custom entity that emulates a collectible (pseudo-persistent)
+  - add isaacscript-common functionality for persistent entities
+- make isValidCollectible (from isaac-typescript-definitions) for mods
+- StageAPI2
+
+IsaacScript announcements:
+
+### `package.json`
+
+IsaacScript mods now require that "typescript-to-lua" is listed as a dependency in your "package.json" file. In other words, add the following line to the "dependencies" section:
+
+```
+"typescript-to-lua": "^1.4.4"
+```
+
+### Other
+
+- All of the IsaacScript packages are now contained in a monorepo using Nx. The other various repositories have been deleted.
+- IsaacScript now supports the yarn package manager. It will use yarn by default if it detects that you have it installed.
+- IsaacScript now shows how many seconds it took to compile the mod.
+- Added the following helper functions:
+  - `saveDataManagerReset` (to force the save data manager to reset a specific set of variables)
+  - `isHiddenCollectible`
+  - `getEdenPassives`
+  - `getRandomEdenPassive`
+- Added the following custom console commands:
+  - `gridEntities` - Spawns every kind of grid entity. Useful for debugging.
+- Added the following enums:
+  - `PitState`
+- Fixed the Encyclopedia definitions. (Thanks @4Grabs)
