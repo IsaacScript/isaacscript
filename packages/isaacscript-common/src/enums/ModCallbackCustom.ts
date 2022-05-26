@@ -9,7 +9,7 @@ eslint isaacscript/member-ordering: ["warn", {
 
 /**
  * These are the custom callbacks available for use once the mod object has been upgraded. Also see
- * the [[`upgradeMod`]] function.
+ * the `upgradeMod` function.
  */
 export enum ModCallbackCustom {
   POST_BOMB_INIT_LATE,

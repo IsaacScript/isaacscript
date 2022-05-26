@@ -47,7 +47,7 @@ But we don't have to suffer anymore. The `isaacscript` framework allows us to pr
 ### <img src="/img/items/book-of-virtues.png" className="features-icon" /> Expanded Standard Library
 
 - In Lua, leveraging 3rd party modules is a pain, so you typically end up copy-pasting the same boilerplate functions into your mods. But there's a better way.
-- IsaacScript offers [an expanded standard library](https://isaacscript.github.io/isaacscript-common/) out of the box for you to use, allowing you to write high-level code that is concise and easy to read.
+- IsaacScript offers [an expanded standard library](https://isaacscript.github.io/isaacscript-common) out of the box for you to use, allowing you to write high-level code that is concise and easy to read.
 
 ### <img src="/img/items/box.png" className="features-icon" /> Save Data Manager
 

@@ -27,4 +27,7 @@ npx remark --quiet --frail docs
 # We use no-progress and no-summary because we want to only output errors.
 npx cspell --no-progress --no-summary
 
+# Step 5 - Validate that every doc page is included.
+npx ts-node "$DIR/docsEntryPointLint.ts"
+
 echo "Successfully linted in $SECONDS seconds."

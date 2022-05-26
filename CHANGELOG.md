@@ -1,6 +1,7 @@
 # IsaacScript Change Log
 
-<!-- cspell:ignore Somdudewillson,Siramok -->
+<!-- markdownlint-disable MD024 -->
+<!-- cspell:ignore Somdudewillson,Siramok,Gamonymous -->
 
 This page lists the changes to the IsaacScript framework.
 
@@ -8,9 +9,331 @@ This page lists the changes to the IsaacScript framework.
 
 - [Fill in the rest of the history here.]
 
+## February 26th, 2021
+
+- Added `LostSoulState` enum.
+
+## February 19th, 2021
+
+- `isaacscript` now requires a Git version of at least 2.30.
+- `isaacscript` now supports a `--verbose` flag for additional output.
+- Added the following helper functions:
+  - `setCollectiblesRerolledForItemTracker` (thanks Gamonymous)
+  - `getRandomArrayElementAndRemove`
+  - `range`
+  - `saveDataManagerLoad`
+  - `isTainted`
+  - `trimPrefix`
+  - `getPlayerName`
+  - `stringContains`
+  - `isVanillaCharacter`
+  - `isModdedCharacter`
+  - `getPillEffectClass`
+  - `getPillEffectType`
+  - `collectibleHasCacheFlag`
+  - `getCollectiblesForCacheFlag`
+  - `getPlayerCollectiblesForCacheFlag`
+  - `isCircleIntersectingRectangle`
+  - `inRectangle`
+  - `getCollidingEntitiesWithGridEntity`
+  - `deleteSetsFromSet`
+  - `getFlyingCollectibles`
+  - `isTransformationFlying`
+  - `hasFlyingTransformation`
+  - `trinketHasCacheFlag`
+  - `getTrinketsForCacheFlag`
+  - `getFlyingTrinkets`
+  - `getPlayerTrinketsForCacheFlag`
+  - `isFlyingCharacter`
+  - `runNextRenderFrame`
+  - `runInNRenderFrames`
+  - `stopAllSoundEffects`
+- Renamed the following helper functions:
+  - `runNextFrame` --> `runNextGameFrame`
+  - `runInNFrames` --> `runInNGameFrames`
+- Refactored transformation related helper functions to be more private, to be lazy initialized, and to use sets instead of arrays.
+- Added the following constants:
+  - `SECOND_IN_MILLISECONDS`
+  - `MINUTE_IN_MILLISECONDS`
+  - `PILL_EFFECT_CLASS_MAP`
+  - `PILL_EFFECT_TYPE_MAP`
+  - `DEFAULT_PILL_EFFECT_CLASS`
+  - `DEFAULT_PILL_EFFECT_TYPE`
+- Added the following enums:
+  - `PillEffectType`
+  - `PillEffectClass`
+  - `MotherSubType`
+  - `PickupNullSubType`
+- Added the following custom callbacks:
+  - `MC_POST_GRID_ENTITY_COLLISION`
+
+## February 12th, 2021
+
+- TSTL has been upgraded such that the lualib does not create any global variables.
+- Added the following helper functions:
+  - `getCollectibleQuality`
+  - `getCharacters`
+  - `combineSets`
+  - `getDefaultGlobals`
+  - `getNewGlobals`
+  - `logNewGlobals`
+  - `addSetsToSet`
+  - `useActiveItemTemp`
+- Renamed the following helper functions:
+  - `getPlayerNumAllHearts` --> `getPlayerNumHitsRemaining`
+
+## February 5th, 2021
+
+- Added the `canTakeFreeDevilDeals` helper function.
+- Added the `CHARACTERS_WITH_FREE_DEVIL_DEALS` constant.
+- Added the `BloodClotSubType` enum. (Thanks KatTheFox)
+
+## January 29th, 2021
+
+- Added the `STORY_BOSSES` constant.
+- Added the `isStoryBoss` helper function.
+
+## January 22nd, 2021
+
+- Added the `isRepentanceStage` helper function.
+
+## January 14th, 2021
+
+- Added the following helper functions:
+  - `isDamageToPlayerFatal`
+  - `getHeartRowLength`
+- Added the following custom callbacks:
+  - `MC_PRE_BERSERK_DEATH`
+
+## January 7th, 2021
+
+- Added the `MAX_VANILLA_CHARACTER` constant.
+
+## December 31st, 2021
+
+- Updated the `TrapdoorVariant` enum.
+- Added the `spawnVoidPortal` helper function.
+
+## December 26th, 2021
+
+- Updated TSTL to version 1.3.0.
+- The `Level.ChangeRoom` method will now throw a compiler error, since it does not update the `fxlayers` correctly. (`Game.ChangeRoom` should be used instead.)
+- Added the following helper functions:
+  - `openDoorFast`
+  - `closeDoorFast`
+- The `changeRoom` and `teleport` helper functions now check to see if the room exists first to prevent crashes.
+- Added the following enums:
+  - `BrokenWatchState`
+
+## December 19th, 2021
+
+- New projects created with `isaacscript init` will now automatically include XML linting in the `lint.sh` script + CI. (This linter found bugs in the production versions of Babies Mod & Forgotten Fables, so it seems useful.)
+- New projects created with `isaacscript init` will now automatically include `pull.rebase=true` in the ".gitattributes" file. (This prevents merge commits by default.)
+- `isaacscript publish` will now use the Nicalis mod uploader tool when it detects that `steamcmd` is not available. (Previously, it would error and do nothing.)
+- Added the following helper functions:
+  - `logAllSeedEffects`
+  - `logTemporaryEffects`
+  - `getFilteredEntities` (thanks KatTheFox)
+  - `fireProjectiles` (thanks KatTheFox)
+  - `rerollEnemy` (thanks KatTheFox)
+  - `characterGetsBlackHeartFromEternalHeart`
+- Added the following constants:
+  - `CHARACTERS_WITH_BLACK_HEART_FROM_ETERNAL_HEART`
+- Added the `AnyEntity` type, which is the composition of `Entity,` `EntityBomb`, `EntityPickup`, and so on.
+
+## December 12th, 2021
+
+### Prettier
+
+`eslint-plugin-prettier` is no longer used in favor of using Prettier directly. Doing this has pros and cons, but has more pros than cons.
+As a result of the change, you will no longer see linting errors in VSCode for formatting-related issues. (Of course, all of the formatting-related issues will still be fixed automatically upon saving the file, same as it was before.)
+
+If you decide to upgrade `isaacscript-lint` in your existing projects, you should also perform the following steps to keep Prettier working:
+
+<!-- markdownlint-disable MD029 -->
+
+1. Install the Prettier VSCode extension.
+
+2. Add the Prettier VSCode extension to `extensions.json`:
+
+```json
+"esbenp.prettier-vscode", // The TypeScript formatter
+```
+
+3. Add the following lines to the `"[javascript]"` and `"[typescript]"` sections of the `settings.json` file:
+
+```json
+"editor.defaultFormatter": "esbenp.prettier-vscode",
+"editor.formatOnSave": true,
+```
+
+4. Add the following to the `lint.sh` file:
+
+```bash
+# Step 1 - Use Prettier to check formatting
+npx prettier --check "src/**/*.ts"
+```
+
+### Other
+
+- The `isaacscript` tool now uses a different prompt library, which fixes the bug where prompts would be repeated in a Git Bash shell.
+- The `isaacscript` tool will now automatically initialize a Git repository for new projects. Having the GitHub CLI installed is recommended, since it helps the tool guess what your GitHub username is.
+- Rewrote & simplified the "Getting Started" page.
+- Added the following helper functions:
+  - `temporarilyRemoveTrinket` (which removes all trinkets)
+  - `smeltTrinket`
+  - `getTransformationName`
+  - `getCurrentRoomDescReadOnly`
+  - `isRedKeyRoom`
+  - `arrayCombine`
+  - `arrayCopy`
+  - `getChallengeName`
+- Renamed the following helper functions:
+  - `temporarilyRemoveTrinkets` --> `temporarilyRemoveTrinket` (because it only removes a single trinket)
+- The `getEntities` and related helper functions now return a boolean, indicating if they removed one or more entities.
+- The `clearSprite` helper function now clears all layers by default.
+- The `getDoors` helper function is now variadic.
+- Added the following constants:
+  - `TRANSFORMATION_NAME_MAP`
+  - `CHALLENGE_NAME_MAP`
+- Added the following custom callbacks:
+  - `MC_POST_TRINKET_BREAK`
+  - `MC_POST_PEFFECT_UPDATE_REORDERED`
+
+## December 5th, 2021
+
+- Updated the TypeScript definitions for vanilla patch 1.7.7.
+- Fixed the bug where the monkey patch was not working on TSTL v1.2.0.
+- The `upgradeMod` function will now monkey-patch the `error` function to provide tracebacks if the `--luadebug` flag is turned on.
+- The `upgradeMod` function will now monkey-patch the `print` function to work like it normally does if the `--luadebug` flag is turned on.
+- Added the following helper functions:
+  - `isSingleUseCollectible`
+  - `setCollectibleEmpty`
+  - `clearSprite`
+  - `getRoomListIndex`
+  - `getTopLeftWall`
+  - `getTopLeftWallGridIndex`
+  - `isRoomInsideMap`
+  - `lockDoor`
+  - `inMinibossRoomOf`
+  - `getAllRoomGridIndexes`
+  - `isAllRoomsClear`
+  - `isLuaDebugEnabled`
+  - `goToStage`
+  - `stageTypeToLetter`
+  - `getRooms`
+  - `copyMap`
+  - `getStartSeedString`
+  - `getStage`
+  - `getStageType`
+  - `getPlayerAvailableHeartSlots`
+  - `getCharacterMaxHeartContainers`
+  - `getPlayerMaxHeartContainers`
+  - `isFamiliarThatShootsPlayerTears`
+  - `isEntityMoving`
+- Renamed the `getRoomIndex` helper function to `getRoomSafeGridIndex`. This should no longer be used as an index for data structures that store data per room because it does not work properly between dimensions; `getRoomListIndex` should be used instead.
+- Added optional `variant`, `subType`, and `cap` arguments to all of the remove entity helper functions.
+- The `pngPath` to the `setCollectibleSprite` helper function is now optional; if not specified, it will remove the item graphic from the pedestal.
+- The `anyPlayerIs` helper function is now variadic.
+- Added the following constants:
+  - `COLORS`
+  - `FINAL_STAGE`
+  - `BLIND_ITEM_PNG_PATH`
+  - `EMPTY_PNG_PATH`
+  - `FAMILIARS_THAT_SHOOT_PLAYER_TEARS`
+- Added the following enums:
+  - `MinibossID`
+  - `SkinColor` (from vanilla patch 1.7.7)
+  - `CrawlspaceVariant` (alias for `StairsVariant`)
+- Added the following custom callbacks:
+  - `MC_POST_NEW_ROOM_EARLY`
+  - `MC_PRE_NEW_LEVEL`
+  - `MC_POST_TEAR_INIT_VERY_LATE`
+- The save data manager now uses the `MC_POST_NEW_ROOM_EARLY` callback instead of the `MC_POST_NEW_ROOM` callback, which means that you can use it in situations where you previously would not be able to.
+
+## November 28th, 2021
+
+- `isaacscript publish` now accepts a `--dry-run` flag that will skip committing to GitHub and invoking `steamcmd`.
+- `isaacscript publish` will now print out the standard output of the pre-publish script and the post-publish script, if any.
+- `isaacscript publish` now accepts an `--only-upload` flag that will only upload the mod to the Steam Workshop without doing anything else.
+- Added the following helper functions:
+  - `isGoldenTrinket`
+  - `printConsole`
+  - `findFreePosition`
+  - `isPassiveCollectible`
+  - `isTaintedLazarus`
+  - `logVector`
+  - `getRoomItemPoolType`
+  - `inBossRoomOf`
+  - `getCollectibleItemPoolType`
+  - `closeAllDoors`
+  - `spawnCollectible`
+  - `setGridEntityInvisible`
+  - `preventCollectibleRotate`
+  - `removeCollectiblePickupDelay`
+  - `isDevilsCrownTreasureRoom`
+  - `getCollectibleDescription`
+  - `getTrinketDescription`
+  - `getCardDescription`
+  - `getEntityPositions`
+  - `setEntityPositions`
+  - `getEntityVelocities`
+  - `setEntityVelocities`
+  - `roomUpdateSafe`
+  - `setActiveItem`
+  - `getFirstCardOrPill`
+  - `getCollectibleGfxFilename`
+  - `characterCanHaveRedHearts`
+  - `characterCanHaveSoulHearts`
+- Added the following helper functions related to the new JSON rooms feature:
+  - `deployJSONRoom`
+  - `deployRandomJSONRoom`
+  - `emptyRoom`
+  - `setRoomCleared`
+  - `setRoomUncleared`
+  - `convertXMLGridEntityType`
+  - `getJSONRoomOfVariant`
+  - `getJSONRoomsOfSubType`
+  - `getRandomJSONRoom`
+- Renamed the following helper functions:
+  - `changeCollectibleSubType` --> `setCollectibleSubType`
+  - `isNotCardOrRune` --> `isPocketItemObject`
+- The following helper functions are now variadic:
+  - `arrayRemove`
+  - `arrayRemoveInPlace`
+- The following helper functions now accept an optional `exceptions` argument:
+  - `getRandomArrayElement`
+  - `getRandomHeartSubType`
+  - `getRandomCard`
+  - `getRandomRune`
+- Removed the following helper functions:
+  - `inBlueBabyRoom`
+  - `inLambRoom`
+  - `inItLivesRoom`
+- Added the following constants:
+  - `CHARACTERS_WITH_AN_ACTIVE_ITEM`
+  - `DEFAULT_ITEM_POOL_TYPE`
+  - `ROOM_TYPE_TO_ITEM_POOL_TYPE_MAP`
+  - `GENESIS_ROOM_SUBTYPE`
+  - `COLLECTIBLE_DESCRIPTION_MAP`
+  - `TRINKET_DESCRIPTION_MAP`
+  - `CARD_DESCRIPTION_MAP`
+  - `LOST_STYLE_PLAYER_TYPES`
+  - `CARDS`
+  - `CARD_SET`
+  - `RUNES`
+  - `RUNE_SET`
+  - `POCKET_ITEM_OBJECTS`
+  - `POCKET_ITEM_OBJECT_SET`
+- Added the following enums:
+  - `PoofSubType`
+- Renamed the following enums:
+  - `BossIDs` --> `BossID`
+- Added the `slot` property to the `PocketItemDescription` enum.
+
 ## November 21st, 2021
 
-- The TypeScript definitions show now reflect the API for vanilla patch v1.7.6. (Thanks @KatTheFox)
+- The TypeScript definitions show now reflect the API for vanilla patch v1.7.6. (Thanks KatTheFox)
 - Added function definitions for the global functions provided by the Racing+ sandbox.
 - Added the following helper functions:
   - `removeGridEntity`
@@ -109,8 +432,8 @@ This page lists the changes to the IsaacScript framework.
 - Added the following helper functions:
   - `getPlayerHealth`
   - `setPlayerHealth`
-  - `setFamiliarNoSirenSteal` (thanks @KatTheFox)
-  - `hasSirenStolenFamiliar` (thanks @KatTheFox)
+  - `setFamiliarNoSirenSteal` (thanks KatTheFox)
+  - `hasSirenStolenFamiliar` (thanks KatTheFox)
   - `getFinalPlayer`
   - `getClosestEntityTo`
   - `getCardName`
@@ -165,7 +488,7 @@ see the official website: https://isaacscript.github.io/
 --]]
 ```
 
-- IsaacScript will now correctly handle symlinks and alternate versions of VSCode. (Thanks @KatTheFox)
+- IsaacScript will now correctly handle symlinks and alternate versions of VSCode. (Thanks KatTheFox)
 - Added the following helper functions:
   - `getRandomArrayIndex`
   - `arrayRemoveInPlace`
@@ -175,7 +498,7 @@ see the official website: https://isaacscript.github.io/
   - `spawnGridEntity`
   - `spawnGridEntityWithVariant`
   - `getAliveNPCs`
-  - `directionToVector` (thanks @KatTheFox)
+  - `directionToVector` (thanks KatTheFox)
   - `removeCostumeCollectible`
   - `removeCostumeTrinket`
   - `arrayShuffle`
@@ -324,10 +647,10 @@ see the official website: https://isaacscript.github.io/
 - `isaacscript.json` now has two new optional options:
   - `customTargetModDirectoryName` - By default, the target mod directory name will be the same as the project directory name. This setting allows you to customize it.
   - `enableIsaacScriptWatcherAutoRestart` - When your code is recompiled, IsaacScript watcher can restart the game to ensure that any run-related variables are properly reset. This is set to true by default.
-- The StageAPI definitions and the MinimapAPI definitions are now more complete. (Thanks @KatTheFox#3098)
+- The StageAPI definitions and the MinimapAPI definitions are now more complete. (Thanks KatTheFox#3098)
 - `CardConfigList.Get` will now cause a compiler error, since it returns useless userdata.
 - Added the following helper functions:
-  - `getLastHeart` (thanks @KatTheFox)
+  - `getLastHeart` (thanks KatTheFox)
   - `getCircleDiscretizedPoints`
 
 ## October 10th, 2021
@@ -498,7 +821,7 @@ You can still use `null` in your own variables, but make sure that it is for var
   - `getCollectibleList`
   - `temporarilyRemoveTrinkets`
   - `giveTrinketsBack`
-  - `vectorToDirection` (thanks @KatTheFox)
+  - `vectorToDirection` (thanks KatTheFox)
   - `teleport` (use this instead of `Game.StartRoomTransition` so that you don't forget to set `Level.LeaveDoor`)
   - `forgottenSwitch` (requires an upgraded mod)
   - `getClosestPlayer`
@@ -533,10 +856,10 @@ You can still use `null` in your own variables, but make sure that it is for var
   - `TRANSFORMATION_TO_ITEMS_MAP`
   - `ITEM_TO_TRANSFORMATION_MAP`
 - Added the following enums:
-  - `PurgatorySubType` (thanks @KatTheFox)
+  - `PurgatorySubType` (thanks KatTheFox)
   - `DisplayFlag`
   - `HeavenLightDoorSubType`
-  - `IsaacVariant` (thanks @KatTheFox)
+  - `IsaacVariant` (thanks KatTheFox)
 - Added the following custom callbacks:
   - `MC_PRE_CUSTOM_REVIVE`
   - `MC_POST_CUSTOM_REVIVE`
@@ -754,7 +1077,7 @@ You can still use `null` in your own variables, but make sure that it is for var
     - `lerp`
     - `lerpAngleDegrees`
     - `onSetSeed`
-- All of the functions are automatically [documented online](https://isaacscript.github.io/isaacscript-common/) using the TypeDoc generator.
+- All of the functions are automatically [documented online](https://isaacscript.github.io/isaacscript-common) using the TypeDoc generator.
 - Added a Save Data Manager system that you can automatically use in your IsaacScript mods.
   - The manager does two things:
     - Resets variables at appropriate times.
@@ -762,9 +1085,8 @@ You can still use `null` in your own variables, but make sure that it is for var
   - Using the manager is great because it keeps all your variables locally & properly scoped and abstracts away all the complexity of having to use JSON.
   - You can force the save data manager to write to disk with the `saveDataManagerSave` function.
   - You can use the `saveDataManagerSetGlobal` function to put all of the save data variables on a global variable "g" for debugging purposes.
-  - The documentation is [here](https://isaacscript.github.io/isaacscript-common/modules/features_saveDataManager.html).
-- Added `REPENTANCE` definition. (Thanks @Siramok)
-- Added some more Mod Config Menu definitions. (Thanks @Siramok)
+- Added `REPENTANCE` definition. (Thanks Siramok)
+- Added some more Mod Config Menu definitions. (Thanks Siramok)
 - Added new custom callbacks that you can use in your mods:
   - `MC_POST_GAME_STARTED_REORDERED`
   - `MC_POST_NEW_LEVEL_REORDERED`
@@ -787,7 +1109,7 @@ You can still use `null` in your own variables, but make sure that it is for var
 
 ## August 3rd, 2021
 
-- Released the `isaacscript-common` package, which includes helper functions that you can use in your IsaacScript mods. Right now there are not that many functions, but I plan to increase this in the future. They are documented [here](https://isaacscript.github.io/isaacscript-common/index.html).
+- Released the `isaacscript-common` package, which includes helper functions that you can use in your IsaacScript mods. Right now there are not that many functions, but I plan to increase this in the future. They are documented [here](https://isaacscript.github.io/isaacscript-common).
 - Breaking changes:
   - The `isaacscript` package is no longer a meta-package that provides everything else. (It was getting too big and hard to handle.)
   - This means that instead of having 1 NPM dependency of just `isaacscript`, new IsaacScript mods created with `init` are initialized with 4 dependencies:
@@ -810,11 +1132,11 @@ You can still use `null` in your own variables, but make sure that it is for var
 
 ## July 27th, 2021
 
-- Fixed the wrong type in the `MC_INPUT_ACTION` callback. (Thanks to @KatTheFox)
-- Fixed some bugs in the `RoomConfig` class. (Thanks @Somdudewillson)
-- Added definitions for External Item Descriptions. (Thanks @Somdudewillson)
-- Added definitions for Music Mod Callback. (Thanks @KatTheFox)
-- Added definitions for StageAPI. (Thanks @Somdudewillson)
+- Fixed the wrong type in the `MC_INPUT_ACTION` callback. (Thanks to KatTheFox)
+- Fixed some bugs in the `RoomConfig` class. (Thanks Somdudewillson)
+- Added definitions for External Item Descriptions. (Thanks Somdudewillson)
+- Added definitions for Music Mod Callback. (Thanks KatTheFox)
+- Added definitions for StageAPI. (Thanks Somdudewillson)
 - Added the following enums:
   - `RotgutVariant`
   - `MotherVariant`

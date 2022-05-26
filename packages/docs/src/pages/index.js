@@ -27,7 +27,7 @@ function HomepageHeader() {
               "button button--outline button--secondary button--lg landing-button",
               styles.getStarted,
             )}
-            to={useBaseUrl("docs/features")}
+            to={useBaseUrl("main/features")}
           >
             Why should I?
           </Link>
@@ -37,7 +37,7 @@ function HomepageHeader() {
               "button button--outline button--secondary button--lg landing-button",
               styles.getStarted,
             )}
-            to={useBaseUrl("docs/getting-started")}
+            to={useBaseUrl("main/getting-started")}
           >
             Get Started
           </Link>

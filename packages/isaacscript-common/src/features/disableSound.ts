@@ -33,7 +33,7 @@ function postRender() {
 /**
  * Helper function to stop muting all sound effects and music.
  *
- * Use this function to set things back to normal after having used [[`disableAllSounds`]].
+ * Use this function to set things back to normal after having used `disableAllSounds`.
  *
  * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
  *            that multiple mod features can work in tandem.
@@ -58,7 +58,7 @@ export function enableAllSound(key: string): void {
 /**
  * Helper function to disable all sound effects and music (by constantly musting them).
  *
- * Use the [[`enableAllSounds`]] helper function to set things back to normal.
+ * Use the `enableAllSounds` helper function to set things back to normal.
  *
  * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
  *            that multiple mod features can work in tandem.

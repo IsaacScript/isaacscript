@@ -6,7 +6,7 @@ bootstrapper
 cacheable
 leaderboard
 leaderboards
-LICENCE
+licence
 minimalistic
 mkdir
 namespacing
@@ -22,6 +22,7 @@ sandboxing
 situationally
 subprocesses
 toggleable
+tracebacks
 transpiles
 transpiling
 unexported
@@ -30,5 +31,5 @@ unfixable
 uninitialize
 unopenable
 unranked
-UNTRACKABLE
+untrackable
 vetos

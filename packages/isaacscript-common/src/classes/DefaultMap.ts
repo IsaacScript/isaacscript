@@ -12,7 +12,7 @@ interface ParsedArgs<K, V, Args extends unknown[]> {
 }
 
 /**
- * An extended Map with some new methods:
+ * An extended `Map` with some new methods:
  *
  * - `getAndSetDefault` - If the key exists, this will return the same thing as the `get` method.
  *   Otherwise, it will set a default value to the key, and then return the default value.
@@ -27,15 +27,15 @@ interface ParsedArgs<K, V, Args extends unknown[]> {
  * For example:
  *
  * ```ts
- * // Initializes a new empty DefaultMap with a default value of "foo"
+ * // Initializes a new empty DefaultMap with a default value of "foo".
  * const defaultMapWithPrimitive = new DefaultMap<string, string>("foo");
  *
- * // Initializes a new empty DefaultMap with a default value of a new Map
+ * // Initializes a new empty DefaultMap with a default value of a new Map.
  * const defaultMapWithFactory = new DefaultMap<string, Map<string, string>>(() => {
  *   return new Map();
  * })
  *
- * // Initializes a DefaultMap with some initial values and a default value of "bar"
+ * // Initializes a DefaultMap with some initial values and a default value of "bar".
  * const defaultMapWithInitialValues = new DefaultMap<string, string>([
  *   ["a1", "a2"],
  *   ["b1", "b2"],
@@ -63,8 +63,8 @@ export class DefaultMap<K, V, Args extends unknown[] = []> extends Map<K, V> {
   private defaultValueFactory: FactoryFunction<V, Args> | undefined;
 
   /**
-   * See the DefaultMap documentation:
-   * https://isaacscript.github.io/isaacscript-common/classes/types_DefaultMap.DefaultMap.html
+   * See the main `DefaultMap` documentation:
+   * https://isaacscript.github.io/isaacscript-common/classes/classes_DefaultMap.DefaultMap
    */
   constructor(
     iterableOrDefaultValueOrDefaultValueFactory: FirstArg<K, V, Args>,

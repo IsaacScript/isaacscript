@@ -77,10 +77,10 @@ import {
  *   can possibly run).
  * - Save data is recorded to disk in the `PRE_GAME_EXIT` callback.
  *
- * Note that before using the save data manager, you must call the [[`upgradeMod`]] function.
+ * Note that before using the save data manager, you must call the `upgradeMod` function.
  *
  * If you want the save data manager to load data before the `POST_PLAYER_INIT` callback (i.e. in
- * the main menu), then you should explicitly call the [[`saveDataManagerLoad`]] function. (The save
+ * the main menu), then you should explicitly call the `saveDataManagerLoad` function. (The save
  * data manager cannot do this on its own because it cannot know when your mod features are finished
  * initializing.)
  *

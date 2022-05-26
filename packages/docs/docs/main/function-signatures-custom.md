@@ -2,9 +2,9 @@
 title: Function Signatures (Custom)
 ---
 
-The [`isaacscript-common`](https://isaacscript.github.io/isaacscript-common/) package provides access to some custom callbacks, which are listed below.
+The [`isaacscript-common`](https://isaacscript.github.io/isaacscript-common) package provides access to some custom callbacks, which are listed below.
 
-In order to use custom callbacks, you must first invoke the [`upgradeMod`](https://isaacscript.github.io/isaacscript-common/modules/upgradeMod.html) function.
+In order to use custom callbacks, you must first invoke the [`upgradeMod`](https://isaacscript.github.io/isaacscript-common/modules/upgradeMod) function.
 
 <br />
 

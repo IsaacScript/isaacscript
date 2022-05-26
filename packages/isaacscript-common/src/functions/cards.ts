@@ -120,7 +120,7 @@ export function getCardType(card: Card): ItemConfigCardType {
 }
 
 /**
- * Helper function to get a set of cards matching the type. Also see the [[`CardType`]] enum.
+ * Helper function to get a set of cards matching the type. Also see the `CardType` enum.
  *
  * This function is variadic, meaning that you can you can specify N card types to get a set
  * containing cards that match any of the specified types.
