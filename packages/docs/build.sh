@@ -14,6 +14,8 @@ rm -rf "$COMMON_DIR"
 OUT_DIR="$DIR/../../dist/packages/docs" # Created by Docusaurus
 rm -rf "$OUT_DIR"
 
+# TODO: fix
+
 # First, auto-generate the `isaacscript-common` Markdown files with TypeDoc + the Markdown plugin.
 npx typedoc # The options are stored in "typedoc.json".
 

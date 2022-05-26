@@ -17,7 +17,10 @@ export * from "./enums/HealthType";
 export * from "./enums/ModCallbackCustom";
 export * from "./enums/PocketItemType";
 export * from "./enums/SerializationType";
-export { registerCharacterHealthConversion } from "./features/characterHealthConversion";
+export {
+  ConversionHeartSubType,
+  registerCharacterHealthConversion,
+} from "./features/characterHealthConversion";
 export { registerCharacterStats } from "./features/characterStats";
 export * from "./features/debugDisplay/exports";
 export {
@@ -154,5 +157,6 @@ export * from "./types/PickingUpItem";
 export * from "./types/PlayerHealth";
 export * from "./types/PlayerIndex";
 export * from "./types/PocketItemDescription";
+export * from "./types/SaveData";
 export * from "./types/TrinketSituation";
 export * from "./upgradeMod";

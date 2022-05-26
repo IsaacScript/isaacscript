@@ -1,5 +1,8 @@
 Monorepo TODO:
 
+- JSDoc rule for line between @param is not working
+- ci.yml if statement for PRs is not working!
+
 - Create docs:
       - name: Create the docs locally in CI
         if: github.event_name != 'pull_request'
@@ -85,6 +88,7 @@ IsaacScript mods now require that "typescript-to-lua" is listed as a dependency 
   - `isHiddenCollectible`
   - `getEdenPassives`
   - `getRandomEdenPassive`
+  - `npcFireProjectiles` (thanks KatTheFox)
 - Added the following custom console commands:
   - `gridEntities` - Spawns every kind of grid entity. Useful for debugging.
 - Added the following enums:
