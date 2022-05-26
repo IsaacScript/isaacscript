@@ -6,12 +6,18 @@ import {
   KnifeVariant,
   LaserVariant,
   PickupVariant,
+  ProjectilesMode,
   ProjectileVariant,
   SlotVariant,
   TearVariant,
 } from "isaac-typescript-definitions";
 import { VectorZero } from "../constants";
-import { getEntities, removeEntities, spawn } from "./entity";
+import {
+  getEntities,
+  getFilteredNewEntities,
+  removeEntities,
+  spawn,
+} from "./entity";
 
 /**
  * Helper function to get all of the `EntityType.BOMB` in the room.
@@ -288,6 +294,34 @@ export function getTears(
   }
 
   return tears;
+}
+
+/**
+ * The base game `EntityNPC.FireProjectiles` method does not return anything, which is a problem in
+ * situations where you need to work with the fired projectiles. This function invokes that method,
+ * and then returns the projectiles that were spawned.
+ *
+ * @param npc The EntityNPC firing projectiles.
+ * @param position The starting position of the projectiles.
+ * @param velocity The starting velocity of the projectiles.
+ * @param projectilesMode A ProjectilesMode enum value defining how to fire the projectiles.
+ * @param projectileParams A ProjectileParams object containing various parameters for the
+ *                         projectiles.
+ * @returns An array of EntityProjectiles containing all fired projectiles.
+ */
+export function npcFireProjectiles(
+  npc: EntityNPC,
+  position: Vector,
+  velocity: Vector,
+  projectilesMode: ProjectilesMode,
+  projectileParams: ProjectileParams,
+): EntityProjectile[] {
+  const oldEntities = getProjectiles();
+  npc.FireProjectiles(position, velocity, projectilesMode, projectileParams);
+  const newEntities = getProjectiles();
+  const filteredNewEntities = getFilteredNewEntities(oldEntities, newEntities);
+
+  return filteredNewEntities;
 }
 
 /**
