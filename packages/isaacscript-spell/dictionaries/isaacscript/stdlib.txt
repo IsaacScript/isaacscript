@@ -18,6 +18,7 @@ doordisplay
 doorsdisplay
 effectdisplay
 effectsdisplay
+erange
 eternalhearts
 familiardisplay
 familiarsdisplay

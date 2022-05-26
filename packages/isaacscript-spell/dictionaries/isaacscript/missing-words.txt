@@ -4,6 +4,7 @@ autoformat
 backticks
 bootstrapper
 cacheable
+keyof
 leaderboard
 leaderboards
 licence

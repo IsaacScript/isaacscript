@@ -58,6 +58,7 @@ speedruns
 Stonies
 teleporters
 teleporting
+texel
 texels
 tonumber # Lua global
 tostring # Lua global

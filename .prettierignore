@@ -18,3 +18,6 @@ package.json
 # "prettier-plugin-organize-imports" is bugged with JSX
 packages/docs/src/components/HomepageFeatures.js
 packages/docs/src/pages/index.js
+
+# API docs are automatically created by TypeDoc.
+packages/docs/docs/isaacscript-common

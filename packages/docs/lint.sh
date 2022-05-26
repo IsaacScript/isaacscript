@@ -21,7 +21,7 @@ npx eslint --max-warnings 0 .
 # Step 3 - Use remark to check Markdown files for errors.
 # We set to quiet to output only warnings and errors.
 # We set to frail to exit with 1 on warnings (for CI).
-npx remark --quiet --frail docs
+npx remark --quiet --frail docs --ignore-pattern "docs/isaacscript-common" # Cannot use "$DIR" here
 
 # Step 4 - Spell check every file using cspell.
 # We use no-progress and no-summary because we want to only output errors.

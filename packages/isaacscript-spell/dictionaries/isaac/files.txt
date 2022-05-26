@@ -22,5 +22,7 @@ pftempestasevencondensed # font
 pilleffect # pocketitems.xml
 shotspeed # items.xml
 shutdoors # entities2.xml
+swallowedpenny # trinket_001_swallowedpenny.png
 teammeatfont # font
+thesadonion # collectibles_001_thesadonion.png
 XLAX # pocketitems.xml

@@ -170,7 +170,6 @@ export function isGoldenTrinket(trinketType: TrinketType): boolean {
   return trinketType > (GOLDEN_TRINKET_ADJUSTMENT as TrinketType);
 }
 
-// cspell:ignore swallowedpenny
 /**
  * Helper function to change the sprite of a trinket entity.
  *
