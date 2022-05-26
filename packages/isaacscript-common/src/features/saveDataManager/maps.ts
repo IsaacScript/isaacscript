@@ -1,6 +1,6 @@
 /* eslint-disable sort-exports/sort-exports */
 
-import { SaveData } from "../../types/private/SaveData";
+import { SaveData } from "../../types/SaveData";
 
 /**
  * The save data map is indexed by subscriber name. We use Lua tables instead of TypeScriptToLua

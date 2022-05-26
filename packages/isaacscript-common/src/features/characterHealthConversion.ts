@@ -10,7 +10,7 @@ import { ensureAllCases } from "../functions/utils";
 
 const FEATURE_NAME = "character health manager";
 
-type ConversionHeartSubType = HeartSubType.SOUL | HeartSubType.BLACK;
+export type ConversionHeartSubType = HeartSubType.SOUL | HeartSubType.BLACK;
 
 const characterHealthReplacementMap = new Map<
   PlayerType,

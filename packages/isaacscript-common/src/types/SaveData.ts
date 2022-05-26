@@ -1,3 +1,5 @@
+/* eslint-disable sort-exports/sort-exports */
+
 /**
  * Each sub-object of save data has a string as a key, without arbitrary data as a value. However,
  * the data has to be serializable (i.e. no `userdata` objects).
@@ -15,7 +17,7 @@
  * It is not possible to create a recursive type definition that matches these properties, so this
  * is typed as "unknown", which provides no type safety.
  */
-type SaveDataGroup = Record<string, unknown>;
+export type SaveDataGroup = Record<string, unknown>;
 
 /**
  * The object that contains all of the variables that will be managed by the save data manager.

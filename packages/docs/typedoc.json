@@ -130,10 +130,13 @@
     "../isaacscript-common/src/upgradeMod.ts"
   ],
   "intentionallyNotExported": [
+    "AddCallbackParameterCustom",
     "CopyColorReturn",
     "CopyKColorReturn",
     "CopyRNGReturn",
     "CopyVectorReturn",
+    "FirstArg",
+    "SecondArg",
     "SerializedColor",
     "SerializedIsaacAPIClass",
     "SerializedKColor",

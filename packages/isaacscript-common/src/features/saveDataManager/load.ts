@@ -1,6 +1,6 @@
 import { jsonDecode } from "../../functions/jsonHelpers";
 import { log, logError } from "../../functions/log";
-import { SaveData } from "../../types/private/SaveData";
+import { SaveData } from "../../types/SaveData";
 import {
   SAVE_DATA_MANAGER_DEBUG,
   SAVE_DATA_MANAGER_FEATURE_NAME,
