@@ -42,10 +42,10 @@ for DICTIONARY_DIR in $DIR/dictionaries/*; do
 done
 
 echo "Checking for uniqueness across all dictionaries."
-sed -i 's/#.*//' "$ALL_WORDS" # Remove comments
-sed -i 's/^\s*//' "$ALL_WORDS" # Remove leading whitespace
-sed -i 's/\s*$//' "$ALL_WORDS" # Remove trailing whitespace
-sed -i '/^$/d' "$ALL_WORDS" # Remove empty lines
+sed --in-place 's/#.*//' "$ALL_WORDS" # Remove comments
+sed --in-place 's/^\s*//' "$ALL_WORDS" # Remove leading whitespace
+sed --in-place 's/\s*$//' "$ALL_WORDS" # Remove trailing whitespace
+sed --in-place '/^$/d' "$ALL_WORDS" # Remove empty lines
 ALL_WORDS_SORTED="/tmp/all-words-sorted.txt"
 sort --ignore-case "$ALL_WORDS" > "$ALL_WORDS_SORTED"
 ALL_WORDS_SORTED_UNIQUE="/tmp/all-words-sorted-unique.txt"

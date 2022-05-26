@@ -83,8 +83,10 @@ module.exports = {
         out: "isaacscript-common",
         tsconfig: "../isaacscript-common/tsconfig.json",
         readme: "../isaacscript-common/website-root.md",
+        sidebar: {
+          categoryLabel: "common",
+        },
         entryPoints: [
-          /// "../isaacscript-common/src/index.ts",
           "../isaacscript-common/src/cachedClasses.ts",
           "../isaacscript-common/src/classes/DefaultMap.ts",
           "../isaacscript-common/src/classes/ModUpgraded.ts",
