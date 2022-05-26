@@ -1,0 +1,14 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "out": "docs/isaacscript-common",
+  "tsconfig": "../isaacscript-common/tsconfig.json",
+  "plugin": "typedoc-plugin-markdown",
+  "readme": "../isaacscript-common/website-root.md",
+  "entryPointStrategy": "Expand",
+  "entryPoints": [
+    "../isaacscript-common/src/index.ts"
+  ],
+  "sort": [
+    "source-order"
+  ]
+}

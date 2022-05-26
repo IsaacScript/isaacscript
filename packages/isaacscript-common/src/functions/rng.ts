@@ -6,7 +6,7 @@ import { getNumbersFromTable, tableHasKeys } from "./table";
 import { ensureAllCases } from "./utils";
 
 type SerializedRNG = LuaTable<string, unknown> & {
-  __serializedRNGBrand: unknown;
+  __serializedRNGBrand: void;
 };
 
 interface CopyRNGReturn {

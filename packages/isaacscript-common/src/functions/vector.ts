@@ -6,7 +6,7 @@ import { copyValuesToTable, getNumbersFromTable, tableHasKeys } from "./table";
 import { ensureAllCases } from "./utils";
 
 type SerializedVector = LuaTable<string, unknown> & {
-  __serializedVectorBrand: unknown;
+  __serializedVectorBrand: void;
 };
 
 interface CopyVectorReturn {

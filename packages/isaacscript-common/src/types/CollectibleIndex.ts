@@ -11,4 +11,4 @@
  *
  * This type is branded for extra type safety.
  */
-export type CollectibleIndex = string & { __collectibleIndexBrand: unknown };
+export type CollectibleIndex = string & { __collectibleIndexBrand: void };

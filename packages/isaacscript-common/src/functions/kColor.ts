@@ -5,7 +5,7 @@ import { copyValuesToTable, getNumbersFromTable, tableHasKeys } from "./table";
 import { ensureAllCases } from "./utils";
 
 type SerializedKColor = LuaTable<string, unknown> & {
-  __serializedKColorBrand: unknown;
+  __serializedKColorBrand: void;
 };
 
 interface CopyKColorReturn {

@@ -1,3 +1,3 @@
 export type SerializedIsaacAPIClass = LuaTable<string, unknown> & {
-  __serializedIsaacAPIClassBrand: unknown;
+  __serializedIsaacAPIClassBrand: void;
 };

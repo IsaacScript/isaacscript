@@ -10,4 +10,4 @@
  *
  * This type is branded for extra type safety.
  */
-export type PlayerIndex = int & { __playerIndexBrand: unknown };
+export type PlayerIndex = int & { __playerIndexBrand: void };
