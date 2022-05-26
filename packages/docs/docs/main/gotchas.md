@@ -61,12 +61,12 @@ To compose `BitFlags` yourself, you can use the `addFlag` and `removeFlag` helpe
 ```ts
 // TypeScript code
 // Combine 3 tear flags together and assign it to the player.
-player.TearFlags = addFlags(
+player.TearFlags = addFlag(
   TearFlag.PIERCING,
   TearFlag.SPECTRAL,
   TearFlag.FREEZE,
 );
-// (The "addFlags" function is variadic.)
+// (The "addFlag" function is variadic.)
 ```
 
 If you want to assign a specific flag to a `BitFlags` property, then simply assigning it won't work:

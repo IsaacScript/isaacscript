@@ -126,6 +126,7 @@
     "../isaacscript-common/src/types/PlayerHealth.ts",
     "../isaacscript-common/src/types/PlayerIndex.ts",
     "../isaacscript-common/src/types/PocketItemDescription.ts",
+    "../isaacscript-common/src/types/SaveData.ts",
     "../isaacscript-common/src/types/TrinketSituation.ts",
     "../isaacscript-common/src/upgradeMod.ts"
   ],

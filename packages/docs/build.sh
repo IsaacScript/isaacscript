@@ -19,8 +19,6 @@ rm -rf "$OUT_DIR"
 # First, auto-generate the `isaacscript-common` Markdown files with TypeDoc + the Markdown plugin.
 npx typedoc # The options are stored in "typedoc.json".
 
-exit 0
-
 # Build the docs website using Docusaurus.
 mkdir -p "$OUT_DIR"
 npm run build
