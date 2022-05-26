@@ -68,6 +68,7 @@ module.exports = {
           sidebarPath: require.resolve("./sidebars.js"),
           editUrl:
             "https://github.com/IsaacScript/isaacscript/edit/main/packages/docs/",
+          sidebarItemsGenerator,
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -202,3 +203,7 @@ module.exports = {
     ],
   ],
 };
+
+function sidebarItemsGenerator(something) {
+  console.log("HELLO", something);
+}
