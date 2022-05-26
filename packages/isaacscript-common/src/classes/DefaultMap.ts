@@ -1,4 +1,13 @@
-type FactoryFunction<V, Args extends unknown[]> = (...extraArgs: Args) => V;
+/* eslint-disable sort-exports/sort-exports */
+
+/**
+ * A function that creates the value for your default map. For example, if it was a default map
+ * containing a map, the factory function would be: `() => new Map()`
+ */
+export type FactoryFunction<V, Args extends unknown[]> = (
+  ...extraArgs: Args
+) => V;
+
 type FirstArg<K, V, Args extends unknown[]> =
   | Iterable<[K, V]>
   | V

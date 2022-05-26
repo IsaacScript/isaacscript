@@ -67,6 +67,20 @@ function main() {
     }
   }
 
+  const typesFilePaths = glob.sync("../isaacscript-common/src/types/*.ts");
+  for (const filePath of typesFilePaths) {
+    if (filePath.endsWith("private") || filePath.endsWith(".d.ts")) {
+      continue;
+    }
+
+    if (!entryPointsSet.has(filePath)) {
+      console.error(
+        `Failed to find the following file in the entry point: ${filePath}`,
+      );
+      atLeastOneError = true;
+    }
+  }
+
   if (atLeastOneError) {
     process.exit(1);
   }

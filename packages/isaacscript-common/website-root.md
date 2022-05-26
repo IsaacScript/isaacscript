@@ -9,7 +9,7 @@ The `isaacscript-common` package contains extra goodies that you can easily use 
 
 ## Custom Callbacks
 
-- The Isaac API offers a lot of callbacks, but a lot of times there isn't one for the specific thing that you are looking to do. So, `isaacscript-common` adds a bunch of new callbacks that you can easily use.
+- The Isaac API offers a lot of callbacks, but a lot of times there isn't one for the specific thing that you are looking to do. So, `isaacscript-common` adds a bunch of new callbacks that you can use.
 - The extra callbacks are efficient such that no code is ran until they have one or more subscriptions.
 - See the [main website](https://isaacscript.github.io/docs/function-signatures-custom) for a full list.
 - You must [upgrade your mod](modules/upgradeMod.md) before using a custom callback.

@@ -1,15 +1,7 @@
 import { VectorZero } from "../constants";
+import { ChargeBarSprites } from "../types/ChargeBarSprites";
 
 const CHARGE_BAR_ANM2 = "gfx/ui/ui_chargebar.anm2";
-
-/** A collection of the four sprites necessary in order to render a charge bar. */
-export interface ChargeBarSprites {
-  back: Sprite;
-  meter: Sprite;
-  meterBattery: Sprite;
-  lines: Sprite;
-  maxCharges: int;
-}
 
 /**
  * Constructor for a `ChargeBarSprites` object. For more information, see the `renderChargeBar`
