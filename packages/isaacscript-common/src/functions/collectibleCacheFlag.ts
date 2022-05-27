@@ -61,14 +61,14 @@ export function getCollectiblesForCacheFlag(
  * Returns an array containing every collectible type that the player has that matches the provided
  * CacheFlag.
  *
- * For example, if a player has one Lord of the Pit and two Transcendences, then this function would
- * return:
+ * For example, if the cache flag is `CacheFlag.FLYING`, and the player has one Lord of the Pit and
+ * two Dead Doves, then this function would return:
  *
  * ```ts
  * [
  *   CollectibleType.LORD_OF_THE_PIT,
- *   CollectibleType.TRANSCENDENCE,
- *   CollectibleType.TRANSCENDENCE,
+ *   CollectibleType.DEAD_DOVE,
+ *   CollectibleType.DEAD_DOVE,
  * ]
  * ```
  */

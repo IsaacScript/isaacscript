@@ -1,4 +1,5 @@
 /* stylelint-disable docusaurus/copyright-header */
+/* stylelint-disable docusaurus/copyright-header */
 /* cspell:ignore Infima */
 
 /**
@@ -9,14 +10,14 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: rgb(75, 156, 214);
-  /* --ifm-color-primary: rgb(41, 127, 202); */ /* The blue from the TypeScript logo */
-  --ifm-color-primary-dark: rgb(33, 175, 144);
-  --ifm-color-primary-darker: rgb(31, 165, 136);
-  --ifm-color-primary-darkest: rgb(26, 136, 112);
-  --ifm-color-primary-light: rgb(70, 203, 174);
-  --ifm-color-primary-lighter: rgb(102, 212, 189);
-  --ifm-color-primary-lightest: rgb(146, 224, 208);
+  /* Colors generated from: https://docusaurus.io/docs/styling-layout */
+  --ifm-color-primary: #4b9cd6;
+  --ifm-color-primary-dark: #338fd1;
+  --ifm-color-primary-darker: #2e88c8;
+  --ifm-color-primary-darkest: #2670a5;
+  --ifm-color-primary-light: #63a9db;
+  --ifm-color-primary-lighter: #6eafde;
+  --ifm-color-primary-lightest: #92c3e6;
   --ifm-code-font-size: 95%;
 }
 
@@ -28,7 +29,7 @@
 }
 
 html[data-theme="dark"] .docusaurus-highlight-code-line {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: #4b9cd6;
 }
 
 /* Added styles */
@@ -46,4 +47,10 @@ html[data-theme="dark"] .docusaurus-highlight-code-line {
 .features-icon {
   position: relative;
   top: 1em;
+}
+
+/* Added styles for TypeDoc pages */
+
+html[class*="isaacscript-common"] h3 {
+  color: #ac4b29;
 }

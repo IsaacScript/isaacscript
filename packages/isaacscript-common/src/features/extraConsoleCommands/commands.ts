@@ -1,3 +1,16 @@
+// cspell:ignore addcharges
+/**
+ * This is a list of custom console commands that are included with the standard library.
+ *
+ * Note that as a quality of life feature, you do not have to match the casing of the command. For
+ * example, you can type the "addCharges" command as "addcharges", and it will still work the same.
+ *
+ * In order for the custom console commands to work, you first have to call
+ * `enableExtraConsoleCommands`. (See the "Extra Console Commands (Init)" page for more details.)
+ *
+ * @module
+ */
+
 import {
   ActiveSlot,
   CacheFlag,
@@ -198,7 +211,7 @@ export function bloodCharges(params: string): void {
   player.AddBloodCharge(charges);
 }
 
-/** Alias for the "blackmarket" command. */
+/** Alias for the "blackMarket" command. */
 export function bm(): void {
   blackMarket();
 }
@@ -322,7 +335,7 @@ export function cards(): void {
   }
 }
 
-/** Alias for the "chaoscardtears" command. */
+/** Alias for the "chaosCardTears" command. */
 export function cc(): void {
   chaosCardTears();
 }
@@ -371,7 +384,7 @@ export function characterCommand(params: string): void {
   printConsole(`Restarting as character: ${characterName} (${character})`);
 }
 
-/** Alias for the "addcharges" command. */
+/** Alias for the "addCharges" command. */
 export function charge(params: string): void {
   addCharges(params);
 }
@@ -485,12 +498,12 @@ export function effects(): void {
   printConsole('Logged the player\'s effects to the "log.txt" file.');
 }
 
-/** Alias for the "eternalhearts" command. */
+/** Alias for the "eternalHearts" command. */
 export function eh(params: string): void {
   eternalHearts(params);
 }
 
-/** Alias for the "iamerror" command. */
+/** Alias for the "iAmError" command. */
 export function error(): void {
   iAmError();
 }
@@ -503,7 +516,7 @@ export function eternalHearts(params: string): void {
   addHeart(params, HealthType.ETERNAL);
 }
 
-/** Alias for the "startingroom" command. */
+/** Alias for the "startingRoom" command. */
 export function fool(): void {
   startingRoom();
 }
@@ -538,17 +551,17 @@ export function gigaBomb(params: string): void {
   player.AddGigaBombs(numBombs);
 }
 
-/** Alias for the "goldenbomb" command. */
+/** Alias for the "goldenBomb" command. */
 export function goldBomb(): void {
   goldenBomb();
 }
 
-/** Alias for the "goldenhearts" command. */
+/** Alias for the "goldenHearts" command. */
 export function goldHearts(params: string): void {
   goldenHearts(params);
 }
 
-/** Alias for the "goldenkey" command. */
+/** Alias for the "goldenKey" command. */
 export function goldKey(): void {
   goldenKey();
 }
@@ -680,7 +693,7 @@ export function library(): void {
  * `EntityType`.
  *
  * By default, this command will exclude background effects. If that is not desired, use the
- * "listall" command instead.
+ * "listAll" command instead.
  */
 export function list(params: string): void {
   listEntities(params, false);
@@ -698,7 +711,7 @@ export function listAll(params: string): void {
  * Logs the grid entities in the room to the "log.txt" file. Provide a number to only log that
  * specific `GridEntityType`.
  *
- * By default, this command will exclude walls. If that is not desired, use the "listgridall"
+ * By default, this command will exclude walls. If that is not desired, use the "listGridAll"
  * command instead.
  */
 export function listGrid(params: string): void {
@@ -750,7 +763,7 @@ export function maxHearts(params: string): void {
   addHeart(params, HealthType.MAX_HEARTS);
 }
 
-/** Alias for the "maxhearts" command. */
+/** Alias for the "maxHearts" command. */
 export function mh(params: string): void {
   maxHearts(params);
 }
@@ -760,7 +773,7 @@ export function miniboss(): void {
   warpToRoomType(RoomType.MINI_BOSS);
 }
 
-/** Alias for the "disablecurses" command. */
+/** Alias for the "disableCurses" command. */
 export function noCurses(): void {
   disableCurses();
 }
@@ -888,7 +901,7 @@ export function poopMana(params: string): void {
   player.AddPoopMana(charges);
 }
 
-/** Alias for the "getposition" command. */
+/** Alias for the "getPosition" command. */
 export function positionCommand(): void {
   getPosition();
 }
@@ -898,7 +911,7 @@ export function redHearts(params: string): void {
   hearts(params);
 }
 
-/** Alias for the "redhearts" command. */
+/** Alias for the "redHearts" command. */
 export function rh(params: string): void {
   redHearts(params);
 }
@@ -1048,17 +1061,17 @@ export function setCharges(params: string): void {
  * Moves the first player to the specified position.
  *
  * For example:
- * - setposition 100 50
+ * - setPosition 100 50
  */
 export function setPosition(params: string): void {
   if (params === "") {
-    printConsole('You must specify a position. (e.g. "setposition 100 50")');
+    printConsole('You must specify a position. (e.g. "setPosition 100 50")');
     return;
   }
 
   const args = params.split(" ");
   if (args.length !== 2) {
-    printConsole('You must specify a position. (e.g. "setposition 100 50")');
+    printConsole('You must specify a position. (e.g. "setPosition 100 50")');
     return;
   }
 
@@ -1081,7 +1094,7 @@ export function setPosition(params: string): void {
   player.Position = position;
 }
 
-/** Alias for the "soulhearts" command. */
+/** Alias for the "soulHearts" command. */
 export function sh(params: string): void {
   soulHearts(params);
 }

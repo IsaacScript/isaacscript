@@ -2,7 +2,7 @@ import { SerializationType } from "../../enums/SerializationType";
 import { deepCopy } from "../../functions/deepCopy";
 import { jsonEncode } from "../../functions/jsonHelpers";
 import { log } from "../../functions/log";
-import { SaveData } from "../../types/SaveData";
+import { SaveData } from "../../interfaces/SaveData";
 import { SAVE_DATA_MANAGER_FEATURE_NAME } from "./constants";
 
 export function saveToDisk(

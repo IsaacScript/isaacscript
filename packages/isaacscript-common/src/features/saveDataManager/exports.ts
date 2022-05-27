@@ -4,7 +4,7 @@ import { SaveDataKey } from "../../enums/private/SaveDataKey";
 import { SerializationType } from "../../enums/SerializationType";
 import { errorIfFeaturesNotInitialized } from "../../featuresInitialized";
 import { deepCopy } from "../../functions/deepCopy";
-import { SaveData } from "../../types/SaveData";
+import { SaveData } from "../../interfaces/SaveData";
 import { SAVE_DATA_MANAGER_FEATURE_NAME } from "./constants";
 import {
   forceSaveDataManagerLoad,
@@ -54,7 +54,7 @@ import {
  *
  *   // These variables are reset at the beginning of every room.
  *   room: {
- *     foo2: 0,
+ *     foo4: 0,
  *   },
  * };
  * // Every child object is optional; only create the ones that you need.
@@ -77,7 +77,9 @@ import {
  *   can possibly run).
  * - Save data is recorded to disk in the `PRE_GAME_EXIT` callback.
  *
- * Note that before using the save data manager, you must call the `upgradeMod` function.
+ * Note that before using the save data manager, you must call the `upgradeMod` function. (Upgrade
+ * your mod before registering any of your own callbacks so that the save data manager will run
+ * before any of your code does.)
  *
  * If you want the save data manager to load data before the `POST_PLAYER_INIT` callback (i.e. in
  * the main menu), then you should explicitly call the `saveDataManagerLoad` function. (The save
@@ -95,10 +97,10 @@ import {
  * @param conditionalFunc An optional function to run upon saving this key to disk. For example,
  *                        this allows features to only save data to disk if the feature is enabled.
  *                        Specify a value of `() => false` to completely disable saving this feature
- *                        to disk. This is useful if you are using data that is not serializable, or
- *                        you want to use the save data manager to automatically reset variables on
- *                        run/level/room, but not clutter the the "save#.dat" file with unnecessary
- *                        keys.
+ *                        to disk. Disabling saving to disk is useful if you are using data that is
+ *                        not serializable. Alternatively, it could be useful if you want to use the
+ *                        save data manager to automatically reset variables on run/level/room, but
+ *                        not clutter the the "save#.dat" file with unnecessary keys.
  */
 export function saveDataManager(
   key: string,
@@ -151,7 +153,8 @@ export function saveDataManager(
  * when a new run is started). Use this function to explicitly force the save data manager to load
  * all of its variables from disk immediately.
  *
- * Note that doing this will overwrite current data, which can potentially result in lost state.
+ * Obviously, doing this will overwrite the current data, so using this function can potentially
+ * result in lost state.
  */
 export function saveDataManagerLoad(): void {
   errorIfFeaturesNotInitialized(SAVE_DATA_MANAGER_FEATURE_NAME);
@@ -190,7 +193,7 @@ export function saveDataManagerSetGlobal(): void {
  *
  * For example:
  *
- * ```
+ * ```ts
  * const v = {
  *   room: {
  *     foo: 123,

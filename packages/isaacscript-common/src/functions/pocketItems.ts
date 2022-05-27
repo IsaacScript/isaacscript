@@ -7,7 +7,7 @@ import {
   PocketItemSlot,
 } from "isaac-typescript-definitions";
 import { PocketItemType } from "../enums/PocketItemType";
-import { PocketItemDescription } from "../types/PocketItemDescription";
+import { PocketItemDescription } from "../interfaces/PocketItemDescription";
 import { getEnumValues } from "./enums";
 import { isCharacter } from "./player";
 

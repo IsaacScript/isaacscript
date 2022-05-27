@@ -56,6 +56,12 @@ const COLLECTIBLE_ITEM_TYPES: ReadonlySet<ItemType> = new Set([
   ItemType.FAMILIAR, // 4
 ]);
 
+export function pickingUpItemIsNull(
+  pickingUpItem: PickingUpItem,
+): pickingUpItem is PickingUpItemTrinket {
+  return pickingUpItem.itemType === ItemType.NULL;
+}
+
 export function pickingUpItemIsCollectible(
   pickingUpItem: PickingUpItem,
 ): pickingUpItem is PickingUpItemCollectible {

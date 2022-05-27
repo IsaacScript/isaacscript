@@ -1,13 +1,13 @@
-/* cspell:disable */
-
 import { Card } from "isaac-typescript-definitions";
+
+// cspell:ignore hiero
 
 /** Maps card names to card sub-types. */
 export const CARD_MAP: ReadonlyMap<string, Card> = new Map([
   ["fool", Card.FOOL], // 1
   ["magician", Card.MAGICIAN], // 2
   ["mag", Card.MAGICIAN], // 2 - Needed since we have "mag?"
-  ["highpriestess", Card.HIGH_PRIESTESS], // 3
+  ["highPriestess", Card.HIGH_PRIESTESS], // 3
   ["priestess", Card.HIGH_PRIESTESS], // 3
   ["priest", Card.HIGH_PRIESTESS], // 3 - Needed since we have "priest?"
   ["hp", Card.HIGH_PRIESTESS], // 3
@@ -20,12 +20,12 @@ export const CARD_MAP: ReadonlyMap<string, Card> = new Map([
   ["chariot", Card.CHARIOT], // 8
   ["justice", Card.JUSTICE], // 9
   ["hermit", Card.HERMIT], // 10
-  ["wheeloffortune", Card.WHEEL_OF_FORTUNE], // 11
+  ["wheelOfFortune", Card.WHEEL_OF_FORTUNE], // 11
   ["wheel", Card.WHEEL_OF_FORTUNE], // 11 - Needed since we have "wheel?"
   ["fortune", Card.WHEEL_OF_FORTUNE], // 11
   ["strength", Card.STRENGTH], // 12
   ["str", Card.STRENGTH], // 12 - Needed since we have "str?"
-  ["hangedman", Card.HANGED_MAN], // 13
+  ["hangedMan", Card.HANGED_MAN], // 13
   ["hanged", Card.HANGED_MAN], // 13
   ["death", Card.DEATH], // 14
   ["temperance", Card.TEMPERANCE], // 15
@@ -37,22 +37,22 @@ export const CARD_MAP: ReadonlyMap<string, Card> = new Map([
   ["judgement", Card.JUDGEMENT], // 21
   ["judge", Card.JUDGEMENT], // 21 - Needed since we have "judge?"
   ["world", Card.WORLD], // 22
-  ["2ofclubs", Card.CLUBS_2], // 23
-  ["2clubs", Card.CLUBS_2], // 23
-  ["2ofdiamonds", Card.DIAMONDS_2], // 24
-  ["2diamonds", Card.DIAMONDS_2], // 24
-  ["2ofspades", Card.SPADES_2], // 25
-  ["2spades", Card.SPADES_2], // 25
-  ["2ofhearts", Card.HEARTS_2], // 26
-  ["2hearts", Card.HEARTS_2], // 26
-  ["aceofclubs", Card.ACE_OF_CLUBS], // 27
-  ["aceclubs", Card.ACE_OF_CLUBS], // 27
-  ["aceofdiamonds", Card.ACE_OF_DIAMONDS], // 28
-  ["acediamonds", Card.ACE_OF_DIAMONDS], // 28
-  ["aceofspades", Card.ACE_OF_SPADES], // 29
-  ["acespades", Card.ACE_OF_SPADES], // 29
-  ["aceofhearts", Card.ACE_OF_HEARTS], // 30
-  ["acehearts", Card.ACE_OF_HEARTS], // 30
+  ["2OfClubs", Card.CLUBS_2], // 23
+  ["2Clubs", Card.CLUBS_2], // 23
+  ["2OfDiamonds", Card.DIAMONDS_2], // 24
+  ["2Diamonds", Card.DIAMONDS_2], // 24
+  ["2OfSpades", Card.SPADES_2], // 25
+  ["2Spades", Card.SPADES_2], // 25
+  ["2OfHearts", Card.HEARTS_2], // 26
+  ["2Hearts", Card.HEARTS_2], // 26
+  ["aceOfClubs", Card.ACE_OF_CLUBS], // 27
+  ["aceClubs", Card.ACE_OF_CLUBS], // 27
+  ["aceOfDiamonds", Card.ACE_OF_DIAMONDS], // 28
+  ["aceDiamonds", Card.ACE_OF_DIAMONDS], // 28
+  ["aceOfSpades", Card.ACE_OF_SPADES], // 29
+  ["aceSpades", Card.ACE_OF_SPADES], // 29
+  ["aceOfHearts", Card.ACE_OF_HEARTS], // 30
+  ["aceHearts", Card.ACE_OF_HEARTS], // 30
   ["joker", Card.JOKER], // 31
   ["hagalaz", Card.RUNE_HAGALAZ], // 32
   ["destruction", Card.RUNE_HAGALAZ], // 32
@@ -76,31 +76,31 @@ export const CARD_MAP: ReadonlyMap<string, Card> = new Map([
   ["chaos", Card.CHAOS], // 42
   ["credit", Card.CREDIT], // 43
   ["rules", Card.RULES], // 44
-  ["againsthumanity", Card.AGAINST_HUMANITY], // 45
+  ["againstHumanity", Card.AGAINST_HUMANITY], // 45
   ["humanity", Card.AGAINST_HUMANITY], // 45
-  ["suicideking", Card.SUICIDE_KING], // 46
+  ["suicideKing", Card.SUICIDE_KING], // 46
   ["suicide", Card.SUICIDE_KING], // 46
-  ["getoutofjailfree", Card.GET_OUT_OF_JAIL_FREE], // 47
+  ["getOutOfJailFree", Card.GET_OUT_OF_JAIL_FREE], // 47
   ["jail", Card.GET_OUT_OF_JAIL_FREE], // 47
   ["?", Card.QUESTION_MARK], // 48
-  ["diceshard", Card.DICE_SHARD], // 49
+  ["diceShard", Card.DICE_SHARD], // 49
   ["shard", Card.DICE_SHARD], // 49
-  ["emergencycontact", Card.EMERGENCY_CONTACT], // 50
+  ["emergencyContact", Card.EMERGENCY_CONTACT], // 50
   ["contact", Card.EMERGENCY_CONTACT], // 50
   ["holy", Card.HOLY], // 51
-  ["hugegrowth", Card.HUGE_GROWTH], // 52
+  ["hugeGrowth", Card.HUGE_GROWTH], // 52
   ["growth", Card.HUGE_GROWTH], // 52
-  ["ancientrecall", Card.ANCIENT_RECALL], // 53
+  ["ancientRecall", Card.ANCIENT_RECALL], // 53
   ["recall", Card.ANCIENT_RECALL], // 53
-  ["erawalk", Card.ERA_WALK], // 54
+  ["eraWalk", Card.ERA_WALK], // 54
   ["walk", Card.ERA_WALK], // 54
-  ["runeshard", Card.RUNE_SHARD], // 55
+  ["runeShard", Card.RUNE_SHARD], // 55
   ["shard", Card.RUNE_SHARD], // 55
   ["fool?", Card.REVERSE_FOOL], // 56
   ["magician?", Card.REVERSE_MAGICIAN], // 57
   ["magi?", Card.REVERSE_MAGICIAN], // 57
   ["mag?", Card.REVERSE_MAGICIAN], // 57
-  ["highpriestess?", Card.REVERSE_HIGH_PRIESTESS], // 58
+  ["highPriestess?", Card.REVERSE_HIGH_PRIESTESS], // 58
   ["high?", Card.REVERSE_HIGH_PRIESTESS], // 58
   ["hi?", Card.REVERSE_HIGH_PRIESTESS], // 58
   ["priestess?", Card.REVERSE_HIGH_PRIESTESS], // 58
@@ -115,12 +115,12 @@ export const CARD_MAP: ReadonlyMap<string, Card> = new Map([
   ["chariot?", Card.REVERSE_CHARIOT], // 63
   ["justice?", Card.REVERSE_JUSTICE], // 64
   ["hermit?", Card.REVERSE_HERMIT], // 65
-  ["wheeloffortune?", Card.REVERSE_WHEEL_OF_FORTUNE], // 66
+  ["wheelOfFortune?", Card.REVERSE_WHEEL_OF_FORTUNE], // 66
   ["wheel?", Card.REVERSE_WHEEL_OF_FORTUNE], // 66
   ["fortune?", Card.REVERSE_WHEEL_OF_FORTUNE], // 66
   ["strength?", Card.REVERSE_STRENGTH], // 67
   ["str?", Card.REVERSE_STRENGTH], // 67
-  ["hangedman?", Card.REVERSE_HANGED_MAN], // 68
+  ["hangedMan?", Card.REVERSE_HANGED_MAN], // 68
   ["hanged?", Card.REVERSE_HANGED_MAN], // 68
   ["death?", Card.REVERSE_DEATH], // 6
   ["temperance?", Card.REVERSE_TEMPERANCE], // 70
@@ -132,78 +132,78 @@ export const CARD_MAP: ReadonlyMap<string, Card> = new Map([
   ["judgement?", Card.REVERSE_JUDGEMENT], // 76
   ["judge?", Card.REVERSE_JUDGEMENT], // 76
   ["world?", Card.REVERSE_WORLD], // 77
-  ["crackedkey", Card.CRACKED_KEY], // 78
+  ["crackedKey", Card.CRACKED_KEY], // 78
   ["key", Card.CRACKED_KEY], // 78
-  ["queenofhearts", Card.QUEEN_OF_HEARTS], // 79
-  ["queenhearts", Card.QUEEN_OF_HEARTS], // 79
+  ["queenOfHearts", Card.QUEEN_OF_HEARTS], // 79
+  ["queenHearts", Card.QUEEN_OF_HEARTS], // 79
   ["wildcard", Card.WILD], // 80
-  ["soulofisaac", Card.SOUL_ISAAC], // 81
-  ["soulisaac", Card.SOUL_ISAAC], // 81
+  ["soulOfIsaac", Card.SOUL_ISAAC], // 81
+  ["soulIsaac", Card.SOUL_ISAAC], // 81
   ["isaac", Card.SOUL_ISAAC], // 81
-  ["soulofmagdalene", Card.SOUL_MAGDALENE], // 82
-  ["soulmagdalene", Card.SOUL_MAGDALENE], // 82
+  ["soulOfMagdalene", Card.SOUL_MAGDALENE], // 82
+  ["soulMagdalene", Card.SOUL_MAGDALENE], // 82
   ["magdalene", Card.SOUL_MAGDALENE], // 82
-  ["soulofcain", Card.SOUL_CAIN], // 83
-  ["soulcain", Card.SOUL_CAIN], // 83
+  ["soulOfCain", Card.SOUL_CAIN], // 83
+  ["soulCain", Card.SOUL_CAIN], // 83
   ["cain", Card.SOUL_CAIN], // 83
-  ["soulofjudas", Card.SOUL_JUDAS], // 84
-  ["souljudas", Card.SOUL_JUDAS], // 84
+  ["soulOfJudas", Card.SOUL_JUDAS], // 84
+  ["soulJudas", Card.SOUL_JUDAS], // 84
   ["judas", Card.SOUL_JUDAS], // 84
-  ["soulof???", Card.SOUL_BLUE_BABY], // 85
+  ["soulOf???", Card.SOUL_BLUE_BABY], // 85
   ["soul???", Card.SOUL_BLUE_BABY], // 85
   ["???", Card.SOUL_BLUE_BABY], // 85
-  ["soulofbluebaby", Card.SOUL_BLUE_BABY], // 85
-  ["soulbluebaby", Card.SOUL_BLUE_BABY], // 85
-  ["bluebaby", Card.SOUL_BLUE_BABY], // 85
-  ["soulofeve", Card.SOUL_EVE], // 86
-  ["souleve", Card.SOUL_EVE], // 86
+  ["soulOfBlueBaby", Card.SOUL_BLUE_BABY], // 85
+  ["soulBlueBaby", Card.SOUL_BLUE_BABY], // 85
+  ["blueBaby", Card.SOUL_BLUE_BABY], // 85
+  ["soulOfEve", Card.SOUL_EVE], // 86
+  ["soulEve", Card.SOUL_EVE], // 86
   ["eve", Card.SOUL_EVE], // 86
-  ["soulofsamson", Card.SOUL_SAMSON], // 87
-  ["soulsamson", Card.SOUL_SAMSON], // 87
+  ["soulOfSamson", Card.SOUL_SAMSON], // 87
+  ["soulSamson", Card.SOUL_SAMSON], // 87
   ["samson", Card.SOUL_SAMSON], // 87
-  ["soulofazazel", Card.SOUL_AZAZEL], // 88
-  ["soulazazel", Card.SOUL_AZAZEL], // 88
+  ["soulOfAzazel", Card.SOUL_AZAZEL], // 88
+  ["soulAzazel", Card.SOUL_AZAZEL], // 88
   ["azazel", Card.SOUL_AZAZEL], // 88
-  ["souloflazarus", Card.SOUL_LAZARUS], // 89
-  ["soullazarus", Card.SOUL_LAZARUS], // 89
+  ["soulOfLazarus", Card.SOUL_LAZARUS], // 89
+  ["soulLazarus", Card.SOUL_LAZARUS], // 89
   ["lazarus", Card.SOUL_LAZARUS], // 89
-  ["soulofeden", Card.SOUL_EDEN], // 90
-  ["souleden", Card.SOUL_EDEN], // 90
+  ["soulOfEden", Card.SOUL_EDEN], // 90
+  ["soulEden", Card.SOUL_EDEN], // 90
   ["eden", Card.SOUL_EDEN], // 90
-  ["soulofthelost", Card.SOUL_LOST], // 91
-  ["soulthelost", Card.SOUL_LOST], // 91
-  ["thelost", Card.SOUL_LOST], // 91
-  ["souloflost", Card.SOUL_LOST], // 91
-  ["soullost", Card.SOUL_LOST], // 91
+  ["soulOfTheLost", Card.SOUL_LOST], // 91
+  ["soulTheLost", Card.SOUL_LOST], // 91
+  ["theLost", Card.SOUL_LOST], // 91
+  ["soulOfLost", Card.SOUL_LOST], // 91
+  ["soulLost", Card.SOUL_LOST], // 91
   ["lost", Card.SOUL_LOST], // 91
-  ["souloflilith", Card.SOUL_LILITH], // 92
-  ["soullilith", Card.SOUL_LILITH], // 92
+  ["soulOfLilith", Card.SOUL_LILITH], // 92
+  ["soulLilith", Card.SOUL_LILITH], // 92
   ["lilith", Card.SOUL_LILITH], // 92
-  ["soulofthekeeper", Card.SOUL_KEEPER], // 93
-  ["soulthekeeper", Card.SOUL_KEEPER], // 93
-  ["thekeeper", Card.SOUL_KEEPER], // 93
-  ["soulofkeeper", Card.SOUL_KEEPER], // 93
-  ["soulkeeper", Card.SOUL_KEEPER], // 93
+  ["soulOfTheKeeper", Card.SOUL_KEEPER], // 93
+  ["soulTheKeeper", Card.SOUL_KEEPER], // 93
+  ["theKeeper", Card.SOUL_KEEPER], // 93
+  ["soulOfKeeper", Card.SOUL_KEEPER], // 93
+  ["soulKeeper", Card.SOUL_KEEPER], // 93
   ["keeper", Card.SOUL_KEEPER], // 93
-  ["soulofapollyon", Card.SOUL_APOLLYON], // 94
-  ["soulapollyon", Card.SOUL_APOLLYON], // 94
+  ["soulOfApollyon", Card.SOUL_APOLLYON], // 94
+  ["soulApollyon", Card.SOUL_APOLLYON], // 94
   ["apollyon", Card.SOUL_APOLLYON], // 94
-  ["souloftheforgotten", Card.SOUL_FORGOTTEN], // 95
-  ["soultheforgotten", Card.SOUL_FORGOTTEN], // 95
-  ["theforgotten", Card.SOUL_FORGOTTEN], // 95
-  ["soulofforgotten", Card.SOUL_FORGOTTEN], // 95
-  ["soulforgotten", Card.SOUL_FORGOTTEN], // 95
+  ["soulOfTheForgotten", Card.SOUL_FORGOTTEN], // 95
+  ["soulTheForgotten", Card.SOUL_FORGOTTEN], // 95
+  ["theForgotten", Card.SOUL_FORGOTTEN], // 95
+  ["soulOfForgotten", Card.SOUL_FORGOTTEN], // 95
+  ["soulForgotten", Card.SOUL_FORGOTTEN], // 95
   ["forgotten", Card.SOUL_FORGOTTEN], // 95
-  ["soulofbethany", Card.SOUL_BETHANY], // 96
-  ["soulbethany", Card.SOUL_BETHANY], // 96
+  ["soulOfBethany", Card.SOUL_BETHANY], // 96
+  ["soulBethany", Card.SOUL_BETHANY], // 96
   ["bethany", Card.SOUL_BETHANY], // 96
-  ["soulofjacobandesau", Card.SOUL_JACOB], // 97
-  ["souljacobandesau", Card.SOUL_JACOB], // 97
-  ["jacobandesau", Card.SOUL_JACOB], // 97
-  ["soulofjacob&esau", Card.SOUL_JACOB], // 97
-  ["souljacob&esau", Card.SOUL_JACOB], // 97
-  ["jacob&esau", Card.SOUL_JACOB], // 97
-  ["soulofjacob", Card.SOUL_JACOB], // 97
-  ["souljacob", Card.SOUL_JACOB], // 97
+  ["soulOfJacobAndEsau", Card.SOUL_JACOB], // 97
+  ["soulJacobAndEsau", Card.SOUL_JACOB], // 97
+  ["jacobAndEsau", Card.SOUL_JACOB], // 97
+  ["soulOfJacob&Esau", Card.SOUL_JACOB], // 97
+  ["soulJacob&Esau", Card.SOUL_JACOB], // 97
+  ["jacob&Esau", Card.SOUL_JACOB], // 97
+  ["soulOfJacob", Card.SOUL_JACOB], // 97
+  ["soulJacob", Card.SOUL_JACOB], // 97
   ["jacob", Card.SOUL_JACOB], // 97
 ]);

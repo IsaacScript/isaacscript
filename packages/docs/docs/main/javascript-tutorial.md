@@ -12,7 +12,7 @@ If you have never programmed in Lua before, then skip reading this page.
 
 <br />
 
-### Comments
+### `Comments`
 
 ```lua
 -- This is a single-line comment in Lua.

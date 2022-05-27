@@ -1,7 +1,7 @@
 import { HeartSubType, PlayerType } from "isaac-typescript-definitions";
 import { MAX_PLAYER_HEART_CONTAINERS } from "../constants";
 import { HealthType } from "../enums/HealthType";
-import { PlayerHealth } from "../types/PlayerHealth";
+import { PlayerHealth } from "../interfaces/PlayerHealth";
 import {
   getPlayerBlackHearts,
   getPlayerHearts,

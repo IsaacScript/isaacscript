@@ -42,9 +42,9 @@
   "devDependencies": {
     "@commitlint/cli": "^17.0.1",
     "@commitlint/config-conventional": "^17.0.0",
-    "@docusaurus/core": "^2.0.0-beta.20",
-    "@docusaurus/preset-classic": "^2.0.0-beta.20",
-    "@jscutlery/semver": "^2.23.4",
+    "@docusaurus/core": "^2.0.0-beta.21",
+    "@docusaurus/preset-classic": "^2.0.0-beta.21",
+    "@jscutlery/semver": "^2.24.1",
     "@mdx-js/react": "^1.6.2",
     "@nrwl/cli": "^14.1.9",
     "@nrwl/devkit": "^14.1.9",

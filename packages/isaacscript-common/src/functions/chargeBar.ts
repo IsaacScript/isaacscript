@@ -1,5 +1,5 @@
 import { VectorZero } from "../constants";
-import { ChargeBarSprites } from "../types/ChargeBarSprites";
+import { ChargeBarSprites } from "../interfaces/ChargeBarSprites";
 
 const CHARGE_BAR_ANM2 = "gfx/ui/ui_chargebar.anm2";
 

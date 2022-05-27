@@ -70,13 +70,30 @@ function main() {
     }
   }
 
-  const typesFilePaths = glob.sync("../isaacscript-common/src/types/*.ts");
-  for (const filePath of typesFilePaths) {
+  const interfacesFilePaths = glob.sync(
+    "../isaacscript-common/src/interfaces/*.ts",
+  );
+  for (const filePath of interfacesFilePaths) {
     if (
       filePath.endsWith("private") ||
-      filePath.endsWith(".d.ts") ||
       filePath.endsWith("AddCallbackParameterCustom.ts")
     ) {
+      continue;
+    }
+
+    if (!entryPointsSet.has(filePath)) {
+      console.error(
+        `Failed to find the following file in the entry point: ${filePath}`,
+      );
+      atLeastOneError = true;
+    }
+  }
+
+  // Only specific maps in the "maps" directory are exported. Thus, we do not check this directory.
+
+  const typesFilePaths = glob.sync("../isaacscript-common/src/types/*.ts");
+  for (const filePath of typesFilePaths) {
+    if (filePath.endsWith("private") || filePath.endsWith(".d.ts")) {
       continue;
     }
 

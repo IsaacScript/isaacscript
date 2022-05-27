@@ -2,6 +2,7 @@
 
 autoformat
 backticks
+bitmask
 bootstrapper
 cacheable
 easings
@@ -12,6 +13,7 @@ licence
 minimalistic
 mkdir
 namespacing
+outro
 Pastebin
 playstyle
 rebalancing
@@ -22,7 +24,9 @@ ruleset
 rulesets
 sandboxing
 situationally
+stdlib
 subprocesses
+synergize
 toggleable
 tracebacks
 transpiles

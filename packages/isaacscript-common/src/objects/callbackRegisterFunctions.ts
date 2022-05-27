@@ -74,7 +74,7 @@ import { preCustomReviveRegister } from "../callbacks/subscriptions/preCustomRev
 import { preItemPickupRegister } from "../callbacks/subscriptions/preItemPickup";
 import { preNewLevelRegister } from "../callbacks/subscriptions/preNewLevel";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
-import { AddCallbackParameterCustom } from "../types/AddCallbackParameterCustom";
+import { AddCallbackParameterCustom } from "../interfaces/AddCallbackParameterCustom";
 
 export const CALLBACK_REGISTER_FUNCTIONS: {
   readonly [key in ModCallbackCustom]: (

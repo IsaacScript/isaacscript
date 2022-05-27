@@ -3,7 +3,7 @@ import {
   TrinketSlot,
   TrinketType,
 } from "isaac-typescript-definitions";
-import { TrinketSituation } from "../types/TrinketSituation";
+import { TrinketSituation } from "../interfaces/TrinketSituation";
 import { useActiveItemTemp } from "./player";
 import { getGoldenTrinketType } from "./trinkets";
 import { repeat } from "./utils";

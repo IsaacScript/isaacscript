@@ -1,0 +1,31 @@
+# Words in the Lua programming language.
+
+collectgarbage # Global
+getinfo # Debug library method
+dofile # Lua global
+getmetatable # Global
+getpeername # socket.lua
+getsockname # socket.lua
+gettime # socket.lua
+ipairs # Global
+loadfile # Global
+metatable
+metatables
+pcall # Global
+rawequal # Global
+rawget # Global
+rawlen # Global
+rawset # Global
+receivefrom # socket.lua
+sendto # socket.lua
+setmetatable # Global
+setoption # socket.lua
+setpeername # socket.lua
+setsockname # socket.lua
+settimeout # socket.lua
+tonumber # Global
+tostring # Global
+traceback # Debug library method
+upvalue # Debug library word
+userdata # A type
+xpcall # Global

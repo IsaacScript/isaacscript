@@ -4,10 +4,11 @@ Antibirth
 Begottens
 Bethanys
 Chronometrics # Creator of Basement Renovator
+datagrams
 debuff
+despawn
 despawning
 despawns
-dofile # Lua global
 Dollys
 Dreamcatcher
 Eggies
@@ -17,35 +18,27 @@ fistuloids
 forgottens
 Gabriels
 gameplay
-getinfo # Debug library method
-getmetatable # Lua global
 giveitem # Console command
 hitbox
 hitboxes
-ipairs # Lua global
 Kilburn # Repentance developer
 Kinetis
-loadfile # Lua global
 Losts
-metatable # Lua word
-metatables # Lua word
 modders
 Mullibooms
 nerfed
 nerfs
 Nicalis
-pcall # Lua global
+npcs
+piber # Creator of Mod Config Menu.
 polties
 pooters
 Raglings
-rawequal # Lua global
-rawget # Lua global
-rawlen # Lua global
-rawset # Lua global
+respawn
+respawning
 respawned
 satans
 scolexes
-setmetatable # Lua global
 softlock
 softlocked
 softlocking
@@ -60,10 +53,7 @@ teleporters
 teleporting
 texel
 texels
-tonumber # Lua global
-tostring # Lua global
+tnts
 trites
 Turdlings
-upvalue # Debug library word
 Uriels
-xpcall # Lua global

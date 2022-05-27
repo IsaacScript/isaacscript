@@ -45,7 +45,7 @@ import { gridCoordinatesToWorldPosition } from "../functions/roomGrid";
 import { setRoomCleared, setRoomUncleared } from "../functions/rooms";
 import { spawnCollectible } from "../functions/spawnCollectible";
 import { erange } from "../functions/utils";
-import { JSONRoom } from "../types/JSONRoom";
+import { JSONRoom } from "../interfaces/JSONRoom";
 import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "JSON room deployer";

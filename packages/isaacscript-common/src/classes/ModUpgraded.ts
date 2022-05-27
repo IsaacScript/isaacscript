@@ -1,7 +1,7 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
+import { AddCallbackParameterCustom } from "../interfaces/AddCallbackParameterCustom";
 import { CALLBACK_REGISTER_FUNCTIONS } from "../objects/callbackRegisterFunctions";
-import { AddCallbackParameterCustom } from "../types/AddCallbackParameterCustom";
 
 /** `isaacscript-common` allows for custom callbacks, so it provides an upgraded Mod object. */
 export class ModUpgraded implements Mod {

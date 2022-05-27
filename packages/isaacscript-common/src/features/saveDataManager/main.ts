@@ -12,7 +12,7 @@ import { SerializationType } from "../../enums/SerializationType";
 import { deepCopy } from "../../functions/deepCopy";
 import { logError } from "../../functions/log";
 import { clearTable } from "../../functions/table";
-import { SaveData } from "../../types/SaveData";
+import { SaveData } from "../../interfaces/SaveData";
 import { SAVE_DATA_MANAGER_FEATURE_NAME } from "./constants";
 import { loadFromDisk } from "./load";
 import {

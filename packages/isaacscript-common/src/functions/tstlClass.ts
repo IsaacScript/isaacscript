@@ -1,6 +1,6 @@
 import { DefaultMap } from "../classes/DefaultMap";
+import { TSTLClassMetatable } from "../interfaces/private/TSTLClassMetatable";
 import { TSTLClass } from "../types/private/TSTLClass";
-import { TSTLClassMetatable } from "../types/private/TSTLClassMetatable";
 
 const TSTL_CLASS_METATABLE_KEYS: ReadonlySet<string> = new Set([
   "____constructor",

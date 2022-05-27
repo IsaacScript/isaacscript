@@ -3,6 +3,7 @@
 altpath # challenges.xml
 announcerdelay # pocketitems.xml
 BLCK # BLCK CNDL seed
+cansacrifice # entities2.xml
 canshoot # challenges.xml
 CNDL # BLCK CNDL seed
 deathanm # items.xml
@@ -15,14 +16,30 @@ hudpickups # hudpickups.png
 Humbleing # items.xml
 itemdungeon # 00.special rooms.xml
 itempools # itempools.xml
+lazarusshared # items_metadata.xml
+lazarussharedglobal # items_metadata.xml
 maxcharges # items.xml
 mimiccharge # pocketitems.xml
+monstermanual # items_metadata.xml
+nocantrip # items_metadata.xml
+nochallenge # items_metadata.xml
+nodaily # items_metadata.xml
+noeden # items_metadata.xml
+nogreed # items_metadata.xml
+nokeeper # items_metadata.xml
+nolostbr # items_metadata.xml
 Onan # challenges.xml
 pftempestasevencondensed # font
 pilleffect # pocketitems.xml
+pocketitems # pocketitems.xml
 shotspeed # items.xml
 shutdoors # entities2.xml
+steamapps # The resources directory
+summonable # items_metadata.xml
 swallowedpenny # trinket_001_swallowedpenny.png
 teammeatfont # font
+tearsup # items_metadata.xml
 thesadonion # collectibles_001_thesadonion.png
+uniquefamiliar # items_metadata.xml
 XLAX # pocketitems.xml
+voidtrapdoor # voidtrapdoor.anm2

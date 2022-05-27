@@ -16,6 +16,11 @@
       "description": "Words from resource files"
     },
     {
+      "name": "lua",
+      "path": "./lua.txt",
+      "description": "Words from the Lua programming language"
+    },
+    {
       "name": "other",
       "path": "./other.txt",
       "description": "General Isaac modding words"
@@ -26,7 +31,7 @@
       "languageId": "*",
       "locale": "*",
       "includeRegExpList": [],
-      "dictionaries": ["api", "files", "other"]
+      "dictionaries": ["api", "files", "lua", "other"]
     }
   ]
 }
