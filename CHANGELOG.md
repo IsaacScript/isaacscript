@@ -5,7 +5,7 @@
 
 This page lists the changes to the IsaacScript framework.
 
-## May 28th
+## May 28th, 2022
 
 ### `package.json`
 
@@ -34,7 +34,7 @@ IsaacScript mods now require that `typescript-to-lua` is listed as a dependency 
   - `PitState`
 - Fixed the Encyclopedia definitions. (Thanks 4Grabs)
 
-## May 21st
+## May 21st, 2022
 
 - All functions that take a specific kind of type (e.g. `EntityType`, `PlayerVariant`, etc.) are now no longer in a union with `int`. This makes the API much more type-safe than before. The flip side of this is that you must change any self-defined enums like `CollectibleTypeCustom` to an object instead. See [the docs](https://isaacscript.github.io/docs/gotchas#extending-enums----custom-enums) for more details.
 - `Vector.Zero` and `Vector.One` are now deprecated and will cause compiler errors. Use the `VectorZero` and `VectorOne` constants from the standard library instead, which are guaranteed to be safe. (Alternatively, you can create your own constants that are local to your mod.)
@@ -164,7 +164,7 @@ IsaacScript mods now require that `typescript-to-lua` is listed as a dependency 
   - `spikesdisplay` - Show debugging information next to every spikes.
   - `tntdisplay` - Show debugging information next to every TNT.
 
-## May 14th
+## May 14th, 2022
 
 IsaacScript has now reached **version 2**! We've come a long way with many features, and there's more yet to come. Version 2 comes with breaking changes, but as always, upgrading your mod is optional.
 
@@ -207,7 +207,7 @@ IsaacScript has now reached **version 2**! We've come a long way with many featu
   - `POST_GREED_MODE_WAVE`
   - `POST_HOLY_MANTLE_REMOVED`
 
-## April 28th
+## April 28th, 2022
 
 - Added many new custom console commands, including `playerdisplay`, `npcdisplay`, and so on for rendering custom text on top of an entity for debugging purposes.
 - Added the following helper functions:
@@ -223,7 +223,7 @@ IsaacScript has now reached **version 2**! We've come a long way with many featu
   - `MC_POST_NPC_STATE_CHANGED`
   - `MC_POST_ITEM_DISCHARGE`
 
-## April 21st
+## April 21st, 2022
 
 - Added the following helper functions:
   - `getBossSet` (for getting the set of vanilla bosses)
@@ -240,7 +240,7 @@ IsaacScript has now reached **version 2**! We've come a long way with many featu
   - `getPlayerNumCollectiblesWithTag`
 - `ItemConfigTag` is no longer a constant enum and must be imported. You can now iterate over this enum in your code.
 
-## April 14th
+## April 14th, 2022
 
 - Added the following helper functions:
   - `playerHasCollectible`
@@ -248,7 +248,7 @@ IsaacScript has now reached **version 2**! We've come a long way with many featu
   - `arrayRemoveIndex`
   - `arrayRemoveIndexInPlace`
 
-## April 2nd
+## April 2nd, 2022
 
 - Added the `--yes` flag to `isaacscript init`.
 - Added the following helper functions:
@@ -261,7 +261,7 @@ IsaacScript has now reached **version 2**! We've come a long way with many featu
 - Added every easing function from [easings.net](https://easings.net/).
 - Added the `VectorZero` and `VectorOne` constants. (These are safer to use than the vanilla `Vector.Zero` and `Vector.One` constants.)
 
-## March 26th
+## March 26th, 2022
 
 - Added the changes for vanilla patch 1.7.8a. Several values missing from the vanilla enums are added a well.
 - The API's `Random` function should never be used directly. Use the `getRandomSeed` helper function instead to prevent crashes.
@@ -356,7 +356,7 @@ IsaacScript has now reached **version 2**! We've come a long way with many featu
 - Added the following custom callbacks:
   - `MC_POST_COLLECTIBLE_INIT_FIRST`
 
-## March 19th
+## March 19th, 2022
 
 - The standard library now comes with many helpful console commands. Activate them by calling `enableExtraConsoleCommands`. You can also use `addConsoleCommand` to add your own commands and `removeConsoleCommand` to remove ones that overlap with your own commands. See the documentation for the specific list of commands.
 - Added the following helper functions:
@@ -394,7 +394,7 @@ IsaacScript has now reached **version 2**! We've come a long way with many featu
   - `MC_POST_CUSTOM_DOOR_ENTER`
   - `MC_ROOM_CLEAR_CHANGED`
 
-## March 12th
+## March 12th, 2022
 
 - Added `game`, `itemConfig`, `musicManager`, and `sfxManager` cached classes to the standard library. You can use these instead of invoking the constructor yourself for a miniscule performance increase.
 - Added the following helper functions:
@@ -416,7 +416,7 @@ IsaacScript has now reached **version 2**! We've come a long way with many featu
 - Removed `PILL_GIANT_FLAG` and `PILL_COLOR_MASK` from the `PillColor` enum. These are now exposed as constants.
 - Added `USE_ECHO_CHAMBER` to the `UseFlag` enum. (This is missing in the vanilla enum.)
 
-## March 5th
+## March 5th, 2022
 
 - Added the following helper functions:
   - `willReviveFromHeartbreak`
@@ -469,7 +469,7 @@ IsaacScript has now reached **version 2**! We've come a long way with many featu
 function postPurchase(player: EntityPlayer, pickup: EntityPickup): void {}
 ```
 
-## February 26th, 2021
+## February 26th, 2022
 
 - The `Isaac.GetPlayer` method will no longer return undefined. (You can now delete any undefined-related checks.)
 - Added the `EntitySubPlayer` class to prevent bugs with `RNG`. (`EntityPlayer.GetSubPlayer` is defined as returning this.)
@@ -523,7 +523,7 @@ function postPlayerChangeType(
 ) {}
 ```
 
-## February 19th, 2021
+## February 19th, 2022
 
 - `isaacscript` now requires a Git version of at least 2.30.
 - `isaacscript` now supports a `--verbose` flag for additional output.
@@ -577,7 +577,7 @@ function postPlayerChangeType(
 - Added the following custom callbacks:
   - `MC_POST_GRID_ENTITY_COLLISION`
 
-## February 12th, 2021
+## February 12th, 2022
 
 - TSTL has been upgraded such that the lualib does not create any global variables.
 - Added the following helper functions:
@@ -592,22 +592,22 @@ function postPlayerChangeType(
 - Renamed the following helper functions:
   - `getPlayerNumAllHearts` --> `getPlayerNumHitsRemaining`
 
-## February 5th, 2021
+## February 5th, 2022
 
 - Added the `canTakeFreeDevilDeals` helper function.
 - Added the `CHARACTERS_WITH_FREE_DEVIL_DEALS` constant.
 - Added the `BloodClotSubType` enum. (Thanks KatTheFox)
 
-## January 29th, 2021
+## January 29th, 2022
 
 - Added the `STORY_BOSSES` constant.
 - Added the `isStoryBoss` helper function.
 
-## January 22nd, 2021
+## January 22nd, 2022
 
 - Added the `isRepentanceStage` helper function.
 
-## January 14th, 2021
+## January 14th, 2022
 
 - Added the following helper functions:
   - `isDamageToPlayerFatal`
@@ -615,7 +615,7 @@ function postPlayerChangeType(
 - Added the following custom callbacks:
   - `MC_PRE_BERSERK_DEATH`
 
-## January 7th, 2021
+## January 7th, 2022
 
 - Added the `MAX_VANILLA_CHARACTER` constant.
 
