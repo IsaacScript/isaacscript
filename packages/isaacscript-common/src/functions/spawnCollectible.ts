@@ -5,7 +5,7 @@ import {
   PlayerType,
 } from "isaac-typescript-definitions";
 import { VectorZero } from "../constants";
-import { preventCollectibleRotate } from "../features/preventCollectibleRotate";
+import { preventCollectibleRotation } from "../features/preventCollectibleRotation";
 import { areFeaturesInitialized } from "../featuresInitialized";
 import { setCollectibleEmpty } from "./collectibles";
 import { isQuestCollectible } from "./collectibleTag";
@@ -69,7 +69,7 @@ export function spawnCollectible(
   }
 
   if (isQuestCollectible(collectibleType) && areFeaturesInitialized()) {
-    preventCollectibleRotate(collectible, collectibleType);
+    preventCollectibleRotation(collectible, collectibleType);
   }
 
   return collectible;

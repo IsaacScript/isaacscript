@@ -6,7 +6,6 @@
     "outDir": "../../dist/packages/docs",
   },
 
-  // We have a separate "tsconfig.prod.json" that is used for production output.
   "include": [
     ".eslintrc.js",
     ".remarkrc.mjs",
@@ -14,6 +13,7 @@
     "docsEntryPointLint.ts",
     "docusaurus.config.js",
     "sidebars.js",
+    "scripts/**/*.ts",
     "src/**/*.js",
     "src/**/*.ts",
     "static/**/*.js",

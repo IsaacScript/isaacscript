@@ -12,7 +12,7 @@ export {
 export * from "./classes/DefaultMap";
 export * from "./classes/ModUpgraded";
 export * from "./constants";
-export * from "./constantsMax";
+export * from "./constantsFirstLast";
 export * from "./enums/HealthType";
 export * from "./enums/ModCallbackCustom";
 export * from "./enums/PocketItemType";
@@ -46,9 +46,9 @@ export { removeFadeIn, restoreFadeIn } from "./features/fadeInRemover";
 export { disableFastReset, enableFastReset } from "./features/fastReset";
 export { forgottenSwitch } from "./features/forgottenSwitch";
 export { getCollectibleItemPoolType } from "./features/getCollectibleItemPoolType";
-export * from "./features/isPonyActive";
 export { addCollectible, getPlayerInventory } from "./features/playerInventory";
-export { preventCollectibleRotate } from "./features/preventCollectibleRotate";
+export * from "./features/ponyDetection";
+export { preventCollectibleRotation } from "./features/preventCollectibleRotation";
 export {
   runInNGameFrames,
   runInNRenderFrames,

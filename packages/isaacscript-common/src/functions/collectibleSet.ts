@@ -1,6 +1,6 @@
 import { CollectibleType } from "isaac-typescript-definitions";
 import { itemConfig } from "../cachedClasses";
-import { LAST_VANILLA_COLLECTIBLE_TYPE } from "../constantsMax";
+import { LAST_VANILLA_COLLECTIBLE_TYPE } from "../constantsFirstLast";
 import { getCollectibleTypeRange } from "./collectibles";
 import { copySet } from "./set";
 

@@ -35,5 +35,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "main": ".eslintrc.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "devDependencies": {},
+  "keywords": []
 }

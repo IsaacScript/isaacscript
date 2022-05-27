@@ -5,7 +5,7 @@ import {
   FIRST_MODDED_CARD,
   LAST_CARD,
   MAX_VANILLA_CARD,
-} from "../constantsMax";
+} from "../constantsFirstLast";
 import {
   CARD_DESCRIPTIONS,
   DEFAULT_CARD_DESCRIPTION,

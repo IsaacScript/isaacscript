@@ -189,8 +189,8 @@ export function repeat(n: int, func: (i: int) => void): void {
 
 /**
  * Helper function to signify that the enclosing code block is not yet complete. Using this function
- * is similar to writing a "TODO" comment, but it has the benefit of preventing early returns from
- * being automatically deleted by ESLint.
+ * is similar to writing a "TODO" comment, but it has the benefit of preventing ESLint errors due to
+ * early returns.
  *
  * When you see this function, it simply means that the programmer intends to add in more code to
  * this spot later.

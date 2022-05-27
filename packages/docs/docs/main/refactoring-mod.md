@@ -24,7 +24,7 @@ export function main(): void {
 
 function registerCallbacks(mod: Mod) {
   postUpdateInit();
-  // TODO: Add init functions for new callbacks here
+  // Add init functions for new callbacks here.
 }
 ```
 
@@ -60,7 +60,7 @@ export function postUpdateInit(mod: Mod): void {
 
 function main() {
   greenCandlePostUpdate();
-  // TODO: Add code for new items here
+  // Add code for new items here.
 }
 ```
 

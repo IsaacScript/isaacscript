@@ -31,7 +31,7 @@ import {
   LAST_CARD,
   LAST_PILL_EFFECT,
   LAST_VANILLA_CHARACTER,
-} from "../../constantsMax";
+} from "../../constantsFirstLast";
 import { HealthType } from "../../enums/HealthType";
 import { getCardName } from "../../functions/cards";
 import { getCharacterName } from "../../functions/character";

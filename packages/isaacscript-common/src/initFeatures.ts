@@ -8,9 +8,9 @@ import { fadeInRemoverInit } from "./features/fadeInRemover";
 import { fastResetInit } from "./features/fastReset";
 import { forgottenSwitchInit } from "./features/forgottenSwitch";
 import { getCollectibleItemPoolTypeInit } from "./features/getCollectibleItemPoolType";
-import { isPonyActiveInit } from "./features/isPonyActive";
 import { playerInventoryInit } from "./features/playerInventory";
-import { preventCollectibleRotateInit } from "./features/preventCollectibleRotate";
+import { ponyDetectionInit } from "./features/ponyDetection";
+import { preventCollectibleRotationInit } from "./features/preventCollectibleRotation";
 import { runInNFramesInit } from "./features/runInNFrames";
 import { sirenHelpersInit } from "./features/sirenHelpers";
 import { taintedLazarusPlayersInit } from "./features/taintedLazarusPlayers";
@@ -29,9 +29,9 @@ export function initFeaturesMinor(mod: ModUpgraded): void {
   fastResetInit(mod);
   forgottenSwitchInit(mod);
   getCollectibleItemPoolTypeInit(mod);
-  isPonyActiveInit(mod);
   playerInventoryInit(mod);
-  preventCollectibleRotateInit(mod);
+  ponyDetectionInit(mod);
+  preventCollectibleRotationInit(mod);
   sirenHelpersInit(mod);
   taintedLazarusPlayersInit(mod);
 }

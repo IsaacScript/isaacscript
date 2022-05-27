@@ -4,8 +4,6 @@
 
 `isaacscript-lint` is a helper package to install all of the dependencies necessary for ESLint to work with a typical TypeScript project or a typical IsaacScript mod.
 
-For more information about IsaacScript, see the [webpage](https://isaacscript.github.io/).
-
 <br>
 
 ## For Use in a TypeScript / TypeScriptToLua Project

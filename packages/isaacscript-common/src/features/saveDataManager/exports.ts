@@ -68,7 +68,7 @@ import {
  * // Elsewhere in the file, use your variables.
  * function feature1Function() {
  *   if (v.run.foo1 > 0) {
- *     // TODO
+ *     // Insert code here.
  *   }
  * }
  * ```

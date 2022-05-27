@@ -1,7 +1,10 @@
+/* eslint-disable @nrwl/nx/enforce-module-boundaries,import/no-relative-packages */
+
 import glob from "glob";
 import path from "path";
+import { error } from "../isaacscript-cli/src/utils";
 
-const DOCUSAURUS_CONFIG_PATH = path.join(__dirname, "docusaurus.config.js");
+const TYPEDOC_CONFIG_PATH = path.join(__dirname, "typedoc.json");
 
 main();
 
@@ -69,7 +72,11 @@ function main() {
 
   const typesFilePaths = glob.sync("../isaacscript-common/src/types/*.ts");
   for (const filePath of typesFilePaths) {
-    if (filePath.endsWith("private") || filePath.endsWith(".d.ts")) {
+    if (
+      filePath.endsWith("private") ||
+      filePath.endsWith(".d.ts") ||
+      filePath.endsWith("AddCallbackParameterCustom.ts")
+    ) {
       continue;
     }
 
@@ -88,41 +95,16 @@ function main() {
 
 function getEntryPoints(): string[] {
   // eslint-disable-next-line import/no-dynamic-require,global-require
-  const docusaurusConfig = require(DOCUSAURUS_CONFIG_PATH) as Record<
-    string,
-    unknown
-  >;
+  const typeDocConfig = require(TYPEDOC_CONFIG_PATH) as Record<string, unknown>;
 
-  if (typeof docusaurusConfig !== "object") {
-    error(`Failed to read the config file: ${DOCUSAURUS_CONFIG_PATH}`);
+  if (typeof typeDocConfig !== "object") {
+    error(`Failed to read the config file: ${TYPEDOC_CONFIG_PATH}`);
   }
 
-  const { plugins } = docusaurusConfig;
-  if (!Array.isArray(plugins)) {
-    error(`Failed to read the "plugins" field: ${DOCUSAURUS_CONFIG_PATH}`);
-  }
-
-  const firstPlugin = plugins[0];
-  if (!Array.isArray(firstPlugin)) {
-    error(`Failed to read the first plugin: ${DOCUSAURUS_CONFIG_PATH}`);
-  }
-
-  const options = firstPlugin[1] as Record<string, unknown>;
-  if (typeof options !== "object") {
-    error(
-      `Failed to read the options of the first plugin: ${DOCUSAURUS_CONFIG_PATH}`,
-    );
-  }
-
-  const { entryPoints } = options;
+  const { entryPoints } = typeDocConfig;
   if (!Array.isArray(entryPoints)) {
-    error(`Failed to read the "entryPoints" field: ${DOCUSAURUS_CONFIG_PATH}`);
+    error(`Failed to read the "entryPoints" field: ${TYPEDOC_CONFIG_PATH}`);
   }
 
   return entryPoints as string[];
-}
-
-export function error(...args: unknown[]): never {
-  console.error(...args);
-  process.exit(1);
 }

@@ -1,6 +1,6 @@
 import { Challenge, PlayerType } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
-import { FIRST_CHARACTER } from "../constantsMax";
+import { FIRST_CHARACTER } from "../constantsFirstLast";
 import { log } from "./log";
 
 /**

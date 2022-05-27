@@ -29,6 +29,7 @@ LINTER:
 - make lint rule for capital letter on const as const
 
 implement in isaacscript-common:
+- change POST_COLLECTIBLE_INIT_FIRST to POST_PICKUP_INIT_FIRST
 - isaacscript function to recalculate item ids
 - isDamageFromPlayer
 
@@ -67,30 +68,3 @@ end
   - add isaacscript-common functionality for persistent entities
 - make isValidCollectible (from isaac-typescript-definitions) for mods
 - StageAPI2
-
-IsaacScript announcements:
-
-### `package.json`
-
-IsaacScript mods now require that "typescript-to-lua" is listed as a dependency in your "package.json" file. In other words, add the following line to the "dependencies" section:
-
-```
-"typescript-to-lua": "^1.4.4"
-```
-
-### Other
-
-- All of the IsaacScript packages are now contained in a monorepo using Nx. The other various repositories have been deleted.
-- IsaacScript now supports the yarn package manager. It will use yarn by default if it detects that you have it installed.
-- IsaacScript now shows how many seconds it took to compile the mod.
-- Added the following helper functions:
-  - `saveDataManagerReset` (to force the save data manager to reset a specific set of variables)
-  - `isHiddenCollectible`
-  - `getEdenPassives`
-  - `getRandomEdenPassive`
-  - `npcFireProjectiles` (thanks KatTheFox)
-- Added the following custom console commands:
-  - `gridEntities` - Spawns every kind of grid entity. Useful for debugging.
-- Added the following enums:
-  - `PitState`
-- Fixed the Encyclopedia definitions. (Thanks @4Grabs)

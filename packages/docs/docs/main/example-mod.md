@@ -100,7 +100,7 @@ Now, the item will sometimes randomly appear for players when they enter a Treas
 
 Right now, if players pick up your item, it won't actually do anything. This is where the coding part comes in.
 
-Mods affect the game by putting code inside of _callbacks_. Each callback fires when a particular event happens in the game. There are [72 different callbacks](https://isaacscript.github.io/docs/function-signatures) to choose from, so you have to choose the right one depending on what you want to do. For example, the most basic callback is the `MC_POST_GAME_STARTED`, which fires once at the beginning of a new run.
+Mods affect the game by putting code inside of _callbacks_. Each callback fires when a particular event happens in the game. There are [72 different callbacks](function-signatures.md) to choose from, so you have to choose the right one depending on what you want to do. For example, the most basic callback is the `MC_POST_GAME_STARTED`, which fires once at the beginning of a new run.
 
 First, go through [the official docs](https://wofsauge.github.io/IsaacDocs/rep/enums/ModCallbacks.html) and read what all of the callbacks do so that you can get familiar with them.
 
@@ -176,7 +176,7 @@ function postUpdate() {
 }
 
 function checkApplyGreenCandleEffect() {
-  // TODO - Fill this in
+  // TODO - Fill this in.
 }
 ```
 
@@ -187,7 +187,7 @@ Since this is such a common task, there is a `getPlayers` function for this in t
 ```ts
 function checkApplyGreenCandleEffect() {
   for (const player of getPlayers()) {
-    // TODO - Check if the player has Green Candle
+    // TODO - Check if the player has Green Candle.
   }
 }
 ```
@@ -224,13 +224,13 @@ Every enemy in the room should have a chance of being poisoned. So, we need to l
 function applyGreenCandleEffect(player: EntityPlayer) {
   for (const entity of getEntities()) {
     if (shouldApplyGreenCandleEffectToEntity(entity)) {
-      // TODO - Apply poison
+      // TODO - Apply poison.
     }
   }
 }
 
 function shouldApplyGreenCandleEffectToEntity(entity: Entity) {
-  // TODO - Return true or false based on a random chance
+  // TODO - Return true or false based on a random chance.
   return true;
 }
 ```
@@ -245,11 +245,11 @@ Adding the poison is done with the `AddPoison` method. However, notice that VSCo
 function applyGreenCandleEffect(player: EntityPlayer) {
   for (const entity of Isaac.GetRoomEntities()) {
     if (shouldApplyGreenCandleEffectToEntity(entity)) {
-      // The source is the player
-      // The duration is 100 frames
-      // The damage is equal to the player's damage stat
+      // The source is the player.
+      // The duration is 100 frames.
+      // The damage is equal to the player's damage stat.
       entity.AddPoison(player, 100, player.Damage);
-      // (this shows an error in the IDE because AddPoison expects an EntityRef)
+      // (This shows an error in the IDE because the `AddPoison` method expects an `EntityRef`.)
     }
   }
 }

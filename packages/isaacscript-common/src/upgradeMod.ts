@@ -10,7 +10,8 @@ import { initFeaturesMajor, initFeaturesMinor } from "./initFeatures";
 import { patchErrorFunction } from "./patchErrorFunctions";
 
 /**
- * Use this function to enable the custom features and callbacks provided by `isaacscript-common`.
+ * Use this function to enable the custom callbacks and other optional features provided by
+ * `isaacscript-common`.
  *
  * For example:
  *

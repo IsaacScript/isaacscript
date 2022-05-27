@@ -4,12 +4,13 @@
   "sort": ["source-order"],
   "tsconfig": "../isaacscript-common/tsconfig.json",
   "readme": "../isaacscript-common/website-root.md",
+  "treatWarningsAsErrors": true,
   "entryPoints": [
     "../isaacscript-common/src/cachedClasses.ts",
     "../isaacscript-common/src/classes/DefaultMap.ts",
     "../isaacscript-common/src/classes/ModUpgraded.ts",
     "../isaacscript-common/src/constants.ts",
-    "../isaacscript-common/src/constantsMax.ts",
+    "../isaacscript-common/src/constantsFirstLast.ts",
     "../isaacscript-common/src/enums/HealthType.ts",
     "../isaacscript-common/src/enums/ModCallbackCustom.ts",
     "../isaacscript-common/src/enums/PocketItemType.ts",
@@ -26,9 +27,9 @@
     "../isaacscript-common/src/features/extraConsoleCommands/commands.ts",
     "../isaacscript-common/src/features/forgottenSwitch.ts",
     "../isaacscript-common/src/features/getCollectibleItemPoolType.ts",
-    "../isaacscript-common/src/features/isPonyActive.ts",
     "../isaacscript-common/src/features/playerInventory.ts",
-    "../isaacscript-common/src/features/preventCollectibleRotate.ts",
+    "../isaacscript-common/src/features/ponyDetection.ts",
+    "../isaacscript-common/src/features/preventCollectibleRotation.ts",
     "../isaacscript-common/src/features/runInNFrames.ts",
     "../isaacscript-common/src/features/saveDataManager/exports.ts",
     "../isaacscript-common/src/features/sirenHelpers.ts",
@@ -149,5 +150,5 @@
   "plugin": "typedoc-plugin-markdown",
   "hideBreadcrumbs": true,
   "hideInPageTOC": true,
-  "hidePageTitle": false
+  "hidePageTitle": true
 }

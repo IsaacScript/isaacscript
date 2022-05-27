@@ -33,8 +33,8 @@ const v = {
 };
 
 /** @internal */
-export function isPonyActiveInit(mod: ModUpgraded): void {
-  saveDataManager("isPonyActive", v);
+export function ponyDetectionInit(mod: ModUpgraded): void {
+  saveDataManager("ponyDetection", v);
 
   mod.AddCallbackCustom(
     ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,

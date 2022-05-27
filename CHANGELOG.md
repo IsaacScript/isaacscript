@@ -5,13 +5,523 @@
 
 This page lists the changes to the IsaacScript framework.
 
-## TODO
+## May 28th
 
-- [Fill in the rest of the history here.]
+### `package.json`
+
+IsaacScript mods now require that `typescript-to-lua` is listed as a dependency in your `package.json` file. In other words, add the following line to the "dependencies" section:
+
+```json
+"typescript-to-lua": "^1.4.4"
+```
+
+### Other
+
+- All of the IsaacScript packages are now contained in a monorepo using Nx. The other various repositories have been deleted.
+- IsaacScript now supports the [Yarn](https://yarnpkg.com/) package manager. It will use yarn by default if it detects that you have it installed.
+- IsaacScript now shows how many seconds it took to compile the mod.
+- Added the following helper functions:
+  - `saveDataManagerReset` (to force the save data manager to reset a specific set of variables)
+  - `isHiddenCollectible`
+  - `getEdenPassives`
+  - `getRandomEdenPassive`
+  - `npcFireProjectiles` (thanks KatTheFox)
+- Renamed the following helper functions:
+  - `preventCollectibleRotate` --> `preventCollectibleRotation`
+- Added the following custom console commands:
+  - `gridEntities` - Spawns every kind of grid entity. Useful for debugging.
+- Added the following enums:
+  - `PitState`
+- Fixed the Encyclopedia definitions. (Thanks 4Grabs)
+
+## May 21st
+
+- All functions that take a specific kind of type (e.g. `EntityType`, `PlayerVariant`, etc.) are now no longer in a union with `int`. This makes the API much more type-safe than before. The flip side of this is that you must change any self-defined enums like `CollectibleTypeCustom` to an object instead. See [the docs](https://isaacscript.github.io/docs/gotchas#extending-enums----custom-enums) for more details.
+- `Vector.Zero` and `Vector.One` are now deprecated and will cause compiler errors. Use the `VectorZero` and `VectorOne` constants from the standard library instead, which are guaranteed to be safe. (Alternatively, you can create your own constants that are local to your mod.)
+- `DefaultMap` no longer passes the key to the factory function. This means you can clean up the unused `_key` argument in all of your default maps. In the rare case that you are actually using the key in the factory, you can pass it explicitly as a normal argument.
+- Added the following helper functions:
+  - `fillLevelWithRedRooms`
+  - `getAllDimensions`
+  - `getAllCards`
+  - `getModdedCards`
+  - `getVanillaCards`
+  - `getAllPillEffects`
+  - `getModdedPillEffects`
+  - `getVanillaPillEffects`
+  - `getAllPillColors`
+  - `getNormalPillColors`
+  - `getHorsePillColors`
+  - `getCollectibleTypeRange`
+  - `getVanillaCollectibleTypeRange`
+  - `getModdedCollectibleTypes`
+  - `getTrinketTypes`
+  - `getVanillaTrinketTypes`
+  - `getModdedTrinketTypes`
+  - `getDoorEnterPosition`
+  - `getDoorEnterPositionOffset`
+  - `getNormalPillColorFromHorse`
+  - `getPits`
+  - `getPlayersWithTrinket`
+  - `getPoops`
+  - `getPressurePlates`
+  - `getRandomEnumValue`
+  - `getRocks`
+  - `getRoomNeighbors`
+  - `getRoomShapeNeighborGridIndexDeltas`
+  - `getSpikes`
+  - `getTNT`
+  - `inMineShaft`
+  - `isHeart`
+  - `isCoin`
+  - `isKey`
+  - `isBomb`
+  - `isPoop`
+  - `isSack`
+  - `isPill`
+  - `isBattery`
+  - `isCollectible`
+  - `isCardPickup`
+  - `isTrinket`
+  - `isValidCollectibleType`
+  - `pickingUpItemIsCollectible`
+  - `pickingUpItemIsTrinket`
+  - `roomGridIndexToXY`
+- Added a `Zero` constant for every flag enum. (e.g. `EntityFlagZero`, `TearFlagZero`, and so on.)
+- The "max" constants are changed, with many new ones added:
+  - Collectibles:
+    - `FIRST_COLLECTIBLE_TYPE`
+    - `LAST_COLLECTIBLE_TYPE`
+    - `LAST_VANILLA_COLLECTIBLE_TYPE`
+    - `FIRST_MODDED_COLLECTIBLE_TYPE`
+    - `NUM_VANILLA_COLLECTIBLE_TYPES`
+    - `NUM_MODDED_COLLECTIBLE_TYPES`
+    - `NUM_COLLECTIBLE_TYPES`
+  - Trinkets:
+    - `NUM_TRINKET_TYPES`
+    - `NUM_VANILLA_TRINKET_TYPES`
+    - `NUM_MODDED_TRINKET_TYPES`
+    - `FIRST_TRINKET_TYPE`
+    - `LAST_TRINKET_TYPE`
+    - `LAST_VANILLA_TRINKET_TYPE`
+    - `FIRST_MODDED_TRINKET_TYPE`
+  - Cards:
+    - `NUM_CARDS`
+    - `NUM_VANILLA_CARDS`
+    - `NUM_MODDED_CARDS`
+    - `FIRST_CARD`
+    - `LAST_CARD`
+    - `LAST_VANILLA_CARD`
+    - `FIRST_MODDED_CARD`
+  - Pill effects:
+    - `NUM_PILL_EFFECTS`
+    - `NUM_VANILLA_PILL_EFFECTS`
+    - `NUM_MODDED_PILL_EFFECTS`
+    - `FIRST_PILL_EFFECT`
+    - `LAST_PILL_EFFECT`
+    - `LAST_VANILLA_PILL_EFFECT`
+    - `FIRST_MODDED_PILL_EFFECT`
+  - Pill colors:
+    - `FIRST_PILL_COLOR`
+    - `LAST_NORMAL_PILL_COLOR`
+    - `FIRST_HORSE_PILL_COLOR`
+    - `LAST_HORSE_PILL_COLOR`
+    - `NUM_NORMAL_PILL_COLORS`
+  - Players:
+    - `FIRST_CHARACTER`
+    - `LAST_VANILLA_CHARACTER`
+    - `FIRST_MODDED_CHARACTER`
+  - Other:
+    - `FIRST_STAGE`
+    - `LAST_STAGE`
+    - `FIRST_ROOM_TYPE`
+    - `LAST_ROOM_TYPE`
+- Added the appropriate `HORSE_` enum values to the `PillColor` enum.
+- Added the following custom callbacks:
+  - `POST_GRID_ENTITY_RENDER`
+  - `POST_DOOR_RENDER`
+  - `POST_DOOR_UPDATE`
+  - `POST_PIT_RENDER`
+  - `POST_PIT_UPDATE`
+  - `POST_POOP_RENDER`
+  - `POST_POOP_UPDATE`
+  - `POST_PRESSURE_PLATE_RENDER`
+  - `POST_PRESSURE_PLATE_UPDATE`
+  - `POST_ROCK_RENDER`
+  - `POST_ROCK_UPDATE`
+  - `POST_SPIKES_RENDER`
+  - `POST_SPIKES_UPDATE`
+  - `POST_TNT_RENDER`
+  - `POST_TNT_UPDATE`
+- You can now register several player-based custom callbacks using `PlayerVariant` and `PlayerType` as optional 2nd and 3rd arguments, respectively (e.g. `PRE_BERSERK_DEATH`).
+- You can now register all custom grid entity callbacks using an optional 3rd argument of grid entity variant.
+- Added the following custom console commands:
+  - `map` - Reveals the entire map, including Ultra Secret Rooms.
+  - `doordisplay` - Show debugging information next to every door.
+  - `pitdisplay` - Show debugging information next to every pit.
+  - `poopdisplay` - Show debugging information next to every poop.
+  - `pressureplatedisplay` - Show debugging information next to every pressure plate.
+  - `rockdisplay` - Show debugging information next to every rock.
+  - `spikesdisplay` - Show debugging information next to every spikes.
+  - `tntdisplay` - Show debugging information next to every TNT.
+
+## May 14th
+
+IsaacScript has now reached **version 2**! We've come a long way with many features, and there's more yet to come. Version 2 comes with breaking changes, but as always, upgrading your mod is optional.
+
+### Breaking Changes
+
+- All enums are now local instead of global. The global declarations have been removed, which forces you to use the local ones. Doing this has several advantages, at the small cost of having to auto-import more things. See [the docs](https://isaacscript.github.io/gotchas#local-enums-and-importing) for more info.
+- Bit flags are now represented as a `BitFlags` type. This means that the Isaac API now has real type safety for all bit flags! See [the docs](https://isaacscript.github.io/docs/gotchas#bit-flags) for more info.
+- Renamed the following helper functions:
+  - `range` --> `irange`
+- Renamed the following enums:
+  - `PillEffectClass` --> `ItemConfigPillEffectClass`
+  - `PillEffectType` --> `ItemConfigPillEffectType`
+- Deleted the following enums:
+  - `CardType` (since it was almost the same thing as `ItemConfigCardType`)
+- When registering the `MC_POST_PEFFECT_UPDATE_REORDERED` callback, the second argument is now a `PlayerVariant` instead of a `PlayerType`. It now takes a `PlayerType` as a third argument.
+
+### Non-Breaking Changes
+
+- `isaac-typescript-definitions` now ships with an official Isaac word dictionary that can be imported into CSpell. See the [new template](https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-cli/file-templates/static/cspell.json.template) for more information.
+- Added the following helper constants since the corollary enum values were purged:
+  - `NUM_CARDS` / `MAX_CARD` / `NUM_VANILLA_CARDS` / `MAX_VANILLA_CARD`
+  - `NUM_COLLECTIBLE_TYPES` / `MAX_COLLECTIBLE_TYPE` / `NUM_VANILLA_COLLECTIBLE_TYPES` / `MAX_VANILLA_COLLECTIBLE_TYPE`
+  - `NUM_PILL_EFFECTS` / `MAX_PILL_EFFECT` / `NUM_VANILLA_PILL_EFFECTS` / `MAX_VANILLA_PILL_EFFECT`
+  - `NUM_TRINKET_TYPES` / `MAX_TRINKET_TYPE` / `NUM_VANILLA_TRINKET_TYPES` / `MAX_VANILLA_TRINKET_TYPE`
+- Added the following helper functions:
+  - `doorSlotFlagToDoorSlot`
+  - `erange` (for exclusive ranges)
+  - `getArrayIndexes`
+  - `getEnumEntries`
+  - `getGridEntityID`
+  - `getRoomTypeName`
+  - `isModdedPlayer`
+  - `isVanillaPlayer`
+  - `logLevelStateFlags`
+  - `removeAllCharacters`
+  - `removeSubstring`
+- Added the following enums:
+  - `DoorSlotFlag`
+- Added the following custom callbacks:
+  - `POST_GREED_MODE_WAVE`
+  - `POST_HOLY_MANTLE_REMOVED`
+
+## April 28th
+
+- Added many new custom console commands, including `playerdisplay`, `npcdisplay`, and so on for rendering custom text on top of an entity for debugging purposes.
+- Added the following helper functions:
+  - `defaultMapSetPlayer`
+  - `todo`
+  - `printEnabled`
+- Renamed the following helper functions:
+  - `getPlayerNumTransformationCollectibles` --> `getPlayerNumCollectiblesForTransformation`
+- Added custom callbacks:
+  - `MC_POST_FAMILIAR_STATE_CHANGED`
+  - `MC_POST_PICKUP_STATE_CHANGED`
+  - `MC_POST_EFFECT_STATE_CHANGED`
+  - `MC_POST_NPC_STATE_CHANGED`
+  - `MC_POST_ITEM_DISCHARGE`
+
+## April 21st
+
+- Added the following helper functions:
+  - `getBossSet` (for getting the set of vanilla bosses)
+  - `getCombinedBossSet` (for getting the set of vanilla bosses)
+  - `getAllBossesSet`
+  - `spawnBoss`
+  - `spawnBossWithSeed`
+  - `getUnusedDoorSlots`
+  - `getRoomsOfDimension`
+  - `registerCharacterHealthConversion` (for making custom characters like Blue Baby or Tainted Judas)
+  - `getCollectibleTags`
+  - `getPlayerCollectibleCount`
+  - `getCollectibleTypesWithTag`
+  - `getPlayerNumCollectiblesWithTag`
+- `ItemConfigTag` is no longer a constant enum and must be imported. You can now iterate over this enum in your code.
+
+## April 14th
+
+- Added the following helper functions:
+  - `playerHasCollectible`
+  - `playerAddCollectible`
+  - `arrayRemoveIndex`
+  - `arrayRemoveIndexInPlace`
+
+## April 2nd
+
+- Added the `--yes` flag to `isaacscript init`.
+- Added the following helper functions:
+  - `vectorToString`
+  - `spawn`
+  - `spawnWithSeed`
+  - `getCoinValue`
+- Added the helper functions of `spawnPickup`, `spawnPickupWithSeed`, and so on for every specific type of entity.
+- Added the helper functions of `removeAllPickups`, and so on for every specific type of entity.
+- Added every easing function from [easings.net](https://easings.net/).
+- Added the `VectorZero` and `VectorOne` constants. (These are safer to use than the vanilla `Vector.Zero` and `Vector.One` constants.)
+
+## March 26th
+
+- Added the changes for vanilla patch 1.7.8a. Several values missing from the vanilla enums are added a well.
+- The API's `Random` function should never be used directly. Use the `getRandomSeed` helper function instead to prevent crashes.
+- If you have `gh` installed (i.e. the GitHub CLI), IsaacScript will now prompt you to automatically create a new GitHub repository when initializing a new mod.
+- The IsaacScript save data manager will now automatically serialize the `RNG` class. Thus, you can now use `RNG` objects instead of seeds in your data structures. This is more convenient than using seeds because the `getRandom` series of functions will automatically "next" the seed. Also, it is slightly safer because you avoid initializing a seed to 0.
+- The IsaacScript save data manager will now automatically serialize the `Color` class and the `KColor` class.
+- Added the following helper functions:
+  - `enableFastReset` (useful for debugging)
+  - `disableFastReset` (useful for debugging)
+  - `removeFadeIn` (useful for debugging)
+  - `restoreFadeIn` (useful for debugging)
+  - `getDefaultPlayerStat`
+  - `registerCharacterStats` (for the new character stats management feature)
+  - `getEnumKeys`
+  - `getActiveItemSlot`
+  - `isFirstSlotPocketActiveItem`
+  - `getPlayerHearts`
+  - `getRedHearts`
+  - `isRedHeart`
+  - `getCoins`
+  - `getKeys`
+  - `characterStartsWithActiveItem`
+  - `getDirectionName`
+  - `validateCustomEnum`
+  - `addStat`
+  - `logError`
+  - `getRandomSeed`
+  - `isUserdataObject`
+  - `isRNG`
+  - `copyRNG`
+  - `isColor`
+  - `getDoorSlotsForRoomShape`
+  - `isDoorSlotInRoomShape`
+  - `getRoomAllowedDoors`
+  - `copyValuesToTable`
+  - `getNumbersFromTable`
+  - `getStringsFromTable`
+  - `getBooleansFromTable`
+  - `setSeed`
+  - `setAllRNGToSeed`
+  - `setAllRNGToStartSeed`
+  - `isSin`
+  - `getGridIndexDelta`
+  - `logUserdata`
+  - `isCharacter`
+  - `texelEquals`
+  - `spriteEquals`
+  - `collectibleSpriteEquals`
+  - `copySerializableIsaacAPIClass`
+  - `isSerializedIsaacAPIClass`
+  - `colorEquals`
+  - `kColorEquals`
+  - `rngEquals`
+  - `vectorEquals`
+  - `roomExists`
+  - `getRoomShape`
+  - `isDoorSlotValidAtGridIndex`
+  - `isDoorSlotValidAtGridIndexForRedRoom`
+  - `directionToDegrees`
+  - `getRoomShapeBottomRightPosition`
+  - `getRoomShapeTopLeftPosition`
+  - `getRoomShapeBounds`
+  - `getRoomShapeLayoutSize`
+  - `getRoomShapeVolume`
+  - `gridToWorldPos`
+  - `worldToGridPos`
+  - `worldToGridPosFast`
+  - `newChargeBarSprites`
+  - `renderChargeBar`
+  - `isLRoom`
+  - `gridIndexToGridPosition`
+  - `isValidGridPosition`
+  - `getRoomShapeWidth`
+  - `benchmark`
+- Renamed the following helper functions:
+  - `getLastHeart` --> `getPlayerLastHeart`
+  - `getSoulHearts` --> `getPlayerSoulHearts`
+  - `getBlackHearts` --> `getPlayerBlackHearts`
+  - `initRNG` --> `newRNG`
+  - `gridToPos` --> `gridCoordinatesToWorldPosition`
+- Added the `getRandomFromSeed` series of functions. You can use these if you don't want to convert your data structures to use `RNG` objects.
+- Deleted the `getRandomFromRNG` series of functions. The `getRandom` series of functions now take `RNG` objects.
+- Added the following constants:
+  - `TAINTED_SAMSON_BERSERK_CHARGE_FROM_TAKING_DAMAGE`
+  - `MAX_TAINTED_SAMSON_BERSERK_CHARGE`
+  - `LEVEL_GRID_ROW_LENGTH`
+  - `LEVEL_GRID_COLUMN_HEIGHT`
+- Added the following enums:
+  - `BloodExplosionSubType`
+  - `CurseRoomSubType`
+- Added `PICKUP_MISSING_SHOVEL` to the `PickupVariant` enum. (It is missing in the vanilla enum.)
+- Added the following custom callbacks:
+  - `MC_POST_COLLECTIBLE_INIT_FIRST`
+
+## March 19th
+
+- The standard library now comes with many helpful console commands. Activate them by calling `enableExtraConsoleCommands`. You can also use `addConsoleCommand` to add your own commands and `removeConsoleCommand` to remove ones that overlap with your own commands. See the documentation for the specific list of commands.
+- Added the following helper functions:
+  - `getMapPartialMatch`
+  - `restart`
+  - `logSounds`
+  - `logEntities`
+  - `logGridEntities`
+  - `addPlayerHealthType`
+  - `getPlayerHealthType`
+  - `getCharacterName`
+  - `getPlayerInventory` (to get a list of all of the player's collectibles)
+  - `addCollectible`
+  - `isActiveSlotDoubleCharged`
+  - `isActiveSlotEmpty`
+  - `doorSlotToDirection`
+  - `initCustomDoor`
+  - `spawnCustomDoor`
+  - `getTaintedLazarusSubPlayer`
+  - `setTrinketSprite`
+  - `capitalizeFirstLetter`
+  - `isActiveCollectible`
+  - `getCollectibleIndex`
+- Added the following constants:
+  - `CARD_MAP`
+  - `CHARACTER_MAP`
+  - `PILL_EFFECT_MAP`
+  - `MAX_SPEED_STAT`
+  - `ROOM_TYPE_MAP`
+  - `ROOM_TYPE_NAME_MAP`
+  - `CHARACTER_NAME_MAP`
+  - `DIRECTION_NAMES`
+- Added the following custom callbacks:
+  - `MC_POST_SLOT_ANIMATION_CHANGED`
+  - `MC_POST_CUSTOM_DOOR_ENTER`
+  - `MC_ROOM_CLEAR_CHANGED`
+
+## March 12th
+
+- Added `game`, `itemConfig`, `musicManager`, and `sfxManager` cached classes to the standard library. You can use these instead of invoking the constructor yourself for a miniscule performance increase.
+- Added the following helper functions:
+  - `isEden`
+  - `logPlayerHealth`
+  - `enableAllSound`
+  - `disableAllSound`
+  - `getTaintedMagdaleneNonTemporaryMaxHearts`
+  - `defaultMapGetPlayer` (to make it easier to work with maps that use `PlayerIndex` as an index)
+  - `mapGetPlayer` (to make it easier to work with maps that use `PlayerIndex` as an index)
+  - `mapSetPlayer` (to make it easier to work with maps that use `PlayerIndex` as an index)
+  - `setAddPlayer` (to make it easier to work with sets that use `PlayerIndex` as an index)
+  - `setDeletePlayer` (to make it easier to work with sets that use `PlayerIndex` as an index)
+  - `setHasPlayer` (to make it easier to work with sets that use `PlayerIndex` as an index)
+  - `mapGetNextSeed` (to make it easier to work with maps that have `Seed` values)
+  - `defaultMapGetNextSeed` (to make it easier to work with maps that have `Seed` values)
+  - `canPlayerCrushRocks`
+- Removed `TRINKET_GOLDEN_FLAG` and `TRINKET_ID_MASK` from the `TrinketType` enum. They are now exposed as constants.
+- Removed `PILL_GIANT_FLAG` and `PILL_COLOR_MASK` from the `PillColor` enum. These are now exposed as constants.
+- Added `USE_ECHO_CHAMBER` to the `UseFlag` enum. (This is missing in the vanilla enum.)
+
+## March 5th
+
+- Added the following helper functions:
+  - `willReviveFromHeartbreak`
+  - `isPonyActive`
+  - `inSecretShop`
+  - `logRoom`
+  - `countSetBits`
+  - `getSoulHearts` (this is different from the vanilla function)
+  - `getBlackHearts` (this is different from the vanilla function)
+  - `getHearts`
+  - `inMegaSatanRoom`
+  - `countEntities`
+  - `getSortedSetValues`
+  - `getRandomSetElement`
+  - `getCardType`
+  - `getMaxCards`
+  - `getMaxPillEffects`
+  - `isCardType`
+  - `isTarotCard`
+  - `isSuitCard`
+  - `isSpecialCard`
+  - `isTarotReverseCard`
+  - `isModdedCard`
+  - `getRandomCardType`
+  - `getEntityID`
+  - `clearCollectibleSprite`
+  - `getCollectiblePedestalType`
+- Renamed the following helper functions:
+  - `combineArray` --> `combineArrays`
+- Removed the following helper functions:
+  - `getRandomHeartSubType`
+- Added the following constants:
+  - `CARD_TYPE_MAP`
+- Added the following enums:
+  - `ShopSubType`
+  - `TreasureRoomSubType`
+  - `ChallengeRoomSubType`
+  - `LibrarySubType`
+  - `DungeonSubType`
+  - `IsaacsRoomSubType`
+  - `SecretExitSubType`
+  - `DownpourRoomSubType`
+  - `MinesRoomSubType`
+  - `CollectiblePedestalType`
+- Renamed the following enums:
+  - `BackwardsPathRoomSubType` --> `BackwardsRoomSubType`
+- The signature for the `MC_POST_PURCHASE` custom callback has changed to the following:
+
+```ts
+function postPurchase(player: EntityPlayer, pickup: EntityPickup): void {}
+```
 
 ## February 26th, 2021
 
-- Added `LostSoulState` enum.
+- The `Isaac.GetPlayer` method will no longer return undefined. (You can now delete any undefined-related checks.)
+- Added the `EntitySubPlayer` class to prevent bugs with `RNG`. (`EntityPlayer.GetSubPlayer` is defined as returning this.)
+- Added the `DefaultMap` class. Use this instead of a `Map` if you need a data structure that will automatically instantiate default values. See [the documentation](https://isaacscript.github.io/isaacscript-common/classes/types_DefaultMap.DefaultMap.html) for more information.
+- Added the following helper functions:
+  - `checkFamiliar`
+  - `checkFamiliarFromCollectibles`
+  - `isShootAction`
+  - `isMoveAction`
+  - `getMoveActions`
+  - `getShootActions`
+  - `removeDoor`
+  - `removeDoors`
+  - `removeAllDoors`
+  - `getDoorsToRoomIndex`
+  - `repeat`
+  - `getEffectsList`
+  - `isGridEntityBreakableByExplosion`
+  - `isGridEntityBroken`
+  - `getAllPlayers`
+  - `getGridEntitiesMap`
+  - `removeAllSlots`
+- Renamed the following helper functions:
+  - `tableClear` --> `clearTable`
+  - Various array functions to be more consistent with map/set functions.
+- The disable inputs feature now supports multiple mod features at once. The functions now require a key that matches the name of the calling mod feature.
+- The `getPlayerIndex` function now takes a `differentiateForgottenAndSoul` argument, which is false by default.
+- Added the following constants:
+  - `NUM_DIMENSIONS`
+  - `CHEST_PICKUP_VARIANTS`
+- Added the following enums:
+  - `LostSoulState`
+  - `PoopState`
+  - `SpiderWebState`
+  - `SpikesOnOffState`
+  - `LockState`
+  - `TNTState`
+  - `PoopState`
+  - `StairsState`
+- Added the following custom callbacks:
+  - `MC_POST_BONE_SWING`
+  - `MC_POST_GRID_ENTITY_CHANGE_STATE`
+  - `MC_POST_GRID_ENTITY_BROKEN`
+- The signature of the `MC_POST_PLAYER_CHANGE_TYPE` custom callback has changed to:
+
+```ts
+function postPlayerChangeType(
+  player: EntityPlayer,
+  oldCharacter: PlayerType | int,
+  newCharacter: PlayerType | int,
+) {}
+```
 
 ## February 19th, 2021
 
@@ -1104,7 +1614,7 @@ You can still use `null` in your own variables, but make sure that it is for var
   - `MC_POST_GRID_ENTITY_REMOVE`
   - `MC_POST_SACRIFICE`
   - `MC_POST_CURSED_TELEPORT`
-- The custom callbacks are documented [here](https://isaacscript.github.io/docs/function-signatures/#custom-callbacks).
+- The custom callbacks are documented [here](https://isaacscript.github.io/function-signatures/#custom-callbacks).
 - Added the `GridPath` enums.
 
 ## August 3rd, 2021

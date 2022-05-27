@@ -14,7 +14,7 @@ import {
   LAST_NORMAL_PILL_COLOR,
   LAST_PILL_EFFECT,
   LAST_VANILLA_PILL_EFFECT,
-} from "../constantsMax";
+} from "../constantsFirstLast";
 import {
   DEFAULT_PILL_EFFECT_CLASS,
   PILL_EFFECT_CLASSES,

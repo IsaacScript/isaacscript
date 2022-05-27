@@ -1,4 +1,7 @@
-const FIRST_DOC_PAGE_TITLE = "Features | IsaacScript";
+const FIRST_DOC_PAGE_TITLES = new Set([
+  "Features | IsaacScript",
+  "isaacscript-common | IsaacScript",
+]);
 
 const keyMap = new Map();
 
@@ -82,7 +85,7 @@ function navigateForward() {
 }
 
 function isOnFirstDocPage() {
-  return document.title === FIRST_DOC_PAGE_TITLE;
+  return FIRST_DOC_PAGE_TITLES.has(document.title);
 }
 
 function isOnLandingPage() {

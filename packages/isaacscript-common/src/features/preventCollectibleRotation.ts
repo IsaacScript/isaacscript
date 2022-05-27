@@ -33,8 +33,8 @@ const v = {
 };
 
 /** @internal */
-export function preventCollectibleRotateInit(mod: Mod): void {
-  saveDataManager("preventCollectibleRotate", v);
+export function preventCollectibleRotationInit(mod: Mod): void {
+  saveDataManager("preventCollectibleRotation", v);
 
   mod.AddCallback(
     ModCallback.POST_USE_CARD,
@@ -85,7 +85,7 @@ function postPickupUpdateCollectible(collectible: EntityPickupCollectible) {
  * It is required to pass the intended collectible type to this function since it is possible for
  * collectibles to rotate on the first frame that they are spawned.
  */
-export function preventCollectibleRotate(
+export function preventCollectibleRotation(
   collectible: EntityPickup,
   collectibleType: CollectibleType,
 ): void {

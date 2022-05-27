@@ -98,7 +98,7 @@ Finally, note that you can also use the `hasFlag` helper function to check for t
 // TypeScript code
 if (hasFlag(player.TearFlags, TearFlag.PIERCING)) {
   // Handle the piercing synergy.
-  // TODO
+  // Insert code here.
 }
 ```
 

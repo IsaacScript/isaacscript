@@ -10,7 +10,7 @@ import {
   FIRST_TRINKET_TYPE,
   LAST_TRINKET_TYPE,
   LAST_VANILLA_TRINKET_TYPE,
-} from "../constantsMax";
+} from "../constantsFirstLast";
 import {
   DEFAULT_TRINKET_DESCRIPTION,
   TRINKET_DESCRIPTION_MAP,
