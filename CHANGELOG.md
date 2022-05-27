@@ -9,11 +9,7 @@ This page lists the changes to the IsaacScript framework.
 
 ### `package.json`
 
-IsaacScript mods now require that `typescript-to-lua` is listed as a dependency in your `package.json` file. In other words, add the following line to the "dependencies" section:
-
-```json
-"typescript-to-lua": "^1.4.4"
-```
+IsaacScript mods now require that `typescript-to-lua` is listed as a dependency in your `package.json` file. In other words, type `npm install --save typescript-to-lua` if you use NPM, or `yarn add typescript-to-lua` if you use Yarn.
 
 ### Other
 
