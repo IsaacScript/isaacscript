@@ -16,8 +16,8 @@
       "description": "Words from the gitignore template"
     },
     {
-      "name": "missing-words",
-      "path": "./missing-words.txt",
+      "name": "general",
+      "path": "./general.txt",
       "description": "Missing English words"
     }
   ],
@@ -26,7 +26,7 @@
       "languageId": "*",
       "locale": "*",
       "includeRegExpList": [],
-      "dictionaries": ["isaacscript", "gitignore", "missing-words"],
+      "dictionaries": ["isaacscript", "gitignore", "general"],
       "dictionaryDefinitions": []
     }
   ]
