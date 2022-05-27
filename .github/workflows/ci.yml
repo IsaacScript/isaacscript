@@ -38,7 +38,7 @@ jobs:
 
       - name: Checkout the docs repository
         uses: actions/checkout@v3
-        if: github.event_name != 'pull_request'
+        if: github.ref == 'ref/heads/main' && github.event_name != 'pull_request'
         with:
           ssh-key: ${{ secrets.DOCS_SSH_PRIVATE_KEY }}
           repository: IsaacScript/isaacscript.github.io
@@ -52,7 +52,7 @@ jobs:
 
       #- name: Deploy the documentation website
       #  run: bash packages/docs/deploy.sh
-      #  if: github.event_name != 'pull_request'
+      #  if: github.ref == 'ref/heads/main' && github.event_name != 'pull_request'
 
   discord:
     name: Discord Failure Notification
