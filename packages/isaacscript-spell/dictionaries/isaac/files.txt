@@ -3,8 +3,10 @@
 altpath # challenges.xml
 announcerdelay # pocketitems.xml
 BLCK # BLCK CNDL seed
+bosspools # bosspools.xml
 cansacrifice # entities2.xml
 canshoot # challenges.xml
+chargebar # ui_chargebar.anm2
 CNDL # BLCK CNDL seed
 deathanm # items.xml
 endstage # challenges.xml
@@ -32,6 +34,7 @@ Onan # challenges.xml
 pftempestasevencondensed # font
 pilleffect # pocketitems.xml
 pocketitems # pocketitems.xml
+questionmark # questionmark.png
 shotspeed # items.xml
 shutdoors # entities2.xml
 steamapps # The resources directory
@@ -41,5 +44,5 @@ teammeatfont # font
 tearsup # items_metadata.xml
 thesadonion # collectibles_001_thesadonion.png
 uniquefamiliar # items_metadata.xml
-XLAX # pocketitems.xml
 voidtrapdoor # voidtrapdoor.anm2
+XLAX # pocketitems.xml

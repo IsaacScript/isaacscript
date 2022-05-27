@@ -65,7 +65,7 @@ export const PILL_EFFECT_MAP: ReadonlyMap<string, PillEffect> = new Map([
   ["retroVision", PillEffect.RETRO_VISION], // 37
   ["vision", PillEffect.RETRO_VISION], // 37
   ["friendsTillTheEnd", PillEffect.FRIENDS_TILL_THE_END], // 38
-  ["friendsUtillTheEnd", PillEffect.FRIENDS_TILL_THE_END], // 38
+  ["friendsUntilTheEnd", PillEffect.FRIENDS_TILL_THE_END], // 38
   ["xlax", PillEffect.X_LAX], // 39
   ["somethingsWrong", PillEffect.SOMETHINGS_WRONG], // 40
   ["wrong", PillEffect.SOMETHINGS_WRONG], // 40

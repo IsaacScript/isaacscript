@@ -14,9 +14,9 @@ devkit # Monorepo word
 eqeqeq # For linting
 erange # Standard library function
 esbenp # extensions.json
+irange # Standard library function
 isaacscript
 jscutlery # For version control
-irange # Standard library function
 lualib # TSTL word
 markdownlint # Monorepo word
 nocache # Monorepo word

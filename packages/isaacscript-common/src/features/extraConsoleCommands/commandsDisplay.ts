@@ -29,7 +29,7 @@ export function bombDisplay(): void {
   toggleBombDisplay();
 }
 
-/** Alias for the "bombdisplay" command. */
+/** Alias for the "bombDisplay" command. */
 export function bombsDisplay(): void {
   bombDisplay();
 }
@@ -44,7 +44,7 @@ export function doorDisplay(): void {
   toggleDoorDisplay();
 }
 
-/** Alias for the "doordisplay" function. */
+/** Alias for the "doorDisplay" command. */
 export function doorsDisplay(): void {
   doorDisplay();
 }
@@ -59,7 +59,7 @@ export function effectDisplay(): void {
   toggleEffectDisplay();
 }
 
-/** Alias for the "effectdisplay" function. */
+/** Alias for the "effectDisplay" command. */
 export function effectsDisplay(): void {
   effectDisplay();
 }
@@ -74,7 +74,7 @@ export function familiarDisplay(): void {
   toggleFamiliarDisplay();
 }
 
-/** Alias for the "familiardisplay" command. */
+/** Alias for the "familiarDisplay" command. */
 export function familiarsDisplay(): void {
   familiarDisplay();
 }
@@ -89,7 +89,7 @@ export function knifeDisplay(): void {
   toggleKnifeDisplay();
 }
 
-/** Alias for the "knifedisplay" command. */
+/** Alias for the "knifeDisplay" command. */
 export function knivesDisplay(): void {
   knifeDisplay();
 }
@@ -104,7 +104,7 @@ export function laserDisplay(): void {
   toggleLaserDisplay();
 }
 
-/** Alias for the "laserdisplay" command. */
+/** Alias for the "laserDisplay" command. */
 export function lasersDisplay(): void {
   laserDisplay();
 }
@@ -119,7 +119,7 @@ export function npcDisplay(): void {
   toggleNPCDisplay();
 }
 
-/** Alias for the "npcdisplay" command. */
+/** Alias for the "npcDisplay" command. */
 export function npcsDisplay(): void {
   npcDisplay();
 }
@@ -134,7 +134,7 @@ export function pickupDisplay(): void {
   togglePickupDisplay();
 }
 
-/** Alias for the "pickupdisplay" command. */
+/** Alias for the "pickupDisplay" command. */
 export function pickupsDisplay(): void {
   pickupDisplay();
 }
@@ -149,7 +149,7 @@ export function pitDisplay(): void {
   togglePitDisplay();
 }
 
-/** Alias for the "pitdisplay" function. */
+/** Alias for the "pitDisplay" command. */
 export function pitsDisplay(): void {
   pitDisplay();
 }
@@ -164,7 +164,7 @@ export function playerDisplay(): void {
   togglePlayerDisplay();
 }
 
-/** Alias for the "playerdisplay" command. */
+/** Alias for the "playerDisplay" command. */
 export function playersDisplay(): void {
   playerDisplay();
 }
@@ -179,7 +179,7 @@ export function poopDisplay(): void {
   togglePoopDisplay();
 }
 
-/** Alias for the "poopdisplay" function. */
+/** Alias for the "poopDisplay" command. */
 export function poopsDisplay(): void {
   poopDisplay();
 }
@@ -194,7 +194,7 @@ export function pressurePlateDisplay(): void {
   togglePressurePlateDisplay();
 }
 
-/** Alias for the "pressureplatedisplay" function. */
+/** Alias for the "pressurePlateDisplay" command. */
 export function pressurePlatesDisplay(): void {
   pressurePlateDisplay();
 }
@@ -209,7 +209,7 @@ export function projectileDisplay(): void {
   toggleProjectileDisplay();
 }
 
-/** Alias for the "projectiledisplay" command. */
+/** Alias for the "projectileDisplay" command. */
 export function projectilesDisplay(): void {
   projectileDisplay();
 }
@@ -224,7 +224,7 @@ export function rockDisplay(): void {
   toggleRockDisplay();
 }
 
-/** Alias for the "rockdisplay" function. */
+/** Alias for the "rockDisplay" command. */
 export function rocksDisplay(): void {
   rockDisplay();
 }
@@ -239,12 +239,12 @@ export function slotDisplay(): void {
   toggleSlotDisplay();
 }
 
-/** Alias for the "slotdisplay" command. */
+/** Alias for the "slotDisplay" command. */
 export function slotsDisplay(): void {
   slotDisplay();
 }
 
-/** Alias for the "spikesdisplay" function. */
+/** Alias for the "spikesDisplay" command. */
 export function spikeDisplay(): void {
   spikesDisplay();
 }
@@ -269,7 +269,7 @@ export function tearDisplay(): void {
   toggleTearDisplay();
 }
 
-/** Alias for the "teardisplay" command. */
+/** Alias for the "tearDisplay" command. */
 export function tearsDisplay(): void {
   tearDisplay();
 }
@@ -284,7 +284,7 @@ export function tntDisplay(): void {
   toggleTNTDisplay();
 }
 
-/** Alias for the "tntdisplay" function. */
+/** Alias for the "tntDisplay" command. */
 export function tntsDisplay(): void {
   tntDisplay();
 }

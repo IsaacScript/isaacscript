@@ -1,13 +1,14 @@
 # Words in the Lua programming language.
 
 collectgarbage # Global
-getinfo # Debug library method
 dofile # Lua global
+getinfo # Debug library method
 getmetatable # Global
 getpeername # socket.lua
 getsockname # socket.lua
 gettime # socket.lua
 ipairs # Global
+linedefined # Debug library word
 loadfile # Global
 metatable
 metatables

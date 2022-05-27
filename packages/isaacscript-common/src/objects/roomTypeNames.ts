@@ -6,7 +6,7 @@ export const ROOM_TYPE_NAMES: { readonly [key in RoomType]: string } = {
   [RoomType.NULL]: "null room", // 0
   [RoomType.DEFAULT]: "default room", // 1
   [RoomType.SHOP]: "shop", // 2
-  [RoomType.ERROR]: "IAMERROR Room", // 3
+  [RoomType.ERROR]: "I AM ERROR Room", // 3
   [RoomType.TREASURE]: "Treasure Room", // 4
   [RoomType.BOSS]: "Boss Room", // 5
   [RoomType.MINI_BOSS]: "Miniboss Room", // 6

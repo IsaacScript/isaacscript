@@ -8,7 +8,7 @@ import v, { debugDisplayTextCallbacks } from "./v";
 // -------------
 
 /**
- * After using the "playerdisplay" console command, text will be drawn on each player for debugging
+ * After using the "playerDisplay" console command, text will be drawn on each player for debugging
  * purposes. Use this function to specify a callback function that will returns the string that
  * should be drawn.
  */
@@ -19,7 +19,7 @@ export function setPlayerDisplay(
 }
 
 /**
- * After using the "teardisplay" console command, text will be drawn on each tear for debugging
+ * After using the "tearDisplay" console command, text will be drawn on each tear for debugging
  * purposes. Use this function to specify a callback function that will returns the string that
  * should be drawn.
  */
@@ -30,7 +30,7 @@ export function setTearDisplay(
 }
 
 /**
- * After using the "familiardisplay" console command, text will be drawn on each familiar for
+ * After using the "familiarDisplay" console command, text will be drawn on each familiar for
  * debugging purposes. Use this function to specify a callback function that will returns the string
  * that should be drawn.
  */
@@ -41,7 +41,7 @@ export function setFamiliarDisplay(
 }
 
 /**
- * After using the "bombdisplay" console command, text will be drawn on each bomb for debugging
+ * After using the "bombDisplay" console command, text will be drawn on each bomb for debugging
  * purposes. Use this function to specify a callback function that will returns the string that
  * should be drawn.
  */
@@ -52,7 +52,7 @@ export function setBombDisplay(
 }
 
 /**
- * After using the "pickupdisplay" console command, text will be drawn on each pickup for debugging
+ * After using the "pickupDisplay" console command, text will be drawn on each pickup for debugging
  * purposes. Use this function to specify a callback function that will returns the string that
  * should be drawn.
  */
@@ -63,7 +63,7 @@ export function setPickupDisplay(
 }
 
 /**
- * After using the "slotdisplay" console command, text will be drawn on each slot for debugging
+ * After using the "slotDisplay" console command, text will be drawn on each slot for debugging
  * purposes. Use this function to specify a callback function that will returns the string that
  * should be drawn.
  */
@@ -72,7 +72,7 @@ export function setSlotDisplay(textCallback: (slot: Entity) => string): void {
 }
 
 /**
- * After using the "laserdisplay" console command, text will be drawn on each laser for debugging
+ * After using the "laserDisplay" console command, text will be drawn on each laser for debugging
  * purposes. Use this function to specify a callback function that will returns the string that
  * should be drawn.
  */
@@ -83,7 +83,7 @@ export function setLaserDisplay(
 }
 
 /**
- * After using the "knifedisplay" console command, text will be drawn on each knife for debugging
+ * After using the "knifeDisplay" console command, text will be drawn on each knife for debugging
  * purposes. Use this function to specify a callback function that will returns the string that
  * should be drawn.
  */
@@ -94,7 +94,7 @@ export function setKnifeDisplay(
 }
 
 /**
- * After using the "projectiledisplay" console command, text will be drawn on each projectile for
+ * After using the "projectileDisplay" console command, text will be drawn on each projectile for
  * debugging purposes. Use this function to specify a callback function that will returns the string
  * that should be drawn.
  */
@@ -105,7 +105,7 @@ export function setProjectileDisplay(
 }
 
 /**
- * After using the "effectdisplay" console command, text will be drawn on each effect for debugging
+ * After using the "effectDisplay" console command, text will be drawn on each effect for debugging
  * purposes. Use this function to specify a callback function that will returns the string that
  * should be drawn.
  */
@@ -116,7 +116,7 @@ export function setEffectDisplay(
 }
 
 /**
- * After using the "npcdisplay" console command, text will be drawn on each NPC for debugging
+ * After using the "npcDisplay" console command, text will be drawn on each NPC for debugging
  * purposes. Use this function to specify a callback function that will returns the string that
  * should be drawn.
  */
@@ -125,7 +125,7 @@ export function setNPCDisplay(textCallback: (npc: EntityNPC) => string): void {
 }
 
 /**
- * After using the "rockdisplay" console command, text will be drawn on each rock for debugging
+ * After using the "rockDisplay" console command, text will be drawn on each rock for debugging
  * purposes. Use this function to specify a callback function that will returns the string that
  * should be drawn.
  */
@@ -136,7 +136,7 @@ export function setRockDisplay(
 }
 
 /**
- * After using the "pitdisplay" console command, text will be drawn on each pit for debugging
+ * After using the "pitDisplay" console command, text will be drawn on each pit for debugging
  * purposes. Use this function to specify a callback function that will returns the string that
  * should be drawn.
  */
@@ -147,7 +147,7 @@ export function setPitDisplay(
 }
 
 /**
- * After using the "spikesdisplay" console command, text will be drawn on each spikes for debugging
+ * After using the "spikesDisplay" console command, text will be drawn on each spikes for debugging
  * purposes. Use this function to specify a callback function that will returns the string that
  * should be drawn.
  */
@@ -158,7 +158,7 @@ export function setSpikesDisplay(
 }
 
 /**
- * After using the "tntdisplay" console command, text will be drawn on each TNT for debugging
+ * After using the "tntDisplay" console command, text will be drawn on each TNT for debugging
  * purposes. Use this function to specify a callback function that will returns the string that
  * should be drawn.
  */
@@ -169,7 +169,7 @@ export function setTNTDisplay(
 }
 
 /**
- * After using the "poopdisplay" console command, text will be drawn on each poop for debugging
+ * After using the "poopDisplay" console command, text will be drawn on each poop for debugging
  * purposes. Use this function to specify a callback function that will returns the string that
  * should be drawn.
  */
@@ -180,7 +180,7 @@ export function setPoopDisplay(
 }
 
 /**
- * After using the "poopdisplay" console command, text will be drawn on each poop for debugging
+ * After using the "poopDisplay" console command, text will be drawn on each poop for debugging
  * purposes. Use this function to specify a callback function that will returns the string that
  * should be drawn.
  */
@@ -191,7 +191,7 @@ export function setDoorDisplay(
 }
 
 /**
- * After using the "pressureplatedisplay" console command, text will be drawn on each pressure plate
+ * After using the "pressurePlateDisplay" console command, text will be drawn on each pressure plate
  * for debugging purposes. Use this function to specify a callback function that will returns the
  * string that should be drawn.
  */
@@ -207,7 +207,7 @@ export function setPressurePlateDisplay(
 
 /**
  * Toggles the debug display for players. This is the function that runs when you use the
- * "playerdisplay" custom console command.
+ * "playerDisplay" custom console command.
  */
 export function togglePlayerDisplay(): void {
   v.run.player = !v.run.player;
@@ -216,7 +216,7 @@ export function togglePlayerDisplay(): void {
 
 /**
  * Toggles the debug display for tears. This is the function that runs when you use the
- * "teardisplay" custom console command.
+ * "tearDisplay" custom console command.
  */
 export function toggleTearDisplay(): void {
   v.run.tear = !v.run.tear;
@@ -225,7 +225,7 @@ export function toggleTearDisplay(): void {
 
 /**
  * Toggles the debug display for familiars. This is the function that runs when you use the
- * "familiardisplay" custom console command.
+ * "familiarDisplay" custom console command.
  */
 export function toggleFamiliarDisplay(): void {
   v.run.familiar = !v.run.familiar;
@@ -234,7 +234,7 @@ export function toggleFamiliarDisplay(): void {
 
 /**
  * Toggles the debug display for bombs. This is the function that runs when you use the
- * "bombdisplay" custom console command.
+ * "bombDisplay" custom console command.
  */
 export function toggleBombDisplay(): void {
   v.run.bomb = !v.run.bomb;
@@ -243,7 +243,7 @@ export function toggleBombDisplay(): void {
 
 /**
  * Toggles the debug display for pickups. This is the function that runs when you use the
- * "pickupdisplay" custom console command.
+ * "pickupDisplay" custom console command.
  */
 export function togglePickupDisplay(): void {
   v.run.pickup = !v.run.pickup;
@@ -252,7 +252,7 @@ export function togglePickupDisplay(): void {
 
 /**
  * Toggles the debug display for slots. This is the function that runs when you use the
- * "slotdisplay" custom console command.
+ * "slotDisplay" custom console command.
  */
 export function toggleSlotDisplay(): void {
   v.run.slot = !v.run.slot;
@@ -261,7 +261,7 @@ export function toggleSlotDisplay(): void {
 
 /**
  * Toggles the debug display for lasers. This is the function that runs when you use the
- * "laserdisplay" custom console command.
+ * "laserDisplay" custom console command.
  */
 export function toggleLaserDisplay(): void {
   v.run.laser = !v.run.laser;
@@ -270,7 +270,7 @@ export function toggleLaserDisplay(): void {
 
 /**
  * Toggles the debug display for knives. This is the function that runs when you use the
- * "knifedisplay" custom console command.
+ * "knifeDisplay" custom console command.
  */
 export function toggleKnifeDisplay(): void {
   v.run.knife = !v.run.knife;
@@ -279,7 +279,7 @@ export function toggleKnifeDisplay(): void {
 
 /**
  * Toggles the debug display for projectiles. This is the function that runs when you use the
- * "projectiledisplay" custom console command.
+ * "projectileDisplay" custom console command.
  */
 export function toggleProjectileDisplay(): void {
   v.run.projectile = !v.run.projectile;
@@ -288,7 +288,7 @@ export function toggleProjectileDisplay(): void {
 
 /**
  * Toggles the debug display for effects. This is the function that runs when you use the
- * "effectdisplay" custom console command.
+ * "effectDisplay" custom console command.
  */
 export function toggleEffectDisplay(): void {
   v.run.effect = !v.run.effect;
@@ -296,7 +296,7 @@ export function toggleEffectDisplay(): void {
 }
 
 /**
- * Toggles the debug display for NPCs. This is the function that runs when you use the "npcdisplay"
+ * Toggles the debug display for NPCs. This is the function that runs when you use the "npcDisplay"
  * custom console command.
  */
 export function toggleNPCDisplay(): void {
@@ -306,7 +306,7 @@ export function toggleNPCDisplay(): void {
 
 /**
  * Toggles the debug display for rocks. This is the function that runs when you use the
- * "rockdisplay" custom console command.
+ * "rockDisplay" custom console command.
  */
 export function toggleRockDisplay(): void {
   v.run.rock = !v.run.rock;
@@ -314,7 +314,7 @@ export function toggleRockDisplay(): void {
 }
 
 /**
- * Toggles the debug display for pits. This is the function that runs when you use the "pitdisplay"
+ * Toggles the debug display for pits. This is the function that runs when you use the "pitDisplay"
  * custom console command.
  */
 export function togglePitDisplay(): void {
@@ -324,7 +324,7 @@ export function togglePitDisplay(): void {
 
 /**
  * Toggles the debug display for spikes. This is the function that runs when you use the
- * "spikesdisplay" custom console command.
+ * "spikesDisplay" custom console command.
  */
 export function toggleSpikesDisplay(): void {
   v.run.spikes = !v.run.spikes;
@@ -332,7 +332,7 @@ export function toggleSpikesDisplay(): void {
 }
 
 /**
- * Toggles the debug display for TNT. This is the function that runs when you use the "tntdisplay"
+ * Toggles the debug display for TNT. This is the function that runs when you use the "tntDisplay"
  * custom console command.
  */
 export function toggleTNTDisplay(): void {
@@ -341,7 +341,7 @@ export function toggleTNTDisplay(): void {
 }
 
 /**
- * Toggles the debug display for poop. This is the function that runs when you use the "poopdisplay"
+ * Toggles the debug display for poop. This is the function that runs when you use the "poopDisplay"
  * custom console command.
  */
 export function togglePoopDisplay(): void {
@@ -351,7 +351,7 @@ export function togglePoopDisplay(): void {
 
 /**
  * Toggles the debug display for doors. This is the function that runs when you use the
- * "doordisplay" custom console command.
+ * "doorDisplay" custom console command.
  */
 export function toggleDoorDisplay(): void {
   v.run.door = !v.run.door;
@@ -360,7 +360,7 @@ export function toggleDoorDisplay(): void {
 
 /**
  * Toggles the debug display for pressure plates. This is the function that runs when you use the
- * "pressureplatedisplay" custom console command.
+ * "pressurePlateDisplay" custom console command.
  */
 export function togglePressurePlateDisplay(): void {
   v.run.pressurePlate = !v.run.pressurePlate;
