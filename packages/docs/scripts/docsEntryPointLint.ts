@@ -1,10 +1,10 @@
-/* eslint-disable @nrwl/nx/enforce-module-boundaries,import/no-relative-packages */
-
 import glob from "glob";
+import { utils } from "isaacscript-cli";
 import path from "path";
-import { error } from "../isaacscript-cli/src/utils";
 
-const TYPEDOC_CONFIG_PATH = path.join(__dirname, "typedoc.json");
+const { error } = utils;
+
+const TYPEDOC_CONFIG_PATH = path.join(__dirname, "..", "typedoc.json");
 
 main();
 
@@ -98,12 +98,14 @@ function getEntryPoints(): string[] {
   const typeDocConfig = require(TYPEDOC_CONFIG_PATH) as Record<string, unknown>;
 
   if (typeof typeDocConfig !== "object") {
-    error(`Failed to read the config file: ${TYPEDOC_CONFIG_PATH}`);
+    return error(`Failed to read the config file: ${TYPEDOC_CONFIG_PATH}`);
   }
 
   const { entryPoints } = typeDocConfig;
   if (!Array.isArray(entryPoints)) {
-    error(`Failed to read the "entryPoints" field: ${TYPEDOC_CONFIG_PATH}`);
+    return error(
+      `Failed to read the "entryPoints" field: ${TYPEDOC_CONFIG_PATH}`,
+    );
   }
 
   return entryPoints as string[];

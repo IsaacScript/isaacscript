@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "description": "The website for the IsaacScript monorepo.",
+  "keywords": [],
   "homepage": "https://isaacscript.github.io/",
   "bugs": {
     "url": "https://github.com/IsaacScript/isaacscript/issues"
@@ -13,6 +14,10 @@
   },
   "license": "GPL-3.0",
   "author": "Zamiell",
+  "main": ".eslintrc.js",
+  "directories": {
+    "doc": "docs"
+  },
   "scripts": {
     "build": "docusaurus build --out-dir ../../dist/packages/docs",
     "clear": "docusaurus clear",
@@ -36,10 +41,5 @@
       "last 1 safari version"
     ]
   },
-  "main": ".eslintrc.js",
-  "directories": {
-    "doc": "docs"
-  },
-  "devDependencies": {},
-  "keywords": []
+  "devDependencies": {}
 }

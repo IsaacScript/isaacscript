@@ -141,6 +141,7 @@ export function makeDir(dirPath: string, verbose: boolean): void {
   }
 }
 
+// ts-prune-ignore-next (used by other code in the monorepo)
 export function move(srcPath: string, dstPath: string, verbose: boolean): void {
   if (verbose) {
     console.log(`Moving: ${srcPath} --> ${dstPath}`);

@@ -16,7 +16,6 @@ type Options = [
   },
 ];
 
-// ts-prune-ignore-next
 export type MessageIds = "incorrectlyFormatted";
 
 export const formatLineComments = createRule<Options, MessageIds>({

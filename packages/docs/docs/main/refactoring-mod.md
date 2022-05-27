@@ -51,11 +51,11 @@ Enums are typically stored in files of the same name in an "enums" subdirectory.
 Each callback can have its own dedicated file in a "callbacks" subdirectory.
 
 ```ts
-import { ModCallbacks } from "isaac-typescript-definitions";
+import { ModCallback } from "isaac-typescript-definitions";
 import { greenCandlePostUpdate } from "../items/greenCandle";
 
 export function postUpdateInit(mod: Mod): void {
-  mod.AddCallback(ModCallbacks.MC_POST_UPDATE, main);
+  mod.AddCallback(ModCallback.MC_POST_UPDATE, main);
 }
 
 function main() {
@@ -73,7 +73,7 @@ Each item can have its own dedicated file in an "items" subdirectory.
 ```ts
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
 
-// ModCallbacks.MC_POST_UPDATE (1)
+// ModCallback.POST_UPDATE (1)
 export function greenCandlePostUpdate(): void {
   checkApplyGreenCandleEffect();
 }

@@ -1,10 +1,10 @@
 // Publishes a package to NPM using "yarn publish".
 
 import { readCachedProjectGraph } from "@nrwl/devkit";
-import { execSync } from "child_process";
+import { file, utils } from "isaacscript-cli";
 import path from "path";
-import * as file from "../packages/isaacscript-cli/src/file";
-import { error } from "../packages/isaacscript-cli/src/utils";
+
+const { error } = utils;
 
 const PACKAGE_JSON = "package.json";
 const REPO_ROOT = path.join(__dirname, "..");
@@ -16,7 +16,9 @@ function main() {
 
   const name = args[0];
   if (typeof name !== "string" || name === "undefined" || name === "") {
-    error("The name of the project must be provided as the first argument.");
+    return error(
+      "The name of the project must be provided as the first argument.",
+    );
   }
 
   const graph = readCachedProjectGraph();
@@ -44,25 +46,25 @@ function main() {
   try {
     packageJSON = JSON.parse(packageJSONString);
   } catch (err) {
-    error(`Failed to parse the "${PACKAGE_JSON}" file:`, err);
+    return error(`Failed to parse the "${PACKAGE_JSON}" file:`, err);
   }
 
   const version = packageJSON["version"];
   if (typeof version !== "string") {
-    error(
+    return error(
       `Failed to read the version of the "${PACKAGE_JSON}" file since the version was of type: ${typeof version}`,
     );
   }
 
   process.chdir(buildPath);
   const tag = version.includes("dev") ? "next" : "latest";
-  execSync(`yarn publish --non-interactive --access public --tag ${tag}`);
+  // execSync(`yarn publish --non-interactive --access public --tag ${tag}`);
 
   console.log(`Successfully published: ${name}@${version} (w/ tag: ${tag})`);
 }
 
 function invariant(condition: unknown, msg: string) {
   if (!condition) {
-    error(msg);
+    return error(msg);
   }
 }

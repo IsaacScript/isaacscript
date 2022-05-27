@@ -12,7 +12,6 @@ type Options = [
   },
 ];
 
-// ts-prune-ignore-next
 export type MessageIds = "incorrectlyFormatted";
 
 export const formatJSDocComments = createRule<Options, MessageIds>({

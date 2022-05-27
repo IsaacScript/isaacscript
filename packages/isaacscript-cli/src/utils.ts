@@ -10,7 +10,7 @@ export const ensureAllCases = (obj: never): never => obj;
 
 export function error(...args: unknown[]): never {
   console.error(...args);
-  process.exit(1);
+  return process.exit(1);
 }
 
 export function getModTargetDirectoryName(config: Config): string {

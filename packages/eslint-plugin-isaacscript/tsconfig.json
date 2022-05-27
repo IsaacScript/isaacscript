@@ -12,5 +12,6 @@
     "./tests/**/*.ts",
     "./tools/**/*.ts",
     ".eslintrc.js",
+    "jest.config.js",
   ],
 }

@@ -18,7 +18,7 @@ rm -rf "$OUT_DIR"
 npx typedoc # The options are stored in "typedoc.json".
 
 # Second, apply transformations on top of the TypeDoc output.
-npx ts-node "$DIR/scripts/postTypeDocGeneration.ts"
+npx ts-node --require "tsconfig-paths/register" "$DIR/scripts/postTypeDocGeneration.ts"
 
 # Build the docs website using Docusaurus.
 mkdir -p "$OUT_DIR"

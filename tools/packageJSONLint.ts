@@ -1,10 +1,11 @@
 // Performs various checks on every "package.json" file in the repository.
 
 import glob from "glob";
+import { file, utils } from "isaacscript-cli";
 import path from "path";
 import sortPackageJson from "sort-package-json";
-import * as file from "../packages/isaacscript-cli/src/file";
-import { error, isKebabCase } from "../packages/isaacscript-cli/src/utils";
+
+const { isKebabCase, error } = utils;
 
 const PACKAGE_JSON = "package.json";
 const REPO_ROOT = path.join(__dirname, "..");
@@ -383,7 +384,7 @@ function getPackageJSON(packageJSONString: string): Record<string, unknown> {
   try {
     packageJSON = JSON.parse(packageJSONString);
   } catch (err) {
-    error(`Failed to parse: ${path}`);
+    return error(`Failed to parse: ${path}`);
   }
 
   return packageJSON;

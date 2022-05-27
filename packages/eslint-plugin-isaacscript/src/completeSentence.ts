@@ -142,7 +142,6 @@ function splitOnSpecialText(text: string): string[] {
   return textBlocks.filter((textBlock) => !isEnumBlockLabel(textBlock));
 }
 
-// ts-prune-ignore-next
 export function getSentences(text: string): string[] {
   const match = text.match(SENTENCE_REGEX);
   if (match === null) {

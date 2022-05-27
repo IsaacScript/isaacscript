@@ -3,7 +3,6 @@ import { createRule } from "../utils";
 
 type Options = [];
 
-// ts-prune-ignore-next
 export type MessageIds = "noExplicitArray";
 
 export const noExplicitArrayLoops = createRule<Options, MessageIds>({

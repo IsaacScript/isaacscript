@@ -22,7 +22,7 @@ if [ "$1" != "json" ]; then
 fi
 
 # Checking "package.json" files
-npx ts-node --project "$DIR/tools/tsconfig.json" "$DIR/tools/packageJSONLint.ts"
+npx ts-node --require "tsconfig-paths/register" --project "$DIR/tools/tsconfig.json" "$DIR/tools/packageJSONLint.ts"
 
 if [ "$1" != "json" ]; then
   echo "Checking markdown..."

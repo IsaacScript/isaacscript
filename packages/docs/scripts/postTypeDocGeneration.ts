@@ -1,5 +1,3 @@
-/* eslint-disable @nrwl/nx/enforce-module-boundaries,import/no-relative-packages */
-
 // We use TypeDoc to generate documentation from the source code and we use the
 // `typedoc-plugin-markdown` plugin to output it as Markdown instead of HTML.
 
@@ -27,13 +25,10 @@ custom_edit_url: null
 */
 
 import { readdirSync } from "fs";
+import { file, utils } from "isaacscript-cli";
 import path from "path";
-import * as file from "../../isaacscript-cli/src/file";
-import { error } from "../../isaacscript-cli/src/utils";
-import {
-  capitalizeFirstLetter,
-  trimSuffix,
-} from "../../isaacscript-common/src/functions/string";
+
+const { error } = utils;
 
 const COMMON_DIR = path.join(__dirname, "..", "docs", "isaacscript-common");
 const MODULES_DIR = path.join(COMMON_DIR, "modules");
@@ -108,12 +103,12 @@ function moveModulesFiles() {
     } else {
       const directoryName = match[1];
       if (directoryName === undefined) {
-        error(`Failed to parse the file name: ${markdownFileName}`);
+        return error(`Failed to parse the file name: ${markdownFileName}`);
       }
 
       const newFileName = match[2];
       if (newFileName === undefined) {
-        error(`Failed to parse the file name: ${markdownFileName}`);
+        return error(`Failed to parse the file name: ${markdownFileName}`);
       }
 
       const dstDirectory = path.join(COMMON_DIR, directoryName);
@@ -125,12 +120,14 @@ function moveModulesFiles() {
 
   const remainingFiles = getFiles(MODULES_DIR);
   if (remainingFiles.length > 0) {
-    error(
+    return error(
       `Failed to move one or more files in the "modules" directory: ${MODULES_DIR}`,
     );
   }
 
   file.deleteFileOrDirectory(MODULES_DIR, false);
+
+  return undefined;
 }
 
 function addCategoryFile(directoryName: string, directoryPath: string) {
@@ -205,4 +202,22 @@ function pascalCaseToTitleCase(string: string) {
       // Remove any white space left around the word.
       .trim()
   );
+}
+
+function capitalizeFirstLetter(string: string): string {
+  const firstCharacter = string.charAt(0);
+  const capitalizedFirstLetter = firstCharacter.toUpperCase();
+  const restOfString = string.slice(1);
+
+  return `${capitalizedFirstLetter}${restOfString}`;
+}
+
+/** Helper function to trim a suffix from a string, if it exists. Returns the trimmed string. */
+function trimSuffix(string: string, prefix: string): string {
+  if (!string.endsWith(prefix)) {
+    return string;
+  }
+
+  const endCharacter = string.length - prefix.length;
+  return string.slice(0, endCharacter);
 }

@@ -8,7 +8,6 @@ import { createRule } from "../utils";
 
 type Options = [];
 
-// ts-prune-ignore-next
 export type MessageIds = "missingCapital" | "missingPeriod";
 
 export const completeSentencesLineComments = createRule<Options, MessageIds>({

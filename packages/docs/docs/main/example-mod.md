@@ -143,16 +143,16 @@ For our purposes, we want the Green Candle to have a random chance to poison eve
 Add the following code to the "main" function:
 
 ```ts
-mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate);
+mod.AddCallback(ModCallback.MC_POST_UPDATE, postUpdate);
 ```
 
-As you type the `ModCallbacks` enum, it should automatically create an import statement for the enum at the top of the file, which will look like this:
+As you type the `ModCallback` enum, it should automatically create an import statement for the enum at the top of the file, which will look like this:
 
 ```ts
-import { ModCallbacks } from "isaac-typescript-definitions";
+import { ModCallback } from "isaac-typescript-definitions";
 ```
 
-If you pasted the code in from this website, then it wouldn't have gotten the chance to automatically import. Handily, VSCode has a feature to automatically import whatever the text cursor happens to be over. So, put the text cursor at the end of the "ModCallbacks" word, and then hit `Ctrl + space + enter`.
+If you pasted the code in from this website, then it wouldn't have gotten the chance to automatically import. Handily, VSCode has a feature to automatically import whatever the text cursor happens to be over. So, put the text cursor at the end of the "ModCallback" word, and then hit `Ctrl + space + enter`.
 
 After importing the enum, we have to add the corresponding function that will be called when the callback fires:
 
@@ -287,7 +287,7 @@ The mod is now complete. It looks like the following:
 
 ```ts
 import { getEntities, getPlayers, getRandomInt } from "isaacscript-common";
-import { ModCallbacks } from "isaac-typescript-definitions";
+import { ModCallback } from "isaac-typescript-definitions";
 
 const MOD_NAME = "Green Candle";
 const GREEN_CANDLE_COLLECTIBLE_TYPE = Isaac.GetItemIdByName("Green Candle");
@@ -295,7 +295,7 @@ const GREEN_CANDLE_COLLECTIBLE_TYPE = Isaac.GetItemIdByName("Green Candle");
 export function main(): void {
   const mod = RegisterMod(MOD_NAME, 1);
 
-  mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate);
+  mod.AddCallback(ModCallback.MC_POST_UPDATE, postUpdate);
 }
 
 function postUpdate() {

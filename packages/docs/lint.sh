@@ -23,11 +23,11 @@ npx eslint --max-warnings 0 .
 # We set to frail to exit with 1 on warnings (for CI).
 npx remark --quiet --frail docs --ignore-pattern "docs/isaacscript-common" # Cannot use "$DIR" here
 
-# Step 4 - Spell check every file using cspell.
+# Step 4 - Spell check every file using CSpell.
 # We use no-progress and no-summary because we want to only output errors.
 npx cspell --no-progress --no-summary
 
 # Step 5 - Validate that every doc page is included.
-npx ts-node "$DIR/docsEntryPointLint.ts"
+npx ts-node --require "tsconfig-paths/register" "$DIR/scripts/docsEntryPointLint.ts"
 
 echo "Successfully linted in $SECONDS seconds."

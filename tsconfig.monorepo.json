@@ -12,14 +12,11 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
 
-    // Commented out since TypeScript paths don't work properly with TSTL.
-    /*
+    // TypeScript paths do not work properly with TSTL, so we cannot add
+    // "isaac-typescript-definitions".
     "paths": {
-      "isaac-typescript-definitions": [
-        "dist/packages/isaac-typescript-definitions",
-      ],
+      "isaacscript-cli": ["packages/isaacscript-cli/src/index.ts"],
     },
-    */
   },
 
   "exclude": ["node_modules", "tmp"],

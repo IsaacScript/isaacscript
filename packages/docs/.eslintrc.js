@@ -21,7 +21,7 @@ module.exports = {
     browser: true,
   },
 
-  ignorePatterns: ["docusaurus/**", "build/**", "!.remarkrc.mjs"],
+  ignorePatterns: ["docusaurus/**", "!.remarkrc.mjs"],
 
   rules: {
     "@typescript-eslint/explicit-module-boundary-types": "off",

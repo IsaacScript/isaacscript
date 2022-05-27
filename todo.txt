@@ -3,25 +3,8 @@ Monorepo TODO:
 - JSDoc rule for line between @param is not working
 - ci.yml if statement for PRs is not working!
 
-- Create docs:
-      - name: Create the docs locally in CI
-        if: github.event_name != 'pull_request'
-        run: bash docs.sh
-
-      - name: Deploy 🚀
-        if: github.event_name != 'pull_request'
-        uses: JamesIves/github-pages-deploy-action@4.1.4
-        with:
-          branch: gh-pages
-          folder: docs
-
 TODO:
-- NEW DOCUMENTATION WEBSITE - defer until monorepo
-- "typedoc-plugin-merge-modules": "^3.1.0",
-
-- redo docs so that function examples are in JSDoc
-  - confirm that POST_USE_CARD and POST_USE_PILL and POST_NPC_UPDATE and POST_FAMILIAR_UPDATE and POST_FAMILIAR_INIT are documented
-  - confirm that ModCallback is documented
+- NEW DOCUMENTATION WEBSITE
 - change bundleEntry.ts to "export {}" with comment - actually, wait until perry merges
 
 LINTER:

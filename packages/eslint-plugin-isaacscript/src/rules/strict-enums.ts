@@ -50,7 +50,6 @@ const ALLOWED_TYPES_FOR_ANY_ENUM_ARGUMENT =
 
 type Options = [];
 
-// ts-prune-ignore-next
 export type MessageIds =
   | "incorrectIncrement"
   | "mismatchedAssignment"
