@@ -1,4 +1,4 @@
-# Words in the Lua programming language.
+# These are words in the Lua programming language.
 
 collectgarbage # Global
 dofile # Lua global

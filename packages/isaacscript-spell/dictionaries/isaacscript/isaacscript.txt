@@ -1,4 +1,4 @@
-# These are words contained within IsaacScript template files and elsewhere.
+# These are words contained within IsaacScript template files and elsewhere within the monorepo.
 
 airbnb # Part of the linting config
 APPDATA # Monorepo word

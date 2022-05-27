@@ -8,7 +8,7 @@
     {
       "name": "api",
       "path": "./api.txt",
-      "description": "Words from the API"
+      "description": "Words from the Lua API"
     },
     {
       "name": "files",

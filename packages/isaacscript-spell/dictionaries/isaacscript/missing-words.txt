@@ -1,4 +1,4 @@
-# These are words that should be in the CSpell base dictionary.
+# These are general-purpose words that should be in the CSpell base dictionary.
 
 autoformat
 backticks

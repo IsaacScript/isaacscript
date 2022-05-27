@@ -5,7 +5,10 @@
   "tsconfig": "../isaacscript-common/tsconfig.json",
   "readme": "../isaacscript-common/website-root.md",
   "treatWarningsAsErrors": true,
-  "listInvalidSymbolLinks": true,
+  "validation": {
+    "invalidLink": true,
+    "notExported": true
+  },
   "entryPoints": [
     "../isaacscript-common/src/cachedClasses.ts",
     "../isaacscript-common/src/classes/DefaultMap.ts",
