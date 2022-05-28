@@ -4,7 +4,7 @@ import { ensureAllCases } from "./utils";
  * A description of the kind of list that is currently being iterated over. For example, the
  * following text is a list:
  *
- * ```
+ * ```text
  * 1. Apple
  * 2. Banana
  * 3. Pear
@@ -44,7 +44,7 @@ export enum ListKind {
  * When using the `getList` function, the returned list may not be accurate if this is a line that
  * is continuing from the previous line. For example:
  *
- * ```
+ * ```text
  * This method will crash the game if you provide it an invalid number, such as 10000000000000000 or
  * 43. (Using 0 will not cause a crash.)
  * ```

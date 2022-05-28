@@ -24,6 +24,7 @@ export function formatText(text: string, maxLength: number): string {
   let formattedLine = "";
   let insideList: List | undefined;
   let insideCodeBlock = false;
+  let encounteredJSDocTags = false;
 
   const lines = text.split("\n");
   for (let i = 0; i < lines.length; i++) {
@@ -128,23 +129,6 @@ export function formatText(text: string, maxLength: number): string {
     if (reachedNewList(insideList, list)) {
       // Keep track that we have begun a list (or a new sub-list).
       insideList = list;
-
-      // Enforce a newline between a JSDoc description (i.e. introductory text) and the first JSDoc
-      // tag.
-      if (
-        list !== undefined &&
-        list.kind === ListKind.JSDocTag &&
-        formattedText === "" &&
-        !previousLineWasBlank
-      ) {
-        // Append the partial line that we were building, if any.
-        [formattedLine, formattedText] = appendLineToText(
-          formattedLine,
-          formattedText,
-        );
-
-        formattedText += "\n";
-      }
     }
 
     // Lists and some other specific text elements indicate that we should always insert a new line,
@@ -168,6 +152,32 @@ export function formatText(text: string, maxLength: number): string {
         formattedLine,
         formattedText,
       );
+    }
+
+    // Keep track of when we first encounter JSDoc tags. (JSDoc comments can be thought of as having
+    // an "description" or "introductory" section at the top, and then a list of JSDoc tags at the
+    // bottom.)
+    if (
+      !encounteredJSDocTags &&
+      list !== undefined &&
+      list.kind === ListKind.JSDocTag
+    ) {
+      encounteredJSDocTags = true;
+
+      // Enforce a newline between a JSDoc description (i.e. introductory text) and the first JSDoc
+      // tag.
+      if (
+        !stringContainsOnlyWhitespace(formattedText) &&
+        !previousLineWasBlank
+      ) {
+        // Append the partial line that we were building, if any.
+        [formattedLine, formattedText] = appendLineToText(
+          formattedLine,
+          formattedText,
+        );
+
+        formattedText += "\n";
+      }
     }
 
     const words = line.split(" ");
@@ -278,4 +288,8 @@ function startsWithExample(text: string): boolean {
     trimmedText.startsWith("i.e. ") ||
     trimmedText.startsWith("(i.e. ")
   );
+}
+
+function stringContainsOnlyWhitespace(string: string) {
+  return /^\s*$/gm.test(string);
 }

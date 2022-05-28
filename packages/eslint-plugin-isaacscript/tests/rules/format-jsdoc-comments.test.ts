@@ -548,6 +548,17 @@ function foo(arg1: boolean) {}
     `,
 });
 
+valid.push({
+  name: "Using a comment with only JSDoc param tags",
+  code: `
+ /**
+  * @param nullItemID
+  * @param addCostume
+  * @param count Default is 1.
+  */
+    `,
+});
+
 ruleTester.run("format-jsdoc-comments", formatJSDocComments, {
   valid,
   invalid,
