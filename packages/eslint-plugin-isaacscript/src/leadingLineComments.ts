@@ -54,7 +54,7 @@ export function getCommentBlocks(
      *
      * For example, the comment of:
      *
-     * ```
+     * ```ts
      * // Foo.
      * ```
      *

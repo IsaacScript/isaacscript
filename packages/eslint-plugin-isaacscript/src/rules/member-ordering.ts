@@ -396,6 +396,7 @@ function getRankOrder(
 
 /**
  * Gets the rank of the node given the order.
+ *
  * @param node The node to be evaluated.
  * @param orderConfig The current order to be validated.
  * @param supportsModifiers A flag indicating whether the type supports modifiers (scope or

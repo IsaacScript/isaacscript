@@ -1,7 +1,7 @@
 /**
  * The "json.lua" module exists at:
  *
- * ```
+ * ```text
  * C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\resources\scripts\json.lua
  * ```
  *
