@@ -4,7 +4,7 @@ title: Getting Started
 
 `isaacscript` will currently work on Windows and Linux.
 
-You can go from zero to up-and-running with a new mod in around 5 minutes.
+You can go from zero to up-and-running with a new mod in around 5 minutes, depending on how fast your computer / internet speed is.
 
 <br />
 
