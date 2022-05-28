@@ -22,6 +22,7 @@ yarn add typescript-to-lua
 ### Other
 
 - All of the IsaacScript packages are now contained in a monorepo using Nx. The other various repositories have been deleted.
+- The linting meta-package now uses `eslint-plugin-isaacscript`, which contains a [bunch of new rules](https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-plugin-isaacscript) that will make your code safer.
 - IsaacScript now supports the [Yarn](https://yarnpkg.com/) package manager. It will use yarn by default if it detects that you have it installed.
 - IsaacScript now shows how many seconds it took to compile the mod.
 - Added the following helper functions:
@@ -160,13 +161,13 @@ yarn add typescript-to-lua
 - You can now register all custom grid entity callbacks using an optional 3rd argument of grid entity variant.
 - Added the following custom console commands:
   - `map` - Reveals the entire map, including Ultra Secret Rooms.
-  - `doordisplay` - Show debugging information next to every door.
-  - `pitdisplay` - Show debugging information next to every pit.
-  - `poopdisplay` - Show debugging information next to every poop.
-  - `pressureplatedisplay` - Show debugging information next to every pressure plate.
-  - `rockdisplay` - Show debugging information next to every rock.
-  - `spikesdisplay` - Show debugging information next to every spikes.
-  - `tntdisplay` - Show debugging information next to every TNT.
+  - `doorDisplay` - Show debugging information next to every door.
+  - `pitDisplay` - Show debugging information next to every pit.
+  - `poopDisplay` - Show debugging information next to every poop.
+  - `pressurePlateDisplay` - Show debugging information next to every pressure plate.
+  - `rockDisplay` - Show debugging information next to every rock.
+  - `spikesDisplay` - Show debugging information next to every spikes.
+  - `tntDisplay` - Show debugging information next to every TNT.
 
 ## May 14th, 2022
 
@@ -213,7 +214,7 @@ IsaacScript has now reached **version 2**! We've come a long way with many featu
 
 ## April 28th, 2022
 
-- Added many new custom console commands, including `playerdisplay`, `npcdisplay`, and so on for rendering custom text on top of an entity for debugging purposes.
+- Added many new custom console commands, including `playerDisplay`, `npcDisplay`, and so on for rendering custom text on top of an entity for debugging purposes. See the `isaacscript-common` documentation for the full list.
 - Added the following helper functions:
   - `defaultMapSetPlayer`
   - `todo`

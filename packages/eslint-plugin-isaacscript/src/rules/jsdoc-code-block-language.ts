@@ -1,8 +1,8 @@
 import { getJSDocComments, getTextFromJSDocComment } from "../jsdoc";
 import { createRule } from "../utils";
 
-export const jsdocCodeBlock = createRule({
-  name: "jsdoc-code-block",
+export const jsdocCodeBlockLanguage = createRule({
+  name: "jsdoc-code-block-language",
   meta: {
     type: "problem",
     docs: {
@@ -31,14 +31,28 @@ export const jsdocCodeBlock = createRule({
 
     jsDocComments.forEach((comment) => {
       const text = getTextFromJSDocComment(comment.value);
-      if (text.includes("```\n")) {
-        context.report({
-          loc: {
-            start: comment.loc.start,
-            end: comment.loc.end,
-          },
-          messageId: "noLanguage",
-        });
+      const lines = text.split("\n");
+
+      // We only want to match the opening backticks of a code block.
+      let insideCodeBlock = false;
+      for (const line of lines) {
+        if (line.includes("```")) {
+          insideCodeBlock = !insideCodeBlock;
+        }
+
+        if (!insideCodeBlock) {
+          continue;
+        }
+
+        if (/```$/.test(line)) {
+          context.report({
+            loc: {
+              start: comment.loc.start,
+              end: comment.loc.end,
+            },
+            messageId: "noLanguage",
+          });
+        }
       }
     });
 

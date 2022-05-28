@@ -1,4 +1,4 @@
-# `jsdoc-code-block`
+# `jsdoc-code-block-language`
 
 Requires a language specification for every JSDoc code block.
 
@@ -35,7 +35,7 @@ function foo() {}
 ```json
 {
   "rules": {
-    "isaacscript/jsdoc-code-block": "error"
+    "isaacscript/jsdoc-code-block-language": "error"
   }
 }
 ```
@@ -44,5 +44,5 @@ This rule is not configurable.
 
 ## Resources
 
-- [Rule source](../../src/rules/jsdoc-code-block.ts)
-- [Test source](../../tests/rules/jsdoc-code-block.test.ts)
+- [Rule source](../../src/rules/jsdoc-code-block-language.ts)
+- [Test source](../../tests/rules/jsdoc-code-block-language.test.ts)

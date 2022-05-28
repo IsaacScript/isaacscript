@@ -1,6 +1,7 @@
 // Publishes a package to NPM using "yarn publish".
 
 import { readCachedProjectGraph } from "@nrwl/devkit";
+import { execSync } from "child_process";
 import { file, utils } from "isaacscript-cli";
 import path from "path";
 
@@ -58,7 +59,7 @@ function main() {
 
   process.chdir(buildPath);
   const tag = version.includes("dev") ? "next" : "latest";
-  // execSync(`yarn publish --non-interactive --access public --tag ${tag}`);
+  execSync(`yarn publish --non-interactive --access public --tag ${tag}`);
 
   console.log(`Successfully published: ${name}@${version} (w/ tag: ${tag})`);
 }

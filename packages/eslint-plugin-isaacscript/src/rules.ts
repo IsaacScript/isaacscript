@@ -11,7 +11,7 @@ import { enumMemberNumberSeparation } from "./rules/enum-member-number-separatio
 import { eqeqeqFix } from "./rules/eqeqeq-fix";
 import { formatJSDocComments } from "./rules/format-jsdoc-comments";
 import { formatLineComments } from "./rules/format-line-comments";
-import { jsdocCodeBlock } from "./rules/jsdoc-code-block";
+import { jsdocCodeBlockLanguage } from "./rules/jsdoc-code-block-language";
 import { memberOrdering } from "./rules/member-ordering";
 import { noEmptyJSDoc } from "./rules/no-empty-jsdoc";
 import { noExplicitArrayLoops } from "./rules/no-explicit-array-loops";
@@ -31,7 +31,7 @@ export const rules = {
   "eqeqeq-fix": eqeqeqFix,
   "format-jsdoc-comments": formatJSDocComments,
   "format-line-comments": formatLineComments,
-  "jsdoc-code-block": jsdocCodeBlock,
+  "jsdoc-code-block-language": jsdocCodeBlockLanguage,
   "member-ordering": memberOrdering,
   "no-empty-jsdoc": noEmptyJSDoc,
   "no-explicit-array-loops": noExplicitArrayLoops,

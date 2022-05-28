@@ -4,9 +4,6 @@ TODO:
 - NEW DOCUMENTATION WEBSITE
 - change bundleEntry.ts to "export {}" with comment - actually, wait until perry merges
 
-LINTER:
-- make lint rule for capital letter on const as const
-
 implement in isaacscript-common:
 - change POST_COLLECTIBLE_INIT_FIRST to POST_PICKUP_INIT_FIRST
 - isaacscript function to recalculate item ids
