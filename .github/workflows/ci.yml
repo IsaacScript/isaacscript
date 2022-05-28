@@ -38,7 +38,7 @@ jobs:
 
       - name: Checkout the docs repository
         uses: actions/checkout@v3
-        if: github.ref == 'ref/heads/main' && github.event_name != 'pull_request'
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         with:
           ssh-key: ${{ secrets.DOCS_SSH_PRIVATE_KEY }}
           repository: IsaacScript/isaacscript.github.io
@@ -50,15 +50,9 @@ jobs:
           # (it is not possible to clone the repo in the parent directory for security reasons)
           path: isaacscript.github.io
 
-      - name: DEBUG1
-        run: echo ${{github.ref}}
-
-      - name: DEBUG2
-        run: echo ${{github.event_name}}
-
       - name: Deploy the documentation website
         run: bash packages/docs/deploy.sh
-        if: github.ref == 'ref/heads/main' && github.event_name != 'pull_request'
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
 
   discord:
     name: Discord Failure Notification
