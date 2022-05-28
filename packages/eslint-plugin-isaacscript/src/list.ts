@@ -33,7 +33,7 @@ export interface List {
   jsDocTagName?: string;
 }
 
-enum ListKind {
+export enum ListKind {
   Hyphen,
   NumberParenthesis,
   NumberPeriod,

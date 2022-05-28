@@ -528,6 +528,26 @@ valid.push({
   `,
 });
 
+invalid.push({
+  name: "Using a comment with no line before JSDoc tag",
+  code: `
+/**
+ * This is the description for \`foo\`.
+ * @param arg1 Whether or not to bar.
+ */
+function foo(arg1: boolean) {}
+    `,
+  errors: [{ messageId: "incorrectlyFormatted" }],
+  output: `
+/**
+ * This is the description for \`foo\`.
+ *
+ * @param arg1 Whether or not to bar.
+ */
+function foo(arg1: boolean) {}
+    `,
+});
+
 ruleTester.run("format-jsdoc-comments", formatJSDocComments, {
   valid,
   invalid,

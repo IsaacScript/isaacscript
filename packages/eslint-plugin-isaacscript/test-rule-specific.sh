@@ -8,8 +8,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd "$DIR"
 
-RULE_NAME="strict-enums"
-TEST_NAME="Using a function with this void and 3 arguments"
+RULE_NAME="format-jsdoc-comments"
+TEST_NAME="Using a comment with no line before JSDoc tag"
 
 echo "Running test: $RULE_NAME --> $TEST_NAME"
 npx jest "$DIR/tests/rules/$RULE_NAME"*".test.ts" --verbose=false -t "$TEST_NAME"

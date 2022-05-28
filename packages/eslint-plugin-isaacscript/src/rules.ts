@@ -12,7 +12,6 @@ import { eqeqeqFix } from "./rules/eqeqeq-fix";
 import { formatJSDocComments } from "./rules/format-jsdoc-comments";
 import { formatLineComments } from "./rules/format-line-comments";
 import { jsdocCodeBlock } from "./rules/jsdoc-code-block";
-import { jsdocDescriptionNewline } from "./rules/jsdoc-description-newline";
 import { memberOrdering } from "./rules/member-ordering";
 import { noEmptyJSDoc } from "./rules/no-empty-jsdoc";
 import { noExplicitArrayLoops } from "./rules/no-explicit-array-loops";
@@ -32,7 +31,6 @@ export const rules = {
   "format-jsdoc-comments": formatJSDocComments,
   "format-line-comments": formatLineComments,
   "jsdoc-code-block": jsdocCodeBlock,
-  "jsdoc-description-newline": jsdocDescriptionNewline,
   "member-ordering": memberOrdering,
   "no-empty-jsdoc": noEmptyJSDoc,
   "no-explicit-array-loops": noExplicitArrayLoops,

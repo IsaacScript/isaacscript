@@ -29,11 +29,9 @@ export const completeSentencesJSDoc = createRule<
   defaultOptions: [],
 
   /**
-   * It is not possible to get single-line comments in the AST:
+   * We need to write the rule in such a way that it operates on the entire source code instead of
+   * individual AST nodes:
    * https://stackoverflow.com/questions/47429792/is-it-possible-to-get-comments-as-nodes-in-the-ast-using-the-typescript-compiler
-   *
-   * Thus, we need to write the rule in such a way that it operates on the entire source code
-   * instead of individual AST nodes.
    */
   create(context) {
     const sourceCode = context.getSourceCode();

@@ -17,6 +17,7 @@ esbenp # extensions.json
 irange # Standard library function
 isaacscript
 jscutlery # For version control
+jsdoc # Monorepo word
 lualib # TSTL word
 markdownlint # Monorepo word
 nocache # Monorepo word

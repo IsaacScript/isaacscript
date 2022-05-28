@@ -3,7 +3,7 @@ import {
   isSeparatorLine,
   isSpecialComment,
 } from "./comments";
-import { getAdjustedList, List, reachedNewList } from "./list";
+import { getAdjustedList, List, ListKind, reachedNewList } from "./list";
 import { hasURL } from "./utils";
 
 /**
@@ -128,6 +128,23 @@ export function formatText(text: string, maxLength: number): string {
     if (reachedNewList(insideList, list)) {
       // Keep track that we have begun a list (or a new sub-list).
       insideList = list;
+
+      // Enforce a newline between a JSDoc description (i.e. introductory text) and the first JSDoc
+      // tag.
+      if (
+        list !== undefined &&
+        list.kind === ListKind.JSDocTag &&
+        formattedText === "" &&
+        !previousLineWasBlank
+      ) {
+        // Append the partial line that we were building, if any.
+        [formattedLine, formattedText] = appendLineToText(
+          formattedLine,
+          formattedText,
+        );
+
+        formattedText += "\n";
+      }
     }
 
     // Lists and some other specific text elements indicate that we should always insert a new line,
@@ -179,7 +196,7 @@ export function formatText(text: string, maxLength: number): string {
         // distinguished.
         if (insideList !== undefined) {
           // It is possible for JSDoc comments to have really long variable names, which would make
-          // the indent be really big. Thus, we need to hard-cap the effective marker size at a
+          // the indent be really big. Thus, we arbitrarily hard-cap the effective marker size at a
           // third of the width of the remaining space.
           const amountOfSpacesToWorkWith =
             maxLength - insideList.numLeadingSpaces;

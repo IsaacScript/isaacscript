@@ -23,7 +23,7 @@ This project is written in [TypeScript](https://www.typescriptlang.org/).
 ## Configs
 
 - `recommended` - Enables just the recommended rules.
-- `all` - Enables all the rules. You probably wouldn't ever want to use this config.
+- `all` - Enables all the rules. This is just for testing; you would probably never want to use this config.
 
 <br>
 
@@ -46,7 +46,7 @@ Each rule has emojis denoting:
 | [`isaacscript/eqeqeq-fix`](docs/rules/eqeqeq-fix.md)                                             | Requires the use of `===` and `!==` (and automatically fixes)                                         | :white_check_mark: | :wrench: |                   |
 | [`isaacscript/format-jsdoc-comments`](docs/rules/format-jsdoc-comments.md)                       | Disallows `/**` comments longer than N characters and multi-line comments that can be merged together | :white_check_mark: | :wrench: |                   |
 | [`isaacscript/format-line-comments`](docs/rules/format-line-comments.md)                         | Disallows `//` comments longer than N characters and multi-line comments that can be merged together  | :white_check_mark: | :wrench: |                   |
-| [`isaacscript/jsdoc-code-block`](docs/rules/jsdoc-code-block.md)                                 | Requires a language for every JSDoc code block                                                        | :white_check_mark: |          | :thought_balloon: |
+| [`isaacscript/jsdoc-code-block`](docs/rules/jsdoc-code-block.md)                                 | Requires a language specification for every JSDoc code block                                          | :white_check_mark: |          |                   |
 | [`isaacscript/member-ordering`](docs/rules/member-ordering.md)                                   | Require a consistent member declaration order                                                         |                    |          |                   |
 | [`isaacscript/no-empty-jsdoc`](docs/rules/no-empty-jsdoc.md)                                     | Disallows empty JSDoc comments                                                                        | :white_check_mark: | :wrench: |                   |
 | [`isaacscript/no-explicit-array-loops`](docs/rules/no-explicit-array-loops.md)                   | Disallows explicit iteration for arrays                                                               | :white_check_mark: | :wrench: | :thought_balloon: |

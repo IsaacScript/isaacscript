@@ -5,16 +5,28 @@ ruleTester.run("jsdoc-code-block", jsdocCodeBlock, {
   valid: [
     {
       code: `
-const a = 1;
+/**
+ * Use \`foo\` like this:
+ *
+ * \`\`\`ts
+ * foo();
+ * \`\`\`
+ */
       `,
     },
   ],
   invalid: [
     {
       code: `
-const a = 1;
+/**
+ * Use \`foo\` like this:
+ *
+ * \`\`\`
+ * foo();
+ * \`\`\`
+ */
       `,
-      errors: [{ messageId: "foo" }],
+      errors: [{ messageId: "noLanguage" }],
     },
   ],
 });
