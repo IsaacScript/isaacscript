@@ -17,6 +17,7 @@ export const recommended = {
     "isaacscript/eqeqeq-fix": "error",
     "isaacscript/format-jsdoc-comments": "error",
     "isaacscript/format-line-comments": "error",
+    "isaacscript/jsdoc-code-block": "error",
     "isaacscript/no-empty-jsdoc": "error",
     "isaacscript/no-explicit-array-loops": "error",
     "isaacscript/no-implicit-map-set-loops": "error",

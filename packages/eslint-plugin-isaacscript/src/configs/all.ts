@@ -18,6 +18,7 @@ export const all = {
     "isaacscript/eqeqeq-fix": "error",
     "isaacscript/format-jsdoc-comments": "error",
     "isaacscript/format-line-comments": "error",
+    "isaacscript/jsdoc-code-block": "error",
     "isaacscript/member-ordering": "error",
     "isaacscript/no-empty-jsdoc": "error",
     "isaacscript/no-explicit-array-loops": "error",
