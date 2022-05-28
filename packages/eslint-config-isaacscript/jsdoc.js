@@ -18,7 +18,10 @@ module.exports = {
   rules: {
     // - jsdoc/check-access - Not needed in TypeScript.
     // - jsdoc/check-alignment - Overlaps with `isaacscript/limit-jsdoc-comments`.
-    // - jsdoc/check-examples - Not worth it since some ESLint rules may not apply to examples.
+
+    // - jsdoc/check-examples - Does not work with ESLint 8; see:
+    // https://github.com/eslint/eslint/issues/14745
+
     // - jsdoc/check-indentation - Overlaps with `isaacscript/limit-jsdoc-comments`.
     // - jsdoc/check-line-alignment - This is not a common formatting scheme in the wild. It's also
     //   not recommended by the plugin.

@@ -1,5 +1,8 @@
 Monorepo TODO:
 
+- question in TypeDoc
+- question in JSDoc
+
 - lint rule for named codeblocks in JSDoc comments
 - JSDoc rule for line between @param is not working
 
