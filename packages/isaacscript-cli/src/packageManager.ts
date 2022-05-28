@@ -1,3 +1,8 @@
+import commandExists from "command-exists";
+import path from "path";
+import { CWD } from "./constants";
+import * as file from "./file";
+import { Args } from "./parseArgs";
 import { PackageManager } from "./types/PackageManager";
 import { ensureAllCases, getEnumValues } from "./utils";
 
@@ -7,6 +12,13 @@ const PACKAGE_MANAGER_LOCK_FILE_NAMES: {
   [PackageManager.NPM]: "package-lock.json",
   [PackageManager.YARN]: "yarn.lock",
 };
+
+const Foo = {
+  foo: 1,
+  bar: 2,
+};
+
+console.log(Foo);
 
 export function getPackageManagerLockFileName(
   packageManager: PackageManager,
@@ -50,8 +62,30 @@ export function getPackageManagerInstallCICommand(
   }
 }
 
-export function getPackageManagerUsedForExistingProject() {
+export function getPackageManagerUsedForNewProject(args: Args): PackageManager {
+  const npm = args.npm === true;
+  if (npm) {
+    return PackageManager.NPM;
+  }
+
+  if (commandExists.sync("yarn")) {
+    return PackageManager.YARN;
+  }
+
+  return PackageManager.NPM;
+}
+
+export function getPackageManagerUsedForExistingProject(
+  args: Args,
+  verbose: boolean,
+): PackageManager {
   for (const packageManager of getEnumValues(PackageManager)) {
     const lockFileName = getPackageManagerLockFileName(packageManager);
+    const lockFilePath = path.join(CWD, lockFileName);
+    if (file.exists(lockFilePath, verbose)) {
+      return packageManager;
+    }
   }
+
+  return getPackageManagerUsedForNewProject(args);
 }

@@ -2,8 +2,8 @@ import chalk from "chalk";
 import commandExists from "command-exists";
 import path from "path";
 import { CWD, PROJECT_NAME } from "../../constants";
+import { getPackageManagerUsedForNewProject } from "../../packageManager";
 import { Args } from "../../parseArgs";
-import { PackageManager } from "../../types/PackageManager";
 import { checkIfProjectPathExists } from "./checkIfProjectPathExists";
 import { checkModSubdirectory } from "./checkModSubdirectory";
 import { checkModTargetDirectory } from "./checkModTargetDirectory";
@@ -16,11 +16,7 @@ import { promptSaveSlot } from "./promptSaveSlot";
 import { promptVSCode } from "./promptVSCode";
 
 export async function init(args: Args): Promise<void> {
-  const npm = args.npm === true;
-  let packageManager = npm ? PackageManager.NPM : PackageManager.YARN;
-  if (packageManager === PackageManager.YARN && !commandExists.sync("yarn")) {
-    packageManager = PackageManager.NPM;
-  }
+  const packageManager = getPackageManagerUsedForNewProject(args);
   const skipInstall = args.skipInstall === true;
   const useCurrentDir = args.useCurrentDir === true;
   const verbose = args.verbose === true;

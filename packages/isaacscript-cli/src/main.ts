@@ -13,9 +13,12 @@ import { init } from "./commands/init/init";
 import { monitor } from "./commands/monitor/monitor";
 import { publish } from "./commands/publish/publish";
 import * as configFile from "./configFile";
-import { CWD, PROJECT_NAME, YARN_LOCK_PATH } from "./constants";
+import { CWD, PROJECT_NAME } from "./constants";
 import { execShell } from "./exec";
-import * as file from "./file";
+import {
+  getPackageManagerInstallCommand,
+  getPackageManagerUsedForExistingProject,
+} from "./packageManager";
 import { Args, parseArgs } from "./parseArgs";
 import { promptInit } from "./prompt";
 import { Command, DEFAULT_COMMAND } from "./types/Command";
@@ -89,7 +92,7 @@ async function handleCommands(args: Args) {
     validateInIsaacScriptProject(verbose);
     config = await configFile.get(args);
 
-    ensureDepsAreInstalled(verbose);
+    ensureDepsAreInstalled(args, verbose);
   }
 
   switch (command) {
@@ -124,18 +127,17 @@ async function handleCommands(args: Args) {
   }
 }
 
-function ensureDepsAreInstalled(verbose: boolean) {
-  if (file.exists(YARN_LOCK_PATH, verbose)) {
-    console.log(
-      'Running "yarn" to ensure that the project\'s dependencies are installed correctly.',
-    );
-    execShell("yarn");
-    return;
-  }
-
-  // https://stackoverflow.com/questions/57016579/checking-if-package-json-dependencies-match-the-installed-dependencies
+/**
+ * https://stackoverflow.com/questions/57016579/checking-if-package-json-dependencies-match-the-installed-dependencies
+ */
+function ensureDepsAreInstalled(args: Args, verbose: boolean) {
+  const packageManager = getPackageManagerUsedForExistingProject(args, verbose);
+  const [command, commandArgs] =
+    getPackageManagerInstallCommand(packageManager);
+  const argsString = commandArgs.join(" ");
+  const commandString = `${command} ${argsString}`;
   console.log(
-    'Running "npm install" to ensure that the project\'s dependencies are installed correctly.',
+    `Running "${commandString}" to ensure that the project's dependencies are installed correctly.`,
   );
-  execShell("npm", ["install"], verbose);
+  execShell(command, commandArgs, verbose);
 }
