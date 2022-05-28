@@ -14,8 +14,8 @@ import { getMapPartialMatch } from "../../functions/map";
 import { printConsole } from "../../functions/utils";
 import { debugDisplayInit } from "../debugDisplay/debugDisplay";
 import { saveDataManager } from "../saveDataManager/exports";
-import * as commands from "./commands";
 import * as commandsDisplay from "./commandsDisplay";
+import * as commands from "./listCommands";
 import v from "./v";
 
 const commandFunctionsMap = new Map<string, (params: string) => void>();
@@ -26,8 +26,9 @@ const commandFunctionsMap = new Map<string, (params: string) => void>();
 let initialized = false;
 
 /**
- * Enables extra console commands which are useful for debugging. See the `isaacscript-common`
- * documentation for details on the commands that are added.
+ * Enables extra console commands which are useful for debugging. See [the
+ * docs](https://isaacscript.github.io/isaacscript-common/features/extraConsoleCommands_listCommands)
+ * for the specific commands that are added.
  */
 export function enableExtraConsoleCommands(mod: ModUpgraded): void {
   initialized = true;

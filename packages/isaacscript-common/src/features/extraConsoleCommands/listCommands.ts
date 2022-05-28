@@ -1,3 +1,6 @@
+// This file is arbitrarily named "listCommands.ts" instead of "commands.ts" so that it will appear
+// below the "init" page.
+
 // cspell:ignore addcharges
 /**
  * This is a list of custom console commands that are included with the standard library.

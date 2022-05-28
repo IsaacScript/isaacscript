@@ -57,8 +57,11 @@ const FILE_NAME_TO_TITLE: ReadonlyMap<string, string> = new Map([
 
   // Features
   ["Debug Display_exports", "Debug Display"],
-  ["Extra Console Commands_commands", "Extra Console Commands (Command List)"],
   ["Extra Console Commands_init", "Extra Console Commands (Init)"],
+  [
+    "Extra Console Commands_list Commands",
+    "Extra Console Commands (Command List)",
+  ],
   ["Save Data Manager_exports", "Save Data Manager"],
 
   // Functions

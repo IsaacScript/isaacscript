@@ -28,7 +28,7 @@
     "../isaacscript-common/src/features/fadeInRemover.ts",
     "../isaacscript-common/src/features/fastReset.ts",
     "../isaacscript-common/src/features/extraConsoleCommands/init.ts",
-    "../isaacscript-common/src/features/extraConsoleCommands/commands.ts",
+    "../isaacscript-common/src/features/extraConsoleCommands/listCommands.ts",
     "../isaacscript-common/src/features/forgottenSwitch.ts",
     "../isaacscript-common/src/features/getCollectibleItemPoolType.ts",
     "../isaacscript-common/src/features/playerInventory.ts",
