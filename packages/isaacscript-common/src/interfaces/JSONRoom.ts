@@ -1,11 +1,7 @@
 import { JSONDoor } from "./JSONDoor";
 import { JSONSpawn } from "./JSONSpawn";
 
-/**
- * Custom rooms are created with the Basement Renovator program, which outputs XML files and STB
- * files. A `JSONRoom` is simply an XML room converted to JSON. You can convert your XML files using
- * the following command: `npx convert-xml-to-json foo.xml foo.json`
- */
+/** Part of {@link JSONRooms}. */
 export interface JSONRoom {
   $: {
     /** Needs to be converted to an int. */

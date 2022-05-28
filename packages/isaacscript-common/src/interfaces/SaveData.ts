@@ -6,7 +6,7 @@
  * times and automatically saved to disk.
  *
  * Each sub-object of save data has a string as a key and arbitrary data as a value. However, the
- * data has to be serializable. Specifically, this means that you can only use:
+ * data has to be serializable. Specifically, this means that you can only use the following types:
  *
  * - `boolean`
  * - `number`

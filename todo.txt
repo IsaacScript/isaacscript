@@ -2,8 +2,11 @@ Monorepo TODO:
 
 TODO:
 - NEW DOCUMENTATION WEBSITE
+  - add symbol next to github and Discord on main page
   - finish pass of isaacscript-common
   - isaac-typescript-definitions
+  - fix link on features website
+  - fix link "many extra callbacks"
 - change bundleEntry.ts to "export {}" with comment - actually, wait until perry merges
 
 implement in isaacscript-common:

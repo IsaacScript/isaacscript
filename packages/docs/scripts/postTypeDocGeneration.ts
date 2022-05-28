@@ -47,29 +47,23 @@ const DIRECTORY_NAME_TO_LABEL: ReadonlyMap<string, string> = new Map([
 
 /** We hard-code the title for some specific files. */
 const FILE_NAME_TO_TITLE: ReadonlyMap<string, string> = new Map([
-  // Root
-  ["README", "Introduction"],
-
   // Core
-  ["Constants", "Constants (Miscellaneous)"],
-  ["Constants First Last", "Constants (First & Last)"],
-  ["Upgrade Mod", "Upgrading Your Mod"],
+  ["constants", "Constants (Miscellaneous)"],
+  ["constantsFirstLast", "Constants (First & Last)"],
+  ["upgradeMod", "Upgrading Your Mod"],
 
   // Features
-  ["Debug Display_exports", "Debug Display"],
-  ["Extra Console Commands_init", "Extra Console Commands (Init)"],
-  [
-    "Extra Console Commands_list Commands",
-    "Extra Console Commands (Command List)",
-  ],
-  ["Save Data Manager_exports", "Save Data Manager"],
+  ["debugDisplay_exports", "Debug Display"],
+  ["extraConsoleCommands_init", "Extra Console Commands (Init)"],
+  ["extraConsoleCommands_listCommands", "Extra Console Commands (List)"],
+  ["saveDataManager_exports", "Save Data Manager"],
 
   // Functions
-  ["K Color", "KColor"],
-  ["Npc", "NPC"],
-  ["Rng", "RNG"],
-  ["Tstl Class", "TSTL Class"],
-  ["Ui", "UI"],
+  ["kColor", "KColor"],
+  ["npc", "NPC"],
+  ["rng", "RNG"],
+  ["tstlClass", "TSTL Class"],
+  ["ui", "UI"],
 ]);
 
 const SIDEBAR_POSITIONS: ReadonlyMap<string, number> = new Map([
@@ -89,32 +83,22 @@ const OTHER_DIR_NAMES: readonly string[] = [
   "types",
 ];
 
+const DIR_NAMES_WITH_DUPLICATION: readonly string[] = [
+  "classes",
+  "enums",
+  "interfaces",
+];
+
 main();
 
 function main() {
   moveModulesFiles();
   file.deleteFileOrDirectory(MODULES_MARKDOWN_PATH, false);
-
+  file.makeDir(OTHER_DIR, false);
+  addCategoryFilesAndMarkdownHeaders();
   moveDirsToOther();
-
-  const directories = getDirectories(COMMON_DIR);
-  for (const directoryName of directories) {
-    const directoryPath = path.join(COMMON_DIR, directoryName);
-
-    addCategoryFile(directoryPath);
-    const subDirectories = getDirectories(directoryPath);
-    for (const subDirectoryName of subDirectories) {
-      const subDirectoryPath = path.join(directoryPath, subDirectoryName);
-      addCategoryFile(subDirectoryPath);
-    }
-
-    const markdownFileNames = getMarkdownFileNames(directoryPath);
-    for (const markdownFileName of markdownFileNames) {
-      const markdownFilePath = path.join(directoryPath, markdownFileName);
-      addMarkdownHeader(markdownFilePath);
-    }
-  }
-
+  deleteDuplicatedPages();
+  renameDuplicatedPages();
   fixLinks();
 }
 
@@ -133,12 +117,16 @@ function moveModulesFiles() {
     } else {
       const directoryName = match[1];
       if (directoryName === undefined) {
-        return error(`Failed to parse the file name: ${markdownFileName}`);
+        return error(
+          `Failed to parse the directory from the file name: ${markdownFileName}`,
+        );
       }
 
       const newFileName = match[2];
       if (newFileName === undefined) {
-        return error(`Failed to parse the file name: ${markdownFileName}`);
+        return error(
+          `Failed to parse the suffix from the file name: ${markdownFileName}`,
+        );
       }
 
       const dstDirectory = path.join(COMMON_DIR, directoryName);
@@ -148,7 +136,7 @@ function moveModulesFiles() {
     }
   }
 
-  const remainingFiles = getFiles(MODULES_DIR);
+  const remainingFiles = getFileNames(MODULES_DIR);
   if (remainingFiles.length > 0) {
     return error(
       `Failed to move one or more files in the "modules" directory: ${MODULES_DIR}`,
@@ -160,10 +148,28 @@ function moveModulesFiles() {
   return undefined;
 }
 
+function addCategoryFilesAndMarkdownHeaders() {
+  const directories = getDirectoryNames(COMMON_DIR);
+  for (const directoryName of directories) {
+    const directoryPath = path.join(COMMON_DIR, directoryName);
+
+    addCategoryFile(directoryPath);
+    const subDirectories = getDirectoryNames(directoryPath);
+    for (const subDirectoryName of subDirectories) {
+      const subDirectoryPath = path.join(directoryPath, subDirectoryName);
+      addCategoryFile(subDirectoryPath);
+    }
+
+    const markdownFileNames = getMarkdownFileNames(directoryPath);
+    for (const markdownFileName of markdownFileNames) {
+      const markdownFilePath = path.join(directoryPath, markdownFileName);
+      addMarkdownHeader(markdownFilePath, directoryName);
+    }
+  }
+}
+
 /** Move some specific directories to an "other" directory for better top-level organization. */
 function moveDirsToOther() {
-  file.makeDir(OTHER_DIR, false);
-
   for (const dirName of OTHER_DIR_NAMES) {
     const srcPath = path.join(COMMON_DIR, dirName);
     const dstPath = path.join(OTHER_DIR, dirName);
@@ -187,12 +193,8 @@ function addCategoryFile(directoryPath: string) {
   file.write(categoryFilePath, fileContents, false);
 }
 
-function addMarkdownHeader(filePath: string) {
-  const fileName = path.basename(filePath);
-  const pageName = trimSuffix(fileName, ".md");
-  const vanillaTitle = pascalCaseToTitleCase(pageName);
-  const customTitle = FILE_NAME_TO_TITLE.get(vanillaTitle);
-  const title = customTitle === undefined ? vanillaTitle : customTitle;
+function addMarkdownHeader(filePath: string, directoryName: string) {
+  const title = getTitle(filePath, directoryName);
   const header = `
 ---
 custom_edit_url: null
@@ -203,9 +205,112 @@ custom_edit_url: null
     .trim()
     .concat("\n\n");
 
-  const fileContents = file.read(filePath, false);
+  let fileContents = file.read(filePath, false);
+
+  // Certain types of pages also need to have breadcrumbs removed.
+  if (DIR_NAMES_WITH_DUPLICATION.includes(directoryName)) {
+    const lines = fileContents.split("\n");
+
+    // Remove the first line, which is a breadcrumbs link that is not needed in this context.
+    // e.g. "[classes/DefaultMap](../modules/classes_DefaultMap.md).DefaultMap"
+    lines.shift();
+
+    fileContents = lines.join("\n");
+  }
+
   const newFileContents = header + fileContents;
   file.write(filePath, newFileContents, false);
+
+  return undefined;
+}
+
+function getTitle(filePath: string, directoryName: string) {
+  const fileName = path.basename(filePath);
+
+  // First, handle the special case of a hard-coded title.
+  const pageName = trimSuffix(fileName, ".md");
+  const customTitle = FILE_NAME_TO_TITLE.get(pageName);
+  if (customTitle !== undefined) {
+    return customTitle;
+  }
+
+  // Second, handle the special case of a page with a unnecessary suffix, like "classes_".
+  if (DIR_NAMES_WITH_DUPLICATION.includes(directoryName)) {
+    const properNameMatch = fileName.match(/(\w+)\.md/);
+    if (properNameMatch === null) {
+      return error(
+        `Failed to parse the proper name from the file name: ${fileName}`,
+      );
+    }
+
+    const properName = properNameMatch[1];
+    if (properName === undefined) {
+      return error(
+        `Failed to parse the proper name from the match: ${fileName}`,
+      );
+    }
+
+    return properName;
+  }
+
+  // Base case: convert the file names to title case.
+  return pascalCaseToTitleCase(pageName);
+}
+
+function deleteDuplicatedPages() {
+  for (const directoryName of DIR_NAMES_WITH_DUPLICATION) {
+    const directoryPath = path.join(OTHER_DIR, directoryName);
+    const fileNames = getFileNames(directoryPath);
+
+    for (const fileName of fileNames) {
+      if (fileName === CATEGORY_FILE_NAME) {
+        continue;
+      }
+
+      if (!isValidDuplicate(fileName, directoryName)) {
+        const filePath = path.join(directoryPath, fileName);
+        file.deleteFileOrDirectory(filePath, false);
+      }
+    }
+  }
+}
+
+function renameDuplicatedPages() {
+  for (const directoryName of DIR_NAMES_WITH_DUPLICATION) {
+    const directoryPath = path.join(OTHER_DIR, directoryName);
+    const fileNames = getFileNames(directoryPath);
+
+    for (const fileName of fileNames) {
+      if (fileName === CATEGORY_FILE_NAME) {
+        continue;
+      }
+
+      if (isValidDuplicate(fileName, directoryName)) {
+        const properNameMatch = fileName.match(/\.(\w+\.md)/);
+        if (properNameMatch === null) {
+          return error(`Failed to parse the file name: ${fileName}`);
+        }
+
+        const properName = properNameMatch[1];
+        if (properName === undefined) {
+          return error(`Failed to parse the file name match: ${fileName}`);
+        }
+
+        const filePath = path.join(directoryPath, fileName);
+        const properPath = path.join(directoryPath, properName);
+        file.rename(filePath, properPath, false);
+      }
+    }
+  }
+
+  return undefined;
+}
+
+function isValidDuplicate(fileName: string, directoryName: string) {
+  const validPrefix = `${directoryName}_`;
+
+  // Some types go to the interfaces directory, so whitelist all types.
+  return fileName.startsWith(validPrefix) || fileName.startsWith("types_");
 }
 
 /** Because we manually moved files around, internal links generated by TypeDoc will break. */
@@ -216,13 +321,26 @@ function fixLinks() {
 
   for (const filePath of markdownFilePaths) {
     const fileContents = file.read(filePath, false);
+
     for (const dirName of rootDirNames) {
       const brokenLink = `(${dirName}_`;
       if (fileContents.includes(brokenLink)) {
-        const fixedLink = `(/isaacscript-common/${dirName}/`;
+        // cspell:ignore conversionheartsubtype
+        // e.g. "(features_characterHealthConversion.md#conversionheartsubtype)" -->
+        // "(characterHealthConversion.md#conversionheartsubtype)"
+        const fixedLink = "(";
         const newFileContents = fileContents.replaceAll(brokenLink, fixedLink);
         file.write(filePath, newFileContents, false);
       }
+    }
+
+    for (const dirName of DIR_NAMES_WITH_DUPLICATION) {
+      // e.g. "(../classes/classes_ModUpgraded.ModUpgraded.md)" -->
+      // "(../other/classes/ModUpgraded.md)"
+      const brokenLink = new RegExp(`/${dirName}/${dirName}_\\w+?\\.`, "g");
+      const fixedLink = `/${dirName}/`;
+      const newFileContents = fileContents.replaceAll(brokenLink, fixedLink);
+      file.write(filePath, newFileContents, false);
     }
   }
 }
@@ -231,13 +349,13 @@ function fixLinks() {
 // Helper functions
 // ----------------
 
-function getFiles(directoryPath: string) {
+function getFileNames(directoryPath: string) {
   return readdirSync(directoryPath, { withFileTypes: true }).map(
     (dirent) => dirent.name,
   );
 }
 
-function getDirectories(directoryPath: string) {
+function getDirectoryNames(directoryPath: string) {
   return readdirSync(directoryPath, { withFileTypes: true })
     .filter((dirent) => dirent.isDirectory())
     .map((dirent) => dirent.name);

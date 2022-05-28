@@ -3,7 +3,13 @@ import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { AddCallbackParameterCustom } from "../interfaces/AddCallbackParameterCustom";
 import { CALLBACK_REGISTER_FUNCTIONS } from "../objects/callbackRegisterFunctions";
 
-/** `isaacscript-common` allows for custom callbacks, so it provides an upgraded Mod object. */
+/**
+ * `isaacscript-common` has many custom callbacks that you can use in your mods. Instead of
+ * hijacking the vanilla `Mod` object, we provide a `ModUpgraded` object for you to use, which
+ * extends the base class and adds a new method of `AddCallbackCustom`.
+ *
+ * To upgrade your mod, use the `upgradeMod` helper function.
+ */
 export class ModUpgraded implements Mod {
   // -----------------
   // Vanilla variables

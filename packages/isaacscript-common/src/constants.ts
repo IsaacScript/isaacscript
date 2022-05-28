@@ -27,7 +27,7 @@ export const DEFAULT_ITEM_POOL_TYPE = ItemPoolType.TREASURE;
 /** This is also the distance that a player spawns from the door that they enter a room from. */
 export const DISTANCE_OF_GRID_TILE = 40;
 
-export const DOOR_HITBOX_DISTANCE = 11;
+export const DOOR_HITBOX_RADIUS = 11;
 
 /**
  * When Eggies take fatal damage, they go into NpcState.STATE_SUICIDE and spawn 14 Swarm Spiders

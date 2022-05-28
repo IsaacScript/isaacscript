@@ -1,22 +1,17 @@
 import { PackageManager } from "./types/PackageManager";
-import { ensureAllCases } from "./utils";
+import { ensureAllCases, getEnumValues } from "./utils";
+
+const PACKAGE_MANAGER_LOCK_FILE_NAMES: {
+  readonly [key in PackageManager]: string;
+} = {
+  [PackageManager.NPM]: "package-lock.json",
+  [PackageManager.YARN]: "yarn.lock",
+};
 
 export function getPackageManagerLockFileName(
   packageManager: PackageManager,
 ): string {
-  switch (packageManager) {
-    case PackageManager.NPM: {
-      return "package-lock.json";
-    }
-
-    case PackageManager.YARN: {
-      return "yarn.lock";
-    }
-
-    default: {
-      return ensureAllCases(packageManager);
-    }
-  }
+  return PACKAGE_MANAGER_LOCK_FILE_NAMES[packageManager];
 }
 
 export function getPackageManagerInstallCommand(
@@ -52,5 +47,11 @@ export function getPackageManagerInstallCICommand(
     default: {
       return ensureAllCases(packageManager);
     }
+  }
+}
+
+export function getPackageManagerUsedForExistingProject() {
+  for (const packageManager of getEnumValues(PackageManager)) {
+    const lockFileName = getPackageManagerLockFileName(packageManager);
   }
 }
