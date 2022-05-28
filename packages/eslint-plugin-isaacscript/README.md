@@ -94,6 +94,8 @@ For example, if you use [VSCode](https://code.visualstudio.com/), and you have t
 
 For a discussion around comments and the motivations for some of the comment rules in the plugin, see [this page](docs/comments.md).
 
+<br>
+
 ## Contributing
 
 Thanks for helping out with this open-source project!
@@ -106,3 +108,5 @@ git status # Show what the NPM script did
 ```
 
 Additionally, You can contact me [on Discord](https://discord.gg/KapmKQ2gUD) if you are doing a PR and have questions.
+
+<br>
