@@ -21,6 +21,7 @@ import { noObjectAny } from "./rules/no-object-any";
 import { noTemplateCurlyInStringFix } from "./rules/no-template-curly-in-string-fix";
 import { noUselessReturnNoFix } from "./rules/no-useless-return-no-fix";
 import { noVoidReturnType } from "./rules/no-void-return-type";
+import { requireConstAssertions } from "./rules/require-const-assertions";
 import { strictEnums } from "./rules/strict-enums";
 
 export const rules = {
@@ -40,5 +41,6 @@ export const rules = {
   "no-template-curly-in-string-fix": noTemplateCurlyInStringFix,
   "no-useless-return-no-fix": noUselessReturnNoFix,
   "no-void-return-type": noVoidReturnType,
+  "require-const-assertions": requireConstAssertions,
   "strict-enums": strictEnums,
 };

@@ -1,17 +1,10 @@
 Monorepo TODO:
 
-- question in TypeDoc
-- question in JSDoc
-
-- lint rule for named codeblocks in JSDoc comments
-- JSDoc rule for line between @param is not working
-
 TODO:
 - NEW DOCUMENTATION WEBSITE
 - change bundleEntry.ts to "export {}" with comment - actually, wait until perry merges
 
 LINTER:
-- make lint rule for "declare something that is not global in file with one or more imports"
 - make lint rule for capital letter on const as const
 
 implement in isaacscript-common:

@@ -8,7 +8,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd "$DIR"
 
-RULE_NAME="format-jsdoc-comments"
+RULE_NAME="require-const-assertions"
 TEST_NAME="Using a comment with no line before JSDoc tag"
 
 echo "Running test: $RULE_NAME --> $TEST_NAME"
