@@ -76,7 +76,7 @@ declare interface Sprite {
    *
    * For example:
    *
-   * ```
+   * ```ts
    * const faded = copyColor(sprite.Color);
    * faded.A = 0.5;
    * sprite.Color = faded;

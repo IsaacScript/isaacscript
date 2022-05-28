@@ -18,8 +18,15 @@ import { hasURL } from "./utils";
  *
  * @param text One or more lines of text, separated by newlines.
  * @param maxLength The ruler cutoff for the formatted text.
+ * @param parseJSDocTags Whether or not to make formatting decisions based on the presence of JSDoc
+ *                       tags. True by default. Pass false if working with leading line comments or
+ *                       other non-JSDoc text.
  */
-export function formatText(text: string, maxLength: number): string {
+export function formatText(
+  text: string,
+  maxLength: number,
+  parseJSDocTags = true,
+): string {
   let formattedText = "";
   let formattedLine = "";
   let insideList: List | undefined;
@@ -158,6 +165,7 @@ export function formatText(text: string, maxLength: number): string {
     // an "description" or "introductory" section at the top, and then a list of JSDoc tags at the
     // bottom.)
     if (
+      parseJSDocTags &&
       !encounteredJSDocTags &&
       list !== undefined &&
       list.kind === ListKind.JSDocTag

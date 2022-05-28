@@ -4,17 +4,18 @@ const FORMAT_TEST_MAX_LENGTH = 100;
 
 export function testFormatText(
   text: string,
-  formattedText?: string,
+  expectedFormattedText?: string,
   trim = true,
 ): void {
-  if (formattedText === undefined) {
-    formattedText = text;
+  if (expectedFormattedText === undefined) {
+    expectedFormattedText = text;
   }
 
   if (trim) {
     text = text.trim();
-    formattedText = formattedText.trim();
+    expectedFormattedText = expectedFormattedText.trim();
   }
 
-  expect(formatText(text, FORMAT_TEST_MAX_LENGTH)).toBe(formattedText);
+  const formattedText = formatText(text, FORMAT_TEST_MAX_LENGTH);
+  expect(formattedText).toBe(expectedFormattedText);
 }

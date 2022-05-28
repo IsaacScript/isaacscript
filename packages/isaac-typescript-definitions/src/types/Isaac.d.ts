@@ -27,7 +27,7 @@ declare global {
      * Some callbacks take an optional third argument to specify that you only want it the function
      * to fire on a specific thing. For example:
      *
-     * ```
+     * ```ts
      * mod.AddCallback(
      *   ModCallback.POST_EFFECT_UPDATE,
      *   postEffectUpdatePoof1,

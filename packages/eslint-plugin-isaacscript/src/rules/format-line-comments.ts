@@ -92,6 +92,7 @@ export const formatLineComments = createRule<Options, MessageIds>({
       const formattedTextRaw = formatText(
         commentBlock.mergedText,
         effectiveMaxLength,
+        false,
       );
       const formattedText = convertTextToLeadingLineComments(
         formattedTextRaw,

@@ -525,6 +525,17 @@ valid.push({
 });
 
 valid.push({
+  name: "Using an eslint-disable-next-line and a ts-ignore comment",
+  code: `
+export function isLuaDebugEnabled(): boolean {
+  // eslint-disable-next-line
+  // @ts-ignore
+  return package !== undefined;
+}
+  `,
+});
+
+valid.push({
   name: "Using a callback trace list",
   code: `
 // ModCallback.POST_PLAYER_RENDER (32)

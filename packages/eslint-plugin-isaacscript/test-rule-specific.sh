@@ -8,8 +8,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd "$DIR"
 
-RULE_NAME="format-jsdoc-comments"
-TEST_NAME="Using a comment with no line before JSDoc tag"
+RULE_NAME="format-line-comments"
+TEST_NAME="Using an eslint-disable-next-line and a ts-ignore comment"
 
 echo "Running test: $RULE_NAME --> $TEST_NAME"
 npx jest "$DIR/tests/rules/$RULE_NAME"*".test.ts" --verbose=false -t "$TEST_NAME"
