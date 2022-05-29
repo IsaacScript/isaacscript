@@ -135,7 +135,7 @@ function ensureDepsAreInstalled(args: Args, verbose: boolean) {
   const [command, commandArgs] =
     getPackageManagerInstallCommand(packageManager);
   const argsString = commandArgs.join(" ");
-  const commandString = `${command} ${argsString}`;
+  const commandString = `${command} ${argsString}`.trim();
   console.log(
     `Running "${commandString}" to ensure that the project's dependencies are installed correctly.`,
   );
