@@ -62,8 +62,6 @@ export function formatText(
       previousLine !== undefined && previousLine.trimEnd().endsWith(":");
     const previousLineWasSeparatorLine =
       previousLine !== undefined && isSeparatorLine(previousLine);
-    const previousLineWasSpecialComment =
-      previousLine !== undefined && isSpecialComment(previousLine);
     const previousLineWasEnumBlockLabel =
       previousLine !== undefined && isEnumBlockLabel(previousLine);
 
@@ -126,6 +124,25 @@ export function formatText(
       continue;
     }
 
+    // Handle special comments.
+    if (specialComment) {
+      // Append the partial line that we were building, if any.
+      [formattedLine, formattedText] = appendLineToText(
+        formattedLine,
+        formattedText,
+      );
+
+      // Copy the line exactly.
+      formattedLine += line;
+
+      [formattedLine, formattedText] = appendLineToText(
+        formattedLine,
+        formattedText,
+      );
+
+      continue;
+    }
+
     // Handle lists. (JSDoc tags also count as lists.)
     const list = getAdjustedList(
       line,
@@ -149,8 +166,6 @@ export function formatText(
       insideCodeBlock ||
       separatorLine ||
       previousLineWasSeparatorLine ||
-      specialComment ||
-      previousLineWasSpecialComment ||
       enumBlockLabel ||
       previousLineWasEnumBlockLabel
     ) {

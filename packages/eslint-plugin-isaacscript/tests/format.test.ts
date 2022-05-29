@@ -348,6 +348,13 @@ This is another line.
   testFormatText(text);
 });
 
+test("eslint-disable with long line", () => {
+  const text = `
+eslint-disable-next-line @typescript-eslint/no-var-requires,import/no-dynamic-require,global-require,no-plusplus
+  `;
+  testFormatText(text);
+});
+
 test("Enum block label without trailing text", () => {
   const text = `
 ModCallback.POST_PLAYER_RENDER (32)
