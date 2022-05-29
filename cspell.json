@@ -16,6 +16,7 @@
     "node_modules/**",
     "mod/main.lua",
     "mod/resources/rooms/**",
-    "packages/docs/docs/isaacscript-common/**"
+    "packages/docs/docs/isaacscript-common/**",
+    "packages/docs/docs/isaac-typescript-definitions/**"
   ]
 }

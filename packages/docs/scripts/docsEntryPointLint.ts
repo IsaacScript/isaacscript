@@ -4,7 +4,13 @@ import path from "path";
 
 const { error } = utils;
 
-const TYPEDOC_CONFIG_PATH = path.join(__dirname, "..", "typedoc.json");
+const TYPEDOC_CONFIG_PATH = path.join(
+  __dirname,
+  "..",
+  "..",
+  "isaacscript-common",
+  "typedoc.json",
+);
 
 main();
 
@@ -14,7 +20,9 @@ function main() {
   const entryPoints = getEntryPoints();
   const entryPointsSet = new Set(entryPoints);
 
-  const classesFilePaths = glob.sync("../isaacscript-common/src/classes/*.ts");
+  const classesFilePaths = glob
+    .sync("../isaacscript-common/src/classes/*.ts")
+    .map((string) => string.replace(/^\.\.\/isaacscript-common\//, ""));
   for (const filePath of classesFilePaths) {
     if (!entryPointsSet.has(filePath)) {
       console.error(
@@ -24,7 +32,9 @@ function main() {
     }
   }
 
-  const enumsFilePaths = glob.sync("../isaacscript-common/src/enums/*.ts");
+  const enumsFilePaths = glob
+    .sync("../isaacscript-common/src/enums/*.ts")
+    .map((string) => string.replace(/^\.\.\/isaacscript-common\//, ""));
   for (const filePath of enumsFilePaths) {
     if (filePath.endsWith("private")) {
       continue;
@@ -38,9 +48,9 @@ function main() {
     }
   }
 
-  const featuresFilePaths = glob.sync(
-    "../isaacscript-common/src/features/*.ts",
-  );
+  const featuresFilePaths = glob
+    .sync("../isaacscript-common/src/features/*.ts")
+    .map((string) => string.replace(/^\.\.\/isaacscript-common\//, ""));
   for (const filePath of featuresFilePaths) {
     if (!entryPointsSet.has(filePath)) {
       if (!filePath.endsWith(".ts")) {
@@ -54,9 +64,9 @@ function main() {
     }
   }
 
-  const functionFilePaths = glob.sync(
-    "../isaacscript-common/src/functions/*.ts",
-  );
+  const functionFilePaths = glob
+    .sync("../isaacscript-common/src/functions/*.ts")
+    .map((string) => string.replace(/^\.\.\/isaacscript-common\//, ""));
   for (const filePath of functionFilePaths) {
     if (filePath.endsWith("Tests.ts")) {
       continue;
@@ -70,9 +80,9 @@ function main() {
     }
   }
 
-  const interfacesFilePaths = glob.sync(
-    "../isaacscript-common/src/interfaces/*.ts",
-  );
+  const interfacesFilePaths = glob
+    .sync("../isaacscript-common/src/interfaces/*.ts")
+    .map((string) => string.replace(/^\.\.\/isaacscript-common\//, ""));
   for (const filePath of interfacesFilePaths) {
     if (
       filePath.endsWith("private") ||
@@ -91,7 +101,9 @@ function main() {
 
   // Only specific maps in the "maps" directory are exported. Thus, we do not check this directory.
 
-  const typesFilePaths = glob.sync("../isaacscript-common/src/types/*.ts");
+  const typesFilePaths = glob
+    .sync("../isaacscript-common/src/types/*.ts")
+    .map((string) => string.replace(/^\.\.\/isaacscript-common\//, ""));
   for (const filePath of typesFilePaths) {
     if (filePath.endsWith("private") || filePath.endsWith(".d.ts")) {
       continue;

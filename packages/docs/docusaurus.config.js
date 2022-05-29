@@ -32,6 +32,11 @@ module.exports = {
       items: [
         { to: "main/features", label: "Main", position: "left" },
         {
+          to: "isaac-typescript-definitions",
+          label: "isaac-typescript-definitions",
+          position: "left",
+        },
+        {
           to: "isaacscript-common",
           label: "isaacscript-common",
           position: "left",

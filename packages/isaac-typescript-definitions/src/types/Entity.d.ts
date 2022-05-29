@@ -151,7 +151,7 @@ declare global {
     Visible: boolean;
   }
 
-  /** For EntityType.RAGLING (246) */
+  /** For EntityType.SLOT (6) */
   interface EntitySlot extends Entity {
     Type: EntityType.SLOT;
     Variant: SlotVariant;

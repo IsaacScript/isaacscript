@@ -42,7 +42,7 @@ But we don't have to suffer anymore. The `isaacscript` framework allows us to pr
 ### <img src="/img/items/poke-go.png" className="features-icon" /> Extra Callbacks
 
 - Ever wish that there was a callback for the particular thing you are working on? Wish no longer.
-- IsaacScript mods can use [many extra callbacks](../isaacscript-common/other/enums/ModCallbackCustom.md) as part of the expanded standard library.
+- IsaacScript mods can use [many extra callbacks](/isaacscript-common/other/enums/ModCallbackCustom.md) as part of the expanded standard library.
 
 ### <img src="/img/items/book-of-virtues.png" className="features-icon" /> Expanded Standard Library
 

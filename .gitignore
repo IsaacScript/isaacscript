@@ -18,6 +18,7 @@ thumbs.db
 # Ignore the auto-generated API docs from TypeDoc (since it will just contain duplicate information
 # from what is already in the JSDoc comments of the source code).
 packages/docs/docs/isaacscript-common
+packages/docs/docs/isaac-typescript-definitions
 
 # ------------------------------
 # GitHub Node.gitignore template

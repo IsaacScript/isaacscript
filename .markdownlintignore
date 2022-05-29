@@ -1,3 +1,4 @@
 node_modules
 dist
 packages/docs/docs/isaacscript-common
+packages/docs/docs/isaac-typescript-definitions
