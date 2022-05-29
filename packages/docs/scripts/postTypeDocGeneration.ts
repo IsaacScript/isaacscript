@@ -26,10 +26,8 @@ custom_edit_url: null
 
 import { readdirSync } from "fs";
 import glob from "glob";
-import { file, utils } from "isaacscript-cli";
+import { file } from "isaacscript-cli";
 import path from "path";
-
-const { error } = utils;
 
 const COMMON_DIR = path.join(__dirname, "..", "docs", "isaacscript-common");
 const MODULES_DIR = path.join(COMMON_DIR, "modules");
@@ -121,14 +119,14 @@ function moveModulesFiles() {
     } else {
       const directoryName = match[1];
       if (directoryName === undefined) {
-        return error(
+        error(
           `Failed to parse the directory from the file name: ${markdownFileName}`,
         );
       }
 
       const newFileName = match[2];
       if (newFileName === undefined) {
-        return error(
+        error(
           `Failed to parse the suffix from the file name: ${markdownFileName}`,
         );
       }
@@ -142,7 +140,7 @@ function moveModulesFiles() {
 
   const remainingFiles = getFileNames(MODULES_DIR);
   if (remainingFiles.length > 0) {
-    return error(
+    error(
       `Failed to move one or more files in the "modules" directory: ${MODULES_DIR}`,
     );
   }
@@ -242,16 +240,12 @@ function getTitle(filePath: string, directoryName: string) {
   if (DIR_NAMES_WITH_DUPLICATION.includes(directoryName)) {
     const properNameMatch = fileName.match(/(\w+)\.md/);
     if (properNameMatch === null) {
-      return error(
-        `Failed to parse the proper name from the file name: ${fileName}`,
-      );
+      error(`Failed to parse the proper name from the file name: ${fileName}`);
     }
 
     const properName = properNameMatch[1];
     if (properName === undefined) {
-      return error(
-        `Failed to parse the proper name from the match: ${fileName}`,
-      );
+      error(`Failed to parse the proper name from the match: ${fileName}`);
     }
 
     return properName;
@@ -292,12 +286,12 @@ function renameDuplicatedPages() {
       if (isValidDuplicate(fileName, directoryName)) {
         const properNameMatch = fileName.match(/\.(\w+\.md)/);
         if (properNameMatch === null) {
-          return error(`Failed to parse the file name: ${fileName}`);
+          error(`Failed to parse the file name: ${fileName}`);
         }
 
         const properName = properNameMatch[1];
         if (properName === undefined) {
-          return error(`Failed to parse the file name match: ${fileName}`);
+          error(`Failed to parse the file name match: ${fileName}`);
         }
 
         const filePath = path.join(directoryPath, fileName);
@@ -447,4 +441,9 @@ function trimSuffix(string: string, prefix: string): string {
 
   const endCharacter = string.length - prefix.length;
   return string.slice(0, endCharacter);
+}
+
+export function error(...args: unknown[]): never {
+  console.error(...args);
+  return process.exit(1);
 }

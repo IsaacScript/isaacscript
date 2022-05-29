@@ -118,14 +118,12 @@ function getEntryPoints(): string[] {
   const typeDocConfig = require(TYPEDOC_CONFIG_PATH) as Record<string, unknown>;
 
   if (typeof typeDocConfig !== "object") {
-    return error(`Failed to read the config file: ${TYPEDOC_CONFIG_PATH}`);
+    error(`Failed to read the config file: ${TYPEDOC_CONFIG_PATH}`);
   }
 
   const { entryPoints } = typeDocConfig;
   if (!Array.isArray(entryPoints)) {
-    return error(
-      `Failed to read the "entryPoints" field: ${TYPEDOC_CONFIG_PATH}`,
-    );
+    error(`Failed to read the "entryPoints" field: ${TYPEDOC_CONFIG_PATH}`);
   }
 
   return entryPoints as string[];
