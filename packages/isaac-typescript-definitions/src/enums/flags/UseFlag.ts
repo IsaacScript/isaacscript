@@ -84,7 +84,7 @@ const UseFlagInternal = {
    * 1 << 11
    */
   NO_HUD: 1 << 11,
-};
+} as const;
 
 type UseFlagValue = number & {
   readonly __bitFlagBrand: void;

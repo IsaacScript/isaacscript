@@ -19,7 +19,7 @@ const EntityPartitionInternal = {
 
   /** 1 << 6 */
   EFFECT: 1 << 6,
-};
+} as const;
 
 type EntityPartitionValue = number & {
   readonly __bitFlagBrand: void;

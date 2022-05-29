@@ -45,4 +45,4 @@ export const CHARACTER_NAMES: { readonly [key in PlayerType]: string } = {
   [PlayerType.LAZARUS_2_B]: "Dead Tainted Lazarus", // 38
   [PlayerType.JACOB_2_B]: "Dead Tainted Jacob", // 39
   [PlayerType.THE_SOUL_B]: "Tainted Soul", // 40
-};
+} as const;

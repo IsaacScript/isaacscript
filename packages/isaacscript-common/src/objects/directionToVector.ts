@@ -9,4 +9,4 @@ export const DIRECTION_TO_VECTOR: {
   [Direction.UP]: Vector(0, -1), // 1
   [Direction.RIGHT]: Vector(1, 0), // 2
   [Direction.DOWN]: Vector(0, 1), // 3
-};
+} as const;

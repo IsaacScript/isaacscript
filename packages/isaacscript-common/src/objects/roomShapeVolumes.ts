@@ -35,4 +35,4 @@ export const ROOM_SHAPE_VOLUMES: {
   [RoomShape.LTR]: L_ROOM_VOLUME, // 10
   [RoomShape.LBL]: L_ROOM_VOLUME, // 11
   [RoomShape.LBR]: L_ROOM_VOLUME, // 12
-};
+} as const;

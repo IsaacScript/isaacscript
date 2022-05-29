@@ -27,7 +27,4 @@ npx remark --quiet --frail docs --ignore-pattern "docs/isaacscript-common" # Can
 # We use no-progress and no-summary because we want to only output errors.
 npx cspell --no-progress --no-summary
 
-# Step 5 - Validate that every doc page is included.
-npx ts-node --require "tsconfig-paths/register" "$DIR/scripts/docsEntryPointLint.ts"
-
 echo "Successfully linted in $SECONDS seconds."

@@ -11,4 +11,4 @@ export const COIN_SUBTYPE_TO_VALUE: { readonly [key in CoinSubType]: int } = {
   [CoinSubType.LUCKY_PENNY]: 1, // 5
   [CoinSubType.STICKY_NICKEL]: 5, // 6
   [CoinSubType.GOLDEN]: 1, // 7
-};
+} as const;

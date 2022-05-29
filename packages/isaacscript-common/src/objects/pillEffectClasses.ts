@@ -60,4 +60,4 @@ export const PILL_EFFECT_CLASSES: {
   [PillEffect.SHOT_SPEED_UP]: ItemConfigPillEffectClass.MAJOR,
   [PillEffect.EXPERIMENTAL]: ItemConfigPillEffectClass.MAJOR,
   [PillEffect.EXPERIMENTAL]: ItemConfigPillEffectClass.MAJOR,
-};
+} as const;

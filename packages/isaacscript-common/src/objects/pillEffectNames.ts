@@ -54,4 +54,4 @@ export const PILL_EFFECT_NAMES: { readonly [key in PillEffect]: string } = {
   [PillEffect.SHOT_SPEED_DOWN]: "Shot Speed Down",
   [PillEffect.SHOT_SPEED_UP]: "Shot Speed Up",
   [PillEffect.EXPERIMENTAL]: "Experimental Pill",
-};
+} as const;

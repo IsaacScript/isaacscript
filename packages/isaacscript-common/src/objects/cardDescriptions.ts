@@ -102,4 +102,4 @@ export const CARD_DESCRIPTIONS: { readonly [key in Card]: string } = {
   [Card.SOUL_FORGOTTEN]: "Skeletal protector", // 95
   [Card.SOUL_BETHANY]: "Friends from beyond", // 96
   [Card.SOUL_JACOB]: "Bound by blood", // 97
-};
+} as const;

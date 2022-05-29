@@ -8,7 +8,7 @@ const TWO_BY_TWO_BOTTOM_RIGHT = Vector(25, 13);
  * wall would be at "Vector(-1, -1)".)
  */
 export const L_ROOM_SHAPE_TO_RECTANGLES: {
-  [key in RoomShape]?: [
+  readonly [key in RoomShape]?: readonly [
     verticalTopLeft: Vector,
     verticalBottomRight: Vector,
     horizontalTopLeft: Vector,
@@ -41,4 +41,4 @@ export const L_ROOM_SHAPE_TO_RECTANGLES: {
 
   // 12
   [RoomShape.LBR]: [VectorZero, Vector(25, 6), VectorZero, Vector(12, 13)],
-};
+} as const;

@@ -49,4 +49,4 @@ export const CHALLENGE_NAMES: { readonly [key in Challenge]: string } = {
   [Challenge.CANTRIPPED]: "Cantripped!", // 43
   [Challenge.RED_REDEMPTION]: "Red Redemption", // 44
   [Challenge.DELETE_THIS]: "DELETE THIS", // 45
-};
+} as const;

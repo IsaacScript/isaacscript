@@ -23,4 +23,4 @@ export const ROOM_SHAPE_TO_TOP_LEFT_POSITION: {
   [RoomShape.LTR]: VectorZero, // 10
   [RoomShape.LBL]: VectorZero, // 11
   [RoomShape.LBR]: VectorZero, // 12
-};
+} as const;

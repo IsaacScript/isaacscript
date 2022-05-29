@@ -168,4 +168,4 @@ export const CALLBACK_REGISTER_FUNCTIONS: {
   [ModCallbackCustom.PRE_CUSTOM_REVIVE]: preCustomReviveRegister,
   [ModCallbackCustom.PRE_ITEM_PICKUP]: preItemPickupRegister,
   [ModCallbackCustom.PRE_NEW_LEVEL]: preNewLevelRegister,
-};
+} as const;

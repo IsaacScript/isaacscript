@@ -25,7 +25,7 @@ const DoorSlotFlagInternal = {
 
   /** 1 << 7 */
   DOWN_1: 1 << DoorSlot.DOWN_1,
-};
+} as const;
 
 type DoorSlotFlagValue = number & {
   readonly __bitFlagBrand: void;

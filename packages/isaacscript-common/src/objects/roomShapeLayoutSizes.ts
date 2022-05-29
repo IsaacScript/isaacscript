@@ -42,4 +42,4 @@ export const ROOM_SHAPE_LAYOUT_SIZES: {
   [RoomShape.LTR]: TWO_BY_TWO_LAYOUT_SIZE, // 10
   [RoomShape.LBL]: TWO_BY_TWO_LAYOUT_SIZE, // 11
   [RoomShape.LBR]: TWO_BY_TWO_LAYOUT_SIZE, // 12
-};
+} as const;

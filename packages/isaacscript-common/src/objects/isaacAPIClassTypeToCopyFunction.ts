@@ -15,4 +15,4 @@ export const ISAAC_API_CLASS_TYPE_TO_COPY_FUNCTION: {
   [CopyableIsaacAPIClassType.K_COLOR]: copyKColor,
   [CopyableIsaacAPIClassType.RNG]: copyRNG,
   [CopyableIsaacAPIClassType.VECTOR]: copyVector,
-};
+} as const;

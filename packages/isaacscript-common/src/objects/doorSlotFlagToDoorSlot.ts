@@ -13,4 +13,4 @@ export const DOOR_SLOT_FLAG_TO_DOOR_SLOT: {
   [DoorSlotFlag.UP_1]: DoorSlot.UP_1, // 5
   [DoorSlotFlag.RIGHT_1]: DoorSlot.RIGHT_1, // 6
   [DoorSlotFlag.DOWN_1]: DoorSlot.DOWN_1, // 7
-};
+} as const;

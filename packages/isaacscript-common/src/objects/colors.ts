@@ -13,4 +13,4 @@ export const COLORS = {
   Pink: Color(1, 0, 1),
   Cyan: Color(0, 1, 1),
   White: Color(1, 1, 1),
-};
+} as const;

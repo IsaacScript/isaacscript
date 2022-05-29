@@ -102,4 +102,4 @@ export const CARD_NAMES: { readonly [key in Card]: string } = {
   [Card.SOUL_FORGOTTEN]: "Soul of the Forgotten",
   [Card.SOUL_BETHANY]: "Soul of Bethany",
   [Card.SOUL_JACOB]: "Soul of Jacob and Esau",
-};
+} as const;

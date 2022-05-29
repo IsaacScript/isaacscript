@@ -17,4 +17,4 @@ export const TRANSFORMATION_NAMES: { readonly [key in PlayerForm]: string } = {
   [PlayerForm.ADULT]: "Adult", // 11
   [PlayerForm.SPIDER_BABY]: "Spider Baby", // 12
   [PlayerForm.STOMPY]: "Stompy", // 13
-};
+} as const;

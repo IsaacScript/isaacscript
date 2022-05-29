@@ -10,7 +10,6 @@
     ".eslintrc.js",
     ".remarkrc.mjs",
     "babel.config.js",
-    "docsEntryPointLint.ts",
     "docusaurus.config.js",
     "sidebars.js",
     "scripts/**/*.ts",

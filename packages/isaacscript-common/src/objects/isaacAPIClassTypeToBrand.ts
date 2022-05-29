@@ -8,4 +8,4 @@ export const ISAAC_API_CLASS_TYPE_TO_BRAND: {
   [CopyableIsaacAPIClassType.K_COLOR]: SerializationBrand.K_COLOR,
   [CopyableIsaacAPIClassType.RNG]: SerializationBrand.RNG,
   [CopyableIsaacAPIClassType.VECTOR]: SerializationBrand.VECTOR,
-};
+} as const;

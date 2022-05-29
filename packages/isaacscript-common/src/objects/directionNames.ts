@@ -8,4 +8,4 @@ export const DIRECTION_NAMES: {
   [Direction.UP]: "up", // 1
   [Direction.RIGHT]: "right", // 2
   [Direction.DOWN]: "down", // 3
-};
+} as const;

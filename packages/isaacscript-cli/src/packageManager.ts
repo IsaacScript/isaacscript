@@ -11,14 +11,7 @@ const PACKAGE_MANAGER_LOCK_FILE_NAMES: {
 } = {
   [PackageManager.NPM]: "package-lock.json",
   [PackageManager.YARN]: "yarn.lock",
-};
-
-const Foo = {
-  foo: 1,
-  bar: 2,
-};
-
-console.log(Foo);
+} as const;
 
 export function getPackageManagerLockFileName(
   packageManager: PackageManager,

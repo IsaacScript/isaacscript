@@ -8,4 +8,4 @@ export const DIRECTION_TO_DEGREES: {
   [Direction.UP]: 270, // 1
   [Direction.RIGHT]: 0, // 2
   [Direction.DOWN]: 90, // 3
-};
+} as const;

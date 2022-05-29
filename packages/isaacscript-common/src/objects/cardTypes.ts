@@ -101,4 +101,4 @@ export const CARD_TYPES: { readonly [key in Card]: ItemConfigCardType } = {
   [Card.SOUL_FORGOTTEN]: ItemConfigCardType.RUNE, // 95
   [Card.SOUL_BETHANY]: ItemConfigCardType.RUNE, // 96
   [Card.SOUL_JACOB]: ItemConfigCardType.RUNE, // 97
-};
+} as const;

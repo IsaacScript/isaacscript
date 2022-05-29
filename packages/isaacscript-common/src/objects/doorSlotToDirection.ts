@@ -11,4 +11,4 @@ export const DOOR_SLOT_TO_DIRECTION: { readonly [key in DoorSlot]: Direction } =
     [DoorSlot.UP_1]: Direction.UP, // 5
     [DoorSlot.RIGHT_1]: Direction.RIGHT, // 6
     [DoorSlot.DOWN_1]: Direction.DOWN, // 7
-  };
+  } as const;

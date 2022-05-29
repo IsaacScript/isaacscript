@@ -139,7 +139,7 @@ const RoomDescriptorFlagInternal = {
    * 1 << 18
    */
   BLUE_REDIRECT: 1 << 18,
-};
+} as const;
 
 type RoomDescriptorFlagValue = number & {
   readonly __bitFlagBrand: void;

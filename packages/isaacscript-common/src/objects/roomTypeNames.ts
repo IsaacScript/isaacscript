@@ -33,4 +33,4 @@ export const ROOM_TYPE_NAMES: { readonly [key in RoomType]: string } = {
   [RoomType.SECRET_EXIT]: "Secret Exit", // 27
   [RoomType.BLUE]: "Blue Room", // 28
   [RoomType.ULTRA_SECRET]: "Ultra Secret Room", // 29
-};
+} as const;

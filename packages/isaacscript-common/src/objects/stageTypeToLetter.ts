@@ -12,4 +12,4 @@ export const STAGE_TYPE_TO_LETTER: { readonly [key in StageType]: string } = {
 
   [StageType.REPENTANCE]: "c", // 4
   [StageType.REPENTANCE_B]: "d", // 5
-};
+} as const;

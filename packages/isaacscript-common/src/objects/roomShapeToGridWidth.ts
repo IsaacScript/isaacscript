@@ -18,4 +18,4 @@ export const ROOM_SHAPE_TO_GRID_WIDTH: {
   [RoomShape.LTR]: TWO_BY_ONE_WIDTH, // 10
   [RoomShape.LBL]: TWO_BY_ONE_WIDTH, // 11
   [RoomShape.LBR]: TWO_BY_ONE_WIDTH, // 12
-};
+} as const;

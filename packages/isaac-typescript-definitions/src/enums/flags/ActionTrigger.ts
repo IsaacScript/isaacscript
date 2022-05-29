@@ -19,7 +19,7 @@ const ActionTriggerInternal = {
 
   /** 1 << 5 */
   ITEMS_DROPPED: 1 << 5,
-};
+} as const;
 
 type ActionTriggerValue = number & {
   readonly __bitFlagBrand: void;

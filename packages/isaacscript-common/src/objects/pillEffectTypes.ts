@@ -59,4 +59,4 @@ export const PILL_EFFECT_TYPES: {
   [PillEffect.SHOT_SPEED_DOWN]: ItemConfigPillEffectType.NEGATIVE,
   [PillEffect.SHOT_SPEED_UP]: ItemConfigPillEffectType.POSITIVE,
   [PillEffect.EXPERIMENTAL]: ItemConfigPillEffectType.NEUTRAL,
-};
+} as const;

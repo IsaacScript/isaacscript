@@ -68,4 +68,4 @@ export const ROOM_SHAPE_BOUNDS: {
 
   // 12
   [RoomShape.LBR]: TWO_BY_TWO_BOUNDS,
-};
+} as const;

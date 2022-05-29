@@ -1,16 +1,7 @@
 import glob from "glob";
-import { utils } from "isaacscript-cli";
 import path from "path";
 
-const { error } = utils;
-
-const TYPEDOC_CONFIG_PATH = path.join(
-  __dirname,
-  "..",
-  "..",
-  "isaacscript-common",
-  "typedoc.json",
-);
+const TYPEDOC_CONFIG_PATH = path.join(__dirname, "..", "typedoc.json");
 
 main();
 
@@ -123,7 +114,7 @@ function main() {
 }
 
 function getEntryPoints(): string[] {
-  // eslint-disable-next-line import/no-dynamic-require,global-require
+  // eslint-disable-next-line @typescript-eslint/no-var-requires,import/no-dynamic-require,global-require
   const typeDocConfig = require(TYPEDOC_CONFIG_PATH) as Record<string, unknown>;
 
   if (typeof typeDocConfig !== "object") {
@@ -138,4 +129,9 @@ function getEntryPoints(): string[] {
   }
 
   return entryPoints as string[];
+}
+
+export function error(...args: unknown[]): never {
+  console.error(...args);
+  return process.exit(1);
 }

@@ -124,4 +124,4 @@ export const ROOM_SHAPE_TO_DOOR_SLOTS_TO_GRID_INDEX_DELTA: {
     [DoorSlot.RIGHT_1, DOWN + RIGHT], // 6
     [DoorSlot.DOWN_1, RIGHT + DOWN], // 7
   ]),
-};
+} as const;

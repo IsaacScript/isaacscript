@@ -28,6 +28,7 @@ const DEFAULT_RULE_LEVEL = "error";
 const RULE_ENTRIES = getAlphabeticalRuleEntries();
 const CONFIGS_DIRECTORY_PATH = path.join(__dirname, "..", "src", "configs");
 
+// eslint-disable-next-line isaacscript/require-const-assertions
 const BASE_CONFIG: LinterConfig = {
   plugins: [PLUGIN_NAME],
   rules: {

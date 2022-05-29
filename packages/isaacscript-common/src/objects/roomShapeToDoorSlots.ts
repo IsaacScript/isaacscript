@@ -80,4 +80,4 @@ export const ROOM_SHAPE_TO_DOOR_SLOTS: {
 
   // 12
   [RoomShape.LBR]: ALL_DOOR_SLOTS_SET,
-};
+} as const;
