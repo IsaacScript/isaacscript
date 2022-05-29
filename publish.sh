@@ -6,11 +6,10 @@ set -e # Exit on any errors
 # https://stackoverflow.com/questions/59895/getting-the-source-directory-of-a-bash-script-from-within
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-# Get the name of the repository:
-# https://stackoverflow.com/questions/23162299/how-to-get-the-last-part-of-dirname-in-bash/23162553
-REPO_NAME="$(basename "$DIR")"
+cd "$DIR"
 
-REPO_ROOT="$DIR/../.."
-cd "$REPO_ROOT"
+# Bump the version.
+lerna version --conventional-commits --no-changelog
 
-"$REPO_ROOT/release.sh" "$REPO_NAME" "$@"
+# Upload it to NPM.
+lerna publish from-git

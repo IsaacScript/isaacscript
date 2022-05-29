@@ -13,24 +13,6 @@
       "options": {
         "command": "bash packages/eslint-config-isaacscript/lint.sh"
       }
-    },
-    "publish": {
-      "executor": "@nrwl/workspace:run-commands",
-      "options": {
-        "command": "ts-node --require tsconfig-paths/register --project tools/tsconfig.json tools/publish.ts eslint-config-isaacscript"
-      },
-      "dependsOn": [
-        {
-          "projects": "self",
-          "target": "build"
-        }
-      ]
-    },
-    "version": {
-      "executor": "@jscutlery/semver:version",
-      "options": {
-        "preset": "conventional"
-      }
     }
   },
   "tags": []
