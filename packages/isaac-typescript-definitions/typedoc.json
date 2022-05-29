@@ -1,0 +1,17 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "out": "../docs/docs/isaac-typescript-definitions",
+  "sort": ["source-order"],
+  "tsconfig": "tsconfig.json",
+  "readme": "website-root.md",
+  "treatWarningsAsErrors": true,
+  "validation": {
+    "invalidLink": true,
+    "notExported": true
+  },
+  "entryPoints": ["src/types/Entity.d.ts"],
+  "plugin": "typedoc-plugin-markdown",
+  "hideBreadcrumbs": true,
+  "hideInPageTOC": true,
+  "hidePageTitle": true
+}

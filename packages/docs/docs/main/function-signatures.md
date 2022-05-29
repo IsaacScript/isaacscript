@@ -4,7 +4,7 @@ title: Function Signatures (Vanilla)
 
 For reference, this is a handy list of all possible callback functions.
 
-For the list of custom callbacks, see [this page](isaacscript-common/other/enums/ModCallbackCustom.md).
+For the list of custom callbacks, see [this page](../isaacscript-common/other/enums/ModCallbackCustom.md).
 
 <br />
 

@@ -15,7 +15,8 @@ OUT_DIR="$DIR/../../dist/packages/docs" # Created by Docusaurus
 rm -rf "$OUT_DIR"
 
 # First, auto-generate the `isaacscript-common` Markdown files with TypeDoc + the Markdown plugin.
-npx typedoc # The options are stored in "typedoc.json".
+# "$DIR/../isaac-typescript-definitions/docs.sh"
+bash "$DIR/../isaacscript-common/docs.sh"
 
 # Second, apply transformations on top of the TypeDoc output.
 npx ts-node --require "tsconfig-paths/register" "$DIR/scripts/postTypeDocGeneration.ts"
