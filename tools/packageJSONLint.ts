@@ -71,14 +71,11 @@ function packageJSONLint(
   }
 
   const { version } = packageJSON;
-  if (typeof version !== "string" || version === "") {
-    console.error(`File is missing a "version" field: ${packageJSONPath}`);
-    return false;
-  }
-
-  if (shouldBePrivate && version !== "0.0.0") {
-    console.error(`File must have a version of "0.0.0": ${packageJSONPath}`);
-    return false;
+  if (!shouldBePrivate) {
+    if (typeof version !== "string" || version === "") {
+      console.error(`File is missing a "version" field: ${packageJSONPath}`);
+      return false;
+    }
   }
 
   const privateField = packageJSON["private"];
