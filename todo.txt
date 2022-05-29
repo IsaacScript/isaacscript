@@ -1,3 +1,7 @@
+- fix peerDep thing
+- submit PR to lerna-lite
+- fix PR for TSTL
+
 - NEW DOCUMENTATION WEBSITE
   - isaac-typescript-definitions
   - fix link on features website

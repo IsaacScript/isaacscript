@@ -21,7 +21,7 @@
   "type": "commonjs",
   "main": "index",
   "types": "index.d.ts",
-  "peerDependencies": {
-    "isaac-typescript-definitions": "2.0.54"
+  "dependencies": {
+    "isaac-typescript-definitions": "^2.0.54"
   }
 }

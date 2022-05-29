@@ -9447,7 +9447,7 @@ is-yarn-global@^0.3.0:
   resolved "https://registry.yarnpkg.com/is-yarn-global/-/is-yarn-global-0.3.0.tgz#d502d3382590ea3004893746754c89139973e232"
   integrity sha512-VjSeb/lHmkoyd8ryPVIKvOCn4D1koMqY+vqyjjUfc3xyKtP4dYOxM44sZrnqQSzSds3xyOrUTLTC9LVCVgLngw==
 
-isaac-typescript-definitions@2.0.54:
+isaac-typescript-definitions@^2.0.54:
   version "2.0.54"
   resolved "https://registry.yarnpkg.com/isaac-typescript-definitions/-/isaac-typescript-definitions-2.0.54.tgz#ce8c35936cd17bd55ce4c63a39163ea5d9a92f7d"
   integrity sha512-CXSiQ+Qqc2/S2ZdcdBmXHr0n5TAVT+bFFdKQFZBqF4CMNKCNtlGxJ9o9E0MYFMe+blbE/B7JB8mYrKVgCj7KBQ==

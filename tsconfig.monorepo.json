@@ -15,6 +15,9 @@
     // TypeScript paths do not work properly with TSTL, so we cannot add
     // "isaac-typescript-definitions".
     "paths": {
+      "isaac-typescript-definitions": [
+        "packages/isaac-typescript-definitions/src/index.ts",
+      ],
       "isaacscript-cli": ["packages/isaacscript-cli/src/index.ts"],
     },
   },

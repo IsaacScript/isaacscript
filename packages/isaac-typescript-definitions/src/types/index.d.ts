@@ -5,6 +5,10 @@
  * In a file without imports, "declare global" cannot be used.
  */
 
+// --------
+// External
+// --------
+
 // The Isaac definitions automatically bundle the definitions for Lua 5.3 as a convenience.
 /// <reference types="lua-types/5.3" />
 

@@ -19,7 +19,6 @@
     "target": "ESNext",
     "lib": ["ESNext"],
     "moduleResolution": "Node",
-    // "types": ["dist/packages/isaac-typescript-definitions/index.d.ts"],
     "types": ["isaac-typescript-definitions"],
   },
 
