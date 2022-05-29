@@ -22,10 +22,8 @@
  * passing in serializable data.)
  */
 export interface SaveData {
-  persistent?: SaveDataGroup;
-  run?: SaveDataGroup;
-  level?: SaveDataGroup;
-  room?: SaveDataGroup;
+  persistent?: Record<string, unknown>;
+  run?: Record<string, unknown>;
+  level?: Record<string, unknown>;
+  room?: Record<string, unknown>;
 }
-
-export type SaveDataGroup = Record<string, unknown>;

@@ -5,6 +5,10 @@
 
 This page lists the changes to the IsaacScript framework.
 
+## June 4th, 2022
+
+- n/a
+
 ## May 28th, 2022
 
 ### `package.json`
@@ -23,7 +27,7 @@ yarn add typescript-to-lua
 
 - All of the IsaacScript packages are now contained in a monorepo using Nx. The other various repositories have been deleted.
 - The linting meta-package now uses `eslint-plugin-isaacscript`, which contains a [bunch of new rules](https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-plugin-isaacscript) that will make your code safer.
-- IsaacScript now supports the [Yarn](https://yarnpkg.com/) package manager. It will use yarn by default if it detects that you have it installed.
+- IsaacScript now supports the [Yarn](https://yarnpkg.com/) package manager. It will use Yarn by default if it detects that you have it installed.
 - IsaacScript now shows how many seconds it took to compile the mod.
 - Added the following helper functions:
   - `saveDataManagerReset` (to force the save data manager to reset a specific set of variables)

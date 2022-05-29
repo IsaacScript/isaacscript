@@ -75,6 +75,8 @@ const SIDEBAR_POSITIONS: ReadonlyMap<string, number> = new Map([
   ["Other Miscellaneous Exports", 5],
 ]);
 
+const ROOT_DIR_NAMES = ["features", "functions"];
+
 const OTHER_DIR_NAMES: readonly string[] = [
   "classes",
   "enums",
@@ -89,7 +91,7 @@ const DIR_NAMES_WITH_DUPLICATION: readonly string[] = [
   "interfaces",
 ];
 
-const BROKEN_LINK_PREFIXES = [...DIR_NAMES_WITH_DUPLICATION, "types"];
+const BROKEN_LINK_DIR_NAMES = [...DIR_NAMES_WITH_DUPLICATION, "types"];
 
 main();
 
@@ -319,41 +321,59 @@ function isValidDuplicate(fileName: string, directoryName: string) {
 function fixLinks() {
   const markdownFilePaths = glob.sync("**/*.md");
 
-  const rootDirNames = ["features", "functions"];
-
   for (const filePath of markdownFilePaths) {
     const fileContents = file.read(filePath, false);
+    let newFileContents = fileContents;
 
-    for (const dirName of rootDirNames) {
-      const brokenLink = `(${dirName}_`;
-      if (fileContents.includes(brokenLink)) {
-        // cspell:ignore conversionheartsubtype
-        // e.g. "(features_characterHealthConversion.md#conversionheartsubtype)" -->
-        // "(characterHealthConversion.md#conversionheartsubtype)"
-        const fixedLink = "(";
-        const newFileContents = fileContents.replaceAll(brokenLink, fixedLink);
-        file.write(filePath, newFileContents, false);
+    // Start by removing any links with a "modules" prefix, since they are moved to the root.
+    newFileContents = newFileContents.replaceAll("modules/", "");
+
+    // Fix links with a duplicated file name.
+    // e.g. "ModUpgraded.ModUpgraded.md"
+    const linkFileNames = newFileContents.match(/\w+\.md/gm);
+    if (linkFileNames !== null) {
+      for (const linkFileName of linkFileNames) {
+        const fileNameWithoutExtension = linkFileName.replace(/\.md$/, "");
+        newFileContents = newFileContents.replaceAll(
+          `${fileNameWithoutExtension}.${fileNameWithoutExtension}.md`,
+          `${fileNameWithoutExtension}.md`,
+        );
       }
     }
 
-    for (const linkPrefix of BROKEN_LINK_PREFIXES) {
-      let newFileContents: string;
+    for (const dirName of ROOT_DIR_NAMES) {
+      // cspell:ignore conversionheartsubtype
+      // e.g. "(features_characterHealthConversion.md#conversionheartsubtype)" -->
+      // "(characterHealthConversion.md#conversionheartsubtype)"
+      const brokenLink = `(${dirName}_`;
+      const fixedLink = "(";
+      newFileContents = newFileContents.replaceAll(brokenLink, fixedLink);
+    }
 
-      // e.g. "(../classes/classes_ModUpgraded.ModUpgraded.md)" -->
-      // "(../other/classes/ModUpgraded.md)"
-      const brokenLink1 = new RegExp(
-        `/${linkPrefix}/${linkPrefix}_\\w+?\\.`,
-        "g",
+    const numDirectoriesAwayFromRoot = getNumDirectoriesAwayFromRoot(filePath);
+    const linkPrefix = "../".repeat(numDirectoriesAwayFromRoot);
+
+    for (const brokenLinkDirName of BROKEN_LINK_DIR_NAMES) {
+      // Fix links with a duplicated directory.
+      // e.g. "classes/classes" --> "classes"
+      newFileContents = newFileContents.replaceAll(
+        `${brokenLinkDirName}/${brokenLinkDirName}`,
+        brokenLinkDirName,
       );
-      const fixedLink1 = `/${linkPrefix}/`;
-      newFileContents = fileContents.replaceAll(brokenLink1, fixedLink1);
 
-      // cspell:ignore anyentity
-      // e.g. "(types_AnyEntity.md#anyentity)" --> "(../other/types/AnyEntity.md#anyentity)"
-      const brokenLink2 = new RegExp(`\\(${linkPrefix}_`, "g");
-      const fixedLink2 = `(../other/${linkPrefix}/`;
-      newFileContents = fileContents.replaceAll(brokenLink2, fixedLink2);
+      // Fix the path to links in the "other" directory.
+      // e.g. "(../classes_ModUpgraded.md)" --> "(../classes/ModUpgraded.md)"
+      const brokenLink = new RegExp(`\\(\\.*/*${brokenLinkDirName}_`, "gm");
+      const fixedLink = `(${linkPrefix}other/${brokenLinkDirName}/`;
+      newFileContents = newFileContents.replaceAll(brokenLink, fixedLink);
+    }
 
+    // Finally, fix links with a "types_" prefix.
+    // e.g. "(../interfaces/types_PickingUpItem.PickingUpItemNull.md)" -->
+    // "(../interfaces/PickingUpItemNull.md)"
+    newFileContents = newFileContents.replaceAll(/types_\w+\./gm, "");
+
+    if (fileContents !== newFileContents) {
       file.write(filePath, newFileContents, false);
     }
   }
@@ -379,6 +399,20 @@ function getMarkdownFileNames(directoryPath: string) {
   return readdirSync(directoryPath, { withFileTypes: true })
     .filter((dirent) => dirent.isFile() && dirent.name.endsWith(".md"))
     .map((dirent) => dirent.name);
+}
+
+function getNumDirectoriesAwayFromRoot(filePath: string, num = 0): number {
+  const directoryPath = path.dirname(filePath);
+  if (
+    directoryPath === "." ||
+    directoryPath === "/" ||
+    directoryPath.endsWith("isaacscript-common")
+  ) {
+    return num;
+  }
+
+  const newNum = num + 1;
+  return getNumDirectoriesAwayFromRoot(directoryPath, newNum);
 }
 
 // From: https://stackoverflow.com/questions/26188882/split-pascal-case-in-javascript-certain-case

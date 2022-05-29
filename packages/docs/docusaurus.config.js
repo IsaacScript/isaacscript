@@ -8,8 +8,8 @@ module.exports = {
   title: "IsaacScript",
   url: "https://isaacscript.github.io",
   baseUrl: "/",
-  onBrokenLinks: "warn", // TODO change to "throw"
-  onBrokenMarkdownLinks: "warn", // TODO change to "throw"
+  onBrokenLinks: "throw",
+  onBrokenMarkdownLinks: "throw",
   favicon: "img/favicon.ico",
   organizationName: "IsaacScript",
   projectName: "IsaacScript.github.io",
@@ -37,18 +37,18 @@ module.exports = {
           position: "left",
         },
         {
-          href: "https://discord.gg/KapmKQ2gUD",
-          label: "Discord",
+          href: "https://github.com/IsaacScript/isaacscript",
+          className: "header-github-link",
           position: "right",
         },
         {
-          href: "https://github.com/IsaacScript/isaacscript",
-          label: "GitHub",
+          href: "https://discord.gg/KapmKQ2gUD",
+          className: "header-discord-link",
           position: "right",
         },
         {
           href: "https://wofsauge.github.io/IsaacDocs/rep/",
-          label: "Vanilla API Docs",
+          className: "header-wof-link",
           position: "right",
         },
       ],

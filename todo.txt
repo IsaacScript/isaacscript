@@ -1,18 +1,14 @@
-Monorepo TODO:
-
-TODO:
 - NEW DOCUMENTATION WEBSITE
-  - add symbol next to github and Discord on main page
-  - finish pass of isaacscript-common
   - isaac-typescript-definitions
   - fix link on features website
   - fix link "many extra callbacks"
+  - move changelog to real page
 - change bundleEntry.ts to "export {}" with comment - actually, wait until perry merges
 - TSTL PR: https://quramy.medium.com/manipulate-comments-with-typescript-api-73d5f1d43d7f
 
 implement in isaacscript-common:
 - change POST_COLLECTIBLE_INIT_FIRST to POST_PICKUP_INIT_FIRST
-- isaacscript function to recalculate item ids
+- isaacscript function to recalculate item ids in items.xml
 - isDamageFromPlayer
 
 function findPlayerFromTear(tear)

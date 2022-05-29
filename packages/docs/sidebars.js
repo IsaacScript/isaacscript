@@ -36,7 +36,6 @@ const sidebars = {
         "main/publishing-to-the-workshop",
         "main/gotchas",
         "main/function-signatures",
-        "main/function-signatures-custom",
       ],
     },
   ],
