@@ -38,6 +38,7 @@ ssmacro # Monorepo word
 steamcmd # For publishing
 svgr # Monorepo word
 syncer # Monorepo word
+syncpack # Monorepo word
 TSES # For TSESTree
 tstl
 Turnbull # Author of "airbnb-typescript/base"

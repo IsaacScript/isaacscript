@@ -11,10 +11,6 @@ tmp
 .docusaurus
 .cache-loader
 
-# We need to ignore "package.json" files, since @jscutlery/semver is bugged:
-# https://github.com/jscutlery/semver/pull/511
-package.json
-
 # "prettier-plugin-organize-imports" is bugged with JSX
 packages/docs/src/components/HomepageFeatures.js
 packages/docs/src/pages/index.js
