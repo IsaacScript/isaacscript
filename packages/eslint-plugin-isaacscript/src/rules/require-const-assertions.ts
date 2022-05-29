@@ -1,7 +1,11 @@
 import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/types";
 import { createRule } from "../utils";
 
-export const requireConstAssertions = createRule({
+type Options = [];
+
+export type MessageIds = "noConstAssertion";
+
+export const requireConstAssertions = createRule<Options, MessageIds>({
   name: "require-const-assertions",
   meta: {
     type: "problem",
@@ -36,30 +40,36 @@ export const requireConstAssertions = createRule({
             continue;
           }
 
-          if (!hasConstAssertion(declaration)) {
-            context.report({
-              loc: {
-                start: node.loc.start,
-                end: node.loc.end,
-              },
-              messageId: "noConstAssertion",
-              fix: (fixer) => {
-                // If this variable isn't being assigned to anything, then there is nothing we can
-                // fix.
-                if (declaration.init === null) {
-                  return null;
-                }
-
-                // If this variable is already being casted to something with "as", then don't apply
-                // any fix to avoid stomping on the existing code.
-                if (declaration.init.type === AST_NODE_TYPES.TSAsExpression) {
-                  return null;
-                }
-
-                return fixer.insertTextAfter(declaration.init, " as const");
-              },
-            });
+          if (!isObjectExpression(declaration)) {
+            continue;
           }
+
+          if (hasConstAssertion(declaration)) {
+            continue;
+          }
+
+          context.report({
+            loc: {
+              start: node.loc.start,
+              end: node.loc.end,
+            },
+            messageId: "noConstAssertion",
+            fix: (fixer) => {
+              // If this variable isn't being assigned to anything, then there is nothing we can
+              // fix.
+              if (declaration.init === null) {
+                return null;
+              }
+
+              // If this variable is already being casted to something with "as", then don't apply
+              // any fix to avoid stomping on the existing code.
+              if (declaration.init.type === AST_NODE_TYPES.TSAsExpression) {
+                return null;
+              }
+
+              return fixer.insertTextAfter(declaration.init, " as const");
+            },
+          });
         }
       },
     };
@@ -72,6 +82,15 @@ export const requireConstAssertions = createRule({
  */
 function isFirstLetterCapitalized(string: string) {
   return /^\p{Lu}/u.test(string);
+}
+
+function isObjectExpression(declaration: TSESTree.VariableDeclarator) {
+  const { init } = declaration;
+  if (init === null) {
+    return false;
+  }
+
+  return init.type === AST_NODE_TYPES.ObjectExpression;
 }
 
 function hasConstAssertion(declaration: TSESTree.VariableDeclarator) {
