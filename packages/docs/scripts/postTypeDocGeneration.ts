@@ -89,6 +89,8 @@ const DIR_NAMES_WITH_DUPLICATION: readonly string[] = [
   "interfaces",
 ];
 
+const BROKEN_LINK_PREFIXES = [...DIR_NAMES_WITH_DUPLICATION, "types"];
+
 main();
 
 function main() {
@@ -334,12 +336,24 @@ function fixLinks() {
       }
     }
 
-    for (const dirName of DIR_NAMES_WITH_DUPLICATION) {
+    for (const linkPrefix of BROKEN_LINK_PREFIXES) {
+      let newFileContents: string;
+
       // e.g. "(../classes/classes_ModUpgraded.ModUpgraded.md)" -->
       // "(../other/classes/ModUpgraded.md)"
-      const brokenLink = new RegExp(`/${dirName}/${dirName}_\\w+?\\.`, "g");
-      const fixedLink = `/${dirName}/`;
-      const newFileContents = fileContents.replaceAll(brokenLink, fixedLink);
+      const brokenLink1 = new RegExp(
+        `/${linkPrefix}/${linkPrefix}_\\w+?\\.`,
+        "g",
+      );
+      const fixedLink1 = `/${linkPrefix}/`;
+      newFileContents = fileContents.replaceAll(brokenLink1, fixedLink1);
+
+      // cspell:ignore anyentity
+      // e.g. "(types_AnyEntity.md#anyentity)" --> "(../other/types/AnyEntity.md#anyentity)"
+      const brokenLink2 = new RegExp(`\\(${linkPrefix}_`, "g");
+      const fixedLink2 = `(../other/${linkPrefix}/`;
+      newFileContents = fileContents.replaceAll(brokenLink2, fixedLink2);
+
       file.write(filePath, newFileContents, false);
     }
   }

@@ -5,6 +5,20 @@ import { getPlayerIndex } from "./playerIndex";
 /**
  * Helper function to make using default maps with an index of `PlayerIndex` easier. Use this
  * instead of the `DefaultMap.getAndSetDefault` method if you have a default map of this type.
+ *
+ * For example:
+ *
+ * ```ts
+ * const v = {
+ *   run: {
+ *     playersSpeedBoost: new DefaultMap<PlayerIndex, int>(0),
+ *   },
+ * };
+ *
+ * function evaluateCacheSpeed(player: EntityPlayer) {
+ *   player.MoveSpeed = defaultMapGetPlayer(v.run.playersSpeedBoost, player);
+ * }
+ * ```
  */
 export function defaultMapGetPlayer<V, A extends unknown[]>(
   map: DefaultMap<PlayerIndex, V, A>,
@@ -33,6 +47,22 @@ export function defaultMapSetPlayer<V>(
 /**
  * Helper function to make using maps with an index of `PlayerIndex` easier. Use this instead of the
  * `Map.get` method if you have a map of this type.
+ *
+ * For example:
+ *
+ * ```ts
+ * const v = {
+ *   run: {
+ *     playersSpeedBoost: new Map<PlayerIndex, int>(),
+ *   },
+ * };
+ *
+ * function incrementSpeedBoost(player: EntityPlayer) {
+ *   const oldSpeedBoost = mapGetPlayer(v.run.playersSpeedBoost, player);
+ *   const newSpeedBoost = oldSpeedBoost + 0.1;
+ *   mapSetPlayer(v.run.playersSpeedBoost, player);
+ * }
+ * ```
  */
 export function mapGetPlayer<V>(
   map: Map<PlayerIndex, V>,
@@ -44,7 +74,35 @@ export function mapGetPlayer<V>(
 
 /**
  * Helper function to make using maps with an index of `PlayerIndex` easier. Use this instead of the
+ * `Map.has` method if you have a map of this type.
+ */
+export function mapHasPlayer<V>(
+  map: Map<PlayerIndex, V>,
+  player: EntityPlayer,
+): boolean {
+  const playerIndex = getPlayerIndex(player);
+  return map.has(playerIndex);
+}
+
+/**
+ * Helper function to make using maps with an index of `PlayerIndex` easier. Use this instead of the
  * `Map.set` method if you have a map of this type.
+ *
+ * For example:
+ *
+ * ```ts
+ * const v = {
+ *   run: {
+ *     playersSpeedBoost: new Map<PlayerIndex, int>(),
+ *   },
+ * };
+ *
+ * function incrementSpeedBoost(player: EntityPlayer) {
+ *   const oldSpeedBoost = mapGetPlayer(v.run.playersSpeedBoost, player);
+ *   const newSpeedBoost = oldSpeedBoost + 0.1;
+ *   mapSetPlayer(v.run.playersSpeedBoost, player);
+ * }
+ * ```
  */
 export function mapSetPlayer<V>(
   map: Map<PlayerIndex, V>,

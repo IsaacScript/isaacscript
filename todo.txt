@@ -8,6 +8,7 @@ TODO:
   - fix link on features website
   - fix link "many extra callbacks"
 - change bundleEntry.ts to "export {}" with comment - actually, wait until perry merges
+- TSTL PR: https://quramy.medium.com/manipulate-comments-with-typescript-api-73d5f1d43d7f
 
 implement in isaacscript-common:
 - change POST_COLLECTIBLE_INIT_FIRST to POST_PICKUP_INIT_FIRST

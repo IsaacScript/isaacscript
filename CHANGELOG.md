@@ -31,6 +31,7 @@ yarn add typescript-to-lua
   - `getEdenPassives`
   - `getRandomEdenPassive`
   - `npcFireProjectiles` (thanks KatTheFox)
+  - `mapHasPlayer`
 - Renamed the following helper functions:
   - `preventCollectibleRotate` --> `preventCollectibleRotation`
 - Added the following custom console commands:
