@@ -14,7 +14,8 @@
   "author": "Zamiell",
   "type": "commonjs",
   "scripts": {
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "release": "release-it"
   },
   "dependencies": {
     "@typescript-eslint/type-utils": "^5.26.0",
@@ -25,7 +26,7 @@
     "dotenv": "^16.0.1",
     "figlet": "^1.5.2",
     "fs-extra": "^10.1.0",
-    "isaac-typescript-definitions": "^2.0.54",
+    "isaac-typescript-definitions": "^2.0.55",
     "jsonc-parser": "^3.0.0",
     "moment": "^2.29.3",
     "prompt": "^1.3.0",
@@ -84,7 +85,6 @@
     "husky": "^8.0.1",
     "jest": "^28.1.0",
     "jest-summarizing-reporter": "^1.1.4",
-    "lerna": "^5.0.0",
     "lua-types": "^2.11.0",
     "markdownlint": "^0.25.1",
     "markdownlint-cli": "^0.31.1",
@@ -95,6 +95,7 @@
     "prism-react-renderer": "^1.3.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "release-it": "^15.0.0",
     "remark-cli": "^10.0.1",
     "remark-lint-match-punctuation": "^0.2.1",
     "remark-lint-no-dead-urls": "^1.1.0",
@@ -122,5 +123,6 @@
     "typedoc-plugin-markdown": "^3.12.1",
     "typescript": "4.6.2",
     "unified": "^9.2.2"
-  }
+  },
+  "release-it": {}
 }

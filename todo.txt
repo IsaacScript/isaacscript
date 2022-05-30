@@ -1,6 +1,4 @@
-- fix peerDep thing
-- submit PR to lerna-lite
-- fix PR for TSTL
+- put last strict-enums changes in eslint-plugin-isaacscript
 
 - NEW DOCUMENTATION WEBSITE
   - isaac-typescript-definitions
@@ -27,6 +25,18 @@ function findPlayerFromTear(tear)
     return parent:ToFamiliar().Player
   end
 end
+
+- playerConvertHealth
+
+function playerConvertSoulHeartsToBlackHearts(player: EntityPlayer) {
+  const playerHealth = getPlayerHealth(player);
+  removeAllPlayerHealth(player);
+  playerHealth.soulHeartTypes = playerHealth.soulHeartTypes.map(
+    (soulHeartType) =>
+      soulHeartType === HeartSubType.SOUL ? HeartSubType.BLACK : soulHeartType,
+  );
+  setPlayerHealth(player, playerHealth);
+}
 
 - trophy can move to isaacscript common for respawning purposes
   - when respawning, don't play appear animation

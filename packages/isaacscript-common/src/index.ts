@@ -141,6 +141,7 @@ export * from "./functions/ui";
 export * from "./functions/utils";
 export * from "./functions/vector";
 export * from "./interfaces/AddCallbackParameterCustom";
+export * from "./interfaces/ChargeBarSprites";
 export * from "./interfaces/JSONDoor";
 export * from "./interfaces/JSONEntity";
 export * from "./interfaces/JSONRoom";

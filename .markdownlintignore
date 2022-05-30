@@ -1,3 +1,5 @@
+.markdownlintignore
+.gitignore
 node_modules
 dist
 packages/docs/docs/isaacscript-common
