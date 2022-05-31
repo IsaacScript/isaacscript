@@ -10,6 +10,7 @@ cd "$DIR"
 
 # Bump the version.
 # lerna version --conventional-commits --no-changelog --message "chore: release"
+# npx release-it --dry-run --ci --publish=false
 
 # Copy the version to the dist folder.
 "$DIR/build.sh"

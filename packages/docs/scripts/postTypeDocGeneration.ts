@@ -38,6 +38,7 @@ const CATEGORY_FILE_NAME = "_category_.yml";
 
 /** We hard-code the label for some specific directories. */
 const DIRECTORY_NAME_TO_LABEL: ReadonlyMap<string, string> = new Map([
+  ["callbacks", "Extra Callbacks"],
   ["features", "Extra Features"],
   ["functions", "Helper Functions by Category"],
   ["other", "Other Miscellaneous Exports"],
@@ -67,7 +68,7 @@ const FILE_NAME_TO_TITLE: ReadonlyMap<string, string> = new Map([
 const SIDEBAR_POSITIONS: ReadonlyMap<string, number> = new Map([
   // "Introduction" is hard coded as 0 in "website-root.md".
   ["Core", 1],
-  ["Custom Callbacks", 2],
+  ["Extra Callbacks", 2],
   ["Extra Features", 3],
   ["Helper Functions by Category", 4],
   ["Other Miscellaneous Exports", 5],
@@ -94,6 +95,7 @@ const BROKEN_LINK_DIR_NAMES = [...DIR_NAMES_WITH_DUPLICATION, "types"];
 main();
 
 function main() {
+  createCallbackFile();
   moveModulesFiles();
   file.deleteFileOrDirectory(MODULES_MARKDOWN_PATH, false);
   file.makeDir(OTHER_DIR, false);
@@ -102,6 +104,29 @@ function main() {
   deleteDuplicatedPages();
   renameDuplicatedPages();
   fixLinks();
+}
+
+/**
+ * Custom callbacks are documented on the `ModCallbackCustom` enum, but we want custom callbacks to
+ * be part of the root navigation layout. Thus, we create a new Markdown file from scratch to
+ * represent this.
+ */
+function createCallbackFile() {
+  const filePath = path.join(COMMON_DIR, "extra-callbacks.md");
+  const fileContent = `
+---
+sidebar_label: Extra Callbacks
+sidebar_position: 2
+custom_edit_url: null
+---
+
+# Extra Callbacks
+
+See the [ModCallbackCustom](other/enums/ModCallbackCustom) enum.
+  `
+    .trim()
+    .concat("\n");
+  file.write(filePath, fileContent, false);
 }
 
 /** Move the files in the "modules" directory to proper directories. */

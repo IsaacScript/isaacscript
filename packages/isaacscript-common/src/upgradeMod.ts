@@ -10,8 +10,8 @@ import { initFeaturesMajor, initFeaturesMinor } from "./initFeatures";
 import { patchErrorFunction } from "./patchErrorFunctions";
 
 /**
- * Use this function to enable the custom callbacks and other optional features provided by
- * `isaacscript-common`.
+ * Use this function to enable the {@link ModCallbackCustom custom callbacks} and other optional
+ * features provided by `isaacscript-common`.
  *
  * For example:
  *
@@ -19,10 +19,10 @@ import { patchErrorFunction } from "./patchErrorFunctions";
  * const modVanilla = RegisterMod("My Mod", 1);
  * const mod = upgradeMod(modVanilla);
  *
- * // Subscribe to vanilla callbacks
+ * // Subscribe to vanilla callbacks.
  * mod.AddCallback(ModCallback.POST_UPDATE, postUpdate);
  *
- * // Subscribe to custom callbacks
+ * // Subscribe to custom callbacks.
  * mod.AddCallbackCustom(ModCallbackCustom.POST_ITEM_PICKUP, postItemPickup);
  * ```
  *

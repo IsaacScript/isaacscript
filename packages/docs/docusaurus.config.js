@@ -81,21 +81,4 @@ module.exports = {
     ],
   ],
   scripts: ["/js/hotkey.js"],
-  /*
-  plugins: [
-    [
-      "docusaurus-plugin-typedoc",
-      {
-        out: "isaacscript-common",
-        sort: "source-order", // Needed because enums are sorted alphabetically by default.
-        tsconfig: "../isaacscript-common/tsconfig.json",
-        readme: "../isaacscript-common/website-root.md",
-        entryPoints: [],
-        sidebar: {
-          readmeLabel: "Introduction",
-        },
-      },
-    ],
-  ],
-  */
 };

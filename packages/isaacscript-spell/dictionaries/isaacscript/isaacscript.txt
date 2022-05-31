@@ -8,6 +8,7 @@ buildable # Monorepo word
 clsx # Monorepo word
 commitlint # Monorepo word
 contentfolder # metadata.vdf
+conventionalcommits # Monorepo word
 corepack # To install Yarn
 dbaeumer # extensions.json
 devkit # Monorepo word

@@ -11,7 +11,7 @@ eslint isaacscript/member-ordering: ["warn", {
  * - The Isaac API offers a lot of callbacks, but a lot of times there isn't one for the specific
  *   thing that you are looking to do. So, `isaacscript-common` adds a bunch of new callbacks that
  *   you can use.
- * - The extra callbacks are efficient such that no code is ran until they have one or more
+ * - The extra callbacks are efficient such that no code is executed until there is one or more
  *   subscriptions.
  * - You must upgrade your mod with the `upgradeMod` helper function before using a custom callback.
  */
