@@ -734,17 +734,10 @@ export const strictEnums = createRule<Options, MessageIds>({
         }
       },
 
-      /** When a function is invoked. */
-      CallExpression(node): void {
-        checkCallExpression(node);
-      },
-
-      /** When something is instantiated with the "new" keyword. */
-      NewExpression(node): void {
-        /**
-         * We need to perform the exact same checks on a class constructor invocation as we do on a
-         * normal function invocation.
-         */
+      /** When a function is invoked or a class is instantiated. */
+      "CallExpression, NewExpression": function callExpressionOrNewExpression(
+        node: TSESTree.CallExpression | TSESTree.NewExpression,
+      ): void {
         checkCallExpression(node);
       },
 
@@ -769,46 +762,47 @@ export const strictEnums = createRule<Options, MessageIds>({
       },
 
       /** When a new variable is created. */
-      VariableDeclaration(node): void {
-        for (const declaration of node.declarations) {
-          const leftTSNode =
-            parserServices.esTreeNodeToTSNodeMap.get(declaration);
+      VariableDeclarator(node): void {
+        /**
+         * Allow enum declarations without an initializer, like the following:
+         *
+         * ```ts
+         * let fruit: Fruit;
+         * if (something()) {
+         *   fruit = Fruit.Apple;
+         * } else {
+         *   fruit = Fruit.Banana;
+         * }
+         * ```
+         */
+        if (node.init === undefined) {
+          return;
+        }
 
-          /**
-           * Allow enum declarations without an initializer, like the following:
-           *
-           * ```ts
-           * let fruit: Fruit;
-           * if (something()) {
-           *   fruit = Fruit.Apple;
-           * } else {
-           *   fruit = Fruit.Banana;
-           * }
-           * ```
-           */
-          if (leftTSNode.initializer === undefined) {
-            continue;
-          }
+        const leftTSNode = parserServices.esTreeNodeToTSNodeMap.get(node);
+        const rightNode = leftTSNode.initializer;
+        if (rightNode === undefined) {
+          return;
+        }
 
-          /**
-           * We have to use `leftTSNode.name` instead of `leftTSNode` to avoid runtime errors
-           * because the `checker.getTypeAtLocation` method expects a `ts.BindingName` instead of
-           * a`ts.VariableDeclaration`.
-           * https://github.com/microsoft/TypeScript/issues/48878
-           */
-          const leftType = getTypeFromTSNode(leftTSNode.name);
-          const rightType = getTypeFromTSNode(leftTSNode.initializer);
+        /**
+         * We have to use `leftTSNode.name` instead of `leftTSNode` to avoid runtime errors because
+         * the `checker.getTypeAtLocation` method expects a `ts.BindingName` instead of a
+         * `ts.VariableDeclaration`.
+         * https://github.com/microsoft/TypeScript/issues/48878
+         */
+        const leftType = getTypeFromTSNode(leftTSNode.name);
+        const rightType = getTypeFromTSNode(rightNode);
 
-          if (isAssigningNonEnumValueToEnumVariable(leftType, rightType)) {
-            context.report({
-              node,
-              messageId: "mismatchedAssignment",
-              data: {
-                assignmentType: getTypeName(checker, rightType),
-                declaredType: getTypeName(checker, leftType),
-              },
-            });
-          }
+        if (isAssigningNonEnumValueToEnumVariable(leftType, rightType)) {
+          context.report({
+            node,
+            messageId: "mismatchedAssignment",
+            data: {
+              assignmentType: getTypeName(checker, rightType),
+              declaredType: getTypeName(checker, leftType),
+            },
+          });
         }
       },
     };

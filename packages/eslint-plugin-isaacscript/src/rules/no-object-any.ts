@@ -25,34 +25,32 @@ export const noObjectAny = createRule({
     const checker = parserServices.program.getTypeChecker();
 
     return {
-      VariableDeclaration(node) {
-        node.declarations.forEach((declaration) => {
-          // From: https://github.com/typescript-eslint/typescript-eslint/issues/781
-          const tsNode = parserServices.esTreeNodeToTSNodeMap.get(declaration);
+      VariableDeclarator(node) {
+        // From: https://github.com/typescript-eslint/typescript-eslint/issues/781
+        const tsNode = parserServices.esTreeNodeToTSNodeMap.get(node);
 
-          /**
-           * We have to use `leftTSNode.name` instead of `leftTSNode` to avoid runtime errors
-           * because the `typeChecker.getTypeAtLocation` method expects a `ts.BindingName` instead
-           * of a`ts.VariableDeclaration`: https://github.com/microsoft/TypeScript/issues/48878
-           */
-          const type = checker.getTypeAtLocation(tsNode.name);
+        /**
+         * We have to use `leftTSNode.name` instead of `leftTSNode` to avoid runtime errors because
+         * the `typeChecker.getTypeAtLocation` method expects a `ts.BindingName` instead
+         * of a`ts.VariableDeclaration`: https://github.com/microsoft/TypeScript/issues/48878
+         */
+        const type = checker.getTypeAtLocation(tsNode.name);
 
-          if (!isTypeReferenceType(type)) {
-            return;
+        if (!isTypeReferenceType(type)) {
+          return;
+        }
+
+        const typeArguments = checker.getTypeArguments(type);
+        typeArguments.forEach((typeArgument, i) => {
+          if (isAny(typeArgument)) {
+            context.report({
+              node,
+              messageId: "noType",
+              data: {
+                ordinal: getOrdinalSuffix(i + 1), // e.g. 0 --> 1st
+              },
+            });
           }
-
-          const typeArguments = checker.getTypeArguments(type);
-          typeArguments.forEach((typeArgument, i) => {
-            if (isAny(typeArgument)) {
-              context.report({
-                node,
-                messageId: "noType",
-                data: {
-                  ordinal: getOrdinalSuffix(i + 1), // e.g. 0 --> 1st
-                },
-              });
-            }
-          });
         });
       },
     };
