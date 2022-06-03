@@ -42,6 +42,11 @@ export function getIncompleteSentences(text: string): IncompleteSentence[] {
       return;
     }
 
+    // Whitelist markdown links.
+    if (squishedText.endsWith("](")) {
+      return;
+    }
+
     const sentences = getSentences(squishedText);
     const loneSentence = sentences.length === 1;
     sentences.forEach((sentence) => {

@@ -466,6 +466,16 @@ valid.push({
   `,
 });
 
+valid.push({
+  name: "Comment with JSDoc link with URL",
+  code: `
+/**
+ * This starts a debug session with ZeroBrane Studio. For more information, see the
+ * [documentation](https://wofsauge.github.io/IsaacDocs/rep/tutorials/ZeroBraneStudio.html).
+ */
+  `,
+});
+
 ruleTester.run("complete-sentences-jsdoc", completeSentencesJSDoc, {
   valid,
   invalid,
