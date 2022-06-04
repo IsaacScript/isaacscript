@@ -4,7 +4,7 @@ module.exports = {
   extends: [
     /**
      * The linter base is the IsaacScript mod config:
-     * https://github.com/IsaacScript/eslint-config-isaacscript/blob/main/mod.js
+     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/mod.js
      */
     "eslint-config-isaacscript/mod",
   ],

@@ -45,7 +45,7 @@ For more information on why you should use this rule, see the [comment formattin
 // Good
 /**
  * URLS are ignored.
- * https://github.com/IsaacScript/eslint-plugin-isaacscript/
+ * https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-plugin-isaacscript/
  */
 ```
 

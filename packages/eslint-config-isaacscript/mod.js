@@ -4,7 +4,7 @@ module.exports = {
   extends: [
     /**
      * The mod config extends the base configuration:
-     * https://github.com/IsaacScript/eslint-config-isaacscript/blob/main/base.js
+     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/base.js
      */
     "./base",
   ],
@@ -67,7 +67,7 @@ module.exports = {
 
     /**
      * Documentation:
-     * https://github.com/IsaacScript/eslint-plugin-isaacscript/blob/main/docs/rules/enum-member-number-separation.md
+     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/main/docs/rules/enum-member-number-separation.md
      *
      * Not defined in the parent configs.
      *
