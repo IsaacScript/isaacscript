@@ -46,7 +46,7 @@ yarn add typescript-to-lua
 
 ## May 21st, 2022
 
-- All functions that take a specific kind of type (e.g. `EntityType`, `PlayerVariant`, etc.) are now no longer in a union with `int`. This makes the API much more type-safe than before. The flip side of this is that you must change any self-defined enums like `CollectibleTypeCustom` to an object instead. See [the docs](https://isaacscript.github.io/docs/gotchas#extending-enums----custom-enums) for more details.
+- All functions that take a specific kind of type (e.g. `EntityType`, `PlayerVariant`, etc.) are now no longer in a union with `int`. This makes the API much more type-safe than before. The flip side of this is that you must change any self-defined enums like `CollectibleTypeCustom` to an object instead. See [the docs](https://isaacscript.github.io/main/gotchas#extending-enums----custom-enums) for more details.
 - `Vector.Zero` and `Vector.One` are now deprecated and will cause compiler errors. Use the `VectorZero` and `VectorOne` constants from the standard library instead, which are guaranteed to be safe. (Alternatively, you can create your own constants that are local to your mod.)
 - `DefaultMap` no longer passes the key to the factory function. This means you can clean up the unused `_key` argument in all of your default maps. In the rare case that you are actually using the key in the factory, you can pass it explicitly as a normal argument.
 - Added the following helper functions:
