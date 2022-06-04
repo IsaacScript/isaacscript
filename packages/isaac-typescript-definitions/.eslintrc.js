@@ -24,7 +24,7 @@ module.exports = {
   rules: {
     /**
      * Documentation:
-     * https://github.com/IsaacScript/eslint-plugin-isaacscript/blob/main/docs/rules/member-ordering.md
+     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/main/docs/rules/member-ordering.md
      *
      * Not defined in the parent configs.
      *
@@ -65,7 +65,8 @@ module.exports = {
      * Documentation:
      * https://github.com/gajus/eslint-plugin-jsdoc#require-hyphen-before-param-description
      *
-     * Defined at: https://github.com/IsaacScript/eslint-config-isaacscript/blob/main/jsdoc.js
+     * Defined at:
+     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/jsdoc.js
      *
      * Disallow param descriptions, since the API documentation does not contain entries for every
      * parameter.

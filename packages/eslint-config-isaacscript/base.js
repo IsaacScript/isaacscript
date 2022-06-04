@@ -32,7 +32,7 @@ module.exports = {
 
     /**
      * This provides extra miscellaneous rules to keep code safe:
-     * https://github.com/IsaacScript/eslint-plugin-isaacscript
+     * https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-plugin-isaacscript
      */
     "plugin:isaacscript/recommended",
 
