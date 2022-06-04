@@ -180,7 +180,7 @@ IsaacScript has now reached **version 2**! We've come a long way with many featu
 
 ### Breaking Changes
 
-- All enums are now local instead of global. The global declarations have been removed, which forces you to use the local ones. Doing this has several advantages, at the small cost of having to auto-import more things. See [the docs](https://isaacscript.github.io/docs/gotchas#local-enums-and-importing) for more info.
+- All enums are now local instead of global. The global declarations have been removed, which forces you to use the local ones. Doing this has several advantages, at the small cost of having to auto-import more things. See [the docs](https://isaacscript.github.io/main/gotchas#local-enums-and-importing) for more info.
 - Bit flags are now represented as a `BitFlags` type. This means that the Isaac API now has real type safety for all bit flags! See [the docs](https://isaacscript.github.io/main/gotchas#bit-flags) for more info.
 - Renamed the following helper functions:
   - `range` --> `irange`
