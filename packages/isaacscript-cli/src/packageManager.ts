@@ -11,6 +11,7 @@ const PACKAGE_MANAGER_LOCK_FILE_NAMES: {
 } = {
   [PackageManager.NPM]: "package-lock.json",
   [PackageManager.YARN]: "yarn.lock",
+  [PackageManager.PNPM]: "pnpm-lock.yaml",
 } as const;
 
 export function getPackageManagerLockFileName(
@@ -30,7 +31,9 @@ export function getPackageManagerInstallCommand(
     case PackageManager.YARN: {
       return ["yarn", []];
     }
-
+    case PackageManager.PNPM: {
+      return ["pnpm", ["install"]];
+    }
     default: {
       return ensureAllCases(packageManager);
     }
@@ -47,6 +50,9 @@ export function getPackageManagerInstallCICommand(
 
     case PackageManager.YARN: {
       return "yarn install --frozen-lockfile";
+    }
+    case PackageManager.PNPM: {
+      return "pnpm install --frozen-lockfile";
     }
 
     default: {
