@@ -16,7 +16,7 @@ npx prettier --check .
 # Step 2 - Use ESLint to lint the TypeScript.
 # Since all ESLint errors are set to warnings, we set max warnings to 0 so that warnings will fail
 # in CI.
-npx eslint --max-warnings 0 .
+npx eslint --max-warnings 0 src
 
 # Step 3 - Spell check every file using CSpell.
 # We use "--no-progress" and "--no-summary" because we want to only output errors.
