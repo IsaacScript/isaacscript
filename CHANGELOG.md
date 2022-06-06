@@ -7,7 +7,7 @@ This page lists the changes to the IsaacScript framework.
 
 ## June 4th, 2022
 
-- n/a
+- `Color.Default` is now deprecated and will cause compiler errors. Use the `ColorDefault` constant from the standard library instead, which is guaranteed to be safe. (Alternatively, you can create your own constant that is local to your mod.)
 
 ## May 28th, 2022
 

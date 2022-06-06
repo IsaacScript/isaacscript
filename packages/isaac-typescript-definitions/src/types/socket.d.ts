@@ -5,16 +5,23 @@
  * C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\resources\scripts\socket.lua
  * ```
  *
- * It is intended to be consumed by mods via:
+ * It can only be used if the "--luadebug" launch option is enabled. For more information, see [the
+ * wiki](https://bindingofisaacrebirth.fandom.com/wiki/Launch_Options).
  *
- * ```lua
- * local socket = require("socket")
+ * IsaacScript mods can import it like this:
+ *
+ * ```ts
+ * let socket: Socket | null = null;
+ * const [ok, requiredSocket] = pcall(require, "socket");
+ * if (ok) {
+ *   socket = requiredSocket as Socket;
+ * } else {
+ *   // The "--luadebug" launch option is not enabled. Handle the error case.
+ * }
  * ```
  *
- * In order to import socket, the "--luadebug" launch flag must be enabled.
- *
- * The documentation is located at:
- * https://web.tecgraf.puc-rio.br/luasocket/old/luasocket-2.0-beta/tcp.html
+ * Also see the [documentation for the socket
+ * library](https://web.tecgraf.puc-rio.br/luasocket/old/luasocket-2.0-beta/tcp.html).
  */
 declare interface Socket {
   /**

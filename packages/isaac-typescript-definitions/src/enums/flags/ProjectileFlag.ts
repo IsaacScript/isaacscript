@@ -1,5 +1,5 @@
 /**
- * For EntityType.PROJECTILE (9)
+ * For `EntityType.PROJECTILE` (9)
  *
  * This is an object instead of a TypeScript enum because we need to specify that it contains bit
  * flags.

@@ -1,7 +1,7 @@
 /* eslint-disable sort-exports/sort-exports */
 
 /**
- * For EntityType.PLAYER (1), PlayerVariant.PLAYER (0)
+ * For `EntityType.PLAYER` (1), `PlayerVariant.PLAYER` (0)
  *
  * This is the sub-type of a player.
  *
@@ -100,7 +100,7 @@ export enum PlayerType {
   THE_SOUL_B = 40,
 }
 
-/** For EntityType.PLAYER (1), PlayerVariant.COOP_BABY (1) */
+/** For `EntityType.PLAYER` (1), `PlayerVariant.COOP_BABY` (1) */
 export enum BabySubType {
   UNASSIGNED = -1,
   SPIDER = 0,
@@ -177,7 +177,7 @@ export enum BabySubType {
   BASIC = 71,
 }
 
-/** For EntityType.FAMILIAR (3), FamiliarVariant.BLUE_FLY (43) */
+/** For `EntityType.FAMILIAR` (3), `FamiliarVariant.BLUE_FLY` (43) */
 export enum BlueFlySubType {
   /** A standard fly, like what you get from using Guppy's Head. */
   BLUE_FLY = 0,
@@ -202,7 +202,7 @@ export enum BlueFlySubType {
   CONQUEST = 5,
 }
 
-/** For EntityType.FAMILIAR (3), FamiliarVariant.DIP (201) */
+/** For `EntityType.FAMILIAR` (3), `FamiliarVariant.DIP` (201) */
 export enum DipFamiliarSubType {
   NORMAL = 0,
   RED = 1,
@@ -217,7 +217,7 @@ export enum DipFamiliarSubType {
   BROWNIE = 20,
 }
 
-/** For EntityType.FAMILIAR (3), FamiliarVariant.BLOOD_BABY (238) */
+/** For `EntityType.FAMILIAR` (3), `FamiliarVariant.BLOOD_BABY` (238) */
 export enum BloodClotSubType {
   RED = 0,
   SOUL = 1,
@@ -231,7 +231,7 @@ export enum BloodClotSubType {
   RED_NO_SUMPTORIUM = 7,
 }
 
-/** For EntityType.PICKUP (5), PickupVariant.NULL (0) */
+/** For `EntityType.PICKUP` (5), `PickupVariant.NULL` (0) */
 export enum PickupNullSubType {
   /** Has a chance to spawn any possible pickup, including collectibles. */
   ALL = 0,
@@ -242,7 +242,7 @@ export enum PickupNullSubType {
   EXCLUDE_COLLECTIBLES_TRINKETS_CHESTS = 4,
 }
 
-/** For EntityType.PICKUP (5), PickupVariant.HEART (10) */
+/** For `EntityType.PICKUP` (5), `PickupVariant.HEART` (10) */
 export enum HeartSubType {
   /** Spawning hearts with this sub-type will produce a random heart. */
   NULL = 0,
@@ -261,7 +261,7 @@ export enum HeartSubType {
   ROTTEN = 12,
 }
 
-/** For EntityType.PICKUP (5), PickupVariant.COIN (20) */
+/** For `EntityType.PICKUP` (5), `PickupVariant.COIN` (20) */
 export enum CoinSubType {
   /** Spawning coins with this sub-type will produce a random coin. */
   NULL = 0,
@@ -275,7 +275,7 @@ export enum CoinSubType {
   GOLDEN = 7,
 }
 
-/** For EntityType.PICKUP (5), For PickupVariant.KEY (30) */
+/** For `EntityType.PICKUP` (5), `PickupVariant.KEY` (30) */
 export enum KeySubType {
   /** Spawning keys with this sub-type will produce a random key. */
   NULL = 0,
@@ -286,7 +286,7 @@ export enum KeySubType {
   CHARGED = 4,
 }
 
-/** For EntityType.PICKUP (5), PickupVariant.BOMB (40) */
+/** For `EntityType.PICKUP` (5), `PickupVariant.BOMB` (40) */
 export enum BombSubType {
   /** Spawning bombs with this sub-type will produce a random bomb. */
   NULL = 0,
@@ -300,7 +300,7 @@ export enum BombSubType {
   GIGA = 7,
 }
 
-/** For EntityType.PICKUP (5), PickupVariant.POOP (42) */
+/** For `EntityType.PICKUP` (5), `PickupVariant.POOP` (42) */
 export enum PoopPickupSubType {
   /** Equal to "Poop Nugget" in "entities2.xml". */
   SMALL = 0,
@@ -309,13 +309,13 @@ export enum PoopPickupSubType {
   BIG = 1,
 }
 
-/** For EntityType.PICKUP (5), PickupVariant.CHEST (50) */
+/** For `EntityType.PICKUP` (5), `PickupVariant.CHEST` (50) */
 export enum ChestSubType {
   OPENED = 0,
   CLOSED = 1,
 }
 
-/** For EntityType.PICKUP (5), PickupVariant.SACK (69) */
+/** For `EntityType.PICKUP` (5), `PickupVariant.SACK` (69) */
 export enum SackSubType {
   /** Spawning sacks with this sub-type will produce a random sack. */
   NULL = 0,
@@ -325,7 +325,7 @@ export enum SackSubType {
 }
 
 /**
- * For EntityType.PICKUP (5), PickupVariant.PILL (70)
+ * For `EntityType.PICKUP` (5), `PickupVariant.PILL` (70)
  *
  * This is the sub-type of a pill.
  */
@@ -366,7 +366,7 @@ export enum PillColor {
   HORSE_GOLD = 2062,
 }
 
-/** For EntityType.PICKUP (5), PickupVariant.LIL_BATTERY (90) */
+/** For `EntityType.PICKUP` (5), `PickupVariant.LIL_BATTERY` (90) */
 export enum BatterySubType {
   /** Spawning batteries with this sub-type will produce a random battery. */
   NULL = 0,
@@ -378,7 +378,7 @@ export enum BatterySubType {
 }
 
 /**
- * For EntityType.PICKUP (5), PickupVariant.COLLECTIBLE (100)
+ * For `EntityType.PICKUP` (5), `PickupVariant.COLLECTIBLE` (100)
  *
  * This is the sub-type of a collectible.
  */
@@ -1110,7 +1110,7 @@ export enum CollectibleType {
 }
 
 /**
- * For EntityType.PICKUP (5), PickupVariant.TAROT_CARD (300)
+ * For `EntityType.PICKUP` (5), `PickupVariant.TAROT_CARD` (300)
  *
  * This is the sub-type of a card.
  */
@@ -1218,7 +1218,7 @@ export enum Card {
 }
 
 /**
- * For EntityType.PICKUP (5), PickupVariant.TRINKET (350)
+ * For `EntityType.PICKUP` (5), `PickupVariant.TRINKET` (350)
  *
  * This is the sub-type of a trinket.
  */
@@ -1417,13 +1417,13 @@ export enum TrinketType {
   SIGIL_OF_BAPHOMET = 189,
 }
 
-/** For EntityType.PICKUP (5), PickupVariant.BED (380) */
+/** For `EntityType.PICKUP` (5), `PickupVariant.BED` (380) */
 export enum BedSubType {
   ISAAC = 0,
   MOM = 1,
 }
 
-/** For EntityType.LASER (7) */
+/** For `EntityType.LASER` (7) */
 export enum LaserSubType {
   /** A typical laser that has a start and end point. */
   LINEAR = 0,
@@ -1441,15 +1441,15 @@ export enum LaserSubType {
   NO_IMPACT = 4,
 }
 
-/** For EntityType.CHARGER (23), ChargerVariant.CHARGER (0) */
+/** For `EntityType.CHARGER` (23), `ChargerVariant.CHARGER` (0) */
 export enum ChargerSubType {
   CHARGER = 0,
   MY_SHADOW = 1,
 }
 
 /**
- * For EntityType.CONSTANT_STONE_SHOOTER (202), ConstantStoneShooterVariant.CONSTANT_STONE_SHOOTER
- * (0)
+ * For `EntityType.CONSTANT_STONE_SHOOTER` (202),
+ * `ConstantStoneShooterVariant.CONSTANT_STONE_SHOOTER` (0)
  *
  * This is the same as the `Direction` enum.
  */
@@ -1460,13 +1460,13 @@ export enum ConstantStoneShooterSubType {
   DOWN = 3,
 }
 
-/** For EntityType.MOTHER (912), MotherVariant.MOTHER_1 (0) */
+/** For `EntityType.MOTHER` (912), `MotherVariant.MOTHER_1` (0) */
 export enum MotherSubType {
   PHASE_1 = 0,
   PHASE_2 = 1,
 }
 
-/** For EntityType.EFFECT (1000), EffectVariant.BLOOD_EXPLOSION (2) */
+/** For `EntityType.EFFECT` (1000), `EffectVariant.BLOOD_EXPLOSION` (2) */
 export enum BloodExplosionSubType {
   MEDIUM_WITH_LEFTOVER_BLOOD = 0,
   SMALL = 1,
@@ -1476,7 +1476,7 @@ export enum BloodExplosionSubType {
   SWIRL = 5,
 }
 
-/** For EntityType.EFFECT (1000), EffectVariant.POOF01 (15) */
+/** For `EntityType.EFFECT` (1000), `EffectVariant.POOF_1` (15) */
 export enum PoofSubType {
   NORMAL = 0,
   SMALL = 1,
@@ -1486,19 +1486,19 @@ export enum PoofSubType {
   LARGE = 3,
 }
 
-/** For EntityType.EFFECT (1000), EffectVariant.HEAVEN_LIGHT_DOOR (39) */
+/** For `EntityType.EFFECT` (1000), `EffectVariant.HEAVEN_LIGHT_DOOR` (39) */
 export enum HeavenLightDoorSubType {
   HEAVEN_DOOR = 0,
   MOONLIGHT = 1,
 }
 
-/** For EntityType.EFFECT (1000), EffectVariant.TALL_LADDER (156) */
+/** For `EntityType.EFFECT` (1000), `EffectVariant.TALL_LADDER` (156) */
 export enum LadderSubType {
   TALL_LADDER = 0,
   STAIRWAY = 1,
 }
 
-/** For EntityType.EFFECT (1000), EffectVariant.PURGATORY (189) */
+/** For `EntityType.EFFECT` (1000), `EffectVariant.PURGATORY` (189) */
 export enum PurgatorySubType {
   RIFT = 0,
   GHOST = 1,

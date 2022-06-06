@@ -1,9 +1,12 @@
 import glob from "glob";
+import { file } from "isaacscript-cli";
 import path from "path";
 import process from "process";
 
 const REPO_ROOT = path.join(__dirname, "..");
 const TYPEDOC_CONFIG_PATH = path.join(REPO_ROOT, "typedoc.json");
+const INDEX_PATH = path.join(REPO_ROOT, "src", "types", "index.d.ts");
+const INDEX_CONTENTS = file.read(INDEX_PATH, false);
 
 main();
 
@@ -13,41 +16,12 @@ function main() {
   const entryPoints = getEntryPoints();
   const entryPointsSet = new Set(entryPoints);
 
-  checkEntryPointsForDirectory("src/classes/*.ts", entryPointsSet);
-
-  checkEntryPointsForDirectory(
-    "src/enums/*.ts",
-    entryPointsSet,
-    (filePath) => !filePath.endsWith("private"),
-  );
-
-  checkEntryPointsForDirectory(
-    "src/features/*.ts",
-    entryPointsSet,
-    (filePath) => filePath.endsWith(".ts"),
-  );
-
-  checkEntryPointsForDirectory(
-    "src/functions/*.ts",
-    entryPointsSet,
-    (filePath) => !filePath.endsWith("Tests.ts"),
-  );
-
-  checkEntryPointsForDirectory(
-    "src/interfaces/*.ts",
-    entryPointsSet,
-    (filePath) =>
-      !filePath.endsWith("private") &&
-      !filePath.endsWith("AddCallbackParameterCustom.ts"),
-  );
-
-  // Only specific maps in the "maps" directory are exported. Thus, we do not check this directory.
-
-  checkEntryPointsForDirectory(
-    "src/types/*.ts",
-    entryPointsSet,
-    (filePath) => !filePath.endsWith("private") && !filePath.endsWith(".d.ts"),
-  );
+  checkEntryPointsForDirectory("src/enums/*.ts", entryPointsSet);
+  checkEntryPointsForDirectory("src/enums/collections/*.ts", entryPointsSet);
+  checkEntryPointsForDirectory("src/enums/flags/*.ts", entryPointsSet);
+  checkEntryPointsForDirectory("src/types/classes/*.ts", entryPointsSet);
+  checkEntryPointsForDirectory("src/types/mods/*.ts", entryPointsSet);
+  checkEntryPointsForDirectory("src/types/unofficial/*.ts", entryPointsSet);
 }
 
 function getEntryPoints(): string[] {
@@ -85,10 +59,32 @@ function checkEntryPointsForDirectory(
         `Failed to find the following file in the entry points: ${filePath}`,
       );
     }
+
+    // Additionally, check that it is exported from the "index.d.ts" file.
+    if (filePath.endsWith(".d.ts")) {
+      const trimmedPath = trimTwoDirectoriesFromPath(filePath);
+      if (!INDEX_CONTENTS.includes(trimmedPath)) {
+        error(
+          `The following declarations file does not seem to be included in a triple slash directive: ${trimmedPath}`,
+        );
+      }
+    }
   }
 }
 
 function error(...args: unknown[]): never {
   console.error(...args);
   return process.exit(1);
+}
+
+function trimTwoDirectoriesFromPath(filePath: string) {
+  const trimmedPath = trimLeftmostDirectoryFromPath(filePath);
+  return trimLeftmostDirectoryFromPath(trimmedPath);
+}
+
+function trimLeftmostDirectoryFromPath(filePath: string) {
+  const firstSlashIndex = filePath.indexOf("/");
+  return firstSlashIndex === -1
+    ? filePath
+    : filePath.substring(firstSlashIndex + 1);
 }

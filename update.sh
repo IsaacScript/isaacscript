@@ -19,11 +19,7 @@ OLD_HASH=$(md5sum "$PACKAGE_JSON")
 npx npm-check-updates --upgrade --packageFile "$PACKAGE_JSON" --reject "typescript,chalk,@mdx-js/react,react,react-dom,unified"
 NEW_HASH=$(md5sum "$PACKAGE_JSON")
 if [[ $OLD_HASH != $NEW_HASH ]]; then
-  if test -f "$DIR/yarn.lock"; then
-    yarn
-  else if test -f "$DIR/pnpm-lock.yaml"; then
-    pnpm install
-  else
-    npm install
-  fi
+  yarn
+  syncpack fix-mismatches
+  npx prettier --write "**/package.json"
 fi

@@ -29,6 +29,7 @@ nrwl # Monorepo word
 pathlib # check-api-dictionary.sh
 peaceiris # Monorepo word
 plusplus # Part of the linting config
+pnmp # Monorepo word
 preid # Monorepo word
 prettierignore # check-file-updates.sh
 prettierrc # check-file-updates.sh

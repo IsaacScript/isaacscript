@@ -54,5 +54,10 @@ declare interface Color {
 declare namespace Color {
   function Lerp(this: void, m1: Color, m2: Color, t: float): Color;
 
+  /**
+   * @deprecated This can be mutated by other mods, so it is never safe to use. Use the
+   *             `ColorDefault` constant from the standard library instead. Alternatively, you can
+   *             create your own constant that is local to your own mod.
+   */
   const Default: Color;
 }

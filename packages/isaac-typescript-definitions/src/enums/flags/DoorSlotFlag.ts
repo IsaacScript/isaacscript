@@ -1,6 +1,6 @@
 import { DoorSlot } from "../DoorSlot";
 
-/** For GridEntityType.DOOR (16) */
+/** For `GridEntityType.DOOR` (16) */
 const DoorSlotFlagInternal = {
   /** 1 << 0 */
   LEFT_0: 1 << DoorSlot.LEFT_0,

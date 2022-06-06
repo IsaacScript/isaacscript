@@ -5,14 +5,15 @@
  * C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\resources\scripts\json.lua
  * ```
  *
- * It is intended to be consumed by mods via:
+ * IsaacScript mods should avoid consuming it directly and instead use the `jsonEncode` and
+ * `jsonDecode` helper functions.
  *
- * ```lua
- * local json = require("json")
- * ```
- *
- * We need to specify the "@noResolution" tstl compiler annotation because the "json.lua" file is
- * not supposed to exist inside of end-user mods.
+ * @module
+ */
+
+/**
+ * We need to specify the "@noResolution" TSTL compiler annotation here because the "json.lua" file
+ * is not supposed to exist inside of end-user mods.
  *
  * @noResolution
  */

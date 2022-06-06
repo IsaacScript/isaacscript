@@ -29,9 +29,10 @@ import glob from "glob";
 import { file } from "isaacscript-cli";
 import path from "path";
 
-const COMMON_DIR = path.join(__dirname, "..", "docs", "isaacscript-common");
+const DOCS_DIR = path.join(__dirname, "..", "docs");
+const COMMON_DIR = path.join(DOCS_DIR, "isaacscript-common");
 const MODULES_DIR = path.join(COMMON_DIR, "modules");
-const MODULES_MARKDOWN_PATH = path.join(COMMON_DIR, "modules.md");
+const MODULES_MD_PATH = path.join(COMMON_DIR, "modules.md");
 const CORE_DIR = path.join(COMMON_DIR, "core");
 const OTHER_DIR = path.join(COMMON_DIR, "other");
 const CATEGORY_FILE_NAME = "_category_.yml";
@@ -59,6 +60,8 @@ const FILE_NAME_TO_TITLE: ReadonlyMap<string, string> = new Map([
 
   // Functions
   ["kColor", "KColor"],
+  ["jsonHelpers", "JSON"],
+  ["jsonRoom", "JSON Room"],
   ["npc", "NPC"],
   ["rng", "RNG"],
   ["tstlClass", "TSTL Class"],
@@ -97,7 +100,7 @@ main();
 function main() {
   createCallbackFile();
   moveModulesFiles();
-  file.deleteFileOrDirectory(MODULES_MARKDOWN_PATH, false);
+  file.deleteFileOrDirectory(MODULES_MD_PATH, false);
   file.makeDir(OTHER_DIR, false);
   addCategoryFilesAndMarkdownHeaders();
   moveDirsToOther();
@@ -171,8 +174,6 @@ function moveModulesFiles() {
   }
 
   file.deleteFileOrDirectory(MODULES_DIR, false);
-
-  return undefined;
 }
 
 function addCategoryFilesAndMarkdownHeaders() {
@@ -247,8 +248,6 @@ custom_edit_url: null
 
   const newFileContents = header + fileContents;
   file.write(filePath, newFileContents, false);
-
-  return undefined;
 }
 
 function getTitle(filePath: string, directoryName: string) {
@@ -325,8 +324,6 @@ function renameDuplicatedPages() {
       }
     }
   }
-
-  return undefined;
 }
 
 function isValidDuplicate(fileName: string, directoryName: string) {
@@ -468,7 +465,7 @@ function trimSuffix(string: string, prefix: string): string {
   return string.slice(0, endCharacter);
 }
 
-export function error(...args: unknown[]): never {
+function error(...args: unknown[]): never {
   console.error(...args);
   return process.exit(1);
 }

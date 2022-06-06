@@ -1,7 +1,7 @@
 /* eslint-disable sort-exports/sort-exports */
 
 /**
- * For StageID.SPECIAL_ROOMS (0), RoomType.ROOM_SHOP (2)
+ * For `StageID.SPECIAL_ROOMS` (0), `RoomType.SHOP` (2)
  *
  * This matches the sub-type in the "00.special rooms.stb" file.
  */
@@ -23,7 +23,7 @@ export enum ShopSubType {
 }
 
 /**
- * For StageID.SPECIAL_ROOMS (0), RoomType.ROOM_TREASURE (4)
+ * For `StageID.SPECIAL_ROOMS` (0), `RoomType.TREASURE` (4)
  *
  * This matches the sub-type in the "00.special rooms.stb" file and elsewhere.
  */
@@ -36,7 +36,7 @@ export enum TreasureRoomSubType {
 }
 
 /**
- * For StageID.SPECIAL_ROOMS (0), RoomType.ROOM_BOSS (5)
+ * For `StageID.SPECIAL_ROOMS` (0), `RoomType.BOSS` (5)
  *
  * This matches the sub-type in the "00.special rooms.stb" file.
  *
@@ -172,7 +172,7 @@ export enum BossID {
 }
 
 /**
- * For StageID.SPECIAL_ROOMS (0), RoomType.ROOM_MINIBOSS (6)
+ * For `StageID.SPECIAL_ROOMS` (0), `RoomType.MINIBOSS` (6)
  *
  * This matches the sub-type in the "00.special rooms.stb" file.
  *
@@ -197,11 +197,11 @@ export enum MinibossID {
   KRAMPUS = 15,
 }
 
-// For StageID.SPECIAL_ROOMS (0), RoomType.ROOM_SUPERSECRET (8), the sub-type corresponds to the
-// BackdropType enum.
+// For `StageID.SPECIAL_ROOMS` (0), `RoomType.SUPER_SECRET` (8), the sub-type corresponds to the
+// `BackdropType` enum.
 
 /**
- * For StageID.SPECIAL_ROOMS (0), RoomType.ROOM_CURSE (10)
+ * For `StageID.SPECIAL_ROOMS` (0), `RoomType.CURSE` (10)
  *
  * This matches the sub-type in the "00.special rooms.stb" file.
  */
@@ -211,7 +211,7 @@ export enum CurseRoomSubType {
 }
 
 /**
- * For StageID.SPECIAL_ROOMS (0), RoomType.ROOM_CHALLENGE (11)
+ * For `StageID.SPECIAL_ROOMS` (0), `RoomType.CHALLENGE` (11)
  *
  * This matches the sub-type in the "00.special rooms.stb" file and elsewhere.
  */
@@ -222,7 +222,7 @@ export enum ChallengeRoomSubType {
 }
 
 /**
- * For StageID.SPECIAL_ROOMS (0), RoomType.ROOM_LIBRARY (12)
+ * For `StageID.SPECIAL_ROOMS` (0), `RoomType.LIBRARY` (12)
  *
  * This matches the sub-type in the "00.special rooms.stb" file.
  */
@@ -244,7 +244,7 @@ export enum LibrarySubType {
 }
 
 /**
- * For StageID.SPECIAL_ROOMS (0), RoomType.ROOM_DEVIL (14)
+ * For `StageID.SPECIAL_ROOMS` (0), `RoomType.DEVIL` (14)
  *
  * This matches the sub-type in the "00.special rooms.stb" file.
  */
@@ -254,7 +254,7 @@ export enum DevilRoomSubType {
 }
 
 /**
- * For StageID.SPECIAL_ROOMS (0), RoomType.ROOM_ANGEL (15)
+ * For `StageID.SPECIAL_ROOMS` (0), `RoomType.ANGEL` (15)
  *
  * This matches the sub-type in the "00.special rooms.stb" file.
  */
@@ -266,7 +266,7 @@ export enum AngelRoomSubType {
 }
 
 /**
- * For StageID.SPECIAL_ROOMS (0), RoomType.ROOM_DUNGEON (16)
+ * For `StageID.SPECIAL_ROOMS` (0), `RoomType.DUNGEON` (16)
  *
  * This matches the sub-type in the "00.special rooms.stb" file and elsewhere.
  */
@@ -286,11 +286,9 @@ export enum DungeonSubType {
 }
 
 /**
- * For StageID.SPECIAL_ROOMS (0), RoomType.ROOM_ISAACS (18)
+ * For `StageID.SPECIAL_ROOMS` (0), `RoomType.CLEAN` (18)
  *
  * This matches the sub-type in the "00.special rooms.stb" file.
- *
- * ("RoomType.ROOM_ISAACS" is a clean bedroom.)
  */
 export enum IsaacsRoomSubType {
   NORMAL = 0,
@@ -298,7 +296,7 @@ export enum IsaacsRoomSubType {
 }
 
 /**
- * For StageID.SPECIAL_ROOMS (0), RoomType.ROOM_SECRET_EXIT (27)
+ * For `StageID.SPECIAL_ROOMS` (0), `RoomType.SECRET_EXIT` (27)
  *
  * This matches the sub-type in the "00.special rooms.stb" file.
  */
@@ -309,9 +307,9 @@ export enum SecretExitSubType {
 }
 
 /**
- * For StageID.DOWNPOUR (27) and StageID.DROSS (28)
+ * For `StageID.DOWNPOUR` (27) and `StageID.DROSS` (28)
  *
- * For RoomType.ROOM_DEFAULT (1)
+ * For `RoomType.DEFAULT` (1)
  *
  * This matches the sub-type in the "27.downpour.stb" and "28.dross.stb" files.
  */
@@ -322,9 +320,9 @@ export enum DownpourRoomSubType {
 }
 
 /**
- * For StageID.MINES (29) and StageID.ASHPIT (30)
+ * For `StageID.MINES` (29) and `StageID.ASHPIT` (30)
  *
- * For RoomType.ROOM_DEFAULT (1)
+ * For `RoomType.DEFAULT` (1)
  *
  * This matches the sub-type in the "29.mines.stb" and "30.ashpit.stb" files.
  */
@@ -339,7 +337,7 @@ export enum MinesRoomSubType {
 }
 
 /**
- * For StageID.HOME (35), RoomType.ROOM_DEFAULT (1)
+ * For `StageID.HOME` (35), `RoomType.DEFAULT` (1)
  *
  * This matches the sub-type in the "35.home.stb" file.
  */
@@ -355,7 +353,7 @@ export enum HomeRoomSubType {
 }
 
 /**
- * For StageID.BACKWARDS (36), RoomType.ROOM_DEFAULT (1)
+ * For `StageID.BACKWARDS` (36), `RoomType.DEFAULT` (1)
  *
  * This matches the sub-type in the "36.backwards.stb" file.
  */

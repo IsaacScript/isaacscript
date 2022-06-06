@@ -6,7 +6,7 @@ export enum LostSoulState {
   DEAD = 4,
 }
 
-/** For EntityType.DEATH (66) */
+/** For `EntityType.DEATH` (66) */
 export enum DeathState {
   APPEAR = 1,
   SCYTHE_APPEAR = 3,
@@ -21,7 +21,7 @@ export enum DeathState {
   SUMMON_SCYTHES = 14,
 }
 
-/** For EntityType.DADDY_LONG_LEGS (101) */
+/** For `EntityType.DADDY_LONG_LEGS` (101) */
 export enum DaddyLongLegsState {
   /** Used at the end of the sequence of single stomp attacks. */
   SLAM_WITH_PROJECTILE_BURST = 4,
@@ -38,7 +38,7 @@ export enum DaddyLongLegsState {
   MULTI_STOMP_ATTACK_MAIN = 9,
 }
 
-/** For EntityType.BIG_HORN (411) */
+/** For `EntityType.BIG_HORN` (411) */
 export enum BigHornState {
   IDLE = 3,
   HEAD_GOING_UP_OR_GOING_DOWN_INTO_HOLE = 4,
@@ -60,7 +60,7 @@ export enum BigHornState {
   HEAD_BALL_ATTACK = 13,
 }
 
-/** For EntityType.REAP_CREEP (900) */
+/** For `EntityType.REAP_CREEP` (900) */
 export enum ReapCreepState {
   CRAWLING_FROM_SIDE_TO_SIDE = 3,
   JUMPING_TO_TOP_WALL = 6,
@@ -81,7 +81,7 @@ export enum ReapCreepState {
   TRANSFORMING_TO_NEXT_PHASE = 16,
 }
 
-/** For EntityType.COLOSTOMIA (917) */
+/** For `EntityType.COLOSTOMIA` (917) */
 export enum ColostomiaState {
   IDLE_PHASE_1 = 3,
   IDLE_PHASE_2 = 4,

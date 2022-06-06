@@ -8,12 +8,24 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd "$DIR"
 
-# Bump the version.
-# lerna version --conventional-commits --no-changelog --message "chore: release"
-# npx release-it --dry-run --ci --publish=false
+if [ ! -z "$1" ]; then
+  echo "Error: The package name is required."
+fi
+PACKAGE_NAME=$1
 
-# Copy the version to the dist folder.
-"$DIR/build.sh"
+PACKAGE_DIR="$DIR/packages/$PACKAGE_NAME"
+if ! test -f "$PACKAGE_DIR"; then
+  echo "Error: The path of \"$PACKAGE_DIR\" does not exist."
+fi
 
-# Upload it to NPM.
-# lerna publish from-git
+cd "$PACKAGE_DIR"
+
+if [ ! -z "$2" ]; then
+  echo "Error: The version bump description is required."
+fi
+VERSION_BUMP=$2
+
+yarn version --set-version $VERSION_BUMP
+bash "$PACKAGE_DIR/build.sh"
+cd "$DIR/dist/packages/$PACKAGE_NAME"
+npm publish

@@ -1,5 +1,5 @@
 /**
- * For EntityType.TEAR (2)
+ * For `EntityType.TEAR` (2)
  *
  * This is an object instead of a TypeScript enum because we need to specify that it contains bit
  * flags. Furthermore, enums cannot be instantiated with `BitSet128` objects.

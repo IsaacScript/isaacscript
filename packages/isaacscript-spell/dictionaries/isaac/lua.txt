@@ -1,5 +1,6 @@
 # These are words in the Lua programming language.
 
+Brane # ZeroBrane Studio
 collectgarbage # Global
 dofile # Lua global
 getinfo # Debug library method
