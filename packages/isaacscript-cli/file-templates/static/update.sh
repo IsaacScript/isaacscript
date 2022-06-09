@@ -15,7 +15,7 @@ NEW_HASH=$(md5sum "$PACKAGE_JSON")
 if [[ $OLD_HASH != $NEW_HASH ]]; then
   if test -f "$DIR/yarn.lock"; then
     yarn
-  else if test -f "$DIR/pnpm-lock.yaml"; then
+  elif test -f "$DIR/pnpm-lock.yaml"; then
     pnpm install
   else
     npm install
