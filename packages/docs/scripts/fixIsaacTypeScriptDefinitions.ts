@@ -62,13 +62,13 @@ const SIDEBAR_POSITIONS: ReadonlyMap<string, number> = new Map([
   ["Mods", 8],
 ]);
 
-const DIR_NAMES_WITH_DUPLICATION: readonly string[] = [
+/* const DIR_NAMES_WITH_DUPLICATION: readonly string[] = [
   "classes",
   "enums",
   "interfaces",
 ];
 
-const BROKEN_LINK_DIR_NAMES = [...DIR_NAMES_WITH_DUPLICATION, "types"];
+const BROKEN_LINK_DIR_NAMES = [...DIR_NAMES_WITH_DUPLICATION, "types"]; */
 
 main();
 
@@ -455,7 +455,7 @@ function getMarkdownFileNames(directoryPath: string) {
     .map((dirent) => dirent.name);
 }
 
-function getNumDirectoriesAwayFromRoot(filePath: string, num = 0): number {
+/* function getNumDirectoriesAwayFromRoot(filePath: string, num = 0): number {
   const directoryPath = path.dirname(filePath);
   if (
     directoryPath === "." ||
@@ -467,7 +467,7 @@ function getNumDirectoriesAwayFromRoot(filePath: string, num = 0): number {
 
   const newNum = num + 1;
   return getNumDirectoriesAwayFromRoot(directoryPath, newNum);
-}
+} */
 
 function capitalizeFirstLetter(string: string): string {
   const firstCharacter = string.charAt(0);
