@@ -1,4 +1,4 @@
-import { RockState } from "../enums/collections/gridEntityState";
+import { RockState } from "../../enums/collections/gridEntityState";
 
 declare global {
   interface GridEntityRock extends GridEntity {

@@ -1,7 +1,7 @@
 // Options are listed in order of how they appear in the in-game options menu (rather than
 // alphabetically).
 
-import { LanguageAbbreviation } from "../enums/LanguageAbbreviation";
+import { LanguageAbbreviation } from "../../enums/LanguageAbbreviation";
 
 declare global {
   namespace Options {

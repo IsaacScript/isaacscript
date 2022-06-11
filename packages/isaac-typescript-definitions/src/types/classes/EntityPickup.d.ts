@@ -10,10 +10,10 @@ import {
   PoopPickupSubType,
   SackSubType,
   TrinketType,
-} from "../enums/collections/subTypes";
-import { PickupVariant } from "../enums/collections/variants";
-import { EntityType } from "../enums/EntityType";
-import { PickupPrice } from "../enums/PickupPrice";
+} from "../../enums/collections/subTypes";
+import { PickupVariant } from "../../enums/collections/variants";
+import { EntityType } from "../../enums/EntityType";
+import { PickupPrice } from "../../enums/PickupPrice";
 
 declare global {
   interface EntityPickup extends Entity {

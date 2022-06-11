@@ -1,5 +1,5 @@
-import { CollectibleType, TrinketType } from "../enums/collections/subTypes";
-import { NullItemID } from "../enums/NullItemID";
+import { CollectibleType, TrinketType } from "../../enums/collections/subTypes";
+import { NullItemID } from "../../enums/NullItemID";
 
 declare interface TemporaryEffects {
   /**

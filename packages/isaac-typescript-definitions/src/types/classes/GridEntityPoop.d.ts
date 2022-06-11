@@ -1,4 +1,4 @@
-import { PoopState } from "../enums/collections/gridEntityState";
+import { PoopState } from "../../enums/collections/gridEntityState";
 
 declare global {
   interface GridEntityPoop extends GridEntity {

@@ -1,5 +1,5 @@
-import { LaserVariant } from "../enums/collections/variants";
-import { TearFlag } from "../enums/flags/TearFlag";
+import { LaserVariant } from "../../enums/collections/variants";
+import { TearFlag } from "../../enums/flags/TearFlag";
 
 declare global {
   interface EntityLaser extends Entity {

@@ -1,6 +1,6 @@
-import { ButtonAction } from "../enums/ButtonAction";
-import { Keyboard } from "../enums/Keyboard";
-import { Mouse } from "../enums/Mouse";
+import { ButtonAction } from "../../enums/ButtonAction";
+import { Keyboard } from "../../enums/Keyboard";
+import { Mouse } from "../../enums/Mouse";
 
 declare global {
   /** @noSelf */

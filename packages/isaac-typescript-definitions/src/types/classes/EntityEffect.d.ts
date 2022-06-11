@@ -1,5 +1,5 @@
-import { EffectVariant } from "../enums/collections/variants";
-import { EntityType } from "../enums/EntityType";
+import { EffectVariant } from "../../enums/collections/variants";
+import { EntityType } from "../../enums/EntityType";
 
 declare global {
   interface EntityEffect extends Entity {

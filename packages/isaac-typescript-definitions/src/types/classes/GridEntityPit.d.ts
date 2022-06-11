@@ -1,4 +1,4 @@
-import { PitState } from "../enums/collections/gridEntityState";
+import { PitState } from "../../enums/collections/gridEntityState";
 
 declare global {
   interface GridEntityPit extends GridEntity {

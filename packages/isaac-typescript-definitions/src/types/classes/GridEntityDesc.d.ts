@@ -1,4 +1,4 @@
-import { GridEntityType } from "../enums/GridEntityType";
+import { GridEntityType } from "../../enums/GridEntityType";
 
 declare global {
   interface GridEntityDesc {

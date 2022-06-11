@@ -1,5 +1,5 @@
-import { DisplayFlag } from "../enums/flags/DisplayFlag";
-import { RoomDescriptorFlag } from "../enums/flags/RoomDescriptorFlag";
+import { DisplayFlag } from "../../enums/flags/DisplayFlag";
+import { RoomDescriptorFlag } from "../../enums/flags/RoomDescriptorFlag";
 
 declare global {
   interface RoomDescriptor {

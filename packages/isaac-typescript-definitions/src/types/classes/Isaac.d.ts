@@ -1,19 +1,19 @@
-import { Challenge } from "../enums/Challenge";
+import { Challenge } from "../../enums/Challenge";
 import {
   Card,
   CollectibleType,
   PillColor,
   PlayerType,
   TrinketType,
-} from "../enums/collections/subTypes";
-import { EntityType } from "../enums/EntityType";
-import { LevelCurse } from "../enums/flags/LevelCurse";
-import { GridEntityType } from "../enums/GridEntityType";
-import { ModCallback } from "../enums/ModCallback";
-import { Music } from "../enums/Music";
-import { NullItemID } from "../enums/NullItemID";
-import { PillEffect } from "../enums/PillEffect";
-import { SoundEffect } from "../enums/SoundEffect";
+} from "../../enums/collections/subTypes";
+import { EntityType } from "../../enums/EntityType";
+import { LevelCurse } from "../../enums/flags/LevelCurse";
+import { GridEntityType } from "../../enums/GridEntityType";
+import { ModCallback } from "../../enums/ModCallback";
+import { Music } from "../../enums/Music";
+import { NullItemID } from "../../enums/NullItemID";
+import { PillEffect } from "../../enums/PillEffect";
+import { SoundEffect } from "../../enums/SoundEffect";
 import { ItemConfig } from "./ItemConfig";
 
 declare global {

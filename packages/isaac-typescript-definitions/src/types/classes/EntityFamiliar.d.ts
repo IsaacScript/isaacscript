@@ -1,6 +1,6 @@
-import { FamiliarVariant } from "../enums/collections/variants";
-import { Direction } from "../enums/Direction";
-import { TargetFlag } from "../enums/flags/TargetFlag";
+import { FamiliarVariant } from "../../enums/collections/variants";
+import { Direction } from "../../enums/Direction";
+import { TargetFlag } from "../../enums/flags/TargetFlag";
 
 declare global {
   interface EntityFamiliar extends Entity {

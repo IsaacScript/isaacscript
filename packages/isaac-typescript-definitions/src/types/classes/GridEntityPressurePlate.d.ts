@@ -1,4 +1,4 @@
-import { PressurePlateState } from "../enums/collections/gridEntityState";
+import { PressurePlateState } from "../../enums/collections/gridEntityState";
 
 declare global {
   interface GridEntityPressurePlate extends GridEntity {
