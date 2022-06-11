@@ -1,5 +1,10 @@
 import { postNewRoomEarlyCallbackInit } from "./callbacks/postNewRoomEarly";
 import { ModUpgraded } from "./classes/ModUpgraded";
+// Due to https://github.com/microsoft/TypeScript/issues/43869, the @link on line 16 will not work
+// without this import. However, eslint thinks it is unused and deletes it. Thus, until this bug is
+// fixed, this eslint-disable will likely be necessary.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { ModCallbackCustom } from "./enums/ModCallbackCustom";
 import { saveDataManagerInit } from "./features/saveDataManager/main";
 import {
   areFeaturesInitialized,
