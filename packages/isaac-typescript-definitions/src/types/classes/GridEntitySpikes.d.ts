@@ -1,4 +1,4 @@
-import { SpikesOnOffState } from "../enums/collections/gridEntityState";
+import { SpikesOnOffState } from "../../enums/collections/gridEntityState";
 
 declare global {
   interface GridEntitySpikes extends GridEntity {

@@ -1,4 +1,4 @@
-import { ModCallback } from "../enums/ModCallback";
+import { ModCallback } from "../../enums/ModCallback";
 
 declare global {
   /**

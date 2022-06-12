@@ -1,5 +1,5 @@
-import { ProjectileVariant } from "../enums/collections/variants";
-import { ProjectileFlag } from "../enums/flags/ProjectileFlag";
+import { ProjectileVariant } from "../../enums/collections/variants";
+import { ProjectileFlag } from "../../enums/flags/ProjectileFlag";
 
 declare global {
   interface EntityProjectile extends Entity {

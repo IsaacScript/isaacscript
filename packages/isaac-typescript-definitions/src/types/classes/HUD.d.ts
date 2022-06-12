@@ -1,4 +1,4 @@
-import { ActiveSlot } from "../enums/ActiveSlot";
+import { ActiveSlot } from "../../enums/ActiveSlot";
 
 declare global {
   interface HUD {

@@ -1,4 +1,4 @@
-import { EntityType } from "../enums/EntityType";
+import { EntityType } from "../../enums/EntityType";
 
 declare global {
   interface RoomConfigEntry {

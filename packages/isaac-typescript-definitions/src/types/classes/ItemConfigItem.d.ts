@@ -1,9 +1,9 @@
-import { CollectibleType, TrinketType } from "../enums/collections/subTypes";
-import { CacheFlag } from "../enums/flags/CacheFlag";
-import { ItemConfigTag } from "../enums/flags/ItemConfigTag";
-import { ItemConfigChargeType } from "../enums/ItemConfigChargeType";
-import { ItemType } from "../enums/ItemType";
-import { NullItemID } from "../enums/NullItemID";
+import { CollectibleType, TrinketType } from "../../enums/collections/subTypes";
+import { CacheFlag } from "../../enums/flags/CacheFlag";
+import { ItemConfigTag } from "../../enums/flags/ItemConfigTag";
+import { ItemConfigChargeType } from "../../enums/ItemConfigChargeType";
+import { ItemType } from "../../enums/ItemType";
+import { NullItemID } from "../../enums/NullItemID";
 
 declare global {
   interface ItemConfigItem {

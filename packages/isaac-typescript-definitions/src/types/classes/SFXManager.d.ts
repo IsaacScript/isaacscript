@@ -1,4 +1,4 @@
-import { SoundEffect } from "../enums/SoundEffect";
+import { SoundEffect } from "../../enums/SoundEffect";
 
 declare global {
   function SFXManager(this: void): SFXManager;

@@ -1,5 +1,5 @@
-import { KnifeVariant } from "../enums/collections/variants";
-import { TearFlag } from "../enums/flags/TearFlag";
+import { KnifeVariant } from "../../enums/collections/variants";
+import { TearFlag } from "../../enums/flags/TearFlag";
 
 declare global {
   interface EntityKnife extends Entity {

@@ -1,10 +1,10 @@
-import { Dimension } from "../enums/Dimension";
-import { DoorSlot } from "../enums/DoorSlot";
-import { LevelCurse } from "../enums/flags/LevelCurse";
-import { LevelStage } from "../enums/LevelStage";
-import { LevelStateFlag } from "../enums/LevelStateFlag";
-import { RoomType } from "../enums/RoomType";
-import { StageType } from "../enums/StageType";
+import { Dimension } from "../../enums/Dimension";
+import { DoorSlot } from "../../enums/DoorSlot";
+import { LevelCurse } from "../../enums/flags/LevelCurse";
+import { LevelStage } from "../../enums/LevelStage";
+import { LevelStateFlag } from "../../enums/LevelStateFlag";
+import { RoomType } from "../../enums/RoomType";
+import { StageType } from "../../enums/StageType";
 
 declare global {
   interface Level {

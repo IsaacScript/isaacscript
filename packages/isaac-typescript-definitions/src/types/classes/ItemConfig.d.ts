@@ -2,9 +2,9 @@ import {
   Card,
   CollectibleType,
   TrinketType,
-} from "../enums/collections/subTypes";
-import { NullItemID } from "../enums/NullItemID";
-import { PillEffect } from "../enums/PillEffect";
+} from "../../enums/collections/subTypes";
+import { NullItemID } from "../../enums/NullItemID";
+import { PillEffect } from "../../enums/PillEffect";
 
 declare interface ItemConfig {
   /** Returns undefined if the card was not found. */

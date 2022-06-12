@@ -1,5 +1,5 @@
-import { TearVariant } from "../enums/collections/variants";
-import { TearFlag } from "../enums/flags/TearFlag";
+import { TearVariant } from "../../enums/collections/variants";
+import { TearFlag } from "../../enums/flags/TearFlag";
 
 declare global {
   interface EntityTear extends Entity {
