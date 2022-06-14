@@ -37,3 +37,4 @@ fi
 bash "$PACKAGE_DIR/build.sh"
 cd "$DIR/dist/packages/$PACKAGE_NAME"
 npm publish
+git push
