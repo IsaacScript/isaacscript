@@ -6,6 +6,12 @@
     "build": {
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "dependencies"
+        }
+      ],
       "options": {
         "outputPath": "dist/packages/isaacscript-cli",
         "main": "packages/isaacscript-cli/src/main.ts",
@@ -21,6 +27,12 @@
     },
     "lint": {
       "executor": "@nrwl/workspace:run-commands",
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "self"
+        }
+      ],
       "options": {
         "command": "bash packages/isaacscript-cli/lint.sh"
       }

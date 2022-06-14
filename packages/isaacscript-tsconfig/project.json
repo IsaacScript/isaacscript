@@ -4,12 +4,24 @@
   "targets": {
     "build": {
       "executor": "@nrwl/workspace:run-commands",
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "dependencies"
+        }
+      ],
       "options": {
         "command": "bash packages/isaacscript-tsconfig/build.sh"
       }
     },
     "lint": {
       "executor": "@nrwl/workspace:run-commands",
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "self"
+        }
+      ],
       "options": {
         "command": "bash packages/isaacscript-tsconfig/lint.sh"
       }

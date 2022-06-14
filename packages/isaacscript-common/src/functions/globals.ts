@@ -210,6 +210,8 @@ export function getNewGlobals(): Array<[AnyNotNil, unknown]> {
   const newGlobals: Array<[AnyNotNil, unknown]> = [];
   for (const [key, value] of pairs(_G)) {
     if (!defaultGlobals.has(key)) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore: TSTL complains about functions not matching.
       const keyValueTuple: [AnyNotNil, unknown] = [key, value];
       newGlobals.push(keyValueTuple);
     }

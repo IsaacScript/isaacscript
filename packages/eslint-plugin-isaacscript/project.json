@@ -6,6 +6,12 @@
     "build": {
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "dependencies"
+        }
+      ],
       "options": {
         "outputPath": "dist/packages/eslint-plugin-isaacscript",
         "main": "packages/eslint-plugin-isaacscript/src/main.ts",
@@ -20,12 +26,24 @@
     },
     "test": {
       "executor": "@nrwl/workspace:run-commands",
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "self"
+        }
+      ],
       "options": {
         "command": "bash packages/eslint-plugin-isaacscript/test.sh"
       }
     },
     "lint": {
       "executor": "@nrwl/workspace:run-commands",
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "self"
+        }
+      ],
       "options": {
         "command": "bash packages/eslint-plugin-isaacscript/lint.sh"
       }
