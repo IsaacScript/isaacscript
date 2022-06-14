@@ -208,13 +208,11 @@ export function getDefaultGlobals(): Set<string> {
 export function getNewGlobals(): Array<[AnyNotNil, unknown]> {
   const defaultGlobals = getDefaultGlobals();
   const newGlobals: Array<[AnyNotNil, unknown]> = [];
-  for (const [key, _value] of pairs(_G)) {
+  for (const [key, value] of pairs(_G)) {
     if (!defaultGlobals.has(key)) {
-      // TODO: Make this work with TSTL 1.6.0.
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      /// const keyValueTuple: [AnyNotNil, unknown] = [key, value];
-      /// newGlobals.push(keyValueTuple);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const keyValueTuple: [AnyNotNil, unknown] = [key, value as any];
+      newGlobals.push(keyValueTuple);
     }
   }
 
