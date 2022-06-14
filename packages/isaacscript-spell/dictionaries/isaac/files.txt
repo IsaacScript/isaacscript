@@ -18,8 +18,8 @@ hudpickups # hudpickups.png
 Humbleing # items.xml
 itemdungeon # 00.special rooms.xml
 itempools # itempools.xml
-lazarussharedglobal # items_metadata.xml
 lazarusshared # items_metadata.xml
+lazarussharedglobal # items_metadata.xml
 maxcharges # items.xml
 mimiccharge # pocketitems.xml
 monstermanual # items_metadata.xml
