@@ -89,6 +89,11 @@ export function parseArgs(): Args {
             type: "boolean",
             description: "Open the project in VSCode after initialization",
           })
+          .option("npm", {
+            alias: "n",
+            type: "boolean",
+            description: "Use NPM instead of Yarn",
+          })
           .option("skip-install", {
             alias: "i",
             type: "boolean",
