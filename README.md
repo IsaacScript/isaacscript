@@ -30,6 +30,8 @@ Each project in the monorepo is contained within the "packages" directory.
 
 ## Getting Started with Development
 
+For getting started in building your own mods, see the [website](https://isaacscript.github.io/main/getting-started). For contributing to the IsaacScript project itself, read on.
+
 - Download and install [Node.js](https://nodejs.org/en/download/), if you don't have it already.
 - Download and install [Git](https://git-scm.com/), if you don't have it already.
 - Download and install [VSCode](https://https://code.visualstudio.com/), if you don't have it already.
