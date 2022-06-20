@@ -29,7 +29,7 @@ cp -R "$DIR/src/types" "$OUT_DIR/"
 # /// <reference path="types/index.d.ts" />
 sed --in-place 's/types="packages\/isaac-typescript-definitions\/src\/types"/path="types\/index.d.ts"/' "$OUT_DIR/index.d.ts"
 
-# Copy the rest of the files needed for NPM.
+# Copy the rest of the files needed for npm.
 cp "$DIR/LICENSE" "$OUT_DIR/"
 cp "$DIR/package.json" "$OUT_DIR/"
 cp "$DIR/README.md" "$OUT_DIR/"

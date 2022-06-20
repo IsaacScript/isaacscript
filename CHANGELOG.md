@@ -17,7 +17,7 @@ This page lists the changes to the IsaacScript framework.
 IsaacScript mods now require that `typescript-to-lua` is listed as a dependency in your `package.json` file. In other words, type one of the following commands:
 
 ```sh
-# If you use NPM:
+# If you use npm:
 npm install --save typescript-to-lua
 
 # If you use Yarn:
@@ -1633,7 +1633,7 @@ You can still use `null` in your own variables, but make sure that it is for var
 - Released the `isaacscript-common` package, which includes helper functions that you can use in your IsaacScript mods. Right now there are not that many functions, but I plan to increase this in the future. They are documented [here](https://isaacscript.github.io/isaacscript-common).
 - Breaking changes:
   - The `isaacscript` package is no longer a meta-package that provides everything else. (It was getting too big and hard to handle.)
-  - This means that instead of having 1 NPM dependency of just `isaacscript`, new IsaacScript mods created with `init` are initialized with 4 dependencies:
+  - This means that instead of having 1 dependency of just `isaacscript`, new IsaacScript mods created with `init` are initialized with 4 dependencies:
     - `isaacscript` - The monitoring program.
     - `isaacscript-lint` - The linting config.
     - `isaacscript-common` - Optional helper functions that you can use in your mods.

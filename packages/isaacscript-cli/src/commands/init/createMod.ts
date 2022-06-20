@@ -205,7 +205,7 @@ function copyDynamicFiles(
 /** The "package.json" file has to be copied first before this step. */
 function updateNodeModules(projectPath: string, verbose: boolean) {
   console.log(
-    'Finding out the latest versions of the NPM packages with "npm-check-updates"...',
+    'Finding out the latest versions of the packages with "npm-check-updates"...',
   );
   execShell(
     "npx",

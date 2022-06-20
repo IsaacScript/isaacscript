@@ -19,7 +19,7 @@ OUT_DIR="$DIR/../../dist/packages/$REPO_NAME"
 rm -rf "$OUT_DIR"
 npx tstl
 
-# Copy the rest of the files needed for NPM.
+# Copy the rest of the files needed for npm.
 cp "$DIR/LICENSE" "$OUT_DIR/"
 cp "$DIR/package.json" "$OUT_DIR/"
 cp "$DIR/README.md" "$OUT_DIR/"

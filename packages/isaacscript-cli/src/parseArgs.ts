@@ -14,6 +14,8 @@ export interface Args {
   useCurrentDir?: boolean;
   vscode?: boolean;
   npm?: boolean;
+  yarn?: boolean;
+  pnpm?: boolean;
   skipInstall?: boolean;
   forceName?: boolean;
 
@@ -92,7 +94,16 @@ export function parseArgs(): Args {
           .option("npm", {
             alias: "n",
             type: "boolean",
-            description: "Use NPM instead of Yarn",
+            description: "Use npm as the package manager",
+          })
+          .option("yarn", {
+            type: "boolean",
+            description: "Use yarn as the package manager",
+          })
+          .option("pnpm", {
+            alias: "p",
+            type: "boolean",
+            description: "Use pnPm as the package manager",
           })
           .option("skip-install", {
             alias: "i",

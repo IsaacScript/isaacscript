@@ -101,11 +101,11 @@ For a discussion around comments and the motivations for some of the comment rul
 
 Thanks for helping out with this open-source project!
 
-If you are adding a new rule, start by using the NPM script to automate a few things:
+If you are adding a new rule, start by using the npm script to automate a few things:
 
 ```sh
 npm run create-rule
-git status # Show what the NPM script did
+git status # Show what the script did
 ```
 
 Additionally, You can contact me [on Discord](https://discord.gg/KapmKQ2gUD) if you are doing a PR and have questions.

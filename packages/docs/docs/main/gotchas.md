@@ -395,9 +395,9 @@ Since number enums are always declared in order of value, you would probably onl
 
 <br />
 
-### NPM Dependencies
+### npm Dependencies
 
-Unfortunately, you can't use JavaScript or TypeScript libraries from NPM, since TypeScriptToLua does not support that. However, if you need a specific function, then you can simply copy paste it into your own code.
+Unfortunately, you can't use JavaScript or TypeScript libraries from npm, since TypeScriptToLua does not support that. However, if you need a specific function, then you can simply copy paste it into your own code.
 
 On the other hand, if you want to split IsaacScript code between repositories or share a library with others, TypeScriptToLua does allow [using and creating npm packages containing .lua files](https://typescripttolua.github.io/docs/external-lua-code). This is exactly what the `isaacscript-common` package does. Check out the TypeScriptToLua docs for more details.
 
