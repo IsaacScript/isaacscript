@@ -1,111 +1,137 @@
 /* eslint-disable sort-exports/sort-exports */
 
+// eslint-disable-next-line isaacscript/complete-sentences-jsdoc
 /**
- * A function that creates the value for your default map. For example, if it was a default map
- * containing maps, the factory function would be: `() => new Map()`
+ * A function that creates the default value for your `DefaultMap`. For example, if it was a
+ * `DefaultMap` containing maps, the factory function would be: `() => new Map()`
  */
 export type FactoryFunction<V, Args extends unknown[]> = (
   ...extraArgs: Args
 ) => V;
 
-type FirstArg<K, V, Args extends unknown[]> =
-  | Iterable<[K, V]>
-  | V
-  | FactoryFunction<V, Args>;
-type SecondArg<V, Args extends unknown[]> = V | FactoryFunction<V, Args>;
-
-interface ParsedArgs<K, V, Args extends unknown[]> {
-  iterable: Iterable<[K, V]> | undefined;
-  defaultValue: V | undefined;
-  defaultValueFactory: FactoryFunction<V, Args> | undefined;
-}
-
 /**
- * An extended `Map` with some new methods:
+ * `DefaultMap` is a data structure that makes working with default values easier.
  *
- * - `getAndSetDefault` - If the key exists, this will return the same thing as the `get` method.
- *   Otherwise, it will set a default value to the key, and then return the default value.
+ * It is a common pattern to look up a value in a `Map`, and then, if the value does not exist, set
+ * a default value for the key, and then return the default value. `DefaultMap` abstracts this
+ * operation away by providing the `getAndSetDefault` method.
+ *
+ * Using a `DefaultMap` is nice because it makes code more declarative, since you specify what the
+ * default value is alongside the types of the keys/values.
+ *
+ * When instantiating a new `DefaultMap`, you must specify default value as the first argument. (The
+ * default value is the initial value that will be assigned to every new entry in the
+ * `getAndSetDefault` method.) For example:
+ *
+ * ```ts
+ * // Initializes a new empty DefaultMap with a default value of "foo".
+ * const defaultMapWithString = new DefaultMap<string, string>("foo");
+ *
+ * const value = defaultMapWithString.getAndSetDefault("bar");
+ * // value is now "foo" and an entry for "bar" is now set.
+ * ```
+ *
+ * Sometimes, instead of having a static initial value for every entry in the map, you will want a
+ * dynamic initial value that is contingent upon the key or some other variable. In these cases, you
+ * can instead specify that the `DefaultMap` should run a function that will return the initial
+ * value. (This is referred to as a "factory function".) For example:
+ *
+ * ```ts
+ * // Initializes a new empty DefaultMap with a default value based on "someGlobalVariable".
+ * const factoryFunction = () => someGlobalVariable ? 0 : 1;
+ * const defaultMapWithFactoryFunction = new DefaultMap<string, string>(factoryFunction);
+ * ```
+ *
+ * Note that in TypeScript and Lua, booleans, numbers, and strings are "passed by value". This means
+ * that when the `DefaultMap` creates a new entry, if the default value is one of these 3 types, the
+ * values will be copied. On the other hand, arrays and maps and other complex data structures are
+ * "passed by reference". This means that when the `DefaultMap` creates a new entry, if the default
+ * value is an array, then it would not be copied. Instead, the same shared array would be assigned
+ * to every entry. Thus, to solve this problem, any variable that is passed by reference must be
+ * created using a factory function to ensure that each copy is unique. For example:
+ *
+ * ```ts
+ * // Initializes a new empty DefaultMap with a default value of a new empty array.
+ * const factoryFunction = () => [] as ;
+ * const defaultMapWithArray = new DefaultMap<string, string[]>(factoryFunction);
+ * ```
+ *
+ * In the previous two examples, the factory functions did not have any arguments. But you can also
+ * specify a factory function that takes one or more arguments:
+ *
+ * ```ts
+ * const factoryFunction = (arg: boolean) => arg ? 0 : 1;
+ * const defaultMapWithArg = new DefaultMap<string, string, [arg: boolean]>(factoryFunction);
+ * ```
+ *
+ * Similar to a normal `Map`, you can also include an initializer list in the constructor as the
+ * second argument:
+ *
+ * ```ts
+ * // Initializes a DefaultMap with a default value of "foo" and some initial values.
+ * const defaultMapWithInitialValues = new DefaultMap<string, string>("foo", [
+ *   ["a1", "a2"],
+ *   ["b1", "b2"],
+ * ], );
+ * ```
+ *
+ * Finally, note that `DefaultMap` has the following additional utility methods:
+ *
+ * - `getAndSetDefault` - The method that is called inside the overridden `get` method. In most
+ *   cases, you can use the overridden `get` method instead of calling this function directly.
+ *   However, if a factory function was provided during instantiation, and the factory function has
+ *   one or more arguments, then you must call this method instead (and provide the corresponding
+ *   arguments).
+ * - `getWithoutDefault` - Calls the original `Map.get` function (without setting the default
+ *   value).
  * - `getDefaultValue` - Returns the default value to be used for a new key. (If a factory function
  *   was provided during instantiation, this will execute the factory function.)
  * - `getConstructorArg` - Helper method for cloning the map. Returns either the default value or
  *   the reference to the factory function.
- *
- * When instantiating a new DefaultMap, you must specify either a default value or a function that
- * returns a default value.
- *
- * For example:
- *
- * ```ts
- * // Initializes a new empty DefaultMap with a default value of "foo".
- * const defaultMapWithPrimitive = new DefaultMap<string, string>("foo");
- *
- * // Initializes a new empty DefaultMap with a default value of a new Map.
- * const defaultMapWithFactory = new DefaultMap<string, Map<string, string>>(() => {
- *   return new Map();
- * })
- *
- * // Initializes a DefaultMap with some initial values and a default value of "bar".
- * const defaultMapWithInitialValues = new DefaultMap<string, string>([
- *   ["a1", "a2"],
- *   ["b1", "b2"],
- * ], "bar");
- * ```
- *
- * If specified, the first argument of a factory function must always be equal to the key:
- *
- * ```ts
- * const defaultMapWithConditionalDefaultValue = new DefaultMap<number, number>((key: number) => {
- *   return isOdd(key) ? 0 : 1;
- * });
- * ```
- *
- * You can also specify a factory function that takes a generic amount of arguments beyond the
- * first:
- *
- * ```ts
- * const factoryFunction = (arg: boolean) => arg ? 0 : 1;
- * const defaultMapWithExtraArgs = new DefaultMap<string, string, [arg: boolean]>(factoryFunction);
- * ```
  */
-export class DefaultMap<K, V, Args extends unknown[] = []> extends Map<K, V> {
-  private defaultValue: V | undefined;
-  private defaultValueFactory: FactoryFunction<V, Args> | undefined;
+export class DefaultMap<Key, Value, Args extends unknown[] = []> extends Map<
+  Key,
+  Value
+> {
+  private defaultValue: Value | undefined;
+  private defaultValueFactory: FactoryFunction<Value, Args> | undefined;
 
   /**
    * See the main `DefaultMap` documentation:
    * https://isaacscript.github.io/isaacscript-common/classes/classes_DefaultMap.DefaultMap
    */
   constructor(
-    iterableOrDefaultValueOrDefaultValueFactory: FirstArg<K, V, Args>,
-    defaultValueOrDefaultValueFactory?: SecondArg<V, Args>,
+    defaultValueOrFactoryFunction: Value | FactoryFunction<Value, Args>,
+    initializerArray?: Iterable<[Key, Value]>,
   ) {
-    const { iterable, defaultValue, defaultValueFactory } = parseArguments(
-      iterableOrDefaultValueOrDefaultValueFactory,
-      defaultValueOrDefaultValueFactory,
-    );
-
-    if (defaultValue === undefined && defaultValueFactory === undefined) {
+    const argType = typeof defaultValueOrFactoryFunction;
+    const argIsPrimitive =
+      argType === "boolean" || argType === "number" || argType === "string";
+    const argIsFunction = argType === "function";
+    if (!argIsPrimitive && !argIsFunction) {
       error(
-        "A DefaultMap must be instantiated with either a default value or a function that returns a default value.",
+        `Failed to instantiate a DefaultMap since the provided default value was of type "${argType}". This error usually means that you are trying to use an array (or some other non-primitive data structure that is passed by reference) as the default value. Instead, return the data structure in a factory function, like "() => []". See the DefaultMap documentation for more details.`,
       );
     }
 
-    if (iterable === undefined) {
-      super();
-    } else {
-      super(iterable);
-    }
+    super(initializerArray);
 
-    this.defaultValue = defaultValue;
-    this.defaultValueFactory = defaultValueFactory;
+    if (argIsFunction) {
+      this.defaultValue = undefined;
+      this.defaultValueFactory =
+        defaultValueOrFactoryFunction as FactoryFunction<Value, Args>;
+    } else {
+      this.defaultValue = defaultValueOrFactoryFunction as Value;
+      this.defaultValueFactory = undefined;
+    }
   }
 
   /**
-   * If the key exists, this will return the same thing as the `get` method. Otherwise, it will set
-   * a default value to the key, and then return the default value.
+   * If the key exists, this will return the same thing as the normal `Map.get` method. Otherwise,
+   * it will set a default value for the provided key, and then return the default value.
    */
-  getAndSetDefault(key: K, ...extraArgs: Args): V {
-    const value = this.get(key);
+  getAndSetDefault(key: Key, ...extraArgs: Args): Value {
+    const value = super.get(key);
     if (value !== undefined) {
       return value;
     }
@@ -115,11 +141,15 @@ export class DefaultMap<K, V, Args extends unknown[] = []> extends Map<K, V> {
     return defaultValue;
   }
 
+  getWithoutDefault(key: Key): Value | undefined {
+    return super.get(key);
+  }
+
   /**
    * Returns the default value to be used for a new key. (If a factory function was provided during
    * instantiation, this will execute the factory function.)
    */
-  getDefaultValue(...extraArgs: Args): V {
+  getDefaultValue(...extraArgs: Args): Value {
     if (this.defaultValue !== undefined) {
       return this.defaultValue;
     }
@@ -135,7 +165,7 @@ export class DefaultMap<K, V, Args extends unknown[] = []> extends Map<K, V> {
    * Helper method for cloning the map. Returns either the default value or a reference to the
    * factory function.
    */
-  getConstructorArg(): V | FactoryFunction<V, Args> {
+  getConstructorArg(): Value | FactoryFunction<Value, Args> {
     if (this.defaultValue !== undefined) {
       return this.defaultValue;
     }
@@ -146,75 +176,4 @@ export class DefaultMap<K, V, Args extends unknown[] = []> extends Map<K, V> {
 
     return error("A DefaultMap was incorrectly instantiated.");
   }
-}
-
-function parseArguments<K, V, Args extends unknown[]>(
-  firstArg: FirstArg<K, V, Args>,
-  secondArg?: SecondArg<V, Args>,
-): ParsedArgs<K, V, Args> {
-  return secondArg === undefined
-    ? parseArgumentsOne(firstArg)
-    : parseArgumentsTwo(firstArg, secondArg);
-}
-
-function parseArgumentsOne<K, V, Args extends unknown[]>(
-  firstArg: FirstArg<K, V, Args>,
-): ParsedArgs<K, V, Args> {
-  const arg = firstArg as SecondArg<V, Args>;
-  const { defaultValue, defaultValueFactory } =
-    parseDefaultValueOrDefaultValueFactory(arg);
-  return {
-    iterable: undefined,
-    defaultValue,
-    defaultValueFactory,
-  };
-}
-
-function parseArgumentsTwo<K, V, Args extends unknown[]>(
-  firstArg: FirstArg<K, V, Args>,
-  secondArg: SecondArg<V, Args>,
-): ParsedArgs<K, V, Args> {
-  const firstArgType = type(firstArg);
-  if (firstArgType !== "table") {
-    error(
-      "A DefaultMap constructor with two arguments must have the first argument be the initializer list.",
-    );
-  }
-
-  const { defaultValue, defaultValueFactory } =
-    parseDefaultValueOrDefaultValueFactory(secondArg);
-  return {
-    iterable: firstArg as Iterable<[K, V]>,
-    defaultValue,
-    defaultValueFactory,
-  };
-}
-
-function parseDefaultValueOrDefaultValueFactory<V, Args extends unknown[]>(
-  arg: SecondArg<V, Args>,
-): {
-  defaultValue: V | undefined;
-  defaultValueFactory: FactoryFunction<V, Args> | undefined;
-} {
-  if (typeof arg === "function") {
-    return {
-      defaultValue: undefined,
-      defaultValueFactory: arg as FactoryFunction<V, Args>,
-    };
-  }
-
-  if (
-    typeof arg === "boolean" ||
-    typeof arg === "number" ||
-    typeof arg === "string"
-  ) {
-    return {
-      defaultValue: arg as V,
-      defaultValueFactory: undefined,
-    };
-  }
-
-  return error(
-    `A DefaultMap was instantiated with an unknown type of: ${typeof arg}`,
-  );
 }
