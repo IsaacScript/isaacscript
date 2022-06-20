@@ -77,6 +77,16 @@ module.exports = {
 
     /**
      * Documentation:
+     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/main/docs/rules/no-invalid-default-map.md
+     *
+     * Not defined in the parent configs.
+     *
+     * Prevents misuse of the custom `DefaultMap` class in the standard library.
+     */
+    "isaacscript/no-invalid-default-map": "warn",
+
+    /**
+     * Documentation:
      * https://github.com/eslint/eslint/blob/master/docs/rules/no-bitwise.md
      *
      * Defined at:

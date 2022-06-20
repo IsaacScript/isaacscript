@@ -35,7 +35,7 @@ Each rule has emojis denoting:
 - :wrench: - if some problems reported by the rule are automatically fixable by the `--fix` [command line option](https://eslint.org/docs/user-guide/command-line-interface#fixing-problems)
 - :thought_balloon: - if it requires type information
 
-<!-- Do not manually modify RULES_TABLE section. Instead, run: npm run generate:rules-table -->
+<!-- Do not manually modify RULES_TABLE section. Instead, run: yarn run generate:rules-table -->
 <!-- RULES_TABLE -->
 
 | Name                                                                                             | Description                                                                                           | :white_check_mark: | :wrench: | :thought_balloon: |
@@ -51,6 +51,7 @@ Each rule has emojis denoting:
 | [`isaacscript/no-empty-jsdoc`](docs/rules/no-empty-jsdoc.md)                                     | Disallows empty JSDoc comments                                                                        | :white_check_mark: | :wrench: |                   |
 | [`isaacscript/no-explicit-array-loops`](docs/rules/no-explicit-array-loops.md)                   | Disallows explicit iteration for arrays                                                               | :white_check_mark: | :wrench: | :thought_balloon: |
 | [`isaacscript/no-implicit-map-set-loops`](docs/rules/no-implicit-map-set-loops.md)               | Disallows implicit iteration for `Maps` and `Sets`                                                    | :white_check_mark: | :wrench: | :thought_balloon: |
+| [`isaacscript/no-invalid-default-map`](docs/rules/no-invalid-default-map.md)                     | Disallows invalid constructors for the DefaultMap class                                               |                    |          | :thought_balloon: |
 | [`isaacscript/no-let-any`](docs/rules/no-let-any.md)                                             | Disallows declaring variables with let that do not have a type                                        | :white_check_mark: |          | :thought_balloon: |
 | [`isaacscript/no-object-any`](docs/rules/no-object-any.md)                                       | Disallows declaring objects and arrays that do not have a type                                        | :white_check_mark: |          | :thought_balloon: |
 | [`isaacscript/no-template-curly-in-string-fix`](docs/rules/no-template-curly-in-string-fix.md)   | Disallows template literal placeholder syntax in regular strings (and automatically fixes)            | :white_check_mark: | :wrench: |                   |

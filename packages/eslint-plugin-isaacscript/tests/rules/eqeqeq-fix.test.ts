@@ -16,6 +16,7 @@ if (foo !== bar) {
       `,
     },
   ],
+
   invalid: [
     {
       code: `

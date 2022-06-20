@@ -10,6 +10,7 @@ const a = 1;
       `,
     },
   ],
+
   invalid: [
     {
       code: `

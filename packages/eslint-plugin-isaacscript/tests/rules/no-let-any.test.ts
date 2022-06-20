@@ -20,6 +20,7 @@ let [, secondElement] = myArray;
       `,
     },
   ],
+
   invalid: [
     {
       code: `

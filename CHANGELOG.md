@@ -11,6 +11,7 @@ This page lists the changes to the IsaacScript framework.
   - `DefaultMap` now takes the default value/function as the first argument and the initializer array as the second argument.
 - Added the following helper functions:
   - `isPrimitive`
+- Added the `no-invalid-default-map` ESLint rule that will detect when you have an invalid first argument to a `DefaultMap` constructor.
 
 ## June 4th, 2022
 

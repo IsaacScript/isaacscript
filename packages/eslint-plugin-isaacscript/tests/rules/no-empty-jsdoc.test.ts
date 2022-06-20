@@ -16,6 +16,7 @@ ruleTester.run("no-empty-jsdoc", noEmptyJSDoc, {
       `,
     },
   ],
+
   invalid: [
     {
       code: `

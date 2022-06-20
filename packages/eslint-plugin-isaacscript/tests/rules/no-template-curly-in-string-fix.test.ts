@@ -9,6 +9,7 @@ const fooString = \`foo: \${foo}\`;
       `,
     },
   ],
+
   invalid: [
     {
       code: `

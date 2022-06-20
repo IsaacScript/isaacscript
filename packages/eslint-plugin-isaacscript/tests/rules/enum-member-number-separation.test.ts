@@ -12,6 +12,7 @@ enum Foo {
       `,
     },
   ],
+
   invalid: [
     {
       code: `

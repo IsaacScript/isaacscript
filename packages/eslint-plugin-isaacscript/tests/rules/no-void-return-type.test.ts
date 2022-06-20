@@ -9,6 +9,7 @@ function foo() {}
       `,
     },
   ],
+
   invalid: [
     {
       code: `

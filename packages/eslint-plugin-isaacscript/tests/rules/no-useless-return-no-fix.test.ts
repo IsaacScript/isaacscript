@@ -11,6 +11,7 @@ function foo() {
       `,
     },
   ],
+
   invalid: [
     {
       code: `

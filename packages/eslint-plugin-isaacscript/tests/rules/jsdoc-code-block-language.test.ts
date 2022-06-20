@@ -37,6 +37,7 @@ ruleTester.run("jsdoc-code-block-language", jsdocCodeBlockLanguage, {
       `,
     },
   ],
+
   invalid: [
     {
       code: `

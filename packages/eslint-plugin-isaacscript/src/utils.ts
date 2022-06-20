@@ -1,4 +1,5 @@
 import { ESLintUtils } from "@typescript-eslint/utils";
+import * as ts from "typescript";
 
 /** Taken from ESLint: https://github.com/eslint/eslint/blob/main/lib/rules/max-len.js */
 const URL_REGEXP = /[^:/?#]:\/\/[^?#]/u;
@@ -79,4 +80,19 @@ export function getOrdinalSuffix(i: number): string {
 
 export function hasURL(text: string): boolean {
   return URL_REGEXP.test(text);
+}
+
+export function isFunction(
+  tsNode: ts.Node,
+  type: ts.Type,
+  checker: ts.TypeChecker,
+): boolean {
+  if (ts.isFunctionLike(tsNode)) {
+    return true;
+  }
+
+  // "isFunctionLike" does not seem to work with basic function expressions, so we resort to
+  // checking if any signatures exist.
+  const signatures = checker.getSignaturesOfType(type, ts.SignatureKind.Call);
+  return signatures.length > 0;
 }
