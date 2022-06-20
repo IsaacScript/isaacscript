@@ -28,8 +28,9 @@ if [ -z "$2" ]; then
 fi
 VERSION_BUMP=$2
 
+yarn config set version-tag-prefix "$PACKAGE_NAME-"
 if [ "$VERSION_BUMP" == "major" ] || [ "$VERSION_BUMP" == "minor" ] || [ "$VERSION_BUMP" == "patch" ]; then
-  yarn version --new-version $VERSION_BUMP
+  yarn version --new-version $VERSION_BUMP --tag
 else
   yarn version --set-version $VERSION_BUMP
 fi
