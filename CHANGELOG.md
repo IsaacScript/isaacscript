@@ -5,6 +5,11 @@
 
 This page lists the changes to the IsaacScript framework.
 
+## June 20th, 2022
+
+- Added the following helper functions:
+  - `isPrimitive`
+
 ## June 4th, 2022
 
 - IsaacScript now supports [pnmp](https://pnpm.io/). (Thanks KatTheFox)

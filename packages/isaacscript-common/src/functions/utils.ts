@@ -136,6 +136,11 @@ export function irange(start: int, end?: int): int[] {
   return array;
 }
 
+export function isPrimitive(variable: unknown): boolean {
+  const type = typeof variable;
+  return type === "boolean" || type === "number" || type === "string";
+}
+
 /**
  * Since this is a UI element, we do not want to draw it in water reflections. `renderOffset` will
  * be a non-zero value in reflections.
