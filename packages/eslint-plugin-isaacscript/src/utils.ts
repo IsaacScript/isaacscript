@@ -82,15 +82,7 @@ export function hasURL(text: string): boolean {
   return URL_REGEXP.test(text);
 }
 
-export function isFunction(
-  tsNode: ts.Node,
-  type: ts.Type,
-  checker: ts.TypeChecker,
-): boolean {
-  if (ts.isFunctionLike(tsNode)) {
-    return true;
-  }
-
+export function isFunction(type: ts.Type, checker: ts.TypeChecker): boolean {
   // "isFunctionLike" does not seem to work with basic function expressions, so we resort to
   // checking if any signatures exist.
   const signatures = checker.getSignaturesOfType(type, ts.SignatureKind.Call);

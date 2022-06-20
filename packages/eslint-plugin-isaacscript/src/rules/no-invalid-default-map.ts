@@ -65,7 +65,7 @@ export const noInvalidDefaultMap = createRule<
           return;
         }
 
-        const isFunctionLike = isFunction(tsNode, type, checker);
+        const isFunctionLike = isFunction(type, checker);
         if (isFunctionLike) {
           return;
         }
