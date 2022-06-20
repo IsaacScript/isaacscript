@@ -174,6 +174,7 @@ function deepCopyDefaultMap(
     | LuaTable<AnyNotNil, unknown>;
   switch (serializationType) {
     case SerializationType.NONE: {
+      // eslint-disable-next-line isaacscript/no-invalid-default-map
       newDefaultMap = new DefaultMap(constructorArg);
       break;
     }
@@ -215,6 +216,7 @@ function deepCopyDefaultMap(
         );
       }
 
+      // eslint-disable-next-line isaacscript/no-invalid-default-map
       newDefaultMap = new DefaultMap(defaultMapValue);
 
       break;
