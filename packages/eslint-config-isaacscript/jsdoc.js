@@ -47,16 +47,17 @@ module.exports = {
       "warn",
       {
         definedTags: [
-          // Used by the TypeScript compiler:
+          // Ignore tags used by the TypeScript compiler:
           // https://www.typescriptlang.org/tsconfig#stripInternal
           "internal", // Used by TypeScript
 
-          // Add tags used in TypeDoc:
+          // Ignore tags used in TypeDoc:
           // https://typedoc.org/guides/doccomments/
           "category",
           "hidden",
+          "notExported",
 
-          // Add tags used in TypeScriptToLua:
+          // Ignore tags used in TypeScriptToLua:
           // https://typescripttolua.github.io/docs/advanced/compiler-annotations
           "noResolution",
           "noSelf",
