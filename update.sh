@@ -23,3 +23,5 @@ if [[ $OLD_HASH != $NEW_HASH ]]; then
   syncpack fix-mismatches
   npx prettier --write "**/package.json"
 fi
+
+bash "$DIR/packages/isaacscript-lint/update.sh"
