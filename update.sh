@@ -16,7 +16,7 @@ OLD_HASH=$(md5sum "$PACKAGE_JSON")
 # - @mdx-js/react,react,react-dom - Stuck until Docusaurus upgrades.
 # - unified - Does not work with the current Markdown linting setup because it requires a "module"
 #   type in "package.json", and Docusaurus does not support this yet.
-npx npm-check-updates --upgrade --packageFile "$PACKAGE_JSON" --reject "chalk,@mdx-js/react,react,react-dom,unified"
+npx npm-check-updates --upgrade --packageFile "$PACKAGE_JSON" --reject "chalk,@mdx-js/react,react,react-dom,unified,sync-directory"
 NEW_HASH=$(md5sum "$PACKAGE_JSON")
 if [[ $OLD_HASH != $NEW_HASH ]]; then
   yarn
