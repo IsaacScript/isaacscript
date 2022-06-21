@@ -143,11 +143,9 @@ export function iterateTableDeterministically<K, V>(
   func: (key: K, value: V) => void,
   deterministic = true,
 ): void {
-  const entries = pairs(table);
-
   // First, handle the trivial case of a non-deterministic iteration.
   if (!deterministic) {
-    for (const [key, value] of entries) {
+    for (const [key, value] of pairs(table)) {
       func(key, value);
     }
     return;
@@ -155,7 +153,7 @@ export function iterateTableDeterministically<K, V>(
 
   // We can't sort a Lua multi-return, so we have to convert it to an array first.
   const entriesArray: Array<[K, V]> = [];
-  for (const [key, value] of entries) {
+  for (const [key, value] of pairs(table)) {
     const entry: [K, V] = [key, value];
     entriesArray.push(entry);
   }

@@ -43,6 +43,7 @@ import { postRockRenderInit } from "./callbacks/postRockRender";
 import { postRockUpdateInit } from "./callbacks/postRockUpdate";
 import { postRoomClearChangedCallbackInit } from "./callbacks/postRoomClearChanged";
 import { postSacrificeCallbackInit } from "./callbacks/postSacrifice";
+import { postSlotDestroyedCallbacksInit } from "./callbacks/postSlotDestroyed";
 import { postSlotInitUpdateCallbacksInit } from "./callbacks/postSlotInitUpdate";
 import { postSlotRenderCallbacksInit } from "./callbacks/postSlotRender";
 import { postSpikesRenderInit } from "./callbacks/postSpikesRender";
@@ -104,6 +105,7 @@ export function initCustomCallbacks(mod: ModUpgraded): void {
   postRockUpdateInit(mod);
   postRoomClearChangedCallbackInit(mod);
   postSacrificeCallbackInit(mod);
+  postSlotDestroyedCallbacksInit(mod);
   postSlotInitUpdateCallbacksInit(mod);
   postSlotRenderCallbacksInit(mod);
   postSpikesRenderInit(mod);

@@ -224,9 +224,6 @@ export function twoDimensionalSort<T>(a: T[], b: T[]): -1 | 0 | 1 {
     );
   }
 
-  Isaac.DebugString(`a0: ${a[0]}`);
-  Isaac.DebugString(`b0: ${b[0]}`);
-
   if (a[0] === b[0]) {
     return 0;
   }

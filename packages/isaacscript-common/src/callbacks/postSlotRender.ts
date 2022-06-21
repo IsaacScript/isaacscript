@@ -1,7 +1,6 @@
 // This provides the logic for the following callbacks:
 // - PostSlotRender
 // - PostSlotAnimationChanged
-// - PostSlotDestroyed
 
 import { ModCallback } from "isaac-typescript-definitions";
 import { DefaultMap } from "../classes/DefaultMap";
@@ -12,18 +11,9 @@ import {
   postSlotAnimationChangedHasSubscriptions,
 } from "./subscriptions/postSlotAnimationChanged";
 import {
-  postSlotDestroyedFire,
-  postSlotDestroyedHasSubscriptions,
-} from "./subscriptions/postSlotDestroyed";
-import {
   postSlotRenderFire,
   postSlotRenderHasSubscriptions,
 } from "./subscriptions/postSlotRender";
-
-const BROKEN_ANIMATIONS: ReadonlySet<string> = new Set([
-  "Broken", // Normal machines
-  "Death", // Restock machines
-]);
 
 const v = {
   room: {
@@ -47,7 +37,6 @@ export function postSlotRenderCallbacksInit(mod: Mod): void {
 function hasSubscriptions() {
   return (
     postSlotRenderHasSubscriptions() ||
-    postSlotDestroyedHasSubscriptions() ||
     postSlotAnimationChangedHasSubscriptions()
   );
 }
@@ -61,7 +50,6 @@ function postRender() {
   for (const slot of getSlots()) {
     postSlotRenderFire(slot);
     checkSlotAnimationChanged(slot);
-    checkSlotBroken(slot);
   }
 }
 
@@ -77,20 +65,5 @@ function checkSlotAnimationChanged(slot: EntitySlot) {
 
   if (currentAnimation !== previousAnimation) {
     postSlotAnimationChangedFire(slot, previousAnimation, currentAnimation);
-  }
-}
-
-function checkSlotBroken(slot: EntitySlot) {
-  const ptrHash = GetPtrHash(slot);
-  const alreadyBroken = v.room.brokenSlots.has(ptrHash);
-  if (alreadyBroken) {
-    return;
-  }
-
-  const sprite = slot.GetSprite();
-  const animation = sprite.GetAnimation();
-  if (BROKEN_ANIMATIONS.has(animation)) {
-    v.room.brokenSlots.add(ptrHash);
-    postSlotDestroyedFire(slot);
   }
 }

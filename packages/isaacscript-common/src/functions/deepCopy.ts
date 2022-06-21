@@ -118,10 +118,6 @@ function deepCopyTable(
   serializationType: SerializationType,
   traversalDescription: string,
 ) {
-  Isaac.DebugString(
-    `${traversalDescription} - isDefaultMap: ${isDefaultMap(table)}`,
-  );
-
   // First, handle the cases of TSTL classes or serialized TSTL classes.
   if (isDefaultMap(table) || table.has(SerializationBrand.DEFAULT_MAP)) {
     return deepCopyDefaultMap(table, serializationType, traversalDescription);
