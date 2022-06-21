@@ -224,14 +224,14 @@ export function parseEntityTypeVariantString(
  * @param entityVariant Optional. The variant to match. Default is -1. -1 matches every variant.
  * @param entitySubType Optional. The sub-type to match. Default is -1. -1 matches every sub-type.
  * @param cap Optional. If specified, will only remove the given amount of collectibles.
- * @returns True if one or more entities were removed, false otherwise.
+ * @returns An array of the entities that were removed.
  */
 export function removeAllMatchingEntities(
   entityType: EntityType,
   entityVariant = -1,
   entitySubType = -1,
   cap: int | undefined = undefined,
-): boolean {
+): Entity[] {
   const entities = getEntities(entityType, entityVariant, entitySubType);
   return removeEntities(entities, cap);
 }
@@ -241,24 +241,27 @@ export function removeAllMatchingEntities(
  *
  * @param entities The array of entities to remove.
  * @param cap Optional. If specified, will only remove the given amount of entities.
- * @returns True if one or more entities were removed, false otherwise.
+ * @returns An array of the entities that were removed.
  */
-export function removeEntities(entities: Entity[], cap?: int): boolean {
+export function removeEntities<T extends AnyEntity>(
+  entities: T[],
+  cap?: int,
+): T[] {
   if (entities.length === 0) {
-    return false;
+    return [];
   }
 
-  let numEntitiesRemoved = 0;
+  const entitiesRemoved: T[] = [];
   for (const entity of entities) {
     entity.Remove();
 
-    numEntitiesRemoved += 1;
-    if (cap !== undefined && numEntitiesRemoved >= cap) {
-      return true;
+    entitiesRemoved.push(entity);
+    if (cap !== undefined && entitiesRemoved.length >= cap) {
+      return entitiesRemoved;
     }
   }
 
-  return true;
+  return entitiesRemoved;
 }
 
 /**

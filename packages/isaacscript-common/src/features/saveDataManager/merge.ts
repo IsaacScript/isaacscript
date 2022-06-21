@@ -7,7 +7,10 @@ import {
   deserializeIsaacAPIClass,
   isSerializedIsaacAPIClass,
 } from "../../functions/serialization";
-import { clearTable } from "../../functions/table";
+import {
+  clearTable,
+  iterateTableDeterministically,
+} from "../../functions/table";
 import { isTSTLMap, isTSTLSet } from "../../functions/tstlClass";
 import { getTraversalDescription } from "../../functions/utils";
 import { SAVE_DATA_MANAGER_DEBUG } from "./constants";
@@ -80,9 +83,13 @@ function mergeArray(
   // Assume that we should blow away all array values with whatever is present in the incoming
   // array.
   clearTable(oldArray);
-  for (const [key, value] of pairs(newArray)) {
-    oldArray.set(key, value);
-  }
+  iterateTableDeterministically(
+    newArray,
+    (key, value) => {
+      oldArray.set(key, value);
+    },
+    SAVE_DATA_MANAGER_DEBUG,
+  );
 }
 
 function mergeTSTLObject(
@@ -99,39 +106,43 @@ function mergeTSTLObject(
     SerializationBrand.OBJECT_WITH_NUMBER_KEYS,
   );
 
-  for (const [key, value] of pairs(newTable)) {
-    if (isSerializationBrand(key)) {
-      continue;
-    }
-
-    let keyToUse = key;
-    if (convertStringKeysToNumbers) {
-      const numberKey = tonumber(key);
-      if (numberKey === undefined) {
-        continue;
-      }
-      keyToUse = numberKey;
-    }
-
-    if (isTSTLMap(oldObject)) {
-      const valueType = type(value);
-
-      let valueCopy: unknown;
-      if (valueType === "table") {
-        valueCopy = deepCopy(
-          value as LuaTable,
-          SerializationType.DESERIALIZE,
-          traversalDescription,
-        );
-      } else {
-        valueCopy = value;
+  iterateTableDeterministically(
+    newTable,
+    (key, value) => {
+      if (isSerializationBrand(key)) {
+        return;
       }
 
-      oldObject.set(keyToUse, valueCopy);
-    } else if (isTSTLSet(oldObject)) {
-      oldObject.add(keyToUse);
-    }
-  }
+      let keyToUse = key;
+      if (convertStringKeysToNumbers) {
+        const numberKey = tonumber(key);
+        if (numberKey === undefined) {
+          return;
+        }
+        keyToUse = numberKey;
+      }
+
+      if (isTSTLMap(oldObject)) {
+        const valueType = type(value);
+
+        let valueCopy: unknown;
+        if (valueType === "table") {
+          valueCopy = deepCopy(
+            value as LuaTable,
+            SerializationType.DESERIALIZE,
+            traversalDescription,
+          );
+        } else {
+          valueCopy = value;
+        }
+
+        oldObject.set(keyToUse, valueCopy);
+      } else if (isTSTLSet(oldObject)) {
+        oldObject.add(keyToUse);
+      }
+    },
+    SAVE_DATA_MANAGER_DEBUG,
+  );
 }
 
 function mergeTable(
@@ -139,45 +150,52 @@ function mergeTable(
   newTable: LuaTable<AnyNotNil, unknown>,
   traversalDescription: string,
 ) {
-  for (const [key, value] of pairs(newTable)) {
-    if (SAVE_DATA_MANAGER_DEBUG) {
-      const valueToPrint = value === "" ? "(empty string)" : `${value}`;
-      log(`merge is merging: ${traversalDescription} --> ${valueToPrint}`);
-    }
-
-    if (isSerializationBrand(key)) {
-      continue;
-    }
-
-    // Handle the special case of serialized Isaac API classes.
-    if (isSerializedIsaacAPIClass(value)) {
+  iterateTableDeterministically(
+    newTable,
+    (key, value) => {
       if (SAVE_DATA_MANAGER_DEBUG) {
-        log("merge found a serialized Isaac API class.");
+        const valueToPrint = value === "" ? "(empty string)" : `${value}`;
+        log(`merge is merging: ${traversalDescription} --> ${valueToPrint}`);
       }
 
-      const deserializedObject = deserializeIsaacAPIClass(value);
-      oldTable.set(key, deserializedObject);
-      continue;
-    }
-
-    const valueType = type(value);
-    if (valueType === "table") {
-      let oldValue = oldTable.get(key) as LuaTable<AnyNotNil, unknown>;
-      const oldValueType = type(oldValue);
-
-      if (oldValueType !== "table") {
-        // The child table does not exist on the old table. However, we still need to copy over the
-        // new table, because we need to handle data types like "Foo | null". Thus, set up a blank
-        // sub-table on the old table, and continue to recursively merge..
-        oldValue = new LuaTable();
-        oldTable.set(key, oldValue);
+      if (isSerializationBrand(key)) {
+        return;
       }
 
-      traversalDescription = getTraversalDescription(key, traversalDescription);
-      merge(oldValue, value as LuaTable, traversalDescription);
-    } else {
-      // Base case: copy the value
-      oldTable.set(key, value);
-    }
-  }
+      // Handle the special case of serialized Isaac API classes.
+      if (isSerializedIsaacAPIClass(value)) {
+        if (SAVE_DATA_MANAGER_DEBUG) {
+          log("merge found a serialized Isaac API class.");
+        }
+
+        const deserializedObject = deserializeIsaacAPIClass(value);
+        oldTable.set(key, deserializedObject);
+        return;
+      }
+
+      const valueType = type(value);
+      if (valueType === "table") {
+        let oldValue = oldTable.get(key) as LuaTable<AnyNotNil, unknown>;
+        const oldValueType = type(oldValue);
+
+        if (oldValueType !== "table") {
+          // The child table does not exist on the old table. However, we still need to copy over
+          // the new table, because we need to handle data types like "Foo | null". Thus, set up a
+          // blank sub-table on the old table, and continue to recursively merge..
+          oldValue = new LuaTable();
+          oldTable.set(key, oldValue);
+        }
+
+        traversalDescription = getTraversalDescription(
+          key,
+          traversalDescription,
+        );
+        merge(oldValue, value as LuaTable, traversalDescription);
+      } else {
+        // Base case: copy the value
+        oldTable.set(key, value);
+      }
+    },
+    SAVE_DATA_MANAGER_DEBUG,
+  );
 }

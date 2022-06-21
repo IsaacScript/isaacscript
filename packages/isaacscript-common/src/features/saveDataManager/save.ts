@@ -2,8 +2,12 @@ import { SerializationType } from "../../enums/SerializationType";
 import { deepCopy } from "../../functions/deepCopy";
 import { jsonEncode } from "../../functions/jsonHelpers";
 import { log } from "../../functions/log";
+import { iterateTableDeterministically } from "../../functions/table";
 import { SaveData } from "../../interfaces/SaveData";
-import { SAVE_DATA_MANAGER_FEATURE_NAME } from "./constants";
+import {
+  SAVE_DATA_MANAGER_DEBUG,
+  SAVE_DATA_MANAGER_FEATURE_NAME,
+} from "./constants";
 
 export function saveToDisk(
   mod: Mod,
@@ -27,40 +31,44 @@ function getAllSaveDataToWriteToDisk(
 ) {
   const allSaveData = new LuaTable<AnyNotNil, unknown>();
 
-  for (const [subscriberName, saveData] of pairs(saveDataMap)) {
-    // Handle the feature of the save data manager where certain mod features can conditionally
-    // write their data to disk.
-    const conditionalFunc = saveDataConditionalFuncMap.get(subscriberName);
-    if (conditionalFunc !== undefined) {
-      const shouldSave = conditionalFunc();
-      if (!shouldSave) {
-        continue;
+  iterateTableDeterministically(
+    saveDataMap,
+    (subscriberName, saveData) => {
+      // Handle the feature of the save data manager where certain mod features can conditionally
+      // write their data to disk.
+      const conditionalFunc = saveDataConditionalFuncMap.get(subscriberName);
+      if (conditionalFunc !== undefined) {
+        const shouldSave = conditionalFunc();
+        if (!shouldSave) {
+          return;
+        }
       }
-    }
 
-    // Strip out the room part of the save data.
-    const saveDataWithoutRoom: SaveData = {
-      persistent: saveData.persistent,
-      run: saveData.run,
-      level: saveData.level,
-    };
+      // Strip out the room part of the save data.
+      const saveDataWithoutRoom: SaveData = {
+        persistent: saveData.persistent,
+        run: saveData.run,
+        level: saveData.level,
+      };
 
-    // If there is no data, then we can move on to the next feature.
-    if (Object.keys(saveDataWithoutRoom).length === 0) {
-      continue;
-    }
+      // If there is no data, then we can move on to the next feature.
+      if (Object.keys(saveDataWithoutRoom).length === 0) {
+        return;
+      }
 
-    // If we encode TypeScriptToLua Maps into JSON, it will result in a lot of extraneous data that
-    // is unnecessary. Make a copy of the data and recursively convert all TypeScriptToLua Maps into
-    // Lua tables.
-    const saveDataCopy = deepCopy(
-      saveDataWithoutRoom as LuaTable,
-      SerializationType.SERIALIZE,
-      subscriberName,
-    );
+      // If we encode TypeScriptToLua Maps into JSON, it will result in a lot of extraneous data
+      // that is unnecessary. Make a copy of the data and recursively convert all TypeScriptToLua
+      // Maps into Lua tables.
+      const saveDataCopy = deepCopy(
+        saveDataWithoutRoom as LuaTable,
+        SerializationType.SERIALIZE,
+        subscriberName,
+      );
 
-    allSaveData.set(subscriberName, saveDataCopy);
-  }
+      allSaveData.set(subscriberName, saveDataCopy);
+    },
+    SAVE_DATA_MANAGER_DEBUG,
+  );
 
   return allSaveData;
 }

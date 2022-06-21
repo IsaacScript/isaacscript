@@ -8,7 +8,7 @@ import { TSTLClass } from "../types/private/TSTLClass";
 import { isArray } from "./array";
 import { getEnumValues } from "./enums";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
-import { log } from "./log";
+import { log, logTable } from "./log";
 import {
   copyIsaacAPIClass,
   deserializeIsaacAPIClass,
@@ -22,7 +22,11 @@ import {
   isUserDefinedTSTLClass,
   newTSTLClass,
 } from "./tstlClass";
-import { ensureAllCases, getTraversalDescription } from "./utils";
+import {
+  ensureAllCases,
+  getTraversalDescription,
+  twoDimensionalSort,
+} from "./utils";
 
 const COPYABLE_ISAAC_API_CLASS_TYPES_SET = new Set<string>(
   getEnumValues(CopyableIsaacAPIClassType),
@@ -114,6 +118,10 @@ function deepCopyTable(
   serializationType: SerializationType,
   traversalDescription: string,
 ) {
+  Isaac.DebugString(
+    `${traversalDescription} - isDefaultMap: ${isDefaultMap(table)}`,
+  );
+
   // First, handle the cases of TSTL classes or serialized TSTL classes.
   if (isDefaultMap(table) || table.has(SerializationBrand.DEFAULT_MAP)) {
     return deepCopyDefaultMap(table, serializationType, traversalDescription);
@@ -436,7 +444,7 @@ function getCopiedEntries(
   // First, shallow copy the entries. We cannot use "pairs" to iterate over a Map or Set. We cannot
   // use "[...pairs(object)]", as it results in a run-time error.
   const entries: Array<[key: AnyNotNil, value: unknown]> = [];
-  if (isTSTLMap(object) || isTSTLSet(object)) {
+  if (isTSTLMap(object) || isTSTLSet(object) || isDefaultMap(object)) {
     for (const [key, value] of object.entries()) {
       entries.push([key, value]);
     }
@@ -444,6 +452,11 @@ function getCopiedEntries(
     for (const [key, value] of pairs(object)) {
       entries.push([key, value]);
     }
+  }
+
+  if (SAVE_DATA_MANAGER_DEBUG) {
+    logTable(entries);
+    entries.sort(twoDimensionalSort);
   }
 
   const hasNumberKeys = entries.some(([key]) => typeof key === "number");

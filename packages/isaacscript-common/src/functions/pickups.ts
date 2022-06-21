@@ -115,8 +115,12 @@ export function isRedHeart(pickup: EntityPickup): boolean {
 export function removeAllBatteries(
   batterySubType?: BatterySubType,
   cap?: int,
-): boolean {
-  return removeAllPickups(PickupVariant.LIL_BATTERY, batterySubType, cap);
+): EntityPickupBattery[] {
+  return removeAllPickups(
+    PickupVariant.LIL_BATTERY,
+    batterySubType,
+    cap,
+  ) as EntityPickupBattery[];
 }
 
 /**
@@ -126,8 +130,12 @@ export function removeAllBatteries(
  * @param cap Optional. If specified, will only remove the given amount of cards.
  * @returns True if one or more cards were removed, false otherwise.
  */
-export function removeAllCards(card?: Card, cap?: int): boolean {
-  return removeAllPickups(PickupVariant.TAROT_CARD, card, cap);
+export function removeAllCards(card?: Card, cap?: int): EntityPickupCard[] {
+  return removeAllPickups(
+    PickupVariant.TAROT_CARD,
+    card,
+    cap,
+  ) as EntityPickupCard[];
 }
 
 /**
@@ -137,8 +145,15 @@ export function removeAllCards(card?: Card, cap?: int): boolean {
  * @param cap Optional. If specified, will only remove the given amount of coins.
  * @returns True if one or more coins were removed, false otherwise.
  */
-export function removeAllCoins(coinSubType?: CoinSubType, cap?: int): boolean {
-  return removeAllPickups(PickupVariant.COIN, coinSubType, cap);
+export function removeAllCoins(
+  coinSubType?: CoinSubType,
+  cap?: int,
+): EntityPickupCoin[] {
+  return removeAllPickups(
+    PickupVariant.COIN,
+    coinSubType,
+    cap,
+  ) as EntityPickupCoin[];
 }
 
 /**
@@ -152,8 +167,12 @@ export function removeAllCoins(coinSubType?: CoinSubType, cap?: int): boolean {
 export function removeAllCollectibles(
   collectibleType?: CollectibleType,
   cap?: int,
-): boolean {
-  return removeAllPickups(PickupVariant.COLLECTIBLE, collectibleType, cap);
+): EntityPickupCollectible[] {
+  return removeAllPickups(
+    PickupVariant.COLLECTIBLE,
+    collectibleType,
+    cap,
+  ) as EntityPickupCollectible[];
 }
 
 /**
@@ -166,8 +185,12 @@ export function removeAllCollectibles(
 export function removeAllHearts(
   heartSubType?: HeartSubType,
   cap?: int,
-): boolean {
-  return removeAllPickups(PickupVariant.HEART, heartSubType, cap);
+): EntityPickupHeart[] {
+  return removeAllPickups(
+    PickupVariant.HEART,
+    heartSubType,
+    cap,
+  ) as EntityPickupHeart[];
 }
 
 /**
@@ -177,8 +200,15 @@ export function removeAllHearts(
  * @param cap Optional. If specified, will only remove the given amount of keys.
  * @returns True if one or more keys were removed, false otherwise.
  */
-export function removeAllKeys(keySubType?: KeySubType, cap?: int): boolean {
-  return removeAllPickups(PickupVariant.KEY, keySubType, cap);
+export function removeAllKeys(
+  keySubType?: KeySubType,
+  cap?: int,
+): EntityPickupKey[] {
+  return removeAllPickups(
+    PickupVariant.KEY,
+    keySubType,
+    cap,
+  ) as EntityPickupKey[];
 }
 
 /**
@@ -188,8 +218,15 @@ export function removeAllKeys(keySubType?: KeySubType, cap?: int): boolean {
  * @param cap Optional. If specified, will only remove the given amount of pills.
  * @returns True if one or more pills were removed, false otherwise.
  */
-export function removeAllPills(pillColor?: PillColor, cap?: int): boolean {
-  return removeAllPickups(PickupVariant.PILL, pillColor, cap);
+export function removeAllPills(
+  pillColor?: PillColor,
+  cap?: int,
+): EntityPickupPill[] {
+  return removeAllPickups(
+    PickupVariant.PILL,
+    pillColor,
+    cap,
+  ) as EntityPickupPill[];
 }
 
 /**
@@ -199,8 +236,15 @@ export function removeAllPills(pillColor?: PillColor, cap?: int): boolean {
  * @param cap Optional. If specified, will only remove the given amount of trinkets.
  * @returns True if one or more trinkets were removed, false otherwise.
  */
-export function removeAllSacks(sackSubType?: SackSubType, cap?: int): boolean {
-  return removeAllPickups(PickupVariant.TRINKET, sackSubType, cap);
+export function removeAllSacks(
+  sackSubType?: SackSubType,
+  cap?: int,
+): EntityPickupSack[] {
+  return removeAllPickups(
+    PickupVariant.TRINKET,
+    sackSubType,
+    cap,
+  ) as EntityPickupSack[];
 }
 
 /**
@@ -214,8 +258,12 @@ export function removeAllSacks(sackSubType?: SackSubType, cap?: int): boolean {
 export function removeAllTrinkets(
   trinketType?: TrinketType,
   cap?: int,
-): boolean {
-  return removeAllPickups(PickupVariant.TRINKET, trinketType, cap);
+): EntityPickupTrinket[] {
+  return removeAllPickups(
+    PickupVariant.TRINKET,
+    trinketType,
+    cap,
+  ) as EntityPickupTrinket[];
 }
 
 /**

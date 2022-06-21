@@ -330,13 +330,13 @@ export function npcFireProjectiles(
  * @param bombVariant Optional. If specified, will only remove bombs that match this variant.
  * @param subType Optional. If specified, will only remove bombs that match this sub-type.
  * @param cap Optional. If specified, will only remove the given amount of bombs.
- * @returns True if one or more bombs were removed, false otherwise.
+ * @returns An array of the bombs that were removed.
  */
 export function removeAllBombs(
   bombVariant?: BombVariant,
   subType?: int,
   cap?: int,
-): boolean {
+): EntityBomb[] {
   const bombs = getBombs(bombVariant, subType);
   return removeEntities(bombs, cap);
 }
@@ -347,13 +347,13 @@ export function removeAllBombs(
  * @param effectVariant Optional. If specified, will only remove effects that match this variant.
  * @param subType Optional. If specified, will only remove effects that match this sub-type.
  * @param cap Optional. If specified, will only remove the given amount of effects.
- * @returns True if one or more effects were removed, false otherwise.
+ * @returns An array of the effects that were removed.
  */
 export function removeAllEffects(
   effectVariant?: EffectVariant,
   subType?: int,
   cap?: int,
-): boolean {
+): EntityEffect[] {
   const effects = getEffects(effectVariant, subType);
   return removeEntities(effects, cap);
 }
@@ -365,13 +365,13 @@ export function removeAllEffects(
  *                        variant.
  * @param subType Optional. If specified, will only remove familiars that match this sub-type.
  * @param cap Optional. If specified, will only remove the given amount of familiars.
- * @returns True if one or more familiars were removed, false otherwise.
+ * @returns An array of the familiars that were removed.
  */
 export function removeAllFamiliars(
   familiarVariant?: FamiliarVariant,
   subType?: int,
   cap?: int,
-): boolean {
+): EntityFamiliar[] {
   const familiars = getFamiliars(familiarVariant, subType);
   return removeEntities(familiars, cap);
 }
@@ -382,13 +382,13 @@ export function removeAllFamiliars(
  * @param knifeVariant Optional. If specified, will only remove knives that match this variant.
  * @param subType Optional. If specified, will only remove knives that match this sub-type.
  * @param cap Optional. If specified, will only remove the given amount of knives.
- * @returns True if one or more knives were removed, false otherwise.
+ * @returns An array of the knives that were removed.
  */
 export function removeAllKnives(
   knifeVariant?: KnifeVariant,
   subType?: int,
   cap?: int,
-): boolean {
+): EntityKnife[] {
   const knives = getKnives(knifeVariant, subType);
   return removeEntities(knives, cap);
 }
@@ -399,13 +399,13 @@ export function removeAllKnives(
  * @param laserVariant Optional. If specified, will only remove lasers that match this variant.
  * @param subType Optional. If specified, will only remove lasers that match this sub-type.
  * @param cap Optional. If specified, will only remove the given amount of lasers.
- * @returns True if one or more lasers were removed, false otherwise.
+ * @returns An array of the lasers that were removed.
  */
 export function removeAllLasers(
   laserVariant?: LaserVariant,
   subType?: int,
   cap?: int,
-): boolean {
+): EntityLaser[] {
   const lasers = getLasers(laserVariant, subType);
   return removeEntities(lasers, cap);
 }
@@ -414,9 +414,9 @@ export function removeAllLasers(
  * Helper function to remove all NPCs in the room.
  *
  * @param cap Optional. If specified, will only remove the given amount of NPCs.
- * @returns True if one or more NPCs were removed, false otherwise.
+ * @returns An array of the NPCs that were removed.
  */
-export function removeAllNPCs(cap?: int): boolean {
+export function removeAllNPCs(cap?: int): EntityNPC[] {
   const npcs = getNPCs();
   return removeEntities(npcs, cap);
 }
@@ -427,13 +427,13 @@ export function removeAllNPCs(cap?: int): boolean {
  * @param pickupVariant Optional. If specified, will only remove pickups that match this variant.
  * @param subType Optional. If specified, will only remove pickups that match this sub-type.
  * @param cap Optional. If specified, will only remove the given amount of pickups.
- * @returns True if one or more pickups were removed, false otherwise.
+ * @returns An array of the pickups that were removed.
  */
 export function removeAllPickups(
   pickupVariant?: PickupVariant,
   subType?: int,
   cap?: int,
-): boolean {
+): EntityPickup[] {
   const pickups = getPickups(pickupVariant, subType);
   return removeEntities(pickups, cap);
 }
@@ -445,13 +445,13 @@ export function removeAllPickups(
  *                          variant.
  * @param subType Optional. If specified, will only remove projectiles that match this sub-type.
  * @param cap Optional. If specified, will only remove the given amount of projectiles.
- * @returns True if one or more projectiles were removed, false otherwise.
+ * @returns An array of the projectiles that were removed.
  */
 export function removeAllProjectiles(
   projectileVariant?: ProjectileVariant,
   subType?: int,
   cap?: int,
-): boolean {
+): EntityProjectile[] {
   const projectiles = getProjectiles(projectileVariant, subType);
   return removeEntities(projectiles, cap);
 }
@@ -462,13 +462,13 @@ export function removeAllProjectiles(
  * @param slotVariant Optional. If specified, will only remove slots that match this variant.
  * @param subType Optional. If specified, will only remove slots that match this sub-type.
  * @param cap Optional. If specified, will only remove the given amount of slots.
- * @returns True if one or more slots were removed, false otherwise.
+ * @returns An array of the slots that were removed.
  */
 export function removeAllSlots(
   slotVariant?: SlotVariant,
   subType?: int,
   cap?: int,
-): boolean {
+): Entity[] {
   const slots = getSlots(slotVariant, subType);
   return removeEntities(slots, cap);
 }
@@ -479,13 +479,13 @@ export function removeAllSlots(
  * @param tearVariant Optional. If specified, will only remove tears that match this variant.
  * @param subType Optional. If specified, will only remove tears that match this sub-type.
  * @param cap Optional. If specified, will only remove the given amount of tears.
- * @returns True if one or more tears were removed, false otherwise.
+ * @returns An array of the tears that were removed.
  */
 export function removeAllTears(
   tearVariant?: TearVariant,
   subType?: int,
   cap?: int,
-): boolean {
+): EntityTear[] {
   const tears = getTears(tearVariant, subType);
   return removeEntities(tears, cap);
 }

@@ -11,9 +11,15 @@ import {
 import { SerializationType } from "../../enums/SerializationType";
 import { deepCopy } from "../../functions/deepCopy";
 import { logError } from "../../functions/log";
-import { clearTable } from "../../functions/table";
+import {
+  clearTable,
+  iterateTableDeterministically,
+} from "../../functions/table";
 import { SaveData } from "../../interfaces/SaveData";
-import { SAVE_DATA_MANAGER_FEATURE_NAME } from "./constants";
+import {
+  SAVE_DATA_MANAGER_DEBUG,
+  SAVE_DATA_MANAGER_FEATURE_NAME,
+} from "./constants";
 import { loadFromDisk } from "./load";
 import {
   saveDataConditionalFuncMap,
@@ -98,9 +104,13 @@ function restoreDefaultsAll() {
 }
 
 function restoreDefaults(saveDataKey: SaveDataKey) {
-  for (const [subscriberName, saveData] of pairs(saveDataMap)) {
-    restoreDefaultSaveData(subscriberName, saveData, saveDataKey);
-  }
+  iterateTableDeterministically(
+    saveDataMap,
+    (subscriberName, saveData) => {
+      restoreDefaultSaveData(subscriberName, saveData, saveDataKey);
+    },
+    SAVE_DATA_MANAGER_DEBUG,
+  );
 }
 
 export function restoreDefaultSaveData(

@@ -203,3 +203,33 @@ export function repeat(n: int, func: (i: int) => void): void {
  * This function does not actually do anything. (It is an "empty" function.)
  */
 export function todo(): void {}
+
+/**
+ * Helper function to sort a two-dimensional array by the first element.
+ *
+ * For example:
+ *
+ * ```ts
+ * const myArray = [[1, 2], [2, 3], [3, 4]];
+ * myArray.sort(twoDimensionalSort);
+ * ```
+ *
+ * From:
+ * https://stackoverflow.com/questions/16096872/how-to-sort-2-dimensional-array-by-column-value
+ */
+export function twoDimensionalSort<T>(a: T[], b: T[]): -1 | 0 | 1 {
+  if (a[0] === undefined || b[0] === undefined) {
+    error(
+      "Failed to two-dimensional sort since the first element of the array was undefined.",
+    );
+  }
+
+  Isaac.DebugString(`a0: ${a[0]}`);
+  Isaac.DebugString(`b0: ${b[0]}`);
+
+  if (a[0] === b[0]) {
+    return 0;
+  }
+
+  return a[0] < b[0] ? -1 : 1;
+}

@@ -9,12 +9,15 @@ This page lists the changes to the IsaacScript framework.
 
 - Breaking changes:
   - `DefaultMap` now takes the default value/function as the first argument and the initializer array as the second argument.
+  - The `removeEntities` and `removeAllX` functions now return an array of the entities that are removed.
 - Added the following helper functions:
   - `isPrimitive`
   - `getTSTLClassName`
   - `isTSTLMap`
   - `isTSTLSet`
   - `isDefaultMap`
+  - `twoDimensionalSort`
+  - `iterateTableDeterministically`
 - Renamed the following helper functions:
   - `getIsaacAPIClassType` --> `getIsaacAPIClassName`
 - Added the `no-invalid-default-map` ESLint rule that will detect when you have an invalid first argument to a `DefaultMap` constructor.

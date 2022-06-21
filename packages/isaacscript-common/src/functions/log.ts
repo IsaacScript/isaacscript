@@ -572,7 +572,7 @@ export function logTable(this: void, table: unknown, parentTables = 0): void {
     numKeys += 1;
   }
 
-  log(`The size of the table was: ${numKeys}`);
+  log(`${indentation}The size of the table was: ${numKeys}`);
 }
 
 /** Helper function for printing out every tear flag that is turned on. Useful when debugging. */

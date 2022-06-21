@@ -1,3 +1,5 @@
+import { twoDimensionalSort } from "./utils";
+
 /**
  * In a Map, you can use the `clear` method to delete every element. However, in a LuaTable, the
  * `clear` method does not exist. Use this helper function as a drop-in replacement for this.
@@ -123,6 +125,46 @@ export function getStringsFromTable(
   }
 
   return strings;
+}
+
+/**
+ * Helper function to iterate over a table deterministically. This is useful because by default, the
+ * `pairs` function will return the keys of a Lua table in a random order.
+ *
+ * This function will sort the table entries based on the value of the key.
+ *
+ * @param table The table to iterate over.
+ * @param func The function to run for each iteration.
+ * @param deterministic Optional. Whether to iterate deterministically. True by default. You can
+ *                      dynamically set to false in situations where you need extra performance.
+ */
+export function iterateTableDeterministically<K, V>(
+  table: LuaTable<K, V>,
+  func: (key: K, value: V) => void,
+  deterministic = true,
+): void {
+  const entries = pairs(table);
+
+  // First, handle the trivial case of a non-deterministic iteration.
+  if (!deterministic) {
+    for (const [key, value] of entries) {
+      func(key, value);
+    }
+    return;
+  }
+
+  // We can't sort a Lua multi-return, so we have to convert it to an array first.
+  const entriesArray: Array<[K, V]> = [];
+  for (const [key, value] of entries) {
+    const entry: [K, V] = [key, value];
+    entriesArray.push(entry);
+  }
+
+  entriesArray.sort(twoDimensionalSort);
+
+  for (const [key, value] of entriesArray) {
+    func(key, value);
+  }
 }
 
 /**
