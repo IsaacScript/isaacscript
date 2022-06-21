@@ -50,9 +50,9 @@ jobs:
           # (it is not possible to clone the repo in the parent directory for security reasons)
           path: isaacscript.github.io
 
-      #- name: Deploy the documentation website
-      #  run: bash packages/docs/deploy.sh
-      #  if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+      - name: Deploy the documentation website
+        run: bash packages/docs/deploy.sh
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
 
   discord:
     name: Discord Failure Notification
