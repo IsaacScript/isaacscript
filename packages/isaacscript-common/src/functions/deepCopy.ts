@@ -7,14 +7,21 @@ import { isSerializationBrand } from "../features/saveDataManager/serializationB
 import { TSTLClass } from "../types/private/TSTLClass";
 import { isArray } from "./array";
 import { getEnumValues } from "./enums";
-import { getIsaacAPIClassType } from "./isaacAPIClass";
+import { getIsaacAPIClassName } from "./isaacAPIClass";
 import { log } from "./log";
 import {
   copyIsaacAPIClass,
   deserializeIsaacAPIClass,
   isSerializedIsaacAPIClass,
 } from "./serialization";
-import { isUserDefinedTSTLClass, newTSTLClass } from "./tstlClass";
+import {
+  getTSTLClassName,
+  isDefaultMap,
+  isTSTLMap,
+  isTSTLSet,
+  isUserDefinedTSTLClass,
+  newTSTLClass,
+} from "./tstlClass";
 import { ensureAllCases, getTraversalDescription } from "./utils";
 
 const COPYABLE_ISAAC_API_CLASS_TYPES_SET = new Set<string>(
@@ -108,28 +115,27 @@ function deepCopyTable(
   traversalDescription: string,
 ) {
   // First, handle the cases of TSTL classes or serialized TSTL classes.
-  if (
-    table instanceof DefaultMap ||
-    table.has(SerializationBrand.DEFAULT_MAP)
-  ) {
+  if (isDefaultMap(table) || table.has(SerializationBrand.DEFAULT_MAP)) {
     return deepCopyDefaultMap(table, serializationType, traversalDescription);
   }
 
-  if (table instanceof Map || table.has(SerializationBrand.MAP)) {
+  if (isTSTLMap(table) || table.has(SerializationBrand.MAP)) {
     return deepCopyMap(table, serializationType, traversalDescription);
   }
 
-  if (table instanceof Set || table.has(SerializationBrand.SET)) {
+  if (isTSTLSet(table) || table.has(SerializationBrand.SET)) {
     return deepCopySet(table, serializationType, traversalDescription);
   }
 
-  if (table instanceof WeakMap) {
+  const className = getTSTLClassName(table);
+
+  if (className === "WeakMap") {
     error(
       `The deep copy function does not support copying the "WeakMap" class for: ${traversalDescription}`,
     );
   }
 
-  if (table instanceof WeakSet) {
+  if (className === "WeakSet") {
     error(
       `The deep copy function does not support copying the "WeakSet" class for: ${traversalDescription}`,
     );
@@ -139,7 +145,7 @@ function deepCopyTable(
     return deepCopyTSTLClass(table, serializationType, traversalDescription);
   }
 
-  // This is not a TSTL class. If it has a metatable, abort.
+  // This is not a TSTL Map/Set/class. If it has a metatable, abort.
   checkMetatable(table, traversalDescription);
 
   // Handle the special case of serialized Isaac API classes.
@@ -164,10 +170,9 @@ function deepCopyDefaultMap(
   serializationType: SerializationType,
   traversalDescription: string,
 ) {
-  const constructorArg =
-    defaultMap instanceof DefaultMap
-      ? defaultMap.getConstructorArg()
-      : undefined;
+  const constructorArg = isDefaultMap(defaultMap)
+    ? defaultMap.getConstructorArg()
+    : undefined;
 
   let newDefaultMap:
     | DefaultMap<AnyNotNil, unknown>
@@ -201,7 +206,7 @@ function deepCopyDefaultMap(
     }
 
     case SerializationType.DESERIALIZE: {
-      if (defaultMap instanceof DefaultMap) {
+      if (isDefaultMap(defaultMap)) {
         error(
           `The deep copy function failed to deserialize a default map of "${traversalDescription}", since it was not a Lua table.`,
         );
@@ -236,7 +241,7 @@ function deepCopyDefaultMap(
   if (convertedNumberKeysToStrings) {
     // Differentiating between the two types looks superfluous but is necessary for TSTL to produce
     // the proper set method call.
-    if (newDefaultMap instanceof DefaultMap) {
+    if (isDefaultMap(newDefaultMap)) {
       newDefaultMap.set(SerializationBrand.OBJECT_WITH_NUMBER_KEYS, "");
     } else {
       newDefaultMap.set(SerializationBrand.OBJECT_WITH_NUMBER_KEYS, "");
@@ -246,7 +251,7 @@ function deepCopyDefaultMap(
   for (const [key, value] of entries) {
     // Differentiating between the two types looks superfluous but is necessary for TSTL to produce
     // the proper set method call.
-    if (newDefaultMap instanceof DefaultMap) {
+    if (isDefaultMap(newDefaultMap)) {
       newDefaultMap.set(key, value);
     } else {
       newDefaultMap.set(key, value);
@@ -279,7 +284,7 @@ function deepCopyMap(
   if (convertedNumberKeysToStrings) {
     // Differentiating between the two types looks superfluous but is necessary for TSTL to produce
     // the proper set method call.
-    if (newMap instanceof Map) {
+    if (isTSTLMap(newMap)) {
       newMap.set(SerializationBrand.OBJECT_WITH_NUMBER_KEYS, "");
     } else {
       newMap.set(SerializationBrand.OBJECT_WITH_NUMBER_KEYS, "");
@@ -289,7 +294,7 @@ function deepCopyMap(
   for (const [key, value] of entries) {
     // Differentiating between the two types looks superfluous but is necessary for TSTL to produce
     // the proper set method call.
-    if (newMap instanceof Map) {
+    if (isTSTLMap(newMap)) {
       newMap.set(key, value);
     } else {
       newMap.set(key, value);
@@ -323,7 +328,7 @@ function deepCopySet(
   if (convertedNumberKeysToStrings) {
     // Differentiating between the two types looks superfluous but is necessary for TSTL to produce
     // the proper set method call.
-    if (newSet instanceof Set) {
+    if (isTSTLSet(newSet)) {
       // We should never be serializing an object of type Set.
       error(
         "The deep copy function cannot convert number keys to strings for a Set.",
@@ -334,7 +339,9 @@ function deepCopySet(
   }
 
   for (const [key] of entries) {
-    if (newSet instanceof Set) {
+    // Differentiating between the two types looks superfluous but is necessary for TSTL to produce
+    // the proper set method call.
+    if (isTSTLSet(newSet)) {
       newSet.add(key);
     } else {
       newSet.set(key, "");
@@ -429,8 +436,7 @@ function getCopiedEntries(
   // First, shallow copy the entries. We cannot use "pairs" to iterate over a Map or Set. We cannot
   // use "[...pairs(object)]", as it results in a run-time error.
   const entries: Array<[key: AnyNotNil, value: unknown]> = [];
-  if (object instanceof Map || object instanceof Set) {
-    // eslint-disable-next-line isaacscript/no-object-any
+  if (isTSTLMap(object) || isTSTLSet(object)) {
     for (const [key, value] of object.entries()) {
       entries.push([key, value]);
     }
@@ -493,7 +499,7 @@ function deepCopyUserdata(
   serializationType: SerializationType,
   traversalDescription: string,
 ) {
-  const classType = getIsaacAPIClassType(value);
+  const classType = getIsaacAPIClassName(value);
   if (classType === undefined) {
     error(
       `The deep copy function was not able to derive the Isaac API class type for: ${traversalDescription}`,

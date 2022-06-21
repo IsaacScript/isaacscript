@@ -19,7 +19,7 @@ import { getEntities, getEntityID } from "./entity";
 import { getEnumEntries } from "./enums";
 import { hasFlag } from "./flag";
 import { getGridEntities } from "./gridEntity";
-import { getIsaacAPIClassType } from "./isaacAPIClass";
+import { getIsaacAPIClassName } from "./isaacAPIClass";
 import { getEffectsList, getPlayerName } from "./player";
 import { getPlayerHealth } from "./playerHealth";
 import { getRoomData, getRoomGridIndex, getRoomListIndex } from "./roomData";
@@ -608,7 +608,7 @@ export function logUserdata(this: void, userdata: unknown): void {
     return;
   }
 
-  const classType = getIsaacAPIClassType(userdata);
+  const classType = getIsaacAPIClassName(userdata);
   if (classType === undefined) {
     log("Userdata: [no class type]");
   } else {

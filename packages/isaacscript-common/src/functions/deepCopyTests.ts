@@ -4,6 +4,7 @@ import { SerializationType } from "../enums/SerializationType";
 import { arrayEquals } from "./array";
 import { deepCopy } from "./deepCopy";
 import { log } from "./log";
+import { isDefaultMap, isTSTLMap, isTSTLSet } from "./tstlClass";
 
 export function deepCopyTests(): void {
   copiedObjectIsTable();
@@ -233,7 +234,7 @@ function copiedMapIsMap() {
   if (newMapType !== "table") {
     error("The copied Map was not a table.");
   }
-  if (!(newMap instanceof Map)) {
+  if (!isTSTLMap(newMap)) {
     error("The copied Map was not a Map.");
   }
 }
@@ -268,7 +269,7 @@ function copiedSetIsSet() {
   if (newSetType !== "table") {
     error("The copied Set was not a table.");
   }
-  if (!(newSet instanceof Set)) {
+  if (!isTSTLSet(newSet)) {
     error("The copied Set was not a Map.");
   }
 }
@@ -309,7 +310,7 @@ function copiedMapHasChildMap() {
   if (newChildMapType !== "table") {
     error(`The copied child Map had a type of: ${newChildMapType}`);
   }
-  if (!(newChildMap instanceof Map)) {
+  if (!isTSTLMap(newChildMap)) {
     error("The copied child Map was not a Map.");
   }
 
@@ -349,7 +350,7 @@ function copiedDefaultMapHasChildDefaultMap() {
   if (newChildMapType !== "table") {
     error(`The copied child DefaultMap had a type of: ${newChildMapType}`);
   }
-  if (!(newChildMap instanceof DefaultMap)) {
+  if (!isDefaultMap(newChildMap)) {
     error("The copied child DefaultMap was not a DefaultMap.");
   }
 

@@ -2,6 +2,8 @@ import { DefaultMap } from "../classes/DefaultMap";
 import { TSTLClassMetatable } from "../interfaces/private/TSTLClassMetatable";
 import { TSTLClass } from "../types/private/TSTLClass";
 
+const VANILLA_TSTL_CLASSES = new Set(["Map", "Set", "WeakMap", "WeakSet"]);
+
 const TSTL_CLASS_METATABLE_KEYS: ReadonlySet<string> = new Set([
   "____constructor",
   "__index",
@@ -9,11 +11,74 @@ const TSTL_CLASS_METATABLE_KEYS: ReadonlySet<string> = new Set([
 ]);
 
 /**
+ * Helper function to get the name of a TypeScriptToLua class. TSTL classes are Lua tables created
+ * with the `__TS__Class` Lua function from the TSTL lualib. Their name is contained within
+ * "constructor.name" metatable key.
+ *
+ * For example, a `Map` class is has a name of "Map".
+ *
+ * Returns undefined if the object is not a table or if the aforementioned metatable key does not
+ * exist.
+ */
+export function getTSTLClassName(object: unknown): string | undefined {
+  if (type(object) !== "table") {
+    return undefined;
+  }
+
+  const metatable = getmetatable(object);
+  if (metatable === undefined) {
+    return undefined;
+  }
+
+  const { constructor } = metatable;
+  if (constructor === undefined) {
+    return undefined;
+  }
+
+  return constructor.name;
+}
+
+/**
+ * Helper function to determine if a given object is a TypeScriptToLua `Map`.
+ *
+ * It is not reliable to use the `instanceof` operator to determine this because each Lua module has
+ * their own copies of the entire lualib and thus their own instantiated version of a `Map`.
+ */
+export function isDefaultMap(
+  object: unknown,
+): object is DefaultMap<AnyNotNil, unknown> {
+  const className = getTSTLClassName(object);
+  return className === "DefaultMap";
+}
+
+/**
  * Returns whether or not this is a class that is provided by the `isaacscript-common` library, such
  * as a `DefaultMap`.
  */
 export function isIsaacScriptCommonClass(object: unknown): boolean {
-  return object instanceof DefaultMap;
+  return isDefaultMap(object);
+}
+
+/**
+ * Helper function to determine if a given object is a TypeScriptToLua `Map`.
+ *
+ * It is not reliable to use the `instanceof` operator to determine this because each Lua module has
+ * their own copies of the entire lualib and thus their own instantiated version of a `Map`.
+ */
+export function isTSTLMap(object: unknown): object is Map<AnyNotNil, unknown> {
+  const className = getTSTLClassName(object);
+  return className === "Map";
+}
+
+/**
+ * Helper function to determine if a given object is a TypeScriptToLua `Set`.
+ *
+ * It is not reliable to use the `instanceof` operator to determine this because each Lua module has
+ * their own copies of the entire lualib and thus their own instantiated version of a `Set`.
+ */
+export function isTSTLSet(object: unknown): object is Set<AnyNotNil> {
+  const className = getTSTLClassName(object);
+  return className === "Set";
 }
 
 /** TypeScriptToLua classes are Lua tables that have a metatable with a certain amount of keys. */
@@ -53,12 +118,12 @@ export function isUserDefinedTSTLClass(object: unknown): object is TSTLClass {
  * transpiler, such as a `Map` or a `Set`.
  */
 export function isVanillaTSTLClass(object: unknown): boolean {
-  return (
-    object instanceof Map ||
-    object instanceof Set ||
-    object instanceof WeakMap ||
-    object instanceof WeakSet
-  );
+  const className = getTSTLClassName(object);
+  if (className === undefined) {
+    return false;
+  }
+
+  return VANILLA_TSTL_CLASSES.has(className);
 }
 
 /**

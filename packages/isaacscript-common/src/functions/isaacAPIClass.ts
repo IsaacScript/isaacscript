@@ -1,15 +1,15 @@
 import { IsaacAPIClass } from "../types/private/IsaacAPIClass";
 
 /**
- * Helper function to get the type of a class from the Isaac API. This is contained within the
- * "__type" metatable key. In this context, the type of the class is equivalent to the name.
+ * Helper function to get the name of a class from the Isaac API. This is contained within the
+ * "__type" metatable key.
  *
- * For example, a `Vector` class is has a type of "Vector".
+ * For example, a `Vector` class is has a name of "Vector".
  *
  * Returns undefined if the object is not of type `userdata` or if the "__type" metatable key does
  * not exist.
  */
-export function getIsaacAPIClassType(object: unknown): string | undefined {
+export function getIsaacAPIClassName(object: unknown): string | undefined {
   const objectType = type(object);
   if (objectType !== "userdata") {
     return undefined;
@@ -34,7 +34,7 @@ export function getIsaacAPIClassType(object: unknown): string | undefined {
  * name of the class.)
  */
 export function isIsaacAPIClass(object: unknown): object is IsaacAPIClass {
-  const isaacAPIClassType = getIsaacAPIClassType(object);
+  const isaacAPIClassType = getIsaacAPIClassName(object);
   return isaacAPIClassType !== undefined;
 }
 
@@ -42,7 +42,7 @@ export function isIsaacAPIClassOfType(
   object: unknown,
   classType: string,
 ): boolean {
-  const isaacAPIClassType = getIsaacAPIClassType(object);
+  const isaacAPIClassType = getIsaacAPIClassName(object);
   return (
     isaacAPIClassType === classType ||
     isaacAPIClassType === `const ${classType}`

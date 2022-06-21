@@ -4,7 +4,7 @@ import { ISAAC_API_CLASS_TYPE_TO_BRAND } from "../objects/isaacAPIClassTypeToBra
 import { ISAAC_API_CLASS_TYPE_TO_COPY_FUNCTION } from "../objects/isaacAPIClassTypeToCopyFunction";
 import { SERIALIZED_ISAAC_API_CLASS_TYPE_TO_IDENTITY_FUNCTION } from "../objects/serializedIsaacAPIClassTypeToIdentityFunction";
 import { SerializedIsaacAPIClass } from "../types/private/SerializedIsaacAPIClass";
-import { getIsaacAPIClassType } from "./isaacAPIClass";
+import { getIsaacAPIClassName } from "./isaacAPIClass";
 
 export function copyIsaacAPIClass(
   isaacAPIClass: unknown,
@@ -17,7 +17,7 @@ export function copyIsaacAPIClass(
     );
   }
 
-  const isaacAPIClassType = getIsaacAPIClassType(isaacAPIClass);
+  const isaacAPIClassType = getIsaacAPIClassName(isaacAPIClass);
   if (isaacAPIClassType === undefined) {
     error(
       "Failed to copy an Isaac API class since it does not have a class type.",
