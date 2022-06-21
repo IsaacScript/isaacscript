@@ -27,5 +27,6 @@
       }
     }
   },
-  "tags": []
+  "tags": [],
+  "implicitDependencies": ["isaac-typescript-definitions", "isaacscript-common"]
 }
