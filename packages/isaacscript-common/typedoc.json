@@ -141,8 +141,6 @@
     "CopyKColorReturn",
     "CopyRNGReturn",
     "CopyVectorReturn",
-    "FirstArg",
-    "SecondArg",
     "SerializedColor",
     "SerializedIsaacAPIClass",
     "SerializedKColor",

@@ -4,7 +4,6 @@
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
     "outDir": "../../dist/packages/docs",
-    "jsx": "react",
   },
 
   "include": [
@@ -17,6 +16,5 @@
     "src/**/*.js",
     "src/**/*.ts",
     "static/**/*.js",
-    "typedoc-theme-sort/**/*.tsx",
   ],
 }
