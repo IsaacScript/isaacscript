@@ -107,8 +107,28 @@ export function getCollectibleDescription(
 }
 
 /**
+ * Helper function to get the coin cost that a collectible item would be if it were being offered in
+ * a Devil Room deal. Returns 0 if passed `CollectibleType.NULL`.
+ */
+export function getCollectibleDevilCoinPrice(
+  collectibleType: CollectibleType,
+): int {
+  if (collectibleType === CollectibleType.NULL) {
+    return 0;
+  }
+
+  const defaultCollectiblePrice = 15;
+  const itemConfigItem = itemConfig.GetCollectible(collectibleType);
+  if (itemConfigItem === undefined) {
+    return defaultCollectiblePrice;
+  }
+
+  return itemConfigItem.DevilPrice * defaultCollectiblePrice;
+}
+
+/**
  * Helper function to get the heart cost that a collectible item would be if it were being offered
- * in a Devil Room deal. Returns 0 if passed CollectibleType.NULL.
+ * in a Devil Room deal. Returns 0 if passed `CollectibleType.NULL`.
  */
 export function getCollectibleDevilHeartPrice(
   collectibleType: CollectibleType,
@@ -124,10 +144,10 @@ export function getCollectibleDevilHeartPrice(
     return PickupPrice.THREE_SOUL_HEARTS;
   }
 
-  const defaultPickupPrice = PickupPrice.ONE_HEART;
+  const defaultCollectiblePrice = PickupPrice.ONE_HEART;
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
-    return defaultPickupPrice;
+    return defaultCollectiblePrice;
   }
 
   const twoHeartPrice =
