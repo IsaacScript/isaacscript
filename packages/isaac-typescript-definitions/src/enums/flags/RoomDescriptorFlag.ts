@@ -1,6 +1,14 @@
 /**
+ * Corresponds to `RoomDescriptorFlag`.
+ *
  * Matches the `RoomDescriptor.FLAG_*` members of the `RoomDescriptor` class. In IsaacScript, we
- * reimplement this as an enum instead, since it is cleaner.
+ * reimplement this as an object instead, since it is cleaner.
+ *
+ * This is represented as an object instead of an enum due to limitations with TypeScript enums. (We
+ * want this type to be a child of the `BitFlag` type.)
+ *
+ * @enum
+ * @notExported
  */
 const RoomDescriptorFlagInternal = {
   /**

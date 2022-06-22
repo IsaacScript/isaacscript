@@ -1,10 +1,15 @@
 /**
  * For `EntityType.PROJECTILE` (9)
  *
- * This is an object instead of a TypeScript enum because we need to specify that it contains bit
- * flags.
+ * Corresponds to `ProjectileFlag`.
  *
  * This enum was renamed from "ProjectileFlags" to be consistent with the other flag enums.
+ *
+ * This is represented as an object instead of an enum due to limitations with TypeScript enums. (We
+ * want this type to be a child of the `BitFlag` type.)
+ *
+ * @enum
+ * @notExported
  */
 const ProjectileFlagInternal = {
   /** 1 << 0 */

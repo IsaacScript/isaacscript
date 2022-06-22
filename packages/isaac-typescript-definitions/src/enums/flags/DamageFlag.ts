@@ -1,3 +1,12 @@
+/**
+ * Corresponds to `DamageFlag`.
+ *
+ * This is represented as an object instead of an enum due to limitations with TypeScript enums. (We
+ * want this type to be a child of the `BitFlag` type.)
+ *
+ * @enum
+ * @notExported
+ */
 const DamageFlagInternal = {
   /** 1 << 0 */
   NO_KILL: 1 << 0,

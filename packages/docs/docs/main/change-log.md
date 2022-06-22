@@ -9,6 +9,10 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## June 28th, 2022
+
+- The change log is now located on the official website.
+
 ## June 21st, 2022
 
 - Breaking changes:

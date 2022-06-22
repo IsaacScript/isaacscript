@@ -1,10 +1,16 @@
 /**
  * For `EntityType.TEAR` (2)
  *
- * This is an object instead of a TypeScript enum because we need to specify that it contains bit
- * flags. Furthermore, enums cannot be instantiated with `BitSet128` objects.
+ * Corresponds to `TargetFlag`.
  *
  * This enum was renamed from "TearFlags" to be consistent with the other flag enums.
+ *
+ * This is represented as an object instead of an enum due to limitations with TypeScript enums. (We
+ * want this type to be a child of the `BitFlag` type. Furthermore, enums cannot be instantiated
+ * with `BitSet128` objects.)
+ *
+ * @enum
+ * @notExported
  */
 const TearFlagInternal = {
   /** Default tear (no special effects). */
