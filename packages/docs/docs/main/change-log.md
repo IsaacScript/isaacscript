@@ -27,6 +27,7 @@ This page lists the changes to the IsaacScript framework.
 - Renamed the following helper functions:
   - `getIsaacAPIClassType` --> `getIsaacAPIClassName`
 - Added the `no-invalid-default-map` ESLint rule that will detect when you have an invalid first argument to a `DefaultMap` constructor.
+- `isaacscript init` no longer creates a `bundleEntry.ts` file. If you use the `noImplicitGlobalVariables` compiler flag, then this is unnecessary. For more information, see the new `tsconfig.json` [template file](https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-cli/file-templates/static/tsconfig.json).
 
 ## June 4th, 2022
 
