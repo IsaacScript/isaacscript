@@ -15,6 +15,7 @@ This page lists the changes to the IsaacScript framework.
 - Added the following helper functions:
   - `getBombRadiusFromDamage`
   - `getPlayerFromTear`
+  - `isDamageFromPlayer`
 
 ## June 21st, 2022
 

@@ -719,6 +719,20 @@ export function isCharacter(
 }
 
 /**
+ * Helper function to see if a damage source is from a player. Use this instead of comparing to the
+ * entity directly because it takes familiars into account.
+ */
+export function isDamageFromPlayer(damageSource: Entity): boolean {
+  const player = damageSource.ToPlayer();
+  if (player !== undefined) {
+    return true;
+  }
+
+  const indirectPlayer = getPlayerFromTear(damageSource);
+  return indirectPlayer !== undefined;
+}
+
+/**
  * Helper function for detecting when a player is Eden or Tainted Eden. Useful for situations where
  * you want to know if the starting stats were randomized, for example.
  */
