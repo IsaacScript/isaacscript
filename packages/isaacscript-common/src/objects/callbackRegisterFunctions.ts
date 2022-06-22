@@ -35,6 +35,7 @@ import { postNPCInitLateRegister } from "../callbacks/subscriptions/postNPCInitL
 import { postNPCStateChangedRegister } from "../callbacks/subscriptions/postNPCStateChanged";
 import { postPEffectUpdateReorderedRegister } from "../callbacks/subscriptions/postPEffectUpdateReordered";
 import { postPickupCollectRegister } from "../callbacks/subscriptions/postPickupCollect";
+import { postPickupInitFirstRegister } from "../callbacks/subscriptions/postPickupInitFirst";
 import { postPickupInitLateRegister } from "../callbacks/subscriptions/postPickupInitLate";
 import { postPickupStateChangedRegister } from "../callbacks/subscriptions/postPickupStateChanged";
 import { postPitRenderRegister } from "../callbacks/subscriptions/postPitRender";
@@ -124,6 +125,7 @@ export const CALLBACK_REGISTER_FUNCTIONS: {
   [ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED]:
     postPEffectUpdateReorderedRegister,
   [ModCallbackCustom.POST_PICKUP_COLLECT]: postPickupCollectRegister,
+  [ModCallbackCustom.POST_PICKUP_INIT_FIRST]: postPickupInitFirstRegister,
   [ModCallbackCustom.POST_PICKUP_INIT_LATE]: postPickupInitLateRegister,
   [ModCallbackCustom.POST_PICKUP_STATE_CHANGED]: postPickupStateChangedRegister,
   [ModCallbackCustom.POST_PIT_RENDER]: postPitRenderRegister,

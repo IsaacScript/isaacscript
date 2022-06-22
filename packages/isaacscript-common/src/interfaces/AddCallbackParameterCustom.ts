@@ -35,6 +35,7 @@ import { PostNPCInitLateRegisterParameters } from "../callbacks/subscriptions/po
 import { PostNPCStateChangedRegisterParameters } from "../callbacks/subscriptions/postNPCStateChanged";
 import { PostPEffectUpdateReorderedRegisterParameters } from "../callbacks/subscriptions/postPEffectUpdateReordered";
 import { PostPickupCollectRegisterParameters } from "../callbacks/subscriptions/postPickupCollect";
+import { PostPickupInitFirstRegisterParameters } from "../callbacks/subscriptions/postPickupInitFirst";
 import { PostPickupInitLateRegisterParameters } from "../callbacks/subscriptions/postPickupInitLate";
 import { PostPickupStateChangedRegisterParameters } from "../callbacks/subscriptions/postPickupStateChanged";
 import { PostPitRenderRegisterParameters } from "../callbacks/subscriptions/postPitRender";
@@ -113,6 +114,7 @@ export interface AddCallbackParameterCustom {
   [ModCallbackCustom.POST_NPC_STATE_CHANGED]: PostNPCStateChangedRegisterParameters;
   [ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED]: PostPEffectUpdateReorderedRegisterParameters;
   [ModCallbackCustom.POST_PICKUP_COLLECT]: PostPickupCollectRegisterParameters;
+  [ModCallbackCustom.POST_PICKUP_INIT_FIRST]: PostPickupInitFirstRegisterParameters;
   [ModCallbackCustom.POST_PICKUP_INIT_LATE]: PostPickupInitLateRegisterParameters;
   [ModCallbackCustom.POST_PICKUP_STATE_CHANGED]: PostPickupStateChangedRegisterParameters;
   [ModCallbackCustom.POST_PIT_RENDER]: PostPitRenderRegisterParameters;

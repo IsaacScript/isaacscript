@@ -18,6 +18,8 @@ This page lists the changes to the IsaacScript framework.
   - `isDamageFromPlayer`
   - `playerConvertBlackHeartsToSoulHearts`
   - `playerConvertSoulHeartsToBlackHearts`
+- Added the following custom callbacks:
+  - `POST_PICKUP_INIT_FIRST`
 
 ## June 21st, 2022
 

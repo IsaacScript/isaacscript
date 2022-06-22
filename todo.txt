@@ -1,5 +1,4 @@
 implement in isaacscript-common:
-- change POST_COLLECTIBLE_INIT_FIRST to POST_PICKUP_INIT_FIRST
 - trophy can move to isaacscript common for respawning purposes
   - when respawning, don't play appear animation
 - use tem's entity check function

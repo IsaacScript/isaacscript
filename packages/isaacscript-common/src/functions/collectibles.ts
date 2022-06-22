@@ -204,13 +204,13 @@ export function getCollectibleGfxFilename(
  *   and the pedestal pushed to an adjacent tile, but this case should be extremely rare.)
  * - Mega Chests spawn two collectibles on the exact same position. However, both of them will have
  *   different InitSeeds, so this is not a problem for this indexing scheme.
- * - The indexing scheme used is different for collectibles that are inside of a Treasure Room, in
- *   order to handle the case of the player seeing the same collectible again in a post-Ascent
- *   Treasure Room. A 5-tuple of stage, stage type, grid index, SubType, and InitSeed is used in
- *   this case. (Using the room list index or the room grid index is not suitable for this purpose,
- *   since both of these values can change in the post-Ascent Treasure Room.) Even though there can
- *   be two Treasure Rooms on an XL floor, both Treasure Rooms should not have collectibles with the
- *   same grid index, Subtype, and InitSeed.
+ * - The indexing scheme used is different for collectibles that are inside of a Treasure Room or
+ *   Boss Room, in order to handle the case of the player seeing the same collectible again in a
+ *   post-Ascent Treasure Room or Boss Room. A 5-tuple of stage, stage type, grid index, SubType,
+ *   and InitSeed is used in this case. (Using the room list index or the room grid index is not
+ *   suitable for this purpose, since both of these values can change in the post-Ascent rooms.)
+ *   Even though Treasure Rooms and Boss Rooms are grouped together in this scheme, there probably
+ *   will not be collectibles with the same grid index, SubType, and InitSeed.
  */
 export function getCollectibleIndex(
   collectible: EntityPickup,
@@ -230,8 +230,8 @@ export function getCollectibleIndex(
   const gridIndex = room.GetGridIndex(collectible.Position);
   const roomListIndex = getRoomListIndex();
 
-  // Handle the special case of being in a Treasure Room.
-  if (roomType === RoomType.TREASURE) {
+  // Handle the special case of being in a Treasure Room or Boss Room.
+  if (roomType === RoomType.TREASURE || roomType === RoomType.BOSS) {
     return `${stage},${stageType},${gridIndex},${collectible.SubType},${collectible.InitSeed}` as CollectibleIndex;
   }
 

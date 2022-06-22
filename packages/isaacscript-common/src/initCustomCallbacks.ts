@@ -24,6 +24,7 @@ import { postLaserInitLateCallbackInit } from "./callbacks/postLaserInitLate";
 import { postNPCInitLateCallbackInit } from "./callbacks/postNPCInitLate";
 import { postNPCStateChangedCallbackInit } from "./callbacks/postNPCStateChanged";
 import { postPickupCollectCallbackInit } from "./callbacks/postPickupCollect";
+import { postPickupInitFirstCallbackInit } from "./callbacks/postPickupInitFirst";
 import { postPickupInitLateCallbackInit } from "./callbacks/postPickupInitLate";
 import { postPickupStateChangedCallbackInit } from "./callbacks/postPickupStateChanged";
 import { postPitRenderInit } from "./callbacks/postPitRender";
@@ -86,6 +87,7 @@ export function initCustomCallbacks(mod: ModUpgraded): void {
   postNPCInitLateCallbackInit(mod);
   postNPCStateChangedCallbackInit(mod);
   postPickupCollectCallbackInit(mod);
+  postPickupInitFirstCallbackInit(mod);
   postPickupInitLateCallbackInit(mod);
   postPickupStateChangedCallbackInit(mod);
   postPitRenderInit(mod);

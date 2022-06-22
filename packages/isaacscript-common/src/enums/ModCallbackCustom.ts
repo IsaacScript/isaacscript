@@ -537,6 +537,29 @@ export enum ModCallbackCustom {
   POST_PICKUP_COLLECT,
 
   /**
+   * Fires from the `MC_POST_PICKUP_INIT` callback on the first time that a player has seen the
+   * respective pickup on the run.
+   *
+   * This callback is useful because pickups will despawn upon leaving the room and respawn upon
+   * re-entering the room.
+   *
+   * For most cases, this callback will simply fire when `MC_POST_PICKUP_INIT` fires and the player
+   * is not re-entering a previously visited room.
+   *
+   * The special case is when a player enters a post-Ascent Treasure Room or Boss Room. For these
+   * cases, the `InitSeed` of any pickups seen from previous floors is kept track of to prevent the
+   * callback from firing when re-entering the room.
+   *
+   * When registering the callback, takes an optional second argument that will make the callback
+   * only fire if the collectible type matches the `PickupVariant` provided.
+   *
+   * ```ts
+   * function postPickupInitFirst(pickup: EntityPickup): void {}
+   * ```
+   */
+  POST_PICKUP_INIT_FIRST,
+
+  /**
    * Fires on the first `MC_POST_PICKUP_UPDATE` frame for each pickup.
    *
    * This callback is useful because many attributes cannot be set or retrieved properly in the
