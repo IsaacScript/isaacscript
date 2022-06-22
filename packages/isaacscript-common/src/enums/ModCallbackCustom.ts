@@ -163,7 +163,7 @@ export enum ModCallbackCustom {
    * only fire if the familiar variant matches the `FamiliarVariant` provided.
    *
    * ```ts
-   * function postTearInitLate(familiar: EntityFamiliar): void {}
+   * function postFamiliarInitLate(familiar: EntityFamiliar): void {}
    * ```
    */
   POST_FAMILIAR_INIT_LATE,
