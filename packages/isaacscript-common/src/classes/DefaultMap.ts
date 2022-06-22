@@ -52,7 +52,7 @@ export type FactoryFunction<V, Args extends unknown[]> = (
  *
  * ```ts
  * // Initializes a new empty DefaultMap with a default value of a new empty array.
- * const factoryFunction = () => [] as ;
+ * const factoryFunction = () => [];
  * const defaultMapWithArray = new DefaultMap<string, string[]>(factoryFunction);
  * ```
  *
@@ -139,10 +139,6 @@ export class DefaultMap<Key, Value, Args extends unknown[] = []> extends Map<
     const defaultValue = this.getDefaultValue(...extraArgs);
     this.set(key, defaultValue);
     return defaultValue;
-  }
-
-  getWithoutDefault(key: Key): Value | undefined {
-    return super.get(key);
   }
 
   /**
