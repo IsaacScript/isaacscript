@@ -9,7 +9,7 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## June 20th, 2022
+## June 21st, 2022
 
 - Breaking changes:
   - `DefaultMap` now takes the default value/function as the first argument and the initializer array as the second argument.
