@@ -24,7 +24,7 @@ module.exports = {
   rules: {
     /**
      * Documentation:
-     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/main/docs/rules/member-ordering.md
+     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/member-ordering.md
      *
      * Not defined in the parent configs.
      *

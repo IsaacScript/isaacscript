@@ -1,16 +1,6 @@
 - fix bundleEntry
 
 - NEW DOCUMENTATION WEBSITE
-  - isaac-typescript-definitions
-  - fix link on features website
-  - fix link "many extra callbacks"
-  - fix link "r things that the developers forgot to include in t"
-  - fix link "https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/main/docs/rules/enum-member-number-separation.md"
-  - fix link "https://github.com/IsaacScript/isaacscript/tree/main/packages/isaacscript-lint"
-  - fix link "https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-plugin-isaacscript/"
-  - fix link "https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/main/docs/rules/member-ordering.md"
-  - fix link "https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/jsdoc.js"
-
   - move changelog to real page
 - change bundleEntry.ts to "export {}" with comment - actually, wait until perry merges
 - TSTL PR: https://quramy.medium.com/manipulate-comments-with-typescript-api-73d5f1d43d7f

@@ -67,7 +67,7 @@ module.exports = {
 
     /**
      * Documentation:
-     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/main/docs/rules/enum-member-number-separation.md
+     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/enum-member-number-separation.md
      *
      * Not defined in the parent configs.
      *
@@ -77,7 +77,7 @@ module.exports = {
 
     /**
      * Documentation:
-     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/main/docs/rules/no-invalid-default-map.md
+     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/no-invalid-default-map.md
      *
      * Not defined in the parent configs.
      *

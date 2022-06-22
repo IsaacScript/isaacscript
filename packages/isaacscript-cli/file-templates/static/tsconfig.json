@@ -29,5 +29,6 @@
       // exact line of the mod that is causing the crash.
       // { "name": "./plugins/addCrashDebugStatements.ts" },
     ],
+    "noImplicitGlobalVariables": true,
   },
 }

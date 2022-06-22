@@ -33,14 +33,15 @@
 
   // TypeScriptToLua settings
   "tstl": {
-    "luaTarget": "5.3",
     "buildMode": "library",
-    "noHeader": true,
+    "luaTarget": "5.3",
     "luaPlugins": [
       // A plugin to make enums safe from global variables.
       {
         "name": "../isaacscript-cli/file-templates/static/plugins/noExtendedEnums.ts",
       },
     ],
+    "noHeader": true,
+    "noImplicitGlobalVariables": true,
   },
 }
