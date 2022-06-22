@@ -1,19 +1,5 @@
 implement in isaacscript-common:
 - change POST_COLLECTIBLE_INIT_FIRST to POST_PICKUP_INIT_FIRST
-
-- isDamageFromPlayer
-- playerConvertHealth
-
-function playerConvertSoulHeartsToBlackHearts(player: EntityPlayer) {
-  const playerHealth = getPlayerHealth(player);
-  removeAllPlayerHealth(player);
-  playerHealth.soulHeartTypes = playerHealth.soulHeartTypes.map(
-    (soulHeartType) =>
-      soulHeartType === HeartSubType.SOUL ? HeartSubType.BLACK : soulHeartType,
-  );
-  setPlayerHealth(player, playerHealth);
-}
-
 - trophy can move to isaacscript common for respawning purposes
   - when respawning, don't play appear animation
 - use tem's entity check function

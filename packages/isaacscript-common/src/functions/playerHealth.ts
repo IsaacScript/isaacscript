@@ -211,6 +211,30 @@ export function getPlayerHealthType(
   }
 }
 
+export function playerConvertBlackHeartsToSoulHearts(
+  player: EntityPlayer,
+): void {
+  const playerHealth = getPlayerHealth(player);
+  removeAllPlayerHealth(player);
+  playerHealth.soulHeartTypes = playerHealth.soulHeartTypes.map(
+    (soulHeartType) =>
+      soulHeartType === HeartSubType.BLACK ? HeartSubType.SOUL : soulHeartType,
+  );
+  setPlayerHealth(player, playerHealth);
+}
+
+export function playerConvertSoulHeartsToBlackHearts(
+  player: EntityPlayer,
+): void {
+  const playerHealth = getPlayerHealth(player);
+  removeAllPlayerHealth(player);
+  playerHealth.soulHeartTypes = playerHealth.soulHeartTypes.map(
+    (soulHeartType) =>
+      soulHeartType === HeartSubType.SOUL ? HeartSubType.BLACK : soulHeartType,
+  );
+  setPlayerHealth(player, playerHealth);
+}
+
 export function removeAllPlayerHealth(player: EntityPlayer): void {
   const goldenHearts = player.GetGoldenHearts();
   const eternalHearts = player.GetEternalHearts();

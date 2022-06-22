@@ -16,6 +16,8 @@ This page lists the changes to the IsaacScript framework.
   - `getBombRadiusFromDamage`
   - `getPlayerFromTear`
   - `isDamageFromPlayer`
+  - `playerConvertBlackHeartsToSoulHearts`
+  - `playerConvertSoulHeartsToBlackHearts`
 
 ## June 21st, 2022
 
