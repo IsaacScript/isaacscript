@@ -1,9 +1,13 @@
-# IsaacScript Change Log
+---
+title: Change Log
+---
 
 <!-- markdownlint-disable MD024 -->
 <!-- cspell:ignore Somdudewillson,Siramok,Gamonymous -->
 
 This page lists the changes to the IsaacScript framework.
+
+<br />
 
 ## June 20th, 2022
 

@@ -29,6 +29,7 @@ const sidebars = {
       ],
     },
     "main/standard-library",
+    "main/change-log",
     {
       type: "category",
       label: "Other",
