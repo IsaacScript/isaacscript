@@ -1,20 +1,7 @@
 implement in isaacscript-common:
 - change POST_COLLECTIBLE_INIT_FIRST to POST_PICKUP_INIT_FIRST
-- isaacscript function to recalculate item ids in items.xml
+
 - isDamageFromPlayer
-
-function findPlayerFromTear(tear)
-  if not tear then return end
-  local parent = tear.Parent
-  if not parent then return end
-
-  if parent:ToPlayer() then
-    return parent:ToPlayer()
-  elseif parent:ToFamiliar() and parent.Variant == FamiliarVariant.INCUBUS then
-    return parent:ToFamiliar().Player
-  end
-end
-
 - playerConvertHealth
 
 function playerConvertSoulHeartsToBlackHearts(player: EntityPlayer) {

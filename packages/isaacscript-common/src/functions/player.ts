@@ -3,6 +3,7 @@ import {
   CacheFlag,
   Challenge,
   CollectibleType,
+  FamiliarVariant,
   NullItemID,
   PlayerForm,
   PlayerType,
@@ -367,6 +368,41 @@ export function getPlayerCollectibleMap(
   }
 
   return collectibleMap;
+}
+
+/** Helper function to get the player from a tear, laser, bomb, etc. */
+export function getPlayerFromTear(entity: Entity): EntityPlayer | undefined {
+  if (entity.Parent !== undefined) {
+    const player = entity.Parent.ToPlayer();
+    if (player !== undefined) {
+      return player;
+    }
+
+    const familiar = entity.Parent.ToFamiliar();
+    if (
+      familiar !== undefined &&
+      familiar.Variant === FamiliarVariant.INCUBUS
+    ) {
+      return familiar.Player;
+    }
+  }
+
+  if (entity.SpawnerEntity !== undefined) {
+    const player = entity.SpawnerEntity.ToPlayer();
+    if (player !== undefined) {
+      return player;
+    }
+
+    const familiar = entity.SpawnerEntity.ToFamiliar();
+    if (
+      familiar !== undefined &&
+      familiar.Variant === FamiliarVariant.INCUBUS
+    ) {
+      return familiar.Player;
+    }
+  }
+
+  return undefined;
 }
 
 /**

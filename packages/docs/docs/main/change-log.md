@@ -11,7 +11,10 @@ This page lists the changes to the IsaacScript framework.
 
 ## June 28th, 2022
 
-- The change log is now located on the official website.
+- The change log is now located on [the official website](https://isaacscript.github.io/main/change-log).
+- Added the following helper functions:
+  - `getBombRadiusFromDamage`
+  - `getPlayerFromTear`
 
 ## June 21st, 2022
 

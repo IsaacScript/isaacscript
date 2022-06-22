@@ -40,6 +40,7 @@
     "src/features/taintedLazarusPlayers.ts",
     "src/functions/array.ts",
     "src/functions/benchmark.ts",
+    "src/functions/bombs.ts",
     "src/functions/bitwise.ts",
     "src/functions/boss.ts",
     "src/functions/cacheFlag.ts",
