@@ -21,5 +21,4 @@ implement in isaacscript-common:
 - function to start challenge room
 - think about how to track a custom entity that emulates a collectible (pseudo-persistent)
   - add isaacscript-common functionality for persistent entities
-- make isValidCollectible (from isaac-typescript-definitions) for mods
 - StageAPI2
