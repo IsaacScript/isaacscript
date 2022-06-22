@@ -9,7 +9,7 @@ declare interface Vector {
   Dot(secondVector: Vector): float;
 
   /**
-   * The game returns degrees in the following format:
+   * This method returns a value from -180 to 180.
    *
    * - Right: 0
    * - Up: -90

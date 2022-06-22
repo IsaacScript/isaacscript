@@ -508,7 +508,7 @@ function postPurchase(player: EntityPlayer, pickup: EntityPickup): void {}
 
 - The `Isaac.GetPlayer` method will no longer return undefined. (You can now delete any undefined-related checks.)
 - Added the `EntitySubPlayer` class to prevent bugs with `RNG`. (`EntityPlayer.GetSubPlayer` is defined as returning this.)
-- Added the `DefaultMap` class. Use this instead of a `Map` if you need a data structure that will automatically instantiate default values. See [the documentation](https://isaacscript.github.io/isaacscript-common/classes/types_DefaultMap.DefaultMap.html) for more information.
+- Added the `DefaultMap` class. Use this instead of a `Map` if you need a data structure that will automatically instantiate default values. See [the documentation](https://isaacscript.github.io/isaacscript-common/classes/DefaultMap.html) for more information.
 - Added the following helper functions:
   - `checkFamiliar`
   - `checkFamiliarFromCollectibles`

@@ -4,19 +4,26 @@ import { DIRECTION_TO_DEGREES } from "../objects/directionToDegrees";
 import { DIRECTION_TO_VECTOR } from "../objects/directionToVector";
 
 export function angleToDirection(angleDegrees: int): Direction {
-  const normalizedAngleDegrees = angleDegrees % 360;
-  const absoluteAngleDegrees = Math.abs(normalizedAngleDegrees);
+  let positiveDegrees = angleDegrees;
+  while (positiveDegrees < 0) {
+    positiveDegrees += 360;
+  }
+  const normalizedDegrees = positiveDegrees % 360;
 
-  if (absoluteAngleDegrees < 45) {
+  if (normalizedDegrees < 45) {
+    return Direction.UP;
+  }
+
+  if (normalizedDegrees < 135) {
     return Direction.RIGHT;
   }
 
-  if (absoluteAngleDegrees > 135) {
-    return Direction.LEFT;
+  if (normalizedDegrees < 225) {
+    return Direction.DOWN;
   }
 
-  if (normalizedAngleDegrees > 0) {
-    return Direction.DOWN;
+  if (normalizedDegrees < 315) {
+    return Direction.RIGHT;
   }
 
   return Direction.UP;

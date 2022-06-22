@@ -112,7 +112,7 @@ TypeScript works the same way as Lua. There is only one type of number: `number`
 
 However, the official Isaac API documentation uses integers and floats. For example, this is the entry for the `EntityPlayer.AddHearts` function:
 
-```c++
+```cpp
 void AddHearts(int hearts)
 ```
 
@@ -177,7 +177,7 @@ if (
 }
 ```
 
-As a side note, you might be wondering why you can't use `enum CollectibleTypeCustom` instead of `const CollectibleTypeCustom`. The reason is that due to a quirk in TypeScript, enums can only have `number` or `string` types, and the result from the `Isaac.GetItemIdByName` function is a `CollectibleType` type. To work around this, we can use a `const` object instead, which is more-or-less the same thing.
+As a side note, you might be wondering why the above code uses `const CollectibleTypeCustom` instead of `enum CollectibleTypeCustom`. The reason is that due to a quirk in TypeScript, enums can only have `number` or `string` types, and the result from the `Isaac.GetItemIdByName` function is a `CollectibleType` type. To work around this, we can use a `const` object instead, which is more-or-less the same thing.
 
 <br />
 

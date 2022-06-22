@@ -1,6 +1,7 @@
 import { Direction } from "isaac-typescript-definitions";
 import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
+import { angleToDirection } from "./direction";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { copyValuesToTable, getNumbersFromTable, tableHasKeys } from "./table";
 import { ensureAllCases } from "./utils";
@@ -117,25 +118,8 @@ export function vectorEquals(vector1: Vector, vector2: Vector): boolean {
 
 /** Helper function for finding out which way a vector is pointing. */
 export function vectorToDirection(vector: Vector): Direction {
-  const degrees = vector.GetAngleDegrees();
-
-  if (degrees > -45 && degrees < 45) {
-    return Direction.RIGHT;
-  }
-
-  if (degrees >= 45 && degrees <= 135) {
-    return Direction.DOWN;
-  }
-
-  if (degrees <= -45 && degrees >= -135) {
-    return Direction.UP;
-  }
-
-  if (degrees > 135 || degrees < -135) {
-    return Direction.LEFT;
-  }
-
-  return Direction.NO_DIRECTION;
+  const angleDegrees = vector.GetAngleDegrees();
+  return angleToDirection(angleDegrees);
 }
 
 export function vectorToString(vector: Vector, round = false): string {
