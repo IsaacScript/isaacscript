@@ -1,8 +1,13 @@
 implement in isaacscript-common:
+
+- try using module comment at top of file to rename docusaurus header for features?
+
 - trophy can move to isaacscript common for respawning purposes
   - when respawning, don't play appear animation
+
 - use tem's entity check function
 - make spawn never spawn non-existent entities
+
 - test getCurrentDimension() function to see if Xalum is right // cspell:disable-line
 - PHD_PILL_CONVERSIONS to isaacscript-common
 - POST_PLAYER_COLLECTIBLE_ADDED
@@ -11,7 +16,6 @@ implement in isaacscript-common:
 - POST_BOMB_DETONATE
 - check for item unlocked - https://github.com/Zamiell/racing-plus/blob/main/src/features/mandatory/errors.ts#L80-L165
 - bible detection for POST FATAL DAMAGE
-- isNewPickup
 - compareEntity (to see what changes with dice room effect)
 - DICE_ROOM_ACTIVATED
 - intercept shovel for decorations
