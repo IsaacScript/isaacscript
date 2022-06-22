@@ -2,6 +2,8 @@
 // callbacks are handled in a different file.)
 
 import { ModCallback } from "isaac-typescript-definitions";
+import { ModUpgraded } from "../classes/ModUpgraded";
+import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getSlots } from "../functions/entitySpecific";
 import {
@@ -20,11 +22,14 @@ const v = {
 };
 
 /** @internal */
-export function postSlotInitUpdateCallbacksInit(mod: Mod): void {
+export function postSlotInitUpdateCallbacksInit(mod: ModUpgraded): void {
   saveDataManager("postSlotInitUpdate", v, hasSubscriptions);
 
   mod.AddCallback(ModCallback.POST_UPDATE, postUpdate); // 1
-  mod.AddCallback(ModCallback.POST_NEW_ROOM, postNewRoom); // 9
+  mod.AddCallbackCustom(
+    ModCallbackCustom.POST_NEW_ROOM_REORDERED,
+    postNewRoomReordered,
+  );
 }
 
 function hasSubscriptions() {
@@ -43,8 +48,8 @@ function postUpdate() {
   }
 }
 
-// ModCallback.POST_NEW_ROOM (9)
-function postNewRoom() {
+// ModCallbackCustom.POST_NEW_ROOM_REORDERED
+function postNewRoomReordered() {
   if (!hasSubscriptions()) {
     return;
   }

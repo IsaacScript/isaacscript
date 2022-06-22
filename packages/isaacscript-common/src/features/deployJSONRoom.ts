@@ -12,13 +12,14 @@ import {
   EntityType,
   GridEntityType,
   GridEntityXMLType,
-  ModCallback,
   PickupVariant,
   PitfallVariant,
   RoomType,
 } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { DefaultMap } from "../classes/DefaultMap";
+import { ModUpgraded } from "../classes/ModUpgraded";
+import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import {
   removeAllMatchingEntities,
@@ -81,14 +82,17 @@ const v = {
 };
 
 /** @internal */
-export function deployJSONRoomInit(mod: Mod): void {
+export function deployJSONRoomInit(mod: ModUpgraded): void {
   saveDataManager("deployJSONRoom", v);
 
-  mod.AddCallback(ModCallback.POST_NEW_ROOM, postNewRoom); // 19
+  mod.AddCallbackCustom(
+    ModCallbackCustom.POST_NEW_ROOM_REORDERED,
+    postNewRoomReordered,
+  );
 }
 
-// ModCallback.POST_NEW_ROOM (19)
-function postNewRoom() {
+// ModCallbackCustom.POST_NEW_ROOM_REORDERED
+function postNewRoomReordered() {
   const roomListIndex = getRoomListIndex();
 
   if (!v.level.deployedRoomListIndexes.has(roomListIndex)) {

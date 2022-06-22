@@ -927,6 +927,7 @@ export function right(params: string): void {
 /** Logs information about the room to the "log.txt" file. */
 export function roomCommand(): void {
   logRoom();
+  printConsole('Logged room information to the "log.txt" file.');
 }
 
 /**

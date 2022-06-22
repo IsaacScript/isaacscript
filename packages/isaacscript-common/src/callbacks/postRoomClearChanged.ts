@@ -1,5 +1,7 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
+import { ModUpgraded } from "../classes/ModUpgraded";
+import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import {
   postRoomClearChangedFire,
@@ -13,11 +15,14 @@ const v = {
 };
 
 /** @internal */
-export function postRoomClearChangedCallbackInit(mod: Mod): void {
+export function postRoomClearChangedCallbackInit(mod: ModUpgraded): void {
   saveDataManager("postRoomClearChanged", v, hasSubscriptions);
 
   mod.AddCallback(ModCallback.POST_UPDATE, postUpdate); // 1
-  mod.AddCallback(ModCallback.POST_NEW_ROOM, postNewRoom); // 19
+  mod.AddCallbackCustom(
+    ModCallbackCustom.POST_NEW_ROOM_REORDERED,
+    postNewRoomReordered,
+  );
 }
 
 function hasSubscriptions() {
@@ -39,8 +44,8 @@ function postUpdate() {
   }
 }
 
-// ModCallback.POST_NEW_ROOM (19)
-function postNewRoom() {
+// ModCallbackCustom.POST_NEW_ROOM_REORDERED
+function postNewRoomReordered() {
   if (!hasSubscriptions()) {
     return;
   }

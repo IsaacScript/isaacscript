@@ -1,4 +1,6 @@
 import { EntityType, ModCallback } from "isaac-typescript-definitions";
+import { ModUpgraded } from "../classes/ModUpgraded";
+import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { spawn } from "../functions/entity";
 import { getRoomListIndex } from "../functions/roomData";
 import { PersistentEntityDescription } from "../interfaces/PersistentEntityDescription";
@@ -27,30 +29,14 @@ const v = {
 };
 
 /** @internal */
-export function persistentEntitiesInit(mod: Mod): void {
+export function persistentEntitiesInit(mod: ModUpgraded): void {
   saveDataManager("persistentEntities", v);
 
-  mod.AddCallback(ModCallback.POST_NEW_ROOM, postNewRoom); // 19
   mod.AddCallback(ModCallback.POST_ENTITY_REMOVE, postEntityRemove); // 67
-}
-
-// ModCallback.POST_NEW_ROOM (19)
-function postNewRoom() {
-  const roomListIndex = getRoomListIndex();
-
-  for (const [index, description] of v.level.persistentEntities.entries()) {
-    if (roomListIndex !== description.roomListIndex) {
-      continue;
-    }
-
-    v.level.persistentEntities.delete(index);
-    spawnAndTrack(
-      description.entityType,
-      description.variant,
-      description.subType,
-      description.position,
-    );
-  }
+  mod.AddCallbackCustom(
+    ModCallbackCustom.POST_NEW_ROOM_REORDERED,
+    postNewRoomReordered,
+  );
 }
 
 // ModCallback.POST_ENTITY_REMOVE (67)
@@ -72,6 +58,25 @@ function postEntityRemove(entity: Entity) {
     roomListIndex,
     position: entity.Position,
   });
+}
+
+// ModCallbackCustom.POST_NEW_ROOM_REORDERED
+function postNewRoomReordered() {
+  const roomListIndex = getRoomListIndex();
+
+  for (const [index, description] of v.level.persistentEntities.entries()) {
+    if (roomListIndex !== description.roomListIndex) {
+      continue;
+    }
+
+    v.level.persistentEntities.delete(index);
+    spawnAndTrack(
+      description.entityType,
+      description.variant,
+      description.subType,
+      description.position,
+    );
+  }
 }
 
 /**

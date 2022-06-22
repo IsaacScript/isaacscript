@@ -52,7 +52,10 @@ export function customReviveCallbacksInit(mod: ModUpgraded): void {
   saveDataManager("customRevive", v, hasSubscriptions);
 
   mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
-  mod.AddCallback(ModCallback.POST_NEW_ROOM, postNewRoom); // 19
+  mod.AddCallbackCustom(
+    ModCallbackCustom.POST_NEW_ROOM_REORDERED,
+    postNewRoomReordered,
+  );
   mod.AddCallbackCustom(
     ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
     postPEffectUpdateReordered,
@@ -81,8 +84,8 @@ function postRender() {
   sfxManager.Stop(SoundEffect.ONE_UP);
 }
 
-// ModCallback.POST_NEW_ROOM (19)
-function postNewRoom() {
+// ModCallbackCustom.POST_NEW_ROOM_REORDERED
+function postNewRoomReordered() {
   if (v.run.state !== CustomReviveState.WAITING_FOR_ROOM_TRANSITION) {
     return;
   }

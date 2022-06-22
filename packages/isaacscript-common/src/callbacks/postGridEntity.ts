@@ -6,6 +6,8 @@
 // - PostGridEntityBroken
 
 import { GridEntityType, ModCallback } from "isaac-typescript-definitions";
+import { ModUpgraded } from "../classes/ModUpgraded";
+import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import {
   getGridEntitiesMap,
@@ -46,11 +48,14 @@ const v = {
 };
 
 /** @internal */
-export function postGridEntityCallbacksInit(mod: Mod): void {
+export function postGridEntityCallbacksInit(mod: ModUpgraded): void {
   saveDataManager("postGridEntity", v, hasSubscriptions);
 
   mod.AddCallback(ModCallback.POST_UPDATE, postUpdate); // 1
-  mod.AddCallback(ModCallback.POST_NEW_ROOM, postNewRoom); // 9
+  mod.AddCallbackCustom(
+    ModCallbackCustom.POST_NEW_ROOM_REORDERED,
+    postNewRoomReordered,
+  );
 }
 
 function hasSubscriptions() {
@@ -145,8 +150,8 @@ function updateTupleInMap(gridEntity: GridEntity) {
   v.room.initializedGridEntities.set(gridIndex, newTuple);
 }
 
-// ModCallback.POST_NEW_ROOM (9)
-function postNewRoom() {
+// ModCallbackCustom.POST_NEW_ROOM_REORDERED
+function postNewRoomReordered() {
   if (!hasSubscriptions()) {
     return;
   }
