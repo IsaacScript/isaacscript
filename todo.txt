@@ -1,6 +1,3 @@
-- change bundleEntry.ts to "export {}" with comment - actually, wait until perry merges
-- TSTL PR: https://quramy.medium.com/manipulate-comments-with-typescript-api-73d5f1d43d7f
-
 implement in isaacscript-common:
 - change POST_COLLECTIBLE_INIT_FIRST to POST_PICKUP_INIT_FIRST
 - isaacscript function to recalculate item ids in items.xml

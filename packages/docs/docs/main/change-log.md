@@ -3,6 +3,7 @@ title: Change Log
 ---
 
 <!-- markdownlint-disable MD024 -->
+<!-- lint-disable no-duplicate-headings -->
 <!-- cspell:ignore Somdudewillson,Siramok,Gamonymous -->
 
 This page lists the changes to the IsaacScript framework.
@@ -696,6 +697,7 @@ As a result of the change, you will no longer see linting errors in VSCode for f
 If you decide to upgrade `isaacscript-lint` in your existing projects, you should also perform the following steps to keep Prettier working:
 
 <!-- markdownlint-disable MD029 -->
+<!-- lint-disable ordered-list-marker-value -->
 
 1. Install the Prettier VSCode extension.
 
@@ -718,6 +720,9 @@ If you decide to upgrade `isaacscript-lint` in your existing projects, you shoul
 # Step 1 - Use Prettier to check formatting
 npx prettier --check "src/**/*.ts"
 ```
+
+<!-- markdownlint-enable MD029 -->
+<!-- lint-enable ordered-list-marker-value -->
 
 ### Other
 
@@ -1263,7 +1268,7 @@ see the official website: https://isaacscript.github.io/
 The reason for this is that any functions and variables that you declare in a TSTL bundle entry point will automatically become global variables. And you should (almost) never be creating any global variables. So, if you declare any functions or variables in your `main.ts` file, you can "fix" it by performing the following steps:
 
 - In `tsconfig.json`, set `"luaBundleEntry": "./src/bundleEntry.ts"`
-- Create `./src/bundleEntry.ts` and paste in: <https://github.com/IsaacScript/isaacscript/blob/main/file-templates/static/src/bundleEntry.ts>
+- Create `./src/bundleEntry.ts` and paste in: <https://github.com/IsaacScript/isaacscript/blob/27d659ea42144d70c28241c3267f4a4f16c83cf7/packages/isaacscript-cli/file-templates/static/src/bundleEntry.ts>
 - Put everything in your `main.ts` file into a `export default function main()` function
 
 ### `luaBundle`
@@ -1662,7 +1667,6 @@ You can still use `null` in your own variables, but make sure that it is for var
     - `isaacscript-lint` - The linting config.
     - `isaacscript-common` - Optional helper functions that you can use in your mods.
     - `isaac-typescript-definitions` - Provides the types for all the Isaac API classes, like `EntityPlayer` and so forth.
-  - For reference, this is the template `package.json` file for a new mod: <https://github.com/IsaacScript/isaacscript/blob/main/file-templates/dynamic/package.json>
   - If you are upgrading your existing mod to the latest version of IsaacScript, simply add the 3 extra dependencies to your `package.json` file, and everything should work the way it did before.
   - Remember that you can use the `update.sh` helper script to update all of your dependencies at once.
 - Added Algolia search to the IsaacScript website.
