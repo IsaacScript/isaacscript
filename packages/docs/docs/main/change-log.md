@@ -3,7 +3,6 @@ title: Change Log
 ---
 
 <!-- markdownlint-disable MD024 -->
-<!-- lint-disable no-duplicate-headings -->
 <!-- cspell:ignore Somdudewillson,Siramok,Gamonymous -->
 
 This page lists the changes to the IsaacScript framework.
@@ -697,7 +696,6 @@ As a result of the change, you will no longer see linting errors in VSCode for f
 If you decide to upgrade `isaacscript-lint` in your existing projects, you should also perform the following steps to keep Prettier working:
 
 <!-- markdownlint-disable MD029 -->
-<!-- lint-disable ordered-list-marker-value -->
 
 1. Install the Prettier VSCode extension.
 
@@ -722,7 +720,6 @@ npx prettier --check "src/**/*.ts"
 ```
 
 <!-- markdownlint-enable MD029 -->
-<!-- lint-enable ordered-list-marker-value -->
 
 ### Other
 
@@ -1268,7 +1265,7 @@ see the official website: https://isaacscript.github.io/
 The reason for this is that any functions and variables that you declare in a TSTL bundle entry point will automatically become global variables. And you should (almost) never be creating any global variables. So, if you declare any functions or variables in your `main.ts` file, you can "fix" it by performing the following steps:
 
 - In `tsconfig.json`, set `"luaBundleEntry": "./src/bundleEntry.ts"`
-- Create `./src/bundleEntry.ts` and paste in: <https://github.com/IsaacScript/isaacscript/blob/27d659ea42144d70c28241c3267f4a4f16c83cf7/packages/isaacscript-cli/file-templates/static/src/bundleEntry.ts>
+- Create `./src/bundleEntry.ts` and paste in the contents of [this file](https://github.com/IsaacScript/isaacscript/blob/27d659ea42144d70c28241c3267f4a4f16c83cf7/packages/isaacscript-cli/file-templates/static/src/bundleEntry.ts).
 - Put everything in your `main.ts` file into a `export default function main()` function
 
 ### `luaBundle`
