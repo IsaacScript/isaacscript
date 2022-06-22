@@ -18,6 +18,9 @@ This page lists the changes to the IsaacScript framework.
   - `isDamageFromPlayer`
   - `playerConvertBlackHeartsToSoulHearts`
   - `playerConvertSoulHeartsToBlackHearts`
+  - `doesEntityExist`
+  - `spawnPersistentEntity`
+  - `removePersistentEntity`
 - Added the following custom callbacks:
   - `POST_PICKUP_INIT_FIRST`
 

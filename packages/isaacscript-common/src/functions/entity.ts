@@ -38,6 +38,25 @@ export function countEntities(
 }
 
 /**
+ * Helper function to check if one or more of a specific kind of entity is present in the current
+ * room. It uses the `countEntities` helper function to determine this.
+ *
+ * @param entityType Default is -1. -1 matches every entity type.
+ * @param variant Default is -1. -1 matches every variant.
+ * @param subType Default is -1. -1 matches every sub-type.
+ * @param ignoreFriendly Default is false.
+ */
+export function doesEntityExist(
+  entityType: EntityType = -1,
+  variant = -1,
+  subType = -1,
+  ignoreFriendly = false,
+): boolean {
+  const count = countEntities(entityType, variant, subType, ignoreFriendly);
+  return count > 0;
+}
+
+/**
  * Given an array of entities, this helper function returns the closest one to a provided reference
  * entity.
  *

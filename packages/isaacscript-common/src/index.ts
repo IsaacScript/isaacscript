@@ -46,6 +46,10 @@ export { removeFadeIn, restoreFadeIn } from "./features/fadeInRemover";
 export { disableFastReset, enableFastReset } from "./features/fastReset";
 export { forgottenSwitch } from "./features/forgottenSwitch";
 export { getCollectibleItemPoolType } from "./features/getCollectibleItemPoolType";
+export {
+  removePersistentEntity,
+  spawnPersistentEntity,
+} from "./features/persistentEntities";
 export { addCollectible, getPlayerInventory } from "./features/playerInventory";
 export * from "./features/ponyDetection";
 export { preventCollectibleRotation } from "./features/preventCollectibleRotation";

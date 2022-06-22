@@ -7,6 +7,7 @@ Chronometrics # Creator of Basement Renovator
 datagrams
 debuff
 despawn
+despawned
 despawning
 despawns
 Dollys
@@ -37,6 +38,7 @@ Raglings
 respawn
 respawned
 respawning
+respawns
 satans
 scolexes
 softlock

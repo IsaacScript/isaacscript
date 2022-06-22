@@ -251,7 +251,7 @@ declare global {
      * @param variant
      * @param position
      * @param forced Forced has no effect and will not override a grid entity on the given location.
-     *               Remove any existing grid entities first. Defaults to false.
+     *               Remove any existing grid entities first. Default is false.
      */
     function GridSpawn(
       gridEntityType: GridEntityType,

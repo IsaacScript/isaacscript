@@ -17,9 +17,6 @@ interface CopyColorReturn {
 const KEYS = ["R", "G", "B", "A", "RO", "GO", "BO"];
 const OBJECT_NAME = "Color";
 
-/**
- * @category color
- */
 export function colorEquals(color1: Color, color2: Color): boolean {
   return isaacAPIClassEquals(color1, color2, KEYS);
 }
@@ -30,7 +27,6 @@ export function colorEquals(color1: Color, color2: Color): boolean {
  * @param color The Color object to copy. In the case of deserialization, this will actually be a
  *              Lua table instead of an instantiated Color class.
  * @param serializationType Default is `SerializationType.NONE`.
- * @category color
  */
 export function copyColor<
   C extends Color | SerializedColor,
@@ -114,20 +110,12 @@ export function copyColor(
   }
 }
 
-/**
- * Returns `Color(1, 1, 1)`.
- *
- * @category color
- */
+/** Returns `Color(1, 1, 1)`. */
 export function getDefaultColor(): Color {
   return Color(1, 1, 1);
 }
 
-/**
- * Helper function to check if something is an instantiated Color object.
- *
- * @category color
- */
+/** Helper function to check if something is an instantiated Color object. */
 export function isColor(object: unknown): object is Color {
   return isIsaacAPIClassOfType(object, OBJECT_NAME);
 }
@@ -135,8 +123,6 @@ export function isColor(object: unknown): object is Color {
 /**
  * Used to determine is the given table is a serialized `Color` object created by the save data
  * manager and/or the `deepCopy` function.
- *
- * @category color
  */
 export function isSerializedColor(object: unknown): object is SerializedColor {
   const objectType = type(object);
