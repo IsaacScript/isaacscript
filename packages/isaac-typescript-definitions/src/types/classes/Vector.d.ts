@@ -11,6 +11,9 @@ declare interface Vector {
   /**
    * This method returns a value from -180 to 180.
    *
+   * Note that this function considers 0 degrees to be pointing to the right, which is unusual
+   * because 0 normally corresponds to up.
+   *
    * - Right: 0
    * - Up: -90
    * - Left: 180

@@ -48,7 +48,7 @@ const DIRECTORY_NAME_TO_LABEL: ReadonlyMap<string, string> = new Map([
 /** We hard-code the title for some specific files. */
 const FILE_NAME_TO_TITLE: ReadonlyMap<string, string> = new Map([
   // Core
-  ["constants", "Constants (Miscellaneous)"],
+  /// ["constants", "Constants (Miscellaneous)"],
   ["constantsFirstLast", "Constants (First & Last)"],
   ["upgradeMod", "Upgrading Your Mod"],
 

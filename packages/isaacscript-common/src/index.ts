@@ -123,6 +123,7 @@ export * from "./functions/roomGrid";
 export * from "./functions/rooms";
 export * from "./functions/roomShape";
 export * from "./functions/run";
+export * from "./functions/saveFile";
 export * from "./functions/seeds";
 export * from "./functions/serialization";
 export * from "./functions/set";

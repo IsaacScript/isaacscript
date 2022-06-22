@@ -98,6 +98,7 @@
     "src/functions/roomGrid.ts",
     "src/functions/roomShape.ts",
     "src/functions/run.ts",
+    "src/functions/saveFile.ts",
     "src/functions/seeds.ts",
     "src/functions/serialization.ts",
     "src/functions/set.ts",
