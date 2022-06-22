@@ -18,6 +18,8 @@ This page lists the changes to the IsaacScript framework.
   - `isDefaultMap`
   - `twoDimensionalSort`
   - `iterateTableDeterministically`
+  - `getOppositeDoorSlot`
+  - `angleToDirection`
 - Renamed the following helper functions:
   - `getIsaacAPIClassType` --> `getIsaacAPIClassName`
 - Added the `no-invalid-default-map` ESLint rule that will detect when you have an invalid first argument to a `DefaultMap` constructor.

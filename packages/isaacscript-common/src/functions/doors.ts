@@ -14,6 +14,7 @@ import {
   DOOR_SLOT_FLAG_TO_DOOR_SLOT,
 } from "../objects/doorSlotFlagToDoorSlot";
 import { DOOR_SLOT_TO_DIRECTION } from "../objects/doorSlotToDirection";
+import { OPPOSITE_DOOR_SLOTS } from "../objects/oppositeDoorSlots";
 import { ROOM_SHAPE_TO_DOOR_SLOTS } from "../objects/roomShapeToDoorSlots";
 import { directionToVector } from "./direction";
 import { getEnumValues } from "./enums";
@@ -140,6 +141,10 @@ export function getDoorsToRoomIndex(...roomGridIndex: int[]): GridEntityDoor[] {
   const roomGridIndexesSet = new Set(roomGridIndex);
   const doors = getDoors();
   return doors.filter((door) => roomGridIndexesSet.has(door.TargetRoomIndex));
+}
+
+export function getOppositeDoorSlot(doorSlot: DoorSlot): DoorSlot | undefined {
+  return OPPOSITE_DOOR_SLOTS[doorSlot];
 }
 
 export function getRepentanceDoor(): GridEntityDoor | undefined {
