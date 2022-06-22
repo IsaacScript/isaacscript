@@ -3,6 +3,6 @@
 .remarkignore
 node_modules
 dist
-packages/docs/docs/main/change-log.md # Several rules are bugged on this page
+packages/docs/docs/main/change-log.md
 packages/docs/docs/isaacscript-common
 packages/docs/docs/isaac-typescript-definitions
