@@ -515,6 +515,28 @@ export enum ModCallbackCustom {
    */
   POST_NPC_STATE_CHANGED,
 
+  /**
+   * Similar to the vanilla callback of the same name, but fires after the `POST_GAME_STARTED`
+   * callback fires (if the player is being updated on the 0th game frame of the run).
+   *
+   * This callback is useful for two reasons:
+   *
+   * 1. Normally, `POST_PEFFECT_UPDATE` fires before `POST_GAME_STARTED`. Since mod variables are
+   *    often initialized at the beginning of the `POST_GAME_STARTED` callback, this can cause
+   *    problems.
+   * 1. Some functions do not work (or crash the game) when called before the `POST_NEW_ROOM`
+   *    callback. For example, since the level is not generated yet, you will not be able to access
+   *    any rooms.
+   *
+   * - When registering the callback, takes an optional second argument that will make the callback
+   *   only fire if the player matches the `PlayerVariant` provided.
+   * - When registering the callback, takes an optional third argument that will make the callback
+   *   only fire if the player matches the `PlayerType` provided.
+   *
+   * ```ts
+   * function postPEffectUpdateReordered(player: EntityPlayer): void {}
+   * ```
+   */
   POST_PEFFECT_UPDATE_REORDERED,
 
   /**
@@ -594,8 +616,10 @@ export enum ModCallbackCustom {
    * Fires from the `POST_PEFFECT_UPDATE` callback when a player entity gains or loses any health
    * (i.e. hearts). For more information, see the `PlayerHealth` enum.
    *
-   * When registering the callback, takes an optional second argument that will make the callback
-   * only fire if it matches the `PlayerVariant` provided.
+   * - When registering the callback, takes an optional second argument that will make the callback
+   *   only fire if the player matches the `PlayerVariant` provided.
+   * - When registering the callback, takes an optional third argument that will make the callback
+   *   only fire if the player matches the `PlayerType` provided.
    *
    * ```ts
    * function postPlayerChangeHealth(
@@ -627,16 +651,49 @@ export enum ModCallbackCustom {
   POST_PLAYER_CHANGE_TYPE,
 
   /**
+   * Fires from the `POST_PEFFECT_UPDATE` callback when a player's collectible count is higher than
+   * what it was on the previous frame.
+   *
+   * - When registering the callback, takes an optional second argument that will make the callback
+   *   only fire if the player matches the `PlayerVariant` provided.
+   * - When registering the callback, takes an optional third argument that will make the callback
+   *   only fire if the player matches the `PlayerType` provided.
+   *
+   * ```ts
+   * function postPlayerCollectibleAdded(player: EntityPlayer, collectibleType: CollectibleType) {}
+   * ```
+   */
+  POST_PLAYER_COLLECTIBLE_ADDED,
+
+  /**
+   * Fires from the `POST_PEFFECT_UPDATE` callback when a player's collectible count is lower than
+   * what it was on the previous frame.
+   *
+   * - When registering the callback, takes an optional second argument that will make the callback
+   *   only fire if the player matches the `PlayerVariant` provided.
+   * - When registering the callback, takes an optional third argument that will make the callback
+   *   only fire if the player matches the `PlayerType` provided.
+   *
+   * ```ts
+   * function postPlayerCollectibleRemoved(
+   *   player: EntityPlayer,
+   *   collectibleType: CollectibleType,
+   * ) {}
+   * ```
+   */
+  POST_PLAYER_COLLECTIBLE_REMOVED,
+
+  /**
    * Fires from the `ENTITY_TAKE_DMG` callback when a player takes fatal damage. Return false to
    * prevent the fatal damage.
    *
-   * Note that:
+   * Note that this function does properly take into account Guppy's Collar, Broken Ankh, Spirit
+   * Shackles, and Mysterious Paper.
    *
-   * - This function does properly take into account Guppy's Collar, Broken Ankh, Spirit Shackles,
-   *   and Mysterious Paper.
-   *
-   * When registering the callback, takes an optional second argument that will make the callback
-   * only fire if it matches the `PlayerVariant` provided.
+   * - When registering the callback, takes an optional second argument that will make the callback
+   *   only fire if the player matches the `PlayerVariant` provided.
+   * - When registering the callback, takes an optional third argument that will make the callback
+   *   only fire if the player matches the `PlayerType` provided.
    *
    * ```ts
    * function postPlayerFatalDamage(player: EntityPlayer) {}
@@ -650,8 +707,10 @@ export enum ModCallbackCustom {
    * This callback is useful because many attributes cannot be set or retrieved properly in the
    * normal `POST_PLAYER_INIT` callback.
    *
-   * When registering the callback, takes an optional second argument that will make the callback
-   * only fire if the player variant matches the `PlayerVariant` provided.
+   * - When registering the callback, takes an optional second argument that will make the callback
+   *   only fire if the player matches the `PlayerVariant` provided.
+   * - When registering the callback, takes an optional third argument that will make the callback
+   *   only fire if the player matches the `PlayerType` provided.
    *
    * ```ts
    * function postPlayerInitLate(pickup: EntityPickup): void {}
@@ -665,15 +724,16 @@ export enum ModCallbackCustom {
    *
    * This callback is useful for two reasons:
    *
-   * 1. Normally, `POST_PLAYER_UPDATE` fires before `POST_GAME_STARTED`. Since mod variables are
-   *    often initialized at the beginning of the `POST_GAME_STARTED` callback, this can cause
-   *    problems.
+   * 1. Normally, `POST_PLAYER_INIT` fires before `POST_GAME_STARTED`. Since mod variables are often
+   *    initialized at the beginning of the `POST_GAME_STARTED` callback, this can cause problems.
    * 1. Some functions do not work (or crash the game) when called before the `POST_NEW_ROOM`
    *    callback. For example, since the level is not generated yet, you will not be able to access
    *    any rooms.
    *
-   * When registering the callback, takes an optional second argument that will make the callback
-   * only fire if the player matches the `PlayerVariant` provided.
+   * - When registering the callback, takes an optional second argument that will make the callback
+   *   only fire if the player matches the `PlayerVariant` provided.
+   * - When registering the callback, takes an optional third argument that will make the callback
+   *   only fire if the player matches the `PlayerType` provided.
    *
    * ```ts
    * function postPlayerInitReordered(player: EntityPlayer): void {}
@@ -681,6 +741,28 @@ export enum ModCallbackCustom {
    */
   POST_PLAYER_INIT_REORDERED,
 
+  /**
+   * Similar to the vanilla callback of the same name, but fires after the `POST_GAME_STARTED`
+   * callback fires (if the player is spawning on the 0th game frame of the run).
+   *
+   * This callback is useful for two reasons:
+   *
+   * 1. Normally, `POST_PLAYER_RENDER` fires before `POST_GAME_STARTED`. Since mod variables are
+   *    often initialized at the beginning of the `POST_GAME_STARTED` callback, this can cause
+   *    problems.
+   * 1. Some functions do not work (or crash the game) when called before the `POST_NEW_ROOM`
+   *    callback. For example, since the level is not generated yet, you will not be able to access
+   *    any rooms.
+   *
+   * - When registering the callback, takes an optional second argument that will make the callback
+   *   only fire if the player matches the `PlayerVariant` provided.
+   * - When registering the callback, takes an optional third argument that will make the callback
+   *   only fire if the player matches the `PlayerType` provided.
+   *
+   * ```ts
+   * function postPlayerRenderReordered(player: EntityPlayer): void {}
+   * ```
+   */
   POST_PLAYER_RENDER_REORDERED,
 
   /**
@@ -689,14 +771,17 @@ export enum ModCallbackCustom {
    *
    * This callback is useful for two reasons:
    *
-   * 1. Normally, PostPlayerUpdate fires before `POST_GAME_STARTED`. Since mod variables are often
-   *    initialized at the beginning of the `POST_GAME_STARTED` callback, this can cause problems.
+   * 1. Normally, `POST_PLAYER_UPDATE` fires before `POST_GAME_STARTED`. Since mod variables are
+   *    often initialized at the beginning of the `POST_GAME_STARTED` callback, this can cause
+   *    problems.
    * 1. Some functions do not work (or crash the game) when called before the `POST_NEW_ROOM`
    *    callback. For example, since the level is not generated yet, you will not be able to access
    *    any rooms.
    *
-   * When registering the callback, takes an optional second argument that will make the callback
-   * only fire if the player matches the `PlayerVariant` provided.
+   * - When registering the callback, takes an optional second argument that will make the callback
+   *   only fire if the player matches the `PlayerVariant` provided.
+   * - When registering the callback, takes an optional third argument that will make the callback
+   *   only fire if the player matches the `PlayerType` provided.
    *
    * ```ts
    * function postPlayerUpdateReordered(player: EntityPlayer): void {}
@@ -751,6 +836,11 @@ export enum ModCallbackCustom {
   /**
    * Fires from the `ENTITY_TAKE_DMG` callback when a player takes damage from spikes in a Sacrifice
    * Room.
+   *
+   * - When registering the callback, takes an optional second argument that will make the callback
+   *   only fire if the player matches the `PlayerVariant` provided.
+   * - When registering the callback, takes an optional third argument that will make the callback
+   *   only fire if the player matches the `PlayerType` provided.
    *
    * ```ts
    * function postSacrifice(player: EntityPlayer, numSacrifices: int): void {}
@@ -896,12 +986,14 @@ export enum ModCallbackCustom {
   POST_TRINKET_BREAK,
 
   /**
-   * Fires from the `POST_PEFFECT_UPDATE` callback on the frame before a Berserk! effect ends when
+   * Fires from the `POST_PEFFECT_UPDATE` callback on the frame before a Berserk effect ends when
    * the player is predicted to die (e.g. they currently have no health left or they took damage in
    * a "Lost" form).
    *
-   * When registering the callback, takes an optional second argument that will make the callback
-   * only fire if it matches the `PlayerVariant` provided.
+   * - When registering the callback, takes an optional second argument that will make the callback
+   *   only fire if the player matches the `PlayerVariant` provided.
+   * - When registering the callback, takes an optional third argument that will make the callback
+   *   only fire if the player matches the `PlayerType` provided.
    *
    * ```ts
    * function preBerserkDeath(player: EntityPlayer) {}
@@ -916,6 +1008,11 @@ export enum ModCallbackCustom {
    *
    * This callback is useful because reviving the player after the game things that player should
    * have died will result in the save data for the run getting deleted.
+   *
+   * - When registering the callback, takes an optional second argument that will make the callback
+   *   only fire if the player matches the `PlayerVariant` provided.
+   * - When registering the callback, takes an optional third argument that will make the callback
+   *   only fire if the player matches the `PlayerType` provided.
    *
    * ```ts
    * function preCustomRevive(player: EntityPlayer) {}

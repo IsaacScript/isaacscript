@@ -33,7 +33,6 @@
     "figlet": "^1.5.2",
     "fs-extra": "^10.1.0",
     "git-dirty": "^1.0.2",
-    "isaac-typescript-definitions": "^2.0.55",
     "isaacscript-tsconfig": "^1.1.17",
     "jsonc-parser": "^3.0.0",
     "moment": "^2.29.3",
