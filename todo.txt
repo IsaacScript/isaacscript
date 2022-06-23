@@ -1,5 +1,8 @@
 implement in isaacscript-common:
 
+- lint rule for curly
+- docs: using-get-data
+
 - POST_AMBUSH_DONE
 - POST_BOMB_DETONATE
 - POST_DICE_ROOM_ACTIVATED

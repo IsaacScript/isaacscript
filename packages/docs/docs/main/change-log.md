@@ -13,6 +13,7 @@ This page lists the changes to the IsaacScript framework.
 
 - The change log is now located on [the official website](https://isaacscript.github.io/main/change-log).
 - Added the following helper functions:
+
   - `getBombRadiusFromDamage`
   - `getPlayerFromTear`
   - `isDamageFromPlayer`
@@ -23,6 +24,9 @@ This page lists the changes to the IsaacScript framework.
   - `removePersistentEntity` (for removing entities spawned with `spawnPersistentEntity`)
   - `getPHDPillEffect`
   - `getFalsePHDPillEffect`
+  - `doesPlayerHaveAllSoulHearts`
+  - `doesPlayerHaveAllBlackHearts`
+
 - Renamed the following helper functions:
   - `getCurrentRoomDescriptorReadOnly` --> `getRoomDescriptorReadOnly`
   - `getCurrentDimension` --> `getDimension`

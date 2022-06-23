@@ -172,6 +172,45 @@ export function canPlayerCrushRocks(player: EntityPlayer): boolean {
 }
 
 /**
+ * Returns whether or not all of the player's soul-heart-type hearts are black hearts.
+ *
+ * Note that this function does not consider red heart containers.
+ *
+ * For example:
+ *
+ * - If the player has one black heart, this function would return true.
+ * - If the player has one soul heart and two black hearts, this function would return false.
+ * - If the player has no black hearts, this function will return false.
+ * - If the player has one red heart container and three black hearts, this function would return
+ *   true.
+ */
+export function doesPlayerHaveAllBlackHearts(player: EntityPlayer): boolean {
+  const soulHearts = getPlayerSoulHearts(player);
+  const blackHearts = getPlayerBlackHearts(player);
+
+  return blackHearts > 0 && soulHearts === 0;
+}
+
+/**
+ * Returns whether or not all of the player's soul-heart-type hearts are soul hearts.
+ *
+ * Note that this function does not consider red heart containers.
+ *
+ * For example:
+ *
+ * - If the player has two soul hearts and one black heart, this function would return false.
+ * - If the player has no soul hearts, this function will return false.
+ * - If the player has one red heart container and three soul hearts, this function would return
+ *   true.
+ */
+export function doesPlayerHaveAllSoulHearts(player: EntityPlayer): boolean {
+  const soulHearts = getPlayerSoulHearts(player);
+  const blackHearts = getPlayerBlackHearts(player);
+
+  return soulHearts > 0 && blackHearts === 0;
+}
+
+/**
  * Helper function to find the active slot that the player has the corresponding collectible type
  * in. Returns undefined if the player does not have the collectible in any active slot.
  */
