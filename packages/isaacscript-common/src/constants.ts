@@ -5,6 +5,7 @@ import {
   RoomType,
   TrinketSlot,
 } from "isaac-typescript-definitions";
+import { NUM_NORMAL_PILL_COLORS } from "./constantsFirstLast";
 import { getEnumLength, getLastEnumValue } from "./functions/enums";
 
 /**
@@ -112,6 +113,12 @@ export const LAST_STAGE = getLastEnumValue(LevelStage);
 export const MAX_TAINTED_SAMSON_BERSERK_CHARGE = 100000;
 
 export const NUM_DIMENSIONS = getEnumLength(Dimension) - 1; // Account for "Dimension.CURRENT"
+
+/**
+ * The pill pool for each run is comprised of one effect for each unique pill color (minus gold and
+ * horse pills.)
+ */
+export const NUM_PILLS_IN_POOL = NUM_NORMAL_PILL_COLORS;
 
 export const SECOND_IN_MILLISECONDS = 1000;
 export const MINUTE_IN_MILLISECONDS = 60 * SECOND_IN_MILLISECONDS; // eslint-disable-line sort-exports/sort-exports

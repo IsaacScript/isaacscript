@@ -15,6 +15,8 @@ import {
   LAST_PILL_EFFECT,
   LAST_VANILLA_PILL_EFFECT,
 } from "../constantsFirstLast";
+import { FALSE_PHD_PILL_CONVERSIONS } from "../maps/falsePHDPillConversions";
+import { PHD_PILL_CONVERSIONS } from "../maps/PHDPillConversions";
 import {
   DEFAULT_PILL_EFFECT_CLASS,
   PILL_EFFECT_CLASSES,
@@ -54,6 +56,15 @@ export function getAllPillColors(): PillColor[] {
  */
 export function getAllPillEffects(): PillEffect[] {
   return irange(FIRST_PILL_EFFECT, LAST_PILL_EFFECT) as PillEffect[];
+}
+
+/**
+ * Helper function to get the associated pill effect after False PHD is acquired. If a pill effect
+ * is not altered by False PHD, then the same pill effect will be returned.
+ */
+export function getFalsePHDPillEffect(pillEffect: PillEffect): PillEffect {
+  const convertedPillEffect = FALSE_PHD_PILL_CONVERSIONS.get(pillEffect);
+  return convertedPillEffect === undefined ? pillEffect : convertedPillEffect;
 }
 
 /**
@@ -101,6 +112,15 @@ export function getNormalPillColorFromHorse(pillColor: PillColor): PillColor {
 /** Helper function to get an array with every non-gold and non-horse pill color. */
 export function getNormalPillColors(): PillColor[] {
   return irange(FIRST_PILL_COLOR, LAST_NORMAL_PILL_COLOR) as PillColor[];
+}
+
+/**
+ * Helper function to get the associated pill effect after PHD is acquired. If a pill effect is not
+ * altered by PHD, then the same pill effect will be returned.
+ */
+export function getPHDPillEffect(pillEffect: PillEffect): PillEffect {
+  const convertedPillEffect = PHD_PILL_CONVERSIONS.get(pillEffect);
+  return convertedPillEffect === undefined ? pillEffect : convertedPillEffect;
 }
 
 /**

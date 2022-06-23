@@ -1,7 +1,5 @@
 implement in isaacscript-common:
 
-- test getCurrentDimension() function to see if Xalum is right // cspell:disable-line
-- PHD_PILL_CONVERSIONS to isaacscript-common
 - POST_PLAYER_COLLECTIBLE_ADDED
 - POST_PLAYER_COLLECTIBLE_REMOVED
 - POST_AMBUSH_DONE

@@ -21,9 +21,13 @@ This page lists the changes to the IsaacScript framework.
   - `doesEntityExist`
   - `spawnPersistentEntity` (for creating pickup-like entities)
   - `removePersistentEntity` (for removing entities spawned with `spawnPersistentEntity`)
+  - `getPHDPillEffect`
+  - `getFalsePHDPillEffect`
 - Renamed the following helper functions:
   - `getCurrentRoomDescriptorReadOnly` --> `getRoomDescriptorReadOnly`
   - `getCurrentDimension` --> `getDimension`
+- Added the following constants:
+  - `NUM_PILLS_IN_POOL`
 - Added the following custom callbacks:
   - `POST_PICKUP_INIT_FIRST`
 
