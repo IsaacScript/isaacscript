@@ -229,7 +229,9 @@ export function logEntities(
   if (numMatchedEntities === 0) {
     msg += "(no entities matched)\n";
   } else {
-    msg += `(${numMatchedEntities} total entities)\n`;
+    msg += `(${numMatchedEntities} total ${
+      numMatchedEntities === 1 ? "entity" : "entities"
+    })\n`;
   }
 
   log(msg);
@@ -400,7 +402,9 @@ export function logGridEntities(
   if (numMatchedEntities === 0) {
     msg += "(no grid entities matched)\n";
   } else {
-    msg += `(${numMatchedEntities} total grid entities)\n`;
+    msg += `(${numMatchedEntities} total grid ${
+      numMatchedEntities === 1 ? "entity" : "entities"
+    })\n`;
   }
 
   log(msg);

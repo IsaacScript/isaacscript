@@ -1,10 +1,22 @@
-import { EntityType, ModCallback } from "isaac-typescript-definitions";
+import {
+  EntityFlag,
+  EntityType,
+  ModCallback,
+} from "isaac-typescript-definitions";
+import { game } from "../cachedClasses";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { spawn } from "../functions/entity";
 import { getRoomListIndex } from "../functions/roomData";
-import { PersistentEntityDescription } from "../interfaces/PersistentEntityDescription";
 import { saveDataManager } from "./saveDataManager/exports";
+
+interface PersistentEntityDescription {
+  entityType: EntityType;
+  variant: int;
+  subType: int;
+  roomListIndex: int;
+  position: Vector;
+}
 
 /** Iterates upward as new persistent entities are created. */
 let persistentEntityIndexCounter = 0;
@@ -49,13 +61,16 @@ function postEntityRemove(entity: Entity) {
   const index = tuple[0];
 
   // The persistent entity is despawning, presumably because the player is in the process of leaving
-  // the room. Keep track of the position for later.
-  const roomListIndex = getRoomListIndex();
+  // the room. Keep track of the position for later. We use the previous room list index because at
+  // this point, the PostNewRoom callback has already fired and we are in a new room.
+  const level = game.GetLevel();
+  const previousRoomGridIndex = level.GetPreviousRoomIndex();
+  const previousRoomListIndex = getRoomListIndex(previousRoomGridIndex);
   v.level.persistentEntities.set(index, {
     entityType: entity.Type,
     variant: entity.Variant,
     subType: entity.SubType,
-    roomListIndex,
+    roomListIndex: previousRoomListIndex,
     position: entity.Position,
   });
 }
@@ -75,6 +90,8 @@ function postNewRoomReordered() {
       description.variant,
       description.subType,
       description.position,
+      index,
+      true,
     );
   }
 }
@@ -101,7 +118,17 @@ export function spawnPersistentEntity(
   subType: int,
   position: Vector,
 ): [Entity, int] {
-  return spawnAndTrack(entityType, variant, subType, position);
+  persistentEntityIndexCounter += 1;
+
+  const entity = spawnAndTrack(
+    entityType,
+    variant,
+    subType,
+    position,
+    persistentEntityIndexCounter,
+  );
+
+  return [entity, persistentEntityIndexCounter];
 }
 
 function spawnAndTrack(
@@ -109,19 +136,21 @@ function spawnAndTrack(
   variant: int,
   subType: int,
   position: Vector,
-): [Entity, int] {
+  index: int,
+  respawning = false,
+): Entity {
   const entity = spawn(entityType, variant, subType, position);
+  if (respawning) {
+    entity.ClearEntityFlags(EntityFlag.APPEAR);
+  }
+
   const ptrHash = GetPtrHash(entity);
 
   // Keep track that we spawned it so that we can respawn it if the player re-enters the room.
-  persistentEntityIndexCounter += 1;
-  const tuple: [int, EntityPtr] = [
-    persistentEntityIndexCounter,
-    EntityPtr(entity),
-  ];
+  const tuple: [int, EntityPtr] = [index, EntityPtr(entity)];
   v.room.spawnedPersistentEntities.set(ptrHash, tuple);
 
-  return [entity, persistentEntityIndexCounter];
+  return entity;
 }
 
 /**
