@@ -208,6 +208,7 @@ IsaacScript projects start with some dependencies by default:
 1. `isaacscript-common` - Provides optional code that you can use in your mod. See the [`isaacscript-common`](/isaacscript-common) page for more info.
 1. `isaacscript-lint` - Provides `eslint` and all of the linting-related packages that `eslint` uses, including the official IsaacScript linting rule-set.
 1. `isaacscript-spell` - Provides spell checking dictionaries for The Binding of Isaac words and IsaacScript words.
+1. `ts-node` - Allows the ability to run TypeScript directory without transpiling it. This allows TSTL to use TypeScript plugins.
 1. `typescript-to-lua` - The tool that actually converts the TypeScript code to Lua. The `isaacscript` command-line program invokes TSTL for you.
 
 <br />
