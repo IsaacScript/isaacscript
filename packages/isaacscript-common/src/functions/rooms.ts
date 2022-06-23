@@ -93,41 +93,26 @@ export function getAllRoomGridIndexes(): int[] {
 /**
  * Helper function to get the current dimension. Most of the time, this will be `Dimension.MAIN`,
  * but it can change if e.g. the player is in the mirror world of Downpour/Dross.
- *
- * Note that this function correctly handles detecting the Death Certificate dimension, which is
- * tricky to properly detect.
  */
 export function getDimension(): Dimension {
   const level = game.GetLevel();
-
-  // When in the Death Certificate dimension, the algorithm below will randomly return either
-  // "Dimension.SECONDARY" or "Dimension.DEATH_CERTIFICATE". Thus, we revert to an alternate
-  // technique to determine if we are in the Death Certificate dimension.
-  if (inDeathCertificateArea()) {
-    return Dimension.DEATH_CERTIFICATE;
-  }
-
-  const startingRoomGridIndex = level.GetStartingRoomIndex();
-  const startingRoomDescription = level.GetRoomByIdx(
-    startingRoomGridIndex,
-    Dimension.CURRENT,
-  );
-  const startingRoomHash = GetPtrHash(startingRoomDescription);
+  const roomGridIndex = getRoomGridIndex();
+  const roomDescription = level.GetRoomByIdx(roomGridIndex, Dimension.CURRENT);
+  const currentRoomHash = GetPtrHash(roomDescription);
 
   for (const dimension of getAllDimensions()) {
     const dimensionRoomDescription = level.GetRoomByIdx(
-      startingRoomGridIndex,
+      roomGridIndex,
       dimension,
     );
     const dimensionRoomHash = GetPtrHash(dimensionRoomDescription);
-    if (dimensionRoomHash === startingRoomHash) {
+
+    if (dimensionRoomHash === currentRoomHash) {
       return dimension;
     }
   }
 
-  return error(
-    `Failed to get the current dimension using the starting room index of: ${startingRoomGridIndex}`,
-  );
+  return error("Failed to get the current dimension.");
 }
 
 /**
