@@ -134,14 +134,14 @@ For very small functions, it is common to type them anonymously (i.e. without a 
 
 ```lua
 -- Lua code
-mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
+mod:AddCallback(ModCallbacks.POST_NEW_LEVEL, function()
   Isaac.DebugString("Arrived on a new floor.")
 end);
 ```
 
 ```ts
 // Typescript code
-mod.AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, () => {
+mod.AddCallback(ModCallbacks.POST_NEW_LEVEL, () => {
   Isaac.DebugString("Arrived on a new floor.");
 });
 ```
@@ -467,7 +467,7 @@ postGameStarted:init(mod)
 local postGameStarted = {}
 
 function postGameStarted:init(mod)
-  mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, postGameStarted.main);
+  mod:AddCallback(ModCallbacks.POST_GAME_STARTED, postGameStarted.main);
 end
 
 function postGameStarted:main()
@@ -495,7 +495,7 @@ postGameStartedInit(mod);
 // "export" makes it so that other files can use this function
 // "void" is an return-type annotation, meaning "this function returns nothing"
 export function postGameStartedInit(mod: Mod): void {
-  mod.AddCallback(ModCallbacks.MC_POST_GAME_STARTED, main);
+  mod.AddCallback(ModCallbacks.POST_GAME_STARTED, main);
 }
 
 function main() {

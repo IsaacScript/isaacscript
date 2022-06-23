@@ -55,7 +55,7 @@ import { ModCallback } from "isaac-typescript-definitions";
 import { greenCandlePostUpdate } from "../items/greenCandle";
 
 export function postUpdateInit(mod: Mod): void {
-  mod.AddCallback(ModCallback.MC_POST_UPDATE, main);
+  mod.AddCallback(ModCallback.POST_UPDATE, main);
 }
 
 function main() {

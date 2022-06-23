@@ -236,7 +236,7 @@ IsaacScript has now reached **version 2**! We've come a long way with many featu
   - `PillEffectType` --> `ItemConfigPillEffectType`
 - Deleted the following enums:
   - `CardType` (since it was almost the same thing as `ItemConfigCardType`)
-- When registering the `MC_POST_PEFFECT_UPDATE_REORDERED` callback, the second argument is now a `PlayerVariant` instead of a `PlayerType`. It now takes a `PlayerType` as a third argument.
+- When registering the `POST_PEFFECT_UPDATE_REORDERED` callback, the second argument is now a `PlayerVariant` instead of a `PlayerType`. It now takes a `PlayerType` as a third argument.
 
 ### Non-Breaking Changes
 
@@ -274,11 +274,11 @@ IsaacScript has now reached **version 2**! We've come a long way with many featu
 - Renamed the following helper functions:
   - `getPlayerNumTransformationCollectibles` --> `getPlayerNumCollectiblesForTransformation`
 - Added custom callbacks:
-  - `MC_POST_FAMILIAR_STATE_CHANGED`
-  - `MC_POST_PICKUP_STATE_CHANGED`
-  - `MC_POST_EFFECT_STATE_CHANGED`
-  - `MC_POST_NPC_STATE_CHANGED`
-  - `MC_POST_ITEM_DISCHARGE`
+  - `POST_FAMILIAR_STATE_CHANGED`
+  - `POST_PICKUP_STATE_CHANGED`
+  - `POST_EFFECT_STATE_CHANGED`
+  - `POST_NPC_STATE_CHANGED`
+  - `POST_ITEM_DISCHARGE`
 
 ## April 21st, 2022
 
@@ -411,7 +411,7 @@ IsaacScript has now reached **version 2**! We've come a long way with many featu
   - `CurseRoomSubType`
 - Added `PICKUP_MISSING_SHOVEL` to the `PickupVariant` enum. (It is missing in the vanilla enum.)
 - Added the following custom callbacks:
-  - `MC_POST_COLLECTIBLE_INIT_FIRST`
+  - `POST_COLLECTIBLE_INIT_FIRST`
 
 ## March 19th, 2022
 
@@ -447,9 +447,9 @@ IsaacScript has now reached **version 2**! We've come a long way with many featu
   - `CHARACTER_NAME_MAP`
   - `DIRECTION_NAMES`
 - Added the following custom callbacks:
-  - `MC_POST_SLOT_ANIMATION_CHANGED`
-  - `MC_POST_CUSTOM_DOOR_ENTER`
-  - `MC_ROOM_CLEAR_CHANGED`
+  - `POST_SLOT_ANIMATION_CHANGED`
+  - `POST_CUSTOM_DOOR_ENTER`
+  - `ROOM_CLEAR_CHANGED`
 
 ## March 12th, 2022
 
@@ -520,7 +520,7 @@ IsaacScript has now reached **version 2**! We've come a long way with many featu
   - `CollectiblePedestalType`
 - Renamed the following enums:
   - `BackwardsPathRoomSubType` --> `BackwardsRoomSubType`
-- The signature for the `MC_POST_PURCHASE` custom callback has changed to the following:
+- The signature for the `POST_PURCHASE` custom callback has changed to the following:
 
 ```ts
 function postPurchase(player: EntityPlayer, pickup: EntityPickup): void {}
@@ -567,10 +567,10 @@ function postPurchase(player: EntityPlayer, pickup: EntityPickup): void {}
   - `PoopState`
   - `StairsState`
 - Added the following custom callbacks:
-  - `MC_POST_BONE_SWING`
-  - `MC_POST_GRID_ENTITY_CHANGE_STATE`
-  - `MC_POST_GRID_ENTITY_BROKEN`
-- The signature of the `MC_POST_PLAYER_CHANGE_TYPE` custom callback has changed to:
+  - `POST_BONE_SWING`
+  - `POST_GRID_ENTITY_CHANGE_STATE`
+  - `POST_GRID_ENTITY_BROKEN`
+- The signature of the `POST_PLAYER_CHANGE_TYPE` custom callback has changed to:
 
 ```ts
 function postPlayerChangeType(
@@ -632,7 +632,7 @@ function postPlayerChangeType(
   - `MotherSubType`
   - `PickupNullSubType`
 - Added the following custom callbacks:
-  - `MC_POST_GRID_ENTITY_COLLISION`
+  - `POST_GRID_ENTITY_COLLISION`
 
 ## February 12th, 2022
 
@@ -670,7 +670,7 @@ function postPlayerChangeType(
   - `isDamageToPlayerFatal`
   - `getHeartRowLength`
 - Added the following custom callbacks:
-  - `MC_PRE_BERSERK_DEATH`
+  - `PRE_BERSERK_DEATH`
 
 ## January 7th, 2022
 
@@ -766,8 +766,8 @@ npx prettier --check "src/**/*.ts"
   - `TRANSFORMATION_NAME_MAP`
   - `CHALLENGE_NAME_MAP`
 - Added the following custom callbacks:
-  - `MC_POST_TRINKET_BREAK`
-  - `MC_POST_PEFFECT_UPDATE_REORDERED`
+  - `POST_TRINKET_BREAK`
+  - `POST_PEFFECT_UPDATE_REORDERED`
 
 ## December 5th, 2021
 
@@ -815,10 +815,10 @@ npx prettier --check "src/**/*.ts"
   - `SkinColor` (from vanilla patch 1.7.7)
   - `CrawlspaceVariant` (alias for `StairsVariant`)
 - Added the following custom callbacks:
-  - `MC_POST_NEW_ROOM_EARLY`
-  - `MC_PRE_NEW_LEVEL`
-  - `MC_POST_TEAR_INIT_VERY_LATE`
-- The save data manager now uses the `MC_POST_NEW_ROOM_EARLY` callback instead of the `MC_POST_NEW_ROOM` callback, which means that you can use it in situations where you previously would not be able to.
+  - `POST_NEW_ROOM_EARLY`
+  - `PRE_NEW_LEVEL`
+  - `POST_TEAR_INIT_VERY_LATE`
+- The save data manager now uses the `POST_NEW_ROOM_EARLY` callback instead of the `POST_NEW_ROOM` callback, which means that you can use it in situations where you previously would not be able to.
 
 ## November 28th, 2021
 
@@ -989,8 +989,8 @@ npx prettier --check "src/**/*.ts"
   - `LanguageAbbreviation` (which corresponds to the string returned in `Options.Language`)
 - Added `POOL_ULTRA_SECRET` to the `ItemPoolType` enum.
 - Added the following custom callbacks:
-  - `MC_POST_SLOT_DESTROYED`
-- `MC_POST_GRID_ENTITY_INIT` and `MC_POST_GRID_ENTITY_REMOVE` now will fire on either the `MC_POST_UPDATE` frame or the `MC_POST_RENDER` frame, whichever happens first (instead of just the `MC_POST_UPDATE` frame). (This allows grid entities to be removed before any sprite shows up on the screen.)
+  - `POST_SLOT_DESTROYED`
+- `POST_GRID_ENTITY_INIT` and `POST_GRID_ENTITY_REMOVE` now will fire on either the `POST_UPDATE` frame or the `POST_RENDER` frame, whichever happens first (instead of just the `POST_UPDATE` frame). (This allows grid entities to be removed before any sprite shows up on the screen.)
 
 ## November 14th, 2021
 
@@ -1027,13 +1027,13 @@ npx prettier --check "src/**/*.ts"
 - Added more entries to the `LaserVariant` enum.
 - Added `COLLECTIBLE_GLASS_EYE`, `COLLECTIBLE_STYE`, and `COLLECTIBLE_MOMS_RING` to the vanilla `CollectibleType` enum.
 - Added the following custom callbacks:
-  - `MC_POST_BOMB_INIT_LATE`
-  - `MC_POST_EFFECT_INIT_LATE`
-  - `MC_POST_FAMILIAR_INIT_LATE`
-  - `MC_POST_KNIFE_INIT_LATE`
-  - `MC_POST_NPC_INIT_LATE`
-  - `MC_POST_PROJECTILE_INIT_LATE`
-  - `MC_POST_TEAR_INIT_LATE`
+  - `POST_BOMB_INIT_LATE`
+  - `POST_EFFECT_INIT_LATE`
+  - `POST_FAMILIAR_INIT_LATE`
+  - `POST_KNIFE_INIT_LATE`
+  - `POST_NPC_INIT_LATE`
+  - `POST_PROJECTILE_INIT_LATE`
+  - `POST_TEAR_INIT_LATE`
 
 ## November 7th, 2021
 
@@ -1377,9 +1377,9 @@ You can still use `null` in your own variables, but make sure that it is for var
   - `StairsVariant`
   - `PitfallVariant`
 - Added the following custom callbacks:
-  - `MC_POST_SLOT_INIT`
-  - `MC_POST_SLOT_UPDATE`
-  - `MC_POST_SLOT_RENDER`
+  - `POST_SLOT_INIT`
+  - `POST_SLOT_UPDATE`
+  - `POST_SLOT_RENDER`
 - Added MinimapAPI definitions.
 
 ## August 31st, 2021
@@ -1430,10 +1430,10 @@ You can still use `null` in your own variables, but make sure that it is for var
   - `HeavenLightDoorSubType`
   - `IsaacVariant` (thanks KatTheFox)
 - Added the following custom callbacks:
-  - `MC_PRE_CUSTOM_REVIVE`
-  - `MC_POST_CUSTOM_REVIVE`
-  - `MC_POST_PLAYER_RENDER_REORDERED`
-  - `MC_POST_PURCHASE`
+  - `PRE_CUSTOM_REVIVE`
+  - `POST_CUSTOM_REVIVE`
+  - `POST_PLAYER_RENDER_REORDERED`
+  - `POST_PURCHASE`
 - The save data manager will now properly handle TypeScriptToLua Sets.
 - The save data manager now supports maps within maps.
 - The save data manager now merges by iterating over the new table instead of the old object. This is necessary to capture values with a data type of `something | null`.
@@ -1499,12 +1499,12 @@ You can still use `null` in your own variables, but make sure that it is for var
   - `TrinketSlot`
   - `ControllerIndex`
 - Added the following custom callbacks:
-  - `MC_POST_PICKUP_INIT_LATE`
-  - `MC_POST_PICKUP_COLLECT`
-  - `MC_POST_PLAYER_CHANGE_HEALTH`
-  - `MC_POST_PLAYER_FATAL_DAMAGE`
-  - `MC_POST_LASER_INIT_LATE`
-  - `MC_POST_PLAYER_INIT_LATE`
+  - `POST_PICKUP_INIT_LATE`
+  - `POST_PICKUP_COLLECT`
+  - `POST_PLAYER_CHANGE_HEALTH`
+  - `POST_PLAYER_FATAL_DAMAGE`
+  - `POST_LASER_INIT_LATE`
+  - `POST_PLAYER_INIT_LATE`
 - `GridEntity.Desc` is added back to the definitions, but only for the purposes of throwing a compiler error. (It is assigned a `never` type.) As per the developers, modders should always use `GridEntity.GetSaveState` instead of accessing `GridEntity.Desc` directly.
 - Using `Level.GetCurrentRoomDesc` is now allowed again, since it is the only way to get the current dimension. It now returns a `RoomDescriptorReadOnly` class, which is a read-only version of the `RoomDescriptor` class. Every property of the new class has a JSDoc comment informing you to use the `Level.GetRoomByIdx` method instead.
 - `GetPtrHash` now accepts a `RoomDescriptor` or a `RoomDescriptorReadOnly`.
@@ -1657,22 +1657,22 @@ You can still use `null` in your own variables, but make sure that it is for var
 - Added `REPENTANCE` definition. (Thanks Siramok)
 - Added some more Mod Config Menu definitions. (Thanks Siramok)
 - Added new custom callbacks that you can use in your mods:
-  - `MC_POST_GAME_STARTED_REORDERED`
-  - `MC_POST_NEW_LEVEL_REORDERED`
-  - `MC_POST_NEW_ROOM_REORDERED`
-  - `MC_PRE_ITEM_PICKUP`
-  - `MC_POST_ITEM_PICKUP`
-  - `MC_POST_PLAYER_CHANGE_TYPE`
-  - `MC_POST_FLIP`
-  - `MC_POST_FIRST_FLIP`
-  - `MC_POST_ESAU_JR`
-  - `MC_POST_FIRST_ESAU_JR`
-  - `MC_POST_TRANSFORMATION`
-  - `MC_POST_GRID_ENTITY_INIT`
-  - `MC_POST_GRID_ENTITY_UPDATE`
-  - `MC_POST_GRID_ENTITY_REMOVE`
-  - `MC_POST_SACRIFICE`
-  - `MC_POST_CURSED_TELEPORT`
+  - `POST_GAME_STARTED_REORDERED`
+  - `POST_NEW_LEVEL_REORDERED`
+  - `POST_NEW_ROOM_REORDERED`
+  - `PRE_ITEM_PICKUP`
+  - `POST_ITEM_PICKUP`
+  - `POST_PLAYER_CHANGE_TYPE`
+  - `POST_FLIP`
+  - `POST_FIRST_FLIP`
+  - `POST_ESAU_JR`
+  - `POST_FIRST_ESAU_JR`
+  - `POST_TRANSFORMATION`
+  - `POST_GRID_ENTITY_INIT`
+  - `POST_GRID_ENTITY_UPDATE`
+  - `POST_GRID_ENTITY_REMOVE`
+  - `POST_SACRIFICE`
+  - `POST_CURSED_TELEPORT`
 - The custom callbacks are documented [here](https://isaacscript.github.io/function-signatures/#custom-callbacks).
 - Added the `GridPath` enums.
 
@@ -1700,7 +1700,7 @@ You can still use `null` in your own variables, but make sure that it is for var
 
 ## July 27th, 2021
 
-- Fixed the wrong type in the `MC_INPUT_ACTION` callback. (Thanks to KatTheFox)
+- Fixed the wrong type in the `INPUT_ACTION` callback. (Thanks to KatTheFox)
 - Fixed some bugs in the `RoomConfig` class. (Thanks Somdudewillson)
 - Added definitions for External Item Descriptions. (Thanks Somdudewillson)
 - Added definitions for Music Mod Callback. (Thanks KatTheFox)
@@ -1753,5 +1753,5 @@ You can still use `null` in your own variables, but make sure that it is for var
 
 - The `Isaac.GetPlayer` method now returns `EntityPlayer` instead of `EntityPlayer | null`. This means that you can remove type narrowing and/or non-null assertions from your code.
 - Added `KnifeVariant` enum.
-- The `MC_USE_ITEM` and `PRE_USE_ITEM` callbacks can now return void.
+- The `USE_ITEM` and `PRE_USE_ITEM` callbacks can now return void.
 - Changed several callbacks to use `void` instead of `null` in order to simplify the signatures and have less friction for new users. This might be a breaking change for some users if you are using these callbacks in exported functions, but the fix is simple: just change `null` to `void`.

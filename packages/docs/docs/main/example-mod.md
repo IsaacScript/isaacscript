@@ -100,19 +100,19 @@ Now, the item will sometimes randomly appear for players when they enter a Treas
 
 Right now, if players pick up your item, it won't actually do anything. This is where the coding part comes in.
 
-Mods affect the game by putting code inside of _callbacks_. Each callback fires when a particular event happens in the game. There are [72 different callbacks](function-signatures.md) to choose from, so you have to choose the right one depending on what you want to do. For example, the most basic callback is the `MC_POST_GAME_STARTED`, which fires once at the beginning of a new run.
+Mods affect the game by putting code inside of _callbacks_. Each callback fires when a particular event happens in the game. There are [72 different callbacks](function-signatures.md) to choose from, so you have to choose the right one depending on what you want to do. For example, the most basic callback is the `POST_GAME_STARTED`, which fires once at the beginning of a new run.
 
 First, go through [the official docs](https://wofsauge.github.io/IsaacDocs/rep/enums/ModCallbacks.html) and read what all of the callbacks do so that you can get familiar with them.
 
 Next, open `C:\Repositories\green-candle\src\main.ts` in VSCode, which contains the TypeScript code that will be transpiled to the "main.lua" file and read by the game.
 
-The bootstrapper created a skeleton of a mod for us. As you can see, it calls the `Isaac.DebugString()` function when the `MC_POST_GAME_STARTED` callback is fired.
+The bootstrapper created a skeleton of a mod for us. As you can see, it calls the `Isaac.DebugString()` function when the `POST_GAME_STARTED` callback is fired.
 
 (`Isaac` is a global class provided by the game with helpful general-purpose methods on it. `Isaac.DebugString()` simply writes something to the "log.txt" file, which is located at `C:\Users\[username]\Documents\My Games\Binding of Isaac Repentance\log.txt`.)
 
 First, change the `MOD_NAME` constant to "Green Candle".
 
-Second, remove all of the lines relating to the `MC_POST_GAME_STARTED` callback. This callback is useful for initializing things at the start of every run. But for our purposes, we don't need to use it.
+Second, remove all of the lines relating to the `POST_GAME_STARTED` callback. This callback is useful for initializing things at the start of every run. But for our purposes, we don't need to use it.
 
 <br />
 
@@ -136,14 +136,14 @@ This is a constant, so we name it with all capital letters and with snake_case. 
 
 As we discussed above, when adding new code, you have to put it in the right callback for what you want to do.
 
-For our purposes, we want the Green Candle to have a random chance to poison every enemy in the room on every frame. So, that means that the code should run on every frame, and that means we need to use the `MC_POST_UPDATE` callback, which runs 30 times a second.
+For our purposes, we want the Green Candle to have a random chance to poison every enemy in the room on every frame. So, that means that the code should run on every frame, and that means we need to use the `POST_UPDATE` callback, which runs 30 times a second.
 
-(The game update loop runs at 30 times per second and the game render loop runs at 60 times per second. Since our code is gameplay-related, we should put it in the `MC_POST_UPDATE` callback. On the other hand, if we were drawing a sprite on the screen, then we would use the `MC_POST_RENDER` callback.)
+(The game update loop runs at 30 times per second and the game render loop runs at 60 times per second. Since our code is gameplay-related, we should put it in the `POST_UPDATE` callback. On the other hand, if we were drawing a sprite on the screen, then we would use the `POST_RENDER` callback.)
 
 Add the following code to the "main" function:
 
 ```ts
-mod.AddCallback(ModCallback.MC_POST_UPDATE, postUpdate);
+mod.AddCallback(ModCallback.POST_UPDATE, postUpdate);
 ```
 
 As you type the `ModCallback` enum, it should automatically create an import statement for the enum at the top of the file, which will look like this:
@@ -295,7 +295,7 @@ const GREEN_CANDLE_COLLECTIBLE_TYPE = Isaac.GetItemIdByName("Green Candle");
 export function main(): void {
   const mod = RegisterMod(MOD_NAME, 1);
 
-  mod.AddCallback(ModCallback.MC_POST_UPDATE, postUpdate);
+  mod.AddCallback(ModCallback.POST_UPDATE, postUpdate);
 }
 
 function postUpdate() {

@@ -15,5 +15,5 @@ export function main(): void {
 }
 
 function postGameStarted() {
-  Isaac.DebugString("Callback triggered: MC_POST_GAME_STARTED");
+  Isaac.DebugString("Callback triggered: POST_GAME_STARTED");
 }
