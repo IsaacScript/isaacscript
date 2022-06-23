@@ -19,7 +19,7 @@ OLD_HASH=$(md5sum "$PACKAGE_JSON")
 npx npm-check-updates --upgrade --packageFile "$PACKAGE_JSON" --reject "chalk,@mdx-js/react,react,react-dom,unified,sync-directory"
 NEW_HASH=$(md5sum "$PACKAGE_JSON")
 if [[ $OLD_HASH != $NEW_HASH ]]; then
-  yarn
+  yarn install
   syncpack fix-mismatches
   npx prettier --write "**/package.json"
 fi
