@@ -948,6 +948,9 @@ export enum ModCallbackCustom {
   /**
    * Fires from the `POST_UPDATE` callback when the clear state of a room changes.
    *
+   * When registering the callback, takes an optional second argument that will make the callback
+   * only fire if the room clear state matches the boolean provided.
+   *
    * ```ts
    * function postRoomClearChanged(roomClear: boolean): void {}
    * ```
