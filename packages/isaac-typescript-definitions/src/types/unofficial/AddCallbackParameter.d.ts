@@ -212,14 +212,10 @@ declare global {
         subType: int,
       ) => [PickupVariant, int] | void,
     ];
-    [ModCallback.PRE_PICKUP_COLLISION]: [
-      callback: (
-        pickup: EntityPickup,
-        collider: Entity,
-        low: boolean,
-      ) => boolean | void,
-      pickupVariant?: PickupVariant,
-    ];
+    [ModCallback.PRE_PICKUP_COLLISION]: PickupRegisterParameters<
+      [collider: Entity, low: boolean],
+      boolean | void
+    >;
     [ModCallback.POST_TEAR_INIT]: [
       callback: (tear: EntityTear) => void,
       tearVariant?: TearVariant,
