@@ -5,7 +5,7 @@ import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import {
   defaultMapGetPlayer,
-  defaultMapSetPlayer,
+  mapSetPlayer,
 } from "../functions/playerDataStructures";
 import { PlayerIndex } from "../types/PlayerIndex";
 import {
@@ -47,7 +47,7 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
     v.run.playersHolyMantleMap,
     player,
   );
-  defaultMapSetPlayer(v.run.playersHolyMantleMap, player, newNumHolyMantles);
+  mapSetPlayer(v.run.playersHolyMantleMap, player, newNumHolyMantles);
 
   if (newNumHolyMantles < oldNumHolyMantles) {
     postHolyMantleRemovedFire(player, oldNumHolyMantles, newNumHolyMantles);

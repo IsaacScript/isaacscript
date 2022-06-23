@@ -582,6 +582,11 @@ declare global {
     GetCard(pocketItemSlot: PocketItemSlot): Card;
 
     GetCardRNG(card: Card): RNG;
+
+    /**
+     * Returns the total amount of collectibles that the player has. For example, if the player has
+     * 1 Sad Onion and 2 Inner Eyes, then this function will return 3.
+     */
     GetCollectibleCount(): int;
 
     /**

@@ -50,7 +50,7 @@ export {
   removePersistentEntity,
   spawnPersistentEntity,
 } from "./features/persistentEntities";
-export { addCollectible, getPlayerInventory } from "./features/playerInventory";
+export { getPlayerInventory } from "./features/playerInventory";
 export * from "./features/ponyDetection";
 export { preventCollectibleRotation } from "./features/preventCollectibleRotation";
 export {

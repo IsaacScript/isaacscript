@@ -30,6 +30,10 @@ This page lists the changes to the IsaacScript framework.
   - `NUM_PILLS_IN_POOL`
 - Added the following custom callbacks:
   - `POST_PICKUP_INIT_FIRST`
+  - `POST_PLAYER_COLLECTIBLE_ADDED`
+  - `POST_PLAYER_COLLECTIBLE_REMOVED`
+- The inventory feature now uses the `POST_PLAYER_COLLECTIBLE_ADDED` callback, so it will now properly account for items given via the console and via code.
+- The inventory feature now uses the `POST_PLAYER_COLLECTIBLE_REMOVED` callback, so it will now properly account for items that are removed.
 
 ## June 21st, 2022
 
