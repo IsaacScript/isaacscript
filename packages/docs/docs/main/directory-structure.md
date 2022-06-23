@@ -201,12 +201,14 @@ This is the configuration file for [npm](https://www.npmjs.com/), the Node packa
 
 If you decide to add a new dependency (e.g. `npm install lodash --save`), then `npm` would automatically edit the `package.json` file accordingly. (Beware of adding JavaScript/TypeScript dependencies, since [it will not work properly](gotchas.md#npm-dependencies).)
 
-IsaacScript projects start with 3 dependencies by default:
+IsaacScript projects start with some dependencies by default:
 
 1. `isaac-typescript-definitions` - Provides the types for all the Isaac API classes, like `EntityPlayer` and so forth.
-1. `isaacscript` - Provides the main program that monitors your project. It also includes `typescript` and `typescript-to-lua`.
+1. `isaacscript` - Provides the command-line program that monitors your project. This also includes some dependencies, like `typescript` itself.
 1. `isaacscript-common` - Provides optional code that you can use in your mod. See the [`isaacscript-common`](/isaacscript-common) page for more info.
-1. `isaacscript-lint` - Provides `eslint` and all of the linting-related packages that `eslint` uses, including the official IsaacScript linting rule-set. It also includes `isaacscript-tsconfig` to allow for a streamlined `tsconfig.json` file for end-users.
+1. `isaacscript-lint` - Provides `eslint` and all of the linting-related packages that `eslint` uses, including the official IsaacScript linting rule-set.
+1. `isaacscript-spell` - Provides spell checking dictionaries for The Binding of Isaac words and IsaacScript words.
+1. `typescript-to-lua` - The tool that actually converts the TypeScript code to Lua. The `isaacscript` command-line program invokes TSTL for you.
 
 <br />
 
