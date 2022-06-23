@@ -105,8 +105,28 @@ export enum ModCallbackCustom {
    */
   POST_CUSTOM_REVIVE,
 
+  /**
+   * Fires from the `POST_RENDER` callback on every frame that a door exists.
+   *
+   * When registering the callback, takes an optional second argument that will make the callback
+   * only fire if it matches the variant provided.
+   *
+   * ```ts
+   * function postDoorRender(door: GridEntityDoor): void {}
+   * ```
+   */
   POST_DOOR_RENDER,
 
+  /**
+   * Fires from the `POST_UPDATE` callback on every frame that a door exists.
+   *
+   * When registering the callback, takes an optional second argument that will make the callback
+   * only fire if it matches the variant provided.
+   *
+   * ```ts
+   * function postDoorUpdate(door: GridEntityDoor): void {}
+   * ```
+   */
   POST_DOOR_UPDATE,
 
   /**
@@ -306,6 +326,18 @@ export enum ModCallbackCustom {
    */
   POST_GRID_ENTITY_REMOVE,
 
+  /**
+   * Fires from the `POST_RENDER` callback on every frame that a grid entity exists.
+   *
+   * - When registering the callback, takes an optional second argument that will make the callback
+   *   only fire if it matches the `GridEntityType` provided.
+   * - When registering the callback, takes an optional third argument that will make the callback
+   *   only fire if it matches the variant provided.
+   *
+   * ```ts
+   * function postGridEntityRender(gridEntity: GridEntity): void {}
+   * ```
+   */
   POST_GRID_ENTITY_RENDER,
 
   /**
@@ -327,8 +359,10 @@ export enum ModCallbackCustom {
   /**
    * Fires from the `POST_UPDATE` callback on every frame that a grid entity exists.
    *
-   * When registering the callback, takes an optional second argument that will make the callback
-   * only fire if it matches the `GridEntityType` provided.
+   * - When registering the callback, takes an optional second argument that will make the callback
+   *   only fire if it matches the `GridEntityType` provided.
+   * - When registering the callback, takes an optional third argument that will make the callback
+   *   only fire if it matches the variant provided.
    *
    * ```ts
    * function postGridEntityUpdate(gridEntity: GridEntity): void {}
@@ -608,8 +642,28 @@ export enum ModCallbackCustom {
    */
   POST_PICKUP_STATE_CHANGED,
 
+  /**
+   * Fires from the `POST_RENDER` callback on every frame that a pit exists.
+   *
+   * When registering the callback, takes an optional second argument that will make the callback
+   * only fire if it matches the variant provided.
+   *
+   * ```ts
+   * function postPitRender(pit: GridEntityPit): void {}
+   * ```
+   */
   POST_PIT_RENDER,
 
+  /**
+   * Fires from the `POST_UPDATE` callback on every frame that a pit exists.
+   *
+   * When registering the callback, takes an optional second argument that will make the callback
+   * only fire if it matches the variant provided.
+   *
+   * ```ts
+   * function postPitUpdate(pit: GridEntityPit): void {}
+   * ```
+   */
   POST_PIT_UPDATE,
 
   /**
@@ -789,12 +843,52 @@ export enum ModCallbackCustom {
    */
   POST_PLAYER_UPDATE_REORDERED,
 
+  /**
+   * Fires from the `POST_RENDER` callback on every frame that a poop exists.
+   *
+   * When registering the callback, takes an optional second argument that will make the callback
+   * only fire if it matches the variant provided.
+   *
+   * ```ts
+   * function postPoopRender(poop: GridEntityPoop): void {}
+   * ```
+   */
   POST_POOP_RENDER,
 
+  /**
+   * Fires from the `POST_UPDATE` callback on every frame that a poop exists.
+   *
+   * When registering the callback, takes an optional second argument that will make the callback
+   * only fire if it matches the variant provided.
+   *
+   * ```ts
+   * function postPoopUpdate(poop: GridEntityPoop): void {}
+   * ```
+   */
   POST_POOP_UPDATE,
 
+  /**
+   * Fires from the `POST_RENDER` callback on every frame that a pressure plate exists.
+   *
+   * When registering the callback, takes an optional second argument that will make the callback
+   * only fire if it matches the variant provided.
+   *
+   * ```ts
+   * function postPressurePlateRender(pressurePlate: GridEntityPressurePlate): void {}
+   * ```
+   */
   POST_PRESSURE_PLATE_RENDER,
 
+  /**
+   * Fires from the `POST_UPDATE` callback on every frame that a pressure plate exists.
+   *
+   * When registering the callback, takes an optional second argument that will make the callback
+   * only fire if it matches the variant provided.
+   *
+   * ```ts
+   * function postPressurePlateUpdate(pressurePlate: GridEntityPressurePlate): void {}
+   * ```
+   */
   POST_PRESSURE_PLATE_UPDATE,
 
   /**
@@ -827,10 +921,37 @@ export enum ModCallbackCustom {
    */
   POST_PURCHASE,
 
+  /**
+   * Fires from the `POST_RENDER` callback on every frame that a rock exists.
+   *
+   * When registering the callback, takes an optional second argument that will make the callback
+   * only fire if it matches the variant provided.
+   *
+   * ```ts
+   * function postRockRender(rock: GridEntityRock): void {}
+   * ```
+   */
   POST_ROCK_RENDER,
 
+  /**
+   * Fires from the `POST_UPDATE` callback on every frame that a rock exists.
+   *
+   * When registering the callback, takes an optional second argument that will make the callback
+   * only fire if it matches the variant provided.
+   *
+   * ```ts
+   * function postRockUpdate(rock: GridEntityRock): void {}
+   * ```
+   */
   POST_ROCK_UPDATE,
 
+  /**
+   * Fires from the `POST_UPDATE` callback when the clear state of a room changes.
+   *
+   * ```ts
+   * function postRoomClearChanged(roomClear: boolean): void {}
+   * ```
+   */
   POST_ROOM_CLEAR_CHANGED,
 
   /**
@@ -914,8 +1035,28 @@ export enum ModCallbackCustom {
    */
   POST_SLOT_UPDATE,
 
+  /**
+   * Fires from the `POST_RENDER` callback on every frame that spikes exist.
+   *
+   * When registering the callback, takes an optional second argument that will make the callback
+   * only fire if it matches the variant provided.
+   *
+   * ```ts
+   * function postSpikesRender(spikes: GridEntitySpikes): void {}
+   * ```
+   */
   POST_SPIKES_RENDER,
 
+  /**
+   * Fires from the `POST_UPDATE` callback on every frame that spikes exist.
+   *
+   * When registering the callback, takes an optional second argument that will make the callback
+   * only fire if it matches the variant provided.
+   *
+   * ```ts
+   * function postSpikesUpdate(spikes: GridEntitySpikes): void {}
+   * ```
+   */
   POST_SPIKES_UPDATE,
 
   /**
@@ -947,8 +1088,28 @@ export enum ModCallbackCustom {
    */
   POST_TEAR_INIT_VERY_LATE,
 
+  /**
+   * Fires from the `POST_RENDER` callback on every frame that a TNT exists.
+   *
+   * When registering the callback, takes an optional second argument that will make the callback
+   * only fire if it matches the variant provided.
+   *
+   * ```ts
+   * function postTNTRender(tnt: GridEntityTNT): void {}
+   * ```
+   */
   POST_TNT_RENDER,
 
+  /**
+   * Fires from the `POST_UPDATE` callback on every frame that a TNT exists.
+   *
+   * When registering the callback, takes an optional second argument that will make the callback
+   * only fire if it matches the variant provided.
+   *
+   * ```ts
+   * function postTNTUpdate(tnt: GridEntityTNT): void {}
+   * ```
+   */
   POST_TNT_UPDATE,
 
   /**

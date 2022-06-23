@@ -42,6 +42,8 @@ import { postPitRenderRegister } from "../callbacks/subscriptions/postPitRender"
 import { postPitUpdateRegister } from "../callbacks/subscriptions/postPitUpdate";
 import { postPlayerChangeHealthRegister } from "../callbacks/subscriptions/postPlayerChangeHealth";
 import { postPlayerChangeTypeRegister } from "../callbacks/subscriptions/postPlayerChangeType";
+import { postPlayerCollectibleAddedRegister } from "../callbacks/subscriptions/postPlayerCollectibleAdded";
+import { postPlayerCollectibleRemovedRegister } from "../callbacks/subscriptions/postPlayerCollectibleRemoved";
 import { postPlayerFatalDamageRegister } from "../callbacks/subscriptions/postPlayerFatalDamage";
 import { postPlayerInitLateRegister } from "../callbacks/subscriptions/postPlayerInitLate";
 import { postPlayerInitReorderedRegister } from "../callbacks/subscriptions/postPlayerInitReordered";
@@ -132,6 +134,10 @@ export const CALLBACK_REGISTER_FUNCTIONS: {
   [ModCallbackCustom.POST_PIT_UPDATE]: postPitUpdateRegister,
   [ModCallbackCustom.POST_PLAYER_CHANGE_HEALTH]: postPlayerChangeHealthRegister,
   [ModCallbackCustom.POST_PLAYER_CHANGE_TYPE]: postPlayerChangeTypeRegister,
+  [ModCallbackCustom.POST_PLAYER_COLLECTIBLE_ADDED]:
+    postPlayerCollectibleAddedRegister,
+  [ModCallbackCustom.POST_PLAYER_COLLECTIBLE_REMOVED]:
+    postPlayerCollectibleRemovedRegister,
   [ModCallbackCustom.POST_PLAYER_FATAL_DAMAGE]: postPlayerFatalDamageRegister,
   [ModCallbackCustom.POST_PLAYER_INIT_LATE]: postPlayerInitLateRegister,
   [ModCallbackCustom.POST_PLAYER_INIT_REORDERED]:
