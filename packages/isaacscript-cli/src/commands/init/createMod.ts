@@ -227,8 +227,9 @@ function installNodeModules(
   }
 
   const [command, args] = getPackageManagerInstallCommand(packageManager);
+  const commandString = `${command} ${args.join(" ")}`;
   console.log(
-    `Installing node modules with "${command}"... (This can take a long time.)`,
+    `Installing node modules with "${commandString}"... (This can take a long time.)`,
   );
   execShell(command, args, verbose, false, projectPath);
 }
