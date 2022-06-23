@@ -20,6 +20,29 @@ export function getPackageManagerLockFileName(
   return PACKAGE_MANAGER_LOCK_FILE_NAMES[packageManager];
 }
 
+export function getPackageManagerAddCommand(
+  packageManager: PackageManager,
+  dependency: string,
+): string {
+  switch (packageManager) {
+    case PackageManager.NPM: {
+      return `npm install ${dependency} --save`;
+    }
+
+    case PackageManager.YARN: {
+      return `yarn add ${dependency}`;
+    }
+
+    case PackageManager.PNPM: {
+      return `pnpm add ${dependency}`;
+    }
+
+    default: {
+      return ensureAllCases(packageManager);
+    }
+  }
+}
+
 export function getPackageManagerInstallCommand(
   packageManager: PackageManager,
 ): [command: string, args: string[]] {
@@ -31,9 +54,11 @@ export function getPackageManagerInstallCommand(
     case PackageManager.YARN: {
       return ["yarn", ["install"]];
     }
+
     case PackageManager.PNPM: {
       return ["pnpm", ["install"]];
     }
+
     default: {
       return ensureAllCases(packageManager);
     }
@@ -51,6 +76,7 @@ export function getPackageManagerInstallCICommand(
     case PackageManager.YARN: {
       return "yarn install --frozen-lockfile";
     }
+
     case PackageManager.PNPM: {
       return "pnpm install --frozen-lockfile";
     }

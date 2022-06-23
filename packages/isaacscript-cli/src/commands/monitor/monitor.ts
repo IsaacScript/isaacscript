@@ -7,10 +7,15 @@ import {
   FILE_SYNCED_MESSAGE,
   MAIN_LUA,
   MOD_SOURCE_PATH,
+  PACKAGE_JSON_PATH,
   PROJECT_NAME,
   TSCONFIG_PATH,
 } from "../../constants";
 import * as file from "../../file";
+import {
+  getPackageManagerAddCommand,
+  getPackageManagerUsedForExistingProject,
+} from "../../packageManager";
 import { Args } from "../../parseArgs";
 import { Config } from "../../types/Config";
 import { error, getModTargetDirectoryName } from "../../utils";
@@ -19,6 +24,13 @@ import { copyWatcherMod } from "./copyWatcherMod";
 import * as notifyGame from "./notifyGame";
 import { spawnSaveDatWriter } from "./spawnSaveDatWriter";
 import { touchWatcherSaveDatFiles } from "./touchWatcherSaveDatFiles";
+
+const REQUIRED_PACKAGE_JSON_DEPENDENCIES = [
+  "isaac-typescript-definitions",
+  "isaacscript",
+  "ts-node",
+  "typescript-to-lua",
+];
 
 let compilationStartTime = new Date();
 
@@ -32,6 +44,9 @@ export function monitor(args: Args, config: Config): void {
   if (args.saveSlot !== undefined) {
     config.saveSlot = args.saveSlot; // eslint-disable-line no-param-reassign
   }
+
+  // Pre-flight checks.
+  validatePackageJSONDependencies(args, verbose);
 
   // Read the "tsconfig.json" file.
   const tsConfigInclude = getFirstTSConfigIncludePath(verbose);
@@ -72,6 +87,39 @@ export function monitor(args: Args, config: Config): void {
   console.log(`Copying files to:            ${chalk.green(modTargetPath)}`);
   console.log("");
   // (The process will now continue indefinitely for as long as the subprocesses exist.)
+}
+
+function validatePackageJSONDependencies(args: Args, verbose: boolean) {
+  const packageJSONRaw = file.read(PACKAGE_JSON_PATH, verbose);
+  let packageJSON: Record<string, string[]>;
+  try {
+    packageJSON = JSONC.parse(packageJSONRaw) as Record<string, string[]>;
+  } catch (err) {
+    error(`Failed to parse "${chalk.green(PACKAGE_JSON_PATH)}":`, err);
+  }
+
+  const { dependencies } = packageJSON;
+  if (!Array.isArray(dependencies)) {
+    error(
+      `Failed to parse the dependencies of: ${chalk.green(PACKAGE_JSON_PATH)}`,
+    );
+  }
+
+  for (const dependency of REQUIRED_PACKAGE_JSON_DEPENDENCIES) {
+    if (!dependencies.includes(dependency)) {
+      const packageManager = getPackageManagerUsedForExistingProject(
+        args,
+        verbose,
+      );
+      const addCommand = getPackageManagerAddCommand(
+        packageManager,
+        dependency,
+      );
+      error(
+        `IsaacScript projects require a dependency of "${dependency}" in the "package.json" file. You can add it with the following command: ${addCommand}`,
+      );
+    }
+  }
 }
 
 function spawnModDirectorySyncer(config: Config) {

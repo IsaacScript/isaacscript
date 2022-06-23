@@ -116,6 +116,11 @@ export function isDir(filePath: string, verbose: boolean): boolean {
   return fileStats.isDirectory();
 }
 
+export function isFile(filePath: string, verbose: boolean): boolean {
+  const fileStats = getFileStats(filePath, verbose);
+  return fileStats.isFile();
+}
+
 export function isSubDirOf(dir: string, parent: string): boolean {
   const relative = path.relative(parent, dir);
   return (
