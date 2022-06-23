@@ -61,4 +61,4 @@ Open a big Lua file and use the hotkey to perform the replacements on everything
 
 If you copy an entire file into your TypeScript project at once, then it will be kind of a mess and the auto-formatter won't work. Instead, just copy one function at a time into the corresponding TypeScript file, fix the errors, if any, and let the auto-formatter do the work of arranging everything properly.
 
-A lot of the time, you won't be able to fix some of the errors, like functions not being declared yet. Just ignore those until you get everything copied over.
+A lot of the time, you won't be able to fix some of the errors, like functions that are being called that are not declared yet. Just ignore those until you get everything copied over.
