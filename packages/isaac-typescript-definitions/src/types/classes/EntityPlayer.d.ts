@@ -71,6 +71,9 @@ declare global {
     AddCoins(amount: int): void;
 
     /**
+     * Note that adding a collectible to `ActiveSlot.POCKET` or `ActiveSlot.POCKET_SINGLE_USE` will
+     * not work properly. For those cases, use `EntityPlayer.SetPocketActiveItem` instead.
+     *
      * @param collectibleType
      * @param charge Default is 0.
      * @param firstTimePickingUp Setting this to false will not spawn or add consumables for the
@@ -85,7 +88,7 @@ declare global {
       collectibleType: CollectibleType,
       charge?: int,
       firstTimePickingUp?: boolean,
-      activeSlot?: ActiveSlot,
+      activeSlot?: ActiveSlot.PRIMARY | ActiveSlot.SECONDARY,
       varData?: int,
     ): void;
 
@@ -989,9 +992,12 @@ declare global {
     SetPill(pocketItemSlot: PocketItemSlot, pillColor: PillColor): void;
 
     /**
-     * Sets the player's pocket active item to the given active item.
+     * Sets the player's pocket active item to the given collectible.
      *
-     * Items added to `ActiveSlot.POCKET_2` will always be removed upon being used.
+     * Items added to `ActiveSlot.POCKET_SINGLE_USE` will always be removed upon being used.
+     *
+     * Note that unlike the `EntityPlayer.AddCollectible` method, this function will remove the
+     * collectible from pools by default.
      *
      * @param collectibleType
      * @param slot Can be either ActiveSlot.SLOT_POCKET or ActiveSlot.SLOT_POCKET2. Default is
@@ -1001,7 +1007,7 @@ declare global {
      */
     SetPocketActiveItem(
       collectibleType: CollectibleType,
-      slot?: ActiveSlot,
+      slot?: ActiveSlot.POCKET | ActiveSlot.POCKET_SINGLE_USE,
       keepInPools?: boolean,
     ): void;
 

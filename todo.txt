@@ -4,13 +4,10 @@ implement in isaacscript-common:
 - POST_PLAYER_COLLECTIBLE_REMOVED
 - POST_AMBUSH_DONE
 - POST_BOMB_DETONATE
+- POST_DICE_ROOM_ACTIVATED
 - bible detection for POST FATAL DAMAGE
 - compareEntity (to see what changes with dice room effect)
-- DICE_ROOM_ACTIVATED
 - intercept shovel for decorations
 - collectible morph to glitched item
-- function getRandomEnumValue
 - function to start challenge room
-- think about how to track a custom entity that emulates a collectible (pseudo-persistent)
-  - add isaacscript-common functionality for persistent entities
 - StageAPI2
