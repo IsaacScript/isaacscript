@@ -12,8 +12,8 @@ This page lists the changes to the IsaacScript framework.
 ## June 28th, 2022
 
 - The change log is now located on [the official website](https://isaacscript.github.io/main/change-log).
+- IsaacScript now requires a dependency of "ts-node" in your "package.json" file so that TSTL can properly invoke plugins. If it is missing, the tool will tell you the appropriate command to run to fix the problem.
 - Added the following helper functions:
-
   - `getBombRadiusFromDamage`
   - `getPlayerFromTear`
   - `isDamageFromPlayer`
@@ -26,7 +26,6 @@ This page lists the changes to the IsaacScript framework.
   - `getFalsePHDPillEffect`
   - `doesPlayerHaveAllSoulHearts`
   - `doesPlayerHaveAllBlackHearts`
-
 - Renamed the following helper functions:
   - `getCurrentRoomDescriptorReadOnly` --> `getRoomDescriptorReadOnly`
   - `getCurrentDimension` --> `getDimension`
