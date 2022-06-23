@@ -55,8 +55,8 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
       storedHealthValue !== undefined &&
       storedHealthValue !== currentHealthValue
     ) {
-      const amount = currentHealthValue - storedHealthValue;
-      postPlayerChangeHealthFire(player, healthType, amount);
+      const difference = currentHealthValue - storedHealthValue;
+      postPlayerChangeHealthFire(player, healthType, difference);
     }
   }
 }

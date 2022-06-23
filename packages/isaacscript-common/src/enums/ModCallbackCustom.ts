@@ -679,7 +679,7 @@ export enum ModCallbackCustom {
    * function postPlayerChangeHealth(
    *   player: EntityPlayer,
    *   healthType: HealthType,
-   *   amount: int,
+   *   difference: int,
    * ) {}
    * ```
    */

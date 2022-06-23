@@ -2,7 +2,11 @@ import { PlayerType, PlayerVariant } from "isaac-typescript-definitions";
 import { HealthType } from "../../enums/HealthType";
 
 export type PostPlayerChangeHealthRegisterParameters = [
-  callback: (player: EntityPlayer, healthType: HealthType, amount: int) => void,
+  callback: (
+    player: EntityPlayer,
+    healthType: HealthType,
+    difference: int,
+  ) => void,
   playerVariant?: PlayerVariant,
   character?: PlayerType,
 ];
@@ -25,7 +29,7 @@ export function postPlayerChangeHealthRegister(
 export function postPlayerChangeHealthFire(
   player: EntityPlayer,
   healthType: HealthType,
-  amount: int,
+  difference: int,
 ): void {
   const character = player.GetPlayerType();
 
@@ -40,6 +44,6 @@ export function postPlayerChangeHealthFire(
       continue;
     }
 
-    callback(player, healthType, amount);
+    callback(player, healthType, difference);
   }
 }
