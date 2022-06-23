@@ -3642,7 +3642,7 @@
     "@typescript-eslint/types" "5.29.0"
     "@typescript-eslint/visitor-keys" "5.29.0"
 
-"@typescript-eslint/type-utils@5.29.0", "@typescript-eslint/type-utils@^5.28.0", "@typescript-eslint/type-utils@^5.29.0":
+"@typescript-eslint/type-utils@5.29.0", "@typescript-eslint/type-utils@^5.29.0":
   version "5.29.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/type-utils/-/type-utils-5.29.0.tgz#241918001d164044020b37d26d5b9f4e37cc3d5d"
   integrity sha512-JK6bAaaiJozbox3K220VRfCzLa9n0ib/J+FHIwnaV3Enw/TO267qe0pM1b1QrrEuy6xun374XEAsRlA86JJnyg==
@@ -3656,7 +3656,7 @@
   resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-5.24.0.tgz#565ff94a4b89073265e27514dc65225d18aabe6c"
   integrity sha512-Tpg1c3shTDgTmZd3qdUyd+16r/pGmVaVEbLs+ufuWP0EruVbUiEOmpBBQxBb9a8iPRxi8Rb2oiwOxuZJzSq11A==
 
-"@typescript-eslint/types@5.29.0", "@typescript-eslint/types@^5.28.0", "@typescript-eslint/types@^5.29.0":
+"@typescript-eslint/types@5.29.0", "@typescript-eslint/types@^5.29.0":
   version "5.29.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-5.29.0.tgz#7861d3d288c031703b2d97bc113696b4d8c19aab"
   integrity sha512-X99VbqvAXOMdVyfFmksMy3u8p8yoRGITgU1joBJPzeYa0rhdf5ok9S56/itRoUSh99fiDoMtarSIJXo7H/SnOg==
@@ -3699,7 +3699,7 @@
     eslint-scope "^5.1.1"
     eslint-utils "^3.0.0"
 
-"@typescript-eslint/utils@5.29.0", "@typescript-eslint/utils@^5.28.0", "@typescript-eslint/utils@^5.29.0":
+"@typescript-eslint/utils@5.29.0", "@typescript-eslint/utils@^5.29.0":
   version "5.29.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/utils/-/utils-5.29.0.tgz#775046effd5019667bd086bcf326acbe32cd0082"
   integrity sha512-3Eos6uP1nyLOBayc/VUdKZikV90HahXE5Dx9L5YlSd/7ylQPXhLk1BYb29SDgnBnTp+jmSZUU0QxUiyHgW4p7A==
@@ -6424,14 +6424,11 @@ eslint-plugin-import@^2.26.0:
     resolve "^1.22.0"
     tsconfig-paths "^3.14.1"
 
-eslint-plugin-isaacscript@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-isaacscript/-/eslint-plugin-isaacscript-1.4.0.tgz#dd049b4c63b1f0ce314cf12814efd982a68b82ed"
-  integrity sha512-QWzkOE21YZKaE29qAF5IvPFZvK4QgwBFVW4hmFS0hlT1g0/t1M6HrbfHgOj42G4bil+KcVF638psWWiIxTN+jw==
+eslint-plugin-isaacscript@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-isaacscript/-/eslint-plugin-isaacscript-1.4.1.tgz#e66ce411e0589413cf9a9b310726bde3441291b1"
+  integrity sha512-IJRmOFpt+nn8RXoj0G0uAEdJdAERunnldl5dGLHIBR7mRLVpXbLwRAeoJ9Q/RK234/TAgbFeEgFgL4Pu6rEZXw==
   dependencies:
-    "@typescript-eslint/type-utils" "^5.28.0"
-    "@typescript-eslint/types" "^5.28.0"
-    "@typescript-eslint/utils" "^5.28.0"
     tslib "^2.4.0"
 
 eslint-plugin-jsdoc@^39.3.3:
