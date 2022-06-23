@@ -1063,7 +1063,8 @@ export enum ModCallbackCustom {
   POST_SPIKES_UPDATE,
 
   /**
-   * Fires on the first `POST_TEAR_UPDATE` frame for each tear.
+   * Fires on the first `POST_TEAR_UPDATE` frame for each tear (which is when
+   * `EntityTear.FrameCount` is equal to 0).
    *
    * This callback is useful because many attributes cannot be set or retrieved properly in the
    * normal `POST_TEAR_INIT` callback.
@@ -1078,7 +1079,8 @@ export enum ModCallbackCustom {
   POST_TEAR_INIT_LATE,
 
   /**
-   * Fires on the second `POST_TEAR_UPDATE` frame for each tear (i.e. frame 1).
+   * Fires on the second `POST_TEAR_UPDATE` frame for each tear (which is when
+   * `EntityTear.FrameCount` is equal to 1).
    *
    * This callback is useful because Incubus tears are not distinguishable until the second frame.
    *
