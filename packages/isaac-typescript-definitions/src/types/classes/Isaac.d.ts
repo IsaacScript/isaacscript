@@ -14,7 +14,6 @@ import { Music } from "../../enums/Music";
 import { NullItemID } from "../../enums/NullItemID";
 import { PillEffect } from "../../enums/PillEffect";
 import { SoundEffect } from "../../enums/SoundEffect";
-import { ItemConfig } from "./ItemConfig";
 
 declare global {
   /** @noSelf */

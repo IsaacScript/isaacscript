@@ -30,7 +30,6 @@ import { PoopSpellType } from "../../enums/PoopSpellType";
 import { SkinColor } from "../../enums/SkinColor";
 import { TrinketSlot } from "../../enums/TrinketSlot";
 import { WeaponType } from "../../enums/WeaponType";
-import { TemporaryEffects } from "./TemporaryEffects";
 
 declare global {
   interface EntityPlayer extends Entity {
