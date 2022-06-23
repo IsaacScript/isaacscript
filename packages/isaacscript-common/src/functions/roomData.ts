@@ -11,15 +11,6 @@ import { getEnumValues } from "./enums";
 import { hasFlag } from "./flag";
 
 /**
- * Alias for the `Level.GetCurrentRoomDesc` method. Use this to make it more clear what type of
- * `RoomDescriptor` object that you are retrieving.
- */
-export function getCurrentRoomDescriptorReadOnly(): ReadonlyRoomDescriptor {
-  const level = game.GetLevel();
-  return level.GetCurrentRoomDesc();
-}
-
-/**
  * Helper function to get the set of allowed door slots for the room at the supplied grid index.
  * This corresponds to the doors that are enabled in the STB/XML file for the room.
  */
@@ -68,6 +59,15 @@ export function getRoomDescriptor(roomGridIndex?: int): RoomDescriptor {
 }
 
 /**
+ * Alias for the `Level.GetCurrentRoomDesc` method. Use this to make it more clear what type of
+ * `RoomDescriptor` object that you are retrieving.
+ */
+export function getRoomDescriptorReadOnly(): ReadonlyRoomDescriptor {
+  const level = game.GetLevel();
+  return level.GetCurrentRoomDesc();
+}
+
+/**
  * Helper function to get the grid index of the current room.
  *
  * - If the current room is inside of the grid, this function will return the `SafeGridIndex` from
@@ -94,7 +94,7 @@ export function getRoomGridIndex(): int {
     return currentRoomIndex;
   }
 
-  const roomDescriptor = getCurrentRoomDescriptorReadOnly();
+  const roomDescriptor = getRoomDescriptorReadOnly();
   return roomDescriptor.SafeGridIndex;
 }
 

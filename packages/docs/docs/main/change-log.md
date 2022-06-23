@@ -19,8 +19,11 @@ This page lists the changes to the IsaacScript framework.
   - `playerConvertBlackHeartsToSoulHearts`
   - `playerConvertSoulHeartsToBlackHearts`
   - `doesEntityExist`
-  - `spawnPersistentEntity`
-  - `removePersistentEntity`
+  - `spawnPersistentEntity` (for creating pickup-like entities)
+  - `removePersistentEntity` (for removing entities spawned with `spawnPersistentEntity`)
+- Renamed the following helper functions:
+  - `getCurrentRoomDescriptorReadOnly` --> `getRoomDescriptorReadOnly`
+  - `getCurrentDimension` --> `getDimension`
 - Added the following custom callbacks:
   - `POST_PICKUP_INIT_FIRST`
 

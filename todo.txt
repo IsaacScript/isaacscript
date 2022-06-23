@@ -1,8 +1,5 @@
 implement in isaacscript-common:
 
-- trophy can move to isaacscript common for respawning purposes
-  - when respawning, don't play appear animation
-
 - test getCurrentDimension() function to see if Xalum is right // cspell:disable-line
 - PHD_PILL_CONVERSIONS to isaacscript-common
 - POST_PLAYER_COLLECTIBLE_ADDED

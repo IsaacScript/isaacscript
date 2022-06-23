@@ -43,10 +43,10 @@ import {
   setEntityVelocities,
 } from "./positionVelocity";
 import {
-  getCurrentRoomDescriptorReadOnly,
   getRoomAllowedDoors,
   getRoomData,
   getRoomDescriptor,
+  getRoomDescriptorReadOnly,
   getRoomGridIndex,
   getRoomName,
   getRoomShape,
@@ -97,7 +97,7 @@ export function getAllRoomGridIndexes(): int[] {
  * Note that this function correctly handles detecting the Death Certificate dimension, which is
  * tricky to properly detect.
  */
-export function getCurrentDimension(): Dimension {
+export function getDimension(): Dimension {
   const level = game.GetLevel();
 
   // When in the Death Certificate dimension, the algorithm below will randomly return either
@@ -359,12 +359,12 @@ export function inDeathCertificateArea(): boolean {
  * flag.
  */
 export function inDevilsCrownTreasureRoom(): boolean {
-  const roomDescriptor = getCurrentRoomDescriptorReadOnly();
+  const roomDescriptor = getRoomDescriptorReadOnly();
   return hasFlag(roomDescriptor.Flags, RoomDescriptorFlag.DEVIL_TREASURE);
 }
 
 export function inDimension(dimension: Dimension): boolean {
-  return dimension === getCurrentDimension();
+  return dimension === getDimension();
 }
 
 export function inDoubleTrouble(): boolean {
