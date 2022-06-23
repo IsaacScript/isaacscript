@@ -154,6 +154,5 @@
   ],
   "plugin": "typedoc-plugin-markdown",
   "hideBreadcrumbs": true,
-  "hideInPageTOC": true,
-  "hidePageTitle": true
+  "hideInPageTOC": true
 }

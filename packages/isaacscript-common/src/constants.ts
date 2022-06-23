@@ -1,3 +1,7 @@
+/**
+ * @module Constants
+ */
+
 import {
   Dimension,
   ItemPoolType,

@@ -8,51 +8,53 @@ import { ItemPoolType } from "../../enums/ItemPoolType";
 import { PillEffect } from "../../enums/PillEffect";
 import { RoomType } from "../../enums/RoomType";
 
-declare interface ItemPool {
-  AddBibleUpgrade(add: int, itemPoolType: ItemPoolType): void;
-  AddRoomBlacklist(collectibleType: CollectibleType): void;
-  ForceAddPillEffect(pillEffect: PillEffect): PillColor;
+declare global {
+  interface ItemPool {
+    AddBibleUpgrade(add: int, itemPoolType: ItemPoolType): void;
+    AddRoomBlacklist(collectibleType: CollectibleType): void;
+    ForceAddPillEffect(pillEffect: PillEffect): PillColor;
 
-  GetCard(
-    seed: Seed,
-    playing: boolean,
-    rune: boolean,
-    onlyRunes: boolean,
-  ): Card;
+    GetCard(
+      seed: Seed,
+      playing: boolean,
+      rune: boolean,
+      onlyRunes: boolean,
+    ): Card;
 
-  /**
-   * @param itemPoolType
-   * @param decrease Default is false.
-   * @param seed Default is `Random()`.
-   * @param defaultItem Default is `CollectibleType.NULL`.
-   */
-  GetCollectible(
-    itemPoolType: ItemPoolType,
-    decrease?: boolean,
-    seed?: Seed,
-    defaultItem?: CollectibleType,
-  ): CollectibleType;
+    /**
+     * @param itemPoolType
+     * @param decrease Default is false.
+     * @param seed Default is `Random()`.
+     * @param defaultItem Default is `CollectibleType.NULL`.
+     */
+    GetCollectible(
+      itemPoolType: ItemPoolType,
+      decrease?: boolean,
+      seed?: Seed,
+      defaultItem?: CollectibleType,
+    ): CollectibleType;
 
-  GetLastPool(): ItemPoolType;
-  GetPill(seed: Seed): PillColor;
+    GetLastPool(): ItemPoolType;
+    GetPill(seed: Seed): PillColor;
 
-  /**
-   * @param pillColor
-   * @param player Default is undefined.
-   */
-  GetPillEffect(pillColor: PillColor, player?: EntityPlayer): PillEffect;
+    /**
+     * @param pillColor
+     * @param player Default is undefined.
+     */
+    GetPillEffect(pillColor: PillColor, player?: EntityPlayer): PillEffect;
 
-  GetPoolForRoom(roomType: RoomType, seed: Seed): ItemPoolType;
+    GetPoolForRoom(roomType: RoomType, seed: Seed): ItemPoolType;
 
-  /**
-   * @param dontAdvanceRNG Default is false.
-   */
-  GetTrinket(dontAdvanceRNG?: boolean): TrinketType;
+    /**
+     * @param dontAdvanceRNG Default is false.
+     */
+    GetTrinket(dontAdvanceRNG?: boolean): TrinketType;
 
-  IdentifyPill(pillColor: PillColor): void;
-  IsPillIdentified(pillColor: PillColor): boolean;
-  RemoveCollectible(collectibleType: CollectibleType): boolean;
-  RemoveTrinket(trinketType: TrinketType): boolean;
-  ResetRoomBlacklist(): void;
-  ResetTrinkets(): void;
+    IdentifyPill(pillColor: PillColor): void;
+    IsPillIdentified(pillColor: PillColor): boolean;
+    RemoveCollectible(collectibleType: CollectibleType): boolean;
+    RemoveTrinket(trinketType: TrinketType): boolean;
+    ResetRoomBlacklist(): void;
+    ResetTrinkets(): void;
+  }
 }
