@@ -60,7 +60,7 @@ declare global {
     SetStartSeed(startSeed: string): void;
   }
 
-  declare namespace Seeds {
+  namespace Seeds {
     function CountUnlockedSeedEffects(this: void): int;
     function GetSeedEffect(this: void, str: string): SeedEffect;
     function InitSeedInfo(this: void): void;
