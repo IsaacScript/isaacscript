@@ -83,11 +83,20 @@ function collectibleCountChanged(
     player,
     player,
   );
+  const newCollectibleMap = getPlayerCollectibleMap(player);
+  mapSetPlayer(v.run.playersCollectibleMap, player, newCollectibleMap);
+
+  const collectibleTypes = [
+    ...oldCollectibleMap.keys(),
+    ...newCollectibleMap.keys(),
+  ];
 
   let numFired = 0;
-  for (const [collectibleType, oldNum] of oldCollectibleMap.entries()) {
-    const newNum = player.GetCollectibleNum(collectibleType);
+  for (const collectibleType of collectibleTypes) {
+    const oldNum = oldCollectibleMap.get(collectibleType) ?? 0;
+    const newNum = newCollectibleMap.get(collectibleType) ?? 0;
     const difference = Math.abs(newNum - oldNum);
+
     repeat(difference, () => {
       if (increased) {
         postPlayerCollectibleAddedFire(player, collectibleType);

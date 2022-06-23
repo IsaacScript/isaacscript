@@ -2,7 +2,6 @@ import { CollectibleType } from "isaac-typescript-definitions";
 import { itemConfig } from "../cachedClasses";
 import { LAST_VANILLA_COLLECTIBLE_TYPE } from "../constantsFirstLast";
 import { getCollectibleTypeRange } from "./collectibles";
-import { copySet } from "./set";
 
 const ALL_COLLECTIBLES_SET = new Set<CollectibleType>();
 const VANILLA_COLLECTIBLES_SET = new Set<CollectibleType>();
@@ -27,31 +26,31 @@ function initCollectibleSets() {
 /**
  * Returns a set containing every valid collectible type in the game, including modded collectibles.
  */
-export function getCollectibleSet(): Set<CollectibleType> {
+export function getCollectibleSet(): ReadonlySet<CollectibleType> {
   // Lazy initialize the sets.
   if (ALL_COLLECTIBLES_SET.size === 0) {
     initCollectibleSets();
   }
 
-  return copySet(ALL_COLLECTIBLES_SET);
+  return ALL_COLLECTIBLES_SET;
 }
 
 /** Returns a set containing every modded collectible type in the game. */
-export function getModdedCollectibleSet(): Set<CollectibleType> {
+export function getModdedCollectibleSet(): ReadonlySet<CollectibleType> {
   // Lazy initialize the sets.
   if (ALL_COLLECTIBLES_SET.size === 0) {
     initCollectibleSets();
   }
 
-  return copySet(MODDED_COLLECTIBLES_SET);
+  return MODDED_COLLECTIBLES_SET;
 }
 
 /** Returns a set containing every valid vanilla collectible type in the game. */
-export function getVanillaCollectibleSet(): Set<CollectibleType> {
+export function getVanillaCollectibleSet(): ReadonlySet<CollectibleType> {
   // Lazy initialize the sets.
   if (ALL_COLLECTIBLES_SET.size === 0) {
     initCollectibleSets();
   }
 
-  return copySet(VANILLA_COLLECTIBLES_SET);
+  return VANILLA_COLLECTIBLES_SET;
 }

@@ -31,6 +31,7 @@ import { postPitRenderInit } from "./callbacks/postPitRender";
 import { postPitUpdateInit } from "./callbacks/postPitUpdate";
 import { postPlayerChangeHealthCallbackInit } from "./callbacks/postPlayerChangeHealth";
 import { postPlayerChangeTypeCallbackInit } from "./callbacks/postPlayerChangeType";
+import { postPlayerCollectibleCallbackInit } from "./callbacks/postPlayerCollectible";
 import { postPlayerFatalDamageCallbackInit } from "./callbacks/postPlayerFatalDamage";
 import { postPlayerInitLateCallbackInit } from "./callbacks/postPlayerInitLate";
 import { postPlayerReorderedCallbacksInit } from "./callbacks/postPlayerReordered";
@@ -94,6 +95,7 @@ export function initCustomCallbacks(mod: ModUpgraded): void {
   postPitUpdateInit(mod);
   postPlayerChangeHealthCallbackInit(mod);
   postPlayerChangeTypeCallbackInit(mod);
+  postPlayerCollectibleCallbackInit(mod);
   postPlayerFatalDamageCallbackInit(mod);
   postPlayerInitLateCallbackInit(mod);
   postPlayerReorderedCallbacksInit(mod);

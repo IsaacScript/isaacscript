@@ -90,8 +90,8 @@ export function arrayRemoveIndex<T>(
 
 /**
  * Removes the elements at the specified indexes from the array. If the specified indexes are not
- * found in the array, this function will do nothing. Returns true if one or more elements
- * were removed.
+ * found in the array, this function will do nothing. Returns true if one or more elements were
+ * removed.
  *
  * This function is variadic, meaning that you can specify N arguments to remove N elements.
  */
