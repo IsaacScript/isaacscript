@@ -1,5 +1,5 @@
 ---
-title: Using `Entity.GetData` and the Save Data Manager
+title: Using Entity.GetData and the Save Data Manager
 ---
 
 A common task in Isaac mods is to make new enemies, new familiars, and so on. All of these things are grouped under the umbrella of the `Entity` class. Custom entities often have some state associated with them. For example, you might have a custom familiar that eats bombs. In this case, you would need to keep track of how many bombs it has eaten already.
@@ -46,6 +46,8 @@ The `GetData` table is a global variable, meaning that all mods share the same t
 The table is ephemeral, meaning that when the entity despawns, the table will be deleted and you will lose your data.
 
 For example, pickups are a type of entity that appear to be persistent: when you get a heart drop in one room, you can backtrack to that room later, and the heart drop will still be there. However, behind the scenes, what is really happening is that the heart drop is despawned when you leave the room, and then a brand-new heart pickup entity is respawned when you re-enter the room. In this situation, if you had previously stored data on the `GetData` table of the heart pickup, the brand-new entity would not have this same data.
+
+### It's _Really_ Ephemeral
 
 Even for real persistent entities like players and familiars, the table is still ephemeral. For example, a familiar is never despawned; the same entity continues to exist as the player moves from room to room. Thus, the problem in the previous paragraph would not apply to data stored in the `GetData` table for a familiar. However, once the player saves and quits and continues, the familiar will also be despawned in the exact same way that the heart drop was, and all of the data will be lost. Saving and quitting and continuing is a common thing for players to do (so that they can finish the run at a later time), so any well-designed mod must be able to handle this case.
 

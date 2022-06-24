@@ -26,6 +26,7 @@ const sidebars = {
         "main/refactoring-mod",
         "main/converting-lua-code",
         "main/updating-isaacscript",
+        "main/using-get-data",
       ],
     },
     "main/standard-library",
