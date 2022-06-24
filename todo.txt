@@ -1,5 +1,8 @@
 implement in isaacscript-common:
 
+- fix babies mod
+- --no-git flag
+
 - POST_BOMB_DETONATE
 - POST_DICE_ROOM_ACTIVATED
 - bible detection for POST FATAL DAMAGE

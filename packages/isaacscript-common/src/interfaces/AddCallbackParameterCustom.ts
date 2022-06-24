@@ -1,6 +1,7 @@
 import { PostAmbushFinishedRegisterParameters } from "../callbacks/subscriptions/postAmbushFinished";
 import { PostAmbushStartedRegisterParameters } from "../callbacks/subscriptions/postAmbushStarted";
 import { PostBombInitRegisterParameters } from "../callbacks/subscriptions/postBombInitLate";
+import { PostBombDetonatedRegisterParameters } from "../callbacks/subscriptions/postBoneDetonated";
 import { PostBoneSwingRegisterParameters } from "../callbacks/subscriptions/postBoneSwing";
 import { PostCollectibleInitFirstRegisterParameters } from "../callbacks/subscriptions/postCollectibleInitFirst";
 import { PostCursedTeleportRegisterParameters } from "../callbacks/subscriptions/postCursedTeleport";
@@ -83,6 +84,7 @@ import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 export interface AddCallbackParameterCustom {
   [ModCallbackCustom.POST_AMBUSH_FINISHED]: PostAmbushFinishedRegisterParameters;
   [ModCallbackCustom.POST_AMBUSH_STARTED]: PostAmbushStartedRegisterParameters;
+  [ModCallbackCustom.POST_BOMB_DETONATED]: PostBombDetonatedRegisterParameters;
   [ModCallbackCustom.POST_BOMB_INIT_LATE]: PostBombInitRegisterParameters;
   [ModCallbackCustom.POST_BONE_SWING]: PostBoneSwingRegisterParameters;
   [ModCallbackCustom.POST_COLLECTIBLE_INIT_FIRST]: PostCollectibleInitFirstRegisterParameters;

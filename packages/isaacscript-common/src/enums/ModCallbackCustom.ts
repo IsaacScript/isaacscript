@@ -43,6 +43,18 @@ export enum ModCallbackCustom {
   POST_AMBUSH_STARTED,
 
   /**
+   * Fires on the `POST_BOMB_UPDATE` callback that it explodes.
+   *
+   * When registering the callback, takes an optional second argument that will make the callback
+   * only fire if the bomb variant matches the `BombVariant` provided.
+   *
+   * ```ts
+   * function postBombDetonated(bomb: EntityBomb): void {}
+   * ```
+   */
+  POST_BOMB_DETONATED,
+
+  /**
    * Fires on the first `POST_BOMB_UPDATE` frame for each bomb.
    *
    * This callback is useful because many attributes cannot be set or retrieved properly in the
