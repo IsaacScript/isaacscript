@@ -6,6 +6,8 @@ title: Getting Started
 
 You can go from zero to up-and-running with a new mod in around 5 minutes, depending on how fast your computer / internet speed is.
 
+(If you don't know what IsaacScript is or you are not yet convinced that you should use it, see the [Is IsaacScript Right for Me?](right-for-me.md) page first.)
+
 <br />
 
 ### 1) Install Node.js
