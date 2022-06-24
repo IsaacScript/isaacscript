@@ -6424,10 +6424,10 @@ eslint-plugin-import@^2.26.0:
     resolve "^1.22.0"
     tsconfig-paths "^3.14.1"
 
-eslint-plugin-isaacscript@^1.4.2:
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-isaacscript/-/eslint-plugin-isaacscript-1.4.2.tgz#8528f366dc16fd18d92c281927f90e2198217404"
-  integrity sha512-ZhKQyRnTXtSClxAltMdn/SB7p7Mfc8TDsddEe+EKt8XGcI8aBFQVL5UREQ9H/PAf86nV6cvmGBTuV7S31gNeOg==
+eslint-plugin-isaacscript@^1.4.3:
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-isaacscript/-/eslint-plugin-isaacscript-1.4.3.tgz#f541b93fc6b17c1e75728705ba4275b4b538dbcf"
+  integrity sha512-sh5yqPmzxr5wrXpWzDgJUNBIt7N9qERjlf5yDo7BPPVphjLNZqI6AArK9bx8KiaNE6seUr7F8367HAK+QN46MQ==
   dependencies:
     tslib "^2.4.0"
 

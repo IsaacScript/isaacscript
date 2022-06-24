@@ -22,7 +22,11 @@ npx npm-check-updates --upgrade --packageFile "$PACKAGE_JSON" --reject "@mdx-js/
 NEW_HASH=$(md5sum "$PACKAGE_JSON")
 if [[ $OLD_HASH != $NEW_HASH ]]; then
   yarn install
-  syncpack fix-mismatches
+
+  # Now that the main dependencies have changed, we might need to update the "package.json" files in
+  # the individual packages. However, we don't want to blow away peerDependencies, since they are in
+  # the form of ">= 5.0.0".
+  syncpack fix-mismatches --prod --dev
   npx prettier --write "**/package.json"
 fi
 

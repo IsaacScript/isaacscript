@@ -12,7 +12,7 @@ This page lists the changes to the IsaacScript framework.
 ## June 28th, 2022
 
 - The change log is now located on [the official website](https://isaacscript.github.io/main/change-log).
-- IsaacScript now requires a dependency of "ts-node" in your "package.json" file so that TSTL can properly invoke plugins. If it is missing, the tool will tell you the appropriate command to run to fix the problem.
+- IsaacScript now requires a dependency of "@types/node", "typescript", and "ts-node" in your "package.json" file. (This is so that TSTL can properly invoke plugins.) If any dependencies are missing when you run the tool, it will helpfully tell you the appropriate command to run to fix the problem.
 - Added the following helper functions:
   - `getBombRadiusFromDamage`
   - `getPlayerFromTear`
