@@ -268,16 +268,21 @@ declare global {
     ];
 
     // 34
-    [ModCallback.POST_PICKUP_INIT]: [callback: (pickup: EntityPickup) => void];
+    [ModCallback.POST_PICKUP_INIT]: [
+      callback: (pickup: EntityPickup) => void,
+      pickupVariant?: PickupVariant,
+    ];
 
     // 35
     [ModCallback.POST_PICKUP_UPDATE]: [
       callback: (pickup: EntityPickup) => void,
+      pickupVariant?: PickupVariant,
     ];
 
     // 36
     [ModCallback.POST_PICKUP_RENDER]: [
       callback: (pickup: EntityPickup, renderOffset: Vector) => void,
+      pickupVariant?: PickupVariant,
     ];
 
     // 37
@@ -296,7 +301,7 @@ declare global {
         collider: Entity,
         low: boolean,
       ) => boolean | void,
-      pickupVariant: PickupVariant,
+      pickupVariant?: PickupVariant,
     ];
 
     // 39
