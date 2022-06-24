@@ -1,7 +1,7 @@
 import { customReviveCallbacksInit } from "./callbacks/customRevive";
 import { itemPickupCallbacksInit } from "./callbacks/itemPickup";
 import { postAmbushCallbacksInit } from "./callbacks/postAmbush";
-import { postBombDetonatedInit } from "./callbacks/postBombDetonated";
+import { postBombExplodedInit } from "./callbacks/postBombExploded";
 import { postBombInitLateCallbackInit } from "./callbacks/postBombInitLate";
 import { postBoneSwingCallbackInit } from "./callbacks/postBoneSwing";
 import { postCollectibleInitFirstCallbackInit } from "./callbacks/postCollectibleInitFirst";
@@ -67,7 +67,7 @@ export function initCustomCallbacks(mod: ModUpgraded): void {
   customReviveCallbacksInit(mod);
   itemPickupCallbacksInit(mod);
   postAmbushCallbacksInit(mod);
-  postBombDetonatedInit(mod);
+  postBombExplodedInit(mod);
   postBombInitLateCallbackInit(mod);
   postBoneSwingCallbackInit(mod);
   postCollectibleInitFirstCallbackInit(mod);

@@ -52,7 +52,7 @@ export enum ModCallbackCustom {
    * function postBombDetonated(bomb: EntityBomb): void {}
    * ```
    */
-  POST_BOMB_DETONATED,
+  POST_BOMB_EXPLODED,
 
   /**
    * Fires on the first `POST_BOMB_UPDATE` frame for each bomb.

@@ -1,26 +1,26 @@
 import { BombVariant } from "isaac-typescript-definitions";
 
-export type PostBombDetonatedRegisterParameters = [
+export type PostBombExplodedRegisterParameters = [
   callback: (bomb: EntityBomb) => void,
   bombVariant?: BombVariant,
 ];
 
-const subscriptions: PostBombDetonatedRegisterParameters[] = [];
+const subscriptions: PostBombExplodedRegisterParameters[] = [];
 
 /** @internal */
-export function postBombDetonatedHasSubscriptions(): boolean {
+export function postBombExplodedHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
 /** @internal */
-export function postBombDetonatedRegister(
-  ...args: PostBombDetonatedRegisterParameters
+export function postBombExplodedRegister(
+  ...args: PostBombExplodedRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
 /** @internal */
-export function postBombDetonatedFire(bomb: EntityBomb): void {
+export function postBombExplodedFire(bomb: EntityBomb): void {
   for (const [callback, bombVariant] of subscriptions) {
     // Handle the optional 2nd callback argument.
     if (bombVariant !== undefined && bombVariant !== bomb.Variant) {

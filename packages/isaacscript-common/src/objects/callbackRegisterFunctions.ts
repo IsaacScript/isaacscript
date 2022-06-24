@@ -1,7 +1,7 @@
 import { postAmbushFinishedRegister } from "../callbacks/subscriptions/postAmbushFinished";
 import { postAmbushStartedRegister } from "../callbacks/subscriptions/postAmbushStarted";
 import { postBombInitLateRegister } from "../callbacks/subscriptions/postBombInitLate";
-import { postBombDetonatedRegister } from "../callbacks/subscriptions/postBoneDetonated";
+import { postBombExplodedRegister } from "../callbacks/subscriptions/postBoneExploded";
 import { postBoneSwingRegister } from "../callbacks/subscriptions/postBoneSwing";
 import { postCollectibleInitFirstRegister } from "../callbacks/subscriptions/postCollectibleInitFirst";
 import { postCursedTeleportRegister } from "../callbacks/subscriptions/postCursedTeleport";
@@ -89,7 +89,7 @@ export const CALLBACK_REGISTER_FUNCTIONS: {
 } = {
   [ModCallbackCustom.POST_AMBUSH_FINISHED]: postAmbushFinishedRegister,
   [ModCallbackCustom.POST_AMBUSH_STARTED]: postAmbushStartedRegister,
-  [ModCallbackCustom.POST_BOMB_DETONATED]: postBombDetonatedRegister,
+  [ModCallbackCustom.POST_BOMB_EXPLODED]: postBombExplodedRegister,
   [ModCallbackCustom.POST_BOMB_INIT_LATE]: postBombInitLateRegister,
   [ModCallbackCustom.POST_BONE_SWING]: postBoneSwingRegister,
   [ModCallbackCustom.POST_COLLECTIBLE_INIT_FIRST]:
