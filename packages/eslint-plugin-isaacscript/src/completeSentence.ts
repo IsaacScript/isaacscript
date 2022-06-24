@@ -204,7 +204,7 @@ function getIncompleteSentenceKind(
   if (
     loneSentence &&
     // Single words, double words, and triple words.
-    (/^\w+$/.test(text) || /^\w+ \w+$/.test(text) || /^\w+ \w+ \w+$/.test(text))
+    (/^\S+$/.test(text) || /^\S+ \S+$/.test(text) || /^\S+ \S+ \S+$/.test(text))
   ) {
     return undefined;
   }

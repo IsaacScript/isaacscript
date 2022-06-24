@@ -229,3 +229,10 @@ This is the sprite for "1st", "2nd", etc.
   `;
   testIncompleteSentence(text, undefined);
 });
+
+test("Short text with a non-word character", () => {
+  const text = `
+Racing+ items
+  `;
+  testIncompleteSentence(text, undefined);
+});
