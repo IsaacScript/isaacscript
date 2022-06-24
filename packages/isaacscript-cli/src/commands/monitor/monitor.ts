@@ -132,7 +132,9 @@ function validatePackageJSONDependencies(args: Args, verbose: boolean) {
         dependency,
       );
       error(
-        `IsaacScript projects require a dependency of "${dependency}" in the "package.json" file. You can add it with the following command: ${addCommand}`,
+        `${chalk.red(
+          `IsaacScript projects require a dependency of "${dependency}" in the "package.json" file. You can add it with the following command:`,
+        )} ${chalk.green(addCommand)}`,
       );
     }
   }
