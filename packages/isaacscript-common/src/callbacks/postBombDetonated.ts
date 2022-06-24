@@ -1,20 +1,12 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { saveDataManager } from "../features/saveDataManager/exports";
+import { BOMB_EXPLODE_FRAME } from "../constants";
 import {
   postBombDetonatedFire,
   postBombDetonatedHasSubscriptions,
 } from "./subscriptions/postBoneDetonated";
 
-const v = {
-  room: {
-    firedSet: new Set<PtrHash>(),
-  },
-};
-
 /** @internal */
 export function postBombDetonatedInit(mod: Mod): void {
-  saveDataManager("postBombDetonated", v, hasSubscriptions);
-
   mod.AddCallback(ModCallback.POST_BOMB_UPDATE, postBombUpdate); // 58
 }
 
@@ -28,12 +20,7 @@ function postBombUpdate(bomb: EntityBomb) {
     return;
   }
 
-  const index = GetPtrHash(bomb);
-
-  // TODO
-
-  if (!v.room.firedSet.has(index)) {
-    v.room.firedSet.add(index);
+  if (bomb.FrameCount === BOMB_EXPLODE_FRAME) {
     postBombDetonatedFire(bomb);
   }
 }
