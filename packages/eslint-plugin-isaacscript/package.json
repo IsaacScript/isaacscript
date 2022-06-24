@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-isaacscript",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "An ESLint plugin that contains useful rules.",
   "keywords": [
     "eslint",
