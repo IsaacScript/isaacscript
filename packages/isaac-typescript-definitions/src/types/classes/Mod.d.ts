@@ -1,4 +1,5 @@
 import { ModCallback } from "../../enums/ModCallback";
+import { AddCallbackParameter } from "../../interfaces/AddCallbackParameter";
 
 declare global {
   /**
@@ -18,7 +19,7 @@ declare global {
       ...args: AddCallbackParameter[T]
     ): void;
     RemoveData(): void;
-    SaveData(data: string): void;
+    SaveData(data: stringz): void;
 
     Name: string;
   }
