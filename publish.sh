@@ -43,4 +43,9 @@ bash "$PACKAGE_DIR/build.sh"
 
 cd "$DIR/dist/packages/$PACKAGE_NAME"
 npm publish
+
+bash "$DIR/update.sh"
+if npx git-dirty; then
+  git commit -a -m "chore: updating dependencies"
+fi
 git push
