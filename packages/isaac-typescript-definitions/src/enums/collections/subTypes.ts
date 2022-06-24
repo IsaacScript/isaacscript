@@ -182,19 +182,15 @@ export enum BlueFlySubType {
   /** A standard fly, like what you get from using Guppy's Head. */
   BLUE_FLY = 0,
 
-  // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
   /** Red (explosive) */
   WRATH = 1,
 
-  // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
   /** Green (poison) */
   PESTILENCE = 2,
 
-  // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
   /** Yellow (slowing) */
   FAMINE = 3,
 
-  // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
   /** Black (double-damage) */
   DEATH = 4,
 
