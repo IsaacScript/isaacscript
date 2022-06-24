@@ -36,14 +36,14 @@
     "isaacscript-tsconfig": "^1.1.17",
     "jsonc-parser": "^3.0.0",
     "moment": "^2.29.3",
-    "npm-check-updates": "^14.0.1",
+    "npm-check-updates": "^14.1.1",
     "prompt": "^1.3.0",
     "source-map-support": "^0.5.21",
     "sync-directory": "5.0.8",
     "tslib": "^2.4.0",
     "typescript": "^4.7.4",
     "typescript-to-lua": "^1.6.0",
-    "update-notifier": "^5.1.0",
+    "update-notifier": "^6.0.1",
     "yaml": "^2.1.1",
     "yargs": "^17.5.1"
   }
