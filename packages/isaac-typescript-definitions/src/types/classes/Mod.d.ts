@@ -1,5 +1,4 @@
 import { ModCallback } from "../../enums/ModCallback";
-import { AddCallbackParameter } from "../../interfaces/AddCallbackParameter";
 
 declare global {
   /**

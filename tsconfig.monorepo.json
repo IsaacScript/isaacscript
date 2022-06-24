@@ -8,7 +8,6 @@
   "compilerOptions": {
     "rootDir": ".",
     "importHelpers": true,
-    "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
 
