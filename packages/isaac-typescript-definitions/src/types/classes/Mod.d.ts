@@ -19,7 +19,7 @@ declare global {
       ...args: AddCallbackParameter[T]
     ): void;
     RemoveData(): void;
-    SaveData(data: stringz): void;
+    SaveData(data: string): void;
 
     Name: string;
   }
