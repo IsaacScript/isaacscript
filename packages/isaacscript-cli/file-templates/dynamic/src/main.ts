@@ -5,7 +5,7 @@ const MOD_NAME = "MOD-NAME-TO-REPLACE";
 
 main();
 
-function main(): void {
+function main() {
   // Instantiate a new mod object, which grants the ability to add callback functions that
   // correspond to in-game events.
   const mod = RegisterMod(MOD_NAME, 1);
