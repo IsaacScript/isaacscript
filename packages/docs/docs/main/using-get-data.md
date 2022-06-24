@@ -120,7 +120,7 @@ That's about all there is to it. Here, the `FooData` class corresponds to the ol
 
 ### DefaultMap
 
-The previous example is a very common pattern in Isaac modding. The standard library offers a data structure called a `DefaultMap` that can simplify this pattern even further. A `DefaultMap` allows you to specify a default value for things in the map. Subsequently, you don't have to worry about checking for the case where the data doesn't exist yet, because the `DefaultMap` automatically instantiates it for you.
+The previous example is a very common pattern in Isaac modding. The IsaacScript standard library offers a data structure called a `DefaultMap` that can simplify this pattern even further. A `DefaultMap` allows you to specify a default value for things in the map. Subsequently, you don't have to worry about checking for the case where the data doesn't exist yet, because the `DefaultMap` automatically instantiates it for you.
 
 ```ts
 const v = {
@@ -142,7 +142,7 @@ Let's break this down.
 
 You specify what the default value of the map is by the thing that you pass to the first argument of the constructor. The first argument can either be a raw value, like 0. Or it can be a function that dynamically calculates/creates a value. Here, we pass a very simple function that just instantiates a new class.
 
-In the `incrementSleepCounter` function, we use the `getAndSetDefault` method instead of the `get` method. If we already have an entry for this monster in the map, then the `getAndSetDefault` will do the same thing as the `get` method. Otherwise, it will run the function we provided and give us new data.
+In the `incrementSleepCounter` function, we use the `getAndSetDefault` method instead of the `get` method. If the monster already exists in the map, then the `getAndSetDefault` will do the same thing as the `get` method. If the monster does not exist yet in the map, the `DefaultMap` will run the function we provided and give us the new data.
 
 <br />
 
@@ -170,9 +170,9 @@ For familiars (and Dark Esau), use the `Entity.InitSeed` as an index.
 
 A huge benefit of using the save data manager is that any variables you create will be automatically saved to disk if the player decides to save and quit the run.
 
-In the first example above, we were adding sleep counters to enemy NPCs. For this case, the save data manager wouldn't actually save anything, because nothing in `room` object needs to be permanently saved.
+In the first example above, we were adding sleep counters to enemy NPCs. For this case, the save data manager wouldn't actually save anything, because nothing in `room` sub-object needs to be permanently saved. (Since the player reloads the room when continuing the game, the `room` object is flushed in the same way that it is flushed when the player enters a new room normally. For this reason, saving any of the `room` values would be superfluous.)
 
-In the second example above, we were tracking counters on players. For this case, since players exist over the course of the entire run, the save data manager would automatically save everything! (This is magic that would take around a thousand of lines of code to write yourself.)
+In the second example above, we were tracking counters on players. For this case, since players exist over the course of the entire run, the save data manager would automatically save everything without you having to worry about anything at all! (This is magic that would take around a thousand of lines of code to write yourself.)
 
 ## Storing Other Variables
 
