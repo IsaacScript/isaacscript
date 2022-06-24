@@ -3,6 +3,8 @@
 altpath # challenges.xml
 announcerdelay # pocketitems.xml
 BLCK # BLCK CNDL seed
+bigportrait # players.xml
+bigportraitroot # players.xml
 bosspools # bosspools.xml
 cansacrifice # entities2.xml
 canshoot # challenges.xml
@@ -23,6 +25,8 @@ lazarussharedglobal # items_metadata.xml
 maxcharges # items.xml
 mimiccharge # pocketitems.xml
 monstermanual # items_metadata.xml
+nameimage # players.xml
+nameimageroot # players.xml
 nocantrip # items_metadata.xml
 nochallenge # items_metadata.xml
 nodaily # items_metadata.xml
@@ -33,7 +37,10 @@ nolostbr # items_metadata.xml
 Onan # challenges.xml
 pftempestasevencondensed # font
 pilleffect # pocketitems.xml
+playerportrait # players.xml
+playerportraitbig # players.xml
 pocketitems # pocketitems.xml
+portraitroot # players.xml
 questionmark # questionmark.png
 shotspeed # items.xml
 shutdoors # entities2.xml
