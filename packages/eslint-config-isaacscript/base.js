@@ -245,6 +245,18 @@ module.exports = {
 
     /**
      * Documentation:
+     * https://eslint.org/docs/latest/rules/curly
+     *
+     * Defined at: ?
+     *
+     * Always requiring curly braces can partially ward against Apple-style if statement bugs:
+     * https://www.imperialviolet.org/2014/02/22/applebug.html
+     * ?
+     */
+    curly: ["warn", "all"],
+
+    /**
+     * Documentation:
      * https://github.com/mysticatea/eslint-plugin-eslint-comments/blob/master/docs/rules/disable-enable-pair.md
      *
      * Defined at:
@@ -304,6 +316,17 @@ module.exports = {
      * Command-line programs commonly write to standard out and standard error.
      */
     "no-console": "off",
+
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-constant-binary-expression
+     *
+     * Not defined in parent configs.
+     *
+     * This rule was released in 2022 and is known to catch many subtle bugs:
+     * https://github.com/eslint/eslint.org/pull/240/files
+     */
+    "no-constant-binary-expression": "warn",
 
     /**
      * Documentation:
