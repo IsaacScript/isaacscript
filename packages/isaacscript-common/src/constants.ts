@@ -101,6 +101,9 @@ export const MAX_PLAYER_SPEED_IN_UNITS = 9.8;
 
 export const MAX_PLAYER_TRINKET_SLOTS = getEnumLength(TrinketSlot);
 
+/** If you set `EntityPlayer.ShotSpeed` lower than this value, it will have no effect. */
+export const MIN_PLAYER_SHOT_SPEED_STAT = 0.6;
+
 export const FIRST_ROOM_TYPE = RoomType.DEFAULT; // eslint-disable-line sort-exports/sort-exports
 export const LAST_ROOM_TYPE = getLastEnumValue(RoomType);
 
