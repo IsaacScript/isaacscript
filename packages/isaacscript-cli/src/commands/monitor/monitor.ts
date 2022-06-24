@@ -91,22 +91,33 @@ export function monitor(args: Args, config: Config): void {
 
 function validatePackageJSONDependencies(args: Args, verbose: boolean) {
   const packageJSONRaw = file.read(PACKAGE_JSON_PATH, verbose);
-  let packageJSON: Record<string, string[]>;
+  let packageJSON: Record<string, unknown>;
   try {
-    packageJSON = JSONC.parse(packageJSONRaw) as Record<string, string[]>;
+    packageJSON = JSONC.parse(packageJSONRaw) as Record<string, unknown>;
   } catch (err) {
     error(`Failed to parse "${chalk.green(PACKAGE_JSON_PATH)}":`, err);
   }
 
+  if (typeof packageJSON !== "object") {
+    error(
+      `Failed to parse "${chalk.green(
+        PACKAGE_JSON_PATH,
+      )}" since it was of type:`,
+      typeof packageJSON,
+    );
+  }
+
   const { dependencies } = packageJSON;
-  if (!Array.isArray(dependencies)) {
+  if (typeof dependencies !== "object") {
     error(
       `Failed to parse the dependencies of: ${chalk.green(PACKAGE_JSON_PATH)}`,
     );
   }
 
+  const dependenciesArray = Object.keys(dependencies as Record<string, string>);
+
   for (const dependency of REQUIRED_PACKAGE_JSON_DEPENDENCIES) {
-    if (!dependencies.includes(dependency)) {
+    if (!dependenciesArray.includes(dependency)) {
       const packageManager = getPackageManagerUsedForExistingProject(
         args,
         verbose,

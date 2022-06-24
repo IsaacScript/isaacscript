@@ -11,12 +11,14 @@ cd "$DIR"
 PACKAGE_JSON="$DIR/package.json"
 OLD_HASH=$(md5sum "$PACKAGE_JSON")
 # Old versions:
-# - typescript - Stuck until TSTL updates.
+# - @mdx-js/react - Stuck until Docusaurus upgrades.
 # - chalk - Stuck until TypeScript supports ESM.
-# - @mdx-js/react,react,react-dom - Stuck until Docusaurus upgrades.
+# - react - Stuck until Docusaurus upgrades.
+# - react-dom - Stuck until Docusaurus upgrades.
 # - unified - Does not work with the current Markdown linting setup because it requires a "module"
 #   type in "package.json", and Docusaurus does not support this yet.
-npx npm-check-updates --upgrade --packageFile "$PACKAGE_JSON" --reject "chalk,@mdx-js/react,react,react-dom,unified,sync-directory"
+# - update-notifier - Stuck until TypeScript supports ESM.
+npx npm-check-updates --upgrade --packageFile "$PACKAGE_JSON" --reject "@mdx-js/react,chalk,react,react-dom,unified,update-notifier"
 NEW_HASH=$(md5sum "$PACKAGE_JSON")
 if [[ $OLD_HASH != $NEW_HASH ]]; then
   yarn install
@@ -24,4 +26,6 @@ if [[ $OLD_HASH != $NEW_HASH ]]; then
   npx prettier --write "**/package.json"
 fi
 
+# syncpack will automatically update most of the dependencies in "isaacscript-lint", but not
+# "eslint-config-isaacscript", since that does not exist in the root "package.json".
 bash "$DIR/packages/isaacscript-lint/update.sh"
