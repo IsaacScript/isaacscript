@@ -35,6 +35,8 @@ This page lists the changes to the IsaacScript framework.
   - `POST_PICKUP_INIT_FIRST`
   - `POST_PLAYER_COLLECTIBLE_ADDED`
   - `POST_PLAYER_COLLECTIBLE_REMOVED`
+  - `POST_AMBUSH_STARTED`
+  - `POST_AMBUSH_FINISHED`
 - The inventory feature now uses the `POST_PLAYER_COLLECTIBLE_ADDED` callback, so it will now properly account for items given via the console and via code.
 - The inventory feature now uses the `POST_PLAYER_COLLECTIBLE_REMOVED` callback, so it will now properly account for items that are removed.
 

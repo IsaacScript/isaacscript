@@ -1,3 +1,5 @@
+import { postAmbushFinishedRegister } from "../callbacks/subscriptions/postAmbushFinished";
+import { postAmbushStartedRegister } from "../callbacks/subscriptions/postAmbushStarted";
 import { postBombInitLateRegister } from "../callbacks/subscriptions/postBombInitLate";
 import { postBoneSwingRegister } from "../callbacks/subscriptions/postBoneSwing";
 import { postCollectibleInitFirstRegister } from "../callbacks/subscriptions/postCollectibleInitFirst";
@@ -84,6 +86,8 @@ export const CALLBACK_REGISTER_FUNCTIONS: {
     ...args: AddCallbackParameterCustom[key]
   ) => void;
 } = {
+  [ModCallbackCustom.POST_AMBUSH_FINISHED]: postAmbushFinishedRegister,
+  [ModCallbackCustom.POST_AMBUSH_STARTED]: postAmbushStartedRegister,
   [ModCallbackCustom.POST_BOMB_INIT_LATE]: postBombInitLateRegister,
   [ModCallbackCustom.POST_BONE_SWING]: postBoneSwingRegister,
   [ModCallbackCustom.POST_COLLECTIBLE_INIT_FIRST]:

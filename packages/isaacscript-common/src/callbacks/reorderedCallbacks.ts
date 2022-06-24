@@ -1,15 +1,15 @@
 /* eslint-disable sort-exports/sort-exports */
 
 // This provides the logic for:
-// - PostGameStartedReordered
-// - PostNewLevelReordered
-// - PostNewRoomReordered
+// - POST_GAME_STARTED_REORDERED
+// - POST_NEW_LEVEL_REORDERED
+// - POST_NEW_ROOM_REORDERED
 
 // By default, callbacks fire in the following order:
-// - PostNewRoom --> PostNewLevel --> PostGameStarted
+// - POST_NEW_ROOM --> POST_NEW_LEVEL --> POST_GAME_STARTED
 
 // It is easier to write mod code if the callbacks run in a more logical order:
-// - PostGameStarted --> PostNewLevel --> PostNewRoom
+// - POST_GAME_STARTED --> POST_NEW_LEVEL --> POST_NEW_ROOM
 
 // Manually reorganize the callback execution so that this is the case.
 

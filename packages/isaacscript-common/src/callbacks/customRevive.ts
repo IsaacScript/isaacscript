@@ -1,3 +1,7 @@
+// This provides the logic for:
+// - PRE_CUSTOM_REVIVE
+// - POST_CUSTOM_REVIVE
+
 import {
   CollectibleType,
   FamiliarVariant,

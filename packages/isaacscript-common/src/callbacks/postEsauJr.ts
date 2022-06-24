@@ -1,6 +1,6 @@
 // This provides the logic for:
-// - PostEsauJr
-// - PostFirstEsauJr
+// - POST_ESAU_JR
+// - POST_FIRST_ESAU_JR
 
 import {
   CollectibleType,

@@ -17,6 +17,32 @@ eslint isaacscript/member-ordering: ["warn", {
  */
 export enum ModCallbackCustom {
   /**
+   * Fires from the `POST_UPDATE` callback when a Challenge Room or Boss Rush is started.
+   * Specifically, this happens on the first frame that `Room.IsAmbushDone` is true.
+   *
+   * When registering the callback, takes an optional second argument that will make the callback
+   * only fire if for the `AmbushType` provided.
+   *
+   * ```ts
+   * function postAmbushFinished(ambushType: AmbushType): void {}
+   * ```
+   */
+  POST_AMBUSH_FINISHED,
+
+  /**
+   * Fires from the `POST_UPDATE` callback when a Challenge Room or Boss Rush is completed.
+   * Specifically, this happens on the first frame that `Room.IsAmbushActive` is true.
+   *
+   * When registering the callback, takes an optional second argument that will make the callback
+   * only fire if for the `AmbushType` provided.
+   *
+   * ```ts
+   * function postAmbushStarted(ambushType: AmbushType): void {}
+   * ```
+   */
+  POST_AMBUSH_STARTED,
+
+  /**
    * Fires on the first `POST_BOMB_UPDATE` frame for each bomb.
    *
    * This callback is useful because many attributes cannot be set or retrieved properly in the

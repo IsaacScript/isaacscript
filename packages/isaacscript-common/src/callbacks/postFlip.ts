@@ -1,6 +1,6 @@
 // This provides the logic for:
-// - PostFlip
-// - PostFirstFlip
+// - POST_FLIP
+// - POST_FIRST_FLIP
 
 import {
   CollectibleType,
