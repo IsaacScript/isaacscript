@@ -4,7 +4,7 @@ title: Using Entity.GetData and the Save Data Manager
 
 A common task in Isaac mods is to make new enemies, new familiars, and so on. All of these things are grouped under the umbrella of the `Entity` class. Custom entities often have some state associated with them. For example, you might have a custom familiar that eats bombs. In this case, you would need to keep track of how many bombs it has eaten already.
 
-Additionally, a common task in modding is to make new functionality for vanilla entities. For example, you might want to make a custom collectible that inflicts poison counters on all NPCs. In this case, you would need to keep track of a poison counter for every NPC.
+Additionally, a common task in modding is to make new functionality for vanilla entities. For example, you might want to make a custom collectible that inflicts sleep counters on all NPCs. In this case, you would need to keep track of a poison counter for every NPC.
 
 In general, if you need to store data about an entity, then you have a few different options.
 
@@ -89,7 +89,7 @@ saveDataManager("foo", v);
 
 Let's break this down.
 
-The object name of `v` is conventionally used to denote "variables", or more specifically, "variables that are local to this file or feature only". Every variable that is needed for this poison/sleep feature, we would still on this object. (And we wouldn't put any other variables on it, to keep the variables scoped properly.)
+The object name of `v` is conventionally used to denote "variables", or more specifically, "variables that are local to this file or feature only". Every variable that is needed for this sleep feature, we would still on this object. (And we wouldn't put any other variables on it, to keep the variables scoped properly.)
 
 `v` is composed of sub-objects. By specifying a `room` sub-object, that tells the save data manager to automatically wipe the data in that sub-object when a new room is entered. This is what we want, because in this example, enemy NPCs will only exist in the context of the current room, and we don't care about keeping data for NPCs that have already despawned.
 
@@ -101,10 +101,10 @@ So, we need a way to identify each NPC in the room, and then use this identifier
 const ptrHash = GetPtrHash(entity);
 ```
 
-Imagine that we are in the `POST_ENTITY_DMG` callback, and an NPC has just gotten hit by the player's tear. So now, we want to increment the number of poison counters:
+Imagine that we are in the `POST_ENTITY_DMG` callback, and an NPC has just gotten hit by the player's tear. So now, we want to increment the number of sleep counters:
 
 ```ts
-function incrementPoisonCounter(npc: EntityNPC) {}
+function incrementSleepCounter(npc: EntityNPC) {}
   const ptrHash = GetPtrHash(npc);
   let data = v.run.fooData.get(ptrHash);
   if (data === undefined) {
@@ -112,7 +112,7 @@ function incrementPoisonCounter(npc: EntityNPC) {}
     v.run.fooData.set(data);
   }
 
-  fooData.poisonCounters += 1;
+  fooData.sleepCounters += 1;
 }
 ```
 
@@ -131,10 +131,10 @@ const v = {
 
 saveDataManager("foo", v);
 
-function incrementPoisonCounter(npc: EntityNPC) {}
+function incrementSleepCounter(npc: EntityNPC) {}
   const ptrHash = GetPtrHash(npc);
   const data = v.run.fooData.getAndSetDefault(ptrHash);
-  fooData.poisonCounters += 1;
+  fooData.sleepCounters += 1;
 }
 ```
 
@@ -142,7 +142,7 @@ Let's break this down.
 
 You specify what the default value of the map is by the thing that you pass to the first argument of the constructor. The first argument can either be a raw value, like 0. Or it can be a function that dynamically calculates/creates a value. Here, we pass a very simple function that just instantiates a new class.
 
-In the `incrementPoisonCounter` function, we use the `getAndSetDefault` method instead of the `get` method. If we already have an entry for this monster in the map, then the `getAndSetDefault` will do the same thing as the `get` method. Otherwise, it will run the function we provided and give us new data.
+In the `incrementSleepCounter` function, we use the `getAndSetDefault` method instead of the `get` method. If we already have an entry for this monster in the map, then the `getAndSetDefault` will do the same thing as the `get` method. Otherwise, it will run the function we provided and give us new data.
 
 <br />
 
@@ -170,7 +170,7 @@ For familiars (and Dark Esau), use the `Entity.InitSeed` as an index.
 
 A huge benefit of using the save data manager is that any variables you create will be automatically saved to disk if the player decides to save and quit the run.
 
-In the first example above, we were adding poison counters to enemy NPCs. For this case, the save data manager wouldn't actually save anything, because nothing in `room` object needs to be permanently saved.
+In the first example above, we were adding sleep counters to enemy NPCs. For this case, the save data manager wouldn't actually save anything, because nothing in `room` object needs to be permanently saved.
 
 In the second example above, we were tracking counters on players. For this case, since players exist over the course of the entire run, the save data manager would automatically save everything! (This is magic that would take around a thousand of lines of code to write yourself.)
 
