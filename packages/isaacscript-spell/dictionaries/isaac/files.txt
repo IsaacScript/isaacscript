@@ -2,9 +2,9 @@
 
 altpath # challenges.xml
 announcerdelay # pocketitems.xml
-BLCK # BLCK CNDL seed
 bigportrait # players.xml
 bigportraitroot # players.xml
+BLCK # BLCK CNDL seed
 bosspools # bosspools.xml
 cansacrifice # entities2.xml
 canshoot # challenges.xml
