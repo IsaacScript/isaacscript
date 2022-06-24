@@ -19,7 +19,7 @@ if test -f "$YARN_LOCK"; then
 fi
 
 NODE_MODULES="$DIR/node_modules"
-if test -f "$NODE_MODULES"; then
+if test -d "$NODE_MODULES"; then
   rm -rf "$NODE_MODULES"
   echo "Successfully deleted: $NODE_MODULES"
 fi
