@@ -16,6 +16,7 @@ export interface Args {
   npm?: boolean;
   yarn?: boolean;
   pnpm?: boolean;
+  noGit?: boolean;
   skipInstall?: boolean;
   forceName?: boolean;
 
@@ -103,7 +104,12 @@ export function parseArgs(): Args {
           .option("pnpm", {
             alias: "p",
             type: "boolean",
-            description: "Use pnPm as the package manager",
+            description: "Use pnpm as the package manager",
+          })
+          .option("no-git", {
+            alias: "g",
+            type: "boolean",
+            description: "Do not initialize Git",
           })
           .option("skip-install", {
             alias: "i",

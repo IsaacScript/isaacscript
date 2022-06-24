@@ -17,6 +17,7 @@ import { promptVSCode } from "./promptVSCode";
 
 export async function init(args: Args): Promise<void> {
   const packageManager = getPackageManagerUsedForNewProject(args);
+  const noGit = args.noGit === true;
   const skipInstall = args.skipInstall === true;
   const useCurrentDir = args.useCurrentDir === true;
   const verbose = args.verbose === true;
@@ -39,6 +40,7 @@ export async function init(args: Args): Promise<void> {
   const saveSlot = await promptSaveSlot(args, yes);
   const gitRemoteURL = await promptGitHubRepoOrGitRemoteURL(
     projectName,
+    noGit,
     yes,
     verbose,
   );

@@ -14,9 +14,14 @@ const REQUIRED_GIT_MINOR_VERSION = 30;
 
 export async function promptGitHubRepoOrGitRemoteURL(
   projectName: string,
+  noGit: boolean,
   yes: boolean,
   verbose: boolean,
 ): Promise<string | undefined> {
+  if (noGit) {
+    return undefined;
+  }
+
   // We do not need to prompt the user if they do not have Git installed.
   if (!commandExists.sync("git")) {
     console.log(
