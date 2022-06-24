@@ -1,7 +1,9 @@
-export type PostPickupCollectRegisterParameters = PickupRegisterParameters<
-  [player: EntityPlayer],
-  void
->;
+import { PickupVariant } from "isaac-typescript-definitions";
+
+export type PostPickupCollectRegisterParameters = [
+  callback: (pickup: EntityPickup, player: EntityPlayer) => void,
+  pickupVariant?: PickupVariant,
+];
 
 const subscriptions: PostPickupCollectRegisterParameters[] = [];
 
@@ -28,7 +30,6 @@ export function postPickupCollectFire(
       continue;
     }
 
-    // @ts-expect-error TypeScript isn't smart enough to treat the above checks as type narrowing.
     callback(pickup, player);
   }
 }

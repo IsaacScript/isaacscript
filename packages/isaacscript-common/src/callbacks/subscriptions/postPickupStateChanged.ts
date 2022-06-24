@@ -1,7 +1,13 @@
-export type PostPickupStateChangedRegisterParameters = PickupRegisterParameters<
-  [previousState: int, currentState: int],
-  void
->;
+import { PickupVariant } from "isaac-typescript-definitions";
+
+export type PostPickupStateChangedRegisterParameters = [
+  callback: (
+    pickup: EntityPickup,
+    previousState: int,
+    currentState: int,
+  ) => void,
+  pickupVariant?: PickupVariant,
+];
 
 const subscriptions: PostPickupStateChangedRegisterParameters[] = [];
 
@@ -29,7 +35,6 @@ export function postPickupStateChangedFire(
       continue;
     }
 
-    // @ts-expect-error TypeScript isn't smart enough to treat the above checks as type narrowing.
     callback(pickup, previousState, currentState);
   }
 }

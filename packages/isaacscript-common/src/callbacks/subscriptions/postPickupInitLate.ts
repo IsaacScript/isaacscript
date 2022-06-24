@@ -1,7 +1,9 @@
-export type PostPickupInitLateRegisterParameters = PickupRegisterParameters<
-  [],
-  void
->;
+import { PickupVariant } from "isaac-typescript-definitions";
+
+export type PostPickupInitLateRegisterParameters = [
+  callback: (pickup: EntityPickup) => void,
+  pickupVariant?: PickupVariant,
+];
 
 const subscriptions: PostPickupInitLateRegisterParameters[] = [];
 
@@ -25,7 +27,6 @@ export function postPickupInitLateFire(pickup: EntityPickup): void {
       continue;
     }
 
-    // @ts-expect-error TypeScript isn't smart enough to treat the above checks as type narrowing.
     callback(pickup);
   }
 }

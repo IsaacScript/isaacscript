@@ -59,7 +59,9 @@ function useCardSoulOfIsaac() {
 
 // ModCallback.POST_PICKUP_UPDATE (35)
 // PickupVariant.COLLECTIBLE (100)
-function postPickupUpdateCollectible(collectible: EntityPickupCollectible) {
+function postPickupUpdateCollectible(pickup: EntityPickup) {
+  const collectible = pickup as EntityPickupCollectible;
+
   // Ignore empty pedestals (i.e. items that have already been taken by the player).
   if (collectible.SubType === CollectibleType.NULL) {
     return;

@@ -1,7 +1,9 @@
-export type PostPickupInitFirstRegisterParameters = PickupRegisterParameters<
-  [],
-  void
->;
+import { PickupVariant } from "isaac-typescript-definitions";
+
+export type PostPickupInitFirstRegisterParameters = [
+  callback: (pickup: EntityPickup) => void,
+  pickupVariant?: PickupVariant,
+];
 
 const subscriptions: PostPickupInitFirstRegisterParameters[] = [];
 
@@ -25,7 +27,6 @@ export function postPickupInitFirstFire(pickup: EntityPickup): void {
       continue;
     }
 
-    // @ts-expect-error TypeScript isn't smart enough to treat the above checks as type narrowing.
     callback(pickup);
   }
 }
