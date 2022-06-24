@@ -4,7 +4,7 @@ title: Using Entity.GetData and the Save Data Manager
 
 A common task in Isaac mods is to make new enemies, new familiars, and so on. All of these things are grouped under the umbrella of the `Entity` class. Custom entities often have some state associated with them. For example, you might have a custom familiar that eats bombs. In this case, you would need to keep track of how many bombs it has eaten already.
 
-Additionally, a common task in modding is to make new functionality for vanilla entities. For example, you might want to make a custom collectible that inflicts sleep counters on all NPCs. In this case, you would need to keep track of a poison counter for every NPC.
+Additionally, a common task in modding is to make new functionality for vanilla entities. For example, you might want to make a custom collectible that inflicts sleep counters on all NPCs. In this case, you would need to keep track of a sleep counter for every NPC.
 
 In general, if you need to store data about an entity, then you have a few different options.
 
