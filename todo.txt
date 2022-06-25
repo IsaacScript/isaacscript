@@ -1,6 +1,5 @@
 implement in isaacscript-common:
 
-- function to start challenge room
 - bible detection for POST FATAL DAMAGE
 - intercept shovel for decorations
 - StageAPI2

@@ -1,5 +1,8 @@
 import {
+  BossID,
+  CollectibleType,
   DamageFlag,
+  DamageFlagZero,
   EntityType,
   ModCallback,
 } from "isaac-typescript-definitions";
@@ -8,6 +11,7 @@ import { saveDataManager } from "../features/saveDataManager/exports";
 import { mapGetPlayer, mapSetPlayer } from "../functions/playerDataStructures";
 import { isChildPlayer } from "../functions/playerIndex";
 import { isDamageToPlayerFatal, willPlayerRevive } from "../functions/revive";
+import { inBossRoomOf } from "../functions/rooms";
 import { PlayerIndex } from "../types/PlayerIndex";
 import {
   postPlayerFatalDamageFire,
@@ -29,7 +33,13 @@ export function postPlayerFatalDamageInit(mod: Mod): void {
     ModCallback.ENTITY_TAKE_DMG,
     entityTakeDmgPlayer,
     EntityType.PLAYER,
-  );
+  ); // 11
+
+  mod.AddCallback(
+    ModCallback.PRE_USE_ITEM,
+    preUseItemBible,
+    CollectibleType.BIBLE,
+  ); // 23
 }
 
 function hasSubscriptions() {
@@ -95,4 +105,37 @@ function entityTakeDmgPlayer(
   }
 
   return undefined;
+}
+
+// ModCallback.PRE_USE_ITEM (23)
+// CollectibleType.BIBLE (33)
+function preUseItemBible(
+  _collectibleType: CollectibleType,
+  _rng: RNG,
+  player: EntityPlayer,
+): boolean {
+  if (!hasSubscriptions()) {
+    return false;
+  }
+
+  // Using The Bible on Satan is one of the few ways to die without taking damage, so we need to
+  // handle this case.
+  if (!inBossRoomOf(BossID.SATAN)) {
+    return false;
+  }
+
+  const shouldSustainDeath = postPlayerFatalDamageFire(
+    player,
+    0,
+    DamageFlagZero,
+    EntityRef(player),
+    0,
+  );
+  if (shouldSustainDeath !== undefined) {
+    // End-users will return false to stop the damage from being fatal. We have to return true to
+    // prevent the Bible from firing.
+    return !shouldSustainDeath;
+  }
+
+  return false;
 }
