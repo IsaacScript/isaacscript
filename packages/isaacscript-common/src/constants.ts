@@ -29,7 +29,7 @@ export const BLIND_ITEM_PNG_PATH = "gfx/items/collectibles/questionmark.png";
 export const BOMB_EXPLODE_FRAME = 45;
 
 /** This is the initial value of the `EntityPickup.Wait` property after a collectible is spawned. */
-export const COLLECTIBLE_STARTING_WAIT = 20;
+export const COLLECTIBLE_INITIAL_WAIT = 20;
 
 export const DEFAULT_ITEM_POOL_TYPE = ItemPoolType.TREASURE;
 
