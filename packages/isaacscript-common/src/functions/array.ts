@@ -304,10 +304,10 @@ export function isArray(object: unknown): object is unknown[] {
   }
 
   // Second, handle the case of non-numerical keys.
-  for (const [key] of pairs(object)) {
-    if (!isNumber(key)) {
-      return false;
-    }
+  const keys = Object.keys(object);
+  const hasAllNumberKeys = keys.every((key) => isNumber(key));
+  if (!hasAllNumberKeys) {
+    return false;
   }
 
   const tableLength = object.length();

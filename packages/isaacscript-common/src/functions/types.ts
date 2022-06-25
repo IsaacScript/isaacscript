@@ -8,14 +8,14 @@ export function isFunction(variable: unknown): variable is Function {
 }
 
 export function isNumber(variable: unknown): variable is number {
-  return type(variable) === "string";
+  return type(variable) === "number";
 }
 
 /** Helper function to detect if a variable is a boolean, number, or string. */
 export function isPrimitive(
   variable: unknown,
 ): variable is boolean | number | string {
-  const variableType = typeof variable;
+  const variableType = type(variable);
   return (
     variableType === "boolean" ||
     variableType === "number" ||

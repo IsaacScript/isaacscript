@@ -100,8 +100,8 @@ export function deepCopy(
     }
 
     case "table": {
-      const valueTable = value as LuaTable<AnyNotNil, unknown>;
-      return deepCopyTable(valueTable, serializationType, traversalDescription);
+      const luaTable = value as LuaTable<AnyNotNil, unknown>;
+      return deepCopyTable(luaTable, serializationType, traversalDescription);
     }
 
     case "userdata": {

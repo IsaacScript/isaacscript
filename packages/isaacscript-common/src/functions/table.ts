@@ -133,8 +133,8 @@ export function getStringsFromTable(
  *
  * This function will sort the table entries based on the value of the key.
  *
- * This function will only work on tables that have string keys. It will throw a runtime error if it
- * encounters a non-string key.
+ * This function will only work on tables that have number keys or string keys. It will throw a
+ * runtime error if it encounters a key of another type.
  *
  * @param luaTable The table to iterate over.
  * @param func The function to run for each iteration.
@@ -156,10 +156,15 @@ export function iterateTableInOrder<K, V>(
   }
 
   const keys = Object.keys(luaTable);
-  if (keys.some((key) => !isString(key))) {
-    error(
-      "Failed to iterate over a table in order since it has non-string keys.",
-    );
+  const hasAllNumberKeys = keys.every((key) => isNumber(key));
+  const hasAllStringKeys = keys.every((key) => isString(key));
+  if (!hasAllNumberKeys && !hasAllStringKeys) {
+    // Since the table has non-homogenous keys, we won't be able to sort it. Revert to
+    // non-deterministic iteration in this case.
+    for (const [key, value] of pairs(luaTable)) {
+      func(key, value);
+    }
+    return;
   }
   keys.sort();
 
