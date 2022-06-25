@@ -40,8 +40,8 @@
     "yargs": "^17.5.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.0.2",
-    "@commitlint/config-conventional": "^17.0.2",
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
     "@docusaurus/core": "^2.0.0-beta.21",
     "@docusaurus/preset-classic": "^2.0.0-beta.21",
     "@mdx-js/react": "^1.6.2",
@@ -115,7 +115,7 @@
     "retext-sentence-spacing": "^5.2.0",
     "retext-syntax-mentions": "^3.1.0",
     "retext-syntax-urls": "^3.1.2",
-    "syncpack": "^8.0.0",
+    "syncpack": "^8.2.4",
     "ts-jest": "^28.0.5",
     "ts-node": "^10.8.1",
     "ts-prune": "^0.10.3",
