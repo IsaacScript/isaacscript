@@ -20,6 +20,7 @@
     "src/enums/ModCallbackCustom.ts",
     "src/enums/PocketItemType.ts",
     "src/enums/SerializationType.ts",
+    "src/enums/SlotDestructionType.ts",
     "src/features/debugDisplay/exports.ts",
     "src/features/deployJSONRoom.ts",
     "src/features/disableInputs.ts",
