@@ -35,6 +35,8 @@ This page lists the changes to the IsaacScript framework.
   - `NUM_PILLS_IN_POOL`
   - `MIN_PLAYER_SPEED_STAT`
   - `MIN_PLAYER_SHOT_SPEED_STAT`
+- Added the following enums:
+  - `DiceFloorSubType`
 - Added the following custom callbacks:
   - `POST_PICKUP_INIT_FIRST`
   - `POST_PLAYER_COLLECTIBLE_ADDED`
