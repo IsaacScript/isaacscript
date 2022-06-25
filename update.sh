@@ -25,9 +25,9 @@ if [[ $OLD_HASH != $NEW_HASH ]]; then
 
   # Now that the main dependencies have changed, we might need to update the "package.json" files in
   # the individual packages. However, we don't want to blow away peerDependencies, since they are in
-  # the form of ">= 5.0.0".
+  # the form of ">= 5.0.0". Thus, we specify both "--prod" and "--dev" to exclude syncing
+  # peerDependencies.
   npx syncpack fix-mismatches --prod --dev
-  npx prettier --write "**/package.json"
 fi
 
 # syncpack will automatically update most of the dependencies in "isaacscript-lint", but not
