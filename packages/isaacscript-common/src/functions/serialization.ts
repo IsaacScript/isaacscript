@@ -5,15 +5,15 @@ import { ISAAC_API_CLASS_TYPE_TO_COPY_FUNCTION } from "../objects/isaacAPIClassT
 import { SERIALIZED_ISAAC_API_CLASS_TYPE_TO_IDENTITY_FUNCTION } from "../objects/serializedIsaacAPIClassTypeToIdentityFunction";
 import { SerializedIsaacAPIClass } from "../types/private/SerializedIsaacAPIClass";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
+import { isTable, isUserdata } from "./types";
 
 export function copyIsaacAPIClass(
   isaacAPIClass: unknown,
   serializationType: SerializationType,
 ): unknown {
-  const objectType = type(isaacAPIClass);
-  if (objectType !== "userdata") {
+  if (!isUserdata(isaacAPIClass)) {
     error(
-      `Failed to copy an Isaac API class since the provided object was of type: ${objectType}`,
+      `Failed to copy an Isaac API class since the provided object was of type: ${typeof isaacAPIClass}`,
     );
   }
 
@@ -41,15 +41,14 @@ export function copyIsaacAPIClass(
  * Deserialization is a special case, so we make a dedicated function for this.
  *
  * There is no need for a corresponding "serializeIsaacAPIClass" function because the
- * "copyIsaacAPIClass" function can handles all serialization types.
+ * "copyIsaacAPIClass" function can handle all serialization types.
  */
 export function deserializeIsaacAPIClass(
   serializedIsaacAPIClass: SerializedIsaacAPIClass,
 ): unknown {
-  const objectType = type(serializedIsaacAPIClass);
-  if (objectType !== "table") {
+  if (!isTable(serializedIsaacAPIClass)) {
     error(
-      `Failed to deserialize an Isaac API class since the provided object was of type: ${objectType}`,
+      `Failed to deserialize an Isaac API class since the provided object was of type: ${typeof serializedIsaacAPIClass}`,
     );
   }
 

@@ -7,11 +7,9 @@ import {
   deserializeIsaacAPIClass,
   isSerializedIsaacAPIClass,
 } from "../../functions/serialization";
-import {
-  clearTable,
-  iterateTableDeterministically,
-} from "../../functions/table";
+import { clearTable, iterateTableInOrder } from "../../functions/table";
 import { isTSTLMap, isTSTLSet } from "../../functions/tstlClass";
+import { isTable } from "../../functions/types";
 import { getTraversalDescription } from "../../functions/utils";
 import { SAVE_DATA_MANAGER_DEBUG } from "./constants";
 import { isSerializationBrand } from "./serializationBrand";
@@ -50,20 +48,17 @@ export function merge(
     log(`merge is traversing: ${traversalDescription}`);
   }
 
-  const oldObjectType = type(oldObject);
-  if (oldObjectType !== "table") {
+  if (!isTable(oldObject)) {
     error("The first argument given to the merge function is not a table.");
   }
 
-  const newTableType = type(newTable);
-  if (newTableType !== "table") {
+  if (!isTable(newTable)) {
     error("The second argument given to the merge function is not a table.");
   }
 
   // First, handle the special case of an array with a shallow copy.
   if (isArray(oldObject) && isArray(newTable)) {
-    const oldTable = oldObject as LuaTable<AnyNotNil, unknown>;
-    mergeArray(oldTable, newTable);
+    mergeArray(oldObject, newTable);
     return;
   }
 
@@ -83,7 +78,7 @@ function mergeArray(
   // Assume that we should blow away all array values with whatever is present in the incoming
   // array.
   clearTable(oldArray);
-  iterateTableDeterministically(
+  iterateTableInOrder(
     newArray,
     (key, value) => {
       oldArray.set(key, value);
@@ -106,7 +101,7 @@ function mergeTSTLObject(
     SerializationBrand.OBJECT_WITH_NUMBER_KEYS,
   );
 
-  iterateTableDeterministically(
+  iterateTableInOrder(
     newTable,
     (key, value) => {
       if (isSerializationBrand(key)) {
@@ -123,12 +118,10 @@ function mergeTSTLObject(
       }
 
       if (isTSTLMap(oldObject)) {
-        const valueType = type(value);
-
         let valueCopy: unknown;
-        if (valueType === "table") {
+        if (isTable(value)) {
           valueCopy = deepCopy(
-            value as LuaTable,
+            value,
             SerializationType.DESERIALIZE,
             traversalDescription,
           );
@@ -150,7 +143,7 @@ function mergeTable(
   newTable: LuaTable<AnyNotNil, unknown>,
   traversalDescription: string,
 ) {
-  iterateTableDeterministically(
+  iterateTableInOrder(
     newTable,
     (key, value) => {
       if (SAVE_DATA_MANAGER_DEBUG) {
@@ -173,12 +166,9 @@ function mergeTable(
         return;
       }
 
-      const valueType = type(value);
-      if (valueType === "table") {
+      if (isTable(value)) {
         let oldValue = oldTable.get(key) as LuaTable<AnyNotNil, unknown>;
-        const oldValueType = type(oldValue);
-
-        if (oldValueType !== "table") {
+        if (!isTable(oldValue)) {
           // The child table does not exist on the old table. However, we still need to copy over
           // the new table, because we need to handle data types like "Foo | null". Thus, set up a
           // blank sub-table on the old table, and continue to recursively merge..
@@ -190,7 +180,7 @@ function mergeTable(
           key,
           traversalDescription,
         );
-        merge(oldValue, value as LuaTable, traversalDescription);
+        merge(oldValue, value, traversalDescription);
       } else {
         // Base case: copy the value
         oldTable.set(key, value);

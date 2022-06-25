@@ -118,6 +118,7 @@
     "src/functions/trinketCacheFlag.ts",
     "src/functions/trinketGive.ts",
     "src/functions/tstlClass.ts",
+    "src/functions/types.ts",
     "src/functions/ui.ts",
     "src/functions/utils.ts",
     "src/functions/vector.ts",

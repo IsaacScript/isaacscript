@@ -1,5 +1,6 @@
 import { SerializationBrand } from "../../enums/private/SerializationBrand";
 import { getEnumValues } from "../../functions/enums";
+import { isString } from "../../functions/types";
 
 const SERIALIZATION_BRANDS = getEnumValues(SerializationBrand);
 const SERIALIZATION_BRAND_SET: ReadonlySet<string> = new Set(
@@ -7,7 +8,7 @@ const SERIALIZATION_BRAND_SET: ReadonlySet<string> = new Set(
 );
 
 export function isSerializationBrand(key: unknown): boolean {
-  if (typeof key !== "string") {
+  if (!isString(key)) {
     return false;
   }
 

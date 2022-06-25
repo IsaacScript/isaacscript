@@ -5,6 +5,7 @@ import { arrayEquals } from "./array";
 import { deepCopy } from "./deepCopy";
 import { log } from "./log";
 import { isDefaultMap, isTSTLMap, isTSTLSet } from "./tstlClass";
+import { isNumber, isString, isTable } from "./types";
 
 export function deepCopyTests(): void {
   copiedObjectIsTable();
@@ -34,9 +35,8 @@ function copiedObjectIsTable() {
     abc: "def",
   };
   const newObject = deepCopy(oldObject as unknown as LuaTable);
-  const newObjectType = type(newObject);
-  if (newObjectType !== "table") {
-    error("The copied object is not a table.");
+  if (!isTable(newObject)) {
+    error(`The copied object had a type of: ${typeof newObject}`);
   }
 }
 
@@ -54,9 +54,8 @@ function copiedObjectHasKeyAndValueString() {
     error(`The copied object did not have a key of: ${keyToLookFor}`);
   }
 
-  const valueType = type(value);
-  if (valueType !== "string") {
-    error(`The copied object had a value type of: ${valueType}`);
+  if (!isString(value)) {
+    error(`The copied object had a value type of: ${typeof value}`);
   }
   if (value !== valueToLookFor) {
     error(`The copied object had a value of: ${value}`);
@@ -77,9 +76,8 @@ function copiedTableHasKeyAndValueNumber() {
     error(`The copied object did not have a key of: ${keyToLookFor}`);
   }
 
-  const valueType = type(value);
-  if (valueType !== "number") {
-    error(`The copied object had a value type of: ${valueType}`);
+  if (!isNumber(value)) {
+    error(`The copied object had a value type of: ${typeof value}`);
   }
   if (value !== valueToLookFor) {
     error(`The copied object had a value of: ${value}`);
@@ -202,9 +200,8 @@ function copiedObjectHasChildObject() {
     error(`Failed to find the child object at index: ${childObjectIndex}`);
   }
 
-  const childObjectType = type(childObject);
-  if (childObjectType !== "table") {
-    error("The copied child object was not a table.");
+  if (!isTable(childObject)) {
+    error(`The copied child object had a type of: ${typeof childObject}`);
   }
 
   const value = childObject[keyToLookFor];
@@ -212,9 +209,8 @@ function copiedObjectHasChildObject() {
     error(`The child object did not have a key of: ${keyToLookFor}`);
   }
 
-  const valueType = type(value);
-  if (valueType !== "string") {
-    error(`The child object value had a type of: ${valueType}`);
+  if (!isString(value)) {
+    error(`The child object value had a type of: ${typeof value}`);
   }
   if (value !== valueToLookFor) {
     error(`The child object value was: ${valueToLookFor}`);
@@ -230,9 +226,8 @@ function copiedMapIsMap() {
   const newObject = deepCopy(oldMap);
   const newMap = newObject as Map<string, string>;
 
-  const newMapType = type(newMap);
-  if (newMapType !== "table") {
-    error("The copied Map was not a table.");
+  if (!isTable(newMap)) {
+    error(`The copied Map had a type of: ${typeof newMap}`);
   }
   if (!isTSTLMap(newMap)) {
     error("The copied Map was not a Map.");
@@ -265,9 +260,8 @@ function copiedSetIsSet() {
   const newTable = deepCopy(oldSet);
   const newSet = newTable as Set<string>;
 
-  const newSetType = type(newSet);
-  if (newSetType !== "table") {
-    error("The copied Set was not a table.");
+  if (!isTable(newSet)) {
+    error(`The copied Set had a type of: ${typeof newSet}`);
   }
   if (!isTSTLSet(newSet)) {
     error("The copied Set was not a Map.");
@@ -306,9 +300,8 @@ function copiedMapHasChildMap() {
     error(`The copied Map did not have a child map at key: ${keyToLookFor}`);
   }
 
-  const newChildMapType = type(newChildMap);
-  if (newChildMapType !== "table") {
-    error(`The copied child Map had a type of: ${newChildMapType}`);
+  if (!isTable(newChildMap)) {
+    error(`The copied child Map had a type of: ${typeof newChildMap}`);
   }
   if (!isTSTLMap(newChildMap)) {
     error("The copied child Map was not a Map.");
@@ -346,9 +339,8 @@ function copiedDefaultMapHasChildDefaultMap() {
     );
   }
 
-  const newChildMapType = type(newChildMap);
-  if (newChildMapType !== "table") {
-    error(`The copied child DefaultMap had a type of: ${newChildMapType}`);
+  if (!isTable(newChildMap)) {
+    error(`The copied child DefaultMap had a type of: ${typeof newChildMap}`);
   }
   if (!isDefaultMap(newChildMap)) {
     error("The copied child DefaultMap was not a DefaultMap.");

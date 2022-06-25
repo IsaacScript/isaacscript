@@ -12,6 +12,7 @@ import {
   EntityType,
   GridEntityType,
   GridEntityXMLType,
+  ModCallback,
   PickupVariant,
   PitfallVariant,
   RoomType,
@@ -35,6 +36,7 @@ import {
   convertXMLGridEntityType,
   getGridEntities,
   removeAllGridExcept,
+  removeGrid,
   setGridEntityInvisible,
   spawnGridWithVariant,
 } from "../functions/gridEntity";
@@ -85,10 +87,35 @@ const v = {
 export function deployJSONRoomInit(mod: ModUpgraded): void {
   saveDataManager("deployJSONRoom", v);
 
+  mod.AddCallback(
+    ModCallback.PRE_USE_ITEM,
+    preUseItemWeNeedToGoDeeper,
+    CollectibleType.WE_NEED_TO_GO_DEEPER,
+  ); // 23
+
   mod.AddCallbackCustom(
     ModCallbackCustom.POST_NEW_ROOM_REORDERED,
     postNewRoomReordered,
   );
+}
+
+// ModCallback.PRE_USE_ITEM (23)
+// CollectibleType.WE_NEED_TO_GO_DEEPER (84)
+function preUseItemWeNeedToGoDeeper(
+  _collectibleType: CollectibleType,
+  _rng: RNG,
+  player: EntityPlayer,
+): boolean | void {
+  const roomListIndex = getRoomListIndex();
+  if (!v.level.deployedRoomListIndexes.has(roomListIndex)) {
+    return;
+  }
+
+  const room = game.GetRoom();
+  const decoration = room.GetGridEntityFromPos(player.Position);
+  if (decoration !== undefined) {
+    removeGrid(decoration);
+  }
 }
 
 // ModCallbackCustom.POST_NEW_ROOM_REORDERED

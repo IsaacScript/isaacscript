@@ -45,6 +45,7 @@ TSES # For TSESTree
 tstl
 Turnbull # Author of "airbnb-typescript/base"
 typedoc
+typeof # JavaScript word
 workshopitem # metadata.vdf
 Zamiel
 Zamiell

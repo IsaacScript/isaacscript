@@ -1,4 +1,5 @@
 import { IsaacAPIClass } from "../types/private/IsaacAPIClass";
+import { isString, isUserdata } from "./types";
 
 /**
  * Helper function to get the name of a class from the Isaac API. This is contained within the
@@ -10,8 +11,7 @@ import { IsaacAPIClass } from "../types/private/IsaacAPIClass";
  * not exist.
  */
 export function getIsaacAPIClassName(object: unknown): string | undefined {
-  const objectType = type(object);
-  if (objectType !== "userdata") {
+  if (!isUserdata(object)) {
     return undefined;
   }
 
@@ -21,7 +21,7 @@ export function getIsaacAPIClassName(object: unknown): string | undefined {
   }
 
   const classType = metatable.get("__type");
-  if (typeof classType !== "string") {
+  if (!isString(classType)) {
     return undefined;
   }
 

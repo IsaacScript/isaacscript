@@ -1,5 +1,6 @@
 import { getRandomArrayElement } from "./array";
 import { getRandomSeed } from "./rng";
+import { isString } from "./types";
 
 /**
  * TypeScriptToLua will transpile TypeScript enums to Lua tables that have a double mapping. Thus,
@@ -26,7 +27,7 @@ export function getEnumEntries<T>(
   for (const [key, value] of pairs(transpiledEnum)) {
     // Ignore the reverse mappings created by TypeScriptToLua. Note that reverse mappings are not
     // created for string enums.
-    if (typeof key === "string") {
+    if (isString(key)) {
       enumEntries.push([key, value]);
     }
   }

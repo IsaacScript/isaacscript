@@ -1,5 +1,6 @@
 import { getRandomInt } from "./random";
 import { getRandomSeed, isRNG, newRNG } from "./rng";
+import { isNumber, isTable } from "./types";
 import { erange, repeat } from "./utils";
 
 /**
@@ -291,36 +292,32 @@ export function initArray<T>(defaultValue: T, size: int): T[] {
  * - the table has no keys (i.e. an "empty" table)
  */
 export function isArray(object: unknown): object is unknown[] {
-  if (type(object) !== "table") {
+  if (!isTable(object)) {
     return false;
   }
 
-  const table = object as LuaTable<AnyNotNil, unknown>;
-
   // First, if there is a metatable, this cannot be a simple array and must be a more complex
   // object.
-  const metatable = getmetatable(table);
+  const metatable = getmetatable(object);
   if (metatable !== undefined) {
     return false;
   }
 
-  // Second, handle the case of non-numerical keys (and count the entries in the table).
-  let numEntries = 0;
-  for (const [key] of pairs(table)) {
-    numEntries += 1;
-
-    if (typeof key !== "number") {
+  // Second, handle the case of non-numerical keys.
+  for (const [key] of pairs(object)) {
+    if (!isNumber(key)) {
       return false;
     }
   }
 
-  if (numEntries === 0) {
+  const tableLength = object.length();
+  if (tableLength === 0) {
     return true;
   }
 
   // Third, check for non-contiguous elements. (Lua tables start at an index of 1.)
-  for (let i = 1; i <= numEntries; i++) {
-    const element = table.get(i);
+  for (let i = 1; i <= tableLength; i++) {
+    const element = object.get(i) as unknown;
     if (element === undefined) {
       return false;
     }

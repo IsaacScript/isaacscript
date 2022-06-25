@@ -2,6 +2,7 @@ import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { copyValuesToTable, getNumbersFromTable, tableHasKeys } from "./table";
+import { isTable } from "./types";
 import { ensureAllCases } from "./utils";
 
 type SerializedColor = LuaTable<string, unknown> & {
@@ -72,15 +73,14 @@ export function copyColor(
     }
 
     case SerializationType.DESERIALIZE: {
-      const colorType = type(color);
-      if (isColor(color) || colorType !== "table") {
+      if (!isTable(color)) {
         error(
           `Failed to deserialize a ${OBJECT_NAME} object since the provided object was not a Lua table.`,
         );
       }
 
       const [r, g, b, a, ro, go, bo] = getNumbersFromTable(
-        color,
+        color as LuaTable<string, unknown>,
         OBJECT_NAME,
         ...KEYS,
       );
@@ -125,11 +125,9 @@ export function isColor(object: unknown): object is Color {
  * manager and/or the `deepCopy` function.
  */
 export function isSerializedColor(object: unknown): object is SerializedColor {
-  const objectType = type(object);
-  if (objectType !== "table") {
+  if (!isTable(object)) {
     return false;
   }
 
-  const table = object as LuaTable<AnyNotNil, unknown>;
-  return tableHasKeys(table, ...KEYS) && table.has(SerializationBrand.COLOR);
+  return tableHasKeys(object, ...KEYS) && object.has(SerializationBrand.COLOR);
 }

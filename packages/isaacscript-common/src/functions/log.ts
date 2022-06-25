@@ -24,7 +24,9 @@ import { getEffectsList, getPlayerName } from "./player";
 import { getPlayerHealth } from "./playerHealth";
 import { getRoomData, getRoomGridIndex, getRoomListIndex } from "./roomData";
 import { combineSets, getSortedSetValues } from "./set";
+import { iterateTableInOrder } from "./table";
 import { getTrinketName } from "./trinkets";
+import { isTable, isUserdata } from "./types";
 import { printConsole } from "./utils";
 import { vectorToString } from "./vector";
 
@@ -545,6 +547,13 @@ export function logSounds(this: void): void {
   }
 }
 
+/**
+ * Helper function for logging every key and value of a table. This is a deep log; the function will
+ * recursively call itself if it counters a table within a table.
+ *
+ * This function will only work on tables that have string keys (because it logs the keys in order,
+ * instead of randomly). It will throw a runtime error if it encounters a non-string key.
+ */
 export function logTable(this: void, table: unknown, parentTables = 0): void {
   if (parentTables === 0) {
     log("Printing out a Lua table:");
@@ -553,36 +562,28 @@ export function logTable(this: void, table: unknown, parentTables = 0): void {
   const numSpaces = (parentTables + 1) * 2; // 2, 4, 6, etc.
   const indentation = " ".repeat(numSpaces);
 
-  const tableType = type(table);
-  if (tableType !== "table") {
+  if (!isTable(table)) {
     log(
-      `${indentation}n/a (encountered a variable of type "${tableType}" instead of a table)`,
+      `${indentation}n/a (encountered a variable of type "${typeof table}" instead of a table)`,
     );
     return;
   }
 
-  const luaTable = table as LuaTable<AnyNotNil, unknown>;
-
-  const keys = Object.keys(luaTable);
-  keys.sort();
-
-  for (const key of keys) {
-    const value = luaTable.get(key);
+  iterateTableInOrder(table, (key, value) => {
     log(`${indentation}${key} --> ${value}`);
 
-    const valueType = type(value);
-    if (valueType === "table") {
+    if (isTable(value)) {
       if (key === "__class") {
         log(
-          `${indentation}(skipping enumerating this key to avoid infinite recursion)`,
+          `${indentation}  (skipping enumerating this key to avoid infinite recursion)`,
         );
       } else {
         logTable(value, parentTables + 1);
       }
     }
-  }
+  });
 
-  log(`${indentation}The size of the table was: ${keys.length}`);
+  log(`${indentation}The size of the table was: ${table.length()}`);
 }
 
 /**
@@ -590,6 +591,7 @@ export function logTable(this: void, table: unknown, parentTables = 0): void {
  * will only do a shallow comparison.
  */
 export function logTableDifferences<K, V>(
+  this: void,
   table1: LuaTable<K, V>,
   table2: LuaTable<K, V>,
 ): void {
@@ -641,8 +643,7 @@ export function logUseFlags(
  * the Isaac API).
  */
 export function logUserdata(this: void, userdata: unknown): void {
-  const userdataType = type(userdata);
-  if (userdataType !== "userdata") {
+  if (isUserdata(userdata)) {
     log("Userdata: [not userdata]");
     return;
   }
@@ -698,6 +699,7 @@ export function setLogFunctionsGlobal(): void {
   globals["logSet"] = logSet;
   globals["logSounds"] = logSounds;
   globals["logTable"] = logTable;
+  globals["logTableDifferences"] = logTableDifferences;
   globals["logTearFlags"] = logTearFlags;
   globals["logUseFlags"] = logUseFlags;
   globals["logUserdata"] = logUserdata;

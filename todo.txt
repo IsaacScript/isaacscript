@@ -1,5 +1,5 @@
 implement in isaacscript-common:
 
-- bible detection for POST FATAL DAMAGE
+- calculate eye from tear
 - intercept shovel for decorations
 - StageAPI2

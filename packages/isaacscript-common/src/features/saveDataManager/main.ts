@@ -11,10 +11,7 @@ import {
 import { SerializationType } from "../../enums/SerializationType";
 import { deepCopy } from "../../functions/deepCopy";
 import { logError } from "../../functions/log";
-import {
-  clearTable,
-  iterateTableDeterministically,
-} from "../../functions/table";
+import { clearTable, iterateTableInOrder } from "../../functions/table";
 import { SaveData } from "../../interfaces/SaveData";
 import {
   SAVE_DATA_MANAGER_DEBUG,
@@ -104,7 +101,7 @@ function restoreDefaultsAll() {
 }
 
 function restoreDefaults(saveDataKey: SaveDataKey) {
-  iterateTableDeterministically(
+  iterateTableInOrder(
     saveDataMap,
     (subscriberName, saveData) => {
       restoreDefaultSaveData(subscriberName, saveData, saveDataKey);

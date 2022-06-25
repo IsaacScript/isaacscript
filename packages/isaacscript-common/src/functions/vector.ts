@@ -4,6 +4,7 @@ import { SerializationType } from "../enums/SerializationType";
 import { angleToDirection } from "./direction";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { copyValuesToTable, getNumbersFromTable, tableHasKeys } from "./table";
+import { isTable } from "./types";
 import { ensureAllCases } from "./utils";
 
 type SerializedVector = LuaTable<string, unknown> & {
@@ -62,14 +63,17 @@ export function copyVector(
     }
 
     case SerializationType.DESERIALIZE: {
-      const vectorType = type(vector);
-      if (isVector(vector) || vectorType !== "table") {
+      if (!isTable(vector)) {
         error(
           `Failed to deserialize a ${OBJECT_NAME} object since the provided object was not a Lua table.`,
         );
       }
 
-      const [x, y] = getNumbersFromTable(vector, OBJECT_NAME, ...KEYS);
+      const [x, y] = getNumbersFromTable(
+        vector as LuaTable<string, unknown>,
+        OBJECT_NAME,
+        ...KEYS,
+      );
 
       if (x === undefined) {
         error(
@@ -98,13 +102,11 @@ export function copyVector(
 export function isSerializedVector(
   object: unknown,
 ): object is SerializedVector {
-  const objectType = type(object);
-  if (objectType !== "table") {
+  if (!isTable(object)) {
     return false;
   }
 
-  const table = object as LuaTable<AnyNotNil, unknown>;
-  return tableHasKeys(table, ...KEYS) && table.has(SerializationBrand.VECTOR);
+  return tableHasKeys(object, ...KEYS) && object.has(SerializationBrand.VECTOR);
 }
 
 /** Helper function to check if something is an instantiated Vector object. */

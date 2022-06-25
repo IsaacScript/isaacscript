@@ -31,9 +31,15 @@ This page lists the changes to the IsaacScript framework.
   - `isCloseEnoughToTriggerDiceFloor`
   - `setCollectibleGlitched`
   - `startAmbush`
+  - `isTable`
+  - `isUserdata`
+  - `isBoolean`
+  - `isNumber`
+  - `isString`
 - Renamed the following helper functions:
   - `getCurrentRoomDescriptorReadOnly` --> `getRoomDescriptorReadOnly`
   - `getCurrentDimension` --> `getDimension`
+  - `iterateTableDeterministically` --> `iterateTableInOrder`
 - Added the following constants:
   - `NUM_PILLS_IN_POOL`
   - `MIN_PLAYER_SPEED_STAT`

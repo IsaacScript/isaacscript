@@ -22,6 +22,7 @@ import {
   isUserDefinedTSTLClass,
   newTSTLClass,
 } from "./tstlClass";
+import { isNumber, isPrimitive } from "./types";
 import {
   ensureAllCases,
   getTraversalDescription,
@@ -193,11 +194,7 @@ function deepCopyDefaultMap(
       // cannot serialize it, so we serialize it as a normal `Map` instead. We do not throw a
       // runtime error because the merge function does not need to instantiate the DefaultMap class
       // in most circumstances.
-      if (
-        typeof constructorArg !== "boolean" &&
-        typeof constructorArg !== "number" &&
-        typeof constructorArg !== "string"
-      ) {
+      if (!isPrimitive(constructorArg)) {
         return deepCopyMap(defaultMap, serializationType, traversalDescription);
       }
 
@@ -455,7 +452,7 @@ function getCopiedEntries(
     entries.sort(twoDimensionalSort);
   }
 
-  const hasNumberKeys = entries.some(([key]) => typeof key === "number");
+  const hasNumberKeys = entries.some(([key]) => isNumber(key));
   const convertNumberKeysToStrings =
     serializationType === SerializationType.SERIALIZE && hasNumberKeys;
 

@@ -4,6 +4,7 @@ import { SaveDataKey } from "../../enums/private/SaveDataKey";
 import { SerializationType } from "../../enums/SerializationType";
 import { errorIfFeaturesNotInitialized } from "../../featuresInitialized";
 import { deepCopy } from "../../functions/deepCopy";
+import { isString } from "../../functions/types";
 import { SaveData } from "../../interfaces/SaveData";
 import { SAVE_DATA_MANAGER_FEATURE_NAME } from "./constants";
 import {
@@ -109,10 +110,9 @@ export function saveDataManager(
 ): void {
   errorIfFeaturesNotInitialized(SAVE_DATA_MANAGER_FEATURE_NAME);
 
-  const keyType = type(key);
-  if (keyType !== "string") {
+  if (!isString(key)) {
     error(
-      `The ${SAVE_DATA_MANAGER_FEATURE_NAME} requires that keys are strings. You tried to use a key of type: ${keyType}`,
+      `The ${SAVE_DATA_MANAGER_FEATURE_NAME} requires that keys are strings. You tried to use a key of type: ${typeof key}`,
     );
   }
 
@@ -212,10 +212,9 @@ export function saveDataManagerReset(
 ): void {
   errorIfFeaturesNotInitialized(SAVE_DATA_MANAGER_FEATURE_NAME);
 
-  const keyType = type(key);
-  if (keyType !== "string") {
+  if (!isString(key)) {
     error(
-      `The ${SAVE_DATA_MANAGER_FEATURE_NAME} requires that keys are strings. You tried to use a key of type: ${keyType}`,
+      `The ${SAVE_DATA_MANAGER_FEATURE_NAME} requires that keys are strings. You tried to use a key of type: ${typeof key}`,
     );
   }
 

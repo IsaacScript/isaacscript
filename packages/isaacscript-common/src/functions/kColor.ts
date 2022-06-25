@@ -2,6 +2,7 @@ import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { copyValuesToTable, getNumbersFromTable, tableHasKeys } from "./table";
+import { isTable } from "./types";
 import { ensureAllCases } from "./utils";
 
 type SerializedKColor = LuaTable<string, unknown> & {
@@ -60,14 +61,17 @@ export function copyKColor(
     }
 
     case SerializationType.DESERIALIZE: {
-      const kColorType = type(kColor);
-      if (isKColor(kColor) || kColorType !== "table") {
+      if (!isTable(kColor)) {
         error(
           `Failed to deserialize a ${OBJECT_NAME} object since the provided object was not a Lua table.`,
         );
       }
 
-      const [r, g, b, a] = getNumbersFromTable(kColor, OBJECT_NAME, ...KEYS);
+      const [r, g, b, a] = getNumbersFromTable(
+        kColor as LuaTable<string, unknown>,
+        OBJECT_NAME,
+        ...KEYS,
+      );
 
       if (r === undefined) {
         error(
@@ -116,13 +120,13 @@ export function isKColor(object: unknown): object is KColor {
 export function isSerializedKColor(
   object: unknown,
 ): object is SerializedKColor {
-  const objectType = type(object);
-  if (objectType !== "table") {
+  if (!isTable(object)) {
     return false;
   }
 
-  const table = object as LuaTable<AnyNotNil, unknown>;
-  return tableHasKeys(table, ...KEYS) && table.has(SerializationBrand.K_COLOR);
+  return (
+    tableHasKeys(object, ...KEYS) && object.has(SerializationBrand.K_COLOR)
+  );
 }
 
 export function kColorEquals(kColor1: KColor, kColor2: KColor): boolean {

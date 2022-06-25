@@ -3,6 +3,7 @@ import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { getNumbersFromTable, tableHasKeys } from "./table";
+import { isTable } from "./types";
 import { ensureAllCases } from "./utils";
 
 type SerializedRNG = LuaTable<string, unknown> & {
@@ -70,14 +71,17 @@ export function copyRNG(
     }
 
     case SerializationType.DESERIALIZE: {
-      const rngType = type(rng);
-      if (isRNG(rng) || rngType !== "table") {
+      if (!isTable(rng)) {
         error(
           `Failed to deserialize a ${OBJECT_NAME} object since the provided object was not a Lua table.`,
         );
       }
 
-      const [seedNumber] = getNumbersFromTable(rng, OBJECT_NAME, ...KEYS);
+      const [seedNumber] = getNumbersFromTable(
+        rng as LuaTable<string, unknown>,
+        OBJECT_NAME,
+        ...KEYS,
+      );
       const seed = seedNumber as Seed;
       return newRNG(seed);
     }
@@ -109,8 +113,7 @@ export function isRNG(object: unknown): object is RNG {
  * manager and/or the `deepCopy` function.
  */
 export function isSerializedRNG(object: unknown): object is SerializedRNG {
-  const objectType = type(object);
-  if (objectType !== "table") {
+  if (!isTable(object)) {
     return false;
   }
 
@@ -138,13 +141,11 @@ export function rngEquals(rng1: RNG, rng2: RNG): boolean {
  * are RNG objects equal to a particular seed.
  */
 export function setAllRNGToSeed(object: unknown, seed: Seed): void {
-  const objectType = type(object);
-  if (objectType !== "table") {
+  if (!isTable(object)) {
     error(
-      `Failed to iterate over the object containing RNG objects since the type of the provided object was: ${objectType}`,
+      `Failed to iterate over the object containing RNG objects since the type of the provided object was: ${typeof object}`,
     );
   }
-  const table = object as LuaTable<string, unknown>;
 
   for (const value of Object.values(table)) {
     if (isRNG(value)) {

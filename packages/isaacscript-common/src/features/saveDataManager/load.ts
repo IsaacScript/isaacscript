@@ -1,6 +1,7 @@
 import { jsonDecode } from "../../functions/jsonHelpers";
 import { log, logError } from "../../functions/log";
-import { iterateTableDeterministically } from "../../functions/table";
+import { iterateTableInOrder } from "../../functions/table";
+import { isString, isTable } from "../../functions/types";
 import { SaveData } from "../../interfaces/SaveData";
 import {
   SAVE_DATA_MANAGER_DEBUG,
@@ -27,20 +28,19 @@ export function loadFromDisk(
     log('Converted data from the "save#.dat" to a Lua table.');
   }
 
-  // Second, iterate over all the fields of the new table.
-  iterateTableDeterministically(
+  // Second, iterate over all the fields of the new table.)
+  iterateTableInOrder(
     newSaveData,
     (key, value) => {
       // All elements of loaded save data should have keys that are strings equal to the name of the
       // subscriber/feature. Ignore elements with other types of keys.
-      if (typeof key !== "string") {
+      if (!isString(key)) {
         return;
       }
 
       // All elements of loaded save data should be tables that contain fields corresponding to the
       // SaveData interface. Ignore elements that are not tables.
-      const valueType = type(value);
-      if (valueType !== "table") {
+      if (!isTable(value)) {
         return;
       }
 
@@ -57,7 +57,7 @@ export function loadFromDisk(
       // We do not want to blow away the child tables of the existing map, because save data could
       // contain out-of-date fields. Instead, merge it one field at a time in a recursive way (and
       // convert Lua tables back to TypeScriptToLua Maps, if necessary).
-      merge(oldSaveDataForSubscriber as LuaTable, value as LuaTable, key);
+      merge(oldSaveDataForSubscriber as LuaTable, value, key);
     },
     SAVE_DATA_MANAGER_DEBUG,
   );

@@ -6,7 +6,7 @@ import { AnyEntity } from "../types/AnyEntity";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
 import { getRandom } from "./random";
 import { newRNG } from "./rng";
-import { isPrimitive } from "./utils";
+import { isPrimitive } from "./types";
 
 /**
  * Helper function to count the number of entities in room. Use this over the vanilla
@@ -130,8 +130,15 @@ export function getEntities(
 /**
  * Helper function to get all the fields on an entity. For example, this is useful for comparing it
  * to another entity later.
+ *
+ * This function will only get fields that are equal to booleans, numbers, or strings, as comparing
+ * other types is non-trivial.
  */
-export function getEntityFields(entity: Entity): LuaTable<string, unknown> {
+export function getEntityFields(
+  entity: Entity,
+): LuaTable<string, boolean | number | string> {
+  const entityFields = new LuaTable<string, boolean | number | string>();
+
   const metatable = getmetatable(entity) as
     | LuaTable<AnyNotNil, unknown>
     | undefined;
@@ -139,22 +146,7 @@ export function getEntityFields(entity: Entity): LuaTable<string, unknown> {
     error("Failed to get the metatable for an entity.");
   }
 
-  const propGetTable = metatable.get("__propget") as
-    | LuaTable<AnyNotNil, unknown>
-    | undefined;
-  if (propGetTable === undefined) {
-    error('Failed to get the "__propget" table for an entity.');
-  }
-
-  const entityFields = new LuaTable<string, unknown>();
-  for (const [key] of pairs(propGetTable)) {
-    // The values of this table are functions. Thus, we use the key to index the original entity.
-    const indexKey = key as keyof typeof entity;
-    const value = entity[indexKey];
-    if (isPrimitive(value)) {
-      entityFields.set(indexKey, value);
-    }
-  }
+  setPrimitiveEntityFields(entity, metatable, entityFields);
 
   // If this is a class that inherits from `Entity` (like `EntityPlayer`), the "__propget" table
   // will not contain the attributes for `Entity`. Thus, if this is not an `Entity`, we have
@@ -171,14 +163,24 @@ export function getEntityFields(entity: Entity): LuaTable<string, unknown> {
     error('Failed to get the "__parent" table for an entity.');
   }
 
-  const parentPropGetTable = parentTable.get("__propget") as
+  setPrimitiveEntityFields(entity, parentTable, entityFields);
+
+  return entityFields;
+}
+
+function setPrimitiveEntityFields(
+  entity: Entity,
+  metatable: LuaTable<AnyNotNil, unknown>,
+  entityFields: LuaTable<string, boolean | number | string>,
+) {
+  const propGetTable = metatable.get("__propget") as
     | LuaTable<AnyNotNil, unknown>
     | undefined;
-  if (parentPropGetTable === undefined) {
-    error('Failed to get the parent\'s "__propget" table for an entity.');
+  if (propGetTable === undefined) {
+    error('Failed to get the "__propget" table for an entity.');
   }
 
-  for (const [key] of pairs(parentPropGetTable)) {
+  for (const [key] of pairs(propGetTable)) {
     // The values of this table are functions. Thus, we use the key to index the original entity.
     const indexKey = key as keyof typeof entity;
     const value = entity[indexKey];
@@ -186,8 +188,6 @@ export function getEntityFields(entity: Entity): LuaTable<string, unknown> {
       entityFields.set(indexKey, value);
     }
   }
-
-  return entityFields;
 }
 
 /** Helper function to return a string containing the entity's type, variant, and sub-type. */

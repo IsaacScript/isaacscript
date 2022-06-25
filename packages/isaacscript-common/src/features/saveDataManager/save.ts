@@ -2,7 +2,7 @@ import { SerializationType } from "../../enums/SerializationType";
 import { deepCopy } from "../../functions/deepCopy";
 import { jsonEncode } from "../../functions/jsonHelpers";
 import { log } from "../../functions/log";
-import { iterateTableDeterministically } from "../../functions/table";
+import { iterateTableInOrder } from "../../functions/table";
 import { SaveData } from "../../interfaces/SaveData";
 import {
   SAVE_DATA_MANAGER_DEBUG,
@@ -31,7 +31,7 @@ function getAllSaveDataToWriteToDisk(
 ) {
   const allSaveData = new LuaTable<AnyNotNil, unknown>();
 
-  iterateTableDeterministically(
+  iterateTableInOrder(
     saveDataMap,
     (subscriberName, saveData) => {
       // Handle the feature of the save data manager where certain mod features can conditionally

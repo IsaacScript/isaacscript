@@ -1,4 +1,4 @@
-import { twoDimensionalSort } from "./utils";
+import { isBoolean, isNumber, isString } from "./types";
 
 /**
  * In a Map, you can use the `clear` method to delete every element. However, in a LuaTable, the
@@ -44,7 +44,7 @@ export function getBooleansFromTable(
       );
     }
 
-    if (typeof value === "boolean") {
+    if (isBoolean(value)) {
       booleans.push(value);
     } else {
       error(
@@ -76,9 +76,9 @@ export function getNumbersFromTable(
       );
     }
 
-    if (typeof value === "number") {
+    if (isNumber(value)) {
       numbers.push(value);
-    } else if (typeof value === "string") {
+    } else if (isString(value)) {
       const number = tonumber(value);
       if (number === undefined) {
         error(
@@ -116,7 +116,7 @@ export function getStringsFromTable(
       );
     }
 
-    if (typeof value === "string") {
+    if (isString(value)) {
       strings.push(value);
     } else {
       const string = tostring(value);
@@ -133,35 +133,40 @@ export function getStringsFromTable(
  *
  * This function will sort the table entries based on the value of the key.
  *
+ * This function will only work on tables that have string keys. It will throw a runtime error if it
+ * encounters a non-string key.
+ *
  * @param table The table to iterate over.
  * @param func The function to run for each iteration.
- * @param deterministic Optional. Whether to iterate deterministically. True by default. You can
- *                      dynamically set to false in situations where you need extra performance.
+ * @param inOrder Optional. Whether to iterate in order. True by default. You can dynamically set to
+ *                false in situations where iterating randomly would not matter and you need the
+ *                extra performance.
  */
-export function iterateTableDeterministically<K, V>(
+export function iterateTableInOrder<K, V>(
   table: LuaTable<K, V>,
   func: (key: K, value: V) => void,
-  deterministic = true,
+  inOrder = true,
 ): void {
   // First, handle the trivial case of a non-deterministic iteration.
-  if (!deterministic) {
+  if (!inOrder) {
     for (const [key, value] of pairs(table)) {
       func(key, value);
     }
     return;
   }
 
-  // We can't sort a Lua multi-return, so we have to convert it to an array first.
-  const entriesArray: Array<[K, V]> = [];
-  for (const [key, value] of pairs(table)) {
-    const entry: [K, V] = [key, value];
-    entriesArray.push(entry);
+  const keys = Object.keys(table);
+  if (keys.some((key) => !isString(key))) {
+    error(
+      "Failed to iterate over a table in order since it has non-string keys.",
+    );
   }
+  keys.sort();
 
-  entriesArray.sort(twoDimensionalSort);
-
-  for (const [key, value] of entriesArray) {
-    func(key, value);
+  for (const key of keys) {
+    const keyIndex = key as unknown as K;
+    const value = table.get(keyIndex);
+    func(keyIndex, value);
   }
 }
 

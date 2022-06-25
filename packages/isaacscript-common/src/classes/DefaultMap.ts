@@ -1,5 +1,7 @@
 /* eslint-disable sort-exports/sort-exports */
 
+import { isFunction, isPrimitive } from "../functions/types";
+
 // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
 /**
  * A function that creates the default value for your `DefaultMap`. For example, if it was a
@@ -104,13 +106,11 @@ export class DefaultMap<Key, Value, Args extends unknown[] = []> extends Map<
     defaultValueOrFactoryFunction: Value | FactoryFunction<Value, Args>,
     initializerArray?: Iterable<[Key, Value]>,
   ) {
-    const argType = typeof defaultValueOrFactoryFunction;
-    const argIsPrimitive =
-      argType === "boolean" || argType === "number" || argType === "string";
-    const argIsFunction = argType === "function";
+    const argIsPrimitive = isPrimitive(defaultValueOrFactoryFunction);
+    const argIsFunction = isFunction(defaultValueOrFactoryFunction);
     if (!argIsPrimitive && !argIsFunction) {
       error(
-        `Failed to instantiate a DefaultMap since the provided default value was of type "${argType}". This error usually means that you are trying to use an array (or some other non-primitive data structure that is passed by reference) as the default value. Instead, return the data structure in a factory function, like "() => []". See the DefaultMap documentation for more details.`,
+        `Failed to instantiate a DefaultMap since the provided default value was of type "${typeof defaultValueOrFactoryFunction}". This error usually means that you are trying to use an array (or some other non-primitive data structure that is passed by reference) as the default value. Instead, return the data structure in a factory function, like "() => []". See the DefaultMap documentation for more details.`,
       );
     }
 
@@ -118,8 +118,7 @@ export class DefaultMap<Key, Value, Args extends unknown[] = []> extends Map<
 
     if (argIsFunction) {
       this.defaultValue = undefined;
-      this.defaultValueFactory =
-        defaultValueOrFactoryFunction as FactoryFunction<Value, Args>;
+      this.defaultValueFactory = defaultValueOrFactoryFunction;
     } else {
       this.defaultValue = defaultValueOrFactoryFunction as Value;
       this.defaultValueFactory = undefined;

@@ -1,6 +1,7 @@
 import { DefaultMap } from "../classes/DefaultMap";
 import { TSTLClassMetatable } from "../interfaces/private/TSTLClassMetatable";
 import { TSTLClass } from "../types/private/TSTLClass";
+import { isString, isTable } from "./types";
 
 const VANILLA_TSTL_CLASSES = new Set(["Map", "Set", "WeakMap", "WeakSet"]);
 
@@ -21,7 +22,7 @@ const TSTL_CLASS_METATABLE_KEYS: ReadonlySet<string> = new Set([
  * exist.
  */
 export function getTSTLClassName(object: unknown): string | undefined {
-  if (type(object) !== "table") {
+  if (!isTable(object)) {
     return undefined;
   }
 
@@ -87,8 +88,7 @@ export function isUserDefinedTSTLClass(object: unknown): object is TSTLClass {
     return false;
   }
 
-  const objectType = type(object);
-  if (objectType !== "table") {
+  if (!isTable(object)) {
     return false;
   }
 
@@ -101,7 +101,7 @@ export function isUserDefinedTSTLClass(object: unknown): object is TSTLClass {
   for (const [key] of pairs(metatable)) {
     numKeys += 1;
 
-    if (typeof key !== "string") {
+    if (!isString(key)) {
       return false;
     }
 

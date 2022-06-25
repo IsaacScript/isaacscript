@@ -113,15 +113,15 @@ function preUseItemBible(
   _collectibleType: CollectibleType,
   _rng: RNG,
   player: EntityPlayer,
-): boolean {
+): boolean | void {
   if (!hasSubscriptions()) {
-    return false;
+    return undefined;
   }
 
   // Using The Bible on Satan is one of the few ways to die without taking damage, so we need to
   // handle this case.
   if (!inBossRoomOf(BossID.SATAN)) {
-    return false;
+    return undefined;
   }
 
   const shouldSustainDeath = postPlayerFatalDamageFire(
@@ -137,5 +137,5 @@ function preUseItemBible(
     return !shouldSustainDeath;
   }
 
-  return false;
+  return undefined;
 }

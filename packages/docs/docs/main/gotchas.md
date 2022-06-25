@@ -359,12 +359,10 @@ However, this means that if you were to naively iterate over the enum with `Obje
 ```ts
 for (const [key, value] of Object.entries(TestEnum)) {
   // Ignore the reverse mappings created by TypeScriptToLua.
-  if (type(key) !== "string") {
-    continue;
+  if (isString(key)) {
+    print(`Key: ${key}`);
+    print(`Value: ${value}`);
   }
-
-  print(`Key: ${key}`);
-  print(`Value: ${value}`);
 }
 ```
 
