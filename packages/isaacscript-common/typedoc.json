@@ -18,7 +18,6 @@
     "src/enums/AmbushType.ts",
     "src/enums/HealthType.ts",
     "src/enums/ModCallbackCustom.ts",
-    "src/enums/PlayerEye.ts",
     "src/enums/PocketItemType.ts",
     "src/enums/SerializationType.ts",
     "src/features/debugDisplay/exports.ts",
