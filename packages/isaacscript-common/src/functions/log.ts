@@ -447,10 +447,10 @@ export function logMap(this: void, map: Map<AnyNotNil, unknown>): void {
 
   for (const key of mapKeys) {
     const value = map.get(key);
-    log(`  Key: ${key}, Value: ${value}`);
+    log(`  ${key} --> ${value}`);
   }
 
-  log(`The size of the map was: ${map.size}`);
+  log(`  The size of the map was: ${map.size}`);
 }
 
 export function logPlayerHealth(this: void, player: EntityPlayer): void {
@@ -531,7 +531,7 @@ export function logSet(this: void, set: Set<AnyNotNil>): void {
     log(`  Value: ${value}`);
   }
 
-  log(`The size of the set was: ${set.size}`);
+  log(`  The size of the set was: ${set.size}`);
 }
 
 /** Helper function for logging every sound effect that is currently playing. */
@@ -553,14 +553,22 @@ export function logTable(this: void, table: unknown, parentTables = 0): void {
   const numSpaces = (parentTables + 1) * 2; // 2, 4, 6, etc.
   const indentation = " ".repeat(numSpaces);
 
-  if (table === undefined) {
-    log(`${indentation}n/a (the table was nil)`);
+  const tableType = type(table);
+  if (tableType !== "table") {
+    log(
+      `${indentation}n/a (encountered a variable of type "${tableType}" instead of a table)`,
+    );
     return;
   }
 
-  let numKeys = 0;
-  for (const [key, value] of pairs(table)) {
-    log(`${indentation}Key: ${key}, Value: ${value}`);
+  const luaTable = table as LuaTable<AnyNotNil, unknown>;
+
+  const keys = Object.keys(luaTable);
+  keys.sort();
+
+  for (const key of keys) {
+    const value = luaTable.get(key);
+    log(`${indentation}${key} --> ${value}`);
 
     const valueType = type(value);
     if (valueType === "table") {
@@ -572,11 +580,9 @@ export function logTable(this: void, table: unknown, parentTables = 0): void {
         logTable(value, parentTables + 1);
       }
     }
-
-    numKeys += 1;
   }
 
-  log(`${indentation}The size of the table was: ${numKeys}`);
+  log(`${indentation}The size of the table was: ${keys.length}`);
 }
 
 /** Helper function for printing out every tear flag that is turned on. Useful when debugging. */

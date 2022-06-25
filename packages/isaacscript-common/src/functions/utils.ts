@@ -136,6 +136,7 @@ export function irange(start: int, end?: int): int[] {
   return array;
 }
 
+/** Helper function to detect if a variable is a boolean, number, or string. */
 export function isPrimitive(variable: unknown): boolean {
   const type = typeof variable;
   return type === "boolean" || type === "number" || type === "string";

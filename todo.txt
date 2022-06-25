@@ -1,10 +1,9 @@
 implement in isaacscript-common:
 
-- --no-git flag
-
-- POST_DICE_ROOM_ACTIVATED
-- bible detection for POST FATAL DAMAGE
 - compareEntity (to see what changes with dice room effect)
+- POST_DICE_ROOM_ACTIVATED
+
+- bible detection for POST FATAL DAMAGE
 - intercept shovel for decorations
 - collectible morph to glitched item
 - function to start challenge room

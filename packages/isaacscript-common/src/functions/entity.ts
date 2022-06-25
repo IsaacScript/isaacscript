@@ -3,8 +3,10 @@ import { game } from "../cachedClasses";
 import { VectorZero } from "../constants";
 import { STORY_BOSSES_SET } from "../sets/storyBossesSet";
 import { AnyEntity } from "../types/AnyEntity";
+import { getIsaacAPIClassName } from "./isaacAPIClass";
 import { getRandom } from "./random";
 import { newRNG } from "./rng";
+import { isPrimitive } from "./utils";
 
 /**
  * Helper function to count the number of entities in room. Use this over the vanilla
@@ -123,6 +125,69 @@ export function getEntities(
   }
 
   return Isaac.FindByType(entityType, variant, subType, ignoreFriendly);
+}
+
+/**
+ * Helper function to get all the fields on an entity. For example, this is useful for comparing it
+ * to another entity later.
+ */
+export function getEntityFields(entity: Entity): LuaTable<string, unknown> {
+  const metatable = getmetatable(entity) as
+    | LuaTable<AnyNotNil, unknown>
+    | undefined;
+  if (metatable === undefined) {
+    error("Failed to get the metatable for an entity.");
+  }
+
+  const propGetTable = metatable.get("__propget") as
+    | LuaTable<AnyNotNil, unknown>
+    | undefined;
+  if (propGetTable === undefined) {
+    error('Failed to get the "__propget" table for an entity.');
+  }
+
+  const entityFields = new LuaTable<string, unknown>();
+  for (const [key] of pairs(propGetTable)) {
+    // The values of this table are functions. Thus, we use the key to index the original entity.
+    const indexKey = key as keyof typeof entity;
+    const value = entity[indexKey];
+    if (isPrimitive(value)) {
+      entityFields.set(indexKey, value);
+    }
+  }
+
+  // If this is a class that inherits from `Entity` (like `EntityPlayer`), the "__propget" table
+  // will not contain the attributes for `Entity`. Thus, if this is not an `Entity`, we have
+  // additional fields to add.
+  const className = getIsaacAPIClassName(entity);
+  if (className === "Entity") {
+    return entityFields;
+  }
+
+  const parentTable = metatable.get("__parent") as
+    | LuaTable<AnyNotNil, unknown>
+    | undefined;
+  if (parentTable === undefined) {
+    error('Failed to get the "__parent" table for an entity.');
+  }
+
+  const parentPropGetTable = parentTable.get("__propget") as
+    | LuaTable<AnyNotNil, unknown>
+    | undefined;
+  if (parentPropGetTable === undefined) {
+    error('Failed to get the parent\'s "__propget" table for an entity.');
+  }
+
+  for (const [key] of pairs(parentPropGetTable)) {
+    // The values of this table are functions. Thus, we use the key to index the original entity.
+    const indexKey = key as keyof typeof entity;
+    const value = entity[indexKey];
+    if (isPrimitive(value)) {
+      entityFields.set(indexKey, value);
+    }
+  }
+
+  return entityFields;
 }
 
 /** Helper function to return a string containing the entity's type, variant, and sub-type. */
