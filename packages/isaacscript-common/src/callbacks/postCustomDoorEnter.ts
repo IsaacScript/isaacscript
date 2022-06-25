@@ -40,7 +40,7 @@ const v = {
 };
 
 /** @internal */
-export function postCustomDoorEnterCallbackInit(): void {
+export function postCustomDoorEnterInit(): void {
   saveDataManager("postCustomDoorEnter", v, hasSubscriptions);
 }
 

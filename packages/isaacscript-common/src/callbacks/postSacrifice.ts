@@ -19,7 +19,7 @@ const v = {
 };
 
 /** @internal */
-export function postSacrificeCallbackInit(mod: Mod): void {
+export function postSacrificeInit(mod: Mod): void {
   saveDataManager("postSacrifice", v, hasSubscriptions);
 
   mod.AddCallback(

@@ -13,7 +13,7 @@ const v = {
 };
 
 /** @internal */
-export function postPickupStateChangedCallbackInit(mod: Mod): void {
+export function postPickupStateChangedInit(mod: Mod): void {
   saveDataManager("postPickupStateChanged", v, hasSubscriptions);
 
   mod.AddCallback(ModCallback.POST_PICKUP_UPDATE, postPickupUpdate); // 35

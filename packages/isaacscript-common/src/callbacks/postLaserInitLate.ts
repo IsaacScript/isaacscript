@@ -12,7 +12,7 @@ const v = {
 };
 
 /** @internal */
-export function postLaserInitLateCallbackInit(mod: Mod): void {
+export function postLaserInitLateInit(mod: Mod): void {
   saveDataManager("postLaserInitLate", v, hasSubscriptions);
 
   mod.AddCallback(ModCallback.POST_LASER_UPDATE, postLaserUpdate); // 35

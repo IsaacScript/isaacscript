@@ -13,7 +13,7 @@ const v = {
 };
 
 /** @internal */
-export function postEffectStateChangedCallbackInit(mod: Mod): void {
+export function postEffectStateChangedInit(mod: Mod): void {
   saveDataManager("postEffectStateChanged", v, hasSubscriptions);
 
   mod.AddCallback(ModCallback.POST_EFFECT_UPDATE, postEffectUpdate); // 55

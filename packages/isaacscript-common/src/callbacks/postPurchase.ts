@@ -22,7 +22,7 @@ const v = {
 };
 
 /** @internal */
-export function postPurchaseCallbackInit(mod: ModUpgraded): void {
+export function postPurchaseInit(mod: ModUpgraded): void {
   saveDataManager("postPurchase", v, hasSubscriptions);
 
   mod.AddCallbackCustom(

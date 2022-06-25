@@ -12,7 +12,7 @@ const v = {
 };
 
 /** @internal */
-export function postFamiliarInitLateCallbackInit(mod: Mod): void {
+export function postFamiliarInitLateInit(mod: Mod): void {
   saveDataManager("postFamiliarInitLate", v, hasSubscriptions);
 
   mod.AddCallback(ModCallback.POST_FAMILIAR_UPDATE, postFamiliarUpdate); // 6

@@ -12,7 +12,7 @@ const v = {
 };
 
 /** @internal */
-export function postPickupInitLateCallbackInit(mod: Mod): void {
+export function postPickupInitLateInit(mod: Mod): void {
   saveDataManager("postPickupInitLate", v, hasSubscriptions);
 
   mod.AddCallback(ModCallback.POST_PICKUP_UPDATE, postPickupUpdate); // 35

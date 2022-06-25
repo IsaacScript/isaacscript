@@ -34,7 +34,7 @@ const v = {
 };
 
 /** @internal */
-export function postPlayerCollectibleCallbackInit(mod: Mod): void {
+export function postPlayerCollectibleCallbacksInit(mod: Mod): void {
   saveDataManager("postPlayerCollectible", v, hasSubscriptions);
 
   mod.AddCallback(ModCallback.POST_PEFFECT_UPDATE, postPEffectUpdate); // 4

@@ -178,7 +178,7 @@ function spawnTSTLWatcher() {
   tstl.stdout.on("data", (data: Buffer[]) => {
     const msg = data.toString().trim();
     if (msg.includes("Starting compilation in watch mode...")) {
-      const newMsg = `${PROJECT_NAME} is now watching for changes.`;
+      const newMsg = `${PROJECT_NAME} is now compiling the mod for the first time and watching for future changes.`;
       notifyGame.msg(newMsg);
     } else if (
       msg.includes("File change detected. Starting incremental compilation...")

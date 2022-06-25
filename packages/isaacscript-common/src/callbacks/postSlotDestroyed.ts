@@ -32,7 +32,7 @@ const v = {
 };
 
 /** @internal */
-export function postSlotDestroyedCallbacksInit(mod: ModUpgraded): void {
+export function postSlotDestroyedInit(mod: ModUpgraded): void {
   saveDataManager("postSlotDestroyed", v, hasSubscriptions);
 
   mod.AddCallback(

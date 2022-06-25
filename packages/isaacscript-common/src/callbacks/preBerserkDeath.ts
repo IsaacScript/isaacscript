@@ -10,7 +10,7 @@ import {
 } from "./subscriptions/preBerserkDeath";
 
 /** @internal */
-export function preBerserkDeathCallbackInit(mod: ModUpgraded): void {
+export function preBerserkDeathInit(mod: ModUpgraded): void {
   mod.AddCallbackCustom(
     ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
     postPEffectUpdateReordered,

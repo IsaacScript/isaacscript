@@ -15,7 +15,7 @@ const v = {
 };
 
 /** @internal */
-export function postNPCStateChangedCallbackInit(mod: Mod): void {
+export function postNPCStateChangedInit(mod: Mod): void {
   saveDataManager("postNPCStateChanged", v, hasSubscriptions);
 
   mod.AddCallback(ModCallback.POST_NPC_UPDATE, postNPCUpdate); // 0

@@ -7,6 +7,7 @@ import { postCollectibleInitFirstRegister } from "../callbacks/subscriptions/pos
 import { postCursedTeleportRegister } from "../callbacks/subscriptions/postCursedTeleport";
 import { postCustomDoorEnterRegister } from "../callbacks/subscriptions/postCustomDoorEnter";
 import { postCustomReviveRegister } from "../callbacks/subscriptions/postCustomRevive";
+import { postDiceRoomActivatedRegister } from "../callbacks/subscriptions/postDiceRoomActivated";
 import { postDoorRenderRegister } from "../callbacks/subscriptions/postDoorRender";
 import { postDoorUpdateRegister } from "../callbacks/subscriptions/postDoorUpdate";
 import { postEffectInitLateRegister } from "../callbacks/subscriptions/postEffectInitLate";
@@ -97,6 +98,7 @@ export const CALLBACK_REGISTER_FUNCTIONS: {
   [ModCallbackCustom.POST_CURSED_TELEPORT]: postCursedTeleportRegister,
   [ModCallbackCustom.POST_CUSTOM_DOOR_ENTER]: postCustomDoorEnterRegister,
   [ModCallbackCustom.POST_CUSTOM_REVIVE]: postCustomReviveRegister,
+  [ModCallbackCustom.POST_DICE_ROOM_ACTIVATED]: postDiceRoomActivatedRegister,
   [ModCallbackCustom.POST_DOOR_RENDER]: postDoorRenderRegister,
   [ModCallbackCustom.POST_DOOR_UPDATE]: postDoorUpdateRegister,
   [ModCallbackCustom.POST_EFFECT_INIT_LATE]: postEffectInitLateRegister,

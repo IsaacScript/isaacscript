@@ -24,7 +24,7 @@ const v = {
 };
 
 /** @internal */
-export function postPlayerChangeTypeCallbackInit(mod: ModUpgraded): void {
+export function postPlayerChangeTypeInit(mod: ModUpgraded): void {
   saveDataManager("postPlayerChangeType", v, hasSubscriptions);
 
   mod.AddCallbackCustom(

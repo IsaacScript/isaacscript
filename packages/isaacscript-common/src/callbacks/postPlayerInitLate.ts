@@ -14,7 +14,7 @@ const v = {
 };
 
 /** @internal */
-export function postPlayerInitLateCallbackInit(mod: Mod): void {
+export function postPlayerInitLateInit(mod: Mod): void {
   saveDataManager("postPlayerInitLate", v, hasSubscriptions);
 
   mod.AddCallback(ModCallback.POST_PLAYER_UPDATE, postPlayerUpdate); // 31

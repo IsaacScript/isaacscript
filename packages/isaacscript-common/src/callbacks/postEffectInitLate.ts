@@ -12,7 +12,7 @@ const v = {
 };
 
 /** @internal */
-export function postEffectInitLateCallbackInit(mod: Mod): void {
+export function postEffectInitLateInit(mod: Mod): void {
   saveDataManager("postEffectInitLate", v, hasSubscriptions);
 
   mod.AddCallback(ModCallback.POST_EFFECT_UPDATE, postEffectUpdate); // 55

@@ -7,6 +7,7 @@ import { PostCollectibleInitFirstRegisterParameters } from "../callbacks/subscri
 import { PostCursedTeleportRegisterParameters } from "../callbacks/subscriptions/postCursedTeleport";
 import { PostCustomDoorEnterRegisterParameters } from "../callbacks/subscriptions/postCustomDoorEnter";
 import { PostCustomReviveRegisterParameters } from "../callbacks/subscriptions/postCustomRevive";
+import { PostDiceRoomActivatedRegisterParameters } from "../callbacks/subscriptions/postDiceRoomActivated";
 import { PostDoorRenderRegisterParameters } from "../callbacks/subscriptions/postDoorRender";
 import { PostDoorUpdateRegisterParameters } from "../callbacks/subscriptions/postDoorUpdate";
 import { PostEffectInitLateRegisterParameters } from "../callbacks/subscriptions/postEffectInitLate";
@@ -91,6 +92,7 @@ export interface AddCallbackParameterCustom {
   [ModCallbackCustom.POST_CURSED_TELEPORT]: PostCursedTeleportRegisterParameters;
   [ModCallbackCustom.POST_CUSTOM_DOOR_ENTER]: PostCustomDoorEnterRegisterParameters;
   [ModCallbackCustom.POST_CUSTOM_REVIVE]: PostCustomReviveRegisterParameters;
+  [ModCallbackCustom.POST_DICE_ROOM_ACTIVATED]: PostDiceRoomActivatedRegisterParameters;
   [ModCallbackCustom.POST_DOOR_RENDER]: PostDoorRenderRegisterParameters;
   [ModCallbackCustom.POST_DOOR_UPDATE]: PostDoorUpdateRegisterParameters;
   [ModCallbackCustom.POST_EFFECT_INIT_LATE]: PostEffectInitLateRegisterParameters;

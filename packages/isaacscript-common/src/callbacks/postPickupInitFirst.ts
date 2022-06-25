@@ -23,7 +23,7 @@ const v = {
 };
 
 /** @internal */
-export function postPickupInitFirstCallbackInit(mod: Mod): void {
+export function postPickupInitFirstInit(mod: Mod): void {
   saveDataManager("postPickupInitFirst", v, hasSubscriptions);
 
   mod.AddCallback(ModCallback.POST_PICKUP_INIT, postPickupInit); // 34

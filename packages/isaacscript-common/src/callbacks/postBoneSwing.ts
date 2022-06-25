@@ -18,7 +18,7 @@ const v = {
 };
 
 /** @internal */
-export function postBoneSwingCallbackInit(mod: Mod): void {
+export function postBoneSwingInit(mod: Mod): void {
   saveDataManager("postBoneSwing", v, hasSubscriptions);
 
   mod.AddCallback(ModCallback.POST_KNIFE_RENDER, postKnifeRender); // 52

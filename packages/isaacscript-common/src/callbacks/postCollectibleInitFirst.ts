@@ -14,7 +14,7 @@ const v = {
 };
 
 /** @internal */
-export function postCollectibleInitFirstCallbackInit(mod: Mod): void {
+export function postCollectibleInitFirstInit(mod: Mod): void {
   saveDataManager("postCollectibleInitFirst", v, hasSubscriptions);
 
   mod.AddCallback(

@@ -13,7 +13,7 @@ const v = {
 };
 
 /** @internal */
-export function postFamiliarStateChangedCallbackInit(mod: Mod): void {
+export function postFamiliarStateChangedInit(mod: Mod): void {
   saveDataManager("postFamiliarStateChanged", v, hasSubscriptions);
 
   mod.AddCallback(ModCallback.POST_FAMILIAR_UPDATE, postFamiliarUpdate); // 6

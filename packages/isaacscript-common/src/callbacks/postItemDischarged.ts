@@ -45,7 +45,7 @@ const v = {
   },
 };
 
-export function postItemDischargeCallbackInit(mod: ModUpgraded): void {
+export function postItemDischargeInit(mod: ModUpgraded): void {
   saveDataManager("postItemDischarge", v, hasSubscriptions);
 
   mod.AddCallback(ModCallback.POST_PEFFECT_UPDATE, postPEffectUpdate); // 4

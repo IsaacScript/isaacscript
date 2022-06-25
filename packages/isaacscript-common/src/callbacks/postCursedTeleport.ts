@@ -32,7 +32,7 @@ const v = {
 };
 
 /** @internal */
-export function postCursedTeleportCallbackInit(mod: Mod): void {
+export function postCursedTeleportInit(mod: Mod): void {
   saveDataManager("postCursedTeleport", v, hasSubscriptions);
 
   mod.AddCallback(

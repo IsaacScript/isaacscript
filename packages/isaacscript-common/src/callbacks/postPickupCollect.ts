@@ -16,7 +16,7 @@ const v = {
 };
 
 /** @internal */
-export function postPickupCollectCallbackInit(mod: Mod): void {
+export function postPickupCollectInit(mod: Mod): void {
   saveDataManager("postPickupCollect", v, hasSubscriptions);
 
   mod.AddCallback(ModCallback.POST_PICKUP_RENDER, postPickupRender); // 36

@@ -20,7 +20,7 @@ const v = {
 };
 
 /** @internal */
-export function postHolyMantleRemovedCallbackInit(mod: ModUpgraded): void {
+export function postHolyMantleRemovedInit(mod: ModUpgraded): void {
   saveDataManager("postHolyMantleRemoved", v, hasSubscriptions);
 
   mod.AddCallbackCustom(

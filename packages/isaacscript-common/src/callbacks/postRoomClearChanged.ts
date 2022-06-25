@@ -15,7 +15,7 @@ const v = {
 };
 
 /** @internal */
-export function postRoomClearChangedCallbackInit(mod: ModUpgraded): void {
+export function postRoomClearChangedInit(mod: ModUpgraded): void {
   saveDataManager("postRoomClearChanged", v, hasSubscriptions);
 
   mod.AddCallback(ModCallback.POST_UPDATE, postUpdate); // 1

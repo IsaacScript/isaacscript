@@ -23,7 +23,7 @@ const v = {
 };
 
 /** @internal */
-export function postTransformationCallbackInit(mod: ModUpgraded): void {
+export function postTransformationInit(mod: ModUpgraded): void {
   saveDataManager("postTransformation", v, hasSubscriptions);
 
   mod.AddCallbackCustom(

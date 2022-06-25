@@ -22,7 +22,7 @@ const v = {
 };
 
 /** @internal */
-export function postPlayerFatalDamageCallbackInit(mod: Mod): void {
+export function postPlayerFatalDamageInit(mod: Mod): void {
   saveDataManager("postPlayerFatalDamage", v);
 
   mod.AddCallback(

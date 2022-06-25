@@ -14,7 +14,7 @@ const v = {
 };
 
 /** @internal */
-export function postGreedModeWaveCallbackInit(mod: ModUpgraded): void {
+export function postGreedModeWaveInit(mod: ModUpgraded): void {
   saveDataManager("postModeGreedWave", v, hasSubscriptions);
 
   mod.AddCallback(ModCallback.POST_UPDATE, postUpdate); // 1

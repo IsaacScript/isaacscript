@@ -12,7 +12,7 @@ const v = {
 };
 
 /** @internal */
-export function postProjectileInitLateCallbackInit(mod: Mod): void {
+export function postProjectileInitLateInit(mod: Mod): void {
   saveDataManager("postProjectileInitLate", v, hasSubscriptions);
 
   mod.AddCallback(ModCallback.POST_PROJECTILE_UPDATE, postProjectileUpdate); // 44

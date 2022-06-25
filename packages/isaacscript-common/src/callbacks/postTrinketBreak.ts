@@ -31,7 +31,7 @@ const v = {
 };
 
 /** @internal */
-export function postTrinketBreakCallbackInit(mod: ModUpgraded): void {
+export function postTrinketBreakInit(mod: ModUpgraded): void {
   saveDataManager("postTrinketBreak", v, hasSubscriptions);
 
   mod.AddCallback(

@@ -12,7 +12,7 @@ const v = {
 };
 
 /** @internal */
-export function postBombInitLateCallbackInit(mod: Mod): void {
+export function postBombInitLateInit(mod: Mod): void {
   saveDataManager("postBombInitLate", v, hasSubscriptions);
 
   mod.AddCallback(ModCallback.POST_BOMB_UPDATE, postBombUpdate); // 58

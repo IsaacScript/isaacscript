@@ -144,6 +144,19 @@ export enum ModCallbackCustom {
   POST_CUSTOM_REVIVE,
 
   /**
+   * Fires from the `EFFECT_POST_UPDATE` callback after a player has entered the range of a Dice
+   * Room floor.
+   *
+   * When registering the callback, takes an optional second argument that will make the callback
+   * only fire if the `DiceFloorSubType` type matches the one provided.
+   *
+   * ```ts
+   * function postDiceRoomActivated(player: EntityPlayer, diceFloorSubType: DiceFloorSubType) {}
+   * ```
+   */
+  POST_DICE_ROOM_ACTIVATED,
+
+  /**
    * Fires from the `POST_RENDER` callback on every frame that a door exists.
    *
    * When registering the callback, takes an optional second argument that will make the callback
