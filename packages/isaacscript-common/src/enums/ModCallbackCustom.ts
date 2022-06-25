@@ -793,7 +793,7 @@ export enum ModCallbackCustom {
    * prevent the fatal damage.
    *
    * Note that this function does properly take into account Guppy's Collar, Broken Ankh, Spirit
-   * Shackles, and Mysterious Paper.
+   * Shackles, and Mysterious Paper. It also takes into account using The Bible on Satan.
    *
    * - When registering the callback, takes an optional second argument that will make the callback
    *   only fire if the player matches the `PlayerVariant` provided.
