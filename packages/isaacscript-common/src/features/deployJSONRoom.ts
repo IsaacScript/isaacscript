@@ -22,6 +22,7 @@ import { DefaultMap } from "../classes/DefaultMap";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
+import { emptyArray } from "../functions/array";
 import {
   removeAllMatchingEntities,
   spawn,
@@ -49,9 +50,8 @@ import { setRoomCleared, setRoomUncleared } from "../functions/rooms";
 import { spawnCollectible } from "../functions/spawnCollectible";
 import { erange } from "../functions/utils";
 import { JSONRoom } from "../interfaces/JSONRoom";
+import { runNextGameFrame } from "./runInNFrames";
 import { saveDataManager } from "./saveDataManager/exports";
-
-const FEATURE_NAME = "JSON room deployer";
 
 interface PersistentEntityDescription {
   gridIndex: int;
@@ -59,6 +59,8 @@ interface PersistentEntityDescription {
   variant: int;
   subType: int;
 }
+
+const FEATURE_NAME = "JSON room deployer";
 
 const NPC_TYPES_TO_NOT_REMOVE: ReadonlySet<EntityType> = new Set([
   EntityType.DARK_ESAU,
@@ -80,6 +82,10 @@ const v = {
 
     /** Indexed by room list index. */
     roomToDecorationGridIndexesMap: new DefaultMap<int, int[]>(() => []),
+  },
+
+  room: {
+    manuallyUsingShovel: false,
   },
 };
 
@@ -106,16 +112,50 @@ function preUseItemWeNeedToGoDeeper(
   _rng: RNG,
   player: EntityPlayer,
 ): boolean | void {
-  const roomListIndex = getRoomListIndex();
-  if (!v.level.deployedRoomListIndexes.has(roomListIndex)) {
-    return;
+  if (v.room.manuallyUsingShovel) {
+    return undefined;
   }
 
-  const room = game.GetRoom();
-  const decoration = room.GetGridEntityFromPos(player.Position);
-  if (decoration !== undefined) {
-    removeGrid(decoration);
+  const roomListIndex = getRoomListIndex();
+  if (!v.level.deployedRoomListIndexes.has(roomListIndex)) {
+    return undefined;
   }
+
+  // If the player uses the shovel in a JSON room, then it will always reveal a crawlspace. This is
+  // because the room is filled with invisible decorations to prevent any grid entities from
+  // respawning. In order to restore the normal shovel functionality, we cancel the shovel use,
+  // remove all the decorations, wait a frame, manually use the shovel again, and then respawn the
+  // decorations. (We can't do it all on this frame because updating the room causes two invocations
+  // of the shovel to happen.)
+  const decorations = getGridEntities(GridEntityType.DECORATION);
+  for (const decoration of decorations) {
+    removeGrid(decoration, false);
+  }
+
+  const playerPtr = EntityPtr(player);
+  runNextGameFrame(() => {
+    const futureEntity = playerPtr.Ref;
+    if (futureEntity === undefined) {
+      return;
+    }
+
+    const futurePlayer = futureEntity.ToPlayer();
+    if (futurePlayer === undefined) {
+      return;
+    }
+
+    v.room.manuallyUsingShovel = true;
+    futurePlayer.UseActiveItem(CollectibleType.WE_NEED_TO_GO_DEEPER);
+    v.room.manuallyUsingShovel = false;
+
+    const decorationGridIndexes =
+      v.level.roomToDecorationGridIndexesMap.getAndSetDefault(roomListIndex);
+    emptyArray(decorationGridIndexes);
+    fillRoomWithDecorations();
+  });
+
+  // Cancel the effect.
+  return true;
 }
 
 // ModCallbackCustom.POST_NEW_ROOM_REORDERED

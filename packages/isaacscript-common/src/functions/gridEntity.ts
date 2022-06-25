@@ -304,23 +304,23 @@ export function isPostBossVoidPortal(gridEntity: GridEntity): boolean {
  */
 export function removeAllGridExcept(
   ...gridEntityTypes: GridEntityType[]
-): boolean {
+): GridEntity[] {
   const gridEntityTypeExceptions = new Set(gridEntityTypes);
   const gridEntities = getGridEntities();
-  let removedOneOrMoreGridEntities = false;
+  const removedGridEntities: GridEntity[] = [];
   for (const gridEntity of gridEntities) {
     const gridEntityType = gridEntity.GetType();
     if (!gridEntityTypeExceptions.has(gridEntityType)) {
       removeGrid(gridEntity, false);
-      removedOneOrMoreGridEntities = true;
+      removedGridEntities.push(gridEntity);
     }
   }
 
-  if (removedOneOrMoreGridEntities) {
+  if (removedGridEntities.length > 0) {
     roomUpdateSafe();
   }
 
-  return removedOneOrMoreGridEntities;
+  return removedGridEntities;
 }
 
 /**
@@ -337,14 +337,14 @@ export function removeAllGridExcept(
  * );
  * ```
  *
- * @returns True if one or more grid entities were removed, false otherwise.
+ * @returns An array of the grid entities removed.
  */
 export function removeAllMatchingGridEntities(
   ...gridEntityType: GridEntityType[]
-): boolean {
+): GridEntity[] {
   const gridEntities = getGridEntities(...gridEntityType);
   if (gridEntities.length === 0) {
-    return false;
+    return [];
   }
 
   for (const gridEntity of gridEntities) {
@@ -352,7 +352,7 @@ export function removeAllMatchingGridEntities(
   }
 
   roomUpdateSafe();
-  return true;
+  return gridEntities;
 }
 
 /**

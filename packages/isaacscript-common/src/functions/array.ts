@@ -170,6 +170,7 @@ export function copyArray<T>(
   return newArray;
 }
 
+/** Helper function to remove all of the elements in an array in-place. */
 export function emptyArray<T>(array: T[]): void {
   array.splice(0, array.length);
 }
