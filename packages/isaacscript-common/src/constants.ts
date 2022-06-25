@@ -29,9 +29,6 @@ export const BOMB_EXPLODE_FRAME = 45;
 
 export const DEFAULT_ITEM_POOL_TYPE = ItemPoolType.TREASURE;
 
-/** For `EntityType.EFFECT` (1000), `EffectVariant.DICE_FLOOR` (76) */
-export const DICE_FLOOR_TRIGGER_DISTANCE = 75;
-
 /** This is also the distance that a player spawns from the door that they enter a room from. */
 export const DISTANCE_OF_GRID_TILE = 40;
 

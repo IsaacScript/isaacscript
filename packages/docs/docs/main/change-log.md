@@ -28,6 +28,7 @@ This page lists the changes to the IsaacScript framework.
   - `doesPlayerHaveAllBlackHearts`
   - `getEntityFields`
   - `logTableDifferences`
+  - `isCloseEnoughToTriggerDiceFloor`
 - Renamed the following helper functions:
   - `getCurrentRoomDescriptorReadOnly` --> `getRoomDescriptorReadOnly`
   - `getCurrentDimension` --> `getDimension`

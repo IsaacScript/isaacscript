@@ -3,8 +3,8 @@ import {
   EffectVariant,
   ModCallback,
 } from "isaac-typescript-definitions";
-import { DICE_FLOOR_TRIGGER_DISTANCE } from "../constants";
 import { saveDataManager } from "../features/saveDataManager/exports";
+import { isCloseEnoughToTriggerDiceFloor } from "../functions/effects";
 import { getClosestPlayer } from "../functions/player";
 import {
   postDiceRoomActivatedFire,
@@ -43,9 +43,14 @@ function postEffectUpdateDiceFloor(effect: EntityEffect) {
     return;
   }
 
+  // When using the debug console to go to a dice room, the player can appear on top of the dice
+  // floor before they snap to the door.
+  if (effect.FrameCount === 0) {
+    return;
+  }
+
   const closestPlayer = getClosestPlayer(effect.Position);
-  const distance = effect.Position.Distance(closestPlayer.Position);
-  if (distance <= DICE_FLOOR_TRIGGER_DISTANCE) {
+  if (isCloseEnoughToTriggerDiceFloor(closestPlayer, effect)) {
     v.room.diceRoomActivated = true;
     postDiceRoomActivatedFire(
       closestPlayer,

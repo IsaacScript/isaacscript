@@ -62,6 +62,7 @@
     "src/functions/doors.ts",
     "src/functions/easing.ts",
     "src/functions/eden.ts",
+    "src/functions/effects.ts",
     "src/functions/entity.ts",
     "src/functions/entitySpecific.ts",
     "src/functions/entityTypes.ts",
