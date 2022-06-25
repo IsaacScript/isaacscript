@@ -3,6 +3,7 @@
  */
 
 import {
+  CollectibleType,
   Dimension,
   ItemPoolType,
   LevelStage,
@@ -52,7 +53,8 @@ export const EMPTY_PNG_PATH = "gfx/none.png";
  * encountered by the player. The first TMTRAINER item takes the final possible 32 bit number. The
  * second TMTRAINER item subtracts one from that, and so on.
  */
-export const FIRST_GLITCHED_COLLECTIBLE_TYPE = (1 << 32) - 1;
+export const FIRST_GLITCHED_COLLECTIBLE_TYPE = ((1 << 32) -
+  1) as CollectibleType;
 
 export const GAME_FRAMES_PER_SECOND = 30;
 export const GRID_INDEX_CENTER_OF_1X1_ROOM = 67;

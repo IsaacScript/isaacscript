@@ -551,6 +551,21 @@ export function setCollectibleEmpty(collectible: EntityPickup): void {
 }
 
 /**
+ * Helper function to change a collectible into a "glitched" item (like the ones that appear when
+ * the player has TMTRAINER).
+ */
+export function setCollectibleGlitched(collectible: EntityPickup): void {
+  if (!isCollectible(collectible)) {
+    const entityID = getEntityID(collectible);
+    error(
+      `The "setCollectibleGlitched" function was given a non-collectible: ${entityID}`,
+    );
+  }
+
+  // TODO
+}
+
+/**
  * Helper function to change the sprite of a collectible pedestal entity.
  *
  * For more information about removing the collectible sprite, see the documentation for the
