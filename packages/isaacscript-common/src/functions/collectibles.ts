@@ -10,7 +10,7 @@ import {
   RoomType,
 } from "isaac-typescript-definitions";
 import { game, itemConfig } from "../cachedClasses";
-import { BLIND_ITEM_PNG_PATH } from "../constants";
+import { BLIND_ITEM_PNG_PATH, DEFAULT_ITEM_POOL_TYPE } from "../constants";
 import {
   FIRST_COLLECTIBLE_TYPE,
   FIRST_MODDED_COLLECTIBLE_TYPE,
@@ -562,7 +562,21 @@ export function setCollectibleGlitched(collectible: EntityPickup): void {
     );
   }
 
-  // TODO
+  // We need to generate a new glitched item. Thus, we temporarily give the player TMTRAINER, if
+  // necessary.
+  const player = Isaac.GetPlayer();
+  const hasTMTRAINER = player.HasCollectible(CollectibleType.TMTRAINER);
+  if (!hasTMTRAINER) {
+    player.AddCollectible(CollectibleType.TMTRAINER, 0, false);
+  }
+
+  const itemPool = game.GetItemPool();
+  const collectibleType = itemPool.GetCollectible(DEFAULT_ITEM_POOL_TYPE);
+  setCollectibleSubType(collectible, collectibleType);
+
+  if (!hasTMTRAINER) {
+    player.RemoveCollectible(CollectibleType.TMTRAINER);
+  }
 }
 
 /**
