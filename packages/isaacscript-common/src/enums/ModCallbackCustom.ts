@@ -460,7 +460,7 @@ export enum ModCallbackCustom {
    * ```ts
    * function postItemDischarge(
    *   player: EntityPlayer,
-   *   collectibleType: CollectibleType | int,
+   *   collectibleType: CollectibleType,
    *   activeSlot: ActiveSlot,
    * ): void {}
    * ```
@@ -748,8 +748,8 @@ export enum ModCallbackCustom {
    * ```ts
    * function postPlayerChangeType(
    *   player: EntityPlayer,
-   *   oldCharacter: PlayerType | int,
-   *   newCharacter: PlayerType | int,
+   *   oldCharacter: PlayerType,
+   *   newCharacter: PlayerType,
    * ) {}
    * ```
    */
@@ -1039,11 +1039,13 @@ export enum ModCallbackCustom {
    * Fires from the `POST_RENDER` callback when a slot plays the animation that indicates that it
    * has broken.
    *
-   * When registering the callback, takes an optional second argument that will make the callback
-   * only fire if it matches the `SlotVariant` provided.
+   * - When registering the callback, takes an optional second argument that will make the callback
+   *   only fire if it matches the `SlotVariant` provided.
+   * - When registering the callback, takes an optional third argument that will make the callback
+   *   only fire if the destruction type matches the `SlotDestructionType` provided.
    *
    * ```ts
-   * function postSlotDestroyed(slot: Entity): void {}
+   * function postSlotDestroyed(slot: Entity, slotDestructionType: SlotDestructionType): void {}
    * ```
    */
   POST_SLOT_DESTROYED,
@@ -1196,7 +1198,7 @@ export enum ModCallbackCustom {
    * ```ts
    * function postTrinketBreak(
    *   player: EntityPlayer,
-   *   trinketType: TrinketType | int,
+   *   trinketType: TrinketType,
    * ): void {}
    * ```
    */

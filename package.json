@@ -97,7 +97,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "release-it": "^15.1.0",
-    "remark-cli": "^10.0.1",
+    "remark-cli": "^11.0.0",
     "remark-lint-match-punctuation": "^0.2.1",
     "remark-lint-no-dead-urls": "^1.1.0",
     "remark-lint-no-tabs": "^3.1.1",

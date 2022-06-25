@@ -1,26 +1,26 @@
-// Normally, when a slot is destroyed, it plays a specific animation and sticks around in the room.
-// Thus, for this case, we simply check for the animation changing.
+// Normally, when a slot is destroyed, the grid collision class changes to
+// `EntityGridCollisionClass.GROUND` and sticks around in the room. Thus, checking for this case is
+// simple.
 
-// The special case is when a slot pays out with a collectible item. In this case, it will not play
-// the broken animation. Instead, it will play the "Prize" animation for 3 game frames, and then
-// despawn (to be replaced by a collectible entity). Subsequently, we handle this case by assuming
-// that if the slot disappeared 3 frames after it changed to a prize animation, it was a destruction
-// pay-out.
+// The special case is when a slot pays out with a collectible item. In this case, it will not stay
+// in the room. Instead, it will play the "Prize" animation for 3 game frames, and then despawn (to
+// be replaced by a collectible entity). Subsequently, we handle this case by assuming that if the
+// slot disappeared 3 frames after it changed to a prize animation, it was a destruction pay-out.
 
-import { EntityType, ModCallback } from "isaac-typescript-definitions";
+import {
+  EntityGridCollisionClass,
+  EntityType,
+  ModCallback,
+} from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
+import { SlotDestructionType } from "../enums/SlotDestructionType";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import {
   postSlotDestroyedFire,
   postSlotDestroyedHasSubscriptions,
 } from "./subscriptions/postSlotDestroyed";
-
-const BROKEN_ANIMATIONS: ReadonlySet<string> = new Set([
-  "Broken", // Normal machines
-  "Death", // Restock machines
-]);
 
 const PRIZE_GAME_FRAME_DELAY_UNTIL_REMOVAL = 3;
 
@@ -63,7 +63,7 @@ function postEntityRemove(entity: Entity) {
   }
 
   if (prizeFrame + PRIZE_GAME_FRAME_DELAY_UNTIL_REMOVAL === gameFrameCount) {
-    postSlotDestroyedFire(slot);
+    postSlotDestroyedFire(slot, SlotDestructionType.COLLECTIBLE_PAYOUT);
   }
 }
 
@@ -77,13 +77,13 @@ function postSlotAnimationChanged(slot: EntitySlot) {
     return;
   }
 
-  const sprite = slot.GetSprite();
-  const animation = sprite.GetAnimation();
-  if (BROKEN_ANIMATIONS.has(animation)) {
+  if (slot.GridCollisionClass === EntityGridCollisionClass.GROUND) {
     v.room.brokenSlots.add(ptrHash);
-    postSlotDestroyedFire(slot);
+    postSlotDestroyedFire(slot, SlotDestructionType.NORMAL);
   }
 
+  const sprite = slot.GetSprite();
+  const animation = sprite.GetAnimation();
   if (animation === "Prize") {
     v.room.slotPrizeAnimationGameFrame.set(ptrHash, gameFrameCount);
   } else {

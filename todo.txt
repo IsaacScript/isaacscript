@@ -1,5 +1,4 @@
 implement in isaacscript-common:
 
 - calculate eye from tear
-- intercept shovel for decorations
 - StageAPI2

@@ -1,8 +1,13 @@
 import { SlotVariant } from "isaac-typescript-definitions";
+import { SlotDestructionType } from "../../enums/SlotDestructionType";
 
 export type PostSlotDestroyedRegisterParameters = [
-  callback: (slot: EntitySlot) => void,
+  callback: (
+    slot: EntitySlot,
+    slotDestructionType: SlotDestructionType,
+  ) => void,
   slotVariant?: SlotVariant,
+  slotDestructionType?: SlotDestructionType,
 ];
 
 const subscriptions: PostSlotDestroyedRegisterParameters[] = [];
@@ -20,13 +25,31 @@ export function postSlotDestroyedRegister(
 }
 
 /** @internal */
-export function postSlotDestroyedFire(slot: EntitySlot): void {
-  for (const [callback, slotVariant] of subscriptions) {
+export function postSlotDestroyedFire(
+  slot: EntitySlot,
+  slotDestructionType: SlotDestructionType,
+): void {
+  for (const [
+    callback,
+    callbackSlotVariant,
+    callbackSlotDestructionType,
+  ] of subscriptions) {
     // Handle the optional 2nd callback argument.
-    if (slotVariant !== undefined && slotVariant !== slot.Variant) {
+    if (
+      callbackSlotVariant !== undefined &&
+      callbackSlotVariant !== slot.Variant
+    ) {
       continue;
     }
 
-    callback(slot);
+    // Handle the optional 3rd callback argument.
+    if (
+      callbackSlotDestructionType !== undefined &&
+      callbackSlotDestructionType !== slotDestructionType
+    ) {
+      continue;
+    }
+
+    callback(slot, slotDestructionType);
   }
 }

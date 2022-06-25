@@ -30,7 +30,7 @@ function postRender(): void {}
 
 ```ts
 function useItem(
-  collectibleType: CollectibleType | int,
+  collectibleType: CollectibleType,
   rng: RNG,
   player: EntityPlayer,
   useFlags: BitFlags<UseFlag>,
@@ -49,7 +49,7 @@ function postPEffectUpdate(player: EntityPlayer): void {}
 
 ```ts
 function postUseCard(
-  card: Card | int,
+  card: Card,
   player: EntityPlayer,
   useFlags: BitFlags<UseFlag>,
 ): void {}
@@ -83,7 +83,7 @@ function postPlayerInit(player: EntityPlayer): void {}
 
 ```ts
 function postUsePill(
-  pillEffect: PillEffect | int,
+  pillEffect: PillEffect,
   player: EntityPlayer,
   useFlags: BitFlags<UseFlag>,
 ): void {}
@@ -152,11 +152,11 @@ function postNewRoom(): void {}
 ```ts
 function getCard(
   rng: RNG,
-  card: Card | int,
+  card: Card,
   includePlayingCards: boolean,
   includeRunes: boolean,
   onlyRunes: boolean,
-): Card | int | void {}
+): Card | void {}
 ```
 
 ### GET_SHADER_PARAMS (21)
@@ -179,7 +179,7 @@ function executeCmd(
 
 ```ts
 function preUseItem(
-  collectibleType: CollectibleType | int,
+  collectibleType: CollectibleType,
   rng: RNG,
 ): boolean | void {}
 ```
@@ -188,14 +188,14 @@ function preUseItem(
 
 ```ts
 function preEntitySpawn(
-  entityType: EntityType | int,
+  entityType: EntityType,
   variant: int,
   subType: int,
   position: Vector,
   velocity: Vector,
   spawner: Entity,
   initSeed: int,
-): [EntityType | int, int, int, int] | void {}
+): [EntityType, int, int, int] | void {}
 ```
 
 ### POST_FAMILIAR_RENDER (25)
@@ -290,9 +290,9 @@ function postPickupRender(pickup: EntityPickup, renderOffset: Vector): void {}
 ```ts
 function postPickupSelection(
   pickup: EntityPickup,
-  variant: PickupVariant | int,
+  variant: PickupVariant,
   subType: int,
-): [PickupVariant | int, int] | void {}
+): [PickupVariant, int] | void {}
 ```
 
 ### PRE_PICKUP_COLLISION (38)
@@ -469,42 +469,39 @@ function preGetCollectible(
   itemPoolType: ItemPoolType,
   decrease: boolean,
   seed: int,
-): CollectibleType | int | void {}
+): CollectibleType | void {}
 ```
 
 ### POST_GET_COLLECTIBLE (63)
 
 ```ts
 function postGetCollectible(
-  collectibleType: CollectibleType | int,
+  collectibleType: CollectibleType,
   itemPoolType: ItemPoolType,
   decrease: boolean,
   seed: int,
-): CollectibleType | int | void {}
+): CollectibleType | void {}
 ```
 
 ### GET_PILL_COLOR (64)
 
 ```ts
-function getPillColor(seed: int): PillColor | int | void {}
+function getPillColor(seed: int): PillColor | void {}
 ```
 
 ### GET_PILL_EFFECT (65)
 
 ```ts
 function getPillEffect(
-  pillEffect: PillEffect | int,
-  pillColor: PillColor | int,
-): PillEffect | int | void {}
+  pillEffect: PillEffect,
+  pillColor: PillColor,
+): PillEffect | void {}
 ```
 
 ### GET_TRINKET (66)
 
 ```ts
-function getTrinket(
-  trinketType: TrinketType | int,
-  rng: RNG,
-): TrinketType | int | void {}
+function getTrinket(trinketType: TrinketType, rng: RNG): TrinketType | void {}
 ```
 
 ### POST_ENTITY_REMOVE (67)
@@ -535,10 +532,10 @@ function preSpawnClearAward(rng: RNG, spawnPosition: Vector): boolean | void {}
 
 ```ts
 function preRoomEntitySpawn(
-  entityType: EntityType | int,
+  entityType: EntityType,
   variant: int,
   subType: int,
   gridIndex: int,
   seed: int,
-): [EntityType | int, int, int] | void {}
+): [EntityType, int, int] | void {}
 ```
