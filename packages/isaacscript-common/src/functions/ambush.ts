@@ -38,7 +38,9 @@ export function startAmbush(): void {
     const sackPtrHash = GetPtrHash(futureSack);
     const coins = getCoins();
     const coinsFromSack = coins.filter(
-      (pickup) => GetPtrHash(pickup) === sackPtrHash,
+      (pickup) =>
+        pickup.SpawnerEntity !== undefined &&
+        GetPtrHash(pickup.SpawnerEntity) === sackPtrHash,
     );
     removeEntities(coinsFromSack);
   });
