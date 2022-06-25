@@ -8527,10 +8527,10 @@ is-yarn-global@^0.3.0:
   resolved "https://registry.yarnpkg.com/is-yarn-global/-/is-yarn-global-0.3.0.tgz#d502d3382590ea3004893746754c89139973e232"
   integrity sha512-VjSeb/lHmkoyd8ryPVIKvOCn4D1koMqY+vqyjjUfc3xyKtP4dYOxM44sZrnqQSzSds3xyOrUTLTC9LVCVgLngw==
 
-isaac-typescript-definitions@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/isaac-typescript-definitions/-/isaac-typescript-definitions-2.1.1.tgz#5fe1a678d8f0461092398f8e5b6076bd2215486b"
-  integrity sha512-fZ8oczd43vvjSOsKCZJIk0ShhdKujcRwrSxR5FjXh+xiyry2ZZbsUX6Py3aLYs5TPgw2xg/9sIf7TDTfzlTGnQ==
+isaac-typescript-definitions@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/isaac-typescript-definitions/-/isaac-typescript-definitions-2.2.0.tgz#06daf383c03d40d4039c8577b0a4142b68d5e7c2"
+  integrity sha512-LCwXRMLTp55eOCaNrIl9GTh51y7rZyOIHA3M6GGUeFRmAXaS388pOXwS+Rfl9cHH4CDj+3iwPW81iEZr6yiyGQ==
   dependencies:
     lua-types "^2.11.0"
 
@@ -14910,10 +14910,10 @@ typedoc-plugin-markdown@^3.12.1:
   dependencies:
     handlebars "^4.7.7"
 
-typedoc@^0.22.17:
-  version "0.22.17"
-  resolved "https://registry.yarnpkg.com/typedoc/-/typedoc-0.22.17.tgz#bc51cc95f569040112504300831cdac4f8089b7b"
-  integrity sha512-h6+uXHVVCPDaANzjwzdsj9aePBjZiBTpiMpBBeyh1zcN2odVsDCNajz8zyKnixF93HJeGpl34j/70yoEE5BfNg==
+typedoc@^0.22.18:
+  version "0.22.18"
+  resolved "https://registry.yarnpkg.com/typedoc/-/typedoc-0.22.18.tgz#1d000c33b66b88fd8cdfea14a26113a83b7e6591"
+  integrity sha512-NK9RlLhRUGMvc6Rw5USEYgT4DVAUFk7IF7Q6MYfpJ88KnTZP7EneEa4RcP+tX1auAcz7QT1Iy0bUSZBYYHdoyA==
   dependencies:
     glob "^8.0.3"
     lunr "^2.3.9"

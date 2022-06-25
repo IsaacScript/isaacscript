@@ -1,4 +1,5 @@
-export enum DiceRoomSubType {
+/** For `EntityType.EFFECT` (1000), `EffectVariant.DICE_FLOOR` (76) */
+export enum DiceFloorSubType {
   /** Has the same effect as using a D4. */
   ONE_PIP = 0,
 
