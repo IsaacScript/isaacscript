@@ -6,7 +6,18 @@ export enum ModCallback {
   POST_PEFFECT_UPDATE = 4,
   POST_USE_CARD = 5,
   POST_FAMILIAR_UPDATE = 6,
+
+  /**
+   * Unlike in Afterbirth+, in Repentance this callback properly populates the following fields:
+   *
+   * - `Position`
+   * - `SpawnerEntity`
+   * - `SpawnerType`
+   * - `SpawnerVariant`
+   * - `Velocity`
+   */
   POST_FAMILIAR_INIT = 7,
+
   EVALUATE_CACHE = 8,
 
   /** This will fire at the beginning of a run and upon continuing a saved run. */
@@ -28,37 +39,125 @@ export enum ModCallback {
   PRE_ENTITY_SPAWN = 24,
   POST_FAMILIAR_RENDER = 25,
   PRE_FAMILIAR_COLLISION = 26,
+
+  /**
+   * Unlike in Afterbirth+, in Repentance this callback properly populates the following fields:
+   *
+   * - `Position`
+   * - `SpawnerEntity`
+   * - `SpawnerType`
+   * - `SpawnerVariant`
+   * - `Velocity`
+   */
   POST_NPC_INIT = 27,
+
   POST_NPC_RENDER = 28,
   POST_NPC_DEATH = 29,
   PRE_NPC_COLLISION = 30,
   POST_PLAYER_UPDATE = 31,
   POST_PLAYER_RENDER = 32,
   PRE_PLAYER_COLLISION = 33,
+
+  /**
+   * Unlike in Afterbirth+, in Repentance this callback properly populates the following fields:
+   *
+   * - `Position`
+   * - `SpawnerEntity`
+   * - `SpawnerType`
+   * - `SpawnerVariant`
+   * - `Velocity`
+   */
   POST_PICKUP_INIT = 34,
+
   POST_PICKUP_UPDATE = 35,
   POST_PICKUP_RENDER = 36,
   POST_PICKUP_SELECTION = 37,
   PRE_PICKUP_COLLISION = 38,
+
+  /**
+   * Unlike in Afterbirth+, in Repentance this callback properly populates the following fields:
+   *
+   * - `Position`
+   * - `SpawnerEntity`
+   * - `SpawnerType`
+   * - `SpawnerVariant`
+   * - `Velocity`
+   */
   POST_TEAR_INIT = 39,
+
   POST_TEAR_UPDATE = 40,
   POST_TEAR_RENDER = 41,
   PRE_TEAR_COLLISION = 42,
+
+  /**
+   * Unlike in Afterbirth+, in Repentance this callback properly populates the following fields:
+   *
+   * - `Position`
+   * - `SpawnerEntity`
+   * - `SpawnerType`
+   * - `SpawnerVariant`
+   * - `Velocity`
+   */
   POST_PROJECTILE_INIT = 43,
+
   POST_PROJECTILE_UPDATE = 44,
   POST_PROJECTILE_RENDER = 45,
   PRE_PROJECTILE_COLLISION = 46,
+
+  /**
+   * Unlike in Afterbirth+, in Repentance this callback properly populates the following fields:
+   *
+   * - `Position`
+   * - `SpawnerEntity`
+   * - `SpawnerType`
+   * - `SpawnerVariant`
+   * - `Velocity`
+   */
   POST_LASER_INIT = 47,
+
   POST_LASER_UPDATE = 48,
   POST_LASER_RENDER = 49,
+
+  /**
+   * Unlike in Afterbirth+, in Repentance this callback properly populates the following fields:
+   *
+   * - `Position`
+   * - `SpawnerEntity`
+   * - `SpawnerType`
+   * - `SpawnerVariant`
+   * - `Velocity`
+   */
   POST_KNIFE_INIT = 50,
+
   POST_KNIFE_UPDATE = 51,
   POST_KNIFE_RENDER = 52,
   PRE_KNIFE_COLLISION = 53,
+
+  /**
+   * Unlike in Afterbirth+, in Repentance this callback properly populates the following fields:
+   *
+   * - `Position`
+   * - `SpawnerEntity`
+   * - `SpawnerType`
+   * - `SpawnerVariant`
+   * - `Velocity`
+   */
   POST_EFFECT_INIT = 54,
+
   POST_EFFECT_UPDATE = 55,
   POST_EFFECT_RENDER = 56,
+
+  /**
+   * Unlike in Afterbirth+, in Repentance this callback properly populates the following fields:
+   *
+   * - `Position`
+   * - `SpawnerEntity`
+   * - `SpawnerType`
+   * - `SpawnerVariant`
+   * - `Velocity`
+   */
   POST_BOMB_INIT = 57,
+
   POST_BOMB_UPDATE = 58,
   POST_BOMB_RENDER = 59,
   PRE_BOMB_COLLISION = 60,

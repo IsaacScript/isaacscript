@@ -196,7 +196,7 @@ declare global {
         subType: int,
         position: Vector,
         velocity: Vector,
-        spawner: Entity,
+        spawner: Entity | undefined,
         initSeed: Seed,
       ) => [EntityType, int, int, int] | void,
     ];
