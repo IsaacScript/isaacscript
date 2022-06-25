@@ -28,6 +28,9 @@ export const BLIND_ITEM_PNG_PATH = "gfx/items/collectibles/questionmark.png";
 /** Bombs explode when their frame count is equal to this value. */
 export const BOMB_EXPLODE_FRAME = 45;
 
+/** This is the initial value of the `EntityPickup.Wait` property after a collectible is spawned. */
+export const COLLECTIBLE_STARTING_WAIT = 20;
+
 export const DEFAULT_ITEM_POOL_TYPE = ItemPoolType.TREASURE;
 
 /** This is also the distance that a player spawns from the door that they enter a room from. */
