@@ -5,8 +5,8 @@ function tryDecode(this: void, jsonString: string) {
   return json.decode(jsonString) as LuaTable;
 }
 
-function tryEncode(this: void, table: unknown) {
-  return json.encode(table);
+function tryEncode(this: void, luaTable: unknown) {
+  return json.encode(luaTable);
 }
 
 /**
@@ -35,8 +35,8 @@ export function jsonDecode(jsonString: string): LuaTable<AnyNotNil, unknown> {
  * fails, it will throw an error to prevent writing a blank string or corrupted data to a user's
  * "save#.dat" file.
  */
-export function jsonEncode(table: unknown): string {
-  const [ok, jsonStringOrErrMsg] = pcall(tryEncode, table);
+export function jsonEncode(luaTable: unknown): string {
+  const [ok, jsonStringOrErrMsg] = pcall(tryEncode, luaTable);
   if (!ok) {
     error(`Failed to convert the Lua table to JSON: ${jsonStringOrErrMsg}`);
   }

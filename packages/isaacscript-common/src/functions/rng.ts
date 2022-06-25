@@ -117,8 +117,7 @@ export function isSerializedRNG(object: unknown): object is SerializedRNG {
     return false;
   }
 
-  const table = object as LuaTable<AnyNotNil, unknown>;
-  return tableHasKeys(table, ...KEYS) && table.has(SerializationBrand.RNG);
+  return tableHasKeys(object, ...KEYS) && object.has(SerializationBrand.RNG);
 }
 
 /**

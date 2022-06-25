@@ -554,7 +554,11 @@ export function logSounds(this: void): void {
  * This function will only work on tables that have string keys (because it logs the keys in order,
  * instead of randomly). It will throw a runtime error if it encounters a non-string key.
  */
-export function logTable(this: void, table: unknown, parentTables = 0): void {
+export function logTable(
+  this: void,
+  luaTable: unknown,
+  parentTables = 0,
+): void {
   if (parentTables === 0) {
     log("Printing out a Lua table:");
   }
@@ -562,14 +566,14 @@ export function logTable(this: void, table: unknown, parentTables = 0): void {
   const numSpaces = (parentTables + 1) * 2; // 2, 4, 6, etc.
   const indentation = " ".repeat(numSpaces);
 
-  if (!isTable(table)) {
+  if (!isTable(luaTable)) {
     log(
-      `${indentation}n/a (encountered a variable of type "${typeof table}" instead of a table)`,
+      `${indentation}n/a (encountered a variable of type "${typeof luaTable}" instead of a table)`,
     );
     return;
   }
 
-  iterateTableInOrder(table, (key, value) => {
+  iterateTableInOrder(luaTable, (key, value) => {
     log(`${indentation}${key} --> ${value}`);
 
     if (isTable(value)) {
@@ -583,7 +587,7 @@ export function logTable(this: void, table: unknown, parentTables = 0): void {
     }
   });
 
-  log(`${indentation}The size of the table was: ${table.length()}`);
+  log(`${indentation}The size of the table was: ${luaTable.length()}`);
 }
 
 /**

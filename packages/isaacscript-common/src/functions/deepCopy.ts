@@ -115,24 +115,28 @@ export function deepCopy(
 }
 
 function deepCopyTable(
-  table: LuaTable<AnyNotNil, unknown>,
+  luaTable: LuaTable<AnyNotNil, unknown>,
   serializationType: SerializationType,
   traversalDescription: string,
 ) {
   // First, handle the cases of TSTL classes or serialized TSTL classes.
-  if (isDefaultMap(table) || table.has(SerializationBrand.DEFAULT_MAP)) {
-    return deepCopyDefaultMap(table, serializationType, traversalDescription);
+  if (isDefaultMap(luaTable) || luaTable.has(SerializationBrand.DEFAULT_MAP)) {
+    return deepCopyDefaultMap(
+      luaTable,
+      serializationType,
+      traversalDescription,
+    );
   }
 
-  if (isTSTLMap(table) || table.has(SerializationBrand.MAP)) {
-    return deepCopyMap(table, serializationType, traversalDescription);
+  if (isTSTLMap(luaTable) || luaTable.has(SerializationBrand.MAP)) {
+    return deepCopyMap(luaTable, serializationType, traversalDescription);
   }
 
-  if (isTSTLSet(table) || table.has(SerializationBrand.SET)) {
-    return deepCopySet(table, serializationType, traversalDescription);
+  if (isTSTLSet(luaTable) || luaTable.has(SerializationBrand.SET)) {
+    return deepCopySet(luaTable, serializationType, traversalDescription);
   }
 
-  const className = getTSTLClassName(table);
+  const className = getTSTLClassName(luaTable);
 
   if (className === "WeakMap") {
     error(
@@ -146,28 +150,32 @@ function deepCopyTable(
     );
   }
 
-  if (isUserDefinedTSTLClass(table)) {
-    return deepCopyTSTLClass(table, serializationType, traversalDescription);
+  if (isUserDefinedTSTLClass(luaTable)) {
+    return deepCopyTSTLClass(luaTable, serializationType, traversalDescription);
   }
 
   // This is not a TSTL Map/Set/class. If it has a metatable, abort.
-  checkMetatable(table, traversalDescription);
+  checkMetatable(luaTable, traversalDescription);
 
   // Handle the special case of serialized Isaac API classes.
   if (
-    isSerializedIsaacAPIClass(table) &&
+    isSerializedIsaacAPIClass(luaTable) &&
     serializationType === SerializationType.DESERIALIZE
   ) {
-    return deserializeIsaacAPIClass(table);
+    return deserializeIsaacAPIClass(luaTable);
   }
 
   // Handle the special case of an array.
-  if (isArray(table)) {
-    return deepCopyArray(table, serializationType, traversalDescription);
+  if (isArray(luaTable)) {
+    return deepCopyArray(luaTable, serializationType, traversalDescription);
   }
 
   // Base case: copy a normal Lua table
-  return deepCopyNormalLuaTable(table, serializationType, traversalDescription);
+  return deepCopyNormalLuaTable(
+    luaTable,
+    serializationType,
+    traversalDescription,
+  );
 }
 
 function deepCopyDefaultMap(
@@ -400,13 +408,13 @@ function deepCopyArray(
 }
 
 function deepCopyNormalLuaTable(
-  table: LuaTable<AnyNotNil, unknown>,
+  luaTable: LuaTable<AnyNotNil, unknown>,
   serializationType: SerializationType,
   traversalDescription: string,
 ) {
   const newTable = new LuaTable<AnyNotNil, unknown>();
   const { entries, convertedNumberKeysToStrings } = getCopiedEntries(
-    table,
+    luaTable,
     serializationType,
     traversalDescription,
   );
@@ -483,8 +491,8 @@ function getCopiedEntries(
  * copy function will refuse to copy a table type that has a metatable, outside of specifically
  * supported TSTL objects.
  */
-function checkMetatable(table: LuaTable, traversalDescription: string) {
-  const metatable = getmetatable(table);
+function checkMetatable(luaTable: LuaTable, traversalDescription: string) {
+  const metatable = getmetatable(luaTable);
   if (metatable === undefined) {
     return;
   }

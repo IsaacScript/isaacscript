@@ -4,9 +4,9 @@ import { isBoolean, isNumber, isString } from "./types";
  * In a Map, you can use the `clear` method to delete every element. However, in a LuaTable, the
  * `clear` method does not exist. Use this helper function as a drop-in replacement for this.
  */
-export function clearTable(table: LuaTable): void {
-  for (const [key] of pairs(table)) {
-    table.delete(key);
+export function clearTable(luaTable: LuaTable): void {
+  for (const [key] of pairs(luaTable)) {
+    luaTable.delete(key);
   }
 }
 
@@ -14,13 +14,13 @@ export function clearTable(table: LuaTable): void {
 export function copyValuesToTable(
   object: unknown,
   keys: string[],
-  table: LuaTable<string, unknown>,
+  luaTable: LuaTable<string, unknown>,
 ): void {
   const otherTable = object as LuaTable<string, string | number>;
 
   for (const key of keys) {
     const value = otherTable.get(key);
-    table.set(key, value);
+    luaTable.set(key, value);
   }
 }
 
@@ -31,13 +31,13 @@ export function copyValuesToTable(
  * This function is variadic, meaning that you can specify N arguments to get N values.
  */
 export function getBooleansFromTable(
-  table: LuaTable<string, unknown>,
+  luaTable: LuaTable<string, unknown>,
   objectName: string,
   ...keys: string[]
 ): boolean[] {
   const booleans: boolean[] = [];
   for (const key of keys) {
-    const value = table.get(key);
+    const value = luaTable.get(key);
     if (value === undefined) {
       error(
         `Failed to find a value for "${key}" in a table representing a "${objectName}" object.`,
@@ -63,13 +63,13 @@ export function getBooleansFromTable(
  * This function is variadic, meaning that you can specify N arguments to get N values.
  */
 export function getNumbersFromTable(
-  table: LuaTable<string, unknown>,
+  luaTable: LuaTable<string, unknown>,
   objectName: string,
   ...keys: string[]
 ): number[] {
   const numbers: number[] = [];
   for (const key of keys) {
-    const value = table.get(key);
+    const value = luaTable.get(key);
     if (value === undefined) {
       error(
         `Failed to find a value for "${key}" in a table representing a "${objectName}" object.`,
@@ -103,13 +103,13 @@ export function getNumbersFromTable(
  * This function is variadic, meaning that you can specify N arguments to get N values.
  */
 export function getStringsFromTable(
-  table: LuaTable<string, unknown>,
+  luaTable: LuaTable<string, unknown>,
   objectName: string,
   ...keys: string[]
 ): string[] {
   const strings: string[] = [];
   for (const key of keys) {
-    const value = table.get(key);
+    const value = luaTable.get(key);
     if (value === undefined) {
       error(
         `Failed to find a value for "${key}" in a table representing a "${objectName}" object.`,
@@ -136,26 +136,26 @@ export function getStringsFromTable(
  * This function will only work on tables that have string keys. It will throw a runtime error if it
  * encounters a non-string key.
  *
- * @param table The table to iterate over.
+ * @param luaTable The table to iterate over.
  * @param func The function to run for each iteration.
  * @param inOrder Optional. Whether to iterate in order. True by default. You can dynamically set to
  *                false in situations where iterating randomly would not matter and you need the
  *                extra performance.
  */
 export function iterateTableInOrder<K, V>(
-  table: LuaTable<K, V>,
+  luaTable: LuaTable<K, V>,
   func: (key: K, value: V) => void,
   inOrder = true,
 ): void {
   // First, handle the trivial case of a non-deterministic iteration.
   if (!inOrder) {
-    for (const [key, value] of pairs(table)) {
+    for (const [key, value] of pairs(luaTable)) {
       func(key, value);
     }
     return;
   }
 
-  const keys = Object.keys(table);
+  const keys = Object.keys(luaTable);
   if (keys.some((key) => !isString(key))) {
     error(
       "Failed to iterate over a table in order since it has non-string keys.",
@@ -165,7 +165,7 @@ export function iterateTableInOrder<K, V>(
 
   for (const key of keys) {
     const keyIndex = key as unknown as K;
-    const value = table.get(keyIndex);
+    const value = luaTable.get(keyIndex);
     func(keyIndex, value);
   }
 }
@@ -177,8 +177,8 @@ export function iterateTableInOrder<K, V>(
  * for.
  */
 export function tableHasKeys(
-  table: LuaTable<AnyNotNil, unknown>,
+  luaTable: LuaTable<AnyNotNil, unknown>,
   ...keys: string[]
 ): boolean {
-  return keys.every((key) => table.has(key));
+  return keys.every((key) => luaTable.has(key));
 }

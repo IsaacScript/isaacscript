@@ -36,6 +36,7 @@ This page lists the changes to the IsaacScript framework.
   - `isBoolean`
   - `isNumber`
   - `isString`
+  - `isFunction`
 - Renamed the following helper functions:
   - `getCurrentRoomDescriptorReadOnly` --> `getRoomDescriptorReadOnly`
   - `getCurrentDimension` --> `getDimension`
