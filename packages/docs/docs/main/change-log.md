@@ -29,6 +29,7 @@ This page lists the changes to the IsaacScript framework.
   - `getEntityFields`
   - `logTableDifferences`
   - `isCloseEnoughToTriggerDiceFloor`
+  - `setCollectibleGlitched`
 - Renamed the following helper functions:
   - `getCurrentRoomDescriptorReadOnly` --> `getRoomDescriptorReadOnly`
   - `getCurrentDimension` --> `getDimension`

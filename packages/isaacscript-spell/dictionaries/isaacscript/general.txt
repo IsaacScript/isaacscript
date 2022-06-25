@@ -6,6 +6,7 @@ bitmask
 bootstrapper
 cacheable
 easings
+interactable
 keyof
 leaderboard
 leaderboards

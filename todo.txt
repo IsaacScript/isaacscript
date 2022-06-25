@@ -1,7 +1,6 @@
 implement in isaacscript-common:
 
-- collectible morph to glitched item
+- function to start challenge room
 - bible detection for POST FATAL DAMAGE
 - intercept shovel for decorations
-- function to start challenge room
 - StageAPI2
