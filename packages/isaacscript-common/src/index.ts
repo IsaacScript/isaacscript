@@ -46,7 +46,6 @@ export { removeFadeIn, restoreFadeIn } from "./features/fadeInRemover";
 export { disableFastReset, enableFastReset } from "./features/fastReset";
 export { forgottenSwitch } from "./features/forgottenSwitch";
 export { getCollectibleItemPoolType } from "./features/getCollectibleItemPoolType";
-export { getEyeFromTear } from "./features/getEyeFromTear";
 export {
   removePersistentEntity,
   spawnPersistentEntity,
