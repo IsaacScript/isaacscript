@@ -27,6 +27,7 @@ This page lists the changes to the IsaacScript framework.
   - `doesPlayerHaveAllSoulHearts`
   - `doesPlayerHaveAllBlackHearts`
   - `getEntityFields`
+  - `logTableDifferences`
 - Renamed the following helper functions:
   - `getCurrentRoomDescriptorReadOnly` --> `getRoomDescriptorReadOnly`
   - `getCurrentDimension` --> `getDimension`
