@@ -8,7 +8,6 @@ import { fadeInRemoverInit } from "./features/fadeInRemover";
 import { fastResetInit } from "./features/fastReset";
 import { forgottenSwitchInit } from "./features/forgottenSwitch";
 import { getCollectibleItemPoolTypeInit } from "./features/getCollectibleItemPoolType";
-import { getEyeFromTearInit } from "./features/getEyeFromTear";
 import { persistentEntitiesInit } from "./features/persistentEntities";
 import { playerInventoryInit } from "./features/playerInventory";
 import { ponyDetectionInit } from "./features/ponyDetection";
@@ -31,7 +30,6 @@ export function initFeaturesMinor(mod: ModUpgraded): void {
   fastResetInit(mod);
   forgottenSwitchInit(mod);
   getCollectibleItemPoolTypeInit(mod);
-  getEyeFromTearInit(mod);
   persistentEntitiesInit(mod);
   playerInventoryInit(mod);
   ponyDetectionInit(mod);
