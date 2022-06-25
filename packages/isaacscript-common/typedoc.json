@@ -40,6 +40,7 @@
     "src/features/saveDataManager/exports.ts",
     "src/features/sirenHelpers.ts",
     "src/features/taintedLazarusPlayers.ts",
+    "src/functions/ambush.ts",
     "src/functions/array.ts",
     "src/functions/benchmark.ts",
     "src/functions/bombs.ts",

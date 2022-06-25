@@ -620,12 +620,6 @@ export function setRoomUncleared(): void {
 }
 
 /**
- * Helper function to start a Challenge Room or the Boss Rush. Specifically, this is performed by
- * spawning a chest, TODO.
- */
-export function startAmbush(): void {}
-
-/**
  * Helper function to change the current room. It can be used for both teleportation and "normal"
  * room transitions, depending on what is passed for the `direction` and `roomTransitionAnim`
  * arguments. Use this function instead of invoking the `Game.StartRoomTransition` method directly

@@ -65,6 +65,7 @@ export {
   setFamiliarNoSirenSteal,
 } from "./features/sirenHelpers";
 export { getTaintedLazarusSubPlayer } from "./features/taintedLazarusPlayers";
+export * from "./functions/ambush";
 export * from "./functions/array";
 export * from "./functions/benchmark";
 export * from "./functions/bitwise";
