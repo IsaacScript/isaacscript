@@ -23,7 +23,7 @@ import { getIsaacAPIClassName } from "./isaacAPIClass";
 import { getEffectsList, getPlayerName } from "./player";
 import { getPlayerHealth } from "./playerHealth";
 import { getRoomData, getRoomGridIndex, getRoomListIndex } from "./roomData";
-import { getSortedSetValues } from "./set";
+import { combineSets, getSortedSetValues } from "./set";
 import { getTrinketName } from "./trinkets";
 import { printConsole } from "./utils";
 import { vectorToString } from "./vector";
@@ -583,6 +583,41 @@ export function logTable(this: void, table: unknown, parentTables = 0): void {
   }
 
   log(`${indentation}The size of the table was: ${keys.length}`);
+}
+
+/**
+ * Helper function to print out the differences between the entries of two tables. Note that this
+ * will only do a shallow comparison.
+ */
+export function logTableDifferences<K, V>(
+  table1: LuaTable<K, V>,
+  table2: LuaTable<K, V>,
+): void {
+  log("Comparing two Lua tables:");
+
+  const table1Keys = Object.keys(table1);
+  const table1KeysSet = new Set(table1Keys);
+
+  const table2Keys = Object.keys(table2);
+  const table2KeysSet = new Set(table2Keys);
+
+  const keysSet = combineSets(table1KeysSet, table2KeysSet);
+  const keys = [...keysSet.values()];
+  keys.sort();
+
+  for (const key of keys) {
+    if (!table1KeysSet.has(key)) {
+      log(`  Table 1 is missing key: ${key}`);
+    } else if (!table2KeysSet.has(key)) {
+      log(`  Table 2 is missing key: ${key}`);
+    } else {
+      const value1 = table1.get(key as unknown as K);
+      const value2 = table2.get(key as unknown as K);
+      if (value1 !== value2) {
+        log(`  ${key} --> "${value1}" versus "${value2}"`);
+      }
+    }
+  }
 }
 
 /** Helper function for printing out every tear flag that is turned on. Useful when debugging. */
