@@ -1,12 +1,20 @@
-import { HeartSubType, PlayerType } from "isaac-typescript-definitions";
+import {
+  ActiveSlot,
+  CollectibleType,
+  HeartSubType,
+  PlayerType,
+} from "isaac-typescript-definitions";
 import { MAX_PLAYER_HEART_CONTAINERS } from "../constants";
 import { HealthType } from "../enums/HealthType";
 import { PlayerHealth } from "../interfaces/PlayerHealth";
+import { getTotalCharge } from "./charge";
+import { getEnumValues } from "./enums";
 import {
   getPlayerBlackHearts,
   getPlayerHearts,
   getPlayerSoulHearts,
   isCharacter,
+  setActiveItem,
 } from "./player";
 import { ensureAllCases, repeat } from "./utils";
 
@@ -211,6 +219,23 @@ export function getPlayerHealthType(
   }
 }
 
+/** Returns a `PlayerHealth` object with all 0s. */
+export function newPlayerHealth(): PlayerHealth {
+  return {
+    maxHearts: 0,
+    hearts: 0,
+    eternalHearts: 0,
+    soulHearts: 0,
+    boneHearts: 0,
+    goldenHearts: 0,
+    rottenHearts: 0,
+    brokenHearts: 0,
+    soulCharges: 0,
+    bloodCharges: 0,
+    soulHeartTypes: [],
+  };
+}
+
 export function playerConvertBlackHeartsToSoulHearts(
   player: EntityPlayer,
 ): void {
@@ -277,6 +302,19 @@ export function setPlayerHealth(
 
   removeAllPlayerHealth(player);
 
+  // Before we add any health, we have to take away Alabaster Box, if present.
+  const alabasterBoxes: Array<[slot: ActiveSlot, totalCharge: int]> = [];
+  if (player.HasCollectible(CollectibleType.ALABASTER_BOX)) {
+    for (const activeSlot of getEnumValues(ActiveSlot)) {
+      const activeItem = player.GetActiveItem();
+      if (activeItem === CollectibleType.ALABASTER_BOX) {
+        const totalCharge = getTotalCharge(player, activeSlot);
+        setActiveItem(player, CollectibleType.NULL, activeSlot);
+        alabasterBoxes.push([activeSlot, totalCharge]);
+      }
+    }
+  }
+
   // Add the red heart containers.
   if (character === PlayerType.THE_SOUL && subPlayer !== undefined) {
     // Adding health to The Soul is a special case.
@@ -338,5 +376,15 @@ export function setPlayerHealth(
     player.SetSoulCharge(playerHealth.soulCharges);
   } else if (character === PlayerType.BETHANY_B) {
     player.SetBloodCharge(playerHealth.bloodCharges);
+  }
+
+  // Re-add the Alabaster Box, if present.
+  for (const [activeSlot, totalCharge] of alabasterBoxes) {
+    setActiveItem(
+      player,
+      CollectibleType.ALABASTER_BOX,
+      activeSlot,
+      totalCharge,
+    );
   }
 }

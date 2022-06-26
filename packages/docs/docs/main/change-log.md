@@ -39,6 +39,7 @@ This page lists the changes to the IsaacScript framework.
   - `isNumber`
   - `isString`
   - `isFunction`
+  - `newPlayerHealth`
 - Renamed the following helper functions:
   - `getCurrentRoomDescriptorReadOnly` --> `getRoomDescriptorReadOnly`
   - `getCurrentDimension` --> `getDimension`
