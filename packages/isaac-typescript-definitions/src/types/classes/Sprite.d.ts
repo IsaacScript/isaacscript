@@ -37,10 +37,15 @@ declare interface Sprite {
   Reload(): void;
   RemoveOverlay(): void;
 
+  /**
+   * @param position
+   * @param topLeftClamp Default is `Vector.Zero`.
+   * @param bottomRightClamp Default is `Vector.Zero`.
+   */
   Render(
     position: Vector,
-    topLeftClamp: Vector,
-    bottomRightClamp: Vector,
+    topLeftClamp?: Vector,
+    bottomRightClamp?: Vector,
   ): void;
 
   /**
