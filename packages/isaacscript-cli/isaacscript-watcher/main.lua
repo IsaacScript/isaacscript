@@ -21,11 +21,11 @@ font:Load("font/pftempestasevencondensed.fnt") -- A vanilla font good for this k
 local connected = false
 local sprite = nil
 
-local IsaacScriptWatcher = RegisterMod("IsaacScript Watcher", 1)
+local mod = RegisterMod("IsaacScript Watcher", 1)
 
 -- On mod initialization, nuke the "save#.dat" folder to get rid of old messages that might be left
 -- there from IsaacScript.
-IsaacScriptWatcher:SaveData("")
+mod:SaveData("")
 
 local function pushMessageArray(msg)
   frameOfLastMsg = Isaac.GetFrameCount()
@@ -45,20 +45,20 @@ local function getScreenBottomRightPos()
 end
 
 -- ModCallbacks.MC_POST_RENDER (2)
-function IsaacScriptWatcher:PostRender()
+function mod:PostRender()
   -- Don't do anything while fading in to a new run to prevent crashes.
   if game:GetFrameCount() < 1 then
     return
   end
 
-  IsaacScriptWatcher:RenderSprite()
-  IsaacScriptWatcher:RenderText()
-  IsaacScriptWatcher:LoadSaveDat()
-  IsaacScriptWatcher:CheckInput()
-  IsaacScriptWatcher:CheckRestart()
+  mod:RenderSprite()
+  mod:RenderText()
+  mod:LoadSaveDat()
+  mod:CheckInput()
+  mod:CheckRestart()
 end
 
-function IsaacScriptWatcher:RenderSprite()
+function mod:RenderSprite()
   -- Determine if IsaacScript is connected or not.
   local frameCount = Isaac.GetFrameCount()
   connected = frameCount - frameOfLastSuccessfulLoad <= FRAMES_BEFORE_DISCONNECTED
@@ -68,7 +68,14 @@ function IsaacScriptWatcher:RenderSprite()
     if sprite == nil then
       sprite = Sprite()
       sprite:Load("gfx/logo.anm2", true)
-      sprite:SetFrame("Default", 0)
+
+      local lastMsg = messageArray[#messageArray]
+      local compiling = string.match(lastMsg, "Compiling the mod for the first time...")
+      local animation = "Default"
+      if compiling ~= nil then
+        animation = "Green"
+      end
+      sprite:Play(animation)
     end
   else
     if sprite ~= nil then
@@ -80,11 +87,11 @@ function IsaacScriptWatcher:RenderSprite()
   if sprite ~= nil then
     local bottomRightPos = getScreenBottomRightPos()
     local position = bottomRightPos + SPRITE_BOTTOM_RIGHT_OFFSET
-    sprite:RenderLayer(0, position)
+    sprite:Render(position)
   end
 end
 
-function IsaacScriptWatcher:RenderText()
+function mod:RenderText()
   -- Don't draw IsaacScript text when custom consoles are open.
   if AwaitingTextInput then
     return
@@ -124,24 +131,9 @@ function IsaacScriptWatcher:RenderText()
     return
   end
 
-  local white = KColor(1, 1, 1, alpha)
-  local red = KColor(1, 0, 0, alpha)
-  local green = KColor(0, 1, 0, alpha)
-
   -- Go through each message.
   for i, msg in ipairs(messageArray) do
-    local color = white
-
-    local hasSuccess = string.match(msg, "Compilation successful.")
-    if hasSuccess ~= nil then
-      color = green
-    end
-
-    local hasErrors = string.match(msg, "Found [0-9]+ errors.")
-    if hasErrors ~= nil then
-      color = red
-    end
-
+    local color = mod:GetColorForMsg(msg, alpha)
     font:DrawStringScaledUTF8(
       msg,
       x,
@@ -155,7 +147,25 @@ function IsaacScriptWatcher:RenderText()
   end
 end
 
-function IsaacScriptWatcher:LoadSaveDat()
+function mod:GetColorForMsg(msg, alpha)
+  local white = KColor(1, 1, 1, alpha)
+  local red = KColor(1, 0, 0, alpha)
+  local green = KColor(0, 1, 0, alpha)
+
+  local hasSuccess = string.match(msg, "Compilation successful.")
+  if hasSuccess ~= nil then
+    return green
+  end
+
+  local hasErrors = string.match(msg, "Found [0-9]+ errors.")
+  if hasErrors ~= nil then
+    return red
+  end
+
+  return white
+end
+
+function mod:LoadSaveDat()
   -- Local variables
   local isaacFrameCount = Isaac.GetFrameCount()
 
@@ -165,13 +175,13 @@ function IsaacScriptWatcher:LoadSaveDat()
   end
 
   -- Check to see if there a "save.dat" file for this save slot.
-  if not Isaac.HasModData(IsaacScriptWatcher) then
-    IsaacScriptWatcher:ClearSaveDat()
+  if not Isaac.HasModData(mod) then
+    mod:ClearSaveDat()
     return
   end
 
   -- The server will write JSON data for us to the "save#.dat" file in the mod subdirectory.
-  if not pcall(IsaacScriptWatcher.Load) then
+  if not pcall(mod.Load) then
     -- Sometimes loading can fail if the file is currently being being written to, so give up for
     -- now and try again on the next interval.
     Isaac.DebugString(
@@ -184,12 +194,12 @@ function IsaacScriptWatcher:LoadSaveDat()
 
   if #saveData > 0 then
     local saveDatContents = saveData
-    IsaacScriptWatcher:ClearSaveDat()
-    IsaacScriptWatcher:LoadSuccessful(saveDatContents)
+    mod:ClearSaveDat()
+    mod:LoadSuccessful(saveDatContents)
   end
 end
 
-function IsaacScriptWatcher:LoadSuccessful(saveDatContents)
+function mod:LoadSuccessful(saveDatContents)
   frameOfLastSuccessfulLoad = Isaac.GetFrameCount()
 
   for _, entry in ipairs(saveDatContents) do
@@ -205,23 +215,35 @@ function IsaacScriptWatcher:LoadSuccessful(saveDatContents)
     elseif entry.type == "msg" then
       Isaac.DebugString(MOD_NAME .. " - " .. entry.data)
       pushMessageArray(entry.data)
+
+      if sprite ~= nil then
+        local starting1 = string.match(entry.data, "TypeScript change detected.")
+        local starting2 = string.match(entry.data, "Compiling the mod for the first time...")
+        local finished1 = string.match(entry.data, "Compilation successful.")
+        local finished2 = string.match(entry.data, "Found [0-9]+ errors.")
+        if starting1 ~= nil or starting2 ~= nil then
+          sprite:Play("Green")
+        elseif finished1 ~= nil or finished2 ~= nil then
+          sprite:Play("Default")
+        end
+      end
     end
   end
 end
 
-function IsaacScriptWatcher:ClearSaveDat()
+function mod:ClearSaveDat()
   saveData = {}
-  IsaacScriptWatcher:Save()
+  mod:Save()
 end
 
-function IsaacScriptWatcher:Save()
+function mod:Save()
   local saveDataJSON = json.encode(saveData)
-  IsaacScriptWatcher:SaveData(saveDataJSON)
+  mod:SaveData(saveDataJSON)
 end
 
-function IsaacScriptWatcher:Load()
+function mod:Load()
   -- Read the "save#.dat" file into a string.
-  local saveDataJSON = Isaac.LoadModData(IsaacScriptWatcher)
+  local saveDataJSON = Isaac.LoadModData(mod)
 
   -- Handle the case of a 0 byte file.
   if saveDataJSON == "" then
@@ -232,7 +254,7 @@ function IsaacScriptWatcher:Load()
   saveData = json.decode(saveDataJSON)
 end
 
-function IsaacScriptWatcher:CheckInput()
+function mod:CheckInput()
   if game:IsPaused() then
     return
   end
@@ -249,7 +271,7 @@ function IsaacScriptWatcher:CheckInput()
   end
 end
 
-function IsaacScriptWatcher:CheckRestart()
+function mod:CheckRestart()
   if not RESTART_GAME_ON_RECOMPILATION then
     return
   end
@@ -263,7 +285,7 @@ function IsaacScriptWatcher:CheckRestart()
   Isaac.ExecuteCommand("restart")
 end
 
-IsaacScriptWatcher:AddCallback(ModCallbacks.MC_POST_RENDER, IsaacScriptWatcher.PostRender)
+mod:AddCallback(ModCallbacks.MC_POST_RENDER, mod.PostRender)
 
 local initMessage = "IsaacScript Watcher initialized."
 Isaac.DebugString(initMessage)

@@ -1,11 +1,13 @@
 <AnimatedActor>
-	<Info CreatedBy="Unknown" CreatedOn="2/1/2017 6:09:20 AM" Version="2" Fps="30"/>
+	<Info CreatedBy="Unknown" CreatedOn="6/26/2022 2:14:32 PM" Version="3" Fps="30"/>
 	<Content>
 		<Spritesheets>
 			<Spritesheet Path="logo.png" Id="0"/>
+			<Spritesheet Path="logo-green.png" Id="1"/>
 		</Spritesheets>
 		<Layers>
 			<Layer Name="Layer 0" Id="0" SpritesheetId="0"/>
+			<Layer Name="Layer 1" Id="1" SpritesheetId="1"/>
 		</Layers>
 		<Nulls/>
 		<Events/>
@@ -17,6 +19,20 @@
 			</RootAnimation>
 			<LayerAnimations>
 				<LayerAnimation LayerId="0" Visible="true">
+					<Frame XPosition="0" YPosition="0" XPivot="0" YPivot="0" XCrop="0" YCrop="0" Width="44" Height="28" XScale="66" YScale="66" Delay="1" Visible="true" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="255" RedOffset="0" GreenOffset="0" BlueOffset="0" Rotation="0" Interpolated="false"/>
+				</LayerAnimation>
+				<LayerAnimation LayerId="1" Visible="false"/>
+			</LayerAnimations>
+			<NullAnimations/>
+			<Triggers/>
+		</Animation>
+		<Animation Name="Green" FrameNum="1" Loop="true">
+			<RootAnimation>
+				<Frame XPosition="0" YPosition="0" XScale="100" YScale="100" Delay="1" Visible="true" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="255" RedOffset="0" GreenOffset="0" BlueOffset="0" Rotation="0" Interpolated="false"/>
+			</RootAnimation>
+			<LayerAnimations>
+				<LayerAnimation LayerId="0" Visible="false"/>
+				<LayerAnimation LayerId="1" Visible="true">
 					<Frame XPosition="0" YPosition="0" XPivot="0" YPivot="0" XCrop="0" YCrop="0" Width="44" Height="28" XScale="66" YScale="66" Delay="1" Visible="true" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="255" RedOffset="0" GreenOffset="0" BlueOffset="0" Rotation="0" Interpolated="false"/>
 				</LayerAnimation>
 			</LayerAnimations>

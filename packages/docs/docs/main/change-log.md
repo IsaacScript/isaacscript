@@ -13,6 +13,7 @@ This page lists the changes to the IsaacScript framework.
 
 - The change log is now located on [the official website](https://isaacscript.github.io/main/change-log).
 - IsaacScript now requires a dependency of "@types/node", "typescript", and "ts-node" in your "package.json" file. (This is so that TSTL can properly invoke plugins.) If any dependencies are missing when you run the tool, it will helpfully tell you the appropriate command to run to fix the problem.
+- The IsaacScript watcher icon now turns green when the mod is compiling.
 - Breaking changes:
   - The `removeAllGridExcept` and `removeAllMatchingGridEntities` functions now return an array of the grid entities that are removed.
 - Added the following helper functions:
