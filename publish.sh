@@ -12,7 +12,7 @@ if [ -z "$1" ]; then
   echo "Error: The package name is required."
   exit 1
 fi
-PACKAGE_NAME=$1
+PACKAGE_NAME="$1"
 
 PACKAGE_DIR="$DIR/packages/$PACKAGE_NAME"
 if ! test -d "$PACKAGE_DIR"; then
@@ -26,7 +26,7 @@ if [ -z "$2" ]; then
   echo "Error: The version bump description is required."
   exit 1
 fi
-VERSION_BUMP=$2
+VERSION_BUMP="$2"
 
 yarn config set version-tag-prefix "$PACKAGE_NAME-"
 yarn config set version-git-message "chore(release): $PACKAGE_NAME-%s"
