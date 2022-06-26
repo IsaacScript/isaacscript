@@ -110,6 +110,6 @@ src/
 │   └── postUpdate.ts
 ├── items/
 │   └── greenCandle.ts
-├── enums/
-│   └── CollectibleTypeCustom.ts
+└── enums/
+    └── CollectibleTypeCustom.ts
 ```
