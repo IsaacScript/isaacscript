@@ -24,10 +24,16 @@ npx tstl
 cp -R "$DIR/src/types" "$OUT_DIR/"
 
 # TypeScript messes up the path inside of the triple slash directive, so we must manually repair it.
+# e.g.
 # /// <reference types="packages/isaac-typescript-definitions/src/types" />
 # -->
 # /// <reference path="types/index.d.ts" />
 sed --in-place 's/types="packages\/isaac-typescript-definitions\/src\/types"/path="types\/index.d.ts"/' "$OUT_DIR/index.d.ts"
+# e.g.
+# /// <reference types="packages/isaac-typescript-definitions/src/types/unofficial/luatable" />
+# -->
+# /// <reference path="types/unofficial/luatable" />
+sed --in-place 's/types="packages\/isaac-typescript-definitions\/src\/types\/unofficial\/luatable"/path="types\/unofficial\/LuaTable.d.ts"/' "$OUT_DIR/index.d.ts"
 
 # Copy the rest of the files needed for npm.
 cp "$DIR/LICENSE" "$OUT_DIR/"

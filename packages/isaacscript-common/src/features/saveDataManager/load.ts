@@ -46,7 +46,7 @@ export function loadFromDisk(
       }
 
       // Ignore elements that represent subscriptions that no longer exist in the current save data.
-      const oldSaveDataForSubscriber = oldSaveData;
+      const oldSaveDataForSubscriber = oldSaveData.get(key);
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (oldSaveDataForSubscriber === undefined) {
         return;
