@@ -30,9 +30,8 @@ const ActionTriggerInternal = {
   ITEMS_DROPPED: 1 << 5,
 } as const;
 
-type ActionTriggerValue = number & {
-  readonly __bitFlagBrand: void;
-  readonly __actionTriggerBrand: void; // eslint-disable-line isaacscript/member-ordering
+type ActionTriggerValue = BitFlag & {
+  readonly __actionTriggerBrand: unique symbol;
 };
 type ActionTriggerType = {
   [K in keyof typeof ActionTriggerInternal]: ActionTriggerValue;

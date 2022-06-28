@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-invalid-void-type */
 // cspell:ignore STAGEAPI
 
 import { Direction } from "../../enums/Direction";

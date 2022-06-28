@@ -108,10 +108,6 @@ export const strictEnums = createRule<Options, MessageIds>({
       }
 
       const parentType = getTypeFromTSNode(valueDeclaration.parent);
-      if (parentType === undefined) {
-        return type;
-      }
-
       return parentType;
     }
 
@@ -318,11 +314,10 @@ export const strictEnums = createRule<Options, MessageIds>({
         return;
       }
 
-      /**
-       * The `getDeclaration` method actually returns `ts.SignatureDeclaration | undefined`, not
-       * `ts.SignatureDeclaration`.
-       */
       const declaration = signature.getDeclaration();
+      // The `getDeclaration` method actually returns `ts.SignatureDeclaration | undefined`, not
+      // `ts.SignatureDeclaration`.
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (declaration === undefined) {
         return;
       }
@@ -775,7 +770,7 @@ export const strictEnums = createRule<Options, MessageIds>({
          * }
          * ```
          */
-        if (node.init === undefined) {
+        if (node.init === null) {
           return;
         }
 

@@ -45,9 +45,8 @@ const TargetFlagInternal = {
   GIVE_LOWER_PRIORITY_TO_CURRENT_TARGET: 1 << 4,
 } as const;
 
-type TargetFlagValue = number & {
-  readonly __bitFlagBrand: void;
-  readonly __targetFlagBrand: void;
+type TargetFlagValue = BitFlag & {
+  readonly __targetFlagBrand: unique symbol;
 };
 type TargetFlagType = {
   [K in keyof typeof TargetFlagInternal]: TargetFlagValue;

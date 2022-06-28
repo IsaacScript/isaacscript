@@ -210,9 +210,8 @@ const EntityFlagInternal = {
   FRIENDLY_BALL: 1 << 59,
 } as const;
 
-type EntityFlagValue = number & {
-  readonly __bitFlagBrand: void;
-  readonly __entityFlagBrand: void;
+type EntityFlagValue = BitFlag & {
+  readonly __entityFlagBrand: unique symbol;
 };
 type EntityFlagType = {
   [K in keyof typeof EntityFlagInternal]: EntityFlagValue;

@@ -138,7 +138,7 @@ export enum ModCallbackCustom {
    * only fire if the revival type matches the one provided.
    *
    * ```ts
-   * function postCustomRevive(player: EntityPlayer, revivalType: int) {}
+   * function postCustomRevive(player: EntityPlayer, revivalType: int): void {}
    * ```
    */
   POST_CUSTOM_REVIVE,
@@ -151,7 +151,10 @@ export enum ModCallbackCustom {
    * only fire if the `DiceFloorSubType` type matches the one provided.
    *
    * ```ts
-   * function postDiceRoomActivated(player: EntityPlayer, diceFloorSubType: DiceFloorSubType) {}
+   * function postDiceRoomActivated(
+   *   player: EntityPlayer,
+   *   diceFloorSubType: DiceFloorSubType,
+   * ): void {}
    * ```
    */
   POST_DICE_ROOM_ACTIVATED,
@@ -311,7 +314,7 @@ export enum ModCallbackCustom {
    * Fires from the `POST_UPDATE` callback when the Greed Mode wave increases.
    *
    * ```ts
-   * function postGreedModeWave(oldWave: int, newWave: int) {}
+   * function postGreedModeWave(oldWave: int, newWave: int): void {}
    * ```
    */
   POST_GREED_MODE_WAVE,
@@ -731,7 +734,7 @@ export enum ModCallbackCustom {
    *   player: EntityPlayer,
    *   healthType: HealthType,
    *   difference: int,
-   * ) {}
+   * ): void {}
    * ```
    */
   POST_PLAYER_CHANGE_HEALTH,
@@ -750,7 +753,7 @@ export enum ModCallbackCustom {
    *   player: EntityPlayer,
    *   oldCharacter: PlayerType,
    *   newCharacter: PlayerType,
-   * ) {}
+   * ): void {}
    * ```
    */
   POST_PLAYER_CHANGE_TYPE,
@@ -765,7 +768,10 @@ export enum ModCallbackCustom {
    *   only fire if the player matches the `PlayerType` provided.
    *
    * ```ts
-   * function postPlayerCollectibleAdded(player: EntityPlayer, collectibleType: CollectibleType) {}
+   * function postPlayerCollectibleAdded(
+   *   player: EntityPlayer,
+   *   collectibleType: CollectibleType,
+   * ): void {}
    * ```
    */
   POST_PLAYER_COLLECTIBLE_ADDED,
@@ -783,7 +789,7 @@ export enum ModCallbackCustom {
    * function postPlayerCollectibleRemoved(
    *   player: EntityPlayer,
    *   collectibleType: CollectibleType,
-   * ) {}
+   * ): void {}
    * ```
    */
   POST_PLAYER_COLLECTIBLE_REMOVED,
@@ -801,7 +807,7 @@ export enum ModCallbackCustom {
    *   only fire if the player matches the `PlayerType` provided.
    *
    * ```ts
-   * function postPlayerFatalDamage(player: EntityPlayer) {}
+   * function postPlayerFatalDamage(player: EntityPlayer): boolean | void {}
    * ```
    */
   POST_PLAYER_FATAL_DAMAGE,
@@ -1215,7 +1221,7 @@ export enum ModCallbackCustom {
    *   only fire if the player matches the `PlayerType` provided.
    *
    * ```ts
-   * function preBerserkDeath(player: EntityPlayer) {}
+   * function preBerserkDeath(player: EntityPlayer): void {}
    * ```
    */
   PRE_BERSERK_DEATH,
@@ -1234,7 +1240,7 @@ export enum ModCallbackCustom {
    *   only fire if the player matches the `PlayerType` provided.
    *
    * ```ts
-   * function preCustomRevive(player: EntityPlayer) {}
+   * function preCustomRevive(player: EntityPlayer): int | void {}
    * ```
    */
   PRE_CUSTOM_REVIVE,

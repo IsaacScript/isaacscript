@@ -14,7 +14,6 @@ export enum DeathState {
   /** Death will wander around in his idle state. */
   MAIN_IDLE = 4,
 
-  SCYTHE_SPIN_ATTACK = 4,
   JUMP_OFF_HORSE = 7,
   SLOW_ATTACK = 8,
   SUMMON_KNIGHTS = 13,

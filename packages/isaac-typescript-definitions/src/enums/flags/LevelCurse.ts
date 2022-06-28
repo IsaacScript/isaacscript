@@ -35,9 +35,8 @@ const LevelCurseInternal = {
   GIANT: 1 << 7,
 } as const;
 
-type LevelCurseValue = number & {
-  readonly __bitFlagBrand: void;
-  readonly __levelCurseBrand: void;
+type LevelCurseValue = BitFlag & {
+  readonly __levelCurseBrand: unique symbol;
 };
 type LevelCurseType = {
   [K in keyof typeof LevelCurseInternal]: LevelCurseValue;

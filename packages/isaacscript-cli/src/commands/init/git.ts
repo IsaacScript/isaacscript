@@ -199,15 +199,13 @@ export function initGitRepository(
     );
   }
 
-  if (gitRemoteURL !== undefined) {
-    execShell(
-      "git",
-      ["remote", "add", "origin", gitRemoteURL],
-      verbose,
-      false,
-      projectPath,
-    );
-  }
+  execShell(
+    "git",
+    ["remote", "add", "origin", gitRemoteURL],
+    verbose,
+    false,
+    projectPath,
+  );
 }
 
 function isGitNameAndEmailConfigured(verbose: boolean) {

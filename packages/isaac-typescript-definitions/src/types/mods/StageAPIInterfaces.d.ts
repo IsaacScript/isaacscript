@@ -301,11 +301,11 @@ declare global {
     AddRooms(roomFiles: string[] | StageAPICustomRoomConfig[]): void;
   }
 
-  type StageAPIStageOverrideStage = {
+  interface StageAPIStageOverrideStage {
     OverrideStage: LevelStage;
     OverrideStageType: StageType;
     ReplaceWith: StageAPICustomStage | StageAPIVanillaStage;
-  };
+  }
 
   interface StageAPITextStreakParams {
     Color?: Color;

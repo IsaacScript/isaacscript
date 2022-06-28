@@ -40,6 +40,9 @@ function readExistingConfig(verbose: boolean): Config | undefined {
     error(`Failed to parse the "${chalk.green(CONFIG_FILE_PATH)}" file:`, err);
   }
 
+  // Even though the "modsDirectory" property is always initialized in the class, it may not be
+  // necessarily exist in the JSON file.
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (config.modsDirectory === undefined) {
     errorMissing(
       "modsDirectory",
@@ -47,6 +50,9 @@ function readExistingConfig(verbose: boolean): Config | undefined {
     );
   }
 
+  // Even though the "saveSlot" property is always initialized in the class, it may not be
+  // necessarily exist in the JSON file.
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (config.saveSlot === undefined) {
     errorMissing(
       "saveSlot",

@@ -99,6 +99,7 @@ export const formatLineComments = createRule<Options, MessageIds>({
         leftWhitespace,
       );
 
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (DEBUG) {
         console.log("originalText:");
         console.log(originalText);

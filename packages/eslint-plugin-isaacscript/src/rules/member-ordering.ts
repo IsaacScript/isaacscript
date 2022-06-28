@@ -643,6 +643,7 @@ export const memberOrdering = createRule<Options, MessageIds>({
         }
       });
 
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       return isCorrectlySorted ? memberGroups : null;
     }
 

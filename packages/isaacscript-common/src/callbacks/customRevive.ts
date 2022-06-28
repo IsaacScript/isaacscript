@@ -203,6 +203,7 @@ function playerIsAboutToDie(player: EntityPlayer) {
 }
 
 function logStateChanged() {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (DEBUG) {
     log(
       `Custom revive state changed: ${CustomReviveState[v.run.state]} (${

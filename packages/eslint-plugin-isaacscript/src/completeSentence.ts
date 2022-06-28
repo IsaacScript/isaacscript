@@ -163,14 +163,11 @@ function getIncompleteSentenceKind(
   let text = sentence;
 
   // Trim the parenthesis surrounding the sentence, if any.
-  // eslint-disable-next-line no-constant-condition
-  while (true) {
-    const textBeforeModifications = text;
+  let textBeforeModifications: string;
+  do {
+    textBeforeModifications = text;
     text = text.trim().replace(/^\(*/, "").replace(/\)*$/, "").trim();
-    if (text === textBeforeModifications) {
-      break;
-    }
-  }
+  } while (text !== textBeforeModifications);
 
   // Ignore / whitelist some specific things.
   if (

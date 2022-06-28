@@ -6,4 +6,4 @@
  *
  * If you set the seed of an RNG object to 0, it will cause the game to crash.
  */
-declare type Seed = number & { readonly __seedBrand: void };
+declare type Seed = number & { readonly __seedBrand: unique symbol };

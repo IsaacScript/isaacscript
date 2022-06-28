@@ -123,7 +123,7 @@ export function spawnTrapdoorOrCrawlspace(trapdoor: boolean): void {
 
 export function warpToRoomType(roomType: RoomType): void {
   const roomTypeName = ROOM_TYPE_NAMES[roomType];
-  if (roomTypeName === undefined || roomTypeName === DEFAULT_ROOM_TYPE_NAME) {
+  if (roomTypeName === DEFAULT_ROOM_TYPE_NAME) {
     printConsole(`Invalid room type: ${roomType}`);
   }
 

@@ -58,7 +58,7 @@ function afterEachSync(params?: {
 }
 
 function onError(err: Error) {
-  send(`The directory syncer encountered an error: ${err}`);
+  send(`The directory syncer encountered an error: ${err.message}`);
 }
 
 function send(msg: string) {

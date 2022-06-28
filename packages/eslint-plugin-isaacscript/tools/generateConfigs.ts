@@ -13,11 +13,10 @@ import {
   RuleDefinition,
 } from "./utils";
 
-interface LinterConfigRules {
-  [name: string]:
-    | TSESLint.Linter.RuleLevel
-    | TSESLint.Linter.RuleLevelAndOptions;
-}
+type LinterConfigRules = Record<
+  string,
+  TSESLint.Linter.RuleLevel | TSESLint.Linter.RuleLevelAndOptions
+>;
 
 interface LinterConfig extends TSESLint.Linter.Config {
   extends?: string | string[];

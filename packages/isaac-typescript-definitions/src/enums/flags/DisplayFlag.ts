@@ -21,9 +21,8 @@ const DisplayFlagInternal = {
   SHOW_ICON: 1 << 2,
 } as const;
 
-type DisplayFlagValue = number & {
-  readonly __bitFlagBrand: void;
-  readonly __displayFlagBrand: void;
+type DisplayFlagValue = BitFlag & {
+  readonly __displayFlagBrand: unique symbol;
 };
 type DisplayFlagType = {
   [K in keyof typeof DisplayFlagInternal]: DisplayFlagValue;

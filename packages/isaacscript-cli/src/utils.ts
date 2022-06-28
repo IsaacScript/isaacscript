@@ -109,3 +109,28 @@ export function parseSemVer(
 
   return [majorVersion, minorVersion, patchVersion];
 }
+
+/**
+ * Helper function to repeat code N times. This is faster to type and cleaner than using a for loop.
+ *
+ * For example:
+ *
+ * ```ts
+ * repeat(10, () => {
+ *   foo();
+ * });
+ * ```
+ *
+ * The repeated function is passed the index of the iteration, if needed:
+ *
+ * ```ts
+ * repeat(3, (i) => {
+ *   console.log(i); // Prints "0", "1", "2"
+ * });
+ * ```
+ */
+export function repeat(n: number, func: (i: number) => void): void {
+  for (let i = 0; i < n; i++) {
+    func(i);
+  }
+}

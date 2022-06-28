@@ -30,18 +30,12 @@ export const noVoidReturnType = createRule({
         }
 
         const { returnType } = node;
-        if (
-          returnType === undefined ||
-          returnType.type !== AST_NODE_TYPES.TSTypeAnnotation
-        ) {
+        if (returnType === undefined) {
           return;
         }
 
         const { typeAnnotation } = returnType;
-        if (
-          typeAnnotation === undefined ||
-          typeAnnotation.type !== AST_NODE_TYPES.TSVoidKeyword
-        ) {
+        if (typeAnnotation.type !== AST_NODE_TYPES.TSVoidKeyword) {
           return;
         }
 

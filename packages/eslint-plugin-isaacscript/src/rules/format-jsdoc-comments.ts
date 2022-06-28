@@ -80,6 +80,7 @@ export const formatJSDocComments = createRule<Options, MessageIds>({
         ? getJSDocCommentSingleLine(formattedText, leftWhitespace)
         : getJSDocCommentMultiLine(formattedText, leftWhitespace);
 
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (DEBUG) {
         console.log("originalComment:");
         console.log(originalComment);

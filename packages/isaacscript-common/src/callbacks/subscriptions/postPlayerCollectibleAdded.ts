@@ -28,7 +28,7 @@ export function postPlayerCollectibleAddedRegister(
 export function postPlayerCollectibleAddedFire(
   player: EntityPlayer,
   collectibleType: CollectibleType,
-): boolean | void {
+): void {
   const character = player.GetPlayerType();
 
   for (const [callback, playerVariant, callbackCharacter] of subscriptions) {

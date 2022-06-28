@@ -149,9 +149,8 @@ const RoomDescriptorFlagInternal = {
   BLUE_REDIRECT: 1 << 18,
 } as const;
 
-type RoomDescriptorFlagValue = number & {
-  readonly __bitFlagBrand: void;
-  readonly __roomDescriptorFlagBrand: void;
+type RoomDescriptorFlagValue = BitFlag & {
+  readonly __roomDescriptorFlagBrand: unique symbol;
 };
 type RoomDescriptorFlagType = {
   [K in keyof typeof RoomDescriptorFlagInternal]: RoomDescriptorFlagValue;

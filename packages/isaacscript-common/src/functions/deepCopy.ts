@@ -65,6 +65,7 @@ export function deepCopy(
   serializationType = SerializationType.NONE,
   traversalDescription = "",
 ): unknown {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (SAVE_DATA_MANAGER_DEBUG) {
     let logString = `deepCopy is operating on: ${traversalDescription}`;
     if (serializationType === SerializationType.SERIALIZE) {
@@ -455,6 +456,7 @@ function getCopiedEntries(
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (SAVE_DATA_MANAGER_DEBUG) {
     logTable(entries);
     entries.sort(twoDimensionalSort);

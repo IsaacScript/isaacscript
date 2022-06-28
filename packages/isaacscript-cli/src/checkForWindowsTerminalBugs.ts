@@ -84,10 +84,7 @@ function applyFixesToBashProfile(verbose: boolean) {
 function getBashProfileAppendText(bashProfileContents: string) {
   let newText = "";
 
-  if (
-    bashProfileContents !== "" &&
-    bashProfileContents[bashProfileContents.length - 1] !== "\n"
-  ) {
+  if (bashProfileContents !== "" && bashProfileContents.endsWith("\n")) {
     // If the Bash profile exists and has data, it should end in a newline. Add an extra newline if
     // this is not the case.
     newText += "\n";

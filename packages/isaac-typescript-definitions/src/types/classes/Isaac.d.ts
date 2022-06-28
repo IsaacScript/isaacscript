@@ -156,31 +156,20 @@ declare global {
     function GetPillEffectByName(pillName: string): PillEffect;
 
     /**
-     * With no argument, it returns the 0th player.
-     *
-     * For the purposes of this definition, we assume that the 0th player always exists. However, if
-     * this function is called in the menu, it will return undefined, so beware of this case.
-     */
-    function GetPlayer(): EntityPlayer;
-
-    /**
-     * For the purposes of this definition, we assume that the 0th player always exists. However, if
-     * this function is called in the menu, it will return undefined, so beware of this case.
-     */
-    function GetPlayer(playerID: 0): EntityPlayer;
-
-    /**
-     * Returns the EntityPlayer that matches the provided player ID. Player IDs start at 0 and
+     * Returns the `EntityPlayer` that matches the provided player ID. Player IDs start at 0 and
      * increment upwards. For example, when playing as Jacob & Esau, Jacob will have a player ID of
      * 0 and Esau will have a player ID of 1.
      *
-     * If an invalid player ID is passed (such as -20 or 20), the function will instead assume a
-     * player index of 0.
+     * If an invalid player ID is passed (such as -20 or 20), instead of throwing an error, the
+     * function will assume a player index of 0.
      *
-     * This function can return undefined if it is called before any player is initialized (i.e. if
-     * you call it in the main menu), so beware of this case.
+     * Even though the function is defined as always returning an `EntityPlayer` class, it can
+     * actually return undefined if it is called before any player is initialized (e.g. in the main
+     * menu). Thus, beware of this case.
+     *
+     * @param playerID Optional. Defaults to 0.
      */
-    function GetPlayer(playerID: int): EntityPlayer;
+    function GetPlayer(playerID?: int): EntityPlayer;
 
     /**
      * Returns -1 if the specified character does not exist.

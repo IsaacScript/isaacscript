@@ -44,7 +44,7 @@ export const jsdocCodeBlockLanguage = createRule({
           continue;
         }
 
-        if (/```$/.test(line)) {
+        if (line.endsWith("```")) {
           context.report({
             loc: {
               start: comment.loc.start,

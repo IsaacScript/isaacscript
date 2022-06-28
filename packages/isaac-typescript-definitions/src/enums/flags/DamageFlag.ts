@@ -108,9 +108,8 @@ const DamageFlagInternal = {
   SPAWN_RUNE: 1 << 32,
 } as const;
 
-type DamageFlagValue = number & {
-  readonly __bitFlagBrand: void;
-  readonly __damageFlagBrand: void;
+type DamageFlagValue = BitFlag & {
+  readonly __damageFlagBrand: unique symbol;
 };
 type DamageFlagType = {
   [K in keyof typeof DamageFlagInternal]: DamageFlagValue;

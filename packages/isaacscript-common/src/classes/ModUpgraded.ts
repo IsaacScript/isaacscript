@@ -72,12 +72,6 @@ export class ModUpgraded implements Mod {
   ): void {
     const callbackRegisterFunction =
       CALLBACK_REGISTER_FUNCTIONS[modCallbackCustom];
-    if (callbackRegisterFunction === undefined) {
-      error(
-        `Failed to find a callback registration function for custom callback: ${modCallbackCustom}`,
-      );
-    }
-
     callbackRegisterFunction(...args);
   }
 }

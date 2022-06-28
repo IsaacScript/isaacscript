@@ -57,9 +57,8 @@ const CacheFlagInternal = {
   TWIN_SYNC: 1 << 31,
 } as const;
 
-type CacheFlagValue = number & {
-  readonly __bitFlagBrand: void;
-  readonly __cacheFlagBrand: void;
+type CacheFlagValue = BitFlag & {
+  readonly __cacheFlagBrand: unique symbol;
 };
 type CacheFlagType = {
   [K in keyof typeof CacheFlagInternal]: CacheFlagValue;

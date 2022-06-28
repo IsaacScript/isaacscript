@@ -317,9 +317,8 @@ const ItemConfigTagInternal = {
   NO_EDEN: 1 << 32,
 } as const;
 
-type ItemConfigTagValue = number & {
-  readonly __bitFlagBrand: void;
-  readonly __itemConfigTagBrand: void;
+type ItemConfigTagValue = BitFlag & {
+  readonly __itemConfigTagBrand: unique symbol;
 };
 type ItemConfigTagType = {
   [K in keyof typeof ItemConfigTagInternal]: ItemConfigTagValue;

@@ -705,9 +705,8 @@ const TearFlagInternal = {
   LUDOVICO: getTearFlag(127),
 } as const;
 
-type TearFlagValue = BitSet128 & {
-  readonly __bitFlag128Brand: void;
-  readonly __tearFlagBrand: void;
+type TearFlagValue = BitFlag128 & {
+  readonly __tearFlagBrand: unique symbol;
 };
 type TearFlagType = {
   [K in keyof typeof TearFlagInternal]: TearFlagValue;

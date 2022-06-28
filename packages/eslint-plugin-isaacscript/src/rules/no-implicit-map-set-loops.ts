@@ -37,7 +37,8 @@ export const noImplicitMapSetLoops = createRule<Options, MessageIds>({
         const type = checker.getTypeAtLocation(tsNode);
 
         if (
-          type.symbol === undefined ||
+          // Checking this is necessary to type narrow the "__String" type.
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
           type.symbol.escapedName === undefined
         ) {
           return;

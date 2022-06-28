@@ -114,9 +114,7 @@ export function getNameFromIndexSignature(
     (parameter: TSESTree.Parameter): parameter is TSESTree.Identifier =>
       parameter.type === AST_NODE_TYPES.Identifier,
   );
-  return propName !== null && propName !== undefined
-    ? propName.name
-    : "(index signature)";
+  return propName !== undefined ? propName.name : "(index signature)";
 }
 
 /** Gets all of the type flags in a type, iterating through unions automatically. */

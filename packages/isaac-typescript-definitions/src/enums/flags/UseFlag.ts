@@ -95,9 +95,8 @@ const UseFlagInternal = {
   NO_HUD: 1 << 11,
 } as const;
 
-type UseFlagValue = number & {
-  readonly __bitFlagBrand: void;
-  readonly __useFlagBrand: void;
+type UseFlagValue = BitFlag & {
+  readonly __useFlagBrand: unique symbol;
 };
 type UseFlagType = {
   [K in keyof typeof UseFlagInternal]: UseFlagValue;

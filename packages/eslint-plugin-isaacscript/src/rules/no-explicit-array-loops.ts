@@ -44,9 +44,6 @@ export const noExplicitArrayLoops = createRule<Options, MessageIds>({
         const potentialArrayType =
           checker.getTypeAtLocation(potentialArrayTSNode);
         const potentialArraySymbol = potentialArrayType.symbol;
-        if (potentialArraySymbol === undefined) {
-          return;
-        }
         const potentialArrayName = potentialArraySymbol.escapedName;
 
         if (potentialArrayName !== "Array") {

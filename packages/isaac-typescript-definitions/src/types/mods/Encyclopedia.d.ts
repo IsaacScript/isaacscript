@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-invalid-void-type */
+
 import { PlayerType } from "../../enums/collections/subTypes";
 
 declare global {
@@ -141,8 +143,6 @@ declare global {
     POOL_BABY_SHOP = 29,
     POOL_WOODEN_CHEST = 30,
     POOL_ROTTEN_BEGGAR = 31,
-
-    NUM_ITEMPOOLS = 31,
   }
 
   /**
@@ -150,12 +150,12 @@ declare global {
    * many paragraphs as are needed.
    */
 
-  type EncyclopediaWikiDescriptionLine = {
+  interface EncyclopediaWikiDescriptionLine {
     clr?: number;
     fsize?: number; // cspell:ignore fsize
     halign?: number; // cspell:ignore halign
     str: string;
-  };
+  }
 
   type EncyclopediaWikiDescription = EncyclopediaWikiDescriptionLine[][];
 

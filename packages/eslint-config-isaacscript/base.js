@@ -20,15 +20,17 @@ module.exports = {
     "airbnb-typescript/base",
 
     /**
-     * We extend the Airbnb rules with the "recommended" and "recommended-requiring-type-checking"
-     * rules from the "typescript-eslint" plugin, which is also recommended by Matt Turnbull, the
-     * author of "airbnb-typescript/base":
+     * We extend the Airbnb rules with the "recommended", "recommended-requiring-type-checking", and
+     * "strict" rules from the "typescript-eslint" plugin, which is also recommended by Matt
+     * Turnbull, the author of "airbnb-typescript/base":
      * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/README.md#recommended
      * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/recommended.ts
      * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/recommended-requiring-type-checking.ts
+     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/strict.ts
      */
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:@typescript-eslint/strict",
 
     /**
      * This provides extra miscellaneous rules to keep code safe:
@@ -189,6 +191,18 @@ module.exports = {
      * This allows code to be structured in a more logical order.
      */
     "@typescript-eslint/no-use-before-define": "off",
+
+    /**
+     * Documentation:
+     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-optional-chain.md
+     *
+     * Defined at:
+     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/strict.ts
+     *
+     * This can modify the type of boolean declarations to "boolean | undefined", which is undesired
+     * in some circumstances.
+     */
+    "@typescript-eslint/prefer-optional-chain": "off",
 
     /**
      * Documentation:

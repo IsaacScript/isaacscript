@@ -162,8 +162,6 @@ export function formatText(
       lineHasURL ||
       previousLineHadURL ||
       hasExample ||
-      hasCodeBlock ||
-      insideCodeBlock ||
       separatorLine ||
       previousLineWasSeparatorLine ||
       enumBlockLabel ||
@@ -204,6 +202,7 @@ export function formatText(
     }
 
     const words = line.split(" ");
+    // eslint-disable-next-line @typescript-eslint/prefer-for-of
     for (let j = 0; j < words.length; j++) {
       const word = words[j]!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
 

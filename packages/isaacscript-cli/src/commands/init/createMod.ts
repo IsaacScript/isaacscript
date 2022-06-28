@@ -26,6 +26,7 @@ import {
   getPackageManagerLockFileName,
 } from "../../packageManager";
 import { PackageManager } from "../../types/PackageManager";
+import { repeat } from "../../utils";
 import { initGitRepository } from "./git";
 
 export function createMod(
@@ -131,9 +132,9 @@ function copyDynamicFiles(
 
     // Prepend a header with the project name.
     let separatorLine = "# ";
-    for (let i = 0; i < projectName.length; i++) {
+    repeat(projectName.length, () => {
       separatorLine += "-";
-    }
+    });
     separatorLine += "\n";
     const gitignoreHeader = `${separatorLine}# ${projectName}\n${separatorLine}\n`;
     const gitignore = gitignoreHeader + template;

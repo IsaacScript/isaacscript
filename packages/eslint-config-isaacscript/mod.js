@@ -54,6 +54,23 @@ module.exports = {
 
     /**
      * Documentation:
+     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-invalid-void-type.md
+     *
+     * Defined at:
+     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/strict.ts
+     *
+     * TSTL has special behavior with respect to "this: void", so we need to configure this rule to
+     * allow the "this" parameter.
+     */
+    "@typescript-eslint/no-invalid-void-type": [
+      "warn",
+      {
+        allowAsThisParameter: true,
+      },
+    ],
+
+    /**
+     * Documentation:
      * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-loop-func.md
      *
      * Defined at:

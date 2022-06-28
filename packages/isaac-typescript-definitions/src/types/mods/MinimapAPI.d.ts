@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-invalid-void-type */
+
 import { Dimension } from "../../enums/Dimension";
 import { DoorSlot } from "../../enums/DoorSlot";
 import { EntityType } from "../../enums/EntityType";

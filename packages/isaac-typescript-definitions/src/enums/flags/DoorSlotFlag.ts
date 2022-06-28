@@ -37,9 +37,8 @@ const DoorSlotFlagInternal = {
   DOWN_1: 1 << DoorSlot.DOWN_1,
 } as const;
 
-type DoorSlotFlagValue = number & {
-  readonly __bitFlagBrand: void;
-  readonly __doorSlotFlagBrand: void;
+type DoorSlotFlagValue = BitFlag & {
+  readonly __doorSlotFlagBrand: unique symbol;
 };
 type DoorSlotFlagType = {
   [K in keyof typeof DoorSlotFlagInternal]: DoorSlotFlagValue;

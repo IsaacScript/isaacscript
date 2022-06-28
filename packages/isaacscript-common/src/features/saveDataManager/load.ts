@@ -24,6 +24,7 @@ export function loadFromDisk(
   const jsonString = readSaveDatFile(mod);
   const newSaveData = jsonDecode(jsonString);
 
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (SAVE_DATA_MANAGER_DEBUG) {
     log('Converted data from the "save#.dat" to a Lua table.');
   }
@@ -45,11 +46,13 @@ export function loadFromDisk(
       }
 
       // Ignore elements that represent subscriptions that no longer exist in the current save data.
-      const oldSaveDataForSubscriber = oldSaveData.get(key);
+      const oldSaveDataForSubscriber = oldSaveData;
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (oldSaveDataForSubscriber === undefined) {
         return;
       }
 
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (SAVE_DATA_MANAGER_DEBUG) {
         log(`Merging in stored data for feature: ${key}`);
       }

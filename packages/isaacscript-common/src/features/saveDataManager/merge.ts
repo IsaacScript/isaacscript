@@ -44,6 +44,7 @@ export function merge(
   newTable: LuaTable<AnyNotNil, unknown>,
   traversalDescription: string,
 ): void {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (SAVE_DATA_MANAGER_DEBUG) {
     log(`merge is traversing: ${traversalDescription}`);
   }
@@ -146,6 +147,7 @@ function mergeTable(
   iterateTableInOrder(
     newTable,
     (key, value) => {
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (SAVE_DATA_MANAGER_DEBUG) {
         const valueToPrint = value === "" ? "(empty string)" : `${value}`;
         log(`merge is merging: ${traversalDescription} --> ${valueToPrint}`);
@@ -157,6 +159,7 @@ function mergeTable(
 
       // Handle the special case of serialized Isaac API classes.
       if (isSerializedIsaacAPIClass(value)) {
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (SAVE_DATA_MANAGER_DEBUG) {
           log("merge found a serialized Isaac API class.");
         }

@@ -1,7 +1,7 @@
 import { PlayerType, PlayerVariant } from "isaac-typescript-definitions";
 
 export type PreBerserkDeathRegisterParameters = [
-  callback: (player: EntityPlayer) => boolean | void,
+  callback: (player: EntityPlayer) => void,
   playerVariant?: PlayerVariant,
   character?: PlayerType,
 ];
@@ -21,7 +21,7 @@ export function preBerserkDeathRegister(
 }
 
 /** @internal */
-export function preBerserkDeathFire(player: EntityPlayer): boolean | void {
+export function preBerserkDeathFire(player: EntityPlayer): void {
   const character = player.GetPlayerType();
 
   for (const [callback, playerVariant, callbackCharacter] of subscriptions) {

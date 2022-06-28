@@ -1404,7 +1404,6 @@ export enum EffectVariant {
   TEAR_POOF_A = 12,
   TEAR_POOF_B = 13,
   RIPPLE_POOF = 14,
-  CROSS_POOF = 14,
   POOF_1 = 15,
   POOF_2 = 16,
   POOF_4 = 17,

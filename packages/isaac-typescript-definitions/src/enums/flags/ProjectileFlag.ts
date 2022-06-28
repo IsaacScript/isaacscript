@@ -191,9 +191,8 @@ const ProjectileFlagInternal = {
   FADEOUT: 1 << 57,
 } as const;
 
-type ProjectileFlagValue = number & {
-  readonly __bitFlagBrand: void;
-  readonly __projectileFlagBrand: void;
+type ProjectileFlagValue = BitFlag & {
+  readonly __projectileFlagBrand: unique symbol;
 };
 type ProjectileFlagType = {
   [K in keyof typeof ProjectileFlagInternal]: ProjectileFlagValue;

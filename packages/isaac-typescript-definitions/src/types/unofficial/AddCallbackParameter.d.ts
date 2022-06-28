@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-invalid-void-type */
 /* eslint-disable isaacscript/member-ordering */
 
 import { ActiveSlot } from "../../enums/ActiveSlot";
