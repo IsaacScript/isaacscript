@@ -8,8 +8,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd "$DIR"
 
-RULE_NAME="no-invalid-default-map"
-TEST_NAME="DefaultMap with factory function"
+RULE_NAME="no-explicit-array-loops"
+TEST_NAME="Iterating over a method with an argument"
 
 echo "Running test: $RULE_NAME --> $TEST_NAME"
 npx jest "$DIR/tests/rules/$RULE_NAME"*".test.ts" --verbose=false -t "$TEST_NAME"

@@ -1,13 +1,8 @@
-import {
-  CollectibleType,
-  PlayerType,
-  PlayerVariant,
-} from "isaac-typescript-definitions";
+import { CollectibleType } from "isaac-typescript-definitions";
 
 export type PostPlayerCollectibleRemovedRegisterParameters = [
   callback: (player: EntityPlayer, collectibleType: CollectibleType) => void,
-  playerVariant?: PlayerVariant,
-  character?: PlayerType,
+  collectibleType?: CollectibleType,
 ];
 
 const subscriptions: PostPlayerCollectibleRemovedRegisterParameters[] = [];
@@ -29,16 +24,12 @@ export function postPlayerCollectibleRemovedFire(
   player: EntityPlayer,
   collectibleType: CollectibleType,
 ): void {
-  const character = player.GetPlayerType();
-
-  for (const [callback, playerVariant, callbackCharacter] of subscriptions) {
+  for (const [callback, callbackCollectibleType] of subscriptions) {
     // Handle the optional 2nd callback argument.
-    if (playerVariant !== undefined && playerVariant !== player.Variant) {
-      continue;
-    }
-
-    // Handle the optional 3rd callback argument.
-    if (callbackCharacter !== undefined && callbackCharacter !== character) {
+    if (
+      callbackCollectibleType !== undefined &&
+      callbackCollectibleType !== collectibleType
+    ) {
       continue;
     }
 

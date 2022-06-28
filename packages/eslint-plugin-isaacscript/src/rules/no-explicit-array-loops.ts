@@ -43,9 +43,15 @@ export const noExplicitArrayLoops = createRule<Options, MessageIds>({
           parserServices.esTreeNodeToTSNodeMap.get(potentialArray);
         const potentialArrayType =
           checker.getTypeAtLocation(potentialArrayTSNode);
-        const potentialArraySymbol = potentialArrayType.symbol;
-        const potentialArrayName = potentialArraySymbol.escapedName;
 
+        // The TypeScript definitions are incorrect here; symbol can be undefined.
+        const potentialArraySymbol = potentialArrayType.symbol;
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        if (potentialArraySymbol === undefined) {
+          return;
+        }
+
+        const potentialArrayName = potentialArraySymbol.escapedName;
         if (potentialArrayName !== "Array") {
           return;
         }

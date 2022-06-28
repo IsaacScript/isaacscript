@@ -762,10 +762,8 @@ export enum ModCallbackCustom {
    * Fires from the `POST_PEFFECT_UPDATE` callback when a player's collectible count is higher than
    * what it was on the previous frame.
    *
-   * - When registering the callback, takes an optional second argument that will make the callback
-   *   only fire if the player matches the `PlayerVariant` provided.
-   * - When registering the callback, takes an optional third argument that will make the callback
-   *   only fire if the player matches the `PlayerType` provided.
+   * When registering the callback, takes an optional second argument that will make the callback
+   * only fire if the player matches the `CollectibleType` provided.
    *
    * ```ts
    * function postPlayerCollectibleAdded(
@@ -780,10 +778,8 @@ export enum ModCallbackCustom {
    * Fires from the `POST_PEFFECT_UPDATE` callback when a player's collectible count is lower than
    * what it was on the previous frame.
    *
-   * - When registering the callback, takes an optional second argument that will make the callback
-   *   only fire if the player matches the `PlayerVariant` provided.
-   * - When registering the callback, takes an optional third argument that will make the callback
-   *   only fire if the player matches the `PlayerType` provided.
+   * When registering the callback, takes an optional second argument that will make the callback
+   * only fire if the player matches the `CollectibleType` provided.
    *
    * ```ts
    * function postPlayerCollectibleRemoved(
