@@ -7,7 +7,7 @@ import { isTable } from "./types";
 import { ensureAllCases } from "./utils";
 
 type SerializedRNG = LuaTable<string, unknown> & {
-  __serializedRNGBrand: void;
+  readonly __serializedRNGBrand: unique symbol;
 };
 
 interface CopyRNGReturn {

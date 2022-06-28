@@ -12,7 +12,7 @@ module.exports = {
   rules: {
     /**
      * Documentation:
-     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/naming-convention.md
+     * https://typescript-eslint.io/rules/naming-convention
      *
      * Defined at:
      * https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js
@@ -54,7 +54,7 @@ module.exports = {
 
     /**
      * Documentation:
-     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-invalid-void-type.md
+     * https://typescript-eslint.io/rules/no-invalid-void-type
      *
      * Defined at:
      * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/strict.ts
@@ -71,7 +71,7 @@ module.exports = {
 
     /**
      * Documentation:
-     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-loop-func.md
+     * https://typescript-eslint.io/rules/no-loop-func
      *
      * Defined at:
      * https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js
@@ -104,7 +104,7 @@ module.exports = {
 
     /**
      * Documentation:
-     * https://github.com/eslint/eslint/blob/master/docs/rules/no-bitwise.md
+     * https://eslint.org/docs/latest/rules/no-bitwise
      *
      * Defined at:
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
@@ -115,7 +115,7 @@ module.exports = {
 
     /**
      * Documentation:
-     * https://eslint.org/docs/rules/no-param-reassign
+     * https://eslint.org/docs/latest/rules/no-param-reassign
      *
      * Defined at:
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
@@ -126,7 +126,7 @@ module.exports = {
 
     /**
      * Documentation:
-     * https://eslint.org/docs/rules/no-restricted-globals
+     * https://eslint.org/docs/latest/rules/no-restricted-globals
      *
      * Defined at:
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/variables.js
@@ -137,7 +137,7 @@ module.exports = {
 
     /**
      * Documentation:
-     * https://eslint.org/docs/rules/no-underscore-dangle
+     * https://eslint.org/docs/latest/rules/no-underscore-dangle
      *
      * Defined at:
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js

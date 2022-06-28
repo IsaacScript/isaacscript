@@ -53,6 +53,8 @@ export function getDebugPrependString(
   // - 3 - the function that calls the calling function
   numParentFunctions = 3,
 ): string {
+  // Debug is not always defined like the Lua definitions imply.
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (debug !== undefined) {
     // The "--luadebug" launch flag is enabled.
     const debugTable = debug.getinfo(numParentFunctions);
@@ -274,10 +276,12 @@ export function logFlags<T extends BitFlag | BitFlag128>(
     description = "flag";
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-base-to-string
   log(`Logging ${description} values for: ${flags}`);
   let hasNoFlags = true;
   for (const [key, value] of getEnumEntries(flagEnum)) {
     if (hasFlag(flags, value)) {
+      // eslint-disable-next-line @typescript-eslint/no-base-to-string
       log(`  Has flag: ${key} (${value})`);
       hasNoFlags = false;
     }
@@ -449,6 +453,7 @@ export function logMap(this: void, map: Map<AnyNotNil, unknown>): void {
 
   for (const key of mapKeys) {
     const value = map.get(key);
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
     log(`  ${key} --> ${value}`);
   }
 
@@ -530,6 +535,7 @@ export function logSet(this: void, set: Set<AnyNotNil>): void {
 
   const setValues = getSortedSetValues(set);
   for (const value of setValues) {
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
     log(`  Value: ${value}`);
   }
 
@@ -574,6 +580,7 @@ export function logTable(
   }
 
   iterateTableInOrder(luaTable, (key, value) => {
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
     log(`${indentation}${key} --> ${value}`);
 
     if (isTable(value)) {
@@ -652,7 +659,9 @@ export function logUserdata(this: void, userdata: unknown): void {
     return;
   }
 
-  const metatable = getmetatable(userdata) as LuaTable<AnyNotNil, unknown>;
+  const metatable = getmetatable(userdata) as
+    | LuaTable<AnyNotNil, unknown>
+    | undefined;
   if (metatable === undefined) {
     log("Userdata: [no metatable]");
     return;
@@ -709,3 +718,6 @@ export function setLogFunctionsGlobal(): void {
   globals["logUserdata"] = logUserdata;
   globals["logVector"] = logVector;
 }
+
+declare const poop: BitFlag;
+log(`LOL ${poop}`);

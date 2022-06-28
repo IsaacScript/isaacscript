@@ -42,6 +42,8 @@ export function getCards(matchingSubType = -1): EntityPickupCard[] {
  */
 export function getCoinValue(coinSubType: CoinSubType): int {
   const value = COIN_SUBTYPE_TO_VALUE[coinSubType];
+  // Handle modded coin sub-types.
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return value === undefined ? DEFAULT_COIN_VALUE : value;
 }
 

@@ -23,10 +23,7 @@ import {
   NUM_DIMENSIONS,
 } from "../constants";
 import { ROOM_SHAPE_TO_DOOR_SLOTS_TO_GRID_INDEX_DELTA } from "../objects/roomShapeToDoorSlotsToGridIndexDelta";
-import {
-  DEFAULT_ROOM_TYPE_NAME,
-  ROOM_TYPE_NAMES,
-} from "../objects/roomTypeNames";
+import { ROOM_TYPE_NAMES } from "../objects/roomTypeNames";
 import { MINE_SHAFT_ROOM_SUB_TYPE_SET } from "../sets/mineShaftRoomSubTypesSet";
 import {
   closeAllDoors,
@@ -199,8 +196,7 @@ export function getRoomShapeNeighborGridIndexDeltas(
  * For example, `RoomType.TREASURE` will return "Treasure Room".
  */
 export function getRoomTypeName(roomType: RoomType): string {
-  const roomTypeName = ROOM_TYPE_NAMES[roomType];
-  return roomTypeName === undefined ? DEFAULT_ROOM_TYPE_NAME : roomTypeName;
+  return ROOM_TYPE_NAMES[roomType];
 }
 
 /**

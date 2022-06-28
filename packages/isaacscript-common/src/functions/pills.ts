@@ -138,6 +138,8 @@ export function getPillEffectClass(
   // `ItemConfigPillEffect` does not contain the "class" tag, so we must manually compile a map of
   // pill effect classes. Modded pill effects are not included in the map.
   const pillEffectClass = PILL_EFFECT_CLASSES[pillEffect];
+  // Handle modded pill effects.
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return pillEffectClass === undefined
     ? DEFAULT_PILL_EFFECT_CLASS
     : pillEffectClass;
@@ -157,10 +159,9 @@ export function getPillEffectName(pillEffect: PillEffect): string {
   // `ItemConfigPillEffect.Name` is bugged with vanilla pill effects on patch v1.7.6, so we use a
   // hard-coded map as a workaround.
   const pillEffectName = PILL_EFFECT_NAMES[pillEffect];
-  if (
-    pillEffectName !== undefined &&
-    pillEffectName !== DEFAULT_PILL_EFFECT_NAME
-  ) {
+  // Handle modded pill effects.
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (pillEffectName !== undefined) {
     return pillEffectName;
   }
 
@@ -187,6 +188,8 @@ export function getPillEffectType(
   // `ItemConfigPillEffect` does not contain the "class" tag, so we must manually compile a map of
   // pill effect classes. Modded pill effects are not included in the map.
   const pillEffectClass = PILL_EFFECT_TYPES[pillEffect];
+  // Handle modded pill effects.
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return pillEffectClass === undefined
     ? DEFAULT_PILL_EFFECT_TYPE
     : pillEffectClass;

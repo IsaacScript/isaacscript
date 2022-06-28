@@ -1,4 +1,4 @@
-/** Part of {@link JSONRooms}. */
+/** Part of `JSONRooms`. */
 export interface JSONDoor {
   $: {
     /** Equal to "True" or "False". */

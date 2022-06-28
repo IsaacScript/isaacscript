@@ -28,6 +28,7 @@ export function copyIsaacAPIClass(
     isaacAPIClassType as CopyableIsaacAPIClassType;
   const copyFunction =
     ISAAC_API_CLASS_TYPE_TO_COPY_FUNCTION[copyableIsaacAPIClassType];
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (copyFunction === undefined) {
     error(
       `Failed to copy Isaac API class "${copyableIsaacAPIClassType}" since there is not a defined copy function for this class type.`,
@@ -63,12 +64,6 @@ export function deserializeIsaacAPIClass(
 
   const copyFunction =
     ISAAC_API_CLASS_TYPE_TO_COPY_FUNCTION[copyableIsaacAPIClassType];
-  if (copyFunction === undefined) {
-    error(
-      `Failed to deserialize Isaac API class "${copyableIsaacAPIClassType}" since there is not a defined copy function for this class type.`,
-    );
-  }
-
   return copyFunction(serializedIsaacAPIClass, SerializationType.DESERIALIZE);
 }
 

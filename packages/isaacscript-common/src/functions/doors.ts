@@ -102,8 +102,7 @@ export function getDoorEnterPositionOffset(doorSlot: DoorSlot): Vector {
 export function getDoorSlotsForRoomShape(
   roomShape: RoomShape,
 ): ReadonlySet<DoorSlot> {
-  const doorSlots = ROOM_SHAPE_TO_DOOR_SLOTS[roomShape];
-  return doorSlots === undefined ? new Set() : doorSlots;
+  return ROOM_SHAPE_TO_DOOR_SLOTS[roomShape];
 }
 
 /**

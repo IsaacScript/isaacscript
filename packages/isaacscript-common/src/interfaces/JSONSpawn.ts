@@ -1,6 +1,6 @@
 import { JSONEntity } from "./JSONEntity";
 
-/** Part of {@link JSONRooms}. */
+/** Part of `JSONRooms`. */
 export interface JSONSpawn {
   $: {
     /** Needs to be converted to an int. */

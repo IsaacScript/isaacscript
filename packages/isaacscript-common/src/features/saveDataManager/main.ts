@@ -128,6 +128,7 @@ export function restoreDefaultSaveData(
 
   // Get the default values for this feature.
   const saveDataDefaults = saveDataDefaultsMap.get(subscriberName);
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (saveDataDefaults === undefined) {
     logError(
       `Failed to find the default copy of the save data for subscriber: ${subscriberName}`,

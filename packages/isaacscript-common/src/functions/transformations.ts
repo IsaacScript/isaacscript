@@ -3,10 +3,7 @@ import {
   ItemConfigTag,
   PlayerForm,
 } from "isaac-typescript-definitions";
-import {
-  DEFAULT_TRANSFORMATION_NAME,
-  TRANSFORMATION_NAMES,
-} from "../objects/transformationNames";
+import { TRANSFORMATION_NAMES } from "../objects/transformationNames";
 import { getCollectibleTags } from "./collectibles";
 import { getCollectibleTypesWithTag } from "./collectibleTag";
 import { getEnumValues } from "./enums";
@@ -95,10 +92,7 @@ export function getPlayerTransformations(
  * ```
  */
 export function getTransformationName(playerForm: PlayerForm): string {
-  const transformationName = TRANSFORMATION_NAMES[playerForm];
-  return transformationName === undefined
-    ? DEFAULT_TRANSFORMATION_NAME
-    : transformationName;
+  return TRANSFORMATION_NAMES[playerForm];
 }
 
 export function getTransformationsForCollectibleType(

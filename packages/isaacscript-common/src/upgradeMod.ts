@@ -1,6 +1,5 @@
 import { postNewRoomEarlyCallbackInit } from "./callbacks/postNewRoomEarly";
 import { ModUpgraded } from "./classes/ModUpgraded";
-import { ModCallbackCustom } from "./enums/ModCallbackCustom"; // eslint-disable-line @typescript-eslint/no-unused-vars
 import { saveDataManagerInit } from "./features/saveDataManager/main";
 import {
   areFeaturesInitialized,
@@ -11,8 +10,8 @@ import { initFeaturesMajor, initFeaturesMinor } from "./initFeatures";
 import { patchErrorFunction } from "./patchErrorFunctions";
 
 /**
- * Use this function to enable the {@link ModCallbackCustom custom callbacks} and other optional
- * features provided by `isaacscript-common`.
+ * Use this function to enable the custom callbacks and other optional features provided by
+ * `isaacscript-common`.
  *
  * For example:
  *

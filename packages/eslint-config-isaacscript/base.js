@@ -75,7 +75,7 @@ module.exports = {
   rules: {
     /**
      * Documentation:
-     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/array-type.md
+     * https://typescript-eslint.io/rules/array-type
      *
      * Not defined in the parent configs.
      *
@@ -90,7 +90,7 @@ module.exports = {
 
     /**
      * Documentation:
-     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/explicit-module-boundary-types.md
+     * https://typescript-eslint.io/rules/explicit-module-boundary-types
      *
      * Not defined in the parent configs.
      *
@@ -101,7 +101,7 @@ module.exports = {
 
     /**
      * Documentation:
-     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/lines-between-class-members.md
+     * https://typescript-eslint.io/rules/lines-between-class-members
      *
      * Defined at:
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
@@ -119,7 +119,7 @@ module.exports = {
 
     /**
      * Documentation:
-     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/naming-convention.md
+     * https://typescript-eslint.io/rules/naming-convention
      *
      * Defined at:
      * https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js
@@ -153,7 +153,7 @@ module.exports = {
 
     /**
      * Documentation:
-     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unnecessary-boolean-literal-compare.md
+     * https://typescript-eslint.io/rules/no-unnecessary-boolean-literal-compare
      *
      * Not defined in the parent configs.
      *
@@ -163,7 +163,7 @@ module.exports = {
 
     /**
      * Documentation:
-     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unused-vars.md
+     * https://typescript-eslint.io/rules/no-unused-vars
      *
      * Defined at:
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/variables.js
@@ -183,7 +183,7 @@ module.exports = {
 
     /**
      * Documentation:
-     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-use-before-define.md
+     * https://typescript-eslint.io/rules/no-use-before-define
      *
      * Defined at:
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/variables.js
@@ -194,7 +194,7 @@ module.exports = {
 
     /**
      * Documentation:
-     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-optional-chain.md
+     * https://typescript-eslint.io/rules/prefer-optional-chain
      *
      * Defined at:
      * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/strict.ts
@@ -206,7 +206,7 @@ module.exports = {
 
     /**
      * Documentation:
-     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/quotes.md
+     * https://typescript-eslint.io/rules/quotes
      *
      * Defined at:
      * https://github.com/prettier/eslint-config-prettier/blob/main/%40typescript-eslint.js
@@ -226,7 +226,7 @@ module.exports = {
 
     /**
      * Documentation:
-     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/restrict-template-expressions.md
+     * https://typescript-eslint.io/rules/restrict-template-expressions
      *
      * Defined at:
      * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/recommended-requiring-type-checking.ts
@@ -238,7 +238,7 @@ module.exports = {
 
     /**
      * Documentation:
-     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/restrict-template-expressions.md
+     * https://typescript-eslint.io/rules/strict-boolean-expressions
      *
      * Not defined in the parent configs.
      *
@@ -322,7 +322,7 @@ module.exports = {
 
     /**
      * Documentation:
-     * https://eslint.org/docs/rules/no-console
+     * https://eslint.org/docs/latest/rules/no-console
      *
      * Defined at:
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/errors.js
@@ -344,7 +344,7 @@ module.exports = {
 
     /**
      * Documentation:
-     * https://eslint.org/docs/rules/no-continue
+     * https://eslint.org/docs/latest/rules/no-continue
      *
      * Defined at:
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
@@ -355,7 +355,7 @@ module.exports = {
 
     /**
      * Documentation:
-     * https://eslint.org/docs/rules/no-plusplus
+     * https://eslint.org/docs/latest/rules/no-plusplus
      *
      * Defined at:
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
@@ -372,7 +372,7 @@ module.exports = {
 
     /**
      * Documentation:
-     * https://eslint.org/docs/rules/no-restricted-syntax
+     * https://eslint.org/docs/latest/rules/no-restricted-syntax
      *
      * Defined at:
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
@@ -406,7 +406,7 @@ module.exports = {
 
     /**
      * Documentation:
-     * https://eslint.org/docs/rules/prefer-destructuring
+     * https://eslint.org/docs/latest/rules/prefer-destructuring
      *
      * Defined at:
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/es6.js

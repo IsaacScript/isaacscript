@@ -50,6 +50,7 @@ function copiedObjectHasKeyAndValueString() {
   const newObject = newTable as typeof oldObject;
 
   const value = newObject[keyToLookFor];
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (value === undefined) {
     error(`The copied object did not have a key of: ${keyToLookFor}`);
   }
@@ -196,6 +197,7 @@ function copiedObjectHasChildObject() {
   const newObject = newTable as typeof oldObject;
 
   const childObject = newObject[childObjectIndex];
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (childObject === undefined) {
     error(`Failed to find the child object at index: ${childObjectIndex}`);
   }
@@ -205,6 +207,7 @@ function copiedObjectHasChildObject() {
   }
 
   const value = childObject[keyToLookFor];
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (value === undefined) {
     error(`The child object did not have a key of: ${keyToLookFor}`);
   }

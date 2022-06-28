@@ -54,7 +54,7 @@ function entityTakeDmgPlayer(
   damageFlags: BitFlags<DamageFlag>,
   damageSource: EntityRef,
   damageCountdownFrames: int,
-): boolean | void {
+): boolean | undefined {
   if (!hasSubscriptions()) {
     return undefined;
   }
@@ -113,7 +113,7 @@ function preUseItemBible(
   _collectibleType: CollectibleType,
   _rng: RNG,
   player: EntityPlayer,
-): boolean | void {
+): boolean | undefined {
   if (!hasSubscriptions()) {
     return undefined;
   }

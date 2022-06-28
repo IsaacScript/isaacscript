@@ -81,6 +81,7 @@ function readSaveDatFile(mod: Mod) {
     return DEFAULT_MOD_DATA;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (jsonStringOrErrMsg === undefined) {
     return DEFAULT_MOD_DATA;
   }

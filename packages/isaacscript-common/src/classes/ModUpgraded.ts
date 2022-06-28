@@ -4,9 +4,9 @@ import { AddCallbackParameterCustom } from "../interfaces/AddCallbackParameterCu
 import { CALLBACK_REGISTER_FUNCTIONS } from "../objects/callbackRegisterFunctions";
 
 /**
- * `isaacscript-common` has many {@link ModCallbackCustom custom callbacks} that you can use in your
- * mods. Instead of hijacking the vanilla `Mod` object, we provide a `ModUpgraded` object for you to
- * use, which extends the base class and adds a new method of `AddCallbackCustom`.
+ * `isaacscript-common` has many custom callbacks that you can use in your mods. Instead of
+ * hijacking the vanilla `Mod` object, we provide a `ModUpgraded` object for you to use, which
+ * extends the base class and adds a new method of `AddCallbackCustom`.
  *
  * To upgrade your mod, use the `upgradeMod` helper function.
  */

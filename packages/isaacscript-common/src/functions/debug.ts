@@ -7,6 +7,7 @@ import { log } from "./log";
  * enabled.
  */
 export function getTraceback(): string {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (debug !== undefined) {
     // The --luadebug launch flag is enabled.
     return debug.traceback();
@@ -31,9 +32,9 @@ export function getTraceback(): string {
  * is enabled or not.
  */
 export function isLuaDebugEnabled(): boolean {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  return package !== undefined;
+  // Package is not always defined like the Lua definitions imply.
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  return _G.package !== undefined;
 }
 
 /**
@@ -49,7 +50,9 @@ export function traceback(): void {
 }
 
 function setDebugFunctionsGlobal() {
-  if (debug === undefined && sandboxGetTraceback === undefined) {
+  // Debug is not always defined like the Lua definitions imply.
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (_G.debug === undefined && sandboxGetTraceback === undefined) {
     return;
   }
 

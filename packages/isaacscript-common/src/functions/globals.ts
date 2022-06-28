@@ -190,23 +190,29 @@ const RACING_PLUS_SANDBOX_ADDED_GLOBALS: ReadonlySet<string> = new Set([
  *
  * Returns a slightly different set depending on whether the "--luadebug" flag is enabled or not.
  */
-export function getDefaultGlobals(): Set<string> {
+export function getDefaultGlobals(): ReadonlySet<string> {
   const defaultGlobals = copySet(DEFAULT_GLOBALS);
 
   if (isLuaDebugEnabled()) {
     addSetsToSet(defaultGlobals, LUA_DEBUG_ADDED_GLOBALS);
   }
 
-  addSetsToSet(defaultGlobals, RACING_PLUS_SANDBOX_ADDED_GLOBALS);
+  if (isRacingPlusSandboxEnabled()) {
+    addSetsToSet(defaultGlobals, RACING_PLUS_SANDBOX_ADDED_GLOBALS);
+  }
 
   return defaultGlobals;
 }
 
+function isRacingPlusSandboxEnabled() {
+  return getParentFunctionDescription !== undefined;
+}
+
 /**
  * Helper function to get an array of any added global variables in the Isaac Lua environment.
- * Returns an array of key/value tuples.
+ * Returns a sorted array of key/value tuples.
  */
-export function getNewGlobals(): Array<[AnyNotNil, unknown]> {
+export function getNewGlobals(): ReadonlyArray<[AnyNotNil, unknown]> {
   const defaultGlobals = getDefaultGlobals();
   const newGlobals: Array<[AnyNotNil, unknown]> = [];
   for (const [key, value] of pairs(_G)) {
@@ -230,6 +236,7 @@ export function logNewGlobals(): void {
     log("- n/a (no extra global variables found)");
   }
   newGlobals.forEach(([key, value], i) => {
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
     log(`${i + 1}) ${key} - ${value}`);
   });
 }

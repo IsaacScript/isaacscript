@@ -6,7 +6,7 @@ import { isTable } from "./types";
 import { ensureAllCases } from "./utils";
 
 type SerializedKColor = LuaTable<string, unknown> & {
-  __serializedKColorBrand: void;
+  readonly __serializedKColorBrand: unique symbol;
 };
 
 interface CopyKColorReturn {

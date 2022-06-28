@@ -1,7 +1,7 @@
 import { JSONDoor } from "./JSONDoor";
 import { JSONSpawn } from "./JSONSpawn";
 
-/** Part of {@link JSONRooms}. */
+/** Part of `JSONRooms`. */
 export interface JSONRoom {
   $: {
     /** Needs to be converted to an int. */

@@ -32,6 +32,7 @@ export function getTSTLClassName(object: unknown): string | undefined {
   }
 
   const { constructor } = metatable;
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (constructor === undefined) {
     return undefined;
   }

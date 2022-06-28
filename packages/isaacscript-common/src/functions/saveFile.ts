@@ -54,8 +54,8 @@ export function isCollectibleUnlocked(
 
   // Before checking the item pools, remove any collectibles or trinkets that affect retrieved
   // collectible types.
-  const removedItemsMap: Map<PlayerIndex, CollectibleType[]> = new Map();
-  const removedTrinketsMap: Map<PlayerIndex, TrinketType[]> = new Map();
+  const removedItemsMap = new Map<PlayerIndex, CollectibleType[]>();
+  const removedTrinketsMap = new Map<PlayerIndex, TrinketType[]>();
   for (const player of getPlayers()) {
     const removedItems: CollectibleType[] = [];
     for (const itemToRemove of COLLECTIBLES_THAT_AFFECT_ITEM_POOLS) {

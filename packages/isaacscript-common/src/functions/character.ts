@@ -112,6 +112,8 @@ export function getCharacterName(character: PlayerType): string {
   }
 
   const characterName = CHARACTER_NAMES[character];
+  // Handle modded characters.
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return characterName === undefined ? DEFAULT_CHARACTER_NAME : characterName;
 }
 

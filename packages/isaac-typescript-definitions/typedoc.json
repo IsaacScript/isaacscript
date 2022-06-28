@@ -15,6 +15,7 @@
     "ActionTriggerType",
     "ActionTriggerValue",
     "BitFlags",
+    "BitSet128",
     "CacheFlagType",
     "CacheFlagValue",
     "DamageFlagType",

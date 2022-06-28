@@ -1,4 +1,4 @@
-/** Part of {@link JSONRooms}. */
+/** Part of `JSONRooms`. */
 export interface JSONEntity {
   $: {
     /** Needs to be converted to an int. */

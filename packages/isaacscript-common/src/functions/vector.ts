@@ -8,7 +8,7 @@ import { isTable } from "./types";
 import { ensureAllCases } from "./utils";
 
 type SerializedVector = LuaTable<string, unknown> & {
-  __serializedVectorBrand: void;
+  readonly __serializedVectorBrand: unique symbol;
 };
 
 interface CopyVectorReturn {

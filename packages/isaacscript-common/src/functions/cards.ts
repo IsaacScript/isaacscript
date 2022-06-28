@@ -17,7 +17,7 @@ import { getRandomSeed } from "./rng";
 import { addSetsToSet, getRandomSetElement } from "./set";
 import { irange } from "./utils";
 
-const CARD_TYPE_TO_CARDS_MAP: Map<ItemConfigCardType, Set<Card>> = new Map();
+const CARD_TYPE_TO_CARDS_MAP = new Map<ItemConfigCardType, Set<Card>>();
 
 /**
  * Contains all of the entries in the `Card` enum with the following types:
@@ -26,7 +26,7 @@ const CARD_TYPE_TO_CARDS_MAP: Map<ItemConfigCardType, Set<Card>> = new Map();
  * - ItemConfigCardType.SPECIAL
  * - ItemConfigCardType.TAROT_REVERSE
  */
-const CARD_SET: Set<Card> = new Set();
+const CARD_SET = new Set<Card>();
 
 function initCardObjects() {
   // The card type to cards map should be valid for every card type, so we initialize it with empty
@@ -76,6 +76,7 @@ export function getCardDescription(card: Card): string {
   // "ItemConfigCard.Description" is bugged with vanilla cards on patch v1.7.6, so we use a
   // hard-coded map as a workaround.
   const cardDescription = CARD_DESCRIPTIONS[card];
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (cardDescription !== undefined) {
     return cardDescription;
   }
@@ -102,6 +103,7 @@ export function getCardName(card: Card): string {
   // "ItemConfigCard.Name" is bugged with vanilla cards on patch v1.7.6, so we use a hard-coded map
   // as a workaround.
   const cardName = CARD_NAMES[card];
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (cardName !== undefined && cardName !== DEFAULT_CARD_NAME) {
     return cardName;
   }
@@ -116,6 +118,8 @@ export function getCardName(card: Card): string {
 
 export function getCardType(card: Card): ItemConfigCardType {
   const cardType = CARD_TYPES[card];
+  // Handle modded cards.
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return cardType === undefined ? DEFAULT_CARD_TYPE : cardType;
 }
 

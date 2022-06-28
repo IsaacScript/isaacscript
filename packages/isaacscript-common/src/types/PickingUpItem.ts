@@ -17,7 +17,7 @@ export type PickingUpItem =
   | PickingUpItemCollectible
   | PickingUpItemTrinket;
 
-/** Part of {@link PickingUpItem}. */
+/** Part of `PickingUpItem`. */
 export interface PickingUpItemNull {
   /** Needed so that we can distinguish between picking up a collectible and a trinket. */
   itemType: ItemType.NULL;
@@ -26,7 +26,7 @@ export interface PickingUpItemNull {
   subType: 0;
 }
 
-/** Part of {@link PickingUpItem}. */
+/** Part of `PickingUpItem`. */
 export interface PickingUpItemCollectible {
   /** Needed so that we can distinguish between picking up a collectible and a trinket. */
   itemType: ItemType.PASSIVE | ItemType.ACTIVE | ItemType.FAMILIAR;
@@ -35,7 +35,7 @@ export interface PickingUpItemCollectible {
   subType: CollectibleType;
 }
 
-/** Part of {@link PickingUpItem}. */
+/** Part of `PickingUpItem`. */
 export interface PickingUpItemTrinket {
   /** Needed so that we can distinguish between picking up a collectible and a trinket. */
   itemType: ItemType.TRINKET;
