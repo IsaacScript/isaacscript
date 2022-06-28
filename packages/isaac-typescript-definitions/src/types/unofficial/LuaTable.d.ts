@@ -9,6 +9,7 @@ declare interface LuaTable<
   TKey extends AnyNotNil = AnyNotNil,
   TValue = any, // eslint-disable-line @typescript-eslint/no-explicit-any
 > {
+  // @ts-expect-error Interface merging does not allow overriding methods in this way.
   get: LuaTableGetMethodSafe<TKey, TValue>;
 }
 
