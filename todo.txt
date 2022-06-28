@@ -1,3 +1,4 @@
 implement in isaacscript-common:
 
+- test jump to TypeScript code
 - StageAPI2

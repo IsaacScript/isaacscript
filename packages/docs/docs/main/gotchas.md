@@ -143,12 +143,12 @@ numSadOnions += 0.5;
 
 <br />
 
-### Extending Enums --> Custom Enums
+### Extending Enums --> Custom Enums (Part 1)
 
 In your Lua mods, you may have extended the game's built-in enums. For example:
 
 ```lua
--- At the top of your Lua mod:
+-- At the top of the mod:
 CollectibleType.COLLECTIBLE_MY_CUSTOM_ITEM = Isaac.GetItemIdByName("My Custom Item")
 
 -- Elsewhere in the code:
@@ -163,10 +163,14 @@ end
 In TypeScript, you cannot extend existing enums, because enums are immutable. (This is a good thing; it's how enums work in all sane programming languages.) Instead, create your own enum:
 
 ```ts
-// At the top of your TypeScript mod:
-const CollectibleTypeCustom {
+// At the top of the mod:
+const CollectibleTypeCustom = {
   MY_CUSTOM_ITEM: Isaac.GetItemIdByName("My Custom Item"),
 } as const;
+
+// It's good practice to always validate enums with this helper function in order to prevent
+// crashes.
+validateCustomEnum("CollectibleTypeCustom", CollectibleTypeCustom);
 
 // Elsewhere in the code:
 if (
@@ -177,7 +181,33 @@ if (
 }
 ```
 
-As a side note, you might be wondering why the above code uses `const CollectibleTypeCustom` instead of `enum CollectibleTypeCustom`. The reason is that due to a quirk in TypeScript, enums can only have `number` or `string` types, and the result from the `Isaac.GetItemIdByName` function is a `CollectibleType` type. To work around this, we can use a `const` object instead, which is more-or-less the same thing.
+As a side note, you might be wondering why the above code uses `const CollectibleTypeCustom` instead of `enum CollectibleTypeCustom`. The reason is that due to a quirk in TypeScript, enums can only have `number` or `string` types, and the result from the `Isaac.GetItemIdByName` function is a `CollectibleType` type. To work around this, we can use a `const` object instead, which is more-or-less the same thing. (Note that it won't have the reverse mapping at run-time, though.)
+
+### Extending Enums --> Custom Enums (Part 2)
+
+In the previous section, we used an object to emulate an enum. Because the return value of the `Isaac.GetItemIdByName` method is equal to `CollectibleType`, the properties of `CollectibleTypeCustom` are of type `CollectibleType`. Thus, we can automatically use the values of `CollectibleTypeCustom` in any spot where we would normally be able to use `CollectibleType`. Nice!
+
+However, this pattern won't work for all kinds of custom enums. For example, let's consider the case of making a mod with a custom effect. In this case, we would want to make a `EffectVariantCustom` that "extends" from `EffectVariant`:
+
+```ts
+const EffectVariantCustom = {
+  MY_CUSTOM_EFFECT: Isaac.GetEntityVariantByName("My Custom Effect"),
+} as const;
+```
+
+This is not like the previous example. Here, the value of `EffectVariantCustom.MY_CUSTOM_EFFECT` is equal to `int` instead of `EffectVariant`. This is because the return type of the `Isaac.GetEntityVariantByName` method is `int`. This should kind of make sense, because at compile-time, the method has no idea what type of entity name corresponds with what type of entity variant.
+
+However, fixing this problem is easy. We just have to manually specify what the variant is using a cast, like this:
+
+```ts
+const EffectVariantCustom = {
+  MY_CUSTOM_EFFECT: Isaac.GetEntityVariantByName(
+    "My Custom Effect",
+  ) as EntityEffect,
+} as const;
+```
+
+Now, `EffectVariantCustom` can be used in any place that `EffectVariant` can.
 
 <br />
 
