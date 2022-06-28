@@ -22,8 +22,10 @@
     // By default, this is false.
     "noImplicitOverride": true,
 
-    // We prefer the "consistent-return" ESLint rule over the "noImplicitReturns" compiler flag,
-    // since it is more exhaustive.
+    // We prefer the "noImplicitReturns" compiler flag over the "consistent-return" ESLint rule,
+    // since it is type-aware:
+    // https://github.com/typescript-eslint/typescript-eslint/issues/5254
+    "noImplicitReturns": true,
 
     // "noPropertyAccessFromIndexSignature" disallows accessing undefined properties with dot
     // syntax.
