@@ -23,7 +23,7 @@ import { Args, parseArgs } from "./parseArgs";
 import { promptInit } from "./prompt";
 import { Command, DEFAULT_COMMAND } from "./types/Command";
 import { Config } from "./types/Config";
-import { ensureAllCases, error } from "./utils";
+import { error } from "./utils";
 import { validateInIsaacScriptProject } from "./validateInIsaacScriptProject";
 import { validateNodeVersion } from "./validateNodeVersion";
 import { validateOS } from "./validateOS";
@@ -113,11 +113,6 @@ async function handleCommands(args: Args) {
 
     case "publish": {
       publish(args, config);
-      break;
-    }
-
-    default: {
-      ensureAllCases(command);
       break;
     }
   }

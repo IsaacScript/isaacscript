@@ -4,7 +4,7 @@ import { CWD } from "./constants";
 import * as file from "./file";
 import { Args } from "./parseArgs";
 import { PackageManager } from "./types/PackageManager";
-import { ensureAllCases, error, getEnumValues } from "./utils";
+import { error, getEnumValues } from "./utils";
 
 const PACKAGE_MANAGER_LOCK_FILE_NAMES: {
   readonly [key in PackageManager]: string;
@@ -36,10 +36,6 @@ export function getPackageManagerAddCommand(
     case PackageManager.PNPM: {
       return `pnpm add ${dependency}`;
     }
-
-    default: {
-      return ensureAllCases(packageManager);
-    }
   }
 }
 
@@ -58,10 +54,6 @@ export function getPackageManagerInstallCommand(
     case PackageManager.PNPM: {
       return ["pnpm", ["install"]];
     }
-
-    default: {
-      return ensureAllCases(packageManager);
-    }
   }
 }
 
@@ -79,10 +71,6 @@ export function getPackageManagerInstallCICommand(
 
     case PackageManager.PNPM: {
       return "pnpm install --frozen-lockfile";
-    }
-
-    default: {
-      return ensureAllCases(packageManager);
     }
   }
 }

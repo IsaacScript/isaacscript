@@ -16,7 +16,7 @@ import {
   isCharacter,
   setActiveItem,
 } from "./player";
-import { ensureAllCases, repeat } from "./utils";
+import { repeat } from "./utils";
 
 export function addPlayerHealthType(
   player: EntityPlayer,
@@ -26,51 +26,47 @@ export function addPlayerHealthType(
   switch (healthType) {
     case HealthType.RED: {
       player.AddHearts(numHearts);
-      return;
+      break;
     }
 
     case HealthType.SOUL: {
       player.AddSoulHearts(numHearts);
-      return;
+      break;
     }
 
     case HealthType.ETERNAL: {
       player.AddEternalHearts(numHearts);
-      return;
+      break;
     }
 
     case HealthType.BLACK: {
       player.AddBlackHearts(numHearts);
-      return;
+      break;
     }
 
     case HealthType.GOLDEN: {
       player.AddGoldenHearts(numHearts);
-      return;
+      break;
     }
 
     case HealthType.BONE: {
       player.AddBoneHearts(numHearts);
-      return;
+      break;
     }
 
     case HealthType.ROTTEN: {
       player.AddRottenHearts(numHearts);
-      return;
+      break;
     }
 
     case HealthType.BROKEN: {
       player.AddBrokenHearts(numHearts);
-      return;
+      break;
     }
 
     case HealthType.MAX_HEARTS: {
       player.AddMaxHearts(numHearts, false);
-      return;
-    }
-
-    default: {
-      ensureAllCases(healthType);
+      break;
     }
   }
 }
@@ -211,10 +207,6 @@ export function getPlayerHealthType(
 
     case HealthType.MAX_HEARTS: {
       return player.GetMaxHearts();
-    }
-
-    default: {
-      return ensureAllCases(healthType);
     }
   }
 }

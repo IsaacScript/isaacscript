@@ -2,7 +2,6 @@ import * as JSONC from "jsonc-parser";
 import path from "path";
 import { PROJECT_NAME } from "../../../constants";
 import * as file from "../../../file";
-import { ensureAllCases } from "../../../utils";
 import { SaveDatMessage, SaveDatMessageType } from "./types";
 
 const SUBPROCESS_NAME = "save#.dat writer";
@@ -101,11 +100,6 @@ function addMessageToSaveDat(
         });
       }
 
-      break;
-    }
-
-    default: {
-      ensureAllCases(type);
       break;
     }
   }

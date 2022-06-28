@@ -17,6 +17,8 @@ This page lists the changes to the IsaacScript framework.
 - Breaking changes:
   - Any callback definition with `void` inside of a union has been renamed to `undefined` in order to have more consistent code and satisfy the TypeScript ESLint rules. This means that you may need to add `return undefined;` to some of your callback functions is order to satisfy the compiler. (Doing so explicitly acknowledges that this is the type of callback that expects a return value.)
   - The `removeAllGridExcept` and `removeAllMatchingGridEntities` functions now return an array of the grid entities that are removed.
+  - The `consistent-return` ESLint rule has been turned off in favor of the `noImplicitReturns` compiler flag. (The latter is type-aware, which results in a more comprehensive check.)
+  - The `default-case` ESLint rule has been turned off in favor of the [switch-exhaustiveness-check](https://typescript-eslint.io/rules/switch-exhaustiveness-check/) ESLint rule. Subsequently, the `ensureAllCases` helper function has been removed, since it is no longer needed. You can clean up all of the boilerplate default cases from your switches, as TypeScript + ESLint will now automatically be able to derive if you did not handle a switch case.
 - Added the following helper functions:
   - `getBombRadiusFromDamage`
   - `getPlayerFromTear`
@@ -46,6 +48,8 @@ This page lists the changes to the IsaacScript framework.
   - `getCurrentRoomDescriptorReadOnly` --> `getRoomDescriptorReadOnly`
   - `getCurrentDimension` --> `getDimension`
   - `iterateTableDeterministically` --> `iterateTableInOrder`
+- Deleted the following helper functions:
+  - `ensureAllCases` - This is no longer needed with the new linting rules. See the above explanation.
 - Added the following constants:
   - `NUM_PILLS_IN_POOL`
   - `MIN_PLAYER_SPEED_STAT`

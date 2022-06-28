@@ -4,44 +4,6 @@ import { game } from "../cachedClasses";
 const HEX_STRING_LENGTH = 6;
 
 /**
- * Helper function to get type safety on a switch statement.
- *
- * Very useful to be future-safe against people adding values to a type or an enum.
- *
- * For example:
- *
- * ```ts
- * enum Situation {
- *   ONE,
- *   TWO,
- *   THREE,
- *   // FOUR, // If we uncomment this line, the program will no longer compile
- * }
- *
- * function handleSituation(situation: Situation) {
- *   switch (situation) {
- *     case Situation.ONE: {
- *       return 41;
- *     }
- *
- *     case Situation.TWO: {
- *       return 68;
- *     }
- *
- *     case Situation.THREE: {
- *       return 12;
- *     }
- *
- *     default: {
- *       return ensureAllCases(situation);
- *     }
- *   }
- * }
- * ```
- */
-export const ensureAllCases = (obj: never): never => obj;
-
-/**
  * Helper function to return an array with the elements from start to end. It is inclusive at the
  * start and exclusive at the end. (The "e" stands for exclusive.)
  *

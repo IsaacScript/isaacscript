@@ -5,7 +5,6 @@ import { angleToDirection } from "./direction";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { copyValuesToTable, getNumbersFromTable, tableHasKeys } from "./table";
 import { isTable } from "./types";
-import { ensureAllCases } from "./utils";
 
 type SerializedVector = LuaTable<string, unknown> & {
   readonly __serializedVectorBrand: unique symbol;
@@ -87,10 +86,6 @@ export function copyVector(
       }
 
       return Vector(x, y);
-    }
-
-    default: {
-      return ensureAllCases(serializationType);
     }
   }
 }

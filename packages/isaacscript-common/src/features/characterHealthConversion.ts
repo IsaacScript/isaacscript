@@ -6,7 +6,6 @@ import {
 } from "isaac-typescript-definitions";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { isRedHeart } from "../functions/pickups";
-import { ensureAllCases } from "../functions/utils";
 
 const FEATURE_NAME = "character health manager";
 
@@ -53,16 +52,12 @@ function convertRedHeartContainers(
   switch (heartSubType) {
     case HeartSubType.SOUL: {
       player.AddSoulHearts(maxHearts);
-      return;
+      break;
     }
 
     case HeartSubType.BLACK: {
       player.AddBlackHearts(maxHearts);
-      return;
-    }
-
-    default: {
-      ensureAllCases(heartSubType);
+      break;
     }
   }
 }

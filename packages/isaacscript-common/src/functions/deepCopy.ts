@@ -23,11 +23,7 @@ import {
   newTSTLClass,
 } from "./tstlClass";
 import { isNumber, isPrimitive } from "./types";
-import {
-  ensureAllCases,
-  getTraversalDescription,
-  twoDimensionalSort,
-} from "./utils";
+import { getTraversalDescription, twoDimensionalSort } from "./utils";
 
 const COPYABLE_ISAAC_API_CLASS_TYPES_SET = new Set<string>(
   getEnumValues(CopyableIsaacAPIClassType),
@@ -108,10 +104,6 @@ export function deepCopy(
     case "userdata": {
       return deepCopyUserdata(value, serializationType, traversalDescription);
     }
-
-    default: {
-      return ensureAllCases(valueType);
-    }
   }
 }
 
@@ -184,63 +176,26 @@ function deepCopyDefaultMap(
   serializationType: SerializationType,
   traversalDescription: string,
 ) {
+  // First, handle the special case of serializing a DefaultMap instantiated with a factory
+  // function. If this is the case, then we cannot serialize it, so we serialize it as a normal
+  // `Map` instead. We do not throw a runtime error because the merge function does not need to
+  // instantiate the DefaultMap class in most circumstances.
   const constructorArg = isDefaultMap(defaultMap)
     ? defaultMap.getConstructorArg()
     : undefined;
-
-  let newDefaultMap:
-    | DefaultMap<AnyNotNil, unknown>
-    | LuaTable<AnyNotNil, unknown>;
-  switch (serializationType) {
-    case SerializationType.NONE: {
-      // eslint-disable-next-line isaacscript/no-invalid-default-map
-      newDefaultMap = new DefaultMap(constructorArg);
-      break;
-    }
-
-    case SerializationType.SERIALIZE: {
-      // The DefaultMap can be instantiated with a factory function. If this is the case, then we
-      // cannot serialize it, so we serialize it as a normal `Map` instead. We do not throw a
-      // runtime error because the merge function does not need to instantiate the DefaultMap class
-      // in most circumstances.
-      if (!isPrimitive(constructorArg)) {
-        return deepCopyMap(defaultMap, serializationType, traversalDescription);
-      }
-
-      // Since we are serializing, the new object will be a Lua table.
-      newDefaultMap = new LuaTable<AnyNotNil, unknown>();
-      newDefaultMap.set(SerializationBrand.DEFAULT_MAP, "");
-      newDefaultMap.set(SerializationBrand.DEFAULT_MAP_VALUE, constructorArg);
-
-      break;
-    }
-
-    case SerializationType.DESERIALIZE: {
-      if (isDefaultMap(defaultMap)) {
-        error(
-          `The deep copy function failed to deserialize a default map of "${traversalDescription}", since it was not a Lua table.`,
-        );
-      }
-
-      const defaultMapValue = defaultMap.get(
-        SerializationBrand.DEFAULT_MAP_VALUE,
-      );
-      if (defaultMapValue === undefined) {
-        error(
-          `The deep copy function failed to deserialize a default map of "${traversalDescription}", since there was no serialization brand of: ${SerializationBrand.DEFAULT_MAP_VALUE}`,
-        );
-      }
-
-      // eslint-disable-next-line isaacscript/no-invalid-default-map
-      newDefaultMap = new DefaultMap(defaultMapValue);
-
-      break;
-    }
-
-    default: {
-      return ensureAllCases(serializationType);
-    }
+  if (
+    serializationType === SerializationType.SERIALIZE &&
+    !isPrimitive(constructorArg)
+  ) {
+    return deepCopyMap(defaultMap, serializationType, traversalDescription);
   }
+
+  const newDefaultMap = getNewDefaultMap(
+    defaultMap,
+    serializationType,
+    traversalDescription,
+    constructorArg,
+  );
 
   const { entries, convertedNumberKeysToStrings } = getCopiedEntries(
     defaultMap,
@@ -269,6 +224,54 @@ function deepCopyDefaultMap(
   }
 
   return newDefaultMap;
+}
+
+/**
+ * The new default map with either be a TSTL `DefaultMap` class or a Lua table, depending on whether
+ * we are serializing or not.
+ */
+function getNewDefaultMap(
+  defaultMap: DefaultMap<AnyNotNil, unknown> | LuaTable<AnyNotNil, unknown>,
+  serializationType: SerializationType,
+  traversalDescription: string,
+  constructorArg: unknown,
+) {
+  switch (serializationType) {
+    case SerializationType.NONE: {
+      // eslint-disable-next-line isaacscript/no-invalid-default-map
+      return new DefaultMap(constructorArg);
+    }
+
+    case SerializationType.SERIALIZE: {
+      // Since we are serializing, the new object will be a Lua table. (At this point, we already
+      // handled the special case of a DefaultMap instantiated with a factory function.)
+      const newDefaultMap = new LuaTable<AnyNotNil, unknown>();
+      newDefaultMap.set(SerializationBrand.DEFAULT_MAP, "");
+      newDefaultMap.set(SerializationBrand.DEFAULT_MAP_VALUE, constructorArg);
+
+      return newDefaultMap;
+    }
+
+    case SerializationType.DESERIALIZE: {
+      if (isDefaultMap(defaultMap)) {
+        error(
+          `The deep copy function failed to deserialize a default map of "${traversalDescription}", since it was not a Lua table.`,
+        );
+      }
+
+      const defaultMapValue = defaultMap.get(
+        SerializationBrand.DEFAULT_MAP_VALUE,
+      );
+      if (defaultMapValue === undefined) {
+        error(
+          `The deep copy function failed to deserialize a default map of "${traversalDescription}", since there was no serialization brand of: ${SerializationBrand.DEFAULT_MAP_VALUE}`,
+        );
+      }
+
+      // eslint-disable-next-line isaacscript/no-invalid-default-map
+      return new DefaultMap(defaultMapValue);
+    }
+  }
 }
 
 function deepCopyMap(

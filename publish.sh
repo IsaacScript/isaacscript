@@ -42,7 +42,7 @@ fi
 bash "$PACKAGE_DIR/build.sh"
 
 cd "$DIR/dist/packages/$PACKAGE_NAME"
-npm publish
+npm publish --access=public
 
 bash "$DIR/update.sh"
 

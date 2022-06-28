@@ -6,8 +6,6 @@ import { Config } from "./types/Config";
 const KEBAB_CASE_REGEX =
   /^([a-z](?![\d])|[\d](?![a-z]))+(-?([a-z](?![\d])|[\d](?![a-z])))*$|^$/;
 
-export const ensureAllCases = (obj: never): never => obj;
-
 export function error(...args: unknown[]): never {
   console.error(...args);
   return process.exit(1);

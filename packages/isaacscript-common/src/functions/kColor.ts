@@ -3,7 +3,6 @@ import { SerializationType } from "../enums/SerializationType";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { copyValuesToTable, getNumbersFromTable, tableHasKeys } from "./table";
 import { isTable } from "./types";
-import { ensureAllCases } from "./utils";
 
 type SerializedKColor = LuaTable<string, unknown> & {
   readonly __serializedKColorBrand: unique symbol;
@@ -95,10 +94,6 @@ export function copyKColor(
       }
 
       return KColor(r, g, b, a);
-    }
-
-    default: {
-      return ensureAllCases(serializationType);
     }
   }
 }

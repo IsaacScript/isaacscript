@@ -23,7 +23,7 @@ import { getCollectibleSet } from "./collectibleSet";
 import { getEnumValues } from "./enums";
 import { getPlayerIndexVanilla, getPlayers } from "./playerIndex";
 import { addTearsStat } from "./tears";
-import { ensureAllCases, repeat } from "./utils";
+import { repeat } from "./utils";
 
 const STAT_CACHE_FLAGS_SET: ReadonlySet<CacheFlag> = new Set([
   CacheFlag.DAMAGE, // 1 << 0
@@ -1007,10 +1007,6 @@ export function setActiveItem(
     case ActiveSlot.POCKET_SINGLE_USE: {
       player.SetPocketActiveItem(collectibleType, activeSlot, keepInPools);
       break;
-    }
-
-    default: {
-      ensureAllCases(activeSlot);
     }
   }
 }

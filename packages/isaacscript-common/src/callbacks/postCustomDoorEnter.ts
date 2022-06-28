@@ -17,7 +17,6 @@ import { directionToVector } from "../functions/direction";
 import { doorSlotToDirection } from "../functions/doors";
 import { getEffects, spawnEffect } from "../functions/entitySpecific";
 import { getClosestPlayer } from "../functions/player";
-import { ensureAllCases } from "../functions/utils";
 import {
   postCustomDoorEnterFire,
   postCustomDoorEnterHasSubscriptions,
@@ -193,10 +192,6 @@ function isPlayerPastDoorThreshold(
     // 4
     case Direction.LEFT: {
       return player.Position.X <= effect.Position.X;
-    }
-
-    default: {
-      return ensureAllCases(direction);
     }
   }
 }

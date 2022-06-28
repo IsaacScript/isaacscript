@@ -260,6 +260,17 @@ module.exports = {
 
     /**
      * Documentation:
+     * https://typescript-eslint.io/rules/switch-exhaustiveness-check/
+     *
+     * Not defined in the parent configs.
+     *
+     * This rule ensures type-safety with switch statements, which can be especially helpful when
+     * values are added or removed from an enum.
+     */
+    "@typescript-eslint/switch-exhaustiveness-check": "warn",
+
+    /**
+     * Documentation:
      * https://eslint.org/docs/latest/rules/consistent-return
      *
      * Defined at:
@@ -286,6 +297,18 @@ module.exports = {
      * https://github.com/prettier/eslint-config-prettier#curly
      */
     curly: ["warn", "all"],
+
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/default-case
+     *
+     * Defined at:
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     *
+     * This rule is generally bad to have on in TypeScript projects:
+     * https://github.com/typescript-eslint/typescript-eslint/issues/5254
+     */
+    "default-case": "off",
 
     /**
      * Documentation:

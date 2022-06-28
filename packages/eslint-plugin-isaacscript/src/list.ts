@@ -1,5 +1,3 @@
-import { ensureAllCases } from "./utils";
-
 /**
  * A description of the kind of list that is currently being iterated over. For example, the
  * following text is a list:
@@ -91,10 +89,6 @@ export function getAdjustedList(
 
     case undefined: {
       return undefined;
-    }
-
-    default: {
-      return ensureAllCases(list.kind);
     }
   }
 }

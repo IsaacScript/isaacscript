@@ -35,13 +35,6 @@ const urlCreator = (name: string) =>
 export const createRule = ESLintUtils.RuleCreator(urlCreator);
 
 /**
- * Helper function to get type safety on a switch statement.
- *
- * Very useful to be future-safe against people adding values to a type or an enum.
- */
-export const ensureAllCases = (obj: never): never => obj;
-
-/**
  * Helper function to get the only the values of an enum.
  *
  * (By default, TypeScript will put the keys inside of the values of a number-based enum, so those

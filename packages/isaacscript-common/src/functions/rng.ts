@@ -4,7 +4,6 @@ import { SerializationType } from "../enums/SerializationType";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { getNumbersFromTable, tableHasKeys } from "./table";
 import { isTable } from "./types";
-import { ensureAllCases } from "./utils";
 
 type SerializedRNG = LuaTable<string, unknown> & {
   readonly __serializedRNGBrand: unique symbol;
@@ -84,10 +83,6 @@ export function copyRNG(
       );
       const seed = seedNumber as Seed;
       return newRNG(seed);
-    }
-
-    default: {
-      return ensureAllCases(serializationType);
     }
   }
 }
