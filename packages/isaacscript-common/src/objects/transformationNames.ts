@@ -1,7 +1,5 @@
 import { PlayerForm } from "isaac-typescript-definitions";
 
-export const DEFAULT_TRANSFORMATION_NAME = "Unknown";
-
 export const TRANSFORMATION_NAMES: { readonly [key in PlayerForm]: string } = {
   [PlayerForm.GUPPY]: "Guppy", // 0
   [PlayerForm.BEELZEBUB]: "Beelzebub", // 1
