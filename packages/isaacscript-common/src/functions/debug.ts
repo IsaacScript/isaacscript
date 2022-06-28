@@ -32,7 +32,7 @@ export function getTraceback(): string {
  * is enabled or not.
  */
 export function isLuaDebugEnabled(): boolean {
-  // Package is not always defined like the Lua definitions imply.
+  // "package" is not always defined like the Lua definitions imply.
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return _G.package !== undefined;
 }
@@ -50,7 +50,7 @@ export function traceback(): void {
 }
 
 function setDebugFunctionsGlobal() {
-  // Debug is not always defined like the Lua definitions imply.
+  // "debug" is not always defined like the Lua definitions imply.
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (_G.debug === undefined && sandboxGetTraceback === undefined) {
     return;

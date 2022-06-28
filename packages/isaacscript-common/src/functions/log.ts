@@ -53,7 +53,7 @@ export function getDebugPrependString(
   // - 3 - the function that calls the calling function
   numParentFunctions = 3,
 ): string {
-  // Debug is not always defined like the Lua definitions imply.
+  // "debug" is not always defined like the Lua definitions imply.
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (debug !== undefined) {
     // The "--luadebug" launch flag is enabled.
@@ -718,6 +718,3 @@ export function setLogFunctionsGlobal(): void {
   globals["logUserdata"] = logUserdata;
   globals["logVector"] = logVector;
 }
-
-declare const poop: BitFlag;
-log(`LOL ${poop}`);

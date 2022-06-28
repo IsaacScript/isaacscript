@@ -104,7 +104,7 @@ export function getCardName(card: Card): string {
   // as a workaround.
   const cardName = CARD_NAMES[card];
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (cardName !== undefined && cardName !== DEFAULT_CARD_NAME) {
+  if (cardName !== undefined) {
     return cardName;
   }
 
