@@ -12,6 +12,9 @@
 // The Isaac definitions automatically bundle the definitions for Lua 5.3 as a convenience.
 /// <reference types="lua-types/5.3" />
 
+// A safer version of the LuaTable provided by TypeScriptToLua.
+/// <reference path="unofficial/LuaTable.d.ts" />
+
 // -------------
 // Miscellaneous
 // -------------

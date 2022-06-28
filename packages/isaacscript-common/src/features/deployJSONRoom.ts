@@ -111,8 +111,7 @@ function preUseItemWeNeedToGoDeeper(
   _collectibleType: CollectibleType,
   _rng: RNG,
   player: EntityPlayer,
-  // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-): boolean | void {
+): boolean | undefined {
   if (v.room.manuallyUsingShovel) {
     return undefined;
   }
