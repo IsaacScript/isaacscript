@@ -200,7 +200,8 @@ module.exports = {
      * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/strict.ts
      *
      * This can modify the type of boolean declarations to "boolean | undefined", which is undesired
-     * in some circumstances.
+     * in some circumstances:
+     * https://github.com/typescript-eslint/typescript-eslint/issues/5269
      */
     "@typescript-eslint/prefer-optional-chain": "off",
 
