@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-invalid-void-type */
-
 import { PlayerType } from "../../enums/collections/subTypes";
 
 declare global {
@@ -54,7 +52,7 @@ declare global {
         StatusFunc?: (vars: EncyclopediaItemVars) => EncyclopediaItemVars;
         UnlockFunc?: (
           vars: EncyclopediaItemVars,
-        ) => EncyclopediaItemVars | void;
+        ) => EncyclopediaItemVars | undefined;
         WikiDesc?: EncyclopediaWikiDescription;
       },
       eType: string,
@@ -70,7 +68,9 @@ declare global {
       Sprite?: Sprite;
       StatusClose?: (vars: EncyclopediaItemVars) => void;
       StatusFunc?: (vars: EncyclopediaItemVars) => EncyclopediaItemVars;
-      UnlockFunc?: (vars: EncyclopediaItemVars) => EncyclopediaItemVars | void;
+      UnlockFunc?: (
+        vars: EncyclopediaItemVars,
+      ) => EncyclopediaItemVars | undefined;
       WikiDesc?: EncyclopediaWikiDescription;
     }): void;
 
@@ -84,7 +84,9 @@ declare global {
       Sprite?: Sprite;
       StatusClose?: (vars: EncyclopediaItemVars) => void;
       StatusFunc?: (vars: EncyclopediaItemVars) => EncyclopediaItemVars;
-      UnlockFunc?: (vars: EncyclopediaItemVars) => EncyclopediaItemVars | void;
+      UnlockFunc?: (
+        vars: EncyclopediaItemVars,
+      ) => EncyclopediaItemVars | undefined;
       WikiDesc?: EncyclopediaWikiDescription;
     }): void;
 

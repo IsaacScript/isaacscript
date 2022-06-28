@@ -803,7 +803,7 @@ export enum ModCallbackCustom {
    *   only fire if the player matches the `PlayerType` provided.
    *
    * ```ts
-   * function postPlayerFatalDamage(player: EntityPlayer): boolean | void {}
+   * function postPlayerFatalDamage(player: EntityPlayer): boolean | undefined {}
    * ```
    */
   POST_PLAYER_FATAL_DAMAGE,
@@ -1236,7 +1236,7 @@ export enum ModCallbackCustom {
    *   only fire if the player matches the `PlayerType` provided.
    *
    * ```ts
-   * function preCustomRevive(player: EntityPlayer): int | void {}
+   * function preCustomRevive(player: EntityPlayer): int | undefined {}
    * ```
    */
   PRE_CUSTOM_REVIVE,

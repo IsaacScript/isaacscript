@@ -11,7 +11,7 @@ export type PostPlayerFatalDamageRegisterParameters = [
     damageFlags: BitFlags<DamageFlag>,
     damageSource: EntityRef,
     damageCountdownFrames: int,
-  ) => boolean | void, // eslint-disable-line @typescript-eslint/no-invalid-void-type
+  ) => boolean | undefined,
   playerVariant?: PlayerVariant,
   character?: PlayerType,
 ];
@@ -58,7 +58,7 @@ export function postPlayerFatalDamageFire(
       damageSource,
       damageCountdownFrames,
     );
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+
     if (shouldSustainDeath !== undefined) {
       return shouldSustainDeath;
     }

@@ -36,7 +36,10 @@ function useItem(
   useFlags: BitFlags<UseFlag>,
   activeSlot: int,
   customVarData: int,
-): boolean | { Discharge: boolean; Remove: boolean; ShowAnim: boolean } | void;
+):
+  | boolean
+  | { Discharge: boolean; Remove: boolean; ShowAnim: boolean }
+  | undefined;
 ```
 
 ### POST_PEFFECT_UPDATE (4)
@@ -98,13 +101,13 @@ function entityTakeDmg(
   damageFlags: BitFlags<DamageFlag>,
   damageSource: EntityRef,
   damageCountdownFrames: int,
-): boolean | void {}
+): boolean | undefined {}
 ```
 
 ### POST_CURSE_EVAL (12)
 
 ```ts
-function postCurseEval(curses: int): int | void {}
+function postCurseEval(curses: int): int | undefined {}
 ```
 
 ### INPUT_ACTION (13)
@@ -114,7 +117,7 @@ function inputAction(
   entity: Entity | undefined,
   inputHook: InputHook,
   buttonAction: ButtonAction,
-): boolean | float | void {}
+): boolean | float | undefined {}
 ```
 
 ### POST_GAME_STARTED (14)
@@ -156,7 +159,7 @@ function getCard(
   includePlayingCards: boolean,
   includeRunes: boolean,
   onlyRunes: boolean,
-): Card | void {}
+): Card | undefined {}
 ```
 
 ### GET_SHADER_PARAMS (21)
@@ -181,7 +184,7 @@ function executeCmd(
 function preUseItem(
   collectibleType: CollectibleType,
   rng: RNG,
-): boolean | void {}
+): boolean | undefined {}
 ```
 
 ### PRE_ENTITY_SPAWN (24)
@@ -195,7 +198,7 @@ function preEntitySpawn(
   velocity: Vector,
   spawner: Entity,
   initSeed: int,
-): [EntityType, int, int, int] | void {}
+): [EntityType, int, int, int] | undefined {}
 ```
 
 ### POST_FAMILIAR_RENDER (25)
@@ -214,7 +217,7 @@ function preFamiliarCollision(
   familiar: EntityFamiliar,
   collider: Entity,
   low: boolean,
-): boolean | void {}
+): boolean | undefined {}
 ```
 
 ### POST_NPC_INIT (27)
@@ -242,7 +245,7 @@ function preNPCCollision(
   npc: EntityNPC,
   collider: Entity,
   low: boolean,
-): boolean | void {}
+): boolean | undefined {}
 ```
 
 ### POST_PLAYER_UPDATE (31)
@@ -264,7 +267,7 @@ function prePlayerCollision(
   player: EntityPlayer,
   collider: Entity,
   low: boolean,
-): boolean | void {}
+): boolean | undefined {}
 ```
 
 ### POST_PICKUP_INIT (34)
@@ -292,7 +295,7 @@ function postPickupSelection(
   pickup: EntityPickup,
   variant: PickupVariant,
   subType: int,
-): [PickupVariant, int] | void {}
+): [PickupVariant, int] | undefined {}
 ```
 
 ### PRE_PICKUP_COLLISION (38)
@@ -302,7 +305,7 @@ function prePickupCollision(
   pickup: EntityPickup,
   collider: Entity,
   low: boolean,
-): boolean | void {}
+): boolean | undefined {}
 ```
 
 ### POST_TEAR_INIT (39)
@@ -330,7 +333,7 @@ function preTearCollision(
   tear: EntityTear,
   collider: Entity,
   low: boolean,
-): boolean | void {}
+): boolean | undefined {}
 ```
 
 ### POST_PROJECTILE_INIT (43)
@@ -361,7 +364,7 @@ function preProjectileCollision(
   projectile: EntityProjectile,
   collider: Entity,
   low: boolean,
-): boolean | void {}
+): boolean | undefined {}
 ```
 
 ### POST_LASER_INIT (47)
@@ -407,7 +410,7 @@ function preKnifeCollision(
   knife: EntityKnife,
   collider: Entity,
   low: boolean,
-): boolean | void {}
+): boolean | undefined {}
 ```
 
 ### POST_EFFECT_INIT (54)
@@ -453,7 +456,7 @@ function preBombCollision(
   bomb: EntityBomb,
   collider: Entity,
   low: boolean,
-): boolean | void {}
+): boolean | undefined {}
 ```
 
 ### POST_FIRE_TEAR (61)
@@ -469,7 +472,7 @@ function preGetCollectible(
   itemPoolType: ItemPoolType,
   decrease: boolean,
   seed: int,
-): CollectibleType | void {}
+): CollectibleType | undefined {}
 ```
 
 ### POST_GET_COLLECTIBLE (63)
@@ -480,13 +483,13 @@ function postGetCollectible(
   itemPoolType: ItemPoolType,
   decrease: boolean,
   seed: int,
-): CollectibleType | void {}
+): CollectibleType | undefined {}
 ```
 
 ### GET_PILL_COLOR (64)
 
 ```ts
-function getPillColor(seed: int): PillColor | void {}
+function getPillColor(seed: int): PillColor | undefined {}
 ```
 
 ### GET_PILL_EFFECT (65)
@@ -495,13 +498,16 @@ function getPillColor(seed: int): PillColor | void {}
 function getPillEffect(
   pillEffect: PillEffect,
   pillColor: PillColor,
-): PillEffect | void {}
+): PillEffect | undefined {}
 ```
 
 ### GET_TRINKET (66)
 
 ```ts
-function getTrinket(trinketType: TrinketType, rng: RNG): TrinketType | void {}
+function getTrinket(
+  trinketType: TrinketType,
+  rng: RNG,
+): TrinketType | undefined {}
 ```
 
 ### POST_ENTITY_REMOVE (67)
@@ -519,13 +525,16 @@ function postEntityKill(entity: Entity): void {}
 ### PRE_NPC_UPDATE (69)
 
 ```ts
-function preNPCUpdate(entity: Entity): boolean | void {}
+function preNPCUpdate(entity: Entity): boolean | undefined {}
 ```
 
 ### PRE_SPAWN_CLEAN_AWARD (70)
 
 ```ts
-function preSpawnClearAward(rng: RNG, spawnPosition: Vector): boolean | void {}
+function preSpawnClearAward(
+  rng: RNG,
+  spawnPosition: Vector,
+): boolean | undefined {}
 ```
 
 ### PRE_ROOM_ENTITY_SPAWN (71)
@@ -537,5 +546,5 @@ function preRoomEntitySpawn(
   subType: int,
   gridIndex: int,
   seed: int,
-): [EntityType, int, int] | void {}
+): [EntityType, int, int] | undefined {}
 ```

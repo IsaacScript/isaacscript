@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-invalid-void-type */
 // cspell:ignore STAGEAPI
 
 import { Direction } from "../../enums/Direction";
@@ -70,7 +69,7 @@ declare global {
         gridIndex: int,
         grid: GridEntity,
         justBrokenGridSpawns?: LuaTable<int, StageAPIRemovedEntityData>,
-      ) => false | void,
+      ) => false | undefined,
     ];
 
     [StageAPICallback.POST_ROOM_INIT]: [

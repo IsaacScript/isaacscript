@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-invalid-void-type */
-
 import { Dimension } from "../../enums/Dimension";
 import { DoorSlot } from "../../enums/DoorSlot";
 import { EntityType } from "../../enums/EntityType";
@@ -16,7 +14,7 @@ declare global {
       func: (
         room: MinimapAPIRoomDescriptor,
         flags: BitFlags<DisplayFlag>,
-      ) => BitFlags<DisplayFlag> | void,
+      ) => BitFlags<DisplayFlag> | undefined,
     ): void;
 
     AddIcon(

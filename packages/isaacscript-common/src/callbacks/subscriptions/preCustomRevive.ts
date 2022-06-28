@@ -1,8 +1,7 @@
 import { PlayerType, PlayerVariant } from "isaac-typescript-definitions";
 
 export type PreCustomReviveRegisterParameters = [
-  // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-  callback: (player: EntityPlayer) => int | void,
+  callback: (player: EntityPlayer) => int | undefined,
   playerVariant?: PlayerVariant,
   character?: PlayerType,
 ];
@@ -37,7 +36,7 @@ export function preCustomReviveFire(player: EntityPlayer): int | undefined {
     }
 
     const revivalType = callback(player);
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+
     if (revivalType !== undefined) {
       return revivalType;
     }

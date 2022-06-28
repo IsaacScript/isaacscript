@@ -259,13 +259,30 @@ module.exports = {
 
     /**
      * Documentation:
+     * https://eslint.org/docs/latest/rules/consistent-return
+     *
+     * Defined at:
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     *
+     * We prefer the "noImplicitReturns" compiler flag over the "consistent-return" ESLint rule,
+     * since it is type-aware:
+     * https://github.com/typescript-eslint/typescript-eslint/issues/5254
+     */
+    "consistent-return": ["off"],
+
+    /**
+     * Documentation:
      * https://eslint.org/docs/latest/rules/curly
      *
-     * Defined at: ?
+     * Defined at:
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
      *
      * Always requiring curly braces can partially ward against Apple-style if statement bugs:
      * https://www.imperialviolet.org/2014/02/22/applebug.html
-     * ?
+     *
+     * Additionally, this rule needs to be set to "all" to work properly with
+     * `eslint-prettier-config`:
+     * https://github.com/prettier/eslint-config-prettier#curly
      */
     curly: ["warn", "all"],
 

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-invalid-void-type */
 /* eslint-disable isaacscript/member-ordering */
 
 import { ActiveSlot } from "../../enums/ActiveSlot";
@@ -55,7 +54,7 @@ declare global {
       ) =>
         | boolean
         | { Discharge: boolean; Remove: boolean; ShowAnim: boolean }
-        | void,
+        | undefined,
       collectibleType?: CollectibleType,
     ];
 
@@ -117,12 +116,12 @@ declare global {
         damageFlags: BitFlags<DamageFlag>,
         damageSource: EntityRef,
         damageCountdownFrames: int,
-      ) => boolean | void,
+      ) => boolean | undefined,
       entityType?: EntityType,
     ];
 
     // 12
-    [ModCallback.POST_CURSE_EVAL]: [callback: (curses: int) => int | void];
+    [ModCallback.POST_CURSE_EVAL]: [callback: (curses: int) => int | undefined];
 
     // 13
     [ModCallback.INPUT_ACTION]: [
@@ -130,7 +129,7 @@ declare global {
         entity: Entity | undefined,
         inputHook: InputHook,
         buttonAction: ButtonAction,
-      ) => boolean | float | void,
+      ) => boolean | float | undefined,
       inputHook?: InputHook,
     ];
 
@@ -159,12 +158,12 @@ declare global {
         includePlayingCards: boolean,
         includeRunes: boolean,
         onlyRunes: boolean,
-      ) => Card | void,
+      ) => Card | undefined,
     ];
 
     // 21
     [ModCallback.GET_SHADER_PARAMS]: [
-      callback: (shaderName: string) => Record<string, unknown> | void,
+      callback: (shaderName: string) => Record<string, unknown> | undefined,
     ];
 
     // 22
@@ -185,7 +184,7 @@ declare global {
         useFlags: BitFlags<UseFlag>,
         activeSlot: ActiveSlot,
         customVarData: int,
-      ) => boolean | void,
+      ) => boolean | undefined,
       collectibleType?: CollectibleType,
     ];
 
@@ -199,7 +198,7 @@ declare global {
         velocity: Vector,
         spawner: Entity | undefined,
         initSeed: Seed,
-      ) => [EntityType, int, int, int] | void,
+      ) => [EntityType, int, int, int] | undefined,
     ];
 
     // 25
@@ -214,7 +213,7 @@ declare global {
         familiar: EntityFamiliar,
         collider: Entity,
         low: boolean,
-      ) => boolean | void,
+      ) => boolean | undefined,
       familiarVariant?: FamiliarVariant,
     ];
 
@@ -242,7 +241,7 @@ declare global {
         npc: EntityNPC,
         collider: Entity,
         low: boolean,
-      ) => boolean | void,
+      ) => boolean | undefined,
       entityType?: EntityType,
     ];
 
@@ -264,7 +263,7 @@ declare global {
         player: EntityPlayer,
         collider: Entity,
         low: boolean,
-      ) => boolean | void,
+      ) => boolean | undefined,
       playerVariant?: PlayerVariant,
     ];
 
@@ -292,7 +291,7 @@ declare global {
         pickup: EntityPickup,
         variant: PickupVariant,
         subType: int,
-      ) => [PickupVariant, int] | void,
+      ) => [PickupVariant, int] | undefined,
     ];
 
     // 38
@@ -301,7 +300,7 @@ declare global {
         pickup: EntityPickup,
         collider: Entity,
         low: boolean,
-      ) => boolean | void,
+      ) => boolean | undefined,
       pickupVariant?: PickupVariant,
     ];
 
@@ -329,7 +328,7 @@ declare global {
         tear: EntityTear,
         collider: Entity,
         low: boolean,
-      ) => boolean | void,
+      ) => boolean | undefined,
       tearVariant?: TearVariant,
     ];
 
@@ -357,7 +356,7 @@ declare global {
         projectile: EntityProjectile,
         collider: Entity,
         low: boolean,
-      ) => boolean | void,
+      ) => boolean | undefined,
       projectileVariant?: ProjectileVariant,
     ];
 
@@ -403,7 +402,7 @@ declare global {
         knife: EntityKnife,
         collider: Entity,
         low: boolean,
-      ) => boolean | void,
+      ) => boolean | undefined,
       knifeSubType?: int,
     ];
 
@@ -449,7 +448,7 @@ declare global {
         bomb: EntityBomb,
         collider: Entity,
         low: boolean,
-      ) => boolean | void,
+      ) => boolean | undefined,
       bombVariant?: BombVariant,
     ];
 
@@ -462,7 +461,7 @@ declare global {
         itemPoolType: ItemPoolType,
         decrease: boolean,
         seed: Seed,
-      ) => CollectibleType | void,
+      ) => CollectibleType | undefined,
     ];
 
     // 63
@@ -472,23 +471,25 @@ declare global {
         itemPoolType: ItemPoolType,
         decrease: boolean,
         seed: Seed,
-      ) => CollectibleType | void,
+      ) => CollectibleType | undefined,
     ];
 
     // 64
-    [ModCallback.GET_PILL_COLOR]: [callback: (seed: Seed) => PillColor | void];
+    [ModCallback.GET_PILL_COLOR]: [
+      callback: (seed: Seed) => PillColor | undefined,
+    ];
 
     // 65
     [ModCallback.GET_PILL_EFFECT]: [
       callback: (
         pillEffect: PillEffect,
         pillColor: PillColor,
-      ) => PillEffect | void,
+      ) => PillEffect | undefined,
     ];
 
     // 66
     [ModCallback.GET_TRINKET]: [
-      callback: (trinketType: TrinketType, rng: RNG) => TrinketType | void,
+      callback: (trinketType: TrinketType, rng: RNG) => TrinketType | undefined,
     ];
 
     // 67
@@ -505,13 +506,13 @@ declare global {
 
     // 69
     [ModCallback.PRE_NPC_UPDATE]: [
-      callback: (npc: EntityNPC) => boolean | void,
+      callback: (npc: EntityNPC) => boolean | undefined,
       entityType?: EntityType,
     ];
 
     // 70
     [ModCallback.PRE_SPAWN_CLEAN_AWARD]: [
-      callback: (rng: RNG, spawnPosition: Vector) => boolean | void,
+      callback: (rng: RNG, spawnPosition: Vector) => boolean | undefined,
     ];
 
     // 71
@@ -522,7 +523,7 @@ declare global {
         subType: int,
         gridIndex: int,
         seed: Seed,
-      ) => [EntityType, int, int] | void,
+      ) => [EntityType, int, int] | undefined,
     ];
   }
 }

@@ -1,5 +1,3 @@
 implement in isaacscript-common:
 
-- turn off /* eslint-disable @typescript-eslint/no-invalid-void-type */
-
 - StageAPI2
