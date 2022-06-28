@@ -32,7 +32,7 @@
     "figlet": "^1.5.2",
     "fs-extra": "^10.1.0",
     "git-dirty": "^1.0.2",
-    "isaacscript-tsconfig": "^1.1.17",
+    "isaacscript-tsconfig": "^2.0.0",
     "jsonc-parser": "^3.0.0",
     "moment": "^2.29.3",
     "npm-check-updates": "^14.1.1",
