@@ -29,11 +29,6 @@ cp -R "$DIR/src/types" "$OUT_DIR/"
 # -->
 # /// <reference path="types/index.d.ts" />
 sed --in-place 's/types="packages\/isaac-typescript-definitions\/src\/types"/path="types\/index.d.ts"/' "$OUT_DIR/index.d.ts"
-# e.g.
-# /// <reference types="packages/isaac-typescript-definitions/src/types/unofficial/luatable" />
-# -->
-# /// <reference path="types/unofficial/luatable" />
-sed --in-place 's/types="packages\/isaac-typescript-definitions\/src\/types\/unofficial\/luatable"/path="types\/unofficial\/LuaTable.d.ts"/' "$OUT_DIR/index.d.ts"
 
 # Copy the rest of the files needed for npm.
 cp "$DIR/LICENSE" "$OUT_DIR/"

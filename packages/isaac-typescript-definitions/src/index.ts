@@ -3,10 +3,6 @@
 // Import the Isaac API definitions, which are declared as global variables.
 /// <reference path="types/index.d.ts" />
 
-// Declare a safer version of the `LuaTable` class provided by TypeScriptToLua. (This cannot be
-// placed inside the "index.d.ts" file or else it will cause errors.)
-/// <reference path="types/unofficial/LuaTable.d.ts" />
-
 export * from "./enums/ActiveSlot";
 export * from "./enums/BackdropType";
 export * from "./enums/BrokenWatchState";
