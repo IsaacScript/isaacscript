@@ -15,6 +15,7 @@ This page lists the changes to the IsaacScript framework.
 - IsaacScript now requires a dependency of "@types/node", "typescript", and "ts-node" in your "package.json" file. (This is so that TSTL can properly invoke plugins.) If any dependencies are missing when you run the tool, it will helpfully tell you the appropriate command to run to fix the problem.
 - The IsaacScript watcher icon now turns green when the mod is compiling.
 - Breaking changes:
+  - Any callback definition with `void` inside of a union has been renamed to `undefined` in order to have more consistent code and satisfy the TypeScript ESLint rules. This means that you may need to add `return undefined;` to some of your callback functions is order to satisfy the compiler. (Doing so explicitly acknowledges that this is the type of callback that expects a return value.)
   - The `removeAllGridExcept` and `removeAllMatchingGridEntities` functions now return an array of the grid entities that are removed.
 - Added the following helper functions:
   - `getBombRadiusFromDamage`

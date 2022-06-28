@@ -145,12 +145,13 @@ function checkWaitingForItemAnimation(player: EntityPlayer) {
 }
 
 // ModCallbackCustom.POST_PLAYER_FATAL_DAMAGE
-function postPlayerFatalDamage(player: EntityPlayer) {
+function postPlayerFatalDamage(player: EntityPlayer): boolean | undefined {
   if (!hasSubscriptions()) {
-    return;
+    return undefined;
   }
 
   playerIsAboutToDie(player);
+  return undefined;
 }
 
 // ModCallbackCustom.PRE_BERSERK_DEATH
