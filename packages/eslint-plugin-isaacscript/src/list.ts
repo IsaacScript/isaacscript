@@ -86,10 +86,6 @@ export function getAdjustedList(
     case ListKind.JSDocTag: {
       return list;
     }
-
-    case undefined: {
-      return undefined;
-    }
   }
 }
 
