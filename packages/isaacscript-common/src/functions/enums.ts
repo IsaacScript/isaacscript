@@ -1,6 +1,7 @@
 import { getRandomArrayElement } from "./array";
 import { getRandomSeed } from "./rng";
 import { isString } from "./types";
+import { irange } from "./utils";
 
 /**
  * TypeScriptToLua will transpile TypeScript enums to Lua tables that have a double mapping. Thus,
@@ -90,6 +91,12 @@ export function getEnumValues<T>(transpiledEnum: T): Array<T[keyof T]> {
   return enumEntries.map(([_key, value]) => value);
 }
 
+/**
+ * Helper function to get the enum value with the highest value.
+ *
+ * Note that this is not necessarily the enum value that is declared last, since there is no way to
+ * infer that at run-time.
+ */
 export function getLastEnumValue<T>(transpiledEnum: T): T[keyof T] {
   const enumValues = getEnumValues(transpiledEnum);
 
@@ -121,8 +128,9 @@ export function getRandomEnumValue<T>(
 }
 
 /**
- * Helper function to check every value of a custom enum for -1. This is helpful as a run-time check
- * because many methods of the Isaac class return -1 if they fail.
+ * Helper function to check every value of a custom enum for -1. Will throw an run-time error if any
+ * -1 values are found. This is helpful because many methods of the Isaac class return -1 if they
+ * fail.
  *
  * For example:
  *
@@ -140,7 +148,40 @@ export function validateCustomEnum(
 ): void {
   for (const [key, value] of getEnumEntries(transpiledEnum)) {
     if (value === -1) {
-      error(`Failed to find custom enum value: ${transpiledEnumName}.${key}`);
+      error(
+        `Failed to find the custom enum value: ${transpiledEnumName}.${key}`,
+      );
+    }
+  }
+}
+
+/**
+ * Helper function to validate if every value in an enum is contiguous, starting at 0.
+ *
+ * This is useful to automate checking large enums for typos.
+ */
+export function validateEnumContiguous<T>(
+  transpiledEnumName: string,
+  transpiledEnum: T,
+): void {
+  const values = getEnumValues(transpiledEnum);
+  const valuesSet = new Set(values);
+  const lastValue = values[values.length - 1];
+  if (lastValue === undefined) {
+    error(
+      "Failed to validate that an enum was contiguous, since the last value was undefined.",
+    );
+  }
+  if (typeof lastValue !== "number") {
+    error(
+      "Failed to validate that an enum was contiguous, since the last value was not a number.",
+    );
+  }
+  for (const value of irange(lastValue)) {
+    if (!valuesSet.has(value as unknown as T[keyof T])) {
+      error(
+        `Failed to find a custom enum value of ${value} for: ${transpiledEnumName}`,
+      );
     }
   }
 }

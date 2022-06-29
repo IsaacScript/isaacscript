@@ -9,6 +9,11 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## July 5th, 2022
+
+- Added the following helper function:
+  - `validateEnumContiguous`
+
 ## June 28th, 2022
 
 - The change log is now located on [the official website](https://isaacscript.github.io/main/change-log).
