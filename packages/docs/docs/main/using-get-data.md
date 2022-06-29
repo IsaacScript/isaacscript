@@ -154,7 +154,7 @@ function incrementSleepCounter(npc: EntityNPC) {}
 
 Let's break this down.
 
-You specify what the default value of the map is by the thing that you pass to the first argument of the constructor. The first argument can either be a raw value, like 0. Or it can be a function that dynamically calculates/creates a value. Here, we pass a very simple function that just instantiates a new class.
+You specify the default value of the map with the first argument of the constructor. The first argument can either be a raw value, like 0. Or, it can be a function that dynamically calculates/creates a value. Here, we pass a very simple function that just instantiates a new class.
 
 In the `incrementSleepCounter` function, we use the `getAndSetDefault` method instead of the `get` method. If the monster already exists in the map, then the `getAndSetDefault` will do the same thing as the `get` method. If the monster does not exist yet in the map, the `DefaultMap` will run the function we provided and give us the new data.
 
