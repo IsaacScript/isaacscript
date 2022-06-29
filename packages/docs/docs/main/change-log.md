@@ -13,7 +13,6 @@ This page lists the changes to the IsaacScript framework.
 
 - The change log is now located on [the official website](https://isaacscript.github.io/main/change-log).
 - IsaacScript now requires a dependency of "@types/node", "typescript", and "ts-node" in your "package.json" file. (This is so that TSTL can properly invoke plugins.) If any dependencies are missing when you run the tool, it will helpfully tell you the appropriate command to run to fix the problem.
-- Through the magic of TypeScript 4.7, "Jump to Definition" in VSCode will now jump to the actual source code for the standard library instead of just the definitions. This is useful if you want to see what a function does exactly.
 - The IsaacScript watcher icon now turns green when the mod is compiling.
 - Breaking changes:
   - Any callback definition with `void` inside of a union has been renamed to `undefined` in order to have more consistent code and satisfy the TypeScript ESLint rules. This means that you may need to add `return undefined;` to some of your callback functions is order to satisfy the compiler. (Doing so explicitly acknowledges that this is the type of callback that expects a return value.)
