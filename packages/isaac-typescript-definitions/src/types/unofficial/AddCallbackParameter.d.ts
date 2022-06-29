@@ -519,7 +519,7 @@ declare global {
     // 71
     [ModCallback.PRE_ROOM_ENTITY_SPAWN]: [
       callback: (
-        entityType: EntityType,
+        entityTypeOrGridEntityXMLType: EntityType | GridEntityXMLType,
         variant: int,
         subType: int,
         gridIndex: int,
