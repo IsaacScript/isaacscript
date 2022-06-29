@@ -57,7 +57,7 @@ For example, pickups are a type of entity that appear to be persistent: when you
 
 ### It's _Really_ Ephemeral
 
-Even for real persistent entities like players and familiars, the table is still ephemeral. For example, a familiar is never despawned; the same entity continues to exist as the player moves from room to room. Thus, the problem in the previous paragraph would not apply to data stored in the `GetData` table for a familiar. However, once the player saves and quits and continues, the familiar will also be despawned in the exact same way that the heart drop was, and all of the data will be lost. Saving and quitting and continuing is a common thing for players to do (so that they can finish the run at a later time), so any well-designed mod must be able to handle this case.
+Even for real persistent entities like players and familiars, the table is still ephemeral. For example, a familiar is never despawned; the same entity continues to exist as the player moves from room to room. Thus, the problem in the previous section would not apply to data stored in the `GetData` table for a familiar. However, once the player saves and quits and continues, the familiar will also be despawned in the exact same way that the heart drop was, and all of the data will be lost. Saving and quitting and continuing is a common thing for players to do (so that they can finish the run at a later time), so any well-designed mod must be able to handle this case.
 
 <br />
 
