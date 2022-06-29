@@ -123,7 +123,7 @@ function incrementSleepCounter(npc: EntityNPC) {}
     v.run.fooData.set(data);
   }
 
-  fooData.sleepCounters += 1;
+  data.sleepCounters += 1;
 }
 ```
 
