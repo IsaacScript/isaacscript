@@ -1,6 +1,6 @@
 {
   "name": "isaacscript-common",
-  "version": "4.2.0",
+  "version": "4.2.1",
   "description": "Helper functions and features for IsaacScript mods.",
   "keywords": [
     "isaac",
@@ -22,6 +22,6 @@
   "main": "index",
   "types": "index.d.ts",
   "dependencies": {
-    "isaac-typescript-definitions": "^3.0.8"
+    "isaac-typescript-definitions": "^3.0.9"
   }
 }
