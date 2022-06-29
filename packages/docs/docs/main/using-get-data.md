@@ -140,7 +140,10 @@ const v = {
   },
 };
 
-saveDataManager("foo", v);
+// We call "foo.init() in our "main.ts" file after first initializing our mod.
+export function init(): void {
+  saveDataManager("foo", v);
+}
 
 function incrementSleepCounter(npc: EntityNPC) {}
   const ptrHash = GetPtrHash(npc);
