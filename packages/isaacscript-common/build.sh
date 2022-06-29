@@ -23,6 +23,5 @@ npx tstl
 cp "$DIR/LICENSE" "$OUT_DIR/"
 cp "$DIR/package.json" "$OUT_DIR/"
 cp "$DIR/README.md" "$OUT_DIR/"
-#cp -RT "$DIR/src" "$OUT_DIR/" # Needed for the "Go to Source Definition" feature of VSCode
 
 echo "Successfully built in $SECONDS seconds."

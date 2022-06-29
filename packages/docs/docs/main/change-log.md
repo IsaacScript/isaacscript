@@ -45,6 +45,9 @@ This page lists the changes to the IsaacScript framework.
   - `isString`
   - `isFunction`
   - `newPlayerHealth`
+  - `getCollectibleArray`
+  - `getVanillaCollectibleArray`
+  - `getModdedCollectibleArray`
 - Renamed the following helper functions:
   - `getCurrentRoomDescriptorReadOnly` --> `getRoomDescriptorReadOnly`
   - `getCurrentDimension` --> `getDimension`

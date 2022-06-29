@@ -27,9 +27,8 @@ const v = {
     playersCollectibleCount: new Map<PlayerIndex, int>(),
     playersCollectibleMap: new DefaultMap<
       PlayerIndex,
-      Map<CollectibleType, int>,
-      [player: EntityPlayer]
-    >((player) => getPlayerCollectibleMap(player)),
+      Map<CollectibleType, int>
+    >(() => new Map()),
   },
 };
 
@@ -81,7 +80,6 @@ function collectibleCountChanged(
   const oldCollectibleMap = defaultMapGetPlayer(
     v.run.playersCollectibleMap,
     player,
-    player,
   );
   const newCollectibleMap = getPlayerCollectibleMap(player);
   mapSetPlayer(v.run.playersCollectibleMap, player, newCollectibleMap);
@@ -90,6 +88,7 @@ function collectibleCountChanged(
     ...oldCollectibleMap.keys(),
     ...newCollectibleMap.keys(),
   ];
+  collectibleTypes.sort();
 
   let numFired = 0;
   for (const collectibleType of collectibleTypes) {

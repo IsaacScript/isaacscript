@@ -19,7 +19,7 @@ import {
   isVanillaCharacter,
 } from "./character";
 import { getCollectibleMaxCharges } from "./collectibles";
-import { getCollectibleSet } from "./collectibleSet";
+import { getCollectibleArray } from "./collectibleSet";
 import { getEnumValues } from "./enums";
 import { getPlayerIndexVanilla, getPlayers } from "./playerIndex";
 import { addTearsStat } from "./tears";
@@ -393,9 +393,10 @@ export function getPlayerCollectibleCount(
 export function getPlayerCollectibleMap(
   player: EntityPlayer,
 ): Map<CollectibleType, int> {
-  const collectibleSet = getCollectibleSet();
+  const collectibleArray = getCollectibleArray();
+
   const collectibleMap = new Map<CollectibleType, int>();
-  for (const collectibleType of collectibleSet.values()) {
+  for (const collectibleType of collectibleArray) {
     const collectibleNum = player.GetCollectibleNum(collectibleType, true);
     if (collectibleNum > 0) {
       collectibleMap.set(collectibleType, collectibleNum);
