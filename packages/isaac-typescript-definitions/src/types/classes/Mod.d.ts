@@ -6,17 +6,23 @@ declare global {
    * "scripts/main.lua" file.
    */
   interface Mod {
-    AddCallback<T extends keyof AddCallbackParameter>(
+    AddCallback<T extends ModCallback>(
       modCallback: T,
       ...args: AddCallbackParameter[T]
     ): void;
 
     HasData(): boolean;
     LoadData(): string;
-    RemoveCallback<T extends keyof AddCallbackParameter>(
-      modCallback: ModCallback,
-      ...args: AddCallbackParameter[T]
+
+    /**
+     * This method does not care about the tertiary argument. Regardless of the conditions of how
+     * you registered the callback, it will be removed.
+     */
+    RemoveCallback<T extends ModCallback>(
+      modCallback: T,
+      callback: AddCallbackParameter[T][0],
     ): void;
+
     RemoveData(): void;
     SaveData(data: string): void;
 
