@@ -23,6 +23,7 @@ import { EntityType } from "../../enums/EntityType";
 import { CacheFlag } from "../../enums/flags/CacheFlag";
 import { DamageFlag } from "../../enums/flags/DamageFlag";
 import { UseFlag } from "../../enums/flags/UseFlag";
+import { GridEntityXMLType } from "../../enums/GridEntityXMLType";
 import { InputHook } from "../../enums/InputHook";
 import { ItemPoolType } from "../../enums/ItemPoolType";
 import { ModCallback } from "../../enums/ModCallback";
@@ -523,7 +524,7 @@ declare global {
         subType: int,
         gridIndex: int,
         seed: Seed,
-      ) => [EntityType, int, int] | undefined,
+      ) => [EntityType | GridEntityXMLType, int, int] | undefined,
     ];
   }
 }

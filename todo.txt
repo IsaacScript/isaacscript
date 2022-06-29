@@ -1,3 +1,4 @@
 implement in isaacscript-common:
 
 - StageAPI2
+- strict-enums - Don't allow index access on objects with enum keys.
