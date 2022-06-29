@@ -157,7 +157,7 @@
     "IsaacAPIClass",
     "TSTLClass"
   ],
-  "plugin": "typedoc-plugin-markdown",
+  "plugin": ["typedoc-plugin-markdown", "@zamiell/typedoc-plugin-not-exported"],
   "hideBreadcrumbs": true,
   "hideInPageTOC": true
 }
