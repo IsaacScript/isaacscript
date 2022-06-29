@@ -100,7 +100,7 @@ export function init(): void {
 
 Let's break this down.
 
-The object name of `v` is conventionally used to denote "variables", or more specifically, "variables that are local to this file or feature only". Every variable that is needed for this sleep feature, we would still on this object. (And we wouldn't put any other variables on it, to keep the variables scoped properly.)
+The object name of `v` is conventionally used to denote "variables", or more specifically, "variables that are local to this file or feature only". We would stick every variable that we need for this sleep feature on the `v` object. (And we wouldn't put any other variables on it, to keep the variables scoped properly.)
 
 `v` is composed of sub-objects. By specifying a `room` sub-object, that tells the save data manager to automatically wipe the data in that sub-object when a new room is entered. This is what we want, because in this example, enemy NPCs will only exist in the context of the current room, and we don't care about keeping data for NPCs that have already despawned.
 
