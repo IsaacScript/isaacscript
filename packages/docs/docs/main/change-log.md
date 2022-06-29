@@ -19,6 +19,7 @@ This page lists the changes to the IsaacScript framework.
   - The `removeAllGridExcept` and `removeAllMatchingGridEntities` functions now return an array of the grid entities that are removed.
   - The [`consistent-return`](https://eslint.org/docs/latest/rules/consistent-return) ESLint rule has been turned off in favor of the [`noImplicitReturns`](https://www.typescriptlang.org/tsconfig#noImplicitReturns) compiler flag. (The latter is type-aware, which results in a more comprehensive check.)
   - The [`default-case`](https://eslint.org/docs/latest/rules/default-case) ESLint rule has been turned off in favor of the [`switch-exhaustiveness-check`](https://typescript-eslint.io/rules/switch-exhaustiveness-check/) ESLint rule. Subsequently, the `ensureAllCases` helper function has been removed, since it is no longer needed. You can clean up all of the boilerplate default cases from your switches, as TypeScript + ESLint will now automatically be able to derive if you did not handle a switch case.
+  - The `strict` configure from `@typescript-eslint` has been enabled.
 - Added the following helper functions:
   - `getBombRadiusFromDamage`
   - `getPlayerFromTear`
