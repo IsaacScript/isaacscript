@@ -26,11 +26,19 @@ interface FooData {
 }
 ```
 
+(We type it as `int | undefined`, because prior to us initializing it with a value, it won't exist at all.)
+
 Once the interface is declared, we can cast the data to our interface in order to make retrieving the counters type safe:
 
 ```ts
 const data = entity.GetData() as FooData;
-print(data.sleepCounters); // Auto-completes and is type safe!
+print(`Sleep counters: ${data.sleepCounters}`); // Auto-completes and is type safe!
+if (data.sleepCounters === undefined) {
+  // Initialize the sleep counters to an initial value.
+  data.sleepCounters = 0;
+}
+
+// TODO: Do something with the sleep counters.
 ```
 
 <br />
