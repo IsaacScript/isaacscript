@@ -228,7 +228,7 @@ function isGitNameAndEmailConfigured(verbose: boolean) {
 
 export function isGitDirty(verbose: boolean): boolean {
   // From: https://remarkablemark.org/blog/2017/10/12/check-git-dirty/
-  const [exitStatus] = execShell("npx", ["git-dirty"], verbose);
+  const [exitStatus] = execShell("npx", ["git-dirty"], verbose, true);
   return exitStatus !== 0;
 }
 
