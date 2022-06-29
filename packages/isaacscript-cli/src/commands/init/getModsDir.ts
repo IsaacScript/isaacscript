@@ -87,7 +87,7 @@ export async function getModsDir(
   return modsDir;
 }
 
-function getDefaultModsPath(platform: string) {
+function getDefaultModsPath(platform: string): string {
   switch (platform) {
     case "win32": {
       return DEFAULT_MODS_PATH_WINDOWS;
