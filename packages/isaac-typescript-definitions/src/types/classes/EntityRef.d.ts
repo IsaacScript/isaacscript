@@ -8,7 +8,7 @@ declare global {
   function EntityRef(this: void, entity: Entity | undefined): EntityRef;
 
   interface EntityRef {
-    Entity: Entity;
+    Entity: Entity | undefined;
     IsCharmed: boolean;
     IsFriendly: boolean;
     Position: Vector;
