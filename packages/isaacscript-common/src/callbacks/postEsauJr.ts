@@ -85,7 +85,7 @@ function getPlayerWithControllerIndex(controllerIndex: ControllerIndex) {
   return players.find((player) => player.ControllerIndex === controllerIndex);
 }
 
-// ModCallback.USE_ITEM (3)
+// ModCallback.POST_USE_ITEM (3)
 // CollectibleType.ESAU_JR (703)
 function useItemEsauJr(
   _collectibleType: CollectibleType,
@@ -94,9 +94,9 @@ function useItemEsauJr(
   _useFlags: BitFlags<UseFlag>,
   _activeSlot: int,
   _customVarData: int,
-) {
+): boolean | undefined {
   if (!hasSubscriptions()) {
-    return;
+    return undefined;
   }
 
   const gameFrameCount = game.GetFrameCount();
@@ -104,4 +104,6 @@ function useItemEsauJr(
   // The player only changes to Esau Jr. on the frame after the item is used.
   v.run.usedEsauJrFrame = gameFrameCount + 1;
   v.run.usedEsauJrControllerIndex = player.ControllerIndex;
+
+  return undefined;
 }

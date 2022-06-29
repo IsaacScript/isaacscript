@@ -41,14 +41,14 @@ function entityTakeDmgPlayer(
   damageFlags: BitFlags<DamageFlag>,
   _damageSource: EntityRef,
   _damageCountdownFrames: int,
-) {
+): boolean | undefined {
   if (!hasSubscriptions()) {
-    return;
+    return undefined;
   }
 
   const player = tookDamage.ToPlayer();
   if (player === undefined) {
-    return;
+    return undefined;
   }
 
   const room = game.GetRoom();
@@ -59,4 +59,6 @@ function entityTakeDmgPlayer(
     v.level.numSacrifices += 1;
     postSacrificeFire(player, v.level.numSacrifices);
   }
+
+  return undefined;
 }

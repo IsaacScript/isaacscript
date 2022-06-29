@@ -56,10 +56,12 @@ function hasSubscriptions() {
 
 // ModCallback.POST_USE_ITEM (3)
 // CollectibleType.GLOWING_HOUR_GLASS (422)
-function useItemGlowingHourGlass() {
+function useItemGlowingHourGlass(): boolean | undefined {
   // If Glowing Hour Glass is used on the first room of a floor, it will send the player to the
   // previous floor without triggering the PostNewLevel callback. Manually check for this.
   usedGlowingHourGlass = true;
+
+  return undefined;
 }
 
 // ModCallback.POST_GAME_STARTED (15)

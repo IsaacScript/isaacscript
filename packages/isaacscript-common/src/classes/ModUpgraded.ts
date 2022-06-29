@@ -49,8 +49,15 @@ export class ModUpgraded implements Mod {
     return this.Mod.LoadData();
   }
 
-  RemoveCallback(callbackID: ModCallback, callback: () => void): void {
-    this.Mod.RemoveCallback(callbackID, callback);
+  /**
+   * This method does not care about the tertiary argument. Regardless of the conditions of how you
+   * registered the callback, it will be removed.
+   */
+  RemoveCallback<T extends ModCallback>(
+    modCallback: T,
+    callback: AddCallbackParameter[T][0],
+  ): void {
+    this.Mod.RemoveCallback(modCallback, callback);
   }
 
   RemoveData(): void {

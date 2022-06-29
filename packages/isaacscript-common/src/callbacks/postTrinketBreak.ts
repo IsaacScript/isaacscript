@@ -58,14 +58,14 @@ function entityTakeDmgPlayer(
   _damageFlags: BitFlags<DamageFlag>,
   _damageSource: EntityRef,
   _damageCountdownFrames: int,
-) {
+): boolean | undefined {
   if (!hasSubscriptions()) {
-    return;
+    return undefined;
   }
 
   const player = tookDamage.ToPlayer();
   if (player === undefined) {
-    return;
+    return undefined;
   }
 
   const trinketMap = defaultMapGetPlayer(v.run.playersTrinketMap, player);
@@ -92,6 +92,8 @@ function entityTakeDmgPlayer(
 
     postTrinketBreakFire(player, trinketType);
   }
+
+  return undefined;
 }
 
 // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED

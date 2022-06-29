@@ -60,13 +60,15 @@ function entityTakeDmgPlayer(
   damageFlags: BitFlags<DamageFlag>,
   _damageSource: EntityRef,
   _damageCountdownFrames: int,
-) {
+): boolean | undefined {
   if (!hasSubscriptions()) {
-    return;
+    return undefined;
   }
 
   incrementNumSacrifices(damageFlags); // Has to be before setting the damage frame
   setDamageFrame(tookDamage, damageFlags);
+
+  return undefined;
 }
 
 function setDamageFrame(tookDamage: Entity, damageFlags: BitFlags<DamageFlag>) {

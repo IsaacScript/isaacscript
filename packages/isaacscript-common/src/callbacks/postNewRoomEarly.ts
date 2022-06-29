@@ -1,4 +1,8 @@
-import { GridEntityType, ModCallback } from "isaac-typescript-definitions";
+import {
+  EntityType,
+  GridEntityType,
+  ModCallback,
+} from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { getTopLeftWallGridIndex, spawnGrid } from "../functions/gridEntity";
 import { logError } from "../functions/log";
@@ -35,12 +39,14 @@ function postNewRoom() {
 }
 
 // ModCallback.PRE_ENTITY_SPAWN (24)
-function preEntitySpawn() {
+function preEntitySpawn(): [EntityType, int, int, int] | undefined {
   if (!hasSubscriptions()) {
-    return;
+    return undefined;
   }
 
   checkRoomChanged();
+
+  return undefined;
 }
 
 function checkRoomChanged() {

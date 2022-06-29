@@ -68,8 +68,10 @@ function useItemD4(
   _collectibleType: CollectibleType,
   _rng: RNG,
   player: EntityPlayer,
-) {
+): boolean | undefined {
   resetInventory(player);
+
+  return undefined;
 }
 
 // ModCallback.POST_GAME_STARTED (15)

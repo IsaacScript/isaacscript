@@ -36,7 +36,7 @@ function hasSubscriptions() {
   return postFlipHasSubscriptions() || postFirstFlipHasSubscriptions();
 }
 
-// ModCallback.USE_ITEM (3)
+// ModCallback.POST_USE_ITEM (3)
 // CollectibleType.FLIP (711)
 function useItemFlip(
   _collectibleType: CollectibleType,
@@ -45,20 +45,20 @@ function useItemFlip(
   _useFlags: BitFlags<UseFlag>,
   _activeSlot: int,
   _customVarData: int,
-) {
+): boolean | undefined {
   if (!hasSubscriptions()) {
-    return;
+    return undefined;
   }
 
   if (!isTaintedLazarus(player)) {
-    return;
+    return undefined;
   }
 
   // The player passed as part of the callback will be the old Lazarus that used the Flip item. We
   // pass the new Lazarus to the callback subscribers.
   const newLazarus = getNewLazarus(player);
   if (newLazarus === undefined) {
-    return;
+    return undefined;
   }
 
   if (!v.run.usedFlipAtLeastOnce) {
@@ -67,6 +67,8 @@ function useItemFlip(
   }
 
   postFlipFire(newLazarus);
+
+  return undefined;
 }
 
 function getNewLazarus(oldLazarus: EntityPlayer) {
