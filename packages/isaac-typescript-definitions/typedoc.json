@@ -43,7 +43,5 @@
     "UseFlagType",
     "UseFlagValue"
   ],
-  "plugin": ["typedoc-plugin-markdown", "@zamiell/typedoc-plugin-not-exported"],
-  "hideBreadcrumbs": true,
-  "hideInPageTOC": true
+  "plugin": []
 }

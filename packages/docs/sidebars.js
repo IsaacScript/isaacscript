@@ -41,7 +41,11 @@ const sidebars = {
       items: [
         "main/publishing-to-the-workshop",
         "main/gotchas",
-        "main/function-signatures",
+        {
+          type: "link",
+          label: "IsaacScript Standard Library",
+          href: "/isaac-typescript-definitions/enums/index.ModCallback",
+        },
       ],
     },
   ],
