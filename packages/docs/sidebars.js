@@ -29,7 +29,11 @@ const sidebars = {
         "main/using-get-data",
       ],
     },
-    "main/standard-library",
+    {
+      type: "link",
+      label: "IsaacScript Standard Library",
+      href: "/isaacscript-common",
+    },
     "main/change-log",
     {
       type: "category",

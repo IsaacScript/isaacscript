@@ -84,7 +84,7 @@
     "git-dirty": "^1.0.2",
     "glob": "^8.0.3",
     "husky": "^8.0.1",
-    "jest": "^28.1.1",
+    "jest": "^28.1.2",
     "jest-summarizing-reporter": "^1.1.4",
     "lua-types": "^2.11.0",
     "markdownlint": "^0.26.0",
