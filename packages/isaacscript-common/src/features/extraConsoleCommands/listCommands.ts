@@ -739,6 +739,11 @@ export function luck(): void {
   Isaac.ExecuteCommand("debug 9");
 }
 
+/** Alias for the "poopMana" command. */
+export function mana(params: string): void {
+  poopMana(params);
+}
+
 /** Completely reveals the entire map, including the Ultra Secret Room. */
 export function map(): void {
   const level = game.GetLevel();
