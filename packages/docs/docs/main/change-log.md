@@ -13,6 +13,8 @@ This page lists the changes to the IsaacScript framework.
 
 - Added the following helper function:
   - `validateEnumContiguous`
+- Added the following custom commands:
+  - `mana`
 
 ## June 28th, 2022
 

@@ -14,6 +14,7 @@ import {
   getPlayerHearts,
   getPlayerSoulHearts,
   isCharacter,
+  isKeeper,
   setActiveItem,
 } from "./player";
 import { repeat } from "./utils";
@@ -341,27 +342,31 @@ export function setPlayerHealth(
     }
   });
 
-  /**
-   * Fill in the red heart containers.
-   *
-   * (Rotten Hearts must be filled in first in order for this to work properly, since they conflict
-   * with half red hearts.)
-   *
-   * The `EntityPlayer.AddRottenHearts` method is not like actually picking up a rotten heart, since
-   * it will only grant one rotten heart to Tainted Magdalene (whereas picking up a rotten heart
-   * would grant two).
-   */
-  player.AddRottenHearts(playerHealth.rottenHearts);
-  repeat(playerHealth.hearts, () => {
-    player.AddHearts(1);
+  // Fill in the red heart containers.
+  if (isKeeper(player)) {
+    // Keeper is a special case. Filling the containers with the `EntityPlayer.AddHearts` method
+    // will not work properly, so we use the `EntityPlayer.AddCoins` method instead.
+    const numCoinsToHeal = playerHealth.hearts / 2;
+    player.AddCoins(numCoinsToHeal);
+  } else {
+    // Rotten Hearts must be filled in first in order for this to work properly, since they conflict
+    // with half red hearts.
+    //
+    // The `EntityPlayer.AddRottenHearts` method is not like actually picking up a rotten heart,
+    // since it will only grant one rotten heart to Tainted Magdalene (whereas picking up a rotten
+    // heart would grant two).
+    player.AddRottenHearts(playerHealth.rottenHearts);
+    repeat(playerHealth.hearts, () => {
+      player.AddHearts(1);
 
-    // Adding 1 heart to Tainted Magdalene will actually add two hearts.
-    if (character === PlayerType.MAGDALENE_B) {
-      player.AddHearts(-1);
-    }
-  });
-  player.AddGoldenHearts(playerHealth.goldenHearts);
-  player.AddBrokenHearts(playerHealth.brokenHearts);
+      // Adding 1 heart to Tainted Magdalene will actually add two hearts.
+      if (character === PlayerType.MAGDALENE_B) {
+        player.AddHearts(-1);
+      }
+    });
+    player.AddGoldenHearts(playerHealth.goldenHearts);
+    player.AddBrokenHearts(playerHealth.brokenHearts);
+  }
 
   // Set the Bethany / Tainted Bethany charges.
   if (character === PlayerType.BETHANY) {

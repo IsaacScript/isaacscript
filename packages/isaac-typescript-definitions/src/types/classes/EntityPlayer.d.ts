@@ -180,6 +180,10 @@ declare global {
     /**
      * Remove them with negative numbers.
      *
+     * Note that this method is not actually equivalent to picking up a rotten heart, since it will
+     * only grant one rotten heart to Tainted Magdalene (whereas picking up a rotten heart would
+     * grant two).
+     *
      * @param hearts Rotten hearts must be specified in a multiple of 2. For example,
      *               `AddRottenHearts(4)` will add 2 rotten hearts.
      */
