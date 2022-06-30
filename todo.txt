@@ -1,5 +1,6 @@
 implement in isaacscript-common:
 
+- mod config menu save
 - StageAPI2
 - strict-enums - Don't allow index access on objects with enum keys.
 - ESLint rule for mix of "return" + "return undefined"

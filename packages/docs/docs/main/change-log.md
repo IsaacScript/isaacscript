@@ -15,6 +15,8 @@ This page lists the changes to the IsaacScript framework.
   - `validateEnumContiguous`
 - Added the following custom commands:
   - `mana`
+- Removed the following helper functions:
+  - `getCollectibleTypeRange` (use `getCollectibleArray` instead)
 
 ## June 28th, 2022
 

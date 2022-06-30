@@ -356,21 +356,6 @@ export function getCollectibleTags(
 }
 
 /**
- * Helper function to get an array that represents the range from the first collectible type to the
- * last collectible type. This will include integers that do not represent any valid collectible
- * types.
- *
- * This function is only useful when building collectible type objects. For most purposes, you
- * should use the `getCollectibleSet` helper function instead.
- */
-export function getCollectibleTypeRange(): CollectibleType[] {
-  return irange(
-    FIRST_COLLECTIBLE_TYPE,
-    LAST_COLLECTIBLE_TYPE,
-  ) as CollectibleType[];
-}
-
-/**
  * Helper function to get an array that represents the all modded collectible types.
  *
  * This function is only useful when building collectible type objects. For most purposes, you

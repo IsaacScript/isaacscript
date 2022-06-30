@@ -1,7 +1,11 @@
 import { CollectibleType } from "isaac-typescript-definitions";
 import { itemConfig } from "../cachedClasses";
-import { LAST_VANILLA_COLLECTIBLE_TYPE } from "../constantsFirstLast";
-import { getCollectibleTypeRange } from "./collectibles";
+import {
+  FIRST_COLLECTIBLE_TYPE,
+  LAST_COLLECTIBLE_TYPE,
+  LAST_VANILLA_COLLECTIBLE_TYPE,
+} from "../constantsFirstLast";
+import { irange } from "./utils";
 
 const ALL_COLLECTIBLES_ARRAY: CollectibleType[] = [];
 const VANILLA_COLLECTIBLES_ARRAY: CollectibleType[] = [];
@@ -16,7 +20,11 @@ function initCollectibleArraysAndSets() {
     return;
   }
 
-  for (const collectibleType of getCollectibleTypeRange()) {
+  const collectibleTypeRange = irange(
+    FIRST_COLLECTIBLE_TYPE,
+    LAST_COLLECTIBLE_TYPE,
+  ) as CollectibleType[];
+  for (const collectibleType of collectibleTypeRange) {
     const itemConfigItem = itemConfig.GetCollectible(collectibleType);
     if (itemConfigItem === undefined) {
       continue;

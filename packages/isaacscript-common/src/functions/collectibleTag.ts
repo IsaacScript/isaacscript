@@ -1,6 +1,6 @@
 import { CollectibleType, ItemConfigTag } from "isaac-typescript-definitions";
 import { itemConfig } from "../cachedClasses";
-import { getCollectibleTypeRange } from "./collectibles";
+import { getCollectibleArray } from "./collectibleSet";
 import { getEnumValues } from "./enums";
 import { getFlagName } from "./flag";
 import { getPlayerCollectibleCount } from "./player";
@@ -18,7 +18,7 @@ function initTagMap() {
     TAG_TO_COLLECTIBLE_TYPES_MAP.set(itemConfigTag, new Set());
   }
 
-  for (const collectibleType of getCollectibleTypeRange()) {
+  for (const collectibleType of getCollectibleArray()) {
     for (const itemConfigTag of getEnumValues(ItemConfigTag)) {
       if (!collectibleHasTag(collectibleType, itemConfigTag)) {
         continue;
