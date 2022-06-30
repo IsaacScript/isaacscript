@@ -28,8 +28,8 @@ if [[ $OLD_HASH != $NEW_HASH ]]; then
   # the form of ">= 5.0.0". Thus, we specify both "--prod" and "--dev" to exclude syncing
   # peerDependencies.
   npx syncpack fix-mismatches --prod --dev
-fi
 
-# syncpack will automatically update most of the dependencies in "isaacscript-lint", but not
-# "eslint-config-isaacscript", since that does not exist in the root "package.json".
-bash "$DIR/packages/isaacscript-lint/update.sh"
+  # syncpack will automatically update most of the dependencies in "isaacscript-lint", but not
+  # "eslint-config-isaacscript", since that does not exist in the root "package.json".
+  bash "$DIR/packages/isaacscript-lint/update.sh"
+fi
