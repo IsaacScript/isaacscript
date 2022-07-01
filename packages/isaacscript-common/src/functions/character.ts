@@ -1,9 +1,6 @@
 import { PlayerType } from "isaac-typescript-definitions";
 import { LAST_VANILLA_CHARACTER } from "../constantsFirstLast";
-import {
-  CHARACTER_NAMES,
-  DEFAULT_CHARACTER_NAME,
-} from "../objects/characterNames";
+import { CHARACTER_NAMES } from "../objects/characterNames";
 import { CHARACTERS_THAT_START_WITH_AN_ACTIVE_ITEM_SET } from "../sets/charactersThatStartWithAnActiveItemSet";
 import { CHARACTERS_WITH_BLACK_HEART_FROM_ETERNAL_HEART_SET } from "../sets/charactersWithBlackHeartFromEternalHeartSet";
 import { CHARACTERS_WITH_FREE_DEVIL_DEALS_SET } from "../sets/charactersWithFreeDevilDealsSet";
@@ -107,14 +104,11 @@ export function getCharacterMaxHeartContainers(character: PlayerType): int {
 
 /** Helper function to get the name of a character. Returns "unknown" for modded characters. */
 export function getCharacterName(character: PlayerType): string {
-  if (isVanillaCharacter(character)) {
+  if (isModdedCharacter(character)) {
     return "unknown";
   }
 
-  const characterName = CHARACTER_NAMES[character];
-  // Handle modded characters.
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  return characterName === undefined ? DEFAULT_CHARACTER_NAME : characterName;
+  return CHARACTER_NAMES[character];
 }
 
 export function isModdedCharacter(character: PlayerType): boolean {
