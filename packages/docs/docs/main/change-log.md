@@ -11,6 +11,8 @@ This page lists the changes to the IsaacScript framework.
 
 ## July 5th, 2022
 
+- Breaking:
+  - The values of `ChallengeRoomSubType.NORMAL` and `ChallengeRoomSubType.BOSS` changed, since they were bugged.
 - Added the following helper function:
   - `validateEnumContiguous`
 - Added the following custom commands:
