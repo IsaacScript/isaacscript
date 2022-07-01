@@ -1,7 +1,5 @@
 import { PlayerType } from "isaac-typescript-definitions";
 
-export const DEFAULT_CHARACTER_NAME = "Unknown";
-
 export const CHARACTER_NAMES: { readonly [key in PlayerType]: string } = {
   [PlayerType.POSSESSOR]: "Possessor", // -1
   [PlayerType.ISAAC]: "Isaac", // 0

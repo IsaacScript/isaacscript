@@ -102,10 +102,10 @@ export function getCharacterMaxHeartContainers(character: PlayerType): int {
   return 12;
 }
 
-/** Helper function to get the name of a character. Returns "unknown" for modded characters. */
+/** Helper function to get the name of a character. Returns "Unknown" for modded characters. */
 export function getCharacterName(character: PlayerType): string {
   if (isModdedCharacter(character)) {
-    return "unknown";
+    return "Unknown";
   }
 
   return CHARACTER_NAMES[character];
