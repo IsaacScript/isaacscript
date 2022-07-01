@@ -216,9 +216,11 @@ export enum CurseRoomSubType {
  * This matches the sub-type in the "00.special rooms.stb" file and elsewhere.
  */
 export enum ChallengeRoomSubType {
-  NORMAL = 10,
-  BOSS = 11,
-  GREAT_GIDEON = 12,
+  NORMAL = 0,
+  BOSS = 1,
+  NORMAL_WAVE = 10,
+  BOSS_WAVE = 11,
+  GREAT_GIDEON_WAVE = 12,
 }
 
 /**
