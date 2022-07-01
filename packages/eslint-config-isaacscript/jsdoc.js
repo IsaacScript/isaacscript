@@ -1,5 +1,5 @@
 // This is a shared configuration file for ESLint:
-// https://eslint.org/docs/user-guide/configuring
+// https://eslint.org/docs/latest/user-guide/configuring
 module.exports = {
   plugins: [
     /**

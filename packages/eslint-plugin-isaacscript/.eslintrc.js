@@ -20,7 +20,7 @@ module.exports = {
   rules: {
     /**
      * Documentation:
-     * https://github.com/eslint/eslint/blob/master/docs/rules/no-bitwise.md
+     * https://eslint.org/docs/latest/rules/no-bitwise
      *
      * Defined at:
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
@@ -31,7 +31,7 @@ module.exports = {
 
     /**
      * Documentation:
-     * https://eslint.org/docs/rules/no-param-reassign
+     * https://eslint.org/docs/latest/rules/no-param-reassign
      *
      * Defined at:
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js

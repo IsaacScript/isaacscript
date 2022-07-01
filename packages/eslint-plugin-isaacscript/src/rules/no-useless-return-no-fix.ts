@@ -19,7 +19,7 @@ export const noUselessReturnNoFix = createRule({
       description:
         "Disallows redundant return statements (and does not automatically fix)",
       recommended: "error",
-      url: "https://eslint.org/docs/rules/no-useless-return",
+      url: "https://eslint.org/docs/latest/rules/no-useless-return",
     },
     schema: [],
     messages: {

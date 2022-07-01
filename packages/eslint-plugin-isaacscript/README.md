@@ -32,7 +32,7 @@ This project is written in [TypeScript](https://www.typescriptlang.org/).
 Each rule has emojis denoting:
 
 - :white_check_mark: - if it belongs to the `recommended` configuration
-- :wrench: - if some problems reported by the rule are automatically fixable by the `--fix` [command line option](https://eslint.org/docs/user-guide/command-line-interface#fixing-problems)
+- :wrench: - if some problems reported by the rule are automatically fixable by the `--fix` [command line option](https://eslint.org/docs/latest/user-guide/command-line-interface#fixing-problems)
 - :thought_balloon: - if it requires type information
 
 <!-- Do not manually modify RULES_TABLE section. Instead, run: yarn run generate:rules-table -->

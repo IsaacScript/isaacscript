@@ -3,7 +3,7 @@ const path = require("path"); // eslint-disable-line @typescript-eslint/no-var-r
 const REPO_ROOT = path.join(__dirname, "..", "..");
 
 // This is a shared configuration file for ESLint:
-// https://eslint.org/docs/user-guide/configuring
+// https://eslint.org/docs/latest/user-guide/configuring
 module.exports = {
   plugins: ["@nrwl/nx"],
 

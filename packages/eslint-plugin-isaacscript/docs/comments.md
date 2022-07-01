@@ -123,7 +123,7 @@ Subsequently, it makes sense to have a linting rule to ensure that all JSDoc com
 
 Many code projects have conventions to prevent lines from getting over a certain amount of characters. This kind of thing ensures that code is easy to read. It also is helpful to people with seeing disabilities, and for developers who prefer to open two files side by side.
 
-In JavaScript/TypeScript, ESLint provides the [`max-len`](https://eslint.org/docs/rules/max-len) lint rule. This lint rule is often accompanied by an on-screen ruler inside of the IDE. Having the ruler on-screen is very nice, as it can accurately show when a line is over the limit. For example, to enable the ruler in VSCode:
+In JavaScript/TypeScript, ESLint provides the [`max-len`](https://eslint.org/docs/latest/rules/max-len) lint rule. This lint rule is often accompanied by an on-screen ruler inside of the IDE. Having the ruler on-screen is very nice, as it can accurately show when a line is over the limit. For example, to enable the ruler in VSCode:
 
 ```json
 {
