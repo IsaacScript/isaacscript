@@ -20,6 +20,7 @@ export {
   registerCharacterHealthConversion,
 } from "./features/characterHealthConversion";
 export { registerCharacterStats } from "./features/characterStats";
+export { getCollectibleItemPoolType } from "./features/collectibleItemPoolType";
 export * from "./features/debugDisplay/exports";
 export {
   deployJSONRoom,
@@ -43,14 +44,20 @@ export {
 export { removeFadeIn, restoreFadeIn } from "./features/fadeInRemover";
 export { disableFastReset, enableFastReset } from "./features/fastReset";
 export { forgottenSwitch } from "./features/forgottenSwitch";
-export { getCollectibleItemPoolType } from "./features/getCollectibleItemPoolType";
 export {
   removePersistentEntity,
   spawnPersistentEntity,
 } from "./features/persistentEntities";
 export { getPlayerInventory } from "./features/playerInventory";
-export * from "./features/ponyDetection";
+export {
+  anyPlayerUsingPony,
+  isPlayerUsingPony as isPonyActive,
+} from "./features/ponyDetection";
 export { preventCollectibleRotation } from "./features/preventCollectibleRotation";
+export {
+  getRoomClearGameFrame,
+  getRoomClearRoomFrame,
+} from "./features/roomClearFrame";
 export {
   runInNGameFrames,
   runInNRenderFrames,
@@ -62,6 +69,7 @@ export {
   hasSirenStolenFamiliar,
   setFamiliarNoSirenSteal,
 } from "./features/sirenHelpers";
+export { getStageHistory, hasVisitedStage } from "./features/stageHistory";
 export { getTaintedLazarusSubPlayer } from "./features/taintedLazarusPlayers";
 export * from "./functions/ambush";
 export * from "./functions/array";
@@ -81,8 +89,8 @@ export * from "./functions/collectibleSet";
 export * from "./functions/collectibleTag";
 export * from "./functions/color";
 export * from "./functions/debug";
-export { deepCopy } from "./functions/deepCopy";
-export { deepCopyTests } from "./functions/deepCopyTests";
+export * from "./functions/deepCopy";
+export * from "./functions/deepCopyTests";
 export * from "./functions/direction";
 export * from "./functions/doors";
 export * from "./functions/easing";
@@ -108,7 +116,7 @@ export * from "./functions/level";
 export * from "./functions/log";
 export * from "./functions/map";
 export * from "./functions/math";
-export { mergeTests } from "./functions/mergeTests";
+export * from "./functions/mergeTests";
 export * from "./functions/npc";
 export * from "./functions/pickups";
 export * from "./functions/pickupVariants";

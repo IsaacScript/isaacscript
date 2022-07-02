@@ -1,19 +1,22 @@
 import { ModUpgraded } from "./classes/ModUpgraded";
 import { characterHealthConversionInit } from "./features/characterHealthConversion";
 import { characterStatsInit } from "./features/characterStats";
+import { collectibleItemPoolTypeInit } from "./features/collectibleItemPoolType";
+import { stageTravelInit } from "./features/customTrapdoor/init";
 import { deployJSONRoomInit } from "./features/deployJSONRoom";
 import { disableInputsInit } from "./features/disableInputs";
 import { disableSoundsInit } from "./features/disableSound";
 import { fadeInRemoverInit } from "./features/fadeInRemover";
 import { fastResetInit } from "./features/fastReset";
 import { forgottenSwitchInit } from "./features/forgottenSwitch";
-import { getCollectibleItemPoolTypeInit } from "./features/getCollectibleItemPoolType";
 import { persistentEntitiesInit } from "./features/persistentEntities";
 import { playerInventoryInit } from "./features/playerInventory";
 import { ponyDetectionInit } from "./features/ponyDetection";
 import { preventCollectibleRotationInit } from "./features/preventCollectibleRotation";
+import { roomClearFrameInit } from "./features/roomClearFrame";
 import { runInNFramesInit } from "./features/runInNFrames";
 import { sirenHelpersInit } from "./features/sirenHelpers";
+import { stageHistoryInit } from "./features/stageHistory";
 import { taintedLazarusPlayersInit } from "./features/taintedLazarusPlayers";
 
 export function initFeaturesMajor(mod: ModUpgraded): void {
@@ -29,11 +32,14 @@ export function initFeaturesMinor(mod: ModUpgraded): void {
   fadeInRemoverInit(mod);
   fastResetInit(mod);
   forgottenSwitchInit(mod);
-  getCollectibleItemPoolTypeInit(mod);
+  collectibleItemPoolTypeInit(mod);
   persistentEntitiesInit(mod);
   playerInventoryInit(mod);
   ponyDetectionInit(mod);
   preventCollectibleRotationInit(mod);
+  roomClearFrameInit(mod);
   sirenHelpersInit(mod);
+  stageHistoryInit(mod);
+  stageTravelInit();
   taintedLazarusPlayersInit(mod);
 }

@@ -15,6 +15,7 @@ import {
   setDeletePlayer,
   setHasPlayer,
 } from "../functions/playerDataStructures";
+import { getPlayers } from "../functions/playerIndex";
 import { PlayerIndex } from "../types/PlayerIndex";
 import { saveDataManager } from "./saveDataManager/exports";
 
@@ -68,7 +69,18 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
  * Helper function to see if the player is under the effects of A Pony or White Pony charge.
  * Detecting this is difficult, as the temporary effect will disappear upon entering a new room.
  */
-export function isPonyActive(player: EntityPlayer): boolean {
+export function isPlayerUsingPony(player: EntityPlayer): boolean {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
   return setHasPlayer(v.run.playersIsPonyActive, player);
+}
+
+/**
+ * Helper function to see if any player is under the effects of A Pony or White Pony charge.
+ * Detecting this is difficult, as the temporary effect will disappear upon entering a new room.
+ */
+export function anyPlayerUsingPony(): boolean {
+  errorIfFeaturesNotInitialized(FEATURE_NAME);
+
+  const players = getPlayers();
+  return players.some((player) => isPlayerUsingPony(player));
 }

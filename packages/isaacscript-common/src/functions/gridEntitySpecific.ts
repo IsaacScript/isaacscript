@@ -1,6 +1,25 @@
-import { PressurePlateState } from "isaac-typescript-definitions";
+import {
+  CrawlspaceState,
+  GridEntityType,
+  PressurePlateState,
+  TrapdoorVariant,
+} from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
-import { getGridEntities } from "./gridEntity";
+import { getGridEntities, getMatchingGridEntities } from "./gridEntity";
+
+/**
+ * Helper function to get all of the grid entities of type `GridEntityType.TRAPDOOR` in the room.
+ * Specify a specific trapdoor variant to select only trapdoors of that variant.
+ */
+export function getCrawlSpaces(
+  crawlSpaceVariant?: CrawlspaceState,
+): GridEntity[] {
+  if (crawlSpaceVariant === undefined) {
+    return getGridEntities(GridEntityType.CRAWL_SPACE);
+  }
+
+  return getMatchingGridEntities(GridEntityType.CRAWL_SPACE, crawlSpaceVariant);
+}
 
 /** Helper function to get all of the `GridEntityPit` in the room. */
 export function getPits(): GridEntityPit[] {
@@ -90,6 +109,18 @@ export function getTNT(): GridEntityTNT[] {
   }
 
   return tntArray;
+}
+
+/**
+ * Helper function to get all of the grid entities of type `GridEntityType.TRAPDOOR` in the room.
+ * Specify a specific trapdoor variant to select only trapdoors of that variant.
+ */
+export function getTrapdoors(trapdoorVariant?: TrapdoorVariant): GridEntity[] {
+  if (trapdoorVariant === undefined) {
+    return getGridEntities(GridEntityType.TRAPDOOR);
+  }
+
+  return getMatchingGridEntities(GridEntityType.TRAPDOOR, trapdoorVariant);
 }
 
 /**

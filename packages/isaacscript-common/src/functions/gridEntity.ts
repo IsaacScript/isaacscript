@@ -195,6 +195,20 @@ export function getGridEntityID(gridEntity: GridEntity): string {
   return `${gridEntityType}.${gridEntityVariant}`;
 }
 
+/**
+ * Helper function to get all of the grid entities in the room that specifically match the type and
+ * variant provided.
+ */
+export function getMatchingGridEntities(
+  gridEntityType: GridEntityType,
+  variant: int,
+): GridEntity[] {
+  const gridEntities = getGridEntities(gridEntityType);
+  return gridEntities.filter(
+    (gridEntity) => gridEntity.GetVariant() === variant,
+  );
+}
+
 export function getSurroundingGridEntities(
   gridEntity: GridEntity,
 ): GridEntity[] {

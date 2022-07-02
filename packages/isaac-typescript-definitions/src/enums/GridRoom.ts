@@ -23,7 +23,12 @@ export enum GridRoom {
   /** The room after defeating Hush that leads to The Void. */
   THE_VOID = -9,
 
-  /** The room that is connected to the Boss Room that leads to the next Repentance floor. */
+  /**
+   * The room that is connected to the Boss Room that leads to the next Repentance floor.
+   *
+   * Additionally, this grid index is also used for the room behind the strange door on Depths 2
+   * that is connected to the starting room.
+   */
   SECRET_EXIT = -10,
 
   /** The secret crawlspace under Great Gideon that is only accessible with a Chaos Card. */

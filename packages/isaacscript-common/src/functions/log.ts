@@ -5,6 +5,7 @@ import {
   EntityType,
   GameStateFlag,
   GridEntityType,
+  GridRoom,
   LevelStateFlag,
   ProjectileFlag,
   SeedEffect,
@@ -503,7 +504,16 @@ export function logRoom(this: void): void {
     );
     log(`Current room name: ${roomData.Name}`);
   }
-  log(`Current room grid index: ${roomGridIndex}`);
+
+  const roomGridIndexName = GridRoom[roomGridIndex];
+  if (roomGridIndexName === undefined) {
+    log(`Current room grid index: ${roomGridIndex}`);
+  } else {
+    log(
+      `Current room grid index: ${roomGridIndex} (GridRoom.${roomGridIndexName})`,
+    );
+  }
+
   log(`Current room list index: ${roomListIndex}`);
 }
 

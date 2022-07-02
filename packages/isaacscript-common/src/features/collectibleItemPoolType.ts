@@ -23,8 +23,8 @@ const v = {
 };
 
 /** @internal */
-export function getCollectibleItemPoolTypeInit(mod: Mod): void {
-  saveDataManager("getCollectibleItemPoolType", v);
+export function collectibleItemPoolTypeInit(mod: Mod): void {
+  saveDataManager("collectibleItemPoolType", v);
 
   mod.AddCallback(
     ModCallback.POST_PICKUP_INIT,

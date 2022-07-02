@@ -15,6 +15,18 @@ This page lists the changes to the IsaacScript framework.
   - The values of `ChallengeRoomSubType.NORMAL` and `ChallengeRoomSubType.BOSS` changed, since they were bugged.
 - Added the following helper function:
   - `validateEnumContiguous`
+  - `getMatchingGridEntities`
+  - `getTrapdoors`
+  - `getCrawlSpaces`
+  - `getRoomClearGameFrame`
+  - `getRoomClearRoomFrame`
+  - `anyPlayerUsingPony`
+  - `getStageHistory`
+  - `hasVisitedStage`
+  - `calculateStageType`
+  - `calculateStageTypeRepentance`
+- Renamed the following helper functions:
+  - `isPonyActive` --> `isPlayerUsingPony`
 - Added the following custom commands:
   - `mana`
 - Removed the following helper functions:
@@ -1805,3 +1817,11 @@ You can still use `null` in your own variables, but make sure that it is for var
 - Added `KnifeVariant` enum.
 - The `USE_ITEM` and `PRE_USE_ITEM` callbacks can now return void.
 - Changed several callbacks to use `void` instead of `null` in order to simplify the signatures and have less friction for new users. This might be a breaking change for some users if you are using these callbacks in exported functions, but the fix is simple: just change `null` to `void`.
+
+## May 15th, 2021
+
+- The framework was updated to work properly with Repentance.
+
+## October 20th, 2020
+
+- The first version of IsaacScript is released (for Afterbirth+).
