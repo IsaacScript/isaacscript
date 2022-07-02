@@ -159,7 +159,7 @@ export enum BossID {
   /** Dogma does not have its own boss rooms; it appears in a normal room. */
   DOGMA = 99,
 
-  /** The Beast does not have its own boss rooms; it appears in a crawlspace. */
+  /** The Beast does not have its own boss rooms; it appears in a crawl space. */
   BEAST = 100,
 
   HORNY_BOYS = 101,

@@ -121,7 +121,7 @@ function preUseItemWeNeedToGoDeeper(
     return undefined;
   }
 
-  // If the player uses the shovel in a JSON room, then it will always reveal a crawlspace. This is
+  // If the player uses the shovel in a JSON room, then it will always reveal a crawl space. This is
   // because the room is filled with invisible decorations to prevent any grid entities from
   // respawning. In order to restore the normal shovel functionality, we cancel the shovel use,
   // remove all the decorations, wait a frame, manually use the shovel again, and then respawn the
@@ -184,7 +184,7 @@ function setDecorationsInvisible() {
   for (const gridIndex of decorationGridIndexes) {
     const gridEntity = room.GetGridEntity(gridIndex);
     if (gridEntity !== undefined) {
-      // Other grid entities may have spawned, like trapdoors or crawlspaces. Thus, only make
+      // Other grid entities may have spawned, like trapdoors or crawl spaces. Thus, only make
       // decorations invisible.
       const gridEntityType = gridEntity.GetType();
       if (gridEntityType === GridEntityType.DECORATION) {

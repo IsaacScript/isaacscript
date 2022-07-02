@@ -304,11 +304,11 @@ export function inBossRoomOf(bossID: BossID): boolean {
 }
 
 /**
- * Helper function for determining whether the current room is a crawlspace. Use this function over
+ * Helper function for determining whether the current room is a crawl space. Use this function over
  * comparing to `RoomType.DUNGEON` or `GridRoom.DUNGEON_IDX` since there is a special case of the
  * player being in a boss fight that take place in a dungeon.
  */
-export function inCrawlspace(): boolean {
+export function inCrawlSpace(): boolean {
   const room = game.GetRoom();
   const roomType = room.GetType();
   const roomSubType = getRoomSubType();

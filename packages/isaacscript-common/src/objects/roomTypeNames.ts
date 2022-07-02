@@ -19,7 +19,7 @@ export const ROOM_TYPE_NAMES: { readonly [key in RoomType]: string } = {
   [RoomType.SACRIFICE]: "Sacrifice Room", // 13
   [RoomType.DEVIL]: "Devil Room", // 14
   [RoomType.ANGEL]: "Angel Room", // 15
-  [RoomType.DUNGEON]: "Crawlspace", // 16
+  [RoomType.DUNGEON]: "Crawl Space", // 16
   [RoomType.BOSS_RUSH]: "Boss Rush", // 17
   [RoomType.CLEAN_BEDROOM]: "Clean Bedroom", // 18
   [RoomType.DIRTY_BEDROOM]: "Dirty Bedroom", // 19

@@ -27,6 +27,7 @@ This page lists the changes to the IsaacScript framework.
   - `calculateStageTypeRepentance`
 - Renamed the following helper functions:
   - `isPonyActive` --> `isPlayerUsingPony`
+  - `inCrawlspace` --> `inCrawlSpace`
 - Added the following custom commands:
   - `mana`
 - Removed the following helper functions:

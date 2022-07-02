@@ -168,7 +168,7 @@ export function checkShouldOpen(
   if (
     entityState === FastTravelEntityState.CLOSED &&
     state.shouldOpen(entity, fastTravelEntityType) &&
-    // TODO: Remove this after the next vanilla patch in 2022 when Crawlspaces are decoupled from
+    // TODO: Remove this after the next vanilla patch in 2022 when crawl spaces are decoupled from
     // sprites.
     !anyPlayerUsingPony()
   ) {
@@ -176,7 +176,7 @@ export function checkShouldOpen(
   }
 }
 
-// TODO: Remove this after the next vanilla patch in 2022 when Crawlspaces are decoupled from
+// TODO: Remove this after the next vanilla patch in 2022 when crawl spaces are decoupled from
 // sprites.
 export function anyPlayerUsingPony(): boolean {
   const players = getPlayers();

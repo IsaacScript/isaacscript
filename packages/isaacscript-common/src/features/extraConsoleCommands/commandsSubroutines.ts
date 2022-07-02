@@ -109,7 +109,7 @@ export function movePlayer(params: string, direction: Direction): void {
   player.Position = player.Position.add(modifiedVector);
 }
 
-export function spawnTrapdoorOrCrawlspace(trapdoor: boolean): void {
+export function spawnTrapdoorOrCrawlSpace(trapdoor: boolean): void {
   const room = game.GetRoom();
   const player = Isaac.GetPlayer();
   const position = room.FindFreeTilePosition(player.Position, 0);

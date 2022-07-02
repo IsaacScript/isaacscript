@@ -8,7 +8,7 @@ export enum GridRoom {
   /** Used by the "goto" console command. */
   DEBUG = -3,
 
-  /** The crawlspace for the floor. */
+  /** The crawl space for the floor. */
   DUNGEON = -4,
 
   BOSS_RUSH = -5,
@@ -31,7 +31,7 @@ export enum GridRoom {
    */
   SECRET_EXIT = -10,
 
-  /** The secret crawlspace under Great Gideon that is only accessible with a Chaos Card. */
+  /** The secret crawl space under Great Gideon that is only accessible with a Chaos Card. */
   GIDEON_DUNGEON = -11,
 
   /** The Genesis room where you get to take new collectibles. (It looks like a clean bedroom.) */

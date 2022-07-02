@@ -82,7 +82,7 @@ import {
   listEntities,
   listGridEntities,
   movePlayer,
-  spawnTrapdoorOrCrawlspace,
+  spawnTrapdoorOrCrawlSpace,
   warpToRoomType,
 } from "./commandsSubroutines";
 import v from "./v";
@@ -437,9 +437,9 @@ export function coins(params: string): void {
   player.AddCoins(numCoins);
 }
 
-/** Creates a crawlspace next to the player. */
-export function crawlspace(): void {
-  spawnTrapdoorOrCrawlspace(false);
+/** Creates a crawl space next to the player. */
+export function crawlSpace(): void {
+  spawnTrapdoorOrCrawlSpace(false);
 }
 
 /** Uses the D20. */
@@ -489,7 +489,7 @@ export function down(params: string): void {
   movePlayer(params, Direction.DOWN);
 }
 
-/** Warps to the Dungeon (i.e. Crawlspace) for the floor. */
+/** Warps to the Dungeon (i.e. crawl space) for the floor. */
 export function dungeon(): void {
   changeRoom(GridRoom.DUNGEON);
 }
@@ -1249,7 +1249,7 @@ export function tears(): void {
 
 /** Creates a trapdoor next to the player. */
 export function trapdoorCommand(): void {
-  spawnTrapdoorOrCrawlspace(true);
+  spawnTrapdoorOrCrawlSpace(true);
 }
 
 /** Warps to the first Treasure Room on the floor. */

@@ -205,7 +205,7 @@ commandFunctionsMap.set("charge", commands.charge);
 commandFunctionsMap.set("cleanBedroom", commands.cleanBedroom);
 commandFunctionsMap.set("coin", commands.coin);
 commandFunctionsMap.set("coins", commands.coins);
-commandFunctionsMap.set("crawlspace", commands.crawlspace);
+commandFunctionsMap.set("crawlSpace", commands.crawlSpace);
 commandFunctionsMap.set("d20", commands.d20);
 commandFunctionsMap.set("d6", commands.d6);
 commandFunctionsMap.set("damage", commands.damage);
