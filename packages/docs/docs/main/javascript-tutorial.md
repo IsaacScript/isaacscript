@@ -93,14 +93,14 @@ Furthermore, in TypeScript, there are two kinds of variable declarations: `let` 
 -- Lua code
 local poop = "poop"
 local numFarts = 1
-numFarts = numFarts + 1 -- numFarts is now equal to 2
+numFarts = numFarts + 1 -- numFarts is now equal to 2.
 ```
 
 ```ts
 // TypeScript code
-const poop = "poop"; // We use "const" because this value never changes
-let numFarts = 1; // We use "let" because we have to modify it later
-numFarts = numFarts + 1; // numFarts is now equal to 2
+const poop = "poop"; // We use "const" because this value never changes.
+let numFarts = 1; // We use "let" because we have to modify it later.
+numFarts = numFarts + 1; // numFarts is now equal to 2.
 ```
 
 <br />
@@ -109,18 +109,18 @@ numFarts = numFarts + 1; // numFarts is now equal to 2
 
 ```lua
 -- Lua code
-function getNumPoops() -- This is a global function
+function getNumPoops() -- This is a global function.
   return 2
 end
 
-local function getNumFarts() -- This is a local function
+local function getNumFarts() -- This is a local function.
   return 3
 end
 ```
 
 ```ts
 // TypeScript code
-// All functions in TypeScript are local by default
+// All functions in TypeScript are local by default.
 function getNumPoops() {
   return 2;
 }
@@ -167,14 +167,14 @@ For example:
 ```lua
 -- Lua code
 if x == 1 and y ~= 0 then
-  -- Do something
+  -- Do something.
 end
 ```
 
 ```ts
 // TypeScript code
 if (x === 1 && y !== 0) {
-  // Do something
+  // Do something.
 }
 ```
 
@@ -187,7 +187,7 @@ In Lua, basic `for` loops look like this:
 ```lua
 -- Lua code
 for i = 1, 10 do
-  -- "i" will iterate upwards from 1 to 10
+  -- "i" will iterate upwards from 1 to 10.
 end
 ```
 
@@ -196,7 +196,7 @@ In TypeScript, you use the more-standard C-style syntax:
 ```ts
 // TypeScript code
 for (let i = 1; i <= 10; i++) {
-  // "i" will iterate upwards from 1 to 10
+  // "i" will iterate upwards from 1 to 10.
 }
 ```
 
@@ -205,7 +205,7 @@ In Lua, you count downwards like this:
 ```lua
 -- Lua code
 for i = 10, 1, -1 do
-  -- "i" will iterate downwards from 10 to 1
+  -- "i" will iterate downwards from 10 to 1.
 end
 ```
 
@@ -214,7 +214,7 @@ In TypeScript, that would be:
 ```ts
 // TypeScript code
 for (let i = 10; i >= 1; i--) {
-  // "i" will iterate downwards from 1 to 10
+  // "i" will iterate downwards from 1 to 10.
 }
 ```
 
@@ -240,12 +240,12 @@ In TypeScript, you have a few different options.
 // Typescript code
 const gapers = Isaac.FindByType(EntityType.ENTITY_GAPER);
 
-// A "for of" loop is the simplest way to iterate over an array
+// A "for of" loop is the simplest way to iterate over an array.
 for (const gaper of gapers) {
   gaper.Remove();
 }
 
-// Or, use a "normal" for loop if you need the array index too
+// Or, use a "normal" for loop if you need the array index too.
 for (let i = 0; i < gaper.length; i++) {
   const gaper = gapers[i];
   gaper.Remove();
@@ -260,8 +260,8 @@ In Lua, the typical way to iterate over a key/value table is with `pairs`.
 
 ```lua
 -- Lua code
--- Define a table of collectible prices
--- (we must put "[]" around the collectible types since the table keys are numbers)
+-- Define a table of collectible prices.
+-- (We must put "[]" around the collectible types since the table keys are numbers.)
 local collectiblePrices = {
   [1] = 15, -- Sad Onion
   [2] = 15, -- The Inner Eye
@@ -269,7 +269,7 @@ local collectiblePrices = {
 }
 
 for collectibleType, price in pairs(collectiblePrices) do
-  -- Do something with "collectibleType" and "price"
+  -- Do something with "collectibleType" and "price".
 end
 ```
 
@@ -277,7 +277,7 @@ In TypeScript, you have a few different options.
 
 ```ts
 // TypeScript code
-// Define an anonymous object containing collectible prices
+// Define an anonymous object containing collectible prices.
 const collectiblePrices = {
   [1]: 15, // Sad Onion
   [2]: 15, // The Inner Eye
@@ -285,17 +285,17 @@ const collectiblePrices = {
 };
 
 for (const [collectibleType, price] of Object.entries(collectiblePrices)) {
-  // Do something with "collectibleType" and "price"
+  // Do something with "collectibleType" and "price".
 }
 
 // Or, if you just need the collectible type, you would use the "keys()" method
 for (const collectibleType of Object.keys(collectiblePrices)) {
-  // Do something with "collectibleType"
+  // Do something with "collectibleType".
 }
 
 // Or, if you just need the price, you would use the "values()" method
 for (const price of Object.values(collectiblePrices)) {
-  // Do something with "price"
+  // Do something with "price".
 }
 ```
 
@@ -306,14 +306,14 @@ for (const price of Object.values(collectiblePrices)) {
 ```lua
 -- Lua code
 if entity.SpawnerEntity == nil then
-  -- This entity was not spawned by anything in particular
+  -- This entity was not spawned by anything in particular.
 end
 ```
 
 ```ts
 // TypeScript code
 if (entity.SpawnerEntity === undefined) {
-  // This entity was not spawned by anything in particular
+  // This entity was not spawned by anything in particular.
 }
 ```
 
@@ -332,13 +332,13 @@ Lua does not have assignment operators, because it is a terrible language.
 ```lua
 -- Lua code
 local numFarts = 1
-numFarts = numFarts + 1 -- numFarts is now equal to 2
+numFarts = numFarts + 1 -- numFarts is now equal to 2.
 ```
 
 ```ts
 // TypeScript code
 let numFarts = 1;
-numFarts += 1; // numFarts is now equal to 2
+numFarts += 1; // numFarts is now equal to 2.
 ```
 
 <br />
@@ -351,14 +351,14 @@ The way to concatenate strings is different:
 -- Lua code
 local poopString = "Poop"
 local fartString = "Fart"
-local combinedString = poopString .. fartString -- combinedString is now equal to "PoopFart"
+local combinedString = poopString .. fartString -- combinedString is now equal to "PoopFart".
 ```
 
 ```ts
 // TypeScript code
 const poopString = "Poop";
 const fartString = "Fart";
-const combinedString = poopString + fartString; // combinedString is now equal to "PoopFart"
+const combinedString = poopString + fartString; // combinedString is now equal to "PoopFart".
 ```
 
 (TypeScript uses the same operator for adding numbers and concatenating strings.)
@@ -376,8 +376,8 @@ local numPoopsString = tostring(numPoops)
 ```ts
 // TypeScript code
 const numPoops = 3;
-const numPoopsString1 = tostring(numPoops); // You can do the same thing as you would in Lua
-const numPoopsString2 = numPoops.toString(); // Or, you can use the typical JavaScript conversion method
+const numPoopsString1 = tostring(numPoops); // You can do the same thing as you would in Lua.
+const numPoopsString2 = numPoops.toString(); // Or, you can use the typical JavaScript conversion method.
 ```
 
 Feel free to use either the standard Lua method or the JavaScript conversion method - it will be transpiled to the same thing.
@@ -453,17 +453,19 @@ When coding in TypeScript, you will need to add the type for every function argu
 
 In Lua, you split your code into multiple files by using `require()`.
 
+### `main.lua`
+
 ```lua
--- main.lua
--- In Lua, we must namespace the mod to avoid require conflicts
+-- In Lua, we must namespace the mod to avoid require conflicts.
 local postGameStarted = require("revelations.callbacks.postGameStarted")
 
 local mod = RegisterMod("Revelations", 1)
 postGameStarted:init(mod)
 ```
 
+#### `revelations/callbacks/postGameStarted.lua`
+
 ```lua
--- revelations/callbacks/postGameStarted.lua
 local postGameStarted = {}
 
 function postGameStarted:init(mod)
@@ -482,16 +484,18 @@ return postGameStarted
 In TypeScript, this is accomplished with `import`.<br />
 (Don't ever use the JavaScript/TypeScript version of `require()`, which is only used in older JavaScript code.)
 
+#### `main.ts`
+
 ```ts
-// main.ts
 import { postGameStartedInit } from "./callbacks/postGameStarted";
 
 const mod = RegisterMod("Revelations", 1);
 postGameStartedInit(mod);
 ```
 
+#### `callbacks/postGameStarted.ts`
+
 ```ts
-// callbacks/postGameStarted.ts
 // "export" makes it so that other files can use this function
 // "void" is an return-type annotation, meaning "this function returns nothing"
 export function postGameStartedInit(mod: Mod): void {
@@ -526,7 +530,7 @@ In Lua, checking to see if the user has the True Co-op Mod installed would look 
 ```lua
 -- Lua code
 if InfinityTrueCoopInterface ~= nil then
-  -- The user has the True Co-op mod enabled, so now do something
+  -- The user has the True Co-op mod enabled, so now do something.
 end
 ```
 
@@ -535,7 +539,7 @@ The TypeScript equivalent would look like this:
 ```ts
 // TypeScript code
 if (InfinityTrueCoopInterface !== undefined) {
-  // The user has the True Co-op mod enabled, so now do something
+  // The user has the True Co-op mod enabled, so now do something.
 }
 ```
 
@@ -548,7 +552,7 @@ The way to do that is to use the `declare` keyword, like this:
 declare const InfinityTrueCoopInterface: unknown | undefined;
 
 if (InfinityTrueCoopInterface !== undefined) {
-  // The user has the True Co-op mod enabled, so now do something
+  // The user has the True Co-op mod enabled, so now do something.
 }
 ```
 
@@ -586,20 +590,19 @@ The solution is to add the `AddCharacter()` method to our definition file. We ne
 
 ```ts
 // The global variable exists and it is a Lua table of type TrueCoop,
-// which we will immediately define below
+// which we will immediately define below.
 declare const InfinityTrueCoopInterface: TrueCoop | undefined;
 
-// We declare a TrueCoop class that has as many methods or members as we need
-// (but for now we will only add one)
+// We declare a TrueCoop class that has as many methods or members as we need.
+// (But for now, we will only add one.)
 declare class TrueCoop() {
   AddCharacter(playerData: TrueCoopPlayerData)
 }
 
 // We also have to specify what the True Co-op mod expects to be passed for the
 // first argument of the "AddCharacter" method (which is a table with a bunch of
-// things in it
-// This (partially) matches the documentation near the top of the "main.lua"
-// file for the True Co-op Mod
+// things in it. This (partially) matches the documentation near the top of the
+// "main.lua" file for the True Co-op Mod.
 interface TrueCoopPlayerData {
   Name: string;
   Type: PlayerType;
@@ -622,7 +625,7 @@ In Lua, some mods export functionality by using a global variable:
 ```lua
 -- Lua code
 RevelationsVersion = "2.1"
--- "RevelationsVersion" is now a global variable
+-- "RevelationsVersion" is now a global variable.
 ```
 
 In TypeScript, you just have to declare it beforehand:
@@ -631,7 +634,7 @@ In TypeScript, you just have to declare it beforehand:
 // TypeScript code
 declare let RevelationsVersion: string;
 RevelationsVersion = "2.1";
-// "RevelationsVersion" is now a global variable
+// "RevelationsVersion" is now a global variable.
 ```
 
 Building on this example, you can also expose both variables and methods:
@@ -644,7 +647,7 @@ RevelationsExports = {
   myFunction1,
   myFunction2,
 };
-// "RevelationsExports" is now a global variable
+// "RevelationsExports" is now a global variable.
 ```
 
 <br />
@@ -693,7 +696,7 @@ const collectiblePrices = new Map<int, CollectiblePrice>([
   [3, CollectiblePrice.SALE], // Spoon Bender
 ]);
 for (const [collectibleType, price] of collectiblePrices.entries()) {
-  // Do something with "collectibleType" and "price"
+  // Do something with "collectibleType" and "price".
 }
 ```
 
@@ -710,7 +713,7 @@ With a map, you can use all of the handy methods [shown in the MDN docs](https:/
 -- Lua code
 function pickingUpCollectible(player, collectibleType)
   -- If the player picked up a new collectible,
-  -- subtract the price of that collectible from their coin amount
+  -- subtract the price of that collectible from their coin amount.
   local price = collectiblePrices[collectibleType]
   if price ~= nil then
     player:AddCoins(price * -1)
@@ -722,7 +725,7 @@ end
 // TypeScript code
 function pickingUpCollectible(player: EntityPlayer, collectibleType: int) {
   // If the player picked up a new collectible,
-  // subtract the price of that collectible from their coin amount
+  // subtract the price of that collectible from their coin amount.
   const price = collectiblePrices.get(collectibleType);
   if (price !== undefined) {
     player.AddCoins(price * -1);
@@ -738,8 +741,8 @@ Lua allows you to write unsafe code. Consider the following:
 
 ```lua
 -- Lua code
-local player = entity:ToPlayer() -- Convert the entity to a player
-player:AddMaxHearts(2) -- Give them a heart container
+local player = entity:ToPlayer() -- Convert the entity to a player.
+player:AddMaxHearts(2) -- Give them a heart container.
 ```
 
 Not all entities convert to players though, so this code can fail. In fact, for most entities, the `ToPlayer()` method would return `nil` and cause the next line to throw a runtime error, preventing all of the subsequent code in the callback from firing. In TypeScript, writing this code would cause a compiler error:
@@ -756,7 +759,7 @@ const player = entity.ToPlayer();
 if (player === undefined) {
   error("Failed to convert the entity to a player.");
 }
-player.AddMaxHearts(2); // The type of player is now narrowed to "EntityPlayer"
+player.AddMaxHearts(2); // The type of player is now narrowed to "EntityPlayer".
 ```
 
 Here, we explicitly handle the error case and supply a helpful error message. But this code does something more important than simply providing the error message.
