@@ -8601,10 +8601,10 @@ is-yarn-global@^0.4.0:
   resolved "https://registry.yarnpkg.com/is-yarn-global/-/is-yarn-global-0.4.0.tgz#714d94453327db9ea98fbf1a0c5f2b88f59ddd5c"
   integrity sha512-HneQBCrXGBy15QnaDfcn6OLoU8AQPAa0Qn0IeJR/QCo4E8dNZaGGwxpCwWyEBQC5QvFonP8d6t60iGpAHVAfNA==
 
-isaac-typescript-definitions@^3.0.12:
-  version "3.0.12"
-  resolved "https://registry.yarnpkg.com/isaac-typescript-definitions/-/isaac-typescript-definitions-3.0.12.tgz#ea9f0862ae2a30b3656eddba364113108e55e83f"
-  integrity sha512-elJWEZtycQoNPkt3PeTGYV87Yaa4EFvfFPmEq/5PJ8lndcZJDr/dTrPtOrmY2D1emuAJZfVLcCTr1qSRCTsiaw==
+isaac-typescript-definitions@^3.0.13:
+  version "3.0.13"
+  resolved "https://registry.yarnpkg.com/isaac-typescript-definitions/-/isaac-typescript-definitions-3.0.13.tgz#8140decf8cd89bbe5d7c46f107e5f0cd9864a213"
+  integrity sha512-Zj8Qphkkrfic5g5ipINJUXzkTM3GuP9npvP2yyJl3MxuVweYDzR2sCXTE9ZZFdrA8J27FTxu00A0GpG+3UxVTA==
   dependencies:
     lua-types "^2.11.0"
 
@@ -14899,6 +14899,25 @@ ts-node@^10.8.1, ts-node@~10.8.0:
     v8-compile-cache-lib "^3.0.1"
     yn "3.1.1"
 
+ts-node@^10.8.2:
+  version "10.8.2"
+  resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-10.8.2.tgz#3185b75228cef116bf82ffe8762594f54b2a23f2"
+  integrity sha512-LYdGnoGddf1D6v8REPtIH+5iq/gTDuZqv2/UJUU7tKjuEU8xVZorBM+buCGNjj+pGEud+sOoM4CX3/YzINpENA==
+  dependencies:
+    "@cspotcode/source-map-support" "^0.8.0"
+    "@tsconfig/node10" "^1.0.7"
+    "@tsconfig/node12" "^1.0.7"
+    "@tsconfig/node14" "^1.0.0"
+    "@tsconfig/node16" "^1.0.2"
+    acorn "^8.4.1"
+    acorn-walk "^8.1.1"
+    arg "^4.1.0"
+    create-require "^1.1.0"
+    diff "^4.0.1"
+    make-error "^1.1.1"
+    v8-compile-cache-lib "^3.0.1"
+    yn "3.1.1"
+
 ts-prune@^0.10.3:
   version "0.10.3"
   resolved "https://registry.yarnpkg.com/ts-prune/-/ts-prune-0.10.3.tgz#b6c71a525543b38dcf947a7d3adfb7f9e8b91f38"
@@ -15052,10 +15071,10 @@ typedoc-plugin-markdown@^3.13.2:
   dependencies:
     handlebars "^4.7.7"
 
-typedoc@^0.23.4:
-  version "0.23.4"
-  resolved "https://registry.yarnpkg.com/typedoc/-/typedoc-0.23.4.tgz#58a93033181d907baea616115190da3b5273416e"
-  integrity sha512-KvDc3aO7eSrPhPJ36zPfjKNdOMSQFeUOMOMZdG7jACQePJny+qEbufINCac/wAH8nMaCE3TRa5jcDmouRy58nA==
+typedoc@^0.23.5:
+  version "0.23.5"
+  resolved "https://registry.yarnpkg.com/typedoc/-/typedoc-0.23.5.tgz#a28a3eeca739b6ae9ca6081f429bfe52dc28423b"
+  integrity sha512-5ydWUOe4E9Z3a/r33cC5X5CJPLnFDKIondHYtdnEnO0sa/s8f+Nrfe+LBGOk/UTkV2IPYyL1Gm1PtUKIihklyw==
   dependencies:
     lunr "^2.3.9"
     marked "^4.0.16"
