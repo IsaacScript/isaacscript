@@ -21,49 +21,24 @@ module.exports = {
     project: path.join(__dirname, "tsconfig.json"),
   },
 
-  rules: {
-    /**
-     * Documentation:
-     * https://github.com/jrdrg/eslint-plugin-sort-exports
-     * Not defined in parent configs.
-     */
-    "sort-exports/sort-exports": [
-      "error",
-      {
-        sortDir: "asc",
-      },
-    ],
-  },
+  rules: {},
 
   overrides: [
     {
-      files: ["./src/callbacks/subscriptions/**"],
+      files: ["./src/functions/**"],
       rules: {
-        "sort-exports/sort-exports": "off",
-      },
-    },
-    {
-      files: ["./src/features/*.ts"],
-      rules: {
-        "sort-exports/sort-exports": "off",
-      },
-    },
-    {
-      files: ["./src/maps/*.ts"],
-      rules: {
-        "sort-exports/sort-exports": "off",
-      },
-    },
-    {
-      files: ["./src/objects/*.ts"],
-      rules: {
-        "sort-exports/sort-exports": "off",
-      },
-    },
-    {
-      files: ["./src/sets/*.ts"],
-      rules: {
-        "sort-exports/sort-exports": "off",
+        /**
+         * Documentation:
+         * https://github.com/jrdrg/eslint-plugin-sort-exports
+         *
+         * Not defined in parent configs.
+         */
+        "sort-exports/sort-exports": [
+          "error",
+          {
+            sortDir: "asc",
+          },
+        ],
       },
     },
   ],
