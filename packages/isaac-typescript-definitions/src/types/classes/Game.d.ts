@@ -216,6 +216,26 @@ declare global {
 
     ShowRule(): void;
 
+    /**
+     * In most cases, you should not be using this method directly, and instead be using the set of
+     * `spawn` functions from the standard library. For example:
+     *
+     * - `spawn` - Will spawn anything with a convenient API.
+     * - `spawnWithSeed - Will spawn anything with an API that makes it easy to specify a seed.`
+     * - `spawnPickup` - Will spawn a pickup with a convenient API.
+     * - `spawnPickupWithSeed - Will spawn a pickup with an API that makes it easy to specify a
+     *   seed.`
+     * - `spawnKey` - Will spawn a key with a convenient API.
+     * - etc.
+     *
+     * @param entityType
+     * @param variant
+     * @param position
+     * @param velocity
+     * @param spawner
+     * @param subType
+     * @param seed
+     */
     Spawn(
       entityType: EntityType,
       variant: int,

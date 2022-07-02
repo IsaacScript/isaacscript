@@ -320,13 +320,40 @@ declare global {
     function ScreenToWorld(position: Vector): Vector;
     function ScreenToWorldDistance(position: Vector): Vector;
 
+    /**
+     * Spawns a new entity with a randomly generated seed. For spawning entities using a specific
+     * seed, then the `Game.Spawn` method should be used instead.
+     *
+     * In most cases, you should not be using this method directly, and instead be using the set of
+     * `spawn` functions from the standard library. For example:
+     *
+     * - `spawn` - Will spawn anything with a convenient API.
+     * - `spawnWithSeed - Will spawn anything with an API that makes it easy to specify a seed.`
+     * - `spawnPickup` - Will spawn a pickup with a convenient API.
+     * - `spawnPickupWithSeed - Will spawn a pickup with an API that makes it easy to specify a
+     *   seed.`
+     * - `spawnKey` - Will spawn a key with a convenient API.
+     * - etc.
+     *
+     * @param entityType
+     * @param variant
+     * @param subType
+     * @param position
+     * @param velocity
+     * @param spawner Each entity stores a reference to the entity that spawned it in the
+     *                `SpawnerEntity` field. (If the entity was not spawned by anything in
+     *                particular, `SpawnerEntity` will be equal to undefined.) Thus, when spawning a
+     *                new entity, you can specify the `SpawnerEntity` using this argument. Note that
+     *                this argument is not optional. If you do not want the new entity to have a
+     *                spawner, you must explicitly pass undefined.
+     */
     function Spawn(
       entityType: EntityType,
       variant: int,
       subType: int,
       position: Vector,
       velocity: Vector,
-      spawner?: Entity,
+      spawner: Entity | undefined,
     ): Entity;
 
     /**
