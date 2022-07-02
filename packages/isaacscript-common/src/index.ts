@@ -1,5 +1,3 @@
-/* eslint-disable sort-exports/sort-exports */
-
 export * from "./cachedClasses";
 export {
   initCustomDoor,

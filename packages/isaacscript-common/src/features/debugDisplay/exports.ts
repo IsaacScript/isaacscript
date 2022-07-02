@@ -1,5 +1,3 @@
-/* eslint-disable sort-exports/sort-exports */
-
 import { printEnabled } from "../../functions/utils";
 import v, { debugDisplayTextCallbacks } from "./v";
 

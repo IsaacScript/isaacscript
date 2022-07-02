@@ -1,5 +1,3 @@
-/* eslint-disable sort-exports/sort-exports */
-
 import { SaveDataKey } from "../../enums/private/SaveDataKey";
 import { SerializationType } from "../../enums/SerializationType";
 import { errorIfFeaturesNotInitialized } from "../../featuresInitialized";

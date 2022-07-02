@@ -1,13 +1,8 @@
-/* eslint-disable sort-exports/sort-exports */
-
 import { ModCallback } from "isaac-typescript-definitions";
 import { game } from "../../cachedClasses";
 import { ModUpgraded } from "../../classes/ModUpgraded";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
-import {
-  RESETTABLE_SAVE_DATA_KEYS,
-  SaveDataKey,
-} from "../../enums/private/SaveDataKey";
+import { SaveDataKey } from "../../enums/private/SaveDataKey";
 import { SerializationType } from "../../enums/SerializationType";
 import { deepCopy } from "../../functions/deepCopy";
 import { logError } from "../../functions/log";
@@ -24,6 +19,12 @@ import {
   saveDataMap,
 } from "./maps";
 import { saveToDisk } from "./save";
+
+const RESETTABLE_SAVE_DATA_KEYS: ReadonlySet<SaveDataKey> = new Set([
+  SaveDataKey.RUN,
+  SaveDataKey.LEVEL,
+  SaveDataKey.ROOM,
+]);
 
 let mod: ModUpgraded | null = null;
 let loadedDataOnThisRun = false;

@@ -1,5 +1,3 @@
-/* eslint-disable sort-exports/sort-exports */
-
 // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
 /**
  * @module Constants (First and Last)

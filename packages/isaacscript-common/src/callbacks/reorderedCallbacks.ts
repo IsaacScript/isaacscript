@@ -1,5 +1,3 @@
-/* eslint-disable sort-exports/sort-exports */
-
 // This provides the logic for:
 // - POST_GAME_STARTED_REORDERED
 // - POST_NEW_LEVEL_REORDERED

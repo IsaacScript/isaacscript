@@ -1,5 +1,3 @@
-/* eslint-disable sort-exports/sort-exports */
-
 import { isFunction, isPrimitive } from "../functions/types";
 
 // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
