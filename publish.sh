@@ -28,7 +28,8 @@ if [ -z "$2" ]; then
 fi
 VERSION_BUMP="$2"
 
-# Before bumping the version, check to see if this package compiles.
+# Before bumping the version, check to see if this package compiles (so that we can avoid
+# unnecessary version bumps).
 bash "$PACKAGE_DIR/build.sh"
 
 yarn config set version-tag-prefix "$PACKAGE_NAME-"
@@ -42,10 +43,13 @@ else
   yarn version --set-version $VERSION_BUMP
 fi
 
-# We have to build after bumping the version so that the new "package.json" file gets copied to the
-# "dist" directory.
+# We have to build again after bumping the version so that the new "package.json" file gets copied
+# to the "dist" directory.
 bash "$PACKAGE_DIR/build.sh"
 
+# Upload the package to npm.
+# The "--access=public" flag is only technically needed for the first publish, but it is saved here
+# for posterity.
 cd "$DIR/dist/packages/$PACKAGE_NAME"
 npm publish --access=public
 
