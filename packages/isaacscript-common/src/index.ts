@@ -21,6 +21,7 @@ export {
 } from "./features/characterHealthConversion";
 export { registerCharacterStats } from "./features/characterStats";
 export { getCollectibleItemPoolType } from "./features/collectibleItemPoolType";
+export * from "./features/customTrapdoor/exports";
 export * from "./features/debugDisplay/exports";
 export {
   deployJSONRoom,

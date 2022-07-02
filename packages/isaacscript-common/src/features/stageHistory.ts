@@ -5,13 +5,11 @@ import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { saveDataManager } from "./saveDataManager/exports";
 
-export type StageDescription = [stage: LevelStage, stageType: StageType];
-
 const FEATURE_NAME = "stage history";
 
 const v = {
   run: {
-    stageHistory: [] as StageDescription[],
+    stageHistory: [] as Array<[stage: LevelStage, stageType: StageType]>,
   },
 };
 
@@ -35,7 +33,9 @@ function postNewLevelReordered() {
 }
 
 /** Helper function to get all of the stages that a player has visited thus far on this run. */
-export function getStageHistory(): readonly StageDescription[] {
+export function getStageHistory(): ReadonlyArray<
+  [stage: LevelStage, stageType: StageType]
+> {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
   return v.run.stageHistory;
 }
