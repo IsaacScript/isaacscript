@@ -28,6 +28,9 @@ if [ -z "$2" ]; then
 fi
 VERSION_BUMP="$2"
 
+# Before bumping the version, check to see if this package compiles.
+bash "$PACKAGE_DIR/build.sh"
+
 yarn config set version-tag-prefix "$PACKAGE_NAME-"
 yarn config set version-git-message "chore(release): $PACKAGE_NAME-%s"
 

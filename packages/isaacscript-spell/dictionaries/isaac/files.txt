@@ -42,6 +42,7 @@ playerportraitbig # players.xml
 pocketitems # pocketitems.xml
 portraitroot # players.xml
 questionmark # questionmark.png
+secrettrapdoor # door_20_secrettrapdoor_shop.anm2
 shotspeed # items.xml
 shutdoors # entities2.xml
 steamapps # The resources directory
