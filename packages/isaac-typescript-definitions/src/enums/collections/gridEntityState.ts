@@ -116,7 +116,7 @@ export enum TrapdoorState {
 }
 
 /** For `GridEntityType.CRAWL_SPACE` (18) */
-export enum CrawlspaceState {
+export enum CrawlSpaceState {
   CLOSED = 0,
   OPEN = 1,
 }
