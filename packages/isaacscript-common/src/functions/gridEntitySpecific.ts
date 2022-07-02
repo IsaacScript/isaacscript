@@ -1,5 +1,5 @@
 import {
-  CrawlspaceState,
+  CrawlSpaceState,
   GridEntityType,
   PressurePlateState,
   TrapdoorVariant,
@@ -12,7 +12,7 @@ import { getGridEntities, getMatchingGridEntities } from "./gridEntity";
  * Specify a specific trapdoor variant to select only trapdoors of that variant.
  */
 export function getCrawlSpaces(
-  crawlSpaceVariant?: CrawlspaceState,
+  crawlSpaceVariant?: CrawlSpaceState,
 ): GridEntity[] {
   if (crawlSpaceVariant === undefined) {
     return getGridEntities(GridEntityType.CRAWL_SPACE);
