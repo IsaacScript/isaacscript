@@ -217,6 +217,9 @@ declare global {
     ShowRule(): void;
 
     /**
+     * Spawns a new entity with a specified seed. For spawning entities using a random seed, then
+     * the `Isaac.Spawn` method should be used instead.
+     *
      * In most cases, you should not be using this method directly, and instead be using the set of
      * `spawn` functions from the standard library. For example:
      *
@@ -231,10 +234,19 @@ declare global {
      * @param entityType
      * @param variant
      * @param position
-     * @param velocity
-     * @param spawner
+     * @param velocity The initial velocity of the entity. In most cases, you will want to pass the
+     *                 `VectorZero` constant so that there is no initial velocity.
+     * @param spawner Each entity stores a reference to the entity that spawned it in the
+     *                `SpawnerEntity` field. (If the entity was not spawned by anything in
+     *                particular, `SpawnerEntity` will be equal to undefined.) Thus, when spawning a
+     *                new entity, you can specify what the `SpawnerEntity` will be by using this
+     *                argument. Note that this argument is not optional. If you do not want the new
+     *                entity to have a spawner, you must explicitly pass undefined.
      * @param subType
-     * @param seed
+     * @param seed The integer seed for the new entity. This must be between 1 and and 4294967295.
+     *             See the `Seed` type declaration for more details. (This value will typically come
+     *             from an RNG object or another entity's `InitSeed`, which is why it is typed as a
+     *             `Seed` instead of an `int`.)
      */
     Spawn(
       entityType: EntityType,

@@ -339,13 +339,14 @@ declare global {
      * @param variant
      * @param subType
      * @param position
-     * @param velocity
+     * @param velocity The initial velocity of the entity. In most cases, you will want to pass the
+     *                 `VectorZero` constant so that there is no initial velocity.
      * @param spawner Each entity stores a reference to the entity that spawned it in the
      *                `SpawnerEntity` field. (If the entity was not spawned by anything in
      *                particular, `SpawnerEntity` will be equal to undefined.) Thus, when spawning a
-     *                new entity, you can specify the `SpawnerEntity` using this argument. Note that
-     *                this argument is not optional. If you do not want the new entity to have a
-     *                spawner, you must explicitly pass undefined.
+     *                new entity, you can specify what the `SpawnerEntity` will be by using this
+     *                argument. Note that this argument is not optional. If you do not want the new
+     *                entity to have a spawner, you must explicitly pass undefined.
      */
     function Spawn(
       entityType: EntityType,
