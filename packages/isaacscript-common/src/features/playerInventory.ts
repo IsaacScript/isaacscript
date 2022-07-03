@@ -15,7 +15,7 @@ import { repeat } from "../functions/utils";
 import { PlayerIndex } from "../types/PlayerIndex";
 import { saveDataManager } from "./saveDataManager/exports";
 
-const FEATURE_NAME = "player inventory tracker";
+const FEATURE_NAME = "playerInventory";
 
 const v = {
   run: {
@@ -48,7 +48,7 @@ function resetInventory(player: EntityPlayer) {
 
 /** @internal */
 export function playerInventoryInit(mod: ModUpgraded): void {
-  saveDataManager("playerInventory", v);
+  saveDataManager(FEATURE_NAME, v);
 
   mod.AddCallback(ModCallback.POST_USE_ITEM, useItemD4, CollectibleType.D4); // 3
   mod.AddCallback(ModCallback.POST_GAME_STARTED, postGameStarted); // 15

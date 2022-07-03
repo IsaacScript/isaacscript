@@ -31,6 +31,8 @@ This page lists the changes to the IsaacScript framework.
   - `getFloorDisplayFlags`
   - `setFloorDisplayFlags`
   - `setDisplayFlags`
+  - `setStage`
+  - `!registerHotkeyFunction`
 - Renamed the following helper functions:
   - `isPonyActive` --> `isPlayerUsingPony`
   - `inCrawlspace` --> `inCrawlSpace`

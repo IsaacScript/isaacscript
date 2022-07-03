@@ -1,4 +1,4 @@
-export const STAGE_TRAVEL_FEATURE_NAME = "stageTravel";
+export const CUSTOM_TRAPDOOR_FEATURE_NAME = "customTrapdoor";
 
 /** This also applies to crawl spaces. The value was determined through trial and error. */
 export const TRAPDOOR_OPEN_DISTANCE = 60;

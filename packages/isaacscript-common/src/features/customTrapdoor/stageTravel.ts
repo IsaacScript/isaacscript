@@ -176,13 +176,6 @@ export function checkShouldOpen(
   }
 }
 
-// TODO: Remove this after the next vanilla patch in 2022 when crawl spaces are decoupled from
-// sprites.
-export function anyPlayerUsingPony(): boolean {
-  const players = getPlayers();
-  return players.some((player) => isPonyActive(player));
-}
-
 export function checkPlayerTouched(
   entity: GridEntity | EntityEffect,
   fastTravelEntityType: FastTravelEntityType,

@@ -7,7 +7,7 @@ import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { getEntities } from "../functions/entity";
 import { saveDataManager } from "./saveDataManager/exports";
 
-const FEATURE_NAME = "siren helpers";
+const FEATURE_NAME = "sirenHelpers";
 
 const v = {
   run: {
@@ -19,7 +19,7 @@ const v = {
 
 /** @internal */
 export function sirenHelpersInit(mod: Mod): void {
-  saveDataManager("sirenHelpers", v);
+  saveDataManager(FEATURE_NAME, v);
 
   mod.AddCallback(
     ModCallback.POST_NPC_INIT,

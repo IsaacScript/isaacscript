@@ -14,7 +14,7 @@ import { getEntityID } from "../functions/entity";
 import { isCollectible } from "../functions/pickupVariants";
 import { saveDataManager } from "./saveDataManager/exports";
 
-const FEATURE_NAME = "prevent collectible rotation";
+const FEATURE_NAME = "preventCollectibleRotation";
 
 const v = {
   room: {
@@ -34,7 +34,7 @@ const v = {
 
 /** @internal */
 export function preventCollectibleRotationInit(mod: Mod): void {
-  saveDataManager("preventCollectibleRotation", v);
+  saveDataManager(FEATURE_NAME, v);
 
   mod.AddCallback(
     ModCallback.POST_USE_CARD,

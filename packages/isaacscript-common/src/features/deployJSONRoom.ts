@@ -60,7 +60,7 @@ interface PersistentEntityDescription {
   subType: int;
 }
 
-const FEATURE_NAME = "JSON room deployer";
+const FEATURE_NAME = "deployJSONRoom";
 
 const NPC_TYPES_TO_NOT_REMOVE: ReadonlySet<EntityType> = new Set([
   EntityType.DARK_ESAU,
@@ -91,7 +91,7 @@ const v = {
 
 /** @internal */
 export function deployJSONRoomInit(mod: ModUpgraded): void {
-  saveDataManager("deployJSONRoom", v);
+  saveDataManager(FEATURE_NAME, v);
 
   mod.AddCallback(
     ModCallback.PRE_USE_ITEM,

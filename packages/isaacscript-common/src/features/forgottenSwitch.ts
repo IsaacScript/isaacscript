@@ -6,7 +6,7 @@ import {
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { saveDataManager } from "./saveDataManager/exports";
 
-const FEATURE_NAME = "forgotten switcher";
+const FEATURE_NAME = "forgottenSwitch";
 
 const v = {
   run: {
@@ -16,7 +16,7 @@ const v = {
 
 /** @internal */
 export function forgottenSwitchInit(mod: Mod): void {
-  saveDataManager("forgottenSwitch", v);
+  saveDataManager(FEATURE_NAME, v);
 
   mod.AddCallback(
     ModCallback.INPUT_ACTION, // 13

@@ -4,7 +4,7 @@ import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { saveDataManager } from "./saveDataManager/exports";
 
-const FEATURE_NAME = "room clear frame";
+const FEATURE_NAME = "roomClearFrame";
 
 const v = {
   room: {
@@ -15,7 +15,7 @@ const v = {
 
 /** @internal */
 export function roomClearFrameInit(mod: ModUpgraded): void {
-  saveDataManager("roomClearFrame", v);
+  saveDataManager(FEATURE_NAME, v);
 
   mod.AddCallbackCustom(
     ModCallbackCustom.POST_ROOM_CLEAR_CHANGED,

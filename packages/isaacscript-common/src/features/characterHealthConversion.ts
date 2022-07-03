@@ -7,7 +7,7 @@ import {
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { isRedHeart } from "../functions/pickups";
 
-const FEATURE_NAME = "character health manager";
+const FEATURE_NAME = "characterHealthConversion";
 
 export type ConversionHeartSubType = HeartSubType.SOUL | HeartSubType.BLACK;
 

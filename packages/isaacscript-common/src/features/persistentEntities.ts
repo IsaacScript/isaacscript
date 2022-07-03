@@ -6,6 +6,7 @@ import {
 import { game } from "../cachedClasses";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
+import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { spawn } from "../functions/entity";
 import { getRoomListIndex } from "../functions/roomData";
 import { saveDataManager } from "./saveDataManager/exports";
@@ -17,6 +18,8 @@ interface PersistentEntityDescription {
   roomListIndex: int;
   position: Vector;
 }
+
+const FEATURE_NAME = "persistentEntities";
 
 /** Iterates upward as new persistent entities are created. */
 let persistentEntityIndexCounter = 0;
@@ -42,7 +45,7 @@ const v = {
 
 /** @internal */
 export function persistentEntitiesInit(mod: ModUpgraded): void {
-  saveDataManager("persistentEntities", v);
+  saveDataManager(FEATURE_NAME, v);
 
   mod.AddCallback(ModCallback.POST_ENTITY_REMOVE, postEntityRemove); // 67
   mod.AddCallbackCustom(
@@ -118,6 +121,8 @@ export function spawnPersistentEntity(
   subType: int,
   position: Vector,
 ): [Entity, int] {
+  errorIfFeaturesNotInitialized(FEATURE_NAME);
+
   persistentEntityIndexCounter += 1;
 
   const entity = spawnAndTrack(
@@ -166,6 +171,8 @@ export function removePersistentEntity(
   persistentEntityIndex: int,
   removeEntity = true,
 ): void {
+  errorIfFeaturesNotInitialized(FEATURE_NAME);
+
   v.level.persistentEntities.delete(persistentEntityIndex);
 
   for (const [ptrHash, tuple] of v.room.spawnedPersistentEntities.entries()) {

@@ -180,6 +180,8 @@ declare let gd: LuaTable<string, SaveData>; // Globals defaults
  * e.g. `l print(g.feature1.foo)`
  */
 export function saveDataManagerSetGlobal(): void {
+  errorIfFeaturesNotInitialized(SAVE_DATA_MANAGER_FEATURE_NAME);
+
   g = saveDataMap; // eslint-disable-line @typescript-eslint/no-unused-vars
   gd = saveDataDefaultsMap; // eslint-disable-line @typescript-eslint/no-unused-vars
 }

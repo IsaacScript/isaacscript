@@ -7,7 +7,7 @@ import {
 } from "../functions/input";
 import { restart } from "../functions/run";
 
-const FEATURE_NAME = "fast reset";
+const FEATURE_NAME = "fastReset";
 
 let enabled = false;
 

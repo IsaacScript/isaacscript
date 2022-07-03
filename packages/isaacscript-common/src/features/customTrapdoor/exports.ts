@@ -5,11 +5,13 @@ import {
   StageType,
 } from "isaac-typescript-definitions";
 import { game } from "../../cachedClasses";
+import { errorIfFeaturesNotInitialized } from "../../featuresInitialized";
 import { spawnGrid } from "../../functions/gridEntity";
 import { getNextStage, getNextStageType } from "../../functions/nextStage";
 import { anyPlayerCloserThan } from "../../functions/positionVelocity";
 import { getRoomClearGameFrame } from "../roomClearFrame";
 import {
+  CUSTOM_TRAPDOOR_FEATURE_NAME,
   TRAPDOOR_BOSS_REACTION_FRAMES,
   TRAPDOOR_OPEN_DISTANCE,
   TRAPDOOR_OPEN_DISTANCE_AFTER_BOSS,
@@ -71,6 +73,8 @@ export function spawnCustomTrapdoor(
     | boolean
     | ((gridEntity: GridEntity) => boolean) = defaultShouldSpawnOpenFunc,
 ): GridEntity {
+  errorIfFeaturesNotInitialized(CUSTOM_TRAPDOOR_FEATURE_NAME);
+
   const decoration = spawnGrid(GridEntityType.DECORATION, gridIndexOrPosition);
   if (decoration === undefined) {
     error("Failed to spawn a custom trapdoor.");

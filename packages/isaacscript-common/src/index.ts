@@ -28,6 +28,7 @@ export {
   deployRandomJSONRoom,
   emptyRoom,
 } from "./features/deployJSONRoom";
+export { disableAllSound, enableAllSound } from "./features/disableAllSound";
 export {
   disableAllInputs,
   disableAllInputsExceptFor,
@@ -36,7 +37,6 @@ export {
   enableAllInputs,
   enableAllInputsExceptFor,
 } from "./features/disableInputs";
-export { disableAllSound, enableAllSound } from "./features/disableSound";
 export {
   addConsoleCommand,
   enableExtraConsoleCommands,

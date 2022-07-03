@@ -7,7 +7,7 @@ import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { getMoveActions, getShootActions } from "../functions/input";
 import { saveDataManager } from "./saveDataManager/exports";
 
-const FEATURE_NAME = "input disabler";
+const FEATURE_NAME = "disableInputs";
 
 const v = {
   run: {
@@ -27,7 +27,7 @@ const v = {
 
 /** @internal */
 export function disableInputsInit(mod: Mod): void {
-  saveDataManager("disableInputs", v);
+  saveDataManager(FEATURE_NAME, v);
 
   mod.AddCallback(
     ModCallback.INPUT_ACTION,

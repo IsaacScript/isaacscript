@@ -4,8 +4,8 @@ import { characterStatsInit } from "./features/characterStats";
 import { collectibleItemPoolTypeInit } from "./features/collectibleItemPoolType";
 import { stageTravelInit } from "./features/customTrapdoor/init";
 import { deployJSONRoomInit } from "./features/deployJSONRoom";
+import { disableAllSoundInit } from "./features/disableAllSound";
 import { disableInputsInit } from "./features/disableInputs";
-import { disableSoundsInit } from "./features/disableSound";
 import { fadeInRemoverInit } from "./features/fadeInRemover";
 import { fastResetInit } from "./features/fastReset";
 import { forgottenSwitchInit } from "./features/forgottenSwitch";
@@ -27,8 +27,8 @@ export function initFeaturesMajor(mod: ModUpgraded): void {
 }
 
 export function initFeaturesMinor(mod: ModUpgraded): void {
+  disableAllSoundInit(mod);
   disableInputsInit(mod);
-  disableSoundsInit(mod);
   fadeInRemoverInit(mod);
   fastResetInit(mod);
   forgottenSwitchInit(mod);

@@ -5,7 +5,7 @@ import { ModCallback, PlayerType } from "isaac-typescript-definitions";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { saveDataManager } from "./saveDataManager/exports";
 
-const FEATURE_NAME = "Tainted Lazarus entity finder";
+const FEATURE_NAME = "taintedLazarusPlayers";
 
 const v = {
   run: {
@@ -25,7 +25,7 @@ const v = {
 
 /** @internal */
 export function taintedLazarusPlayersInit(mod: Mod): void {
-  saveDataManager("taintedLazarusPlayers", v, () => false);
+  saveDataManager(FEATURE_NAME, v, () => false);
 
   mod.AddCallback(ModCallback.POST_PLAYER_INIT, postPlayerInit);
 }

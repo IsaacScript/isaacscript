@@ -7,7 +7,7 @@ import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { getDefaultPlayerStat } from "../functions/cacheFlag";
 import { addStat } from "../functions/player";
 
-const FEATURE_NAME = "character stat manager";
+const FEATURE_NAME = "characterStats";
 
 type StatMap = Map<CacheFlag, number> | ReadonlyMap<CacheFlag, number>;
 const charactersStatMap = new Map<PlayerType, StatMap>();

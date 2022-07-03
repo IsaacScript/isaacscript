@@ -3,7 +3,7 @@ import { game } from "../cachedClasses";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { saveDataManager } from "./saveDataManager/exports";
 
-const FEATURE_NAME = "run in N frames";
+const FEATURE_NAME = "runInNFrames";
 
 /** The frame count to fire, paired with the corresponding function. */
 type FunctionTuple = [int, () => void];
@@ -17,7 +17,7 @@ const v = {
 
 /** @internal */
 export function runInNFramesInit(mod: Mod): void {
-  saveDataManager("runInNFrames", v, () => false);
+  saveDataManager(FEATURE_NAME, v, () => false);
 
   mod.AddCallback(ModCallback.POST_UPDATE, postUpdate); // 1
   mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2

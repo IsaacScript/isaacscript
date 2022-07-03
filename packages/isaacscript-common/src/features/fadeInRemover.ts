@@ -3,7 +3,7 @@ import { game } from "../cachedClasses";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { saveDataManager } from "./saveDataManager/exports";
 
-const FEATURE_NAME = "fade-in remover";
+const FEATURE_NAME = "fadeInRemover";
 const FADE_IN_SPEED = 1;
 
 let enabled = false;
@@ -16,7 +16,7 @@ const v = {
 
 /** @internal */
 export function fadeInRemoverInit(mod: Mod): void {
-  saveDataManager("fadeInRemover", v, () => false);
+  saveDataManager(FEATURE_NAME, v, () => false);
 
   mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
 }

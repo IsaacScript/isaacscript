@@ -5,7 +5,7 @@ import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { saveDataManager } from "./saveDataManager/exports";
 
-const FEATURE_NAME = "stage history";
+const FEATURE_NAME = "stageHistory";
 
 const v = {
   run: {
@@ -15,7 +15,7 @@ const v = {
 
 /** @internal */
 export function stageHistoryInit(mod: ModUpgraded): void {
-  saveDataManager("stageHistory", v);
+  saveDataManager(FEATURE_NAME, v);
 
   mod.AddCallbackCustom(
     ModCallbackCustom.POST_NEW_LEVEL_REORDERED,

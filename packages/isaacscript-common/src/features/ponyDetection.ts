@@ -19,7 +19,7 @@ import { getPlayers } from "../functions/playerIndex";
 import { PlayerIndex } from "../types/PlayerIndex";
 import { saveDataManager } from "./saveDataManager/exports";
 
-const FEATURE_NAME = "pony activation detector";
+const FEATURE_NAME = "ponyDetector";
 
 const FLAGS_WHEN_PONY_IS_ACTIVE: readonly EntityFlag[] = [
   EntityFlag.NO_KNOCKBACK, // 1 << 26
@@ -35,7 +35,7 @@ const v = {
 
 /** @internal */
 export function ponyDetectionInit(mod: ModUpgraded): void {
-  saveDataManager("ponyDetection", v);
+  saveDataManager(FEATURE_NAME, v);
 
   mod.AddCallbackCustom(
     ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,

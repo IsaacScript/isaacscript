@@ -4,7 +4,7 @@ import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { stopAllSoundEffects } from "../functions/sound";
 import { saveDataManager } from "./saveDataManager/exports";
 
-const FEATURE_NAME = "sound disabler";
+const FEATURE_NAME = "disableAllSound";
 
 let musicWasEnabled = false;
 
@@ -15,8 +15,8 @@ const v = {
 };
 
 /** @internal */
-export function disableSoundsInit(mod: Mod): void {
-  saveDataManager("disableSounds", v);
+export function disableAllSoundInit(mod: Mod): void {
+  saveDataManager(FEATURE_NAME, v);
 
   mod.AddCallback(ModCallback.POST_RENDER, postRender);
 }

@@ -14,7 +14,7 @@ import { isCollectible } from "../functions/pickupVariants";
 import { getRoomItemPoolType } from "../functions/rooms";
 import { saveDataManager } from "./saveDataManager/exports";
 
-const FEATURE_NAME = "get collectible item pool type";
+const FEATURE_NAME = "collectibleItemPoolType";
 
 const v = {
   run: {
@@ -24,7 +24,7 @@ const v = {
 
 /** @internal */
 export function collectibleItemPoolTypeInit(mod: Mod): void {
-  saveDataManager("collectibleItemPoolType", v);
+  saveDataManager(FEATURE_NAME, v);
 
   mod.AddCallback(
     ModCallback.POST_PICKUP_INIT,
