@@ -1,6 +1,7 @@
 # These are words from the Lua API. Words from misspelled enums are not included, since those are
 # fixed in the reimplemented IsaacScript enums.
 
+addplayer # Console command
 Akeldama
 ALGIZ
 Ansuz
@@ -34,9 +35,12 @@ Cantripped
 CARDTYPE
 CHILDS
 CHUBBER
+clearcache # Console command
+clearseeds # Console command
 CLICKETY
 COLOSTOMIA
 cooldown
+costumetest # Console command
 CRAFTER
 Crossfade
 cutscene
@@ -61,6 +65,7 @@ eyepatch
 Fadein
 FCUK
 FISTULOID
+forceroom # Console command
 fxlayers
 GAMEKID
 GELLO
@@ -90,11 +95,14 @@ KRAMPUS
 Lachryphagy
 Lemegeton
 Lerp
+listcollectibles # Console command
 LOKII
 LOKIS
 LONGLEGS
 luadebug # Launch flag
+luamem # Console command
 luamod # Console command
+luarun # Console command
 Ludovico
 MAGGY
 MAGGYS
@@ -117,6 +125,8 @@ MULLIGOON
 NECRO
 Necronomicon
 NEPTUNUS
+netdelay # Console command
+netstart # Console command
 ONANS
 Ouroboros
 Parasitoid
@@ -124,17 +134,22 @@ PEFFECT
 PERCS
 PERTHRO
 PLAYDOUGH
+playsfx # Console command
 POLTY
 POLYCEPHALUS
 POOFER
 POOT
 POOTER
+profstop # Console command
 PUPULA
 PUSHABLE
 PYRO
 QUAKEY
 RAGLICH
 RAGLING
+reloadfx # Console command
+reloadshaders # Console command
+reloadwisps # Console command
 ROBO
 ROID
 ROTTY
@@ -163,6 +178,7 @@ TAMMYS
 Tearflag
 TELEPILLS
 TELEPORTER
+testbosspool # Console command
 TINYTOMA
 TMTRAINER
 TRIACHNID
