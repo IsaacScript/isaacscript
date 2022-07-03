@@ -32,6 +32,7 @@ This page lists the changes to the IsaacScript framework.
   - `setFloorDisplayFlags`
   - `setDisplayFlags`
   - `setStage`
+  - `isVanillaConsoleCommand`
   - `!registerHotkeyFunction`
 - Renamed the following helper functions:
   - `isPonyActive` --> `isPlayerUsingPony`

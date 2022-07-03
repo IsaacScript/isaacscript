@@ -14,25 +14,268 @@ import { debugDisplayInit } from "../debugDisplay/debugDisplay";
 import { saveDataManager } from "../saveDataManager/exports";
 import * as commandsDisplay from "./commandsDisplay";
 import * as commands from "./listCommands";
-import v from "./v";
+import v, { extraConsoleCommandsFunctionMap } from "./v";
 
-const commandFunctionsMap = new Map<string, (params: string) => void>();
-
-// Most features are turned on via invoking the "upgradeMod" function. However, this feature is
-// turned on via invoking "enableExtraConsoleCommands", so we need a separate variable to track
-// whether it is initialized.
-let initialized = false;
-
-/**
- * Enables extra console commands which are useful for debugging. See [the
- * docs](https://isaacscript.github.io/isaacscript-common/features/extraConsoleCommands_listCommands)
- * for the specific commands that are added.
- */
-export function enableExtraConsoleCommands(mod: ModUpgraded): void {
-  initialized = true;
-  saveDataManager("extraConsoleCommands", v, featureEnabled);
+export function extraConsoleCommandsInit(mod: ModUpgraded): void {
+  saveDataManager("extraConsoleCommands", v, () => false);
+  initMap();
+  initCallbacks(mod);
   debugDisplayInit(mod);
+}
 
+function initMap() {
+  extraConsoleCommandsFunctionMap.set("1hp", commands.oneHP);
+  extraConsoleCommandsFunctionMap.set("addCharges", commands.addCharges);
+  extraConsoleCommandsFunctionMap.set("angel", commands.angel);
+  extraConsoleCommandsFunctionMap.set("ascent", commands.ascent);
+  extraConsoleCommandsFunctionMap.set("bedroom", commands.bedroom);
+  extraConsoleCommandsFunctionMap.set("bh", commands.bh);
+  extraConsoleCommandsFunctionMap.set("blackhearts", commands.blackHearts);
+  extraConsoleCommandsFunctionMap.set("blackMarket", commands.blackMarket);
+  extraConsoleCommandsFunctionMap.set("bloodCharges", commands.bloodCharges);
+  extraConsoleCommandsFunctionMap.set("bm", commands.bm);
+  extraConsoleCommandsFunctionMap.set("bomb", commands.bomb);
+  extraConsoleCommandsFunctionMap.set(
+    "bombDisplay",
+    commandsDisplay.bombDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set(
+    "bombsDisplay",
+    commandsDisplay.bombsDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set("bombs", commands.bombs);
+  extraConsoleCommandsFunctionMap.set("boneHearts", commands.boneHearts);
+  extraConsoleCommandsFunctionMap.set("boss", commands.boss);
+  extraConsoleCommandsFunctionMap.set("bossRush", commands.bossRush);
+  extraConsoleCommandsFunctionMap.set("brokenHearts", commands.brokenHearts);
+  extraConsoleCommandsFunctionMap.set("card", commands.card);
+  extraConsoleCommandsFunctionMap.set("cards", commands.cards);
+  extraConsoleCommandsFunctionMap.set("cc", commands.cc);
+  extraConsoleCommandsFunctionMap.set(
+    "chaosCardTears",
+    commands.chaosCardTears,
+  );
+  extraConsoleCommandsFunctionMap.set("character", commands.characterCommand);
+  extraConsoleCommandsFunctionMap.set("charge", commands.charge);
+  extraConsoleCommandsFunctionMap.set("cleanBedroom", commands.cleanBedroom);
+  extraConsoleCommandsFunctionMap.set("coin", commands.coin);
+  extraConsoleCommandsFunctionMap.set("coins", commands.coins);
+  extraConsoleCommandsFunctionMap.set("crawlSpace", commands.crawlSpace);
+  extraConsoleCommandsFunctionMap.set("d20", commands.d20);
+  extraConsoleCommandsFunctionMap.set("d6", commands.d6);
+  extraConsoleCommandsFunctionMap.set("damage", commands.damage);
+  extraConsoleCommandsFunctionMap.set("dd", commands.dd);
+  extraConsoleCommandsFunctionMap.set("devil", commands.devil);
+  extraConsoleCommandsFunctionMap.set("dirtyBedroom", commands.dirtyBedroom);
+  extraConsoleCommandsFunctionMap.set("disableCurses", commands.disableCurses);
+  extraConsoleCommandsFunctionMap.set(
+    "doorDisplay",
+    commandsDisplay.doorDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set(
+    "doorsDisplay",
+    commandsDisplay.doorsDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set("down", commands.down);
+  extraConsoleCommandsFunctionMap.set("dungeon", commands.dungeon);
+  extraConsoleCommandsFunctionMap.set(
+    "effectDisplay",
+    commandsDisplay.effectDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set("effects", commands.effects);
+  extraConsoleCommandsFunctionMap.set(
+    "effectsDisplay",
+    commandsDisplay.effectsDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set("eh", commands.eh);
+  extraConsoleCommandsFunctionMap.set("error", commands.error);
+  extraConsoleCommandsFunctionMap.set("eternalHearts", commands.eternalHearts);
+  extraConsoleCommandsFunctionMap.set(
+    "familiarDisplay",
+    commandsDisplay.familiarDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set(
+    "familiarsDisplay",
+    commandsDisplay.familiarsDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set("fool", commands.fool);
+  extraConsoleCommandsFunctionMap.set("getPosition", commands.getPosition);
+  extraConsoleCommandsFunctionMap.set("gigaBomb", commands.gigaBomb);
+  extraConsoleCommandsFunctionMap.set("goldBomb", commands.goldBomb);
+  extraConsoleCommandsFunctionMap.set("goldHearts", commands.goldHearts);
+  extraConsoleCommandsFunctionMap.set("goldKey", commands.goldKey);
+  extraConsoleCommandsFunctionMap.set("goldenBomb", commands.goldenBomb);
+  extraConsoleCommandsFunctionMap.set("goldenHearts", commands.goldenHearts);
+  extraConsoleCommandsFunctionMap.set("goldenKey", commands.goldenKey);
+  extraConsoleCommandsFunctionMap.set("grid", commands.grid);
+  extraConsoleCommandsFunctionMap.set("grid2", commands.grid2);
+  extraConsoleCommandsFunctionMap.set("gridEntities", commands.gridEntities);
+  extraConsoleCommandsFunctionMap.set("h", commands.h);
+  extraConsoleCommandsFunctionMap.set("hearts", commands.hearts);
+  extraConsoleCommandsFunctionMap.set("hitboxes", commands.hitboxes);
+  extraConsoleCommandsFunctionMap.set("iAmError", commands.iAmError);
+  extraConsoleCommandsFunctionMap.set("key", commands.key);
+  extraConsoleCommandsFunctionMap.set("keys", commands.keys);
+  extraConsoleCommandsFunctionMap.set(
+    "knifeDisplay",
+    commandsDisplay.knifeDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set(
+    "knivesDisplay",
+    commandsDisplay.knivesDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set(
+    "laserDisplay",
+    commandsDisplay.laserDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set(
+    "lasersDisplay",
+    commandsDisplay.lasersDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set("left", commands.left);
+  extraConsoleCommandsFunctionMap.set("library", commands.library);
+  extraConsoleCommandsFunctionMap.set("list", commands.list);
+  extraConsoleCommandsFunctionMap.set("listAll", commands.listAll);
+  extraConsoleCommandsFunctionMap.set("listGrid", commands.listGrid);
+  extraConsoleCommandsFunctionMap.set("listGridAll", commands.listGridAll);
+  extraConsoleCommandsFunctionMap.set("lowHP", commands.lowHP);
+  extraConsoleCommandsFunctionMap.set("luck", commands.luck);
+  extraConsoleCommandsFunctionMap.set("mana", commands.mana);
+  extraConsoleCommandsFunctionMap.set("map", commands.map);
+  extraConsoleCommandsFunctionMap.set("maxHearts", commands.maxHearts);
+  extraConsoleCommandsFunctionMap.set("mh", commands.mh);
+  extraConsoleCommandsFunctionMap.set("miniboss", commands.miniboss);
+  extraConsoleCommandsFunctionMap.set("noCurses", commands.noCurses);
+  extraConsoleCommandsFunctionMap.set("npcDisplay", commandsDisplay.npcDisplay);
+  extraConsoleCommandsFunctionMap.set(
+    "npcsDisplay",
+    commandsDisplay.npcsDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set(
+    "pickupDisplay",
+    commandsDisplay.pickupDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set(
+    "pickupsDisplay",
+    commandsDisplay.pickupsDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set("pill", commands.pill);
+  extraConsoleCommandsFunctionMap.set("pills", commands.pills);
+  extraConsoleCommandsFunctionMap.set("pitDisplay", commandsDisplay.pitDisplay);
+  extraConsoleCommandsFunctionMap.set(
+    "pitsDisplay",
+    commandsDisplay.pitsDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set("planetarium", commands.planetarium);
+  extraConsoleCommandsFunctionMap.set(
+    "playerDisplay",
+    commandsDisplay.playerDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set(
+    "playersDisplay",
+    commandsDisplay.playersDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set("playSound", commands.playSound);
+  extraConsoleCommandsFunctionMap.set("pocket", commands.pocket);
+  extraConsoleCommandsFunctionMap.set(
+    "poopDisplay",
+    commandsDisplay.poopDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set("poopMana", commands.poopMana);
+  extraConsoleCommandsFunctionMap.set(
+    "poopsDisplay",
+    commandsDisplay.poopsDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set("position", commands.positionCommand);
+  extraConsoleCommandsFunctionMap.set(
+    "pressurePlateDisplay",
+    commandsDisplay.pressurePlateDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set(
+    "pressurePlatesDisplay",
+    commandsDisplay.pressurePlatesDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set(
+    "projectileDisplay",
+    commandsDisplay.projectileDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set(
+    "projectilesDisplay",
+    commandsDisplay.projectilesDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set("redHearts", commands.redHearts);
+  extraConsoleCommandsFunctionMap.set("rh", commands.rh);
+  extraConsoleCommandsFunctionMap.set("right", commands.right);
+  extraConsoleCommandsFunctionMap.set(
+    "rockDisplay",
+    commandsDisplay.rockDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set(
+    "rocksDisplay",
+    commandsDisplay.rocksDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set("room", commands.roomCommand);
+  extraConsoleCommandsFunctionMap.set("rottenHearts", commands.rottenHearts);
+  extraConsoleCommandsFunctionMap.set("s", commands.s);
+  extraConsoleCommandsFunctionMap.set("sacrifice", commands.sacrifice);
+  extraConsoleCommandsFunctionMap.set("secret", commands.secret);
+  extraConsoleCommandsFunctionMap.set("seedStick", commands.seedStick);
+  extraConsoleCommandsFunctionMap.set("seeds", commands.seedsCommand);
+  extraConsoleCommandsFunctionMap.set("setCharges", commands.setCharges);
+  extraConsoleCommandsFunctionMap.set("setPosition", commands.setPosition);
+  extraConsoleCommandsFunctionMap.set("sh", commands.sh);
+  extraConsoleCommandsFunctionMap.set("shop", commands.shop);
+  extraConsoleCommandsFunctionMap.set(
+    "slotDisplay",
+    commandsDisplay.slotDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set(
+    "slotsDisplay",
+    commandsDisplay.slotsDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set("smelt", commands.smelt);
+  extraConsoleCommandsFunctionMap.set("soulCharges", commands.soulCharges);
+  extraConsoleCommandsFunctionMap.set("soulHearts", commands.soulHearts);
+  extraConsoleCommandsFunctionMap.set("sound", commands.sound);
+  extraConsoleCommandsFunctionMap.set("sounds", commands.sounds);
+  extraConsoleCommandsFunctionMap.set("spam", commands.spam);
+  extraConsoleCommandsFunctionMap.set(
+    "spawnGoldenTrinket",
+    commands.spawnGoldenTrinket,
+  );
+  extraConsoleCommandsFunctionMap.set("speed", commands.speed);
+  extraConsoleCommandsFunctionMap.set(
+    "spikeDisplay",
+    commandsDisplay.spikeDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set(
+    "spikesDisplay",
+    commandsDisplay.spikesDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set("supersecret", commands.superSecret);
+  extraConsoleCommandsFunctionMap.set("startingRoom", commands.startingRoom);
+  extraConsoleCommandsFunctionMap.set(
+    "tearDisplay",
+    commandsDisplay.tearDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set("tears", commands.tears);
+  extraConsoleCommandsFunctionMap.set(
+    "tearsDisplay",
+    commandsDisplay.tearsDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set("tntDisplay", commandsDisplay.tntDisplay);
+  extraConsoleCommandsFunctionMap.set(
+    "tntsDisplay",
+    commandsDisplay.tntsDisplay,
+  );
+  extraConsoleCommandsFunctionMap.set("trapdoor", commands.trapdoorCommand);
+  extraConsoleCommandsFunctionMap.set("treasure", commands.treasure);
+  extraConsoleCommandsFunctionMap.set("ultraSecret", commands.ultraSecret);
+  extraConsoleCommandsFunctionMap.set("up", commands.up);
+  extraConsoleCommandsFunctionMap.set("warp", commands.warp);
+}
+
+function initCallbacks(mod: ModUpgraded) {
   mod.AddCallback(ModCallback.POST_UPDATE, postUpdate); // 1
   mod.AddCallback(
     ModCallback.EVALUATE_CACHE,
@@ -52,10 +295,6 @@ export function enableExtraConsoleCommands(mod: ModUpgraded): void {
   mod.AddCallback(ModCallback.POST_CURSE_EVAL, postCurseEval); // 12
   mod.AddCallback(ModCallback.EXECUTE_CMD, executeCmd); // 22
   mod.AddCallback(ModCallback.POST_FIRE_TEAR, postFireTear); // 61
-}
-
-function featureEnabled() {
-  return initialized;
 }
 
 // ModCallback.POST_UPDATE (1)
@@ -99,7 +338,10 @@ function postCurseEval(curses: int) {
 
 // ModCallback.EXECUTE_CMD (22)
 function executeCmd(command: string, params: string) {
-  const resultTuple = getMapPartialMatch(command, commandFunctionsMap);
+  const resultTuple = getMapPartialMatch(
+    command,
+    extraConsoleCommandsFunctionMap,
+  );
   if (resultTuple === undefined) {
     printConsole("That is an invalid console command.");
     return;
@@ -125,209 +367,3 @@ function postFireTear(tear: EntityTear) {
     tear.ChangeVariant(TearVariant.TOOTH);
   }
 }
-
-/**
- * Helper function to add a custom console command.
- *
- * The standard library comes with many existing console commands that are useful for debugging, but
- * you can also add your own commands that are useful for your particular mod. It's easier to add
- * commands to the existing command system than to add logic manually to the ExecuteCmd callback.
- *
- * Before using this function, you must first invoke `enableExtraConsoleCommands`.
- */
-export function addConsoleCommand(
-  commandName: string,
-  commandFunction: (params: string) => void,
-): void {
-  if (!initialized) {
-    error(
-      'Before adding extra console commands, you must first enable the feature by invoking the "enableExtraConsoleCommands" function.',
-    );
-  }
-
-  if (commandFunctionsMap.has(commandName)) {
-    error(
-      `You cannot add a new console command of "${commandName}" because there is already an existing command by that name. If you want to overwrite a command from the standard library, you can use the "removeExtraConsoleCommand" function.`,
-    );
-  }
-
-  commandFunctionsMap.set(commandName, commandFunction);
-}
-
-/**
- * Helper function to remove a custom console command.
- *
- * The standard library comes with many existing console commands that are useful for debugging. If
- * you want to disable one of them, use this function.
- *
- * Before using this function, you must first invoke `enableExtraConsoleCommands`.
- */
-export function removeConsoleCommand(commandName: string): void {
-  if (!initialized) {
-    error(
-      'Before removing console commands, you must first enable the feature by invoking the "enableExtraConsoleCommands" function.',
-    );
-  }
-
-  if (!commandFunctionsMap.has(commandName)) {
-    error(
-      `The console command of "${commandName}" does not exist, so you cannot remove it.`,
-    );
-  }
-
-  commandFunctionsMap.delete(commandName);
-}
-
-commandFunctionsMap.set("1hp", commands.oneHP);
-commandFunctionsMap.set("addCharges", commands.addCharges);
-commandFunctionsMap.set("angel", commands.angel);
-commandFunctionsMap.set("ascent", commands.ascent);
-commandFunctionsMap.set("bedroom", commands.bedroom);
-commandFunctionsMap.set("bh", commands.bh);
-commandFunctionsMap.set("blackhearts", commands.blackHearts);
-commandFunctionsMap.set("blackMarket", commands.blackMarket);
-commandFunctionsMap.set("bloodCharges", commands.bloodCharges);
-commandFunctionsMap.set("bm", commands.bm);
-commandFunctionsMap.set("bomb", commands.bomb);
-commandFunctionsMap.set("bombDisplay", commandsDisplay.bombDisplay);
-commandFunctionsMap.set("bombsDisplay", commandsDisplay.bombsDisplay);
-commandFunctionsMap.set("bombs", commands.bombs);
-commandFunctionsMap.set("boneHearts", commands.boneHearts);
-commandFunctionsMap.set("boss", commands.boss);
-commandFunctionsMap.set("bossRush", commands.bossRush);
-commandFunctionsMap.set("brokenHearts", commands.brokenHearts);
-commandFunctionsMap.set("card", commands.card);
-commandFunctionsMap.set("cards", commands.cards);
-commandFunctionsMap.set("cc", commands.cc);
-commandFunctionsMap.set("chaosCardTears", commands.chaosCardTears);
-commandFunctionsMap.set("character", commands.characterCommand);
-commandFunctionsMap.set("charge", commands.charge);
-commandFunctionsMap.set("cleanBedroom", commands.cleanBedroom);
-commandFunctionsMap.set("coin", commands.coin);
-commandFunctionsMap.set("coins", commands.coins);
-commandFunctionsMap.set("crawlSpace", commands.crawlSpace);
-commandFunctionsMap.set("d20", commands.d20);
-commandFunctionsMap.set("d6", commands.d6);
-commandFunctionsMap.set("damage", commands.damage);
-commandFunctionsMap.set("dd", commands.dd);
-commandFunctionsMap.set("devil", commands.devil);
-commandFunctionsMap.set("dirtyBedroom", commands.dirtyBedroom);
-commandFunctionsMap.set("disableCurses", commands.disableCurses);
-commandFunctionsMap.set("doorDisplay", commandsDisplay.doorDisplay);
-commandFunctionsMap.set("doorsDisplay", commandsDisplay.doorsDisplay);
-commandFunctionsMap.set("down", commands.down);
-commandFunctionsMap.set("dungeon", commands.dungeon);
-commandFunctionsMap.set("effectDisplay", commandsDisplay.effectDisplay);
-commandFunctionsMap.set("effects", commands.effects);
-commandFunctionsMap.set("effectsDisplay", commandsDisplay.effectsDisplay);
-commandFunctionsMap.set("eh", commands.eh);
-commandFunctionsMap.set("error", commands.error);
-commandFunctionsMap.set("eternalHearts", commands.eternalHearts);
-commandFunctionsMap.set("familiarDisplay", commandsDisplay.familiarDisplay);
-commandFunctionsMap.set("familiarsDisplay", commandsDisplay.familiarsDisplay);
-commandFunctionsMap.set("fool", commands.fool);
-commandFunctionsMap.set("getPosition", commands.getPosition);
-commandFunctionsMap.set("gigaBomb", commands.gigaBomb);
-commandFunctionsMap.set("goldBomb", commands.goldBomb);
-commandFunctionsMap.set("goldHearts", commands.goldHearts);
-commandFunctionsMap.set("goldKey", commands.goldKey);
-commandFunctionsMap.set("goldenBomb", commands.goldenBomb);
-commandFunctionsMap.set("goldenHearts", commands.goldenHearts);
-commandFunctionsMap.set("goldenKey", commands.goldenKey);
-commandFunctionsMap.set("grid", commands.grid);
-commandFunctionsMap.set("grid2", commands.grid2);
-commandFunctionsMap.set("gridEntities", commands.gridEntities);
-commandFunctionsMap.set("h", commands.h);
-commandFunctionsMap.set("hearts", commands.hearts);
-commandFunctionsMap.set("hitboxes", commands.hitboxes);
-commandFunctionsMap.set("iAmError", commands.iAmError);
-commandFunctionsMap.set("key", commands.key);
-commandFunctionsMap.set("keys", commands.keys);
-commandFunctionsMap.set("knifeDisplay", commandsDisplay.knifeDisplay);
-commandFunctionsMap.set("knivesDisplay", commandsDisplay.knivesDisplay);
-commandFunctionsMap.set("laserDisplay", commandsDisplay.laserDisplay);
-commandFunctionsMap.set("lasersDisplay", commandsDisplay.lasersDisplay);
-commandFunctionsMap.set("left", commands.left);
-commandFunctionsMap.set("library", commands.library);
-commandFunctionsMap.set("list", commands.list);
-commandFunctionsMap.set("listAll", commands.listAll);
-commandFunctionsMap.set("listGrid", commands.listGrid);
-commandFunctionsMap.set("listGridAll", commands.listGridAll);
-commandFunctionsMap.set("lowHP", commands.lowHP);
-commandFunctionsMap.set("luck", commands.luck);
-commandFunctionsMap.set("mana", commands.mana);
-commandFunctionsMap.set("map", commands.map);
-commandFunctionsMap.set("maxHearts", commands.maxHearts);
-commandFunctionsMap.set("mh", commands.mh);
-commandFunctionsMap.set("miniboss", commands.miniboss);
-commandFunctionsMap.set("noCurses", commands.noCurses);
-commandFunctionsMap.set("npcDisplay", commandsDisplay.npcDisplay);
-commandFunctionsMap.set("npcsDisplay", commandsDisplay.npcsDisplay);
-commandFunctionsMap.set("pickupDisplay", commandsDisplay.pickupDisplay);
-commandFunctionsMap.set("pickupsDisplay", commandsDisplay.pickupsDisplay);
-commandFunctionsMap.set("pill", commands.pill);
-commandFunctionsMap.set("pills", commands.pills);
-commandFunctionsMap.set("pitDisplay", commandsDisplay.pitDisplay);
-commandFunctionsMap.set("pitsDisplay", commandsDisplay.pitsDisplay);
-commandFunctionsMap.set("planetarium", commands.planetarium);
-commandFunctionsMap.set("playerDisplay", commandsDisplay.playerDisplay);
-commandFunctionsMap.set("playersDisplay", commandsDisplay.playersDisplay);
-commandFunctionsMap.set("playSound", commands.playSound);
-commandFunctionsMap.set("pocket", commands.pocket);
-commandFunctionsMap.set("poopDisplay", commandsDisplay.poopDisplay);
-commandFunctionsMap.set("poopMana", commands.poopMana);
-commandFunctionsMap.set("poopsDisplay", commandsDisplay.poopsDisplay);
-commandFunctionsMap.set("position", commands.positionCommand);
-commandFunctionsMap.set(
-  "pressurePlateDisplay",
-  commandsDisplay.pressurePlateDisplay,
-);
-commandFunctionsMap.set(
-  "pressurePlatesDisplay",
-  commandsDisplay.pressurePlatesDisplay,
-);
-commandFunctionsMap.set("projectileDisplay", commandsDisplay.projectileDisplay);
-commandFunctionsMap.set(
-  "projectilesDisplay",
-  commandsDisplay.projectilesDisplay,
-);
-commandFunctionsMap.set("redHearts", commands.redHearts);
-commandFunctionsMap.set("rh", commands.rh);
-commandFunctionsMap.set("right", commands.right);
-commandFunctionsMap.set("rockDisplay", commandsDisplay.rockDisplay);
-commandFunctionsMap.set("rocksDisplay", commandsDisplay.rocksDisplay);
-commandFunctionsMap.set("room", commands.roomCommand);
-commandFunctionsMap.set("rottenHearts", commands.rottenHearts);
-commandFunctionsMap.set("s", commands.s);
-commandFunctionsMap.set("sacrifice", commands.sacrifice);
-commandFunctionsMap.set("secret", commands.secret);
-commandFunctionsMap.set("seedStick", commands.seedStick);
-commandFunctionsMap.set("seeds", commands.seedsCommand);
-commandFunctionsMap.set("setCharges", commands.setCharges);
-commandFunctionsMap.set("setPosition", commands.setPosition);
-commandFunctionsMap.set("sh", commands.sh);
-commandFunctionsMap.set("shop", commands.shop);
-commandFunctionsMap.set("slotDisplay", commandsDisplay.slotDisplay);
-commandFunctionsMap.set("slotsDisplay", commandsDisplay.slotsDisplay);
-commandFunctionsMap.set("smelt", commands.smelt);
-commandFunctionsMap.set("soulCharges", commands.soulCharges);
-commandFunctionsMap.set("soulHearts", commands.soulHearts);
-commandFunctionsMap.set("sound", commands.sound);
-commandFunctionsMap.set("sounds", commands.sounds);
-commandFunctionsMap.set("spam", commands.spam);
-commandFunctionsMap.set("spawnGoldenTrinket", commands.spawnGoldenTrinket);
-commandFunctionsMap.set("speed", commands.speed);
-commandFunctionsMap.set("spikeDisplay", commandsDisplay.spikeDisplay);
-commandFunctionsMap.set("spikesDisplay", commandsDisplay.spikesDisplay);
-commandFunctionsMap.set("supersecret", commands.superSecret);
-commandFunctionsMap.set("startingRoom", commands.startingRoom);
-commandFunctionsMap.set("tearDisplay", commandsDisplay.tearDisplay);
-commandFunctionsMap.set("tears", commands.tears);
-commandFunctionsMap.set("tearsDisplay", commandsDisplay.tearsDisplay);
-commandFunctionsMap.set("tntDisplay", commandsDisplay.tntDisplay);
-commandFunctionsMap.set("tntsDisplay", commandsDisplay.tntsDisplay);
-commandFunctionsMap.set("trapdoor", commands.trapdoorCommand);
-commandFunctionsMap.set("treasure", commands.treasure);
-commandFunctionsMap.set("ultraSecret", commands.ultraSecret);
-commandFunctionsMap.set("up", commands.up);
-commandFunctionsMap.set("warp", commands.warp);

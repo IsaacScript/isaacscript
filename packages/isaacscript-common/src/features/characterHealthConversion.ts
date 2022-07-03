@@ -107,5 +107,12 @@ export function registerCharacterHealthConversion(
   conversionHeartSubType: ConversionHeartSubType,
 ): void {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
+
+  if (characterHealthReplacementMap.has(playerType)) {
+    error(
+      `Failed to register a character of type ${playerType} because there is already an existing registered character with that type.`,
+    );
+  }
+
   characterHealthReplacementMap.set(playerType, conversionHeartSubType);
 }

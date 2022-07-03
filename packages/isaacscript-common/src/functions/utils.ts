@@ -1,5 +1,6 @@
 import { RenderMode } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
+import { CONSOLE_COMMANDS_SET } from "../sets/consoleCommandsSet";
 
 const HEX_STRING_LENGTH = 6;
 
@@ -106,6 +107,14 @@ export function isReflectionRender(): boolean {
   const room = game.GetRoom();
   const renderMode = room.GetRenderMode();
   return renderMode === RenderMode.WATER_REFLECT;
+}
+
+/**
+ * Helper function to see if a particular command is a vanilla console command. This is useful
+ * because the `EXECUTE_CMD` callback will not fire for any vanilla commands.
+ */
+export function isVanillaConsoleCommand(commandName: string): boolean {
+  return CONSOLE_COMMANDS_SET.has(commandName);
 }
 
 /**

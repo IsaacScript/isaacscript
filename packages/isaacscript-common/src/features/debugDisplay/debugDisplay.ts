@@ -5,6 +5,10 @@ import { isReflectionRender } from "../../functions/utils";
 import { saveDataManager } from "../saveDataManager/exports";
 import v, { debugDisplayTextCallbacks } from "./v";
 
+/**
+ * The debug display feature is only initialized when the extra console commands feature is
+ * initialized.
+ */
 export function debugDisplayInit(mod: ModUpgraded): void {
   saveDataManager("debugDisplay", v, () => false);
 
