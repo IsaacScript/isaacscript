@@ -242,7 +242,7 @@ function getNextStageBackwardsPath(
  * based on the current stage, room, and game state flags.
  *
  * @param upwards Whether or not the player should go up to Cathedral in the case of being on Womb
- *                2. Defaults to false.
+ *                2. Default is false.
  */
 export function getNextStageType(upwards = false): StageType {
   const backwardsPath = game.GetStateFlag(GameStateFlag.BACKWARDS_PATH);

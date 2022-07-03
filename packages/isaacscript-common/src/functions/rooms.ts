@@ -200,9 +200,9 @@ export function getRoomTypeName(roomType: RoomType): string {
 }
 
 /**
- * Helper function to get the room descriptor for every room on the level. Uses the `Level.GetRooms`
- * method to accomplish this. Rooms without data are assumed to be non-existent and are not added to
- * the list.
+ * Helper function to get the room descriptor for every room on the level, including off-grid rooms.
+ * Uses the `Level.GetRooms` method to accomplish this. Rooms without data are assumed to be
+ * non-existent and are not added to the list.
  *
  * @param includeExtraDimensionalRooms Optional. On some floors (e.g. Downpour 2, Mines 2),
  *                                 extra-dimensional rooms are automatically be generated and can be
@@ -232,6 +232,22 @@ export function getRooms(
   }
 
   return [...roomsMap.values()];
+}
+
+/**
+ * Helper function to get the room descriptor for every room on the level, excluding off-grid rooms.
+ * Uses the `Level.GetRooms` method to accomplish this. Rooms without data are assumed to be
+ * non-existent and are not added to the list.
+ *
+ * @param includeExtraDimensionalRooms Optional. On some floors (e.g. Downpour 2, Mines 2),
+ *                                 extra-dimensional rooms are automatically be generated and can be
+ *                                 seen when you iterate over the `RoomList`. Default is false.
+ */
+export function getRoomsInGrid(
+  includeExtraDimensionalRooms = false,
+): RoomDescriptor[] {
+  const rooms = getRooms(includeExtraDimensionalRooms);
+  return rooms.filter((roomDescriptor) => roomDescriptor.SafeGridIndex >= 0);
 }
 
 /**

@@ -25,6 +25,12 @@ This page lists the changes to the IsaacScript framework.
   - `hasVisitedStage`
   - `calculateStageType`
   - `calculateStageTypeRepentance`
+  - `getRoomsInGrid`
+  - `getRoomDisplayFlags`
+  - `setRoomDisplayFlags`
+  - `getFloorDisplayFlags`
+  - `setFloorDisplayFlags`
+  - `setDisplayFlags`
 - Renamed the following helper functions:
   - `isPonyActive` --> `isPlayerUsingPony`
   - `inCrawlspace` --> `inCrawlSpace`

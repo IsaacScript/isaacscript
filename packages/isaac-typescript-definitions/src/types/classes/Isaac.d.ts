@@ -167,7 +167,7 @@ declare global {
      * actually return undefined if it is called before any player is initialized (e.g. in the main
      * menu). Thus, beware of this case.
      *
-     * @param playerID Optional. Defaults to 0.
+     * @param playerID Optional. Default is 0.
      */
     function GetPlayer(playerID?: int): EntityPlayer;
 
