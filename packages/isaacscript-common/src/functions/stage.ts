@@ -1,5 +1,6 @@
 import { LevelStage, StageType } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
+import { STAGE_TYPE_SUFFIXES } from "../objects/stageTypeSuffixes";
 import { STAGE_TYPE_TO_LETTER } from "../objects/stageTypeToLetter";
 
 /**
@@ -172,6 +173,31 @@ export function onSheol(): boolean {
   return (
     stage === LevelStage.SHEOL_CATHEDRAL && stageType === StageType.ORIGINAL
   );
+}
+
+/**
+ * Helper function to warp to a new stage/level.
+ *
+ * @param stage The stage number to warp to.
+ * @param stageType The stage type to warp to.
+ * @param reseed Optional. Whether or not to reseed the floor upon arrival. Default is false. Set
+ *               this to true if you are warping to the same stage but a different stage type (or
+ *               else the floor layout will be identical to the old floor).
+ */
+export function setStage(
+  stage: LevelStage,
+  stageType: StageType,
+  reseed = false,
+): void {
+  // Build the command that will take us to the next floor.
+  const stageTypeSuffix = STAGE_TYPE_SUFFIXES[stageType];
+  const command = `stage ${stage}${stageTypeSuffix}`;
+  Isaac.ExecuteCommand(command);
+
+  if (reseed) {
+    // Doing a "reseed" immediately after a "stage" command won't mess anything up.
+    Isaac.ExecuteCommand("reseed");
+  }
 }
 
 /**

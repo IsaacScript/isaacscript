@@ -169,7 +169,7 @@ declare global {
 
     /**
      * Puts you in the next stage without applying any of the floor changes. You are meant to call
-     * `Level.StartStageTransition` after using this function.
+     * the `Level.StartStageTransition` method after using this function.
      */
     SetNextStage(): void;
 
