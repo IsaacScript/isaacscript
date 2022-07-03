@@ -244,7 +244,7 @@ export function gitCommitIfChanges(version: string, verbose: boolean): void {
   const commitMessage = `v${version}`;
   execShell("git", ["add", "-A"], verbose);
   execShell("git", ["commit", "-m", commitMessage], verbose);
-  execShell("git", ["push"], verbose);
+  execShell("git", ["push", "origin", "main"], verbose);
 
   console.log(
     `Committed and pushed to the git repository with a message of: ${commitMessage}`,
