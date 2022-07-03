@@ -756,6 +756,8 @@ declare global {
     GetPill(pocketItemSlot: PocketItemSlot): PillColor;
 
     GetPillRNG(pillEffect: PillEffect): RNG;
+
+    /** The player type is the sub-type of the player. This is equal to what character they are. */
     GetPlayerType(): PlayerType;
 
     // GetPocketItem is not implemented.
