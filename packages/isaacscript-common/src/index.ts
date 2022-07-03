@@ -118,6 +118,7 @@ export * from "./functions/log";
 export * from "./functions/map";
 export * from "./functions/math";
 export * from "./functions/mergeTests";
+export * from "./functions/minimap";
 export * from "./functions/nextStage";
 export * from "./functions/npc";
 export * from "./functions/pickups";

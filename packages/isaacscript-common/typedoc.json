@@ -89,6 +89,7 @@
     "src/functions/log.ts",
     "src/functions/map.ts",
     "src/functions/math.ts",
+    "src/functions/minimap.ts",
     "src/functions/nextStage.ts",
     "src/functions/npc.ts",
     "src/functions/pickups.ts",
