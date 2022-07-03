@@ -268,10 +268,10 @@ export function getNextStageType(upwards = false): StageType {
 
   if (
     repentanceStage &&
-    (stage === LevelStage.BASEMENT_1 ||
-      stage === LevelStage.CAVES_1 ||
-      stage === LevelStage.DEPTHS_1 ||
-      stage === LevelStage.WOMB_1)
+    (stage === LevelStage.BASEMENT_1 || // 1
+      stage === LevelStage.CAVES_1 || // 3
+      stage === LevelStage.DEPTHS_1 || // 5
+      stage === LevelStage.WOMB_1) // 7
   ) {
     return calculateStageTypeRepentance(nextStage);
   }
@@ -284,11 +284,13 @@ export function getNextStageType(upwards = false): StageType {
     return calculateStageTypeRepentance(nextStage);
   }
 
+  // 9
   if (nextStage === LevelStage.BLUE_WOMB) {
     // Blue Womb does not have any alternate floors.
     return StageType.ORIGINAL;
   }
 
+  // 10
   if (nextStage === LevelStage.SHEOL_CATHEDRAL) {
     if (upwards) {
       // Go to Cathedral (10.1).
@@ -299,6 +301,7 @@ export function getNextStageType(upwards = false): StageType {
     return StageType.ORIGINAL;
   }
 
+  // 11
   if (nextStage === LevelStage.DARK_ROOM_CHEST) {
     if (stageType === StageType.ORIGINAL) {
       // Sheol (10.0) goes to the Dark Room (11.0).
@@ -307,6 +310,18 @@ export function getNextStageType(upwards = false): StageType {
 
     // Cathedral (10.1) goes to The Chest (11.1).
     return StageType.WRATH_OF_THE_LAMB;
+  }
+
+  // 12
+  if (nextStage === LevelStage.THE_VOID) {
+    // The Void does not have any alternate floors.
+    return StageType.ORIGINAL;
+  }
+
+  // 13
+  if (nextStage === LevelStage.HOME) {
+    // Home does not have any alternate floors.
+    return StageType.ORIGINAL;
   }
 
   return calculateStageType(nextStage);
