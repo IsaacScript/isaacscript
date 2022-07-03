@@ -124,5 +124,10 @@ export function isCollectibleUnlocked(
     }
   }
 
+  // Change any players back to Tainted Lost, if necessary.
+  for (const player of taintedLosts) {
+    player.ChangePlayerType(PlayerType.THE_LOST_B);
+  }
+
   return collectibleUnlocked;
 }

@@ -48,10 +48,10 @@ export {
 export { getPlayerInventory } from "./features/playerInventory";
 export {
   anyPlayerUsingPony,
-  isPlayerUsingPony as isPonyActive,
+  isPlayerUsingPony,
 } from "./features/ponyDetection";
 export { preventCollectibleRotation } from "./features/preventCollectibleRotation";
-export { registerHotkey } from "./features/registerHotkey";
+export { registerHotkey, unregisterHotkey } from "./features/registerHotkey";
 export {
   getRoomClearGameFrame,
   getRoomClearRoomFrame,
