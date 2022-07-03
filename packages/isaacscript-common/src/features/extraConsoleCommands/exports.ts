@@ -12,6 +12,10 @@ import {
  * for the specific commands that are added.
  */
 export function enableExtraConsoleCommands(mod: ModUpgraded): void {
+  if (isExtraConsoleCommandsInitialized()) {
+    error("The extra console commands are already initialized.");
+  }
+
   extraConsoleCommandsInit(mod);
 }
 

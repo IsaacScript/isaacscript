@@ -33,7 +33,8 @@ This page lists the changes to the IsaacScript framework.
   - `setDisplayFlags`
   - `setStage`
   - `isVanillaConsoleCommand`
-  - `!registerHotkeyFunction`
+  - `registerHotkey`
+  - `unregisterHotkey`
 - Renamed the following helper functions:
   - `isPonyActive` --> `isPlayerUsingPony`
   - `inCrawlspace` --> `inCrawlSpace`

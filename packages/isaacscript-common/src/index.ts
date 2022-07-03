@@ -51,6 +51,7 @@ export {
   isPlayerUsingPony as isPonyActive,
 } from "./features/ponyDetection";
 export { preventCollectibleRotation } from "./features/preventCollectibleRotation";
+export { registerHotkey } from "./features/registerHotkey";
 export {
   getRoomClearGameFrame,
   getRoomClearRoomFrame,
