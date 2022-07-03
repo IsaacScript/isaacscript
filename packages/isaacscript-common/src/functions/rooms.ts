@@ -235,9 +235,9 @@ export function getRooms(
 }
 
 /**
- * Helper function to get the room descriptor for every room on the level, excluding off-grid rooms.
- * Uses the `Level.GetRooms` method to accomplish this. Rooms without data are assumed to be
- * non-existent and are not added to the list.
+ * Helper function to get the room descriptor for every room on the level except for rooms that are
+ * not on the grid. Uses the `Level.GetRooms` method to accomplish this. Rooms without data are
+ * assumed to be non-existent and are not added to the list.
  *
  * @param includeExtraDimensionalRooms Optional. On some floors (e.g. Downpour 2, Mines 2),
  *                                 extra-dimensional rooms are automatically be generated and can be
