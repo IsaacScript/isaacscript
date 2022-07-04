@@ -37,6 +37,15 @@ export const noImplicitMapSetLoops = createRule<Options, MessageIds>({
         const type = checker.getTypeAtLocation(tsNode);
 
         if (
+          // The type for `ts.Type` is not accurate; symbol can be undefined in certain contexts,
+          // like:
+          //
+          // ```ts
+          // for (const [key, value] of pairs(luaTable)) {}
+          // ```
+          //
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+          type.symbol === undefined ||
           // Checking this is necessary to type narrow the "__String" type.
           // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
           type.symbol.escapedName === undefined
