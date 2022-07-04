@@ -262,10 +262,8 @@ function packageJSONLint(
       return false;
     }
 
-    const { peerDependencies } = packageJSON;
-    if (!checkDeps(peerDependencies, rootDeps, packageJSONPath)) {
-      return false;
-    }
+    // We skip checking for peer dependencies, since they are all only based on the major version.
+    // e.g. "typescript": ">= 4.0.0"
   }
 
   const sortedPackageJSONString = sortPackageJson(packageJSONString);
