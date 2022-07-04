@@ -1,5 +1,6 @@
 import path from "path";
 import { MOD_SOURCE_PATH } from "../../constants";
+import { addCustomStageRooms } from "../../customStage";
 import { execShell } from "../../exec";
 import * as file from "../../file";
 import { Args } from "../../parseArgs";
@@ -21,6 +22,7 @@ export function compileAndCopy(
   verbose: boolean,
 ): void {
   compile(verbose);
+  addCustomStageRooms();
   copyMod(modSourcePath, modTargetPath, verbose);
 }
 

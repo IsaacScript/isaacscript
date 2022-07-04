@@ -32,4 +32,10 @@
     "noHeader": true,
     "noImplicitGlobalVariables": true,
   },
+
+  "isaacscript": {
+    // Whether or not the custom stage feature is enabled. Keep this set to false if you are not
+    // using any custom stages.
+    "customStage": false,
+  },
 }
