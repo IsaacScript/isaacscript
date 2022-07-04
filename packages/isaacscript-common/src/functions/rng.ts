@@ -141,10 +141,18 @@ export function setAllRNGToSeed(object: unknown, seed: Seed): void {
     );
   }
 
+  let setAtLeastOneSeed = false;
   for (const [_key, value] of pairs(object)) {
     if (isRNG(value)) {
       setSeed(value, seed);
+      setAtLeastOneSeed = true;
     }
+  }
+
+  if (!setAtLeastOneSeed) {
+    error(
+      `Failed to set all RNG objects to seed ${seed} because the parent object did not contain any RNG objects.`,
+    );
   }
 }
 
