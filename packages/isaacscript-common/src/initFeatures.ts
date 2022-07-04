@@ -2,7 +2,6 @@ import { ModUpgraded } from "./classes/ModUpgraded";
 import { characterHealthConversionInit } from "./features/characterHealthConversion";
 import { characterStatsInit } from "./features/characterStats";
 import { collectibleItemPoolTypeInit } from "./features/collectibleItemPoolType";
-import { stageTravelInit } from "./features/customTrapdoor/init";
 import { deployJSONRoomInit } from "./features/deployJSONRoom";
 import { disableAllSoundInit } from "./features/disableAllSound";
 import { disableInputsInit } from "./features/disableInputs";
@@ -42,6 +41,5 @@ export function initFeaturesMinor(mod: ModUpgraded): void {
   roomClearFrameInit(mod);
   sirenHelpersInit(mod);
   stageHistoryInit(mod);
-  stageTravelInit();
   taintedLazarusPlayersInit(mod);
 }
