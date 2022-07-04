@@ -1,3 +1,10 @@
+/**
+ * Easily create custom characters that have the same health mechanic as Blue Baby (red heart
+ * containers --> soul hearts) or Black Judas (red heart containers --> black hearts).
+ *
+ * @module
+ */
+
 import {
   HeartSubType,
   ModCallback,

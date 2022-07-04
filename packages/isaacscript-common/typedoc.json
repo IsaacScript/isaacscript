@@ -7,8 +7,9 @@
   "treatWarningsAsErrors": true,
   "validation": {
     "invalidLink": true,
-    "notExported": true
+    "notExported": true,
   },
+  "entryPointStrategy": "Resolve", // The default is "Resolve".
   "entryPoints": [
     "src/cachedClasses.ts",
     "src/classes/DefaultMap.ts",
@@ -149,7 +150,7 @@
     "src/types/CollectibleIndex.ts",
     "src/types/PickingUpItem.ts",
     "src/types/PlayerIndex.ts",
-    "src/upgradeMod.ts"
+    "src/upgradeMod.ts",
   ],
   "intentionallyNotExported": [
     "AddCallbackParameterCustom",
@@ -163,9 +164,9 @@
     "SerializedRNG",
     "SerializedVector",
     "IsaacAPIClass",
-    "TSTLClass"
+    "TSTLClass",
   ],
   "plugin": ["typedoc-plugin-markdown", "@zamiell/typedoc-plugin-not-exported"],
   "hideBreadcrumbs": true,
-  "hideInPageTOC": true
+  "hideInPageTOC": true,
 }

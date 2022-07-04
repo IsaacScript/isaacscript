@@ -66,21 +66,21 @@ const COLLECTIBLE_ITEM_TYPES: ReadonlySet<ItemType> = new Set([
 ]);
 
 /** Helper function to narrow the type of `PickingUpItem`. */
-export function pickingUpItemIsNull(
+export function isPickingUpItemNull(
   pickingUpItem: PickingUpItem,
 ): pickingUpItem is PickingUpItemTrinket {
   return pickingUpItem.itemType === ItemType.NULL;
 }
 
 /** Helper function to narrow the type of `PickingUpItem`. */
-export function pickingUpItemIsCollectible(
+export function isPickingUpItemCollectible(
   pickingUpItem: PickingUpItem,
 ): pickingUpItem is PickingUpItemCollectible {
   return COLLECTIBLE_ITEM_TYPES.has(pickingUpItem.itemType);
 }
 
 /** Helper function to narrow the type of `PickingUpItem`. */
-export function pickingUpItemIsTrinket(
+export function isPickingUpItemTrinket(
   pickingUpItem: PickingUpItem,
 ): pickingUpItem is PickingUpItemTrinket {
   return pickingUpItem.itemType === ItemType.TRINKET;

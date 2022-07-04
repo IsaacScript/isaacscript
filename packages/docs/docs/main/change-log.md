@@ -38,6 +38,9 @@ This page lists the changes to the IsaacScript framework.
 - Renamed the following helper functions:
   - `isPonyActive` --> `isPlayerUsingPony`
   - `inCrawlspace` --> `inCrawlSpace`
+  - `pickingUpItemIsNull` --> `isPickingUpItemNull`
+  - `pickingUpItemIsCollectible` --> `isPickingUpItemCollectible`
+  - `pickingUpItemIsTrinket` --> `isPickingUpItemTrinket`
 - Added the following custom commands:
   - `mana`
 - Removed the following helper functions:

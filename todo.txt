@@ -1,3 +1,7 @@
 implement in isaacscript-common:
 
+- typedoc PR
+- docs module stuff
 - StageAPI2
+
+- no void return type shouldn't highlight the whole function, only the void part

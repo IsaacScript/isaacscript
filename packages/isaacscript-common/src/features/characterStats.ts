@@ -1,3 +1,9 @@
+/**
+ * Easily create custom characters that have base stats different from that of Isaac.
+ *
+ * @module
+ */
+
 import {
   CacheFlag,
   ModCallback,

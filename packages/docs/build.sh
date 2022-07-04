@@ -18,7 +18,7 @@ rm -rf "$DEFINITIONS_DIR"
 OUT_DIR="$DIR/../../dist/packages/docs" # Created by Docusaurus
 rm -rf "$OUT_DIR"
 
-# First, auto-generate the `isaacscript-common` Markdown files with TypeDoc + the Markdown plugin.
+# First, auto-generate the Markdown files with TypeDoc + the Markdown plugin.
 bash "$DIR/../isaac-typescript-definitions/docs.sh"
 bash "$DIR/../isaacscript-common/docs.sh"
 

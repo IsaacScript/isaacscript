@@ -69,7 +69,7 @@ const FILE_NAME_TO_TITLE: ReadonlyMap<string, string> = new Map([
 ]);
 
 const SIDEBAR_POSITIONS: ReadonlyMap<string, number> = new Map([
-  // "Introduction" is hard coded as 0 in "website-root.md".
+  // "Introduction" is hard coded as position 0 in "website-root.md".
   ["Core", 1],
   ["Extra Callbacks", 2],
   ["Extra Features", 3],
@@ -222,6 +222,14 @@ function addCategoryFile(directoryPath: string) {
 }
 
 function addMarkdownHeader(filePath: string, directoryName: string) {
+  /*
+  const fileName = path.basename(filePath);
+  const fileNameWithoutExtension = fileName.slice(
+    0,
+    fileName.length - ".md".length,
+  );
+  const title = fileNameWithoutExtension;
+  */
   const title = getTitle(filePath, directoryName);
   const header = `
 ---

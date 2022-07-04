@@ -17,8 +17,11 @@ export function onSetSeed(): boolean {
 }
 
 /**
- * Helper function to restart the game using the console command of "restart". You can optionally
- * specify a `PlayerType` to restart the game as that character.
+ * Helper function to restart the run using the console command of "restart". If the player is
+ * playing a seeded run, then it will restart the game to the beginning of the seed. Otherwise, it
+ * will put the player on a run with an entirely new seed.
+ *
+ * You can optionally specify a `PlayerType` to restart the game as that character.
  */
 export function restart(character?: PlayerType): void {
   if (character === undefined) {

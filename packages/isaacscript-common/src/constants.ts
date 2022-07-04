@@ -1,7 +1,3 @@
-/**
- * @module Constants
- */
-
 import {
   CollectibleType,
   Dimension,
