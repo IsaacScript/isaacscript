@@ -1,10 +1,3 @@
 implement in isaacscript-common:
 
 - docs module stuff - https://github.com/krisztianb/typedoc-plugin-merge-modules/issues/12
-- StageAPI2
-  - Goals:
-    - An Isaac library should work completely independently of any Workshop dependency:
-      - When a user wants to play a mod, they should only have to subscribe to one thing on the Steam Workshop. Forcing the end-user to subscribe to multiple things is painful, complex, and unnecessary.
-      - Having stage logic bundled with the mod preserves backwards compatibility and ensures that stage logic is tightly-coupled to the mod logic that is using it.
-      - Having stage logic bundled with the mod allows the mod author to be in complete control of when they update to the latest version, if ever. This allows the upstream library to make breaking changes and stay clean without having to worry about having perpetual technical debt.
-
