@@ -1,5 +1,7 @@
+import fs from "fs";
 import glob from "glob";
 import { file } from "isaacscript-cli";
+import * as JSONC from "jsonc-parser";
 import path from "path";
 import process from "process";
 
@@ -25,14 +27,25 @@ function main() {
 }
 
 function getEntryPoints(): string[] {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires,import/no-dynamic-require,global-require
-  const typeDocConfig = require(TYPEDOC_CONFIG_PATH) as Record<string, unknown>;
+  let fileContents: string;
+  try {
+    fileContents = fs.readFileSync(TYPEDOC_CONFIG_PATH, "utf8");
+  } catch (err) {
+    error(`Failed to read the "${TYPEDOC_CONFIG_PATH}" file:`, err);
+  }
 
-  if (typeof typeDocConfig !== "object") {
+  let config: Record<string, unknown>;
+  try {
+    config = JSONC.parse(fileContents) as Record<string, unknown>;
+  } catch (err) {
+    error(`Failed to parse the "${TYPEDOC_CONFIG_PATH}" file:`, err);
+  }
+
+  if (typeof config !== "object") {
     error(`Failed to read the config file: ${TYPEDOC_CONFIG_PATH}`);
   }
 
-  const { entryPoints } = typeDocConfig;
+  const { entryPoints } = config;
   if (!Array.isArray(entryPoints)) {
     error(`Failed to read the "entryPoints" field: ${TYPEDOC_CONFIG_PATH}`);
   }

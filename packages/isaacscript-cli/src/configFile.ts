@@ -35,6 +35,7 @@ function readExistingConfig(verbose: boolean): Config | undefined {
   }
 
   const configRaw = file.read(CONFIG_FILE_PATH, verbose);
+
   let config: Config;
   try {
     config = JSONC.parse(configRaw) as Config;
