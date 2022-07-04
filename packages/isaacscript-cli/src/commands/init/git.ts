@@ -22,6 +22,11 @@ export async function promptGitHubRepoOrGitRemoteURL(
     return undefined;
   }
 
+  // Hard-code certain project names as never causing a Git repository to be initialized.
+  if (projectName.startsWith("test") || projectName === "foo") {
+    return undefined;
+  }
+
   // We do not need to prompt the user if they do not have Git installed.
   if (!commandExists.sync("git")) {
     console.log(
