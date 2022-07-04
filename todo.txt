@@ -1,7 +1,4 @@
 implement in isaacscript-common:
 
-- typedoc PR
-- docs module stuff
+- docs module stuff - https://github.com/krisztianb/typedoc-plugin-merge-modules/issues/12
 - StageAPI2
-
-- no void return type shouldn't highlight the whole function, only the void part

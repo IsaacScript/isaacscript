@@ -35,6 +35,7 @@ import {
 } from "../functions/entitySpecific";
 import {
   convertXMLGridEntityType,
+  getAllGridIndexes,
   getGridEntities,
   removeAllGridExcept,
   removeGrid,
@@ -48,7 +49,6 @@ import { getRoomListIndex } from "../functions/roomData";
 import { gridCoordinatesToWorldPosition } from "../functions/roomGrid";
 import { setRoomCleared, setRoomUncleared } from "../functions/rooms";
 import { spawnCollectible } from "../functions/spawnCollectible";
-import { erange } from "../functions/utils";
 import { JSONRoom } from "../interfaces/JSONRoom";
 import { runNextGameFrame } from "./runInNFrames";
 import { saveDataManager } from "./saveDataManager/exports";
@@ -393,16 +393,19 @@ function removeSpecificNPCs() {
  * a state that is normally unused by the game and makes it invisible & persistent. However, pickups
  * will not be able to spawn on pressure plates, which lead to various bugs (e.g. pickups spawning
  * on top of pits). Thus, we use a decoration and remove its sprite to make it invisible.
+ *
+ * Yet another option is to replace the room data with that of an empty room. However, the room data
+ * must exactly match the room type, the room shape, and the doors, so this is not possible to do in
+ * a robust way without adding empty rooms to the mod's `content` folder to draw the data from.
  */
 function fillRoomWithDecorations() {
   const room = game.GetRoom();
-  const gridSize = room.GetGridSize();
   const roomListIndex = getRoomListIndex();
 
   const decorationGridIndexes =
     v.level.roomToDecorationGridIndexesMap.getAndSetDefault(roomListIndex);
 
-  for (const gridIndex of erange(gridSize)) {
+  for (const gridIndex of getAllGridIndexes()) {
     const existingGridEntity = room.GetGridEntity(gridIndex);
     if (existingGridEntity !== undefined) {
       continue;

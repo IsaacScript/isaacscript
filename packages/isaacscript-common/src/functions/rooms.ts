@@ -82,6 +82,7 @@ export function getAllDimensions(): Dimension[] {
   return erange(NUM_DIMENSIONS) as Dimension[];
 }
 
+/** Helper function to get the grid index for every room on the entire floor. */
 export function getAllRoomGridIndexes(): int[] {
   const rooms = getRooms();
   return rooms.map((roomDescriptor) => roomDescriptor.SafeGridIndex);

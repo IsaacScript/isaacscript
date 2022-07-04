@@ -220,7 +220,9 @@ function mod:LoadSuccessful(saveDatContents)
         local starting1 = string.match(entry.data, "TypeScript change detected.")
         local starting2 = string.match(entry.data, "Compiling the mod for the first time...")
         local finished1 = string.match(entry.data, "Compilation successful.")
-        local finished2 = string.match(entry.data, "Found [0-9]+ errors.")
+        -- Found 1 error. Watching for file changes.
+        -- Found 2 errors. Watching for file changes.
+        local finished2 = string.match(entry.data, "Watching for file changes.")
         if starting1 ~= nil or starting2 ~= nil then
           sprite:Play("Green")
         elseif finished1 ~= nil or finished2 ~= nil then

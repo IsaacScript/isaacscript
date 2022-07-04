@@ -87,6 +87,9 @@ export enum ModCallback {
   /**
    * This will fire at the beginning of a run and upon continuing a saved run.
    *
+   * Note that checking for `isChildPlayer` does not work in this callback; use the
+   * POST_PLAYER_INIT_LATE callback for that.
+   *
    * ```ts
    * function postPlayerInit(player: EntityPlayer): void {}
    * ```

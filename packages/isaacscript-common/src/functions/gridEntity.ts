@@ -74,6 +74,18 @@ export function convertXMLGridEntityType(
 }
 
 /**
+ * Helper function to get every legal grid index for the current room.
+ *
+ * Under the hood, this uses the `Room.GetGridSize` method.
+ */
+export function getAllGridIndexes(): int[] {
+  const room = game.GetRoom();
+  const gridSize = room.GetGridSize();
+
+  return erange(gridSize);
+}
+
+/**
  * Gets the entities that have a hitbox that overlaps with any part of the square that the grid
  * entity is on.
  *
@@ -154,10 +166,9 @@ export function getGridEntities(
 
 function getAllGridEntities(): GridEntity[] {
   const room = game.GetRoom();
-  const gridSize = room.GetGridSize();
 
   const gridEntities: GridEntity[] = [];
-  for (const gridIndex of erange(gridSize)) {
+  for (const gridIndex of getAllGridIndexes()) {
     const gridEntity = room.GetGridEntity(gridIndex);
     if (gridEntity !== undefined) {
       gridEntities.push(gridEntity);
@@ -305,6 +316,9 @@ export function isPostBossVoidPortal(gridEntity: GridEntity): boolean {
  * Helper function to all grid entities in the room except for ones matching the grid entity types
  * provided.
  *
+ * Note that this function will automatically update the room. (This means that you can spawn new
+ * grid entities on the same tile on the same frame, if needed.)
+ *
  * For example:
  *
  * ```ts
@@ -340,6 +354,9 @@ export function removeAllGridExcept(
 /**
  * Helper function to remove all of the grid entities in the room that match the grid entity types
  * provided.
+ *
+ * Note that this function will automatically update the room. (This means that you can spawn new
+ * grid entities on the same tile on the same frame, if needed.)
  *
  * For example:
  *
