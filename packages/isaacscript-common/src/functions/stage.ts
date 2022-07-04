@@ -1,5 +1,6 @@
-import { LevelStage, StageType } from "isaac-typescript-definitions";
+import { LevelStage, RoomType, StageType } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
+import { ROOM_TYPE_GOTO_PREFIXES } from "../objects/roomTypeGotoPrefixes";
 import { STAGE_TYPE_SUFFIXES } from "../objects/stageTypeSuffixes";
 import { STAGE_TYPE_TO_LETTER } from "../objects/stageTypeToLetter";
 
@@ -77,6 +78,14 @@ export function getEffectiveStage(): int {
   }
 
   return stage;
+}
+
+/**
+ * Helper function to get the prefix to use with the "goto" console command that would correspond to
+ * the provided room type.
+ */
+export function getGotoCommandPrefix(roomType: RoomType): string {
+  return ROOM_TYPE_GOTO_PREFIXES[roomType];
 }
 
 /** Alias for the `Level.GetStage` method. */

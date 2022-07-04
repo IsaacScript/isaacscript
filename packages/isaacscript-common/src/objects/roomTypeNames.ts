@@ -3,7 +3,6 @@ import { RoomType } from "isaac-typescript-definitions";
 export const DEFAULT_ROOM_TYPE_NAME = "Unknown";
 
 export const ROOM_TYPE_NAMES: { readonly [key in RoomType]: string } = {
-  [RoomType.NULL]: "null room", // 0
   [RoomType.DEFAULT]: "default room", // 1
   [RoomType.SHOP]: "shop", // 2
   [RoomType.ERROR]: "I AM ERROR Room", // 3

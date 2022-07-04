@@ -35,6 +35,7 @@ This page lists the changes to the IsaacScript framework.
   - `isVanillaConsoleCommand`
   - `registerHotkey`
   - `unregisterHotkey`
+  - `getGotoCommandPrefix`
 - Renamed the following helper functions:
   - `isPonyActive` --> `isPlayerUsingPony`
   - `inCrawlspace` --> `inCrawlSpace`
