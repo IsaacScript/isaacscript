@@ -15,6 +15,7 @@ BAPHOMET
 BERKANO
 BFFS
 BINKY
+blackmarket # Goto console command
 BLOATY
 BLOBBY
 BLUB
@@ -22,6 +23,7 @@ bnot
 BOGO
 BOMBGAGGER
 Borderless
+bossrush # Goto console command
 bshl
 bshr
 BUMBINO
@@ -72,6 +74,7 @@ GELLO
 GIDEONS
 Giga
 GIGANTE
+greedexit # Goto console command
 gridspawn
 GUPPYS
 GURDY
@@ -158,6 +161,7 @@ SAMSONS
 Saturnus
 SAVY
 SCHYTHE
+secretexit # Goto console command
 SHAKEY
 SHOOP
 SKINBALL
@@ -178,6 +182,7 @@ TAMMYS
 Tearflag
 TELEPILLS
 TELEPORTER
+teleporterexit # Goto console command
 testbosspool # Console command
 TINYTOMA
 TMTRAINER
@@ -186,6 +191,7 @@ Trisagion
 TROPICAMIDE
 TURDLET
 TURDLING
+ultrasecret # Goto console command
 Unregisters
 VARDATA
 VASCULITIS
