@@ -7,7 +7,7 @@
   "treatWarningsAsErrors": false,
   "validation": {
     "invalidLink": true,
-    "notExported": true
+    "notExported": true,
   },
   "entryPoints": ["src/index.ts", "src/types/index.d.ts"],
   "entryPointStrategy": "Expand",
@@ -41,9 +41,9 @@
     "TearFlagType",
     "TearFlagValue",
     "UseFlagType",
-    "UseFlagValue"
+    "UseFlagValue",
   ],
   "plugin": ["typedoc-plugin-markdown", "@zamiell/typedoc-plugin-not-exported"],
   "hideBreadcrumbs": true,
-  "hideInPageTOC": true
+  "hideInPageTOC": true,
 }
