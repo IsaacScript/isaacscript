@@ -141,7 +141,7 @@ export function setAllRNGToSeed(object: unknown, seed: Seed): void {
     );
   }
 
-  for (const value of Object.values(table)) {
+  for (const [_key, value] of pairs(object)) {
     if (isRNG(value)) {
       setSeed(value, seed);
     }
