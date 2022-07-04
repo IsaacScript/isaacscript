@@ -9,7 +9,7 @@ const hotkeyFunctionMap = new Map<Keyboard, () => void>();
 const keyPressedMap = new DefaultMap<Keyboard, boolean>(false);
 
 /** @internal */
-export function characterHealthConversionInit(mod: Mod): void {
+export function registerHotkeyInit(mod: Mod): void {
   mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
 }
 

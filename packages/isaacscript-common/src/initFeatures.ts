@@ -13,6 +13,7 @@ import { persistentEntitiesInit } from "./features/persistentEntities";
 import { playerInventoryInit } from "./features/playerInventory";
 import { ponyDetectionInit } from "./features/ponyDetection";
 import { preventCollectibleRotationInit } from "./features/preventCollectibleRotation";
+import { registerHotkeyInit } from "./features/registerHotkey";
 import { roomClearFrameInit } from "./features/roomClearFrame";
 import { runInNFramesInit } from "./features/runInNFrames";
 import { sirenHelpersInit } from "./features/sirenHelpers";
@@ -37,6 +38,7 @@ export function initFeaturesMinor(mod: ModUpgraded): void {
   playerInventoryInit(mod);
   ponyDetectionInit(mod);
   preventCollectibleRotationInit(mod);
+  registerHotkeyInit(mod);
   roomClearFrameInit(mod);
   sirenHelpersInit(mod);
   stageHistoryInit(mod);
