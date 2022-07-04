@@ -192,7 +192,7 @@ export function initGitRepository(
     execShell("git", ["add", "--all"], verbose, false, projectPath);
     execShell(
       "git",
-      ["commit", "--message", `${PROJECT_NAME} template`],
+      ["commit", "--message", `chore: add files from ${PROJECT_NAME} template`],
       verbose,
       false,
       projectPath,
@@ -241,7 +241,7 @@ export function gitCommitIfChanges(version: string, verbose: boolean): void {
     return;
   }
 
-  const commitMessage = `v${version}`;
+  const commitMessage = `chore: release v${version}`;
   execShell("git", ["add", "-A"], verbose);
   execShell("git", ["commit", "-m", commitMessage], verbose);
   execShell("git", ["push", "origin", "main", "--set-upstream"], verbose);
