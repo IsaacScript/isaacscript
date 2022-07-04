@@ -9,6 +9,8 @@ import { Args } from "./parseArgs";
 import { Config } from "./types/Config";
 import { error } from "./utils";
 
+const NUM_SPACES = 2;
+
 export async function get(args: Args): Promise<Config> {
   const verbose = args.verbose === true;
   const yes = args.yes === true;
@@ -82,6 +84,9 @@ export function createFile(
   verbose: boolean,
 ): void {
   const configFilePath = path.join(projectPath, CONFIG_FILE_NAME);
-  const configContents = JSON.stringify(config, null, 2);
+
+  // Add a newline at the end to satisfy Prettier.
+  const configContents = JSON.stringify(config, null, NUM_SPACES).concat("\n");
+
   file.write(configFilePath, configContents, verbose);
 }
