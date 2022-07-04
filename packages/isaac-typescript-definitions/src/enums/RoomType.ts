@@ -1,5 +1,7 @@
 export enum RoomType {
-  NULL = 0,
+  // The value of "NULL" is removed, since there are no vanilla rooms with this value and it should
+  // be impossible to retrieve this value from the API.
+
   DEFAULT = 1,
   SHOP = 2,
   ERROR = 3,
