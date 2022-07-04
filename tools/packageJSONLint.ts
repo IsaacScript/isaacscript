@@ -84,7 +84,9 @@ function packageJSONLint(
       `File must have a private field equal to true: ${packageJSONPath}`,
     );
     return false;
-  } else if (!shouldBePrivate && privateField !== undefined) {
+  }
+
+  if (!shouldBePrivate && privateField !== undefined) {
     console.error(`File must not have a private field: ${packageJSONPath}`);
     return false;
   }
@@ -261,7 +263,7 @@ function packageJSONLint(
     }
 
     const { peerDependencies } = packageJSON;
-    if (!checkDeps(devDependencies, rootDeps, packageJSONPath)) {
+    if (!checkDeps(peerDependencies, rootDeps, packageJSONPath)) {
       return false;
     }
   }
@@ -302,7 +304,7 @@ function checkDeps(
   rootDeps: Record<string, string>,
   packageJSONPath: string,
 ): boolean {
-  const deps = object as Record<string, string>;
+  const deps = object as Record<string, string> | undefined | null;
 
   if (deps === undefined || deps === null || typeof deps !== "object") {
     return true;
@@ -346,10 +348,6 @@ function checkRootDepsUpToDate(
   packageJSONPaths: string[],
 ) {
   for (const [rootDepName, rootDepVersion] of Object.entries(rootDeps)) {
-    if (rootDepName === undefined) {
-      continue;
-    }
-
     const matchingPackageJSONPath = packageJSONPaths.find((packageJSONPath) =>
       packageJSONPath.includes(`/${rootDepName}/`),
     );
@@ -377,11 +375,18 @@ function checkRootDepsUpToDate(
 }
 
 function getPackageJSON(packageJSONString: string): Record<string, unknown> {
-  let packageJSON: Record<string, unknown>;
+  let packageJSON: Record<string, unknown> | undefined | null;
   try {
-    packageJSON = JSON.parse(packageJSONString);
+    packageJSON = JSON.parse(packageJSONString) as
+      | Record<string, unknown>
+      | undefined
+      | null;
   } catch (err) {
-    return error(`Failed to parse: ${path}`);
+    return error("Failed to parse:", path);
+  }
+
+  if (packageJSON === undefined || packageJSON === null) {
+    return error("Failed to parse:", path);
   }
 
   return packageJSON;
