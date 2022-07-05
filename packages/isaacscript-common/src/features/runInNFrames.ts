@@ -99,7 +99,7 @@ function checkExecuteIntervalFunctions(
     arrayRemoveIndexInPlace(functionTuples, i);
 
     // Queue the next interval (as long as the function did not return false).
-    if (numIntervalFrames !== undefined && returnValue === false) {
+    if (numIntervalFrames !== undefined && returnValue !== false) {
       const nextFireFrame = frameCount + numIntervalFrames;
       const tuple: IntervalFunctionTuple = [
         nextFireFrame,
