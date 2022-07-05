@@ -5,15 +5,15 @@ import * as JSONC from "jsonc-parser";
 import path from "path";
 import process from "process";
 
-const REPO_ROOT = path.join(__dirname, "..");
-const TYPEDOC_CONFIG_PATH = path.join(REPO_ROOT, "typedoc.json");
-const INDEX_PATH = path.join(REPO_ROOT, "src", "types", "index.d.ts");
+const PACKAGE_ROOT = path.join(__dirname, "..");
+const TYPEDOC_CONFIG_PATH = path.join(PACKAGE_ROOT, "typedoc.json");
+const INDEX_PATH = path.join(PACKAGE_ROOT, "src", "types", "index.d.ts");
 const INDEX_CONTENTS = file.read(INDEX_PATH, false);
 
 main();
 
 function main() {
-  process.chdir(REPO_ROOT);
+  process.chdir(PACKAGE_ROOT);
 
   const entryPoints = getEntryPoints();
   const entryPointsSet = new Set(entryPoints);

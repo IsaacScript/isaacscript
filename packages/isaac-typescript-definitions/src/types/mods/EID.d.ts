@@ -62,8 +62,7 @@ declare interface EIDInterface {
   ): void;
 
   /**
-   * Adds a new color object with the shortcut defined in the "shortcut" variable (e.g.
-   * "{{shortcut}}" = your color).
+   * Adds a new color object with the shortcut defined in the "shortcut" variable.
    *
    * Shortcuts are case-sensitive! Shortcuts can be overridden with this function to allow for full
    * control over everything.
@@ -106,8 +105,7 @@ declare interface EIDInterface {
   ): void;
 
   /**
-   * Adds a new icon object with the shortcut defined in the "shortcut" variable (e.g.
-   * "{{shortcut}}" = your icon).
+   * Adds a new icon object with the shortcut defined in the "shortcut" variable.
    *
    * Shortcuts are case-sensitive! Shortcuts can be overridden with this function to allow for full
    * control over everything.
@@ -441,11 +439,9 @@ declare interface EIDInterface {
 
   /**
    * Renders a list of given inline sprite objects returned by the `EID.filterIconMarkup` function.
-   *
-   * Table entry format: {`EIDInlineIcon` Object, Width of text preceding the icon}.
    */
   renderInlineIcons(
-    spriteTable: Array<[EIDInlineIcon, int]>,
+    spriteTable: Array<[icon: EIDInlineIcon, width: int]>,
     posX: int,
     posY: int,
   ): void;

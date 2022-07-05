@@ -201,8 +201,6 @@ declare global {
     /**
      * Sets the paths to the pit gfx sprite sheets.
      *
-     * Takes lists of { File, HasExtraFrames }.
-     *
      * (Original docs indicate to "see utero override".)
      */
     SetPits(

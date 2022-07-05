@@ -4,13 +4,13 @@ import * as JSONC from "jsonc-parser";
 import path from "path";
 import process from "process";
 
-const REPO_ROOT = path.join(__dirname, "..");
-const TYPEDOC_CONFIG_PATH = path.join(REPO_ROOT, "typedoc.json");
+const PACKAGE_ROOT = path.join(__dirname, "..");
+const TYPEDOC_CONFIG_PATH = path.join(PACKAGE_ROOT, "typedoc.json");
 
 main();
 
 function main() {
-  process.chdir(REPO_ROOT);
+  process.chdir(PACKAGE_ROOT);
 
   const entryPoints = getEntryPoints();
   const entryPointsSet = new Set(entryPoints);
