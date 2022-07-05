@@ -116,7 +116,7 @@ export function getCollidingEntitiesWithGridEntity(
       isCircleIntersectingRectangle(
         entity.Position,
         // We arbitrarily add 0.1 to account for entities that are already pushed back by the time
-        // the PostUpdate callback fires.
+        // the `POST_UPDATE` callback fires.
         entity.Size + 0.1,
         gridEntityCollisionTopLeft,
         gridEntityCollisionBottomRight,

@@ -13,7 +13,7 @@ BUILD_PATH="$REPO_ROOT/dist/packages/docs"
 DOCS_REPO_NAME="isaacscript.github.io"
 DOCS_REPO="$REPO_ROOT/$DOCS_REPO_NAME"
 
-cp -R "$BUILD_PATH/"* "$DOCS_REPO/"
+cp --recursive "$BUILD_PATH/"* "$DOCS_REPO/"
 cd "$DOCS_REPO"
 
 set +e

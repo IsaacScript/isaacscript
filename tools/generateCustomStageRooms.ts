@@ -1,9 +1,27 @@
 /* eslint-disable import/no-relative-packages */
 
+// Run this script with the following command:
+//
+// ```sh
+// npx ts-node --require "tsconfig-paths/register" --project "tools/tsconfig.json" "tools/generateCustomStageRooms.ts"
+// ```
+//
+// For this script to work properly, `isaac-typescript-definitions` first have to be compiled to
+// JavaScript. Thus, run the following commands:
+//
+// ```sh
+// cd ./packages/isaac-typescript-definitions
+// npx tsc
+// cd ../..
+// cp --recursive "./dist/packages/isaac-typescript-definitions" "./node_modules/"
+// ```
+
+import {
+  DoorSlotFlag,
+  RoomShape,
+  RoomType,
+} from "isaac-typescript-definitions";
 import { utils } from "isaacscript-cli";
-import { DoorSlotFlag } from "../packages/isaac-typescript-definitions/src/enums/flags/DoorSlotFlag";
-import { RoomShape } from "../packages/isaac-typescript-definitions/src/enums/RoomShape";
-import { RoomType } from "../packages/isaac-typescript-definitions/src/enums/RoomType";
 import {
   convertBinaryToDecimal,
   convertDecimalToBinary,
@@ -51,7 +69,6 @@ for (const roomType of getEnumValues(RoomType)) {
   for (const roomShape of getEnumValues(RoomShape)) {
     const roomShapeBits = convertDecimalToBinary(roomShape);
 
-    // eslint-disable-next-line isaacscript/strict-enums
     const doorSlotsSet = getDoorSlotsForRoomShape(roomShape);
     const doorSlotFlagsSet = new Set<DoorSlotFlag>();
     for (const doorSlot of doorSlotsSet.values()) {
@@ -68,7 +85,6 @@ for (const roomType of getEnumValues(RoomType)) {
       const roomVariant = convertBinaryToDecimal(combinedBits);
 
       const name = `Shape: ${roomShape}, DoorSlotFlags: ${doorSlotFlags}`;
-      // eslint-disable-next-line isaacscript/strict-enums
       const [width, height] = getRoomShapeLayoutSize(roomShape);
       const room = `
 <room name="${name}" type="${roomType}" variant="${roomVariant}" subtype="0" shape="${roomShape}" width="${width}" height="${height}" difficulty="1" weight="0.0">
