@@ -62,3 +62,4 @@ tnts
 trites
 Turdlings
 Uriels
+Wofsauge # External Item Descriptions developer
