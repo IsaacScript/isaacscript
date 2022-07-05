@@ -116,7 +116,7 @@ export function arrayRemoveIndexInPlace<T>(
   return true;
 }
 
-export function arrayToString<T>(array: T[]): string {
+export function arrayToString<T>(array: T[] | readonly T[]): string {
   if (array.length === 0) {
     return "[]";
   }
@@ -173,6 +173,75 @@ export function copyArray<T>(
 /** Helper function to remove all of the elements in an array in-place. */
 export function emptyArray<T>(array: T[]): void {
   array.splice(0, array.length);
+}
+
+/**
+ * Helper function to get all possible combinations of the given array. This includes the
+ * combination of an empty array.
+ *
+ * For example, if this function is provided an array containing 1, 2, and 3, then it will return an
+ * array containing the following arrays:
+ *
+ * - []
+ * - [1]
+ * - [2]
+ * - [3]
+ * - [1, 2]
+ * - [1, 3]
+ * - [2, 3]
+ * - [1, 2, 3]
+ *
+ * From: https://github.com/firstandthird/combinations/blob/master/index.js
+ *
+ * @param array The array to get the combinations of.
+ * @param min Optional. The minimum number of elements to include in each combination. Default is 1.
+ * @param max Optional. The maximum number of elements to include in each combination. Default is
+ *            the length of the array.
+ */
+export function getArrayCombinations<T>(
+  array: T[] | readonly T[],
+  min?: int,
+  max?: int,
+): ReadonlyArray<readonly T[]> {
+  if (min === undefined || min <= 0) {
+    min = 1;
+  }
+  if (max === undefined || max <= 0) {
+    max = array.length;
+  }
+
+  const addCombinations = (
+    n: number,
+    src: T[] | readonly T[],
+    got: T[],
+    all: Array<T[] | readonly T[]>,
+  ) => {
+    if (n === 0) {
+      if (got.length > 0) {
+        all[all.length] = got;
+      }
+
+      return;
+    }
+
+    for (let j = 0; j < src.length; j++) {
+      const value = src[j]!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+      addCombinations(n - 1, src.slice(j + 1), got.concat([value]), all);
+    }
+  };
+
+  const all: Array<T[] | readonly T[]> = [];
+  for (let i = min; i < array.length; i++) {
+    addCombinations(i, array, [], all);
+  }
+  if (array.length === max) {
+    all.push(array);
+  }
+
+  // Finally, account for the empty array combination.
+  all.unshift([]);
+
+  return all;
 }
 
 /**
@@ -388,23 +457,29 @@ export function shuffleArrayInPlace<T>(
   seedOrRNG: Seed | RNG = getRandomSeed(),
 ): void {
   let currentIndex = array.length;
-  let randomIndex: int;
 
   const rng = isRNG(seedOrRNG) ? seedOrRNG : newRNG(seedOrRNG);
 
   while (currentIndex > 0) {
     currentIndex -= 1;
 
-    randomIndex = getRandomArrayIndex(array, rng);
-
-    // @ts-expect-error The shuffle can never be undefined.
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex],
-      array[currentIndex],
-    ];
+    const randomIndex = getRandomArrayIndex(array, rng);
+    swapArrayElements(array, currentIndex, randomIndex);
   }
 }
 
+/** Helper function to sum every value in an array together. */
 export function sumArray(array: number[] | readonly number[]): number {
   return array.reduce((accumulator, element) => accumulator + element);
+}
+
+/**
+ * Helper function to swap two different array elements. (The elements will be swapped in-place.)
+ */
+export function swapArrayElements<T>(array: T[], i: number, j: number): void {
+  const value1 = array[i]!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+  const value2 = array[j]!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+
+  array[i] = value2;
+  array[j] = value1;
 }

@@ -83,7 +83,7 @@ export function log(this: void, msg: string): void {
   Isaac.DebugString(debugMsg);
 }
 
-export function logArray<T>(this: void, array: T[]): void {
+export function logArray<T>(this: void, array: T[] | readonly T[]): void {
   const arrayString = arrayToString(array);
   log(`Array: ${arrayString}`);
 }
@@ -540,7 +540,10 @@ export function logSeedEffects(this: void): void {
   }
 }
 
-export function logSet(this: void, set: Set<AnyNotNil>): void {
+export function logSet(
+  this: void,
+  set: Set<AnyNotNil> | ReadonlySet<AnyNotNil>,
+): void {
   log("Printing out a TSTL Set:");
 
   const setValues = getSortedSetValues(set);

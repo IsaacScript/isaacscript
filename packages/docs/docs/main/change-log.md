@@ -36,6 +36,15 @@ This page lists the changes to the IsaacScript framework.
   - `registerHotkey`
   - `unregisterHotkey`
   - `getGotoCommandPrefix`
+  - `convertBinaryToDecimal`
+  - `convertDecimalToBinary`
+  - `doorSlotToDoorSlotFlag`
+  - `swapArrayElements`
+  - `arrayToBitFlags`
+  - `setToBitFlags`
+  - `getDoorSlotFlags`
+  - `getArrayCombinations`
+  - `getSetCombinations`
 - Renamed the following helper functions:
   - `isPonyActive` --> `isPlayerUsingPony`
   - `inCrawlspace` --> `inCrawlSpace`

@@ -1,4 +1,4 @@
-import { getRandomArrayElement } from "./array";
+import { getArrayCombinations, getRandomArrayElement } from "./array";
 import { getRandomSeed } from "./rng";
 
 /**
@@ -78,6 +78,31 @@ export function getRandomSetElement<T>(
 ): T {
   const array = getSortedSetValues(set);
   return getRandomArrayElement(array, seedOrRNG, exceptions);
+}
+
+/**
+ * Helper function to get all possible combinations of the given set. This includes the combination
+ * of an empty set.
+ *
+ * For example, if this function is provided a set containing 1, 2, and 3, then it will return an
+ * array containing the following sets:
+ *
+ * - []
+ * - [1]
+ * - [2]
+ * - [3]
+ * - [1, 2]
+ * - [1, 3]
+ * - [2, 3]
+ * - [1, 2, 3]
+ */
+export function getSetCombinations<T>(
+  set: Set<T> | ReadonlySet<T>,
+): ReadonlyArray<ReadonlySet<T>> {
+  const values = getSortedSetValues(set);
+  const combinations = getArrayCombinations(values);
+
+  return combinations.map((array) => new Set(array));
 }
 
 /**

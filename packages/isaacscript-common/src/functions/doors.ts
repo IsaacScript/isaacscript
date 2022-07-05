@@ -14,10 +14,13 @@ import {
   DOOR_SLOT_FLAG_TO_DOOR_SLOT,
 } from "../objects/doorSlotFlagToDoorSlot";
 import { DOOR_SLOT_TO_DIRECTION } from "../objects/doorSlotToDirection";
+import { DOOR_SLOT_TO_DOOR_SLOT_FLAG } from "../objects/doorSlotToDoorSlotFlag";
 import { OPPOSITE_DOOR_SLOTS } from "../objects/oppositeDoorSlots";
 import { ROOM_SHAPE_TO_DOOR_SLOTS } from "../objects/roomShapeToDoorSlots";
+import { arrayToBitFlags } from "./bitwise";
 import { directionToVector } from "./direction";
 import { getEnumValues } from "./enums";
+import { isTSTLSet } from "./tstlClass";
 
 /**
  * When players enter a room, they do not appear exactly on the location of the door, because then
@@ -50,6 +53,9 @@ export function doorSlotFlagToDoorSlot(doorSlotFlag: DoorSlotFlag): DoorSlot {
 
 export function doorSlotToDirection(doorSlot: DoorSlot): Direction {
   return DOOR_SLOT_TO_DIRECTION[doorSlot];
+}
+export function doorSlotToDoorSlotFlag(doorSlot: DoorSlot): DoorSlotFlag {
+  return DOOR_SLOT_TO_DOOR_SLOT_FLAG[doorSlot];
 }
 
 export function getAngelRoomDoor(): GridEntityDoor | undefined {
@@ -96,6 +102,27 @@ export function getDoorEnterPositionOffset(doorSlot: DoorSlot): Vector {
   const direction = doorSlotToDirection(doorSlot);
   const vector = directionToVector(direction);
   return vector.mul(ROOM_ENTRY_OFFSET_FROM_DOOR);
+}
+
+/**
+ * Helper function to convert an array of door slots or a set of door slots to the resulting bit
+ * flag number.
+ */
+export function getDoorSlotFlags(
+  doorSlots:
+    | DoorSlot[]
+    | readonly DoorSlot[]
+    | Set<DoorSlot>
+    | ReadonlySet<DoorSlot>,
+): BitFlags<DoorSlotFlag> {
+  const doorSlotArray = isTSTLSet(doorSlots)
+    ? [...doorSlots.values()]
+    : (doorSlots as DoorSlot[]);
+  const doorSlotFlagArray = doorSlotArray.map((doorSlot) =>
+    doorSlotToDoorSlotFlag(doorSlot),
+  );
+
+  return arrayToBitFlags(doorSlotFlagArray);
 }
 
 /** Helper function to get the possible door slots that can exist for a given room shape. */
