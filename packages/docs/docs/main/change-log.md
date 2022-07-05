@@ -48,6 +48,8 @@ This page lists the changes to the IsaacScript framework.
   - `swapArrayElements`
   - `arrayToBitFlags`
   - `setToBitFlags`
+  - `setIntervalGameFrames`
+  - `setIntervalRenderFrames`
 - Renamed the following helper functions:
   - `isPonyActive` --> `isPlayerUsingPony`
   - `inCrawlspace` --> `inCrawlSpace`
