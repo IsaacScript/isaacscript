@@ -60,6 +60,8 @@ export {
   runInNRenderFrames,
   runNextGameFrame,
   runNextRenderFrame,
+  setIntervalGameFrames,
+  setIntervalRenderFrames,
 } from "./features/runInNFrames";
 export * from "./features/saveDataManager/exports";
 export {
