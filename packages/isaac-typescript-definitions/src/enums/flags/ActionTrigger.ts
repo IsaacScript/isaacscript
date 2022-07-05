@@ -31,7 +31,7 @@ const ActionTriggerInternal = {
 } as const;
 
 type ActionTriggerValue = BitFlag & {
-  readonly __actionTriggerBrand: unique symbol;
+  readonly __actionTriggerBrand: symbol;
 };
 type ActionTriggerType = {
   [K in keyof typeof ActionTriggerInternal]: ActionTriggerValue;

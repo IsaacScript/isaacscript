@@ -1,11 +1,9 @@
 /* eslint-disable import/no-relative-packages */
 
-import {
-  DoorSlotFlag,
-  RoomShape,
-  RoomType,
-} from "isaac-typescript-definitions";
 import { utils } from "isaacscript-cli";
+import { DoorSlotFlag } from "../packages/isaac-typescript-definitions/src/enums/flags/DoorSlotFlag";
+import { RoomShape } from "../packages/isaac-typescript-definitions/src/enums/RoomShape";
+import { RoomType } from "../packages/isaac-typescript-definitions/src/enums/RoomType";
 import {
   convertBinaryToDecimal,
   convertDecimalToBinary,
@@ -53,6 +51,7 @@ for (const roomType of getEnumValues(RoomType)) {
   for (const roomShape of getEnumValues(RoomShape)) {
     const roomShapeBits = convertDecimalToBinary(roomShape);
 
+    // eslint-disable-next-line isaacscript/strict-enums
     const doorSlotsSet = getDoorSlotsForRoomShape(roomShape);
     const doorSlotFlagsSet = new Set<DoorSlotFlag>();
     for (const doorSlot of doorSlotsSet.values()) {
@@ -63,12 +62,13 @@ for (const roomType of getEnumValues(RoomType)) {
     const doorSlotFlagCombinations = getSetCombinations(doorSlotFlagsSet);
     for (const doorSlotFlagCombination of doorSlotFlagCombinations) {
       const doorSlotFlags = setToBitFlags(doorSlotFlagCombination);
-      const doorSlotBits = convertDecimalToBinary(roomShape);
+      const doorSlotBits = convertDecimalToBinary(doorSlotFlags);
 
       const combinedBits = [...roomShapeBits, ...doorSlotBits];
       const roomVariant = convertBinaryToDecimal(combinedBits);
 
       const name = `Shape: ${roomShape}, DoorSlotFlags: ${doorSlotFlags}`;
+      // eslint-disable-next-line isaacscript/strict-enums
       const [width, height] = getRoomShapeLayoutSize(roomShape);
       const room = `
 <room name="${name}" type="${roomType}" variant="${roomVariant}" subtype="0" shape="${roomShape}" width="${width}" height="${height}" difficulty="1" weight="0.0">

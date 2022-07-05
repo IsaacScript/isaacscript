@@ -38,7 +38,7 @@ const DoorSlotFlagInternal = {
 } as const;
 
 type DoorSlotFlagValue = BitFlag & {
-  readonly __doorSlotFlagBrand: unique symbol;
+  readonly __doorSlotFlagBrand: symbol;
 };
 type DoorSlotFlagType = {
   [K in keyof typeof DoorSlotFlagInternal]: DoorSlotFlagValue;

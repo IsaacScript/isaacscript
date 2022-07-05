@@ -4,5 +4,5 @@
  * - It can be fed to the `EntityPlayer.GetMultiShotPositionVelocity` method.
  */
 declare interface MultiShotParams {
-  readonly __multiShotParamsBrand: unique symbol;
+  readonly __multiShotParamsBrand: symbol;
 }

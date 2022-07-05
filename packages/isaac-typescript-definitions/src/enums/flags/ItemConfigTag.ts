@@ -318,7 +318,7 @@ const ItemConfigTagInternal = {
 } as const;
 
 type ItemConfigTagValue = BitFlag & {
-  readonly __itemConfigTagBrand: unique symbol;
+  readonly __itemConfigTagBrand: symbol;
 };
 type ItemConfigTagType = {
   [K in keyof typeof ItemConfigTagInternal]: ItemConfigTagValue;

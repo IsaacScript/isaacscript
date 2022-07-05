@@ -261,7 +261,7 @@ let vector = Vector(3, 3).mul(6).add(Vector(1, 1);
 Note that if you really need to, you can restore operator overloading for Vectors by creating a [branded type](https://medium.com/@KevinBGreene/surviving-the-typescript-ecosystem-branding-and-type-tagging-6cf6e516523d) with something along the lines of:
 
 ```ts
-type Vector = number & { readonly __vectorBrand: unique symbol };
+type Vector = number & { readonly __vectorBrand: symbol };
 ```
 
 But this is **not recommended** because vectors won't be type-safe anymore.

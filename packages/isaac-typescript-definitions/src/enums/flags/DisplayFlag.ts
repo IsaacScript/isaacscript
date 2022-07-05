@@ -22,7 +22,7 @@ const DisplayFlagInternal = {
 } as const;
 
 type DisplayFlagValue = BitFlag & {
-  readonly __displayFlagBrand: unique symbol;
+  readonly __displayFlagBrand: symbol;
 };
 type DisplayFlagType = {
   [K in keyof typeof DisplayFlagInternal]: DisplayFlagValue;

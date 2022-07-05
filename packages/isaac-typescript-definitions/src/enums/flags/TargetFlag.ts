@@ -46,7 +46,7 @@ const TargetFlagInternal = {
 } as const;
 
 type TargetFlagValue = BitFlag & {
-  readonly __targetFlagBrand: unique symbol;
+  readonly __targetFlagBrand: symbol;
 };
 type TargetFlagType = {
   [K in keyof typeof TargetFlagInternal]: TargetFlagValue;

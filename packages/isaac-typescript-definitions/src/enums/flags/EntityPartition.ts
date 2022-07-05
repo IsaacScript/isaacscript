@@ -31,7 +31,7 @@ const EntityPartitionInternal = {
 } as const;
 
 type EntityPartitionValue = BitFlag & {
-  readonly __entityPartitionBrand: unique symbol;
+  readonly __entityPartitionBrand: symbol;
 };
 type EntityPartitionType = {
   [K in keyof typeof EntityPartitionInternal]: EntityPartitionValue;

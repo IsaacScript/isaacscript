@@ -10,4 +10,4 @@
  *
  * This type is branded for extra type safety.
  */
-export type PlayerIndex = int & { readonly __playerIndexBrand: unique symbol };
+export type PlayerIndex = int & { readonly __playerIndexBrand: symbol };

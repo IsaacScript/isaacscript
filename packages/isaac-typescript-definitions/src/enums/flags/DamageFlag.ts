@@ -109,7 +109,7 @@ const DamageFlagInternal = {
 } as const;
 
 type DamageFlagValue = BitFlag & {
-  readonly __damageFlagBrand: unique symbol;
+  readonly __damageFlagBrand: symbol;
 };
 type DamageFlagType = {
   [K in keyof typeof DamageFlagInternal]: DamageFlagValue;

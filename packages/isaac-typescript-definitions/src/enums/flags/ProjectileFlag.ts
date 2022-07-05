@@ -192,7 +192,7 @@ const ProjectileFlagInternal = {
 } as const;
 
 type ProjectileFlagValue = BitFlag & {
-  readonly __projectileFlagBrand: unique symbol;
+  readonly __projectileFlagBrand: symbol;
 };
 type ProjectileFlagType = {
   [K in keyof typeof ProjectileFlagInternal]: ProjectileFlagValue;

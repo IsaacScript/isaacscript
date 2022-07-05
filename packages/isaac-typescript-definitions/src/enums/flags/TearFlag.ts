@@ -706,7 +706,7 @@ const TearFlagInternal = {
 } as const;
 
 type TearFlagValue = BitFlag128 & {
-  readonly __tearFlagBrand: unique symbol;
+  readonly __tearFlagBrand: symbol;
 };
 type TearFlagType = {
   [K in keyof typeof TearFlagInternal]: TearFlagValue;

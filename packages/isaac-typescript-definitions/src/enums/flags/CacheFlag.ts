@@ -58,7 +58,7 @@ const CacheFlagInternal = {
 } as const;
 
 type CacheFlagValue = BitFlag & {
-  readonly __cacheFlagBrand: unique symbol;
+  readonly __cacheFlagBrand: symbol;
 };
 type CacheFlagType = {
   [K in keyof typeof CacheFlagInternal]: CacheFlagValue;

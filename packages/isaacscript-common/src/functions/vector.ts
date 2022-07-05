@@ -7,7 +7,7 @@ import { copyValuesToTable, getNumbersFromTable, tableHasKeys } from "./table";
 import { isTable } from "./types";
 
 type SerializedVector = LuaTable<string, unknown> & {
-  readonly __serializedVectorBrand: unique symbol;
+  readonly __serializedVectorBrand: symbol;
 };
 
 interface CopyVectorReturn {

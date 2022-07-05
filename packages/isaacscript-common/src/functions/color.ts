@@ -5,7 +5,7 @@ import { copyValuesToTable, getNumbersFromTable, tableHasKeys } from "./table";
 import { isTable } from "./types";
 
 type SerializedColor = LuaTable<string, unknown> & {
-  readonly __serializedColorBrand: unique symbol;
+  readonly __serializedColorBrand: symbol;
 };
 
 interface CopyColorReturn {
