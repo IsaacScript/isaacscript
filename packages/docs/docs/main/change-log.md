@@ -45,6 +45,9 @@ This page lists the changes to the IsaacScript framework.
   - `getDoorSlotFlags`
   - `getArrayCombinations`
   - `getSetCombinations`
+  - `swapArrayElements`
+  - `arrayToBitFlags`
+  - `setToBitFlags`
 - Renamed the following helper functions:
   - `isPonyActive` --> `isPlayerUsingPony`
   - `inCrawlspace` --> `inCrawlSpace`

@@ -1,7 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-
 const path = require("path"); // eslint-disable-line @typescript-eslint/no-var-requires
 
 const REPO_ROOT = path.join(__dirname, "..");

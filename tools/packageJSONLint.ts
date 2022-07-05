@@ -262,7 +262,7 @@ function packageJSONLint(
       return false;
     }
 
-    // We skip checking for peer dependencies, since they are all only based on the major version.
+    // We skip checking for peer dependencies, since they are all based on the major version.
     // e.g. "typescript": ">= 4.0.0"
   }
 

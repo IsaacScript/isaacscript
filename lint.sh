@@ -10,8 +10,14 @@ SECONDS=0
 
 cd "$DIR"
 
+# Checking "package.json" files
+npx ts-node --require "tsconfig-paths/register" --project "$DIR/tools/tsconfig.json" "$DIR/tools/packageJSONLint.ts"
+
 if [ "$1" != "json" ]; then
-  # Lint each package.
+  echo "Linting scripts..."
+  npx eslint tools
+
+  echo "Linting each package in the monorepo..."
   if command -v nx &> /dev/null; then
     # We want to invoke nx directly, if available. (Otherwise, the colors will not work properly.)
     nx run-many --target=lint --all $NO_CACHE
@@ -19,12 +25,7 @@ if [ "$1" != "json" ]; then
     # The "nx" command does not work in CI, so we revert to calling Nx through Yarn.
     yarn nx run-many --target=lint --all $NO_CACHE
   fi
-fi
 
-# Checking "package.json" files
-npx ts-node --require "tsconfig-paths/register" --project "$DIR/tools/tsconfig.json" "$DIR/tools/packageJSONLint.ts"
-
-if [ "$1" != "json" ]; then
   echo "Checking markdown..."
   npx markdownlint .
 fi
