@@ -6,53 +6,47 @@ import {
   ONE_BY_ONE_CONTENTS_WIDTH,
 } from "./roomShapeVolumes";
 
-const TWO_BY_TWO_BOUNDS = Vector(
+const TWO_BY_TWO_BOUNDS: [width: int, height: int] = [
   ONE_BY_ONE_CONTENTS_WIDTH * 2,
   ONE_BY_ONE_CONTENTS_HEIGHT * 2,
-);
+];
 
 /**
  * The size of a room shape's contents. This does not include the tiles that the walls are on. L
  * rooms use the same bounds as a 2x2 room.
  */
 export const ROOM_SHAPE_BOUNDS: {
-  readonly [key in RoomShape]: Vector;
+  readonly [key in RoomShape]: readonly [width: int, height: int];
 } = {
   // 1
-  [RoomShape.SHAPE_1x1]: Vector(
+  [RoomShape.SHAPE_1x1]: [
     ONE_BY_ONE_CONTENTS_WIDTH,
     ONE_BY_ONE_CONTENTS_HEIGHT,
-  ),
+  ],
 
   // 2
-  [RoomShape.IH]: Vector(ONE_BY_ONE_CONTENTS_WIDTH, NARROW_CONTENTS_HEIGHT),
+  [RoomShape.IH]: [ONE_BY_ONE_CONTENTS_WIDTH, NARROW_CONTENTS_HEIGHT],
 
   // 3
-  [RoomShape.IV]: Vector(NARROW_CONTENTS_WIDTH, ONE_BY_ONE_CONTENTS_HEIGHT),
+  [RoomShape.IV]: [NARROW_CONTENTS_WIDTH, ONE_BY_ONE_CONTENTS_HEIGHT],
 
   // 4
-  [RoomShape.SHAPE_1x2]: Vector(
+  [RoomShape.SHAPE_1x2]: [
     ONE_BY_ONE_CONTENTS_WIDTH,
     ONE_BY_ONE_CONTENTS_HEIGHT * 2,
-  ),
+  ],
 
   // 5
-  [RoomShape.IIV]: Vector(
-    NARROW_CONTENTS_WIDTH,
-    ONE_BY_ONE_CONTENTS_HEIGHT * 2,
-  ),
+  [RoomShape.IIV]: [NARROW_CONTENTS_WIDTH, ONE_BY_ONE_CONTENTS_HEIGHT * 2],
 
   // 6
-  [RoomShape.SHAPE_2x1]: Vector(
+  [RoomShape.SHAPE_2x1]: [
     ONE_BY_ONE_CONTENTS_WIDTH * 2,
     ONE_BY_ONE_CONTENTS_HEIGHT,
-  ),
+  ],
 
   // 7
-  [RoomShape.IIH]: Vector(
-    ONE_BY_ONE_CONTENTS_WIDTH * 2,
-    NARROW_CONTENTS_HEIGHT,
-  ),
+  [RoomShape.IIH]: [ONE_BY_ONE_CONTENTS_WIDTH * 2, NARROW_CONTENTS_HEIGHT],
 
   // 8
   [RoomShape.SHAPE_2x2]: TWO_BY_TWO_BOUNDS,

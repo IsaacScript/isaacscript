@@ -37,7 +37,9 @@ export function getRoomShapeBottomRightPosition(roomShape: RoomShape): Vector {
  * Helper function to get the bounds of a room shape, which are a box representing its contents.
  * This does not include the tiles that the walls are on. L rooms use the same bounds as a 2x2 room.
  */
-export function getRoomShapeBounds(roomShape: RoomShape): Vector {
+export function getRoomShapeBounds(
+  roomShape: RoomShape,
+): readonly [width: int, height: int] {
   return ROOM_SHAPE_BOUNDS[roomShape];
 }
 
@@ -47,7 +49,9 @@ export function getRoomShapeBounds(roomShape: RoomShape): Vector {
  *
  * For example, a horizontal narrow room has a layout size of equal to that of a 1x1 room.
  */
-export function getRoomShapeLayoutSize(roomShape: RoomShape): Vector {
+export function getRoomShapeLayoutSize(
+  roomShape: RoomShape,
+): readonly [width: int, height: int] {
   return ROOM_SHAPE_LAYOUT_SIZES[roomShape];
 }
 

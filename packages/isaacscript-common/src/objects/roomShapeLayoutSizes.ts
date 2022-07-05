@@ -4,22 +4,22 @@ import {
   ONE_BY_ONE_CONTENTS_WIDTH,
 } from "./roomShapeVolumes";
 
-const ONE_BY_ONE_LAYOUT_SIZE = Vector(
+const ONE_BY_ONE_LAYOUT_SIZE: readonly [width: int, height: int] = [
   ONE_BY_ONE_CONTENTS_WIDTH,
   ONE_BY_ONE_CONTENTS_HEIGHT,
-);
-const TWO_BY_ONE_VERTICAL_LAYOUT_SIZE = Vector(
+];
+const TWO_BY_ONE_VERTICAL_LAYOUT_SIZE: readonly [width: int, height: int] = [
   ONE_BY_ONE_CONTENTS_WIDTH,
   ONE_BY_ONE_CONTENTS_HEIGHT * 2,
-);
-const TWO_BY_ONE_HORIZONTAL_LAYOUT_SIZE = Vector(
+];
+const TWO_BY_ONE_HORIZONTAL_LAYOUT_SIZE: readonly [width: int, height: int] = [
   ONE_BY_ONE_CONTENTS_WIDTH * 2,
   ONE_BY_ONE_CONTENTS_HEIGHT,
-);
-const TWO_BY_TWO_LAYOUT_SIZE = Vector(
+];
+const TWO_BY_TWO_LAYOUT_SIZE: readonly [width: int, height: int] = [
   ONE_BY_ONE_CONTENTS_WIDTH * 2,
   ONE_BY_ONE_CONTENTS_HEIGHT * 2,
-);
+];
 
 /**
  * The dimensions of a room shape's layout. This is NOT the size of the room's actual contents! For
@@ -28,7 +28,7 @@ const TWO_BY_TWO_LAYOUT_SIZE = Vector(
  * For example, a horizontal narrow room has a layout size of equal to that of a 1x1 room.
  */
 export const ROOM_SHAPE_LAYOUT_SIZES: {
-  readonly [key in RoomShape]: Vector;
+  readonly [key in RoomShape]: readonly [width: int, height: int];
 } = {
   [RoomShape.SHAPE_1x1]: ONE_BY_ONE_LAYOUT_SIZE, // 1
   [RoomShape.IH]: ONE_BY_ONE_LAYOUT_SIZE, // 2
