@@ -497,7 +497,7 @@ export function spawnBomb(
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
-  seed: Seed | undefined = undefined,
+  seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityBomb {
   const entity = spawn(
     EntityType.BOMB,
@@ -506,7 +506,7 @@ export function spawnBomb(
     position,
     velocity,
     spawner,
-    seed,
+    seedOrRNG,
   );
 
   const bomb = entity.ToBomb();
@@ -521,11 +521,18 @@ export function spawnBombWithSeed(
   bombVariant: BombVariant,
   subType: int,
   position: Vector,
-  seed: Seed,
+  seedOrRNG: Seed | RNG,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityBomb {
-  return spawnBomb(bombVariant, subType, position, velocity, spawner, seed);
+  return spawnBomb(
+    bombVariant,
+    subType,
+    position,
+    velocity,
+    spawner,
+    seedOrRNG,
+  );
 }
 
 /** Helper function to spawn a `EntityType.EFFECT` (1000). */
@@ -535,7 +542,7 @@ export function spawnEffect(
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
-  seed: Seed | undefined = undefined,
+  seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityEffect {
   const entity = spawn(
     EntityType.EFFECT,
@@ -544,7 +551,7 @@ export function spawnEffect(
     position,
     velocity,
     spawner,
-    seed,
+    seedOrRNG,
   );
 
   const effect = entity.ToEffect();
@@ -559,11 +566,18 @@ export function spawnEffectWithSeed(
   effectVariant: EffectVariant,
   subType: int,
   position: Vector,
-  seed: Seed,
+  seedOrRNG: Seed | RNG,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityEffect {
-  return spawnEffect(effectVariant, subType, position, velocity, spawner, seed);
+  return spawnEffect(
+    effectVariant,
+    subType,
+    position,
+    velocity,
+    spawner,
+    seedOrRNG,
+  );
 }
 
 /** Helper function to spawn a `EntityType.FAMILIAR` (3). */
@@ -573,7 +587,7 @@ export function spawnFamiliar(
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
-  seed: Seed | undefined = undefined,
+  seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityFamiliar {
   const entity = spawn(
     EntityType.FAMILIAR,
@@ -582,7 +596,7 @@ export function spawnFamiliar(
     position,
     velocity,
     spawner,
-    seed,
+    seedOrRNG,
   );
 
   const familiar = entity.ToFamiliar();
@@ -597,7 +611,7 @@ export function spawnFamiliarWithSeed(
   familiarVariant: FamiliarVariant,
   subType: int,
   position: Vector,
-  seed: Seed,
+  seedOrRNG: Seed | RNG,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityFamiliar {
@@ -607,7 +621,7 @@ export function spawnFamiliarWithSeed(
     position,
     velocity,
     spawner,
-    seed,
+    seedOrRNG,
   );
 }
 
@@ -618,7 +632,7 @@ export function spawnKnife(
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
-  seed: Seed | undefined = undefined,
+  seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityKnife {
   const entity = spawn(
     EntityType.KNIFE,
@@ -627,7 +641,7 @@ export function spawnKnife(
     position,
     velocity,
     spawner,
-    seed,
+    seedOrRNG,
   );
 
   const knife = entity.ToKnife();
@@ -642,11 +656,18 @@ export function spawnKnifeWithSeed(
   knifeVariant: KnifeVariant,
   subType: int,
   position: Vector,
-  seed: Seed,
+  seedOrRNG: Seed | RNG,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityKnife {
-  return spawnKnife(knifeVariant, subType, position, velocity, spawner, seed);
+  return spawnKnife(
+    knifeVariant,
+    subType,
+    position,
+    velocity,
+    spawner,
+    seedOrRNG,
+  );
 }
 
 /** Helper function to spawn a `EntityType.LASER` (7). */
@@ -656,7 +677,7 @@ export function spawnLaser(
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
-  seed: Seed | undefined = undefined,
+  seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityLaser {
   const entity = spawn(
     EntityType.LASER,
@@ -665,7 +686,7 @@ export function spawnLaser(
     position,
     velocity,
     spawner,
-    seed,
+    seedOrRNG,
   );
 
   const laser = entity.ToLaser();
@@ -680,11 +701,18 @@ export function spawnLaserWithSeed(
   laserVariant: LaserVariant,
   subType: int,
   position: Vector,
-  seed: Seed,
+  seedOrRNG: Seed | RNG,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityLaser {
-  return spawnLaser(laserVariant, subType, position, velocity, spawner, seed);
+  return spawnLaser(
+    laserVariant,
+    subType,
+    position,
+    velocity,
+    spawner,
+    seedOrRNG,
+  );
 }
 
 /** Helper function to spawn an NPC. */
@@ -695,7 +723,7 @@ export function spawnNPC(
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
-  seed: Seed | undefined = undefined,
+  seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityNPC {
   const entity = spawn(
     entityType,
@@ -704,7 +732,7 @@ export function spawnNPC(
     position,
     velocity,
     spawner,
-    seed,
+    seedOrRNG,
   );
 
   const npc = entity.ToNPC();
@@ -720,7 +748,7 @@ export function spawnNPCWithSeed(
   variant: int,
   subType: int,
   position: Vector,
-  seed: Seed,
+  seedOrRNG: Seed | RNG,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityNPC {
@@ -731,7 +759,7 @@ export function spawnNPCWithSeed(
     position,
     velocity,
     spawner,
-    seed,
+    seedOrRNG,
   );
 }
 
@@ -742,7 +770,7 @@ export function spawnPickup(
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
-  seed: Seed | undefined = undefined,
+  seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityPickup {
   const entity = spawn(
     EntityType.PICKUP,
@@ -751,7 +779,7 @@ export function spawnPickup(
     position,
     velocity,
     spawner,
-    seed,
+    seedOrRNG,
   );
 
   const pickup = entity.ToPickup();
@@ -766,11 +794,18 @@ export function spawnPickupWithSeed(
   pickupVariant: PickupVariant,
   subType: int,
   position: Vector,
-  seed: Seed,
+  seedOrRNG: Seed | RNG,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityPickup {
-  return spawnPickup(pickupVariant, subType, position, velocity, spawner, seed);
+  return spawnPickup(
+    pickupVariant,
+    subType,
+    position,
+    velocity,
+    spawner,
+    seedOrRNG,
+  );
 }
 
 /** Helper function to spawn a `EntityType.PROJECTILE` (9). */
@@ -780,7 +815,7 @@ export function spawnProjectile(
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
-  seed: Seed | undefined = undefined,
+  seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityProjectile {
   const entity = spawn(
     EntityType.PROJECTILE,
@@ -789,7 +824,7 @@ export function spawnProjectile(
     position,
     velocity,
     spawner,
-    seed,
+    seedOrRNG,
   );
 
   const projectile = entity.ToProjectile();
@@ -804,7 +839,7 @@ export function spawnProjectileWithSeed(
   projectileVariant: ProjectileVariant,
   subType: int,
   position: Vector,
-  seed: Seed,
+  seedOrRNG: Seed | RNG,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityProjectile {
@@ -814,7 +849,7 @@ export function spawnProjectileWithSeed(
     position,
     velocity,
     spawner,
-    seed,
+    seedOrRNG,
   );
 }
 
@@ -825,8 +860,8 @@ export function spawnSlot(
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
-  seed: Seed | undefined = undefined,
-): Entity {
+  seedOrRNG: Seed | RNG | undefined = undefined,
+): EntitySlot {
   return spawn(
     EntityType.SLOT,
     slotVariant,
@@ -834,8 +869,8 @@ export function spawnSlot(
     position,
     velocity,
     spawner,
-    seed,
-  );
+    seedOrRNG,
+  ) as EntitySlot;
 }
 
 /** Helper function to spawn a `EntityType.SLOT` (6) with a specific seed. */
@@ -843,11 +878,18 @@ export function spawnSlotWithSeed(
   slotVariant: SlotVariant,
   subType: int,
   position: Vector,
-  seed: Seed,
+  seedOrRNG: Seed | RNG,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
-): Entity {
-  return spawnSlot(slotVariant, subType, position, velocity, spawner, seed);
+): EntitySlot {
+  return spawnSlot(
+    slotVariant,
+    subType,
+    position,
+    velocity,
+    spawner,
+    seedOrRNG,
+  );
 }
 
 /** Helper function to spawn a `EntityType.TEAR` (2). */
@@ -857,7 +899,7 @@ export function spawnTear(
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
-  seed: Seed | undefined = undefined,
+  seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityTear {
   const entity = spawn(
     EntityType.TEAR,
@@ -866,7 +908,7 @@ export function spawnTear(
     position,
     velocity,
     spawner,
-    seed,
+    seedOrRNG,
   );
 
   const tear = entity.ToTear();
@@ -881,9 +923,16 @@ export function spawnTearWithSeed(
   tearVariant: TearVariant,
   subType: int,
   position: Vector,
-  seed: Seed,
+  seedOrRNG: Seed | RNG,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityTear {
-  return spawnTear(tearVariant, subType, position, velocity, spawner, seed);
+  return spawnTear(
+    tearVariant,
+    subType,
+    position,
+    velocity,
+    spawner,
+    seedOrRNG,
+  );
 }

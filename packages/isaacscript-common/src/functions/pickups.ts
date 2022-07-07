@@ -276,7 +276,7 @@ export function spawnBattery(
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
-  seed: Seed | undefined = undefined,
+  seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityPickupBattery {
   return spawnPickup(
     PickupVariant.LIL_BATTERY,
@@ -284,18 +284,18 @@ export function spawnBattery(
     position,
     velocity,
     spawner,
-    seed,
+    seedOrRNG,
   ) as EntityPickupBattery;
 }
 
 export function spawnBatteryWithSeed(
   subType: BatterySubType,
   position: Vector,
-  seed: Seed,
+  seedOrRNG: Seed | RNG,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityPickupBattery {
-  return spawnBattery(subType, position, velocity, spawner, seed);
+  return spawnBattery(subType, position, velocity, spawner, seedOrRNG);
 }
 
 /**
@@ -306,7 +306,7 @@ export function spawnCard(
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
-  seed: Seed | undefined = undefined,
+  seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityPickupCard {
   return spawnPickup(
     PickupVariant.TAROT_CARD,
@@ -314,18 +314,18 @@ export function spawnCard(
     position,
     velocity,
     spawner,
-    seed,
+    seedOrRNG,
   ) as EntityPickupCard;
 }
 
 export function spawnCardWithSeed(
   subType: Card,
   position: Vector,
-  seed: Seed,
+  seedOrRNG: Seed | RNG,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityPickupCard {
-  return spawnCard(subType, position, velocity, spawner, seed);
+  return spawnCard(subType, position, velocity, spawner, seedOrRNG);
 }
 
 /** Helper function to spawn a `EntityType.PICKUP` (5) with variant `PickupVariant.COIN` (20). */
@@ -334,7 +334,7 @@ export function spawnCoin(
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
-  seed: Seed | undefined = undefined,
+  seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityPickupCoin {
   return spawnPickup(
     PickupVariant.COIN,
@@ -342,18 +342,18 @@ export function spawnCoin(
     position,
     velocity,
     spawner,
-    seed,
+    seedOrRNG,
   ) as EntityPickupCoin;
 }
 
 export function spawnCoinWithSeed(
   subType: CoinSubType,
   position: Vector,
-  seed: Seed,
+  seedOrRNG: Seed | RNG,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityPickupCoin {
-  return spawnCoin(subType, position, velocity, spawner, seed);
+  return spawnCoin(subType, position, velocity, spawner, seedOrRNG);
 }
 
 /** Helper function to spawn a `EntityType.PICKUP` (5) with variant `PickupVariant.HEART` (10). */
@@ -362,7 +362,7 @@ export function spawnHeart(
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
-  seed: Seed | undefined = undefined,
+  seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityPickupHeart {
   return spawnPickup(
     PickupVariant.HEART,
@@ -370,18 +370,18 @@ export function spawnHeart(
     position,
     velocity,
     spawner,
-    seed,
+    seedOrRNG,
   ) as EntityPickupHeart;
 }
 
 export function spawnHeartWithSeed(
   subType: HeartSubType,
   position: Vector,
-  seed: Seed,
+  seedOrRNG: Seed | RNG,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityPickupHeart {
-  return spawnHeart(subType, position, velocity, spawner, seed);
+  return spawnHeart(subType, position, velocity, spawner, seedOrRNG);
 }
 
 /** Helper function to spawn a `EntityType.PICKUP` (5) with variant `PickupVariant.KEY` (30). */
@@ -390,7 +390,7 @@ export function spawnKey(
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
-  seed: Seed | undefined = undefined,
+  seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityPickupKey {
   return spawnPickup(
     PickupVariant.KEY,
@@ -398,18 +398,18 @@ export function spawnKey(
     position,
     velocity,
     spawner,
-    seed,
+    seedOrRNG,
   ) as EntityPickupKey;
 }
 
 export function spawnKeyWithSeed(
   subType: KeySubType,
   position: Vector,
-  seed: Seed,
+  seedOrRNG: Seed | RNG,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityPickupKey {
-  return spawnKey(subType, position, velocity, spawner, seed);
+  return spawnKey(subType, position, velocity, spawner, seedOrRNG);
 }
 
 /** Helper function to spawn a `EntityType.PICKUP` (5) with variant `PickupVariant.PILL` (70). */
@@ -418,7 +418,7 @@ export function spawnPill(
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
-  seed: Seed | undefined = undefined,
+  seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityPickupPill {
   return spawnPickup(
     PickupVariant.PILL,
@@ -426,18 +426,18 @@ export function spawnPill(
     position,
     velocity,
     spawner,
-    seed,
+    seedOrRNG,
   ) as EntityPickupPill;
 }
 
 export function spawnPillWithSeed(
   subType: PillColor,
   position: Vector,
-  seed: Seed,
+  seedOrRNG: Seed | RNG,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityPickupPill {
-  return spawnPill(subType, position, velocity, spawner, seed);
+  return spawnPill(subType, position, velocity, spawner, seedOrRNG);
 }
 
 /** Helper function to spawn a `EntityType.PICKUP` (5) with variant `PickupVariant.SACK` (69). */
@@ -446,7 +446,7 @@ export function spawnSack(
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
-  seed: Seed | undefined = undefined,
+  seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityPickupSack {
   return spawnPickup(
     PickupVariant.SACK,
@@ -454,18 +454,18 @@ export function spawnSack(
     position,
     velocity,
     spawner,
-    seed,
+    seedOrRNG,
   ) as EntityPickupSack;
 }
 
 export function spawnSackWithSeed(
   subType: SackSubType,
   position: Vector,
-  seed: Seed,
+  seedOrRNG: Seed | RNG,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityPickupSack {
-  return spawnSack(subType, position, velocity, spawner, seed);
+  return spawnSack(subType, position, velocity, spawner, seedOrRNG);
 }
 
 /**
@@ -476,7 +476,7 @@ export function spawnTrinket(
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
-  seed: Seed | undefined = undefined,
+  seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityPickupTrinket {
   return spawnPickup(
     PickupVariant.TRINKET,
@@ -484,16 +484,16 @@ export function spawnTrinket(
     position,
     velocity,
     spawner,
-    seed,
+    seedOrRNG,
   ) as EntityPickupTrinket;
 }
 
 export function spawnTrinketWithSeed(
   subType: TrinketType,
   position: Vector,
-  seed: Seed,
+  seedOrRNG: Seed | RNG,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityPickupTrinket {
-  return spawnTrinket(subType, position, velocity, spawner, seed);
+  return spawnTrinket(subType, position, velocity, spawner, seedOrRNG);
 }

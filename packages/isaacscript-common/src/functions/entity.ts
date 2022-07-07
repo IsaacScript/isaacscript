@@ -5,7 +5,7 @@ import { STORY_BOSSES_SET } from "../sets/storyBossesSet";
 import { AnyEntity } from "../types/AnyEntity";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
 import { getRandom } from "./random";
-import { newRNG } from "./rng";
+import { isRNG, newRNG } from "./rng";
 import { isPrimitive } from "./types";
 
 /**
@@ -398,9 +398,9 @@ export function spawn(
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
-  seed: Seed | undefined = undefined,
+  seedOrRNG: Seed | RNG | undefined = undefined,
 ): Entity {
-  if (seed === undefined) {
+  if (seedOrRNG === undefined) {
     return Isaac.Spawn(
       entityType,
       variant,
@@ -411,6 +411,7 @@ export function spawn(
     );
   }
 
+  const seed = isRNG(seedOrRNG) ? seedOrRNG.Next() : seedOrRNG;
   return game.Spawn(
     entityType,
     variant,
@@ -431,9 +432,17 @@ export function spawnWithSeed(
   variant: int,
   subType: int,
   position: Vector,
-  seed: Seed,
+  seedOrRNG: Seed | RNG,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
 ): Entity {
-  return spawn(entityType, variant, subType, position, velocity, spawner, seed);
+  return spawn(
+    entityType,
+    variant,
+    subType,
+    position,
+    velocity,
+    spawner,
+    seedOrRNG,
+  );
 }

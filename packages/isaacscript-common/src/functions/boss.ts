@@ -12,6 +12,7 @@ import {
 import { SIN_ENTITY_TYPES_SET } from "../sets/sinEntityTypesSet";
 import { getNPCs, spawnNPC } from "./entitySpecific";
 import { getAliveNPCs } from "./npc";
+import { isRNG } from "./rng";
 import { copySet } from "./set";
 import { repeat } from "./utils";
 
@@ -138,9 +139,10 @@ export function spawnBoss(
   position: Vector,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
-  seed: Seed | undefined = undefined,
+  seedOrRNG: Seed | RNG | undefined = undefined,
   numSegments?: int,
 ): EntityNPC {
+  const seed = isRNG(seedOrRNG) ? seedOrRNG.Next() : seedOrRNG;
   const npc = spawnNPC(
     entityType,
     variant,
@@ -209,11 +211,12 @@ export function spawnBossWithSeed(
   variant: int,
   subType: int,
   position: Vector,
-  seed: Seed,
+  seedOrRNG: Seed | RNG,
   velocity = VectorZero,
   spawner: Entity | undefined = undefined,
   numSegments?: int,
 ): EntityNPC {
+  const seed = isRNG(seedOrRNG) ? seedOrRNG.Next() : seedOrRNG;
   return spawnBoss(
     entityType,
     variant,

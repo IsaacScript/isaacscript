@@ -9,6 +9,10 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## July 12th, 2022
+
+- All of the `spawn` helper functions now have the option to pass an RNG object instead of a seed.
+
 ## July 5th, 2022
 
 - Breaking changes:
