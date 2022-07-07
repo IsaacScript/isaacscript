@@ -12,12 +12,14 @@ This page lists the changes to the IsaacScript framework.
 ## July 12th, 2022
 
 - All of the `spawn` helper functions now have the option to pass an RNG object instead of a seed.
+- Added the following helper functions:
+  - `playerHasHealthLeft`
 
 ## July 5th, 2022
 
 - Breaking changes:
   - The values of `ChallengeRoomSubType.NORMAL` and `ChallengeRoomSubType.BOSS` changed, since they were bugged.
-- Added the following helper function:
+- Added the following helper functions:
   - `validateEnumContiguous`
   - `getMatchingGridEntities`
   - `getTrapdoors`

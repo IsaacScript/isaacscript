@@ -251,6 +251,14 @@ export function playerConvertSoulHeartsToBlackHearts(
   setPlayerHealth(player, playerHealth);
 }
 
+export function playerHasHealthLeft(player: EntityPlayer): boolean {
+  const hearts = player.GetHearts();
+  const soulHearts = player.GetSoulHearts();
+  const boneHearts = player.GetBoneHearts();
+
+  return hearts === 0 && soulHearts === 0 && boneHearts === 0;
+}
+
 export function removeAllPlayerHealth(player: EntityPlayer): void {
   const goldenHearts = player.GetGoldenHearts();
   const eternalHearts = player.GetEternalHearts();
