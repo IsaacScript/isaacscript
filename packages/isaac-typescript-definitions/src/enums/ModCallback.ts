@@ -222,7 +222,7 @@ export enum ModCallback {
    *   subType: int,
    *   position: Vector,
    *   velocity: Vector,
-   *   spawner: Entity,
+   *   spawner: Entity | undefined,
    *   initSeed: int,
    * ): [EntityType, int, int, int] | undefined {}
    * ```

@@ -763,7 +763,7 @@ export enum ModCallbackCustom {
    * what it was on the previous frame.
    *
    * When registering the callback, takes an optional second argument that will make the callback
-   * only fire if the player matches the `CollectibleType` provided.
+   * only fire if the collectible matches the `CollectibleType` provided.
    *
    * ```ts
    * function postPlayerCollectibleAdded(
@@ -779,7 +779,7 @@ export enum ModCallbackCustom {
    * what it was on the previous frame.
    *
    * When registering the callback, takes an optional second argument that will make the callback
-   * only fire if the player matches the `CollectibleType` provided.
+   * only fire if the collectible matches the `CollectibleType` provided.
    *
    * ```ts
    * function postPlayerCollectibleRemoved(
