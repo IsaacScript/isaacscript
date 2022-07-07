@@ -254,15 +254,15 @@ export function playerConvertSoulHeartsToBlackHearts(
 /**
  * Helper function to see if the player is out of health.
  *
- * Specifically, this function will return true if the player has 0 red hearts, 0 soul/black hearts,
- * and 0 bone hearts.
+ * Specifically, this function will return false if the player has 0 red hearts, 0 soul/black
+ * hearts, and 0 bone hearts.
  */
 export function playerHasHealthLeft(player: EntityPlayer): boolean {
   const hearts = player.GetHearts();
   const soulHearts = player.GetSoulHearts();
   const boneHearts = player.GetBoneHearts();
 
-  return hearts === 0 && soulHearts === 0 && boneHearts === 0;
+  return hearts > 0 || soulHearts > 0 || boneHearts > 0;
 }
 
 export function removeAllPlayerHealth(player: EntityPlayer): void {
