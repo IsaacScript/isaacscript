@@ -20,6 +20,7 @@ This page lists the changes to the IsaacScript framework.
   - `clearFloorDisplayFlags`
   - `isRoomShapeDoubleCharge`
   - `getRoomShapeCharges`
+  - `getRoomShapeDoorSlotCoordinates`
 
 ## July 5th, 2022
 

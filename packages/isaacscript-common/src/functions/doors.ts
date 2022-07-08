@@ -16,6 +16,7 @@ import {
 import { DOOR_SLOT_TO_DIRECTION } from "../objects/doorSlotToDirection";
 import { DOOR_SLOT_TO_DOOR_SLOT_FLAG } from "../objects/doorSlotToDoorSlotFlag";
 import { OPPOSITE_DOOR_SLOTS } from "../objects/oppositeDoorSlots";
+import { ROOM_SHAPE_TO_DOOR_SLOT_COORDINATES } from "../objects/roomShapeToDoorSlotCoordinates";
 import { ROOM_SHAPE_TO_DOOR_SLOTS } from "../objects/roomShapeToDoorSlots";
 import { arrayToBitFlags } from "./bitwise";
 import { directionToVector } from "./direction";
@@ -176,6 +177,18 @@ export function getOppositeDoorSlot(doorSlot: DoorSlot): DoorSlot | undefined {
 export function getRepentanceDoor(): GridEntityDoor | undefined {
   const doors = getDoors();
   return doors.find((door) => isRepentanceDoor(door));
+}
+
+/**
+ * Helper function to get the room grid coordinates for a specific room shape and door slot
+ * combination.
+ */
+export function getRoomShapeDoorSlotCoordinates(
+  roomShape: RoomShape,
+  doorSlot: DoorSlot,
+): readonly [x: int, y: int] | undefined {
+  const coordinatesMap = ROOM_SHAPE_TO_DOOR_SLOT_COORDINATES[roomShape];
+  return coordinatesMap.get(doorSlot);
 }
 
 /** Helper function to find unused door slots in the room that can be used to make custom doors. */
