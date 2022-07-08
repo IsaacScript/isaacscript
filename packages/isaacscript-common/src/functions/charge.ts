@@ -10,8 +10,11 @@ import { getPlayers } from "./playerIndex";
 import { getRoomShapeCharges } from "./roomShape";
 
 /**
- * Helper function to add a charge to the player's active item. Will play the appropriate sound
- * effect, depending on whether the charge is partially full or completely full.
+ * Helper function to add a charge to the player's active item. Will flash the HUD and play the
+ * appropriate sound effect, depending on whether the charge is partially full or completely full.
+ *
+ * If the player's active item is already fully charged, then this function will return 0 and not
+ * flash the HUD or play a sound effect.
  *
  * This function will take the following things into account:
  * - The Battery
@@ -22,7 +25,8 @@ import { getRoomShapeCharges } from "./roomShape";
  * @param numCharges Optional. The amount of charges to grant. Default is 1.
  * @param playSoundEffect Optional. Whether to play a charge-related sound effect. Default is true.
  * @returns The amount of charges that were actually granted. For example, if the active item was
- *          already fully charged, this function would return 0.
+ *          only one away from a full charge, but the `numCharges` provided to this function was 2,
+ *          then this function would return 1.
  */
 export function addCharge(
   player: EntityPlayer,
