@@ -59,7 +59,6 @@ bash "$DIR/update.sh"
 set +e
 if npx git-dirty; then
   git commit -a -m "chore: updating dependencies"
+  git push --set-upstream origin main
 fi
 set -e
-
-git push --set-upstream origin main
