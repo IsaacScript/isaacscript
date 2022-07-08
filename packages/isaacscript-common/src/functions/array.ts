@@ -182,6 +182,7 @@ export function emptyArray<T>(array: T[]): void {
  * For example, if this function is provided an array containing 1, 2, and 3, then it will return an
  * array containing the following arrays:
  *
+ * - [] (if `includeEmptyArray` is set to true)
  * - [1]
  * - [2]
  * - [3]
