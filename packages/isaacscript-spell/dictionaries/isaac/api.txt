@@ -170,7 +170,8 @@ SPIKEBALL
 SPINDOWN
 SPITTY
 SPLURT
-Spritesheet
+spritesheet
+spritesheets
 SQUEEZY
 STOMPY
 STRAWMAN
