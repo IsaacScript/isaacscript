@@ -12,6 +12,6 @@
     "noHeader": true,
     "noImplicitGlobalVariables": true,
     "luaBundle": "./generateCustomStageRooms.lua",
-    "luaBundleEntry": "generateCustomStageRooms.ts",
+    "luaBundleEntry": "./generateCustomStageRooms.ts",
   },
 }
