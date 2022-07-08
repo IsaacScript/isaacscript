@@ -30,11 +30,13 @@ export function convertBinaryToDecimal(bits: int[]): number {
 export function convertDecimalToBinary(number: number, minLength?: int): int[] {
   const bits: int[] = [];
 
-  let i = 0;
-  while (number > 0) {
-    bits[i] = number % 2;
-    number = Math.floor(number / 2);
-    i += 1;
+  const bitsString = number.toString(2);
+  for (const bitString of bitsString) {
+    const bit = tonumber(bitString);
+    if (bit === undefined) {
+      error(`Failed to convert the following number to binary: ${number}`);
+    }
+    bits.push(bit);
   }
 
   if (minLength !== undefined) {
