@@ -7,7 +7,7 @@ import {
 export const DOOR_SLOT_TO_DOOR_SLOT_FLAG: {
   readonly [key in DoorSlot]: DoorSlotFlag;
 } = {
-  [DoorSlot.NO_DOOR_SLOT]: DoorSlotFlagZero, // 0
+  [DoorSlot.NO_DOOR_SLOT]: DoorSlotFlagZero, // -1
   [DoorSlot.LEFT_0]: DoorSlotFlag.LEFT_0, // 0
   [DoorSlot.UP_0]: DoorSlotFlag.UP_0, // 1
   [DoorSlot.RIGHT_0]: DoorSlotFlag.RIGHT_0, // 2

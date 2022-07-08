@@ -95,12 +95,16 @@ export function getRandomSetElement<T>(
  * - [1, 3]
  * - [2, 3]
  * - [1, 2, 3]
+ *
+ * @param set The set to get the combinations of.
+ * @param includeEmptyArray Whether or not to include an empty array in the combinations.
  */
 export function getSetCombinations<T>(
   set: Set<T> | ReadonlySet<T>,
+  includeEmptyArray: boolean,
 ): ReadonlyArray<ReadonlySet<T>> {
   const values = getSortedSetValues(set);
-  const combinations = getArrayCombinations(values);
+  const combinations = getArrayCombinations(values, includeEmptyArray);
 
   return combinations.map((array) => new Set(array));
 }

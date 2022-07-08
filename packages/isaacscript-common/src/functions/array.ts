@@ -182,7 +182,6 @@ export function emptyArray<T>(array: T[]): void {
  * For example, if this function is provided an array containing 1, 2, and 3, then it will return an
  * array containing the following arrays:
  *
- * - []
  * - [1]
  * - [2]
  * - [3]
@@ -194,12 +193,14 @@ export function emptyArray<T>(array: T[]): void {
  * From: https://github.com/firstandthird/combinations/blob/master/index.js
  *
  * @param array The array to get the combinations of.
+ * @param includeEmptyArray Whether or not to include an empty array in the combinations.
  * @param min Optional. The minimum number of elements to include in each combination. Default is 1.
  * @param max Optional. The maximum number of elements to include in each combination. Default is
  *            the length of the array.
  */
 export function getArrayCombinations<T>(
   array: T[] | readonly T[],
+  includeEmptyArray: boolean,
   min?: int,
   max?: int,
 ): ReadonlyArray<readonly T[]> {
@@ -239,7 +240,9 @@ export function getArrayCombinations<T>(
   }
 
   // Finally, account for the empty array combination.
-  all.unshift([]);
+  if (includeEmptyArray) {
+    all.unshift([]);
+  }
 
   return all;
 }
