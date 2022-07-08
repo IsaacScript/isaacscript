@@ -53,6 +53,7 @@ bash "$PACKAGE_DIR/build.sh"
 cd "$DIR/dist/packages/$PACKAGE_NAME"
 npm publish --access=public
 
+sleep 1
 bash "$DIR/update.sh"
 
 set +e

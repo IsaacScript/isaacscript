@@ -58,11 +58,15 @@ export function getRandomFloat(
  * @param max The upper bound for the random number (inclusive).
  * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
  *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ * @param exceptions Optional. An array of elements that will be skipped over when getting the
+ *                   random integer. For example, a min of 1, a max of 4, and an exceptions array of
+ *                   `[2]` would cause the function to return either 1, 3, or 4.
  */
 export function getRandomInt(
   min: int,
   max: int,
   seedOrRNG: Seed | RNG = getRandomSeed(),
+  exceptions: int[] | readonly int[] = [],
 ): int {
   const rng = isRNG(seedOrRNG) ? seedOrRNG : newRNG(seedOrRNG);
 
@@ -73,5 +77,12 @@ export function getRandomInt(
     max = oldMin;
   }
 
-  return rng.RandomInt(max - min + 1) + min;
+  const exceptionsSet = new Set(exceptions);
+
+  let randomInt: int;
+  do {
+    randomInt = rng.RandomInt(max - min + 1) + min;
+  } while (!exceptionsSet.has(randomInt));
+
+  return randomInt;
 }

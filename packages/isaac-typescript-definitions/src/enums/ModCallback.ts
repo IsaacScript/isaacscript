@@ -223,7 +223,7 @@ export enum ModCallback {
    *   position: Vector,
    *   velocity: Vector,
    *   spawner: Entity | undefined,
-   *   initSeed: int,
+   *   initSeed: Seed,
    * ): [EntityType, int, int, int] | undefined {}
    * ```
    */
@@ -599,7 +599,7 @@ export enum ModCallback {
    * function preGetCollectible(
    *   itemPoolType: ItemPoolType,
    *   decrease: boolean,
-   *   seed: int,
+   *   seed: Seed,
    * ): CollectibleType | undefined {}
    * ```
    */
@@ -611,7 +611,7 @@ export enum ModCallback {
    *   collectibleType: CollectibleType,
    *   itemPoolType: ItemPoolType,
    *   decrease: boolean,
-   *   seed: int,
+   *   seed: Seed,
    * ): CollectibleType | undefined {}
    * ```
    */
@@ -619,7 +619,7 @@ export enum ModCallback {
 
   /**
    * ```ts
-   * function getPillColor(seed: int): PillColor | undefined {}
+   * function getPillColor(seed: Seed): PillColor | undefined {}
    * ```
    */
   GET_PILL_COLOR = 64,
@@ -682,7 +682,7 @@ export enum ModCallback {
    *   variant: int,
    *   subType: int,
    *   gridIndex: int,
-   *   seed: int,
+   *   seed: Seed,
    * ): [EntityType | GridEntityXMLType, int, int] | undefined {}
    * ```
    */
