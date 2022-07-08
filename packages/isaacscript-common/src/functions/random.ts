@@ -60,7 +60,8 @@ export function getRandomFloat(
  *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
  * @param exceptions Optional. An array of elements that will be skipped over when getting the
  *                   random integer. For example, a min of 1, a max of 4, and an exceptions array of
- *                   `[2]` would cause the function to return either 1, 3, or 4.
+ *                   `[2]` would cause the function to return either 1, 3, or 4. Default is an empty
+ *                   array.
  */
 export function getRandomInt(
   min: int,
@@ -82,7 +83,7 @@ export function getRandomInt(
   let randomInt: int;
   do {
     randomInt = rng.RandomInt(max - min + 1) + min;
-  } while (!exceptionsSet.has(randomInt));
+  } while (exceptionsSet.has(randomInt));
 
   return randomInt;
 }

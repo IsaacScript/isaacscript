@@ -325,10 +325,13 @@ export function getRandomArrayElementAndRemove<T>(
  * @param array The array to get the index from.
  * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
  *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ * @param exceptions Optional. An array of indexes that will be skipped over when getting the random
+ *                   index. Default is an empty array.
  */
 export function getRandomArrayIndex<T>(
   array: T[] | readonly T[],
   seedOrRNG: Seed | RNG = getRandomSeed(),
+  exceptions: int[] | readonly int[] = [],
 ): int {
   if (array.length === 0) {
     error(
@@ -336,7 +339,7 @@ export function getRandomArrayIndex<T>(
     );
   }
 
-  return getRandomInt(0, array.length - 1, seedOrRNG);
+  return getRandomInt(0, array.length - 1, seedOrRNG, exceptions);
 }
 
 /**
