@@ -9,6 +9,7 @@ bosspools # bosspools.xml
 cansacrifice # entities2.xml
 canshoot # challenges.xml
 chargebar # ui_chargebar.anm2
+chargetype # items.xml
 CNDL # BLCK CNDL seed
 deathanm # items.xml
 endstage # challenges.xml
