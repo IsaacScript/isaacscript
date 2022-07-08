@@ -18,8 +18,16 @@ export function convertBinaryToDecimal(bits: int[]): number {
   return parseInt(bitsString, 2);
 }
 
-/** Helper function to convert a number to an array of bits. */
-export function convertDecimalToBinary(number: number): int[] {
+/**
+ * Helper function to convert a number to an array of bits.
+ *
+ * @param number The number to convert.
+ * @param minLength Optional. Equal to the minimum amount of bits that should be returned. If the
+ *                  converted number of bits is below this number, 0's will be padded to the left
+ *                  side until the minimum length is met. Default is undefined (which will not cause
+ *                  any padding).
+ */
+export function convertDecimalToBinary(number: number, minLength?: int): int[] {
   const bits: int[] = [];
 
   let i = 0;
@@ -27,6 +35,12 @@ export function convertDecimalToBinary(number: number): int[] {
     bits[i] = number % 2;
     number = Math.floor(number / 2);
     i += 1;
+  }
+
+  if (minLength !== undefined) {
+    while (bits.length < minLength) {
+      bits.unshift(0);
+    }
   }
 
   return bits;
