@@ -40,7 +40,7 @@ export function addCharge(
   const chargesToAdd = getClampedChargesToAdd(player, activeSlot, numCharges);
 
   // The AAA Battery trinket might grant an additional charge.
-  const modifiedChargesToAdd = getNumChargesWithAAAModifier(
+  const modifiedChargesToAdd = getChargesToAddWithAAAModifier(
     player,
     activeSlot,
     chargesToAdd,
@@ -167,7 +167,7 @@ function getClampedChargesToAdd(
  * The AAA Battery should grant an extra charge when the active item is one away from being fully
  * charged.
  */
-function getNumChargesWithAAAModifier(
+function getChargesToAddWithAAAModifier(
   player: EntityPlayer,
   activeSlot: ActiveSlot,
   chargesToAdd: int,
