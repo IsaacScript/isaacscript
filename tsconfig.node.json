@@ -13,6 +13,7 @@
     "target": "ES2021",
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "moduleResolution": "node",
 
     // We generically enable the ability to read JSON files, since it is common to import the
     // "package.json" file to see what version the program is.
