@@ -1,38 +1,94 @@
 import {
   ActiveSlot,
   CollectibleType,
-  RoomShape,
   SoundEffect,
   TrinketType,
 } from "isaac-typescript-definitions";
 import { game, sfxManager } from "../cachedClasses";
 import { getCollectibleMaxCharges } from "./collectibles";
 import { getPlayers } from "./playerIndex";
+import { getRoomShapeCharges } from "./roomShape";
 
 /**
- * Helper function to add a charge to a player's active item, emulating what happens when a room is
- * cleared.
+ * Helper function to add a charge to the player's active item. Will play the appropriate sound
+ * effect, depending on whether the charge is partially full or completely full.
  *
  * This function will take the following things into account:
- * - L rooms and 2x2 rooms granting a double charge
  * - The Battery
  * - AAA Battery
  *
  * @param player The player to grant the charges to.
- * @param ignoreBigRoomDoubleCharge Optional. If set to true, it will treat the current room as a
- *                                 1x1 room for the purposes of calculating how much charge to
- *                                 grant. Default is false.
+ * @param activeSlot The slot to grant the charges to.
+ * @param numCharges Optional. The amount of charges to grant. Default is 1.
+ * @param playSoundEffect Optional. Whether to play a charge-related sound effect. Default is true.
+ * @returns The amount of charges that were actually granted. For example, if the active item was
+ *          already fully charged, this function would return 0.
+ */
+export function addCharge(
+  player: EntityPlayer,
+  activeSlot: ActiveSlot,
+  numCharges = 1,
+  playSoundEffect = true,
+): int {
+  const hud = game.GetHUD();
+
+  // Ensure that there is enough space on the active item to store these amount of charges.
+  const totalCharge = getTotalCharge(player, activeSlot);
+  const chargesToAdd = getClampedChargesToAdd(player, activeSlot, numCharges);
+
+  // The AAA Battery trinket might grant an additional charge.
+  const modifiedChargesToAdd = getNumChargesWithAAAModifier(
+    player,
+    activeSlot,
+    chargesToAdd,
+  );
+
+  const newCharge = totalCharge + modifiedChargesToAdd;
+  if (newCharge === totalCharge) {
+    return 0;
+  }
+
+  player.SetActiveCharge(newCharge, activeSlot);
+  hud.FlashChargeBar(player, activeSlot);
+
+  if (playSoundEffect) {
+    playChargeSoundEffect(player, activeSlot);
+  }
+
+  return modifiedChargesToAdd;
+}
+
+/**
+ * Helper function to add a charge to a player's active item(s), emulating what happens when a room
+ * is cleared.
+ *
+ * This function will take the following things into account:
+ * - 2x2 rooms and L rooms granting a double charge
+ * - The Battery
+ * - AAA Battery
+ *
+ * @param player The player to grant the charges to.
+ * @param bigRoomDoubleCharge Optional. If set to false, it will treat the current room as a 1x1
+ *                            room for the purposes of calculating how much charge to grant. Default
+ *                            is true.
+ * @param playSoundEffect Optional. Whether to play a charge-related sound effect. Default is true.
  */
 export function addRoomClearCharge(
   player: EntityPlayer,
-  ignoreBigRoomDoubleCharge = false,
+  bigRoomDoubleCharge = true,
+  playSoundEffect = true,
 ): void {
   for (const activeSlot of [
     ActiveSlot.PRIMARY,
     ActiveSlot.SECONDARY,
     ActiveSlot.POCKET,
   ]) {
-    addRoomClearChargeToSlot(player, activeSlot, ignoreBigRoomDoubleCharge);
+    addRoomClearChargeToSlot(
+      player,
+      activeSlot,
+      bigRoomDoubleCharge,
+      playSoundEffect,
+    );
   }
 }
 
@@ -47,48 +103,33 @@ export function addRoomClearCharge(
  *
  * @param player The player to grant the charges to.
  * @param activeSlot The active item slot to grant the charges to.
- * @param ignoreBigRoomDoubleCharge Optional. If set to true, it will treat the current room as a
- *                                 1x1 room for the purposes of calculating how much charge to
- *                                 grant. Default is false.
+ * @param bigRoomDoubleCharge Optional. If set to false, it will treat the current room as a 1x1
+ *                            room for the purposes of calculating how much charge to grant. Default
+ *                            is true.
+ * @param playSoundEffect Optional. Whether to play a charge-related sound effect. Default is true.
  */
 export function addRoomClearChargeToSlot(
   player: EntityPlayer,
   activeSlot: ActiveSlot,
-  ignoreBigRoomDoubleCharge = false,
+  bigRoomDoubleCharge = true,
+  playSoundEffect = true,
 ): void {
-  if (!player.NeedsCharge(activeSlot)) {
-    return;
-  }
-
-  const hud = game.GetHUD();
-
-  // Find out the new charge to set on the item.
-  const totalCharge = getTotalCharge(player, activeSlot);
-  const chargesToAdd = getNumChargesToAdd(
-    player,
-    activeSlot,
-    ignoreBigRoomDoubleCharge,
-  );
-  const modifiedChargesToAdd = getNumChargesWithAAAModifier(
-    player,
-    activeSlot,
-    chargesToAdd,
-  );
-  const newCharge = totalCharge + modifiedChargesToAdd;
-
-  player.SetActiveCharge(newCharge, activeSlot);
-  hud.FlashChargeBar(player, activeSlot);
-
-  playChargeSoundEffect(player, activeSlot);
-}
-
-function getNumChargesToAdd(
-  player: EntityPlayer,
-  activeSlot: ActiveSlot,
-  ignoreBigRoomDoubleCharge = false,
-) {
   const room = game.GetRoom();
   const roomShape = room.GetRoomShape();
+
+  const numCharges = bigRoomDoubleCharge ? getRoomShapeCharges(roomShape) : 1;
+  addCharge(player, activeSlot, numCharges, playSoundEffect);
+}
+
+/**
+ * We don't want to add more charges than is normally possible, so we must check to see if the
+ * player can hold the specified amount of charges in the given slot.
+ */
+function getClampedChargesToAdd(
+  player: EntityPlayer,
+  activeSlot: ActiveSlot,
+  numCharges: int,
+) {
   const activeItem = player.GetActiveItem(activeSlot);
   const activeCharge = player.GetActiveCharge(activeSlot);
   const batteryCharge = player.GetBatteryCharge(activeSlot);
@@ -115,13 +156,7 @@ function getNumChargesToAdd(
     return 1;
   }
 
-  if (roomShape >= RoomShape.SHAPE_2x2 && !ignoreBigRoomDoubleCharge) {
-    // 2x2 rooms and L rooms should grant 2 charges.
-    return 2;
-  }
-
-  // Clearing a room grants 1 charge by default.
-  return 1;
+  return numCharges;
 }
 
 /**

@@ -51,6 +51,7 @@ import {
 import { HealthType } from "../../enums/HealthType";
 import { getCardName } from "../../functions/cards";
 import { getCharacterName } from "../../functions/character";
+import { addCharge } from "../../functions/charge";
 import { isValidCollectibleType } from "../../functions/collectibles";
 import { getNPCs } from "../../functions/entitySpecific";
 import { getEnumValues } from "../../functions/enums";
@@ -107,7 +108,7 @@ export function addCharges(params: string): void {
     return;
   }
 
-  const [activeSlotString, chargeString] = args;
+  const [activeSlotString, numChargeString] = args;
 
   const activeSlot = tonumber(activeSlotString) as ActiveSlot | undefined;
   if (activeSlot === undefined) {
@@ -123,20 +124,18 @@ export function addCharges(params: string): void {
     return;
   }
 
-  let chargeNum = 1;
-  if (chargeString !== undefined) {
-    const chargeNumAttempt = tonumber(chargeString);
-    if (chargeNumAttempt === undefined) {
-      printConsole(`The provided charge amount is invalid: ${chargeString}`);
+  let numCharges = 1;
+  if (numChargeString !== undefined) {
+    const numChargesAttempt = tonumber(numChargeString);
+    if (numChargesAttempt === undefined) {
+      printConsole(`The provided charge amount is invalid: ${numChargeString}`);
       return;
     }
-    chargeNum = chargeNumAttempt;
+    numCharges = numChargesAttempt;
   }
 
   const player = Isaac.GetPlayer();
-  const currentCharge = player.GetActiveCharge(activeSlot);
-  const newCharge = currentCharge + chargeNum;
-  player.SetActiveCharge(newCharge, activeSlot);
+  addCharge(player, activeSlot, numCharges);
 }
 
 /**

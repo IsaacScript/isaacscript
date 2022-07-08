@@ -24,23 +24,33 @@ export function getGridIndexDelta(
 }
 
 /**
- * Helper function to get the grid position of the bottom-right tile of a given room shape.
+ * Helper function to see if a given room shape will grant a single charge or a double charge to the
+ * player's active item(s).
  *
- * "Vector(0, 0)" corresponds to the top left tile of a room, not including the walls. (The top-left
- * wall would be at "Vector(-1, -1)".)
+ * For example, `RoomShape.SHAPE_2x2` will return 2.
  */
 export function getRoomShapeBottomRightPosition(roomShape: RoomShape): Vector {
   return ROOM_SHAPE_TO_BOTTOM_RIGHT_POSITION[roomShape];
 }
 
 /**
- * Helper function to get the bounds of a room shape, which are a box representing its contents.
- * This does not include the tiles that the walls are on. L rooms use the same bounds as a 2x2 room.
+ * Helper function to get the grid position of the bottom-right tile of a given room shape.
+ *
+ * "Vector(0, 0)" corresponds to the top left tile of a room, not including the walls. (The top-left
+ * wall would be at "Vector(-1, -1)".)
  */
 export function getRoomShapeBounds(
   roomShape: RoomShape,
 ): readonly [width: int, height: int] {
   return ROOM_SHAPE_BOUNDS[roomShape];
+}
+
+/**
+ * Helper function to get the bounds of a room shape, which are a box representing its contents.
+ * This does not include the tiles that the walls are on. L rooms use the same bounds as a 2x2 room.
+ */
+export function getRoomShapeCharges(roomShape: RoomShape): int {
+  return isRoomShapeDoubleCharge(roomShape) ? 2 : 1;
 }
 
 /**
@@ -81,4 +91,15 @@ export function getRoomShapeWidth(roomShape: RoomShape): int {
 
 export function isLRoom(roomShape: RoomShape): boolean {
   return L_ROOM_SHAPES_SET.has(roomShape);
+}
+
+/**
+ * Helper function to see if a given room shape will grant a single charge or a double charge to the
+ * player's active item(s).
+ *
+ * For example, `RoomShape.SHAPE_2x2` will return true.
+ */
+export function isRoomShapeDoubleCharge(roomShape: RoomShape): boolean {
+  // 2x2 rooms and L rooms should grant 2 charges.
+  return roomShape >= RoomShape.SHAPE_2x2;
 }
