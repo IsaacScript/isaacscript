@@ -243,7 +243,10 @@ export function playChargeSoundEffect(
   player: EntityPlayer,
   activeSlot: ActiveSlot,
 ): void {
-  for (const soundEffect of [SoundEffect.BATTERY_CHARGE, SoundEffect.BEEP]) {
+  for (const soundEffect of [
+    SoundEffect.BATTERY_CHARGE, // 170
+    SoundEffect.BEEP, // 171
+  ]) {
     sfxManager.Stop(soundEffect);
   }
 
@@ -263,14 +266,17 @@ function shouldPlayFullRechargeSound(
   const hasBattery = player.HasCollectible(CollectibleType.BATTERY);
   const maxCharges = getCollectibleMaxCharges(activeItem);
 
+  // If we do not have The Battery, play the full recharge sound if we are now fully charged.
   if (!hasBattery) {
-    // Play the full recharge sound if we are now fully charged.
-    return !player.NeedsCharge(activeSlot);
+    // We cannot use the `EntityPlayer.NeedsCharge` method because it does not work properly for
+    // items with `chargetype="special"`.
+    return activeCharge === maxCharges;
   }
 
-  // Play the full recharge sound if we are now fully charged or we are exactly half-way charged.
+  // If we do have The Battery, play the full recharge sound if we are exactly double charged or
+  // exactly single charged.
   return (
-    !player.NeedsCharge(activeSlot) ||
+    batteryCharge === maxCharges ||
     (activeCharge === maxCharges && batteryCharge === 0)
   );
 }

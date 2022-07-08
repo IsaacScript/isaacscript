@@ -909,6 +909,9 @@ declare global {
     IsSubPlayer(): boolean;
 
     /**
+     * This will always return false for active items that have `chargetype="special"` set in the
+     * `items.xml` file, even if they are not fully charged.
+     *
      * @param activeSlot Default is `ActiveSlot.SLOT_PRIMARY`.
      */
     NeedsCharge(activeSlot?: ActiveSlot): boolean;
