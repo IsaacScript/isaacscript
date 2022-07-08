@@ -8,7 +8,7 @@ Sometimes, you might want to convert an old mod written in Lua to TypeScript. Th
 
 ## LuaToTypeScript
 
-Hazzard993 wrote [a tool to automatically convert Lua to TypeScript](https://github.com/hazzard993/LuaToTypeScript). This works great and is probably what you want to use. Note that it does not convert comments, so you might want to manually transfer those over afterward. <!-- cspell:ignore Hazzard -->
+Hazzard993 wrote [a tool to automatically convert Lua to TypeScript](https://github.com/hazzard993/LuaToTypeScript). This works great and is probably what you will want to use. Note that it does not convert comments, so you might want to manually transfer those over afterward. <!-- cspell:ignore Hazzard -->
 
 <br />
 
