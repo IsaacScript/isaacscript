@@ -1,7 +1,24 @@
-import { DisplayFlag } from "isaac-typescript-definitions";
+import { DisplayFlag, DisplayFlagZero } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { getRoomDescriptor } from "./roomData";
 import { getRoomsInGrid } from "./rooms";
+
+/**
+ * Helper function to set the value of `DisplayFlag` for every room on the floor to 0.
+ *
+ * This function automatically calls the `Level.UpdateVisibility` after setting the flags so that
+ * the changes will be immediately visible.
+ */
+export function clearFloorDisplayFlags(): void {
+  const level = game.GetLevel();
+
+  for (const room of getRoomsInGrid()) {
+    room.DisplayFlags = DisplayFlagZero;
+  }
+
+  // We must call the "Level.UpdateVisibility" method for the changes to be visible.
+  level.UpdateVisibility();
+}
 
 /**
  * Helper function to get the minimap `DisplayFlag` value for every room on the floor. Returns a map
@@ -58,6 +75,7 @@ export function setDisplayFlags(
     }
   }
 
+  // We must call the "Level.UpdateVisibility" method for the changes to be visible.
   level.UpdateVisibility();
 }
 

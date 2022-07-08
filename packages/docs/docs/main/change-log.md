@@ -14,6 +14,7 @@ This page lists the changes to the IsaacScript framework.
 - All of the `spawn` helper functions now have the option to pass an RNG object instead of a seed.
 - Added the following helper functions:
   - `playerHasHealthLeft`
+  - `clearFloorDisplayFlags`
 
 ## July 5th, 2022
 

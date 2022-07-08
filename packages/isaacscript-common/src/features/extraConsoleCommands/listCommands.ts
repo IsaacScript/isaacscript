@@ -759,7 +759,7 @@ export function map(): void {
     roomDesc.DisplayFlags = displayFlags;
   }
 
-  // Setting the display flag will not actually update the map.
+  // We must call the "Level.UpdateVisibility" method for the changes to be visible.
   level.UpdateVisibility();
 }
 
