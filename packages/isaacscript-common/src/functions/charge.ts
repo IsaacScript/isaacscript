@@ -37,7 +37,6 @@ export function addCharge(
   const hud = game.GetHUD();
 
   // Ensure that there is enough space on the active item to store these amount of charges.
-  const totalCharge = getTotalCharge(player, activeSlot);
   const chargesToAdd = getClampedChargesToAdd(player, activeSlot, numCharges);
 
   // The AAA Battery trinket might grant an additional charge.
@@ -47,6 +46,7 @@ export function addCharge(
     chargesToAdd,
   );
 
+  const totalCharge = getTotalCharge(player, activeSlot);
   const newCharge = totalCharge + modifiedChargesToAdd;
   if (newCharge === totalCharge) {
     return 0;
@@ -184,11 +184,11 @@ function getNumChargesWithAAAModifier(
   }
 
   if (!hasBattery && activeCharge + chargesToAdd === maxCharges - 1) {
-    return maxCharges + 1;
+    return chargesToAdd + 1;
   }
 
   if (hasBattery && batteryCharge + chargesToAdd === maxCharges - 1) {
-    return maxCharges + 1;
+    return chargesToAdd + 1;
   }
 
   return chargesToAdd;
