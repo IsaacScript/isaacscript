@@ -8615,10 +8615,10 @@ isaac-typescript-definitions@^3.0.18:
   dependencies:
     lua-types "^2.11.0"
 
-isaacscript-common@^5.0.2:
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/isaacscript-common/-/isaacscript-common-5.0.2.tgz#1e8ceacb3cc3c7904daa07528f9346352e295490"
-  integrity sha512-ah2f2iuxkYFQGTeNKHWLDI/hDJjnCWvZx/2OH50S1P45DRRWNSWEetiqgepM1Vs/bCFn2850mDYv54ZodppBJw==
+isaacscript-common@^5.0.3:
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/isaacscript-common/-/isaacscript-common-5.0.3.tgz#2a4166ae90da39f5a81a8f787024526863a023ea"
+  integrity sha512-gY2b9cF8lufpd31YR6vMIF9sIdz3d7q6UJr2aCLNmUdkITq5F4n2z+5ronqNGYZy4UqF/93P5tuzp9TqnlB4iQ==
   dependencies:
     isaac-typescript-definitions "^3.0.18"
 
