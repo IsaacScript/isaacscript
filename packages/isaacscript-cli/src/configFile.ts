@@ -1,10 +1,9 @@
-import chalk from "chalk";
-import * as JSONC from "jsonc-parser";
 import path from "path";
 import { getModsDir } from "./commands/init/getModsDir";
 import { promptSaveSlot } from "./commands/init/promptSaveSlot";
 import { CONFIG_FILE_NAME, CONFIG_FILE_PATH, CWD } from "./constants";
 import * as file from "./file";
+import { getJSONC } from "./json";
 import { Args } from "./parseArgs";
 import { Config } from "./types/Config";
 import { error } from "./utils";
@@ -15,7 +14,7 @@ export async function get(args: Args): Promise<Config> {
   const verbose = args.verbose === true;
   const yes = args.yes === true;
 
-  const existingConfig = readExistingConfig(verbose);
+  const existingConfig = getExistingConfig(verbose);
   if (existingConfig !== undefined) {
     return existingConfig;
   }
@@ -29,24 +28,16 @@ export async function get(args: Args): Promise<Config> {
   return config;
 }
 
-function readExistingConfig(verbose: boolean): Config | undefined {
+function getExistingConfig(verbose: boolean): Config | undefined {
   if (!file.exists(CONFIG_FILE_PATH, verbose)) {
     return undefined;
   }
 
-  const configRaw = file.read(CONFIG_FILE_PATH, verbose);
-
-  let config: Config;
-  try {
-    config = JSONC.parse(configRaw) as Config;
-  } catch (err) {
-    error(`Failed to parse the "${chalk.green(CONFIG_FILE_PATH)}" file:`, err);
-  }
+  const config = getJSONC(CONFIG_FILE_PATH, verbose);
 
   // Even though the "modsDirectory" property is always initialized in the class, it may not be
   // necessarily exist in the JSON file.
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (config.modsDirectory === undefined) {
+  if (config["modsDirectory"] === undefined) {
     errorMissing(
       "modsDirectory",
       "This should be equal to the directory where Isaac mods live on your system.",
@@ -55,15 +46,14 @@ function readExistingConfig(verbose: boolean): Config | undefined {
 
   // Even though the "saveSlot" property is always initialized in the class, it may not be
   // necessarily exist in the JSON file.
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (config.saveSlot === undefined) {
+  if (config["saveSlot"] === undefined) {
     errorMissing(
       "saveSlot",
       "This should be equal to the save slot that you test your mods on.",
     );
   }
 
-  return config;
+  return config as unknown as Config;
 }
 
 function errorMissing(field: string, description: string) {

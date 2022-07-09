@@ -1,8 +1,7 @@
-import chalk from "chalk";
-import * as JSONC from "jsonc-parser";
 import path from "path";
 import { execShell } from "../../exec";
 import * as file from "../../file";
+import { getJSONC } from "../../json";
 import { error } from "../../utils";
 
 export function installVSCodeExtensions(
@@ -16,11 +15,10 @@ export function installVSCodeExtensions(
   }
 }
 
-interface ExtensionsJSON {
-  recommendations: string[];
-}
-
-function getExtensionsFromJSON(projectPath: string, verbose: boolean) {
+function getExtensionsFromJSON(
+  projectPath: string,
+  verbose: boolean,
+): string[] {
   const extensionsJSONPath = path.join(
     projectPath,
     ".vscode",
@@ -31,17 +29,14 @@ function getExtensionsFromJSON(projectPath: string, verbose: boolean) {
     return [];
   }
 
-  const extensionsJSONRaw = file.read(extensionsJSONPath, verbose);
+  const extensionsJSON = getJSONC(extensionsJSONPath, verbose);
 
-  let extensionsJSON: ExtensionsJSON;
-  try {
-    extensionsJSON = JSONC.parse(extensionsJSONRaw) as ExtensionsJSON;
-  } catch (err) {
+  const { recommendations } = extensionsJSON;
+  if (!Array.isArray(recommendations)) {
     error(
-      `Failed to parse the "${chalk.green(extensionsJSONPath)}" file:`,
-      err,
+      'The "recommendations" property in the "extensions.json" file is not an array.',
     );
   }
 
-  return extensionsJSON.recommendations;
+  return recommendations as string[];
 }

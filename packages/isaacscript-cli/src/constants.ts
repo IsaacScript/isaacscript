@@ -79,7 +79,8 @@ export const README_MD_TEMPLATES_PATH = path.join(
 // `project`
 export const CONFIG_FILE_NAME = "isaacscript.json";
 export const CONFIG_FILE_PATH = path.join(CWD, CONFIG_FILE_NAME);
-export const TSCONFIG_PATH = path.join(CWD, "tsconfig.json");
+export const TSCONFIG_JSON = "tsconfig.json";
+export const TSCONFIG_JSON_PATH = path.join(CWD, TSCONFIG_JSON);
 export const PACKAGE_JSON_PATH = path.join(CWD, "package.json");
 export const CONSTANTS_TS_PATH = path.join(CWD, "src", "constants.ts");
 

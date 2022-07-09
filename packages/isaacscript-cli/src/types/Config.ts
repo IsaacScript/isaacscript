@@ -1,3 +1,4 @@
+/** The mandatory properties must be explicitly validated in `configFile.ts`. */
 export class Config {
   /** The "mods" directory that lives next to the "isaac-ng.exe" program. */
   modsDirectory =

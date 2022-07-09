@@ -49,6 +49,12 @@ export function isKebabCase(s: string): boolean {
   return KEBAB_CASE_REGEX.test(s);
 }
 
+export function isRecord(object: unknown): object is Record<string, unknown> {
+  return (
+    typeof object === "object" && object !== null && !Array.isArray(object)
+  );
+}
+
 /**
  * `parseIntSafe` is a more reliable version of `parseInt`. By default, `parseInt('1a')` will return
  * "1", which is unexpected. This returns either an integer or NaN.

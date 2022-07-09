@@ -1,6 +1,5 @@
 import chalk from "chalk";
 import { fork, spawn } from "child_process";
-import * as JSONC from "jsonc-parser";
 import path from "path";
 import {
   CWD,
@@ -9,16 +8,17 @@ import {
   MOD_SOURCE_PATH,
   PACKAGE_JSON_PATH,
   PROJECT_NAME,
-  TSCONFIG_PATH,
 } from "../../constants";
 import * as file from "../../file";
+import { getJSONC } from "../../json";
 import {
   getPackageManagerAddCommand,
   getPackageManagerUsedForExistingProject,
 } from "../../packageManager";
 import { Args } from "../../parseArgs";
+import { getFirstTSConfigIncludePath } from "../../tsConfig";
 import { Config } from "../../types/Config";
-import { error, getModTargetDirectoryName } from "../../utils";
+import { error, getModTargetDirectoryName, isRecord } from "../../utils";
 import { COMPILATION_SUCCESSFUL } from "./constants";
 import { copyWatcherMod } from "./copyWatcherMod";
 import * as notifyGame from "./notifyGame";
@@ -95,31 +95,16 @@ export function monitor(args: Args, config: Config): void {
 }
 
 function validatePackageJSONDependencies(args: Args, verbose: boolean) {
-  const packageJSONRaw = file.read(PACKAGE_JSON_PATH, verbose);
-  let packageJSON: Record<string, unknown>;
-  try {
-    packageJSON = JSONC.parse(packageJSONRaw) as Record<string, unknown>;
-  } catch (err) {
-    error(`Failed to parse "${chalk.green(PACKAGE_JSON_PATH)}":`, err);
-  }
-
-  if (typeof packageJSON !== "object") {
-    error(
-      `Failed to parse "${chalk.green(
-        PACKAGE_JSON_PATH,
-      )}" since it was of type:`,
-      typeof packageJSON,
-    );
-  }
+  const packageJSON = getJSONC(PACKAGE_JSON_PATH, verbose);
 
   const { dependencies } = packageJSON;
-  if (typeof dependencies !== "object") {
+  if (!isRecord(dependencies)) {
     error(
       `Failed to parse the dependencies of: ${chalk.green(PACKAGE_JSON_PATH)}`,
     );
   }
 
-  const dependenciesArray = Object.keys(dependencies as Record<string, string>);
+  const dependenciesArray = Object.keys(dependencies);
 
   for (const dependency of REQUIRED_PACKAGE_JSON_DEPENDENCIES) {
     if (!dependenciesArray.includes(dependency)) {
@@ -216,42 +201,4 @@ function spawnTSTLWatcher() {
   tstl.on("exit", (code) => {
     error(`Error: ${processDescription} subprocess exited with code: ${code}`);
   });
-}
-
-function getFirstTSConfigIncludePath(verbose: boolean): string {
-  const tsConfigRaw = file.read(TSCONFIG_PATH, verbose);
-  let tsConfig: Record<string, string[]>;
-  try {
-    tsConfig = JSONC.parse(tsConfigRaw) as Record<string, string[]>;
-  } catch (err) {
-    error(`Failed to parse "${chalk.green(TSCONFIG_PATH)}":`, err);
-  }
-
-  const { include } = tsConfig;
-  if (include === undefined) {
-    error(
-      `Your "${chalk.green(
-        TSCONFIG_PATH,
-      )}" file does not have an "include" property, which is surely a mistake. Delete the file and re-run ${PROJECT_NAME}.`,
-    );
-  }
-
-  if (!Array.isArray(include)) {
-    error(
-      `Your "${chalk.green(
-        TSCONFIG_PATH,
-      )}" file has an "include" property that is not an array, which is surely a mistake. Delete the file and re-run ${PROJECT_NAME}.`,
-    );
-  }
-
-  const firstInclude = include[0];
-  if (firstInclude === undefined) {
-    error(
-      `Your "${chalk.green(
-        TSCONFIG_PATH,
-      )}" file has an empty "include" property, which is surely a mistake. Delete the file and re-run ${PROJECT_NAME}.`,
-    );
-  }
-
-  return firstInclude;
 }
