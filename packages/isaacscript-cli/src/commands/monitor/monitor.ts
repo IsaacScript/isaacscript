@@ -16,7 +16,7 @@ import {
   getPackageManagerUsedForExistingProject,
 } from "../../packageManager";
 import { Args } from "../../parseArgs";
-import { getFirstTSConfigIncludePath } from "../../tsConfig";
+import { getFirstTSConfigIncludePath } from "../../tsconfig";
 import { Config } from "../../types/Config";
 import { error, getModTargetDirectoryName, isRecord } from "../../utils";
 import { COMPILATION_SUCCESSFUL } from "./constants";
