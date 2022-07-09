@@ -11,16 +11,17 @@ import {
 import {
   convertBinaryToDecimal,
   convertDecimalToBinary,
+  setToBitFlags,
+} from "../../../functions/bitwise";
+import {
   doorSlotToDoorSlotFlag,
   getDoorSlotsForRoomShape,
-  getEnumValues,
   getRoomShapeDoorSlotCoordinates,
-  getRoomShapeLayoutSize,
-  getSetCombinations,
-  getSortedSetValues,
-  hasFlag,
-  setToBitFlags,
-} from "isaacscript-common";
+} from "../../../functions/doors";
+import { getEnumValues } from "../../../functions/enums";
+import { hasFlag } from "../../../functions/flag";
+import { getRoomShapeLayoutSize } from "../../../functions/roomShape";
+import { getSetCombinations, getSortedSetValues } from "../../../functions/set";
 import {
   CUSTOM_STAGE_BASE_ROOM_VARIANT,
   CUSTOM_STAGE_ILLEGAL_ROOM_TYPES,

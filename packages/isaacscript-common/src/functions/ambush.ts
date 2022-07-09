@@ -1,8 +1,7 @@
-import { PickupVariant } from "isaac-typescript-definitions";
+import { SackSubType } from "isaac-typescript-definitions";
 import { runNextGameFrame } from "../features/runInNFrames";
 import { removeEntities } from "./entity";
-import { spawnPickupWithSeed } from "./entitySpecific";
-import { getCoins } from "./pickups";
+import { getCoins, spawnSackWithSeed } from "./pickups";
 
 /** Hard-coding this makes it easier to clean up the pickups afterwards. */
 const SACK_SEED_THAT_SPAWNS_TWO_COINS = 6 as Seed;
@@ -15,9 +14,8 @@ const SACK_SEED_THAT_SPAWNS_TWO_COINS = 6 as Seed;
  */
 export function startAmbush(): void {
   const player = Isaac.GetPlayer();
-  const sack = spawnPickupWithSeed(
-    PickupVariant.SACK,
-    0,
+  const sack = spawnSackWithSeed(
+    SackSubType.NULL,
     player.Position,
     SACK_SEED_THAT_SPAWNS_TWO_COINS,
   );

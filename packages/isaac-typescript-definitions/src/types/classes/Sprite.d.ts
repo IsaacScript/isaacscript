@@ -29,8 +29,24 @@ declare interface Sprite {
   IsOverlayFinished(animation: string): boolean;
   IsOverlayPlaying(animation: string): boolean;
   IsPlaying(animation: string): boolean;
-  Load(filename: string, loadGraphics: boolean): void;
+
+  /**
+   * @param anm2 The path to the anm2 file that contains all of the animations for this sprite.
+   * @param loadGraphics Whether or not to immediately load the spritesheet PNG files. If false is
+   *                     passed, then you must call the `Sprite.LoadGraphics` method at some point
+   *                     in the future. Typically, you would pass false for this argument if you are
+   *                     intending to use the `Sprite.ReplaceSpritesheet` method after loading the
+   *                     anm2.
+   */
+  Load(anm2: string, loadGraphics: boolean): void;
+
+  /**
+   * Used to load the PNG files that are specified in the sprite's anm2. Typically, you would only
+   * call this method if you have previously passed false to the `loadGraphics` argument of the
+   * `Sprite.Load` method.
+   */
   LoadGraphics(): void;
+
   Play(animation: string, force: boolean): void;
   PlayOverlay(animation: string, force: boolean): void;
   PlayRandom(seed: Seed): void;

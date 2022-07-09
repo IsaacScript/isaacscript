@@ -8615,13 +8615,6 @@ isaac-typescript-definitions@^3.0.18:
   dependencies:
     lua-types "^2.11.0"
 
-isaacscript-common@^5.1.2:
-  version "5.1.2"
-  resolved "https://registry.yarnpkg.com/isaacscript-common/-/isaacscript-common-5.1.2.tgz#28da0b5b72adb709d293a6e5bc3365a82371336f"
-  integrity sha512-fS8sJFQgMHYxMAEE6riwEEUQq/bs0B9dA57w0cQcRdCDGzjfC/tZkPS+2VSNe1i8oqXGC+MzaupFUtobWgmuqA==
-  dependencies:
-    isaac-typescript-definitions "^3.0.18"
-
 isarray@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/isarray/-/isarray-0.0.1.tgz#8a18acfca9a8f4177e09abfc6038939b05d1eedf"

@@ -21,6 +21,9 @@ This page lists the changes to the IsaacScript framework.
   - `isRoomShapeDoubleCharge`
   - `getRoomShapeCharges`
   - `getRoomShapeDoorSlotCoordinates`
+  - `getGridEntitiesExcept`
+  - `spawnCustomGrid`
+  - `removeCustomGrid`
 
 ## July 5th, 2022
 

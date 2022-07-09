@@ -19,7 +19,7 @@ import { getPlayers } from "../functions/playerIndex";
 import { PlayerIndex } from "../types/PlayerIndex";
 import { saveDataManager } from "./saveDataManager/exports";
 
-const FEATURE_NAME = "ponyDetector";
+const FEATURE_NAME = "ponyDetection";
 
 const FLAGS_WHEN_PONY_IS_ACTIVE: readonly EntityFlag[] = [
   EntityFlag.NO_KNOCKBACK, // 1 << 26

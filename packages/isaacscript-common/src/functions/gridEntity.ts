@@ -179,6 +179,28 @@ function getAllGridEntities(): GridEntity[] {
 }
 
 /**
+ * Helper function to get every grid entity in the current room except for certain specific types.
+ *
+ * This function is variadic, meaning that you can specify as many grid entity types as you want to
+ * exclude.
+ */
+export function getGridEntitiesExcept(
+  ...gridEntityTypes: GridEntityType[]
+): GridEntity[] {
+  const gridEntities = getAllGridEntities();
+
+  if (gridEntityTypes.length === 0) {
+    return gridEntities;
+  }
+
+  const gridEntityTypesSet = new Set(gridEntityTypes);
+  return gridEntities.filter((gridEntity) => {
+    const gridEntityType = gridEntity.GetType();
+    return !gridEntityTypesSet.has(gridEntityType);
+  });
+}
+
+/**
  * Helper function to get a map of every grid entity in the current room. The indexes of the map are
  * equal to the grid index. The values of the map are equal to the grid entities.
  *
@@ -387,9 +409,10 @@ export function removeAllMatchingGridEntities(
 }
 
 /**
- * Helper function to remove a grid entity simply by providing the grid entity object.
+ * Helper function to remove a grid entity simply by providing the grid entity object. By default,
+ * this will also update the room.
  *
- * @param gridEntity The grid entity to remove.
+ * @param gridEntityOrGridIndex The grid entity or grid index to remove.
  * @param updateRoom Optional. Whether or not to update the room after the grid entity is removed.
  *                   Default is true. This is generally a good idea because if the room is not
  *                   updated, you will be unable to spawn another grid entity on the same tile until
@@ -397,10 +420,13 @@ export function removeAllMatchingGridEntities(
  *                   to `Isaac.GetRoomEntities`, so set it to false if you need to invoke this
  *                   function multiple times.
  */
-export function removeGrid(gridEntity: GridEntity, updateRoom = true): void {
+export function removeGrid(
+  gridEntityOrGridIndex: GridEntity,
+  updateRoom = true,
+): void {
   const room = game.GetRoom();
 
-  const gridIndex = gridEntity.GetGridIndex();
+  const gridIndex = gridEntityOrGridIndex.GetGridIndex();
   room.RemoveGridEntity(gridIndex, 0, false);
 
   if (updateRoom) {
