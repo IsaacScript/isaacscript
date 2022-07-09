@@ -9,7 +9,7 @@
     "invalidLink": true,
     "notExported": true,
   },
-  "entryPointStrategy": "Resolve", // The default is "Resolve".
+  "entryPointStrategy": "resolve", // The default is "resolve".
   "entryPoints": [
     "src/cachedClasses.ts",
     "src/classes/DefaultMap.ts",
