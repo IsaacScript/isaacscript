@@ -48,7 +48,7 @@ async function main(): Promise<void> {
   // Check for a new version.
   updateNotifier({ pkg }).notify();
 
-  // Pre-flight checks.
+  // Pre-flight checks
   await checkForWindowsTerminalBugs(verbose);
 
   await handleCommands(args);

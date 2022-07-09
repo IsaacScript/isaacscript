@@ -1,4 +1,5 @@
 import chalk from "chalk";
+import crypto from "crypto";
 import fs from "fs-extra";
 import path from "path";
 import { error } from "./utils";
@@ -109,6 +110,24 @@ function getFileStats(filePath: string, verbose: boolean): fs.Stats {
   }
 
   return fileStats;
+}
+
+export function hash(filePath: string): string {
+  // We can't use the "read" function because we want the file as bytes.
+  let fileContents: Buffer;
+  try {
+    fileContents = fs.readFileSync(filePath);
+  } catch (err) {
+    error(
+      `Failed to read the "${chalk.green(filePath)}" file for hashing:`,
+      err,
+    );
+  }
+
+  const hashSum = crypto.createHash("sha256");
+  hashSum.update(fileContents);
+
+  return hashSum.digest("hex");
 }
 
 export function isDir(filePath: string, verbose: boolean): boolean {

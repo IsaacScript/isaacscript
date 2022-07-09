@@ -9,6 +9,7 @@ import {
   PACKAGE_JSON_PATH,
   PROJECT_NAME,
 } from "../../constants";
+import { copyCustomStageRooms } from "../../customStage";
 import * as file from "../../file";
 import { getJSONC } from "../../json";
 import {
@@ -50,7 +51,7 @@ export function monitor(args: Args, config: Config): void {
     config.saveSlot = args.saveSlot; // eslint-disable-line no-param-reassign
   }
 
-  // Pre-flight checks.
+  // Pre-flight checks
   validatePackageJSONDependencies(args, verbose);
 
   // Read the "tsconfig.json" file.
@@ -62,6 +63,9 @@ export function monitor(args: Args, config: Config): void {
   // Prepare the IsaacScript watcher mod.
   copyWatcherMod(config, verbose);
   touchWatcherSaveDatFiles(config, verbose);
+
+  // Prepare the custom stages feature.
+  copyCustomStageRooms(MOD_SOURCE_PATH, modTargetPath, verbose);
 
   // Delete and re-copy the mod every time IsaacScript starts. This ensures that it is always the
   // latest version.
