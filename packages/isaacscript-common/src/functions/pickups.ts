@@ -274,7 +274,7 @@ export function removeAllTrinkets(
 export function spawnBattery(
   subType: BatterySubType,
   position: Vector,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityPickupBattery {
@@ -292,7 +292,7 @@ export function spawnBatteryWithSeed(
   subType: BatterySubType,
   position: Vector,
   seedOrRNG: Seed | RNG,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityPickupBattery {
   return spawnBattery(subType, position, velocity, spawner, seedOrRNG);
@@ -304,7 +304,7 @@ export function spawnBatteryWithSeed(
 export function spawnCard(
   subType: Card,
   position: Vector,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityPickupCard {
@@ -322,7 +322,7 @@ export function spawnCardWithSeed(
   subType: Card,
   position: Vector,
   seedOrRNG: Seed | RNG,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityPickupCard {
   return spawnCard(subType, position, velocity, spawner, seedOrRNG);
@@ -332,7 +332,7 @@ export function spawnCardWithSeed(
 export function spawnCoin(
   subType: CoinSubType,
   position: Vector,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityPickupCoin {
@@ -350,7 +350,7 @@ export function spawnCoinWithSeed(
   subType: CoinSubType,
   position: Vector,
   seedOrRNG: Seed | RNG,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityPickupCoin {
   return spawnCoin(subType, position, velocity, spawner, seedOrRNG);
@@ -360,7 +360,7 @@ export function spawnCoinWithSeed(
 export function spawnHeart(
   subType: HeartSubType,
   position: Vector,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityPickupHeart {
@@ -378,7 +378,7 @@ export function spawnHeartWithSeed(
   subType: HeartSubType,
   position: Vector,
   seedOrRNG: Seed | RNG,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityPickupHeart {
   return spawnHeart(subType, position, velocity, spawner, seedOrRNG);
@@ -388,7 +388,7 @@ export function spawnHeartWithSeed(
 export function spawnKey(
   subType: KeySubType,
   position: Vector,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityPickupKey {
@@ -406,7 +406,7 @@ export function spawnKeyWithSeed(
   subType: KeySubType,
   position: Vector,
   seedOrRNG: Seed | RNG,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityPickupKey {
   return spawnKey(subType, position, velocity, spawner, seedOrRNG);
@@ -416,7 +416,7 @@ export function spawnKeyWithSeed(
 export function spawnPill(
   pillColor: PillColor,
   position: Vector,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityPickupPill {
@@ -434,7 +434,7 @@ export function spawnPillWithSeed(
   subType: PillColor,
   position: Vector,
   seedOrRNG: Seed | RNG,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityPickupPill {
   return spawnPill(subType, position, velocity, spawner, seedOrRNG);
@@ -444,7 +444,7 @@ export function spawnPillWithSeed(
 export function spawnSack(
   subType: SackSubType,
   position: Vector,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityPickupSack {
@@ -462,7 +462,7 @@ export function spawnSackWithSeed(
   subType: SackSubType,
   position: Vector,
   seedOrRNG: Seed | RNG,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityPickupSack {
   return spawnSack(subType, position, velocity, spawner, seedOrRNG);
@@ -474,7 +474,7 @@ export function spawnSackWithSeed(
 export function spawnTrinket(
   subType: TrinketType,
   position: Vector,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityPickupTrinket {
@@ -492,7 +492,7 @@ export function spawnTrinketWithSeed(
   subType: TrinketType,
   position: Vector,
   seedOrRNG: Seed | RNG,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityPickupTrinket {
   return spawnTrinket(subType, position, velocity, spawner, seedOrRNG);

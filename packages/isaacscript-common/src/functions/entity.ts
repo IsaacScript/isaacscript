@@ -396,7 +396,7 @@ export function spawn(
   variant: int,
   subType: int,
   position: Vector,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
 ): Entity {
@@ -433,7 +433,7 @@ export function spawnWithSeed(
   subType: int,
   position: Vector,
   seedOrRNG: Seed | RNG,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
 ): Entity {
   return spawn(

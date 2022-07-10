@@ -137,7 +137,7 @@ export function spawnBoss(
   variant: int,
   subType: int,
   position: Vector,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
   numSegments?: int,
@@ -212,7 +212,7 @@ export function spawnBossWithSeed(
   subType: int,
   position: Vector,
   seedOrRNG: Seed | RNG,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   numSegments?: int,
 ): EntityNPC {

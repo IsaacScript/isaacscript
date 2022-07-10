@@ -495,7 +495,7 @@ export function spawnBomb(
   bombVariant: BombVariant,
   subType: int,
   position: Vector,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityBomb {
@@ -522,7 +522,7 @@ export function spawnBombWithSeed(
   subType: int,
   position: Vector,
   seedOrRNG: Seed | RNG,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityBomb {
   return spawnBomb(
@@ -540,7 +540,7 @@ export function spawnEffect(
   effectVariant: EffectVariant,
   subType: int,
   position: Vector,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityEffect {
@@ -567,7 +567,7 @@ export function spawnEffectWithSeed(
   subType: int,
   position: Vector,
   seedOrRNG: Seed | RNG,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityEffect {
   return spawnEffect(
@@ -585,7 +585,7 @@ export function spawnFamiliar(
   familiarVariant: FamiliarVariant,
   subType: int,
   position: Vector,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityFamiliar {
@@ -612,7 +612,7 @@ export function spawnFamiliarWithSeed(
   subType: int,
   position: Vector,
   seedOrRNG: Seed | RNG,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityFamiliar {
   return spawnFamiliar(
@@ -630,7 +630,7 @@ export function spawnKnife(
   knifeVariant: KnifeVariant,
   subType: int,
   position: Vector,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityKnife {
@@ -657,7 +657,7 @@ export function spawnKnifeWithSeed(
   subType: int,
   position: Vector,
   seedOrRNG: Seed | RNG,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityKnife {
   return spawnKnife(
@@ -675,7 +675,7 @@ export function spawnLaser(
   laserVariant: LaserVariant,
   subType: int,
   position: Vector,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityLaser {
@@ -702,7 +702,7 @@ export function spawnLaserWithSeed(
   subType: int,
   position: Vector,
   seedOrRNG: Seed | RNG,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityLaser {
   return spawnLaser(
@@ -721,7 +721,7 @@ export function spawnNPC(
   variant: int,
   subType: int,
   position: Vector,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityNPC {
@@ -749,7 +749,7 @@ export function spawnNPCWithSeed(
   subType: int,
   position: Vector,
   seedOrRNG: Seed | RNG,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityNPC {
   return spawnNPC(
@@ -768,7 +768,7 @@ export function spawnPickup(
   pickupVariant: PickupVariant,
   subType: int,
   position: Vector,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityPickup {
@@ -795,7 +795,7 @@ export function spawnPickupWithSeed(
   subType: int,
   position: Vector,
   seedOrRNG: Seed | RNG,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityPickup {
   return spawnPickup(
@@ -813,7 +813,7 @@ export function spawnProjectile(
   projectileVariant: ProjectileVariant,
   subType: int,
   position: Vector,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityProjectile {
@@ -840,7 +840,7 @@ export function spawnProjectileWithSeed(
   subType: int,
   position: Vector,
   seedOrRNG: Seed | RNG,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityProjectile {
   return spawnProjectile(
@@ -858,7 +858,7 @@ export function spawnSlot(
   slotVariant: SlotVariant,
   subType: int,
   position: Vector,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntitySlot {
@@ -879,7 +879,7 @@ export function spawnSlotWithSeed(
   subType: int,
   position: Vector,
   seedOrRNG: Seed | RNG,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntitySlot {
   return spawnSlot(
@@ -897,7 +897,7 @@ export function spawnTear(
   tearVariant: TearVariant,
   subType: int,
   position: Vector,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
 ): EntityTear {
@@ -924,7 +924,7 @@ export function spawnTearWithSeed(
   subType: int,
   position: Vector,
   seedOrRNG: Seed | RNG,
-  velocity = VectorZero,
+  velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityTear {
   return spawnTear(
