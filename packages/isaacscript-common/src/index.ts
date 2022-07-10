@@ -22,6 +22,7 @@ export {
 export { registerCharacterStats } from "./features/characterStats";
 export { getCollectibleItemPoolType } from "./features/collectibleItemPoolType";
 export { removeCustomGrid, spawnCustomGrid } from "./features/customGridEntity";
+export * from "./features/customStage/exports";
 export * from "./features/debugDisplay/exports";
 export {
   deployJSONRoom,
