@@ -237,7 +237,7 @@ function respawnPersistentEntities() {
  *                what the function is doing. Default is false.
  */
 export function deployJSONRoom(
-  jsonRoom: JSONRoom,
+  jsonRoom: JSONRoom | Readonly<JSONRoom>,
   seedOrRNG: Seed | RNG = getRandomSeed(),
   verbose = false,
 ): void {
@@ -293,7 +293,7 @@ export function deployJSONRoom(
  *                what the function is doing. Default is false.
  */
 export function deployRandomJSONRoom(
-  jsonRooms: JSONRoom[],
+  jsonRooms: JSONRoom[] | readonly JSONRoom[],
   seedOrRNG: Seed | RNG = getRandomSeed(),
   verbose = false,
 ): void {
@@ -422,7 +422,11 @@ function fillRoomWithDecorations() {
   }
 }
 
-function spawnAllEntities(jsonRoom: JSONRoom, rng: RNG, verbose = false) {
+function spawnAllEntities(
+  jsonRoom: JSONRoom | Readonly<JSONRoom>,
+  rng: RNG,
+  verbose = false,
+) {
   let shouldUnclearRoom = false;
 
   for (const jsonSpawn of jsonRoom.spawn) {

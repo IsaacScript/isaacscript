@@ -1,7 +1,7 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
-import { arrayRemoveIndexInPlace } from "../functions/array";
+import { arrayRemoveInPlace } from "../functions/array";
 import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "runInNFrames";
@@ -18,12 +18,6 @@ type IntervalFunctionTuple = [
   frameCountToFire: int,
   func: () => boolean,
   numIntervalFrames: int,
-];
-
-type FiringFunctionTuple = [
-  index: int,
-  func: (() => void) | (() => boolean),
-  numIntervalFrames: int | undefined,
 ];
 
 const v = {
@@ -73,14 +67,14 @@ function checkExecuteQueuedFunctions(
   frameCount: int,
   functionTuples: QueuedFunctionTuple[],
 ) {
-  const firingFunctions = getFunctionsThatShouldFireOnThisFrame(
-    frameCount,
-    functionTuples,
+  const firingFunctions = functionTuples.filter(
+    ([frameCountToFire]) => frameCount >= frameCountToFire,
   );
 
-  for (const [i, func] of firingFunctions) {
+  for (const tuple of firingFunctions) {
+    const [_frameCountToFire, func] = tuple;
     func();
-    arrayRemoveIndexInPlace(functionTuples, i);
+    arrayRemoveInPlace(functionTuples, tuple);
   }
 }
 
@@ -88,48 +82,26 @@ function checkExecuteIntervalFunctions(
   frameCount: int,
   functionTuples: IntervalFunctionTuple[],
 ) {
-  const firingFunctions = getFunctionsThatShouldFireOnThisFrame(
-    frameCount,
-    functionTuples,
+  const firingFunctions = functionTuples.filter(
+    ([frameCountToFire]) => frameCount >= frameCountToFire,
   );
 
-  for (const [i, func, numIntervalFrames] of firingFunctions) {
+  for (const tuple of firingFunctions) {
+    const [_frameCountToFire, func, numIntervalFrames] = tuple;
     const returnValue = func();
-
-    arrayRemoveIndexInPlace(functionTuples, i);
+    arrayRemoveInPlace(functionTuples, tuple);
 
     // Queue the next interval (as long as the function did not return false).
-    if (numIntervalFrames !== undefined && returnValue !== false) {
+    if (returnValue) {
       const nextFireFrame = frameCount + numIntervalFrames;
-      const tuple: IntervalFunctionTuple = [
+      const newTuple: IntervalFunctionTuple = [
         nextFireFrame,
-        func as () => boolean,
-        numIntervalFrames,
-      ];
-      functionTuples.push(tuple);
-    }
-  }
-}
-
-function getFunctionsThatShouldFireOnThisFrame(
-  frameCount: int,
-  functionTuples: QueuedFunctionTuple[] | IntervalFunctionTuple[],
-): readonly FiringFunctionTuple[] {
-  const firingFunctionTuples: FiringFunctionTuple[] = [];
-  functionTuples.forEach((functionTuple, i) => {
-    const [frameCountToFire, func, numIntervalFrames] = functionTuple;
-
-    if (frameCount >= frameCountToFire) {
-      const firingFunctionTuple: FiringFunctionTuple = [
-        i,
         func,
         numIntervalFrames,
       ];
-      firingFunctionTuples.push(firingFunctionTuple);
+      functionTuples.push(newTuple);
     }
-  });
-
-  return firingFunctionTuples;
+  }
 }
 
 /**

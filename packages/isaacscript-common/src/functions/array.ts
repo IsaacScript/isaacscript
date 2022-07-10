@@ -27,28 +27,82 @@ export function arrayEquals<T>(
  * array.
  *
  * This function is variadic, meaning that you can specify N arguments to remove N elements.
+ *
+ * If there is more than one matching element in the array, this function will only remove the first
+ * matching element. If you want to remove all of the elements, use the `arrayRemoveAll` function
+ * instead.
  */
 export function arrayRemove<T>(
   originalArray: T[] | readonly T[],
   ...elementsToRemove: T[]
 ): T[] {
-  const elementsToRemoveSet = new Set(elementsToRemove);
-
-  const array: T[] = [];
-  for (const element of originalArray) {
-    if (!elementsToRemoveSet.has(element)) {
-      array.push(element);
-    }
-  }
-
+  const array = copyArray(originalArray);
+  arrayRemoveInPlace(array, ...elementsToRemove);
   return array;
 }
 
 /**
- * Removes the specified element(s) from the array. If the specified element(s) are not found in the
- * array, this function will do nothing. Returns true if one or more elements were removed.
+ * Shallow copies and removes the specified element(s) from the array. Returns the copied array. If
+ * the specified element(s) are not found in the array, it will simply return a shallow copy of the
+ * array.
  *
  * This function is variadic, meaning that you can specify N arguments to remove N elements.
+ *
+ * If there is more than one matching element in the array, this function will remove every matching
+ * element. If you want to only remove the first matching element, use the `arrayRemove` function
+ * instead.
+ */
+export function arrayRemoveAll<T>(
+  originalArray: T[] | readonly T[],
+  ...elementsToRemove: T[]
+): T[] {
+  const array = copyArray(originalArray);
+  arrayRemoveAllInPlace(array, ...elementsToRemove);
+  return array;
+}
+
+/**
+ * Removes all of the specified element(s) from the array. If the specified element(s) are not found
+ * in the array, this function will do nothing.
+ *
+ * This function is variadic, meaning that you can specify N arguments to remove N elements.
+ *
+ * If there is more than one matching element in the array, this function will remove every matching
+ * element. If you want to only remove the first matching element, use the `arrayRemoveInPlace`
+ * function instead.
+ *
+ * @returns True if one or more elements were removed, false otherwise.
+ */
+export function arrayRemoveAllInPlace<T>(
+  array: T[],
+  ...elementsToRemove: T[]
+): boolean {
+  let removedOneOrMoreElements = false;
+  for (const element of elementsToRemove) {
+    let index: number;
+    do {
+      index = array.indexOf(element);
+      if (index > -1) {
+        removedOneOrMoreElements = true;
+        array.splice(index, 1);
+      }
+    } while (index > -1);
+  }
+
+  return removedOneOrMoreElements;
+}
+
+/**
+ * Removes the specified element(s) from the array. If the specified element(s) are not found in the
+ * array, this function will do nothing.
+ *
+ * This function is variadic, meaning that you can specify N arguments to remove N elements.
+ *
+ * If there is more than one matching element in the array, this function will only remove the first
+ * matching element. If you want to remove all of the elements, use the `arrayRemoveAllInPlace`
+ * function instead.
+ *
+ * @returns True if one or more elements were removed, false otherwise.
  */
 export function arrayRemoveInPlace<T>(
   array: T[],
@@ -95,6 +149,8 @@ export function arrayRemoveIndex<T>(
  * removed.
  *
  * This function is variadic, meaning that you can specify N arguments to remove N elements.
+ *
+ * @returns Whether or not any array elements were removed.
  */
 export function arrayRemoveIndexInPlace<T>(
   array: T[],

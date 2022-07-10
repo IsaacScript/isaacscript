@@ -5,7 +5,7 @@ import { getRandomFloat } from "./random";
 import { getRandomSeed } from "./rng";
 
 export function getJSONRoomOfVariant(
-  jsonRooms: JSONRoom[],
+  jsonRooms: JSONRoom[] | readonly JSONRoom[],
   variant: int,
 ): JSONRoom | undefined {
   const jsonRoomsOfVariant = jsonRooms.filter((jsonRoom) => {
@@ -30,7 +30,7 @@ export function getJSONRoomOfVariant(
 }
 
 export function getJSONRoomsOfSubType(
-  jsonRooms: JSONRoom[],
+  jsonRooms: JSONRoom[] | readonly JSONRoom[],
   subType: int,
 ): JSONRoom[] {
   return jsonRooms.filter((jsonRoom) => {
@@ -48,7 +48,7 @@ export function getJSONRoomsOfSubType(
  * https://stackoverflow.com/questions/1761626/weighted-random-numbers
  */
 export function getRandomJSONRoom(
-  jsonRooms: JSONRoom[],
+  jsonRooms: JSONRoom[] | readonly JSONRoom[],
   seedOrRNG: Seed | RNG = getRandomSeed(),
   verbose = false,
 ): JSONRoom {
@@ -65,7 +65,9 @@ export function getRandomJSONRoom(
   return getJSONRoomWithChosenWeight(jsonRooms, chosenWeight);
 }
 
-function getTotalWeightOfJSONRooms(jsonRooms: JSONRoom[]) {
+function getTotalWeightOfJSONRooms(
+  jsonRooms: JSONRoom[] | readonly JSONRoom[],
+) {
   const weights = jsonRooms.map((jsonRoom) => {
     const roomWeightString = jsonRoom.$.weight;
     const roomWeight = tonumber(roomWeightString);
@@ -79,7 +81,7 @@ function getTotalWeightOfJSONRooms(jsonRooms: JSONRoom[]) {
 }
 
 function getJSONRoomWithChosenWeight(
-  jsonRooms: JSONRoom[],
+  jsonRooms: JSONRoom[] | readonly JSONRoom[],
   chosenWeight: float,
 ) {
   for (const jsonRoom of jsonRooms) {
