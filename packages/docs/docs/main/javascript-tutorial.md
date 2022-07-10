@@ -453,7 +453,7 @@ When coding in TypeScript, you will need to add the type for every function argu
 
 In Lua, you split your code into multiple files by using `require()`.
 
-### `main.lua`
+#### `main.lua`
 
 ```lua
 -- In Lua, we must namespace the mod to avoid require conflicts.
