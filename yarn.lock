@@ -4980,11 +4980,6 @@ ci-info@^3.2.0:
   resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-3.3.2.tgz#6d2967ffa407466481c6c90b6e16b3098f080128"
   integrity sha512-xmDt/QIAdeZ9+nfdPsaBCpMvHNLFiLdjj59qjqn+6iPe6YmHGQ35sBnQ8uslRBXFmXkiZQOJRjvQeoGppoTjjg==
 
-cint@^8.2.1:
-  version "8.2.1"
-  resolved "https://registry.yarnpkg.com/cint/-/cint-8.2.1.tgz#70386b1b48e2773d0d63166a55aff94ef4456a12"
-  integrity sha512-gyWqJHXgDFPNx7PEyFJotutav+al92TTC3dWlMFyTETlOyKBQMZb7Cetqmj3GlrnSILHwSJRwf4mIGzc7C5lXw==
-
 cjs-module-lexer@^1.0.0:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/cjs-module-lexer/-/cjs-module-lexer-1.2.2.tgz#9f84ba3244a512f3a54e5277e8eef4c489864e40"
@@ -10817,13 +10812,12 @@ npm-bundled@^1.1.1, npm-bundled@^1.1.2:
   dependencies:
     npm-normalize-package-bin "^1.0.1"
 
-npm-check-updates@^15.2.2:
-  version "15.2.2"
-  resolved "https://registry.yarnpkg.com/npm-check-updates/-/npm-check-updates-15.2.2.tgz#1410115e2ac473a93471693c2b2f19ac8f64195e"
-  integrity sha512-SD1bDHYS5OLxN/63zcktzvpfmIhmWL7Uud2M/OaGvhP5AWhvyvaHTTGbGk5VbsqmNYz3TdQTAktNIsfjmsPMNQ==
+npm-check-updates@^15.2.6:
+  version "15.2.6"
+  resolved "https://registry.yarnpkg.com/npm-check-updates/-/npm-check-updates-15.2.6.tgz#d460d586c383afbffc2006b461d05ad2207bc965"
+  integrity sha512-lXihP+6EjHW74ENE6YYW2feUmdsfK4evus2ZTCyTd0QSnmHdx0bcHpiHsjgqjPtIqgHPJXLCrV6gd3JGYZg3xg==
   dependencies:
     chalk "^4.1.2"
-    cint "^8.2.1"
     cli-table "^0.3.11"
     commander "^9.3.0"
     fast-memoize "^2.5.2"
@@ -15011,10 +15005,10 @@ typedoc-plugin-markdown@^3.13.3:
   dependencies:
     handlebars "^4.7.7"
 
-typedoc@^0.23.6:
-  version "0.23.6"
-  resolved "https://registry.yarnpkg.com/typedoc/-/typedoc-0.23.6.tgz#9f604aea83e6b7bc40853ab93036a7f4dbc20a5b"
-  integrity sha512-YkL7zq6Tjnze7tlPcXQd527VPpcz30cvvzVTar6jJtiHt1DPWgH8c64x2s2xsGQ+SafQpAc90jYyrB6+rXLW1g==
+typedoc@^0.23.7:
+  version "0.23.7"
+  resolved "https://registry.yarnpkg.com/typedoc/-/typedoc-0.23.7.tgz#e47a48801d6b9d0d6f787424fa63ed600c670387"
+  integrity sha512-Vl/Yh4KYBaxQQOYImBgLQDX61hfaA7XaP/DZVd/w7rQvaqLEsdQH6gEMK8CMjyHo0bSzVnNYwxtD1KPSENoWug==
   dependencies:
     lunr "^2.3.9"
     marked "^4.0.16"
