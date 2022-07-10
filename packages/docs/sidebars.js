@@ -10,7 +10,7 @@ const sidebars = {
     },
     {
       type: "category",
-      label: "General Info",
+      label: "Basic Info",
       items: [
         "main/discord",
         "main/what-is-isaacscript-doing",
@@ -30,23 +30,15 @@ const sidebars = {
       ],
     },
     {
-      type: "link",
-      label: "IsaacScript Standard Library",
-      href: "/isaacscript-common",
+      type: "category",
+      label: "Other Info",
+      items: ["main/publishing-to-the-workshop", "main/gotchas"],
     },
     "main/change-log",
     {
-      type: "category",
-      label: "Other",
-      items: [
-        "main/publishing-to-the-workshop",
-        "main/gotchas",
-        {
-          type: "link",
-          label: "IsaacScript Standard Library",
-          href: "/isaac-typescript-definitions/enums/index.ModCallback",
-        },
-      ],
+      type: "link",
+      label: "IsaacScript Standard Library",
+      href: "/isaacscript-common",
     },
   ],
 
