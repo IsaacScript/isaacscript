@@ -164,7 +164,7 @@ In the `incrementSleepCounter` function, we use the `getAndSetDefault` method in
 
 In the previous example, we used the save data manager to track data about entities that only exist in the context of a single room. However, mods will also commonly want to store data about players. Players exist for an entire run, not just a single room. This means that a slightly different approach is necessary.
 
-For this case, instead of using `GetPtrHash`, you can use `getPlayerIndex`. And the corresponding type is `PlayerIndex`.
+For this case, instead of using `GetPtrHash`, you can use `getPlayerIndex`. (The corresponding type is `PlayerIndex`.)
 
 So, for example, you might have a `v` that looks something like this:
 
@@ -176,9 +176,9 @@ const v = {
 };
 ```
 
-And for collectibles, you can use `getCollectibleIndex` / `CollectibleIndex`.
+For collectibles, use `getCollectibleIndex`. (The corresponding type is `CollectibleIndex`.)
 
-For familiars (and Dark Esau), use the `Entity.InitSeed` as an index.
+For familiars (and Dark Esau), use the `Entity.InitSeed`. (The corresponding type is `Seed`.)
 
 ## Saving and Continuing
 
