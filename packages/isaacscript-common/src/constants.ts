@@ -55,9 +55,13 @@ export const EMPTY_PNG_PATH = "gfx/none.png";
 export const FIRST_GLITCHED_COLLECTIBLE_TYPE = ((1 << 32) -
   1) as CollectibleType;
 
+/** Game frames are what is returned by the `Game.GetFrameCount` method. */
 export const GAME_FRAMES_PER_SECOND = 30;
+
+/** Render frames are what is returned by the `Isaac.GetFrameCount` method. */
+export const RENDER_FRAMES_PER_SECOND = 60;
+
 export const GRID_INDEX_CENTER_OF_1X1_ROOM = 67;
-export const ISAAC_FRAMES_PER_SECOND = 60;
 
 /**
  * The floor is represented by a 13x13 grid. Room indexes start at 0. The first column is
