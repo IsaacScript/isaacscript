@@ -105,7 +105,7 @@ This is the TypeScript source directory. All of the TypeScript files for your mo
 
 This is a template for a `.env` file; you are intended to copy it to `.env` and then fill in the values.
 
-The `.env` file is only needed if IsaacScript is publishing your mod to the Steam Workshop.
+However, the `.env` file is only needed if you are leveraging `steamcmd` in conjunction with `isaacscript publish` to publish your mod to the Steam Workshop.
 
 <br />
 
