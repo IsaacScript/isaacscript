@@ -16,7 +16,10 @@ const staticHotkeyFunctionMap = new Map<Keyboard, () => void>();
  * The keys are the functions that determine what the hotkey key is. The values are the functions
  * that contain the arbitrary code to run.
  */
-const dynamicHotkeyFunctionMap = new Map<() => Keyboard, () => void>();
+const dynamicHotkeyFunctionMap = new Map<
+  () => Keyboard | undefined,
+  () => void
+>();
 
 const keyPressedMap = new DefaultMap<Keyboard, boolean>(false);
 
@@ -36,7 +39,9 @@ function postRender() {
     triggerFunc,
   ] of dynamicHotkeyFunctionMap.entries()) {
     const keyboard = keyboardFunc();
-    checkIfTriggered(keyboard, triggerFunc);
+    if (keyboard !== undefined) {
+      checkIfTriggered(keyboard, triggerFunc);
+    }
   }
 }
 
@@ -65,7 +70,7 @@ function checkIfTriggered(keyboard: Keyboard, triggerFunc: () => void) {
  *                    hotkey is triggered.
  */
 export function registerHotkey(
-  keyboardOrFunc: Keyboard | (() => Keyboard),
+  keyboardOrFunc: Keyboard | (() => Keyboard | undefined),
   triggerFunc: () => void,
 ): void {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
@@ -95,7 +100,7 @@ export function registerHotkey(
  * @param keyboardOrFunc Equal to the value that you passed when initially registering the hotkey.
  */
 export function unregisterHotkey(
-  keyboardOrFunc: Keyboard | (() => Keyboard),
+  keyboardOrFunc: Keyboard | (() => Keyboard | undefined),
 ): void {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
 

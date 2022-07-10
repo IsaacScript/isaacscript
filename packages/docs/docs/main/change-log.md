@@ -14,8 +14,6 @@ This page lists the changes to the IsaacScript framework.
 - Breaking:
   - `addRoomClearCharge` now has an argument of `bigRoomDoubleCharge` (instead of the old argument of `ignoreBigRoomDoubleCharge`), so you will need to invert the boolean.
   - `arrayRemove` will now only remove the first matching element (instead of every matching element). Use `arrayRemoveAll` for that behavior instead.
-- All of the `spawn` helper functions now have the option to pass an RNG object instead of a seed.
-- `addRoomClearCharge` and `addRoomClearChargeToSlot` now take an optional argument of `playSoundEffect`.
 - Added the following helper functions:
   - `playerHasHealthLeft`
   - `clearFloorDisplayFlags`
@@ -28,6 +26,10 @@ This page lists the changes to the IsaacScript framework.
   - `addCharge`
   - `arrayRemoveAll`
   - `arrayRemoveAllInPlace`
+- Changed the following helper functions:
+  - All of the `spawn` helper functions now have the option to pass an RNG object instead of a seed.
+  - `addRoomClearCharge` and `addRoomClearChargeToSlot` now take an optional argument of `playSoundEffect`.
+  - `registerHotkey` now will accept a function that returns a `Keyboard` in addition to a `Keyboard`.
 
 ## July 5th, 2022
 
