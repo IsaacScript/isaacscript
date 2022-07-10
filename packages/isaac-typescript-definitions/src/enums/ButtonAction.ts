@@ -10,7 +10,13 @@ export enum ButtonAction {
   BOMB = 8,
   ITEM = 9,
   PILL_CARD = 10,
+
+  /**
+   * This is also used for switching cards, switching The Forgotten, holding Esau in place, and so
+   * on.
+   */
   DROP = 11,
+
   PAUSE = 12,
   MAP = 13,
   MENU_CONFIRM = 14,
