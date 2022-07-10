@@ -75,7 +75,7 @@ class FooData {
 }
 ```
 
-And when we need to initialize the data, we can simply do `new FooData()`.
+And when we need to initialize the data, we can simply do: `new FooData()`
 
 ### Local Variables
 
