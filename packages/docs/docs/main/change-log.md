@@ -14,7 +14,8 @@ This page lists the changes to the IsaacScript framework.
 - Breaking:
   - `addRoomClearCharge` now has an argument of `bigRoomDoubleCharge` (instead of the old argument of `ignoreBigRoomDoubleCharge`), so you will need to invert the boolean.
   - `arrayRemove` will now only remove the first matching element (instead of every matching element). Use `arrayRemoveAll` for that behavior instead.
-  - `ISAAC_FRAMES_PER_SECOND` is renamed to `RENDER_FRAMES_PER_SECOND`.
+  - Renamed `ISAAC_FRAMES_PER_SECOND` --> `RENDER_FRAMES_PER_SECOND`
+  - Renamed `getDoorSlotEnterPositionOffset` --> `getDoorSlotEnterPositionOffset`
 - Added the following helper functions:
   - `playerHasHealthLeft`
   - `clearFloorDisplayFlags`

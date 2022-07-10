@@ -55,6 +55,7 @@ export function doorSlotFlagToDoorSlot(doorSlotFlag: DoorSlotFlag): DoorSlot {
 export function doorSlotToDirection(doorSlot: DoorSlot): Direction {
   return DOOR_SLOT_TO_DIRECTION[doorSlot];
 }
+
 export function doorSlotToDoorSlotFlag(doorSlot: DoorSlot): DoorSlotFlag {
   return DOOR_SLOT_TO_DOOR_SLOT_FLAG[doorSlot];
 }
@@ -88,21 +89,25 @@ export function getDevilRoomOrAngelRoomDoor(): GridEntityDoor | undefined {
  * amount of units.
  */
 export function getDoorEnterPosition(door: GridEntityDoor): Vector {
-  const offset = getDoorEnterPositionOffset(door.Slot);
+  const offset = getDoorSlotEnterPositionOffset(door.Slot);
   return door.Position.add(offset);
 }
 
 /**
- * Helper function to help calculate the position that a player will enter a room at.
+ * Helper function to get the offset from a door position that a player will enter a room at.
  *
  * When players enter a room, they do not appear exactly on the location of the door, because then
  * they would immediately collide with the loading zone. Instead, they are offset by a certain
  * amount of units.
  */
-export function getDoorEnterPositionOffset(doorSlot: DoorSlot): Vector {
+export function getDoorSlotEnterPositionOffset(doorSlot: DoorSlot): Vector {
   const direction = doorSlotToDirection(doorSlot);
   const vector = directionToVector(direction);
-  return vector.mul(ROOM_ENTRY_OFFSET_FROM_DOOR);
+
+  // The player appears in the opposite direction of the way that the door is oriented in the room.
+  const oppositeVector = vector.mul(-1);
+
+  return oppositeVector.mul(ROOM_ENTRY_OFFSET_FROM_DOOR);
 }
 
 /**
