@@ -24,7 +24,7 @@ import { gitCommitIfChanges, isGitDirty } from "../init/git";
 
 const UPDATE_SCRIPT_NAME = "update.sh";
 
-export function publish(args: Args, config: Config): void {
+export async function publish(args: Args, config: Config): Promise<void> {
   const skipVersionIncrement = args.skip === true;
   const { setVersion } = args;
   const dryRun = args.dryRun === true;
@@ -44,7 +44,7 @@ export function publish(args: Args, config: Config): void {
     return;
   }
 
-  startPublish(
+  await startPublish(
     MOD_SOURCE_PATH,
     modTargetPath,
     skipVersionIncrement,
@@ -102,7 +102,7 @@ function validateIsaacScriptOtherCopiesNotRunning(verbose: boolean) {
   }
 }
 
-function startPublish(
+async function startPublish(
   modSourcePath: string,
   modTargetPath: string,
   skipVersionIncrement: boolean,
@@ -126,7 +126,7 @@ function startPublish(
   writeVersionToMetadataXML(version, verbose);
   writeVersionToVersionTXT(version, verbose);
   runReleaseScriptPreCopy(verbose);
-  compileAndCopy(modSourcePath, modTargetPath, packageManager, verbose);
+  await compileAndCopy(modSourcePath, modTargetPath, packageManager, verbose);
   purgeRoomXMLs(modTargetPath, verbose);
   runReleaseScriptPostCopy(verbose);
 

@@ -112,7 +112,7 @@ async function handleCommands(args: Args) {
     }
 
     case "publish": {
-      publish(args, config);
+      await publish(args, config);
       break;
     }
   }

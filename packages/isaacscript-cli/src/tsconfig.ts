@@ -99,32 +99,40 @@ export function getCustomStages(verbose: boolean): CustomStage[] {
     }
 
     const { name } = customStage;
-    if (typeof name !== "string") {
-      error(
-        `Your "${chalk.green(
-          TSCONFIG_JSON_PATH,
-        )}" file has a non-string value for the "name" property for one of the custom stages, which is surely a mistake. ${ADVICE}`,
-      );
-    }
+    validateString(name, "name");
 
     const { xmlPath } = customStage;
-    if (typeof xmlPath !== "string") {
-      error(
-        `Your "${chalk.green(
-          TSCONFIG_JSON_PATH,
-        )}" file has a non-string value for the "xmlPath" property for one of the custom stages, which is surely a mistake. ${ADVICE}`,
-      );
-    }
+    validateString(xmlPath, "xmlPath");
 
     const { roomVariantPrefix } = customStage;
-    if (typeof roomVariantPrefix !== "string") {
-      error(
-        `Your "${chalk.green(
-          TSCONFIG_JSON_PATH,
-        )}" file has a non-string value for the "roomVariantPrefix" property for one of the custom stages, which is surely a mistake. ${ADVICE}`,
-      );
-    }
+    validateNumber(roomVariantPrefix, "roomVariantPrefix");
   }
 
   return customStages as CustomStage[];
+}
+
+function validateString(thing: unknown, name: string) {
+  validateType(thing, name, "string");
+}
+
+function validateNumber(thing: unknown, name: string) {
+  validateType(thing, name, "number");
+}
+
+function validateType(thing: unknown, name: string, type: string) {
+  if (thing === undefined) {
+    error(
+      `Your "${chalk.green(
+        TSCONFIG_JSON_PATH,
+      )}" file has an empty "${name}" property, which is surely a mistake. ${ADVICE}`,
+    );
+  }
+
+  if (typeof thing !== type) {
+    error(
+      `Your "${chalk.green(
+        TSCONFIG_JSON_PATH,
+      )}" file has a non-${type} "${name}" property, which is surely a mistake. ${ADVICE}`,
+    );
+  }
 }

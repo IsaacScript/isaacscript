@@ -42,10 +42,10 @@ export async function fillCustomStageMetadata(
   }
 
   validateMetadataLuaFileExists(packageManager, verbose);
+
   const stagesMetadata = await getCustomStagesMetadata(customStages, verbose);
-  const stagesMetadataString = JSON.stringify(stagesMetadata);
-  const result = tstl.transpileString(stagesMetadataString);
-  console.log(result);
+  const stagesMetadataLua = convertMetadataToLua(stagesMetadata);
+  file.write(METADATA_LUA_PATH, stagesMetadataLua, verbose);
 
   error("DONE");
 }
@@ -149,4 +149,19 @@ async function getCustomStagesMetadata(
   }
 
   return stagesMetadata;
+}
+
+function convertMetadataToLua(stagesMetadata: CustomStageMetadata[]): string {
+  const stagesMetadataString = JSON.stringify(stagesMetadata);
+  const fakeTypeScriptFile = `return ${stagesMetadataString}`;
+  const result = tstl.transpileString(fakeTypeScriptFile, {
+    noHeader: true,
+  });
+  if (result.file === undefined || result.file.lua === undefined) {
+    error(
+      "Failed to convert the JSON metadata for the custom stages to a Lua file.",
+    );
+  }
+
+  return result.file.lua;
 }
