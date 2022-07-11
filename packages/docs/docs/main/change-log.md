@@ -1846,8 +1846,6 @@ You can still use `null` in your own variables, but make sure that it is for var
 - `isaacscript init` will now create the following additional files:
   - `ci.yml` - for GitHub Actions
   - `.prettierrc.js` - to ensure trailing commas and LF line endings
-  - `.env_template` - for publishing convenience
-  - `mod/metadata.vdf` - for publishing convenience
   - `build.sh` - helper script to compile the project (used in CI)
   - `lint.sh` - helper script to lint and spell check the project (used in CI)
   - `publish.sh` - helper script to invoke `npx isaacscript publish`

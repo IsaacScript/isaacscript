@@ -20,26 +20,3 @@ However, for large mods, there are often other tasks that need to be performed b
   - The mod must already be published to the Steam Workshop for this to work.
 
 Furthermore, run `npx isaacscript publish --help` to see additional flags that may be passed to the `publish` command.
-
-<br />
-
-### `metadata.vdf`
-
-In order for `steamcmd.exe` to work, you must create a file called `metadata.vdf` next to your `metadata.xml` that contains the following:
-
-```vdf
-"workshopitem"
-{
-  "appid" "250900"
-  "publishedfileid" "[your mod ID]"
-  "contentfolder" "C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\mods\[your mod name]"
-}
-```
-
-<br />
-
-### `.env`
-
-In order for `steamcmd.exe` to work, it needs your Steam username and password. Copy the `.env_template` file in the root of your project to `.env`and fill in the values.
-
-Make sure that there is an entry for the `.env` file in your `.gitignore`, because you (obviously) don't want to upload this to GitHub/GitLab. (This entry will exist by default for mods created with `isaacscript init`.)

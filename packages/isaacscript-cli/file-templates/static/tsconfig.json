@@ -13,7 +13,7 @@
   // A list of the TypeScript files to compile.
   "include": ["./src/**/*.ts"],
 
-  // TypeScriptToLua settings.
+  // TypeScriptToLua settings
   "tstl": {
     "luaTarget": "5.3",
     "luaBundle": "./mod/main.lua", // Will bundle all output Lua files into a single file.
@@ -33,9 +33,18 @@
     "noImplicitGlobalVariables": true,
   },
 
+  // IsaacScript settings
   "isaacscript": {
-    // Whether or not the custom stage feature is enabled. Keep this set to false if you are not
-    // using any custom stages.
-    "customStage": false,
+    // A list of objects that represent the custom stages that are in your mod, if any. Note that
+    // the room variant prefix must not conflict with prefixes chosen by other mods. Document the
+    // prefix that you are using here: https://isaacscript.github.io/main/custom-stages
+    "customStages": [
+      /*
+      {
+        "xmlPath": "./mod/resources/rooms/foo.xml",
+        "roomVariantPrefix": 1000,
+      },
+      */
+    ],
   },
 }

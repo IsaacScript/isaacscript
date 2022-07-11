@@ -101,14 +101,6 @@ This is the TypeScript source directory. All of the TypeScript files for your mo
 
 ## Files
 
-### `.env_template`
-
-This is a template for a `.env` file; you are intended to copy it to `.env` and then fill in the values.
-
-However, the `.env` file is only needed if you are leveraging `steamcmd` in conjunction with `isaacscript publish` to publish your mod to the Steam Workshop.
-
-<br />
-
 ### `.eslintrc.js`
 
 This is the configuration file for [ESLint](https://eslint.org/), the TypeScript linter.
@@ -186,12 +178,6 @@ This is the transpiled Lua output of your TypeScript source code. All TypeScript
 ### `mod/metadata.xml`
 
 This is the file used by the "ModUploader" tool to upload your mod to the Steam Workshop. It contains a description of your mod and other metadata. IsaacScript creates a basic one for you, but when you upload your mod to the Steam Workshop for the first time, more information will be added (like the ID of the mod).
-
-<br />
-
-### `mod/metadata.vdf`
-
-This is a file used by IsaacScript to automatically upload your mod to the Steam Workshop. For this to work, you must edit the file and fill in your mod ID. (The mod ID can be found by looking in the "metadata.xml" file after uploading the mod to the Steam Workshop for the first time.)
 
 <br />
 
