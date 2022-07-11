@@ -33,7 +33,7 @@ const TEMPLATES_DIR = path.join(REPO_ROOT, "file-templates");
 export const TEMPLATES_STATIC_DIR = path.join(TEMPLATES_DIR, "static");
 
 // `isaacscript/file-templates/dynamic`
-export const TEMPLATES_DYNAMIC_DIR = path.join(TEMPLATES_DIR, "dynamic");
+const TEMPLATES_DYNAMIC_DIR = path.join(TEMPLATES_DIR, "dynamic");
 export const CI_YML = "ci.yml";
 export const CI_YML_TEMPLATE_PATH = path.join(
   TEMPLATES_DYNAMIC_DIR,
