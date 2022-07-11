@@ -15,12 +15,12 @@ export interface JSONRoomsFile {
   rooms: JSONRooms;
 }
 
-export interface JSONRooms {
+interface JSONRooms {
   room: JSONRoom[];
 }
 
 /** Part of `JSONRooms`. */
-export interface JSONRoom {
+interface JSONRoom {
   $: {
     /** Needs to be converted to an `int`. */
     difficulty: string;
@@ -54,7 +54,7 @@ export interface JSONRoom {
 }
 
 /** Part of `JSONRooms`. */
-export interface JSONDoor {
+interface JSONDoor {
   $: {
     /** Equal to "True" or "False". Needs to be converted to an `boolean`. */
     exists: string;
@@ -68,7 +68,7 @@ export interface JSONDoor {
 }
 
 /** Part of `JSONRooms`. */
-export interface JSONSpawn {
+interface JSONSpawn {
   $: {
     /** Needs to be converted to an `int`. */
     x: string;
@@ -81,7 +81,7 @@ export interface JSONSpawn {
 }
 
 /** Part of `JSONRooms`. */
-export interface JSONEntity {
+interface JSONEntity {
   $: {
     /** Needs to be converted to an `int`. */
     type: string;
