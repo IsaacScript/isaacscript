@@ -33,6 +33,8 @@ First, edit your `tsconfig.json` and add an `isaacscript` section to the root ob
 
 [StageAPI](https://github.com/Meowlala/BOIStageAPI15) is a fantastic library that spans thousands of lines of code and has some incredible innovations. It is created by [DeadInfinity](https://steamcommunity.com/profiles/76561198172774482/myworkshopfiles/?appid=250900) and [BudJMT](https://steamcommunity.com/profiles/76561198067029619/myworkshopfiles/?appid=250900), the two smartest people in the Isaac community. And it's the engine that powers [Revelations](https://steamcommunity.com/sharedfiles/filedetails/?id=1536643474) and [Fiend Folio](https://steamcommunity.com/sharedfiles/filedetails/?id=2305131709&searchtext=fiend+folio), arguably two of the best mods that have ever been created. However, no library is perfect. I wanted to try and improve on Stage API with the following goals in mind:
 
+<!--lint disable ordered-list-marker-value -->
+
 1. An Isaac library should be dead-easy to use.
 
 - Creating a new stage should be as easy as calling `registerCustomStage("Revelations")` and `setCustomStage("Revelations")`.
@@ -74,7 +76,9 @@ First, edit your `tsconfig.json` and add an `isaacscript` section to the root ob
 - An old adage in programming is that [if it isn't documented, then it doesn't exist](https://blog.codinghorror.com/if-it-isnt-documented-it-doesnt-exist/). Beautiful and easy-to-use documentation should be a first-class goal.
 - Documentation should be automatically generated so that it never gets out of date.
 
-With these improvements in mind, I'd like to introduce my own stage library: the [IsaacScript Stage Library](TODO.md). Since it is integrated into the normal [standard library](https://isaacscript.github.io/isaacscript-common), using it is effortless. Start with the `registerCustomStage` function, and then spawn a custom trapdoor with `spawnCustomTrapdoor()`.
+<!--lint enable ordered-list-marker-value -->
+
+With these improvements in mind, I've created the IsaacScript Stage Library. Since it is integrated into the normal [standard library](https://isaacscript.github.io/isaacscript-common), using it is effortless. See the [usage section](#usage) above.
 
 <br />
 
