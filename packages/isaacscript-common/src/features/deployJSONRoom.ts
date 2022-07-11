@@ -49,7 +49,7 @@ import { getRoomListIndex } from "../functions/roomData";
 import { gridCoordinatesToWorldPosition } from "../functions/roomGrid";
 import { setRoomCleared, setRoomUncleared } from "../functions/rooms";
 import { spawnCollectible } from "../functions/spawnCollectible";
-import { JSONRoom } from "../interfaces/JSONRoom";
+import { JSONRoom } from "../interfaces/JSONRoomsFile";
 import { runNextGameFrame } from "./runInNFrames";
 import { saveDataManager } from "./saveDataManager/exports";
 

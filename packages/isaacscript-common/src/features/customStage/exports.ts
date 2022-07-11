@@ -1,6 +1,5 @@
 import { LevelStage } from "isaac-typescript-definitions";
 import { CustomStageData } from "../../interfaces/CustomStageData";
-import { JSONRoom } from "../../interfaces/JSONRoom";
 import * as metadataJSON from "./metadata.json";
 import { customStages } from "./v";
 
@@ -8,20 +7,10 @@ import { customStages } from "./v";
  * Helper function to register a new custom stage with the IsaacScript standard library stage
  * system.
  */
-export function registerCustomStage(
-  name: string,
-  baseStage: LevelStage,
-  jsonRooms: JSONRoom[] | readonly JSONRoom[],
-): void {
+export function registerCustomStage(name: string, baseStage: LevelStage): void {
   if (customStages.has(name)) {
     error(
       `Failed to register a custom stage of "${name}" since there is already a custom stage registered by that name.`,
-    );
-  }
-
-  if (jsonRooms.length === 0) {
-    error(
-      `Failed to register a custom stage of "${name}" since the provided JSON room array was empty.`,
     );
   }
 

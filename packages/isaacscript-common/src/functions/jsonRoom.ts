@@ -1,4 +1,4 @@
-import { JSONRoom } from "../interfaces/JSONRoom";
+import { JSONRoom } from "../interfaces/JSONRoomsFile";
 import { sumArray } from "./array";
 import { log } from "./log";
 import { getRandomFloat } from "./random";

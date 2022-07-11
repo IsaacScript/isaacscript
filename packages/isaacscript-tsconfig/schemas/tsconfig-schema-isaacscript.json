@@ -37,9 +37,9 @@
                 "description": "An arbitrarily chosen prefix in the range of 1001-9999.",
                 "type": "number"
               }
-            }
-          },
-          "additionalProperties": false
+            },
+            "additionalProperties": false
+          }
         }
       },
       "additionalProperties": false
