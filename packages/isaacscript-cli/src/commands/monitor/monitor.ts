@@ -40,7 +40,7 @@ const REQUIRED_PACKAGE_JSON_DEPENDENCIES = [
 
 let compilationStartTime = new Date();
 
-export function monitor(args: Args, config: Config): void {
+export async function monitor(args: Args, config: Config): Promise<void> {
   const verbose = args.verbose === true;
   const packageManager = getPackageManagerUsedForExistingProject(args, verbose);
 
@@ -66,7 +66,7 @@ export function monitor(args: Args, config: Config): void {
   touchWatcherSaveDatFiles(config, verbose);
 
   // Prepare the custom stages feature.
-  fillCustomStageMetadata(packageManager, verbose);
+  await fillCustomStageMetadata(packageManager, verbose);
 
   // Delete and re-copy the mod every time IsaacScript starts. This ensures that it is always the
   // latest version.

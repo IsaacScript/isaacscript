@@ -89,5 +89,42 @@ export function getCustomStages(verbose: boolean): CustomStage[] {
     );
   }
 
+  for (const customStage of customStages) {
+    if (!isRecord(customStage)) {
+      error(
+        `Your "${chalk.green(
+          TSCONFIG_JSON_PATH,
+        )}" file has a non-object value for one of the custom stages in the "customStages" property, which is surely a mistake. ${ADVICE}`,
+      );
+    }
+
+    const { name } = customStage;
+    if (typeof name !== "string") {
+      error(
+        `Your "${chalk.green(
+          TSCONFIG_JSON_PATH,
+        )}" file has a non-string value for the "name" property for one of the custom stages, which is surely a mistake. ${ADVICE}`,
+      );
+    }
+
+    const { xmlPath } = customStage;
+    if (typeof xmlPath !== "string") {
+      error(
+        `Your "${chalk.green(
+          TSCONFIG_JSON_PATH,
+        )}" file has a non-string value for the "xmlPath" property for one of the custom stages, which is surely a mistake. ${ADVICE}`,
+      );
+    }
+
+    const { roomVariantPrefix } = customStage;
+    if (typeof roomVariantPrefix !== "string") {
+      error(
+        `Your "${chalk.green(
+          TSCONFIG_JSON_PATH,
+        )}" file has a non-string value for the "roomVariantPrefix" property for one of the custom stages, which is surely a mistake. ${ADVICE}`,
+      );
+    }
+  }
+
   return customStages as CustomStage[];
 }

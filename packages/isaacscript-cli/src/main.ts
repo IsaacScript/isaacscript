@@ -97,7 +97,7 @@ async function handleCommands(args: Args) {
 
   switch (command) {
     case "monitor": {
-      monitor(args, config);
+      await monitor(args, config);
       break;
     }
 
@@ -107,7 +107,7 @@ async function handleCommands(args: Args) {
     }
 
     case "copy": {
-      copy(args, config);
+      await copy(args, config);
       break;
     }
 
