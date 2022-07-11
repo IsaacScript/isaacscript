@@ -1,55 +1,96 @@
+import chalk from "chalk";
 import path from "path";
-import { TEMPLATES_DYNAMIC_DIR } from "./constants";
+
+import { CWD } from "./constants";
+import { PackageManager } from "./enums/PackageManager";
 import * as file from "./file";
+import { CustomStageMetadata } from "./interfaces/CustomStageMetadata";
+import { CustomStageRoomMetadata } from "./interfaces/CustomStageRoomMetadata";
+import { getPackageManagerAddCommand } from "./packageManager";
 import { getCustomStages } from "./tsconfig";
 import { error } from "./utils";
 
-const ROOMS_DIRECTORY_PARTIAL_PATH = path.join("content", "rooms");
-const SPECIAL_ROOMS_STB_PARTIAL_PATH = path.join(
-  ROOMS_DIRECTORY_PARTIAL_PATH,
-  "00.special rooms.stb",
+const ISAACSCRIPT_COMMON = "isaacscript-common";
+const ISAACSCRIPT_COMMON_PATH = path.join(
+  CWD,
+  "node_modules",
+  ISAACSCRIPT_COMMON,
 );
-const SPECIAL_ROOMS_STB_TEMPLATE_PATH = path.join(
-  TEMPLATES_DYNAMIC_DIR,
-  "mod",
-  SPECIAL_ROOMS_STB_PARTIAL_PATH,
+const METADATA_LUA_PATH = path.join(
+  ISAACSCRIPT_COMMON_PATH,
+  "features",
+  "customStage",
+  "metadata.lua",
 );
 
-export function getCustomStageMetadata(
-  modSourcePath: string,
-  modTargetPath: string,
+/**
+ * In order for the custom stage feature to work properly, Lua code will need to know the list of
+ * possible rooms corresponding to a custom stage. In an end-user mod, this is a Lua file located at
+ * `METADATA_LUA_PATH`. By default, the file is blank, and must be filled in by tooling before
+ * compiling the mod.
+ */
+export function fillCustomStageMetadata(
+  packageManager: PackageManager,
   verbose: boolean,
 ): void {
-  const customStageOption = getCustomStages(verbose);
-  if (customStageOption.length === 0) {
+  const customStages = getCustomStages(verbose);
+  if (customStages.length === 0) {
     return;
   }
 
-  if (!file.exists(SPECIAL_ROOMS_STB_TEMPLATE_PATH, verbose)) {
-    error("Failed to find the template file for the custom rooms feature.");
-  }
-  const templateHash = file.hash(SPECIAL_ROOMS_STB_TEMPLATE_PATH);
+  validateMetadataExists(packageManager, verbose);
 
-  // First, validate that the mod itself does not have a "00.special rooms.stb" file.
-  const specialRoomsPath = path.join(
-    modSourcePath,
-    SPECIAL_ROOMS_STB_PARTIAL_PATH,
-  );
-  if (file.exists(specialRoomsPath, verbose)) {
-    const existingHash = file.hash(specialRoomsPath);
-    if (existingHash === templateHash) {
-      return;
+  const customStagesMetadata: CustomStageMetadata[] = [];
+
+  for (const customStage of customStages) {
+    const xmlPath = path.resolve(CWD, customStage.xmlPath);
+    if (!file.exists(xmlPath, verbose)) {
+      error(
+        `${chalk.red(
+          "Failed to find the custom stage XML file at:",
+        )} ${chalk.green(xmlPath)}`,
+      );
     }
 
+    const customStageRoomsMetadata: CustomStageRoomMetadata[] = [];
+
+    if (!file.exists(METADATA_LUA_PATH, verbose)) {
+      error(
+        `${chalk.red(
+          "Failed to find the the custom stage metadata file at:",
+        )} ${chalk.green(METADATA_LUA_PATH)}`,
+      );
+    }
+
+    const xmlContents = file.read(xmlPath, verbose);
+
+    console.log(JSON.stringify(xmlDocument, null, 2));
+
+    error("DONE");
+  }
+}
+
+function validateMetadataExists(
+  packageManager: PackageManager,
+  verbose: boolean,
+) {
+  if (!file.isDir(ISAACSCRIPT_COMMON_PATH, verbose)) {
+    const addCommand = getPackageManagerAddCommand(
+      packageManager,
+      ISAACSCRIPT_COMMON,
+    );
     error(
-      'Currently, custom stages do not work with mods that have an existing "content/rooms/00.special rooms.stb" file. If this is a problem for your mod, you can request this feature in the IsaacScript Discord server.',
+      `${chalk.red(
+        `The custom stages feature requires a dependency of "${ISAACSCRIPT_COMMON}" in the "package.json" file. You can add it with the following command:`,
+      )} ${chalk.green(addCommand)}`,
     );
   }
 
-  const roomsPath = path.join(modTargetPath, ROOMS_DIRECTORY_PARTIAL_PATH);
-  if (!file.isDir(roomsPath, verbose)) {
-    file.makeDir(roomsPath, verbose);
+  if (!file.exists(METADATA_LUA_PATH, verbose)) {
+    error(
+      `${chalk.red(
+        "Failed to find the the custom stage metadata file at:",
+      )} ${chalk.green(METADATA_LUA_PATH)}`,
+    );
   }
-
-  file.copy(SPECIAL_ROOMS_STB_TEMPLATE_PATH, specialRoomsPath, verbose);
 }

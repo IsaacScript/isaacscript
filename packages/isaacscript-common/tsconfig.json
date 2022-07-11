@@ -14,6 +14,9 @@
     // Needed to hide internal functions from the auto-complete of end-users.
     "stripInternal": true,
 
+    // We need to read JSON files for the custom stage feature.
+    "resolveJsonModule": true,
+
     // Recommended as per TypeScriptToLua:
     // https://typescripttolua.github.io/docs/getting-started/
     "target": "ESNext",

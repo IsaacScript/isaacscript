@@ -13,8 +13,10 @@ import {
   PUBLISH_PRE_COPY_PY_PATH,
   VERSION_TXT_PATH,
 } from "../../constants";
+import { PackageManager } from "../../enums/PackageManager";
 import { execExe, execPowershell, execShell } from "../../exec";
 import * as file from "../../file";
+import { getPackageManagerUsedForExistingProject } from "../../packageManager";
 import { Args } from "../../parseArgs";
 import { error, getModTargetDirectoryName, parseSemVer } from "../../utils";
 import { compileAndCopy } from "../copy/copy";
@@ -28,6 +30,7 @@ export function publish(args: Args, config: Config): void {
   const dryRun = args.dryRun === true;
   const onlyUpload = args.onlyUpload === true;
   const verbose = args.verbose === true;
+  const packageManager = getPackageManagerUsedForExistingProject(args, verbose);
 
   const modTargetDirectoryName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
@@ -48,6 +51,7 @@ export function publish(args: Args, config: Config): void {
     setVersion,
     config.steamCmdPath,
     dryRun,
+    packageManager,
     verbose,
   );
 }
@@ -105,6 +109,7 @@ function startPublish(
   setVersion: string | undefined,
   steamCmdPath: string | undefined,
   dryRun: boolean,
+  packageManager: PackageManager,
   verbose: boolean,
 ) {
   updateDeps(verbose);
@@ -121,7 +126,7 @@ function startPublish(
   writeVersionToMetadataXML(version, verbose);
   writeVersionToVersionTXT(version, verbose);
   runReleaseScriptPreCopy(verbose);
-  compileAndCopy(modSourcePath, modTargetPath, verbose);
+  compileAndCopy(modSourcePath, modTargetPath, packageManager, verbose);
   purgeRoomXMLs(modTargetPath, verbose);
   runReleaseScriptPostCopy(verbose);
 

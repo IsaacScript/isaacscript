@@ -80,12 +80,14 @@ export function getCustomStages(verbose: boolean): CustomStage[] {
     return [];
   }
 
-  const { customStage } = isaacScriptSection;
-  if (typeof customStage !== "boolean") {
+  const { customStages } = isaacScriptSection;
+  if (!Array.isArray(customStages)) {
     error(
-      `The "customStage" property in the "${TSCONFIG_JSON}" file is not a boolean.`,
+      `Your "${chalk.green(
+        TSCONFIG_JSON_PATH,
+      )}" file has a non-array value for the "customStages" property, which is surely a mistake. ${ADVICE}`,
     );
   }
 
-  return [];
+  return customStages as CustomStage[];
 }

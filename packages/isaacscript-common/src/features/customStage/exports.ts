@@ -1,6 +1,7 @@
 import { LevelStage } from "isaac-typescript-definitions";
 import { CustomStageData } from "../../interfaces/CustomStageData";
 import { JSONRoom } from "../../interfaces/JSONRoom";
+import * as metadataJSON from "./metadata.json";
 import { customStages } from "./v";
 
 /**
@@ -36,4 +37,15 @@ export function registerCustomStage(
  *
  * Custom stages/levels must first be registered with the `registerCustomStage` function.
  */
-export function setCustomStage(_name: string): void {}
+export function setCustomStage(name: string): void {
+  const customStageMetadata = metadataJSON as unknown as Record<
+    string,
+    CustomStageData
+  >;
+  const metadata = customStageMetadata[name];
+  if (metadata === undefined) {
+    error(
+      `Failed to set the custom stage of "${name}" because it was not found in the "metadata.json" file. (This means that you probably forgot to define it in your "tsconfig.json" file.)`,
+    );
+  }
+}

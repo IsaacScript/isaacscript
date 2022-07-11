@@ -10,7 +10,7 @@ import {
   PACKAGE_JSON_PATH,
   PROJECT_NAME,
 } from "../../constants";
-import { getCustomStageMetadata } from "../../customStage";
+import { fillCustomStageMetadata } from "../../customStage";
 import * as file from "../../file";
 import { getJSONC } from "../../json";
 import {
@@ -42,6 +42,7 @@ let compilationStartTime = new Date();
 
 export function monitor(args: Args, config: Config): void {
   const verbose = args.verbose === true;
+  const packageManager = getPackageManagerUsedForExistingProject(args, verbose);
 
   // If they specified some command-line flags, override the values found in the config file.
   if (args.modsDirectory !== undefined) {
@@ -65,7 +66,7 @@ export function monitor(args: Args, config: Config): void {
   touchWatcherSaveDatFiles(config, verbose);
 
   // Prepare the custom stages feature.
-  getCustomStageMetadata(MOD_SOURCE_PATH, modTargetPath, verbose);
+  fillCustomStageMetadata(packageManager, verbose);
 
   // Delete and re-copy the mod every time IsaacScript starts. This ensures that it is always the
   // latest version.

@@ -23,8 +23,12 @@
           "items": {
             "description": "Describes TypeScriptToLua plugin",
             "type": "object",
-            "required": ["name"],
+            "required": ["name", "xmlPath", "roomVariantPrefix"],
             "properties": {
+              "name": {
+                "description": "The name of the custom stage.",
+                "type": "string"
+              },
               "xmlPath": {
                 "description": "Path to the XML file that contains the rooms for the custom stage (created with Basement Renovator)",
                 "type": "string"
@@ -36,7 +40,8 @@
             }
           }
         }
-      }
+      },
+      "additionalProperties": false
     }
   },
   "allowTrailingCommas": true

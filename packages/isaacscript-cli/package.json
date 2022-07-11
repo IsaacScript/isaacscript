@@ -41,6 +41,7 @@
     "sync-directory": "^5.1.7",
     "tslib": "^2.4.0",
     "update-notifier": "5.1.0",
+    "xml2js": "^0.4.23",
     "yaml": "^2.1.1",
     "yargs": "^17.5.1"
   },
