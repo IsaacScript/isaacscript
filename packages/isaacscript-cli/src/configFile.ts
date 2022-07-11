@@ -1,11 +1,11 @@
 import path from "path";
+import { Config } from "./classes/Config";
 import { getModsDir } from "./commands/init/getModsDir";
 import { promptSaveSlot } from "./commands/init/promptSaveSlot";
 import { CONFIG_FILE_NAME, CONFIG_FILE_PATH, CWD } from "./constants";
 import * as file from "./file";
 import { getJSONC } from "./json";
 import { Args } from "./parseArgs";
-import { Config } from "./types/Config";
 import { error } from "./utils";
 
 const NUM_SPACES = 2;

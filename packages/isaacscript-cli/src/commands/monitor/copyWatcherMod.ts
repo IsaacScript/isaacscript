@@ -1,4 +1,5 @@
 import path from "path";
+import { Config } from "../../classes/Config";
 import {
   DISABLE_IT_FILE,
   MAIN_LUA,
@@ -6,7 +7,6 @@ import {
   WATCHER_MOD_SOURCE_PATH,
 } from "../../constants";
 import * as file from "../../file";
-import { Config } from "../../types/Config";
 
 export function copyWatcherMod(config: Config, verbose: boolean): void {
   // Check to see if this mod was disabled.

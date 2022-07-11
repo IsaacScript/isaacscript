@@ -1,7 +1,7 @@
 import path from "path";
 import { TEMPLATES_DYNAMIC_DIR } from "./constants";
 import * as file from "./file";
-import { getCustomStageOption } from "./tsconfig";
+import { getCustomStages } from "./tsconfig";
 import { error } from "./utils";
 
 const ROOMS_DIRECTORY_PARTIAL_PATH = path.join("content", "rooms");
@@ -15,13 +15,13 @@ const SPECIAL_ROOMS_STB_TEMPLATE_PATH = path.join(
   SPECIAL_ROOMS_STB_PARTIAL_PATH,
 );
 
-export function copyCustomStageRooms(
+export function getCustomStageMetadata(
   modSourcePath: string,
   modTargetPath: string,
   verbose: boolean,
 ): void {
-  const customStageOption = getCustomStageOption(verbose);
-  if (!customStageOption) {
+  const customStageOption = getCustomStages(verbose);
+  if (customStageOption.length === 0) {
     return;
   }
 

@@ -1,10 +1,10 @@
 import path from "path";
+import { Config } from "../../classes/Config";
 import { MOD_SOURCE_PATH } from "../../constants";
-import { copyCustomStageRooms } from "../../customStage";
+import { getCustomStageMetadata } from "../../customStage";
 import { execShell } from "../../exec";
 import * as file from "../../file";
 import { Args } from "../../parseArgs";
-import { Config } from "../../types/Config";
 import { getModTargetDirectoryName } from "../../utils";
 
 export function copy(args: Args, config: Config): void {
@@ -22,7 +22,7 @@ export function compileAndCopy(
   verbose: boolean,
 ): void {
   compile(verbose);
-  copyCustomStageRooms(modSourcePath, modTargetPath, verbose);
+  getCustomStageMetadata(modSourcePath, modTargetPath, verbose);
   copyMod(modSourcePath, modTargetPath, verbose);
 }
 

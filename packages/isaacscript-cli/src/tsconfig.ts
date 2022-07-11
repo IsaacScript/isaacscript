@@ -1,5 +1,6 @@
 import chalk from "chalk";
 import { PROJECT_NAME, TSCONFIG_JSON, TSCONFIG_JSON_PATH } from "./constants";
+import { CustomStage } from "./interfaces/CustomStage";
 import { getJSONC } from "./json";
 import { error, isRecord } from "./utils";
 
@@ -73,10 +74,10 @@ export function getFirstTSConfigIncludePath(verbose: boolean): string {
   return firstInclude;
 }
 
-export function getCustomStageOption(verbose: boolean): boolean {
+export function getCustomStages(verbose: boolean): CustomStage[] {
   const isaacScriptSection = getIsaacScriptSection(verbose);
   if (isaacScriptSection === undefined) {
-    return false;
+    return [];
   }
 
   const { customStage } = isaacScriptSection;
@@ -86,5 +87,5 @@ export function getCustomStageOption(verbose: boolean): boolean {
     );
   }
 
-  return customStage;
+  return [];
 }

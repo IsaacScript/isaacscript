@@ -8,6 +8,7 @@ import sourceMapSupport from "source-map-support";
 import updateNotifier from "update-notifier";
 import pkg from "../package.json";
 import { checkForWindowsTerminalBugs } from "./checkForWindowsTerminalBugs";
+import { Config } from "./classes/Config";
 import { copy } from "./commands/copy/copy";
 import { init } from "./commands/init/init";
 import { monitor } from "./commands/monitor/monitor";
@@ -22,7 +23,6 @@ import {
 import { Args, parseArgs } from "./parseArgs";
 import { promptInit } from "./prompt";
 import { Command, DEFAULT_COMMAND } from "./types/Command";
-import { Config } from "./types/Config";
 import { error } from "./utils";
 import { validateInIsaacScriptProject } from "./validateInIsaacScriptProject";
 import { validateNodeVersion } from "./validateNodeVersion";

@@ -1,9 +1,9 @@
 import commandExists from "command-exists";
 import path from "path";
 import { CWD } from "./constants";
+import { PackageManager } from "./enums/PackageManager";
 import * as file from "./file";
 import { Args } from "./parseArgs";
-import { PackageManager } from "./types/PackageManager";
 import { error, getEnumValues } from "./utils";
 
 const PACKAGE_MANAGER_LOCK_FILE_NAMES: {

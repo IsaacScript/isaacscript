@@ -1,6 +1,7 @@
 import chalk from "chalk";
 import { fork, spawn } from "child_process";
 import path from "path";
+import { Config } from "../../classes/Config";
 import {
   CWD,
   FILE_SYNCED_MESSAGE,
@@ -9,7 +10,7 @@ import {
   PACKAGE_JSON_PATH,
   PROJECT_NAME,
 } from "../../constants";
-import { copyCustomStageRooms } from "../../customStage";
+import { getCustomStageMetadata } from "../../customStage";
 import * as file from "../../file";
 import { getJSONC } from "../../json";
 import {
@@ -18,7 +19,6 @@ import {
 } from "../../packageManager";
 import { Args } from "../../parseArgs";
 import { getFirstTSConfigIncludePath } from "../../tsconfig";
-import { Config } from "../../types/Config";
 import { error, getModTargetDirectoryName, isRecord } from "../../utils";
 import { COMPILATION_SUCCESSFUL } from "./constants";
 import { copyWatcherMod } from "./copyWatcherMod";
@@ -65,7 +65,7 @@ export function monitor(args: Args, config: Config): void {
   touchWatcherSaveDatFiles(config, verbose);
 
   // Prepare the custom stages feature.
-  copyCustomStageRooms(MOD_SOURCE_PATH, modTargetPath, verbose);
+  getCustomStageMetadata(MOD_SOURCE_PATH, modTargetPath, verbose);
 
   // Delete and re-copy the mod every time IsaacScript starts. This ensures that it is always the
   // latest version.

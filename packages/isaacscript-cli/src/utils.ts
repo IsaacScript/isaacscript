@@ -1,6 +1,6 @@
 import moment from "moment";
+import { Config } from "./classes/Config";
 import { CURRENT_DIRECTORY_NAME } from "./constants";
-import { Config } from "./types/Config";
 
 /** From: https://github.com/expandjs/expandjs/blob/master/lib/kebabCaseRegex.js */
 const KEBAB_CASE_REGEX =

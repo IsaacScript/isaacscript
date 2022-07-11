@@ -1,7 +1,7 @@
 import { ChildProcess, fork } from "child_process";
 import path from "path";
+import { Config } from "../../classes/Config";
 import { WATCHER_MOD_NAME } from "../../constants";
-import { Config } from "../../types/Config";
 import { error } from "../../utils";
 import { SaveDatMessage } from "./saveDatWriter/types";
 

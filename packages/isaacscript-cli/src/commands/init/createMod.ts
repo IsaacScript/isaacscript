@@ -18,6 +18,7 @@ import {
   README_MD_TEMPLATES_PATH,
   TEMPLATES_STATIC_DIR,
 } from "../../constants";
+import { PackageManager } from "../../enums/PackageManager";
 import { execShell } from "../../exec";
 import * as file from "../../file";
 import {
@@ -25,7 +26,6 @@ import {
   getPackageManagerInstallCommand,
   getPackageManagerLockFileName,
 } from "../../packageManager";
-import { PackageManager } from "../../types/PackageManager";
 import { repeat } from "../../utils";
 import { initGitRepository } from "./git";
 

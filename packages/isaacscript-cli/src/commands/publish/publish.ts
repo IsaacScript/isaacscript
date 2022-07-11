@@ -1,5 +1,6 @@
 import chalk from "chalk";
 import path from "path";
+import { Config } from "../../classes/Config";
 import {
   CONFIG_FILE_NAME,
   CONSTANTS_TS_PATH,
@@ -15,7 +16,6 @@ import {
 import { execExe, execPowershell, execShell } from "../../exec";
 import * as file from "../../file";
 import { Args } from "../../parseArgs";
-import { Config } from "../../types/Config";
 import { error, getModTargetDirectoryName, parseSemVer } from "../../utils";
 import { compileAndCopy } from "../copy/copy";
 import { gitCommitIfChanges, isGitDirty } from "../init/git";

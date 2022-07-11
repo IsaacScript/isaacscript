@@ -5,8 +5,8 @@ import yaml from "yaml";
 import { PROJECT_NAME } from "../../constants";
 import { execShell } from "../../exec";
 import * as file from "../../file";
+import { GitHubCLIHostsYAML } from "../../interfaces/GitHubCLIHostsYAML";
 import { getInputString, getInputYesNo } from "../../prompt";
-import { GitHubCLIHostsYAML } from "../../types/GitHubCLIHostsYAML";
 import { error, parseSemVer } from "../../utils";
 
 const REQUIRED_GIT_MAJOR_VERSION = 2;
