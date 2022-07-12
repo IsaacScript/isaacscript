@@ -4,8 +4,10 @@ import {
   PickupVariant,
 } from "isaac-typescript-definitions";
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { postCollectibleEmptyFire } from "./subscriptions/postCollectibleEmpty";
-import { postCollectibleInitFirstHasSubscriptions } from "./subscriptions/postCollectibleInitFirst";
+import {
+  postCollectibleEmptyFire,
+  postCollectibleEmptyHasSubscriptions,
+} from "./subscriptions/postCollectibleEmpty";
 
 const v = {
   room: {
@@ -25,7 +27,7 @@ export function postCollectibleEmptyInit(mod: Mod): void {
 }
 
 function hasSubscriptions() {
-  return postCollectibleInitFirstHasSubscriptions();
+  return postCollectibleEmptyHasSubscriptions();
 }
 
 function postPickupUpdateCollectible(pickup: EntityPickup) {
