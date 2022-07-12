@@ -14,7 +14,9 @@ Historically, people have used the [StageAPI](https://github.com/Meowlala/BOISta
 
 First, edit your `tsconfig.json` and add an `isaacscript` section to the root object like the following, if it does not already exist:
 
-```jsonc
+<!-- We specify the following code block as "ts" instead of "jsonc" because Docusaurus will mess up the syntax highlighting. -->
+
+```ts
   // IsaacScript settings
   "isaacscript": {
     // A list of objects that represent the custom stages that are in your mod, if any. Note that

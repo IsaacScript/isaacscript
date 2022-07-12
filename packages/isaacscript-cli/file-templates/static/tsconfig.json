@@ -1,7 +1,7 @@
 // The configuration file for TypeScript.
 {
   // We specify the schema to get auto-complete and validation.
-  "$schema": "https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/tsconfig-schema.json",
+  "$schema": "https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/schemas/tsconfig-isaacscript-schema.json",
 
   // We extend the standard IsaacScript config:
   // https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-tsconfig/tsconfig.mod.json
@@ -38,16 +38,8 @@
 
   // IsaacScript settings
   "isaacscript": {
-    // A list of objects that represent the custom stages that are in your mod, if any. Note that
-    // the room variant prefix must not conflict with prefixes chosen by other mods. Document the
-    // prefix that you are using here: https://isaacscript.github.io/main/custom-stages
-    "customStages": [
-      /*
-      {
-        "xmlPath": "./mod/resources/rooms/foo.xml",
-        "roomVariantPrefix": 1000,
-      },
-      */
-    ],
+    // A list of objects that represent the custom stages that are in your mod, if any. See:
+    // https://isaacscript.github.io/main/custom-stages
+    "customStages": [],
   },
 }
