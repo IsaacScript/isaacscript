@@ -1,8 +1,12 @@
-/* eslint-disable @nrwl/nx/enforce-module-boundaries,import/no-relative-packages */
+import { CustomStageTSConfig } from "./copied/CustomStage";
 
-import { CustomStageTSConfig } from "../../../isaacscript-common/src/interfaces/CustomStageTSConfig";
-
-/** This is the format of the "isaacscript" section of the "tsconfig.json" file. */
+/**
+ * This is the format of the "isaacscript" section of the "tsconfig.json" file.
+ *
+ * We use this interface to automatically generate the schema using the "ts-json-schema-generator"
+ * library.
+ */
+// ts-prune-ignore-next
 export interface IsaacScriptTSConfig {
   customStages?: CustomStageTSConfig[];
 }

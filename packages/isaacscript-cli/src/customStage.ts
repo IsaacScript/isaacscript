@@ -1,18 +1,16 @@
-/* eslint-disable @nrwl/nx/enforce-module-boundaries,import/no-relative-packages */
-
 import chalk from "chalk";
 import path from "path";
 import * as tstl from "typescript-to-lua";
 import xml2js from "xml2js";
-import {
-  CustomStage,
-  CustomStageRoomMetadata,
-} from "../../isaacscript-common/src/interfaces/CustomStage";
-import { CustomStageTSConfig } from "../../isaacscript-common/src/interfaces/CustomStageTSConfig";
-import { JSONRoomsFile } from "../../isaacscript-common/src/interfaces/JSONRoomsFile";
 import { CWD } from "./constants";
 import { PackageManager } from "./enums/PackageManager";
 import * as file from "./file";
+import {
+  CustomStage,
+  CustomStageRoomMetadata,
+  CustomStageTSConfig,
+} from "./interfaces/copied/CustomStage";
+import { JSONRoomsFile } from "./interfaces/copied/JSONRoomsFile";
 import { getPackageManagerAddCommand } from "./packageManager";
 import { getCustomStagesFromTSConfig } from "./tsconfig";
 import { error, parseIntSafe } from "./utils";

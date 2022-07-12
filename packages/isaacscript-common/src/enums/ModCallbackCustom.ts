@@ -79,6 +79,16 @@ export enum ModCallbackCustom {
   POST_BONE_SWING,
 
   /**
+   * Fires from the `POST_PICKUP_UPDATE` callback when a collectible goes from a non-zero sub-type
+   * to `CollectibleType.NULL` (i.e. an "empty" pedestal).
+   *
+   * ```ts
+   * function postCollectibleEmpty(collectible: EntityPickupCollectible): void {}
+   * ```
+   */
+  POST_COLLECTIBLE_EMPTY,
+
+  /**
    * Fires from the `POST_PICKUP_INIT` callback on the first time that a player has seen the
    * respective collectible on the run. For more details on how this is calculated, see the
    * documentation for the `getCollectibleIndex` helper function.

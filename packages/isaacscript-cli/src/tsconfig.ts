@@ -1,8 +1,5 @@
-/* eslint-disable @nrwl/nx/enforce-module-boundaries,import/no-relative-packages */
-
 import Ajv, { Schema } from "ajv";
 import chalk from "chalk";
-import { CustomStageTSConfig } from "../../isaacscript-common/src/interfaces/CustomStageTSConfig";
 import {
   ISAACSCRIPT_SCHEMA_PATH,
   PROJECT_NAME,
@@ -10,6 +7,7 @@ import {
   TSCONFIG_JSON_PATH,
 } from "./constants";
 import * as file from "./file";
+import { CustomStageTSConfig } from "./interfaces/copied/CustomStage";
 import { getJSONC } from "./json";
 import { error, isRecord } from "./utils";
 
