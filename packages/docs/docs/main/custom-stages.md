@@ -44,7 +44,7 @@ Second, make sure it has an "isaacscript" property at the bottom:
   },
 ```
 
-For an explanation of each field, you should be able to mouse-over it in VSCode. Alternatively, you can see the schema [here](https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-common/src/interfaces/CustomStageTSConfig.ts).
+For an explanation of each field, you should be able to mouse-over it in VSCode. Alternatively, you can see the schema [here](https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-common/src/interfaces/CustomStage.ts).
 
 ## Motivation
 
