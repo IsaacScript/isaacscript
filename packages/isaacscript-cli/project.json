@@ -4,8 +4,7 @@
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nrwl/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "executor": "@nrwl/workspace:run-commands",
       "dependsOn": [
         {
           "target": "build",
@@ -13,16 +12,7 @@
         }
       ],
       "options": {
-        "outputPath": "dist/packages/isaacscript-cli",
-        "main": "packages/isaacscript-cli/src/main.ts",
-        "tsConfig": "packages/isaacscript-cli/tsconfig.json",
-        "assets": [
-          "packages/isaacscript-cli/*.md",
-          "packages/isaacscript-cli/file-templates/**",
-          "packages/isaacscript-cli/isaacscript-watcher/**",
-          "packages/isaacscript-cli/LICENSE"
-        ],
-        "buildableProjectDepsInPackageJsonType": "dependencies"
+        "command": "bash packages/isaacscript-common/build.sh"
       }
     },
     "lint": {

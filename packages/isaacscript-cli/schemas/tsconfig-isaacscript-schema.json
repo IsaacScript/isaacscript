@@ -1,0 +1,20 @@
+{
+  "title": "tsconfig.json with IsaacScript",
+  "description": "JSON schema for the TypeScript compiler's configuration file with IsaacScript",
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "allOf": [
+    {
+      "$ref": "https://raw.githubusercontent.com/TypeScriptToLua/vscode-typescript-to-lua/master/tsconfig-schema.json"
+    }
+  ],
+  "properties": {
+    "isaacscript": {
+      "allOf": [
+        {
+          "$ref": "./tsconfig-isaacscript-section-schema.json"
+        }
+      ]
+    }
+  },
+  "allowTrailingCommas": true
+}

@@ -1,3 +1,3 @@
-import { CustomStageData } from "../../interfaces/CustomStageData";
+import { CustomStage } from "../../interfaces/CustomStage";
 
-export const customStages = new Map<string, CustomStageData>();
+export const customStagesMap = new Map<string, CustomStage>();

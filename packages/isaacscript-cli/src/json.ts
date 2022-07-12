@@ -4,7 +4,8 @@ import * as file from "./file";
 import { error, isRecord } from "./utils";
 
 /**
- * Helper function to parse a file as JSONC. Will terminate the program if any errors occur.
+ * Helper function to parse a file as JSONC. This expects the file to contain an object (i.e. `{}`),
+ * not an array or a primitive. The function will terminate the program if any errors occur.
  *
  * We parse as JSONC instead of JSON to allow for comments and trailing commas.
  */

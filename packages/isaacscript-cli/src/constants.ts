@@ -76,6 +76,13 @@ export const README_MD_TEMPLATES_PATH = path.join(
   README_MD,
 );
 
+// `isaacscript/schemas`
+const SCHEMAS_DIR = path.join(REPO_ROOT, "schemas");
+export const ISAACSCRIPT_SCHEMA_PATH = path.join(
+  SCHEMAS_DIR,
+  "tsconfig-isaacscript-section-schema.json",
+);
+
 // `project`
 export const CONFIG_FILE_NAME = "isaacscript.json";
 export const CONFIG_FILE_PATH = path.join(CWD, CONFIG_FILE_NAME);

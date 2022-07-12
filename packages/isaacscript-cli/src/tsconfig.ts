@@ -1,10 +1,23 @@
+/* eslint-disable @nrwl/nx/enforce-module-boundaries,import/no-relative-packages */
+
+import Ajv, { Schema } from "ajv";
 import chalk from "chalk";
-import { PROJECT_NAME, TSCONFIG_JSON, TSCONFIG_JSON_PATH } from "./constants";
-import { CustomStage } from "./interfaces/CustomStage";
+import { CustomStageTSConfig } from "../../isaacscript-common/src/interfaces/CustomStageTSConfig";
+import {
+  ISAACSCRIPT_SCHEMA_PATH,
+  PROJECT_NAME,
+  TSCONFIG_JSON,
+  TSCONFIG_JSON_PATH,
+} from "./constants";
+import * as file from "./file";
 import { getJSONC } from "./json";
 import { error, isRecord } from "./utils";
 
 const ADVICE = `Try copying the "${TSCONFIG_JSON}" from a brand new ${PROJECT_NAME} project.`;
+const ISAACSCRIPT_SCHEMA_RAW = file.read(ISAACSCRIPT_SCHEMA_PATH, false);
+const ISAACSCRIPT_SCHEMA = JSON.parse(ISAACSCRIPT_SCHEMA_RAW) as Schema;
+const ajv = new Ajv();
+const schemaValidate = ajv.compile(ISAACSCRIPT_SCHEMA);
 
 function getTSConfigJSON(verbose: boolean): Record<string, unknown> {
   return getJSONC(TSCONFIG_JSON_PATH, verbose);
@@ -74,65 +87,24 @@ export function getFirstTSConfigIncludePath(verbose: boolean): string {
   return firstInclude;
 }
 
-export function getCustomStages(verbose: boolean): CustomStage[] {
+/**
+ * Parses the "tsconfig.json" file and returns the "customStages" section. If the section does not
+ * exist, returns an empty array.
+ */
+export function getCustomStagesFromTSConfig(
+  verbose: boolean,
+): CustomStageTSConfig[] {
   const isaacScriptSection = getIsaacScriptSection(verbose);
   if (isaacScriptSection === undefined) {
     return [];
   }
 
-  const { customStages } = isaacScriptSection;
-  if (!Array.isArray(customStages)) {
-    error(
-      `Your "${chalk.green(
-        TSCONFIG_JSON_PATH,
-      )}" file has a non-array value for the "customStages" property, which is surely a mistake. ${ADVICE}`,
-    );
+  const valid = schemaValidate(isaacScriptSection);
+  if (!valid) {
+    console.error('Your "isaacscript" section has the following errors:');
+    console.error(schemaValidate.errors);
+    error(ADVICE);
   }
 
-  for (const customStage of customStages) {
-    if (!isRecord(customStage)) {
-      error(
-        `Your "${chalk.green(
-          TSCONFIG_JSON_PATH,
-        )}" file has a non-object value for one of the custom stages in the "customStages" property, which is surely a mistake. ${ADVICE}`,
-      );
-    }
-
-    const { name } = customStage;
-    validateString(name, "name");
-
-    const { xmlPath } = customStage;
-    validateString(xmlPath, "xmlPath");
-
-    const { roomVariantPrefix } = customStage;
-    validateNumber(roomVariantPrefix, "roomVariantPrefix");
-  }
-
-  return customStages as CustomStage[];
-}
-
-function validateString(thing: unknown, name: string) {
-  validateType(thing, name, "string");
-}
-
-function validateNumber(thing: unknown, name: string) {
-  validateType(thing, name, "number");
-}
-
-function validateType(thing: unknown, name: string, type: string) {
-  if (thing === undefined) {
-    error(
-      `Your "${chalk.green(
-        TSCONFIG_JSON_PATH,
-      )}" file has an empty "${name}" property, which is surely a mistake. ${ADVICE}`,
-    );
-  }
-
-  if (typeof thing !== type) {
-    error(
-      `Your "${chalk.green(
-        TSCONFIG_JSON_PATH,
-      )}" file has a non-${type} "${name}" property, which is surely a mistake. ${ADVICE}`,
-    );
-  }
+  return isaacScriptSection["customStages"] as CustomStageTSConfig[];
 }

@@ -1,16 +1,20 @@
+/* eslint-disable @nrwl/nx/enforce-module-boundaries,import/no-relative-packages */
+
 import chalk from "chalk";
 import path from "path";
 import * as tstl from "typescript-to-lua";
 import xml2js from "xml2js";
+import {
+  CustomStage,
+  CustomStageRoomMetadata,
+} from "../../isaacscript-common/src/interfaces/CustomStage";
+import { CustomStageTSConfig } from "../../isaacscript-common/src/interfaces/CustomStageTSConfig";
+import { JSONRoomsFile } from "../../isaacscript-common/src/interfaces/JSONRoomsFile";
 import { CWD } from "./constants";
 import { PackageManager } from "./enums/PackageManager";
 import * as file from "./file";
-import { CustomStage } from "./interfaces/CustomStage";
-import { CustomStageMetadata } from "./interfaces/CustomStageMetadata";
-import { CustomStageRoomMetadata } from "./interfaces/CustomStageRoomMetadata";
-import { JSONRoomsFile } from "./interfaces/JSONRoomsFile";
 import { getPackageManagerAddCommand } from "./packageManager";
-import { getCustomStages } from "./tsconfig";
+import { getCustomStagesFromTSConfig } from "./tsconfig";
 import { error, parseIntSafe } from "./utils";
 
 const ISAACSCRIPT_COMMON = "isaacscript-common";
@@ -36,16 +40,19 @@ export async function fillCustomStageMetadata(
   packageManager: PackageManager,
   verbose: boolean,
 ): Promise<void> {
-  const customStages = getCustomStages(verbose);
-  if (customStages.length === 0) {
+  const customStagesTSConfig = getCustomStagesFromTSConfig(verbose);
+  if (customStagesTSConfig.length === 0) {
     return;
   }
 
   validateMetadataLuaFileExists(packageManager, verbose);
 
-  const stagesMetadata = await getCustomStagesMetadata(customStages, verbose);
-  const stagesMetadataLua = convertMetadataToLua(stagesMetadata);
-  file.write(METADATA_LUA_PATH, stagesMetadataLua, verbose);
+  const customStages = await getCustomStagesWithMetadata(
+    customStagesTSConfig,
+    verbose,
+  );
+  const customStagesLua = convertCustomStagesToLua(customStages);
+  file.write(METADATA_LUA_PATH, customStagesLua, verbose);
 
   error("DONE");
 }
@@ -77,28 +84,29 @@ function validateMetadataLuaFileExists(
 
 /**
  * This parses all of the end-user's XML files and gathers metadata about all of the rooms within.
+ * (In other words, this creates the full set of `CustomStage` objects.)
  */
-async function getCustomStagesMetadata(
-  customStages: CustomStage[],
+async function getCustomStagesWithMetadata(
+  customStagesTSConfig: CustomStageTSConfig[],
   verbose: boolean,
-): Promise<CustomStageMetadata[]> {
-  const stagesMetadata: CustomStageMetadata[] = [];
+): Promise<CustomStage[]> {
+  if (!file.exists(METADATA_LUA_PATH, verbose)) {
+    error(
+      `${chalk.red(
+        "Failed to find the the custom stage metadata file at:",
+      )} ${chalk.green(METADATA_LUA_PATH)}`,
+    );
+  }
 
-  for (const customStage of customStages) {
-    const xmlPath = path.resolve(CWD, customStage.xmlPath);
+  const customStages: CustomStage[] = [];
+
+  for (const customStageTSConfig of customStagesTSConfig) {
+    const xmlPath = path.resolve(CWD, customStageTSConfig.xmlPath);
     if (!file.exists(xmlPath, verbose)) {
       error(
         `${chalk.red(
           "Failed to find the custom stage XML file at:",
         )} ${chalk.green(xmlPath)}`,
-      );
-    }
-
-    if (!file.exists(METADATA_LUA_PATH, verbose)) {
-      error(
-        `${chalk.red(
-          "Failed to find the the custom stage metadata file at:",
-        )} ${chalk.green(METADATA_LUA_PATH)}`,
       );
     }
 
@@ -108,7 +116,7 @@ async function getCustomStagesMetadata(
       xmlContents,
     )) as JSONRoomsFile;
 
-    const roomsMetadata: CustomStageRoomMetadata[] = [];
+    const customStageRoomsMetadata: CustomStageRoomMetadata[] = [];
 
     for (const room of jsonRoomsFile.rooms.room) {
       const baseVariant = parseIntSafe(room.$.variant);
@@ -117,7 +125,8 @@ async function getCustomStagesMetadata(
           `Failed to parse the variant of one of the custom stage rooms: ${room.$.variant}`,
         );
       }
-      const variant = baseVariant + customStage.roomVariantPrefix * 10000;
+      const variant =
+        baseVariant + customStageTSConfig.roomVariantPrefix * 10000;
 
       const shape = parseIntSafe(room.$.shape);
       if (Number.isNaN(baseVariant)) {
@@ -133,27 +142,27 @@ async function getCustomStagesMetadata(
         );
       }
 
-      const roomMetadata: CustomStageRoomMetadata = {
+      const customStageRoomMetadata: CustomStageRoomMetadata = {
         variant,
         shape,
         weight,
       };
-      roomsMetadata.push(roomMetadata);
+      customStageRoomsMetadata.push(customStageRoomMetadata);
     }
 
-    const stageMetadata: CustomStageMetadata = {
-      name: customStage.name,
-      rooms: roomsMetadata,
+    const customStage: CustomStage = {
+      ...customStageTSConfig,
+      roomsMetadata: customStageRoomsMetadata,
     };
-    stagesMetadata.push(stageMetadata);
+    customStages.push(customStage);
   }
 
-  return stagesMetadata;
+  return customStages;
 }
 
-function convertMetadataToLua(stagesMetadata: CustomStageMetadata[]): string {
-  const stagesMetadataString = JSON.stringify(stagesMetadata);
-  const fakeTypeScriptFile = `return ${stagesMetadataString}`;
+function convertCustomStagesToLua(customStages: CustomStage[]): string {
+  const customStagesString = JSON.stringify(customStages);
+  const fakeTypeScriptFile = `return ${customStagesString}`;
   const result = tstl.transpileString(fakeTypeScriptFile, {
     noHeader: true,
   });

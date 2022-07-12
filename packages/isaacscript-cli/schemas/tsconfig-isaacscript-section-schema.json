@@ -1,0 +1,56 @@
+{
+  "$ref": "#/definitions/IsaacScriptTSConfig",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "CustomStageTSConfig": {
+      "additionalProperties": false,
+      "description": "This is the format of a custom stage in the \"isaacscript\" section of the \"tsconfig.json\" file.\n\nThe contents of this interface are used to create a \"tsconfig-isaacscript-section-schema.json\" schema with the \"\"ts-json-schema-generator\"\" library.\n\nThe contents of this interface are validated at run-time against the schema using the Ajv library.\n\nThe `CustomStage` interface extends this, adding room metadata.",
+      "properties": {
+        "baseStage": {
+          "description": "An integer between 1 and 13, corresponding to the `LevelStage` enum. This is the number of the stage that will be warped to and used as a basis for the stage by the level generation algorithm.",
+          "type": "number"
+        },
+        "baseStageType": {
+          "description": "An integer between 0 and 5, corresponding to the `StageType` enum. This is the number of the stage type that will be warped to and used as a basis for the stage by the level generation algorithm.",
+          "type": "number"
+        },
+        "name": {
+          "description": "The name of the custom stage.",
+          "type": "string"
+        },
+        "roomVariantPrefix": {
+          "description": "An arbitrarily chosen prefix in the range of 101-999.",
+          "type": "number"
+        },
+        "xmlPath": {
+          "description": "Path to the XML file that contains the rooms for the custom stage (created with Basement Renovator).",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "xmlPath",
+        "roomVariantPrefix",
+        "baseStage",
+        "baseStageType"
+      ],
+      "type": "object"
+    },
+    "IsaacScriptTSConfig": {
+      "additionalProperties": false,
+      "description": "This is the format of the \"isaacscript\" section of the \"tsconfig.json\" file.",
+      "properties": {
+        "customStages": {
+          "items": {
+            "$ref": "#/definitions/CustomStageTSConfig"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "customStages"
+      ],
+      "type": "object"
+    }
+  }
+}

@@ -26,6 +26,7 @@
     "isaacscript": "./src/main.js"
   },
   "dependencies": {
+    "ajv": "^8.11.0",
     "chalk": "4.1.2",
     "command-exists": "^1.2.9",
     "dotenv": "^16.0.1",
