@@ -3,6 +3,7 @@ import { characterHealthConversionInit } from "./features/characterHealthConvers
 import { characterStatsInit } from "./features/characterStats";
 import { collectibleItemPoolTypeInit } from "./features/collectibleItemPoolType";
 import { customGridEntityInit } from "./features/customGridEntity";
+import { customStageInit } from "./features/customStage/init";
 import { deployJSONRoomInit } from "./features/deployJSONRoom";
 import { disableAllSoundInit } from "./features/disableAllSound";
 import { disableInputsInit } from "./features/disableInputs";
@@ -21,6 +22,7 @@ import { stageHistoryInit } from "./features/stageHistory";
 import { taintedLazarusPlayersInit } from "./features/taintedLazarusPlayers";
 
 export function initFeaturesMajor(mod: ModUpgraded): void {
+  customStageInit();
   deployJSONRoomInit(mod);
   runInNFramesInit(mod);
   characterStatsInit(mod);

@@ -12,24 +12,39 @@ Historically, people have used the [StageAPI](https://github.com/Meowlala/BOISta
 
 ### `tsconfig.json`
 
-First, edit your `tsconfig.json` and add an `isaacscript` section to the root object like the following, if it does not already exist:
+You define and configure your custom stages by adding information to the `tsconfig.json` file.
+
+First, make sure that it has a "$schema" property at the top:
+
+<!-- We specify the following code block as "ts" instead of "jsonc" because Docusaurus will mess up the syntax highlighting. -->
+
+```ts
+  // We specify the schema to get auto-complete and validation.
+  "$schema": "https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/schemas/tsconfig-isaacscript-schema.json",
+```
+
+Second, make sure it has an "isaacscript" property at the bottom:
 
 <!-- We specify the following code block as "ts" instead of "jsonc" because Docusaurus will mess up the syntax highlighting. -->
 
 ```ts
   // IsaacScript settings
   "isaacscript": {
-    // A list of objects that represent the custom stages that are in your mod, if any. Note that
-    // the room variant prefix must not conflict with prefixes chosen by other mods. Document the
-    // prefix that you are using here: https://isaacscript.github.io/main/custom-stages
+    // A list of objects that represent the custom stages that are in your mod, if any. See:
+    // https://isaacscript.github.io/main/custom-stages
     "customStages": [
       {
+        "name": "Foo",
         "xmlPath": "./mod/resources/rooms/foo.xml",
-        "roomVariantPrefix": 1000,
+        "roomVariantPrefix": n,
+        "baseStage": 1,
+        "baseStageType": 0,
       },
     ],
   },
 ```
+
+For an explanation of each field, you should be able to mouse-over it in VSCode. Alternatively, you can see the schema [here](https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-common/src/interfaces/CustomStageTSConfig.ts).
 
 ## Motivation
 

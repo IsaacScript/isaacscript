@@ -106,5 +106,18 @@ export function getCustomStagesFromTSConfig(
     error(ADVICE);
   }
 
-  return isaacScriptSection["customStages"] as CustomStageTSConfig[];
+  // "customStages" is an optional property.
+  const { customStages } = isaacScriptSection;
+  if (customStages === undefined) {
+    return [];
+  }
+
+  // The type of "customStages" should be validated by Ajv, but check again just in case.
+  if (!Array.isArray(customStages)) {
+    error(
+      `Failed to parse the "customStages" property, since it was not an array. ${ADVICE}.`,
+    );
+  }
+
+  return customStages as CustomStageTSConfig[];
 }

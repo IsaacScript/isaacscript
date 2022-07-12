@@ -4,5 +4,5 @@ import { CustomStageTSConfig } from "../../../isaacscript-common/src/interfaces/
 
 /** This is the format of the "isaacscript" section of the "tsconfig.json" file. */
 export interface IsaacScriptTSConfig {
-  customStages: CustomStageTSConfig[];
+  customStages?: CustomStageTSConfig[];
 }
