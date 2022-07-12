@@ -50,7 +50,7 @@ export async function prepareCustomStages(
  * `METADATA_LUA_PATH`. By default, the file is blank, and must be filled in by tooling before
  * compiling the mod.
  */
-export async function fillCustomStageMetadata(
+async function fillCustomStageMetadata(
   customStagesTSConfig: CustomStageTSConfig[],
   packageManager: PackageManager,
   verbose: boolean,
