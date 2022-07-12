@@ -12,7 +12,7 @@
         }
       ],
       "options": {
-        "command": "bash packages/isaacscript-common/build.sh"
+        "command": "bash packages/isaacscript-cli/build.sh"
       }
     },
     "lint": {
