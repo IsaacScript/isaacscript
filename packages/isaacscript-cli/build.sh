@@ -17,7 +17,9 @@ cd "$DIR"
 OUT_DIR="$DIR/../../dist/packages/$REPO_NAME"
 
 # First, generate the JSON schema for the special "isaacscript" section in "tsconfig.json".
-npx ts-json-schema-generator --path "$DIR/src/interfaces/IsaacScriptTSConfig.ts" --type "IsaacScriptTSConfig" --tsconfig "$DIR/tsconfig.json" --out "$DIR/schemas/tsconfig-isaacscript-section-schema.json"
+SCHEMA_PATH="$DIR/schemas/tsconfig-isaacscript-section-schema.json"
+npx ts-json-schema-generator --path "$DIR/src/interfaces/IsaacScriptTSConfig.ts" --type "IsaacScriptTSConfig" --tsconfig "$DIR/tsconfig.json" --out "$SCHEMA_PATH"
+npx prettier "$SCHEMA_PATH" --write
 
 # Second, compile the program.
 # (Normally, we would use the "@nrwl/js:tsc" plugin to do this, but it does not work properly when
