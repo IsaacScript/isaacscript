@@ -10,7 +10,7 @@ import {
   PACKAGE_JSON_PATH,
   PROJECT_NAME,
 } from "../../constants";
-import { fillCustomStageMetadata } from "../../customStage";
+import { prepareCustomStages } from "../../customStage";
 import * as file from "../../file";
 import { getJSONC } from "../../json";
 import {
@@ -65,8 +65,8 @@ export async function monitor(args: Args, config: Config): Promise<void> {
   copyWatcherMod(config, verbose);
   touchWatcherSaveDatFiles(config, verbose);
 
-  // Prepare the custom stages feature.
-  await fillCustomStageMetadata(packageManager, verbose);
+  // Prepare the custom stages feature, if necessary.
+  await prepareCustomStages(packageManager, verbose);
 
   // Delete and re-copy the mod every time IsaacScript starts. This ensures that it is always the
   // latest version.

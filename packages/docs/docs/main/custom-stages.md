@@ -46,6 +46,8 @@ Second, make sure it has an "isaacscript" property at the bottom:
 
 For an explanation of each field, you should be able to mouse-over it in VSCode. Alternatively, you can see the schema [here](https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-common/src/interfaces/CustomStage.ts).
 
+For more information on the "roomVariantPrefix" field, see [below](#custom-stage-room-variant-prefixes).
+
 ## Motivation
 
 [StageAPI](https://github.com/Meowlala/BOIStageAPI15) is a fantastic library that spans thousands of lines of code and has some incredible innovations. It is created by [DeadInfinity](https://steamcommunity.com/profiles/76561198172774482/myworkshopfiles/?appid=250900) and [BudJMT](https://steamcommunity.com/profiles/76561198067029619/myworkshopfiles/?appid=250900), the two smartest people in the Isaac community. And it's the engine that powers [Revelations](https://steamcommunity.com/sharedfiles/filedetails/?id=1536643474) and [Fiend Folio](https://steamcommunity.com/sharedfiles/filedetails/?id=2305131709&searchtext=fiend+folio), arguably two of the best mods that have ever been created. However, no library is perfect. I wanted to try and improve on Stage API with the following goals in mind:

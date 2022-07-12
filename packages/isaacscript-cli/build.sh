@@ -50,5 +50,6 @@ cp --recursive "$DIR/isaacscript-watcher" "$OUT_DIR/"
 cp "$DIR/LICENSE" "$OUT_DIR/"
 cp "$DIR/package.json" "$OUT_DIR/"
 cp "$DIR/README.md" "$OUT_DIR/"
+cp --recursive "$DIR/schemas" "$OUT_DIR/"
 
 echo "Successfully built in $SECONDS seconds."

@@ -1,7 +1,7 @@
 import path from "path";
 import { Config } from "../../classes/Config";
 import { MOD_SOURCE_PATH } from "../../constants";
-import { fillCustomStageMetadata } from "../../customStage";
+import { prepareCustomStages } from "../../customStage";
 import { PackageManager } from "../../enums/PackageManager";
 import { execShell } from "../../exec";
 import * as file from "../../file";
@@ -25,7 +25,7 @@ export async function compileAndCopy(
   packageManager: PackageManager,
   verbose: boolean,
 ): Promise<void> {
-  await fillCustomStageMetadata(packageManager, verbose);
+  await prepareCustomStages(packageManager, verbose);
   compile(verbose);
   copyMod(modSourcePath, modTargetPath, verbose);
 }
