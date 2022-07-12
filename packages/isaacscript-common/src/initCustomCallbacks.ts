@@ -4,6 +4,7 @@ import { postAmbushCallbacksInit } from "./callbacks/postAmbush";
 import { postBombExplodedInit } from "./callbacks/postBombExploded";
 import { postBombInitLateInit } from "./callbacks/postBombInitLate";
 import { postBoneSwingInit } from "./callbacks/postBoneSwing";
+import { postCollectibleEmptyInit } from "./callbacks/postCollectibleEmpty";
 import { postCollectibleInitFirstInit } from "./callbacks/postCollectibleInitFirst";
 import { postCursedTeleportInit } from "./callbacks/postCursedTeleport";
 import { postCustomDoorEnterInit } from "./callbacks/postCustomDoorEnter";
@@ -71,6 +72,7 @@ export function initCustomCallbacks(mod: ModUpgraded): void {
   postBombExplodedInit(mod);
   postBombInitLateInit(mod);
   postBoneSwingInit(mod);
+  postCollectibleEmptyInit(mod);
   postCollectibleInitFirstInit(mod);
   postCursedTeleportInit(mod);
   postCustomDoorEnterInit();

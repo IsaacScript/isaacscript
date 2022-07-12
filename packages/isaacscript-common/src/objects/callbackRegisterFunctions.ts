@@ -3,6 +3,7 @@ import { postAmbushStartedRegister } from "../callbacks/subscriptions/postAmbush
 import { postBombInitLateRegister } from "../callbacks/subscriptions/postBombInitLate";
 import { postBombExplodedRegister } from "../callbacks/subscriptions/postBoneExploded";
 import { postBoneSwingRegister } from "../callbacks/subscriptions/postBoneSwing";
+import { postCollectibleEmptyRegister } from "../callbacks/subscriptions/postCollectibleEmpty";
 import { postCollectibleInitFirstRegister } from "../callbacks/subscriptions/postCollectibleInitFirst";
 import { postCursedTeleportRegister } from "../callbacks/subscriptions/postCursedTeleport";
 import { postCustomDoorEnterRegister } from "../callbacks/subscriptions/postCustomDoorEnter";
@@ -93,6 +94,7 @@ export const CALLBACK_REGISTER_FUNCTIONS: {
   [ModCallbackCustom.POST_BOMB_EXPLODED]: postBombExplodedRegister,
   [ModCallbackCustom.POST_BOMB_INIT_LATE]: postBombInitLateRegister,
   [ModCallbackCustom.POST_BONE_SWING]: postBoneSwingRegister,
+  [ModCallbackCustom.POST_COLLECTIBLE_EMPTY]: postCollectibleEmptyRegister,
   [ModCallbackCustom.POST_COLLECTIBLE_INIT_FIRST]:
     postCollectibleInitFirstRegister,
   [ModCallbackCustom.POST_CURSED_TELEPORT]: postCursedTeleportRegister,

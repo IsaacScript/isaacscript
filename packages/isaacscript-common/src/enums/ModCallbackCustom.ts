@@ -82,8 +82,14 @@ export enum ModCallbackCustom {
    * Fires from the `POST_PICKUP_UPDATE` callback when a collectible goes from a non-zero sub-type
    * to `CollectibleType.NULL` (i.e. an "empty" pedestal).
    *
+   * When registering the callback, takes an optional second argument that will make the callback
+   * only fire if the collectible type changed from the `CollectibleType` provided.
+   *
    * ```ts
-   * function postCollectibleEmpty(collectible: EntityPickupCollectible): void {}
+   * function postCollectibleEmpty(
+   *   collectible: EntityPickupCollectible,
+   *   oldCollectibleType: CollectibleType,
+   * ): void {}
    * ```
    */
   POST_COLLECTIBLE_EMPTY,

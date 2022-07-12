@@ -32,6 +32,8 @@ This page lists the changes to the IsaacScript framework.
   - All of the `spawn` helper functions now have the option to pass an RNG object instead of a seed.
   - `addRoomClearCharge` and `addRoomClearChargeToSlot` now take an optional argument of `playSoundEffect`.
   - `registerHotkey` now will accept a function that returns a `Keyboard` in addition to a `Keyboard`.
+- Added the following custom callbacks:
+  - `POST_COLLECTIBLE_EMPTY`
 
 ## July 5th, 2022
 

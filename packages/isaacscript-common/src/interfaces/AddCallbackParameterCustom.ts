@@ -3,6 +3,7 @@ import { PostAmbushStartedRegisterParameters } from "../callbacks/subscriptions/
 import { PostBombInitRegisterParameters } from "../callbacks/subscriptions/postBombInitLate";
 import { PostBombExplodedRegisterParameters } from "../callbacks/subscriptions/postBoneExploded";
 import { PostBoneSwingRegisterParameters } from "../callbacks/subscriptions/postBoneSwing";
+import { PostCollectibleEmptyRegisterParameters } from "../callbacks/subscriptions/postCollectibleEmpty";
 import { PostCollectibleInitFirstRegisterParameters } from "../callbacks/subscriptions/postCollectibleInitFirst";
 import { PostCursedTeleportRegisterParameters } from "../callbacks/subscriptions/postCursedTeleport";
 import { PostCustomDoorEnterRegisterParameters } from "../callbacks/subscriptions/postCustomDoorEnter";
@@ -88,6 +89,7 @@ export interface AddCallbackParameterCustom {
   [ModCallbackCustom.POST_BOMB_EXPLODED]: PostBombExplodedRegisterParameters;
   [ModCallbackCustom.POST_BOMB_INIT_LATE]: PostBombInitRegisterParameters;
   [ModCallbackCustom.POST_BONE_SWING]: PostBoneSwingRegisterParameters;
+  [ModCallbackCustom.POST_COLLECTIBLE_EMPTY]: PostCollectibleEmptyRegisterParameters;
   [ModCallbackCustom.POST_COLLECTIBLE_INIT_FIRST]: PostCollectibleInitFirstRegisterParameters;
   [ModCallbackCustom.POST_CURSED_TELEPORT]: PostCursedTeleportRegisterParameters;
   [ModCallbackCustom.POST_CUSTOM_DOOR_ENTER]: PostCustomDoorEnterRegisterParameters;
