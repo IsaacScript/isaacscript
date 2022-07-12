@@ -18,6 +18,8 @@ function main() {
   const entryPoints = getEntryPoints();
   const entryPointsSet = new Set(entryPoints);
 
+  checkEntryPointsBrokenLink(entryPoints);
+
   checkEntryPointsForDirectory("src/enums/*.ts", entryPointsSet);
   checkEntryPointsForDirectory("src/enums/collections/*.ts", entryPointsSet);
   checkEntryPointsForDirectory("src/enums/flags/*.ts", entryPointsSet);
@@ -51,6 +53,15 @@ function getEntryPoints(): string[] {
   }
 
   return entryPoints as string[];
+}
+
+function checkEntryPointsBrokenLink(entryPoints: string[]) {
+  for (const entryPoint of entryPoints) {
+    const entryPointPath = path.join(PACKAGE_ROOT, entryPoint);
+    if (!isFile(entryPointPath, false)) {
+      error(`The following entry point does not exist: ${entryPoint}`);
+    }
+  }
 }
 
 function checkEntryPointsForDirectory(
@@ -88,6 +99,30 @@ function checkEntryPointsForDirectory(
 function error(...args: unknown[]): never {
   console.error(...args);
   return process.exit(1);
+}
+
+function getFileStats(filePath: string, verbose: boolean): fs.Stats {
+  if (verbose) {
+    console.log(`Getting file stats from: ${filePath}`);
+  }
+
+  let fileStats: fs.Stats;
+  try {
+    fileStats = fs.statSync(filePath);
+  } catch (err) {
+    error(`Failed to get the file stats for "${filePath}":`, err);
+  }
+
+  if (verbose) {
+    console.log(`Got file stats from: ${filePath}`);
+  }
+
+  return fileStats;
+}
+
+function isFile(filePath: string, verbose: boolean): boolean {
+  const fileStats = getFileStats(filePath, verbose);
+  return fileStats.isFile();
 }
 
 function trimTwoDirectoriesFromPath(filePath: string) {
