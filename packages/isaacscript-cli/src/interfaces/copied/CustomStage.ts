@@ -11,6 +11,7 @@
  *
  * The `CustomStage` interface extends this, adding room metadata.
  */
+// ts-prune-ignore-next
 export interface CustomStageTSConfig {
   /** The name of the custom stage. */
   name: string;

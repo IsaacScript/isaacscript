@@ -3,7 +3,7 @@
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    "outDir": "../../dist/packages/isaacscript-cli",
+    "outDir": "../../dist",
   },
 
   // Nx will not include ".eslintrc.js" in the build output, so there is no need for a

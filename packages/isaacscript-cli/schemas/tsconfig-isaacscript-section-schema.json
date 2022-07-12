@@ -4,7 +4,7 @@
   "definitions": {
     "CustomStageTSConfig": {
       "additionalProperties": false,
-      "description": "This is the format of a custom stage in the \"isaacscript\" section of the \"tsconfig.json\" file.\n\nThe contents of this interface are used to create a \"tsconfig-isaacscript-section-schema.json\" schema with the \"\"ts-json-schema-generator\"\" library.\n\nThe contents of this interface are validated at run-time against the schema using the Ajv library.\n\nThe `CustomStage` interface extends this, adding room metadata.",
+      "description": "This is the format of a custom stage in the \"isaacscript\" section of the \"tsconfig.json\" file.\n\nThe contents of this interface are used to create a \"tsconfig-isaacscript-section-schema.json\" schema with the \"ts-json-schema-generator\" library.\n\nThe contents of this interface are validated at run-time against the schema using the Ajv library.\n\nThe `CustomStage` interface extends this, adding room metadata.",
       "properties": {
         "baseStage": {
           "description": "An integer between 1 and 13, corresponding to the `LevelStage` enum. This is the number of the stage that will be warped to and used as a basis for the stage by the level generation algorithm.",
@@ -38,7 +38,7 @@
     },
     "IsaacScriptTSConfig": {
       "additionalProperties": false,
-      "description": "This is the format of the \"isaacscript\" section of the \"tsconfig.json\" file.",
+      "description": "This is the format of the \"isaacscript\" section of the \"tsconfig.json\" file.\n\nWe use this interface to automatically generate the schema using the \"ts-json-schema-generator\" library.",
       "properties": {
         "customStages": {
           "items": {
