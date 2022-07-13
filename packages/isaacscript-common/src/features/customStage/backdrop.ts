@@ -1,5 +1,6 @@
 import { EffectVariant } from "isaac-typescript-definitions";
 import { game } from "../../cachedClasses";
+import { VectorZero } from "../../constants";
 import { getRandomArrayElement } from "../../functions/array";
 import { spawnEffectWithSeed } from "../../functions/entitySpecific";
 import { CustomStage } from "../../interfaces/CustomStage";
@@ -17,12 +18,10 @@ type BackdropKind = "nFloors" | "lFloors" | "walls" | "corners";
 const BACKDROP_EFFECT_VARIANT = EffectVariant.LADDER;
 
 export function setBackdrop(customStage: CustomStage): void {
-  const room = game.GetRoom();
-  const centerPos = room.GetCenterPos();
   const effect = spawnEffectWithSeed(
     BACKDROP_EFFECT_VARIANT,
     0,
-    centerPos,
+    VectorZero,
     1 as Seed,
   );
 

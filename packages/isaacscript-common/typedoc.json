@@ -42,6 +42,7 @@
     "src/features/registerHotkey.ts",
     "src/features/roomClearFrame.ts",
     "src/features/runInNFrames.ts",
+    "src/features/runNextRoom.ts",
     "src/features/saveDataManager/exports.ts",
     "src/features/sirenHelpers.ts",
     "src/features/stageHistory.ts",
