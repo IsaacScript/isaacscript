@@ -125,6 +125,7 @@ export * from "./functions/pickups";
 export * from "./functions/pickupVariants";
 export * from "./functions/pills";
 export * from "./functions/player";
+export * from "./functions/playerCenter";
 export * from "./functions/playerDataStructures";
 export * from "./functions/playerHealth";
 export * from "./functions/playerIndex";

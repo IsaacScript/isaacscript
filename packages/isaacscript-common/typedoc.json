@@ -96,6 +96,7 @@
     "src/functions/pickups.ts",
     "src/functions/pickupVariants.ts",
     "src/functions/player.ts",
+    "src/functions/playerCenter.ts",
     "src/functions/playerIndex.ts",
     "src/functions/playerDataStructures.ts",
     "src/functions/playerHealth.ts",
