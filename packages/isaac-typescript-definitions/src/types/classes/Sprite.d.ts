@@ -43,7 +43,7 @@ declare interface Sprite {
   /**
    * Used to load the PNG files that are specified in the sprite's anm2. Typically, you would only
    * call this method if you have previously passed false to the `loadGraphics` argument of the
-   * `Sprite.Load` method.
+   * `Sprite.Load` method or you have called the `Sprite.ReplaceSpritesheet` method.
    */
   LoadGraphics(): void;
 
@@ -78,6 +78,8 @@ declare interface Sprite {
   ): void;
 
   /**
+   * After replacing a spritesheet, you must call the `Sprite.LoadGraphics` method.
+   *
    * @param layerID
    * @param pngPath The full path to the PNG file. For example:
    *                "gfx/items/collectibles/questionmark.png"

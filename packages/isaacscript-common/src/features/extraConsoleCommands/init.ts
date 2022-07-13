@@ -98,6 +98,7 @@ function initMap() {
     "familiarsDisplay",
     commandsDisplay.familiarsDisplay,
   );
+  extraConsoleCommandsFunctionMap.set("flight", commands.flight);
   extraConsoleCommandsFunctionMap.set("fool", commands.fool);
   extraConsoleCommandsFunctionMap.set("getPosition", commands.getPosition);
   extraConsoleCommandsFunctionMap.set("gigaBomb", commands.gigaBomb);

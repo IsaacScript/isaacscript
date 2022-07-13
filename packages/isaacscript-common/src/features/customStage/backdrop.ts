@@ -29,6 +29,7 @@ export function setBackdrop(customStage: CustomStage): void {
   const sprite = effect.GetSprite();
   const pngPath = getBackdropPNGPath(customStage, "walls"); // TODO
   sprite.ReplaceSpritesheet(0, pngPath);
+  sprite.LoadGraphics();
 }
 
 function getBackdropPNGPath(
