@@ -1,12 +1,11 @@
 import { Direction } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { getPlayerFamiliars } from "./familiars";
-import { logVector } from "./log";
 import { getCircleDiscretizedPoints } from "./math";
 import { getPlayers } from "./playerIndex";
 
 /** This is in the center of the room. */
-const NORMAL_MODE_NEW_FLOOR_STARTING_POSITION = Vector(320, 380);
+const NORMAL_MODE_NEW_FLOOR_STARTING_POSITION = Vector(320, 280);
 
 /** This is near the top door. */
 const GREED_MODE_NEW_FLOOR_STARTING_POSITION = Vector(320, 280);
@@ -63,8 +62,6 @@ export function movePlayersToCenter(): void {
 
 function movePlayerAndTheirFamiliars(player: EntityPlayer, position: Vector) {
   player.Position = position;
-  Isaac.DebugString("GETTING HERE XXX");
-  logVector(position);
 
   const familiars = getPlayerFamiliars(player);
   for (const familiar of familiars) {

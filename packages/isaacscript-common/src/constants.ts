@@ -121,6 +121,12 @@ export const LAST_ROOM_TYPE = getLastEnumValue(RoomType);
  */
 export const MAX_SPEED_STAT = 2.0;
 
+/**
+ * This is next to the bottom door. Presumably, the player does not start in the center of the room
+ * (like they do when getting to a new stage) so that the controls graphic is more visible.
+ */
+export const NEW_RUN_PLAYER_STARTING_POSITION = Vector(320, 380);
+
 export const FIRST_STAGE = LevelStage.BASEMENT_1;
 export const LAST_STAGE = getLastEnumValue(LevelStage);
 

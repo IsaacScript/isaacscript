@@ -21,6 +21,8 @@ This page lists the changes to the IsaacScript framework.
   - `reorderedCallbacksSetStage`
 - Removed the following helper functions:
   - `getGotoCommandPrefix` (use `getGotoCommand` instead)
+- Added the following custom console commands:
+  - `flight`
 
 ## July 12th, 2022
 
