@@ -132,7 +132,6 @@
     "src/functions/vector.ts",
     "src/interfaces/ChargeBarSprites.ts",
     "src/interfaces/CustomGridEntityData.ts",
-    "src/interfaces/CustomStage.ts",
     "src/interfaces/JSONRoomsFile.ts",
     "src/interfaces/PlayerHealth.ts",
     "src/interfaces/PocketItemDescription.ts",
