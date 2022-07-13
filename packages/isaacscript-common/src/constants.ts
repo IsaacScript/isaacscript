@@ -121,6 +121,12 @@ export const LAST_ROOM_TYPE = getLastEnumValue(RoomType);
  */
 export const MAX_SPEED_STAT = 2.0;
 
+/** This is in the center of the room. */
+export const NEW_FLOOR_STARTING_POSITION_NORMAL_MODE = Vector(320, 280);
+
+/** This is near the top door. */
+export const NEW_FLOOR_STARTING_POSITION_GREED_MODE = Vector(320, 280);
+
 /**
  * This is next to the bottom door. Presumably, the player does not start in the center of the room
  * (like they do when getting to a new stage) so that the controls graphic is more visible.

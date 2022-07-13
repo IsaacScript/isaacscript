@@ -21,6 +21,10 @@ This page lists the changes to the IsaacScript framework.
   - `reorderedCallbacksSetStage`
 - Removed the following helper functions:
   - `getGotoCommandPrefix` (use `getGotoCommand` instead)
+- Added the following constants:
+  - `NEW_RUN_PLAYER_STARTING_POSITION`
+  - `NEW_FLOOR_STARTING_POSITION_NORMAL_MODE`
+  - `NEW_FLOOR_STARTING_POSITION_GREED_MODE`
 - Added the following custom console commands:
   - `flight`
 

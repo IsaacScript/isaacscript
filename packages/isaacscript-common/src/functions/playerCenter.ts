@@ -1,14 +1,12 @@
 import { Direction } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
+import {
+  NEW_FLOOR_STARTING_POSITION_GREED_MODE,
+  NEW_FLOOR_STARTING_POSITION_NORMAL_MODE,
+} from "../constants";
 import { getPlayerFamiliars } from "./familiars";
 import { getCircleDiscretizedPoints } from "./math";
 import { getPlayers } from "./playerIndex";
-
-/** This is in the center of the room. */
-const NORMAL_MODE_NEW_FLOOR_STARTING_POSITION = Vector(320, 280);
-
-/** This is near the top door. */
-const GREED_MODE_NEW_FLOOR_STARTING_POSITION = Vector(320, 280);
 
 const CIRCLE_RADIUS_BETWEEN_PLAYERS = 50;
 
@@ -24,8 +22,8 @@ const CIRCLE_RADIUS_BETWEEN_PLAYERS = 50;
 export function movePlayersToCenter(): void {
   const isGreedMode = game.IsGreedMode();
   const startingPosition = isGreedMode
-    ? GREED_MODE_NEW_FLOOR_STARTING_POSITION
-    : NORMAL_MODE_NEW_FLOOR_STARTING_POSITION;
+    ? NEW_FLOOR_STARTING_POSITION_GREED_MODE
+    : NEW_FLOOR_STARTING_POSITION_NORMAL_MODE;
 
   const players = getPlayers();
   const firstPlayer = players[0];
