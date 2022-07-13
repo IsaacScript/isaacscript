@@ -6,6 +6,7 @@ export {
 export {
   forceNewLevelCallback,
   forceNewRoomCallback,
+  reorderedCallbacksSetStage,
 } from "./callbacks/reorderedCallbacks";
 export * from "./classes/DefaultMap";
 export * from "./classes/ModUpgraded";

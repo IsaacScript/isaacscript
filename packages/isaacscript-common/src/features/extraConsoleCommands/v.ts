@@ -9,6 +9,7 @@ const v = {
     maxDamage: false,
     maxSpeed: false,
     maxTears: false,
+    flight: false,
   },
 };
 export default v;

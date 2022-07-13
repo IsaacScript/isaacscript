@@ -77,7 +77,13 @@ declare interface Sprite {
     bottomRightClamp?: Vector,
   ): void;
 
-  ReplaceSpritesheet(layerID: int, pngFilename: string): void;
+  /**
+   * @param layerID
+   * @param pngPath The full path to the PNG file. For example:
+   *                "gfx/items/collectibles/questionmark.png"
+   */
+  ReplaceSpritesheet(layerID: int, pngPath: string): void;
+
   Reset(): void;
   SetAnimation(animation: string): boolean;
   SetFrame(frameNum: int): void;

@@ -1,17 +1,22 @@
 // This provides the logic for:
-// - POST_GAME_STARTED_REORDERED
-// - POST_NEW_LEVEL_REORDERED
-// - POST_NEW_ROOM_REORDERED
+// - `POST_GAME_STARTED_REORDERED`
+// - `POST_NEW_LEVEL_REORDERED`
+// - `POST_NEW_ROOM_REORDERED`
 
 // By default, callbacks fire in the following order:
-// - POST_NEW_ROOM --> POST_NEW_LEVEL --> POST_GAME_STARTED
+// - `POST_NEW_ROOM` --> `POST_NEW_LEVEL` --> `POST_GAME_STARTED`
 
 // It is easier to write mod code if the callbacks run in a more logical order:
-// - POST_GAME_STARTED --> POST_NEW_LEVEL --> POST_NEW_ROOM
+// - `POST_GAME_STARTED` --> `POST_NEW_LEVEL` --> `POST_NEW_ROOM`
 
 // Manually reorganize the callback execution so that this is the case.
 
-import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
+import {
+  CollectibleType,
+  LevelStage,
+  ModCallback,
+  StageType,
+} from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import {
   postGameStartedReorderedFire,
@@ -163,4 +168,19 @@ export function forceNewLevelCallback(): void {
  */
 export function forceNewRoomCallback(): void {
   forceNewRoom = true;
+}
+
+/**
+ * Helper function to manually set the variable that the reordered callback logic uses to track the
+ * current stage and stage type.
+ *
+ * This is useful because if the stage is changed with the `Game.SetStage` method, the reordered
+ * callbacks will stop working.
+ */
+export function reorderedCallbacksSetStage(
+  stage: LevelStage,
+  stageType: StageType,
+): void {
+  currentStage = stage;
+  currentStageType = stageType;
 }

@@ -288,6 +288,11 @@ function initCallbacks(mod: ModUpgraded) {
     CacheFlag.SPEED, // 1 << 4
   ); // 8
   mod.AddCallback(
+    ModCallback.EVALUATE_CACHE,
+    evaluateCacheFlying,
+    CacheFlag.FLYING, // 1 << 7
+  );
+  mod.AddCallback(
     ModCallback.ENTITY_TAKE_DMG,
     entityTakeDmgPlayer,
     EntityType.PLAYER,
@@ -318,6 +323,14 @@ function evaluateCacheFireDelay(player: EntityPlayer) {
 function evaluateCacheSpeed(player: EntityPlayer) {
   if (v.run.maxSpeed) {
     player.MoveSpeed = MAX_SPEED_STAT;
+  }
+}
+
+// ModCallback.EVALUATE_CACHE (8)
+// CacheFlag.FLYING (1 << 7)
+function evaluateCacheFlying(player: EntityPlayer) {
+  if (v.run.flight) {
+    player.CanFly = true;
   }
 }
 

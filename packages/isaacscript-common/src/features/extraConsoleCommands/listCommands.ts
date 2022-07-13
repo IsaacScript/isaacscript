@@ -66,7 +66,12 @@ import {
 import { getMapPartialMatch } from "../../functions/map";
 import { spawnCard, spawnPill, spawnTrinket } from "../../functions/pickups";
 import { getPillEffectName } from "../../functions/pills";
-import { getPlayerName, useActiveItemTemp } from "../../functions/player";
+import {
+  addCollectibleCostume,
+  getPlayerName,
+  removeCollectibleCostume,
+  useActiveItemTemp,
+} from "../../functions/player";
 import { getPlayers } from "../../functions/playerIndex";
 import { gridCoordinatesToWorldPosition } from "../../functions/roomGrid";
 import { changeRoom, getRoomGridIndexesForType } from "../../functions/rooms";
@@ -342,7 +347,10 @@ export function cc(): void {
   chaosCardTears();
 }
 
-/** Toggles Chaos Card tears. Useful for killing enemies very fast without using "debug 10". */
+/**
+ * Toggles Chaos Card tears for the player. Useful for killing enemies very fast without using
+ * "debug 10".
+ */
 export function chaosCardTears(): void {
   v.run.chaosCardTears = !v.run.chaosCardTears;
   printEnabled(v.run.chaosCardTears, "Chaos Card tears");
@@ -453,7 +461,7 @@ export function d6(): void {
   useActiveItemTemp(player, CollectibleType.D6);
 }
 
-/** Toggles extremely high-damage tears. */
+/** Toggles extremely high-damage tears for the player. */
 export function damage(): void {
   v.run.maxDamage = !v.run.maxDamage;
   printEnabled(v.run.maxDamage, "debug damage");
@@ -516,6 +524,32 @@ export function error(): void {
  */
 export function eternalHearts(params: string): void {
   addHeart(params, HealthType.ETERNAL);
+}
+
+/** Toggles flight for the player. */
+export function flight(params: string): void {
+  const player = Isaac.GetPlayer();
+
+  v.run.flight = !v.run.flight;
+
+  // Optionally, allow the toggle to be overridden by a parameter.
+  if (params === "true") {
+    v.run.flight = true;
+  } else if (params === "false") {
+    v.run.flight = false;
+  }
+
+  player.AddCacheFlags(CacheFlag.FLYING);
+  player.EvaluateItems();
+
+  const collectibleUsedToShowFlight = CollectibleType.FATE;
+  if (v.run.flight) {
+    addCollectibleCostume(player, collectibleUsedToShowFlight);
+  } else {
+    removeCollectibleCostume(player, collectibleUsedToShowFlight);
+  }
+
+  printEnabled(v.run.maxSpeed, "max speed");
 }
 
 /** Alias for the "startingRoom" command. */
@@ -1200,27 +1234,19 @@ export function spawnGoldenTrinket(params: string): void {
   spawnTrinket(goldenTrinketType, centerPos);
 }
 
-/** Toggles maximum movement speed and flight. */
+/** Toggles maximum movement speed and flight for the player. */
 export function speed(): void {
   const player = Isaac.GetPlayer();
 
   v.run.maxSpeed = !v.run.maxSpeed;
 
-  if (v.run.maxSpeed && !player.CanFly) {
-    const numEternalHearts = player.GetEternalHearts();
-    if (numEternalHearts === 0) {
-      player.AddCollectible(CollectibleType.FATE);
-      player.AddEternalHearts(-1);
-    } else {
-      player.AddEternalHearts(-1);
-      player.AddCollectible(CollectibleType.FATE);
-    }
-  }
-
   player.AddCacheFlags(CacheFlag.SPEED);
   player.EvaluateItems();
 
-  printEnabled(v.run.maxSpeed, "max speed");
+  const value = tostring(v.run.maxSpeed);
+  flight(value);
+
+  printEnabled(v.run.maxSpeed, "max speed and flight");
 }
 
 /** Warps to the starting room of the floor. */
@@ -1235,7 +1261,10 @@ export function superSecret(): void {
   warpToRoomType(RoomType.SUPER_SECRET);
 }
 
-/** Toggles extremely high tears stat (e.g. fire rate), equivalent of that to soy milk. */
+/**
+ * Toggles an extremely high tears stat (e.g. fire rate) for the player, equivalent of that to soy
+ * milk.
+ */
 export function tears(): void {
   v.run.maxTears = !v.run.maxTears;
 

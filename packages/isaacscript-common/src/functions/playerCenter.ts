@@ -1,6 +1,7 @@
 import { Direction } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { getPlayerFamiliars } from "./familiars";
+import { logVector } from "./log";
 import { getCircleDiscretizedPoints } from "./math";
 import { getPlayers } from "./playerIndex";
 
@@ -62,6 +63,8 @@ export function movePlayersToCenter(): void {
 
 function movePlayerAndTheirFamiliars(player: EntityPlayer, position: Vector) {
   player.Position = position;
+  Isaac.DebugString("GETTING HERE XXX");
+  logVector(position);
 
   const familiars = getPlayerFamiliars(player);
   for (const familiar of familiars) {

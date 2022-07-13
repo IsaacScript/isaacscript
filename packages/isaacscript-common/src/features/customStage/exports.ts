@@ -8,11 +8,16 @@ import {
   StageType,
 } from "isaac-typescript-definitions";
 import { game } from "../../cachedClasses";
+import { reorderedCallbacksSetStage } from "../../callbacks/reorderedCallbacks";
 import { logError } from "../../functions/log";
+import { movePlayersToCenter } from "../../functions/playerCenter";
 import { newRNG } from "../../functions/rng";
 import { getRoomData } from "../../functions/roomData";
 import { getRooms } from "../../functions/rooms";
 import { getGotoCommand, setStage } from "../../functions/stage";
+import { CustomStage } from "../../interfaces/CustomStage";
+import { runNextRoom } from "../runNextRoom";
+import { setBackdrop } from "./backdrop";
 import { getRandomCustomStageRoom } from "./util";
 import { customStageCachedRoomData, customStagesMap } from "./v";
 
@@ -106,7 +111,10 @@ export function setCustomStage(name: string, verbose = false): void {
   }
 
   // Set the stage to an invalid value, which will prevent the walls and floors from loading.
-  level.SetStage(-1 as LevelStage, StageType.ORIGINAL);
+  const stage = -1 as LevelStage;
+  const stageType = StageType.ORIGINAL;
+  level.SetStage(stage, stageType);
+  reorderedCallbacksSetStage(stage, stageType);
 
   // We must reload the current room in order for the `Level.SetStage` method to take effect.
   // Furthermore, we need to cancel the queued warp to the `GridRoom.DEBUG` room. We can accomplish
@@ -117,4 +125,20 @@ export function setCustomStage(name: string, verbose = false): void {
     Direction.NO_DIRECTION,
     RoomTransitionAnim.FADE,
   );
+
+  // We do more setup once the room is reloaded from the transition.
+  runNextRoom(() => {
+    postRoomTransition(customStage);
+  });
+}
+
+function postRoomTransition(customStage: CustomStage) {
+  // After the room transition, the players will be placed next to a door, but they should be in the
+  // center of the room to emulate what happens on a vanilla stage.
+  movePlayersToCenter();
+
+  // TODO
+  setBackdrop(customStage);
+
+  Isaac.DebugString("GETTING HERE - SET BACKDROP");
 }

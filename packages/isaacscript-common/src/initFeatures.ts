@@ -17,6 +17,7 @@ import { preventCollectibleRotationInit } from "./features/preventCollectibleRot
 import { registerHotkeyInit } from "./features/registerHotkey";
 import { roomClearFrameInit } from "./features/roomClearFrame";
 import { runInNFramesInit } from "./features/runInNFrames";
+import { runNextRoomInit } from "./features/runNextRoom";
 import { sirenHelpersInit } from "./features/sirenHelpers";
 import { stageHistoryInit } from "./features/stageHistory";
 import { taintedLazarusPlayersInit } from "./features/taintedLazarusPlayers";
@@ -43,6 +44,7 @@ export function initFeaturesMinor(mod: ModUpgraded): void {
   preventCollectibleRotationInit(mod);
   registerHotkeyInit(mod);
   roomClearFrameInit(mod);
+  runNextRoomInit(mod);
   sirenHelpersInit(mod);
   stageHistoryInit(mod);
   taintedLazarusPlayersInit(mod);
