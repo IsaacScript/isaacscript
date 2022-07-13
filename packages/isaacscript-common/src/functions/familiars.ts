@@ -1,6 +1,7 @@
 import { CollectibleType, FamiliarVariant } from "isaac-typescript-definitions";
 import { itemConfig } from "../cachedClasses";
 import { FAMILIARS_THAT_SHOOT_PLAYER_TEARS_SET } from "../sets/familiarsThatShootPlayerTearsSet";
+import { getFamiliars } from "./entitySpecific";
 
 /**
  * Helper function to add and remove familiars based on a target amount that you specify.
@@ -97,6 +98,16 @@ export function checkFamiliarFromCollectibles(
     familiarVariant,
     familiarSubType,
   );
+}
+
+/** Helper function to get only the familiars that belong to a specific player. */
+export function getPlayerFamiliars(player: EntityPlayer): EntityFamiliar[] {
+  const playerPtrHash = GetPtrHash(player);
+  const familiars = getFamiliars();
+  return familiars.filter((familiar) => {
+    const familiarPlayerPtrHash = GetPtrHash(familiar.Player);
+    return familiarPlayerPtrHash === playerPtrHash;
+  });
 }
 
 export function isFamiliarThatShootsPlayerTears(

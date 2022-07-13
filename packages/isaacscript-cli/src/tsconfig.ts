@@ -88,6 +88,8 @@ export function getFirstTSConfigIncludePath(verbose: boolean): string {
 /**
  * Parses the "tsconfig.json" file and returns the "customStages" section. If the section does not
  * exist, returns an empty array.
+ *
+ * Most of this function is simply performing input validation.
  */
 export function getCustomStagesFromTSConfig(
   verbose: boolean,
@@ -99,9 +101,13 @@ export function getCustomStagesFromTSConfig(
 
   const valid = schemaValidate(isaacScriptSection);
   if (!valid) {
-    console.error('Your "isaacscript" section has the following errors:');
+    console.error(
+      'Your "isaacscript" section in the "tsconfig.json" file has the following errors:',
+    );
     console.error(schemaValidate.errors);
-    error(ADVICE);
+    error(
+      "For more information, see the custom stages documentation on the website.",
+    );
   }
 
   // "customStages" is an optional property.
@@ -115,6 +121,50 @@ export function getCustomStagesFromTSConfig(
     error(
       `Failed to parse the "customStages" property, since it was not an array. ${ADVICE}.`,
     );
+  }
+
+  // Perform some extra validation that can't be automatically done by Ajv.
+  for (const customStageTSConfig of customStages as CustomStageTSConfig[]) {
+    const { name } = customStageTSConfig;
+    if (name === "") {
+      error(
+        chalk.red(
+          "One of the custom stages has a blank name, which is not allowed.",
+        ),
+      );
+    }
+
+    const { xmlPath } = customStageTSConfig;
+    if (xmlPath === "") {
+      error(
+        chalk.red(
+          `The "${name}" custom stage has a blank "xmlPath" property, which is not allowed.`,
+        ),
+      );
+    }
+
+    const { roomVariantPrefix } = customStageTSConfig;
+    if (roomVariantPrefix < 101 || roomVariantPrefix > 999) {
+      error(
+        chalk.red(
+          `The "${name}" custom stage has an invalid value for the "roomVariantPrefix" property: ${roomVariantPrefix}`,
+        ),
+      );
+    }
+
+    const { baseStage } = customStageTSConfig;
+    if (baseStage < 2 || baseStage > 13) {
+      error(
+        `The "${name}" custom stage has an invalid value for the "baseStage" property: ${baseStage}`,
+      );
+    }
+
+    const { baseStageType } = customStageTSConfig;
+    if (baseStageType < 0 || baseStageType > 5) {
+      error(
+        `The "${name}" custom stage has an invalid value for the "baseStageType" property: ${baseStageType}`,
+      );
+    }
   }
 
   return customStages as CustomStageTSConfig[];

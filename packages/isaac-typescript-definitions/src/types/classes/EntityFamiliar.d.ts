@@ -55,8 +55,8 @@ declare global {
     OrbitDistance: Vector;
 
     /**
-     * All familiars are associated with an `EntityPlayer`. If the `Player` attribute is set to
-     * undefined, the game will crash.
+     * This is the player object that "owns" this familiar. All familiars are associated with an
+     * `EntityPlayer`. If the `Player` attribute is set to undefined, the game will crash.
      */
     Player: EntityPlayer;
 

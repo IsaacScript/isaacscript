@@ -25,9 +25,12 @@ export interface CustomStageTSConfig {
   readonly roomVariantPrefix: number;
 
   /**
-   * An integer between 1 and 13, corresponding to the `LevelStage` enum. This is the number of the
+   * An integer between 2 and 13, corresponding to the `LevelStage` enum. This is the number of the
    * stage that will be warped to and used as a basis for the stage by the level generation
    * algorithm. Mandatory.
+   *
+   * (It is not possible to use Basement 1 as a base due to conflicts with the `Game.SetStage`
+   * method.)
    */
   readonly baseStage: number;
 
@@ -40,10 +43,9 @@ export interface CustomStageTSConfig {
 
   /**
    * An object containing the paths to the backdrop for the stage. (A backdrop is the graphics for
-   * the walls and floor.) Optional. If not specified, no backdrop will be used. (There will be no
-   * walls and no floor.)
+   * the walls and floor.) Mandatory.
    */
-  readonly backdrop?: CustomStageBackdrop;
+  readonly backdrop: CustomStageBackdrop;
 }
 
 interface CustomStageBackdrop {
@@ -63,8 +65,8 @@ interface CustomStageBackdrop {
 
   /**
    * An array of strings that represent the graphic files for the stage's "nFloor". You must have at
-   * least one string in this array, but you can specify more than one to randomly add extra
-   * variety.
+   * least one string in this array, but you can specify more than one to randomly add extra variety
+   * (like the vanilla stages do).
    *
    * For an example of this, see the vanilla file "resources/gfx/backdrop/01_basement_nfloor.png".
    */
@@ -72,7 +74,8 @@ interface CustomStageBackdrop {
 
   /**
    * An array of strings that represent the graphic files for the stage's "lFloor". You must have at
-   * least one in the array, but you can specify more than one to randomly add extra variety.
+   * least one in the array, but you can specify more than one to randomly add extra variety (like
+   * the vanilla stages do).
    *
    * For an example of this, see the vanilla file "resources/gfx/backdrop/01_lbasementfloor.png".
    */
@@ -80,8 +83,8 @@ interface CustomStageBackdrop {
 
   /**
    * An array of strings that represent the graphic files for the stage's walls. You must have at
-   * least one string in this array, but you can specify more than one to randomly add extra
-   * variety.
+   * least one string in this array, but you can specify more than one to randomly add extra variety
+   * (like the vanilla stages do).
    *
    * For an example of this, see the vanilla file "resources/gfx/backdrop/01_basement.png". (In the
    * vanilla file, they concatenate all four variations together into one PNG file. However, for the
@@ -91,8 +94,8 @@ interface CustomStageBackdrop {
 
   /**
    * An array of strings that represent the graphic files for the stage's corners. You must have at
-   * least one string in this array, but you can specify more than one to randomly add extra
-   * variety.
+   * least one string in this array, but you can specify more than one to randomly add extra variety
+   * (like the vanilla stages do).
    *
    * For an example of this, see the vanilla file "resources/gfx/backdrop/01_basement.png". (In the
    * vanilla file, they concatenate both variations together into one PNG file and put it in the top

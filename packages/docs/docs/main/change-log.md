@@ -15,6 +15,7 @@ This page lists the changes to the IsaacScript framework.
   - `getRoomShapeDoorSlot`
   - `getJSONRoomDoorSlotFlags`
   - `getGotoCommand`
+  - `getPlayerFamiliars`
 - Removed the following helper functions:
   - `getGotoCommandPrefix` (use `getGotoCommand` instead)
 

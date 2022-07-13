@@ -42,7 +42,6 @@ export function setCustomStage(name: string, verbose = false): void {
   );
 
   // Now, we need to pick a custom room for each vanilla room.
-  let usedGotoCommand = false;
   for (const room of getRooms()) {
     // The starting floor of each room should stay empty.
     if (room.SafeGridIndex === startingRoomGridIndex) {
@@ -91,7 +90,6 @@ export function setCustomStage(name: string, verbose = false): void {
       // We need the room data for this room. We can leverage the "goto" console command to load it
       // into the "debug" slot. This is convenient because we do not actually have to travel to the
       // room.
-      usedGotoCommand = true;
       const command = getGotoCommand(roomType, randomRoom.variant);
       Isaac.ExecuteCommand(command);
       newRoomData = getRoomData(GridRoom.DEBUG);
@@ -107,14 +105,16 @@ export function setCustomStage(name: string, verbose = false): void {
     room.Data = newRoomData;
   }
 
-  if (usedGotoCommand) {
-    // If we do nothing, we will warp to the debug room several frames from now. Cancel the warp to
-    // the debug room by initiating a room transition to the room we are already in. (We assume that
-    // since we just warped to a new floor, we will be in the starting room.)
-    game.StartRoomTransition(
-      startingRoomGridIndex,
-      Direction.NO_DIRECTION,
-      RoomTransitionAnim.FADE,
-    );
-  }
+  // Set the stage to an invalid value, which will prevent the walls and floors from loading.
+  level.SetStage(-1 as LevelStage, StageType.ORIGINAL);
+
+  // We must reload the current room in order for the `Level.SetStage` method to take effect.
+  // Furthermore, we need to cancel the queued warp to the `GridRoom.DEBUG` room. We can accomplish
+  // both of these things by initiating a room transition to the starting room of the floor. (We
+  // assume that since we just warped to a new floor, we are already in the starting room.)
+  game.StartRoomTransition(
+    startingRoomGridIndex,
+    Direction.NO_DIRECTION,
+    RoomTransitionAnim.FADE,
+  );
 }

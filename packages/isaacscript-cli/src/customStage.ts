@@ -110,23 +110,10 @@ async function getCustomStagesWithMetadata(
   const customStagesLua: CustomStageLua[] = [];
 
   for (const customStageTSConfig of customStagesTSConfig) {
+    // Some manual input validation was already performed in the `getCustomStagesFromTSConfig`
+    // function.
     const { name } = customStageTSConfig;
-    if (name === "") {
-      error(
-        chalk.red(
-          "One of the custom stages has a blank name, which is not allowed.",
-        ),
-      );
-    }
-
     const { xmlPath } = customStageTSConfig;
-    if (xmlPath === "") {
-      error(
-        chalk.red(
-          `The "${name}" custom stage has a blank "xmlPath" property, which is not allowed.`,
-        ),
-      );
-    }
 
     const resolvedXMLPath = path.resolve(CWD, xmlPath);
     if (!file.exists(resolvedXMLPath, verbose)) {
