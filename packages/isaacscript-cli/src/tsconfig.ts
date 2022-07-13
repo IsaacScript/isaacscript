@@ -7,7 +7,7 @@ import {
   TSCONFIG_JSON_PATH,
 } from "./constants";
 import * as file from "./file";
-import { CustomStageTSConfig } from "./interfaces/copied/CustomStage";
+import { CustomStageTSConfig } from "./interfaces/copied/CustomStageLua";
 import { getJSONC } from "./json";
 import { error, isRecord } from "./utils";
 

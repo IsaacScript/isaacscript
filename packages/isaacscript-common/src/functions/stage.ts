@@ -81,11 +81,12 @@ export function getEffectiveStage(): int {
 }
 
 /**
- * Helper function to get the prefix to use with the "goto" console command that would correspond to
- * the provided room type.
+ * Helper function to get the corresponding "goto" console command that would correspond to the
+ * provided room type and room variant.
  */
-export function getGotoCommandPrefix(roomType: RoomType): string {
-  return ROOM_TYPE_GOTO_PREFIXES[roomType];
+export function getGotoCommand(roomType: RoomType, roomVariant: int): string {
+  const prefix = ROOM_TYPE_GOTO_PREFIXES[roomType];
+  return `goto ${prefix}.${roomVariant}`;
 }
 
 /** Alias for the `Level.GetStage` method. */

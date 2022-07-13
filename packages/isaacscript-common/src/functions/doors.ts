@@ -185,6 +185,24 @@ export function getRepentanceDoor(): GridEntityDoor | undefined {
 }
 
 /**
+ * Helper function to get the corresponding door slot for a given room shape and grid coordinates.
+ */
+export function getRoomShapeDoorSlot(
+  roomShape: RoomShape,
+  x: int,
+  y: int,
+): DoorSlot | undefined {
+  const coordinatesMap = ROOM_SHAPE_TO_DOOR_SLOT_COORDINATES[roomShape];
+  for (const [doorSlot, [doorX, doorY]] of coordinatesMap.entries()) {
+    if (x === doorX && y === doorY) {
+      return doorSlot;
+    }
+  }
+
+  return undefined;
+}
+
+/**
  * Helper function to get the room grid coordinates for a specific room shape and door slot
  * combination.
  */

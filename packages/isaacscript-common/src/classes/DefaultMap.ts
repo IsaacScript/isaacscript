@@ -151,7 +151,7 @@ export class DefaultMap<Key, Value, Args extends unknown[] = []> extends Map<
       return this.defaultValueFactory(...extraArgs);
     }
 
-    return error("A DefaultMap was incorrectly instantiated.");
+    error("A DefaultMap was incorrectly instantiated.");
   }
 
   /**
@@ -167,6 +167,6 @@ export class DefaultMap<Key, Value, Args extends unknown[] = []> extends Map<
       return this.defaultValueFactory;
     }
 
-    return error("A DefaultMap was incorrectly instantiated.");
+    error("A DefaultMap was incorrectly instantiated.");
   }
 }

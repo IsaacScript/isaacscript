@@ -8,8 +8,8 @@ module.exports = {
   title: "IsaacScript",
   url: "https://isaacscript.github.io",
   baseUrl: "/",
-  onBrokenLinks: "warn", // TODO: "throw",
-  onBrokenMarkdownLinks: "warn", // TODO: "throw", (and in typedoc.json)
+  onBrokenLinks: "ignore", // TODO: fix `isaac-typescript-definitions` links, then set to "throw"
+  onBrokenMarkdownLinks: "ignore", // TODO: fix `isaac-typescript-definitions` links, then set to "throw"
   favicon: "img/favicon.ico",
   organizationName: "IsaacScript",
   projectName: "IsaacScript.github.io",

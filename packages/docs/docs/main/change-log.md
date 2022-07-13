@@ -9,6 +9,15 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## July 19th, 2022
+
+- Added the following helper functions:
+  - `getRoomShapeDoorSlot`
+  - `getJSONRoomDoorSlotFlags`
+  - `getGotoCommand`
+- Removed the following helper functions:
+  - `getGotoCommandPrefix` (use `getGotoCommand` instead)
+
 ## July 12th, 2022
 
 - Breaking:

@@ -110,7 +110,7 @@ export function getDimension(): Dimension {
     }
   }
 
-  return error("Failed to get the current dimension.");
+  error("Failed to get the current dimension.");
 }
 
 /**
@@ -206,7 +206,7 @@ export function getRoomTypeName(roomType: RoomType): string {
  * non-existent and are not added to the list.
  *
  * @param includeExtraDimensionalRooms Optional. On some floors (e.g. Downpour 2, Mines 2),
- *                                 extra-dimensional rooms are automatically be generated and can be
+ *                                 extra-dimensional rooms are automatically generated and can be
  *                                 seen when you iterate over the `RoomList`. Default is false.
  */
 export function getRooms(

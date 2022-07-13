@@ -1,4 +1,4 @@
-import { CustomStageTSConfig } from "./copied/CustomStage";
+import { CustomStageTSConfig } from "./copied/CustomStageLua";
 
 /**
  * This is the format of the "isaacscript" section of the "tsconfig.json" file.

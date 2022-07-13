@@ -98,7 +98,7 @@ function getDefaultModsPath(platform: string): string {
     }
 
     default: {
-      return error(
+      error(
         `There does not exist a default mod path for the platform of: ${chalk.green(
           platform,
         )}`,

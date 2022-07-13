@@ -58,7 +58,7 @@ export async function getInputYesNo(
     return false;
   }
 
-  return error('Invalid response; must answer "yes" or "no".');
+  error('Invalid response; must answer "yes" or "no".');
 }
 
 /** Returns trimmed input. */
