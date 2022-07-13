@@ -62,7 +62,7 @@ export function getJSONRoomDoorSlotFlags(jsonRoom: JSONRoom): number {
   return doorSlotFlags;
 }
 
-export function getRoomShapeDoorSlot(
+function getRoomShapeDoorSlot(
   roomShape: RoomShape,
   x: number,
   y: number,
@@ -77,11 +77,11 @@ export function getRoomShapeDoorSlot(
   return undefined;
 }
 
-export function doorSlotToDoorSlotFlag(doorSlot: DoorSlot): DoorSlotFlag {
+function doorSlotToDoorSlotFlag(doorSlot: DoorSlot): DoorSlotFlag {
   return DOOR_SLOT_TO_DOOR_SLOT_FLAG[doorSlot];
 }
 
-export function addFlag(flags: number, ...flagsToAdd: number[]): number {
+function addFlag(flags: number, ...flagsToAdd: number[]): number {
   for (const flagToAdd of flagsToAdd) {
     flags |= flagToAdd; // eslint-disable-line no-bitwise,no-param-reassign
   }
