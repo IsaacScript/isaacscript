@@ -16,9 +16,6 @@ cd "$DIR"
 
 OUT_DIR="$DIR/../../dist/packages/$REPO_NAME"
 
-# Copy the types from IsaacScript common.
-# (Due to )
-
 # First, copy some interfaces from "isaacscript-common".
 # (Normally, we would reference them directly, but "paths" in the "tsconfig.json" file do not work
 # properly with TSTL.)

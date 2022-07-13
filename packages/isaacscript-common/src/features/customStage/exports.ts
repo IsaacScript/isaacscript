@@ -9,6 +9,7 @@ import {
 } from "isaac-typescript-definitions";
 import { game } from "../../cachedClasses";
 import { logError } from "../../functions/log";
+import { newRNG } from "../../functions/rng";
 import { getRoomData } from "../../functions/roomData";
 import { getRooms } from "../../functions/rooms";
 import { getGotoCommand, setStage } from "../../functions/stage";
@@ -33,6 +34,7 @@ export function setCustomStage(name: string, verbose = false): void {
   const startingRoomGridIndex = level.GetStartingRoomIndex();
   const seeds = game.GetSeeds();
   const startSeed = seeds.GetStartSeed();
+  const rng = newRNG(startSeed);
 
   setStage(
     customStage.baseStage as LevelStage,
@@ -42,6 +44,11 @@ export function setCustomStage(name: string, verbose = false): void {
   // Now, we need to pick a custom room for each vanilla room.
   let usedGotoCommand = false;
   for (const room of getRooms()) {
+    // The starting floor of each room should stay empty.
+    if (room.SafeGridIndex === startingRoomGridIndex) {
+      continue;
+    }
+
     if (room.Data === undefined) {
       continue;
     }
@@ -77,11 +84,7 @@ export function setCustomStage(name: string, verbose = false): void {
       continue;
     }
 
-    const randomRoom = getRandomCustomStageRoom(
-      roomsMetadata,
-      startSeed,
-      verbose,
-    );
+    const randomRoom = getRandomCustomStageRoom(roomsMetadata, rng, verbose);
 
     let newRoomData = customStageCachedRoomData.get(randomRoom.variant);
     if (newRoomData === undefined) {

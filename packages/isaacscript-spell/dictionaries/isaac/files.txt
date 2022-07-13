@@ -23,11 +23,13 @@ itemdungeon # 00.special rooms.xml
 itempools # itempools.xml
 lazarusshared # items_metadata.xml
 lazarussharedglobal # items_metadata.xml
+lbasementfloor # 01_lbasementfloor.png
 maxcharges # items.xml
 mimiccharge # pocketitems.xml
 monstermanual # items_metadata.xml
 nameimage # players.xml
 nameimageroot # players.xml
+nfloor # 01_basement_nfloor.png
 nocantrip # items_metadata.xml
 nochallenge # items_metadata.xml
 nodaily # items_metadata.xml

@@ -44,9 +44,9 @@ Second, make sure it has an "isaacscript" property at the bottom:
   },
 ```
 
-For an explanation of each field, you should be able to mouse-over it in VSCode. Alternatively, you can see the schema [here](https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-common/src/interfaces/CustomStage.ts).
+For an explanation of each field, you should be able to mouse-over it in VSCode. Alternatively, you can [browse the TypeScript schema definition](https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-common/src/interfaces/CustomStageLua.ts).
 
-For more information on the "roomVariantPrefix" field, see [below](#custom-stage-room-variant-prefixes).
+For more information on the "roomVariantPrefix" field, see the section on [Custom Stage Room Variant Prefixes](#custom-stage-room-variant-prefixes).
 
 ## Motivation
 
