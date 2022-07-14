@@ -15,10 +15,6 @@ export function errorIfDebugDisplayNotInitialized(): void {
   }
 }
 
-export function isDebugDisplayEnabled(): boolean {
-  return debugDisplayEnabled;
-}
-
 const v = {
   run: {
     player: false, // 1
