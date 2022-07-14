@@ -74,7 +74,7 @@ const WALL_OFFSET = Vector(-80, -80);
  */
 const BACKDROP_EFFECT_VARIANT = EffectVariant.LADDER;
 
-export const BACKDROP_ROOM_TYPE_SET: ReadonlySet<RoomType> = new Set([
+const BACKDROP_ROOM_TYPE_SET: ReadonlySet<RoomType> = new Set([
   RoomType.DEFAULT,
   RoomType.BOSS,
   RoomType.MINI_BOSS,
