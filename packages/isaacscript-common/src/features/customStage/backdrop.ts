@@ -72,7 +72,7 @@ const WALL_OFFSET = Vector(-80, -80);
  * We arbitrarily choose a ladder for this purpose because it will not automatically despawn after
  * time passes, like most other effects.
  */
-const BACKDROP_EFFECT_VARIANT = 12538 as EffectVariant; // EffectVariant.LADDER
+const BACKDROP_EFFECT_VARIANT = EffectVariant.LADDER;
 
 export function setBackdrop(customStage: CustomStage): void {
   const room = game.GetRoom();

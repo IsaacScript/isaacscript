@@ -19,6 +19,8 @@ This page lists the changes to the IsaacScript framework.
   - `movePlayersToCenter`
   - `runNextRoom`
   - `reorderedCallbacksSetStage`
+  - `isNarrowRoom`
+  - `getRoomShapeCorners`
 - Removed the following helper functions:
   - `getGotoCommandPrefix` (use `getGotoCommand` instead)
 - Added the following constants:
