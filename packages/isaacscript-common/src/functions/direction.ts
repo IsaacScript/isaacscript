@@ -40,7 +40,7 @@ export function directionToDegrees(direction: Direction): int {
   return DIRECTION_TO_DEGREES[direction];
 }
 
-export function directionToVector(direction: Direction): Vector {
+export function directionToVector(direction: Direction): Readonly<Vector> {
   return DIRECTION_TO_VECTOR[direction];
 }
 

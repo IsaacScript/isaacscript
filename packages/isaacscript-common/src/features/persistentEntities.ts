@@ -16,7 +16,7 @@ interface PersistentEntityDescription {
   variant: int;
   subType: int;
   roomListIndex: int;
-  position: Vector;
+  position: Readonly<Vector>;
 }
 
 const FEATURE_NAME = "persistentEntities";

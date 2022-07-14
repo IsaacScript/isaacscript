@@ -3,7 +3,7 @@ import path from "path";
 import * as tstl from "typescript-to-lua";
 import xml2js from "xml2js";
 import { getJSONRoomDoorSlotFlags } from "./common";
-import { CWD, MOD_SOURCE_PATH } from "./constants";
+import { CUSTOM_STAGE_FILES_DIR, CWD, MOD_SOURCE_PATH } from "./constants";
 import { PackageManager } from "./enums/PackageManager";
 import * as file from "./file";
 import {
@@ -41,8 +41,27 @@ export async function prepareCustomStages(
     return;
   }
 
+  copyCustomStageFilesToProject(verbose);
   await fillCustomStageMetadata(customStagesTSConfig, packageManager, verbose);
   combineCustomStageXMLs(customStagesTSConfig, verbose);
+}
+
+/** The custom stages feature needs some anm2 files in order to work properly. */
+function copyCustomStageFilesToProject(verbose: boolean) {
+  const dstDirPath = path.join(
+    CWD,
+    "mod",
+    "resources",
+    "gfx",
+    "isaacscript-custom-stage",
+  );
+  file.makeDir(dstDirPath, verbose);
+
+  for (const fileName of file.getDirList(CUSTOM_STAGE_FILES_DIR, verbose)) {
+    const srcPath = path.join(CUSTOM_STAGE_FILES_DIR, fileName);
+    const dstPath = path.join(dstDirPath, fileName);
+    file.copy(srcPath, dstPath, verbose);
+  }
 }
 
 /**

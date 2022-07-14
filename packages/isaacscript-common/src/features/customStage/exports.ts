@@ -9,17 +9,16 @@ import {
 } from "isaac-typescript-definitions";
 import { game } from "../../cachedClasses";
 import { reorderedCallbacksSetStage } from "../../callbacks/reorderedCallbacks";
-import { logError } from "../../functions/log";
+import { log, logError } from "../../functions/log";
 import { movePlayersToCenter } from "../../functions/playerCenter";
 import { newRNG } from "../../functions/rng";
 import { getRoomData } from "../../functions/roomData";
 import { getRooms } from "../../functions/rooms";
 import { getGotoCommand, setStage } from "../../functions/stage";
-import { CustomStage } from "../../interfaces/CustomStage";
 import { runNextRoom } from "../runNextRoom";
 import { setBackdrop } from "./backdrop";
 import { getRandomCustomStageRoom } from "./util";
-import { customStageCachedRoomData, customStagesMap } from "./v";
+import v, { customStageCachedRoomData, customStagesMap } from "./v";
 
 /**
  * Helper function to warp to a custom stage/level.
@@ -40,6 +39,8 @@ export function setCustomStage(name: string, verbose = false): void {
   const seeds = game.GetSeeds();
   const startSeed = seeds.GetStartSeed();
   const rng = newRNG(startSeed);
+
+  v.run.currentCustomStage = customStage;
 
   setStage(
     customStage.baseStage as LevelStage,
@@ -110,9 +111,12 @@ export function setCustomStage(name: string, verbose = false): void {
     room.Data = newRoomData;
   }
 
-  // Set the stage to an invalid value, which will prevent the walls and floors from loading.
+  // Set the stage to an invalid value, which will prevent the walls and floors from loading. We
+  // must use `StageType.WRATH_OF_THE_LAMB` instead of `StageType.ORIGINAL` or else the walls will
+  // not render properly. DeadInfinity suspects that this might be because it is trying to use the
+  // Dark Room's backdrop (instead of The Chest).
   const stage = -1 as LevelStage;
-  const stageType = StageType.ORIGINAL;
+  const stageType = StageType.WRATH_OF_THE_LAMB;
   level.SetStage(stage, stageType);
   reorderedCallbacksSetStage(stage, stageType);
 
@@ -127,18 +131,21 @@ export function setCustomStage(name: string, verbose = false): void {
   );
 
   // We do more setup once the room is reloaded from the transition.
-  runNextRoom(() => {
-    postRoomTransition(customStage);
-  });
+  runNextRoom(postRoomTransition);
 }
 
-function postRoomTransition(customStage: CustomStage) {
+function postRoomTransition() {
   // After the room transition, the players will be placed next to a door, but they should be in the
   // center of the room to emulate what happens on a vanilla stage.
   movePlayersToCenter();
+}
 
-  // TODO
+export function setCustomStageDebug(): void {
+  const customStage = v.run.currentCustomStage;
+  if (customStage === null) {
+    log("No custom stage is currently loaded.");
+    return;
+  }
+
   setBackdrop(customStage);
-
-  Isaac.DebugString("GETTING HERE - SET BACKDROP");
 }

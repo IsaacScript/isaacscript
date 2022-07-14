@@ -9,7 +9,7 @@ const NARROW_VERTICAL_TOP_LEFT_POSITION = Vector(4, 0);
  * wall would be at "Vector(-1, -1)".)
  */
 export const ROOM_SHAPE_TO_TOP_LEFT_POSITION: {
-  readonly [key in RoomShape]: Vector;
+  readonly [key in RoomShape]: Readonly<Vector>;
 } = {
   [RoomShape.SHAPE_1x1]: VectorZero, // 1
   [RoomShape.IH]: NARROW_HORIZONTAL_TOP_LEFT_POSITION, // 2

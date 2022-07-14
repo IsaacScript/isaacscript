@@ -8,7 +8,7 @@ const ONE_BY_TWO_VERTICAL_BOTTOM_RIGHT_POSITION = Vector(12, 13);
  * wall would be at "Vector(-1, -1)".)
  */
 export const ROOM_SHAPE_TO_BOTTOM_RIGHT_POSITION: {
-  readonly [key in RoomShape]: Vector;
+  readonly [key in RoomShape]: Readonly<Vector>;
 } = {
   [RoomShape.SHAPE_1x1]: Vector(12, 6), // 1
   [RoomShape.IH]: Vector(12, 4), // 2

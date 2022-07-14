@@ -88,7 +88,7 @@ export function getDevilRoomOrAngelRoomDoor(): GridEntityDoor | undefined {
  * they would immediately collide with the loading zone. Instead, they are offset by a certain
  * amount of units.
  */
-export function getDoorEnterPosition(door: GridEntityDoor): Vector {
+export function getDoorEnterPosition(door: GridEntityDoor): Readonly<Vector> {
   const offset = getDoorSlotEnterPositionOffset(door.Slot);
   return door.Position.add(offset);
 }
@@ -100,7 +100,9 @@ export function getDoorEnterPosition(door: GridEntityDoor): Vector {
  * they would immediately collide with the loading zone. Instead, they are offset by a certain
  * amount of units.
  */
-export function getDoorSlotEnterPositionOffset(doorSlot: DoorSlot): Vector {
+export function getDoorSlotEnterPositionOffset(
+  doorSlot: DoorSlot,
+): Readonly<Vector> {
   const direction = doorSlotToDirection(doorSlot);
   const vector = directionToVector(direction);
 

@@ -66,27 +66,31 @@ interface CustomStageBackdrop {
   suffix: string;
 
   /**
-   * An array of strings that represent the graphic files for the stage's "nFloor". You must have at
-   * least one string in this array, but you can specify more than one to randomly add extra variety
-   * (like the vanilla stages do).
+   * An array of strings that represent the graphic files that are used for the floors in narrow
+   * rooms. (The "n" stands for "narrow").
+   *
+   * You must have at least one string in this array, but you can specify more than one to randomly
+   * add extra variety (like the vanilla stages do).
    *
    * For an example of this, see the vanilla file "resources/gfx/backdrop/01_basement_nfloor.png".
    */
   nFloors: string[];
 
   /**
-   * An array of strings that represent the graphic files for the stage's "lFloor". You must have at
-   * least one in the array, but you can specify more than one to randomly add extra variety (like
-   * the vanilla stages do).
+   * An array of strings that represent the graphic files that are used for the floors in L rooms.
+   *
+   * You must have at least one string in this array, but you can specify more than one to randomly
+   * add extra variety (like the vanilla stages do).
    *
    * For an example of this, see the vanilla file "resources/gfx/backdrop/01_lbasementfloor.png".
    */
   lFloors: string[];
 
   /**
-   * An array of strings that represent the graphic files for the stage's walls. You must have at
-   * least one string in this array, but you can specify more than one to randomly add extra variety
-   * (like the vanilla stages do).
+   * An array of strings that represent the graphic files for the stage's walls.
+   *
+   * You must have at least one string in this array, but you can specify more than one to randomly
+   * add extra variety (like the vanilla stages do).
    *
    * For an example of this, see the vanilla file "resources/gfx/backdrop/01_basement.png". (In the
    * vanilla file, they concatenate all four variations together into one PNG file. However, for the

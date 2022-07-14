@@ -23,7 +23,7 @@ import { stageHistoryInit } from "./features/stageHistory";
 import { taintedLazarusPlayersInit } from "./features/taintedLazarusPlayers";
 
 export function initFeaturesMajor(mod: ModUpgraded): void {
-  customStageInit();
+  customStageInit(mod);
   deployJSONRoomInit(mod);
   runInNFramesInit(mod);
   characterStatsInit(mod);

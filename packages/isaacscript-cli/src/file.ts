@@ -15,9 +15,9 @@ export function copy(srcPath: string, dstPath: string, verbose: boolean): void {
     });
   } catch (err) {
     error(
-      `Failed to copy directory "${chalk.green(srcPath)}" to "${chalk.green(
-        dstPath,
-      )}":`,
+      `Failed to copy file or directory "${chalk.green(
+        srcPath,
+      )}" to "${chalk.green(dstPath)}":`,
       err,
     );
   }
@@ -70,6 +70,10 @@ export function exists(filePath: string, verbose: boolean): boolean {
   return pathExists;
 }
 
+/**
+ * Returns an array of the file names inside of the directory. (If the full path is required, you
+ * must manually join it with the path to the directory.)
+ */
 export function getDirList(dirPath: string, verbose: boolean): string[] {
   if (verbose) {
     console.log(`Getting a directory list from: ${dirPath}`);

@@ -3,16 +3,31 @@ import {
   RoomShape,
   RoomType,
 } from "isaac-typescript-definitions";
+import { game } from "../../cachedClasses";
+import { ModUpgraded } from "../../classes/ModUpgraded";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { isArray } from "../../functions/array";
 import { CustomStage, RoomTypeMap } from "../../interfaces/CustomStage";
 import {
   CustomStageLua,
   CustomStageRoomMetadata,
 } from "../../interfaces/CustomStageLua";
+import { saveDataManager } from "../saveDataManager/exports";
+import { setBackdrop } from "./backdrop";
 import * as metadataJSON from "./metadata.json"; // This will correspond to "metadata.lua" at run-time.
-import { customStagesMap } from "./v";
+import v, { customStagesMap } from "./v";
 
-export function customStageInit(): void {
+export function customStageInit(mod: ModUpgraded): void {
+  saveDataManager("customStage", v);
+  initRoomTypeMaps();
+
+  mod.AddCallbackCustom(
+    ModCallbackCustom.POST_NEW_ROOM_REORDERED,
+    postNewRoomReordered,
+  );
+}
+
+function initRoomTypeMaps() {
   const customStagesLua = metadataJSON as unknown as CustomStageLua[];
   if (!isArray(customStagesLua)) {
     error(
@@ -70,4 +85,24 @@ function getRoomTypeMap(customStageLua: CustomStageLua): RoomTypeMap {
   }
 
   return roomTypeMap;
+}
+
+// ModCallbackCustom.POST_NEW_ROOM_REORDERED
+function postNewRoomReordered() {
+  const customStage = v.run.currentCustomStage;
+  if (customStage === null) {
+    return;
+  }
+
+  const room = game.GetRoom();
+  const roomType = room.GetType();
+
+  // We don't want to set the backdrop inside shops, Curse Rooms, and so on.
+  if (
+    roomType === RoomType.DEFAULT ||
+    roomType === RoomType.BOSS ||
+    roomType === RoomType.MINI_BOSS
+  ) {
+    setBackdrop(customStage);
+  }
 }

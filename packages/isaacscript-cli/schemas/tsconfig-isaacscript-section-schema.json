@@ -18,14 +18,14 @@
               "type": "array"
             },
             "lFloors": {
-              "description": "An array of strings that represent the graphic files for the stage's \"lFloor\". You must have at least one in the array, but you can specify more than one to randomly add extra variety (like the vanilla stages do).\n\nFor an example of this, see the vanilla file \"resources/gfx/backdrop/01_lbasementfloor.png\".",
+              "description": "An array of strings that represent the graphic files that are used for the floors in L rooms.\n\nYou must have at least one string in this array, but you can specify more than one to randomly add extra variety (like the vanilla stages do).\n\nFor an example of this, see the vanilla file \"resources/gfx/backdrop/01_lbasementfloor.png\".",
               "items": {
                 "type": "string"
               },
               "type": "array"
             },
             "nFloors": {
-              "description": "An array of strings that represent the graphic files for the stage's \"nFloor\". You must have at least one string in this array, but you can specify more than one to randomly add extra variety (like the vanilla stages do).\n\nFor an example of this, see the vanilla file \"resources/gfx/backdrop/01_basement_nfloor.png\".",
+              "description": "An array of strings that represent the graphic files that are used for the floors in narrow rooms. (The \"n\" stands for \"narrow\").\n\nYou must have at least one string in this array, but you can specify more than one to randomly add extra variety (like the vanilla stages do).\n\nFor an example of this, see the vanilla file \"resources/gfx/backdrop/01_basement_nfloor.png\".",
               "items": {
                 "type": "string"
               },
@@ -40,7 +40,7 @@
               "type": "string"
             },
             "walls": {
-              "description": "An array of strings that represent the graphic files for the stage's walls. You must have at least one string in this array, but you can specify more than one to randomly add extra variety (like the vanilla stages do).\n\nFor an example of this, see the vanilla file \"resources/gfx/backdrop/01_basement.png\". (In the vanilla file, they concatenate all four variations together into one PNG file. However, for the custom stages feature, you must separate each wall variation into a separate file.)",
+              "description": "An array of strings that represent the graphic files for the stage's walls.\n\nYou must have at least one string in this array, but you can specify more than one to randomly add extra variety (like the vanilla stages do).\n\nFor an example of this, see the vanilla file \"resources/gfx/backdrop/01_basement.png\". (In the vanilla file, they concatenate all four variations together into one PNG file. However, for the custom stages feature, you must separate each wall variation into a separate file.)",
               "items": {
                 "type": "string"
               },

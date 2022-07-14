@@ -21,6 +21,9 @@ export const PROJECT_NAME = "IsaacScript";
 // `isaacscript`
 const REPO_ROOT = path.join(__dirname, "..");
 
+// `isaacscript/custom-stage`
+export const CUSTOM_STAGE_FILES_DIR = path.join(REPO_ROOT, "custom-stage");
+
 // `isaacscript/isaacscript-watcher`
 export const DISABLE_IT_FILE = "disable.it";
 export const WATCHER_MOD_NAME = "isaacscript-watcher";

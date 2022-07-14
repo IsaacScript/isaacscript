@@ -42,6 +42,7 @@ rm -rf "$OUT_DIR"
 npx tsc
 
 # Copy the rest of the files needed for npm.
+cp --recursive "$DIR/custom-stage" "$OUT_DIR/"
 cp --recursive "$DIR/file-templates" "$OUT_DIR/"
 cp --recursive "$DIR/isaacscript-watcher" "$OUT_DIR/"
 cp "$DIR/LICENSE" "$OUT_DIR/"

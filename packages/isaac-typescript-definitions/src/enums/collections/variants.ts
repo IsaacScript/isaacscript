@@ -6,7 +6,18 @@ export enum PlayerVariant {
   COOP_BABY = 1,
 }
 
-/** For `EntityType.TEAR` (2) */
+/**
+ * For `EntityType.TEAR` (2)
+ *
+ * Generally, the `TearVariant` affects the graphics of the tear, while the `TearFlag` affects the
+ * gameplay mechanic. For example, the Euthanasia collectible grants a chance for needle tears that
+ * explode. `TearVariant.NEEDLE` makes the tear look like a needle, and the exploding effect comes
+ * from `TearFlag.NEEDLE`.
+ *
+ * However, there are some exceptions. For example, Sharp Key makes Isaac shoot key tears that deal
+ * extra damage. Both the graphical effect and the extra damage are granted by
+ * `TearVariant.KEY_BLOOD`.
+ */
 export enum TearVariant {
   BLUE = 0,
   BLOOD = 1,
@@ -39,7 +50,10 @@ export enum TearVariant {
   RAZOR = 28,
   BONE = 29,
   BLACK_TOOTH = 30,
+
+  /** Used by Euthanasia. */
   NEEDLE = 31,
+
   BELIAL = 32,
   EYE = 33,
   EYE_BLOOD = 34,

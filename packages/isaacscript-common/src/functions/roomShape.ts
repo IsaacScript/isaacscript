@@ -1,5 +1,7 @@
 import { DoorSlot, RoomShape } from "isaac-typescript-definitions";
+import { Corner } from "../interfaces/Corner";
 import { ROOM_SHAPE_BOUNDS } from "../objects/roomShapeBounds";
+import { ROOM_SHAPE_CORNERS } from "../objects/roomShapeCorners";
 import { ROOM_SHAPE_LAYOUT_SIZES } from "../objects/roomShapeLayoutSizes";
 import { ROOM_SHAPE_TO_BOTTOM_RIGHT_POSITION } from "../objects/roomShapeToBottomRightPosition";
 import { ROOM_SHAPE_TO_DOOR_SLOTS_TO_GRID_INDEX_DELTA } from "../objects/roomShapeToDoorSlotsToGridIndexDelta";
@@ -7,6 +9,7 @@ import { ROOM_SHAPE_TO_GRID_WIDTH } from "../objects/roomShapeToGridWidth";
 import { ROOM_SHAPE_TO_TOP_LEFT_POSITION } from "../objects/roomShapeToTopLeftPosition";
 import { ROOM_SHAPE_VOLUMES } from "../objects/roomShapeVolumes";
 import { L_ROOM_SHAPES_SET } from "../sets/LRoomShapesSet";
+import { NARROW_ROOM_SHAPES_SET } from "../sets/narrowRoomShapesSet";
 
 /**
  * Helper function to get the grid index delta that a door out of the given room shape would lead
@@ -29,7 +32,9 @@ export function getGridIndexDelta(
  *
  * For example, `RoomShape.SHAPE_2x2` will return 2.
  */
-export function getRoomShapeBottomRightPosition(roomShape: RoomShape): Vector {
+export function getRoomShapeBottomRightPosition(
+  roomShape: RoomShape,
+): Readonly<Vector> {
   return ROOM_SHAPE_TO_BOTTOM_RIGHT_POSITION[roomShape];
 }
 
@@ -46,11 +51,18 @@ export function getRoomShapeBounds(
 }
 
 /**
- * Helper function to get the bounds of a room shape, which are a box representing its contents.
- * This does not include the tiles that the walls are on. L rooms use the same bounds as a 2x2 room.
+ * Helper function to get the number of charges that a given room shape will grant to a player upon
+ * clearing it.
+ *
+ * For example, `RoomShape.SHAPE_2x2` will return 2.
  */
 export function getRoomShapeCharges(roomShape: RoomShape): int {
   return isRoomShapeDoubleCharge(roomShape) ? 2 : 1;
+}
+
+/** Helper function to get the corners that exist in the given room shape. */
+export function getRoomShapeCorners(roomShape: RoomShape): readonly Corner[] {
+  return ROOM_SHAPE_CORNERS[roomShape];
 }
 
 /**
@@ -71,7 +83,9 @@ export function getRoomShapeLayoutSize(
  * "Vector(0, 0)" corresponds to the top left tile of a room, not including the walls. (The top-left
  * wall would be at "Vector(-1, -1)".)
  */
-export function getRoomShapeTopLeftPosition(roomShape: RoomShape): Vector {
+export function getRoomShapeTopLeftPosition(
+  roomShape: RoomShape,
+): Readonly<Vector> {
   return ROOM_SHAPE_TO_TOP_LEFT_POSITION[roomShape];
 }
 
@@ -91,6 +105,10 @@ export function getRoomShapeWidth(roomShape: RoomShape): int {
 
 export function isLRoom(roomShape: RoomShape): boolean {
   return L_ROOM_SHAPES_SET.has(roomShape);
+}
+
+export function isNarrowRoom(roomShape: RoomShape): boolean {
+  return NARROW_ROOM_SHAPES_SET.has(roomShape);
 }
 
 /**

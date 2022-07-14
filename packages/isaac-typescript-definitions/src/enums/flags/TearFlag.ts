@@ -1,13 +1,22 @@
 /**
  * For `EntityType.TEAR` (2)
  *
- * Corresponds to `TargetFlag`.
+ * Corresponds to `TearFlag`.
  *
  * This enum was renamed from "TearFlags" to be consistent with the other flag enums.
  *
  * This is represented as an object instead of an enum due to limitations with TypeScript enums. (We
  * want this type to be a child of the `BitFlag` type. Furthermore, enums cannot be instantiated
  * with `BitSet128` objects.)
+ *
+ * Generally, the `TearVariant` affects the graphics of the tear, while the `TearFlag` affects the
+ * gameplay mechanic. For example, the Euthanasia collectible grants a chance for needle tears that
+ * explode. `TearVariant.NEEDLE` makes the tear look like a needle, and the exploding effect comes
+ * from `TearFlag.NEEDLE`.
+ *
+ * However, there are some exceptions. For example, Sharp Key makes Isaac shoot key tears that deal
+ * extra damage. Both the graphical effect and the extra damage are granted by
+ * `TearVariant.KEY_BLOOD`.
  *
  * @enum
  * @notExported
