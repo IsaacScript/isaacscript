@@ -1,6 +1,24 @@
 import { getEntityID } from "../../functions/entity";
 import { getGridEntityID } from "../../functions/gridEntity";
 
+let debugDisplayEnabled = false;
+
+export function setDebugDisplayEnabled(): void {
+  debugDisplayEnabled = true;
+}
+
+export function errorIfDebugDisplayNotInitialized(): void {
+  if (!debugDisplayEnabled) {
+    error(
+      'The "debugDisplay" feature is not initialized. You must run the "enableExtraConsoleCommands" function once at the beginning of your mod in order for this feature to work.',
+    );
+  }
+}
+
+export function isDebugDisplayEnabled(): boolean {
+  return debugDisplayEnabled;
+}
+
 const v = {
   run: {
     player: false, // 1

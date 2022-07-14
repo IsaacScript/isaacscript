@@ -10,6 +10,7 @@ import { disableInputsInit } from "./features/disableInputs";
 import { fadeInRemoverInit } from "./features/fadeInRemover";
 import { fastResetInit } from "./features/fastReset";
 import { forgottenSwitchInit } from "./features/forgottenSwitch";
+import { pauseInit } from "./features/pause";
 import { persistentEntitiesInit } from "./features/persistentEntities";
 import { playerInventoryInit } from "./features/playerInventory";
 import { ponyDetectionInit } from "./features/ponyDetection";
@@ -38,6 +39,7 @@ export function initFeaturesMinor(mod: ModUpgraded): void {
   fastResetInit(mod);
   forgottenSwitchInit(mod);
   collectibleItemPoolTypeInit(mod);
+  pauseInit(mod);
   persistentEntitiesInit(mod);
   playerInventoryInit(mod);
   ponyDetectionInit(mod);

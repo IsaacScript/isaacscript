@@ -4,12 +4,12 @@ import {
   EffectVariant,
   EntityFlag,
   RoomShape,
+  RoomType,
 } from "isaac-typescript-definitions";
 import { game } from "../../cachedClasses";
 import { VectorZero } from "../../constants";
 import { getRandomArrayElement } from "../../functions/array";
 import { spawnEffectWithSeed } from "../../functions/entitySpecific";
-import { log } from "../../functions/log";
 import { newRNG } from "../../functions/rng";
 import { isLRoom, isNarrowRoom } from "../../functions/roomShape";
 import { trimPrefix } from "../../functions/string";
@@ -74,16 +74,26 @@ const WALL_OFFSET = Vector(-80, -80);
  */
 const BACKDROP_EFFECT_VARIANT = EffectVariant.LADDER;
 
+export const BACKDROP_ROOM_TYPE_SET: ReadonlySet<RoomType> = new Set([
+  RoomType.DEFAULT,
+  RoomType.BOSS,
+  RoomType.MINI_BOSS,
+]);
+
 export function setBackdrop(customStage: CustomStage): void {
   const room = game.GetRoom();
+  const roomType = room.GetType();
   const decorationSeed = room.GetDecorationSeed();
   const rng = newRNG(decorationSeed);
+
+  // We do not want to set the backdrop inside shops, Curse Rooms, and so on.
+  if (!BACKDROP_ROOM_TYPE_SET.has(roomType)) {
+    return;
+  }
 
   spawnWallEntity(customStage, rng, false);
   spawnSecondWallEntity(customStage, rng);
   spawnFloorEntity(customStage, rng);
-
-  log("Spawned backdrop entities.");
 }
 
 function getBackdropPNGPath(

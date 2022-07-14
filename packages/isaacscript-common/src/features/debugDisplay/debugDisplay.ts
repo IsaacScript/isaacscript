@@ -3,13 +3,14 @@ import { ModUpgraded } from "../../classes/ModUpgraded";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { isReflectionRender } from "../../functions/utils";
 import { saveDataManager } from "../saveDataManager/exports";
-import v, { debugDisplayTextCallbacks } from "./v";
+import v, { debugDisplayTextCallbacks, setDebugDisplayEnabled } from "./v";
 
 /**
  * The debug display feature is only initialized when the extra console commands feature is
  * initialized.
  */
 export function debugDisplayInit(mod: ModUpgraded): void {
+  setDebugDisplayEnabled();
   saveDataManager("debugDisplay", v, () => false);
 
   mod.AddCallback(ModCallback.POST_FAMILIAR_RENDER, postFamiliarRender); // 25

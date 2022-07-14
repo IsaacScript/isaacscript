@@ -16,7 +16,7 @@ import { getRoomData } from "../../functions/roomData";
 import { getRooms } from "../../functions/rooms";
 import { getGotoCommand, setStage } from "../../functions/stage";
 import { runNextRoom } from "../runNextRoom";
-import { setBackdrop } from "./backdrop";
+import { playBossRoomAnimation } from "./boss";
 import { getRandomCustomStageRoom } from "./util";
 import v, { customStageCachedRoomData, customStagesMap } from "./v";
 
@@ -147,5 +147,5 @@ export function setCustomStageDebug(): void {
     return;
   }
 
-  setBackdrop(customStage);
+  playBossRoomAnimation(true);
 }

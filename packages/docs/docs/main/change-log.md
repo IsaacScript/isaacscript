@@ -21,6 +21,8 @@ This page lists the changes to the IsaacScript framework.
   - `reorderedCallbacksSetStage`
   - `isNarrowRoom`
   - `getRoomShapeCorners`
+  - `pause`
+  - `unpause`
 - Removed the following helper functions:
   - `getGotoCommandPrefix` (use `getGotoCommand` instead)
 - Added the following constants:

@@ -3,6 +3,7 @@ import { CustomStage } from "../../interfaces/CustomStage";
 const v = {
   run: {
     currentCustomStage: null as CustomStage | null,
+    showingBossVersusScreen: false,
   },
 };
 export default v;

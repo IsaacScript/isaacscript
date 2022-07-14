@@ -125,6 +125,9 @@ function getPlayerIndexCollectibleType(
 /**
  * Helper function to return the index of this player with respect to the output of the
  * `Isaac.GetPlayer` method.
+ *
+ * Note that if you storing information about a player in a data structure, you never want to use
+ * this index; use the `getPlayerIndex` function instead.
  */
 export function getPlayerIndexVanilla(
   playerToFind: EntityPlayer,

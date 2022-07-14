@@ -3,7 +3,7 @@ import { kColorEquals } from "./kColor";
 import { erange } from "./utils";
 
 /**
- * Helper function to clear a specific layer from a sprite.
+ * Helper function to clear all layers or specific layers from a sprite.
  *
  * This function is variadic, so pass as many layer IDs as you want to clear. If no specific layers
  * are passed, it will clear every layer.

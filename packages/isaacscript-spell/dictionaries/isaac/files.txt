@@ -55,6 +55,7 @@ teammeatfont # font
 tearsup # items_metadata.xml
 thesadonion # collectibles_001_thesadonion.png
 uniquefamiliar # items_metadata.xml
+versusscreen # versusscreen.anm2
 voidtrapdoor # voidtrapdoor.anm2
 wombhole # door_11_wombhole_blue_custom.anm2
 XLAX # pocketitems.xml
