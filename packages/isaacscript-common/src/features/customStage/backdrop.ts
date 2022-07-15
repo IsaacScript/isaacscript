@@ -119,7 +119,6 @@ function spawnWallEntity(
   const subType = isExtraWall
     ? BackdropEntitySubType.WALL_EXTRA
     : BackdropEntitySubType.WALL;
-  Isaac.DebugString("GETTING HERE ZZ");
   const wallEffect = spawnEffectWithSeed(
     BACKDROP_EFFECT_VARIANT,
     subType,

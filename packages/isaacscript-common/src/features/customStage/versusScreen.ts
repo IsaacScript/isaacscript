@@ -196,8 +196,11 @@ function getBossPNGPaths(): [
   // If this is not a vanilla boss, default to showing question marks.
   const bossID = firstBoss === undefined ? 0 : firstBoss.GetBossID();
   if (bossID === 0) {
-    const bossNamePNGPath = BOSS_NAME_PNG_FILE_NAMES[BossID.BLUE_BABY];
-    const bossPortraitPNGPath = `${ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH}/portrait_unknown_boss.png`;
+    const questionMarkSprite = `${PNG_PATH_PREFIX}/${
+      BOSS_NAME_PNG_FILE_NAMES[BossID.BLUE_BABY]
+    }`;
+    const bossNamePNGPath = questionMarkSprite;
+    const bossPortraitPNGPath = questionMarkSprite;
     return [bossNamePNGPath, bossPortraitPNGPath];
   }
 
