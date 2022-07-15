@@ -36,7 +36,10 @@ declare global {
     CollidesWithGrid(): boolean;
     Die(): void;
     Exists(): boolean;
-    GetBossID(): BossID;
+
+    /** Returns 0 if the entity is not a boss. */
+    GetBossID(): BossID | 0;
+
     GetColor(): Readonly<Color>;
     GetData(): Record<string, unknown>;
     GetDropRNG(): RNG;

@@ -8,9 +8,10 @@ const HEX_STRING_LENGTH = 6;
  * Helper function to return an array with the elements from start to end. It is inclusive at the
  * start and exclusive at the end. (The "e" stands for exclusive.)
  *
- * For example, `erange(1, 3)` will return `[1, 2]`.
- *
  * If only one argument is specified, then it will assume that the start is 0.
+ *
+ * - For example, `erange(1, 3)` will return `[1, 2]`.
+ * - For example, `erange(2)` will return `[0, 1]`.
  */
 export function erange(start: int, end?: int): int[] {
   if (end === undefined) {
@@ -81,9 +82,10 @@ export function hexToKColor(hexString: string, alpha: float): KColor {
  * Helper function to return an array with the elements from start to end, inclusive. (The "i"
  * stands for inclusive.)
  *
- * For example, `irange(1, 3)` will return `[1, 2, 3]`.
- *
  * If only one argument is specified, then it will assume that the start is 0.
+ *
+ * - For example, `irange(1, 3)` will return `[1, 2, 3]`.
+ * - For example, `irange(2)` will return `[0, 1, 2]`.
  */
 export function irange(start: int, end?: int): int[] {
   if (end === undefined) {

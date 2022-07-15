@@ -56,7 +56,10 @@ declare global {
     GetAliveEnemiesCount(): int;
     GetAwardSeed(): Seed;
     GetBackdropType(): BackdropType;
-    GetBossID(): BossID;
+
+    /** Returns 0 if this is not a boss room. */
+    GetBossID(): BossID | 0;
+
     GetBottomRightPos(): Vector;
     GetBrokenWatchState(): int;
     GetCenterPos(): Vector;
@@ -126,7 +129,10 @@ declare global {
     GetRenderSurfaceTopLeft(): Readonly<Vector>;
     GetRoomConfigStage(): int;
     GetRoomShape(): RoomShape;
-    GetSecondBossID(): BossID;
+
+    /** Returns 0 if this is not a Double Trouble boss room. */
+    GetSecondBossID(): BossID | 0;
+
     GetSeededCollectible(seed: Seed): CollectibleType;
     GetShopLevel(): int;
     GetSpawnSeed(): Seed;
