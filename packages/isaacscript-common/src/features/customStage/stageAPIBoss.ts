@@ -1,6 +1,7 @@
 /* eslint-disable */
 
 import { game } from "../../cachedClasses";
+import { irange } from "../../functions/utils";
 
 // cspell:disable
 
@@ -24,16 +25,33 @@ interface ParamTable {
 }
 
 const StageAPILocal = {
-  BossSprite: undefined as Sprite | undefined,
-  BossSpriteBg: undefined as Sprite | undefined,
-  BossSpriteDirt: undefined as Sprite | undefined,
+  BossSprite: Sprite(),
+  BossSpriteBg: Sprite(),
+  BossSpriteDirt: Sprite(),
 
-  PlayingBossSprite: undefined as Sprite | undefined,
-  PlayingBossSpriteBg: undefined as Sprite | undefined,
-  PlayingBossSpriteDirt: undefined as Sprite | undefined,
+  PlayingBossSprite: Sprite(),
+  PlayingBossSpriteBg: Sprite(),
+  PlayingBossSpriteDirt: Sprite(),
 
   BossOffset: undefined as Vector | undefined,
 };
+
+StageAPILocal.BossSprite.Load("gfx/ui/boss/versusscreen.anm2", false);
+StageAPILocal.BossSprite.ReplaceSpritesheet(0, "none.png");
+StageAPILocal.BossSprite.ReplaceSpritesheet(11, "stageapi/boss/overlay.png");
+StageAPILocal.BossSprite.LoadGraphics();
+
+StageAPILocal.BossSpriteBg.Load("gfx/ui/boss/versusscreen.anm2", false);
+for (const i of irange(1, 14)) {
+  StageAPILocal.BossSpriteBg.ReplaceSpritesheet(i, "none.png");
+}
+StageAPILocal.BossSpriteBg.LoadGraphics();
+
+StageAPILocal.BossSpriteDirt.Load("gfx/ui/boss/versusscreen.anm2", false);
+for (const i of irange(1, 14)) {
+  StageAPILocal.BossSpriteDirt.ReplaceSpritesheet(i, "none.png");
+}
+StageAPILocal.BossSpriteDirt.LoadGraphics();
 
 export function playBossAnimationManual(
   portrait: string,
@@ -124,11 +142,12 @@ export function playBossAnimationManual(
       paramTable.Animation = paramTable.Animation || "DoubleTrouble";
     }
 
+    StageAPILocal.PlayingBossSprite!.LoadGraphics();
     StageAPILocal.PlayingBossSprite!.Play(
       paramTable.Animation || "Scene",
       true,
     );
-    StageAPILocal.PlayingBossSprite!.LoadGraphics();
+    StageAPILocal.PlayingBossSprite!.PlaybackSpeed = 0.5;
 
     StageAPILocal.PlayingBossSpriteBg!.Color =
       paramTable.BackgroundColor || Color(0, 0, 0, 1, 0, 0, 0);
@@ -184,11 +203,11 @@ export function stageAPIBossPostRender(): void {
     }
   } else if (isPlaying || StageAPILocal.PlayingBossSprite) {
     StageAPILocal.PlayingBossSprite!.Stop();
-    StageAPILocal.PlayingBossSprite = undefined;
+    StageAPILocal.PlayingBossSprite = undefined as unknown as Sprite;
     StageAPILocal.PlayingBossSpriteBg!.Stop();
-    StageAPILocal.PlayingBossSpriteBg = undefined;
+    StageAPILocal.PlayingBossSpriteBg = undefined as unknown as Sprite;
     StageAPILocal.PlayingBossSpriteDirt!.Stop();
-    StageAPILocal.PlayingBossSpriteDirt = undefined;
+    StageAPILocal.PlayingBossSpriteDirt = undefined as unknown as Sprite;
   }
 
   if (!isPlaying) {

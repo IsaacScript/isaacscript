@@ -10,6 +10,7 @@ const VERSUS_SCREEN_ANIMATION = "Scene";
  * the overlay layer will be on top of everything else and will hide the other elements.
  */
 const VERSUS_SCREEN_LAYER_RENDER_ORDER: readonly int[] = [
+  // 0, 1, 2, 3, 9, 14, 13, 4, 5, 12, 11, 6, 7, 8, 10,
   0, 1, 2, 3, 9, 14, 13, 4, 5, 12, 11, 6, 7, 8, 10,
 ];
 
