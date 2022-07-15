@@ -16,9 +16,9 @@ import { getRoomData } from "../../functions/roomData";
 import { getRooms } from "../../functions/rooms";
 import { getGotoCommand, setStage } from "../../functions/stage";
 import { runNextRoom } from "../runNextRoom";
-import { playBossRoomAnimation as playBossVersusAnimation } from "./boss";
 import { getRandomCustomStageRoom } from "./util";
 import v, { customStageCachedRoomData, customStagesMap } from "./v";
+import { playVersusScreenAnimation } from "./versusScreen";
 
 /**
  * Helper function to warp to a custom stage/level.
@@ -147,7 +147,5 @@ export function setCustomStageDebug(): void {
     return;
   }
 
-  playBossVersusAnimation(true);
-
-  // playBossAnimationManual();
+  playVersusScreenAnimation(customStage, true);
 }

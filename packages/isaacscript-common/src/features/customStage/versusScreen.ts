@@ -1,14 +1,26 @@
 import {
+  BossID,
+  LevelStage,
   PlayerType,
   RoomType,
   SoundEffect,
 } from "isaac-typescript-definitions";
 import { game, sfxManager } from "../../cachedClasses";
 import { arrayRemove } from "../../functions/array";
+import { getBosses } from "../../functions/boss";
 import { erange } from "../../functions/utils";
+import { CustomStage } from "../../interfaces/CustomStage";
+import { BOSS_NAME_PNG_FILE_NAMES } from "../../objects/bossNamePNGFileNames";
+import { BOSS_PORTRAIT_PNG_FILE_NAMES } from "../../objects/bossPortraitPNGFileNames";
 import { PLAYER_NAME_PNG_FILE_NAMES } from "../../objects/playerNamePNGFileNames";
+import { PLAYER_PORTRAIT_PNG_FILE_NAMES } from "../../objects/playerPortraitPNGFileNames";
+import { VERSUS_SCREEN_BACKGROUND_COLORS } from "../../objects/versusScreenBackgroundColors";
+import { VERSUS_SCREEN_DIRT_SPOT_COLORS } from "../../objects/versusScreenDirtSpotColors";
 import { pause, unpause } from "../pause";
 import v from "./v";
+
+const DEFAULT_CHARACTER = PlayerType.ISAAC;
+const DEFAULT_BOSS_ID = BossID.MONSTRO;
 
 const VERSUS_SCREEN_ANIMATION_NAME = "Scene";
 
@@ -18,6 +30,8 @@ const NUM_VERSUS_SCREEN_ANM2_LAYERS = 14;
 const BACKGROUND_ANM2_LAYER = 0;
 const BOSS_DIRT_SPOT_ANM2_LAYER = 2;
 const PLAYER_DIRT_SPOT_ANM2_LAYER = 3;
+const BOSS_PORTRAIT_ANM2_LAYER = 4;
+const PLAYER_PORTRAIT_ANM2_LAYER = 5;
 const PLAYER_NAME_ANM2_LAYER = 6;
 const BOSS_NAME_ANM2_LAYER = 7;
 const OVERLAY_ANM2_LAYER = 11;
@@ -37,9 +51,14 @@ const OTHER_ANM2_LAYERS: readonly int[] = arrayRemove(
   PLAYER_PORTRAIT_ALT_ANM2_LAYER,
 );
 
-const PLAYER_NAME_PNG_PATH_PREFIX = "gfx/ui/boss";
+const PNG_PATH_PREFIX = "gfx/ui/boss";
 
-const VANILLA_VERSUS_BACKGROUND_COLOR = Color(28 / 255, 12 / 255, 10 / 255);
+/**
+ * Player portraits are not located in the same directory as everything else, since they are re-used
+ * from the animation where the player travels to a new stage.
+ */
+const PLAYER_PORTRAIT_PNG_PATH_PREFIX = "gfx/ui/stage";
+
 const VANILLA_VERSUS_PLAYBACK_SPEED = 0.5;
 
 const versusScreenSprite = Sprite();
@@ -60,7 +79,6 @@ versusScreenSprite.LoadGraphics();
  */
 const versusScreenBackgroundSprite = Sprite();
 versusScreenBackgroundSprite.Load("gfx/ui/boss/versusscreen.anm2", true);
-versusScreenBackgroundSprite.Color = VANILLA_VERSUS_BACKGROUND_COLOR;
 
 /**
  * Unfortunately, we must split the dirt layer into an entirely different sprite so that we can
@@ -68,9 +86,11 @@ versusScreenBackgroundSprite.Color = VANILLA_VERSUS_BACKGROUND_COLOR;
  */
 const versusScreenDirtSpotSprite = Sprite();
 versusScreenDirtSpotSprite.Load("gfx/ui/boss/versusscreen.anm2", true);
-versusScreenDirtSpotSprite.Color = Color(252 / 255, 108 / 255, 90 / 255);
 
-export function playBossRoomAnimation(force = false): void {
+export function playVersusScreenAnimation(
+  customStage: CustomStage,
+  force = false,
+): void {
   const room = game.GetRoom();
   const roomType = room.GetType();
   const hud = game.GetHUD();
@@ -84,15 +104,38 @@ export function playBossRoomAnimation(force = false): void {
   pause();
   hud.SetVisible(false);
 
-  const playerNamePNGPath = getPlayerNamePNGPath();
+  const [playerNamePNGPath, playerPortraitPNGPath] = getPlayerPNGPaths();
   versusScreenSprite.ReplaceSpritesheet(
     PLAYER_NAME_ANM2_LAYER,
     playerNamePNGPath,
   );
   versusScreenSprite.ReplaceSpritesheet(
-    BOSS_NAME_ANM2_LAYER,
-    playerNamePNGPath,
+    PLAYER_PORTRAIT_ANM2_LAYER,
+    playerPortraitPNGPath,
   );
+
+  const [bossNamePNGPath, bossPortraitPNGPath] = getBossPNGPaths();
+  versusScreenSprite.ReplaceSpritesheet(BOSS_NAME_ANM2_LAYER, bossNamePNGPath);
+  versusScreenSprite.ReplaceSpritesheet(
+    BOSS_PORTRAIT_ANM2_LAYER,
+    bossPortraitPNGPath,
+  );
+
+  versusScreenSprite.LoadGraphics();
+
+  let backgroundColor = VERSUS_SCREEN_BACKGROUND_COLORS[LevelStage.BASEMENT_1];
+  if (customStage.versusScreenBackgroundColor !== undefined) {
+    const { r, g, b } = customStage.versusScreenBackgroundColor;
+    backgroundColor = Color(r, g, b);
+  }
+  versusScreenBackgroundSprite.Color = backgroundColor;
+
+  let dirtSpotColor = VERSUS_SCREEN_DIRT_SPOT_COLORS[LevelStage.BASEMENT_1];
+  if (customStage.versusScreenDirtSpotColor !== undefined) {
+    const { r, g, b } = customStage.versusScreenDirtSpotColor;
+    dirtSpotColor = Color(r, g, b);
+  }
+  versusScreenDirtSpotSprite.Color = dirtSpotColor;
 
   for (const sprite of [
     versusScreenBackgroundSprite,
@@ -105,24 +148,39 @@ export function playBossRoomAnimation(force = false): void {
 }
 
 /** Use the character of the 0th player. */
-function getPlayerNamePNGPath(): string {
+function getPlayerPNGPaths(): [
+  playerNamePNGPath: string,
+  playerPortraitPNGPath: string,
+] {
   const player = Isaac.GetPlayer();
   const character = player.GetPlayerType();
-  let pngFileName = PLAYER_NAME_PNG_FILE_NAMES[character];
-  if (pngFileName === undefined) {
-    pngFileName = PLAYER_NAME_PNG_FILE_NAMES[PlayerType.ISAAC];
+
+  let playerNamePNGFileName = PLAYER_NAME_PNG_FILE_NAMES[character];
+  if (playerNamePNGFileName === undefined) {
+    playerNamePNGFileName = PLAYER_NAME_PNG_FILE_NAMES[DEFAULT_CHARACTER];
   }
 
-  return `${PLAYER_NAME_PNG_PATH_PREFIX}/${pngFileName}`;
+  const playerNamePNGPath = `${PNG_PATH_PREFIX}/${playerNamePNGFileName}`;
+
+  let playerPortraitFileName = PLAYER_PORTRAIT_PNG_FILE_NAMES[character];
+  if (playerNamePNGFileName === undefined) {
+    playerPortraitFileName = PLAYER_PORTRAIT_PNG_FILE_NAMES[DEFAULT_CHARACTER];
+  }
+
+  const playerPortraitPNGPath = `${PLAYER_PORTRAIT_PNG_PATH_PREFIX}/${playerPortraitFileName}`;
+
+  return [playerNamePNGPath, playerPortraitPNGPath];
 }
 
 /** Use the boss of the first boss found. */
-/*
-function getBossNamePNGPath(): string {
+function getBossPNGPaths(): [
+  bossNamePNGPath: string,
+  bossPortraitPNGPath: string,
+] {
   const bosses = getBosses();
   const firstBoss = bosses[0];
 
-  let bossID = BossID.MONSTRO;
+  let bossID = DEFAULT_BOSS_ID;
   if (firstBoss !== undefined) {
     const firstBossID = firstBoss.GetBossID();
     if (firstBossID !== 0) {
@@ -130,16 +188,16 @@ function getBossNamePNGPath(): string {
     }
   }
 
-  let pngFileName = BOSS_NAME_PNG_FILE_NAMES[character];
-  if (pngFileName === undefined) {
-    pngFileName = PLAYER_NAME_PNG_FILE_NAMES[PlayerType.ISAAC];
-  }
+  const bossNamePNGFileName = BOSS_NAME_PNG_FILE_NAMES[bossID];
+  const bossNamePNGPath = `${PNG_PATH_PREFIX}/${bossNamePNGFileName}`;
 
-  return `${PLAYER_NAME_PNG_PATH_PREFIX}/${pngFileName}`;
+  const bossPortraitPNGFileName = BOSS_PORTRAIT_PNG_FILE_NAMES[bossID];
+  const bossPortraitPNGPath = `${PNG_PATH_PREFIX}/${bossPortraitPNGFileName}`;
+
+  return [bossNamePNGPath, bossPortraitPNGPath];
 }
-*/
 
-function finishBossRoomAnimation() {
+function finishVersusScreenAnimation() {
   const hud = game.GetHUD();
 
   v.run.showingBossVersusScreen = false;
@@ -151,13 +209,13 @@ function finishBossRoomAnimation() {
   sfxManager.Play(SoundEffect.CASTLE_PORTCULLIS);
 }
 
-export function bossPostRender(): void {
+export function versusScreenPostRender(): void {
   if (!v.run.showingBossVersusScreen) {
     return;
   }
 
   if (versusScreenSprite.IsFinished(VERSUS_SCREEN_ANIMATION_NAME)) {
-    finishBossRoomAnimation();
+    finishVersusScreenAnimation();
     return;
   }
 

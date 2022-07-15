@@ -1,5 +1,4 @@
 export enum LevelStage {
-  NULL = 0,
   BASEMENT_1 = 1,
   BASEMENT_2 = 2,
   CAVES_1 = 3,

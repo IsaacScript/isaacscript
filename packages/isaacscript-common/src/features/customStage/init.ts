@@ -14,10 +14,12 @@ import {
 } from "../../interfaces/CustomStageLua";
 import { saveDataManager } from "../saveDataManager/exports";
 import { setBackdrop } from "./backdrop";
-import { bossPostRender, playBossRoomAnimation } from "./boss";
 import * as metadataJSON from "./metadata.json"; // This will correspond to "metadata.lua" at run-time.
-import { stageAPIBossPostRender } from "./stageAPIBoss";
 import v, { customStagesMap } from "./v";
+import {
+  playVersusScreenAnimation,
+  versusScreenPostRender,
+} from "./versusScreen";
 
 export function customStageInit(mod: ModUpgraded): void {
   saveDataManager("customStage", v);
@@ -32,12 +34,12 @@ export function customStageInit(mod: ModUpgraded): void {
 }
 
 function initRoomTypeMaps() {
-  const customStagesLua = metadataJSON as unknown as CustomStageLua[];
-  if (!isArray(customStagesLua)) {
+  if (!isArray(metadataJSON)) {
     error(
       'The IsaacScript standard library attempted to read the custom stage metadata from the "metadata.lua" file, but it was not an array.',
     );
   }
+  const customStagesLua = metadataJSON as CustomStageLua[];
 
   for (const customStageLua of customStagesLua) {
     const roomTypeMap = getRoomTypeMap(customStageLua);
@@ -93,8 +95,7 @@ function getRoomTypeMap(customStageLua: CustomStageLua): RoomTypeMap {
 
 // ModCallback.POST_RENDER (2)
 function postRender() {
-  bossPostRender();
-  stageAPIBossPostRender();
+  versusScreenPostRender();
 }
 
 // ModCallbackCustom.POST_NEW_ROOM_REORDERED
@@ -105,5 +106,5 @@ function postNewRoomReordered() {
   }
 
   setBackdrop(customStage);
-  playBossRoomAnimation();
+  playVersusScreenAnimation(customStage);
 }

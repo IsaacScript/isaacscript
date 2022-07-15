@@ -44,7 +44,8 @@ export const BOSS_NAME_PNG_FILE_NAMES: {
   [BossID.THE_WRETCHED]: "bossname_100.1_thewretched.png", // 36
   [BossID.PIN]: "bossname_62.0_pin.png", // 37
   [BossID.CONQUEST]: "bossname_65.1_conquest.png", // 38
-  [BossID.ISAAC]: "", // 39
+  // There is no dedicated "bossname_" PNG file for Isaac.
+  [BossID.ISAAC]: "playername_01_isaac.png", // 39
   [BossID.BLUE_BABY]: "bossname_102.1_bluebaby.png", // 40
   [BossID.DADDY_LONG_LEGS]: "bossname_101.0_daddylonglegs.png", // 41
   [BossID.TRIACHNID]: "bossname_101.1_triachnid.png", // 42
@@ -59,25 +60,25 @@ export const BOSS_NAME_PNG_FILE_NAMES: {
   [BossID.THE_ADVERSARY]: "bossname_268.0_darkone2.png", // 51
   [BossID.POLYCEPHALUS]: "bossname_269.0_polycephalus.png", // 52
   [BossID.MR_FRED]: "bossname_270.0_megafred.png", // 53
-  [BossID.THE_LAMB]: "", // 54
-  [BossID.MEGA_SATAN]: "", // 55
-  [BossID.GURGLINGS]: "", // 56
-  [BossID.THE_STAIN]: "", // 57
-  [BossID.BROWNIE]: "", // 58
-  [BossID.THE_FORSAKEN]: "", // 59
-  [BossID.LITTLE_HORN]: "", // 60
-  [BossID.RAG_MAN]: "", // 61
-  [BossID.ULTRA_GREED]: "", // 62
-  [BossID.HUSH]: "", // 63
-  [BossID.DANGLE]: "", // 64
-  [BossID.TURDLING]: "", // 65
-  [BossID.THE_FRAIL]: "", // 66
-  [BossID.RAG_MEGA]: "", // 67
-  [BossID.SISTERS_VIS]: "", // 68
-  [BossID.BIG_HORN]: "", // 69
-  [BossID.DELIRIUM]: "", // 70
+  [BossID.THE_LAMB]: "bossname_273.0_thelamb.png", // 54
+  [BossID.MEGA_SATAN]: "bossname_274.0_megasatan.png", // 55
+  [BossID.GURGLINGS]: "bossname_276.0_gurglings.png", // 56
+  [BossID.THE_STAIN]: "bossname_401.0_thestain.png", // 57
+  [BossID.BROWNIE]: "bossname_402.0_brownie.png", // 58
+  [BossID.THE_FORSAKEN]: "bossname_403.0_theforsaken.png", // 59
+  [BossID.LITTLE_HORN]: "bossname_404.0_littlehorn.png", // 60
+  [BossID.RAG_MAN]: "bossname_405.0_ragman.png", // 61
+  [BossID.ULTRA_GREED]: "bossname_406.0_ultragreed.png", // 62
+  [BossID.HUSH]: "bossname_407.0_hush.png", // 63
+  [BossID.DANGLE]: "bossname_dangle.png", // 64
+  [BossID.TURDLING]: "bossname_turdlings.png", // 65
+  [BossID.THE_FRAIL]: "bossname_thefrail.png", // 66
+  [BossID.RAG_MEGA]: "bossname_ragmega.png", // 67
+  [BossID.SISTERS_VIS]: "bossname_sisterssvis.png", // 68
+  [BossID.BIG_HORN]: "bossname_bighorn.png", // 69
+  [BossID.DELIRIUM]: "bossname_delirium.png", // 70
   // There is no `BossID` with a value of 71.
-  [BossID.THE_MATRIARCH]: "", // 72
+  [BossID.THE_MATRIARCH]: "bossname_matriarch.png", // 72
   [BossID.THE_PILE]: "bossname_polycephalus2.png", // 73
   [BossID.REAP_CREEP]: "bossname_reapcreep.png", // 74
   [BossID.LIL_BLUB]: "bossname_beelzeblub.png", // 75
@@ -94,8 +95,10 @@ export const BOSS_NAME_PNG_FILE_NAMES: {
   [BossID.CHIMERA]: "bossname_chimera.png", // 86
   [BossID.ROTGUT]: "bossname_rotgut.png", // 87
   [BossID.MOTHER]: "bossname_mother.png", // 88
-  [BossID.MAUSOLEUM_MOM]: "", // 89
-  [BossID.MAUSOLEUM_MOMS_HEART]: "", // 90
+  // This is the same as Mom.
+  [BossID.MAUSOLEUM_MOM]: "bossname_45.0_mom.png", // 89
+  // This is the same as Mom's Heart.
+  [BossID.MAUSOLEUM_MOMS_HEART]: "bossname_78.0_momsheart.png", // 90
   [BossID.MIN_MIN]: "bossname_minmin.png", // 91
   [BossID.CLOG]: "bossname_clog.png", // 92
   [BossID.SINGE]: "bossname_singe.png", // 93
@@ -105,7 +108,8 @@ export const BOSS_NAME_PNG_FILE_NAMES: {
   [BossID.TURDLET]: "bossname_turdlet.png", // 97
   [BossID.RAGLICH]: "bossname_raglich.png", // 98
   [BossID.DOGMA]: "bossname_dogma.png", // 99
-  [BossID.BEAST]: "", // 100
+  // There is no versus-screen for The Beast, so use Dogma instead.
+  [BossID.BEAST]: "bossname_dogma.png", // 100
   [BossID.HORNY_BOYS]: "bossname_hornyboys.png", // 101
   [BossID.CLUTCH]: "bossname_clutch.png", // 102
 } as const;
