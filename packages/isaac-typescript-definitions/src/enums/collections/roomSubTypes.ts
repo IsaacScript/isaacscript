@@ -92,21 +92,12 @@ export enum BossID {
   THE_HAUNT = 43,
   DINGLE = 44,
   MEGA_MAW = 45,
-
-  /** The Gate */
-  MEGA_MAW_II = 46,
-
+  THE_GATE = 46,
   MEGA_FATTY = 47,
-
-  /** The Cage */
-  MEGA_FATTY_II = 48,
-
-  MEGA_GURDY = 49,
+  THE_CAGE = 48,
+  MAMA_GURDY = 49,
   DARK_ONE = 50,
-
-  /** The Adversary */
-  DARK_ONE_II = 51,
-
+  THE_ADVERSARY = 51,
   POLYCEPHALUS = 52,
   MEGA_FRED = 53,
   THE_LAMB = 54,

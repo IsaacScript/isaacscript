@@ -130,8 +130,7 @@ function getBossNamePNGPath(): string {
     }
   }
 
-  const character = player.GetPlayerType();
-  let pngFileName = PLAYER_NAME_PNG_FILE_NAMES[character];
+  let pngFileName = BOSS_NAME_PNG_FILE_NAMES[character];
   if (pngFileName === undefined) {
     pngFileName = PLAYER_NAME_PNG_FILE_NAMES[PlayerType.ISAAC];
   }

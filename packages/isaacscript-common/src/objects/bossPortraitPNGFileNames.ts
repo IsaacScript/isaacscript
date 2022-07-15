@@ -1,0 +1,111 @@
+// cspell:disable
+
+import { BossID } from "isaac-typescript-definitions";
+
+/** Used when rendering the "versusscreen.anm2" sprite. */
+export const BOSS_PORTRAIT_PNG_FILE_NAMES: {
+  readonly [key in BossID]: string;
+} = {
+  [BossID.MONSTRO]: "", // 1
+  [BossID.LARRY_JR]: "", // 2
+  [BossID.CHUB]: "", // 3
+  [BossID.GURDY]: "", // 4
+  [BossID.MONSTRO_II]: "", // 5
+  [BossID.MOM]: "", // 6
+  [BossID.SCOLEX]: "", // 7
+  [BossID.MOMS_HEART]: "", // 8
+  [BossID.FAMINE]: "", // 9
+  [BossID.PESTILENCE]: "", // 10
+  [BossID.WAR]: "", // 11
+  [BossID.DEATH]: "", // 12
+  [BossID.DUKE_OF_FLIES]: "", // 13
+  [BossID.PEEP]: "", // 14
+  [BossID.LOKI]: "", // 15
+  [BossID.BLASTOCYST]: "", // 16
+  [BossID.GEMINI]: "", // 17
+  [BossID.FISTULA]: "", // 18
+  [BossID.GISH]: "", // 19
+  [BossID.STEVEN]: "", // 20
+  [BossID.CHAD]: "", // 21
+  [BossID.HEADLESS_HORSEMAN]: "", // 22
+  [BossID.THE_FALLEN]: "", // 23
+  [BossID.SATAN]: "", // 24
+  [BossID.IT_LIVES]: "", // 25
+  [BossID.THE_HOLLOW]: "", // 26
+  [BossID.THE_CARRION_QUEEN]: "", // 27
+  [BossID.GURDY_JR]: "", // 28
+  [BossID.THE_HUSK]: "", // 29
+  [BossID.THE_BLOAT]: "", // 30
+  [BossID.LOKII]: "", // 31
+  [BossID.THE_BLIGHTED_OVUM]: "", // 32
+  [BossID.TERATOMA]: "", // 33
+  [BossID.THE_WIDOW]: "", // 34
+  [BossID.MASK_OF_INFAMY]: "", // 35
+  [BossID.THE_WRETCHED]: "", // 36
+  [BossID.PIN]: "", // 37
+  [BossID.CONQUEST]: "", // 38
+  [BossID.ISAAC]: "", // 39
+  [BossID.BLUE_BABY]: "", // 40
+  [BossID.DADDY_LONG_LEGS]: "", // 41
+  [BossID.TRIACHNID]: "", // 42
+  [BossID.THE_HAUNT]: "", // 43
+  [BossID.DINGLE]: "", // 44
+  [BossID.MEGA_MAW]: "", // 45
+  [BossID.MEGA_MAW_II]: "", // 46
+  [BossID.MEGA_FATTY]: "", // 47
+  [BossID.MEGA_FATTY_II]: "", // 48
+  [BossID.MEGA_GURDY]: "", // 49
+  [BossID.DARK_ONE]: "", // 50
+  [BossID.DARK_ONE_II]: "", // 51
+  [BossID.POLYCEPHALUS]: "", // 52
+  [BossID.MEGA_FRED]: "", // 53
+  [BossID.THE_LAMB]: "", // 54
+  [BossID.MEGA_SATAN]: "", // 55
+  [BossID.GURGLINGS]: "", // 56
+  [BossID.THE_STAIN]: "", // 57
+  [BossID.BROWNIE]: "", // 58
+  [BossID.THE_FORSAKEN]: "", // 59
+  [BossID.LITTLE_HORN]: "", // 60
+  [BossID.RAG_MAN]: "", // 61
+  [BossID.ULTRA_GREED]: "", // 62
+  [BossID.HUSH]: "", // 63
+  [BossID.DANGLE]: "", // 64
+  [BossID.TURDLING]: "", // 65
+  [BossID.THE_FRAIL]: "", // 66
+  [BossID.RAG_MEGA]: "", // 67
+  [BossID.SISTERS_VIS]: "", // 68
+  [BossID.BIG_HORN]: "", // 69
+  [BossID.DELIRIUM]: "", // 70
+  // There is no `BossID` with a value of 71.
+  [BossID.THE_MATRIARCH]: "", // 72
+  [BossID.THE_PILE]: "", // 73
+  [BossID.REAP_CREEP]: "", // 74
+  [BossID.LIL_BLUB]: "", // 75
+  [BossID.WORMWOOD]: "", // 76
+  [BossID.RAINMAKER]: "", // 77
+  [BossID.THE_VISAGE]: "", // 78
+  [BossID.THE_SIREN]: "", // 79
+  [BossID.TUFF_TWINS]: "", // 80
+  [BossID.THE_HERETIC]: "", // 81
+  [BossID.HORNFEL]: "", // 82
+  [BossID.GREAT_GIDEON]: "", // 83
+  [BossID.BABY_PLUM]: "", // 84
+  [BossID.THE_SCOURGE]: "", // 85
+  [BossID.CHIMERA]: "", // 86
+  [BossID.ROTGUT]: "", // 87
+  [BossID.MOTHER]: "", // 88
+  [BossID.MAUSOLEUM_MOM]: "", // 89
+  [BossID.MAUSOLEUM_MOMS_HEART]: "", // 90
+  [BossID.MIN_MIN]: "", // 91
+  [BossID.CLOG]: "", // 92
+  [BossID.SINGE]: "", // 93
+  [BossID.BUMBINO]: "", // 94
+  [BossID.COLOSTOMIA]: "", // 95
+  [BossID.THE_SHELL]: "", // 96
+  [BossID.TURDLET]: "", // 97
+  [BossID.RAGLICH]: "", // 98
+  [BossID.DOGMA]: "", // 99
+  [BossID.BEAST]: "", // 100
+  [BossID.HORNY_BOYS]: "", // 101
+  [BossID.CLUTCH]: "", // 102
+} as const;
