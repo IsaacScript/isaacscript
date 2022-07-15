@@ -16,7 +16,7 @@ import { getRoomData } from "../../functions/roomData";
 import { getRooms } from "../../functions/rooms";
 import { getGotoCommand, setStage } from "../../functions/stage";
 import { runNextRoom } from "../runNextRoom";
-import { playBossRoomAnimation } from "./boss";
+import { playBossAnimationManual } from "./stageAPIBoss";
 import { getRandomCustomStageRoom } from "./util";
 import v, { customStageCachedRoomData, customStagesMap } from "./v";
 
@@ -147,5 +147,8 @@ export function setCustomStageDebug(): void {
     return;
   }
 
-  playBossRoomAnimation(true);
+  /// playBossRoomAnimation(true);
+
+  // @ts-expect-error LOL
+  playBossAnimationManual();
 }

@@ -16,6 +16,7 @@ import { saveDataManager } from "../saveDataManager/exports";
 import { setBackdrop } from "./backdrop";
 import { bossPostRender, playBossRoomAnimation } from "./boss";
 import * as metadataJSON from "./metadata.json"; // This will correspond to "metadata.lua" at run-time.
+import { stageAPIBossPostRender } from "./stageAPIBoss";
 import v, { customStagesMap } from "./v";
 
 export function customStageInit(mod: ModUpgraded): void {
@@ -93,6 +94,7 @@ function getRoomTypeMap(customStageLua: CustomStageLua): RoomTypeMap {
 // ModCallback.POST_RENDER (2)
 function postRender() {
   bossPostRender();
+  stageAPIBossPostRender();
 }
 
 // ModCallbackCustom.POST_NEW_ROOM_REORDERED
