@@ -51,14 +51,14 @@ export const BOSS_NAME_PNG_FILE_NAMES: {
   [BossID.THE_HAUNT]: "bossname_260.0_thehaunt.png", // 43
   [BossID.DINGLE]: "bossname_261.0_dingle.png", // 44
   [BossID.MEGA_MAW]: "bossname_262.0_megamaw.png", // 45
-  [BossID.MEGA_MAW_II]: "bossname_263.0_megamaw2.png", // 46
+  [BossID.THE_GATE]: "bossname_263.0_megamaw2.png", // 46
   [BossID.MEGA_FATTY]: "bossname_264.0_megafatty.png", // 47
-  [BossID.MEGA_FATTY_II]: "bossname_265.0_fatty2.png", // 48
-  [BossID.MEGA_GURDY]: "bossname_266.0_mamagurdy.png", // 49
-  [BossID.DARK_ONE]: "", // 50
-  [BossID.DARK_ONE_II]: "", // 51
-  [BossID.POLYCEPHALUS]: "", // 52
-  [BossID.MEGA_FRED]: "", // 53
+  [BossID.THE_CAGE]: "bossname_265.0_fatty2.png", // 48
+  [BossID.MAMA_GURDY]: "bossname_266.0_mamagurdy.png", // 49
+  [BossID.DARK_ONE]: "bossname_267.0_darkone.png", // 50
+  [BossID.THE_ADVERSARY]: "bossname_268.0_darkone2.png", // 51
+  [BossID.POLYCEPHALUS]: "bossname_269.0_polycephalus.png", // 52
+  [BossID.MR_FRED]: "bossname_270.0_megafred.png", // 53
   [BossID.THE_LAMB]: "", // 54
   [BossID.MEGA_SATAN]: "", // 55
   [BossID.GURGLINGS]: "", // 56

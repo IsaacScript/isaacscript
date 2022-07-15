@@ -51,14 +51,14 @@ export const BOSS_PORTRAIT_PNG_FILE_NAMES: {
   [BossID.THE_HAUNT]: "", // 43
   [BossID.DINGLE]: "", // 44
   [BossID.MEGA_MAW]: "", // 45
-  [BossID.MEGA_MAW_II]: "", // 46
+  [BossID.THE_GATE]: "", // 46
   [BossID.MEGA_FATTY]: "", // 47
-  [BossID.MEGA_FATTY_II]: "", // 48
-  [BossID.MEGA_GURDY]: "", // 49
+  [BossID.THE_CAGE]: "", // 48
+  [BossID.MAMA_GURDY]: "", // 49
   [BossID.DARK_ONE]: "", // 50
-  [BossID.DARK_ONE_II]: "", // 51
+  [BossID.THE_ADVERSARY]: "", // 51
   [BossID.POLYCEPHALUS]: "", // 52
-  [BossID.MEGA_FRED]: "", // 53
+  [BossID.MR_FRED]: "", // 53
   [BossID.THE_LAMB]: "", // 54
   [BossID.MEGA_SATAN]: "", // 55
   [BossID.GURGLINGS]: "", // 56

@@ -99,7 +99,7 @@ export enum BossID {
   DARK_ONE = 50,
   THE_ADVERSARY = 51,
   POLYCEPHALUS = 52,
-  MEGA_FRED = 53,
+  MR_FRED = 53,
   THE_LAMB = 54,
   MEGA_SATAN = 55,
   GURGLINGS = 56,
