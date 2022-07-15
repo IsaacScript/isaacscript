@@ -8,6 +8,7 @@ import {
 import { game, sfxManager } from "../../cachedClasses";
 import { arrayRemove } from "../../functions/array";
 import { getBosses } from "../../functions/boss";
+import { getEntityID } from "../../functions/entity";
 import { erange } from "../../functions/utils";
 import { CustomStage } from "../../interfaces/CustomStage";
 import { BOSS_NAME_PNG_FILE_NAMES } from "../../objects/bossNamePNGFileNames";
@@ -17,10 +18,10 @@ import { PLAYER_PORTRAIT_PNG_FILE_NAMES } from "../../objects/playerPortraitPNGF
 import { VERSUS_SCREEN_BACKGROUND_COLORS } from "../../objects/versusScreenBackgroundColors";
 import { VERSUS_SCREEN_DIRT_SPOT_COLORS } from "../../objects/versusScreenDirtSpotColors";
 import { pause, unpause } from "../pause";
-import v from "./v";
+import { ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH } from "./customStageConstants";
+import v, { customBossPNGPaths } from "./v";
 
 const DEFAULT_CHARACTER = PlayerType.ISAAC;
-const DEFAULT_BOSS_ID = BossID.MONSTRO;
 const DEFAULT_STAGE_ID = StageID.BASEMENT;
 
 const VERSUS_SCREEN_ANIMATION_NAME = "Scene";
@@ -43,6 +44,7 @@ const OVERLAY_ANM2_LAYER = 11;
  */
 const PLAYER_PORTRAIT_ALT_ANM2_LAYER = 12;
 
+/** These are the non-special layers that we will render last. */
 const OTHER_ANM2_LAYERS: readonly int[] = arrayRemove(
   erange(NUM_VERSUS_SCREEN_ANM2_LAYERS),
   BACKGROUND_ANM2_LAYER,
@@ -52,6 +54,7 @@ const OTHER_ANM2_LAYERS: readonly int[] = arrayRemove(
   PLAYER_PORTRAIT_ALT_ANM2_LAYER,
 );
 
+/** Most of the PNG files related to the versus screen are located in this directory. */
 const PNG_PATH_PREFIX = "gfx/ui/boss";
 
 /**
@@ -70,7 +73,7 @@ versusScreenSprite.Load("gfx/ui/boss/versusscreen.anm2", false);
 // "overlay.png" file as StageAPI uses for this purpose.
 versusScreenSprite.ReplaceSpritesheet(
   OVERLAY_ANM2_LAYER,
-  "gfx/isaacscript-custom-stage/overlay.png",
+  `${ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH}/overlay.png`,
 );
 versusScreenSprite.LoadGraphics();
 
@@ -181,14 +184,25 @@ function getBossPNGPaths(): [
   const bosses = getBosses();
   const firstBoss = bosses[0];
 
-  let bossID = DEFAULT_BOSS_ID;
+  // Prefer the PNG paths specified by the end-user, if any.
   if (firstBoss !== undefined) {
-    const firstBossID = firstBoss.GetBossID();
-    if (firstBossID !== 0) {
-      bossID = firstBossID;
+    const entityID = getEntityID(firstBoss);
+    const pngPaths = customBossPNGPaths.get(entityID);
+    if (pngPaths !== undefined) {
+      return pngPaths;
     }
   }
 
+  // If this is not a vanilla boss, default to showing question marks.
+  const bossID = firstBoss === undefined ? 0 : firstBoss.GetBossID();
+  if (bossID === 0) {
+    const bossNamePNGPath = BOSS_NAME_PNG_FILE_NAMES[BossID.BLUE_BABY];
+    const bossPortraitPNGPath = `${ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH}/portrait_unknown_boss.png`;
+    return [bossNamePNGPath, bossPortraitPNGPath];
+  }
+
+  // If this is a vanilla boss, it will have a boss ID, and we can use the corresponding vanilla
+  // files.
   const bossNamePNGFileName = BOSS_NAME_PNG_FILE_NAMES[bossID];
   const bossNamePNGPath = `${PNG_PATH_PREFIX}/${bossNamePNGFileName}`;
 

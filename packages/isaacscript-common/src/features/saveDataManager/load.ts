@@ -3,11 +3,11 @@ import { log, logError } from "../../functions/log";
 import { iterateTableInOrder } from "../../functions/table";
 import { isString, isTable } from "../../functions/types";
 import { SaveData } from "../../interfaces/SaveData";
+import { merge } from "./merge";
 import {
   SAVE_DATA_MANAGER_DEBUG,
   SAVE_DATA_MANAGER_FEATURE_NAME,
-} from "./constants";
-import { merge } from "./merge";
+} from "./saveDataManagerConstants";
 
 const DEFAULT_MOD_DATA = "{}";
 

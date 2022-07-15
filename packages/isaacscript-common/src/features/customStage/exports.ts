@@ -1,5 +1,6 @@
 import {
   Direction,
+  EntityType,
   GridRoom,
   LevelStage,
   RoomShape,
@@ -9,6 +10,7 @@ import {
 } from "isaac-typescript-definitions";
 import { game } from "../../cachedClasses";
 import { reorderedCallbacksSetStage } from "../../callbacks/reorderedCallbacks";
+import { getEntityIDFromConstituents } from "../../functions/entity";
 import { log, logError } from "../../functions/log";
 import { movePlayersToCenter } from "../../functions/playerCenter";
 import { newRNG } from "../../functions/rng";
@@ -17,7 +19,11 @@ import { getRooms } from "../../functions/rooms";
 import { getGotoCommand, setStage } from "../../functions/stage";
 import { runNextRoom } from "../runNextRoom";
 import { getRandomCustomStageRoom } from "./util";
-import v, { customStageCachedRoomData, customStagesMap } from "./v";
+import v, {
+  customBossPNGPaths,
+  customStageCachedRoomData,
+  customStagesMap,
+} from "./v";
 import { playVersusScreenAnimation } from "./versusScreen";
 
 /**
@@ -148,4 +154,40 @@ export function setCustomStageDebug(): void {
   }
 
   playVersusScreenAnimation(customStage, true);
+}
+
+/**
+ * By default, unknown bosses will be drawn on the boss "versus" screen as "???". If your custom
+ * stage has custom bosses, you can use this function to register the corresponding graphic file
+ * files for them.
+ *
+ * For reference:
+ * - The vanilla name sprite for Monstro is located at "C:\Program Files
+ *   (x86)\Steam\steamapps\common\The Binding of Isaac
+ *   Rebirth\resources\gfx\ui\boss\bossname_20.0_monstro.png".
+ * - The vanilla portrait sprite for Monstro is located at "C:\Program Files
+ *   (x86)\Steam\steamapps\common\The Binding of Isaac
+ *   Rebirth\resources\gfx\ui\boss\portrait_20.0_monstro.png".
+ *
+ * (Note that boss metadata like this cannot be specified with the rest of the custom stage metadata
+ * in the "tsconfig.json" file because there is not a way to retrieve the name of an entity at
+ * run-time.)
+ *
+ * @param entityType The entity type of the custom boss.
+ * @param variant The variant of the custom boss.
+ * @param subType The sub-type of the custom boss.
+ * @param namePNGPath The full path to the PNG file that contains the name of the boss that will be
+ *                    displayed on the top of the boss "versus" screen.
+ * @param portraitPNGPath The full path to the PNG file that contains the portrait of the boss that
+ *                        will be displayed on the right side of the boss "versus" screen.
+ */
+export function registerCustomBoss(
+  entityType: EntityType,
+  variant: int,
+  subType: int,
+  namePNGPath: string,
+  portraitPNGPath: string,
+): void {
+  const entityID = getEntityIDFromConstituents(entityType, variant, subType);
+  customBossPNGPaths.set(entityID, [namePNGPath, portraitPNGPath]);
 }

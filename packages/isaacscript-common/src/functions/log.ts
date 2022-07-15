@@ -251,7 +251,8 @@ export function logEntityFlags(
 }
 
 export function logEntityID(this: void, entity: Entity): void {
-  log(`Entity: ${entity.Type}.${entity.Variant}.${entity.SubType}`);
+  const entityID = getEntityID(entity);
+  log(`Entity: ${entityID}`);
 }
 
 /**

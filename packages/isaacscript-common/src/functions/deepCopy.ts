@@ -2,7 +2,7 @@ import { DefaultMap } from "../classes/DefaultMap";
 import { CopyableIsaacAPIClassType } from "../enums/private/CopyableIsaacAPIClassType";
 import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
-import { SAVE_DATA_MANAGER_DEBUG } from "../features/saveDataManager/constants";
+import { SAVE_DATA_MANAGER_DEBUG } from "../features/saveDataManager/saveDataManagerConstants";
 import { isSerializationBrand } from "../features/saveDataManager/serializationBrand";
 import { TSTLClass } from "../types/private/TSTLClass";
 import { isArray } from "./array";

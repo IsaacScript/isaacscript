@@ -5,6 +5,7 @@ announcerdelay # pocketitems.xml
 bigportrait # players.xml
 bigportraitroot # players.xml
 BLCK # BLCK CNDL seed
+bossname # bossname_20.0_monstro.png
 bosspools # bosspools.xml
 cansacrifice # entities2.xml
 canshoot # challenges.xml

@@ -224,8 +224,19 @@ export function getGridEntitiesMap(
 /** Helper function to return a string containing the grid entity's type and variant. */
 export function getGridEntityID(gridEntity: GridEntity): string {
   const gridEntityType = gridEntity.GetType();
-  const gridEntityVariant = gridEntity.GetVariant();
-  return `${gridEntityType}.${gridEntityVariant}`;
+  const variant = gridEntity.GetVariant();
+  return `${gridEntityType}.${variant}`;
+}
+
+/**
+ * Helper function to return a formatted string in the format returned by the `getGridEntityID`
+ * function.
+ */
+export function getGridEntityIDFromConstituents(
+  gridEntityType: GridEntityType,
+  variant: int,
+): string {
+  return `${gridEntityType}.${variant}`;
 }
 
 /**

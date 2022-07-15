@@ -23,6 +23,8 @@ This page lists the changes to the IsaacScript framework.
   - `getRoomShapeCorners`
   - `pause`
   - `unpause`
+  - `getEntityIDFromConstituents`
+  - `getGridEntityIDFromConstituents`
 - Removed the following helper functions:
   - `getGotoCommandPrefix` (use `getGotoCommand` instead)
 - Added the following constants:

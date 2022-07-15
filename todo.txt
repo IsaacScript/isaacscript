@@ -1,5 +1,4 @@
 - july 20th is trip
 
-- custom stage boss transitions
 - custom stage level streak text
 - custom stage shadows

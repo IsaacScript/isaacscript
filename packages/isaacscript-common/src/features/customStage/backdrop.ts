@@ -15,6 +15,7 @@ import { isLRoom, isNarrowRoom } from "../../functions/roomShape";
 import { trimPrefix } from "../../functions/string";
 import { erange, irange } from "../../functions/utils";
 import { CustomStage } from "../../interfaces/CustomStage";
+import { ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH } from "./customStageConstants";
 
 enum BackdropKind {
   /** The "N" stands for narrow rooms. */
@@ -118,6 +119,7 @@ function spawnWallEntity(
   const subType = isExtraWall
     ? BackdropEntitySubType.WALL_EXTRA
     : BackdropEntitySubType.WALL;
+  Isaac.DebugString("GETTING HERE ZZ");
   const wallEffect = spawnEffectWithSeed(
     BACKDROP_EFFECT_VARIANT,
     subType,
@@ -128,7 +130,7 @@ function spawnWallEntity(
   wallEffect.AddEntityFlags(EntityFlag.RENDER_WALL);
 
   const sprite = wallEffect.GetSprite();
-  sprite.Load("gfx/isaacscript-custom-stage/wall-backdrop.anm2", false);
+  sprite.Load(`${ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH}/wall-backdrop.anm2`, false);
 
   const wallLayersArray = isExtraWall
     ? ROOM_SHAPE_WALL_EXTRA_ANM2_LAYERS
@@ -191,7 +193,10 @@ function spawnFloorEntity(customStage: CustomStage, rng: RNG) {
   floorEffect.AddEntityFlags(EntityFlag.RENDER_FLOOR);
 
   const sprite = floorEffect.GetSprite();
-  sprite.Load("gfx/isaacscript-custom-stage/floor-backdrop.anm2", false);
+  sprite.Load(
+    `${ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH}/floor-backdrop.anm2`,
+    false,
+  );
 
   const numFloorLayers = getNumFloorLayers(roomShape);
   if (numFloorLayers !== undefined) {

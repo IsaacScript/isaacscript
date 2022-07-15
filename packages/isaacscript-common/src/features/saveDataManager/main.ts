@@ -8,10 +8,6 @@ import { deepCopy } from "../../functions/deepCopy";
 import { logError } from "../../functions/log";
 import { clearTable, iterateTableInOrder } from "../../functions/table";
 import { SaveData } from "../../interfaces/SaveData";
-import {
-  SAVE_DATA_MANAGER_DEBUG,
-  SAVE_DATA_MANAGER_FEATURE_NAME,
-} from "./constants";
 import { loadFromDisk } from "./load";
 import {
   saveDataConditionalFuncMap,
@@ -19,6 +15,10 @@ import {
   saveDataMap,
 } from "./maps";
 import { saveToDisk } from "./save";
+import {
+  SAVE_DATA_MANAGER_DEBUG,
+  SAVE_DATA_MANAGER_FEATURE_NAME,
+} from "./saveDataManagerConstants";
 
 const RESETTABLE_SAVE_DATA_KEYS: ReadonlySet<SaveDataKey> = new Set([
   SaveDataKey.RUN,

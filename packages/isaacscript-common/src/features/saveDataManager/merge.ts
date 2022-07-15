@@ -11,7 +11,7 @@ import { clearTable, iterateTableInOrder } from "../../functions/table";
 import { isTSTLMap, isTSTLSet } from "../../functions/tstlClass";
 import { isTable } from "../../functions/types";
 import { getTraversalDescription } from "../../functions/utils";
-import { SAVE_DATA_MANAGER_DEBUG } from "./constants";
+import { SAVE_DATA_MANAGER_DEBUG } from "./saveDataManagerConstants";
 import { isSerializationBrand } from "./serializationBrand";
 
 /**

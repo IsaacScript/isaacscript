@@ -24,6 +24,7 @@ import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { emptyArray } from "../functions/array";
 import {
+  getEntityIDFromConstituents,
   removeAllMatchingEntities,
   spawn,
   spawnWithSeed,
@@ -37,6 +38,7 @@ import {
   convertXMLGridEntityType,
   getAllGridIndexes,
   getGridEntities,
+  getGridEntityIDFromConstituents,
   removeAllGridExcept,
   removeGrid,
   setGridEntityInvisible,
@@ -478,7 +480,11 @@ function spawnAllEntities(
     // Note that XML entity type 1000 is a rock, not an effect.
     if (entityType >= 1000) {
       if (verbose) {
-        log(`Spawning grid entity ${entityType}.${variant} at: (${x}, ${y})`);
+        const gridEntityID = getGridEntityIDFromConstituents(
+          entityType as GridEntityType,
+          variant,
+        );
+        log(`Spawning grid entity ${gridEntityID} at: (${x}, ${y})`);
       }
       spawnGridEntityForJSONRoom(
         entityType as GridEntityXMLType,
@@ -488,9 +494,12 @@ function spawnAllEntities(
       );
     } else {
       if (verbose) {
-        log(
-          `Spawning normal entity ${entityType}.${variant}.${subType} at: (${x}, ${y})`,
+        const entityID = getEntityIDFromConstituents(
+          entityType as EntityType,
+          variant,
+          subType,
         );
+        log(`Spawning normal entity ${entityID} at: (${x}, ${y})`);
       }
       const entity = spawnNormalEntityForJSONRoom(
         entityType as EntityType,

@@ -196,6 +196,18 @@ export function getEntityID(entity: Entity): string {
 }
 
 /**
+ * Helper function to return a formatted string in the format returned by the `getEntityID`
+ * function.
+ */
+export function getEntityIDFromConstituents(
+  entityType: EntityType,
+  variant: int,
+  subType: int,
+): string {
+  return `${entityType}.${variant}.${subType}`;
+}
+
+/**
  * Helper function to compare two different arrays of entities. Returns the entities that are in the
  * second array but not in the first array.
  */
@@ -400,6 +412,22 @@ export function spawn(
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
 ): Entity {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (position === undefined) {
+    const entityID = getEntityIDFromConstituents(entityType, variant, subType);
+    error(
+      `Failed to spawn entity ${entityID} since an undefined position was passed to the "spawn" function.`,
+    );
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (velocity === undefined) {
+    const entityID = getEntityIDFromConstituents(entityType, variant, subType);
+    error(
+      `Failed to spawn entity ${entityID} since an undefined velocity was passed to the "spawn" function.`,
+    );
+  }
+
   if (seedOrRNG === undefined) {
     return Isaac.Spawn(
       entityType,

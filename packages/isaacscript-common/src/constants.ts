@@ -162,8 +162,8 @@ export const TAINTED_SAMSON_BERSERK_CHARGE_FROM_TAKING_DAMAGE = 10000;
 export const UI_HEART_WIDTH = 12;
 
 /**
- * This is a safer version of the `Vector.One` constant. (Other mods can mutate this `Vector.One`,
- * so it is not safe to use.)
+ * This is a safer version of the `Vector.One` constant. (Other mods can mutate `Vector.One`, so it
+ * is not safe to use.)
  */
 export const VectorOne: Readonly<Vector> = Vector(1, 1);
 

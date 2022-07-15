@@ -48,8 +48,8 @@ export interface CustomStageTSConfig {
   readonly backdrop: CustomStageBackdrop;
 
   /**
-   * Optional. An object representing the color to use for the background of the boss versus screen.
-   * If not specified, the color for Basement 1 will be used.
+   * Optional. An object representing the color to use for the background of the boss "versus"
+   * screen. If not specified, the color for Basement 1 will be used.
    *
    * For a list of the colors that correspond to the vanilla stages, see
    * `versusScreenBackgroundColors.ts`.
@@ -61,9 +61,9 @@ export interface CustomStageTSConfig {
   };
 
   /**
-   * Optional. An object representing the color to use for the dirt spots. (There are two dirt
-   * spots; one for the player and one for the boss.) If not specified, the color for Basement 1
-   * will be used.
+   * Optional. An object representing the color to use for the dirt spots in the boss "versus"
+   * screen. (There are two dirt spots; one for the player and one for the boss.) If not specified,
+   * the color for Basement 1 will be used.
    *
    * For a list of the colors that correspond to the vanilla stages, see
    * `versusScreenDirtSpotColors.ts`.

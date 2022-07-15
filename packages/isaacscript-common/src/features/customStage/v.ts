@@ -13,3 +13,9 @@ export const customStagesMap = new Map<string, CustomStage>();
 
 /** Indexed by room variant. */
 export const customStageCachedRoomData = new Map<int, Readonly<RoomConfig>>();
+
+/** Indexed by entity ID. */
+export const customBossPNGPaths = new Map<
+  string,
+  [namePNGPath: string, portraitPNGPath: string]
+>();

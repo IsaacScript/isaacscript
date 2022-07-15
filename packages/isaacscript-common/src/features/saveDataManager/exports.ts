@@ -4,7 +4,6 @@ import { errorIfFeaturesNotInitialized } from "../../featuresInitialized";
 import { deepCopy } from "../../functions/deepCopy";
 import { isString } from "../../functions/types";
 import { SaveData } from "../../interfaces/SaveData";
-import { SAVE_DATA_MANAGER_FEATURE_NAME } from "./constants";
 import {
   forceSaveDataManagerLoad,
   forceSaveDataManagerSave,
@@ -15,6 +14,7 @@ import {
   saveDataDefaultsMap,
   saveDataMap,
 } from "./maps";
+import { SAVE_DATA_MANAGER_FEATURE_NAME } from "./saveDataManagerConstants";
 
 /**
  * This is the entry point to the save data manager, a system which provides two major features:
