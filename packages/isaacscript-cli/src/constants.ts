@@ -62,12 +62,6 @@ export const METADATA_XML_TEMPLATE_PATH = path.join(
   "mod",
   METADATA_XML,
 );
-export const METADATA_VDF = "metadata.vdf";
-export const METADATA_VDF_TEMPLATE_PATH = path.join(
-  TEMPLATES_DYNAMIC_DIR,
-  "mod",
-  METADATA_VDF,
-);
 export const PACKAGE_JSON = "package.json";
 export const PACKAGE_JSON_TEMPLATE_PATH = path.join(
   TEMPLATES_DYNAMIC_DIR,

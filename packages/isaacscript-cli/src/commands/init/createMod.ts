@@ -8,8 +8,6 @@ import {
   GITIGNORE_TEMPLATE_PATH,
   MAIN_TS,
   MAIN_TS_TEMPLATE_PATH,
-  METADATA_VDF,
-  METADATA_VDF_TEMPLATE_PATH,
   METADATA_XML,
   METADATA_XML_TEMPLATE_PATH,
   PACKAGE_JSON,
@@ -46,16 +44,9 @@ export function createMod(
 
   const config = configFile.createObject(modsDirectory, saveSlot);
   configFile.createFile(projectPath, config, verbose);
-  const targetModDirectory = path.join(config.modsDirectory, projectName);
 
   copyStaticFiles(projectPath, verbose);
-  copyDynamicFiles(
-    projectName,
-    projectPath,
-    targetModDirectory,
-    packageManager,
-    verbose,
-  );
+  copyDynamicFiles(projectName, projectPath, packageManager, verbose);
   updateNodeModules(projectPath, verbose);
   installNodeModules(projectPath, skipInstall, packageManager, verbose);
   formatFiles(projectPath, verbose);
@@ -100,7 +91,6 @@ function copyStaticFiles(projectPath: string, verbose: boolean) {
 function copyDynamicFiles(
   projectName: string,
   projectPath: string,
-  targetModDirectory: string,
   packageManager: PackageManager,
   verbose: boolean,
 ) {
@@ -175,16 +165,6 @@ function copyDynamicFiles(
     const metadataXML = template.replace(/MOD-NAME-TO-REPLACE/g, projectName);
     const destinationPath = path.join(modPath, fileName);
     file.write(destinationPath, metadataXML, verbose);
-  }
-
-  // `mod/metadata.vdf`
-  {
-    const fileName = METADATA_VDF;
-    const templatePath = METADATA_VDF_TEMPLATE_PATH;
-    const template = file.read(templatePath, verbose);
-    const metadataVDF = template.replace(/MOD-TARGET-DIR/g, targetModDirectory);
-    const destinationPath = path.join(modPath, fileName);
-    file.write(destinationPath, metadataVDF, verbose);
   }
 
   const srcPath = path.join(projectPath, "src");
