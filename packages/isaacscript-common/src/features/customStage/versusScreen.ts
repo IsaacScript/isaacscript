@@ -1,9 +1,9 @@
 import {
   BossID,
-  LevelStage,
   PlayerType,
   RoomType,
   SoundEffect,
+  StageID,
 } from "isaac-typescript-definitions";
 import { game, sfxManager } from "../../cachedClasses";
 import { arrayRemove } from "../../functions/array";
@@ -21,6 +21,7 @@ import v from "./v";
 
 const DEFAULT_CHARACTER = PlayerType.ISAAC;
 const DEFAULT_BOSS_ID = BossID.MONSTRO;
+const DEFAULT_STAGE_ID = StageID.BASEMENT;
 
 const VERSUS_SCREEN_ANIMATION_NAME = "Scene";
 
@@ -123,14 +124,14 @@ export function playVersusScreenAnimation(
 
   versusScreenSprite.LoadGraphics();
 
-  let backgroundColor = VERSUS_SCREEN_BACKGROUND_COLORS[LevelStage.BASEMENT_1];
+  let backgroundColor = VERSUS_SCREEN_BACKGROUND_COLORS[DEFAULT_STAGE_ID];
   if (customStage.versusScreenBackgroundColor !== undefined) {
     const { r, g, b } = customStage.versusScreenBackgroundColor;
     backgroundColor = Color(r, g, b);
   }
   versusScreenBackgroundSprite.Color = backgroundColor;
 
-  let dirtSpotColor = VERSUS_SCREEN_DIRT_SPOT_COLORS[LevelStage.BASEMENT_1];
+  let dirtSpotColor = VERSUS_SCREEN_DIRT_SPOT_COLORS[DEFAULT_STAGE_ID];
   if (customStage.versusScreenDirtSpotColor !== undefined) {
     const { r, g, b } = customStage.versusScreenDirtSpotColor;
     dirtSpotColor = Color(r, g, b);
