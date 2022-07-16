@@ -21,7 +21,9 @@ import { getPickups, removeAllPickups, spawnPickup } from "./entitySpecific";
 import { isHeart } from "./pickupVariants";
 
 /** Helper function to get all of the battery entities in the room. */
-export function getBatteries(matchingSubType = -1): EntityPickupBattery[] {
+export function getBatteries(
+  matchingSubType: BatterySubType | -1 = -1,
+): EntityPickupBattery[] {
   return getPickups(
     PickupVariant.LIL_BATTERY,
     matchingSubType,
@@ -29,7 +31,7 @@ export function getBatteries(matchingSubType = -1): EntityPickupBattery[] {
 }
 
 /** Helper function to get all of the card entities in the room. */
-export function getCards(matchingSubType = -1): EntityPickupCard[] {
+export function getCards(matchingSubType: Card | -1 = -1): EntityPickupCard[] {
   return getPickups(
     PickupVariant.TAROT_CARD,
     matchingSubType,
@@ -48,13 +50,15 @@ export function getCoinValue(coinSubType: CoinSubType): int {
 }
 
 /** Helper function to get all of the coin pickup entities in the room. */
-export function getCoins(matchingSubType = -1): EntityPickupCoin[] {
+export function getCoins(
+  matchingSubType: CoinSubType | -1 = -1,
+): EntityPickupCoin[] {
   return getPickups(PickupVariant.COIN, matchingSubType) as EntityPickupCoin[];
 }
 
 /** Helper function to get all of the collectible entities in the room. */
 export function getCollectibles(
-  matchingSubType = -1,
+  matchingSubType: CollectibleType | -1 = -1,
 ): EntityPickupCollectible[] {
   return getPickups(
     PickupVariant.COLLECTIBLE,
@@ -63,7 +67,9 @@ export function getCollectibles(
 }
 
 /** Helper function to get all of the heart pickup entities in the room. */
-export function getHearts(matchingSubType = -1): EntityPickupHeart[] {
+export function getHearts(
+  matchingSubType: HeartSubType | -1 = -1,
+): EntityPickupHeart[] {
   return getPickups(
     PickupVariant.HEART,
     matchingSubType,
@@ -71,12 +77,16 @@ export function getHearts(matchingSubType = -1): EntityPickupHeart[] {
 }
 
 /** Helper function to get all of the key pickup entities in the room. */
-export function getKeys(matchingSubType = -1): EntityPickupKey[] {
+export function getKeys(
+  matchingSubType: KeySubType | -1 = -1,
+): EntityPickupKey[] {
   return getPickups(PickupVariant.KEY, matchingSubType) as EntityPickupKey[];
 }
 
 /** Helper function to get all of the pill entities in the room. */
-export function getPills(matchingSubType = -1): EntityPickupPill[] {
+export function getPills(
+  matchingSubType: PillColor | -1 = -1,
+): EntityPickupPill[] {
   return getPickups(PickupVariant.PILL, matchingSubType) as EntityPickupPill[];
 }
 
@@ -87,12 +97,16 @@ export function getRedHearts(): EntityPickupHeart[] {
 }
 
 /** Helper function to get all of the sack (i.e. grab bag) entities in the room. */
-export function getSacks(matchingSubType = -1): EntityPickupSack[] {
+export function getSacks(
+  matchingSubType: SackSubType | -1 = -1,
+): EntityPickupSack[] {
   return getPickups(PickupVariant.SACK, matchingSubType) as EntityPickupSack[];
 }
 
 /** Helper function to get all of the trinket entities in the room. */
-export function getTrinkets(matchingSubType = -1): EntityPickupTrinket[] {
+export function getTrinkets(
+  matchingSubType: TrinketType | -1 = -1,
+): EntityPickupTrinket[] {
   return getPickups(
     PickupVariant.TRINKET,
     matchingSubType,

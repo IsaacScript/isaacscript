@@ -1,13 +1,24 @@
 import {
+  CollectibleType,
   DoorSlotFlag,
+  EntityType,
   GridEntityType,
   ModCallback,
   RoomShape,
   RoomType,
+  TrinketType,
 } from "isaac-typescript-definitions";
 import { ModUpgraded } from "../../classes/ModUpgraded";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { isArray } from "../../functions/array";
+import { removeEntities } from "../../functions/entity";
+import { getNPCs } from "../../functions/entitySpecific";
+import {
+  getCoins,
+  getCollectibles,
+  getTrinkets,
+} from "../../functions/pickups";
+import { vectorEquals } from "../../functions/vector";
 import { CustomStage, RoomTypeMap } from "../../interfaces/CustomStage";
 import {
   CustomStageLua,
@@ -114,7 +125,51 @@ function postRender() {
 
 // ModCallbackCustom.POST_GRID_ENTITY_BROKEN
 // GridEntityType.ROCK_ALT
-function postGridEntityBrokenRockAlt(_gridEntity: GridEntity) {}
+function postGridEntityBrokenRockAlt(gridEntity: GridEntity) {
+  const customStage = v.run.currentCustomStage;
+  if (customStage === null) {
+    return;
+  }
+
+  removeUrnRewards(gridEntity);
+}
+
+/**
+ * The rewards are based on the ones from the wiki:
+ * https://bindingofisaacrebirth.fandom.com/wiki/Rocks#Urns
+ *
+ * On the bugged stage of -1, only urns will spawn, so we do not have to handle the case of mushroom
+ * rewards, skull rewards, and so on.
+ */
+function removeUrnRewards(gridEntity: GridEntity) {
+  // Spiders
+  const spiders = getNPCs(EntityType.SPIDER);
+  removeEntitiesSpawnedFromGridEntity(spiders, gridEntity);
+
+  // Coins
+  const coins = getCoins();
+  removeEntitiesSpawnedFromGridEntity(coins, gridEntity);
+
+  // A Quarter
+  const quarters = getCollectibles(CollectibleType.QUARTER);
+  removeEntitiesSpawnedFromGridEntity(quarters, gridEntity);
+
+  // Swallowed Penny
+  const swallowedPennies = getTrinkets(TrinketType.SWALLOWED_PENNY);
+  removeEntitiesSpawnedFromGridEntity(swallowedPennies, gridEntity);
+}
+
+function removeEntitiesSpawnedFromGridEntity(
+  entities: Entity[],
+  gridEntity: GridEntity,
+) {
+  const entitiesFromGridEntity = entities.filter(
+    (entity) =>
+      entity.FrameCount === 0 &&
+      vectorEquals(entity.Position, gridEntity.Position),
+  );
+  removeEntities(entitiesFromGridEntity);
+}
 
 // ModCallbackCustom.POST_NEW_ROOM_REORDERED
 function postNewRoomReordered() {

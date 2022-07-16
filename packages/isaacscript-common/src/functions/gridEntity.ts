@@ -17,6 +17,7 @@ import {
 } from "../maps/roomShapeToTopLeftWallGridIndexMap";
 import { BACKDROP_TYPE_TO_ROCK_ALT_TYPE } from "../objects/backdropTypeToRockAltType";
 import { isCircleIntersectingRectangle } from "./math";
+import { getRandomSeed } from "./rng";
 import { roomUpdateSafe } from "./rooms";
 import { clearSprite } from "./sprite";
 import { erange } from "./utils";
@@ -575,6 +576,57 @@ export function spawnGridWithVariant(
   }
 
   return gridEntity;
+}
+
+/**
+ * Helper function for emulating what happens when a vanilla `GridEntityType.ROCK_ALT` grid entity
+ * breaks.
+ *
+ * Note that most of the time, this function will do nothing, similar to how most of the time, when
+ * an individual urn is destroyed, nothing will spawn.
+ *
+ * The logic in this function is based on the rewards listed on the wiki:
+ * https://bindingofisaacrebirth.fandom.com/wiki/Rocks
+ *
+ * @param rockAltType The type of reward to spawn. For example, `RockAltType.URN` will have a chance
+ *                    at spawning coins and spiders.
+ * @param _seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided,
+ *                   the `RNG.Next` method will be called. Default is `getRandomSeed()`. Normally,
+ *                   you should pass the `InitSeed` of the grid entity that was broken.
+ * @returns Whether or not this function spawned something.
+ */
+export function spawnRockAltReward(
+  rockAltType: RockAltType,
+  _seedOrRNG: Seed | RNG = getRandomSeed(),
+): boolean {
+  /// const chance = getRandom(seedOrRNG);
+
+  switch (rockAltType) {
+    case RockAltType.URN: {
+      // TODO
+      return false;
+    }
+
+    case RockAltType.MUSHROOM: {
+      // TODO
+      return false;
+    }
+
+    case RockAltType.SKULL: {
+      // TODO
+      return false;
+    }
+
+    case RockAltType.POLYP: {
+      // TODO
+      return false;
+    }
+
+    case RockAltType.BUCKET: {
+      // TODO
+      return false;
+    }
+  }
 }
 
 /**
