@@ -4,6 +4,7 @@ Antibirth
 Begottens
 Bethanys
 Chronometrics # Creator of Basement Renovator
+Cucco # Job developer
 datagrams
 debuff
 despawn
