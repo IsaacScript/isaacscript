@@ -69,6 +69,10 @@
           "description": "The name of the custom stage. Mandatory.",
           "type": "string"
         },
+        "rocksPNGPath": {
+          "description": "Optional. The path to the spritesheet that will style the rocks/blocks/urns/etc. for the floor.\n\nIf specified, it is assumed that you have your own custom rock alt type, and all vanilla rewards/enemies that spawn from urns will be automatically removed. Use the `POST_GRID_ENTITY_BROKEN` callback to make your own custom rewards. Or, if you want to emulate a vanilla urn/mushroom/skull/polyp/bucket, use the `spawnRockAltReward` helper function.\n\nIf not specified, the vanilla Basement rocks spritesheet will be used. For reference, this is located at: `C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\resources\\gfx\\grid\\rocks_basement.png`",
+          "type": "string"
+        },
         "roomVariantPrefix": {
           "description": "An arbitrarily chosen prefix in the range of 101-999. Mandatory.",
           "type": "number"
@@ -118,7 +122,8 @@
         "roomVariantPrefix",
         "baseStage",
         "baseStageType",
-        "backdrop"
+        "backdrop",
+        "rocksPNGPath"
       ],
       "type": "object"
     },

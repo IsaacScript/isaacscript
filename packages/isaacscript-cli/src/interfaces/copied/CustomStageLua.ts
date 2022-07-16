@@ -50,6 +50,20 @@ export interface CustomStageTSConfig {
   readonly backdrop: CustomStageBackdrop;
 
   /**
+   * Optional. The path to the spritesheet that will style the rocks/blocks/urns/etc. for the floor.
+   *
+   * If specified, it is assumed that you have your own custom rock alt type, and all vanilla
+   * rewards/enemies that spawn from urns will be automatically removed. Use the
+   * `POST_GRID_ENTITY_BROKEN` callback to make your own custom rewards. Or, if you want to emulate
+   * a vanilla urn/mushroom/skull/polyp/bucket, use the `spawnRockAltReward` helper function.
+   *
+   * If not specified, the vanilla Basement rocks spritesheet will be used. For reference, this is
+   * located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac
+   * Rebirth\resources\gfx\grid\rocks_basement.png`
+   */
+  readonly rocksPNGPath: string;
+
+  /**
    * Optional. An object representing the color to use for the background of the boss "versus"
    * screen. If not specified, the color for Basement 1 will be used.
    *
