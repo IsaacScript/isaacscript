@@ -25,7 +25,7 @@ import {
 } from "./gridEntities";
 import * as metadataJSON from "./metadata.json"; // This will correspond to "metadata.lua" at run-time.
 import { setShadows, shadowsPostRender } from "./shadows";
-import { streakTextGetShaderParams, streakTextPostRender } from "./streakText";
+import { streakTextPostRender } from "./streakText";
 import v, { customStagesMap } from "./v";
 import {
   playVersusScreenAnimation,
@@ -138,7 +138,8 @@ function postRender() {
 function getShaderParams(
   shaderName: string,
 ): Record<string, unknown> | undefined {
-  return streakTextGetShaderParams(shaderName);
+  /// return streakTextGetShaderParams(shaderName);
+  return undefined;
 }
 
 // ModCallbackCustom.POST_GRID_ENTITY_BROKEN

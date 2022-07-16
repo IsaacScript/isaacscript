@@ -144,10 +144,11 @@ function spawnModDirectorySyncer(config: Config) {
     // If the "main.lua" file was successfully copied over, we also have to tell isaacscript-watcher
     // to reload the mod. Look for something like: "File synced: \main.lua"
     if (msg === `${FILE_SYNCED_MESSAGE} ${path.sep}${MAIN_LUA}`) {
-      notifyGame.command(`luamod ${modTargetName}`);
-
-      // Needed to prevent crashes with mods that have custom shaders.
+      // Needed to prevent crashes with mods that have custom shaders. This has to be before the
+      // "luamod" command.
       notifyGame.command("reloadshaders");
+
+      notifyGame.command(`luamod ${modTargetName}`);
 
       notifyGame.command("restart");
       notifyGame.msg("Reloaded the mod.");

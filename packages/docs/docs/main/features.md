@@ -25,7 +25,6 @@ But we don't have to suffer anymore. The `isaacscript` framework allows us to pr
 
 - Never close and reopen your game again when working on your mods.
 - Never type the `luamod` console command again.
-- Never type the `reloadshaders` console command again. Never use the "Shader Crash Fix" mod again.
 - If you use `require` hacks to get around the limitations of `include`, don't bother - that isn't needed here.
 
 ### <img src="/img/items/humbling-bundle.png" className="features-icon" /> Extra Enums

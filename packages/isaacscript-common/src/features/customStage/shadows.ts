@@ -48,6 +48,7 @@ export function setShadows(customStage: CustomStage): void {
   const decorationSeed = room.GetDecorationSeed();
   const shadowPNGPath = getRandomArrayElement(shadowPNGPaths, decorationSeed);
   shadowSprite.ReplaceSpritesheet(0, shadowPNGPath);
+  shadowSprite.LoadGraphics();
   shadowSprite.SetFrame(animation, 0);
   v.room.showingShadows = true;
 }
