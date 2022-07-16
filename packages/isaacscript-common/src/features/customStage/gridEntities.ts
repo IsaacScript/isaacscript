@@ -3,6 +3,7 @@ import {
   EntityType,
   TrinketType,
 } from "isaac-typescript-definitions";
+import { DecorationVariant } from "../../enums/DecorationVariant";
 import { removeEntities } from "../../functions/entity";
 import { getNPCs } from "../../functions/entitySpecific";
 import {
@@ -62,6 +63,12 @@ export function setCustomDecorationGraphics(
   // If the end-user did not specify custom decoration graphics, default to Basement graphics. (We
   // don't have to adjust anything for this case.)
   if (customStage.decorationsPNGPath === undefined) {
+    return;
+  }
+
+  // Ignore custom grid entities. (They are represented as decorations with a non-zero variant.)
+  const variant = gridEntity.GetVariant();
+  if (variant !== (DecorationVariant.VANILLA_DECORATION as int)) {
     return;
   }
 

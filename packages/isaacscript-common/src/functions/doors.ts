@@ -245,7 +245,7 @@ export function isDoorSlotInRoomShape(
 
 /**
  * This refers to the Repentance door that spawns in a boss room after defeating the boss. You have
- * to spend one key to open it. It has a sprite filename of "gfx/grid/Door_Downpour.anm2".
+ * to spend one key to open it. It has a sprite filename of "gfx/grid/door_downpour.anm2".
  */
 export function isDoorToDownpour(door: GridEntityDoor): boolean {
   if (!isRepentanceDoor(door)) {
@@ -255,12 +255,13 @@ export function isDoorToDownpour(door: GridEntityDoor): boolean {
   const sprite = door.GetSprite();
   const filename = sprite.GetFilename();
 
-  return filename === "gfx/grid/Door_Downpour.anm2";
+  // On Windows, this is: "gfx/grid/Door_Downpour.anm2"
+  return filename.toLowerCase() === "gfx/grid/door_downpour.anm2";
 }
 
 /**
  * This refers to the Repentance door that spawns in a boss room after defeating the boss. You have
- * to spend two hearts to open it. It has a sprite filename of "gfx/grid/Door_Mausoleum.anm2".
+ * to spend two hearts to open it. It has a sprite filename of "gfx/grid/door_mausoleum.anm2".
  */
 export function isDoorToMausoleum(door: GridEntityDoor): boolean {
   if (!isRepentanceDoor(door)) {
@@ -270,12 +271,13 @@ export function isDoorToMausoleum(door: GridEntityDoor): boolean {
   const sprite = door.GetSprite();
   const filename = sprite.GetFilename();
 
-  return filename === "gfx/grid/Door_Mausoleum.anm2";
+  // On Windows, this is: "gfx/grid/Door_Mausoleum.anm2"
+  return filename.toLowerCase() === "gfx/grid/door_mausoleum.anm2";
 }
 
 /**
  * This refers to the "strange door" located on the first room of Depths 2. You open it with either
- * a Polaroid or a Negative. It has a sprite filename of "gfx/grid/Door_Mausoleum_Alt.anm2".
+ * a Polaroid or a Negative. It has a sprite filename of "gfx/grid/door_mausoleum_alt.anm2".
  */
 export function isDoorToMausoleumAscent(door: GridEntityDoor): boolean {
   if (!isRepentanceDoor(door)) {
@@ -285,12 +287,13 @@ export function isDoorToMausoleumAscent(door: GridEntityDoor): boolean {
   const sprite = door.GetSprite();
   const filename = sprite.GetFilename();
 
-  return filename === "gfx/grid/Door_Mausoleum_Alt.anm2";
+  // On Windows, this is: "gfx/grid/Door_Mausoleum_Alt.anm2"
+  return filename.toLowerCase() === "gfx/grid/door_mausoleum_alt.anm2";
 }
 
 /**
  * This refers to the Repentance door that spawns in a boss room after defeating the boss. You have
- * to spend two bombs to open it. It has a sprite filename of "gfx/grid/Door_Mines.anm2".
+ * to spend two bombs to open it. It has a sprite filename of "gfx/grid/door_mines.anm2".
  */
 export function isDoorToMines(door: GridEntityDoor): boolean {
   if (!isRepentanceDoor(door)) {
@@ -300,12 +303,13 @@ export function isDoorToMines(door: GridEntityDoor): boolean {
   const sprite = door.GetSprite();
   const filename = sprite.GetFilename();
 
-  return filename === "gfx/grid/Door_Mines.anm2";
+  // On Windows, this is: "gfx/grid/Door_Mines.anm2"
+  return filename.toLowerCase() === "gfx/grid/door_mines.anm2";
 }
 
 /**
  * This refers to the Repentance door that spawns after defeating Mom. You open it with the
- * completed knife. It has a sprite filename of "gfx/grid/Door_MomsHeart.anm2".
+ * completed knife. It has a sprite filename of "gfx/grid/door_momsheart.anm2".
  */
 export function isDoorToMomsHeart(door: GridEntityDoor): boolean {
   if (!isRepentanceDoor(door)) {
@@ -315,7 +319,8 @@ export function isDoorToMomsHeart(door: GridEntityDoor): boolean {
   const sprite = door.GetSprite();
   const filename = sprite.GetFilename();
 
-  return filename === "gfx/grid/Door_MomsHeart.anm2";
+  // On Windows, this is: "gfx/grid/Door_MomsHeart.anm2"
+  return filename === "gfx/grid/door_momsheart.anm2"; // cspell:ignore momsheart
 }
 
 export function isHiddenSecretRoomDoor(door: GridEntityDoor): boolean {
@@ -330,11 +335,17 @@ export function isRepentanceDoor(door: GridEntityDoor): boolean {
   return door.TargetRoomIndex === GridRoom.SECRET_EXIT;
 }
 
+/**
+ * This refers to the hole in the wall that appears after bombing the entrance to a secret room.
+ * Note that the door still exists before it has been bombed open. It has a sprite filename of
+ * "gfx/grid/door_08_holeinwall.anm2".
+ */
 export function isSecretRoomDoor(door: GridEntityDoor): boolean {
   const sprite = door.GetSprite();
   const filename = sprite.GetFilename();
 
-  return filename === "gfx/grid/Door_08_HoleInWall.anm2";
+  // On Windows, this is: "gfx/grid/Door_08_HoleInWall.anm2"
+  return filename === "gfx/grid/door_08_holeinwall.anm2"; // cspell:ignore holeinwall
 }
 
 /**

@@ -64,7 +64,7 @@ function postNewRoomReordered() {
  *
  * This is an IsaacScript feature because the vanilla game does not support any custom grid
  * entities. Under the hood, IsaacScript accomplishes this by using decorations with an arbitrary
- * variant to represent custom grid entities.
+ * non-zero variant to represent custom grid entities.
  *
  * Once a custom grid entity is spawned, you can take advantage of the custom grid callbacks such as
  * `POST_GRID_ENTITY_CUSTOM_UPDATE`.
