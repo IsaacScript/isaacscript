@@ -110,6 +110,7 @@ function initMap() {
   extraConsoleCommandsFunctionMap.set("goldenKey", commands.goldenKey);
   extraConsoleCommandsFunctionMap.set("grid", commands.grid);
   extraConsoleCommandsFunctionMap.set("grid2", commands.grid2);
+  extraConsoleCommandsFunctionMap.set("gridCosts", commands.gridCosts);
   extraConsoleCommandsFunctionMap.set("gridEntities", commands.gridEntities);
   extraConsoleCommandsFunctionMap.set("h", commands.h);
   extraConsoleCommandsFunctionMap.set("hearts", commands.hearts);
@@ -272,6 +273,7 @@ function initMap() {
   extraConsoleCommandsFunctionMap.set("trapdoor", commands.trapdoorCommand);
   extraConsoleCommandsFunctionMap.set("treasure", commands.treasure);
   extraConsoleCommandsFunctionMap.set("ultraSecret", commands.ultraSecret);
+  extraConsoleCommandsFunctionMap.set("unseed", commands.unseed);
   extraConsoleCommandsFunctionMap.set("up", commands.up);
   extraConsoleCommandsFunctionMap.set("warp", commands.warp);
 }

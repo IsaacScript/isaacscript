@@ -2,3 +2,5 @@
 
 - custom stage level streak text - need to render on top of HUD
 - custom stage shadows
+
+- check all door types for custom doors
