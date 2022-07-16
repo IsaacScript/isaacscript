@@ -13,6 +13,7 @@ import {
 import { vectorEquals } from "../../functions/vector";
 import { CustomStage } from "../../interfaces/CustomStage";
 
+/** For `GridEntityType.ROCK` (2) */
 export function setCustomRockGraphics(
   customStage: CustomStage,
   gridEntity: GridEntity,
@@ -34,6 +35,7 @@ export function setCustomRockGraphics(
   }
 }
 
+/** For `GridEntityType.PIT` (7) */
 export function setCustomPitGraphics(
   customStage: CustomStage,
   gridEntity: GridEntity,
@@ -48,6 +50,26 @@ export function setCustomPitGraphics(
   const fileName = sprite.GetFilename();
   if (fileName === "gfx/grid/grid_pit.anm2") {
     sprite.ReplaceSpritesheet(0, customStage.pitsPNGPath);
+    sprite.LoadGraphics();
+  }
+}
+
+/** For `GridEntityType.DECORATION` (1) */
+export function setCustomDecorationGraphics(
+  customStage: CustomStage,
+  gridEntity: GridEntity,
+): void {
+  // If the end-user did not specify custom decoration graphics, default to Basement graphics. (We
+  // don't have to adjust anything for this case.)
+  if (customStage.decorationsPNGPath === undefined) {
+    return;
+  }
+
+  const sprite = gridEntity.GetSprite();
+  const fileName = sprite.GetFilename();
+  // On Windows, this is: gfx/grid/Props_01_Basement.anm2
+  if (fileName.toLowerCase() === "gfx/grid/props_01_basement.anm2") {
+    sprite.ReplaceSpritesheet(0, customStage.decorationsPNGPath);
     sprite.LoadGraphics();
   }
 }

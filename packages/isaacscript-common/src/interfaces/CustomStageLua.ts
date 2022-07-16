@@ -48,7 +48,18 @@ export interface CustomStageTSConfig {
   readonly backdrop: CustomStageBackdrop;
 
   /**
-   * Optional. The path to the spritesheet that will style the rocks/blocks/urns/etc. for the floor.
+   * Optional. The path to the spritesheet that contains the graphics for the decorations for the
+   * floor.
+   *
+   * If not specified, the vanilla Basement decorations spritesheet will be used. For reference,
+   * this is located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac
+   * Rebirth\resources\gfx\grid\props_01_basement.png`
+   */
+  readonly decorationsPNGPath?: string;
+
+  /**
+   * Optional. The path to the spritesheet that contains the graphics for the rocks/blocks/urns for
+   * the floor.
    *
    * If specified, it is assumed that you have your own custom rock alt type, and all vanilla
    * rewards/enemies that spawn from urns will be automatically removed. Use the
@@ -62,7 +73,7 @@ export interface CustomStageTSConfig {
   readonly rocksPNGPath?: string;
 
   /**
-   * Optional. The path to the spritesheet that will style the pits for the floor.
+   * Optional. The path to the spritesheet that contains the graphics for the pits for the floor.
    *
    * If not specified, the vanilla Basement pits spritesheet will be used. For reference, this is
    * located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac

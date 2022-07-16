@@ -5,9 +5,10 @@ import {
 import { game } from "../cachedClasses";
 import { DefaultMap } from "../classes/DefaultMap";
 import { ModUpgraded } from "../classes/ModUpgraded";
+import { DecorationVariant } from "../enums/DecorationVariant";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
-import { removeGrid, spawnGrid } from "../functions/gridEntity";
+import { removeGrid, spawnGridWithVariant } from "../functions/gridEntity";
 import { getRoomListIndex } from "../functions/roomData";
 import { isVector } from "../functions/vector";
 import { CustomGridEntityData } from "../interfaces/CustomGridEntityData";
@@ -62,8 +63,8 @@ function postNewRoomReordered() {
  * Helper function to spawn a custom grid entity.
  *
  * This is an IsaacScript feature because the vanilla game does not support any custom grid
- * entities. Under the hood, IsaacScript accomplishes this by using decorations to represent custom
- * grid entities.
+ * entities. Under the hood, IsaacScript accomplishes this by using decorations with an arbitrary
+ * variant to represent custom grid entities.
  *
  * Once a custom grid entity is spawned, you can take advantage of the custom grid callbacks such as
  * `POST_GRID_ENTITY_CUSTOM_UPDATE`.
@@ -99,10 +100,16 @@ export function spawnCustomGrid(
   const existingGridEntity = room.GetGridEntity(gridIndex);
   const isExistingDecoration =
     existingGridEntity !== undefined &&
-    existingGridEntity.GetType() === GridEntityType.DECORATION;
+    existingGridEntity.GetType() === GridEntityType.DECORATION &&
+    existingGridEntity.GetVariant() ===
+      (DecorationVariant.CUSTOM_GRID_ENTITY as int);
   const decoration = isExistingDecoration
     ? existingGridEntity
-    : spawnGrid(GridEntityType.DECORATION, gridIndexOrPosition);
+    : spawnGridWithVariant(
+        GridEntityType.DECORATION,
+        DecorationVariant.CUSTOM_GRID_ENTITY,
+        gridIndexOrPosition,
+      );
   if (decoration === undefined) {
     error("Failed to spawn a decoration for a custom grid entity.");
   }
