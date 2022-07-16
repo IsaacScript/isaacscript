@@ -18,6 +18,7 @@ import { setBackdrop } from "./backdrop";
 import {
   removeUrnRewards,
   setCustomDecorationGraphics,
+  setCustomDoorGraphics,
   setCustomPitGraphics,
   setCustomRockGraphics,
 } from "./gridEntities";
@@ -144,6 +145,7 @@ function postGridEntityBrokenInit(gridEntity: GridEntity) {
   setCustomDecorationGraphics(customStage, gridEntity);
   setCustomRockGraphics(customStage, gridEntity);
   setCustomPitGraphics(customStage, gridEntity);
+  setCustomDoorGraphics(customStage, gridEntity);
 }
 
 // ModCallbackCustom.POST_NEW_ROOM_REORDERED
