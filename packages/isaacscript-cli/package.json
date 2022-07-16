@@ -1,6 +1,6 @@
 {
   "name": "isaacscript",
-  "version": "2.9.9",
+  "version": "2.9.10",
   "description": "A command line tool for managing Isaac mods written in TypeScript.",
   "keywords": [
     "isaac",
