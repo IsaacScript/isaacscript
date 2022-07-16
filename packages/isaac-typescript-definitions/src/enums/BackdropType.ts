@@ -1,5 +1,5 @@
 export enum BackdropType {
-  BACKDROP_NULL = 0,
+  NULL = 0,
   BASEMENT = 1,
   CELLAR = 2,
   BURNT_BASEMENT = 3,
@@ -20,13 +20,8 @@ export enum BackdropType {
   MEGA_SATAN = 18,
   LIBRARY = 19,
   SHOP = 20,
-
-  /** A clean bedroom. */
-  ISAAC = 21,
-
-  /** A dirty bedroom. */
-  BARREN = 22,
-
+  CLEAN_BEDROOM = 21,
+  DIRTY_BEDROOM = 22,
   SECRET = 23,
   DICE = 24,
   ARCADE = 25,
@@ -60,10 +55,10 @@ export enum BackdropType {
   HALLWAY = 50,
   MOMS_BEDROOM = 51,
 
-  /** The closet on the right side. */
+  /** The closet on the right side of the Home floor. */
   CLOSET = 52,
 
-  /** The secret closet on the left side. */
+  /** The secret closet on the left side of the Home floor. */
   CLOSET_B = 53,
 
   DOGMA = 54,
