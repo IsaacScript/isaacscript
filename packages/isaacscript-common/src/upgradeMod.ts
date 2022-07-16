@@ -8,6 +8,7 @@ import {
 import { initCustomCallbacks } from "./initCustomCallbacks";
 import { initFeaturesMajor, initFeaturesMinor } from "./initFeatures";
 import { patchErrorFunction } from "./patchErrorFunctions";
+import { loadShaderCrashFix } from "./shaderCrashFix";
 
 /**
  * Use this function to enable the custom callbacks and other optional features provided by
@@ -30,12 +31,13 @@ import { patchErrorFunction } from "./patchErrorFunctions";
  * @returns The upgraded mod object.
  */
 export function upgradeMod(modVanilla: Mod): ModUpgraded {
-  patchErrorFunction();
-
   const mod = new ModUpgraded(modVanilla);
 
   if (!areFeaturesInitialized()) {
     setFeaturesInitialized();
+
+    patchErrorFunction();
+    loadShaderCrashFix(modVanilla);
 
     // We initialize the PostNewRoomEarly callback first since it is used by the save data manager.
     postNewRoomEarlyCallbackInit(mod);
