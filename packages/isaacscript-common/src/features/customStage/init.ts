@@ -15,6 +15,7 @@ import {
 import { saveDataManager } from "../saveDataManager/exports";
 import { setBackdrop } from "./backdrop";
 import * as metadataJSON from "./metadata.json"; // This will correspond to "metadata.lua" at run-time.
+import { streakTextPostRender } from "./streakText";
 import v, { customStagesMap } from "./v";
 import {
   playVersusScreenAnimation,
@@ -95,6 +96,12 @@ function getRoomTypeMap(customStageLua: CustomStageLua): RoomTypeMap {
 
 // ModCallback.POST_RENDER (2)
 function postRender() {
+  const customStage = v.run.currentCustomStage;
+  if (customStage === null) {
+    return;
+  }
+
+  streakTextPostRender(customStage);
   versusScreenPostRender();
 }
 

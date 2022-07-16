@@ -25,12 +25,19 @@ This page lists the changes to the IsaacScript framework.
   - `unpause`
   - `getEntityIDFromConstituents`
   - `getGridEntityIDFromConstituents`
+  - `getScreenTopCenterPos`
+  - `getScreenBottomCenterPos`
 - Removed the following helper functions:
   - `getGotoCommandPrefix` (use `getGotoCommand` instead)
+  - `getDefaultColor` (use `ColorDefault`)
+  - `getDefaultKColor` (use `KColorDefault` instead)
 - Added the following constants:
   - `NEW_RUN_PLAYER_STARTING_POSITION`
   - `NEW_FLOOR_STARTING_POSITION_NORMAL_MODE`
   - `NEW_FLOOR_STARTING_POSITION_GREED_MODE`
+  - `ColorDefault`
+  - `KColorDefault`
+  - `fonts` (which contains all 7 pre-loaded vanilla fonts)
 - Added the following custom console commands:
   - `flight`
 

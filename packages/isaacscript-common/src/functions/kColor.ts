@@ -98,11 +98,6 @@ export function copyKColor(
   }
 }
 
-/** Returns `KColor(1, 1, 1, 1)`. */
-export function getDefaultKColor(): KColor {
-  return KColor(1, 1, 1, 1);
-}
-
 /** Helper function to check if something is an instantiated KColor object. */
 export function isKColor(object: unknown): object is KColor {
   return isIsaacAPIClassOfType(object, OBJECT_NAME);

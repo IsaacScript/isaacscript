@@ -91,6 +91,11 @@ export function getHeartsUIWidth(): int {
   return width;
 }
 
+export function getScreenBottomCenterPos(): Vector {
+  const bottomRight = getScreenBottomRightPos();
+  return Vector(bottomRight.X / 2, bottomRight.Y);
+}
+
 export function getScreenBottomLeftPos(): Vector {
   const bottomRight = getScreenBottomRightPos();
   return Vector(0, bottomRight.Y);
@@ -106,6 +111,11 @@ export function getScreenBottomRightPos(): Vector {
 export function getScreenCenterPos(): Vector {
   const bottomRight = getScreenBottomRightPos();
   return bottomRight.div(2);
+}
+
+export function getScreenTopCenterPos(): Vector {
+  const bottomRight = getScreenBottomRightPos();
+  return Vector(bottomRight.X / 2, 0);
 }
 
 export function getScreenTopLeftPos(): Vector {

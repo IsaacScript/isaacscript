@@ -145,6 +145,10 @@ function spawnModDirectorySyncer(config: Config) {
     // to reload the mod. Look for something like: "File synced: \main.lua"
     if (msg === `${FILE_SYNCED_MESSAGE} ${path.sep}${MAIN_LUA}`) {
       notifyGame.command(`luamod ${modTargetName}`);
+
+      // Needed to prevent crashes with mods that have custom shaders.
+      notifyGame.command("reloadshaders");
+
       notifyGame.command("restart");
       notifyGame.msg("Reloaded the mod.");
     }

@@ -227,6 +227,7 @@ function finishVersusScreenAnimation() {
   sfxManager.Play(SoundEffect.CASTLE_PORTCULLIS);
 }
 
+// ModCallback.POST_RENDER (2)
 export function versusScreenPostRender(): void {
   if (!v.run.showingBossVersusScreen) {
     return;

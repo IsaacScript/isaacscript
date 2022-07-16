@@ -105,11 +105,6 @@ export function copyColor(
   }
 }
 
-/** Returns `Color(1, 1, 1)`. */
-export function getDefaultColor(): Color {
-  return Color(1, 1, 1);
-}
-
 /** Helper function to check if something is an instantiated Color object. */
 export function isColor(object: unknown): object is Color {
   return isIsaacAPIClassOfType(object, OBJECT_NAME);

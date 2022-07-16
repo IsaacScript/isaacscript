@@ -168,7 +168,22 @@ export const UI_HEART_WIDTH = 12;
 export const VectorOne: Readonly<Vector> = Vector(1, 1);
 
 /**
- * This is a safer version of the `Vector.Zero` constant. (Other mods can mutate `Vector.Zero`
- * vector, so it is not safe to use.)
+ * This is a safer version of the `Vector.Zero` constant. (Other mods can mutate `Vector.Zero`, so
+ * it is not safe to use.)
  */
 export const VectorZero: Readonly<Vector> = Vector(0, 0);
+
+/**
+ * This is a safer version of the `Color.Default` constant. (Other mods can mutate `Color.Default`,
+ * so it is not safe to use.)
+ *
+ * If you need to mutate this, make a copy first with the `copyColor` helper function.
+ */
+export const ColorDefault: Readonly<Color> = Color(1, 1, 1);
+
+/**
+ * Equal to `KColor(1, 1, 1, 1)`.
+ *
+ * If you need to mutate this, make a copy first with the `copyKColor` helper function.
+ */
+export const KColorDefault: Readonly<KColor> = KColor(1, 1, 1, 1);
