@@ -31,7 +31,7 @@ export type CustomStageTSConfig = Readonly<{
    * stage that will be warped to and used as a basis for the stage by the level generation
    * algorithm. Mandatory.
    *
-   * (It is not possible to use Basement 1 as a base due to conflicts with the `Game.SetStage`
+   * (It is not possible to use Basement 1 as a base stage due to conflicts with the `Game.SetStage`
    * method.)
    */
   baseStage: number;
