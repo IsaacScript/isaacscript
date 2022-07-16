@@ -128,15 +128,15 @@ export function playVersusScreenAnimation(
   versusScreenSprite.LoadGraphics();
 
   let backgroundColor = VERSUS_SCREEN_BACKGROUND_COLORS[DEFAULT_STAGE_ID];
-  if (customStage.versusScreenBackgroundColor !== undefined) {
-    const { r, g, b } = customStage.versusScreenBackgroundColor;
+  if (customStage.versusScreen?.backgroundColor !== undefined) {
+    const { r, g, b } = customStage.versusScreen.backgroundColor;
     backgroundColor = Color(r, g, b);
   }
   versusScreenBackgroundSprite.Color = backgroundColor;
 
   let dirtSpotColor = VERSUS_SCREEN_DIRT_SPOT_COLORS[DEFAULT_STAGE_ID];
-  if (customStage.versusScreenDirtSpotColor !== undefined) {
-    const { r, g, b } = customStage.versusScreenDirtSpotColor;
+  if (customStage.versusScreen?.dirtSpotColor !== undefined) {
+    const { r, g, b } = customStage.versusScreen.dirtSpotColor;
     dirtSpotColor = Color(r, g, b);
   }
   versusScreenDirtSpotSprite.Color = dirtSpotColor;

@@ -81,6 +81,73 @@ export function setCustomPitGraphics(
   }
 }
 
+/** For GridEntityType.DOOR (16) */
+export function setCustomDoorGraphics(
+  customStage: CustomStage,
+  gridEntity: GridEntity,
+): void {
+  const sprite = gridEntity.GetSprite();
+  const fileName = sprite.GetFilename();
+  const doorPNGPath = getNewDoorPNGPath(customStage, fileName);
+  if (doorPNGPath !== undefined) {
+    sprite.ReplaceSpritesheet(0, doorPNGPath);
+    sprite.LoadGraphics();
+  }
+}
+
+function getNewDoorPNGPath(
+  customStage: CustomStage,
+  fileName: string,
+): string | undefined {
+  switch (fileName) {
+    case "gfx/grid/door_01_normaldoor.anm2": {
+      return customStage.doorPNGPaths?.normal;
+    }
+
+    case "gfx/grid/door_02_treasureroomdoor.anm2": {
+      return customStage.doorPNGPaths?.treasureRoom;
+    }
+
+    case "gfx/grid/door_03_ambushroomdoor.anm2": {
+      return customStage.doorPNGPaths?.normalChallengeRoom;
+    }
+
+    case "gfx/grid/door_04_selfsacrificeroomdoor.anm2": {
+      return customStage.doorPNGPaths?.curseRoom;
+    }
+
+    case "gfx/grid/door_05_arcaderoomdoor.anm2": {
+      return customStage.doorPNGPaths?.arcade;
+    }
+
+    case "gfx/grid/door_07_devilroomdoor.anm2": {
+      return customStage.doorPNGPaths?.devilRoom;
+    }
+
+    case "gfx/grid/door_07_holyroomdoor.anm2": {
+      return customStage.doorPNGPaths?.angelRoom;
+    }
+
+    case "gfx/grid/door_08_holeinwall.anm2": {
+      return customStage.doorPNGPaths?.secretRoom;
+    }
+
+    case "gfx/grid/door_09_bossambushroomdoor.anm2": {
+      return customStage.doorPNGPaths?.bossChallengeRoom;
+    }
+
+    case "gfx/grid/door_10_bossroomdoor.anm2": {
+      return customStage.doorPNGPaths?.bossRoom;
+    }
+
+    case "gfx/grid/door_15_bossrushdoor.anm2": {
+      return customStage.doorPNGPaths?.bossRush;
+    }
+  }
+
+  return undefined;
+}
+
 /**
  * The rewards are based on the ones from the wiki:
  * https://bindingofisaacrebirth.fandom.com/wiki/Rocks#Urns

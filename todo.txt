@@ -2,3 +2,7 @@
 
 - custom stage level streak text - need to render on top of HUD
 - custom stage shadows
+
+- finish custom door graphics
+- add unseed command
+- switch grid and grid2 commands

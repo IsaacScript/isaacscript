@@ -8,7 +8,7 @@
       "properties": {
         "backdrop": {
           "additionalProperties": false,
-          "description": "An object containing the paths to the backdrop for the stage. (A backdrop is the graphics for the walls and floor.) Mandatory.",
+          "description": "Optional. An object containing the paths to the backdrop graphics for the stage. (A backdrop is the graphics for the walls and floor.) If not specified, the graphics for Basement will be used.",
           "properties": {
             "corners": {
               "description": "An array of strings that represent the graphic files for the stage's corners. You must have at least one string in this array, but you can specify more than one to randomly add extra variety (like the vanilla stages do).\n\nFor an example of this, see the vanilla file \"resources/gfx/backdrop/01_basement.png\". (In the vanilla file, they concatenate both variations together into one PNG file and put it in the top right hand corner. The corners are shown in the top right hand corner of the file, with two different variations concatenated together. However, for the custom stages feature, you must separate each corner variation into a separate file (and put it in a different file from the walls).",
@@ -65,50 +65,120 @@
           "description": "An integer between 0 and 5, corresponding to the `StageType` enum. This is the number of the stage type that will be warped to and used as a basis for the stage by the level generation algorithm. Mandatory.",
           "type": "number"
         },
+        "decorationsPNGPath": {
+          "description": "Optional. The path to the spritesheet that contains the graphics of the decorations for the floor.\n\nIf not specified, the vanilla Basement decorations spritesheet will be used. For reference, this is located at: `C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\resources\\gfx\\grid\\props_01_basement.png`",
+          "type": "string"
+        },
+        "doorPNGPaths": {
+          "additionalProperties": false,
+          "description": "Optional. A collection of paths that contain graphics for the doors of the floor.",
+          "properties": {
+            "angelRoom": {
+              "description": "Optional. The path to the spritesheet that contains the graphics of the Angel Room doors for the floor.\n\nIf not specified, the vanilla Basement door spritesheet will be used. For reference, this is located at: `C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\resources\\gfx\\grid\\door_07_holyroomdoor.png`",
+              "type": "string"
+            },
+            "arcade": {
+              "description": "Optional. The path to the spritesheet that contains the graphics of the arcade doors for the floor.\n\nIf not specified, the vanilla Basement door spritesheet will be used. For reference, this is located at: `C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\resources\\gfx\\grid\\door_05_arcaderoomdoor.png`",
+              "type": "string"
+            },
+            "bossChallengeRoom": {
+              "description": "Optional. The path to the spritesheet that contains the graphics of the Boss Challenge Room doors for the floor.\n\nIf not specified, the vanilla Basement door spritesheet will be used. For reference, this is located at: `C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\resources\\gfx\\grid\\door_09_bossambushroomdoor.png`",
+              "type": "string"
+            },
+            "bossRoom": {
+              "description": "Optional. The path to the spritesheet that contains the graphics of the Boss Room doors for the floor.\n\nIf not specified, the vanilla Basement door spritesheet will be used. For reference, this is located at: `C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\resources\\gfx\\grid\\door_10_bossroomdoor.png`",
+              "type": "string"
+            },
+            "bossRush": {
+              "description": "Optional. The path to the spritesheet that contains the graphics of the Boss Rush doors for the floor.\n\nIf not specified, the vanilla Basement door spritesheet will be used. For reference, this is located at: `C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\resources\\gfx\\grid\\door_15_bossrushdoor.png`",
+              "type": "string"
+            },
+            "chestRoom": {
+              "description": "Optional. The path to the spritesheet that contains the graphics of the Chest Room doors for the floor.\n\nIf not specified, the vanilla Basement door spritesheet will be used. For reference, this is located at: `C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\resources\\gfx\\grid\\door_02b_chestroomdoor.png`",
+              "type": "string"
+            },
+            "curseRoom": {
+              "description": "Optional. The path to the spritesheet that contains the graphics of the Curse Room doors for the floor.\n\nIf not specified, the vanilla Basement door spritesheet will be used. For reference, this is located at: `C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\resources\\gfx\\grid\\door_04_selfsacrificeroomdoor.png`",
+              "type": "string"
+            },
+            "devilRoom": {
+              "description": "Optional. The path to the spritesheet that contains the graphics of the Devil Room doors for the floor.\n\nIf not specified, the vanilla Basement door spritesheet will be used. For reference, this is located at: `C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\resources\\gfx\\grid\\door_07_devilroomdoor.png`",
+              "type": "string"
+            },
+            "normal": {
+              "description": "Optional. The path to the spritesheet that contains the graphics of the normal doors for the floor.\n\nIf not specified, the vanilla Basement door spritesheet will be used. For reference, this is located at: `C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\resources\\gfx\\grid\\door_01_normaldoor.png`",
+              "type": "string"
+            },
+            "normalChallengeRoom": {
+              "description": "Optional. The path to the spritesheet that contains the graphics of the normal Challenge Room doors for the floor.\n\nIf not specified, the vanilla Basement door spritesheet will be used. For reference, this is located at: `C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\resources\\gfx\\grid\\door_03_ambushroomdoor.png`",
+              "type": "string"
+            },
+            "secretRoom": {
+              "description": "Optional. The path to the spritesheet that contains the graphics of the Secret Room and Super Secret Room doors for the floor.\n\nIf not specified, the vanilla Basement door spritesheet will be used. For reference, this is located at: `C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\resources\\gfx\\grid\\door_08_holeinwall.png`",
+              "type": "string"
+            },
+            "treasureRoom": {
+              "description": "Optional. The path to the spritesheet that contains the graphics of the Treasure Room doors for the floor.\n\nIf not specified, the vanilla Basement door spritesheet will be used. For reference, this is located at: `C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\resources\\gfx\\grid\\door_02_treasureroomdoor.png`",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "name": {
           "description": "The name of the custom stage. Mandatory.",
           "type": "string"
         },
+        "pitsPNGPath": {
+          "description": "Optional. The path to the spritesheet that contains the graphics of the pits for the floor.\n\nIf not specified, the vanilla Basement pits spritesheet will be used. For reference, this is located at: `C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\resources\\gfx\\grid\\grid_pit.png`",
+          "type": "string"
+        },
         "rocksPNGPath": {
-          "description": "Optional. The path to the spritesheet that will style the rocks/blocks/urns/etc. for the floor.\n\nIf specified, it is assumed that you have your own custom rock alt type, and all vanilla rewards/enemies that spawn from urns will be automatically removed. Use the `POST_GRID_ENTITY_BROKEN` callback to make your own custom rewards. Or, if you want to emulate a vanilla urn/mushroom/skull/polyp/bucket, use the `spawnRockAltReward` helper function.\n\nIf not specified, the vanilla Basement rocks spritesheet will be used. For reference, this is located at: `C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\resources\\gfx\\grid\\rocks_basement.png`",
+          "description": "Optional. The path to the spritesheet that contains the graphics of the rocks/blocks/urns for the floor.\n\nIf specified, it is assumed that you have your own custom rock alt type, and all vanilla rewards/enemies that spawn from urns will be automatically removed. Use the `POST_GRID_ENTITY_BROKEN` callback to make your own custom rewards. Or, if you want to emulate a vanilla urn/mushroom/skull/polyp/bucket, use the `spawnRockAltReward` helper function.\n\nIf not specified, the vanilla Basement rocks spritesheet will be used. For reference, this is located at: `C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\resources-dlc3\\gfx\\grid\\rocks_basement.png`",
           "type": "string"
         },
         "roomVariantPrefix": {
           "description": "An arbitrarily chosen prefix in the range of 101-999. Mandatory.",
           "type": "number"
         },
-        "versusScreenBackgroundColor": {
+        "versusScreen": {
           "additionalProperties": false,
-          "description": "Optional. An object representing the color to use for the background of the boss \"versus\" screen. If not specified, the color for Basement 1 will be used.\n\nFor a list of the colors that correspond to the vanilla stages, see `versusScreenBackgroundColors.ts`.",
+          "description": "Optional. A collection of colors used in the boss \"versus\" screen.",
           "properties": {
-            "b": {
-              "type": "number"
+            "backgroundColor": {
+              "additionalProperties": false,
+              "description": "Optional. An object representing the color to use for the background of the boss \"versus\" screen. If not specified, the color for Basement 1 will be used.\n\nFor a list of the colors that correspond to the vanilla stages, see `versusScreenBackgroundColors.ts`.",
+              "properties": {
+                "b": {
+                  "type": "number"
+                },
+                "g": {
+                  "type": "number"
+                },
+                "r": {
+                  "type": "number"
+                }
+              },
+              "required": ["r", "g", "b"],
+              "type": "object"
             },
-            "g": {
-              "type": "number"
-            },
-            "r": {
-              "type": "number"
+            "dirtSpotColor": {
+              "additionalProperties": false,
+              "description": "Optional. An object representing the color to use for the dirt spots in the boss \"versus\" screen. (There are two dirt spots; one for the player and one for the boss.) If not specified, the color for Basement 1 will be used.\n\nFor a list of the colors that correspond to the vanilla stages, see `versusScreenDirtSpotColors.ts`.",
+              "properties": {
+                "b": {
+                  "type": "number"
+                },
+                "g": {
+                  "type": "number"
+                },
+                "r": {
+                  "type": "number"
+                }
+              },
+              "required": ["r", "g", "b"],
+              "type": "object"
             }
           },
-          "required": ["r", "g", "b"],
-          "type": "object"
-        },
-        "versusScreenDirtSpotColor": {
-          "additionalProperties": false,
-          "description": "Optional. An object representing the color to use for the dirt spots in the boss \"versus\" screen. (There are two dirt spots; one for the player and one for the boss.) If not specified, the color for Basement 1 will be used.\n\nFor a list of the colors that correspond to the vanilla stages, see `versusScreenDirtSpotColors.ts`.",
-          "properties": {
-            "b": {
-              "type": "number"
-            },
-            "g": {
-              "type": "number"
-            },
-            "r": {
-              "type": "number"
-            }
-          },
-          "required": ["r", "g", "b"],
           "type": "object"
         },
         "xmlPath": {
@@ -121,9 +191,7 @@
         "xmlPath",
         "roomVariantPrefix",
         "baseStage",
-        "baseStageType",
-        "backdrop",
-        "rocksPNGPath"
+        "baseStageType"
       ],
       "type": "object"
     },

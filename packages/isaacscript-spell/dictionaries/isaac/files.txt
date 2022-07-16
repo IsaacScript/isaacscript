@@ -1,23 +1,32 @@
 # These are words from files in the "resources" directory, like "entities2.xml".
 
 altpath # challenges.xml
+ambushroomdoor # door_03_ambushroomdoor.png
 announcerdelay # pocketitems.xml
+arcaderoomdoor # door_05_arcaderoomdoor.png
 bigportrait # players.xml
 bigportraitroot # players.xml
 BLCK # BLCK CNDL seed
+bossambushroomdoor # door_09_bossambushroomdoor.png
 bossname # bossname_20.0_monstro.png
 bosspools # bosspools.xml
+bossroomdoor # door_10_bossroomdoor.png
+bossrushdoor # door_15_bossrushdoor.png
 cansacrifice # entities2.xml
 canshoot # challenges.xml
 chargebar # ui_chargebar.anm2
 chargetype # items.xml
+chestroomdoor # door_02b_chestroomdoor.png
 CNDL # BLCK CNDL seed
 deathanm # items.xml
+devilroomdoor # door_07_devilroomdoor.png
 endstage # challenges.xml
 fadecolor # cutscenes.xml
 gfxroot # items.xml
 giantbook # giantbook.xml
 greedmode # pocketitems.xml
+holeinwall # door_08_holeinwall.png
+holyroomdoor # door_07_holyroomdoor.png
 hudpickups # hudpickups.png
 Humbleing # items.xml
 itemdungeon # 00.special rooms.xml
@@ -38,6 +47,7 @@ noeden # items_metadata.xml
 nogreed # items_metadata.xml
 nokeeper # items_metadata.xml
 nolostbr # items_metadata.xml
+normaldoor # door_01_normaldoor.png
 Onan # challenges.xml
 pftempestasevencondensed # font
 pilleffect # pocketitems.xml
@@ -47,6 +57,7 @@ pocketitems # pocketitems.xml
 portraitroot # players.xml
 questionmark # questionmark.png
 secrettrapdoor # door_20_secrettrapdoor_shop.anm2
+selfsacrificeroomdoor # door_04_selfsacrificeroomdoor.png
 shotspeed # items.xml
 shutdoors # entities2.xml
 steamapps # The resources directory
@@ -55,6 +66,7 @@ swallowedpenny # trinket_001_swallowedpenny.png
 teammeatfont # font
 tearsup # items_metadata.xml
 thesadonion # collectibles_001_thesadonion.png
+treasureroomdoor # door_02_treasureroomdoor.png
 uniquefamiliar # items_metadata.xml
 versusscreen # versusscreen.anm2
 voidtrapdoor # voidtrapdoor.anm2

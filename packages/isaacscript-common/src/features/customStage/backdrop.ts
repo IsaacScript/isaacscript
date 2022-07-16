@@ -35,6 +35,16 @@ enum BackdropEntitySubType {
   FLOOR = 3,
 }
 
+/** This is created by the vanilla Basement files. */
+const DEFAULT_BACKDROP: NonNullable<CustomStage["backdrop"]> = {
+  prefix: `${ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH}/backdrop`,
+  suffix: ".png",
+  nFloors: ["nfloor"],
+  lFloors: ["lfloor"], // cspell:ignore lfloor
+  walls: ["wall"],
+  corners: ["corner"],
+} as const;
+
 const ROOM_SHAPE_WALL_ANM2_LAYERS: {
   readonly [key in RoomShape]: int;
 } = {
@@ -102,10 +112,15 @@ function getBackdropPNGPath(
   backdropKind: BackdropKind,
   rng: RNG,
 ) {
-  const pathArray = customStage.backdrop[backdropKind];
+  const backdrop =
+    customStage.backdrop === undefined
+      ? DEFAULT_BACKDROP
+      : customStage.backdrop;
+
+  const pathArray = backdrop[backdropKind];
   const path = getRandomArrayElement(pathArray, rng);
 
-  return customStage.backdrop.prefix + path + customStage.backdrop.suffix;
+  return backdrop.prefix + path + backdrop.suffix;
 }
 
 function spawnWallEntity(
