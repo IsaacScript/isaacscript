@@ -1,24 +1,13 @@
 import {
-  CollectibleType,
   DoorSlotFlag,
-  EntityType,
   GridEntityType,
   ModCallback,
   RoomShape,
   RoomType,
-  TrinketType,
 } from "isaac-typescript-definitions";
 import { ModUpgraded } from "../../classes/ModUpgraded";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { isArray } from "../../functions/array";
-import { removeEntities } from "../../functions/entity";
-import { getNPCs } from "../../functions/entitySpecific";
-import {
-  getCoins,
-  getCollectibles,
-  getTrinkets,
-} from "../../functions/pickups";
-import { vectorEquals } from "../../functions/vector";
 import { CustomStage, RoomTypeMap } from "../../interfaces/CustomStage";
 import {
   CustomStageLua,
@@ -26,6 +15,11 @@ import {
 } from "../../interfaces/CustomStageLua";
 import { saveDataManager } from "../saveDataManager/exports";
 import { setBackdrop } from "./backdrop";
+import {
+  removeUrnRewards,
+  setCustomPitGraphics,
+  setCustomRockGraphics,
+} from "./gridEntities";
 import * as metadataJSON from "./metadata.json"; // This will correspond to "metadata.lua" at run-time.
 import { streakTextPostRender } from "./streakText";
 import v, { customStagesMap } from "./v";
@@ -44,6 +38,11 @@ export function customStageInit(mod: ModUpgraded): void {
     ModCallbackCustom.POST_GRID_ENTITY_BROKEN,
     postGridEntityBrokenRockAlt,
     GridEntityType.ROCK_ALT,
+  );
+
+  mod.AddCallbackCustom(
+    ModCallbackCustom.POST_GRID_ENTITY_INIT,
+    postGridEntityBrokenInit,
   );
 
   mod.AddCallbackCustom(
@@ -131,44 +130,18 @@ function postGridEntityBrokenRockAlt(gridEntity: GridEntity) {
     return;
   }
 
-  removeUrnRewards(gridEntity);
+  removeUrnRewards(customStage, gridEntity);
 }
 
-/**
- * The rewards are based on the ones from the wiki:
- * https://bindingofisaacrebirth.fandom.com/wiki/Rocks#Urns
- *
- * On the bugged stage of -1, only urns will spawn, so we do not have to handle the case of mushroom
- * rewards, skull rewards, and so on.
- */
-function removeUrnRewards(gridEntity: GridEntity) {
-  // Spiders
-  const spiders = getNPCs(EntityType.SPIDER);
-  removeEntitiesSpawnedFromGridEntity(spiders, gridEntity);
+// ModCallbackCustom.POST_GRID_ENTITY_INIT
+function postGridEntityBrokenInit(gridEntity: GridEntity) {
+  const customStage = v.run.currentCustomStage;
+  if (customStage === null) {
+    return;
+  }
 
-  // Coins
-  const coins = getCoins();
-  removeEntitiesSpawnedFromGridEntity(coins, gridEntity);
-
-  // A Quarter
-  const quarters = getCollectibles(CollectibleType.QUARTER);
-  removeEntitiesSpawnedFromGridEntity(quarters, gridEntity);
-
-  // Swallowed Penny
-  const swallowedPennies = getTrinkets(TrinketType.SWALLOWED_PENNY);
-  removeEntitiesSpawnedFromGridEntity(swallowedPennies, gridEntity);
-}
-
-function removeEntitiesSpawnedFromGridEntity(
-  entities: Entity[],
-  gridEntity: GridEntity,
-) {
-  const entitiesFromGridEntity = entities.filter(
-    (entity) =>
-      entity.FrameCount === 0 &&
-      vectorEquals(entity.Position, gridEntity.Position),
-  );
-  removeEntities(entitiesFromGridEntity);
+  setCustomRockGraphics(customStage, gridEntity);
+  setCustomPitGraphics(customStage, gridEntity);
 }
 
 // ModCallbackCustom.POST_NEW_ROOM_REORDERED
