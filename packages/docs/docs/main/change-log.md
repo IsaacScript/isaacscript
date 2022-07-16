@@ -27,6 +27,7 @@ This page lists the changes to the IsaacScript framework.
   - `getGridEntityIDFromConstituents`
   - `getScreenTopCenterPos`
   - `getScreenBottomCenterPos`
+  - `getRockAltType`
 - Removed the following helper functions:
   - `getGotoCommandPrefix` (use `getGotoCommand` instead)
   - `getDefaultColor` (use `ColorDefault`)

@@ -8,12 +8,14 @@ import {
 } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { DISTANCE_OF_GRID_TILE } from "../constants";
+import { RockAltType } from "../enums/RockAltType";
 import { GRID_ENTITY_TYPE_TO_BROKEN_STATE_MAP } from "../maps/gridEntityTypeToBrokenStateMap";
 import { GRID_ENTITY_XML_MAP } from "../maps/gridEntityXMLMap";
 import {
   DEFAULT_TOP_LEFT_WALL_GRID_INDEX,
   ROOM_SHAPE_TO_TOP_LEFT_WALL_GRID_INDEX_MAP,
 } from "../maps/roomShapeToTopLeftWallGridIndexMap";
+import { BACKDROP_TYPE_TO_ROCK_ALT_TYPE } from "../objects/backdropTypeToRockAltType";
 import { isCircleIntersectingRectangle } from "./math";
 import { roomUpdateSafe } from "./rooms";
 import { clearSprite } from "./sprite";
@@ -251,6 +253,27 @@ export function getMatchingGridEntities(
   return gridEntities.filter(
     (gridEntity) => gridEntity.GetVariant() === variant,
   );
+}
+
+/**
+ * Helper function to get the alternate rock type (i.e. urn, mushroom, etc.) that the current room
+ * will have.
+ *
+ * The rock type is based on the backdrop of the room.
+ *
+ * For example, if you change the backdrop of the starting room of the run to `BackdropType.CAVES`,
+ * and then spawn `GridEntityType.ROCK_ALT`, it will be a mushroom instead of an urn. Additionally,
+ * if it is destroyed, it will generate mushroom-appropriate rewards.
+ *
+ * On the other hand, if an urn is spawned first before the backdrop is changed to
+ * `BackdropType.CAVES`, the graphic of the urn will not switch to a mushroom. However, when
+ * destroyed, the urn will still generate mushroom-appropriate rewards.
+ */
+export function getRockAltType(): RockAltType {
+  const room = game.GetRoom();
+  const backdropType = room.GetBackdropType();
+
+  return BACKDROP_TYPE_TO_ROCK_ALT_TYPE[backdropType];
 }
 
 export function getSurroundingGridEntities(

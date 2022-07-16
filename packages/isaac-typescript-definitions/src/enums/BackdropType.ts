@@ -1,5 +1,4 @@
 export enum BackdropType {
-  NULL = 0,
   BASEMENT = 1,
   CELLAR = 2,
   BURNT_BASEMENT = 3,

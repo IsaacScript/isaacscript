@@ -21,6 +21,7 @@
     "src/enums/HealthType.ts",
     "src/enums/ModCallbackCustom.ts",
     "src/enums/PocketItemType.ts",
+    "src/enums/RockAltType.ts",
     "src/enums/SerializationType.ts",
     "src/enums/SlotDestructionType.ts",
     "src/features/collectibleItemPoolType.ts",

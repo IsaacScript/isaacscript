@@ -1,5 +1,6 @@
 import {
   DoorSlotFlag,
+  GridEntityType,
   ModCallback,
   RoomShape,
   RoomType,
@@ -27,6 +28,12 @@ export function customStageInit(mod: ModUpgraded): void {
   initRoomTypeMaps();
 
   mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
+
+  mod.AddCallbackCustom(
+    ModCallbackCustom.POST_GRID_ENTITY_BROKEN,
+    postGridEntityBrokenRockAlt,
+    GridEntityType.ROCK_ALT,
+  );
 
   mod.AddCallbackCustom(
     ModCallbackCustom.POST_NEW_ROOM_REORDERED,
@@ -104,6 +111,10 @@ function postRender() {
   streakTextPostRender(customStage);
   versusScreenPostRender();
 }
+
+// ModCallbackCustom.POST_GRID_ENTITY_BROKEN
+// GridEntityType.ROCK_ALT
+function postGridEntityBrokenRockAlt(_gridEntity: GridEntity) {}
 
 // ModCallbackCustom.POST_NEW_ROOM_REORDERED
 function postNewRoomReordered() {
