@@ -12,8 +12,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2020,
     sourceType: "module",
-    /* eslint-disable-next-line isaacscript/complete-sentences-line-comments */
-    // This cannot be simplified to "./../.." because of relative path shenanigans.
+    // This cannot be simplified to `./../..` because of relative path shenanigans.
     tsconfigRootDir: REPO_ROOT,
   },
 
