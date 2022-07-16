@@ -233,6 +233,11 @@ export function versusScreenPostRender(): void {
     return;
   }
 
+  const isPaused = game.IsPaused();
+  if (isPaused) {
+    return;
+  }
+
   if (versusScreenSprite.IsFinished(VERSUS_SCREEN_ANIMATION_NAME)) {
     finishVersusScreenAnimation();
     return;

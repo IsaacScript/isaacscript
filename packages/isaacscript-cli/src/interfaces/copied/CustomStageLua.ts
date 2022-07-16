@@ -347,7 +347,7 @@ export type CustomStageTSConfig = Readonly<{
  * A description of a custom stage shadow. (In this context, "shadows" are the outlines from things
  * on the roof. For example, in Basement, a shadow of a sideways V is used, among others.)
  */
-export type CustomStageShadow = Readonly<{
+type CustomStageShadow = Readonly<{
   /**
    * The full path to the shadow overlay PNG file.
    *

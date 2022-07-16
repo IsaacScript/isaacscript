@@ -5,7 +5,6 @@ import {
   RoomShape,
   RoomType,
 } from "isaac-typescript-definitions";
-import { game } from "../../cachedClasses";
 import { ModUpgraded } from "../../classes/ModUpgraded";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { isArray } from "../../functions/array";
@@ -121,11 +120,6 @@ function getRoomTypeMap(customStageLua: CustomStageLua): RoomTypeMap {
 function postRender() {
   const customStage = v.run.currentCustomStage;
   if (customStage === null) {
-    return;
-  }
-
-  const isPaused = game.IsPaused();
-  if (isPaused) {
     return;
   }
 

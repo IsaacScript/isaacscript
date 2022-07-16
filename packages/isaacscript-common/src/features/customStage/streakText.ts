@@ -1,4 +1,4 @@
-import { fonts } from "../../cachedClasses";
+import { fonts, game } from "../../cachedClasses";
 import { KColorDefault } from "../../constants";
 import { getScreenBottomCenterPos } from "../../functions/ui";
 import { CustomStage } from "../../interfaces/CustomStage";
@@ -13,6 +13,11 @@ const STREAK_TEXT_BOTTOM_OFFSET = Vector(0, -60);
 // ModCallback.POST_RENDER (2)
 export function streakTextPostRender(customStage: CustomStage): void {
   if (!v.run.showingStreakText) {
+    return;
+  }
+
+  const isPaused = game.IsPaused();
+  if (isPaused) {
     return;
   }
 
