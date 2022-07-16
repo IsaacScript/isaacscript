@@ -23,7 +23,7 @@ import {
   setCustomRockGraphics,
 } from "./gridEntities";
 import * as metadataJSON from "./metadata.json"; // This will correspond to "metadata.lua" at run-time.
-import { streakTextPostRender } from "./streakText";
+import { streakTextGetShaderParams, streakTextPostRender } from "./streakText";
 import v, { customStagesMap } from "./v";
 import {
   playVersusScreenAnimation,
@@ -35,6 +35,8 @@ export function customStageInit(mod: ModUpgraded): void {
   initRoomTypeMaps();
 
   mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
+
+  mod.AddCallback(ModCallback.GET_SHADER_PARAMS, getShaderParams); // 21
 
   mod.AddCallbackCustom(
     ModCallbackCustom.POST_GRID_ENTITY_BROKEN,
@@ -122,6 +124,13 @@ function postRender() {
 
   streakTextPostRender(customStage);
   versusScreenPostRender();
+}
+
+// ModCallback.GET_SHADER_PARAMS (22)
+function getShaderParams(
+  shaderName: string,
+): Record<string, unknown> | undefined {
+  return streakTextGetShaderParams(shaderName);
 }
 
 // ModCallbackCustom.POST_GRID_ENTITY_BROKEN

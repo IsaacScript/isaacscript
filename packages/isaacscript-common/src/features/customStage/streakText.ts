@@ -4,6 +4,7 @@ import { getScreenBottomCenterPos } from "../../functions/ui";
 import { CustomStage } from "../../interfaces/CustomStage";
 import v from "./v";
 
+const EMPTY_SHADER_NAME = "IsaacScriptEmptyShader";
 const STREAK_TEXT_BOTTOM_OFFSET = Vector(0, -60);
 
 // ModCallback.POST_RENDER (2)
@@ -22,3 +23,14 @@ export function streakTextPostRender(customStage: CustomStage): void {
 
 // ModCallback.INPUT_ACTION (13)
 // TODO
+
+// ModCallback.GET_SHADER_PARAMS (22)
+export function streakTextGetShaderParams(
+  shaderName: string,
+): Record<string, unknown> | undefined {
+  if (shaderName !== EMPTY_SHADER_NAME) {
+    return undefined;
+  }
+
+  return {};
+}

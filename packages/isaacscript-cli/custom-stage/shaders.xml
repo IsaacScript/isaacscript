@@ -1,6 +1,6 @@
 <!-- cspell:ignore lowp mediump -->
 <shaders>
-  <shader name="EmptyShader">
+  <shader name="IsaacScriptEmptyShader">
     <parameters />
     <vertex><![CDATA[
             attribute vec3 Position;
