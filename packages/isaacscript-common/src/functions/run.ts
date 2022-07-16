@@ -25,8 +25,9 @@ export function onSetSeed(): boolean {
  */
 export function restart(character?: PlayerType): void {
   if (character === undefined) {
-    log("Restarting.");
-    Isaac.ExecuteCommand("restart");
+    const command = "restart";
+    log(`Restarting the run with a console command of: ${command}`);
+    Isaac.ExecuteCommand(command);
     return;
   }
 
@@ -34,6 +35,27 @@ export function restart(character?: PlayerType): void {
     error(`Restarting as a character of ${character} would crash the game.`);
   }
 
-  log(`Restarting as character: ${character}`);
-  Isaac.ExecuteCommand(`restart ${character}`);
+  const command = `restart ${character}`;
+  log(
+    `Restarting the run as PlayerType.${PlayerType[character]} (${character}) with a console command of: ${command}`,
+  );
+  Isaac.ExecuteCommand(command);
+}
+
+/**
+ * Helper function to change the run status to that of an unseeded run with a new random seed.
+ *
+ * This is useful to revert the behavior where playing on a set and restarting the game will not
+ * take you to a new seed.
+ */
+export function setUnseeded(): void {
+  const seeds = game.GetSeeds();
+
+  // Invoking the `Seeds.Reset` method will cause the start seed to be set to 0. Subsequently, the
+  // `Seeds.GetStartSeed` method will return 0, and can cause crashes (due to RNG objects not being
+  // able to handle a seed of 0). It also causes the log to be spammed with: "[ASSERT] - Error: Game
+  // Start Seed was not set." Thus, we must immediately re-initialize the game start seed by using
+  // the `Seeds.Restart` method.
+  seeds.Reset();
+  seeds.Restart(Challenge.NULL);
 }

@@ -28,6 +28,7 @@ This page lists the changes to the IsaacScript framework.
   - `getScreenTopCenterPos`
   - `getScreenBottomCenterPos`
   - `getRockAltType`
+  - `setUnseeded`
 - Removed the following helper functions:
   - `getGotoCommandPrefix` (use `getGotoCommand` instead)
   - `getDefaultColor` (use `ColorDefault`)
@@ -41,6 +42,9 @@ This page lists the changes to the IsaacScript framework.
   - `fonts` (which contains all 7 pre-loaded vanilla fonts)
 - Added the following custom console commands:
   - `flight`
+  - `unseed`
+  - `gridCosts`
+- The `grid` and `grid2` custom console commands have been switched.
 
 ## July 12th, 2022
 

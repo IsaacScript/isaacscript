@@ -75,7 +75,7 @@ import {
 import { getPlayers } from "../../functions/playerIndex";
 import { gridCoordinatesToWorldPosition } from "../../functions/roomGrid";
 import { changeRoom, getRoomGridIndexesForType } from "../../functions/rooms";
-import { restart } from "../../functions/run";
+import { onSetSeed, restart, setUnseeded } from "../../functions/run";
 import { getGoldenTrinketType } from "../../functions/trinkets";
 import { irange, printConsole, printEnabled } from "../../functions/utils";
 import { CARD_MAP } from "../../maps/cardMap";
@@ -622,14 +622,22 @@ export function goldenKey(): void {
   player.AddGoldenKey();
 }
 
-/** Alias for the "debug 2" command. */
+/**
+ * Alias for the "debug 11" command. Useful for seeing the coordinates and grid index of each tile
+ * in the room.
+ */
 export function grid(): void {
-  Isaac.ExecuteCommand("debug 2");
+  Isaac.ExecuteCommand("debug 11");
 }
 
-/** Alias for the "debug 11" command. */
+/** Alias for the "gridCosts" command. */
 export function grid2(): void {
-  Isaac.ExecuteCommand("debug 11");
+  gridCosts();
+}
+
+/** Alias for the "debug 2" command. Useful for seeing the grid costs of each tile in the room. */
+export function gridCosts(): void {
+  Isaac.ExecuteCommand("debug 2");
 }
 
 /** Spawns every grid entity, starting at the top-left-most tile. */
@@ -1288,6 +1296,17 @@ export function treasure(): void {
 /** Warps to the first Ultra Secret Room on the floor. */
 export function ultraSecret(): void {
   warpToRoomType(RoomType.ULTRA_SECRET);
+}
+
+/** If currently on a set seed, changes to an unseeded state and restarts the game. */
+export function unseed(): void {
+  if (!onSetSeed()) {
+    printConsole("You are not on a set seed, so you cannot unseed the run.");
+    return;
+  }
+
+  setUnseeded();
+  restart();
 }
 
 /** Moves the player 0.5 units up. Provide a number to move a custom amount of units. */
