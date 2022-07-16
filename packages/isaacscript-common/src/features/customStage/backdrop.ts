@@ -28,21 +28,12 @@ enum BackdropKind {
   CORNER = "corners",
 }
 
-enum BackdropEntitySubType {
-  VANILLA_LADDER = 0,
-  WALL = 1,
-  WALL_EXTRA = 2,
-  FLOOR = 3,
-}
-
 /** This is created by the vanilla Basement files. */
-const DEFAULT_BACKDROP: NonNullable<CustomStage["backdrop"]> = {
-  prefix: `${ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH}/backdrop`,
-  suffix: ".png",
-  nFloors: ["nfloor"],
-  lFloors: ["lfloor"], // cspell:ignore lfloor
-  walls: ["wall"],
-  corners: ["corner"],
+const DEFAULT_BACKDROP: NonNullable<CustomStage["backdropPNGPaths"]> = {
+  nFloors: [`${ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH}/backdrop/nfloor.png`],
+  lFloors: [`${ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH}/backdrop/lfloor.png`], // cspell:ignore lfloor
+  walls: [`${ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH}/backdrop/wall.png`],
+  corners: [`${ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH}/backdrop/corner.png`],
 } as const;
 
 const ROOM_SHAPE_WALL_ANM2_LAYERS: {
@@ -113,14 +104,12 @@ function getBackdropPNGPath(
   rng: RNG,
 ) {
   const backdrop =
-    customStage.backdrop === undefined
+    customStage.backdropPNGPaths === undefined
       ? DEFAULT_BACKDROP
-      : customStage.backdrop;
+      : customStage.backdropPNGPaths;
 
   const pathArray = backdrop[backdropKind];
-  const path = getRandomArrayElement(pathArray, rng);
-
-  return backdrop.prefix + path + backdrop.suffix;
+  return getRandomArrayElement(pathArray, rng);
 }
 
 function spawnWallEntity(
@@ -131,12 +120,9 @@ function spawnWallEntity(
   const room = game.GetRoom();
   const roomShape = room.GetRoomShape();
 
-  const subType = isExtraWall
-    ? BackdropEntitySubType.WALL_EXTRA
-    : BackdropEntitySubType.WALL;
   const wallEffect = spawnEffectWithSeed(
     BACKDROP_EFFECT_VARIANT,
-    subType,
+    0,
     VectorZero,
     1 as Seed,
   );
@@ -199,7 +185,7 @@ function spawnFloorEntity(customStage: CustomStage, rng: RNG) {
 
   const floorEffect = spawnEffectWithSeed(
     BACKDROP_EFFECT_VARIANT,
-    BackdropEntitySubType.FLOOR,
+    0,
     VectorZero,
     1 as Seed,
   );

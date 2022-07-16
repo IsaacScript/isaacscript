@@ -46,47 +46,35 @@ export type CustomStageTSConfig = Readonly<{
    * the graphics for the walls and floor.) If not specified, the graphics for Basement will be
    * used.
    */
-  backdrop?: Readonly<{
+  backdropPNGPaths?: Readonly<{
     /**
-     * The beginning of the path that leads to the backdrop graphics. For example:
+     * An array that contains the full paths to the graphic files that are used for the floor in
+     * narrow rooms. (The "n" stands for "narrow").
      *
-     * ```sh
-     * gfx/backdrop/revelations/revelations_
-     * ```
-     */
-    prefix: string;
-
-    /**
-     * The end of the path that leads to the backdrop graphics. In most cases, this will be ".png".
-     */
-    suffix: string;
-
-    /**
-     * An array of strings that represent the graphic files that are used for the floors in narrow
-     * rooms. (The "n" stands for "narrow").
-     *
-     * You must have at least one string in this array, but you can specify more than one to
-     * randomly add extra variety (like the vanilla stages do).
+     * You must have at least one path in this array, but you can specify more than one to randomly
+     * add extra variety (like the vanilla stages do).
      *
      * For an example of this, see the vanilla file "resources/gfx/backdrop/01_basement_nfloor.png".
      */
     nFloors: readonly string[];
 
     /**
-     * An array of strings that represent the graphic files that are used for the floors in L rooms.
+     * An array that contains the full paths to the graphic files that are used for the floor in L
+     * rooms.
      *
-     * You must have at least one string in this array, but you can specify more than one to
-     * randomly add extra variety (like the vanilla stages do).
+     * You must have at least one path in this array, but you can specify more than one to randomly
+     * add extra variety (like the vanilla stages do).
      *
      * For an example of this, see the vanilla file "resources/gfx/backdrop/01_lbasementfloor.png".
      */
     lFloors: readonly string[];
 
     /**
-     * An array of strings that represent the graphic files for the stage's walls.
+     * An array that contains the full paths to the graphic files that are used for the walls of the
+     * floor.
      *
-     * You must have at least one string in this array, but you can specify more than one to
-     * randomly add extra variety (like the vanilla stages do).
+     * You must have at least one path in this array, but you can specify more than one to randomly
+     * add extra variety (like the vanilla stages do).
      *
      * For an example of this, see the vanilla file "resources/gfx/backdrop/01_basement.png". (In
      * the vanilla file, they concatenate all four variations together into one PNG file. However,
@@ -95,9 +83,10 @@ export type CustomStageTSConfig = Readonly<{
     walls: readonly string[];
 
     /**
-     * An array of strings that represent the graphic files for the stage's corners. You must have
-     * at least one string in this array, but you can specify more than one to randomly add extra
-     * variety (like the vanilla stages do).
+     * An array that contains the full paths to the graphic files for the stage's corners.
+     *
+     * You must have at least one path in this array, but you can specify more than one to randomly
+     * add extra variety (like the vanilla stages do).
      *
      * For an example of this, see the vanilla file "resources/gfx/backdrop/01_basement.png". (In
      * the vanilla file, they concatenate both variations together into one PNG file and put it in
@@ -110,8 +99,8 @@ export type CustomStageTSConfig = Readonly<{
   }>;
 
   /**
-   * Optional. The path to the spritesheet that contains the graphics of the decorations for the
-   * floor.
+   * Optional. The full path to the spritesheet that contains the graphics of the decorations for
+   * the floor.
    *
    * If not specified, the vanilla Basement decorations spritesheet will be used. For reference,
    * this is located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac
@@ -120,8 +109,8 @@ export type CustomStageTSConfig = Readonly<{
   decorationsPNGPath?: string;
 
   /**
-   * Optional. The path to the spritesheet that contains the graphics of the rocks/blocks/urns for
-   * the floor.
+   * Optional. The full path to the spritesheet that contains the graphics of the rocks/blocks/urns
+   * for the floor.
    *
    * If specified, it is assumed that you have your own custom rock alt type, and all vanilla
    * rewards/enemies that spawn from urns will be automatically removed. Use the
@@ -135,7 +124,8 @@ export type CustomStageTSConfig = Readonly<{
   rocksPNGPath?: string;
 
   /**
-   * Optional. The path to the spritesheet that contains the graphics of the pits for the floor.
+   * Optional. The full path to the spritesheet that contains the graphics of the pits for the
+   * floor.
    *
    * If not specified, the vanilla Basement pits spritesheet will be used. For reference, this is
    * located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac
@@ -143,11 +133,14 @@ export type CustomStageTSConfig = Readonly<{
    */
   pitsPNGPath?: string;
 
-  /** Optional. A collection of paths that contain graphics for the doors of the floor. */
+  /**
+   * Optional. A collection of paths that contain graphics for the doors of the floor. If not
+   * specified, the doors for Basement will be used.
+   */
   doorPNGPaths?: Readonly<{
     /**
-     * Optional. The path to the spritesheet that contains the graphics of the normal doors for the
-     * floor.
+     * Optional. The full path to the spritesheet that contains the graphics of the normal doors for
+     * the floor.
      *
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
      * located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac
@@ -156,8 +149,8 @@ export type CustomStageTSConfig = Readonly<{
     normal?: string; // RoomType.DEFAULT (1)
 
     /**
-     * Optional. The path to the spritesheet that contains the graphics of the Treasure Room doors
-     * for the floor.
+     * Optional. The full path to the spritesheet that contains the graphics of the Treasure Room
+     * doors for the floor.
      *
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
      * located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac
@@ -166,8 +159,8 @@ export type CustomStageTSConfig = Readonly<{
     treasureRoom?: string; // RoomType.TREASURE (4)
 
     /**
-     * Optional. The path to the spritesheet that contains the graphics of the Boss Room doors for
-     * the floor.
+     * Optional. The full path to the spritesheet that contains the graphics of the Boss Room doors
+     * for the floor.
      *
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
      * located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac
@@ -176,8 +169,8 @@ export type CustomStageTSConfig = Readonly<{
     bossRoom?: string; // RoomType.BOSS (5)
 
     /**
-     * Optional. The path to the spritesheet that contains the graphics of the Secret Room and Super
-     * Secret Room doors for the floor.
+     * Optional. The full path to the spritesheet that contains the graphics of the Secret Room and
+     * Super Secret Room doors for the floor.
      *
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
      * located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac
@@ -186,8 +179,8 @@ export type CustomStageTSConfig = Readonly<{
     secretRoom?: string; // RoomType.SECRET (7) and RoomType.SUPER_SECRET (8)
 
     /**
-     * Optional. The path to the spritesheet that contains the graphics of the arcade doors for the
-     * floor.
+     * Optional. The full path to the spritesheet that contains the graphics of the arcade doors for
+     * the floor.
      *
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
      * located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac
@@ -196,8 +189,8 @@ export type CustomStageTSConfig = Readonly<{
     arcade?: string; // RoomType.ARCADE (9)
 
     /**
-     * Optional. The path to the spritesheet that contains the graphics of the Curse Room doors for
-     * the floor.
+     * Optional. The full path to the spritesheet that contains the graphics of the Curse Room doors
+     * for the floor.
      *
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
      * located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac
@@ -206,8 +199,8 @@ export type CustomStageTSConfig = Readonly<{
     curseRoom?: string; // RoomType.CURSE (10)
 
     /**
-     * Optional. The path to the spritesheet that contains the graphics of the normal Challenge Room
-     * doors for the floor.
+     * Optional. The full path to the spritesheet that contains the graphics of the normal Challenge
+     * Room doors for the floor.
      *
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
      * located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac
@@ -216,8 +209,8 @@ export type CustomStageTSConfig = Readonly<{
     normalChallengeRoom?: string; // RoomType.CHALLENGE (11)
 
     /**
-     * Optional. The path to the spritesheet that contains the graphics of the Boss Challenge Room
-     * doors for the floor.
+     * Optional. The full path to the spritesheet that contains the graphics of the Boss Challenge
+     * Room doors for the floor.
      *
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
      * located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac
@@ -226,8 +219,8 @@ export type CustomStageTSConfig = Readonly<{
     bossChallengeRoom?: string; // RoomType.CHALLENGE (11)
 
     /**
-     * Optional. The path to the spritesheet that contains the graphics of the Devil Room doors for
-     * the floor.
+     * Optional. The full path to the spritesheet that contains the graphics of the Devil Room doors
+     * for the floor.
      *
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
      * located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac
@@ -236,8 +229,8 @@ export type CustomStageTSConfig = Readonly<{
     devilRoom?: string; // RoomType.DEVIL (14)
 
     /**
-     * Optional. The path to the spritesheet that contains the graphics of the Angel Room doors for
-     * the floor.
+     * Optional. The full path to the spritesheet that contains the graphics of the Angel Room doors
+     * for the floor.
      *
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
      * located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac
@@ -246,8 +239,8 @@ export type CustomStageTSConfig = Readonly<{
     angelRoom?: string; // RoomType.ANGEL (15)
 
     /**
-     * Optional. The path to the spritesheet that contains the graphics of the Boss Rush doors for
-     * the floor.
+     * Optional. The full path to the spritesheet that contains the graphics of the Boss Rush doors
+     * for the floor.
      *
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
      * located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac
@@ -256,14 +249,62 @@ export type CustomStageTSConfig = Readonly<{
     bossRush?: string; // RoomType.BOSS_RUSH (17)
 
     /**
-     * Optional. The path to the spritesheet that contains the graphics of the Chest Room doors for
-     * the floor.
+     * Optional. The full path to the spritesheet that contains the graphics of the Chest Room doors
+     * for the floor.
      *
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
      * located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac
      * Rebirth\resources\gfx\grid\door_02b_chestroomdoor.png`
      */
     chestRoom?: string; // RoomType.CHEST (20)
+  }>;
+
+  /**
+   * Optional. A collection of paths that contain graphics for the custom shadows of the floor. (In
+   * this context, "shadows" are the outlines from things on the roof. For example, in Basement, a
+   * shadow of a sideways V is used.) If not specified, no extra shadows will be drawn.
+   */
+  shadowPNGPaths?: Readonly<{
+    /**
+     * An array containing the full paths to the shadows that are used in rooms of shape
+     * `RoomShape.SHAPE_1x1` (1), `RoomShape.IH` (2), and `RoomShape.IV` (3).
+     *
+     * If more than one shadow is specified, one will be randomly chosen for each room.
+     *
+     * If not specified, no extra shadows will be drawn in these room shapes.
+     */
+    "1x1"?: readonly string[];
+
+    /**
+     * An array containing the full paths to the shadows that are used in rooms of shape
+     * `RoomShape.SHAPE_1x2` (4) and `RoomShape.IIV` (5).
+     *
+     * If more than one shadow is specified, one will be randomly chosen for each room.
+     *
+     * If not specified, no extra shadows will be drawn in these room shapes.
+     */
+    "1x2"?: readonly string[];
+
+    /**
+     * An array containing the full paths to the shadows that are used in rooms of shape
+     * `RoomShape.SHAPE_2x1` (6) and `RoomShape.IIH` (7).
+     *
+     * If more than one shadow is specified, one will be randomly chosen for each room.
+     *
+     * If not specified, no extra shadows will be drawn in these room shapes.
+     */
+    "2x1"?: readonly string[];
+
+    /**
+     * An array containing the full paths to the shadows that are used in rooms of shape
+     * `RoomShape.SHAPE_2x2` (8), `RoomShape.LTL` (9), `RoomShape.LTR` (10), `RoomShape.LBL` (11),
+     * and `RoomShape.LBR` (12).
+     *
+     * If more than one shadow is specified, one will be randomly chosen for each room.
+     *
+     * If not specified, no extra shadows will be drawn in these room shapes.
+     */
+    "2x2"?: readonly string[];
   }>;
 
   /** Optional. A collection of colors used in the boss "versus" screen. */

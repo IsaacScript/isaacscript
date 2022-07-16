@@ -5,6 +5,7 @@ import {
   RoomShape,
   RoomType,
 } from "isaac-typescript-definitions";
+import { game } from "../../cachedClasses";
 import { ModUpgraded } from "../../classes/ModUpgraded";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { isArray } from "../../functions/array";
@@ -23,6 +24,7 @@ import {
   setCustomRockGraphics,
 } from "./gridEntities";
 import * as metadataJSON from "./metadata.json"; // This will correspond to "metadata.lua" at run-time.
+import { setShadows, shadowsPostRender } from "./shadows";
 import { streakTextGetShaderParams, streakTextPostRender } from "./streakText";
 import v, { customStagesMap } from "./v";
 import {
@@ -122,7 +124,13 @@ function postRender() {
     return;
   }
 
+  const isPaused = game.IsPaused();
+  if (isPaused) {
+    return;
+  }
+
   streakTextPostRender(customStage);
+  shadowsPostRender(customStage);
   versusScreenPostRender();
 }
 
@@ -165,5 +173,6 @@ function postNewRoomReordered() {
   }
 
   setBackdrop(customStage);
+  setShadows(customStage);
   playVersusScreenAnimation(customStage);
 }

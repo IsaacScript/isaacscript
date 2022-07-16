@@ -6,6 +6,10 @@ const v = {
     showingStreakText: false,
     showingBossVersusScreen: false,
   },
+
+  room: {
+    showingShadows: false,
+  },
 };
 export default v;
 

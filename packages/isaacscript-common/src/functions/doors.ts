@@ -253,10 +253,10 @@ export function isDoorToDownpour(door: GridEntityDoor): boolean {
   }
 
   const sprite = door.GetSprite();
-  const filename = sprite.GetFilename();
+  const fileName = sprite.GetFilename();
 
   // On Windows, this is: "gfx/grid/Door_Downpour.anm2"
-  return filename.toLowerCase() === "gfx/grid/door_downpour.anm2";
+  return fileName.toLowerCase() === "gfx/grid/door_downpour.anm2";
 }
 
 /**
@@ -269,10 +269,10 @@ export function isDoorToMausoleum(door: GridEntityDoor): boolean {
   }
 
   const sprite = door.GetSprite();
-  const filename = sprite.GetFilename();
+  const fileName = sprite.GetFilename();
 
   // On Windows, this is: "gfx/grid/Door_Mausoleum.anm2"
-  return filename.toLowerCase() === "gfx/grid/door_mausoleum.anm2";
+  return fileName.toLowerCase() === "gfx/grid/door_mausoleum.anm2";
 }
 
 /**
@@ -285,10 +285,10 @@ export function isDoorToMausoleumAscent(door: GridEntityDoor): boolean {
   }
 
   const sprite = door.GetSprite();
-  const filename = sprite.GetFilename();
+  const fileName = sprite.GetFilename();
 
   // On Windows, this is: "gfx/grid/Door_Mausoleum_Alt.anm2"
-  return filename.toLowerCase() === "gfx/grid/door_mausoleum_alt.anm2";
+  return fileName.toLowerCase() === "gfx/grid/door_mausoleum_alt.anm2";
 }
 
 /**
@@ -301,10 +301,10 @@ export function isDoorToMines(door: GridEntityDoor): boolean {
   }
 
   const sprite = door.GetSprite();
-  const filename = sprite.GetFilename();
+  const fileName = sprite.GetFilename();
 
   // On Windows, this is: "gfx/grid/Door_Mines.anm2"
-  return filename.toLowerCase() === "gfx/grid/door_mines.anm2";
+  return fileName.toLowerCase() === "gfx/grid/door_mines.anm2";
 }
 
 /**
@@ -317,10 +317,10 @@ export function isDoorToMomsHeart(door: GridEntityDoor): boolean {
   }
 
   const sprite = door.GetSprite();
-  const filename = sprite.GetFilename();
+  const fileName = sprite.GetFilename();
 
   // On Windows, this is: "gfx/grid/Door_MomsHeart.anm2"
-  return filename === "gfx/grid/door_momsheart.anm2"; // cspell:ignore momsheart
+  return fileName.toLowerCase() === "gfx/grid/door_momsheart.anm2"; // cspell:ignore momsheart
 }
 
 export function isHiddenSecretRoomDoor(door: GridEntityDoor): boolean {
@@ -342,10 +342,10 @@ export function isRepentanceDoor(door: GridEntityDoor): boolean {
  */
 export function isSecretRoomDoor(door: GridEntityDoor): boolean {
   const sprite = door.GetSprite();
-  const filename = sprite.GetFilename();
+  const fileName = sprite.GetFilename();
 
   // On Windows, this is: "gfx/grid/Door_08_HoleInWall.anm2"
-  return filename === "gfx/grid/door_08_holeinwall.anm2"; // cspell:ignore holeinwall
+  return fileName.toLowerCase() === "gfx/grid/door_08_holeinwall.anm2"; // cspell:ignore holeinwall
 }
 
 /**
