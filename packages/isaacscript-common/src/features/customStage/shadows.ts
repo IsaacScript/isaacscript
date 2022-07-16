@@ -1,6 +1,5 @@
 import { RoomShape } from "isaac-typescript-definitions";
 import { game } from "../../cachedClasses";
-import { VectorZero } from "../../constants";
 import { getRandomArrayElement } from "../../functions/array";
 import { CustomStage } from "../../interfaces/CustomStage";
 import { ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH } from "./customStageConstants";
@@ -26,6 +25,8 @@ const ROOM_SHAPE_TO_SHADOW_ANIMATION: {
   [RoomShape.LBR]: "2x2", // 12
 } as const;
 
+const FADED_BLACK = Color(0, 0, 0, 0.25);
+
 const shadowSprite = Sprite();
 shadowSprite.Load(
   `${ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH}/stage-shadow.anm2`,
@@ -33,23 +34,29 @@ shadowSprite.Load(
 );
 
 export function setShadows(customStage: CustomStage): void {
-  if (customStage.shadowPNGPaths === undefined) {
+  if (customStage.shadows === undefined) {
     return;
   }
 
   const room = game.GetRoom();
   const roomShape = room.GetRoomShape();
   const animation = ROOM_SHAPE_TO_SHADOW_ANIMATION[roomShape];
-  const shadowPNGPaths = customStage.shadowPNGPaths[animation];
-  if (shadowPNGPaths === undefined) {
+  const shadows = customStage.shadows[animation];
+  if (shadows === undefined) {
     return;
   }
 
   const decorationSeed = room.GetDecorationSeed();
-  const shadowPNGPath = getRandomArrayElement(shadowPNGPaths, decorationSeed);
-  shadowSprite.ReplaceSpritesheet(0, shadowPNGPath);
+  const shadow = getRandomArrayElement(shadows, decorationSeed);
+
+  shadowSprite.ReplaceSpritesheet(0, shadow.pngPath);
   shadowSprite.LoadGraphics();
   shadowSprite.SetFrame(animation, 0);
+  shadowSprite.Color =
+    shadow.color === undefined
+      ? FADED_BLACK
+      : Color(shadow.color.r, shadow.color.g, shadow.color.b, shadow.color.a);
+
   v.room.showingShadows = true;
 }
 
@@ -59,8 +66,7 @@ export function shadowsPostRender(_customStage: CustomStage): void {
   }
 
   const room = game.GetRoom();
-  const renderPosition = Isaac.WorldToRenderPosition(VectorZero);
-  const renderScrollOffset = room.GetRenderScrollOffset();
-  const position = renderPosition.add(renderScrollOffset);
+  const centerPos = room.GetCenterPos();
+  const position = Isaac.WorldToRenderPosition(centerPos);
   shadowSprite.Render(position);
 }

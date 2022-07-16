@@ -1,6 +1,14 @@
 <!-- cspell:ignore lowp mediump -->
 <shaders>
-  <shader name="IsaacScriptEmptyShader">
+  <!--
+    Empty shader; only used as a workaround for rendering sprites on top of the HUD.
+
+    Even though the shader does nothing, all of the code is mandatory, because the vertex shader has
+    to return the correct position and the fragment shader has to return the correct color.
+
+    This is originally taken from StageAPI.
+  -->
+  <shader name="IsaacScript-RenderAboveHUD">
     <parameters />
     <vertex><![CDATA[
             attribute vec3 Position;
@@ -8,15 +16,18 @@
             attribute vec2 TexCoord;
             attribute vec4 RenderData;
             attribute float Scale;
-            varying vec4 Color0;
-            varying vec2 TexCoord0;
-            varying vec4 RenderDataOut;
-            varying float ScaleOut;
+
+            varying lowp vec4 Color0;
+            varying mediump vec2 TexCoord0;
+            varying lowp vec4 RenderDataOut;
+            varying lowp float ScaleOut;
+            uniform sampler2D Texture0;
+
             uniform mat4 Transform;
             void main(void)
             {
                 RenderDataOut = RenderData;
-                ScaleOut = Scale;         // Passing data to fragment shader
+                ScaleOut = Scale;
                 Color0 = Color;
                 TexCoord0 = TexCoord;
                 gl_Position = Transform * vec4(Position.xyz, 1.0);
@@ -27,9 +38,7 @@
             varying mediump vec2 TexCoord0;
             varying lowp vec4 RenderDataOut;
             varying lowp float ScaleOut;
-
             uniform sampler2D Texture0;
-
             void main(void)
             {
                 vec4 Color = Color0 * texture2D(Texture0, TexCoord0);

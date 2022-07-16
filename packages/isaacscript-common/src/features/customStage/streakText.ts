@@ -4,7 +4,10 @@ import { getScreenBottomCenterPos } from "../../functions/ui";
 import { CustomStage } from "../../interfaces/CustomStage";
 import v from "./v";
 
-const EMPTY_SHADER_NAME = "IsaacScriptEmptyShader";
+/** This must match the name of the shader in "shaders.xml". */
+const EMPTY_SHADER_NAME = "IsaacScript-RenderAboveHUD";
+
+/** This matches the offset that the vanilla game uses. */
 const STREAK_TEXT_BOTTOM_OFFSET = Vector(0, -60);
 
 // ModCallback.POST_RENDER (2)

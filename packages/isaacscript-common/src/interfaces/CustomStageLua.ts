@@ -260,43 +260,44 @@ export type CustomStageTSConfig = Readonly<{
   }>;
 
   /**
-   * Optional. A collection of paths that contain graphics for the custom shadows of the floor. (In
-   * this context, "shadows" are the outlines from things on the roof. For example, in Basement, a
-   * shadow of a sideways V is used.) If not specified, no extra shadows will be drawn.
+   * Optional. An array of shadow objects that describe the graphics for the custom shadows of the
+   * floor. (In this context, "shadows" are the outlines from things on the roof. For example, in
+   * Basement, a shadow of a sideways V is used, among others.) If not specified, no extra shadows
+   * will be drawn.
    */
-  shadowPNGPaths?: Readonly<{
+  shadows?: Readonly<{
     /**
-     * An array containing the full paths to the shadows that are used in rooms of shape
+     * Optional. An array containing the shadows that will be used in rooms of shape
      * `RoomShape.SHAPE_1x1` (1), `RoomShape.IH` (2), and `RoomShape.IV` (3).
      *
      * If more than one shadow is specified, one will be randomly chosen for each room.
      *
      * If not specified, no extra shadows will be drawn in these room shapes.
      */
-    "1x1"?: readonly string[];
+    "1x1"?: readonly CustomStageShadow[];
 
     /**
-     * An array containing the full paths to the shadows that are used in rooms of shape
+     * Optional. An array containing the shadows that will be used in rooms of shape
      * `RoomShape.SHAPE_1x2` (4) and `RoomShape.IIV` (5).
      *
      * If more than one shadow is specified, one will be randomly chosen for each room.
      *
      * If not specified, no extra shadows will be drawn in these room shapes.
      */
-    "1x2"?: readonly string[];
+    "1x2"?: readonly CustomStageShadow[];
 
     /**
-     * An array containing the full paths to the shadows that are used in rooms of shape
+     * Optional. An array containing the shadows that will be used in rooms of shape
      * `RoomShape.SHAPE_2x1` (6) and `RoomShape.IIH` (7).
      *
      * If more than one shadow is specified, one will be randomly chosen for each room.
      *
      * If not specified, no extra shadows will be drawn in these room shapes.
      */
-    "2x1"?: readonly string[];
+    "2x1"?: readonly CustomStageShadow[];
 
     /**
-     * An array containing the full paths to the shadows that are used in rooms of shape
+     * Optional. An array containing the shadows that will be used in rooms of shape
      * `RoomShape.SHAPE_2x2` (8), `RoomShape.LTL` (9), `RoomShape.LTR` (10), `RoomShape.LBL` (11),
      * and `RoomShape.LBR` (12).
      *
@@ -304,7 +305,7 @@ export type CustomStageTSConfig = Readonly<{
      *
      * If not specified, no extra shadows will be drawn in these room shapes.
      */
-    "2x2"?: readonly string[];
+    "2x2"?: readonly CustomStageShadow[];
   }>;
 
   /** Optional. A collection of colors used in the boss "versus" screen. */
@@ -320,6 +321,7 @@ export type CustomStageTSConfig = Readonly<{
       r: number;
       g: number;
       b: number;
+      a: number;
     }>;
 
     /**
@@ -334,7 +336,36 @@ export type CustomStageTSConfig = Readonly<{
       r: number;
       g: number;
       b: number;
+      a: number;
     }>;
+  }>;
+}>;
+
+/**
+ * A description of a custom stage shadow. (In this context, "shadows" are the outlines from things
+ * on the roof. For example, in Basement, a shadow of a sideways V is used, among others.)
+ */
+export type CustomStageShadow = Readonly<{
+  /**
+   * The full path to the shadow overlay PNG file.
+   *
+   * For an example of a vanilla shadow overlay, see: `C:\Program Files
+   * (x86)\Steam\steamapps\common\The Binding of Isaac
+   * Rebirth\resources\gfx\overlays\basement\1x1_overlay_1.png`
+   */
+  pngPath: string;
+
+  /**
+   * Optional. An object representing the color used for the shadow.
+   *
+   * If not specified, an object of `{ r: 0, g: 0, b: 0, a: 0.25 }` will be used (which corresponds
+   * to 75% faded black).
+   */
+  color?: Readonly<{
+    r: number;
+    g: number;
+    b: number;
+    a: number;
   }>;
 }>;
 

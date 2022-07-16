@@ -129,8 +129,8 @@ export function playVersusScreenAnimation(
 
   let backgroundColor = VERSUS_SCREEN_BACKGROUND_COLORS[DEFAULT_STAGE_ID];
   if (customStage.versusScreen?.backgroundColor !== undefined) {
-    const { r, g, b } = customStage.versusScreen.backgroundColor;
-    backgroundColor = Color(r, g, b);
+    const { r, g, b, a } = customStage.versusScreen.backgroundColor;
+    backgroundColor = Color(r, g, b, a);
   }
   versusScreenBackgroundSprite.Color = backgroundColor;
 
