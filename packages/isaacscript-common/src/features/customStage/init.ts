@@ -17,6 +17,7 @@ import { saveDataManager } from "../saveDataManager/exports";
 import { setBackdrop } from "./backdrop";
 import {
   removeUrnRewards,
+  setCustomDecorationGraphics,
   setCustomPitGraphics,
   setCustomRockGraphics,
 } from "./gridEntities";
@@ -140,6 +141,7 @@ function postGridEntityBrokenInit(gridEntity: GridEntity) {
     return;
   }
 
+  setCustomDecorationGraphics(customStage, gridEntity);
   setCustomRockGraphics(customStage, gridEntity);
   setCustomPitGraphics(customStage, gridEntity);
 }
