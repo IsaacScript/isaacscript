@@ -73,6 +73,40 @@
           "description": "An arbitrarily chosen prefix in the range of 101-999. Mandatory.",
           "type": "number"
         },
+        "versusScreenBackgroundColor": {
+          "additionalProperties": false,
+          "description": "Optional. An object representing the color to use for the background of the boss \"versus\" screen. If not specified, the color for Basement 1 will be used.\n\nFor a list of the colors that correspond to the vanilla stages, see `versusScreenBackgroundColors.ts`.",
+          "properties": {
+            "b": {
+              "type": "number"
+            },
+            "g": {
+              "type": "number"
+            },
+            "r": {
+              "type": "number"
+            }
+          },
+          "required": ["r", "g", "b"],
+          "type": "object"
+        },
+        "versusScreenDirtSpotColor": {
+          "additionalProperties": false,
+          "description": "Optional. An object representing the color to use for the dirt spots in the boss \"versus\" screen. (There are two dirt spots; one for the player and one for the boss.) If not specified, the color for Basement 1 will be used.\n\nFor a list of the colors that correspond to the vanilla stages, see `versusScreenDirtSpotColors.ts`.",
+          "properties": {
+            "b": {
+              "type": "number"
+            },
+            "g": {
+              "type": "number"
+            },
+            "r": {
+              "type": "number"
+            }
+          },
+          "required": ["r", "g", "b"],
+          "type": "object"
+        },
         "xmlPath": {
           "description": "Path to the XML file that contains the rooms for the custom stage (created with Basement Renovator). Mandatory.",
           "type": "string"
