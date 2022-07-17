@@ -5,6 +5,7 @@ import * as JSONC from "jsonc-parser";
 import path from "path";
 
 const PACKAGE_ROOT = path.join(__dirname, "..");
+const REPO_NAME = path.basename(PACKAGE_ROOT);
 const TSCONFIG_PATH = path.join(PACKAGE_ROOT, "tsconfig.json");
 
 main();
@@ -23,7 +24,7 @@ function main() {
   for (const filePath of filePaths) {
     const fileContents = file.read(filePath, false);
     const newFileContents = fileContents.replaceAll(
-      "../../../../packages/isaacscript-common",
+      `../../../../packages/${REPO_NAME}`,
       "..",
     );
     file.write(filePath, newFileContents, false);
