@@ -3784,16 +3784,7 @@
     debug "^4.3.4"
     tsutils "^3.21.0"
 
-"@typescript-eslint/type-utils@^5.30.4":
-  version "5.30.5"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/type-utils/-/type-utils-5.30.5.tgz#7a9656f360b4b1daea635c4621dab053d08bf8a9"
-  integrity sha512-k9+ejlv1GgwN1nN7XjVtyCgE0BTzhzT1YsQF0rv4Vfj2U9xnslBgMYYvcEYAFVdvhuEscELJsB7lDkN7WusErw==
-  dependencies:
-    "@typescript-eslint/utils" "5.30.5"
-    debug "^4.3.4"
-    tsutils "^3.21.0"
-
-"@typescript-eslint/types@5.30.5", "@typescript-eslint/types@^5.30.4":
+"@typescript-eslint/types@5.30.5":
   version "5.30.5"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-5.30.5.tgz#36a0c05a72af3623cdf9ee8b81ea743b7de75a98"
   integrity sha512-kZ80w/M2AvsbRvOr3PjaNh6qEW1LFqs2pLdo2s5R38B2HYXG8Z0PP48/4+j1QHJFL3ssHIbJ4odPRS8PlHrFfw==
@@ -3829,7 +3820,7 @@
     semver "^7.3.7"
     tsutils "^3.21.0"
 
-"@typescript-eslint/utils@5.30.5", "@typescript-eslint/utils@^5.30.4":
+"@typescript-eslint/utils@5.30.5":
   version "5.30.5"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/utils/-/utils-5.30.5.tgz#3999cbd06baad31b9e60d084f20714d1b2776765"
   integrity sha512-o4SSUH9IkuA7AYIfAvatldovurqTAHrfzPApOZvdUq01hHojZojCFXx06D/aFpKCgWbMPRdJBWAC3sWp3itwTA==
@@ -6615,14 +6606,14 @@ eslint-plugin-import@^2.26.0:
     resolve "^1.22.0"
     tsconfig-paths "^3.14.1"
 
-eslint-plugin-isaacscript@^1.4.6:
-  version "1.4.6"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-isaacscript/-/eslint-plugin-isaacscript-1.4.6.tgz#781b8059ff0f7bd64825a99ce3759f481a0fb1c1"
-  integrity sha512-+/BZU3G4YYJdnKLJTXX/j9hbs9C85evUwe8JguSw+d/q8sislQtVrQxZzEN8x6BOs8OxT9XDFtTPWwP5v5SeEw==
+eslint-plugin-isaacscript@^1.4.7:
+  version "1.4.7"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-isaacscript/-/eslint-plugin-isaacscript-1.4.7.tgz#d49c1591e168cc0b4329ff58951abe889a947c0c"
+  integrity sha512-jS8qf5T6RV2RTL0BfoBpIHXJZdK3oDuKK40kDsGNV1rhXiyljIz4FPd64VABVCq0HaUIRvhavWY7xaN5pdy2cA==
   dependencies:
-    "@typescript-eslint/type-utils" "^5.30.4"
-    "@typescript-eslint/types" "^5.30.4"
-    "@typescript-eslint/utils" "^5.30.4"
+    "@typescript-eslint/type-utils" "^5.30.6"
+    "@typescript-eslint/types" "^5.30.6"
+    "@typescript-eslint/utils" "^5.30.6"
     tslib "^2.4.0"
 
 eslint-plugin-jsdoc@^39.3.3:

@@ -1,0 +1,63 @@
+import { ESLintUtils } from "@typescript-eslint/utils";
+import { isNumericLiteral } from "typescript";
+import { createRule } from "../utils";
+
+type Options = [];
+
+export type MessageIds = "plusPlus" | "minusMinus";
+
+export const preferPlusplus = createRule<Options, MessageIds>({
+  name: "prefer-plusplus",
+  meta: {
+    type: "problem",
+    docs: {
+      description:
+        'Require "++" operators instead of assignment operators where applicable',
+      recommended: "error",
+    },
+    schema: [],
+    messages: {
+      plusPlus: 'Use "++" instead, as it is more concise and easier to read.',
+      minusMinus: 'Use "--" instead, as it is more concise and easier to read.',
+    },
+    fixable: "code",
+  },
+  defaultOptions: [],
+  create(context) {
+    const parserServices = ESLintUtils.getParserServices(context);
+
+    return {
+      AssignmentExpression(node) {
+        if (node.operator !== "+=" && node.operator !== "-=") {
+          return;
+        }
+
+        const tsNodeRight = parserServices.esTreeNodeToTSNodeMap.get(
+          node.right,
+        );
+        if (!isNumericLiteral(tsNodeRight)) {
+          return;
+        }
+
+        if (tsNodeRight.getText() !== "1") {
+          return;
+        }
+
+        const messageId = node.operator === "+=" ? "plusPlus" : "minusMinus";
+
+        context.report({
+          loc: node.loc,
+          messageId,
+          fix(fixer) {
+            const tsNodeLeft = parserServices.esTreeNodeToTSNodeMap.get(
+              node.left,
+            );
+            const newOperator = node.operator === "+=" ? "++" : "--";
+            const newExpression = tsNodeLeft.getText() + newOperator;
+            return fixer.replaceText(node, newExpression);
+          },
+        });
+      },
+    };
+  },
+});

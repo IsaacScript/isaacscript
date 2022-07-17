@@ -4,14 +4,12 @@
 - custom trapdoors
 - custom bosses for vanilla stages
 
-- lint rule isn't working for spaces between @param and header text in typescript-definitions
-
 1) foo += 1 auto-fixed to foo++. (prefer-plusplus)
-2) foo -= 1 auto-fixed to foo--. (prefer-minusminus)
+2) foo -= 1 auto-fixed to foo--. (prefer-plusplus)
 3) ++foo auto-fixed to foo++. (prefer-postfix-plusplus)
-4) --foo auto-fixed to foo--. (prefer-postfix-minusminus)
+4) --foo auto-fixed to foo--. (prefer-postfix-plusplus)
 5) foo++ combined with any operator throws warning. (no-plusplus-operators)
-6) foo-- combined with any operator throws warning. (no-minusminus-operators)
+6) foo-- combined with any operator throws warning. (no-plusplus-operators)
 
 {
   "rules": {
