@@ -3,13 +3,14 @@
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    "outDir": "../../dist/packages/isaacscript-common",
+    "outDir": "../../dist/packages/isaacscript-common/dist",
 
     // Needed since TSTL does not work properly with the monorepo "rootDir" setting.
     "rootDir": "./src",
 
     // Needed since this is a library.
     "declaration": true,
+    "declarationMap": true,
 
     // Needed to hide internal functions from the auto-complete of end-users.
     "stripInternal": true,
@@ -22,6 +23,8 @@
     "target": "ESNext",
     "lib": ["ESNext"],
     "moduleResolution": "Node",
+
+    // We use the Isaac definitions, which also include definitions for the Lua standard library.
     "types": ["isaac-typescript-definitions"],
   },
 

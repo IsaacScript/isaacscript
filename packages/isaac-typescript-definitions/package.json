@@ -19,8 +19,8 @@
   "license": "GPL-3.0",
   "author": "Zamiell",
   "type": "commonjs",
-  "main": "index",
-  "types": "index.d.ts",
+  "main": "dist/index",
+  "types": "dist/index.d.ts",
   "dependencies": {
     "lua-types": "^2.11.0"
   }

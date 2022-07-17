@@ -11,6 +11,7 @@ This page lists the changes to the IsaacScript framework.
 
 ## July 19th, 2022
 
+- When using the "Go to Definition" feature of VSCode with stuff from "isaac-typescript-definitions" or "isaacscript-common", it will now warp you to the real TypeScript files (instead of the definitions stub).
 - The shader crash fix will now be automatically be applied to any upgraded mods. (The method was originally discovered by AgentCucco.)
 - Added the following helper functions:
   - `getRoomShapeDoorSlot`

@@ -19,20 +19,21 @@ OUT_DIR="$DIR/../../dist/packages/$REPO_NAME"
 rm -rf "$OUT_DIR"
 npx tstl
 
+# Copy the rest of the files needed for npm.
+cp "$DIR/LICENSE" "$OUT_DIR/"
+cp "$DIR/package.json" "$OUT_DIR/"
+cp "$DIR/README.md" "$OUT_DIR/"
+cp --recursive "$DIR/src" "$OUT_DIR/"
+
 # Copy the declarations into place. (The TypeScript compiler does not do this automatically for some
 # reason.)
-cp --recursive "$DIR/src/types" "$OUT_DIR/"
+cp --recursive "$DIR/src/types" "$OUT_DIR/dist"
 
 # TypeScript messes up the path inside of the triple slash directive, so we must manually repair it.
 # e.g.
 # /// <reference types="packages/isaac-typescript-definitions/src/types" />
 # -->
 # /// <reference path="types/index.d.ts" />
-sed --in-place 's/types="packages\/isaac-typescript-definitions\/src\/types"/path="types\/index.d.ts"/' "$OUT_DIR/index.d.ts"
-
-# Copy the rest of the files needed for npm.
-cp "$DIR/LICENSE" "$OUT_DIR/"
-cp "$DIR/package.json" "$OUT_DIR/"
-cp "$DIR/README.md" "$OUT_DIR/"
+sed --in-place 's/types="packages\/isaac-typescript-definitions\/src\/types"/path="types\/index.d.ts"/' "$OUT_DIR/dist/index.d.ts"
 
 echo "Successfully built in $SECONDS seconds."
