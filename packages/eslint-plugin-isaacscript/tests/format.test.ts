@@ -420,3 +420,20 @@ The boost is the amount of damage granted by Dim Candle.
   `;
   testFormatText(text);
 });
+
+test("Comment with a parenthetical sentence before a param JSDoc tag", () => {
+  const text = `
+Foo.
+
+(This is a parenthetical sentence.)
+@param foo A description of foo.
+  `;
+  const formattedText = `
+Foo.
+
+(This is a parenthetical sentence.)
+
+@param foo A description of foo.
+  `;
+  testFormatText(text, formattedText);
+});

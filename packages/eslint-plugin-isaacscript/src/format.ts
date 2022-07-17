@@ -313,5 +313,5 @@ function startsWithExample(text: string): boolean {
 }
 
 function stringContainsOnlyWhitespace(string: string) {
-  return /^\s*$/gm.test(string);
+  return string.trim() === "";
 }
