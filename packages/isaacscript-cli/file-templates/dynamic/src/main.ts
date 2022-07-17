@@ -1,5 +1,4 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { log } from "isaacscript-common";
 
 const MOD_NAME = "MOD-NAME-TO-REPLACE";
 
@@ -14,9 +13,9 @@ function main() {
   mod.AddCallback(ModCallback.POST_GAME_STARTED, postGameStarted);
 
   // Print an message to the "log.txt" file.
-  log(`${MOD_NAME} initialized.`);
+  Isaac.DebugString(`${MOD_NAME} initialized.`);
 }
 
 function postGameStarted() {
-  log("Callback triggered: POST_GAME_STARTED");
+  Isaac.DebugString("Callback triggered: POST_GAME_STARTED");
 }
