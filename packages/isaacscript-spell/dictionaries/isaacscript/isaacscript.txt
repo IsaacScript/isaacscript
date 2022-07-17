@@ -28,6 +28,7 @@ nocheck # For @ts-nocheck
 noout # lint.sh
 noreply # Monorepo word
 nrwl # Monorepo word
+nx # Monorepo word
 pathlib # check-api-dictionary.sh
 peaceiris # Monorepo word
 plusplus # Part of the linting config

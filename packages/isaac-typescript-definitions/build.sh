@@ -19,6 +19,10 @@ OUT_DIR="$DIR/../../dist/packages/$REPO_NAME"
 rm -rf "$OUT_DIR"
 npx tstl
 
+# The declaration maps will be bugged due to nx's consolidated "dist" directory, so we use a script
+# to manually rewrite them.
+npx ts-node --require "tsconfig-paths/register" "$DIR/scripts/rewriteDeclarationMapPaths.ts"
+
 # Copy the rest of the files needed for npm.
 cp "$DIR/LICENSE" "$OUT_DIR/"
 cp "$DIR/package.json" "$OUT_DIR/"
