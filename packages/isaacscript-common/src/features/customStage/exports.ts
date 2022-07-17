@@ -26,6 +26,9 @@ import v, {
 } from "./v";
 import { playVersusScreenAnimation } from "./versusScreen";
 
+const DEFAULT_BASE_STAGE = LevelStage.BASEMENT_2;
+const DEFAULT_BASE_STAGE_TYPE = StageType.ORIGINAL;
+
 /**
  * Helper function to warp to a custom stage/level.
  *
@@ -50,11 +53,11 @@ export function setCustomStage(name: string, verbose = false): void {
 
   const baseStage =
     customStage.baseStage === undefined
-      ? LevelStage.BASEMENT_2
+      ? DEFAULT_BASE_STAGE
       : (customStage.baseStage as LevelStage);
   const baseStageType =
     customStage.baseStageType === undefined
-      ? StageType.ORIGINAL
+      ? DEFAULT_BASE_STAGE_TYPE
       : (customStage.baseStageType as StageType);
   setStage(baseStage, baseStageType);
 

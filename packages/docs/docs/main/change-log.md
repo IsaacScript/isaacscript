@@ -11,7 +11,7 @@ This page lists the changes to the IsaacScript framework.
 
 ## July 19th, 2022
 
-- The shader crash fix will now automatically be applied to any upgraded mods. (The method was originally discovered by AgentCucco.)
+- The shader crash fix will now be automatically be applied to any upgraded mods. (The method was originally discovered by AgentCucco.)
 - Added the following helper functions:
   - `getRoomShapeDoorSlot`
   - `getJSONRoomDoorSlotFlags`
