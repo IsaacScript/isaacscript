@@ -63,6 +63,10 @@ export function getPlayerFromIndex(
  * though they are technically different characters, they share the same inventory and InitSeed.) If
  * this is not desired, pass true for the `differentiateForgottenAndSoul` argument, and the RNG of
  * Spoon Bender (3) will be used for The Soul.
+ *
+ * Also note that this index doesn't work in the `POST_PLAYER_INIT` function for players 2 through
+ * 4. With that said, in almost all cases, you should be lazy-initializing your data structures in
+ * other callbacks, so this should not be an issue.
  */
 export function getPlayerIndex(
   player: EntityPlayer,

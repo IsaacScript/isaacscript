@@ -26,6 +26,7 @@ export const recommended = {
     "isaacscript/no-template-curly-in-string-fix": "error",
     "isaacscript/no-useless-return-no-fix": "error",
     "isaacscript/no-void-return-type": "error",
+    "isaacscript/prefer-plusplus": "error",
     "isaacscript/require-const-assertions": "error",
     "isaacscript/strict-enums": "error",
   },
