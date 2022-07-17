@@ -23,7 +23,7 @@ import {
   setCustomRockGraphics,
 } from "./gridEntities";
 import * as metadataJSON from "./metadata.json"; // This will correspond to "metadata.lua" at run-time.
-import { setShadows, shadowsPostRender } from "./shadows";
+import { setShadows } from "./shadows";
 import { streakTextGetShaderParams, streakTextPostRender } from "./streakText";
 import v, { customStagesMap } from "./v";
 import {
@@ -124,7 +124,6 @@ function postRender() {
   }
 
   streakTextPostRender(customStage);
-  shadowsPostRender(customStage);
   versusScreenPostRender();
 }
 
@@ -132,7 +131,8 @@ function postRender() {
 function getShaderParams(
   shaderName: string,
 ): Record<string, unknown> | undefined {
-  return streakTextGetShaderParams(shaderName);
+  streakTextGetShaderParams(shaderName);
+  return undefined;
 }
 
 // ModCallbackCustom.POST_GRID_ENTITY_BROKEN

@@ -1,5 +1,6 @@
 import { DisplayFlag } from "../../enums/flags/DisplayFlag";
 import { RoomDescriptorFlag } from "../../enums/flags/RoomDescriptorFlag";
+import { GridRoom } from "../../enums/GridRoom";
 
 declare global {
   interface RoomDescriptor {
@@ -33,7 +34,7 @@ declare global {
      * - Data structures that store data per room should use `ListIndex` as a key instead of
      *   `GridIndex`, since the former is unique across different dimensions.
      */
-    GridIndex: int;
+    GridIndex: int | GridRoom;
 
     HasWater: boolean;
 
@@ -66,7 +67,7 @@ declare global {
      * - Historically, `SafeGridIndex` was bugged for rooms outside of the grid, but it now works
      *   properly for these cases.
      */
-    SafeGridIndex: int;
+    SafeGridIndex: int | GridRoom;
 
     ShopItemDiscountIdx: int;
     ShopItemIdx: int;

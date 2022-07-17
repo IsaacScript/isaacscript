@@ -1,3 +1,5 @@
+// This file handles drawing the walls and floors for custom stages.
+
 // cspell:ignore LTRX,LTLX,LBRX,LBLX
 
 import {
@@ -66,6 +68,12 @@ const ROOM_SHAPE_WALL_EXTRA_ANM2_LAYERS: {
 
 const WALL_OFFSET = Vector(-80, -80);
 
+/** This corresponds to "floor-backdrop.anm2". */
+const L_FLOOR_ANM2_LAYERS: readonly int[] = [16, 17];
+
+/** This corresponds to "floor-backdrop.anm2". */
+const N_FLOOR_ANM2_LAYERS: readonly int[] = [18, 19];
+
 /**
  * Normally, we would make a custom entity to represent a backdrop effect, but we don't want to
  * interfere with the "entities2.xml" file in end-user mods. Thus, we must select a vanilla effect
@@ -120,13 +128,14 @@ function spawnWallEntity(
   const room = game.GetRoom();
   const roomShape = room.GetRoomShape();
 
+  // We spawn an effect instead of simply rendering a static sprite in order to emulate how vanilla
+  // does this. (`EntityFlag.RENDER_WALL` is intended for this purpose.)
   const wallEffect = spawnEffectWithSeed(
     BACKDROP_EFFECT_VARIANT,
     0,
     VectorZero,
     1 as Seed,
   );
-
   wallEffect.AddEntityFlags(EntityFlag.RENDER_WALL);
 
   const sprite = wallEffect.GetSprite();
@@ -183,13 +192,14 @@ function spawnFloorEntity(customStage: CustomStage, rng: RNG) {
   const room = game.GetRoom();
   const roomShape = room.GetRoomShape();
 
+  // We spawn an effect instead of simply rendering a static sprite in order to emulate how vanilla
+  // does this. (`EntityFlag.RENDER_FLOOR` is intended for this purpose.)
   const floorEffect = spawnEffectWithSeed(
     BACKDROP_EFFECT_VARIANT,
     0,
     VectorZero,
     1 as Seed,
   );
-
   floorEffect.AddEntityFlags(EntityFlag.RENDER_FLOOR);
 
   const sprite = floorEffect.GetSprite();
@@ -201,7 +211,7 @@ function spawnFloorEntity(customStage: CustomStage, rng: RNG) {
   const numFloorLayers = getNumFloorLayers(roomShape);
   if (numFloorLayers !== undefined) {
     for (const layerID of erange(0, numFloorLayers)) {
-      // The Wall spritesheet is used for the "normal" floors.
+      // The wall spritesheet is used for the "normal" floors.
       const wallPNGPath = getBackdropPNGPath(
         customStage,
         BackdropKind.WALL,
@@ -209,11 +219,8 @@ function spawnFloorEntity(customStage: CustomStage, rng: RNG) {
       );
       sprite.ReplaceSpritesheet(layerID, wallPNGPath);
     }
-  }
-
-  if (isLRoom(roomShape)) {
-    // The magic numbers are copied from StageAPI.
-    for (const layerID of [16, 17]) {
+  } else if (isLRoom(roomShape)) {
+    for (const layerID of L_FLOOR_ANM2_LAYERS) {
       const LFloorPNGPath = getBackdropPNGPath(
         customStage,
         BackdropKind.L_FLOOR,
@@ -221,11 +228,8 @@ function spawnFloorEntity(customStage: CustomStage, rng: RNG) {
       );
       sprite.ReplaceSpritesheet(layerID, LFloorPNGPath);
     }
-  }
-
-  if (isNarrowRoom(roomShape)) {
-    // The magic numbers are copied from StageAPI.
-    for (const layerID of [18, 19]) {
+  } else if (isNarrowRoom(roomShape)) {
+    for (const layerID of N_FLOOR_ANM2_LAYERS) {
       const NFloorPNGPath = getBackdropPNGPath(
         customStage,
         BackdropKind.N_FLOOR,
@@ -263,6 +267,7 @@ function getNumFloorLayers(roomShape: RoomShape) {
     }
 
     default: {
+      // We have explicit logic elsewhere to handle narrow rooms and L rooms.
       return undefined;
     }
   }

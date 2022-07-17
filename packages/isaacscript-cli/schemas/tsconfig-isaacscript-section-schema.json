@@ -43,11 +43,11 @@
           "type": "object"
         },
         "baseStage": {
-          "description": "An integer between 2 and 13, corresponding to the `LevelStage` enum. This is the number of the stage that will be warped to and used as a basis for the stage by the level generation algorithm. Mandatory.\n\n(It is not possible to use Basement 1 as a base stage due to conflicts with the `Game.SetStage` method.)",
+          "description": "Optional. An integer between 2 and 13, corresponding to the `LevelStage` enum. This is the number of the stage that will be warped to and used as a basis for the stage by the level generation algorithm.\n\n(It is not possible to use Basement 1 as a base stage due to conflicts with the `Game.SetStage` method.)\n\nIf not specified, `LevelStage.BASEMENT_2` (2) will be used.",
           "type": "number"
         },
         "baseStageType": {
-          "description": "An integer between 0 and 5, corresponding to the `StageType` enum. This is the number of the stage type that will be warped to and used as a basis for the stage by the level generation algorithm. Mandatory.",
+          "description": "Optional. An integer between 0 and 5, corresponding to the `StageType` enum. This is the number of the stage type that will be warped to and used as a basis for the stage by the level generation algorithm.\n\nIf not specified, `StageType.ORIGINAL` (0) will be used.",
           "type": "number"
         },
         "decorationsPNGPath": {
@@ -110,7 +110,7 @@
           "type": "object"
         },
         "name": {
-          "description": "The name of the custom stage. Mandatory.",
+          "description": "Mandatory. The name of the custom stage.",
           "type": "string"
         },
         "pitsPNGPath": {
@@ -122,7 +122,7 @@
           "type": "string"
         },
         "roomVariantPrefix": {
-          "description": "An arbitrarily chosen prefix in the range of 101-999. Mandatory.",
+          "description": "Mandatory. An arbitrarily chosen prefix in the range of 101-999 that will be unique to this stage.\n\nMake sure the chosen prefix does not conflict with any other mods. You can find a list of registered room variant prefixes on the IsaacScript website.",
           "type": "number"
         },
         "shadows": {
@@ -324,17 +324,11 @@
           "type": "object"
         },
         "xmlPath": {
-          "description": "Path to the XML file that contains the rooms for the custom stage (created with Basement Renovator). Mandatory.",
+          "description": "Mandatory. The path to the XML file that contains the rooms for the custom stage (created with Basement Renovator).",
           "type": "string"
         }
       },
-      "required": [
-        "name",
-        "xmlPath",
-        "roomVariantPrefix",
-        "baseStage",
-        "baseStageType"
-      ],
+      "required": ["name", "xmlPath", "roomVariantPrefix"],
       "type": "object"
     },
     "IsaacScriptTSConfig": {

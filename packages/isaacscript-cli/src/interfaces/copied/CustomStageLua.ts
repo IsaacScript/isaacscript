@@ -14,34 +14,44 @@
 
 // ts-prune-ignore-next
 export type CustomStageTSConfig = Readonly<{
-  /** The name of the custom stage. Mandatory. */
+  /** Mandatory. The name of the custom stage. */
   name: string;
 
   /**
-   * Path to the XML file that contains the rooms for the custom stage (created with Basement
-   * Renovator). Mandatory.
+   * Mandatory. The path to the XML file that contains the rooms for the custom stage (created with
+   * Basement Renovator).
    */
   xmlPath: string;
 
-  /** An arbitrarily chosen prefix in the range of 101-999. Mandatory. */
+  /**
+   * Mandatory. An arbitrarily chosen prefix in the range of 101-999 that will be unique to this
+   * stage.
+   *
+   * Make sure the chosen prefix does not conflict with any other mods. You can find a list of
+   * registered room variant prefixes on the IsaacScript website.
+   */
   roomVariantPrefix: number;
 
   /**
-   * An integer between 2 and 13, corresponding to the `LevelStage` enum. This is the number of the
-   * stage that will be warped to and used as a basis for the stage by the level generation
-   * algorithm. Mandatory.
+   * Optional. An integer between 2 and 13, corresponding to the `LevelStage` enum. This is the
+   * number of the stage that will be warped to and used as a basis for the stage by the level
+   * generation algorithm.
    *
    * (It is not possible to use Basement 1 as a base stage due to conflicts with the `Game.SetStage`
    * method.)
+   *
+   * If not specified, `LevelStage.BASEMENT_2` (2) will be used.
    */
-  baseStage: number;
+  baseStage?: number;
 
   /**
-   * An integer between 0 and 5, corresponding to the `StageType` enum. This is the number of the
-   * stage type that will be warped to and used as a basis for the stage by the level generation
-   * algorithm. Mandatory.
+   * Optional. An integer between 0 and 5, corresponding to the `StageType` enum. This is the number
+   * of the stage type that will be warped to and used as a basis for the stage by the level
+   * generation algorithm.
+   *
+   * If not specified, `StageType.ORIGINAL` (0) will be used.
    */
-  baseStageType: number;
+  baseStageType?: number;
 
   /**
    * Optional. An object containing the paths to the backdrop graphics for the stage. (A backdrop is

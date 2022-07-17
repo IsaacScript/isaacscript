@@ -2,6 +2,7 @@ import { Dimension } from "../../enums/Dimension";
 import { DoorSlot } from "../../enums/DoorSlot";
 import { EntityType } from "../../enums/EntityType";
 import { DisplayFlag } from "../../enums/flags/DisplayFlag";
+import { GridRoom } from "../../enums/GridRoom";
 import { RoomShape } from "../../enums/RoomShape";
 import { RoomType } from "../../enums/RoomType";
 
@@ -178,7 +179,9 @@ declare global {
 
     GetRoomById(id: number | string): MinimapAPIRoomDescriptor | undefined;
 
-    GetRoomByIdx(roomGridIndex: int): MinimapAPIRoomDescriptor | undefined;
+    GetRoomByIdx(
+      roomGridIndex: int | GridRoom,
+    ): MinimapAPIRoomDescriptor | undefined;
 
     GetSaveTable(menuExit: boolean): LuaTable;
 

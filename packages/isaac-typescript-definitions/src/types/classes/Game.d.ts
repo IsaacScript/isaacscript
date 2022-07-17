@@ -10,6 +10,7 @@ import { FadeoutTarget } from "../../enums/FadeoutTarget";
 import { DamageFlag } from "../../enums/flags/DamageFlag";
 import { TearFlag } from "../../enums/flags/TearFlag";
 import { GameStateFlag } from "../../enums/GameStateFlag";
+import { GridRoom } from "../../enums/GridRoom";
 import { LevelStage } from "../../enums/LevelStage";
 import { RoomTransitionAnim } from "../../enums/RoomTransitionAnim";
 import { StageTransition } from "../../enums/StageTransition";
@@ -109,7 +110,7 @@ declare global {
      * @param roomGridIndex The room grid index of the destination room.
      * @param dimension Default is `Dimension.CURRENT`.
      */
-    ChangeRoom(roomGridIndex: int, dimension?: Dimension): void;
+    ChangeRoom(roomGridIndex: int | GridRoom, dimension?: Dimension): void;
 
     CharmFart(position: Vector, radius: float, source: Entity): void;
     ClearDonationModAngel(): void;
@@ -291,7 +292,7 @@ declare global {
      * @param dimension Default is `Dimension.CURRENT`.
      */
     StartRoomTransition(
-      roomGridIndex: int,
+      roomGridIndex: int | GridRoom,
       direction: Direction,
       roomTransitionAnim?: RoomTransitionAnim,
       player?: EntityPlayer,

@@ -1,6 +1,7 @@
 import { fonts, game } from "../../cachedClasses";
 import { KColorDefault } from "../../constants";
 import { getScreenBottomCenterPos } from "../../functions/ui";
+import { todo } from "../../functions/utils";
 import { CustomStage } from "../../interfaces/CustomStage";
 import v from "./v";
 
@@ -33,12 +34,10 @@ export function streakTextPostRender(customStage: CustomStage): void {
 // TODO
 
 // ModCallback.GET_SHADER_PARAMS (22)
-export function streakTextGetShaderParams(
-  shaderName: string,
-): Record<string, unknown> | undefined {
+export function streakTextGetShaderParams(shaderName: string): void {
   if (shaderName !== EMPTY_SHADER_NAME) {
-    return undefined;
+    return;
   }
 
-  return {};
+  todo();
 }

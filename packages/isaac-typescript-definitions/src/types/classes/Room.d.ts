@@ -5,6 +5,7 @@ import { CollectibleType } from "../../enums/collections/subTypes";
 import { DoorSlot } from "../../enums/DoorSlot";
 import { GridCollisionClass } from "../../enums/GridCollisionClass";
 import { GridEntityType } from "../../enums/GridEntityType";
+import { GridPath } from "../../enums/GridPath";
 import { LineCheckMode } from "../../enums/LineCheckMode";
 import { RenderMode } from "../../enums/RenderMode";
 import { RoomShape } from "../../enums/RoomShape";
@@ -20,19 +21,19 @@ declare global {
      * @param ignoreWalls Default is false.
      * @param ignoreCrushable Default is false.
      * @returns 2 values:
-     * - boolean - true if there are no obstructions between `position` and `position2`, false
+     * - clear - True if there are no obstructions between `position` and `position2`, false
      *   otherwise.
-     * - Vector - The first hit position from `position1` to `position2`. Returns `position2` if the
-     *   line didn't hit anything.
+     * - collidePos - The first hit position from `position1` to `position2`. Returns `position2` if
+     *   the line didn't hit anything.
      */
     CheckLine(
       position1: Vector,
       position2: Vector,
       lineCheckMode: LineCheckMode,
-      gridPathThreshold?: int,
+      gridPathThreshold?: int | GridPath,
       ignoreWalls?: boolean,
       ignoreCrushable?: boolean,
-    ): LuaMultiReturn<[Clear: boolean, collidePos: Vector]>;
+    ): LuaMultiReturn<[clear: boolean, collidePos: Vector]>;
 
     DamageGrid(index: int, damage: int): boolean;
     DestroyGrid(index: int, immediate: boolean): boolean;

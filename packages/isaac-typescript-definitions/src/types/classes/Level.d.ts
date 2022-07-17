@@ -1,6 +1,7 @@
 import { Dimension } from "../../enums/Dimension";
 import { DoorSlot } from "../../enums/DoorSlot";
 import { LevelCurse } from "../../enums/flags/LevelCurse";
+import { GridRoom } from "../../enums/GridRoom";
 import { LevelStage } from "../../enums/LevelStage";
 import { LevelStateFlag } from "../../enums/LevelStateFlag";
 import { RoomType } from "../../enums/RoomType";
@@ -20,7 +21,15 @@ declare global {
     ApplyBlueMapEffect(): void;
     ApplyCompassEffect(persistent: boolean): void;
     ApplyMapEffect(): void;
-    CanOpenChallengeRoom(roomGridIndex: int): boolean;
+
+    /**
+     * Returns whether or not a Challenge Room door will be open. You must pass this method a valid
+     * grid index on the floor. It does not matter if the grid index is actually attached to the
+     * Challenge Room or not. This method will always return false if an invalid or a negative grid
+     * index is passed.
+     */
+    CanOpenChallengeRoom(roomGridIndex: int | GridRoom): boolean;
+
     CanSpawnDevilRoom(): boolean;
     CanStageHaveCurseOfLabyrinth(levelStage: LevelStage): boolean;
 
@@ -30,7 +39,11 @@ declare global {
      * @param roomGridIndex The room grid index of the destination room.
      * @param dimension Default is `Dimension.CURRENT`.
      */
-    ChangeRoom(fakeArg: never, roomGridIndex: int, dimension?: Dimension): void;
+    ChangeRoom(
+      fakeArg: never,
+      roomGridIndex: int | GridRoom,
+      dimension?: Dimension,
+    ): void;
 
     DisableDevilRoom(): void;
     ForceHorsemanBoss(seed: Seed): boolean;
@@ -112,7 +125,10 @@ declare global {
      * @param roomGridIndex The grid index of the room to get.
      * @param dimension Default is `Dimension.CURRENT`.
      */
-    GetRoomByIdx(roomGridIndex: int, dimension?: Dimension): RoomDescriptor;
+    GetRoomByIdx(
+      roomGridIndex: int | GridRoom,
+      dimension?: Dimension,
+    ): RoomDescriptor;
 
     GetRoomCount(): int;
     GetRooms(): RoomList;
@@ -140,7 +156,7 @@ declare global {
      * Attempts to create a red room door in the given room at the given door slot. Returns true on
      * success.
      */
-    MakeRedRoomDoor(roomGridIndex: int, doorSlot: DoorSlot): boolean;
+    MakeRedRoomDoor(roomGridIndex: int | GridRoom, doorSlot: DoorSlot): boolean;
 
     /**
      * @param roomType

@@ -153,14 +153,17 @@ export function getCustomStagesFromTSConfig(
     }
 
     const { baseStage } = customStageTSConfig;
-    if (baseStage < 2 || baseStage > 13) {
+    if (baseStage !== undefined && (baseStage < 2 || baseStage > 13)) {
       error(
         `The "${name}" custom stage has an invalid value for the "baseStage" property: ${baseStage}`,
       );
     }
 
     const { baseStageType } = customStageTSConfig;
-    if (baseStageType < 0 || baseStageType > 5) {
+    if (
+      baseStageType !== undefined &&
+      (baseStageType < 0 || baseStageType > 5)
+    ) {
       error(
         `The "${name}" custom stage has an invalid value for the "baseStageType" property: ${baseStageType}`,
       );

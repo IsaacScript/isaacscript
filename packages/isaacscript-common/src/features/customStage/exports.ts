@@ -48,10 +48,15 @@ export function setCustomStage(name: string, verbose = false): void {
 
   v.run.currentCustomStage = customStage;
 
-  setStage(
-    customStage.baseStage as LevelStage,
-    customStage.baseStageType as StageType,
-  );
+  const baseStage =
+    customStage.baseStage === undefined
+      ? LevelStage.BASEMENT_2
+      : (customStage.baseStage as LevelStage);
+  const baseStageType =
+    customStage.baseStageType === undefined
+      ? StageType.ORIGINAL
+      : (customStage.baseStageType as StageType);
+  setStage(baseStage, baseStageType);
 
   // Now, we need to pick a custom room for each vanilla room.
   for (const room of getRooms()) {
