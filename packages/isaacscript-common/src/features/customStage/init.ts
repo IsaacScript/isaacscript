@@ -170,6 +170,3 @@ function postNewRoomReordered() {
   setShadows(customStage);
   playVersusScreenAnimation(customStage);
 }
-
-let x = 1;
-x = 1 + 1;
