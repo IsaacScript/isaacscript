@@ -401,15 +401,10 @@ module.exports = {
      * Defined at:
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
      *
-     * Airbnb disallows these because it can lead to errors with minified code. We don't have to
-     * worry about this in for loops though.
+     * Airbnb disallows these because it can lead to errors with minified code. When using Prettier,
+     * it adds semi-colons everywhere, so we don't have to worry about this.
      */
-    "no-plusplus": [
-      "warn",
-      {
-        allowForLoopAfterthoughts: true,
-      },
-    ],
+    "no-plusplus": "off",
 
     /**
      * Documentation:
