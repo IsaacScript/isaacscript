@@ -22,6 +22,7 @@ jsdoc # Monorepo word
 lualib # TSTL word
 luatable # TSTL word
 markdownlint # Monorepo word
+minusminus # For linting
 nocache # Monorepo word
 nocheck # For @ts-nocheck
 noout # lint.sh

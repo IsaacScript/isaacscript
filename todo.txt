@@ -3,3 +3,28 @@
 - custom stage level streak text - need to render on top of HUD
 - custom trapdoors
 - custom bosses for vanilla stages
+
+- lint rule isn't working for spaces between @param and header text in typescript-definitions
+
+1) foo += 1 auto-fixed to foo++. (prefer-plusplus)
+2) foo -= 1 auto-fixed to foo--. (prefer-minusminus)
+3) ++foo auto-fixed to foo++. (prefer-postfix-plusplus)
+4) --foo auto-fixed to foo--. (prefer-postfix-minusminus)
+5) foo++ combined with any operator throws warning. (no-plusplus-operators)
+6) foo-- combined with any operator throws warning. (no-minusminus-operators)
+
+{
+  "rules": {
+    "no-restricted-syntax": [
+      "error",
+      {
+        "selector": ":not(UnaryExpression[operator='void'],ExpressionStatement,SequenceExpression,ForStatement[update.type=UpdateExpression]) > UpdateExpression[prefix='false'], ForStatement[init.type=UpdateExpression] > UpdateExpression[prefix='false'], ForStatement[test.type=UpdateExpression] > UpdateExpression[prefix='false']",
+        "message": "BANNED"
+      },
+      {
+        "selector": "SequenceExpression > UpdateExpression[prefix='false']:last-child",
+        "message": "BANNED"
+      }
+    ]
+  }
+}
