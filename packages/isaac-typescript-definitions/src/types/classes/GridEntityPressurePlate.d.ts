@@ -2,6 +2,10 @@ import { PressurePlateState } from "../../enums/collections/gridEntityState";
 import { PressurePlateVariant } from "../../enums/collections/gridEntityVariants";
 
 declare global {
+  /**
+   * Grid entities of type `GridEntityType.PRESSURE_PLATE` (20) can be converted to this class with
+   * the `GridEntity.ToPressurePlate` method.
+   */
   interface GridEntityPressurePlate extends GridEntity {
     GetVariant(): PressurePlateVariant;
     Reward(): void;

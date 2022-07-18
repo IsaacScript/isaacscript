@@ -21,6 +21,7 @@ import { isCircleIntersectingRectangle } from "./math";
 import { getRandomSeed } from "./rng";
 import { roomUpdateSafe } from "./rooms";
 import { clearSprite } from "./sprites";
+import { isNumber } from "./types";
 import { erange } from "./utils";
 import { isVector } from "./vector";
 
@@ -479,24 +480,25 @@ export function removeAllMatchingGridEntities(
 }
 
 /**
- * Helper function to remove a grid entity simply by providing the grid entity object. By default,
- * this will also update the room.
+ * Helper function to remove a grid entity by providing the grid entity object or the grid index
+ * inside of the room.
  *
  * @param gridEntityOrGridIndex The grid entity or grid index to remove.
- * @param updateRoom Optional. Whether or not to update the room after the grid entity is removed.
- *                   Default is true. This is generally a good idea because if the room is not
- *                   updated, you will be unable to spawn another grid entity on the same tile until
- *                   a frame has passed. However, doing this is expensive, since it involves a call
- *                   to `Isaac.GetRoomEntities`, so set it to false if you need to invoke this
- *                   function multiple times.
+ * @param updateRoom Whether or not to update the room after the grid entity is removed. This is
+ *                   generally a good idea because if the room is not updated, you will be unable to
+ *                   spawn another grid entity on the same tile until a frame has passed. However,
+ *                   doing this is expensive, since it involves a call to `Isaac.GetRoomEntities`,
+ *                   so set this to false if you need to invoke this function multiple times.
  */
 export function removeGrid(
-  gridEntityOrGridIndex: GridEntity,
-  updateRoom = true,
+  gridEntityOrGridIndex: GridEntity | int,
+  updateRoom: boolean,
 ): void {
   const room = game.GetRoom();
 
-  const gridIndex = gridEntityOrGridIndex.GetGridIndex();
+  const gridIndex = isNumber(gridEntityOrGridIndex)
+    ? gridEntityOrGridIndex
+    : gridEntityOrGridIndex.GetGridIndex();
   room.RemoveGridEntity(gridIndex, 0, false);
 
   if (updateRoom) {
@@ -586,7 +588,7 @@ export function spawnGridWithVariant(
     ? room.GetGridEntityFromPos(gridIndexOrPosition)
     : room.GetGridEntity(gridIndexOrPosition);
   if (existingGridEntity !== undefined) {
-    removeGrid(existingGridEntity);
+    removeGrid(existingGridEntity, true);
   }
 
   const position = isVector(gridIndexOrPosition)

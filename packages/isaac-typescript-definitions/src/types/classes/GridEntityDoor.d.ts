@@ -5,6 +5,10 @@ import { DoorSlot } from "../../enums/DoorSlot";
 import { RoomType } from "../../enums/RoomType";
 
 declare global {
+  /**
+   * Grid entities of type `GridEntityType.DOOR` (16) can be converted to this class with the
+   * `GridEntity.ToDoor` method.
+   */
   interface GridEntityDoor extends GridEntity {
     Bar(): void;
     CanBlowOpen(): boolean;
