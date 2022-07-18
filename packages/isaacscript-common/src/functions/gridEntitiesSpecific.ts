@@ -19,7 +19,7 @@ export function getPits(pitVariant: PitVariant = -1): GridEntityPit[] {
   for (const gridEntity of gridEntities) {
     const pit = gridEntity.ToPit();
     if (pit !== undefined) {
-      const gridEntityVariant = pit.GetVariant() as PitVariant;
+      const gridEntityVariant = pit.GetVariant();
       if ((pitVariant as int) === -1 || pitVariant === gridEntityVariant) {
         pits.push(pit);
       }
@@ -44,7 +44,7 @@ export function getPoops(
   for (const gridEntity of gridEntities) {
     const poop = gridEntity.ToPoop();
     if (poop !== undefined) {
-      const gridEntityVariant = poop.GetVariant() as PoopGridEntityVariant;
+      const gridEntityVariant = poop.GetVariant();
       if ((poopVariant as int) === -1 || poopVariant === gridEntityVariant) {
         poops.push(poop);
       }
@@ -69,8 +69,7 @@ export function getPressurePlates(
   for (const gridEntity of gridEntities) {
     const pressurePlate = gridEntity.ToPressurePlate();
     if (pressurePlate !== undefined) {
-      const gridEntityVariant =
-        pressurePlate.GetVariant() as PressurePlateVariant;
+      const gridEntityVariant = pressurePlate.GetVariant();
       if (
         (pressurePlateVariant as int) === -1 ||
         pressurePlateVariant === gridEntityVariant

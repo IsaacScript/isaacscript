@@ -1,6 +1,8 @@
+import { PoopGridEntityVariant } from "isaac-typescript-definitions";
+
 export type PostPoopUpdateRegisterParameters = [
   callback: (poop: GridEntityPoop) => void,
-  gridEntityVariant?: int,
+  poopVariant?: PoopGridEntityVariant,
 ];
 
 const subscriptions: PostPoopUpdateRegisterParameters[] = [];
@@ -19,13 +21,13 @@ export function postPoopUpdateRegister(
 
 /** @internal */
 export function postPoopUpdateFire(poop: GridEntityPoop): void {
-  const gridEntityVariant = poop.GetVariant();
+  const poopVariant = poop.GetVariant();
 
-  for (const [callback, callbackGridEntityVariant] of subscriptions) {
+  for (const [callback, callbackPoopVariant] of subscriptions) {
     // Handle the optional 2nd callback argument.
     if (
-      callbackGridEntityVariant !== undefined &&
-      callbackGridEntityVariant !== gridEntityVariant
+      callbackPoopVariant !== undefined &&
+      callbackPoopVariant !== poopVariant
     ) {
       continue;
     }

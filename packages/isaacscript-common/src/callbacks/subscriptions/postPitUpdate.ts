@@ -1,6 +1,8 @@
+import { PitVariant } from "isaac-typescript-definitions";
+
 export type PostPitUpdateRegisterParameters = [
   callback: (pit: GridEntityPit) => void,
-  gridEntityVariant?: int,
+  pitVariant?: PitVariant,
 ];
 
 const subscriptions: PostPitUpdateRegisterParameters[] = [];
@@ -19,14 +21,11 @@ export function postPitUpdateRegister(
 
 /** @internal */
 export function postPitUpdateFire(pit: GridEntityPit): void {
-  const gridEntityVariant = pit.GetVariant();
+  const pitVariant = pit.GetVariant();
 
-  for (const [callback, callbackGridEntityVariant] of subscriptions) {
+  for (const [callback, callbackPitVariant] of subscriptions) {
     // Handle the optional 2nd callback argument.
-    if (
-      callbackGridEntityVariant !== undefined &&
-      callbackGridEntityVariant !== gridEntityVariant
-    ) {
+    if (callbackPitVariant !== undefined && callbackPitVariant !== pitVariant) {
       continue;
     }
 

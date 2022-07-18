@@ -1,6 +1,8 @@
+import { PressurePlateVariant } from "isaac-typescript-definitions";
+
 export type PostPressurePlateUpdateRegisterParameters = [
   callback: (pressurePlate: GridEntityPressurePlate) => void,
-  gridEntityVariant?: int,
+  pressurePlateVariant?: PressurePlateVariant,
 ];
 
 const subscriptions: PostPressurePlateUpdateRegisterParameters[] = [];
@@ -21,13 +23,13 @@ export function postPressurePlateUpdateRegister(
 export function postPressurePlateUpdateFire(
   pressurePlate: GridEntityPressurePlate,
 ): void {
-  const gridEntityVariant = pressurePlate.GetVariant();
+  const pressurePlateVariant = pressurePlate.GetVariant();
 
-  for (const [callback, callbackGridEntityVariant] of subscriptions) {
+  for (const [callback, callbackPressurePlateVariant] of subscriptions) {
     // Handle the optional 2nd callback argument.
     if (
-      callbackGridEntityVariant !== undefined &&
-      callbackGridEntityVariant !== gridEntityVariant
+      callbackPressurePlateVariant !== undefined &&
+      callbackPressurePlateVariant !== pressurePlateVariant
     ) {
       continue;
     }

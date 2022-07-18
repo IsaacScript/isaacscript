@@ -1,6 +1,8 @@
+import { DoorVariant } from "isaac-typescript-definitions";
+
 export type PostDoorRenderRegisterParameters = [
   callback: (door: GridEntityDoor) => void,
-  gridEntityVariant?: int,
+  doorVariant?: DoorVariant,
 ];
 
 const subscriptions: PostDoorRenderRegisterParameters[] = [];
@@ -19,13 +21,13 @@ export function postDoorRenderRegister(
 
 /** @internal */
 export function postDoorRenderFire(door: GridEntityDoor): void {
-  const gridEntityVariant = door.GetVariant();
+  const doorVariant = door.GetVariant();
 
-  for (const [callback, callbackGridEntityVariant] of subscriptions) {
+  for (const [callback, callbackDoorVariant] of subscriptions) {
     // Handle the optional 2nd callback argument.
     if (
-      callbackGridEntityVariant !== undefined &&
-      callbackGridEntityVariant !== gridEntityVariant
+      callbackDoorVariant !== undefined &&
+      callbackDoorVariant !== doorVariant
     ) {
       continue;
     }

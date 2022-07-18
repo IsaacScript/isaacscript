@@ -169,8 +169,11 @@ export function saveDataManagerSave(): void {
   forceSaveDataManagerSave();
 }
 
-declare let g: LuaTable<string, SaveData>; // Globals
-declare let gd: LuaTable<string, SaveData>; // Globals defaults
+/** "g" stands for "globals". */
+declare let g: LuaTable<string, SaveData>; // eslint-disable-line @typescript-eslint/no-unused-vars
+
+/** "gd" stands for "globals defaults". */
+declare let gd: LuaTable<string, SaveData>; // eslint-disable-line @typescript-eslint/no-unused-vars
 
 /**
  * - Sets the global variable of "g" equal to all of the save data variables for this mod.
@@ -182,8 +185,8 @@ declare let gd: LuaTable<string, SaveData>; // Globals defaults
 export function saveDataManagerSetGlobal(): void {
   errorIfFeaturesNotInitialized(SAVE_DATA_MANAGER_FEATURE_NAME);
 
-  g = saveDataMap; // eslint-disable-line @typescript-eslint/no-unused-vars
-  gd = saveDataDefaultsMap; // eslint-disable-line @typescript-eslint/no-unused-vars
+  g = saveDataMap;
+  gd = saveDataDefaultsMap;
 }
 
 /**
