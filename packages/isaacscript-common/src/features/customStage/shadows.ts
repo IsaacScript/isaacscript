@@ -38,12 +38,6 @@ const ROOM_SHAPE_TO_SHADOW_ANIMATION: {
 
 const FADED_BLACK = Color(0, 0, 0, 0.25);
 
-const shadowSprite = Sprite();
-shadowSprite.Load(
-  `${ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH}/stage-shadow.anm2`,
-  true,
-);
-
 export function setShadows(customStage: CustomStage): void {
   if (customStage.shadows === undefined) {
     return;
