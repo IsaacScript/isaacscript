@@ -587,9 +587,14 @@ export function logTable(
   const indentation = " ".repeat(numSpaces);
 
   if (!isTable(luaTable)) {
-    log(
-      `${indentation}n/a (encountered a variable of type "${typeof luaTable}" instead of a table)`,
-    );
+    // Put it in an IIFE so that the it will show as "func" instead of "logTable" and align with the
+    // other text.
+    (() => {
+      log(
+        `${indentation}n/a (encountered a variable of type "${typeof luaTable}" instead of a table)`,
+      );
+    })();
+
     return;
   }
 

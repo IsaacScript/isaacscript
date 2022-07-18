@@ -155,7 +155,9 @@ function oldTableHasFilledMap() {
 
   const expectedSize = 3;
   if (v.run.myMap.size !== expectedSize) {
-    error(`The size of the merged map size was not equal to: ${expectedSize}`);
+    error(
+      `The size of the merged map was equal to ${v.run.myMap.size}, but it should be equal to: ${expectedSize}`,
+    );
   }
 
   {
@@ -204,7 +206,7 @@ function oldTableHasFilledDefaultMap() {
 
   const saveData = {
     run: {
-      myMap: new DefaultMap<string, string>("default", [
+      myDefaultMap: new DefaultMap<string, string>("default", [
         ["foo1", "bar1"],
         ["foo2", "bar2"],
         ["foo3", "bar3"],
@@ -222,7 +224,7 @@ function oldTableHasFilledDefaultMap() {
   const expectedSize = 3;
   if (v.run.myDefaultMap.size !== expectedSize) {
     error(
-      `The size of the merged default map size was not equal to: ${expectedSize}`,
+      `The size of the merged default map was equal to ${v.run.myDefaultMap.size}, but it should be equal to: ${expectedSize}`,
     );
   }
 

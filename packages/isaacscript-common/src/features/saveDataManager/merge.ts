@@ -8,7 +8,7 @@ import {
   isSerializedIsaacAPIClass,
 } from "../../functions/serialization";
 import { clearTable, iterateTableInOrder } from "../../functions/table";
-import { isTSTLMap, isTSTLSet } from "../../functions/tstlClass";
+import { isDefaultMap, isTSTLMap, isTSTLSet } from "../../functions/tstlClass";
 import { isTable } from "../../functions/types";
 import { getTraversalDescription } from "../../functions/utils";
 import { SAVE_DATA_MANAGER_DEBUG } from "./saveDataManagerConstants";
@@ -65,7 +65,7 @@ export function merge(
 
   // Depending on whether we are working on a Lua table or a TypeScriptToLua object, we need to
   // iterate in a specific way.
-  if (isTSTLMap(oldObject) || isTSTLSet(oldObject)) {
+  if (isTSTLMap(oldObject) || isTSTLSet(oldObject) || isDefaultMap(oldObject)) {
     mergeTSTLObject(oldObject, newTable, traversalDescription);
   } else {
     mergeTable(oldObject, newTable, traversalDescription);
@@ -118,7 +118,7 @@ function mergeTSTLObject(
         keyToUse = numberKey;
       }
 
-      if (isTSTLMap(oldObject)) {
+      if (isTSTLMap(oldObject) || isDefaultMap(oldObject)) {
         let valueCopy: unknown;
         if (isTable(value)) {
           valueCopy = deepCopy(
