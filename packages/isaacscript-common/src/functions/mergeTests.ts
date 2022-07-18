@@ -1,3 +1,4 @@
+import { DefaultMap } from "../classes/DefaultMap";
 import { SerializationType } from "../enums/SerializationType";
 import { merge } from "../features/saveDataManager/merge";
 import { deepCopy } from "./deepCopy";
@@ -6,13 +7,22 @@ import { isRNG, newRNG } from "./rng";
 import { isSerializedIsaacAPIClass } from "./serialization";
 import { copyVector, isVector } from "./vector";
 
-export function mergeTests(): void {
+/**
+ * Run the suite of tests that prove that the "merge" helper function works properly. (This function
+ * is not exported but is used internally in the save data manager.)
+ *
+ * This function is only useful if you are troubleshooting the save data manager.
+ */
+export function runMergeTests(): void {
   oldTableHasUpdatedValue();
   newTableHasSameValue();
   oldTableHasUpdatedValueFromNull();
   oldTableHasSerializedIsaacAPIClass();
 
-  oldTableHasFilledInterface();
+  oldTableHasFilledChildTable();
+  oldTableHasFilledMap();
+  oldTableHasFilledDefaultMap();
+
   oldTableHasVector();
   oldTableHasVectorSerialized();
   oldTableHasRNG();
@@ -90,7 +100,7 @@ function oldTableHasSerializedIsaacAPIClass() {
   }
 }
 
-function oldTableHasFilledInterface() {
+function oldTableHasFilledChildTable() {
   interface Foo {
     bar: string;
   }
@@ -107,7 +117,7 @@ function oldTableHasFilledInterface() {
     foo,
   } as unknown as LuaTable<AnyNotNil, unknown>;
 
-  merge(oldTable, newTable, "oldTableHasFilledInterface");
+  merge(oldTable, newTable, "oldTableHasFilledChildTable");
 
   const oldTableValue = oldTable.get(key) as Foo | undefined;
   if (oldTableValue === undefined) {
@@ -116,6 +126,140 @@ function oldTableHasFilledInterface() {
 
   if (oldTableValue.bar !== newValue) {
     error('The old table\'s key of "bar" was not filled.');
+  }
+}
+
+function oldTableHasFilledMap() {
+  const v = {
+    run: {
+      myMap: new Map<string, string>(),
+    },
+  };
+
+  const saveData = {
+    run: {
+      myMap: new Map<string, string>([
+        ["foo1", "bar1"],
+        ["foo2", "bar2"],
+        ["foo3", "bar3"],
+      ]),
+    },
+  };
+  const serializedSaveData = deepCopy(saveData, SerializationType.SERIALIZE);
+
+  merge(
+    v as unknown as LuaTable,
+    serializedSaveData as LuaTable,
+    "oldTableHasFilledMap",
+  );
+
+  const expectedSize = 3;
+  if (v.run.myMap.size !== expectedSize) {
+    error(`The size of the merged map size was not equal to: ${expectedSize}`);
+  }
+
+  {
+    const key = "foo1";
+    const expectedValue = "bar1";
+
+    const value = v.run.myMap.get(key);
+    if (value !== expectedValue) {
+      error(
+        `The old table's map key of "${key}" was not equal to "${expectedValue}" and was instead equal to: ${value}`,
+      );
+    }
+  }
+
+  {
+    const key = "foo2";
+    const expectedValue = "bar2";
+
+    const value = v.run.myMap.get(key);
+    if (value !== expectedValue) {
+      error(
+        `The old table's map key of "${key}" was not equal to "${expectedValue}" and was instead equal to: ${value}`,
+      );
+    }
+  }
+
+  {
+    const key = "foo3";
+    const expectedValue = "bar3";
+
+    const value = v.run.myMap.get(key);
+    if (value !== expectedValue) {
+      error(
+        `The old table's map key of "${key}" was not equal to "${expectedValue}" and was instead equal to: ${value}`,
+      );
+    }
+  }
+}
+
+function oldTableHasFilledDefaultMap() {
+  const v = {
+    run: {
+      myDefaultMap: new DefaultMap<string, string>("default"),
+    },
+  };
+
+  const saveData = {
+    run: {
+      myMap: new DefaultMap<string, string>("default", [
+        ["foo1", "bar1"],
+        ["foo2", "bar2"],
+        ["foo3", "bar3"],
+      ]),
+    },
+  };
+  const serializedSaveData = deepCopy(saveData, SerializationType.SERIALIZE);
+
+  merge(
+    v as unknown as LuaTable,
+    serializedSaveData as LuaTable,
+    "oldTableHasFilledDefaultMap",
+  );
+
+  const expectedSize = 3;
+  if (v.run.myDefaultMap.size !== expectedSize) {
+    error(
+      `The size of the merged default map size was not equal to: ${expectedSize}`,
+    );
+  }
+
+  {
+    const key = "foo1";
+    const expectedValue = "bar1";
+
+    const value = v.run.myDefaultMap.get(key);
+    if (value !== expectedValue) {
+      error(
+        `The old table's default map key of "${key}" was not equal to "${expectedValue}" and was instead equal to: ${value}`,
+      );
+    }
+  }
+
+  {
+    const key = "foo2";
+    const expectedValue = "bar2";
+
+    const value = v.run.myDefaultMap.get(key);
+    if (value !== expectedValue) {
+      error(
+        `The old table's default map key of "${key}" was not equal to "${expectedValue}" and was instead equal to: ${value}`,
+      );
+    }
+  }
+
+  {
+    const key = "foo3";
+    const expectedValue = "bar3";
+
+    const value = v.run.myDefaultMap.get(key);
+    if (value !== expectedValue) {
+      error(
+        `The old table's default map key of "${key}" was not equal to "${expectedValue}" and was instead equal to: ${value}`,
+      );
+    }
   }
 }
 
@@ -183,6 +327,7 @@ function oldTableHasVectorSerialized() {
   const newTableSerialized = deepCopy(
     newTable,
     SerializationType.SERIALIZE,
+    "oldTableHasVectorSerialized",
   ) as LuaTable<AnyNotNil, unknown>;
 
   merge(oldTable, newTableSerialized, "oldTableHasVectorSerialized");
@@ -266,6 +411,7 @@ function oldTableHasRNGSerialized() {
   const newTableSerialized = deepCopy(
     newTable,
     SerializationType.SERIALIZE,
+    "oldTableHasRNGSerialized",
   ) as LuaTable<AnyNotNil, unknown>;
 
   merge(oldTable, newTableSerialized, "oldTableHasRNGSerialized");

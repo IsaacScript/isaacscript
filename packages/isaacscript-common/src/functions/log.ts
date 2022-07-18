@@ -608,7 +608,11 @@ export function logTable(
     }
   });
 
-  log(`${indentation}The size of the table was: ${luaTable.length()}`);
+  // Put it in an IIFE so that the it will show as "func" instead of "logTable" and align with the
+  // other text.
+  (() => {
+    log(`${indentation}The size of the table was: ${luaTable.length()}`);
+  })();
 }
 
 /**

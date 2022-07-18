@@ -15,6 +15,7 @@ devkit # Monorepo word
 eqeqeq # For linting
 erange # Standard library function
 esbenp # extensions.json
+IIFE # JavaScript word
 irange # Standard library function
 isaacscript
 jscutlery # For version control

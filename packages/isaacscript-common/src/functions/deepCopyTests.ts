@@ -7,7 +7,12 @@ import { log } from "./log";
 import { isDefaultMap, isTSTLMap, isTSTLSet } from "./tstlClass";
 import { isNumber, isString, isTable } from "./types";
 
-export function deepCopyTests(): void {
+/**
+ * Run the suite of tests that prove that the "deepCopy" helper function works properly.
+ *
+ * This function is only useful if you are troubleshooting the "deepCopy" function.
+ */
+export function runDeepCopyTests(): void {
   copiedObjectIsTable();
   copiedObjectHasKeyAndValueString();
   copiedTableHasKeyAndValueNumber();
@@ -34,7 +39,11 @@ function copiedObjectIsTable() {
   const oldObject = {
     abc: "def",
   };
-  const newObject = deepCopy(oldObject as unknown as LuaTable);
+  const newObject = deepCopy(
+    oldObject as unknown as LuaTable,
+    SerializationType.NONE,
+    "copiedObjectIsTable",
+  );
   if (!isTable(newObject)) {
     error(`The copied object had a type of: ${typeof newObject}`);
   }
@@ -46,7 +55,11 @@ function copiedObjectHasKeyAndValueString() {
   const oldObject = {
     abc: valueToLookFor,
   };
-  const newTable = deepCopy(oldObject as unknown as LuaTable);
+  const newTable = deepCopy(
+    oldObject as unknown as LuaTable,
+    SerializationType.NONE,
+    "copiedObjectHasKeyAndValueString",
+  );
   const newObject = newTable as typeof oldObject;
 
   const value = newObject[keyToLookFor];
@@ -69,7 +82,11 @@ function copiedTableHasKeyAndValueNumber() {
   const oldTable = new LuaTable<AnyNotNil, unknown>();
   oldTable.set(keyToLookFor, valueToLookFor);
 
-  const newObject = deepCopy(oldTable);
+  const newObject = deepCopy(
+    oldTable,
+    SerializationType.NONE,
+    "copiedTableHasKeyAndValueNumber",
+  );
   const newTable = newObject as LuaTable<AnyNotNil, unknown>;
 
   const value = newTable.get(keyToLookFor) as number | undefined;
@@ -91,7 +108,11 @@ function copiedTableDoesNotCoerceTypes() {
   const oldTable = new LuaTable<AnyNotNil, unknown>();
   oldTable.set(keyToLookFor, valueToLookFor);
 
-  const newObject = deepCopy(oldTable);
+  const newObject = deepCopy(
+    oldTable,
+    SerializationType.NONE,
+    "copiedTableDoesNotCoerceTypes",
+  );
   const newTable = newObject as LuaTable<AnyNotNil, unknown>;
 
   const keyString = tostring(keyToLookFor);
@@ -117,7 +138,11 @@ function copiedObjectHasNoReferencesForPrimitivesForward() {
     abc: originalStringValue,
     def: originalNumberValue,
   };
-  const newTable = deepCopy(oldObject as unknown as LuaTable);
+  const newTable = deepCopy(
+    oldObject as unknown as LuaTable,
+    SerializationType.NONE,
+    "copiedObjectHasNoReferencesForPrimitivesForward",
+  );
   const newObject = newTable as typeof oldObject;
 
   oldObject.abc = "newValue";
@@ -138,7 +163,11 @@ function copiedObjectHasNoReferencesForPrimitivesBackward() {
     abc: originalStringValue,
     def: originalNumberValue,
   };
-  const newTable = deepCopy(oldObject as unknown as LuaTable);
+  const newTable = deepCopy(
+    oldObject as unknown as LuaTable,
+    SerializationType.NONE,
+    "copiedObjectHasNoReferencesForPrimitivesBackward",
+  );
   const newObject = newTable as typeof oldObject;
 
   newObject.abc = "newValue";
@@ -156,7 +185,11 @@ function copiedObjectHasNoReferencesForArray() {
   const oldObject = {
     abc: [1, 2, 3],
   };
-  const newTable = deepCopy(oldObject as unknown as LuaTable);
+  const newTable = deepCopy(
+    oldObject as unknown as LuaTable,
+    SerializationType.NONE,
+    "copiedObjectHasNoReferencesForArray",
+  );
   const newObject = newTable as typeof oldObject;
 
   if (oldObject.abc === newObject.abc) {
@@ -193,7 +226,11 @@ function copiedObjectHasChildObject() {
       def: valueToLookFor,
     },
   };
-  const newTable = deepCopy(oldObject as unknown as LuaTable);
+  const newTable = deepCopy(
+    oldObject as unknown as LuaTable,
+    SerializationType.NONE,
+    "copiedObjectHasChildObject",
+  );
   const newObject = newTable as typeof oldObject;
 
   const childObject = newObject[childObjectIndex];
@@ -226,7 +263,7 @@ function copiedMapIsMap() {
   const oldMap = new Map<string, string>();
   oldMap.set(keyToLookFor, valueToLookFor);
 
-  const newObject = deepCopy(oldMap);
+  const newObject = deepCopy(oldMap, SerializationType.NONE, "copiedMapIsMap");
   const newMap = newObject as Map<string, string>;
 
   if (!isTable(newMap)) {
@@ -243,7 +280,11 @@ function copiedMapHasValue() {
   const oldMap = new Map<string, string>();
   oldMap.set(keyToLookFor, valueToLookFor);
 
-  const newTable = deepCopy(oldMap);
+  const newTable = deepCopy(
+    oldMap,
+    SerializationType.NONE,
+    "copiedMapHasValue",
+  );
   const newMap = newTable as typeof oldMap;
 
   const value = newMap.get(keyToLookFor);
@@ -260,7 +301,7 @@ function copiedSetIsSet() {
   const oldSet = new Set<string>();
   oldSet.add(valueToLookFor);
 
-  const newTable = deepCopy(oldSet);
+  const newTable = deepCopy(oldSet, SerializationType.NONE, "copiedSetIsSet");
   const newSet = newTable as Set<string>;
 
   if (!isTable(newSet)) {
@@ -276,7 +317,11 @@ function copiedSetHasValue() {
   const oldSet = new Set<string>();
   oldSet.add(valueToLookFor);
 
-  const newTable = deepCopy(oldSet);
+  const newTable = deepCopy(
+    oldSet,
+    SerializationType.NONE,
+    "copiedSetHasValue",
+  );
   const newSet = newTable as Set<string>;
 
   const hasValue = newSet.has(valueToLookFor);
@@ -295,7 +340,11 @@ function copiedMapHasChildMap() {
   const oldMap = new Map<string, Map<number, number>>();
   oldMap.set(keyToLookFor, oldChildMap);
 
-  const newTable = deepCopy(oldMap);
+  const newTable = deepCopy(
+    oldMap,
+    SerializationType.NONE,
+    "copiedMapHasChildMap",
+  );
   const newMap = newTable as typeof oldMap;
 
   const newChildMap = newMap.get(keyToLookFor);
@@ -332,7 +381,11 @@ function copiedDefaultMapHasChildDefaultMap() {
   oldChildMap.getAndSetDefault(childMapKey1);
   oldChildMap.set(childMapKey2, childMapCustomValue);
 
-  const newTable = deepCopy(oldParentMap);
+  const newTable = deepCopy(
+    oldParentMap,
+    SerializationType.NONE,
+    "copiedDefaultMapHasChildDefaultMap",
+  );
   const newParentMap = newTable as typeof oldParentMap;
 
   const newChildMap = newParentMap.get(parentMapKey);
@@ -376,6 +429,7 @@ function copiedDefaultMapHasBrand() {
   const newTable = deepCopy(
     oldDefaultMap,
     SerializationType.SERIALIZE,
+    "copiedDefaultMapHasBrand",
   ) as LuaTable<AnyNotNil, unknown>;
 
   if (!newTable.has(SerializationBrand.DEFAULT_MAP)) {

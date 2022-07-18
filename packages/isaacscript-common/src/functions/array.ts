@@ -443,7 +443,10 @@ export function isArray(object: unknown): object is unknown[] {
     return false;
   }
 
-  const tableLength = object.length();
+  // Third, handle the case of an "empty" table. We cannot use the "LuaTable.length" method to
+  // determine this, since that will not actually return the number of keys. (It will only work
+  // properly for tables that are being used as arrays, which is not necessarily the case here.)
+  const tableLength = Object.keys(object).length;
   if (tableLength === 0) {
     return true;
   }
