@@ -28,6 +28,7 @@ export const recommended = {
     "isaacscript/no-useless-return-no-fix": "error",
     "isaacscript/no-void-return-type": "error",
     "isaacscript/prefer-plusplus": "error",
+    "isaacscript/prefer-postfix-plusplus": "error",
     "isaacscript/require-const-assertions": "error",
     "isaacscript/strict-enums": "error",
   },

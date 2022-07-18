@@ -10,7 +10,7 @@ cd "$DIR"
 
 # This will commonly fail in CI due to `npx git-dirty` failing due to a frequent sequence of
 # commits. Since new rules are rarely added, skip this check in CI.
-if [ [ -z "$CI" ]; then
+if [ -z "$CI" ]; then
   exit
 fi
 

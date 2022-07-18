@@ -59,6 +59,7 @@ Each rule has emojis denoting:
 | [`isaacscript/no-useless-return-no-fix`](docs/rules/no-useless-return-no-fix.md)                 | Disallows redundant return statements (and does not automatically fix)                                | :white_check_mark: |          |                   |
 | [`isaacscript/no-void-return-type`](docs/rules/no-void-return-type.md)                           | Disallows void return types on non-exported functions                                                 | :white_check_mark: | :wrench: |                   |
 | [`isaacscript/prefer-plusplus`](docs/rules/prefer-plusplus.md)                                   | Require "++" or "--" operators instead of assignment operators where applicable                       | :white_check_mark: | :wrench: |                   |
+| [`isaacscript/prefer-postfix-plusplus`](docs/rules/prefer-postfix-plusplus.md)                   | Require "i++" instead of "++i"                                                                        | :white_check_mark: |          | :thought_balloon: |
 | [`isaacscript/require-const-assertions`](docs/rules/require-const-assertions.md)                 | Requires the use of const assertions for named objects with a capital letter                          | :white_check_mark: | :wrench: |                   |
 | [`isaacscript/strict-enums`](docs/rules/strict-enums.md)                                         | Disallows the usage of unsafe enum patterns                                                           | :white_check_mark: |          | :thought_balloon: |
 
