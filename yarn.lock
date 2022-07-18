@@ -8769,10 +8769,10 @@ is-yarn-global@^0.4.0:
   resolved "https://registry.yarnpkg.com/is-yarn-global/-/is-yarn-global-0.4.0.tgz#714d94453327db9ea98fbf1a0c5f2b88f59ddd5c"
   integrity sha512-HneQBCrXGBy15QnaDfcn6OLoU8AQPAa0Qn0IeJR/QCo4E8dNZaGGwxpCwWyEBQC5QvFonP8d6t60iGpAHVAfNA==
 
-isaac-typescript-definitions@^3.0.28:
-  version "3.0.28"
-  resolved "https://registry.yarnpkg.com/isaac-typescript-definitions/-/isaac-typescript-definitions-3.0.28.tgz#d68f0a571aae3a66c994c5587af39af81580f094"
-  integrity sha512-6ZpzFIl+k/pJXvAp0SqO3KfKJla/ypG+fRnacKkwhSYfruY+JB4U2CVniO3QroBBwvOO+ZN7ABGEUAjiX/M2mQ==
+isaac-typescript-definitions@^3.0.29:
+  version "3.0.29"
+  resolved "https://registry.yarnpkg.com/isaac-typescript-definitions/-/isaac-typescript-definitions-3.0.29.tgz#d1ec72104d84e8e775969f7dcfef4ed5275fa4be"
+  integrity sha512-3pHb1D9TmJh/41gKT02imcMqEjIDOIz3aQWEsyXiVD3cpJQOy3R9nDsFq8jk4qLlOD1/VspFRcK2S1n3vq2PUA==
   dependencies:
     lua-types "^2.11.0"
 
