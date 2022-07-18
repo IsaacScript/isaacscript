@@ -21,18 +21,12 @@ foo--;
 ++foo;
       `,
       errors: [{ messageId: "plusPlus" }],
-      output: `
-foo++;
-      `,
     },
     {
       code: `
 --foo;
       `,
       errors: [{ messageId: "minusMinus" }],
-      output: `
-foo--;
-      `,
     },
   ],
 });

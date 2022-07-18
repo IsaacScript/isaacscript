@@ -16,7 +16,19 @@ export const preferPostfixPlusplus = createRule({
     },
   },
   defaultOptions: [],
-  create(_context) {
-    return {};
+  create(context) {
+    return {
+      UpdateExpression(node) {
+        if (!node.prefix) {
+          return;
+        }
+
+        const messageId = node.operator === "++" ? "plusPlus" : "minusMinus";
+        context.report({
+          loc: node.loc,
+          messageId,
+        });
+      },
+    };
   },
 });
