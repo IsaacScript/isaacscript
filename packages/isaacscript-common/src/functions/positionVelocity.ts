@@ -4,10 +4,10 @@ import {
 } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { DISTANCE_OF_GRID_TILE } from "../constants";
-import { getEntities } from "./entity";
-import { getEffects } from "./entitySpecific";
-import { getPlayerCloserThan } from "./player";
+import { getEntities } from "./entities";
+import { getEffects } from "./entitiesSpecific";
 import { getPlayers } from "./playerIndex";
+import { getPlayerCloserThan } from "./players";
 
 const MAX_FIND_FREE_POSITION_ATTEMPTS = 100;
 

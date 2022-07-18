@@ -15,7 +15,7 @@ import {
   getPlayerSoulHearts,
   isCharacter,
   setActiveItem,
-} from "./player";
+} from "./players";
 
 export function addPlayerHealthType(
   player: EntityPlayer,

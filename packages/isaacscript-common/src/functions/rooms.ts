@@ -31,7 +31,7 @@ import {
   isHiddenSecretRoomDoor,
   openDoorFast,
 } from "./doors";
-import { getEntities } from "./entity";
+import { getEntities } from "./entities";
 import { hasFlag } from "./flag";
 import {
   getEntityPositions,

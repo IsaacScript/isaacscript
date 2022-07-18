@@ -10,8 +10,8 @@ import {
   STAGE_TO_STAGE_TYPE_TO_BOSS_SET_MAP,
 } from "../sets/bossSets";
 import { SIN_ENTITY_TYPES_SET } from "../sets/sinEntityTypesSet";
-import { getNPCs, spawnNPC } from "./entitySpecific";
-import { getAliveNPCs } from "./npc";
+import { getNPCs, spawnNPC } from "./entitiesSpecific";
+import { getAliveNPCs } from "./npcs";
 import { isRNG } from "./rng";
 import { copySet } from "./set";
 import { repeat } from "./utils";
@@ -31,19 +31,22 @@ const DEFAULT_BOSS_MULTI_SEGMENTS = 4;
  *
  * This function will not include bosses on an internal blacklist, such as Death's scythes or Big
  * Horn holes.
+ *
+ * @param entityType Optional. If specified, will only get the bosses that match the type. Default
+ *                   is -1, which matches every type.
+ * @param variant Optional. If specified, will only get the bosses that match the variant. Default
+ *                is -1, which matches every variant.
+ * @param subType Optional. If specified, will only get the bosses that match the sub-type. Default
+ *                is -1, which matches every sub-type.
+ * @param ignoreFriendly Optional. Default is false.
  */
 export function getAliveBosses(
-  matchingEntityType?: EntityType,
-  matchingVariant?: int,
-  matchingSubType?: int,
+  entityType: EntityType = -1,
+  variant = -1,
+  subType = -1,
   ignoreFriendly = false,
 ): EntityNPC[] {
-  const aliveNPCs = getAliveNPCs(
-    matchingEntityType,
-    matchingVariant,
-    matchingSubType,
-    ignoreFriendly,
-  );
+  const aliveNPCs = getAliveNPCs(entityType, variant, subType, ignoreFriendly);
   return aliveNPCs.filter((aliveNPC) => aliveNPC.IsBoss());
 }
 
@@ -83,19 +86,24 @@ export function getBossSet(
   return copySet(bossSet);
 }
 
-/** Helper function to get all of the bosses in the room. */
+/**
+ * Helper function to get all of the bosses in the room.
+ *
+ * @param entityType Optional. If specified, will only get the bosses that match the type. Default
+ *                   is -1, which matches every type.
+ * @param variant Optional. If specified, will only get the bosses that match the variant. Default
+ *                is -1, which matches every variant.
+ * @param subType Optional. If specified, will only get the bosses that match the sub-type. Default
+ *                is -1, which matches every sub-type.
+ * @param ignoreFriendly Optional. Default is false.
+ */
 export function getBosses(
-  matchingEntityType?: EntityType,
-  matchingVariant?: int,
-  matchingSubType?: int,
+  entityType?: EntityType,
+  variant?: int,
+  subType?: int,
   ignoreFriendly = false,
 ): EntityNPC[] {
-  const npcs = getNPCs(
-    matchingEntityType,
-    matchingVariant,
-    matchingSubType,
-    ignoreFriendly,
-  );
+  const npcs = getNPCs(entityType, variant, subType, ignoreFriendly);
   return npcs.filter((npc) => npc.IsBoss());
 }
 

@@ -15,10 +15,10 @@ import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { runNextGameFrame } from "../features/runInNFrames";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { removeCollectibleFromItemTracker } from "../functions/collectibles";
-import { removeAllFamiliars } from "../functions/entitySpecific";
+import { removeAllFamiliars } from "../functions/entitiesSpecific";
 import { log, logError } from "../functions/log";
-import { isCharacter } from "../functions/player";
 import { getPlayerFromIndex, getPlayerIndex } from "../functions/playerIndex";
+import { isCharacter } from "../functions/players";
 import { PlayerIndex } from "../types/PlayerIndex";
 import {
   postCustomReviveFire,

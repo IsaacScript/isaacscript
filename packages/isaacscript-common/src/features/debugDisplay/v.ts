@@ -1,5 +1,5 @@
-import { getEntityID } from "../../functions/entity";
-import { getGridEntityID } from "../../functions/gridEntity";
+import { getEntityID } from "../../functions/entities";
+import { getGridEntityID } from "../../functions/gridEntities";
 
 let debugDisplayEnabled = false;
 

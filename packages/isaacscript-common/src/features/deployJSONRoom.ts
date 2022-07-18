@@ -28,12 +28,12 @@ import {
   removeAllMatchingEntities,
   spawn,
   spawnWithSeed,
-} from "../functions/entity";
+} from "../functions/entities";
 import {
   getNPCs,
   removeAllBombs,
   removeAllPickups,
-} from "../functions/entitySpecific";
+} from "../functions/entitiesSpecific";
 import {
   convertXMLGridEntityType,
   getAllGridIndexes,
@@ -43,7 +43,7 @@ import {
   removeGrid,
   setGridEntityInvisible,
   spawnGridWithVariant,
-} from "../functions/gridEntity";
+} from "../functions/gridEntities";
 import { getRandomJSONRoom } from "../functions/jsonRoom";
 import { log } from "../functions/log";
 import { getRandomSeed, isRNG, newRNG } from "../functions/rng";

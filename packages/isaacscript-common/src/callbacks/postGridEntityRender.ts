@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { getGridEntities } from "../functions/gridEntity";
+import { getGridEntities } from "../functions/gridEntities";
 import {
   postGridEntityRenderFire,
   postGridEntityRenderHasSubscriptions,

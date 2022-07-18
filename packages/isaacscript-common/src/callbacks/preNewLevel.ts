@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { getLastFrameOfAnimation } from "../functions/sprite";
+import { getLastFrameOfAnimation } from "../functions/sprites";
 import { getEffectiveStage } from "../functions/stage";
 import {
   preNewLevelFire,

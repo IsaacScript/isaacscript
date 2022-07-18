@@ -4,7 +4,7 @@ import {
   ModCallback,
 } from "isaac-typescript-definitions";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
-import { getEntities } from "../functions/entity";
+import { getEntities } from "../functions/entities";
 import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "sirenHelpers";

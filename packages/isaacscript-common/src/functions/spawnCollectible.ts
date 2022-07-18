@@ -9,8 +9,8 @@ import { preventCollectibleRotation } from "../features/preventCollectibleRotati
 import { areFeaturesInitialized } from "../featuresInitialized";
 import { setCollectibleEmpty } from "./collectibles";
 import { isQuestCollectible } from "./collectibleTag";
-import { spawnPickupWithSeed } from "./entitySpecific";
-import { anyPlayerIs } from "./player";
+import { spawnPickupWithSeed } from "./entitiesSpecific";
+import { anyPlayerIs } from "./players";
 import { getRandomSeed, isRNG } from "./rng";
 
 /**

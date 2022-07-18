@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { getPressurePlates } from "../functions/gridEntitySpecific";
+import { getPressurePlates } from "../functions/gridEntitiesSpecific";
 import {
   postPressurePlateRenderFire,
   postPressurePlateRenderHasSubscriptions,

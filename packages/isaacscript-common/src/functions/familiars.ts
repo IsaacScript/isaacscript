@@ -1,7 +1,7 @@
 import { CollectibleType, FamiliarVariant } from "isaac-typescript-definitions";
 import { itemConfig } from "../cachedClasses";
 import { FAMILIARS_THAT_SHOOT_PLAYER_TEARS_SET } from "../sets/familiarsThatShootPlayerTearsSet";
-import { getFamiliars } from "./entitySpecific";
+import { getFamiliars } from "./entitiesSpecific";
 
 /**
  * Helper function to add and remove familiars based on a target amount that you specify.

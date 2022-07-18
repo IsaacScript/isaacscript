@@ -74,8 +74,8 @@ declare global {
       AdjacentDisplayFlags?: DisplayFlag | BitFlags<DisplayFlag>;
 
       /**
-       * Optional. The API will automatically remove a room if you add this in the same position,
-       * setting this to true will disable this functionality.
+       * The API will automatically remove a room if you add this in the same position, setting this
+       * to true will disable this functionality.
        */
       AllowRoomOverlap?: boolean;
 

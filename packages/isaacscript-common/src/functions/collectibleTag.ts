@@ -3,7 +3,7 @@ import { itemConfig } from "../cachedClasses";
 import { getCollectibleArray } from "./collectibleSet";
 import { getEnumValues } from "./enums";
 import { getFlagName } from "./flag";
-import { getPlayerCollectibleCount } from "./player";
+import { getPlayerCollectibleCount } from "./players";
 import { copySet } from "./set";
 
 const TAG_TO_COLLECTIBLE_TYPES_MAP = new Map<

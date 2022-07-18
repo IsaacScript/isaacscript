@@ -13,10 +13,10 @@ import { isPrimitive } from "./types";
  * `Isaac.CountEntities` method to avoid having to specify a spawner and to handle ignoring charmed
  * enemies.
  *
- * @param entityType Default is -1. -1 matches every entity type.
- * @param variant Default is -1. -1 matches every variant.
- * @param subType Default is -1. -1 matches every sub-type.
- * @param ignoreFriendly Default is false.
+ * @param entityType Optional. Default is -1, which matches every entity type.
+ * @param variant Optional. Default is -1, which matches every variant.
+ * @param subType Optional. Default is -1, which matches every sub-type.
+ * @param ignoreFriendly Optional. Default is false.
  */
 export function countEntities(
   entityType: EntityType = -1,
@@ -43,10 +43,10 @@ export function countEntities(
  * Helper function to check if one or more of a specific kind of entity is present in the current
  * room. It uses the `countEntities` helper function to determine this.
  *
- * @param entityType Default is -1. -1 matches every entity type.
- * @param variant Default is -1. -1 matches every variant.
- * @param subType Default is -1. -1 matches every sub-type.
- * @param ignoreFriendly Default is false.
+ * @param entityType Optional. Default is -1, which matches every entity type.
+ * @param variant Optional. Default is -1, which matches every variant.
+ * @param subType Optional. Default is -1, which matches every sub-type.
+ * @param ignoreFriendly Optional. Default is false.
  */
 export function doesEntityExist(
   entityType: EntityType = -1,
@@ -99,28 +99,29 @@ export function getClosestEntityTo<T extends AnyEntity>(
  * For example:
  *
  * ```ts
- * // Make all of the entities in the room invisible
+ * // Make all of the entities in the room invisible.
  * for (const entity of getEntities()) {
  *   entity.Visible = false;
  * }
  * ```
  *
- * @param entityType Optional. If specified, will only return NPCs that match this entity type.
- * @param variant Optional. If specified, will only return NPCs that match this variant. Default is
- *                -1. -1 matches every variant.
- * @param subType Optional. If specified, will only return NPCs that match this sub-type. Default is
- *                -1. -1 matches every sub-type.
+ * @param entityType Optional. If specified, will only get the entities that match the type. Default
+ *                   is -1, which matches every type.
+ * @param variant Optional. If specified, will only get the entities that match the variant. Default
+ *                is -1, which matches every variant.
+ * @param subType Optional. If specified, will only get the entities that match the sub-type.
+ *                Default is -1, which matches every sub-type.
  * @param ignoreFriendly Optional. If set to true, it will exclude friendly NPCs from being
- *                       returned. Default is false. Will only be taken into account if
- *                       `matchingEntityType` is specified.
+ *                       returned. Default is false. Will only be taken into account if the
+ *                       `entityType` is specified.
  */
 export function getEntities(
-  entityType?: EntityType,
+  entityType: EntityType = -1,
   variant = -1,
   subType = -1,
   ignoreFriendly = false,
 ): Entity[] {
-  if (entityType === undefined) {
+  if ((entityType as int) === -1) {
     return Isaac.GetRoomEntities();
   }
 
@@ -317,8 +318,9 @@ export function parseEntityTypeVariantString(
  * Helper function to remove all of the matching entities in the room.
  *
  * @param entityType The entity type to match.
- * @param entityVariant Optional. The variant to match. Default is -1. -1 matches every variant.
- * @param entitySubType Optional. The sub-type to match. Default is -1. -1 matches every sub-type.
+ * @param entityVariant Optional. The variant to match. Default is -1, which matches every variant.
+ * @param entitySubType Optional. The sub-type to match. Default is -1, which matches every
+ *                      sub-type.
  * @param cap Optional. If specified, will only remove the given amount of collectibles.
  * @returns An array of the entities that were removed.
  */

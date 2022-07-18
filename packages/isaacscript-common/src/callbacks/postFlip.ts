@@ -9,7 +9,7 @@ import {
   UseFlag,
 } from "isaac-typescript-definitions";
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { getPlayersOfType, isTaintedLazarus } from "../functions/player";
+import { getPlayersOfType, isTaintedLazarus } from "../functions/players";
 import {
   postFirstFlipFire,
   postFirstFlipHasSubscriptions,

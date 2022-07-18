@@ -12,7 +12,7 @@ import { saveDataManager } from "../features/saveDataManager/exports";
 import {
   getGridEntitiesMap,
   isGridEntityBroken,
-} from "../functions/gridEntity";
+} from "../functions/gridEntities";
 import {
   postGridEntityBrokenFire,
   postGridEntityBrokenHasSubscriptions,

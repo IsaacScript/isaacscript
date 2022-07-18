@@ -16,13 +16,13 @@ import {
 import { game, sfxManager } from "../cachedClasses";
 import { arrayToString } from "./array";
 import { getCollectibleName } from "./collectibles";
-import { getEntities, getEntityID } from "./entity";
+import { getEntities, getEntityID } from "./entities";
 import { getEnumEntries } from "./enums";
 import { hasFlag } from "./flag";
-import { getGridEntities } from "./gridEntity";
+import { getGridEntities } from "./gridEntities";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
-import { getEffectsList, getPlayerName } from "./player";
 import { getPlayerHealth } from "./playerHealth";
+import { getEffectsList, getPlayerName } from "./players";
 import { getRoomData, getRoomGridIndex, getRoomListIndex } from "./roomData";
 import { combineSets, getSortedSetValues } from "./set";
 import { iterateTableInOrder } from "./table";

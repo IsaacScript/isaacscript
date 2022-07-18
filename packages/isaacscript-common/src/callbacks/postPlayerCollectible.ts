@@ -5,12 +5,12 @@
 import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
 import { DefaultMap } from "../classes/DefaultMap";
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { getPlayerCollectibleMap } from "../functions/player";
 import {
   defaultMapGetPlayer,
   mapGetPlayer,
   mapSetPlayer,
 } from "../functions/playerDataStructures";
+import { getPlayerCollectibleMap } from "../functions/players";
 import { repeat } from "../functions/utils";
 import { PlayerIndex } from "../types/PlayerIndex";
 import {

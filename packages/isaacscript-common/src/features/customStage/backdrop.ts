@@ -11,7 +11,7 @@ import {
 import { game } from "../../cachedClasses";
 import { VectorZero } from "../../constants";
 import { getRandomArrayElement } from "../../functions/array";
-import { spawnEffectWithSeed } from "../../functions/entitySpecific";
+import { spawnEffectWithSeed } from "../../functions/entitiesSpecific";
 import { newRNG } from "../../functions/rng";
 import { isLRoom, isNarrowRoom } from "../../functions/roomShape";
 import { trimPrefix } from "../../functions/string";

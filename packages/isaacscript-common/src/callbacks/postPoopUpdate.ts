@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { getPoops } from "../functions/gridEntitySpecific";
+import { getPoops } from "../functions/gridEntitiesSpecific";
 import {
   postPoopUpdateFire,
   postPoopUpdateHasSubscriptions,

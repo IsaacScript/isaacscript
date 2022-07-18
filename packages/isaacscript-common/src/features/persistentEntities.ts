@@ -7,7 +7,7 @@ import { game } from "../cachedClasses";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
-import { spawn } from "../functions/entity";
+import { spawn } from "../functions/entities";
 import { getRoomListIndex } from "../functions/roomData";
 import { saveDataManager } from "./saveDataManager/exports";
 

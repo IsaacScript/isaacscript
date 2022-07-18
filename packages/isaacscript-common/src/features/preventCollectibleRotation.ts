@@ -10,7 +10,7 @@ import {
 import { game } from "../cachedClasses";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { setCollectibleSubType } from "../functions/collectibles";
-import { getEntityID } from "../functions/entity";
+import { getEntityID } from "../functions/entities";
 import { isCollectible } from "../functions/pickupVariants";
 import { saveDataManager } from "./saveDataManager/exports";
 

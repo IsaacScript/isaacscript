@@ -10,6 +10,7 @@ declare global {
     CanBlowOpen(): boolean;
     Close(force: boolean): void;
     GetSpriteOffset(): Readonly<Vector>;
+    GetVariant(): DoorVariant;
     IsBusted(): boolean;
     IsKeyFamiliarTarget(): boolean;
     IsLocked(): boolean;

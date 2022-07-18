@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { getTNT } from "../functions/gridEntitySpecific";
+import { getTNT } from "../functions/gridEntitiesSpecific";
 import {
   postTNTRenderFire,
   postTNTRenderHasSubscriptions,

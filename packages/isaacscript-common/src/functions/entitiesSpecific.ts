@@ -6,30 +6,30 @@ import {
   KnifeVariant,
   LaserVariant,
   PickupVariant,
-  ProjectilesMode,
   ProjectileVariant,
   SlotVariant,
   TearVariant,
 } from "isaac-typescript-definitions";
 import { VectorZero } from "../constants";
-import {
-  getEntities,
-  getFilteredNewEntities,
-  removeEntities,
-  spawn,
-} from "./entity";
+import { getEntities, removeEntities, spawn } from "./entities";
 
 /**
- * Helper function to get all of the `EntityType.BOMB` in the room.
+ * Helper function to get all of the bombs in the room. (Specifically, this refers to the
+ * `EntityBomb` class, not bomb pickups.)
  *
  * For example:
  *
  * ```ts
- * // Make all of the bombs in the room invisible
+ * // Make all of the bombs in the room invisible.
  * for (const bomb of getBombs()) {
  *   bomb.Visible = false;
  * }
  * ```
+ *
+ * @param bombVariant Optional. If specified, will only get the bombs that match the variant.
+ *                    Default is -1, which matches every variant.
+ * @param subType Optional. If specified, will only get the bombs that match the sub-type. Default
+ *                is -1, which matches every sub-type.
  */
 export function getBombs(
   bombVariant: BombVariant = -1,
@@ -49,16 +49,21 @@ export function getBombs(
 }
 
 /**
- * Helper function to get all of the `EntityType.EFFECT` in the room.
+ * Helper function to get all of the effects in the room.
  *
  * For example:
  *
  * ```ts
- * // Make all of the effects in the room invisible
+ * // Make all of the effects in the room invisible.
  * for (const effect of getEffects()) {
  *   effect.Visible = false;
  * }
  * ```
+ *
+ * @param effectVariant Optional. If specified, will only get the effects that match the variant.
+ *                      Default is -1, which matches every variant.
+ * @param subType Optional. If specified, will only get the effects that match the sub-type. Default
+ *                is -1, which matches every sub-type.
  */
 export function getEffects(
   effectVariant: EffectVariant = -1,
@@ -83,11 +88,16 @@ export function getEffects(
  * For example:
  *
  * ```ts
- * // Make all of the familiars in the room invisible
+ * // Make all of the familiars in the room invisible.
  * for (const familiar of getFamiliars()) {
  *   familiar.Visible = false;
  * }
  * ```
+ *
+ * @param familiarVariant Optional. If specified, will only get the familiars that match the
+ *                        variant. Default is -1, which matches every variant.
+ * @param subType Optional. If specified, will only get the familiars that match the sub-type.
+ *                Default is -1, which matches every sub-type.
  */
 export function getFamiliars(
   familiarVariant: FamiliarVariant = -1,
@@ -107,16 +117,21 @@ export function getFamiliars(
 }
 
 /**
- * Helper function to get all of the `EntityType.KNIFE` in the room.
+ * Helper function to get all of the knives in the room.
  *
  * For example:
  *
  * ```ts
- * // Make all of the knives in the room invisible
+ * // Make all of the knives in the room invisible.
  * for (const knife of getKnives()) {
  *   knife.Visible = false;
  * }
  * ```
+ *
+ * @param knifeVariant Optional. If specified, will only get the knives that match the variant.
+ *                     Default is -1, which matches every variant.
+ * @param subType Optional. If specified, will only get the knives that match the sub-type. Default
+ *                is -1, which matches every sub-type.
  */
 export function getKnives(
   knifeVariant: KnifeVariant = -1,
@@ -136,16 +151,21 @@ export function getKnives(
 }
 
 /**
- * Helper function to get all of the `EntityType.LASER` in the room.
+ * Helper function to get all of the lasers in the room.
  *
  * For example:
  *
  * ```ts
- * // Make all of the lasers in the room invisible
+ * // Make all of the lasers in the room invisible.
  * for (const laser of getLasers()) {
  *   laser.Visible = false;
  * }
  * ```
+ *
+ * @param laserVariant Optional. If specified, will only get the lasers that match the variant.
+ *                     Default is -1, which matches every variant.
+ * @param subType Optional. If specified, will only get the lasers that match the sub-type. Default
+ *                is -1, which matches every sub-type.
  */
 export function getLasers(
   laserVariant: LaserVariant = -1,
@@ -164,11 +184,23 @@ export function getLasers(
   return lasers;
 }
 
-/** The same thing as the `getEntities` function, but returns only NPCs. */
+/**
+ * Helper function to get all of the NPCs in the room.
+ *
+ * @param entityType Optional. If specified, will only get the NPCs that match the type. Default is
+ *                   -1, which matches every entity type.
+ * @param variant Optional. If specified, will only get the NPCs that match the variant. Default is
+ *                -1, which matches every entity type.
+ * @param subType Optional. If specified, will only get the bombs that match the sub-type. Default
+ *                is -1, which matches every sub-type.
+ * @param ignoreFriendly Optional. If set to true, it will exclude friendly NPCs from being
+ *                       returned. Default is false. Will only be taken into account if the
+ *                       `entityType` is specified.
+ */
 export function getNPCs(
-  entityType?: EntityType,
-  variant?: int,
-  subType?: int,
+  entityType: EntityType = -1,
+  variant = -1,
+  subType = -1,
   ignoreFriendly = false,
 ): EntityNPC[] {
   const entities = getEntities(entityType, variant, subType, ignoreFriendly);
@@ -190,11 +222,16 @@ export function getNPCs(
  * For example:
  *
  * ```ts
- * // Make all of the pickups in the room invisible
+ * // Make all of the pickups in the room invisible.
  * for (const pickup of getPickups()) {
  *   pickup.Visible = false;
  * }
  * ```
+ *
+ * @param pickupVariant Optional. If specified, will only get the pickups that match the variant.
+ *                      Default is -1, which matches every entity type.
+ * @param subType Optional. If specified, will only get the pickups that match the sub-type. Default
+ *                is -1, which matches every sub-type.
  */
 export function getPickups(
   pickupVariant: PickupVariant = -1,
@@ -214,16 +251,21 @@ export function getPickups(
 }
 
 /**
- * Helper function to get all of the `EntityType.PROJECTILE` in the room.
+ * Helper function to get all of the projectiles in the room.
  *
  * For example:
  *
  * ```ts
- * // Make all of the projectiles in the room invisible
+ * // Make all of the projectiles in the room invisible.
  * for (const projectile of getProjectiles()) {
  *   projectile.Visible = false;
  * }
  * ```
+ *
+ * @param projectileVariant Optional. If specified, will only get the projectiles that match the
+ *                          variant. Default is -1, which matches every entity type.
+ * @param subType Optional. If specified, will only get the projectiles that match the sub-type.
+ *                Default is -1, which matches every sub-type.
  */
 export function getProjectiles(
   projectileVariant: ProjectileVariant = -1,
@@ -247,16 +289,21 @@ export function getProjectiles(
 }
 
 /**
- * Helper function to get all of the `EntityType.SLOT` in the room.
+ * Helper function to get all of the slots in the room.
  *
  * For example:
  *
  * ```ts
- * // Make all of the slots in the room invisible
+ * // Make all of the slots in the room invisible.
  * for (const slot of getSlots()) {
  *   slot.Visible = false;
  * }
  * ```
+ *
+ * @param slotVariant Optional. If specified, will only get the slots that match the variant.
+ *                    Default is -1, which matches every entity type.
+ * @param subType Optional. If specified, will only get the slots that match the sub-type. Default
+ *                is -1, which matches every sub-type.
  */
 export function getSlots(
   slotVariant: SlotVariant = -1,
@@ -268,16 +315,21 @@ export function getSlots(
 }
 
 /**
- * Helper function to get all of the `EntityType.TEAR` in the room.
+ * Helper function to get all of the tears in the room.
  *
  * For example:
  *
  * ```ts
- * // Make all of the tears in the room invisible
+ * // Make all of the tears in the room invisible.
  * for (const tear of getTears()) {
  *   tear.Visible = false;
  * }
  * ```
+ *
+ * @param tearVariant Optional. If specified, will only get the tears that match the variant.
+ *                    Default is -1, which matches every entity type.
+ * @param subType Optional. If specified, will only get the tears that match the sub-type. Default
+ *                is -1, which matches every sub-type.
  */
 export function getTears(
   tearVariant: TearVariant = -1,
@@ -297,44 +349,19 @@ export function getTears(
 }
 
 /**
- * The base game `EntityNPC.FireProjectiles` method does not return anything, which is a problem in
- * situations where you need to work with the fired projectiles. This function invokes that method,
- * and then returns the projectiles that were spawned.
+ * Helper function to remove all of the bombs in the room. (Specifically, this refers to the
+ * `EntityBomb` class, not bomb pickups.)
  *
- * @param npc The EntityNPC firing projectiles.
- * @param position The starting position of the projectiles.
- * @param velocity The starting velocity of the projectiles.
- * @param projectilesMode A ProjectilesMode enum value defining how to fire the projectiles.
- * @param projectileParams A ProjectileParams object containing various parameters for the
- *                         projectiles.
- * @returns An array of EntityProjectiles containing all fired projectiles.
- */
-export function npcFireProjectiles(
-  npc: EntityNPC,
-  position: Vector,
-  velocity: Vector,
-  projectilesMode: ProjectilesMode,
-  projectileParams: ProjectileParams,
-): EntityProjectile[] {
-  const oldEntities = getProjectiles();
-  npc.FireProjectiles(position, velocity, projectilesMode, projectileParams);
-  const newEntities = getProjectiles();
-  const filteredNewEntities = getFilteredNewEntities(oldEntities, newEntities);
-
-  return filteredNewEntities;
-}
-
-/**
- * Helper function to remove all of the `EntityType.BOMB` in the room.
- *
- * @param bombVariant Optional. If specified, will only remove bombs that match this variant.
- * @param subType Optional. If specified, will only remove bombs that match this sub-type.
+ * @param bombVariant Optional. If specified, will only remove the bombs that match the variant.
+ *                    Default is -1, which matches every variant.
+ * @param subType Optional. If specified, will only remove the bombs that match the sub-type.
+ *                Default is -1, which matches every sub-type.
  * @param cap Optional. If specified, will only remove the given amount of bombs.
  * @returns An array of the bombs that were removed.
  */
 export function removeAllBombs(
-  bombVariant?: BombVariant,
-  subType?: int,
+  bombVariant: BombVariant = -1,
+  subType = -1,
   cap?: int,
 ): EntityBomb[] {
   const bombs = getBombs(bombVariant, subType);
@@ -344,14 +371,16 @@ export function removeAllBombs(
 /**
  * Helper function to remove all of the effects in the room.
  *
- * @param effectVariant Optional. If specified, will only remove effects that match this variant.
- * @param subType Optional. If specified, will only remove effects that match this sub-type.
+ * @param effectVariant Optional. If specified, will only remove the effects that match the variant.
+ *                      Default is -1, which matches every variant.
+ * @param subType Optional. If specified, will only remove the effects that match the sub-type.
+ *                Default is -1, which matches every sub-type.
  * @param cap Optional. If specified, will only remove the given amount of effects.
  * @returns An array of the effects that were removed.
  */
 export function removeAllEffects(
-  effectVariant?: EffectVariant,
-  subType?: int,
+  effectVariant: EffectVariant = -1,
+  subType = -1,
   cap?: int,
 ): EntityEffect[] {
   const effects = getEffects(effectVariant, subType);
@@ -361,15 +390,16 @@ export function removeAllEffects(
 /**
  * Helper function to remove all of the familiars in the room.
  *
- * @param familiarVariant Optional. If specified, will only remove familiars that match this
- *                        variant.
- * @param subType Optional. If specified, will only remove familiars that match this sub-type.
+ * @param familiarVariant Optional. If specified, will only remove the familiars that match the
+ *                        variant. Default is -1, which matches every variant.
+ * @param subType Optional. If specified, will only remove the familiars that match the sub-type.
+ *                Default is -1, which matches every sub-type.
  * @param cap Optional. If specified, will only remove the given amount of familiars.
  * @returns An array of the familiars that were removed.
  */
 export function removeAllFamiliars(
-  familiarVariant?: FamiliarVariant,
-  subType?: int,
+  familiarVariant: FamiliarVariant = -1,
+  subType = -1,
   cap?: int,
 ): EntityFamiliar[] {
   const familiars = getFamiliars(familiarVariant, subType);
@@ -377,16 +407,18 @@ export function removeAllFamiliars(
 }
 
 /**
- * Helper function to remove all of the `EntityType.KNIFE` in the room.
+ * Helper function to remove all of the knives in the room.
  *
- * @param knifeVariant Optional. If specified, will only remove knives that match this variant.
- * @param subType Optional. If specified, will only remove knives that match this sub-type.
+ * @param knifeVariant Optional. If specified, will only remove the knives that match the variant.
+ *                     Default is -1, which matches every variant.
+ * @param subType Optional. If specified, will only remove the knives that match the sub-type.
+ *                Default is -1, which matches every sub-type.
  * @param cap Optional. If specified, will only remove the given amount of knives.
  * @returns An array of the knives that were removed.
  */
 export function removeAllKnives(
-  knifeVariant?: KnifeVariant,
-  subType?: int,
+  knifeVariant: KnifeVariant = -1,
+  subType = -1,
   cap?: int,
 ): EntityKnife[] {
   const knives = getKnives(knifeVariant, subType);
@@ -394,16 +426,18 @@ export function removeAllKnives(
 }
 
 /**
- * Helper function to remove all of the `EntityType.LASER` in the room.
+ * Helper function to remove all of the lasers in the room.
  *
- * @param laserVariant Optional. If specified, will only remove lasers that match this variant.
- * @param subType Optional. If specified, will only remove lasers that match this sub-type.
+ * @param laserVariant Optional. If specified, will only remove the lasers that match the variant.
+ *                     Default is -1, which matches every variant.
+ * @param subType Optional. If specified, will only remove the lasers that match the sub-type.
+ *                Default is -1, which matches every sub-type.
  * @param cap Optional. If specified, will only remove the given amount of lasers.
  * @returns An array of the lasers that were removed.
  */
 export function removeAllLasers(
-  laserVariant?: LaserVariant,
-  subType?: int,
+  laserVariant: LaserVariant = -1,
+  subType = -1,
   cap?: int,
 ): EntityLaser[] {
   const lasers = getLasers(laserVariant, subType);
@@ -411,13 +445,24 @@ export function removeAllLasers(
 }
 
 /**
- * Helper function to remove all NPCs in the room.
+ * Helper function to remove all of the NPCs in the room.
  *
+ * @param entityType Optional. If specified, will only remove the NPCs that match the type. Default
+ *                   is -1, which matches every type.
+ * @param variant Optional. If specified, will only remove the NPCs that match the variant. Default
+ *                is -1, which matches every variant.
+ * @param subType Optional. If specified, will only remove the NPCs that match the sub-type. Default
+ *                is -1, which matches every sub-type.
  * @param cap Optional. If specified, will only remove the given amount of NPCs.
  * @returns An array of the NPCs that were removed.
  */
-export function removeAllNPCs(cap?: int): EntityNPC[] {
-  const npcs = getNPCs();
+export function removeAllNPCs(
+  entityType: EntityType = -1,
+  variant = -1,
+  subType = -1,
+  cap?: int,
+): EntityNPC[] {
+  const npcs = getNPCs(entityType, variant, subType);
   return removeEntities(npcs, cap);
 }
 
@@ -425,13 +470,15 @@ export function removeAllNPCs(cap?: int): EntityNPC[] {
  * Helper function to remove all of the pickups in the room.
  *
  * @param pickupVariant Optional. If specified, will only remove pickups that match this variant.
- * @param subType Optional. If specified, will only remove pickups that match this sub-type.
+ *                      Default is -1, which matches every variant.
+ * @param subType Optional. If specified, will only remove pickups that match this sub-type. Default
+ *                is -1, which matches every sub-type.
  * @param cap Optional. If specified, will only remove the given amount of pickups.
  * @returns An array of the pickups that were removed.
  */
 export function removeAllPickups(
-  pickupVariant?: PickupVariant,
-  subType?: int,
+  pickupVariant: PickupVariant = -1,
+  subType = -1,
   cap?: int,
 ): EntityPickup[] {
   const pickups = getPickups(pickupVariant, subType);
@@ -439,17 +486,18 @@ export function removeAllPickups(
 }
 
 /**
- * Helper function to remove all of the `EntityType.PROJECTILE` in the room.
+ * Helper function to remove all of the projectiles in the room.
  *
  * @param projectileVariant Optional. If specified, will only remove projectiles that match this
- *                          variant.
+ *                          variant. Default is -1, which matches every variant.
  * @param subType Optional. If specified, will only remove projectiles that match this sub-type.
+ *                Default is -1, which matches every sub-type.
  * @param cap Optional. If specified, will only remove the given amount of projectiles.
  * @returns An array of the projectiles that were removed.
  */
 export function removeAllProjectiles(
-  projectileVariant?: ProjectileVariant,
-  subType?: int,
+  projectileVariant: ProjectileVariant = -1,
+  subType = -1,
   cap?: int,
 ): EntityProjectile[] {
   const projectiles = getProjectiles(projectileVariant, subType);
@@ -457,16 +505,18 @@ export function removeAllProjectiles(
 }
 
 /**
- * Helper function to remove all of the `EntityType.SLOT` in the room.
+ * Helper function to remove all of the slots in the room.
  *
  * @param slotVariant Optional. If specified, will only remove slots that match this variant.
- * @param subType Optional. If specified, will only remove slots that match this sub-type.
+ *                    Default is -1, which matches every variant.
+ * @param subType Optional. If specified, will only remove slots that match this sub-type. Default
+ *                is -1, which matches every sub-type.
  * @param cap Optional. If specified, will only remove the given amount of slots.
  * @returns An array of the slots that were removed.
  */
 export function removeAllSlots(
-  slotVariant?: SlotVariant,
-  subType?: int,
+  slotVariant: SlotVariant = -1,
+  subType = -1,
   cap?: int,
 ): Entity[] {
   const slots = getSlots(slotVariant, subType);
@@ -474,16 +524,18 @@ export function removeAllSlots(
 }
 
 /**
- * Helper function to remove all of the `EntityType.TEAR` in the room.
+ * Helper function to remove all of the tears in the room.
  *
  * @param tearVariant Optional. If specified, will only remove tears that match this variant.
- * @param subType Optional. If specified, will only remove tears that match this sub-type.
+ *                    Default is -1, which matches every variant.
+ * @param subType Optional. If specified, will only remove tears that match this sub-type. Default
+ *                is -1, which matches every sub-type.
  * @param cap Optional. If specified, will only remove the given amount of tears.
  * @returns An array of the tears that were removed.
  */
 export function removeAllTears(
-  tearVariant?: TearVariant,
-  subType?: int,
+  tearVariant: TearVariant = -1,
+  subType = -1,
   cap?: int,
 ): EntityTear[] {
   const tears = getTears(tearVariant, subType);
@@ -715,7 +767,12 @@ export function spawnLaserWithSeed(
   );
 }
 
-/** Helper function to spawn an NPC. */
+/**
+ * Helper function to spawn an NPC.
+ *
+ * Note that if you pass a non-NPC `EntityType` to this function, it will cause a run-time error,
+ * since the `Entity.ToNPC` method will return undefined.
+ */
 export function spawnNPC(
   entityType: EntityType,
   variant: int,
@@ -742,7 +799,12 @@ export function spawnNPC(
   return npc;
 }
 
-/** Helper function to spawn an NPC with a specific seed. */
+/**
+ * Helper function to spawn an NPC with a specific seed.
+ *
+ * Note that if you pass a non-NPC `EntityType` to this function, it will cause a run-time error,
+ * since the `Entity.ToNPC` method will return undefined.
+ */
 export function spawnNPCWithSeed(
   entityType: EntityType,
   variant: int,

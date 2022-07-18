@@ -8,7 +8,7 @@ import { ModUpgraded } from "../classes/ModUpgraded";
 import { DecorationVariant } from "../enums/DecorationVariant";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
-import { removeGrid, spawnGridWithVariant } from "../functions/gridEntity";
+import { removeGrid, spawnGridWithVariant } from "../functions/gridEntities";
 import { getRoomListIndex } from "../functions/roomData";
 import { isVector } from "../functions/vector";
 import { CustomGridEntityData } from "../interfaces/CustomGridEntityData";

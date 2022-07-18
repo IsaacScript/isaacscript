@@ -8,7 +8,7 @@ import { getCollectibleTags } from "./collectibles";
 import { getCollectibleTypesWithTag } from "./collectibleTag";
 import { getEnumValues } from "./enums";
 import { hasFlag } from "./flag";
-import { getPlayerCollectibleCount } from "./player";
+import { getPlayerCollectibleCount } from "./players";
 
 const TRANSFORMATION_TO_TAG_MAP: ReadonlyMap<PlayerForm, ItemConfigTag> =
   new Map([

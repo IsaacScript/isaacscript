@@ -7,9 +7,9 @@ import {
 import { game } from "../cachedClasses";
 import { PlayerIndex } from "../types/PlayerIndex";
 import { getCollectibleSet } from "./collectibleSet";
-import { anyPlayerHasCollectible, getPlayersOfType } from "./player";
 import { mapGetPlayer, mapSetPlayer } from "./playerDataStructures";
 import { getPlayers } from "./playerIndex";
+import { anyPlayerHasCollectible, getPlayersOfType } from "./players";
 import { repeat } from "./utils";
 
 const COLLECTIBLES_THAT_AFFECT_ITEM_POOLS: readonly CollectibleType[] = [

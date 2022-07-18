@@ -4,7 +4,7 @@ import {
   ModCallback,
 } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
-import { getTopLeftWallGridIndex, spawnGrid } from "../functions/gridEntity";
+import { getTopLeftWallGridIndex, spawnGrid } from "../functions/gridEntities";
 import { logError } from "../functions/log";
 import {
   postNewRoomEarlyFire,

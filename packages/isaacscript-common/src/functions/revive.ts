@@ -16,8 +16,8 @@ import {
   getPlayerNumHitsRemaining,
   hasLostCurse,
   isKeeper,
-} from "./player";
-import { getLastFrameOfAnimation } from "./sprite";
+} from "./players";
+import { getLastFrameOfAnimation } from "./sprites";
 import { giveTrinketsBack, temporarilyRemoveTrinket } from "./trinketGive";
 
 /**

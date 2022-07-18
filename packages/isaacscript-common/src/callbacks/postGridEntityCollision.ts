@@ -4,7 +4,7 @@ import { saveDataManager } from "../features/saveDataManager/exports";
 import {
   getCollidingEntitiesWithGridEntity,
   getGridEntities,
-} from "../functions/gridEntity";
+} from "../functions/gridEntities";
 import {
   postGridEntityCollisionFire,
   postGridEntityCollisionHasSubscriptions,

@@ -1,7 +1,7 @@
 import { SackSubType } from "isaac-typescript-definitions";
 import { runNextGameFrame } from "../features/runInNFrames";
-import { removeEntities } from "./entity";
-import { getCoins, spawnSackWithSeed } from "./pickups";
+import { removeEntities } from "./entities";
+import { getCoins, spawnSackWithSeed } from "./pickupsSpecific";
 
 /** Hard-coding this makes it easier to clean up the pickups afterwards. */
 const SACK_SEED_THAT_SPAWNS_TWO_COINS = 6 as Seed;

@@ -16,11 +16,11 @@ import {
   TRINKET_DESCRIPTION_MAP,
 } from "../maps/trinketDescriptionMap";
 import { DEFAULT_TRINKET_NAME, TRINKET_NAME_MAP } from "../maps/trinketNameMap";
-import { getEntityID } from "./entity";
+import { getEntityID } from "./entities";
 import { hasFlag } from "./flag";
 import { isTrinket } from "./pickupVariants";
-import { isCharacter } from "./player";
-import { clearSprite } from "./sprite";
+import { isCharacter } from "./players";
+import { clearSprite } from "./sprites";
 import { irange } from "./utils";
 
 /**

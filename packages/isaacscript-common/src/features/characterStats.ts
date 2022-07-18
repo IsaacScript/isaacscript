@@ -11,7 +11,7 @@ import {
 } from "isaac-typescript-definitions";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { getDefaultPlayerStat } from "../functions/cacheFlag";
-import { addStat } from "../functions/player";
+import { addStat } from "../functions/players";
 
 const FEATURE_NAME = "characterStats";
 

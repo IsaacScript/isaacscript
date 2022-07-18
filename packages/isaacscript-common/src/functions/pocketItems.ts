@@ -9,7 +9,7 @@ import {
 import { PocketItemType } from "../enums/PocketItemType";
 import { PocketItemDescription } from "../interfaces/PocketItemDescription";
 import { getEnumValues } from "./enums";
-import { isCharacter } from "./player";
+import { isCharacter } from "./players";
 
 /**
  * Helper function to get the `PocketItemSlot` that the player's pocket active collectible item is

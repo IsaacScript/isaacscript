@@ -9,7 +9,7 @@ import {
 } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
-import { getEntityID } from "../functions/entity";
+import { getEntityID } from "../functions/entities";
 import { isCollectible } from "../functions/pickupVariants";
 import { getRoomItemPoolType } from "../functions/rooms";
 import { saveDataManager } from "./saveDataManager/exports";

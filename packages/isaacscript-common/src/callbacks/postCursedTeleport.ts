@@ -10,8 +10,8 @@ import {
 import { game } from "../cachedClasses";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { hasFlag } from "../functions/flag";
-import { getPlayerNumHitsRemaining } from "../functions/player";
 import { mapGetPlayer, mapSetPlayer } from "../functions/playerDataStructures";
+import { getPlayerNumHitsRemaining } from "../functions/players";
 import { PlayerIndex } from "../types/PlayerIndex";
 import {
   postCursedTeleportFire,

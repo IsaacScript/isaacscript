@@ -8,7 +8,7 @@ import {
 import { game } from "../../cachedClasses";
 import { HealthType } from "../../enums/HealthType";
 import { directionToVector } from "../../functions/direction";
-import { spawnGridWithVariant } from "../../functions/gridEntity";
+import { spawnGridWithVariant } from "../../functions/gridEntities";
 import { logEntities, logGridEntities } from "../../functions/log";
 import { addPlayerHealthType } from "../../functions/playerHealth";
 import { getRoomData, getRoomDescriptor } from "../../functions/roomData";

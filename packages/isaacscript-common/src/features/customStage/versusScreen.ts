@@ -7,8 +7,8 @@ import {
 } from "isaac-typescript-definitions";
 import { game, sfxManager } from "../../cachedClasses";
 import { arrayRemove } from "../../functions/array";
-import { getBosses } from "../../functions/boss";
-import { getEntityID } from "../../functions/entity";
+import { getBosses } from "../../functions/bosses";
+import { getEntityID } from "../../functions/entities";
 import { erange } from "../../functions/utils";
 import { CustomStage } from "../../interfaces/CustomStage";
 import { BOSS_NAME_PNG_FILE_NAMES } from "../../objects/bossNamePNGFileNames";

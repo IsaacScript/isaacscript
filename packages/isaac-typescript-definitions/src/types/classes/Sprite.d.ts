@@ -62,7 +62,7 @@ declare interface Sprite {
   /**
    * Returns whether the current animation is played or stopped.
    *
-   * @param animation Optional. Default is the name of the last played animation.
+   * @param animation Default is the name of the last played animation.
    */
   IsPlaying(animation?: string): boolean;
 
@@ -175,9 +175,8 @@ declare interface Sprite {
    * Similar to the `Sprite.Play` method, but does not start the animation.
    *
    * @param animation
-   * @param reset Optional. Default is true. Passing false will continue the animation from the
-   *              current frame. This can be useful for seamlessly switching between two similar
-   *              animations.
+   * @param reset Default is true. Passing false will continue the animation from the current frame.
+   *              This can be useful for seamlessly switching between two similar animations.
    */
   SetAnimation(animation: string, reset?: boolean): boolean;
 

@@ -3,7 +3,7 @@
 
 import { ModCallback } from "isaac-typescript-definitions";
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { getClosestPlayer } from "../functions/player";
+import { getClosestPlayer } from "../functions/players";
 import {
   postPickupCollectFire,
   postPickupCollectHasSubscriptions,

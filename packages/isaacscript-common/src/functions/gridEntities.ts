@@ -1,4 +1,5 @@
 import {
+  CrawlSpaceVariant,
   GridCollisionClass,
   GridEntityType,
   GridEntityXMLType,
@@ -19,7 +20,7 @@ import { BACKDROP_TYPE_TO_ROCK_ALT_TYPE } from "../objects/backdropTypeToRockAlt
 import { isCircleIntersectingRectangle } from "./math";
 import { getRandomSeed } from "./rng";
 import { roomUpdateSafe } from "./rooms";
-import { clearSprite } from "./sprite";
+import { clearSprite } from "./sprites";
 import { erange } from "./utils";
 import { isVector } from "./vector";
 
@@ -125,6 +126,22 @@ export function getCollidingEntitiesWithGridEntity(
         gridEntityCollisionBottomRight,
       ),
   );
+}
+
+/**
+ * Helper function to get all of the crawl spaces in the room.
+ *
+ * @param crawlSpaceVariant Optional. If specified, will only get the crawl spaces that match the
+ *                          variant. Default is -1, which matches every variant.
+ */
+export function getCrawlSpaces(
+  crawlSpaceVariant: CrawlSpaceVariant = -1,
+): GridEntity[] {
+  if ((crawlSpaceVariant as int) === -1) {
+    return getGridEntities(GridEntityType.CRAWL_SPACE);
+  }
+
+  return getMatchingGridEntities(GridEntityType.CRAWL_SPACE, crawlSpaceVariant);
 }
 
 /**
@@ -245,6 +262,8 @@ export function getGridEntityIDFromConstituents(
 /**
  * Helper function to get all of the grid entities in the room that specifically match the type and
  * variant provided.
+ *
+ * If you want to match every variant, use the `getGridEntities` function instead.
  */
 export function getMatchingGridEntities(
   gridEntityType: GridEntityType,
@@ -329,6 +348,25 @@ export function getTopLeftWallGridIndex(): int {
     : topLeftWallGridIndex;
 }
 
+/**
+ * Helper function to get all of the grid entities of type `GridEntityType.TRAPDOOR` in the room.
+ * Specify a specific trapdoor variant to select only trapdoors of that variant.
+ */
+export function getTrapdoors(trapdoorVariant?: TrapdoorVariant): GridEntity[] {
+  if (trapdoorVariant === undefined) {
+    return getGridEntities(GridEntityType.TRAPDOOR);
+  }
+
+  return getMatchingGridEntities(GridEntityType.TRAPDOOR, trapdoorVariant);
+}
+
+/**
+ * Helper function to see if the provided gridEntity is in its respective broken state. See the
+ * `GRID_ENTITY_TYPE_TO_BROKEN_STATE_MAP` constant for more details.
+ *
+ * Note that in the case of `GridEntityType.LOCK` (11), the state will turn to being broken before
+ * the actual collision for the entity is removed.
+ */
 export function isGridEntityBreakableByExplosion(
   gridEntity: GridEntity,
 ): boolean {
@@ -345,11 +383,9 @@ export function isGridEntityBreakableByExplosion(
 }
 
 /**
- * Helper function to see if the provided gridEntity is in its respective broken state. See the
- * `GRID_ENTITY_TYPE_TO_BROKEN_STATE_MAP` constant for more details.
- *
- * Note that in the case of `GridEntityType.LOCK` (11), the state will turn to being broken before
- * the actual collision for the entity is removed.
+ * Helper function to detect whether a given Void Portal is one that randomly spawns after a boss is
+ * defeated or is one that naturally spawns in the room after Hush. (This is determined by looking
+ * at the VarData of the entity.)
  */
 export function isGridEntityBroken(gridEntity: GridEntity): boolean {
   const gridEntityType = gridEntity.GetType();
@@ -358,9 +394,8 @@ export function isGridEntityBroken(gridEntity: GridEntity): boolean {
 }
 
 /**
- * Helper function to detect whether a given Void Portal is one that randomly spawns after a boss is
- * defeated or is one that naturally spawns in the room after Hush. (This is determined by looking
- * at the VarData of the entity.)
+ * Helper function to determine if all of the pressure plates in the current room are pushed.
+ * Returns true if there are no pressure plates in the room.
  */
 export function isPostBossVoidPortal(gridEntity: GridEntity): boolean {
   // - The VarData of Void Portals that are spawned after bosses will be equal to 1.

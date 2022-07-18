@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { getSpikes } from "../functions/gridEntitySpecific";
+import { getSpikes } from "../functions/gridEntitiesSpecific";
 import {
   postSpikesUpdateFire,
   postSpikesUpdateHasSubscriptions,

@@ -16,8 +16,8 @@ import {
   VisVariant,
 } from "isaac-typescript-definitions";
 import { EGGY_STATE_FRAME_OF_FINAL_SPIDER } from "../constants";
-import { getFilteredNewEntities } from "./entity";
-import { getNPCs, getProjectiles } from "./entitySpecific";
+import { getFilteredNewEntities } from "./entities";
+import { getNPCs, getProjectiles } from "./entitiesSpecific";
 
 /**
  * Used to filter out certain NPCs when determining of an NPC is "alive" and/or should keep the
@@ -78,19 +78,22 @@ export function fireProjectiles(
  *
  * This function will not include NPCs on an internal blacklist, such as Death's scythes or Big Horn
  * holes.
+ *
+ * @param entityType Optional. If specified, will only get the NPCs that match the type. Default is
+ *                   -1, which matches every type.
+ * @param variant Optional. If specified, will only get the NPCs that match the variant. Default is
+ *                -1, which matches every variant.
+ * @param subType Optional. If specified, will only get the NPCs that match the sub-type. Default is
+ *                -1, which matches every sub-type.
+ * @param ignoreFriendly Optional. Default is false.
  */
 export function getAliveNPCs(
-  matchingEntityType?: EntityType,
-  matchingVariant?: int,
-  matchingSubType?: int,
+  entityType: EntityType = -1,
+  variant = -1,
+  subType = -1,
   ignoreFriendly = false,
 ): EntityNPC[] {
-  const npcs = getNPCs(
-    matchingEntityType,
-    matchingVariant,
-    matchingSubType,
-    ignoreFriendly,
-  );
+  const npcs = getNPCs(entityType, variant, subType, ignoreFriendly);
   return npcs.filter((npc) => !npc.IsDead() && !isAliveExceptionNPC(npc));
 }
 
@@ -145,4 +148,32 @@ export function isRaglingDeathPatch(npc: EntityNPC): boolean {
     // They go to `STATE_SPECIAL` when they are patches on the ground.
     npc.State === NpcState.SPECIAL
   );
+}
+
+/**
+ * The base game `EntityNPC.FireProjectiles` method does not return anything, which is a problem in
+ * situations where you need to work with the fired projectiles. This function invokes that method,
+ * and then returns the projectiles that were spawned.
+ *
+ * @param npc The EntityNPC firing projectiles.
+ * @param position The starting position of the projectiles.
+ * @param velocity The starting velocity of the projectiles.
+ * @param projectilesMode A ProjectilesMode enum value defining how to fire the projectiles.
+ * @param projectileParams A ProjectileParams object containing various parameters for the
+ *                         projectiles.
+ * @returns An array of EntityProjectiles containing all fired projectiles.
+ */
+export function npcFireProjectiles(
+  npc: EntityNPC,
+  position: Vector,
+  velocity: Vector,
+  projectilesMode: ProjectilesMode,
+  projectileParams: ProjectileParams,
+): EntityProjectile[] {
+  const oldEntities = getProjectiles();
+  npc.FireProjectiles(position, velocity, projectilesMode, projectileParams);
+  const newEntities = getProjectiles();
+  const filteredNewEntities = getFilteredNewEntities(oldEntities, newEntities);
+
+  return filteredNewEntities;
 }

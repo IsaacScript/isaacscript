@@ -1,7 +1,7 @@
 import { EffectVariant, RoomShape } from "isaac-typescript-definitions";
 import { game } from "../../cachedClasses";
 import { getRandomArrayElement } from "../../functions/array";
-import { spawnEffectWithSeed } from "../../functions/entitySpecific";
+import { spawnEffectWithSeed } from "../../functions/entitiesSpecific";
 import { CustomStage } from "../../interfaces/CustomStage";
 import { ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH } from "./customStageConstants";
 import v from "./v";

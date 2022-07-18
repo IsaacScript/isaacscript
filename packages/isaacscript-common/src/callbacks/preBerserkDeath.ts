@@ -1,8 +1,8 @@
 import { CollectibleType } from "isaac-typescript-definitions";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
-import { getPlayerNumHitsRemaining } from "../functions/player";
 import { isChildPlayer } from "../functions/playerIndex";
+import { getPlayerNumHitsRemaining } from "../functions/players";
 import { willPlayerRevive } from "../functions/revive";
 import {
   preBerserkDeathFire,

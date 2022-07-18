@@ -386,8 +386,8 @@ declare global {
      *                             should be removed if the familiar is tagged with the
      *                             "cansacrifice" entity tag.) This can be obtained with:
      *                             `Isaac.GetItemConfig().GetCollectible(collectibleType)`
-     * @param familiarSubType The subtype of the familiar to check. -1 matches any subtype. Default
-     *                        is -1.
+     * @param familiarSubType The subtype of the familiar to check. Default is -1, which matches
+     *                        every sub-type.
      */
     CheckFamiliar(
       familiarVariant: FamiliarVariant,

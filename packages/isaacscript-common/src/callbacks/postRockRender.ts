@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { getRocks } from "../functions/gridEntitySpecific";
+import { getRocks } from "../functions/gridEntitiesSpecific";
 import {
   postRockRenderFire,
   postRockRenderHasSubscriptions,

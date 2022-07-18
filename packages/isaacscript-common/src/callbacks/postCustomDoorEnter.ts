@@ -13,8 +13,8 @@ import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { directionToVector } from "../functions/direction";
 import { doorSlotToDirection } from "../functions/doors";
-import { getEffects, spawnEffect } from "../functions/entitySpecific";
-import { getClosestPlayer } from "../functions/player";
+import { getEffects, spawnEffect } from "../functions/entitiesSpecific";
+import { getClosestPlayer } from "../functions/players";
 import {
   postCustomDoorEnterFire,
   postCustomDoorEnterHasSubscriptions,

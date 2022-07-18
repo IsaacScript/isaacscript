@@ -4,13 +4,13 @@ import {
   TrinketType,
 } from "isaac-typescript-definitions";
 import { DecorationVariant } from "../../enums/DecorationVariant";
-import { removeEntities } from "../../functions/entity";
-import { getNPCs } from "../../functions/entitySpecific";
+import { removeEntities } from "../../functions/entities";
+import { getNPCs } from "../../functions/entitiesSpecific";
 import {
   getCoins,
   getCollectibles,
   getTrinkets,
-} from "../../functions/pickups";
+} from "../../functions/pickupsSpecific";
 import { vectorEquals } from "../../functions/vector";
 import { CustomStage } from "../../interfaces/CustomStage";
 

@@ -5,7 +5,7 @@ import {
   ModCallback,
 } from "isaac-typescript-definitions";
 import { logError } from "../functions/log";
-import { useActiveItemTemp } from "../functions/player";
+import { useActiveItemTemp } from "../functions/players";
 import { disableAllInputsExceptFor, enableAllInputs } from "./disableInputs";
 import { saveDataManager } from "./saveDataManager/exports";
 

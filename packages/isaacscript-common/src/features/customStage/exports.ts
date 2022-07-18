@@ -10,7 +10,7 @@ import {
 } from "isaac-typescript-definitions";
 import { game } from "../../cachedClasses";
 import { reorderedCallbacksSetStage } from "../../callbacks/reorderedCallbacks";
-import { getEntityIDFromConstituents } from "../../functions/entity";
+import { getEntityIDFromConstituents } from "../../functions/entities";
 import { log, logError } from "../../functions/log";
 import { movePlayersToCenter } from "../../functions/playerCenter";
 import { newRNG } from "../../functions/rng";
@@ -18,7 +18,7 @@ import { getRoomData } from "../../functions/roomData";
 import { getRooms } from "../../functions/rooms";
 import { getGotoCommand, setStage } from "../../functions/stage";
 import { runNextRoom } from "../runNextRoom";
-import { getRandomCustomStageRoom } from "./util";
+import { getRandomCustomStageRoom } from "./customStageUtils";
 import v, {
   customBossPNGPaths,
   customStageCachedRoomData,

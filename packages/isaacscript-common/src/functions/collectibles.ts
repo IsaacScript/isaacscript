@@ -27,10 +27,10 @@ import {
 } from "../maps/collectibleNameMap";
 import { SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES_SET } from "../sets/singleUseActiveCollectibleTypesSet";
 import { CollectibleIndex } from "../types/CollectibleIndex";
-import { getEntityID } from "./entity";
+import { getEntityID } from "./entities";
 import { isCollectible } from "./pickupVariants";
 import { getRoomListIndex } from "./roomData";
-import { clearSprite, spriteEquals } from "./sprite";
+import { clearSprite, spriteEquals } from "./sprites";
 import { irange } from "./utils";
 
 const COLLECTIBLE_SPRITE_LAYER = 1;

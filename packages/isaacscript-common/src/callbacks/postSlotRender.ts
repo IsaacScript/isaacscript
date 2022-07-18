@@ -5,7 +5,7 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { DefaultMap } from "../classes/DefaultMap";
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { getSlots } from "../functions/entitySpecific";
+import { getSlots } from "../functions/entitiesSpecific";
 import {
   postSlotAnimationChangedFire,
   postSlotAnimationChangedHasSubscriptions,

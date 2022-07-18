@@ -53,10 +53,10 @@ import { getCardName } from "../../functions/cards";
 import { getCharacterName } from "../../functions/character";
 import { addCharge } from "../../functions/charge";
 import { isValidCollectibleType } from "../../functions/collectibles";
-import { getNPCs } from "../../functions/entitySpecific";
+import { getNPCs } from "../../functions/entitiesSpecific";
 import { getEnumValues } from "../../functions/enums";
 import { addFlag } from "../../functions/flag";
-import { spawnGrid } from "../../functions/gridEntity";
+import { spawnGrid } from "../../functions/gridEntities";
 import {
   logEffects,
   logRoom,
@@ -64,15 +64,19 @@ import {
   logSounds,
 } from "../../functions/log";
 import { getMapPartialMatch } from "../../functions/map";
-import { spawnCard, spawnPill, spawnTrinket } from "../../functions/pickups";
+import {
+  spawnCard,
+  spawnPill,
+  spawnTrinket,
+} from "../../functions/pickupsSpecific";
 import { getPillEffectName } from "../../functions/pills";
+import { getPlayers } from "../../functions/playerIndex";
 import {
   addCollectibleCostume,
   getPlayerName,
   removeCollectibleCostume,
   useActiveItemTemp,
-} from "../../functions/player";
-import { getPlayers } from "../../functions/playerIndex";
+} from "../../functions/players";
 import { gridCoordinatesToWorldPosition } from "../../functions/roomGrid";
 import { changeRoom, getRoomGridIndexesForType } from "../../functions/rooms";
 import { onSetSeed, restart, setUnseeded } from "../../functions/run";
