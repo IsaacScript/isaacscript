@@ -6,8 +6,6 @@
 
 3) ++foo auto-fixed to foo++. (prefer-postfix-plusplus)
 4) --foo auto-fixed to foo--. (prefer-postfix-plusplus)
-5) foo++ combined with any operator throws warning. (no-unsafe-plusplus)
-6) foo-- combined with any operator throws warning. (no-plusplus-operators)
 
 {
   "rules": {
