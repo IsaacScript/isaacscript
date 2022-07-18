@@ -5,6 +5,7 @@ import {
 } from "../objects/coinSubTypeToValue";
 import { CHEST_PICKUP_VARIANTS } from "../sets/chestPickupVariantsSet";
 import { RED_HEART_SUB_TYPES_SET } from "../sets/redHeartSubTypesSet";
+import { removeEntities } from "./entities";
 import { getHearts } from "./pickupsSpecific";
 import { isHeart } from "./pickupVariants";
 
@@ -31,4 +32,15 @@ export function isChest(pickup: EntityPickup): boolean {
 
 export function isRedHeart(pickup: EntityPickup): boolean {
   return isHeart(pickup) && RED_HEART_SUB_TYPES_SET.has(pickup.SubType);
+}
+
+/**
+ * Helper function to remove all of the red heart pickup entities in the room.
+ *
+ * @param cap Optional. If specified, will only remove the given amount of hearts.
+ * @returns The red hearts that were removed.
+ */
+export function removeAllRedHearts(cap?: int): EntityPickupHeart[] {
+  const redHearts = getRedHearts();
+  return removeEntities(redHearts, cap);
 }

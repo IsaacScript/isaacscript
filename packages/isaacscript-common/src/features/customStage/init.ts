@@ -21,7 +21,7 @@ import {
   setCustomDoorGraphics,
   setCustomPitGraphics,
   setCustomRockGraphics,
-} from "./gridEntities";
+} from "./customStageGridEntities";
 import * as metadataJSON from "./metadata.json"; // This will correspond to "metadata.lua" at run-time.
 import { setShadows } from "./shadows";
 import { streakTextGetShaderParams, streakTextPostRender } from "./streakText";

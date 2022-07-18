@@ -355,7 +355,7 @@ export function removeEntities<T extends AnyEntity>(
 
     entitiesRemoved.push(entity);
     if (cap !== undefined && entitiesRemoved.length >= cap) {
-      return entitiesRemoved;
+      break;
     }
   }
 

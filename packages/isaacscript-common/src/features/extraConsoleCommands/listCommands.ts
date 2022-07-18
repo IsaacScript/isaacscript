@@ -56,7 +56,7 @@ import { isValidCollectibleType } from "../../functions/collectibles";
 import { getNPCs } from "../../functions/entitiesSpecific";
 import { getEnumValues } from "../../functions/enums";
 import { addFlag } from "../../functions/flag";
-import { spawnGrid } from "../../functions/gridEntities";
+import { spawnGridEntity } from "../../functions/gridEntities";
 import {
   logEffects,
   logRoom,
@@ -658,7 +658,7 @@ export function gridEntities(): void {
       }
 
       const position = gridCoordinatesToWorldPosition(x, y);
-      spawnGrid(gridEntityType, position);
+      spawnGridEntity(gridEntityType, position);
     }
   }
 }

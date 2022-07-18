@@ -565,6 +565,7 @@ export function spawnBomb(
   if (bomb === undefined) {
     error("Failed to spawn a bomb.");
   }
+
   return bomb;
 }
 
@@ -610,6 +611,7 @@ export function spawnEffect(
   if (effect === undefined) {
     error("Failed to spawn an effect.");
   }
+
   return effect;
 }
 
@@ -655,6 +657,7 @@ export function spawnFamiliar(
   if (familiar === undefined) {
     error("Failed to spawn a familiar.");
   }
+
   return familiar;
 }
 
@@ -700,6 +703,7 @@ export function spawnKnife(
   if (knife === undefined) {
     error("Failed to spawn a knife.");
   }
+
   return knife;
 }
 
@@ -745,6 +749,7 @@ export function spawnLaser(
   if (laser === undefined) {
     error("Failed to spawn a laser.");
   }
+
   return laser;
 }
 
@@ -796,6 +801,7 @@ export function spawnNPC(
   if (npc === undefined) {
     error("Failed to spawn an NPC.");
   }
+
   return npc;
 }
 
@@ -848,6 +854,7 @@ export function spawnPickup(
   if (pickup === undefined) {
     error("Failed to spawn a pickup.");
   }
+
   return pickup;
 }
 
@@ -893,6 +900,7 @@ export function spawnProjectile(
   if (projectile === undefined) {
     error("Failed to spawn a projectile.");
   }
+
   return projectile;
 }
 
@@ -977,6 +985,7 @@ export function spawnTear(
   if (tear === undefined) {
     error("Failed to spawn a tear.");
   }
+
   return tear;
 }
 

@@ -4,7 +4,10 @@ import {
   ModCallback,
 } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
-import { getTopLeftWallGridIndex, spawnGrid } from "../functions/gridEntities";
+import {
+  getTopLeftWallGridIndex,
+  spawnGridEntity,
+} from "../functions/gridEntities";
 import { logError } from "../functions/log";
 import {
   postNewRoomEarlyFire,
@@ -61,7 +64,7 @@ function checkRoomChanged() {
   // spawned, which means that the top-left wall will not exist. If ths is the case, then simply
   // spawn the top-left wall early.
   if (topLeftWall === undefined) {
-    topLeftWall = spawnGrid(GridEntityType.WALL, topLeftWallGridIndex);
+    topLeftWall = spawnGridEntity(GridEntityType.WALL, topLeftWallGridIndex);
     if (topLeftWall === undefined) {
       logError(
         "Failed to spawn a new wall (1) for the PostNewRoomEarly callback.",
@@ -73,7 +76,10 @@ function checkRoomChanged() {
   // For some reason, the above check will rarely fail. We duplicate the check with another wall
   // segment to go from 99% to 100% reliability.
   if (topLeftWall2 === undefined) {
-    topLeftWall2 = spawnGrid(GridEntityType.WALL, rightOfTopWallGridIndex);
+    topLeftWall2 = spawnGridEntity(
+      GridEntityType.WALL,
+      rightOfTopWallGridIndex,
+    );
     if (topLeftWall2 === undefined) {
       logError(
         "Failed to spawn a new wall (2) for the PostNewRoomEarly callback.",

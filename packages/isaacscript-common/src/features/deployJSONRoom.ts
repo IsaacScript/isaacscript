@@ -40,9 +40,9 @@ import {
   getGridEntities,
   getGridEntityIDFromConstituents,
   removeAllGridExcept,
-  removeGrid,
+  removeGridEntity,
   setGridEntityInvisible,
-  spawnGridWithVariant,
+  spawnGridEntityWithVariant,
 } from "../functions/gridEntities";
 import { getRandomJSONRoom } from "../functions/jsonRoom";
 import { log } from "../functions/log";
@@ -131,7 +131,7 @@ function preUseItemWeNeedToGoDeeper(
   // of the shovel to happen.)
   const decorations = getGridEntities(GridEntityType.DECORATION);
   for (const decoration of decorations) {
-    removeGrid(decoration, false);
+    removeGridEntity(decoration, false);
   }
 
   const playerPtr = EntityPtr(player);
@@ -549,7 +549,11 @@ function spawnGridEntityForJSONRoom(
   const position = gridCoordinatesToWorldPosition(x, y);
   const gridIndex = room.GetGridIndex(position);
 
-  const gridEntity = spawnGridWithVariant(gridEntityType, variant, gridIndex);
+  const gridEntity = spawnGridEntityWithVariant(
+    gridEntityType,
+    variant,
+    gridIndex,
+  );
   if (gridEntity === undefined) {
     return gridEntity;
   }

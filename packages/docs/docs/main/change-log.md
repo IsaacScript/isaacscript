@@ -11,7 +11,7 @@ This page lists the changes to the IsaacScript framework.
 
 ## July 19th, 2022
 
-- When using the "Go to Definition" feature of VSCode with stuff from "isaac-typescript-definitions" or "isaacscript-common", it will now warp you to the real TypeScript files (instead of the definitions stub).
+- When using the "Go to Definition" feature of VSCode with exports from "isaac-typescript-definitions" or "isaacscript-common", it will now warp you to the real TypeScript files (instead of the definitions stub).
 - The shader crash fix will now be automatically be applied to any upgraded mods. (The method was originally discovered by AgentCucco.)
 - Breaking:
   - The `removeAllNPCs` function now takes "entityType", "variant", and "subType" parameters, which move the location of the "cap" parameter.
@@ -37,13 +37,30 @@ This page lists the changes to the IsaacScript framework.
   - `removeAllBombPickups`
   - `spawnBombPickup`
   - `spawnBombPickupWithSeed`
+  - `removeAllRedHearts`
+  - `removeGridEntities`
+  - `removeAllPits`
+  - `removeAllPoops`
+  - `removeAllPressurePlates`
+  - `removeAllRocks`
+  - `removeAllSpikes`
+  - `removeAllTNT`
+  - `spawnDoor`
+  - `spawnPit`
+  - `spawnPoop`
+  - `spawnPressurePlate`
+  - `spawnRock`
+  - `spawnSpikes`
+  - `spawnTNT`
+- Renamed the following helper functions:
+  - `removeGrid` --> `removeGridEntity`
+  - `spawnGrid` --> `spawnGridEntity`
+  - `spawnGridWithVariant` --> `spawnGridEntityWithVariant`
 - Removed the following helper functions:
   - `getGotoCommandPrefix` (use `getGotoCommand` instead)
   - `getDefaultColor` (use `ColorDefault`)
   - `getDefaultKColor` (use `KColorDefault` instead)
-- !All of the `get` helper functions now take a "cap" parameter.
 - All of the `get` grid entity helper functions now take a variant parameter.
-- !Make grid entity specific functions.
 - Added the following constants:
   - `NEW_RUN_PLAYER_STARTING_POSITION`
   - `NEW_FLOOR_STARTING_POSITION_NORMAL_MODE`

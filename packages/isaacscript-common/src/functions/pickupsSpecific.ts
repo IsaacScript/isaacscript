@@ -140,7 +140,7 @@ export function getTrinkets(
  * @param batterySubType Optional. If specified, will only remove the batteries that match this
  *                       sub-type. Default is -1, which matches every sub-type.
  * @param cap Optional. If specified, will only remove the given amount of cards.
- * @returns True if one or more batteries were removed, false otherwise.
+ * @returns The batteries that were removed.
  */
 export function removeAllBatteries(
   batterySubType: BatterySubType = -1,
@@ -160,7 +160,7 @@ export function removeAllBatteries(
  * @param bombSubType Optional. If specified, will only remove bombs that match this sub-type.
  *                    Default is -1, which matches every sub-type.
  * @param cap Optional. If specified, will only remove the given amount of bombs.
- * @returns True if one or more bombs were removed, false otherwise.
+ * @returns The bombs that were removed.
  */
 export function removeAllBombPickups(
   bombSubType: BombSubType = -1,
@@ -179,7 +179,7 @@ export function removeAllBombPickups(
  * @param card Optional. If specified, will only remove cards that match this sub-type. Default is
  *             -1, which matches every sub-type.
  * @param cap Optional. If specified, will only remove the given amount of cards.
- * @returns True if one or more cards were removed, false otherwise.
+ * @returns The cards that were removed.
  */
 export function removeAllCards(card: Card = -1, cap?: int): EntityPickupCard[] {
   return removeAllPickups(
@@ -195,7 +195,7 @@ export function removeAllCards(card: Card = -1, cap?: int): EntityPickupCard[] {
  * @param coinSubType Optional. If specified, will only remove coins that match this sub-type.
  *                    Default is -1, which matches every sub-type.
  * @param cap Optional. If specified, will only remove the given amount of coins.
- * @returns True if one or more coins were removed, false otherwise.
+ * @returns The coins that were removed.
  */
 export function removeAllCoins(
   coinSubType?: CoinSubType,
@@ -214,7 +214,7 @@ export function removeAllCoins(
  * @param collectibleType Optional. If specified, will only remove collectibles that match this
  *                        sub-type. Default is -1, which matches every sub-type.
  * @param cap Optional. If specified, will only remove the given amount of collectibles.
- * @returns True if one or more collectibles were removed, false otherwise.
+ * @returns The collectibles that were removed.
  */
 export function removeAllCollectibles(
   collectibleType?: CollectibleType,
@@ -228,12 +228,12 @@ export function removeAllCollectibles(
 }
 
 /**
- * Helper function to remove all of the hearts in the room.
+ * Helper function to remove all of the heart pickup entities in the room.
  *
  * @param heartSubType Optional. If specified, will only remove hearts that match this sub-type.
  *                     Default is -1, which matches every sub-type.
  * @param cap Optional. If specified, will only remove the given amount of hearts.
- * @returns True if one or more hearts were removed, false otherwise.
+ * @returns The hearts that were removed.
  */
 export function removeAllHearts(
   heartSubType?: HeartSubType,
@@ -252,7 +252,7 @@ export function removeAllHearts(
  * @param keySubType Optional. If specified, will only remove keys that match this sub-type. Default
  *                   is -1, which matches every sub-type.
  * @param cap Optional. If specified, will only remove the given amount of keys.
- * @returns True if one or more keys were removed, false otherwise.
+ * @returns The keys that were removed.
  */
 export function removeAllKeys(
   keySubType?: KeySubType,
@@ -271,7 +271,7 @@ export function removeAllKeys(
  * @param pillColor Optional. If specified, will only remove pills that match this sub-type. Default
  *                  is -1, which matches every sub-type.
  * @param cap Optional. If specified, will only remove the given amount of pills.
- * @returns True if one or more pills were removed, false otherwise.
+ * @returns The pills that were removed.
  */
 export function removeAllPills(
   pillColor?: PillColor,
@@ -290,7 +290,7 @@ export function removeAllPills(
  * @param sackSubType Optional. If specified, will only remove sacks that match this sub-type.
  *                    Default is -1, which matches every sub-type.
  * @param cap Optional. If specified, will only remove the given amount of sacks.
- * @returns True if one or more sacks were removed, false otherwise.
+ * @returns The sacks that were removed.
  */
 export function removeAllSacks(
   sackSubType?: SackSubType,
@@ -309,7 +309,7 @@ export function removeAllSacks(
  * @param trinketType Optional. If specified, will only remove trinkets that match this sub-type.
  *                    Default is -1, which matches every sub-type.
  * @param cap Optional. If specified, will only remove the given amount of trinkets.
- * @returns True if one or more trinkets were removed, false otherwise.
+ * @returns The trinkets that were removed.
  */
 export function removeAllTrinkets(
   trinketType?: TrinketType,

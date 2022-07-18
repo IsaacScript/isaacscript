@@ -8,7 +8,10 @@ import { ModUpgraded } from "../classes/ModUpgraded";
 import { DecorationVariant } from "../enums/DecorationVariant";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
-import { removeGrid, spawnGridWithVariant } from "../functions/gridEntities";
+import {
+  removeGridEntity,
+  spawnGridEntityWithVariant,
+} from "../functions/gridEntities";
 import { getRoomListIndex } from "../functions/roomData";
 import { isVector } from "../functions/vector";
 import { CustomGridEntityData } from "../interfaces/CustomGridEntityData";
@@ -105,7 +108,7 @@ export function spawnCustomGrid(
       (DecorationVariant.CUSTOM_GRID_ENTITY as int);
   const decoration = isExistingDecoration
     ? existingGridEntity
-    : spawnGridWithVariant(
+    : spawnGridEntityWithVariant(
         GridEntityType.DECORATION,
         DecorationVariant.CUSTOM_GRID_ENTITY,
         gridIndexOrPosition,
@@ -186,7 +189,7 @@ export function removeCustomGrid(
   }
 
   roomCustomGridEntities.delete(gridIndex);
-  removeGrid(decoration, updateRoom);
+  removeGridEntity(decoration, updateRoom);
 
   return decoration;
 }

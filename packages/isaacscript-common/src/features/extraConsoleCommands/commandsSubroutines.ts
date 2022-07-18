@@ -8,7 +8,7 @@ import {
 import { game } from "../../cachedClasses";
 import { HealthType } from "../../enums/HealthType";
 import { directionToVector } from "../../functions/direction";
-import { spawnGridWithVariant } from "../../functions/gridEntities";
+import { spawnGridEntityWithVariant } from "../../functions/gridEntities";
 import { logEntities, logGridEntities } from "../../functions/log";
 import { addPlayerHealthType } from "../../functions/playerHealth";
 import { getRoomData, getRoomDescriptor } from "../../functions/roomData";
@@ -118,7 +118,7 @@ export function spawnTrapdoorOrCrawlSpace(trapdoor: boolean): void {
     ? GridEntityType.TRAPDOOR
     : GridEntityType.CRAWL_SPACE;
 
-  spawnGridWithVariant(gridEntityType, 0, gridIndex);
+  spawnGridEntityWithVariant(gridEntityType, 0, gridIndex);
 }
 
 export function warpToRoomType(roomType: RoomType): void {
