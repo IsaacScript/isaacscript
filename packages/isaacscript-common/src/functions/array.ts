@@ -527,7 +527,7 @@ export function shuffleArrayInPlace<T>(
   const rng = isRNG(seedOrRNG) ? seedOrRNG : newRNG(seedOrRNG);
 
   while (currentIndex > 0) {
-    currentIndex -= 1;
+    currentIndex--;
 
     const randomIndex = getRandomArrayIndex(array, rng);
     swapArrayElements(array, currentIndex, randomIndex);

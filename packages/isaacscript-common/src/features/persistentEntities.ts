@@ -123,7 +123,7 @@ export function spawnPersistentEntity(
 ): [Entity, int] {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
 
-  persistentEntityIndexCounter += 1;
+  persistentEntityIndexCounter++;
 
   const entity = spawnAndTrack(
     entityType,

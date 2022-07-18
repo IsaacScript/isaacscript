@@ -47,6 +47,7 @@ This page lists the changes to the IsaacScript framework.
   - `unseed`
   - `gridCosts`
 - The `grid` and `grid2` custom console commands have been switched.
+- The [`no-unsafe-plusplus`](https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/no-unsafe-plusplus.md), [`prefer-plusplus`](https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/prefer-plusplus.md), and [`prefer-postfix-plusplus`](https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/prefer-postfix-plusplus.md) ESLint rules have been added to the standard linting configuration.
 
 ## July 12th, 2022
 

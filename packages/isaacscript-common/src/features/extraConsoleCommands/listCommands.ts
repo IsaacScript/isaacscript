@@ -337,7 +337,7 @@ export function cards(): void {
 
       const position = gridCoordinatesToWorldPosition(x, y);
       spawnCard(cardType as Card, position);
-      cardType += 1;
+      cardType++;
     }
   }
 }
@@ -647,7 +647,7 @@ export function gridEntities(): void {
   let gridEntityTypeIndex = -1;
   for (let y = 0; y <= 6; y++) {
     for (let x = 0; x <= 12; x++) {
-      gridEntityTypeIndex += 1;
+      gridEntityTypeIndex++;
       const gridEntityType = gridEntityTypes[gridEntityTypeIndex];
       if (gridEntityType === undefined) {
         return;
@@ -884,7 +884,7 @@ export function pills(): void {
   let pillColorIndex = -1;
   for (let y = 0; y <= 6; y++) {
     for (let x = 0; x <= 12; x++) {
-      pillColorIndex += 1;
+      pillColorIndex++;
       const pillColor = pillColors[pillColorIndex];
       if (pillColor === undefined) {
         return;

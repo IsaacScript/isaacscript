@@ -102,7 +102,7 @@ function collectibleCountChanged(
       } else {
         postPlayerCollectibleRemovedFire(player, collectibleType);
       }
-      numFired += 1;
+      numFired++;
     });
 
     if (numFired === numCollectiblesChanged) {

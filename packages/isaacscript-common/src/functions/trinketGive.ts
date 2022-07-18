@@ -98,7 +98,7 @@ export function temporarilyRemoveTrinket(
   let numTrinkets = 0;
   while (player.HasTrinket(trinketType)) {
     player.TryRemoveTrinket(trinketType);
-    numTrinkets += 1;
+    numTrinkets++;
   }
 
   let numSmeltedTrinkets = numTrinkets;
@@ -106,13 +106,13 @@ export function temporarilyRemoveTrinket(
     trinketType1 === trinketType ||
     trinketType1 === getGoldenTrinketType(trinketType);
   if (trinketWasInSlot1) {
-    numSmeltedTrinkets -= 1;
+    numSmeltedTrinkets--;
   }
   const trinketWasInSlot2 =
     trinketType2 === trinketType ||
     trinketType2 === getGoldenTrinketType(trinketType);
   if (trinketWasInSlot2) {
-    numSmeltedTrinkets -= 1;
+    numSmeltedTrinkets--;
   }
 
   return {

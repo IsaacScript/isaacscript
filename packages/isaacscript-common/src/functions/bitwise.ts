@@ -57,7 +57,7 @@ export function countSetBits(n: int): int {
 
   while (n > 0) {
     n &= n - 1;
-    count += 1;
+    count++;
   }
 
   return count;
@@ -72,7 +72,7 @@ export function getKBitOfN(k: int, n: int): int {
 export function getNumBitsOfN(n: int): int {
   let numBits = 0;
   while (n > 0) {
-    numBits += 1;
+    numBits++;
     n >>>= 1;
   }
 

@@ -97,7 +97,7 @@ function requiresQuoting(
     return true;
   }
 
-  for (let i = 1; i < name.length; i += 1) {
+  for (let i = 1; i < name.length; i++) {
     if (!ts.isIdentifierPart(name.charCodeAt(i), target)) {
       return true;
     }

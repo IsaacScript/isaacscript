@@ -95,7 +95,7 @@ export function getCommentBlocks(
       commentBlock.originalComments.push(nextComment);
 
       // Since we merged this comment, we can skip over examining it in the parent loop.
-      i += 1;
+      i++;
     }
 
     commentBlocks.push(commentBlock);

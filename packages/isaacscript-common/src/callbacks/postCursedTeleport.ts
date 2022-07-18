@@ -119,7 +119,7 @@ function incrementNumSacrifices(damageFlags: BitFlags<DamageFlag>) {
   const isSpikeDamage = hasFlag(damageFlags, DamageFlag.SPIKES);
 
   if (roomType === RoomType.SACRIFICE && isSpikeDamage) {
-    v.level.numSacrifices += 1;
+    v.level.numSacrifices++;
   }
 }
 

@@ -228,7 +228,7 @@ export function logEntities(
       msg += `  - CanShutDoors: ${npc.CanShutDoors}\n`;
     }
 
-    numMatchedEntities += 1;
+    numMatchedEntities++;
   });
 
   if (numMatchedEntities === 0) {
@@ -404,7 +404,7 @@ export function logGridEntities(
       msg += `  - TargetRoomType: ${door.TargetRoomType}\n`;
     }
 
-    numMatchedEntities += 1;
+    numMatchedEntities++;
   });
 
   if (numMatchedEntities === 0) {

@@ -27,10 +27,10 @@ export function getHUDOffsetVector(): Vector {
   const x = hudOffset * 2;
   let y = hudOffset;
   if (y >= 4) {
-    y += 1;
+    y++;
   }
   if (y >= 9) {
-    y += 1;
+    y++;
   }
 
   return Vector(x, y);
@@ -69,7 +69,7 @@ export function getHeartsUIWidth(): int {
 
   let heartRowLength = getHeartRowLength(player);
   if (hasHolyMantleEffect) {
-    heartRowLength += 1;
+    heartRowLength++;
   }
   if (curses === LevelCurse.UNKNOWN) {
     heartRowLength = 1;

@@ -200,21 +200,21 @@ function copiedObjectHasNoReferencesForArray() {
     error("The copied object does not have an equal array.");
   }
 
-  oldObject.abc[0] += 1;
+  oldObject.abc[0]++;
   if (arrayEquals(oldObject.abc, newObject.abc)) {
     error(
       "The copied object has an equal array after a modification to the old array.",
     );
   }
-  oldObject.abc[0] -= 1;
+  oldObject.abc[0]--;
 
-  newObject.abc[0] += 1;
+  newObject.abc[0]++;
   if (arrayEquals(oldObject.abc, newObject.abc)) {
     error(
       "The copied object has an equal array after a modification to the new array.",
     );
   }
-  newObject.abc[0] -= 1;
+  newObject.abc[0]--;
 }
 
 function copiedObjectHasChildObject() {

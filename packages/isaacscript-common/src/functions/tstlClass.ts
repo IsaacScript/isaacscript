@@ -100,7 +100,7 @@ export function isUserDefinedTSTLClass(object: unknown): object is TSTLClass {
 
   let numKeys = 0;
   for (const [key] of pairs(metatable)) {
-    numKeys += 1;
+    numKeys++;
 
     if (!isString(key)) {
       return false;
