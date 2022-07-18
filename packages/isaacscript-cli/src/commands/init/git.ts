@@ -195,9 +195,10 @@ export function initGitRepository(
 
   if (isGitNameAndEmailConfigured(verbose)) {
     execShell("git", ["add", "--all"], verbose, false, projectPath);
+    const commitMessage = `chore: add files from ${PROJECT_NAME} template`;
     execShell(
       "git",
-      ["commit", "--message", `chore: add files from ${PROJECT_NAME} template`],
+      ["commit", "--message", commitMessage],
       verbose,
       false,
       projectPath,
@@ -246,9 +247,9 @@ export function gitCommitIfChanges(version: string, verbose: boolean): void {
     return;
   }
 
+  execShell("git", ["add", "--all"], verbose);
   const commitMessage = `chore: release v${version}`;
-  execShell("git", ["add", "-A"], verbose);
-  execShell("git", ["commit", "-m", commitMessage], verbose);
+  execShell("git", ["commit", "--message", commitMessage], verbose);
   execShell("git", ["push", "origin", "main", "--set-upstream"], verbose);
 
   console.log(

@@ -62,9 +62,9 @@ export function execShell(
 ): [exitStatus: number, stdout: string] {
   // On Windows, "spawnSync()" will not account for spaces in arguments. Thus, wrap everything in a
   // double quote. This will cause arguments that naturally have double quotes to fail.
-  if (command.includes('"')) {
+  if (command.includes("''") || command.includes('"')) {
     error(
-      "execShell cannot execute commands with double quotes in the command.",
+      "execShell cannot execute commands with single quotes or double quotes in the command.",
     );
   }
 
@@ -84,7 +84,7 @@ export function execShell(
 
   let spawnSyncReturns: SpawnSyncReturns<Buffer>;
   try {
-    spawnSyncReturns = spawnSync(command, args, {
+    spawnSyncReturns = spawnSync(command, quotedArgs, {
       shell: true,
       cwd,
     });
