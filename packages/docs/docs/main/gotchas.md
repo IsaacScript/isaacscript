@@ -417,7 +417,7 @@ for (const key of getEnumKeys(MyEnum)) {
 }
 ```
 
-Instead, you might expect that the enum helper functions would return the entries in the order that they were defined in. However, it is impossible to determine declaration order at runtime. This is because under-the-hood, the `pairs` function is used to iterate over an enum table, and it will always return the results in a random order.
+Instead, you might expect that the enum helper functions would return the entries in the order that they were defined in. However, it is impossible to determine declaration order at run-time. This is because under-the-hood, the `pairs` function is used to iterate over an enum table, and it will always return the results in a random order.
 
 Since number enums are always declared in order of value, you would probably only ever observe this oddity with an enum that has string values.
 

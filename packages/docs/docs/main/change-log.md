@@ -1449,7 +1449,7 @@ The reason for this is that any functions and variables that you declare in a TS
 
 ### `luaBundle`
 
-I found an issue where if multiple IsaacScript mods are turned on at the same time, and they use maps, an issue with TSTL can cause map-related runtime errors to occur. Eventually, this bug should be fixed upstream, we just have to wait for them to fix it.
+I found an issue where if multiple IsaacScript mods are turned on at the same time, and they use maps, an issue with TSTL can cause map-related run-time errors to occur. Eventually, this bug should be fixed upstream, we just have to wait for them to fix it.
 
 In the meantime, if you experience any map related errors with your production mod, the solution is to 1) turn `luaBundle` off in tsconfig.json, and 2) rename `bundleEntry.ts` to `main.ts` (see below).
 

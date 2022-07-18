@@ -781,7 +781,7 @@ export const strictEnums = createRule<Options, MessageIds>({
         }
 
         /**
-         * We have to use `leftTSNode.name` instead of `leftTSNode` to avoid runtime errors because
+         * We have to use `leftTSNode.name` instead of `leftTSNode` to avoid run-time errors because
          * the `checker.getTypeAtLocation` method expects a `ts.BindingName` instead of a
          * `ts.VariableDeclaration`.
          * https://github.com/microsoft/TypeScript/issues/48878

@@ -219,7 +219,7 @@ function postRoomClearChanged(
  * The custom door is an `EntityEffect`. You can manually open or close the door by modifying its
  * state. (The values to use correspond to the `DoorState` enum.)
  *
- * This function will throw a runtime error if:
+ * This function will throw a run-time error if:
  * - the door slot already has a vanilla door
  * - the door slot already has a custom door
  * - the tile at the door slot does not have a wall

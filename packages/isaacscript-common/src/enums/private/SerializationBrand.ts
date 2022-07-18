@@ -20,12 +20,20 @@ export enum SerializationBrand {
   /**
    * This is set to the value that represents the default value (instead of an empty string like the
    * other brands are).
-   *
-   * Default maps that use a factory function are unserializable, but do not throw runtime errors
-   * because the merge function can derive the factory function from the already-instantiated
-   * object.
    */
   DEFAULT_MAP_VALUE = "__TSTL_DEFAULT_MAP_VALUE",
+
+  /**
+   * `SerializationBrand.DEFAULT_MAP_VALUE` is set to this for default maps that were instantiated
+   * with a factory function. Since functions are not serializable, this is used as a placeholder
+   * value.
+   *
+   * Not having the associated factory function at deserialization time is not a problem in most
+   * cases, because the `merge` function can get the factory function from the old table that is
+   * being merged into. However, in the case of a nested map, this will not be possible, and the
+   * presence of this serialization brand will cause a run-time error.
+   */
+  DEFAULT_MAP_FACTORY_FUNCTION = "__TSTL_DEFAULT_MAP_FACTORY_FUNCTION",
 
   /**
    * The JSON library is unable to distinguish between a maps with number keys and an array. It will

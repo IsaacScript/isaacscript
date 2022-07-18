@@ -209,23 +209,37 @@ function deepCopyDefaultMap(
   traversalDescription: string,
   insideMap: boolean,
 ) {
-  // First, handle the special case of serializing a DefaultMap instantiated with a factory
-  // function. If this is the case, then we cannot serialize it, so we serialize it as a normal
-  // `Map` instead. We do not throw a runtime error because the merge function does not need to
-  // instantiate the DefaultMap class in most circumstances.
   const constructorArg = isDefaultMap(defaultMap)
     ? defaultMap.getConstructorArg()
-    : undefined;
+    : undefined; // The undefined case is handled explicitly in the "getNewDefaultMap" function.
+
+  // First, handle the special case of serializing a DefaultMap instantiated with a factory
+  // function. If this is the case, then we cannot serialize it (because there is no way to
+  // serialize a function).
   if (
     serializationType === SerializationType.SERIALIZE &&
     !isPrimitive(constructorArg)
   ) {
-    return deepCopyMap(
-      defaultMap,
-      serializationType,
-      traversalDescription,
-      insideMap,
-    );
+    if (insideMap) {
+      // The case of a DefaultMap within another map is complicated. Unlike a DefaultMap attached to
+      // a "normal" object, the `merge` function will have no reference to the factory function that
+      // was used to instantiate it. Thus, there is no way to copy this object. In this case, we
+      // throw a run-time error to immediately alert the end-user that their data structure is
+      // invalid.
+      error(
+        'Failed to deep copy a DefaultMap because it was instantiated with a factory function and was also inside of another map. You cannot use a nested DefaultMap in this way because factory functions are not serializable. (In other words, there is no way to copy the function that you are using for the DefaultMap into the "save#.dat" file.) Instead, refactor your data structure so that the DefaultMap is not nested.',
+      );
+    } else {
+      // In most cases, the DefaultMap will be attached to a normal table element. In this case, if
+      // we serialize it as a normal `Map`, then everything will work out fine, because the `merge`
+      // function only needs to copy the values (and not instantiate the object itself).
+      return deepCopyMap(
+        defaultMap,
+        serializationType,
+        traversalDescription,
+        insideMap,
+      );
+    }
   }
 
   const newDefaultMap = getNewDefaultMap(
@@ -234,6 +248,7 @@ function deepCopyDefaultMap(
     traversalDescription,
     constructorArg,
   );
+  insideMap = true;
 
   const { entries, convertedNumberKeysToStrings } = getCopiedEntries(
     defaultMap,
@@ -262,12 +277,14 @@ function deepCopyDefaultMap(
     }
   }
 
+  insideMap = false;
+
   return newDefaultMap;
 }
 
 /**
- * The new default map with either be a TSTL `DefaultMap` class or a Lua table, depending on whether
- * we are serializing or not.
+ * The new copied default map with either be a TSTL `DefaultMap` class or a Lua table, depending on
+ * whether we are serializing or not.
  */
 function getNewDefaultMap(
   defaultMap: DefaultMap<AnyNotNil, unknown> | LuaTable<AnyNotNil, unknown>,
@@ -327,6 +344,7 @@ function deepCopyMap(
   } else {
     newMap = new Map();
   }
+  insideMap = true;
 
   const { entries, convertedNumberKeysToStrings } = getCopiedEntries(
     map,
@@ -354,6 +372,8 @@ function deepCopyMap(
       newMap.set(key, value);
     }
   }
+
+  insideMap = false;
 
   return newMap;
 }

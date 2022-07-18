@@ -134,7 +134,7 @@ export function getStringsFromTable(
  * This function will sort the table entries based on the value of the key.
  *
  * This function will only work on tables that have number keys or string keys. It will throw a
- * runtime error if it encounters a key of another type.
+ * run-time error if it encounters a key of another type.
  *
  * @param luaTable The table to iterate over.
  * @param func The function to run for each iteration.

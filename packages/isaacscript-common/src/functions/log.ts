@@ -572,7 +572,7 @@ export function logSounds(this: void): void {
  * recursively call itself if it counters a table within a table.
  *
  * This function will only work on tables that have string keys (because it logs the keys in order,
- * instead of randomly). It will throw a runtime error if it encounters a non-string key.
+ * instead of randomly). It will throw a run-time error if it encounters a non-string key.
  */
 export function logTable(
   this: void,

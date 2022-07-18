@@ -745,7 +745,7 @@ local player = entity:ToPlayer() -- Convert the entity to a player.
 player:AddMaxHearts(2) -- Give them a heart container.
 ```
 
-Not all entities convert to players though, so this code can fail. In fact, for most entities, the `ToPlayer()` method would return `nil` and cause the next line to throw a runtime error, preventing all of the subsequent code in the callback from firing. In TypeScript, writing this code would cause a compiler error:
+Not all entities convert to players though, so this code can fail. In fact, for most entities, the `ToPlayer()` method would return `nil` and cause the next line to throw a run-time error, preventing all of the subsequent code in the callback from firing. In TypeScript, writing this code would cause a compiler error:
 
 ```ts
 const player = entity.ToPlayer();
@@ -766,4 +766,4 @@ Here, we explicitly handle the error case and supply a helpful error message. Bu
 
 `error()` is a Lua function that causes execution of the function to immediately end. Thus, TypeScript is smart enough to realize that if the code gets to the `AddMaxHearts()` line, the type of `player` is no longer `EntityPlayer | undefined` - it would have to be a `EntityPlayer`. You can confirm this by mousing over the variable in VSCode.
 
-Since many of the Isaac API methods can fail, you will have to use _type narrowing_ like this in many places in your code. Sometimes, it can be annoying to explicitly check to see if things go wrong. But _type narrowing_ should be seen as a good thing: by handling errors in a sane way, you safely limit the damage that runtime errors can cause. And when things do go wrong, troubleshooting what happened becomes a lot easier.
+Since many of the Isaac API methods can fail, you will have to use _type narrowing_ like this in many places in your code. Sometimes, it can be annoying to explicitly check to see if things go wrong. But _type narrowing_ should be seen as a good thing: by handling errors in a sane way, you safely limit the damage that run-time errors can cause. And when things do go wrong, troubleshooting what happened becomes a lot easier.

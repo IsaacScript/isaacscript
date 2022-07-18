@@ -62,7 +62,7 @@ For more information on the "roomVariantPrefix" field, see the section on [Custo
 
 2. An Isaac library should be safe.
 
-- Creating stages can get complicated. You should immediately know if you are using a function wrong, and not be running around in-game, examining run-time errors.
+- Creating stages can get complicated. You should immediately know if you are using a function incorrectly, and not be running around in-game, examining run-time errors.
 - It should be impossible to push broken code to production.
 
 3. An Isaac library should work without being a Workshop dependency.
