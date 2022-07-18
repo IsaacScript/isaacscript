@@ -131,6 +131,7 @@ function copiedTableDoesNotCoerceTypes() {
   }
 }
 
+/** In this context, a reference is a pointer. */
 function copiedObjectHasNoReferencesForPrimitivesForward() {
   const originalStringValue = "abcdef";
   const originalNumberValue = 123;
@@ -181,6 +182,7 @@ function copiedObjectHasNoReferencesForPrimitivesBackward() {
   }
 }
 
+/** In this context, a reference is a pointer. */
 function copiedObjectHasNoReferencesForArray() {
   const oldObject = {
     abc: [1, 2, 3],

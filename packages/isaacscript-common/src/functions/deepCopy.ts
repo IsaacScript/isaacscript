@@ -51,15 +51,19 @@ const COPYABLE_ISAAC_API_CLASS_TYPES_SET = new Set<string>(
  * - other Isaac API objects such as `EntityPtr` (that have a type of "userdata")
  *
  * @param value The primitive or object to copy.
- * @param serializationType Has 3 possible values. Can leave objects as-is, or can serialize objects
- *                          to Lua tables, or can deserialize Lua tables to objects. Default is
- *                          `SerializationType.NONE`.
- * @param traversalDescription Used to track the current key that we are operating on.
+ * @param serializationType Optional. Has 3 possible values. Can copy objects as-is, or can
+ *                          serialize objects to Lua tables, or can deserialize Lua tables to
+ *                          objects. Default is `SerializationType.NONE`.
+ * @param traversalDescription Optional. Used to track the current key that we are operating on.
+ *                             Default is an empty string.
+ * @param insideMap Optional. Tracks whether or not the deep copy function is in the process of
+ *                  recursively copying a TSTL Map. Default is false.
  */
 export function deepCopy(
   value: unknown,
   serializationType = SerializationType.NONE,
   traversalDescription = "",
+  insideMap = false,
 ): unknown {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (SAVE_DATA_MANAGER_DEBUG) {
@@ -98,7 +102,12 @@ export function deepCopy(
 
     case "table": {
       const luaTable = value as LuaTable<AnyNotNil, unknown>;
-      return deepCopyTable(luaTable, serializationType, traversalDescription);
+      return deepCopyTable(
+        luaTable,
+        serializationType,
+        traversalDescription,
+        insideMap,
+      );
     }
 
     case "userdata": {
@@ -111,6 +120,7 @@ function deepCopyTable(
   luaTable: LuaTable<AnyNotNil, unknown>,
   serializationType: SerializationType,
   traversalDescription: string,
+  insideMap: boolean,
 ) {
   // First, handle the cases of TSTL classes or serialized TSTL classes.
   if (isDefaultMap(luaTable) || luaTable.has(SerializationBrand.DEFAULT_MAP)) {
@@ -118,15 +128,26 @@ function deepCopyTable(
       luaTable,
       serializationType,
       traversalDescription,
+      insideMap,
     );
   }
 
   if (isTSTLMap(luaTable) || luaTable.has(SerializationBrand.MAP)) {
-    return deepCopyMap(luaTable, serializationType, traversalDescription);
+    return deepCopyMap(
+      luaTable,
+      serializationType,
+      traversalDescription,
+      insideMap,
+    );
   }
 
   if (isTSTLSet(luaTable) || luaTable.has(SerializationBrand.SET)) {
-    return deepCopySet(luaTable, serializationType, traversalDescription);
+    return deepCopySet(
+      luaTable,
+      serializationType,
+      traversalDescription,
+      insideMap,
+    );
   }
 
   const className = getTSTLClassName(luaTable);
@@ -144,7 +165,12 @@ function deepCopyTable(
   }
 
   if (isUserDefinedTSTLClass(luaTable)) {
-    return deepCopyTSTLClass(luaTable, serializationType, traversalDescription);
+    return deepCopyTSTLClass(
+      luaTable,
+      serializationType,
+      traversalDescription,
+      insideMap,
+    );
   }
 
   // This is not a TSTL Map/Set/class. If it has a metatable, abort.
@@ -160,7 +186,12 @@ function deepCopyTable(
 
   // Handle the special case of an array.
   if (isArray(luaTable)) {
-    return deepCopyArray(luaTable, serializationType, traversalDescription);
+    return deepCopyArray(
+      luaTable,
+      serializationType,
+      traversalDescription,
+      insideMap,
+    );
   }
 
   // Base case: copy a normal Lua table
@@ -168,6 +199,7 @@ function deepCopyTable(
     luaTable,
     serializationType,
     traversalDescription,
+    insideMap,
   );
 }
 
@@ -175,6 +207,7 @@ function deepCopyDefaultMap(
   defaultMap: DefaultMap<AnyNotNil, unknown> | LuaTable<AnyNotNil, unknown>,
   serializationType: SerializationType,
   traversalDescription: string,
+  insideMap: boolean,
 ) {
   // First, handle the special case of serializing a DefaultMap instantiated with a factory
   // function. If this is the case, then we cannot serialize it, so we serialize it as a normal
@@ -187,7 +220,12 @@ function deepCopyDefaultMap(
     serializationType === SerializationType.SERIALIZE &&
     !isPrimitive(constructorArg)
   ) {
-    return deepCopyMap(defaultMap, serializationType, traversalDescription);
+    return deepCopyMap(
+      defaultMap,
+      serializationType,
+      traversalDescription,
+      insideMap,
+    );
   }
 
   const newDefaultMap = getNewDefaultMap(
@@ -201,6 +239,7 @@ function deepCopyDefaultMap(
     defaultMap,
     serializationType,
     traversalDescription,
+    insideMap,
   );
 
   if (convertedNumberKeysToStrings) {
@@ -278,6 +317,7 @@ function deepCopyMap(
   map: Map<AnyNotNil, unknown> | LuaTable<AnyNotNil, unknown>,
   serializationType: SerializationType,
   traversalDescription: string,
+  insideMap: boolean,
 ) {
   let newMap: Map<AnyNotNil, unknown> | LuaTable<AnyNotNil, unknown>;
   if (serializationType === SerializationType.SERIALIZE) {
@@ -292,6 +332,7 @@ function deepCopyMap(
     map,
     serializationType,
     traversalDescription,
+    insideMap,
   );
 
   if (convertedNumberKeysToStrings) {
@@ -321,6 +362,7 @@ function deepCopySet(
   set: Set<AnyNotNil> | LuaTable<AnyNotNil, unknown>,
   serializationType: SerializationType,
   traversalDescription: string,
+  insideMap: boolean,
 ) {
   let newSet: Set<AnyNotNil> | LuaTable<AnyNotNil, string>;
   if (serializationType === SerializationType.SERIALIZE) {
@@ -336,6 +378,7 @@ function deepCopySet(
     set,
     serializationType,
     traversalDescription,
+    insideMap,
   );
 
   if (convertedNumberKeysToStrings) {
@@ -368,6 +411,7 @@ function deepCopyTSTLClass(
   tstlClass: TSTLClass,
   serializationType: SerializationType,
   traversalDescription: string,
+  insideMap: boolean,
 ) {
   let newClass: TSTLClass | LuaTable<AnyNotNil, unknown>;
   if (serializationType === SerializationType.SERIALIZE) {
@@ -383,6 +427,7 @@ function deepCopyTSTLClass(
     tstlClass,
     serializationType,
     traversalDescription,
+    insideMap,
   );
 
   if (convertedNumberKeysToStrings) {
@@ -400,11 +445,17 @@ function deepCopyArray(
   array: unknown[],
   serializationType: SerializationType,
   traversalDescription: string,
+  insideMap: boolean,
 ) {
   const newArray: unknown[] = [];
 
   for (const value of array) {
-    const newValue = deepCopy(value, serializationType, traversalDescription);
+    const newValue = deepCopy(
+      value,
+      serializationType,
+      traversalDescription,
+      insideMap,
+    );
     newArray.push(newValue);
   }
 
@@ -415,12 +466,14 @@ function deepCopyNormalLuaTable(
   luaTable: LuaTable<AnyNotNil, unknown>,
   serializationType: SerializationType,
   traversalDescription: string,
+  insideMap: boolean,
 ) {
   const newTable = new LuaTable<AnyNotNil, unknown>();
   const { entries, convertedNumberKeysToStrings } = getCopiedEntries(
     luaTable,
     serializationType,
     traversalDescription,
+    insideMap,
   );
 
   if (convertedNumberKeysToStrings) {
@@ -442,6 +495,7 @@ function getCopiedEntries(
   object: unknown,
   serializationType: SerializationType,
   traversalDescription: string,
+  insideMap: boolean,
 ): {
   entries: Array<[key: AnyNotNil, value: unknown]>;
   convertedNumberKeysToStrings: boolean;
@@ -479,7 +533,12 @@ function getCopiedEntries(
     }
 
     traversalDescription = getTraversalDescription(key, traversalDescription);
-    const newValue = deepCopy(value, serializationType, traversalDescription);
+    const newValue = deepCopy(
+      value,
+      serializationType,
+      traversalDescription,
+      insideMap,
+    );
 
     const keyToUse = convertNumberKeysToStrings ? tostring(key) : key;
     copiedEntries.push([keyToUse, newValue]);
