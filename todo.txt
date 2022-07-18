@@ -3,3 +3,5 @@
 - custom stage level streak text - need to render on top of HUD
 - custom trapdoors
 - custom bosses for vanilla stages
+
+- convert LuaTable to LuaMap (after TSTL is released)
