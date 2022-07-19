@@ -17,6 +17,7 @@ import {
   CustomStageTSConfig,
 } from "./interfaces/copied/CustomStageLua";
 import { JSONRoomsFile } from "./interfaces/copied/JSONRoomsFile";
+import { ShadersXML } from "./interfaces/ShadersXML";
 import { getPackageManagerAddCommand } from "./packageManager";
 import { getCustomStagesFromTSConfig } from "./tsconfig";
 import { error, parseIntSafe } from "./utils";
@@ -27,15 +28,19 @@ const ISAACSCRIPT_COMMON_PATH = path.join(
   "node_modules",
   ISAACSCRIPT_COMMON,
 );
+
 const METADATA_LUA_PATH = path.join(
   ISAACSCRIPT_COMMON_PATH,
   "features",
   "customStage",
   "metadata.lua",
 );
+
 const ROOM_VARIANT_MULTIPLIER = 10000;
 const VARIANT_REGEX = / variant="(\d+)"/;
 const WEIGHT_REGEX = / weight="(.+?)"/;
+
+const EMPTY_SHADER_NAME = "IsaacScript-RenderAboveHUD";
 
 export async function prepareCustomStages(
   packageManager: PackageManager,
@@ -47,7 +52,7 @@ export async function prepareCustomStages(
   }
 
   copyCustomStageFilesToProject(verbose);
-  insertEmptyShader();
+  await insertEmptyShader(verbose);
   await fillCustomStageMetadata(customStagesTSConfig, packageManager, verbose);
   combineCustomStageXMLs(customStagesTSConfig, verbose);
 }
@@ -74,20 +79,46 @@ function copyCustomStageFilesToProject(verbose: boolean) {
  * The custom stage feature requires an empty shader to be present in order to render sprites on top
  * of the HUD.
  */
-function insertEmptyShader(verbose: boolean) {
-  const shadersDstPath = path.join(CWD, "mod", "content", "shaders.xml");
+async function insertEmptyShader(verbose: boolean) {
+  const shadersXMLDstPath = path.join(CWD, "mod", "content", "shaders.xml");
 
-  if (!file.exists(shadersDstPath, verbose)) {
-    file.copy(SHADERS_XML_PATH, shadersDstPath, verbose);
+  if (!file.exists(shadersXMLDstPath, verbose)) {
+    file.copy(SHADERS_XML_PATH, shadersXMLDstPath, verbose);
     return;
   }
 
   // The end-user mod might have their own custom shaders, so we need to merge our empty shader
   // inside the existing "shaders.xml" file.
-  const shadersXMLContents = file.read(shadersDstPath, verbose);
-  const shadersXML = await xml2js.parseStringPromise(shadersXMLContents);
-  console.log(shadersXML);
-  process.exit(1);
+  const shadersXMLDstContents = file.read(shadersXMLDstPath, verbose);
+  const shadersXMLDst = (await xml2js.parseStringPromise(
+    shadersXMLDstContents,
+  )) as ShadersXML;
+
+  const hasIsaacScriptEmptyShader = shadersXMLDst.shaders.shader.some(
+    (shader) => shader.$.name === EMPTY_SHADER_NAME,
+  );
+  if (hasIsaacScriptEmptyShader) {
+    return;
+  }
+
+  const shadersXMLSrcContents = file.read(SHADERS_XML_PATH, verbose);
+  const shadersXMLSrc = (await xml2js.parseStringPromise(
+    shadersXMLSrcContents,
+  )) as ShadersXML;
+  const isaacScriptEmptyShader = shadersXMLSrc.shaders.shader.find(
+    (shader) => shader.$.name === EMPTY_SHADER_NAME,
+  );
+  if (isaacScriptEmptyShader === undefined) {
+    error(
+      `Failed to find the empty shader named "${EMPTY_SHADER_NAME}" in the following file: ${SHADERS_XML_PATH}`,
+    );
+  }
+
+  // Add the empty shader to the mod's existing "shaders.xml" file.
+  shadersXMLDst.shaders.shader.push(isaacScriptEmptyShader);
+  const xmlBuilder = new xml2js.Builder();
+  const newXML = xmlBuilder.buildObject(shadersXMLDst);
+  file.write(shadersXMLDstPath, newXML, verbose);
 }
 
 /**
