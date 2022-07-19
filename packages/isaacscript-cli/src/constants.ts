@@ -22,7 +22,12 @@ export const PROJECT_NAME = "IsaacScript";
 const REPO_ROOT = path.join(__dirname, "..");
 
 // `isaacscript/custom-stage`
-export const CUSTOM_STAGE_FILES_DIR = path.join(REPO_ROOT, "custom-stage");
+const CUSTOM_STAGE_PATH = path.join(REPO_ROOT, "custom-stage");
+export const CUSTOM_STAGE_FILES_DIR = path.join(
+  CUSTOM_STAGE_PATH,
+  "isaacscript-custom-stage",
+);
+export const SHADERS_XML_PATH = path.join(CUSTOM_STAGE_PATH, "shaders.xml");
 
 // `isaacscript/isaacscript-watcher`
 export const DISABLE_IT_FILE = "disable.it";

@@ -56,6 +56,7 @@ This page lists the changes to the IsaacScript framework.
   - `logEntity`
   - `logGridEntities`
   - `logGridEntity`
+  - `restartNextRenderFrame`
 - Renamed the following helper functions:
   - `removeGrid` --> `removeGridEntity`
   - `spawnGrid` --> `spawnGridEntity`

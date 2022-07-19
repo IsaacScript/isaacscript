@@ -3,7 +3,12 @@ import path from "path";
 import * as tstl from "typescript-to-lua";
 import xml2js from "xml2js";
 import { getJSONRoomDoorSlotFlags } from "./common";
-import { CUSTOM_STAGE_FILES_DIR, CWD, MOD_SOURCE_PATH } from "./constants";
+import {
+  CUSTOM_STAGE_FILES_DIR,
+  CWD,
+  MOD_SOURCE_PATH,
+  SHADERS_XML_PATH,
+} from "./constants";
 import { PackageManager } from "./enums/PackageManager";
 import * as file from "./file";
 import {
@@ -42,6 +47,7 @@ export async function prepareCustomStages(
   }
 
   copyCustomStageFilesToProject(verbose);
+  insertEmptyShader();
   await fillCustomStageMetadata(customStagesTSConfig, packageManager, verbose);
   combineCustomStageXMLs(customStagesTSConfig, verbose);
 }
@@ -62,6 +68,26 @@ function copyCustomStageFilesToProject(verbose: boolean) {
     const dstPath = path.join(dstDirPath, fileName);
     file.copy(srcPath, dstPath, verbose);
   }
+}
+
+/**
+ * The custom stage feature requires an empty shader to be present in order to render sprites on top
+ * of the HUD.
+ */
+function insertEmptyShader(verbose: boolean) {
+  const shadersDstPath = path.join(CWD, "mod", "content", "shaders.xml");
+
+  if (!file.exists(shadersDstPath, verbose)) {
+    file.copy(SHADERS_XML_PATH, shadersDstPath, verbose);
+    return;
+  }
+
+  // The end-user mod might have their own custom shaders, so we need to merge our empty shader
+  // inside the existing "shaders.xml" file.
+  const shadersXMLContents = file.read(shadersDstPath, verbose);
+  const shadersXML = await xml2js.parseStringPromise(shadersXMLContents);
+  console.log(shadersXML);
+  process.exit(1);
 }
 
 /**
