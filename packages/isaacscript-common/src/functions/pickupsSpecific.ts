@@ -363,7 +363,7 @@ export function spawnBombPickup(
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
-): EntityPickupBattery {
+): EntityPickupBomb {
   return spawnPickup(
     PickupVariant.BOMB,
     bombSubType,
@@ -371,7 +371,7 @@ export function spawnBombPickup(
     velocity,
     spawner,
     seedOrRNG,
-  ) as EntityPickupBattery;
+  ) as EntityPickupBomb;
 }
 
 /**
@@ -384,7 +384,7 @@ export function spawnBombPickupWithSeed(
   seedOrRNG: Seed | RNG,
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
-): EntityPickupBattery {
+): EntityPickupBomb {
   return spawnBombPickup(bombSubType, position, velocity, spawner, seedOrRNG);
 }
 

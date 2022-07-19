@@ -9,7 +9,7 @@ import { game } from "../../cachedClasses";
 import { HealthType } from "../../enums/HealthType";
 import { directionToVector } from "../../functions/direction";
 import { spawnGridEntityWithVariant } from "../../functions/gridEntities";
-import { logEntities, logGridEntities } from "../../functions/log";
+import { logAllEntities, logAllGridEntities } from "../../functions/log";
 import { addPlayerHealthType } from "../../functions/playerHealth";
 import { getRoomData, getRoomDescriptor } from "../../functions/roomData";
 import { changeRoom, getRoomGridIndexesForType } from "../../functions/rooms";
@@ -73,7 +73,7 @@ export function listEntities(
     }
   }
 
-  logEntities(includeBackgroundEffects, entityTypeFilter);
+  logAllEntities(includeBackgroundEffects, entityTypeFilter);
   printConsole('Logged the entities in the room to the "log.txt" file.');
 }
 
@@ -87,7 +87,7 @@ export function listGridEntities(params: string, includeWalls: boolean): void {
     }
   }
 
-  logGridEntities(includeWalls, gridEntityTypeFilter);
+  logAllGridEntities(includeWalls, gridEntityTypeFilter);
   printConsole('Logged the grid entities in the room to the "log.txt" file.');
 }
 

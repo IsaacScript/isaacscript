@@ -52,10 +52,16 @@ This page lists the changes to the IsaacScript framework.
   - `spawnRock`
   - `spawnSpikes`
   - `spawnTNT`
+  - `logEntities`
+  - `logEntity`
+  - `logGridEntities`
+  - `logGridEntity`
 - Renamed the following helper functions:
   - `removeGrid` --> `removeGridEntity`
   - `spawnGrid` --> `spawnGridEntity`
   - `spawnGridWithVariant` --> `spawnGridEntityWithVariant`
+  - `logEntities` --> `logAllEntities`
+  - `logGridEntities` --> `logAllGridEntities`
 - Removed the following helper functions:
   - `getGotoCommandPrefix` (use `getGotoCommand` instead)
   - `getDefaultColor` (use `ColorDefault`)

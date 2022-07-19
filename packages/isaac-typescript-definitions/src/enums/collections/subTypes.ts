@@ -240,7 +240,23 @@ export enum PickupNullSubType {
 
 /** For `EntityType.PICKUP` (5), `PickupVariant.HEART` (10) */
 export enum HeartSubType {
-  /** Spawning hearts with this sub-type will produce a random heart. */
+  /**
+   * Spawning hearts with this sub-type will produce a random heart with the following
+   * probabilities:
+   *
+   * - `HeartSubType.FULL` (1) - 39.98%
+   * - `HeartSubType.HALF` (2) - 39.99%
+   * - `HeartSubType.SOUL` (3) - 6.73%
+   * - `HeartSubType.ETERNAL` (4) - 1.80%
+   * - `HeartSubType.DOUBLE_PACK` (5) - 4.21%
+   * - `HeartSubType.BLACK` (6) - 0.50%
+   * - `HeartSubType.GOLDEN` (7) - 0.63%
+   * - `HeartSubType.HALF_SOUL` (8) - 2.24%
+   * - `HeartSubType.SCARED` (9) - 0.87%
+   * - `HeartSubType.BLENDED` (10) - 0.87%
+   * - `HeartSubType.BONE` (11) - 0.47%
+   * - `HeartSubType.ROTTEN` (12) - 1.71%
+   */
   NULL = 0,
 
   FULL = 1,
@@ -259,7 +275,17 @@ export enum HeartSubType {
 
 /** For `EntityType.PICKUP` (5), `PickupVariant.COIN` (20) */
 export enum CoinSubType {
-  /** Spawning coins with this sub-type will produce a random coin. */
+  /**
+   * Spawning coins with this sub-type will produce a random coin with the following probabilities:
+   *
+   * - `CoinSubType.PENNY` (1) - 92.63%
+   * - `CoinSubType.NICKEL` (2) - 4.68%
+   * - `CoinSubType.DIME` (3) - 1.00%
+   * - `CoinSubType.DOUBLE_PACK` (4) - 0.00% (never spawns)
+   * - `CoinSubType.LUCKY_PENNY` (5) - 0.94%
+   * - `CoinSubType.STICKY_NICKEL` (6) - 0.25%
+   * - `CoinSubType.GOLDEN` (7) - 0.50%
+   */
   NULL = 0,
 
   PENNY = 1,
@@ -273,7 +299,14 @@ export enum CoinSubType {
 
 /** For `EntityType.PICKUP` (5), `PickupVariant.KEY` (30) */
 export enum KeySubType {
-  /** Spawning keys with this sub-type will produce a random key. */
+  /**
+   * Spawning keys with this sub-type will produce a random key with the following probabilities:
+   *
+   * - `KeySubType.NORMAL` (1) - 96.08%
+   * - `KeySubType.GOLDEN` (2) - 1.97%
+   * - `KeySubType.DOUBLE_PACK` (3) - 0.00% (never spawns)
+   * - `KeySubType.CHARGED` (4) - 1.96%
+   */
   NULL = 0,
 
   NORMAL = 1,
@@ -284,7 +317,17 @@ export enum KeySubType {
 
 /** For `EntityType.PICKUP` (5), `PickupVariant.BOMB` (40) */
 export enum BombSubType {
-  /** Spawning bombs with this sub-type will produce a random bomb. */
+  /**
+   * Spawning bombs with this sub-type will produce a random bomb with the following probabilities:
+   *
+   * - `BombSubType.NORMAL` (1) - 74.84%
+   * - `BombSubType.DOUBLE_PACK` (2) - 12.47%
+   * - `BombSubType.TROLL` (3) - 9.9%
+   * - `BombSubType.GOLDEN` (4) - 0.89%
+   * - `BombSubType.MEGA_TROLL` (5) - 1.78%
+   * - `BombSubType.GOLDEN_TROLL` (6) - 0.12%
+   * - `BombSubType.GIGA` (7) - 0.00% (never spawns)
+   */
   NULL = 0,
 
   NORMAL = 1,
@@ -313,7 +356,12 @@ export enum ChestSubType {
 
 /** For `EntityType.PICKUP` (5), `PickupVariant.SACK` (69) */
 export enum SackSubType {
-  /** Spawning sacks with this sub-type will produce a random sack. */
+  /**
+   * Spawning sacks with this sub-type will produce a random sack with the following probabilities:
+   *
+   * - `SackSubType.NORMAL` (1) - 99.0%
+   * - `SackSubType.BLACK` (2) - 1.0%
+   */
   NULL = 0,
 
   NORMAL = 1,
@@ -326,7 +374,16 @@ export enum SackSubType {
  * This is the sub-type of a pill.
  */
 export enum PillColor {
-  /** Spawning pills with this sub-type will produce a random pill. */
+  /**
+   * Spawning pills with this sub-type will produce a random pill with the following probabilities:
+   *
+   * - Random normal pill - 97.86%
+   * - Specific normal pill - 7.53%
+   * - Gold pill - 0.7%
+   * - Random horse pill - 1.43%
+   * - Specific horse pill - 0.11%
+   * - Horse gold pill - 0.01%
+   */
   NULL = 0,
 
   BLUE_BLUE = 1,
@@ -364,7 +421,15 @@ export enum PillColor {
 
 /** For `EntityType.PICKUP` (5), `PickupVariant.LIL_BATTERY` (90) */
 export enum BatterySubType {
-  /** Spawning batteries with this sub-type will produce a random battery. */
+  /**
+   * Spawning batteries with this sub-type will produce a random battery with the following
+   * probabilities:
+   *
+   * - `BatterySubType.NORMAL` (1) - 32.73%
+   * - `BatterySubType.MICRO` (2) - 65.44%
+   * - `BatterySubType.MEGA` (3) - 0.00% (never spawns)
+   * - `BatterySubType.GOLDEN` (4) - 0.83%
+   */
   NULL = 0,
 
   NORMAL = 1,
@@ -1111,7 +1176,26 @@ export enum CollectibleType {
  * This is the sub-type of a card.
  */
 export enum Card {
-  /** Spawning cards with this sub-type will produce a random card. */
+  /**
+   * Spawning cards with this sub-type will produce a random card with the following probabilities:
+   *
+   * - Random tarot card (1-22) - 66.66%
+   * - Specific tarot card (1-22) - 3.03%
+   * - Random face card (23-31) - 7.74%
+   * - Specific face card (23-31) - 0.86%
+   * - Random rune (32-41) - 3.60%
+   * - Specific rune (32-41) - 0.36%
+   * - Random special card (42-54) - 3.51%
+   * - Specific special card (42-54) - 0.27%
+   * - Rune shard (55) - 0.00% (never spawns, assuming a fully unlocked save file)
+   * - Random reverse tarot card (56-77) - 11.22%
+   * - Specific reverse tarot card (56-77) - 0.51%
+   * - Cracked Key (78) - 0.27% (same as special card)
+   * - Queen of Hearts (79) - 0.86% (same as face card)
+   * - Wild Card (80) - 0.27% (same as special card)
+   * - Random character rune (81-97) - 5.95%
+   * - Specific character rune (81-97) - 0.35%
+   */
   NULL = 0,
 
   FOOL = 1,
