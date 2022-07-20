@@ -32,11 +32,11 @@ export function runDeepCopyTests(): void {
   copiedDefaultMapHasChildDefaultMap();
   copiedDefaultMapHasBrand();
 
-  copiedSerializedMapHasStringKeyType();
-  copiedSerializedMapHasNumberKeyType();
+  copiedSerializedMapHasStringKey();
+  copiedSerializedMapHasNumberKey();
 
-  copiedSerializedDefaultMapHasStringKeyType();
-  copiedSerializedDefaultMapHasNumberKeyType();
+  copiedSerializedDefaultMapHasStringKey();
+  copiedSerializedDefaultMapHasNumberKey();
 
   log("All deep copy tests passed!");
 }
@@ -464,112 +464,108 @@ function copiedDefaultMapHasBrand() {
   }
 }
 
-function copiedSerializedMapHasStringKeyType() {
+function copiedSerializedMapHasStringKey() {
   const mapKey = "123";
   const mapValue = 456;
   const oldMap = new Map<string, number>();
   oldMap.set(mapKey, mapValue);
 
-  const tempTable = deepCopy(
+  const serializedOldMap = deepCopy(
     oldMap,
     SerializationType.SERIALIZE,
-    "copiedSerializedMapHasStringKeyTypeSerialize",
+    "copiedSerializedMapHasStringKey-serialize",
   );
 
   const newTable = deepCopy(
-    tempTable,
+    serializedOldMap,
     SerializationType.DESERIALIZE,
-    "copiedSerializedMapHasStringKeyTypeDeserialize",
+    "copiedSerializedMapHasStringKey-deserialize",
   );
 
   const newMap = newTable as Map<string, number>;
-  if (![...newMap.keys()].includes(mapKey)) {
+  if (!newMap.has(mapKey)) {
+    const keyType = type(mapKey);
     error(
-      `The copied Map did not have a key of: ${mapKey} with type ${type(
-        mapKey,
-      )}`,
+      `The copied Map did not have a key of: ${mapKey} with type ${keyType}`,
     );
   }
 }
 
-function copiedSerializedMapHasNumberKeyType() {
+function copiedSerializedMapHasNumberKey() {
   const mapKey = 123;
   const mapValue = 456;
   const oldMap = new Map<number, number>();
   oldMap.set(mapKey, mapValue);
 
-  const tempTable = deepCopy(
+  const serializedOldMap = deepCopy(
     oldMap,
     SerializationType.SERIALIZE,
-    "copiedSerializedMapHasNumberKeyTypeSerialize",
+    "copiedSerializedMapHasNumberKey-serialize",
   );
 
   const newTable = deepCopy(
-    tempTable,
+    serializedOldMap,
     SerializationType.DESERIALIZE,
-    "copiedSerializedMapHasNumberKeyTypeDeserialize",
+    "copiedSerializedMapHasNumberKey-deserialize",
   );
 
   const newMap = newTable as Map<number, number>;
-  if (![...newMap.keys()].includes(mapKey)) {
+  if (!newMap.has(mapKey)) {
+    const keyType = type(mapKey);
     error(
-      `The copied Map did not have a key of: ${mapKey} with type ${type(
-        mapKey,
-      )}`,
+      `The copied Map did not have a key of: ${mapKey} with type ${keyType}`,
     );
   }
 }
 
-function copiedSerializedDefaultMapHasStringKeyType() {
+function copiedSerializedDefaultMapHasStringKey() {
   const mapKey = "123";
-  const oldMap = new DefaultMap<string, number>(456);
-  oldMap.getAndSetDefault(mapKey);
+  const oldDefaultMap = new DefaultMap<string, number>(456);
+  oldDefaultMap.getAndSetDefault(mapKey);
 
-  const tempTable = deepCopy(
-    oldMap,
+  const serializedOldDefaultMap = deepCopy(
+    oldDefaultMap,
     SerializationType.SERIALIZE,
-    "copiedSerializedDefaultMapHasStringKeyTypeSerialize",
+    "copiedSerializedDefaultMapHasStringKey-serialize",
   );
 
   const newTable = deepCopy(
-    tempTable,
+    serializedOldDefaultMap,
     SerializationType.DESERIALIZE,
-    "copiedSerializedDefaultMapHasStringKeyTypeDeserialize",
+    "copiedSerializedDefaultMapHasStringKey-deserialize",
   );
 
-  const newMap = newTable as DefaultMap<string, number>;
-  if (![...newMap.keys()].includes(mapKey)) {
+  const newDefaultMap = newTable as DefaultMap<string, number>;
+  if (!newDefaultMap.has(mapKey)) {
+    const keyType = type(mapKey);
     error(
-      `The copied DefaultMap did not have a key of: ${mapKey} with type ${type(
-        mapKey,
-      )}`,
+      `The copied DefaultMap did not have a key of "${mapKey}" with type: ${keyType}`,
     );
   }
 }
 
-function copiedSerializedDefaultMapHasNumberKeyType() {
+function copiedSerializedDefaultMapHasNumberKey() {
   const mapKey = 123;
-  const oldMap = new DefaultMap<number, number>(456);
-  oldMap.getAndSetDefault(mapKey);
+  const oldDefaultMap = new DefaultMap<number, number>(456);
+  oldDefaultMap.getAndSetDefault(mapKey);
 
-  const tempTable = deepCopy(
-    oldMap,
+  const serializedOldDefaultMap = deepCopy(
+    oldDefaultMap,
     SerializationType.SERIALIZE,
-    "copiedSerializedDefaultMapHasNumberKeyTypeSerialize",
+    "copiedSerializedDefaultMapHasNumberKey-serialize",
   );
 
   const newTable = deepCopy(
-    tempTable,
+    serializedOldDefaultMap,
     SerializationType.DESERIALIZE,
-    "copiedSerializedDefaultMapHasNumberKeyTypeDeserialize",
+    "copiedSerializedDefaultMapHasNumberKey-deserialize",
   );
 
-  const newMap = newTable as DefaultMap<number, number>;
-  if (![...newMap.keys()].includes(mapKey)) {
+  const newDefaultMap = newTable as DefaultMap<number, number>;
+  if (!newDefaultMap.has(mapKey)) {
+    const keyType = type(mapKey);
     error(
-      `The copied DefaultMap did not have a key of: ${mapKey} with type ${type(
-        mapKey,
-      )}`,
+      `The copied DefaultMap did not have a key of: ${mapKey} with type ${keyType}`,
     );
   }
 }
