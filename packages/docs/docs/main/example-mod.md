@@ -128,7 +128,7 @@ In order to do this, we need to use the `Isaac.GetItemIdByName()` method:
 const GREEN_CANDLE_COLLECTIBLE_TYPE = Isaac.GetItemIdByName("Green Candle");
 ```
 
-This is a constant, so we name it with all capital letters and with snake_case. Put this at the top of the file next to the "MOD_NAME" constant.
+This is a constant, so we name it with all capital letters and with SHOUTING_SNAKE_CASE. Put this at the top of the file next to the "MOD_NAME" constant.
 
 <br />
 
