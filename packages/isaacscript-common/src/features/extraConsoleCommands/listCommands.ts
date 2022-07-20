@@ -53,6 +53,7 @@ import { getCardName } from "../../functions/cards";
 import { getCharacterName } from "../../functions/character";
 import { addCharge } from "../../functions/charge";
 import { isValidCollectibleType } from "../../functions/collectibles";
+import { runDeepCopyTests } from "../../functions/deepCopyTests";
 import { getNPCs } from "../../functions/entitiesSpecific";
 import { getEnumValues } from "../../functions/enums";
 import { addFlag } from "../../functions/flag";
@@ -64,6 +65,7 @@ import {
   logSounds,
 } from "../../functions/log";
 import { getMapPartialMatch } from "../../functions/map";
+import { runMergeTests } from "../../functions/mergeTests";
 import {
   spawnCard,
   spawnPill,
@@ -986,6 +988,18 @@ export function roomCommand(): void {
  */
 export function rottenHearts(params: string): void {
   addHeart(params, HealthType.ROTTEN);
+}
+
+/**
+ * Run the suite of tests that prove that the "deepCopy" helper function and the "merge" function
+ * work properly. For more information, see the `runDeepCopyTests` and the `runMergeTests`
+ * functions.
+ *
+ * In general, running the tests is only useful if you are troubleshooting the save data manager.
+ */
+export function runTests(): void {
+  runDeepCopyTests();
+  runMergeTests();
 }
 
 /**

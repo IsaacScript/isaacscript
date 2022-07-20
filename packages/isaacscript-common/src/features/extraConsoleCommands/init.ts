@@ -218,6 +218,7 @@ function initMap() {
   );
   extraConsoleCommandsFunctionMap.set("room", commands.roomCommand);
   extraConsoleCommandsFunctionMap.set("rottenHearts", commands.rottenHearts);
+  extraConsoleCommandsFunctionMap.set("runTests", commands.runTests);
   extraConsoleCommandsFunctionMap.set("s", commands.s);
   extraConsoleCommandsFunctionMap.set("sacrifice", commands.sacrifice);
   extraConsoleCommandsFunctionMap.set("secret", commands.secret);

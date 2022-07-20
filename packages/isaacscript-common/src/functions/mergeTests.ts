@@ -8,8 +8,8 @@ import { isSerializedIsaacAPIClass } from "./serialization";
 import { copyVector, isVector } from "./vector";
 
 /**
- * Run the suite of tests that prove that the "merge" helper function works properly. (This function
- * is not exported but is used internally in the save data manager.)
+ * Run the suite of tests that prove that the "merge" function works properly. (This function is not
+ * exported but is used internally in the save data manager.)
  *
  * This function is only useful if you are troubleshooting the save data manager.
  */
