@@ -291,7 +291,7 @@ function getNewDefaultMap(
   serializationType: SerializationType,
   traversalDescription: string,
   constructorArg: unknown,
-) {
+): DefaultMap<AnyNotNil, unknown> | LuaMap<AnyNotNil, unknown> {
   switch (serializationType) {
     case SerializationType.NONE: {
       // eslint-disable-next-line isaacscript/no-invalid-default-map
@@ -405,7 +405,7 @@ function deepCopySet(
     // Differentiating between the two types looks superfluous but is necessary for TSTL to produce
     // the proper set method call.
     if (isTSTLSet(newSet)) {
-      // We should never be serializing an object of type Set.
+      // We should never be serializing an object of type `Set`.
       error(
         "The deep copy function cannot convert number keys to strings for a Set.",
       );
