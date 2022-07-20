@@ -4,7 +4,7 @@ title: What is IsaacScript Doing?
 
 The `isaacscript` program will run forever until you close the terminal window or cancel it with `Ctrl + c`. While it runs, it monitors for changes in your project. In summary, it will:
 
-1. automatically recompile your TypeScript
+1. automatically recompile your TypeScript as soon as you save a `.ts` file
 1. automatically copy over any files in the `mod` directory
 1. automatically refresh your mod in-game (with the `luamod` console command)
 
