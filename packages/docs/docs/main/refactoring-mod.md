@@ -71,7 +71,7 @@ function main() {
 Each item can have its own dedicated file in an "items" subdirectory.
 
 ```ts
-import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
+import { CollectibleTypeCustom } from "../enums/CollectibleTypeCustom";
 
 // ModCallback.POST_UPDATE (1)
 export function greenCandlePostUpdate(): void {
