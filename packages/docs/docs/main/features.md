@@ -13,7 +13,7 @@ After five years of programming Isaac mods in Lua, I got frustrated enough to ta
 
 ### <img src="/img/items/magic-mushroom.png" className="features-icon" /> The Entire Isaac API, Strongly Typed
 
-- Code fearlessly without having to worry about making a typo.
+- Code fearlessly without having to worry about the format of the API call or whether using it incorrectly will crash the game.
 
 ### <img src="/img/items/marked.png" className="features-icon" /> Mouseover Documentation
 
@@ -52,10 +52,6 @@ After five years of programming Isaac mods in Lua, I got frustrated enough to ta
 
 - The best mods serialize all state to disk so that saving and continuing a run results in a seamless experience. But getting this right is tricky.
 - Optionally leverage IsaacScript's built-in save data manager that allows for automatic resetting of variables and keeping mod-feature variables scoped as locally as possible.
-
-### <img src="/img/items/undefined.png" className="features-icon" /> Crash Debugging
-
-- Troubleshooting crashes is no longer a nightmare. Enable crash debugging and IsaacScript will tell you the exact line that the game crashed on.
 
 ### <img src="/img/items/bffs.png" className="features-icon" /> TypeScript
 
