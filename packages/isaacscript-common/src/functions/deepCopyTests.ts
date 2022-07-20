@@ -268,11 +268,8 @@ function copiedMapIsMap() {
   const newObject = deepCopy(oldMap, SerializationType.NONE, "copiedMapIsMap");
   const newMap = newObject as Map<string, string>;
 
-  if (!isTable(newMap)) {
-    error(`The copied Map had a type of: ${typeof newMap}`);
-  }
   if (!isTSTLMap(newMap)) {
-    error("The copied Map was not a Map.");
+    error(`The copied Map was not a Map and has a type of: ${typeof newMap}`);
   }
 }
 
@@ -287,7 +284,12 @@ function copiedMapHasValue() {
     SerializationType.NONE,
     "copiedMapHasValue",
   );
+
   const newMap = newTable as typeof oldMap;
+
+  if (!isTSTLMap(newMap)) {
+    error(`The copied Map was not a Map and has a type of: ${typeof newMap}`);
+  }
 
   const value = newMap.get(keyToLookFor);
   if (value === undefined) {
@@ -306,11 +308,8 @@ function copiedSetIsSet() {
   const newTable = deepCopy(oldSet, SerializationType.NONE, "copiedSetIsSet");
   const newSet = newTable as Set<string>;
 
-  if (!isTable(newSet)) {
-    error(`The copied Set had a type of: ${typeof newSet}`);
-  }
   if (!isTSTLSet(newSet)) {
-    error("The copied Set was not a Map.");
+    error(`The copied Set was not a Set and has a type of: ${typeof newSet}`);
   }
 }
 
@@ -326,6 +325,10 @@ function copiedSetHasValue() {
   );
   const newSet = newTable as Set<string>;
 
+  if (!isTSTLSet(newSet)) {
+    error(`The copied Set was not a Set and has a type of: ${typeof newSet}`);
+  }
+
   const hasValue = newSet.has(valueToLookFor);
   if (!hasValue) {
     error(`The copied Set did not have a value of: ${valueToLookFor}`);
@@ -338,7 +341,7 @@ function copiedMapHasChildMap() {
   const oldChildMap = new Map<number, number>();
   oldChildMap.set(childMapKey, childMapValue);
 
-  const keyToLookFor = "abc";
+  const keyToLookFor = "childMap";
   const oldMap = new Map<string, Map<number, number>>();
   oldMap.set(keyToLookFor, oldChildMap);
 
@@ -349,16 +352,19 @@ function copiedMapHasChildMap() {
   );
   const newMap = newTable as typeof oldMap;
 
+  if (!isTSTLMap(newMap)) {
+    error(`The copied Map was not a Map and had a type of: ${typeof newMap}`);
+  }
+
   const newChildMap = newMap.get(keyToLookFor);
   if (newChildMap === undefined) {
     error(`The copied Map did not have a child map at key: ${keyToLookFor}`);
   }
 
-  if (!isTable(newChildMap)) {
-    error(`The copied child Map had a type of: ${typeof newChildMap}`);
-  }
   if (!isTSTLMap(newChildMap)) {
-    error("The copied child Map was not a Map.");
+    error(
+      `The copied child Map was not a Map and had a type of: ${typeof newChildMap}`,
+    );
   }
 
   const value = newChildMap.get(childMapKey);
@@ -390,6 +396,12 @@ function copiedDefaultMapHasChildDefaultMap() {
   );
   const newParentMap = newTable as typeof oldParentMap;
 
+  if (!isDefaultMap(newParentMap)) {
+    error(
+      `The copied parent DefaultMap was not a DefaultMap and had a type of: ${typeof newParentMap}`,
+    );
+  }
+
   const newChildMap = newParentMap.get(parentMapKey);
   if (newChildMap === undefined) {
     error(
@@ -397,11 +409,10 @@ function copiedDefaultMapHasChildDefaultMap() {
     );
   }
 
-  if (!isTable(newChildMap)) {
-    error(`The copied child DefaultMap had a type of: ${typeof newChildMap}`);
-  }
   if (!isDefaultMap(newChildMap)) {
-    error("The copied child DefaultMap was not a DefaultMap.");
+    error(
+      `The copied child DefaultMap was not a DefaultMap and had a type of: ${typeof newChildMap}`,
+    );
   }
 
   const newChildMapValue1 = newChildMap.get(childMapKey1);
@@ -433,6 +444,12 @@ function copiedDefaultMapHasBrand() {
     SerializationType.SERIALIZE,
     "copiedDefaultMapHasBrand",
   ) as LuaMap<AnyNotNil, unknown>;
+
+  if (!isTable(newTable)) {
+    error(
+      `The copied DefaultMap was not a table and had a type of: ${typeof newTable}`,
+    );
+  }
 
   if (!newTable.has(SerializationBrand.DEFAULT_MAP)) {
     error(

@@ -640,6 +640,7 @@ export function logTable(
     return;
   }
 
+  let numElements = 0;
   iterateTableInOrder(luaTable, (key, value) => {
     // eslint-disable-next-line @typescript-eslint/no-base-to-string
     log(`${indentation}${key} --> ${value}`);
@@ -653,13 +654,14 @@ export function logTable(
         logTable(value, parentTables + 1);
       }
     }
+
+    numElements++;
   });
 
   // Put it in an IIFE so that the it will show as "func" instead of "logTable" and align with the
   // other text.
   (() => {
-    const { length } = Object.keys(luaTable);
-    log(`${indentation}The size of the table was: ${length}`);
+    log(`${indentation}The size of the table was: ${numElements}`);
   })();
 }
 

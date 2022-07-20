@@ -8,7 +8,7 @@ import { TSTLClass } from "../types/private/TSTLClass";
 import { isArray } from "./array";
 import { getEnumValues } from "./enums";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
-import { log, logTable } from "./log";
+import { log } from "./log";
 import {
   copyIsaacAPIClass,
   deserializeIsaacAPIClass,
@@ -209,6 +209,11 @@ function deepCopyDefaultMap(
   traversalDescription: string,
   insideMap: boolean,
 ) {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (SAVE_DATA_MANAGER_DEBUG) {
+    log("deepCopy is copying a DefaultMap.");
+  }
+
   const constructorArg = isDefaultMap(defaultMap)
     ? defaultMap.getConstructorArg()
     : undefined; // The undefined case is handled explicitly in the "getNewDefaultMap" function.
@@ -336,6 +341,11 @@ function deepCopyMap(
   traversalDescription: string,
   insideMap: boolean,
 ) {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (SAVE_DATA_MANAGER_DEBUG) {
+    log("deepCopy is copying a Map.");
+  }
+
   let newMap: Map<AnyNotNil, unknown> | LuaMap<AnyNotNil, unknown>;
   if (serializationType === SerializationType.SERIALIZE) {
     // Since we are serializing, the new object will be a Lua table.
@@ -384,6 +394,11 @@ function deepCopySet(
   traversalDescription: string,
   insideMap: boolean,
 ) {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (SAVE_DATA_MANAGER_DEBUG) {
+    log("deepCopy is copying a Set.");
+  }
+
   let newSet: Set<AnyNotNil> | LuaMap<AnyNotNil, string>;
   if (serializationType === SerializationType.SERIALIZE) {
     // For serialization purposes, we represent a `Set` as a table with keys that match the
@@ -433,6 +448,11 @@ function deepCopyTSTLClass(
   traversalDescription: string,
   insideMap: boolean,
 ) {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (SAVE_DATA_MANAGER_DEBUG) {
+    log("deepCopy is copying a TSTL class.");
+  }
+
   let newClass: TSTLClass | LuaMap<AnyNotNil, unknown>;
   if (serializationType === SerializationType.SERIALIZE) {
     // Since we are serializing, the new object will be a Lua table.
@@ -467,6 +487,11 @@ function deepCopyArray(
   traversalDescription: string,
   insideMap: boolean,
 ) {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (SAVE_DATA_MANAGER_DEBUG) {
+    log("deepCopy is copying an array.");
+  }
+
   const newArray: unknown[] = [];
 
   for (const value of array) {
@@ -488,6 +513,11 @@ function deepCopyNormalLuaTable(
   traversalDescription: string,
   insideMap: boolean,
 ) {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (SAVE_DATA_MANAGER_DEBUG) {
+    log("deepCopy is copying a normal Lua table.");
+  }
+
   const newTable = new LuaMap<AnyNotNil, unknown>();
   const { entries, convertedNumberKeysToStrings } = getCopiedEntries(
     luaMap,
@@ -535,7 +565,6 @@ function getCopiedEntries(
 
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (SAVE_DATA_MANAGER_DEBUG) {
-    logTable(entries);
     entries.sort(twoDimensionalSort);
   }
 
@@ -600,6 +629,11 @@ function deepCopyUserdata(
   serializationType: SerializationType,
   traversalDescription: string,
 ) {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (SAVE_DATA_MANAGER_DEBUG) {
+    log("deepCopy is copying userdata.");
+  }
+
   const classType = getIsaacAPIClassName(value);
   if (classType === undefined) {
     error(
