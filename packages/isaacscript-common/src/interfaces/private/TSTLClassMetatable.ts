@@ -3,6 +3,6 @@ export interface TSTLClassMetatable {
   __index: unknown;
   constructor: {
     name: string;
-    prototype: LuaMetatable<LuaTable<AnyNotNil, unknown>>;
+    prototype: LuaMetatable<LuaMap<AnyNotNil, unknown>>;
   };
 }

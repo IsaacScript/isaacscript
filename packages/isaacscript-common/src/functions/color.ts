@@ -4,7 +4,7 @@ import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { copyValuesToTable, getNumbersFromTable, tableHasKeys } from "./table";
 import { isTable } from "./types";
 
-type SerializedColor = LuaTable<string, unknown> & {
+type SerializedColor = LuaMap<string, unknown> & {
   readonly __serializedColorBrand: symbol;
 };
 
@@ -65,7 +65,7 @@ export function copyColor(
         );
       }
 
-      const colorTable = new LuaTable<string, unknown>();
+      const colorTable = new LuaMap<string, unknown>();
       copyValuesToTable(color, KEYS, colorTable);
       colorTable.set(SerializationBrand.COLOR, "");
       return colorTable as SerializedColor;
@@ -79,7 +79,7 @@ export function copyColor(
       }
 
       const [r, g, b, a, ro, go, bo] = getNumbersFromTable(
-        color as LuaTable<string, unknown>,
+        color as LuaMap<string, unknown>,
         OBJECT_NAME,
         ...KEYS,
       );

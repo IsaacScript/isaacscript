@@ -3,7 +3,7 @@
 import { DoorSlot } from "../../enums/DoorSlot";
 
 declare global {
-  type StageAPICustomRoomConfig = LuaTable<
+  type StageAPICustomRoomConfig = LuaMap<
     number | string,
     StageAPILuaRoomGenericEntity | number | string
   >;

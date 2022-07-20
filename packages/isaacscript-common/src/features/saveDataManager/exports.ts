@@ -132,12 +132,7 @@ export function saveDataManager(
 
   // Make a copy of the initial save data so that we can use it to restore the default values later
   // on.
-  const saveDataTable = v as LuaTable<AnyNotNil, unknown>;
-  const saveDataCopy = deepCopy(
-    saveDataTable,
-    SerializationType.NONE,
-    key,
-  ) as SaveData;
+  const saveDataCopy = deepCopy(v, SerializationType.NONE, key) as SaveData;
   saveDataDefaultsMap.set(key, saveDataCopy);
 
   // Store the conditional function for later, if present.
@@ -170,10 +165,10 @@ export function saveDataManagerSave(): void {
 }
 
 /** "g" stands for "globals". */
-declare let g: LuaTable<string, SaveData>; // eslint-disable-line @typescript-eslint/no-unused-vars
+declare let g: LuaMap<string, SaveData>; // eslint-disable-line @typescript-eslint/no-unused-vars
 
 /** "gd" stands for "globals defaults". */
-declare let gd: LuaTable<string, SaveData>; // eslint-disable-line @typescript-eslint/no-unused-vars
+declare let gd: LuaMap<string, SaveData>; // eslint-disable-line @typescript-eslint/no-unused-vars
 
 /**
  * - Sets the global variable of "g" equal to all of the save data variables for this mod.

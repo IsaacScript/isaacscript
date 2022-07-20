@@ -2,7 +2,7 @@ import * as json from "json";
 import { logError } from "./log";
 
 function tryDecode(this: void, jsonString: string) {
-  return json.decode(jsonString) as LuaTable;
+  return json.decode(jsonString) as LuaMap;
 }
 
 function tryEncode(this: void, luaTable: unknown) {
@@ -17,12 +17,12 @@ function tryEncode(this: void, luaTable: unknown) {
  * continue in cases where users have no current save data or have manually removed their existing
  * save data.)
  */
-export function jsonDecode(jsonString: string): LuaTable<AnyNotNil, unknown> {
+export function jsonDecode(jsonString: string): LuaMap<AnyNotNil, unknown> {
   const [ok, luaTableOrErrMsg] = pcall(tryDecode, jsonString);
   if (!ok) {
     // Instead of throwing an error, continue execution of the callback.
     logError(`Failed to convert the JSON string to a Lua table: ${jsonString}`);
-    return new LuaTable();
+    return new LuaMap();
   }
 
   return luaTableOrErrMsg;

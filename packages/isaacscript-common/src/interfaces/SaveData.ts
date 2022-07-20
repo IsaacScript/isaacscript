@@ -15,7 +15,7 @@
  * - `Set`
  * - serializable Isaac API classes (such as `Color`)
  * - TSTL classes (i.e. classes that you made yourself)
- * - sub-objects or a `LuaTable` that contains the above values
+ * - sub-objects or a `LuaMap` that contains the above values
  *
  * (Unfortunately, it is not possible to create a recursive type definition that matches these
  * properties. This means that the TypeScript compiler will not be able to validate that you are

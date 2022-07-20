@@ -1,12 +1,12 @@
 import { isBoolean, isNumber, isString } from "./types";
 
 /**
- * In a Map, you can use the `clear` method to delete every element. However, in a LuaTable, the
+ * In a `Map`, you can use the `clear` method to delete every element. However, in a `LuaMap`, the
  * `clear` method does not exist. Use this helper function as a drop-in replacement for this.
  */
-export function clearTable(luaTable: LuaTable): void {
-  for (const [key] of pairs(luaTable)) {
-    luaTable.delete(key);
+export function clearTable(luaMap: LuaMap): void {
+  for (const [key] of pairs(luaMap)) {
+    luaMap.delete(key);
   }
 }
 
@@ -14,13 +14,13 @@ export function clearTable(luaTable: LuaTable): void {
 export function copyValuesToTable(
   object: unknown,
   keys: string[],
-  luaTable: LuaTable<string, unknown>,
+  luaMap: LuaMap<string, unknown>,
 ): void {
-  const otherTable = object as LuaTable<string, string | number>;
+  const otherTable = object as LuaMap<string, string | number>;
 
   for (const key of keys) {
     const value = otherTable.get(key);
-    luaTable.set(key, value);
+    luaMap.set(key, value);
   }
 }
 
@@ -31,13 +31,13 @@ export function copyValuesToTable(
  * This function is variadic, meaning that you can specify N arguments to get N values.
  */
 export function getBooleansFromTable(
-  luaTable: LuaTable<string, unknown>,
+  luaMap: LuaMap<string, unknown>,
   objectName: string,
   ...keys: string[]
 ): boolean[] {
   const booleans: boolean[] = [];
   for (const key of keys) {
-    const value = luaTable.get(key);
+    const value = luaMap.get(key);
     if (value === undefined) {
       error(
         `Failed to find a value for "${key}" in a table representing a "${objectName}" object.`,
@@ -63,13 +63,13 @@ export function getBooleansFromTable(
  * This function is variadic, meaning that you can specify N arguments to get N values.
  */
 export function getNumbersFromTable(
-  luaTable: LuaTable<string, unknown>,
+  luaMap: LuaMap<string, unknown>,
   objectName: string,
   ...keys: string[]
 ): number[] {
   const numbers: number[] = [];
   for (const key of keys) {
-    const value = luaTable.get(key);
+    const value = luaMap.get(key);
     if (value === undefined) {
       error(
         `Failed to find a value for "${key}" in a table representing a "${objectName}" object.`,
@@ -103,13 +103,13 @@ export function getNumbersFromTable(
  * This function is variadic, meaning that you can specify N arguments to get N values.
  */
 export function getStringsFromTable(
-  luaTable: LuaTable<string, unknown>,
+  luaMap: LuaMap<string, unknown>,
   objectName: string,
   ...keys: string[]
 ): string[] {
   const strings: string[] = [];
   for (const key of keys) {
-    const value = luaTable.get(key);
+    const value = luaMap.get(key);
     if (value === undefined) {
       error(
         `Failed to find a value for "${key}" in a table representing a "${objectName}" object.`,
@@ -136,42 +136,44 @@ export function getStringsFromTable(
  * This function will only work on tables that have number keys or string keys. It will throw a
  * run-time error if it encounters a key of another type.
  *
- * @param luaTable The table to iterate over.
+ * @param luaMap The table to iterate over.
  * @param func The function to run for each iteration.
  * @param inOrder Optional. Whether to iterate in order. True by default. You can dynamically set to
  *                false in situations where iterating randomly would not matter and you need the
  *                extra performance.
  */
 export function iterateTableInOrder<K, V>(
-  luaTable: LuaTable<K, V>,
+  luaMap: LuaMap<K, V>,
   func: (key: K, value: V) => void,
   inOrder = true,
 ): void {
   // First, handle the trivial case of a non-deterministic iteration.
   if (!inOrder) {
-    for (const [key, value] of pairs(luaTable)) {
+    for (const [key, value] of luaMap) {
       func(key, value);
     }
     return;
   }
 
-  const keys = Object.keys(luaTable);
+  const keys = Object.keys(luaMap);
   const hasAllNumberKeys = keys.every((key) => isNumber(key));
   const hasAllStringKeys = keys.every((key) => isString(key));
   if (!hasAllNumberKeys && !hasAllStringKeys) {
     // Since the table has non-homogenous keys, we won't be able to sort it. Revert to
     // non-deterministic iteration in this case.
-    for (const [key, value] of pairs(luaTable)) {
+    for (const [key, value] of luaMap) {
       func(key, value);
     }
     return;
   }
-  keys.sort();
 
+  keys.sort();
   for (const key of keys) {
     const keyIndex = key as unknown as K;
-    const value = luaTable.get(keyIndex);
-    func(keyIndex, value);
+    const value = luaMap.get(keyIndex);
+    if (value !== undefined) {
+      func(keyIndex, value);
+    }
   }
 }
 
@@ -182,8 +184,8 @@ export function iterateTableInOrder<K, V>(
  * for.
  */
 export function tableHasKeys(
-  luaTable: LuaTable<AnyNotNil, unknown>,
+  luaMap: LuaMap<AnyNotNil, unknown>,
   ...keys: string[]
 ): boolean {
-  return keys.every((key) => luaTable.has(key));
+  return keys.every((key) => luaMap.has(key));
 }

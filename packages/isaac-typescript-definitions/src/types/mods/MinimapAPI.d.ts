@@ -183,7 +183,7 @@ declare global {
       roomGridIndex: int | GridRoom,
     ): MinimapAPIRoomDescriptor | undefined;
 
-    GetSaveTable(menuExit: boolean): LuaTable;
+    GetSaveTable(menuExit: boolean): LuaMap;
 
     IsPositionFree(position: Vector): boolean;
 

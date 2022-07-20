@@ -658,7 +658,8 @@ export function logTable(
   // Put it in an IIFE so that the it will show as "func" instead of "logTable" and align with the
   // other text.
   (() => {
-    log(`${indentation}The size of the table was: ${luaTable.length()}`);
+    const { length } = Object.keys(luaTable);
+    log(`${indentation}The size of the table was: ${length}`);
   })();
 }
 
@@ -668,8 +669,8 @@ export function logTable(
  */
 export function logTableDifferences<K, V>(
   this: void,
-  table1: LuaTable<K, V>,
-  table2: LuaTable<K, V>,
+  table1: LuaMap<K, V>,
+  table2: LuaMap<K, V>,
 ): void {
   log("Comparing two Lua tables:");
 
@@ -725,7 +726,7 @@ export function logUserdata(this: void, userdata: unknown): void {
   }
 
   const metatable = getmetatable(userdata) as
-    | LuaTable<AnyNotNil, unknown>
+    | LuaMap<AnyNotNil, unknown>
     | undefined;
   if (metatable === undefined) {
     log("Userdata: [no metatable]");

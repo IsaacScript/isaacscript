@@ -6,7 +6,7 @@ import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { copyValuesToTable, getNumbersFromTable, tableHasKeys } from "./table";
 import { isTable } from "./types";
 
-type SerializedVector = LuaTable<string, unknown> & {
+type SerializedVector = LuaMap<string, unknown> & {
   readonly __serializedVectorBrand: symbol;
 };
 
@@ -55,7 +55,7 @@ export function copyVector(
         );
       }
 
-      const vectorTable = new LuaTable<string, unknown>();
+      const vectorTable = new LuaMap<string, unknown>();
       copyValuesToTable(vector, KEYS, vectorTable);
       vectorTable.set(SerializationBrand.VECTOR, "");
       return vectorTable as SerializedVector;
@@ -69,7 +69,7 @@ export function copyVector(
       }
 
       const [x, y] = getNumbersFromTable(
-        vector as LuaTable<string, unknown>,
+        vector as LuaMap<string, unknown>,
         OBJECT_NAME,
         ...KEYS,
       );

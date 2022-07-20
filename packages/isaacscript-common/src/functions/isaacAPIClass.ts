@@ -16,7 +16,7 @@ export function getIsaacAPIClassName(object: unknown): string | undefined {
   }
 
   const metatable = getmetatable(object) as
-    | LuaTable<AnyNotNil, unknown>
+    | LuaMap<AnyNotNil, unknown>
     | undefined;
   if (metatable === undefined) {
     return undefined;
@@ -60,8 +60,8 @@ export function isaacAPIClassEquals(
   object2: unknown,
   keys: string[],
 ): boolean {
-  const table1 = object1 as LuaTable<AnyNotNil, unknown>;
-  const table2 = object2 as LuaTable<AnyNotNil, unknown>;
+  const table1 = object1 as LuaMap<AnyNotNil, unknown>;
+  const table2 = object2 as LuaMap<AnyNotNil, unknown>;
 
   return keys.every((key) => table1.get(key) === table2.get(key));
 }

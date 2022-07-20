@@ -13,7 +13,7 @@ const DEFAULT_MOD_DATA = "{}";
 
 export function loadFromDisk(
   mod: Mod,
-  oldSaveData: LuaTable<string, SaveData>,
+  oldSaveData: LuaMap<string, SaveData>,
 ): void {
   if (!mod.HasData()) {
     // There is no "save#.dat" file for this save slot.
@@ -47,7 +47,6 @@ export function loadFromDisk(
 
       // Ignore elements that represent subscriptions that no longer exist in the current save data.
       const oldSaveDataForSubscriber = oldSaveData.get(key);
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (oldSaveDataForSubscriber === undefined) {
         return;
       }
@@ -60,7 +59,7 @@ export function loadFromDisk(
       // We do not want to blow away the child tables of the existing map, because save data could
       // contain out-of-date fields. Instead, merge it one field at a time in a recursive way (and
       // convert Lua tables back to TypeScriptToLua Maps, if necessary).
-      merge(oldSaveDataForSubscriber as LuaTable, value, key);
+      merge(oldSaveDataForSubscriber as LuaMap<AnyNotNil, unknown>, value, key);
     },
     SAVE_DATA_MANAGER_DEBUG,
   );

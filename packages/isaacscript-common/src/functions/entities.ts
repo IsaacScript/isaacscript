@@ -137,11 +137,11 @@ export function getEntities(
  */
 export function getEntityFields(
   entity: Entity,
-): LuaTable<string, boolean | number | string> {
-  const entityFields = new LuaTable<string, boolean | number | string>();
+): LuaMap<string, boolean | number | string> {
+  const entityFields = new LuaMap<string, boolean | number | string>();
 
   const metatable = getmetatable(entity) as
-    | LuaTable<AnyNotNil, unknown>
+    | LuaMap<AnyNotNil, unknown>
     | undefined;
   if (metatable === undefined) {
     error("Failed to get the metatable for an entity.");
@@ -158,7 +158,7 @@ export function getEntityFields(
   }
 
   const parentTable = metatable.get("__parent") as
-    | LuaTable<AnyNotNil, unknown>
+    | LuaMap<AnyNotNil, unknown>
     | undefined;
   if (parentTable === undefined) {
     error('Failed to get the "__parent" table for an entity.');
@@ -171,11 +171,11 @@ export function getEntityFields(
 
 function setPrimitiveEntityFields(
   entity: Entity,
-  metatable: LuaTable<AnyNotNil, unknown>,
-  entityFields: LuaTable<string, boolean | number | string>,
+  metatable: LuaMap<AnyNotNil, unknown>,
+  entityFields: LuaMap<string, boolean | number | string>,
 ) {
   const propGetTable = metatable.get("__propget") as
-    | LuaTable<AnyNotNil, unknown>
+    | LuaMap<AnyNotNil, unknown>
     | undefined;
   if (propGetTable === undefined) {
     error('Failed to get the "__propget" table for an entity.');

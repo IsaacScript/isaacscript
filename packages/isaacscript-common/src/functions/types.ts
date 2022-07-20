@@ -27,7 +27,9 @@ export function isString(variable: unknown): variable is string {
   return type(variable) === "string";
 }
 
-export function isTable(variable: unknown): variable is LuaTable {
+export function isTable(
+  variable: unknown,
+): variable is LuaMap<AnyNotNil, unknown> {
   return type(variable) === "table";
 }
 

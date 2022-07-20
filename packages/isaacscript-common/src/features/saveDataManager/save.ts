@@ -11,8 +11,8 @@ import {
 
 export function saveToDisk(
   mod: Mod,
-  saveDataMap: LuaTable<string, SaveData>,
-  saveDataConditionalFuncMap: Map<string, () => boolean>,
+  saveDataMap: LuaMap<string, SaveData>,
+  saveDataConditionalFuncMap: LuaMap<string, () => boolean>,
 ): void {
   const allSaveData = getAllSaveDataToWriteToDisk(
     saveDataMap,
@@ -26,10 +26,10 @@ export function saveToDisk(
 }
 
 function getAllSaveDataToWriteToDisk(
-  saveDataMap: LuaTable<string, SaveData>,
-  saveDataConditionalFuncMap: Map<string, () => boolean>,
+  saveDataMap: LuaMap<string, SaveData>,
+  saveDataConditionalFuncMap: LuaMap<string, () => boolean>,
 ) {
-  const allSaveData = new LuaTable<AnyNotNil, unknown>();
+  const allSaveData = new LuaMap<AnyNotNil, unknown>();
 
   iterateTableInOrder(
     saveDataMap,
@@ -60,7 +60,7 @@ function getAllSaveDataToWriteToDisk(
       // that is unnecessary. Make a copy of the data and recursively convert all TypeScriptToLua
       // Maps into Lua tables.
       const saveDataCopy = deepCopy(
-        saveDataWithoutRoom as LuaTable,
+        saveDataWithoutRoom as LuaMap,
         SerializationType.SERIALIZE,
         subscriberName,
       );

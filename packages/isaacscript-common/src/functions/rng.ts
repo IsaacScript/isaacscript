@@ -5,7 +5,7 @@ import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { getNumbersFromTable, tableHasKeys } from "./table";
 import { isTable } from "./types";
 
-type SerializedRNG = LuaTable<string, unknown> & {
+type SerializedRNG = LuaMap<string, unknown> & {
   readonly __serializedRNGBrand: symbol;
 };
 
@@ -63,7 +63,7 @@ export function copyRNG(
       }
 
       const seed = rng.GetSeed();
-      const rngTable = new LuaTable<string, unknown>();
+      const rngTable = new LuaMap<string, unknown>();
       rngTable.set("seed", seed);
       rngTable.set(SerializationBrand.RNG, "");
       return rngTable as SerializedRNG;
@@ -77,7 +77,7 @@ export function copyRNG(
       }
 
       const [seedNumber] = getNumbersFromTable(
-        rng as LuaTable<string, unknown>,
+        rng as LuaMap<string, unknown>,
         OBJECT_NAME,
         ...KEYS,
       );

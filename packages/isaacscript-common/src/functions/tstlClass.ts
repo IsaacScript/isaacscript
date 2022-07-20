@@ -146,7 +146,7 @@ export function newTSTLClass(oldClass: TSTLClass): TSTLClass {
 
 /** This is a re-implementation of the transpiled "__TS__New" function. */
 function newTSTLClassFromMetatable(metatable: TSTLClassMetatable): TSTLClass {
-  const newClass = new LuaTable<AnyNotNil, unknown>();
+  const newClass = new LuaMap<AnyNotNil, unknown>();
   const newClassMetatable = setmetatable(
     newClass,
     metatable.constructor.prototype,

@@ -3,7 +3,7 @@ import { CopyableIsaacAPIClassType } from "../enums/private/CopyableIsaacAPIClas
 import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
 import { SAVE_DATA_MANAGER_DEBUG } from "../features/saveDataManager/saveDataManagerConstants";
-import { isSerializationBrand } from "../features/saveDataManager/serializationBrand";
+import { isSerializationBrand } from "../features/saveDataManager/serializationBrands";
 import { TSTLClass } from "../types/private/TSTLClass";
 import { isArray } from "./array";
 import { getEnumValues } from "./enums";
@@ -36,7 +36,7 @@ const COPYABLE_ISAAC_API_CLASS_TYPES_SET = new Set<string>(
  * It supports the following object types:
  *
  * - Primitives (i.e. strings, numbers, and booleans)
- * - `LuaTable` / basic TSTL objects
+ * - Basic TSTL objects / tables
  * - TSTL `Map`
  * - TSTL `Set`
  * - TSTL classes
@@ -101,9 +101,9 @@ export function deepCopy(
     }
 
     case "table": {
-      const luaTable = value as LuaTable<AnyNotNil, unknown>;
+      const luaMap = value as LuaMap<AnyNotNil, unknown>;
       return deepCopyTable(
-        luaTable,
+        luaMap,
         serializationType,
         traversalDescription,
         insideMap,
@@ -117,40 +117,40 @@ export function deepCopy(
 }
 
 function deepCopyTable(
-  luaTable: LuaTable<AnyNotNil, unknown>,
+  luaMap: LuaMap<AnyNotNil, unknown>,
   serializationType: SerializationType,
   traversalDescription: string,
   insideMap: boolean,
 ) {
   // First, handle the cases of TSTL classes or serialized TSTL classes.
-  if (isDefaultMap(luaTable) || luaTable.has(SerializationBrand.DEFAULT_MAP)) {
+  if (isDefaultMap(luaMap) || luaMap.has(SerializationBrand.DEFAULT_MAP)) {
     return deepCopyDefaultMap(
-      luaTable,
+      luaMap,
       serializationType,
       traversalDescription,
       insideMap,
     );
   }
 
-  if (isTSTLMap(luaTable) || luaTable.has(SerializationBrand.MAP)) {
+  if (isTSTLMap(luaMap) || luaMap.has(SerializationBrand.MAP)) {
     return deepCopyMap(
-      luaTable,
+      luaMap,
       serializationType,
       traversalDescription,
       insideMap,
     );
   }
 
-  if (isTSTLSet(luaTable) || luaTable.has(SerializationBrand.SET)) {
+  if (isTSTLSet(luaMap) || luaMap.has(SerializationBrand.SET)) {
     return deepCopySet(
-      luaTable,
+      luaMap,
       serializationType,
       traversalDescription,
       insideMap,
     );
   }
 
-  const className = getTSTLClassName(luaTable);
+  const className = getTSTLClassName(luaMap);
 
   if (className === "WeakMap") {
     error(
@@ -164,9 +164,9 @@ function deepCopyTable(
     );
   }
 
-  if (isUserDefinedTSTLClass(luaTable)) {
+  if (isUserDefinedTSTLClass(luaMap)) {
     return deepCopyTSTLClass(
-      luaTable,
+      luaMap,
       serializationType,
       traversalDescription,
       insideMap,
@@ -174,20 +174,20 @@ function deepCopyTable(
   }
 
   // This is not a TSTL Map/Set/class. If it has a metatable, abort.
-  checkMetatable(luaTable, traversalDescription);
+  checkMetatable(luaMap, traversalDescription);
 
   // Handle the special case of serialized Isaac API classes.
   if (
-    isSerializedIsaacAPIClass(luaTable) &&
+    isSerializedIsaacAPIClass(luaMap) &&
     serializationType === SerializationType.DESERIALIZE
   ) {
-    return deserializeIsaacAPIClass(luaTable);
+    return deserializeIsaacAPIClass(luaMap);
   }
 
   // Handle the special case of an array.
-  if (isArray(luaTable)) {
+  if (isArray(luaMap)) {
     return deepCopyArray(
-      luaTable,
+      luaMap,
       serializationType,
       traversalDescription,
       insideMap,
@@ -196,7 +196,7 @@ function deepCopyTable(
 
   // Base case: copy a normal Lua table
   return deepCopyNormalLuaTable(
-    luaTable,
+    luaMap,
     serializationType,
     traversalDescription,
     insideMap,
@@ -204,7 +204,7 @@ function deepCopyTable(
 }
 
 function deepCopyDefaultMap(
-  defaultMap: DefaultMap<AnyNotNil, unknown> | LuaTable<AnyNotNil, unknown>,
+  defaultMap: DefaultMap<AnyNotNil, unknown> | LuaMap<AnyNotNil, unknown>,
   serializationType: SerializationType,
   traversalDescription: string,
   insideMap: boolean,
@@ -287,7 +287,7 @@ function deepCopyDefaultMap(
  * whether we are serializing or not.
  */
 function getNewDefaultMap(
-  defaultMap: DefaultMap<AnyNotNil, unknown> | LuaTable<AnyNotNil, unknown>,
+  defaultMap: DefaultMap<AnyNotNil, unknown> | LuaMap<AnyNotNil, unknown>,
   serializationType: SerializationType,
   traversalDescription: string,
   constructorArg: unknown,
@@ -301,7 +301,7 @@ function getNewDefaultMap(
     case SerializationType.SERIALIZE: {
       // Since we are serializing, the new object will be a Lua table. (At this point, we already
       // handled the special case of a DefaultMap instantiated with a factory function.)
-      const newDefaultMap = new LuaTable<AnyNotNil, unknown>();
+      const newDefaultMap = new LuaMap<AnyNotNil, unknown>();
       newDefaultMap.set(SerializationBrand.DEFAULT_MAP, "");
       newDefaultMap.set(SerializationBrand.DEFAULT_MAP_VALUE, constructorArg);
 
@@ -331,15 +331,15 @@ function getNewDefaultMap(
 }
 
 function deepCopyMap(
-  map: Map<AnyNotNil, unknown> | LuaTable<AnyNotNil, unknown>,
+  map: Map<AnyNotNil, unknown> | LuaMap<AnyNotNil, unknown>,
   serializationType: SerializationType,
   traversalDescription: string,
   insideMap: boolean,
 ) {
-  let newMap: Map<AnyNotNil, unknown> | LuaTable<AnyNotNil, unknown>;
+  let newMap: Map<AnyNotNil, unknown> | LuaMap<AnyNotNil, unknown>;
   if (serializationType === SerializationType.SERIALIZE) {
     // Since we are serializing, the new object will be a Lua table.
-    newMap = new LuaTable<AnyNotNil, unknown>();
+    newMap = new LuaMap<AnyNotNil, unknown>();
     newMap.set(SerializationBrand.MAP, "");
   } else {
     newMap = new Map();
@@ -379,16 +379,16 @@ function deepCopyMap(
 }
 
 function deepCopySet(
-  set: Set<AnyNotNil> | LuaTable<AnyNotNil, unknown>,
+  set: Set<AnyNotNil> | LuaMap<AnyNotNil, unknown>,
   serializationType: SerializationType,
   traversalDescription: string,
   insideMap: boolean,
 ) {
-  let newSet: Set<AnyNotNil> | LuaTable<AnyNotNil, string>;
+  let newSet: Set<AnyNotNil> | LuaMap<AnyNotNil, string>;
   if (serializationType === SerializationType.SERIALIZE) {
     // For serialization purposes, we represent a `Set` as a table with keys that match the
     // keys/values in the Set and values of an empty string.
-    newSet = new LuaTable<AnyNotNil, string>();
+    newSet = new LuaMap<AnyNotNil, string>();
     newSet.set(SerializationBrand.SET, "");
   } else {
     newSet = new Set();
@@ -433,10 +433,10 @@ function deepCopyTSTLClass(
   traversalDescription: string,
   insideMap: boolean,
 ) {
-  let newClass: TSTLClass | LuaTable<AnyNotNil, unknown>;
+  let newClass: TSTLClass | LuaMap<AnyNotNil, unknown>;
   if (serializationType === SerializationType.SERIALIZE) {
     // Since we are serializing, the new object will be a Lua table.
-    newClass = new LuaTable<AnyNotNil, unknown>();
+    newClass = new LuaMap<AnyNotNil, unknown>();
     // (We do not brand it with the class type because we will not have the associated class
     // constructor during deserialization, so knowing what type of class it is is pointless.)
   } else {
@@ -483,14 +483,14 @@ function deepCopyArray(
 }
 
 function deepCopyNormalLuaTable(
-  luaTable: LuaTable<AnyNotNil, unknown>,
+  luaMap: LuaMap<AnyNotNil, unknown>,
   serializationType: SerializationType,
   traversalDescription: string,
   insideMap: boolean,
 ) {
-  const newTable = new LuaTable<AnyNotNil, unknown>();
+  const newTable = new LuaMap<AnyNotNil, unknown>();
   const { entries, convertedNumberKeysToStrings } = getCopiedEntries(
-    luaTable,
+    luaMap,
     serializationType,
     traversalDescription,
     insideMap,
@@ -575,8 +575,11 @@ function getCopiedEntries(
  * copy function will refuse to copy a table type that has a metatable, outside of specifically
  * supported TSTL objects.
  */
-function checkMetatable(luaTable: LuaTable, traversalDescription: string) {
-  const metatable = getmetatable(luaTable);
+function checkMetatable(
+  luaMap: LuaMap<AnyNotNil, unknown>,
+  traversalDescription: string,
+) {
+  const metatable = getmetatable(luaMap);
   if (metatable === undefined) {
     return;
   }

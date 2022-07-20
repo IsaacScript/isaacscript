@@ -68,7 +68,7 @@ declare global {
         this: void,
         gridIndex: int,
         grid: GridEntity,
-        justBrokenGridSpawns?: LuaTable<int, StageAPIRemovedEntityData>,
+        justBrokenGridSpawns?: LuaMap<int, StageAPIRemovedEntityData>,
       ) => false | undefined,
     ];
 

@@ -40,7 +40,7 @@ function copiedObjectIsTable() {
     abc: "def",
   };
   const newObject = deepCopy(
-    oldObject as unknown as LuaTable,
+    oldObject as unknown as LuaMap,
     SerializationType.NONE,
     "copiedObjectIsTable",
   );
@@ -56,7 +56,7 @@ function copiedObjectHasKeyAndValueString() {
     abc: valueToLookFor,
   };
   const newTable = deepCopy(
-    oldObject as unknown as LuaTable,
+    oldObject as unknown as LuaMap,
     SerializationType.NONE,
     "copiedObjectHasKeyAndValueString",
   );
@@ -79,7 +79,7 @@ function copiedObjectHasKeyAndValueString() {
 function copiedTableHasKeyAndValueNumber() {
   const keyToLookFor = 123;
   const valueToLookFor = 456;
-  const oldTable = new LuaTable<AnyNotNil, unknown>();
+  const oldTable = new LuaMap<AnyNotNil, unknown>();
   oldTable.set(keyToLookFor, valueToLookFor);
 
   const newObject = deepCopy(
@@ -87,7 +87,7 @@ function copiedTableHasKeyAndValueNumber() {
     SerializationType.NONE,
     "copiedTableHasKeyAndValueNumber",
   );
-  const newTable = newObject as LuaTable<AnyNotNil, unknown>;
+  const newTable = newObject as LuaMap<AnyNotNil, unknown>;
 
   const value = newTable.get(keyToLookFor) as number | undefined;
   if (value === undefined) {
@@ -105,7 +105,7 @@ function copiedTableHasKeyAndValueNumber() {
 function copiedTableDoesNotCoerceTypes() {
   const keyToLookFor = 123;
   const valueToLookFor = 456;
-  const oldTable = new LuaTable<AnyNotNil, unknown>();
+  const oldTable = new LuaMap<AnyNotNil, unknown>();
   oldTable.set(keyToLookFor, valueToLookFor);
 
   const newObject = deepCopy(
@@ -113,7 +113,7 @@ function copiedTableDoesNotCoerceTypes() {
     SerializationType.NONE,
     "copiedTableDoesNotCoerceTypes",
   );
-  const newTable = newObject as LuaTable<AnyNotNil, unknown>;
+  const newTable = newObject as LuaMap<AnyNotNil, unknown>;
 
   const keyString = tostring(keyToLookFor);
   const valueString = tostring(valueToLookFor);
@@ -140,7 +140,7 @@ function copiedObjectHasNoReferencesForPrimitivesForward() {
     def: originalNumberValue,
   };
   const newTable = deepCopy(
-    oldObject as unknown as LuaTable,
+    oldObject as unknown as LuaMap,
     SerializationType.NONE,
     "copiedObjectHasNoReferencesForPrimitivesForward",
   );
@@ -165,7 +165,7 @@ function copiedObjectHasNoReferencesForPrimitivesBackward() {
     def: originalNumberValue,
   };
   const newTable = deepCopy(
-    oldObject as unknown as LuaTable,
+    oldObject as unknown as LuaMap,
     SerializationType.NONE,
     "copiedObjectHasNoReferencesForPrimitivesBackward",
   );
@@ -188,7 +188,7 @@ function copiedObjectHasNoReferencesForArray() {
     abc: [1, 2, 3],
   };
   const newTable = deepCopy(
-    oldObject as unknown as LuaTable,
+    oldObject as unknown as LuaMap,
     SerializationType.NONE,
     "copiedObjectHasNoReferencesForArray",
   );
@@ -229,7 +229,7 @@ function copiedObjectHasChildObject() {
     },
   };
   const newTable = deepCopy(
-    oldObject as unknown as LuaTable,
+    oldObject as unknown as LuaMap,
     SerializationType.NONE,
     "copiedObjectHasChildObject",
   );
@@ -432,7 +432,7 @@ function copiedDefaultMapHasBrand() {
     oldDefaultMap,
     SerializationType.SERIALIZE,
     "copiedDefaultMapHasBrand",
-  ) as LuaTable<AnyNotNil, unknown>;
+  ) as LuaMap<AnyNotNil, unknown>;
 
   if (!newTable.has(SerializationBrand.DEFAULT_MAP)) {
     error(

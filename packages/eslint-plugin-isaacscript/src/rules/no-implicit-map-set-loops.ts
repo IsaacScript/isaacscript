@@ -41,7 +41,7 @@ export const noImplicitMapSetLoops = createRule<Options, MessageIds>({
           // like:
           //
           // ```ts
-          // for (const [key, value] of pairs(luaTable)) {}
+          // for (const [key, value] of pairs(table)) {}
           // ```
           //
           // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition

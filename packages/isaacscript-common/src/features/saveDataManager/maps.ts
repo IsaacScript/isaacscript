@@ -5,7 +5,7 @@ import { SaveData } from "../../interfaces/SaveData";
  * Maps for the master map so that we can access the variables via the in-game console when
  * debugging. (TSTL Maps don't expose the map keys as normal keys.)
  */
-export const saveDataMap = new LuaTable<string, SaveData>();
+export const saveDataMap = new LuaMap<string, SaveData>();
 
-export const saveDataDefaultsMap = new LuaTable<string, SaveData>();
-export const saveDataConditionalFuncMap = new Map<string, () => boolean>();
+export const saveDataDefaultsMap = new LuaMap<string, SaveData>();
+export const saveDataConditionalFuncMap = new LuaMap<string, () => boolean>();

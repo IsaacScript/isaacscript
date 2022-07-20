@@ -12,7 +12,7 @@ declare global {
       attribute: string,
       defaultValue: boolean,
       displayText: string,
-      displayValueProxies: LuaTable<boolean, string>,
+      displayValueProxies: LuaMap<boolean, string>,
       info: string,
       color?: string,
     ): void;
@@ -48,7 +48,7 @@ declare global {
       modifyBy: number,
       defaultValue: number,
       displayText: string,
-      displayValueProxies: LuaTable<number, string>,
+      displayValueProxies: LuaMap<number, string>,
       info: string,
       color?: string,
     ): void;
@@ -114,7 +114,7 @@ declare global {
       modifyBy: number,
       defaultValue: number | boolean,
       displayText: string,
-      displayValueProxies: LuaTable<number, string> | LuaTable<boolean, string>,
+      displayValueProxies: LuaMap<number, string> | LuaMap<boolean, string>,
       displayDevice: boolean,
       info: string,
       color?: string,
@@ -145,7 +145,7 @@ declare global {
      * MenuData is not normally supposed to be accessed, but we access it to wipe data during a mod
      * reload.
      */
-    MenuData: LuaTable<int, ModConfigMenuData>;
+    MenuData: LuaMap<int, ModConfigMenuData>;
 
     // cspell:ignore modconfig
 

@@ -5,5 +5,3 @@
 - custom bosses for vanilla stages
 
 - Slaughterhouse I and II
-
-- convert LuaTable to LuaMap (after TSTL is released)

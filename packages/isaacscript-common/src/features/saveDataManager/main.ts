@@ -129,7 +129,6 @@ export function restoreDefaultSaveData(
 
   // Get the default values for this feature.
   const saveDataDefaults = saveDataDefaultsMap.get(subscriberName);
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (saveDataDefaults === undefined) {
     logError(
       `Failed to find the default copy of the save data for subscriber: ${subscriberName}`,
@@ -151,13 +150,13 @@ export function restoreDefaultSaveData(
     childTableDefaults,
     SerializationType.NONE,
     `${subscriberName} --> ${saveDataKey}`,
-  ) as LuaTable<AnyNotNil, unknown>;
+  ) as LuaMap<AnyNotNil, unknown>;
 
   // We do not want to blow away the existing child table because we don't want to break any
   // existing references. Instead, empty the table and copy all of the elements from the copy of the
   // defaults table.
   clearAndCopyAllElements(
-    childTable as unknown as LuaTable,
+    childTable as unknown as LuaMap<AnyNotNil, unknown>,
     childTableDefaultsCopy,
   );
 }
@@ -167,8 +166,8 @@ export function restoreDefaultSaveData(
  * table to the old table.
  */
 function clearAndCopyAllElements(
-  oldTable: LuaTable<AnyNotNil, unknown>,
-  newTable: LuaTable<AnyNotNil, unknown>,
+  oldTable: LuaMap<AnyNotNil, unknown>,
+  newTable: LuaMap<AnyNotNil, unknown>,
 ) {
   clearTable(oldTable);
 

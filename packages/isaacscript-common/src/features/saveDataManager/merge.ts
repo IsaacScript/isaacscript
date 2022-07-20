@@ -12,7 +12,7 @@ import { isDefaultMap, isTSTLMap, isTSTLSet } from "../../functions/tstlClass";
 import { isTable } from "../../functions/types";
 import { getTraversalDescription } from "../../functions/utils";
 import { SAVE_DATA_MANAGER_DEBUG } from "./saveDataManagerConstants";
-import { isSerializationBrand } from "./serializationBrand";
+import { isSerializationBrand } from "./serializationBrands";
 
 /**
  * `merge` takes the values from a new table and recursively merges them into an old object (while
@@ -20,7 +20,7 @@ import { isSerializationBrand } from "./serializationBrand";
  *
  * It supports the following object types:
  *
- * - `LuaTable` / basic TSTL objects
+ * - Basic TSTL objects / tables
  * - TSTL `Map`
  * - TSTL `Set`
  * - TSTL classes
@@ -38,10 +38,10 @@ import { isSerializationBrand } from "./serializationBrand";
  */
 export function merge(
   oldObject:
-    | LuaTable<AnyNotNil, unknown>
+    | LuaMap<AnyNotNil, unknown>
     | Map<AnyNotNil, unknown>
     | Set<AnyNotNil>,
-  newTable: LuaTable<AnyNotNil, unknown>,
+  newTable: LuaMap<AnyNotNil, unknown>,
   traversalDescription: string,
 ): void {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -73,8 +73,8 @@ export function merge(
 }
 
 function mergeArray(
-  oldArray: LuaTable<AnyNotNil, unknown>,
-  newArray: LuaTable<AnyNotNil, unknown>,
+  oldArray: LuaMap<AnyNotNil, unknown>,
+  newArray: LuaMap<AnyNotNil, unknown>,
 ) {
   // Assume that we should blow away all array values with whatever is present in the incoming
   // array.
@@ -90,7 +90,7 @@ function mergeArray(
 
 function mergeTSTLObject(
   oldObject: Map<AnyNotNil, unknown> | Set<AnyNotNil>,
-  newTable: LuaTable<AnyNotNil, unknown>,
+  newTable: LuaMap<AnyNotNil, unknown>,
   traversalDescription: string,
 ) {
   // We blow away the old object and recursively copy over all of the incoming values.
@@ -140,8 +140,8 @@ function mergeTSTLObject(
 }
 
 function mergeTable(
-  oldTable: LuaTable<AnyNotNil, unknown>,
-  newTable: LuaTable<AnyNotNil, unknown>,
+  oldTable: LuaMap<AnyNotNil, unknown>,
+  newTable: LuaMap<AnyNotNil, unknown>,
   traversalDescription: string,
 ) {
   iterateTableInOrder(
@@ -170,12 +170,12 @@ function mergeTable(
       }
 
       if (isTable(value)) {
-        let oldValue = oldTable.get(key) as LuaTable<AnyNotNil, unknown>;
+        let oldValue = oldTable.get(key) as LuaMap<AnyNotNil, unknown>;
         if (!isTable(oldValue)) {
           // The child table does not exist on the old table. However, we still need to copy over
           // the new table, because we need to handle data types like "Foo | null". Thus, set up a
           // blank sub-table on the old table, and continue to recursively merge..
-          oldValue = new LuaTable();
+          oldValue = new LuaMap();
           oldTable.set(key, oldValue);
         }
 

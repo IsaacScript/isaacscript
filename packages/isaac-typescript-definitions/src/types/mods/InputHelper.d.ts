@@ -7,7 +7,7 @@ declare global {
   interface InputHelperInterface {
     KeyboardPressed(this: void, key: Keyboard, controllerIndex: int): boolean;
 
-    ControllerToString: LuaTable<Keyboard, string | undefined>;
-    KeyboardToString: LuaTable<Keyboard, string | undefined>;
+    ControllerToString: LuaMap<Keyboard, string>;
+    KeyboardToString: LuaMap<Keyboard, string>;
   }
 }

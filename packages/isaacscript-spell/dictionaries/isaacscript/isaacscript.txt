@@ -21,7 +21,6 @@ isaacscript
 jscutlery # For version control
 jsdoc # Monorepo word
 lualib # TSTL word
-luatable # TSTL word
 markdownlint # Monorepo word
 nocache # Monorepo word
 nocheck # For @ts-nocheck
