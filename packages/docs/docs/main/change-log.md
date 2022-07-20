@@ -9,7 +9,7 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## July 19th, 2022
+## July 20th, 2022
 
 - When using the "Go to Definition" feature of VSCode with exports from "isaac-typescript-definitions" or "isaacscript-common", it will now warp you to the real TypeScript files (instead of the definitions stub).
 - The shader crash fix will now be automatically be applied to any upgraded mods. (The method was originally discovered by AgentCucco.)
@@ -67,7 +67,9 @@ This page lists the changes to the IsaacScript framework.
   - `getGotoCommandPrefix` (use `getGotoCommand` instead)
   - `getDefaultColor` (use `ColorDefault`)
   - `getDefaultKColor` (use `KColorDefault` instead)
-- All of the `get` grid entity helper functions now take a variant parameter.
+- Changed the following helper functions:
+  - All of the `get` grid entity helper functions now take a variant parameter.
+  - The JSON helper functions now use a [custom JSON parser](https://github.com/rxi/json.lua), which is 11.8 times faster than the vanilla parser.
 - Added the following constants:
   - `NEW_RUN_PLAYER_STARTING_POSITION`
   - `NEW_FLOOR_STARTING_POSITION_NORMAL_MODE`

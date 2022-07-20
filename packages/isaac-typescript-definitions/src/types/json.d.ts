@@ -8,6 +8,9 @@
  * IsaacScript mods should avoid consuming it directly and instead use the `jsonEncode` and
  * `jsonDecode` helper functions.
  *
+ * (These helper functions use a custom JSON parser that was benchmarked to be 11.8 times faster
+ * than the vanilla parser.)
+ *
  * @module
  */
 
