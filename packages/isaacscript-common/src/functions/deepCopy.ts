@@ -568,6 +568,14 @@ function getCopiedEntries(
     entries.sort(twoDimensionalSort);
   }
 
+  // During serialization, we brand some Lua tables with a special identifier to signify that it has
+  // keys that should be deserialized to numbers.
+  const convertStringKeysToNumbers =
+    serializationType === SerializationType.DESERIALIZE &&
+    entries.some(
+      ([key]) => key === (SerializationBrand.OBJECT_WITH_NUMBER_KEYS as string),
+    );
+
   const hasNumberKeys = entries.some(([key]) => isNumber(key));
   const convertNumberKeysToStrings =
     serializationType === SerializationType.SERIALIZE && hasNumberKeys;
@@ -589,7 +597,16 @@ function getCopiedEntries(
       insideMap,
     );
 
-    const keyToUse = convertNumberKeysToStrings ? tostring(key) : key;
+    let keyToUse = key;
+    if (convertStringKeysToNumbers) {
+      const numberKey = tonumber(key);
+      if (numberKey !== undefined) {
+        keyToUse = numberKey;
+      }
+    }
+    if (convertNumberKeysToStrings) {
+      keyToUse = tostring(key);
+    }
     copiedEntries.push([keyToUse, newValue]);
   }
 
