@@ -451,7 +451,7 @@ export function isArray(object: unknown): object is unknown[] {
 
   // Third, check for non-contiguous elements. (Lua tables start at an index of 1.)
   for (let i = 1; i <= tableLength; i++) {
-    const element = object.get(i) as unknown;
+    const element = object.get(i);
     if (element === undefined) {
       return false;
     }

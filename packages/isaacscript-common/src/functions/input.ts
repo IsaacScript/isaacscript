@@ -4,10 +4,9 @@ import {
   ControllerIndex,
   Keyboard,
 } from "isaac-typescript-definitions";
-import { MAX_NUM_INPUTS } from "../constants";
+import { getEnumValues } from "./enums";
 import { copySet } from "./set";
 import { trimPrefix } from "./string";
-import { erange } from "./utils";
 
 const MODIFIER_KEYS: readonly Keyboard[] = [
   Keyboard.LEFT_SHIFT, // 340
@@ -62,9 +61,9 @@ export function getShootActions(): Set<ButtonAction> {
 
 /** Iterates over all inputs to determine if a particular button is pressed (i.e. held down). */
 export function isActionPressedOnAnyInput(buttonAction: ButtonAction): boolean {
-  const validInputs = erange(MAX_NUM_INPUTS);
-  return validInputs.some((input) =>
-    Input.IsActionPressed(buttonAction, input),
+  const controllerIndexes = getEnumValues(ControllerIndex);
+  return controllerIndexes.some((controllerIndex) =>
+    Input.IsActionPressed(buttonAction, controllerIndex),
   );
 }
 
@@ -75,9 +74,9 @@ export function isActionPressedOnAnyInput(buttonAction: ButtonAction): boolean {
 export function isActionTriggeredOnAnyInput(
   buttonAction: ButtonAction,
 ): boolean {
-  const validInputs = erange(MAX_NUM_INPUTS);
-  return validInputs.some((input) =>
-    Input.IsActionTriggered(buttonAction, input),
+  const controllerIndexes = getEnumValues(ControllerIndex);
+  return controllerIndexes.some((controllerIndex) =>
+    Input.IsActionTriggered(buttonAction, controllerIndex),
   );
 }
 
