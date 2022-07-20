@@ -4,7 +4,7 @@ title: Refactoring an Example Mod
 
 As your mod grows larger and larger, you will want to stay organized. Splitting up your mod into different files is easy with TypeScript by using `import` and `export`. There are many ways to structure a big mod, so think about a hierarchy that makes sense for you.
 
-Let's say that in our example mod, we want to add a few more custom items, so that the mod becomes an item pack. Before we continue to clutter our "main.ts" file, let's refactor our code to keep things clean.
+Let's build on the previous [Green Candle example mod](example-mod.md). Imagine that we want to add a few more custom items, so that the mod becomes an item pack. Before we continue to clutter our "main.ts" file, let's refactor our code to keep things clean.
 
 <br />
 
@@ -42,7 +42,7 @@ export const CollectibleTypeCustom {
 
 Enums are typically stored in files of the same name in an "enums" subdirectory.
 
-(More technical information: Here, we use a normal object as a stand-in for a "real" TypeScript enum. This is because enums have the quirk that they must have only number or string values. However, using an object for this purpose is conventional in IsaacScript mods, and works just fine.)
+(More technical information: Here, we use a normal object as a stand-in for a "real" TypeScript enum. This is because enums have the quirk that they must have only number or string values, and we need this enum to have `CollectibleType` values. Using an object for this purpose instead of an enum is conventional in IsaacScript mods, and works just fine.)
 
 <br />
 
@@ -78,25 +78,7 @@ export function greenCandlePostUpdate(): void {
   checkApplyGreenCandleEffect();
 }
 
-export function checkApplyGreenCandleEffect(): void {
-  for (const player of getPlayers()) {
-    if (player.HasCollectible(GREEN_CANDLE_COLLECTIBLE_TYPE)) {
-      applyGreenCandleEffect(player);
-    }
-  }
-}
-
-function applyGreenCandleEffect(player: EntityPlayer) {
-  for (const entity of getEntities()) {
-    if (shouldApplyGreenCandleEffectToEntity(entity)) {
-      entity.AddPoison(EntityRef(player), 100, player.Damage);
-    }
-  }
-}
-
-function shouldApplyGreenCandleEffectToEntity(entity: Entity) {
-  return entity.IsVulnerableEnemy() && getRandomInt(1, 500) === 1;
-}
+// (All of the rest of the Green Candle poisoning code goes here.)
 ```
 
 ## 5) Done
@@ -113,3 +95,7 @@ src/
 └── enums/
     └── CollectibleTypeCustom.ts
 ```
+
+Much better!
+
+If you want to delve deeper into the topic of structuring a large Isaac mod, you can read my [blog on mod organization](https://github.com/Zamiell/isaac-faq/blob/main/mod-organization.md).
