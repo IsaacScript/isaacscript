@@ -51,7 +51,7 @@ After five years of programming Isaac mods in Lua, I got frustrated enough to ta
 ### <img src="/img/items/box.png" className="features-icon" /> Save Data Manager
 
 - The best mods serialize all state to disk so that saving and continuing a run results in a seamless experience. But getting this right is tricky.
-- Optionally leverage IsaacScript's build-in save data manager that allows for automatic resetting of variables and keeping mod-feature variables scoped as locally as possible.
+- Optionally leverage IsaacScript's built-in save data manager that allows for automatic resetting of variables and keeping mod-feature variables scoped as locally as possible.
 
 ### <img src="/img/items/undefined.png" className="features-icon" /> Crash Debugging
 
