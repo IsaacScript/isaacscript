@@ -87,7 +87,7 @@ export function greenCandlePostUpdate(): void {
 
 Now, our project looks like this:
 
-```ts
+```text
 src/
 ├── main.ts
 ├── callbacks/
