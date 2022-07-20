@@ -72,7 +72,7 @@ module.exports = {
           routeBasePath: "/", // Serve the docs at the site's root.
           sidebarPath: require.resolve("./sidebars.js"),
           editUrl:
-            "https://github.com/IsaacScript/isaacscript/edit/main/packages/",
+            "https://github.com/IsaacScript/isaacscript/edit/main/packages/docs/",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
