@@ -19,12 +19,12 @@ import { getRooms } from "../../functions/rooms";
 import { getGotoCommand, setStage } from "../../functions/stage";
 import { runNextRoom } from "../runNextRoom";
 import { getRandomCustomStageRoom } from "./customStageUtils";
+import { topStreakTextStart } from "./streakText";
 import v, {
   customBossPNGPaths,
   customStageCachedRoomData,
   customStagesMap,
 } from "./v";
-import { playVersusScreenAnimation } from "./versusScreen";
 
 const DEFAULT_BASE_STAGE = LevelStage.BASEMENT_2;
 const DEFAULT_BASE_STAGE_TYPE = StageType.ORIGINAL;
@@ -39,7 +39,7 @@ export function setCustomStage(name: string, verbose = false): void {
   const customStage = customStagesMap.get(name);
   if (customStage === undefined) {
     error(
-      `Failed to set the custom stage of "${name}" because it was not found in the custom stages map. (This means that you probably forgot to define it in your "tsconfig.json" file.) See the website for more details on how to set up custom stages.`,
+      `Failed to set the custom stage of "${name}" because it was not found in the custom stages map. (Try restarting IsaacScript / recompiling the mod, and try again. If that does not work, you probably forgot to define it in your "tsconfig.json" file.) See the website for more details on how to set up custom stages.`,
     );
   }
 
@@ -152,6 +152,8 @@ function postRoomTransition() {
   // After the room transition, the players will be placed next to a door, but they should be in the
   // center of the room to emulate what happens on a vanilla stage.
   movePlayersToCenter();
+
+  topStreakTextStart();
 }
 
 export function setCustomStageDebug(): void {
@@ -161,7 +163,7 @@ export function setCustomStageDebug(): void {
     return;
   }
 
-  playVersusScreenAnimation(customStage, true);
+  topStreakTextStart();
 }
 
 /**

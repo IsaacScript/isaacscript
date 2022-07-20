@@ -24,7 +24,11 @@ import {
 } from "./customStageGridEntities";
 import * as metadataJSON from "./metadata.json"; // This will correspond to "metadata.lua" at run-time.
 import { setShadows } from "./shadows";
-import { streakTextGetShaderParams, streakTextPostRender } from "./streakText";
+import {
+  streakTextGetShaderParams,
+  streakTextPostGameStarted,
+  streakTextPostRender,
+} from "./streakText";
 import v, { customStagesMap } from "./v";
 import {
   playVersusScreenAnimation,
@@ -36,20 +40,17 @@ export function customStageInit(mod: ModUpgraded): void {
   initRoomTypeMaps();
 
   mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
-
+  mod.AddCallback(ModCallback.POST_GAME_STARTED, postGameStarted); // 15
   mod.AddCallback(ModCallback.GET_SHADER_PARAMS, getShaderParams); // 21
-
   mod.AddCallbackCustom(
     ModCallbackCustom.POST_GRID_ENTITY_BROKEN,
     postGridEntityBrokenRockAlt,
     GridEntityType.ROCK_ALT,
   );
-
   mod.AddCallbackCustom(
     ModCallbackCustom.POST_GRID_ENTITY_INIT,
     postGridEntityBrokenInit,
   );
-
   mod.AddCallbackCustom(
     ModCallbackCustom.POST_NEW_ROOM_REORDERED,
     postNewRoomReordered,
@@ -123,15 +124,26 @@ function postRender() {
     return;
   }
 
-  streakTextPostRender(customStage);
+  streakTextPostRender();
   versusScreenPostRender();
+}
+
+// ModCallback.POST_GAME_STARTED (15)
+function postGameStarted() {
+  // We don't early return here because we need to unconditionally reset the sprites.
+  streakTextPostGameStarted();
 }
 
 // ModCallback.GET_SHADER_PARAMS (22)
 function getShaderParams(
   shaderName: string,
 ): Record<string, unknown> | undefined {
-  streakTextGetShaderParams(shaderName);
+  const customStage = v.run.currentCustomStage;
+  if (customStage === null) {
+    return;
+  }
+
+  streakTextGetShaderParams(customStage, shaderName);
   return undefined;
 }
 

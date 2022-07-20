@@ -27,6 +27,7 @@ const ISAACSCRIPT_COMMON_PATH = path.join(
   CWD,
   "node_modules",
   ISAACSCRIPT_COMMON,
+  "dist",
 );
 
 const METADATA_LUA_PATH = path.join(
@@ -98,6 +99,7 @@ async function insertEmptyShader(verbose: boolean) {
     (shader) => shader.$.name === EMPTY_SHADER_NAME,
   );
   if (hasIsaacScriptEmptyShader) {
+    // Our empty shader already exists, so we don't have to do anything.
     return;
   }
 

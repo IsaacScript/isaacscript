@@ -91,15 +91,12 @@ versusScreenBackgroundSprite.Load("gfx/ui/boss/versusscreen.anm2", true);
 const versusScreenDirtSpotSprite = Sprite();
 versusScreenDirtSpotSprite.Load("gfx/ui/boss/versusscreen.anm2", true);
 
-export function playVersusScreenAnimation(
-  customStage: CustomStage,
-  force = false,
-): void {
+export function playVersusScreenAnimation(customStage: CustomStage): void {
   const room = game.GetRoom();
   const roomType = room.GetType();
   const hud = game.GetHUD();
 
-  if (roomType !== RoomType.BOSS && !force) {
+  if (roomType !== RoomType.BOSS) {
     return;
   }
 

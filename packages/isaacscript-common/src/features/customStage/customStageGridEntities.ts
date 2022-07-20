@@ -165,10 +165,6 @@ export function removeUrnRewards(
     return;
   }
 
-  // Spiders
-  const spiders = getNPCs(EntityType.SPIDER);
-  removeEntitiesSpawnedFromGridEntity(spiders, gridEntity);
-
   // Coins
   const coins = getCoins();
   removeEntitiesSpawnedFromGridEntity(coins, gridEntity);
@@ -180,6 +176,10 @@ export function removeUrnRewards(
   // Swallowed Penny
   const swallowedPennies = getTrinkets(TrinketType.SWALLOWED_PENNY);
   removeEntitiesSpawnedFromGridEntity(swallowedPennies, gridEntity);
+
+  // Spiders
+  const spiders = getNPCs(EntityType.SPIDER);
+  removeEntitiesSpawnedFromGridEntity(spiders, gridEntity);
 }
 
 function removeEntitiesSpawnedFromGridEntity(

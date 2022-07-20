@@ -1,4 +1,5 @@
 import { ButtonAction } from "../../enums/ButtonAction";
+import { ControllerIndex } from "../../enums/ControllerIndex";
 import { Keyboard } from "../../enums/Keyboard";
 import { Mouse } from "../../enums/Mouse";
 
@@ -7,23 +8,36 @@ declare global {
   namespace Input {
     function GetActionValue(
       buttonAction: ButtonAction,
-      controllerID: int,
+      controllerIndex: ControllerIndex,
     ): float;
-    function GetButtonValue(keyboard: Keyboard, controllerID: int): float;
+
+    function GetButtonValue(
+      keyboard: Keyboard,
+      controllerIndex: ControllerIndex,
+    ): float;
+
     function GetMousePosition(gameCoords: boolean): Vector;
 
     function IsActionPressed(
       buttonAction: ButtonAction,
-      controllerID: int,
+      controllerIndex: ControllerIndex,
     ): boolean;
 
     function IsActionTriggered(
       buttonAction: ButtonAction,
-      controllerID: int,
+      controllerIndex: ControllerIndex,
     ): boolean;
 
-    function IsButtonPressed(keyboard: Keyboard, controllerID: int): boolean;
-    function IsButtonTriggered(keyboard: Keyboard, controllerID: int): boolean;
+    function IsButtonPressed(
+      keyboard: Keyboard,
+      controllerIndex: ControllerIndex,
+    ): boolean;
+
+    function IsButtonTriggered(
+      keyboard: Keyboard,
+      controllerIndex: ControllerIndex,
+    ): boolean;
+
     function IsMouseBtnPressed(mouse: Mouse): boolean;
   }
 }

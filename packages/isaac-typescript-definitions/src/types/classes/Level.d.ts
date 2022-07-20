@@ -199,6 +199,9 @@ declare global {
      */
     ShowMap(): void;
 
+    /**
+     * Displays the streak text near the top of the screen that shows the name of the current level.
+     */
     ShowName(sticky: boolean): void;
 
     /**

@@ -85,10 +85,14 @@ export enum ModCallback {
   EVALUATE_CACHE = 8,
 
   /**
-   * This will fire at the beginning of a run and upon continuing a saved run.
+   * This will fire at the beginning of a run, upon continuing a saved run, and when a player enters
+   * a Genesis room.
    *
-   * Note that checking for `isChildPlayer` does not work in this callback; use the
-   * POST_PLAYER_INIT_LATE callback for that.
+   * This callback has a special property where the `EntityPlayer.AddCollectible` method will not do
+   * anything if the player is continuing a saved run. (This behavior was introduced in Repentance.)
+   *
+   * Note that the `isChildPlayer` helper function does not work in this callback. If you want to
+   * exclude non-real players, use the custom `POST_PLAYER_INIT_LATE` callback instead.
    *
    * ```ts
    * function postPlayerInit(player: EntityPlayer): void {}
@@ -160,6 +164,8 @@ export enum ModCallback {
   PRE_GAME_EXIT = 17,
 
   /**
+   * Unlike the `POST_GAME_STARTED` callback, this callback does not fire when resuming a saved run.
+   *
    * ```ts
    * function postNewLevel(): void {}
    * ```

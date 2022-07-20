@@ -216,7 +216,13 @@ declare interface Sprite {
   SetOverlayRenderPriority(renderFirst: boolean): void;
   Stop(): void;
 
-  /** Advances the currently playing animation by one frame. */
+  /**
+   * Advances the currently playing animation by one frame. If a new animation was played, this will
+   * set the frame to 0 (so that the 0th frame will not get skipped over).
+   *
+   * If the sprite is playing an animation, you need to call this on every render frame before you
+   * render it.
+   */
   Update(): void;
 
   WasEventTriggered(eventName: string): boolean;

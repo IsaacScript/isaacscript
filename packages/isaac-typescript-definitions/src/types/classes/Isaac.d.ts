@@ -139,7 +139,7 @@ declare global {
      *
      * The counter for this increases even when the game is paused or when you are in the main menu.
      * Since Isaac frames are equal to render frames, 60 frames equals 1 second. Note that these
-     * frames are completely different from the frames returned from `game.GetFrameCount` method.
+     * frames are different from the frames returned from `game.GetFrameCount` method.
      */
     function GetFrameCount(): int;
 
