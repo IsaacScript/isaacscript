@@ -80,7 +80,9 @@ export function greenCandlePostUpdate(): void {
   checkApplyGreenCandleEffect();
 }
 
-// (All of the rest of the Green Candle poisoning code goes here.)
+// (All of the rest of the Green Candle poisoning code goes here. Make sure to change the
+// "GREEN_CANDLE" constant to "CollectibleTypeCustom.GREEN_CANDLE" to reflect the fact that we moved
+// it to an enum.)
 ```
 
 ## 5) Done
