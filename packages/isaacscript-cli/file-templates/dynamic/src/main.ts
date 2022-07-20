@@ -12,7 +12,7 @@ function main() {
   // Register a callback function that corresponds to when a new run is started.
   mod.AddCallback(ModCallback.POST_GAME_STARTED, postGameStarted);
 
-  // Print an message to the "log.txt" file.
+  // Print a message to the "log.txt" file.
   Isaac.DebugString(`${MOD_NAME} initialized.`);
 }
 

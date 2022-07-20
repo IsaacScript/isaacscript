@@ -1,6 +1,5 @@
 - july 20th is trip
 
-- custom stage level streak text - need to render on top of HUD
 - custom trapdoors
 - custom bosses for vanilla stages
 
