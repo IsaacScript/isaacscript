@@ -3,9 +3,13 @@ title: Features
 hide_table_of_contents: true
 ---
 
-They say that every programming language has some pros and some cons. However, after five years of programming mods in [Lua](https://www.lua.org/) for [_The Binding of Isaac: Afterbirth+_](https://store.steampowered.com/app/401920/The_Binding_of_Isaac_Afterbirth/) and [_The Binding of Isaac: Repentance_](https://store.steampowered.com/app/1426300/The_Binding_of_Isaac_Repentance/), I have not found very many pros. It is incredibly easy to shoot yourself in the foot after making even the smallest typo. And it doesn't have the tooling that we take for granted when programming in other modern languages.
+IsaacScript is a framework that allows you to code [_The Binding of Isaac: Repentance_](https://store.steampowered.com/app/1426300/The_Binding_of_Isaac_Repentance/) mods using the [TypeScript](https://www.typescriptlang.org/) programming language instead of the [Lua](https://www.lua.org/) programming language. It automatically converts your TypeScript code into optimized Lua, similar to how a C++ compiler automatically converts C++ into X86.
 
-But we don't have to suffer anymore. The `isaacscript` framework allows us to program Isaac mods in [TypeScript](https://www.typescriptlang.org/). And once you start, you will never go back. Here's a short list of features:
+So why would you want to use TypeScript over Lua? Why would you want to introduce a compiler into your workflow and make things more complicated?
+
+Programming mods in Lua can be really painful. Because it isn't type safe, it is easy to shoot yourself in the foot after making even the smallest typo. And while the tooling in Lua has gotten better in the past few years (e.g. [the Lua language server](https://github.com/sumneko/lua-language-server)), it still doesn't hold a candle to what TypeScript has to offer.
+
+After five years of programming Isaac mods in Lua, I got frustrated enough to take a [level 2 action](https://www.lesswrong.com/posts/guDcrPqLsnhEjrPZj/levels-of-action) - to build the ultimate Isaac developer experience, using TypeScript as a basis. The improvement is so significant that once you start, you will never go back. Here's a short list of features:
 
 ### <img src="/img/items/magic-mushroom.png" className="features-icon" /> The Entire Isaac API, Strongly Typed
 
@@ -13,13 +17,8 @@ But we don't have to suffer anymore. The `isaacscript` framework allows us to pr
 
 ### <img src="/img/items/marked.png" className="features-icon" /> Mouseover Documentation
 
-- Mouseover API calls to see what they do and what parameters they expect.
-- Hopefully, you will never have to open the Isaac documentation ever again. Good riddance.
-
-### <img src="/img/items/dead-eye.png" className="features-icon" /> Better API Accuracy
-
-- The Isaac documentation is wrong in a lot of places. Some functions are not implemented and some functions make the game crash.
-- Don't bother waiting for a patch - the `isaacscript` framework fixes everything for you.
+- Don't waste time opening up Wofsauge's documentation and looking up things manually. Instead, mouseover API calls to see what they do and what parameters they expect.
+- Many methods have extensive documentation written inside of the mouseover tooltip.
 
 ### <img src="/img/items/clockwork-assembly.png" className="features-icon" /> Automatic Mod Reloading
 
