@@ -35,7 +35,7 @@ function registerCallbacks(mod: Mod) {
 Before, we had a `GREEN_CANDLE_COLLECTIBLE_TYPE` constant at the top of the file. This probably belongs in its own file. Furthermore, instead of having individual variables for every collectible type, we can put them all in a `CollectibleTypeCustom` enum, which helps us stay more organized.
 
 ```ts
-export const CollectibleTypeCustom {
+export const CollectibleTypeCustom = {
   GREEN_CANDLE: Isaac.GetItemIdByName("Green Candle"),
 } as const;
 ```
