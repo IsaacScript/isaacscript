@@ -3,7 +3,7 @@ title: Features
 hide_table_of_contents: true
 ---
 
-IsaacScript is a framework that allows you to code [_The Binding of Isaac: Repentance_](https://store.steampowered.com/app/1426300/The_Binding_of_Isaac_Repentance/) mods using the [TypeScript](https://www.typescriptlang.org/) programming language instead of the [Lua](https://www.lua.org/) programming language. It automatically converts your TypeScript code into optimized Lua, similar to how a C++ compiler automatically converts C++ into X86.
+IsaacScript is a framework that allows you to code [_The Binding of Isaac: Repentance_](https://store.steampowered.com/app/1426300/The_Binding_of_Isaac_Repentance/) mods using the [TypeScript](https://www.typescriptlang.org/) programming language instead of the [Lua](https://www.lua.org/) programming language. It automatically converts your TypeScript code into optimized Lua, similar to how a C++ compiler automatically converts C++ code into X86.
 
 So why would you want to use TypeScript over Lua? Why would you want to introduce a compiler into your workflow and make things more complicated?
 
