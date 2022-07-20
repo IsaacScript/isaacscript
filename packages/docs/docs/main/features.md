@@ -13,11 +13,11 @@ After five years of programming Isaac mods in Lua, I got frustrated enough to ta
 
 ### <img src="/img/items/magic-mushroom.png" className="features-icon" /> The Entire Isaac API, Strongly Typed
 
-- Code fearlessly without having to worry about making a typo or having to look at the docs.
+- Code fearlessly without having to worry about making a typo.
 
 ### <img src="/img/items/marked.png" className="features-icon" /> Mouseover Documentation
 
-- Don't waste time opening up Wofsauge's documentation and looking up things manually. Instead, mouseover API calls to see what they do and what parameters they expect.
+- Don't waste time looking up API methods in the docs. Instead, mouseover them to see what they do and what parameters they expect.
 - Many methods have extensive documentation written inside of the mouseover tooltip.
 
 ### <img src="/img/items/clockwork-assembly.png" className="features-icon" /> Automatic Mod Reloading
