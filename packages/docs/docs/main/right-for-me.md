@@ -3,6 +3,8 @@ title: Is IsaacScript Right for Me?
 hide_table_of_contents: true
 ---
 
+(If you don't know what IsaacScript is, first see the [features](#features) page.)
+
 Coding in TypeScript is a bit more involved than coding in Lua, since it requires more tooling to be installed. This means that `isaacscript` isn't right for everyone. Whether or not you should use the framework depends on several factors.
 
 <br />
