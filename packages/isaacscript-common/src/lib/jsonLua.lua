@@ -1,3 +1,5 @@
+-- cspell:disable
+
 --
 -- json.lua
 --
