@@ -218,18 +218,18 @@ function applyGreenCandleEffect(player: EntityPlayer) {
 
 ## 9) Looping Over All the Enemies in a Room
 
-Every enemy in the room should have a chance of being poisoned. So, we need to loop over all enemies in the room with the `getEntities()` function. (This is also a helper function from the IsaacScript standard library.)
+Every enemy in the room should have a chance of being poisoned. So, we need to loop over all enemies in the room with the `getNPCs()` function. (This is also a helper function from the IsaacScript standard library.)
 
 ```ts
 function applyGreenCandleEffect(player: EntityPlayer) {
-  for (const entity of getEntities()) {
-    if (shouldApplyGreenCandleEffectToEntity(entity)) {
+  for (const npc of getNPCs()) {
+    if (shouldApplyGreenCandleEffectToNPC(npc)) {
       // TODO - Apply poison.
     }
   }
 }
 
-function shouldApplyGreenCandleEffectToEntity(entity: Entity) {
+function shouldApplyGreenCandleEffectToNPC(npc: EntityNPC) {
   // TODO - Return true or false based on a random chance.
   return true;
 }
@@ -243,29 +243,29 @@ Adding the poison is done with the `AddPoison` method. However, notice that VSCo
 
 ```ts
 function applyGreenCandleEffect(player: EntityPlayer) {
-  for (const entity of Isaac.GetRoomEntities()) {
-    if (shouldApplyGreenCandleEffectToEntity(entity)) {
-      // The source is the player.
-      // The duration is 100 frames.
-      // The damage is equal to the player's damage stat.
-      entity.AddPoison(player, 100, player.Damage);
-      // (This shows an error in the IDE because the `AddPoison` method expects an `EntityRef`.)
+  for (const npc of getNPCs()) {
+    if (shouldApplyGreenCandleEffectToNPC(npc)) {
+      // - The source is the player.
+      // - The duration is 100 frames.
+      // - The damage is equal to the player's damage stat.
+      npc.AddPoison(player, 100, player.Damage);
+      // (This shows an error in VSCode because the `AddPoison` method expects an `EntityRef`.)
     }
   }
 }
 ```
 
-This showcases the advantage of programming in TypeScript instead of Lua, because this is a common error. The TypeScript compiler tells us that we _actually_ need to give the function an entity reference instead of an entity. This is accomplished by simply casting the player as an `EntityRef`. (The "EntityRef()" function is a global.)
+This showcases the advantage of programming in TypeScript instead of Lua, because this is a common error. The TypeScript compiler tells us that we _actually_ need to give the function an entity reference instead of an entity. This is accomplished by converting the player to a reference by using the `EntityRef` global function:
 
 ```ts
-entity.AddPoison(EntityRef(player), 100, player.Damage);
+npc.AddPoison(EntityRef(player), 100, player.Damage);
 ```
 
 <br />
 
 ## 11) Detect Invulnerable Enemies and Add a Random Chance
 
-Now, let's fill in the `shouldApplyGreenCandleEffectToEntity()` function.
+Now, let's fill in the `shouldApplyGreenCandleEffectToNPC()` function.
 
 Some enemies, like Stonies, are supposed to be invincible, so it would be a bug in our mod if the poison effect applied to them. So, we have to find a way to detect invincible enemies.
 
@@ -274,8 +274,8 @@ By looking through [the API docs](https://wofsauge.github.io/IsaacDocs/), we eve
 Furthermore, we want the random chance for the Green Candle to work to be around 1 in 500. We can accomplish that with the `getRandomInt` function. (This is also a helper function from the IsaacScript standard library.)
 
 ```ts
-function shouldApplyGreenCandleEffectToEntity(entity: Entity) {
-  return entity.IsVulnerableEnemy() && getRandomInt(1, 500) === 1;
+function shouldApplyGreenCandleEffectToNPC(npc: EntityNPC) {
+  return npc.IsVulnerableEnemy() && getRandomInt(1, 500) === 1;
 }
 ```
 
@@ -286,16 +286,20 @@ function shouldApplyGreenCandleEffectToEntity(entity: Entity) {
 The mod is now complete. It looks like the following:
 
 ```ts
-import { getEntities, getPlayers, getRandomInt } from "isaacscript-common";
 import { ModCallback } from "isaac-typescript-definitions";
+import { getNPCs, getPlayers, getRandomInt } from "isaacscript-common";
 
 const MOD_NAME = "Green Candle";
 const GREEN_CANDLE_COLLECTIBLE_TYPE = Isaac.GetItemIdByName("Green Candle");
 
-export function main(): void {
+main();
+
+function main() {
   const mod = RegisterMod(MOD_NAME, 1);
 
   mod.AddCallback(ModCallback.POST_UPDATE, postUpdate);
+
+  Isaac.DebugString(`${MOD_NAME} initialized.`);
 }
 
 function postUpdate() {
@@ -311,14 +315,18 @@ function checkApplyGreenCandleEffect() {
 }
 
 function applyGreenCandleEffect(player: EntityPlayer) {
-  for (const entity of getEntities()) {
-    if (shouldApplyGreenCandleEffectToEntity(entity)) {
-      entity.AddPoison(EntityRef(player), 100, player.Damage);
+  for (const npc of getNPCs()) {
+    if (shouldApplyGreenCandleEffectToNPC(npc)) {
+      // - The source is the player.
+      // - The duration is 100 frames.
+      // - The damage is equal to the player's damage stat.
+      npc.AddPoison(EntityRef(player), 100, player.Damage);
+      // (This shows an error in VSCode because the `AddPoison` method expects an `EntityRef`.)
     }
   }
 }
 
-function shouldApplyGreenCandleEffectToEntity(entity: Entity) {
-  return entity.IsVulnerableEnemy() && getRandomInt(1, 500) === 1;
+function shouldApplyGreenCandleEffectToNPC(npc: EntityNPC) {
+  return npc.IsVulnerableEnemy() && getRandomInt(1, 500) === 1;
 }
 ```
