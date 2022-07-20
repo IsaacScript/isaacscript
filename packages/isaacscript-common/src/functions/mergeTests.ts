@@ -266,8 +266,6 @@ function oldTableHasFilledDefaultMap() {
 }
 
 function oldTableHasVector() {
-  log("Starting test: oldTableHasVector");
-
   interface Foo {
     bar: Vector;
   }
@@ -307,8 +305,6 @@ function oldTableHasVector() {
 }
 
 function oldTableHasVectorSerialized() {
-  log("Starting test: oldTableHasVectorSerialized");
-
   interface Foo {
     bar: Vector;
   }
@@ -355,8 +351,6 @@ function oldTableHasVectorSerialized() {
 }
 
 function oldTableHasRNG() {
-  log("Starting test: oldTableHasRNG");
-
   interface Foo {
     bar: RNG;
   }
@@ -392,8 +386,6 @@ function oldTableHasRNG() {
 }
 
 function oldTableHasRNGSerialized() {
-  log("Starting test: oldTableHasRNGSerialized");
-
   interface Foo {
     bar: RNG;
   }
