@@ -23,7 +23,7 @@ export function main(): void {
 }
 
 function registerCallbacks(mod: Mod) {
-  postUpdateInit();
+  postUpdateInit(mod);
   // Add init functions for new callbacks here.
 }
 ```
