@@ -9,7 +9,7 @@ So why would you want to use TypeScript over Lua? Why would you want to introduc
 
 Programming mods in Lua can be really painful:
 
-- Because Lua is not type safe, it is easy to shoot yourself in the foot after making even the smallest typo.
+- Because Lua is not type safe, it is easy to shoot yourself in the foot after making even the smallest typo. You end up spending more time running around in-game to test/debug run-time errors than you do writing actual code.
 - There are no switch statements, assignment operators, increment/decrement operators, optional function arguments, array/object destructuring, map/filter/reduce, etc.
 - With no automatic importing, you are stuck manually typing "require" over and over.
 - While the tooling in Lua has gotten better in the past few years (e.g. [the Lua language server](https://github.com/sumneko/lua-language-server)), it still doesn't hold a candle to what TypeScript has to offer.
@@ -70,7 +70,6 @@ Enjoy all the benefits of a strongly typed language:
 - Use the <code>F12</code> hotkey (for "Go to Definition") to automatically jump around in your code. Press <code>Alt + Left</code> to return.
 - Use the <code>F2</code> hotkey to rename a variable. The editor will automatically rename it everywhere in your entire project!
 - Use the <code>Shift + Alt + F12</code> hotkey (for "Find All References") to automatically find all places where something is used. With this, it is trivial to work your way backwards from a nested function.
-- And more!
 
 <br />
 
