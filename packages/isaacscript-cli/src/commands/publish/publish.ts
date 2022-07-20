@@ -114,6 +114,10 @@ async function startPublish(
 ) {
   updateDeps(verbose);
 
+  // Since we updated the dependencies, things may not longer compile, so test to see if compilation
+  // passes before we update the version.
+  await compileAndCopy(modSourcePath, modTargetPath, packageManager, verbose);
+
   let version =
     setVersion === undefined ? getVersionFromPackageJSON(verbose) : setVersion;
   if (!skipVersionIncrement && setVersion === undefined) {
