@@ -17,7 +17,9 @@ import { postUpdateInit } from "./callbacks/postUpdate";
 
 const MOD_NAME = "Green Candle";
 
-export function main(): void {
+main();
+
+function main(): void {
   const mod = RegisterMod(MOD_NAME, 1);
   registerCallbacks(mod);
 }
