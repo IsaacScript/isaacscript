@@ -9,10 +9,21 @@ So why would you want to use TypeScript over Lua? Why would you want to introduc
 
 Programming mods in Lua can be really painful:
 
-- Because Lua is not type safe, it is easy to shoot yourself in the foot after making even the smallest typo. You end up spending more time running around in-game to test/debug run-time errors than you do writing actual code.
-- There are no switch statements, assignment operators, increment/decrement operators, optional function arguments, array/object destructuring, map/filter/reduce, etc.
-- With no automatic importing, you are stuck between using monolithic files (messy), or manually typing "require" over and over (tedious).
-- While the in-editor tooling in Lua has gotten better in the past few years (e.g. [the Lua language server](https://github.com/sumneko/lua-language-server)), it still doesn't hold a candle to what TypeScript has to offer.
+1. No type safety.
+
+With Lua, it is easy to shoot yourself in the foot after making even the smallest typo. When building an Isaac mod, you end up wasting an enourmous amount of time running around in-game testing/debugging run-time errors.
+
+2. Extremely limited language constructs.
+
+In Lua, you type `x = x + 1`. In TypeScript, you type `x++`. Lua doesn't have increment/decrement operators, assignment operators, switch statements, optional function arguments, array/object destructuring, or map/filter/reduce. And that's just to start with.
+
+3. No automatic importing
+
+In Lua, you can't just start typing a function and have it magically be imported. So you are stuck between using monolithic files (messy), or manually typing "require" over and over (tedious).
+
+4. Bad in-editor tooling
+
+Lua has gotten some nifty improvements in the past few years (e.g. [the Lua language server](https://github.com/sumneko/lua-language-server)). However, it still doesn't hold a candle to what TypeScript has to offer with respect to auto-formatting, linting, and auto-documentation.
 
 After five years of programming Isaac mods in Lua, I got frustrated enough to take a [level 2 action](https://www.lesswrong.com/posts/guDcrPqLsnhEjrPZj/levels-of-action) - to build the ultimate Isaac developer experience, using TypeScript as a basis. The improvement is so significant that once you start, you will never go back. Here's a short list of features:
 
@@ -60,7 +71,7 @@ After five years of programming Isaac mods in Lua, I got frustrated enough to ta
 
 ### <img src="/img/items/bffs.png" className="features-icon" /> TypeScript
 
-Enjoy all the benefits of a strongly typed language:
+Enjoy all the benefits of a strongly typed language with first-class editor support:
 
 - Never make a typo on a variable name again. Or a function name. Or an import. You get the point.
 - Split code up into separate files without risking something breaking when you rename something.
