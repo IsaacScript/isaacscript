@@ -4,6 +4,7 @@
 // it from scratch based on the JSON data.
 
 import {
+  ActiveSlot,
   CollectibleType,
   EffectVariant,
   EntityCollisionClass,
@@ -16,6 +17,7 @@ import {
   PickupVariant,
   PitfallVariant,
   RoomType,
+  UseFlag,
 } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { DefaultMap } from "../classes/DefaultMap";
@@ -113,6 +115,9 @@ function preUseItemWeNeedToGoDeeper(
   _collectibleType: CollectibleType,
   _rng: RNG,
   player: EntityPlayer,
+  _useFlags: BitFlags<UseFlag>,
+  _activeSlot: ActiveSlot,
+  _customVarData: int,
 ): boolean | undefined {
   if (v.room.manuallyUsingShovel) {
     return undefined;

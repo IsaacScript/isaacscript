@@ -1,10 +1,12 @@
 import {
+  ActiveSlot,
   BossID,
   CollectibleType,
   DamageFlag,
   DamageFlagZero,
   EntityType,
   ModCallback,
+  UseFlag,
 } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { saveDataManager } from "../features/saveDataManager/exports";
@@ -113,6 +115,9 @@ function preUseItemBible(
   _collectibleType: CollectibleType,
   _rng: RNG,
   player: EntityPlayer,
+  _useFlags: BitFlags<UseFlag>,
+  _activeSlot: ActiveSlot,
+  _customVarData: int,
 ): boolean | undefined {
   if (!hasSubscriptions()) {
     return undefined;

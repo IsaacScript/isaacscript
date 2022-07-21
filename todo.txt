@@ -1,6 +1,4 @@
-- july 20th is trip
-
-- custom trapdoors
+- custom trapdoors - https://github.com/IsaacScript/isaacscript/commit/67ff107768ecee693cee5def095af0a3fedbcc12
 - custom bosses for vanilla stages
 
 - Slaughterhouse I and II

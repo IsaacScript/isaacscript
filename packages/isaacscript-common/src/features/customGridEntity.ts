@@ -1,6 +1,10 @@
 import {
+  ActiveSlot,
+  CollectibleType,
   GridCollisionClass,
   GridEntityType,
+  ModCallback,
+  UseFlag,
 } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { DefaultMap } from "../classes/DefaultMap";
@@ -32,10 +36,29 @@ const v = {
 export function customGridEntityInit(mod: ModUpgraded): void {
   saveDataManager(FEATURE_NAME, v);
 
+  mod.AddCallback(
+    ModCallback.PRE_USE_ITEM,
+    preUseItemWeNeedToGoDeeper,
+    CollectibleType.WE_NEED_TO_GO_DEEPER,
+  ); // 23
+
   mod.AddCallbackCustom(
     ModCallbackCustom.POST_NEW_ROOM_REORDERED,
     postNewRoomReordered,
   );
+}
+
+// ModCallback.PRE_USE_ITEM (23)
+// CollectibleType.WE_NEED_TO_GO_DEEPER (84)
+function preUseItemWeNeedToGoDeeper(
+  _collectibleType: CollectibleType,
+  _rng: RNG,
+  _player: EntityPlayer,
+  _useFlags: BitFlags<UseFlag>,
+  _activeSlot: ActiveSlot,
+  _customVarData: int,
+): boolean | undefined {
+  return undefined;
 }
 
 // ModCallbackCustom.POST_NEW_ROOM_REORDERED

@@ -215,6 +215,10 @@ export enum ModCallback {
    * function preUseItem(
    *   collectibleType: CollectibleType,
    *   rng: RNG,
+   *   player: EntityPlayer,
+   *   useFlags: BitFlags<UseFlag>,
+   *   activeSlot: ActiveSlot,
+   *   customVarData: int,
    * ): boolean | undefined {}
    * ```
    */
