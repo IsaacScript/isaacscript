@@ -17,7 +17,7 @@ This page lists the changes to the IsaacScript framework.
 - Renamed the following helper functions:
   - `spawnCustomGrid` --> `spawnCustomGridEntity`
 - Added the following custom callbacks:
-  - `POST_PLAYER_INIT_FIRST` (fires when a player should get items/initialization)
+  - `POST_PLAYER_INIT_FIRST` (use this for e.g. custom character initialization)
 - Deleted the following custom callbacks:
   - `POST_PLAYER_INIT_REORDERED` (use `POST_PLAYER_INIT_FIRST` or `POST_GAME_STARTED_REORDERED` instead)
 

@@ -113,11 +113,9 @@ function dequeue(
 ) {
   for (const playerIndex of playerIndexes) {
     const player = getPlayerFromIndex(playerIndex);
-    if (player === undefined) {
-      continue;
+    if (player !== undefined) {
+      fireFunction(player);
     }
-
-    fireFunction(player);
   }
 
   emptyArray(playerIndexes);

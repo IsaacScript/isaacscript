@@ -825,7 +825,7 @@ export enum ModCallbackCustom {
   POST_PLAYER_FATAL_DAMAGE,
 
   /**
-   * Fires on the first `POST_PEFFECT_UPDATE` frame for each player, similar to the
+   * Fires on the first `POST_PEFFECT_UPDATE_REORDERED` frame for each player, similar to the
    * `POST_PLAYER_INIT_LATE` callback, with two changes:
    *
    * - This will not fire for "child" players (e.g. non-real players like the Strawman Keeper).
@@ -847,7 +847,7 @@ export enum ModCallbackCustom {
   POST_PLAYER_INIT_FIRST,
 
   /**
-   * Fires on the first `POST_PEFFECT_UPDATE` frame for each player.
+   * Fires on the first `POST_PEFFECT_UPDATE_REORDERED` frame for each player.
    *
    * This callback is useful because many attributes cannot be set or retrieved properly in the
    * normal `POST_PLAYER_INIT` callback.

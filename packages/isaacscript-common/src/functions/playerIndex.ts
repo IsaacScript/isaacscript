@@ -28,6 +28,10 @@ export function getAllPlayers(): EntityPlayer[] {
   return players;
 }
 
+/**
+ * Helper function to get the corresponding `EntityPlayer` object that corresponds to a
+ * `PlayerIndex`.
+ */
 export function getPlayerFromIndex(
   playerIndex: PlayerIndex,
 ): EntityPlayer | undefined {
@@ -194,8 +198,8 @@ export function getSubPlayerParent(
 }
 
 /**
- * Some players are "child" players, meaning that they have a non-undefined Parent property. (For
- * example, the Strawman Keeper.)
+ * Helper function to detect if a particular player is a "child" player, meaning that they have a
+ * non-undefined `EntityPlayer.Parent` property. (For example, the Strawman Keeper.)
  */
 export function isChildPlayer(player: EntityPlayer): boolean {
   return player.Parent !== undefined;

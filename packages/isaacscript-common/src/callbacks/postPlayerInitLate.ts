@@ -1,4 +1,5 @@
-import { ModCallback } from "isaac-typescript-definitions";
+import { ModUpgraded } from "../classes/ModUpgraded";
+import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { setAddPlayer, setHasPlayer } from "../functions/playerDataStructures";
 import { PlayerIndex } from "../types/PlayerIndex";
@@ -14,18 +15,21 @@ const v = {
 };
 
 /** @internal */
-export function postPlayerInitLateInit(mod: Mod): void {
+export function postPlayerInitLateInit(mod: ModUpgraded): void {
   saveDataManager("postPlayerInitLate", v, hasSubscriptions);
 
-  mod.AddCallback(ModCallback.POST_PEFFECT_UPDATE, postPEffectUpdate); // 4
+  mod.AddCallbackCustom(
+    ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
+    postPEffectUpdateReordered,
+  );
 }
 
 function hasSubscriptions() {
   return postPlayerInitLateHasSubscriptions();
 }
 
-// ModCallback.POST_PEFFECT_UPDATE (4)
-function postPEffectUpdate(player: EntityPlayer) {
+// ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
+function postPEffectUpdateReordered(player: EntityPlayer) {
   if (!hasSubscriptions()) {
     return;
   }
