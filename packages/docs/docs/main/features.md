@@ -15,7 +15,7 @@ Programming mods in Lua can be really painful:
 
 ### <img src="/img/items/error.png" className="features-icon" /> No Type Safety
 
-With Lua, it is easy to shoot yourself in the foot after making even the smallest typo. When building an Isaac mod, you end up wasting an enormous amount of time running around in-game debugging run-time errors, and pouring through the "log.txt" file.
+With Lua, it is easy to shoot yourself in the foot after making even the smallest typo. When building an Isaac mod, you end up wasting an enormous amount of time running around in-game debugging run-time errors, and pouring through the "log.txt" file. Not my idea of fun, and probably not yours either.
 
 ### <img src="/img/items/sad-onion.png" className="features-icon" /> Extremely Limited Language Constructs
 
