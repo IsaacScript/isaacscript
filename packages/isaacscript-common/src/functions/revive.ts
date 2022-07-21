@@ -10,7 +10,7 @@ import {
   MAX_TAINTED_SAMSON_BERSERK_CHARGE,
   TAINTED_SAMSON_BERSERK_CHARGE_FROM_TAKING_DAMAGE,
 } from "../constants";
-import { getCharacterDeathAnimationName } from "./character";
+import { getCharacterDeathAnimationName } from "./characters";
 import {
   getPlayerMaxHeartContainers,
   getPlayerNumHitsRemaining,

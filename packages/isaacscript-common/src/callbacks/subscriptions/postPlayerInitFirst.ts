@@ -1,27 +1,27 @@
 import { PlayerType, PlayerVariant } from "isaac-typescript-definitions";
 
-export type PostPlayerInitReorderedRegisterParameters = [
+export type PostPlayerInitFirstRegisterParameters = [
   callback: (player: EntityPlayer) => void,
   playerVariant?: PlayerVariant,
   character?: PlayerType,
 ];
 
-const subscriptions: PostPlayerInitReorderedRegisterParameters[] = [];
+const subscriptions: PostPlayerInitFirstRegisterParameters[] = [];
 
 /** @internal */
-export function postPlayerInitReorderedHasSubscriptions(): boolean {
+export function postPlayerInitFirstHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
 /** @internal */
-export function postPlayerInitReorderedRegister(
-  ...args: PostPlayerInitReorderedRegisterParameters
+export function postPlayerInitFirstRegister(
+  ...args: PostPlayerInitFirstRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
 /** @internal */
-export function postPlayerInitReorderedFire(player: EntityPlayer): void {
+export function postPlayerInitFirstFire(player: EntityPlayer): void {
   const character = player.GetPlayerType();
 
   for (const [callback, playerVariant, callbackCharacter] of subscriptions) {

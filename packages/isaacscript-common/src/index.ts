@@ -22,8 +22,12 @@ export {
 } from "./features/characterHealthConversion";
 export { registerCharacterStats } from "./features/characterStats";
 export { getCollectibleItemPoolType } from "./features/collectibleItemPoolType";
-export { removeCustomGrid, spawnCustomGrid } from "./features/customGridEntity";
+export {
+  removeCustomGrid,
+  spawnCustomGridEntity as spawnCustomGrid,
+} from "./features/customGridEntity";
 export * from "./features/customStage/exports";
+export * from "./features/customTrapdoor/exports";
 export * from "./features/debugDisplay/exports";
 export {
   deployJSONRoom,
@@ -82,7 +86,7 @@ export * from "./functions/bosses";
 export * from "./functions/cacheFlag";
 export * from "./functions/cards";
 export * from "./functions/challenges";
-export * from "./functions/character";
+export * from "./functions/characters";
 export * from "./functions/charge";
 export * from "./functions/chargeBar";
 export * from "./functions/collectibleCacheFlag";

@@ -80,7 +80,7 @@ function postNewRoomReordered() {
     }
 
     const sprite = decoration.GetSprite();
-    sprite.Load(data.anm2, true);
+    sprite.Load(data.anm2Path, true);
     sprite.Play(data.defaultAnimation, true);
   }
 }
@@ -103,15 +103,15 @@ function postNewRoomReordered() {
  * @param gridIndexOrPosition The grid index or position in the room that you want to spawn the grid
  *                            entity at. If a position is specified, the closest grid index will be
  *                            used.
- * @param anm2 The path to the ANM2 file to use for the sprite.
+ * @param anm2Path The path to the ANM2 file to use for the sprite.
  * @param defaultAnimation The name of the animation to play after the sprite is initialized and
  *                         after the player re-enters a room with this grid entity in it.
  * @param gridCollisionClass The collision class that you want the custom grid entity to have.
  */
-export function spawnCustomGrid(
+export function spawnCustomGridEntity(
   gridEntityTypeCustom: GridEntityType,
   gridIndexOrPosition: int | Vector,
-  anm2: string,
+  anm2Path: string,
   defaultAnimation: string,
   gridCollisionClass: GridCollisionClass,
 ): GridEntity {
@@ -141,14 +141,14 @@ export function spawnCustomGrid(
   }
 
   const sprite = decoration.GetSprite();
-  sprite.Load(anm2, true);
+  sprite.Load(anm2Path, true);
   sprite.Play(defaultAnimation, true);
 
   const customGridEntityData: CustomGridEntityData = {
     gridEntityTypeCustom,
     roomListIndex,
     gridIndex,
-    anm2,
+    anm2Path,
     defaultAnimation,
     gridCollisionClass,
   };

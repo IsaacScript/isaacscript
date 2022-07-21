@@ -1,5 +1,6 @@
 import { PlayerType } from "isaac-typescript-definitions";
 import { LAST_VANILLA_CHARACTER } from "../constantsFirstLast";
+import { CHARACTER_DAMAGE_MULTIPLIERS } from "../objects/characterDamageMultipliers";
 import { CHARACTER_NAMES } from "../objects/characterNames";
 import { CHARACTERS_THAT_START_WITH_AN_ACTIVE_ITEM_SET } from "../sets/charactersThatStartWithAnActiveItemSet";
 import { CHARACTERS_WITH_BLACK_HEART_FROM_ETERNAL_HEART_SET } from "../sets/charactersWithBlackHeartFromEternalHeartSet";
@@ -54,6 +55,18 @@ export function characterGetsBlackHeartFromEternalHeart(
  */
 export function characterStartsWithActiveItem(character: PlayerType): boolean {
   return CHARACTERS_THAT_START_WITH_AN_ACTIVE_ITEM_SET.has(character);
+}
+
+/** Helper function to get the numerical damage multiplier for a character. */
+export function getCharacterDamageMultiplier(
+  character: PlayerType,
+  hasWhoreOfBabylon = false,
+): float {
+  if (character === PlayerType.EVE && hasWhoreOfBabylon) {
+    return 1.0;
+  }
+
+  return CHARACTER_DAMAGE_MULTIPLIERS[character];
 }
 
 /**

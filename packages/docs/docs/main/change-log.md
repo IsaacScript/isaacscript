@@ -12,6 +12,14 @@ This page lists the changes to the IsaacScript framework.
 ## July 27th, 2022
 
 - A new version of TSTL has been released that speeds up compilation by a factor of 2. Make sure to upgrade!
+- Added the following helper functions:
+  - `getCharacterDamageMultiplier`
+- Renamed the following helper functions:
+  - `spawnCustomGrid` --> `spawnCustomGridEntity`
+- Added the following custom callbacks:
+  - `POST_PLAYER_INIT_FIRST` (fires when a player should get items/initialization)
+- Deleted the following custom callbacks:
+  - `POST_PLAYER_INIT_REORDERED` (use `POST_PLAYER_INIT_FIRST` or `POST_GAME_STARTED_REORDERED` instead)
 
 ## July 20th, 2022
 

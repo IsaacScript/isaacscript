@@ -17,15 +17,15 @@ const v = {
 export function postPlayerInitLateInit(mod: Mod): void {
   saveDataManager("postPlayerInitLate", v, hasSubscriptions);
 
-  mod.AddCallback(ModCallback.POST_PLAYER_UPDATE, postPlayerUpdate); // 31
+  mod.AddCallback(ModCallback.POST_PEFFECT_UPDATE, postPEffectUpdate); // 4
 }
 
 function hasSubscriptions() {
   return postPlayerInitLateHasSubscriptions();
 }
 
-// ModCallback.POST_PLAYER_UPDATE (31)
-function postPlayerUpdate(player: EntityPlayer) {
+// ModCallback.POST_PEFFECT_UPDATE (4)
+function postPEffectUpdate(player: EntityPlayer) {
   if (!hasSubscriptions()) {
     return;
   }

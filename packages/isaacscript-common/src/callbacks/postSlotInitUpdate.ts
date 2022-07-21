@@ -1,5 +1,8 @@
-// This provides the logic for the PostSlotInit and PostSlotUpdate callbacks. (The other slot
-// callbacks are handled in a different file.)
+// This provides the logic for the following callbacks:
+// - `POST_SLOT_INIT`
+// - `POST_SLOT_UPDATE`
+
+// (The other slot callbacks are handled in a different file.)
 
 import { ModCallback } from "isaac-typescript-definitions";
 import { ModUpgraded } from "../classes/ModUpgraded";

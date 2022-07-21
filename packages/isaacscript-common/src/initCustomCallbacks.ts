@@ -37,8 +37,9 @@ import { postPlayerChangeHealthInit } from "./callbacks/postPlayerChangeHealth";
 import { postPlayerChangeTypeInit } from "./callbacks/postPlayerChangeType";
 import { postPlayerCollectibleCallbacksInit } from "./callbacks/postPlayerCollectible";
 import { postPlayerFatalDamageInit } from "./callbacks/postPlayerFatalDamage";
+import { postPlayerInitFirstInit } from "./callbacks/postPlayerInitFirst";
 import { postPlayerInitLateInit } from "./callbacks/postPlayerInitLate";
-import { postPlayerReorderedCallbacksInit } from "./callbacks/postPlayerReordered";
+import { postPlayerReorderedCallbacksInit } from "./callbacks/postPlayerReorderedCallbacks";
 import { postPoopRenderInit } from "./callbacks/postPoopRender";
 import { postPoopUpdateInit } from "./callbacks/postPoopUpdate";
 import { postPressurePlateRenderInit } from "./callbacks/postPressurePlateRender";
@@ -105,6 +106,7 @@ export function initCustomCallbacks(mod: ModUpgraded): void {
   postPlayerChangeTypeInit(mod);
   postPlayerCollectibleCallbacksInit(mod);
   postPlayerFatalDamageInit(mod);
+  postPlayerInitFirstInit(mod);
   postPlayerInitLateInit(mod);
   postPlayerReorderedCallbacksInit(mod);
   postPoopRenderInit(mod);

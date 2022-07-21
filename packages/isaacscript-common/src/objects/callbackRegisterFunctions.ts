@@ -50,8 +50,8 @@ import { postPlayerChangeTypeRegister } from "../callbacks/subscriptions/postPla
 import { postPlayerCollectibleAddedRegister } from "../callbacks/subscriptions/postPlayerCollectibleAdded";
 import { postPlayerCollectibleRemovedRegister } from "../callbacks/subscriptions/postPlayerCollectibleRemoved";
 import { postPlayerFatalDamageRegister } from "../callbacks/subscriptions/postPlayerFatalDamage";
+import { postPlayerInitFirstRegister } from "../callbacks/subscriptions/postPlayerInitFirst";
 import { postPlayerInitLateRegister } from "../callbacks/subscriptions/postPlayerInitLate";
-import { postPlayerInitReorderedRegister } from "../callbacks/subscriptions/postPlayerInitReordered";
 import { postPlayerRenderReorderedRegister } from "../callbacks/subscriptions/postPlayerRenderReordered";
 import { postPlayerUpdateReorderedRegister } from "../callbacks/subscriptions/postPlayerUpdateReordered";
 import { postPoopRenderRegister } from "../callbacks/subscriptions/postPoopRender";
@@ -149,9 +149,8 @@ export const CALLBACK_REGISTER_FUNCTIONS: {
   [ModCallbackCustom.POST_PLAYER_COLLECTIBLE_REMOVED]:
     postPlayerCollectibleRemovedRegister,
   [ModCallbackCustom.POST_PLAYER_FATAL_DAMAGE]: postPlayerFatalDamageRegister,
+  [ModCallbackCustom.POST_PLAYER_INIT_FIRST]: postPlayerInitFirstRegister,
   [ModCallbackCustom.POST_PLAYER_INIT_LATE]: postPlayerInitLateRegister,
-  [ModCallbackCustom.POST_PLAYER_INIT_REORDERED]:
-    postPlayerInitReorderedRegister,
   [ModCallbackCustom.POST_PLAYER_RENDER_REORDERED]:
     postPlayerRenderReorderedRegister,
   [ModCallbackCustom.POST_PLAYER_UPDATE_REORDERED]:

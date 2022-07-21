@@ -60,7 +60,7 @@
     "src/functions/cacheFlag.ts",
     "src/functions/cards.ts",
     "src/functions/challenges.ts",
-    "src/functions/character.ts",
+    "src/functions/characters.ts",
     "src/functions/charge.ts",
     "src/functions/chargeBar.ts",
     "src/functions/collectibles.ts",

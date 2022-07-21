@@ -1,6 +1,6 @@
 // This provides the logic for the following callbacks:
-// - PostPlayerCollectibleAdded
-// - PostPlayerCollectibleRemoved
+// - `POST_PLAYER_COLLECTIBLE_ADDED`
+// - `POST_PLAYER_COLLECTIBLE_REMOVED`
 
 import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
 import { DefaultMap } from "../classes/DefaultMap";

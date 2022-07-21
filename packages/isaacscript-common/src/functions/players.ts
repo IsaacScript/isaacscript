@@ -17,7 +17,7 @@ import {
   getCharacterMaxHeartContainers,
   getCharacterName,
   isVanillaCharacter,
-} from "./character";
+} from "./characters";
 import { getCollectibleMaxCharges } from "./collectibles";
 import { getCollectibleArray } from "./collectibleSet";
 import { getEnumValues } from "./enums";

@@ -825,10 +825,35 @@ export enum ModCallbackCustom {
   POST_PLAYER_FATAL_DAMAGE,
 
   /**
-   * Fires on the first `POST_PLAYER_UPDATE` frame for each player.
+   * Fires on the first `POST_PEFFECT_UPDATE` frame for each player, similar to the
+   * `POST_PLAYER_INIT_LATE` callback, with two changes:
+   *
+   * - This will not fire for "child" players (e.g. non-real players like the Strawman Keeper).
+   * - This will fire when the player enters a Genesis room and all of their items are taken away.
+   *
+   * You should use this callback for any player-related initialization logic, like giving the
+   * character their starting items for the run. (You do not want to use the vanilla
+   * `POST_PLAYER_INIT` callback for this because it fires when a run is continued.)
+   *
+   * - When registering the callback, takes an optional second argument that will make the callback
+   *   only fire if the player matches the `PlayerVariant` provided.
+   * - When registering the callback, takes an optional third argument that will make the callback
+   *   only fire if the player matches the `PlayerType` provided.
+   *
+   * ```ts
+   * function postPlayerInitFirst(player: EntityPlayer): void {}
+   * ```
+   */
+  POST_PLAYER_INIT_FIRST,
+
+  /**
+   * Fires on the first `POST_PEFFECT_UPDATE` frame for each player.
    *
    * This callback is useful because many attributes cannot be set or retrieved properly in the
    * normal `POST_PLAYER_INIT` callback.
+   *
+   * For initializing a player with custom items and so forth, use the `POST_PLAYER_INIT_FIRST`
+   * callback instead to handle the case of a Genesis room.
    *
    * - When registering the callback, takes an optional second argument that will make the callback
    *   only fire if the player matches the `PlayerVariant` provided.
@@ -840,29 +865,6 @@ export enum ModCallbackCustom {
    * ```
    */
   POST_PLAYER_INIT_LATE,
-
-  /**
-   * Similar to the vanilla callback of the same name, but fires after the `POST_GAME_STARTED`
-   * callback fires (if the player is spawning on the 0th game frame of the run).
-   *
-   * This callback is useful for two reasons:
-   *
-   * 1. Normally, `POST_PLAYER_INIT` fires before `POST_GAME_STARTED`. Since mod variables are often
-   *    initialized at the beginning of the `POST_GAME_STARTED` callback, this can cause problems.
-   * 1. Some functions do not work (or crash the game) when called before the `POST_NEW_ROOM`
-   *    callback. For example, since the level is not generated yet, you will not be able to access
-   *    any rooms.
-   *
-   * - When registering the callback, takes an optional second argument that will make the callback
-   *   only fire if the player matches the `PlayerVariant` provided.
-   * - When registering the callback, takes an optional third argument that will make the callback
-   *   only fire if the player matches the `PlayerType` provided.
-   *
-   * ```ts
-   * function postPlayerInitReordered(player: EntityPlayer): void {}
-   * ```
-   */
-  POST_PLAYER_INIT_REORDERED,
 
   /**
    * Similar to the vanilla callback of the same name, but fires after the `POST_GAME_STARTED`

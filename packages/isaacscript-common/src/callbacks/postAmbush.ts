@@ -1,6 +1,6 @@
-// This provides the logic for:
-// - POST_AMBUSH_STARTED
-// - POST_AMBUSH_FINISHED
+// This provides the logic for the following callbacks:
+// - `POST_AMBUSH_STARTED`
+// - `POST_AMBUSH_FINISHED`
 
 import { ModCallback, RoomType } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";

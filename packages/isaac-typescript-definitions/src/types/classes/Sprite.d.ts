@@ -78,7 +78,7 @@ declare interface Sprite {
    *                     intending to use the `Sprite.ReplaceSpritesheet` method after loading the
    *                     anm2.
    */
-  Load(anm2: string, loadGraphics: boolean): void;
+  Load(anm2Path: string, loadGraphics: boolean): void;
 
   /**
    * Used to load the PNG files that are specified in the sprite's anm2. Typically, you would only

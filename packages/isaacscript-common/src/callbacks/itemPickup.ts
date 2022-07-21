@@ -1,6 +1,6 @@
-// This provides the logic for:
-// - PRE_ITEM_PICKUP
-// - POST_ITEM_PICKUP
+// This provides the logic for the following callbacks:
+// - `PRE_ITEM_PICKUP`
+// - `POST_ITEM_PICKUP`
 
 import {
   CollectibleType,

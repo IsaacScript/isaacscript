@@ -1,9 +1,9 @@
 // This provides the logic for the following callbacks:
-// - PostGridEntityInit
-// - PostGridEntityUpdate
-// - PostGridEntityRemove
-// - PostGridEntityStateChanged
-// - PostGridEntityBroken
+// - `POST_GRID_ENTITY_INIT`
+// - `POST_GRID_ENTITY_UPDATE`
+// - `POST_GRID_ENTITY_REMOVE`
+// - `POST_GRID_ENTITY_STATE_CHANGED`
+// - `POST_GRID_ENTITY_BROKEN`
 
 import { GridEntityType, ModCallback } from "isaac-typescript-definitions";
 import { ModUpgraded } from "../classes/ModUpgraded";

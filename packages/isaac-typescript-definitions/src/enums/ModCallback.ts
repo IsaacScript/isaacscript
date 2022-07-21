@@ -88,8 +88,10 @@ export enum ModCallback {
    * This will fire at the beginning of a run, upon continuing a saved run, and when a player enters
    * a Genesis room.
    *
-   * This callback has a special property where the `EntityPlayer.AddCollectible` method will not do
-   * anything if the player is continuing a saved run. (This behavior was introduced in Repentance.)
+   * This callback has a special property where most `EntityPlayer` methods (such as e.g.
+   * `EntityPlayer.AddCollectible`) will silently fail if the player is continuing a saved run.
+   * (This behavior was introduced in Repentance.) See the docs for more details about which
+   * specific methods are affected.
    *
    * Note that the `isChildPlayer` helper function does not work in this callback. If you want to
    * exclude non-real players, use the custom `POST_PLAYER_INIT_LATE` callback instead.

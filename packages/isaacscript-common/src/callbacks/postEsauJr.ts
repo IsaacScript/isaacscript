@@ -1,6 +1,6 @@
-// This provides the logic for:
-// - POST_ESAU_JR
-// - POST_FIRST_ESAU_JR
+// This provides the logic for the following callbacks:
+// - `POST_ESAU_JR`
+// - `POST_FIRST_ESAU_JR`
 
 import {
   CollectibleType,

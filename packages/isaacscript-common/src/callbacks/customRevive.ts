@@ -1,6 +1,6 @@
-// This provides the logic for:
-// - PRE_CUSTOM_REVIVE
-// - POST_CUSTOM_REVIVE
+// This provides the logic for the following callbacks:
+// - `PRE_CUSTOM_REVIVE`
+// - `POST_CUSTOM_REVIVE`
 
 import {
   CollectibleType,

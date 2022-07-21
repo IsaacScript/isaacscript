@@ -50,8 +50,8 @@ import { PostPlayerChangeTypeRegisterParameters } from "../callbacks/subscriptio
 import { PostPlayerCollectibleAddedRegisterParameters } from "../callbacks/subscriptions/postPlayerCollectibleAdded";
 import { PostPlayerCollectibleRemovedRegisterParameters } from "../callbacks/subscriptions/postPlayerCollectibleRemoved";
 import { PostPlayerFatalDamageRegisterParameters } from "../callbacks/subscriptions/postPlayerFatalDamage";
+import { PostPlayerInitFirstRegisterParameters } from "../callbacks/subscriptions/postPlayerInitFirst";
 import { PostPlayerInitLateRegisterParameters } from "../callbacks/subscriptions/postPlayerInitLate";
-import { PostPlayerInitReorderedRegisterParameters } from "../callbacks/subscriptions/postPlayerInitReordered";
 import { PostPlayerRenderReorderedRegisterParameters } from "../callbacks/subscriptions/postPlayerRenderReordered";
 import { PostPlayerUpdateReorderedRegisterParameters } from "../callbacks/subscriptions/postPlayerUpdateReordered";
 import { PostPoopRenderRegisterParameters } from "../callbacks/subscriptions/postPoopRender";
@@ -136,8 +136,8 @@ export interface AddCallbackParameterCustom {
   [ModCallbackCustom.POST_PLAYER_COLLECTIBLE_ADDED]: PostPlayerCollectibleAddedRegisterParameters;
   [ModCallbackCustom.POST_PLAYER_COLLECTIBLE_REMOVED]: PostPlayerCollectibleRemovedRegisterParameters;
   [ModCallbackCustom.POST_PLAYER_FATAL_DAMAGE]: PostPlayerFatalDamageRegisterParameters;
+  [ModCallbackCustom.POST_PLAYER_INIT_FIRST]: PostPlayerInitFirstRegisterParameters;
   [ModCallbackCustom.POST_PLAYER_INIT_LATE]: PostPlayerInitLateRegisterParameters;
-  [ModCallbackCustom.POST_PLAYER_INIT_REORDERED]: PostPlayerInitReorderedRegisterParameters;
   [ModCallbackCustom.POST_PLAYER_RENDER_REORDERED]: PostPlayerRenderReorderedRegisterParameters;
   [ModCallbackCustom.POST_PLAYER_UPDATE_REORDERED]: PostPlayerUpdateReorderedRegisterParameters;
   [ModCallbackCustom.POST_POOP_RENDER]: PostPoopRenderRegisterParameters;

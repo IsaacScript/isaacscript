@@ -50,7 +50,7 @@ import {
 } from "../../constantsFirstLast";
 import { HealthType } from "../../enums/HealthType";
 import { getCardName } from "../../functions/cards";
-import { getCharacterName } from "../../functions/character";
+import { getCharacterName } from "../../functions/characters";
 import { addCharge } from "../../functions/charge";
 import { isValidCollectibleType } from "../../functions/collectibles";
 import { runDeepCopyTests } from "../../functions/deepCopyTests";

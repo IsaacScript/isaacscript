@@ -1,4 +1,4 @@
-// This provides the logic for:
+// This provides the logic for the following callbacks:
 // - `POST_GAME_STARTED_REORDERED`
 // - `POST_NEW_LEVEL_REORDERED`
 // - `POST_NEW_ROOM_REORDERED`

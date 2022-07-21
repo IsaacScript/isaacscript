@@ -1,6 +1,6 @@
 // This provides the logic for the following callbacks:
-// - PostSlotRender
-// - PostSlotAnimationChanged
+// - `POST_SLOT_RENDER`
+// - `POST_SLOT_ANIMATION_CHANGED`
 
 import { ModCallback } from "isaac-typescript-definitions";
 import { DefaultMap } from "../classes/DefaultMap";
