@@ -88,13 +88,19 @@ export enum ModCallback {
    * This will fire at the beginning of a run, upon continuing a saved run, and when a player enters
    * a Genesis room.
    *
+   * For most cases of general purpose player initialization, you should use the
+   * `POST_PLAYER_INIT_FIRST` custom callback instead (in order to exclude the case of a player
+   * continuing a saved run).
+   *
    * This callback has a special property where most `EntityPlayer` methods (such as e.g.
    * `EntityPlayer.AddCollectible`) will silently fail if the player is continuing a saved run.
    * (This behavior was introduced in Repentance.) See the docs for more details about which
    * specific methods are affected.
    *
-   * Note that the `isChildPlayer` helper function does not work in this callback. If you want to
-   * exclude non-real players, use the custom `POST_PLAYER_INIT_LATE` callback instead.
+   * The `isChildPlayer` helper function does not work in this callback (because
+   * `EntityPlayer.Parent` is not initialized yet at this point). If you want to exclude non-real
+   * players, use the `POST_PLAYER_INIT_FIRST or the `POST_PLAYER_INIT_LATE` custom callbacks
+   * instead.
    *
    * ```ts
    * function postPlayerInit(player: EntityPlayer): void {}
