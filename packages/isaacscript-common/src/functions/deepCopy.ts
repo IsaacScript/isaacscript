@@ -550,8 +550,8 @@ function getCopiedEntries(
   entries: Array<[key: AnyNotNil, value: unknown]>;
   convertedNumberKeysToStrings: boolean;
 } {
-  // First, shallow copy the entries. We cannot use "pairs" to iterate over a Map or Set. We cannot
-  // use "[...pairs(object)]", as it results in a run-time error.
+  // First, shallow copy the entries. We cannot use "pairs" to iterate over a `Map` or `Set`. We
+  // cannot use "[...pairs(object)]", as it results in a run-time error.
   const entries: Array<[key: AnyNotNil, value: unknown]> = [];
   if (isTSTLMap(object) || isTSTLSet(object) || isDefaultMap(object)) {
     for (const [key, value] of object.entries()) {

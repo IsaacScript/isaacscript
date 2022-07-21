@@ -142,7 +142,7 @@ export function setAllRNGToSeed(object: unknown, seed: Seed): void {
   }
 
   let setAtLeastOneSeed = false;
-  for (const [_key, value] of pairs(object)) {
+  for (const [_key, value] of object) {
     if (isRNG(value)) {
       setSeed(value, seed);
       setAtLeastOneSeed = true;

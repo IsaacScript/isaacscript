@@ -21,3 +21,6 @@ lint failure:
    *                     anm2.
    */
   Load(anm2: string, loadGraphics: boolean): void;
+
+
+- prefer implicit loops for arrays, maps, etc.

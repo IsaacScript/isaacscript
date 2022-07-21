@@ -19,6 +19,12 @@ import {
 } from "./customTrapdoorConstants";
 import { getCustomTrapdoorDescription } from "./v";
 
+/** See the documentation for the `spawnCustomTrapdoor` function. */
+export type CustomTrapdoorDestination =
+  | [stage: LevelStage, stageType: StageType]
+  | string
+  | undefined;
+
 /**
  * Helper function to spawn a trapdoor grid entity that will have one or more of the following
  * attributes:
@@ -26,7 +32,7 @@ import { getCustomTrapdoorDescription } from "./v";
  * - custom destination (or custom logic for after the player enters)
  * - custom graphics
  * - custom logic for opening/closing
- * - TODO: animation
+ * - TODO: player jumping animation?
  *
  * You can use this function to take the player to your custom stage.
  *
@@ -56,14 +62,8 @@ import { getCustomTrapdoorDescription } from "./v";
 export function spawnCustomTrapdoor(
   gridIndexOrPosition: int | Vector,
   _destination:
-    | [stage: LevelStage, stageType: StageType]
-    | string
-    | ((
-        gridEntity: GridEntity,
-      ) =>
-        | [stage: LevelStage, stageType: StageType]
-        | string
-        | undefined) = defaultDestinationFunc,
+    | CustomTrapdoorDestination
+    | (() => CustomTrapdoorDestination) = defaultDestinationFunc,
   anm2Path = "gfx/grid/door_11_trapdoor.anm2",
   _shouldOpenFunc: (gridEntity: GridEntity) => boolean = defaultShouldOpenFunc,
   _shouldCloseFunc: (

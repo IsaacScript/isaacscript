@@ -171,7 +171,7 @@ function clearAndCopyAllElements(
 ) {
   clearTable(oldTable);
 
-  for (const [key, value] of pairs(newTable)) {
+  for (const [key, value] of newTable) {
     oldTable.set(key, value);
   }
 }

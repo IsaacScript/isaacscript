@@ -53,11 +53,33 @@ export function customGridEntityInit(mod: ModUpgraded): void {
 function preUseItemWeNeedToGoDeeper(
   _collectibleType: CollectibleType,
   _rng: RNG,
-  _player: EntityPlayer,
+  player: EntityPlayer,
   _useFlags: BitFlags<UseFlag>,
   _activeSlot: ActiveSlot,
   _customVarData: int,
 ): boolean | undefined {
+  // If a player uses We Need to Go Deeper on top of a custom grid entity, then they will always get
+  // a crawlspace, due to how custom grids are implemented with decorations. Thus, remove the custom
+  // grid entity to prevent this from happening if needed.
+  const room = game.GetRoom();
+  const roomListIndex = getRoomListIndex();
+  const roomCustomGridEntities = v.level.customGridEntities.get(roomListIndex);
+  if (roomCustomGridEntities === undefined) {
+    return undefined;
+  }
+
+  const gridIndex = room.GetGridIndex(player.Position);
+  const customGridEntity = roomCustomGridEntities.get(gridIndex);
+  if (customGridEntity === undefined) {
+    return undefined;
+  }
+
+  // If the custom grid entity has collision, then the player should not be able to be standing on
+  // top of it.
+  if (customGridEntity.gridCollisionClass !== GridCollisionClass.NONE) {
+    return undefined;
+  }
+
   return undefined;
 }
 

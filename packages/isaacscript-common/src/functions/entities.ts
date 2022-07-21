@@ -181,7 +181,7 @@ function setPrimitiveEntityFields(
     error('Failed to get the "__propget" table for an entity.');
   }
 
-  for (const [key] of pairs(propGetTable)) {
+  for (const [key] of propGetTable) {
     // The values of this table are functions. Thus, we use the key to index the original entity.
     const indexKey = key as keyof typeof entity;
     const value = entity[indexKey];

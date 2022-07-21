@@ -4,8 +4,8 @@ import { isBoolean, isNumber, isString } from "./types";
  * In a `Map`, you can use the `clear` method to delete every element. However, in a `LuaMap`, the
  * `clear` method does not exist. Use this helper function as a drop-in replacement for this.
  */
-export function clearTable(luaMap: LuaMap): void {
-  for (const [key] of pairs(luaMap)) {
+export function clearTable(luaMap: LuaMap<AnyNotNil, unknown>): void {
+  for (const [key] of luaMap) {
     luaMap.delete(key);
   }
 }
