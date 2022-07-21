@@ -6,7 +6,7 @@ import {
   setFeaturesInitialized,
 } from "./featuresInitialized";
 import { initCustomCallbacks } from "./initCustomCallbacks";
-import { initFeaturesMajor, initFeaturesMinor } from "./initFeatures";
+import { initFeatures } from "./initFeatures";
 import { patchErrorFunction } from "./patchErrorFunctions";
 import { loadShaderCrashFix } from "./shaderCrashFix";
 
@@ -49,8 +49,7 @@ export function upgradeMod(modVanilla: Mod): ModUpgraded {
     // We initialize custom callbacks next since some features use custom callbacks.
     initCustomCallbacks(mod);
 
-    initFeaturesMajor(mod);
-    initFeaturesMinor(mod);
+    initFeatures(mod);
   }
 
   return mod;

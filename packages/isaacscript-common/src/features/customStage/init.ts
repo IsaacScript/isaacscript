@@ -26,18 +26,27 @@ import * as metadataJSON from "./metadata.json"; // This will correspond to "met
 import { setShadows } from "./shadows";
 import {
   streakTextGetShaderParams,
+  streakTextInit,
   streakTextPostGameStarted,
   streakTextPostRender,
 } from "./streakText";
 import v, { customStagesMap } from "./v";
 import {
   playVersusScreenAnimation,
+  versusScreenInit,
   versusScreenPostRender,
 } from "./versusScreen";
 
 export function customStageInit(mod: ModUpgraded): void {
-  saveDataManager("customStage", v);
   initRoomTypeMaps();
+  if (customStagesMap.size === 0) {
+    // If the end-user has no custom stages, we don't have to initialize any of the callbacks.
+    return;
+  }
+
+  saveDataManager("customStage", v);
+  streakTextInit();
+  versusScreenInit();
 
   mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
   mod.AddCallback(ModCallback.POST_GAME_STARTED, postGameStarted); // 15

@@ -23,7 +23,12 @@ import { sirenHelpersInit } from "./features/sirenHelpers";
 import { stageHistoryInit } from "./features/stageHistory";
 import { taintedLazarusPlayersInit } from "./features/taintedLazarusPlayers";
 
-export function initFeaturesMajor(mod: ModUpgraded): void {
+export function initFeatures(mod: ModUpgraded): void {
+  initFeaturesMajor(mod);
+  initFeaturesMinor(mod);
+}
+
+function initFeaturesMajor(mod: ModUpgraded) {
   customStageInit(mod);
   deployJSONRoomInit(mod);
   runInNFramesInit(mod);
@@ -32,7 +37,7 @@ export function initFeaturesMajor(mod: ModUpgraded): void {
   customGridEntityInit(mod);
 }
 
-export function initFeaturesMinor(mod: ModUpgraded): void {
+function initFeaturesMinor(mod: ModUpgraded) {
   disableAllSoundInit(mod);
   disableInputsInit(mod);
   fadeInRemoverInit(mod);

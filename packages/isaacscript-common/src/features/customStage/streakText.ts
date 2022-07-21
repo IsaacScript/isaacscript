@@ -88,8 +88,6 @@ const TEXT_OUT_SCALES = [
  * "loadGraphics", but still manage playing its animations in the code below.
  */
 const topStreakSprite = Sprite();
-topStreakSprite.Load("resources/gfx/ui/ui_streak.anm2", false);
-topStreakSprite.PlaybackSpeed = TEXT_PLAYBACK_SPEED;
 
 /**
  * We do not actually need to render this sprite at all. It's only purpose is to be an invisible
@@ -97,8 +95,19 @@ topStreakSprite.PlaybackSpeed = TEXT_PLAYBACK_SPEED;
  * "loadGraphics", but still manage playing its animations in the code below.
  */
 const bottomStreakSprite = Sprite();
-bottomStreakSprite.Load("resources/gfx/ui/ui_streak.anm2", false);
-bottomStreakSprite.PlaybackSpeed = TEXT_PLAYBACK_SPEED;
+
+/**
+ * We must load the sprites in an init function to prevent issues with mods that replace the vanilla
+ * files. (For some reason, loading the sprites will cause the overwrite to no longer apply on the
+ * second and subsequent runs.)
+ */
+export function streakTextInit(): void {
+  topStreakSprite.Load("resources/gfx/ui/ui_streak.anm2", false);
+  topStreakSprite.PlaybackSpeed = TEXT_PLAYBACK_SPEED;
+
+  bottomStreakSprite.Load("resources/gfx/ui/ui_streak.anm2", false);
+  bottomStreakSprite.PlaybackSpeed = TEXT_PLAYBACK_SPEED;
+}
 
 // ModCallback.POST_RENDER (2)
 export function streakTextPostRender(): void {

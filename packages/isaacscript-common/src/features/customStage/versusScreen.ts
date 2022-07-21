@@ -66,30 +66,38 @@ const PLAYER_PORTRAIT_PNG_PATH_PREFIX = "gfx/ui/stage";
 const VANILLA_VERSUS_PLAYBACK_SPEED = 0.5;
 
 const versusScreenSprite = Sprite();
-versusScreenSprite.Load("gfx/ui/boss/versusscreen.anm2", false);
-
-// In vanilla, the "overlay.png" file has a white background. We must convert it to a PNG that uses
-// a transparent background in order for the background behind it to be visible. We use the same
-// "overlay.png" file as StageAPI uses for this purpose.
-versusScreenSprite.ReplaceSpritesheet(
-  OVERLAY_ANM2_LAYER,
-  `${ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH}/overlay.png`,
-);
-versusScreenSprite.LoadGraphics();
 
 /**
  * Unfortunately, we must split the background layer into an entirely different sprite so that we
  * can color it with the `Color` property.
  */
 const versusScreenBackgroundSprite = Sprite();
-versusScreenBackgroundSprite.Load("gfx/ui/boss/versusscreen.anm2", true);
 
 /**
  * Unfortunately, we must split the dirt layer into an entirely different sprite so that we can
  * color it with the `Color` property.
  */
 const versusScreenDirtSpotSprite = Sprite();
-versusScreenDirtSpotSprite.Load("gfx/ui/boss/versusscreen.anm2", true);
+
+/**
+ * We must load the sprites in an init function to prevent issues with mods that replace the vanilla
+ * files. (For some reason, loading the sprites will cause the overwrite to no longer apply on the
+ * second and subsequent runs.)
+ */
+export function versusScreenInit(): void {
+  // In vanilla, the "overlay.png" file has a white background. We must convert it to a PNG that
+  // uses a transparent background in order for the background behind it to be visible. We use the
+  // same "overlay.png" file as StageAPI uses for this purpose.
+  versusScreenSprite.Load("gfx/ui/boss/versusscreen.anm2", false);
+  versusScreenSprite.ReplaceSpritesheet(
+    OVERLAY_ANM2_LAYER,
+    `${ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH}/overlay.png`,
+  );
+  versusScreenSprite.LoadGraphics();
+
+  versusScreenBackgroundSprite.Load("gfx/ui/boss/versusscreen.anm2", true);
+  versusScreenDirtSpotSprite.Load("gfx/ui/boss/versusscreen.anm2", true);
+}
 
 export function playVersusScreenAnimation(customStage: CustomStage): void {
   const room = game.GetRoom();
