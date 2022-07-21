@@ -11,7 +11,7 @@ This page lists the changes to the IsaacScript framework.
 
 ## July 27th, 2022
 
-- n/a
+- A new version of TSTL has been released that speeds up compilation by a factor of 2. Make sure to upgrade!
 
 ## July 20th, 2022
 
