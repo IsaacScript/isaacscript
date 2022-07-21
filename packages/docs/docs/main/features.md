@@ -5,25 +5,33 @@ hide_table_of_contents: true
 
 IsaacScript is a framework that allows you to code [_The Binding of Isaac: Repentance_](https://store.steampowered.com/app/1426300/The_Binding_of_Isaac_Repentance/) mods using the [TypeScript](https://www.typescriptlang.org/) programming language instead of the [Lua](https://www.lua.org/) programming language. It automatically converts your TypeScript code into optimized Lua, similar to how a C++ compiler automatically converts C++ code into X86.
 
+<br />
+
+## The Downsides of Lua
+
 So why would you want to use TypeScript over Lua? Why would you want to introduce a compiler into your workflow and make things more complicated?
 
 Programming mods in Lua can be really painful:
 
-1. No type safety.
+### <img src="/img/items/error.png" className="features-icon" /> No Type Safety
 
-With Lua, it is easy to shoot yourself in the foot after making even the smallest typo. When building an Isaac mod, you end up wasting an enourmous amount of time running around in-game testing/debugging run-time errors.
+With Lua, it is easy to shoot yourself in the foot after making even the smallest typo. When building an Isaac mod, you end up wasting an enormous amount of time running around in-game testing/debugging run-time errors, and pouring through the "log.txt" file.
 
-2. Extremely limited language constructs.
+### <img src="/img/items/sad-onion.png" className="features-icon" /> Extremely Limited Language Constructs
 
 In Lua, you type `x = x + 1`. In TypeScript, you type `x++`. Lua doesn't have increment/decrement operators, assignment operators, switch statements, optional function arguments, array/object destructuring, or map/filter/reduce. And that's just to start with.
 
-3. No automatic importing
+### <img src="/img/items/finger.png" className="features-icon" /> No Automatic Importing
 
 In Lua, you can't just start typing a function and have it magically be imported. So you are stuck between using monolithic files (messy), or manually typing "require" over and over (tedious).
 
-4. Bad in-editor tooling
+### <img src="/img/items/wooden-spoon.png" className="features-icon" /> Bad In-Editor Tooling
 
-Lua has gotten some nifty improvements in the past few years (e.g. [the Lua language server](https://github.com/sumneko/lua-language-server)). However, it still doesn't hold a candle to what TypeScript has to offer with respect to auto-formatting, linting, and auto-documentation.
+Lua has gotten some nifty improvements in the past few years (e.g. [Sumneko's Lua language server](https://github.com/sumneko/lua-language-server)). However, it still pales in comparison to what we are used to in other modern programming languages like TypeScript, Python, or Rust.
+
+<br />
+
+## The Upsides of TypeScript
 
 After five years of programming Isaac mods in Lua, I got frustrated enough to take a [level 2 action](https://www.lesswrong.com/posts/guDcrPqLsnhEjrPZj/levels-of-action) - to build the ultimate Isaac developer experience, using TypeScript as a basis. The improvement is so significant that once you start, you will never go back. Here's a short list of features:
 

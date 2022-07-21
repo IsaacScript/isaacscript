@@ -25,6 +25,7 @@ setoption # socket.lua
 setpeername # socket.lua
 setsockname # socket.lua
 settimeout # socket.lua
+Sumneko # Author of the Lua language server
 tonumber # Global
 tostring # Global
 traceback # Debug library method
