@@ -23,7 +23,7 @@ In Lua, you type `x = x + 1`. In TypeScript, you type `x++`. Lua doesn't have in
 
 ### <img src="/img/items/finger.png" className="features-icon" /> No Automatic Importing
 
-In Lua, you can't just start typing a function and have it magically be imported. So you are stuck between using monolithic files (messy), or manually typing "require" over and over (tedious).
+In Lua, you can't just start typing a function and have it magically be imported from where it lives. So you are stuck between using monolithic files (messy), or manually typing "require" over and over (tedious).
 
 ### <img src="/img/items/wooden-spoon.png" className="features-icon" /> Bad In-Editor Tooling
 
