@@ -7,7 +7,7 @@ IsaacScript is a framework that allows you to code [_The Binding of Isaac: Repen
 
 <br />
 
-## The Downsides of Lua
+## <img src="/img/lua.png" className="features-lua" /> The Downsides of Lua
 
 So why would you want to use TypeScript over Lua? Why would you want to introduce a compiler into your workflow and make things more complicated?
 
@@ -31,7 +31,7 @@ Lua has gotten some nifty improvements in the past few years, like [Sumneko's Lu
 
 <br />
 
-## The Upsides of TypeScript
+## <img src="/img/typescript.png" className="features-lua" /> The Upsides of TypeScript
 
 After five years of programming Isaac mods in Lua, I got frustrated enough to take a [level 2 action](https://www.lesswrong.com/posts/guDcrPqLsnhEjrPZj/levels-of-action) - to build the ultimate Isaac developer experience, using TypeScript as a basis. The improvement is so significant that once you start, you will never go back. Here's a short list of features:
 

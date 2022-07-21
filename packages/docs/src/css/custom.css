@@ -135,6 +135,11 @@ html[data-theme="dark"] .header-wof-link:before {
   top: 1em;
 }
 
+.features-lua {
+  position: relative;
+  top: 0.6em;
+}
+
 /* Added styles for TypeDoc pages */
 
 html[class*="isaacscript-common"] h3 {
