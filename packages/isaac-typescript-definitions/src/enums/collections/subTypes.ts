@@ -425,9 +425,9 @@ export enum BatterySubType {
    * Spawning batteries with this sub-type will produce a random battery with the following
    * probabilities:
    *
-   * - `BatterySubType.NORMAL` (1) - 32.73%
+   * - `BatterySubType.NORMAL` (1) - 32.72%
    * - `BatterySubType.MICRO` (2) - 65.44%
-   * - `BatterySubType.MEGA` (3) - 0.00% (never spawns)
+   * - `BatterySubType.MEGA` (3) - 1.00%
    * - `BatterySubType.GOLDEN` (4) - 0.83%
    */
   NULL = 0,
