@@ -7,11 +7,18 @@ export async function promptVSCode(
   projectPath: string,
   VSCodeCommand: string,
   vscode: boolean,
+  yes: boolean,
   verbose: boolean,
 ): Promise<void> {
   if (vscode) {
     // They supplied the "--vscode" command-line flag, so there is no need to prompt the user.
     openVSCode(projectPath, VSCodeCommand, verbose);
+    return;
+  }
+
+  if (yes) {
+    // They supplied the "--yes" command-line flag, which implies that they want a silent install,
+    // so skip opening VSCode.
     return;
   }
 

@@ -19,6 +19,7 @@ import {
 import { getRoomListIndex } from "../functions/roomData";
 import { isVector } from "../functions/vector";
 import { CustomGridEntityData } from "../interfaces/CustomGridEntityData";
+import { runNextGameFrame } from "./runInNFrames";
 import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "customGridEntity";
@@ -29,6 +30,10 @@ const v = {
     customGridEntities: new DefaultMap<int, Map<int, CustomGridEntityData>>(
       () => new Map(),
     ),
+  },
+
+  room: {
+    manuallyUsingShovel: false,
   },
 };
 
@@ -80,7 +85,27 @@ function preUseItemWeNeedToGoDeeper(
     return undefined;
   }
 
-  return undefined;
+  removeGridEntity(customGridEntity.gridIndex, false);
+
+  const playerPtr = EntityPtr(player);
+  runNextGameFrame(() => {
+    const futureEntity = playerPtr.Ref;
+    if (futureEntity === undefined) {
+      return;
+    }
+
+    const futurePlayer = futureEntity.ToPlayer();
+    if (futurePlayer === undefined) {
+      return;
+    }
+
+    v.room.manuallyUsingShovel = true;
+    futurePlayer.UseActiveItem(CollectibleType.WE_NEED_TO_GO_DEEPER);
+    v.room.manuallyUsingShovel = false;
+  });
+
+  // Cancel the original effect.
+  return true;
 }
 
 // ModCallbackCustom.POST_NEW_ROOM_REORDERED

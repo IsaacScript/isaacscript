@@ -11,6 +11,7 @@ const v = {
     trapdoors: new Map<int, CustomTrapdoorDescription>(),
   },
 };
+export default v;
 
 export function getCustomTrapdoorDescription(
   gridEntity: GridEntity,

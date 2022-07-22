@@ -161,7 +161,7 @@ function preUseItemWeNeedToGoDeeper(
     fillRoomWithDecorations();
   });
 
-  // Cancel the effect.
+  // Cancel the original effect.
   return true;
 }
 

@@ -58,13 +58,14 @@ export async function init(args: Args): Promise<void> {
     verbose,
   );
 
-  await openVSCode(projectPath, vscode, verbose);
+  await openVSCode(projectPath, vscode, yes, verbose);
   printFinishMessage(projectPath, projectName);
 }
 
 async function openVSCode(
   projectPath: string,
   vscode: boolean,
+  yes: boolean,
   verbose: boolean,
 ) {
   const VSCodeCommand = getVSCodeCommand();
@@ -76,7 +77,7 @@ async function openVSCode(
   }
 
   installVSCodeExtensions(projectPath, VSCodeCommand, verbose);
-  await promptVSCode(projectPath, VSCodeCommand, vscode, verbose);
+  await promptVSCode(projectPath, VSCodeCommand, vscode, yes, verbose);
 }
 
 function getVSCodeCommand() {

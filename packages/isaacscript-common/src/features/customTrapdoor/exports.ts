@@ -8,6 +8,7 @@ import { game } from "../../cachedClasses";
 import { errorIfFeaturesNotInitialized } from "../../featuresInitialized";
 import { getNextStage, getNextStageType } from "../../functions/nextStage";
 import { anyPlayerCloserThan } from "../../functions/positionVelocity";
+import { isBoolean } from "../../functions/types";
 import { spawnCustomGridEntity } from "../customGridEntity";
 import { getRoomClearGameFrame } from "../roomClearFrame";
 import {
@@ -18,6 +19,12 @@ import {
   TRAPDOOR_OPEN_DISTANCE_AFTER_BOSS,
 } from "./customTrapdoorConstants";
 import { getCustomTrapdoorDescription } from "./v";
+
+enum TrapdoorAnimation {
+  OPENED = "Opened",
+  CLOSED = "Closed",
+  OPEN_ANIMATION = "Open Animation",
+}
 
 /** See the documentation for the `spawnCustomTrapdoor` function. */
 export type CustomTrapdoorDestination =
@@ -48,16 +55,17 @@ export type CustomTrapdoorDestination =
  *                     function that returns one of these things. By default, the destination will
  *                     be set to the next floor like that of a vanilla trapdoor.
  * @param anm2Path Optional. The path to the anm2 file to use. By default, the vanilla trapdoor anm2
- *                 of "gfx/grid/door_11_trapdoor.anm2" will be used.
+ *                 of "gfx/grid/door_11_trapdoor.anm2" will be used. The specified anm2 file must
+ *                 have animations called "Opened", "Closed", and "Open Animation".
  * @param _shouldOpenFunc Optional. If the trapdoor is currently closed, this function will run on
  *                        every frame to determine if it should open. By default, a function that
  *                        emulates a vanilla trapdoor will be used.
  * @param _shouldCloseFunc Optional. If the trapdoor is currently open, this function will run on
  *                         every frame to determine if it should close. By default, a function that
  *                         emulates a vanilla trapdoor will be used.
- * @param _spawnOpen Optional. Whether or not to spawn the trapdoor in an open state. Can either be
- *                   a boolean or a function returning a boolean. By default, a function that
- *                   emulates a vanilla trapdoor will be used.
+ * @param spawnOpen Optional. Whether or not to spawn the trapdoor in an open state. Can either be a
+ *                  boolean or a function returning a boolean. By default, a function that emulates
+ *                  a vanilla trapdoor will be used.
  */
 export function spawnCustomTrapdoor(
   gridIndexOrPosition: int | Vector,
@@ -69,20 +77,29 @@ export function spawnCustomTrapdoor(
   _shouldCloseFunc: (
     gridEntity: GridEntity,
   ) => boolean = defaultShouldCloseFunc,
-  _spawnOpen:
+  spawnOpen:
     | boolean
     | ((gridEntity: GridEntity) => boolean) = defaultShouldSpawnOpenFunc,
 ): GridEntity {
   errorIfFeaturesNotInitialized(CUSTOM_TRAPDOOR_FEATURE_NAME);
 
-  // TODO
-  return spawnCustomGridEntity(
+  const gridEntity = spawnCustomGridEntity(
     GridEntityTypeCustom.TRAPDOOR_CUSTOM,
     gridIndexOrPosition,
     anm2Path,
-    "Closed",
+    TrapdoorAnimation.CLOSED,
     GridCollisionClass.NONE,
   );
+
+  const shouldSpawnOpen = isBoolean(spawnOpen)
+    ? spawnOpen
+    : spawnOpen(gridEntity);
+  if (shouldSpawnOpen) {
+    const sprite = gridEntity.GetSprite();
+    sprite.Play(TrapdoorAnimation.OPENED, true);
+  }
+
+  return gridEntity;
 }
 
 function defaultDestinationFunc(): [stage: LevelStage, stageType: StageType] {

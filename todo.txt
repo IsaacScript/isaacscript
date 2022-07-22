@@ -2,9 +2,6 @@
 - custom bosses for vanilla stages
 
 - Slaughterhouse I and II
-- we need to go deeper for custom grids
-- post_player_init_first
-
 
 lint failure:
 
