@@ -1,5 +1,5 @@
 export type PostFirstFlipRegisterParameters = [
-  callback: (player: EntityPlayer) => void,
+  callback: (newLazarus: EntityPlayer, oldLazarus: EntityPlayer) => void,
 ];
 
 const subscriptions: PostFirstFlipRegisterParameters[] = [];
@@ -17,8 +17,11 @@ export function postFirstFlipRegister(
 }
 
 /** @internal */
-export function postFirstFlipFire(player: EntityPlayer): void {
+export function postFirstFlipFire(
+  newLazarus: EntityPlayer,
+  oldLazarus: EntityPlayer,
+): void {
   for (const [callback] of subscriptions) {
-    callback(player);
+    callback(newLazarus, oldLazarus);
   }
 }

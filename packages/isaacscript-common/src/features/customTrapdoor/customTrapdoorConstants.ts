@@ -17,4 +17,7 @@ export const TRAPDOOR_TOUCH_DISTANCE = 16.5;
 export const ANIMATIONS_THAT_PREVENT_STAGE_TRAVEL: ReadonlySet<string> =
   new Set(["Happy", "Sad", "Jump"]);
 
-export const PIXELATION_TO_BLACK_FRAMES = 50;
+export const PIXELATION_TO_BLACK_FRAMES = 52;
+
+export const OTHER_PLAYER_TRAPDOOR_JUMP_DELAY_GAME_FRAMES = 10;
+export const OTHER_PLAYER_TRAPDOOR_JUMP_DURATION_GAME_FRAMES = 8;

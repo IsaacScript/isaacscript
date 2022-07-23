@@ -2,29 +2,39 @@
 // Lazarus.
 
 import { ModCallback, PlayerType } from "isaac-typescript-definitions";
+import { ModUpgraded } from "../classes/ModUpgraded";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
+import { logError } from "../functions/log";
 import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "taintedLazarusPlayers";
 
 const v = {
   run: {
-    queuedTaintedLazarus: [] as EntityPtr[],
-    queuedDeadTaintedLazarus: [] as EntityPtr[],
+    queuedTaintedLazarus: [] as EntityPlayer[],
+    queuedDeadTaintedLazarus: [] as EntityPlayer[],
 
     /**
-     * The PostPlayerInit callback fires for Dead Tainted Lazarus at the beginning of the run.
+     * The `POST_PLAYER_INIT` callback fires for Dead Tainted Lazarus at the beginning of the run.
      * However, the player index for the Dead Tainted Lazarus player object at that time does not
      * actually correspond to the player index for the real player once Flip has been used. Thus, we
      * revert to using PtrHash as an index for our map, which is consistent between the Dead Tainted
-     * Lazarus object in the PostPlayerInit callback and the "real" Dead Tainted Lazarus.
+     * Lazarus object in the `POST_PLAYER_INIT` callback and the "real" Dead Tainted Lazarus.
+     *
+     * We use `EntityPlayer` as the value for the map instead of `EntityPtr` because using the
+     * pointer does not work for some reason. (When we unwrap it after one or more flips have been
+     * used, the pointers no longer point to the original objects, even if we manually update the
+     * pointers in the `POST_FLIP` callback.)
      */
-    subPlayerMap: new Map<PtrHash, EntityPtr>(),
+    subPlayerMap: new Map<PtrHash, EntityPlayer>(),
   },
 };
 
 /** @internal */
-export function taintedLazarusPlayersInit(mod: Mod): void {
+export function taintedLazarusPlayersInit(mod: ModUpgraded): void {
+  // `EntityPtr` is not serializable, so we cannot save data. However, this is inconsequential,
+  // since the `POST_PLAYER_INIT` callback will fire when a run is continued, which will repopulate
+  // the `subPlayerMap`.
   saveDataManager(FEATURE_NAME, v, () => false);
 
   mod.AddCallback(ModCallback.POST_PLAYER_INIT, postPlayerInit);
@@ -32,13 +42,12 @@ export function taintedLazarusPlayersInit(mod: Mod): void {
 
 // ModCallback.POST_PLAYER_INIT (9)
 function postPlayerInit(player: EntityPlayer) {
-  const entityPtr = EntityPtr(player);
   const character = player.GetPlayerType();
 
   if (character === PlayerType.LAZARUS_B) {
-    v.run.queuedTaintedLazarus.push(entityPtr);
+    v.run.queuedTaintedLazarus.push(player);
   } else if (character === PlayerType.LAZARUS_2_B) {
-    v.run.queuedDeadTaintedLazarus.push(entityPtr);
+    v.run.queuedDeadTaintedLazarus.push(player);
   } else {
     return;
   }
@@ -47,6 +56,8 @@ function postPlayerInit(player: EntityPlayer) {
 }
 
 /**
+ * Indexes are the `PtrHash`, values are the `EntityPtr` of the *other* Lazarus.
+ *
  * When starting a run, the PostPlayerInit callback will fire first for Dead Tainted Lazarus, then
  * for Tainted Lazarus. When continuing a run, the PostPlayerInit callback will fire first for the
  * character that is currently active. Thus, since the order of the characters is not certain, we
@@ -61,15 +72,8 @@ function checkDequeue() {
     return;
   }
 
-  const taintedLazarusPtr = v.run.queuedTaintedLazarus.shift();
-  const deadTaintedLazarusPtr = v.run.queuedDeadTaintedLazarus.shift();
-
-  if (taintedLazarusPtr === undefined || deadTaintedLazarusPtr === undefined) {
-    return;
-  }
-
-  const taintedLazarus = taintedLazarusPtr.Ref;
-  const deadTaintedLazarus = deadTaintedLazarusPtr.Ref;
+  const taintedLazarus = v.run.queuedTaintedLazarus.shift();
+  const deadTaintedLazarus = v.run.queuedDeadTaintedLazarus.shift();
 
   if (taintedLazarus === undefined || deadTaintedLazarus === undefined) {
     return;
@@ -78,8 +82,15 @@ function checkDequeue() {
   const taintedLazarusPtrHash = GetPtrHash(taintedLazarus);
   const deadTaintedLazarusPtrHash = GetPtrHash(deadTaintedLazarus);
 
-  v.run.subPlayerMap.set(taintedLazarusPtrHash, deadTaintedLazarusPtr);
-  v.run.subPlayerMap.set(deadTaintedLazarusPtrHash, taintedLazarusPtr);
+  if (taintedLazarusPtrHash === deadTaintedLazarusPtrHash) {
+    logError(
+      "Failed to cache the Tainted Lazarus player objects, since the hash for Tainted Lazarus and Dead Tainted Lazarus were the same.",
+    );
+    return;
+  }
+
+  v.run.subPlayerMap.set(taintedLazarusPtrHash, deadTaintedLazarus);
+  v.run.subPlayerMap.set(deadTaintedLazarusPtrHash, taintedLazarus);
 }
 
 /**
@@ -99,15 +110,5 @@ export function getTaintedLazarusSubPlayer(
   errorIfFeaturesNotInitialized(FEATURE_NAME);
 
   const ptrHash = GetPtrHash(player);
-  const entityPtr = v.run.subPlayerMap.get(ptrHash);
-  if (entityPtr === undefined) {
-    return undefined;
-  }
-
-  const entity = entityPtr.Ref;
-  if (entity === undefined) {
-    return undefined;
-  }
-
-  return entity.ToPlayer();
+  return v.run.subPlayerMap.get(ptrHash);
 }

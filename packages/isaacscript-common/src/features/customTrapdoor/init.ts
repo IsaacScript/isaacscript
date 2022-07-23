@@ -139,8 +139,8 @@ function checkPausingOnBlackComplete() {
 
   // In vanilla, the streak text appears about when the pixelation has faded and while Isaac is
   // still laying on the ground. Unfortunately, we cannot exactly replicate the vanilla timing,
-  // because the level text will bug out and smear the background. Thus, we run it on the next game
-  // frame as a workaround.
+  // because the level text will bug out and smear the background if we play it from a `POST_RENDER`
+  // callback. Thus, we run it on the next game frame as a workaround.
   runNextGameFrame(() => {
     topStreakTextStart();
   });
@@ -192,7 +192,8 @@ function checkJumpComplete(player: EntityPlayer) {
   // When it completes, they will return to normal (i.e. just standing on top of the trapdoor).
   // Thus, make them invisible at the end of the animation. (They will automatically be set to
   // visible again once we travel to the next floor.)
-  if (player.IsExtraAnimationFinished()) {
+  const sprite = player.GetSprite();
+  if (sprite.IsFinished("Trapdoor")) {
     player.Visible = false;
   }
 }

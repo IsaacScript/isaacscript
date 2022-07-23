@@ -21,6 +21,7 @@ import {
 
 const v = {
   run: {
+    /** We don't consider the case of a multiplayer game with more than one Tainted Lazarus. */
     usedFlipAtLeastOnce: false,
   },
 };
@@ -63,10 +64,10 @@ function useItemFlip(
 
   if (!v.run.usedFlipAtLeastOnce) {
     v.run.usedFlipAtLeastOnce = true;
-    postFirstFlipFire(newLazarus);
+    postFirstFlipFire(newLazarus, player);
   }
 
-  postFlipFire(newLazarus);
+  postFlipFire(newLazarus, player);
 
   return undefined;
 }

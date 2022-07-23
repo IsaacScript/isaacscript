@@ -1,3 +1,4 @@
+- pickup index
 - custom bosses for vanilla stages
 - breakable custom grid entities
 

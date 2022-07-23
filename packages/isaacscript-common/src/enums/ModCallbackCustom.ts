@@ -295,7 +295,7 @@ export enum ModCallbackCustom {
    * before the player has actually used the Flip item.
    *
    * ```ts
-   * function postFirstFlip(player: EntityPlayer): void {}
+   * function postFirstFlip(newLazarus: EntityPlayer, oldLazarus: EntityPlayer): void {}
    * ```
    */
   POST_FIRST_FLIP,
@@ -309,7 +309,7 @@ export enum ModCallbackCustom {
    * before the player has actually used the Flip item.
    *
    * ```ts
-   * function postFlip(player: EntityPlayer): void {}
+   * function postFlip(newLazarus: EntityPlayer, oldLazarus: EntityPlayer): void {}
    * ```
    */
   POST_FLIP,

@@ -14,15 +14,15 @@ import { isCharacter } from "../../functions/players";
 import { CustomTrapdoorDescription } from "../../interfaces/private/CustomTrapdoorDescription";
 import { disableAllInputs } from "../disableInputs";
 import { isPlayerUsingPony } from "../ponyDetection";
-import { runInNGameFrames } from "../runInNFrames";
+import { runInNGameFrames, runNextGameFrame } from "../runInNFrames";
 import {
   ANIMATIONS_THAT_PREVENT_STAGE_TRAVEL,
   CUSTOM_TRAPDOOR_FEATURE_NAME,
+  OTHER_PLAYER_TRAPDOOR_JUMP_DELAY_GAME_FRAMES,
+  OTHER_PLAYER_TRAPDOOR_JUMP_DURATION_GAME_FRAMES,
   TRAPDOOR_TOUCH_DISTANCE,
 } from "./customTrapdoorConstants";
 import v from "./v";
-
-const OTHER_PLAYER_TRAPDOOR_JUMP_DELAY_GAME_FRAMES = 10;
 
 export function checkCustomTrapdoorPlayerTouched(
   gridEntity: GridEntity,
@@ -85,12 +85,70 @@ function playerTouchedCustomTrapdoor(
   player.PlayExtraAnimation("Trapdoor");
 
   const otherPlayers = getOtherPlayers(player);
-  otherPlayers.forEach((_otherPlayer, i) => {
+  otherPlayers.forEach((otherPlayer, i) => {
     const gameFramesToWaitBeforeJumping =
       OTHER_PLAYER_TRAPDOOR_JUMP_DELAY_GAME_FRAMES * (i + 1);
+    const otherPlayerPtr = EntityPtr(otherPlayer);
     runInNGameFrames(() => {
-      // TODO
+      startDelayedJump(otherPlayerPtr, gridEntity.Position);
     }, gameFramesToWaitBeforeJumping);
+  });
+}
+
+function startDelayedJump(entityPtr: EntityPtr, trapdoorPosition: Vector) {
+  const entity = entityPtr.Ref;
+  if (entity === undefined) {
+    return;
+  }
+
+  const player = entity.ToPlayer();
+  if (player === undefined) {
+    return;
+  }
+
+  player.PlayExtraAnimation("Trapdoor");
+
+  adjustPlayerVelocityToTrapdoor(entityPtr, player.Position, trapdoorPosition);
+}
+
+function adjustPlayerVelocityToTrapdoor(
+  entityPtr: EntityPtr,
+  startPos: Vector,
+  endPos: Vector,
+) {
+  const entity = entityPtr.Ref;
+  if (entity === undefined) {
+    return;
+  }
+
+  const player = entity.ToPlayer();
+  if (player === undefined) {
+    return;
+  }
+
+  const sprite = player.GetSprite();
+  if (sprite.IsFinished("Trapdoor")) {
+    return;
+  }
+
+  const frame = sprite.GetFrame();
+  if (frame > OTHER_PLAYER_TRAPDOOR_JUMP_DURATION_GAME_FRAMES) {
+    // We have already arrived at the trapdoor.
+    return;
+  }
+
+  const totalDifference = endPos.sub(startPos);
+  const differencePerFrame = totalDifference.div(
+    OTHER_PLAYER_TRAPDOOR_JUMP_DURATION_GAME_FRAMES,
+  );
+  const differenceForThisFrame = differencePerFrame.mul(frame + 1);
+  const targetPosition = startPos.add(differenceForThisFrame);
+  const calculatedVelocity = player.Position.sub(targetPosition);
+
+  player.Velocity = calculatedVelocity;
+
+  runNextGameFrame(() => {
+    adjustPlayerVelocityToTrapdoor(entityPtr, startPos, endPos);
   });
 }
 
