@@ -232,8 +232,8 @@ declare global {
     ): EntityFamiliar;
 
     /**
-     * Play the animation that is normally played at the beginning of a stage. Also plays the
-     * associated sound effect.
+     * Play the animation that is normally played at the beginning of a stage (where Isaac is laying
+     * down).
      */
     AnimateAppear(): void;
 

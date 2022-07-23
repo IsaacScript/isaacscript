@@ -22,6 +22,7 @@ import {
 import { EntityType } from "../../enums/EntityType";
 import { CacheFlag } from "../../enums/flags/CacheFlag";
 import { DamageFlag } from "../../enums/flags/DamageFlag";
+import { LevelCurse } from "../../enums/flags/LevelCurse";
 import { UseFlag } from "../../enums/flags/UseFlag";
 import { GridEntityXMLType } from "../../enums/GridEntityXMLType";
 import { InputHook } from "../../enums/InputHook";
@@ -122,7 +123,11 @@ declare global {
     ];
 
     // 12
-    [ModCallback.POST_CURSE_EVAL]: [callback: (curses: int) => int | undefined];
+    [ModCallback.POST_CURSE_EVAL]: [
+      callback: (
+        curses: BitFlags<LevelCurse>,
+      ) => BitFlags<LevelCurse> | undefined,
+    ];
 
     // 13
     [ModCallback.INPUT_ACTION]: [
