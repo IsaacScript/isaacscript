@@ -387,19 +387,19 @@ declare global {
     // 50
     [ModCallback.POST_KNIFE_INIT]: [
       callback: (knife: EntityKnife) => void,
-      knifeSubType?: int,
+      subType?: int,
     ];
 
     // 51
     [ModCallback.POST_KNIFE_UPDATE]: [
       callback: (knife: EntityKnife) => void,
-      knifeSubType?: int,
+      subType?: int,
     ];
 
     // 52
     [ModCallback.POST_KNIFE_RENDER]: [
       callback: (knife: EntityKnife, renderOffset: Vector) => void,
-      knifeSubType?: int,
+      subType?: int,
     ];
 
     // 53
@@ -409,7 +409,7 @@ declare global {
         collider: Entity,
         low: boolean,
       ) => boolean | undefined,
-      knifeSubType?: int,
+      subType?: int,
     ];
 
     // 54
