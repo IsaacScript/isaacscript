@@ -2,7 +2,6 @@
 - breakable custom grid entities
 
 - Slaughterhouse I and II
-- prevent XL
 
 lint failure:
 
