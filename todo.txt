@@ -1,5 +1,5 @@
-- custom trapdoors - https://github.com/IsaacScript/isaacscript/commit/67ff107768ecee693cee5def095af0a3fedbcc12
 - custom bosses for vanilla stages
+- breakable custom grid entities
 
 - Slaughterhouse I and II
 - prevent XL
