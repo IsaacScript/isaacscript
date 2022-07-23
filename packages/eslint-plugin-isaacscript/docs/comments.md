@@ -70,7 +70,7 @@ Multi-line JSDoc comments use asterisks to denote the beginning of each line.
 
 ## Ignoring In-Line Comments
 
-With the definitions out of the way, let's talk about how we use different kinds of comments. It is common to use _trailing line comments_ to write quick annotations:
+With the definitions out of the way, let's talk about how we use the different kinds of comments. It is common to use _trailing line comments_ to write quick annotations:
 
 ```ts
 foo(); // initialize the data
