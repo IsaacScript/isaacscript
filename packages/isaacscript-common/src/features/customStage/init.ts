@@ -1,6 +1,7 @@
 import {
   DoorSlotFlag,
   GridEntityType,
+  LevelCurse,
   ModCallback,
   RoomShape,
   RoomType,
@@ -8,6 +9,7 @@ import {
 import { ModUpgraded } from "../../classes/ModUpgraded";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { isArray } from "../../functions/array";
+import { hasFlag, removeFlag } from "../../functions/flag";
 import { CustomStage, RoomTypeMap } from "../../interfaces/CustomStage";
 import {
   CustomStageLua,
@@ -49,6 +51,7 @@ export function customStageInit(mod: ModUpgraded): void {
   versusScreenInit();
 
   mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
+  mod.AddCallback(ModCallback.POST_CURSE_EVAL, postCurseEval); // 12
   mod.AddCallback(ModCallback.POST_GAME_STARTED, postGameStarted); // 15
   mod.AddCallback(ModCallback.GET_SHADER_PARAMS, getShaderParams); // 21
   mod.AddCallbackCustom(
@@ -135,6 +138,23 @@ function postRender() {
 
   streakTextPostRender();
   versusScreenPostRender();
+}
+
+// ModCallback.POST_CURSE_EVAL (12)
+function postCurseEval(
+  curses: BitFlags<LevelCurse>,
+): BitFlags<LevelCurse> | undefined {
+  const customStage = v.run.currentCustomStage;
+  if (customStage === null) {
+    return undefined;
+  }
+
+  // Prevent XL floors on custom stages, since the streak text will not work properly.
+  if (hasFlag(curses, LevelCurse.MAZE)) {
+    return removeFlag(curses, LevelCurse.MAZE);
+  }
+
+  return undefined;
 }
 
 // ModCallback.POST_GAME_STARTED (15)

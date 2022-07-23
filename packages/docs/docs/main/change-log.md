@@ -14,6 +14,7 @@ This page lists the changes to the IsaacScript framework.
 - A new version of TSTL has been released that speeds up compilation by a factor of 2. Make sure to upgrade!
 - Added the following helper functions:
   - `getCharacterDamageMultiplier`
+  - `getOtherPlayers`
 - Renamed the following helper functions:
   - `spawnCustomGrid` --> `spawnCustomGridEntity`
 - Added the following custom callbacks:

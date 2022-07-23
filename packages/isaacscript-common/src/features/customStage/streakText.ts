@@ -287,7 +287,6 @@ function renderSprite(
   const adjustedX = centeredX + adjustment;
   const adjustedY = position.Y + STREAK_TEXT_BOTTOM_Y_OFFSET;
 
-  sprite.RenderLayer(0, position);
   font.DrawStringScaled(
     name,
     adjustedX,

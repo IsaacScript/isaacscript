@@ -1,10 +1,8 @@
 import {
-  Direction,
   EntityType,
   GridRoom,
   LevelStage,
   RoomShape,
-  RoomTransitionAnim,
   RoomType,
   StageType,
 } from "isaac-typescript-definitions";
@@ -12,12 +10,10 @@ import { game } from "../../cachedClasses";
 import { reorderedCallbacksSetStage } from "../../callbacks/reorderedCallbacks";
 import { getEntityIDFromConstituents } from "../../functions/entities";
 import { log, logError } from "../../functions/log";
-import { movePlayersToCenter } from "../../functions/playerCenter";
 import { newRNG } from "../../functions/rng";
 import { getRoomData } from "../../functions/roomData";
 import { getRooms } from "../../functions/rooms";
 import { getGotoCommand, setStage } from "../../functions/stage";
-import { runNextRoom } from "../runNextRoom";
 import { getRandomCustomStageRoom } from "./customStageUtils";
 import { topStreakTextStart } from "./streakText";
 import v, {
@@ -136,24 +132,9 @@ export function setCustomStage(name: string, verbose = false): void {
 
   // We must reload the current room in order for the `Level.SetStage` method to take effect.
   // Furthermore, we need to cancel the queued warp to the `GridRoom.DEBUG` room. We can accomplish
-  // both of these things by initiating a room transition to the starting room of the floor. (We
-  // assume that since we just warped to a new floor, we are already in the starting room.)
-  game.StartRoomTransition(
-    startingRoomGridIndex,
-    Direction.NO_DIRECTION,
-    RoomTransitionAnim.FADE,
-  );
-
-  // We do more setup once the room is reloaded from the transition.
-  runNextRoom(postRoomTransition);
-}
-
-function postRoomTransition() {
-  // After the room transition, the players will be placed next to a door, but they should be in the
-  // center of the room to emulate what happens on a vanilla stage.
-  movePlayersToCenter();
-
-  topStreakTextStart();
+  // both of these things by initiating a room transition to an arbitrary room. However, we rely on
+  // the parent function to do this, since for normal purposes, we need to initiate a room
+  // transition for pixelation purposes.
 }
 
 export function setCustomStageDebug(): void {

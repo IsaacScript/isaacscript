@@ -4,6 +4,7 @@ import { characterStatsInit } from "./features/characterStats";
 import { collectibleItemPoolTypeInit } from "./features/collectibleItemPoolType";
 import { customGridEntityInit } from "./features/customGridEntity";
 import { customStageInit } from "./features/customStage/init";
+import { customTrapdoorInit } from "./features/customTrapdoor/init";
 import { deployJSONRoomInit } from "./features/deployJSONRoom";
 import { disableAllSoundInit } from "./features/disableAllSound";
 import { disableInputsInit } from "./features/disableInputs";
@@ -38,6 +39,7 @@ function initFeaturesMajor(mod: ModUpgraded) {
 }
 
 function initFeaturesMinor(mod: ModUpgraded) {
+  customTrapdoorInit(mod);
   disableAllSoundInit(mod);
   disableInputsInit(mod);
   fadeInRemoverInit(mod);

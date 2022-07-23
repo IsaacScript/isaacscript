@@ -29,6 +29,18 @@ export function getAllPlayers(): EntityPlayer[] {
 }
 
 /**
+ * Helper function to get all of the other players in the room besides the one provided. (This
+ * includes "child" players.)
+ */
+export function getOtherPlayers(player: EntityPlayer): EntityPlayer[] {
+  const playerPtrHash = GetPtrHash(player);
+  const players = getAllPlayers();
+  return players.filter(
+    (otherPlayer) => GetPtrHash(otherPlayer) !== playerPtrHash,
+  );
+}
+
+/**
  * Helper function to get the corresponding `EntityPlayer` object that corresponds to a
  * `PlayerIndex`.
  */

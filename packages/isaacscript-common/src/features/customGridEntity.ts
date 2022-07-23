@@ -128,12 +128,18 @@ function postNewRoomReordered() {
 
     const sprite = decoration.GetSprite();
     sprite.Load(data.anm2Path, true);
-    sprite.Play(data.defaultAnimation, true);
+    const animationToPlay =
+      data.defaultAnimation === undefined
+        ? sprite.GetDefaultAnimation()
+        : data.defaultAnimation;
+    sprite.Play(animationToPlay, true);
   }
 }
 
 /**
- * Helper function to spawn a custom grid entity.
+ * Helper function to spawn a custom grid entity. Custom grid entities are persistent in that they
+ * will reappear if the player leaves and re-enters the room. (It will be manually respawned in the
+ * `POST_NEW_ROOM` callback.)
  *
  * This is an IsaacScript feature because the vanilla game does not support any custom grid
  * entities. Under the hood, IsaacScript accomplishes this by using decorations with an arbitrary
@@ -150,17 +156,18 @@ function postNewRoomReordered() {
  * @param gridIndexOrPosition The grid index or position in the room that you want to spawn the grid
  *                            entity at. If a position is specified, the closest grid index will be
  *                            used.
- * @param anm2Path The path to the ANM2 file to use for the sprite.
- * @param defaultAnimation The name of the animation to play after the sprite is initialized and
- *                         after the player re-enters a room with this grid entity in it.
  * @param gridCollisionClass The collision class that you want the custom grid entity to have.
+ * @param anm2Path The path to the ANM2 file to use for the sprite.
+ * @param defaultAnimation Optional. The name of the animation to play after the sprite is
+ *                         initialized and after the player re-enters a room with this grid entity
+ *                         in it. If not specified, the default animation in the anm2 will be used.
  */
 export function spawnCustomGridEntity(
   gridEntityTypeCustom: GridEntityType,
   gridIndexOrPosition: int | Vector,
-  anm2Path: string,
-  defaultAnimation: string,
   gridCollisionClass: GridCollisionClass,
+  anm2Path: string,
+  defaultAnimation?: string,
 ): GridEntity {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
 
@@ -189,7 +196,11 @@ export function spawnCustomGridEntity(
 
   const sprite = decoration.GetSprite();
   sprite.Load(anm2Path, true);
-  sprite.Play(defaultAnimation, true);
+  const animationToPlay =
+    defaultAnimation === undefined
+      ? sprite.GetDefaultAnimation()
+      : defaultAnimation;
+  sprite.Play(animationToPlay, true);
 
   const customGridEntityData: CustomGridEntityData = {
     gridEntityTypeCustom,
