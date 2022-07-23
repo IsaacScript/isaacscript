@@ -54,6 +54,23 @@ module.exports = {
 
     /**
      * Documentation:
+     * https://typescript-eslint.io/rules/no-base-to-string/
+     *
+     * Defined at:
+     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/strict.ts
+     *
+     * The `Vector` object has a `tostring` meta-method, so it can be properly printed without
+     * explicitly specifying the X and Y values.
+     */
+    "@typescript-eslint/no-base-to-string": [
+      "warn",
+      {
+        ignoredTypeNames: ["Vector"],
+      },
+    ],
+
+    /**
+     * Documentation:
      * https://typescript-eslint.io/rules/no-invalid-void-type
      *
      * Defined at:
