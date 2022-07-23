@@ -76,8 +76,8 @@ function useItemD4(
 
 // ModCallback.POST_GAME_STARTED (15)
 function postGameStarted() {
-  // We don't use the PostPlayerInit callback because some items are not given to the player at that
-  // point.
+  // We don't use the `POST_PLAYER_INIT` callback because some items are not given to the player at
+  // that point.
   for (const player of getAllPlayers()) {
     const playerIndex = getPlayerIndex(player);
     if (!v.run.playersInventory.has(playerIndex)) {

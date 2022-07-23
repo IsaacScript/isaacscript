@@ -4,17 +4,36 @@ import {
   InputHook,
   ModCallback,
 } from "isaac-typescript-definitions";
+import { VectorZero } from "../constants";
+import {
+  getProjectiles,
+  getTears,
+  removeAllProjectiles,
+  removeAllTears,
+} from "../functions/entitiesSpecific";
+import { isTear } from "../functions/isaacAPIClass";
 import { logError } from "../functions/log";
+import { getAllPlayers } from "../functions/playerIndex";
 import { useActiveItemTemp } from "../functions/players";
 import { disableAllInputsExceptFor, enableAllInputs } from "./disableInputs";
 import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "pause";
 
+interface InitialDescription {
+  position: Vector;
+  positionOffset: Vector;
+  velocity: Vector;
+  height: float;
+  fallingSpeed: float;
+  fallingAcceleration: float;
+}
+
 const v = {
   run: {
     isPseudoPaused: false,
     shouldUnpause: false,
+    initialDescriptions: new Map<PtrHash, InitialDescription>(),
   },
 };
 
@@ -37,8 +56,34 @@ function postUpdate() {
     return;
   }
 
-  const player = Isaac.GetPlayer();
-  useActiveItemTemp(player, CollectibleType.PAUSE);
+  const firstPlayer = Isaac.GetPlayer();
+  useActiveItemTemp(firstPlayer, CollectibleType.PAUSE);
+
+  stopTearsAndProjectilesFromMoving();
+}
+
+function stopTearsAndProjectilesFromMoving() {
+  const tearsAndProjectiles = [...getTears(), ...getProjectiles()];
+
+  for (const tearOrProjectile of tearsAndProjectiles) {
+    const ptrHash = GetPtrHash(tearOrProjectile);
+    const initialDescription = v.run.initialDescriptions.get(ptrHash);
+    if (initialDescription === undefined) {
+      continue;
+    }
+
+    tearOrProjectile.Position = initialDescription.position;
+    tearOrProjectile.PositionOffset = initialDescription.positionOffset;
+    tearOrProjectile.Velocity = VectorZero;
+    tearOrProjectile.Height = initialDescription.height;
+    tearOrProjectile.FallingSpeed = 0;
+    if (isTear(tearOrProjectile)) {
+      tearOrProjectile.FallingAcceleration =
+        initialDescription.fallingAcceleration;
+    } else {
+      tearOrProjectile.FallingAccel = initialDescription.fallingAcceleration;
+    }
+  }
 }
 
 // ModCallback.INPUT_ACTION (13)
@@ -57,8 +102,8 @@ function inputActionGetActionValue(
   }
   v.run.shouldUnpause = false;
 
-  // Returning a value of 1 for a single frame will be enough for the game to register an unpause
-  // but not enough for a tear to actually be fired.
+  // Returning a value of 1 for a single sub-frame will be enough for the game to register an
+  // unpause but not enough for a tear to actually be fired.
   return 1;
 }
 
@@ -68,7 +113,7 @@ function inputActionGetActionValue(
  *
  * Under the hood, this function:
  * - uses the Pause collectible on every game frame
- * - disables any player inputs (except for `ButtonAction.MENU_CONFIRM`)
+ * - disables any player inputs (except for `ButtonAction.MENU_CONFIRM` and `ButtonAction.CONSOLE`)
  */
 export function pause(): void {
   if (v.run.isPseudoPaused) {
@@ -79,8 +124,43 @@ export function pause(): void {
   }
   v.run.isPseudoPaused = true;
 
-  const whitelist = new Set([ButtonAction.MENU_CONFIRM]);
+  // Tears/projectiles in the room will move slightly on every frame, even when the Pause
+  // collectible is active. Thus, we manually reset the initial positions and heights on every
+  // frame.
+  v.run.initialDescriptions.clear();
+  const tearsAndProjectiles = [...getTears(), ...getProjectiles()];
+  for (const tearOrProjectile of tearsAndProjectiles) {
+    const ptrHash = GetPtrHash(tearOrProjectile);
+    const initialDescription: InitialDescription = {
+      position: tearOrProjectile.Position,
+      positionOffset: tearOrProjectile.PositionOffset,
+      velocity: tearOrProjectile.Velocity,
+      height: tearOrProjectile.Height,
+      fallingSpeed: tearOrProjectile.FallingSpeed,
+      fallingAcceleration: isTear(tearOrProjectile)
+        ? tearOrProjectile.FallingAcceleration
+        : tearOrProjectile.FallingAccel,
+    };
+    v.run.initialDescriptions.set(ptrHash, initialDescription);
+  }
+
+  const firstPlayer = Isaac.GetPlayer();
+  useActiveItemTemp(firstPlayer, CollectibleType.PAUSE);
+
+  const whitelist = new Set([ButtonAction.MENU_CONFIRM, ButtonAction.CONSOLE]);
   disableAllInputsExceptFor(FEATURE_NAME, whitelist);
+
+  for (const player of getAllPlayers()) {
+    // Disable the controls to prevent the players from moving, shooting, and so on. (We also
+    // disable the inputs in the `INPUT_ACTION` callback, but that does not prevent mouse inputs.)
+    player.ControlsEnabled = false;
+
+    // Prevent the players from leaving the room. (If we don't reset the velocity, they can continue
+    // to move towards a door.)
+    player.Velocity = VectorZero;
+  }
+
+  stopTearsAndProjectilesFromMoving();
 }
 
 /** Helper function to put things back to normal after the `pause` function was used. */
@@ -92,7 +172,13 @@ export function unpause(): void {
     return;
   }
   v.run.isPseudoPaused = false;
+  v.run.shouldUnpause = true;
 
   enableAllInputs(FEATURE_NAME);
-  v.run.shouldUnpause = true;
+  for (const player of getAllPlayers()) {
+    player.ControlsEnabled = true;
+  }
+
+  removeAllTears();
+  removeAllProjectiles();
 }

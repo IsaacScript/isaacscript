@@ -58,11 +58,11 @@ function postPlayerInit(player: EntityPlayer) {
 /**
  * Indexes are the `PtrHash`, values are the `EntityPtr` of the *other* Lazarus.
  *
- * When starting a run, the PostPlayerInit callback will fire first for Dead Tainted Lazarus, then
- * for Tainted Lazarus. When continuing a run, the PostPlayerInit callback will fire first for the
- * character that is currently active. Thus, since the order of the characters is not certain, we
- * insert each of their pointers into a queue, and then only populate the map when we have one
- * Tainted Lazarus and one Dead Tainted Lazarus.
+ * When starting a run, the `POST_PLAYER_INIT` callback will fire first for Dead Tainted Lazarus,
+ * then for Tainted Lazarus. When continuing a run, the `POST_PLAYER_INIT` callback will fire first
+ * for the character that is currently active. Thus, since the order of the characters is not
+ * certain, we insert each of their pointers into a queue, and then only populate the map when we
+ * have one Tainted Lazarus and one Dead Tainted Lazarus.
  */
 function checkDequeue() {
   if (

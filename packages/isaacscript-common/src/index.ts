@@ -47,6 +47,7 @@ export * from "./features/extraConsoleCommands/exports";
 export { removeFadeIn, restoreFadeIn } from "./features/fadeInRemover";
 export { disableFastReset, enableFastReset } from "./features/fastReset";
 export { forgottenSwitch } from "./features/forgottenSwitch";
+export { pause, unpause } from "./features/pause";
 export {
   removePersistentEntity,
   spawnPersistentEntity,

@@ -903,8 +903,9 @@ declare global {
      * Returns true for The Soul. Otherwise, returns false.
      *
      * Additionally, this also returns true for the player object representing Dead Tainted Lazarus
-     * that fires at the beginning of the run in the PostPlayerInit callback. (The PostPlayerInit
-     * callback fires first for Dead Tainted Lazarus before firing for the normal Tainted Lazarus.)
+     * that fires at the beginning of the run in the `POST_PLAYER_INIT` callback. (The
+     * `POST_PLAYER_INIT` callback fires first for Dead Tainted Lazarus before firing for the normal
+     * Tainted Lazarus.)
      */
     IsSubPlayer(): boolean;
 

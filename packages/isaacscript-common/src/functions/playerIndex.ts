@@ -72,9 +72,6 @@ export function getPlayerFromIndex(
  * Instead, we use the `EntityPlayer.GetCollectibleRNG` method with an arbitrary value of Sad Onion
  * (1). This works even if the player does not have any Sad Onions.
  *
- * Since the RNG value is the same for both Tainted Lazarus and Dead Tainted Lazarus, we revert to
- * using the RNG of The Inner Eye (2) for Dead Tainted Lazarus.
- *
  * Note that by default, this returns the same index for both The Forgotten and The Soul. (Even
  * though they are technically different characters, they share the same inventory and InitSeed.) If
  * this is not desired, pass true for the `differentiateForgottenAndSoul` argument, and the RNG of
@@ -94,13 +91,13 @@ export function getPlayerIndex(
   // We can safely ignore the player's character because regardless of whether the main player ends
   // up being The Forgotten or The Soul, the collectible RNG values will be the same. The
   // `EntityPlayer.IsSubPlayer` method can return true for Dead Tainted Lazarus during the
-  // PostPlayerInit callback, but since we fall back to the player in the case of
+  // `POST_PLAYER_INIT` callback, but since we fall back to the player in the case of
   // "getSubPlayerParent" returning undefined, we do not need to explicitly check for this case.
   let playerToUse = player;
   const isSubPlayer = player.IsSubPlayer();
   if (isSubPlayer) {
     // The "getSubPlayerParent" function will return undefined in the situation where we are on Dead
-    // Tainted Lazarus in the PostPlayerInit callback.
+    // Tainted Lazarus in the `POST_PLAYER_INIT` callback.
     const playerParent = getSubPlayerParent(player as EntitySubPlayer);
     if (playerParent !== undefined) {
       playerToUse = playerParent;
@@ -123,23 +120,13 @@ function getPlayerIndexCollectibleType(
 ) {
   const character = player.GetPlayerType();
 
-  switch (character) {
-    // 17
-    case PlayerType.THE_SOUL: {
-      return differentiateForgottenAndSoul
-        ? CollectibleType.SPOON_BENDER
-        : DEFAULT_COLLECTIBLE_TYPE;
-    }
-
-    // 38
-    case PlayerType.LAZARUS_2_B: {
-      return CollectibleType.INNER_EYE;
-    }
-
-    default: {
-      return DEFAULT_COLLECTIBLE_TYPE;
-    }
+  if (character === PlayerType.THE_SOUL) {
+    return differentiateForgottenAndSoul
+      ? CollectibleType.INNER_EYE
+      : DEFAULT_COLLECTIBLE_TYPE;
   }
+
+  return DEFAULT_COLLECTIBLE_TYPE;
 }
 
 /**

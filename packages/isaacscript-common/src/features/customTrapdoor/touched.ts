@@ -1,20 +1,22 @@
 import {
+  ButtonAction,
   EntityCollisionClass,
+  EntityGridCollisionClass,
   EntityPartition,
   PlayerType,
 } from "isaac-typescript-definitions";
 import { VectorZero } from "../../constants";
 import { StageTravelState } from "../../enums/private/StageTravelState";
 import {
+  getAllPlayers,
   getOtherPlayers,
-  getPlayers,
   isChildPlayer,
 } from "../../functions/playerIndex";
 import { isCharacter } from "../../functions/players";
 import { CustomTrapdoorDescription } from "../../interfaces/private/CustomTrapdoorDescription";
-import { disableAllInputs } from "../disableInputs";
+import { disableAllInputsExceptFor } from "../disableInputs";
 import { isPlayerUsingPony } from "../ponyDetection";
-import { runInNGameFrames, runNextGameFrame } from "../runInNFrames";
+import { runInNGameFrames, runNextRenderFrame } from "../runInNFrames";
 import {
   ANIMATIONS_THAT_PREVENT_STAGE_TRAVEL,
   CUSTOM_TRAPDOOR_FEATURE_NAME,
@@ -78,7 +80,10 @@ function playerTouchedCustomTrapdoor(
   v.run.state = StageTravelState.PLAYERS_JUMPING_DOWN;
   v.run.destination = trapdoorDescription.destination;
 
-  disableAllInputs(CUSTOM_TRAPDOOR_FEATURE_NAME);
+  disableAllInputsExceptFor(
+    CUSTOM_TRAPDOOR_FEATURE_NAME,
+    new Set([ButtonAction.CONSOLE]),
+  );
   setPlayerAttributes(player, gridEntity.Position);
   dropTaintedForgotten(player);
 
@@ -95,6 +100,35 @@ function playerTouchedCustomTrapdoor(
   });
 }
 
+function setPlayerAttributes(trapdoorPlayer: EntityPlayer, position: Vector) {
+  // Snap the player to the exact position of the trapdoor so that they cleanly jump down the hole.
+  trapdoorPlayer.Position = position;
+
+  for (const player of getAllPlayers()) {
+    // Disable the controls to prevent the player from moving, shooting, and so on. (We also disable
+    // the inputs in the `INPUT_ACTION` callback, but that does not prevent mouse inputs.)
+    player.ControlsEnabled = false;
+
+    // Freeze all players.
+    player.Velocity = VectorZero;
+
+    // We don't want enemy attacks to move the players.
+    player.EntityCollisionClass = EntityCollisionClass.NONE;
+    player.GridCollisionClass = EntityGridCollisionClass.NONE;
+
+    player.SubType = -1;
+  }
+}
+
+function dropTaintedForgotten(player: EntityPlayer) {
+  if (isCharacter(player, PlayerType.THE_FORGOTTEN_B)) {
+    const taintedSoul = player.GetOtherTwin();
+    if (taintedSoul !== undefined) {
+      taintedSoul.ThrowHeldEntity(VectorZero);
+    }
+  }
+}
+
 function startDelayedJump(entityPtr: EntityPtr, trapdoorPosition: Vector) {
   const entity = entityPtr.Ref;
   if (entity === undefined) {
@@ -108,10 +142,10 @@ function startDelayedJump(entityPtr: EntityPtr, trapdoorPosition: Vector) {
 
   player.PlayExtraAnimation("Trapdoor");
 
-  adjustPlayerVelocityToTrapdoor(entityPtr, player.Position, trapdoorPosition);
+  adjustPlayerPositionToTrapdoor(entityPtr, player.Position, trapdoorPosition);
 }
 
-function adjustPlayerVelocityToTrapdoor(
+function adjustPlayerPositionToTrapdoor(
   entityPtr: EntityPtr,
   startPos: Vector,
   endPos: Vector,
@@ -128,12 +162,16 @@ function adjustPlayerVelocityToTrapdoor(
 
   const sprite = player.GetSprite();
   if (sprite.IsFinished("Trapdoor")) {
+    player.Position = endPos;
+    player.Velocity = VectorZero;
     return;
   }
 
   const frame = sprite.GetFrame();
-  if (frame > OTHER_PLAYER_TRAPDOOR_JUMP_DURATION_GAME_FRAMES) {
+  if (frame >= OTHER_PLAYER_TRAPDOOR_JUMP_DURATION_GAME_FRAMES) {
     // We have already arrived at the trapdoor.
+    player.Position = endPos;
+    player.Velocity = VectorZero;
     return;
   }
 
@@ -143,33 +181,11 @@ function adjustPlayerVelocityToTrapdoor(
   );
   const differenceForThisFrame = differencePerFrame.mul(frame + 1);
   const targetPosition = startPos.add(differenceForThisFrame);
-  const calculatedVelocity = player.Position.sub(targetPosition);
 
-  player.Velocity = calculatedVelocity;
+  player.Position = targetPosition;
+  player.Velocity = VectorZero;
 
-  runNextGameFrame(() => {
-    adjustPlayerVelocityToTrapdoor(entityPtr, startPos, endPos);
+  runNextRenderFrame(() => {
+    adjustPlayerPositionToTrapdoor(entityPtr, startPos, endPos);
   });
-}
-
-function setPlayerAttributes(trapdoorPlayer: EntityPlayer, position: Vector) {
-  // Snap the player to the exact position of the trapdoor so that they cleanly jump down the hole.
-  trapdoorPlayer.Position = position;
-
-  for (const player of getPlayers()) {
-    // Freeze all players.
-    player.Velocity = VectorZero;
-
-    // We don't want enemy attacks to move the players.
-    player.EntityCollisionClass = EntityCollisionClass.NONE;
-  }
-}
-
-function dropTaintedForgotten(player: EntityPlayer) {
-  if (isCharacter(player, PlayerType.THE_FORGOTTEN_B)) {
-    const taintedSoul = player.GetOtherTwin();
-    if (taintedSoul !== undefined) {
-      taintedSoul.ThrowHeldEntity(VectorZero);
-    }
-  }
 }

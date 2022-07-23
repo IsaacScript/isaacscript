@@ -15,12 +15,35 @@ This page lists the changes to the IsaacScript framework.
 - Added the following helper functions:
   - `getCharacterDamageMultiplier`
   - `getOtherPlayers`
+  - `isEntity`
+  - `isBomb`
+  - `isEffect`
+  - `isFamiliar`
+  - `isKnife`
+  - `isLaser`
+  - `isNPC`
+  - `isPickup`
+  - `isPlayer`
+  - `isProjectile`
+  - `isTear`
+  - `isGridEntity`
+  - `isDoor`
+  - `isPit`
+  - `isPoop`
+  - `isPressurePlate`
+  - `isRock`
+  - `isSpikes`
+  - `isTNT`
 - Renamed the following helper functions:
   - `spawnCustomGrid` --> `spawnCustomGridEntity`
+  - `isBomb` --> `isBombPickup`
+  - `isPoop` --> `isPoopPickup`
 - Added the following custom callbacks:
   - `POST_PLAYER_INIT_FIRST` (use this for e.g. custom character initialization)
 - Deleted the following custom callbacks:
   - `POST_PLAYER_INIT_REORDERED` (use `POST_PLAYER_INIT_FIRST` or `POST_GAME_STARTED_REORDERED` instead)
+- Changed the following custom callbacks:
+  - `POST_FLIP` and `POST_FIRST_FLIP` now pass the old player object in addition to the new one.
 
 ## July 20th, 2022
 
@@ -1757,8 +1780,8 @@ You can still use `null` in your own variables, but make sure that it is for var
 - Renamed the following constants:
   - `FIRST_TMTRAINER_COLLECTIBLE_TYPE` --> `FIRST_GLITCHED_COLLECTIBLE_TYPE`
 - Added the following custom callbacks:
-  - `PostPlayerInitReordered`
-  - `PostPlayerUpdateReordered`
+  - `POST_PLAYER_INIT_REORDERED`
+  - `POST_PLAYER_UPDATE_REORDERED`
 - Added the following enums:
   - `DevilRoomSubType`
   - `AngelRoomSubType`

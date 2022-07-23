@@ -7,6 +7,7 @@ import { getIsaacAPIClassName } from "./isaacAPIClass";
 import { getRandom } from "./random";
 import { isRNG, newRNG } from "./rng";
 import { isPrimitive } from "./types";
+import { isVector, vectorToString } from "./vector";
 
 /**
  * Helper function to count the number of entities in room. Use this over the vanilla
@@ -130,10 +131,10 @@ export function getEntities(
 
 /**
  * Helper function to get all the fields on an entity. For example, this is useful for comparing it
- * to another entity later.
+ * to another entity later. (One option is to use the `logTableDifferences` function for this.)
  *
- * This function will only get fields that are equal to booleans, numbers, or strings, as comparing
- * other types is non-trivial.
+ * This function will only get fields that are equal to booleans, numbers, or strings, or Vectors,
+ * as comparing other types is non-trivial.
  */
 export function getEntityFields(
   entity: Entity,
@@ -187,6 +188,8 @@ function setPrimitiveEntityFields(
     const value = entity[indexKey];
     if (isPrimitive(value)) {
       entityFields.set(indexKey, value);
+    } else if (isVector(value)) {
+      entityFields.set(indexKey, vectorToString(value));
     }
   }
 }

@@ -18,12 +18,12 @@ export function isKey(pickup: EntityPickup): pickup is EntityPickupKey {
 }
 
 /** For `PickupVariant.BOMB` (40) */
-export function isBomb(pickup: EntityPickup): pickup is EntityPickupBomb {
+export function isBombPickup(pickup: EntityPickup): pickup is EntityPickupBomb {
   return pickup.Variant === PickupVariant.BOMB;
 }
 
 /** For `PickupVariant.POOP` (42) */
-export function isPoop(pickup: EntityPickup): pickup is EntityPickupPoop {
+export function isPoopPickup(pickup: EntityPickup): pickup is EntityPickupPoop {
   return pickup.Variant === PickupVariant.POOP;
 }
 
