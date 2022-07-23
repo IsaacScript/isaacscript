@@ -23,7 +23,7 @@ This project is written in [TypeScript](https://www.typescriptlang.org/).
 ## Configs
 
 - `recommended` - Enables just the recommended rules.
-- `all` - Enables all the rules. This is just for testing; you would probably never want to use this config.
+- `all` - Enables all the rules. You would probably never want to use this config, unless you wanted to enable every rule except for one or two specific rules (since specifying a blacklist would be less verbose than specifying a whitelist, in this case).
 
 <br>
 
