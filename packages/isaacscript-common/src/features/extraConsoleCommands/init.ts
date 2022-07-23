@@ -8,6 +8,7 @@ import {
 } from "isaac-typescript-definitions";
 import { ModUpgraded } from "../../classes/ModUpgraded";
 import { MAX_SPEED_STAT } from "../../constants";
+import { bitFlags } from "../../functions/flag";
 import { getMapPartialMatch } from "../../functions/map";
 import { printConsole } from "../../functions/utils";
 import { debugDisplayInit } from "../debugDisplay/debugDisplay";
@@ -349,8 +350,10 @@ function entityTakeDmgPlayer() {
 }
 
 // ModCallback.POST_CURSE_EVAL (12)
-function postCurseEval(curses: int) {
-  return v.persistent.disableCurses ? LevelCurse.NONE : curses;
+function postCurseEval(
+  curses: BitFlags<LevelCurse>,
+): BitFlags<LevelCurse> | undefined {
+  return v.persistent.disableCurses ? bitFlags(LevelCurse.NONE) : curses;
 }
 
 // ModCallback.EXECUTE_CMD (22)

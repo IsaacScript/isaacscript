@@ -134,7 +134,7 @@ export enum ModCallback {
 
   /**
    * ```ts
-   * function postCurseEval(curses: int): int | undefined {}
+   * function postCurseEval(curses: BitFlags<LevelCurse>): BitFlags<LevelCurse> | undefined {}
    * ```
    */
   POST_CURSE_EVAL = 12,

@@ -13,7 +13,9 @@ import { getRoomGridIndex, getRoomListIndex } from "../../functions/roomData";
 import { setStage } from "../../functions/stage";
 import { isString } from "../../functions/types";
 import { setCustomStage } from "../customStage/exports";
+import { topStreakTextStart } from "../customStage/streakText";
 import { enableAllInputs } from "../disableInputs";
+import { runNextGameFrame } from "../runInNFrames";
 import { runNextRoom } from "../runNextRoom";
 import { saveDataManager } from "../saveDataManager/exports";
 import { drawBlackSprite } from "./blackSprite";
@@ -139,11 +141,9 @@ function checkPausingOnBlackComplete() {
   // still laying on the ground. Unfortunately, we cannot exactly replicate the vanilla timing,
   // because the level text will bug out and smear the background. Thus, we run it on the next game
   // frame as a workaround.
-  /*
   runNextGameFrame(() => {
     topStreakTextStart();
   });
-  */
 }
 
 function checkAllPlayersLayingDownComplete() {
