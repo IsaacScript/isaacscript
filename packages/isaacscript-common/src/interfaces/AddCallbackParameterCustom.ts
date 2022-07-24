@@ -23,6 +23,8 @@ import { PostGameStartedReorderedRegisterParameters } from "../callbacks/subscri
 import { PostGreedModeWaveRegisterParameters } from "../callbacks/subscriptions/postGreedModeWave";
 import { PostGridEntityBrokenRegisterParameters } from "../callbacks/subscriptions/postGridEntityBroken";
 import { PostGridEntityCollisionRegisterParameters } from "../callbacks/subscriptions/postGridEntityCollision";
+import { PostGridEntityCustomRenderRegisterParameters } from "../callbacks/subscriptions/postGridEntityCustomRender";
+import { PostGridEntityCustomUpdateRegisterParameters } from "../callbacks/subscriptions/postGridEntityCustomUpdate";
 import { PostGridEntityInitRegisterParameters } from "../callbacks/subscriptions/postGridEntityInit";
 import { PostGridEntityRemoveRegisterParameters } from "../callbacks/subscriptions/postGridEntityRemove";
 import { PostGridEntityRenderRegisterParameters } from "../callbacks/subscriptions/postGridEntityRender";
@@ -109,6 +111,8 @@ export interface AddCallbackParameterCustom {
   [ModCallbackCustom.POST_GREED_MODE_WAVE]: PostGreedModeWaveRegisterParameters;
   [ModCallbackCustom.POST_GRID_ENTITY_BROKEN]: PostGridEntityBrokenRegisterParameters;
   [ModCallbackCustom.POST_GRID_ENTITY_COLLISION]: PostGridEntityCollisionRegisterParameters;
+  [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_RENDER]: PostGridEntityCustomRenderRegisterParameters;
+  [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_UPDATE]: PostGridEntityCustomUpdateRegisterParameters;
   [ModCallbackCustom.POST_GRID_ENTITY_INIT]: PostGridEntityInitRegisterParameters;
   [ModCallbackCustom.POST_GRID_ENTITY_REMOVE]: PostGridEntityRemoveRegisterParameters;
   [ModCallbackCustom.POST_GRID_ENTITY_RENDER]: PostGridEntityRenderRegisterParameters;

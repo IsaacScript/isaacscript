@@ -274,3 +274,28 @@ export function removeCustomGrid(
 
   return decoration;
 }
+
+/**
+ * Helper function to get the custom grid entities in the current room. Returns an array of tuples
+ * containing the raw decoration grid entity and the associated entity data.
+ */
+export function getCustomGridEntities(): Array<
+  [gridEntity: GridEntity, data: CustomGridEntityData]
+> {
+  const roomListIndex = getRoomListIndex();
+  const roomCustomGridEntities = v.level.customGridEntities.get(roomListIndex);
+  if (roomCustomGridEntities === undefined) {
+    return [];
+  }
+
+  const room = game.GetRoom();
+  const customGridEntities: Array<[GridEntity, CustomGridEntityData]> = [];
+  for (const [gridIndex, data] of roomCustomGridEntities.entries()) {
+    const gridEntity = room.GetGridEntity(gridIndex);
+    if (gridEntity !== undefined) {
+      customGridEntities.push([gridEntity, data]);
+    }
+  }
+
+  return customGridEntities;
+}

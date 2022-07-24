@@ -40,6 +40,8 @@ This page lists the changes to the IsaacScript framework.
   - `isPoop` --> `isPoopPickup`
 - Added the following custom callbacks:
   - `POST_PLAYER_INIT_FIRST` (use this for e.g. custom character initialization)
+  - `POST_GRID_ENTITY_UPDATE_CUSTOM`
+  - `POST_GRID_ENTITY_RENDER_CUSTOM`
 - Deleted the following custom callbacks:
   - `POST_PLAYER_INIT_REORDERED` (use `POST_PLAYER_INIT_FIRST` or `POST_GAME_STARTED_REORDERED` instead)
 - Changed the following custom callbacks:

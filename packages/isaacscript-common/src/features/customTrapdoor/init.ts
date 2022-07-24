@@ -21,6 +21,7 @@ import { saveDataManager } from "../saveDataManager/exports";
 import { drawBlackSprite } from "./blackSprite";
 import {
   CUSTOM_TRAPDOOR_FEATURE_NAME,
+  GridEntityTypeCustom,
   PIXELATION_TO_BLACK_FRAMES,
 } from "./customTrapdoorConstants";
 import { checkCustomTrapdoorOpenClose } from "./openClose";
@@ -33,8 +34,9 @@ export function customTrapdoorInit(mod: ModUpgraded): void {
   mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
   mod.AddCallback(ModCallback.POST_PEFFECT_UPDATE, postPEffectUpdate); // 4
   mod.AddCallbackCustom(
-    ModCallbackCustom.POST_GRID_ENTITY_UPDATE,
-    postGridEntityUpdateTrapdoor,
+    ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_UPDATE,
+    postGridEntityCustomUpdateTrapdoor,
+    GridEntityTypeCustom.TRAPDOOR_CUSTOM,
   );
 }
 
@@ -198,9 +200,9 @@ function checkJumpComplete(player: EntityPlayer) {
   }
 }
 
-// ModCallbackCustom.POST_GRID_ENTITY_UPDATE
-// GridEntityType.TRAPDOOR (17)
-function postGridEntityUpdateTrapdoor(gridEntity: GridEntity) {
+// ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_UPDATE
+// GridEntityTypeCustom.TRAPDOOR_CUSTOM
+function postGridEntityCustomUpdateTrapdoor(gridEntity: GridEntity) {
   const roomListIndex = getRoomListIndex();
   const gridIndex = gridEntity.GetGridIndex();
 

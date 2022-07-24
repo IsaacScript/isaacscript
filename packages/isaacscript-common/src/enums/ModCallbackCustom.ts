@@ -336,7 +336,7 @@ export enum ModCallbackCustom {
   POST_GREED_MODE_WAVE,
 
   /**
-   * Fires from the `POST_UPDATE` update when a grid entity changes to a state that corresponds to
+   * Fires from the `POST_UPDATE` callback when a grid entity changes to a state that corresponds to
    * the broken state for the respective grid entity type.
    *
    * When registering the callback, takes an optional second argument that will make the callback
@@ -362,6 +362,38 @@ export enum ModCallbackCustom {
    * ```
    */
   POST_GRID_ENTITY_COLLISION,
+
+  /**
+   * Fires from the `POST_RENDER` callback on every frame that a grid entity created with the
+   * `spawnCustomGridEntity` helper function exists.
+   *
+   * When registering the callback, takes an optional second argument that will make the callback
+   * only fire if it matches the `GridEntityType` provided.
+   *
+   * ```ts
+   * function postGridEntityRenderCustom(
+   *   gridEntity: GridEntity,
+   *   gridEntityTypeCustom: GridEntityType,
+   * ): void {}
+   * ```
+   */
+  POST_GRID_ENTITY_CUSTOM_RENDER,
+
+  /**
+   * Fires from the `POST_UPDATE` callback on every frame that a grid entity created with the
+   * `spawnCustomGridEntity` helper function exists.
+   *
+   * When registering the callback, takes an optional second argument that will make the callback
+   * only fire if it matches the `GridEntityType` provided.
+   *
+   * ```ts
+   * function postGridEntityUpdateCustom(
+   *   gridEntity: GridEntity,
+   *   gridEntityTypeCustom: GridEntityType,
+   * ): void {}
+   * ```
+   */
+  POST_GRID_ENTITY_CUSTOM_UPDATE,
 
   /**
    * Fires when a new grid entity is initialized. Specifically, this is either:

@@ -35,7 +35,6 @@
     "src/features/characterStats.ts",
     "src/features/fadeInRemover.ts",
     "src/features/fastReset.ts",
-    "src/features/extraConsoleCommands/init.ts",
     "src/features/extraConsoleCommands/listCommands.ts",
     "src/features/forgottenSwitch.ts",
     "src/features/pause.ts",

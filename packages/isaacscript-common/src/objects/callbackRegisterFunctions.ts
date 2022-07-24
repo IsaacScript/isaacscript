@@ -23,6 +23,8 @@ import { postGameStartedReorderedRegister } from "../callbacks/subscriptions/pos
 import { postGreedModeWaveRegister } from "../callbacks/subscriptions/postGreedModeWave";
 import { postGridEntityBrokenRegister } from "../callbacks/subscriptions/postGridEntityBroken";
 import { postGridEntityCollisionRegister } from "../callbacks/subscriptions/postGridEntityCollision";
+import { postGridEntityCustomRenderRegister } from "../callbacks/subscriptions/postGridEntityCustomRender";
+import { postGridEntityCustomUpdateRegister } from "../callbacks/subscriptions/postGridEntityCustomUpdate";
 import { postGridEntityInitRegister } from "../callbacks/subscriptions/postGridEntityInit";
 import { postGridEntityRemoveRegister } from "../callbacks/subscriptions/postGridEntityRemove";
 import { postGridEntityRenderRegister } from "../callbacks/subscriptions/postGridEntityRender";
@@ -118,6 +120,10 @@ export const CALLBACK_REGISTER_FUNCTIONS: {
   [ModCallbackCustom.POST_GRID_ENTITY_BROKEN]: postGridEntityBrokenRegister,
   [ModCallbackCustom.POST_GRID_ENTITY_COLLISION]:
     postGridEntityCollisionRegister,
+  [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_RENDER]:
+    postGridEntityCustomRenderRegister,
+  [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_UPDATE]:
+    postGridEntityCustomUpdateRegister,
   [ModCallbackCustom.POST_GRID_ENTITY_INIT]: postGridEntityInitRegister,
   [ModCallbackCustom.POST_GRID_ENTITY_REMOVE]: postGridEntityRemoveRegister,
   [ModCallbackCustom.POST_GRID_ENTITY_RENDER]: postGridEntityRenderRegister,
