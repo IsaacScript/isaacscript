@@ -222,14 +222,6 @@ function addCategoryFile(directoryPath: string) {
 }
 
 function addMarkdownHeader(filePath: string, directoryName: string) {
-  /*
-  const fileName = path.basename(filePath);
-  const fileNameWithoutExtension = fileName.slice(
-    0,
-    fileName.length - ".md".length,
-  );
-  const title = fileNameWithoutExtension;
-  */
   const title = getTitle(filePath, directoryName);
   const header = `
 ---
