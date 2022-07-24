@@ -696,13 +696,6 @@ export enum ModCallbackCustom {
    * This callback is useful because pickups will despawn upon leaving the room and respawn upon
    * re-entering the room.
    *
-   * For most cases, this callback will simply fire when `POST_PICKUP_INIT` fires and the player is
-   * not re-entering a previously visited room.
-   *
-   * The special case is when a player enters a post-Ascent Treasure Room or Boss Room. For these
-   * cases, the `InitSeed` of any pickups seen from previous floors is kept track of to prevent the
-   * callback from firing when re-entering the room.
-   *
    * When registering the callback, takes an optional second argument that will make the callback
    * only fire if the collectible type matches the `PickupVariant` provided.
    *

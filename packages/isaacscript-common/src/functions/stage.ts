@@ -1,4 +1,9 @@
-import { LevelStage, RoomType, StageType } from "isaac-typescript-definitions";
+import {
+  GameStateFlag,
+  LevelStage,
+  RoomType,
+  StageType,
+} from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { ROOM_TYPE_GOTO_PREFIXES } from "../objects/roomTypeGotoPrefixes";
 import { STAGE_TYPE_SUFFIXES } from "../objects/stageTypeSuffixes";
@@ -114,6 +119,10 @@ export function isRepentanceStage(stageType: StageType): boolean {
   return (
     stageType === StageType.REPENTANCE || stageType === StageType.REPENTANCE_B
   );
+}
+
+export function onAscent(): boolean {
+  return game.GetStateFlag(GameStateFlag.BACKWARDS_PATH);
 }
 
 export function onCathedral(): boolean {

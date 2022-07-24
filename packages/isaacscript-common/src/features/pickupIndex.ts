@@ -121,6 +121,14 @@ function trackDespawningPickupMetadata(
     initSeed: entity.InitSeed,
   };
   pickupDescriptions.set(pickupIndex, pickupDescription);
+
+  // If the despawning pickup was in a Treasure Room or Boss Room, then it is possible that the
+  // pickup could re-appear during The Ascent. If this is the case, we store the metadata on a
+  // separate map.
+  /*
+  if (onAscent()) {
+  }
+  */
 }
 
 // ModCallbackCustom.POST_NEW_ROOM_REORDERED

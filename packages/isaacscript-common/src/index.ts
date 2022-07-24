@@ -64,6 +64,7 @@ export {
   getRoomClearGameFrame,
   getRoomClearRoomFrame,
 } from "./features/roomClearFrame";
+export * from "./features/roomHistory";
 export {
   runInNGameFrames,
   runInNRenderFrames,

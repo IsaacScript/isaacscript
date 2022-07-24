@@ -38,6 +38,7 @@ This page lists the changes to the IsaacScript framework.
   - `getPreviousRoomDescription`
   - `getLatestRoomDescription`
   - `getPickupIndex`
+  - `onAscent`
 - Renamed the following helper functions:
   - `spawnCustomGrid` --> `spawnCustomGridEntity`
   - `isBomb` --> `isBombPickup`

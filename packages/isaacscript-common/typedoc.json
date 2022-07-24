@@ -45,6 +45,7 @@
     "src/features/preventCollectibleRotation.ts",
     "src/features/registerHotkey.ts",
     "src/features/roomClearFrame.ts",
+    "src/features/roomHistory.ts",
     "src/features/runInNFrames.ts",
     "src/features/runNextRoom.ts",
     "src/features/saveDataManager/exports.ts",
