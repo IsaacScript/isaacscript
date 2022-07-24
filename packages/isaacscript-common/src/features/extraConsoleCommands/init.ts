@@ -13,8 +13,8 @@ import { getMapPartialMatch } from "../../functions/map";
 import { printConsole } from "../../functions/utils";
 import { debugDisplayInit } from "../debugDisplay/debugDisplay";
 import { saveDataManager } from "../saveDataManager/exports";
+import * as commands from "./commands";
 import * as commandsDisplay from "./commandsDisplay";
-import * as commands from "./listCommands";
 import v, { extraConsoleCommandsFunctionMap } from "./v";
 
 export function extraConsoleCommandsInit(mod: ModUpgraded): void {
