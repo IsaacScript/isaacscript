@@ -46,9 +46,9 @@ After five years of programming Isaac mods in Lua, I got frustrated enough to ta
 
 ### <img src="/img/items/clockwork-assembly.png" className="features-icon" /> Automatic Mod Reloading
 
-- Never close and reopen your game again when working on your mods.
-- Never type the `luamod` console command again.
-- If you use `require` hacks to get around the limitations of `include`, don't bother - that isn't needed here.
+- Never close and reopen your game again when working on your mods. Never type the `luamod` console command again.
+- With the IsaacScript watcher, as soon as you press `Ctrl + s` to save a file, you can instantly view the changes in-game without having to do anything else.
+- If you use `require` hacks to get around the limitations of `include` + `luamod`, don't bother - that isn't needed here.
 
 ### <img src="/img/items/humbling-bundle.png" className="features-icon" /> Extra Enums
 
