@@ -7,6 +7,7 @@ import {
 } from "isaac-typescript-definitions";
 import { VectorZero } from "../../constants";
 import { StageTravelState } from "../../enums/private/StageTravelState";
+import { easeOutSine } from "../../functions/easing";
 import {
   getAllPlayers,
   getOtherPlayers,
@@ -80,10 +81,8 @@ function playerTouchedCustomTrapdoor(
   v.run.state = StageTravelState.PLAYERS_JUMPING_DOWN;
   v.run.destination = trapdoorDescription.destination;
 
-  disableAllInputsExceptFor(
-    CUSTOM_TRAPDOOR_FEATURE_NAME,
-    new Set([ButtonAction.CONSOLE]),
-  );
+  const whitelist = new Set([ButtonAction.CONSOLE]);
+  disableAllInputsExceptFor(CUSTOM_TRAPDOOR_FEATURE_NAME, whitelist);
   setPlayerAttributes(player, gridEntity.Position);
   dropTaintedForgotten(player);
 
@@ -150,6 +149,10 @@ function adjustPlayerPositionToTrapdoor(
   startPos: Vector,
   endPos: Vector,
 ) {
+  if (v.run.state !== StageTravelState.PLAYERS_JUMPING_DOWN) {
+    return;
+  }
+
   const entity = entityPtr.Ref;
   if (entity === undefined) {
     return;
@@ -159,6 +162,10 @@ function adjustPlayerPositionToTrapdoor(
   if (player === undefined) {
     return;
   }
+
+  runNextRenderFrame(() => {
+    adjustPlayerPositionToTrapdoor(entityPtr, startPos, endPos);
+  });
 
   const sprite = player.GetSprite();
   if (sprite.IsFinished("Trapdoor")) {
@@ -175,17 +182,14 @@ function adjustPlayerPositionToTrapdoor(
     return;
   }
 
+  // Make the player jump towards the trapdoor. We use an easing function so that the distance
+  // traveled is not linear, emulating what the game does.
   const totalDifference = endPos.sub(startPos);
-  const differencePerFrame = totalDifference.div(
-    OTHER_PLAYER_TRAPDOOR_JUMP_DURATION_GAME_FRAMES,
-  );
-  const differenceForThisFrame = differencePerFrame.mul(frame + 1);
+  const progress = frame / OTHER_PLAYER_TRAPDOOR_JUMP_DURATION_GAME_FRAMES;
+  const easeProgress = easeOutSine(progress);
+  const differenceForThisFrame = totalDifference.mul(easeProgress);
   const targetPosition = startPos.add(differenceForThisFrame);
 
   player.Position = targetPosition;
   player.Velocity = VectorZero;
-
-  runNextRenderFrame(() => {
-    adjustPlayerPositionToTrapdoor(entityPtr, startPos, endPos);
-  });
 }

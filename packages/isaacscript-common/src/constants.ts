@@ -2,12 +2,10 @@ import {
   CollectibleType,
   Dimension,
   ItemPoolType,
-  LevelStage,
-  RoomType,
   TrinketSlot,
 } from "isaac-typescript-definitions";
 import { NUM_NORMAL_PILL_COLORS } from "./constantsFirstLast";
-import { getEnumLength, getLastEnumValue } from "./functions/enums";
+import { getEnumLength } from "./functions/enums";
 
 /**
  * The distance of the laser when Azazel does not have any range up items yet. For more info, see
@@ -112,9 +110,6 @@ export const MIN_PLAYER_SHOT_SPEED_STAT = 0.6;
 /** If you set `EntityPlayer.Speed` lower than this value, it will have no effect. */
 export const MIN_PLAYER_SPEED_STAT = 0.1;
 
-export const FIRST_ROOM_TYPE = RoomType.DEFAULT;
-export const LAST_ROOM_TYPE = getLastEnumValue(RoomType);
-
 /**
  * The maximum speed stat that a player can have. Any additional speed beyond this will not take
  * effect.
@@ -132,9 +127,6 @@ export const NEW_FLOOR_STARTING_POSITION_GREED_MODE = Vector(320, 280);
  * (like they do when getting to a new stage) so that the controls graphic is more visible.
  */
 export const NEW_RUN_PLAYER_STARTING_POSITION = Vector(320, 380);
-
-export const FIRST_STAGE = LevelStage.BASEMENT_1;
-export const LAST_STAGE = getLastEnumValue(LevelStage);
 
 /** Corresponds to the maximum value for `EntityPlayer.SamsonBerserkCharge`. */
 export const MAX_TAINTED_SAMSON_BERSERK_CHARGE = 100000;

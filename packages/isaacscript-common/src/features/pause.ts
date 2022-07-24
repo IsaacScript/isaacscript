@@ -179,6 +179,10 @@ export function unpause(): void {
     player.ControlsEnabled = true;
   }
 
+  // After a vanilla pause, the tears will not resume their normal velocity and will "stick" to the
+  // air. Even if we try to help the tears along by explicitly resetting all of the velocity-related
+  // variables to their initial values, this will not make a difference. Thus, revert to removing
+  // all of the tears and projectiles in the room.
   removeAllTears();
   removeAllProjectiles();
 }

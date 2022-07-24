@@ -6,7 +6,7 @@ import {
 } from "../constants";
 import { getPlayerFamiliars } from "./familiars";
 import { getCircleDiscretizedPoints } from "./math";
-import { getPlayers } from "./playerIndex";
+import { getAllPlayers } from "./playerIndex";
 
 const CIRCLE_RADIUS_BETWEEN_PLAYERS = 50;
 
@@ -25,7 +25,7 @@ export function movePlayersToCenter(): void {
     ? NEW_FLOOR_STARTING_POSITION_GREED_MODE
     : NEW_FLOOR_STARTING_POSITION_NORMAL_MODE;
 
-  const players = getPlayers();
+  const players = getAllPlayers();
   const firstPlayer = players[0];
   if (firstPlayer === undefined) {
     return;

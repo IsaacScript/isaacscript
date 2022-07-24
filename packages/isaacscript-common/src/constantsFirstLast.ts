@@ -1,9 +1,11 @@
 import {
   Card,
   CollectibleType,
+  LevelStage,
   PillColor,
   PillEffect,
   PlayerType,
+  RoomType,
   TrinketType,
 } from "isaac-typescript-definitions";
 import { itemConfig } from "./cachedClasses";
@@ -208,3 +210,17 @@ export const LAST_VANILLA_CHARACTER = getLastEnumValue(PlayerType);
  */
 export const FIRST_MODDED_CHARACTER = ((LAST_VANILLA_CHARACTER as int) +
   1) as PlayerType;
+
+// ----------
+// Room Types
+// ----------
+
+export const FIRST_ROOM_TYPE = RoomType.DEFAULT;
+export const LAST_ROOM_TYPE = getLastEnumValue(RoomType);
+
+// ------
+// Stages
+// ------
+
+export const FIRST_STAGE = LevelStage.BASEMENT_1;
+export const LAST_STAGE = getLastEnumValue(LevelStage);

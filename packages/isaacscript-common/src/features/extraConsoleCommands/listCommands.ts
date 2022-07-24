@@ -33,19 +33,17 @@ import {
   TrinketType,
 } from "isaac-typescript-definitions";
 import { game, sfxManager } from "../../cachedClasses";
-import {
-  FIRST_ROOM_TYPE,
-  FIRST_STAGE,
-  LAST_ROOM_TYPE,
-  LAST_STAGE,
-  MAX_LEVEL_GRID_INDEX,
-} from "../../constants";
+import { MAX_LEVEL_GRID_INDEX } from "../../constants";
 import {
   FIRST_CARD,
   FIRST_CHARACTER,
   FIRST_PILL_EFFECT,
+  FIRST_ROOM_TYPE,
+  FIRST_STAGE,
   LAST_CARD,
   LAST_PILL_EFFECT,
+  LAST_ROOM_TYPE,
+  LAST_STAGE,
   LAST_VANILLA_CHARACTER,
 } from "../../constantsFirstLast";
 import { HealthType } from "../../enums/HealthType";
