@@ -1,11 +1,24 @@
-// We use TypeDoc to generate documentation from the source code and we use the
-// `typedoc-plugin-markdown` plugin to output it as Markdown instead of HTML.
+// Like many open source projects, we use Docusaurus to generate a really nice looking webpage that
+// contains hand-written documentation. Additionally, we want to leverage TypeDoc for automatic API
+// documentation generation. However, TypeDoc generates a webpage that looks entirely different from
+// how the Docusaurus site looks. (And it looks much worse.) In order to get the best end-user
+// experience, we want to combine the non-auto-generated documentation together with the
+// auto-generated documentation so that everything is in one place.
 
-// However, TypeDoc will output the content in an unsatisfactory way, with all of the modules in the
-// same directory, and other imperfections. Thus, we manually reorganize the Markdown output.
+// The normal way to accomplish this is to use `docusaurus-plugin-typedoc`. Since it is a Docusaurus
+// plugin, it invokes TypeDoc for you under the hood, and converts the normal TypeDoc website into
+// Markdown using `typedoc-plugin-markdown`. This helpfully abstracts some of the complexity away.
+
+// Unfortunately, by default, the resulting webpage from `docusaurus-plugin-typedoc` is
+// unsatisfactory, with all of the modules in the same directory, and other imperfections.
+
+// To work around this problem, we can invoke TypeDoc using `typedoc-plugin-markdown` ourselves.
+// Then, we can use a script to manually mutate the Markdown files in specific ways. (This is the
+// point of the following script.) After that, we feed the "fixed" Markdown content to Docusaurus,
+// alongside the non-auto-generated documentation, generating the entire site at once.
 
 // One disadvantage of this method is that since we are manually moving the paths, all of the links
-// will break, so we must also manually adjust all of the links.
+// will break. Thus, we must also manually adjust all of the links.
 
 // In order for this script to work correctly, several options must be used to configure TypeDoc and
 // `typedoc-plugin-markdown`; see "typedoc.json".
