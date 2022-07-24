@@ -1,12 +1,19 @@
+// This file is arbitrarily named "listCommands.ts" instead of "commands.ts" so that it will appear
+// below "exports.ts".
+
 // cspell:ignore addcharges
 /**
  * This is a list of custom console commands that are included with the standard library.
  *
- * Note that as a quality of life feature, you do not have to match the casing of the command. For
- * example, you can type the "addCharges" command as "addcharges", and it will still work the same.
+ * As a quality of life feature, you do not have to match the casing of the command. For example,
+ * you can type the "addCharges" command as "addcharges", and it will still work the same.
  *
  * In order for the custom console commands to work, you first have to call
  * `enableExtraConsoleCommands`. (See the "Extra Console Commands (Init)" page for more details.)
+ *
+ * Each command has a corresponding function of the same name, but these functions are not actually
+ * exported for end-user consumption (in order to cut down on namespace conflicts and because the
+ * names of the functions are not very descriptive).
  *
  * @module
  */
