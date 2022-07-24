@@ -1,4 +1,8 @@
-import { EntityType, ModCallback } from "isaac-typescript-definitions";
+import {
+  EntityType,
+  ModCallback,
+  RoomType,
+} from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { DefaultMap } from "../classes/DefaultMap";
 import { ModUpgraded } from "../classes/ModUpgraded";
@@ -7,6 +11,7 @@ import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { getEntityID } from "../functions/entities";
 import { getPickups } from "../functions/entitiesSpecific";
 import { getRoomListIndex } from "../functions/roomData";
+import { onAscent } from "../functions/stage";
 import { vectorEquals } from "../functions/vector";
 import { PickupIndex } from "../types/PickupIndex";
 import { getLatestRoomDescription } from "./roomHistory";
@@ -23,6 +28,9 @@ const v = {
   run: {
     pickupCounter: 0 as PickupIndex,
     currentRoomListIndex: 0,
+
+    pickupDataTreasureRooms: new Map<PickupIndex, PickupDescription>(),
+    pickupDataBossRooms: new Map<PickupIndex, PickupDescription>(),
   },
 
   level: {
@@ -125,10 +133,26 @@ function trackDespawningPickupMetadata(
   // If the despawning pickup was in a Treasure Room or Boss Room, then it is possible that the
   // pickup could re-appear during The Ascent. If this is the case, we store the metadata on a
   // separate map.
-  /*
   if (onAscent()) {
+    return;
   }
-  */
+
+  const room = game.GetRoom();
+  const roomType = room.GetType();
+
+  switch (roomType) {
+    case RoomType.TREASURE: {
+      break;
+    }
+
+    case RoomType.BOSS: {
+      break;
+    }
+
+    default: {
+      break;
+    }
+  }
 }
 
 // ModCallbackCustom.POST_NEW_ROOM_REORDERED

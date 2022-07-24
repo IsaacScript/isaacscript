@@ -145,6 +145,7 @@
     "src/interfaces/JSONRoomsFile.ts",
     "src/interfaces/PlayerHealth.ts",
     "src/interfaces/PocketItemDescription.ts",
+    "src/interfaces/RoomDescription.ts",
     "src/interfaces/SaveData.ts",
     "src/interfaces/TrinketSituation.ts",
     "src/maps/cardMap.ts",
