@@ -1,4 +1,3 @@
-- pickup index
 - custom bosses for vanilla stages
 
 - Slaughterhouse I and II
