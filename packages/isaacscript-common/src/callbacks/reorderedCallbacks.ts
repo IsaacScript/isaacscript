@@ -61,7 +61,7 @@ function hasSubscriptions() {
 // CollectibleType.GLOWING_HOUR_GLASS (422)
 function useItemGlowingHourGlass(): boolean | undefined {
   // If Glowing Hour Glass is used on the first room of a floor, it will send the player to the
-  // previous floor without triggering the PostNewLevel callback. Manually check for this.
+  // previous floor without triggering the `POST_NEW_LEVEL` callback. Manually check for this.
   usedGlowingHourGlass = true;
 
   return undefined;
@@ -88,7 +88,7 @@ function postNewLevelVanilla() {
   const gameFrameCount = game.GetFrameCount();
 
   if (gameFrameCount === 0 && !forceNewLevel) {
-    // Wait for the PostGameStarted callback to fire.
+    // Wait for the `POST_GAME_STARTED` callback to fire.
     return;
   }
   forceNewLevel = false;
@@ -114,7 +114,8 @@ function postNewRoomVanilla() {
 
     if (currentStage !== stage || currentStageType !== stageType) {
       // The player has used the Glowing Hour Glass to take them to the previous floor (which does
-      // not trigger the PostNewLevel callback). Emulate what happens in the PostNewLevel callback.
+      // not trigger the `POST_NEW_LEVEL` callback). Emulate what happens in the `POST_NEW_LEVEL`
+      // callback.
       recordCurrentStage();
       postNewLevelReorderedFire();
       postNewRoomReorderedFire();
@@ -149,9 +150,9 @@ function recordCurrentStage() {
  * callback.
  *
  * If some specific cases, mods can change the current level during run initialization on the 0th
- * frame. However, due to how the callback reordering works, the custom PostNewLevel callback will
- * never fire on the 0th frame. To get around this, call this function before changing levels to
- * temporarily force the callback to fire.
+ * frame. However, due to how the callback reordering works, the custom `POST_NEW_LEVEL` callback
+ * will never fire on the 0th frame. To get around this, call this function before changing levels
+ * to temporarily force the callback to fire.
  */
 export function forceNewLevelCallback(): void {
   forceNewLevel = true;
@@ -162,8 +163,8 @@ export function forceNewLevelCallback(): void {
  * callback.
  *
  * If some specific cases, mods can change the current room during run initialization on the 0th
- * frame. However, due to how the callback reordering works, the custom PostNewRoom callback will
- * never fire on the 0th frame. To get around this, call this function before changing rooms to
+ * frame. However, due to how the callback reordering works, the custom `POST_NEW_ROOM` callback
+ * will never fire on the 0th frame. To get around this, call this function before changing rooms to
  * temporarily force the callback to fire.
  */
 export function forceNewRoomCallback(): void {

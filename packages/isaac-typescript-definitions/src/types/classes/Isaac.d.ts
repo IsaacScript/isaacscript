@@ -96,7 +96,7 @@ declare global {
 
     /**
      * Beware:
-     * - This function does not work in the PostNewRoom callback.
+     * - This function does not work in the `POST_NEW_ROOM` callback.
      * - It excludes effects, even when the effect partition is selected.
      * - It can exclude dead enemies.
      *

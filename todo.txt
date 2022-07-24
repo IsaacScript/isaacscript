@@ -1,6 +1,5 @@
 - pickup index
 - custom bosses for vanilla stages
-- breakable custom grid entities
 
 - Slaughterhouse I and II
 
@@ -21,4 +20,4 @@ lint failure:
   Load(anm2: string, loadGraphics: boolean): void;
 
 
-- prefer implicit loops for arrays, maps, etc.
+- prefer implicit loops for arrays, maps, etc. - not implicit, but "default iterator"?

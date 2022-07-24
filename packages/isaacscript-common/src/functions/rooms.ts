@@ -566,9 +566,9 @@ export function roomGridIndexToXY(roomGridIndex: int): [x: int, y: int] {
 }
 
 /**
- * If the `Room.Update` method is called in a PostNewRoom callback, then some entities will slide
- * around (such as the player). Since those entity velocities are already at zero, setting them to
- * zero will have no effect. Thus, a generic solution is to record all of the entity
+ * If the `Room.Update` method is called in a `POST_NEW_ROOM` callback, then some entities will
+ * slide around (such as the player). Since those entity velocities are already at zero, setting
+ * them to zero will have no effect. Thus, a generic solution is to record all of the entity
  * positions/velocities before updating the room, and then restore those positions/velocities.
  */
 export function roomUpdateSafe(): void {
@@ -585,9 +585,9 @@ export function roomUpdateSafe(): void {
 }
 
 /**
- * Helper function to convert an uncleared room to a cleared room in the PostNewRoom callback. This
- * is useful because if enemies are removed in this callback, a room drop will be awarded and the
- * doors will start closed and then open.
+ * Helper function to convert an uncleared room to a cleared room in the `POST_NEW_ROOM` callback.
+ * This is useful because if enemies are removed in this callback, a room drop will be awarded and
+ * the doors will start closed and then open.
  */
 export function setRoomCleared(): void {
   const room = game.GetRoom();

@@ -39,6 +39,7 @@
     "src/features/forgottenSwitch.ts",
     "src/features/pause.ts",
     "src/features/persistentEntities.ts",
+    "src/features/pickupIndex.ts",
     "src/features/playerInventory.ts",
     "src/features/ponyDetection.ts",
     "src/features/preventCollectibleRotation.ts",

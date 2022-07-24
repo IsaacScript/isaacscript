@@ -77,9 +77,9 @@ declare global {
     /**
      * The number of times that the room has been visited.
      *
-     * This will be inaccurate during the period before the PostNewRoom callback has fired (i.e.
+     * This will be inaccurate during the period before the `POST_NEW_ROOM` callback has fired (i.e.
      * when entities are initializing and performing their first update). This is because this
-     * variable is only incremented immediately before the PostNewRoom callback fires.
+     * variable is only incremented immediately before the `POST_NEW_ROOM` callback fires.
      */
     VisitedCount: int;
 

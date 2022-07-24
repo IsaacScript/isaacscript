@@ -58,7 +58,7 @@ function postPEffectUpdate(player: EntityPlayer) {
   if (v.run.postGameStartedFiredOnThisRun) {
     postPEffectUpdateReorderedFire(player);
   } else {
-    // Defer callback execution until the PostGameStarted callback fires.
+    // Defer callback execution until the `POST_GAME_STARTED` callback fires.
     const playerIndex = getPlayerIndex(player);
     v.run.postPEffectUpdateQueue.push(playerIndex);
   }
@@ -73,7 +73,7 @@ function postPlayerUpdate(player: EntityPlayer) {
   if (v.run.postGameStartedFiredOnThisRun) {
     postPlayerUpdateReorderedFire(player);
   } else {
-    // Defer callback execution until the PostGameStarted callback fires.
+    // Defer callback execution until the `POST_GAME_STARTED` callback fires.
     const playerIndex = getPlayerIndex(player);
     v.run.postPlayerUpdateQueue.push(playerIndex);
   }
@@ -88,7 +88,7 @@ function postPlayerRender(player: EntityPlayer) {
   if (v.run.postGameStartedFiredOnThisRun) {
     postPlayerRenderReorderedFire(player);
   } else {
-    // Defer callback execution until the PostGameStarted callback fires.
+    // Defer callback execution until the `POST_GAME_STARTED` callback fires.
     const playerIndex = getPlayerIndex(player);
     v.run.postPlayerRenderQueue.push(playerIndex);
   }

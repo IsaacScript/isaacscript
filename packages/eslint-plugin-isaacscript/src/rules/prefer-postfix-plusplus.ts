@@ -11,8 +11,8 @@ export const preferPostfixPlusplus = createRule({
     },
     schema: [],
     messages: {
-      plusPlus: "Foo must be bar.",
-      minusMinus: "Foo must be bar.",
+      plusPlus: 'You must use postfix "++" instead of prefix "++".',
+      minusMinus: 'You must use postfix "--" instead of prefix "--".',
     },
   },
   defaultOptions: [],

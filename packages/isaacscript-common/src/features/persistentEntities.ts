@@ -3,12 +3,12 @@ import {
   EntityType,
   ModCallback,
 } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { spawn } from "../functions/entities";
 import { getRoomListIndex } from "../functions/roomData";
+import { getLatestRoomDescription } from "./roomHistory";
 import { saveDataManager } from "./saveDataManager/exports";
 
 interface PersistentEntityDescription {
@@ -64,18 +64,19 @@ function postEntityRemove(entity: Entity) {
   const index = tuple[0];
 
   // The persistent entity is despawning, presumably because the player is in the process of leaving
-  // the room. Keep track of the position for later. We use the previous room list index because at
-  // this point, the PostNewRoom callback has already fired and we are in a new room.
-  const level = game.GetLevel();
-  const previousRoomGridIndex = level.GetPreviousRoomIndex();
-  const previousRoomListIndex = getRoomListIndex(previousRoomGridIndex);
-  v.level.persistentEntities.set(index, {
+  // the room. Keep track of the position for later. We use the previous room list index because
+  // even though the `POST_NEW_ROOM` callback was not fired yet, we have already traveled to the
+  // next room.
+  const previousRoomDescription = getLatestRoomDescription();
+  const previousRoomListIndex = previousRoomDescription.roomListIndex;
+  const persistentEntityDescription: PersistentEntityDescription = {
     entityType: entity.Type,
     variant: entity.Variant,
     subType: entity.SubType,
     roomListIndex: previousRoomListIndex,
     position: entity.Position,
-  });
+  };
+  v.level.persistentEntities.set(index, persistentEntityDescription);
 }
 
 // ModCallbackCustom.POST_NEW_ROOM_REORDERED

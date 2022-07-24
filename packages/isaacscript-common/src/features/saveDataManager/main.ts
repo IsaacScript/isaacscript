@@ -65,8 +65,8 @@ function postPlayerInit() {
     restoreDefaultsAll();
   }
 
-  // On continued runs, the PostNewLevel callback will not fire, so we do not have to worry about
-  // saved data based on level getting overwritten.
+  // On continued runs, the `POST_NEW_LEVEL` callback will not fire, so we do not have to worry
+  // about saved data based on level getting overwritten.
 }
 
 // ModCallback.PRE_GAME_EXIT (17)

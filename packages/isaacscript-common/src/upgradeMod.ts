@@ -39,7 +39,8 @@ export function upgradeMod(modVanilla: Mod): ModUpgraded {
     patchErrorFunction();
     loadShaderCrashFix(modVanilla);
 
-    // We initialize the PostNewRoomEarly callback first since it is used by the save data manager.
+    // We initialize the `POST_NEW_ROOM_EARLY` callback first since it is used by the save data
+    // manager.
     postNewRoomEarlyCallbackInit(mod);
 
     // We initialized the save data manager second since it is used by the other custom callbacks

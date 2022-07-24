@@ -225,7 +225,7 @@ function respawnPersistentEntities() {
  * Specifically, this will clear the current room of all entities and grid entities, and then spawn
  * all of the entries and grid entities in the provided JSON room.
  *
- * This function is meant to be used in the PostNewRoom callback.
+ * This function is meant to be used in the `POST_NEW_ROOM` callback.
  *
  * For example:
  *
@@ -277,7 +277,7 @@ export function deployJSONRoom(
  * Specifically, this will clear the current room of all entities and grid entities, and then spawn
  * all of the entries and grid entities in one of the provided JSON rooms.
  *
- * This function is meant to be used in the PostNewRoom callback.
+ * This function is meant to be used in the `POST_NEW_ROOM` callback.
  *
  * Note that this function does not simply choose a random element in the provided array; it will
  * properly account for each room weight using the algorithm from:
@@ -355,8 +355,8 @@ export function emptyRoom(fillWithDecorations: boolean): void {
 }
 
 /**
- * We remove entities in the PostNewRoom callback instead of in the PreRoomEntitySpawn callback so
- * that they will not re-appear when we re-enter the room.
+ * We remove entities in the `POST_NEW_ROOM` callback instead of in the PreRoomEntitySpawn callback
+ * so that they will not re-appear when we re-enter the room.
  */
 function removeSpecificNPCs() {
   const room = game.GetRoom();

@@ -52,6 +52,7 @@ export {
   removePersistentEntity,
   spawnPersistentEntity,
 } from "./features/persistentEntities";
+export * from "./features/pickupIndex";
 export { getPlayerInventory } from "./features/playerInventory";
 export {
   anyPlayerUsingPony,

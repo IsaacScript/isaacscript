@@ -1,5 +1,5 @@
 /**
- * CollectibleIndex is a specific type of string; see the documentation for the
+ * `CollectibleIndex` is a specific type of string; see the documentation for the
  * `getCollectibleIndex` function. Mods can signify that data structures handle collectibles by
  * using this type.
  *

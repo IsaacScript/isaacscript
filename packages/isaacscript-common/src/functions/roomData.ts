@@ -187,9 +187,10 @@ export function getRoomVariant(roomGridIndex?: int): int {
 }
 
 /**
- * Note that the room visited count will be inaccurate during the period before the PostNewRoom
+ * Note that the room visited count will be inaccurate during the period before the `POST_NEW_ROOM`
  * callback has fired (i.e. when entities are initializing and performing their first update). This
- * is because the variable is only incremented immediately before the PostNewRoom callback fires.
+ * is because the variable is only incremented immediately before the `POST_NEW_ROOM` callback
+ * fires.
  *
  * @param roomGridIndex Optional. Default is the current room index.
  */

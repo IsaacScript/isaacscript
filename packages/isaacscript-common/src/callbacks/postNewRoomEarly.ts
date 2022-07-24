@@ -67,7 +67,7 @@ function checkRoomChanged() {
     topLeftWall = spawnGridEntity(GridEntityType.WALL, topLeftWallGridIndex);
     if (topLeftWall === undefined) {
       logError(
-        "Failed to spawn a new wall (1) for the PostNewRoomEarly callback.",
+        "Failed to spawn a new wall (1) for the POST_NEW_ROOM_EARLY callback.",
       );
       return;
     }
@@ -82,7 +82,7 @@ function checkRoomChanged() {
     );
     if (topLeftWall2 === undefined) {
       logError(
-        "Failed to spawn a new wall (2) for the PostNewRoomEarly callback.",
+        "Failed to spawn a new wall (2) for the POST_NEW_ROOM_EARLY callback.",
       );
       return;
     }

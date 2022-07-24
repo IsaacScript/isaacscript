@@ -34,6 +34,9 @@ This page lists the changes to the IsaacScript framework.
   - `isRock`
   - `isSpikes`
   - `isTNT`
+  - `getRoomHistory`
+  - `getPreviousRoomDescription`
+  - `getLatestRoomDescription`
 - Renamed the following helper functions:
   - `spawnCustomGrid` --> `spawnCustomGridEntity`
   - `isBomb` --> `isBombPickup`
