@@ -29,6 +29,8 @@ function postPickupInit(pickup: EntityPickup) {
     return;
   }
 
+  // The room visited count is not reset when re-entering a Treasure Room or Boss room in the
+  // Ascent.
   const roomVisitedCount = getRoomVisitedCount();
   if (roomVisitedCount > 0) {
     return;
