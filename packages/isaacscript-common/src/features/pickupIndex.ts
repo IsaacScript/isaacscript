@@ -132,7 +132,7 @@ function trackDespawningPickupMetadata(
 
   // If the despawning pickup was in a Treasure Room or Boss Room, then it is possible that the
   // pickup could re-appear during The Ascent. If this is the case, we store the metadata on a
-  // separate map.
+  // separate map to reference later.
   if (onAscent()) {
     return;
   }
@@ -142,10 +142,12 @@ function trackDespawningPickupMetadata(
 
   switch (roomType) {
     case RoomType.TREASURE: {
+      v.run.pickupDataTreasureRooms.set(pickupIndex, pickupDescription);
       break;
     }
 
     case RoomType.BOSS: {
+      v.run.pickupDataBossRooms.set(pickupIndex, pickupDescription);
       break;
     }
 
@@ -168,7 +170,18 @@ function postNewRoomReordered() {
   const pickupDescriptions = v.level.pickupData.getAndSetDefault(roomListIndex);
 
   for (const pickup of getPickups()) {
-    const pickupIndex = getStoredPickupIndex(pickup, pickupDescriptions);
+    let pickupIndex = getStoredPickupIndex(pickup, pickupDescriptions);
+    if (pickupIndex === undefined) {
+      pickupIndex = getPostAscentPickupIndex(pickup);
+    }
+
+    if (pickupIndex === undefined) {
+      const entityID = getEntityID(pickup);
+      error(
+        `Failed to find a pickup index corresponding to existing pickup: ${entityID}`,
+      );
+    }
+
     const ptrHash = GetPtrHash(pickup);
     v.room.pickupIndexes.set(ptrHash, pickupIndex);
   }
@@ -177,7 +190,7 @@ function postNewRoomReordered() {
 function getStoredPickupIndex(
   pickup: Entity,
   pickupDescriptions: Map<PickupIndex, PickupDescription>,
-): PickupIndex {
+): PickupIndex | undefined {
   for (const [pickupIndex, pickupDescription] of pickupDescriptions.entries()) {
     if (
       vectorEquals(pickupDescription.position, pickup.Position) &&
@@ -187,10 +200,32 @@ function getStoredPickupIndex(
     }
   }
 
-  const entityID = getEntityID(pickup);
-  error(
-    `Failed to find a pickup index corresponding to existing pickup: ${entityID}`,
-  );
+  return undefined;
+}
+
+function getPostAscentPickupIndex(pickup: EntityPickup) {
+  // If we have not found the pickup index yet, we might be re-entering a post-Ascent Treasure Room
+  // or Boss Room.
+  if (!onAscent()) {
+    return undefined;
+  }
+
+  const room = game.GetRoom();
+  const roomType = room.GetType();
+
+  switch (roomType) {
+    case RoomType.TREASURE: {
+      return getStoredPickupIndex(pickup, v.run.pickupDataTreasureRooms);
+    }
+
+    case RoomType.BOSS: {
+      return getStoredPickupIndex(pickup, v.run.pickupDataBossRooms);
+    }
+
+    default: {
+      return undefined;
+    }
+  }
 }
 
 /**
