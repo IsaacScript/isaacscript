@@ -8,6 +8,9 @@
  * As a quality of life feature, you do not have to match the casing of the command. For example,
  * you can type the "addCharges" command as "addcharges", and it will still work the same.
  *
+ * Additionally, you can also abbreviate any command by omitting letters that do not overlap with
+ * any other command. For example, the command of "c" will be interpreted as the "card" command.
+ *
  * In order for the custom console commands to work, you first have to call
  * `enableExtraConsoleCommands`. (See the "Extra Console Commands (Init)" page for more details.)
  *
@@ -155,7 +158,7 @@ export function addCharges(params: string): void {
  * Warps to the Angel Room for the floor. If the Devil Room has already been visited or initialized,
  * this will uninitialize it and make an Angel Room instead.
  */
-export function angel(): void {
+export function angelRoom(): void {
   devilAngel(false);
 }
 
@@ -280,7 +283,7 @@ export function boneHearts(params: string): void {
 }
 
 /** Warps to the first Boss Room on the floor. */
-export function boss(): void {
+export function bossRoom(): void {
   warpToRoomType(RoomType.BOSS);
 }
 
@@ -477,14 +480,14 @@ export function damage(): void {
 
 /** Alias for the "devil" command. */
 export function dd(): void {
-  devil();
+  devilRoom();
 }
 
 /**
  * Warps to the Devil Room for the floor. If the Angel Room has already been visited or initialized,
  * this will uninitialize it and make an Devil Room instead.
  */
-export function devil(): void {
+export function devilRoom(): void {
   devilAngel(true);
 }
 
@@ -504,7 +507,7 @@ export function down(params: string): void {
   movePlayer(params, Direction.DOWN);
 }
 
-/** Warps to the Dungeon (i.e. crawl space) for the floor. */
+/** Warps to the Dungeon (i.e. the crawl space room) for the floor. */
 export function dungeon(): void {
   changeRoom(GridRoom.DUNGEON);
 }
@@ -522,8 +525,8 @@ export function eh(params: string): void {
 }
 
 /** Alias for the "iAmError" command. */
-export function error(): void {
-  iAmError();
+export function errorRoom(): void {
+  iAmErrorRoom();
 }
 
 /**
@@ -667,11 +670,6 @@ export function gridEntities(): void {
   }
 }
 
-/** Alias for the "hearts" command. */
-export function h(params: string): void {
-  hearts(params);
-}
-
 /**
  * Gives a half red heart. Provide a number to give a custom amount of hearts. (You can use negative
  * numbers to remove hearts.)
@@ -686,7 +684,7 @@ export function hitboxes(): void {
 }
 
 /** Warps to the I AM ERROR room for the floor. */
-export function iAmError(): void {
+export function iAmErrorRoom(): void {
   changeRoom(GridRoom.ERROR);
 }
 
@@ -818,11 +816,6 @@ export function map(): void {
  */
 export function maxHearts(params: string): void {
   addHeart(params, HealthType.MAX_HEARTS);
-}
-
-/** Alias for the "maxHearts" command. */
-export function mh(params: string): void {
-  maxHearts(params);
 }
 
 /** Warps to the first Miniboss Room on the floor. */
@@ -968,11 +961,6 @@ export function redHearts(params: string): void {
   hearts(params);
 }
 
-/** Alias for the "redHearts" command. */
-export function rh(params: string): void {
-  redHearts(params);
-}
-
 /** Moves the player 0.5 units right. Provide a number to move a custom amount of units. */
 export function right(params: string): void {
   movePlayer(params, Direction.RIGHT);
@@ -1052,12 +1040,12 @@ export function s(params: string): void {
 }
 
 /** Warps to the first Sacrifice Room on the floor. */
-export function sacrifice(): void {
+export function sacrificeRoom(): void {
   warpToRoomType(RoomType.SACRIFICE);
 }
 
 /** Warps to the first Secret Room on the floor. */
-export function secret(): void {
+export function secretRoom(): void {
   warpToRoomType(RoomType.SECRET);
 }
 
@@ -1162,11 +1150,6 @@ export function setPosition(params: string): void {
   const player = Isaac.GetPlayer();
   const position = Vector(x, y);
   player.Position = position;
-}
-
-/** Alias for the "soulHearts" command. */
-export function sh(params: string): void {
-  soulHearts(params);
 }
 
 /** Warps to the first shop on the floor. */
@@ -1284,8 +1267,13 @@ export function startingRoom(): void {
   changeRoom(startingRoomIndex);
 }
 
+/** Alias for the "startingRoom" command. */
+export function startRoom(): void {
+  startingRoom();
+}
+
 /** Warps to the first Super Secret Room on the floor. */
-export function superSecret(): void {
+export function superSecretRoom(): void {
   warpToRoomType(RoomType.SUPER_SECRET);
 }
 
@@ -1303,18 +1291,23 @@ export function tears(): void {
   printEnabled(v.run.maxDamage, "debug tear-rate");
 }
 
+/** Alias for the "runTests" command. */
+export function tests(): void {
+  runTests();
+}
+
 /** Creates a trapdoor next to the player. */
 export function trapdoorCommand(): void {
   spawnTrapdoorOrCrawlSpace(true);
 }
 
 /** Warps to the first Treasure Room on the floor. */
-export function treasure(): void {
+export function treasureRoom(): void {
   warpToRoomType(RoomType.TREASURE);
 }
 
 /** Warps to the first Ultra Secret Room on the floor. */
-export function ultraSecret(): void {
+export function ultraSecretRoom(): void {
   warpToRoomType(RoomType.ULTRA_SECRET);
 }
 

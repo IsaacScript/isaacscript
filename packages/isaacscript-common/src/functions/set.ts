@@ -1,4 +1,4 @@
-import { getArrayCombinations, getRandomArrayElement } from "./array";
+import { getArrayCombinations, getRandomArrayElement, sumArray } from "./array";
 import { getRandomSeed } from "./rng";
 
 /**
@@ -121,4 +121,10 @@ export function getSortedSetValues<T>(set: Set<T> | ReadonlySet<T>): T[] {
   array.sort();
 
   return array;
+}
+
+/** Helper function to sum every value in a set together. */
+export function sumSet(set: Set<number> | ReadonlySet<number>): number {
+  const values = [...set.values()];
+  return sumArray(values);
 }

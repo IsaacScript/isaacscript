@@ -1,3 +1,5 @@
+import { sumArray } from "./array";
+
 /** Helper function to copy a map. (You can also use a Map constructor to accomplish this task.) */
 export function copyMap<K, V>(oldMap: Map<K, V>): Map<K, V> {
   const newMap = new Map<K, V>();
@@ -53,4 +55,12 @@ export function getMapPartialMatch<T>(
   }
 
   return [matchingKey, value];
+}
+
+/** Helper function to sum every value in a map together. */
+export function sumMap(
+  map: Map<unknown, number> | ReadonlyMap<unknown, number>,
+): number {
+  const values = [...map.values()];
+  return sumArray(values);
 }

@@ -27,7 +27,7 @@ export function extraConsoleCommandsInit(mod: ModUpgraded): void {
 function initMap() {
   extraConsoleCommandsFunctionMap.set("1hp", commands.oneHP);
   extraConsoleCommandsFunctionMap.set("addCharges", commands.addCharges);
-  extraConsoleCommandsFunctionMap.set("angel", commands.angel);
+  extraConsoleCommandsFunctionMap.set("angelRoom", commands.angelRoom);
   extraConsoleCommandsFunctionMap.set("ascent", commands.ascent);
   extraConsoleCommandsFunctionMap.set("bedroom", commands.bedroom);
   extraConsoleCommandsFunctionMap.set("bh", commands.bh);
@@ -46,7 +46,7 @@ function initMap() {
   );
   extraConsoleCommandsFunctionMap.set("bombs", commands.bombs);
   extraConsoleCommandsFunctionMap.set("boneHearts", commands.boneHearts);
-  extraConsoleCommandsFunctionMap.set("boss", commands.boss);
+  extraConsoleCommandsFunctionMap.set("bossRoom", commands.bossRoom);
   extraConsoleCommandsFunctionMap.set("bossRush", commands.bossRush);
   extraConsoleCommandsFunctionMap.set("brokenHearts", commands.brokenHearts);
   extraConsoleCommandsFunctionMap.set("card", commands.card);
@@ -66,7 +66,7 @@ function initMap() {
   extraConsoleCommandsFunctionMap.set("d6", commands.d6);
   extraConsoleCommandsFunctionMap.set("damage", commands.damage);
   extraConsoleCommandsFunctionMap.set("dd", commands.dd);
-  extraConsoleCommandsFunctionMap.set("devil", commands.devil);
+  extraConsoleCommandsFunctionMap.set("devilRoom", commands.devilRoom);
   extraConsoleCommandsFunctionMap.set("dirtyBedroom", commands.dirtyBedroom);
   extraConsoleCommandsFunctionMap.set("disableCurses", commands.disableCurses);
   extraConsoleCommandsFunctionMap.set(
@@ -89,7 +89,7 @@ function initMap() {
     commandsDisplay.effectsDisplay,
   );
   extraConsoleCommandsFunctionMap.set("eh", commands.eh);
-  extraConsoleCommandsFunctionMap.set("error", commands.error);
+  extraConsoleCommandsFunctionMap.set("errorRoom", commands.errorRoom);
   extraConsoleCommandsFunctionMap.set("eternalHearts", commands.eternalHearts);
   extraConsoleCommandsFunctionMap.set(
     "familiarDisplay",
@@ -113,10 +113,9 @@ function initMap() {
   extraConsoleCommandsFunctionMap.set("grid2", commands.grid2);
   extraConsoleCommandsFunctionMap.set("gridCosts", commands.gridCosts);
   extraConsoleCommandsFunctionMap.set("gridEntities", commands.gridEntities);
-  extraConsoleCommandsFunctionMap.set("h", commands.h);
   extraConsoleCommandsFunctionMap.set("hearts", commands.hearts);
   extraConsoleCommandsFunctionMap.set("hitboxes", commands.hitboxes);
-  extraConsoleCommandsFunctionMap.set("iAmError", commands.iAmError);
+  extraConsoleCommandsFunctionMap.set("iAmErrorRoom", commands.iAmErrorRoom);
   extraConsoleCommandsFunctionMap.set("key", commands.key);
   extraConsoleCommandsFunctionMap.set("keys", commands.keys);
   extraConsoleCommandsFunctionMap.set(
@@ -146,7 +145,6 @@ function initMap() {
   extraConsoleCommandsFunctionMap.set("mana", commands.mana);
   extraConsoleCommandsFunctionMap.set("map", commands.map);
   extraConsoleCommandsFunctionMap.set("maxHearts", commands.maxHearts);
-  extraConsoleCommandsFunctionMap.set("mh", commands.mh);
   extraConsoleCommandsFunctionMap.set("miniboss", commands.miniboss);
   extraConsoleCommandsFunctionMap.set("noCurses", commands.noCurses);
   extraConsoleCommandsFunctionMap.set("npcDisplay", commandsDisplay.npcDisplay);
@@ -207,7 +205,6 @@ function initMap() {
     commandsDisplay.projectilesDisplay,
   );
   extraConsoleCommandsFunctionMap.set("redHearts", commands.redHearts);
-  extraConsoleCommandsFunctionMap.set("rh", commands.rh);
   extraConsoleCommandsFunctionMap.set("right", commands.right);
   extraConsoleCommandsFunctionMap.set(
     "rockDisplay",
@@ -221,13 +218,12 @@ function initMap() {
   extraConsoleCommandsFunctionMap.set("rottenHearts", commands.rottenHearts);
   extraConsoleCommandsFunctionMap.set("runTests", commands.runTests);
   extraConsoleCommandsFunctionMap.set("s", commands.s);
-  extraConsoleCommandsFunctionMap.set("sacrifice", commands.sacrifice);
-  extraConsoleCommandsFunctionMap.set("secret", commands.secret);
+  extraConsoleCommandsFunctionMap.set("sacrificeRoom", commands.sacrificeRoom);
+  extraConsoleCommandsFunctionMap.set("secretRoom", commands.secretRoom);
   extraConsoleCommandsFunctionMap.set("seedStick", commands.seedStick);
   extraConsoleCommandsFunctionMap.set("seeds", commands.seedsCommand);
   extraConsoleCommandsFunctionMap.set("setCharges", commands.setCharges);
   extraConsoleCommandsFunctionMap.set("setPosition", commands.setPosition);
-  extraConsoleCommandsFunctionMap.set("sh", commands.sh);
   extraConsoleCommandsFunctionMap.set("shop", commands.shop);
   extraConsoleCommandsFunctionMap.set(
     "slotDisplay",
@@ -256,8 +252,12 @@ function initMap() {
     "spikesDisplay",
     commandsDisplay.spikesDisplay,
   );
-  extraConsoleCommandsFunctionMap.set("supersecret", commands.superSecret);
+  extraConsoleCommandsFunctionMap.set(
+    "superSecretRoom",
+    commands.superSecretRoom,
+  );
   extraConsoleCommandsFunctionMap.set("startingRoom", commands.startingRoom);
+  extraConsoleCommandsFunctionMap.set("startRoom", commands.startRoom);
   extraConsoleCommandsFunctionMap.set(
     "tearDisplay",
     commandsDisplay.tearDisplay,
@@ -273,8 +273,11 @@ function initMap() {
     commandsDisplay.tntsDisplay,
   );
   extraConsoleCommandsFunctionMap.set("trapdoor", commands.trapdoorCommand);
-  extraConsoleCommandsFunctionMap.set("treasure", commands.treasure);
-  extraConsoleCommandsFunctionMap.set("ultraSecret", commands.ultraSecret);
+  extraConsoleCommandsFunctionMap.set("treasureRoom", commands.treasureRoom);
+  extraConsoleCommandsFunctionMap.set(
+    "ultraSecretRoom",
+    commands.ultraSecretRoom,
+  );
   extraConsoleCommandsFunctionMap.set("unseed", commands.unseed);
   extraConsoleCommandsFunctionMap.set("up", commands.up);
   extraConsoleCommandsFunctionMap.set("warp", commands.warp);

@@ -39,6 +39,8 @@ This page lists the changes to the IsaacScript framework.
   - `getLatestRoomDescription`
   - `getPickupIndex`
   - `onAscent`
+  - `sumMap`
+  - `sumSet`
 - Renamed the following helper functions:
   - `spawnCustomGrid` --> `spawnCustomGridEntity`
   - `isBomb` --> `isBombPickup`
@@ -51,6 +53,24 @@ This page lists the changes to the IsaacScript framework.
   - `POST_PLAYER_INIT_REORDERED` (use `POST_PLAYER_INIT_FIRST` or `POST_GAME_STARTED_REORDERED` instead)
 - Changed the following custom callbacks:
   - `POST_FLIP` and `POST_FIRST_FLIP` now pass the old player object in addition to the new one.
+- Added the following custom commands:
+  - `angelRoom` (alias for `angel`)
+  - `bossRoom` (alias for `boss`)
+  - `devilRoom` (alias for `devil`)
+  - `errorRoom` (alias for `error`)
+  - `iAmErrorRoom` (alias for `iAmError`)
+  - `sacrificeRoom` (alias for `sacrifice`)
+  - `secretRoom` (alias for `secret`)
+  - `superSecretRoom` (alias for `superSecret`)
+  - `startRoom` (alias for `fool`)
+  - `startingRoom` (alias for `fool`)
+  - `treasureRoom` (alias for `treasure`)
+  - `ultraSecretRoom` (alias for `ultraSecret`)
+- Removed the following custom commands:
+  - `h`
+  - `mh`
+  - `rh`
+  - `sh`
 
 ## July 20th, 2022
 

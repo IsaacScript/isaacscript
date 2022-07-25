@@ -12,7 +12,7 @@
 // Unfortunately, by default, the resulting webpage from `docusaurus-plugin-typedoc` is
 // unsatisfactory, with all of the modules in the same directory, and other imperfections.
 
-// To work around this problem, we can invoke TypeDoc using `typedoc-plugin-markdown` ourselves.
+// To work around this problem, we can invoke TypeDoc ourselves using `typedoc-plugin-markdown`.
 // Then, we can use a script to manually mutate the Markdown files in specific ways. (This is the
 // point of the following script.) After that, we feed the "fixed" Markdown content to Docusaurus,
 // alongside the non-auto-generated documentation, generating the entire site at once.

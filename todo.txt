@@ -1,3 +1,5 @@
+- fix titles + 2nd line partial breadcrumb in docs
+
 - find way to not use black sprite
 - finish urn function in isaacscript-common
 - custom bosses for vanilla stages
