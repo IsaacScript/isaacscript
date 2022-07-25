@@ -3,6 +3,7 @@ import {
   CollectibleType,
   TrinketType,
 } from "isaac-typescript-definitions";
+import { DISTANCE_OF_GRID_TILE } from "../constants";
 import { RockAltType } from "../enums/RockAltType";
 import { spawnCoinWithSeed, spawnTrinketWithSeed } from "./pickupsSpecific";
 import { getRandom } from "./random";
@@ -51,18 +52,12 @@ export function spawnRockAltReward(
         return false;
       }
 
-      // One random coin. (4.72%)
-      totalChance += 0.0472;
+      // One or two random coins. (9.44%)
+      totalChance += 0.0944;
       if (chance < totalChance) {
-        const velocity = getRandomVector(rng);
-        spawnCoinWithSeed(CoinSubType.NULL, position, rng, velocity);
-        return true;
-      }
-
-      // Two random coins. (4.72%)
-      totalChance += 0.0472;
-      if (chance < totalChance) {
-        repeat(2, () => {
+        const numCoinsChance = getRandom(rng);
+        const numCoins = numCoinsChance < 0.5 ? 1 : 2;
+        repeat(numCoins, () => {
           const velocity = getRandomVector(rng);
           spawnCoinWithSeed(CoinSubType.NULL, position, rng, velocity);
         });
@@ -81,16 +76,18 @@ export function spawnRockAltReward(
         spawnCollectible(CollectibleType.QUARTER, position, rng);
       }
 
-      // One spider. (9.74%)
-      totalChance += 0.0974;
+      // One or two spiders. (19.48%)
+      totalChance += 0.1948;
       if (chance < totalChance) {
-        // TODO
-      }
-
-      // Two spiders. (9.74%)
-      totalChance += 0.0974;
-      if (chance < totalChance) {
-        /// EntityNPC.ThrowSpider(position, undefined, targetPos, big, yOffset)
+        const numSpidersChance = getRandom(rng);
+        const numSpiders = numSpidersChance < 0.5 ? 1 : 2;
+        repeat(numSpiders, () => {
+          const length = DISTANCE_OF_GRID_TILE * 3;
+          const randomVector = getRandomVector(rng);
+          const offset = randomVector.mul(length);
+          const targetPos = position.add(offset);
+          EntityNPC.ThrowSpider(position, undefined, targetPos, false, 0);
+        });
       }
 
       // TODO

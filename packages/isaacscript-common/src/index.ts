@@ -144,6 +144,7 @@ export * from "./functions/pressurePlate";
 export * from "./functions/random";
 export * from "./functions/revive";
 export * from "./functions/rng";
+export * from "./functions/rockAlt";
 export * from "./functions/roomData";
 export * from "./functions/roomGrid";
 export * from "./functions/rooms";
