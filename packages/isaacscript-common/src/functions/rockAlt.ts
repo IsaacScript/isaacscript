@@ -82,8 +82,8 @@ export function spawnRockAltReward(
         const numSpidersChance = getRandom(rng);
         const numSpiders = numSpidersChance < 0.5 ? 1 : 2;
         repeat(numSpiders, () => {
-          const length = DISTANCE_OF_GRID_TILE * 3;
           const randomVector = getRandomVector(rng);
+          const length = DISTANCE_OF_GRID_TILE * 3;
           const offset = randomVector.mul(length);
           const targetPos = position.add(offset);
           EntityNPC.ThrowSpider(position, undefined, targetPos, false, 0);

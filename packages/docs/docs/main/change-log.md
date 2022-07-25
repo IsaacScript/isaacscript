@@ -42,6 +42,8 @@ This page lists the changes to the IsaacScript framework.
   - `sumMap`
   - `sumSet`
   - `getRandomVector`
+  - `getRandomColor`
+  - `getRandomKColor`
 - Renamed the following helper functions:
   - `spawnCustomGrid` --> `spawnCustomGridEntity`
   - `isBomb` --> `isBombPickup`

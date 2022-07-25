@@ -1,6 +1,8 @@
 import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
+import { getRandom } from "./random";
+import { getRandomSeed, isRNG, newRNG } from "./rng";
 import { copyValuesToTable, getNumbersFromTable, tableHasKeys } from "./table";
 import { isTable } from "./types";
 
@@ -96,6 +98,26 @@ export function copyKColor(
       return KColor(r, g, b, a);
     }
   }
+}
+
+/**
+ * Helper function to get a random color.
+ *
+ * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ * @param alpha Optional. The alpha value to use. Default is 1.
+ */
+export function getRandomKColor(
+  seedOrRNG: Seed | RNG = getRandomSeed(),
+  alpha = 1,
+): KColor {
+  const rng = isRNG(seedOrRNG) ? seedOrRNG : newRNG(seedOrRNG);
+
+  const r = getRandom(rng);
+  const g = getRandom(rng);
+  const b = getRandom(rng);
+
+  return KColor(r, g, b, alpha);
 }
 
 /** Helper function to check if something is an instantiated KColor object. */
