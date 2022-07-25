@@ -89,6 +89,7 @@
     "src/functions/gridEntitiesSpecific.ts",
     "src/functions/input.ts",
     "src/functions/isaacAPIClass.ts",
+    "src/functions/itemPool.ts",
     "src/functions/jsonHelpers.ts",
     "src/functions/jsonRoom.ts",
     "src/functions/kColor.ts",
