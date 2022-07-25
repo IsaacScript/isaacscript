@@ -1,5 +1,3 @@
-- getRandomColor
-- getRandomKColor
 - refactor copyX functions
 
 - finish urn function in isaacscript-common
