@@ -15,8 +15,8 @@
  * `enableExtraConsoleCommands`. (See the "Extra Console Commands (Init)" page for more details.)
  *
  * Each command has a corresponding function of the same name, but these functions are not actually
- * exported for end-user consumption (in order to cut down on namespace conflicts and because the
- * names of the functions are not very descriptive).
+ * exported for end-user consumption. (This is to cut down on namespace conflicts and because the
+ * names of the functions are not very descriptive.)
  *
  * @module
  */
