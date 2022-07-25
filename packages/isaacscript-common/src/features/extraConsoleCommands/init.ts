@@ -267,6 +267,7 @@ function initMap() {
     "tearsDisplay",
     commandsDisplay.tearsDisplay,
   );
+  extraConsoleCommandsFunctionMap.set("tests", commands.tests);
   extraConsoleCommandsFunctionMap.set("tntDisplay", commandsDisplay.tntDisplay);
   extraConsoleCommandsFunctionMap.set(
     "tntsDisplay",

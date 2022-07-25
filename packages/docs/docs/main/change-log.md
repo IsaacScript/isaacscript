@@ -66,6 +66,7 @@ This page lists the changes to the IsaacScript framework.
   - `startingRoom` (alias for `fool`)
   - `treasureRoom` (alias for `treasure`)
   - `ultraSecretRoom` (alias for `ultraSecret`)
+  - `tests` (alias for `runTests`)
 - Removed the following custom commands:
   - `h`
   - `mh`
