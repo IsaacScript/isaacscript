@@ -115,6 +115,7 @@
     "src/functions/random.ts",
     "src/functions/revive.ts",
     "src/functions/rng.ts",
+    "src/functions/rockAlt.ts",
     "src/functions/rooms.ts",
     "src/functions/roomData.ts",
     "src/functions/roomGrid.ts",

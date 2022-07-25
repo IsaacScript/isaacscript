@@ -1,6 +1,7 @@
-- fix titles + 2nd line partial breadcrumb in docs
+- getRandomColor
+- getRandomKColor
+- refactor copyX functions
 
-- find way to not use black sprite
 - finish urn function in isaacscript-common
 - custom bosses for vanilla stages
 
@@ -24,3 +25,5 @@ lint failure:
 
 
 - prefer implicit loops for arrays, maps, etc. - not implicit, but "default iterator"?
+
+- double period for comment lint

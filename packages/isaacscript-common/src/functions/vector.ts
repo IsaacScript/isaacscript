@@ -3,6 +3,8 @@ import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
 import { angleToDirection } from "./direction";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
+import { getRandomFloat } from "./random";
+import { getRandomSeed, isRNG, newRNG } from "./rng";
 import { copyValuesToTable, getNumbersFromTable, tableHasKeys } from "./table";
 import { isTable } from "./types";
 
@@ -88,6 +90,27 @@ export function copyVector(
       return Vector(x, y);
     }
   }
+}
+
+/**
+ * Helper function to get a random vector between (-1, -1) and (1, 1).
+ *
+ * To get random vectors with a bigger length, multiply this with a number.
+ *
+ * Use this over the `RandomVector` function when you need the vector to be seeded.
+ *
+ * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ */
+export function getRandomVector(
+  seedOrRNG: Seed | RNG = getRandomSeed(),
+): Vector {
+  const rng = isRNG(seedOrRNG) ? seedOrRNG : newRNG(seedOrRNG);
+
+  const x = getRandomFloat(-1, 1, rng);
+  const y = getRandomFloat(-1, 1, rng);
+
+  return Vector(x, y);
 }
 
 /**
