@@ -43,6 +43,13 @@ declare global {
      */
     GetPillEffect(pillColor: PillColor, player?: EntityPlayer): PillEffect;
 
+    /**
+     * Note that this function will return `ItemPoolType.NULL` for `RoomType.DEFAULT`, which may be
+     * unexpected.
+     *
+     * @param roomType
+     * @param seed
+     */
     GetPoolForRoom(roomType: RoomType, seed: Seed): ItemPoolType;
 
     /**

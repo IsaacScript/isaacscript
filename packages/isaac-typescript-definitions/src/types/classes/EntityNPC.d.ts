@@ -119,7 +119,7 @@ declare global {
     function ThrowSpider(
       this: void,
       position: Vector,
-      spawner: Entity,
+      spawner: Entity | undefined,
       targetPos: Vector,
       big: boolean,
       yOffset: float,
