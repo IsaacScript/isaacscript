@@ -228,8 +228,8 @@ export function spawnCustomGridEntity(
  *                   Default is true. This is generally a good idea because if the room is not
  *                   updated, you will be unable to spawn another grid entity on the same tile until
  *                   a frame has passed. However, doing this is expensive, since it involves a call
- *                   to `Isaac.GetRoomEntities`, so set it to false if you need to invoke this
- *                   function multiple times.
+ *                   to `Isaac.GetRoomEntities`, so set it to false if you need to run this function
+ *                   multiple times.
  * @returns The grid entity that was removed. Returns undefined if no grid entity was found at the
  *          given location or if the given grid entity was not a custom grid entity.
  */

@@ -488,7 +488,7 @@ export function removeAllMatchingGridEntities(
  *                   generally a good idea because if the room is not updated, you will be unable to
  *                   spawn another grid entity on the same tile until a frame has passed. However,
  *                   doing this is expensive, since it involves a call to `Isaac.GetRoomEntities`,
- *                   so set this to false if you need to invoke this function multiple times.
+ *                   so set this to false if you need to run this function multiple times.
  * @param cap Optional. If specified, will only remove the given amount of entities.
  * @returns An array of the entities that were removed.
  */
@@ -527,7 +527,7 @@ export function removeGridEntities<T extends AnyGridEntity>(
  *                   generally a good idea because if the room is not updated, you will be unable to
  *                   spawn another grid entity on the same tile until a frame has passed. However,
  *                   doing this is expensive, since it involves a call to `Isaac.GetRoomEntities`,
- *                   so set this to false if you need to invoke this function multiple times.
+ *                   so set this to false if you need to run this function multiple times.
  */
 export function removeGridEntity(
   gridEntityOrGridIndex: GridEntity | int,

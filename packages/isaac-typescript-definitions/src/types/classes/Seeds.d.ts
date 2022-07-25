@@ -19,7 +19,7 @@ declare global {
      * elements for the current run. The seed displayed in the pause menu is this number represented
      * in string form.
      *
-     * This method will return 0 if it is invoked in the main menu.
+     * This method will return 0 if it is run in the main menu.
      */
     GetStartSeed(): Seed;
 
@@ -30,7 +30,7 @@ declare global {
      * elements for the current run. When converted to a string, it looks like "ABCD EFGH". (This is
      * the form that is displayed on the pause menu.)
      *
-     * This method will return "B911 99JA" if it is invoked in the main menu.
+     * This method will return "B911 99JA" if it is run in the main menu.
      */
     GetStartSeedString(): string;
 

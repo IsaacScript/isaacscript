@@ -230,7 +230,7 @@ This page lists the changes to the IsaacScript framework.
 ## June 28th, 2022
 
 - The change log is now located on [the official website](https://isaacscript.github.io/main/change-log).
-- IsaacScript now requires a dependency of "@types/node", "typescript", and "ts-node" in your "package.json" file. (This is so that TSTL can properly invoke plugins.) If any dependencies are missing when you run the tool, it will helpfully tell you the appropriate command to run to fix the problem.
+- IsaacScript now requires a dependency of "@types/node", "typescript", and "ts-node" in your "package.json" file. (This is so that TSTL can properly use plugins.) If any dependencies are missing when you run the tool, it will helpfully tell you the appropriate command to run to fix the problem.
 - The IsaacScript watcher icon now turns green when the mod is compiling.
 - Breaking changes:
   - Any callback definition with `void` inside of a union has been renamed to `undefined` in order to have more consistent code and satisfy the TypeScript ESLint rules. This means that you may need to add `return undefined;` to some of your callback functions is order to satisfy the compiler. (Doing so explicitly acknowledges that this is the type of callback that expects a return value.)
@@ -1990,7 +1990,7 @@ You can still use `null` in your own variables, but make sure that it is for var
   - `.prettierrc.js` - to ensure trailing commas and LF line endings
   - `build.sh` - helper script to compile the project (used in CI)
   - `lint.sh` - helper script to lint and spell check the project (used in CI)
-  - `publish.sh` - helper script to invoke `npx isaacscript publish`
+  - `publish.sh` - helper script to run `npx isaacscript publish`
   - `run.sh` - helper script to run `npx isaacscript`
   - `update.sh` - helper script to automatically update project dependencies
 

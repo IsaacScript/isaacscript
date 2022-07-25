@@ -45,7 +45,7 @@ export function getRandomFloat(
 /**
  * This returns a random integer between min and max. It is inclusive on both ends.
  *
- * Note that this function will invoke the `Next` method on the `RNG` object before returning the
+ * Note that this function will run the `Next` method on the `RNG` object before returning the
  * random number.
  *
  * For example:

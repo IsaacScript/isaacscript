@@ -129,7 +129,7 @@ This contains a list of files that should not be automatically formatted. By def
 
 ### `.prettierrc.js`
 
-This is the configuration file for Prettier (which is invoked as an ESLint plugin).
+This is the configuration file for Prettier.
 
 If you need to modify a specific option of Prettier, you can edit this file.
 
@@ -209,7 +209,7 @@ You are not supposed to edit this file; just leave it in place so that `npm` can
 
 ### `publish.sh`
 
-This is a helper script to invoke `npx isaacscript publish`.
+This is a helper script to run `npx isaacscript publish`.
 
 <br />
 
@@ -221,7 +221,7 @@ This is the README file for your project, which should contain a brief descripti
 
 ### `run.sh`
 
-This is a helper script to invoke `npx isaacscript`.
+This is a helper script to run `npx isaacscript` (which is short for `npx isaacscript monitor`).
 
 <br />
 

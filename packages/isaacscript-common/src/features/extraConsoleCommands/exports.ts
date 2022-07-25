@@ -24,9 +24,10 @@ export function enableExtraConsoleCommands(mod: ModUpgraded): void {
  *
  * The standard library comes with many existing console commands that are useful for debugging, but
  * you can also add your own commands that are useful for your particular mod. It's easier to add
- * commands to the existing command system than to add logic manually to the ExecuteCmd callback.
+ * commands to the existing command system than to add your own logic manually to the `EXECUTE_CMD`
+ * callback.
  *
- * Before using this function, you must first invoke `enableExtraConsoleCommands`.
+ * Before using this function, you must first run the `enableExtraConsoleCommands` function.
  */
 export function addConsoleCommand(
   commandName: string,
@@ -59,7 +60,7 @@ export function addConsoleCommand(
  * The standard library comes with many existing console commands that are useful for debugging. If
  * you want to disable one of them, use this function.
  *
- * Before using this function, you must first invoke `enableExtraConsoleCommands`.
+ * Before using this function, you must first run the `enableExtraConsoleCommands` function.
  */
 export function removeConsoleCommand(commandName: string): void {
   if (!isExtraConsoleCommandsInitialized()) {

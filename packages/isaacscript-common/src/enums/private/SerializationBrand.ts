@@ -2,7 +2,7 @@
  * During serialization, we write an arbitrary string key to the object with a value of an empty
  * string. This is used during deserialization to instantiate the correct type of object.
  *
- * Note that we do not bother branding TSTL classes because we have no way to invoke the proper
+ * Note that we do not bother branding TSTL classes because we have no way to run the proper
  * constructor during deserialization.
  */
 export enum SerializationBrand {

@@ -152,8 +152,8 @@ export function isRaglingDeathPatch(npc: EntityNPC): boolean {
 
 /**
  * The base game `EntityNPC.FireProjectiles` method does not return anything, which is a problem in
- * situations where you need to work with the fired projectiles. This function invokes that method,
- * and then returns the projectiles that were spawned.
+ * situations where you need to work with the fired projectiles. This function runs that method, and
+ * then returns the projectiles that were spawned.
  *
  * @param npc The EntityNPC firing projectiles.
  * @param position The starting position of the projectiles.
