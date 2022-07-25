@@ -41,6 +41,7 @@ This page lists the changes to the IsaacScript framework.
   - `onAscent`
   - `sumMap`
   - `sumSet`
+  - `getRandomVector`
 - Renamed the following helper functions:
   - `spawnCustomGrid` --> `spawnCustomGridEntity`
   - `isBomb` --> `isBombPickup`
