@@ -110,6 +110,6 @@ src/
 
 Much better!
 
-This is a pretty good way organize a mod. But when it comes to code organization, there usually isn't a one-size-fits-all solution. If you have a really big mod, think about a hierarchy that will make sense and work best for you.
+This is a pretty good way to organize a mod. But of course, it is not the only way. If you have a really big mod, then build on the concepts introduced here and think about a hierarchy that will make sense and work best for you.
 
 If you want to delve deeper into the topic of structuring a large Isaac mod, you can read my [blog on mod organization](https://github.com/Zamiell/isaac-faq/blob/main/mod-organization.md).
