@@ -12,7 +12,7 @@ Furthermore, in bigger files, it's easier for things to get messy. Imagine that 
 
 Instead, it's better to have each item in a dedicated file for that item. That way, if someone wants to know how a specific item works, they can just open the one item file and read it without having to wade through everything else. And if you ever find a bug with item 1, then you don't have to go on a scavenger hunt throughout your codebase - you can just focus all of your effort on looking through and troubleshooting the file for item 1.
 
-In TypeScript, we split code up into multiple files by using `import` and `export`. As an example, let's build on the previous [Green Candle example mod](example-mod.md). Imagine that we want to add a few more custom items, so that the mod becomes an item pack. Before we continue to clutter our "main.ts" file, let's refactor our code to keep things clean.
+In TypeScript, we split code up into multiple files by using `import` and `export`. As an example, let's build on the previous [Green Candle mod](example-mod.md). Imagine that we want to add a few more custom items, so that the mod becomes an item pack. Before we continue to clutter our "main.ts" file, let's refactor our code to keep things clean.
 
 <br />
 
