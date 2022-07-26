@@ -2,7 +2,7 @@
 title: Refactoring an Example Mod
 ---
 
-This tutorial is designed for people who are already familiar with IsaacScript and already have a bunch of working code. If that sounds like you, then read on.
+This tutorial is designed for people who are already familiar with IsaacScript and already have some working code. If that sounds like you, then read on.
 
 Small mods can be written inside of a single file: "main.ts". In most cases, it doesn't make sense to split up a small mod into multiple files. If you did that, then someone reading your code would have to jump back and forth between files while trying to understand how everything works. Better to have everything in one place, so that they can read it in order, from top to bottom.
 
