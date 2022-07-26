@@ -1,16 +1,17 @@
 import { CopyableIsaacAPIClassType } from "../enums/private/CopyableIsaacAPIClassType";
-import { SerializationType } from "../enums/SerializationType";
 import { ISAAC_API_CLASS_TYPE_TO_BRAND } from "../objects/isaacAPIClassTypeToBrand";
-import { ISAAC_API_CLASS_TYPE_TO_COPY_FUNCTION } from "../objects/isaacAPIClassTypeToCopyFunction";
-import { SERIALIZED_ISAAC_API_CLASS_TYPE_TO_IDENTITY_FUNCTION } from "../objects/serializedIsaacAPIClassTypeToIdentityFunction";
+import { ISAAC_API_CLASS_TYPE_TO_FUNCTIONS } from "../objects/isaacAPIClassTypeToFunctions";
 import { SerializedIsaacAPIClass } from "../types/private/SerializedIsaacAPIClass";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
 import { isTable, isUserdata } from "./types";
 
-export function copyIsaacAPIClass(
-  isaacAPIClass: unknown,
-  serializationType: SerializationType,
-): unknown {
+/**
+ * Helper function to generically copy an Isaac API class without knowing what specific type of
+ * class it is. (This is used by the save data manager.)
+ *
+ * For the list of supported classes, see the `CopyableIsaacAPIClassType` enum.
+ */
+export function copyIsaacAPIClass(isaacAPIClass: unknown): unknown {
   if (!isUserdata(isaacAPIClass)) {
     error(
       `Failed to copy an Isaac API class since the provided object was of type: ${typeof isaacAPIClass}`,
@@ -26,26 +27,27 @@ export function copyIsaacAPIClass(
 
   const copyableIsaacAPIClassType =
     isaacAPIClassType as CopyableIsaacAPIClassType;
-  const copyFunction =
-    ISAAC_API_CLASS_TYPE_TO_COPY_FUNCTION[copyableIsaacAPIClassType];
+  const functions =
+    ISAAC_API_CLASS_TYPE_TO_FUNCTIONS[copyableIsaacAPIClassType];
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (copyFunction === undefined) {
+  if (functions === undefined) {
     error(
-      `Failed to copy Isaac API class "${copyableIsaacAPIClassType}" since there is not a defined copy function for this class type.`,
+      `Failed to copy an Isaac API class since the associated functions were not found for Isaac API class type: ${copyableIsaacAPIClassType}`,
     );
   }
 
-  return copyFunction(isaacAPIClass, serializationType);
+  return functions.copy(isaacAPIClass);
 }
 
 /**
- * Deserialization is a special case, so we make a dedicated function for this.
+ * Helper function to generically deserialize an Isaac API class without knowing what specific type
+ * of class it is. (This is used by the save data manager when reading data from the "save#.dat"
+ * file.)
  *
- * There is no need for a corresponding "serializeIsaacAPIClass" function because the
- * "copyIsaacAPIClass" function can handle all serialization types.
+ * For the list of supported classes, see the `CopyableIsaacAPIClassType` enum.
  */
 export function deserializeIsaacAPIClass(
-  serializedIsaacAPIClass: SerializedIsaacAPIClass,
+  serializedIsaacAPIClass: unknown,
 ): unknown {
   if (!isTable(serializedIsaacAPIClass)) {
     error(
@@ -58,17 +60,28 @@ export function deserializeIsaacAPIClass(
   );
   if (copyableIsaacAPIClassType === undefined) {
     error(
-      "Failed to deserialize an API class since a valid class type brand was not found.",
+      "Failed to deserialize an Isaac API class since a valid class type brand was not found.",
     );
   }
 
-  const copyFunction =
-    ISAAC_API_CLASS_TYPE_TO_COPY_FUNCTION[copyableIsaacAPIClassType];
-  return copyFunction(serializedIsaacAPIClass, SerializationType.DESERIALIZE);
+  const functions =
+    ISAAC_API_CLASS_TYPE_TO_FUNCTIONS[copyableIsaacAPIClassType];
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (functions === undefined) {
+    error(
+      `Failed to deserialize an Isaac API class since the associated functions were not found for class type: ${copyableIsaacAPIClassType}`,
+    );
+  }
+
+  return functions.deserialize(serializedIsaacAPIClass);
 }
 
+/**
+ * In order to find out what type of serialized Isaac API class this is, we search through the
+ * serialized table for brands.
+ */
 function getSerializedTableType(
-  serializedIsaacAPIClass: SerializedIsaacAPIClass,
+  serializedIsaacAPIClass: LuaMap<AnyNotNil, unknown>,
 ): CopyableIsaacAPIClassType | undefined {
   for (const [copyableIsaacAPIClassType, serializationBrand] of Object.entries(
     ISAAC_API_CLASS_TYPE_TO_BRAND,
@@ -81,11 +94,54 @@ function getSerializedTableType(
   return undefined;
 }
 
+/**
+ * Helper function to generically check if a given Lua table is a serialized Isaac API class. (This
+ * is used by the save data manager when reading data from the "save#.dat" file.)
+ *
+ * For the list of supported classes, see the `CopyableIsaacAPIClassType` enum.
+ */
 export function isSerializedIsaacAPIClass(
   object: unknown,
 ): object is SerializedIsaacAPIClass {
-  const identityFunctions = Object.values(
-    SERIALIZED_ISAAC_API_CLASS_TYPE_TO_IDENTITY_FUNCTION,
+  const allFunctions = Object.values(ISAAC_API_CLASS_TYPE_TO_FUNCTIONS);
+  const isSerializedFunctions = allFunctions.map(
+    (functions) => functions.isSerialized,
   );
-  return identityFunctions.some((identityFunction) => identityFunction(object));
+  return isSerializedFunctions.some((identityFunction) =>
+    identityFunction(object),
+  );
+}
+
+/**
+ * Helper function to generically serialize an Isaac API class without knowing what specific type of
+ * class it is. (This is used by the save data manager when writing data to the "save#.dat" file.)
+ *
+ * For the list of supported classes, see the `CopyableIsaacAPIClassType` enum.
+ */
+export function serializeIsaacAPIClass(isaacAPIClass: unknown): unknown {
+  if (!isUserdata(isaacAPIClass)) {
+    error(
+      `Failed to serialize an Isaac API class since the provided object was of type: ${typeof isaacAPIClass}`,
+    );
+  }
+
+  const isaacAPIClassType = getIsaacAPIClassName(isaacAPIClass);
+  if (isaacAPIClassType === undefined) {
+    error(
+      "Failed to serialize an Isaac API class since it does not have a class type.",
+    );
+  }
+
+  const copyableIsaacAPIClassType =
+    isaacAPIClassType as CopyableIsaacAPIClassType;
+  const functions =
+    ISAAC_API_CLASS_TYPE_TO_FUNCTIONS[copyableIsaacAPIClassType];
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (functions === undefined) {
+    error(
+      `Failed to serialize an Isaac API class since the associated functions were not found for class type: ${copyableIsaacAPIClassType}`,
+    );
+  }
+
+  return functions.serialize(isaacAPIClass);
 }

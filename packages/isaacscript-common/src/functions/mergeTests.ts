@@ -5,7 +5,7 @@ import { deepCopy } from "./deepCopy";
 import { log } from "./log";
 import { isRNG, newRNG } from "./rng";
 import { isSerializedIsaacAPIClass } from "./serialization";
-import { copyVector, isVector } from "./vector";
+import { isVector, serializeVector } from "./vector";
 
 /**
  * Run the suite of tests that prove that the "merge" function works properly. (This function is not
@@ -92,7 +92,7 @@ function oldTableHasSerializedIsaacAPIClass() {
   const y = 60;
   const vector = Vector(x, y);
 
-  const vectorSerialized = copyVector(vector, SerializationType.SERIALIZE);
+  const vectorSerialized = serializeVector(vector);
   if (!isSerializedIsaacAPIClass(vectorSerialized)) {
     error(
       'The "isSerializedIsaacAPIClass" function says that a serialized vector is not serialized.',

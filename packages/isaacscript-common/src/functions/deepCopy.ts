@@ -13,6 +13,7 @@ import {
   copyIsaacAPIClass,
   deserializeIsaacAPIClass,
   isSerializedIsaacAPIClass,
+  serializeIsaacAPIClass,
 } from "./serialization";
 import {
   getTSTLClassName,
@@ -664,5 +665,17 @@ function deepCopyUserdata(
     );
   }
 
-  return copyIsaacAPIClass(value, serializationType);
+  switch (serializationType) {
+    case SerializationType.NONE: {
+      return copyIsaacAPIClass(value);
+    }
+
+    case SerializationType.SERIALIZE: {
+      return serializeIsaacAPIClass(value);
+    }
+
+    case SerializationType.DESERIALIZE: {
+      return deserializeIsaacAPIClass(value);
+    }
+  }
 }

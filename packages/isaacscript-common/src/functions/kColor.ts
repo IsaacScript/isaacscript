@@ -1,5 +1,4 @@
 import { SerializationBrand } from "../enums/private/SerializationBrand";
-import { SerializationType } from "../enums/SerializationType";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { getRandom } from "./random";
 import { getRandomSeed, isRNG, newRNG } from "./rng";
@@ -10,94 +9,59 @@ type SerializedKColor = LuaMap<string, unknown> & {
   readonly __serializedKColorBrand: symbol;
 };
 
-interface CopyKColorReturn {
-  [SerializationType.NONE]: KColor;
-  [SerializationType.SERIALIZE]: SerializedKColor;
-  [SerializationType.DESERIALIZE]: KColor;
-}
-
 const KEYS = ["Red", "Green", "Blue", "Alpha"];
 const OBJECT_NAME = "KColor";
 
-/**
- * Helper function to copy a `KColor` object.
- *
- * @param kColor The KColor object to copy. In the case of deserialization, this will actually be a
- *               Lua table instead of an instantiated KColor class.
- * @param serializationType Default is `SerializationType.NONE`.
- */
-export function copyKColor<
-  K extends KColor | SerializedKColor,
-  S extends SerializationType,
->(kColor: K, serializationType: S): CopyKColorReturn[S];
-export function copyKColor<K extends KColor | SerializedKColor>(
-  kColor: K,
-): CopyKColorReturn[SerializationType.NONE];
-export function copyKColor(
-  kColor: KColor | SerializedKColor,
-  serializationType = SerializationType.NONE,
-): CopyKColorReturn[keyof CopyKColorReturn] {
-  switch (serializationType) {
-    case SerializationType.NONE: {
-      if (!isKColor(kColor)) {
-        error(
-          `Failed to copy a ${OBJECT_NAME} object since the provided object was not a userdata ${OBJECT_NAME} class.`,
-        );
-      }
-
-      return KColor(kColor.Red, kColor.Green, kColor.Blue, kColor.Alpha);
-    }
-
-    case SerializationType.SERIALIZE: {
-      if (!isKColor(kColor)) {
-        error(
-          `Failed to serialize a ${OBJECT_NAME} object since the provided object was not a userdata ${OBJECT_NAME} class.`,
-        );
-      }
-
-      const kColorTable = new LuaMap<string, unknown>();
-      copyValuesToTable(kColor, KEYS, kColorTable);
-      kColorTable.set(SerializationBrand.K_COLOR, "");
-      return kColorTable as SerializedKColor;
-    }
-
-    case SerializationType.DESERIALIZE: {
-      if (!isTable(kColor)) {
-        error(
-          `Failed to deserialize a ${OBJECT_NAME} object since the provided object was not a Lua table.`,
-        );
-      }
-
-      const [r, g, b, a] = getNumbersFromTable(
-        kColor as LuaMap<string, unknown>,
-        OBJECT_NAME,
-        ...KEYS,
-      );
-
-      if (r === undefined) {
-        error(
-          `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: r`,
-        );
-      }
-      if (g === undefined) {
-        error(
-          `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: g`,
-        );
-      }
-      if (b === undefined) {
-        error(
-          `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: b`,
-        );
-      }
-      if (a === undefined) {
-        error(
-          `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: a`,
-        );
-      }
-
-      return KColor(r, g, b, a);
-    }
+/** Helper function to copy a `KColor` Isaac API class. */
+export function copyKColor(kColor: KColor): KColor {
+  if (!isKColor(kColor)) {
+    error(
+      `Failed to copy a ${OBJECT_NAME} object since the provided object was not a userdata ${OBJECT_NAME} class.`,
+    );
   }
+
+  return KColor(kColor.Red, kColor.Green, kColor.Blue, kColor.Alpha);
+}
+
+/**
+ * Helper function to convert a `SerializedKColor` object to a normal `KColor` object. (This is used
+ * by the save data manager when reading data from the "save#.dat" file.)
+ */
+export function deserializeKColor(kColor: SerializedKColor): KColor {
+  if (!isTable(kColor)) {
+    error(
+      `Failed to deserialize a ${OBJECT_NAME} object since the provided object was not a Lua table.`,
+    );
+  }
+
+  const [r, g, b, a] = getNumbersFromTable(
+    kColor as LuaMap<string, unknown>,
+    OBJECT_NAME,
+    ...KEYS,
+  );
+
+  if (r === undefined) {
+    error(
+      `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: Red`,
+    );
+  }
+  if (g === undefined) {
+    error(
+      `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: Green`,
+    );
+  }
+  if (b === undefined) {
+    error(
+      `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: Blue`,
+    );
+  }
+  if (a === undefined) {
+    error(
+      `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: Alpha`,
+    );
+  }
+
+  return KColor(r, g, b, a);
 }
 
 /**
@@ -143,4 +107,21 @@ export function isSerializedKColor(
 
 export function kColorEquals(kColor1: KColor, kColor2: KColor): boolean {
   return isaacAPIClassEquals(kColor1, kColor2, KEYS);
+}
+
+/**
+ * Helper function to convert a `KColor` object to a `SerializedKColor` object. (This is used by the
+ * save data manager when writing data from the "save#.dat" file.)
+ */
+export function serializeKColor(kColor: KColor): SerializedKColor {
+  if (!isKColor(kColor)) {
+    error(
+      `Failed to serialize a ${OBJECT_NAME} object since the provided object was not a userdata ${OBJECT_NAME} class.`,
+    );
+  }
+
+  const kColorTable = new LuaMap<string, unknown>();
+  copyValuesToTable(kColor, KEYS, kColorTable);
+  kColorTable.set(SerializationBrand.K_COLOR, "");
+  return kColorTable as SerializedKColor;
 }

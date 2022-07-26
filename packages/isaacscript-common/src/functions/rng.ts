@@ -1,6 +1,5 @@
 import { game } from "../cachedClasses";
 import { SerializationBrand } from "../enums/private/SerializationBrand";
-import { SerializationType } from "../enums/SerializationType";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { getNumbersFromTable, tableHasKeys } from "./table";
 import { isTable } from "./types";
@@ -8,12 +7,6 @@ import { isTable } from "./types";
 type SerializedRNG = LuaMap<string, unknown> & {
   readonly __serializedRNGBrand: symbol;
 };
-
-interface CopyRNGReturn {
-  [SerializationType.NONE]: RNG;
-  [SerializationType.SERIALIZE]: SerializedRNG;
-  [SerializationType.DESERIALIZE]: RNG;
-}
 
 /**
  * This is the ShiftIdx that Blade recommended after having reviewing the game's internal functions.
@@ -25,66 +18,35 @@ const RECOMMENDED_SHIFT_IDX = 35;
 const KEYS = ["seed"];
 const OBJECT_NAME = "RNG";
 
-/**
- * Helper function to copy an `RNG` object.
- *
- * @param rng The RNG object to copy. In the case of deserialization, this will actually be a Lua
- *            table instead of an instantiated RNG class.
- * @param serializationType Default is `SerializationType.NONE`.
- */
-export function copyRNG<
-  R extends RNG | SerializedRNG,
-  S extends SerializationType,
->(rng: R, serializationType: S): CopyRNGReturn[S];
-export function copyRNG<R extends RNG | SerializedRNG>(
-  rng: R,
-): CopyRNGReturn[SerializationType.NONE];
-export function copyRNG(
-  rng: RNG | SerializedRNG,
-  serializationType = SerializationType.NONE,
-): CopyRNGReturn[keyof CopyRNGReturn] {
-  switch (serializationType) {
-    case SerializationType.NONE: {
-      if (!isRNG(rng)) {
-        error(
-          `Failed to copy a ${OBJECT_NAME} object since the provided object was not a userdata ${OBJECT_NAME} class.`,
-        );
-      }
-
-      const seed = rng.GetSeed();
-      return newRNG(seed);
-    }
-
-    case SerializationType.SERIALIZE: {
-      if (!isRNG(rng)) {
-        error(
-          `Failed to serialize a ${OBJECT_NAME} object since the provided object was not a userdata ${OBJECT_NAME} class.`,
-        );
-      }
-
-      const seed = rng.GetSeed();
-      const rngTable = new LuaMap<string, unknown>();
-      rngTable.set("seed", seed);
-      rngTable.set(SerializationBrand.RNG, "");
-      return rngTable as SerializedRNG;
-    }
-
-    case SerializationType.DESERIALIZE: {
-      if (!isTable(rng)) {
-        error(
-          `Failed to deserialize a ${OBJECT_NAME} object since the provided object was not a Lua table.`,
-        );
-      }
-
-      const [seedNumber] = getNumbersFromTable(
-        rng as LuaMap<string, unknown>,
-        OBJECT_NAME,
-        ...KEYS,
-      );
-      const seed = seedNumber as Seed;
-      return newRNG(seed);
-    }
+/** Helper function to copy an `RNG` Isaac API class. */
+export function copyRNG(rng: RNG): RNG {
+  if (!isRNG(rng)) {
+    error(
+      `Failed to copy a ${OBJECT_NAME} object since the provided object was not a userdata ${OBJECT_NAME} class.`,
+    );
   }
+
+  const seed = rng.GetSeed();
+  return newRNG(seed);
+}
+
+/**
+ * Helper function to convert a `SerializedRNG` object to a normal `RNG` object. (This is used by
+ * the save data manager when reading data from the "save#.dat" file.)
+ */
+export function deserializeRNG(rng: SerializedRNG): RNG {
+  if (!isTable(rng)) {
+    error(
+      `Failed to deserialize a ${OBJECT_NAME} object since the provided object was not a Lua table.`,
+    );
+  }
+
+  const [seed] = getNumbersFromTable(
+    rng as LuaMap<string, unknown>,
+    OBJECT_NAME,
+    ...KEYS,
+  );
+  return newRNG(seed as Seed);
 }
 
 /**
@@ -128,6 +90,24 @@ export function newRNG(seed = getRandomSeed()): RNG {
 
 export function rngEquals(rng1: RNG, rng2: RNG): boolean {
   return isaacAPIClassEquals(rng1, rng2, KEYS);
+}
+
+/**
+ * Helper function to convert a `RNG` object to a `SerializedRNG` object. (This is used by the save
+ * data manager when writing data from the "save#.dat" file.)
+ */
+export function serializeRNG(rng: RNG): SerializedRNG {
+  if (!isRNG(rng)) {
+    error(
+      `Failed to serialize a ${OBJECT_NAME} object since the provided object was not a userdata ${OBJECT_NAME} class.`,
+    );
+  }
+
+  const seed = rng.GetSeed();
+  const rngTable = new LuaMap<string, unknown>();
+  rngTable.set("seed", seed);
+  rngTable.set(SerializationBrand.RNG, "");
+  return rngTable as SerializedRNG;
 }
 
 /**
