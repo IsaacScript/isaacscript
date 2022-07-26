@@ -323,6 +323,10 @@ export function getCollectibleName(collectibleType: CollectibleType): string {
   return DEFAULT_COLLECTIBLE_NAME;
 }
 
+/**
+ * Helper function to get the "pedestal type" of a collectible. For example, it might be sitting on
+ * top of a broken Blood Donation Machine, or it might be sitting on top of an opened Spiked Chest.
+ */
 export function getCollectiblePedestalType(
   collectible: EntityPickup,
 ): CollectiblePedestalType {
