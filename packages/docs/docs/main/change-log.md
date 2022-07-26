@@ -49,6 +49,7 @@ This page lists the changes to the IsaacScript framework.
   - `serializeIsaacAPIClass`
   - `fireProjectilesInCircle`
   - `spawnRockAltReward`
+  - `isDaddyLongLegsChildStompEntity`
 - Renamed the following helper functions:
   - `spawnCustomGrid` --> `spawnCustomGridEntity`
   - `isBomb` --> `isBombPickup`

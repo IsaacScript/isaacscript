@@ -6,6 +6,7 @@ import {
   DarkEsauVariant,
   DeathVariant,
   EntityType,
+  HopperVariant,
   MamaGurdyVariant,
   MotherSubType,
   MotherVariant,
@@ -83,15 +84,37 @@ export function isAliveExceptionNPC(npc: EntityNPC): boolean {
     return true;
   }
 
-  if (isRaglingDeathPatch(npc)) {
-    return true;
-  }
-
+  // EntityType.HOPPER (29)
+  // HopperVariant.EGGY (2)
   if (isDyingEggyWithNoSpidersLeft(npc)) {
     return true;
   }
 
+  // EntityType.DADDY_LONG_LEGS (101)
+  if (isDaddyLongLegsChildStompEntity(npc)) {
+    return true;
+  }
+
+  // EntityType.RAGLING (256)
+  if (isRaglingDeathPatch(npc)) {
+    return true;
+  }
+
   return false;
+}
+
+/**
+ * Helper function to distinguish between a normal Daddy Long Legs / Triachnid and the child entity
+ * that is spawned when the boss does the multi-stomp attack.
+ *
+ * When this attack occurs, four extra copies of Daddy Long Legs will be spawned with the same
+ * entity type, variant, and sub-type. The `Entity.Parent` property will be undefined in this case,
+ * so the way to tell them apart is to check for a non-undefined `Entity.SpawnerEntity` property.
+ */
+export function isDaddyLongLegsChildStompEntity(npc: EntityNPC): boolean {
+  return (
+    npc.Type === EntityType.DADDY_LONG_LEGS && npc.SpawnerEntity !== undefined
+  );
 }
 
 /**
@@ -101,6 +124,8 @@ export function isAliveExceptionNPC(npc: EntityNPC): boolean {
  */
 export function isDyingEggyWithNoSpidersLeft(npc: EntityNPC): boolean {
   return (
+    npc.Type === EntityType.HOPPER &&
+    npc.Variant === (HopperVariant.EGGY as int) &&
     npc.State === NpcState.SUICIDE &&
     npc.StateFrame >= EGGY_STATE_FRAME_OF_FINAL_SPIDER
   );
