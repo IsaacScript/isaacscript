@@ -6,7 +6,7 @@ import {
 } from "isaac-typescript-definitions";
 import { MAX_PLAYER_HEART_CONTAINERS } from "../constants";
 import { HealthType } from "../enums/HealthType";
-import { PlayerHealth } from "../interfaces/PlayerHealth";
+import { PlayerHealth, SoulHeartType } from "../interfaces/PlayerHealth";
 import { getTotalCharge } from "./charge";
 import { getEnumValues } from "./enums";
 import {
@@ -79,7 +79,6 @@ export function addPlayerHealthType(
  */
 export function getPlayerHealth(player: EntityPlayer): PlayerHealth {
   const character = player.GetPlayerType();
-  const soulHeartTypes: HeartSubType[] = [];
   let maxHearts = player.GetMaxHearts();
   let hearts = getPlayerHearts(player); // We use the helper function to remove rotten hearts
   let soulHearts = player.GetSoulHearts();
@@ -115,6 +114,7 @@ export function getPlayerHealth(player: EntityPlayer): PlayerHealth {
   // track which soul heart we're currently at.
   let currentSoulHeart = 0;
 
+  const soulHeartTypes: SoulHeartType[] = [];
   for (let i = 0; i < extraHearts; i++) {
     let isBoneHeart = player.IsBoneHeart(i);
     if (character === PlayerType.THE_FORGOTTEN && subPlayer !== undefined) {
@@ -333,24 +333,37 @@ export function setPlayerHealth(
 
   // Add the soul / black / bone hearts.
   let soulHeartsRemaining = playerHealth.soulHearts;
-  playerHealth.soulHeartTypes.forEach((heartType, i) => {
+  playerHealth.soulHeartTypes.forEach((soulHeartType, i) => {
     const isHalf =
       playerHealth.soulHearts + playerHealth.boneHearts * 2 < (i + 1) * 2;
     let addAmount = 2;
-    if (isHalf || heartType === HeartSubType.BONE || soulHeartsRemaining < 2) {
+    if (
+      isHalf ||
+      soulHeartType === HeartSubType.BONE ||
+      soulHeartsRemaining < 2
+    ) {
       // Fix the bug where a half soul heart to the left of a bone heart will be treated as a full
       // soul heart.
       addAmount = 1;
     }
 
-    if (heartType === HeartSubType.SOUL) {
-      player.AddSoulHearts(addAmount);
-      soulHeartsRemaining -= addAmount;
-    } else if (heartType === HeartSubType.BLACK) {
-      player.AddBlackHearts(addAmount);
-      soulHeartsRemaining -= addAmount;
-    } else if (heartType === HeartSubType.BONE) {
-      player.AddBoneHearts(addAmount);
+    switch (soulHeartType) {
+      case HeartSubType.SOUL: {
+        player.AddSoulHearts(addAmount);
+        soulHeartsRemaining -= addAmount;
+        break;
+      }
+
+      case HeartSubType.BLACK: {
+        player.AddBlackHearts(addAmount);
+        soulHeartsRemaining -= addAmount;
+        break;
+      }
+
+      case HeartSubType.BONE: {
+        player.AddBoneHearts(addAmount);
+        break;
+      }
     }
   });
 

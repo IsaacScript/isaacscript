@@ -6,6 +6,7 @@ import {
   GameStateFlag,
   GridEntityType,
   GridRoom,
+  HeartSubType,
   LevelStateFlag,
   ProjectileFlag,
   SeedEffect,
@@ -519,7 +520,11 @@ export function logPlayerHealth(this: void, player: EntityPlayer): void {
   log(`  Broken hearts: ${playerHealth.brokenHearts}`);
   log(`  Soul charges: ${playerHealth.soulCharges}`);
   log(`  Blood charges: ${playerHealth.bloodCharges}`);
-  log(`  Soul heart types: [${playerHealth.soulHeartTypes.join(",")}]`);
+  log("  Soul heart types: [");
+  for (const soulHeartType of playerHealth.soulHeartTypes) {
+    log(`    HeartSubType.${HeartSubType[soulHeartType]}`);
+  }
+  log("  ]");
 }
 
 /**
