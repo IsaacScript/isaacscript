@@ -11,11 +11,6 @@ export type PostGridEntityCustomBrokenRegisterParameters = [
 const subscriptions: PostGridEntityCustomBrokenRegisterParameters[] = [];
 
 /** @internal */
-export function postGridEntityCustomBrokenHasSubscriptions(): boolean {
-  return subscriptions.length > 0;
-}
-
-/** @internal */
 export function postGridEntityCustomBrokenRegister(
   ...args: PostGridEntityCustomBrokenRegisterParameters
 ): void {
