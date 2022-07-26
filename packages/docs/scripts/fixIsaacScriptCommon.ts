@@ -2,7 +2,7 @@
 // contains hand-written documentation. Additionally, we want to leverage TypeDoc for automatic API
 // documentation generation. However, TypeDoc generates a webpage that looks entirely different from
 // how the Docusaurus site looks. (And it looks much worse.) In order to get the best end-user
-// experience, we want to combine the non-auto-generated documentation together with the
+// experience, we want to combine the manually-written documentation together with the
 // auto-generated documentation so that everything is in one place.
 
 // The normal way to accomplish this is to use `docusaurus-plugin-typedoc`. Since it is a Docusaurus

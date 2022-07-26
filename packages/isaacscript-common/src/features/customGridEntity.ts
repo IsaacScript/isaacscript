@@ -1,17 +1,22 @@
 import {
   ActiveSlot,
   CollectibleType,
+  DamageFlag,
+  EntityType,
   GridCollisionClass,
   GridEntityType,
   ModCallback,
   UseFlag,
 } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
+import { postGridEntityCustomBrokenFire } from "../callbacks/subscriptions/postGridEntityCustomBroken";
 import { DefaultMap } from "../classes/DefaultMap";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { DecorationVariant } from "../enums/DecorationVariant";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
+import { spawnNPC } from "../functions/entitiesSpecific";
+import { hasFlag } from "../functions/flag";
 import {
   removeGridEntity,
   spawnGridEntityWithVariant,
@@ -33,6 +38,7 @@ const v = {
   },
 
   room: {
+    dummyPtrHashes: new Set<PtrHash>(),
     manuallyUsingShovel: false,
   },
 };
@@ -40,6 +46,12 @@ const v = {
 /** @internal */
 export function customGridEntityInit(mod: ModUpgraded): void {
   saveDataManager(FEATURE_NAME, v);
+
+  mod.AddCallback(
+    ModCallback.ENTITY_TAKE_DMG,
+    entityTakeDmgDummy,
+    EntityType.DUMMY,
+  ); // 11
 
   mod.AddCallback(
     ModCallback.PRE_USE_ITEM,
@@ -51,6 +63,51 @@ export function customGridEntityInit(mod: ModUpgraded): void {
     ModCallbackCustom.POST_NEW_ROOM_REORDERED,
     postNewRoomReordered,
   );
+}
+
+// ModCallback.ENTITY_TAKE_DMG (11)
+// EntityType.DUMMY (964)
+function entityTakeDmgDummy(
+  tookDamage: Entity,
+  _damageAmount: float,
+  damageFlags: BitFlags<DamageFlag>,
+  _damageSource: EntityRef,
+  _damageCountdownFrames: int,
+): boolean | undefined {
+  const ptrHash = GetPtrHash(tookDamage);
+  if (!v.room.dummyPtrHashes.has(ptrHash)) {
+    return undefined;
+  }
+
+  if (!hasFlag(damageFlags, DamageFlag.EXPLOSION)) {
+    return false;
+  }
+
+  const room = game.GetRoom();
+  const roomListIndex = getRoomListIndex();
+  const roomCustomGridEntities = v.level.customGridEntities.get(roomListIndex);
+  if (roomCustomGridEntities === undefined) {
+    return false;
+  }
+
+  const gridIndex = room.GetGridIndex(tookDamage.Position);
+  const data = roomCustomGridEntities.get(gridIndex);
+  if (data === undefined) {
+    return false;
+  }
+
+  const gridEntity = room.GetGridEntity(gridIndex);
+  if (gridEntity === undefined) {
+    error(
+      `Failed to get the grid entity for a custom grid entity that broke at grid index: ${gridIndex}`,
+    );
+  }
+
+  postGridEntityCustomBrokenFire(gridEntity, data.gridEntityTypeCustom);
+
+  // Even though the custom grid entity is now broke, we do not want to remove it, as the end-user
+  // could intend for it to persist with different graphics.
+  return false;
 }
 
 // ModCallback.PRE_USE_ITEM (23)
@@ -161,6 +218,10 @@ function postNewRoomReordered() {
  * @param defaultAnimation Optional. The name of the animation to play after the sprite is
  *                         initialized and after the player re-enters a room with this grid entity
  *                         in it. If not specified, the default animation in the anm2 will be used.
+ * @param breakable Optional. Whether or not an explosion will be able to break this grid entity.
+ *                  False by default. Use the `POST_GRID_ENTITY_CUSTOM_BROKEN` callback to detect
+ *                  when it breaks. Due to technical limitations, you can only set the grid entity
+ *                  to be breakable if it has a collision class.
  */
 export function spawnCustomGridEntity(
   gridEntityTypeCustom: GridEntityType,
@@ -168,8 +229,15 @@ export function spawnCustomGridEntity(
   gridCollisionClass: GridCollisionClass,
   anm2Path: string,
   defaultAnimation?: string,
+  breakable = false,
 ): GridEntity {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
+
+  if (breakable && gridCollisionClass === GridCollisionClass.NONE) {
+    error(
+      "Failed to spawn a custom grid entity because it is not possible to have breakable custom grid entities with a collision class of: GridCollisionClass.NONE (0)",
+    );
+  }
 
   const room = game.GetRoom();
   const roomListIndex = getRoomListIndex();
@@ -214,6 +282,14 @@ export function spawnCustomGridEntity(
   const roomCustomGridEntities =
     v.level.customGridEntities.getAndSetDefault(roomListIndex);
   roomCustomGridEntities.set(gridIndex, customGridEntityData);
+
+  // We check to see if an explosion touches a custom grid entity by spawning a Dummy on top, and
+  // the monitoring for explosions in the `ENTITY_TAKE_DMG` callback.
+  if (breakable) {
+    const position = room.GetGridPosition(gridIndex);
+    const dummy = spawnNPC(EntityType.DUMMY, 0, 0, position);
+    dummy.Visible = false;
+  }
 
   return decoration;
 }

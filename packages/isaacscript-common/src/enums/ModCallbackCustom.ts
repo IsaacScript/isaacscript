@@ -364,6 +364,42 @@ export enum ModCallbackCustom {
   POST_GRID_ENTITY_COLLISION,
 
   /**
+   * Fires from the `POST_UPDATE` callback when a grid entity created with the
+   * `spawnCustomGridEntity` helper function is hit by an explosion.
+   *
+   * In most cases, you will want to remove the grid entity inside of this callback in order to
+   * prevent further "broken" callbacks from firing. (This would not be the case if you were trying
+   * to emulate a super tinted rock that takes multiple explosions to destroy, for example.)
+   *
+   * When registering the callback, takes an optional second argument that will make the callback
+   * only fire if it matches the `GridEntityType` provided.
+   *
+   * ```ts
+   * function postGridEntityCustomBroken(
+   *   gridEntity: GridEntity,
+   *   gridEntityTypeCustom: GridEntityType,
+   * ): void {}
+   * ```
+   */
+  POST_GRID_ENTITY_CUSTOM_BROKEN,
+
+  /**
+   * Fires from the `POST_UPDATE` callback a new entity collides with a grid entity created with the
+   * `spawnCustomGridEntity` helper function.
+   *
+   * When registering the callback, takes an optional second argument that will make the callback
+   * only fire if it matches the `GridEntityType` provided.
+   *
+   * ```ts
+   * function postGridEntityCustomRender(
+   *   gridEntity: GridEntity,
+   *   gridEntityTypeCustom: GridEntityType,
+   * ): void {}
+   * ```
+   */
+  POST_GRID_ENTITY_CUSTOM_COLLISION,
+
+  /**
    * Fires from the `POST_RENDER` callback on every frame that a grid entity created with the
    * `spawnCustomGridEntity` helper function exists.
    *
@@ -371,7 +407,7 @@ export enum ModCallbackCustom {
    * only fire if it matches the `GridEntityType` provided.
    *
    * ```ts
-   * function postGridEntityRenderCustom(
+   * function postGridEntityCustomRender(
    *   gridEntity: GridEntity,
    *   gridEntityTypeCustom: GridEntityType,
    * ): void {}
@@ -387,7 +423,7 @@ export enum ModCallbackCustom {
    * only fire if it matches the `GridEntityType` provided.
    *
    * ```ts
-   * function postGridEntityUpdateCustom(
+   * function postGridEntityCustomUpdate(
    *   gridEntity: GridEntity,
    *   gridEntityTypeCustom: GridEntityType,
    * ): void {}

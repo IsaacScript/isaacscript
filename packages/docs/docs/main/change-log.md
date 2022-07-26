@@ -47,14 +47,26 @@ This page lists the changes to the IsaacScript framework.
   - `isCollectibleInItemPool`
   - `smeltTrinkets`
   - `serializeIsaacAPIClass`
+  - `fireProjectilesInCircle`
+  - `spawnRockAltReward`
 - Renamed the following helper functions:
   - `spawnCustomGrid` --> `spawnCustomGridEntity`
   - `isBomb` --> `isBombPickup`
   - `isPoop` --> `isPoopPickup`
+- Changed the following helper functions:
+  - `fireProjectiles` now accepts an undefined NPC for the cases where you do not want the projectiles to come from anything in particular.
+- Added the following enums:
+  - `UrnVariant`
+  - `MushroomVariant`
+  - `SkullVariant`
+  - `PolypVariant`
+  - `BucketVariant`
 - Added the following custom callbacks:
   - `POST_PLAYER_INIT_FIRST` (use this for e.g. custom character initialization)
-  - `POST_GRID_ENTITY_UPDATE_CUSTOM`
-  - `POST_GRID_ENTITY_RENDER_CUSTOM`
+  - `POST_GRID_ENTITY_CUSTOM_UPDATE`
+  - `POST_GRID_ENTITY_CUSTOM_RENDER`
+  - `POST_GRID_ENTITY_CUSTOM_COLLISION`
+  - `POST_GRID_ENTITY_CUSTOM_BROKEN`
 - Deleted the following custom callbacks:
   - `POST_PLAYER_INIT_REORDERED` (use `POST_PLAYER_INIT_FIRST` or `POST_GAME_STARTED_REORDERED` instead)
 - Changed the following custom callbacks:
@@ -344,7 +356,6 @@ yarn add typescript-to-lua
   - `isHiddenCollectible`
   - `getEdenPassives`
   - `getRandomEdenPassive`
-  - `npcFireProjectiles` (thanks KatTheFox)
   - `mapHasPlayer`
 - Renamed the following helper functions:
   - `preventCollectibleRotate` --> `preventCollectibleRotation`

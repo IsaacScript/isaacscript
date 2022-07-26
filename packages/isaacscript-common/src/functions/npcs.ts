@@ -11,13 +11,11 @@ import {
   MotherVariant,
   NpcState,
   PeepVariant,
-  ProjectilesMode,
   RaglingVariant,
   VisVariant,
 } from "isaac-typescript-definitions";
 import { EGGY_STATE_FRAME_OF_FINAL_SPIDER } from "../constants";
-import { getFilteredNewEntities } from "./entities";
-import { getNPCs, getProjectiles } from "./entitiesSpecific";
+import { getNPCs } from "./entitiesSpecific";
 
 /**
  * Used to filter out certain NPCs when determining of an NPC is "alive" and/or should keep the
@@ -45,33 +43,6 @@ const NON_ALIVE_NPCS_TYPE_VARIANT_SUBTYPE: ReadonlySet<string> = new Set([
   `${EntityType.CHARGER}.${ChargerVariant.CHARGER}.${ChargerSubType.MY_SHADOW}`, // 23.0.1
   `${EntityType.MOTHER}.${MotherVariant.MOTHER_1}.${MotherSubType.PHASE_2}`, // 912
 ]);
-
-/**
- * Helper function to make an NPC fire a projectile. Returns the fired projectile. Use this function
- * instead of the `EntityNPC.FireProjectiles` method, since that returns void.
- *
- * @param npc The NPC to fire the projectile from.
- * @param position The staring position of the projectile.
- * @param velocity The starting velocity of the projectile.
- * @param projectilesMode The mode of the projectile. Optional. Default is
- *                        `ProjectilesMode.ONE_PROJECTILE`.
- * @param projectileParams The parameters of the projectile. Optional. Default is
- *                         `ProjectileParams()`.
- * @returns The fired projectile.
- */
-export function fireProjectiles(
-  npc: EntityNPC,
-  position: Vector,
-  velocity: Vector,
-  projectilesMode: ProjectilesMode = ProjectilesMode.ONE_PROJECTILE,
-  projectileParams: ProjectileParams = ProjectileParams(),
-): EntityProjectile[] {
-  const oldProjectiles = getProjectiles(projectileParams.Variant);
-  npc.FireProjectiles(position, velocity, projectilesMode, projectileParams);
-  const newProjectiles = getProjectiles(projectileParams.Variant);
-
-  return getFilteredNewEntities(oldProjectiles, newProjectiles);
-}
 
 /**
  * Helper function to get all of the non-dead NPCs in the room.
@@ -148,32 +119,4 @@ export function isRaglingDeathPatch(npc: EntityNPC): boolean {
     // They go to `STATE_SPECIAL` when they are patches on the ground.
     npc.State === NpcState.SPECIAL
   );
-}
-
-/**
- * The base game `EntityNPC.FireProjectiles` method does not return anything, which is a problem in
- * situations where you need to work with the fired projectiles. This function runs that method, and
- * then returns the projectiles that were spawned.
- *
- * @param npc The EntityNPC firing projectiles.
- * @param position The starting position of the projectiles.
- * @param velocity The starting velocity of the projectiles.
- * @param projectilesMode A ProjectilesMode enum value defining how to fire the projectiles.
- * @param projectileParams A ProjectileParams object containing various parameters for the
- *                         projectiles.
- * @returns An array of EntityProjectiles containing all fired projectiles.
- */
-export function npcFireProjectiles(
-  npc: EntityNPC,
-  position: Vector,
-  velocity: Vector,
-  projectilesMode: ProjectilesMode,
-  projectileParams: ProjectileParams,
-): EntityProjectile[] {
-  const oldEntities = getProjectiles();
-  npc.FireProjectiles(position, velocity, projectilesMode, projectileParams);
-  const newEntities = getProjectiles();
-  const filteredNewEntities = getFilteredNewEntities(oldEntities, newEntities);
-
-  return filteredNewEntities;
 }

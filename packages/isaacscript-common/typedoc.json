@@ -113,6 +113,7 @@
     "src/functions/pocketItems.ts",
     "src/functions/positionVelocity.ts",
     "src/functions/pressurePlate.ts",
+    "src/functions/projectiles.ts",
     "src/functions/random.ts",
     "src/functions/revive.ts",
     "src/functions/rng.ts",

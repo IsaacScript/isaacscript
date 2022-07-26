@@ -1,3 +1,6 @@
+- test GENERIC_PROP spawns crawlspace
+
+- python to EXE, finish TODO in isaacscript-cli
 - finish bucket function in isaacscript-common
 - custom bosses for vanilla stages
 

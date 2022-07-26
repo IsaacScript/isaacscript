@@ -23,6 +23,8 @@ import { postGameStartedReorderedRegister } from "../callbacks/subscriptions/pos
 import { postGreedModeWaveRegister } from "../callbacks/subscriptions/postGreedModeWave";
 import { postGridEntityBrokenRegister } from "../callbacks/subscriptions/postGridEntityBroken";
 import { postGridEntityCollisionRegister } from "../callbacks/subscriptions/postGridEntityCollision";
+import { postGridEntityCustomBrokenRegister } from "../callbacks/subscriptions/postGridEntityCustomBroken";
+import { postGridEntityCustomCollisionRegister } from "../callbacks/subscriptions/postGridEntityCustomCollision";
 import { postGridEntityCustomRenderRegister } from "../callbacks/subscriptions/postGridEntityCustomRender";
 import { postGridEntityCustomUpdateRegister } from "../callbacks/subscriptions/postGridEntityCustomUpdate";
 import { postGridEntityInitRegister } from "../callbacks/subscriptions/postGridEntityInit";
@@ -120,6 +122,10 @@ export const CALLBACK_REGISTER_FUNCTIONS: {
   [ModCallbackCustom.POST_GRID_ENTITY_BROKEN]: postGridEntityBrokenRegister,
   [ModCallbackCustom.POST_GRID_ENTITY_COLLISION]:
     postGridEntityCollisionRegister,
+  [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_BROKEN]:
+    postGridEntityCustomBrokenRegister,
+  [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_COLLISION]:
+    postGridEntityCustomCollisionRegister,
   [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_RENDER]:
     postGridEntityCustomRenderRegister,
   [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_UPDATE]:
