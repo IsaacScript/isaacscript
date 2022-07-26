@@ -7,7 +7,7 @@ import { getRandomSeed, isRNG, newRNG } from "./rng";
 import { copyValuesToTable, getNumbersFromTable, tableHasKeys } from "./table";
 import { isTable } from "./types";
 
-type SerializedVector = LuaMap<string, unknown> & {
+export type SerializedVector = LuaMap<string, unknown> & {
   readonly __serializedVectorBrand: symbol;
 };
 

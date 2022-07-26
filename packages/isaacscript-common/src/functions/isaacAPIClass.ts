@@ -1,4 +1,4 @@
-import { IsaacAPIClass } from "../types/private/IsaacAPIClass";
+import { IsaacAPIClass } from "../types/IsaacAPIClass";
 import { trimPrefix } from "./string";
 import { isString, isUserdata } from "./types";
 

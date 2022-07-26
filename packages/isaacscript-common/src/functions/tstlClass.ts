@@ -1,6 +1,6 @@
 import { DefaultMap } from "../classes/DefaultMap";
 import { TSTLClassMetatable } from "../interfaces/private/TSTLClassMetatable";
-import { TSTLClass } from "../types/private/TSTLClass";
+import { TSTLClass } from "../types/TSTLClass";
 import { isString, isTable } from "./types";
 
 const VANILLA_TSTL_CLASSES = new Set(["Map", "Set", "WeakMap", "WeakSet"]);

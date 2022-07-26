@@ -4,7 +4,7 @@ import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { getNumbersFromTable, tableHasKeys } from "./table";
 import { isTable } from "./types";
 
-type SerializedRNG = LuaMap<string, unknown> & {
+export type SerializedRNG = LuaMap<string, unknown> & {
   readonly __serializedRNGBrand: symbol;
 };
 

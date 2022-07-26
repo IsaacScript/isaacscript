@@ -1,7 +1,7 @@
 import { CopyableIsaacAPIClassType } from "../enums/private/CopyableIsaacAPIClassType";
 import { ISAAC_API_CLASS_TYPE_TO_BRAND } from "../objects/isaacAPIClassTypeToBrand";
 import { ISAAC_API_CLASS_TYPE_TO_FUNCTIONS } from "../objects/isaacAPIClassTypeToFunctions";
-import { SerializedIsaacAPIClass } from "../types/private/SerializedIsaacAPIClass";
+import { SerializedIsaacAPIClass } from "../types/SerializedIsaacAPIClass";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
 import { isTable, isUserdata } from "./types";
 

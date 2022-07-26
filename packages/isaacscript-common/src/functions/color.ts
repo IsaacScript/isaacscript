@@ -5,7 +5,7 @@ import { getRandomSeed, isRNG, newRNG } from "./rng";
 import { copyValuesToTable, getNumbersFromTable, tableHasKeys } from "./table";
 import { isTable } from "./types";
 
-type SerializedColor = LuaMap<string, unknown> & {
+export type SerializedColor = LuaMap<string, unknown> & {
   readonly __serializedColorBrand: symbol;
 };
 
