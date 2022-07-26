@@ -1,6 +1,4 @@
-- refactor copyX functions
-
-- finish urn function in isaacscript-common
+- finish bucket function in isaacscript-common
 - custom bosses for vanilla stages
 
 - Slaughterhouse I and II
