@@ -8,7 +8,7 @@ import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { spawn } from "../functions/entities";
 import { getRoomListIndex } from "../functions/roomData";
-import { getLatestRoomDescription } from "./roomHistory";
+import { getLatestRoomDescription, isLeavingRoom } from "./roomHistory";
 import { saveDataManager } from "./saveDataManager/exports";
 
 interface PersistentEntityDescription {
@@ -56,6 +56,10 @@ export function persistentEntitiesInit(mod: ModUpgraded): void {
 
 // ModCallback.POST_ENTITY_REMOVE (67)
 function postEntityRemove(entity: Entity) {
+  checkDespawningFromPlayerLeavingRoom(entity);
+}
+
+function checkDespawningFromPlayerLeavingRoom(entity: Entity) {
   const ptrHash = GetPtrHash(entity);
   const tuple = v.room.spawnedPersistentEntities.get(ptrHash);
   if (tuple === undefined) {
@@ -63,10 +67,20 @@ function postEntityRemove(entity: Entity) {
   }
   const index = tuple[0];
 
-  // The persistent entity is despawning, presumably because the player is in the process of leaving
-  // the room. Keep track of the position for later. We use the previous room list index because
-  // even though the `POST_NEW_ROOM` callback was not fired yet, we have already traveled to the
-  // next room.
+  if (!isLeavingRoom()) {
+    return;
+  }
+
+  trackDespawningPickupPosition(entity, index);
+}
+
+/**
+ * The persistent entity is despawning because the player is in the process of leaving the room.
+ * Keep track of the position for later.
+ */
+function trackDespawningPickupPosition(entity: Entity, index: int) {
+  // (The "latest" room description is really the previous room, because the `POST_NEW_ROOM`
+  // callback was not fired yet.)
   const previousRoomDescription = getLatestRoomDescription();
   const previousRoomListIndex = previousRoomDescription.roomListIndex;
   const persistentEntityDescription: PersistentEntityDescription = {

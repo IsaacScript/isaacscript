@@ -14,7 +14,7 @@ import { getRoomListIndex } from "../functions/roomData";
 import { onAscent } from "../functions/stage";
 import { vectorEquals } from "../functions/vector";
 import { PickupIndex } from "../types/PickupIndex";
-import { getLatestRoomDescription } from "./roomHistory";
+import { getLatestRoomDescription, isLeavingRoom } from "./roomHistory";
 import { saveDataManager } from "./saveDataManager/exports";
 
 interface PickupDescription {
@@ -27,7 +27,6 @@ const FEATURE_NAME = "pickupIndex";
 const v = {
   run: {
     pickupCounter: 0 as PickupIndex,
-    currentRoomListIndex: 0,
 
     pickupDataTreasureRooms: new Map<PickupIndex, PickupDescription>(),
     pickupDataBossRooms: new Map<PickupIndex, PickupDescription>(),
@@ -81,9 +80,6 @@ function postPickupInit(pickup: EntityPickup) {
 
   v.run.pickupCounter++;
   v.room.pickupIndexes.set(ptrHash, v.run.pickupCounter);
-
-  // Additionally, keep track of which room we are storing the pointer hashes for.
-  v.run.currentRoomListIndex = getRoomListIndex();
 }
 
 // ModCallback.POST_ENTITY_REMOVE (67)
@@ -99,10 +95,7 @@ function checkDespawningFromPlayerLeavingRoom(entity: Entity) {
     return;
   }
 
-  const roomListIndex = getRoomListIndex();
-  if (roomListIndex === v.run.currentRoomListIndex) {
-    // This is a pickup that is despawning in the current room. For example, it could be a heart
-    // pickup that the player picked up. Thus, we do not need to keep track of it's metadata.
+  if (!isLeavingRoom()) {
     return;
   }
 
@@ -111,13 +104,14 @@ function checkDespawningFromPlayerLeavingRoom(entity: Entity) {
 
 /**
  * This is a pickup that is despawning because the player is in the process of leaving the room.
- * Keep track of the metadata for later. We need to use the previous room list index because even
- * though the `POST_NEW_ROOM` callback was not fired yet, we have already traveled to the next room.
+ * Keep track of the metadata for later.
  */
 function trackDespawningPickupMetadata(
   entity: Entity,
   pickupIndex: PickupIndex,
 ) {
+  // The "latest" room description is really the previous room, because the `POST_NEW_ROOM` callback
+  // was not fired yet.
   const previousRoomDescription = getLatestRoomDescription();
   const previousRoomListIndex = previousRoomDescription.roomListIndex;
   const pickupDescriptions = v.level.pickupData.getAndSetDefault(

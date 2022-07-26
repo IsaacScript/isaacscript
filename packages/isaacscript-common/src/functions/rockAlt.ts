@@ -31,13 +31,13 @@ import { repeat } from "./utils";
 import { getRandomVector } from "./vector";
 
 const ROCK_ALT_CHANCES = {
-  Nothing: 0.68,
-  BasicDrop: 0.0967,
+  NOTHING: 0.68,
+  BASIC_DROP: 0.0967,
 
   /** Also used for e.g. black hearts from skulls. */
-  Trinket: 0.025,
+  TRINKET: 0.025,
 
-  Collectible: 0.005,
+  COLLECTIBLE: 0.005,
 } as const;
 
 const POLYP_PROJECTILE_SPEED = 10;
@@ -126,12 +126,12 @@ function spawnRockAltRewardUrn(position: Vector, rng: RNG): boolean {
   const chance = getRandom(rng);
   let totalChance = 0;
 
-  totalChance += ROCK_ALT_CHANCES.Nothing;
+  totalChance += ROCK_ALT_CHANCES.NOTHING;
   if (chance < totalChance) {
     return false;
   }
 
-  totalChance += ROCK_ALT_CHANCES.BasicDrop;
+  totalChance += ROCK_ALT_CHANCES.BASIC_DROP;
   if (chance < totalChance) {
     const numCoinsChance = getRandom(rng);
     const numCoins = numCoinsChance < 0.5 ? 1 : 2;
@@ -144,13 +144,13 @@ function spawnRockAltRewardUrn(position: Vector, rng: RNG): boolean {
     return true;
   }
 
-  totalChance += ROCK_ALT_CHANCES.Trinket;
+  totalChance += ROCK_ALT_CHANCES.TRINKET;
   if (chance < totalChance) {
     spawnTrinketWithSeed(TrinketType.SWALLOWED_PENNY, position, rng);
     return true;
   }
 
-  totalChance += ROCK_ALT_CHANCES.Collectible;
+  totalChance += ROCK_ALT_CHANCES.COLLECTIBLE;
   if (chance < totalChance) {
     const stillInPools = isCollectibleInItemPool(
       CollectibleType.QUARTER,
@@ -184,24 +184,24 @@ function spawnRockAltRewardMushroom(position: Vector, rng: RNG): boolean {
   const chance = getRandom(rng);
   let totalChance = 0;
 
-  totalChance += ROCK_ALT_CHANCES.Nothing;
+  totalChance += ROCK_ALT_CHANCES.NOTHING;
   if (chance < totalChance) {
     return false;
   }
 
-  totalChance += ROCK_ALT_CHANCES.BasicDrop;
+  totalChance += ROCK_ALT_CHANCES.BASIC_DROP;
   if (chance < totalChance) {
     spawnPillWithSeed(PillColor.NULL, position, rng);
     return true;
   }
 
-  totalChance += ROCK_ALT_CHANCES.Trinket;
+  totalChance += ROCK_ALT_CHANCES.TRINKET;
   if (chance < totalChance) {
     spawnTrinketWithSeed(TrinketType.LIBERTY_CAP, position, rng);
     return true;
   }
 
-  totalChance += ROCK_ALT_CHANCES.Collectible;
+  totalChance += ROCK_ALT_CHANCES.COLLECTIBLE;
   if (chance < totalChance) {
     if (roomType === RoomType.SECRET) {
       const wavyCapChance = getRandom(rng);
@@ -257,24 +257,24 @@ function spawnRockAltRewardSkull(position: Vector, rng: RNG): boolean {
   const chance = getRandom(rng);
   let totalChance = 0;
 
-  totalChance += ROCK_ALT_CHANCES.Nothing;
+  totalChance += ROCK_ALT_CHANCES.NOTHING;
   if (chance < totalChance) {
     return false;
   }
 
-  totalChance += ROCK_ALT_CHANCES.BasicDrop;
+  totalChance += ROCK_ALT_CHANCES.BASIC_DROP;
   if (chance < totalChance) {
     spawnCardWithSeed(Card.NULL, position, rng);
     return true;
   }
 
-  totalChance += ROCK_ALT_CHANCES.Trinket;
+  totalChance += ROCK_ALT_CHANCES.TRINKET;
   if (chance < totalChance) {
     spawnHeartWithSeed(HeartSubType.BLACK, position, rng);
     return true;
   }
 
-  totalChance += ROCK_ALT_CHANCES.Collectible;
+  totalChance += ROCK_ALT_CHANCES.COLLECTIBLE;
   if (chance < totalChance) {
     const ghostBabyStillInPools = isCollectibleInItemPool(
       CollectibleType.GHOST_BABY,
@@ -316,24 +316,24 @@ function spawnRockAltRewardPolyp(position: Vector, rng: RNG): boolean {
   const chance = getRandom(rng);
   let totalChance = 0;
 
-  totalChance += ROCK_ALT_CHANCES.Nothing;
+  totalChance += ROCK_ALT_CHANCES.NOTHING;
   if (chance < totalChance) {
     return false;
   }
 
-  totalChance += ROCK_ALT_CHANCES.BasicDrop;
+  totalChance += ROCK_ALT_CHANCES.BASIC_DROP;
   if (chance < totalChance) {
     spawnHeartWithSeed(HeartSubType.NULL, position, rng);
     return true;
   }
 
-  totalChance += ROCK_ALT_CHANCES.Trinket;
+  totalChance += ROCK_ALT_CHANCES.TRINKET;
   if (chance < totalChance) {
     spawnTrinketWithSeed(TrinketType.UMBILICAL_CORD, position, rng);
     return true;
   }
 
-  totalChance += ROCK_ALT_CHANCES.Collectible;
+  totalChance += ROCK_ALT_CHANCES.COLLECTIBLE;
   if (chance < totalChance) {
     const placentaStillInPools = isCollectibleInItemPool(
       CollectibleType.PLACENTA,
@@ -386,7 +386,7 @@ function spawnRockAltRewardBucket(
   const chance = getRandom(rng);
   let totalChance = 0;
 
-  totalChance += ROCK_ALT_CHANCES.Nothing;
+  totalChance += ROCK_ALT_CHANCES.NOTHING;
   if (chance < totalChance) {
     return false;
   }

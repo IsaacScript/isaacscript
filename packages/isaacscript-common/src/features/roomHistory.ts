@@ -10,6 +10,7 @@ import {
   getRoomStageID,
   getRoomSubType,
   getRoomVariant,
+  getRoomVisitedCount,
 } from "../functions/roomData";
 import { RoomDescription } from "../interfaces/RoomDescription";
 import { saveDataManager } from "./saveDataManager/exports";
@@ -45,6 +46,7 @@ function postNewRoomEarly() {
   const roomName = getRoomName();
   const roomGridIndex = getRoomGridIndex();
   const roomListIndex = getRoomListIndex();
+  const roomVisitedCount = getRoomVisitedCount();
 
   const roomDescription: RoomDescription = {
     stage,
@@ -56,6 +58,7 @@ function postNewRoomEarly() {
     roomName,
     roomGridIndex,
     roomListIndex,
+    roomVisitedCount,
   };
   v.run.roomHistory.push(roomDescription);
 }
@@ -96,10 +99,7 @@ export function getPreviousRoomDescription(): RoomDescription {
  * Helper function to get information about the most recent room that is stored in the room history
  * array.
  *
- * This is useful in the `POST_ENTITY_REMOVE` callback, since if an entity is despawning due to a
- * player having left the room, the current room will have changed already, but the `POST_NEW_ROOM`
- * callback will not have fired yet, and there will not be an entry in the room history array for
- * the current room.
+ * This is useful in the `POST_ENTITY_REMOVE` callback; see the `isLeavingRoom` function.
  */
 export function getLatestRoomDescription(): RoomDescription {
   const latestRoomDescription = getLastElement(v.run.roomHistory);
@@ -110,4 +110,24 @@ export function getLatestRoomDescription(): RoomDescription {
   }
 
   return latestRoomDescription;
+}
+
+/**
+ * Helper function to detect if the game is in the state where the room index has changed to a new
+ * room, but the entities from the previous room are currently in the process of despawning. (At
+ * this point, the `POST_NEW_ROOM` callback will not have fired yet, and there will not be an entry
+ * in the room history array for the current room.)
+ *
+ * This function is intended to be used in the `POST_ENTITY_REMOVE` callback to detect when an
+ * entity is pseudo-persistent entity such as a pickup is despawning.
+ */
+export function isLeavingRoom(): boolean {
+  const roomListIndex = getRoomListIndex();
+  const roomVisitedCount = getRoomVisitedCount();
+  const latestRoomDescription = getLatestRoomDescription();
+
+  return (
+    roomListIndex !== latestRoomDescription.roomListIndex ||
+    roomVisitedCount !== latestRoomDescription.roomVisitedCount
+  );
 }

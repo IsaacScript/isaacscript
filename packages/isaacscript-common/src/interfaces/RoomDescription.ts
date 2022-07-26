@@ -16,4 +16,5 @@ export interface RoomDescription {
   roomName: string;
   roomGridIndex: int;
   roomListIndex: int;
+  roomVisitedCount: int;
 }
