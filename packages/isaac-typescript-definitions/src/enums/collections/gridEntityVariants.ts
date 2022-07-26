@@ -6,6 +6,66 @@ export enum RockVariant {
   EVENT = 1,
 }
 
+/**
+ * For GridEntityType.ROCK_ALT (6), RockAltType.URN
+ *
+ * Note that you are unable to spawn specific urn variants. The game will pick a random variant
+ * regardless of which one you select.
+ */
+export enum UrnVariant {
+  NORMAL = 0,
+  CHIPPED_TOP_LEFT = 1,
+  NARROW = 2,
+}
+
+/**
+ * For GridEntityType.ROCK_ALT (6), RockAltType.MUSHROOM
+ *
+ * Note that you are unable to spawn specific mushroom variants. The game will pick a random variant
+ * regardless of which one you select.
+ */
+export enum MushroomVariant {
+  NORMAL = 0,
+  CHIPPED_TOP_RIGHT = 1,
+  NARROW = 2,
+}
+
+/**
+ * For GridEntityType.ROCK_ALT (6), RockAltType.SKULL
+ *
+ * Note that you are unable to spawn specific skull variants. The game will pick a random variant
+ * regardless of which one you select.
+ */
+export enum SkullVariant {
+  NORMAL = 0,
+  FACING_RIGHT = 1,
+  FACING_LEFT = 2,
+}
+
+/**
+ * For GridEntityType.ROCK_ALT (6), RockAltType.POLYP
+ *
+ * Note that you are unable to spawn specific polyp variants. The game will pick a random variant
+ * regardless of which one you select.
+ */
+export enum PolypVariant {
+  NORMAL = 0,
+  MANY_FINGERS = 1,
+  FLIPPED_AND_SHIFTED_UPWARDS = 2,
+}
+
+/**
+ * For GridEntityType.ROCK_ALT (6), RockAltType.BUCKET
+ *
+ * Note that you are unable to spawn specific bucket variants. The game will pick a random variant
+ * regardless of which one you select.
+ */
+export enum BucketVariant {
+  EMPTY = 0,
+  FULL = 1,
+  EMPTY_AND_SHIFTED_UPWARDS = 2,
+}
+
 /** For `GridEntityType.PIT` (7) */
 export enum PitVariant {
   NORMAL = 0,
