@@ -8,7 +8,8 @@
  * @notExported
  */
 const LevelCurseInternal = {
-  NONE: 0,
+  /** 1 << -1 */
+  NONE: 1 << -1,
 
   /** 1 << 0 */
   DARKNESS: 1 << 0,
