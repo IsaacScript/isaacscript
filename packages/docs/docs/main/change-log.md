@@ -45,6 +45,7 @@ This page lists the changes to the IsaacScript framework.
   - `getRandomColor`
   - `getRandomKColor`
   - `isCollectibleInItemPool`
+  - `smeltTrinkets`
 - Renamed the following helper functions:
   - `spawnCustomGrid` --> `spawnCustomGridEntity`
   - `isBomb` --> `isBombPickup`

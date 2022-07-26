@@ -24,4 +24,6 @@ lint failure:
 
 - prefer implicit loops for arrays, maps, etc. - not implicit, but "default iterator"?
 
-- double period for comment lint
+- double period for end of JSDoc comment lint
+
+- lint rule: arrays, maps, and sets that start with Capital letter must be read-only

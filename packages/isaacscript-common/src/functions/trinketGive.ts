@@ -75,6 +75,27 @@ export function smeltTrinket(
 }
 
 /**
+ * Helper function to smelt two or more different trinkets. If you want to smelt one trinket (or
+ * multiple copies of one trinket), then use the `smeltTrinket` helper function instead.
+ *
+ * This function is variadic, meaning that you can pass as many trinket types as you want to smelt.
+ *
+ * Before smelting, this function will automatically remove the trinkets that the player is holding,
+ * if any, and then give them back after the new trinket is smelted.
+ *
+ * @param player The player to smelt the trinkets to.
+ * @param trinketTypes The trinket types to smelt.
+ */
+export function smeltTrinkets(
+  player: EntityPlayer,
+  ...trinketTypes: TrinketType[]
+): void {
+  for (const trinketType of trinketTypes) {
+    smeltTrinket(player, trinketType);
+  }
+}
+
+/**
  * Helper function to temporarily remove a specific kind of trinket from the player. Use this in
  * combination with the `giveTrinketsBack` function to take away and give back a trinket on the same
  * frame. This function correctly handles multiple trinket slots and ensures that all copies of the
