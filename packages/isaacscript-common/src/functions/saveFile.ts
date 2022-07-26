@@ -1,4 +1,5 @@
 import { CollectibleType, ItemPoolType } from "isaac-typescript-definitions";
+import { isCollectibleInItemPool } from "./itemPool";
 import { anyPlayerHasCollectible } from "./players";
 
 /**
@@ -23,5 +24,5 @@ export function isCollectibleUnlocked(
     return true;
   }
 
-  return isCollectibleUnlocked(collectibleType, itemPoolType);
+  return isCollectibleInItemPool(collectibleType, itemPoolType);
 }
