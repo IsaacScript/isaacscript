@@ -1,3 +1,4 @@
+- test custom grid entity broken
 - test GENERIC_PROP spawns crawlspace
 
 - python to EXE, finish TODO in isaacscript-cli
