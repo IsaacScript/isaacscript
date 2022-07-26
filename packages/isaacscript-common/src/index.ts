@@ -142,6 +142,7 @@ export * from "./functions/players";
 export * from "./functions/pocketItems";
 export * from "./functions/positionVelocity";
 export * from "./functions/pressurePlate";
+export * from "./functions/projectiles";
 export * from "./functions/random";
 export * from "./functions/revive";
 export * from "./functions/rng";
