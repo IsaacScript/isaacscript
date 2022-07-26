@@ -8,7 +8,7 @@ Small mods can be written inside of a single file: "main.ts". In most cases, it 
 
 However, this logic starts to break down once the mod gets over a few hundred lines. Imagine that we have a mod that adds multiple items, and all of the logic is inside of the "main.ts" file. When working in the file, it might be hard to orient ourselves: are we in a function that deals with item 1? Or item 2?
 
-Furthermore, in bigger files, it's easier for things to get messy. Imagine that we wanted to put all of the constants and functions for item 1 in the middle of the file, and all of the constants and functions for item 2 at the bottom of the file. But after working on the mod for a while and adding/removing things, things often get shuffled around and we the organization gets messed up.
+Furthermore, in bigger files, it's easier for things to get messy. Imagine that we wanted to put all of the constants and functions for item 1 in the middle of the file, and all of the constants and functions for item 2 at the bottom of the file. But after working on the mod for a while and adding/removing things, things often get shuffled around and the organization gets messed up.
 
 Instead, it's better to have each item in a dedicated file for that item. That way, if someone wants to know how a specific item works, they can just open the one item file and read it without having to wade through everything else. And if you ever find a bug with item 1, then you don't have to go on a scavenger hunt throughout your codebase - you can just focus all of your effort on looking through and troubleshooting the file for item 1.
 
