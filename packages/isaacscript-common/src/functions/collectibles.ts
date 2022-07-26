@@ -342,8 +342,8 @@ export function getCollectiblePedestalType(
 }
 
 /**
- * Helper function to get the path to a collectible's quality. Returns 0 if the provided collectible
- * type was not valid.
+ * Helper function to get a collectible's quality. For example, Mom's Knife has a quality of 4.
+ * Returns 0 if the provided collectible type was not valid.
  */
 export function getCollectibleQuality(collectibleType: CollectibleType): int {
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
