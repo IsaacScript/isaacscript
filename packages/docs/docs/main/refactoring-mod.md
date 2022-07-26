@@ -6,7 +6,7 @@ This tutorial is designed for people who are already familiar with IsaacScript a
 
 Small mods can be written inside of a single file: "main.ts". In most cases, it doesn't make sense to split up a small mod into multiple files. If you did that, then someone reading your code would have to jump back and forth between files while trying to understand how everything works. Better to have everything in one place, so that they can read it in order, from top to bottom.
 
-However, this logic starts to break down once we start getting a couple hundred lines or so. Imagine that we have a mod that adds multiple items, and all of the logic is inside of the "main.ts" file. When working in the file, it can be hard to orient ourselves - are we in a function that deals with item 1? Or item 2?
+However, this logic starts to break down once we start getting over a few hundred lines. Imagine that we have a mod that adds multiple items, and all of the logic is inside of the "main.ts" file. When working in the file, it can be hard to orient ourselves - are we in a function that deals with item 1? Or item 2?
 
 Furthermore, in bigger files, it's easier for things to get messy. Imagine that we wanted to put all of the constants and functions for item 1 in the middle of the file, and all of the constants and functions for item 2 at the bottom of the file. But after working on the mod for a while and adding/removing things, things often get shuffled around and we the organization gets messed up.
 
