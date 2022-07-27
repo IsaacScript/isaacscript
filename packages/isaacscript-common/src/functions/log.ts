@@ -203,34 +203,6 @@ export function logDamageFlags(
   logFlags(flags, DamageFlag, "damage");
 }
 
-export function logEffects(this: void, player: EntityPlayer): void {
-  const effects = getEffectsList(player);
-
-  log("Logging player effects:");
-
-  if (effects.length === 0) {
-    log("  n/a (no effects)");
-    return;
-  }
-
-  effects.forEach((effect, i) => {
-    let effectDescription: string;
-    if (effect.Item.IsCollectible()) {
-      const collectibleName = getCollectibleName(effect.Item.ID);
-      effectDescription = `Collectible: ${collectibleName}`;
-    } else if (effect.Item.IsTrinket()) {
-      const trinketName = getTrinketName(effect.Item.ID);
-      effectDescription = `Trinket: ${trinketName}`;
-    } else if (effect.Item.IsNull()) {
-      effectDescription = `Null item: ${effect.Item.ID}`;
-    } else {
-      effectDescription = `Unknown type of effect: ${effect.Item.ID}`;
-    }
-
-    log(`  ${i + 1}) ${effectDescription} (x${effect.Count})`);
-  });
-}
-
 /** Helper function for logging an array of specific entities. */
 export function logEntities(this: void, entities: Entity[]): void {
   for (const entity of entities) {
@@ -505,6 +477,34 @@ export function logMap(this: void, map: Map<AnyNotNil, unknown>): void {
   log(`  The size of the map was: ${map.size}`);
 }
 
+export function logPlayerEffects(this: void, player: EntityPlayer): void {
+  const effects = getEffectsList(player);
+
+  log("Logging player effects:");
+
+  if (effects.length === 0) {
+    log("  n/a (no effects)");
+    return;
+  }
+
+  effects.forEach((effect, i) => {
+    let effectDescription: string;
+    if (effect.Item.IsCollectible()) {
+      const collectibleName = getCollectibleName(effect.Item.ID);
+      effectDescription = `Collectible: ${collectibleName}`;
+    } else if (effect.Item.IsTrinket()) {
+      const trinketName = getTrinketName(effect.Item.ID);
+      effectDescription = `Trinket: ${trinketName}`;
+    } else if (effect.Item.IsNull()) {
+      effectDescription = `Null item: ${effect.Item.ID}`;
+    } else {
+      effectDescription = `Unknown type of effect: ${effect.Item.ID}`;
+    }
+
+    log(`  ${i + 1}) ${effectDescription} (x${effect.Count})`);
+  });
+}
+
 export function logPlayerHealth(this: void, player: EntityPlayer): void {
   const playerName = getPlayerName(player);
   const playerHealth = getPlayerHealth(player);
@@ -769,7 +769,6 @@ export function setLogFunctionsGlobal(): void {
   globals["logArray"] = logArray;
   globals["logColor"] = logColor;
   globals["logDamageFlags"] = logDamageFlags;
-  globals["logEffects"] = logEffects;
   globals["logEntities"] = logEntities;
   globals["logEntity"] = logEntity;
   globals["logEntityID"] = logEntityID;
@@ -782,6 +781,7 @@ export function setLogFunctionsGlobal(): void {
   globals["logKColor"] = logKColor;
   globals["logLevelStateFlags"] = logLevelStateFlags;
   globals["logMap"] = logMap;
+  globals["logPlayerEffects"] = logPlayerEffects;
   globals["logPlayerHealth"] = logPlayerHealth;
   globals["logProjectileFlags"] = logProjectileFlags;
   globals["logRoom"] = logRoom;

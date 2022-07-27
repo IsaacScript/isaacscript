@@ -52,8 +52,10 @@ This page lists the changes to the IsaacScript framework.
   - `isDaddyLongLegsChildStompEntity`
 - Renamed the following helper functions:
   - `spawnCustomGrid` --> `spawnCustomGridEntity`
+  - `removeCustomGrid` --> `removeCustomGridEntity`
   - `isBomb` --> `isBombPickup`
   - `isPoop` --> `isPoopPickup`
+  - `logEffects` --> `logPlayerEffects`
 - Changed the following helper functions:
   - `fireProjectiles` now accepts an undefined NPC for the cases where you do not want the projectiles to come from anything in particular.
 - Added the following enums:

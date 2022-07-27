@@ -64,7 +64,7 @@ import { getEnumValues } from "../../functions/enums";
 import { addFlag } from "../../functions/flag";
 import { spawnGridEntity } from "../../functions/gridEntities";
 import {
-  logEffects,
+  logPlayerEffects,
   logRoom,
   logSeedEffects,
   logSounds,
@@ -515,7 +515,7 @@ export function dungeon(): void {
 /** Logs the player's current temporary effects to the "log.txt" file. */
 export function effects(): void {
   const player = Isaac.GetPlayer();
-  logEffects(player);
+  logPlayerEffects(player);
   printConsole('Logged the player\'s effects to the "log.txt" file.');
 }
 

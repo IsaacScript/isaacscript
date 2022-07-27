@@ -2,6 +2,7 @@ import {
   ActiveSlot,
   CollectibleType,
   DamageFlag,
+  EntityFlag,
   EntityType,
   GridCollisionClass,
   GridEntityType,
@@ -15,7 +16,7 @@ import { ModUpgraded } from "../classes/ModUpgraded";
 import { DecorationVariant } from "../enums/DecorationVariant";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
-import { spawnNPC } from "../functions/entitiesSpecific";
+import { spawn } from "../functions/entities";
 import { hasFlag } from "../functions/flag";
 import {
   removeGridEntity,
@@ -28,6 +29,7 @@ import { runNextGameFrame } from "./runInNFrames";
 import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "customGridEntity";
+const GENERIC_PROP_SIZE_MULTIPLIER = 0.66;
 
 const v = {
   level: {
@@ -38,7 +40,7 @@ const v = {
   },
 
   room: {
-    dummyPtrHashes: new Set<PtrHash>(),
+    genericPropPtrHashes: new Set<PtrHash>(),
     manuallyUsingShovel: false,
   },
 };
@@ -49,8 +51,8 @@ export function customGridEntityInit(mod: ModUpgraded): void {
 
   mod.AddCallback(
     ModCallback.ENTITY_TAKE_DMG,
-    entityTakeDmgDummy,
-    EntityType.DUMMY,
+    entityTakeDmgGenericProp,
+    EntityType.GENERIC_PROP,
   ); // 11
 
   mod.AddCallback(
@@ -66,8 +68,8 @@ export function customGridEntityInit(mod: ModUpgraded): void {
 }
 
 // ModCallback.ENTITY_TAKE_DMG (11)
-// EntityType.DUMMY (964)
-function entityTakeDmgDummy(
+// EntityType.GENERIC_PROP (960)
+function entityTakeDmgGenericProp(
   tookDamage: Entity,
   _damageAmount: float,
   damageFlags: BitFlags<DamageFlag>,
@@ -75,7 +77,7 @@ function entityTakeDmgDummy(
   _damageCountdownFrames: int,
 ): boolean | undefined {
   const ptrHash = GetPtrHash(tookDamage);
-  if (!v.room.dummyPtrHashes.has(ptrHash)) {
+  if (!v.room.genericPropPtrHashes.has(ptrHash)) {
     return undefined;
   }
 
@@ -105,8 +107,8 @@ function entityTakeDmgDummy(
 
   postGridEntityCustomBrokenFire(gridEntity, data.gridEntityTypeCustom);
 
-  // Even though the custom grid entity is now broke, we do not want to remove it, as the end-user
-  // could intend for it to persist with different graphics.
+  // Even though the custom grid entity is now broken, we do not want to remove it, as the end-user
+  // could intend for it to persist with different graphics (or take multiple hits to be destroyed).
   return false;
 }
 
@@ -261,6 +263,7 @@ export function spawnCustomGridEntity(
   if (decoration === undefined) {
     error("Failed to spawn a decoration for a custom grid entity.");
   }
+  decoration.CollisionClass = gridCollisionClass;
 
   const sprite = decoration.GetSprite();
   sprite.Load(anm2Path, true);
@@ -287,8 +290,18 @@ export function spawnCustomGridEntity(
   // the monitoring for explosions in the `ENTITY_TAKE_DMG` callback.
   if (breakable) {
     const position = room.GetGridPosition(gridIndex);
-    const dummy = spawnNPC(EntityType.DUMMY, 0, 0, position);
-    dummy.Visible = false;
+    const entity = spawn(EntityType.GENERIC_PROP, 0, 0, position);
+    entity.ClearEntityFlags(EntityFlag.APPEAR);
+    entity.Visible = false;
+
+    // By default, it is larger than a grid tile, so make it a bit smaller.
+    entity.SizeMulti = Vector(
+      GENERIC_PROP_SIZE_MULTIPLIER,
+      GENERIC_PROP_SIZE_MULTIPLIER,
+    );
+
+    const ptrHash = GetPtrHash(entity);
+    v.room.genericPropPtrHashes.add(ptrHash);
   }
 
   return decoration;
