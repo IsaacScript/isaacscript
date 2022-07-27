@@ -9,6 +9,13 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## August 3rd, 2022
+
+- Added the following helper functions:
+  - `isCollectibleInItemPool`
+- Changed the following helper functions:
+  - `spawnCustomGridEntity` now supports the `breakable` argument, which will trigger `POST_GRID_ENTITY_CUSTOM_BROKEN` if it is hit by any type of explosion.
+
 ## July 27th, 2022
 
 - A new version of TSTL has been released that speeds up compilation by a factor of 2. Make sure to upgrade!
@@ -44,7 +51,6 @@ This page lists the changes to the IsaacScript framework.
   - `getRandomVector`
   - `getRandomColor`
   - `getRandomKColor`
-  - `isCollectibleInItemPool`
   - `smeltTrinkets`
   - `serializeIsaacAPIClass`
   - `fireProjectilesInCircle`
