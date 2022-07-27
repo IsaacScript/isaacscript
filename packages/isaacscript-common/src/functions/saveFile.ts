@@ -41,7 +41,7 @@ const TRINKETS_THAT_AFFECT_ITEM_POOLS: readonly TrinketType[] = [
  * Under the hood, this function works by using the `ItemPool.AddRoomBlacklist` method to blacklist
  * every collectible except for the one provided. Unfortunately, this is not a general-purpose
  * "isCollectibleInItemPool" algorithm, because when a pool is depleted, it will automatically pull
- * items from the Treasure Room pool, and there is no way to distinguish when this happens.
+ * collectibles from the Treasure Room pool, and there is no way to distinguish when this happens.
  */
 export function isCollectibleUnlocked(
   collectibleType: CollectibleType,
