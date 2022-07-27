@@ -8,8 +8,10 @@ import {
   CWD,
   MOD_SOURCE_PATH,
   SHADERS_XML_PATH,
+  XML_CONVERTER_PATH,
 } from "./constants";
 import { PackageManager } from "./enums/PackageManager";
+import { execExe } from "./exec";
 import * as file from "./file";
 import {
   CustomStageLua,
@@ -382,14 +384,13 @@ function combineCustomStageXMLs(
 ${allRooms}
 </rooms>
   `.trim();
+  const contentRoomsDir = path.join(MOD_SOURCE_PATH, "content", "rooms");
   const specialRoomsXMLPath = path.join(
-    MOD_SOURCE_PATH,
-    "content",
-    "rooms",
+    contentRoomsDir,
     "00.special rooms.xml",
   );
   file.write(specialRoomsXMLPath, combinedXMLFile, verbose);
 
-  // TODO: convert XML to STB
-  // TODO: no need to write XML to mod directory, only STB
+  // Convert the XML file to an STB file, which is the format actually read by the game.
+  execExe(XML_CONVERTER_PATH, [specialRoomsXMLPath], verbose, contentRoomsDir);
 }

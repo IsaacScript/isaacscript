@@ -308,7 +308,7 @@ function uploadMod(
         CONFIG_FILE_NAME,
       )}" file; assuming that we want to use the ModUploader tool.`,
     );
-    execExe(MOD_UPLOADER_PATH, verbose, modTargetPath);
+    execExe(MOD_UPLOADER_PATH, [], verbose, modTargetPath);
   } else {
     runSteamCmd(modTargetPath, steamCmdPath, verbose);
   }

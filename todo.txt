@@ -1,8 +1,7 @@
-- python to EXE, finish TODO in isaacscript-cli
+- Slaughterhouse I and II
+
 - finish bucket function in isaacscript-common (wait for science to finish)
 - custom bosses for vanilla stages
-
-- Slaughterhouse I and II
 
 lint failure:
 

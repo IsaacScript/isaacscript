@@ -1,16 +1,26 @@
 import chalk from "chalk";
-import { execSync, spawnSync, SpawnSyncReturns } from "child_process";
+import {
+  execFileSync,
+  execSync,
+  spawnSync,
+  SpawnSyncReturns,
+} from "child_process";
 import { CWD } from "./constants";
 import { error } from "./utils";
 
-export function execExe(path: string, verbose: boolean, cwd = CWD): string {
+export function execExe(
+  path: string,
+  args: string[],
+  verbose: boolean,
+  cwd = CWD,
+): string {
   if (verbose) {
     console.log(`Executing binary: ${path}`);
   }
 
   let stdout: string;
   try {
-    const buffer = execSync(`"${path}"`, {
+    const buffer = execFileSync(path, args, {
       cwd,
     });
     stdout = buffer.toString().trim();

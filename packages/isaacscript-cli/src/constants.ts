@@ -28,6 +28,10 @@ export const CUSTOM_STAGE_FILES_DIR = path.join(
   "isaacscript-custom-stage",
 );
 export const SHADERS_XML_PATH = path.join(CUSTOM_STAGE_PATH, "shaders.xml");
+export const XML_CONVERTER_PATH = path.join(
+  CUSTOM_STAGE_PATH,
+  "xml-converter.exe",
+);
 
 // `isaacscript/isaacscript-watcher`
 export const DISABLE_IT_FILE = "disable.it";
