@@ -5,7 +5,6 @@ import {
   EffectVariant,
   EntityType,
   HeartSubType,
-  ItemPoolType,
   PillColor,
   RoomType,
   TrinketType,
@@ -15,7 +14,6 @@ import { DISTANCE_OF_GRID_TILE } from "../constants";
 import { RockAltType } from "../enums/RockAltType";
 import { BACKDROP_TYPE_TO_ROCK_ALT_TYPE } from "../objects/backdropTypeToRockAltType";
 import { spawnEffectWithSeed, spawnNPCWithSeed } from "./entitiesSpecific";
-import { isCollectibleInItemPool } from "./itemPool";
 import {
   spawnCardWithSeed,
   spawnCoinWithSeed,
@@ -71,10 +69,10 @@ export function getRockAltType(): RockAltType {
  * Most of the time, this function will do nothing, similar to how most of the time, when an
  * individual urn is destroyed, nothing will spawn.
  *
- * Note that in vanilla, trinkets will not spawn if they have already been removed from the trinket
- * pool. This function cannot replicate that behavior because there is no way to check to see if a
- * trinket is still in the pool. Thus, it will always have a chance to spawn the respective trinket
- * (e.g. Swallowed Penny from urns).
+ * Note that in vanilla, collectibles and trinkets will not spawn if they have already been removed
+ * from the respective pool. This function cannot replicate that behavior because there is no way to
+ * check to see if a collectible or trinket is still in the pool. Thus, it will always have a chance
+ * to spawn the respective collectible/trinket (e.g. Swallowed Penny from urns).
  *
  * The logic in this function is based on the rewards listed on the wiki:
  * https://bindingofisaacrebirth.fandom.com/wiki/Rocks
@@ -152,16 +150,8 @@ function spawnRockAltRewardUrn(position: Vector, rng: RNG): boolean {
 
   totalChance += ROCK_ALT_CHANCES.COLLECTIBLE;
   if (chance < totalChance) {
-    const stillInPools = isCollectibleInItemPool(
-      CollectibleType.QUARTER,
-      ItemPoolType.DEVIL,
-    );
-    if (stillInPools) {
-      spawnCollectible(CollectibleType.QUARTER, position, rng);
-      return true;
-    }
-
-    return false;
+    spawnCollectible(CollectibleType.QUARTER, position, rng);
+    return true;
   }
 
   // Since the detrimental effect is the final option, we don't need to check the chance.
@@ -206,46 +196,18 @@ function spawnRockAltRewardMushroom(position: Vector, rng: RNG): boolean {
     if (roomType === RoomType.SECRET) {
       const wavyCapChance = getRandom(rng);
       if (wavyCapChance < 0.0272) {
-        const stillInPools = isCollectibleInItemPool(
-          CollectibleType.WAVY_CAP,
-          ItemPoolType.SECRET,
-        );
-        if (stillInPools) {
-          spawnCollectible(CollectibleType.WAVY_CAP, position, rng);
-          return true;
-        }
+        spawnCollectible(CollectibleType.WAVY_CAP, position, rng);
+        return true;
       }
     }
 
-    const magicMushroomStillInPools = isCollectibleInItemPool(
-      CollectibleType.MAGIC_MUSHROOM,
-      ItemPoolType.TREASURE,
-    );
-    const miniMushStillInPools = isCollectibleInItemPool(
-      CollectibleType.MINI_MUSH,
-      ItemPoolType.TREASURE,
-    );
-    if (magicMushroomStillInPools && miniMushStillInPools) {
-      const collectibleChance = getRandom(rng);
-      const collectibleType =
-        collectibleChance < 0.5
-          ? CollectibleType.MAGIC_MUSHROOM // 12
-          : CollectibleType.MINI_MUSH; // 71
-      spawnCollectible(collectibleType, position, rng);
-      return true;
-    }
-
-    if (magicMushroomStillInPools) {
-      spawnCollectible(CollectibleType.MINI_MUSH, position, rng);
-      return true;
-    }
-
-    if (miniMushStillInPools) {
-      spawnCollectible(CollectibleType.MAGIC_MUSHROOM, position, rng);
-      return true;
-    }
-
-    return false;
+    const collectibleChance = getRandom(rng);
+    const collectibleType =
+      collectibleChance < 0.5
+        ? CollectibleType.MAGIC_MUSHROOM // 12
+        : CollectibleType.MINI_MUSH; // 71
+    spawnCollectible(collectibleType, position, rng);
+    return true;
   }
 
   // Since the detrimental effect is the final option, we don't need to check the chance.
@@ -276,35 +238,13 @@ function spawnRockAltRewardSkull(position: Vector, rng: RNG): boolean {
 
   totalChance += ROCK_ALT_CHANCES.COLLECTIBLE;
   if (chance < totalChance) {
-    const ghostBabyStillInPools = isCollectibleInItemPool(
-      CollectibleType.GHOST_BABY,
-      ItemPoolType.TREASURE,
-    );
-    const dryBabyStillInPools = isCollectibleInItemPool(
-      CollectibleType.DRY_BABY,
-      ItemPoolType.TREASURE,
-    );
-    if (ghostBabyStillInPools && dryBabyStillInPools) {
-      const collectibleChance = getRandom(rng);
-      const collectibleType =
-        collectibleChance < 0.5
-          ? CollectibleType.GHOST_BABY // 163
-          : CollectibleType.DRY_BABY; // 265
-      spawnCollectible(collectibleType, position, rng);
-      return true;
-    }
-
-    if (ghostBabyStillInPools) {
-      spawnCollectible(CollectibleType.DRY_BABY, position, rng);
-      return true;
-    }
-
-    if (dryBabyStillInPools) {
-      spawnCollectible(CollectibleType.GHOST_BABY, position, rng);
-      return true;
-    }
-
-    return false;
+    const collectibleChance = getRandom(rng);
+    const collectibleType =
+      collectibleChance < 0.5
+        ? CollectibleType.GHOST_BABY // 163
+        : CollectibleType.DRY_BABY; // 265
+    spawnCollectible(collectibleType, position, rng);
+    return true;
   }
 
   // Since the detrimental effect is the final option, we don't need to check the chance.
@@ -335,35 +275,13 @@ function spawnRockAltRewardPolyp(position: Vector, rng: RNG): boolean {
 
   totalChance += ROCK_ALT_CHANCES.COLLECTIBLE;
   if (chance < totalChance) {
-    const placentaStillInPools = isCollectibleInItemPool(
-      CollectibleType.PLACENTA,
-      ItemPoolType.BOSS,
-    );
-    const bloodClotStillInPools = isCollectibleInItemPool(
-      CollectibleType.BLOOD_CLOT,
-      ItemPoolType.BOSS,
-    );
-    if (bloodClotStillInPools && placentaStillInPools) {
-      const collectibleChance = getRandom(rng);
-      const collectibleType =
-        collectibleChance < 0.5
-          ? CollectibleType.PLACENTA // 218
-          : CollectibleType.BLOOD_CLOT; // 254
-      spawnCollectible(collectibleType, position, rng);
-      return true;
-    }
-
-    if (bloodClotStillInPools) {
-      spawnCollectible(CollectibleType.MINI_MUSH, position, rng);
-      return true;
-    }
-
-    if (placentaStillInPools) {
-      spawnCollectible(CollectibleType.MAGIC_MUSHROOM, position, rng);
-      return true;
-    }
-
-    return false;
+    const collectibleChance = getRandom(rng);
+    const collectibleType =
+      collectibleChance < 0.5
+        ? CollectibleType.PLACENTA // 218
+        : CollectibleType.BLOOD_CLOT; // 254
+    spawnCollectible(collectibleType, position, rng);
+    return true;
   }
 
   // Since the detrimental effect is the final option, we don't need to check the chance.

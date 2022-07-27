@@ -117,7 +117,6 @@ export * from "./functions/gridEntities";
 export * from "./functions/gridEntitiesSpecific";
 export * from "./functions/input";
 export * from "./functions/isaacAPIClass";
-export * from "./functions/itemPool";
 export * from "./functions/jsonHelpers";
 export * from "./functions/jsonRoom";
 export * from "./functions/kColor";
