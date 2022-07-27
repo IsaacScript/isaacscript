@@ -7,7 +7,7 @@ import {
 } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { PlayerIndex } from "../types/PlayerIndex";
-import { getCollectibleSet } from "./collectibleSet";
+import { getCollectibleArray } from "./collectibleSet";
 import { collectibleHasTag } from "./collectibleTag";
 import { mapGetPlayer, mapSetPlayer } from "./playerDataStructures";
 import { getPlayers } from "./playerIndex";
@@ -24,17 +24,41 @@ const TRINKETS_THAT_AFFECT_ITEM_POOLS: readonly TrinketType[] = [
   TrinketType.NO,
 ];
 
+const COLLECTIBLE_TYPE_THAT_IS_NOT_IN_ANY_POOLS = CollectibleType.KEY_PIECE_1;
+
+/**
+ * Helper function to get the remaining collectibles in a given item pool. This function is
+ * expensive, so only use it in situations where the lag is acceptable.
+ */
+export function getCollectiblesInItemPool(
+  itemPoolType: ItemPoolType,
+): CollectibleType[] {
+  const collectibleArray = getCollectibleArray();
+  return collectibleArray.filter((collectibleType) =>
+    isCollectibleInItemPool(collectibleType, itemPoolType),
+  );
+}
+
 /**
  * Helper function to see if the given collectible is still present in the given item pool.
  *
  * If the collectible is non-offensive, any Tainted Losts will be temporarily changed to Isaac and
  * then changed back. (This is because Tainted Lost is not able to retrieve non-offensive
  * collectibles from item pools).
+ *
+ * Under the hood, this function works by using the `ItemPool.AddRoomBlacklist` method to blacklist
+ * every collectible except for the one provided.
  */
 export function isCollectibleInItemPool(
   collectibleType: CollectibleType,
   itemPoolType: ItemPoolType,
 ): boolean {
+  // We use a specific collectible which is known to not be in any pools as a default value. Thus,
+  // we must explicitly handle this case.
+  if (collectibleType === COLLECTIBLE_TYPE_THAT_IS_NOT_IN_ANY_POOLS) {
+    return false;
+  }
+
   // On Tainted Lost, it is impossible to retrieve non-offensive collectibles from pools, so we
   // temporarily change the character to Isaac.
   const taintedLosts = getPlayersOfType(PlayerType.THE_LOST_B);
@@ -55,8 +79,8 @@ export function isCollectibleInItemPool(
 
   // Blacklist every collectible in the game except for the provided collectible.
   const itemPool = game.GetItemPool();
-  const collectibleSet = getCollectibleSet();
-  for (const collectibleTypeInSet of collectibleSet.values()) {
+  itemPool.ResetRoomBlacklist();
+  for (const collectibleTypeInSet of getCollectibleArray()) {
     if (collectibleTypeInSet !== collectibleType) {
       itemPool.AddRoomBlacklist(collectibleTypeInSet);
     }
@@ -64,12 +88,13 @@ export function isCollectibleInItemPool(
 
   // Get a collectible from the pool and see if it is the intended collectible. (We can use any
   // arbitrary value as the seed since it should not influence the result.)
+  const seed = 1 as Seed;
   const retrievedCollectibleType = itemPool.GetCollectible(
     itemPoolType,
     false,
-    1 as Seed,
+    seed,
+    COLLECTIBLE_TYPE_THAT_IS_NOT_IN_ANY_POOLS,
   );
-
   const collectibleUnlocked = retrievedCollectibleType === collectibleType;
 
   // Reset the blacklist

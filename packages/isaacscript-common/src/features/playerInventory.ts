@@ -5,7 +5,7 @@ import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { arrayRemoveInPlace, copyArray } from "../functions/array";
 import { isActiveCollectible } from "../functions/collectibles";
-import { getCollectibleSet } from "../functions/collectibleSet";
+import { getCollectibleArray } from "../functions/collectibleSet";
 import {
   defaultMapGetPlayer,
   mapSetPlayer,
@@ -30,8 +30,7 @@ const v = {
 function newPlayerInventory(player: EntityPlayer) {
   const inventory: CollectibleType[] = [];
 
-  const collectibleSet = getCollectibleSet();
-  for (const collectibleType of collectibleSet.values()) {
+  for (const collectibleType of getCollectibleArray()) {
     const numCollectibles = player.GetCollectibleNum(collectibleType, true);
     repeat(numCollectibles, () => {
       inventory.push(collectibleType);

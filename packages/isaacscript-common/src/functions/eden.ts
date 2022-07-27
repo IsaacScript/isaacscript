@@ -1,6 +1,6 @@
 import { CollectibleType, ItemConfigTag } from "isaac-typescript-definitions";
 import { isHiddenCollectible, isPassiveCollectible } from "./collectibles";
-import { getCollectibleSet } from "./collectibleSet";
+import { getCollectibleArray } from "./collectibleSet";
 import { collectibleHasTag } from "./collectibleTag";
 import { getRandomSeed } from "./rng";
 import { copySet, getRandomSetElement } from "./set";
@@ -8,9 +8,7 @@ import { copySet, getRandomSetElement } from "./set";
 const EDEN_PASSIVE_COLLECTIBLES_SET = new Set<CollectibleType>();
 
 function initCollectibleSet() {
-  const collectibleSet = getCollectibleSet();
-
-  for (const collectibleType of collectibleSet.values()) {
+  for (const collectibleType of getCollectibleArray()) {
     if (
       isPassiveCollectible(collectibleType) &&
       !isHiddenCollectible(collectibleType) &&

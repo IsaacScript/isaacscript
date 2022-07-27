@@ -4,7 +4,7 @@ import { anyPlayerHasCollectible } from "./players";
 
 /**
  * Helper function to see if the given collectible is unlocked on the current save file. This
- * requires providing the corresponding item pool that the collectible is located in.
+ * requires providing the corresponding item pool that the collectible is normally located in.
  *
  * - If any player currently has the collectible, then it is assumed to be unlocked. (This is
  *   because in almost all cases, when a collectible is added to a player's inventory, it is
