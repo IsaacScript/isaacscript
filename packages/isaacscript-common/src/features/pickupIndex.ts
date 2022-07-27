@@ -170,10 +170,10 @@ function postNewRoomReordered() {
     }
 
     if (pickupIndex === undefined) {
-      const entityID = getEntityID(pickup);
-      error(
-        `Failed to find a pickup index corresponding to existing pickup: ${entityID}`,
-      );
+      // At this point, if we do not already have an existing pickup index, we need to create a new
+      // one in order to cover the cases where mods spawn items in the `POST_NEW_ROOM` callback.
+      v.run.pickupCounter++;
+      pickupIndex = v.run.pickupCounter;
     }
 
     const ptrHash = GetPtrHash(pickup);
