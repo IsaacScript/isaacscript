@@ -23,7 +23,7 @@ export {
 export { registerCharacterStats } from "./features/characterStats";
 export { getCollectibleItemPoolType } from "./features/collectibleItemPoolType";
 export {
-  removeCustomGrid,
+  removeCustomGridEntity as removeCustomGrid,
   spawnCustomGridEntity as spawnCustomGrid,
 } from "./features/customGridEntity";
 export * from "./features/customStage/exports";

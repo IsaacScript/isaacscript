@@ -23,7 +23,7 @@ import {
 } from "../functions/gridEntities";
 import { getRoomListIndex } from "../functions/roomData";
 import { isVector } from "../functions/vector";
-import { CustomGridEntityData } from "../interfaces/CustomGridEntityData";
+import { GridEntityCustomData } from "../interfaces/GridEntityCustomData";
 import { runNextGameFrame } from "./runInNFrames";
 import { saveDataManager } from "./saveDataManager/exports";
 
@@ -32,7 +32,7 @@ const FEATURE_NAME = "customGridEntity";
 const v = {
   level: {
     /** Indexed by room list index and grid index. */
-    customGridEntities: new DefaultMap<int, Map<int, CustomGridEntityData>>(
+    customGridEntities: new DefaultMap<int, Map<int, GridEntityCustomData>>(
       () => new Map(),
     ),
   },
@@ -270,7 +270,7 @@ export function spawnCustomGridEntity(
       : defaultAnimation;
   sprite.Play(animationToPlay, true);
 
-  const customGridEntityData: CustomGridEntityData = {
+  const customGridEntityData: GridEntityCustomData = {
     gridEntityTypeCustom,
     roomListIndex,
     gridIndex,
@@ -309,7 +309,7 @@ export function spawnCustomGridEntity(
  * @returns The grid entity that was removed. Returns undefined if no grid entity was found at the
  *          given location or if the given grid entity was not a custom grid entity.
  */
-export function removeCustomGrid(
+export function removeCustomGridEntity(
   gridIndexOrPositionOrGridEntity: int | Vector | GridEntity,
   updateRoom = true,
 ): GridEntity | undefined {
@@ -356,7 +356,7 @@ export function removeCustomGrid(
  * containing the raw decoration grid entity and the associated entity data.
  */
 export function getCustomGridEntities(): Array<
-  [gridEntity: GridEntity, data: CustomGridEntityData]
+  [gridEntity: GridEntity, data: GridEntityCustomData]
 > {
   const roomListIndex = getRoomListIndex();
   const roomCustomGridEntities = v.level.customGridEntities.get(roomListIndex);
@@ -365,7 +365,7 @@ export function getCustomGridEntities(): Array<
   }
 
   const room = game.GetRoom();
-  const customGridEntities: Array<[GridEntity, CustomGridEntityData]> = [];
+  const customGridEntities: Array<[GridEntity, GridEntityCustomData]> = [];
   for (const [gridIndex, data] of roomCustomGridEntities.entries()) {
     const gridEntity = room.GetGridEntity(gridIndex);
     if (gridEntity !== undefined) {

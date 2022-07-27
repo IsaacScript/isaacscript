@@ -3,7 +3,7 @@ import {
   GridEntityType,
 } from "isaac-typescript-definitions";
 
-export interface CustomGridEntityData {
+export interface GridEntityCustomData {
   /**
    * This is not a real `GridEntityType`; rather it is an arbitrary integer selected by end-user
    * mods.
