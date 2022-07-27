@@ -44,6 +44,7 @@ This page lists the changes to the IsaacScript framework.
   - `getRandomVector`
   - `getRandomColor`
   - `getRandomKColor`
+  - `isCollectibleInItemPool`
   - `smeltTrinkets`
   - `serializeIsaacAPIClass`
   - `fireProjectilesInCircle`
