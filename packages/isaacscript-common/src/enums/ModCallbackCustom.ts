@@ -564,7 +564,7 @@ export enum ModCallbackCustom {
    * - When registering the callback, takes an optional second argument that will make the callback
    *   only fire if it matches the `ItemType` provided.
    * - When registering the callback, takes an optional third argument that will make the callback
-   *   only fire if the `CollectibleType` or the `TrinketType` matches the ID provided.
+   *   only fire if the `CollectibleType` or the `TrinketType` matches the sub-type provided.
    *
    * ```ts
    * function postItemPickup(
