@@ -62,7 +62,7 @@ export function getRoomDescriptor(roomGridIndex?: int): RoomDescriptor {
  * Alias for the `Level.GetCurrentRoomDesc` method. Use this to make it more clear what type of
  * `RoomDescriptor` object that you are retrieving.
  */
-export function getRoomDescriptorReadOnly(): ReadonlyRoomDescriptor {
+export function getRoomDescriptorReadOnly(): Readonly<RoomDescriptor> {
   const level = game.GetLevel();
   return level.GetCurrentRoomDesc();
 }

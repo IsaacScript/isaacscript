@@ -10,7 +10,10 @@ import { reorderedCallbacksSetStage } from "../../callbacks/reorderedCallbacks";
 import { getEntityIDFromConstituents } from "../../functions/entities";
 import { log, logError } from "../../functions/log";
 import { newRNG } from "../../functions/rng";
-import { getRoomDataForTypeVariant, getRooms } from "../../functions/rooms";
+import {
+  getRoomDataForTypeVariant,
+  getRoomsInGrid,
+} from "../../functions/rooms";
 import { setStage } from "../../functions/stage";
 import { getRandomCustomStageRoom } from "./customStageUtils";
 import { topStreakTextStart } from "./streakText";
@@ -28,12 +31,21 @@ const DEFAULT_BASE_STAGE_TYPE = StageType.ORIGINAL;
  *
  * Custom stages/levels must first be defined in the "tsconfig.json" file. See the documentation for
  * more details: https://isaacscript.github.io/main/custom-stages/
+ *
+ * @param name The name of the custom stage, corresponding to what is in the "tsconfig.json" file.
+ * @param _firstFloor Whether to go to the first floor or the second floor. For example, if you have
+ *                    a custom stage emulating Caves, then the first floor would be Caves 1, and the
+ *                    second floor would be Caves 2.
  */
-export function setCustomStage(name: string, verbose = false): void {
+export function setCustomStage(
+  name: string,
+  _firstFloor = true,
+  verbose = false,
+): void {
   const customStage = customStagesMap.get(name);
   if (customStage === undefined) {
     error(
-      `Failed to set the custom stage of "${name}" because it was not found in the custom stages map. (Try restarting IsaacScript / recompiling the mod, and try again. If that does not work, you probably forgot to define it in your "tsconfig.json" file.) See the website for more details on how to set up custom stages.`,
+      `Failed to set the custom stage of "${name}" because it was not found in the custom stages map. (Try restarting IsaacScript / recompiling the mod / restarting the game, and try again. If that does not work, you probably forgot to define it in your "tsconfig.json" file.) See the website for more details on how to set up custom stages.`,
     );
   }
 
@@ -56,7 +68,7 @@ export function setCustomStage(name: string, verbose = false): void {
   setStage(baseStage, baseStageType);
 
   // Now, we need to pick a custom room for each vanilla room.
-  for (const room of getRooms()) {
+  for (const room of getRoomsInGrid()) {
     // The starting floor of each room should stay empty.
     if (room.SafeGridIndex === startingRoomGridIndex) {
       continue;

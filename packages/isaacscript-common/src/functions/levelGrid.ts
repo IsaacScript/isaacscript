@@ -207,7 +207,7 @@ export function getNewRoomCandidatesForLevel(): Array<
 export function getRoomGridIndexesForType(...roomTypes: RoomType[]): int[] {
   const roomTypesSet = new Set<RoomType>([...roomTypes]);
 
-  const rooms = getRooms();
+  const rooms = getRoomsInGrid();
   const matchingRooms = rooms.filter(
     (roomDescriptor) =>
       roomDescriptor.Data !== undefined &&

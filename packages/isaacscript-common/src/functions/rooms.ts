@@ -1,5 +1,6 @@
 import {
   AngelRoomSubType,
+  BackdropType,
   BossID,
   Dimension,
   Direction,
@@ -18,7 +19,7 @@ import {
   StageID,
 } from "isaac-typescript-definitions";
 import { game, sfxManager } from "../cachedClasses";
-import { MAX_LEVEL_GRID_INDEX } from "../constants";
+import { MAX_LEVEL_GRID_INDEX, NUM_DIMENSIONS } from "../constants";
 import { ROOM_TYPE_NAMES } from "../objects/roomTypeNames";
 import { MINE_SHAFT_ROOM_SUB_TYPE_SET } from "../sets/mineShaftRoomSubTypesSet";
 import { hasCurse } from "./curses";
@@ -39,6 +40,7 @@ import {
 } from "./positionVelocity";
 import {
   getRoomData,
+  getRoomDescriptor,
   getRoomDescriptorReadOnly,
   getRoomGridIndex,
   getRoomName,
@@ -46,7 +48,7 @@ import {
   getRoomSubType,
 } from "./roomData";
 import { getGotoCommand } from "./stage";
-import { irange } from "./utils";
+import { erange, irange } from "./utils";
 
 /**
  * Helper function for quickly switching to a new room without playing a particular animation. Use
@@ -77,6 +79,36 @@ export function changeRoom(roomGridIndex: int): void {
 export function getNumRooms(): int {
   const rooms = getRoomsInGrid();
   return rooms.length;
+}
+
+/**
+ * Helper function to get a read-only copy of the room descriptor for every room on the level. This
+ * includes off-grid rooms, such as the Devil Room, and extra-dimensional rooms, if they are
+ * generated and exist.
+ *
+ * Room descriptors without any data are assumed to be non-existent and are not included.
+ *
+ * Under the hood, this is performed by iterating over the `RoomList` from the `Level.GetRooms`
+ * method. This is the best way to see if off-grid rooms have been initialized, since it is possible
+ * for mods to insert room data at non-official negative room grid indexes.
+ */
+export function getReadOnlyRooms(): Array<Readonly<RoomDescriptor>> {
+  const level = game.GetLevel();
+  const roomList = level.GetRooms();
+
+  const readOnlyRoomDescriptors: Array<Readonly<RoomDescriptor>> = [];
+
+  for (let i = 0; i < roomList.Size; i++) {
+    const readOnlyRoomDescriptor = roomList.Get(i);
+    if (
+      readOnlyRoomDescriptor !== undefined &&
+      readOnlyRoomDescriptor.Data !== undefined
+    ) {
+      readOnlyRoomDescriptors.push(readOnlyRoomDescriptor);
+    }
+  }
+
+  return readOnlyRoomDescriptors;
 }
 
 /**
@@ -146,85 +178,103 @@ export function getRoomTypeName(roomType: RoomType): string {
 
 /**
  * Helper function to get the room descriptor for every room on the level. This includes off-grid
- * rooms, such as the Devil Room. (Off-grid rooms will only be included if they the data exists,
- * which only usually happens once they have been visited at least once.)
+ * rooms, such as the Devil Room.
  *
- * Under the hood, this function uses the `Level.GetRooms` method to accomplish this. Rooms without
- * data are assumed to be non-existent and are not added to the list.
+ * Room descriptors without any data are assumed to be non-existent and are not included.
+ *
+ * - If you want just the rooms inside of the grid, use the `getRoomsInGrid` helper function.
+ * - If you want just the rooms outside of the grid, use the `getRoomsOutsideGrid` helper function.
  *
  * @param includeExtraDimensionalRooms Optional. On some floors (e.g. Downpour 2, Mines 2),
- *                                 extra-dimensional rooms are automatically generated and can be
- *                                 seen when you iterate over the `RoomList`. Default is false.
+ *                                 extra-dimensional rooms are automatically generated. Default is
+ *                                 false.
  */
 export function getRooms(
   includeExtraDimensionalRooms = false,
 ): RoomDescriptor[] {
-  const level = game.GetLevel();
-  const roomList = level.GetRooms();
-
-  /** Indexed by room safe grid index. We use a map to avoid adding extra dimensional rooms. */
-  const roomsMap = new Map<int, RoomDescriptor>();
-
-  for (let i = 0; i < roomList.Size; i++) {
-    const roomDescriptor = roomList.Get(i);
-    if (roomDescriptor === undefined || roomDescriptor.Data === undefined) {
-      continue;
-    }
-
-    if (
-      !includeExtraDimensionalRooms &&
-      roomsMap.has(roomDescriptor.SafeGridIndex)
-    ) {
-      continue;
-    }
-
-    roomsMap.set(roomDescriptor.SafeGridIndex, roomDescriptor);
-  }
-
-  return [...roomsMap.values()];
+  // The obvious way to get all of the rooms would be to iterate over the `RoomList` from the
+  // `Level.GetRooms` method. However, this results in read-only data, and we want to return a
+  // writable object. Instead, we let the heavy lifting be handled by other functions.
+  const roomsInGrid = getRoomsInGrid(includeExtraDimensionalRooms);
+  const roomsOutsideGrid = getRoomsOutsideGrid();
+  return [...roomsInGrid, ...roomsOutsideGrid];
 }
 
 /**
- * Helper function to get the room descriptor for every room on the level except for rooms that are
- * not on the grid.
+ * Helper function to get the room descriptor for every room on the level that is on the grid. (For
+ * example, Devil Rooms are excluded.)
  *
- * Under the hood, this function uses the `Level.GetRooms` method to accomplish this. Rooms without
- * data are assumed to be non-existent and are not added to the list.
+ * Room descriptors without any data are assumed to be non-existent and are not included.
  *
  * @param includeExtraDimensionalRooms Optional. On some floors (e.g. Downpour 2, Mines 2),
- *                                 extra-dimensional rooms are automatically be generated and can be
- *                                 seen when you iterate over the `RoomList`. Default is false.
+ *                                 extra-dimensional rooms are automatically be generated. Default
+ *                                 is false.
  */
 export function getRoomsInGrid(
   includeExtraDimensionalRooms = false,
 ): RoomDescriptor[] {
-  const rooms = getRooms(includeExtraDimensionalRooms);
-  return rooms.filter((roomDescriptor) => roomDescriptor.SafeGridIndex >= 0);
+  const level = game.GetLevel();
+
+  const dimensions = includeExtraDimensionalRooms
+    ? (erange(NUM_DIMENSIONS) as Dimension[])
+    : [Dimension.CURRENT];
+
+  /** We use a map instead of an array because room shapes occupy more than one room grid index. */
+  const roomDescriptorMap = new Map<PtrHash, RoomDescriptor>();
+
+  for (const dimension of dimensions) {
+    for (const roomGridIndex of irange(MAX_LEVEL_GRID_INDEX)) {
+      const roomDescriptor = level.GetRoomByIdx(roomGridIndex, dimension);
+      if (roomDescriptor.Data !== undefined) {
+        const ptrHash = GetPtrHash(roomDescriptor);
+        roomDescriptorMap.set(ptrHash, roomDescriptor);
+      }
+    }
+  }
+
+  return [...roomDescriptorMap.values()];
 }
 
 /**
  * Helper function to get the room descriptor for every room on the level in a specific dimension.
  * This will not include any off-grid rooms, such as the Devil Room.
  *
- * Under the hood, this function uses the `Level.GetRooms` method to accomplish this. Rooms without
- * data are assumed to be non-existent and are not added to the list.
- *
- * @returns A map of room ListIndex to RoomDescriptor.
+ * Room descriptors without any data are assumed to be non-existent and are not included.
  */
 export function getRoomsOfDimension(dimension: Dimension): RoomDescriptor[] {
   const level = game.GetLevel();
 
   /** We use a map instead of an array because room shapes occupy more than one room grid index. */
-  const roomsMap = new Map<int, RoomDescriptor>();
+  const roomsMap = new Map<PtrHash, RoomDescriptor>();
 
   for (const roomGridIndex of irange(MAX_LEVEL_GRID_INDEX)) {
     const roomDescriptor = level.GetRoomByIdx(roomGridIndex, dimension);
     if (roomDescriptor.Data !== undefined) {
-      roomsMap.set(roomDescriptor.ListIndex, roomDescriptor);
+      const ptrHash = GetPtrHash(roomDescriptor);
+      roomsMap.set(ptrHash, roomDescriptor);
     }
   }
 
   return [...roomsMap.values()];
+}
+
+/**
+ * Helper function to get the room descriptor for every room on the level that is outside of the
+ * grid (like a Devil Room).
+ *
+ * Room descriptors without any data are assumed to be non-existent and are not included.
+ */
+export function getRoomsOutsideGrid(): RoomDescriptor[] {
+  // We filter an array of all rooms instead of iterating over the `GridRoom` enum because it is
+  // possible for mods to insert data at arbitrary negative room grid indexes.
+  const readOnlyRooms = getReadOnlyRooms();
+  const readOnlyRoomsOffGrid = readOnlyRooms.filter(
+    (readOnlyRoomDescriptor) => readOnlyRoomDescriptor.SafeGridIndex < 0,
+  );
+
+  return readOnlyRoomsOffGrid.map((readOnlyRoomDescriptor) =>
+    getRoomDescriptor(readOnlyRoomDescriptor.SafeGridIndex),
+  );
 }
 
 /**
@@ -413,7 +463,7 @@ export function inStartingRoom(): boolean {
 /**
  * Helper function to loop through every room on the floor and see if it has been cleared.
  *
- * This function will only check rooms in the current dimension.
+ * This function will only check rooms inside the gird and inside the current dimension.
  *
  * @param onlyCheckRoomTypes Optional. A whitelist of room types. If specified, room types not in
  *                           the array will be ignored. If not specified, then all rooms will be
@@ -422,7 +472,7 @@ export function inStartingRoom(): boolean {
 export function isAllRoomsClear(onlyCheckRoomTypes?: RoomType[]): boolean {
   const roomTypeWhitelist =
     onlyCheckRoomTypes === undefined ? null : new Set(onlyCheckRoomTypes);
-  const rooms = getRooms();
+  const rooms = getRoomsInGrid();
   const matchingRooms =
     roomTypeWhitelist === null
       ? rooms
@@ -452,6 +502,11 @@ export function roomUpdateSafe(): void {
 
   setEntityPositions(entityPositions, entities);
   setEntityVelocities(entityVelocities, entities);
+}
+
+/** Helper function to set the backdrop of the current room. */
+export function setBackdrop(backdropType: BackdropType): void {
+  game.ShowHallucination(0, backdropType);
 }
 
 /**
