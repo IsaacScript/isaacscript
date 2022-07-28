@@ -8,19 +8,25 @@
  */
 
 import {
+  DisplayFlag,
   DoorSlot,
   DownpourRoomSubType,
+  LevelStateFlag,
   MinesRoomSubType,
   RoomDescriptorFlag,
   RoomShape,
   RoomType,
 } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
-import { LEVEL_GRID_ROW_WIDTH, MAX_LEVEL_GRID_INDEX } from "../constants";
+import {
+  ALL_DISPLAY_FLAGS,
+  LEVEL_GRID_ROW_WIDTH,
+  MAX_LEVEL_GRID_INDEX,
+} from "../constants";
 import { ROOM_SHAPE_TO_DOOR_SLOTS_TO_GRID_INDEX_DELTA } from "../objects/roomShapeToDoorSlotsToGridIndexDelta";
 import { getRandomArrayElement } from "./array";
 import { doorSlotToDoorSlotFlag } from "./doors";
-import { hasFlag } from "./flag";
+import { addFlag, hasFlag, removeFlag } from "./flag";
 import { getRandomSeed } from "./rng";
 import {
   getRoomAllowedDoors,
@@ -91,12 +97,12 @@ export function getNewRoomCandidate(
 ):
   | [adjacentRoomGridIndex: int, doorSlot: DoorSlot, newRoomGridIndex: int]
   | undefined {
-  const newRoomCandidatesForFloor = getNewRoomCandidatesForFloor();
-  if (newRoomCandidatesForFloor.length === 0) {
+  const newRoomCandidatesForLevel = getNewRoomCandidatesForLevel();
+  if (newRoomCandidatesForLevel.length === 0) {
     return undefined;
   }
 
-  return getRandomArrayElement(newRoomCandidatesForFloor, seedOrRNG);
+  return getRandomArrayElement(newRoomCandidatesForLevel, seedOrRNG);
 }
 
 /**
@@ -132,13 +138,14 @@ export function getNewRoomCandidatesBesideRoom(
     neighborRoomGridIndex,
   ] of doorSlotToRoomGridIndexes.entries()) {
     // The "getRoomShapeNeighborGridIndexes" returns grid indexes for every possible door, but the
-    // real room we are examining will only have a subset of these doors.
+    // real room we are examining will only have a subset of these doors. Thus, we have to exclude
+    // neighbor grid indexes where it would not be possible to place a door.
     const doorSlotFlag = doorSlotToDoorSlotFlag(doorSlot);
     if (!hasFlag(roomData.Doors, doorSlotFlag)) {
       continue;
     }
 
-    // If the room already exists, then it is not a possible candidate for a new room.
+    // If the neighboring room already exists, then it is not a possible candidate for a new room.
     if (roomExists(neighborRoomGridIndex)) {
       continue;
     }
@@ -162,7 +169,7 @@ export function getNewRoomCandidatesBesideRoom(
  *
  * @returns A array of tuples of adjacent room grid index, `DoorSlot`, and new room grid index.
  */
-export function getNewRoomCandidatesForFloor(): Array<
+export function getNewRoomCandidatesForLevel(): Array<
   [adjacentRoomGridIndex: int, doorSlot: DoorSlot, newRoomGridIndex: int]
 > {
   const rooms = getRoomsInGrid();
@@ -396,10 +403,47 @@ export function newRoom(): int | undefined {
   const level = game.GetLevel();
   level.MakeRedRoomDoor(adjacentRoomGridIndex, doorSlot);
 
+  // By default, the room will be a "red room" and have a red graphical tint, so we want to make it
+  // a normal room.
+  const roomDescriptor = getRoomDescriptor(newRoomGridIndex);
+  roomDescriptor.Flags = removeFlag(
+    roomDescriptor.Flags,
+    RoomDescriptorFlag.RED_ROOM,
+  );
+
+  // By default, the new room will not appear on the map, even if the player has The Mind. Thus, we
+  // must manually alter the `DisplayFlags` of the room descriptor.
+  const roomData = roomDescriptor.Data;
+  if (roomData !== undefined) {
+    const hasFullMap = level.GetStateFlag(LevelStateFlag.FULL_MAP_EFFECT);
+    const hasCompass = level.GetStateFlag(LevelStateFlag.COMPASS_EFFECT);
+    const hasBlueMap = level.GetStateFlag(LevelStateFlag.BLUE_MAP_EFFECT);
+    const roomType = roomData.Type;
+    const isSecretRoom =
+      roomType === RoomType.SECRET || roomType === RoomType.SUPER_SECRET;
+
+    if (hasFullMap) {
+      roomDescriptor.DisplayFlags = ALL_DISPLAY_FLAGS;
+    } else if (!isSecretRoom && hasCompass) {
+      roomDescriptor.DisplayFlags = addFlag(
+        DisplayFlag.VISIBLE,
+        DisplayFlag.SHOW_ICON,
+      );
+    } else if (isSecretRoom && hasBlueMap) {
+      roomDescriptor.DisplayFlags = addFlag(
+        DisplayFlag.VISIBLE,
+        DisplayFlag.SHOW_ICON,
+      );
+    }
+  }
+
   return newRoomGridIndex;
 }
 
-/** Helper function to check if a room exists at the given room grid index. */
+/**
+ * Helper function to check if a room exists at the given room grid index. (A room will exist if it
+ * has non-undefined data in the room descriptor.)
+ */
 export function roomExists(roomGridIndex: int): boolean {
   const roomData = getRoomData(roomGridIndex);
   return roomData !== undefined;

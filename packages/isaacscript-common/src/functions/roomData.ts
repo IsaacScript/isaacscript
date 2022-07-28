@@ -205,8 +205,8 @@ export function getRoomVisitedCount(roomGridIndex?: int): int {
  */
 export function setRoomData(
   roomGridIndex: int,
-  data: Readonly<RoomConfig>,
+  roomData: Readonly<RoomConfig>,
 ): void {
   const roomDescriptor = getRoomDescriptor(roomGridIndex);
-  roomDescriptor.Data = data;
+  roomDescriptor.Data = roomData;
 }

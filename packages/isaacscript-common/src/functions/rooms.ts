@@ -84,6 +84,9 @@ export function getNumRooms(): int {
  * accomplished by using the "goto" console command to load the specified room into the
  * `GridRoom.DEBUG` slot.
  *
+ * Returns undefined if the provided room type and variant combination were not found. (A warning
+ * message will also appear on the console, since the "goto" command will fail.)
+ *
  * Note that the side effect of using the "goto" console command is that it will trigger a room
  * transition after a short delay. By default, this function cancels the incoming room transition by
  * using the `Game.StartRoomTransition` method to travel to the same room.

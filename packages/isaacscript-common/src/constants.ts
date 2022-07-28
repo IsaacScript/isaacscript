@@ -1,11 +1,19 @@
 import {
   CollectibleType,
   Dimension,
+  DisplayFlag,
   ItemPoolType,
   TrinketSlot,
 } from "isaac-typescript-definitions";
 import { NUM_NORMAL_PILL_COLORS } from "./constantsFirstLast";
 import { getEnumLength } from "./functions/enums";
+import { addFlag } from "./functions/flag";
+
+export const ALL_DISPLAY_FLAGS = addFlag(
+  DisplayFlag.VISIBLE,
+  DisplayFlag.SHADOW,
+  DisplayFlag.SHOW_ICON,
+);
 
 /**
  * The distance of the laser when Azazel does not have any range up items yet. For more info, see
