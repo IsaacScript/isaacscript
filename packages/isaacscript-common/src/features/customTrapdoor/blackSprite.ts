@@ -16,6 +16,7 @@ export function drawBlackSprite(): void {
   if (!blackSprite.IsLoaded()) {
     blackSprite.Load("gfx/ui/boss/versusscreen.anm2", true);
     blackSprite.SetFrame("Scene", 0);
+    blackSprite.Scale = Vector(100, 100);
   }
 
   blackSprite.RenderLayer(0, VectorZero);
