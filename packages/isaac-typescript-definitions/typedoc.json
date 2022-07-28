@@ -187,7 +187,6 @@
     "src/types/unofficial/EntitySubPlayer.d.ts",
     "src/types/unofficial/primitives.d.ts",
     "src/types/unofficial/PtrHash.d.ts",
-    "src/types/unofficial/ReadonlyRoomDescriptor.d.ts",
     "src/types/unofficial/Seed.d.ts",
     "src/types/unofficial/ZodiacCollectibles.d.ts",
   ],

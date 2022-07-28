@@ -64,11 +64,12 @@ declare global {
     GetCurrentRoom(): Room;
 
     /**
-     * Note that this returns a read-only copy of the RoomDescriptor object and writing to any of
+     * Note that this returns a read-only copy of the `RoomDescriptor` object and writing to any of
      * its properties will fail. If you need to update anything in this object, use the
-     * `GetRoomByIdx(currentRoomIndex)` method instead.
+     * `GetRoomByIdx(currentRoomGridIndex)` method or the `getRoomDescriptor` helper function
+     * instead.
      */
-    GetCurrentRoomDesc(): ReadonlyRoomDescriptor;
+    GetCurrentRoomDesc(): Readonly<RoomDescriptor>;
 
     /** Returns the current room's grid index. */
     GetCurrentRoomIndex(): int;
@@ -89,7 +90,14 @@ declare global {
     GetEnterPosition(): Vector;
     GetHeartPicked(): boolean;
     GetLastBossRoomListIndex(): int;
-    GetLastRoomDesc(): ReadonlyRoomDescriptor;
+
+    /**
+     * Note that this returns a read-only copy of the `RoomDescriptor` object and writing to any of
+     * its properties will fail. If you need to update anything in this object, use the
+     * `GetRoomByIdx(currentRoomGridIndex)` method or the `getRoomDescriptor` helper function
+     * instead.
+     */
+    GetLastRoomDesc(): Readonly<RoomDescriptor>;
 
     /**
      * @param levelStage Default value is the current stage.
