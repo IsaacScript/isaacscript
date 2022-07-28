@@ -97,6 +97,7 @@ export * from "./functions/collectibles";
 export * from "./functions/collectibleSet";
 export * from "./functions/collectibleTag";
 export * from "./functions/color";
+export * from "./functions/curses";
 export * from "./functions/debug";
 export * from "./functions/deepCopy";
 export * from "./functions/deepCopyTests";
