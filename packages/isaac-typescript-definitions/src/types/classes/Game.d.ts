@@ -208,13 +208,10 @@ declare global {
 
     /**
      * @param frameCount
-     * @param hallucinationBackdrop Default is a random backdrop, similar to what happens after
-     *                              using the Delirious collectible.
+     * @param backdrop Default is a random backdrop, similar to what happens after using the
+     *                 Delirious collectible.
      */
-    ShowHallucination(
-      frameCount: int,
-      hallucinationBackdropType?: BackdropType,
-    ): void;
+    ShowHallucination(frameCount: int, backdropType?: BackdropType): void;
 
     ShowRule(): void;
 
