@@ -9,10 +9,11 @@ import { game } from "../../cachedClasses";
 import { HealthType } from "../../enums/HealthType";
 import { directionToVector } from "../../functions/direction";
 import { spawnGridEntityWithVariant } from "../../functions/gridEntities";
+import { getRoomGridIndexesForType } from "../../functions/levelGrid";
 import { logAllEntities, logAllGridEntities } from "../../functions/log";
 import { addPlayerHealthType } from "../../functions/playerHealth";
 import { getRoomData, getRoomDescriptor } from "../../functions/roomData";
-import { changeRoom, getRoomGridIndexesForType } from "../../functions/rooms";
+import { changeRoom } from "../../functions/rooms";
 import { printConsole } from "../../functions/utils";
 import {
   DEFAULT_ROOM_TYPE_NAME,

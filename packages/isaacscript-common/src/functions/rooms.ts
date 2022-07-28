@@ -109,8 +109,6 @@ export function getRoomTypeName(roomType: RoomType): string {
  * @param includeExtraDimensionalRooms Optional. On some floors (e.g. Downpour 2, Mines 2),
  *                                 extra-dimensional rooms are automatically generated and can be
  *                                 seen when you iterate over the `RoomList`. Default is false.
- *                                 Setting this to true will also include any off-grid rooms that
- *                                 have associated data.
  */
 export function getRooms(
   includeExtraDimensionalRooms = false,

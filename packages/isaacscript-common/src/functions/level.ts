@@ -1,21 +1,18 @@
 import { DoorSlot } from "isaac-typescript-definitions";
 import { game } from "../cachedClasses";
 import { getEnumValues } from "./enums";
-import {
-  getNumRooms,
-  getRooms,
-  isDoorSlotValidAtGridIndexForRedRoom,
-} from "./rooms";
+import { isDoorSlotValidAtGridIndexForRedRoom } from "./levelGrid";
+import { getNumRooms, getRoomsInGrid } from "./rooms";
 
 export function fillLevelWithRedRooms(): void {
   const level = game.GetLevel();
 
-  let numRooms: int;
+  let numRoomsInGrid: int;
   do {
-    const rooms = getRooms();
-    numRooms = rooms.length;
+    const roomsInGrid = getRoomsInGrid();
+    numRoomsInGrid = roomsInGrid.length;
 
-    for (const roomDescriptor of rooms) {
+    for (const roomDescriptor of roomsInGrid) {
       for (const doorSlot of getEnumValues(DoorSlot)) {
         if (
           isDoorSlotValidAtGridIndexForRedRoom(
@@ -27,5 +24,5 @@ export function fillLevelWithRedRooms(): void {
         }
       }
     }
-  } while (numRooms !== getNumRooms());
+  } while (numRoomsInGrid !== getNumRooms());
 }

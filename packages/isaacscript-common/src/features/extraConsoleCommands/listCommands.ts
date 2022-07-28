@@ -63,6 +63,7 @@ import { getNPCs } from "../../functions/entitiesSpecific";
 import { getEnumValues } from "../../functions/enums";
 import { addFlag } from "../../functions/flag";
 import { spawnGridEntity } from "../../functions/gridEntities";
+import { getRoomGridIndexesForType } from "../../functions/levelGrid";
 import {
   logPlayerEffects,
   logRoom,
@@ -85,7 +86,7 @@ import {
   useActiveItemTemp,
 } from "../../functions/players";
 import { gridCoordinatesToWorldPosition } from "../../functions/roomGrid";
-import { changeRoom, getRoomGridIndexesForType } from "../../functions/rooms";
+import { changeRoom } from "../../functions/rooms";
 import { onSetSeed, restart, setUnseeded } from "../../functions/run";
 import { getGoldenTrinketType } from "../../functions/trinkets";
 import { irange, printConsole, printEnabled } from "../../functions/utils";
