@@ -1,6 +1,5 @@
 import {
   EntityType,
-  GridRoom,
   LevelStage,
   RoomShape,
   RoomType,
@@ -11,9 +10,8 @@ import { reorderedCallbacksSetStage } from "../../callbacks/reorderedCallbacks";
 import { getEntityIDFromConstituents } from "../../functions/entities";
 import { log, logError } from "../../functions/log";
 import { newRNG } from "../../functions/rng";
-import { getRoomData } from "../../functions/roomData";
-import { getRooms } from "../../functions/rooms";
-import { getGotoCommand, setStage } from "../../functions/stage";
+import { getRoomDataForTypeVariant, getRooms } from "../../functions/rooms";
+import { setStage } from "../../functions/stage";
 import { getRandomCustomStageRoom } from "./customStageUtils";
 import { topStreakTextStart } from "./streakText";
 import v, {
@@ -103,18 +101,19 @@ export function setCustomStage(name: string, verbose = false): void {
 
     let newRoomData = customStageCachedRoomData.get(randomRoom.variant);
     if (newRoomData === undefined) {
-      // We need the room data for this room. We can leverage the "goto" console command to load it
-      // into the "debug" slot. This is convenient because we do not actually have to travel to the
-      // room.
-      const command = getGotoCommand(roomType, randomRoom.variant);
-      Isaac.ExecuteCommand(command);
-      newRoomData = getRoomData(GridRoom.DEBUG);
+      // We do not already have the room data for this room cached.
+      newRoomData = getRoomDataForTypeVariant(
+        roomType,
+        randomRoom.variant,
+        false,
+      );
       if (newRoomData === undefined) {
         logError(
           `Failed to get the room data for room variant ${randomRoom.variant} for custom stage: ${name}`,
         );
         continue;
       }
+
       customStageCachedRoomData.set(randomRoom.variant, newRoomData);
     }
 
@@ -134,7 +133,7 @@ export function setCustomStage(name: string, verbose = false): void {
   // Furthermore, we need to cancel the queued warp to the `GridRoom.DEBUG` room. We can accomplish
   // both of these things by initiating a room transition to an arbitrary room. However, we rely on
   // the parent function to do this, since for normal purposes, we need to initiate a room
-  // transition for pixelation purposes.
+  // transition for the pixelation effect.
 }
 
 export function setCustomStageDebug(): void {

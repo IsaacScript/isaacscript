@@ -198,3 +198,15 @@ export function getRoomVisitedCount(roomGridIndex?: int): int {
   const roomDescriptor = getRoomDescriptor(roomGridIndex);
   return roomDescriptor.VisitedCount;
 }
+
+/**
+ * Helper function to set the data for a given room. This will change the room type, contents, and
+ * so on.
+ */
+export function setRoomData(
+  roomGridIndex: int,
+  data: Readonly<RoomConfig>,
+): void {
+  const roomDescriptor = getRoomDescriptor(roomGridIndex);
+  roomDescriptor.Data = data;
+}

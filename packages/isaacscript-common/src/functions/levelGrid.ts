@@ -9,14 +9,19 @@
 
 import {
   DoorSlot,
+  DownpourRoomSubType,
+  MinesRoomSubType,
   RoomDescriptorFlag,
   RoomShape,
   RoomType,
 } from "isaac-typescript-definitions";
+import { game } from "../cachedClasses";
 import { LEVEL_GRID_ROW_WIDTH, MAX_LEVEL_GRID_INDEX } from "../constants";
 import { ROOM_SHAPE_TO_DOOR_SLOTS_TO_GRID_INDEX_DELTA } from "../objects/roomShapeToDoorSlotsToGridIndexDelta";
+import { getRandomArrayElement } from "./array";
 import { doorSlotToDoorSlotFlag } from "./doors";
 import { hasFlag } from "./flag";
+import { getRandomSeed } from "./rng";
 import {
   getRoomAllowedDoors,
   getRoomData,
@@ -24,7 +29,7 @@ import {
   getRoomGridIndex,
   getRoomShape,
 } from "./roomData";
-import { getRooms } from "./rooms";
+import { getRooms, getRoomsInGrid } from "./rooms";
 import { getGridIndexDelta } from "./roomShape";
 
 const LEFT = -1;
@@ -69,6 +74,29 @@ export function getAdjacentRoomGridIndexes(roomGridIndex?: int): int[] {
 export function getAllRoomGridIndexes(): int[] {
   const rooms = getRooms();
   return rooms.map((roomDescriptor) => roomDescriptor.SafeGridIndex);
+}
+
+/**
+ * Helper function to pick a random valid spot on the floor to insert a brand new room. Note that
+ * some floors will not have any valid spots. If this is the case, this function will return
+ * undefined.
+ *
+ * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ * @returns Either a tuple of adjacent room grid index, `DoorSlot`, and new room grid index, or
+ *          undefined.
+ */
+export function getNewRoomCandidate(
+  seedOrRNG: Seed | RNG = getRandomSeed(),
+):
+  | [adjacentRoomGridIndex: int, doorSlot: DoorSlot, newRoomGridIndex: int]
+  | undefined {
+  const newRoomCandidatesForFloor = getNewRoomCandidatesForFloor();
+  if (newRoomCandidatesForFloor.length === 0) {
+    return undefined;
+  }
+
+  return getRandomArrayElement(newRoomCandidatesForFloor, seedOrRNG);
 }
 
 /**
@@ -126,6 +154,38 @@ export function getNewRoomCandidatesBesideRoom(
   }
 
   return roomCandidates;
+}
+
+/**
+ * Helper function to search through all of the rooms on the floor for a spot to insert a brand new
+ * room.
+ *
+ * @returns A array of tuples of adjacent room grid index, `DoorSlot`, and new room grid index.
+ */
+export function getNewRoomCandidatesForFloor(): Array<
+  [adjacentRoomGridIndex: int, doorSlot: DoorSlot, newRoomGridIndex: int]
+> {
+  const rooms = getRoomsInGrid();
+  const normalRooms = rooms.filter(
+    (room) =>
+      room.Data !== undefined &&
+      room.Data.Type === RoomType.DEFAULT &&
+      room.Data.Subtype !== (DownpourRoomSubType.MIRROR as int) &&
+      room.Data.Subtype !== (MinesRoomSubType.MINESHAFT_ENTRANCE as int),
+  );
+
+  const newRoomCandidates: Array<[int, DoorSlot, int]> = [];
+
+  for (const room of normalRooms) {
+    const newRoomCandidatesBesideRoom = getNewRoomCandidatesBesideRoom(
+      room.SafeGridIndex,
+    );
+    for (const [doorSlot, newRoomGridIndex] of newRoomCandidatesBesideRoom) {
+      newRoomCandidates.push([room.SafeGridIndex, doorSlot, newRoomGridIndex]);
+    }
+  }
+
+  return newRoomCandidates;
 }
 
 /**
@@ -312,6 +372,31 @@ export function isRedKeyRoom(roomGridIndex?: int): boolean {
  */
 export function isRoomGridIndexInBounds(roomGridIndex: int): boolean {
   return roomGridIndex >= 0 && roomGridIndex <= MAX_LEVEL_GRID_INDEX;
+}
+
+/**
+ * Helper function to generate a new room on the floor at a valid dead end attached to a normal
+ * room.
+ *
+ * Under the hood, this function uses the `Level.MakeRedRoomDoor` method to create the room.
+ *
+ * The newly created room will have data corresponding to the game's randomly generated red room. If
+ * you want to modify this, use the `setRoomData` helper function.
+ *
+ * @returns The room grid index of the new room or undefined if the floor had no valid dead ends to
+ *          place a room.
+ */
+export function newRoom(): int | undefined {
+  const newRoomCandidate = getNewRoomCandidate();
+  if (newRoomCandidate === undefined) {
+    return undefined;
+  }
+  const [adjacentRoomGridIndex, doorSlot, newRoomGridIndex] = newRoomCandidate;
+
+  const level = game.GetLevel();
+  level.MakeRedRoomDoor(adjacentRoomGridIndex, doorSlot);
+
+  return newRoomGridIndex;
 }
 
 /** Helper function to check if a room exists at the given room grid index. */

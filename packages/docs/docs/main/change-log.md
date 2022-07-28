@@ -16,6 +16,8 @@ This page lists the changes to the IsaacScript framework.
   - `getAdjacentRoomGridIndexes`
   - `isDeadEnd`
   - `getRoomShapeNeighborGridIndexes`
+  - `getNewRoomCandidatesBesideRoom`
+  - `hasCurse`
 - Changed the following helper functions:
   - `spawnCustomGridEntity` now supports the `breakable` argument, which will trigger `POST_GRID_ENTITY_CUSTOM_BROKEN` if it is hit by any type of explosion.
 

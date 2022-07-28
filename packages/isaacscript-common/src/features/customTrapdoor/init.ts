@@ -10,6 +10,7 @@ import { StageTravelState } from "../../enums/private/StageTravelState";
 import { movePlayersToCenter } from "../../functions/playerCenter";
 import { getAllPlayers } from "../../functions/playerIndex";
 import { getRoomGridIndex, getRoomListIndex } from "../../functions/roomData";
+import { teleport } from "../../functions/rooms";
 import { setStage } from "../../functions/stage";
 import { isString } from "../../functions/types";
 import { setCustomStage } from "../customStage/exports";
@@ -65,8 +66,10 @@ function checkAllPlayersJumpComplete() {
   v.run.stateRenderFrame = renderFrameCount;
 
   // In order to display the pixelation effect that should happen when we go to a new floor, we need
-  // to start a room transition. We arbitrarily pick the current room for this purpose.
-  game.StartRoomTransition(
+  // to start a room transition. We arbitrarily pick the current room for this purpose. (We do not
+  // have to worry about Curse of the Maze here, because even if we are taken to a different room,
+  // it will not matter, since we will be traveling to a new floor after the screen fades to black.)
+  teleport(
     roomGridIndex,
     Direction.NO_DIRECTION,
     RoomTransitionAnim.PIXELATION,
@@ -99,10 +102,11 @@ function checkPixelationToBlackComplete() {
 
   // Start another pixelation effect. This time, we will keep the screen black with the sprite, and
   // then remove the black sprite once the pixelation effect is halfway complete.
-  game.StartRoomTransition(
+  teleport(
     roomGridIndex,
     Direction.NO_DIRECTION,
     RoomTransitionAnim.PIXELATION,
+    true,
   );
 }
 

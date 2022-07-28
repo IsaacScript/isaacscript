@@ -8,6 +8,7 @@ import {
   GridRoom,
   HomeRoomSubType,
   ItemPoolType,
+  LevelCurse,
   MinibossID,
   RoomDescriptorFlag,
   RoomShape,
@@ -20,6 +21,7 @@ import { game, sfxManager } from "../cachedClasses";
 import { MAX_LEVEL_GRID_INDEX } from "../constants";
 import { ROOM_TYPE_NAMES } from "../objects/roomTypeNames";
 import { MINE_SHAFT_ROOM_SUB_TYPE_SET } from "../sets/mineShaftRoomSubTypesSet";
+import { hasCurse } from "./curses";
 import { inDimension } from "./dimensions";
 import {
   closeAllDoors,
@@ -43,6 +45,7 @@ import {
   getRoomStageID,
   getRoomSubType,
 } from "./roomData";
+import { getGotoCommand } from "./stage";
 import { irange } from "./utils";
 
 /**
@@ -74,6 +77,41 @@ export function changeRoom(roomGridIndex: int): void {
 export function getNumRooms(): int {
   const rooms = getRoomsInGrid();
   return rooms.length;
+}
+
+/**
+ * Helper function to get the room data for a specific room type and variant combination. This is
+ * accomplished by using the "goto" console command to load the specified room into the
+ * `GridRoom.DEBUG` slot.
+ *
+ * Note that the side effect of using the "goto" console command is that it will trigger a room
+ * transition after a short delay. By default, this function cancels the incoming room transition by
+ * using the `Game.StartRoomTransition` method to travel to the same room.
+ *
+ * @param roomType The type of room to retrieve.
+ * @param roomVariant The room variant to retrieve. (The room variant is the "ID" of the room in
+ *                    Basement Renovator.)
+ * @param cancelRoomTransition Optional. Whether to cancel the room transition by using the
+ *                             `Game.StartRoomTransition` method to travel to the same room. Default
+ *                             is true. Set this to false if you are getting the data for many rooms
+ *                             at the same time, and then use the `teleport` helper function when
+ *                             you are finished.
+ */
+export function getRoomDataForTypeVariant(
+  roomType: RoomType,
+  roomVariant: int,
+  cancelRoomTransition = true,
+): Readonly<RoomConfig> | undefined {
+  const command = getGotoCommand(roomType, roomVariant);
+  Isaac.ExecuteCommand(command);
+  const newRoomData = getRoomData(GridRoom.DEBUG);
+
+  if (cancelRoomTransition) {
+    const roomGridIndex = getRoomGridIndex();
+    teleport(roomGridIndex, Direction.NO_DIRECTION, RoomTransitionAnim.FADE);
+  }
+
+  return newRoomData;
 }
 
 /**
@@ -459,20 +497,33 @@ export function setRoomUncleared(): void {
 /**
  * Helper function to change the current room. It can be used for both teleportation and "normal"
  * room transitions, depending on what is passed for the `direction` and `roomTransitionAnim`
- * arguments. Use this function instead of invoking the `Game.StartRoomTransition` method directly
- * so that you do not forget to set `Level.LeaveDoor` property and to prevent crashing on invalid
- * room grid indexes.
+ * arguments.
+ *
+ * Use this function instead of invoking the `Game.StartRoomTransition` method directly so that:
+ * - you do not forget to set `Level.LeaveDoor` property
+ * - to prevent crashing on invalid room grid indexes
+ * - to automatically handle Curse of the Maze
  *
  * @param roomGridIndex The room grid index of the destination room.
  * @param direction Optional. Default is `Direction.NO_DIRECTION`.
  * @param roomTransitionAnim Optional. Default is `RoomTransitionAnim.TELEPORT`.
+ * @param force Optional. Whether to temporarily disable Curse of the Maze. Default is false. If set
+ *              to false, then this function may not go to the provided room grid index.
  */
 export function teleport(
   roomGridIndex: int,
   direction = Direction.NO_DIRECTION,
   roomTransitionAnim = RoomTransitionAnim.TELEPORT,
+  force = false,
 ): void {
   const level = game.GetLevel();
+
+  // Before starting a room transition, we must ensure that Curse of the Maze is not in effect, or
+  // else the room transition might send us to the wrong room.
+  const shouldTempDisableCurse = force && hasCurse(LevelCurse.MAZE);
+  if (shouldTempDisableCurse) {
+    level.RemoveCurses(LevelCurse.MAZE);
+  }
 
   const roomData = getRoomData(roomGridIndex);
   if (roomData === undefined) {
@@ -486,4 +537,8 @@ export function teleport(
   level.LeaveDoor = DoorSlot.NO_DOOR_SLOT;
 
   game.StartRoomTransition(roomGridIndex, direction, roomTransitionAnim);
+
+  if (shouldTempDisableCurse) {
+    level.AddCurse(LevelCurse.MAZE, false);
+  }
 }
