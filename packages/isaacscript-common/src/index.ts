@@ -100,6 +100,7 @@ export * from "./functions/color";
 export * from "./functions/debug";
 export * from "./functions/deepCopy";
 export * from "./functions/deepCopyTests";
+export * from "./functions/dimensions";
 export * from "./functions/direction";
 export * from "./functions/doors";
 export * from "./functions/easing";

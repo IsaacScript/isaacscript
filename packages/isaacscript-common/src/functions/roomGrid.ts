@@ -1,3 +1,12 @@
+/**
+ * These functions have to do with the grid index inside of a room (i.e. the grid index that grid
+ * entities use).
+ *
+ * For functions having to do with the room grid index of the level, see the "Level Grid" functions.
+ *
+ * @module
+ */
+
 import { RoomShape } from "isaac-typescript-definitions";
 import { L_ROOM_SHAPE_TO_RECTANGLES } from "../objects/LRoomShapeToRectangles";
 import { inRectangle } from "./math";

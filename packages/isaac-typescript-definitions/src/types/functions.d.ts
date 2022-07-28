@@ -18,9 +18,11 @@ declare function GetPtrHash(
  * `getRandomInt`, and `getRandomFloat` helper functions from the standard library instead of this
  * function.
  *
- * This function is mostly useful for generating a random seed. For this purposes, you should always
- * use the `getRandomSeed` helper function instead of invoking this function directly, since it can
- * return a value of 0 and crash the game.
+ * This function is mostly useful for generating a random seed. However, for this purposes, you
+ * should always use the `getRandomSeed` helper function instead, since `Random` can return a value
+ * of 0 and crash the game.
+ *
+ * @deprecated Can return a value of 0 and crash the game.
  */
 declare function Random(this: void): int;
 

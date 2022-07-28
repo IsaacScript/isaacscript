@@ -13,8 +13,12 @@ This page lists the changes to the IsaacScript framework.
 
 - Added the following helper functions:
   - `isCollectibleInItemPool`
+  - `getAdjacentRoomGridIndexes`
+  - `isDeadEnd`
+  - `getRoomShapeNeighborGridIndexes`
 - Changed the following helper functions:
   - `spawnCustomGridEntity` now supports the `breakable` argument, which will trigger `POST_GRID_ENTITY_CUSTOM_BROKEN` if it is hit by any type of explosion.
+  - `getRooms` now takes an argument of `includeOffGridRooms`.
 
 ## July 27th, 2022
 
@@ -666,9 +670,6 @@ IsaacScript has now reached **version 2**! We've come a long way with many featu
   - `getRoomShapeBounds`
   - `getRoomShapeLayoutSize`
   - `getRoomShapeVolume`
-  - `gridToWorldPos`
-  - `worldToGridPos`
-  - `worldToGridPosFast`
   - `newChargeBarSprites`
   - `renderChargeBar`
   - `isLRoom`
