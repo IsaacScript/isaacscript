@@ -108,7 +108,12 @@ export function getRoomDataForTypeVariant(
 
   if (cancelRoomTransition) {
     const roomGridIndex = getRoomGridIndex();
-    teleport(roomGridIndex, Direction.NO_DIRECTION, RoomTransitionAnim.FADE);
+    teleport(
+      roomGridIndex,
+      Direction.NO_DIRECTION,
+      RoomTransitionAnim.FADE,
+      true,
+    );
   }
 
   return newRoomData;
