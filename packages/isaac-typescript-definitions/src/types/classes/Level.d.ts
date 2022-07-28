@@ -83,7 +83,7 @@ declare global {
      */
     GetCurseName(): string;
 
-    GetCurses(): LevelCurse;
+    GetCurses(): BitFlags<LevelCurse>;
     GetDevilAngelRoomRNG(): RNG;
     GetDungeonPlacementSeed(): Seed;
     GetEnterPosition(): Vector;
