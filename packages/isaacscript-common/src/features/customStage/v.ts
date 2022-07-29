@@ -1,21 +1,6 @@
 import { ControllerIndex } from "isaac-typescript-definitions";
 import { CustomStage } from "../../interfaces/CustomStage";
-
-/** Corresponds to "ui_streak.anm2". */
-export enum UIStreakAnimation {
-  NONE = "",
-  TEXT = "Text",
-  TEXT_STAY = "TextStay",
-}
-
-/** Corresponds to "ui_streak.anm2". */
-export const UI_STREAK_ANIMATION_END_FRAMES: {
-  readonly [key in UIStreakAnimation]: int;
-} = {
-  [UIStreakAnimation.NONE]: 0,
-  [UIStreakAnimation.TEXT]: 69,
-  [UIStreakAnimation.TEXT_STAY]: 1,
-} as const;
+import { UIStreakAnimation } from "./customStageConstants";
 
 const v = {
   run: {

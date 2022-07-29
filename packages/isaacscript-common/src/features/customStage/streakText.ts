@@ -7,7 +7,11 @@ import {
   getScreenTopCenterPos,
 } from "../../functions/ui";
 import { CustomStage } from "../../interfaces/CustomStage";
-import v, { UIStreakAnimation, UI_STREAK_ANIMATION_END_FRAMES } from "./v";
+import {
+  UIStreakAnimation,
+  UI_STREAK_ANIMATION_END_FRAMES,
+} from "./customStageConstants";
+import v from "./v";
 
 /** This must match the name of the shader in "shaders.xml". */
 const EMPTY_SHADER_NAME = "IsaacScript-RenderAboveHUD";
