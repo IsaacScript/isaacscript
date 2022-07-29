@@ -47,6 +47,12 @@ For the most basic stage, only the "name", "xmlPath", and "roomVariantPrefix" fi
 
 Furthermore, for more information on the "roomVariantPrefix" field, see the section below on [Custom Stage Room Variant Prefixes](#custom-stage-room-variant-prefixes).
 
+### Going There
+
+To go to your custom stage in game, you can use the [`spawnCustomTrapdoor`](/isaacscript-common/features/customTrapdoor) helper function. (You can use custom trapdoors to go to both custom stages and vanilla stages.)
+
+During development, you can get to a custom stage a bit faster by calling the `setCustomStage` helper function directly. (You must also call the `reloadRoom` function immediately afterwards to prevent being dragged into the `goto` console command room.)
+
 ## Motivation
 
 [StageAPI](https://github.com/Meowlala/BOIStageAPI15) is a fantastic library created by [DeadInfinity](https://steamcommunity.com/profiles/76561198172774482/myworkshopfiles/?appid=250900) and [BudJMT](https://steamcommunity.com/profiles/76561198067029619/myworkshopfiles/?appid=250900), the two smartest people in the Isaac community. Until 2022, it has been the engine that has powered all Isaac mods that have custom stages, like [Revelations](https://steamcommunity.com/sharedfiles/filedetails/?id=1536643474) and [Fiend Folio](https://steamcommunity.com/sharedfiles/filedetails/?id=2305131709&searchtext=fiend+folio). However, no library is perfect. I wanted to try and improve on Stage API with the following goals in mind:
@@ -87,7 +93,7 @@ Furthermore, for more information on the "roomVariantPrefix" field, see the sect
 
 - StageAPI loads data for hundreds of rooms on the first run, which causes lag.
 - Libraries shouldn't do anything if they are not being used. This is the same principle as [not importing for side effects](https://github.com/Zamiell/isaac-faq/blob/main/mod-organization.md#avoiding-side-effects).
-- Instead, by lazy loading data, custom stages only incur a tiny amount of lag when they are first actually traveled to. (Only the specific data needed for the actual generated floor is retrieved.)
+- Instead, by lazy loading data, custom stages only incur a tiny amount of lag when they are first actually travelled to. (Only the specific data needed for the actual generated floor is retrieved.)
 
 #### 7. An Isaac library should have excellent documentation
 
