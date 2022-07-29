@@ -1,25 +1,9 @@
-- Slaughterhouse I and II
+- Slaughterhouse I and II (need to travel to Slaughterhouse II)
 
-- finish bucket function in isaacscript-common (wait for science to finish)
 - custom bosses for vanilla stages
 
-lint failure:
-
-  /**
-   * Loads the provided anm2 file to the sprite. Each sprite must have an anm2 file loaded in order
-   * for it to display anything.
-   *
-   * @param anm2Path The path to the anm2 file that contains all of the animations for this sprite.
-   *                 This should be relative to the "resources" folder.
-   * @param loadGraphics Whether or not to immediately load the spritesheet PNG files. If false is
-   *                     passed, then you must call the `Sprite.LoadGraphics` method at some point
-   *                     in the future. Typically, you would pass false for this argument if you are
-   *                     intending to use the `Sprite.ReplaceSpritesheet` method after loading the
-   *                     anm2.
-   */
-  Load(anm2: string, loadGraphics: boolean): void;
-
-
-- prefer implicit loops for arrays, maps, etc. - not implicit, but "default iterator"?
-- double period for end of JSDoc comment lint
-- lint rule: arrays, maps, and sets that start with Capital letter must be read-only
+- Lint:
+  - lint failure: https://github.com/gajus/eslint-plugin-jsdoc/issues/897
+  - prefer implicit loops for arrays, maps, etc. - not implicit, but "default iterator"?
+  - double period for end of JSDoc comment lint
+  - lint rule: arrays, maps, and sets that start with Capital letter must be read-only
