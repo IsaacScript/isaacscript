@@ -54,13 +54,13 @@ Furthermore, for more information on the "roomVariantPrefix" field, see the sect
 
 ### 1. An Isaac library should be dead-easy to use.
 
-- Creating a new stage should be as easy as calling `registerCustomStage("Revelations")` and `setCustomStage("Revelations")`.
-- Everything complicated should be abstracted away, with the ability to customize using optional arguments.
+- Creating a new stage should be as easy as specifying some values in a config file and then calling `spawnCustomTrapdoor`.
+- Everything complicated should be abstracted away, with the ability to customize if needed.
 - Auto-complete on functions and methods should work automatically. Just start typing.
 
 ### 2. An Isaac library should be safe.
 
-- Creating stages can get complicated. You should immediately know if you are using a function incorrectly, and not be running around in-game, examining run-time errors.
+- Creating stages can get complicated. You should immediately know if you are using a function incorrectly. You should never be running around in-game, troubleshooting run-time errors.
 - It should be impossible to push broken code to production.
 
 ### 3. An Isaac library should work without being a Workshop dependency.
