@@ -48,7 +48,7 @@ export function customTrapdoorInit(mod: ModUpgraded): void {
 function postRender() {
   checkAllPlayersJumpComplete();
   checkPixelationToBlackComplete();
-  checkPausingOnBlackComplete();
+  checkSecondPixelationHalfWay();
   checkAllPlayersLayingDownComplete();
   drawBlackSprite();
 }
@@ -77,6 +77,8 @@ function checkAllPlayersJumpComplete() {
     Direction.NO_DIRECTION,
     RoomTransitionAnim.PIXELATION,
   );
+
+  // Next, we wait a certain amount of render frames for the pixelation to fade the screen to black.
 }
 
 function checkPixelationToBlackComplete() {
@@ -97,25 +99,42 @@ function checkPixelationToBlackComplete() {
     return;
   }
 
-  v.run.state = StageTravelState.PAUSING_ON_BLACK;
-  v.run.stateRenderFrame = renderFrameCount;
+  v.run.state = StageTravelState.WAITING_FOR_FIRST_PIXELATION_TO_END;
 
+  // Now, we display a black sprite on top of the pixelation effect, to prevent showing the rest of
+  // the animation.
   hud.SetVisible(false);
-  goToCustomDestination();
 
-  // Start another pixelation effect. This time, we will keep the screen black with the sprite, and
-  // then remove the black sprite once the pixelation effect is halfway complete.
-  teleport(
-    roomGridIndex,
-    Direction.NO_DIRECTION,
-    RoomTransitionAnim.PIXELATION,
-    true,
-  );
+  // If the pixelation effect is not fully allowed to complete, the game's internal buffer will not
+  // be flushed. The consequence of this is that after 11 custom stage transitions, the "log.txt"
+  // starts to become become spammed with: [ASSERT] - PushRenderTarget: stack overflow!
+
+  // In order to work around this, we fully let the animation complete by only continuing the stage
+  // transition on the next game frame.
+  runNextGameFrame(() => {
+    const futureRenderFrameCount = Isaac.GetFrameCount();
+
+    v.run.state =
+      StageTravelState.WAITING_FOR_SECOND_PIXELATION_TO_GET_HALF_WAY;
+    v.run.stateRenderFrame = futureRenderFrameCount;
+
+    goToCustomDestination();
+
+    // Start another pixelation effect. This time, we will keep the screen black with the sprite,
+    // and then remove the black sprite once the pixelation effect is halfway complete.
+    teleport(
+      roomGridIndex,
+      Direction.NO_DIRECTION,
+      RoomTransitionAnim.PIXELATION,
+      true,
+    );
+  });
 }
 
-function checkPausingOnBlackComplete() {
+function checkSecondPixelationHalfWay() {
   if (
-    v.run.state !== StageTravelState.PAUSING_ON_BLACK ||
+    v.run.state !==
+      StageTravelState.WAITING_FOR_SECOND_PIXELATION_TO_GET_HALF_WAY ||
     v.run.stateRenderFrame === null
   ) {
     return;
@@ -135,11 +154,11 @@ function checkPausingOnBlackComplete() {
   hud.SetVisible(true);
 
   runNextRoom(() => {
+    v.run.state = StageTravelState.PLAYERS_LAYING_DOWN;
+
     // After the room transition, the players will be placed next to a door, but they should be in
     // the center of the room to emulate what happens on a vanilla stage.
     movePlayersToCenter();
-
-    v.run.state = StageTravelState.PLAYERS_LAYING_DOWN;
 
     for (const player of getAllPlayers()) {
       player.AnimateAppear();

@@ -9,7 +9,11 @@ import v from "./v";
 const blackSprite = Sprite();
 
 export function drawBlackSprite(): void {
-  if (v.run.state !== StageTravelState.PAUSING_ON_BLACK) {
+  if (
+    v.run.state !== StageTravelState.WAITING_FOR_FIRST_PIXELATION_TO_END &&
+    v.run.state !==
+      StageTravelState.WAITING_FOR_SECOND_PIXELATION_TO_GET_HALF_WAY
+  ) {
     return;
   }
 

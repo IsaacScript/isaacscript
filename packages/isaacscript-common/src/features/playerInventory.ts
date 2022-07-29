@@ -114,6 +114,12 @@ function postCollectibleRemoved(
  * middle of the run (e.g. with D4), the order of the inventory will not correspond to the order
  * that the items were actually given to the player. In this case, the inventory will be in the
  * order of the lowest `CollectibleType` to the highest.
+ *
+ * Under the hood, the inventory tracking works by tracking the number of collectibles that a player
+ * has on every frame. Thus, in a situation where a collectible was both added and removed to the
+ * player on the same frame, the amount of total collectibles would stay the same, and the inventory
+ * would not be updated. (But the next time that a collectible was normally added or removed, it
+ * would cause the total collectibles to be different, and the previous changes would be picked up.)
  */
 export function getPlayerInventory(
   player: EntityPlayer,

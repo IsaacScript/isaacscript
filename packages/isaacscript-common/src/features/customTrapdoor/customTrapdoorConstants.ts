@@ -3,6 +3,10 @@ import { GridEntityType } from "isaac-typescript-definitions";
 export const CUSTOM_TRAPDOOR_FEATURE_NAME = "customTrapdoor";
 
 export const GridEntityTypeCustom = {
+  /**
+   * We arbitrarily choose 1000 as to not conflict with end-user mods. (The expectation is that
+   * end-user mods will begin their enums with values of 1 and increment upwards.)
+   */
   TRAPDOOR_CUSTOM: 1000 as GridEntityType,
 } as const;
 

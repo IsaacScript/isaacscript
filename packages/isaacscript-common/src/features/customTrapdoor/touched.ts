@@ -81,6 +81,9 @@ function playerTouchedCustomTrapdoor(
   v.run.state = StageTravelState.PLAYERS_JUMPING_DOWN;
   v.run.destination = trapdoorDescription.destination;
 
+  // We don't want to allow pausing, since that will allow render frames to pass without advancing
+  // the stage traveling logic. (We track how many render frames have passed to know when to move to
+  // the next step.)
   const whitelist = new Set([ButtonAction.CONSOLE]);
   disableAllInputsExceptFor(CUSTOM_TRAPDOOR_FEATURE_NAME, whitelist);
   setPlayerAttributes(player, gridEntity.Position);
@@ -114,6 +117,8 @@ function setPlayerAttributes(trapdoorPlayer: EntityPlayer, position: Vector) {
     // We don't want enemy attacks to move the players.
     player.EntityCollisionClass = EntityCollisionClass.NONE;
     player.GridCollisionClass = EntityGridCollisionClass.NONE;
+
+    player.StopExtraAnimation();
   }
 }
 
