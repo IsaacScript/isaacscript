@@ -26,7 +26,8 @@ export type CustomStageTSConfig = Readonly<{
    * stage.
    *
    * Make sure the chosen prefix does not conflict with any other mods. You can find a list of
-   * registered room variant prefixes on the IsaacScript website.
+   * registered room variant prefixes on the IsaacScript website:
+   * https://isaacscript.github.io/main/custom-stages
    */
   roomVariantPrefix: number;
 
