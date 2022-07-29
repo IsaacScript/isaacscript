@@ -57,9 +57,9 @@ During development, you can get to a custom stage a bit faster by calling the `s
 
 ### Bosses
 
-If your custom stage does not have any custom bosses, then vanilla bosses will appear in the Boss Rooms corresponding to the base stage & stage type that you have specified.
+If your custom stage does not have any custom bosses, then a vanilla boss will appear in the boss room corresponding to the base stage & stage type that you have specified. (For example, if you chose Caves 1 as a base, then you would randomly get a boss of Chub, C.H.A.D., Gurdy, and so on.)
 
-You specify the "bossPool" field in the "tsconfig.json" file, then the stage library will replace the vanilla boss with a randomly selected one from the pool you have specified.
+If you specify the "bossPool" field in the "tsconfig.json" file, then the stage library will replace the vanilla boss with a randomly selected one from the pool you have specified.
 
 <br />
 

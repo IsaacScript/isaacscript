@@ -1,3 +1,6 @@
+- check for registerCustomBoss and throw run-time error if not present
+- specify base XML type for custom entity
+
 - Lint:
   - lint failure: https://github.com/gajus/eslint-plugin-jsdoc/issues/897
   - prefer implicit loops for arrays, maps, etc. - not implicit, but "default iterator"?
