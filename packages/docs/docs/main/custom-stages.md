@@ -74,7 +74,7 @@ Furthermore, for more information on the "roomVariantPrefix" field, see the sect
 - StageAPI forces people to convert their XML files to something called "Lua rooms", which is XML data converted to Lua. It then imports the Lua rooms at run-time and manually deploys their contents.
 - Lua rooms are, in essence, the biggest hack in the history of Isaac modding. A lot of code is dedicated to making it all work. (You have to architect a solution for loading empty room data, work around grid entities not spawning properly, handle special entities like Slides, and so on.)
 - But what if there was a better way? There's no need to go down this rabbit hole. The IsaacScript library uses real XML/STB files, and lazy-loads their data when needed using the `goto` command, resulting in a completely seamless experience.
-- This means that for the end-user creating stages is even easier than before. No Basement Renovator hooks required!
+- This means that for people creating new stages, things are ultra simple - no Basement Renovator hooks required!
 
 ### 5. An Isaac library should be compatible with other Isaac libraries.
 
