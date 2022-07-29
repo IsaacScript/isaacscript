@@ -52,6 +52,7 @@ Furthermore, for more information on the "roomVariantPrefix" field, see the sect
 [StageAPI](https://github.com/Meowlala/BOIStageAPI15) is a fantastic library created by [DeadInfinity](https://steamcommunity.com/profiles/76561198172774482/myworkshopfiles/?appid=250900) and [BudJMT](https://steamcommunity.com/profiles/76561198067029619/myworkshopfiles/?appid=250900), the two smartest people in the Isaac community. Until 2022, it has been the engine that has powered all Isaac mods that have custom stages, like [Revelations](https://steamcommunity.com/sharedfiles/filedetails/?id=1536643474) and [Fiend Folio](https://steamcommunity.com/sharedfiles/filedetails/?id=2305131709&searchtext=fiend+folio). However, no library is perfect. I wanted to try and improve on Stage API with the following goals in mind:
 
 <!--lint disable ordered-list-marker-value -->
+<!--lint disable heading-increment -->
 
 #### 1. An Isaac library should be dead-easy to use
 
