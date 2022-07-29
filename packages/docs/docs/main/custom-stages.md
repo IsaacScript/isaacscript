@@ -52,42 +52,42 @@ Furthermore, for more information on the "roomVariantPrefix" field, see the sect
 
 <!--lint disable ordered-list-marker-value -->
 
-1. An Isaac library should be dead-easy to use.
+### 1. An Isaac library should be dead-easy to use.
 
 - Creating a new stage should be as easy as calling `registerCustomStage("Revelations")` and `setCustomStage("Revelations")`.
 - Everything complicated should be abstracted away, with the ability to customize using optional arguments.
 - Auto-complete on functions and methods should work automatically. Just start typing.
 
-2. An Isaac library should be safe.
+### 2. An Isaac library should be safe.
 
 - Creating stages can get complicated. You should immediately know if you are using a function incorrectly, and not be running around in-game, examining run-time errors.
 - It should be impossible to push broken code to production.
 
-3. An Isaac library should work without being a Workshop dependency.
+### 3. An Isaac library should work without being a Workshop dependency.
 
 - When a user wants to play a mod, they should only have to subscribe to one thing on the Steam Workshop. Forcing the end-user to subscribe to multiple things is painful, complex, and unnecessary.
 - Having stage logic bundled with the mod preserves backwards compatibility and ensures that stage logic is tightly-coupled to the mod logic that is using it.
 - Having stage logic bundled with the mod allows the mod author to be in complete control of when they update to the latest version, if ever. This allows the upstream library to make breaking changes and stay clean without having to worry about having perpetual technical debt (like Stage API).
 
-4. An Isaac library should use real XML/STB files.
+### 4. An Isaac library should use real XML/STB files.
 
 - StageAPI forces people to convert their XML files to something called "Lua rooms", which is XML data converted to Lua. It then imports the Lua rooms at run-time and manually deploys their contents.
 - Lua rooms are, in essence, the biggest hack in the history of Isaac modding. A lot of code is dedicated to making it all work. (You have to architect a solution for loading empty room data, work around grid entities not spawning properly, handle special entities like Slides, and so on.)
 - But what if there was a better way? There's no need to go down this rabbit hole. The IsaacScript library uses real XML/STB files, and lazy-loads their data when needed using the `goto` command, resulting in a completely seamless experience.
 - This means that for the end-user creating stages is even easier than before. No Basement Renovator hooks required!
 
-5. An Isaac library should be compatible with other Isaac libraries.
+### 5. An Isaac library should be compatible with other Isaac libraries.
 
 - No library should irreparably alter the base game. In other words, it should make no vanilla resource replacements. This is the same principle as [not importing for side effects](https://github.com/Zamiell/isaac-faq/blob/main/mod-organization.md#avoiding-side-effects).
 - With no resource replacements, there's never a compatibility issue. Each mod can use their own library for their own stage.
 
-6. An Isaac library shouldn't cause lag on boot.
+### 6. An Isaac library shouldn't cause lag on boot.
 
 - StageAPI loads data for hundreds of rooms on the first run, which causes lag.
 - Libraries shouldn't do anything if they are not being used. This is the same principle as [not importing for side effects](https://github.com/Zamiell/isaac-faq/blob/main/mod-organization.md#avoiding-side-effects).
 - Instead, by lazy loading data, custom stages can work in a seamless way.
 
-7. An Isaac library should have excellent documentation.
+### 7. An Isaac library should have excellent documentation.
 
 - StageAPI has historically been undocumented. Recently, there have been some excellent documentation additions by Filloax (the person behind Revelations), but it is all manually typed and prone to error.
 - An old adage in programming is that [if it isn't documented, then it doesn't exist](https://blog.codinghorror.com/if-it-isnt-documented-it-doesnt-exist/). Beautiful and easy-to-use documentation should be a first-class goal.
