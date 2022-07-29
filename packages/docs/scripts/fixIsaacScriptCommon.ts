@@ -75,7 +75,7 @@ const FILE_NAME_TO_TITLE: ReadonlyMap<string, string> = new Map([
   ["kColor", "KColor"],
   ["jsonHelpers", "JSON"],
   ["jsonRoom", "JSON Room"],
-  ["npc", "NPC"],
+  ["npcs", "NPCs"],
   ["rng", "RNG"],
   ["tstlClass", "TSTL Class"],
   ["ui", "UI"],
