@@ -4,7 +4,7 @@ title: Custom Stages
 
 <!-- markdownlint-disable MD029 -->
 
-Wanting to create a custom Binding of Isaac stage is common. But the vanilla API does not have support for this. Instead, IsaacScript offers a built-in library to accomplish custom stages - batteries-included. See the [usage section](#usage) below.
+Wanting to create a custom Binding of Isaac stage is common. But the vanilla API does not have support for this. IsaacScript offers support for custom stages as part of its standard library. See the [usage section](#usage) below.
 
 Historically, people have used the [StageAPI](https://github.com/Meowlala/BOIStageAPI15) to build custom stages, but using IsaacScript over StageAPI has several advantages. See the [motivation section](#motivation) below.
 
