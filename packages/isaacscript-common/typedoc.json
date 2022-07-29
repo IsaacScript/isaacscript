@@ -150,7 +150,6 @@
     "src/functions/vector.ts",
     "src/interfaces/ChargeBarSprites.ts",
     "src/interfaces/Corner.ts",
-    "src/interfaces/CustomStage.ts",
     "src/interfaces/CustomStageLua.ts",
     "src/interfaces/GridEntityCustomData.ts",
     "src/interfaces/JSONRoomsFile.ts",

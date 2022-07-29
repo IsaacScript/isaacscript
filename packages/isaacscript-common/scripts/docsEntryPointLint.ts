@@ -42,7 +42,8 @@ function main() {
     entryPointsSet,
     (filePath) =>
       !filePath.endsWith("private") &&
-      !filePath.endsWith("AddCallbackParameterCustom.ts"),
+      !filePath.endsWith("AddCallbackParameterCustom.ts") &&
+      !filePath.endsWith("CustomStage.ts"),
   );
 
   // Only specific maps in the "maps" directory are exported. Thus, we do not check this directory.

@@ -9,7 +9,6 @@
  *
  * The `CustomStageLua` interface extends this, adding room metadata.
  */
-
 // ts-prune-ignore-next
 export type CustomStageTSConfig = Readonly<{
   /** Mandatory. The name of the custom stage. */
@@ -356,7 +355,8 @@ export type CustomStageTSConfig = Readonly<{
  * A description of a custom stage shadow. (In this context, "shadows" are the outlines from things
  * on the roof. For example, in Basement, a shadow of a sideways V is used, among others.)
  */
-type CustomStageShadow = Readonly<{
+// ts-prune-ignore-next
+export type CustomStageShadow = Readonly<{
   /**
    * The full path to the shadow overlay PNG file.
    *
