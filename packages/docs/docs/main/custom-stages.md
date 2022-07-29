@@ -89,9 +89,9 @@ Furthermore, for more information on the "roomVariantPrefix" field, see the sect
 
 ### 7. An Isaac library should have excellent documentation.
 
-- StageAPI has historically been undocumented. Recently, there have been some excellent documentation additions by Filloax (the person behind Revelations), but it is all manually typed and prone to error.
+- StageAPI has historically been undocumented. Recently, there have been some excellent documentation additions by Filloax (the person behind Revelations). With that said, all of the documentation is manually typed and prone to error.
 - An old adage in programming is that [if it isn't documented, then it doesn't exist](https://blog.codinghorror.com/if-it-isnt-documented-it-doesnt-exist/). Beautiful and easy-to-use documentation should be a first-class goal.
-- Documentation should be automatically generated so that it never gets out of date.
+- Documentation should be automatically generated with tooling so that it never gets out of date.
 
 <!--lint enable ordered-list-marker-value -->
 
