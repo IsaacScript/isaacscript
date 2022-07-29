@@ -91,7 +91,6 @@ function checkPixelationToBlackComplete() {
 
   const hud = game.GetHUD();
   const renderFrameCount = Isaac.GetFrameCount();
-  const roomGridIndex = getRoomGridIndex();
 
   const renderFrameScreenBlack =
     v.run.stateRenderFrame + PIXELATION_TO_BLACK_FRAMES;
@@ -112,6 +111,8 @@ function checkPixelationToBlackComplete() {
   // In order to work around this, we fully let the animation complete by only continuing the stage
   // transition on the next game frame.
   runNextGameFrame(() => {
+    const level = game.GetLevel();
+    const startingRoomIndex = level.GetStartingRoomIndex();
     const futureRenderFrameCount = Isaac.GetFrameCount();
 
     v.run.state =
@@ -123,7 +124,7 @@ function checkPixelationToBlackComplete() {
     // Start another pixelation effect. This time, we will keep the screen black with the sprite,
     // and then remove the black sprite once the pixelation effect is halfway complete.
     teleport(
-      roomGridIndex,
+      startingRoomIndex,
       Direction.NO_DIRECTION,
       RoomTransitionAnim.PIXELATION,
       true,

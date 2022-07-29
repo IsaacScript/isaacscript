@@ -26,6 +26,8 @@ import v, {
 const DEFAULT_BASE_STAGE = LevelStage.BASEMENT_2;
 const DEFAULT_BASE_STAGE_TYPE = StageType.ORIGINAL;
 
+const INVALID_STAGE_VALUE = -1 as LevelStage;
+
 /**
  * Helper function to warp to a custom stage/level.
  *
@@ -33,9 +35,11 @@ const DEFAULT_BASE_STAGE_TYPE = StageType.ORIGINAL;
  * more details: https://isaacscript.github.io/main/custom-stages/
  *
  * @param name The name of the custom stage, corresponding to what is in the "tsconfig.json" file.
- * @param firstFloor Whether to go to the first floor or the second floor. For example, if you have
- *                   a custom stage emulating Caves, then the first floor would be Caves 1, and the
- *                   second floor would be Caves 2.
+ * @param firstFloor Optional. Whether to go to the first floor or the second floor. For example, if
+ *                   you have a custom stage emulating Caves, then the first floor would be Caves 1,
+ *                   and the second floor would be Caves 2. Default is true.
+ * @param verbose Optional. Whether to log additional information about the rooms that are chosen.
+ *                Default is false.
  */
 export function setCustomStage(
   name: string,
@@ -50,12 +54,19 @@ export function setCustomStage(
   }
 
   const level = game.GetLevel();
+  const stage = level.GetStage();
   const seeds = game.GetSeeds();
   const startSeed = seeds.GetStartSeed();
   const rng = newRNG(startSeed);
 
   v.run.currentCustomStage = customStage;
   v.run.firstFloor = firstFloor;
+
+  // Before changing the stage, we have to revert the bugged stage, if necessary. This prevents the
+  // bug where the backdrop will not spawn.
+  if (stage === INVALID_STAGE_VALUE) {
+    level.SetStage(LevelStage.BASEMENT_1, StageType.ORIGINAL);
+  }
 
   let baseStage: int =
     customStage.baseStage === undefined
@@ -72,14 +83,14 @@ export function setCustomStage(
 
   setStageRoomsData(customStage, rng, verbose);
 
-  // Set the stage to an invalid value, which will prevent the walls and floors from loading. We
-  // must use `StageType.WRATH_OF_THE_LAMB` instead of `StageType.ORIGINAL` or else the walls will
-  // not render properly. DeadInfinity suspects that this might be because it is trying to use the
-  // Dark Room's backdrop (instead of The Chest).
-  const stage = -1 as LevelStage;
-  const stageType = StageType.WRATH_OF_THE_LAMB;
-  level.SetStage(stage, stageType);
-  reorderedCallbacksSetStage(stage, stageType);
+  // Set the stage to an invalid value, which will prevent the walls and floors from loading.
+  // Furthermore, we must use `StageType.WRATH_OF_THE_LAMB` instead of `StageType.ORIGINAL` or else
+  // the walls will not render properly. DeadInfinity suspects that this might be because it is
+  // trying to use the Dark Room's backdrop (instead of The Chest).
+  const targetStage = INVALID_STAGE_VALUE;
+  const targetStageType = StageType.WRATH_OF_THE_LAMB;
+  level.SetStage(targetStage, targetStageType);
+  reorderedCallbacksSetStage(targetStage, targetStageType);
 
   // We must reload the current room in order for the `Level.SetStage` method to take effect.
   // Furthermore, we need to cancel the queued warp to the `GridRoom.DEBUG` room. We can accomplish

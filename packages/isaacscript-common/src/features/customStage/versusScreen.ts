@@ -102,9 +102,14 @@ export function versusScreenInit(): void {
 export function playVersusScreenAnimation(customStage: CustomStage): void {
   const room = game.GetRoom();
   const roomType = room.GetType();
+  const roomCleared = room.IsClear();
   const hud = game.GetHUD();
 
   if (roomType !== RoomType.BOSS) {
+    return;
+  }
+
+  if (roomCleared) {
     return;
   }
 

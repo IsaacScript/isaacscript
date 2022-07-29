@@ -26,7 +26,7 @@ const TEXT_STAY_FRAME = 8;
 const TEXT_OUT_FRAME = 60;
 
 /** This matches the offset that the vanilla game uses; determined via trial and error. */
-const STREAK_SPRITE_TOP_OFFSET = Vector(0, 48.25);
+const STREAK_SPRITE_TOP_OFFSET = Vector(0, 47);
 
 /** This matches the offset that the vanilla game uses; determined via trial and error. */
 const STREAK_SPRITE_BOTTOM_OFFSET = Vector(0, -48.25);
