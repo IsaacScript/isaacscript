@@ -9,6 +9,12 @@ import { NUM_NORMAL_PILL_COLORS } from "./constantsFirstLast";
 import { getEnumLength } from "./functions/enums";
 import { addFlag } from "./functions/flag";
 
+/**
+ * The combination of the following flags:
+ * - `DisplayFlag.VISIBLE` (1 << 0)
+ * - `DisplayFlag.SHADOW` (1 << 1)
+ * - `DisplayFlag.SHOW_ICON` (1 << 2)
+ */
 export const ALL_DISPLAY_FLAGS = addFlag(
   DisplayFlag.VISIBLE,
   DisplayFlag.SHADOW,
