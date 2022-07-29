@@ -15,7 +15,7 @@ Historically, people have used the [StageAPI](https://github.com/Meowlala/BOISta
 
 You define and configure your custom stages by adding information to the `tsconfig.json` file.
 
-First, make sure that it has a "$schema" property at the top:
+First, make sure that it has a "$schema" field at the top:
 
 <!-- We specify the following code block as "ts" instead of "jsonc" because Docusaurus will mess up the syntax highlighting. -->
 
@@ -24,7 +24,7 @@ First, make sure that it has a "$schema" property at the top:
   "$schema": "https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/schemas/tsconfig-isaacscript-schema.json",
 ```
 
-Second, make sure it has an "isaacscript" property at the bottom:
+Second, make sure it has an "isaacscript" field at the bottom:
 
 <!-- We specify the following code block as "ts" instead of "jsonc" because Docusaurus will mess up the syntax highlighting. -->
 
@@ -43,7 +43,7 @@ Second, make sure it has an "isaacscript" property at the bottom:
   },
 ```
 
-For the most basic stage, only the "name", "xmlPath", and "roomVariantPrefix" properties are required. But you will likely want to make additional customizations. There are many more optional properties that you can specify, which are documented in the [TypeScript schema definition](https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-common/src/interfaces/CustomStageLua.ts).
+For the most basic stage, only the "name", "xmlPath", and "roomVariantPrefix" fields are required. But you will likely want to make additional customizations. There are many more optional fields that you can specify, which are documented in the [TypeScript schema definition](https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-common/src/interfaces/CustomStageLua.ts).
 
 Furthermore, for more information on the "roomVariantPrefix" field, see the section below on [Custom Stage Room Variant Prefixes](#custom-stage-room-variant-prefixes).
 
