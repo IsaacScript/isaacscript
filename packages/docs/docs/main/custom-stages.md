@@ -9,6 +9,8 @@ Wanting to create a custom Binding of Isaac stage is common. But the vanilla API
 
 Historically, people have used the [StageAPI](https://github.com/Meowlala/BOIStageAPI15) library to build custom stages, but using IsaacScript over StageAPI has several advantages. See the [motivation section](#motivation) below.
 
+<br />
+
 ## Usage
 
 ### `tsconfig.json`
@@ -52,6 +54,14 @@ Furthermore, for more information on the "roomVariantPrefix" field, see the sect
 To go to your custom stage in game, you can use the [`spawnCustomTrapdoor`](/isaacscript-common/features/customTrapdoor) helper function. (You can use custom trapdoors to go to both custom stages and vanilla stages.)
 
 During development, you can get to a custom stage a bit faster by calling the `setCustomStage` helper function directly. (You must also call the `reloadRoom` function immediately afterwards to prevent being dragged into the `goto` console command room.)
+
+### Bosses
+
+If your custom stage does not have any custom bosses, then vanilla bosses will appear in the Boss Rooms corresponding to the base stage & stage type that you have specified.
+
+You specify the "bossPool" field in the "tsconfig.json" file, then the stage library will replace the vanilla boss with a randomly selected one from the pool you have specified.
+
+<br />
 
 ## Motivation
 
