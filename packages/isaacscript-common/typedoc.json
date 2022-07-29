@@ -99,6 +99,7 @@
     "src/functions/level.ts",
     "src/functions/levelGrid.ts",
     "src/functions/log.ts",
+    "src/functions/logEntities.ts",
     "src/functions/map.ts",
     "src/functions/math.ts",
     "src/functions/minimap.ts",

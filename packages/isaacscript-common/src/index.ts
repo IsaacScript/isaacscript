@@ -127,6 +127,7 @@ export * from "./functions/language";
 export * from "./functions/level";
 export * from "./functions/levelGrid";
 export * from "./functions/log";
+export * from "./functions/logEntities";
 export * from "./functions/map";
 export * from "./functions/math";
 export * from "./functions/mergeTests";
