@@ -16,24 +16,12 @@ const v = {
 
     topStreakTextStartedRenderFrame: null as int | null,
 
-    /**
-     * We track text information manually rather than following a sprite to work around the
-     * following errors in the "log.txt":
-     *
-     * [ASSERT] - PushRenderTarget: stack overflow!
-     */
     topStreakText: {
       animation: UIStreakAnimation.NONE,
       frame: 0,
       pauseFrame: false,
     },
 
-    /**
-     * We track text information manually rather than following a sprite to work around the
-     * following errors in the "log.txt":
-     *
-     * [ASSERT] - PushRenderTarget: stack overflow!
-     */
     bottomStreakText: {
       animation: UIStreakAnimation.NONE,
       frame: 0,

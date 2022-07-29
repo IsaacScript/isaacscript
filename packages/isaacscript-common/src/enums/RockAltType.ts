@@ -3,5 +3,18 @@ export enum RockAltType {
   MUSHROOM,
   SKULL,
   POLYP,
-  BUCKET,
+
+  /**
+   * Destroying buckets in Downpour give different outcomes than in Dross.
+   *
+   * See: https://bindingofisaacrebirth.fandom.com/wiki/Rocks#Buckets
+   */
+  BUCKET_DOWNPOUR,
+
+  /**
+   * Destroying buckets in Dross give different outcomes than in Downpour.
+   *
+   * See: https://bindingofisaacrebirth.fandom.com/wiki/Rocks#Buckets
+   */
+  BUCKET_DROSS,
 }

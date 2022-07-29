@@ -2,9 +2,9 @@ export const ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH = "gfx/isaacscript-custom-stage";
 
 /** Corresponds to "ui_streak.anm2". */
 export enum UIStreakAnimation {
-  NONE = "",
-  TEXT = "Text",
-  TEXT_STAY = "TextStay",
+  NONE,
+  TEXT,
+  TEXT_STAY,
 }
 
 /** Corresponds to "ui_streak.anm2". */

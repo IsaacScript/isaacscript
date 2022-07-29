@@ -181,6 +181,12 @@ export function getOppositeDoorSlot(doorSlot: DoorSlot): DoorSlot | undefined {
   return OPPOSITE_DOOR_SLOTS[doorSlot];
 }
 
+/**
+ * Helper function to get the door that leads to the "secret exit" off-grid room that takes you to
+ * the Repentance floor.
+ *
+ * Returns undefined if the room has no Repentance doors.
+ */
 export function getRepentanceDoor(): GridEntityDoor | undefined {
   const doors = getDoors();
   return doors.find((door) => isRepentanceDoor(door));
@@ -330,6 +336,10 @@ export function isHiddenSecretRoomDoor(door: GridEntityDoor): boolean {
   return isSecretRoomDoor(door) && animation === "Hidden";
 }
 
+/**
+ * Helper function to check if the provided door leads to the "secret exit" off-grid room that takes
+ * you to the Repentance floor.
+ */
 export function isRepentanceDoor(door: GridEntityDoor): boolean {
   // eslint-disable-next-line isaacscript/strict-enums
   return door.TargetRoomIndex === GridRoom.SECRET_EXIT;

@@ -35,12 +35,12 @@ export const BACKDROP_TYPE_TO_ROCK_ALT_TYPE: {
   [BackdropType.GREED_SHOP]: RockAltType.URN, // 28
   [BackdropType.DUNGEON]: RockAltType.URN, // 29
   [BackdropType.SACRIFICE]: RockAltType.SKULL, // 30
-  [BackdropType.DOWNPOUR]: RockAltType.BUCKET, // 31
+  [BackdropType.DOWNPOUR]: RockAltType.BUCKET_DOWNPOUR, // 31
   [BackdropType.MINES]: RockAltType.MUSHROOM, // 32
   [BackdropType.MAUSOLEUM]: RockAltType.SKULL, // 33
   [BackdropType.CORPSE]: RockAltType.POLYP, // 34
   [BackdropType.PLANETARIUM]: RockAltType.URN, // 35
-  [BackdropType.DOWNPOUR_ENTRANCE]: RockAltType.BUCKET, // 36
+  [BackdropType.DOWNPOUR_ENTRANCE]: RockAltType.BUCKET_DOWNPOUR, // 36
   [BackdropType.MINES_ENTRANCE]: RockAltType.MUSHROOM, // 37
   [BackdropType.MAUSOLEUM_ENTRANCE]: RockAltType.SKULL, // 38
   [BackdropType.CORPSE_ENTRANCE]: RockAltType.SKULL, // 39
@@ -49,7 +49,7 @@ export const BACKDROP_TYPE_TO_ROCK_ALT_TYPE: {
   [BackdropType.MAUSOLEUM_4]: RockAltType.SKULL, // 42
   [BackdropType.CORPSE_2]: RockAltType.POLYP, // 43
   [BackdropType.CORPSE_3]: RockAltType.POLYP, // 44
-  [BackdropType.DROSS]: RockAltType.BUCKET, // 45
+  [BackdropType.DROSS]: RockAltType.BUCKET_DROSS, // 45
   [BackdropType.ASHPIT]: RockAltType.MUSHROOM, // 46
   [BackdropType.GEHENNA]: RockAltType.SKULL, // 47
   [BackdropType.MORTIS]: RockAltType.POLYP, // 48

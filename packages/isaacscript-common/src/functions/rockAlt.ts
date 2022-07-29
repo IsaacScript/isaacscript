@@ -40,6 +40,7 @@ const ROCK_ALT_CHANCES = {
   COLLECTIBLE: 0.005,
 } as const;
 
+const COIN_VELOCITY_MULTIPLIER = 2;
 const POLYP_PROJECTILE_SPEED = 10;
 const POLYP_NUM_PROJECTILES = 6;
 
@@ -76,16 +77,17 @@ export function getRockAltType(): RockAltType {
  * trinket is still in the pool. Thus, it will always have a chance to spawn the respective trinket
  * (e.g. Swallowed Penny from urns).
  *
+ * When filled buckets are destroyed, 6 projectiles will always spawn in a random pattern (in
+ * addition to any other rewards that are spawned). This function does not account for this, so if
+ * you want to specifically emulate destroying a filled bucket, you have to account for the
+ * projectiles yourself.
+ *
  * The logic in this function is based on the rewards listed on the wiki:
  * https://bindingofisaacrebirth.fandom.com/wiki/Rocks
  *
  * @param position The place to spawn the reward.
  * @param rockAltType The type of reward to spawn. For example, `RockAltType.URN` will have a chance
  *                    at spawning coins and spiders.
- * @param variant Optional. The variant of the grid entity to emulate. Default is 0, which
- *                corresponds to a "normal" grid entity or an empty bucket. This only matters when
- *                spawning the reward for buckets. (Empty buckets have different rewards than full
- *                buckets.)
  * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
  *                  `RNG.Next` method will be called. Default is `getRandomSeed()`. Normally, you
  *                  should pass the `InitSeed` of the grid entity that was broken.
@@ -94,7 +96,6 @@ export function getRockAltType(): RockAltType {
 export function spawnRockAltReward(
   position: Vector,
   rockAltType: RockAltType,
-  variant = 0,
   seedOrRNG: Seed | RNG = getRandomSeed(),
 ): boolean {
   const rng = isRNG(seedOrRNG) ? seedOrRNG : newRNG(seedOrRNG);
@@ -116,8 +117,12 @@ export function spawnRockAltReward(
       return spawnRockAltRewardPolyp(position, rng);
     }
 
-    case RockAltType.BUCKET: {
-      return spawnRockAltRewardBucket(position, rng, variant);
+    case RockAltType.BUCKET_DOWNPOUR: {
+      return spawnRockAltRewardBucketDownpour(position, rng);
+    }
+
+    case RockAltType.BUCKET_DROSS: {
+      return spawnRockAltRewardBucketDross(position, rng);
     }
   }
 }
@@ -135,10 +140,9 @@ function spawnRockAltRewardUrn(position: Vector, rng: RNG): boolean {
   if (chance < totalChance) {
     const numCoinsChance = getRandom(rng);
     const numCoins = numCoinsChance < 0.5 ? 1 : 2;
-    const length = DISTANCE_OF_GRID_TILE;
     repeat(numCoins, () => {
       const randomVector = getRandomVector(rng);
-      const velocity = randomVector.mul(length);
+      const velocity = randomVector.mul(COIN_VELOCITY_MULTIPLIER);
       spawnCoinWithSeed(CoinSubType.NULL, position, rng, velocity);
     });
     return true;
@@ -165,10 +169,10 @@ function spawnRockAltRewardUrn(position: Vector, rng: RNG): boolean {
   }
 
   // Since the detrimental effect is the final option, we don't need to check the chance.
-  const numSpidersChance = getRandom(rng);
-  const numSpiders = numSpidersChance < 0.5 ? 1 : 2;
+  const numEnemiesChance = getRandom(rng);
+  const numEnemies = numEnemiesChance < 0.5 ? 1 : 2;
   const length = DISTANCE_OF_GRID_TILE * 3;
-  repeat(numSpiders, () => {
+  repeat(numEnemies, () => {
     const randomVector = getRandomVector(rng);
     const offset = randomVector.mul(length);
     const targetPos = position.add(offset);
@@ -378,11 +382,7 @@ function spawnRockAltRewardPolyp(position: Vector, rng: RNG): boolean {
   return true;
 }
 
-function spawnRockAltRewardBucket(
-  _position: Vector,
-  rng: RNG,
-  _variant: int,
-): boolean {
+function spawnRockAltRewardBucketDownpour(position: Vector, rng: RNG): boolean {
   const chance = getRandom(rng);
   let totalChance = 0;
 
@@ -391,6 +391,134 @@ function spawnRockAltRewardBucket(
     return false;
   }
 
-  // TODO
-  return false;
+  totalChance += ROCK_ALT_CHANCES.BASIC_DROP;
+  if (chance < totalChance) {
+    const numCoinsChance = getRandom(rng);
+    const numCoins = numCoinsChance < 0.5 ? 1 : 2;
+    repeat(numCoins, () => {
+      const randomVector = getRandomVector(rng);
+      const velocity = randomVector.mul(COIN_VELOCITY_MULTIPLIER);
+      spawnCoinWithSeed(CoinSubType.NULL, position, rng, velocity);
+    });
+    return true;
+  }
+
+  totalChance += ROCK_ALT_CHANCES.TRINKET;
+  if (chance < totalChance) {
+    spawnTrinketWithSeed(TrinketType.SWALLOWED_PENNY, position, rng);
+    return true;
+  }
+
+  totalChance += ROCK_ALT_CHANCES.COLLECTIBLE;
+  if (chance < totalChance) {
+    const stillInPools = isCollectibleInItemPool(
+      CollectibleType.LEECH,
+      ItemPoolType.TREASURE,
+    );
+    if (stillInPools) {
+      spawnCollectible(CollectibleType.LEECH, position, rng);
+      return true;
+    }
+
+    return false;
+  }
+
+  // Since the detrimental effect is the final option, we don't need to check the chance.
+  const enemiesChance = getRandom(rng);
+  const entityType =
+    enemiesChance < 0.5 ? EntityType.SPIDER : EntityType.SMALL_LEECH;
+
+  const numEnemiesChance = getRandom(rng);
+  const numEnemies = numEnemiesChance < 0.5 ? 1 : 2;
+  const jumpDistance = DISTANCE_OF_GRID_TILE * 3;
+  repeat(numEnemies, () => {
+    const randomVector = getRandomVector(rng);
+    const offset = randomVector.mul(jumpDistance);
+    const targetPos = position.add(offset);
+    // If the room has water, Spiders will automatically be replaced with Striders.
+    const spider = EntityNPC.ThrowSpider(
+      position,
+      undefined,
+      targetPos,
+      false,
+      0,
+    );
+
+    // There is no `ThrowLeech` function exposed in the API, so we can piggyback off of the
+    // `ThrowSpider` method.
+    if (entityType === EntityType.SMALL_LEECH && spider.Type !== entityType) {
+      spider.Morph(entityType, 0, 0, -1);
+    }
+  });
+
+  return true;
+}
+
+function spawnRockAltRewardBucketDross(position: Vector, rng: RNG): boolean {
+  const chance = getRandom(rng);
+  let totalChance = 0;
+
+  totalChance += ROCK_ALT_CHANCES.NOTHING;
+  if (chance < totalChance) {
+    return false;
+  }
+
+  totalChance += ROCK_ALT_CHANCES.BASIC_DROP;
+  if (chance < totalChance) {
+    const numCoinsChance = getRandom(rng);
+    const numCoins = numCoinsChance < 0.5 ? 1 : 2;
+    repeat(numCoins, () => {
+      const randomVector = getRandomVector(rng);
+      const velocity = randomVector.mul(COIN_VELOCITY_MULTIPLIER);
+      spawnCoinWithSeed(CoinSubType.NULL, position, rng, velocity);
+    });
+    return true;
+  }
+
+  totalChance += ROCK_ALT_CHANCES.TRINKET;
+  if (chance < totalChance) {
+    spawnTrinketWithSeed(TrinketType.BUTT_PENNY, position, rng);
+    return true;
+  }
+
+  totalChance += ROCK_ALT_CHANCES.COLLECTIBLE;
+  if (chance < totalChance) {
+    const stillInPools = isCollectibleInItemPool(
+      CollectibleType.POOP,
+      ItemPoolType.TREASURE,
+    );
+    if (stillInPools) {
+      spawnCollectible(CollectibleType.POOP, position, rng);
+      return true;
+    }
+
+    return false;
+  }
+
+  // Since the detrimental effect is the final option, we don't need to check the chance.
+  const enemiesChance = getRandom(rng);
+  const entityType =
+    enemiesChance < 0.5 ? EntityType.DRIP : EntityType.SMALL_LEECH;
+
+  const numEnemiesChance = getRandom(rng);
+  const numEnemies = numEnemiesChance < 0.5 ? 1 : 2;
+  const jumpDistance = DISTANCE_OF_GRID_TILE * 3;
+  repeat(numEnemies, () => {
+    const randomVector = getRandomVector(rng);
+    const offset = randomVector.mul(jumpDistance);
+    const targetPos = position.add(offset);
+    const spider = EntityNPC.ThrowSpider(
+      position,
+      undefined,
+      targetPos,
+      false,
+      0,
+    );
+
+    // There is no `ThrowLeech` or `ThrowDrip` functions exposed in the API, so we can piggyback off
+    // of the `ThrowSpider` method.
+    spider.Morph(entityType, 0, 0, -1);
+  });
+
+  return true;
 }
