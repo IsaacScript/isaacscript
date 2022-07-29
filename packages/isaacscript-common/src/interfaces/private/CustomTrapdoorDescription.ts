@@ -1,9 +1,7 @@
-import { LevelStage, StageType } from "isaac-typescript-definitions";
+import { TrapdoorDestination } from "../../types/TrapdoorDestination";
 
 export interface CustomTrapdoorDescription {
   open: boolean;
-  destination:
-    | [stage: LevelStage, stageType: StageType]
-    | [customStageName: string, floorNum: int];
+  destination: TrapdoorDestination;
   firstSpawn: boolean;
 }

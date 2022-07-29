@@ -37,7 +37,10 @@ declare global {
     Die(): void;
     Exists(): boolean;
 
-    /** Returns 0 if the entity is not a boss. */
+    /**
+     * Returns 0 if the entity is not a boss. It will also return 0 if this a custom boss without a
+     * "bossID" attribute set in the "entities2.xml" file.
+     */
     GetBossID(): BossID | 0;
 
     GetColor(): Readonly<Color>;

@@ -169,6 +169,7 @@
     "src/types/PickupIndex.ts",
     "src/types/PlayerIndex.ts",
     "src/types/SerializedIsaacAPIClass.ts",
+    "src/types/TrapdoorDestination.ts",
     "src/types/TSTLClass.ts",
     "src/upgradeMod.ts",
   ],

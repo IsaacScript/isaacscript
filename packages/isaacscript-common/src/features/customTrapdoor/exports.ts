@@ -10,6 +10,7 @@ import { getNextStage, getNextStageType } from "../../functions/nextStage";
 import { getRoomListIndex } from "../../functions/roomData";
 import { isVector } from "../../functions/vector";
 import { CustomTrapdoorDescription } from "../../interfaces/private/CustomTrapdoorDescription";
+import { TrapdoorDestination } from "../../types/TrapdoorDestination";
 import { spawnCustomGridEntity } from "../customGridEntity";
 import {
   CUSTOM_TRAPDOOR_FEATURE_NAME,
@@ -47,9 +48,7 @@ import v from "./v";
  */
 export function spawnCustomTrapdoor(
   gridIndexOrPosition: int | Vector,
-  destination?:
-    | [stage: LevelStage, stageType: StageType]
-    | [customStageName: string, floorNum: int],
+  destination?: TrapdoorDestination,
   anm2Path = "gfx/grid/door_11_trapdoor.anm2",
   spawnOpen?: boolean,
 ): GridEntity {

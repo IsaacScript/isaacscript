@@ -23,10 +23,10 @@ import v, {
   customStagesMap,
 } from "./v";
 
-const DEFAULT_BASE_STAGE = LevelStage.BASEMENT_2;
-const DEFAULT_BASE_STAGE_TYPE = StageType.ORIGINAL;
+export const DEFAULT_BASE_STAGE = LevelStage.BASEMENT_2;
+export const DEFAULT_BASE_STAGE_TYPE = StageType.ORIGINAL;
 
-const INVALID_STAGE_VALUE = -1 as LevelStage;
+export const INVALID_STAGE_VALUE = -1 as LevelStage;
 
 /**
  * Helper function to warp to a custom stage/level.
@@ -75,11 +75,15 @@ export function setCustomStage(
   if (!firstFloor) {
     baseStage++;
   }
+
   const baseStageType =
     customStage.baseStageType === undefined
       ? DEFAULT_BASE_STAGE_TYPE
       : (customStage.baseStageType as StageType);
-  setStage(baseStage as LevelStage, baseStageType);
+
+  const reseed = (stage as int) >= baseStage;
+
+  setStage(baseStage as LevelStage, baseStageType, reseed);
 
   setStageRoomsData(customStage, rng, verbose);
 
@@ -207,4 +211,12 @@ export function registerCustomBoss(
 ): void {
   const entityID = getEntityIDFromConstituents(entityType, variant, subType);
   customBossPNGPaths.set(entityID, [namePNGPath, portraitPNGPath]);
+}
+
+/**
+ * Helper function to disable the custom stage. This is typically called before taking the player to
+ * a vanilla floor.
+ */
+export function disableCustomStage(): void {
+  v.run.currentCustomStage = null;
 }

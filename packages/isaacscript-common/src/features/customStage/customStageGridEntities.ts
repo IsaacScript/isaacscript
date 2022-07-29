@@ -2,6 +2,7 @@ import {
   CollectibleType,
   EntityType,
   GridEntityType,
+  LevelStage,
   TrinketType,
 } from "isaac-typescript-definitions";
 import { DecorationVariant } from "../../enums/DecorationVariant";
@@ -13,9 +14,12 @@ import {
   getCollectibles,
   getTrinkets,
 } from "../../functions/pickupsSpecific";
+import { calculateStageType } from "../../functions/stage";
 import { vectorEquals } from "../../functions/vector";
 import { CustomStage } from "../../interfaces/CustomStage";
+import { TrapdoorDestination } from "../../types/TrapdoorDestination";
 import { spawnCustomTrapdoor } from "../customTrapdoor/exports";
+import { DEFAULT_BASE_STAGE } from "./exports";
 import v from "./v";
 
 /** For `GridEntityType.DECORATION` (1) */
@@ -189,9 +193,19 @@ export function convertVanillaTrapdoors(
 
   removeGridEntity(gridEntity, true);
 
-  const destination: [string, int] | undefined = v.run.firstFloor
+  // - If we are on the first floor of a custom stage, then the destination will be the second floor
+  //   of the custom stage. (e.g. Caves 1 to Caves 2)
+  // - If we are on the second floor of a custom stage, then the destination will be the vanilla
+  //   floor equivalent to 2 floors after the floor used as a basis for the custom stage.
+  const baseStage =
+    customStage.baseStage === undefined
+      ? DEFAULT_BASE_STAGE
+      : customStage.baseStage;
+  const vanillaNextStage = (baseStage + 2) as LevelStage;
+  const vanillaNextStageType = calculateStageType(vanillaNextStage);
+  const destination: TrapdoorDestination = v.run.firstFloor
     ? [customStage.name, 2]
-    : undefined;
+    : [vanillaNextStage, vanillaNextStageType];
   spawnCustomTrapdoor(gridEntity.Position, destination);
 }
 

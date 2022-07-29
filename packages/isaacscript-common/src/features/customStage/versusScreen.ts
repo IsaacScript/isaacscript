@@ -4,6 +4,7 @@ import {
   RoomType,
   SoundEffect,
   StageID,
+  StageType,
 } from "isaac-typescript-definitions";
 import { game, sfxManager } from "../../cachedClasses";
 import { arrayRemove } from "../../functions/array";
@@ -18,7 +19,13 @@ import { PLAYER_PORTRAIT_PNG_FILE_NAMES } from "../../objects/playerPortraitPNGF
 import { VERSUS_SCREEN_BACKGROUND_COLORS } from "../../objects/versusScreenBackgroundColors";
 import { VERSUS_SCREEN_DIRT_SPOT_COLORS } from "../../objects/versusScreenDirtSpotColors";
 import { pause, unpause } from "../pause";
+import { runNextGameFrame } from "../runInNFrames";
 import { ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH } from "./customStageConstants";
+import {
+  DEFAULT_BASE_STAGE,
+  DEFAULT_BASE_STAGE_TYPE,
+  INVALID_STAGE_VALUE,
+} from "./exports";
 import v, { customBossPNGPaths } from "./v";
 
 const DEFAULT_CHARACTER = PlayerType.ISAAC;
@@ -113,6 +120,18 @@ export function playVersusScreenAnimation(customStage: CustomStage): void {
     return;
   }
 
+  if (willVanillaVersusScreenPlay()) {
+    // Since we are on an invalid stage, the versus screen will have a completely black background.
+    // Revert to using the background from the default stage.
+    const level = game.GetLevel();
+    level.SetStage(DEFAULT_BASE_STAGE, DEFAULT_BASE_STAGE_TYPE);
+    runNextGameFrame(() => {
+      const futureLevel = game.GetLevel();
+      futureLevel.SetStage(INVALID_STAGE_VALUE, StageType.ORIGINAL);
+    });
+    return;
+  }
+
   v.run.showingBossVersusScreen = true;
 
   pause();
@@ -159,6 +178,11 @@ export function playVersusScreenAnimation(customStage: CustomStage): void {
     sprite.Play(VERSUS_SCREEN_ANIMATION_NAME, true);
     sprite.PlaybackSpeed = VANILLA_VERSUS_PLAYBACK_SPEED;
   }
+}
+
+function willVanillaVersusScreenPlay() {
+  const bosses = getBosses();
+  return bosses.some((boss) => boss.GetBossID() !== 0);
 }
 
 /** Use the character of the 0th player. */

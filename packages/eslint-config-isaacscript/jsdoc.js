@@ -168,7 +168,18 @@ module.exports = {
     ],
 
     // - jsdoc/require-param-type - Not needed in TypeScript.
+
     // - jsdoc/require-param - It's overboard for every function to document every parameter.
+    // TODO
+    /*
+    "jsdoc/require-param": [
+      "warn",
+      {
+        contexts: ["any"],
+      },
+    ],
+    */
+
     // - jsdoc/require-property - Probably not needed in TypeScript.
 
     /**

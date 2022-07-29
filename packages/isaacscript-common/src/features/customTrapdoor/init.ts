@@ -16,7 +16,7 @@ import { getRoomGridIndex, getRoomListIndex } from "../../functions/roomData";
 import { teleport } from "../../functions/roomTransition";
 import { setStage } from "../../functions/stage";
 import { isString } from "../../functions/types";
-import { setCustomStage } from "../customStage/exports";
+import { disableCustomStage, setCustomStage } from "../customStage/exports";
 import { topStreakTextStart } from "../customStage/streakText";
 import { enableAllInputs } from "../disableInputs";
 import { runNextGameFrame } from "../runInNFrames";
@@ -206,6 +206,7 @@ function goToCustomDestination() {
     setCustomStage("Slaughterhouse", firstFloor);
   } else {
     // A number represents a vanilla `LevelStage`.
+    disableCustomStage();
     setStage(arg1, arg2 as StageType);
   }
 }
