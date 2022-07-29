@@ -27,6 +27,8 @@
     "src/enums/SlotDestructionType.ts",
     "src/features/collectibleItemPoolType.ts",
     "src/features/customGridEntity.ts",
+    "src/features/customStage/exports.ts",
+    "src/features/customTrapdoor/exports.ts",
     "src/features/debugDisplay/exports.ts",
     "src/features/deployJSONRoom.ts",
     "src/features/disableAllSound.ts",
