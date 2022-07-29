@@ -87,7 +87,7 @@ Furthermore, for more information on the "roomVariantPrefix" field, see the sect
 
 - StageAPI loads data for hundreds of rooms on the first run, which causes lag.
 - Libraries shouldn't do anything if they are not being used. This is the same principle as [not importing for side effects](https://github.com/Zamiell/isaac-faq/blob/main/mod-organization.md#avoiding-side-effects).
-- Instead, by lazy loading data, custom stages can work in a seamless way.
+- Instead, by lazy loading data, custom stages only incur a tiny amount of lag when they are first actually travelled to. (Only the specific data needed for the actual generated floor is retrieved.)
 
 #### 7. An Isaac library should have excellent documentation
 
