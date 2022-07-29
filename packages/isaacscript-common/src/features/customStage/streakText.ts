@@ -7,14 +7,7 @@ import {
   getScreenTopCenterPos,
 } from "../../functions/ui";
 import { CustomStage } from "../../interfaces/CustomStage";
-import v from "./v";
-
-enum UIStreakAnimation {
-  TEXT = "Text",
-  TEXT_IN = "TextIn",
-  TEXT_OUT = "TextOut",
-  TEXT_STAY = "TextStay",
-}
+import v, { UIStreakAnimation, UI_STREAK_ANIMATION_END_FRAMES } from "./v";
 
 /** This must match the name of the shader in "shaders.xml". */
 const EMPTY_SHADER_NAME = "IsaacScript-RenderAboveHUD";
@@ -46,9 +39,6 @@ const STREAK_TEXT_BOTTOM_Y_OFFSET = -9;
  * 8 is too little and 9 has the vanilla text come out just slightly ahead, so we go with 9.
  */
 const NUM_RENDER_FRAMES_MAP_HELD_BEFORE_STREAK_TEXT = 11;
-
-/** Corresponds to the vanilla value; determined through trial and error. */
-const TEXT_PLAYBACK_SPEED = 0.5;
 
 /** Taken from StageAPI. */
 const TEXT_IN_ADJUSTMENTS = [-800, -639, -450, -250, -70, 10, 6, 3];
@@ -82,33 +72,6 @@ const TEXT_OUT_SCALES = [
   Vector(3, 0.2),
 ];
 
-/**
- * We do not actually need to render this sprite at all. It's only purpose is to be an invisible
- * reference for when and where we need to render the stage's name. Thus, we specify "false" for
- * "loadGraphics", but still manage playing its animations in the code below.
- */
-const topStreakSprite = Sprite();
-
-/**
- * We do not actually need to render this sprite at all. It's only purpose is to be an invisible
- * reference for when and where we need to render the stage's name. Thus, we specify "false" for
- * "loadGraphics", but still manage playing its animations in the code below.
- */
-const bottomStreakSprite = Sprite();
-
-/**
- * We must load the sprites in an init function to prevent issues with mods that replace the vanilla
- * files. (For some reason, loading the sprites will cause the overwrite to no longer apply on the
- * second and subsequent runs.)
- */
-export function streakTextInit(): void {
-  topStreakSprite.Load("resources/gfx/ui/ui_streak.anm2", false);
-  topStreakSprite.PlaybackSpeed = TEXT_PLAYBACK_SPEED;
-
-  bottomStreakSprite.Load("resources/gfx/ui/ui_streak.anm2", false);
-  bottomStreakSprite.PlaybackSpeed = TEXT_PLAYBACK_SPEED;
-}
-
 // ModCallback.POST_RENDER (2)
 export function streakTextPostRender(): void {
   // The top streak only plays when the player arrives on the floor (or continues a game from the
@@ -124,7 +87,7 @@ export function streakTextPostRender(): void {
 function checkEndTopStreakText() {
   if (
     v.run.topStreakTextStartedRenderFrame === null ||
-    !topStreakSprite.IsPlaying(UIStreakAnimation.TEXT_STAY)
+    v.run.topStreakText.animation !== UIStreakAnimation.TEXT_STAY
   ) {
     return;
   }
@@ -133,7 +96,10 @@ function checkEndTopStreakText() {
   const elapsedFrames =
     renderFrameCount - v.run.topStreakTextStartedRenderFrame;
   if (elapsedFrames >= 115) {
-    playTextOut(topStreakSprite);
+    v.run.topStreakText.animation = UIStreakAnimation.TEXT;
+    // We adjust by the frame backwards by an arbitrary amount to roughly align with the speed of
+    // the vanilla animation.
+    v.run.topStreakText.frame = TEXT_OUT_FRAME - 2;
   }
 }
 
@@ -165,7 +131,7 @@ function trackMapInputPressed() {
  * slides in from the left.
  */
 function checkStartBottomStreakText() {
-  if (bottomStreakSprite.IsPlaying()) {
+  if (v.run.bottomStreakText.animation !== UIStreakAnimation.NONE) {
     return;
   }
 
@@ -180,7 +146,8 @@ function checkStartBottomStreakText() {
   const gameFrameCount = game.GetFrameCount();
   const elapsedFrames = gameFrameCount - earliestFrame;
   if (elapsedFrames >= NUM_RENDER_FRAMES_MAP_HELD_BEFORE_STREAK_TEXT) {
-    bottomStreakSprite.Play(UIStreakAnimation.TEXT, true);
+    v.run.bottomStreakText.animation = UIStreakAnimation.TEXT;
+    v.run.bottomStreakText.frame = 0;
   }
 }
 
@@ -189,7 +156,7 @@ function checkStartBottomStreakText() {
  * right.
  */
 function checkEndBottomStreakText() {
-  if (!bottomStreakSprite.IsPlaying(UIStreakAnimation.TEXT_STAY)) {
+  if (v.run.bottomStreakText.animation !== UIStreakAnimation.TEXT_STAY) {
     return;
   }
 
@@ -197,14 +164,11 @@ function checkEndBottomStreakText() {
     ...v.run.controllerIndexPushingMapRenderFrame.values(),
   ];
   if (pushedMapFrames.length === 0) {
-    playTextOut(bottomStreakSprite);
+    v.run.bottomStreakText.animation = UIStreakAnimation.TEXT;
+    // We adjust by the frame backwards by an arbitrary amount to roughly align with the speed of
+    // the vanilla animation.
+    v.run.bottomStreakText.frame = TEXT_OUT_FRAME - 2;
   }
-}
-
-// ModCallback.POST_GAME_STARTED (15)
-export function streakTextPostGameStarted(): void {
-  topStreakSprite.Stop();
-  bottomStreakSprite.Stop();
 }
 
 // ModCallback.GET_SHADER_PARAMS (22)
@@ -218,27 +182,44 @@ export function streakTextGetShaderParams(
 
   const topCenterPos = getScreenTopCenterPos();
   const topStreakPosition = topCenterPos.add(STREAK_SPRITE_TOP_OFFSET);
-  renderSprite(customStage, topStreakSprite, topStreakPosition);
+  renderStreakText(customStage, v.run.topStreakText, topStreakPosition);
 
   const bottomCenterPos = getScreenBottomCenterPos();
   const bottomStreakPosition = bottomCenterPos.add(STREAK_SPRITE_BOTTOM_OFFSET);
-  renderSprite(customStage, bottomStreakSprite, bottomStreakPosition);
+  renderStreakText(customStage, v.run.bottomStreakText, bottomStreakPosition);
 }
 
-function renderSprite(
+function renderStreakText(
   customStage: CustomStage,
-  sprite: Sprite,
+  streakText: { animation: UIStreakAnimation; frame: int; pauseFrame: boolean },
   position: Vector,
 ) {
-  sprite.Update();
-  if (!sprite.IsPlaying()) {
+  if (streakText.animation === UIStreakAnimation.NONE) {
     return;
   }
 
-  const animation = sprite.GetAnimation() as UIStreakAnimation;
-  const frame = sprite.GetFrame();
-  if (animation === UIStreakAnimation.TEXT && frame === TEXT_STAY_FRAME) {
-    sprite.Play(UIStreakAnimation.TEXT_STAY, true);
+  if (streakText.animation !== UIStreakAnimation.TEXT_STAY) {
+    const { pauseFrame } = streakText;
+    streakText.pauseFrame = !streakText.pauseFrame;
+
+    if (!pauseFrame) {
+      streakText.frame++;
+    }
+  }
+
+  const endFrame = UI_STREAK_ANIMATION_END_FRAMES[streakText.animation];
+  if (streakText.frame > endFrame) {
+    streakText.animation = UIStreakAnimation.NONE;
+    streakText.frame = 0;
+    return;
+  }
+
+  if (
+    streakText.animation === UIStreakAnimation.TEXT &&
+    streakText.frame === TEXT_STAY_FRAME
+  ) {
+    streakText.animation = UIStreakAnimation.TEXT_STAY;
+    streakText.frame = 0;
   }
 
   const isPaused = game.IsPaused();
@@ -248,39 +229,22 @@ function renderSprite(
 
   const font = fonts.upheaval;
   const { name } = customStage;
-  const length = font.GetStringWidthUTF8(name);
+  const numberSuffix = v.run.firstFloor ? "I" : "II";
+  const nameWithNumberSuffix = `${name} ${numberSuffix}`;
+  const length = font.GetStringWidthUTF8(nameWithNumberSuffix);
   const centeredX = position.X - length / 2;
 
   let adjustment = 0;
   let scale = VectorOne;
-  switch (animation) {
-    case UIStreakAnimation.TEXT: {
-      if (frame < TEXT_STAY_FRAME) {
-        adjustment = TEXT_IN_ADJUSTMENTS[frame] ?? 0;
-        scale = TEXT_IN_SCALES[frame] ?? VectorOne;
-      } else {
-        const adjustedFrame = frame - TEXT_OUT_FRAME;
-        adjustment = TEXT_OUT_ADJUSTMENTS[adjustedFrame] ?? 0;
-        scale = TEXT_OUT_SCALES[adjustedFrame] ?? VectorOne;
-      }
 
-      break;
-    }
-
-    case UIStreakAnimation.TEXT_IN: {
-      adjustment = TEXT_IN_ADJUSTMENTS[frame] ?? 0;
-      scale = TEXT_IN_SCALES[frame] ?? VectorOne;
-      break;
-    }
-
-    case UIStreakAnimation.TEXT_OUT: {
-      adjustment = TEXT_OUT_ADJUSTMENTS[frame] ?? 0;
-      scale = TEXT_OUT_SCALES[frame] ?? VectorOne;
-      break;
-    }
-
-    default: {
-      break;
+  if (streakText.animation === UIStreakAnimation.TEXT) {
+    if (streakText.frame < TEXT_STAY_FRAME) {
+      adjustment = TEXT_IN_ADJUSTMENTS[streakText.frame] ?? 0;
+      scale = TEXT_IN_SCALES[streakText.frame] ?? VectorOne;
+    } else {
+      const adjustedFrame = streakText.frame - TEXT_OUT_FRAME;
+      adjustment = TEXT_OUT_ADJUSTMENTS[adjustedFrame] ?? 0;
+      scale = TEXT_OUT_SCALES[adjustedFrame] ?? VectorOne;
     }
   }
 
@@ -288,19 +252,13 @@ function renderSprite(
   const adjustedY = position.Y + STREAK_TEXT_BOTTOM_Y_OFFSET;
 
   font.DrawStringScaled(
-    name,
+    nameWithNumberSuffix,
     adjustedX,
     adjustedY,
     scale.X,
     scale.Y,
     KColorDefault,
   );
-}
-
-function playTextOut(sprite: Sprite) {
-  sprite.Play(UIStreakAnimation.TEXT, true);
-  // We adjust by 2 to roughly align with the speed of the vanilla animation.
-  sprite.SetFrame(TEXT_OUT_FRAME - 2);
 }
 
 export function topStreakTextStart(): void {
@@ -311,6 +269,7 @@ export function topStreakTextStart(): void {
   level.ShowName(false);
 
   // Initiate the animation for the custom text.
+  v.run.topStreakText.animation = UIStreakAnimation.TEXT;
+  v.run.topStreakText.frame = 0;
   v.run.topStreakTextStartedRenderFrame = renderFrameCount;
-  topStreakSprite.Play(UIStreakAnimation.TEXT, true);
 }

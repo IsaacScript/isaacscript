@@ -3,17 +3,14 @@ import {
   BackdropType,
   BossID,
   Dimension,
-  Direction,
   DoorSlot,
   DungeonSubType,
   GridRoom,
   HomeRoomSubType,
   ItemPoolType,
-  LevelCurse,
   MinibossID,
   RoomDescriptorFlag,
   RoomShape,
-  RoomTransitionAnim,
   RoomType,
   SoundEffect,
   StageID,
@@ -22,7 +19,6 @@ import { game, sfxManager } from "../cachedClasses";
 import { MAX_LEVEL_GRID_INDEX, NUM_DIMENSIONS } from "../constants";
 import { ROOM_TYPE_NAMES } from "../objects/roomTypeNames";
 import { MINE_SHAFT_ROOM_SUB_TYPE_SET } from "../sets/mineShaftRoomSubTypesSet";
-import { hasCurse } from "./curses";
 import { inDimension } from "./dimensions";
 import {
   closeAllDoors,
@@ -47,6 +43,7 @@ import {
   getRoomStageID,
   getRoomSubType,
 } from "./roomData";
+import { reloadRoom } from "./roomTransition";
 import { getGotoCommand } from "./stage";
 import { erange, irange } from "./utils";
 
@@ -142,13 +139,7 @@ export function getRoomDataForTypeVariant(
   const newRoomData = getRoomData(GridRoom.DEBUG);
 
   if (cancelRoomTransition) {
-    const roomGridIndex = getRoomGridIndex();
-    teleport(
-      roomGridIndex,
-      Direction.NO_DIRECTION,
-      RoomTransitionAnim.FADE,
-      true,
-    );
+    reloadRoom();
   }
 
   return newRoomData;
@@ -555,53 +546,4 @@ export function setRoomUncleared(): void {
 
   room.SetClear(false);
   closeAllDoors();
-}
-
-/**
- * Helper function to change the current room. It can be used for both teleportation and "normal"
- * room transitions, depending on what is passed for the `direction` and `roomTransitionAnim`
- * arguments.
- *
- * Use this function instead of invoking the `Game.StartRoomTransition` method directly so that:
- * - you do not forget to set `Level.LeaveDoor` property
- * - to prevent crashing on invalid room grid indexes
- * - to automatically handle Curse of the Maze
- *
- * @param roomGridIndex The room grid index of the destination room.
- * @param direction Optional. Default is `Direction.NO_DIRECTION`.
- * @param roomTransitionAnim Optional. Default is `RoomTransitionAnim.TELEPORT`.
- * @param force Optional. Whether to temporarily disable Curse of the Maze. Default is false. If set
- *              to false, then this function may not go to the provided room grid index.
- */
-export function teleport(
-  roomGridIndex: int,
-  direction = Direction.NO_DIRECTION,
-  roomTransitionAnim = RoomTransitionAnim.TELEPORT,
-  force = false,
-): void {
-  const level = game.GetLevel();
-
-  // Before starting a room transition, we must ensure that Curse of the Maze is not in effect, or
-  // else the room transition might send us to the wrong room.
-  const shouldTempDisableCurse = force && hasCurse(LevelCurse.MAZE);
-  if (shouldTempDisableCurse) {
-    level.RemoveCurses(LevelCurse.MAZE);
-  }
-
-  const roomData = getRoomData(roomGridIndex);
-  if (roomData === undefined) {
-    error(
-      `Failed to change the room to grid index ${roomGridIndex} because that room does not exist.`,
-    );
-  }
-
-  // This must be set before every `Game.StartRoomTransition` method invocation or else the function
-  // can send you to the wrong room.
-  level.LeaveDoor = DoorSlot.NO_DOOR_SLOT;
-
-  game.StartRoomTransition(roomGridIndex, direction, roomTransitionAnim);
-
-  if (shouldTempDisableCurse) {
-    level.AddCurse(LevelCurse.MAZE, false);
-  }
 }

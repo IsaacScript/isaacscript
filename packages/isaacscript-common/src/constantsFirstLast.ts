@@ -21,8 +21,8 @@ export const FIRST_COLLECTIBLE_TYPE = CollectibleType.SAD_ONION;
 /**
  * Will change depending on how many modded collectibles there are.
  *
- * Equal to `itemConfig.GetCollectibles().Size - 1`. (`Size` includes invalid collectibles. We
- * subtract one to account for `CollectibleType.NULL`.)
+ * Equal to `itemConfig.GetCollectibles().Size - 1`. (`Size` includes invalid collectibles, like
+ * 666. We subtract one to account for `CollectibleType.NULL`.)
  */
 export const LAST_COLLECTIBLE_TYPE = (itemConfig.GetCollectibles().Size -
   1) as CollectibleType;

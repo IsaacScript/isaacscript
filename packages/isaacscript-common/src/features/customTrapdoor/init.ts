@@ -1,7 +1,10 @@
 import {
   Direction,
+  EntityCollisionClass,
+  EntityGridCollisionClass,
   ModCallback,
   RoomTransitionAnim,
+  StageType,
 } from "isaac-typescript-definitions";
 import { game } from "../../cachedClasses";
 import { ModUpgraded } from "../../classes/ModUpgraded";
@@ -10,7 +13,7 @@ import { StageTravelState } from "../../enums/private/StageTravelState";
 import { movePlayersToCenter } from "../../functions/playerCenter";
 import { getAllPlayers } from "../../functions/playerIndex";
 import { getRoomGridIndex, getRoomListIndex } from "../../functions/roomData";
-import { teleport } from "../../functions/rooms";
+import { teleport } from "../../functions/roomTransition";
 import { setStage } from "../../functions/stage";
 import { isString } from "../../functions/types";
 import { setCustomStage } from "../customStage/exports";
@@ -140,6 +143,10 @@ function checkPausingOnBlackComplete() {
 
     for (const player of getAllPlayers()) {
       player.AnimateAppear();
+
+      // We need to restore the original collision classes.
+      player.EntityCollisionClass = EntityCollisionClass.ALL;
+      player.GridCollisionClass = EntityGridCollisionClass.GROUND;
     }
   });
 
@@ -171,11 +178,15 @@ function goToCustomDestination() {
     return;
   }
 
-  if (isString(v.run.destination)) {
-    setCustomStage("Slaughterhouse");
+  const [arg1, arg2] = v.run.destination;
+
+  if (isString(arg1)) {
+    // A string represents a custom stage.
+    const firstFloor = arg2 === 1;
+    setCustomStage("Slaughterhouse", firstFloor);
   } else {
-    const [stage, stageType] = v.run.destination;
-    setStage(stage, stageType);
+    // A number represents a vanilla `LevelStage`.
+    setStage(arg1, arg2 as StageType);
   }
 }
 

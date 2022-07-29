@@ -58,7 +58,7 @@ function initCollectibleArraysAndSets() {
  * collectibles.
  *
  * Use this if you need to iterate over the collectibles in order. If you need to do O(1) lookups,
- * then use the `getCollectibleArray` helper function instead.
+ * then use the `getCollectibleSet` helper function instead.
  */
 export function getCollectibleArray(): readonly CollectibleType[] {
   // Lazy initialize the arrays/sets.

@@ -10,7 +10,10 @@ import { HealthType } from "../../enums/HealthType";
 import { directionToVector } from "../../functions/direction";
 import { spawnGridEntityWithVariant } from "../../functions/gridEntities";
 import { getRoomGridIndexesForType } from "../../functions/levelGrid";
-import { logAllEntities, logAllGridEntities } from "../../functions/log";
+import {
+  logAllEntities,
+  logAllGridEntities,
+} from "../../functions/logEntities";
 import { addPlayerHealthType } from "../../functions/playerHealth";
 import { getRoomData, getRoomDescriptor } from "../../functions/roomData";
 import { changeRoom } from "../../functions/rooms";

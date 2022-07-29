@@ -12,7 +12,7 @@ const v = {
 
     destination: null as
       | [stage: LevelStage, stageType: StageType]
-      | string
+      | [customStageName: string, floorNum: int]
       | null,
   },
 

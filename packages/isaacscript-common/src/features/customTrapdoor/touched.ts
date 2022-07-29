@@ -114,8 +114,6 @@ function setPlayerAttributes(trapdoorPlayer: EntityPlayer, position: Vector) {
     // We don't want enemy attacks to move the players.
     player.EntityCollisionClass = EntityCollisionClass.NONE;
     player.GridCollisionClass = EntityGridCollisionClass.NONE;
-
-    player.SubType = -1;
   }
 }
 

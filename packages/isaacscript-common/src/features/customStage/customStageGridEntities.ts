@@ -1,11 +1,13 @@
 import {
   CollectibleType,
   EntityType,
+  GridEntityType,
   TrinketType,
 } from "isaac-typescript-definitions";
 import { DecorationVariant } from "../../enums/DecorationVariant";
 import { removeEntities } from "../../functions/entities";
 import { getNPCs } from "../../functions/entitiesSpecific";
+import { removeGridEntity } from "../../functions/gridEntities";
 import {
   getCoins,
   getCollectibles,
@@ -13,6 +15,8 @@ import {
 } from "../../functions/pickupsSpecific";
 import { vectorEquals } from "../../functions/vector";
 import { CustomStage } from "../../interfaces/CustomStage";
+import { spawnCustomTrapdoor } from "../customTrapdoor/exports";
+import v from "./v";
 
 /** For `GridEntityType.DECORATION` (1) */
 export function setCustomDecorationGraphics(
@@ -22,6 +26,11 @@ export function setCustomDecorationGraphics(
   // If the end-user did not specify custom decoration graphics, default to Basement graphics. (We
   // don't have to adjust anything for this case.)
   if (customStage.decorationsPNGPath === undefined) {
+    return;
+  }
+
+  const gridEntityType = gridEntity.GetType();
+  if (gridEntityType !== GridEntityType.DECORATION) {
     return;
   }
 
@@ -51,6 +60,11 @@ export function setCustomRockGraphics(
     return;
   }
 
+  const gridEntityRock = gridEntity.ToRock();
+  if (gridEntityRock === undefined) {
+    return;
+  }
+
   const sprite = gridEntity.GetSprite();
   const fileName = sprite.GetFilename();
   if (fileName === "gfx/grid/grid_rock.anm2") {
@@ -73,6 +87,11 @@ export function setCustomPitGraphics(
     return;
   }
 
+  const gridEntityPit = gridEntity.ToPit();
+  if (gridEntityPit === undefined) {
+    return;
+  }
+
   const sprite = gridEntity.GetSprite();
   const fileName = sprite.GetFilename();
   if (fileName === "gfx/grid/grid_pit.anm2") {
@@ -86,6 +105,17 @@ export function setCustomDoorGraphics(
   customStage: CustomStage,
   gridEntity: GridEntity,
 ): void {
+  // If the end-user did not specify custom pit graphics, default to Basement graphics. (We don't
+  // have to adjust anything for this case.)
+  if (customStage.doorPNGPaths === undefined) {
+    return;
+  }
+
+  const gridEntityDoor = gridEntity.ToDoor();
+  if (gridEntityDoor === undefined) {
+    return;
+  }
+
   const sprite = gridEntity.GetSprite();
   const fileName = sprite.GetFilename();
   const doorPNGPath = getNewDoorPNGPath(customStage, fileName);
@@ -146,6 +176,23 @@ function getNewDoorPNGPath(
   }
 
   return undefined;
+}
+
+export function convertVanillaTrapdoors(
+  customStage: CustomStage,
+  gridEntity: GridEntity,
+): void {
+  const gridEntityType = gridEntity.GetType();
+  if (gridEntityType !== GridEntityType.TRAPDOOR) {
+    return;
+  }
+
+  removeGridEntity(gridEntity, true);
+
+  const destination: [string, int] | undefined = v.run.firstFloor
+    ? [customStage.name, 2]
+    : undefined;
+  spawnCustomTrapdoor(gridEntity.Position, destination);
 }
 
 /**

@@ -25,7 +25,6 @@ import v from "./v";
  * - custom destination (or custom logic for after the player enters)
  * - custom graphics
  * - custom logic for opening/closing
- * - TODO: player jumping animation?
  *
  * You can use this function to take the player to your custom stage.
  *
@@ -34,10 +33,12 @@ import v from "./v";
  *
  * @param gridIndexOrPosition The location in the room to spawn the trapdoor.
  * @param destination Optional. Used to specify where the player will go after jumping into the
- *                    trapdoor. Can either be a tuple containing the stage and stage type, or a
- *                    string containing the name of a custom stage. If not specified at all, then
- *                    the "normal" destination corresponding to the current stage and room will be
- *                    used (e.g. the next floor).
+ *                    trapdoor. Can either be a tuple or undefined. For example, a destination of
+ *                    `[LevelStage.CAVES_1, StageType.ORIGINAL]` corresponds to Caves 1, and a
+ *                    destination of `["Slaughterhouse", 1]` corresponds to a custom stage of
+ *                    Slaughterhouse 1. If the destination is set to undefined, then the "normal"
+ *                    destination corresponding to the current stage and room will be used (e.g. the
+ *                    next floor).
  * @param anm2Path Optional. The path to the anm2 file to use. By default, the vanilla trapdoor anm2
  *                 of "gfx/grid/door_11_trapdoor.anm2" will be used. The specified anm2 file must
  *                 have animations called "Opened", "Closed", and "Open Animation".
@@ -46,7 +47,9 @@ import v from "./v";
  */
 export function spawnCustomTrapdoor(
   gridIndexOrPosition: int | Vector,
-  destination?: [stage: LevelStage, stageType: StageType] | string,
+  destination?:
+    | [stage: LevelStage, stageType: StageType]
+    | [customStageName: string, floorNum: int],
   anm2Path = "gfx/grid/door_11_trapdoor.anm2",
   spawnOpen?: boolean,
 ): GridEntity {

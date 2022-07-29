@@ -18,6 +18,7 @@ import {
 import { saveDataManager } from "../saveDataManager/exports";
 import { setBackdrop } from "./backdrop";
 import {
+  convertVanillaTrapdoors,
   removeUrnRewards,
   setCustomDecorationGraphics,
   setCustomDoorGraphics,
@@ -26,12 +27,7 @@ import {
 } from "./customStageGridEntities";
 import * as metadataJSON from "./metadata.json"; // This will correspond to "metadata.lua" at run-time.
 import { setShadows } from "./shadows";
-import {
-  streakTextGetShaderParams,
-  streakTextInit,
-  streakTextPostGameStarted,
-  streakTextPostRender,
-} from "./streakText";
+import { streakTextGetShaderParams, streakTextPostRender } from "./streakText";
 import v, { customStagesMap } from "./v";
 import {
   playVersusScreenAnimation,
@@ -47,12 +43,10 @@ export function customStageInit(mod: ModUpgraded): void {
   }
 
   saveDataManager("customStage", v);
-  streakTextInit();
   versusScreenInit();
 
   mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
   mod.AddCallback(ModCallback.POST_CURSE_EVAL, postCurseEval); // 12
-  mod.AddCallback(ModCallback.POST_GAME_STARTED, postGameStarted); // 15
   mod.AddCallback(ModCallback.GET_SHADER_PARAMS, getShaderParams); // 21
   mod.AddCallbackCustom(
     ModCallbackCustom.POST_GRID_ENTITY_BROKEN,
@@ -61,7 +55,7 @@ export function customStageInit(mod: ModUpgraded): void {
   );
   mod.AddCallbackCustom(
     ModCallbackCustom.POST_GRID_ENTITY_INIT,
-    postGridEntityBrokenInit,
+    postGridEntityInit,
   );
   mod.AddCallbackCustom(
     ModCallbackCustom.POST_NEW_ROOM_REORDERED,
@@ -150,17 +144,11 @@ function postCurseEval(
   }
 
   // Prevent XL floors on custom stages, since the streak text will not work properly.
-  if (hasFlag(curses, LevelCurse.MAZE)) {
-    return removeFlag(curses, LevelCurse.MAZE);
+  if (hasFlag(curses, LevelCurse.LABYRINTH)) {
+    return removeFlag(curses, LevelCurse.LABYRINTH);
   }
 
   return undefined;
-}
-
-// ModCallback.POST_GAME_STARTED (15)
-function postGameStarted() {
-  // We don't early return here because we need to unconditionally reset the sprites.
-  streakTextPostGameStarted();
 }
 
 // ModCallback.GET_SHADER_PARAMS (22)
@@ -188,7 +176,7 @@ function postGridEntityBrokenRockAlt(gridEntity: GridEntity) {
 }
 
 // ModCallbackCustom.POST_GRID_ENTITY_INIT
-function postGridEntityBrokenInit(gridEntity: GridEntity) {
+function postGridEntityInit(gridEntity: GridEntity) {
   const customStage = v.run.currentCustomStage;
   if (customStage === null) {
     return;
@@ -198,6 +186,7 @@ function postGridEntityBrokenInit(gridEntity: GridEntity) {
   setCustomRockGraphics(customStage, gridEntity);
   setCustomPitGraphics(customStage, gridEntity);
   setCustomDoorGraphics(customStage, gridEntity);
+  convertVanillaTrapdoors(customStage, gridEntity);
 }
 
 // ModCallbackCustom.POST_NEW_ROOM_REORDERED
