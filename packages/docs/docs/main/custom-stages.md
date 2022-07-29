@@ -36,9 +36,7 @@ Second, make sure it has an "isaacscript" property at the bottom:
       {
         "name": "Foo",
         "xmlPath": "./mod/resources/rooms/foo.xml",
-        "roomVariantPrefix": n,
-        "baseStage": 1,
-        "baseStageType": 0,
+        "roomVariantPrefix": 101,
       },
     ],
   },
