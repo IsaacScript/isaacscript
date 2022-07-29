@@ -118,8 +118,9 @@ function postCollectibleRemoved(
  * Under the hood, the inventory tracking works by tracking the number of collectibles that a player
  * has on every frame. Thus, in a situation where a collectible was both added and removed to the
  * player on the same frame, the amount of total collectibles would stay the same, and the inventory
- * would not be updated. (But the next time that a collectible was normally added or removed, it
- * would cause the total collectibles to be different, and the previous changes would be picked up.)
+ * would not be updated. In vanilla, this situation would never happen, but another mod might do
+ * this for some reason. (With that said, the next time that a collectible is normally added or
+ * removed, it would trigger a re-scan, and the previous changes would be picked up.)
  */
 export function getPlayerInventory(
   player: EntityPlayer,
