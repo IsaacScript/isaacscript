@@ -76,6 +76,9 @@ import { SAVE_DATA_MANAGER_FEATURE_NAME } from "./saveDataManagerConstants";
  *   can possibly run).
  * - Save data is recorded to disk in the `PRE_GAME_EXIT` callback.
  *
+ * You can put lots of data types on your variable objects, but not everything is supported. For the
+ * specific things that are supported, see the documentation for the `deepCopy` helper function.
+ *
  * Note that before using the save data manager, you must call the `upgradeMod` function. (Upgrade
  * your mod before registering any of your own callbacks so that the save data manager will run
  * before any of your code does.)
