@@ -32,7 +32,11 @@ const sidebars = {
     {
       type: "category",
       label: "Other Info",
-      items: ["main/publishing-to-the-workshop", "main/gotchas"],
+      items: [
+        "main/custom-stages",
+        "main/publishing-to-the-workshop",
+        "main/gotchas",
+      ],
     },
     "main/change-log",
     {
