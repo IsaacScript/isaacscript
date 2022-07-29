@@ -103,7 +103,7 @@ With these improvements in mind, I've created the IsaacScript Stage Library. Sin
 
 ## Custom Stage Room Variant Prefixes
 
-The room variant prefix chosen by each mod must not overlap with any other ones - otherwise, loading the custom stage will not work properly. In order to prevent conflicts, this section documents all of the arbitrary prefixes claimed by each mod. Valid prefixes are in the ranges of 101 through 999.
+The room variant prefix chosen by each mod must not overlap with any other ones - otherwise, loading the custom stage will not work properly. In order to prevent conflicts, this section documents all of the arbitrary prefixes claimed by each mod. Valid prefixes are between 101 and 999, inclusive.
 
 | Room Variant Prefix | Mod Name |
 | ------------------- | -------- |
