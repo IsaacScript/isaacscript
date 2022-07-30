@@ -384,6 +384,7 @@ export type CustomStageShadow = Readonly<{
 }>;
 
 /** An object that represents a possible boss for a custom stage. */
+// ts-prune-ignore-next
 export interface CustomStageBossPoolEntry {
   /**
    * The name of the boss. This must correspond to the entry in "entities2.xml".
