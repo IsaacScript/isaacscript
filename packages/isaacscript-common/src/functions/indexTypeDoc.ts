@@ -76,6 +76,7 @@ export * as RoomData from "./roomData";
 export * as RoomGrid from "./roomGrid";
 export * as Rooms from "./rooms";
 export * as RoomShape from "./roomShape";
+export * as RoomTransition from "./roomTransition";
 export * as Run from "./run";
 export * as SaveFile from "./saveFile";
 export * as Seeds from "./seeds";
