@@ -1,5 +1,9 @@
 # IsaacScript
 
+<img src="https://github.com/IsaacScript/isaacscript/raw/main/misc/logo.png" alt="Logo" width="128" height="128">
+
+<br>
+
 [![Discord](https://img.shields.io/discord/843174215287832626?color=blue&label=Discord&logo=Discord&logoColor=white)](https://discord.gg/435qCC6nHt)
 
 IsaacScript is a tool to help you create _Binding of Isaac: Repentance_ mods using [TypeScript](https://www.typescriptlang.org/).
