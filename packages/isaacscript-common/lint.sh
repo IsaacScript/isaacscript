@@ -29,6 +29,6 @@ npx cspell --no-progress --no-summary
 npx ts-prune --error --ignore "index.ts|indexTypeDoc.ts"
 
 # Step 5 - Validate that every doc page is included.
-npx ts-node --require "tsconfig-paths/register" "$DIR/scripts/docsEntryPointLint.ts"
+#npx ts-node --require "tsconfig-paths/register" "$DIR/scripts/docsEntryPointLint.ts"
 
 echo "Successfully linted in $SECONDS seconds."
