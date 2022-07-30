@@ -105,6 +105,7 @@
 /// <reference path="unofficial/BitFlag128.d.ts" />
 /// <reference path="unofficial/BitFlags.d.ts" />
 /// <reference path="unofficial/EntitySubPlayer.d.ts" />
+/// <reference path="unofficial/IsaacAPIClass.d.ts" />
 /// <reference path="unofficial/PtrHash.d.ts" />
 /// <reference path="unofficial/Seed.d.ts" />
 /// <reference path="unofficial/ZodiacCollectibles.d.ts" />
