@@ -5,6 +5,7 @@ import { deepCopy } from "./deepCopy";
 import { log } from "./log";
 import { isRNG, newRNG } from "./rng";
 import { isSerializedIsaacAPIClass } from "./serialization";
+import { printConsole } from "./utils";
 import { isVector, serializeVector } from "./vector";
 
 /**
@@ -28,7 +29,9 @@ export function runMergeTests(): void {
   oldTableHasRNG();
   oldTableHasRNGSerialized();
 
-  log("All merge tests passed!");
+  const successText = "All merge tests passed!";
+  log(successText);
+  printConsole(successText);
 }
 
 function oldTableHasUpdatedValue() {

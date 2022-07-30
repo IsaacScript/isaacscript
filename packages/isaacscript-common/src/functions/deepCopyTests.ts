@@ -6,6 +6,7 @@ import { deepCopy } from "./deepCopy";
 import { log } from "./log";
 import { isDefaultMap, isTSTLMap, isTSTLSet } from "./tstlClass";
 import { isNumber, isString, isTable } from "./types";
+import { printConsole } from "./utils";
 
 /**
  * Run the suite of tests that prove that the "deepCopy" helper function works properly.
@@ -38,7 +39,9 @@ export function runDeepCopyTests(): void {
   copiedSerializedDefaultMapHasStringKey();
   copiedSerializedDefaultMapHasNumberKey();
 
-  log("All deep copy tests passed!");
+  const successText = "All deep copy tests passed!";
+  log(successText);
+  printConsole(successText);
 }
 
 function copiedObjectIsTable() {
