@@ -2,6 +2,6 @@
 // it a specially crafted TypeScript config.
 {
   "extends": "./tsconfig.json",
-  "include": ["./src/**/*.ts"],
+  "include": ["./src/**/*.ts", ".eslintrc.js"],
   "exclude": [],
 }

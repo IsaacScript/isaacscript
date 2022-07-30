@@ -113,7 +113,7 @@ export function saveDataManager<Persistent, Run, Level>(
 ): void;
 export function saveDataManager(
   key: string, // This is the overload for the case when saving data is disabled.
-  v: SaveData<unknown, unknown, unknown>,
+  v: SaveData,
   conditionalFunc: false,
 ): void;
 export function saveDataManager<Persistent, Run, Level>(
