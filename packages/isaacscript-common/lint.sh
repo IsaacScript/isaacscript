@@ -26,7 +26,7 @@ npx cspell --no-progress --no-summary
 # The "--error" flag makes it return an error code of 1 if unused exports are found.
 # We ignore exports defined in the index.ts file since those are intended to be consumed by
 # end-users.
-npx ts-prune --error --ignore index.ts
+npx ts-prune --error --ignore "index.ts|indexTypeDoc.ts"
 
 # Step 5 - Validate that every doc page is included.
 npx ts-node --require "tsconfig-paths/register" "$DIR/scripts/docsEntryPointLint.ts"
