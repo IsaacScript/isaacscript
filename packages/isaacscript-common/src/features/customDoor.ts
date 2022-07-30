@@ -1,6 +1,6 @@
 import { DoorSlot, EffectVariant } from "isaac-typescript-definitions";
 import {
-  initCustomDoorPrivate,
+  initCustomDoorInternal,
   spawnCustomDoorInternal,
 } from "../callbacks/postCustomDoorEnter";
 import { ModUpgraded } from "../classes/ModUpgraded";
@@ -34,7 +34,7 @@ export function initCustomDoor(
   mod: ModUpgraded,
   effectVariant: EffectVariant,
 ): void {
-  initCustomDoorPrivate(mod, effectVariant);
+  initCustomDoorInternal(mod, effectVariant);
 }
 
 /**

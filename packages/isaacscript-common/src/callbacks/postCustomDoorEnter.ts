@@ -44,7 +44,7 @@ function hasSubscriptions() {
   return postCustomDoorEnterHasSubscriptions();
 }
 
-export function initCustomDoorPrivate(
+export function initCustomDoorInternal(
   mod: ModUpgraded,
   effectVariant: EffectVariant,
 ): void {
