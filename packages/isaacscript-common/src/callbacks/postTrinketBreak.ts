@@ -23,10 +23,10 @@ const TRINKETS_THAT_CAN_BREAK: readonly TrinketType[] = [
 
 const v = {
   run: {
-    playersTrinketMap: new DefaultMap<
-      PlayerIndex,
-      DefaultMap<TrinketType, int>
-    >(() => new DefaultMap(0)),
+    // We cannot use a nested `DefaultMap` here.
+    playersTrinketMap: new DefaultMap<PlayerIndex, Map<TrinketType, int>>(
+      () => new Map(),
+    ),
   },
 };
 
@@ -71,7 +71,11 @@ function entityTakeDmgPlayer(
 
   for (const trinketType of TRINKETS_THAT_CAN_BREAK) {
     const numTrinketsHeld = player.GetTrinketMultiplier(trinketType);
-    const oldNumTrinketsHeld = trinketMap.getAndSetDefault(trinketType);
+    let oldNumTrinketsHeld = trinketMap.get(trinketType);
+    if (oldNumTrinketsHeld === undefined) {
+      oldNumTrinketsHeld = 0;
+    }
+
     if (numTrinketsHeld >= oldNumTrinketsHeld) {
       continue;
     }

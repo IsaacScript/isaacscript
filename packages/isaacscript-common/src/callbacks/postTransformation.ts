@@ -15,10 +15,11 @@ const PLAYER_FORMS: readonly PlayerForm[] = getEnumValues(PlayerForm);
 
 const v = {
   run: {
+    // We cannot use a nested `DefaultMap` here.
     playersTransformationsMap: new DefaultMap<
       PlayerIndex,
-      DefaultMap<PlayerForm, boolean>
-    >(() => new DefaultMap(false)),
+      Map<PlayerForm, boolean>
+    >(() => new Map()),
   },
 };
 
@@ -48,7 +49,10 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
 
   for (const playerForm of PLAYER_FORMS) {
     const hasForm = player.HasPlayerForm(playerForm);
-    const storedForm = playerTransformationsMap.getAndSetDefault(playerForm);
+    let storedForm = playerTransformationsMap.get(playerForm);
+    if (storedForm === undefined) {
+      storedForm = false;
+    }
 
     if (hasForm !== storedForm) {
       playerTransformationsMap.set(playerForm, hasForm);
