@@ -74,7 +74,7 @@ export function changeRoom(roomGridIndex: int): void {
  * include off-grid rooms, like the Devil Room.
  */
 export function getNumRooms(): int {
-  const rooms = getRoomsInGrid();
+  const rooms = getRoomsInsideGrid();
   return rooms.length;
 }
 
@@ -186,7 +186,7 @@ export function getRooms(
   // The obvious way to get all of the rooms would be to iterate over the `RoomList` from the
   // `Level.GetRooms` method. However, this results in read-only data, and we want to return a
   // writable object. Instead, we let the heavy lifting be handled by other functions.
-  const roomsInGrid = getRoomsInGrid(includeExtraDimensionalRooms);
+  const roomsInGrid = getRoomsInsideGrid(includeExtraDimensionalRooms);
   const roomsOutsideGrid = getRoomsOutsideGrid();
   return [...roomsInGrid, ...roomsOutsideGrid];
 }
@@ -201,7 +201,7 @@ export function getRooms(
  *                                 extra-dimensional rooms are automatically be generated. Default
  *                                 is false.
  */
-export function getRoomsInGrid(
+export function getRoomsInsideGrid(
   includeExtraDimensionalRooms = false,
 ): RoomDescriptor[] {
   const level = game.GetLevel();
@@ -463,7 +463,7 @@ export function inStartingRoom(): boolean {
 export function isAllRoomsClear(onlyCheckRoomTypes?: RoomType[]): boolean {
   const roomTypeWhitelist =
     onlyCheckRoomTypes === undefined ? null : new Set(onlyCheckRoomTypes);
-  const rooms = getRoomsInGrid();
+  const rooms = getRoomsInsideGrid();
   const matchingRooms =
     roomTypeWhitelist === null
       ? rooms

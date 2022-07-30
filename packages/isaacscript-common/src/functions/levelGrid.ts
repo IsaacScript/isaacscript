@@ -35,7 +35,7 @@ import {
   getRoomGridIndex,
   getRoomShape,
 } from "./roomData";
-import { getRooms, getRoomsInGrid } from "./rooms";
+import { getRooms, getRoomsInsideGrid } from "./rooms";
 import { getGridIndexDelta } from "./roomShape";
 
 const LEFT = -1;
@@ -63,7 +63,7 @@ export function getAdjacentRoomGridIndexes(roomGridIndex?: int): int[] {
   const roomGridIndexToUse =
     roomGridIndex === undefined ? getRoomGridIndex() : roomGridIndex;
 
-  if (!isRoomGridIndexInBounds(roomGridIndexToUse)) {
+  if (!isRoomInsideGrid(roomGridIndexToUse)) {
     return [];
   }
 
@@ -72,7 +72,7 @@ export function getAdjacentRoomGridIndexes(roomGridIndex?: int): int[] {
   );
 
   return adjacentRoomGridIndexes.filter((adjacentRoomGridIndex) =>
-    isRoomGridIndexInBounds(adjacentRoomGridIndex),
+    isRoomInsideGrid(adjacentRoomGridIndex),
   );
 }
 
@@ -117,7 +117,7 @@ export function getNewRoomCandidatesBesideRoom(
 ): Array<[doorSlot: DoorSlot, roomGridIndex: int]> {
   const roomDescriptor = getRoomDescriptor(roomGridIndex);
 
-  if (!isRoomGridIndexInBounds(roomDescriptor.SafeGridIndex)) {
+  if (!isRoomInsideGrid(roomDescriptor.SafeGridIndex)) {
     return [];
   }
 
@@ -172,7 +172,7 @@ export function getNewRoomCandidatesBesideRoom(
 export function getNewRoomCandidatesForLevel(): Array<
   [adjacentRoomGridIndex: int, doorSlot: DoorSlot, newRoomGridIndex: int]
 > {
-  const rooms = getRoomsInGrid();
+  const rooms = getRoomsInsideGrid();
   const normalRooms = rooms.filter(
     (room) =>
       room.Data !== undefined &&
@@ -207,7 +207,7 @@ export function getNewRoomCandidatesForLevel(): Array<
 export function getRoomGridIndexesForType(...roomTypes: RoomType[]): int[] {
   const roomTypesSet = new Set<RoomType>([...roomTypes]);
 
-  const rooms = getRoomsInGrid();
+  const rooms = getRoomsInsideGrid();
   const matchingRooms = rooms.filter(
     (roomDescriptor) =>
       roomDescriptor.Data !== undefined &&
@@ -230,7 +230,7 @@ export function getRoomGridIndexesForType(...roomTypes: RoomType[]): int[] {
 export function getRoomNeighbors(roomGridIndex?: int): Map<DoorSlot, int> {
   const roomDescriptor = getRoomDescriptor(roomGridIndex);
 
-  if (!isRoomGridIndexInBounds(roomDescriptor.SafeGridIndex)) {
+  if (!isRoomInsideGrid(roomDescriptor.SafeGridIndex)) {
     return new Map();
   }
 
@@ -293,7 +293,7 @@ export function getRoomShapeNeighborGridIndexes(
   const neighborGridIndexes = new Map<DoorSlot, int>();
   for (const [doorSlot, delta] of roomShapeNeighborGridIndexDeltas.entries()) {
     const roomGridIndex = safeRoomGridIndex + delta;
-    if (isRoomGridIndexInBounds(roomGridIndex)) {
+    if (isRoomInsideGrid(roomGridIndex)) {
       neighborGridIndexes.set(doorSlot, roomGridIndex);
     }
   }
@@ -356,9 +356,7 @@ export function isDoorSlotValidAtGridIndexForRedRoom(
   }
 
   const redRoomGridIndex = roomGridIndex + delta;
-  return (
-    !roomExists(redRoomGridIndex) && isRoomGridIndexInBounds(redRoomGridIndex)
-  );
+  return !roomExists(redRoomGridIndex) && isRoomInsideGrid(redRoomGridIndex);
 }
 
 /**
@@ -376,8 +374,14 @@ export function isRedKeyRoom(roomGridIndex?: int): boolean {
  * Helper function to determine if a given room grid index is inside of the normal 13x13 level grid.
  *
  * For example, Devil Rooms and the Mega Satan room are not considered to be inside the grid.
+ *
+ * @param roomGridIndex Optional. Default is the current room index.
  */
-export function isRoomGridIndexInBounds(roomGridIndex: int): boolean {
+export function isRoomInsideGrid(roomGridIndex?: int): boolean {
+  if (roomGridIndex === undefined) {
+    roomGridIndex = getRoomGridIndex();
+  }
+
   return roomGridIndex >= 0 && roomGridIndex <= MAX_LEVEL_GRID_INDEX;
 }
 

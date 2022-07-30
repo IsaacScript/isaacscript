@@ -21,7 +21,7 @@ import { logError } from "../../functions/log";
 import { newRNG } from "../../functions/rng";
 import {
   getRoomDataForTypeVariant,
-  getRoomsInGrid,
+  getRoomsInsideGrid,
 } from "../../functions/rooms";
 import { setStage } from "../../functions/stage";
 import { CustomStage } from "../../interfaces/private/CustomStage";
@@ -121,7 +121,7 @@ function setStageRoomsData(
   const level = game.GetLevel();
   const startingRoomGridIndex = level.GetStartingRoomIndex();
 
-  for (const room of getRoomsInGrid()) {
+  for (const room of getRoomsInsideGrid()) {
     // The starting floor of each room should stay empty.
     if (room.SafeGridIndex === startingRoomGridIndex) {
       continue;

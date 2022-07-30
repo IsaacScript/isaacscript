@@ -1,7 +1,7 @@
 import { DisplayFlag, DisplayFlagZero } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
 import { getRoomDescriptor } from "./roomData";
-import { getRoomsInGrid } from "./rooms";
+import { getRoomsInsideGrid } from "./rooms";
 
 /**
  * Helper function to set the value of `DisplayFlag` for every room on the floor to 0.
@@ -12,7 +12,7 @@ import { getRoomsInGrid } from "./rooms";
 export function clearFloorDisplayFlags(): void {
   const level = game.GetLevel();
 
-  for (const room of getRoomsInGrid()) {
+  for (const room of getRoomsInsideGrid()) {
     room.DisplayFlags = DisplayFlagZero;
   }
 
@@ -27,7 +27,7 @@ export function clearFloorDisplayFlags(): void {
 export function getFloorDisplayFlags(): Map<int, BitFlags<DisplayFlag>> {
   const displayFlagsMap = new Map<int, BitFlags<DisplayFlag>>();
 
-  const roomsInGrid = getRoomsInGrid();
+  const roomsInGrid = getRoomsInsideGrid();
   for (const roomDescriptor of roomsInGrid) {
     displayFlagsMap.set(
       roomDescriptor.SafeGridIndex,
