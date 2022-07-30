@@ -3,7 +3,7 @@ import {
   GridEntityType,
   ModCallback,
 } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
+import { game } from "../core/cachedClasses";
 import {
   getTopLeftWallGridIndex,
   spawnGridEntity,
@@ -22,7 +22,6 @@ let currentRoomTopLeftWallPtrHash: PtrHash | null = null;
  */
 let currentRoomTopLeftWallPtrHash2: PtrHash | null = null;
 
-/** @internal */
 export function postNewRoomEarlyCallbackInit(mod: Mod): void {
   mod.AddCallback(ModCallback.POST_NEW_ROOM, postNewRoom); // 19
   mod.AddCallback(ModCallback.PRE_ENTITY_SPAWN, preEntitySpawn); // 24

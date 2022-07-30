@@ -5,9 +5,9 @@ import {
   ItemPoolType,
   TrinketSlot,
 } from "isaac-typescript-definitions";
+import { getEnumLength } from "../functions/enums";
+import { addFlag } from "../functions/flag";
 import { NUM_NORMAL_PILL_COLORS } from "./constantsFirstLast";
-import { getEnumLength } from "./functions/enums";
-import { addFlag } from "./functions/flag";
 
 /**
  * The combination of the following flags:

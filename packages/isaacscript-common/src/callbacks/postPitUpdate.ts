@@ -5,7 +5,6 @@ import {
   postPitUpdateHasSubscriptions,
 } from "./subscriptions/postPitUpdate";
 
-/** @internal */
 export function postPitUpdateInit(mod: Mod): void {
   mod.AddCallback(ModCallback.POST_UPDATE, postUpdate); // 1
 }

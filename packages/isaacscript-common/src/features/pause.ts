@@ -4,7 +4,7 @@ import {
   InputHook,
   ModCallback,
 } from "isaac-typescript-definitions";
-import { VectorZero } from "../constants";
+import { VectorZero } from "../core/constants";
 import {
   getProjectiles,
   getTears,
@@ -37,7 +37,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function pauseInit(mod: Mod): void {
   saveDataManager(FEATURE_NAME, v);
 

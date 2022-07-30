@@ -1,4 +1,4 @@
-import { VectorZero } from "../../constants";
+import { VectorZero } from "../../core/constants";
 import { StageTravelState } from "../../enums/private/StageTravelState";
 import v from "./v";
 

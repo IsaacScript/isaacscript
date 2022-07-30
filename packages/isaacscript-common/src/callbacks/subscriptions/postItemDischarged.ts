@@ -11,19 +11,16 @@ export type PostItemDischargedRegisterParameters = [
 
 const subscriptions: PostItemDischargedRegisterParameters[] = [];
 
-/** @internal */
 export function postItemDischargeHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postItemDischargeRegister(
   ...args: PostItemDischargedRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postItemDischargeFire(
   player: EntityPlayer,
   collectibleType: CollectibleType,

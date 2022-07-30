@@ -11,19 +11,16 @@ export type PostFamiliarStateChangedRegisterParameters = [
 
 const subscriptions: PostFamiliarStateChangedRegisterParameters[] = [];
 
-/** @internal */
 export function postFamiliarStateChangedHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postFamiliarStateChangedRegister(
   ...args: PostFamiliarStateChangedRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postFamiliarStateChangedFire(
   familiar: EntityFamiliar,
   previousState: int,

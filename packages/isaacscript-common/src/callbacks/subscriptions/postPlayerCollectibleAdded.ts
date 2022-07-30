@@ -7,19 +7,16 @@ export type PostPlayerCollectibleAddedRegisterParameters = [
 
 const subscriptions: PostPlayerCollectibleAddedRegisterParameters[] = [];
 
-/** @internal */
 export function postPlayerCollectibleAddedHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postPlayerCollectibleAddedRegister(
   ...args: PostPlayerCollectibleAddedRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postPlayerCollectibleAddedFire(
   player: EntityPlayer,
   collectibleType: CollectibleType,

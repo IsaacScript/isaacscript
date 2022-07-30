@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
+import { game } from "../core/cachedClasses";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { saveDataManager } from "./saveDataManager/exports";
 
@@ -14,7 +14,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function fadeInRemoverInit(mod: Mod): void {
   saveDataManager(FEATURE_NAME, v, () => false);
 

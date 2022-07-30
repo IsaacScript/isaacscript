@@ -7,19 +7,16 @@ export type PostPoopRenderRegisterParameters = [
 
 const subscriptions: PostPoopRenderRegisterParameters[] = [];
 
-/** @internal */
 export function postPoopRenderHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postPoopRenderRegister(
   ...args: PostPoopRenderRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postPoopRenderFire(poop: GridEntityPoop): void {
   const poopVariant = poop.GetVariant();
 

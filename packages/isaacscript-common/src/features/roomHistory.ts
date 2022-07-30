@@ -1,5 +1,5 @@
-import { game } from "../cachedClasses";
 import { ModUpgraded } from "../classes/ModUpgraded";
+import { game } from "../core/cachedClasses";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { getLastElement } from "../functions/array";
@@ -23,7 +23,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function roomHistoryInit(mod: ModUpgraded): void {
   saveDataManager(FEATURE_NAME, v);
 

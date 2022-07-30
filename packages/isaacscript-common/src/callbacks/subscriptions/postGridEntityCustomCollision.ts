@@ -11,19 +11,16 @@ export type PostGridEntityCustomCollisionRegisterParameters = [
 
 const subscriptions: PostGridEntityCustomCollisionRegisterParameters[] = [];
 
-/** @internal */
 export function postGridEntityCustomCollisionHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postGridEntityCustomCollisionRegister(
   ...args: PostGridEntityCustomCollisionRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postGridEntityCustomCollisionFire(
   gridEntity: GridEntity,
   gridEntityTypeCustom: GridEntityType,

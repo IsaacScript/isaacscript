@@ -11,7 +11,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postFamiliarInitLateInit(mod: Mod): void {
   saveDataManager("postFamiliarInitLate", v, hasSubscriptions);
 

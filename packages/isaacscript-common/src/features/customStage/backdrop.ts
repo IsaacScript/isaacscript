@@ -8,15 +8,15 @@ import {
   RoomShape,
   RoomType,
 } from "isaac-typescript-definitions";
-import { game } from "../../cachedClasses";
-import { VectorZero } from "../../constants";
+import { game } from "../../core/cachedClasses";
+import { VectorZero } from "../../core/constants";
 import { getRandomArrayElement } from "../../functions/array";
 import { spawnEffectWithSeed } from "../../functions/entitiesSpecific";
 import { newRNG } from "../../functions/rng";
 import { isLRoom, isNarrowRoom } from "../../functions/roomShape";
 import { trimPrefix } from "../../functions/string";
 import { erange, irange } from "../../functions/utils";
-import { CustomStage } from "../../interfaces/CustomStage";
+import { CustomStage } from "../../interfaces/private/CustomStage";
 import { ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH } from "./customStageConstants";
 
 enum BackdropKind {

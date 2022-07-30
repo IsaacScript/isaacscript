@@ -1,5 +1,5 @@
 import { RoomType } from "isaac-typescript-definitions";
-import { game } from "../../cachedClasses";
+import { game } from "../../core/cachedClasses";
 import { TrapdoorAnimation } from "../../enums/private/TrapdoorAnimation";
 import { anyPlayerCloserThan } from "../../functions/positionVelocity";
 import { CustomTrapdoorDescription } from "../../interfaces/private/CustomTrapdoorDescription";

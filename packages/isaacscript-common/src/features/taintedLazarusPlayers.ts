@@ -30,7 +30,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function taintedLazarusPlayersInit(mod: ModUpgraded): void {
   // `EntityPtr` is not serializable, so we cannot save data. However, this is inconsequential,
   // since the `POST_PLAYER_INIT` callback will fire when a run is continued, which will repopulate

@@ -5,7 +5,6 @@ import {
   postDoorUpdateHasSubscriptions,
 } from "./subscriptions/postDoorUpdate";
 
-/** @internal */
 export function postDoorUpdateInit(mod: Mod): void {
   mod.AddCallback(ModCallback.POST_UPDATE, postUpdate); // 1
 }

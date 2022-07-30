@@ -3,7 +3,7 @@ import {
   LevelStage,
   StageType,
 } from "isaac-typescript-definitions";
-import { game } from "../../cachedClasses";
+import { game } from "../../core/cachedClasses";
 import { TrapdoorAnimation } from "../../enums/private/TrapdoorAnimation";
 import { errorIfFeaturesNotInitialized } from "../../featuresInitialized";
 import { getNextStage, getNextStageType } from "../../functions/nextStage";

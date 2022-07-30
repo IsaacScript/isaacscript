@@ -9,14 +9,14 @@ import {
   PickupVariant,
   RoomType,
 } from "isaac-typescript-definitions";
-import { game, itemConfig } from "../cachedClasses";
-import { BLIND_ITEM_PNG_PATH, DEFAULT_ITEM_POOL_TYPE } from "../constants";
+import { game, itemConfig } from "../core/cachedClasses";
+import { BLIND_ITEM_PNG_PATH, DEFAULT_ITEM_POOL_TYPE } from "../core/constants";
 import {
   FIRST_COLLECTIBLE_TYPE,
   FIRST_MODDED_COLLECTIBLE_TYPE,
   LAST_COLLECTIBLE_TYPE,
   LAST_VANILLA_COLLECTIBLE_TYPE,
-} from "../constantsFirstLast";
+} from "../core/constantsFirstLast";
 import {
   COLLECTIBLE_DESCRIPTION_MAP,
   DEFAULT_COLLECTIBLE_DESCRIPTION,

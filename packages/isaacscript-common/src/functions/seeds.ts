@@ -1,4 +1,4 @@
-import { game } from "../cachedClasses";
+import { game } from "../core/cachedClasses";
 import { newRNG } from "./rng";
 
 /** Alias for the `Seeds.GetStartSeedString` method. */

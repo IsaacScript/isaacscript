@@ -1,10 +1,10 @@
 import { CollectibleType } from "isaac-typescript-definitions";
-import { itemConfig } from "../cachedClasses";
+import { itemConfig } from "../core/cachedClasses";
 import {
   FIRST_COLLECTIBLE_TYPE,
   LAST_COLLECTIBLE_TYPE,
   LAST_VANILLA_COLLECTIBLE_TYPE,
-} from "../constantsFirstLast";
+} from "../core/constantsFirstLast";
 import { irange } from "./utils";
 
 const ALL_COLLECTIBLES_ARRAY: CollectibleType[] = [];

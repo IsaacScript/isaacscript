@@ -27,7 +27,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postSlotRenderCallbacksInit(mod: Mod): void {
   saveDataManager("postSlotRender", v, hasSubscriptions);
 

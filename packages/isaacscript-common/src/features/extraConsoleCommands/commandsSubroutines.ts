@@ -5,7 +5,7 @@ import {
   GridRoom,
   RoomType,
 } from "isaac-typescript-definitions";
-import { game } from "../../cachedClasses";
+import { game } from "../../core/cachedClasses";
 import { HealthType } from "../../enums/HealthType";
 import { directionToVector } from "../../functions/direction";
 import { spawnGridEntityWithVariant } from "../../functions/gridEntities";

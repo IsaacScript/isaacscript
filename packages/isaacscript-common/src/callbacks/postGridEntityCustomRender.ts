@@ -6,7 +6,6 @@ import {
   postGridEntityCustomRenderHasSubscriptions,
 } from "./subscriptions/postGridEntityCustomRender";
 
-/** @internal */
 export function postGridEntityCustomRenderInit(mod: ModUpgraded): void {
   mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
 }

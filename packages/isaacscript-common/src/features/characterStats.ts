@@ -18,7 +18,6 @@ const FEATURE_NAME = "characterStats";
 type StatMap = Map<CacheFlag, number> | ReadonlyMap<CacheFlag, number>;
 const charactersStatMap = new Map<PlayerType, StatMap>();
 
-/** @internal */
 export function characterStatsInit(mod: Mod): void {
   mod.AddCallback(ModCallback.EVALUATE_CACHE, evaluateCache); // 8
 }

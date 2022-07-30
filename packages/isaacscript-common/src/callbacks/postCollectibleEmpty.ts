@@ -15,7 +15,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postCollectibleEmptyInit(mod: Mod): void {
   saveDataManager("postCollectibleEmpty", v, hasSubscriptions);
 

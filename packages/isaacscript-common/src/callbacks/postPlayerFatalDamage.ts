@@ -8,7 +8,7 @@ import {
   ModCallback,
   UseFlag,
 } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
+import { game } from "../core/cachedClasses";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { mapGetPlayer, mapSetPlayer } from "../functions/playerDataStructures";
 import { isChildPlayer } from "../functions/playerIndex";
@@ -27,7 +27,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postPlayerFatalDamageInit(mod: Mod): void {
   saveDataManager("postPlayerFatalDamage", v);
 

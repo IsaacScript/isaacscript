@@ -33,7 +33,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function ponyDetectionInit(mod: ModUpgraded): void {
   saveDataManager(FEATURE_NAME, v);
 

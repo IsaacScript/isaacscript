@@ -1,5 +1,5 @@
 import { RenderMode } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
+import { game } from "../core/cachedClasses";
 import { CONSOLE_COMMANDS_SET } from "../sets/consoleCommandsSet";
 
 const HEX_STRING_LENGTH = 6;

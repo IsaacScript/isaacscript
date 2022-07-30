@@ -7,19 +7,16 @@ export type PostProjectileInitLateRegisterParameters = [
 
 const subscriptions: PostProjectileInitLateRegisterParameters[] = [];
 
-/** @internal */
 export function postProjectileInitLateHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postProjectileInitLateRegister(
   ...args: PostProjectileInitLateRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postProjectileInitLateFire(projectile: EntityProjectile): void {
   for (const [callback, projectileVariant] of subscriptions) {
     // Handle the optional 2nd callback argument.

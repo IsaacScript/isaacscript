@@ -8,19 +8,16 @@ export type PostGridEntityStateChangedRegisterParameters = [
 
 const subscriptions: PostGridEntityStateChangedRegisterParameters[] = [];
 
-/** @internal */
 export function postGridEntityStateChangedHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postGridEntityStateChangedRegister(
   ...args: PostGridEntityStateChangedRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postGridEntityStateChangedFire(
   gridEntity: GridEntity,
   oldState: int,

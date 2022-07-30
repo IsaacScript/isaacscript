@@ -5,7 +5,6 @@ import {
   postSpikesUpdateHasSubscriptions,
 } from "./subscriptions/postSpikesUpdate";
 
-/** @internal */
 export function postSpikesUpdateInit(mod: Mod): void {
   mod.AddCallback(ModCallback.POST_UPDATE, postUpdate); // 1
 }

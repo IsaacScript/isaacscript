@@ -7,8 +7,8 @@ import {
   StatueVariant,
   TrapdoorVariant,
 } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
-import { DISTANCE_OF_GRID_TILE } from "../constants";
+import { game } from "../core/cachedClasses";
+import { DISTANCE_OF_GRID_TILE } from "../core/constants";
 import { GRID_ENTITY_TYPE_TO_BROKEN_STATE_MAP } from "../maps/gridEntityTypeToBrokenStateMap";
 import { GRID_ENTITY_XML_MAP } from "../maps/gridEntityXMLMap";
 import {

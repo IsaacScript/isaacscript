@@ -10,19 +10,16 @@ export type PostGridEntityCustomUpdateRegisterParameters = [
 
 const subscriptions: PostGridEntityCustomUpdateRegisterParameters[] = [];
 
-/** @internal */
 export function postGridEntityCustomUpdateHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postGridEntityCustomUpdateRegister(
   ...args: PostGridEntityCustomUpdateRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postGridEntityCustomUpdateFire(
   gridEntity: GridEntity,
   gridEntityTypeCustom: GridEntityType,

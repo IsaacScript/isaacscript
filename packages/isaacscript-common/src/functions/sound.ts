@@ -1,5 +1,5 @@
 import { SoundEffect } from "isaac-typescript-definitions";
-import { sfxManager } from "../cachedClasses";
+import { sfxManager } from "../core/cachedClasses";
 import { getEnumValues } from "./enums";
 
 export function stopAllSoundEffects(): void {

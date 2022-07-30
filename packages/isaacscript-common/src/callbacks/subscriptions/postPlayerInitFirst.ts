@@ -8,19 +8,16 @@ export type PostPlayerInitFirstRegisterParameters = [
 
 const subscriptions: PostPlayerInitFirstRegisterParameters[] = [];
 
-/** @internal */
 export function postPlayerInitFirstHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postPlayerInitFirstRegister(
   ...args: PostPlayerInitFirstRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postPlayerInitFirstFire(player: EntityPlayer): void {
   const character = player.GetPlayerType();
 

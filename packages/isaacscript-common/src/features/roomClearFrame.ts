@@ -1,5 +1,5 @@
-import { game } from "../cachedClasses";
 import { ModUpgraded } from "../classes/ModUpgraded";
+import { game } from "../core/cachedClasses";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { saveDataManager } from "./saveDataManager/exports";
@@ -13,7 +13,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function roomClearFrameInit(mod: ModUpgraded): void {
   saveDataManager(FEATURE_NAME, v);
 

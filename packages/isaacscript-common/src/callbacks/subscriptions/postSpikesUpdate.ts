@@ -5,19 +5,16 @@ export type PostSpikesUpdateRegisterParameters = [
 
 const subscriptions: PostSpikesUpdateRegisterParameters[] = [];
 
-/** @internal */
 export function postSpikesUpdateHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postSpikesUpdateRegister(
   ...args: PostSpikesUpdateRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postSpikesUpdateFire(spikes: GridEntitySpikes): void {
   const gridEntityVariant = spikes.GetVariant();
 

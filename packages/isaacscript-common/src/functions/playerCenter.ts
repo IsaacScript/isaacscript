@@ -1,9 +1,9 @@
 import { Direction } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
+import { game } from "../core/cachedClasses";
 import {
   NEW_FLOOR_STARTING_POSITION_GREED_MODE,
   NEW_FLOOR_STARTING_POSITION_NORMAL_MODE,
-} from "../constants";
+} from "../core/constants";
 import { getPlayerFamiliars } from "./familiars";
 import { getCircleDiscretizedPoints } from "./math";
 import { getAllPlayers } from "./playerIndex";

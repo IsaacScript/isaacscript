@@ -7,19 +7,16 @@ export type PostDoorUpdateRegisterParameters = [
 
 const subscriptions: PostDoorUpdateRegisterParameters[] = [];
 
-/** @internal */
 export function postDoorUpdateHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postDoorUpdateRegister(
   ...args: PostDoorUpdateRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postDoorUpdateFire(door: GridEntityDoor): void {
   const doorVariant = door.GetVariant();
 

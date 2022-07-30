@@ -5,7 +5,6 @@ import {
   postPoopUpdateHasSubscriptions,
 } from "./subscriptions/postPoopUpdate";
 
-/** @internal */
 export function postPoopUpdateInit(mod: Mod): void {
   mod.AddCallback(ModCallback.POST_UPDATE, postUpdate); // 1
 }

@@ -5,7 +5,6 @@ import {
   postGridEntityRenderHasSubscriptions,
 } from "./subscriptions/postGridEntityRender";
 
-/** @internal */
 export function postGridEntityRenderInit(mod: Mod): void {
   mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
 }

@@ -5,7 +5,6 @@ import {
   postSpikesRenderHasSubscriptions,
 } from "./subscriptions/postSpikesRender";
 
-/** @internal */
 export function postSpikesRenderInit(mod: Mod): void {
   mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
 }

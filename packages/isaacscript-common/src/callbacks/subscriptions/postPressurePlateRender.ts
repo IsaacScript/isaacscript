@@ -7,19 +7,16 @@ export type PostPressurePlateRenderRegisterParameters = [
 
 const subscriptions: PostPressurePlateRenderRegisterParameters[] = [];
 
-/** @internal */
 export function postPressurePlateRenderHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postPressurePlateRenderRegister(
   ...args: PostPressurePlateRenderRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postPressurePlateRenderFire(
   pressurePlate: GridEntityPressurePlate,
 ): void {

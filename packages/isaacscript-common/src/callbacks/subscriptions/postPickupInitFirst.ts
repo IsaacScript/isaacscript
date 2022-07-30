@@ -7,19 +7,16 @@ export type PostPickupInitFirstRegisterParameters = [
 
 const subscriptions: PostPickupInitFirstRegisterParameters[] = [];
 
-/** @internal */
 export function postPickupInitFirstHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postPickupInitFirstRegister(
   ...args: PostPickupInitFirstRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postPickupInitFirstFire(pickup: EntityPickup): void {
   for (const [callback, pickupVariant] of subscriptions) {
     // Handle the optional 2nd callback argument.

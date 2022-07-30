@@ -11,7 +11,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postKnifeInitLateInit(mod: Mod): void {
   saveDataManager("postKnifeInitLate", v, hasSubscriptions);
 

@@ -30,7 +30,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postTrinketBreakInit(mod: ModUpgraded): void {
   saveDataManager("postTrinketBreak", v, hasSubscriptions);
 

@@ -11,19 +11,16 @@ export type PostTransformationRegisterParameters = [
 
 const subscriptions: PostTransformationRegisterParameters[] = [];
 
-/** @internal */
 export function postTransformationHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postTransformationRegister(
   ...args: PostTransformationRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postTransformationFire(
   player: EntityPlayer,
   playerForm: PlayerForm,

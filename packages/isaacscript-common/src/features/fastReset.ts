@@ -1,5 +1,5 @@
 import { ButtonAction, ModCallback } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
+import { game } from "../core/cachedClasses";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import {
   isActionTriggeredOnAnyInput,
@@ -11,7 +11,6 @@ const FEATURE_NAME = "fastReset";
 
 let enabled = false;
 
-/** @internal */
 export function fastResetInit(mod: Mod): void {
   mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
 }

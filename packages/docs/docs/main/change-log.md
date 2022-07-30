@@ -11,6 +11,7 @@ This page lists the changes to the IsaacScript framework.
 
 ## August 3rd, 2022
 
+- IsaacScript now supports [custom stages](https://isaacscript.github.io/main/custom-stages).
 - Added the following helper functions:
   - `isCollectibleInItemPool`
   - `getAdjacentRoomGridIndexes`
@@ -29,6 +30,8 @@ This page lists the changes to the IsaacScript framework.
   - `spawnCustomGridEntity` now supports the `breakable` argument, which will trigger `POST_GRID_ENTITY_CUSTOM_BROKEN` if it is hit by any type of explosion.
 - Added the following constants:
   - `ALL_DISPLAY_FLAGS`
+- Added the following types:
+  - `Immutable` (used for recursively immutable objects/arrays/maps/sets)
 
 ## July 27th, 2022
 

@@ -1,6 +1,6 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
-import { AddCallbackParameterCustom } from "../interfaces/AddCallbackParameterCustom";
+import { AddCallbackParameterCustom } from "../interfaces/private/AddCallbackParameterCustom";
 import { CALLBACK_REGISTER_FUNCTIONS } from "../objects/callbackRegisterFunctions";
 
 /**

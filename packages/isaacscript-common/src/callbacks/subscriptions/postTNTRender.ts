@@ -5,19 +5,16 @@ export type PostTNTRenderRegisterParameters = [
 
 const subscriptions: PostTNTRenderRegisterParameters[] = [];
 
-/** @internal */
 export function postTNTRenderHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postTNTRenderRegister(
   ...args: PostTNTRenderRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postTNTRenderFire(tnt: GridEntityTNT): void {
   const gridEntityVariant = tnt.GetVariant();
 

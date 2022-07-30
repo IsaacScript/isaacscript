@@ -1,5 +1,5 @@
 import { PlayerType } from "isaac-typescript-definitions";
-import { LAST_VANILLA_CHARACTER } from "../constantsFirstLast";
+import { LAST_VANILLA_CHARACTER } from "../core/constantsFirstLast";
 import { CHARACTER_DAMAGE_MULTIPLIERS } from "../objects/characterDamageMultipliers";
 import { CHARACTER_NAMES } from "../objects/characterNames";
 import { CHARACTERS_THAT_START_WITH_AN_ACTIVE_ITEM_SET } from "../sets/charactersThatStartWithAnActiveItemSet";

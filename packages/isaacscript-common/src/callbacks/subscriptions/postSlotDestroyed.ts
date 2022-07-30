@@ -12,19 +12,16 @@ export type PostSlotDestroyedRegisterParameters = [
 
 const subscriptions: PostSlotDestroyedRegisterParameters[] = [];
 
-/** @internal */
 export function postSlotDestroyedHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postSlotDestroyedRegister(
   ...args: PostSlotDestroyedRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postSlotDestroyedFire(
   slot: EntitySlot,
   slotDestructionType: SlotDestructionType,

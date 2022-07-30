@@ -15,7 +15,7 @@ import {
   RaglingVariant,
   VisVariant,
 } from "isaac-typescript-definitions";
-import { EGGY_STATE_FRAME_OF_FINAL_SPIDER } from "../constants";
+import { EGGY_STATE_FRAME_OF_FINAL_SPIDER } from "../core/constants";
 import { getNPCs } from "./entitiesSpecific";
 
 /**

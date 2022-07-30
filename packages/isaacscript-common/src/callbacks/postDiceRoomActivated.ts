@@ -17,7 +17,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postDiceRoomActivatedInit(mod: Mod): void {
   saveDataManager("postDiceRoomActivated", v, hasSubscriptions);
 

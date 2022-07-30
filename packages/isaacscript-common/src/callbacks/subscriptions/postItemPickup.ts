@@ -30,19 +30,16 @@ export type PostItemPickupRegisterParameters =
 
 const subscriptions: PostItemPickupRegisterParameters[] = [];
 
-/** @internal */
 export function postItemPickupHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postItemPickupRegister(
   ...args: PostItemPickupRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postItemPickupFire(
   player: EntityPlayer,
   pickingUpItem: PickingUpItem,

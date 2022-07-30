@@ -8,19 +8,16 @@ export type PostPEffectUpdateReorderedRegisterParameters = [
 
 const subscriptions: PostPEffectUpdateReorderedRegisterParameters[] = [];
 
-/** @internal */
 export function postPEffectUpdateReorderedHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postPEffectUpdateReorderedRegister(
   ...args: PostPEffectUpdateReorderedRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postPEffectUpdateReorderedFire(player: EntityPlayer): void {
   const character = player.GetPlayerType();
 

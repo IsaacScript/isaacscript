@@ -5,7 +5,6 @@ import {
   postPressurePlateRenderHasSubscriptions,
 } from "./subscriptions/postPressurePlateRender";
 
-/** @internal */
 export function postPressurePlateRenderInit(mod: Mod): void {
   mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
 }

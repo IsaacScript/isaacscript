@@ -8,7 +8,7 @@ import {
   ModCallback,
   UseFlag,
 } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
+import { game } from "../core/cachedClasses";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getPlayers } from "../functions/playerIndex";
 import {
@@ -28,7 +28,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postEsauJrCallbacksInit(mod: Mod): void {
   saveDataManager("postEsauJr", v, hasSubscriptions);
 

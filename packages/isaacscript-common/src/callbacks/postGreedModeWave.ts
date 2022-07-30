@@ -1,6 +1,6 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
 import { ModUpgraded } from "../classes/ModUpgraded";
+import { game } from "../core/cachedClasses";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import {
   postGreedModeWaveFire,
@@ -13,7 +13,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postGreedModeWaveInit(mod: ModUpgraded): void {
   saveDataManager("postModeGreedWave", v, hasSubscriptions);
 

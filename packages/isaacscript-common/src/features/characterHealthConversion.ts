@@ -23,7 +23,6 @@ const characterHealthReplacementMap = new Map<
   ConversionHeartSubType
 >();
 
-/** @internal */
 export function characterHealthConversionInit(mod: Mod): void {
   mod.AddCallback(ModCallback.POST_PEFFECT_UPDATE, postPEffectUpdate); // 4
   mod.AddCallback(

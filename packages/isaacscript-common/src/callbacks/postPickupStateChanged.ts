@@ -12,7 +12,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postPickupStateChangedInit(mod: Mod): void {
   saveDataManager("postPickupStateChanged", v, hasSubscriptions);
 

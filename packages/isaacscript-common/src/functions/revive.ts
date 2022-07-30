@@ -5,11 +5,11 @@ import {
   PlayerType,
   TrinketType,
 } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
+import { game } from "../core/cachedClasses";
 import {
   MAX_TAINTED_SAMSON_BERSERK_CHARGE,
   TAINTED_SAMSON_BERSERK_CHARGE_FROM_TAKING_DAMAGE,
-} from "../constants";
+} from "../core/constants";
 import { getCharacterDeathAnimationName } from "./characters";
 import {
   getPlayerMaxHeartContainers,

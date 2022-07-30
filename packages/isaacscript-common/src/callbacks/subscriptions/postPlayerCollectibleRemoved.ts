@@ -7,19 +7,16 @@ export type PostPlayerCollectibleRemovedRegisterParameters = [
 
 const subscriptions: PostPlayerCollectibleRemovedRegisterParameters[] = [];
 
-/** @internal */
 export function postPlayerCollectibleRemovedHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postPlayerCollectibleRemovedRegister(
   ...args: PostPlayerCollectibleRemovedRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postPlayerCollectibleRemovedFire(
   player: EntityPlayer,
   collectibleType: CollectibleType,

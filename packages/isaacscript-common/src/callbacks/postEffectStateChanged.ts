@@ -12,7 +12,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postEffectStateChangedInit(mod: Mod): void {
   saveDataManager("postEffectStateChanged", v, hasSubscriptions);
 

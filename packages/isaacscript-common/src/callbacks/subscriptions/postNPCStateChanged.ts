@@ -8,19 +8,16 @@ export type PostNPCStateChangedRegisterParameters = [
 
 const subscriptions: PostNPCStateChangedRegisterParameters[] = [];
 
-/** @internal */
 export function postNPCStateChangedHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postNPCStateChangedRegister(
   ...args: PostNPCStateChangedRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postNPCStateChangedFire(
   npc: EntityNPC,
   previousState: int,

@@ -4,19 +4,16 @@ export type PostFirstFlipRegisterParameters = [
 
 const subscriptions: PostFirstFlipRegisterParameters[] = [];
 
-/** @internal */
 export function postFirstFlipHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postFirstFlipRegister(
   ...args: PostFirstFlipRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postFirstFlipFire(
   newLazarus: EntityPlayer,
   oldLazarus: EntityPlayer,

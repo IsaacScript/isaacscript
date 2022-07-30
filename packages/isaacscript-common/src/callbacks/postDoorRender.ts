@@ -5,7 +5,6 @@ import {
   postDoorRenderHasSubscriptions,
 } from "./subscriptions/postDoorRender";
 
-/** @internal */
 export function postDoorRenderInit(mod: Mod): void {
   mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
 }

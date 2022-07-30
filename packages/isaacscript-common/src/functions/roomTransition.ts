@@ -4,7 +4,7 @@ import {
   LevelCurse,
   RoomTransitionAnim,
 } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
+import { game } from "../core/cachedClasses";
 import { runNextRoom } from "../features/runNextRoom";
 import { hasCurse } from "./curses";
 import { getRoomData, getRoomGridIndex } from "./roomData";

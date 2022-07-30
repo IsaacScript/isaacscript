@@ -5,7 +5,7 @@ import {
   PlayerType,
   TrinketType,
 } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
+import { game } from "../core/cachedClasses";
 import { PlayerIndex } from "../types/PlayerIndex";
 import { getCollectibleArray } from "./collectibleSet";
 import { collectibleHasTag } from "./collectibleTag";

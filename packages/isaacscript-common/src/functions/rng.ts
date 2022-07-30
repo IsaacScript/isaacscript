@@ -1,4 +1,4 @@
-import { game } from "../cachedClasses";
+import { game } from "../core/cachedClasses";
 import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { getNumbersFromTable, tableHasKeys } from "./table";

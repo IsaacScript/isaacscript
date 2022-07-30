@@ -11,7 +11,7 @@ import {
   SackSubType,
   TrinketType,
 } from "isaac-typescript-definitions";
-import { VectorZero } from "../constants";
+import { VectorZero } from "../core/constants";
 import { getPickups, removeAllPickups, spawnPickup } from "./entitiesSpecific";
 
 /**

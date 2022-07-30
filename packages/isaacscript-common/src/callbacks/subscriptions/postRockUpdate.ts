@@ -5,19 +5,16 @@ export type PostRockUpdateRegisterParameters = [
 
 const subscriptions: PostRockUpdateRegisterParameters[] = [];
 
-/** @internal */
 export function postRockUpdateHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postRockUpdateRegister(
   ...args: PostRockUpdateRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postRockUpdateFire(rock: GridEntityRock): void {
   const gridEntityVariant = rock.GetVariant();
 

@@ -12,19 +12,16 @@ export type PostCustomDoorEnterRegisterParameters = [
 
 const subscriptions: PostCustomDoorEnterRegisterParameters[] = [];
 
-/** @internal */
 export function postCustomDoorEnterHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postCustomDoorEnterRegister(
   ...args: PostCustomDoorEnterRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postCustomDoorEnterFire(
   player: EntityPlayer,
   effectVariant: int,

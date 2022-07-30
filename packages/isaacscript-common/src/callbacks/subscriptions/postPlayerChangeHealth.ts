@@ -13,19 +13,16 @@ export type PostPlayerChangeHealthRegisterParameters = [
 
 const subscriptions: PostPlayerChangeHealthRegisterParameters[] = [];
 
-/** @internal */
 export function postPlayerChangeHealthHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postPlayerChangeHealthRegister(
   ...args: PostPlayerChangeHealthRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postPlayerChangeHealthFire(
   player: EntityPlayer,
   healthType: HealthType,

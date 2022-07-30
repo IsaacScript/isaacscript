@@ -6,12 +6,12 @@ import {
   StageID,
   StageType,
 } from "isaac-typescript-definitions";
-import { game, sfxManager } from "../../cachedClasses";
+import { game, sfxManager } from "../../core/cachedClasses";
 import { arrayRemove } from "../../functions/array";
 import { getBosses } from "../../functions/bosses";
 import { getEntityID } from "../../functions/entities";
 import { erange } from "../../functions/utils";
-import { CustomStage } from "../../interfaces/CustomStage";
+import { CustomStage } from "../../interfaces/private/CustomStage";
 import { BOSS_NAME_PNG_FILE_NAMES } from "../../objects/bossNamePNGFileNames";
 import { BOSS_PORTRAIT_PNG_FILE_NAMES } from "../../objects/bossPortraitPNGFileNames";
 import { PLAYER_NAME_PNG_FILE_NAMES } from "../../objects/playerNamePNGFileNames";

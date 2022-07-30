@@ -318,6 +318,9 @@ export type CustomStageTSConfig = Readonly<{
     "2x2"?: readonly CustomStageShadow[];
   }>;
 
+  /** Optional. An array containing the bosses that should be used for the stage. */
+  bossPool?: readonly CustomStageBossPoolEntry[];
+
   /** Optional. A collection of colors used in the boss "versus" screen. */
   versusScreen?: Readonly<{
     /**
@@ -379,6 +382,25 @@ export type CustomStageShadow = Readonly<{
     a: number;
   }>;
 }>;
+
+/** An object that represents a possible boss for a custom stage. */
+export interface CustomStageBossPoolEntry {
+  /**
+   * The name of the boss. This must correspond to the entry in "entities2.xml".
+   *
+   * Note that since there is no way to determine the corresponding `EntityType` of the boss during
+   * compile-time, you must specify the `EntityType` at run-time when your mod first loads using the
+   * `registerCustomBoss` helper function.
+   */
+  name: string;
+
+  /**
+   * The weight of the boss. This is used when randomly selecting which boss to use for the floor.
+   * For example, use a value of 1 if you want this boss to be equally likely as any other boss, 0.5
+   * if you want it to be half as likely, 2 if you want it to be twice as likely, and so on.
+   */
+  weight: float;
+}
 
 /**
  * An object that represents a custom stage. The "metadata.lua" file contains an array of these

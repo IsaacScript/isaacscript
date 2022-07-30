@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { musicManager } from "../cachedClasses";
+import { musicManager } from "../core/cachedClasses";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { stopAllSoundEffects } from "../functions/sound";
 import { saveDataManager } from "./saveDataManager/exports";
@@ -14,7 +14,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function disableAllSoundInit(mod: Mod): void {
   saveDataManager(FEATURE_NAME, v);
 

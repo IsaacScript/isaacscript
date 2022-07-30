@@ -11,7 +11,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postNPCInitLateInit(mod: Mod): void {
   saveDataManager("postNPCInitLate", v, hasSubscriptions);
 

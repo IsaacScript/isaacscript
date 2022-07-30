@@ -1,6 +1,6 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { game } from "../../cachedClasses";
 import { ModUpgraded } from "../../classes/ModUpgraded";
+import { game } from "../../core/cachedClasses";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { SaveDataKey } from "../../enums/private/SaveDataKey";
 import { SerializationType } from "../../enums/SerializationType";
@@ -29,7 +29,6 @@ const RESETTABLE_SAVE_DATA_KEYS: ReadonlySet<SaveDataKey> = new Set([
 let mod: ModUpgraded | null = null;
 let loadedDataOnThisRun = false;
 
-/** @internal */
 export function saveDataManagerInit(incomingMod: ModUpgraded): void {
   mod = incomingMod;
 
@@ -176,7 +175,6 @@ function clearAndCopyAllElements(
   }
 }
 
-/** @internal */
 export function forceSaveDataManagerSave(): void {
   if (mod === null) {
     return;
@@ -185,7 +183,6 @@ export function forceSaveDataManagerSave(): void {
   saveToDisk(mod, saveDataMap, saveDataConditionalFuncMap);
 }
 
-/** @internal */
 export function forceSaveDataManagerLoad(): void {
   if (mod === null) {
     return;

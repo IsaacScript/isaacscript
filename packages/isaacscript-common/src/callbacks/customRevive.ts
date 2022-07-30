@@ -9,8 +9,8 @@ import {
   PlayerType,
   SoundEffect,
 } from "isaac-typescript-definitions";
-import { sfxManager } from "../cachedClasses";
 import { ModUpgraded } from "../classes/ModUpgraded";
+import { sfxManager } from "../core/cachedClasses";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { runNextGameFrame } from "../features/runInNFrames";
 import { saveDataManager } from "../features/saveDataManager/exports";
@@ -51,7 +51,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function customReviveCallbacksInit(mod: ModUpgraded): void {
   saveDataManager("customRevive", v, hasSubscriptions);
 

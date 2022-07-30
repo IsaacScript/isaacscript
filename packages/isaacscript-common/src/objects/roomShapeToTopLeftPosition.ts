@@ -1,5 +1,5 @@
 import { RoomShape } from "isaac-typescript-definitions";
-import { VectorZero } from "../constants";
+import { VectorZero } from "../core/constants";
 
 const NARROW_HORIZONTAL_TOP_LEFT_POSITION = Vector(0, 2);
 const NARROW_VERTICAL_TOP_LEFT_POSITION = Vector(4, 0);

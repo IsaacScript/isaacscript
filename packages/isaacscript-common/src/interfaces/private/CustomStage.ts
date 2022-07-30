@@ -3,7 +3,7 @@ import {
   RoomShape,
   RoomType,
 } from "isaac-typescript-definitions";
-import { CustomStageLua, CustomStageRoomMetadata } from "./CustomStageLua";
+import { CustomStageLua, CustomStageRoomMetadata } from "../CustomStageLua";
 
 export interface CustomStage extends CustomStageLua {
   /** A map that makes it easier to select certain room type/shape/door combinations. */

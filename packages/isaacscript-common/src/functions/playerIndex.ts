@@ -1,5 +1,5 @@
 import { CollectibleType, PlayerType } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
+import { game } from "../core/cachedClasses";
 import { PlayerIndex } from "../types/PlayerIndex";
 
 const DEFAULT_COLLECTIBLE_TYPE = CollectibleType.SAD_ONION;

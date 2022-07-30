@@ -3,7 +3,7 @@ import {
   LokiVariant,
   StageType,
 } from "isaac-typescript-definitions";
-import { VectorZero } from "../constants";
+import { VectorZero } from "../core/constants";
 import {
   ALL_BOSSES_SET,
   STAGE_TO_COMBINED_BOSS_SET_MAP,

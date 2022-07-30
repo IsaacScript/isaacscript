@@ -1,6 +1,6 @@
 import { EntityType } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
-import { VectorZero } from "../constants";
+import { game } from "../core/cachedClasses";
+import { VectorZero } from "../core/constants";
 import { STORY_BOSSES_SET } from "../sets/storyBossesSet";
 import { AnyEntity } from "../types/AnyEntity";
 import { getIsaacAPIClassName } from "./isaacAPIClass";

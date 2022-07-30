@@ -10,19 +10,16 @@ export type PostCollectibleEmptyRegisterParameters = [
 
 const subscriptions: PostCollectibleEmptyRegisterParameters[] = [];
 
-/** @internal */
 export function postCollectibleEmptyHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postCollectibleEmptyRegister(
   ...args: PostCollectibleEmptyRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postCollectibleEmptyFire(
   collectible: EntityPickupCollectible,
   oldCollectibleType: CollectibleType,

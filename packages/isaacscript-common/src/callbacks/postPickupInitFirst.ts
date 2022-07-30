@@ -1,12 +1,11 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
+import { game } from "../core/cachedClasses";
 import { getRoomVisitedCount } from "../functions/roomData";
 import {
   postPickupInitFirstFire,
   postPickupInitFirstHasSubscriptions,
 } from "./subscriptions/postPickupInitFirst";
 
-/** @internal */
 export function postPickupInitFirstInit(mod: Mod): void {
   mod.AddCallback(ModCallback.POST_PICKUP_INIT, postPickupInit); // 34
 }

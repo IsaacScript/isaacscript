@@ -8,19 +8,16 @@ export type PostGridEntityBrokenRegisterParameters = [
 
 const subscriptions: PostGridEntityBrokenRegisterParameters[] = [];
 
-/** @internal */
 export function postGridEntityBrokenHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postGridEntityBrokenRegister(
   ...args: PostGridEntityBrokenRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postGridEntityBrokenFire(gridEntity: GridEntity): void {
   const gridEntityType = gridEntity.GetType();
   const gridEntityVariant = gridEntity.GetVariant();

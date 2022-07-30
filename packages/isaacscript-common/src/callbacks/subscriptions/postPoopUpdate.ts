@@ -7,19 +7,16 @@ export type PostPoopUpdateRegisterParameters = [
 
 const subscriptions: PostPoopUpdateRegisterParameters[] = [];
 
-/** @internal */
 export function postPoopUpdateHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postPoopUpdateRegister(
   ...args: PostPoopUpdateRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postPoopUpdateFire(poop: GridEntityPoop): void {
   const poopVariant = poop.GetVariant();
 

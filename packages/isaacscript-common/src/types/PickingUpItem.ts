@@ -45,7 +45,6 @@ export interface PickingUpItemTrinket {
 const DEFAULT_ITEM_TYPE = ItemType.NULL;
 const DEFAULT_SUB_TYPE = CollectibleType.NULL;
 
-/** @internal */
 export function newPickingUpItem(): PickingUpItem {
   return {
     itemType: DEFAULT_ITEM_TYPE,
@@ -53,7 +52,6 @@ export function newPickingUpItem(): PickingUpItem {
   };
 }
 
-/** @internal */
 export function resetPickingUpItem(pickingUpItem: PickingUpItem): void {
   pickingUpItem.itemType = DEFAULT_ITEM_TYPE;
   pickingUpItem.subType = DEFAULT_SUB_TYPE;

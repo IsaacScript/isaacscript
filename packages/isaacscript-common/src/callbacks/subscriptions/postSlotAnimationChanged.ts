@@ -11,19 +11,16 @@ export type PostSlotAnimationChangedRegisterParameters = [
 
 const subscriptions: PostSlotAnimationChangedRegisterParameters[] = [];
 
-/** @internal */
 export function postSlotAnimationChangedHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postSlotAnimationChangedRegister(
   ...args: PostSlotAnimationChangedRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postSlotAnimationChangedFire(
   slot: EntitySlot,
   previousAnimation: string,

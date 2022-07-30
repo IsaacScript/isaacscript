@@ -1,6 +1,6 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
 import { ModUpgraded } from "../classes/ModUpgraded";
+import { game } from "../core/cachedClasses";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import {
@@ -14,7 +14,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postRoomClearChangedInit(mod: ModUpgraded): void {
   saveDataManager("postRoomClearChanged", v, hasSubscriptions);
 

@@ -1,11 +1,9 @@
 let featuresInitialized = false;
 
-/** @internal */
 export function areFeaturesInitialized(): boolean {
   return featuresInitialized;
 }
 
-/** @internal */
 export function errorIfFeaturesNotInitialized(featureName: string): void {
   if (!areFeaturesInitialized()) {
     error(
@@ -14,7 +12,6 @@ export function errorIfFeaturesNotInitialized(featureName: string): void {
   }
 }
 
-/** @internal */
 export function setFeaturesInitialized(): void {
   featuresInitialized = true;
 }

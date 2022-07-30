@@ -5,7 +5,6 @@ import {
   postTNTRenderHasSubscriptions,
 } from "./subscriptions/postTNTRender";
 
-/** @internal */
 export function postTNTRenderInit(mod: Mod): void {
   mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
 }

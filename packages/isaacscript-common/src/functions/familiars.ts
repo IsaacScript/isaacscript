@@ -1,5 +1,5 @@
 import { CollectibleType, FamiliarVariant } from "isaac-typescript-definitions";
-import { itemConfig } from "../cachedClasses";
+import { itemConfig } from "../core/cachedClasses";
 import { FAMILIARS_THAT_SHOOT_PLAYER_TEARS_SET } from "../sets/familiarsThatShootPlayerTearsSet";
 import { getFamiliars } from "./entitiesSpecific";
 

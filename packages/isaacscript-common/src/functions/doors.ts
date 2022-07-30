@@ -8,7 +8,7 @@ import {
   RoomShape,
   RoomType,
 } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
+import { game } from "../core/cachedClasses";
 import {
   DEFAULT_DOOR_SLOT,
   DOOR_SLOT_FLAG_TO_DOOR_SLOT,

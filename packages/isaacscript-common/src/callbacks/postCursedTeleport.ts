@@ -7,7 +7,7 @@ import {
   RoomType,
   TrinketType,
 } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
+import { game } from "../core/cachedClasses";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { hasFlag } from "../functions/flag";
 import { mapGetPlayer, mapSetPlayer } from "../functions/playerDataStructures";
@@ -31,7 +31,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postCursedTeleportInit(mod: Mod): void {
   saveDataManager("postCursedTeleport", v, hasSubscriptions);
 

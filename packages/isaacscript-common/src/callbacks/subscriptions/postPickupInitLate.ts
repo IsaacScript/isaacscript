@@ -7,19 +7,16 @@ export type PostPickupInitLateRegisterParameters = [
 
 const subscriptions: PostPickupInitLateRegisterParameters[] = [];
 
-/** @internal */
 export function postPickupInitLateHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postPickupInitLateRegister(
   ...args: PostPickupInitLateRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postPickupInitLateFire(pickup: EntityPickup): void {
   for (const [callback, pickupVariant] of subscriptions) {
     // Handle the optional 2nd callback argument.

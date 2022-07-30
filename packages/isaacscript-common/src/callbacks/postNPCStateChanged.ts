@@ -14,7 +14,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postNPCStateChangedInit(mod: Mod): void {
   saveDataManager("postNPCStateChanged", v, hasSubscriptions);
 

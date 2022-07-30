@@ -4,7 +4,7 @@ import {
   RoomType,
   StageType,
 } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
+import { game } from "../core/cachedClasses";
 import { ROOM_TYPE_GOTO_PREFIXES } from "../objects/roomTypeGotoPrefixes";
 import { STAGE_TYPE_SUFFIXES } from "../objects/stageTypeSuffixes";
 import { STAGE_TYPE_TO_LETTER } from "../objects/stageTypeToLetter";

@@ -14,8 +14,8 @@ import {
   RoomType,
   StageType,
 } from "isaac-typescript-definitions";
-import { game } from "../../cachedClasses";
-import { reorderedCallbacksSetStage } from "../../callbacks/reorderedCallbacks";
+import { reorderedCallbacksSetStageInternal } from "../../callbacks/reorderedCallbacks";
+import { game } from "../../core/cachedClasses";
 import { getEntityIDFromConstituents } from "../../functions/entities";
 import { logError } from "../../functions/log";
 import { newRNG } from "../../functions/rng";
@@ -24,7 +24,7 @@ import {
   getRoomsInGrid,
 } from "../../functions/rooms";
 import { setStage } from "../../functions/stage";
-import { CustomStage } from "../../interfaces/CustomStage";
+import { CustomStage } from "../../interfaces/private/CustomStage";
 import { getRandomCustomStageRoom } from "./customStageUtils";
 import v, {
   customBossPNGPaths,
@@ -103,7 +103,7 @@ export function setCustomStage(
   const targetStage = INVALID_STAGE_VALUE;
   const targetStageType = StageType.WRATH_OF_THE_LAMB;
   level.SetStage(targetStage, targetStageType);
-  reorderedCallbacksSetStage(targetStage, targetStageType);
+  reorderedCallbacksSetStageInternal(targetStage, targetStageType);
 
   // We must reload the current room in order for the `Level.SetStage` method to take effect.
   // Furthermore, we need to cancel the queued warp to the `GridRoom.DEBUG` room. We can accomplish

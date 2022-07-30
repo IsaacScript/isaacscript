@@ -5,19 +5,16 @@ export type PostCustomReviveRegisterParameters = [
 
 const subscriptions: PostCustomReviveRegisterParameters[] = [];
 
-/** @internal */
 export function postCustomReviveHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postCustomReviveRegister(
   ...args: PostCustomReviveRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postCustomReviveFire(
   player: EntityPlayer,
   revivalType: int,

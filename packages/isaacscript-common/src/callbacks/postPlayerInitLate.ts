@@ -14,7 +14,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postPlayerInitLateInit(mod: ModUpgraded): void {
   saveDataManager("postPlayerInitLate", v, hasSubscriptions);
 

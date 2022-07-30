@@ -5,7 +5,7 @@ import {
   EntityPartition,
   PlayerType,
 } from "isaac-typescript-definitions";
-import { VectorZero } from "../../constants";
+import { VectorZero } from "../../core/constants";
 import { StageTravelState } from "../../enums/private/StageTravelState";
 import { easeOutSine } from "../../functions/easing";
 import {

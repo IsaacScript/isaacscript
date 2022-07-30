@@ -31,7 +31,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postPlayerReorderedCallbacksInit(mod: Mod): void {
   saveDataManager("postPlayerReordered", v, hasSubscriptions);
 

@@ -8,19 +8,16 @@ export type PreBerserkDeathRegisterParameters = [
 
 const subscriptions: PreBerserkDeathRegisterParameters[] = [];
 
-/** @internal */
 export function preBerserkDeathHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function preBerserkDeathRegister(
   ...args: PreBerserkDeathRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function preBerserkDeathFire(player: EntityPlayer): void {
   const character = player.GetPlayerType();
 

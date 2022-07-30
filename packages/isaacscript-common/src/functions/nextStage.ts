@@ -4,7 +4,7 @@ import {
   LevelStage,
   StageType,
 } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
+import { game } from "../core/cachedClasses";
 import { hasVisitedStage } from "../features/stageHistory";
 import { areFeaturesInitialized } from "../featuresInitialized";
 import { getRoomGridIndex } from "./roomData";

@@ -10,11 +10,11 @@ import { ModUpgraded } from "../../classes/ModUpgraded";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { isArray } from "../../functions/array";
 import { hasFlag, removeFlag } from "../../functions/flag";
-import { CustomStage, RoomTypeMap } from "../../interfaces/CustomStage";
 import {
   CustomStageLua,
   CustomStageRoomMetadata,
 } from "../../interfaces/CustomStageLua";
+import { CustomStage, RoomTypeMap } from "../../interfaces/private/CustomStage";
 import { saveDataManager } from "../saveDataManager/exports";
 import { setBackdrop } from "./backdrop";
 import {

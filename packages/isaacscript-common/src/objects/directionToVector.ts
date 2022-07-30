@@ -1,5 +1,5 @@
 import { Direction } from "isaac-typescript-definitions";
-import { VectorZero } from "../constants";
+import { VectorZero } from "../core/constants";
 
 export const DIRECTION_TO_VECTOR: {
   readonly [key in Direction]: Readonly<Vector>;

@@ -1,5 +1,5 @@
 import { ControllerIndex } from "isaac-typescript-definitions";
-import { CustomStage } from "../../interfaces/CustomStage";
+import { CustomStage } from "../../interfaces/private/CustomStage";
 import { UIStreakAnimation } from "./customStageConstants";
 
 const v = {

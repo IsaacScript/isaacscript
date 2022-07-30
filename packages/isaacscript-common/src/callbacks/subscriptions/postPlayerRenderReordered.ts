@@ -8,19 +8,16 @@ export type PostPlayerRenderReorderedRegisterParameters = [
 
 const subscriptions: PostPlayerRenderReorderedRegisterParameters[] = [];
 
-/** @internal */
 export function postPlayerRenderReorderedHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postPlayerRenderReorderedRegister(
   ...args: PostPlayerRenderReorderedRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postPlayerRenderReorderedFire(player: EntityPlayer): void {
   const character = player.GetPlayerType();
 

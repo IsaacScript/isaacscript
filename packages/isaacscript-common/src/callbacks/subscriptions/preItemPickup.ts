@@ -30,19 +30,16 @@ export type PreItemPickupRegisterParameters =
 
 const subscriptions: PreItemPickupRegisterParameters[] = [];
 
-/** @internal */
 export function preItemPickupHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function preItemPickupRegister(
   ...args: PreItemPickupRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function preItemPickupFire(
   player: EntityPlayer,
   pickingUpItem: PickingUpItem,

@@ -5,7 +5,6 @@ import {
   postRockUpdateHasSubscriptions,
 } from "./subscriptions/postRockUpdate";
 
-/** @internal */
 export function postRockUpdateInit(mod: Mod): void {
   mod.AddCallback(ModCallback.POST_UPDATE, postUpdate); // 1
 }

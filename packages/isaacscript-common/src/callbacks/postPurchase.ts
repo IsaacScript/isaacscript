@@ -21,7 +21,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postPurchaseInit(mod: ModUpgraded): void {
   saveDataManager("postPurchase", v, hasSubscriptions);
 

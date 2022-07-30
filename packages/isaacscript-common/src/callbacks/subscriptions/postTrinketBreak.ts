@@ -7,19 +7,16 @@ export type PostTrinketBreakRegisterParameters = [
 
 const subscriptions: PostTrinketBreakRegisterParameters[] = [];
 
-/** @internal */
 export function postTrinketBreakHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postTrinketBreakRegister(
   ...args: PostTrinketBreakRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postTrinketBreakFire(
   player: EntityPlayer,
   trinketType: TrinketType,

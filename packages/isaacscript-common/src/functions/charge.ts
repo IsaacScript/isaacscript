@@ -4,7 +4,7 @@ import {
   SoundEffect,
   TrinketType,
 } from "isaac-typescript-definitions";
-import { game, sfxManager } from "../cachedClasses";
+import { game, sfxManager } from "../core/cachedClasses";
 import { getCollectibleMaxCharges } from "./collectibles";
 import { getPlayers } from "./playerIndex";
 import { getRoomShapeCharges } from "./roomShape";

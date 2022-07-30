@@ -3,9 +3,9 @@ import {
   ModCallback,
   RoomType,
 } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
 import { DefaultMap } from "../classes/DefaultMap";
 import { ModUpgraded } from "../classes/ModUpgraded";
+import { game } from "../core/cachedClasses";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { getEntityID } from "../functions/entities";

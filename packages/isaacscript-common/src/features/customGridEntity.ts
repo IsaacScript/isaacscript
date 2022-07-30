@@ -9,10 +9,10 @@ import {
   ModCallback,
   UseFlag,
 } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
 import { postGridEntityCustomBrokenFire } from "../callbacks/subscriptions/postGridEntityCustomBroken";
 import { DefaultMap } from "../classes/DefaultMap";
 import { ModUpgraded } from "../classes/ModUpgraded";
+import { game } from "../core/cachedClasses";
 import { DecorationVariant } from "../enums/DecorationVariant";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
@@ -45,7 +45,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function customGridEntityInit(mod: ModUpgraded): void {
   saveDataManager(FEATURE_NAME, v);
 

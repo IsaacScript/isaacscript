@@ -8,19 +8,16 @@ export type PostSacrificeRegisterParameters = [
 
 const subscriptions: PostSacrificeRegisterParameters[] = [];
 
-/** @internal */
 export function postSacrificeHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postSacrificeRegister(
   ...args: PostSacrificeRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postSacrificeFire(
   player: EntityPlayer,
   numSacrifices: int,

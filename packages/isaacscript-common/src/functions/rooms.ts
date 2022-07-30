@@ -15,8 +15,8 @@ import {
   SoundEffect,
   StageID,
 } from "isaac-typescript-definitions";
-import { game, sfxManager } from "../cachedClasses";
-import { MAX_LEVEL_GRID_INDEX, NUM_DIMENSIONS } from "../constants";
+import { game, sfxManager } from "../core/cachedClasses";
+import { MAX_LEVEL_GRID_INDEX, NUM_DIMENSIONS } from "../core/constants";
 import { ROOM_TYPE_NAMES } from "../objects/roomTypeNames";
 import { MINE_SHAFT_ROOM_SUB_TYPE_SET } from "../sets/mineShaftRoomSubTypesSet";
 import { inDimension } from "./dimensions";

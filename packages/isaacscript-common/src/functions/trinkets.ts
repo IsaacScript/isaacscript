@@ -4,13 +4,13 @@ import {
   TrinketSlot,
   TrinketType,
 } from "isaac-typescript-definitions";
-import { itemConfig } from "../cachedClasses";
+import { itemConfig } from "../core/cachedClasses";
 import {
   FIRST_MODDED_TRINKET_TYPE,
   FIRST_TRINKET_TYPE,
   LAST_TRINKET_TYPE,
   LAST_VANILLA_TRINKET_TYPE,
-} from "../constantsFirstLast";
+} from "../core/constantsFirstLast";
 import {
   DEFAULT_TRINKET_DESCRIPTION,
   TRINKET_DESCRIPTION_MAP,

@@ -12,8 +12,8 @@ import {
   EntityType,
   ModCallback,
 } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
 import { ModUpgraded } from "../classes/ModUpgraded";
+import { game } from "../core/cachedClasses";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { SlotDestructionType } from "../enums/SlotDestructionType";
 import { saveDataManager } from "../features/saveDataManager/exports";
@@ -31,7 +31,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postSlotDestroyedInit(mod: ModUpgraded): void {
   saveDataManager("postSlotDestroyed", v, hasSubscriptions);
 

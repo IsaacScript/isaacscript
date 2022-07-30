@@ -1,5 +1,5 @@
 import { DoorSlot } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
+import { game } from "../core/cachedClasses";
 import { getEnumValues } from "./enums";
 import { isDoorSlotValidAtGridIndexForRedRoom } from "./levelGrid";
 import { getNumRooms, getRoomsInGrid } from "./rooms";

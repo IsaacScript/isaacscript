@@ -8,8 +8,8 @@ import {
   RoomType,
   TrinketType,
 } from "isaac-typescript-definitions";
+import { getEnumLength, getLastEnumValue } from "../functions/enums";
 import { itemConfig } from "./cachedClasses";
-import { getEnumLength, getLastEnumValue } from "./functions/enums";
 
 // ------------
 // Collectibles

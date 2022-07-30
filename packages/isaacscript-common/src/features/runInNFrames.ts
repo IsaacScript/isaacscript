@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
+import { game } from "../core/cachedClasses";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { arrayRemoveInPlace } from "../functions/array";
 import { saveDataManager } from "./saveDataManager/exports";
@@ -30,7 +30,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function runInNFramesInit(mod: Mod): void {
   saveDataManager(FEATURE_NAME, v, () => false); // Functions are not serializable.
 

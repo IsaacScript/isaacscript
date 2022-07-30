@@ -17,12 +17,12 @@ import {
   RoomShape,
   RoomType,
 } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
+import { game } from "../core/cachedClasses";
 import {
   ALL_DISPLAY_FLAGS,
   LEVEL_GRID_ROW_WIDTH,
   MAX_LEVEL_GRID_INDEX,
-} from "../constants";
+} from "../core/constants";
 import { ROOM_SHAPE_TO_DOOR_SLOTS_TO_GRID_INDEX_DELTA } from "../objects/roomShapeToDoorSlotsToGridIndexDelta";
 import { getRandomArrayElement } from "./array";
 import { doorSlotToDoorSlotFlag } from "./doors";

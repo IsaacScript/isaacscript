@@ -7,7 +7,7 @@ import {
   ModCallback,
   PickupVariant,
 } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
+import { game } from "../core/cachedClasses";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { getEntityID } from "../functions/entities";
 import { isCollectible } from "../functions/pickupVariants";
@@ -22,7 +22,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function collectibleItemPoolTypeInit(mod: Mod): void {
   saveDataManager(FEATURE_NAME, v);
 

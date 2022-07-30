@@ -4,7 +4,7 @@ import {
   ModCallback,
   RoomType,
 } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
+import { game } from "../core/cachedClasses";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { hasFlag } from "../functions/flag";
 import {
@@ -18,7 +18,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postSacrificeInit(mod: Mod): void {
   saveDataManager("postSacrifice", v, hasSubscriptions);
 

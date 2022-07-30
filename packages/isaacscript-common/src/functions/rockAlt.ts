@@ -10,8 +10,8 @@ import {
   RoomType,
   TrinketType,
 } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
-import { DISTANCE_OF_GRID_TILE } from "../constants";
+import { game } from "../core/cachedClasses";
+import { DISTANCE_OF_GRID_TILE } from "../core/constants";
 import { RockAltType } from "../enums/RockAltType";
 import { BACKDROP_TYPE_TO_ROCK_ALT_TYPE } from "../objects/backdropTypeToRockAltType";
 import { spawnEffectWithSeed, spawnNPCWithSeed } from "./entitiesSpecific";

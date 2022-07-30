@@ -7,7 +7,7 @@ import {
   TearVariant,
 } from "isaac-typescript-definitions";
 import { ModUpgraded } from "../../classes/ModUpgraded";
-import { MAX_SPEED_STAT } from "../../constants";
+import { MAX_SPEED_STAT } from "../../core/constants";
 import { bitFlags } from "../../functions/flag";
 import { getMapPartialMatch } from "../../functions/map";
 import { printConsole } from "../../functions/utils";

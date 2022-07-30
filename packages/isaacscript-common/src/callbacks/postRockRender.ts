@@ -5,7 +5,6 @@ import {
   postRockRenderHasSubscriptions,
 } from "./subscriptions/postRockRender";
 
-/** @internal */
 export function postRockRenderInit(mod: Mod): void {
   mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
 }

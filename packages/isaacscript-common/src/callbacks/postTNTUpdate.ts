@@ -5,7 +5,6 @@ import {
   postTNTUpdateHasSubscriptions,
 } from "./subscriptions/postTNTUpdate";
 
-/** @internal */
 export function postTNTUpdateInit(mod: Mod): void {
   mod.AddCallback(ModCallback.POST_UPDATE, postUpdate); // 1
 }

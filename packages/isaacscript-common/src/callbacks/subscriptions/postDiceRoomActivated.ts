@@ -7,19 +7,16 @@ export type PostDiceRoomActivatedRegisterParameters = [
 
 const subscriptions: PostDiceRoomActivatedRegisterParameters[] = [];
 
-/** @internal */
 export function postDiceRoomActivatedHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postDiceRoomActivatedRegister(
   ...args: PostDiceRoomActivatedRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postDiceRoomActivatedFire(
   player: EntityPlayer,
   diceFloorSubType: DiceFloorSubType,

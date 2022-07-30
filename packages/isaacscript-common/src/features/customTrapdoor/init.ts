@@ -6,8 +6,8 @@ import {
   RoomTransitionAnim,
   StageType,
 } from "isaac-typescript-definitions";
-import { game } from "../../cachedClasses";
 import { ModUpgraded } from "../../classes/ModUpgraded";
+import { game } from "../../core/cachedClasses";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { StageTravelState } from "../../enums/private/StageTravelState";
 import { movePlayersToCenter } from "../../functions/playerCenter";

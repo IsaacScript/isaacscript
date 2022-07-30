@@ -17,7 +17,6 @@ const TRAVELING_TO_NEXT_FLOOR_ANIMATIONS: ReadonlySet<string> = new Set([
  */
 let firedOnStage: int | null = null;
 
-/** @internal */
 export function preNewLevelInit(mod: Mod): void {
   mod.AddCallback(ModCallback.POST_PLAYER_RENDER, postPlayerRender); // 32
 }

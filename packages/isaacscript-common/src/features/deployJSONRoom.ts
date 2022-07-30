@@ -19,9 +19,9 @@ import {
   RoomType,
   UseFlag,
 } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
 import { DefaultMap } from "../classes/DefaultMap";
 import { ModUpgraded } from "../classes/ModUpgraded";
+import { game } from "../core/cachedClasses";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { emptyArray } from "../functions/array";
@@ -93,7 +93,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function deployJSONRoomInit(mod: ModUpgraded): void {
   saveDataManager(FEATURE_NAME, v);
 

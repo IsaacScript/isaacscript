@@ -25,7 +25,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function disableInputsInit(mod: Mod): void {
   saveDataManager(FEATURE_NAME, v);
 

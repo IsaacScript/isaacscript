@@ -7,19 +7,16 @@ export type PostTearInitLateRegisterParameters = [
 
 const subscriptions: PostTearInitLateRegisterParameters[] = [];
 
-/** @internal */
 export function postTearInitLateHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postTearInitLateRegister(
   ...args: PostTearInitLateRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postTearInitLateFire(tear: EntityTear): void {
   for (const [callback, tearVariant] of subscriptions) {
     // Handle the optional 2nd callback argument.

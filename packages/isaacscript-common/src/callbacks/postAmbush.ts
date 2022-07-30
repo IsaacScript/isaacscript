@@ -3,7 +3,7 @@
 // - `POST_AMBUSH_FINISHED`
 
 import { ModCallback, RoomType } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
+import { game } from "../core/cachedClasses";
 import { AmbushType } from "../enums/AmbushType";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getRoomType } from "../functions/roomData";
@@ -23,7 +23,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postAmbushCallbacksInit(mod: Mod): void {
   saveDataManager("postAmbushCallbacks", v, hasSubscriptions);
 

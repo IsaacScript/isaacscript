@@ -7,19 +7,16 @@ export type PostPitUpdateRegisterParameters = [
 
 const subscriptions: PostPitUpdateRegisterParameters[] = [];
 
-/** @internal */
 export function postPitUpdateHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postPitUpdateRegister(
   ...args: PostPitUpdateRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postPitUpdateFire(pit: GridEntityPit): void {
   const pitVariant = pit.GetVariant();
 

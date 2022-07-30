@@ -19,7 +19,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postHolyMantleRemovedInit(mod: ModUpgraded): void {
   saveDataManager("postHolyMantleRemoved", v, hasSubscriptions);
 

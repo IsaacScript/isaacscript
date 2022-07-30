@@ -11,7 +11,7 @@ import {
   TearFlag,
   UseFlag,
 } from "isaac-typescript-definitions";
-import { game, sfxManager } from "../cachedClasses";
+import { game, sfxManager } from "../core/cachedClasses";
 import { arrayToString } from "./array";
 import { getCollectibleName } from "./collectibles";
 import { getEntityID } from "./entities";

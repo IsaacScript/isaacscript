@@ -7,7 +7,6 @@ import {
   postPlayerInitFirstHasSubscriptions,
 } from "./subscriptions/postPlayerInitFirst";
 
-/** @internal */
 export function postPlayerInitFirstInit(mod: ModUpgraded): void {
   mod.AddCallbackCustom(
     ModCallbackCustom.POST_NEW_ROOM_REORDERED,

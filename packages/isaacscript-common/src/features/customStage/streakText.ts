@@ -1,12 +1,12 @@
 import { ButtonAction, ControllerIndex } from "isaac-typescript-definitions";
-import { fonts, game } from "../../cachedClasses";
-import { KColorDefault, VectorOne } from "../../constants";
+import { fonts, game } from "../../core/cachedClasses";
+import { KColorDefault, VectorOne } from "../../core/constants";
 import { getEnumValues } from "../../functions/enums";
 import {
   getScreenBottomCenterPos,
   getScreenTopCenterPos,
 } from "../../functions/ui";
-import { CustomStage } from "../../interfaces/CustomStage";
+import { CustomStage } from "../../interfaces/private/CustomStage";
 import {
   UIStreakAnimation,
   UI_STREAK_ANIMATION_END_FRAMES,

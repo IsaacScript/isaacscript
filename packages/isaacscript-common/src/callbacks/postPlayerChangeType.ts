@@ -23,7 +23,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postPlayerChangeTypeInit(mod: ModUpgraded): void {
   saveDataManager("postPlayerChangeType", v, hasSubscriptions);
 

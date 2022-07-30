@@ -1,6 +1,6 @@
 import { Dimension } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
-import { NUM_DIMENSIONS } from "../constants";
+import { game } from "../core/cachedClasses";
+import { NUM_DIMENSIONS } from "../core/constants";
 import { getRoomGridIndex } from "./roomData";
 import { erange } from "./utils";
 

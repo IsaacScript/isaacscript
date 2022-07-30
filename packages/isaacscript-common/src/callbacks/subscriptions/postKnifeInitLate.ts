@@ -7,19 +7,16 @@ export type PostKnifeInitLateRegisterParameters = [
 
 const subscriptions: PostKnifeInitLateRegisterParameters[] = [];
 
-/** @internal */
 export function postKnifeInitLateHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postKnifeInitLateRegister(
   ...args: PostKnifeInitLateRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postKnifeInitLateFire(knife: EntityKnife): void {
   for (const [callback, knifeVariant] of subscriptions) {
     // Handle the optional 2nd callback argument.

@@ -8,19 +8,16 @@ export type PostPurchaseRegisterParameters = [
 
 const subscriptions: PostPurchaseRegisterParameters[] = [];
 
-/** @internal */
 export function postPurchaseHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postPurchaseRegister(
   ...args: PostPurchaseRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postPurchaseFire(
   player: EntityPlayer,
   pickup: EntityPickup,

@@ -20,7 +20,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postPlayerChangeHealthInit(mod: ModUpgraded): void {
   saveDataManager("postPlayerChangeHealth", v, hasSubscriptions);
 

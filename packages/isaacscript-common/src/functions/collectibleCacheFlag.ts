@@ -1,5 +1,5 @@
 import { CacheFlag, CollectibleType } from "isaac-typescript-definitions";
-import { itemConfig } from "../cachedClasses";
+import { itemConfig } from "../core/cachedClasses";
 import { getCollectibleArray } from "./collectibleSet";
 import { getEnumValues } from "./enums";
 import { hasFlag } from "./flag";

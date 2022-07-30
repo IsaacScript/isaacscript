@@ -1,11 +1,11 @@
 import { Card, ItemConfigCardType } from "isaac-typescript-definitions";
-import { itemConfig } from "../cachedClasses";
+import { itemConfig } from "../core/cachedClasses";
 import {
   FIRST_CARD,
   FIRST_MODDED_CARD,
   LAST_CARD,
   MAX_VANILLA_CARD,
-} from "../constantsFirstLast";
+} from "../core/constantsFirstLast";
 import {
   CARD_DESCRIPTIONS,
   DEFAULT_CARD_DESCRIPTION,

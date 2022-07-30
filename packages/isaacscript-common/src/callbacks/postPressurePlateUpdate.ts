@@ -5,7 +5,6 @@ import {
   postPressurePlateUpdateHasSubscriptions,
 } from "./subscriptions/postPressurePlateUpdate";
 
-/** @internal */
 export function postPressurePlateUpdateInit(mod: Mod): void {
   mod.AddCallback(ModCallback.POST_UPDATE, postUpdate); // 1
 }

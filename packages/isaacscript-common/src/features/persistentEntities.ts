@@ -43,7 +43,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function persistentEntitiesInit(mod: ModUpgraded): void {
   saveDataManager(FEATURE_NAME, v);
 

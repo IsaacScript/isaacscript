@@ -32,7 +32,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postPlayerCollectibleCallbacksInit(mod: Mod): void {
   saveDataManager("postPlayerCollectible", v, hasSubscriptions);
 

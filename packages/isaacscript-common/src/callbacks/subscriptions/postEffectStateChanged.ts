@@ -11,19 +11,16 @@ export type PostEffectStateChangedRegisterParameters = [
 
 const subscriptions: PostEffectStateChangedRegisterParameters[] = [];
 
-/** @internal */
 export function postEffectStateChangedHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postEffectStateChangedRegister(
   ...args: PostEffectStateChangedRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postEffectStateChangedFire(
   effect: EntityEffect,
   previousState: int,

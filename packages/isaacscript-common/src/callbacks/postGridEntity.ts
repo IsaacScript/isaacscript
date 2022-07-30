@@ -47,7 +47,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postGridEntityCallbacksInit(mod: ModUpgraded): void {
   saveDataManager("postGridEntity", v, hasSubscriptions);
 

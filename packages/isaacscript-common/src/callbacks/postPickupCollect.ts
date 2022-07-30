@@ -15,7 +15,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postPickupCollectInit(mod: Mod): void {
   saveDataManager("postPickupCollect", v, hasSubscriptions);
 

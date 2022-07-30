@@ -22,7 +22,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postTransformationInit(mod: ModUpgraded): void {
   saveDataManager("postTransformation", v, hasSubscriptions);
 

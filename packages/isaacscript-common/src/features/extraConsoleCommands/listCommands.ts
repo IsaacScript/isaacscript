@@ -39,8 +39,8 @@ import {
   SoundEffect,
   TrinketType,
 } from "isaac-typescript-definitions";
-import { game, sfxManager } from "../../cachedClasses";
-import { MAX_LEVEL_GRID_INDEX } from "../../constants";
+import { game, sfxManager } from "../../core/cachedClasses";
+import { MAX_LEVEL_GRID_INDEX } from "../../core/constants";
 import {
   FIRST_CARD,
   FIRST_CHARACTER,
@@ -52,7 +52,7 @@ import {
   LAST_ROOM_TYPE,
   LAST_STAGE,
   LAST_VANILLA_CHARACTER,
-} from "../../constantsFirstLast";
+} from "../../core/constantsFirstLast";
 import { HealthType } from "../../enums/HealthType";
 import { getCardName } from "../../functions/cards";
 import { getCharacterName } from "../../functions/characters";

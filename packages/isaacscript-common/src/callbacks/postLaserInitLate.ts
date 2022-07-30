@@ -11,7 +11,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postLaserInitLateInit(mod: Mod): void {
   saveDataManager("postLaserInitLate", v, hasSubscriptions);
 

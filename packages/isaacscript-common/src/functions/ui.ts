@@ -1,6 +1,6 @@
 import { CollectibleType, LevelCurse } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
-import { UI_HEART_WIDTH, VectorZero } from "../constants";
+import { game } from "../core/cachedClasses";
+import { UI_HEART_WIDTH, VectorZero } from "../core/constants";
 import { copyVector } from "./vector";
 
 /**

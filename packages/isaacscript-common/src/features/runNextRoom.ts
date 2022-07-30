@@ -12,7 +12,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function runNextRoomInit(mod: ModUpgraded): void {
   saveDataManager(FEATURE_NAME, v, () => false); // Functions are not serializable.
 

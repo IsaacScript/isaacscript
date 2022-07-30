@@ -221,6 +221,7 @@
     "UseFlagValue",
   ],
   "plugin": ["typedoc-plugin-markdown", "@zamiell/typedoc-plugin-not-exported"],
+  "githubPages": false,
   "hideBreadcrumbs": true,
   "hideInPageTOC": true,
 }

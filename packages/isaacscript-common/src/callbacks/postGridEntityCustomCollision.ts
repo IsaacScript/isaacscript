@@ -18,7 +18,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postGridEntityCustomCollisionInit(mod: ModUpgraded): void {
   saveDataManager("postGridEntityCustomCollisionInit", v, hasSubscriptions);
 

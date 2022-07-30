@@ -11,7 +11,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postPickupInitLateInit(mod: Mod): void {
   saveDataManager("postPickupInitLate", v, hasSubscriptions);
 

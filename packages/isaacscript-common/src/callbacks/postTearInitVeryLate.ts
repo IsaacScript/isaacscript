@@ -11,7 +11,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postTearInitVeryLateInit(mod: Mod): void {
   saveDataManager("postTearInitVeryLate", v, hasSubscriptions);
 

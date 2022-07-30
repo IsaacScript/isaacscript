@@ -1,4 +1,4 @@
-import { EMPTY_PNG_PATH, VectorZero } from "../constants";
+import { EMPTY_PNG_PATH, VectorZero } from "../core/constants";
 import { kColorEquals } from "./kColor";
 import { erange } from "./utils";
 

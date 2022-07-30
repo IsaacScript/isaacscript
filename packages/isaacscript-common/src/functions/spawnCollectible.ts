@@ -4,7 +4,7 @@ import {
   PickupVariant,
   PlayerType,
 } from "isaac-typescript-definitions";
-import { VectorZero } from "../constants";
+import { VectorZero } from "../core/constants";
 import { preventCollectibleRotation } from "../features/preventCollectibleRotation";
 import { areFeaturesInitialized } from "../featuresInitialized";
 import { setCollectibleEmpty } from "./collectibles";

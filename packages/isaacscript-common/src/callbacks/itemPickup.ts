@@ -35,7 +35,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function itemPickupCallbacksInit(mod: ModUpgraded): void {
   saveDataManager("itemPickup", v, hasSubscriptions);
 

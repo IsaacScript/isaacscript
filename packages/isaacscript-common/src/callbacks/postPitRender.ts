@@ -5,7 +5,6 @@ import {
   postPitRenderHasSubscriptions,
 } from "./subscriptions/postPitRender";
 
-/** @internal */
 export function postPitRenderInit(mod: Mod): void {
   mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
 }

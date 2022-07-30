@@ -6,7 +6,6 @@ import {
   postGridEntityCustomUpdateHasSubscriptions,
 } from "./subscriptions/postGridEntityCustomUpdate";
 
-/** @internal */
 export function postGridEntityCustomUpdateInit(mod: ModUpgraded): void {
   mod.AddCallback(ModCallback.POST_UPDATE, postUpdate); // 1
 }

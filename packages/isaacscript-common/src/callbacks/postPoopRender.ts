@@ -5,7 +5,6 @@ import {
   postPoopRenderHasSubscriptions,
 } from "./subscriptions/postPoopRender";
 
-/** @internal */
 export function postPoopRenderInit(mod: Mod): void {
   mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
 }

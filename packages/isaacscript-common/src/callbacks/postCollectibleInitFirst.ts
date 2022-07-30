@@ -13,7 +13,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postCollectibleInitFirstInit(mod: Mod): void {
   saveDataManager("postCollectibleInitFirst", v, hasSubscriptions);
 

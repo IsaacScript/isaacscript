@@ -8,19 +8,16 @@ export type PreCustomReviveRegisterParameters = [
 
 const subscriptions: PreCustomReviveRegisterParameters[] = [];
 
-/** @internal */
 export function preCustomReviveHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function preCustomReviveRegister(
   ...args: PreCustomReviveRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function preCustomReviveFire(player: EntityPlayer): int | undefined {
   const character = player.GetPlayerType();
 

@@ -26,7 +26,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postFlipCallbacksInit(mod: Mod): void {
   saveDataManager("postFlip", v, hasSubscriptions);
 

@@ -1,5 +1,5 @@
 import { DoorSlot, RoomShape } from "isaac-typescript-definitions";
-import { LEVEL_GRID_ROW_WIDTH } from "../constants";
+import { LEVEL_GRID_ROW_WIDTH } from "../core/constants";
 
 const LEFT = -1;
 const UP = -LEVEL_GRID_ROW_WIDTH;

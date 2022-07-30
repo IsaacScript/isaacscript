@@ -17,7 +17,7 @@ import {
   ModCallback,
   StageType,
 } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
+import { game } from "../core/cachedClasses";
 import {
   postGameStartedReorderedFire,
   postGameStartedReorderedHasSubscriptions,
@@ -37,7 +37,6 @@ let usedGlowingHourGlass = false;
 let forceNewLevel = false;
 let forceNewRoom = false;
 
-/** @internal */
 export function reorderedCallbacksInit(mod: Mod): void {
   mod.AddCallback(
     ModCallback.POST_USE_ITEM,
@@ -145,40 +144,15 @@ function recordCurrentStage() {
   currentStageType = stageType;
 }
 
-/**
- * This is a utility function for users of the `ModCallbackCustom.POST_NEW_LEVEL_REORDERED` custom
- * callback.
- *
- * If some specific cases, mods can change the current level during run initialization on the 0th
- * frame. However, due to how the callback reordering works, the custom `POST_NEW_LEVEL` callback
- * will never fire on the 0th frame. To get around this, call this function before changing levels
- * to temporarily force the callback to fire.
- */
-export function forceNewLevelCallback(): void {
+export function forceNewLevelCallbackInternal(): void {
   forceNewLevel = true;
 }
 
-/**
- * This is a utility function for users of the `ModCallbackCustom.POST_NEW_ROOM_REORDERED` custom
- * callback.
- *
- * If some specific cases, mods can change the current room during run initialization on the 0th
- * frame. However, due to how the callback reordering works, the custom `POST_NEW_ROOM` callback
- * will never fire on the 0th frame. To get around this, call this function before changing rooms to
- * temporarily force the callback to fire.
- */
-export function forceNewRoomCallback(): void {
+export function forceNewRoomCallbackInternal(): void {
   forceNewRoom = true;
 }
 
-/**
- * Helper function to manually set the variable that the reordered callback logic uses to track the
- * current stage and stage type.
- *
- * This is useful because if the stage is changed with the `Game.SetStage` method, the reordered
- * callbacks will stop working.
- */
-export function reorderedCallbacksSetStage(
+export function reorderedCallbacksSetStageInternal(
   stage: LevelStage,
   stageType: StageType,
 ): void {

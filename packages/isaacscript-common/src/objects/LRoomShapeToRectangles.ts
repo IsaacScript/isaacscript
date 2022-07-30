@@ -1,5 +1,5 @@
 import { RoomShape } from "isaac-typescript-definitions";
-import { VectorZero } from "../constants";
+import { VectorZero } from "../core/constants";
 
 const TWO_BY_TWO_BOTTOM_RIGHT = Vector(25, 13);
 

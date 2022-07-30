@@ -7,19 +7,16 @@ export type PostCollectibleInitFirstRegisterParameters = [
 
 const subscriptions: PostCollectibleInitFirstRegisterParameters[] = [];
 
-/** @internal */
 export function postCollectibleInitFirstHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postCollectibleInitFirstRegister(
   ...args: PostCollectibleInitFirstRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postCollectibleInitFirstFire(
   collectible: EntityPickupCollectible,
 ): void {

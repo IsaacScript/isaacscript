@@ -19,12 +19,12 @@ OUT_DIR="$DIR/../../dist/packages/docs" # Created by Docusaurus
 rm -rf "$OUT_DIR"
 
 # First, auto-generate the Markdown files with TypeDoc + the Markdown plugin.
-bash "$DIR/../isaac-typescript-definitions/docs.sh"
+#bash "$DIR/../isaac-typescript-definitions/docs.sh"
 bash "$DIR/../isaacscript-common/docs.sh"
 
 # Second, apply transformations on top of the TypeDoc output.
 #npx ts-node --require "tsconfig-paths/register" "scripts/fixIsaacTypeScriptDefinitions.ts"
-npx ts-node --require "tsconfig-paths/register" "scripts/fixIsaacScriptCommon.ts"
+#npx ts-node --require "tsconfig-paths/register" "scripts/fixIsaacScriptCommon.ts"
 
 # Build the docs website using Docusaurus.
 mkdir -p "$OUT_DIR"

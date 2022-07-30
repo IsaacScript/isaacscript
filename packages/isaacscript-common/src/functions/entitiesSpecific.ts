@@ -10,7 +10,7 @@ import {
   SlotVariant,
   TearVariant,
 } from "isaac-typescript-definitions";
-import { VectorZero } from "../constants";
+import { VectorZero } from "../core/constants";
 import { getEntities, removeEntities, spawn } from "./entities";
 
 /**

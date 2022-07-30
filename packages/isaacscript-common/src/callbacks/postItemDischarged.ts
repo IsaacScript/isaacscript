@@ -5,9 +5,9 @@ import {
   ModCallback,
   SuckerVariant,
 } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
 import { DefaultMap } from "../classes/DefaultMap";
 import { ModUpgraded } from "../classes/ModUpgraded";
+import { game } from "../core/cachedClasses";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getTotalCharge } from "../functions/charge";
 import { getEnumValues } from "../functions/enums";

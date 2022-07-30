@@ -12,19 +12,16 @@ export type PostHolyMantleRemovedRegisterParameters = [
 
 const subscriptions: PostHolyMantleRemovedRegisterParameters[] = [];
 
-/** @internal */
 export function postHolyMantleRemovedHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postHolyMantleRemovedRegister(
   ...args: PostHolyMantleRemovedRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postHolyMantleRemovedFire(
   player: EntityPlayer,
   oldNumHolyMantles: int,

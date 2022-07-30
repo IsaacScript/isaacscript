@@ -7,7 +7,7 @@ import {
   ModCallback,
   PickupVariant,
 } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
+import { game } from "../core/cachedClasses";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { setCollectibleSubType } from "../functions/collectibles";
 import { getEntityID } from "../functions/entities";
@@ -32,7 +32,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function preventCollectibleRotationInit(mod: Mod): void {
   saveDataManager(FEATURE_NAME, v);
 

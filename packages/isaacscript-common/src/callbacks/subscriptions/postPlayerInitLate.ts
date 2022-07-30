@@ -8,19 +8,16 @@ export type PostPlayerInitLateRegisterParameters = [
 
 const subscriptions: PostPlayerInitLateRegisterParameters[] = [];
 
-/** @internal */
 export function postPlayerInitLateHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postPlayerInitLateRegister(
   ...args: PostPlayerInitLateRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postPlayerInitLateFire(player: EntityPlayer): void {
   const character = player.GetPlayerType();
 

@@ -9,7 +9,7 @@ import {
   PlayerType,
   TrinketType,
 } from "isaac-typescript-definitions";
-import { game, itemConfig } from "../cachedClasses";
+import { game, itemConfig } from "../core/cachedClasses";
 import { HealthType } from "../enums/HealthType";
 import { getLastElement, sumArray } from "./array";
 import { countSetBits, getKBitOfN, getNumBitsOfN } from "./bitwise";

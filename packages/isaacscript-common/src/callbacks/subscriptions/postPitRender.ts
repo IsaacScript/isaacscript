@@ -7,19 +7,16 @@ export type PostPitRenderRegisterParameters = [
 
 const subscriptions: PostPitRenderRegisterParameters[] = [];
 
-/** @internal */
 export function postPitRenderHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postPitRenderRegister(
   ...args: PostPitRenderRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postPitRenderFire(pit: GridEntityPit): void {
   const pitVariant = pit.GetVariant();
 

@@ -19,7 +19,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postGridEntityCollisionInit(mod: Mod): void {
   saveDataManager("postGridEntityCollision", v, hasSubscriptions);
 

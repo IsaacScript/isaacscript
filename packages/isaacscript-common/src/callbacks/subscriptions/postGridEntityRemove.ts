@@ -8,19 +8,16 @@ export type PostGridEntityRemoveRegisterParameters = [
 
 const subscriptions: PostGridEntityRemoveRegisterParameters[] = [];
 
-/** @internal */
 export function postGridEntityRemoveHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postGridEntityRemoveRegister(
   ...args: PostGridEntityRemoveRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postGridEntityRemoveFire(
   gridIndex: int,
   gridEntityType: GridEntityType,

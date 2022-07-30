@@ -4,7 +4,7 @@ import {
   PillColor,
   PillEffect,
 } from "isaac-typescript-definitions";
-import { itemConfig } from "../cachedClasses";
+import { itemConfig } from "../core/cachedClasses";
 import {
   FIRST_HORSE_PILL_COLOR,
   FIRST_MODDED_PILL_EFFECT,
@@ -14,7 +14,7 @@ import {
   LAST_NORMAL_PILL_COLOR,
   LAST_PILL_EFFECT,
   LAST_VANILLA_PILL_EFFECT,
-} from "../constantsFirstLast";
+} from "../core/constantsFirstLast";
 import { FALSE_PHD_PILL_CONVERSIONS } from "../maps/falsePHDPillConversions";
 import { PHD_PILL_CONVERSIONS } from "../maps/PHDPillConversions";
 import {

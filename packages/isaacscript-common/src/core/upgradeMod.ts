@@ -1,14 +1,14 @@
-import { postNewRoomEarlyCallbackInit } from "./callbacks/postNewRoomEarly";
-import { ModUpgraded } from "./classes/ModUpgraded";
-import { saveDataManagerInit } from "./features/saveDataManager/main";
+import { postNewRoomEarlyCallbackInit } from "../callbacks/postNewRoomEarly";
+import { ModUpgraded } from "../classes/ModUpgraded";
+import { saveDataManagerInit } from "../features/saveDataManager/main";
 import {
   areFeaturesInitialized,
   setFeaturesInitialized,
-} from "./featuresInitialized";
-import { initCustomCallbacks } from "./initCustomCallbacks";
-import { initFeatures } from "./initFeatures";
-import { patchErrorFunction } from "./patchErrorFunctions";
-import { loadShaderCrashFix } from "./shaderCrashFix";
+} from "../featuresInitialized";
+import { initCustomCallbacks } from "../initCustomCallbacks";
+import { initFeatures } from "../initFeatures";
+import { patchErrorFunction } from "../patchErrorFunctions";
+import { loadShaderCrashFix } from "../shaderCrashFix";
 
 /**
  * Use this function to enable the custom callbacks and other optional features provided by

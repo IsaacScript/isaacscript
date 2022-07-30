@@ -11,7 +11,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postEffectInitLateInit(mod: Mod): void {
   saveDataManager("postEffectInitLate", v, hasSubscriptions);
 

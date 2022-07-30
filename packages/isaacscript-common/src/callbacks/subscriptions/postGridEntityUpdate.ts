@@ -8,19 +8,16 @@ export type PostGridEntityUpdateRegisterParameters = [
 
 const subscriptions: PostGridEntityUpdateRegisterParameters[] = [];
 
-/** @internal */
 export function postGridEntityUpdateHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postGridEntityUpdateRegister(
   ...args: PostGridEntityUpdateRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postGridEntityUpdateFire(gridEntity: GridEntity): void {
   const gridEntityType = gridEntity.GetType();
   const gridEntityVariant = gridEntity.GetVariant();

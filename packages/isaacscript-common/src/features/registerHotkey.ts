@@ -23,7 +23,6 @@ const dynamicHotkeyFunctionMap = new Map<
 
 const keyPressedMap = new DefaultMap<Keyboard, boolean>(false);
 
-/** @internal */
 export function registerHotkeyInit(mod: Mod): void {
   mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
 }

@@ -16,7 +16,7 @@ import {
 } from "../../functions/pickupsSpecific";
 import { calculateStageType } from "../../functions/stage";
 import { vectorEquals } from "../../functions/vector";
-import { CustomStage } from "../../interfaces/CustomStage";
+import { CustomStage } from "../../interfaces/private/CustomStage";
 import { TrapdoorDestination } from "../../types/TrapdoorDestination";
 import { spawnCustomTrapdoor } from "../customTrapdoor/exports";
 import { DEFAULT_BASE_STAGE } from "./exports";

@@ -1,5 +1,5 @@
 import { LevelCurse } from "isaac-typescript-definitions";
-import { game } from "../cachedClasses";
+import { game } from "../core/cachedClasses";
 import { hasFlag } from "./flag";
 
 export function hasCurse(curse: LevelCurse): boolean {

@@ -7,19 +7,16 @@ export type PostDoorRenderRegisterParameters = [
 
 const subscriptions: PostDoorRenderRegisterParameters[] = [];
 
-/** @internal */
 export function postDoorRenderHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postDoorRenderRegister(
   ...args: PostDoorRenderRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postDoorRenderFire(door: GridEntityDoor): void {
   const doorVariant = door.GetVariant();
 

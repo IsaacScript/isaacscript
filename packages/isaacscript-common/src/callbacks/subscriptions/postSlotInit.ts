@@ -7,19 +7,16 @@ export type PostSlotInitRegisterParameters = [
 
 const subscriptions: PostSlotInitRegisterParameters[] = [];
 
-/** @internal */
 export function postSlotInitHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postSlotInitRegister(
   ...args: PostSlotInitRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postSlotInitFire(slot: EntitySlot): void {
   for (const [callback, slotVariant] of subscriptions) {
     // Handle the optional 2nd callback argument.

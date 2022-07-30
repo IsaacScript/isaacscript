@@ -12,7 +12,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postFamiliarStateChangedInit(mod: Mod): void {
   saveDataManager("postFamiliarStateChanged", v, hasSubscriptions);
 

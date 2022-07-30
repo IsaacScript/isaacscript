@@ -18,19 +18,16 @@ export type PostPlayerFatalDamageRegisterParameters = [
 
 const subscriptions: PostPlayerFatalDamageRegisterParameters[] = [];
 
-/** @internal */
 export function postPlayerFatalDamageHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-/** @internal */
 export function postPlayerFatalDamageRegister(
   ...args: PostPlayerFatalDamageRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postPlayerFatalDamageFire(
   player: EntityPlayer,
   damageAmount: float,

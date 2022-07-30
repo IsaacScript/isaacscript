@@ -17,7 +17,6 @@ const v = {
   },
 };
 
-/** @internal */
 export function postBoneSwingInit(mod: Mod): void {
   saveDataManager("postBoneSwing", v, hasSubscriptions);
 

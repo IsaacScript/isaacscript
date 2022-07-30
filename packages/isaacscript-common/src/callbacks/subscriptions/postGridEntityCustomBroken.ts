@@ -10,14 +10,12 @@ export type PostGridEntityCustomBrokenRegisterParameters = [
 
 const subscriptions: PostGridEntityCustomBrokenRegisterParameters[] = [];
 
-/** @internal */
 export function postGridEntityCustomBrokenRegister(
   ...args: PostGridEntityCustomBrokenRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-/** @internal */
 export function postGridEntityCustomBrokenFire(
   gridEntity: GridEntity,
   gridEntityTypeCustom: GridEntityType,
