@@ -7,7 +7,7 @@ import { NullItemID } from "../../enums/NullItemID";
 import { PillEffect } from "../../enums/PillEffect";
 
 declare global {
-  interface ItemConfig {
+  interface ItemConfig extends IsaacAPIClass {
     /** Returns undefined if the card was not found. */
     GetCard(card: Card): Readonly<ItemConfigCard> | undefined;
 

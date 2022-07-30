@@ -3,7 +3,7 @@ import { RoomDescriptorFlag } from "../../enums/flags/RoomDescriptorFlag";
 import { GridRoom } from "../../enums/GridRoom";
 
 declare global {
-  interface RoomDescriptor {
+  interface RoomDescriptor extends IsaacAPIClass {
     // AllowedDoors is not implemented.
 
     AwardSeed: Seed;

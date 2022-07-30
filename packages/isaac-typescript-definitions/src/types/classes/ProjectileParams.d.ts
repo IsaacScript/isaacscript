@@ -4,7 +4,7 @@ import { ProjectileFlag } from "../../enums/flags/ProjectileFlag";
 declare global {
   function ProjectileParams(this: void): ProjectileParams;
 
-  interface ProjectileParams {
+  interface ProjectileParams extends IsaacAPIClass {
     Acceleration: float;
     BulletFlags: BitFlags<ProjectileFlag>;
     ChangeFlags: BitFlags<ProjectileFlag>;

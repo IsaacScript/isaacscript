@@ -12,7 +12,7 @@ import { RoomShape } from "../../enums/RoomShape";
 import { RoomType } from "../../enums/RoomType";
 
 declare global {
-  interface Room {
+  interface Room extends IsaacAPIClass {
     /**
      * @param position1
      * @param position2

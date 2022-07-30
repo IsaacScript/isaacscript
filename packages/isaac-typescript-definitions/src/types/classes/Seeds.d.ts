@@ -3,7 +3,7 @@ import { LevelStage } from "../../enums/LevelStage";
 import { SeedEffect } from "../../enums/SeedEffect";
 
 declare global {
-  interface Seeds {
+  interface Seeds extends IsaacAPIClass {
     AddSeedEffect(seedEffect: SeedEffect): void;
     CanAddSeedEffect(seedEffect: SeedEffect): boolean;
     ClearSeedEffects(): void;

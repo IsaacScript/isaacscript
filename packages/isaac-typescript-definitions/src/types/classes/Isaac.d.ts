@@ -16,7 +16,13 @@ import { PillEffect } from "../../enums/PillEffect";
 import { SoundEffect } from "../../enums/SoundEffect";
 
 declare global {
-  /** @noSelf */
+  /**
+   * The `Isaac` class contains a collection of miscellaneous general-purpose methods.
+   *
+   * `Isaac` is technically not an Isaac API class; it has a type of `table`.
+   *
+   * @noSelf
+   */
   namespace Isaac {
     /**
      * Your mod can't do much of anything unless you attach some callback functions that can run

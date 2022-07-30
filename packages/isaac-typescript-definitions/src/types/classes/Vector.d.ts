@@ -1,6 +1,6 @@
 declare function Vector(this: void, x: float, y: float): Vector;
 
-declare interface Vector {
+declare interface Vector extends IsaacAPIClass {
   Clamp(minX: float, minY: float, maxX: float, maxY: float): void;
   Clamped(minX: float, minY: float, maxX: float, maxY: float): Vector;
   Cross(secondVector: Vector): float;

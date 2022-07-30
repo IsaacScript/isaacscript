@@ -1,6 +1,6 @@
 declare function RNG(this: void): RNG;
 
-declare interface RNG {
+declare interface RNG extends IsaacAPIClass {
   GetSeed(): Seed;
 
   /**

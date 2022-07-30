@@ -1,7 +1,7 @@
 import { EntityType } from "../../enums/EntityType";
 
 declare global {
-  interface RoomConfigEntry {
+  interface RoomConfigEntry extends IsaacAPIClass {
     Subtype: int;
     Type: EntityType;
     Variant: int;

@@ -8,7 +8,7 @@ import { RoomType } from "../../enums/RoomType";
 import { StageID } from "../../enums/StageID";
 
 declare global {
-  interface RoomConfig {
+  interface RoomConfig extends IsaacAPIClass {
     Difficulty: RoomDifficulty;
 
     /**

@@ -18,7 +18,7 @@ import { StageTransition } from "../../enums/StageTransition";
 declare global {
   function Game(this: void): Game;
 
-  interface Game {
+  interface Game extends IsaacAPIClass {
     AddDevilRoomDeal(): void;
     AddEncounteredBoss(entityType: EntityType, variant: int): void;
     AddPixelation(duration: int): void;
@@ -160,7 +160,7 @@ declare global {
     GetItemPool(): ItemPool;
 
     /**
-     * @deprecated This function is bugged and returns useless userdata.
+     * @deprecated This method is bugged and returns useless `userdata`.
      */
     GetLastDevilRoomStage(fakeArg: never): LevelStage;
 

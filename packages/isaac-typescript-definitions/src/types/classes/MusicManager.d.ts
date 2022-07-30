@@ -3,7 +3,7 @@ import { Music } from "../../enums/Music";
 declare global {
   function MusicManager(this: void): MusicManager;
 
-  interface MusicManager {
+  interface MusicManager extends IsaacAPIClass {
     /**
      * @param music
      * @param fadeRate Default is 0.08.

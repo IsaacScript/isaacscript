@@ -2,7 +2,7 @@ import { GridCollisionClass } from "../../enums/GridCollisionClass";
 import { GridEntityType } from "../../enums/GridEntityType";
 
 declare global {
-  interface GridEntity {
+  interface GridEntity extends IsaacAPIClass {
     Destroy(immediate: boolean): boolean;
     GetGridIndex(): int;
 

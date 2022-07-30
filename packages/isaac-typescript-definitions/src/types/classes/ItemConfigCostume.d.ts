@@ -1,4 +1,4 @@
-declare interface ItemConfigCostume {
+declare interface ItemConfigCostume extends IsaacAPIClass {
   Anm2Path: string;
   HasOverlay: boolean;
   HasSkinAlt: boolean;

@@ -6,7 +6,7 @@ declare function KColor(
   a: float,
 ): KColor;
 
-declare interface KColor {
+declare interface KColor extends IsaacAPIClass {
   Alpha: float;
   Blue: float;
   Green: float;

@@ -18,7 +18,7 @@ declare function Color(
   bo?: int,
 ): Color;
 
-declare interface Color {
+declare interface Color extends IsaacAPIClass {
   Reset(): void;
   SetColorize(red: float, green: float, blue: float, amount: float): void;
   SetOffset(redOffset: float, greenOffset: float, blueOffset: float): void;

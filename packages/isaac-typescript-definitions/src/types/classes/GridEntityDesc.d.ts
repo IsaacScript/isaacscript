@@ -1,7 +1,7 @@
 import { GridEntityType } from "../../enums/GridEntityType";
 
 declare global {
-  interface GridEntityDesc {
+  interface GridEntityDesc extends IsaacAPIClass {
     Initialized: boolean;
     SpawnCount: int;
     SpawnSeed: Seed;

@@ -8,7 +8,7 @@ import { RoomType } from "../../enums/RoomType";
 import { StageType } from "../../enums/StageType";
 
 declare global {
-  interface Level {
+  interface Level extends IsaacAPIClass {
     AddAngelRoomChance(chance: float): void;
 
     /**

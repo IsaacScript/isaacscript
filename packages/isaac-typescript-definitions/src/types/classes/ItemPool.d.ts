@@ -9,7 +9,7 @@ import { PillEffect } from "../../enums/PillEffect";
 import { RoomType } from "../../enums/RoomType";
 
 declare global {
-  interface ItemPool {
+  interface ItemPool extends IsaacAPIClass {
     AddBibleUpgrade(add: int, itemPoolType: ItemPoolType): void;
     AddRoomBlacklist(collectibleType: CollectibleType): void;
     ForceAddPillEffect(pillEffect: PillEffect): PillColor;

@@ -4,7 +4,13 @@ import { Keyboard } from "../../enums/Keyboard";
 import { Mouse } from "../../enums/Mouse";
 
 declare global {
-  /** @noSelf */
+  /**
+   * The `Input` class contains a collection of methods having to do with detecting player input.
+   *
+   * `Input` is technically not an Isaac API class; it has a type of `table`.
+   *
+   * @noSelf
+   */
   namespace Input {
     function GetActionValue(
       buttonAction: ButtonAction,

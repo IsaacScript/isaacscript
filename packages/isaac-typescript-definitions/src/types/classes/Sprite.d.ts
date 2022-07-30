@@ -1,6 +1,6 @@
 declare function Sprite(this: void): Sprite;
 
-declare interface Sprite {
+declare interface Sprite extends IsaacAPIClass {
   /** Return the name of the currently played animation. */
   GetAnimation(): string;
 

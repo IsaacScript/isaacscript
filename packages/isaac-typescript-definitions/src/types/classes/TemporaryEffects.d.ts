@@ -2,7 +2,7 @@ import { CollectibleType, TrinketType } from "../../enums/collections/subTypes";
 import { NullItemID } from "../../enums/NullItemID";
 
 declare global {
-  interface TemporaryEffects {
+  interface TemporaryEffects extends IsaacAPIClass {
     /**
      * This will only work properly with specific collectibles.
      *

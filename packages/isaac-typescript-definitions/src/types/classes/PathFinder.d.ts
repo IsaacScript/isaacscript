@@ -1,4 +1,4 @@
-declare interface PathFinder {
+declare interface PathFinder extends IsaacAPIClass {
   EvadeTarget(targetPos: Vector): void;
 
   FindGridPath(

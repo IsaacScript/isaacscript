@@ -2,7 +2,7 @@ import { TearVariant } from "../../enums/collections/variants";
 import { TearFlag } from "../../enums/flags/TearFlag";
 
 declare global {
-  interface TearParams {
+  interface TearParams extends IsaacAPIClass {
     BombVariant: int;
     TearColor: Color;
     TearDamage: float;

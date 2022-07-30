@@ -6,7 +6,7 @@ import { ItemType } from "../../enums/ItemType";
 import { NullItemID } from "../../enums/NullItemID";
 
 declare global {
-  interface ItemConfigItem {
+  interface ItemConfigItem extends IsaacAPIClass {
     /**
      * Used to check if a collectible or trinket has an item tag, such as "offensive" or
      * "monstermanual". These tags can be found in the "items_metadata.xml" file.

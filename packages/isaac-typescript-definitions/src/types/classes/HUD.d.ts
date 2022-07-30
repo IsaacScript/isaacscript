@@ -1,7 +1,7 @@
 import { ActiveSlot } from "../../enums/ActiveSlot";
 
 declare global {
-  interface HUD {
+  interface HUD extends IsaacAPIClass {
     /**
      * Causes the charge bar of the active item in the specified slot to blink as if it had gained
      * charges.

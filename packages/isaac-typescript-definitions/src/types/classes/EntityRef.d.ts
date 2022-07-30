@@ -7,7 +7,7 @@ declare global {
    */
   function EntityRef(this: void, entity: Entity | undefined): EntityRef;
 
-  interface EntityRef {
+  interface EntityRef extends IsaacAPIClass {
     Entity: Entity | undefined;
     IsCharmed: boolean;
     IsFriendly: boolean;

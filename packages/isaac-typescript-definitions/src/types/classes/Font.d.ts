@@ -1,6 +1,6 @@
 declare function Font(this: void): Font;
 
-declare interface Font {
+declare interface Font extends IsaacAPIClass {
   /**
    * @param str
    * @param positionX

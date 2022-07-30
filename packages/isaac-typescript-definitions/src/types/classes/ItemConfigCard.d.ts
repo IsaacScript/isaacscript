@@ -1,4 +1,4 @@
-declare interface ItemConfigCard {
+declare interface ItemConfigCard extends IsaacAPIClass {
   AchievementID: int;
   Description: string;
   GreedModeAllowed: boolean;
