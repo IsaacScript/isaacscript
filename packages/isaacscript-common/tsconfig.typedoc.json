@@ -1,0 +1,7 @@
+// If we exclude the "indexTypeDoc.ts" files, then TypeDoc won't work properly, so we have to feed
+// it a specially crafted TypeScript config.
+{
+  "extends": "./tsconfig.json",
+  "include": ["./src/**/*.ts"],
+  "exclude": [],
+}

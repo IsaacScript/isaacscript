@@ -31,10 +31,10 @@ const v = {
 };
 
 export function taintedLazarusPlayersInit(mod: ModUpgraded): void {
-  // `EntityPtr` is not serializable, so we cannot save data. However, this is inconsequential,
+  // `EntityPtr` is not serializable, so we cannot save the data. However, this is inconsequential,
   // since the `POST_PLAYER_INIT` callback will fire when a run is continued, which will repopulate
   // the `subPlayerMap`.
-  saveDataManager(FEATURE_NAME, v, () => false);
+  saveDataManager(FEATURE_NAME, v, false);
 
   mod.AddCallback(ModCallback.POST_PLAYER_INIT, postPlayerInit);
 }

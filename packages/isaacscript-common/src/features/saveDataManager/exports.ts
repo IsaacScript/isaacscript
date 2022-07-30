@@ -96,18 +96,30 @@ import { SAVE_DATA_MANAGER_FEATURE_NAME } from "./saveDataManagerConstants";
  *            manager. The save data manager will throw an error if the key is already registered.
  * @param v An object that corresponds to the `SaveData` interface. The object is conventionally
  *          called "v" for brevity. ("v" is short for "local variables").
- * @param conditionalFunc An optional function to run upon saving this key to disk. For example,
- *                        this allows features to only save data to disk if the feature is enabled.
- *                        Specify a value of `() => false` to completely disable saving this feature
- *                        to disk. Disabling saving to disk is useful if you are using data that is
- *                        not serializable. Alternatively, it could be useful if you want to use the
- *                        save data manager to automatically reset variables on run/level/room, but
- *                        not clutter the the "save#.dat" file with unnecessary keys.
+ * @param conditionalFunc Optional. A function to run to check if this save data should be written
+ *                        to disk. Default is `() => true`, meaning that this save data will always
+ *                        be written to disk. Use a conditional function for the situations when the
+ *                        local variables are for a feature that the end-user can disable. (If the
+ *                        feature is disabled, then there would be no point in writing any of the
+ *                        variables to the "save#.dat" file.) You can also specify `false` to this
+ *                        argument in order to completely disable saving data. (Specifying `false`
+ *                        will allow you to use non-serializable objects in your save data, such as
+ *                        `EntityPtr`.
  */
-export function saveDataManager(
-  key: string,
-  v: SaveData,
+export function saveDataManager<Persistent, Run, Level>(
+  key: string, // This is the overload for the standard case with serializable data.
+  v: SaveData<Persistent, Run, Level>,
   conditionalFunc?: () => boolean,
+): void;
+export function saveDataManager(
+  key: string, // This is the overload for the case when saving data is disabled.
+  v: SaveData<unknown, unknown, unknown>,
+  conditionalFunc: false,
+): void;
+export function saveDataManager<Persistent, Run, Level>(
+  key: string,
+  v: SaveData<Persistent, Run, Level>,
+  conditionalFunc?: (() => boolean) | false,
 ): void {
   errorIfFeaturesNotInitialized(SAVE_DATA_MANAGER_FEATURE_NAME);
 
@@ -126,6 +138,12 @@ export function saveDataManager(
   // Add the new save data to the map.
   saveDataMap.set(key, v);
 
+  // Convert the boolean to a function, if necessary. (Having the argument be a boolean is necessary
+  // in order for the overloads to work properly.)
+  if (conditionalFunc === false) {
+    conditionalFunc = () => false;
+  }
+
   // If the only key in the save data is "room", then we don't have to worry about saving this data
   // to disk (because the room would be reloaded upon resuming a continued run).
   const saveDataKeys = Object.keys(v);
@@ -135,7 +153,7 @@ export function saveDataManager(
 
   // Make a copy of the initial save data so that we can use it to restore the default values later
   // on.
-  const saveDataCopy = deepCopy(v, SerializationType.NONE, key) as SaveData;
+  const saveDataCopy = deepCopy(v, SerializationType.NONE, key) as typeof v;
   saveDataDefaultsMap.set(key, saveDataCopy);
 
   // Store the conditional function for later, if present.

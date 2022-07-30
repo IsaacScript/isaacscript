@@ -187,9 +187,9 @@ function setPrimitiveEntityFields(
     const indexKey = key as keyof typeof entity;
     const value = entity[indexKey];
     if (isPrimitive(value)) {
-      entityFields.set(indexKey, value);
+      entityFields.set(indexKey as string, value);
     } else if (isVector(value)) {
-      entityFields.set(indexKey, vectorToString(value));
+      entityFields.set(indexKey as string, vectorToString(value));
     }
   }
 }

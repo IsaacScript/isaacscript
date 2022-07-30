@@ -44,7 +44,8 @@ function getAllSaveDataToWriteToDisk(
         }
       }
 
-      // Strip out the room part of the save data.
+      // Strip out the room part of the save data (and any other arbitrary fields that they might
+      // have added).
       const saveDataWithoutRoom: SaveData = {
         persistent: saveData.persistent,
         run: saveData.run,
