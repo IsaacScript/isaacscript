@@ -399,7 +399,7 @@ export interface CustomStageBossPoolEntry {
    * For example, use a value of 1 if you want this boss to be equally likely as any other boss, 0.5
    * if you want it to be half as likely, 2 if you want it to be twice as likely, and so on.
    */
-  weight: float;
+  weight: number;
 }
 
 /**
