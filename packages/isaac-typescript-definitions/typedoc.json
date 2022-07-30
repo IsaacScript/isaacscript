@@ -185,6 +185,7 @@
     "src/types/unofficial/BitFlag128.d.ts",
     "src/types/unofficial/BitFlags.d.ts",
     "src/types/unofficial/EntitySubPlayer.d.ts",
+    "src/types/unofficial/IsaacAPIClass.d.ts",
     "src/types/unofficial/primitives.d.ts",
     "src/types/unofficial/PtrHash.d.ts",
     "src/types/unofficial/Seed.d.ts",

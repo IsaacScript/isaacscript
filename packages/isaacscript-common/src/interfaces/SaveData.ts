@@ -47,7 +47,7 @@ export interface SaveData<
 type Serializable<T> = T extends SerializableIsaacAPIClass
   ? T
   : T extends IsaacAPIClass
-  ? IsaacAPIClassIsNotSerializable
+  ? ErrorIsaacAPIClassIsNotSerializable
   : T extends SerializablePrimitive
   ? T
   : T extends Array<infer U>
@@ -59,7 +59,7 @@ type Serializable<T> = T extends SerializableIsaacAPIClass
   : SerializableObject<T>;
 
 type SerializableInsideArrayOrMap<T> = T extends AnyClass
-  ? CustomClassIsNotSerializable
+  ? ErrorCustomClassIsNotSerializable
   : Serializable<T>;
 
 type SerializablePrimitive = boolean | string | number | undefined | null;
@@ -72,8 +72,8 @@ type SerializableSet<T> = Set<SerializableInsideArrayOrMap<T>>;
 type SerializableObject<T> = { [K in keyof T]: Serializable<T[K]> };
 type SerializableIsaacAPIClass = Color | KColor | RNG | Vector;
 
-type IsaacAPIClassIsNotSerializable =
+type ErrorIsaacAPIClassIsNotSerializable =
   "Error: Isaac API classes (such as e.g. `Entity` or `RoomConfig`) are not serializable. For more information, see: https://isaacscript.github.io/main/gotchas#isaac-api-classes-are-not-serializable";
 
-type CustomClassIsNotSerializable =
+type ErrorCustomClassIsNotSerializable =
   'Error: The "DefaultMap" class and other custom classes are not serializable when they are placed inside of an array, map, or set. For more information, see: https://isaacscript.github.io/main/gotchas#defaultmap-and-other-custom-classes-are-not-serializable';
