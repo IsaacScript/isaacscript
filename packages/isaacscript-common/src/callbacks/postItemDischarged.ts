@@ -22,21 +22,18 @@ import {
   postItemDischargeHasSubscriptions,
 } from "./subscriptions/postItemDischarged";
 
-type ActiveSlotToCollectibleTypeMap = DefaultMap<
-  ActiveSlot,
-  CollectibleType,
-  [int]
->;
-type ActiveSlotToChargeMap = DefaultMap<ActiveSlot, int, [int]>;
+// Unfortunately, we cannot use a nested `DefaultMap` here.
+type ActiveSlotToCollectibleTypeMap = Map<ActiveSlot, CollectibleType>;
+type ActiveSlotToChargeMap = Map<ActiveSlot, int>;
 
 const v = {
   run: {
     playersActiveItemMap: new DefaultMap<
       PlayerIndex,
       ActiveSlotToCollectibleTypeMap
-    >(() => new DefaultMap((collectibleType) => collectibleType)),
+    >(() => new Map()),
     playersActiveChargeMap: new DefaultMap<PlayerIndex, ActiveSlotToChargeMap>(
-      () => new DefaultMap((charge) => charge),
+      () => new Map(),
     ),
   },
 
@@ -71,10 +68,10 @@ function postPEffectUpdate(player: EntityPlayer) {
 
   for (const activeSlot of getEnumValues(ActiveSlot)) {
     const currentActiveItem = player.GetActiveItem();
-    const previousActiveItem = activeItemMap.getAndSetDefault(
-      activeSlot,
-      currentActiveItem,
-    );
+    let previousActiveItem = activeItemMap.get(activeSlot);
+    if (previousActiveItem === undefined) {
+      previousActiveItem = currentActiveItem;
+    }
     activeItemMap.set(activeSlot, currentActiveItem);
 
     if (currentActiveItem !== previousActiveItem) {
@@ -84,10 +81,10 @@ function postPEffectUpdate(player: EntityPlayer) {
     }
 
     const currentCharge = getTotalCharge(player, activeSlot);
-    const previousCharge = chargeMap.getAndSetDefault(
-      activeSlot,
-      currentCharge,
-    );
+    let previousCharge = chargeMap.get(activeSlot);
+    if (previousCharge === undefined) {
+      previousCharge = currentCharge;
+    }
     chargeMap.set(activeSlot, currentCharge);
 
     if (playerRecentlyCollidedWithBulb(player)) {
