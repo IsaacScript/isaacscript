@@ -31,7 +31,7 @@ const v = {
 };
 
 export function runInNFramesInit(mod: Mod): void {
-  saveDataManager(FEATURE_NAME, v, () => false); // Functions are not serializable.
+  saveDataManager(FEATURE_NAME, v, false); // Functions are not serializable.
 
   mod.AddCallback(ModCallback.POST_UPDATE, postUpdate); // 1
   mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2

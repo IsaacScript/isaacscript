@@ -233,7 +233,7 @@ function deepCopyDefaultMap(
       // throw a run-time error to immediately alert the end-user that their data structure is
       // invalid.
       error(
-        'Failed to deep copy a DefaultMap because it was instantiated with a factory function and was also inside of another map. You cannot use a nested DefaultMap in this way because factory functions are not serializable. (In other words, there is no way to copy the function that you are using for the DefaultMap into the "save#.dat" file.) Instead, refactor your data structure so that the DefaultMap is not nested.',
+        "Failed to deep copy a DefaultMap because it was instantiated with a factory function and was also inside of an array, map, or set. For more information, see: https://isaacscript.github.io/main/gotchas#failed-to-deep-copy-a-defaultmap",
       );
     } else {
       // In most cases, the DefaultMap will be attached to a normal table element. In this case, if

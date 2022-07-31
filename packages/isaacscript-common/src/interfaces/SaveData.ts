@@ -1,4 +1,4 @@
-import { AnyClass } from "../types";
+/* eslint-disable max-classes-per-file */
 
 /**
  * This is the format of the object that you give to the save data manager. It will contains all of
@@ -44,36 +44,238 @@ export interface SaveData<
  * The recursive nature of this type is based on the `Immutable` type:
  * https://stackoverflow.com/questions/41879327/deepreadonly-object-typescript
  */
-type Serializable<T> = T extends SerializableIsaacAPIClass
-  ? T
-  : T extends IsaacAPIClass
-  ? ErrorIsaacAPIClassIsNotSerializable
-  : T extends SerializablePrimitive
-  ? T
-  : T extends Array<infer U>
-  ? SerializableArray<U>
-  : T extends Map<infer K, infer V>
-  ? SerializableMap<K, V>
-  : T extends Set<infer M>
-  ? SerializableSet<M>
-  : SerializableObject<T>;
+type Serializable<T> =
+  // Allow the trivial case of primitives.
+  T extends SerializablePrimitive
+    ? T
+    : // Allow a specific subset of Isaac API classes that are copyable / serializable.
+    T extends SerializableIsaacAPIClass
+    ? T
+    : // Disallow all other Isaac API classes.
+    T extends IsaacAPIClass
+    ? ErrorIsaacAPIClassIsNotSerializable
+    : // Allow some specific "container" objects.
+    // These container objects are explicitly handled by the save data manager, but there are
+    // restrictions on the things inside of them.
+    T extends Array<infer U>
+    ? SerializableArray<U>
+    : T extends ReadonlyArray<infer U>
+    ? SerializableReadonlyArray<U>
+    : T extends Map<infer K, infer V>
+    ? SerializableMap<K, V>
+    : T extends ReadonlyMap<infer K, infer V>
+    ? SerializableReadonlyMap<K, V>
+    : T extends Set<infer V>
+    ? SerializableSet<V>
+    : T extends ReadonlySet<infer V>
+    ? SerializableReadonlySet<V>
+    : // Allow any other object, as long as the values are themselves serializable.
+      SerializableObject<T>;
 
-type SerializableInsideArrayOrMap<T> = T extends AnyClass
-  ? ErrorCustomClassIsNotSerializable
-  : Serializable<T>;
+/**
+ * This is mostly copied from the `Serializable` type. The difference is that we want to disallow
+ * classes with methods.
+ */
+type SerializableInsideArrayOrMap<T> =
+  // Allow the trivial case of primitives.
+  T extends SerializablePrimitive
+    ? T
+    : // Allow a specific subset of Isaac API classes that are copyable / serializable.
+    T extends SerializableIsaacAPIClass
+    ? T
+    : // Disallow all other Isaac API classes.
+    T extends IsaacAPIClass
+    ? ErrorIsaacAPIClassIsNotSerializable
+    : // Allow some specific "container" objects.
+    // These container objects are explicitly handled by the save data manager, but there are
+    // restrictions on the things inside of them.
+    T extends Array<infer U>
+    ? SerializableArray<U>
+    : T extends ReadonlyArray<infer U>
+    ? SerializableReadonlyArray<U>
+    : T extends Map<infer K, infer V>
+    ? SerializableMap<K, V>
+    : T extends ReadonlyMap<infer K, infer V>
+    ? SerializableReadonlyMap<K, V>
+    : T extends Set<infer V>
+    ? SerializableSet<V>
+    : T extends ReadonlySet<infer V>
+    ? SerializableReadonlySet<V>
+    : // Disallow objects with functions on them (i.e. classes with methods).
+    // (This has to be after allowing maps and sets, because those have functions inside of them.)
+    T extends HasMethods<T>
+    ? ErrorCustomClassNotSerializable
+    : // Disallow functions.
+    // (We can only disallow functions when inside of containers, because we want to allow classes
+    // with methods attached to normal objects.)
+    T extends Function // eslint-disable-line @typescript-eslint/ban-types
+    ? FunctionIsNotSerializable
+    : // Finally, allow any other object, as long as the values are themselves serializable.
+      SerializableObject<T>;
 
 type SerializablePrimitive = boolean | string | number | undefined | null;
 type SerializableArray<T> = Array<SerializableInsideArrayOrMap<T>>;
+type SerializableReadonlyArray<T> = ReadonlyArray<
+  SerializableInsideArrayOrMap<T>
+>;
 type SerializableMap<K, V> = Map<
   SerializableInsideArrayOrMap<K>,
   SerializableInsideArrayOrMap<V>
 >;
+type SerializableReadonlyMap<K, V> = ReadonlyMap<
+  SerializableInsideArrayOrMap<K>,
+  SerializableInsideArrayOrMap<V>
+>;
 type SerializableSet<T> = Set<SerializableInsideArrayOrMap<T>>;
+type SerializableReadonlySet<T> = ReadonlySet<SerializableInsideArrayOrMap<T>>;
 type SerializableObject<T> = { [K in keyof T]: Serializable<T[K]> };
 type SerializableIsaacAPIClass = Color | KColor | RNG | Vector;
+
+// eslint-disable-next-line @typescript-eslint/ban-types
+type HasMethods<T> = {} extends {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  [K in keyof T as T[K] extends Function ? K : never]-?: 1;
+}
+  ? never
+  : T;
+
+type FunctionIsNotSerializable =
+  "Error: Functions are not serializable. For more information, see: https://isaacscript.github.io/main/gotchas#functions-are-not-serializable";
 
 type ErrorIsaacAPIClassIsNotSerializable =
   "Error: Isaac API classes (such as e.g. `Entity` or `RoomConfig`) are not serializable. For more information, see: https://isaacscript.github.io/main/gotchas#isaac-api-classes-are-not-serializable";
 
-type ErrorCustomClassIsNotSerializable =
-  'Error: The "DefaultMap" class and other custom classes are not serializable when they are placed inside of an array, map, or set. For more information, see: https://isaacscript.github.io/main/gotchas#defaultmap-and-other-custom-classes-are-not-serializable';
+type ErrorCustomClassNotSerializable =
+  "Error: Custom classes with one or more methods are not serializable when inside of an array, map, or set. For more information, see: https://isaacscript.github.io/main/gotchas#custom-classes-are-not-serializable";
+
+// -----
+// Tests
+// -----
+
+function test<Persistent, Run, Level>(
+  _saveData: SaveData<Persistent, Run, Level>,
+) {}
+
+{
+  const saveDataWithPrimitives = {
+    run: {
+      foo: 123,
+      bar: "bar",
+      baz: true,
+      nested: {
+        foo: 123,
+        bar: "bar",
+        baz: true,
+      },
+    },
+  };
+
+  // Primitives and nested primitives are allowed.
+  test(saveDataWithPrimitives);
+}
+
+{
+  const saveDataWithEntity = {
+    run: {
+      foo: {} as Entity,
+    },
+  };
+
+  // @ts-expect-error Isaac API classes are not serializable.
+  test(saveDataWithEntity);
+}
+
+{
+  const saveDataWithMap = {
+    run: {
+      foo: new Map<string, string>(),
+    },
+  };
+
+  // Maps with primitive values are allowed.
+  test(saveDataWithMap);
+}
+
+{
+  const saveDataWithMap = {
+    run: {
+      foo: new Map<string, () => void>(),
+    },
+  };
+
+  // @ts-expect-error Maps with function values are not serializable.
+  test(saveDataWithMap);
+}
+
+{
+  const saveDataWithMap = {
+    run: {
+      foo: new Map<string, Map<string, string>>(),
+    },
+  };
+
+  // Nested maps are allowed.
+  test(saveDataWithMap);
+}
+
+{
+  class Foo {
+    someField = 123;
+  }
+
+  const saveDataWithClass = {
+    run: {
+      foo: new Foo(),
+    },
+  };
+
+  // Custom classes without methods are allowed.
+  test(saveDataWithClass);
+}
+
+{
+  class Foo {
+    someField = 123;
+    someMethod() {} // eslint-disable-line class-methods-use-this
+  }
+
+  const saveDataWithClassWithMethod = {
+    run: {
+      foo: new Foo(),
+    },
+  };
+
+  // Custom classes with methods are allowed.
+  test(saveDataWithClassWithMethod);
+}
+
+{
+  class Foo {
+    someField = 123;
+  }
+
+  const saveDataWithNestedClass = {
+    run: {
+      fooMap: new Map<string, Foo>(),
+    },
+  };
+
+  // Nested custom classes without methods are allowed.
+  test(saveDataWithNestedClass);
+}
+
+{
+  class Foo {
+    someField = 123;
+    someMethod() {} // eslint-disable-line class-methods-use-this
+  }
+
+  const saveDataWithNestedClass = {
+    run: {
+      fooMap: new Map<string, Foo>(),
+    },
+  };
+
+  // @ts-expect-error Nested custom classes with methods are not serializable.
+  test(saveDataWithNestedClass);
+}

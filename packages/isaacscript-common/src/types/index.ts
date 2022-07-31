@@ -1,4 +1,3 @@
-export * from "./AnyClass";
 export * from "./AnyEntity";
 export * from "./AnyGridEntity";
 export * from "./CollectibleIndex";

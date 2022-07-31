@@ -5,9 +5,7 @@ import { isFunction, isPrimitive } from "../functions/types";
  * A function that creates the default value for your `DefaultMap`. For example, if it was a
  * `DefaultMap` containing maps, the factory function would be: `() => new Map()`
  */
-export type FactoryFunction<V, Args extends unknown[]> = (
-  ...extraArgs: Args
-) => V;
+export type FactoryFunction<V, Args extends unknown[]> = (...args: Args) => V;
 
 /**
  * `DefaultMap` is a data structure that makes working with default values easier.
@@ -127,13 +125,13 @@ export class DefaultMap<Key, Value, Args extends unknown[] = []> extends Map<
    * If the key exists, this will return the same thing as the normal `Map.get` method. Otherwise,
    * it will set a default value for the provided key, and then return the default value.
    */
-  getAndSetDefault(key: Key, ...extraArgs: Args): Value {
+  getAndSetDefault(key: Key, ...args: Args): Value {
     const value = super.get(key);
     if (value !== undefined) {
       return value;
     }
 
-    const defaultValue = this.getDefaultValue(...extraArgs);
+    const defaultValue = this.getDefaultValue(...args);
     this.set(key, defaultValue);
     return defaultValue;
   }
@@ -142,13 +140,13 @@ export class DefaultMap<Key, Value, Args extends unknown[] = []> extends Map<
    * Returns the default value to be used for a new key. (If a factory function was provided during
    * instantiation, this will execute the factory function.)
    */
-  getDefaultValue(...extraArgs: Args): Value {
+  getDefaultValue(...args: Args): Value {
     if (this.defaultValue !== undefined) {
       return this.defaultValue;
     }
 
     if (this.defaultValueFactory !== undefined) {
-      return this.defaultValueFactory(...extraArgs);
+      return this.defaultValueFactory(...args);
     }
 
     error("A DefaultMap was incorrectly instantiated.");
@@ -170,3 +168,34 @@ export class DefaultMap<Key, Value, Args extends unknown[] = []> extends Map<
     error("A DefaultMap was incorrectly instantiated.");
   }
 }
+
+/* eslint-disable @typescript-eslint/no-unused-vars */
+function test() {
+  // Boolean
+  const myDefaultMapBoolean = new DefaultMap<string, boolean>(false);
+  const myDefaultMapBooleanFactory = new DefaultMap<string, boolean>(
+    () => false,
+  );
+  const myDefaultMapBooleanWithoutParams = new DefaultMap(false);
+
+  // Number
+  const myDefaultMapNumber = new DefaultMap<string, number>(123);
+  const myDefaultMapNumberFactory = new DefaultMap<string, number>(() => 123);
+  const myDefaultMapNumberWithoutParams = new DefaultMap(123);
+
+  // String
+  const myDefaultMapString = new DefaultMap<string, string>("foo");
+  const myDefaultMapStringFactory = new DefaultMap<string, string>(() => "foo");
+  const myDefaultMapStringWithoutParams = new DefaultMap("foo");
+
+  // Array
+  const myDefaultMapArray = new DefaultMap<string, string[]>(() => []);
+  const myDefaultMapArrayWithoutParams = new DefaultMap(() => []);
+
+  // Map
+  const myDefaultMapMap = new DefaultMap<string, Map<string, string>>(
+    () => new Map(),
+  );
+  const myDefaultMapMapWithoutParams = new DefaultMap(() => new Map());
+}
+/* eslint-enable @typescript-eslint/no-unused-vars */

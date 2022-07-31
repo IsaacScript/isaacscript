@@ -12,16 +12,10 @@ const FEATURE_NAME = "disableInputs";
 const v = {
   run: {
     /** Indexed by the requesting feature key. */
-    disableInputsWithWhitelistMap: new Map<
-      string,
-      Set<ButtonAction> | ReadonlySet<ButtonAction>
-    >(),
+    disableInputsWithWhitelistMap: new Map<string, ReadonlySet<ButtonAction>>(),
 
     /** Indexed by the requesting feature key. */
-    enableInputsWithBlacklistMap: new Map<
-      string,
-      Set<ButtonAction> | ReadonlySet<ButtonAction>
-    >(),
+    enableInputsWithBlacklistMap: new Map<string, ReadonlySet<ButtonAction>>(),
   },
 };
 
@@ -154,7 +148,7 @@ export function enableAllInputsExceptFor(
  */
 export function disableAllInputsExceptFor(
   key: string,
-  whitelist: Set<ButtonAction>,
+  whitelist: Set<ButtonAction> | ReadonlySet<ButtonAction>,
 ): void {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
 

@@ -13,7 +13,7 @@ const v = {
 };
 
 export function runNextRoomInit(mod: ModUpgraded): void {
-  saveDataManager(FEATURE_NAME, v, () => false); // Functions are not serializable.
+  saveDataManager(FEATURE_NAME, v, false); // Functions are not serializable.
 
   mod.AddCallbackCustom(
     ModCallbackCustom.POST_NEW_ROOM_REORDERED,

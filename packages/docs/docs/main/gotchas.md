@@ -475,24 +475,52 @@ Programs with circular dependencies are generally considered to be spaghetti. If
 
 IsaacScript includes a [save data manager](/isaacscript-common/) that you will almost certainly want to use in your mods. Most of the time, you can use the save data manager without any hassle. However, there are some complicated cases where the `saveDataManager` function will throw a compiler error when trying to register your local variables. This section documents the special errors that it throws.
 
+#### Functions are not serializable
+
+(This is a compiler error.)
+
+This error means that you are trying to put a function on one of the fields in your local variables. Doing that doesn't make much sense, because functions cannot be written to the "save#.dat" file when the player saves and quits a run.
+
+In most cases, if you are trying to save a function, you are probably doing something wrong and should refactor your mod to use serializable data structures.
+
+If you absolutely have to work with functions, then you could move this field to a `room` sub-object, which is never saved to disk. Otherwise, you can pass `false` as the second argument to the `saveDataManager` function to prevent it from writing any part of the variables to disk.
+
 #### Isaac API classes are not serializable
+
+(This is a compiler error.)
 
 This error means that you are trying to put an Isaac API class (such as e.g. `Entity` or `RoomConfig`) on one of the fields in your local variables. Doing that doesn't make much sense, because these kinds of objects cannot be written to the "save#.dat" file when the player saves and quits a run. (Even if some of the properties were copied, there would be no way to recreate the object on the other end.)
 
 In most cases, if you are trying to save an Isaac API class, then you are probably doing something wrong, and you should instead use some kind of index. (For example, see the `getPlayerIndex` and `getCollectibleIndex` helper functions.)
 
-If you absolutely have to work with Isaac API classes, then you could move this field to a `room` sub-object, which is never saved to disk. Otherwise, you can pass `false` as the third argument to the `saveDataManager` function to prevent it from writing any part of this data structure to disk.
+If you absolutely have to work with Isaac API classes, then you could move this field to a `room` sub-object, which is never saved to disk. Otherwise, you can pass `false` as the third argument to the `saveDataManager` function to prevent it from writing any part of the variables to disk.
 
-#### `DefaultMap` and other custom classes are not serializable
+#### Custom classes are not serializable
 
-The `DefaultMap` class and other custom classes are not serializable when they are placed inside of an array, map, or set.
+(This is a compiler error.)
 
-In other words, this means that they cannot be written to the "save#.dat" file when the player saves and quits a run. (This is because there is no way for the deserializer to execute the corresponding constructor.)
+Custom classes with one or more methods are not serializable when inside of an array, map, or set.
 
-To work around this problem, you could use a normal `Map` instead of a `DefaultMap`, or a normal interface instead of a custom class. (This is probably the most straightforward way to fix the problem.)
+In other words, the class cannot be written to the "save#.dat" file when the player saves and quits a run. (This is because the save data manager has no reference to the class constructor, so the deserializer cannot recreate the object. If you really need this functionality, then open an issue on GitHub for the ability to register custom class constructors with the save data manager.)
 
-Additionally, a `DefaultMap` or custom class that is placed as a field of a normal `run` or `level` sub-object is serializable. Thus, you could refactor your data structure so that the custom class is not nested inside of the array, map, or set.
+To work around this problem, you could use a "normal" interface instead of a custom class. This is probably the most straightforward way to fix the problem.
 
-Otherwise, if you want to give up entirely on saving the data to disk, then you could move this field to a `room` sub-object, which is never saved to disk. Otherwise, you can pass `false` as the third argument to the `saveDataManager` function to prevent it from writing any part of this data structure to disk.
+Additionally, a custom class that is placed as a field of a normal `run` or `level` sub-object is serializable. Thus, you could refactor your data structure so that the custom class is not nested inside of the array, map, or set.
+
+If you want to give up entirely on saving the data, then you could move this field to a `room` sub-object, which is never saved to disk. Alternatively, you can pass `false` as the third argument to the `saveDataManager` function to prevent it from writing any part of the variables to disk.
+
+#### Failed to deep copy a `DefaultMap`
+
+(This is a run-time error, so you will see it in the console or in the "log.txt" file.)
+
+The `DefaultMap` class is not serializable when it has a factory function generating the default value and is also inside of an array, map, or set.
+
+In other words, the map cannot be written to the "save#.dat" file when the player saves and quits a run. (This is because functions cannot be serialized, so there is no way for the deserializer to execute the corresponding factory function.)
+
+To work around this problem, you could use a normal `Map` instead of a `DefaultMap`. This is probably the most straightforward way to fix the problem.
+
+Additionally, a `DefaultMap` that is placed as a field of a normal `run` or `level` sub-object is serializable. Thus, you could refactor your data structure so that the `DefaultMap` is not nested inside of the array, map, or set.
+
+If you want to give up entirely on saving the data, then you could move this field to a `room` sub-object, which is never saved to disk. Alternatively, you can pass `false` as the third argument to the `saveDataManager` function to prevent it from writing any part of the variables to disk.
 
 <br />
