@@ -41,6 +41,10 @@ const ROCK_ALT_CHANCES = {
 } as const;
 
 const COIN_VELOCITY_MULTIPLIER = 2;
+
+/** Matches the vanilla value, according to Fly's decompilation. */
+const FART_RADIUS = DISTANCE_OF_GRID_TILE * 3;
+
 const POLYP_PROJECTILE_SPEED = 10;
 const POLYP_NUM_PROJECTILES = 6;
 
@@ -253,6 +257,8 @@ function spawnRockAltRewardMushroom(position: Vector, rng: RNG): boolean {
   }
 
   // Since the detrimental effect is the final option, we don't need to check the chance.
+  game.Fart(position);
+  game.ButterBeanFart(position, FART_RADIUS, undefined);
   spawnEffectWithSeed(EffectVariant.FART, 0, position, rng);
   return true;
 }
