@@ -4,7 +4,14 @@ import { ModUpgraded } from "../classes/ModUpgraded";
 import { StatType } from "../enums";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { getPlayerStat, isNumber } from "../functions";
+import {
+  colorEquals,
+  getPlayerStat,
+  isBitSet128,
+  isBoolean,
+  isColor,
+  isNumber,
+} from "../functions";
 import { getEnumValues } from "../functions/enums";
 import { getPlayerIndex } from "../functions/playerIndex";
 import { PlayerIndex } from "../types/PlayerIndex";
@@ -13,11 +20,13 @@ import {
   postPlayerChangeStatHasSubscriptions,
 } from "./subscriptions/postPlayerChangeStat";
 
+type PossibleStatType = number | boolean | BitFlags<TearFlag> | Color;
+
 const v = {
   run: {
     playersStatMap: new DefaultMap<
       PlayerIndex,
-      Map<StatType, number | boolean | BitFlags<TearFlag> | Color | Vector>
+      Map<StatType, PossibleStatType>
     >(() => new Map()),
   },
 };
@@ -52,7 +61,11 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
     const currentStatValue = getPlayerStat(player, statType);
     playerStatMap.set(statType, currentStatValue);
 
-    if (storedStatValue !== undefined && storedStatValue !== currentStatValue) {
+    if (storedStatValue === undefined) {
+      continue;
+    }
+
+    if (!statEquals(storedStatValue, currentStatValue)) {
       const isNumberStat =
         isNumber(storedStatValue) && isNumber(currentStatValue);
       const difference = isNumberStat ? currentStatValue - storedStatValue : 0;
@@ -65,4 +78,33 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
       );
     }
   }
+}
+
+function statEquals(
+  oldValue: PossibleStatType,
+  newValue: PossibleStatType,
+): boolean {
+  const isNumberStat = isNumber(oldValue) && isNumber(newValue);
+  if (isNumberStat) {
+    return oldValue === newValue;
+  }
+
+  const isBooleanStat = isBoolean(oldValue) && isBoolean(newValue);
+  if (isBooleanStat) {
+    return oldValue === newValue;
+  }
+
+  const isBitSet128Stat = isBitSet128(oldValue) && isBitSet128(newValue);
+  if (isBitSet128Stat) {
+    return oldValue === newValue; // The class has the "__eq" meta-method.
+  }
+
+  const isColorStat = isColor(oldValue) && isColor(newValue);
+  if (isColorStat) {
+    return colorEquals(oldValue, newValue);
+  }
+
+  error(
+    'Failed to determine the type of a stat in the "POST_PLAYER_CHANGE_STAT" callback.',
+  );
 }

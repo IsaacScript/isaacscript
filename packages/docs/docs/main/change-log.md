@@ -12,6 +12,8 @@ This page lists the changes to the IsaacScript framework.
 ## August 3rd, 2022
 
 - IsaacScript now supports [custom stages](https://isaacscript.github.io/main/custom-stages).
+- The save data manager now supports `BitSet128` objects.
+- The save data manager will now throw a custom compiler error if you try to register variables that are not serializable.
 - Added the following helper functions:
   - `isCollectibleInItemPool`
   - `getAdjacentRoomGridIndexes`
@@ -26,6 +28,7 @@ This page lists the changes to the IsaacScript framework.
   - `getRoomDataForTypeVariant`
   - `setBackdrop`
   - `reloadRoom`
+  - `getPlayerStat`
 - Renamed the following helper functions:
   - `isRoomInsideMap` --> `isRoomInsideGrid`
   - `getRoomsInGrid` --> `getRoomsInsideGrid`
