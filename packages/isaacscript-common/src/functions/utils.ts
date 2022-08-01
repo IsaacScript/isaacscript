@@ -221,3 +221,19 @@ export function twoDimensionalSort<T>(a: T[], b: T[]): -1 | 0 | 1 {
 
   return a[0] < b[0] ? -1 : 1;
 }
+
+/**
+ * Helper function to convert fire rate into frames per second.
+ *
+ * For example:
+ *
+ * ```ts
+ * fromFireRateToFPS(15); // 4
+ * ```
+ *
+ * From:
+ * https://bindingofisaacrebirth.fandom.com/wiki/Tears#Direct_modifiers_to_Tear_Delay
+ */
+export function fromFireRateToFPS(fireRate: int | float): int {
+  return Math.floor(60 / fireRate);
+}
