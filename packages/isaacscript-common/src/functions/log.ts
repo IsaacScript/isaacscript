@@ -455,7 +455,7 @@ export function logUseFlags(
  * the Isaac API).
  */
 export function logUserdata(this: void, userdata: unknown): void {
-  if (isUserdata(userdata)) {
+  if (!isUserdata(userdata)) {
     log("Userdata: [not userdata]");
     return;
   }
