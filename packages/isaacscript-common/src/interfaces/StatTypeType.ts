@@ -1,6 +1,10 @@
 import { TearFlag } from "isaac-typescript-definitions";
 import { StatType } from "../enums/StatType";
 
+/**
+ * This is an interface mapping a stat type to the data type. For example, `StatType.DAMAGE` is a
+ * `float` type.
+ */
 export interface StatTypeType {
   [StatType.DAMAGE]: float;
   [StatType.FIRE_DELAY]: float;

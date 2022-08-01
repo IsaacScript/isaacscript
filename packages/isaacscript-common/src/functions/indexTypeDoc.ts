@@ -13,7 +13,6 @@ export * as Challenges from "./challenges";
 export * as Characters from "./characters";
 export * as Charge from "./charge";
 export * as ChargeBar from "./chargeBar";
-export * as CollectibleCacheFlag from "./collectibleCacheFlag";
 export * as Collectibles from "./collectibles";
 export * as CollectibleSet from "./collectibleSet";
 export * as CollectibleTag from "./collectibleTag";

@@ -1,5 +1,7 @@
 /**
- * Immutable is a type that will make the given array/map/set/object recursively read-only.
+ * Immutable is a utility type that will make the given array/map/set/object recursively read-only.
+ *
+ * You can use this type to easily build safe data structures.
  *
  * From: https://stackoverflow.com/questions/41879327/deepreadonly-object-typescript
  */

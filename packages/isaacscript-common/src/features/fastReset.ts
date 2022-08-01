@@ -34,7 +34,7 @@ function checkResetInput() {
     return;
   }
 
-  // Disable the fast-reset feature if the custom console is open.
+  // Disable the fast-reset feature if any custom consoles are open.
   if (AwaitingTextInput) {
     return;
   }

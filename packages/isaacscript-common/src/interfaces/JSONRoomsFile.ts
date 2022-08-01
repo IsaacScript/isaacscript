@@ -1,13 +1,17 @@
 /**
- * Custom rooms are created with the Basement Renovator program, which outputs XML files and STB
- * files. A `JSONRoomsFile` object is simply an XML file converted to JSON. (It is useful to have
- * the room data in JSON format so that it can be directly consumed by TypeScript programs.)
+ * The standard library has the feature to deploy a new room on-the-fly with the `deployJSONRoom`
+ * helper function. It requires a `JSONRoomsFile` as an argument, which is simply an XML file
+ * converted to JSON. (You create XML room files using the Basement Renovator program.)
  *
  * You can convert your XML files using the following command:
  *
  * ```sh
  * npx convert-xml-to-json foo.xml foo.json
  * ```
+ *
+ * Note that the custom stages feature of the standard library uses real XML/STB files, not JSON
+ * rooms, so you would only need to do this if you are using the `deployJSONRoom` command
+ * specifically.
  */
 export interface JSONRoomsFile {
   rooms: JSONRooms;

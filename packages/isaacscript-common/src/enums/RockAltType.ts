@@ -1,3 +1,4 @@
+/** This is used in the various rock alt type helper functions. */
 export enum RockAltType {
   URN,
   MUSHROOM,

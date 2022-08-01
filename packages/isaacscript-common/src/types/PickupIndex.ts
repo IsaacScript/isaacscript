@@ -1,6 +1,8 @@
 /**
- * `PickupIndex` is a specific type of string; see the documentation for the `getPickupIndex`
- * function. Mods can signify that data structures handle collectibles by using this type.
+ * `PickupIndex` is a specific type of number that represents a unique identifier for a pickup. Mods
+ * can signify that data structures handle collectibles by using this type.
+ *
+ * For more information, see the documentation for the `getPickupIndex` function.
  *
  * For example:
  *

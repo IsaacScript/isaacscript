@@ -1,6 +1,6 @@
 import { HeartSubType } from "isaac-typescript-definitions";
 
-/** Used by the `getPlayerHealth` and `setPlayerHealth` helper functions. */
+/** This is used by the `getPlayerHealth` and `setPlayerHealth` helper functions. */
 export interface PlayerHealth {
   maxHearts: int;
   hearts: int;

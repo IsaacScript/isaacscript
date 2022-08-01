@@ -1,3 +1,4 @@
+/** This is used in the various pocket item helper functions. */
 export enum PocketItemType {
   EMPTY,
   CARD,
