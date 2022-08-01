@@ -1,4 +1,4 @@
-declare function BitSet128(this: void, l: int, h: int): BitSet128;
+declare function BitSet128(this: void, l?: int, h?: int): BitSet128;
 
 /**
  * A class used to represent a 128-bit number. This is used because Lua only has 64-bit numbers and
