@@ -88,8 +88,8 @@ declare global {
     ResetPathFinderTarget(): void;
 
     /**
-     * The `EntityNPC.CanShutDoors` property conflicts with the `Entity.CanShutDoors` method, but
-     * the latter is deliberately not implemented so that we can utilize the property.
+     * The `EntityNPC.CanShutDoors` field conflicts with the `Entity.CanShutDoors` method, but the
+     * latter is deliberately not implemented so that we can utilize this field.
      */
     CanShutDoors: boolean;
 

@@ -50,6 +50,7 @@ import { PostPickupStateChangedRegisterParameters } from "../../callbacks/subscr
 import { PostPitRenderRegisterParameters } from "../../callbacks/subscriptions/postPitRender";
 import { PostPitUpdateRegisterParameters } from "../../callbacks/subscriptions/postPitUpdate";
 import { PostPlayerChangeHealthRegisterParameters } from "../../callbacks/subscriptions/postPlayerChangeHealth";
+import { PostPlayerChangeStatRegisterParameters } from "../../callbacks/subscriptions/postPlayerChangeStat";
 import { PostPlayerChangeTypeRegisterParameters } from "../../callbacks/subscriptions/postPlayerChangeType";
 import { PostPlayerCollectibleAddedRegisterParameters } from "../../callbacks/subscriptions/postPlayerCollectibleAdded";
 import { PostPlayerCollectibleRemovedRegisterParameters } from "../../callbacks/subscriptions/postPlayerCollectibleRemoved";
@@ -140,6 +141,7 @@ export interface AddCallbackParameterCustom {
   [ModCallbackCustom.POST_PIT_RENDER]: PostPitRenderRegisterParameters;
   [ModCallbackCustom.POST_PIT_UPDATE]: PostPitUpdateRegisterParameters;
   [ModCallbackCustom.POST_PLAYER_CHANGE_HEALTH]: PostPlayerChangeHealthRegisterParameters;
+  [ModCallbackCustom.POST_PLAYER_CHANGE_STAT]: PostPlayerChangeStatRegisterParameters;
   [ModCallbackCustom.POST_PLAYER_CHANGE_TYPE]: PostPlayerChangeTypeRegisterParameters;
   [ModCallbackCustom.POST_PLAYER_COLLECTIBLE_ADDED]: PostPlayerCollectibleAddedRegisterParameters;
   [ModCallbackCustom.POST_PLAYER_COLLECTIBLE_REMOVED]: PostPlayerCollectibleRemovedRegisterParameters;

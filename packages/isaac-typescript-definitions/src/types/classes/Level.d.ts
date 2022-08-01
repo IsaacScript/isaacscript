@@ -220,7 +220,7 @@ declare global {
     Update(): void;
 
     /**
-     * Call this method to update the mini-map after changing the `DisplayFlags` property of a room.
+     * Call this method to update the mini-map after changing the `DisplayFlags` field of a room.
      */
     UpdateVisibility(): void;
 

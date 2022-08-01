@@ -26,19 +26,19 @@ function getIsaacScriptSection(
 ): Record<string, unknown> | undefined {
   const tsConfig = getTSConfigJSON(verbose);
 
-  // We allow different kinds of casing for the property name.
-  for (const propertyName of ["isaacscript", "isaacScript", "IsaacScript"]) {
-    const property = tsConfig[propertyName];
-    if (property !== undefined) {
-      if (!isRecord(property)) {
+  // We allow different kinds of casing for the field name.
+  for (const fieldName of ["isaacscript", "isaacScript", "IsaacScript"]) {
+    const field = tsConfig[fieldName];
+    if (field !== undefined) {
+      if (!isRecord(field)) {
         error(
           `Your "${chalk.green(
             TSCONFIG_JSON_PATH,
-          )}" file has a non-object value for the "${propertyName}" property, which is surely a mistake. ${ADVICE}`,
+          )}" file has a non-object value for the "${fieldName}" field, which is surely a mistake. ${ADVICE}`,
         );
       }
 
-      return property;
+      return field;
     }
   }
 
@@ -53,7 +53,7 @@ export function getFirstTSConfigIncludePath(verbose: boolean): string {
     error(
       `Your "${chalk.green(
         TSCONFIG_JSON_PATH,
-      )}" file does not have an "include" property, which is surely a mistake. ${ADVICE}`,
+      )}" file does not have an "include" field, which is surely a mistake. ${ADVICE}`,
     );
   }
 
@@ -61,7 +61,7 @@ export function getFirstTSConfigIncludePath(verbose: boolean): string {
     error(
       `Your "${chalk.green(
         TSCONFIG_JSON_PATH,
-      )}" file has an "include" property that is not an array, which is surely a mistake. ${ADVICE}`,
+      )}" file has an "include" field that is not an array, which is surely a mistake. ${ADVICE}`,
     );
   }
 
@@ -70,7 +70,7 @@ export function getFirstTSConfigIncludePath(verbose: boolean): string {
     error(
       `Your "${chalk.green(
         TSCONFIG_JSON_PATH,
-      )}" file has an empty "include" property, which is surely a mistake. ${ADVICE}`,
+      )}" file has an empty "include" field, which is surely a mistake. ${ADVICE}`,
     );
   }
 
@@ -110,7 +110,7 @@ export function getCustomStagesFromTSConfig(
     );
   }
 
-  // "customStages" is an optional property.
+  // "customStages" is an optional field.
   const { customStages } = isaacScriptSection;
   if (customStages === undefined) {
     return [];
@@ -119,7 +119,7 @@ export function getCustomStagesFromTSConfig(
   // The type of "customStages" should be validated by Ajv, but check again just in case.
   if (!Array.isArray(customStages)) {
     error(
-      `Failed to parse the "customStages" property, since it was not an array. ${ADVICE}.`,
+      `Failed to parse the "customStages" field, since it was not an array. ${ADVICE}.`,
     );
   }
 
@@ -138,7 +138,7 @@ export function getCustomStagesFromTSConfig(
     if (xmlPath === "") {
       error(
         chalk.red(
-          `The "${name}" custom stage has a blank "xmlPath" property, which is not allowed.`,
+          `The "${name}" custom stage has a blank "xmlPath" field, which is not allowed.`,
         ),
       );
     }
@@ -147,7 +147,7 @@ export function getCustomStagesFromTSConfig(
     if (roomVariantPrefix < 101 || roomVariantPrefix > 999) {
       error(
         chalk.red(
-          `The "${name}" custom stage has an invalid value for the "roomVariantPrefix" property: ${roomVariantPrefix}`,
+          `The "${name}" custom stage has an invalid value for the "roomVariantPrefix" field: ${roomVariantPrefix}`,
         ),
       );
     }
@@ -155,7 +155,7 @@ export function getCustomStagesFromTSConfig(
     const { baseStage } = customStageTSConfig;
     if (baseStage !== undefined && (baseStage < 2 || baseStage > 13)) {
       error(
-        `The "${name}" custom stage has an invalid value for the "baseStage" property: ${baseStage}`,
+        `The "${name}" custom stage has an invalid value for the "baseStage" field: ${baseStage}`,
       );
     }
 
@@ -165,7 +165,7 @@ export function getCustomStagesFromTSConfig(
       (baseStageType < 0 || baseStageType > 5)
     ) {
       error(
-        `The "${name}" custom stage has an invalid value for the "baseStageType" property: ${baseStageType}`,
+        `The "${name}" custom stage has an invalid value for the "baseStageType" field: ${baseStageType}`,
       );
     }
   }

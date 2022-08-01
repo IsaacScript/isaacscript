@@ -798,8 +798,8 @@ export enum ModCallbackCustom {
   POST_PIT_UPDATE,
 
   /**
-   * Fires from the `POST_PEFFECT_UPDATE` callback when a player entity gains or loses any health
-   * (i.e. hearts). For more information, see the `PlayerHealth` enum.
+   * Fires from the `POST_PEFFECT_UPDATE` callback when a player's health (i.e. hearts) is different
+   * than what it was on the previous frame. For more information, see the `PlayerHealth` enum.
    *
    * - When registering the callback, takes an optional second argument that will make the callback
    *   only fire if the player matches the `PlayerVariant` provided.
@@ -811,15 +811,47 @@ export enum ModCallbackCustom {
    *   player: EntityPlayer,
    *   healthType: HealthType,
    *   difference: int,
+   *   oldValue: int,
+   *   newValue: int,
    * ): void {}
    * ```
    */
   POST_PLAYER_CHANGE_HEALTH,
 
   /**
+   * Fires from the `POST_PEFFECT_UPDATE` callback when one of the player's stats change from what
+   * they were on the previous frame.
+   *
+   * The type of `oldValue` and `newValue` will depend on what kind of stat it is. For example,
+   * `StatType.FLYING` will be a boolean. (You can use the "Types" helper functions to narrow the
+   * type.)
+   *
+   * For `StatType.TEAR_FLAG`, `StatType.TEAR_COLOR`, `StatType.FLYING`, and `StatType.SIZE`, the
+   * `difference` argument will always be a value of 0, since the type of these stats are not
+   * numbers. (For these cases, you should examine the `oldValue` and `newValue` arguments
+   * accordingly.)
+   *
+   * - When registering the callback, takes an optional second argument that will make the callback
+   *   only fire if the player matches the `PlayerVariant` provided.
+   * - When registering the callback, takes an optional third argument that will make the callback
+   *   only fire if the player matches the `PlayerType` provided.
+   *
+   * ```ts
+   * function postPlayerChangeStat(
+   *   player: EntityPlayer,
+   *   statType: StatType,
+   *   difference: int,
+   *   oldValue: number | boolean | BitFlags<TearFlag> | Color | Vector,
+   *   newValue: number | boolean | BitFlags<TearFlag> | Color | Vector,
+   * ): void {}
+   * ```
+   */
+  POST_PLAYER_CHANGE_STAT,
+
+  /**
    * Fires from the `POST_PEFFECT_UPDATE` callback when a player entity changes its player type
-   * (i.e. character). For example, it will fire after using Clicker, after dying with the Judas'
-   * Shadow collectible, etc.
+   * (i.e. character) from what it was on the previous frame. For example, it will fire after using
+   * Clicker, after dying with the Judas' Shadow collectible, etc.
    *
    * Notably, it does not fire after the player uses the Flip item or the Esau Jr. item, because
    * those items cause separate player entities to be created. Use the `POST_FLIP` and

@@ -2,6 +2,12 @@
 
 import { CopyableIsaacAPIClassType } from "../enums/private/CopyableIsaacAPIClassType";
 import {
+  copyBitSet128,
+  deserializeBitSet128,
+  isSerializedBitSet128,
+  serializeBitSet128,
+} from "../functions/bitSet128";
+import {
   copyColor,
   deserializeColor,
   isSerializedColor,
@@ -36,6 +42,12 @@ interface IsaacAPIClassTypeFunctions {
 export const ISAAC_API_CLASS_TYPE_TO_FUNCTIONS: {
   readonly [key in CopyableIsaacAPIClassType]: IsaacAPIClassTypeFunctions;
 } = {
+  [CopyableIsaacAPIClassType.BIT_SET_128]: {
+    isSerialized: isSerializedBitSet128,
+    copy: copyBitSet128,
+    serialize: serializeBitSet128,
+    deserialize: deserializeBitSet128,
+  },
   [CopyableIsaacAPIClassType.COLOR]: {
     isSerialized: isSerializedColor,
     copy: copyColor,

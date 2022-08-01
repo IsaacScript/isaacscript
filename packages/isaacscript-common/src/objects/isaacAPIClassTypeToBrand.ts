@@ -4,6 +4,7 @@ import { SerializationBrand } from "../enums/private/SerializationBrand";
 export const ISAAC_API_CLASS_TYPE_TO_BRAND: {
   readonly [key in CopyableIsaacAPIClassType]: SerializationBrand;
 } = {
+  [CopyableIsaacAPIClassType.BIT_SET_128]: SerializationBrand.BIT_SET_128,
   [CopyableIsaacAPIClassType.COLOR]: SerializationBrand.COLOR,
   [CopyableIsaacAPIClassType.K_COLOR]: SerializationBrand.K_COLOR,
   [CopyableIsaacAPIClassType.RNG]: SerializationBrand.RNG,

@@ -22,7 +22,7 @@ export function getJSONRoomDoorSlotFlags(
   const roomShapeNumber = tonumber(roomShapeString);
   if (roomShapeNumber === undefined) {
     error(
-      `Failed to parse the "shape" property of a JSON room: ${roomShapeString}`,
+      `Failed to parse the "shape" field of a JSON room: ${roomShapeString}`,
     );
   }
   const roomShape = roomShapeNumber as RoomShape;
@@ -33,7 +33,7 @@ export function getJSONRoomDoorSlotFlags(
     const existsString = door.$.exists;
     if (existsString !== "True" && existsString !== "False") {
       error(
-        `Failed to parse the "exists" property of a JSON room door: ${existsString}`,
+        `Failed to parse the "exists" field of a JSON room door: ${existsString}`,
       );
     }
 
@@ -44,13 +44,13 @@ export function getJSONRoomDoorSlotFlags(
     const xString = door.$.x;
     const x = tonumber(xString);
     if (x === undefined) {
-      error(`Failed to parse the "x" property of a JSON room door: ${xString}`);
+      error(`Failed to parse the "x" field of a JSON room door: ${xString}`);
     }
 
     const yString = door.$.y;
     const y = tonumber(yString);
     if (y === undefined) {
-      error(`Failed to parse the "y" property of a JSON room door: ${yString}`);
+      error(`Failed to parse the "y" field of a JSON room door: ${yString}`);
     }
 
     const doorSlot = getRoomShapeDoorSlot(roomShape, x, y);

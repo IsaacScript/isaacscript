@@ -31,8 +31,13 @@ This page lists the changes to the IsaacScript framework.
   - `getRoomsInGrid` --> `getRoomsInsideGrid`
 - Changed the following helper functions:
   - `spawnCustomGridEntity` now supports the `breakable` argument, which will trigger `POST_GRID_ENTITY_CUSTOM_BROKEN` if it is hit by any type of explosion.
+  - `todo` now supports a variadic amount of arguments.
 - Added the following constants:
   - `ALL_DISPLAY_FLAGS`
+- Added the following custom callbacks:
+  - `POST_PLAYER_CHANGE_STAT`
+- Changed the following custom callbacks:
+  - `POST_PLAYER_CHANGE_HEALTH` now passes the old value and the new value (in addition to the difference).
 - Added the following types:
   - `Immutable` (used for recursively immutable objects/arrays/maps/sets)
 
@@ -1198,7 +1203,7 @@ npx prettier --check "src/**/*.ts"
   - `PoofSubType`
 - Renamed the following enums:
   - `BossIDs` --> `BossID`
-- Added the `slot` property to the `PocketItemDescription` enum.
+- Added the `slot` field to the `PocketItemDescription` enum.
 
 ## November 21st, 2021
 
@@ -1806,7 +1811,6 @@ You can still use `null` in your own variables, but make sure that it is for var
   - `POST_LASER_INIT_LATE`
   - `POST_PLAYER_INIT_LATE`
 - `GridEntity.Desc` is added back to the definitions, but only for the purposes of throwing a compiler error. (It is assigned a `never` type.) As per the developers, modders should always use `GridEntity.GetSaveState` instead of accessing `GridEntity.Desc` directly.
-- Using `Level.GetCurrentRoomDesc` is now allowed again, since it is the only way to get the current dimension. It now returns a `RoomDescriptorReadOnly` class, which is a read-only version of the `RoomDescriptor` class. Every property of the new class has a JSDoc comment informing you to use the `Level.GetRoomByIdx` method instead.
 - `GetPtrHash` now accepts a `RoomDescriptor` or a `RoomDescriptorReadOnly`.
 - The `getRandomArrayElement` helper function now throws an error if you provide it an array with 0 elements.
 - You can now pass an optional 2nd argument to the `upgradeMod` function to enable verbose logging at the beginning and end of every callback that fires. This can be useful to troubleshoot code that is causing the game to crash.
@@ -2020,7 +2024,7 @@ You can still use `null` in your own variables, but make sure that it is for var
   - `jsdoc/require-returns`
   - `jsdoc/require-param-type`
   - `jsdoc/require-returns-type`
-- The `isaacscript.json` file no longer contains a `projectName` property. Instead, IsaacScript will always read the project name from the current working directory.
+- The `isaacscript.json` file no longer contains a `projectName` field. Instead, IsaacScript will always read the project name from the current working directory.
   - (You should remove the `projectName` field from the `isaacscript.json` file in your current projects when you upgrade your dependencies.)
 - The `isaacscript.json` file now contains only per-user settings. Thus, it should not be committed to a repository. If no `isaacscript.json` file exists, IsaacScript will create one upon the first invocation in a new directory. (Previously, it would throw an error and exit.)
 - The `isaacscript.json` file is now automatically added to the `.gitignore` file for new projects.

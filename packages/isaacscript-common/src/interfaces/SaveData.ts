@@ -20,10 +20,6 @@
  * - serializable Isaac API classes (such as `Color`)
  * - TSTL classes (i.e. classes that you made yourself)
  * - sub-objects or a `LuaMap` that contains the above values
- *
- * (Unfortunately, it is not possible to create a recursive type definition that matches these
- * properties. This means that the TypeScript compiler will not be able to validate that you are
- * passing in serializable data.)
  */
 export interface SaveData<
   Persistent = unknown,
@@ -129,7 +125,7 @@ type SerializableReadonlyMap<K, V> = ReadonlyMap<
 type SerializableSet<T> = Set<SerializableInsideArrayOrMap<T>>;
 type SerializableReadonlySet<T> = ReadonlySet<SerializableInsideArrayOrMap<T>>;
 type SerializableObject<T> = { [K in keyof T]: Serializable<T[K]> };
-type SerializableIsaacAPIClass = Color | KColor | RNG | Vector;
+type SerializableIsaacAPIClass = BitSet128 | Color | KColor | RNG | Vector;
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 type HasMethods<T> = {} extends {

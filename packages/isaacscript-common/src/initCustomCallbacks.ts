@@ -37,6 +37,7 @@ import { postPickupStateChangedInit } from "./callbacks/postPickupStateChanged";
 import { postPitRenderInit } from "./callbacks/postPitRender";
 import { postPitUpdateInit } from "./callbacks/postPitUpdate";
 import { postPlayerChangeHealthInit } from "./callbacks/postPlayerChangeHealth";
+import { postPlayerChangeStatInit } from "./callbacks/postPlayerChangeStat";
 import { postPlayerChangeTypeInit } from "./callbacks/postPlayerChangeType";
 import { postPlayerCollectibleCallbacksInit } from "./callbacks/postPlayerCollectible";
 import { postPlayerFatalDamageInit } from "./callbacks/postPlayerFatalDamage";
@@ -109,6 +110,7 @@ export function initCustomCallbacks(mod: ModUpgraded): void {
   postPitRenderInit(mod);
   postPitUpdateInit(mod);
   postPlayerChangeHealthInit(mod);
+  postPlayerChangeStatInit(mod);
   postPlayerChangeTypeInit(mod);
   postPlayerCollectibleCallbacksInit(mod);
   postPlayerFatalDamageInit(mod);

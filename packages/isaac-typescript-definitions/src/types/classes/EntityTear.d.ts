@@ -26,8 +26,8 @@ declare global {
     ParentOffset: Vector;
 
     /**
-     * Unlike other read-only `Vector` in the API, this is read-only in both the property and the
-     * attributes.
+     * Unlike other cases of read-only `Vector` in the API, this is read-only in both the field and
+     * the attributes.
      */
     readonly PosDisplacement: Readonly<Vector>;
 

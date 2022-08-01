@@ -187,9 +187,13 @@ export function repeat(n: int, func: (i: int) => void): void {
  * When you see this function, it simply means that the programmer intends to add in more code to
  * this spot later.
  *
+ * This function is variadic, meaning that you can pass as many arguments as you want. (This is
+ * useful as a means to prevent lint warnings.)
+ *
  * This function does not actually do anything. (It is an "empty" function.)
  */
-export function todo(): void {}
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function todo(...args: unknown[]): void {}
 
 /**
  * Helper function to sort a two-dimensional array by the first element.

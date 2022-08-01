@@ -7,4 +7,5 @@ export * as PlayerHealth from "./PlayerHealth";
 export * as PocketItemDescription from "./PocketItemDescription";
 export * as RoomDescription from "./RoomDescription";
 export * as SaveData from "./SaveData";
+export * as StatTypeType from "./StatTypeType";
 export * as TrinketSituation from "./TrinketSituation";

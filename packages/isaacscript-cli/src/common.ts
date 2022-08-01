@@ -13,7 +13,7 @@ export function getJSONRoomDoorSlotFlags(jsonRoom: JSONRoom): number {
   const roomShapeNumber = parseIntSafe(roomShapeString);
   if (Number.isNaN(roomShapeNumber)) {
     error(
-      `Failed to parse the "shape" property of a custom stage room: ${roomShapeString}`,
+      `Failed to parse the "shape" field of a custom stage room: ${roomShapeString}`,
     );
   }
   const roomShape = roomShapeNumber as RoomShape;
@@ -24,7 +24,7 @@ export function getJSONRoomDoorSlotFlags(jsonRoom: JSONRoom): number {
     const existsString = door.$.exists;
     if (existsString !== "True" && existsString !== "False") {
       error(
-        `Failed to parse the "exists" property of a custom stage room door: ${existsString}`,
+        `Failed to parse the "exists" field of a custom stage room door: ${existsString}`,
       );
     }
 
@@ -36,7 +36,7 @@ export function getJSONRoomDoorSlotFlags(jsonRoom: JSONRoom): number {
     const x = parseIntSafe(xString);
     if (Number.isNaN(x)) {
       error(
-        `Failed to parse the "x" property of a custom stage room door: ${xString}`,
+        `Failed to parse the "x" field of a custom stage room door: ${xString}`,
       );
     }
 
@@ -44,7 +44,7 @@ export function getJSONRoomDoorSlotFlags(jsonRoom: JSONRoom): number {
     const y = parseIntSafe(yString);
     if (Number.isNaN(y)) {
       error(
-        `Failed to parse the "y" property of a custom stage room door: ${yString}`,
+        `Failed to parse the "y" field of a custom stage room door: ${yString}`,
       );
     }
 

@@ -12,6 +12,7 @@ export enum SerializationBrand {
   SET = "__TSTL_SET",
 
   // Specific Isaac API class brands:
+  BIT_SET_128 = "__BIT_SET_128",
   COLOR = "__COLOR",
   K_COLOR = "__K_COLOR",
   RNG = "__RNG",

@@ -34,9 +34,9 @@ export function clearSprite(sprite: Sprite, ...layerIDs: int[]): void {
  *
  * Note that this function is bugged with the Stop Watch or the Broken Watch, since using the
  * `Sprite.SetFrame` method will reset the internal accumulator used to slow down the playback speed
- * of the animation. (The `PlaybackSpeed` property of the sprite is not used.) Thus, it is only safe
- * to use this function on animations that are not slowed down by Stop Watch or Broken Watch, such
- * as player animations.
+ * of the animation. (The `PlaybackSpeed` field of the sprite is not used.) Thus, it is only safe to
+ * use this function on animations that are not slowed down by Stop Watch or Broken Watch, such as
+ * player animations.
  */
 export function getLastFrameOfAnimation(
   sprite: Sprite,

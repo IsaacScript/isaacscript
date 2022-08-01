@@ -3,6 +3,7 @@
 export * from "./ambush";
 export * from "./array";
 export * from "./benchmark";
+export * from "./bitSet128";
 export * from "./bitwise";
 export * from "./bombs";
 export * from "./bosses";
@@ -63,6 +64,7 @@ export * from "./playerDataStructures";
 export * from "./playerHealth";
 export * from "./playerIndex";
 export * from "./players";
+export * from "./playerStats";
 export * from "./pocketItems";
 export * from "./positionVelocity";
 export * from "./pressurePlate";

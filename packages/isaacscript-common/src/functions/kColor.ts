@@ -9,8 +9,8 @@ export type SerializedKColor = LuaMap<string, unknown> & {
   readonly __serializedKColorBrand: symbol;
 };
 
-const KEYS = ["Red", "Green", "Blue", "Alpha"];
 const OBJECT_NAME = "KColor";
+const KEYS = ["Red", "Green", "Blue", "Alpha"];
 
 /** Helper function to copy a `KColor` Isaac API class. */
 export function copyKColor(kColor: KColor): KColor {
@@ -84,7 +84,7 @@ export function getRandomKColor(
   return KColor(r, g, b, alpha);
 }
 
-/** Helper function to check if something is an instantiated KColor object. */
+/** Helper function to check if something is an instantiated `KColor` object. */
 export function isKColor(object: unknown): object is KColor {
   return isIsaacAPIClassOfType(object, OBJECT_NAME);
 }

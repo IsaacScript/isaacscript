@@ -9,8 +9,8 @@ export type SerializedColor = LuaMap<string, unknown> & {
   readonly __serializedColorBrand: symbol;
 };
 
-const KEYS = ["R", "G", "B", "A", "RO", "GO", "BO"];
 const OBJECT_NAME = "Color";
+const KEYS = ["R", "G", "B", "A", "RO", "GO", "BO"];
 
 export function colorEquals(color1: Color, color2: Color): boolean {
   return isaacAPIClassEquals(color1, color2, KEYS);
@@ -91,7 +91,7 @@ export function getRandomColor(
   return Color(r, g, b, alpha);
 }
 
-/** Helper function to check if something is an instantiated Color object. */
+/** Helper function to check if something is an instantiated `Color` object. */
 export function isColor(object: unknown): object is Color {
   return isIsaacAPIClassOfType(object, OBJECT_NAME);
 }
@@ -107,6 +107,7 @@ export function isSerializedColor(object: unknown): object is SerializedColor {
 
   return tableHasKeys(object, ...KEYS) && object.has(SerializationBrand.COLOR);
 }
+
 /**
  * Helper function to convert a `Color` object to a `SerializedColor` object. (This is used by the
  * save data manager when writing data from the "save#.dat" file.)

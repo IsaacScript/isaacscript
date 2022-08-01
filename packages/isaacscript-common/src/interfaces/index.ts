@@ -7,4 +7,5 @@ export * from "./PlayerHealth";
 export * from "./PocketItemDescription";
 export * from "./RoomDescription";
 export * from "./SaveData";
+export * from "./StatTypeType";
 export * from "./TrinketSituation";

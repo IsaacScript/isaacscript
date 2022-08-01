@@ -11,8 +11,8 @@ export type SerializedVector = LuaMap<string, unknown> & {
   readonly __serializedVectorBrand: symbol;
 };
 
-const KEYS = ["X", "Y"];
 const OBJECT_NAME = "Vector";
+const KEYS = ["X", "Y"];
 
 /** Helper function to copy a `Vector` Isaac API class. */
 export function copyVector(vector: Vector): Vector {
@@ -91,7 +91,7 @@ export function isSerializedVector(
   return tableHasKeys(object, ...KEYS) && object.has(SerializationBrand.VECTOR);
 }
 
-/** Helper function to check if something is an instantiated Vector object. */
+/** Helper function to check if something is an instantiated `Vector` object. */
 export function isVector(object: unknown): object is Vector {
   return isIsaacAPIClassOfType(object, OBJECT_NAME);
 }

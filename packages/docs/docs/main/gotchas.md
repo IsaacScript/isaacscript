@@ -69,7 +69,7 @@ player.TearFlags = addFlag(
 // (The "addFlag" function is variadic.)
 ```
 
-If you want to assign a specific flag to a `BitFlags` property, then simply assigning it won't work:
+If you want to assign a specific flag to a `BitFlags` field, then simply assigning it won't work:
 
 ```ts
 // TypeScript code

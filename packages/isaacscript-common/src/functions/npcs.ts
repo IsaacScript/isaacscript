@@ -108,8 +108,8 @@ export function isAliveExceptionNPC(npc: EntityNPC): boolean {
  * that is spawned when the boss does the multi-stomp attack.
  *
  * When this attack occurs, four extra copies of Daddy Long Legs will be spawned with the same
- * entity type, variant, and sub-type. The `Entity.Parent` property will be undefined in this case,
- * so the way to tell them apart is to check for a non-undefined `Entity.SpawnerEntity` property.
+ * entity type, variant, and sub-type. The `Entity.Parent` field will be undefined in this case, so
+ * the way to tell them apart is to check for a non-undefined `Entity.SpawnerEntity` field.
  */
 export function isDaddyLongLegsChildStompEntity(npc: EntityNPC): boolean {
   return (

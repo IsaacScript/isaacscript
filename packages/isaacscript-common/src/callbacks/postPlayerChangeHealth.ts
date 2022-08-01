@@ -55,7 +55,13 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
       storedHealthValue !== currentHealthValue
     ) {
       const difference = currentHealthValue - storedHealthValue;
-      postPlayerChangeHealthFire(player, healthType, difference);
+      postPlayerChangeHealthFire(
+        player,
+        healthType,
+        difference,
+        storedHealthValue,
+        currentHealthValue,
+      );
     }
   }
 }

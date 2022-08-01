@@ -198,7 +198,7 @@ export function getSubPlayerParent(
 
 /**
  * Helper function to detect if a particular player is a "child" player, meaning that they have a
- * non-undefined `EntityPlayer.Parent` property. (For example, the Strawman Keeper.)
+ * non-undefined `EntityPlayer.Parent` field. (For example, the Strawman Keeper.)
  */
 export function isChildPlayer(player: EntityPlayer): boolean {
   return player.Parent !== undefined;

@@ -15,8 +15,8 @@ export type SerializedRNG = LuaMap<string, unknown> & {
  */
 const RECOMMENDED_SHIFT_IDX = 35;
 
-const KEYS = ["seed"];
 const OBJECT_NAME = "RNG";
+const KEYS = ["seed"];
 
 /** Helper function to copy an `RNG` Isaac API class. */
 export function copyRNG(rng: RNG): RNG {
@@ -60,7 +60,7 @@ export function getRandomSeed(): Seed {
   return safeRandomNumber as Seed;
 }
 
-/** Helper function to check if something is an instantiated RNG object. */
+/** Helper function to check if something is an instantiated `RNG` object. */
 export function isRNG(object: unknown): object is RNG {
   return isIsaacAPIClassOfType(object, OBJECT_NAME);
 }

@@ -140,7 +140,7 @@ declare global {
     /**
      * The color of the gibs when an entity dies.
      *
-     * Thus property is read only, so if you want to change it, you have to replace the entire thing
+     * Thus field is read only, so if you want to change it, you have to replace the entire thing
      * with a new Color object.
      */
     SplatColor: Readonly<Color>;

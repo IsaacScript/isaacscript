@@ -3,6 +3,7 @@
 export * as Ambush from "./ambush";
 export * as Array from "./array";
 export * as Benchmark from "./benchmark";
+export * as BitSet128 from "./bitSet128";
 export * as Bitwise from "./bitwise";
 export * as Bombs from "./bombs";
 export * as Bosses from "./bosses";
@@ -63,6 +64,7 @@ export * as PlayerDataStructures from "./playerDataStructures";
 export * as PlayerHealth from "./playerHealth";
 export * as PlayerIndex from "./playerIndex";
 export * as Players from "./players";
+export * as PlayerStats from "./playerStats";
 export * as PocketItems from "./pocketItems";
 export * as PositionVelocity from "./positionVelocity";
 export * as PressurePlate from "./pressurePlate";

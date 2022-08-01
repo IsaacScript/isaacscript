@@ -42,7 +42,7 @@ export function addFlag<T extends BitFlag | BitFlag128>(
  * Helper function for casting a flag enum value to a `BitFlags` object.
  *
  * This is useful because the compiler will prevent you from assigning a specific flag to a
- * `BitFlags` property. (It does this to ensure type safety, since `BitFlags` can represent a zero
+ * `BitFlags` field. (It does this to ensure type safety, since `BitFlags` can represent a zero
  * value or a composition of N flags.)
  *
  * For example:

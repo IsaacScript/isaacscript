@@ -42,6 +42,7 @@ const COPYABLE_ISAAC_API_CLASS_TYPES_SET = new Set<string>(
  * - TSTL `Set`
  * - TSTL classes
  * - `DefaultMap`
+ * - Isaac `BitSet128` objects
  * - Isaac `Color` objects
  * - Isaac `KColor` objects
  * - Isaac `RNG` objects

@@ -48,7 +48,7 @@ export function addCollectibleCostume(
 
 /**
  * Helper function to add a stat to a player based on the `CacheFlag` provided. Call this function
- * from the EvaluateCache callback.
+ * from the `EVALUATE_CACHE` callback.
  *
  * Note that for `CacheFlag.FIRE_DELAY`, the "amount" argument will be interpreted as the tear stat
  * to add (and not the amount to mutate `EntityPlayer.MaxFireDelay` by).

@@ -35,7 +35,7 @@ function getExistingConfig(verbose: boolean): Config | undefined {
 
   const config = getJSONC(CONFIG_FILE_PATH, verbose);
 
-  // Even though the "modsDirectory" property is always initialized in the class, it may not be
+  // Even though the "modsDirectory" field is always initialized in the class, it may not be
   // necessarily exist in the JSON file.
   if (config["modsDirectory"] === undefined) {
     errorMissing(
@@ -44,8 +44,8 @@ function getExistingConfig(verbose: boolean): Config | undefined {
     );
   }
 
-  // Even though the "saveSlot" property is always initialized in the class, it may not be
-  // necessarily exist in the JSON file.
+  // Even though the "saveSlot" field is always initialized in the class, it may not be necessarily
+  // exist in the JSON file.
   if (config["saveSlot"] === undefined) {
     errorMissing(
       "saveSlot",

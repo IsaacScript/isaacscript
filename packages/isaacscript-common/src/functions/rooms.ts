@@ -50,7 +50,7 @@ import { erange, irange } from "./utils";
 /**
  * Helper function for quickly switching to a new room without playing a particular animation. Use
  * this helper function over invoking the `Game.ChangeRoom` method directly to ensure that you do
- * not forget to set the `LeaveDoor` property and to prevent crashing on invalid room grid indexes.
+ * not forget to set the `LeaveDoor` field and to prevent crashing on invalid room grid indexes.
  */
 export function changeRoom(roomGridIndex: int): void {
   const level = game.GetLevel();

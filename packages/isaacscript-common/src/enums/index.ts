@@ -6,3 +6,4 @@ export * from "./PocketItemType";
 export * from "./RockAltType";
 export * from "./SerializationType";
 export * from "./SlotDestructionType";
+export * from "./StatType";

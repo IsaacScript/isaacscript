@@ -50,6 +50,7 @@ import { postPickupStateChangedRegister } from "../callbacks/subscriptions/postP
 import { postPitRenderRegister } from "../callbacks/subscriptions/postPitRender";
 import { postPitUpdateRegister } from "../callbacks/subscriptions/postPitUpdate";
 import { postPlayerChangeHealthRegister } from "../callbacks/subscriptions/postPlayerChangeHealth";
+import { postPlayerChangeStatRegister } from "../callbacks/subscriptions/postPlayerChangeStat";
 import { postPlayerChangeTypeRegister } from "../callbacks/subscriptions/postPlayerChangeType";
 import { postPlayerCollectibleAddedRegister } from "../callbacks/subscriptions/postPlayerCollectibleAdded";
 import { postPlayerCollectibleRemovedRegister } from "../callbacks/subscriptions/postPlayerCollectibleRemoved";
@@ -155,6 +156,7 @@ export const CALLBACK_REGISTER_FUNCTIONS: {
   [ModCallbackCustom.POST_PIT_RENDER]: postPitRenderRegister,
   [ModCallbackCustom.POST_PIT_UPDATE]: postPitUpdateRegister,
   [ModCallbackCustom.POST_PLAYER_CHANGE_HEALTH]: postPlayerChangeHealthRegister,
+  [ModCallbackCustom.POST_PLAYER_CHANGE_STAT]: postPlayerChangeStatRegister,
   [ModCallbackCustom.POST_PLAYER_CHANGE_TYPE]: postPlayerChangeTypeRegister,
   [ModCallbackCustom.POST_PLAYER_COLLECTIBLE_ADDED]:
     postPlayerCollectibleAddedRegister,

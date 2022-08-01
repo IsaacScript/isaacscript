@@ -25,6 +25,7 @@ import { isSerializationBrand } from "./serializationBrands";
  * - TSTL `Set`
  * - TSTL classes
  * - `DefaultMap`
+ * - Isaac `BitSet128` objects
  * - Isaac `Color` objects
  * - Isaac `KColor` objects
  * - Isaac `RNG` objects

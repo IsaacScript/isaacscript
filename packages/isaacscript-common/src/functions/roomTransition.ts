@@ -31,7 +31,7 @@ export function reloadRoom(): void {
  * arguments.
  *
  * Use this function instead of invoking the `Game.StartRoomTransition` method directly so that:
- * - you do not forget to set `Level.LeaveDoor` property
+ * - you do not forget to set the `Level.LeaveDoor` field
  * - to prevent crashing on invalid room grid indexes
  * - to automatically handle Curse of the Maze
  *

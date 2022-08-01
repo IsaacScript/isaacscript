@@ -304,7 +304,7 @@ function uploadMod(
 ) {
   if (steamCmdPath === undefined) {
     console.log(
-      `The "steamCmdPath" property was not found in the "${chalk.green(
+      `The "steamCmdPath" field was not found in the "${chalk.green(
         CONFIG_FILE_NAME,
       )}" file; assuming that we want to use the ModUploader tool.`,
     );

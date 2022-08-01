@@ -76,13 +76,13 @@ const versusScreenSprite = Sprite();
 
 /**
  * Unfortunately, we must split the background layer into an entirely different sprite so that we
- * can color it with the `Color` property.
+ * can color it with the `Color` field.
  */
 const versusScreenBackgroundSprite = Sprite();
 
 /**
  * Unfortunately, we must split the dirt layer into an entirely different sprite so that we can
- * color it with the `Color` property.
+ * color it with the `Color` field.
  */
 const versusScreenDirtSpotSprite = Sprite();
 

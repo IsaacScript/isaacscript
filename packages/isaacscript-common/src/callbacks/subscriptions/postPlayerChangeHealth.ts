@@ -6,6 +6,8 @@ export type PostPlayerChangeHealthRegisterParameters = [
     player: EntityPlayer,
     healthType: HealthType,
     difference: int,
+    oldValue: int,
+    newValue: int,
   ) => void,
   playerVariant?: PlayerVariant,
   character?: PlayerType,
@@ -27,6 +29,8 @@ export function postPlayerChangeHealthFire(
   player: EntityPlayer,
   healthType: HealthType,
   difference: int,
+  oldValue: int,
+  newValue: int,
 ): void {
   const character = player.GetPlayerType();
 
@@ -41,6 +45,6 @@ export function postPlayerChangeHealthFire(
       continue;
     }
 
-    callback(player, healthType, difference);
+    callback(player, healthType, difference, oldValue, newValue);
   }
 }

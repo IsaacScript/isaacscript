@@ -36,9 +36,8 @@ declare global {
     // Desc is not implemented since it is deprecated by the `GridEntity.GetSaveState` method.
 
     /**
-     * The attributes of this property are technically not read-only, but changing them seems to
-     * have no effect. (Printing out the values after changing them reports that they were not
-     * changed.)
+     * The attributes of this field are technically not read-only, but changing them seems to have
+     * no effect. (Printing out the values after changing them reports that they were not changed.)
      */
     readonly Position: Readonly<Vector>;
 
