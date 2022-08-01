@@ -1,3 +1,4 @@
+import { DiceFloorSubType } from "../../enums/collections/subTypes";
 import { EffectVariant } from "../../enums/collections/variants";
 import { EntityType } from "../../enums/EntityType";
 
@@ -26,5 +27,10 @@ declare global {
 
   namespace EntityEffect {
     function IsPlayerCreep(this: void, variant: int): boolean;
+  }
+
+  /** For `EffectVariant.DICE_FLOOR` (76) */
+  interface EntityEffectDiceFloor extends EntityEffect {
+    SubType: DiceFloorSubType;
   }
 }
