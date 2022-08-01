@@ -43,6 +43,9 @@ const ROCK_ALT_CHANCES = {
 const COIN_VELOCITY_MULTIPLIER = 2;
 
 /** Matches the vanilla value, according to Fly's decompilation. */
+const FIND_FREE_INITIAL_STEP = 70;
+
+/** Matches the vanilla value, according to Fly's decompilation. */
 const FART_RADIUS = DISTANCE_OF_GRID_TILE * 3;
 
 const POLYP_PROJECTILE_SPEED = 10;
@@ -132,6 +135,8 @@ export function spawnRockAltReward(
 }
 
 function spawnRockAltRewardUrn(position: Vector, rng: RNG): boolean {
+  const room = game.GetRoom();
+
   const chance = getRandom(rng);
   let totalChance = 0;
 
@@ -175,11 +180,11 @@ function spawnRockAltRewardUrn(position: Vector, rng: RNG): boolean {
   // Since the detrimental effect is the final option, we don't need to check the chance.
   const numEnemiesChance = getRandom(rng);
   const numEnemies = numEnemiesChance < 0.5 ? 1 : 2;
-  const length = DISTANCE_OF_GRID_TILE * 3;
   repeat(numEnemies, () => {
-    const randomVector = getRandomVector(rng);
-    const offset = randomVector.mul(length);
-    const targetPos = position.add(offset);
+    const targetPos = room.FindFreePickupSpawnPosition(
+      position,
+      FIND_FREE_INITIAL_STEP,
+    );
     EntityNPC.ThrowSpider(position, undefined, targetPos, false, 0);
   });
   return true;
@@ -259,7 +264,6 @@ function spawnRockAltRewardMushroom(position: Vector, rng: RNG): boolean {
   // Since the detrimental effect is the final option, we don't need to check the chance.
   game.Fart(position);
   game.ButterBeanFart(position, FART_RADIUS, undefined);
-  spawnEffectWithSeed(EffectVariant.FART, 0, position, rng);
   return true;
 }
 
@@ -389,6 +393,8 @@ function spawnRockAltRewardPolyp(position: Vector, rng: RNG): boolean {
 }
 
 function spawnRockAltRewardBucketDownpour(position: Vector, rng: RNG): boolean {
+  const room = game.GetRoom();
+
   const chance = getRandom(rng);
   let totalChance = 0;
 
@@ -436,11 +442,12 @@ function spawnRockAltRewardBucketDownpour(position: Vector, rng: RNG): boolean {
 
   const numEnemiesChance = getRandom(rng);
   const numEnemies = numEnemiesChance < 0.5 ? 1 : 2;
-  const jumpDistance = DISTANCE_OF_GRID_TILE * 3;
   repeat(numEnemies, () => {
-    const randomVector = getRandomVector(rng);
-    const offset = randomVector.mul(jumpDistance);
-    const targetPos = position.add(offset);
+    const targetPos = room.FindFreePickupSpawnPosition(
+      position,
+      FIND_FREE_INITIAL_STEP,
+    );
+
     // If the room has water, Spiders will automatically be replaced with Striders.
     const spider = EntityNPC.ThrowSpider(
       position,
@@ -461,6 +468,8 @@ function spawnRockAltRewardBucketDownpour(position: Vector, rng: RNG): boolean {
 }
 
 function spawnRockAltRewardBucketDross(position: Vector, rng: RNG): boolean {
+  const room = game.GetRoom();
+
   const chance = getRandom(rng);
   let totalChance = 0;
 
@@ -508,11 +517,11 @@ function spawnRockAltRewardBucketDross(position: Vector, rng: RNG): boolean {
 
   const numEnemiesChance = getRandom(rng);
   const numEnemies = numEnemiesChance < 0.5 ? 1 : 2;
-  const jumpDistance = DISTANCE_OF_GRID_TILE * 3;
   repeat(numEnemies, () => {
-    const randomVector = getRandomVector(rng);
-    const offset = randomVector.mul(jumpDistance);
-    const targetPos = position.add(offset);
+    const targetPos = room.FindFreePickupSpawnPosition(
+      position,
+      FIND_FREE_INITIAL_STEP,
+    );
     const spider = EntityNPC.ThrowSpider(
       position,
       undefined,
