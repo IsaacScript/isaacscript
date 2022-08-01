@@ -91,12 +91,19 @@ declare global {
       radiusMultiplier?: float,
     ): void;
 
+    /**
+     * @param position
+     * @param radius
+     * @param source
+     * @param showEffect Optional. Default is false.
+     * @param doSuperKnockback Optional. Default is false.
+     */
     ButterBeanFart(
       position: Vector,
       radius: float,
-      source: Entity,
-      showEffect: boolean,
-      doSuperKnockback: boolean,
+      source: Entity | undefined,
+      showEffect?: boolean,
+      doSuperKnockback?: boolean,
     ): void;
 
     /**
