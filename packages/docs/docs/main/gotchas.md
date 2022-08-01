@@ -181,7 +181,7 @@ if (
 }
 ```
 
-As a side note, you might be wondering why the above code uses `const CollectibleTypeCustom` instead of `enum CollectibleTypeCustom`. The reason is that due to a quirk in TypeScript, enums can only have `number` or `string` types, and the result from the `Isaac.GetItemIdByName` function is a `CollectibleType` type. To work around this, we can use a `const` object instead, which is more-or-less the same thing. (Note that it won't have the reverse mapping at run-time, though.)
+As a side note, you might be wondering why the above code uses `const CollectibleTypeCustom` instead of `enum CollectibleTypeCustom`. The basic explanation is that we want the types of the values to be `CollectibleType`, so that we can use them later on in the API. For a more in-depth explanation, see the page on [the differences between enums and objects](enums-and-objects.md).
 
 ### Extending Enums --> Custom Enums (Part 2)
 

@@ -1,4 +1,3 @@
-- keyboard to string helper function
 - add XML lint to isaacscript - https://www.npmjs.com/package/xmllint
 - redo postGridEntityCustomBroken, add hasSubscriptions function
 - remove decoration variant
