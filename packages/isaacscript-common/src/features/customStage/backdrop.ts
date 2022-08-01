@@ -91,7 +91,7 @@ const BACKDROP_ROOM_TYPE_SET: ReadonlySet<RoomType> = new Set([
   RoomType.MINI_BOSS,
 ]);
 
-export function setBackdrop(customStage: CustomStage): void {
+export function setCustomStageBackdrop(customStage: CustomStage): void {
   const room = game.GetRoom();
   const roomType = room.GetType();
   const decorationSeed = room.GetDecorationSeed();

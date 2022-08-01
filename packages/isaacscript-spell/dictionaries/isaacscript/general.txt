@@ -5,6 +5,7 @@ backticks
 bitmask
 bootstrapper
 cacheable
+decompilation
 easings
 interactable
 keyof

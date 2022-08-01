@@ -27,6 +27,9 @@ export type CustomStageTSConfig = Readonly<{
    * Make sure the chosen prefix does not conflict with any other mods. You can find a list of
    * registered room variant prefixes on the IsaacScript website:
    * https://isaacscript.github.io/main/custom-stages
+   *
+   * @minimum 101
+   * @maximum 109
    */
   roomVariantPrefix: number;
 
@@ -39,6 +42,9 @@ export type CustomStageTSConfig = Readonly<{
    * method.)
    *
    * If not specified, `LevelStage.BASEMENT_2` (2) will be used.
+   *
+   * @minimum 2
+   * @maximum 13
    */
   baseStage?: number;
 
@@ -48,6 +54,9 @@ export type CustomStageTSConfig = Readonly<{
    * generation algorithm.
    *
    * If not specified, `StageType.ORIGINAL` (0) will be used.
+   *
+   * @minimum 0
+   * @maximum 5
    */
   baseStageType?: number;
 
@@ -331,9 +340,28 @@ export type CustomStageTSConfig = Readonly<{
      * `versusScreenBackgroundColors.ts`.
      */
     backgroundColor?: Readonly<{
+      /**
+       * @minimum 0
+       * @maximum 1
+       */
       r: number;
+
+      /**
+       * @minimum 0
+       * @maximum 1
+       */
       g: number;
+
+      /**
+       * @minimum 0
+       * @maximum 1
+       */
       b: number;
+
+      /**
+       * @minimum 0
+       * @maximum 1
+       */
       a: number;
     }>;
 
@@ -346,9 +374,28 @@ export type CustomStageTSConfig = Readonly<{
      * `versusScreenDirtSpotColors.ts`.
      */
     dirtSpotColor?: Readonly<{
+      /**
+       * @minimum 0
+       * @maximum 1
+       */
       r: number;
+
+      /**
+       * @minimum 0
+       * @maximum 1
+       */
       g: number;
+
+      /**
+       * @minimum 0
+       * @maximum 1
+       */
       b: number;
+
+      /**
+       * @minimum 0
+       * @maximum 1
+       */
       a: number;
     }>;
   }>;
@@ -376,9 +423,28 @@ export type CustomStageShadow = Readonly<{
    * to 75% faded black).
    */
   color?: Readonly<{
+    /**
+     * @minimum 0
+     * @maximum 1
+     */
     r: number;
+
+    /**
+     * @minimum 0
+     * @maximum 1
+     */
     g: number;
+
+    /**
+     * @minimum 0
+     * @maximum 1
+     */
     b: number;
+
+    /**
+     * @minimum 0
+     * @maximum 1
+     */
     a: number;
   }>;
 }>;

@@ -16,7 +16,7 @@ import {
 } from "../../interfaces/CustomStageLua";
 import { CustomStage, RoomTypeMap } from "../../interfaces/private/CustomStage";
 import { saveDataManager } from "../saveDataManager/exports";
-import { setBackdrop } from "./backdrop";
+import { setCustomStageBackdrop } from "./backdrop";
 import {
   convertVanillaTrapdoors,
   removeUrnRewards,
@@ -196,7 +196,7 @@ function postNewRoomReordered() {
     return;
   }
 
-  setBackdrop(customStage);
+  setCustomStageBackdrop(customStage);
   setShadows(customStage);
   playVersusScreenAnimation(customStage);
 }

@@ -498,6 +498,7 @@ export function roomUpdateSafe(): void {
 /** Helper function to set the backdrop of the current room. */
 export function setBackdrop(backdropType: BackdropType): void {
   game.ShowHallucination(0, backdropType);
+  sfxManager.Stop(SoundEffect.DEATH_CARD);
 }
 
 /**

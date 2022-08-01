@@ -1,12 +1,5 @@
 import { isFunction, isPrimitive } from "../functions/types";
 
-// eslint-disable-next-line isaacscript/complete-sentences-jsdoc
-/**
- * A function that creates the default value for your `DefaultMap`. For example, if it was a
- * `DefaultMap` containing maps, the factory function would be: `() => new Map()`
- */
-export type FactoryFunction<V, Args extends unknown[]> = (...args: Args) => V;
-
 /**
  * `DefaultMap` is a data structure that makes working with default values easier.
  *
@@ -168,6 +161,13 @@ export class DefaultMap<Key, Value, Args extends unknown[] = []> extends Map<
     error("A DefaultMap was incorrectly instantiated.");
   }
 }
+
+// eslint-disable-next-line isaacscript/complete-sentences-jsdoc
+/**
+ * A function that creates the default value for your `DefaultMap`. For example, if it was a
+ * `DefaultMap` containing maps, the factory function would be: `() => new Map()`
+ */
+export type FactoryFunction<V, Args extends unknown[]> = (...args: Args) => V;
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 function test() {

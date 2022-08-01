@@ -4,6 +4,7 @@ import {
   ControllerIndex,
   Keyboard,
 } from "isaac-typescript-definitions";
+import { KEYBOARD_TO_STRING } from "../maps/keyboardToString";
 import { getEnumValues } from "./enums";
 import { copySet } from "./set";
 import { trimPrefix } from "./string";
@@ -133,6 +134,18 @@ export function isShootActionTriggeredOnAnyInput(): boolean {
   );
 }
 
-export function keyboardToString(keyboard: Keyboard): string {
-  return Keyboard[keyboard] ?? "unknown";
+/**
+ * Helper function to get the string that would be typed if someone pressed the corresponding key.
+ */
+export function keyboardToString(
+  keyboard: Keyboard,
+  uppercase: boolean,
+): string | undefined {
+  const tuple = KEYBOARD_TO_STRING.get(keyboard);
+  if (tuple === undefined) {
+    return undefined;
+  }
+
+  const [lowercaseCharacter, uppercaseCharacter] = tuple;
+  return uppercase ? uppercaseCharacter : lowercaseCharacter;
 }

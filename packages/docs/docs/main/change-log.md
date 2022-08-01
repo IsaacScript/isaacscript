@@ -34,6 +34,7 @@ This page lists the changes to the IsaacScript framework.
   - `getRoomsInGrid` --> `getRoomsInsideGrid`
 - Changed the following helper functions:
   - `spawnCustomGridEntity` now supports the `breakable` argument, which will trigger `POST_GRID_ENTITY_CUSTOM_BROKEN` if it is hit by any type of explosion.
+  - `keyboardToString` now requires an argument of `uppercase`.
   - `todo` now supports a variadic amount of arguments.
 - Added the following constants:
   - `ALL_DISPLAY_FLAGS`
