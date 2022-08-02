@@ -23,8 +23,14 @@ npx tstl
 # to manually rewrite them.
 npx ts-node --require "tsconfig-paths/register" "$DIR/scripts/rewriteDeclarationMapPaths.ts"
 
-# Scrub any non-public exports from the declaration files using API Extractor:
-# https://api-extractor.com/
+# Scrub internal exports from the declaration file using the ".d.ts rollup" feature of API
+# Extractor: https://api-extractor.com/
+# If we did not use API Extractor, we would instead have to manually append "@internal" JSDoc tags
+# to every single private function in order for the TypeScript compiler to remove it from the
+# generated ".d.ts" file. API Extractor automatically knows which functions are public or private by
+# parsing the "index.ts" file, and generates a new ".d.ts" file with private exports removed. Note
+# that end-users can still manually import internal functions, but by removing them from the ".d.ts"
+# file, they will not appear as part of auto-complete, which is good enough for our case.
 npx api-extractor run
 
 # Copy the rest of the files needed for npm.

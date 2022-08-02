@@ -38,6 +38,7 @@ prettierrc # check-file-updates.sh
 publishedfileid # metadata.vdf
 remarkrc # Monorepo word
 retext # Monorepo word
+rollup # API Extractor word
 ssmacro # Monorepo word
 steamcmd # For publishing
 svgr # Monorepo word
