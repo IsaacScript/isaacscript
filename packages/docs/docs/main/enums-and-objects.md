@@ -156,7 +156,7 @@ enum CollectibleTypeCustom {
 
 This will give an error:
 
-> Type 'import("C:/Repositories/my-mod/node_isaac-typescript-definitions/dist/enums/collections/subTypes").CollectibleType' is not assignable to type 'CollectibleTypeCustom'.
+> Type 'import("C:/Repositories/my-mod/node_modules/isaac-typescript-definitions/dist/enums/collections/subTypes").CollectibleType' is not assignable to type 'CollectibleTypeCustom'.
 
 If we had typed `FOO = 1` or something like that, then under the hood, TypeScript would automatically convert "1" to a type of `CollectibleTypeCustom`. But the return type of the `Isaac.GetItemIdByName` method is a `CollectibleType`, which is more specific than a `number`. TypeScript can't automatically convert `CollectibleType` to `CollectibleTypeCustom`, so it throws an error. (In TypeScript, the only supported types that you can feed to an enum member for this auto-conversion are `number` or `string`.)
 
