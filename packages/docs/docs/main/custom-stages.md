@@ -53,7 +53,7 @@ Furthermore, for more information on the "roomVariantPrefix" field, see the sect
 
 ### Going There
 
-To go to your custom stage in game, you can use the [`spawnCustomTrapdoor`](/isaacscript-common/features/customTrapdoor) helper function. (You can use custom trapdoors to go to both custom stages and vanilla stages.)
+To go to your custom stage in game, you can use the [`spawnCustomTrapdoor`](/isaacscript-common/features/customTrapdoor_exports) helper function. (You can use custom trapdoors to go to both custom stages and vanilla stages.)
 
 During development, you might want to set up a custom hotkey to warp to your custom stage, which will speed things up by a bit. You can do this with the `setCustomStage` helper function. If doing this, you must also call the `reloadRoom` function immediately afterwards to prevent being dragged into the `goto` console command room.
 

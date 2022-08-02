@@ -390,6 +390,17 @@ function fixLinks() {
           `${fileNameWithoutExtension}.${fileNameWithoutExtension}.md`,
           `${fileNameWithoutExtension}.md`,
         );
+
+        // Also handle the case of some specific interfaces being put into the same file.
+        for (const specialCombinedFileName of [
+          "JSONRoomsFile",
+          "CustomStageLua",
+        ]) {
+          newFileContents = newFileContents.replaceAll(
+            `${specialCombinedFileName}.${fileNameWithoutExtension}.md`,
+            `${fileNameWithoutExtension}.md`,
+          );
+        }
       }
     }
 

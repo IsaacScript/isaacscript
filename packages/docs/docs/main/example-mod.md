@@ -100,7 +100,7 @@ Now, the item will sometimes randomly appear for players when they enter a Treas
 
 Right now, if players pick up your item, it won't actually do anything. This is where the coding part comes in.
 
-Mods affect the game by putting code inside of _callbacks_. Each callback fires when a particular event happens in the game. There are [72 different callbacks](/isaac-typescript-definitions/enums/index.ModCallback) to choose from, so you have to choose the right one depending on what you want to do. For example, the most basic callback is the `POST_GAME_STARTED`, which fires once at the beginning of a new run.
+Mods affect the game by putting code inside of _callbacks_. Each callback fires when a particular event happens in the game. There are [72 different callbacks](https://wofsauge.github.io/IsaacDocs/rep/enums/ModCallbacks.html) to choose from, so you have to choose the right one depending on what you want to do. For example, the most basic callback is the `POST_GAME_STARTED`, which fires once at the beginning of a new run.
 
 First, go through [the official docs](https://wofsauge.github.io/IsaacDocs/rep/enums/ModCallbacks.html) and read what all of the callbacks do so that you can get familiar with them.
 

@@ -23,9 +23,10 @@ function main() {
   checkEntryPointsForDirectory("src/enums/*.ts", entryPointsSet);
   checkEntryPointsForDirectory("src/enums/collections/*.ts", entryPointsSet);
   checkEntryPointsForDirectory("src/enums/flags/*.ts", entryPointsSet);
-  checkEntryPointsForDirectory("src/types/classes/*.ts", entryPointsSet);
-  checkEntryPointsForDirectory("src/types/mods/*.ts", entryPointsSet);
-  checkEntryPointsForDirectory("src/types/unofficial/*.ts", entryPointsSet);
+  /// checkEntryPointsForDirectory("src/types/classes/*.ts", entryPointsSet);
+  /// checkEntryPointsForDirectory("src/types/mods/*.ts", entryPointsSet);
+  /// checkEntryPointsForDirectory("src/types/unofficial/*.ts", entryPointsSet);
+  // (We skip linting for classes and interfaces, since they generate too many broken links.)
 }
 
 function getEntryPoints(): string[] {

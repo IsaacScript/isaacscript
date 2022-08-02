@@ -18,40 +18,29 @@ function main() {
   checkEntryPointsBrokenLink(entryPoints);
 
   checkEntryPointsForDirectory("src/classes/*.ts", entryPointsSet);
-
+  checkEntryPointsForDirectory("src/core/*.ts", entryPointsSet);
   checkEntryPointsForDirectory(
     "src/enums/*.ts",
     entryPointsSet,
     (filePath) => !filePath.endsWith("private"),
   );
-
   checkEntryPointsForDirectory(
     "src/features/*.ts",
     entryPointsSet,
     (filePath) => filePath.endsWith(".ts"),
   );
-
-  checkEntryPointsForDirectory(
-    "src/functions/*.ts",
-    entryPointsSet,
-    (filePath) => !filePath.endsWith("Tests.ts"),
-  );
-
+  checkEntryPointsForDirectory("src/functions/*.ts", entryPointsSet);
   checkEntryPointsForDirectory(
     "src/interfaces/*.ts",
     entryPointsSet,
-    (filePath) =>
-      !filePath.endsWith("private") &&
-      !filePath.endsWith("AddCallbackParameterCustom.ts") &&
-      !filePath.endsWith("CustomStage.ts"),
+    (filePath) => !filePath.endsWith("private"),
   );
-
-  // Only specific maps in the "maps" directory are exported. Thus, we do not check this directory.
-
+  // - Maps are not linted, since we only want to explicitly export a few of them.
+  // - Objects are not linted, since we only want to explicitly export a few of them.
   checkEntryPointsForDirectory(
     "src/types/*.ts",
     entryPointsSet,
-    (filePath) => !filePath.endsWith("private") && !filePath.endsWith(".d.ts"),
+    (filePath) => !filePath.endsWith(".d.ts"),
   );
 }
 

@@ -1,8 +1,8 @@
 import { TearFlag } from "isaac-typescript-definitions";
 import { DefaultMap } from "../classes/DefaultMap";
 import { ModUpgraded } from "../classes/ModUpgraded";
-import { StatType } from "../enums";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
+import { StatType } from "../enums/StatType";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { isBitSet128 } from "../functions/bitSet128";
 import { colorEquals, isColor } from "../functions/color";

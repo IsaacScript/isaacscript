@@ -9,7 +9,6 @@
     "invalidLink": true,
     "notExported": true,
   },
-  "entryPointStrategy": "resolve", // The default is "resolve".
   "entryPoints": [
     "src/enums/ActiveSlot.ts",
     "src/enums/BackdropType.ts",
@@ -97,6 +96,7 @@
     "src/enums/StageType.ts",
     "src/enums/TrinketSlot.ts",
     "src/enums/WeaponType.ts",
+    /*
     "src/types/classes/BitSet128.d.ts",
     "src/types/classes/CardConfigList.d.ts",
     "src/types/classes/Color.d.ts",
@@ -190,6 +190,7 @@
     "src/types/unofficial/PtrHash.d.ts",
     "src/types/unofficial/Seed.d.ts",
     "src/types/unofficial/ZodiacCollectibles.d.ts",
+    */
   ],
   "intentionallyNotExported": [
     "ActionTriggerType",
@@ -220,6 +221,9 @@
     "TearFlagValue",
     "UseFlagType",
     "UseFlagValue",
+
+    "BitFlags",
+    "BitSet128",
   ],
   "plugin": ["typedoc-plugin-markdown", "@zamiell/typedoc-plugin-not-exported"],
   "githubPages": false,

@@ -10,6 +10,4 @@ The `isaac-typescript-definitions` package contains the definitions for the vani
 
 You can explore what `isaac-typescript-definitions` offers via the left navigation bar.
 
-Note that this documentation is automatically generated from [the source files](https://github.com/IsaacScript/isaacscript/tree/main/packages/isaac-typescript-definitions/src). However, due to artifacts with the auto-generation process, the left navigation bar is organized in a weird way and some of the links may be broken.
-
-It's recommended that if you want to learn about the Isaac API, you use [Wofsauge's documentation](https://wofsauge.github.io/IsaacDocs/rep/) instead of this one. Alternatively, you can view [the TypeScript definition source files](https://github.com/IsaacScript/isaacscript/tree/main/packages/isaac-typescript-definitions/src) directly.
+Right now, only documentation for the enums are generated. If you want to learn about the classes in the API (like `Entity` or `Isaac`), then you should use [Wofsauge's documentation](https://wofsauge.github.io/IsaacDocs/rep/). Alternatively, you can view [the TypeScript definition source files](https://github.com/IsaacScript/isaacscript/tree/main/packages/isaac-typescript-definitions/src) directly.
