@@ -16,6 +16,7 @@ import {
   mapGetPlayer,
   mapSetPlayer,
 } from "../functions/playerDataStructures";
+import { asNumber } from "../functions/types";
 import { PlayerIndex } from "../types/PlayerIndex";
 import {
   postItemDischargeFire,
@@ -131,13 +132,11 @@ function preNPCCollisionSucker(
   npc: EntityNPC,
   collider: Entity,
 ): boolean | undefined {
-  const sucker = npc as EntityNPCSucker;
-
   if (!hasSubscriptions()) {
     return undefined;
   }
 
-  if (sucker.Variant !== SuckerVariant.BULB) {
+  if (npc.Variant !== asNumber(SuckerVariant.BULB)) {
     return undefined;
   }
 

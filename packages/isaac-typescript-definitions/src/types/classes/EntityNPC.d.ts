@@ -1,5 +1,4 @@
 import { ChampionColor } from "../../enums/ChampionColor";
-import { SuckerVariant } from "../../enums/collections/variants";
 import { EntityType } from "../../enums/EntityType";
 import { NpcState } from "../../enums/NpcState";
 import { ProjectilesMode } from "../../enums/ProjectilesMode";
@@ -125,10 +124,5 @@ declare global {
       big: boolean,
       yOffset: float,
     ): Readonly<EntityNPC>;
-  }
-
-  /** For `EntityType.SUCKER` (61) */
-  interface EntityNPCSucker {
-    Variant: SuckerVariant;
   }
 }

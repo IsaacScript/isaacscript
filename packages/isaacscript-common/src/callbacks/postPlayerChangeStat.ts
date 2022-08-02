@@ -4,16 +4,12 @@ import { ModUpgraded } from "../classes/ModUpgraded";
 import { StatType } from "../enums";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { saveDataManager } from "../features/saveDataManager/exports";
-import {
-  colorEquals,
-  getPlayerStat,
-  isBitSet128,
-  isBoolean,
-  isColor,
-  isNumber,
-} from "../functions";
+import { isBitSet128 } from "../functions/bitSet128";
+import { colorEquals, isColor } from "../functions/color";
 import { getEnumValues } from "../functions/enums";
 import { getPlayerIndex } from "../functions/playerIndex";
+import { getPlayerStat } from "../functions/playerStats";
+import { isBoolean, isNumber } from "../functions/types";
 import { PlayerIndex } from "../types/PlayerIndex";
 import {
   postPlayerChangeStatFire,

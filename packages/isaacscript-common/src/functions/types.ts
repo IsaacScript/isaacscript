@@ -2,6 +2,7 @@ import {
   Card,
   CollectibleType,
   LevelStage,
+  NpcState,
   PillColor,
   PillEffect,
   PlayerType,
@@ -35,6 +36,16 @@ export function asCollectibleType(num: number): CollectibleType {
  * This is useful to satisfy the "isaacscript/strict-enums" ESLint rule.
  */
 export function asLevelStage(num: number): LevelStage {
+  return num;
+}
+
+/**
+ * Helper function to safely cast a `number` to a `NpcState`. (This is better than using the `as`
+ * TypeScript keyword to do a type assertion, since that can obfuscate compiler errors. )
+ *
+ * This is useful to satisfy the "isaacscript/strict-enums" ESLint rule.
+ */
+export function asNpcState(num: number): NpcState {
   return num;
 }
 
