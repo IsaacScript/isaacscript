@@ -66,6 +66,12 @@ module.exports = {
     "only-warn",
 
     /**
+     * Activate the "no-type-assertion" plugin, which allows the "no-type-assertion" rule to be
+     * optionally enabled on a per-project basis.
+     */
+    "no-type-assertion",
+
+    /**
      * Activate the "sort-exports" plugin, which allows the "sort-exports" rule to be optionally
      * enabled on a per-project basis.
      */
