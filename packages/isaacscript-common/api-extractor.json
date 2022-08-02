@@ -124,7 +124,7 @@
       },
 
       "ae-forgotten-export": {
-        "logLevel": "warning"
+        "logLevel": "none"
       }
     },
 
