@@ -6,6 +6,7 @@ import {
   CollectibleType,
   HeartSubType,
   KeySubType,
+  PickupNullSubType,
   PillColor,
   PoopPickupSubType,
   SackSubType,
@@ -84,6 +85,12 @@ declare global {
      * It is unknown whether this value is used for pickups other than collectibles.
      */
     Wait: int;
+  }
+
+  /** For `PickupVariant.NULL` (0) */
+  interface EntityPickupNull extends EntityPickup {
+    SubType: PickupNullSubType;
+    Variant: PickupVariant.NULL;
   }
 
   /** For `PickupVariant.HEART` (10) */
