@@ -23,6 +23,10 @@ npx tstl
 # to manually rewrite them.
 npx ts-node --require "tsconfig-paths/register" "$DIR/scripts/rewriteDeclarationMapPaths.ts"
 
+# Scrub any non-public exports from the declaration files using API Extractor:
+# https://api-extractor.com/
+npx api-extractor run
+
 # Copy the rest of the files needed for npm.
 cp "$DIR/LICENSE" "$OUT_DIR/"
 cp "$DIR/package.json" "$OUT_DIR/"
