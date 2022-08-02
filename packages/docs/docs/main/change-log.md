@@ -46,12 +46,17 @@ This page lists the changes to the IsaacScript framework.
   - `todo` now supports a variadic amount of arguments.
 - Added the following constants:
   - `ALL_DISPLAY_FLAGS`
+- Added the following enums:
+  - `StatType`
+- Added the following interfaces:
+  - `StatTypeType`
+- Added the following types:
+  - `Immutable` (used for recursively immutable objects/arrays/maps/sets)
+  - `PossibleStatType`
 - Added the following custom callbacks:
   - `POST_PLAYER_CHANGE_STAT`
 - Changed the following custom callbacks:
   - `POST_PLAYER_CHANGE_HEALTH` now passes the old value and the new value (in addition to the difference).
-- Added the following types:
-  - `Immutable` (used for recursively immutable objects/arrays/maps/sets)
 
 ## July 27th, 2022
 

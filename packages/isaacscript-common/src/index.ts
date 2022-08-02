@@ -201,6 +201,7 @@ export * from "./types/Immutable";
 export * from "./types/PickingUpItem";
 export * from "./types/PickupIndex";
 export * from "./types/PlayerIndex";
+export * from "./types/PossibleStatType";
 export * from "./types/SerializedIsaacAPIClass";
 export * from "./types/TrapdoorDestination";
 export * from "./types/TSTLClass";

@@ -18,4 +18,5 @@ export interface StatTypeType {
   [StatType.TEAR_COLOR]: Color;
   [StatType.FLYING]: boolean;
   [StatType.LUCK]: float;
+  [StatType.SIZE]: Vector;
 }

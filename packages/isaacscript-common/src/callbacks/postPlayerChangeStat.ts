@@ -1,4 +1,3 @@
-import { TearFlag } from "isaac-typescript-definitions";
 import { DefaultMap } from "../classes/DefaultMap";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
@@ -10,13 +9,13 @@ import { getEnumValues } from "../functions/enums";
 import { getPlayerIndex } from "../functions/playerIndex";
 import { getPlayerStat } from "../functions/playerStats";
 import { isBoolean, isNumber } from "../functions/types";
+import { isVector, vectorEquals } from "../functions/vector";
 import { PlayerIndex } from "../types/PlayerIndex";
+import { PossibleStatType } from "../types/PossibleStatType";
 import {
   postPlayerChangeStatFire,
   postPlayerChangeStatHasSubscriptions,
 } from "./subscriptions/postPlayerChangeStat";
-
-type PossibleStatType = number | boolean | BitFlags<TearFlag> | Color;
 
 const v = {
   run: {
@@ -98,6 +97,11 @@ function statEquals(
   const isColorStat = isColor(oldValue) && isColor(newValue);
   if (isColorStat) {
     return colorEquals(oldValue, newValue);
+  }
+
+  const isVectorStat = isVector(oldValue) && isVector(newValue);
+  if (isVectorStat) {
+    return vectorEquals(oldValue, newValue);
   }
 
   error(

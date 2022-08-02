@@ -39,9 +39,9 @@ export enum StatType {
   /** Corresponds to `CacheFlag.LUCK` (1 << 10) and `EntityPlayer.Luck`. */
   LUCK,
 
-  // - `CacheFlag.SIZE` (1 << 12) does not have a corresponding `EntityPlayer` field. (After picking
-  //   up Magic Mushroom, the values of `EntityPlayer.Size` and `EntityPlayer.SizeMulti` do not
-  //   change.)
+  /** Corresponds to `CacheFlag.SIZE` (1 << 11) and `EntityPlayer.SpriteScale`. */
+  SIZE,
+
   // - `CacheFlag.COLOR` (1 << 12) does not have a corresponding `EntityPlayer` field.
   // - `CacheFlag.PICKUP_VISION` (1 << 13) does not have a corresponding `EntityPlayer` field.
 }

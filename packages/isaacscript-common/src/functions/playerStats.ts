@@ -21,5 +21,6 @@ export function getPlayerStat<T extends StatType>(
     [StatType.TEAR_COLOR]: player.TearColor, // 1 << 6
     [StatType.FLYING]: player.CanFly, // 1 << 7
     [StatType.LUCK]: player.Luck, // 1 << 10
+    [StatType.SIZE]: player.SpriteScale, // 1 << 11
   }[statType];
 }

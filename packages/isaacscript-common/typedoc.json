@@ -179,6 +179,7 @@
     "src/types/PickingUpItem.ts",
     "src/types/PickupIndex.ts",
     "src/types/PlayerIndex.ts",
+    "src/types/PossibleStatType.ts",
     "src/types/SerializedIsaacAPIClass.ts",
     "src/types/TrapdoorDestination.ts",
     "src/types/TSTLClass.ts",

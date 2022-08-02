@@ -1,18 +1,15 @@
-import {
-  PlayerType,
-  PlayerVariant,
-  TearFlag,
-} from "isaac-typescript-definitions";
+import { PlayerType, PlayerVariant } from "isaac-typescript-definitions";
 import { StatType } from "../../enums/StatType";
 import { StatTypeType } from "../../interfaces/StatTypeType";
+import { PossibleStatType } from "../../types/PossibleStatType";
 
 export type PostPlayerChangeStatRegisterParameters = [
   callback: (
     player: EntityPlayer,
     statType: StatType,
     difference: int,
-    oldValue: number | boolean | BitFlags<TearFlag> | Color | Vector,
-    newValue: number | boolean | BitFlags<TearFlag> | Color | Vector,
+    oldValue: PossibleStatType,
+    newValue: PossibleStatType,
   ) => void,
   playerVariant?: PlayerVariant,
   character?: PlayerType,
