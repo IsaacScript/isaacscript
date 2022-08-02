@@ -193,12 +193,10 @@ function setStageRoomsData(
  * files for them.
  *
  * For reference:
- * - The vanilla name sprite for Monstro is located at "C:\Program Files
- *   (x86)\Steam\steamapps\common\The Binding of Isaac
- *   Rebirth\resources\gfx\ui\boss\bossname_20.0_monstro.png".
- * - The vanilla portrait sprite for Monstro is located at "C:\Program Files
- *   (x86)\Steam\steamapps\common\The Binding of Isaac
- *   Rebirth\resources\gfx\ui\boss\portrait_20.0_monstro.png".
+ * - The vanilla name sprite for Monstro is located at:
+ *   `resources/gfx/ui/boss/bossname_20.0_monstro.png`
+ * - The vanilla portrait sprite for Monstro is located at:
+ *   `resources/gfx/ui/boss/portrait_20.0_monstro.png`
  *
  * (Note that boss metadata like this cannot be specified with the rest of the custom stage metadata
  * in the "tsconfig.json" file because there is not a way to retrieve the name of an entity at

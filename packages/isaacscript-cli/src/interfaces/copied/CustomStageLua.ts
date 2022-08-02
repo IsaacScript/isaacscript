@@ -124,8 +124,7 @@ export type CustomStageTSConfig = Readonly<{
    * the floor.
    *
    * If not specified, the vanilla Basement decorations spritesheet will be used. For reference,
-   * this is located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac
-   * Rebirth\resources\gfx\grid\props_01_basement.png`
+   * this is located at: `resources/gfx/grid/props_01_basement.png`
    */
   decorationsPNGPath?: string;
 
@@ -139,8 +138,7 @@ export type CustomStageTSConfig = Readonly<{
    * a vanilla urn/mushroom/skull/polyp/bucket, use the `spawnRockAltReward` helper function.
    *
    * If not specified, the vanilla Basement rocks spritesheet will be used. For reference, this is
-   * located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac
-   * Rebirth\resources-dlc3\gfx\grid\rocks_basement.png`
+   * located at: `resources-dlc3/gfx/grid/rocks_basement.png`
    */
   rocksPNGPath?: string;
 
@@ -149,8 +147,7 @@ export type CustomStageTSConfig = Readonly<{
    * floor.
    *
    * If not specified, the vanilla Basement pits spritesheet will be used. For reference, this is
-   * located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac
-   * Rebirth\resources\gfx\grid\grid_pit.png`
+   * located at: `resources/gfx/grid/grid_pit.png`
    */
   pitsPNGPath?: string;
 
@@ -164,8 +161,7 @@ export type CustomStageTSConfig = Readonly<{
      * the floor.
      *
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
-     * located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac
-     * Rebirth\resources\gfx\grid\door_01_normaldoor.png`
+     * located at: `resources/gfx/grid/door_01_normaldoor.png`
      */
     normal?: string; // RoomType.DEFAULT (1)
 
@@ -174,8 +170,7 @@ export type CustomStageTSConfig = Readonly<{
      * doors for the floor.
      *
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
-     * located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac
-     * Rebirth\resources\gfx\grid\door_02_treasureroomdoor.png`
+     * located at: `resources/gfx/grid/door_02_treasureroomdoor.png`
      */
     treasureRoom?: string; // RoomType.TREASURE (4)
 
@@ -184,8 +179,7 @@ export type CustomStageTSConfig = Readonly<{
      * for the floor.
      *
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
-     * located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac
-     * Rebirth\resources\gfx\grid\door_10_bossroomdoor.png`
+     * located at: `resources/gfx/grid/door_10_bossroomdoor.png`
      */
     bossRoom?: string; // RoomType.BOSS (5)
 
@@ -194,8 +188,7 @@ export type CustomStageTSConfig = Readonly<{
      * Super Secret Room doors for the floor.
      *
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
-     * located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac
-     * Rebirth\resources\gfx\grid\door_08_holeinwall.png`
+     * located at: `resources/gfx/grid/door_08_holeinwall.png`
      */
     secretRoom?: string; // RoomType.SECRET (7) and RoomType.SUPER_SECRET (8)
 
@@ -204,8 +197,7 @@ export type CustomStageTSConfig = Readonly<{
      * the floor.
      *
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
-     * located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac
-     * Rebirth\resources\gfx\grid\door_05_arcaderoomdoor.png`
+     * located at: `resources/gfx/grid/door_05_arcaderoomdoor.png`
      */
     arcade?: string; // RoomType.ARCADE (9)
 
@@ -214,8 +206,7 @@ export type CustomStageTSConfig = Readonly<{
      * for the floor.
      *
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
-     * located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac
-     * Rebirth\resources\gfx\grid\door_04_selfsacrificeroomdoor.png`
+     * located at: `resources/gfx/grid/door_04_selfsacrificeroomdoor.png`
      */
     curseRoom?: string; // RoomType.CURSE (10)
 
@@ -224,8 +215,7 @@ export type CustomStageTSConfig = Readonly<{
      * Room doors for the floor.
      *
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
-     * located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac
-     * Rebirth\resources\gfx\grid\door_03_ambushroomdoor.png`
+     * located at: `resources/gfx/grid/door_03_ambushroomdoor.png`
      */
     normalChallengeRoom?: string; // RoomType.CHALLENGE (11)
 
@@ -234,8 +224,7 @@ export type CustomStageTSConfig = Readonly<{
      * Room doors for the floor.
      *
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
-     * located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac
-     * Rebirth\resources\gfx\grid\door_09_bossambushroomdoor.png`
+     * located at: `resources/gfx/grid/door_09_bossambushroomdoor.png`
      */
     bossChallengeRoom?: string; // RoomType.CHALLENGE (11)
 
@@ -244,8 +233,7 @@ export type CustomStageTSConfig = Readonly<{
      * for the floor.
      *
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
-     * located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac
-     * Rebirth\resources\gfx\grid\door_07_devilroomdoor.png`
+     * located at: `resources/gfx/grid/door_07_devilroomdoor.png`
      */
     devilRoom?: string; // RoomType.DEVIL (14)
 
@@ -254,8 +242,7 @@ export type CustomStageTSConfig = Readonly<{
      * for the floor.
      *
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
-     * located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac
-     * Rebirth\resources\gfx\grid\door_07_holyroomdoor.png`
+     * located at: `resources/gfx/grid/door_07_holyroomdoor.png`
      */
     angelRoom?: string; // RoomType.ANGEL (15)
 
@@ -264,8 +251,7 @@ export type CustomStageTSConfig = Readonly<{
      * for the floor.
      *
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
-     * located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac
-     * Rebirth\resources\gfx\grid\door_15_bossrushdoor.png`
+     * located at: `resources/gfx/grid/door_15_bossrushdoor.png`
      */
     bossRush?: string; // RoomType.BOSS_RUSH (17)
 
@@ -274,8 +260,7 @@ export type CustomStageTSConfig = Readonly<{
      * for the floor.
      *
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
-     * located at: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac
-     * Rebirth\resources\gfx\grid\door_02b_chestroomdoor.png`
+     * located at: `resources/gfx/grid/door_02b_chestroomdoor.png`
      */
     chestRoom?: string; // RoomType.CHEST (20)
   }>;
@@ -412,9 +397,8 @@ export type CustomStageShadow = Readonly<{
   /**
    * The full path to the shadow overlay PNG file.
    *
-   * For an example of a vanilla shadow overlay, see: `C:\Program Files
-   * (x86)\Steam\steamapps\common\The Binding of Isaac
-   * Rebirth\resources\gfx\overlays\basement\1x1_overlay_1.png`
+   * For an example of a vanilla shadow overlay, see:
+   * `resources/gfx/overlays/basement/1x1_overlay_1.png`
    */
   pngPath: string;
 
