@@ -4,6 +4,7 @@ import {
   BossID,
   Dimension,
   DoorSlot,
+  DownpourRoomSubType,
   DungeonSubType,
   GridRoom,
   HomeRoomSubType,
@@ -422,6 +423,23 @@ export function inMinibossRoomOf(minibossID: MinibossID): boolean {
     roomType === RoomType.MINI_BOSS &&
     roomStageID === StageID.SPECIAL_ROOMS &&
     roomSubType === asNumber(minibossID)
+  );
+}
+
+/**
+ * Helper function to check if the current room is a "mirror room" in Downpour or Dross. (These
+ * rooms are marked with a specific sub-type.)
+ */
+export function inMirrorRoom(): boolean {
+  const room = game.GetRoom();
+  const roomType = room.GetType();
+  const roomStageID = getRoomStageID();
+  const roomSubType = getRoomSubType();
+
+  return (
+    roomType === RoomType.DEFAULT &&
+    (roomStageID === StageID.DOWNPOUR || roomStageID === StageID.DROSS) &&
+    roomSubType === asNumber(DownpourRoomSubType.MIRROR)
   );
 }
 
