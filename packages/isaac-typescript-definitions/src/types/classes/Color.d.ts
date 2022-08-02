@@ -59,5 +59,5 @@ declare namespace Color {
    *             `ColorDefault` constant from the standard library instead. Alternatively, you can
    *             create your own constant that is local to your own mod.
    */
-  const Default: Color;
+  const Default: never;
 }
