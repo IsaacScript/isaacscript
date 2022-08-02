@@ -17,6 +17,11 @@ cd "$DIR"
 OUT_DIR="$DIR/../../dist/packages/$REPO_NAME"
 
 rm -rf "$OUT_DIR"
+
+# API Extractor will make a "dist/tsdoc-metadata.json" file, which we don't need.
+rm -rf "$DIR/dist"
+
+# Compile the project using TSTL, which will generate ".lua" files and ".d.ts" files.
 npx tstl
 
 # The declaration maps will be bugged due to nx's consolidated "dist" directory, so we use a script

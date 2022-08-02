@@ -14,6 +14,7 @@
     // API Extrator uses the JSONC parser for its configuration files.
     "api-extractor.json": "jsonc",
     "typedoc.json": "jsonc", // TypeDoc uses the JSONC parser for its configuration files.
+    "gitattributes": "properties",
   },
 
   // We want to always use "lf" to be consistent with all platforms.
