@@ -44,7 +44,6 @@
     "tslib": "^2.4.0",
     "typescript-to-lua": "^1.7.1",
     "update-notifier": "5.1.0",
-    "validate-with-xmllint": "^1.2.0",
     "xml2js": "^0.4.23",
     "yaml": "^2.1.1",
     "yargs": "^17.5.1"
