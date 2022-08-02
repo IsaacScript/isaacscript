@@ -11,7 +11,6 @@
  *
  * The `CustomStageLua` interface extends this, adding room metadata.
  */
-
 // ts-prune-ignore-next
 export type CustomStageTSConfig = Readonly<{
   /** Mandatory. The name of the custom stage. */
@@ -28,7 +27,11 @@ export type CustomStageTSConfig = Readonly<{
    * stage.
    *
    * Make sure the chosen prefix does not conflict with any other mods. You can find a list of
-   * registered room variant prefixes on the IsaacScript website.
+   * registered room variant prefixes on the IsaacScript website:
+   * https://isaacscript.github.io/main/custom-stages
+   *
+   * @minimum 101
+   * @maximum 109
    */
   roomVariantPrefix: number;
 
@@ -41,6 +44,9 @@ export type CustomStageTSConfig = Readonly<{
    * method.)
    *
    * If not specified, `LevelStage.BASEMENT_2` (2) will be used.
+   *
+   * @minimum 2
+   * @maximum 13
    */
   baseStage?: number;
 
@@ -50,6 +56,9 @@ export type CustomStageTSConfig = Readonly<{
    * generation algorithm.
    *
    * If not specified, `StageType.ORIGINAL` (0) will be used.
+   *
+   * @minimum 0
+   * @maximum 5
    */
   baseStageType?: number;
 
@@ -320,6 +329,9 @@ export type CustomStageTSConfig = Readonly<{
     "2x2"?: readonly CustomStageShadow[];
   }>;
 
+  /** Optional. An array containing the bosses that should be used for the stage. */
+  bossPool?: readonly CustomStageBossPoolEntry[];
+
   /** Optional. A collection of colors used in the boss "versus" screen. */
   versusScreen?: Readonly<{
     /**
@@ -330,9 +342,28 @@ export type CustomStageTSConfig = Readonly<{
      * `versusScreenBackgroundColors.ts`.
      */
     backgroundColor?: Readonly<{
+      /**
+       * @minimum 0
+       * @maximum 1
+       */
       r: number;
+
+      /**
+       * @minimum 0
+       * @maximum 1
+       */
       g: number;
+
+      /**
+       * @minimum 0
+       * @maximum 1
+       */
       b: number;
+
+      /**
+       * @minimum 0
+       * @maximum 1
+       */
       a: number;
     }>;
 
@@ -345,9 +376,28 @@ export type CustomStageTSConfig = Readonly<{
      * `versusScreenDirtSpotColors.ts`.
      */
     dirtSpotColor?: Readonly<{
+      /**
+       * @minimum 0
+       * @maximum 1
+       */
       r: number;
+
+      /**
+       * @minimum 0
+       * @maximum 1
+       */
       g: number;
+
+      /**
+       * @minimum 0
+       * @maximum 1
+       */
       b: number;
+
+      /**
+       * @minimum 0
+       * @maximum 1
+       */
       a: number;
     }>;
   }>;
@@ -357,7 +407,8 @@ export type CustomStageTSConfig = Readonly<{
  * A description of a custom stage shadow. (In this context, "shadows" are the outlines from things
  * on the roof. For example, in Basement, a shadow of a sideways V is used, among others.)
  */
-type CustomStageShadow = Readonly<{
+// ts-prune-ignore-next
+export type CustomStageShadow = Readonly<{
   /**
    * The full path to the shadow overlay PNG file.
    *
@@ -374,12 +425,51 @@ type CustomStageShadow = Readonly<{
    * to 75% faded black).
    */
   color?: Readonly<{
+    /**
+     * @minimum 0
+     * @maximum 1
+     */
     r: number;
+
+    /**
+     * @minimum 0
+     * @maximum 1
+     */
     g: number;
+
+    /**
+     * @minimum 0
+     * @maximum 1
+     */
     b: number;
+
+    /**
+     * @minimum 0
+     * @maximum 1
+     */
     a: number;
   }>;
 }>;
+
+/** An object that represents a possible boss for a custom stage. */
+// ts-prune-ignore-next
+export interface CustomStageBossPoolEntry {
+  /**
+   * The name of the boss. This must correspond to the entry in "entities2.xml".
+   *
+   * Note that since there is no way to determine the corresponding `EntityType` of the boss during
+   * compile-time, you must specify the `EntityType` at run-time when your mod first loads using the
+   * `registerCustomBoss` helper function.
+   */
+  name: string;
+
+  /**
+   * The weight of the boss. This is used when randomly selecting which boss to use for the floor.
+   * For example, use a value of 1 if you want this boss to be equally likely as any other boss, 0.5
+   * if you want it to be half as likely, 2 if you want it to be twice as likely, and so on.
+   */
+  weight: number;
+}
 
 /**
  * An object that represents a custom stage. The "metadata.lua" file contains an array of these

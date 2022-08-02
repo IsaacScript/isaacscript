@@ -37,11 +37,7 @@ export function deserializeBitSet128(
     );
   }
 
-  const [l, h] = getNumbersFromTable(
-    bitSet128 as LuaMap<string, unknown>,
-    OBJECT_NAME,
-    ...KEYS,
-  );
+  const [l, h] = getNumbersFromTable(bitSet128, OBJECT_NAME, ...KEYS);
 
   if (l === undefined) {
     error(

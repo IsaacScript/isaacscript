@@ -61,7 +61,7 @@ function getAllSaveDataToWriteToDisk(
       // that is unnecessary. Make a copy of the data and recursively convert all TypeScriptToLua
       // Maps into Lua tables.
       const saveDataCopy = deepCopy(
-        saveDataWithoutRoom as LuaMap,
+        saveDataWithoutRoom,
         SerializationType.SERIALIZE,
         subscriberName,
       );

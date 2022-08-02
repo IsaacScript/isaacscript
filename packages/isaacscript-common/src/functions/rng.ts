@@ -41,11 +41,14 @@ export function deserializeRNG(rng: SerializedRNG): RNG {
     );
   }
 
-  const [seed] = getNumbersFromTable(
-    rng as LuaMap<string, unknown>,
-    OBJECT_NAME,
-    ...KEYS,
-  );
+  const [seed] = getNumbersFromTable(rng, OBJECT_NAME, ...KEYS);
+
+  if (seed === undefined) {
+    error(
+      `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: seed`,
+    );
+  }
+
   return newRNG(seed as Seed);
 }
 

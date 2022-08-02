@@ -34,11 +34,7 @@ export function deserializeKColor(kColor: SerializedKColor): KColor {
     );
   }
 
-  const [r, g, b, a] = getNumbersFromTable(
-    kColor as LuaMap<string, unknown>,
-    OBJECT_NAME,
-    ...KEYS,
-  );
+  const [r, g, b, a] = getNumbersFromTable(kColor, OBJECT_NAME, ...KEYS);
 
   if (r === undefined) {
     error(

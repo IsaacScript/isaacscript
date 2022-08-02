@@ -9,6 +9,14 @@ import {
   TrinketType,
 } from "isaac-typescript-definitions";
 import { getEnumLength, getLastEnumValue } from "../functions/enums";
+import {
+  asCard,
+  asCollectibleType,
+  asNumber,
+  asPillEffect,
+  asPlayerType,
+  asTrinketType,
+} from "../functions/types";
 import { itemConfig } from "./cachedClasses";
 
 // ------------
@@ -24,8 +32,9 @@ export const FIRST_COLLECTIBLE_TYPE = CollectibleType.SAD_ONION;
  * Equal to `itemConfig.GetCollectibles().Size - 1`. (`Size` includes invalid collectibles, like
  * 666. We subtract one to account for `CollectibleType.NULL`.)
  */
-export const LAST_COLLECTIBLE_TYPE = (itemConfig.GetCollectibles().Size -
-  1) as CollectibleType;
+export const LAST_COLLECTIBLE_TYPE = asCollectibleType(
+  itemConfig.GetCollectibles().Size - 1,
+);
 
 /**
  * Calculated from the `CollectibleType` enum.
@@ -39,8 +48,9 @@ export const LAST_VANILLA_COLLECTIBLE_TYPE = getLastEnumValue(CollectibleType);
  * If there are no modded collectibles, this constant will represent a collectible type that does
  * not exist.
  */
-export const FIRST_MODDED_COLLECTIBLE_TYPE =
-  ((LAST_VANILLA_COLLECTIBLE_TYPE as int) + 1) as CollectibleType;
+export const FIRST_MODDED_COLLECTIBLE_TYPE = asCollectibleType(
+  asNumber(LAST_VANILLA_COLLECTIBLE_TYPE) + 1,
+);
 
 /** Calculated from the `CollectibleType` enum. `CollectibleType.NULL` is not included. */
 export const NUM_VANILLA_COLLECTIBLE_TYPES = getEnumLength(CollectibleType) - 1;
@@ -79,7 +89,7 @@ export const FIRST_TRINKET_TYPE = TrinketType.SWALLOWED_PENNY;
  * Equal to `itemConfig.GetTrinkets().Size - 1`. (We subtract one to account for
  * `TrinketType.NULL`.)
  */
-export const LAST_TRINKET_TYPE = NUM_TRINKET_TYPES as TrinketType;
+export const LAST_TRINKET_TYPE = asTrinketType(NUM_TRINKET_TYPES);
 
 /** Calculated from the `TrinketType` enum. */
 export const LAST_VANILLA_TRINKET_TYPE = getLastEnumValue(TrinketType);
@@ -87,8 +97,9 @@ export const LAST_VANILLA_TRINKET_TYPE = getLastEnumValue(TrinketType);
 /**
  * If there are no modded trinkets, this constant will represent a trinket type that does not exist.
  */
-export const FIRST_MODDED_TRINKET_TYPE = ((LAST_VANILLA_TRINKET_TYPE as int) +
-  1) as TrinketType;
+export const FIRST_MODDED_TRINKET_TYPE = asTrinketType(
+  asNumber(LAST_VANILLA_TRINKET_TYPE) + 1,
+);
 
 // -----
 // Cards
@@ -114,13 +125,13 @@ export const FIRST_CARD = Card.FOOL;
  *
  * Equal to `itemConfig.GetCards().Size - 1`. (We subtract one to account for `Card.NULL`.)
  */
-export const LAST_CARD = NUM_CARDS as Card;
+export const LAST_CARD = asCard(NUM_CARDS);
 
 /** Calculated from the `Card` enum. */
 export const MAX_VANILLA_CARD = getLastEnumValue(Card);
 
 /** If there are no modded cards, this constant will represent a card that does not exist. */
-export const FIRST_MODDED_CARD = ((MAX_VANILLA_CARD as int) + 1) as Card;
+export const FIRST_MODDED_CARD = asCard(asNumber(MAX_VANILLA_CARD) + 1);
 
 // ------------
 // Pill Effects
@@ -153,7 +164,7 @@ export const FIRST_PILL_EFFECT = PillEffect.BAD_GAS;
  * Equal to `itemConfig.GetPillEffects().Size - 1`. (We subtract one to account for
  * `PillEffect.NULL`.)
  */
-export const LAST_PILL_EFFECT = NUM_PILL_EFFECTS as PillEffect;
+export const LAST_PILL_EFFECT = asPillEffect(NUM_PILL_EFFECTS);
 
 /** Calculated from the `PillEffect` enum. */
 export const LAST_VANILLA_PILL_EFFECT = getLastEnumValue(PillEffect);
@@ -162,8 +173,9 @@ export const LAST_VANILLA_PILL_EFFECT = getLastEnumValue(PillEffect);
  * If there are no modded pill effects, this constant will represent a pill effect that does not
  * exist.
  */
-export const FIRST_MODDED_PILL_EFFECT = ((LAST_VANILLA_PILL_EFFECT as int) +
-  1) as PillEffect;
+export const FIRST_MODDED_PILL_EFFECT = asPillEffect(
+  asNumber(LAST_VANILLA_PILL_EFFECT) + 1,
+);
 
 // -----------
 // Pill Colors
@@ -207,9 +219,12 @@ export const LAST_VANILLA_CHARACTER = getLastEnumValue(PlayerType);
 
 /**
  * If there are no modded characters, this constant will represent a character that does not exist.
+ * (There is no way to determine the amount of modded characters at run-time, since there is no
+ * exposed player config.)
  */
-export const FIRST_MODDED_CHARACTER = ((LAST_VANILLA_CHARACTER as int) +
-  1) as PlayerType;
+export const FIRST_MODDED_CHARACTER = asPlayerType(
+  asNumber(LAST_VANILLA_CHARACTER) + 1,
+);
 
 // ----------
 // Room Types

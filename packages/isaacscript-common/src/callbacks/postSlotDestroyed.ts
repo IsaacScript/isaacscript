@@ -36,7 +36,7 @@ export function postSlotDestroyedInit(mod: ModUpgraded): void {
 
   mod.AddCallback(
     ModCallback.POST_ENTITY_REMOVE,
-    postEntityRemove,
+    postEntityRemoveSlot,
     EntityType.SLOT,
   ); // 67
 
@@ -51,7 +51,8 @@ function hasSubscriptions() {
 }
 
 // ModCallback.POST_ENTITY_REMOVE (67)
-function postEntityRemove(entity: Entity) {
+// EntityType.SLOT (6)
+function postEntityRemoveSlot(entity: Entity) {
   const slot = entity as EntitySlot;
   const ptrHash = GetPtrHash(slot);
   const gameFrameCount = game.GetFrameCount();

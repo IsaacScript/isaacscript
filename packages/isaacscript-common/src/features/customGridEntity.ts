@@ -23,6 +23,7 @@ import {
   spawnGridEntityWithVariant,
 } from "../functions/gridEntities";
 import { getRoomListIndex } from "../functions/roomData";
+import { asNumber } from "../functions/types";
 import { isVector } from "../functions/vector";
 import { GridEntityCustomData } from "../interfaces/GridEntityCustomData";
 import { runNextGameFrame } from "./runInNFrames";
@@ -251,7 +252,7 @@ export function spawnCustomGridEntity(
     existingGridEntity !== undefined &&
     existingGridEntity.GetType() === GridEntityType.DECORATION &&
     existingGridEntity.GetVariant() ===
-      (DecorationVariant.CUSTOM_GRID_ENTITY as int);
+      asNumber(DecorationVariant.CUSTOM_GRID_ENTITY);
   const decoration = isExistingDecoration
     ? existingGridEntity
     : spawnGridEntityWithVariant(

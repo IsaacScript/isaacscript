@@ -96,9 +96,11 @@ export function getPlayerIndex(
   let playerToUse = player;
   const isSubPlayer = player.IsSubPlayer();
   if (isSubPlayer) {
+    const subPlayer = player as EntitySubPlayer;
+
     // The "getSubPlayerParent" function will return undefined in the situation where we are on Dead
     // Tainted Lazarus in the `POST_PLAYER_INIT` callback.
-    const playerParent = getSubPlayerParent(player as EntitySubPlayer);
+    const playerParent = getSubPlayerParent(subPlayer);
     if (playerParent !== undefined) {
       playerToUse = playerParent;
     }

@@ -8,6 +8,7 @@ import { game } from "../core/cachedClasses";
 import { ROOM_TYPE_GOTO_PREFIXES } from "../objects/roomTypeGotoPrefixes";
 import { STAGE_TYPE_SUFFIXES } from "../objects/stageTypeSuffixes";
 import { STAGE_TYPE_TO_LETTER } from "../objects/stageTypeToLetter";
+import { asLevelStage, asNumber } from "./types";
 
 /**
  * Helper function that calculates what the stage type should be for the provided stage. This
@@ -57,7 +58,7 @@ export function calculateStageTypeRepentance(stage: LevelStage): StageType {
   // This algorithm is from Kilburn. We add one because the alt path is offset by 1 relative to the
   // normal path.
   const seeds = game.GetSeeds();
-  const adjustedStage = ((stage as int) + 1) as LevelStage;
+  const adjustedStage = asLevelStage(asNumber(stage) + 1);
   const stageSeed = seeds.GetStageSeed(adjustedStage);
 
   // Kilburn does not know why he divided the stage seed by 2 first.
@@ -79,7 +80,7 @@ export function getEffectiveStage(): int {
   const stage = level.GetStage();
 
   if (onRepentanceStage()) {
-    return stage + 1; // eslint-disable-line isaacscript/strict-enums
+    return asNumber(stage) + 1;
   }
 
   return stage;

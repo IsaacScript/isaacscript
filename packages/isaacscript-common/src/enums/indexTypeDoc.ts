@@ -4,6 +4,7 @@ export * as HealthType from "./HealthType";
 export * as ModCallbackCustom from "./ModCallbackCustom";
 export * as PocketItemType from "./PocketItemType";
 export * as RockAltType from "./RockAltType";
+export * as SaveDataKey from "./SaveDataKey";
 export * as SerializationType from "./SerializationType";
 export * as SlotDestructionType from "./SlotDestructionType";
 export * as StatType from "./StatType";

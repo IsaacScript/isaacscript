@@ -23,6 +23,7 @@ import { getCollectibleArray } from "./collectibleSet";
 import { getEnumValues } from "./enums";
 import { getPlayerIndexVanilla, getPlayers } from "./playerIndex";
 import { addTearsStat } from "./tears";
+import { isNumber } from "./types";
 import { repeat } from "./utils";
 
 const STAT_CACHE_FLAGS_SET: ReadonlySet<CacheFlag> = new Set([
@@ -225,16 +226,14 @@ export function getActiveItemSlot(
  * Helper function to get how long Azazel's Brimstone laser should be. You can pass either an
  * `EntityPlayer` object or a tear height stat.
  *
- * The formula for calculating it is: 32 - 2.5 * player.TearHeight
+ * The formula for calculating it is: 32 - 2.5 * tearHeight
  */
 export function getAzazelBrimstoneDistance(
   playerOrTearHeight: EntityPlayer | float,
 ): float {
-  let tearHeight = tonumber(playerOrTearHeight);
-  if (tearHeight === undefined) {
-    const player = playerOrTearHeight as EntityPlayer;
-    tearHeight = player.TearHeight;
-  }
+  const tearHeight = isNumber(playerOrTearHeight)
+    ? playerOrTearHeight
+    : playerOrTearHeight.TearHeight;
 
   return 32 - 2.5 * tearHeight;
 }

@@ -2,7 +2,7 @@ import * as jsonLua from "../lib/jsonLua";
 import { logError } from "./log";
 
 function tryDecode(this: void, jsonString: string) {
-  return jsonLua.decode(jsonString) as LuaMap;
+  return jsonLua.decode(jsonString) as LuaMap<AnyNotNil, unknown>;
 }
 
 function tryEncode(this: void, luaTable: unknown) {

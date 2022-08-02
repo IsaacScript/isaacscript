@@ -2,7 +2,7 @@ import { ModCallback } from "isaac-typescript-definitions";
 import { ModUpgraded } from "../../classes/ModUpgraded";
 import { game } from "../../core/cachedClasses";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
-import { SaveDataKey } from "../../enums/private/SaveDataKey";
+import { SaveDataKey } from "../../enums/SaveDataKey";
 import { SerializationType } from "../../enums/SerializationType";
 import { deepCopy } from "../../functions/deepCopy";
 import { logError } from "../../functions/log";

@@ -89,6 +89,7 @@ import { gridCoordinatesToWorldPosition } from "../../functions/roomGrid";
 import { changeRoom } from "../../functions/rooms";
 import { onSetSeed, restart, setUnseeded } from "../../functions/run";
 import { getGoldenTrinketType } from "../../functions/trinkets";
+import { asCard } from "../../functions/types";
 import { irange, printConsole, printEnabled } from "../../functions/utils";
 import { CARD_MAP } from "../../maps/cardMap";
 import { CHARACTER_MAP } from "../../maps/characterMap";
@@ -343,12 +344,12 @@ export function cards(): void {
   let cardType = 1;
   for (let y = 0; y <= 6; y++) {
     for (let x = 0; x <= 12; x++) {
-      if ((cardType as Card) === LAST_CARD) {
+      if (asCard(cardType) === LAST_CARD) {
         return;
       }
 
       const position = gridCoordinatesToWorldPosition(x, y);
-      spawnCard(cardType as Card, position);
+      spawnCard(asCard(cardType), position);
       cardType++;
     }
   }

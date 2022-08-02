@@ -29,6 +29,14 @@ This page lists the changes to the IsaacScript framework.
   - `setBackdrop`
   - `reloadRoom`
   - `getPlayerStat`
+  - `asNumber`
+  - `asString`
+  - `asCollectibleType`
+  - `asTrinketType`
+  - `asCard`
+  - `asPillColor`
+  - `asPillEffect`
+  - `asPlayerType`
 - Renamed the following helper functions:
   - `isRoomInsideMap` --> `isRoomInsideGrid`
   - `getRoomsInGrid` --> `getRoomsInsideGrid`

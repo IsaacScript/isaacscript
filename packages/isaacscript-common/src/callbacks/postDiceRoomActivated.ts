@@ -1,8 +1,4 @@
-import {
-  DiceFloorSubType,
-  EffectVariant,
-  ModCallback,
-} from "isaac-typescript-definitions";
+import { EffectVariant, ModCallback } from "isaac-typescript-definitions";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { isCloseEnoughToTriggerDiceFloor } from "../functions/effects";
 import { getClosestPlayer } from "../functions/players";
@@ -34,6 +30,8 @@ function hasSubscriptions() {
 // ModCallback.POST_EFFECT_UPDATE (55)
 // EffectVariant.DICE_FLOOR (76)
 function postEffectUpdateDiceFloor(effect: EntityEffect) {
+  const diceFloor = effect as EntityEffectDiceFloor;
+
   if (!hasSubscriptions()) {
     return;
   }
@@ -44,16 +42,13 @@ function postEffectUpdateDiceFloor(effect: EntityEffect) {
 
   // When using the debug console to go to a dice room, the player can appear on top of the dice
   // floor before they snap to the door.
-  if (effect.FrameCount === 0) {
+  if (diceFloor.FrameCount === 0) {
     return;
   }
 
-  const closestPlayer = getClosestPlayer(effect.Position);
-  if (isCloseEnoughToTriggerDiceFloor(closestPlayer, effect)) {
+  const closestPlayer = getClosestPlayer(diceFloor.Position);
+  if (isCloseEnoughToTriggerDiceFloor(closestPlayer, diceFloor)) {
     v.room.diceRoomActivated = true;
-    postDiceRoomActivatedFire(
-      closestPlayer,
-      effect.SubType as DiceFloorSubType,
-    );
+    postDiceRoomActivatedFire(closestPlayer, diceFloor.SubType);
   }
 }

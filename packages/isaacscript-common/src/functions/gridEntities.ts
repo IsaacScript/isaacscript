@@ -19,7 +19,7 @@ import { AnyGridEntity } from "../types/AnyGridEntity";
 import { isCircleIntersectingRectangle } from "./math";
 import { roomUpdateSafe } from "./rooms";
 import { clearSprite } from "./sprites";
-import { isNumber } from "./types";
+import { asNumber, isNumber } from "./types";
 import { erange } from "./utils";
 import { isVector } from "./vector";
 
@@ -136,7 +136,7 @@ export function getCollidingEntitiesWithGridEntity(
 export function getCrawlSpaces(
   crawlSpaceVariant: CrawlSpaceVariant = -1,
 ): GridEntity[] {
-  if ((crawlSpaceVariant as int) === -1) {
+  if (asNumber(crawlSpaceVariant) === -1) {
     return getGridEntities(GridEntityType.CRAWL_SPACE);
   }
 

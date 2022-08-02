@@ -47,7 +47,7 @@ export function deserializeColor(color: SerializedColor): Color {
   }
 
   const [r, g, b, a, ro, go, bo] = getNumbersFromTable(
-    color as LuaMap<string, unknown>,
+    color,
     OBJECT_NAME,
     ...KEYS,
   );

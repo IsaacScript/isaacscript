@@ -10,6 +10,7 @@ import { PocketItemType } from "../enums/PocketItemType";
 import { PocketItemDescription } from "../interfaces/PocketItemDescription";
 import { getEnumValues } from "./enums";
 import { isCharacter } from "./players";
+import { asNumber } from "./types";
 
 /**
  * Helper function to get the `PocketItemSlot` that the player's pocket active collectible item is
@@ -63,8 +64,8 @@ export function getPocketItems(player: EntityPlayer): PocketItemDescription[] {
   let pocketItemIdentified = false;
   let pocketItem2Identified = false;
   for (const slot of pocketItemSlots) {
-    const card = player.GetCard(slot as PocketItemSlot);
-    const pillColor = player.GetPill(slot as PocketItemSlot);
+    const card = player.GetCard(slot);
+    const pillColor = player.GetPill(slot);
 
     if (card !== Card.NULL) {
       pocketItems.push({
@@ -106,8 +107,7 @@ export function getPocketItems(player: EntityPlayer): PocketItemDescription[] {
       });
     }
 
-    // eslint-disable-next-line isaacscript/strict-enums
-    if (slot + 1 === maxPocketItems) {
+    if (asNumber(slot) + 1 === maxPocketItems) {
       break;
     }
   }

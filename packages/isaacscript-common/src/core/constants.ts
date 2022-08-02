@@ -1,5 +1,4 @@
 import {
-  CollectibleType,
   Dimension,
   DisplayFlag,
   ItemPoolType,
@@ -7,6 +6,7 @@ import {
 } from "isaac-typescript-definitions";
 import { getEnumLength } from "../functions/enums";
 import { addFlag } from "../functions/flag";
+import { asCollectibleType } from "../functions/types";
 import { NUM_NORMAL_PILL_COLORS } from "./constantsFirstLast";
 
 /**
@@ -64,8 +64,8 @@ export const EMPTY_PNG_PATH = "gfx/none.png";
  * encountered by the player. The first TMTRAINER item takes the final possible 32 bit number. The
  * second TMTRAINER item subtracts one from that, and so on.
  */
-export const FIRST_GLITCHED_COLLECTIBLE_TYPE = ((1 << 32) -
-  1) as CollectibleType;
+
+export const FIRST_GLITCHED_COLLECTIBLE_TYPE = asCollectibleType((1 << 32) - 1);
 
 /** Game frames are what is returned by the `Game.GetFrameCount` method. */
 export const GAME_FRAMES_PER_SECOND = 30;

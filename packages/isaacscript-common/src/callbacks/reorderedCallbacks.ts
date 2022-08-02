@@ -31,8 +31,8 @@ import {
   postNewRoomReorderedHasSubscriptions,
 } from "./subscriptions/postNewRoomReordered";
 
-let currentStage = null as int | null;
-let currentStageType = null as int | null;
+let currentStage: int | null = null;
+let currentStageType: int | null = null;
 let usedGlowingHourGlass = false;
 let forceNewLevel = false;
 let forceNewRoom = false;

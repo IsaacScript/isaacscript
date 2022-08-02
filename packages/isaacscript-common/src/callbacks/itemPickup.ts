@@ -12,6 +12,7 @@ import { ModUpgraded } from "../classes/ModUpgraded";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { defaultMapGetPlayer } from "../functions/playerDataStructures";
+import { asNumber } from "../functions/types";
 import {
   newPickingUpItem,
   PickingUpItem,
@@ -71,8 +72,10 @@ function postPEffectUpdateReordered(player: EntityPlayer) {
 }
 
 function queueEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
-  // eslint-disable-next-line isaacscript/strict-enums
-  if (pickingUpItem.itemType === ItemType.NULL || pickingUpItem.subType === 0) {
+  if (
+    pickingUpItem.itemType === ItemType.NULL ||
+    asNumber(pickingUpItem.subType) === 0
+  ) {
     return;
   }
 

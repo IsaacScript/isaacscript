@@ -16,10 +16,10 @@ import {
   StageID,
 } from "isaac-typescript-definitions";
 import { game, sfxManager } from "../core/cachedClasses";
-import { MAX_LEVEL_GRID_INDEX, NUM_DIMENSIONS } from "../core/constants";
+import { MAX_LEVEL_GRID_INDEX } from "../core/constants";
 import { ROOM_TYPE_NAMES } from "../objects/roomTypeNames";
 import { MINE_SHAFT_ROOM_SUB_TYPE_SET } from "../sets/mineShaftRoomSubTypesSet";
-import { inDimension } from "./dimensions";
+import { getAllDimensions, inDimension } from "./dimensions";
 import {
   closeAllDoors,
   getDoors,
@@ -45,7 +45,8 @@ import {
 } from "./roomData";
 import { reloadRoom } from "./roomTransition";
 import { getGotoCommand } from "./stage";
-import { erange, irange } from "./utils";
+import { asNumber } from "./types";
+import { irange } from "./utils";
 
 /**
  * Helper function for quickly switching to a new room without playing a particular animation. Use
@@ -207,7 +208,7 @@ export function getRoomsInsideGrid(
   const level = game.GetLevel();
 
   const dimensions = includeExtraDimensionalRooms
-    ? (erange(NUM_DIMENSIONS) as Dimension[])
+    ? getAllDimensions()
     : [Dimension.CURRENT];
 
   /** We use a map instead of an array because room shapes occupy more than one room grid index. */
@@ -284,8 +285,10 @@ export function inAngelShop(): boolean {
   const roomType = room.GetType();
   const roomSubType = getRoomSubType();
 
-  // eslint-disable-next-line isaacscript/strict-enums
-  return roomType === RoomType.ANGEL && roomSubType === AngelRoomSubType.SHOP;
+  return (
+    roomType === RoomType.ANGEL &&
+    roomSubType === asNumber(AngelRoomSubType.SHOP)
+  );
 }
 
 export function inBeastRoom(): boolean {
@@ -294,8 +297,8 @@ export function inBeastRoom(): boolean {
   const roomSubType = getRoomSubType();
 
   return (
-    // eslint-disable-next-line isaacscript/strict-enums
-    roomType === RoomType.DUNGEON && roomSubType === DungeonSubType.BEAST_ROOM
+    roomType === RoomType.DUNGEON &&
+    roomSubType === asNumber(DungeonSubType.BEAST_ROOM)
   );
 }
 
@@ -312,7 +315,7 @@ export function inBossRoomOf(bossID: BossID): boolean {
   return (
     roomType === RoomType.BOSS &&
     roomStageID === StageID.SPECIAL_ROOMS &&
-    roomSubType === bossID // eslint-disable-line isaacscript/strict-enums
+    roomSubType === asNumber(bossID)
   );
 }
 
@@ -326,13 +329,14 @@ export function inCrawlSpace(): boolean {
   const roomType = room.GetType();
   const roomSubType = getRoomSubType();
 
-  // eslint-disable-next-line isaacscript/strict-enums
-  return roomType === RoomType.DUNGEON && roomSubType === DungeonSubType.NORMAL;
+  return (
+    roomType === RoomType.DUNGEON &&
+    roomSubType === asNumber(DungeonSubType.NORMAL)
+  );
 }
 
 /**
- * We cannot use the standard code in the `inDimension` function for this purpose since it is bugged
- * with the Death Certificate area.
+ * Helper function to detect if the current room is one of the room in the Death Certificate area.
  */
 export function inDeathCertificateArea(): boolean {
   const roomStageID = getRoomStageID();
@@ -340,17 +344,16 @@ export function inDeathCertificateArea(): boolean {
 
   return (
     roomStageID === StageID.HOME &&
-    // eslint-disable-next-line isaacscript/strict-enums
-    (roomSubType === HomeRoomSubType.DEATH_CERTIFICATE_ENTRANCE ||
-      // eslint-disable-next-line isaacscript/strict-enums
-      roomSubType === HomeRoomSubType.DEATH_CERTIFICATE_ITEMS)
+    (roomSubType === asNumber(HomeRoomSubType.DEATH_CERTIFICATE_ENTRANCE) ||
+      roomSubType === asNumber(HomeRoomSubType.DEATH_CERTIFICATE_ITEMS))
   );
 }
 
 /**
  * Helper function to detect if the current room is a Treasure Room created when entering with a
- * Devil's Crown trinket. Under the hood, this checks for the `RoomDescriptorFlag.DEVIL_TREASURE`
- * flag.
+ * Devil's Crown trinket.
+ *
+ * Under the hood, this checks for `RoomDescriptorFlag.DEVIL_TREASURE`.
  */
 export function inDevilsCrownTreasureRoom(): boolean {
   const roomDescriptor = getRoomDescriptorReadOnly();
@@ -368,8 +371,7 @@ export function inDoubleTrouble(): boolean {
 export function inGenesisRoom(): boolean {
   const roomGridIndex = getRoomGridIndex();
 
-  // eslint-disable-next-line isaacscript/strict-enums
-  return roomGridIndex === GridRoom.GENESIS;
+  return roomGridIndex === asNumber(GridRoom.GENESIS);
 }
 
 /** Helper function to determine if the current room shape is one of the four L room shapes. */
@@ -388,8 +390,7 @@ export function inLRoom(): boolean {
 export function inMegaSatanRoom(): boolean {
   const roomGridIndex = getRoomGridIndex();
 
-  // eslint-disable-next-line isaacscript/strict-enums
-  return roomGridIndex === GridRoom.MEGA_SATAN;
+  return roomGridIndex === asNumber(GridRoom.MEGA_SATAN);
 }
 
 /**
@@ -420,7 +421,7 @@ export function inMinibossRoomOf(minibossID: MinibossID): boolean {
   return (
     roomType === RoomType.MINI_BOSS &&
     roomStageID === StageID.SPECIAL_ROOMS &&
-    roomSubType === minibossID // eslint-disable-line isaacscript/strict-enums
+    roomSubType === asNumber(minibossID)
   );
 }
 
@@ -434,8 +435,7 @@ export function inMinibossRoomOf(minibossID: MinibossID): boolean {
 export function inSecretShop(): boolean {
   const roomGridIndex = getRoomGridIndex();
 
-  // eslint-disable-next-line isaacscript/strict-enums
-  return roomGridIndex === GridRoom.SECRET_SHOP;
+  return roomGridIndex === asNumber(GridRoom.SECRET_SHOP);
 }
 
 /**

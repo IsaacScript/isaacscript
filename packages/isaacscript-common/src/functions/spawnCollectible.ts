@@ -1,6 +1,5 @@
 import {
   CollectibleType,
-  PickupPrice,
   PickupVariant,
   PlayerType,
 } from "isaac-typescript-definitions";
@@ -65,7 +64,7 @@ export function spawnCollectible(
 
     // We can set the price to any arbitrary value; it will auto-update to the true price on the
     // next frame.
-    collectible.Price = 15 as PickupPrice;
+    collectible.Price = 15;
   }
 
   if (isQuestCollectible(collectibleType) && areFeaturesInitialized()) {

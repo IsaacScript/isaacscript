@@ -13,6 +13,7 @@ import {
   calculateStageTypeRepentance,
   onRepentanceStage,
 } from "./stage";
+import { asNumber } from "./types";
 
 /**
  * Helper function to get the stage that a trapdoor or heaven door would take the player to, based
@@ -53,7 +54,7 @@ export function getNextStage(): LevelStage {
     case GridRoom.SECRET_EXIT: {
       if (repentanceStage) {
         // e.g. From Downpour 2 to Mines 1, etc.
-        return (stage as int) + 1;
+        return asNumber(stage) + 1;
       }
 
       if (stage === LevelStage.DEPTHS_2) {
@@ -109,7 +110,7 @@ export function getNextStage(): LevelStage {
   }
 
   // By default, go to the next floor.
-  return (stage as int) + 1;
+  return asNumber(stage) + 1;
 }
 
 function getNextStageBackwardsPath(
@@ -118,7 +119,7 @@ function getNextStageBackwardsPath(
 ): LevelStage {
   // If we have no stage history to work with, then default to the previous stage.
   if (!areFeaturesInitialized()) {
-    return (stage as int) - 1;
+    return asNumber(stage) - 1;
   }
 
   const visitedDownpour1 = hasVisitedStage(
@@ -234,7 +235,7 @@ function getNextStageBackwardsPath(
     return LevelStage.DEPTHS_1;
   }
 
-  return (stage as int) - 1;
+  return asNumber(stage) - 1;
 }
 
 /**
@@ -262,7 +263,7 @@ export function getNextStageType(upwards = false): StageType {
   }
 
   // Second, handle the special case of being in a specific off-grid room.
-  if (roomGridIndex === (GridRoom.SECRET_EXIT as int)) {
+  if (roomGridIndex === asNumber(GridRoom.SECRET_EXIT)) {
     return calculateStageTypeRepentance(nextStage);
   }
 

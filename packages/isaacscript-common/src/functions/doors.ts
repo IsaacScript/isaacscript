@@ -22,6 +22,7 @@ import { arrayToBitFlags } from "./bitwise";
 import { directionToVector } from "./direction";
 import { getEnumValues } from "./enums";
 import { isTSTLSet } from "./tstlClass";
+import { asNumber } from "./types";
 
 /**
  * When players enter a room, they do not appear exactly on the location of the door, because then
@@ -341,8 +342,7 @@ export function isHiddenSecretRoomDoor(door: GridEntityDoor): boolean {
  * you to the Repentance floor.
  */
 export function isRepentanceDoor(door: GridEntityDoor): boolean {
-  // eslint-disable-next-line isaacscript/strict-enums
-  return door.TargetRoomIndex === GridRoom.SECRET_EXIT;
+  return door.TargetRoomIndex === asNumber(GridRoom.SECRET_EXIT);
 }
 
 /**

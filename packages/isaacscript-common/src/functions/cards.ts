@@ -59,7 +59,7 @@ function initCardObjects() {
 
 /** Helper function to get an array with every valid card sub-type. This includes modded cards. */
 export function getAllCards(): Card[] {
-  return irange(FIRST_CARD, LAST_CARD) as Card[];
+  return irange(FIRST_CARD, LAST_CARD);
 }
 
 /**
@@ -159,7 +159,7 @@ export function getModdedCards(): Card[] {
     return [];
   }
 
-  return irange(FIRST_MODDED_CARD, LAST_CARD) as Card[];
+  return irange(FIRST_MODDED_CARD, LAST_CARD);
 }
 
 /**
@@ -216,7 +216,7 @@ export function getRandomRune(
 
 /** Helper function to get an array with every valid vanilla card sub-type. */
 export function getVanillaCards(): Card[] {
-  return irange(FIRST_CARD, MAX_VANILLA_CARD) as Card[];
+  return irange(FIRST_CARD, MAX_VANILLA_CARD);
 }
 
 /**

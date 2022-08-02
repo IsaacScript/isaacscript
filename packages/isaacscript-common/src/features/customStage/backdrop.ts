@@ -131,11 +131,12 @@ function spawnWallEntity(
 
   // We spawn an effect instead of simply rendering a static sprite in order to emulate how vanilla
   // does this. (`EntityFlag.RENDER_WALL` is intended for this purpose.)
+  const seed = 1 as Seed;
   const wallEffect = spawnEffectWithSeed(
     BACKDROP_EFFECT_VARIANT,
     BACKDROP_EFFECT_SUBTYPE,
     VectorZero,
-    1 as Seed,
+    seed,
   );
   wallEffect.AddEntityFlags(EntityFlag.RENDER_WALL);
 
@@ -195,11 +196,12 @@ function spawnFloorEntity(customStage: CustomStage, rng: RNG) {
 
   // We spawn an effect instead of simply rendering a static sprite in order to emulate how vanilla
   // does this. (`EntityFlag.RENDER_FLOOR` is intended for this purpose.)
+  const seed = 1 as Seed;
   const floorEffect = spawnEffectWithSeed(
     BACKDROP_EFFECT_VARIANT,
     0,
     VectorZero,
-    1 as Seed,
+    seed,
   );
   floorEffect.AddEntityFlags(EntityFlag.RENDER_FLOOR);
 

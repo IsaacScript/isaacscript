@@ -23,7 +23,7 @@ import {
   isUserDefinedTSTLClass,
   newTSTLClass,
 } from "./tstlClass";
-import { isNumber, isPrimitive } from "./types";
+import { asString, isNumber, isPrimitive } from "./types";
 import { getTraversalDescription, twoDimensionalSort } from "./utils";
 
 const COPYABLE_ISAAC_API_CLASS_TYPES_SET = new Set<string>(
@@ -575,7 +575,7 @@ function getCopiedEntries(
   const convertStringKeysToNumbers =
     serializationType === SerializationType.DESERIALIZE &&
     entries.some(
-      ([key]) => key === (SerializationBrand.OBJECT_WITH_NUMBER_KEYS as string),
+      ([key]) => key === asString(SerializationBrand.OBJECT_WITH_NUMBER_KEYS),
     );
 
   const hasNumberKeys = entries.some(([key]) => isNumber(key));

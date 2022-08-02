@@ -109,7 +109,7 @@ export class DefaultMap<Key, Value, Args extends unknown[] = []> extends Map<
       this.defaultValue = undefined;
       this.defaultValueFactory = defaultValueOrFactoryFunction;
     } else {
-      this.defaultValue = defaultValueOrFactoryFunction as Value;
+      this.defaultValue = defaultValueOrFactoryFunction;
       this.defaultValueFactory = undefined;
     }
   }

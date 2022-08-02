@@ -2,6 +2,62 @@
   "$ref": "#/definitions/IsaacScriptTSConfig",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
+    "CustomStageBossPoolEntry": {
+      "additionalProperties": false,
+      "description": "An object that represents a possible boss for a custom stage.",
+      "properties": {
+        "name": {
+          "description": "The name of the boss. This must correspond to the entry in \"entities2.xml\".\n\nNote that since there is no way to determine the corresponding `EntityType` of the boss during compile-time, you must specify the `EntityType` at run-time when your mod first loads using the `registerCustomBoss` helper function.",
+          "type": "string"
+        },
+        "weight": {
+          "description": "The weight of the boss. This is used when randomly selecting which boss to use for the floor. For example, use a value of 1 if you want this boss to be equally likely as any other boss, 0.5 if you want it to be half as likely, 2 if you want it to be twice as likely, and so on.",
+          "type": "number"
+        }
+      },
+      "required": ["name", "weight"],
+      "type": "object"
+    },
+    "CustomStageShadow": {
+      "additionalProperties": false,
+      "description": "A description of a custom stage shadow. (In this context, \"shadows\" are the outlines from things on the roof. For example, in Basement, a shadow of a sideways V is used, among others.)",
+      "properties": {
+        "color": {
+          "additionalProperties": false,
+          "description": "Optional. An object representing the color used for the shadow.\n\nIf not specified, an object of `{ r: 0, g: 0, b: 0, a: 0.25 }` will be used (which corresponds to 75% faded black).",
+          "properties": {
+            "a": {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            "b": {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            "g": {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            "r": {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            }
+          },
+          "required": ["r", "g", "b", "a"],
+          "type": "object"
+        },
+        "pngPath": {
+          "description": "The full path to the shadow overlay PNG file.\n\nFor an example of a vanilla shadow overlay, see: `C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\resources\\gfx\\overlays\\basement\\1x1_overlay_1.png`",
+          "type": "string"
+        }
+      },
+      "required": ["pngPath"],
+      "type": "object"
+    },
     "CustomStageTSConfig": {
       "additionalProperties": false,
       "description": "This is the format of a custom stage in the \"isaacscript\" section of the \"tsconfig.json\" file.\n\nThe contents of this interface are used to create a \"tsconfig-isaacscript-section-schema.json\" schema with the \"ts-json-schema-generator\" library.\n\nThe contents of this interface are validated at run-time against the schema using the Ajv library.\n\nThe `CustomStageLua` interface extends this, adding room metadata.",
@@ -44,11 +100,22 @@
         },
         "baseStage": {
           "description": "Optional. An integer between 2 and 13, corresponding to the `LevelStage` enum. This is the number of the stage that will be warped to and used as a basis for the stage by the level generation algorithm.\n\n(It is not possible to use Basement 1 as a base stage due to conflicts with the `Game.SetStage` method.)\n\nIf not specified, `LevelStage.BASEMENT_2` (2) will be used.",
+          "maximum": 13,
+          "minimum": 2,
           "type": "number"
         },
         "baseStageType": {
           "description": "Optional. An integer between 0 and 5, corresponding to the `StageType` enum. This is the number of the stage type that will be warped to and used as a basis for the stage by the level generation algorithm.\n\nIf not specified, `StageType.ORIGINAL` (0) will be used.",
+          "maximum": 5,
+          "minimum": 0,
           "type": "number"
+        },
+        "bossPool": {
+          "description": "Optional. An array containing the bosses that should be used for the stage.",
+          "items": {
+            "$ref": "#/definitions/CustomStageBossPoolEntry"
+          },
+          "type": "array"
         },
         "decorationsPNGPath": {
           "description": "Optional. The full path to the spritesheet that contains the graphics of the decorations for the floor.\n\nIf not specified, the vanilla Basement decorations spritesheet will be used. For reference, this is located at: `C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\resources\\gfx\\grid\\props_01_basement.png`",
@@ -122,7 +189,9 @@
           "type": "string"
         },
         "roomVariantPrefix": {
-          "description": "Mandatory. An arbitrarily chosen prefix in the range of 101-999 that will be unique to this stage.\n\nMake sure the chosen prefix does not conflict with any other mods. You can find a list of registered room variant prefixes on the IsaacScript website.",
+          "description": "Mandatory. An arbitrarily chosen prefix in the range of 101-999 that will be unique to this stage.\n\nMake sure the chosen prefix does not conflict with any other mods. You can find a list of registered room variant prefixes on the IsaacScript website: https://isaacscript.github.io/main/custom-stages",
+          "maximum": 109,
+          "minimum": 101,
           "type": "number"
         },
         "shadows": {
@@ -132,144 +201,28 @@
             "1x1": {
               "description": "Optional. An array containing the shadows that will be used in rooms of shape `RoomShape.SHAPE_1x1` (1), `RoomShape.IH` (2), and `RoomShape.IV` (3).\n\nIf more than one shadow is specified, one will be randomly chosen for each room.\n\nIf not specified, no extra shadows will be drawn in these room shapes.",
               "items": {
-                "additionalProperties": false,
-                "description": "A description of a custom stage shadow. (In this context, \"shadows\" are the outlines from things on the roof. For example, in Basement, a shadow of a sideways V is used, among others.)",
-                "properties": {
-                  "color": {
-                    "additionalProperties": false,
-                    "description": "Optional. An object representing the color used for the shadow.\n\nIf not specified, an object of `{ r: 0, g: 0, b: 0, a: 0.25 }` will be used (which corresponds to 75% faded black).",
-                    "properties": {
-                      "a": {
-                        "type": "number"
-                      },
-                      "b": {
-                        "type": "number"
-                      },
-                      "g": {
-                        "type": "number"
-                      },
-                      "r": {
-                        "type": "number"
-                      }
-                    },
-                    "required": ["r", "g", "b", "a"],
-                    "type": "object"
-                  },
-                  "pngPath": {
-                    "description": "The full path to the shadow overlay PNG file.\n\nFor an example of a vanilla shadow overlay, see: `C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\resources\\gfx\\overlays\\basement\\1x1_overlay_1.png`",
-                    "type": "string"
-                  }
-                },
-                "required": ["pngPath"],
-                "type": "object"
+                "$ref": "#/definitions/CustomStageShadow"
               },
               "type": "array"
             },
             "1x2": {
               "description": "Optional. An array containing the shadows that will be used in rooms of shape `RoomShape.SHAPE_1x2` (4) and `RoomShape.IIV` (5).\n\nIf more than one shadow is specified, one will be randomly chosen for each room.\n\nIf not specified, no extra shadows will be drawn in these room shapes.",
               "items": {
-                "additionalProperties": false,
-                "description": "A description of a custom stage shadow. (In this context, \"shadows\" are the outlines from things on the roof. For example, in Basement, a shadow of a sideways V is used, among others.)",
-                "properties": {
-                  "color": {
-                    "additionalProperties": false,
-                    "description": "Optional. An object representing the color used for the shadow.\n\nIf not specified, an object of `{ r: 0, g: 0, b: 0, a: 0.25 }` will be used (which corresponds to 75% faded black).",
-                    "properties": {
-                      "a": {
-                        "type": "number"
-                      },
-                      "b": {
-                        "type": "number"
-                      },
-                      "g": {
-                        "type": "number"
-                      },
-                      "r": {
-                        "type": "number"
-                      }
-                    },
-                    "required": ["r", "g", "b", "a"],
-                    "type": "object"
-                  },
-                  "pngPath": {
-                    "description": "The full path to the shadow overlay PNG file.\n\nFor an example of a vanilla shadow overlay, see: `C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\resources\\gfx\\overlays\\basement\\1x1_overlay_1.png`",
-                    "type": "string"
-                  }
-                },
-                "required": ["pngPath"],
-                "type": "object"
+                "$ref": "#/definitions/CustomStageShadow"
               },
               "type": "array"
             },
             "2x1": {
               "description": "Optional. An array containing the shadows that will be used in rooms of shape `RoomShape.SHAPE_2x1` (6) and `RoomShape.IIH` (7).\n\nIf more than one shadow is specified, one will be randomly chosen for each room.\n\nIf not specified, no extra shadows will be drawn in these room shapes.",
               "items": {
-                "additionalProperties": false,
-                "description": "A description of a custom stage shadow. (In this context, \"shadows\" are the outlines from things on the roof. For example, in Basement, a shadow of a sideways V is used, among others.)",
-                "properties": {
-                  "color": {
-                    "additionalProperties": false,
-                    "description": "Optional. An object representing the color used for the shadow.\n\nIf not specified, an object of `{ r: 0, g: 0, b: 0, a: 0.25 }` will be used (which corresponds to 75% faded black).",
-                    "properties": {
-                      "a": {
-                        "type": "number"
-                      },
-                      "b": {
-                        "type": "number"
-                      },
-                      "g": {
-                        "type": "number"
-                      },
-                      "r": {
-                        "type": "number"
-                      }
-                    },
-                    "required": ["r", "g", "b", "a"],
-                    "type": "object"
-                  },
-                  "pngPath": {
-                    "description": "The full path to the shadow overlay PNG file.\n\nFor an example of a vanilla shadow overlay, see: `C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\resources\\gfx\\overlays\\basement\\1x1_overlay_1.png`",
-                    "type": "string"
-                  }
-                },
-                "required": ["pngPath"],
-                "type": "object"
+                "$ref": "#/definitions/CustomStageShadow"
               },
               "type": "array"
             },
             "2x2": {
               "description": "Optional. An array containing the shadows that will be used in rooms of shape `RoomShape.SHAPE_2x2` (8), `RoomShape.LTL` (9), `RoomShape.LTR` (10), `RoomShape.LBL` (11), and `RoomShape.LBR` (12).\n\nIf more than one shadow is specified, one will be randomly chosen for each room.\n\nIf not specified, no extra shadows will be drawn in these room shapes.",
               "items": {
-                "additionalProperties": false,
-                "description": "A description of a custom stage shadow. (In this context, \"shadows\" are the outlines from things on the roof. For example, in Basement, a shadow of a sideways V is used, among others.)",
-                "properties": {
-                  "color": {
-                    "additionalProperties": false,
-                    "description": "Optional. An object representing the color used for the shadow.\n\nIf not specified, an object of `{ r: 0, g: 0, b: 0, a: 0.25 }` will be used (which corresponds to 75% faded black).",
-                    "properties": {
-                      "a": {
-                        "type": "number"
-                      },
-                      "b": {
-                        "type": "number"
-                      },
-                      "g": {
-                        "type": "number"
-                      },
-                      "r": {
-                        "type": "number"
-                      }
-                    },
-                    "required": ["r", "g", "b", "a"],
-                    "type": "object"
-                  },
-                  "pngPath": {
-                    "description": "The full path to the shadow overlay PNG file.\n\nFor an example of a vanilla shadow overlay, see: `C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\resources\\gfx\\overlays\\basement\\1x1_overlay_1.png`",
-                    "type": "string"
-                  }
-                },
-                "required": ["pngPath"],
-                "type": "object"
+                "$ref": "#/definitions/CustomStageShadow"
               },
               "type": "array"
             }
@@ -285,15 +238,23 @@
               "description": "Optional. An object representing the color to use for the background of the boss \"versus\" screen. If not specified, the color for Basement 1 will be used.\n\nFor a list of the colors that correspond to the vanilla stages, see `versusScreenBackgroundColors.ts`.",
               "properties": {
                 "a": {
+                  "maximum": 1,
+                  "minimum": 0,
                   "type": "number"
                 },
                 "b": {
+                  "maximum": 1,
+                  "minimum": 0,
                   "type": "number"
                 },
                 "g": {
+                  "maximum": 1,
+                  "minimum": 0,
                   "type": "number"
                 },
                 "r": {
+                  "maximum": 1,
+                  "minimum": 0,
                   "type": "number"
                 }
               },
@@ -305,15 +266,23 @@
               "description": "Optional. An object representing the color to use for the dirt spots in the boss \"versus\" screen. (There are two dirt spots; one for the player and one for the boss.) If not specified, the color for Basement 1 will be used.\n\nFor a list of the colors that correspond to the vanilla stages, see `versusScreenDirtSpotColors.ts`.",
               "properties": {
                 "a": {
+                  "maximum": 1,
+                  "minimum": 0,
                   "type": "number"
                 },
                 "b": {
+                  "maximum": 1,
+                  "minimum": 0,
                   "type": "number"
                 },
                 "g": {
+                  "maximum": 1,
+                  "minimum": 0,
                   "type": "number"
                 },
                 "r": {
+                  "maximum": 1,
+                  "minimum": 0,
                   "type": "number"
                 }
               },

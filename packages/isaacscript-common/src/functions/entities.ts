@@ -6,7 +6,7 @@ import { AnyEntity } from "../types/AnyEntity";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
 import { getRandom } from "./random";
 import { isRNG, newRNG } from "./rng";
-import { isPrimitive } from "./types";
+import { asNumber, isPrimitive } from "./types";
 import { isVector, vectorToString } from "./vector";
 
 /**
@@ -122,7 +122,7 @@ export function getEntities(
   subType = -1,
   ignoreFriendly = false,
 ): Entity[] {
-  if ((entityType as int) === -1) {
+  if (asNumber(entityType) === -1) {
     return Isaac.GetRoomEntities();
   }
 

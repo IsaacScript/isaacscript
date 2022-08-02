@@ -21,6 +21,7 @@ import { hasFlag } from "./flag";
 import { isTrinket } from "./pickupVariants";
 import { isCharacter } from "./players";
 import { clearSprite } from "./sprites";
+import { asNumber } from "./types";
 import { irange } from "./utils";
 
 /**
@@ -41,7 +42,7 @@ const TRINKET_SPRITE_LAYER = 0;
  * corresponds to the golden trinket sub-type for Swallowed Penny.
  */
 export function getGoldenTrinketType(trinketType: TrinketType): TrinketType {
-  return trinketType + GOLDEN_TRINKET_ADJUSTMENT; // eslint-disable-line isaacscript/strict-enums
+  return asNumber(trinketType) + GOLDEN_TRINKET_ADJUSTMENT;
 }
 
 /**
@@ -54,7 +55,7 @@ export function getModdedTrinketTypes(): TrinketType[] {
     return [];
   }
 
-  return irange(FIRST_MODDED_TRINKET_TYPE, LAST_TRINKET_TYPE) as TrinketType[];
+  return irange(FIRST_MODDED_TRINKET_TYPE, LAST_TRINKET_TYPE);
 }
 
 /**
@@ -140,12 +141,12 @@ export function getTrinketName(trinketType: TrinketType): string {
 
 /** Helper function to get an array that contains every trinket type. */
 export function getTrinketTypes(): TrinketType[] {
-  return irange(FIRST_TRINKET_TYPE, LAST_TRINKET_TYPE) as TrinketType[];
+  return irange(FIRST_TRINKET_TYPE, LAST_TRINKET_TYPE);
 }
 
 /** Helper function to get an array that represents every vanilla trinket type. */
 export function getVanillaTrinketTypes(): TrinketType[] {
-  return irange(FIRST_TRINKET_TYPE, LAST_VANILLA_TRINKET_TYPE) as TrinketType[];
+  return irange(FIRST_TRINKET_TYPE, LAST_VANILLA_TRINKET_TYPE);
 }
 
 /**
@@ -165,7 +166,7 @@ export function hasOpenTrinketSlot(player: EntityPlayer): boolean {
 }
 
 export function isGoldenTrinket(trinketType: TrinketType): boolean {
-  return trinketType > (GOLDEN_TRINKET_ADJUSTMENT as TrinketType);
+  return asNumber(trinketType) > GOLDEN_TRINKET_ADJUSTMENT;
 }
 
 /**

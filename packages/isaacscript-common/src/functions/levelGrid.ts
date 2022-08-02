@@ -37,6 +37,7 @@ import {
 } from "./roomData";
 import { getRooms, getRoomsInsideGrid } from "./rooms";
 import { getGridIndexDelta } from "./roomShape";
+import { asNumber } from "./types";
 
 const LEFT = -1;
 const UP = -LEVEL_GRID_ROW_WIDTH;
@@ -177,8 +178,8 @@ export function getNewRoomCandidatesForLevel(): Array<
     (room) =>
       room.Data !== undefined &&
       room.Data.Type === RoomType.DEFAULT &&
-      room.Data.Subtype !== (DownpourRoomSubType.MIRROR as int) &&
-      room.Data.Subtype !== (MinesRoomSubType.MINESHAFT_ENTRANCE as int),
+      room.Data.Subtype !== asNumber(DownpourRoomSubType.MIRROR) &&
+      room.Data.Subtype !== asNumber(MinesRoomSubType.MINESHAFT_ENTRANCE),
   );
 
   const newRoomCandidates: Array<[int, DoorSlot, int]> = [];

@@ -1,3 +1,103 @@
+import {
+  Card,
+  CollectibleType,
+  LevelStage,
+  PillColor,
+  PillEffect,
+  PlayerType,
+  TrinketType,
+} from "isaac-typescript-definitions";
+
+/**
+ * Helper function to safely cast a `number` to a `Card`. (This is better than using the `as`
+ * TypeScript keyword to do a type assertion, since that can obfuscate compiler errors. )
+ *
+ * This is useful to satisfy the "isaacscript/strict-enums" ESLint rule.
+ */
+export function asCard(num: number): Card {
+  return num;
+}
+
+/**
+ * Helper function to safely cast a `number` to a `CollectibleType`. (This is better than using the
+ * `as` TypeScript keyword to do a type assertion, since that can obfuscate compiler errors. )
+ *
+ * This is useful to satisfy the "isaacscript/strict-enums" ESLint rule.
+ */
+export function asCollectibleType(num: number): CollectibleType {
+  return num;
+}
+
+/**
+ * Helper function to safely cast a `number` to a `LevelStage`. (This is better than using the `as`
+ * TypeScript keyword to do a type assertion, since that can obfuscate compiler errors. )
+ *
+ * This is useful to satisfy the "isaacscript/strict-enums" ESLint rule.
+ */
+export function asLevelStage(num: number): LevelStage {
+  return num;
+}
+
+/**
+ * Helper function to safely cast an enum to a `number`. (This is better than using the `as`
+ * TypeScript keyword to do a type assertion, since that can obfuscate compiler errors. )
+ *
+ * This is useful to satisfy the "isaacscript/strict-enums" ESLint rule.
+ */
+export function asNumber(num: number): number {
+  return num;
+}
+
+/**
+ * Helper function to safely cast a `number` to a `PillColor`. (This is better than using the `as`
+ * TypeScript keyword to do a type assertion, since that can obfuscate compiler errors. )
+ *
+ * This is useful to satisfy the "isaacscript/strict-enums" ESLint rule.
+ */
+export function asPillColor(num: number): PillColor {
+  return num;
+}
+
+/**
+ * Helper function to safely cast a `number` to a `PillEffect`. (This is better than using the `as`
+ * TypeScript keyword to do a type assertion, since that can obfuscate compiler errors. )
+ *
+ * This is useful to satisfy the "isaacscript/strict-enums" ESLint rule.
+ */
+export function asPillEffect(num: number): PillEffect {
+  return num;
+}
+
+/**
+ * Helper function to safely cast a `number` to a `PlayerType`. (This is better than using the `as`
+ * TypeScript keyword to do a type assertion, since that can obfuscate compiler errors. )
+ *
+ * This is useful to satisfy the "isaacscript/strict-enums" ESLint rule.
+ */
+export function asPlayerType(num: number): PlayerType {
+  return num;
+}
+
+/**
+ * Helper function to safely cast an enum to a `string`. (This is better than using the `as`
+ * TypeScript keyword to do a type assertion, since that can obfuscate compiler errors. )
+ *
+ * This is useful to satisfy the "isaacscript/strict-enums" ESLint rule.
+ */
+export function asString(str: string): string {
+  return str;
+}
+
+/**
+ * Helper function to safely cast a `number` to a `TrinketType`. (This is better than using the `as`
+ * TypeScript keyword to do a type assertion, since that can obfuscate compiler errors. )
+ *
+ * This is useful to satisfy the "isaacscript/strict-enums" ESLint rule.
+ */
+export function asTrinketType(num: number): TrinketType {
+  return num;
+}
+
 export function isBoolean(variable: unknown): variable is boolean {
   return type(variable) === "boolean";
 }

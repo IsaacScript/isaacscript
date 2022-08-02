@@ -15,10 +15,15 @@ import { directionToVector } from "../functions/direction";
 import { doorSlotToDirection } from "../functions/doors";
 import { getEffects, spawnEffect } from "../functions/entitiesSpecific";
 import { getClosestPlayer } from "../functions/players";
+import { asNumber } from "../functions/types";
 import {
   postCustomDoorEnterFire,
   postCustomDoorEnterHasSubscriptions,
 } from "./subscriptions/postCustomDoorEnter";
+
+interface EntityEffectCustomDoor extends EntityEffect {
+  State: DoorState;
+}
 
 interface CustomDoorData {
   slot: DoorSlot;
@@ -72,41 +77,43 @@ export function initCustomDoorInternal(
 
 // ModCallback.POST_EFFECT_UPDATE (55)
 function postEffectUpdaterCustomEntity(effect: EntityEffect) {
+  const customDoor = effect as EntityEffectCustomDoor;
+
   const ptrHash = GetPtrHash(effect);
   const doorData = v.room.customDoors.get(ptrHash);
   if (doorData === undefined) {
     return;
   }
 
-  if (doorData.state === (effect.State as DoorState)) {
+  if (doorData.state === customDoor.State) {
     return;
   }
-  doorData.state = effect.State as DoorState;
+  doorData.state = customDoor.State;
 
   doorChangedState(effect);
 }
 
-function doorChangedState(effect: EntityEffect) {
+function doorChangedState(door: EntityEffectCustomDoor) {
   const room = game.GetRoom();
 
-  const sprite = effect.GetSprite();
-  const animation = getAnimationForCustomDoor(effect);
+  const sprite = door.GetSprite();
+  const animation = getAnimationForCustomDoor(door);
   sprite.Play(animation, true);
 
-  const gridIndex = room.GetGridIndex(effect.Position);
+  const gridIndex = room.GetGridIndex(door.Position);
   const wall = room.GetGridEntity(gridIndex);
   if (wall !== undefined) {
     wall.CollisionClass =
-      (effect.State as DoorState) === DoorState.OPEN
+      door.State === DoorState.OPEN
         ? GridCollisionClass.WALL_EXCEPT_PLAYER
         : GridCollisionClass.WALL;
   }
 }
 
-function getAnimationForCustomDoor(effect: EntityEffect): string {
-  const freshlySpawned = effect.FrameCount === 0;
+function getAnimationForCustomDoor(door: EntityEffectCustomDoor): string {
+  const freshlySpawned = door.FrameCount === 0;
 
-  switch (effect.State as DoorState) {
+  switch (door.State) {
     case DoorState.OPEN: {
       return freshlySpawned ? "Opened" : "Open";
     }
@@ -220,7 +227,7 @@ export function spawnCustomDoorInternal(
   effect.RenderZOffset = -10000;
   effect.PositionOffset = getPositionOffset(doorSlot);
   const sprite = effect.GetSprite();
-  sprite.Rotation = (doorSlot as int) * 90 - 90;
+  sprite.Rotation = asNumber(doorSlot) * 90 - 90;
 
   // Keep track of metadata about this door.
   const ptrHash = GetPtrHash(effect);

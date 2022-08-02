@@ -40,7 +40,6 @@ import {
   convertXMLGridEntityType,
   getAllGridIndexes,
   getGridEntities,
-  getGridEntityIDFromConstituents,
   removeAllGridExcept,
   removeGridEntity,
   setGridEntityInvisible,
@@ -53,6 +52,7 @@ import { getRoomListIndex } from "../functions/roomData";
 import { gridCoordinatesToWorldPosition } from "../functions/roomGrid";
 import { setRoomCleared, setRoomUncleared } from "../functions/rooms";
 import { spawnCollectible } from "../functions/spawnCollectible";
+import { asCollectibleType, asNumber } from "../functions/types";
 import { JSONRoom } from "../interfaces/JSONRoomsFile";
 import { runNextGameFrame } from "./runInNFrames";
 import { saveDataManager } from "./saveDataManager/exports";
@@ -462,8 +462,8 @@ function spawnAllEntities(
     }
 
     const entityTypeString = firstXMLEntity.$.type;
-    const entityType = tonumber(entityTypeString);
-    if (entityType === undefined) {
+    const entityTypeNumber = tonumber(entityTypeString);
+    if (entityTypeNumber === undefined) {
       error(
         `Failed to convert the entity type to a number: ${entityTypeString}`,
       );
@@ -482,31 +482,26 @@ function spawnAllEntities(
     }
 
     // Note that XML entity type 1000 is a rock, not an effect.
-    if (entityType >= 1000) {
+    if (entityTypeNumber >= 1000) {
+      const gridEntityXMLType = entityTypeNumber as GridEntityXMLType;
       if (verbose) {
-        const gridEntityID = getGridEntityIDFromConstituents(
-          entityType as GridEntityType,
-          variant,
+        log(
+          `Spawning grid entity ${gridEntityXMLType}.${variant} at: (${x}, ${y})`,
         );
-        log(`Spawning grid entity ${gridEntityID} at: (${x}, ${y})`);
       }
-      spawnGridEntityForJSONRoom(
-        entityType as GridEntityXMLType,
-        variant,
-        x,
-        y,
-      );
+      spawnGridEntityForJSONRoom(gridEntityXMLType, variant, x, y);
     } else {
+      const entityType = entityTypeNumber as EntityType;
       if (verbose) {
         const entityID = getEntityIDFromConstituents(
-          entityType as EntityType,
+          entityType,
           variant,
           subType,
         );
         log(`Spawning normal entity ${entityID} at: (${x}, ${y})`);
       }
       const entity = spawnNormalEntityForJSONRoom(
-        entityType as EntityType,
+        entityType,
         variant,
         subType,
         x,
@@ -589,11 +584,11 @@ function spawnNormalEntityForJSONRoom(
   let entity: Entity;
   if (
     entityType === EntityType.PICKUP &&
-    (variant as PickupVariant) === PickupVariant.COLLECTIBLE
+    variant === asNumber(PickupVariant.COLLECTIBLE)
   ) {
     const options = roomType === RoomType.ANGEL;
     entity = spawnCollectible(
-      subType as CollectibleType,
+      asCollectibleType(subType),
       position,
       seed,
       options,
@@ -605,7 +600,7 @@ function spawnNormalEntityForJSONRoom(
   // For some reason, Pitfalls do not spawn with the correct collision classes.
   if (
     entityType === EntityType.PITFALL &&
-    (variant as PitfallVariant) === PitfallVariant.PITFALL
+    variant === asNumber(PitfallVariant.PITFALL)
   ) {
     entity.EntityCollisionClass = EntityCollisionClass.ENEMIES;
     entity.GridCollisionClass = EntityGridCollisionClass.WALLS;

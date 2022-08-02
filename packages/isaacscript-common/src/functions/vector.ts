@@ -36,11 +36,7 @@ export function deserializeVector(vector: SerializedVector): Vector {
     );
   }
 
-  const [x, y] = getNumbersFromTable(
-    vector as LuaMap<string, unknown>,
-    OBJECT_NAME,
-    ...KEYS,
-  );
+  const [x, y] = getNumbersFromTable(vector, OBJECT_NAME, ...KEYS);
 
   if (x === undefined) {
     error(

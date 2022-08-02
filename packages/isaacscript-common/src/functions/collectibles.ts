@@ -389,10 +389,7 @@ export function getModdedCollectibleTypes(): CollectibleType[] {
     return [];
   }
 
-  return irange(
-    FIRST_MODDED_COLLECTIBLE_TYPE,
-    LAST_COLLECTIBLE_TYPE,
-  ) as CollectibleType[];
+  return irange(FIRST_MODDED_COLLECTIBLE_TYPE, LAST_COLLECTIBLE_TYPE);
 }
 
 /**
@@ -404,10 +401,7 @@ export function getModdedCollectibleTypes(): CollectibleType[] {
  * should use the `getVanillaCollectibleSet` helper function instead.
  */
 export function getVanillaCollectibleTypeRange(): CollectibleType[] {
-  return irange(
-    FIRST_COLLECTIBLE_TYPE,
-    LAST_VANILLA_COLLECTIBLE_TYPE,
-  ) as CollectibleType[];
+  return irange(FIRST_COLLECTIBLE_TYPE, LAST_VANILLA_COLLECTIBLE_TYPE);
 }
 
 /** Returns true if the item type in the item config is equal to `ItemType.ITEM_ACTIVE`. */

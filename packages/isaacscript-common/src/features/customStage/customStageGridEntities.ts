@@ -15,6 +15,7 @@ import {
   getTrinkets,
 } from "../../functions/pickupsSpecific";
 import { calculateStageType } from "../../functions/stage";
+import { asNumber } from "../../functions/types";
 import { vectorEquals } from "../../functions/vector";
 import { CustomStage } from "../../interfaces/private/CustomStage";
 import { TrapdoorDestination } from "../../types/TrapdoorDestination";
@@ -40,7 +41,7 @@ export function setCustomDecorationGraphics(
 
   // Ignore custom grid entities. (They are represented as decorations with a non-zero variant.)
   const variant = gridEntity.GetVariant();
-  if (variant !== (DecorationVariant.VANILLA_DECORATION as int)) {
+  if (variant !== asNumber(DecorationVariant.VANILLA_DECORATION)) {
     return;
   }
 

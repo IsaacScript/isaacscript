@@ -56,11 +56,12 @@ export function setShadows(customStage: CustomStage): void {
   // We spawn an effect instead of simply rendering a static sprite so that the effect will properly
   // slide in during a room transition animation. (It looks stupid if the shadow stays statically
   // rendering throughout this animation.)
+  const seed = 1 as Seed;
   const shadowEffect = spawnEffectWithSeed(
     SHADOW_EFFECT_VARIANT,
     SHADOW_EFFECT_SUBTYPE,
     centerPos,
-    1 as Seed,
+    seed,
   );
 
   const sprite = shadowEffect.GetSprite();

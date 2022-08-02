@@ -5,13 +5,15 @@ title: Custom Stages
 <!-- markdownlint-disable MD001 -->
 <!-- markdownlint-disable MD029 -->
 
-Wanting to create a custom Binding of Isaac stage is common. But the vanilla API does not have support for this. IsaacScript offers support for custom stages as part of its standard library. See the [usage section](#usage) below.
+Wanting to create a custom Binding of Isaac stage is common. But the vanilla API does not have support for this. IsaacScript offers support for custom stages as part of its standard library. See the [getting started section](#getting-started) below.
 
 Historically, people have used the [StageAPI](https://github.com/Meowlala/BOIStageAPI15) library to build custom stages, but using IsaacScript over StageAPI has several advantages. See the [motivation section](#motivation) below.
 
 <br />
 
-## Usage
+## Getting Started
+
+First, make sure that you are familiar with IsaacScript and have built a practice mod or two. (See the [getting started](#getting-started) guide.)
 
 ### `tsconfig.json`
 
@@ -53,7 +55,16 @@ Furthermore, for more information on the "roomVariantPrefix" field, see the sect
 
 To go to your custom stage in game, you can use the [`spawnCustomTrapdoor`](/isaacscript-common/features/customTrapdoor) helper function. (You can use custom trapdoors to go to both custom stages and vanilla stages.)
 
-During development, you can get to a custom stage a bit faster by calling the `setCustomStage` helper function directly. (You must also call the `reloadRoom` function immediately afterwards to prevent being dragged into the `goto` console command room.)
+During development, you might want to set up a custom hotkey to warp to your custom stage, which will speed things up by a bit. You can do this with the `setCustomStage` helper function. If doing this, you must also call the `reloadRoom` function immediately afterwards to prevent being dragged into the `goto` console command room.
+
+For example:
+
+```ts
+registerHotkey(Keyboard.F1, () => {
+  setCustomStage("Slaughterhouse");
+  reloadRoom();
+});
+```
 
 ### Bosses
 
@@ -113,7 +124,7 @@ If you specify the "bossPool" field in the "tsconfig.json" file, then the stage 
 
 <!--lint enable ordered-list-marker-value -->
 
-With these improvements in mind, I've created the IsaacScript Stage Library. Since it is integrated into the normal [standard library](https://isaacscript.github.io/isaacscript-common), using it is effortless. See the [usage section](#usage) above.
+With these improvements in mind, I've created the IsaacScript stage library. Since it is integrated into the normal [standard library](https://isaacscript.github.io/isaacscript-common), using it is effortless. See the [getting started section](#getting-started) above.
 
 <br />
 

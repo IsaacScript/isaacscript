@@ -24,6 +24,7 @@ import {
   getRoomsInsideGrid,
 } from "../../functions/rooms";
 import { setStage } from "../../functions/stage";
+import { asNumber } from "../../functions/types";
 import { CustomStage } from "../../interfaces/private/CustomStage";
 import { getRandomCustomStageRoom } from "./customStageUtils";
 import v, {
@@ -77,7 +78,7 @@ export function setCustomStage(
     level.SetStage(LevelStage.BASEMENT_1, StageType.ORIGINAL);
   }
 
-  let baseStage: int =
+  let baseStage =
     customStage.baseStage === undefined
       ? DEFAULT_BASE_STAGE
       : customStage.baseStage;
@@ -88,11 +89,11 @@ export function setCustomStage(
   const baseStageType =
     customStage.baseStageType === undefined
       ? DEFAULT_BASE_STAGE_TYPE
-      : (customStage.baseStageType as StageType);
+      : customStage.baseStageType;
 
-  const reseed = (stage as int) >= baseStage;
+  const reseed = asNumber(stage) >= baseStage;
 
-  setStage(baseStage as LevelStage, baseStageType, reseed);
+  setStage(baseStage as LevelStage, baseStageType as StageType, reseed);
 
   setStageRoomsData(customStage, rng, verbose);
 

@@ -8,7 +8,7 @@ import { erange } from "./utils";
  * Helper function to get an array with every valid `Dimension` (not including `Dimension.CURRENT`).
  */
 export function getAllDimensions(): Dimension[] {
-  return erange(NUM_DIMENSIONS) as Dimension[];
+  return erange(NUM_DIMENSIONS);
 }
 
 /**

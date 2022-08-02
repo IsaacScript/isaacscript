@@ -11,6 +11,7 @@ import {
   removeGridEntities,
   spawnGridEntityWithVariant,
 } from "./gridEntities";
+import { asNumber } from "./types";
 
 // The `getDoors` function is not located here because doors are collected via the `Room.GetDoor`
 // method instead, which is faster.
@@ -29,7 +30,7 @@ export function getPits(pitVariant: PitVariant = -1): GridEntityPit[] {
     const pit = gridEntity.ToPit();
     if (pit !== undefined) {
       const gridEntityVariant = pit.GetVariant();
-      if ((pitVariant as int) === -1 || pitVariant === gridEntityVariant) {
+      if (asNumber(pitVariant) === -1 || pitVariant === gridEntityVariant) {
         pits.push(pit);
       }
     }
@@ -54,7 +55,7 @@ export function getPoops(
     const poop = gridEntity.ToPoop();
     if (poop !== undefined) {
       const gridEntityVariant = poop.GetVariant();
-      if ((poopVariant as int) === -1 || poopVariant === gridEntityVariant) {
+      if (asNumber(poopVariant) === -1 || poopVariant === gridEntityVariant) {
         poops.push(poop);
       }
     }
@@ -80,7 +81,7 @@ export function getPressurePlates(
     if (pressurePlate !== undefined) {
       const gridEntityVariant = pressurePlate.GetVariant();
       if (
-        (pressurePlateVariant as int) === -1 ||
+        asNumber(pressurePlateVariant) === -1 ||
         pressurePlateVariant === gridEntityVariant
       ) {
         pressurePlates.push(pressurePlate);

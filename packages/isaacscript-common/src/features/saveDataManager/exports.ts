@@ -1,4 +1,4 @@
-import { SaveDataKey } from "../../enums/private/SaveDataKey";
+import { SaveDataKey } from "../../enums/SaveDataKey";
 import { SerializationType } from "../../enums/SerializationType";
 import { errorIfFeaturesNotInitialized } from "../../featuresInitialized";
 import { deepCopy } from "../../functions/deepCopy";
@@ -227,7 +227,7 @@ export function saveDataManagerSetGlobal(): void {
  */
 export function saveDataManagerReset(
   key: string,
-  childObjectKey: string,
+  childObjectKey: SaveDataKey,
 ): void {
   errorIfFeaturesNotInitialized(SAVE_DATA_MANAGER_FEATURE_NAME);
 
@@ -237,12 +237,12 @@ export function saveDataManagerReset(
     );
   }
 
-  const saveData = saveDataMap.get(key) as Record<string, unknown> | undefined;
+  const saveData = saveDataMap.get(key);
   if (saveData === undefined) {
     error(
       `The ${SAVE_DATA_MANAGER_FEATURE_NAME} is not managing save data for a key of: ${key}`,
     );
   }
 
-  restoreDefaultSaveData(key, saveData, childObjectKey as SaveDataKey);
+  restoreDefaultSaveData(key, saveData, childObjectKey);
 }

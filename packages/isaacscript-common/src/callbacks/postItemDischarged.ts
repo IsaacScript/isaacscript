@@ -131,11 +131,13 @@ function preNPCCollisionSucker(
   npc: EntityNPC,
   collider: Entity,
 ): boolean | undefined {
+  const sucker = npc as EntityNPCSucker;
+
   if (!hasSubscriptions()) {
     return undefined;
   }
 
-  if (npc.Variant !== (SuckerVariant.BULB as int)) {
+  if (sucker.Variant !== SuckerVariant.BULB) {
     return undefined;
   }
 
