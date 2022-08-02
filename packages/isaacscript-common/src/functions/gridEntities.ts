@@ -1,5 +1,6 @@
 import {
   CrawlSpaceVariant,
+  EffectVariant,
   GridCollisionClass,
   GridEntityType,
   GridEntityXMLType,
@@ -16,12 +17,14 @@ import {
   ROOM_SHAPE_TO_TOP_LEFT_WALL_GRID_INDEX_MAP,
 } from "../maps/roomShapeToTopLeftWallGridIndexMap";
 import { AnyGridEntity } from "../types/AnyGridEntity";
+import { removeEntities } from "./entities";
+import { getEffects } from "./entitiesSpecific";
 import { isCircleIntersectingRectangle } from "./math";
 import { roomUpdateSafe } from "./rooms";
 import { clearSprite } from "./sprites";
 import { asNumber, isNumber } from "./types";
 import { erange } from "./utils";
-import { isVector } from "./vector";
+import { isVector, vectorEquals } from "./vector";
 
 const BREAKABLE_GRID_ENTITY_TYPES_BY_EXPLOSIONS: ReadonlySet<GridEntityType> =
   new Set([
@@ -498,6 +501,9 @@ export function removeGridEntities<T extends AnyGridEntity>(
  * Helper function to remove a grid entity by providing the grid entity object or the grid index
  * inside of the room.
  *
+ * If removing a Devil Statue or an Angel Statue, this will also remove the associated effect
+ * (`EffectVariant.DEVIL` (6) or `EffectVariant.ANGEL` (9), respectively.)
+ *
  * @param gridEntityOrGridIndex The grid entity or grid index to remove.
  * @param updateRoom Whether or not to update the room after the grid entity is removed. This is
  *                   generally a good idea because if the room is not updated, you will be unable to
@@ -511,6 +517,18 @@ export function removeGridEntity(
 ): void {
   const room = game.GetRoom();
 
+  const gridEntity = isNumber(gridEntityOrGridIndex)
+    ? room.GetGridEntity(gridEntityOrGridIndex)
+    : gridEntityOrGridIndex;
+  if (gridEntity === undefined) {
+    // There is no grid entity to remove.
+    return;
+  }
+
+  const gridEntityType = gridEntity.GetType();
+  const variant = gridEntity.GetVariant();
+  const position = gridEntity.Position;
+
   const gridIndex = isNumber(gridEntityOrGridIndex)
     ? gridEntityOrGridIndex
     : gridEntityOrGridIndex.GetGridIndex();
@@ -518,6 +536,20 @@ export function removeGridEntity(
 
   if (updateRoom) {
     roomUpdateSafe();
+  }
+
+  // In the special case of removing a Devil Statue or Angel Statue, we also need to delete the
+  // corresponding effect.
+  if (gridEntityType === GridEntityType.STATUE) {
+    const effectVariant =
+      variant === asNumber(StatueVariant.DEVIL)
+        ? EffectVariant.DEVIL
+        : EffectVariant.ANGEL;
+    const effects = getEffects(effectVariant);
+    const effectsOnTile = effects.filter((effect) =>
+      vectorEquals(effect.Position, position),
+    );
+    removeEntities(effectsOnTile);
   }
 }
 
