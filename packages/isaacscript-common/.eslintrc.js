@@ -18,9 +18,7 @@ module.exports = {
   ],
 
   parserOptions: {
-    // We use "tsconfig.typedoc.json" instead of "tsconfig.json" because we want to lint the TypeDoc
-    // index files.
-    project: path.join(__dirname, "tsconfig.typedoc.json"),
+    project: path.join(__dirname, "tsconfig.json"),
   },
 
   rules: {},
