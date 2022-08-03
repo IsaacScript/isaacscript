@@ -96,7 +96,7 @@ If you specify the "bossPool" field in the "tsconfig.json" file, then the stage 
 
 - When a user wants to play a mod, they should only have to subscribe to one thing on the Steam Workshop. Forcing the end-user to subscribe to multiple things is painful, complex, and unnecessary.
 - Having stage logic bundled with the mod preserves backwards compatibility and ensures that stage logic is tightly-coupled to the mod logic that is using it.
-- Having stage logic bundled with the mod allows the mod author to be in complete control of when they update to the latest version, if ever. This allows the upstream library to make breaking changes and stay clean without having to worry about having perpetual technical debt (like Stage API).
+- Having stage logic bundled with the mod allows the mod author to be in complete control of when they update to the latest version, if ever. This also allows the upstream library to make breaking changes and stay clean without having to worry about having perpetual technical debt (like Stage API).
 
 #### 4. An Isaac library should use real XML/STB files
 
