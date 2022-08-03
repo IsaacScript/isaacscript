@@ -4,7 +4,7 @@ title: Building an Example Mod
 
 This is a tutorial that shows off how to code a simple mod with IsaacScript. Our goal will be to create a new passive item in the game called the _Green Candle_.
 
-(If you don't know what IsaacScript is or you are not yet convinced that you should use it, see the [Is IsaacScript Right for Me?](right-for-me.md) page first.)
+(If you don't know what IsaacScript is, see the [features](features.md) page. If you don't know whether you should use it yet, see the [Is IsaacScript Right for Me?](right-for-me.md) page.)
 
 <br />
 
