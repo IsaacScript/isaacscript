@@ -1,5 +1,6 @@
 const FIRST_DOC_PAGE_TITLES = new Set([
   "Features | IsaacScript",
+  "isaac-typescript-definitions | IsaacScript",
   "isaacscript-common | IsaacScript",
 ]);
 
@@ -15,9 +16,6 @@ function initHotkeys() {
 function initKeyMap() {
   keyMap.set("ArrowLeft", navigateBackward);
   keyMap.set("ArrowRight", navigateForward);
-  keyMap.set("f", () => {
-    window.location = "/docs/function-signatures";
-  });
 }
 
 function onKeyDown(event) {
