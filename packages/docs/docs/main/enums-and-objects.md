@@ -177,7 +177,7 @@ player.AddCollectible(CollectibleTypeCustom.FOO);
 
 This would give a compiler error, because `CollectibleTypeCustom.FOO` is of type `CollectibleTypeCustom`. And as we said earlier, the `EntityPlayer.AddCollectible` method needs to take in a type of `CollectibleType`, not `CollectibleTypeCustom`. They are completely different types.
 
-This problem makes it clear that we don't want to actually create a new type (which is what creating an enum will do). Instead, what we really want to do is to create a new container that holds values of an existing type. So that's why the correct solution is to create a "pseudo-enum" object, like this:
+By now, hopefully it is clear that we do not want to actually create a new type (which is what making a new enum will do). Instead, what we really want to do is to create a new container that holds values of an existing type. So that's why the correct solution is to create a "pseudo-enum" object, like this:
 
 ```ts
 const CollectibleTypeCustom = {
