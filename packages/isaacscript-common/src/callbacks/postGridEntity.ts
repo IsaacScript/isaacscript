@@ -1,13 +1,18 @@
 // This provides the logic for the following callbacks:
 // - `POST_GRID_ENTITY_INIT`
+// - `POST_GRID_ENTITY_CUSTOM_INIT`
 // - `POST_GRID_ENTITY_UPDATE`
+// - `POST_GRID_ENTITY_CUSTOM_UPDATE`
 // - `POST_GRID_ENTITY_REMOVE`
+// - `POST_GRID_ENTITY_CUSTOM_REMOVE`
 // - `POST_GRID_ENTITY_STATE_CHANGED`
 // - `POST_GRID_ENTITY_BROKEN`
+// - `POST_GRID_ENTITY_CUSTOM_BROKEN`
 
 import { GridEntityType, ModCallback } from "isaac-typescript-definitions";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
+import { getCustomGridEntityType } from "../features/customGridEntity";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import {
   getGridEntitiesMap,
@@ -17,6 +22,23 @@ import {
   postGridEntityBrokenFire,
   postGridEntityBrokenHasSubscriptions,
 } from "./subscriptions/postGridEntityBroken";
+import {
+  postGridEntityCustomBrokenFire,
+  postGridEntityCustomBrokenHasSubscriptions,
+} from "./subscriptions/postGridEntityCustomBroken";
+import {
+  postGridEntityCustomInitFire,
+  postGridEntityCustomInitHasSubscriptions,
+} from "./subscriptions/postGridEntityCustomInit";
+import {
+  postGridEntityCustomRemoveFire,
+  postGridEntityCustomRemoveHasSubscriptions,
+} from "./subscriptions/postGridEntityCustomRemove";
+import { postGridEntityCustomStateChangedFire } from "./subscriptions/postGridEntityCustomStateChanged";
+import {
+  postGridEntityCustomUpdateFire,
+  postGridEntityCustomUpdateHasSubscriptions,
+} from "./subscriptions/postGridEntityCustomUpdate";
 import {
   postGridEntityInitFire,
   postGridEntityInitHasSubscriptions,
@@ -60,10 +82,14 @@ export function postGridEntityCallbacksInit(mod: ModUpgraded): void {
 function hasSubscriptions() {
   return (
     postGridEntityInitHasSubscriptions() ||
+    postGridEntityCustomInitHasSubscriptions() ||
     postGridEntityUpdateHasSubscriptions() ||
+    postGridEntityCustomUpdateHasSubscriptions() ||
     postGridEntityRemoveHasSubscriptions() ||
+    postGridEntityCustomRemoveHasSubscriptions() ||
     postGridEntityStateChangedHasSubscriptions() ||
-    postGridEntityBrokenHasSubscriptions()
+    postGridEntityBrokenHasSubscriptions() ||
+    postGridEntityCustomBrokenHasSubscriptions()
   );
 }
 
@@ -82,7 +108,13 @@ function postUpdate() {
   for (const [gridIndex, gridEntity] of gridEntitiesMap.entries()) {
     checkGridEntityStateChanged(gridIndex, gridEntity);
     checkNewGridEntity(gridIndex, gridEntity);
-    postGridEntityUpdateFire(gridEntity);
+
+    const gridEntityTypeCustom = getCustomGridEntityType(gridIndex);
+    if (gridEntityTypeCustom === undefined) {
+      postGridEntityUpdateFire(gridEntity);
+    } else {
+      postGridEntityCustomUpdateFire(gridEntity, gridEntityTypeCustom);
+    }
   }
 }
 
@@ -98,11 +130,17 @@ function checkGridEntitiesRemoved(gridEntitiesMap: Map<int, GridEntity>) {
       gridEntity.GetType() !== storedGridEntityType
     ) {
       v.room.initializedGridEntities.delete(gridIndex);
-      postGridEntityRemoveFire(
-        gridIndex,
-        storedGridEntityType,
-        storedGridEntityVariant,
-      );
+
+      const gridEntityTypeCustom = getCustomGridEntityType(gridIndex);
+      if (gridEntityTypeCustom === undefined) {
+        postGridEntityRemoveFire(
+          gridIndex,
+          storedGridEntityType,
+          storedGridEntityVariant,
+        );
+      } else {
+        postGridEntityCustomRemoveFire(gridIndex, gridEntityTypeCustom);
+      }
     }
   }
 }
@@ -119,10 +157,26 @@ function checkGridEntityStateChanged(gridIndex: int, gridEntity: GridEntity) {
   const newState = gridEntity.State;
   if (oldState !== newState) {
     updateTupleInMap(gridEntity);
-    postGridEntityStateChangedFire(gridEntity, oldState, newState);
+
+    const gridEntityTypeCustom = getCustomGridEntityType(gridEntity);
+
+    if (gridEntityTypeCustom === undefined) {
+      postGridEntityStateChangedFire(gridEntity, oldState, newState);
+    } else {
+      postGridEntityCustomStateChangedFire(
+        gridEntity,
+        gridEntityTypeCustom,
+        oldState,
+        newState,
+      );
+    }
 
     if (isGridEntityBroken(gridEntity)) {
-      postGridEntityBrokenFire(gridEntity);
+      if (gridEntityTypeCustom === undefined) {
+        postGridEntityBrokenFire(gridEntity);
+      } else {
+        postGridEntityCustomBrokenFire(gridEntity, gridEntityTypeCustom);
+      }
     }
   }
 }
@@ -133,7 +187,13 @@ function checkNewGridEntity(gridIndex: int, gridEntity: GridEntity) {
 
   if (gridEntityTuple === undefined || gridEntityTuple[0] !== gridEntityType) {
     updateTupleInMap(gridEntity);
-    postGridEntityInitFire(gridEntity);
+
+    const gridEntityTypeCustom = getCustomGridEntityType(gridEntity);
+    if (gridEntityTypeCustom === undefined) {
+      postGridEntityInitFire(gridEntity);
+    } else {
+      postGridEntityCustomInitFire(gridEntity, gridEntityTypeCustom);
+    }
   }
 }
 

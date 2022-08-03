@@ -5,7 +5,6 @@ import {
   LevelStage,
   TrinketType,
 } from "isaac-typescript-definitions";
-import { DecorationVariant } from "../../enums/DecorationVariant";
 import { removeEntities } from "../../functions/entities";
 import { getNPCs } from "../../functions/entitiesSpecific";
 import { removeGridEntity } from "../../functions/gridEntities";
@@ -15,10 +14,10 @@ import {
   getTrinkets,
 } from "../../functions/pickupsSpecific";
 import { calculateStageType } from "../../functions/stage";
-import { asNumber } from "../../functions/types";
 import { vectorEquals } from "../../functions/vector";
 import { CustomStage } from "../../interfaces/private/CustomStage";
 import { TrapdoorDestination } from "../../types/TrapdoorDestination";
+import { isCustomGridEntity } from "../customGridEntity";
 import { spawnCustomTrapdoor } from "../customTrapdoor/exports";
 import { DEFAULT_BASE_STAGE } from "./exports";
 import v from "./v";
@@ -34,14 +33,12 @@ export function setCustomDecorationGraphics(
     return;
   }
 
-  const gridEntityType = gridEntity.GetType();
-  if (gridEntityType !== GridEntityType.DECORATION) {
+  if (isCustomGridEntity(gridEntity)) {
     return;
   }
 
-  // Ignore custom grid entities. (They are represented as decorations with a non-zero variant.)
-  const variant = gridEntity.GetVariant();
-  if (variant !== asNumber(DecorationVariant.VANILLA_DECORATION)) {
+  const gridEntityType = gridEntity.GetType();
+  if (gridEntityType !== GridEntityType.DECORATION) {
     return;
   }
 
@@ -62,6 +59,10 @@ export function setCustomRockGraphics(
   // If the end-user did not specify custom rock graphics, default to Basement graphics. (We don't
   // have to adjust anything for this case.)
   if (customStage.rocksPNGPath === undefined) {
+    return;
+  }
+
+  if (isCustomGridEntity(gridEntity)) {
     return;
   }
 
@@ -92,6 +93,10 @@ export function setCustomPitGraphics(
     return;
   }
 
+  if (isCustomGridEntity(gridEntity)) {
+    return;
+  }
+
   const gridEntityPit = gridEntity.ToPit();
   if (gridEntityPit === undefined) {
     return;
@@ -113,6 +118,10 @@ export function setCustomDoorGraphics(
   // If the end-user did not specify custom pit graphics, default to Basement graphics. (We don't
   // have to adjust anything for this case.)
   if (customStage.doorPNGPaths === undefined) {
+    return;
+  }
+
+  if (isCustomGridEntity(gridEntity)) {
     return;
   }
 

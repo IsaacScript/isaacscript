@@ -18,7 +18,7 @@ module.exports = {
       appId: "ZCC397CSMF", // cspell:disable-line
       apiKey: "212a5e2442aa0e579f2f7bba22ee529a",
       indexName: "isaacscript",
-      contextualSearch: false, // Enabled by default; only useful for versioned sites
+      contextualSearch: false, // Enabled by default; only useful for versioned sites.
     },
     colorMode: {
       defaultMode: "dark",

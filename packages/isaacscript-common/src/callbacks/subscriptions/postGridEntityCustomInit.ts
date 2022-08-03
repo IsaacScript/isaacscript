@@ -1,6 +1,6 @@
 import { GridEntityType } from "isaac-typescript-definitions";
 
-export type PostGridEntityCustomBrokenRegisterParameters = [
+export type PostGridEntityCustomInitRegisterParameters = [
   callback: (
     gridEntity: GridEntity,
     gridEntityTypeCustom: GridEntityType,
@@ -8,19 +8,19 @@ export type PostGridEntityCustomBrokenRegisterParameters = [
   gridEntityTypeCustom?: GridEntityType,
 ];
 
-const subscriptions: PostGridEntityCustomBrokenRegisterParameters[] = [];
+const subscriptions: PostGridEntityCustomInitRegisterParameters[] = [];
 
-export function postGridEntityCustomBrokenHasSubscriptions(): boolean {
+export function postGridEntityCustomInitHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-export function postGridEntityCustomBrokenRegister(
-  ...args: PostGridEntityCustomBrokenRegisterParameters
+export function postGridEntityCustomInitRegister(
+  ...args: PostGridEntityCustomInitRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-export function postGridEntityCustomBrokenFire(
+export function postGridEntityCustomInitFire(
   gridEntity: GridEntity,
   gridEntityTypeCustom: GridEntityType,
 ): void {

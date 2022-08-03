@@ -12,7 +12,7 @@ This page lists the changes to the IsaacScript framework.
 ## August 3rd, 2022
 
 - IsaacScript now supports [custom stages](https://isaacscript.github.io/main/custom-stages).
-- The save data manager now supports `BitSet128` objects.
+- The save data manager now supports serializing/deserializing `BitSet128` objects.
 - The save data manager will now throw a custom compiler error if you try to register variables that are not serializable.
 - Added the following helper functions:
   - `isCollectibleInItemPool`
@@ -37,11 +37,14 @@ This page lists the changes to the IsaacScript framework.
   - `asPillColor`
   - `asPillEffect`
   - `asPlayerType`
+  - `enableDevFeatures`
+  - `isCustomGridEntity`
+  - `getCustomGridEntityType`
 - Renamed the following helper functions:
   - `isRoomInsideMap` --> `isRoomInsideGrid`
   - `getRoomsInGrid` --> `getRoomsInsideGrid`
 - Changed the following helper functions:
-  - `spawnCustomGridEntity` now supports the `breakable` argument, which will trigger `POST_GRID_ENTITY_CUSTOM_BROKEN` if it is hit by any type of explosion.
+  - `spawnCustomGridEntity` now supports using any vanilla grid entity type and variant as a base.
   - `keyboardToString` now requires an argument of `uppercase`.
   - `todo` now supports a variadic amount of arguments.
 - Added the following constants:
@@ -55,6 +58,9 @@ This page lists the changes to the IsaacScript framework.
   - `PossibleStatType`
 - Added the following custom callbacks:
   - `POST_PLAYER_CHANGE_STAT`
+  - `POST_GRID_ENTITY_CUSTOM_INIT`
+  - `POST_GRID_ENTITY_CUSTOM_REMOVE`
+  - `POST_GRID_ENTITY_CUSTOM_STATE_CHANGED`
 - Changed the following custom callbacks:
   - `POST_PLAYER_CHANGE_HEALTH` now passes the old value and the new value (in addition to the difference).
 

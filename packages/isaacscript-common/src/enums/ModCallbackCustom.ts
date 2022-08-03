@@ -216,7 +216,7 @@ export enum ModCallbackCustom {
 
   /**
    * Fires from the `POST_EFFECT_UPDATE` callback when an effect's state has changed from what it
-   * was on the previous frame.
+   * was on the previous frame. (In this context, "state" refers to the `EntityEffect.State` field.)
    *
    * When registering the callback, takes an optional second argument that will make the callback
    * only fire if it matches the `EffectVariant` provided.
@@ -258,7 +258,8 @@ export enum ModCallbackCustom {
 
   /**
    * Fires from the `POST_FAMILIAR_UPDATE` callback when a familiar's state has changed from what it
-   * was on the previous frame.
+   * was on the previous frame. (In this context, "state" refers to the `EntityFamiliar.State`
+   * field.)
    *
    * When registering the callback, takes an optional second argument that will make the callback
    * only fire if it matches the `FamiliarVariant` provided.
@@ -337,7 +338,8 @@ export enum ModCallbackCustom {
 
   /**
    * Fires from the `POST_UPDATE` callback when a grid entity changes to a state that corresponds to
-   * the broken state for the respective grid entity type.
+   * the broken state for the respective grid entity type. (For example, this will fire for a
+   * `GridEntityType.ROCK` (2) when its state changes to `RockState.BROKEN` (2).)
    *
    * When registering the callback, takes an optional second argument that will make the callback
    * only fire if it matches the `GridEntityType` provided.
@@ -364,12 +366,8 @@ export enum ModCallbackCustom {
   POST_GRID_ENTITY_COLLISION,
 
   /**
-   * Fires from the `POST_UPDATE` callback when a grid entity created with the
-   * `spawnCustomGridEntity` helper function is hit by an explosion.
-   *
-   * In most cases, you will want to remove the grid entity inside of this callback in order to
-   * prevent further "broken" callbacks from firing. (This would not be the case if you were trying
-   * to emulate a super tinted rock that takes multiple explosions to destroy, for example.)
+   * The same as the `POST_GRID_ENTITY_BROKEN` callback, but only fires for grid entities created
+   * with the `spawnCustomGridEntity` helper function.
    *
    * When registering the callback, takes an optional second argument that will make the callback
    * only fire if it matches the `GridEntityType` provided.
@@ -384,24 +382,57 @@ export enum ModCallbackCustom {
   POST_GRID_ENTITY_CUSTOM_BROKEN,
 
   /**
-   * Fires from the `POST_UPDATE` callback a new entity collides with a grid entity created with the
-   * `spawnCustomGridEntity` helper function.
+   * The same as the `POST_GRID_ENTITY_COLLISION` callback, but only fires for grid entities created
+   * with the `spawnCustomGridEntity` helper function.
    *
    * When registering the callback, takes an optional second argument that will make the callback
    * only fire if it matches the `GridEntityType` provided.
    *
    * ```ts
-   * function postGridEntityCustomRender(
+   * function postGridEntityCustomCollision(
    *   gridEntity: GridEntity,
    *   gridEntityTypeCustom: GridEntityType,
+   *   entity: Entity,
    * ): void {}
    * ```
    */
   POST_GRID_ENTITY_CUSTOM_COLLISION,
 
   /**
-   * Fires from the `POST_RENDER` callback on every frame that a grid entity created with the
-   * `spawnCustomGridEntity` helper function exists.
+   * The same as the `POST_GRID_ENTITY_INIT` callback, but only fires for grid entities created with
+   * the `spawnCustomGridEntity` helper function.
+   *
+   * When registering the callback, takes an optional second argument that will make the callback
+   * only fire if it matches the `GridEntityType` provided.
+   *
+   * ```ts
+   * function postGridEntityCustomInit(
+   *   gridEntity: GridEntity,
+   *   gridEntityTypeCustom: GridEntityType,
+   * ): void {}
+   * ```
+   */
+  POST_GRID_ENTITY_CUSTOM_INIT,
+
+  /**
+   * The same as the `POST_GRID_ENTITY_REMOVE` callback, but only fires for grid entities created
+   * with the `spawnCustomGridEntity` helper function.
+   *
+   * When registering the callback, takes an optional second argument that will make the callback
+   * only fire if it matches the `GridEntityType` provided.
+   *
+   * ```ts
+   * function postGridEntityCustomRemove(
+   *   gridIndex: int,
+   *   gridEntityTypeCustom: GridEntityType,
+   * ): void {}
+   * ```
+   */
+  POST_GRID_ENTITY_CUSTOM_REMOVE,
+
+  /**
+   * The same as the `POST_GRID_ENTITY_RENDER` callback, but only fires for grid entities created
+   * with the `spawnCustomGridEntity` helper function.
    *
    * When registering the callback, takes an optional second argument that will make the callback
    * only fire if it matches the `GridEntityType` provided.
@@ -416,8 +447,26 @@ export enum ModCallbackCustom {
   POST_GRID_ENTITY_CUSTOM_RENDER,
 
   /**
-   * Fires from the `POST_UPDATE` callback on every frame that a grid entity created with the
-   * `spawnCustomGridEntity` helper function exists.
+   * The same as the `POST_GRID_ENTITY_STATE_CHANGED` callback, but only fires for grid entities
+   * created with the `spawnCustomGridEntity` helper function.
+   *
+   * When registering the callback, takes an optional second argument that will make the callback
+   * only fire if it matches the `GridEntityType` provided.
+   *
+   * ```ts
+   * function postGridEntityCustomStateChanged(
+   *   gridEntity: GridEntity,
+   *   gridEntityTypeCustom: GridEntityType,
+   *   oldState: int,
+   *   newState: int,
+   * ): void {}
+   * ```
+   */
+  POST_GRID_ENTITY_CUSTOM_STATE_CHANGED,
+
+  /**
+   * The same as the `POST_GRID_ENTITY_UPDATE` callback, but only fires for grid entities created
+   * with the `spawnCustomGridEntity` helper function.
    *
    * When registering the callback, takes an optional second argument that will make the callback
    * only fire if it matches the `GridEntityType` provided.
@@ -452,6 +501,8 @@ export enum ModCallbackCustom {
    * Fires from the `POST_UPDATE` callback when a new grid entity is removed. Specifically, this on
    * the frame after it no longer exists (where it did exist a frame ago).
    *
+   * (Leaving a room with a grid entity does not count as "removing" it.)
+   *
    * When registering the callback, takes an optional second argument that will make the callback
    * only fire if it matches the `GridEntityType` provided.
    *
@@ -479,7 +530,8 @@ export enum ModCallbackCustom {
   POST_GRID_ENTITY_RENDER,
 
   /**
-   * Fires from the `POST_UPDATE` callback when a grid entity changes its state.
+   * Fires from the `POST_UPDATE` callback when a grid entity changes its state. (In this context,
+   * "state" refers to the `GridEntity.State` field.)
    *
    * When registering the callback, takes an optional second argument that will make the callback
    * only fire if it matches the `GridEntityType` provided.
@@ -670,7 +722,7 @@ export enum ModCallbackCustom {
 
   /**
    * Fires from the `POST_NPC_UPDATE` callback when an NPC's state has changed from what it was on
-   * the previous frame.
+   * the previous frame. (In this context, "state" refers to the `EntityNPC.State` field.)
    *
    * - When registering the callback, takes an optional second argument that will make the callback
    *   only fire if it matches the `EntityType` provided.
@@ -758,7 +810,7 @@ export enum ModCallbackCustom {
 
   /**
    * Fires from the `POST_PICKUP_UPDATE` callback when a pickup's state has changed from what it was
-   * on the previous frame.
+   * on the previous frame. (In this context, "state" refers to the `EntityPickup.State` field.)
    *
    * When registering the callback, takes an optional second argument that will make the callback
    * only fire if it matches the `PickupVariant` provided.
@@ -1110,7 +1162,8 @@ export enum ModCallbackCustom {
   POST_ROCK_UPDATE,
 
   /**
-   * Fires from the `POST_UPDATE` callback when the clear state of a room changes.
+   * Fires from the `POST_UPDATE` callback when the clear state of a room changes (as according to
+   * the `Room.IsClear` method).
    *
    * When registering the callback, takes an optional second argument that will make the callback
    * only fire if the room clear state matches the boolean provided.

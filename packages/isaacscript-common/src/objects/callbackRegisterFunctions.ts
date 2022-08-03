@@ -25,7 +25,10 @@ import { postGridEntityBrokenRegister } from "../callbacks/subscriptions/postGri
 import { postGridEntityCollisionRegister } from "../callbacks/subscriptions/postGridEntityCollision";
 import { postGridEntityCustomBrokenRegister } from "../callbacks/subscriptions/postGridEntityCustomBroken";
 import { postGridEntityCustomCollisionRegister } from "../callbacks/subscriptions/postGridEntityCustomCollision";
+import { postGridEntityCustomInitRegister } from "../callbacks/subscriptions/postGridEntityCustomInit";
+import { postGridEntityCustomRemoveRegister } from "../callbacks/subscriptions/postGridEntityCustomRemove";
 import { postGridEntityCustomRenderRegister } from "../callbacks/subscriptions/postGridEntityCustomRender";
+import { postGridEntityCustomStateChangedRegister } from "../callbacks/subscriptions/postGridEntityCustomStateChanged";
 import { postGridEntityCustomUpdateRegister } from "../callbacks/subscriptions/postGridEntityCustomUpdate";
 import { postGridEntityInitRegister } from "../callbacks/subscriptions/postGridEntityInit";
 import { postGridEntityRemoveRegister } from "../callbacks/subscriptions/postGridEntityRemove";
@@ -127,6 +130,12 @@ export const CALLBACK_REGISTER_FUNCTIONS: {
     postGridEntityCustomBrokenRegister,
   [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_COLLISION]:
     postGridEntityCustomCollisionRegister,
+  [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_INIT]:
+    postGridEntityCustomInitRegister,
+  [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_REMOVE]:
+    postGridEntityCustomRemoveRegister,
+  [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_STATE_CHANGED]:
+    postGridEntityCustomStateChangedRegister,
   [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_RENDER]:
     postGridEntityCustomRenderRegister,
   [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_UPDATE]:

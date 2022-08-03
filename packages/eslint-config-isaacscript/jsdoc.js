@@ -180,7 +180,7 @@ module.exports = {
     "jsdoc/require-param": [
       "warn",
       {
-        contexts: ["any"],
+        contexts: [{ comment: 'JsdocBlock > JsdocTag[tag="param"]' }],
       },
     ],
     */

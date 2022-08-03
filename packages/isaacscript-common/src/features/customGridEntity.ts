@@ -2,7 +2,6 @@ import {
   ActiveSlot,
   CollectibleType,
   DamageFlag,
-  EntityFlag,
   EntityType,
   GridCollisionClass,
   GridEntityType,
@@ -13,24 +12,24 @@ import { postGridEntityCustomBrokenFire } from "../callbacks/subscriptions/postG
 import { DefaultMap } from "../classes/DefaultMap";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { game } from "../core/cachedClasses";
-import { DecorationVariant } from "../enums/DecorationVariant";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
-import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
-import { spawn } from "../functions/entities";
+import {
+  areFeaturesInitialized,
+  errorIfFeaturesNotInitialized,
+} from "../featuresInitialized";
 import { hasFlag } from "../functions/flag";
 import {
   removeGridEntity,
   spawnGridEntityWithVariant,
 } from "../functions/gridEntities";
 import { getRoomListIndex } from "../functions/roomData";
-import { asNumber } from "../functions/types";
+import { isNumber } from "../functions/types";
 import { isVector } from "../functions/vector";
 import { GridEntityCustomData } from "../interfaces/GridEntityCustomData";
 import { runNextGameFrame } from "./runInNFrames";
 import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "customGridEntity";
-const GENERIC_PROP_SIZE_MULTIPLIER = 0.66;
 
 const v = {
   level: {
@@ -200,18 +199,24 @@ function postNewRoomReordered() {
  * will reappear if the player leaves and re-enters the room. (It will be manually respawned in the
  * `POST_NEW_ROOM` callback.)
  *
- * This is an IsaacScript feature because the vanilla game does not support any custom grid
- * entities. Under the hood, IsaacScript accomplishes this by using decorations with an arbitrary
- * non-zero variant to represent custom grid entities.
+ * Custom grid entities are built on top of real grid entities. You can use any existing grid entity
+ * type as a base. For example, if you want to create a custom rock that would be breakable like a
+ * normal rock, then you should specify `GridEntityType.ROCK` as the base grid entity type.
  *
  * Once a custom grid entity is spawned, you can take advantage of the custom grid callbacks such as
- * `POST_GRID_ENTITY_CUSTOM_UPDATE`.
+ * `POST_GRID_ENTITY_CUSTOM_UPDATE`. Note that the "normal" grid entities callbacks will not fire
+ * for custom entities. For example, if you had a custom grid entity based on `GridEntityType.ROCK`,
+ * and you also had a subscription to the `POST_GRID_ENTITY_UPDATE` callback, the callback would
+ * only fire for normal rocks and not the custom entity.
+ *
+ * Custom grid entities are an IsaacScript feature because the vanilla game does not support any
+ * custom grid entities.
  *
  * @param gridEntityTypeCustom An integer that identifies what kind of grid entity you are creating.
- *                             It should correspond to a local enum value in your mod. The integer
- *                             can be any unique value and will not correspond to the actual grid
- *                             entity type used. (This integer is used in the various custom grid
- *                             entity callbacks.)
+ *                             It should correspond to a local enum value created in your mod. The
+ *                             integer can be any unique value and will not correspond to the actual
+ *                             grid entity type used. (This integer is used in the various custom
+ *                             grid entity callbacks.)
  * @param gridIndexOrPosition The grid index or position in the room that you want to spawn the grid
  *                            entity at. If a position is specified, the closest grid index will be
  *                            used.
@@ -220,10 +225,10 @@ function postNewRoomReordered() {
  * @param defaultAnimation Optional. The name of the animation to play after the sprite is
  *                         initialized and after the player re-enters a room with this grid entity
  *                         in it. If not specified, the default animation in the anm2 will be used.
- * @param breakable Optional. Whether or not an explosion will be able to break this grid entity.
- *                  False by default. Use the `POST_GRID_ENTITY_CUSTOM_BROKEN` callback to detect
- *                  when it breaks. Due to technical limitations, you can only set the grid entity
- *                  to be breakable if it has a collision class.
+ * @param baseGridEntityType Optional. The type of the grid entity to use as a "base" for this
+ *                           custom grid entity. Default is `GridEntityType.DECORATION`.
+ * @param baseGridEntityVariant Optional. The variant of the grid entity to use as a "base" for this
+ *                              custom grid entity. Default is 0.
  */
 export function spawnCustomGridEntity(
   gridEntityTypeCustom: GridEntityType,
@@ -231,15 +236,10 @@ export function spawnCustomGridEntity(
   gridCollisionClass: GridCollisionClass,
   anm2Path: string,
   defaultAnimation?: string,
-  breakable = false,
+  baseGridEntityType = GridEntityType.DECORATION,
+  baseGridEntityVariant = 0,
 ): GridEntity {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
-
-  if (breakable && gridCollisionClass === GridCollisionClass.NONE) {
-    error(
-      "Failed to spawn a custom grid entity because it is not possible to have breakable custom grid entities with a collision class of: GridCollisionClass.NONE (0)",
-    );
-  }
 
   const room = game.GetRoom();
   const roomListIndex = getRoomListIndex();
@@ -247,25 +247,17 @@ export function spawnCustomGridEntity(
     ? room.GetGridIndex(gridIndexOrPosition)
     : gridIndexOrPosition;
 
-  const existingGridEntity = room.GetGridEntity(gridIndex);
-  const isExistingDecoration =
-    existingGridEntity !== undefined &&
-    existingGridEntity.GetType() === GridEntityType.DECORATION &&
-    existingGridEntity.GetVariant() ===
-      asNumber(DecorationVariant.CUSTOM_GRID_ENTITY);
-  const decoration = isExistingDecoration
-    ? existingGridEntity
-    : spawnGridEntityWithVariant(
-        GridEntityType.DECORATION,
-        DecorationVariant.CUSTOM_GRID_ENTITY,
-        gridIndexOrPosition,
-      );
-  if (decoration === undefined) {
-    error("Failed to spawn a decoration for a custom grid entity.");
+  const customGridEntity = spawnGridEntityWithVariant(
+    baseGridEntityType,
+    baseGridEntityVariant,
+    gridIndexOrPosition,
+  );
+  if (customGridEntity === undefined) {
+    error("Failed to spawn a custom grid entity.");
   }
-  decoration.CollisionClass = gridCollisionClass;
+  customGridEntity.CollisionClass = gridCollisionClass;
 
-  const sprite = decoration.GetSprite();
+  const sprite = customGridEntity.GetSprite();
   sprite.Load(anm2Path, true);
   const animationToPlay =
     defaultAnimation === undefined
@@ -286,25 +278,7 @@ export function spawnCustomGridEntity(
     v.level.customGridEntities.getAndSetDefault(roomListIndex);
   roomCustomGridEntities.set(gridIndex, customGridEntityData);
 
-  // We check to see if an explosion touches a custom grid entity by spawning a Dummy on top, and
-  // the monitoring for explosions in the `ENTITY_TAKE_DMG` callback.
-  if (breakable) {
-    const position = room.GetGridPosition(gridIndex);
-    const entity = spawn(EntityType.GENERIC_PROP, 0, 0, position);
-    entity.ClearEntityFlags(EntityFlag.APPEAR);
-    entity.Visible = false;
-
-    // By default, it is larger than a grid tile, so make it a bit smaller.
-    entity.SizeMulti = Vector(
-      GENERIC_PROP_SIZE_MULTIPLIER,
-      GENERIC_PROP_SIZE_MULTIPLIER,
-    );
-
-    const ptrHash = GetPtrHash(entity);
-    v.room.genericPropPtrHashes.add(ptrHash);
-  }
-
-  return decoration;
+  return customGridEntity;
 }
 
 /**
@@ -326,6 +300,8 @@ export function removeCustomGridEntity(
   gridIndexOrPositionOrGridEntity: int | Vector | GridEntity,
   updateRoom = true,
 ): GridEntity | undefined {
+  errorIfFeaturesNotInitialized(FEATURE_NAME);
+
   const room = game.GetRoom();
   const roomListIndex = getRoomListIndex();
 
@@ -371,6 +347,10 @@ export function removeCustomGridEntity(
 export function getCustomGridEntities(): Array<
   [gridEntity: GridEntity, data: GridEntityCustomData]
 > {
+  if (!areFeaturesInitialized()) {
+    return [];
+  }
+
   const roomListIndex = getRoomListIndex();
   const roomCustomGridEntities = v.level.customGridEntities.get(roomListIndex);
   if (roomCustomGridEntities === undefined) {
@@ -387,4 +367,50 @@ export function getCustomGridEntities(): Array<
   }
 
   return customGridEntities;
+}
+
+/**
+ * Helper function to get the custom `GridEntityType` from a `GridEntity` or grid index. Returns
+ * undefined if the provided `GridEntity` is not a custom grid entity, or if there was not a grid
+ * entity on the provided grid index.
+ */
+export function getCustomGridEntityType(
+  gridEntityOrGridIndex: GridEntity | int,
+): GridEntityType | undefined {
+  if (!areFeaturesInitialized()) {
+    return undefined;
+  }
+
+  const gridIndex = isNumber(gridEntityOrGridIndex)
+    ? gridEntityOrGridIndex
+    : gridEntityOrGridIndex.GetGridIndex();
+
+  const roomListIndex = getRoomListIndex();
+  const roomCustomGridEntities = v.level.customGridEntities.get(roomListIndex);
+  if (roomCustomGridEntities === undefined) {
+    return undefined;
+  }
+
+  for (const [_gridIndex, data] of roomCustomGridEntities.entries()) {
+    if (data.gridIndex === gridIndex) {
+      return data.gridEntityTypeCustom;
+    }
+  }
+
+  return undefined;
+}
+
+/**
+ * Helper function to check if a `GridEntity` is a custom grid entity or if a grid index has a
+ * custom grid entity.
+ */
+export function isCustomGridEntity(
+  gridEntityOrGridIndex: GridEntity | int,
+): boolean {
+  if (!areFeaturesInitialized()) {
+    return false;
+  }
+
+  const gridEntityTypeCustom = getCustomGridEntityType(gridEntityOrGridIndex);
+  return gridEntityTypeCustom !== undefined;
 }

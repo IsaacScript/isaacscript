@@ -25,7 +25,10 @@ import { PostGridEntityBrokenRegisterParameters } from "../../callbacks/subscrip
 import { PostGridEntityCollisionRegisterParameters } from "../../callbacks/subscriptions/postGridEntityCollision";
 import { PostGridEntityCustomBrokenRegisterParameters } from "../../callbacks/subscriptions/postGridEntityCustomBroken";
 import { PostGridEntityCustomCollisionRegisterParameters } from "../../callbacks/subscriptions/postGridEntityCustomCollision";
+import { PostGridEntityCustomInitRegisterParameters } from "../../callbacks/subscriptions/postGridEntityCustomInit";
+import { PostGridEntityCustomRemoveRegisterParameters } from "../../callbacks/subscriptions/postGridEntityCustomRemove";
 import { PostGridEntityCustomRenderRegisterParameters } from "../../callbacks/subscriptions/postGridEntityCustomRender";
+import { PostGridEntityCustomStateChangedRegisterParameters } from "../../callbacks/subscriptions/postGridEntityCustomStateChanged";
 import { PostGridEntityCustomUpdateRegisterParameters } from "../../callbacks/subscriptions/postGridEntityCustomUpdate";
 import { PostGridEntityInitRegisterParameters } from "../../callbacks/subscriptions/postGridEntityInit";
 import { PostGridEntityRemoveRegisterParameters } from "../../callbacks/subscriptions/postGridEntityRemove";
@@ -116,7 +119,10 @@ export interface AddCallbackParameterCustom {
   [ModCallbackCustom.POST_GRID_ENTITY_COLLISION]: PostGridEntityCollisionRegisterParameters;
   [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_BROKEN]: PostGridEntityCustomBrokenRegisterParameters;
   [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_COLLISION]: PostGridEntityCustomCollisionRegisterParameters;
+  [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_INIT]: PostGridEntityCustomInitRegisterParameters;
+  [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_REMOVE]: PostGridEntityCustomRemoveRegisterParameters;
   [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_RENDER]: PostGridEntityCustomRenderRegisterParameters;
+  [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_STATE_CHANGED]: PostGridEntityCustomStateChangedRegisterParameters;
   [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_UPDATE]: PostGridEntityCustomUpdateRegisterParameters;
   [ModCallbackCustom.POST_GRID_ENTITY_INIT]: PostGridEntityInitRegisterParameters;
   [ModCallbackCustom.POST_GRID_ENTITY_REMOVE]: PostGridEntityRemoveRegisterParameters;

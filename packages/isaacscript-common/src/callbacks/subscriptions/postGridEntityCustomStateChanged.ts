@@ -1,28 +1,32 @@
 import { GridEntityType } from "isaac-typescript-definitions";
 
-export type PostGridEntityCustomBrokenRegisterParameters = [
+export type PostGridEntityCustomStateChangedRegisterParameters = [
   callback: (
     gridEntity: GridEntity,
     gridEntityTypeCustom: GridEntityType,
+    oldState: int,
+    newState: int,
   ) => void,
   gridEntityTypeCustom?: GridEntityType,
 ];
 
-const subscriptions: PostGridEntityCustomBrokenRegisterParameters[] = [];
+const subscriptions: PostGridEntityCustomStateChangedRegisterParameters[] = [];
 
-export function postGridEntityCustomBrokenHasSubscriptions(): boolean {
+export function postGridEntityCustomStateChangedHasSubscriptions(): boolean {
   return subscriptions.length > 0;
 }
 
-export function postGridEntityCustomBrokenRegister(
-  ...args: PostGridEntityCustomBrokenRegisterParameters
+export function postGridEntityCustomStateChangedRegister(
+  ...args: PostGridEntityCustomStateChangedRegisterParameters
 ): void {
   subscriptions.push(args);
 }
 
-export function postGridEntityCustomBrokenFire(
+export function postGridEntityCustomStateChangedFire(
   gridEntity: GridEntity,
   gridEntityTypeCustom: GridEntityType,
+  oldState: int,
+  newState: int,
 ): void {
   for (const [callback, callbackGridEntityTypeCustom] of subscriptions) {
     // Handle the optional 2nd callback argument.
@@ -33,6 +37,6 @@ export function postGridEntityCustomBrokenFire(
       continue;
     }
 
-    callback(gridEntity, gridEntityTypeCustom);
+    callback(gridEntity, gridEntityTypeCustom, oldState, newState);
   }
 }
