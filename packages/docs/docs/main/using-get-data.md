@@ -92,8 +92,8 @@ const v = {
 And then we feed the object to the save data manager:
 
 ```ts
-// We call "foo.init() in our "main.ts" file after first initializing our mod.
-export function init(): void {
+// We call "fooInit() in our "main.ts" file after first initializing our mod.
+export function fooInit(): void {
   saveDataManager("foo", v);
 }
 ```
@@ -140,8 +140,8 @@ const v = {
   },
 };
 
-// We call "foo.init() in our "main.ts" file after first initializing our mod.
-export function init(): void {
+// We call "fooInit() in our "main.ts" file after first initializing our mod.
+export function fooInit(): void {
   saveDataManager("foo", v);
 }
 
