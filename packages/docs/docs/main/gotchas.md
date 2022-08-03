@@ -85,7 +85,7 @@ Property '__bitFlagsBrand' is missing in type 'TearFlagValue' but required in ty
 
 This error is because `TearFlag` is not exactly the same thing as `BitFlags<TearFlag>`. (The former must be equal to one specific flag, and the latter can be 0 or more flags.)
 
-To solve this problem, you can use the `bitFlags` helper function, which will cast the flag for you:
+To solve this problem, you can use the `bitFlags` helper function, which will convert the flag for you:
 
 ```ts
 // TypeScript code
@@ -197,7 +197,7 @@ const EffectVariantCustom = {
 
 This is not like the previous example. Here, the value of `EffectVariantCustom.MY_CUSTOM_EFFECT` is equal to `int` instead of `EffectVariant`. This is because the return type of the `Isaac.GetEntityVariantByName` method is `int`. This should kind of make sense, because at compile-time, the method has no idea what type of entity name corresponds with what type of entity variant.
 
-However, fixing this problem is easy. We just have to manually specify what the variant is using a cast, like this:
+However, fixing this problem is easy. We just have to manually specify what the variant is using a type assertion, like this:
 
 ```ts
 const EffectVariantCustom = {
