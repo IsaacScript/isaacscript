@@ -124,7 +124,7 @@ If you specify the "bossPool" field in the "tsconfig.json" file, then the stage 
 
 <!--lint enable ordered-list-marker-value -->
 
-With these improvements in mind, I've created the IsaacScript stage library. Since it is integrated into the normal [standard library](https://isaacscript.github.io/isaacscript-common), using it is effortless. See the [getting started section](#getting-started) above.
+With these improvements in mind, I've created the IsaacScript stage library. Since it is integrated into the normal [standard library](/isaacscript-common), using it is effortless. See the [getting started section](#getting-started) above.
 
 <br />
 

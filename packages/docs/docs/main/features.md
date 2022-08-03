@@ -52,7 +52,7 @@ After five years of programming Isaac mods in Lua, I got frustrated enough to ta
 
 ### <img src="/img/items/humbling-bundle.png" className="features-icon" /> Extra Enums
 
-- Seamlessly utilize [community-contributed enums](https://isaacscript.github.io/isaac-typescript-definitions/modules#enumerations) for things that the developers forgot to include in the "enums.lua" file.
+- Seamlessly utilize [community-contributed enums](/isaac-typescript-definitions) for things that the developers forgot to include in the "enums.lua" file.
 
 ### <img src="/img/items/pencil.png" className="features-icon" /> Automatic Formatting
 
