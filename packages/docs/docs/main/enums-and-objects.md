@@ -14,7 +14,7 @@ For most purposes, it is not important to know the low-level details - you can u
 
 TypeScript has first-class support for enums. This means that you can type the word `enum` to create one, and this is part of the language itself, which is really handy. In good code, enums are used a lot: they get rid of [magic numbers](<https://en.wikipedia.org/wiki/Magic_number_(programming)>) and constrain possible values to a finite set.
 
-For example, this is the enum that describes the four different kinds of active slot collectibles in the game:
+For example, this is the enum that describes the four different kinds of slots that active items can go into:
 
 ```ts
 enum ActiveSlot {
