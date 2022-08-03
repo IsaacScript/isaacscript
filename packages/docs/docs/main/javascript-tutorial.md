@@ -683,9 +683,9 @@ const collectiblePrices = {
 
 ### Maps
 
-In the previous [enums](#enums) section, we defined "collectiblePrices" as an anonymous object, which is roughly equivalent to a Lua table.
+In the previous [enums](#enums) section, we defined "collectiblePrices" as an object, which is roughly equivalent to a Lua table.
 
-Anonymous objects are good for cases where you won't use variables to access the data. But this isn't the case for "collectiblePrices". Here, we are only specifying the prices for _some_ of the collectibles in the game. If a collectible isn't in the list, we'll probably want to ignore it, or give it a default value, or something along those lines.
+Objects are good for cases where every possibility is accounted for. But this isn't the case for "collectiblePrices". Here, we are only specifying the prices for _some_ of the collectibles in the game. If a collectible isn't in the list, we'll probably want to ignore it, or give it a default value, or something along those lines.
 
 In this example, what "collectiblePrices" _really_ represents is a _map_ of a specific collectible type to a price. Unlike Lua, TypeScript has a `Map` data type. So, the example would be better written like this:
 
