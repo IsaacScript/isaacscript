@@ -459,6 +459,8 @@ export interface CustomStageBossPoolEntry {
  * "tsconfig.json" file.
  *
  * The `CustomStage` interface extends this, adding more data.
+ *
+ * @internal
  */
 export interface CustomStageLua extends CustomStageTSConfig {
   /**
@@ -472,6 +474,8 @@ export interface CustomStageLua extends CustomStageTSConfig {
 /**
  * Metadata about a custom stage room. Each custom stage object contains an array with metadata for
  * each room.
+ *
+ * @internal
  */
 export type CustomStageRoomMetadata = Readonly<{
   type: number;
