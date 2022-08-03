@@ -6,14 +6,14 @@ set -e # Exit on any errors
 # https://stackoverflow.com/questions/59895/getting-the-source-directory-of-a-bash-script-from-within
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-# The website repository will be already cloned at this point by the parent GitHub action. See
-# "ci.yml" for more information.
+# The website repository will be already cloned at this point by the parent GitHub action, including
+# switching to the "gh-pages" branch. See "ci.yml" for more information.
 REPO_ROOT="$DIR/../.."
 BUILD_PATH="$REPO_ROOT/dist/packages/docs"
 DOCS_REPO_NAME="isaacscript.github.io"
 DOCS_REPO="$REPO_ROOT/$DOCS_REPO_NAME"
+DOCS_REPO_GIT_BACKUP="/tmp/$DOCS_REPO_NAME.git"
 
-DOCS_REPO_GIT_BACKUP="/tmp/docs.git"
 mv "$DOCS_REPO/.git" "$DOCS_REPO_GIT_BACKUP"
 rm -rf "$DOCS_REPO"
 mkdir "$DOCS_REPO"

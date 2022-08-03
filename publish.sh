@@ -51,7 +51,12 @@ bash "$PACKAGE_DIR/build.sh"
 # The "--access=public" flag is only technically needed for the first publish, but it is saved here
 # for posterity.
 cd "$DIR/dist/packages/$PACKAGE_NAME"
-npm publish --access=public
+if [ "$VERSION_BUMP" == "dev" ]; then
+  NPM_TAG=latest
+else
+  NPM_TAG=next
+fi
+npm publish --access=public --tag=$NPM_TAG
 
 sleep 1
 bash "$DIR/update.sh"
