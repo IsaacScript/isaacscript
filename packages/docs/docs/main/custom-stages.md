@@ -114,7 +114,7 @@ If you specify the "bossPool" field in the "tsconfig.json" file, then the stage 
 
 - StageAPI loads data for hundreds of rooms on the first run, which causes lag.
 - Libraries shouldn't do anything if they are not being used. This is the same principle as [not importing for side effects](https://github.com/Zamiell/isaac-faq/blob/main/mod-organization.md#avoiding-side-effects).
-- Instead, by lazy loading data, custom stages only incur a tiny amount of lag when they are first actually traveled to. (Only the specific data needed for the actual generated floor is retrieved.)
+- Instead, by lazy loading data, IsaacScript custom stages only incur a tiny amount of lag when they are first traveled to. (Only the specific data needed for the actual generated floor is retrieved.)
 
 #### 7. An Isaac library should have excellent documentation
 
