@@ -47,7 +47,7 @@ Second, make sure it has an "isaacscript" field at the bottom:
   },
 ```
 
-For the most basic stage, only the "name", "xmlPath", and "roomVariantPrefix" fields are required. But you will likely want to make additional customizations. There are many more optional fields that you can specify, which are documented in the [`CustomStageLua` interface](https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-common/src/interfaces/CustomStageLua.ts).
+For the most basic stage, only the "name", "xmlPath", and "roomVariantPrefix" fields are required. But you will likely want to make additional customizations. There are many more optional fields that you can specify, which are documented in the [`CustomStageTSConfig` interface](https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-common/src/interfaces/CustomStageTSConfig.ts).
 
 Furthermore, for more information on the "roomVariantPrefix" field, see the section below on [Custom Stage Room Variant Prefixes](#custom-stage-room-variant-prefixes).
 

@@ -461,6 +461,11 @@ export interface CustomStageBossPoolEntry {
  * The `CustomStage` interface extends this, adding more data.
  */
 export interface CustomStageLua extends CustomStageTSConfig {
+  /**
+   * This contains metadata about each room in a custom stage, which is used at run-time.
+   * (Internally, the IsaacScript standard library uses this as a basis for determining which rooms
+   * should randomly appear on the floor.)
+   */
   readonly roomsMetadata: readonly CustomStageRoomMetadata[];
 }
 

@@ -181,7 +181,7 @@ export * from "./functions/utils";
 export * from "./functions/vector";
 export * from "./interfaces/ChargeBarSprites";
 export * from "./interfaces/Corner";
-export * from "./interfaces/CustomStageLua";
+export * from "./interfaces/CustomStageTSConfig";
 export * from "./interfaces/GridEntityCustomData";
 export * from "./interfaces/JSONRoomsFile";
 export * from "./interfaces/PlayerHealth";

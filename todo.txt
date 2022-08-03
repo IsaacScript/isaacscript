@@ -1,9 +1,6 @@
-- redo postGridEntityCustomBroken, add hasSubscriptions function
-- remove decoration variant
-- normal grid entity callbacks should not fire for custom entities
 - check for registerCustomBoss and throw run-time error if not present
-- specify base XML type for custom entity
 - polty
+
 - make example project with custom stage
 
 - Lint:

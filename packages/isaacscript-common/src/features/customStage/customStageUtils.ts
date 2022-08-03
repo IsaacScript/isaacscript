@@ -2,7 +2,7 @@ import { sumArray } from "../../functions/array";
 import { log } from "../../functions/log";
 import { getRandomFloat } from "../../functions/random";
 import { getRandomSeed } from "../../functions/rng";
-import { CustomStageRoomMetadata } from "../../interfaces/CustomStageLua";
+import { CustomStageRoomMetadata } from "../../interfaces/CustomStageTSConfig";
 
 /**
  * Helper function to get a random custom stage room from an array of custom stage rooms.

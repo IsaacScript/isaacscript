@@ -395,7 +395,7 @@ function fixLinks() {
         // Also handle the case of some specific interfaces being put into the same file.
         for (const specialCombinedFileName of [
           "JSONRoomsFile",
-          "CustomStageLua",
+          "CustomStageTSConfig",
         ]) {
           newFileContents = newFileContents.replaceAll(
             `${specialCombinedFileName}.${fileNameWithoutExtension}.md`,

@@ -19,7 +19,7 @@ OUT_DIR="$DIR/../../dist/packages/$REPO_NAME"
 # First, copy some interfaces from "isaacscript-common".
 # (Normally, we would reference them directly, but "paths" in the "tsconfig.json" file do not work
 # properly with TSTL.)
-INTERFACE_FILES=( CustomStageLua JSONRoomsFile )
+INTERFACE_FILES=( CustomStageTSConfig JSONRoomsFile )
 INTERFACE_SOURCE_DIRECTORY="$DIR/../isaacscript-common/src/interfaces"
 INTERFACE_DESTINATION_DIRECTORY="$DIR/src/interfaces/copied"
 mkdir -p "$INTERFACE_DESTINATION_DIRECTORY"

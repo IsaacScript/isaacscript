@@ -13,7 +13,7 @@ import { hasFlag, removeFlag } from "../../functions/flag";
 import {
   CustomStageLua,
   CustomStageRoomMetadata,
-} from "../../interfaces/CustomStageLua";
+} from "../../interfaces/CustomStageTSConfig";
 import { CustomStage, RoomTypeMap } from "../../interfaces/private/CustomStage";
 import { saveDataManager } from "../saveDataManager/exports";
 import { setCustomStageBackdrop } from "./backdrop";
