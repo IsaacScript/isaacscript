@@ -6,6 +6,7 @@
 // - `POST_GRID_ENTITY_REMOVE`
 // - `POST_GRID_ENTITY_CUSTOM_REMOVE`
 // - `POST_GRID_ENTITY_STATE_CHANGED`
+// - `POST_GRID_ENTITY_CUSTOM_STATE_CHANGED`
 // - `POST_GRID_ENTITY_BROKEN`
 // - `POST_GRID_ENTITY_CUSTOM_BROKEN`
 
@@ -34,7 +35,10 @@ import {
   postGridEntityCustomRemoveFire,
   postGridEntityCustomRemoveHasSubscriptions,
 } from "./subscriptions/postGridEntityCustomRemove";
-import { postGridEntityCustomStateChangedFire } from "./subscriptions/postGridEntityCustomStateChanged";
+import {
+  postGridEntityCustomStateChangedFire,
+  postGridEntityCustomStateChangedHasSubscriptions,
+} from "./subscriptions/postGridEntityCustomStateChanged";
 import {
   postGridEntityCustomUpdateFire,
   postGridEntityCustomUpdateHasSubscriptions,
@@ -88,6 +92,7 @@ function hasSubscriptions() {
     postGridEntityRemoveHasSubscriptions() ||
     postGridEntityCustomRemoveHasSubscriptions() ||
     postGridEntityStateChangedHasSubscriptions() ||
+    postGridEntityCustomStateChangedHasSubscriptions() ||
     postGridEntityBrokenHasSubscriptions() ||
     postGridEntityCustomBrokenHasSubscriptions()
   );

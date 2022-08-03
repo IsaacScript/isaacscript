@@ -134,10 +134,10 @@ export const CALLBACK_REGISTER_FUNCTIONS: {
     postGridEntityCustomInitRegister,
   [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_REMOVE]:
     postGridEntityCustomRemoveRegister,
-  [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_STATE_CHANGED]:
-    postGridEntityCustomStateChangedRegister,
   [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_RENDER]:
     postGridEntityCustomRenderRegister,
+  [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_STATE_CHANGED]:
+    postGridEntityCustomStateChangedRegister,
   [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_UPDATE]:
     postGridEntityCustomUpdateRegister,
   [ModCallbackCustom.POST_GRID_ENTITY_INIT]: postGridEntityInitRegister,

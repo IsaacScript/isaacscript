@@ -78,6 +78,7 @@
     "src/functions/debug.ts",
     "src/functions/deepCopy.ts",
     "src/functions/deepCopyTests.ts",
+    "src/functions/dev.ts",
     "src/functions/dimensions.ts",
     "src/functions/direction.ts",
     "src/functions/doors.ts",
