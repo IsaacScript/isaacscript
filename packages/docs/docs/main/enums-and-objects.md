@@ -120,9 +120,9 @@ We also use the word `CollectibleType` to refer to the "container" that holds al
 
 ```ts
 const MyContainer = {
-  VALUE_1 = CollectibleType.SAD_ONION,
-  VALUE_2 = CollectibleType.INNER_EYE,
-  VALUE_3 = CollectibleType.SPOON_BENDER,
+  VALUE_1: CollectibleType.SAD_ONION,
+  VALUE_2: CollectibleType.INNER_EYE,
+  VALUE_3: CollectibleType.SPOON_BENDER,
 };
 ```
 
