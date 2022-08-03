@@ -4,7 +4,7 @@ title: The Difference Between Enums and Objects
 
 In IsaacScript mods, both enums and objects are used, depending on the situation. This might be a little confusing.
 
-For most purposes, it's not important to know the low-level details - you can use whichever one you like. But if you want to dive into some of the details and explore the differences, then read on.
+For most purposes, it is not important to know the low-level details - you can use whichever one you like. But if you want to dive into some of the details and explore the differences, then read on.
 
 <br />
 
