@@ -9,7 +9,7 @@
  */
 const ActionTriggerInternal = {
   /** 1 << -1 */
-  NONE: 0,
+  NONE: 1 << -1,
 
   /** 1 << 0 */
   BOMB_PLACED: 1 << 0,
