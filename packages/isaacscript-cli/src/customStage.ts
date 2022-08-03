@@ -17,7 +17,7 @@ import {
   CustomStageLua,
   CustomStageRoomMetadata,
   CustomStageTSConfig,
-} from "./interfaces/copied/CustomStageLua";
+} from "./interfaces/copied/CustomStageTSConfig";
 import { JSONRoomsFile } from "./interfaces/copied/JSONRoomsFile";
 import { ShadersXML } from "./interfaces/ShadersXML";
 import { getPackageManagerAddCommand } from "./packageManager";

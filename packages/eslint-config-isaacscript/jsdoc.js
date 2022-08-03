@@ -180,11 +180,15 @@ module.exports = {
     "jsdoc/require-param": [
       "warn",
       {
-        contexts: [{ comment: 'JsdocBlock > JsdocTag[tag="param"]' }],
+        contexts: [
+          {
+            context: "FunctionDeclaration",
+            comment: 'JsdocBlock > JsdocTag[tag="param"]',
+          },
+        ],
       },
     ],
     */
-
     // - jsdoc/require-property - Probably not needed in TypeScript.
 
     /**
