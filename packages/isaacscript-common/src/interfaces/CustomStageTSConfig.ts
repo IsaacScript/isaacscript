@@ -38,8 +38,14 @@ export type CustomStageTSConfig = Readonly<{
    * number of the stage that will be warped to and used as a basis for the stage by the level
    * generation algorithm.
    *
-   * (It is not possible to use Basement 1 as a base stage due to conflicts with the `Game.SetStage`
-   * method.)
+   * For example, if you wanted to have a custom stage with a small amount of rooms per floor, then
+   * you should choose 2 as a base. (This would copy the number of rooms that would appear in
+   * Basement 2.) And if you wanted to have a custom stage with the maximum amount of rooms, then
+   * you should choose 13 as a base. (This would copy the number of rooms that would appear on The
+   * Void.)
+   *
+   * It is not possible to use Basement 1 as a base stage due to conflicts with the `Game.SetStage`
+   * method.
    *
    * If not specified, `LevelStage.BASEMENT_2` (2) will be used.
    *

@@ -21,6 +21,7 @@ import { ROOM_SHAPE_TO_DOOR_SLOTS } from "../objects/roomShapeToDoorSlots";
 import { arrayToBitFlags } from "./bitwise";
 import { directionToVector } from "./direction";
 import { getEnumValues } from "./enums";
+import { hasFlag } from "./flag";
 import { isTSTLSet } from "./tstlClass";
 import { asNumber } from "./types";
 
@@ -53,12 +54,48 @@ export function doorSlotFlagToDoorSlot(doorSlotFlag: DoorSlotFlag): DoorSlot {
   return doorSlot === undefined ? DEFAULT_DOOR_SLOT : doorSlot;
 }
 
+export function doorSlotFlagsToDoorSlots(
+  doorSlotFlags: BitFlags<DoorSlotFlag>,
+): DoorSlot[] {
+  const doorSlots: DoorSlot[] = [];
+
+  for (const doorSlotFlag of getEnumValues(DoorSlotFlag)) {
+    if (hasFlag(doorSlotFlags, doorSlotFlag)) {
+      const doorSlot = doorSlotFlagToDoorSlot(doorSlotFlag);
+      doorSlots.push(doorSlot);
+    }
+  }
+
+  return doorSlots;
+}
+
 export function doorSlotToDirection(doorSlot: DoorSlot): Direction {
   return DOOR_SLOT_TO_DIRECTION[doorSlot];
 }
 
 export function doorSlotToDoorSlotFlag(doorSlot: DoorSlot): DoorSlotFlag {
   return DOOR_SLOT_TO_DOOR_SLOT_FLAG[doorSlot];
+}
+
+/**
+ * Helper function to convert an array of door slots or a set of door slots to the resulting bit
+ * flag number.
+ */
+export function doorSlotsToDoorSlotFlags(
+  doorSlots:
+    | DoorSlot[]
+    | readonly DoorSlot[]
+    | Set<DoorSlot>
+    | ReadonlySet<DoorSlot>,
+): BitFlags<DoorSlotFlag> {
+  const doorSlotArray = isTSTLSet(doorSlots)
+    ? [...doorSlots.values()]
+    : (doorSlots as DoorSlot[]);
+  const doorSlotFlagArray = doorSlotArray.map((doorSlot) =>
+    doorSlotToDoorSlotFlag(doorSlot),
+  );
+
+  return arrayToBitFlags(doorSlotFlagArray);
 }
 
 export function getAngelRoomDoor(): GridEntityDoor | undefined {
@@ -111,27 +148,6 @@ export function getDoorSlotEnterPositionOffset(
   const oppositeVector = vector.mul(-1);
 
   return oppositeVector.mul(ROOM_ENTRY_OFFSET_FROM_DOOR);
-}
-
-/**
- * Helper function to convert an array of door slots or a set of door slots to the resulting bit
- * flag number.
- */
-export function getDoorSlotFlags(
-  doorSlots:
-    | DoorSlot[]
-    | readonly DoorSlot[]
-    | Set<DoorSlot>
-    | ReadonlySet<DoorSlot>,
-): BitFlags<DoorSlotFlag> {
-  const doorSlotArray = isTSTLSet(doorSlots)
-    ? [...doorSlots.values()]
-    : (doorSlots as DoorSlot[]);
-  const doorSlotFlagArray = doorSlotArray.map((doorSlot) =>
-    doorSlotToDoorSlotFlag(doorSlot),
-  );
-
-  return arrayToBitFlags(doorSlotFlagArray);
 }
 
 /** Helper function to get the possible door slots that can exist for a given room shape. */

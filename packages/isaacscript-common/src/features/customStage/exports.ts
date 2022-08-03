@@ -8,6 +8,7 @@
  */
 
 import {
+  DoorSlot,
   EntityType,
   LevelStage,
   RoomShape,
@@ -16,6 +17,7 @@ import {
 } from "isaac-typescript-definitions";
 import { reorderedCallbacksSetStageInternal } from "../../callbacks/reorderedCallbacks";
 import { game } from "../../core/cachedClasses";
+import { doorSlotFlagsToDoorSlots } from "../../functions/doors";
 import { getEntityIDFromConstituents } from "../../functions/entities";
 import { logError } from "../../functions/log";
 import { newRNG } from "../../functions/rng";
@@ -167,8 +169,8 @@ function setStageRoomsData(
     const roomType = room.Data.Type;
     const roomShapeMap = customStage.roomTypeMap.get(roomType);
     if (roomShapeMap === undefined) {
-      // Only show errors for non-default room types. (By default, we won't replace shops and other
-      // special rooms.)
+      // Only show errors for non-default room types. (We do not require that end-users provide
+      // custom rooms for shops and other special rooms inside of their XML file.)
       if (roomType === RoomType.DEFAULT) {
         logError(
           `Failed to find any custom rooms for RoomType.${RoomType[roomType]} (${roomType}) for custom stage: ${customStage.name}`,
@@ -192,6 +194,14 @@ function setStageRoomsData(
       logError(
         `Failed to find any custom rooms for RoomType.${RoomType[roomType]} (${roomType}) + RoomShape.${RoomShape[roomShape]} (${roomShape}) + DoorSlotFlags ${doorSlotFlags} for custom stage: ${customStage.name}`,
       );
+
+      const header = `For reference, a DoorSlotFlags of ${doorSlotFlags} is equal to the following doors being enabled:\n`;
+      const doorSlots = doorSlotFlagsToDoorSlots(doorSlotFlags);
+      const doorSlotLines = doorSlots.map(
+        (doorSlot) => `- DoorSlot.${DoorSlot[doorSlot]} (${doorSlot})`,
+      );
+      const explanation = header + doorSlotLines.join("\n");
+      logError(explanation);
       continue;
     }
 

@@ -40,9 +40,11 @@ This page lists the changes to the IsaacScript framework.
   - `enableDevFeatures`
   - `isCustomGridEntity`
   - `getCustomGridEntityType`
+  - `doorSlotFlagsToDoorSlots`
 - Renamed the following helper functions:
   - `isRoomInsideMap` --> `isRoomInsideGrid`
   - `getRoomsInGrid` --> `getRoomsInsideGrid`
+  - `getDoorSlotFlags` --> `doorSlotsToDoorSlotFlags`
 - Changed the following helper functions:
   - `spawnCustomGridEntity` now supports using any vanilla grid entity type and variant as a base.
   - `keyboardToString` now requires an argument of `uppercase`.
