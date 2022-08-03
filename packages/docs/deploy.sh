@@ -33,6 +33,6 @@ echo "Deploying changes to the docs website: $DOCS_REPO_NAME"
 git config --global user.email "github-actions@users.noreply.github.com"
 git config --global user.name "github-actions"
 
-git add -A
-git commit -m "deploy"
-git push
+git add --all
+git commit --message "deploy" --amend
+git push --force-with-lease
