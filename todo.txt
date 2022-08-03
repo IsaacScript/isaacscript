@@ -1,3 +1,4 @@
+- fix publish with dev tag
 - check for registerCustomBoss and throw run-time error if not present
 - polty
 
