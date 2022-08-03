@@ -159,7 +159,7 @@
     "src/functions/vector.ts",
     "src/interfaces/ChargeBarSprites.ts",
     "src/interfaces/Corner.ts",
-    "src/interfaces/CustomStageLua.ts",
+    "src/interfaces/CustomStageTSConfig.ts",
     "src/interfaces/GridEntityCustomData.ts",
     "src/interfaces/JSONRoomsFile.ts",
     "src/interfaces/PlayerHealth.ts",
