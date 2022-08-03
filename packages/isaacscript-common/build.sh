@@ -34,8 +34,10 @@ npx ts-node --require "tsconfig-paths/register" "$DIR/scripts/rewriteDeclaration
 # to every single private function in order for the TypeScript compiler to remove it from the
 # generated ".d.ts" file. API Extractor automatically knows which functions are public or private by
 # parsing the "index.ts" file, and generates a new ".d.ts" file with private exports removed. Note
-# that end-users can still manually import internal functions, but by removing them from the ".d.ts"
-# file, they will not appear as part of auto-complete, which is good enough for our case.
+# that end-users can still manually import internal functions with e.g.
+# `import { internalFunction } from "isaacscript-common/dist/internal/functions"`, but by removing
+# them from the ".d.ts" file, they will not appear as part of auto-complete, which is good enough
+# for our case.
 npx api-extractor run
 
 # Copy the rest of the files needed for npm.

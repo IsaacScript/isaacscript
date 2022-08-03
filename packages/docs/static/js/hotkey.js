@@ -13,11 +13,6 @@ function initHotkeys() {
 }
 
 function initKeyMap() {
-  keyMap.set("Enter", () => {
-    if (isOnLandingPage()) {
-      navigateForward();
-    }
-  });
   keyMap.set("ArrowLeft", navigateBackward);
   keyMap.set("ArrowRight", navigateForward);
   keyMap.set("f", () => {
