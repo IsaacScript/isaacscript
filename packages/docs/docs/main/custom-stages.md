@@ -35,7 +35,7 @@ For example, if you use Caves 1 as a base for your stage (more on that later), t
 
 <img src="/img/2x2-room.png" />
 
-This is a a 2x2 room with only doors on the left and right sides. When IsaacScript goes to replace this room, it will look through your rooms for a matching room - a 2x2 room with only doors on the left and right sides. If it doesn't find any, then it will give up, and leave the room as-is.
+This is a 2x2 room with only doors on the left and right sides. When IsaacScript goes to replace this room, it will look through your rooms for a matching room - a 2x2 room with only doors on the left and right sides. If it doesn't find any, then it will give up, and leave the room as-is.
 
 Thus, this means that if you want to have 100% custom rooms generated for your custom stage, you must have at least one room for every room shape + door configuration that is present on the base stage.
 
@@ -53,7 +53,7 @@ project/customStages/foo.xml
 
 ### Step 2 - Set Up `tsconfig.json`
 
-After you've created your rooms and saved them as an XML file, the next step to to tell IsaacScript about them. You define and configure your custom stages by adding information to the `tsconfig.json` file. (This is the TypeScript configuration file. It is already included with every IsaacScript mod, and lives in the root of your project.)
+After you have created your rooms and saved them as an XML file, the next step to tell IsaacScript about them. You define and configure your custom stages by adding information to the `tsconfig.json` file. (This is the TypeScript configuration file. It is already included with every IsaacScript mod, and lives in the root of your project.)
 
 First, make sure that it has a "$schema" field at the top:
 

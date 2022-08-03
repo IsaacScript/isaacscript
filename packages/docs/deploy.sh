@@ -32,6 +32,9 @@ echo "Deploying changes to the docs website: $DOCS_REPO_NAME"
 git config --global user.email "github-actions@users.noreply.github.com"
 git config --global user.name "github-actions"
 
+# We overwrite the previous commit instead of adding a new one in order to keep the size of the
+# repository as small as possible. This speeds up deployment because with thousands of commits, it
+# takes a very long time to clone.
 git add --all
 git commit --message "deploy" --amend
 git push --force-with-lease
