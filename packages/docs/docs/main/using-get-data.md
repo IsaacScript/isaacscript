@@ -38,7 +38,7 @@ if (data.sleepCounters === undefined) {
   data.sleepCounters = 0;
 }
 
-// TODO: Do something with the sleep counters.
+// Do something with the sleep counters.
 ```
 
 <br />
