@@ -28,7 +28,7 @@ interface FooData {
 
 Here, the `|` symbol creates a [type union](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#union-types). In other words, the type is "an integer or undefined". (It can't just be an integer because prior to us initializing it with a value, it won't exist at all.)
 
-Once the interface is declared, we can cast the data to our interface in order to make retrieving the counters type safe:
+Once the interface is declared, we can use a type assertion to make retrieving the counters type safe:
 
 ```ts
 const data = entity.GetData() as FooData;
