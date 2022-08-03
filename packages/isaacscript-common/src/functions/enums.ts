@@ -18,7 +18,7 @@ import { irange } from "./utils";
  * Also see the `getEnumKeys` and `getEnumValues` helper functions.
  *
  * For a more in depth explanation, see:
- * https://isaacscript.github.io/gotchas#iterating-over-enums
+ * https://isaacscript.github.io/main/gotchas#iterating-over-enums
  */
 export function getEnumEntries<T>(
   transpiledEnum: T,
@@ -57,7 +57,7 @@ export function getEnumEntries<T>(
  * Also see the `getEnumEntries` and `getEnumValues` helper functions.
  *
  * For a more in depth explanation, see:
- * https://isaacscript.github.io/gotchas#iterating-over-enums
+ * https://isaacscript.github.io/main/gotchas#iterating-over-enums
  */
 export function getEnumKeys<T>(transpiledEnum: T): string[] {
   const enumEntries = getEnumEntries(transpiledEnum);
@@ -84,7 +84,7 @@ export function getEnumLength<T>(transpiledEnum: T): int {
  * Also see the `getEnumEntries` and `getEnumKeys` helper functions.
  *
  * For a more in depth explanation, see:
- * https://isaacscript.github.io/gotchas#iterating-over-enums
+ * https://isaacscript.github.io/main/gotchas#iterating-over-enums
  */
 export function getEnumValues<T>(transpiledEnum: T): Array<T[keyof T]> {
   const enumEntries = getEnumEntries(transpiledEnum);

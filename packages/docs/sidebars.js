@@ -24,8 +24,6 @@ const sidebars = {
         "main/javascript-tutorial",
         "main/example-mod",
         "main/refactoring-mod",
-        "main/converting-lua-code",
-        "main/updating-isaacscript",
         "main/using-get-data",
         "main/enums-and-objects",
       ],
@@ -34,17 +32,14 @@ const sidebars = {
       type: "category",
       label: "Other Info",
       items: [
+        "main/converting-lua-code",
+        "main/updating-isaacscript",
         "main/custom-stages",
         "main/publishing-to-the-workshop",
         "main/gotchas",
       ],
     },
     "main/change-log",
-    {
-      type: "link",
-      label: "IsaacScript Standard Library",
-      href: "/isaacscript-common",
-    },
   ],
 
   isaacTypeScriptDefinitions: [
