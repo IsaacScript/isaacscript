@@ -160,7 +160,7 @@ This will give an error:
 
 If we had typed `FOO = 1` or something like that, then under the hood, TypeScript would automatically convert "1" to a type of `CollectibleTypeCustom`, and we wouldn't get an error. But since we used the `Isaac.GetItemIdByName` method, the value is a `CollectibleType`, which is more specific than a `number`. TypeScript can't automatically convert `CollectibleType` to `CollectibleTypeCustom`, so it throws an error. (In TypeScript, the only supported types that you can feed to an enum member for this auto-conversion are `number` or `string`.)
 
-We could temporarily fix the problem by casting the value to a number, like this:
+We could temporarily fix the problem by using a type assertion, like this:
 
 ```ts
 enum CollectibleTypeCustom {
@@ -168,7 +168,7 @@ enum CollectibleTypeCustom {
 }
 ```
 
-This would make TypeScript succeed in converting the result of the method to the `CollectibleTypeCustom` type. However, this isn't really what we want either. For example, say that later on, we want to give the player our custom collectible:
+This is essentially telling the TypeScript compiler: "Hey, I'm positive this is a `number`, so forget whatever else you think you know about this line." Doing that would make TypeScript succeed in converting the result of the method to the `CollectibleTypeCustom` type. However, this isn't really what we want either. For example, say that later on, we want to give the player our custom collectible:
 
 ```ts
 const player = Isaac.GetPlayer();
