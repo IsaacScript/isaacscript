@@ -1,7 +1,8 @@
 import { isFunction, isPrimitive } from "../functions/types";
 
 /**
- * `DefaultMap` is a data structure that makes working with default values easier.
+ * `DefaultMap` is a data structure that makes working with default values easier. It extends a
+ * `Map` and adds additional methods.
  *
  * It is a common pattern to look up a value in a `Map`, and then, if the value does not exist, set
  * a default value for the key, and then return the default value. `DefaultMap` abstracts this
@@ -89,7 +90,7 @@ export class DefaultMap<Key, Value, Args extends unknown[] = []> extends Map<
 
   /**
    * See the main `DefaultMap` documentation:
-   * https://isaacscript.github.io/isaacscript-common/classes/classes_DefaultMap.DefaultMap
+   * https://isaacscript.github.io/isaacscript-common/other/classes/DefaultMap
    */
   constructor(
     defaultValueOrFactoryFunction: Value | FactoryFunction<Value, Args>,

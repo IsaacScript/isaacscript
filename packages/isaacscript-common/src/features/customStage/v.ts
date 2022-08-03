@@ -1,4 +1,5 @@
 import { ControllerIndex } from "isaac-typescript-definitions";
+import { CustomBossDescription } from "../../interfaces/private/CustomBossDescription";
 import { CustomStage } from "../../interfaces/private/CustomStage";
 import { UIStreakAnimation } from "./customStageConstants";
 
@@ -42,7 +43,4 @@ export const customStagesMap = new Map<string, CustomStage>();
 export const customStageCachedRoomData = new Map<int, Readonly<RoomConfig>>();
 
 /** Indexed by entity ID. */
-export const customBossPNGPaths = new Map<
-  string,
-  [namePNGPath: string, portraitPNGPath: string]
->();
+export const customBosses = new Map<string, CustomBossDescription>();

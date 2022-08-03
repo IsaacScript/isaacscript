@@ -25,10 +25,11 @@ import {
 } from "../../functions/rooms";
 import { setStage } from "../../functions/stage";
 import { asNumber } from "../../functions/types";
+import { CustomBossDescription } from "../../interfaces/private/CustomBossDescription";
 import { CustomStage } from "../../interfaces/private/CustomStage";
 import { getRandomCustomStageRoom } from "./customStageUtils";
 import v, {
-  customBossPNGPaths,
+  customBosses,
   customStageCachedRoomData,
   customStagesMap,
 } from "./v";
@@ -62,6 +63,8 @@ export function setCustomStage(
       `Failed to set the custom stage of "${name}" because it was not found in the custom stages map. (Try restarting IsaacScript / recompiling the mod / restarting the game, and try again. If that does not work, you probably forgot to define it in your "tsconfig.json" file.) See the website for more details on how to set up custom stages.`,
     );
   }
+
+  validateBossPool(customStage);
 
   const level = game.GetLevel();
   const stage = level.GetStage();
@@ -111,6 +114,35 @@ export function setCustomStage(
   // both of these things by initiating a room transition to an arbitrary room. However, we rely on
   // the parent function to do this, since for normal purposes, we need to initiate a room
   // transition for the pixelation effect.
+}
+
+/**
+ * We validate that the bosses exist at stage-deploy-time rather than during stage initialization
+ * because the first thing that end-users will do is upgrade their mod. They will register their
+ * custom bosses after that.
+ */
+function validateBossPool(customStage: CustomStage) {
+  if (customStage.bossPool === undefined) {
+    return;
+  }
+
+  for (const bossEntry of customStage.bossPool) {
+    if (!isCustomBossRegistered(bossEntry.name)) {
+      error(
+        `Failed to initialize the custom stage of "${customStage.name}" because the boss of "${bossEntry.name}" is not registered yet. After upgrading your mod, make sure to register all of your custom bosses with the "registerCustomBoss" helper command.`,
+      );
+    }
+  }
+}
+
+function isCustomBossRegistered(customBossName: string) {
+  for (const name of customBosses.keys()) {
+    if (name === customBossName) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 /** Pick a custom room for each vanilla room. */
@@ -202,6 +234,7 @@ function setStageRoomsData(
  * in the "tsconfig.json" file because there is not a way to retrieve the name of an entity at
  * run-time.)
  *
+ * @param name The name of the custom boss.
  * @param entityType The entity type of the custom boss.
  * @param variant The variant of the custom boss.
  * @param subType The sub-type of the custom boss.
@@ -211,6 +244,7 @@ function setStageRoomsData(
  *                        will be displayed on the right side of the boss "versus" screen.
  */
 export function registerCustomBoss(
+  name: string,
   entityType: EntityType,
   variant: int,
   subType: int,
@@ -218,7 +252,12 @@ export function registerCustomBoss(
   portraitPNGPath: string,
 ): void {
   const entityID = getEntityIDFromConstituents(entityType, variant, subType);
-  customBossPNGPaths.set(entityID, [namePNGPath, portraitPNGPath]);
+  const customBossDescription: CustomBossDescription = {
+    name,
+    namePNGPath,
+    portraitPNGPath,
+  };
+  customBosses.set(entityID, customBossDescription);
 }
 
 /**

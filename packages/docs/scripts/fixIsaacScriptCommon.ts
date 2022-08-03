@@ -109,6 +109,7 @@ const OTHER_DIR_NAMES: readonly string[] = [
   "enums",
   "interfaces",
   "maps",
+  "objects",
   "types",
 ];
 

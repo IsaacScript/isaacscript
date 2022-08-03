@@ -26,7 +26,7 @@ import {
   DEFAULT_BASE_STAGE_TYPE,
   INVALID_STAGE_VALUE,
 } from "./exports";
-import v, { customBossPNGPaths } from "./v";
+import v, { customBosses } from "./v";
 
 const DEFAULT_CHARACTER = PlayerType.ISAAC;
 const DEFAULT_STAGE_ID = StageID.BASEMENT;
@@ -221,9 +221,9 @@ function getBossPNGPaths(): [
   // Prefer the PNG paths specified by the end-user, if any.
   if (firstBoss !== undefined) {
     const entityID = getEntityID(firstBoss);
-    const pngPaths = customBossPNGPaths.get(entityID);
-    if (pngPaths !== undefined) {
-      return pngPaths;
+    const customBoss = customBosses.get(entityID);
+    if (customBoss !== undefined) {
+      return [customBoss.namePNGPath, customBoss.portraitPNGPath];
     }
   }
 
