@@ -17,7 +17,7 @@ Programming mods in Lua can be really painful:
 
 With Lua, it is easy to shoot yourself in the foot after making even the smallest typo. When building an Isaac mod, you end up wasting an enormous amount of time running around in-game debugging run-time errors, and pouring through the "log.txt" file. Not my idea of fun, and probably not yours either.
 
-### <img src="/img/items/sad-onion.png" className="features-icon" /> Extremely Limited Language Constructs
+### <img src="/img/items/sad-onion.png" className="features-icon" /> Limited Language Constructs
 
 In Lua, you type `x = x + 1`. In TypeScript, you type `x++`. Lua doesn't have increment/decrement operators, assignment operators, switch statements, optional function arguments, array/object destructuring, or map/filter/reduce. And that's just to start with.
 
