@@ -77,7 +77,7 @@ This might print out: `DEBUG - The active slot is: 2`. But that's annoying, beca
 log(`DEBUG - The active slot is: ${ActiveSlot[activeSlot]} (${activeSlot})`);
 ```
 
-This would print out: `DEBUG - The active slot is: POCKET (2)`. Much better! In essence, the reverse mapping helps us easily retrieve the name of any enum value when we need it. We can also do lookups in O(1) time. (On an object, the time to do this would be O(N), since we would have to iterate over the entries.)
+This would print out: `DEBUG - The active slot is: POCKET (2)`. Much better! In essence, the reverse mapping helps us easily retrieve the name of any enum value when we need it. (The looks are done in O(1) time. On an object, it would be O(N) time, since we would have to iterate over the entries.)
 
 #### Conclusion - Use Enums
 
