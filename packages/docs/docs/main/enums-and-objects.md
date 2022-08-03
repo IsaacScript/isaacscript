@@ -185,6 +185,6 @@ const CollectibleTypeCustom = {
 };
 ```
 
-You can use this pattern whenever you want to create a custom enum that "inherits" the type of an existing enum. For most intents and purposes, these "container" objects will work in the same way as a normal enum. (But note that they won't have a [reverse mapping](#3-reverse-mapping) embedded into them.)
+We can use this pattern whenever we want to create a custom enum that "inherits" the type of an existing enum. For most intents and purposes, these "container" objects will work in the same way as a normal enum. (But note that they won't have a [reverse mapping](#3-reverse-mapping) embedded into them.)
 
 <br />
