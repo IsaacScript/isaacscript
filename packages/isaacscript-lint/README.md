@@ -142,28 +142,30 @@ You can add extra rules (or ignore existing rules) by editing the `rules` sectio
 
 ### Extensions
 
-In order for the linter inside of VSCode, you will have to install the following extensions:
+In order for the linter to work inside of VSCode, you will have to install the following extensions:
 
 - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 
-### `.vscode/settings.json`
+#### `.vscode/settings.json`
 
 Furthermore, you will probably want Prettier and ESLint to be run automatically every time you save a TypeScript file. You can tell VSCode to do this by adding the following to your project's `.vscode/settings.json` file:
 
 ```jsonc
-// These are Visual Studio Code settings that should apply to this particular repository
+// These are Visual Studio Code settings that should apply to this particular repository.
 {
   "[javascript]": {
     "editor.codeActionsOnSave": ["source.fixAll.eslint"],
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2
   },
 
   "[typescript]": {
     "editor.codeActionsOnSave": ["source.fixAll.eslint"],
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2
   }
 }
 ```
@@ -172,7 +174,7 @@ Furthermore, you will probably want Prettier and ESLint to be run automatically 
 
 You can also commit this file to your project's repository so that this behavior is automatically inherited by anyone who clones the project (and uses VSCode).
 
-### `.vscode/extensions.json`
+#### `.vscode/extensions.json`
 
 Optionally, you can also provide a hint to anyone cloning your repository that they should install the required extensions:
 
@@ -206,10 +208,9 @@ Optionally, you can also provide a hint to anyone cloning your repository that t
 - [`eslint-plugin-eslint-comments`](https://github.com/mysticatea/eslint-plugin-eslint-comments) - A plugin that provides rules relating to ESLint comments.
 - [`eslint-plugin-import`](https://github.com/benmosher/eslint-plugin-import) - Required as a peer dependency for `eslint-config-airbnb-base`.
 - [`eslint-plugin-jsdoc`](https://github.com/gajus/eslint-plugin-jsdoc) - A plugin that provides rules for [JSDoc](https://en.wikipedia.org/wiki/JSDoc).
-- [`eslint-plugin-no-implicit-map-set-loops`](https://github.com/Zamiell/eslint-plugin-no-implicit-map-set-loops) - A plugin that prevents unsafe iteration.
-- [`eslint-plugin-no-type-assertion`](https://github.com/Dremora/eslint-plugin-no-type-assertion) - A plugin that detects type assertions.
+- [`eslint-plugin-no-type-assertion`](https://github.com/Dremora/eslint-plugin-no-type-assertion) - A plugin that detects type assertions. (In the standard config, these rules are not turned on automatically, but they are extremely useful in certain specific contexts.)
 - [`eslint-plugin-only-warn`](https://github.com/bfanger/eslint-plugin-only-warn) - A plugin that turns all errors to warnings.
-- [`eslint-plugin-sort-exports`](https://github.com/jrdrg/eslint-plugin-sort-exports) - A plugin that allows exports to be sorted alphabetically.
+- [`eslint-plugin-sort-exports`](https://github.com/jrdrg/eslint-plugin-sort-exports) - A plugin that allows exports to be sorted alphabetically. (In the standard config, these rules are not turned on automatically, but they are extremely useful in certain specific contexts.)
 - [`prettier`](https://github.com/prettier/prettier) - This is the main code formatter, as explained above.
 - [`prettier-plugin-organize-imports`](https://github.com/simonhaenisch/prettier-plugin-organize-imports) - A plugin used because Prettier will not organize imports automatically. (It has no configuration and is automatically applied to Prettier if it is installed.)
 - [`ts-prune`](https://github.com/nadeesha/ts-prune) - A tool to look for unused exports, which catches bugs that the `import/no-unused-modules` rule cannot find.

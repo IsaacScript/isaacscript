@@ -9,8 +9,11 @@
  *
  * The `CustomStageLua` interface extends this, adding room metadata.
  */
+
+import { Immutable } from "../types/Immutable";
+
 // ts-prune-ignore-next
-export type CustomStageTSConfig = Readonly<{
+export interface CustomStageTSConfig {
   /** Mandatory. The name of the custom stage. */
   name: string;
 
@@ -71,7 +74,7 @@ export type CustomStageTSConfig = Readonly<{
    * the graphics for the walls and floor.) If not specified, the graphics for Basement will be
    * used.
    */
-  backdropPNGPaths?: Readonly<{
+  backdropPNGPaths: {
     /**
      * An array that contains the full paths to the graphic files that are used for the floor in
      * narrow rooms. (The "n" stands for "narrow").
@@ -81,7 +84,7 @@ export type CustomStageTSConfig = Readonly<{
      *
      * For an example of this, see the vanilla file "resources/gfx/backdrop/01_basement_nfloor.png".
      */
-    nFloors: readonly string[];
+    nFloors: string[];
 
     /**
      * An array that contains the full paths to the graphic files that are used for the floor in L
@@ -92,7 +95,7 @@ export type CustomStageTSConfig = Readonly<{
      *
      * For an example of this, see the vanilla file "resources/gfx/backdrop/01_lbasementfloor.png".
      */
-    lFloors: readonly string[];
+    lFloors: string[];
 
     /**
      * An array that contains the full paths to the graphic files that are used for the walls of the
@@ -105,7 +108,7 @@ export type CustomStageTSConfig = Readonly<{
      * the vanilla file, they concatenate all four variations together into one PNG file. However,
      * for the custom stages feature, you must separate each wall variation into a separate file.)
      */
-    walls: readonly string[];
+    walls: string[];
 
     /**
      * An array that contains the full paths to the graphic files for the stage's corners.
@@ -120,8 +123,8 @@ export type CustomStageTSConfig = Readonly<{
      * you must separate each corner variation into a separate file (and put it in a different file
      * from the walls).
      */
-    corners: readonly string[];
-  }>;
+    corners: string[];
+  };
 
   /**
    * Optional. The full path to the spritesheet that contains the graphics of the decorations for
@@ -159,7 +162,7 @@ export type CustomStageTSConfig = Readonly<{
    * Optional. A collection of paths that contain graphics for the doors of the floor. If not
    * specified, the doors for Basement will be used.
    */
-  doorPNGPaths?: Readonly<{
+  doorPNGPaths?: {
     /**
      * Optional. The full path to the spritesheet that contains the graphics of the normal doors for
      * the floor.
@@ -267,7 +270,7 @@ export type CustomStageTSConfig = Readonly<{
      * located at: `resources/gfx/grid/door_02b_chestroomdoor.png`
      */
     chestRoom?: string; // RoomType.CHEST (20)
-  }>;
+  };
 
   /**
    * Optional. An array of shadow objects that describe the graphics for the custom shadows of the
@@ -275,7 +278,7 @@ export type CustomStageTSConfig = Readonly<{
    * Basement, a shadow of a sideways V is used, among others.) If not specified, no extra shadows
    * will be drawn.
    */
-  shadows?: Readonly<{
+  shadows?: {
     /**
      * Optional. An array containing the shadows that will be used in rooms of shape
      * `RoomShape.SHAPE_1x1` (1), `RoomShape.IH` (2), and `RoomShape.IV` (3).
@@ -284,7 +287,7 @@ export type CustomStageTSConfig = Readonly<{
      *
      * If not specified, no extra shadows will be drawn in these room shapes.
      */
-    "1x1"?: readonly CustomStageShadow[];
+    "1x1"?: CustomStageShadow[];
 
     /**
      * Optional. An array containing the shadows that will be used in rooms of shape
@@ -294,7 +297,7 @@ export type CustomStageTSConfig = Readonly<{
      *
      * If not specified, no extra shadows will be drawn in these room shapes.
      */
-    "1x2"?: readonly CustomStageShadow[];
+    "1x2"?: CustomStageShadow[];
 
     /**
      * Optional. An array containing the shadows that will be used in rooms of shape
@@ -304,7 +307,7 @@ export type CustomStageTSConfig = Readonly<{
      *
      * If not specified, no extra shadows will be drawn in these room shapes.
      */
-    "2x1"?: readonly CustomStageShadow[];
+    "2x1"?: CustomStageShadow[];
 
     /**
      * Optional. An array containing the shadows that will be used in rooms of shape
@@ -315,14 +318,22 @@ export type CustomStageTSConfig = Readonly<{
      *
      * If not specified, no extra shadows will be drawn in these room shapes.
      */
-    "2x2"?: readonly CustomStageShadow[];
-  }>;
+    "2x2"?: CustomStageShadow[];
+  };
 
-  /** Optional. An array containing the bosses that should be used for the stage. */
-  bossPool?: readonly CustomStageBossPoolEntry[];
+  /**
+   * Optional. An array containing the bosses that should be used for the stage. This can include
+   * both vanilla bosses and modded bosses.
+   */
+  bossPool?: CustomStageBossPoolEntry[];
 
-  /** Optional. A collection of colors used in the boss "versus" screen. */
-  versusScreen?: Readonly<{
+  /**
+   * Optional. A collection of colors used for in the boss "versus" screen for all of the bosses.
+   *
+   * Note that these graphics will only be applied if one or more bosses are specified in the
+   * `bossPool` field.
+   */
+  versusScreen?: {
     /**
      * Optional. An object representing the color to use for the background of the boss "versus"
      * screen. If not specified, the color for Basement 1 will be used.
@@ -330,7 +341,7 @@ export type CustomStageTSConfig = Readonly<{
      * For a list of the colors that correspond to the vanilla stages, see
      * `versusScreenBackgroundColors.ts`.
      */
-    backgroundColor?: Readonly<{
+    backgroundColor?: {
       /**
        * @minimum 0
        * @maximum 1
@@ -354,7 +365,7 @@ export type CustomStageTSConfig = Readonly<{
        * @maximum 1
        */
       a: number;
-    }>;
+    };
 
     /**
      * Optional. An object representing the color to use for the dirt spots in the boss "versus"
@@ -364,7 +375,7 @@ export type CustomStageTSConfig = Readonly<{
      * For a list of the colors that correspond to the vanilla stages, see
      * `versusScreenDirtSpotColors.ts`.
      */
-    dirtSpotColor?: Readonly<{
+    dirtSpotColor?: {
       /**
        * @minimum 0
        * @maximum 1
@@ -388,16 +399,16 @@ export type CustomStageTSConfig = Readonly<{
        * @maximum 1
        */
       a: number;
-    }>;
-  }>;
-}>;
+    };
+  };
+}
 
 /**
  * A description of a custom stage shadow. (In this context, "shadows" are the outlines from things
  * on the roof. For example, in Basement, a shadow of a sideways V is used, among others.)
  */
 // ts-prune-ignore-next
-export type CustomStageShadow = Readonly<{
+export interface CustomStageShadow {
   /**
    * The full path to the shadow overlay PNG file.
    *
@@ -412,7 +423,7 @@ export type CustomStageShadow = Readonly<{
    * If not specified, an object of `{ r: 0, g: 0, b: 0, a: 0.25 }` will be used (which corresponds
    * to 75% faded black).
    */
-  color?: Readonly<{
+  color?: {
     /**
      * @minimum 0
      * @maximum 1
@@ -436,20 +447,38 @@ export type CustomStageShadow = Readonly<{
      * @maximum 1
      */
     a: number;
-  }>;
-}>;
+  };
+}
 
-/** An object that represents a possible boss for a custom stage. */
+/**
+ * An object that represents a possible boss for a custom stage. This can be for a vanilla boss or a
+ * custom boss.
+ */
 // ts-prune-ignore-next
 export interface CustomStageBossPoolEntry {
   /**
-   * The name of the boss. This must correspond to the entry in "entities2.xml".
-   *
-   * Note that since there is no way to determine the corresponding `EntityType` of the boss during
-   * compile-time, you must specify the `EntityType` at run-time when your mod first loads using the
-   * `registerCustomBoss` helper function.
+   * The name of the boss. This should correspond to the entry for the boss in the "entities2.xml"
+   * file.
    */
   name: string;
+
+  /**
+   * The arbitrary sub-type chosen for this boss, ranging between 1 and 999. You must set the boss
+   * rooms for this boss to this sub-type in Basement Renovator by right-clicking on the room on the
+   * right-hand-side.
+   *
+   * It does not matter if the arbitrary sub-type overlaps with any of the vanilla `BossID` values
+   * (e.g. vanilla Boss Room sub-types in "00.special_rooms.stb"). It also does not matter if this
+   * value overlaps with the values from other mods.
+   *
+   * If you are creating an entry for a vanilla boss, it is recommended that you match the sub-type
+   * with the corresponding vanilla `BossID` value. This will make things a bit easier to understand
+   * for people working on your mod, but is not a hard requirement.
+   *
+   * @minimum 1
+   * @maximum 999
+   */
+  subType: number;
 
   /**
    * The weight of the boss. This is used when randomly selecting which boss to use for the floor.
@@ -457,6 +486,27 @@ export interface CustomStageBossPoolEntry {
    * if you want it to be half as likely, 2 if you want it to be twice as likely, and so on.
    */
   weight: number;
+
+  /** Optional. A collection of sprites used for the boss on the "versus" screen. */
+  versusScreen?: {
+    // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
+    /**
+     * Mandatory. The full path to the spritesheet that contains the graphics of the name of the
+     * boss that will be displayed on the top of the boss "versus" screen.
+     *
+     * If not specified, a sprite showing "???" will be used.
+     */
+    namePNGPath: string;
+
+    // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
+    /**
+     * Mandatory. The full path to the spritesheet that contains the portrait of the boss that will
+     * be displayed on the right side of the boss "versus" screen.
+     *
+     * If not specified, a sprite showing "???" will be used.
+     */
+    portraitPNGPath: string;
+  };
 }
 
 /**
@@ -465,17 +515,18 @@ export interface CustomStageBossPoolEntry {
  * "tsconfig.json" file.
  *
  * The `CustomStage` interface extends this, adding more data.
- *
- * @internal
  */
-export interface CustomStageLua extends CustomStageTSConfig {
+interface CustomStageLuaUnsafe extends CustomStageTSConfig {
   /**
    * This contains metadata about each room in a custom stage, which is used at run-time.
    * (Internally, the IsaacScript standard library uses this as a basis for determining which rooms
    * should randomly appear on the floor.)
    */
-  readonly roomsMetadata: readonly CustomStageRoomMetadata[];
+  roomsMetadata: CustomStageRoomMetadata[];
 }
+
+/** @internal */
+export type CustomStageLua = Immutable<CustomStageLuaUnsafe>;
 
 /**
  * Metadata about a custom stage room. Each custom stage object contains an array with metadata for
@@ -483,11 +534,11 @@ export interface CustomStageLua extends CustomStageTSConfig {
  *
  * @internal
  */
-export type CustomStageRoomMetadata = Readonly<{
+export interface CustomStageRoomMetadata {
   type: number;
   variant: number;
   subType: number;
   shape: number;
   doorSlotFlags: number;
   weight: number;
-}>;
+}

@@ -6,5 +6,6 @@
     "dbaeumer.vscode-eslint", // The TypeScript linter
     "streetsidesoftware.code-spell-checker", // A spell-checker extension based on cspell
     "typescript-to-lua.vscode-typescript-to-lua", // The TypeScriptToLua extension
+    "redhat.vscode-xml", // The XML language server
   ],
 }

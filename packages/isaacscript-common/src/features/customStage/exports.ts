@@ -9,7 +9,6 @@
 
 import {
   DoorSlot,
-  EntityType,
   LevelStage,
   RoomShape,
   RoomType,
@@ -18,7 +17,6 @@ import {
 import { reorderedCallbacksSetStageInternal } from "../../callbacks/reorderedCallbacks";
 import { game } from "../../core/cachedClasses";
 import { doorSlotFlagsToDoorSlots } from "../../functions/doors";
-import { getEntityIDFromConstituents } from "../../functions/entities";
 import { logError } from "../../functions/log";
 import { newRNG } from "../../functions/rng";
 import {
@@ -27,14 +25,13 @@ import {
 } from "../../functions/rooms";
 import { setStage } from "../../functions/stage";
 import { asNumber } from "../../functions/types";
-import { CustomBossDescription } from "../../interfaces/private/CustomBossDescription";
+import { CustomStageRoomMetadata } from "../../interfaces/CustomStageTSConfig";
 import { CustomStage } from "../../interfaces/private/CustomStage";
-import { getRandomCustomStageRoom } from "./customStageUtils";
-import v, {
-  customBosses,
-  customStageCachedRoomData,
-  customStagesMap,
-} from "./v";
+import {
+  getRandomBossRoomFromPool,
+  getRandomCustomStageRoom,
+} from "./customStageUtils";
+import v, { customStageCachedRoomData, customStagesMap } from "./v";
 
 export const DEFAULT_BASE_STAGE = LevelStage.BASEMENT_2;
 export const DEFAULT_BASE_STAGE_TYPE = StageType.ORIGINAL;
@@ -65,8 +62,6 @@ export function setCustomStage(
       `Failed to set the custom stage of "${name}" because it was not found in the custom stages map. (Try restarting IsaacScript / recompiling the mod / restarting the game, and try again. If that does not work, you probably forgot to define it in your "tsconfig.json" file.) See the website for more details on how to set up custom stages.`,
     );
   }
-
-  validateBossPool(customStage);
 
   const level = game.GetLevel();
   const stage = level.GetStage();
@@ -116,35 +111,6 @@ export function setCustomStage(
   // both of these things by initiating a room transition to an arbitrary room. However, we rely on
   // the parent function to do this, since for normal purposes, we need to initiate a room
   // transition for the pixelation effect.
-}
-
-/**
- * We validate that the bosses exist at stage-deploy-time rather than during stage initialization
- * because the first thing that end-users will do is upgrade their mod. They will register their
- * custom bosses after that.
- */
-function validateBossPool(customStage: CustomStage) {
-  if (customStage.bossPool === undefined) {
-    return;
-  }
-
-  for (const bossEntry of customStage.bossPool) {
-    if (!isCustomBossRegistered(bossEntry.name)) {
-      error(
-        `Failed to initialize the custom stage of "${customStage.name}" because the boss of "${bossEntry.name}" is not registered yet. After upgrading your mod, make sure to register all of your custom bosses with the "registerCustomBoss" helper command.`,
-      );
-    }
-  }
-}
-
-function isCustomBossRegistered(customBossName: string) {
-  for (const name of customBosses.keys()) {
-    if (name === customBossName) {
-      return true;
-    }
-  }
-
-  return false;
 }
 
 /** Pick a custom room for each vanilla room. */
@@ -205,7 +171,21 @@ function setStageRoomsData(
       continue;
     }
 
-    const randomRoom = getRandomCustomStageRoom(roomsMetadata, rng, verbose);
+    let randomRoom: CustomStageRoomMetadata;
+    if (roomType === RoomType.BOSS) {
+      if (customStage.bossPool === undefined) {
+        continue;
+      }
+
+      randomRoom = getRandomBossRoomFromPool(
+        roomsMetadata,
+        customStage.bossPool,
+        rng,
+        verbose,
+      );
+    } else {
+      randomRoom = getRandomCustomStageRoom(roomsMetadata, rng, verbose);
+    }
 
     let newRoomData = customStageCachedRoomData.get(randomRoom.variant);
     if (newRoomData === undefined) {
@@ -227,47 +207,6 @@ function setStageRoomsData(
 
     room.Data = newRoomData;
   }
-}
-
-/**
- * By default, unknown bosses will be drawn on the boss "versus" screen as "???". If your custom
- * stage has custom bosses, you can use this function to register the corresponding graphic file
- * files for them.
- *
- * For reference:
- * - The vanilla name sprite for Monstro is located at:
- *   `resources/gfx/ui/boss/bossname_20.0_monstro.png`
- * - The vanilla portrait sprite for Monstro is located at:
- *   `resources/gfx/ui/boss/portrait_20.0_monstro.png`
- *
- * (Note that boss metadata like this cannot be specified with the rest of the custom stage metadata
- * in the "tsconfig.json" file because there is not a way to retrieve the name of an entity at
- * run-time.)
- *
- * @param name The name of the custom boss.
- * @param entityType The entity type of the custom boss.
- * @param variant The variant of the custom boss.
- * @param subType The sub-type of the custom boss.
- * @param namePNGPath The full path to the PNG file that contains the name of the boss that will be
- *                    displayed on the top of the boss "versus" screen.
- * @param portraitPNGPath The full path to the PNG file that contains the portrait of the boss that
- *                        will be displayed on the right side of the boss "versus" screen.
- */
-export function registerCustomBoss(
-  name: string,
-  entityType: EntityType,
-  variant: int,
-  subType: int,
-  namePNGPath: string,
-  portraitPNGPath: string,
-): void {
-  const entityID = getEntityIDFromConstituents(entityType, variant, subType);
-  const customBossDescription: CustomBossDescription = {
-    name,
-    namePNGPath,
-    portraitPNGPath,
-  };
-  customBosses.set(entityID, customBossDescription);
 }
 
 /**

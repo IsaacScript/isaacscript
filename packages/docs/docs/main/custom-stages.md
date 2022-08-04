@@ -47,7 +47,11 @@ Once you have created your rooms, save them as an XML file in the following loca
 project/customStages/foo.xml
 ```
 
-(This assumes that your mod is called "project" and your custom stage is called "foo". Note that you can actually save the XML file anywhere you like, as long as the path lines up with what you specify in the `tsconfig.json` file. You probably shouldn't put it in your "mod" directory though, since this file does not actually need to be uploaded to the Steam Workshop.)
+(This assumes that your mod is called "project" and your custom stage is called "foo".)
+
+You don't need to save/include the corresponding STB file; all IsaacScript needs is the XML.
+
+Note that you can actually save the XML file anywhere you like, as long as the path lines up with what you specify in the `tsconfig.json` file (more on that later). You probably shouldn't put it in your "mod" directory though, since the XML file does not actually need to be uploaded to the Steam Workshop.
 
 <br />
 
@@ -60,8 +64,8 @@ First, make sure that it has a "$schema" field at the top:
 <!-- We specify the following code block as "ts" instead of "jsonc" because Docusaurus will mess up the syntax highlighting. -->
 
 ```ts
-  // We specify the schema to get auto-complete and validation.
-  "$schema": "https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/schemas/tsconfig-isaacscript-schema.json",
+// We specify the schema to get auto-complete and validation.
+"$schema": "https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/schemas/tsconfig-isaacscript-schema.json",
 ```
 
 Second, make sure it has an "isaacscript" field at the bottom:
@@ -69,21 +73,21 @@ Second, make sure it has an "isaacscript" field at the bottom:
 <!-- We specify the following code block as "ts" instead of "jsonc" because Docusaurus will mess up the syntax highlighting. -->
 
 ```ts
-  // IsaacScript settings
-  "isaacscript": {
-    // A list of objects that represent the custom stages that are in your mod, if any. See:
-    // https://isaacscript.github.io/main/custom-stages
-    "customStages": [
-      {
-        "name": "Foo",
-        "xmlPath": "./customStages/foo.xml",
-        "roomVariantPrefix": 100,
-      },
-    ],
-  },
+// IsaacScript settings
+"isaacscript": {
+  // A list of objects that represent the custom stages that are in your mod, if any. See:
+  // https://isaacscript.github.io/main/custom-stages
+  "customStages": [
+    {
+      "name": "Foo",
+      "xmlPath": "./customStages/foo.xml",
+      "roomVariantPrefix": 100,
+    },
+  ],
+},
 ```
 
-For the most basic stage, only the `name`, `xmlPath`, and `roomVariantPrefix` fields are required. But you will likely want to make additional customizations. There are many more optional fields that you can specify, like `baseStage` to specify what vanilla floor number should be used as a base for the stage. These optional fields are documented in the [`CustomStageTSConfig` interface](https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-common/src/interfaces/CustomStageTSConfig.ts), so keep that in mind.
+For the most basic stage, only the `name`, `xmlPath`, and `roomVariantPrefix` fields are required. But you will likely want to make additional customizations. There are many more optional fields that you can specify, like `baseStage` to specify what vanilla floor number should be used as a base for the stage. These optional fields are documented in the [`CustomStageTSConfig` interface](/isaacscript-common/other/interfaces/CustomStageTSConfig), so keep that in mind.
 
 When you are first building and testing your custom stage, you can use a `roomVariantPrefix` of 100. But before you publish your mod to the Steam Workshop, you need to choose a unique number that won't conflict with any other mods. For more information, see the [Custom Stage Room Variant Prefixes](#custom-stage-room-variant-prefixes) section below.
 
@@ -93,7 +97,7 @@ When you are first building and testing your custom stage, you can use a `roomVa
 
 Once you have created your custom rooms and defined your custom stage in the `tsconfig.json` file, you need to add some code to your mod to generate a way for the player to get there. Obviously, the specifics of this will depend on how you want your custom stage to work. Maybe you want to add an additional trapdoor next to the Downpour trapdoor, or maybe you want to add an additional trapdoor inside of the Basement 1 shop.
 
-As an example, let's imagine that we want a trapdoor to appear in the top-left hand corner of the starting room of the run. To create a custom trapdoor, you simply use the [`spawnCustomTrapdoor`](/isaacscript-common/features/customTrapdoor_exports) helper function. (You can use custom trapdoors to go to both custom stages and vanilla stages, but in this case we will specify that the destination is our custom stage.)
+As an example, let's imagine that we want a trapdoor to appear in the top-left hand corner of the starting room of the run. To create a custom trapdoor, we simply use the [`spawnCustomTrapdoor`](/isaacscript-common/features/customTrapdoor_exports) helper function. (You can use custom trapdoors to go to both custom stages and vanilla stages, but in this case we will specify that the destination is our custom stage.)
 
 ```ts
 const TOP_LEFT_CORNER_GRID_INDEX = 32;
@@ -105,7 +109,7 @@ function postGameStarted() {
 
 Here, `["Foo", 1]` means "go to Foo 1". (We could also bypass Foo 1 and go directly to Foo 2 by specifying `["Foo", 2]`.)
 
-Now, by jumping into the trapdoor, we will be taken to the custom stage. That's really all that we need to do!
+Now, by jumping into the trapdoor, you will be taken to the custom stage. That's all we need to do!
 
 If you want to code some custom way to travel to the custom stage that does not involve a trapdoor, you can do that too. See the following section.
 
@@ -130,7 +134,48 @@ registerHotkey(Keyboard.F1, () => {
 
 If your custom stage does not have any custom bosses, then a vanilla boss will appear in the boss room corresponding to the base stage and stage type that you have specified. For example, if you chose Caves 1 as a base, then you would randomly get a boss of Chub, C.H.A.D., Gurdy, and so on.
 
-If you specify the `bossPool` field in the `tsconfig.json` file, then the stage library will replace the vanilla boss room with a randomly selected boss room from the pool you have specified.
+On the other hand, if you specify the `bossPool` field in the `tsconfig.json` file, then the stage library will replace the vanilla boss room with a randomly selected one from the pool.
+
+For example, imagine that your custom stage had two bosses, Alice and Bob. First, we would create them in the `entities2.xml` file, like we would for any other custom NPC:
+
+```xml
+<entity name="Alice" anm2path="custom-bosses/alice.anm2" baseHP="234" boss="1" champion="0" collisionDamage="1" collisionMass="20" collisionRadius="20" friction="1" gridCollision="walls" numGridCollisionPoints="12" portrait="111" shadowSize="30" stageHP="0" variant="0">
+  <gibs amount="10" blood="1" bone="0" eye="1" gut="1" large="1" />
+</entity>
+
+<entity name="Bob" anm2path="custom-bosses/bob.anm2" baseHP="234" boss="1" champion="0" collisionDamage="1" collisionMass="20" collisionRadius="20" friction="1" gridCollision="walls" numGridCollisionPoints="12" portrait="111" shadowSize="30" stageHP="0" variant="0">
+  <gibs amount="10" blood="1" bone="0" eye="1" gut="1" large="1" />
+</entity>
+```
+
+(We should not specify the `bossID` field when declaring our entities here - that isn't needed.)
+
+Second, we would create rooms for each boss in Basement Renovator. Make sure that each room has a type of a Boss Room, and an arbitrarily chosen sub-type corresponding to the boss. For example, we'll choose Alice to have a sub-type of 1, and Bob to have a sub-type of 2.
+
+On the right-hand side of Basement Renovator, you can right click on the room in order to change its type and sub-type. The top-most field is the type, which defaults to "Normal Room". The bottom-most filed is the sub-type, which defaults to 0.
+
+Third, we need to specify our bosses in the `bossPool` field of our `tsconfig.json` file:
+
+```ts
+"bossPool": [
+  {
+    "name": "Alice",
+    "subType": 1,
+    "weight": 3,
+  },
+  {
+    "name": "Bob",
+    "subType": 2,
+    "weight": 1,
+  },
+],
+```
+
+Here, we map the name of the boss to the arbitrarily chosen sub-type. By specifying a sub-type of 1 for Alice, IsaacScript will automatically choose a random boss room matching that sub-type.
+
+We also specify what the weight should be for each boss. In this case, we specified a weight of 3 for Alice, meaning that it will be three times as likely for Alice to appear than Bob.
+
+Now, we can test the bosses in-game, and everything should work as expected.
 
 <br />
 

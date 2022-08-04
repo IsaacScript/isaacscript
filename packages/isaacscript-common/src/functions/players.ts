@@ -21,7 +21,11 @@ import {
 import { getCollectibleMaxCharges } from "./collectibles";
 import { getCollectibleArray } from "./collectibleSet";
 import { getEnumValues } from "./enums";
-import { getPlayerIndexVanilla, getPlayers } from "./playerIndex";
+import {
+  getAllPlayers,
+  getPlayerIndexVanilla,
+  getPlayers,
+} from "./playerIndex";
 import { addTearsStat } from "./tears";
 import { isNumber } from "./types";
 import { repeat } from "./utils";
@@ -127,12 +131,12 @@ export function addTrinketCostume(
 export function anyPlayerHasCollectible(
   collectibleType: CollectibleType,
 ): boolean {
-  const players = getPlayers();
+  const players = getAllPlayers();
   return players.some((player) => player.HasCollectible(collectibleType));
 }
 
 export function anyPlayerHasTrinket(trinketType: TrinketType): boolean {
-  const players = getPlayers();
+  const players = getAllPlayers();
   return players.some((player) => player.HasTrinket(trinketType));
 }
 

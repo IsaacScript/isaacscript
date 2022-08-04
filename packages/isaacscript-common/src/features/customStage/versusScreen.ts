@@ -9,7 +9,7 @@ import {
 import { game, sfxManager } from "../../core/cachedClasses";
 import { arrayRemove } from "../../functions/array";
 import { getBosses } from "../../functions/bosses";
-import { getEntityID } from "../../functions/entities";
+import { getRoomSubType } from "../../functions/roomData";
 import { erange } from "../../functions/utils";
 import { CustomStage } from "../../interfaces/private/CustomStage";
 import { BOSS_NAME_PNG_FILE_NAMES } from "../../objects/bossNamePNGFileNames";
@@ -26,7 +26,7 @@ import {
   DEFAULT_BASE_STAGE_TYPE,
   INVALID_STAGE_VALUE,
 } from "./exports";
-import v, { customBosses } from "./v";
+import v from "./v";
 
 const DEFAULT_CHARACTER = PlayerType.ISAAC;
 const DEFAULT_STAGE_ID = StageID.BASEMENT;
@@ -137,6 +137,7 @@ export function playVersusScreenAnimation(customStage: CustomStage): void {
   pause();
   hud.SetVisible(false);
 
+  // Player
   const [playerNamePNGPath, playerPortraitPNGPath] = getPlayerPNGPaths();
   versusScreenSprite.ReplaceSpritesheet(
     PLAYER_NAME_ANM2_LAYER,
@@ -147,11 +148,12 @@ export function playVersusScreenAnimation(customStage: CustomStage): void {
     playerPortraitPNGPath,
   );
 
-  const [bossNamePNGPath, bossPortraitPNGPath] = getBossPNGPaths();
-  versusScreenSprite.ReplaceSpritesheet(BOSS_NAME_ANM2_LAYER, bossNamePNGPath);
+  // Boss
+  const { namePNGPath, portraitPNGPath } = getBossPNGPaths(customStage);
+  versusScreenSprite.ReplaceSpritesheet(BOSS_NAME_ANM2_LAYER, namePNGPath);
   versusScreenSprite.ReplaceSpritesheet(
     BOSS_PORTRAIT_ANM2_LAYER,
-    bossPortraitPNGPath,
+    portraitPNGPath,
   );
 
   versusScreenSprite.LoadGraphics();
@@ -211,42 +213,56 @@ function getPlayerPNGPaths(): [
 }
 
 /** Use the boss of the first boss found. */
-function getBossPNGPaths(): [
-  bossNamePNGPath: string,
-  bossPortraitPNGPath: string,
-] {
-  const bosses = getBosses();
-  const firstBoss = bosses[0];
-
+function getBossPNGPaths(customStage: CustomStage): {
+  namePNGPath: string;
+  portraitPNGPath: string;
+} {
   // Prefer the PNG paths specified by the end-user, if any.
-  if (firstBoss !== undefined) {
-    const entityID = getEntityID(firstBoss);
-    const customBoss = customBosses.get(entityID);
-    if (customBoss !== undefined) {
-      return [customBoss.namePNGPath, customBoss.portraitPNGPath];
-    }
+  const paths = getBossPNGPathsCustom(customStage);
+  if (paths !== undefined) {
+    return paths;
   }
 
   // If this is not a vanilla boss, default to showing question marks.
+  const bosses = getBosses();
+  const firstBoss = bosses[0];
   const bossID = firstBoss === undefined ? 0 : firstBoss.GetBossID();
   if (bossID === 0) {
     const questionMarkSprite = `${PNG_PATH_PREFIX}/${
       BOSS_NAME_PNG_FILE_NAMES[BossID.BLUE_BABY]
     }`;
-    const bossNamePNGPath = questionMarkSprite;
-    const bossPortraitPNGPath = questionMarkSprite;
-    return [bossNamePNGPath, bossPortraitPNGPath];
+    const namePNGPath = questionMarkSprite;
+    const portraitPNGPath = questionMarkSprite;
+    return { namePNGPath, portraitPNGPath };
   }
 
   // If this is a vanilla boss, it will have a boss ID, and we can use the corresponding vanilla
   // files.
-  const bossNamePNGFileName = BOSS_NAME_PNG_FILE_NAMES[bossID];
-  const bossNamePNGPath = `${PNG_PATH_PREFIX}/${bossNamePNGFileName}`;
+  const namePNGFileName = BOSS_NAME_PNG_FILE_NAMES[bossID];
+  const namePNGPath = `${PNG_PATH_PREFIX}/${namePNGFileName}`;
 
-  const bossPortraitPNGFileName = BOSS_PORTRAIT_PNG_FILE_NAMES[bossID];
-  const bossPortraitPNGPath = `${PNG_PATH_PREFIX}/${bossPortraitPNGFileName}`;
+  const portraitPNGFileName = BOSS_PORTRAIT_PNG_FILE_NAMES[bossID];
+  const portraitPNGPath = `${PNG_PATH_PREFIX}/${portraitPNGFileName}`;
 
-  return [bossNamePNGPath, bossPortraitPNGPath];
+  return { namePNGPath, portraitPNGPath };
+}
+
+function getBossPNGPathsCustom(
+  customStage: CustomStage,
+): { namePNGPath: string; portraitPNGPath: string } | undefined {
+  if (customStage.bossPool === undefined) {
+    return undefined;
+  }
+
+  const roomSubType = getRoomSubType();
+  const matchingBossEntry = customStage.bossPool.find(
+    (bossEntry) => bossEntry.subType === roomSubType,
+  );
+  if (matchingBossEntry === undefined) {
+    return undefined;
+  }
+
+  return matchingBossEntry.versusScreen;
 }
 
 function finishVersusScreenAnimation() {

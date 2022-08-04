@@ -47,7 +47,6 @@ const DOCS_DIR = path.join(__dirname, "..", "docs");
 const PACKAGE_DOCS_DIR = path.join(DOCS_DIR, PACKAGE_NAME);
 const MODULES_DIR = path.join(PACKAGE_DOCS_DIR, "modules");
 const MODULES_MD_PATH = path.join(PACKAGE_DOCS_DIR, "modules.md");
-const CORE_DIR = path.join(PACKAGE_DOCS_DIR, "core");
 const OTHER_DIR = path.join(PACKAGE_DOCS_DIR, "other");
 const CATEGORY_FILE_NAME = "_category_.yml";
 
@@ -173,10 +172,10 @@ function moveModulesFiles() {
 
     const match = markdownFileName.match(/^(.+?)_(.+.md)$/);
     if (match === null) {
-      // Since there is no underscore, this is a root file, so it belongs in the "core" directory.
-      file.makeDir(CORE_DIR, false);
-      const dstPath = path.join(CORE_DIR, markdownFileName);
-      file.move(markdownFilePath, dstPath, false);
+      // The file
+      error(
+        `The file of "${markdownFileName}" has no underscore, which is probably because it is a renamed module via the "@module" JSDoc tag. Currently, we do not rename any modules in this package, so this is likely an error.`,
+      );
     } else {
       const directoryName = match[1];
       if (directoryName === undefined) {

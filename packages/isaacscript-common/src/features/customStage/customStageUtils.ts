@@ -2,7 +2,10 @@ import { sumArray } from "../../functions/array";
 import { log } from "../../functions/log";
 import { getRandomFloat } from "../../functions/random";
 import { getRandomSeed } from "../../functions/rng";
-import { CustomStageRoomMetadata } from "../../interfaces/CustomStageTSConfig";
+import {
+  CustomStageBossPoolEntry,
+  CustomStageRoomMetadata,
+} from "../../interfaces/CustomStageTSConfig";
 
 /**
  * Helper function to get a random custom stage room from an array of custom stage rooms.
@@ -50,5 +53,53 @@ function getCustomStageRoomWithChosenWeight(
 
   error(
     `Failed to get a custom stage room with chosen weight: ${chosenWeight}`,
+  );
+}
+
+export function getRandomBossRoomFromPool(
+  roomsMetadata: readonly CustomStageRoomMetadata[],
+  bossPool: readonly CustomStageBossPoolEntry[],
+  seedOrRNG: Seed | RNG = getRandomSeed(),
+  verbose = false,
+): CustomStageRoomMetadata {
+  const totalWeight = getTotalWeightOfBossPool(bossPool);
+  if (verbose) {
+    log(`Total weight of the custom stage boss pool provided: ${totalWeight}`);
+  }
+
+  const chosenWeight = getRandomFloat(0, totalWeight, seedOrRNG);
+  if (verbose) {
+    log(`Randomly chose weight for custom stage boss pool: ${chosenWeight}`);
+  }
+
+  const bossEntry = getBossEntryWithChosenWeight(bossPool, chosenWeight);
+
+  const roomsMetadataForBoss = roomsMetadata.filter(
+    (roomMetadata) => roomMetadata.subType === bossEntry.subType,
+  );
+  return getRandomCustomStageRoom(roomsMetadataForBoss, seedOrRNG, verbose);
+}
+
+function getTotalWeightOfBossPool(
+  bossPool: readonly CustomStageBossPoolEntry[],
+): float {
+  const weights = bossPool.map((bossEntry) => bossEntry.weight);
+  return sumArray(weights);
+}
+
+function getBossEntryWithChosenWeight(
+  bossPool: readonly CustomStageBossPoolEntry[],
+  chosenWeight: float,
+): CustomStageBossPoolEntry {
+  for (const bossEntry of bossPool) {
+    if (chosenWeight < bossEntry.weight) {
+      return bossEntry;
+    }
+
+    chosenWeight -= bossEntry.weight;
+  }
+
+  error(
+    `Failed to get a custom stage boss entry with chosen weight: ${chosenWeight}`,
   );
 }

@@ -4,18 +4,40 @@
   "definitions": {
     "CustomStageBossPoolEntry": {
       "additionalProperties": false,
-      "description": "An object that represents a possible boss for a custom stage.",
+      "description": "An object that represents a possible boss for a custom stage. This can be for a vanilla boss or a custom boss.",
       "properties": {
         "name": {
-          "description": "The name of the boss. This must correspond to the entry in \"entities2.xml\".\n\nNote that since there is no way to determine the corresponding `EntityType` of the boss during compile-time, you must specify the `EntityType` at run-time when your mod first loads using the `registerCustomBoss` helper function.",
+          "description": "The name of the boss. This should correspond to the entry for the boss in the \"entities2.xml\" file.",
           "type": "string"
+        },
+        "subType": {
+          "description": "The arbitrary sub-type chosen for this boss, ranging between 1 and 999. You must set the boss rooms for this boss to this sub-type in Basement Renovator by right-clicking on the room on the right-hand-side.\n\nIt does not matter if the arbitrary sub-type overlaps with any of the vanilla `BossID` values (e.g. vanilla Boss Room sub-types in \"00.special_rooms.stb\"). It also does not matter if this value overlaps with the values from other mods.\n\nIf you are creating an entry for a vanilla boss, it is recommended that you match the sub-type with the corresponding vanilla `BossID` value. This will make things a bit easier to understand for people working on your mod, but is not a hard requirement.",
+          "maximum": 999,
+          "minimum": 1,
+          "type": "number"
+        },
+        "versusScreen": {
+          "additionalProperties": false,
+          "description": "Optional. A collection of sprites used for the boss on the \"versus\" screen.",
+          "properties": {
+            "namePNGPath": {
+              "description": "Mandatory. The full path to the spritesheet that contains the graphics of the name of the boss that will be displayed on the top of the boss \"versus\" screen.\n\nIf not specified, a sprite showing \"???\" will be used.",
+              "type": "string"
+            },
+            "portraitPNGPath": {
+              "description": "Mandatory. The full path to the spritesheet that contains the portrait of the boss that will be displayed on the right side of the boss \"versus\" screen.\n\nIf not specified, a sprite showing \"???\" will be used.",
+              "type": "string"
+            }
+          },
+          "required": ["namePNGPath", "portraitPNGPath"],
+          "type": "object"
         },
         "weight": {
           "description": "The weight of the boss. This is used when randomly selecting which boss to use for the floor. For example, use a value of 1 if you want this boss to be equally likely as any other boss, 0.5 if you want it to be half as likely, 2 if you want it to be twice as likely, and so on.",
           "type": "number"
         }
       },
-      "required": ["name", "weight"],
+      "required": ["name", "subType", "weight"],
       "type": "object"
     },
     "CustomStageShadow": {
@@ -60,7 +82,6 @@
     },
     "CustomStageTSConfig": {
       "additionalProperties": false,
-      "description": "This is the format of a custom stage in the \"isaacscript\" section of the \"tsconfig.json\" file.\n\nThe contents of this interface are used to create a \"tsconfig-isaacscript-section-schema.json\" schema with the \"ts-json-schema-generator\" library.\n\nThe contents of this interface are validated at run-time against the schema using the Ajv library.\n\nThe `CustomStageLua` interface extends this, adding room metadata.",
       "properties": {
         "backdropPNGPaths": {
           "additionalProperties": false,
@@ -99,7 +120,7 @@
           "type": "object"
         },
         "baseStage": {
-          "description": "Optional. An integer between 2 and 13, corresponding to the `LevelStage` enum. This is the number of the stage that will be warped to and used as a basis for the stage by the level generation algorithm.\n\n(It is not possible to use Basement 1 as a base stage due to conflicts with the `Game.SetStage` method.)\n\nIf not specified, `LevelStage.BASEMENT_2` (2) will be used.",
+          "description": "Optional. An integer between 2 and 13, corresponding to the `LevelStage` enum. This is the number of the stage that will be warped to and used as a basis for the stage by the level generation algorithm.\n\nFor example, if you wanted to have a custom stage with a small amount of rooms per floor, then you should choose 2 as a base. (This would copy the number of rooms that would appear in Basement 2.) And if you wanted to have a custom stage with the maximum amount of rooms, then you should choose 13 as a base. (This would copy the number of rooms that would appear on The Void.)\n\nIt is not possible to use Basement 1 as a base stage due to conflicts with the `Game.SetStage` method.\n\nIf not specified, `LevelStage.BASEMENT_2` (2) will be used.",
           "maximum": 13,
           "minimum": 2,
           "type": "number"
@@ -111,7 +132,7 @@
           "type": "number"
         },
         "bossPool": {
-          "description": "Optional. An array containing the bosses that should be used for the stage.",
+          "description": "Optional. An array containing the bosses that should be used for the stage. This can include both vanilla bosses and modded bosses.",
           "items": {
             "$ref": "#/definitions/CustomStageBossPoolEntry"
           },
@@ -231,7 +252,7 @@
         },
         "versusScreen": {
           "additionalProperties": false,
-          "description": "Optional. A collection of colors used in the boss \"versus\" screen.",
+          "description": "Optional. A collection of colors used for in the boss \"versus\" screen for all of the bosses.\n\nNote that these graphics will only be applied if one or more bosses are specified in the `bossPool` field.",
           "properties": {
             "backgroundColor": {
               "additionalProperties": false,
@@ -297,7 +318,7 @@
           "type": "string"
         }
       },
-      "required": ["name", "xmlPath", "roomVariantPrefix"],
+      "required": ["name", "xmlPath", "roomVariantPrefix", "backdropPNGPaths"],
       "type": "object"
     },
     "IsaacScriptTSConfig": {

@@ -1,7 +1,4 @@
-- check for registerCustomBoss and throw run-time error if not present
 - polty
-
-- make example project with custom stage
 
 - Lint:
   - lint failure: https://github.com/gajus/eslint-plugin-jsdoc/issues/897

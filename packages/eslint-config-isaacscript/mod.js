@@ -3,8 +3,9 @@
 module.exports = {
   extends: [
     /**
-     * The mod config extends the base configuration:
+     * The IsaacScript mod config extends the base configuration:
      * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/base.js
+     * (Normal TypeScript projects would just use the base configuration directly.)
      */
     "./base",
   ],
