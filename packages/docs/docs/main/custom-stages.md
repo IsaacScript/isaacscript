@@ -177,6 +177,8 @@ We also specify what the weight should be for each boss. In this case, we specif
 
 Now, we can test the bosses in-game, and everything should work as expected.
 
+Note that it is possible to have vanilla bosses in the boss pool, if needed. Thus, we could have a boss pool with a mix of custom bosses and vanilla bosses, or a boss pool of only vanilla bosses. To add a vanilla boss, just use the name that matches the real name of the entity, and use the sub-type corresponding to the [`BossID`](/isaac-typescript-definitions/enums/collections_roomSubTypes.BossID/) enum. (And make sure that you create the corresponding rooms for the sub-type in your XML file.)
+
 <br />
 
 ## Motivation
