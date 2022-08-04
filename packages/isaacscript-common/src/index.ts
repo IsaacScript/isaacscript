@@ -57,6 +57,7 @@ export {
   anyPlayerUsingPony,
   isPlayerUsingPony,
 } from "./features/ponyDetection";
+export { preventChildEntities } from "./features/preventChildEntities";
 export { preventCollectibleRotation } from "./features/preventCollectibleRotation";
 export { registerHotkey, unregisterHotkey } from "./features/registerHotkey";
 export {

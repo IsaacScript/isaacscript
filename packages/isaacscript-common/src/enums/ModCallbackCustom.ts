@@ -503,6 +503,8 @@ export enum ModCallbackCustom {
    *
    * (Leaving a room with a grid entity does not count as "removing" it.)
    *
+   * This will fire when a Polty/Kineti picks up a grid entity.
+   *
    * When registering the callback, takes an optional second argument that will make the callback
    * only fire if it matches the `GridEntityType` provided.
    *
