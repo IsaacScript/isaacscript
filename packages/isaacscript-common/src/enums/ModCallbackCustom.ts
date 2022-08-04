@@ -328,6 +328,18 @@ export enum ModCallbackCustom {
   POST_GAME_STARTED_REORDERED,
 
   /**
+   * Similar to the `POST_GAME_STARTED_REORDERED` callback, but fires after all of the subscribed
+   * callbacks have finished firing. Thus, you can use this callback to do perform things after a
+   * new run has started (or continued), but you can be sure that all new-run-related initialization
+   * has been completed.
+   *
+   * ```ts
+   * function postGameStartedReorderedLast(isContinued: boolean): void {}
+   * ```
+   */
+  POST_GAME_STARTED_REORDERED_LAST,
+
+  /**
    * Fires from the `POST_UPDATE` callback when the Greed Mode wave increases.
    *
    * ```ts

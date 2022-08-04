@@ -20,6 +20,7 @@ import { postFirstEsauJrRegister } from "../callbacks/subscriptions/postFirstEsa
 import { postFirstFlipRegister } from "../callbacks/subscriptions/postFirstFlip";
 import { postFlipRegister } from "../callbacks/subscriptions/postFlip";
 import { postGameStartedReorderedRegister } from "../callbacks/subscriptions/postGameStartedReordered";
+import { postGameStartedReorderedLastRegister } from "../callbacks/subscriptions/postGameStartedReorderedLast";
 import { postGreedModeWaveRegister } from "../callbacks/subscriptions/postGreedModeWave";
 import { postGridEntityBrokenRegister } from "../callbacks/subscriptions/postGridEntityBroken";
 import { postGridEntityCollisionRegister } from "../callbacks/subscriptions/postGridEntityCollision";
@@ -122,6 +123,8 @@ export const CALLBACK_REGISTER_FUNCTIONS: {
   [ModCallbackCustom.POST_FLIP]: postFlipRegister,
   [ModCallbackCustom.POST_GAME_STARTED_REORDERED]:
     postGameStartedReorderedRegister,
+  [ModCallbackCustom.POST_GAME_STARTED_REORDERED_LAST]:
+    postGameStartedReorderedLastRegister,
   [ModCallbackCustom.POST_GREED_MODE_WAVE]: postGreedModeWaveRegister,
   [ModCallbackCustom.POST_GRID_ENTITY_BROKEN]: postGridEntityBrokenRegister,
   [ModCallbackCustom.POST_GRID_ENTITY_COLLISION]:

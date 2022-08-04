@@ -1,5 +1,6 @@
 // This provides the logic for the following callbacks:
 // - `POST_GAME_STARTED_REORDERED`
+// - `POST_GAME_STARTED_REORDERED_LAST`
 // - `POST_NEW_LEVEL_REORDERED`
 // - `POST_NEW_ROOM_REORDERED`
 
@@ -22,6 +23,10 @@ import {
   postGameStartedReorderedFire,
   postGameStartedReorderedHasSubscriptions,
 } from "./subscriptions/postGameStartedReordered";
+import {
+  postGameStartedReorderedLastFire,
+  postGameStartedReorderedLastHasSubscriptions,
+} from "./subscriptions/postGameStartedReorderedLast";
 import {
   postNewLevelReorderedFire,
   postNewLevelReorderedHasSubscriptions,
@@ -51,6 +56,7 @@ export function reorderedCallbacksInit(mod: Mod): void {
 function hasSubscriptions() {
   return (
     postGameStartedReorderedHasSubscriptions() ||
+    postGameStartedReorderedLastHasSubscriptions() ||
     postNewLevelReorderedHasSubscriptions() ||
     postNewRoomReorderedHasSubscriptions()
   );
@@ -76,6 +82,8 @@ function postGameStartedVanilla(isContinued: boolean) {
   recordCurrentStage();
   postNewLevelReorderedFire();
   postNewRoomReorderedFire();
+
+  postGameStartedReorderedLastFire(isContinued);
 }
 
 // ModCallback.POST_NEW_LEVEL (18)

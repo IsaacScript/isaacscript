@@ -40,8 +40,8 @@ export function postPlayerReorderedCallbacksInit(mod: ModUpgraded): void {
   mod.AddCallback(ModCallback.POST_PLAYER_UPDATE, postPlayerUpdate); // 31
   mod.AddCallback(ModCallback.POST_PLAYER_RENDER, postPlayerRender); // 32
   mod.AddCallbackCustom(
-    ModCallbackCustom.POST_GAME_STARTED_REORDERED,
-    postGameStartedReordered,
+    ModCallbackCustom.POST_GAME_STARTED_REORDERED_LAST,
+    postGameStartedReorderedLast,
   );
 }
 
@@ -98,8 +98,8 @@ function postPlayerRender(player: EntityPlayer) {
   }
 }
 
-// ModCallback.POST_GAME_STARTED (15)
-function postGameStartedReordered() {
+// ModCallbackCustom.POST_GAME_STARTED_REORDERED_LAST
+function postGameStartedReorderedLast() {
   if (!hasSubscriptions()) {
     return;
   }

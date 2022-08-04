@@ -20,6 +20,7 @@ import { PostFirstEsauJrRegisterParameters } from "../../callbacks/subscriptions
 import { PostFirstFlipRegisterParameters } from "../../callbacks/subscriptions/postFirstFlip";
 import { PostFlipRegisterParameters } from "../../callbacks/subscriptions/postFlip";
 import { PostGameStartedReorderedRegisterParameters } from "../../callbacks/subscriptions/postGameStartedReordered";
+import { PostGameStartedReorderedLastRegisterParameters } from "../../callbacks/subscriptions/postGameStartedReorderedLast";
 import { PostGreedModeWaveRegisterParameters } from "../../callbacks/subscriptions/postGreedModeWave";
 import { PostGridEntityBrokenRegisterParameters } from "../../callbacks/subscriptions/postGridEntityBroken";
 import { PostGridEntityCollisionRegisterParameters } from "../../callbacks/subscriptions/postGridEntityCollision";
@@ -114,6 +115,7 @@ export interface AddCallbackParameterCustom {
   [ModCallbackCustom.POST_FIRST_FLIP]: PostFirstFlipRegisterParameters;
   [ModCallbackCustom.POST_FLIP]: PostFlipRegisterParameters;
   [ModCallbackCustom.POST_GAME_STARTED_REORDERED]: PostGameStartedReorderedRegisterParameters;
+  [ModCallbackCustom.POST_GAME_STARTED_REORDERED_LAST]: PostGameStartedReorderedLastRegisterParameters;
   [ModCallbackCustom.POST_GREED_MODE_WAVE]: PostGreedModeWaveRegisterParameters;
   [ModCallbackCustom.POST_GRID_ENTITY_BROKEN]: PostGridEntityBrokenRegisterParameters;
   [ModCallbackCustom.POST_GRID_ENTITY_COLLISION]: PostGridEntityCollisionRegisterParameters;
