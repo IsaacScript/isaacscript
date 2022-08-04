@@ -74,7 +74,7 @@ export interface CustomStageTSConfig {
    * the graphics for the walls and floor.) If not specified, the graphics for Basement will be
    * used.
    */
-  backdropPNGPaths: {
+  backdropPNGPaths?: {
     /**
      * An array that contains the full paths to the graphic files that are used for the floor in
      * narrow rooms. (The "n" stands for "narrow").
