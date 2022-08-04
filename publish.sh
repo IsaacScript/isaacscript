@@ -52,9 +52,9 @@ bash "$PACKAGE_DIR/build.sh"
 # for posterity.
 cd "$DIR/dist/packages/$PACKAGE_NAME"
 if [ "$VERSION_BUMP" == "dev" ]; then
-  NPM_TAG=latest
-else
   NPM_TAG=next
+else
+  NPM_TAG=latest
 fi
 npm publish --access=public --tag=$NPM_TAG
 
