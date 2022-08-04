@@ -26,7 +26,6 @@ bash "$DIR/../isaacscript-common/docs.sh"
 npx ts-node --require "tsconfig-paths/register" "scripts/fixIsaacTypeScriptDefinitions.ts"
 npx ts-node --require "tsconfig-paths/register" "scripts/fixIsaacScriptCommon.ts"
 
-
 # Build the docs website using Docusaurus.
 mkdir -p "$OUT_DIR"
 npm run build

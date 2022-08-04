@@ -49,9 +49,9 @@ project/customStages/foo.xml
 
 (This assumes that your mod is called "project" and your custom stage is called "foo".)
 
-You don't need to save/include the corresponding STB file; all IsaacScript needs is the XML.
+You don't need to include the corresponding STB file; all IsaacScript needs is the XML.
 
-Note that you can actually save the XML file anywhere you like, as long as the path lines up with what you specify in the `tsconfig.json` file (more on that later). You probably shouldn't put it in your "mod" directory though, since the XML file does not actually need to be uploaded to the Steam Workshop.
+Note that you can actually save the XML file anywhere you like, as long as the path lines up with what you specify in the `tsconfig.json` file (more on that later). You probably should not put it in your "mod" directory though, since the XML file does not actually need to be uploaded to the Steam Workshop.
 
 <br />
 

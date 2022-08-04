@@ -172,7 +172,6 @@ function moveModulesFiles() {
 
     const match = markdownFileName.match(/^(.+?)_(.+.md)$/);
     if (match === null) {
-      // The file
       error(
         `The file of "${markdownFileName}" has no underscore, which is probably because it is a renamed module via the "@module" JSDoc tag. Currently, we do not rename any modules in this package, so this is likely an error.`,
       );
