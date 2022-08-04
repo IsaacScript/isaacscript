@@ -15,6 +15,7 @@ This page lists the changes to the IsaacScript framework.
   - `spawnCustomTrapdoorToVanilla`
   - `getAdjacentExistingRoomGridIndexes`
   - `getAdjacentNonExistingRoomGridIndexes`
+  - `wouldDamageTaintedMagdaleneNonTemporaryHeartContainers`
 - Changed the following helper functions:
   - `getRoomShapeNeighborGridIndexDeltas` --> `getRoomShapeAdjacentGridIndexDeltas`
   - `getRoomShapeNeighborGridIndexes` --> `getRoomShapeAdjacentGridIndexes`

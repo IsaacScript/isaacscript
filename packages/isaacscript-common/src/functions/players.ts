@@ -1058,3 +1058,40 @@ export function useActiveItemTemp(
 ): void {
   player.UseActiveItem(collectibleType, false, false, true, false, -1);
 }
+
+/**
+ * Helper function to see if a certain damage amount would deal "permanent" damage to Tainted
+ * Magdalene.
+ *
+ * Tainted Magdalene has "permanent" health and "temporary" health. When standing still and doing
+ * nothing, all of Tainted Magdalene's temporary health will eventually go away.
+ */
+export function wouldDamageTaintedMagdaleneNonTemporaryHeartContainers(
+  player: EntityPlayer,
+  damageAmount: float,
+): boolean {
+  // Regardless of the damage amount, damage to a player cannot remove a soul heart and a red heart
+  // at the same time.
+  const soulHearts = player.GetSoulHearts();
+  if (soulHearts > 0) {
+    return false;
+  }
+
+  // Regardless of the damage amount, damage to a player cannot remove a bone heart and a red heart
+  // at the same time.
+  const boneHearts = player.GetBoneHearts();
+  if (boneHearts > 0) {
+    return false;
+  }
+
+  // Account for rotten hearts eating away at more red hearts than usual.
+  const hearts = player.GetHearts();
+  const rottenHearts = player.GetRottenHearts();
+  const effectiveDamageAmount =
+    damageAmount + Math.min(rottenHearts, damageAmount);
+
+  const heartsAfterDamage = hearts - effectiveDamageAmount;
+  const nonTemporaryMaxHearts =
+    getTaintedMagdaleneNonTemporaryMaxHearts(player);
+  return heartsAfterDamage < nonTemporaryMaxHearts;
+}
