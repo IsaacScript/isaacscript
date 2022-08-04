@@ -9,7 +9,10 @@ import { game } from "../../core/cachedClasses";
 import { HealthType } from "../../enums/HealthType";
 import { directionToVector } from "../../functions/direction";
 import { spawnGridEntityWithVariant } from "../../functions/gridEntities";
-import { getRoomGridIndexesForType } from "../../functions/levelGrid";
+import {
+  getRoomAdjacentGridIndexes,
+  getRoomGridIndexesForType,
+} from "../../functions/levelGrid";
 import {
   logAllEntities,
   logAllGridEntities,
@@ -144,6 +147,18 @@ export function warpNextToRoomType(roomType: RoomType): void {
     return;
   }
 
-  changeRoom(firstGridIndex);
-  printConsole(`Warped to room type: ${roomTypeName} (${roomType})`);
+  const adjacentRoomGridIndexes = getRoomAdjacentGridIndexes(firstGridIndex);
+
+  for (const [_doorSlot, roomGridIndex] of adjacentRoomGridIndexes.entries()) {
+    const roomData = getRoomData(roomGridIndex);
+    if (roomData !== undefined && roomData.Type === RoomType.DEFAULT) {
+      changeRoom(firstGridIndex);
+      printConsole(`Warped next to room type: ${roomTypeName} (${roomType})`);
+      return;
+    }
+  }
+
+  printConsole(
+    `Failed to find the room next to room type: ${roomTypeName} (${roomType})`,
+  );
 }
