@@ -9,6 +9,7 @@ import {
   RoomType,
 } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
+import { DISTANCE_OF_GRID_TILE } from "../core/constants";
 import {
   DEFAULT_DOOR_SLOT,
   DOOR_SLOT_FLAG_TO_DOOR_SLOT,
@@ -24,13 +25,6 @@ import { getEnumValues } from "./enums";
 import { hasFlag } from "./flag";
 import { isTSTLSet } from "./tstlClass";
 import { asNumber } from "./types";
-
-/**
- * When players enter a room, they do not appear exactly on the location of the door, because then
- * they would immediately collide with the loading zone. Instead, they are offset by this amount of
- * units.
- */
-const ROOM_ENTRY_OFFSET_FROM_DOOR = 40;
 
 export function closeAllDoors(): void {
   for (const door of getDoors()) {
@@ -123,8 +117,8 @@ export function getDevilRoomOrAngelRoomDoor(): GridEntityDoor | undefined {
  * Helper function to get the position that a player will enter a room at.
  *
  * When players enter a room, they do not appear exactly on the location of the door, because then
- * they would immediately collide with the loading zone. Instead, they are offset by a certain
- * amount of units.
+ * they would immediately collide with the loading zone. Instead, they appear on the grid tile next
+ * to the door.
  */
 export function getDoorEnterPosition(door: GridEntityDoor): Readonly<Vector> {
   const offset = getDoorSlotEnterPositionOffset(door.Slot);
@@ -135,8 +129,8 @@ export function getDoorEnterPosition(door: GridEntityDoor): Readonly<Vector> {
  * Helper function to get the offset from a door position that a player will enter a room at.
  *
  * When players enter a room, they do not appear exactly on the location of the door, because then
- * they would immediately collide with the loading zone. Instead, they are offset by a certain
- * amount of units.
+ * they would immediately collide with the loading zone. Instead, they appear on the grid tile next
+ * to the door.
  */
 export function getDoorSlotEnterPositionOffset(
   doorSlot: DoorSlot,
@@ -147,7 +141,7 @@ export function getDoorSlotEnterPositionOffset(
   // The player appears in the opposite direction of the way that the door is oriented in the room.
   const oppositeVector = vector.mul(-1);
 
-  return oppositeVector.mul(ROOM_ENTRY_OFFSET_FROM_DOOR);
+  return oppositeVector.mul(DISTANCE_OF_GRID_TILE);
 }
 
 /** Helper function to get the possible door slots that can exist for a given room shape. */
