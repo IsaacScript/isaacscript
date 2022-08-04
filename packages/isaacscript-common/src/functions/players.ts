@@ -1065,6 +1065,9 @@ export function useActiveItemTemp(
  *
  * Tainted Magdalene has "permanent" health and "temporary" health. When standing still and doing
  * nothing, all of Tainted Magdalene's temporary health will eventually go away.
+ *
+ * Before using this function, it is expected that you check to see if the player is Tainted
+ * Magdalene first, or else it will give a nonsensical result.
  */
 export function wouldDamageTaintedMagdaleneNonTemporaryHeartContainers(
   player: EntityPlayer,
