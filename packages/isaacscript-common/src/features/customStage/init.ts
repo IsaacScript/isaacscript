@@ -17,6 +17,7 @@ import {
 import { CustomStage, RoomTypeMap } from "../../interfaces/private/CustomStage";
 import { saveDataManager } from "../saveDataManager/exports";
 import { setCustomStageBackdrop } from "./backdrop";
+import { CUSTOM_STAGE_FEATURE_NAME } from "./customStageConstants";
 import {
   convertVanillaTrapdoors,
   removeUrnRewards,
@@ -42,7 +43,7 @@ export function customStageInit(mod: ModUpgraded): void {
     return;
   }
 
-  saveDataManager("customStage", v);
+  saveDataManager(CUSTOM_STAGE_FEATURE_NAME, v);
   versusScreenInit();
 
   mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2

@@ -18,9 +18,13 @@ import { PLAYER_NAME_PNG_FILE_NAMES } from "../../objects/playerNamePNGFileNames
 import { PLAYER_PORTRAIT_PNG_FILE_NAMES } from "../../objects/playerPortraitPNGFileNames";
 import { VERSUS_SCREEN_BACKGROUND_COLORS } from "../../objects/versusScreenBackgroundColors";
 import { VERSUS_SCREEN_DIRT_SPOT_COLORS } from "../../objects/versusScreenDirtSpotColors";
+import { disableAllSound, enableAllSound } from "../disableAllSound";
 import { pause, unpause } from "../pause";
 import { runNextGameFrame } from "../runInNFrames";
-import { ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH } from "./customStageConstants";
+import {
+  CUSTOM_STAGE_FEATURE_NAME,
+  ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH,
+} from "./customStageConstants";
 import {
   DEFAULT_BASE_STAGE,
   DEFAULT_BASE_STAGE_TYPE,
@@ -136,6 +140,7 @@ export function playVersusScreenAnimation(customStage: CustomStage): void {
 
   pause();
   hud.SetVisible(false);
+  disableAllSound(CUSTOM_STAGE_FEATURE_NAME);
 
   // Player
   {
@@ -273,6 +278,7 @@ function finishVersusScreenAnimation() {
 
   unpause();
   hud.SetVisible(true);
+  enableAllSound(CUSTOM_STAGE_FEATURE_NAME);
 
   // The sound effect only plays once the versus cutscene is over.
   sfxManager.Play(SoundEffect.CASTLE_PORTCULLIS);

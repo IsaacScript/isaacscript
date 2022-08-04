@@ -1,3 +1,5 @@
+export const CUSTOM_STAGE_FEATURE_NAME = "customStage";
+
 export const ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH = "gfx/isaacscript-custom-stage";
 
 /** Corresponds to "ui_streak.anm2". */

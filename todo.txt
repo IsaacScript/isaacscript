@@ -1,4 +1,4 @@
-- polty
+- polty doesn't trigger grid entity break
 
 - Lint:
   - lint failure: https://github.com/gajus/eslint-plugin-jsdoc/issues/897

@@ -45,10 +45,9 @@ export function spawnCustomTrapdoorToDestination(
   };
   roomTrapdoorMap.set(gridIndex, customTrapdoorDescription);
 
-  if (!open) {
-    const sprite = gridEntity.GetSprite();
-    sprite.Play(TrapdoorAnimation.CLOSED, true);
-  }
+  const sprite = gridEntity.GetSprite();
+  const animation = open ? TrapdoorAnimation.OPENED : TrapdoorAnimation.CLOSED;
+  sprite.Play(animation, true);
 
   return gridEntity;
 }
