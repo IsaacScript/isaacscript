@@ -184,13 +184,15 @@ function postNewRoomReordered() {
       continue;
     }
 
-    const sprite = decoration.GetSprite();
-    sprite.Load(data.anm2Path, true);
-    const animationToPlay =
-      data.defaultAnimation === undefined
-        ? sprite.GetDefaultAnimation()
-        : data.defaultAnimation;
-    sprite.Play(animationToPlay, true);
+    if (data.anm2Path !== undefined) {
+      const sprite = decoration.GetSprite();
+      sprite.Load(data.anm2Path, true);
+      const animationToPlay =
+        data.defaultAnimation === undefined
+          ? sprite.GetDefaultAnimation()
+          : data.defaultAnimation;
+      sprite.Play(animationToPlay, true);
+    }
   }
 }
 
@@ -220,8 +222,11 @@ function postNewRoomReordered() {
  * @param gridIndexOrPosition The grid index or position in the room that you want to spawn the grid
  *                            entity at. If a position is specified, the closest grid index will be
  *                            used.
- * @param gridCollisionClass The collision class that you want the custom grid entity to have.
- * @param anm2Path The path to the ANM2 file to use for the sprite.
+ * @param gridCollisionClass Optional. The collision class that you want the custom grid entity to
+ *                           have. If not specified, the grid collision class from the base grid
+ *                           entity will be used.
+ * @param anm2Path Optional. The path to the ANM2 file to use for the sprite. If not specified, the
+ *                 normal sprite from the base grid entity will be used.
  * @param defaultAnimation Optional. The name of the animation to play after the sprite is
  *                         initialized and after the player re-enters a room with this grid entity
  *                         in it. If not specified, the default animation in the anm2 will be used.
@@ -233,8 +238,8 @@ function postNewRoomReordered() {
 export function spawnCustomGridEntity(
   gridEntityTypeCustom: GridEntityType,
   gridIndexOrPosition: int | Vector,
-  gridCollisionClass: GridCollisionClass,
-  anm2Path: string,
+  gridCollisionClass?: GridCollisionClass,
+  anm2Path?: string,
   defaultAnimation?: string,
   baseGridEntityType = GridEntityType.DECORATION,
   baseGridEntityVariant = 0,
@@ -255,15 +260,20 @@ export function spawnCustomGridEntity(
   if (customGridEntity === undefined) {
     error("Failed to spawn a custom grid entity.");
   }
-  customGridEntity.CollisionClass = gridCollisionClass;
 
-  const sprite = customGridEntity.GetSprite();
-  sprite.Load(anm2Path, true);
-  const animationToPlay =
-    defaultAnimation === undefined
-      ? sprite.GetDefaultAnimation()
-      : defaultAnimation;
-  sprite.Play(animationToPlay, true);
+  if (gridCollisionClass !== undefined) {
+    customGridEntity.CollisionClass = gridCollisionClass;
+  }
+
+  if (anm2Path !== undefined) {
+    const sprite = customGridEntity.GetSprite();
+    sprite.Load(anm2Path, true);
+    const animationToPlay =
+      defaultAnimation === undefined
+        ? sprite.GetDefaultAnimation()
+        : defaultAnimation;
+    sprite.Play(animationToPlay, true);
+  }
 
   const customGridEntityData: GridEntityCustomData = {
     gridEntityTypeCustom,

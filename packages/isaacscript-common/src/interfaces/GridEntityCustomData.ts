@@ -18,7 +18,7 @@ export interface GridEntityCustomData {
 
   roomListIndex: int;
   gridIndex: int;
-  anm2Path: string;
+  gridCollisionClass?: GridCollisionClass;
+  anm2Path?: string;
   defaultAnimation?: string;
-  gridCollisionClass: GridCollisionClass;
 }
