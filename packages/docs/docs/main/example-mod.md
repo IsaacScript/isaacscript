@@ -321,7 +321,6 @@ function applyGreenCandleEffect(player: EntityPlayer) {
       // - The duration is 100 frames.
       // - The damage is equal to the player's damage stat.
       npc.AddPoison(EntityRef(player), 100, player.Damage);
-      // (This shows an error in VSCode because the `AddPoison` method expects an `EntityRef`.)
     }
   }
 }
