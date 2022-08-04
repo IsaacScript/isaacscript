@@ -1,7 +1,7 @@
-import { TrapdoorDestination } from "../../types/TrapdoorDestination";
+import { CustomTrapdoorDestination } from "./CustomTrapdoorDestination";
 
 export interface CustomTrapdoorDescription {
   open: boolean;
-  destination: TrapdoorDestination;
+  destination: CustomTrapdoorDestination;
   firstSpawn: boolean;
 }

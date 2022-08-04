@@ -97,17 +97,17 @@ When you are first building and testing your custom stage, you can use a `roomVa
 
 Once you have created your custom rooms and defined your custom stage in the `tsconfig.json` file, you need to add some code to your mod to generate a way for the player to get there. Obviously, the specifics of this will depend on how you want your custom stage to work. Maybe you want to add an additional trapdoor next to the Downpour trapdoor, or maybe you want to add an additional trapdoor inside of the Basement 1 shop.
 
-As an example, let's imagine that we want a trapdoor to appear in the top-left hand corner of the starting room of the run. To create a custom trapdoor, we simply use the [`spawnCustomTrapdoor`](/isaacscript-common/features/customTrapdoor_exports) helper function. (You can use custom trapdoors to go to both custom stages and vanilla stages, but in this case we will specify that the destination is our custom stage.)
+As an example, let's imagine that we want a trapdoor to appear in the top-left hand corner of the starting room of the run. To create a custom trapdoor, we simply use the [`spawnCustomTrapdoor`](/isaacscript-common/features/customTrapdoor_exports) helper function.
 
 ```ts
 const TOP_LEFT_CORNER_GRID_INDEX = 32;
 
 function postGameStarted() {
-  spawnCustomTrapdoor(TOP_LEFT_CORNER_GRID_INDEX, ["Foo", 1]);
+  spawnCustomTrapdoor(TOP_LEFT_CORNER_GRID_INDEX, "Foo", 1);
 }
 ```
 
-Here, `["Foo", 1]` means "go to Foo 1". (We could also bypass Foo 1 and go directly to Foo 2 by specifying `["Foo", 2]`.)
+Here, "Foo" is the name of our custom stage, and 1 is the floor number. (For example, we could bypass Foo 1 and go directly to Foo 2 by specifying a 2 here.)
 
 Now, by jumping into the trapdoor, you will be taken to the custom stage. That's all we need to do!
 

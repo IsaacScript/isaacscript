@@ -4,7 +4,6 @@ import {
   EntityGridCollisionClass,
   ModCallback,
   RoomTransitionAnim,
-  StageType,
 } from "isaac-typescript-definitions";
 import { ModUpgraded } from "../../classes/ModUpgraded";
 import { game } from "../../core/cachedClasses";
@@ -15,7 +14,6 @@ import { getAllPlayers } from "../../functions/playerIndex";
 import { getRoomGridIndex, getRoomListIndex } from "../../functions/roomData";
 import { teleport } from "../../functions/roomTransition";
 import { setStage } from "../../functions/stage";
-import { isString } from "../../functions/types";
 import { disableCustomStage, setCustomStage } from "../customStage/exports";
 import { topStreakTextStart } from "../customStage/streakText";
 import { enableAllInputs } from "../disableInputs";
@@ -119,7 +117,7 @@ function checkPixelationToBlackComplete() {
       StageTravelState.WAITING_FOR_SECOND_PIXELATION_TO_GET_HALF_WAY;
     v.run.stateRenderFrame = futureRenderFrameCount;
 
-    goToCustomDestination();
+    goToCustomTrapdoorDestination();
 
     // Start another pixelation effect. This time, we will keep the screen black with the sprite,
     // and then remove the black sprite once the pixelation effect is halfway complete.
@@ -193,21 +191,24 @@ function checkAllPlayersLayingDownComplete() {
   enableAllInputs(CUSTOM_TRAPDOOR_FEATURE_NAME);
 }
 
-function goToCustomDestination() {
+function goToCustomTrapdoorDestination() {
   if (v.run.destination === null) {
     return;
   }
 
-  const [arg1, arg2] = v.run.destination;
+  const {
+    customStageName,
+    customStageFloorNum,
+    vanillaStage,
+    vanillaStageType,
+  } = v.run.destination;
 
-  if (isString(arg1)) {
-    // A string represents a custom stage.
-    const firstFloor = arg2 === 1;
+  if (customStageName !== undefined && customStageFloorNum !== undefined) {
+    const firstFloor = customStageFloorNum === 1;
     setCustomStage("Slaughterhouse", firstFloor);
-  } else {
-    // A number represents a vanilla `LevelStage`.
+  } else if (vanillaStage !== undefined && vanillaStageType !== undefined) {
     disableCustomStage();
-    setStage(arg1, arg2 as StageType);
+    setStage(vanillaStage, vanillaStageType);
   }
 }
 

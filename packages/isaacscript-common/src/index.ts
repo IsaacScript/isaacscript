@@ -22,8 +22,8 @@ export { registerCharacterStats } from "./features/characterStats";
 export { getCollectibleItemPoolType } from "./features/collectibleItemPoolType";
 export { initCustomDoor, spawnCustomDoor } from "./features/customDoor";
 export {
-  removeCustomGridEntity as removeCustomGrid,
-  spawnCustomGridEntity as spawnCustomGrid,
+  removeCustomGridEntity,
+  spawnCustomGridEntity,
 } from "./features/customGridEntity";
 export * from "./features/customStage/exports";
 export * from "./features/customTrapdoor/exports";
@@ -204,5 +204,4 @@ export * from "./types/PickupIndex";
 export * from "./types/PlayerIndex";
 export * from "./types/PossibleStatType";
 export * from "./types/SerializedIsaacAPIClass";
-export * from "./types/TrapdoorDestination";
 export * from "./types/TSTLClass";

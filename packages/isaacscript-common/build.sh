@@ -38,7 +38,7 @@ npx ts-node --require "tsconfig-paths/register" "$DIR/scripts/rewriteDeclaration
 # `import { internalFunction } from "isaacscript-common/dist/internal/functions"`, but by removing
 # them from the ".d.ts" file, they will not appear as part of auto-complete, which is good enough
 # for our case.
-npx api-extractor run
+#npx api-extractor run
 
 # Copy the rest of the files needed for npm.
 cp "$DIR/LICENSE" "$OUT_DIR/"

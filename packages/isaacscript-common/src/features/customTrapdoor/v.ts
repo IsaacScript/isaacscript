@@ -1,7 +1,7 @@
 import { DefaultMap } from "../../classes/DefaultMap";
 import { StageTravelState } from "../../enums/private/StageTravelState";
 import { CustomTrapdoorDescription } from "../../interfaces/private/CustomTrapdoorDescription";
-import { TrapdoorDestination } from "../../types/TrapdoorDestination";
+import { CustomTrapdoorDestination } from "../../interfaces/private/CustomTrapdoorDestination";
 
 const v = {
   run: {
@@ -10,7 +10,7 @@ const v = {
     /** The render frame that this state was reached. */
     stateRenderFrame: null as int | null,
 
-    destination: null as TrapdoorDestination | null,
+    destination: null as CustomTrapdoorDestination | null,
   },
 
   level: {

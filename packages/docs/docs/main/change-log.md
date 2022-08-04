@@ -9,6 +9,11 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## Unreleased
+
+- Added the following helper functions:
+  - `spawnCustomTrapdoorToVanilla`
+
 ## August 4rd, 2022
 
 - IsaacScript now supports [custom stages](https://isaacscript.github.io/main/custom-stages).
