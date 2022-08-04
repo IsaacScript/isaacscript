@@ -14,6 +14,7 @@ import {
   getTrinkets,
 } from "../../functions/pickupsSpecific";
 import { calculateStageType } from "../../functions/stage";
+import { removeCharactersBefore } from "../../functions/string";
 import { vectorEquals } from "../../functions/vector";
 import { CustomStage } from "../../interfaces/private/CustomStage";
 import { isCustomGridEntity } from "../customGridEntity";
@@ -35,6 +36,11 @@ export function setCustomDecorationGraphics(
     return;
   }
 
+  const pngPath = removeCharactersBefore(
+    customStage.decorationsPNGPath,
+    "gfx/",
+  );
+
   if (isCustomGridEntity(gridEntity)) {
     return;
   }
@@ -48,7 +54,7 @@ export function setCustomDecorationGraphics(
   const fileName = sprite.GetFilename();
   // On Windows, this is: gfx/grid/Props_01_Basement.anm2
   if (fileName.toLowerCase() === "gfx/grid/props_01_basement.anm2") {
-    sprite.ReplaceSpritesheet(0, customStage.decorationsPNGPath);
+    sprite.ReplaceSpritesheet(0, pngPath);
     sprite.LoadGraphics();
   }
 }
@@ -64,6 +70,8 @@ export function setCustomRockGraphics(
     return;
   }
 
+  const pngPath = removeCharactersBefore(customStage.rocksPNGPath, "gfx/");
+
   if (isCustomGridEntity(gridEntity)) {
     return;
   }
@@ -76,10 +84,10 @@ export function setCustomRockGraphics(
   const sprite = gridEntity.GetSprite();
   const fileName = sprite.GetFilename();
   if (fileName === "gfx/grid/grid_rock.anm2") {
-    sprite.ReplaceSpritesheet(0, customStage.rocksPNGPath);
+    sprite.ReplaceSpritesheet(0, pngPath);
     sprite.LoadGraphics();
   } else if (fileName === "gfx/grid/grid_pit.anm2") {
-    sprite.ReplaceSpritesheet(1, customStage.rocksPNGPath);
+    sprite.ReplaceSpritesheet(1, pngPath);
     sprite.LoadGraphics();
   }
 }
@@ -95,6 +103,8 @@ export function setCustomPitGraphics(
     return;
   }
 
+  const pngPath = removeCharactersBefore(customStage.pitsPNGPath, "gfx/");
+
   if (isCustomGridEntity(gridEntity)) {
     return;
   }
@@ -107,7 +117,7 @@ export function setCustomPitGraphics(
   const sprite = gridEntity.GetSprite();
   const fileName = sprite.GetFilename();
   if (fileName === "gfx/grid/grid_pit.anm2") {
-    sprite.ReplaceSpritesheet(0, customStage.pitsPNGPath);
+    sprite.ReplaceSpritesheet(0, pngPath);
     sprite.LoadGraphics();
   }
 }
@@ -136,7 +146,8 @@ export function setCustomDoorGraphics(
   const fileName = sprite.GetFilename();
   const doorPNGPath = getNewDoorPNGPath(customStage, fileName);
   if (doorPNGPath !== undefined) {
-    sprite.ReplaceSpritesheet(0, doorPNGPath);
+    const fixedPath = removeCharactersBefore(doorPNGPath, "gfx/");
+    sprite.ReplaceSpritesheet(0, fixedPath);
     sprite.LoadGraphics();
   }
 }

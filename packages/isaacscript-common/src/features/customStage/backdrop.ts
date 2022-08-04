@@ -14,7 +14,7 @@ import { getRandomArrayElement } from "../../functions/array";
 import { spawnEffectWithSeed } from "../../functions/entitiesSpecific";
 import { newRNG } from "../../functions/rng";
 import { isLRoom, isNarrowRoom } from "../../functions/roomShape";
-import { trimPrefix } from "../../functions/string";
+import { removeCharactersBefore, trimPrefix } from "../../functions/string";
 import { erange, irange } from "../../functions/utils";
 import { CustomStage } from "../../interfaces/private/CustomStage";
 import { ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH } from "./customStageConstants";
@@ -118,7 +118,8 @@ function getBackdropPNGPath(
       : customStage.backdropPNGPaths;
 
   const pathArray = backdrop[backdropKind];
-  return getRandomArrayElement(pathArray, rng);
+  const randomPath = getRandomArrayElement(pathArray, rng);
+  return removeCharactersBefore(randomPath, "gfx/");
 }
 
 function spawnWallEntity(

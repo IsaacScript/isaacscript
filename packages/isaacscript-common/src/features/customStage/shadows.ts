@@ -2,6 +2,7 @@ import { EffectVariant, RoomShape } from "isaac-typescript-definitions";
 import { game } from "../../core/cachedClasses";
 import { getRandomArrayElement } from "../../functions/array";
 import { spawnEffectWithSeed } from "../../functions/entitiesSpecific";
+import { removeCharactersBefore } from "../../functions/string";
 import { CustomStage } from "../../interfaces/private/CustomStage";
 import { ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH } from "./customStageConstants";
 import v from "./v";
@@ -68,7 +69,8 @@ export function setShadows(customStage: CustomStage): void {
   sprite.Load(`${ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH}/stage-shadow.anm2`, false);
   const decorationSeed = room.GetDecorationSeed();
   const shadow = getRandomArrayElement(shadows, decorationSeed);
-  sprite.ReplaceSpritesheet(0, shadow.pngPath);
+  const pngPath = removeCharactersBefore(shadow.pngPath, "gfx/");
+  sprite.ReplaceSpritesheet(0, pngPath);
   sprite.LoadGraphics();
   sprite.SetFrame(animation, 0);
   sprite.Color =

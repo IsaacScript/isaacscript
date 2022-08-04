@@ -11,6 +11,18 @@ export function removeAllCharacters(string: string, character: string): string {
 }
 
 /**
+ * Helper function to remove all of the characters in a string before a given substring. Returns the
+ * modified string.
+ */
+export function removeCharactersBefore(
+  string: string,
+  substring: string,
+): string {
+  const index = string.indexOf(substring);
+  return string.slice(index);
+}
+
+/**
  * Helper function to remove one or more substrings from a string, if they exist. Returns the
  * modified string.
  *

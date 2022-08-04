@@ -10,6 +10,7 @@ import { game, sfxManager } from "../../core/cachedClasses";
 import { arrayRemove } from "../../functions/array";
 import { getBosses } from "../../functions/bosses";
 import { getRoomSubType } from "../../functions/roomData";
+import { removeCharactersBefore } from "../../functions/string";
 import { erange } from "../../functions/utils";
 import { CustomStage } from "../../interfaces/private/CustomStage";
 import { BOSS_NAME_PNG_FILE_NAMES } from "../../objects/bossNamePNGFileNames";
@@ -155,10 +156,18 @@ export function playVersusScreenAnimation(customStage: CustomStage): void {
   // Boss
   {
     const { namePNGPath, portraitPNGPath } = getBossPNGPaths(customStage);
-    versusScreenSprite.ReplaceSpritesheet(BOSS_NAME_ANM2_LAYER, namePNGPath);
+    const trimmedNamePNGPath = removeCharactersBefore(namePNGPath, "gfx/");
+    versusScreenSprite.ReplaceSpritesheet(
+      BOSS_NAME_ANM2_LAYER,
+      trimmedNamePNGPath,
+    );
+    const trimmedPortraitPNGPath = removeCharactersBefore(
+      portraitPNGPath,
+      "gfx/",
+    );
     versusScreenSprite.ReplaceSpritesheet(
       BOSS_PORTRAIT_ANM2_LAYER,
-      portraitPNGPath,
+      trimmedPortraitPNGPath,
     );
   }
 

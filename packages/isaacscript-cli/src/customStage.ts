@@ -54,10 +54,82 @@ export async function prepareCustomStages(
     return;
   }
 
+  validateCustomStagePaths(customStagesTSConfig, verbose);
+
   copyCustomStageFilesToProject(verbose);
   await insertEmptyShader(verbose);
   await fillCustomStageMetadata(customStagesTSConfig, packageManager, verbose);
   combineCustomStageXMLs(customStagesTSConfig, verbose);
+}
+
+/**
+ * Before we proceed with compiling the mod, ensure that all of the file paths that the end-user put
+ * in their "tsconfig.json" file map to actual files on the file system.
+ */
+function validateCustomStagePaths(
+  customStagesTSConfig: CustomStageTSConfig[],
+  verbose: boolean,
+) {
+  for (const customStageTSConfig of customStagesTSConfig) {
+    if (customStageTSConfig.backdropPNGPaths !== undefined) {
+      for (const filePaths of Object.values(
+        customStageTSConfig.backdropPNGPaths,
+      )) {
+        for (const filePath of filePaths) {
+          checkFile(filePath, verbose);
+        }
+      }
+    }
+
+    for (const filePath of [
+      customStageTSConfig.decorationsPNGPath,
+      customStageTSConfig.rocksPNGPath,
+      customStageTSConfig.pitsPNGPath,
+    ]) {
+      checkFile(filePath, verbose);
+    }
+
+    if (customStageTSConfig.doorPNGPaths !== undefined) {
+      for (const filePath of Object.values(customStageTSConfig.doorPNGPaths)) {
+        checkFile(filePath, verbose);
+      }
+    }
+
+    if (customStageTSConfig.shadows !== undefined) {
+      for (const stageShadows of Object.values(customStageTSConfig.shadows)) {
+        for (const stageShadow of stageShadows) {
+          checkFile(stageShadow.pngPath, verbose);
+        }
+      }
+    }
+
+    if (customStageTSConfig.bossPool !== undefined) {
+      for (const bossPoolEntry of Object.values(customStageTSConfig.bossPool)) {
+        if (bossPoolEntry.versusScreen !== undefined) {
+          checkFile(bossPoolEntry.versusScreen.namePNGPath, verbose);
+          checkFile(bossPoolEntry.versusScreen.portraitPNGPath, verbose);
+        }
+      }
+    }
+  }
+}
+
+function checkFile(filePath: string | undefined, verbose: boolean) {
+  if (filePath === undefined) {
+    return;
+  }
+
+  if (!filePath.includes("gfx/")) {
+    error(
+      `Failed to validate the "${filePath}" file: all PNG file paths must be inside of a "gfx" directory. (e.g. "./mod/resources/gfx/backdrop/slaughterhouse/nfloor.png")`,
+    );
+  }
+
+  if (!file.exists(filePath, verbose)) {
+    error(
+      `Failed to find the "${filePath}" file. Check your "tsconfig.json" file and then restart IsaacScript.`,
+    );
+  }
 }
 
 /** The custom stages feature needs some anm2 files in order to work properly. */

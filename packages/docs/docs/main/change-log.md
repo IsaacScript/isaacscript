@@ -16,6 +16,7 @@ This page lists the changes to the IsaacScript framework.
   - `getAdjacentExistingRoomGridIndexes`
   - `getAdjacentNonExistingRoomGridIndexes`
   - `wouldDamageTaintedMagdaleneNonTemporaryHeartContainers`
+  - `removeCharactersBefore`
 - Changed the following helper functions:
   - `getRoomShapeNeighborGridIndexDeltas` --> `getRoomShapeAdjacentGridIndexDeltas`
   - `getRoomShapeNeighborGridIndexes` --> `getRoomShapeAdjacentGridIndexes`
