@@ -34,7 +34,7 @@ export interface CustomStageTSConfig {
    * https://isaacscript.github.io/main/custom-stages
    *
    * @minimum 101
-   * @maximum 109
+   * @maximum 999
    */
   roomVariantPrefix: number;
 

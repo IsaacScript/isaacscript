@@ -211,7 +211,7 @@
         },
         "roomVariantPrefix": {
           "description": "Mandatory. An arbitrarily chosen prefix in the range of 101-999 that will be unique to this stage.\n\nMake sure the chosen prefix does not conflict with any other mods. You can find a list of registered room variant prefixes on the IsaacScript website: https://isaacscript.github.io/main/custom-stages",
-          "maximum": 109,
+          "maximum": 999,
           "minimum": 101,
           "type": "number"
         },
