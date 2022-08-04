@@ -1,6 +1,6 @@
 import { CoinSubType } from "isaac-typescript-definitions";
 import {
-  COIN_SUBTYPE_TO_VALUE,
+  COIN_SUB_TYPE_TO_VALUE,
   DEFAULT_COIN_VALUE,
 } from "../objects/coinSubTypeToValue";
 import { CHEST_PICKUP_VARIANTS } from "../sets/chestPickupVariantsSet";
@@ -14,7 +14,7 @@ import { isHeart } from "./pickupVariants";
  * sub-types.
  */
 export function getCoinValue(coinSubType: CoinSubType): int {
-  const value = COIN_SUBTYPE_TO_VALUE[coinSubType];
+  const value = COIN_SUB_TYPE_TO_VALUE[coinSubType];
   // Handle modded coin sub-types.
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return value === undefined ? DEFAULT_COIN_VALUE : value;

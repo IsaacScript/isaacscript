@@ -18,7 +18,7 @@ type ShadowAnimation = "1x1" | "1x2" | "2x1" | "2x2";
  * time passes, like most other effects.
  */
 const SHADOW_EFFECT_VARIANT = EffectVariant.LADDER;
-const SHADOW_EFFECT_SUBTYPE = 102;
+const SHADOW_EFFECT_SUB_TYPE = 102;
 
 /** The animation comes from StageAPI. */
 const ROOM_SHAPE_TO_SHADOW_ANIMATION: {
@@ -60,7 +60,7 @@ export function setShadows(customStage: CustomStage): void {
   const seed = 1 as Seed;
   const shadowEffect = spawnEffectWithSeed(
     SHADOW_EFFECT_VARIANT,
-    SHADOW_EFFECT_SUBTYPE,
+    SHADOW_EFFECT_SUB_TYPE,
     centerPos,
     seed,
   );

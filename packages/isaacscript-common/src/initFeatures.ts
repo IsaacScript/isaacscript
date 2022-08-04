@@ -43,7 +43,7 @@ function initFeaturesMajor(mod: ModUpgraded) {
 }
 
 function initFeaturesMinor(mod: ModUpgraded) {
-  customPickupInit();
+  customPickupInit(mod);
   customTrapdoorInit(mod);
   disableAllSoundInit(mod);
   disableInputsInit(mod);

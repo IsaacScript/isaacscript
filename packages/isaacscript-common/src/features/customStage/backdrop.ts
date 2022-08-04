@@ -83,7 +83,7 @@ const N_FLOOR_ANM2_LAYERS: readonly int[] = [18, 19];
  * time passes, like most other effects.
  */
 const BACKDROP_EFFECT_VARIANT = EffectVariant.LADDER;
-const BACKDROP_EFFECT_SUBTYPE = 101;
+const BACKDROP_EFFECT_SUB_TYPE = 101;
 
 const BACKDROP_ROOM_TYPE_SET: ReadonlySet<RoomType> = new Set([
   RoomType.DEFAULT,
@@ -135,7 +135,7 @@ function spawnWallEntity(
   const seed = 1 as Seed;
   const wallEffect = spawnEffectWithSeed(
     BACKDROP_EFFECT_VARIANT,
-    BACKDROP_EFFECT_SUBTYPE,
+    BACKDROP_EFFECT_SUB_TYPE,
     VectorZero,
     seed,
   );

@@ -1229,7 +1229,7 @@ npx prettier --check "src/**/*.ts"
   - `CHARACTERS_WITH_AN_ACTIVE_ITEM`
   - `DEFAULT_ITEM_POOL_TYPE`
   - `ROOM_TYPE_TO_ITEM_POOL_TYPE_MAP`
-  - `GENESIS_ROOM_SUBTYPE`
+  - `GENESIS_ROOM_SUB_TYPE`
   - `COLLECTIBLE_DESCRIPTION_MAP`
   - `TRINKET_DESCRIPTION_MAP`
   - `CARD_DESCRIPTION_MAP`
@@ -1888,7 +1888,7 @@ You can still use `null` in your own variables, but make sure that it is for var
   - `isSecretRoomDoor`
   - `isHiddenSecretRoomDoor`
 - Added the following constants:
-  - `BEAST_ROOM_SUBTYPE`
+  - `BEAST_ROOM_SUB_TYPE`
   - `FIRST_TMTRAINER_COLLECTIBLE_TYPE`
   - `MAX_NUM_DOORS`
   - `MAX_NUM_INPUTS`

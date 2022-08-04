@@ -41,7 +41,7 @@ const NON_ALIVE_NPCS_TYPE_VARIANT: ReadonlySet<string> = new Set([
  * Used to filter out certain NPCs when determining of an NPC is "alive" and/or should keep the
  * doors open.
  */
-const NON_ALIVE_NPCS_TYPE_VARIANT_SUBTYPE: ReadonlySet<string> = new Set([
+const NON_ALIVE_NPCS_TYPE_VARIANT_SUB_TYPE: ReadonlySet<string> = new Set([
   `${EntityType.CHARGER}.${ChargerVariant.CHARGER}.${ChargerSubType.MY_SHADOW}`, // 23.0.1
   `${EntityType.MOTHER}.${MotherVariant.MOTHER_1}.${MotherSubType.PHASE_2}`, // 912
 ]);
@@ -81,7 +81,7 @@ export function isAliveExceptionNPC(npc: EntityNPC): boolean {
   }
 
   const entityTypeVariantSubType = `${npc.Type}.${npc.Variant}.${npc.SubType}`;
-  if (NON_ALIVE_NPCS_TYPE_VARIANT_SUBTYPE.has(entityTypeVariantSubType)) {
+  if (NON_ALIVE_NPCS_TYPE_VARIANT_SUB_TYPE.has(entityTypeVariantSubType)) {
     return true;
   }
 

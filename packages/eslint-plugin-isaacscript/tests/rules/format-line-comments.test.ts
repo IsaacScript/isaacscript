@@ -540,7 +540,7 @@ valid.push({
   code: `
 // ModCallback.POST_PLAYER_RENDER (32)
 // PlayerVariant.PLAYER (0)
-// BabySubType.SUBTYPE (1)
+// BabySubType.SUB_TYPE (1)
   `,
 });
 

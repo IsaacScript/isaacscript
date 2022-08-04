@@ -2,7 +2,7 @@ import { CoinSubType } from "isaac-typescript-definitions";
 
 export const DEFAULT_COIN_VALUE = 1;
 
-export const COIN_SUBTYPE_TO_VALUE: { readonly [key in CoinSubType]: int } = {
+export const COIN_SUB_TYPE_TO_VALUE: { readonly [key in CoinSubType]: int } = {
   [CoinSubType.NULL]: 0, // 0
   [CoinSubType.PENNY]: 1, // 1
   [CoinSubType.NICKEL]: 5, // 2
