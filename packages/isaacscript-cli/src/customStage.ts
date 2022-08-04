@@ -233,7 +233,7 @@ async function getCustomStagesWithMetadata(
       if (roomVariantSet.has(baseVariant)) {
         error(
           chalk.red(
-            `There is more than one room with a variant of "${baseVariant}" in the "${name}" custom stage. Make sure that each room has a unique variant. (The room variant is also called the "ID" in Basement Renovator.)`,
+            `There is more than one room with a variant of "${baseVariant}" in the "${resolvedXMLPath}" file. Make sure that each room has a unique variant. (The room variant is also called the "ID" in Basement Renovator.)`,
           ),
         );
       }
