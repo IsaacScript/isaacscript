@@ -4,6 +4,8 @@
 // - POST_PLAYER_UPDATE_REORDERED
 
 import { ModCallback } from "isaac-typescript-definitions";
+import { ModUpgraded } from "../classes/ModUpgraded";
+import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { emptyArray } from "../functions/array";
 import { getPlayerFromIndex, getPlayerIndex } from "../functions/playerIndex";
@@ -31,13 +33,16 @@ const v = {
   },
 };
 
-export function postPlayerReorderedCallbacksInit(mod: Mod): void {
+export function postPlayerReorderedCallbacksInit(mod: ModUpgraded): void {
   saveDataManager("postPlayerReordered", v, hasSubscriptions);
 
   mod.AddCallback(ModCallback.POST_PEFFECT_UPDATE, postPEffectUpdate); // 4
-  mod.AddCallback(ModCallback.POST_GAME_STARTED, postGameStarted); // 15
   mod.AddCallback(ModCallback.POST_PLAYER_UPDATE, postPlayerUpdate); // 31
   mod.AddCallback(ModCallback.POST_PLAYER_RENDER, postPlayerRender); // 32
+  mod.AddCallbackCustom(
+    ModCallbackCustom.POST_GAME_STARTED_REORDERED,
+    postGameStartedReordered,
+  );
 }
 
 function hasSubscriptions() {
@@ -94,7 +99,7 @@ function postPlayerRender(player: EntityPlayer) {
 }
 
 // ModCallback.POST_GAME_STARTED (15)
-function postGameStarted() {
+function postGameStartedReordered() {
   if (!hasSubscriptions()) {
     return;
   }

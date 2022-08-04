@@ -16,6 +16,7 @@ import { persistentEntitiesInit } from "./features/persistentEntities";
 import { pickupIndexInit } from "./features/pickupIndex";
 import { playerInventoryInit } from "./features/playerInventory";
 import { ponyDetectionInit } from "./features/ponyDetection";
+import { preventChildEntitiesInit } from "./features/preventChildEntities";
 import { preventCollectibleRotationInit } from "./features/preventCollectibleRotation";
 import { registerHotkeyInit } from "./features/registerHotkey";
 import { roomClearFrameInit } from "./features/roomClearFrame";
@@ -53,6 +54,7 @@ function initFeaturesMinor(mod: ModUpgraded) {
   pickupIndexInit(mod);
   playerInventoryInit(mod);
   ponyDetectionInit(mod);
+  preventChildEntitiesInit(mod);
   preventCollectibleRotationInit(mod);
   registerHotkeyInit(mod);
   roomClearFrameInit(mod);
