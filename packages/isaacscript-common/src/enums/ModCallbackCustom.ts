@@ -742,8 +742,9 @@ export enum ModCallbackCustom {
   POST_NPC_STATE_CHANGED,
 
   /**
-   * Similar to the vanilla callback of the same name, but fires after the `POST_GAME_STARTED`
-   * callback fires (if the player is being updated on the 0th game frame of the run).
+   * Similar to the vanilla callback of the same name, but fires after the
+   * `POST_GAME_STARTED_REORDERED` callback fires (if the player is being updated on the 0th game
+   * frame of the run).
    *
    * This callback is useful for two reasons:
    *
@@ -1038,8 +1039,9 @@ export enum ModCallbackCustom {
   POST_PLAYER_RENDER_REORDERED,
 
   /**
-   * Similar to the vanilla callback of the same name, but fires after the `POST_GAME_STARTED`
-   * callback fires (if the player is being updated on the 0th game frame of the run).
+   * Similar to the vanilla callback of the same name, but fires after the
+   * `POST_GAME_STARTED_REORDERED` callback fires (if the player is being updated on the 0th game
+   * frame of the run).
    *
    * This callback is useful for two reasons:
    *

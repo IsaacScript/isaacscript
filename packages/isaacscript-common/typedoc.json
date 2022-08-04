@@ -47,6 +47,7 @@
     "src/features/pickupIndex.ts",
     "src/features/playerInventory.ts",
     "src/features/ponyDetection.ts",
+    "src/features/preventChildEntities.ts",
     "src/features/preventCollectibleRotation.ts",
     "src/features/registerHotkey.ts",
     "src/features/roomClearFrame.ts",
