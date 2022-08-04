@@ -47,7 +47,37 @@ const DOWN = LEVEL_GRID_ROW_WIDTH;
 const ADJACENT_ROOM_GRID_INDEX_DELTAS: readonly int[] = [LEFT, UP, RIGHT, DOWN];
 
 /**
- * Helper function to get the room grid indexes that are adjacent to a given room grid index.
+ * Helper function to get only the adjacent room grid indexes that exist (i.e. have room data).
+ *
+ * This is just a filtering of the results of the `getAdjacentExistingRoomGridIndexes` function. See
+ * that function for more information.
+ */
+export function getAdjacentExistingRoomGridIndexes(roomGridIndex?: int): int[] {
+  const adjacentRoomGridIndexes = getAdjacentRoomGridIndexes(roomGridIndex);
+  return adjacentRoomGridIndexes.filter(
+    (adjacentRoomGridIndex) => getRoomData(adjacentRoomGridIndex) !== undefined,
+  );
+}
+
+/**
+ * Helper function to get only the adjacent room grid indexes that do not exist (i.e. do not have
+ * room data).
+ *
+ * This is just a filtering of the results of the `getAdjacentExistingRoomGridIndexes` function. See
+ * that function for more information.
+ */
+export function getAdjacentNonExistingRoomGridIndexes(
+  roomGridIndex?: int,
+): int[] {
+  const adjacentRoomGridIndexes = getAdjacentRoomGridIndexes(roomGridIndex);
+  return adjacentRoomGridIndexes.filter(
+    (adjacentRoomGridIndex) => getRoomData(adjacentRoomGridIndex) === undefined,
+  );
+}
+
+/**
+ * Helper function to get all of the room grid indexes that are adjacent to a given room grid index
+ * (even if those room grid indexes do not have any rooms in them).
  *
  * Adjacent room grid indexes that are outside of the grid will not be included in the returned
  * array.
@@ -127,7 +157,7 @@ export function getNewRoomCandidatesBesideRoom(
     return [];
   }
 
-  const doorSlotToRoomGridIndexes = getRoomShapeNeighborGridIndexes(
+  const doorSlotToRoomGridIndexes = getRoomShapeAdjacentNonExistingGridIndexes(
     roomDescriptor.SafeGridIndex,
     roomData.Shape,
   );
@@ -136,29 +166,24 @@ export function getNewRoomCandidatesBesideRoom(
 
   for (const [
     doorSlot,
-    neighborRoomGridIndex,
+    adjacentRoomGridIndex,
   ] of doorSlotToRoomGridIndexes.entries()) {
-    // The "getRoomShapeNeighborGridIndexes" returns grid indexes for every possible door, but the
-    // real room we are examining will only have a subset of these doors. Thus, we have to exclude
-    // neighbor grid indexes where it would not be possible to place a door.
+    // The "getRoomShapeAdjacentNonExistingGridIndexes" returns grid indexes for every possible
+    // door, but the real room we are examining will only have a subset of these doors. Thus, we
+    // have to exclude adjacent grid indexes where it would not be possible to place a door.
     const doorSlotFlag = doorSlotToDoorSlotFlag(doorSlot);
     if (!hasFlag(roomData.Doors, doorSlotFlag)) {
-      continue;
-    }
-
-    // If the neighboring room already exists, then it is not a possible candidate for a new room.
-    if (roomExists(neighborRoomGridIndex)) {
       continue;
     }
 
     // Check to see if hypothetically creating a room at the given room grid index would be a dead
     // end. In other words, if we created the room, we would only want it to connect to one other
     // room (this one).
-    if (!isDeadEnd(neighborRoomGridIndex)) {
+    if (!isDeadEnd(adjacentRoomGridIndex)) {
       continue;
     }
 
-    roomCandidates.push([doorSlot, neighborRoomGridIndex]);
+    roomCandidates.push([doorSlot, adjacentRoomGridIndex]);
   }
 
   return roomCandidates;
@@ -197,6 +222,36 @@ export function getNewRoomCandidatesForLevel(): Array<
 }
 
 /**
+ * Helper function to get the grid indexes of all the rooms connected to the given room index,
+ * taking the shape of the room into account. (This will only include rooms with valid data.)
+ *
+ * Returns an empty map if the provided room grid index is out of bounds or has no associated room
+ * data.
+ *
+ * @param roomGridIndex Optional. Default is the current room index.
+ * @returns A map of `DoorSlot` to the corresponding room grid index.
+ */
+export function getRoomAdjacentGridIndexes(
+  roomGridIndex?: int,
+): Map<DoorSlot, int> {
+  const roomDescriptor = getRoomDescriptor(roomGridIndex);
+
+  if (!isRoomInsideGrid(roomDescriptor.SafeGridIndex)) {
+    return new Map();
+  }
+
+  const roomData = roomDescriptor.Data;
+  if (roomData === undefined) {
+    return new Map();
+  }
+
+  return getRoomShapeAdjacentExistingGridIndexes(
+    roomDescriptor.SafeGridIndex,
+    roomData.Shape,
+  );
+}
+
+/**
  * Helper function to get an array of all of the safe grid indexes for rooms that match the
  * specified room type.
  *
@@ -219,57 +274,43 @@ export function getRoomGridIndexesForType(...roomTypes: RoomType[]): int[] {
 }
 
 /**
- * Helper function to get the grid indexes of all the rooms connected to the given room index,
- * taking the shape of the room into account. (This will only include rooms with valid data.)
+ * Helper function to get only the adjacent room grid indexes for a room shape that exist (i.e. have
+ * room data).
  *
- * Returns an empty map if the provided room grid index is out of bounds or has no associated room
- * data.
- *
- * @param roomGridIndex Optional. Default is the current room index.
- * @returns A map of `DoorSlot` to the corresponding room grid index.
+ * This is just a filtering of the results of the `getRoomShapeAdjacentGridIndexes` function. See
+ * that function for more information.
  */
-export function getRoomNeighbors(roomGridIndex?: int): Map<DoorSlot, int> {
-  const roomDescriptor = getRoomDescriptor(roomGridIndex);
-
-  if (!isRoomInsideGrid(roomDescriptor.SafeGridIndex)) {
-    return new Map();
-  }
-
-  const roomData = roomDescriptor.Data;
-  if (roomData === undefined) {
-    return new Map();
-  }
-
-  const doorSlotToRoomGridIndexes = getRoomShapeNeighborGridIndexes(
-    roomDescriptor.SafeGridIndex,
-    roomData.Shape,
+export function getRoomShapeAdjacentExistingGridIndexes(
+  safeRoomGridIndex: int,
+  roomShape: RoomShape,
+): Map<DoorSlot, int> {
+  const roomShapeAdjacentGridIndexes = getRoomShapeAdjacentGridIndexes(
+    safeRoomGridIndex,
+    roomShape,
   );
 
-  // The "getRoomShapeNeighborGridIndexes" returns grid indexes for every possible door, but the
-  // real room we are examining will only have a subset of these doors. However, we do not have to
-  // worry about filtering the map, since we perform a room existence check below.
-  const roomNeighbors = new Map<DoorSlot, int>();
   for (const [
     doorSlot,
-    neighborRoomGridIndex,
-  ] of doorSlotToRoomGridIndexes.entries()) {
-    if (roomExists(neighborRoomGridIndex)) {
-      roomNeighbors.set(doorSlot, neighborRoomGridIndex);
+    roomGridIndex,
+  ] of roomShapeAdjacentGridIndexes.entries()) {
+    const roomData = getRoomData(roomGridIndex);
+    if (roomData === undefined) {
+      roomShapeAdjacentGridIndexes.delete(doorSlot);
     }
   }
 
-  return roomNeighbors;
+  return roomShapeAdjacentGridIndexes;
 }
 
 /**
  * Helper function to get the room grid index delta that each hypothetical door in a given room
  * shape would go to.
  *
- * This is used by the `getRoomShapeNeighborGridIndexes` function.
+ * This is used by the `getRoomShapeAdjacentGridIndexes` function.
  *
  * @returns A map of `DoorSlot` to the corresponding room grid index delta.
  */
-export function getRoomShapeNeighborGridIndexDeltas(
+export function getRoomShapeAdjacentGridIndexDeltas(
   roomShape: RoomShape,
 ): Map<DoorSlot, int> {
   return ROOM_SHAPE_TO_DOOR_SLOTS_TO_GRID_INDEX_DELTA[roomShape];
@@ -284,22 +325,51 @@ export function getRoomShapeNeighborGridIndexDeltas(
  * @param roomShape The shape of the room.
  * @returns A map of `DoorSlot` to the corresponding room grid index.
  */
-export function getRoomShapeNeighborGridIndexes(
+export function getRoomShapeAdjacentGridIndexes(
   safeRoomGridIndex: int,
   roomShape: RoomShape,
 ): Map<DoorSlot, int> {
-  const roomShapeNeighborGridIndexDeltas =
-    getRoomShapeNeighborGridIndexDeltas(roomShape);
+  const roomShapeAdjacentGridIndexDeltas =
+    getRoomShapeAdjacentGridIndexDeltas(roomShape);
 
-  const neighborGridIndexes = new Map<DoorSlot, int>();
-  for (const [doorSlot, delta] of roomShapeNeighborGridIndexDeltas.entries()) {
+  const adjacentGridIndexes = new Map<DoorSlot, int>();
+  for (const [doorSlot, delta] of roomShapeAdjacentGridIndexDeltas.entries()) {
     const roomGridIndex = safeRoomGridIndex + delta;
     if (isRoomInsideGrid(roomGridIndex)) {
-      neighborGridIndexes.set(doorSlot, roomGridIndex);
+      adjacentGridIndexes.set(doorSlot, roomGridIndex);
     }
   }
 
-  return neighborGridIndexes;
+  return adjacentGridIndexes;
+}
+
+/**
+ * Helper function to get only the adjacent room grid indexes for a room shape that do not exist
+ * (i.e. do not have room data).
+ *
+ * This is just a filtering of the results of the `getRoomShapeAdjacentGridIndexes` function. See
+ * that function for more information.
+ */
+export function getRoomShapeAdjacentNonExistingGridIndexes(
+  safeRoomGridIndex: int,
+  roomShape: RoomShape,
+): Map<DoorSlot, int> {
+  const roomShapeAdjacentGridIndexes = getRoomShapeAdjacentGridIndexes(
+    safeRoomGridIndex,
+    roomShape,
+  );
+
+  for (const [
+    doorSlot,
+    roomGridIndex,
+  ] of roomShapeAdjacentGridIndexes.entries()) {
+    const roomData = getRoomData(roomGridIndex);
+    if (roomData !== undefined) {
+      roomShapeAdjacentGridIndexes.delete(doorSlot);
+    }
+  }
+
+  return roomShapeAdjacentGridIndexes;
 }
 
 /**
@@ -315,15 +385,10 @@ export function getRoomShapeNeighborGridIndexes(
  * @param roomGridIndex Optional. Default is the current room index.
  */
 export function isDeadEnd(roomGridIndex?: int): boolean {
-  const adjacentRoomGridIndexes = getAdjacentRoomGridIndexes(roomGridIndex);
-  const adjacentRoomData = adjacentRoomGridIndexes.map(
-    (adjacentRoomGridIndex) => getRoomData(adjacentRoomGridIndex),
-  );
-  const existingRoomData = adjacentRoomData.filter(
-    (data): data is RoomConfig => data !== undefined,
-  );
+  const adjacentNonExistingRoomGridIndexes =
+    getAdjacentNonExistingRoomGridIndexes(roomGridIndex);
 
-  return existingRoomData.length === 1;
+  return adjacentNonExistingRoomGridIndexes.length === 1;
 }
 
 export function isDoorSlotValidAtGridIndex(

@@ -18,10 +18,7 @@ import { addPlayerHealthType } from "../../functions/playerHealth";
 import { getRoomData, getRoomDescriptor } from "../../functions/roomData";
 import { changeRoom } from "../../functions/rooms";
 import { printConsole } from "../../functions/utils";
-import {
-  DEFAULT_ROOM_TYPE_NAME,
-  ROOM_TYPE_NAMES,
-} from "../../objects/roomTypeNames";
+import { ROOM_TYPE_NAMES } from "../../objects/roomTypeNames";
 
 const DEFAULT_MOVE_UNITS = 0.5;
 
@@ -127,10 +124,19 @@ export function spawnTrapdoorOrCrawlSpace(trapdoor: boolean): void {
 
 export function warpToRoomType(roomType: RoomType): void {
   const roomTypeName = ROOM_TYPE_NAMES[roomType];
-  if (roomTypeName === DEFAULT_ROOM_TYPE_NAME) {
-    printConsole(`Invalid room type: ${roomType}`);
+  const gridIndexes = getRoomGridIndexesForType(roomType);
+  const firstGridIndex = gridIndexes[0];
+  if (firstGridIndex === undefined) {
+    printConsole(`There are no ${roomTypeName}s on this floor.`);
+    return;
   }
 
+  changeRoom(firstGridIndex);
+  printConsole(`Warped to room type: ${roomTypeName} (${roomType})`);
+}
+
+export function warpNextToRoomType(roomType: RoomType): void {
+  const roomTypeName = ROOM_TYPE_NAMES[roomType];
   const gridIndexes = getRoomGridIndexesForType(roomType);
   const firstGridIndex = gridIndexes[0];
   if (firstGridIndex === undefined) {

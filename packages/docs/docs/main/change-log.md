@@ -13,6 +13,15 @@ This page lists the changes to the IsaacScript framework.
 
 - Added the following helper functions:
   - `spawnCustomTrapdoorToVanilla`
+  - `getAdjacentExistingRoomGridIndexes`
+  - `getAdjacentNonExistingRoomGridIndexes`
+- Changed the following helper functions:
+  - `getRoomShapeNeighborGridIndexDeltas` --> `getRoomShapeAdjacentGridIndexDeltas`
+  - `getRoomShapeNeighborGridIndexes` --> `getRoomShapeAdjacentGridIndexes`
+  - `getRoomNeighbors` --> `getRoomAdjacentGridIndexes`
+  - `getRoomShapeNeighborGridIndexDeltas` --> `getRoomShapeAdjacentGridIndexDeltas`
+- Added the following custom commands:
+  - `bossNextRoom` (to go to the room next to the boss)
 
 ## August 4rd, 2022
 
