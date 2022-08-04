@@ -32,14 +32,12 @@ export function setCustomDecorationGraphics(
 ): void {
   // If the end-user did not specify custom decoration graphics, default to Basement graphics. (We
   // don't have to adjust anything for this case.)
-  if (customStage.decorationsPNGPath === undefined) {
+  if (
+    customStage.decorationsPNGPath === undefined &&
+    customStage.decorationsANM2Path === undefined
+  ) {
     return;
   }
-
-  const pngPath = removeCharactersBefore(
-    customStage.decorationsPNGPath,
-    "gfx/",
-  );
 
   if (isCustomGridEntity(gridEntity)) {
     return;
@@ -53,7 +51,21 @@ export function setCustomDecorationGraphics(
   const sprite = gridEntity.GetSprite();
   const fileName = sprite.GetFilename();
   // On Windows, this is: gfx/grid/Props_01_Basement.anm2
-  if (fileName.toLowerCase() === "gfx/grid/props_01_basement.anm2") {
+  if (fileName.toLowerCase() !== "gfx/grid/props_01_basement.anm2") {
+    return;
+  }
+
+  if (customStage.decorationsANM2Path !== undefined) {
+    const anm2Path = removeCharactersBefore(
+      customStage.decorationsANM2Path,
+      "gfx/",
+    );
+    sprite.Load(anm2Path, true);
+  } else if (customStage.decorationsPNGPath !== undefined) {
+    const pngPath = removeCharactersBefore(
+      customStage.decorationsPNGPath,
+      "gfx/",
+    );
     sprite.ReplaceSpritesheet(0, pngPath);
     sprite.LoadGraphics();
   }
@@ -66,11 +78,12 @@ export function setCustomRockGraphics(
 ): void {
   // If the end-user did not specify custom rock graphics, default to Basement graphics. (We don't
   // have to adjust anything for this case.)
-  if (customStage.rocksPNGPath === undefined) {
+  if (
+    customStage.rocksPNGPath === undefined &&
+    customStage.rocksANM2Path === undefined
+  ) {
     return;
   }
-
-  const pngPath = removeCharactersBefore(customStage.rocksPNGPath, "gfx/");
 
   if (isCustomGridEntity(gridEntity)) {
     return;
@@ -83,12 +96,41 @@ export function setCustomRockGraphics(
 
   const sprite = gridEntity.GetSprite();
   const fileName = sprite.GetFilename();
-  if (fileName === "gfx/grid/grid_rock.anm2") {
-    sprite.ReplaceSpritesheet(0, pngPath);
-    sprite.LoadGraphics();
-  } else if (fileName === "gfx/grid/grid_pit.anm2") {
-    sprite.ReplaceSpritesheet(1, pngPath);
-    sprite.LoadGraphics();
+
+  switch (fileName) {
+    case "gfx/grid/grid_rock.anm2": {
+      // The normal case of a rock.
+      if (customStage.rocksANM2Path !== undefined) {
+        const anm2Path = removeCharactersBefore(
+          customStage.rocksANM2Path,
+          "gfx/",
+        );
+        sprite.Load(anm2Path, true);
+      } else if (customStage.rocksPNGPath !== undefined) {
+        const pngPath = removeCharactersBefore(
+          customStage.rocksPNGPath,
+          "gfx/",
+        );
+        sprite.ReplaceSpritesheet(0, pngPath);
+        sprite.LoadGraphics();
+      }
+
+      break;
+    }
+
+    case "gfx/grid/grid_pit.anm2": {
+      // The case of when a rock is blown on a pit to make a bridge.
+      if (customStage.rocksPNGPath !== undefined) {
+        const pngPath = removeCharactersBefore(
+          customStage.rocksPNGPath,
+          "gfx/",
+        );
+        sprite.ReplaceSpritesheet(1, pngPath);
+        sprite.LoadGraphics();
+      }
+
+      break;
+    }
   }
 }
 

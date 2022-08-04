@@ -83,8 +83,11 @@ function validateCustomStagePaths(
 
     for (const filePath of [
       customStageTSConfig.decorationsPNGPath,
+      customStageTSConfig.decorationsANM2Path,
       customStageTSConfig.rocksPNGPath,
+      customStageTSConfig.rocksANM2Path,
       customStageTSConfig.pitsPNGPath,
+      customStageTSConfig.pitsANM2Path,
     ]) {
       checkFile(filePath, verbose);
     }

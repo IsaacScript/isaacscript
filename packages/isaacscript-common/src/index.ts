@@ -25,6 +25,7 @@ export {
   removeCustomGridEntity,
   spawnCustomGridEntity,
 } from "./features/customGridEntity";
+export { registerCustomPickup } from "./features/customPickup";
 export * from "./features/customStage/exports";
 export * from "./features/customTrapdoor/exports";
 export * from "./features/debugDisplay/exports";

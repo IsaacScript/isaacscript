@@ -3,6 +3,7 @@ import { characterHealthConversionInit } from "./features/characterHealthConvers
 import { characterStatsInit } from "./features/characterStats";
 import { collectibleItemPoolTypeInit } from "./features/collectibleItemPoolType";
 import { customGridEntityInit } from "./features/customGridEntity";
+import { customPickupInit } from "./features/customPickup";
 import { customStageInit } from "./features/customStage/init";
 import { customTrapdoorInit } from "./features/customTrapdoor/init";
 import { deployJSONRoomInit } from "./features/deployJSONRoom";
@@ -42,6 +43,7 @@ function initFeaturesMajor(mod: ModUpgraded) {
 }
 
 function initFeaturesMinor(mod: ModUpgraded) {
+  customPickupInit();
   customTrapdoorInit(mod);
   disableAllSoundInit(mod);
   disableInputsInit(mod);

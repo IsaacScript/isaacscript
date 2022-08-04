@@ -134,8 +134,23 @@ export interface CustomStageTSConfig {
    *
    * If not specified, the vanilla Basement decorations spritesheet will be used. For reference,
    * this is located at: `resources/gfx/grid/props_01_basement.png`
+   *
+   * If you want to have custom animations for your decorations, then do not use this field and use
+   * `decorationsANM2Path` instead.
    */
   decorationsPNGPath?: string;
+
+  /**
+   * Optional. The full path to the anm2 file that contains the custom animations for the
+   * decorations of the floor.
+   *
+   * If not specified, the vanilla Basement decorations spritesheet will be used. For reference,
+   * this is located at: `resources/gfx/grid/props_01_basement.png`
+   *
+   * If you do not want to have custom animations for your decorations, then do not use this field
+   * and use `decorationsPNGPath` instead.
+   */
+  decorationsANM2Path?: string;
 
   /**
    * Optional. The full path to the spritesheet that contains the graphics of the rocks/blocks/urns
@@ -148,8 +163,28 @@ export interface CustomStageTSConfig {
    *
    * If not specified, the vanilla Basement rocks spritesheet will be used. For reference, this is
    * located at: `resources-dlc3/gfx/grid/rocks_basement.png`
+   *
+   * If you want to have custom animations for your rocks, then do not use this field and use
+   * `rocksANM2Path` instead.
    */
   rocksPNGPath?: string;
+
+  /**
+   * Optional. The full path to the anm2 file that contains the custom animations for the
+   * rocks/blocks/urns of the floor.
+   *
+   * If specified, it is assumed that you have your own custom rock alt type, and all vanilla
+   * rewards/enemies that spawn from urns will be automatically removed. Use the
+   * `POST_GRID_ENTITY_BROKEN` callback to make your own custom rewards. Or, if you want to emulate
+   * a vanilla urn/mushroom/skull/polyp/bucket, use the `spawnRockAltReward` helper function.
+   *
+   * If not specified, the vanilla Basement rocks spritesheet will be used. For reference, this is
+   * located at: `resources-dlc3/gfx/grid/rocks_basement.png`
+   *
+   * If you do not want to have custom animations for your rocks, then do not use this field and use
+   * `rocksPNGPath` instead.
+   */
+  rocksANM2Path?: string;
 
   /**
    * Optional. The full path to the spritesheet that contains the graphics of the pits for the
@@ -157,8 +192,23 @@ export interface CustomStageTSConfig {
    *
    * If not specified, the vanilla Basement pits spritesheet will be used. For reference, this is
    * located at: `resources/gfx/grid/grid_pit.png`
+   *
+   * If you do not want to have custom animations for your pits, then do not use this field and use
+   * `pitsANM2Path` instead.
    */
   pitsPNGPath?: string;
+
+  /**
+   * Optional. The full path to the anm2 file that contains the custom animations for the pits of
+   * the floor.
+   *
+   * If not specified, the vanilla Basement pits spritesheet will be used. For reference, this is
+   * located at: `resources/gfx/grid/grid_pit.png`
+   *
+   * If you do not want to have custom animations for your pits, then do not use this field and use
+   * `pitsPNGPath` instead.
+   */
+  pitsANM2Path?: string;
 
   /**
    * Optional. A collection of paths that contain graphics for the doors of the floor. If not

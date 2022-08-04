@@ -29,6 +29,7 @@
     "src/features/collectibleItemPoolType.ts",
     "src/features/customDoor.ts",
     "src/features/customGridEntity.ts",
+    "src/features/customPickup.ts",
     "src/features/customStage/exports.ts",
     "src/features/customTrapdoor/exports.ts",
     "src/features/debugDisplay/exports.ts",
