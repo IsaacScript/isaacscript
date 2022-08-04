@@ -9,7 +9,7 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## August 3rd, 2022
+## August 4rd, 2022
 
 - IsaacScript now supports [custom stages](https://isaacscript.github.io/main/custom-stages).
 - The save data manager now supports serializing/deserializing `BitSet128` objects.
