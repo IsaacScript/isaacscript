@@ -152,7 +152,7 @@ export function warpNextToRoomType(roomType: RoomType): void {
   for (const [_doorSlot, roomGridIndex] of adjacentRoomGridIndexes.entries()) {
     const roomData = getRoomData(roomGridIndex);
     if (roomData !== undefined && roomData.Type === RoomType.DEFAULT) {
-      changeRoom(firstGridIndex);
+      changeRoom(roomGridIndex);
       printConsole(`Warped next to room type: ${roomTypeName} (${roomType})`);
       return;
     }
