@@ -318,7 +318,7 @@
           "type": "string"
         }
       },
-      "required": ["name", "xmlPath", "roomVariantPrefix", "backdropPNGPaths"],
+      "required": ["name", "xmlPath", "roomVariantPrefix"],
       "type": "object"
     },
     "IsaacScriptTSConfig": {
