@@ -138,23 +138,24 @@ export function playVersusScreenAnimation(customStage: CustomStage): void {
   hud.SetVisible(false);
 
   // Player
-  const [playerNamePNGPath, playerPortraitPNGPath] = getPlayerPNGPaths();
-  versusScreenSprite.ReplaceSpritesheet(
-    PLAYER_NAME_ANM2_LAYER,
-    playerNamePNGPath,
-  );
-  versusScreenSprite.ReplaceSpritesheet(
-    PLAYER_PORTRAIT_ANM2_LAYER,
-    playerPortraitPNGPath,
-  );
+  {
+    const { namePNGPath, portraitPNGPath } = getPlayerPNGPaths();
+    versusScreenSprite.ReplaceSpritesheet(PLAYER_NAME_ANM2_LAYER, namePNGPath);
+    versusScreenSprite.ReplaceSpritesheet(
+      PLAYER_PORTRAIT_ANM2_LAYER,
+      portraitPNGPath,
+    );
+  }
 
   // Boss
-  const { namePNGPath, portraitPNGPath } = getBossPNGPaths(customStage);
-  versusScreenSprite.ReplaceSpritesheet(BOSS_NAME_ANM2_LAYER, namePNGPath);
-  versusScreenSprite.ReplaceSpritesheet(
-    BOSS_PORTRAIT_ANM2_LAYER,
-    portraitPNGPath,
-  );
+  {
+    const { namePNGPath, portraitPNGPath } = getBossPNGPaths(customStage);
+    versusScreenSprite.ReplaceSpritesheet(BOSS_NAME_ANM2_LAYER, namePNGPath);
+    versusScreenSprite.ReplaceSpritesheet(
+      BOSS_PORTRAIT_ANM2_LAYER,
+      portraitPNGPath,
+    );
+  }
 
   versusScreenSprite.LoadGraphics();
 
@@ -188,28 +189,28 @@ function willVanillaVersusScreenPlay() {
 }
 
 /** Use the character of the 0th player. */
-function getPlayerPNGPaths(): [
-  playerNamePNGPath: string,
-  playerPortraitPNGPath: string,
-] {
+function getPlayerPNGPaths(): {
+  namePNGPath: string;
+  portraitPNGPath: string;
+} {
   const player = Isaac.GetPlayer();
   const character = player.GetPlayerType();
 
-  let playerNamePNGFileName = PLAYER_NAME_PNG_FILE_NAMES[character];
-  if (playerNamePNGFileName === undefined) {
-    playerNamePNGFileName = PLAYER_NAME_PNG_FILE_NAMES[DEFAULT_CHARACTER];
+  let namePNGFileName = PLAYER_NAME_PNG_FILE_NAMES[character];
+  if (namePNGFileName === undefined) {
+    namePNGFileName = PLAYER_NAME_PNG_FILE_NAMES[DEFAULT_CHARACTER];
   }
 
-  const playerNamePNGPath = `${PNG_PATH_PREFIX}/${playerNamePNGFileName}`;
+  const namePNGPath = `${PNG_PATH_PREFIX}/${namePNGFileName}`;
 
-  let playerPortraitFileName = PLAYER_PORTRAIT_PNG_FILE_NAMES[character];
-  if (playerNamePNGFileName === undefined) {
-    playerPortraitFileName = PLAYER_PORTRAIT_PNG_FILE_NAMES[DEFAULT_CHARACTER];
+  let portraitFileName = PLAYER_PORTRAIT_PNG_FILE_NAMES[character];
+  if (namePNGFileName === undefined) {
+    portraitFileName = PLAYER_PORTRAIT_PNG_FILE_NAMES[DEFAULT_CHARACTER];
   }
 
-  const playerPortraitPNGPath = `${PLAYER_PORTRAIT_PNG_PATH_PREFIX}/${playerPortraitFileName}`;
+  const portraitPNGPath = `${PLAYER_PORTRAIT_PNG_PATH_PREFIX}/${portraitFileName}`;
 
-  return [playerNamePNGPath, playerPortraitPNGPath];
+  return { namePNGPath, portraitPNGPath };
 }
 
 /** Use the boss of the first boss found. */
@@ -283,10 +284,8 @@ export function versusScreenPostRender(): void {
     return;
   }
 
-  const isPaused = game.IsPaused();
-  if (isPaused) {
-    return;
-  }
+  // We do not want to early return when the game is paused because we need to start displaying the
+  // black screen as soon as the slide animation starts.
 
   if (versusScreenSprite.IsFinished(VERSUS_SCREEN_ANIMATION_NAME)) {
     finishVersusScreenAnimation();
