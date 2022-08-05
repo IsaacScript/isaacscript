@@ -395,7 +395,7 @@ export function isPostBossVoidPortal(gridEntity: GridEntity): boolean {
  * For example:
  *
  * ```ts
- * removeAllGridEntitiesExceptFor(
+ * removeAllGridEntitiesExcept(
  *   GridEntityType.WALL,
  *   GridEntityType.DOOR,
  * );
@@ -403,7 +403,7 @@ export function isPostBossVoidPortal(gridEntity: GridEntity): boolean {
  *
  * @returns The grid entities that were removed.
  */
-export function removeAllGridExcept(
+export function removeAllGridEntitiesExcept(
   ...gridEntityTypes: GridEntityType[]
 ): GridEntity[] {
   const gridEntityTypeExceptions = new Set(gridEntityTypes);

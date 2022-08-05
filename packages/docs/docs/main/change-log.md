@@ -22,6 +22,8 @@ This page lists the changes to the IsaacScript framework.
   - `getTrinketArray`
   - `getVanillaTrinketArray`
   - `getVanillaTrinketSet`
+- Renamed the following helper functions:
+  - `removeAllGridExcept` --> `removeAllGridEntitiesExcept`
 - Changed the following helper functions:
   - `getRoomShapeNeighborGridIndexDeltas` --> `getRoomShapeAdjacentGridIndexDeltas`
   - `getRoomShapeNeighborGridIndexes` --> `getRoomShapeAdjacentGridIndexes`

@@ -40,7 +40,7 @@ import {
   convertXMLGridEntityType,
   getAllGridIndexes,
   getGridEntities,
-  removeAllGridExcept,
+  removeAllGridEntitiesExcept,
   removeGridEntity,
   setGridEntityInvisible,
   spawnGridEntityWithVariant,
@@ -341,7 +341,7 @@ export function emptyRoom(fillWithDecorations: boolean): void {
   removeAllMatchingEntities(EntityType.EFFECT, EffectVariant.DEVIL);
   removeAllMatchingEntities(EntityType.EFFECT, EffectVariant.ANGEL);
 
-  removeAllGridExcept(
+  removeAllGridEntitiesExcept(
     GridEntityType.WALL, // 15
     GridEntityType.DOOR, // 16
   );
