@@ -102,6 +102,17 @@ module.exports = {
 
     /**
      * Documentation:
+     * https://typescript-eslint.io/rules/prefer-literal-enum-member
+     *
+     * Defined at:
+     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/strict.ts
+     *
+     * It is common to initialize enums with the `Isaac.GetEntityVariantByName` method.
+     */
+    "@typescript-eslint/prefer-literal-enum-member": "off",
+
+    /**
+     * Documentation:
      * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/enum-member-number-separation.md
      *
      * Not defined in the parent configs.
