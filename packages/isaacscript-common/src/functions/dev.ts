@@ -7,7 +7,7 @@ import { setLogFunctionsGlobal } from "./log";
 
 /**
  * Helper function to enable some IsaacScript features that are useful when developing a mod. They
- * shouldn't be enabled when your mod goes to production (i.e. it is uploaded to the Steam
+ * should not be enabled when your mod goes to production (i.e. when it is uploaded to the Steam
  * Workshop).
  *
  * The list of development features that are enabled are as follows:
