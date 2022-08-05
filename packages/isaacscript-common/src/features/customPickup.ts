@@ -96,11 +96,14 @@ function postEffectRenderPickupEffect(effect: EntityEffect) {
 
 /**
  * Helper function to register a custom pickup with the IsaacScript standard library. Use this
- * feature for custom pickups that are intended to be picked up by the player, like keys and bombs.
+ * feature for custom pickups that are intended to be picked up by the player, like bombs and keys.
  *
  * When IsaacScript detects that a player should be collecting the custom pickup, then the pickup
  * will be immediately removed, and an effect showing the pickup's respective `Collect` animation
- * will be spawned. (This emulates how a normal vanilla pickup would work.)
+ * will be spawned. (This emulates how a normal vanilla pickup would work.) After that, the provided
+ * `collectFunc` will be fired. In this function, you will probably want to play a sound
+ * corresponding to what kind of pickup it is (e.g. `SoundEffect.KEY_PICKUP_GAUNTLET`), as well as
+ * do things like adding something to the player's inventory.
  *
  * Note that when you specify your custom pickup in the "entities2.xml" file, it should have a type
  * of "5" and be associated with an anm2 file that has a "Collect" animation.
