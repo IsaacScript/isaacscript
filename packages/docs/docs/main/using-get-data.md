@@ -148,7 +148,7 @@ export function fooInit(): void {
 function incrementSleepCounter(npc: EntityNPC) {}
   const ptrHash = GetPtrHash(npc);
   const data = v.run.fooData.getAndSetDefault(ptrHash);
-  fooData.sleepCounters += 1;
+  data.sleepCounters += 1;
 }
 ```
 
