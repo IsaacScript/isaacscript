@@ -74,6 +74,7 @@ import { postRockUpdateRegister } from "../callbacks/subscriptions/postRockUpdat
 import { postRoomClearChangedRegister } from "../callbacks/subscriptions/postRoomClearChanged";
 import { postSacrificeRegister } from "../callbacks/subscriptions/postSacrifice";
 import { postSlotAnimationChangedRegister } from "../callbacks/subscriptions/postSlotAnimationChanged";
+import { postSlotCollisionRegister } from "../callbacks/subscriptions/postSlotCollision";
 import { postSlotDestroyedRegister } from "../callbacks/subscriptions/postSlotDestroyed";
 import { postSlotInitRegister } from "../callbacks/subscriptions/postSlotInit";
 import { postSlotRenderRegister } from "../callbacks/subscriptions/postSlotRender";
@@ -195,6 +196,7 @@ export const CALLBACK_REGISTER_FUNCTIONS: {
   [ModCallbackCustom.POST_SACRIFICE]: postSacrificeRegister,
   [ModCallbackCustom.POST_SLOT_ANIMATION_CHANGED]:
     postSlotAnimationChangedRegister,
+  [ModCallbackCustom.POST_SLOT_COLLISION]: postSlotCollisionRegister,
   [ModCallbackCustom.POST_SLOT_DESTROYED]: postSlotDestroyedRegister,
   [ModCallbackCustom.POST_SLOT_INIT]: postSlotInitRegister,
   [ModCallbackCustom.POST_SLOT_RENDER]: postSlotRenderRegister,

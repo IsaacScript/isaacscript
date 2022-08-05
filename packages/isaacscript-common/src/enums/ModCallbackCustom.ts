@@ -363,7 +363,9 @@ export enum ModCallbackCustom {
   POST_GRID_ENTITY_BROKEN,
 
   /**
-   * Fires from the `POST_UPDATE` callback when a new entity collides with a grid entity.
+   * Fires from the `POST_UPDATE` callback when a new entity collides with a grid entity. (After
+   * this, the callback will not continue to fire. It will only fire again once the entity moves out
+   * of range and then moves back into range.)
    *
    * When registering the callback, takes an optional second argument that will make the callback
    * only fire if it matches the `GridEntityType` provided.
@@ -1216,6 +1218,26 @@ export enum ModCallbackCustom {
    * ```
    */
   POST_SLOT_ANIMATION_CHANGED,
+
+  /**
+   * Fires from the `PRE_PLAYER_COLLISION` callback when when a player collides with a slot entity.
+   * (It will not fire if any other type of entity collides with the slot entity.)
+   *
+   * When a player runs into a slot entity, this callback will continually fire, since the player is
+   * colliding with it on every frame. Thus, you should only perform actions in this callback under
+   * certain conditions, like if the slot entity is playing the "Idle" animation, and so on.
+   *
+   * When registering the callback, takes an optional second argument that will make the callback
+   * only fire if it matches the `SlotVariant` provided.
+   *
+   * ```ts
+   * function postSlotCollision(
+   *   slot: EntitySlot,
+   *   entity: Entity,
+   * ): void {}
+   * ```
+   */
+  POST_SLOT_COLLISION,
 
   /**
    * Fires from the `POST_RENDER` callback when a slot plays the animation that indicates that it

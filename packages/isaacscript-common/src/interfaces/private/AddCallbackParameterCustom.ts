@@ -74,6 +74,7 @@ import { PostRockUpdateRegisterParameters } from "../../callbacks/subscriptions/
 import { PostRoomClearChangedRegisterParameters } from "../../callbacks/subscriptions/postRoomClearChanged";
 import { PostSacrificeRegisterParameters } from "../../callbacks/subscriptions/postSacrifice";
 import { PostSlotAnimationChangedRegisterParameters } from "../../callbacks/subscriptions/postSlotAnimationChanged";
+import { PostSlotCollisionRegisterParameters } from "../../callbacks/subscriptions/postSlotCollision";
 import { PostSlotDestroyedRegisterParameters } from "../../callbacks/subscriptions/postSlotDestroyed";
 import { PostSlotInitRegisterParameters } from "../../callbacks/subscriptions/postSlotInit";
 import { PostSlotRenderRegisterParameters } from "../../callbacks/subscriptions/postSlotRender";
@@ -169,6 +170,7 @@ export interface AddCallbackParameterCustom {
   [ModCallbackCustom.POST_ROOM_CLEAR_CHANGED]: PostRoomClearChangedRegisterParameters;
   [ModCallbackCustom.POST_SACRIFICE]: PostSacrificeRegisterParameters;
   [ModCallbackCustom.POST_SLOT_ANIMATION_CHANGED]: PostSlotAnimationChangedRegisterParameters;
+  [ModCallbackCustom.POST_SLOT_COLLISION]: PostSlotCollisionRegisterParameters;
   [ModCallbackCustom.POST_SLOT_DESTROYED]: PostSlotDestroyedRegisterParameters;
   [ModCallbackCustom.POST_SLOT_INIT]: PostSlotInitRegisterParameters;
   [ModCallbackCustom.POST_SLOT_RENDER]: PostSlotRenderRegisterParameters;
