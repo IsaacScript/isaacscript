@@ -154,6 +154,7 @@
     "src/functions/trinkets.ts",
     "src/functions/trinketCacheFlag.ts",
     "src/functions/trinketGive.ts",
+    "src/functions/trinketSet.ts",
     "src/functions/tstlClass.ts",
     "src/functions/types.ts",
     "src/functions/ui.ts",

@@ -39,15 +39,16 @@ function initCollectibleArraysAndSets() {
   }
 
   ALL_COLLECTIBLES_ARRAY.sort();
-  VANILLA_COLLECTIBLES_ARRAY.sort();
-  MODDED_COLLECTIBLES_ARRAY.sort();
-
   for (const collectibleType of ALL_COLLECTIBLES_ARRAY) {
     ALL_COLLECTIBLES_SET.add(collectibleType);
   }
+
+  VANILLA_COLLECTIBLES_ARRAY.sort();
   for (const collectibleType of VANILLA_COLLECTIBLES_ARRAY) {
     VANILLA_COLLECTIBLES_SET.add(collectibleType);
   }
+
+  MODDED_COLLECTIBLES_ARRAY.sort();
   for (const collectibleType of MODDED_COLLECTIBLES_ARRAY) {
     MODDED_COLLECTIBLES_SET.add(collectibleType);
   }
