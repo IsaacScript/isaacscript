@@ -285,6 +285,11 @@ export function boneHearts(params: string): void {
   addHeart(params, HealthType.BONE);
 }
 
+/** Alias for the "boss" command. */
+export function boss(): void {
+  bossRoom();
+}
+
 /** Warps to the room next to the first Boss Room on the floor. */
 export function bossNextRoom(): void {
   warpNextToRoomType(RoomType.BOSS);

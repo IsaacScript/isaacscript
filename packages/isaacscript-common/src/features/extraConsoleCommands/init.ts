@@ -46,6 +46,7 @@ function initMap() {
   );
   extraConsoleCommandsFunctionMap.set("bombs", commands.bombs);
   extraConsoleCommandsFunctionMap.set("boneHearts", commands.boneHearts);
+  extraConsoleCommandsFunctionMap.set("boss", commands.boss);
   extraConsoleCommandsFunctionMap.set("bossNextRoom", commands.bossNextRoom);
   extraConsoleCommandsFunctionMap.set("bossRoom", commands.bossRoom);
   extraConsoleCommandsFunctionMap.set("bossRush", commands.bossRush);

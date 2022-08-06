@@ -29,6 +29,8 @@ This page lists the changes to the IsaacScript framework.
   - `getRoomShapeNeighborGridIndexes` --> `getRoomShapeAdjacentGridIndexes`
   - `getRoomNeighbors` --> `getRoomAdjacentGridIndexes`
   - `getRoomShapeNeighborGridIndexDeltas` --> `getRoomShapeAdjacentGridIndexDeltas`
+- Added the following custom callbacks:
+  - `POST_SLOT_COLLISION`
 - Added the following custom commands:
   - `bossNextRoom` (to go to the room next to the boss)
 
