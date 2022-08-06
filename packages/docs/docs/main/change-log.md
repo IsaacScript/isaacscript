@@ -22,6 +22,7 @@ This page lists the changes to the IsaacScript framework.
   - `getTrinketArray`
   - `getVanillaTrinketArray`
   - `getVanillaTrinketSet`
+  - `getDoorSlotEnterPosition`
 - Renamed the following helper functions:
   - `removeAllGridExcept` --> `removeAllGridEntitiesExcept`
 - Changed the following helper functions:
