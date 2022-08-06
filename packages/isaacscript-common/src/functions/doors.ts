@@ -114,7 +114,7 @@ export function getDevilRoomOrAngelRoomDoor(): GridEntityDoor | undefined {
 }
 
 /**
- * Helper function to get the position that a player will enter a room at.
+ * Helper function to get the position that a player will enter a room at corresponding to a door.
  *
  * When players enter a room, they do not appear exactly on the location of the door, because then
  * they would immediately collide with the loading zone. Instead, they appear on the grid tile next
@@ -123,6 +123,21 @@ export function getDevilRoomOrAngelRoomDoor(): GridEntityDoor | undefined {
 export function getDoorEnterPosition(door: GridEntityDoor): Readonly<Vector> {
   const offset = getDoorSlotEnterPositionOffset(door.Slot);
   return door.Position.add(offset);
+}
+
+/**
+ * Helper function to get the position that a player will enter a room at corresponding to a door
+ * slot.
+ *
+ * When players enter a room, they do not appear exactly on the location of the door, because then
+ * they would immediately collide with the loading zone. Instead, they appear on the grid tile next
+ * to the door.
+ */
+export function getDoorSlotEnterPosition(doorSlot: DoorSlot): Readonly<Vector> {
+  const room = game.GetRoom();
+  const position = room.GetDoorSlotPosition(doorSlot);
+  const offset = getDoorSlotEnterPositionOffset(doorSlot);
+  return position.add(offset);
 }
 
 /**
