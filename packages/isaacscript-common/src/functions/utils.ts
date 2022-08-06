@@ -82,13 +82,13 @@ function hexToRGB(hexString: string): [r: float, g: float, b: float] {
     error(`Failed to convert \`0x${rString}\` to a number.`);
   }
 
-  const gString = hexString.substring(2, 2);
+  const gString = hexString.substring(2, 4);
   const g = tonumber(`0x${gString}`);
   if (g === undefined) {
     error(`Failed to convert \`0x${gString}\` to a number.`);
   }
 
-  const bString = hexString.substring(4, 2);
+  const bString = hexString.substring(4, 6);
   const b = tonumber(`0x${bString}`);
   if (b === undefined) {
     error(`Failed to convert \`0x${bString}\` to a number.`);
