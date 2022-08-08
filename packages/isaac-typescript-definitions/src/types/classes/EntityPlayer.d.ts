@@ -347,7 +347,7 @@ declare global {
      * characters like Jacob and Esau. This does not work correctly when changing from/to certain
      * characters (i.e. Tainted Isaac).
      */
-    ChangePlayerType(type: PlayerType): void;
+    ChangePlayerType(character: PlayerType): void;
 
     /**
      * Spawns the appropriate amount of familiars associated with a custom collectible.
