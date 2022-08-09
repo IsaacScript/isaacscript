@@ -78,6 +78,7 @@ function printBanner() {
 }
 
 async function handleCommands(args: Args) {
+  const skipProjectChecks = args.skipProjectChecks === true;
   const verbose = args.verbose === true;
 
   const positionalArgs = args._;
@@ -89,7 +90,9 @@ async function handleCommands(args: Args) {
 
   let config = new Config();
   if (command !== "init") {
-    validateInIsaacScriptProject(verbose);
+    if (!skipProjectChecks) {
+      validateInIsaacScriptProject(verbose);
+    }
     config = await configFile.get(args);
 
     ensureDepsAreInstalled(args, verbose);
