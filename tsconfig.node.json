@@ -19,8 +19,7 @@
     // "package.json" file to see what version the program is.
     "resolveJsonModule": true,
 
-    // "sourceMap" creates source map files for emitted JavaScript files.
-    // By default, it is false.
+    // "sourceMap" creates source map files for emitted JavaScript files. By default, it is false.
     // We want to be able to see the TypeScript line numbers in error messages to help with
     // debugging.
     "sourceMap": true,

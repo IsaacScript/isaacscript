@@ -7,6 +7,7 @@ export interface Args {
   // monitor
   modsDirectory?: string;
   saveSlot?: number;
+  skipProjectChecks?: boolean;
 
   // init
   name?: string;
@@ -51,6 +52,10 @@ export function parseArgs(): Args {
           type: "number",
           choices: [1, 2, 3],
           description: "The save slot in-game that you use",
+        })
+        .option("skip-project-checks", {
+          type: "boolean",
+          description: 'Skip checking for "package.json" and "node_modules"',
         })
         .option("verbose", {
           alias: "v",

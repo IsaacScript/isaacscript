@@ -26,6 +26,7 @@
     "**/*.wav": true,
     "dist/**/*.ts": true,
     "dist/**/*.js": true,
+    "dist/**/*.map": true,
     "dist/**/*.json": true,
     "dist/**/*.lua": true,
     "node_modules/**/*.ts": true,

@@ -1,4 +1,5 @@
 - polty doesn't trigger grid entity break
+- use typedoc rename plugin
 
 - Lint:
   - lint failure: https://github.com/gajus/eslint-plugin-jsdoc/issues/897

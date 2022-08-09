@@ -42,6 +42,7 @@ let compilationStartTime = new Date();
 
 export async function monitor(args: Args, config: Config): Promise<void> {
   const verbose = args.verbose === true;
+  const skipProjectChecks = args.skipProjectChecks === true;
   const packageManager = getPackageManagerUsedForExistingProject(args, verbose);
 
   // If they specified some command-line flags, override the values found in the config file.
@@ -53,7 +54,9 @@ export async function monitor(args: Args, config: Config): Promise<void> {
   }
 
   // Pre-flight checks
-  validatePackageJSONDependencies(args, verbose);
+  if (!skipProjectChecks) {
+    validatePackageJSONDependencies(args, verbose);
+  }
 
   // Read the "tsconfig.json" file.
   const tsConfigInclude = getFirstTSConfigIncludePath(verbose);
