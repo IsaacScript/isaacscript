@@ -1,4 +1,5 @@
 /* eslint-disable isaacscript/member-ordering */
+/* eslint-disable jsdoc/check-param-names */
 
 /**
  * A class used to represent a 128-bit number. This is used because Lua only has 64-bit numbers and

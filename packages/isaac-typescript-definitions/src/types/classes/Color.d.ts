@@ -1,3 +1,5 @@
+/* eslint-disable jsdoc/check-param-names */
+
 /**
  * @param r Range is 0-1.
  * @param g Range is 0-1.
