@@ -93,6 +93,7 @@ const v = {
   },
 };
 
+/** @internal */
 export function deployJSONRoomInit(mod: ModUpgraded): void {
   saveDataManager(FEATURE_NAME, v);
 

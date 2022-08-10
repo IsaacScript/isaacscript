@@ -44,6 +44,7 @@ const v = {
   },
 };
 
+/** @internal */
 export function pickupIndexInit(mod: ModUpgraded): void {
   saveDataManager(FEATURE_NAME, v);
 

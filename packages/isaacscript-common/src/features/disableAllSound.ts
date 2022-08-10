@@ -14,6 +14,7 @@ const v = {
   },
 };
 
+/** @internal */
 export function disableAllSoundInit(mod: Mod): void {
   saveDataManager(FEATURE_NAME, v);
 

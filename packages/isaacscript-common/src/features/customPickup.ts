@@ -32,6 +32,7 @@ const PICKUP_EFFECT_SUB_TYPE = 103;
 /** Indexed by entity ID. */
 const customPickupFunctionsMap = new Map<string, CustomPickupFunctions>();
 
+/** @internal */
 export function customPickupInit(mod: Mod): void {
   mod.AddCallback(ModCallback.PRE_PICKUP_COLLISION, prePickupCollision); // 38
   mod.AddCallback(

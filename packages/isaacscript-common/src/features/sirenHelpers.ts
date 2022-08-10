@@ -17,6 +17,7 @@ const v = {
   },
 };
 
+/** @internal */
 export function sirenHelpersInit(mod: Mod): void {
   saveDataManager(FEATURE_NAME, v);
 

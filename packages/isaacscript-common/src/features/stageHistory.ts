@@ -13,6 +13,7 @@ const v = {
   },
 };
 
+/** @internal */
 export function stageHistoryInit(mod: ModUpgraded): void {
   saveDataManager(FEATURE_NAME, v);
 

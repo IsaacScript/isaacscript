@@ -9,6 +9,7 @@ const v = {
   },
 };
 
+/** @internal */
 export function preventChildEntitiesInit(mod: Mod): void {
   saveDataManager(FEATURE_NAME, v);
 

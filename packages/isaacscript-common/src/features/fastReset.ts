@@ -9,8 +9,12 @@ import { restart } from "../functions/run";
 
 const FEATURE_NAME = "fastReset";
 
+/** A global variable set by custom consoles. */
+declare let AwaitingTextInput: boolean;
+
 let enabled = false;
 
+/** @internal */
 export function fastResetInit(mod: Mod): void {
   mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
 }

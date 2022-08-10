@@ -22,6 +22,7 @@ const v = {
   },
 };
 
+/** @internal */
 export function collectibleItemPoolTypeInit(mod: Mod): void {
   saveDataManager(FEATURE_NAME, v);
 

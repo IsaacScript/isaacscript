@@ -30,6 +30,7 @@ const v = {
   },
 };
 
+/** @internal */
 export function runInNFramesInit(mod: Mod): void {
   saveDataManager(FEATURE_NAME, v, false); // Functions are not serializable.
 

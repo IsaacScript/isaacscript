@@ -28,17 +28,24 @@ npx tstl
 # to manually rewrite them.
 npx ts-node --require "tsconfig-paths/register" "$DIR/scripts/rewriteDeclarationMapPaths.ts"
 
-# Scrub internal exports from the declaration file using the ".d.ts rollup" feature of API
-# Extractor: https://api-extractor.com/
-# If we did not use API Extractor, we would instead have to manually append "@internal" JSDoc tags
-# to every single private function in order for the TypeScript compiler to remove it from the
-# generated ".d.ts" file. API Extractor automatically knows which functions are public or private by
-# parsing the "index.ts" file, and generates a new ".d.ts" file with private exports removed. Note
-# that end-users can still manually import internal functions with e.g.
+# Unfortunately, TypeScript will create ".d.ts" definitions for internal functions such as
+# `postAmbushFinishedHasSubscriptions`, which will make them appear in the auto-complete of
+# end-users. One solution for this problem is to use "@internal" JSDoc tags on every single internal
+# function, but this is verbose and prone ot error. The best solution for this problem is to use a
+# ".d.ts rollup" tool such as `api-extractor` or `dts-bundle-generator`. However, both of these
+# tools do not support declaration maps, which we want to have turned on for end-users so that they
+# can press F12 on functions to warp to the actual source code:
+# https://github.com/microsoft/rushstack/issues/1886
+# https://github.com/timocov/dts-bundle-generator/issues/218
+# For now, this project uses a mixture of "@internal" JSDoc tags and manually deleting some
+# declarations. Note that end-users can still manually import internal functions with e.g.
 # `import { internalFunction } from "isaacscript-common/dist/internal/functions"`, but by removing
 # them from the ".d.ts" file, they will not appear as part of auto-complete, which is good enough
 # for our case.
-npx api-extractor run
+rm -f "$OUT_DIR/dist/callbacks/*.d.ts"
+rm -f "$OUT_DIR/dist/callbacks/*.d.ts.map"
+rm -f "$OUT_DIR/dist/callbacks/subscriptions/*.d.ts"
+rm -f "$OUT_DIR/dist/callbacks/subscriptions/*.d.ts.map"
 
 # Copy the rest of the files needed for npm.
 cp "$DIR/LICENSE" "$OUT_DIR/"

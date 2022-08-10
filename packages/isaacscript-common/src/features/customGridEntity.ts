@@ -45,6 +45,7 @@ const v = {
   },
 };
 
+/** @internal */
 export function customGridEntityInit(mod: ModUpgraded): void {
   saveDataManager(FEATURE_NAME, v);
 

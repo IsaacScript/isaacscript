@@ -45,6 +45,7 @@ function resetInventory(player: EntityPlayer) {
   mapSetPlayer(v.run.playersInventory, player, inventory);
 }
 
+/** @internal */
 export function playerInventoryInit(mod: ModUpgraded): void {
   saveDataManager(FEATURE_NAME, v);
 

@@ -37,6 +37,7 @@ const v = {
   },
 };
 
+/** @internal */
 export function pauseInit(mod: Mod): void {
   saveDataManager(FEATURE_NAME, v);
 

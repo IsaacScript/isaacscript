@@ -32,6 +32,7 @@ const v = {
   },
 };
 
+/** @internal */
 export function preventCollectibleRotationInit(mod: Mod): void {
   saveDataManager(FEATURE_NAME, v);
 
