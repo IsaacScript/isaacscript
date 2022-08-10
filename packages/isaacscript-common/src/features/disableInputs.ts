@@ -12,10 +12,19 @@ const FEATURE_NAME = "disableInputs";
 const v = {
   run: {
     /** Indexed by the requesting feature key. */
-    disableInputsWithWhitelistMap: new Map<string, ReadonlySet<ButtonAction>>(),
+    disableInputs: new Map<string, ReadonlySet<ButtonAction>>(),
 
     /** Indexed by the requesting feature key. */
-    enableInputsWithBlacklistMap: new Map<string, ReadonlySet<ButtonAction>>(),
+    enableAllInputsWithBlacklistMap: new Map<
+      string,
+      ReadonlySet<ButtonAction>
+    >(),
+
+    /** Indexed by the requesting feature key. */
+    disableAllInputsWithWhitelistMap: new Map<
+      string,
+      ReadonlySet<ButtonAction>
+    >(),
   },
 };
 
@@ -71,13 +80,19 @@ function getActionValue(
 function getReturnValue(buttonAction: ButtonAction, booleanCallback: boolean) {
   const disableValue = booleanCallback ? false : 0;
 
-  for (const whitelist of v.run.disableInputsWithWhitelistMap.values()) {
+  for (const blacklist of v.run.disableInputs.values()) {
+    if (blacklist.has(buttonAction)) {
+      return disableValue;
+    }
+  }
+
+  for (const whitelist of v.run.disableAllInputsWithWhitelistMap.values()) {
     if (!whitelist.has(buttonAction)) {
       return disableValue;
     }
   }
 
-  for (const blacklist of v.run.enableInputsWithBlacklistMap.values()) {
+  for (const blacklist of v.run.enableAllInputsWithBlacklistMap.values()) {
     if (blacklist.has(buttonAction)) {
       return disableValue;
     }
@@ -96,8 +111,28 @@ function getReturnValue(buttonAction: ButtonAction, booleanCallback: boolean) {
 export function enableAllInputs(key: string): void {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
 
-  v.run.disableInputsWithWhitelistMap.delete(key);
-  v.run.enableInputsWithBlacklistMap.delete(key);
+  v.run.disableAllInputsWithWhitelistMap.delete(key);
+  v.run.enableAllInputsWithBlacklistMap.delete(key);
+}
+
+/**
+ * Helper function to disable specific inputs, like opening the console. (To disable all inputs, see
+ * the `disableAllInputs` function.)
+ *
+ * Use the `enableAllInputs` helper function to set things back to normal.
+ *
+ * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
+ *            that multiple mod features can work in tandem.
+ * @param buttonActions An array of the actions to action.
+ */
+export function disableInputs(
+  key: string,
+  buttonActions: ButtonAction[],
+): void {
+  errorIfFeaturesNotInitialized(FEATURE_NAME);
+
+  const buttonActionsSet = new Set(buttonActions);
+  v.run.disableInputs.set(key, buttonActionsSet);
 }
 
 /**
@@ -112,8 +147,8 @@ export function enableAllInputs(key: string): void {
 export function disableAllInputs(key: string): void {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
 
-  v.run.disableInputsWithWhitelistMap.set(key, new Set());
-  v.run.enableInputsWithBlacklistMap.delete(key);
+  v.run.disableAllInputsWithWhitelistMap.set(key, new Set());
+  v.run.enableAllInputsWithBlacklistMap.delete(key);
 }
 
 /**
@@ -132,8 +167,8 @@ export function enableAllInputsExceptFor(
 ): void {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
 
-  v.run.disableInputsWithWhitelistMap.delete(key);
-  v.run.enableInputsWithBlacklistMap.set(key, blacklist);
+  v.run.disableAllInputsWithWhitelistMap.delete(key);
+  v.run.enableAllInputsWithBlacklistMap.set(key, blacklist);
 }
 
 /**
@@ -152,8 +187,8 @@ export function disableAllInputsExceptFor(
 ): void {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
 
-  v.run.disableInputsWithWhitelistMap.set(key, whitelist);
-  v.run.enableInputsWithBlacklistMap.delete(key);
+  v.run.disableAllInputsWithWhitelistMap.set(key, whitelist);
+  v.run.enableAllInputsWithBlacklistMap.delete(key);
 }
 
 /**

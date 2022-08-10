@@ -9,7 +9,7 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## Unreleased
+## August 11th, 2022
 
 - Added the following helper functions:
   - `spawnCustomTrapdoorToVanilla`
@@ -23,6 +23,7 @@ This page lists the changes to the IsaacScript framework.
   - `getVanillaTrinketArray`
   - `getVanillaTrinketSet`
   - `getDoorSlotEnterPosition`
+  - `disableInputs`
 - Renamed the following helper functions:
   - `removeAllGridExcept` --> `removeAllGridEntitiesExcept`
 - Changed the following helper functions:
