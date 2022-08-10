@@ -116,8 +116,10 @@ export function enableAllInputs(key: string): void {
 }
 
 /**
- * Helper function to disable specific inputs, like opening the console. (To disable all inputs, see
- * the `disableAllInputs` function.)
+ * Helper function to disable specific inputs, like opening the console.
+ *
+ * This function is variadic, meaning that you can pass as many inputs as you want to disable. (To
+ * disable all inputs, see the `disableAllInputs` function.
  *
  * Use the `enableAllInputs` helper function to set things back to normal.
  *
@@ -127,7 +129,7 @@ export function enableAllInputs(key: string): void {
  */
 export function disableInputs(
   key: string,
-  buttonActions: ButtonAction[],
+  ...buttonActions: ButtonAction[]
 ): void {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
 
