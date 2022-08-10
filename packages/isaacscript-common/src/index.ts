@@ -38,6 +38,7 @@ export { disableAllSound, enableAllSound } from "./features/disableAllSound";
 export {
   disableAllInputs,
   disableAllInputsExceptFor,
+  disableInputs,
   disableMovementInputs,
   disableShootingInputs,
   enableAllInputs,
