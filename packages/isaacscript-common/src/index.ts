@@ -14,74 +14,37 @@ export * from "./enums/SaveDataKey";
 export * from "./enums/SerializationType";
 export * from "./enums/SlotDestructionType";
 export * from "./enums/StatType";
-export {
-  ConversionHeartSubType,
-  registerCharacterHealthConversion,
-} from "./features/characterHealthConversion";
-export { registerCharacterStats } from "./features/characterStats";
-export { getCollectibleItemPoolType } from "./features/collectibleItemPoolType";
-export { initCustomDoor, spawnCustomDoor } from "./features/customDoor";
-export {
-  removeCustomGridEntity,
-  spawnCustomGridEntity,
-} from "./features/customGridEntity";
-export { registerCustomPickup } from "./features/customPickup";
+export * from "./features/characterHealthConversion";
+export * from "./features/characterStats";
+export * from "./features/collectibleItemPoolType";
+export * from "./features/customDoor";
+export * from "./features/customGridEntity";
+export * from "./features/customPickup";
 export * from "./features/customStage/exports";
 export * from "./features/customTrapdoor/exports";
 export * from "./features/debugDisplay/exports";
-export {
-  deployJSONRoom,
-  deployRandomJSONRoom,
-  emptyRoom,
-} from "./features/deployJSONRoom";
-export { disableAllSound, enableAllSound } from "./features/disableAllSound";
-export {
-  disableAllInputs,
-  disableAllInputsExceptFor,
-  disableInputs,
-  disableMovementInputs,
-  disableShootingInputs,
-  enableAllInputs,
-  enableAllInputsExceptFor,
-} from "./features/disableInputs";
+export * from "./features/deployJSONRoom";
+export * from "./features/disableAllSound";
+export * from "./features/disableInputs";
 export * from "./features/extraConsoleCommands/exports";
-export { removeFadeIn, restoreFadeIn } from "./features/fadeInRemover";
-export { disableFastReset, enableFastReset } from "./features/fastReset";
-export { forgottenSwitch } from "./features/forgottenSwitch";
-export { pause, unpause } from "./features/pause";
-export {
-  removePersistentEntity,
-  spawnPersistentEntity,
-} from "./features/persistentEntities";
+export * from "./features/fadeInRemover";
+export * from "./features/fastReset";
+export * from "./features/forgottenSwitch";
+export * from "./features/pause";
+export * from "./features/persistentEntities";
 export * from "./features/pickupIndex";
-export { getPlayerInventory } from "./features/playerInventory";
-export {
-  anyPlayerUsingPony,
-  isPlayerUsingPony,
-} from "./features/ponyDetection";
-export { preventChildEntities } from "./features/preventChildEntities";
-export { preventCollectibleRotation } from "./features/preventCollectibleRotation";
-export { registerHotkey, unregisterHotkey } from "./features/registerHotkey";
-export {
-  getRoomClearGameFrame,
-  getRoomClearRoomFrame,
-} from "./features/roomClearFrame";
+export * from "./features/playerInventory";
+export * from "./features/ponyDetection";
+export * from "./features/preventChildEntities";
+export * from "./features/preventCollectibleRotation";
+export * from "./features/registerHotkey";
+export * from "./features/roomClearFrame";
 export * from "./features/roomHistory";
-export {
-  runInNGameFrames,
-  runInNRenderFrames,
-  runNextGameFrame,
-  runNextRenderFrame,
-  setIntervalGameFrames,
-  setIntervalRenderFrames,
-} from "./features/runInNFrames";
+export * from "./features/runInNFrames";
 export * from "./features/saveDataManager/exports";
-export {
-  hasSirenStolenFamiliar,
-  setFamiliarNoSirenSteal,
-} from "./features/sirenHelpers";
-export { getStageHistory, hasVisitedStage } from "./features/stageHistory";
-export { getTaintedLazarusSubPlayer } from "./features/taintedLazarusPlayers";
+export * from "./features/sirenHelpers";
+export * from "./features/stageHistory";
+export * from "./features/taintedLazarusPlayers";
 export * from "./functions/ambush";
 export * from "./functions/array";
 export * from "./functions/benchmark";
