@@ -24,6 +24,7 @@ This page lists the changes to the IsaacScript framework.
   - `getVanillaTrinketSet`
   - `getDoorSlotEnterPosition`
   - `disableInputs`
+  - `canRunUnlockAchievements`
 - Renamed the following helper functions:
   - `removeAllGridExcept` --> `removeAllGridEntitiesExcept`
 - Changed the following helper functions:

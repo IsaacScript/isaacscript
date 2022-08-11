@@ -1,8 +1,30 @@
-import { Challenge, PlayerType } from "isaac-typescript-definitions";
+import {
+  Challenge,
+  PlayerType,
+  SlotVariant,
+} from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
+import { VectorZero } from "../core/constants";
 import { FIRST_CHARACTER } from "../core/constantsFirstLast";
 import { runNextRenderFrame } from "../features/runInNFrames";
+import { spawnSlot } from "./entitiesSpecific";
 import { log } from "./log";
+
+/**
+ * Helper function to see if the current run can unlock achievements. For example, if playing on a
+ * set seed or in a victory lap, achievements are disabled.
+ */
+export function canRunUnlockAchievements(): boolean {
+  const greedDonationMachine = spawnSlot(
+    SlotVariant.GREED_DONATION_MACHINE,
+    0,
+    VectorZero,
+  );
+  const canUnlockAchievements = greedDonationMachine.Exists();
+  greedDonationMachine.Remove();
+
+  return canUnlockAchievements;
+}
 
 /**
  * Whether or not the player is playing on a set seed (i.e. that they entered in a specific seed by

@@ -249,7 +249,7 @@ export function getCharacters(): PlayerType[] {
 }
 
 export function getClosestPlayer(position: Vector): EntityPlayer {
-  let closestPlayer: EntityPlayer | null = null;
+  let closestPlayer: EntityPlayer | undefined;
   let closestDistance = math.huge;
   for (const player of getPlayers()) {
     const distance = position.Distance(player.Position);
@@ -260,7 +260,7 @@ export function getClosestPlayer(position: Vector): EntityPlayer {
     }
   }
 
-  if (closestPlayer === null) {
+  if (closestPlayer === undefined) {
     error("Failed to find the closest player.");
   }
 
