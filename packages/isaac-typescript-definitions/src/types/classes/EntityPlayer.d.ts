@@ -346,6 +346,8 @@ declare global {
      * Changes the current character of the player. This will attempt to merge forms when called on
      * characters like Jacob and Esau. This does not work correctly when changing from/to certain
      * characters (i.e. Tainted Isaac).
+     *
+     * If you attempt to change to an invalid character, the game will crash.
      */
     ChangePlayerType(character: PlayerType): void;
 
