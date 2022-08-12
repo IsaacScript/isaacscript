@@ -7,6 +7,9 @@
   "files": [
     "**"
   ],
+  "enableFiletypes": [
+    "*"
+  ],
   "ignorePaths": [
     "*.anm2",
     "*.pyc",
@@ -14,8 +17,8 @@
     ".git/**",
     "dist/**",
     "node_modules/**",
-    "mod/**/*.anm2",
     "mod/main.lua",
+    "mod/content/rooms/**",
     "mod/resources/rooms/**"
   ],
   "words": []

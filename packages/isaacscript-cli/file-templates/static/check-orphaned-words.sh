@@ -41,7 +41,11 @@ ONE_OR_MORE_FAILURES=0
 set +e
 for LINE in $CSPELL_CONFIG_WORDS; do
   LINE_TRIMMED=$(echo "$LINE" | xargs)
-  if ! grep -x "$LINE_TRIMMED" "$MISSPELLED_WORDS_PATH" --ignore-case --quiet; then
+  grep --line-regexp "$LINE_TRIMMED" "$MISSPELLED_WORDS_PATH" --ignore-case --quiet
+  MATCH1=$?
+  grep --line-regexp "$LINE_TRIMMED's" "$MISSPELLED_WORDS_PATH" --ignore-case --quiet
+  MATCH2=$?
+  if [ $MATCH1 != 0 ] && [ $MATCH2 != 0 ]; then
     echo "The following word in the CSpell config is not being used: $LINE_TRIMMED"
     ONE_OR_MORE_FAILURES=1
   fi
