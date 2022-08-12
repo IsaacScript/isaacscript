@@ -399,15 +399,7 @@ export function getRandomArrayIndex<T>(
   return getRandomInt(0, array.length - 1, seedOrRNG, exceptions);
 }
 
-/**
- * Initializes an array with all elements containing the specified default value.
- *
- * For example:
- *
- * ```ts
- * const playerTransformations = initArray(false, PlayerForm.NUM_PLAYER_FORMS - 1);
- * ```
- */
+/** Initializes an array with all elements containing the specified default value. */
 export function initArray<T>(defaultValue: T, size: int): T[] {
   const array: T[] = [];
   repeat(size, () => {

@@ -1,11 +1,17 @@
 import { CacheFlag, TrinketType } from "isaac-typescript-definitions";
+import { itemConfig } from "../core/cachedClasses";
+import { getTrinketTypes } from "../features/firstLast";
 import { getEnumValues } from "./enums";
+import { hasFlag } from "./flag";
 import { copySet } from "./set";
-import { getTrinketTypes, trinketHasCacheFlag } from "./trinkets";
 
 const CACHE_FLAG_TO_TRINKETS_MAP = new Map<CacheFlag, Set<TrinketType>>();
 
-function initCacheFlagMap() {
+function lazyInitCacheFlagMap() {
+  if (CACHE_FLAG_TO_TRINKETS_MAP.size > 0) {
+    return;
+  }
+
   for (const cacheFlag of getEnumValues(CacheFlag)) {
     const trinketsSet = new Set<TrinketType>();
 
@@ -21,7 +27,10 @@ function initCacheFlagMap() {
 
 /**
  * Returns a map containing every trinket type that the player has that matches the provided
- * CacheFlag. The values of the map correspond to the multiplier for that trinket.
+ * `CacheFlag`. The values of the map correspond to the multiplier for that trinket.
+ *
+ * This function can only be called if at least one callback has been executed. This is because not
+ * all trinkets will necessarily be present when a mod first loads (due to mod load order).
  */
 export function getPlayerTrinketsForCacheFlag(
   player: EntityPlayer,
@@ -42,14 +51,14 @@ export function getPlayerTrinketsForCacheFlag(
 
 /**
  * Returns a set containing every trinket type with the given cache flag, including modded trinkets.
+ *
+ * This function can only be called if at least one callback has been executed. This is because not
+ * all trinkets will necessarily be present when a mod first loads (due to mod load order).
  */
 export function getTrinketsForCacheFlag(
   cacheFlag: CacheFlag,
 ): Set<TrinketType> {
-  // Lazy initialize the map.
-  if (CACHE_FLAG_TO_TRINKETS_MAP.size === 0) {
-    initCacheFlagMap();
-  }
+  lazyInitCacheFlagMap();
 
   const trinketsSet = CACHE_FLAG_TO_TRINKETS_MAP.get(cacheFlag);
   if (trinketsSet === undefined) {
@@ -57,4 +66,17 @@ export function getTrinketsForCacheFlag(
   }
 
   return copySet(trinketsSet);
+}
+
+/** Helper function to check in the item config if a given trinket has a given cache flag. */
+export function trinketHasCacheFlag(
+  trinketType: TrinketType,
+  cacheFlag: CacheFlag,
+): boolean {
+  const itemConfigItem = itemConfig.GetTrinket(trinketType);
+  if (itemConfigItem === undefined) {
+    return false;
+  }
+
+  return hasFlag(itemConfigItem.CacheFlags, cacheFlag);
 }

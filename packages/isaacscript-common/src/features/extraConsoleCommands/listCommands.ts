@@ -47,8 +47,6 @@ import {
   FIRST_PILL_EFFECT,
   FIRST_ROOM_TYPE,
   FIRST_STAGE,
-  LAST_CARD,
-  LAST_PILL_EFFECT,
   LAST_ROOM_TYPE,
   LAST_STAGE,
   LAST_VANILLA_CHARACTER,
@@ -95,6 +93,7 @@ import { CARD_MAP } from "../../maps/cardMap";
 import { CHARACTER_MAP } from "../../maps/characterMap";
 import { PILL_EFFECT_MAP } from "../../maps/pillEffectMap";
 import { ROOM_TYPE_MAP } from "../../maps/roomTypeMap";
+import { getLastCard, getLastPillEffect } from "../firstLast";
 import {
   addHeart,
   devilAngel,
@@ -337,7 +336,8 @@ export function card(params: string): void {
 
     cardNum = match[1];
   } else {
-    if (num < FIRST_CARD || num > LAST_CARD) {
+    const lastCard = getLastCard();
+    if (num < FIRST_CARD || num > lastCard) {
       printConsole(`Invalid card sub-type: ${num}`);
       return;
     }
@@ -352,10 +352,12 @@ export function card(params: string): void {
 
 /** Spawns every card on the ground, starting at the top-left-most tile. */
 export function cards(): void {
+  const lastCard = getLastCard();
+
   let cardType = 1;
   for (let y = 0; y <= 6; y++) {
     for (let x = 0; x <= 12; x++) {
-      if (asCard(cardType) === LAST_CARD) {
+      if (asCard(cardType) === lastCard) {
         return;
       }
 
@@ -876,7 +878,8 @@ export function pill(params: string): void {
 
     pillEffect = match[1];
   } else {
-    if (num < FIRST_PILL_EFFECT || num > LAST_PILL_EFFECT) {
+    const lastPillEffect = getLastPillEffect();
+    if (num < FIRST_PILL_EFFECT || num > lastPillEffect) {
       printConsole(`Invalid pill effect ID: ${num}`);
       return;
     }

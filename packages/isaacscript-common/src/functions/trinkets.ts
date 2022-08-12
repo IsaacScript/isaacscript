@@ -1,14 +1,11 @@
 import {
-  CacheFlag,
   PlayerType,
   TrinketSlot,
   TrinketType,
 } from "isaac-typescript-definitions";
 import { itemConfig } from "../core/cachedClasses";
 import {
-  FIRST_MODDED_TRINKET_TYPE,
   FIRST_TRINKET_TYPE,
-  LAST_TRINKET_TYPE,
   LAST_VANILLA_TRINKET_TYPE,
 } from "../core/constantsFirstLast";
 import {
@@ -17,7 +14,6 @@ import {
 } from "../maps/trinketDescriptionMap";
 import { DEFAULT_TRINKET_NAME, TRINKET_NAME_MAP } from "../maps/trinketNameMap";
 import { getEntityID } from "./entities";
-import { hasFlag } from "./flag";
 import { isTrinket } from "./pickupVariants";
 import { isCharacter } from "./players";
 import { clearSprite } from "./sprites";
@@ -43,19 +39,6 @@ const TRINKET_SPRITE_LAYER = 0;
  */
 export function getGoldenTrinketType(trinketType: TrinketType): TrinketType {
   return asNumber(trinketType) + GOLDEN_TRINKET_ADJUSTMENT;
-}
-
-/**
- * Helper function to get an array that represents every modded trinket type.
- *
- * Returns an empty array if there are no modded trinket types.
- */
-export function getModdedTrinketTypes(): TrinketType[] {
-  if (LAST_VANILLA_TRINKET_TYPE === LAST_TRINKET_TYPE) {
-    return [];
-  }
-
-  return irange(FIRST_MODDED_TRINKET_TYPE, LAST_TRINKET_TYPE);
 }
 
 /**
@@ -139,11 +122,6 @@ export function getTrinketName(trinketType: TrinketType): string {
   return DEFAULT_TRINKET_NAME;
 }
 
-/** Helper function to get an array that contains every trinket type. */
-export function getTrinketTypes(): TrinketType[] {
-  return irange(FIRST_TRINKET_TYPE, LAST_TRINKET_TYPE);
-}
-
 /** Helper function to get an array that represents every vanilla trinket type. */
 export function getVanillaTrinketTypes(): TrinketType[] {
   return irange(FIRST_TRINKET_TYPE, LAST_VANILLA_TRINKET_TYPE);
@@ -199,16 +177,4 @@ export function setTrinketSprite(
     sprite.ReplaceSpritesheet(TRINKET_SPRITE_LAYER, pngPath);
     sprite.LoadGraphics();
   }
-}
-
-export function trinketHasCacheFlag(
-  trinketType: TrinketType,
-  cacheFlag: CacheFlag,
-): boolean {
-  const itemConfigItem = itemConfig.GetTrinket(trinketType);
-  if (itemConfigItem === undefined) {
-    return false;
-  }
-
-  return hasFlag(itemConfigItem.CacheFlags, cacheFlag);
 }

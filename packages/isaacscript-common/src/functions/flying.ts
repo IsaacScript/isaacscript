@@ -5,7 +5,7 @@ import {
   PlayerType,
   TrinketType,
 } from "isaac-typescript-definitions";
-import { getCollectiblesForCacheFlag } from "./cacheFlag";
+import { getCollectiblesForCacheFlag } from "./collectibleCacheFlag";
 import { copySet, deleteSetsFromSet } from "./set";
 
 const FLYING_CHARACTERS: ReadonlySet<PlayerType> = new Set([

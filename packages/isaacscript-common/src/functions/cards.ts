@@ -1,11 +1,6 @@
 import { Card, ItemConfigCardType } from "isaac-typescript-definitions";
 import { itemConfig } from "../core/cachedClasses";
-import {
-  FIRST_CARD,
-  FIRST_MODDED_CARD,
-  LAST_CARD,
-  MAX_VANILLA_CARD,
-} from "../core/constantsFirstLast";
+import { FIRST_CARD, LAST_VANILLA_CARD } from "../core/constantsFirstLast";
 import {
   CARD_DESCRIPTIONS,
   DEFAULT_CARD_DESCRIPTION,
@@ -28,14 +23,14 @@ const CARD_TYPE_TO_CARDS_MAP = new Map<ItemConfigCardType, Set<Card>>();
  */
 const CARD_SET = new Set<Card>();
 
-function initCardObjects() {
+function lazyInitCardMapsSets() {
   // The card type to cards map should be valid for every card type, so we initialize it with empty
   // sets.
   for (const cardType of getEnumValues(ItemConfigCardType)) {
     CARD_TYPE_TO_CARDS_MAP.set(cardType, new Set<Card>());
   }
 
-  for (const card of getAllCards()) {
+  for (const card of getVanillaCards()) {
     const cardType = getCardType(card);
     const cardTypeSet = CARD_TYPE_TO_CARDS_MAP.get(cardType);
     if (cardTypeSet === undefined) {
@@ -55,11 +50,6 @@ function initCardObjects() {
     ItemConfigCardType.TAROT_REVERSE,
   );
   addSetsToSet(CARD_SET, cards);
-}
-
-/** Helper function to get an array with every valid card sub-type. This includes modded cards. */
-export function getAllCards(): Card[] {
-  return irange(FIRST_CARD, LAST_CARD);
 }
 
 /**
@@ -131,7 +121,7 @@ export function getCardType(card: Card): ItemConfigCardType {
  */
 export function getCardsOfType(...cardTypes: ItemConfigCardType[]): Set<Card> {
   if (CARD_TYPE_TO_CARDS_MAP.size === 0) {
-    initCardObjects();
+    lazyInitCardMapsSets();
   }
 
   const matchingCards = new Set<Card>();
@@ -147,19 +137,6 @@ export function getCardsOfType(...cardTypes: ItemConfigCardType[]): Set<Card> {
   }
 
   return matchingCards;
-}
-
-/**
- * Helper function to get an array with every modded card sub-type.
- *
- * Returns an empty array if there are no modded cards.
- */
-export function getModdedCards(): Card[] {
-  if (MAX_VANILLA_CARD === LAST_CARD) {
-    return [];
-  }
-
-  return irange(FIRST_MODDED_CARD, LAST_CARD);
 }
 
 /**
@@ -216,7 +193,7 @@ export function getRandomRune(
 
 /** Helper function to get an array with every valid vanilla card sub-type. */
 export function getVanillaCards(): Card[] {
-  return irange(FIRST_CARD, MAX_VANILLA_CARD);
+  return irange(FIRST_CARD, LAST_VANILLA_CARD);
 }
 
 /**

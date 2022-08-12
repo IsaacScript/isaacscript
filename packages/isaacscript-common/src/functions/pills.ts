@@ -7,12 +7,10 @@ import {
 import { itemConfig } from "../core/cachedClasses";
 import {
   FIRST_HORSE_PILL_COLOR,
-  FIRST_MODDED_PILL_EFFECT,
   FIRST_PILL_COLOR,
   FIRST_PILL_EFFECT,
   LAST_HORSE_PILL_COLOR,
   LAST_NORMAL_PILL_COLOR,
-  LAST_PILL_EFFECT,
   LAST_VANILLA_PILL_EFFECT,
 } from "../core/constantsFirstLast";
 import { FALSE_PHD_PILL_CONVERSIONS } from "../maps/falsePHDPillConversions";
@@ -53,13 +51,6 @@ export function getAllPillColors(): PillColor[] {
 }
 
 /**
- * Helper function to get an array with every valid pill effect. This includes modded pill effects.
- */
-export function getAllPillEffects(): PillEffect[] {
-  return irange(FIRST_PILL_EFFECT, LAST_PILL_EFFECT);
-}
-
-/**
  * Helper function to get the associated pill effect after False PHD is acquired. If a pill effect
  * is not altered by False PHD, then the same pill effect will be returned.
  */
@@ -81,19 +72,6 @@ export function getHorsePillColor(pillColor: PillColor): PillColor {
 /** Helper function to get an array with every non-gold horse pill color. */
 export function getHorsePillColors(): PillColor[] {
   return irange(FIRST_HORSE_PILL_COLOR, LAST_HORSE_PILL_COLOR);
-}
-
-/**
- * Helper function to get an array with every modded pill effect.
- *
- * Returns an empty array if there are no modded pill effects.
- */
-export function getModdedPillEffects(): PillEffect[] {
-  if (LAST_VANILLA_PILL_EFFECT === LAST_PILL_EFFECT) {
-    return [];
-  }
-
-  return irange(FIRST_MODDED_PILL_EFFECT, LAST_PILL_EFFECT);
 }
 
 /**

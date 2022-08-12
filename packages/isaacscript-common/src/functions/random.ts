@@ -71,6 +71,9 @@ export function getRandomInt(
 ): int {
   const rng = isRNG(seedOrRNG) ? seedOrRNG : newRNG(seedOrRNG);
 
+  min = Math.ceil(min);
+  max = Math.floor(max);
+
   if (min > max) {
     const oldMin = min;
     const oldMax = max;

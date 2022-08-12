@@ -2,9 +2,9 @@ import { TrinketType } from "isaac-typescript-definitions";
 import { itemConfig } from "../core/cachedClasses";
 import {
   FIRST_TRINKET_TYPE,
-  LAST_TRINKET_TYPE,
   LAST_VANILLA_TRINKET_TYPE,
 } from "../core/constantsFirstLast";
+import { getLastTrinketType } from "../features/firstLast";
 import { irange } from "./utils";
 
 const ALL_TRINKETS_ARRAY: TrinketType[] = [];
@@ -15,14 +15,15 @@ const ALL_TRINKETS_SET = new Set<TrinketType>();
 const VANILLA_TRINKETS_SET = new Set<TrinketType>();
 const MODDED_TRINKETS_SET = new Set<TrinketType>();
 
-function initTrinketArraysAndSets() {
+function lazyInitTrinketArraysAndSets() {
   if (ALL_TRINKETS_ARRAY.length !== 0) {
     return;
   }
 
+  const lastTrinketType = getLastTrinketType();
   const trinketTypeRange = irange(
     FIRST_TRINKET_TYPE,
-    LAST_TRINKET_TYPE,
+    lastTrinketType,
   ) as TrinketType[];
   for (const trinketType of trinketTypeRange) {
     const itemConfigItem = itemConfig.GetTrinket(trinketType);
@@ -59,11 +60,12 @@ function initTrinketArraysAndSets() {
  *
  * Use this if you need to iterate over the trinkets in order. If you need to do O(1) lookups, then
  * use the `getTrinketSet` helper function instead.
+ *
+ * This function can only be called if at least one callback has been executed. This is because not
+ * all trinkets will necessarily be present when a mod first loads (due to mod load order).
  */
 export function getModdedTrinketArray(): readonly TrinketType[] {
-  // Lazy initialize the arrays/sets.
-  initTrinketArraysAndSets();
-
+  lazyInitTrinketArraysAndSets();
   return MODDED_TRINKETS_ARRAY;
 }
 
@@ -72,11 +74,12 @@ export function getModdedTrinketArray(): readonly TrinketType[] {
  *
  * Use this if you need to do O(1) lookups. If you need to iterate over the trinkets in order, then
  * use the `getTrinketArray` helper function instead.
+ *
+ * This function can only be called if at least one callback has been executed. This is because not
+ * all trinkets will necessarily be present when a mod first loads (due to mod load order).
  */
 export function getModdedTrinketSet(): ReadonlySet<TrinketType> {
-  // Lazy initialize the arrays/sets.
-  initTrinketArraysAndSets();
-
+  lazyInitTrinketArraysAndSets();
   return MODDED_TRINKETS_SET;
 }
 
@@ -85,11 +88,12 @@ export function getModdedTrinketSet(): ReadonlySet<TrinketType> {
  *
  * Use this if you need to iterate over the trinkets in order. If you need to do O(1) lookups, then
  * use the `getModdedTrinketSet` helper function instead.
+ *
+ * This function can only be called if at least one callback has been executed. This is because not
+ * all trinkets will necessarily be present when a mod first loads (due to mod load order).
  */
 export function getTrinketArray(): readonly TrinketType[] {
-  // Lazy initialize the arrays/sets.
-  initTrinketArraysAndSets();
-
+  lazyInitTrinketArraysAndSets();
   return ALL_TRINKETS_ARRAY;
 }
 
@@ -98,11 +102,12 @@ export function getTrinketArray(): readonly TrinketType[] {
  *
  * Use this if you need to do O(1) lookups. If you need to iterate over the trinkets in order, then
  * use the `getModdedTrinketArray` helper function instead.
+ *
+ * This function can only be called if at least one callback has been executed. This is because not
+ * all trinkets will necessarily be present when a mod first loads (due to mod load order).
  */
 export function getTrinketSet(): ReadonlySet<TrinketType> {
-  // Lazy initialize the arrays/sets.
-  initTrinketArraysAndSets();
-
+  lazyInitTrinketArraysAndSets();
   return ALL_TRINKETS_SET;
 }
 
@@ -111,11 +116,12 @@ export function getTrinketSet(): ReadonlySet<TrinketType> {
  *
  * Use this if you need to iterate over the trinkets in order. If you need to do O(1) lookups, then
  * use the `getVanillaTrinketSet` helper function instead.
+ *
+ * This function can only be called if at least one callback has been executed. This is because not
+ * all trinkets will necessarily be present when a mod first loads (due to mod load order).
  */
 export function getVanillaTrinketArray(): readonly TrinketType[] {
-  // Lazy initialize the arrays/sets.
-  initTrinketArraysAndSets();
-
+  lazyInitTrinketArraysAndSets();
   return VANILLA_TRINKETS_ARRAY;
 }
 
@@ -124,10 +130,11 @@ export function getVanillaTrinketArray(): readonly TrinketType[] {
  *
  * Use this if you need to do O(1) lookups. If you need to iterate over the trinkets in order, then
  * use the `getVanillaTrinketArray` helper function instead.
+ *
+ * This function can only be called if at least one callback has been executed. This is because not
+ * all trinkets will necessarily be present when a mod first loads (due to mod load order).
  */
 export function getVanillaTrinketSet(): ReadonlySet<TrinketType> {
-  // Lazy initialize the arrays/sets.
-  initTrinketArraysAndSets();
-
+  lazyInitTrinketArraysAndSets();
   return VANILLA_TRINKETS_SET;
 }

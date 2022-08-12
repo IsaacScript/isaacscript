@@ -13,8 +13,6 @@ import { game, itemConfig } from "../core/cachedClasses";
 import { BLIND_ITEM_PNG_PATH, DEFAULT_ITEM_POOL_TYPE } from "../core/constants";
 import {
   FIRST_COLLECTIBLE_TYPE,
-  FIRST_MODDED_COLLECTIBLE_TYPE,
-  LAST_COLLECTIBLE_TYPE,
   LAST_VANILLA_COLLECTIBLE_TYPE,
 } from "../core/constantsFirstLast";
 import {
@@ -370,26 +368,6 @@ export function getCollectibleTags(
 ): BitFlags<ItemConfigTag> {
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   return itemConfigItem === undefined ? ItemConfigTagZero : itemConfigItem.Tags;
-}
-
-/**
- * Helper function to get an array that represents the all modded collectible types.
- *
- * This function is only useful when building collectible type objects. For most purposes, you
- * should use the `getModdedCollectibleSet` helper function instead.
- *
- * Returns an empty array if there are no modded collectible types.
- *
- * (This function is named differently from the `getVanillaCollectibleTypeRange` function because
- * all modded collectible types are contiguous. Thus, each value represents a real
- * `CollectibleType`.)
- */
-export function getModdedCollectibleTypes(): CollectibleType[] {
-  if (LAST_VANILLA_COLLECTIBLE_TYPE === LAST_COLLECTIBLE_TYPE) {
-    return [];
-  }
-
-  return irange(FIRST_MODDED_COLLECTIBLE_TYPE, LAST_COLLECTIBLE_TYPE);
 }
 
 /**

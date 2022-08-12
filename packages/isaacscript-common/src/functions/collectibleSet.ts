@@ -2,9 +2,9 @@ import { CollectibleType } from "isaac-typescript-definitions";
 import { itemConfig } from "../core/cachedClasses";
 import {
   FIRST_COLLECTIBLE_TYPE,
-  LAST_COLLECTIBLE_TYPE,
   LAST_VANILLA_COLLECTIBLE_TYPE,
 } from "../core/constantsFirstLast";
+import { getLastCollectibleType } from "../features/firstLast";
 import { irange } from "./utils";
 
 const ALL_COLLECTIBLES_ARRAY: CollectibleType[] = [];
@@ -15,14 +15,15 @@ const ALL_COLLECTIBLES_SET = new Set<CollectibleType>();
 const VANILLA_COLLECTIBLES_SET = new Set<CollectibleType>();
 const MODDED_COLLECTIBLES_SET = new Set<CollectibleType>();
 
-function initCollectibleArraysAndSets() {
+function lazyInitCollectibleArraysAndSets() {
   if (ALL_COLLECTIBLES_ARRAY.length !== 0) {
     return;
   }
 
+  const lastCollectibleType = getLastCollectibleType();
   const collectibleTypeRange = irange(
     FIRST_COLLECTIBLE_TYPE,
-    LAST_COLLECTIBLE_TYPE,
+    lastCollectibleType,
   ) as CollectibleType[];
   for (const collectibleType of collectibleTypeRange) {
     const itemConfigItem = itemConfig.GetCollectible(collectibleType);
@@ -60,11 +61,12 @@ function initCollectibleArraysAndSets() {
  *
  * Use this if you need to iterate over the collectibles in order. If you need to do O(1) lookups,
  * then use the `getCollectibleSet` helper function instead.
+ *
+ * This function can only be called if at least one callback has been executed. This is because not
+ * all collectibles will necessarily be present when a mod first loads (due to mod load order).
  */
 export function getCollectibleArray(): readonly CollectibleType[] {
-  // Lazy initialize the arrays/sets.
-  initCollectibleArraysAndSets();
-
+  lazyInitCollectibleArraysAndSets();
   return ALL_COLLECTIBLES_ARRAY;
 }
 
@@ -73,11 +75,12 @@ export function getCollectibleArray(): readonly CollectibleType[] {
  *
  * Use this if you need to do O(1) lookups. If you need to iterate over the collectibles in order,
  * then use the `getCollectibleArray` helper function instead.
+ *
+ * This function can only be called if at least one callback has been executed. This is because not
+ * all collectibles will necessarily be present when a mod first loads (due to mod load order).
  */
 export function getCollectibleSet(): ReadonlySet<CollectibleType> {
-  // Lazy initialize the arrays/sets.
-  initCollectibleArraysAndSets();
-
+  lazyInitCollectibleArraysAndSets();
   return ALL_COLLECTIBLES_SET;
 }
 
@@ -86,11 +89,12 @@ export function getCollectibleSet(): ReadonlySet<CollectibleType> {
  *
  * Use this if you need to iterate over the collectibles in order. If you need to do O(1) lookups,
  * then use the `getModdedCollectibleSet` helper function instead.
+ *
+ * This function can only be called if at least one callback has been executed. This is because not
+ * all collectibles will necessarily be present when a mod first loads (due to mod load order).
  */
 export function getModdedCollectibleArray(): readonly CollectibleType[] {
-  // Lazy initialize the arrays/sets.
-  initCollectibleArraysAndSets();
-
+  lazyInitCollectibleArraysAndSets();
   return MODDED_COLLECTIBLES_ARRAY;
 }
 
@@ -99,11 +103,12 @@ export function getModdedCollectibleArray(): readonly CollectibleType[] {
  *
  * Use this if you need to do O(1) lookups. If you need to iterate over the collectibles in order,
  * then use the `getModdedCollectibleArray` helper function instead.
+ *
+ * This function can only be called if at least one callback has been executed. This is because not
+ * all collectibles will necessarily be present when a mod first loads (due to mod load order).
  */
 export function getModdedCollectibleSet(): ReadonlySet<CollectibleType> {
-  // Lazy initialize the arrays/sets.
-  initCollectibleArraysAndSets();
-
+  lazyInitCollectibleArraysAndSets();
   return MODDED_COLLECTIBLES_SET;
 }
 
@@ -112,11 +117,12 @@ export function getModdedCollectibleSet(): ReadonlySet<CollectibleType> {
  *
  * Use this if you need to iterate over the collectibles in order. If you need to do O(1) lookups,
  * then use the `getVanillaCollectibleSet` helper function instead.
+ *
+ * This function can only be called if at least one callback has been executed. This is because not
+ * all collectibles will necessarily be present when a mod first loads (due to mod load order).
  */
 export function getVanillaCollectibleArray(): readonly CollectibleType[] {
-  // Lazy initialize the arrays/sets.
-  initCollectibleArraysAndSets();
-
+  lazyInitCollectibleArraysAndSets();
   return VANILLA_COLLECTIBLES_ARRAY;
 }
 
@@ -125,10 +131,11 @@ export function getVanillaCollectibleArray(): readonly CollectibleType[] {
  *
  * Use this if you need to do O(1) lookups. If you need to iterate over the collectibles in order,
  * then use the `getVanillaCollectibleArray` helper function instead.
+ *
+ * This function can only be called if at least one callback has been executed. This is because not
+ * all collectibles will necessarily be present when a mod first loads (due to mod load order).
  */
 export function getVanillaCollectibleSet(): ReadonlySet<CollectibleType> {
-  // Lazy initialize the arrays/sets.
-  initCollectibleArraysAndSets();
-
+  lazyInitCollectibleArraysAndSets();
   return VANILLA_COLLECTIBLES_SET;
 }

@@ -9,6 +9,27 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## August 18th, 2022 (Unreleased)
+
+- Added the following helper functions:
+  - `getFirstModdedCollectibleType`
+  - `getLastCollectibleType`
+  - `getNumCollectibleTypes`
+  - `getNumModdedCollectibleTypes`
+  - `getFirstModdedTrinketType`
+  - `getLastTrinketType`
+  - `getNumTrinketTypes`
+  - `getNumModdedTrinketTypes`
+  - `getFirstModdedCard`
+  - `getLastCard`
+  - `getNumCards`
+  - `getNumModdedCards`
+  - `getFirstModdedPillEffect`
+  - `getLastPillEffect`
+  - `getNumPillEffects`
+  - `getNumModdedPillEffects`
+- The constants relating to the aforementioned helper functions have been deleted, since they must be retrieved at run-time after at least one callback has been fired.
+
 ## August 11th, 2022
 
 - Added the following helper functions:

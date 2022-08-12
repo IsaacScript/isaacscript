@@ -1,6 +1,5 @@
 import { CacheFlag, CollectibleType } from "isaac-typescript-definitions";
 import { itemConfig } from "../core/cachedClasses";
-import { DEFAULT_PLAYER_STAT_MAP } from "../maps/defaultPlayerStatMap";
 import { getCollectibleArray } from "./collectibleSet";
 import { getEnumValues } from "./enums";
 import { hasFlag } from "./flag";
@@ -12,7 +11,11 @@ const CACHE_FLAG_TO_COLLECTIBLES_MAP = new Map<
   Set<CollectibleType>
 >();
 
-function initCacheFlagMap() {
+function lazyInitCacheFlagMap() {
+  if (CACHE_FLAG_TO_COLLECTIBLES_MAP.size > 0) {
+    return;
+  }
+
   for (const cacheFlag of getEnumValues(CacheFlag)) {
     const collectiblesSet = new Set<CollectibleType>();
 
@@ -26,6 +29,7 @@ function initCacheFlagMap() {
   }
 }
 
+/** Helper function to check in the item config if a given collectible has a given cache flag. */
 export function collectibleHasCacheFlag(
   collectibleType: CollectibleType,
   cacheFlag: CacheFlag,
@@ -41,14 +45,14 @@ export function collectibleHasCacheFlag(
 /**
  * Returns a set containing every collectible type with the given cache flag, including modded
  * collectibles.
+ *
+ * This function can only be called if at least one callback has been executed. This is because not
+ * all collectibles will necessarily be present when a mod first loads (due to mod load order).
  */
 export function getCollectiblesForCacheFlag(
   cacheFlag: CacheFlag,
 ): Set<CollectibleType> {
-  // Lazy initialize the map.
-  if (CACHE_FLAG_TO_COLLECTIBLES_MAP.size === 0) {
-    initCacheFlagMap();
-  }
+  lazyInitCacheFlagMap();
 
   const collectiblesSet = CACHE_FLAG_TO_COLLECTIBLES_MAP.get(cacheFlag);
   if (collectiblesSet === undefined) {
@@ -56,16 +60,6 @@ export function getCollectiblesForCacheFlag(
   }
 
   return copySet(collectiblesSet);
-}
-
-/**
- * Returns the starting stat that Isaac (the default character) starts with. For example, if you
- * pass this function `CacheFlag.DAMAGE`, it will return 3.5.
- *
- * Note that the default fire delay is represented in the tear stat, not the `MaxFireDelay` value.
- */
-export function getDefaultPlayerStat(cacheFlag: CacheFlag): number | undefined {
-  return DEFAULT_PLAYER_STAT_MAP.get(cacheFlag);
 }
 
 /**
@@ -82,6 +76,9 @@ export function getDefaultPlayerStat(cacheFlag: CacheFlag): number | undefined {
  *   CollectibleType.DEAD_DOVE,
  * ]
  * ```
+ *
+ * This function can only be called if at least one callback has been executed. This is because not
+ * all collectibles will necessarily be present when a mod first loads (due to mod load order).
  */
 export function getPlayerCollectiblesForCacheFlag(
   player: EntityPlayer,
