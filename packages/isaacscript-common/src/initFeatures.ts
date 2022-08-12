@@ -11,6 +11,7 @@ import { disableAllSoundInit } from "./features/disableAllSound";
 import { disableInputsInit } from "./features/disableInputs";
 import { fadeInRemoverInit } from "./features/fadeInRemover";
 import { fastResetInit } from "./features/fastReset";
+import { firstLastInit } from "./features/firstLast";
 import { forgottenSwitchInit } from "./features/forgottenSwitch";
 import { pauseInit } from "./features/pause";
 import { persistentEntitiesInit } from "./features/persistentEntities";
@@ -49,6 +50,7 @@ function initFeaturesMinor(mod: ModUpgraded) {
   disableInputsInit(mod);
   fadeInRemoverInit(mod);
   fastResetInit(mod);
+  firstLastInit(mod);
   forgottenSwitchInit(mod);
   collectibleItemPoolTypeInit(mod);
   pauseInit(mod);
