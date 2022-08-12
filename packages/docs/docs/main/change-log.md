@@ -12,6 +12,9 @@ This page lists the changes to the IsaacScript framework.
 ## August 18th, 2022 (Unreleased)
 
 - Added the following helper functions:
+  - `removeAllActiveItems`
+  - `removeAllPlayerTrinkets`
+- Added the following constant-related helper functions:
   - `getFirstModdedCollectibleType`
   - `getLastCollectibleType`
   - `getNumCollectibleTypes`

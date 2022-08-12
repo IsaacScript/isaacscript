@@ -7,6 +7,7 @@ import {
   NullItemID,
   PlayerForm,
   PlayerType,
+  TrinketSlot,
   TrinketType,
 } from "isaac-typescript-definitions";
 import { game, itemConfig } from "../core/cachedClasses";
@@ -880,6 +881,46 @@ export function playerHasCollectible(
   return collectibleTypes.some((collectibleType) =>
     player.HasCollectible(collectibleType),
   );
+}
+
+/**
+ * Helper function to remove all of the active items from a player. This includes the Schoolbag item
+ * and any pocket actives.
+ */
+export function removeAllActiveItems(player: EntityPlayer): void {
+  for (const activeSlot of getEnumValues(ActiveSlot)) {
+    const collectibleType = player.GetActiveItem(activeSlot);
+    if (collectibleType === CollectibleType.NULL) {
+      continue;
+    }
+
+    let hasCollectible: boolean;
+    do {
+      player.RemoveCollectible(collectibleType);
+      hasCollectible = player.HasCollectible(collectibleType);
+    } while (hasCollectible);
+  }
+}
+
+/**
+ * Helper function to remove all of the held trinkets from a player.
+ *
+ * This will not remove any smelted trinkets, unless the player happens to be holding a trinket that
+ * they also have smelted. (In that case, both the held and the smelted trinket will be removed.)
+ */
+export function removeAllPlayerTrinkets(player: EntityPlayer): void {
+  for (const trinketSlot of getEnumValues(TrinketSlot)) {
+    const trinketType = player.GetTrinket(trinketSlot);
+    if (trinketType === TrinketType.NULL) {
+      continue;
+    }
+
+    let hasTrinket: boolean;
+    do {
+      player.TryRemoveTrinket(trinketType);
+      hasTrinket = player.HasTrinket(trinketType);
+    } while (hasTrinket);
+  }
 }
 
 /**
