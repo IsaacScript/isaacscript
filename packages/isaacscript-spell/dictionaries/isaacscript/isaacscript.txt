@@ -39,11 +39,13 @@ publishedfileid # metadata.vdf
 remarkrc # Monorepo word
 retext # Monorepo word
 rollup # API Extractor word
+sarisia # ci.yml
 ssmacro # Monorepo word
 steamcmd # For publishing
 svgr # Monorepo word
 syncer # Monorepo word
 syncpack # Monorepo word
+technote # ci.yml
 tsdoc # Monorepo word
 TSES # For TSESTree
 tstl
