@@ -27,6 +27,7 @@ hitboxes
 Kilburn # Repentance developer
 Kinetis
 Losts
+luacheck
 luarooms
 modders
 Mullibooms

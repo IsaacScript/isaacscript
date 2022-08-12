@@ -12,7 +12,7 @@
     "*.anm2": "xml", // anm2 files are just XML files.
     "*.dat": "json", // Nearly all mods save JSON to the "save#.dat" file.
 
-    // API Extrator uses the JSONC parser for its configuration files.
+    // API Extractor uses the JSONC parser for its configuration files.
     "api-extractor.json": "jsonc",
     "gitattributes": "properties",
     "gitignore": "ignore",

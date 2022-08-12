@@ -22,6 +22,7 @@ jscutlery # For version control
 jsdoc # Monorepo word
 lualib # TSTL word
 markdownlint # Monorepo word
+markdownlintignore # Monorepo word
 nocache # Monorepo word
 nocheck # For @ts-nocheck
 noout # lint.sh
@@ -36,6 +37,7 @@ preid # Monorepo word
 prettierignore # check-file-updates.sh
 prettierrc # check-file-updates.sh
 publishedfileid # metadata.vdf
+remarkignore # Monorepo word
 remarkrc # Monorepo word
 retext # Monorepo word
 rollup # API Extractor word
