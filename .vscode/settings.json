@@ -11,10 +11,12 @@
   "files.associations": {
     "*.anm2": "xml", // anm2 files are just XML files.
     "*.dat": "json", // Nearly all mods save JSON to the "save#.dat" file.
+
     // API Extrator uses the JSONC parser for its configuration files.
     "api-extractor.json": "jsonc",
-    "typedoc.json": "jsonc", // TypeDoc uses the JSONC parser for its configuration files.
     "gitattributes": "properties",
+    "gitignore": "ignore",
+    "typedoc.json": "jsonc", // TypeDoc uses the JSONC parser for its configuration files.
   },
 
   // We want to always use "lf" to be consistent with all platforms.

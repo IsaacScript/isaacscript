@@ -14,6 +14,7 @@ pull.rebase=true
 *.wav binary
 
 # Specify the file type for VSCode/TypeScript files.
+# https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
 .vscode/extensions.json linguist-language=JSON-with-Comments
 .vscode/settings.json linguist-language=JSON-with-Comments
 tsconfig.*.json linguist-language=JSON-with-Comments
