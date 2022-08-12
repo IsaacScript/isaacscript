@@ -8,10 +8,17 @@ pull.rebase=true
 # Convert all files to use "\n" line endings.
 * text=auto eol=lf
 
+# Specify the file type for some binary files to prevent Git from changing the line endings upon
+# cloning the repository.
+*.png binary
+*.wav binary
+
 # Specify the file type for VSCode/TypeScript files.
 .vscode/extensions.json linguist-language=JSON-with-Comments
 .vscode/settings.json linguist-language=JSON-with-Comments
-api-extractor.json linguist-language=JSON-with-Comments
 tsconfig.*.json linguist-language=JSON-with-Comments
 tsconfig.json linguist-language=JSON-with-Comments
+
+# Specify the file type for files specific to this monorepo.
+api-extractor.json linguist-language=JSON-with-Comments
 typedoc.json linguist-language=JSON-with-Comments
