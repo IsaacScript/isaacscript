@@ -10,6 +10,7 @@
   "enableFiletypes": [
     "*"
   ],
+  "enableGlobDot": true,
   "ignorePaths": [
     "*.anm2",
     "*.pyc",
