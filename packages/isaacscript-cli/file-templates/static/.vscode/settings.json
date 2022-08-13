@@ -11,6 +11,7 @@
   "files.associations": {
     "*.anm2": "xml", // anm2 files are just XML files.
     "*.dat": "json", // Nearly all mods save JSON to the "save#.dat" file.
+    ".env*": "properties", // e.g. ".env_template" is the same as ".env".
   },
 
   // We want to always use "lf" to be consistent with all platforms.
