@@ -13,7 +13,7 @@ pull.rebase=true
 *.png binary
 *.wav binary
 
-# Specify the file type for VSCode/TypeScript files.
+# Specify the file type for some files that GitHub will not automatically characterize properly.
 # https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
 .vscode/extensions.json linguist-language=JSON-with-Comments
 .vscode/settings.json linguist-language=JSON-with-Comments
