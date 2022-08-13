@@ -182,13 +182,13 @@ export function repeat(n: int, func: (i: int) => void): void {
 /**
  * Helper function to signify that the enclosing code block is not yet complete. Using this function
  * is similar to writing a "TODO" comment, but it has the benefit of preventing ESLint errors due to
- * early returns.
+ * unused variables or early returns.
  *
  * When you see this function, it simply means that the programmer intends to add in more code to
  * this spot later.
  *
  * This function is variadic, meaning that you can pass as many arguments as you want. (This is
- * useful as a means to prevent lint warnings.)
+ * useful as a means to prevent unused variables.)
  *
  * This function does not actually do anything. (It is an "empty" function.)
  */

@@ -6,6 +6,39 @@ export function capitalizeFirstLetter(string: string): string {
   return `${capitalizedFirstLetter}${restOfString}`;
 }
 
+/**
+ * Helper function to get the closest value from an array of strings based on partial search text.
+ * For the purposes of this function, both search text and the array are converted to lowercase
+ * before attempting to find a match.
+ *
+ * For example:
+ *
+ * ```ts
+ * const array = ["foo", "bar"];
+ * const searchText = "f";
+ * const match = getPartialMatch(array, searchText); // match is now equal to "foo"
+ *
+ * @returns If a match was found, returns the array element. If a match was not
+ * found, returns undefined.
+ * ```
+ */
+export function getPartialMatch(
+  searchText: string,
+  array: string[],
+): string | undefined {
+  array.sort();
+
+  searchText = searchText.toLowerCase();
+  searchText = searchText.replaceAll(" ", "");
+
+  const matchingElements = array.filter((element) =>
+    element.toLowerCase().startsWith(searchText),
+  );
+  matchingElements.sort();
+
+  return matchingElements[0];
+}
+
 export function removeAllCharacters(string: string, character: string): string {
   return string.replaceAll(character, "");
 }

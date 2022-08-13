@@ -1,4 +1,5 @@
 import { sumArray } from "./array";
+import { getPartialMatch } from "./string";
 
 /** Helper function to copy a map. (You can also use a Map constructor to accomplish this task.) */
 export function copyMap<K, V>(oldMap: Map<K, V>): Map<K, V> {
@@ -34,24 +35,17 @@ export function getMapPartialMatch<T>(
   map: ReadonlyMap<string, T>,
 ): [string, T] | undefined {
   const keys = [...map.keys()];
-  keys.sort();
 
-  searchText = searchText.toLowerCase();
-  searchText = searchText.replaceAll(" ", "");
-
-  const matchingKeys = keys.filter((key) =>
-    key.toLowerCase().startsWith(searchText),
-  );
-  matchingKeys.sort();
-
-  const matchingKey = matchingKeys[0];
+  const matchingKey = getPartialMatch(searchText, keys);
   if (matchingKey === undefined) {
     return undefined;
   }
 
   const value = map.get(matchingKey);
   if (value === undefined) {
-    return undefined;
+    error(
+      `Failed to get the map value corresponding to the partial match of: ${matchingKey}`,
+    );
   }
 
   return [matchingKey, value];
