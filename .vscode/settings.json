@@ -11,7 +11,7 @@
   "files.associations": {
     "*.anm2": "xml", // anm2 files are just XML files.
     "*.dat": "json", // Nearly all mods save JSON to the "save#.dat" file.
-    ".env*": "properties", // e.g. ".env_template" is the same as ".env".
+    ".env*": "shellscript", // e.g. ".env.example" is the same as ".env".
 
     // API Extractor uses the JSONC parser for its configuration files.
     "api-extractor.json": "jsonc",
