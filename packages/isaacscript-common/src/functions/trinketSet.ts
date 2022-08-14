@@ -1,57 +1,56 @@
 import { TrinketType } from "isaac-typescript-definitions";
 import { itemConfig } from "../core/cachedClasses";
-import {
-  FIRST_TRINKET_TYPE,
-  LAST_VANILLA_TRINKET_TYPE,
-} from "../core/constantsFirstLast";
-import { getLastTrinketType } from "../features/firstLast";
-import { irange } from "./utils";
+import { getModdedTrinketTypes } from "../features/firstLast";
+import { getVanillaTrinketTypes } from "./trinkets";
 
 const ALL_TRINKETS_ARRAY: TrinketType[] = [];
-const VANILLA_TRINKETS_ARRAY: TrinketType[] = [];
-const MODDED_TRINKETS_ARRAY: TrinketType[] = [];
-
 const ALL_TRINKETS_SET = new Set<TrinketType>();
+
+const VANILLA_TRINKETS_ARRAY: TrinketType[] = [];
 const VANILLA_TRINKETS_SET = new Set<TrinketType>();
+
+const MODDED_TRINKETS_ARRAY: TrinketType[] = [];
 const MODDED_TRINKETS_SET = new Set<TrinketType>();
 
-function lazyInitTrinketArraysAndSets() {
-  if (ALL_TRINKETS_ARRAY.length !== 0) {
+function lazyInitVanillaTrinkets() {
+  if (VANILLA_TRINKETS_ARRAY.length > 0) {
     return;
   }
 
-  const lastTrinketType = getLastTrinketType();
-  const trinketTypeRange = irange(
-    FIRST_TRINKET_TYPE,
-    lastTrinketType,
-  ) as TrinketType[];
-  for (const trinketType of trinketTypeRange) {
+  const vanillaTrinketTypes = getVanillaTrinketTypes();
+  for (const trinketType of vanillaTrinketTypes) {
+    // Vanilla trinket types are contiguous, but we check every value just in case.
     const itemConfigItem = itemConfig.GetTrinket(trinketType);
-    if (itemConfigItem === undefined) {
-      continue;
-    }
-
-    ALL_TRINKETS_ARRAY.push(trinketType);
-    if (trinketType <= LAST_VANILLA_TRINKET_TYPE) {
+    if (itemConfigItem !== undefined) {
       VANILLA_TRINKETS_ARRAY.push(trinketType);
-    } else {
-      MODDED_TRINKETS_ARRAY.push(trinketType);
+      VANILLA_TRINKETS_SET.add(trinketType);
     }
   }
+}
 
-  ALL_TRINKETS_ARRAY.sort();
-  for (const trinketType of ALL_TRINKETS_ARRAY) {
+function lazyInitModdedTrinkets() {
+  if (MODDED_TRINKETS_ARRAY.length > 0) {
+    return;
+  }
+
+  lazyInitVanillaTrinkets();
+
+  for (const trinketType of VANILLA_TRINKETS_ARRAY) {
+    ALL_TRINKETS_ARRAY.push(trinketType);
     ALL_TRINKETS_SET.add(trinketType);
   }
 
-  VANILLA_TRINKETS_ARRAY.sort();
-  for (const trinketType of VANILLA_TRINKETS_ARRAY) {
-    VANILLA_TRINKETS_SET.add(trinketType);
-  }
+  const moddedTrinketTypes = getModdedTrinketTypes();
+  for (const trinketType of moddedTrinketTypes) {
+    // Modded trinket types are contiguous, but we check every value just in case.
+    const itemConfigItem = itemConfig.GetTrinket(trinketType);
+    if (itemConfigItem !== undefined) {
+      MODDED_TRINKETS_ARRAY.push(trinketType);
+      MODDED_TRINKETS_SET.add(trinketType);
 
-  MODDED_TRINKETS_ARRAY.sort();
-  for (const trinketType of MODDED_TRINKETS_ARRAY) {
-    MODDED_TRINKETS_SET.add(trinketType);
+      ALL_TRINKETS_ARRAY.push(trinketType);
+      ALL_TRINKETS_SET.add(trinketType);
+    }
   }
 }
 
@@ -65,7 +64,7 @@ function lazyInitTrinketArraysAndSets() {
  * all trinkets will necessarily be present when a mod first loads (due to mod load order).
  */
 export function getModdedTrinketArray(): readonly TrinketType[] {
-  lazyInitTrinketArraysAndSets();
+  lazyInitModdedTrinkets();
   return MODDED_TRINKETS_ARRAY;
 }
 
@@ -79,7 +78,7 @@ export function getModdedTrinketArray(): readonly TrinketType[] {
  * all trinkets will necessarily be present when a mod first loads (due to mod load order).
  */
 export function getModdedTrinketSet(): ReadonlySet<TrinketType> {
-  lazyInitTrinketArraysAndSets();
+  lazyInitModdedTrinkets();
   return MODDED_TRINKETS_SET;
 }
 
@@ -93,7 +92,7 @@ export function getModdedTrinketSet(): ReadonlySet<TrinketType> {
  * all trinkets will necessarily be present when a mod first loads (due to mod load order).
  */
 export function getTrinketArray(): readonly TrinketType[] {
-  lazyInitTrinketArraysAndSets();
+  lazyInitModdedTrinkets();
   return ALL_TRINKETS_ARRAY;
 }
 
@@ -107,7 +106,7 @@ export function getTrinketArray(): readonly TrinketType[] {
  * all trinkets will necessarily be present when a mod first loads (due to mod load order).
  */
 export function getTrinketSet(): ReadonlySet<TrinketType> {
-  lazyInitTrinketArraysAndSets();
+  lazyInitModdedTrinkets();
   return ALL_TRINKETS_SET;
 }
 
@@ -116,12 +115,9 @@ export function getTrinketSet(): ReadonlySet<TrinketType> {
  *
  * Use this if you need to iterate over the trinkets in order. If you need to do O(1) lookups, then
  * use the `getVanillaTrinketSet` helper function instead.
- *
- * This function can only be called if at least one callback has been executed. This is because not
- * all trinkets will necessarily be present when a mod first loads (due to mod load order).
  */
 export function getVanillaTrinketArray(): readonly TrinketType[] {
-  lazyInitTrinketArraysAndSets();
+  lazyInitVanillaTrinkets();
   return VANILLA_TRINKETS_ARRAY;
 }
 
@@ -130,11 +126,8 @@ export function getVanillaTrinketArray(): readonly TrinketType[] {
  *
  * Use this if you need to do O(1) lookups. If you need to iterate over the trinkets in order, then
  * use the `getVanillaTrinketArray` helper function instead.
- *
- * This function can only be called if at least one callback has been executed. This is because not
- * all trinkets will necessarily be present when a mod first loads (due to mod load order).
  */
 export function getVanillaTrinketSet(): ReadonlySet<TrinketType> {
-  lazyInitTrinketArraysAndSets();
+  lazyInitVanillaTrinkets();
   return VANILLA_TRINKETS_SET;
 }

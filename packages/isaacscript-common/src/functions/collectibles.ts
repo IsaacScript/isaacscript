@@ -376,7 +376,8 @@ export function getCollectibleTags(
  * collectible types.
  *
  * This function is only useful when building collectible type objects. For most purposes, you
- * should use the `getVanillaCollectibleSet` helper function instead.
+ * should use the `getVanillaCollectibleArray` or `getVanillaCollectibleSet` helper functions
+ * instead.
  */
 export function getVanillaCollectibleTypeRange(): CollectibleType[] {
   return irange(FIRST_COLLECTIBLE_TYPE, LAST_VANILLA_COLLECTIBLE_TYPE);
