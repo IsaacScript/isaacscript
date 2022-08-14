@@ -33,6 +33,8 @@ This page lists the changes to the IsaacScript framework.
   - `getNumPillEffects`
   - `getNumModdedPillEffects`
 - The constants relating to the aforementioned helper functions have been deleted, since they must be retrieved at run-time after at least one callback has been fired.
+- Added the following custom commands:
+  - `getChallenge`
 
 ## August 11th, 2022
 
