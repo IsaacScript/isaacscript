@@ -16,6 +16,7 @@ import {
   isCharacter,
   setActiveItem,
 } from "./players";
+import { repeat } from "./utils";
 
 export function addPlayerHealthType(
   player: EntityPlayer,
@@ -210,7 +211,7 @@ export function getPlayerHealthType(
   }
 }
 
-/** Returns a `PlayerHealth` object with all 0s. */
+/** Returns a `PlayerHealth` object with all zeros. */
 export function newPlayerHealth(): PlayerHealth {
   return {
     maxHearts: 0,
@@ -381,8 +382,21 @@ export function setPlayerHealth(
 
   if (character === PlayerType.MAGDALENE_B) {
     // Adding 1 heart to Tainted Magdalene will actually add two hearts.
-    const effectiveHearts = playerHealth.hearts / 2;
-    player.AddHearts(effectiveHearts);
+    repeat(playerHealth.hearts, () => {
+      if (player.HasFullHearts()) {
+        return;
+      }
+
+      const hearts = player.GetHearts();
+      const maxHearts = player.GetMaxHearts();
+      if (hearts === maxHearts - 1) {
+        player.AddHearts(1);
+        return;
+      }
+
+      player.AddHearts(1);
+      player.AddHearts(-1);
+    });
   } else {
     player.AddHearts(playerHealth.hearts);
   }
