@@ -461,7 +461,10 @@ export enum CollectibleType {
   MAGIC_MUSHROOM = 12,
   VIRUS = 13,
   ROID_RAGE = 14,
+
+  /** <3 */
   HEART = 15,
+
   RAW_LIVER = 16,
   SKELETON_KEY = 17,
   DOLLAR = 18,
