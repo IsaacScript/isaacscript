@@ -859,8 +859,15 @@ declare global {
     /** Returns true if the player's item effects are currently being disabled. */
     HasCurseMistEffect(): boolean;
 
+    /** Returns true if all of the player's red heart containers are filled. */
     HasFullHearts(): boolean;
+
+    /**
+     * Returns true if the combined value of the player's red hearts and soul hearts is equal to or
+     * greater than the value of the player's max hearts.
+     */
     HasFullHeartsAndSoulHearts(): boolean;
+
     HasGoldenBomb(): boolean;
     HasGoldenKey(): boolean;
 
