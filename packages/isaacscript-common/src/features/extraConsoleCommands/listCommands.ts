@@ -25,6 +25,7 @@ import {
   ActiveSlot,
   CacheFlag,
   Card,
+  Challenge,
   CollectibleType,
   Direction,
   DisplayFlag,
@@ -371,6 +372,14 @@ export function cards(): void {
 /** Alias for the "chaosCardTears" command. */
 export function cc(): void {
   chaosCardTears();
+}
+
+/** Displays the current challenge, if any. */
+export function getChallenge(): void {
+  const challenge = Isaac.GetChallenge();
+  printConsole(
+    `The current challenge is: Challenge.${Challenge[challenge]} (${challenge})`,
+  );
 }
 
 /**

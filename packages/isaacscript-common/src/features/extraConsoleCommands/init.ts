@@ -54,6 +54,7 @@ function initMap() {
   extraConsoleCommandsFunctionMap.set("card", commands.card);
   extraConsoleCommandsFunctionMap.set("cards", commands.cards);
   extraConsoleCommandsFunctionMap.set("cc", commands.cc);
+  extraConsoleCommandsFunctionMap.set("getChallenge", commands.getChallenge);
   extraConsoleCommandsFunctionMap.set(
     "chaosCardTears",
     commands.chaosCardTears,
