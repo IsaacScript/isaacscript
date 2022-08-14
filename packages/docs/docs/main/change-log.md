@@ -22,6 +22,8 @@ This page lists the changes to the IsaacScript framework.
   - `isModdedTrinketType`
   - `isVanillaPillEffect`
   - `isModdedPillEffect`
+- Renamed the following helper functions:
+  - `isGoldenTrinket` --> `isGoldenTrinketType`
 - Added the following constant-related helper functions:
   - `getFirstModdedCollectibleType`
   - `getLastCollectibleType`

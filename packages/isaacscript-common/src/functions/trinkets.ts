@@ -143,7 +143,7 @@ export function hasOpenTrinketSlot(player: EntityPlayer): boolean {
   return openTrinketSlot !== undefined;
 }
 
-export function isGoldenTrinket(trinketType: TrinketType): boolean {
+export function isGoldenTrinketType(trinketType: TrinketType): boolean {
   return asNumber(trinketType) > GOLDEN_TRINKET_ADJUSTMENT;
 }
 
