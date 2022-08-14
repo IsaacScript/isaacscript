@@ -84,6 +84,7 @@ export * from "./functions/flying";
 export * from "./functions/globals";
 export * from "./functions/gridEntities";
 export * from "./functions/gridEntitiesSpecific";
+export * from "./functions/hex";
 export * from "./functions/input";
 export * from "./functions/isaacAPIClass";
 export * from "./functions/itemPool";
