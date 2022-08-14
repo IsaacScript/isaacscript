@@ -377,9 +377,12 @@ export function cc(): void {
 /** Displays the current challenge, if any. */
 export function getChallenge(): void {
   const challenge = Isaac.GetChallenge();
-  printConsole(
-    `The current challenge is: Challenge.${Challenge[challenge]} (${challenge})`,
-  );
+  const challengeName = Challenge[challenge];
+  const challengeDescription =
+    challengeName === undefined
+      ? `${challenge} (custom)`
+      : `Challenge.${challengeName} (${challenge})`;
+  printConsole(`The current challenge is: ${challengeDescription}`);
 }
 
 /**
