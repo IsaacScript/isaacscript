@@ -212,9 +212,9 @@ export function isCardType(card: Card, cardType: ItemConfigCardType): boolean {
   return cardType === getCardType(card);
 }
 
-/** Returns true for cards that have `CardType.MODDED`. */
+/** Returns true for any card or rune added by a mod. */
 export function isModdedCard(card: Card): boolean {
-  return isCardType(card, ItemConfigCardType.MODDED);
+  return !isVanillaCard(card);
 }
 
 /** Returns true for cards that have `CardType.SPECIAL_OBJECT`. */
@@ -245,4 +245,9 @@ export function isSuitCard(card: Card): boolean {
 /** Returns true for cards that have `CardType.TAROT`. */
 export function isTarotCard(card: Card): boolean {
   return isCardType(card, ItemConfigCardType.TAROT);
+}
+
+/** Returns true for any vanilla card or rune. */
+export function isVanillaCard(card: Card): boolean {
+  return card <= LAST_VANILLA_CARD;
 }

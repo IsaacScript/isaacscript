@@ -15,6 +15,13 @@ This page lists the changes to the IsaacScript framework.
   - `removeAllActiveItems`
   - `removeAllPlayerTrinkets`
   - `getPartialMatch`
+  - `isVanillaCard`
+  - `isVanillaCollectibleType`
+  - `isModdedCollectibleType`
+  - `isVanillaTrinketType`
+  - `isModdedTrinketType`
+  - `isVanillaPillEffect`
+  - `isModdedPillEffect`
 - Added the following constant-related helper functions:
   - `getFirstModdedCollectibleType`
   - `getLastCollectibleType`

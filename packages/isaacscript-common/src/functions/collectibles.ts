@@ -427,6 +427,12 @@ export function isHiddenCollectible(collectibleType: CollectibleType): boolean {
   return itemConfigItem !== undefined && itemConfigItem.Hidden;
 }
 
+export function isModdedCollectibleType(
+  collectibleType: CollectibleType,
+): boolean {
+  return !isVanillaCollectibleType(collectibleType);
+}
+
 /**
  * Returns true if the item type in the item config is equal to `ItemType.ITEM_PASSIVE` or
  * `ItemType.ITEM_FAMILIAR`.
@@ -454,6 +460,12 @@ export function isValidCollectibleType(
 ): boolean {
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   return itemConfigItem !== undefined;
+}
+
+export function isVanillaCollectibleType(
+  collectibleType: CollectibleType,
+): boolean {
+  return collectibleType <= LAST_VANILLA_COLLECTIBLE_TYPE;
 }
 
 /**

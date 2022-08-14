@@ -183,3 +183,11 @@ export function getVanillaPillEffects(): PillEffect[] {
 export function isHorsePill(pillColor: PillColor): boolean {
   return asNumber(pillColor) > HORSE_PILL_ADJUSTMENT;
 }
+
+export function isModdedPillEffect(pillEffect: PillEffect): boolean {
+  return !isVanillaPillEffect(pillEffect);
+}
+
+export function isVanillaPillEffect(pillEffect: PillEffect): boolean {
+  return pillEffect <= LAST_VANILLA_PILL_EFFECT;
+}

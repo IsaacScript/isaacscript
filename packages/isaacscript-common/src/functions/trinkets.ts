@@ -147,6 +147,14 @@ export function isGoldenTrinket(trinketType: TrinketType): boolean {
   return asNumber(trinketType) > GOLDEN_TRINKET_ADJUSTMENT;
 }
 
+export function isModdedTrinketType(trinketType: TrinketType): boolean {
+  return !isVanillaTrinketType(trinketType);
+}
+
+export function isVanillaTrinketType(trinketType: TrinketType): boolean {
+  return trinketType <= LAST_VANILLA_TRINKET_TYPE;
+}
+
 /**
  * Helper function to change the sprite of a trinket entity.
  *
