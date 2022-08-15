@@ -3,7 +3,11 @@ import { DefaultMap } from "../classes/DefaultMap";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
-import { arrayRemoveInPlace, copyArray } from "../functions/array";
+import {
+  arrayRemoveInPlace,
+  copyArray,
+  getLastElement,
+} from "../functions/array";
 import { isActiveCollectible } from "../functions/collectibles";
 import { getCollectibleArray } from "../functions/collectibleSet";
 import {
@@ -107,9 +111,6 @@ function postCollectibleRemoved(
  * Helper function to get all of the collectibles that the player has gotten so far on this run, in
  * order.
  *
- * Note that this does not include active collectibles that have since been dropped for other
- * collectibles.
- *
  * In the case of inventory initialization or the case where the player rerolls their build in the
  * middle of the run (e.g. with D4), the order of the inventory will not correspond to the order
  * that the items were actually given to the player. In this case, the inventory will be in the
@@ -121,6 +122,10 @@ function postCollectibleRemoved(
  * would not be updated. In vanilla, this situation would never happen, but another mod might do
  * this for some reason. (With that said, the next time that a collectible is normally added or
  * removed, it would trigger a re-scan, and the previous changes would be picked up.)
+ *
+ * @param player The player to get the inventory for.
+ * @param includeActiveCollectibles Optional. If true, will include all active collectibles. Default
+ *                                 is true.
  */
 export function getPlayerInventory(
   player: EntityPlayer,
@@ -138,4 +143,19 @@ export function getPlayerInventory(
   return copiedInventory.filter(
     (collectibleType) => !isActiveCollectible(collectibleType),
   );
+}
+
+/**
+ * Helper function to get the last passive collectible that the player picked up. In most cases,
+ * this will be the passive that is removed when the player would use Clicker.
+ *
+ * Returns undefined if the player does not have any passive collectibles.
+ */
+export function getPlayerLastPassiveCollectible(
+  player: EntityPlayer,
+): CollectibleType | undefined {
+  errorIfFeaturesNotInitialized(FEATURE_NAME);
+
+  const inventory = getPlayerInventory(player, false);
+  return getLastElement(inventory);
 }
