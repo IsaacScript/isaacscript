@@ -475,20 +475,29 @@ export const ALL_BOSSES_SET: ReadonlySet<string> = new Set([
   ...ALL_STAGE_11_BOSSES_SET.values(),
 ]);
 
-// Since story bosses are stored by entity type, we copy the existing bosses and filter them (to
-// avoid having to hard-code story boss variants).
-const allBossesExcludingStoryBossesSet = copySet(ALL_BOSSES_SET);
-const allBosses = [...ALL_BOSSES_SET.values()];
-for (const entityTypeVariantString of allBosses) {
-  const tuple = parseEntityTypeVariantString(entityTypeVariantString);
-  if (tuple === undefined) {
-    error("Failed to parse a boss tuple when constructing the story boss set.");
+export const ALL_BOSSES_EXCLUDING_STORY_BOSSES_SET: ReadonlySet<string> =
+  getAllBossesExcludingStoryBossesSet();
+
+/**
+ * Since story bosses are stored by entity type, we copy the existing bosses and filter them (to
+ * avoid having to hard-code story boss variants).
+ */
+function getAllBossesExcludingStoryBossesSet(): ReadonlySet<string> {
+  const allBossesExcludingStoryBossesSet = copySet(ALL_BOSSES_SET);
+  const allBosses = [...ALL_BOSSES_SET.values()];
+  for (const entityTypeVariantString of allBosses) {
+    const tuple = parseEntityTypeVariantString(entityTypeVariantString);
+    if (tuple === undefined) {
+      error(
+        "Failed to parse a boss tuple when constructing the story boss set.",
+      );
+    }
+
+    const [entityType, _variant] = tuple;
+    if (STORY_BOSSES_SET.has(entityType)) {
+      allBossesExcludingStoryBossesSet.delete(entityTypeVariantString);
+    }
   }
 
-  const [entityType, _variant] = tuple;
-  if (STORY_BOSSES_SET.has(entityType)) {
-    allBossesExcludingStoryBossesSet.delete(entityTypeVariantString);
-  }
+  return allBossesExcludingStoryBossesSet;
 }
-export const ALL_BOSSES_EXCLUDING_STORY_BOSSES_SET: ReadonlySet<string> =
-  allBossesExcludingStoryBossesSet;
