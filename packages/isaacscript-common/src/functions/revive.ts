@@ -11,12 +11,8 @@ import {
   TAINTED_SAMSON_BERSERK_CHARGE_FROM_TAKING_DAMAGE,
 } from "../core/constants";
 import { getCharacterDeathAnimationName } from "./characters";
-import {
-  getPlayerMaxHeartContainers,
-  getPlayerNumHitsRemaining,
-  hasLostCurse,
-  isKeeper,
-} from "./players";
+import { getPlayerMaxHeartContainers } from "./playerHealth";
+import { getPlayerNumHitsRemaining, hasLostCurse, isKeeper } from "./players";
 import { getLastFrameOfAnimation } from "./sprites";
 import { giveTrinketsBack, temporarilyRemoveTrinket } from "./trinketGive";
 

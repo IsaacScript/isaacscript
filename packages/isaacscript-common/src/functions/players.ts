@@ -1,6 +1,5 @@
 import {
   ActiveSlot,
-  CacheFlag,
   Challenge,
   CollectibleType,
   FamiliarVariant,
@@ -11,14 +10,8 @@ import {
   TrinketType,
 } from "isaac-typescript-definitions";
 import { game, itemConfig } from "../core/cachedClasses";
-import { HealthType } from "../enums/HealthType";
 import { getLastElement, sumArray } from "./array";
-import { countSetBits, getKBitOfN, getNumBitsOfN } from "./bitwise";
-import {
-  getCharacterMaxHeartContainers,
-  getCharacterName,
-  isVanillaCharacter,
-} from "./characters";
+import { getCharacterName, isVanillaCharacter } from "./characters";
 import { getCollectibleMaxCharges } from "./collectibles";
 import { getCollectibleArray } from "./collectibleSet";
 import { getEnumValues } from "./enums";
@@ -27,18 +20,8 @@ import {
   getPlayerIndexVanilla,
   getPlayers,
 } from "./playerIndex";
-import { addTearsStat } from "./tears";
 import { isNumber } from "./types";
 import { repeat } from "./utils";
-
-const STAT_CACHE_FLAGS_SET: ReadonlySet<CacheFlag> = new Set([
-  CacheFlag.DAMAGE, // 1 << 0
-  CacheFlag.FIRE_DELAY, // 1 << 1
-  CacheFlag.SHOT_SPEED, // 1 << 2
-  CacheFlag.RANGE, // 1 << 3
-  CacheFlag.SPEED, // 1 << 4
-  CacheFlag.LUCK, // 1 << 10
-]);
 
 export function addCollectibleCostume(
   player: EntityPlayer,
@@ -50,71 +33,6 @@ export function addCollectibleCostume(
   }
 
   player.AddCostume(itemConfigItem, false);
-}
-
-/**
- * Helper function to add a stat to a player based on the `CacheFlag` provided. Call this function
- * from the `EVALUATE_CACHE` callback.
- *
- * Note that for `CacheFlag.FIRE_DELAY`, the "amount" argument will be interpreted as the tear stat
- * to add (and not the amount to mutate `EntityPlayer.MaxFireDelay` by).
- *
- * This function supports the following cache flags:
- * - CacheFlag.DAMAGE (1 << 0)
- * - CacheFlag.FIRE_DELAY (1 << 1)
- * - CacheFlag.SHOT_SPEED (1 << 2)
- * - CacheFlag.RANGE (1 << 3)
- * - CacheFlag.SPEED (1 << 4)
- * - CacheFlag.LUCK (1 << 10)
- */
-export function addStat(
-  player: EntityPlayer,
-  cacheFlag: CacheFlag,
-  amount: number,
-): void {
-  if (!STAT_CACHE_FLAGS_SET.has(cacheFlag)) {
-    error(
-      `You cannot add a stat to a player with the cache flag of: ${cacheFlag}`,
-    );
-  }
-
-  switch (cacheFlag) {
-    // 1 << 0
-    case CacheFlag.DAMAGE: {
-      player.Damage += amount;
-      break;
-    }
-
-    // 1 << 1
-    case CacheFlag.FIRE_DELAY: {
-      addTearsStat(player, amount);
-      break;
-    }
-
-    // 1 << 2
-    case CacheFlag.SHOT_SPEED: {
-      player.ShotSpeed += amount;
-      break;
-    }
-
-    // 1 << 3
-    case CacheFlag.RANGE: {
-      player.TearHeight += amount;
-      break;
-    }
-
-    // 1 << 4
-    case CacheFlag.SPEED: {
-      player.MoveSpeed += amount;
-      break;
-    }
-
-    // 1 << 10
-    case CacheFlag.LUCK: {
-      player.Luck += amount;
-      break;
-    }
-  }
 }
 
 export function addTrinketCostume(
@@ -171,45 +89,6 @@ export function canPlayerCrushRocks(player: EntityPlayer): boolean {
     effects.HasCollectibleEffect(CollectibleType.MEGA_MUSH) ||
     player.HasPlayerForm(PlayerForm.STOMPY)
   );
-}
-
-/**
- * Returns whether or not all of the player's soul-heart-type hearts are black hearts.
- *
- * Note that this function does not consider red heart containers.
- *
- * For example:
- *
- * - If the player has one black heart, this function would return true.
- * - If the player has one soul heart and two black hearts, this function would return false.
- * - If the player has no black hearts, this function will return false.
- * - If the player has one red heart container and three black hearts, this function would return
- *   true.
- */
-export function doesPlayerHaveAllBlackHearts(player: EntityPlayer): boolean {
-  const soulHearts = getPlayerSoulHearts(player);
-  const blackHearts = getPlayerBlackHearts(player);
-
-  return blackHearts > 0 && soulHearts === 0;
-}
-
-/**
- * Returns whether or not all of the player's soul-heart-type hearts are soul hearts.
- *
- * Note that this function does not consider red heart containers.
- *
- * For example:
- *
- * - If the player has two soul hearts and one black heart, this function would return false.
- * - If the player has no soul hearts, this function will return false.
- * - If the player has one red heart container and three soul hearts, this function would return
- *   true.
- */
-export function doesPlayerHaveAllSoulHearts(player: EntityPlayer): boolean {
-  const soulHearts = getPlayerSoulHearts(player);
-  const blackHearts = getPlayerBlackHearts(player);
-
-  return soulHearts > 0 && blackHearts === 0;
 }
 
 /**
@@ -325,39 +204,6 @@ export function getNewestPlayer(): EntityPlayer {
 }
 
 /**
- * Returns the number of slots that the player has remaining for new heart containers, accounting
- * for broken hearts. For example, if the player is Judas and has 1 red heart containers and 2 full
- * soul hearts and 3 broken hearts, then this function would return 6 (i.e. 12 - 1 - 2 - 3).
- */
-export function getPlayerAvailableHeartSlots(player: EntityPlayer): int {
-  const maxHeartContainers = getPlayerMaxHeartContainers(player);
-  const effectiveMaxHearts = player.GetEffectiveMaxHearts();
-  const normalAndBoneHeartContainers = effectiveMaxHearts / 2;
-  const soulHearts = player.GetSoulHearts();
-  const soulHeartContainers = math.ceil(soulHearts / 2);
-  const totalHeartContainers =
-    normalAndBoneHeartContainers + soulHeartContainers;
-  const brokenHearts = player.GetBrokenHearts();
-  const totalOccupiedHeartSlots = totalHeartContainers + brokenHearts;
-
-  return maxHeartContainers - totalOccupiedHeartSlots;
-}
-
-/**
- * Returns the number of black hearts that the player has, excluding any soul hearts. For example,
- * if the player has one full black heart, one full soul heart, and one half black heart, this
- * function returns 3.
- *
- * This is different from the `EntityPlayer.GetBlackHearts` method, since that returns a bitmask.
- */
-export function getPlayerBlackHearts(player: EntityPlayer): int {
-  const blackHeartsBitmask = player.GetBlackHearts();
-  const blackHeartBits = countSetBits(blackHeartsBitmask);
-
-  return blackHeartBits * 2;
-}
-
-/**
  * Iterates over all players and checks if any are close enough to the specified position.
  *
  * @returns The first player found when iterating upwards from index 0.
@@ -446,124 +292,6 @@ export function getPlayerFromTear(entity: Entity): EntityPlayer | undefined {
 }
 
 /**
- * Returns the number of red hearts that the player has, excluding any rotten hearts. For example,
- * if the player has one full black heart, one full soul heart, and one half black heart, this
- * function returns 3.
- *
- * This is different from the `EntityPlayer.GetHearts` method, since that returns a value that
- * includes rotten hearts.
- */
-export function getPlayerHearts(player: EntityPlayer): int {
-  const rottenHearts = player.GetRottenHearts();
-  const hearts = player.GetHearts();
-
-  return hearts - rottenHearts * 2;
-}
-
-/**
- * Helper function that returns the type of the rightmost heart. This does not including golden
- * hearts or broken hearts, since they cannot be damaged directly.
- */
-export function getPlayerLastHeart(player: EntityPlayer): HealthType {
-  const hearts = player.GetHearts();
-  const effectiveMaxHearts = player.GetEffectiveMaxHearts();
-  const soulHearts = player.GetSoulHearts();
-  const blackHearts = player.GetBlackHearts();
-  const eternalHearts = player.GetEternalHearts();
-  const boneHearts = player.GetBoneHearts();
-  const rottenHearts = player.GetRottenHearts();
-
-  const soulHeartSlots = soulHearts / 2;
-  const lastHeartIndex = boneHearts + soulHeartSlots - 1;
-  const isLastHeartBone = player.IsBoneHeart(lastHeartIndex);
-
-  if (isLastHeartBone) {
-    const isLastContainerEmpty = hearts <= effectiveMaxHearts - 2;
-    if (isLastContainerEmpty) {
-      return HealthType.BONE;
-    }
-
-    if (rottenHearts > 0) {
-      return HealthType.ROTTEN;
-    }
-
-    if (eternalHearts > 0) {
-      return HealthType.ETERNAL;
-    }
-
-    return HealthType.RED;
-  }
-
-  if (soulHearts > 0) {
-    const numBits = getNumBitsOfN(blackHearts);
-    const finalBit = getKBitOfN(numBits - 1, blackHearts);
-    const isBlack = finalBit === 1;
-
-    if (isBlack) {
-      return HealthType.BLACK;
-    }
-
-    // If it is not a black heart, it must be a soul heart.
-    return HealthType.SOUL;
-  }
-
-  if (eternalHearts > 0) {
-    return HealthType.ETERNAL;
-  }
-
-  if (rottenHearts > 0) {
-    return HealthType.ROTTEN;
-  }
-
-  return HealthType.RED;
-}
-
-/**
- * Returns the maximum heart containers that the provided player can have. Normally, this is 12, but
- * it can change depending on the character (e.g. Keeper) and other things (e.g. Mother's Kiss).
- * This function does not account for Broken Hearts; use the `getPlayerAvailableHeartSlots` helper
- * function for that.
- */
-export function getPlayerMaxHeartContainers(player: EntityPlayer): int {
-  const character = player.GetPlayerType();
-  const characterMaxHeartContainers = getCharacterMaxHeartContainers(character);
-
-  // 1
-  // Magdalene can increase her maximum heart containers with Birthright.
-  if (
-    character === PlayerType.MAGDALENE &&
-    player.HasCollectible(CollectibleType.BIRTHRIGHT)
-  ) {
-    const extraMaxHeartContainersFromBirthright = 6;
-    return characterMaxHeartContainers + extraMaxHeartContainersFromBirthright;
-  }
-
-  // 14, 33
-  // Keeper and Tainted Keeper can increase their coin containers with Mother's Kiss and Greed's
-  // Gullet.
-  if (isKeeper(player)) {
-    const numMothersKisses = player.GetTrinketMultiplier(
-      TrinketType.MOTHERS_KISS,
-    );
-    const hasGreedsGullet = player.HasCollectible(
-      CollectibleType.GREEDS_GULLET,
-    );
-    const coins = player.GetNumCoins();
-    const greedsGulletCoinContainers = hasGreedsGullet
-      ? Math.floor(coins / 25)
-      : 0;
-
-    return (
-      characterMaxHeartContainers +
-      numMothersKisses +
-      greedsGulletCoinContainers
-    );
-  }
-
-  return characterMaxHeartContainers;
-}
-
-/**
  * Helper function to get the proper name of the player. Use this instead of the
  * `EntityPlayer.GetName` method because it accounts for Blue Baby, Lazarus II, and Tainted
  * characters.
@@ -594,21 +322,6 @@ export function getPlayerNumHitsRemaining(player: EntityPlayer): int {
   const rottenHearts = player.GetRottenHearts();
 
   return hearts + soulHearts + boneHearts + eternalHearts - rottenHearts;
-}
-
-/**
- * Returns the number of soul hearts that the player has, excluding any black hearts. For example,
- * if the player has one full black heart, one full soul heart, and one half black heart, this
- * function returns 2.
- *
- * This is different from the `EntityPlayer.GetSoulHearts` method, since that returns the combined
- * number of soul hearts and black hearts.
- */
-export function getPlayerSoulHearts(player: EntityPlayer): int {
-  const soulHearts = player.GetSoulHearts();
-  const blackHearts = getPlayerBlackHearts(player);
-
-  return soulHearts - blackHearts;
 }
 
 /**
@@ -656,26 +369,6 @@ export function getPlayersWithTrinket(
   return players.filter((player) =>
     trinketTypes.every((trinketType) => player.HasTrinket(trinketType)),
   );
-}
-
-/**
- * Helper function to determine how many heart containers that Tainted Magdalene has that will not
- * be automatically depleted over time. By default, this is 2, but this function will return 4 so
- * that it is consistent with the `player.GetHearts` and `player.GetMaxHearts` methods.
- *
- * If Tainted Magdalene has Birthright, she will gained an additional non-temporary heart container.
- *
- * This function does not validate whether or not the provided player is Tainted Magdalene; that
- * should be accomplished before invoking this function.
- */
-export function getTaintedMagdaleneNonTemporaryMaxHearts(
-  player: EntityPlayer,
-): int {
-  const maxHearts = player.GetMaxHearts();
-  const hasBirthright = player.HasCollectible(CollectibleType.BIRTHRIGHT);
-  const maxNonTemporaryMaxHearts = hasBirthright ? 6 : 4;
-
-  return Math.min(maxHearts, maxNonTemporaryMaxHearts);
 }
 
 /**
@@ -1098,44 +791,4 @@ export function useActiveItemTemp(
   collectibleType: CollectibleType,
 ): void {
   player.UseActiveItem(collectibleType, false, false, true, false, -1);
-}
-
-/**
- * Helper function to see if a certain damage amount would deal "permanent" damage to Tainted
- * Magdalene.
- *
- * Tainted Magdalene has "permanent" health and "temporary" health. When standing still and doing
- * nothing, all of Tainted Magdalene's temporary health will eventually go away.
- *
- * Before using this function, it is expected that you check to see if the player is Tainted
- * Magdalene first, or else it will give a nonsensical result.
- */
-export function wouldDamageTaintedMagdaleneNonTemporaryHeartContainers(
-  player: EntityPlayer,
-  damageAmount: float,
-): boolean {
-  // Regardless of the damage amount, damage to a player cannot remove a soul heart and a red heart
-  // at the same time.
-  const soulHearts = player.GetSoulHearts();
-  if (soulHearts > 0) {
-    return false;
-  }
-
-  // Regardless of the damage amount, damage to a player cannot remove a bone heart and a red heart
-  // at the same time.
-  const boneHearts = player.GetBoneHearts();
-  if (boneHearts > 0) {
-    return false;
-  }
-
-  // Account for rotten hearts eating away at more red hearts than usual.
-  const hearts = player.GetHearts();
-  const rottenHearts = player.GetRottenHearts();
-  const effectiveDamageAmount =
-    damageAmount + Math.min(rottenHearts, damageAmount);
-
-  const heartsAfterDamage = hearts - effectiveDamageAmount;
-  const nonTemporaryMaxHearts =
-    getTaintedMagdaleneNonTemporaryMaxHearts(player);
-  return heartsAfterDamage < nonTemporaryMaxHearts;
 }

@@ -10,8 +10,7 @@ import {
   PlayerType,
 } from "isaac-typescript-definitions";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
-import { addStat } from "../functions/players";
-import { getDefaultPlayerStat } from "../functions/stats";
+import { addStat, getDefaultPlayerStat } from "../functions/stats";
 
 const FEATURE_NAME = "characterStats";
 
