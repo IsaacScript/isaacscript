@@ -1,4 +1,11 @@
 /**
+ * These are global functions provided by C++ code. Note that additional global functions are
+ * located in the "main.d.ts" file (which corresponds to the "main.lua" file).
+ *
+ * @module
+ */
+
+/**
  * Comparing two API objects directly in mod code will not work, even if the Lua metadata points to
  * the same pointer in memory. As a workaround, use this function to get a numerical hash of the
  * object.

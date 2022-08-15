@@ -38,7 +38,8 @@ declare global {
 
     /**
      * This field is misnamed. It is not the file name, but rather the full path to the PNG file for
-     * this collectible. For example: gfx/items/collectibles/Collectibles_001_TheSadOnion.png
+     * this collectible/trinket. For example:
+     * gfx/items/collectibles/Collectibles_001_TheSadOnion.png
      */
     GfxFileName: string;
 

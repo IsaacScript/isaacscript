@@ -7,7 +7,6 @@ import {
   TrinketType,
 } from "../../enums/collections/subTypes";
 import { EntityType } from "../../enums/EntityType";
-import { LevelCurse } from "../../enums/flags/LevelCurse";
 import { GridEntityType } from "../../enums/GridEntityType";
 import { ModCallback } from "../../enums/ModCallback";
 import { Music } from "../../enums/Music";
@@ -74,7 +73,7 @@ declare global {
      * Prints a string to the "log.txt" file. By default, the file is located at:
      *
      * ```text
-     * C:\Users\[YourUsername]\Documents\My Games\Binding of Isaac Repentance\log.txt
+     * C:\Users\[username]\Documents\My Games\Binding of Isaac Repentance\log.txt
      * ```
      */
     function DebugString(msg: string): Mod;
@@ -134,7 +133,7 @@ declare global {
      *
      * Returns -1 if no card with the specified name was found.
      */
-    function GetCardIdByName(cardName: string): Card;
+    function GetCardIdByName(name: string): Card;
 
     /**
      * Returns the ID of the current challenge, like `Challenge.PITCH_BLACK` for the "Pitch Black"
@@ -157,7 +156,7 @@ declare global {
      *
      * Returns -1 if the specified challenge name does not exist.
      */
-    function GetChallengeIdByName(challengeName: string): Challenge;
+    function GetChallengeIdByName(name: string): Challenge;
 
     /**
      * This method is meant to be used when creating local enums that represent custom costumes. (We
@@ -184,8 +183,15 @@ declare global {
      * Never use this method to get the ID of a vanilla curse; use the `LevelCurse` enum instead.
      *
      * Returns -1 if no curse with the specified name was found.
+     *
+     * Note that this does not return a `LevelCurse` bit flag; it returns an integer that
+     * corresponds to the ID in the "curses.xml" file. For example, the final vanilla curse is
+     * "Curse of the Giant", which has an ID of 8. Thus, the first modded curse will always have an
+     * ID of 9. This integer must be converted to a `LevelCurse` bit flag in order to be used with
+     * the various API functions. For this reason, it is recommended to use the `getCurseIDByName`
+     * helper function instead, which will return a proper `LevelCurse` bit flag.
      */
-    function GetCurseIdByName(curseName: string): LevelCurse;
+    function GetCurseIdByName(name: string): int;
 
     /**
      * This method is meant to be used when creating local enums that represent custom modded
@@ -201,7 +207,7 @@ declare global {
      *
      * Returns 0 if no entity with the specified name was found.
      */
-    function GetEntityTypeByName(entityName: string): EntityType;
+    function GetEntityTypeByName(name: string): EntityType;
 
     /**
      * This method is meant to be used when creating local enums that represent custom modded
@@ -217,7 +223,7 @@ declare global {
      *
      * Returns -1 if no entity with the specified name was found.
      */
-    function GetEntityVariantByName(entityName: string): int;
+    function GetEntityVariantByName(name: string): int;
 
     /**
      * Returns the amount of render frames that have passed since the game was open.
@@ -248,7 +254,7 @@ declare global {
      * Note that this method has a bugged name; it should actually be called
      * `GetCollectibleIdByName`.
      */
-    function GetItemIdByName(collectibleName: string): CollectibleType;
+    function GetItemIdByName(name: string): CollectibleType;
 
     /**
      * This method is meant to be used when creating local enums that represent custom modded music.
@@ -262,7 +268,7 @@ declare global {
      *
      * Returns -1 if no music with the specified name was found.
      */
-    function GetMusicIdByName(musicName: string): Music;
+    function GetMusicIdByName(name: string): Music;
 
     /**
      * This method is meant to be used when creating local enums that represent custom modded pills.
@@ -277,7 +283,7 @@ declare global {
      *
      * Returns -1 if no pill with the specified name was found.
      */
-    function GetPillEffectByName(pillName: string): PillEffect;
+    function GetPillEffectByName(name: string): PillEffect;
 
     /**
      * Returns the `EntityPlayer` that matches the provided player ID. Player IDs start at 0 and
@@ -308,14 +314,11 @@ declare global {
      *
      * Returns -1 if the specified character does not exist.
      *
-     * @param playerName
+     * @param name
      * @param tainted Default is false. This only works with modded characters. For example,
      *                `Isaac.GetPlayerTypeByName("Isaac", true)` will return -1.
      */
-    function GetPlayerTypeByName(
-      playerName: string,
-      tainted?: boolean,
-    ): PlayerType;
+    function GetPlayerTypeByName(name: string, tainted?: boolean): PlayerType;
 
     /**
      * Returns a random position in the current room in world coordinates (not render coordinates).
@@ -351,7 +354,7 @@ declare global {
      *
      * Returns -1 if no sound with the specified name was found.
      */
-    function GetSoundIdByName(soundName: string): SoundEffect;
+    function GetSoundIdByName(name: string): SoundEffect;
 
     /**
      * Returns the width of the given string in pixels based on the "terminus8" font. (This is the
@@ -384,7 +387,7 @@ declare global {
      *
      * Returns -1 if the specified trinket was not found.
      */
-    function GetTrinketIdByName(trinketName: string): TrinketType;
+    function GetTrinketIdByName(name: string): TrinketType;
 
     /**
      * Used to spawn a grid entity (e.g. a rock or a pot). Grid entities are different than normal
@@ -427,7 +430,7 @@ declare global {
      */
     function RegisterMod(
       mod: Mod,
-      modName: string,
+      name: string,
       APIVersion: int,
       fakeArg: never,
     ): void;

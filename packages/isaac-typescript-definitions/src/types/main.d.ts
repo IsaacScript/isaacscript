@@ -1,3 +1,5 @@
+/* eslint-disable jsdoc/check-param-names */
+
 /**
  * These are functions and constants from the "main.lua" file, which is located at:
  *
@@ -11,10 +13,14 @@
 /**
  * This is a global function used to create a `Mod` object. Every mod needs to use this function in
  * order to subscribe to the game's various callbacks.
+ *
+ * @param name The name is stored locally in the `Mod.Name` field, but is otherwise not used for
+ *             anything.
+ * @param apiVersion In both Afterbirth and Repentance, the only valid API version is 1.
  */
 declare function RegisterMod(
   this: void,
-  modName: string,
+  name: string,
   apiVersion: APIVersion,
 ): Mod;
 
