@@ -22,8 +22,8 @@
   "type": "commonjs",
   "dependencies": {
     "@prettier/plugin-xml": "^2.2.0",
-    "@typescript-eslint/eslint-plugin": "^5.33.0",
-    "@typescript-eslint/parser": "^5.33.0",
+    "@typescript-eslint/eslint-plugin": "^5.33.1",
+    "@typescript-eslint/parser": "^5.33.1",
     "cspell": "^6.6.1",
     "eslint": "^8.22.0",
     "eslint-config-airbnb-base": "^15.0.0",

@@ -35,7 +35,13 @@ declare global {
     Description: string;
     DevilPrice: int;
     Discharged: boolean;
+
+    /**
+     * This field is misnamed. It is not the file name, but rather the full path to the PNG file for
+     * this collectible. For example: gfx/items/collectibles/Collectibles_001_TheSadOnion.png
+     */
     GfxFileName: string;
+
     Hidden: boolean;
     ID: CollectibleType | TrinketType | NullItemID;
     InitCharge: int;

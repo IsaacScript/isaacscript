@@ -4,6 +4,7 @@ import {
   TrinketType,
 } from "isaac-typescript-definitions";
 import { itemConfig } from "../core/cachedClasses";
+import { BLIND_ITEM_PNG_PATH } from "../core/constants";
 import {
   FIRST_TRINKET_TYPE,
   LAST_VANILLA_TRINKET_TYPE,
@@ -29,6 +30,7 @@ import { irange } from "./utils";
  */
 const GOLDEN_TRINKET_ADJUSTMENT = 32768;
 
+const TRINKET_ANM2_PATH = "gfx/005.350_trinket.anm2";
 const TRINKET_SPRITE_LAYER = 0;
 
 /**
@@ -96,6 +98,23 @@ export function getTrinketDescription(trinketType: TrinketType): string {
 }
 
 /**
+ * Helper function to get the path to a trinket PNG file. Returns the path to the question mark
+ * sprite (i.e. from Curse of the Blind) if the provided trinket type was not valid.
+ *
+ * Note that this does not return the file name, but the full path to the trinket's PNG file. The
+ * function is named "GfxFilename" to correspond to the associated `ItemConfigItem.GfxFileName`
+ * field.
+ */
+export function getTrinketGfxFilename(trinketType: TrinketType): string {
+  const itemConfigItem = itemConfig.GetTrinket(trinketType);
+  if (itemConfigItem === undefined) {
+    return BLIND_ITEM_PNG_PATH;
+  }
+
+  return itemConfigItem.GfxFileName;
+}
+
+/**
  * Helper function to get the name of a trinket. Returns "Unknown" if the provided trinket type is
  * not valid.
  *
@@ -153,6 +172,21 @@ export function isModdedTrinketType(trinketType: TrinketType): boolean {
 
 export function isVanillaTrinketType(trinketType: TrinketType): boolean {
   return trinketType <= LAST_VANILLA_TRINKET_TYPE;
+}
+
+/**
+ * Helper function to generate a new sprite based on a collectible. If the provided collectible type
+ * is invalid, a sprite with a Curse of the Blind question mark will be returned.
+ */
+export function newTrinketSprite(trinketType: TrinketType): Sprite {
+  const sprite = Sprite();
+  sprite.Load(TRINKET_ANM2_PATH, false);
+
+  const gfxFileName = getTrinketGfxFilename(trinketType);
+  sprite.ReplaceSpritesheet(TRINKET_SPRITE_LAYER, gfxFileName);
+  sprite.LoadGraphics();
+
+  return sprite;
 }
 
 /**

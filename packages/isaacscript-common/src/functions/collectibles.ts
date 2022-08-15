@@ -31,6 +31,7 @@ import { getRoomListIndex } from "./roomData";
 import { clearSprite, spriteEquals } from "./sprites";
 import { irange } from "./utils";
 
+const COLLECTIBLE_ANM2_PATH = "gfx/005.100_collectible.anm2";
 const COLLECTIBLE_SPRITE_LAYER = 1;
 const COLLECTIBLE_SHADOW_LAYER = 4;
 
@@ -159,8 +160,12 @@ export function getCollectibleDevilHeartPrice(
 }
 
 /**
- * Helper function to get the path to a collectible's sprite. Returns the path to the question mark
+ * Helper function to get the path to a collectible PNG file. Returns the path to the question mark
  * sprite (i.e. from Curse of the Blind) if the provided collectible type was not valid.
+ *
+ * Note that this does not return the file name, but the full path to the collectible's PNG file.
+ * The function is named "GfxFilename" to correspond to the associated `ItemConfigItem.GfxFileName`
+ * field.
  */
 export function getCollectibleGfxFilename(
   collectibleType: CollectibleType,
@@ -467,6 +472,25 @@ export function isVanillaCollectibleType(
   collectibleType: CollectibleType,
 ): boolean {
   return collectibleType <= LAST_VANILLA_COLLECTIBLE_TYPE;
+}
+
+/**
+ * Helper function to generate a new sprite based on a collectible. If the provided collectible type
+ * is invalid, a sprite with a Curse of the Blind question mark will be returned.
+ */
+export function newCollectibleSprite(collectibleType: CollectibleType): Sprite {
+  const sprite = Sprite();
+  sprite.Load(COLLECTIBLE_ANM2_PATH, false);
+
+  // We want to clear the pedestal layers so that the returned sprite only has the collectible
+  // image.
+  clearSprite(sprite);
+
+  const gfxFileName = getCollectibleGfxFilename(collectibleType);
+  sprite.ReplaceSpritesheet(COLLECTIBLE_SPRITE_LAYER, gfxFileName);
+  sprite.LoadGraphics();
+
+  return sprite;
 }
 
 /**

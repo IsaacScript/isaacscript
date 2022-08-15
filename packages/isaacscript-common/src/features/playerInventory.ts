@@ -35,10 +35,16 @@ function newPlayerInventory(player: EntityPlayer) {
   const inventory: CollectibleType[] = [];
 
   for (const collectibleType of getCollectibleArray()) {
-    const numCollectibles = player.GetCollectibleNum(collectibleType, true);
-    repeat(numCollectibles, () => {
-      inventory.push(collectibleType);
-    });
+    // We have to use the `EntityPlayer.HasCollectible` method in addition to the
+    // `EntityPlayer.GetCollectibleNum` method in order to mitigate situations like Lilith's Incubus
+    // counting as a collectible. (The former method will return false for her innate Incubus, but
+    // the latter method will return 1.)
+    if (player.HasCollectible(collectibleType)) {
+      const numCollectibles = player.GetCollectibleNum(collectibleType, true);
+      repeat(numCollectibles, () => {
+        inventory.push(collectibleType);
+      });
+    }
   }
 
   return inventory;
@@ -72,6 +78,9 @@ function useItemD4(
   _rng: RNG,
   player: EntityPlayer,
 ): boolean | undefined {
+  // This function is also triggered when the player uses D100, D Infinity, a 1-pip dice room, or a
+  // 6-pip dice room. (Genesis should be automatically handled by the
+  // `POST_PLAYER_COLLECTIBLE_REMOVED` callback.)
   resetInventory(player);
 
   return undefined;
