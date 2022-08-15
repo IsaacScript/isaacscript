@@ -13,7 +13,7 @@ Historically, people have used the [StageAPI](https://github.com/Meowlala/BOISta
 
 ## Getting Started
 
-First, make sure that you are familiar with IsaacScript and have built a practice mod or two. (See the [getting started](#getting-started) guide.)
+First, make sure that you are familiar with IsaacScript and have built a practice mod or two. (See the [getting started](getting-started.md) guide.)
 
 <br />
 
