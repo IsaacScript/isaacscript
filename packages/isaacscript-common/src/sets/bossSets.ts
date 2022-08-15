@@ -33,6 +33,9 @@ import {
 // The "bosspools.xml" file does not actually correspond to the real boss pools, so these sets were
 // determined through experimentation on v1.7.8a.
 
+// We use sets of strings instead of tuples for these data structures because TypeScript/Lua does
+// not have real tuples. If we store bosses as tuples, then we cannot do a set lookup in O(1).
+
 /** Contains just the bosses in Basement (not e.g. Burning Basement). */
 const BASEMENT_BOSSES_SET: ReadonlySet<string> = new Set([
   `${EntityType.LARRY_JR}.${LarryJrVariant.LARRY_JR}`, // 19.0
