@@ -24,6 +24,8 @@ This page lists the changes to the IsaacScript framework.
   - `isModdedPillEffect`
 - Renamed the following helper functions:
   - `isGoldenTrinket` --> `isGoldenTrinketType`
+- Changed the following helper functions:
+  - `getAllBosses` now takes an optional `includeStoryBosses` parameter.
 - Added the following constant-related helper functions:
   - `getFirstModdedCollectibleType`
   - `getLastCollectibleType`

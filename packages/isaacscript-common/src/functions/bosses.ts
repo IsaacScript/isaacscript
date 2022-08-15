@@ -5,6 +5,7 @@ import {
 } from "isaac-typescript-definitions";
 import { VectorZero } from "../core/constants";
 import {
+  ALL_BOSSES_EXCLUDING_STORY_BOSSES_SET,
   ALL_BOSSES_SET,
   STAGE_TO_COMBINED_BOSS_SET_MAP,
   STAGE_TO_STAGE_TYPE_TO_BOSS_SET_MAP,
@@ -56,9 +57,16 @@ export function getAliveBosses(
  * The set contains strings with the entity type and variant, separated by a period.
  *
  * Also see the `getBossSet` and `getCombinedBossSet` functions.
+ *
+ * @param includeStoryBosses Optional. Whether to include "story" bosses like Mom and It Lives!
+ *                           Default is true.
  */
-export function getAllBossesSet(): ReadonlySet<string> {
-  return ALL_BOSSES_SET;
+export function getAllBossesSet(
+  includeStoryBosses = true,
+): ReadonlySet<string> {
+  return includeStoryBosses
+    ? ALL_BOSSES_SET
+    : ALL_BOSSES_EXCLUDING_STORY_BOSSES_SET;
 }
 
 /**
