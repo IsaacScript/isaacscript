@@ -352,7 +352,7 @@ export enum EntityType {
   SIREN = 904,
   HERETIC = 905,
   HORNFEL = 906,
-  GIDEON = 907,
+  GREAT_GIDEON = 907,
   BABY_PLUM = 908,
   SCOURGE = 909,
   CHIMERA = 910,
