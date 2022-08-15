@@ -475,7 +475,7 @@ export const ALL_BOSSES_SET: ReadonlySet<string> = new Set([
   ...ALL_STAGE_11_BOSSES_SET.values(),
 ]);
 
-export const ALL_BOSSES_EXCLUDING_STORY_BOSSES_SET: ReadonlySet<string> =
+export const ALL_BOSSES_EXCLUDING_STORY_BOSSES_SET =
   getAllBossesExcludingStoryBossesSet();
 
 /**
