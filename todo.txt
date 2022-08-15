@@ -40,3 +40,6 @@ lint failure, complete sentences:
  * entities.
 
 (no trailing period in the middle)
+
+
+lint: make "//  Foo" illegal
