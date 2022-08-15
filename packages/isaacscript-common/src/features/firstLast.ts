@@ -95,10 +95,10 @@ export function getLastCollectibleType(): CollectibleType {
 /**
  * Helper function to get an array that represents the all modded collectible types.
  *
- * This function is only useful when building collectible type objects. For most purposes, you
- * should use the `getModdedCollectibleSet` helper function instead.
- *
  * Returns an empty array if there are no modded collectible types.
+ *
+ * This function is only useful when building collectible type objects. For most purposes, you
+ * should use the `getModdedCollectibleArray` or `getModdedCollectibleSet` helper function instead.
  *
  * (This function is named differently from the `getVanillaCollectibleTypeRange` function because
  * all modded collectible types are contiguous. Thus, each value represents a real
@@ -188,6 +188,9 @@ export function getLastTrinketType(): TrinketType {
  * Helper function to get an array that represents every modded trinket type.
  *
  * Returns an empty array if there are no modded trinket types.
+ *
+ * This function is only useful when building collectible type objects. For most purposes, you
+ * should use the `getModdedCollectibleArray` or `getModdedCollectibleSet` helper function instead.
  *
  * This function can only be called if at least one callback has been executed. This is because not
  * all trinkets will necessarily be present when a mod first loads (due to mod load order).

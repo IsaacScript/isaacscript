@@ -3,17 +3,17 @@ import { itemConfig } from "../core/cachedClasses";
 import { getModdedCollectibleTypes } from "../features/firstLast";
 import { getVanillaCollectibleTypeRange } from "./collectibles";
 
-const ALL_COLLECTIBLES_ARRAY: CollectibleType[] = [];
-const ALL_COLLECTIBLES_SET = new Set<CollectibleType>();
+const ALL_COLLECTIBLE_TYPES_ARRAY: CollectibleType[] = [];
+const ALL_COLLECTIBLE_TYPES_SET = new Set<CollectibleType>();
 
-const VANILLA_COLLECTIBLES_ARRAY: CollectibleType[] = [];
-const VANILLA_COLLECTIBLES_SET = new Set<CollectibleType>();
+const VANILLA_COLLECTIBLE_TYPES_ARRAY: CollectibleType[] = [];
+const VANILLA_COLLECTIBLE_TYPES_SET = new Set<CollectibleType>();
 
-const MODDED_COLLECTIBLES_ARRAY: CollectibleType[] = [];
-const MODDED_COLLECTIBLES_SET = new Set<CollectibleType>();
+const MODDED_COLLECTIBLE_TYPES_ARRAY: CollectibleType[] = [];
+const MODDED_COLLECTIBLE_TYPES_SET = new Set<CollectibleType>();
 
-function lazyInitVanillaCollectibles() {
-  if (VANILLA_COLLECTIBLES_ARRAY.length > 0) {
+function lazyInitVanillaCollectibleTypes() {
+  if (VANILLA_COLLECTIBLE_TYPES_ARRAY.length > 0) {
     return;
   }
 
@@ -22,22 +22,22 @@ function lazyInitVanillaCollectibles() {
     // Vanilla collectible types are not contiguous, so we must check every value.
     const itemConfigItem = itemConfig.GetCollectible(collectibleType);
     if (itemConfigItem !== undefined) {
-      VANILLA_COLLECTIBLES_ARRAY.push(collectibleType);
-      VANILLA_COLLECTIBLES_SET.add(collectibleType);
+      VANILLA_COLLECTIBLE_TYPES_ARRAY.push(collectibleType);
+      VANILLA_COLLECTIBLE_TYPES_SET.add(collectibleType);
     }
   }
 }
 
-function lazyInitModdedCollectibles() {
-  if (MODDED_COLLECTIBLES_ARRAY.length > 0) {
+function lazyInitModdedCollectibleTypes() {
+  if (MODDED_COLLECTIBLE_TYPES_ARRAY.length > 0) {
     return;
   }
 
-  lazyInitVanillaCollectibles();
+  lazyInitVanillaCollectibleTypes();
 
-  for (const collectibleType of VANILLA_COLLECTIBLES_ARRAY) {
-    ALL_COLLECTIBLES_ARRAY.push(collectibleType);
-    ALL_COLLECTIBLES_SET.add(collectibleType);
+  for (const collectibleType of VANILLA_COLLECTIBLE_TYPES_ARRAY) {
+    ALL_COLLECTIBLE_TYPES_ARRAY.push(collectibleType);
+    ALL_COLLECTIBLE_TYPES_SET.add(collectibleType);
   }
 
   const moddedCollectibleTypes = getModdedCollectibleTypes();
@@ -45,11 +45,11 @@ function lazyInitModdedCollectibles() {
     // Modded collectible types are contiguous, but we check every value just in case.
     const itemConfigItem = itemConfig.GetCollectible(collectibleType);
     if (itemConfigItem !== undefined) {
-      MODDED_COLLECTIBLES_ARRAY.push(collectibleType);
-      MODDED_COLLECTIBLES_SET.add(collectibleType);
+      MODDED_COLLECTIBLE_TYPES_ARRAY.push(collectibleType);
+      MODDED_COLLECTIBLE_TYPES_SET.add(collectibleType);
 
-      ALL_COLLECTIBLES_ARRAY.push(collectibleType);
-      ALL_COLLECTIBLES_SET.add(collectibleType);
+      ALL_COLLECTIBLE_TYPES_ARRAY.push(collectibleType);
+      ALL_COLLECTIBLE_TYPES_SET.add(collectibleType);
     }
   }
 }
@@ -65,8 +65,8 @@ function lazyInitModdedCollectibles() {
  * all collectibles will necessarily be present when a mod first loads (due to mod load order).
  */
 export function getCollectibleArray(): readonly CollectibleType[] {
-  lazyInitModdedCollectibles();
-  return ALL_COLLECTIBLES_ARRAY;
+  lazyInitModdedCollectibleTypes();
+  return ALL_COLLECTIBLE_TYPES_ARRAY;
 }
 
 /**
@@ -79,8 +79,8 @@ export function getCollectibleArray(): readonly CollectibleType[] {
  * all collectibles will necessarily be present when a mod first loads (due to mod load order).
  */
 export function getCollectibleSet(): ReadonlySet<CollectibleType> {
-  lazyInitModdedCollectibles();
-  return ALL_COLLECTIBLES_SET;
+  lazyInitModdedCollectibleTypes();
+  return ALL_COLLECTIBLE_TYPES_SET;
 }
 
 /**
@@ -93,8 +93,8 @@ export function getCollectibleSet(): ReadonlySet<CollectibleType> {
  * all collectibles will necessarily be present when a mod first loads (due to mod load order).
  */
 export function getModdedCollectibleArray(): readonly CollectibleType[] {
-  lazyInitModdedCollectibles();
-  return MODDED_COLLECTIBLES_ARRAY;
+  lazyInitModdedCollectibleTypes();
+  return MODDED_COLLECTIBLE_TYPES_ARRAY;
 }
 
 /**
@@ -107,8 +107,8 @@ export function getModdedCollectibleArray(): readonly CollectibleType[] {
  * all collectibles will necessarily be present when a mod first loads (due to mod load order).
  */
 export function getModdedCollectibleSet(): ReadonlySet<CollectibleType> {
-  lazyInitModdedCollectibles();
-  return MODDED_COLLECTIBLES_SET;
+  lazyInitModdedCollectibleTypes();
+  return MODDED_COLLECTIBLE_TYPES_SET;
 }
 
 /**
@@ -118,8 +118,8 @@ export function getModdedCollectibleSet(): ReadonlySet<CollectibleType> {
  * then use the `getVanillaCollectibleSet` helper function instead.
  */
 export function getVanillaCollectibleArray(): readonly CollectibleType[] {
-  lazyInitVanillaCollectibles();
-  return VANILLA_COLLECTIBLES_ARRAY;
+  lazyInitVanillaCollectibleTypes();
+  return VANILLA_COLLECTIBLE_TYPES_ARRAY;
 }
 
 /**
@@ -129,6 +129,6 @@ export function getVanillaCollectibleArray(): readonly CollectibleType[] {
  * then use the `getVanillaCollectibleArray` helper function instead.
  */
 export function getVanillaCollectibleSet(): ReadonlySet<CollectibleType> {
-  lazyInitVanillaCollectibles();
-  return VANILLA_COLLECTIBLES_SET;
+  lazyInitVanillaCollectibleTypes();
+  return VANILLA_COLLECTIBLE_TYPES_SET;
 }
