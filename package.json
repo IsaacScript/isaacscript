@@ -29,7 +29,7 @@
     "fs-extra": "^10.1.0",
     "git-dirty": "^1.0.2",
     "glob": "^8.0.3",
-    "isaac-typescript-definitions": "^3.5.0",
+    "isaac-typescript-definitions": "^3.5.1",
     "jsonc-parser": "^3.1.0",
     "moment": "^2.29.4",
     "npm-check-updates": "^16.0.5",
