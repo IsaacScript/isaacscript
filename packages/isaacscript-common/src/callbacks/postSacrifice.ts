@@ -35,17 +35,17 @@ function hasSubscriptions() {
 // ModCallback.ENTITY_TAKE_DMG (11)
 // EntityType.PLAYER (1)
 function entityTakeDmgPlayer(
-  tookDamage: Entity,
-  _damageAmount: float,
+  entity: Entity,
+  _amount: float,
   damageFlags: BitFlags<DamageFlag>,
-  _damageSource: EntityRef,
-  _damageCountdownFrames: int,
+  _source: EntityRef,
+  _countdownFrames: int,
 ): boolean | undefined {
   if (!hasSubscriptions()) {
     return undefined;
   }
 
-  const player = tookDamage.ToPlayer();
+  const player = entity.ToPlayer();
   if (player === undefined) {
     return undefined;
   }

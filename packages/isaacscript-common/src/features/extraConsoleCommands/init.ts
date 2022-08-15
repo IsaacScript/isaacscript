@@ -1,6 +1,7 @@
 import {
   CacheFlag,
   CollectibleType,
+  DamageFlag,
   EntityType,
   LevelCurse,
   ModCallback,
@@ -348,7 +349,13 @@ function evaluateCacheFlying(player: EntityPlayer) {
 
 // ModCallback.ENTITY_TAKE_DMG (11)
 // EntityType.PLAYER (1)
-function entityTakeDmgPlayer() {
+function entityTakeDmgPlayer(
+  _entity: Entity,
+  _damageAmount: float,
+  _damageFlags: BitFlags<DamageFlag>,
+  _damageSource: EntityRef,
+  _damageCountdownFrames: int,
+) {
   if (v.run.spamBloodRights) {
     return false;
   }

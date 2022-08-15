@@ -54,26 +54,26 @@ function hasSubscriptions() {
 // ModCallback.ENTITY_TAKE_DMG (11)
 // EntityType.PLAYER (1)
 function entityTakeDmgPlayer(
-  tookDamage: Entity,
-  _damageAmount: float,
+  entity: Entity,
+  _amount: float,
   damageFlags: BitFlags<DamageFlag>,
-  _damageSource: EntityRef,
-  _damageCountdownFrames: int,
+  _source: EntityRef,
+  _countdownFrames: int,
 ): boolean | undefined {
   if (!hasSubscriptions()) {
     return undefined;
   }
 
   incrementNumSacrifices(damageFlags); // Has to be before setting the damage frame
-  setDamageFrame(tookDamage, damageFlags);
+  setDamageFrame(entity, damageFlags);
 
   return undefined;
 }
 
-function setDamageFrame(tookDamage: Entity, damageFlags: BitFlags<DamageFlag>) {
+function setDamageFrame(entity: Entity, damageFlags: BitFlags<DamageFlag>) {
   const gameFrameCount = game.GetFrameCount();
 
-  const player = tookDamage.ToPlayer();
+  const player = entity.ToPlayer();
   if (player === undefined) {
     return;
   }

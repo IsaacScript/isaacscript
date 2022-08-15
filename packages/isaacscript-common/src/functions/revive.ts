@@ -26,8 +26,8 @@ import { giveTrinketsBack, temporarilyRemoveTrinket } from "./trinketGive";
  */
 export function isDamageToPlayerFatal(
   player: EntityPlayer,
-  damageAmount: int,
-  damageSource: EntityRef,
+  amount: int,
+  source: EntityRef,
   lastDamageGameFrame: int | undefined,
 ): boolean {
   const gameFrameCount = game.GetFrameCount();
@@ -39,7 +39,7 @@ export function isDamageToPlayerFatal(
   // (because we will transform into Tainted Jacob's lost form).
   if (
     character === PlayerType.JACOB_B &&
-    damageSource.Type === EntityType.DARK_ESAU
+    source.Type === EntityType.DARK_ESAU
   ) {
     return false;
   }
@@ -79,7 +79,7 @@ export function isDamageToPlayerFatal(
   }
 
   const playerNumAllHearts = getPlayerNumHitsRemaining(player);
-  if (damageAmount < playerNumAllHearts) {
+  if (amount < playerNumAllHearts) {
     return false;
   }
 

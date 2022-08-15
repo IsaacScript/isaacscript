@@ -122,11 +122,11 @@ export enum ModCallback {
   /**
    * ```ts
    * function entityTakeDmg(
-   *   tookDamage: Entity,
-   *   damageAmount: float,
+   *   entity: Entity,
+   *   amount: float,
    *   damageFlags: BitFlags<DamageFlag>,
-   *   damageSource: EntityRef,
-   *   damageCountdownFrames: int,
+   *   source: EntityRef,
+   *   countdownFrames: int,
    * ): boolean | undefined {}
    * ```
    */

@@ -93,11 +93,16 @@ declare global {
     SetSpriteFrame(animation: string, frameNum: int): void;
     SetSpriteOverlayFrame(animation: string, frameNum: int): void;
 
+    /**
+     * The game adds taken damage to a damage buffer, which gets applied in the next frame.
+     * Therefore, this method will not decrement the entity's HP immediately. Rather, it is only
+     * updated on the next frame (even if `countdownFrames` is equal to 0).
+     */
     TakeDamage(
-      damage: float,
+      amount: float,
       damageFlags: DamageFlag | BitFlags<DamageFlag>,
       source: EntityRef,
-      damageCountdown: int,
+      countdownFrames: int,
     ): boolean;
 
     ToBomb(): EntityBomb | undefined;

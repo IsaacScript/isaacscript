@@ -7,10 +7,10 @@ import {
 export type PostPlayerFatalDamageRegisterParameters = [
   callback: (
     player: EntityPlayer,
-    damageAmount: float,
+    amount: float,
     damageFlags: BitFlags<DamageFlag>,
-    damageSource: EntityRef,
-    damageCountdownFrames: int,
+    source: EntityRef,
+    countdownFrames: int,
   ) => boolean | undefined,
   playerVariant?: PlayerVariant,
   character?: PlayerType,
@@ -30,10 +30,10 @@ export function postPlayerFatalDamageRegister(
 
 export function postPlayerFatalDamageFire(
   player: EntityPlayer,
-  damageAmount: float,
+  amount: float,
   damageFlags: BitFlags<DamageFlag>,
-  damageSource: EntityRef,
-  damageCountdownFrames: int,
+  source: EntityRef,
+  countdownFrames: int,
 ): boolean | undefined {
   const character = player.GetPlayerType();
 
@@ -50,10 +50,10 @@ export function postPlayerFatalDamageFire(
 
     const shouldSustainDeath = callback(
       player,
-      damageAmount,
+      amount,
       damageFlags,
-      damageSource,
-      damageCountdownFrames,
+      source,
+      countdownFrames,
     );
 
     if (shouldSustainDeath !== undefined) {

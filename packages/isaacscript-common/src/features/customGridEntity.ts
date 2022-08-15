@@ -1,14 +1,11 @@
 import {
   ActiveSlot,
   CollectibleType,
-  DamageFlag,
-  EntityType,
   GridCollisionClass,
   GridEntityType,
   ModCallback,
   UseFlag,
 } from "isaac-typescript-definitions";
-import { postGridEntityCustomBrokenFire } from "../callbacks/subscriptions/postGridEntityCustomBroken";
 import { DefaultMap } from "../classes/DefaultMap";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { game } from "../core/cachedClasses";
@@ -17,7 +14,6 @@ import {
   areFeaturesInitialized,
   errorIfFeaturesNotInitialized,
 } from "../featuresInitialized";
-import { hasFlag } from "../functions/flag";
 import {
   removeGridEntity,
   spawnGridEntityWithVariant,
@@ -50,12 +46,6 @@ export function customGridEntityInit(mod: ModUpgraded): void {
   saveDataManager(FEATURE_NAME, v);
 
   mod.AddCallback(
-    ModCallback.ENTITY_TAKE_DMG,
-    entityTakeDmgGenericProp,
-    EntityType.GENERIC_PROP,
-  ); // 11
-
-  mod.AddCallback(
     ModCallback.PRE_USE_ITEM,
     preUseItemWeNeedToGoDeeper,
     CollectibleType.WE_NEED_TO_GO_DEEPER,
@@ -65,51 +55,6 @@ export function customGridEntityInit(mod: ModUpgraded): void {
     ModCallbackCustom.POST_NEW_ROOM_REORDERED,
     postNewRoomReordered,
   );
-}
-
-// ModCallback.ENTITY_TAKE_DMG (11)
-// EntityType.GENERIC_PROP (960)
-function entityTakeDmgGenericProp(
-  tookDamage: Entity,
-  _damageAmount: float,
-  damageFlags: BitFlags<DamageFlag>,
-  _damageSource: EntityRef,
-  _damageCountdownFrames: int,
-): boolean | undefined {
-  const ptrHash = GetPtrHash(tookDamage);
-  if (!v.room.genericPropPtrHashes.has(ptrHash)) {
-    return undefined;
-  }
-
-  if (!hasFlag(damageFlags, DamageFlag.EXPLOSION)) {
-    return false;
-  }
-
-  const room = game.GetRoom();
-  const roomListIndex = getRoomListIndex();
-  const roomCustomGridEntities = v.level.customGridEntities.get(roomListIndex);
-  if (roomCustomGridEntities === undefined) {
-    return false;
-  }
-
-  const gridIndex = room.GetGridIndex(tookDamage.Position);
-  const data = roomCustomGridEntities.get(gridIndex);
-  if (data === undefined) {
-    return false;
-  }
-
-  const gridEntity = room.GetGridEntity(gridIndex);
-  if (gridEntity === undefined) {
-    error(
-      `Failed to get the grid entity for a custom grid entity that broke at grid index: ${gridIndex}`,
-    );
-  }
-
-  postGridEntityCustomBrokenFire(gridEntity, data.gridEntityTypeCustom);
-
-  // Even though the custom grid entity is now broken, we do not want to remove it, as the end-user
-  // could intend for it to persist with different graphics (or take multiple hits to be destroyed).
-  return false;
 }
 
 // ModCallback.PRE_USE_ITEM (23)

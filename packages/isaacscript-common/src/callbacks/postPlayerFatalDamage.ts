@@ -50,17 +50,17 @@ function hasSubscriptions() {
 // ModCallback.ENTITY_TAKE_DMG (11)
 // EntityType.PLAYER (1)
 function entityTakeDmgPlayer(
-  tookDamage: Entity,
-  damageAmount: float,
+  entity: Entity,
+  amount: float,
   damageFlags: BitFlags<DamageFlag>,
-  damageSource: EntityRef,
-  damageCountdownFrames: int,
+  source: EntityRef,
+  countdownFrames: int,
 ): boolean | undefined {
   if (!hasSubscriptions()) {
     return undefined;
   }
 
-  const player = tookDamage.ToPlayer();
+  const player = entity.ToPlayer();
   if (player === undefined) {
     return undefined;
   }
@@ -83,23 +83,16 @@ function entityTakeDmgPlayer(
     return undefined;
   }
 
-  if (
-    !isDamageToPlayerFatal(
-      player,
-      damageAmount,
-      damageSource,
-      lastDamageGameFrame,
-    )
-  ) {
+  if (!isDamageToPlayerFatal(player, amount, source, lastDamageGameFrame)) {
     return undefined;
   }
 
   const shouldSustainDeath = postPlayerFatalDamageFire(
     player,
-    damageAmount,
+    amount,
     damageFlags,
-    damageSource,
-    damageCountdownFrames,
+    source,
+    countdownFrames,
   );
   if (shouldSustainDeath !== undefined) {
     return shouldSustainDeath;

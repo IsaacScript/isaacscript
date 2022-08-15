@@ -119,7 +119,7 @@ export function isEmptyFlag<T extends BitFlag | BitFlag128>(flag: T): boolean {
 }
 
 /**
- * Helper function to determine whether damage to a player in the EntityTakeDmg callback was
+ * Helper function to determine whether damage to a player in the `ENTITY_TAKE_DMG` callback was
  * self-inflicted. For example, damage from a Curse Room door, a Razor, or a Blood Donation Machine
  * would count as self-inflicted damage.
  */
