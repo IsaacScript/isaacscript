@@ -56,6 +56,9 @@ export function getAliveBosses(
  *
  * The set contains strings with the entity type and variant, separated by a period.
  *
+ * Note that this set does not include bosses that do not appear in Boss Rooms (e.g. Krampus, Uriel,
+ * and Gabriel.).
+ *
  * Also see the `getBossSet` and `getCombinedBossSet` functions.
  *
  * @param includeStoryBosses Optional. Whether to include "story" bosses like Mom and It Lives!
