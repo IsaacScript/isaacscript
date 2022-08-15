@@ -3,7 +3,6 @@ import { itemConfig } from "../core/cachedClasses";
 import { getTrinketTypes } from "../features/firstLast";
 import { getEnumValues } from "./enums";
 import { hasFlag } from "./flag";
-import { copySet } from "./set";
 
 const CACHE_FLAG_TO_TRINKETS_MAP = new Map<CacheFlag, Set<TrinketType>>();
 
@@ -57,7 +56,7 @@ export function getPlayerTrinketsForCacheFlag(
  */
 export function getTrinketsForCacheFlag(
   cacheFlag: CacheFlag,
-): Set<TrinketType> {
+): ReadonlySet<TrinketType> {
   lazyInitCacheFlagMap();
 
   const trinketsSet = CACHE_FLAG_TO_TRINKETS_MAP.get(cacheFlag);
@@ -65,7 +64,7 @@ export function getTrinketsForCacheFlag(
     return new Set();
   }
 
-  return copySet(trinketsSet);
+  return trinketsSet;
 }
 
 /** Helper function to check in the item config if a given trinket has a given cache flag. */

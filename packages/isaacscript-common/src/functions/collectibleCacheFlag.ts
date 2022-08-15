@@ -3,7 +3,7 @@ import { itemConfig } from "../core/cachedClasses";
 import { getCollectibleArray } from "./collectibleSet";
 import { getEnumValues } from "./enums";
 import { hasFlag } from "./flag";
-import { copySet, getSortedSetValues } from "./set";
+import { getSortedSetValues } from "./set";
 import { repeat } from "./utils";
 
 const CACHE_FLAG_TO_COLLECTIBLES_MAP = new Map<
@@ -51,7 +51,7 @@ export function collectibleHasCacheFlag(
  */
 export function getCollectiblesForCacheFlag(
   cacheFlag: CacheFlag,
-): Set<CollectibleType> {
+): ReadonlySet<CollectibleType> {
   lazyInitCacheFlagMap();
 
   const collectiblesSet = CACHE_FLAG_TO_COLLECTIBLES_MAP.get(cacheFlag);
@@ -59,7 +59,7 @@ export function getCollectiblesForCacheFlag(
     return new Set();
   }
 
-  return copySet(collectiblesSet);
+  return collectiblesSet;
 }
 
 /**

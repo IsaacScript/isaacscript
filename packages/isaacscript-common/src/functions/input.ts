@@ -6,7 +6,6 @@ import {
 } from "isaac-typescript-definitions";
 import { KEYBOARD_TO_STRING } from "../maps/keyboardToString";
 import { getEnumValues } from "./enums";
-import { copySet } from "./set";
 import { trimPrefix } from "./string";
 
 const MODIFIER_KEYS: readonly Keyboard[] = [
@@ -52,12 +51,12 @@ export function controllerToString(controller: Controller): string | undefined {
   return trimPrefix(key, "BUTTON_");
 }
 
-export function getMoveActions(): Set<ButtonAction> {
-  return copySet(MOVEMENT_ACTIONS_SET);
+export function getMoveActions(): ReadonlySet<ButtonAction> {
+  return MOVEMENT_ACTIONS_SET;
 }
 
-export function getShootActions(): Set<ButtonAction> {
-  return copySet(SHOOTING_ACTIONS_SET);
+export function getShootActions(): ReadonlySet<ButtonAction> {
+  return SHOOTING_ACTIONS_SET;
 }
 
 /** Iterates over all inputs to determine if a particular button is pressed (i.e. held down). */

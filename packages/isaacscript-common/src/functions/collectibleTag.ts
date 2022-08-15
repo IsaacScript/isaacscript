@@ -4,7 +4,6 @@ import { getCollectibleArray } from "./collectibleSet";
 import { getEnumValues } from "./enums";
 import { getFlagName } from "./flag";
 import { getPlayerCollectibleCount } from "./players";
-import { copySet } from "./set";
 
 const TAG_TO_COLLECTIBLE_TYPES_MAP = new Map<
   ItemConfigTag,
@@ -59,7 +58,7 @@ export function collectibleHasTag(
  */
 export function getCollectibleTypesWithTag(
   itemConfigTag: ItemConfigTag,
-): Set<CollectibleType> {
+): ReadonlySet<CollectibleType> {
   // Lazy initialize the map.
   if (TAG_TO_COLLECTIBLE_TYPES_MAP.size === 0) {
     initTagMap();
@@ -72,7 +71,7 @@ export function getCollectibleTypesWithTag(
     );
   }
 
-  return copySet(collectibleTypes);
+  return collectibleTypes;
 }
 
 /** Returns the number of items that a player has towards a particular transformation. */

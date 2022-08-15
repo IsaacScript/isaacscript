@@ -3,7 +3,7 @@ import { isHiddenCollectible, isPassiveCollectible } from "./collectibles";
 import { getCollectibleArray } from "./collectibleSet";
 import { collectibleHasTag } from "./collectibleTag";
 import { getRandomSeed } from "./rng";
-import { copySet, getRandomSetElement } from "./set";
+import { getRandomSetElement } from "./set";
 
 const EDEN_PASSIVE_COLLECTIBLES_SET = new Set<CollectibleType>();
 
@@ -19,13 +19,13 @@ function initCollectibleSet() {
   }
 }
 
-export function getEdenPassives(): Set<CollectibleType> {
+export function getEdenPassives(): ReadonlySet<CollectibleType> {
   // Lazy initialize the set.
   if (EDEN_PASSIVE_COLLECTIBLES_SET.size === 0) {
     initCollectibleSet();
   }
 
-  return copySet(EDEN_PASSIVE_COLLECTIBLES_SET);
+  return EDEN_PASSIVE_COLLECTIBLES_SET;
 }
 
 export function getRandomEdenPassive(

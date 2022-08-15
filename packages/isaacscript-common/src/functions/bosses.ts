@@ -13,7 +13,6 @@ import { SIN_ENTITY_TYPES_SET } from "../sets/sinEntityTypesSet";
 import { getNPCs, spawnNPC } from "./entitiesSpecific";
 import { getAliveNPCs } from "./npcs";
 import { isRNG } from "./rng";
-import { copySet } from "./set";
 import { asNumber } from "./types";
 import { repeat } from "./utils";
 
@@ -58,8 +57,8 @@ export function getAliveBosses(
  *
  * Also see the `getBossSet` and `getCombinedBossSet` functions.
  */
-export function getAllBossesSet(): Set<string> {
-  return copySet(ALL_BOSSES_SET);
+export function getAllBossesSet(): ReadonlySet<string> {
+  return ALL_BOSSES_SET;
 }
 
 /**
@@ -84,7 +83,7 @@ export function getBossSet(
     return undefined;
   }
 
-  return copySet(bossSet);
+  return bossSet;
 }
 
 /**
@@ -117,13 +116,15 @@ export function getBosses(
  *
  * Also see the `getAllBossesSet` and `getBossSet` functions.
  */
-export function getCombinedBossSet(stage: int): Set<string> | undefined {
+export function getCombinedBossSet(
+  stage: int,
+): ReadonlySet<string> | undefined {
   const bossSet = STAGE_TO_COMBINED_BOSS_SET_MAP.get(stage);
   if (bossSet === undefined) {
     return undefined;
   }
 
-  return copySet(bossSet);
+  return bossSet;
 }
 
 /** Helper function to check if the provided NPC is a Sin miniboss, such as Sloth or Lust. */

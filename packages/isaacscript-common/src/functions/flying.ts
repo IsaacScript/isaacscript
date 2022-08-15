@@ -47,11 +47,11 @@ const CONDITIONAL_FLYING_COLLECTIBLE_TYPES: readonly CollectibleType[] = [
  */
 export function getFlyingCollectibles(
   pruneConditionalItems: boolean,
-): Set<CollectibleType> {
+): ReadonlySet<CollectibleType> {
   // Instead of manually compiling a list of collectibles that grant flying, we can instead
   // dynamically look for collectibles that have `CacheFlag.FLYING`.
-  const collectiblesWithFlyingCacheFlag = getCollectiblesForCacheFlag(
-    CacheFlag.FLYING,
+  const collectiblesWithFlyingCacheFlag = copySet(
+    getCollectiblesForCacheFlag(CacheFlag.FLYING),
   );
 
   // None of the collectibles with a cache of "all" grant flying, so we can safely remove them from
@@ -80,7 +80,7 @@ export function getFlyingCollectibles(
 export function getFlyingTrinkets(): ReadonlySet<TrinketType> {
   // We use a different algorithm than the "getFlyingCollectibles" function because Azazel's Stump
   // has a cache of "all".
-  return copySet(FLYING_TRINKETS);
+  return FLYING_TRINKETS;
 }
 
 export function hasFlyingTemporaryEffect(player: EntityPlayer): boolean {

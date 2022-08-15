@@ -47,7 +47,7 @@ const TRANSFORMATIONS_THAT_GRANT_FLYING: ReadonlySet<PlayerForm> = new Set([
  */
 export function getCollectibleTypesForTransformation(
   playerForm: PlayerForm,
-): Set<CollectibleType> {
+): ReadonlySet<CollectibleType> {
   const itemConfigTag = TRANSFORMATION_TO_TAG_MAP.get(playerForm);
   if (itemConfigTag === undefined) {
     error(
