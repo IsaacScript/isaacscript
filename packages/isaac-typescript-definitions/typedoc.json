@@ -26,6 +26,7 @@
     "src/enums/collections/variants.ts",
     "src/enums/Controller.ts",
     "src/enums/ControllerIndex.ts",
+    "src/enums/CurseID.ts",
     "src/enums/Difficulty.ts",
     "src/enums/Dimension.ts",
     "src/enums/Direction.ts",

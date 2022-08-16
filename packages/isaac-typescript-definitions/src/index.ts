@@ -19,6 +19,7 @@ export * from "./enums/collections/subTypes";
 export * from "./enums/collections/variants";
 export * from "./enums/Controller";
 export * from "./enums/ControllerIndex";
+export * from "./enums/CurseID";
 export * from "./enums/Difficulty";
 export * from "./enums/Dimension";
 export * from "./enums/Direction";
