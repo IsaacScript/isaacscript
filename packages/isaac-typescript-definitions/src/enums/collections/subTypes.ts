@@ -507,7 +507,13 @@ export enum CollectibleType {
   LEMON_MISHAP = 56,
   DISTANT_ADMIRATION = 57,
   BOOK_OF_SHADOWS = 58,
-  BOOK_OF_BELIAL_PASSIVE = 59,
+
+  /**
+   * This is the collectible that Judas is granted when he picks up Birthright. It acts in a similar
+   * way to Book of Virtues.
+   */
+  BOOK_OF_BELIAL_BIRTHRIGHT = 59,
+
   LADDER = 60,
   CHARM_VAMPIRE = 62,
   BATTERY = 63,
