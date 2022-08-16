@@ -193,14 +193,14 @@ const MINES_BOSSES_SET: ReadonlySet<string> = new Set([
   `${EntityType.LARRY_JR}.${LarryJrVariant.TUFF_TWIN}`, // 19.2
   `${EntityType.REAP_CREEP}.0`, // 900.0
   `${EntityType.HORNFEL}.0`, // 906.0
-  `${EntityType.GIDEON}.0`, // 907.0
+  `${EntityType.GREAT_GIDEON}.0`, // 907.0
 ]);
 
 /** Contains just the bosses in Ashpit (not e.g. Flooded Caves). */
 const ASHPIT_BOSSES_SET: ReadonlySet<string> = new Set([
   `${EntityType.LARRY_JR}.${LarryJrVariant.THE_SHELL}`, // 19.3
   `${EntityType.POLYCEPHALUS}.${PolycephalusVariant.THE_PILE}`, // 269.1
-  `${EntityType.GIDEON}.0`, // 907.0
+  `${EntityType.GREAT_GIDEON}.0`, // 907.0
   `${EntityType.SINGE}.0`, // 915.0
   `${EntityType.CLUTCH}.0`, // 921.0
 ]);
