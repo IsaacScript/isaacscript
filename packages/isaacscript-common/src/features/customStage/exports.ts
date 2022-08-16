@@ -36,7 +36,18 @@ import v, { customStageCachedRoomData, customStagesMap } from "./v";
 export const DEFAULT_BASE_STAGE = LevelStage.BASEMENT_2;
 export const DEFAULT_BASE_STAGE_TYPE = StageType.ORIGINAL;
 
-export const INVALID_STAGE_VALUE = -1 as LevelStage;
+/**
+ * Equal to -1. Setting the stage to an invalid stage value is useful in that it prevents backdrops
+ * and shadows from loading.
+ */
+export const CUSTOM_FLOOR_STAGE = -1 as LevelStage;
+
+/**
+ * We must use `StageType.WRATH_OF_THE_LAMB` instead of `StageType.ORIGINAL` or else the walls will
+ * not render properly. DeadInfinity suspects that this might be because it is trying to use the
+ * Dark Room's backdrop (instead of The Chest).
+ */
+export const CUSTOM_FLOOR_STAGE_TYPE = StageType.WRATH_OF_THE_LAMB;
 
 /**
  * Helper function to warp to a custom stage/level.
@@ -74,7 +85,7 @@ export function setCustomStage(
 
   // Before changing the stage, we have to revert the bugged stage, if necessary. This prevents the
   // bug where the backdrop will not spawn.
-  if (stage === INVALID_STAGE_VALUE) {
+  if (stage === CUSTOM_FLOOR_STAGE) {
     level.SetStage(LevelStage.BASEMENT_1, StageType.ORIGINAL);
   }
 
@@ -98,11 +109,8 @@ export function setCustomStage(
   setStageRoomsData(customStage, rng, verbose);
 
   // Set the stage to an invalid value, which will prevent the walls and floors from loading.
-  // Furthermore, we must use `StageType.WRATH_OF_THE_LAMB` instead of `StageType.ORIGINAL` or else
-  // the walls will not render properly. DeadInfinity suspects that this might be because it is
-  // trying to use the Dark Room's backdrop (instead of The Chest).
-  const targetStage = INVALID_STAGE_VALUE;
-  const targetStageType = StageType.WRATH_OF_THE_LAMB;
+  const targetStage = CUSTOM_FLOOR_STAGE;
+  const targetStageType = CUSTOM_FLOOR_STAGE_TYPE;
   level.SetStage(targetStage, targetStageType);
   reorderedCallbacksSetStageInternal(targetStage, targetStageType);
 

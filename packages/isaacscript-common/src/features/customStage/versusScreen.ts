@@ -4,7 +4,6 @@ import {
   RoomType,
   SoundEffect,
   StageID,
-  StageType,
 } from "isaac-typescript-definitions";
 import { game, sfxManager } from "../../core/cachedClasses";
 import { arrayRemove } from "../../functions/array";
@@ -27,9 +26,10 @@ import {
   ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH,
 } from "./customStageConstants";
 import {
+  CUSTOM_FLOOR_STAGE,
+  CUSTOM_FLOOR_STAGE_TYPE,
   DEFAULT_BASE_STAGE,
   DEFAULT_BASE_STAGE_TYPE,
-  INVALID_STAGE_VALUE,
 } from "./exports";
 import v from "./v";
 
@@ -132,7 +132,7 @@ export function playVersusScreenAnimation(customStage: CustomStage): void {
     level.SetStage(DEFAULT_BASE_STAGE, DEFAULT_BASE_STAGE_TYPE);
     runNextGameFrame(() => {
       const futureLevel = game.GetLevel();
-      futureLevel.SetStage(INVALID_STAGE_VALUE, StageType.ORIGINAL);
+      futureLevel.SetStage(CUSTOM_FLOOR_STAGE, CUSTOM_FLOOR_STAGE_TYPE);
     });
     return;
   }

@@ -45,3 +45,9 @@ lint failure, complete sentences:
 
 
 lint: make "//  Foo" illegal
+
+lint failure:
+
+ * These are helper functions relating to creating custom stages with the built-in standard library.
+ * For more information about custom stages, see the [main
+ * documentation page](https://isaacscript.github.io/main/custom-stages).
