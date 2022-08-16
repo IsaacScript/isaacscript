@@ -1,5 +1,4 @@
 import {
-  CrawlSpaceVariant,
   EffectVariant,
   GridCollisionClass,
   GridEntityType,
@@ -128,22 +127,6 @@ export function getCollidingEntitiesWithGridEntity(
         gridEntityCollisionBottomRight,
       ),
   );
-}
-
-/**
- * Helper function to get all of the crawl spaces in the room.
- *
- * @param crawlSpaceVariant Optional. If specified, will only get the crawl spaces that match the
- *                          variant. Default is -1, which matches every variant.
- */
-export function getCrawlSpaces(
-  crawlSpaceVariant: CrawlSpaceVariant = -1,
-): GridEntity[] {
-  if (asNumber(crawlSpaceVariant) === -1) {
-    return getGridEntities(GridEntityType.CRAWL_SPACE);
-  }
-
-  return getMatchingGridEntities(GridEntityType.CRAWL_SPACE, crawlSpaceVariant);
 }
 
 /**
@@ -327,18 +310,6 @@ export function getTopLeftWallGridIndex(): int {
   return topLeftWallGridIndex === undefined
     ? DEFAULT_TOP_LEFT_WALL_GRID_INDEX
     : topLeftWallGridIndex;
-}
-
-/**
- * Helper function to get all of the grid entities of type `GridEntityType.TRAPDOOR` in the room.
- * Specify a specific trapdoor variant to select only trapdoors of that variant.
- */
-export function getTrapdoors(trapdoorVariant?: TrapdoorVariant): GridEntity[] {
-  if (trapdoorVariant === undefined) {
-    return getGridEntities(GridEntityType.TRAPDOOR);
-  }
-
-  return getMatchingGridEntities(GridEntityType.TRAPDOOR, trapdoorVariant);
 }
 
 /**

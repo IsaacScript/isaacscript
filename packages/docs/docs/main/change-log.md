@@ -26,6 +26,12 @@ This page lists the changes to the IsaacScript framework.
   - `newCollectibleSprite`
   - `newTrinketSprite`
   - `getCurseIDByName`
+  - `removeAllTrapdoors`
+  - `removeAllCrawlSpaces`
+  - `spawnTrapdoor`
+  - `spawnTrapdoorWithVariant`
+  - `spawnCrawlspace`
+  - `spawnCrawlspaceWithVariant`
 - Renamed the following helper functions:
   - `isGoldenTrinket` --> `isGoldenTrinketType`
 - Changed the following helper functions:

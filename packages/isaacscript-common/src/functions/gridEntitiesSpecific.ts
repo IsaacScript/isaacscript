@@ -1,17 +1,37 @@
 import {
+  CrawlSpaceVariant,
   DoorVariant,
   GridEntityType,
   PitVariant,
   PoopGridEntityVariant,
   PressurePlateVariant,
   RockVariant,
+  TrapdoorVariant,
 } from "isaac-typescript-definitions";
 import {
   getGridEntities,
+  getMatchingGridEntities,
   removeGridEntities,
   spawnGridEntityWithVariant,
 } from "./gridEntities";
 import { asNumber } from "./types";
+
+/**
+ * Helper function to get all of the grid entities of type `GridEntityType.CRAWL_SPACE` (18) in the
+ * room.
+ *
+ * @param crawlSpaceVariant Optional. If specified, will only get the crawl spaces that match the
+ *                          variant. Default is -1, which matches every variant.
+ */
+export function getCrawlSpaces(
+  crawlSpaceVariant: CrawlSpaceVariant = -1,
+): GridEntity[] {
+  if (asNumber(crawlSpaceVariant) === -1) {
+    return getGridEntities(GridEntityType.CRAWL_SPACE);
+  }
+
+  return getMatchingGridEntities(GridEntityType.CRAWL_SPACE, crawlSpaceVariant);
+}
 
 // The `getDoors` function is not located here because doors are collected via the `Room.GetDoor`
 // method instead, which is faster.
@@ -153,6 +173,38 @@ export function getTNT(variant = -1): GridEntityTNT[] {
   return tntArray;
 }
 
+/**
+ * Helper function to get all of the grid entities of type `GridEntityType.TRAPDOOR` (17) in the
+ * room. Specify a specific trapdoor variant to select only trapdoors of that variant.
+ */
+export function getTrapdoors(trapdoorVariant?: TrapdoorVariant): GridEntity[] {
+  if (trapdoorVariant === undefined) {
+    return getGridEntities(GridEntityType.TRAPDOOR);
+  }
+
+  return getMatchingGridEntities(GridEntityType.TRAPDOOR, trapdoorVariant);
+}
+
+/**
+ * Helper function to remove all of the `GridEntityType.CRAWL_SPACE` (18) in the room.
+ *
+ * @param crawlSpaceVariant Optional. If specified, will only remove the crawl spaces that match
+ *                          this variant. Default is -1, which matches every variant.
+ * @param updateRoom Optional. Whether or not to update the room after the crawl spaces are removed.
+ *                   Default is false. For more information, see the description of the
+ *                   `removeGridEntities` helper function.
+ * @param cap Optional. If specified, will only remove the given amount of crawl spaces.
+ * @returns The crawl spaces that were removed.
+ */
+export function removeAllCrawlSpaces(
+  crawlSpaceVariant: CrawlSpaceVariant = -1,
+  updateRoom = false,
+  cap?: int,
+): GridEntity[] {
+  const crawlSpaces = getCrawlSpaces(crawlSpaceVariant);
+  return removeGridEntities(crawlSpaces, updateRoom, cap);
+}
+
 // The `removeAllDoors` function is not located here because doors are removed via the
 // `Room.RemoveDoor` method instead.
 
@@ -281,14 +333,56 @@ export function removeAllTNT(
   return removeGridEntities(tnt, updateRoom, cap);
 }
 
-/** Helper function to spawn a `GridEntityType.DOOR` (16). */
+/**
+ * Helper function to remove all of the `GridEntityType.TRAPDOOR` (17) in the room.
+ *
+ * @param trapdoorVariant Optional. If specified, will only remove the trapdoors that match this
+ *                        variant. Default is -1, which matches every variant.
+ * @param updateRoom Optional. Whether or not to update the room after the trapdoors are removed.
+ *                   Default is false. For more information, see the description of the
+ *                   `removeGridEntities` helper function.
+ * @param cap Optional. If specified, will only remove the given amount of trapdoors.
+ * @returns The trapdoors that were removed.
+ */
+export function removeAllTrapdoors(
+  trapdoorVariant: TrapdoorVariant = -1,
+  updateRoom = false,
+  cap?: int,
+): GridEntity[] {
+  const trapdoors = getTrapdoors(trapdoorVariant);
+  return removeGridEntities(trapdoors, updateRoom, cap);
+}
+
+/** Helper function to spawn a `GridEntityType.CRAWL_SPACE` (18). */
+export function spawnCrawlSpace(
+  gridIndexOrPosition: int | Vector,
+): GridEntity | undefined {
+  return spawnCrawlSpaceWithVariant(
+    CrawlSpaceVariant.NORMAL,
+    gridIndexOrPosition,
+  );
+}
+
+/** Helper function to spawn a `GridEntityType.CRAWL_SPACE` (18) with a specific variant. */
+export function spawnCrawlSpaceWithVariant(
+  crawlSpaceVariant: CrawlSpaceVariant,
+  gridIndexOrPosition: int | Vector,
+): GridEntity | undefined {
+  return spawnGridEntityWithVariant(
+    GridEntityType.CRAWL_SPACE,
+    crawlSpaceVariant,
+    gridIndexOrPosition,
+  );
+}
+
+/** Helper function to spawn a `GridEntityType.PIT` (7) with a specific variant. */
 export function spawnDoor(
   gridIndexOrPosition: int | Vector,
 ): GridEntityDoor | undefined {
   return spawnDoorWithVariant(DoorVariant.UNSPECIFIED, gridIndexOrPosition);
 }
 
-/** Helper function to spawn a `GridEntityType.DOOR` (16) with a specific variant. */
+/** Helper function to spawn a `GridEntityType.DOOR` (16). */
 export function spawnDoorWithVariant(
   doorVariant: DoorVariant,
   gridIndexOrPosition: int | Vector,
@@ -310,7 +404,7 @@ export function spawnDoorWithVariant(
   return door;
 }
 
-/** Helper function to spawn a `GridEntityType.PIT` (7). */
+/** Helper function to spawn a `GridEntityType.DOOR` (16) with a specific variant. */
 export function spawnPit(
   gridIndexOrPosition: int | Vector,
 ): GridEntityPit | undefined {
@@ -488,4 +582,26 @@ export function spawnTNTWithVariant(
   }
 
   return tnt;
+}
+
+/** Helper function to spawn a `GridEntityType.TRAPDOOR` (17). */
+export function spawnTrapdoor(
+  gridIndexOrPosition: int | Vector,
+): GridEntity | undefined {
+  return spawnCrawlSpaceWithVariant(
+    CrawlSpaceVariant.NORMAL,
+    gridIndexOrPosition,
+  );
+}
+
+/** Helper function to spawn a `GridEntityType.TRAPDOOR` (17) with a specific variant. */
+export function spawnTrapdoorWithVariant(
+  trapdoorVariant: TrapdoorVariant,
+  gridIndexOrPosition: int | Vector,
+): GridEntity | undefined {
+  return spawnGridEntityWithVariant(
+    GridEntityType.TRAPDOOR,
+    trapdoorVariant,
+    gridIndexOrPosition,
+  );
 }
