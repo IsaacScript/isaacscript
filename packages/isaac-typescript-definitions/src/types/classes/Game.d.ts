@@ -200,7 +200,12 @@ declare global {
     /** Returns true if the game is paused or the console is open. */
     IsPaused(): boolean;
 
-    MoveToRandomRoom(IAmErrorRoom: boolean, seed: Seed): void;
+    MoveToRandomRoom(
+      includeIAmErrorRoom: boolean,
+      seed: Seed,
+      player: EntityPlayer,
+    ): void;
+
     NextVictoryLap(): void;
     Render(): void;
     RerollEnemy(entity: Entity): boolean;

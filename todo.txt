@@ -1,6 +1,7 @@
 - rename Card to CardType (and all args)
 - make TSTL plugins inside npm
-
+- add/remove collectible active items
+- genesis on inventory
 
 - Lint:
   - lint failure: https://github.com/gajus/eslint-plugin-jsdoc/issues/897
