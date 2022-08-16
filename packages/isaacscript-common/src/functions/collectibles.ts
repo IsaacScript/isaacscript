@@ -306,8 +306,7 @@ export function getCollectibleMaxCharges(
  * For example:
  *
  * ```ts
- * const collectibleType = CollectibleType.SAD_ONION;
- * const collectibleName = getCollectibleName(collectibleType); // collectibleName is "Sad Onion"
+ * const sadOnionName = getCollectibleName(CollectibleType.SAD_ONION); // "Sad Onion"
  * ```
  */
 export function getCollectibleName(collectibleType: CollectibleType): string {
